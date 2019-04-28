@@ -2,32 +2,36 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id 79C13DCFC
+	by mail.lfdr.de (Postfix) with ESMTPS id 79503DCFB
 	for <lists+linux-stm32@lfdr.de>; Mon, 29 Apr 2019 09:39:07 +0200 (CEST)
 Received: from ip-172-31-3-76.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 2CAE2C35E06
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 34B84C35E08
 	for <lists+linux-stm32@lfdr.de>; Mon, 29 Apr 2019 07:39:07 +0000 (UTC)
-Received: from mailgw02.mediatek.com (unknown [210.61.82.184])
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id BB69CCB4080
+Received: from mailgw01.mediatek.com (unknown [210.61.82.183])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+ (No client certificate requested)
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 90E3BC3F926
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Sun, 28 Apr 2019 06:30:33 +0000 (UTC)
-X-UUID: 6c5966069a4845cab561a516e1268478-20190428
-X-UUID: 6c5966069a4845cab561a516e1268478-20190428
-Received: from mtkmrs01.mediatek.inc [(172.21.131.159)] by
- mailgw02.mediatek.com (envelope-from <biao.huang@mediatek.com>)
+ Sun, 28 Apr 2019 06:30:34 +0000 (UTC)
+X-UUID: 6e4b6dfe867c443ab6e6c04e487c5ee4-20190428
+X-UUID: 6e4b6dfe867c443ab6e6c04e487c5ee4-20190428
+Received: from mtkexhb01.mediatek.inc [(172.21.101.102)] by
+ mailgw01.mediatek.com (envelope-from <biao.huang@mediatek.com>)
  (mhqrelay.mediatek.com ESMTP with TLS)
- with ESMTP id 1712772735; Sun, 28 Apr 2019 14:30:28 +0800
+ with ESMTP id 1556399285; Sun, 28 Apr 2019 14:30:29 +0800
 Received: from mtkcas09.mediatek.inc (172.21.101.178) by
  mtkmbs01n1.mediatek.inc (172.21.101.68) with Microsoft SMTP Server (TLS) id
- 15.0.1395.4; Sun, 28 Apr 2019 14:30:27 +0800
+ 15.0.1395.4; Sun, 28 Apr 2019 14:30:28 +0800
 Received: from localhost.localdomain (10.17.3.153) by mtkcas09.mediatek.inc
  (172.21.101.73) with Microsoft SMTP Server id 15.0.1395.4 via Frontend
- Transport; Sun, 28 Apr 2019 14:30:26 +0800
+ Transport; Sun, 28 Apr 2019 14:30:27 +0800
 From: Biao Huang <biao.huang@mediatek.com>
 To: Jose Abreu <joabreu@synopsys.com>, <davem@davemloft.net>
-Date: Sun, 28 Apr 2019 14:30:03 +0800
-Message-ID: <1556433009-25759-1-git-send-email-biao.huang@mediatek.com>
+Date: Sun, 28 Apr 2019 14:30:04 +0800
+Message-ID: <1556433009-25759-2-git-send-email-biao.huang@mediatek.com>
 X-Mailer: git-send-email 1.7.9.5
+In-Reply-To: <1556433009-25759-1-git-send-email-biao.huang@mediatek.com>
+References: <1556433009-25759-1-git-send-email-biao.huang@mediatek.com>
 MIME-Version: 1.0
 X-MTK: N
 X-Mailman-Approved-At: Mon, 29 Apr 2019 07:39:05 +0000
@@ -38,8 +42,8 @@ Cc: jianguo.zhang@mediatek.com, biao.huang@mediatek.com, netdev@vger.kernel.org,
  Matthias Brugger <matthias.bgg@gmail.com>,
  Giuseppe Cavallaro <peppe.cavallaro@st.com>,
  linux-stm32@st-md-mailman.stormreply.com, linux-arm-kernel@lists.infradead.org
-Subject: [Linux-stm32] [PATCH 0/6] fix some bugs and add some features in
-	stmmac
+Subject: [Linux-stm32] [PATCH 1/6] net: stmmac: update rx tail pointer
+	register to fix rx dma hang issue.
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -56,36 +60,33 @@ Content-Transfer-Encoding: 7bit
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
-This series fix some bugs and add some features in stmmac driver.               
-5 patches are for common stmmac or dwmac4:                                      
-        1. update rx tail pointer to fix rx dma hang issue.                     
-        2. change condition for mdc clock to fix csr_clk can't be zero issue.   
-        3. write the modified value back to MTL_OPERATION_MODE.                 
-        4. add support for hash table size 128/256                              
-        5. add mdio clause 45 access from mac device for dwmac4.                
-1 patche is for dwmac-mediatek:                                                 
-        1. modify csr_clk value to fix mdio read/write fail issue for dwmac-mediatek.
-                                                                                
-Biao Huang (6):                                                                 
-  net: stmmac: update rx tail pointer register to fix rx dma hang               
-    issue.                                                                      
-  net: stmmac: fix csr_clk can't be zero issue                                  
-  net: stmmac: write the modified value back to MTL_OPERATION_MODE              
-  net: stmmac: add support for hash table size 128/256 in dwmac4                
-  net: stmmac: add mdio clause 45 access from mac device for dwmac4             
-  stmmac: dwmac-mediatek: modify csr_clk value to fix mdio read/write           
-    fail                                                                        
-                                                                                
- drivers/net/ethernet/stmicro/stmmac/common.h       |   18 ++-                  
- .../net/ethernet/stmicro/stmmac/dwmac-mediatek.c   |    4 +-                   
- drivers/net/ethernet/stmicro/stmmac/dwmac4.h       |    4 +-                   
- drivers/net/ethernet/stmicro/stmmac/dwmac4_core.c  |   55 ++++---              
- drivers/net/ethernet/stmicro/stmmac/dwmac4_dma.c   |    1 +                    
- drivers/net/ethernet/stmicro/stmmac/stmmac_main.c  |    9 +-                   
- drivers/net/ethernet/stmicro/stmmac/stmmac_mdio.c  |  167 ++++++++++++++++++-- 
- 7 files changed, 213 insertions(+), 45 deletions(-)                            
-                                                                                
---                                                                              
+Currently we will not update the receive descriptor tail pointer in
+stmmac_rx_refill. Rx dma will think no available descriptors and stop
+once received packets exceed DMA_RX_SIZE, so that the rx only test will fail.
+
+Update the receive tail pointer in stmmac_rx_refill to add more descriptors
+to the rx channel, so packets can be received continually
+
+Signed-off-by: Biao Huang <biao.huang@mediatek.com>
+---
+ drivers/net/ethernet/stmicro/stmmac/stmmac_main.c |    3 +++
+ 1 file changed, 3 insertions(+)
+
+diff --git a/drivers/net/ethernet/stmicro/stmmac/stmmac_main.c b/drivers/net/ethernet/stmicro/stmmac/stmmac_main.c
+index 97c5e1a..818ad88 100644
+--- a/drivers/net/ethernet/stmicro/stmmac/stmmac_main.c
++++ b/drivers/net/ethernet/stmicro/stmmac/stmmac_main.c
+@@ -3336,6 +3336,9 @@ static inline void stmmac_rx_refill(struct stmmac_priv *priv, u32 queue)
+ 		entry = STMMAC_GET_ENTRY(entry, DMA_RX_SIZE);
+ 	}
+ 	rx_q->dirty_rx = entry;
++	stmmac_set_rx_tail_ptr(priv, priv->ioaddr,
++			       rx_q->dma_rx_phy + (entry * sizeof(struct dma_desc)),
++			       queue);
+ }
+ 
+ /**
+-- 
 1.7.9.5
 
 _______________________________________________
