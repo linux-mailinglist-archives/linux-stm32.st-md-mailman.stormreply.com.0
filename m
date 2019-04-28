@@ -2,48 +2,41 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id 8BC54DCFF
-	for <lists+linux-stm32@lfdr.de>; Mon, 29 Apr 2019 09:39:07 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 1CBF2B5FA
+	for <lists+linux-stm32@lfdr.de>; Sun, 28 Apr 2019 14:49:06 +0200 (CEST)
 Received: from ip-172-31-3-76.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 53B47C35E18
-	for <lists+linux-stm32@lfdr.de>; Mon, 29 Apr 2019 07:39:07 +0000 (UTC)
-Received: from mailgw01.mediatek.com (unknown [210.61.82.183])
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 0676FC35E03
+	for <lists+linux-stm32@lfdr.de>; Sun, 28 Apr 2019 12:49:05 +0000 (UTC)
+Received: from shards.monkeyblade.net (shards.monkeyblade.net [23.128.96.9])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 9CBE4C3F933
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id DE60EC36B3F
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Sun, 28 Apr 2019 06:30:39 +0000 (UTC)
-X-UUID: 2405f04490dd4f998ad1f91febcb0757-20190428
-X-UUID: 2405f04490dd4f998ad1f91febcb0757-20190428
-Received: from mtkcas06.mediatek.inc [(172.21.101.30)] by mailgw01.mediatek.com
- (envelope-from <biao.huang@mediatek.com>)
- (mhqrelay.mediatek.com ESMTP with TLS)
- with ESMTP id 375670593; Sun, 28 Apr 2019 14:30:33 +0800
-Received: from mtkcas09.mediatek.inc (172.21.101.178) by
- mtkmbs01n1.mediatek.inc (172.21.101.68) with Microsoft SMTP Server (TLS) id
- 15.0.1395.4; Sun, 28 Apr 2019 14:30:32 +0800
-Received: from localhost.localdomain (10.17.3.153) by mtkcas09.mediatek.inc
- (172.21.101.73) with Microsoft SMTP Server id 15.0.1395.4 via Frontend
- Transport; Sun, 28 Apr 2019 14:30:31 +0800
-From: Biao Huang <biao.huang@mediatek.com>
-To: Jose Abreu <joabreu@synopsys.com>, <davem@davemloft.net>
-Date: Sun, 28 Apr 2019 14:30:09 +0800
-Message-ID: <1556433009-25759-7-git-send-email-biao.huang@mediatek.com>
-X-Mailer: git-send-email 1.7.9.5
+ Sun, 28 Apr 2019 12:49:02 +0000 (UTC)
+Received: from localhost (unknown [207.239.160.254])
+ (using TLSv1 with cipher AES256-SHA (256/256 bits))
+ (Client did not present a certificate)
+ (Authenticated sender: davem-davemloft)
+ by shards.monkeyblade.net (Postfix) with ESMTPSA id EE52D14DAEDD9;
+ Sun, 28 Apr 2019 05:48:59 -0700 (PDT)
+Date: Sun, 28 Apr 2019 08:48:58 -0400 (EDT)
+Message-Id: <20190428.084858.1947886833982935707.davem@davemloft.net>
+To: biao.huang@mediatek.com
+From: David Miller <davem@davemloft.net>
 In-Reply-To: <1556433009-25759-1-git-send-email-biao.huang@mediatek.com>
 References: <1556433009-25759-1-git-send-email-biao.huang@mediatek.com>
-MIME-Version: 1.0
-X-MTK: N
-X-Mailman-Approved-At: Mon, 29 Apr 2019 07:39:05 +0000
-Cc: jianguo.zhang@mediatek.com, biao.huang@mediatek.com, netdev@vger.kernel.org,
- linux-kernel@vger.kernel.org, yt.shen@mediatek.com,
- linux-mediatek@lists.infradead.org,
- Maxime Coquelin <mcoquelin.stm32@gmail.com>,
- Matthias Brugger <matthias.bgg@gmail.com>,
- Giuseppe Cavallaro <peppe.cavallaro@st.com>,
+X-Mailer: Mew version 6.8 on Emacs 26.1
+Mime-Version: 1.0
+X-Greylist: Sender succeeded SMTP AUTH, not delayed by milter-greylist-4.5.12
+ (shards.monkeyblade.net [149.20.54.216]);
+ Sun, 28 Apr 2019 05:49:01 -0700 (PDT)
+Cc: jianguo.zhang@mediatek.com, netdev@vger.kernel.org,
+ linux-kernel@vger.kernel.org, yt.shen@mediatek.com, joabreu@synopsys.com,
+ linux-mediatek@lists.infradead.org, mcoquelin.stm32@gmail.com,
+ matthias.bgg@gmail.com, peppe.cavallaro@st.com,
  linux-stm32@st-md-mailman.stormreply.com, linux-arm-kernel@lists.infradead.org
-Subject: [Linux-stm32] [PATCH 6/6] stmmac: dwmac-mediatek: modify csr_clk
-	value to fix mdio read/write fail
+Subject: Re: [Linux-stm32] [PATCH 0/6] fix some bugs and add some features
+	in stmmac
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -60,32 +53,16 @@ Content-Transfer-Encoding: 7bit
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
-The frequency of  csr clock is 66.5MHz, so the csr_clk value should
-be 0. Modify the csr_clk value to fix mdio read/write fail issue.
+From: Biao Huang <biao.huang@mediatek.com>
+Date: Sun, 28 Apr 2019 14:30:03 +0800
 
-Signed-off-by: Biao Huang <biao.huang@mediatek.com>
----
- .../net/ethernet/stmicro/stmmac/dwmac-mediatek.c   |    4 ++--
- 1 file changed, 2 insertions(+), 2 deletions(-)
+> This series fix some bugs and add some features in stmmac driver.               
 
-diff --git a/drivers/net/ethernet/stmicro/stmmac/dwmac-mediatek.c b/drivers/net/ethernet/stmicro/stmmac/dwmac-mediatek.c
-index bf25629..6b12d0f 100644
---- a/drivers/net/ethernet/stmicro/stmmac/dwmac-mediatek.c
-+++ b/drivers/net/ethernet/stmicro/stmmac/dwmac-mediatek.c
-@@ -346,8 +346,8 @@ static int mediatek_dwmac_probe(struct platform_device *pdev)
- 		return PTR_ERR(plat_dat);
- 
- 	plat_dat->interface = priv_plat->phy_mode;
--	/* clk_csr_i = 250-300MHz & MDC = clk_csr_i/124 */
--	plat_dat->clk_csr = 5;
-+	/* clk_csr_i = 60-100MHz & MDC = clk_csr_i/42 */
-+	plat_dat->clk_csr = 0;
- 	plat_dat->has_gmac4 = 1;
- 	plat_dat->has_gmac = 0;
- 	plat_dat->pmt = 0;
--- 
-1.7.9.5
+Please do not mix feature additions and bug fixes.
 
+Bug fixes should target my 'net' tree.
+
+New features should target my 'net-next' tree.
 _______________________________________________
 Linux-stm32 mailing list
 Linux-stm32@st-md-mailman.stormreply.com
