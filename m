@@ -2,60 +2,65 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id 078F5E3F7
-	for <lists+linux-stm32@lfdr.de>; Mon, 29 Apr 2019 15:51:35 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id D38B0E42C
+	for <lists+linux-stm32@lfdr.de>; Mon, 29 Apr 2019 16:03:36 +0200 (CEST)
 Received: from ip-172-31-3-76.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id AD22EC35E06
-	for <lists+linux-stm32@lfdr.de>; Mon, 29 Apr 2019 13:51:34 +0000 (UTC)
-Received: from mx07-00178001.pphosted.com (mx08-00178001.pphosted.com
- [91.207.212.93])
- (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 934C7C35E08
+	for <lists+linux-stm32@lfdr.de>; Mon, 29 Apr 2019 14:03:36 +0000 (UTC)
+Received: from mail-pg1-f195.google.com (mail-pg1-f195.google.com
+ [209.85.215.195])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id D16A2C36B3F
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 83AE9C35E08
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Mon, 29 Apr 2019 13:51:33 +0000 (UTC)
-Received: from pps.filterd (m0046660.ppops.net [127.0.0.1])
- by mx08-00178001.pphosted.com (8.16.0.27/8.16.0.27) with SMTP id
- x3TDfSYh002048; Mon, 29 Apr 2019 15:51:03 +0200
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=st.com;
- h=subject : to : cc :
- references : from : message-id : date : mime-version : in-reply-to :
- content-type : content-transfer-encoding; s=STMicroelectronics;
- bh=9GS1U02m14roUfdQRKfcCyy7nzTcnCZDQ41WVznJybE=;
- b=R08hjEzpsf96ONP83JV8SeiuAePyDkIyC0dCsvskt+d/g/ZoXpggqFek340m65LBxXYO
- aStkoRILZRgtNSsMmKWWXBSbBgFrASDIbicsXTji6gAW0Ct7Pgn2DhRHSiZocjv+EJmb
- aBW+sUzaUhjR8NddPcwb3UmuHYCuDXEzaNfPZ9s0/EdRj3IbwljYlz0Fk684vq1XXnVa
- iv21zYeIbSsK42aNPdEzwghWlnWVogPCPj2sRkaCZAVYmOVgBgY1mvEV1e/BApiRIOR3
- j6OKTbwiouCAKMNNuAiy0wqO4g+o40oY5Rozdt2UdteG/mvRLPsZ4BQy1Gh7sVjOxMq7 rw== 
-Received: from beta.dmz-eu.st.com (beta.dmz-eu.st.com [164.129.1.35])
- by mx08-00178001.pphosted.com with ESMTP id 2s61r407vb-1
- (version=TLSv1 cipher=ECDHE-RSA-AES256-SHA bits=256 verify=NOT);
- Mon, 29 Apr 2019 15:51:03 +0200
-Received: from zeta.dmz-eu.st.com (zeta.dmz-eu.st.com [164.129.230.9])
- by beta.dmz-eu.st.com (STMicroelectronics) with ESMTP id 700243A;
- Mon, 29 Apr 2019 13:51:02 +0000 (GMT)
-Received: from Webmail-eu.st.com (sfhdag6node1.st.com [10.75.127.16])
- by zeta.dmz-eu.st.com (STMicroelectronics) with ESMTP id 41076263D;
- Mon, 29 Apr 2019 13:51:02 +0000 (GMT)
-Received: from [10.48.0.237] (10.75.127.49) by SFHDAG6NODE1.st.com
- (10.75.127.16) with Microsoft SMTP Server (TLS) id 15.0.1347.2; Mon, 29 Apr
- 2019 15:51:01 +0200
-To: Guenter Roeck <linux@roeck-us.net>
+ Mon, 29 Apr 2019 14:03:35 +0000 (UTC)
+Received: by mail-pg1-f195.google.com with SMTP id k19so5220256pgh.0
+ for <linux-stm32@st-md-mailman.stormreply.com>;
+ Mon, 29 Apr 2019 07:03:35 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20161025;
+ h=sender:subject:to:cc:references:from:message-id:date:user-agent
+ :mime-version:in-reply-to:content-language:content-transfer-encoding;
+ bh=uslsFA9EF/SPU5vqGUl5d3XfzpJWBrXq+tyb49DNy70=;
+ b=RknxYTxTbl2y3sdmFTGZvViRuVzYyA3yqUXrn8mrAEoAuEB9DtNPs6kr7RRFPv/+4c
+ TWOK1wvGiECtE+ngR7lBG6oOOQ3A6AqG+F7pjGNUdKHO/0OYOoasfXy7a3Z771LIKryl
+ IBzzH/HJYSytSRf2cReL80QcXfPlVHMVPHesVBMy06tW11wYIqUkdvTyFyYOMgnV8sHF
+ o1IMYt8DNhTLANAqhuipc0jvHEeXbfeXYXtpwZKCaDoGMq98h2gEBTPmGOMFcTYFDwKL
+ LD7T49hnFiHyU8HHCiBj5mW9h9rp/z8l0tI6LX5WiXiHd5FnbSxq/OHtMiF5NnY8m4MW
+ TLmw==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20161025;
+ h=x-gm-message-state:sender:subject:to:cc:references:from:message-id
+ :date:user-agent:mime-version:in-reply-to:content-language
+ :content-transfer-encoding;
+ bh=uslsFA9EF/SPU5vqGUl5d3XfzpJWBrXq+tyb49DNy70=;
+ b=rt/Q+l56kYKLXkwOchF5EzG7f3cP5ZyPvVxA/ZrN3H8iq038vR0t0GxPOTXQ2zAH5E
+ SF0kXE01J4xoZL+CPCjvA4iAKvb/hsIGLd1AmeOGf+LBavhCQRW9RkBO/z1323s2MxFY
+ ahwWSO5dlBUmLArGJjV+RgmHj+ImJhNjugzeLvh7t1Z2Sn3FlSBhL2diWU4mMREE+sc8
+ zUozOaabkiypEmBPlHI0u+ozvRYVHqrZaz97g423Twgnuyl1I13RQoJ0b7ywbdkBYrt2
+ ORe+BxZJV/rjCXrOgN/bQYEfqhh/6yfIyOAvbjedoQnTS/Z22i2GkgZnAMWRP0ARg7Q2
+ Bfeg==
+X-Gm-Message-State: APjAAAVmackOWNb6rnACy4PCofBNei+0zISNiT7YblsV3ow6DYq9pVd3
+ iza2+r/xVLmNcz0xW4J2jPnZ3qNt
+X-Google-Smtp-Source: APXvYqyy2rlHz/74ouEK0vx1NWiUEKkhwkER336hUks05lx2hjYQX6OBLUMoPMS0uJjlFI1o6FEckQ==
+X-Received: by 2002:a62:6587:: with SMTP id z129mr64788242pfb.88.1556546613540; 
+ Mon, 29 Apr 2019 07:03:33 -0700 (PDT)
+Received: from server.roeck-us.net ([2600:1700:e321:62f0:329c:23ff:fee3:9d7c])
+ by smtp.gmail.com with ESMTPSA id
+ g128sm21161pfb.131.2019.04.29.07.03.31
+ (version=TLS1_2 cipher=ECDHE-RSA-AES128-GCM-SHA256 bits=128/128);
+ Mon, 29 Apr 2019 07:03:32 -0700 (PDT)
+To: Ludovic BARRE <ludovic.barre@st.com>
 References: <1556286075-29496-1-git-send-email-ludovic.Barre@st.com>
  <20190426141651.GA1715@roeck-us.net>
-From: Ludovic BARRE <ludovic.barre@st.com>
-Message-ID: <192f7556-89e4-68f1-2274-f3bdbe0083ae@st.com>
-Date: Mon, 29 Apr 2019 15:51:01 +0200
+ <192f7556-89e4-68f1-2274-f3bdbe0083ae@st.com>
+From: Guenter Roeck <linux@roeck-us.net>
+Message-ID: <70963a09-377c-e862-dfda-8955b8bf24b8@roeck-us.net>
+Date: Mon, 29 Apr 2019 07:03:30 -0700
 User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:60.0) Gecko/20100101
  Thunderbird/60.6.1
 MIME-Version: 1.0
-In-Reply-To: <20190426141651.GA1715@roeck-us.net>
+In-Reply-To: <192f7556-89e4-68f1-2274-f3bdbe0083ae@st.com>
 Content-Language: en-US
-X-Originating-IP: [10.75.127.49]
-X-ClientProxiedBy: SFHDAG2NODE1.st.com (10.75.127.4) To SFHDAG6NODE1.st.com
- (10.75.127.16)
-X-Proofpoint-Virus-Version: vendor=fsecure engine=2.50.10434:, ,
- definitions=2019-04-29_07:, , signatures=0
 Cc: devicetree@vger.kernel.org, linux-watchdog@vger.kernel.org,
  linux-kernel@vger.kernel.org, Rob Herring <robh+dt@kernel.org>,
  Maxime Coquelin <mcoquelin.stm32@gmail.com>,
@@ -74,228 +79,173 @@ List-Post: <mailto:linux-stm32@st-md-mailman.stormreply.com>
 List-Help: <mailto:linux-stm32-request@st-md-mailman.stormreply.com?subject=help>
 List-Subscribe: <https://st-md-mailman.stormreply.com/mailman/listinfo/linux-stm32>, 
  <mailto:linux-stm32-request@st-md-mailman.stormreply.com?subject=subscribe>
-Content-Transfer-Encoding: 7bit
-Content-Type: text/plain; charset="us-ascii"; Format="flowed"
+Content-Transfer-Encoding: base64
+Content-Type: text/plain; charset="utf-8"; Format="flowed"
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
-Hi Guenter
-
-On 4/26/19 4:16 PM, Guenter Roeck wrote:
-> On Fri, Apr 26, 2019 at 03:41:15PM +0200, Ludovic Barre wrote:
->> From: Ludovic Barre <ludovic.barre@st.com>
->>
->> This patch allows to define the max prescaler by compatible.
->> To set a large range of timeout, the prescaler should be set
->> dynamically (from the timeout request) to improve the resolution
->> in order to have a timeout close to the expected value.
->>
->> Signed-off-by: Ludovic Barre <ludovic.barre@st.com>
->> ---
->>   drivers/watchdog/stm32_iwdg.c | 70 +++++++++++++++++++++++++------------------
->>   1 file changed, 41 insertions(+), 29 deletions(-)
->>
->> diff --git a/drivers/watchdog/stm32_iwdg.c b/drivers/watchdog/stm32_iwdg.c
->> index e00e3b3..91d0a89 100644
->> --- a/drivers/watchdog/stm32_iwdg.c
->> +++ b/drivers/watchdog/stm32_iwdg.c
->> @@ -34,18 +34,10 @@
->>   #define KR_KEY_EWA	0x5555 /* write access enable */
->>   #define KR_KEY_DWA	0x0000 /* write access disable */
->>   
->> -/* IWDG_PR register bit values */
->> -#define PR_4		0x00 /* prescaler set to 4 */
->> -#define PR_8		0x01 /* prescaler set to 8 */
->> -#define PR_16		0x02 /* prescaler set to 16 */
->> -#define PR_32		0x03 /* prescaler set to 32 */
->> -#define PR_64		0x04 /* prescaler set to 64 */
->> -#define PR_128		0x05 /* prescaler set to 128 */
->> -#define PR_256		0x06 /* prescaler set to 256 */
->> +#define PR_SHIFT	2
->>   
->>   /* IWDG_RLR register values */
->> -#define RLR_MIN		0x07C /* min value supported by reload register */
->> -#define RLR_MAX		0xFFF /* max value supported by reload register */
->> +#define RLR_MAX		GENMASK(11, 0) /* max value of reload register */
->>   
->>   /* IWDG_SR register bit mask */
->>   #define FLAG_PVU	BIT(0) /* Watchdog prescaler value update */
->> @@ -55,15 +47,28 @@
->>   #define TIMEOUT_US	100000
->>   #define SLEEP_US	1000
->>   
->> -#define HAS_PCLK	true
->> +struct stm32_iwdg_data {
->> +	bool has_pclk;
->> +	u32 max_prescaler;
->> +};
->> +
->> +static const struct stm32_iwdg_data stm32_iwdg_data = {
->> +	.has_pclk = false,
->> +	.max_prescaler = 256,
->> +};
->> +
->> +static const struct stm32_iwdg_data stm32mp1_iwdg_data = {
->> +	.has_pclk = true,
->> +	.max_prescaler = 1024,
->> +};
->>   
->>   struct stm32_iwdg {
->>   	struct watchdog_device	wdd;
->> +	const struct stm32_iwdg_data *data;
->>   	void __iomem		*regs;
->>   	struct clk		*clk_lsi;
->>   	struct clk		*clk_pclk;
->>   	unsigned int		rate;
->> -	bool			has_pclk;
->>   };
->>   
->>   static inline u32 reg_read(void __iomem *base, u32 reg)
->> @@ -80,21 +85,30 @@ static int stm32_iwdg_start(struct watchdog_device *wdd)
->>   {
->>   	struct stm32_iwdg *wdt = watchdog_get_drvdata(wdd);
->>   	u32 val = FLAG_PVU | FLAG_RVU;
->> -	u32 reload;
->> +	u32 timeout, presc, iwdg_rlr, iwdg_pr;
->>   	int ret;
->>   
->>   	dev_dbg(wdd->parent, "%s\n", __func__);
->>   
->> -	/* prescaler fixed to 256 */
->> -	reload = clamp_t(unsigned int, ((wdd->timeout * wdt->rate) / 256) - 1,
->> -			 RLR_MIN, RLR_MAX);
->> +	timeout = clamp_t(unsigned int, wdd->timeout,
->> +			  wdd->min_timeout, wdd->max_hw_heartbeat_ms / 1000);
->> +
->> +	if (timeout != wdd->timeout)
->> +		dev_warn(wdd->parent, "timeout skrinked to %d\n", timeout);
->> +
-> 
-> Valid values for timeout should be set in the set_timeout function,
-> not here. As such, there is no need for this warning. More specifically,
-> if the selected timeout is between min_timeout and max_hw_heartbeat_ms,
-> and the hardware can not meet the exact requested value, the set_timeout
-> function should adjust wdd->timeout value accordingly.
-> 
-
-Ok, so I will adjust the timeout (with prescaler and reload look-up)
-value in set_timeout function. thanks
-
-> Example: The requested timeout is 55 seconds, but the hardware can
-> only support either 32 or 64 seconds. The set_timeout function should
-> then set wdd->timeout to either 32 or 64.
-> 
-> Furthermore, this is a valid condition. For example, the timeout could
-> be set for one hour (or day), and the maximum heartbeat could be one
-> minute. In that situation, the watchdog core handles heartbeat/ping
-> requests. Again, this does not warrant a warning.
-> 
-> On top of all that, if the hardware can not set a minimum timeout of
-> 1 second, min_timeout should not be set to 1 second. It should be set
-> to the actual minimum supportable value if that value is larger than
-> 1 second.
-> 
->> +	presc = DIV_ROUND_UP(timeout * wdt->rate, RLR_MAX + 1);
->> +
->> +	/* The prescaler is align on power of 2 and start at 2 ^ PR_SHIFT. */
->> +	presc = roundup_pow_of_two(presc);
->> +	iwdg_pr = presc <= 1 << PR_SHIFT ? 0 : ilog2(presc) - PR_SHIFT;
->> +	iwdg_rlr = ((timeout * wdt->rate) / presc) - 1;
->>   
->>   	/* enable write access */
->>   	reg_write(wdt->regs, IWDG_KR, KR_KEY_EWA);
->>   
->>   	/* set prescaler & reload registers */
->> -	reg_write(wdt->regs, IWDG_PR, PR_256); /* prescaler fix to 256 */
->> -	reg_write(wdt->regs, IWDG_RLR, reload);
->> +	reg_write(wdt->regs, IWDG_PR, iwdg_pr);
->> +	reg_write(wdt->regs, IWDG_RLR, iwdg_rlr);
->>   	reg_write(wdt->regs, IWDG_KR, KR_KEY_ENABLE);
->>   
->>   	/* wait for the registers to be updated (max 100ms) */
->> @@ -150,7 +164,7 @@ static int stm32_iwdg_clk_init(struct platform_device *pdev,
->>   	}
->>   
->>   	/* optional peripheral clock */
->> -	if (wdt->has_pclk) {
->> +	if (wdt->data->has_pclk) {
->>   		wdt->clk_pclk = devm_clk_get(&pdev->dev, "pclk");
->>   		if (IS_ERR(wdt->clk_pclk)) {
->>   			dev_err(&pdev->dev, "Unable to get pclk clock\n");
->> @@ -191,8 +205,8 @@ static const struct watchdog_ops stm32_iwdg_ops = {
->>   };
->>   
->>   static const struct of_device_id stm32_iwdg_of_match[] = {
->> -	{ .compatible = "st,stm32-iwdg", .data = (void *)!HAS_PCLK },
->> -	{ .compatible = "st,stm32mp1-iwdg", .data = (void *)HAS_PCLK },
->> +	{ .compatible = "st,stm32-iwdg", .data = &stm32_iwdg_data },
->> +	{ .compatible = "st,stm32mp1-iwdg", .data = &stm32mp1_iwdg_data },
->>   	{ /* end node */ }
->>   };
->>   MODULE_DEVICE_TABLE(of, stm32_iwdg_of_match);
->> @@ -200,20 +214,17 @@ MODULE_DEVICE_TABLE(of, stm32_iwdg_of_match);
->>   static int stm32_iwdg_probe(struct platform_device *pdev)
->>   {
->>   	struct watchdog_device *wdd;
->> -	const struct of_device_id *match;
->>   	struct stm32_iwdg *wdt;
->>   	struct resource *res;
->>   	int ret;
->>   
->> -	match = of_match_device(stm32_iwdg_of_match, &pdev->dev);
->> -	if (!match)
->> -		return -ENODEV;
->> -
->>   	wdt = devm_kzalloc(&pdev->dev, sizeof(*wdt), GFP_KERNEL);
->>   	if (!wdt)
->>   		return -ENOMEM;
->>   
->> -	wdt->has_pclk = match->data;
->> +	wdt->data = of_device_get_match_data(&pdev->dev);
->> +	if (!wdt->data)
->> +		return -ENODEV;
->>   
->>   	/* This is the timer base. */
->>   	res = platform_get_resource(pdev, IORESOURCE_MEM, 0);
->> @@ -231,8 +242,9 @@ static int stm32_iwdg_probe(struct platform_device *pdev)
->>   	wdd = &wdt->wdd;
->>   	wdd->info = &stm32_iwdg_info;
->>   	wdd->ops = &stm32_iwdg_ops;
->> -	wdd->min_timeout = ((RLR_MIN + 1) * 256) / wdt->rate;
->> -	wdd->max_hw_heartbeat_ms = ((RLR_MAX + 1) * 256 * 1000) / wdt->rate;
->> +	wdd->min_timeout = 1;
-> 
-> Is this guaranteed to be no larger than 1 under all circumstances ?
-> 
-> [ Not that the old code was necessarily correct - it might have set
->    min_timeout to 0 if wdt->rate is high ]
-
-Infact, for not guaranteed the min timeout at 1s, the input clock
-(wdt->rate) should be < at 12Hz.
-
-On ST micro controller/processor the wdt->rate is based on LSI
-(Low Speed Internal) clock which is defined around 32KHz-39KHz
-
-I wanted avoid to set 0, due to min_timeout definition
-("unsigned int" in struct watchdog_device) and comparator used
-in watchdog_timeout_invalid function.
-
-if the calculated value is < 1 => I could set 1,
-else I round on UP or Down value?
-
-Regards,
-Ludo
-
-> 
->> +	wdd->max_hw_heartbeat_ms = ((RLR_MAX + 1) * wdt->data->max_prescaler *
->> +				    1000) / wdt->rate;
->>   	wdd->parent = &pdev->dev;
->>   
->>   	watchdog_set_drvdata(wdd, wdt);
->> -- 
->> 2.7.4
->>
-_______________________________________________
-Linux-stm32 mailing list
-Linux-stm32@st-md-mailman.stormreply.com
-https://st-md-mailman.stormreply.com/mailman/listinfo/linux-stm32
+T24gNC8yOS8xOSA2OjUxIEFNLCBMdWRvdmljIEJBUlJFIHdyb3RlOgo+IEhpIEd1ZW50ZXIKPiAK
+PiBPbiA0LzI2LzE5IDQ6MTYgUE0sIEd1ZW50ZXIgUm9lY2sgd3JvdGU6Cj4+IE9uIEZyaSwgQXBy
+IDI2LCAyMDE5IGF0IDAzOjQxOjE1UE0gKzAyMDAsIEx1ZG92aWMgQmFycmUgd3JvdGU6Cj4+PiBG
+cm9tOiBMdWRvdmljIEJhcnJlIDxsdWRvdmljLmJhcnJlQHN0LmNvbT4KPj4+Cj4+PiBUaGlzIHBh
+dGNoIGFsbG93cyB0byBkZWZpbmUgdGhlIG1heCBwcmVzY2FsZXIgYnkgY29tcGF0aWJsZS4KPj4+
+IFRvIHNldCBhIGxhcmdlIHJhbmdlIG9mIHRpbWVvdXQsIHRoZSBwcmVzY2FsZXIgc2hvdWxkIGJl
+IHNldAo+Pj4gZHluYW1pY2FsbHkgKGZyb20gdGhlIHRpbWVvdXQgcmVxdWVzdCkgdG8gaW1wcm92
+ZSB0aGUgcmVzb2x1dGlvbgo+Pj4gaW4gb3JkZXIgdG8gaGF2ZSBhIHRpbWVvdXQgY2xvc2UgdG8g
+dGhlIGV4cGVjdGVkIHZhbHVlLgo+Pj4KPj4+IFNpZ25lZC1vZmYtYnk6IEx1ZG92aWMgQmFycmUg
+PGx1ZG92aWMuYmFycmVAc3QuY29tPgo+Pj4gLS0tCj4+PiDCoCBkcml2ZXJzL3dhdGNoZG9nL3N0
+bTMyX2l3ZGcuYyB8IDcwICsrKysrKysrKysrKysrKysrKysrKysrKystLS0tLS0tLS0tLS0tLS0t
+LS0KPj4+IMKgIDEgZmlsZSBjaGFuZ2VkLCA0MSBpbnNlcnRpb25zKCspLCAyOSBkZWxldGlvbnMo
+LSkKPj4+Cj4+PiBkaWZmIC0tZ2l0IGEvZHJpdmVycy93YXRjaGRvZy9zdG0zMl9pd2RnLmMgYi9k
+cml2ZXJzL3dhdGNoZG9nL3N0bTMyX2l3ZGcuYwo+Pj4gaW5kZXggZTAwZTNiMy4uOTFkMGE4OSAx
+MDA2NDQKPj4+IC0tLSBhL2RyaXZlcnMvd2F0Y2hkb2cvc3RtMzJfaXdkZy5jCj4+PiArKysgYi9k
+cml2ZXJzL3dhdGNoZG9nL3N0bTMyX2l3ZGcuYwo+Pj4gQEAgLTM0LDE4ICszNCwxMCBAQAo+Pj4g
+wqAgI2RlZmluZSBLUl9LRVlfRVdBwqDCoMKgIDB4NTU1NSAvKiB3cml0ZSBhY2Nlc3MgZW5hYmxl
+ICovCj4+PiDCoCAjZGVmaW5lIEtSX0tFWV9EV0HCoMKgwqAgMHgwMDAwIC8qIHdyaXRlIGFjY2Vz
+cyBkaXNhYmxlICovCj4+PiAtLyogSVdER19QUiByZWdpc3RlciBiaXQgdmFsdWVzICovCj4+PiAt
+I2RlZmluZSBQUl80wqDCoMKgwqDCoMKgwqAgMHgwMCAvKiBwcmVzY2FsZXIgc2V0IHRvIDQgKi8K
+Pj4+IC0jZGVmaW5lIFBSXzjCoMKgwqDCoMKgwqDCoCAweDAxIC8qIHByZXNjYWxlciBzZXQgdG8g
+OCAqLwo+Pj4gLSNkZWZpbmUgUFJfMTbCoMKgwqDCoMKgwqDCoCAweDAyIC8qIHByZXNjYWxlciBz
+ZXQgdG8gMTYgKi8KPj4+IC0jZGVmaW5lIFBSXzMywqDCoMKgwqDCoMKgwqAgMHgwMyAvKiBwcmVz
+Y2FsZXIgc2V0IHRvIDMyICovCj4+PiAtI2RlZmluZSBQUl82NMKgwqDCoMKgwqDCoMKgIDB4MDQg
+LyogcHJlc2NhbGVyIHNldCB0byA2NCAqLwo+Pj4gLSNkZWZpbmUgUFJfMTI4wqDCoMKgwqDCoMKg
+wqAgMHgwNSAvKiBwcmVzY2FsZXIgc2V0IHRvIDEyOCAqLwo+Pj4gLSNkZWZpbmUgUFJfMjU2wqDC
+oMKgwqDCoMKgwqAgMHgwNiAvKiBwcmVzY2FsZXIgc2V0IHRvIDI1NiAqLwo+Pj4gKyNkZWZpbmUg
+UFJfU0hJRlTCoMKgwqAgMgo+Pj4gwqAgLyogSVdER19STFIgcmVnaXN0ZXIgdmFsdWVzICovCj4+
+PiAtI2RlZmluZSBSTFJfTUlOwqDCoMKgwqDCoMKgwqAgMHgwN0MgLyogbWluIHZhbHVlIHN1cHBv
+cnRlZCBieSByZWxvYWQgcmVnaXN0ZXIgKi8KPj4+IC0jZGVmaW5lIFJMUl9NQVjCoMKgwqDCoMKg
+wqDCoCAweEZGRiAvKiBtYXggdmFsdWUgc3VwcG9ydGVkIGJ5IHJlbG9hZCByZWdpc3RlciAqLwo+
+Pj4gKyNkZWZpbmUgUkxSX01BWMKgwqDCoMKgwqDCoMKgIEdFTk1BU0soMTEsIDApIC8qIG1heCB2
+YWx1ZSBvZiByZWxvYWQgcmVnaXN0ZXIgKi8KPj4+IMKgIC8qIElXREdfU1IgcmVnaXN0ZXIgYml0
+IG1hc2sgKi8KPj4+IMKgICNkZWZpbmUgRkxBR19QVlXCoMKgwqAgQklUKDApIC8qIFdhdGNoZG9n
+IHByZXNjYWxlciB2YWx1ZSB1cGRhdGUgKi8KPj4+IEBAIC01NSwxNSArNDcsMjggQEAKPj4+IMKg
+ICNkZWZpbmUgVElNRU9VVF9VU8KgwqDCoCAxMDAwMDAKPj4+IMKgICNkZWZpbmUgU0xFRVBfVVPC
+oMKgwqAgMTAwMAo+Pj4gLSNkZWZpbmUgSEFTX1BDTEvCoMKgwqAgdHJ1ZQo+Pj4gK3N0cnVjdCBz
+dG0zMl9pd2RnX2RhdGEgewo+Pj4gK8KgwqDCoCBib29sIGhhc19wY2xrOwo+Pj4gK8KgwqDCoCB1
+MzIgbWF4X3ByZXNjYWxlcjsKPj4+ICt9Owo+Pj4gKwo+Pj4gK3N0YXRpYyBjb25zdCBzdHJ1Y3Qg
+c3RtMzJfaXdkZ19kYXRhIHN0bTMyX2l3ZGdfZGF0YSA9IHsKPj4+ICvCoMKgwqAgLmhhc19wY2xr
+ID0gZmFsc2UsCj4+PiArwqDCoMKgIC5tYXhfcHJlc2NhbGVyID0gMjU2LAo+Pj4gK307Cj4+PiAr
+Cj4+PiArc3RhdGljIGNvbnN0IHN0cnVjdCBzdG0zMl9pd2RnX2RhdGEgc3RtMzJtcDFfaXdkZ19k
+YXRhID0gewo+Pj4gK8KgwqDCoCAuaGFzX3BjbGsgPSB0cnVlLAo+Pj4gK8KgwqDCoCAubWF4X3By
+ZXNjYWxlciA9IDEwMjQsCj4+PiArfTsKPj4+IMKgIHN0cnVjdCBzdG0zMl9pd2RnIHsKPj4+IMKg
+wqDCoMKgwqAgc3RydWN0IHdhdGNoZG9nX2RldmljZcKgwqDCoCB3ZGQ7Cj4+PiArwqDCoMKgIGNv
+bnN0IHN0cnVjdCBzdG0zMl9pd2RnX2RhdGEgKmRhdGE7Cj4+PiDCoMKgwqDCoMKgIHZvaWQgX19p
+b21lbcKgwqDCoMKgwqDCoMKgICpyZWdzOwo+Pj4gwqDCoMKgwqDCoCBzdHJ1Y3QgY2xrwqDCoMKg
+wqDCoMKgwqAgKmNsa19sc2k7Cj4+PiDCoMKgwqDCoMKgIHN0cnVjdCBjbGvCoMKgwqDCoMKgwqDC
+oCAqY2xrX3BjbGs7Cj4+PiDCoMKgwqDCoMKgIHVuc2lnbmVkIGludMKgwqDCoMKgwqDCoMKgIHJh
+dGU7Cj4+PiAtwqDCoMKgIGJvb2zCoMKgwqDCoMKgwqDCoMKgwqDCoMKgIGhhc19wY2xrOwo+Pj4g
+wqAgfTsKPj4+IMKgIHN0YXRpYyBpbmxpbmUgdTMyIHJlZ19yZWFkKHZvaWQgX19pb21lbSAqYmFz
+ZSwgdTMyIHJlZykKPj4+IEBAIC04MCwyMSArODUsMzAgQEAgc3RhdGljIGludCBzdG0zMl9pd2Rn
+X3N0YXJ0KHN0cnVjdCB3YXRjaGRvZ19kZXZpY2UgKndkZCkKPj4+IMKgIHsKPj4+IMKgwqDCoMKg
+wqAgc3RydWN0IHN0bTMyX2l3ZGcgKndkdCA9IHdhdGNoZG9nX2dldF9kcnZkYXRhKHdkZCk7Cj4+
+PiDCoMKgwqDCoMKgIHUzMiB2YWwgPSBGTEFHX1BWVSB8IEZMQUdfUlZVOwo+Pj4gLcKgwqDCoCB1
+MzIgcmVsb2FkOwo+Pj4gK8KgwqDCoCB1MzIgdGltZW91dCwgcHJlc2MsIGl3ZGdfcmxyLCBpd2Rn
+X3ByOwo+Pj4gwqDCoMKgwqDCoCBpbnQgcmV0Owo+Pj4gwqDCoMKgwqDCoCBkZXZfZGJnKHdkZC0+
+cGFyZW50LCAiJXNcbiIsIF9fZnVuY19fKTsKPj4+IC3CoMKgwqAgLyogcHJlc2NhbGVyIGZpeGVk
+IHRvIDI1NiAqLwo+Pj4gLcKgwqDCoCByZWxvYWQgPSBjbGFtcF90KHVuc2lnbmVkIGludCwgKCh3
+ZGQtPnRpbWVvdXQgKiB3ZHQtPnJhdGUpIC8gMjU2KSAtIDEsCj4+PiAtwqDCoMKgwqDCoMKgwqDC
+oMKgwqDCoMKgIFJMUl9NSU4sIFJMUl9NQVgpOwo+Pj4gK8KgwqDCoCB0aW1lb3V0ID0gY2xhbXBf
+dCh1bnNpZ25lZCBpbnQsIHdkZC0+dGltZW91dCwKPj4+ICvCoMKgwqDCoMKgwqDCoMKgwqDCoMKg
+wqDCoCB3ZGQtPm1pbl90aW1lb3V0LCB3ZGQtPm1heF9od19oZWFydGJlYXRfbXMgLyAxMDAwKTsK
+Pj4+ICsKPj4+ICvCoMKgwqAgaWYgKHRpbWVvdXQgIT0gd2RkLT50aW1lb3V0KQo+Pj4gK8KgwqDC
+oMKgwqDCoMKgIGRldl93YXJuKHdkZC0+cGFyZW50LCAidGltZW91dCBza3JpbmtlZCB0byAlZFxu
+IiwgdGltZW91dCk7Cj4+PiArCj4+Cj4+IFZhbGlkIHZhbHVlcyBmb3IgdGltZW91dCBzaG91bGQg
+YmUgc2V0IGluIHRoZSBzZXRfdGltZW91dCBmdW5jdGlvbiwKPj4gbm90IGhlcmUuIEFzIHN1Y2gs
+IHRoZXJlIGlzIG5vIG5lZWQgZm9yIHRoaXMgd2FybmluZy4gTW9yZSBzcGVjaWZpY2FsbHksCj4+
+IGlmIHRoZSBzZWxlY3RlZCB0aW1lb3V0IGlzIGJldHdlZW4gbWluX3RpbWVvdXQgYW5kIG1heF9o
+d19oZWFydGJlYXRfbXMsCj4+IGFuZCB0aGUgaGFyZHdhcmUgY2FuIG5vdCBtZWV0IHRoZSBleGFj
+dCByZXF1ZXN0ZWQgdmFsdWUsIHRoZSBzZXRfdGltZW91dAo+PiBmdW5jdGlvbiBzaG91bGQgYWRq
+dXN0IHdkZC0+dGltZW91dCB2YWx1ZSBhY2NvcmRpbmdseS4KPj4KPiAKPiBPaywgc28gSSB3aWxs
+IGFkanVzdCB0aGUgdGltZW91dCAod2l0aCBwcmVzY2FsZXIgYW5kIHJlbG9hZCBsb29rLXVwKQo+
+IHZhbHVlIGluIHNldF90aW1lb3V0IGZ1bmN0aW9uLiB0aGFua3MKPiAKPj4gRXhhbXBsZTogVGhl
+IHJlcXVlc3RlZCB0aW1lb3V0IGlzIDU1IHNlY29uZHMsIGJ1dCB0aGUgaGFyZHdhcmUgY2FuCj4+
+IG9ubHkgc3VwcG9ydCBlaXRoZXIgMzIgb3IgNjQgc2Vjb25kcy4gVGhlIHNldF90aW1lb3V0IGZ1
+bmN0aW9uIHNob3VsZAo+PiB0aGVuIHNldCB3ZGQtPnRpbWVvdXQgdG8gZWl0aGVyIDMyIG9yIDY0
+Lgo+Pgo+PiBGdXJ0aGVybW9yZSwgdGhpcyBpcyBhIHZhbGlkIGNvbmRpdGlvbi4gRm9yIGV4YW1w
+bGUsIHRoZSB0aW1lb3V0IGNvdWxkCj4+IGJlIHNldCBmb3Igb25lIGhvdXIgKG9yIGRheSksIGFu
+ZCB0aGUgbWF4aW11bSBoZWFydGJlYXQgY291bGQgYmUgb25lCj4+IG1pbnV0ZS4gSW4gdGhhdCBz
+aXR1YXRpb24sIHRoZSB3YXRjaGRvZyBjb3JlIGhhbmRsZXMgaGVhcnRiZWF0L3BpbmcKPj4gcmVx
+dWVzdHMuIEFnYWluLCB0aGlzIGRvZXMgbm90IHdhcnJhbnQgYSB3YXJuaW5nLgo+Pgo+PiBPbiB0
+b3Agb2YgYWxsIHRoYXQsIGlmIHRoZSBoYXJkd2FyZSBjYW4gbm90IHNldCBhIG1pbmltdW0gdGlt
+ZW91dCBvZgo+PiAxIHNlY29uZCwgbWluX3RpbWVvdXQgc2hvdWxkIG5vdCBiZSBzZXQgdG8gMSBz
+ZWNvbmQuIEl0IHNob3VsZCBiZSBzZXQKPj4gdG8gdGhlIGFjdHVhbCBtaW5pbXVtIHN1cHBvcnRh
+YmxlIHZhbHVlIGlmIHRoYXQgdmFsdWUgaXMgbGFyZ2VyIHRoYW4KPj4gMSBzZWNvbmQuCj4+Cj4+
+PiArwqDCoMKgIHByZXNjID0gRElWX1JPVU5EX1VQKHRpbWVvdXQgKiB3ZHQtPnJhdGUsIFJMUl9N
+QVggKyAxKTsKPj4+ICsKPj4+ICvCoMKgwqAgLyogVGhlIHByZXNjYWxlciBpcyBhbGlnbiBvbiBw
+b3dlciBvZiAyIGFuZCBzdGFydCBhdCAyIF4gUFJfU0hJRlQuICovCj4+PiArwqDCoMKgIHByZXNj
+ID0gcm91bmR1cF9wb3dfb2ZfdHdvKHByZXNjKTsKPj4+ICvCoMKgwqAgaXdkZ19wciA9IHByZXNj
+IDw9IDEgPDwgUFJfU0hJRlQgPyAwIDogaWxvZzIocHJlc2MpIC0gUFJfU0hJRlQ7Cj4+PiArwqDC
+oMKgIGl3ZGdfcmxyID0gKCh0aW1lb3V0ICogd2R0LT5yYXRlKSAvIHByZXNjKSAtIDE7Cj4+PiDC
+oMKgwqDCoMKgIC8qIGVuYWJsZSB3cml0ZSBhY2Nlc3MgKi8KPj4+IMKgwqDCoMKgwqAgcmVnX3dy
+aXRlKHdkdC0+cmVncywgSVdER19LUiwgS1JfS0VZX0VXQSk7Cj4+PiDCoMKgwqDCoMKgIC8qIHNl
+dCBwcmVzY2FsZXIgJiByZWxvYWQgcmVnaXN0ZXJzICovCj4+PiAtwqDCoMKgIHJlZ193cml0ZSh3
+ZHQtPnJlZ3MsIElXREdfUFIsIFBSXzI1Nik7IC8qIHByZXNjYWxlciBmaXggdG8gMjU2ICovCj4+
+PiAtwqDCoMKgIHJlZ193cml0ZSh3ZHQtPnJlZ3MsIElXREdfUkxSLCByZWxvYWQpOwo+Pj4gK8Kg
+wqDCoCByZWdfd3JpdGUod2R0LT5yZWdzLCBJV0RHX1BSLCBpd2RnX3ByKTsKPj4+ICvCoMKgwqAg
+cmVnX3dyaXRlKHdkdC0+cmVncywgSVdER19STFIsIGl3ZGdfcmxyKTsKPj4+IMKgwqDCoMKgwqAg
+cmVnX3dyaXRlKHdkdC0+cmVncywgSVdER19LUiwgS1JfS0VZX0VOQUJMRSk7Cj4+PiDCoMKgwqDC
+oMKgIC8qIHdhaXQgZm9yIHRoZSByZWdpc3RlcnMgdG8gYmUgdXBkYXRlZCAobWF4IDEwMG1zKSAq
+Lwo+Pj4gQEAgLTE1MCw3ICsxNjQsNyBAQCBzdGF0aWMgaW50IHN0bTMyX2l3ZGdfY2xrX2luaXQo
+c3RydWN0IHBsYXRmb3JtX2RldmljZSAqcGRldiwKPj4+IMKgwqDCoMKgwqAgfQo+Pj4gwqDCoMKg
+wqDCoCAvKiBvcHRpb25hbCBwZXJpcGhlcmFsIGNsb2NrICovCj4+PiAtwqDCoMKgIGlmICh3ZHQt
+Pmhhc19wY2xrKSB7Cj4+PiArwqDCoMKgIGlmICh3ZHQtPmRhdGEtPmhhc19wY2xrKSB7Cj4+PiDC
+oMKgwqDCoMKgwqDCoMKgwqAgd2R0LT5jbGtfcGNsayA9IGRldm1fY2xrX2dldCgmcGRldi0+ZGV2
+LCAicGNsayIpOwo+Pj4gwqDCoMKgwqDCoMKgwqDCoMKgIGlmIChJU19FUlIod2R0LT5jbGtfcGNs
+aykpIHsKPj4+IMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgIGRldl9lcnIoJnBkZXYtPmRldiwg
+IlVuYWJsZSB0byBnZXQgcGNsayBjbG9ja1xuIik7Cj4+PiBAQCAtMTkxLDggKzIwNSw4IEBAIHN0
+YXRpYyBjb25zdCBzdHJ1Y3Qgd2F0Y2hkb2dfb3BzIHN0bTMyX2l3ZGdfb3BzID0gewo+Pj4gwqAg
+fTsKPj4+IMKgIHN0YXRpYyBjb25zdCBzdHJ1Y3Qgb2ZfZGV2aWNlX2lkIHN0bTMyX2l3ZGdfb2Zf
+bWF0Y2hbXSA9IHsKPj4+IC3CoMKgwqAgeyAuY29tcGF0aWJsZSA9ICJzdCxzdG0zMi1pd2RnIiwg
+LmRhdGEgPSAodm9pZCAqKSFIQVNfUENMSyB9LAo+Pj4gLcKgwqDCoCB7IC5jb21wYXRpYmxlID0g
+InN0LHN0bTMybXAxLWl3ZGciLCAuZGF0YSA9ICh2b2lkICopSEFTX1BDTEsgfSwKPj4+ICvCoMKg
+wqAgeyAuY29tcGF0aWJsZSA9ICJzdCxzdG0zMi1pd2RnIiwgLmRhdGEgPSAmc3RtMzJfaXdkZ19k
+YXRhIH0sCj4+PiArwqDCoMKgIHsgLmNvbXBhdGlibGUgPSAic3Qsc3RtMzJtcDEtaXdkZyIsIC5k
+YXRhID0gJnN0bTMybXAxX2l3ZGdfZGF0YSB9LAo+Pj4gwqDCoMKgwqDCoCB7IC8qIGVuZCBub2Rl
+ICovIH0KPj4+IMKgIH07Cj4+PiDCoCBNT0RVTEVfREVWSUNFX1RBQkxFKG9mLCBzdG0zMl9pd2Rn
+X29mX21hdGNoKTsKPj4+IEBAIC0yMDAsMjAgKzIxNCwxNyBAQCBNT0RVTEVfREVWSUNFX1RBQkxF
+KG9mLCBzdG0zMl9pd2RnX29mX21hdGNoKTsKPj4+IMKgIHN0YXRpYyBpbnQgc3RtMzJfaXdkZ19w
+cm9iZShzdHJ1Y3QgcGxhdGZvcm1fZGV2aWNlICpwZGV2KQo+Pj4gwqAgewo+Pj4gwqDCoMKgwqDC
+oCBzdHJ1Y3Qgd2F0Y2hkb2dfZGV2aWNlICp3ZGQ7Cj4+PiAtwqDCoMKgIGNvbnN0IHN0cnVjdCBv
+Zl9kZXZpY2VfaWQgKm1hdGNoOwo+Pj4gwqDCoMKgwqDCoCBzdHJ1Y3Qgc3RtMzJfaXdkZyAqd2R0
+Owo+Pj4gwqDCoMKgwqDCoCBzdHJ1Y3QgcmVzb3VyY2UgKnJlczsKPj4+IMKgwqDCoMKgwqAgaW50
+IHJldDsKPj4+IC3CoMKgwqAgbWF0Y2ggPSBvZl9tYXRjaF9kZXZpY2Uoc3RtMzJfaXdkZ19vZl9t
+YXRjaCwgJnBkZXYtPmRldik7Cj4+PiAtwqDCoMKgIGlmICghbWF0Y2gpCj4+PiAtwqDCoMKgwqDC
+oMKgwqAgcmV0dXJuIC1FTk9ERVY7Cj4+PiAtCj4+PiDCoMKgwqDCoMKgIHdkdCA9IGRldm1fa3ph
+bGxvYygmcGRldi0+ZGV2LCBzaXplb2YoKndkdCksIEdGUF9LRVJORUwpOwo+Pj4gwqDCoMKgwqDC
+oCBpZiAoIXdkdCkKPj4+IMKgwqDCoMKgwqDCoMKgwqDCoCByZXR1cm4gLUVOT01FTTsKPj4+IC3C
+oMKgwqAgd2R0LT5oYXNfcGNsayA9IG1hdGNoLT5kYXRhOwo+Pj4gK8KgwqDCoCB3ZHQtPmRhdGEg
+PSBvZl9kZXZpY2VfZ2V0X21hdGNoX2RhdGEoJnBkZXYtPmRldik7Cj4+PiArwqDCoMKgIGlmICgh
+d2R0LT5kYXRhKQo+Pj4gK8KgwqDCoMKgwqDCoMKgIHJldHVybiAtRU5PREVWOwo+Pj4gwqDCoMKg
+wqDCoCAvKiBUaGlzIGlzIHRoZSB0aW1lciBiYXNlLiAqLwo+Pj4gwqDCoMKgwqDCoCByZXMgPSBw
+bGF0Zm9ybV9nZXRfcmVzb3VyY2UocGRldiwgSU9SRVNPVVJDRV9NRU0sIDApOwo+Pj4gQEAgLTIz
+MSw4ICsyNDIsOSBAQCBzdGF0aWMgaW50IHN0bTMyX2l3ZGdfcHJvYmUoc3RydWN0IHBsYXRmb3Jt
+X2RldmljZSAqcGRldikKPj4+IMKgwqDCoMKgwqAgd2RkID0gJndkdC0+d2RkOwo+Pj4gwqDCoMKg
+wqDCoCB3ZGQtPmluZm8gPSAmc3RtMzJfaXdkZ19pbmZvOwo+Pj4gwqDCoMKgwqDCoCB3ZGQtPm9w
+cyA9ICZzdG0zMl9pd2RnX29wczsKPj4+IC3CoMKgwqAgd2RkLT5taW5fdGltZW91dCA9ICgoUkxS
+X01JTiArIDEpICogMjU2KSAvIHdkdC0+cmF0ZTsKPj4+IC3CoMKgwqAgd2RkLT5tYXhfaHdfaGVh
+cnRiZWF0X21zID0gKChSTFJfTUFYICsgMSkgKiAyNTYgKiAxMDAwKSAvIHdkdC0+cmF0ZTsKPj4+
+ICvCoMKgwqAgd2RkLT5taW5fdGltZW91dCA9IDE7Cj4+Cj4+IElzIHRoaXMgZ3VhcmFudGVlZCB0
+byBiZSBubyBsYXJnZXIgdGhhbiAxIHVuZGVyIGFsbCBjaXJjdW1zdGFuY2VzID8KPj4KPj4gWyBO
+b3QgdGhhdCB0aGUgb2xkIGNvZGUgd2FzIG5lY2Vzc2FyaWx5IGNvcnJlY3QgLSBpdCBtaWdodCBo
+YXZlIHNldAo+PiDCoMKgIG1pbl90aW1lb3V0IHRvIDAgaWYgd2R0LT5yYXRlIGlzIGhpZ2ggXQo+
+IAo+IEluZmFjdCwgZm9yIG5vdCBndWFyYW50ZWVkIHRoZSBtaW4gdGltZW91dCBhdCAxcywgdGhl
+IGlucHV0IGNsb2NrCj4gKHdkdC0+cmF0ZSkgc2hvdWxkIGJlIDwgYXQgMTJIei4KPiAKPiBPbiBT
+VCBtaWNybyBjb250cm9sbGVyL3Byb2Nlc3NvciB0aGUgd2R0LT5yYXRlIGlzIGJhc2VkIG9uIExT
+SQo+IChMb3cgU3BlZWQgSW50ZXJuYWwpIGNsb2NrIHdoaWNoIGlzIGRlZmluZWQgYXJvdW5kIDMy
+S0h6LTM5S0h6Cj4gCj4gSSB3YW50ZWQgYXZvaWQgdG8gc2V0IDAsIGR1ZSB0byBtaW5fdGltZW91
+dCBkZWZpbml0aW9uCj4gKCJ1bnNpZ25lZCBpbnQiIGluIHN0cnVjdCB3YXRjaGRvZ19kZXZpY2Up
+IGFuZCBjb21wYXJhdG9yIHVzZWQKPiBpbiB3YXRjaGRvZ190aW1lb3V0X2ludmFsaWQgZnVuY3Rp
+b24uCj4gCj4gaWYgdGhlIGNhbGN1bGF0ZWQgdmFsdWUgaXMgPCAxID0+IEkgY291bGQgc2V0IDEs
+Cj4gZWxzZSBJIHJvdW5kIG9uIFVQIG9yIERvd24gdmFsdWU/Cj4gCgpUaGUgbWluaW11bSBpcyAx
+IHNlY29uZC4gT3RoZXIgdGhhbiB0aGF0LCBpZiB5b3Ugd2FudCB0byByb3VuZCBpdCB1cCBvcgpk
+b3duIGlzIHJlYWxseSB5b3VyIGNhbGwuIFRoZSBlYXNpZXN0IHdvdWxkIHByb2JhYmx5IGJlIHRv
+IHVzZSBESVZfUk9VTkRfVVAoKTsKdGhhdCB3b3VsZCB0YWtlIGNhcmUgb2YgYWxsIHNpdHVhdGlv
+bnMuCgpUaGFua3MsCkd1ZW50ZXIKCj4gUmVnYXJkcywKPiBMdWRvCj4gCj4+Cj4+PiArwqDCoMKg
+IHdkZC0+bWF4X2h3X2hlYXJ0YmVhdF9tcyA9ICgoUkxSX01BWCArIDEpICogd2R0LT5kYXRhLT5t
+YXhfcHJlc2NhbGVyICoKPj4+ICvCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDC
+oCAxMDAwKSAvIHdkdC0+cmF0ZTsKPj4+IMKgwqDCoMKgwqAgd2RkLT5wYXJlbnQgPSAmcGRldi0+
+ZGV2Owo+Pj4gwqDCoMKgwqDCoCB3YXRjaGRvZ19zZXRfZHJ2ZGF0YSh3ZGQsIHdkdCk7Cj4+PiAt
+LSAKPj4+IDIuNy40Cj4+Pgo+IAoKX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19f
+X19fX19fX19fX18KTGludXgtc3RtMzIgbWFpbGluZyBsaXN0CkxpbnV4LXN0bTMyQHN0LW1kLW1h
+aWxtYW4uc3Rvcm1yZXBseS5jb20KaHR0cHM6Ly9zdC1tZC1tYWlsbWFuLnN0b3JtcmVwbHkuY29t
+L21haWxtYW4vbGlzdGluZm8vbGludXgtc3RtMzIK
