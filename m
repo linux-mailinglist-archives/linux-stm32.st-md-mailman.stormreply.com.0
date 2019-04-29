@@ -2,75 +2,74 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id 19C22DE94
-	for <lists+linux-stm32@lfdr.de>; Mon, 29 Apr 2019 11:01:06 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 180E4DFEA
+	for <lists+linux-stm32@lfdr.de>; Mon, 29 Apr 2019 11:55:51 +0200 (CEST)
 Received: from ip-172-31-3-76.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id CEE6DC35E03
-	for <lists+linux-stm32@lfdr.de>; Mon, 29 Apr 2019 09:01:05 +0000 (UTC)
-Received: from smtprelay-out1.synopsys.com (dc2-smtprelay2.synopsys.com
- [198.182.61.142])
- (using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 1C147C35E07
+	for <lists+linux-stm32@lfdr.de>; Mon, 29 Apr 2019 09:55:50 +0000 (UTC)
+Received: from mx07-00178001.pphosted.com (mx07-00178001.pphosted.com
+ [62.209.51.94])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 6F0D9C36B3E
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id B4C29C35E04
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Mon, 29 Apr 2019 09:01:03 +0000 (UTC)
-Received: from mailhost.synopsys.com (badc-mailhost2.synopsys.com
- [10.192.0.18])
- (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits))
- (No client certificate requested)
- by smtprelay-out1.synopsys.com (Postfix) with ESMTPS id 8D1C3C00B0;
- Mon, 29 Apr 2019 09:00:59 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=synopsys.com; s=mail;
- t=1556528460; bh=f+Cu/athXgOTZCGbWOkD1x70otBzc7nrCuSU1nPo2XY=;
- h=From:To:CC:Subject:Date:References:In-Reply-To:From;
- b=ETWv8pqP/VDfCRlvwlPl6QM4T+AXFjYWarpa2e2JcO6fVTn9lVI2T2l/L5OM7f11p
- ha7P7e4QLjFqxjLUUSqvXbTeqXMc7M5jpW+91mVRhZgjvK74P4F0gOFai2p6XWYkzA
- CW1JwjzrltvOXd5mlhRvKxbtciEqkBClo4TNeDYirq/qPzFVQ4OhZzXo9FvBOWBSbw
- xZYMVLPuo0csKLsibII5U7qCLZEis4K4E1gWyb3cElcsReR7FQoCMOY0bFekXLK2sa
- ESuTklDQp3FrxSv9LLeZFAoY1y6rOaEQ5n+SDhe9DP1lNvHU/GgvZ2VbKFY7hCzJQd
- 6832nLyvCB99Q==
-Received: from US01WEHTC3.internal.synopsys.com
- (us01wehtc3.internal.synopsys.com [10.15.84.232])
- (using TLSv1.2 with cipher ECDHE-RSA-AES256-SHA384 (256/256 bits))
- (No client certificate requested)
- by mailhost.synopsys.com (Postfix) with ESMTPS id D0F87A0066;
- Mon, 29 Apr 2019 09:00:55 +0000 (UTC)
-Received: from DE02WEHTCA.internal.synopsys.com (10.225.19.92) by
- US01WEHTC3.internal.synopsys.com (10.15.84.232) with Microsoft SMTP Server
- (TLS) id 14.3.408.0; Mon, 29 Apr 2019 02:00:55 -0700
-Received: from DE02WEMBXB.internal.synopsys.com ([fe80::95ce:118a:8321:a099])
- by DE02WEHTCA.internal.synopsys.com ([::1]) with mapi id
- 14.03.0415.000; Mon, 29 Apr 2019 11:00:53 +0200
-From: Jose Abreu <Jose.Abreu@synopsys.com>
-To: Biao Huang <biao.huang@mediatek.com>, "davem@davemloft.net"
- <davem@davemloft.net>
-Thread-Topic: [PATCH 1/2] net-next: stmmac: add support for hash table size
- 128/256 in dwmac4
-Thread-Index: AQHU/lXC7igBXFx5K0O3QkQ2RyP1CKZS1qXA
-Date: Mon, 29 Apr 2019 09:00:53 +0000
-Message-ID: <78EB27739596EE489E55E81C33FEC33A0B46DE20@DE02WEMBXB.internal.synopsys.com>
-References: <1556519724-1576-1-git-send-email-biao.huang@mediatek.com>
- <1556519724-1576-2-git-send-email-biao.huang@mediatek.com>
-In-Reply-To: <1556519724-1576-2-git-send-email-biao.huang@mediatek.com>
-Accept-Language: en-US
+ Mon, 29 Apr 2019 09:54:57 +0000 (UTC)
+Received: from pps.filterd (m0046668.ppops.net [127.0.0.1])
+ by mx07-00178001.pphosted.com (8.16.0.27/8.16.0.27) with SMTP id
+ x3T9kxuR031685; Mon, 29 Apr 2019 11:54:45 +0200
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=st.com;
+ h=from : to : cc : subject
+ : date : message-id : content-type : content-transfer-encoding :
+ mime-version; s=STMicroelectronics;
+ bh=NpKHSHilJ8VtsKy2Eh73u7f/s16+/jfGkYS573A6cho=;
+ b=URwv2GxebEgOjfAMFTa3Ak+GpQVsVLlauhQc8u9c9crOUnXwEZdquDHQZCqdgi0Fq21g
+ JuLUOKDh6yr4vOBZEChwo+VxCcrJAS6zg5ioRLZOHBiwm/Ya8AncCG+daoGZXE3gnBE4
+ vR+3S7vKPACustyWcxoEaIhBU1HczcXvlllGv8mU5fcaPHseINPyNPDYHrfyGL/plqsw
+ /RzY/hZwgqmErWxYLzeCwDK4ZBA76U+M4yGgQdt3lXK6+rWVHEYkgij3tuv/ne43W9A7
+ PsnfsPjOqa3VF/ylyhU8yMxKP+hlrJKEKTm2u2Bo3UaonDSE7p1Wi+Q3HOwGh19ORzbC Rg== 
+Received: from beta.dmz-eu.st.com (beta.dmz-eu.st.com [164.129.1.35])
+ by mx07-00178001.pphosted.com with ESMTP id 2s4cj0be9r-1
+ (version=TLSv1 cipher=ECDHE-RSA-AES256-SHA bits=256 verify=NOT);
+ Mon, 29 Apr 2019 11:54:45 +0200
+Received: from zeta.dmz-eu.st.com (zeta.dmz-eu.st.com [164.129.230.9])
+ by beta.dmz-eu.st.com (STMicroelectronics) with ESMTP id 0FD7C34;
+ Mon, 29 Apr 2019 09:54:45 +0000 (GMT)
+Received: from Webmail-eu.st.com (sfhdag4node3.st.com [10.75.127.12])
+ by zeta.dmz-eu.st.com (STMicroelectronics) with ESMTP id D7D7E14F5;
+ Mon, 29 Apr 2019 09:54:44 +0000 (GMT)
+Received: from SFHDAG5NODE1.st.com (10.75.127.13) by SFHDAG4NODE3.st.com
+ (10.75.127.12) with Microsoft SMTP Server (TLS) id 15.0.1347.2; Mon, 29 Apr
+ 2019 11:54:44 +0200
+Received: from SFHDAG5NODE1.st.com ([fe80::cc53:528c:36c8:95f6]) by
+ SFHDAG5NODE1.st.com ([fe80::cc53:528c:36c8:95f6%20]) with mapi id
+ 15.00.1347.000; Mon, 29 Apr 2019 11:54:44 +0200
+From: Gerald BAEZA <gerald.baeza@st.com>
+To: "mturquette@baylibre.com" <mturquette@baylibre.com>, "sboyd@kernel.org"
+ <sboyd@kernel.org>,
+ "mcoquelin.stm32@gmail.com" <mcoquelin.stm32@gmail.com>,
+ Alexandre TORGUE <alexandre.torgue@st.com>
+Thread-Topic: [PATCH 1/1] clk: stm32mp1: Add ddrperfm clock
+Thread-Index: AQHU/nGSI1KYPhvKvEC7x41++h176w==
+Date: Mon, 29 Apr 2019 09:54:44 +0000
+Message-ID: <1556531652-27740-1-git-send-email-gerald.baeza@st.com>
+Accept-Language: fr-FR, en-US
 Content-Language: en-US
 X-MS-Has-Attach: 
 X-MS-TNEF-Correlator: 
-x-originating-ip: [10.107.19.176]
+x-ms-exchange-messagesentrepresentingtype: 1
+x-ms-exchange-transport-fromentityheader: Hosted
+x-originating-ip: [10.75.127.47]
 MIME-Version: 1.0
-Cc: "jianguo.zhang@mediatek.com" <jianguo.zhang@mediatek.com>,
- "netdev@vger.kernel.org" <netdev@vger.kernel.org>,
- "linux-kernel@vger.kernel.org" <linux-kernel@vger.kernel.org>,
- "yt.shen@mediatek.com" <yt.shen@mediatek.com>,
- "linux-mediatek@lists.infradead.org" <linux-mediatek@lists.infradead.org>,
- Maxime Coquelin <mcoquelin.stm32@gmail.com>,
- Matthias Brugger <matthias.bgg@gmail.com>,
- Giuseppe Cavallaro <peppe.cavallaro@st.com>,
- "linux-stm32@st-md-mailman.stormreply.com"
+X-Proofpoint-Virus-Version: vendor=fsecure engine=2.50.10434:, ,
+ definitions=2019-04-29_05:, , signatures=0
+X-Mailman-Approved-At: Mon, 29 Apr 2019 09:55:48 +0000
+Cc: "linux-stm32@st-md-mailman.stormreply.com"
  <linux-stm32@st-md-mailman.stormreply.com>,
+ "linux-kernel@vger.kernel.org" <linux-kernel@vger.kernel.org>,
+ "linux-clk@vger.kernel.org" <linux-clk@vger.kernel.org>,
+ Gerald BAEZA <gerald.baeza@st.com>,
  "linux-arm-kernel@lists.infradead.org" <linux-arm-kernel@lists.infradead.org>
-Subject: Re: [Linux-stm32] [PATCH 1/2] net-next: stmmac: add support for
- hash table size 128/256 in dwmac4
+Subject: [Linux-stm32] [PATCH 1/1] clk: stm32mp1: Add ddrperfm clock
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -87,24 +86,46 @@ Content-Transfer-Encoding: 7bit
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
-From: Biao Huang <biao.huang@mediatek.com>
-Date: Mon, Apr 29, 2019 at 07:35:23
+From: Gabriel Fernandez <gabriel.fernandez@st.com>
 
-> +#define GMAC_HASH_TAB(x)		(0x10 + x * 4)
+Add ddrperfm clock for DDR Performance Monitor driver
 
-You need to guard x here with parenthesis.
+Signed-off-by: Gabriel Fernandez <gabriel.fernandez@st.com>
+Signed-off-by: Gerald Baeza <gerald.baeza@st.com>
+---
+ drivers/clk/clk-stm32mp1.c | 3 +++
+ 1 file changed, 3 insertions(+)
 
->  	void __iomem *ioaddr = (void __iomem *)dev->base_addr;
-> -	unsigned int value = 0;
-> +	unsigned int value;
-> +	int i;
-> +	int numhashregs = (hw->multicast_filter_bins >> 5);
-> +	int mcbitslog2 = hw->mcast_bits_log2;
-
-Reverse Christmas tree order here please.
-
-Thanks,
-Jose Miguel Abreu
+diff --git a/drivers/clk/clk-stm32mp1.c b/drivers/clk/clk-stm32mp1.c
+index a0ae8dc..a875649 100644
+--- a/drivers/clk/clk-stm32mp1.c
++++ b/drivers/clk/clk-stm32mp1.c
+@@ -1402,6 +1402,7 @@ enum {
+ 	G_CRYP1,
+ 	G_HASH1,
+ 	G_BKPSRAM,
++	G_DDRPERFM,
+ 
+ 	G_LAST
+ };
+@@ -1488,6 +1489,7 @@ static struct stm32_gate_cfg per_gate_cfg[G_LAST] = {
+ 	K_GATE(G_STGENRO,	RCC_APB4ENSETR, 20, 0),
+ 	K_MGATE(G_USBPHY,	RCC_APB4ENSETR, 16, 0),
+ 	K_GATE(G_IWDG2,		RCC_APB4ENSETR, 15, 0),
++	K_GATE(G_DDRPERFM,	RCC_APB4ENSETR, 8, 0),
+ 	K_MGATE(G_DSI,		RCC_APB4ENSETR, 4, 0),
+ 	K_MGATE(G_LTDC,		RCC_APB4ENSETR, 0, 0),
+ 
+@@ -1899,6 +1901,7 @@ static const struct clock_config stm32mp1_clock_cfg[] = {
+ 	PCLK(CRC1, "crc1", "ck_axi", 0, G_CRC1),
+ 	PCLK(USBH, "usbh", "ck_axi", 0, G_USBH),
+ 	PCLK(ETHSTP, "ethstp", "ck_axi", 0, G_ETHSTP),
++	PCLK(DDRPERFM, "ddrperfm", "pclk4", 0, G_DDRPERFM),
+ 
+ 	/* Kernel clocks */
+ 	KCLK(SDMMC1_K, "sdmmc1_k", sdmmc12_src, 0, G_SDMMC1, M_SDMMC12),
+-- 
+2.7.4
 _______________________________________________
 Linux-stm32 mailing list
 Linux-stm32@st-md-mailman.stormreply.com
