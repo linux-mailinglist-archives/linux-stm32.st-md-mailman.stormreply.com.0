@@ -2,72 +2,111 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id D38B0E42C
-	for <lists+linux-stm32@lfdr.de>; Mon, 29 Apr 2019 16:03:36 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 95D45E56E
+	for <lists+linux-stm32@lfdr.de>; Mon, 29 Apr 2019 16:52:59 +0200 (CEST)
 Received: from ip-172-31-3-76.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 934C7C35E08
-	for <lists+linux-stm32@lfdr.de>; Mon, 29 Apr 2019 14:03:36 +0000 (UTC)
-Received: from mail-pg1-f195.google.com (mail-pg1-f195.google.com
- [209.85.215.195])
- (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 59A08C35E09
+	for <lists+linux-stm32@lfdr.de>; Mon, 29 Apr 2019 14:52:59 +0000 (UTC)
+Received: from mx07-00178001.pphosted.com (mx08-00178001.pphosted.com
+ [91.207.212.93])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 83AE9C35E08
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id C5A27C35E09
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Mon, 29 Apr 2019 14:03:35 +0000 (UTC)
-Received: by mail-pg1-f195.google.com with SMTP id k19so5220256pgh.0
- for <linux-stm32@st-md-mailman.stormreply.com>;
- Mon, 29 Apr 2019 07:03:35 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20161025;
- h=sender:subject:to:cc:references:from:message-id:date:user-agent
- :mime-version:in-reply-to:content-language:content-transfer-encoding;
- bh=uslsFA9EF/SPU5vqGUl5d3XfzpJWBrXq+tyb49DNy70=;
- b=RknxYTxTbl2y3sdmFTGZvViRuVzYyA3yqUXrn8mrAEoAuEB9DtNPs6kr7RRFPv/+4c
- TWOK1wvGiECtE+ngR7lBG6oOOQ3A6AqG+F7pjGNUdKHO/0OYOoasfXy7a3Z771LIKryl
- IBzzH/HJYSytSRf2cReL80QcXfPlVHMVPHesVBMy06tW11wYIqUkdvTyFyYOMgnV8sHF
- o1IMYt8DNhTLANAqhuipc0jvHEeXbfeXYXtpwZKCaDoGMq98h2gEBTPmGOMFcTYFDwKL
- LD7T49hnFiHyU8HHCiBj5mW9h9rp/z8l0tI6LX5WiXiHd5FnbSxq/OHtMiF5NnY8m4MW
- TLmw==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20161025;
- h=x-gm-message-state:sender:subject:to:cc:references:from:message-id
- :date:user-agent:mime-version:in-reply-to:content-language
- :content-transfer-encoding;
- bh=uslsFA9EF/SPU5vqGUl5d3XfzpJWBrXq+tyb49DNy70=;
- b=rt/Q+l56kYKLXkwOchF5EzG7f3cP5ZyPvVxA/ZrN3H8iq038vR0t0GxPOTXQ2zAH5E
- SF0kXE01J4xoZL+CPCjvA4iAKvb/hsIGLd1AmeOGf+LBavhCQRW9RkBO/z1323s2MxFY
- ahwWSO5dlBUmLArGJjV+RgmHj+ImJhNjugzeLvh7t1Z2Sn3FlSBhL2diWU4mMREE+sc8
- zUozOaabkiypEmBPlHI0u+ozvRYVHqrZaz97g423Twgnuyl1I13RQoJ0b7ywbdkBYrt2
- ORe+BxZJV/rjCXrOgN/bQYEfqhh/6yfIyOAvbjedoQnTS/Z22i2GkgZnAMWRP0ARg7Q2
- Bfeg==
-X-Gm-Message-State: APjAAAVmackOWNb6rnACy4PCofBNei+0zISNiT7YblsV3ow6DYq9pVd3
- iza2+r/xVLmNcz0xW4J2jPnZ3qNt
-X-Google-Smtp-Source: APXvYqyy2rlHz/74ouEK0vx1NWiUEKkhwkER336hUks05lx2hjYQX6OBLUMoPMS0uJjlFI1o6FEckQ==
-X-Received: by 2002:a62:6587:: with SMTP id z129mr64788242pfb.88.1556546613540; 
- Mon, 29 Apr 2019 07:03:33 -0700 (PDT)
-Received: from server.roeck-us.net ([2600:1700:e321:62f0:329c:23ff:fee3:9d7c])
- by smtp.gmail.com with ESMTPSA id
- g128sm21161pfb.131.2019.04.29.07.03.31
- (version=TLS1_2 cipher=ECDHE-RSA-AES128-GCM-SHA256 bits=128/128);
- Mon, 29 Apr 2019 07:03:32 -0700 (PDT)
-To: Ludovic BARRE <ludovic.barre@st.com>
-References: <1556286075-29496-1-git-send-email-ludovic.Barre@st.com>
- <20190426141651.GA1715@roeck-us.net>
- <192f7556-89e4-68f1-2274-f3bdbe0083ae@st.com>
-From: Guenter Roeck <linux@roeck-us.net>
-Message-ID: <70963a09-377c-e862-dfda-8955b8bf24b8@roeck-us.net>
-Date: Mon, 29 Apr 2019 07:03:30 -0700
+ Mon, 29 Apr 2019 14:52:58 +0000 (UTC)
+Received: from pps.filterd (m0046661.ppops.net [127.0.0.1])
+ by mx08-00178001.pphosted.com (8.16.0.27/8.16.0.27) with SMTP id
+ x3TEkhZ8010167; Mon, 29 Apr 2019 16:52:52 +0200
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=st.com;
+ h=subject : to : cc :
+ references : from : message-id : date : mime-version : in-reply-to :
+ content-type : content-transfer-encoding; s=STMicroelectronics;
+ bh=TyPRd72EOTNxUHmCFP26ytz0WAo+pQKVeLQsjdaqgnk=;
+ b=eElTUTRNNmM5K+IXe/iJ9+ne/67zKFY0vPqXABt8HzZ0tAM8KhSpDCvnu+HDdyf15AP1
+ X+tv3g03fJgAzFSn4d8JrI7fJnYh05t3cjqS9JGv4nZFnCegbJtA6u6bZ0Ll4weypwhY
+ K7180Q169y3lc8bSuRYkfLlPO8ceQq2F+MsAl4hIExqFH3ecnEqcF+Xm1tNIoVvpRVKz
+ zLUI7GXiZGLwC8bflVL3jw/fYFc6OLn7FVxIy/ovxq9VRlLNYj1c1utPnnbsyvKoyL1h
+ XYZTkLvF040jy2s6uiBjtKWKPz1eJGS0sNVODGQUSBtkHkfX1A4uvQAbAOwDCn4XBFLB CA== 
+Received: from beta.dmz-eu.st.com (beta.dmz-eu.st.com [164.129.1.35])
+ by mx08-00178001.pphosted.com with ESMTP id 2s61r08hhu-1
+ (version=TLSv1 cipher=ECDHE-RSA-AES256-SHA bits=256 verify=NOT);
+ Mon, 29 Apr 2019 16:52:52 +0200
+Received: from zeta.dmz-eu.st.com (zeta.dmz-eu.st.com [164.129.230.9])
+ by beta.dmz-eu.st.com (STMicroelectronics) with ESMTP id 252FB31;
+ Mon, 29 Apr 2019 14:52:52 +0000 (GMT)
+Received: from Webmail-eu.st.com (sfhdag3node1.st.com [10.75.127.7])
+ by zeta.dmz-eu.st.com (STMicroelectronics) with ESMTP id ED593272F;
+ Mon, 29 Apr 2019 14:52:51 +0000 (GMT)
+Received: from [10.48.0.131] (10.75.127.50) by SFHDAG3NODE1.st.com
+ (10.75.127.7) with Microsoft SMTP Server (TLS) id 15.0.1347.2; Mon, 29 Apr
+ 2019 16:52:51 +0200
+To: Vinod Koul <vkoul@kernel.org>
+References: <1553689316-6231-1-git-send-email-arnaud.pouliquen@st.com>
+ <20190426121751.GC28103@vkoul-mobl>
+ <6894b54e-651f-1caf-d363-79d1ef0eee14@st.com>
+ <20190429051310.GC3845@vkoul-mobl.Dlink>
+From: Arnaud Pouliquen <arnaud.pouliquen@st.com>
+Openpgp: preference=signencrypt
+Autocrypt: addr=arnaud.pouliquen@st.com; prefer-encrypt=mutual; keydata=
+ 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
+ 8mOik8I/F6EW8XyQAA2P
+Message-ID: <26fa7710-76cb-e202-a367-c2e2408b6808@st.com>
+Date: Mon, 29 Apr 2019 16:52:50 +0200
 User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:60.0) Gecko/20100101
  Thunderbird/60.6.1
 MIME-Version: 1.0
-In-Reply-To: <192f7556-89e4-68f1-2274-f3bdbe0083ae@st.com>
+In-Reply-To: <20190429051310.GC3845@vkoul-mobl.Dlink>
 Content-Language: en-US
-Cc: devicetree@vger.kernel.org, linux-watchdog@vger.kernel.org,
- linux-kernel@vger.kernel.org, Rob Herring <robh+dt@kernel.org>,
- Maxime Coquelin <mcoquelin.stm32@gmail.com>,
- Wim Van Sebroeck <wim@linux-watchdog.org>,
- linux-stm32@st-md-mailman.stormreply.com, linux-arm-kernel@lists.infradead.org
-Subject: Re: [Linux-stm32] [PATCH] watchdog: stm32: add dynamic prescaler
-	support
+X-Originating-IP: [10.75.127.50]
+X-ClientProxiedBy: SFHDAG8NODE3.st.com (10.75.127.24) To SFHDAG3NODE1.st.com
+ (10.75.127.7)
+X-Proofpoint-Virus-Version: vendor=fsecure engine=2.50.10434:, ,
+ definitions=2019-04-29_08:, , signatures=0
+Cc: dmaengine@vger.kernel.org, Dan Williams <dan.j.williams@intel.com>,
+ linux-stm32@st-md-mailman.stormreply.com,
+ Pierre-Yves MORDRET <pierre-yves.mordret@st.com>, linux-kernel@vger.kernel.org
+Subject: Re: [Linux-stm32] [PATCH] dmaengine: stm32-dma: fix residue
+ calculation in stm32-dma
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -79,173 +118,172 @@ List-Post: <mailto:linux-stm32@st-md-mailman.stormreply.com>
 List-Help: <mailto:linux-stm32-request@st-md-mailman.stormreply.com?subject=help>
 List-Subscribe: <https://st-md-mailman.stormreply.com/mailman/listinfo/linux-stm32>, 
  <mailto:linux-stm32-request@st-md-mailman.stormreply.com?subject=subscribe>
-Content-Transfer-Encoding: base64
-Content-Type: text/plain; charset="utf-8"; Format="flowed"
+Content-Type: text/plain; charset="us-ascii"
+Content-Transfer-Encoding: 7bit
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
-T24gNC8yOS8xOSA2OjUxIEFNLCBMdWRvdmljIEJBUlJFIHdyb3RlOgo+IEhpIEd1ZW50ZXIKPiAK
-PiBPbiA0LzI2LzE5IDQ6MTYgUE0sIEd1ZW50ZXIgUm9lY2sgd3JvdGU6Cj4+IE9uIEZyaSwgQXBy
-IDI2LCAyMDE5IGF0IDAzOjQxOjE1UE0gKzAyMDAsIEx1ZG92aWMgQmFycmUgd3JvdGU6Cj4+PiBG
-cm9tOiBMdWRvdmljIEJhcnJlIDxsdWRvdmljLmJhcnJlQHN0LmNvbT4KPj4+Cj4+PiBUaGlzIHBh
-dGNoIGFsbG93cyB0byBkZWZpbmUgdGhlIG1heCBwcmVzY2FsZXIgYnkgY29tcGF0aWJsZS4KPj4+
-IFRvIHNldCBhIGxhcmdlIHJhbmdlIG9mIHRpbWVvdXQsIHRoZSBwcmVzY2FsZXIgc2hvdWxkIGJl
-IHNldAo+Pj4gZHluYW1pY2FsbHkgKGZyb20gdGhlIHRpbWVvdXQgcmVxdWVzdCkgdG8gaW1wcm92
-ZSB0aGUgcmVzb2x1dGlvbgo+Pj4gaW4gb3JkZXIgdG8gaGF2ZSBhIHRpbWVvdXQgY2xvc2UgdG8g
-dGhlIGV4cGVjdGVkIHZhbHVlLgo+Pj4KPj4+IFNpZ25lZC1vZmYtYnk6IEx1ZG92aWMgQmFycmUg
-PGx1ZG92aWMuYmFycmVAc3QuY29tPgo+Pj4gLS0tCj4+PiDCoCBkcml2ZXJzL3dhdGNoZG9nL3N0
-bTMyX2l3ZGcuYyB8IDcwICsrKysrKysrKysrKysrKysrKysrKysrKystLS0tLS0tLS0tLS0tLS0t
-LS0KPj4+IMKgIDEgZmlsZSBjaGFuZ2VkLCA0MSBpbnNlcnRpb25zKCspLCAyOSBkZWxldGlvbnMo
-LSkKPj4+Cj4+PiBkaWZmIC0tZ2l0IGEvZHJpdmVycy93YXRjaGRvZy9zdG0zMl9pd2RnLmMgYi9k
-cml2ZXJzL3dhdGNoZG9nL3N0bTMyX2l3ZGcuYwo+Pj4gaW5kZXggZTAwZTNiMy4uOTFkMGE4OSAx
-MDA2NDQKPj4+IC0tLSBhL2RyaXZlcnMvd2F0Y2hkb2cvc3RtMzJfaXdkZy5jCj4+PiArKysgYi9k
-cml2ZXJzL3dhdGNoZG9nL3N0bTMyX2l3ZGcuYwo+Pj4gQEAgLTM0LDE4ICszNCwxMCBAQAo+Pj4g
-wqAgI2RlZmluZSBLUl9LRVlfRVdBwqDCoMKgIDB4NTU1NSAvKiB3cml0ZSBhY2Nlc3MgZW5hYmxl
-ICovCj4+PiDCoCAjZGVmaW5lIEtSX0tFWV9EV0HCoMKgwqAgMHgwMDAwIC8qIHdyaXRlIGFjY2Vz
-cyBkaXNhYmxlICovCj4+PiAtLyogSVdER19QUiByZWdpc3RlciBiaXQgdmFsdWVzICovCj4+PiAt
-I2RlZmluZSBQUl80wqDCoMKgwqDCoMKgwqAgMHgwMCAvKiBwcmVzY2FsZXIgc2V0IHRvIDQgKi8K
-Pj4+IC0jZGVmaW5lIFBSXzjCoMKgwqDCoMKgwqDCoCAweDAxIC8qIHByZXNjYWxlciBzZXQgdG8g
-OCAqLwo+Pj4gLSNkZWZpbmUgUFJfMTbCoMKgwqDCoMKgwqDCoCAweDAyIC8qIHByZXNjYWxlciBz
-ZXQgdG8gMTYgKi8KPj4+IC0jZGVmaW5lIFBSXzMywqDCoMKgwqDCoMKgwqAgMHgwMyAvKiBwcmVz
-Y2FsZXIgc2V0IHRvIDMyICovCj4+PiAtI2RlZmluZSBQUl82NMKgwqDCoMKgwqDCoMKgIDB4MDQg
-LyogcHJlc2NhbGVyIHNldCB0byA2NCAqLwo+Pj4gLSNkZWZpbmUgUFJfMTI4wqDCoMKgwqDCoMKg
-wqAgMHgwNSAvKiBwcmVzY2FsZXIgc2V0IHRvIDEyOCAqLwo+Pj4gLSNkZWZpbmUgUFJfMjU2wqDC
-oMKgwqDCoMKgwqAgMHgwNiAvKiBwcmVzY2FsZXIgc2V0IHRvIDI1NiAqLwo+Pj4gKyNkZWZpbmUg
-UFJfU0hJRlTCoMKgwqAgMgo+Pj4gwqAgLyogSVdER19STFIgcmVnaXN0ZXIgdmFsdWVzICovCj4+
-PiAtI2RlZmluZSBSTFJfTUlOwqDCoMKgwqDCoMKgwqAgMHgwN0MgLyogbWluIHZhbHVlIHN1cHBv
-cnRlZCBieSByZWxvYWQgcmVnaXN0ZXIgKi8KPj4+IC0jZGVmaW5lIFJMUl9NQVjCoMKgwqDCoMKg
-wqDCoCAweEZGRiAvKiBtYXggdmFsdWUgc3VwcG9ydGVkIGJ5IHJlbG9hZCByZWdpc3RlciAqLwo+
-Pj4gKyNkZWZpbmUgUkxSX01BWMKgwqDCoMKgwqDCoMKgIEdFTk1BU0soMTEsIDApIC8qIG1heCB2
-YWx1ZSBvZiByZWxvYWQgcmVnaXN0ZXIgKi8KPj4+IMKgIC8qIElXREdfU1IgcmVnaXN0ZXIgYml0
-IG1hc2sgKi8KPj4+IMKgICNkZWZpbmUgRkxBR19QVlXCoMKgwqAgQklUKDApIC8qIFdhdGNoZG9n
-IHByZXNjYWxlciB2YWx1ZSB1cGRhdGUgKi8KPj4+IEBAIC01NSwxNSArNDcsMjggQEAKPj4+IMKg
-ICNkZWZpbmUgVElNRU9VVF9VU8KgwqDCoCAxMDAwMDAKPj4+IMKgICNkZWZpbmUgU0xFRVBfVVPC
-oMKgwqAgMTAwMAo+Pj4gLSNkZWZpbmUgSEFTX1BDTEvCoMKgwqAgdHJ1ZQo+Pj4gK3N0cnVjdCBz
-dG0zMl9pd2RnX2RhdGEgewo+Pj4gK8KgwqDCoCBib29sIGhhc19wY2xrOwo+Pj4gK8KgwqDCoCB1
-MzIgbWF4X3ByZXNjYWxlcjsKPj4+ICt9Owo+Pj4gKwo+Pj4gK3N0YXRpYyBjb25zdCBzdHJ1Y3Qg
-c3RtMzJfaXdkZ19kYXRhIHN0bTMyX2l3ZGdfZGF0YSA9IHsKPj4+ICvCoMKgwqAgLmhhc19wY2xr
-ID0gZmFsc2UsCj4+PiArwqDCoMKgIC5tYXhfcHJlc2NhbGVyID0gMjU2LAo+Pj4gK307Cj4+PiAr
-Cj4+PiArc3RhdGljIGNvbnN0IHN0cnVjdCBzdG0zMl9pd2RnX2RhdGEgc3RtMzJtcDFfaXdkZ19k
-YXRhID0gewo+Pj4gK8KgwqDCoCAuaGFzX3BjbGsgPSB0cnVlLAo+Pj4gK8KgwqDCoCAubWF4X3By
-ZXNjYWxlciA9IDEwMjQsCj4+PiArfTsKPj4+IMKgIHN0cnVjdCBzdG0zMl9pd2RnIHsKPj4+IMKg
-wqDCoMKgwqAgc3RydWN0IHdhdGNoZG9nX2RldmljZcKgwqDCoCB3ZGQ7Cj4+PiArwqDCoMKgIGNv
-bnN0IHN0cnVjdCBzdG0zMl9pd2RnX2RhdGEgKmRhdGE7Cj4+PiDCoMKgwqDCoMKgIHZvaWQgX19p
-b21lbcKgwqDCoMKgwqDCoMKgICpyZWdzOwo+Pj4gwqDCoMKgwqDCoCBzdHJ1Y3QgY2xrwqDCoMKg
-wqDCoMKgwqAgKmNsa19sc2k7Cj4+PiDCoMKgwqDCoMKgIHN0cnVjdCBjbGvCoMKgwqDCoMKgwqDC
-oCAqY2xrX3BjbGs7Cj4+PiDCoMKgwqDCoMKgIHVuc2lnbmVkIGludMKgwqDCoMKgwqDCoMKgIHJh
-dGU7Cj4+PiAtwqDCoMKgIGJvb2zCoMKgwqDCoMKgwqDCoMKgwqDCoMKgIGhhc19wY2xrOwo+Pj4g
-wqAgfTsKPj4+IMKgIHN0YXRpYyBpbmxpbmUgdTMyIHJlZ19yZWFkKHZvaWQgX19pb21lbSAqYmFz
-ZSwgdTMyIHJlZykKPj4+IEBAIC04MCwyMSArODUsMzAgQEAgc3RhdGljIGludCBzdG0zMl9pd2Rn
-X3N0YXJ0KHN0cnVjdCB3YXRjaGRvZ19kZXZpY2UgKndkZCkKPj4+IMKgIHsKPj4+IMKgwqDCoMKg
-wqAgc3RydWN0IHN0bTMyX2l3ZGcgKndkdCA9IHdhdGNoZG9nX2dldF9kcnZkYXRhKHdkZCk7Cj4+
-PiDCoMKgwqDCoMKgIHUzMiB2YWwgPSBGTEFHX1BWVSB8IEZMQUdfUlZVOwo+Pj4gLcKgwqDCoCB1
-MzIgcmVsb2FkOwo+Pj4gK8KgwqDCoCB1MzIgdGltZW91dCwgcHJlc2MsIGl3ZGdfcmxyLCBpd2Rn
-X3ByOwo+Pj4gwqDCoMKgwqDCoCBpbnQgcmV0Owo+Pj4gwqDCoMKgwqDCoCBkZXZfZGJnKHdkZC0+
-cGFyZW50LCAiJXNcbiIsIF9fZnVuY19fKTsKPj4+IC3CoMKgwqAgLyogcHJlc2NhbGVyIGZpeGVk
-IHRvIDI1NiAqLwo+Pj4gLcKgwqDCoCByZWxvYWQgPSBjbGFtcF90KHVuc2lnbmVkIGludCwgKCh3
-ZGQtPnRpbWVvdXQgKiB3ZHQtPnJhdGUpIC8gMjU2KSAtIDEsCj4+PiAtwqDCoMKgwqDCoMKgwqDC
-oMKgwqDCoMKgIFJMUl9NSU4sIFJMUl9NQVgpOwo+Pj4gK8KgwqDCoCB0aW1lb3V0ID0gY2xhbXBf
-dCh1bnNpZ25lZCBpbnQsIHdkZC0+dGltZW91dCwKPj4+ICvCoMKgwqDCoMKgwqDCoMKgwqDCoMKg
-wqDCoCB3ZGQtPm1pbl90aW1lb3V0LCB3ZGQtPm1heF9od19oZWFydGJlYXRfbXMgLyAxMDAwKTsK
-Pj4+ICsKPj4+ICvCoMKgwqAgaWYgKHRpbWVvdXQgIT0gd2RkLT50aW1lb3V0KQo+Pj4gK8KgwqDC
-oMKgwqDCoMKgIGRldl93YXJuKHdkZC0+cGFyZW50LCAidGltZW91dCBza3JpbmtlZCB0byAlZFxu
-IiwgdGltZW91dCk7Cj4+PiArCj4+Cj4+IFZhbGlkIHZhbHVlcyBmb3IgdGltZW91dCBzaG91bGQg
-YmUgc2V0IGluIHRoZSBzZXRfdGltZW91dCBmdW5jdGlvbiwKPj4gbm90IGhlcmUuIEFzIHN1Y2gs
-IHRoZXJlIGlzIG5vIG5lZWQgZm9yIHRoaXMgd2FybmluZy4gTW9yZSBzcGVjaWZpY2FsbHksCj4+
-IGlmIHRoZSBzZWxlY3RlZCB0aW1lb3V0IGlzIGJldHdlZW4gbWluX3RpbWVvdXQgYW5kIG1heF9o
-d19oZWFydGJlYXRfbXMsCj4+IGFuZCB0aGUgaGFyZHdhcmUgY2FuIG5vdCBtZWV0IHRoZSBleGFj
-dCByZXF1ZXN0ZWQgdmFsdWUsIHRoZSBzZXRfdGltZW91dAo+PiBmdW5jdGlvbiBzaG91bGQgYWRq
-dXN0IHdkZC0+dGltZW91dCB2YWx1ZSBhY2NvcmRpbmdseS4KPj4KPiAKPiBPaywgc28gSSB3aWxs
-IGFkanVzdCB0aGUgdGltZW91dCAod2l0aCBwcmVzY2FsZXIgYW5kIHJlbG9hZCBsb29rLXVwKQo+
-IHZhbHVlIGluIHNldF90aW1lb3V0IGZ1bmN0aW9uLiB0aGFua3MKPiAKPj4gRXhhbXBsZTogVGhl
-IHJlcXVlc3RlZCB0aW1lb3V0IGlzIDU1IHNlY29uZHMsIGJ1dCB0aGUgaGFyZHdhcmUgY2FuCj4+
-IG9ubHkgc3VwcG9ydCBlaXRoZXIgMzIgb3IgNjQgc2Vjb25kcy4gVGhlIHNldF90aW1lb3V0IGZ1
-bmN0aW9uIHNob3VsZAo+PiB0aGVuIHNldCB3ZGQtPnRpbWVvdXQgdG8gZWl0aGVyIDMyIG9yIDY0
-Lgo+Pgo+PiBGdXJ0aGVybW9yZSwgdGhpcyBpcyBhIHZhbGlkIGNvbmRpdGlvbi4gRm9yIGV4YW1w
-bGUsIHRoZSB0aW1lb3V0IGNvdWxkCj4+IGJlIHNldCBmb3Igb25lIGhvdXIgKG9yIGRheSksIGFu
-ZCB0aGUgbWF4aW11bSBoZWFydGJlYXQgY291bGQgYmUgb25lCj4+IG1pbnV0ZS4gSW4gdGhhdCBz
-aXR1YXRpb24sIHRoZSB3YXRjaGRvZyBjb3JlIGhhbmRsZXMgaGVhcnRiZWF0L3BpbmcKPj4gcmVx
-dWVzdHMuIEFnYWluLCB0aGlzIGRvZXMgbm90IHdhcnJhbnQgYSB3YXJuaW5nLgo+Pgo+PiBPbiB0
-b3Agb2YgYWxsIHRoYXQsIGlmIHRoZSBoYXJkd2FyZSBjYW4gbm90IHNldCBhIG1pbmltdW0gdGlt
-ZW91dCBvZgo+PiAxIHNlY29uZCwgbWluX3RpbWVvdXQgc2hvdWxkIG5vdCBiZSBzZXQgdG8gMSBz
-ZWNvbmQuIEl0IHNob3VsZCBiZSBzZXQKPj4gdG8gdGhlIGFjdHVhbCBtaW5pbXVtIHN1cHBvcnRh
-YmxlIHZhbHVlIGlmIHRoYXQgdmFsdWUgaXMgbGFyZ2VyIHRoYW4KPj4gMSBzZWNvbmQuCj4+Cj4+
-PiArwqDCoMKgIHByZXNjID0gRElWX1JPVU5EX1VQKHRpbWVvdXQgKiB3ZHQtPnJhdGUsIFJMUl9N
-QVggKyAxKTsKPj4+ICsKPj4+ICvCoMKgwqAgLyogVGhlIHByZXNjYWxlciBpcyBhbGlnbiBvbiBw
-b3dlciBvZiAyIGFuZCBzdGFydCBhdCAyIF4gUFJfU0hJRlQuICovCj4+PiArwqDCoMKgIHByZXNj
-ID0gcm91bmR1cF9wb3dfb2ZfdHdvKHByZXNjKTsKPj4+ICvCoMKgwqAgaXdkZ19wciA9IHByZXNj
-IDw9IDEgPDwgUFJfU0hJRlQgPyAwIDogaWxvZzIocHJlc2MpIC0gUFJfU0hJRlQ7Cj4+PiArwqDC
-oMKgIGl3ZGdfcmxyID0gKCh0aW1lb3V0ICogd2R0LT5yYXRlKSAvIHByZXNjKSAtIDE7Cj4+PiDC
-oMKgwqDCoMKgIC8qIGVuYWJsZSB3cml0ZSBhY2Nlc3MgKi8KPj4+IMKgwqDCoMKgwqAgcmVnX3dy
-aXRlKHdkdC0+cmVncywgSVdER19LUiwgS1JfS0VZX0VXQSk7Cj4+PiDCoMKgwqDCoMKgIC8qIHNl
-dCBwcmVzY2FsZXIgJiByZWxvYWQgcmVnaXN0ZXJzICovCj4+PiAtwqDCoMKgIHJlZ193cml0ZSh3
-ZHQtPnJlZ3MsIElXREdfUFIsIFBSXzI1Nik7IC8qIHByZXNjYWxlciBmaXggdG8gMjU2ICovCj4+
-PiAtwqDCoMKgIHJlZ193cml0ZSh3ZHQtPnJlZ3MsIElXREdfUkxSLCByZWxvYWQpOwo+Pj4gK8Kg
-wqDCoCByZWdfd3JpdGUod2R0LT5yZWdzLCBJV0RHX1BSLCBpd2RnX3ByKTsKPj4+ICvCoMKgwqAg
-cmVnX3dyaXRlKHdkdC0+cmVncywgSVdER19STFIsIGl3ZGdfcmxyKTsKPj4+IMKgwqDCoMKgwqAg
-cmVnX3dyaXRlKHdkdC0+cmVncywgSVdER19LUiwgS1JfS0VZX0VOQUJMRSk7Cj4+PiDCoMKgwqDC
-oMKgIC8qIHdhaXQgZm9yIHRoZSByZWdpc3RlcnMgdG8gYmUgdXBkYXRlZCAobWF4IDEwMG1zKSAq
-Lwo+Pj4gQEAgLTE1MCw3ICsxNjQsNyBAQCBzdGF0aWMgaW50IHN0bTMyX2l3ZGdfY2xrX2luaXQo
-c3RydWN0IHBsYXRmb3JtX2RldmljZSAqcGRldiwKPj4+IMKgwqDCoMKgwqAgfQo+Pj4gwqDCoMKg
-wqDCoCAvKiBvcHRpb25hbCBwZXJpcGhlcmFsIGNsb2NrICovCj4+PiAtwqDCoMKgIGlmICh3ZHQt
-Pmhhc19wY2xrKSB7Cj4+PiArwqDCoMKgIGlmICh3ZHQtPmRhdGEtPmhhc19wY2xrKSB7Cj4+PiDC
-oMKgwqDCoMKgwqDCoMKgwqAgd2R0LT5jbGtfcGNsayA9IGRldm1fY2xrX2dldCgmcGRldi0+ZGV2
-LCAicGNsayIpOwo+Pj4gwqDCoMKgwqDCoMKgwqDCoMKgIGlmIChJU19FUlIod2R0LT5jbGtfcGNs
-aykpIHsKPj4+IMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgIGRldl9lcnIoJnBkZXYtPmRldiwg
-IlVuYWJsZSB0byBnZXQgcGNsayBjbG9ja1xuIik7Cj4+PiBAQCAtMTkxLDggKzIwNSw4IEBAIHN0
-YXRpYyBjb25zdCBzdHJ1Y3Qgd2F0Y2hkb2dfb3BzIHN0bTMyX2l3ZGdfb3BzID0gewo+Pj4gwqAg
-fTsKPj4+IMKgIHN0YXRpYyBjb25zdCBzdHJ1Y3Qgb2ZfZGV2aWNlX2lkIHN0bTMyX2l3ZGdfb2Zf
-bWF0Y2hbXSA9IHsKPj4+IC3CoMKgwqAgeyAuY29tcGF0aWJsZSA9ICJzdCxzdG0zMi1pd2RnIiwg
-LmRhdGEgPSAodm9pZCAqKSFIQVNfUENMSyB9LAo+Pj4gLcKgwqDCoCB7IC5jb21wYXRpYmxlID0g
-InN0LHN0bTMybXAxLWl3ZGciLCAuZGF0YSA9ICh2b2lkICopSEFTX1BDTEsgfSwKPj4+ICvCoMKg
-wqAgeyAuY29tcGF0aWJsZSA9ICJzdCxzdG0zMi1pd2RnIiwgLmRhdGEgPSAmc3RtMzJfaXdkZ19k
-YXRhIH0sCj4+PiArwqDCoMKgIHsgLmNvbXBhdGlibGUgPSAic3Qsc3RtMzJtcDEtaXdkZyIsIC5k
-YXRhID0gJnN0bTMybXAxX2l3ZGdfZGF0YSB9LAo+Pj4gwqDCoMKgwqDCoCB7IC8qIGVuZCBub2Rl
-ICovIH0KPj4+IMKgIH07Cj4+PiDCoCBNT0RVTEVfREVWSUNFX1RBQkxFKG9mLCBzdG0zMl9pd2Rn
-X29mX21hdGNoKTsKPj4+IEBAIC0yMDAsMjAgKzIxNCwxNyBAQCBNT0RVTEVfREVWSUNFX1RBQkxF
-KG9mLCBzdG0zMl9pd2RnX29mX21hdGNoKTsKPj4+IMKgIHN0YXRpYyBpbnQgc3RtMzJfaXdkZ19w
-cm9iZShzdHJ1Y3QgcGxhdGZvcm1fZGV2aWNlICpwZGV2KQo+Pj4gwqAgewo+Pj4gwqDCoMKgwqDC
-oCBzdHJ1Y3Qgd2F0Y2hkb2dfZGV2aWNlICp3ZGQ7Cj4+PiAtwqDCoMKgIGNvbnN0IHN0cnVjdCBv
-Zl9kZXZpY2VfaWQgKm1hdGNoOwo+Pj4gwqDCoMKgwqDCoCBzdHJ1Y3Qgc3RtMzJfaXdkZyAqd2R0
-Owo+Pj4gwqDCoMKgwqDCoCBzdHJ1Y3QgcmVzb3VyY2UgKnJlczsKPj4+IMKgwqDCoMKgwqAgaW50
-IHJldDsKPj4+IC3CoMKgwqAgbWF0Y2ggPSBvZl9tYXRjaF9kZXZpY2Uoc3RtMzJfaXdkZ19vZl9t
-YXRjaCwgJnBkZXYtPmRldik7Cj4+PiAtwqDCoMKgIGlmICghbWF0Y2gpCj4+PiAtwqDCoMKgwqDC
-oMKgwqAgcmV0dXJuIC1FTk9ERVY7Cj4+PiAtCj4+PiDCoMKgwqDCoMKgIHdkdCA9IGRldm1fa3ph
-bGxvYygmcGRldi0+ZGV2LCBzaXplb2YoKndkdCksIEdGUF9LRVJORUwpOwo+Pj4gwqDCoMKgwqDC
-oCBpZiAoIXdkdCkKPj4+IMKgwqDCoMKgwqDCoMKgwqDCoCByZXR1cm4gLUVOT01FTTsKPj4+IC3C
-oMKgwqAgd2R0LT5oYXNfcGNsayA9IG1hdGNoLT5kYXRhOwo+Pj4gK8KgwqDCoCB3ZHQtPmRhdGEg
-PSBvZl9kZXZpY2VfZ2V0X21hdGNoX2RhdGEoJnBkZXYtPmRldik7Cj4+PiArwqDCoMKgIGlmICgh
-d2R0LT5kYXRhKQo+Pj4gK8KgwqDCoMKgwqDCoMKgIHJldHVybiAtRU5PREVWOwo+Pj4gwqDCoMKg
-wqDCoCAvKiBUaGlzIGlzIHRoZSB0aW1lciBiYXNlLiAqLwo+Pj4gwqDCoMKgwqDCoCByZXMgPSBw
-bGF0Zm9ybV9nZXRfcmVzb3VyY2UocGRldiwgSU9SRVNPVVJDRV9NRU0sIDApOwo+Pj4gQEAgLTIz
-MSw4ICsyNDIsOSBAQCBzdGF0aWMgaW50IHN0bTMyX2l3ZGdfcHJvYmUoc3RydWN0IHBsYXRmb3Jt
-X2RldmljZSAqcGRldikKPj4+IMKgwqDCoMKgwqAgd2RkID0gJndkdC0+d2RkOwo+Pj4gwqDCoMKg
-wqDCoCB3ZGQtPmluZm8gPSAmc3RtMzJfaXdkZ19pbmZvOwo+Pj4gwqDCoMKgwqDCoCB3ZGQtPm9w
-cyA9ICZzdG0zMl9pd2RnX29wczsKPj4+IC3CoMKgwqAgd2RkLT5taW5fdGltZW91dCA9ICgoUkxS
-X01JTiArIDEpICogMjU2KSAvIHdkdC0+cmF0ZTsKPj4+IC3CoMKgwqAgd2RkLT5tYXhfaHdfaGVh
-cnRiZWF0X21zID0gKChSTFJfTUFYICsgMSkgKiAyNTYgKiAxMDAwKSAvIHdkdC0+cmF0ZTsKPj4+
-ICvCoMKgwqAgd2RkLT5taW5fdGltZW91dCA9IDE7Cj4+Cj4+IElzIHRoaXMgZ3VhcmFudGVlZCB0
-byBiZSBubyBsYXJnZXIgdGhhbiAxIHVuZGVyIGFsbCBjaXJjdW1zdGFuY2VzID8KPj4KPj4gWyBO
-b3QgdGhhdCB0aGUgb2xkIGNvZGUgd2FzIG5lY2Vzc2FyaWx5IGNvcnJlY3QgLSBpdCBtaWdodCBo
-YXZlIHNldAo+PiDCoMKgIG1pbl90aW1lb3V0IHRvIDAgaWYgd2R0LT5yYXRlIGlzIGhpZ2ggXQo+
-IAo+IEluZmFjdCwgZm9yIG5vdCBndWFyYW50ZWVkIHRoZSBtaW4gdGltZW91dCBhdCAxcywgdGhl
-IGlucHV0IGNsb2NrCj4gKHdkdC0+cmF0ZSkgc2hvdWxkIGJlIDwgYXQgMTJIei4KPiAKPiBPbiBT
-VCBtaWNybyBjb250cm9sbGVyL3Byb2Nlc3NvciB0aGUgd2R0LT5yYXRlIGlzIGJhc2VkIG9uIExT
-SQo+IChMb3cgU3BlZWQgSW50ZXJuYWwpIGNsb2NrIHdoaWNoIGlzIGRlZmluZWQgYXJvdW5kIDMy
-S0h6LTM5S0h6Cj4gCj4gSSB3YW50ZWQgYXZvaWQgdG8gc2V0IDAsIGR1ZSB0byBtaW5fdGltZW91
-dCBkZWZpbml0aW9uCj4gKCJ1bnNpZ25lZCBpbnQiIGluIHN0cnVjdCB3YXRjaGRvZ19kZXZpY2Up
-IGFuZCBjb21wYXJhdG9yIHVzZWQKPiBpbiB3YXRjaGRvZ190aW1lb3V0X2ludmFsaWQgZnVuY3Rp
-b24uCj4gCj4gaWYgdGhlIGNhbGN1bGF0ZWQgdmFsdWUgaXMgPCAxID0+IEkgY291bGQgc2V0IDEs
-Cj4gZWxzZSBJIHJvdW5kIG9uIFVQIG9yIERvd24gdmFsdWU/Cj4gCgpUaGUgbWluaW11bSBpcyAx
-IHNlY29uZC4gT3RoZXIgdGhhbiB0aGF0LCBpZiB5b3Ugd2FudCB0byByb3VuZCBpdCB1cCBvcgpk
-b3duIGlzIHJlYWxseSB5b3VyIGNhbGwuIFRoZSBlYXNpZXN0IHdvdWxkIHByb2JhYmx5IGJlIHRv
-IHVzZSBESVZfUk9VTkRfVVAoKTsKdGhhdCB3b3VsZCB0YWtlIGNhcmUgb2YgYWxsIHNpdHVhdGlv
-bnMuCgpUaGFua3MsCkd1ZW50ZXIKCj4gUmVnYXJkcywKPiBMdWRvCj4gCj4+Cj4+PiArwqDCoMKg
-IHdkZC0+bWF4X2h3X2hlYXJ0YmVhdF9tcyA9ICgoUkxSX01BWCArIDEpICogd2R0LT5kYXRhLT5t
-YXhfcHJlc2NhbGVyICoKPj4+ICvCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDC
-oCAxMDAwKSAvIHdkdC0+cmF0ZTsKPj4+IMKgwqDCoMKgwqAgd2RkLT5wYXJlbnQgPSAmcGRldi0+
-ZGV2Owo+Pj4gwqDCoMKgwqDCoCB3YXRjaGRvZ19zZXRfZHJ2ZGF0YSh3ZGQsIHdkdCk7Cj4+PiAt
-LSAKPj4+IDIuNy40Cj4+Pgo+IAoKX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19f
-X19fX19fX19fX18KTGludXgtc3RtMzIgbWFpbGluZyBsaXN0CkxpbnV4LXN0bTMyQHN0LW1kLW1h
-aWxtYW4uc3Rvcm1yZXBseS5jb20KaHR0cHM6Ly9zdC1tZC1tYWlsbWFuLnN0b3JtcmVwbHkuY29t
-L21haWxtYW4vbGlzdGluZm8vbGludXgtc3RtMzIK
+
+
+On 4/29/19 7:13 AM, Vinod Koul wrote:
+> On 26-04-19, 15:41, Arnaud Pouliquen wrote:
+>>>> During residue calculation. the DMA can switch to the next sg. When
+>>>> this race condition occurs, the residue returned value is not valid.
+>>>> Indeed the position in the sg returned by the hardware is the position
+>>>> of the next sg, not the current sg.
+>>>> Solution is to check the sg after the calculation to verify it.
+>>>> If a transition is detected we consider that the DMA has switched to
+>>>> the beginning of next sg.
+>>>
+>>> Now, that sounds like duct tape. Why should we bother doing that.
+>>>
+>>> Also looking back at the stm32_dma_desc_residue() and calls to it from
+>>> stm32_dma_tx_status() am not sure we are doing the right thing
+>> Please, could you explain what you have in mind here?
+> 
+> So when we call vchan_find_desc() that tells us if the descriptor is in
+> the issued queue or not..  Ideally it should not matter if we have one
+> or N descriptors issued to hardware.
+> 
+> So why should you bother checking for next_sg.
+> 
+>>> why are we looking at next_sg here, can you explain me that please
+>>
+>> This solution is similar to one implemented in the at_hdmac.c driver
+>> (atc_get_bytes_left function).
+>>
+>> Yes could be consider as a workaround for a hardware issue...
+>>
+>> In stm32 DMA Peripheral, we can register up to 2 sg descriptors (sg1 &
+>> sg2)in DMA registers, and use it in a cyclic mode (auto reload). This
+>> mode is mainly use for audio transfer initiated by an ALSA driver.
+>>
+>> >From hardware point of view the DMA transfers first block based on sg1,
+>> then it updates registers to prepare sg2 transfer, and then generates an
+>> IRQ to inform that it issues the next transfer (sg2).
+>>
+>> Then driver can update sg1 to prepare the third transfer...
+>>
+>> In parallel the client driver can requests status to get the residue to
+>> update internal pointer.
+>> The issue is in the race condition between the call of the
+>> device_tx_status ops and the update of the DMA register on sg switch.
+> 
+> Sorry I do not agree! You are in stm32_dma_tx_status() hold the lock and
+> IRQs are disabled, so even if sg2 was loaded, you will not get an
+> interrupt and wont know. By looking at sg1 register you will see that
+> sg1 is telling you that it has finished and residue can be zero. That is
+> fine and correct to report.
+> 
+> Most important thing here is that reside is for _requested_ descriptor
+> and not _current_ descriptor, so looking into sg2 doesnt not fit.
+> 
+>> During a short time the hardware updated the registers containing the
+>> sg ID but not the transfer counter(SxNDTR). In this case there is a
+>> mismatch between the Sg ID and the associated transfer counter.
+>> So residue calculation is wrong.
+>> Idea of this patch is to perform the calculation and then to crosscheck
+>> that the hardware has not switched to the next sg during the
+>> calculation. The way to crosscheck is to compare the the sg ID before
+>> and after the calculation.
+>>
+>> I tested the solution to force a new recalculation but no real solution
+>> to trust the registers during this phase. In this case an approximation
+>> is to consider that the DMA is transferring the first bytes of the next sg.
+>> So we return the residue corresponding to the beginning of the next buffer.
+> 
+> And that is wrong!. The argument is 'cookie' and you return residue for
+> that cookie.
+> 
+> For example, if you have dma txn with cookie 1, 2, 3, 4 submitted, then currently HW
+> is processing cookie 2, then for tx_status on:
+> cookie 1: return DMA_COMPLETE, residue 0
+> cookie 2: return DMA_IN_PROGRESS, residue (read from HW)
+> cookie 3: return DMA_IN_PROGRESS, residue txn length
+> cookie 4: return DMA_IN_PROGRESS, residue txn length
+> 
+> Thanks
+> 
+I think i miss something in my explanation, as from my humble POV (not
+enough expert in DMA framework...) we only one cookie here as only one
+cyclic transfer...
+
+Regarding your answers it looks like my sg explanation are not clear and
+introduce confusions... Sorry for this, i was used sg for internal STM32
+DMA driver, not for the framework API itself.
+
+Let try retry to re-explain you the stm32 DMA cyclic mode management.
+
+STM32 STM32 hardware:
+-------------------
+(ref manual:
+https://www.st.com/content/ccc/resource/technical/document/reference_manual/group0/51/ba/9e/5e/78/5b/4b/dd/DM00327659/files/DM00327659.pdf/jcr:content/translations/en.DM00327659.pdf)
+
+The stm32 DMA supports cyclic mode using a hardware double
+buffer mode.
+In this double buffer, we can program up to 2 transfers. When one is
+completed, the DMA automatically switch on the other. This could be see
+as a hardware LLI with only 2 transfer descriptors.
+A hardware bit CT (current target) is used to determine the
+current transfer (CT = 0 or 1).
+A hardware NDT (num of data to transfer) counter can be read to
+determine DMA position in current transfer.
+An IRQ is generated when this CT bit is updated to allows driver to
+update the double buffer for the next transfer.
+
+On client side (a.e audio):
+-------------------------
+The client requests a cyclic transfer by calling
+stm32_dma_prep_dma_cyclic. For instance it can request the transfer of a
+buffer divided in 10 periods. In this case only one cookie submitted
+(right?).
+
+At stm32dma driver level these 10 periods are registered in an internal
+software table (desc->sg_req[]).As cyclic, the last sg_req point to the
+first one.
+
+So to be able to transfer the whole software table, we have to update
+the STM32 DMA double buffer at each end of transfer period.
+The filed chan->next_sg points to the next sg_req in the software table.
+that should be write in the STM32 DMA double buffer.
+
+Residue calculation:
+-------------------
+During a transfer we can get the position in a period thanks to the
+NDT(num of data to transfer) bit-field.
+
+So the calculation is :
+1) Get the NDT field value
+3) add the periods remaining in the desc->sg_req[] table.
+
+In parallel the STM32 DMA hardware updates the transfer buffer in 3 steps:
+1) update CT register field.
+2) Update NDT register field.
+3) generate the IRQ (As you mention the IRQ is not treated during the
+device_tx_status as protected from interrupts).
+
+We are facing issue when computing the residue during the update of the
+CT and the NDT. The CT and NDT can as been updated ( both or only CT...)
+without driver context update (IRQ disabled).
+In this case we can point to the beginning of the current transfer(
+completed) instead of the next_transfer. This generates a residue error
+and for audio a time-stamp regression (so video freeze or audio plop).
+
+So the patch proposed consists in:
+1) getting the current NDT value
+2) reading CT and check that the hardware does not point to the next_sg.
+	if yes:
+	- CT has been updated by hardware but IRQ still not treated.
+	- By default we consider the current_sg as completed, so we
+	  point to the beginning of the next_sg buffer.
+
+Hope that will help to clarify.
+Thanks
+arnaud
+
+
+
+_______________________________________________
+Linux-stm32 mailing list
+Linux-stm32@st-md-mailman.stormreply.com
+https://st-md-mailman.stormreply.com/mailman/listinfo/linux-stm32
