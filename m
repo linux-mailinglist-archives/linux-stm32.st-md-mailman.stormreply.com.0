@@ -2,59 +2,47 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id 5786DEDFA
-	for <lists+linux-stm32@lfdr.de>; Tue, 30 Apr 2019 02:40:56 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 10A9FF1F4
+	for <lists+linux-stm32@lfdr.de>; Tue, 30 Apr 2019 10:23:10 +0200 (CEST)
 Received: from ip-172-31-3-76.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 1F03DC35E07
-	for <lists+linux-stm32@lfdr.de>; Tue, 30 Apr 2019 00:40:56 +0000 (UTC)
-Received: from mail-oi1-f193.google.com (mail-oi1-f193.google.com
- [209.85.167.193])
- (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id C3D99C35E07
+	for <lists+linux-stm32@lfdr.de>; Tue, 30 Apr 2019 08:23:09 +0000 (UTC)
+Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
+ (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 10A95C35E04
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 551ACC35E06
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Tue, 30 Apr 2019 00:40:54 +0000 (UTC)
-Received: by mail-oi1-f193.google.com with SMTP id y64so4360853oia.7
- for <linux-stm32@st-md-mailman.stormreply.com>;
- Mon, 29 Apr 2019 17:40:54 -0700 (PDT)
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20161025;
- h=x-gm-message-state:date:from:to:cc:subject:message-id:references
- :mime-version:content-disposition:in-reply-to:user-agent;
- bh=O9Iv2ifY4GsmV3xCWRy9UVgazV3TsrIbtMu5jqaQZhI=;
- b=PwSXZ6ZUwf1Y/TiEgggisk99vUfhEYaOXqPgcVH6SsLMDqBGS2ZF4PbPfIRWuZYao2
- n5ysYepkJ+POmTaPtPF1VX+jYCo7nTIrMJ/cKl3A0mPXYT/3ChJC5IVu0zmyxFO5ObyX
- RrIOMNkP1JgVIdZodPsc684hRmQiUflG4SELkocesKkIaFWFkACA2ugpXmr+7JezYdT+
- HEJQiq8PSVQFezRKtczFYbs8FVGu3W8z6ZCVTz1+KBkmmKPGJIa4YkWq3vqx2IvQ6mv6
- EeOYyxo2eOHaeIdSNjSO2ZHY9bm3eB2o0Q1Uv2bHbzZX6Q+kq0P/zC7AN0G5uqWCclgJ
- 9eJQ==
-X-Gm-Message-State: APjAAAXifok44d3DAbvt0PBpH55JAQKtOjNEx4qlm7pAwt+bSdZR9THd
- +s/0sCxsDM+gyId5FzGiaw==
-X-Google-Smtp-Source: APXvYqwW5hh4WHQNcZx2ZksEDdkJIORlNN4TTBlJnzXoGja1o5FdA+MCwncVj6Y4QcnHR11jUvZouA==
-X-Received: by 2002:aca:5fc4:: with SMTP id t187mr1302241oib.18.1556584852646; 
- Mon, 29 Apr 2019 17:40:52 -0700 (PDT)
-Received: from localhost (24-155-109-49.dyn.grandenetworks.net.
- [24.155.109.49])
- by smtp.gmail.com with ESMTPSA id k65sm14951243oia.16.2019.04.29.17.40.51
- (version=TLS1_2 cipher=ECDHE-RSA-CHACHA20-POLY1305 bits=256/256);
- Mon, 29 Apr 2019 17:40:51 -0700 (PDT)
-Date: Mon, 29 Apr 2019 19:40:51 -0500
-From: Rob Herring <robh@kernel.org>
-To: Fabien Dessenne <fabien.dessenne@st.com>
-Message-ID: <20190430004051.GA7391@bogus>
-References: <1555426699-5340-1-git-send-email-fabien.dessenne@st.com>
- <1555426699-5340-3-git-send-email-fabien.dessenne@st.com>
+ Tue, 30 Apr 2019 08:23:08 +0000 (UTC)
+Received: from localhost (unknown [171.76.113.243])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+ (No client certificate requested)
+ by mail.kernel.org (Postfix) with ESMTPSA id 1F94E20835;
+ Tue, 30 Apr 2019 08:23:05 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
+ s=default; t=1556612586;
+ bh=Ax7kPNajmahK5/UstcB84x/WDLbOavAFjZ0njaK2UbI=;
+ h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
+ b=QHND4OReBGyxKTLOodkLnfdc/7gyGeTctWO8VahlGw2wBkG0/RYaktPVgY+GDlR67
+ LevTswToLl9bLpXZE3eEI1DoOkp0bgGzbMT/iFG6+rQyV76LBBX7yrKuBG9HtoKRcC
+ SjmWZ6U8A++1UyV1W9jK++jSUeZMSQo+aZH+vJnk=
+Date: Tue, 30 Apr 2019 13:52:55 +0530
+From: Vinod Koul <vkoul@kernel.org>
+To: Arnaud Pouliquen <arnaud.pouliquen@st.com>
+Message-ID: <20190430082255.GP3845@vkoul-mobl.Dlink>
+References: <1553689316-6231-1-git-send-email-arnaud.pouliquen@st.com>
+ <20190426121751.GC28103@vkoul-mobl>
+ <6894b54e-651f-1caf-d363-79d1ef0eee14@st.com>
+ <20190429051310.GC3845@vkoul-mobl.Dlink>
+ <26fa7710-76cb-e202-a367-c2e2408b6808@st.com>
 MIME-Version: 1.0
 Content-Disposition: inline
-In-Reply-To: <1555426699-5340-3-git-send-email-fabien.dessenne@st.com>
-User-Agent: Mutt/1.10.1 (2018-07-13)
-Cc: Mark Rutland <mark.rutland@arm.com>, Ohad Ben-Cohen <ohad@wizery.com>,
- devicetree@vger.kernel.org, linux-remoteproc@vger.kernel.org,
- linux-kernel@vger.kernel.org, Bjorn Andersson <bjorn.andersson@linaro.org>,
- Maxime Coquelin <mcoquelin.stm32@gmail.com>,
- linux-stm32@st-md-mailman.stormreply.com, linux-arm-kernel@lists.infradead.org
-Subject: Re: [Linux-stm32] [PATCH v2 2/8] dt-bindings: remoteproc: add
- bindings for stm32 remote processor driver
+In-Reply-To: <26fa7710-76cb-e202-a367-c2e2408b6808@st.com>
+User-Agent: Mutt/1.11.3 (2019-02-01)
+Cc: dmaengine@vger.kernel.org, Dan Williams <dan.j.williams@intel.com>,
+ linux-stm32@st-md-mailman.stormreply.com,
+ Pierre-Yves MORDRET <pierre-yves.mordret@st.com>, linux-kernel@vger.kernel.org
+Subject: Re: [Linux-stm32] [PATCH] dmaengine: stm32-dma: fix residue
+ calculation in stm32-dma
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -71,96 +59,172 @@ Content-Transfer-Encoding: 7bit
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
-On Tue, Apr 16, 2019 at 04:58:13PM +0200, Fabien Dessenne wrote:
-> Add the device tree bindings document for the stm32 remoteproc devices.
+On 29-04-19, 16:52, Arnaud Pouliquen wrote:
 > 
-> Signed-off-by: Fabien Dessenne <fabien.dessenne@st.com>
-> ---
->  .../devicetree/bindings/remoteproc/stm32-rproc.txt | 64 ++++++++++++++++++++++
->  1 file changed, 64 insertions(+)
->  create mode 100644 Documentation/devicetree/bindings/remoteproc/stm32-rproc.txt
 > 
-> diff --git a/Documentation/devicetree/bindings/remoteproc/stm32-rproc.txt b/Documentation/devicetree/bindings/remoteproc/stm32-rproc.txt
-> new file mode 100644
-> index 0000000..430132c
-> --- /dev/null
-> +++ b/Documentation/devicetree/bindings/remoteproc/stm32-rproc.txt
-> @@ -0,0 +1,64 @@
-> +STMicroelectronics STM32 Remoteproc
-> +-----------------------------------
-> +This document defines the binding for the remoteproc component that loads and
-> +boots firmwares on the ST32MP family chipset.
-> +
-> +Required properties:
-> +- compatible:	Must be "st,stm32mp1-m4"
-> +- reg:		Address ranges of the remote processor dedicated memories.
-> +		The parent node should provide an appropriate ranges property
-> +		for properly translating these into bus addresses.
+> On 4/29/19 7:13 AM, Vinod Koul wrote:
+> > On 26-04-19, 15:41, Arnaud Pouliquen wrote:
+> >>>> During residue calculation. the DMA can switch to the next sg. When
+> >>>> this race condition occurs, the residue returned value is not valid.
+> >>>> Indeed the position in the sg returned by the hardware is the position
+> >>>> of the next sg, not the current sg.
+> >>>> Solution is to check the sg after the calculation to verify it.
+> >>>> If a transition is detected we consider that the DMA has switched to
+> >>>> the beginning of next sg.
+> >>>
+> >>> Now, that sounds like duct tape. Why should we bother doing that.
+> >>>
+> >>> Also looking back at the stm32_dma_desc_residue() and calls to it from
+> >>> stm32_dma_tx_status() am not sure we are doing the right thing
+> >> Please, could you explain what you have in mind here?
+> > 
+> > So when we call vchan_find_desc() that tells us if the descriptor is in
+> > the issued queue or not..  Ideally it should not matter if we have one
+> > or N descriptors issued to hardware.
+> > 
+> > So why should you bother checking for next_sg.
+> > 
+> >>> why are we looking at next_sg here, can you explain me that please
+> >>
+> >> This solution is similar to one implemented in the at_hdmac.c driver
+> >> (atc_get_bytes_left function).
+> >>
+> >> Yes could be consider as a workaround for a hardware issue...
+> >>
+> >> In stm32 DMA Peripheral, we can register up to 2 sg descriptors (sg1 &
+> >> sg2)in DMA registers, and use it in a cyclic mode (auto reload). This
+> >> mode is mainly use for audio transfer initiated by an ALSA driver.
+> >>
+> >> >From hardware point of view the DMA transfers first block based on sg1,
+> >> then it updates registers to prepare sg2 transfer, and then generates an
+> >> IRQ to inform that it issues the next transfer (sg2).
+> >>
+> >> Then driver can update sg1 to prepare the third transfer...
+> >>
+> >> In parallel the client driver can requests status to get the residue to
+> >> update internal pointer.
+> >> The issue is in the race condition between the call of the
+> >> device_tx_status ops and the update of the DMA register on sg switch.
+> > 
+> > Sorry I do not agree! You are in stm32_dma_tx_status() hold the lock and
+> > IRQs are disabled, so even if sg2 was loaded, you will not get an
+> > interrupt and wont know. By looking at sg1 register you will see that
+> > sg1 is telling you that it has finished and residue can be zero. That is
+> > fine and correct to report.
+> > 
+> > Most important thing here is that reside is for _requested_ descriptor
+> > and not _current_ descriptor, so looking into sg2 doesnt not fit.
+> > 
+> >> During a short time the hardware updated the registers containing the
+> >> sg ID but not the transfer counter(SxNDTR). In this case there is a
+> >> mismatch between the Sg ID and the associated transfer counter.
+> >> So residue calculation is wrong.
+> >> Idea of this patch is to perform the calculation and then to crosscheck
+> >> that the hardware has not switched to the next sg during the
+> >> calculation. The way to crosscheck is to compare the the sg ID before
+> >> and after the calculation.
+> >>
+> >> I tested the solution to force a new recalculation but no real solution
+> >> to trust the registers during this phase. In this case an approximation
+> >> is to consider that the DMA is transferring the first bytes of the next sg.
+> >> So we return the residue corresponding to the beginning of the next buffer.
+> > 
+> > And that is wrong!. The argument is 'cookie' and you return residue for
+> > that cookie.
+> > 
+> > For example, if you have dma txn with cookie 1, 2, 3, 4 submitted, then currently HW
+> > is processing cookie 2, then for tx_status on:
+> > cookie 1: return DMA_COMPLETE, residue 0
+> > cookie 2: return DMA_IN_PROGRESS, residue (read from HW)
+> > cookie 3: return DMA_IN_PROGRESS, residue txn length
+> > cookie 4: return DMA_IN_PROGRESS, residue txn length
+> > 
+> > Thanks
+> > 
+> I think i miss something in my explanation, as from my humble POV (not
+> enough expert in DMA framework...) we only one cookie here as only one
+> cyclic transfer...
 
-dma-ranges, but that's independent of 'reg'.
-
-It needs to list how many reg regions and what they are.
-
-> +- resets:	Reference to a reset controller asserting the remote processor.
-> +- st,syscfg-holdboot: Reference to the system configuration which holds the
-> +		remote processor reset hold boot
-> +	1st cell: phandle of syscon block
-> +	2nd cell: register offset containing the hold boot setting
-> +	3rd cell: register bitmask for the hold boot field
-> +- st,syscfg-tz: Reference to the system configuration which holds the RCC trust
-> +		zone mode
-> +	1st cell: phandle to syscon block
-> +	2nd cell: register offset containing the RCC trust zone mode setting
-> +	3rd cell: register bitmask for the RCC trust zone mode bit
-> +
-> +Optional properties:
-> +- interrupts:	Should contain the watchdog interrupt
-> +- mboxes:	This property is required only if the rpmsg/virtio functionality
-> +		is used. List of phandle and mailbox channel specifiers:
-> +		- a channel (a) used to communicate through virtqueues with the
-> +		  remote proc.
-> +		  Bi-directional channel:
-> +		      - from local to remote = send message
-> +		      - from remote to local = send message ack
-> +		- a channel (b) working the opposite direction of channel (a)
-> +		- a channel (c) used by the local proc to notify the remote proc
-> +		  that it is about to be shut down.
-> +		  Unidirectional channel:
-> +		      - from local to remote, where ACK from the remote means
-> +		        that it is ready for shutdown
-> +- mbox-names:	This property is required if the mboxes property is used.
-> +		- must be "vq0" for channel (a)
-> +		- must be "vq1" for channel (b)
-> +		- must be "shutdown" for channel (c)
-> +- memory-region: List of phandles to the reserved memory regions associated with
-> +		the remoteproc device. This is variable and describes the
-> +		memories shared with the remote processor (eg: remoteproc
-> +		firmware and carveouts, rpmsg vrings, ...).
-> +		(see ../reserved-memory/reserved-memory.txt)
-> +- st,syscfg-pdds: Reference to the system configuration which holds the remote
-> +		processor deep sleep setting
-> +	1st cell: phandle to syscon block
-> +	2nd cell: register offset containing the deep sleep setting
-> +	3rd cell: register bitmask for the deep sleep bit
-> +- auto_boot:	If defined, when remoteproc is probed, it loads the default
-> +		firmware and starts the remote processor.
-
-st,auto-boot
-
-> +
-> +Example:
-> +	m4_rproc: m4@0 {
-> +		compatible = "st,stm32mp1-m4";
-> +		reg = <0x00000000 0x10000>,
-> +		      <0x10000000 0x40000>,
-> +		      <0x30000000 0x40000>;
-> +		resets = <&rcc MCU_R>;
-> +		st,syscfg-holdboot = <&rcc 0x10C 0x1>;
-> +		st,syscfg-tz = <&rcc 0x000 0x1>;
-> +	};
-> -- 
-> 2.7.4
+> Regarding your answers it looks like my sg explanation are not clear and
+> introduce confusions... Sorry for this, i was used sg for internal STM32
+> DMA driver, not for the framework API itself.
 > 
+> Let try retry to re-explain you the stm32 DMA cyclic mode management.
+> 
+> STM32 STM32 hardware:
+> -------------------
+> (ref manual:
+> https://www.st.com/content/ccc/resource/technical/document/reference_manual/group0/51/ba/9e/5e/78/5b/4b/dd/DM00327659/files/DM00327659.pdf/jcr:content/translations/en.DM00327659.pdf)
+> 
+> The stm32 DMA supports cyclic mode using a hardware double
+> buffer mode.
+> In this double buffer, we can program up to 2 transfers. When one is
+> completed, the DMA automatically switch on the other. This could be see
+> as a hardware LLI with only 2 transfer descriptors.
+> A hardware bit CT (current target) is used to determine the
+> current transfer (CT = 0 or 1).
+> A hardware NDT (num of data to transfer) counter can be read to
+> determine DMA position in current transfer.
+> An IRQ is generated when this CT bit is updated to allows driver to
+> update the double buffer for the next transfer.
+> 
+> On client side (a.e audio):
+> -------------------------
+> The client requests a cyclic transfer by calling
+> stm32_dma_prep_dma_cyclic. For instance it can request the transfer of a
+> buffer divided in 10 periods. In this case only one cookie submitted
+> (right?).
+> 
+> At stm32dma driver level these 10 periods are registered in an internal
+> software table (desc->sg_req[]).As cyclic, the last sg_req point to the
+> first one.
+> 
+> So to be able to transfer the whole software table, we have to update
+> the STM32 DMA double buffer at each end of transfer period.
+> The filed chan->next_sg points to the next sg_req in the software table.
+> that should be write in the STM32 DMA double buffer.
+> 
+> Residue calculation:
+> -------------------
+> During a transfer we can get the position in a period thanks to the
+> NDT(num of data to transfer) bit-field.
+> 
+> So the calculation is :
+> 1) Get the NDT field value
+> 3) add the periods remaining in the desc->sg_req[] table.
+> 
+> In parallel the STM32 DMA hardware updates the transfer buffer in 3 steps:
+> 1) update CT register field.
+> 2) Update NDT register field.
+> 3) generate the IRQ (As you mention the IRQ is not treated during the
+> device_tx_status as protected from interrupts).
+> 
+> We are facing issue when computing the residue during the update of the
+> CT and the NDT. The CT and NDT can as been updated ( both or only CT...)
+> without driver context update (IRQ disabled).
+> In this case we can point to the beginning of the current transfer(
+> completed) instead of the next_transfer. This generates a residue error
+> and for audio a time-stamp regression (so video freeze or audio plop).
+> 
+> So the patch proposed consists in:
+> 1) getting the current NDT value
+> 2) reading CT and check that the hardware does not point to the next_sg.
+> 	if yes:
+> 	- CT has been updated by hardware but IRQ still not treated.
+> 	- By default we consider the current_sg as completed, so we
+> 	  point to the beginning of the next_sg buffer.
+> 
+> Hope that will help to clarify.
+
+Yes that helps, maybe we should add these bits in code and changelog..
+:)
+
+And how does this impact non cyclic case where N descriptors maybe
+issued. The driver seems to support non cyclic too...
+
+Thanks
+-- 
+~Vinod
 _______________________________________________
 Linux-stm32 mailing list
 Linux-stm32@st-md-mailman.stormreply.com
