@@ -2,65 +2,68 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id 5E2D511AE2
-	for <lists+linux-stm32@lfdr.de>; Thu,  2 May 2019 16:09:31 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 5A4F51231B
+	for <lists+linux-stm32@lfdr.de>; Thu,  2 May 2019 22:21:29 +0200 (CEST)
 Received: from ip-172-31-3-76.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 2EAFAC6C398
-	for <lists+linux-stm32@lfdr.de>; Thu,  2 May 2019 14:09:31 +0000 (UTC)
-Received: from mx07-00178001.pphosted.com (mx07-00178001.pphosted.com
- [62.209.51.94])
- (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 06689C6DD9C
+	for <lists+linux-stm32@lfdr.de>; Thu,  2 May 2019 20:21:29 +0000 (UTC)
+Received: from mail-pf1-f193.google.com (mail-pf1-f193.google.com
+ [209.85.210.193])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 88254C6C396
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id CE673C6DD9B
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Thu,  2 May 2019 14:09:29 +0000 (UTC)
-Received: from pps.filterd (m0046037.ppops.net [127.0.0.1])
- by mx07-00178001.pphosted.com (8.16.0.27/8.16.0.27) with SMTP id
- x42E6GFQ024265; Thu, 2 May 2019 16:08:53 +0200
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=st.com;
- h=from : to : cc : subject
- : date : message-id : in-reply-to : references : mime-version :
- content-type; s=STMicroelectronics;
- bh=B2mjvFp5tZAreydQuG21Xnr2OG+nuKN2OB+0hiwhvgw=;
- b=rAdPy5UwUrmDtWn9MfR35H0Q0EXfhwc0y2DbMd1Mo4UdowuuKIMcvkzh6zJ9jpA32KuV
- zSzq1BZt50UZwELV1jP5j+g/uFZVLdEnSw1krUFjaj5dows2NwBWYvr+H0lLGY0PmIs5
- k9e5Vyvy3zSpxfBl7oWxxurUcOSS0FQ0/xTq3N0K7PHTqw2BdkKntKLW/AqfUYl713t+
- YKxOVF9WLzTekqT3/jLmU4nOFXH/3XrAjHhqfCodhR6o7UnUvayy8ExlcMoKql+TfC94
- KxmxLR1+tFtAqytAcWu0N1519LBJADusLXVoujlGk7iYqPMpNoD1tNS+DSFB4s+QVtA9 +A== 
-Received: from beta.dmz-eu.st.com (beta.dmz-eu.st.com [164.129.1.35])
- by mx07-00178001.pphosted.com with ESMTP id 2s6xgrrq00-1
- (version=TLSv1 cipher=ECDHE-RSA-AES256-SHA bits=256 verify=NOT);
- Thu, 02 May 2019 16:08:53 +0200
-Received: from zeta.dmz-eu.st.com (zeta.dmz-eu.st.com [164.129.230.9])
- by beta.dmz-eu.st.com (STMicroelectronics) with ESMTP id 20A3441;
- Thu,  2 May 2019 14:08:52 +0000 (GMT)
-Received: from Webmail-eu.st.com (Safex1hubcas23.st.com [10.75.90.46])
- by zeta.dmz-eu.st.com (STMicroelectronics) with ESMTP id CEBEC2730;
- Thu,  2 May 2019 14:08:51 +0000 (GMT)
-Received: from SAFEX1HUBCAS24.st.com (10.75.90.95) by SAFEX1HUBCAS23.st.com
- (10.75.90.46) with Microsoft SMTP Server (TLS) id 14.3.439.0; Thu, 2 May 2019
- 16:08:51 +0200
-Received: from lmecxl0923.lme.st.com (10.48.0.237) by webmail-ga.st.com
- (10.75.90.48) with Microsoft SMTP Server (TLS) id 14.3.439.0; Thu, 2 May 2019
- 16:08:51 +0200
-From: Ludovic Barre <ludovic.Barre@st.com>
-To: Wim Van Sebroeck <wim@linux-watchdog.org>, Guenter Roeck
- <linux@roeck-us.net>, Rob Herring <robh+dt@kernel.org>
-Date: Thu, 2 May 2019 16:08:46 +0200
-Message-ID: <1556806126-15890-4-git-send-email-ludovic.Barre@st.com>
-X-Mailer: git-send-email 2.7.4
-In-Reply-To: <1556806126-15890-1-git-send-email-ludovic.Barre@st.com>
+ Thu,  2 May 2019 20:21:27 +0000 (UTC)
+Received: by mail-pf1-f193.google.com with SMTP id v80so1686025pfa.3
+ for <linux-stm32@st-md-mailman.stormreply.com>;
+ Thu, 02 May 2019 13:21:27 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20161025;
+ h=sender:date:from:to:cc:subject:message-id:references:mime-version
+ :content-disposition:in-reply-to:user-agent;
+ bh=RSVFzqBrNoAzGByRQNnOze9LicthP1Zxl3KzGO68CDM=;
+ b=HWx4202fdM6hgHbbQQbOCTOFjQO3TLGOtDwId2KDBlfH30aSG/7brUcfjmpDaWYqT3
+ eFlgZC4UaIEyH1W/TgpcMokl72eG7heORhYTf5hLq3ddjpfaKH3a4bA9cXPngFWefwbD
+ URW+U2ak3/2ADVYe9ubwMHSaEQxkDOhNvKCaE8Cxb6qSVI8iibrMAU+Rp1Rxloc+12o8
+ NCvWGlpklHsKLBmvGLQQkz5AVpU2fi/9Fj/ZClx+PCIIcS8eB5/aP4bherxMBuYxUvx5
+ gZkTz7eOCUMwO5KoGiKkFOpSITwMrVFd3nfoIvWTp2NSBdRFqruHZu4vLWgGoccWkG14
+ g3xg==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20161025;
+ h=x-gm-message-state:sender:date:from:to:cc:subject:message-id
+ :references:mime-version:content-disposition:in-reply-to:user-agent;
+ bh=RSVFzqBrNoAzGByRQNnOze9LicthP1Zxl3KzGO68CDM=;
+ b=MxgRFi0209dbd8km2Lo6hFlwEEUN+dhhFhqpMLKOzPk2yg8H0ToKtI/LTqvcsIS1fb
+ kpD1wh41gWaZg1/I6zE8h42CFS+MMUaizHIcSLx1tnmkV3aiGemFx4xUjgGDD3iF2NOI
+ 9XHwFHHSJQxA8720xQ13K4mw7mYnrDe5dIBuA22x+2+TRTsFZRhgGig6Umbm1yeXx6ze
+ Cy35ZpEDr+fblxAkWmTTJyiL3JCKXs+z/QkeVd0HL2Vj1KCz6PPV221sittR27F0eY7g
+ DVqkPGhFzKuF3TMXWhk++eCxrauOuwo8ojzw9nfaKzNCsNKA7Y9sBUSBXIwEOYjBdNMt
+ mWug==
+X-Gm-Message-State: APjAAAVJMB6ATwKUCet+xpsij9AWv0SqzsOV5IuphXW3mJZHXyEyCgcy
+ 03rIaxftD2Ro0PKeiB6sqbY=
+X-Google-Smtp-Source: APXvYqyqxBdfissQiYlYy8sXzM14Kk6vmbI9ypGeaWGJkrP5xZhgv3S/pXhmaX20NrsLpXPiyu8UeQ==
+X-Received: by 2002:a63:d908:: with SMTP id r8mr6061828pgg.268.1556828485710; 
+ Thu, 02 May 2019 13:21:25 -0700 (PDT)
+Received: from localhost ([2600:1700:e321:62f0:329c:23ff:fee3:9d7c])
+ by smtp.gmail.com with ESMTPSA id 15sm20555pfy.88.2019.05.02.13.21.23
+ (version=TLS1_2 cipher=ECDHE-RSA-AES128-GCM-SHA256 bits=128/128);
+ Thu, 02 May 2019 13:21:24 -0700 (PDT)
+Date: Thu, 2 May 2019 13:21:22 -0700
+From: Guenter Roeck <linux@roeck-us.net>
+To: Ludovic Barre <ludovic.Barre@st.com>
+Message-ID: <20190502202122.GA27894@roeck-us.net>
 References: <1556806126-15890-1-git-send-email-ludovic.Barre@st.com>
+ <1556806126-15890-2-git-send-email-ludovic.Barre@st.com>
 MIME-Version: 1.0
-X-Originating-IP: [10.48.0.237]
-X-Proofpoint-Virus-Version: vendor=fsecure engine=2.50.10434:, ,
- definitions=2019-05-02_08:, , signatures=0
-Cc: devicetree@vger.kernel.org, linux-kernel@vger.kernel.org,
+Content-Disposition: inline
+In-Reply-To: <1556806126-15890-2-git-send-email-ludovic.Barre@st.com>
+User-Agent: Mutt/1.5.24 (2015-08-30)
+Cc: devicetree@vger.kernel.org, linux-watchdog@vger.kernel.org,
+ linux-kernel@vger.kernel.org, Rob Herring <robh+dt@kernel.org>,
  Maxime Coquelin <mcoquelin.stm32@gmail.com>,
- linux-stm32@st-md-mailman.stormreply.com, linux-arm-kernel@lists.infradead.org,
- linux-watchdog@vger.kernel.org
-Subject: [Linux-stm32] [PATCH V2 3/3] watchdog: stm32: add dynamic prescaler
-	support
+ Wim Van Sebroeck <wim@linux-watchdog.org>,
+ linux-stm32@st-md-mailman.stormreply.com, linux-arm-kernel@lists.infradead.org
+Subject: Re: [Linux-stm32] [PATCH V2 1/3] watchdog: stm32: update to
+ devm_watchdog_register_device
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -77,176 +80,56 @@ Content-Transfer-Encoding: 7bit
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
-From: Ludovic Barre <ludovic.barre@st.com>
+On Thu, May 02, 2019 at 04:08:44PM +0200, Ludovic Barre wrote:
+> From: Ludovic Barre <ludovic.barre@st.com>
+> 
+> This patch updates to devm_watchdog_register_device interface
+> 
+Not that easy. See below.
 
-This patch allows to define the max prescaler by compatible.
-To set a large range of timeout, the prescaler should be set
-dynamically (from the timeout request) to improve the resolution
-in order to have a timeout close to the expected value.
+A more complete solution is at
+https://patchwork.kernel.org/patch/10894355
 
-Signed-off-by: Ludovic Barre <ludovic.barre@st.com>
----
- drivers/watchdog/stm32_iwdg.c | 76 ++++++++++++++++++++++++-------------------
- 1 file changed, 42 insertions(+), 34 deletions(-)
+I have a total of three patches for this driver pending for
+the next kernel release. Maybe it would make sense to (re-)
+start this series from there after the next commit window
+closes.
 
-diff --git a/drivers/watchdog/stm32_iwdg.c b/drivers/watchdog/stm32_iwdg.c
-index f19a6d4..0c765d4 100644
---- a/drivers/watchdog/stm32_iwdg.c
-+++ b/drivers/watchdog/stm32_iwdg.c
-@@ -34,18 +34,12 @@
- #define KR_KEY_EWA	0x5555 /* write access enable */
- #define KR_KEY_DWA	0x0000 /* write access disable */
- 
--/* IWDG_PR register bit values */
--#define PR_4		0x00 /* prescaler set to 4 */
--#define PR_8		0x01 /* prescaler set to 8 */
--#define PR_16		0x02 /* prescaler set to 16 */
--#define PR_32		0x03 /* prescaler set to 32 */
--#define PR_64		0x04 /* prescaler set to 64 */
--#define PR_128		0x05 /* prescaler set to 128 */
--#define PR_256		0x06 /* prescaler set to 256 */
-+#define PR_SHIFT	2
-+#define PR_MIN		BIT(PR_SHIFT)
- 
- /* IWDG_RLR register values */
--#define RLR_MIN		0x07C /* min value supported by reload register */
--#define RLR_MAX		0xFFF /* max value supported by reload register */
-+#define RLR_MIN		0x2		/* min value recommended */
-+#define RLR_MAX		GENMASK(11, 0)	/* max value of reload register */
- 
- /* IWDG_SR register bit mask */
- #define FLAG_PVU	BIT(0) /* Watchdog prescaler value update */
-@@ -55,15 +49,28 @@
- #define TIMEOUT_US	100000
- #define SLEEP_US	1000
- 
--#define HAS_PCLK	true
-+struct stm32_iwdg_data {
-+	bool has_pclk;
-+	u32 max_prescaler;
-+};
-+
-+static const struct stm32_iwdg_data stm32_iwdg_data = {
-+	.has_pclk = false,
-+	.max_prescaler = 256,
-+};
-+
-+static const struct stm32_iwdg_data stm32mp1_iwdg_data = {
-+	.has_pclk = true,
-+	.max_prescaler = 1024,
-+};
- 
- struct stm32_iwdg {
- 	struct watchdog_device	wdd;
-+	const struct stm32_iwdg_data *data;
- 	void __iomem		*regs;
- 	struct clk		*clk_lsi;
- 	struct clk		*clk_pclk;
- 	unsigned int		rate;
--	bool			has_pclk;
- };
- 
- static inline u32 reg_read(void __iomem *base, u32 reg)
-@@ -79,26 +86,28 @@ static inline void reg_write(void __iomem *base, u32 reg, u32 val)
- static int stm32_iwdg_start(struct watchdog_device *wdd)
- {
- 	struct stm32_iwdg *wdt = watchdog_get_drvdata(wdd);
--	u32 val = FLAG_PVU | FLAG_RVU;
--	u32 reload;
-+	u32 presc, iwdg_rlr, iwdg_pr, iwdg_sr;
- 
- 	dev_dbg(wdd->parent, "%s\n", __func__);
- 
--	/* prescaler fixed to 256 */
--	reload = clamp_t(unsigned int, ((wdd->timeout * wdt->rate) / 256) - 1,
--			 RLR_MIN, RLR_MAX);
-+	presc = DIV_ROUND_UP(wdd->timeout * wdt->rate, RLR_MAX + 1);
-+
-+	/* The prescaler is align on power of 2 and start at 2 ^ PR_SHIFT. */
-+	presc = roundup_pow_of_two(presc);
-+	iwdg_pr = presc <= 1 << PR_SHIFT ? 0 : ilog2(presc) - PR_SHIFT;
-+	iwdg_rlr = ((wdd->timeout * wdt->rate) / presc) - 1;
- 
-+	/* enable watchdog */
-+	reg_write(wdt->regs, IWDG_KR, KR_KEY_ENABLE);
- 	/* enable write access */
- 	reg_write(wdt->regs, IWDG_KR, KR_KEY_EWA);
--
- 	/* set prescaler & reload registers */
--	reg_write(wdt->regs, IWDG_PR, PR_256); /* prescaler fix to 256 */
--	reg_write(wdt->regs, IWDG_RLR, reload);
--	reg_write(wdt->regs, IWDG_KR, KR_KEY_ENABLE);
-+	reg_write(wdt->regs, IWDG_PR, iwdg_pr);
-+	reg_write(wdt->regs, IWDG_RLR, iwdg_rlr);
- 
- 	/* wait for the registers to be updated (max 100ms) */
--	if (readl_relaxed_poll_timeout(wdt->regs + IWDG_SR, val,
--				       !(val & (FLAG_PVU | FLAG_RVU)),
-+	if (readl_relaxed_poll_timeout(wdt->regs + IWDG_SR, iwdg_sr,
-+				       !(iwdg_sr & (FLAG_PVU | FLAG_RVU)),
- 				       SLEEP_US, TIMEOUT_US)) {
- 		dev_err(wdd->parent, "Fail to set prescaler, reload regs\n");
- 		return -EIO;
-@@ -155,7 +164,7 @@ static int stm32_iwdg_clk_init(struct platform_device *pdev,
- 	}
- 
- 	/* optional peripheral clock */
--	if (wdt->has_pclk) {
-+	if (wdt->data->has_pclk) {
- 		wdt->clk_pclk = devm_clk_get(&pdev->dev, "pclk");
- 		if (IS_ERR(wdt->clk_pclk)) {
- 			dev_err(&pdev->dev, "Unable to get pclk clock\n");
-@@ -196,8 +205,8 @@ static const struct watchdog_ops stm32_iwdg_ops = {
- };
- 
- static const struct of_device_id stm32_iwdg_of_match[] = {
--	{ .compatible = "st,stm32-iwdg", .data = (void *)!HAS_PCLK },
--	{ .compatible = "st,stm32mp1-iwdg", .data = (void *)HAS_PCLK },
-+	{ .compatible = "st,stm32-iwdg", .data = &stm32_iwdg_data },
-+	{ .compatible = "st,stm32mp1-iwdg", .data = &stm32mp1_iwdg_data },
- 	{ /* end node */ }
- };
- MODULE_DEVICE_TABLE(of, stm32_iwdg_of_match);
-@@ -205,20 +214,17 @@ MODULE_DEVICE_TABLE(of, stm32_iwdg_of_match);
- static int stm32_iwdg_probe(struct platform_device *pdev)
- {
- 	struct watchdog_device *wdd;
--	const struct of_device_id *match;
- 	struct stm32_iwdg *wdt;
- 	struct resource *res;
- 	int ret;
- 
--	match = of_match_device(stm32_iwdg_of_match, &pdev->dev);
--	if (!match)
--		return -ENODEV;
--
- 	wdt = devm_kzalloc(&pdev->dev, sizeof(*wdt), GFP_KERNEL);
- 	if (!wdt)
- 		return -ENOMEM;
- 
--	wdt->has_pclk = match->data;
-+	wdt->data = of_device_get_match_data(&pdev->dev);
-+	if (!wdt->data)
-+		return -ENODEV;
- 
- 	/* This is the timer base. */
- 	res = platform_get_resource(pdev, IORESOURCE_MEM, 0);
-@@ -236,8 +242,10 @@ static int stm32_iwdg_probe(struct platform_device *pdev)
- 	wdd = &wdt->wdd;
- 	wdd->info = &stm32_iwdg_info;
- 	wdd->ops = &stm32_iwdg_ops;
--	wdd->min_timeout = ((RLR_MIN + 1) * 256) / wdt->rate;
--	wdd->max_hw_heartbeat_ms = ((RLR_MAX + 1) * 256 * 1000) / wdt->rate;
-+	wdd->min_timeout = max_t(unsigned int, 1,
-+				 (((RLR_MIN + 1) * PR_MIN) / wdt->rate));
-+	wdd->max_hw_heartbeat_ms = ((RLR_MAX + 1) * wdt->data->max_prescaler *
-+				    1000) / wdt->rate;
- 	wdd->parent = &pdev->dev;
- 
- 	watchdog_set_drvdata(wdd, wdt);
--- 
-2.7.4
+Guenter
 
+> Signed-off-by: Ludovic Barre <ludovic.barre@st.com>
+> ---
+>  drivers/watchdog/stm32_iwdg.c | 3 +--
+>  1 file changed, 1 insertion(+), 2 deletions(-)
+> 
+> diff --git a/drivers/watchdog/stm32_iwdg.c b/drivers/watchdog/stm32_iwdg.c
+> index e00e3b3..e191bd8 100644
+> --- a/drivers/watchdog/stm32_iwdg.c
+> +++ b/drivers/watchdog/stm32_iwdg.c
+> @@ -243,7 +243,7 @@ static int stm32_iwdg_probe(struct platform_device *pdev)
+>  		dev_warn(&pdev->dev,
+>  			 "unable to set timeout value, using default\n");
+>  
+> -	ret = watchdog_register_device(wdd);
+> +	ret = devm_watchdog_register_device(&pdev->dev, wdd);
+>  	if (ret) {
+>  		dev_err(&pdev->dev, "failed to register watchdog device\n");
+>  		goto err;
+> @@ -263,7 +263,6 @@ static int stm32_iwdg_remove(struct platform_device *pdev)
+>  {
+>  	struct stm32_iwdg *wdt = platform_get_drvdata(pdev);
+>  
+> -	watchdog_unregister_device(&wdt->wdd);
+>  	clk_disable_unprepare(wdt->clk_lsi);
+>  	clk_disable_unprepare(wdt->clk_pclk);
+
+This disables the clock while the watchdog is still registered
+and running. That is not a good idea.
+
+>  
+> -- 
+> 2.7.4
+> 
 _______________________________________________
 Linux-stm32 mailing list
 Linux-stm32@st-md-mailman.stormreply.com
