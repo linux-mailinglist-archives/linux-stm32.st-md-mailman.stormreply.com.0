@@ -2,46 +2,63 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id BBA2D1112D
-	for <lists+linux-stm32@lfdr.de>; Thu,  2 May 2019 04:19:09 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id A1DAB114F2
+	for <lists+linux-stm32@lfdr.de>; Thu,  2 May 2019 10:10:35 +0200 (CEST)
 Received: from ip-172-31-3-76.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 872DCC597B9
-	for <lists+linux-stm32@lfdr.de>; Thu,  2 May 2019 02:19:09 +0000 (UTC)
-Received: from heliosphere.sirena.org.uk (heliosphere.sirena.org.uk
- [172.104.155.198])
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id ED27BC0B796
+	for <lists+linux-stm32@lfdr.de>; Thu,  2 May 2019 08:10:34 +0000 (UTC)
+Received: from mx07-00178001.pphosted.com (mx08-00178001.pphosted.com
+ [91.207.212.93])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 8534CC597B9
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id AF80BC0B794
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Thu,  2 May 2019 02:19:08 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
- d=sirena.org.uk; s=20170815-heliosphere; h=Date:Message-Id:In-Reply-To:
- Subject:Cc:To:From:Sender:Reply-To:MIME-Version:Content-Type:
- Content-Transfer-Encoding:Content-ID:Content-Description:Resent-Date:
- Resent-From:Resent-Sender:Resent-To:Resent-Cc:Resent-Message-ID:References:
- List-Id:List-Help:List-Unsubscribe:List-Subscribe:List-Post:List-Owner:
- List-Archive; bh=kubXXWC5hG9Tf1ZSHpSxNXJFgzmFjFMboy4IdHsOOYE=; b=Eu4Z2dQK2d5s
- 7+OPZea8vdm5txFIQ3PXmk2cFESM+o/bLD/y0Y2GZ4yWVnh+BCMG2J8wGq1+nK+v81wtpJ3It4n2g
- ZU8rdxq++CEIysOxPTqpcdvevSj9kMWV8xpzeW2IGFs6OzMwMpzesxpa9y9EqvusxgkcJEIaIwVa/
- jR7wU=;
-Received: from [211.55.52.15] (helo=finisterre.ee.mobilebroadband)
- by heliosphere.sirena.org.uk with esmtpsa
- (TLS1.2:ECDHE_RSA_AES_256_GCM_SHA384:256) (Exim 4.89)
- (envelope-from <broonie@sirena.org.uk>)
- id 1hM1JQ-0005va-TA; Thu, 02 May 2019 02:19:05 +0000
-Received: by finisterre.ee.mobilebroadband (Postfix, from userid 1000)
- id 7345A441D56; Thu,  2 May 2019 03:19:01 +0100 (BST)
-From: Mark Brown <broonie@kernel.org>
-To: Fabien Dessenne <fabien.dessenne@st.com>
-In-Reply-To: <1556119140-3319-1-git-send-email-fabien.dessenne@st.com>
-X-Patchwork-Hint: ignore
-Message-Id: <20190502021901.7345A441D56@finisterre.ee.mobilebroadband>
-Date: Thu,  2 May 2019 03:19:01 +0100 (BST)
-Cc: linux-kernel@vger.kernel.org, linux-spi@vger.kernel.org,
- Mark Brown <broonie@kernel.org>, Maxime Coquelin <mcoquelin.stm32@gmail.com>,
- linux-stm32@st-md-mailman.stormreply.com, linux-arm-kernel@lists.infradead.org
-Subject: [Linux-stm32] Applied "spi: stm32-qspi: manage the get_irq error
-	case" to the spi tree
+ Thu,  2 May 2019 08:10:33 +0000 (UTC)
+Received: from pps.filterd (m0046661.ppops.net [127.0.0.1])
+ by mx08-00178001.pphosted.com (8.16.0.27/8.16.0.27) with SMTP id
+ x42862RU006167; Thu, 2 May 2019 10:10:16 +0200
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=st.com;
+ h=from : to : cc : subject
+ : date : message-id : mime-version : content-type; s=STMicroelectronics;
+ bh=R4ti5gteNcBki+KcCZxNtPlE39G37YfOCdhQ1hFnO/4=;
+ b=eNxlwstRAn08phkcWqAvf2F8iKl3xDJ4Y6ZI1feZB7HPwNdaDWwHjMAEl8yeTeYUpd8F
+ CGa44tuNVPHxgZ+znx0PIhUe5Qd3dVAxFnnqhTuFiApyCkjCY6RB7oc3H+dpovlyINFp
+ Wzx3KkaRmwFg1LrewL98IKgwSWd6ABVRygSeZ50VA68/g/Yiu9hdRXorkcACQ0x7qa3D
+ Ew2FNDonBa/kSg9tP+eLzYF1Yiz9GfFvjsj+NGmY1TCfm2yzKo8W38Zg0mMf3CvkiT0Y
+ 4dIBwsnezr0oZTy2M9PLgfWxqTTbIGWztwOmxJKTxbbEJcl6i+8vITrbAAvSwengrrV+ Hg== 
+Received: from beta.dmz-eu.st.com (beta.dmz-eu.st.com [164.129.1.35])
+ by mx08-00178001.pphosted.com with ESMTP id 2s6xgcq48t-1
+ (version=TLSv1 cipher=ECDHE-RSA-AES256-SHA bits=256 verify=NOT);
+ Thu, 02 May 2019 10:10:16 +0200
+Received: from zeta.dmz-eu.st.com (zeta.dmz-eu.st.com [164.129.230.9])
+ by beta.dmz-eu.st.com (STMicroelectronics) with ESMTP id 216373F;
+ Thu,  2 May 2019 08:10:14 +0000 (GMT)
+Received: from Webmail-eu.st.com (Safex1hubcas23.st.com [10.75.90.46])
+ by zeta.dmz-eu.st.com (STMicroelectronics) with ESMTP id C3FCA12E0;
+ Thu,  2 May 2019 08:10:13 +0000 (GMT)
+Received: from SAFEX1HUBCAS21.st.com (10.75.90.45) by SAFEX1HUBCAS23.st.com
+ (10.75.90.46) with Microsoft SMTP Server (TLS) id 14.3.439.0; Thu, 2 May 2019
+ 10:10:13 +0200
+Received: from localhost (10.129.4.86) by Webmail-ga.st.com (10.75.90.48) with
+ Microsoft SMTP Server (TLS) id 14.3.361.1;
+ Thu, 2 May 2019 10:10:13 +0200
+From: Fabien Dessenne <fabien.dessenne@st.com>
+To: Rob Herring <robh+dt@kernel.org>, Mark Rutland <mark.rutland@arm.com>,
+ Maxime Coquelin <mcoquelin.stm32@gmail.com>, Alexandre Torgue
+ <alexandre.torgue@st.com>, Ohad Ben-Cohen <ohad@wizery.com>,
+ Bjorn Andersson <bjorn.andersson@linaro.org>, <devicetree@vger.kernel.org>,
+ <linux-stm32@st-md-mailman.stormreply.com>,
+ <linux-arm-kernel@lists.infradead.org>, <linux-kernel@vger.kernel.org>,
+ <linux-remoteproc@vger.kernel.org>
+Date: Thu, 2 May 2019 10:09:58 +0200
+Message-ID: <1556784606-3016-1-git-send-email-fabien.dessenne@st.com>
+X-Mailer: git-send-email 2.7.4
+MIME-Version: 1.0
+X-Originating-IP: [10.129.4.86]
+X-Proofpoint-Virus-Version: vendor=fsecure engine=2.50.10434:, ,
+ definitions=2019-05-02_03:, , signatures=0
+Cc: Fabien Dessenne <fabien.dessenne@st.com>
+Subject: [Linux-stm32] [PATCH v3 0/8] stm32 m4 remoteproc on STM32MP157c
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -53,72 +70,53 @@ List-Post: <mailto:linux-stm32@st-md-mailman.stormreply.com>
 List-Help: <mailto:linux-stm32-request@st-md-mailman.stormreply.com?subject=help>
 List-Subscribe: <https://st-md-mailman.stormreply.com/mailman/listinfo/linux-stm32>, 
  <mailto:linux-stm32-request@st-md-mailman.stormreply.com?subject=subscribe>
-MIME-Version: 1.0
 Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
-The patch
+STMicrolectronics STM32MP157 MPU are based on a Dual Arm Cortex-A7 core and a
+Cortex-M4.
+This patchset adds the support of the stm32_rproc driver allowing to control
+the M4 remote processor.
 
-   spi: stm32-qspi: manage the get_irq error case
+Changes since v2:
+- Clarified "reg" description
+- Change m4 unit adress to 38000000
+- Renamed "auto_boot" in "st,auto-boot"
+Changes since v1:
+- Gave details about the memory mapping (in bindings).
+- Used 'dma-ranges' instead of 'ranges'.
+- Updated the 'compatible' property.
+- Remove the 'recovery', 'reset-names' and 'interrupt-names' properties.
+- Clarified why / when mailboxes are optional.
 
-has been applied to the spi tree at
+Fabien Dessenne (8):
+  dt-bindings: stm32: add bindings for ML-AHB interconnect
+  dt-bindings: remoteproc: add bindings for stm32 remote processor
+    driver
+  remoteproc: stm32: add an ST stm32_rproc driver
+  ARM: dts: stm32: add m4 remoteproc support on STM32MP157c
+  ARM: dts: stm32: declare copro reserved memories on STM32MP157c-ed1
+  ARM: dts: stm32: enable m4 coprocessor support on STM32MP157c-ed1
+  ARM: dts: stm32: declare copro reserved memories on STM32MP157a-dk1
+  ARM: dts: stm32: enable m4 coprocessor support on STM32MP157a-dk1
 
-   https://git.kernel.org/pub/scm/linux/kernel/git/broonie/spi.git for-5.2
+ .../devicetree/bindings/arm/stm32/mlahb.txt        |  37 ++
+ .../devicetree/bindings/remoteproc/stm32-rproc.txt |  63 +++
+ arch/arm/boot/dts/stm32mp157a-dk1.dts              |  52 ++
+ arch/arm/boot/dts/stm32mp157c-ed1.dts              |  52 ++
+ arch/arm/boot/dts/stm32mp157c.dtsi                 |  20 +
+ drivers/remoteproc/Kconfig                         |  15 +
+ drivers/remoteproc/Makefile                        |   1 +
+ drivers/remoteproc/stm32_rproc.c                   | 628 +++++++++++++++++++++
+ 8 files changed, 868 insertions(+)
+ create mode 100644 Documentation/devicetree/bindings/arm/stm32/mlahb.txt
+ create mode 100644 Documentation/devicetree/bindings/remoteproc/stm32-rproc.txt
+ create mode 100644 drivers/remoteproc/stm32_rproc.c
 
-All being well this means that it will be integrated into the linux-next
-tree (usually sometime in the next 24 hours) and sent to Linus during
-the next merge window (or sooner if it is a bug fix), however if
-problems are discovered then the patch may be dropped or reverted.  
-
-You may get further e-mails resulting from automated or manual testing
-and review of the tree, please engage with people reporting problems and
-send followup patches addressing any issues that are reported if needed.
-
-If any updates are required or you are submitting further changes they
-should be sent as incremental updates against current git, existing
-patches will not be replaced.
-
-Please add any relevant lists and maintainers to the CCs when replying
-to this mail.
-
-Thanks,
-Mark
-
-From 4b562de4e227dbc2267c367b0a1ec83051c364f6 Mon Sep 17 00:00:00 2001
-From: Fabien Dessenne <fabien.dessenne@st.com>
-Date: Wed, 24 Apr 2019 17:19:00 +0200
-Subject: [PATCH] spi: stm32-qspi: manage the get_irq error case
-
-During probe, check the "get_irq" error value.
-
-Signed-off-by: Fabien Dessenne <fabien.dessenne@st.com>
-Acked-by: Ludovic Barre <ludovic.barre@st.com>
-Signed-off-by: Mark Brown <broonie@kernel.org>
----
- drivers/spi/spi-stm32-qspi.c | 6 ++++++
- 1 file changed, 6 insertions(+)
-
-diff --git a/drivers/spi/spi-stm32-qspi.c b/drivers/spi/spi-stm32-qspi.c
-index 11a89aa15d56..42f8e3c6aa1f 100644
---- a/drivers/spi/spi-stm32-qspi.c
-+++ b/drivers/spi/spi-stm32-qspi.c
-@@ -574,6 +574,12 @@ static int stm32_qspi_probe(struct platform_device *pdev)
- 	}
- 
- 	irq = platform_get_irq(pdev, 0);
-+	if (irq < 0) {
-+		if (irq != -EPROBE_DEFER)
-+			dev_err(dev, "IRQ error missing or invalid\n");
-+		return irq;
-+	}
-+
- 	ret = devm_request_irq(dev, irq, stm32_qspi_irq, 0,
- 			       dev_name(dev), qspi);
- 	if (ret) {
 -- 
-2.20.1
+2.7.4
 
 _______________________________________________
 Linux-stm32 mailing list
