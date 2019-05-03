@@ -2,67 +2,65 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id 7DFF112D05
-	for <lists+linux-stm32@lfdr.de>; Fri,  3 May 2019 13:59:08 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id A7DDF12F21
+	for <lists+linux-stm32@lfdr.de>; Fri,  3 May 2019 15:29:54 +0200 (CEST)
 Received: from ip-172-31-3-76.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 275C1C54B33
-	for <lists+linux-stm32@lfdr.de>; Fri,  3 May 2019 11:59:08 +0000 (UTC)
-Received: from mail-it1-f193.google.com (mail-it1-f193.google.com
- [209.85.166.193])
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 65B3FC57830
+	for <lists+linux-stm32@lfdr.de>; Fri,  3 May 2019 13:29:54 +0000 (UTC)
+Received: from mail-vs1-f65.google.com (mail-vs1-f65.google.com
+ [209.85.217.65])
  (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id E2C81C54B32
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 85FC9C5782F
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Fri,  3 May 2019 11:59:05 +0000 (UTC)
-Received: by mail-it1-f193.google.com with SMTP id l140so8609834itb.0
+ Fri,  3 May 2019 13:29:52 +0000 (UTC)
+Received: by mail-vs1-f65.google.com with SMTP id e207so3570084vsd.7
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Fri, 03 May 2019 04:59:05 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=amarulasolutions.com; s=google;
+ Fri, 03 May 2019 06:29:52 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linaro.org; s=google;
  h=mime-version:references:in-reply-to:from:date:message-id:subject:to
- :cc; bh=vDgYOPNAs5a7jn6rrh+mqlUAcW/QL6gqLTt3pqvnNY8=;
- b=Y6srGshKU+8ofVAzr5oXPRlANIBEkdOrCHKBPiE3tUswNgNowbNADcWMckRUE5gkSL
- 9ukukehth9mBJJ/QJCpdkUMMW2+iAg10JbBAKpi7BjWy2OQ+HfalsNh4xdNDSsHWnKVY
- 6bANvGQZzE11Hw3Y7RiWx/Sk3RaGiUf3o+mJs=
+ :cc; bh=GEzlUuM/Jwfv3VSJhIT2L6SyOU5GgzPaBEeFYcaGzrM=;
+ b=O7rIyByj0jiAE4VnV24ZNn4Y1ylqkbfa1D8NaLihBPvQ6hc0TJ2Yiy69ux3icHlntZ
+ OCoH1ySYRhckrmy+z0+u6WAjbTpS0gkWASmQrpvYQgV/WpkxcJajl0m0eEXXnR6El4qO
+ zp9xSCHg2saZNiLmfNcuKvOI+3RH2fSU/GIakpBrVvCM90SOEC5Uu3Atgw7fatqZKTz+
+ TbcUVhgAnKl+cp2XqrMVvd24D00wH5XOCIw/MaSWcFvEHbdiaDUmvIzmeVFLqFXhD5jm
+ hNpu+BGi6tZULhQWflurRJiLW6GXpCEhr9PuyqeHVKcpiM0CCsFcKfvBSN1tTnWLtZgo
+ 2nFw==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=1e100.net; s=20161025;
  h=x-gm-message-state:mime-version:references:in-reply-to:from:date
  :message-id:subject:to:cc;
- bh=vDgYOPNAs5a7jn6rrh+mqlUAcW/QL6gqLTt3pqvnNY8=;
- b=Ap5wotgkTubXEbb7NOD+oMqhMYXPHlAhivIPEgVyARHT9B+2rYvuPCS4br8UwrETKA
- b/2rd7D1C0BVZNizfDCoK3EeDXDGdUE44Bh3PS8dRvhXpZogGA24RA21afGvzmmDuM+A
- AxRJm8K3nsjexE9BA7H5fSaav8MphZt/Gg0XJL56LbCka8VohyMLVYHbKmSQt9frz4q5
- 59Bli0aSVZwZbR6Nwgdf5YJ2MPK42WnndxOmmMYUsjRvlfAjwZcQs/UL6G62wAB5CTWB
- PHt6n2UN3rVEH7M59uMqp84AvgPPTRP/qBp8Jp3Cf238nyXr4sjss2le1Y0qVdNoeT/r
- /Nqg==
-X-Gm-Message-State: APjAAAWQ3iDIE4715D+GYAXlKEbh0aBs7d3le4ECqdnZDmuChEY542qW
- EyRiaK+Nbz6JK7vJuss3o6+k6P9p+vSKRiBvnvCj6A==
-X-Google-Smtp-Source: APXvYqxogbylovsed3LC9Wji6QY3Bj1N0GsCs2SPDNY1RvVGOuqXHQj+rfQkbvVmWscSed3alM3kokBhRmxHN3Y8JlY=
-X-Received: by 2002:a24:70d5:: with SMTP id f204mr6307014itc.32.1556884744596; 
- Fri, 03 May 2019 04:59:04 -0700 (PDT)
+ bh=GEzlUuM/Jwfv3VSJhIT2L6SyOU5GgzPaBEeFYcaGzrM=;
+ b=fgLIHkmKUMDA14BOsreFas/QEeXCWyz9SSERabYKM9PC6TDP6vRXatRb6YfSVcyCQ5
+ AZ7J8tkLMCw1mF8fNt6pgYEhBvFlbSGrC7FMpJNCQPsfB0ny3DH5g2aoipg4PwU4mKHh
+ DAeBY6rWE0yOm8raEOr9/ZVef7F2Ja924S0Xyd1TdtBbwdvux7UGr2Z0414Gacoyx/WK
+ gteUujKU/W93vp4xVVnUMQSbzdgni6m8qK8gtwidzMLFw9kkC9069ePqIMGzXDgyjQT5
+ 8Ce9reA2TJJaDQed55bpOAADFpI3RpbBJk5cBeUTPIXmt9WxAr3KaRQ1loMcgRKag7ZL
+ mvhA==
+X-Gm-Message-State: APjAAAWgkYT6YOLXQnvCkaUxl2//5gKdgwxSfsztIAR/YyiLt5C8ERXU
+ UPtfXr6kZqORXo3JUxVXc10MlOLlAmropVJIfi8mOw==
+X-Google-Smtp-Source: APXvYqy046Z/3iX9LlO9h/cYF4oWBVlij//f74AP7T9sKj+fNTyl+4O4+eLgNyusHCiXL4EPY2iMVAE5FFUMIfSAp/E=
+X-Received: by 2002:a67:b44d:: with SMTP id c13mr5650144vsm.165.1556890191428; 
+ Fri, 03 May 2019 06:29:51 -0700 (PDT)
 MIME-Version: 1.0
-References: <20190413165418.27880-1-megous@megous.com>
- <20190413165418.27880-6-megous@megous.com>
-In-Reply-To: <20190413165418.27880-6-megous@megous.com>
-From: Jagan Teki <jagan@amarulasolutions.com>
-Date: Fri, 3 May 2019 17:28:53 +0530
-Message-ID: <CAMty3ZDx6NXyYhQehYT9geeGwAk2PZidiVMwVw1nnZJa3zwyOg@mail.gmail.com>
-To: megous@megous.com
-Cc: Mark Rutland <mark.rutland@arm.com>, Jose Abreu <joabreu@synopsys.com>,
- devicetree <devicetree@vger.kernel.org>,
- Maxime Ripard <maxime.ripard@bootlin.com>, netdev@vger.kernel.org,
- Linus Walleij <linus.walleij@linaro.org>,
- linux-stm32@st-md-mailman.stormreply.com, Chen-Yu Tsai <wens@csie.org>,
- dri-devel <dri-devel@lists.freedesktop.org>,
- linux-kernel <linux-kernel@vger.kernel.org>, David Airlie <airlied@linux.ie>,
- linux-sunxi <linux-sunxi@googlegroups.com>, Rob Herring <robh+dt@kernel.org>,
- linux-arm-kernel <linux-arm-kernel@lists.infradead.org>,
- Daniel Vetter <daniel@ffwll.ch>, linux-gpio@vger.kernel.org,
- Giuseppe Cavallaro <peppe.cavallaro@st.com>,
- "David S. Miller" <davem@davemloft.net>,
- Maxime Coquelin <mcoquelin.stm32@gmail.com>
-Subject: Re: [Linux-stm32] [linux-sunxi] [PATCH v4 5/9] arm64: dts:
- allwinner: orange-pi-3: Enable ethernet
+References: <1556264798-18540-1-git-send-email-ludovic.Barre@st.com>
+ <CAPDyKFqbn=UcbwoH_z+yjrjvHQZaMtmsD=n0yrBV7DAK5VRJEQ@mail.gmail.com>
+ <74b91eb4-e5a3-38b2-f732-29cdd058eb6a@st.com>
+In-Reply-To: <74b91eb4-e5a3-38b2-f732-29cdd058eb6a@st.com>
+From: Ulf Hansson <ulf.hansson@linaro.org>
+Date: Fri, 3 May 2019 15:29:15 +0200
+Message-ID: <CAPDyKFoURwnai1hbCbO+Uh6+hc7A4dYHjWkqeFAEgMQET-BzwA@mail.gmail.com>
+To: Ludovic BARRE <ludovic.barre@st.com>
+Cc: DTML <devicetree@vger.kernel.org>,
+ "linux-mmc@vger.kernel.org" <linux-mmc@vger.kernel.org>,
+ Linux Kernel Mailing List <linux-kernel@vger.kernel.org>,
+ Rob Herring <robh+dt@kernel.org>,
+ Srinivas Kandagatla <srinivas.kandagatla@linaro.org>,
+ Maxime Coquelin <mcoquelin.stm32@gmail.com>,
+ linux-stm32@st-md-mailman.stormreply.com,
+ Linux ARM <linux-arm-kernel@lists.infradead.org>
+Subject: Re: [Linux-stm32] [PATCH V2 0/5] mmc: mmci: add busy detect for
+	stm32 sdmmc variant
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -79,67 +77,81 @@ Content-Transfer-Encoding: 7bit
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
-On Sat, Apr 13, 2019 at 10:24 PM megous via linux-sunxi
-<linux-sunxi@googlegroups.com> wrote:
+On Tue, 30 Apr 2019 at 14:06, Ludovic BARRE <ludovic.barre@st.com> wrote:
 >
-> From: Ondrej Jirman <megous@megous.com>
 >
-> Orange Pi 3 has two regulators that power the Realtek RTL8211E. According
-> to the phy datasheet, both regulators need to be enabled at the same time,
-> but we can only specify a single phy-supply in the DT.
 >
-> This can be achieved by making one regulator depedning on the other via
-> vin-supply. While it's not a technically correct description of the
-> hardware, it achieves the purpose.
+> On 4/30/19 1:13 PM, Ulf Hansson wrote:
+> > On Fri, 26 Apr 2019 at 09:46, Ludovic Barre <ludovic.Barre@st.com> wrote:
+> >>
+> >> From: Ludovic Barre <ludovic.barre@st.com>
+> >>
+> >> This patch series adds busy detect for stm32 sdmmc variant.
+> >> Some adaptations are required:
+> >> -Avoid to check and poll busy status when is not expected.
+> >> -Clear busy status bit if busy_detect_flag and busy_detect_mask are
+> >>   different.
+> >> -Add hardware busy timeout with MMCIDATATIMER register.
+> >>
+> >> V2:
+> >> -mmci_cmd_irq cleanup in separate patch.
+> >> -simplify the busy_detect_flag exclude
+> >> -replace sdmmc specific comment in
+> >> "mmc: mmci: avoid fake busy polling in mmci_irq"
+> >> to focus on common behavior
+> >>
+> >> Ludovic Barre (5):
+> >>    mmc: mmci: cleanup mmci_cmd_irq for busy detect feature
+> >>    mmc: mmci: avoid fake busy polling in mmci_irq
+> >>    mmc: mmci: fix clear of busy detect status
+> >>    mmc: mmci: add hardware busy timeout feature
+> >>    mmc: mmci: add busy detect for stm32 sdmmc variant
+> >>
+> >>   drivers/mmc/host/mmci.c | 61 ++++++++++++++++++++++++++++++++++++++-----------
+> >>   drivers/mmc/host/mmci.h |  3 +++
+> >>   2 files changed, 51 insertions(+), 13 deletions(-)
+> >>
+> >> --
+> >> 2.7.4
+> >>
+> >
+> > Ludovic, just wanted to let you know that I am reviewing and testing
+> > this series.
+> >
+> > However, while running some tests on Ux500 for validating the busy
+> > detection code, even without your series applied, I encounter some odd
+> > behaviors. I am looking into the problem to understand better and will
+> > let you know as soon as I have some more data to share.
 >
-> All values of RX/TX delay were tested exhaustively and a middle one of the
-> working values was chosen.
->
-> Signed-off-by: Ondrej Jirman <megous@megous.com>
-> ---
->  .../dts/allwinner/sun50i-h6-orangepi-3.dts    | 44 +++++++++++++++++++
->  1 file changed, 44 insertions(+)
->
-> diff --git a/arch/arm64/boot/dts/allwinner/sun50i-h6-orangepi-3.dts b/arch/arm64/boot/dts/allwinner/sun50i-h6-orangepi-3.dts
-> index 17d496990108..6d6b1f66796d 100644
-> --- a/arch/arm64/boot/dts/allwinner/sun50i-h6-orangepi-3.dts
-> +++ b/arch/arm64/boot/dts/allwinner/sun50i-h6-orangepi-3.dts
-> @@ -15,6 +15,7 @@
->
->         aliases {
->                 serial0 = &uart0;
-> +               ethernet0 = &emac;
->         };
->
->         chosen {
-> @@ -44,6 +45,27 @@
->                 regulator-max-microvolt = <5000000>;
->                 regulator-always-on;
->         };
-> +
-> +       /*
-> +        * The board uses 2.5V RGMII signalling. Power sequence to enable
-> +        * the phy is to enable GMAC-2V5 and GMAC-3V3 (aldo2) power rails
-> +        * at the same time and to wait 100ms.
-> +        */
-> +       reg_gmac_2v5: gmac-2v5 {
-> +               compatible = "regulator-fixed";
-> +               regulator-name = "gmac-2v5";
-> +               regulator-min-microvolt = <2500000>;
-> +               regulator-max-microvolt = <2500000>;
-> +               startup-delay-us = <100000>;
-> +               enable-active-high;
-> +               gpio = <&pio 3 6 GPIO_ACTIVE_HIGH>; /* PD6 */
-> +
-> +               /* The real parent of gmac-2v5 is reg_vcc5v, but we need to
-> +                * enable two regulators to power the phy. This is one way
-> +                * to achieve that.
-> +                */
-> +               vin-supply = <&reg_aldo2>; /* GMAC-3V3 */
+> Oops, don't hesitate to share your status, if I could help.
 
-The actual output supply pin name is GMAC-3V which has an input of
-VCC3V3-MAC (ie aldo2), if we compatible to schematics better to use
-the same, IMHO.
+Thanks! Good and bad news here, then.
+
+I now understand what is going on - and there is certainly room for
+improvements here, but more importantly the actual mmci busy detection
+works as expected.
+
+When it comes to improvements, the main issue I have found is how we
+treat DATA WRITES. In many cases we simply don't use the HW busy
+detection at all, but instead rely on the mmc core to send CMD13 in a
+loop to poll. Well, then if the polling would have consisted of a
+couple of CMD13s that wouldn't be an issue, but my observations is
+rather that the numbers of CMD13 sent to poll is in the range or
+hundreds/thousands - per each WRITE request!
+
+I am going to send a patch (or two) that improves the behavior. It
+might even involve changing parts in core layer, not sure how the end
+result will look like yet.
+
+In any case, I have applied patch 1 and patch2 for next, as the tests
+turned out well at my side. I also took the liberty of updating some
+of the comments/changelogs, please have look and tell if there is
+something you want to change.
+
+I will continue with the rest of series next week.
+
+Kind regards
+Uffe
 _______________________________________________
 Linux-stm32 mailing list
 Linux-stm32@st-md-mailman.stormreply.com
