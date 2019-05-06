@@ -2,48 +2,107 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id A625714E8C
-	for <lists+linux-stm32@lfdr.de>; Mon,  6 May 2019 17:03:58 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 8284114F53
+	for <lists+linux-stm32@lfdr.de>; Mon,  6 May 2019 17:10:12 +0200 (CEST)
 Received: from ip-172-31-3-76.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 6E57FC057FB
-	for <lists+linux-stm32@lfdr.de>; Mon,  6 May 2019 15:03:58 +0000 (UTC)
-Received: from heliosphere.sirena.org.uk (heliosphere.sirena.org.uk
- [172.104.155.198])
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 2F253C05804
+	for <lists+linux-stm32@lfdr.de>; Mon,  6 May 2019 15:10:12 +0000 (UTC)
+Received: from userp2120.oracle.com (userp2120.oracle.com [156.151.31.85])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 28DBDC057F6
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id D01A0C05803
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Mon,  6 May 2019 15:03:57 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
- d=sirena.org.uk; s=20170815-heliosphere; h=Date:Message-Id:In-Reply-To:
- Subject:Cc:To:From:Sender:Reply-To:MIME-Version:Content-Type:
- Content-Transfer-Encoding:Content-ID:Content-Description:Resent-Date:
- Resent-From:Resent-Sender:Resent-To:Resent-Cc:Resent-Message-ID:References:
- List-Id:List-Help:List-Unsubscribe:List-Subscribe:List-Post:List-Owner:
- List-Archive; bh=zISSK7BMRYtIQviKajlbZmcAGpaqp8FrE1fMsg4iIKo=; b=IgXp/W6CoO4P
- BO28c6HBJ90m+XCsFGUw4N6vy5L6hc/Dx4mbWe+GybtKJwztrc2tlCEUjvdQNgvVkp55+a8AYHb+V
- Swobdgpkh3n+5u978/3qASuBEk+SyY6na/dKg+7P2h7SoNEuV4cYwfpQKJbuenq/m3iKb68WRrPw6
- VZz3Q=;
-Received: from [2001:268:c0e6:658d:8f3d:d90b:c4e4:2fdf]
- (helo=finisterre.ee.mobilebroadband)
- by heliosphere.sirena.org.uk with esmtpsa
- (TLS1.2:ECDHE_RSA_AES_256_GCM_SHA384:256) (Exim 4.89)
- (envelope-from <broonie@sirena.org.uk>)
- id 1hNf9i-0001uZ-B8; Mon, 06 May 2019 15:03:50 +0000
-Received: by finisterre.ee.mobilebroadband (Postfix, from userid 1000)
- id C12E7440035; Mon,  6 May 2019 16:03:44 +0100 (BST)
-From: Mark Brown <broonie@kernel.org>
-To: Olivier Moysan <olivier.moysan@st.com>
-In-Reply-To: <1557146646-18150-2-git-send-email-olivier.moysan@st.com>
-X-Patchwork-Hint: ignore
-Message-Id: <20190506150344.C12E7440035@finisterre.ee.mobilebroadband>
-Date: Mon,  6 May 2019 16:03:44 +0100 (BST)
-Cc: alsa-devel@alsa-project.org, tiwai@suse.com, lgirdwood@gmail.com,
- linux-kernel@vger.kernel.org, Mark Brown <broonie@kernel.org>,
- mcoquelin.stm32@gmail.com, perex@perex.cz,
- linux-stm32@st-md-mailman.stormreply.com, linux-arm-kernel@lists.infradead.org
-Subject: [Linux-stm32] Applied "ASoC: stm32: spdifrx: update pcm hardware
-	constraints" to the asoc tree
+ Mon,  6 May 2019 15:10:09 +0000 (UTC)
+Received: from pps.filterd (userp2120.oracle.com [127.0.0.1])
+ by userp2120.oracle.com (8.16.0.27/8.16.0.27) with SMTP id x46F3o4l106193;
+ Mon, 6 May 2019 15:08:02 GMT
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=oracle.com;
+ h=date : from : to : cc
+ : subject : message-id : references : mime-version : content-type :
+ content-transfer-encoding : in-reply-to; s=corp-2018-07-02;
+ bh=rDJ/z/pPRZKtR5JzVGMLLDer4402GB87zt7n/gU4krU=;
+ b=qEzSeP3aGTDv3s9znu1nX/m58g0qTnZdtpwUK1CQGRD3KDy2qgkIaoxVFwc/d6ws7egj
+ wKcF47zucTRQ/UMQoV42jXTQnbrbo1me39YFnJGDlEghnI+xb8AKzpb70cRdkMZYEd2i
+ len4M5CrDAbyEt9xWopCKmPOhQ1DHZBZz2BVpO0aHb8kNHooK6KP9UxzWxV3heh1s/+S
+ IHEkd4K6qpvVJkObdyJWwYVF8oJH/PC9ukV87kuCFZ0lYFIYkXaJDTX3G+9dvHxZvWPI
+ nWzAzWFZ7lixcllZPY2dSxcuLuG3RnRzQi3Z0oyn9pQKiKyurW1w7pvqKKcLmRZUpPQq YQ== 
+Received: from aserp3030.oracle.com (aserp3030.oracle.com [141.146.126.71])
+ by userp2120.oracle.com with ESMTP id 2s94b0f811-1
+ (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=OK);
+ Mon, 06 May 2019 15:08:02 +0000
+Received: from pps.filterd (aserp3030.oracle.com [127.0.0.1])
+ by aserp3030.oracle.com (8.16.0.27/8.16.0.27) with SMTP id x46F6wpr045484;
+ Mon, 6 May 2019 15:08:01 GMT
+Received: from aserv0122.oracle.com (aserv0122.oracle.com [141.146.126.236])
+ by aserp3030.oracle.com with ESMTP id 2s94b8y1bu-1
+ (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=OK);
+ Mon, 06 May 2019 15:08:01 +0000
+Received: from abhmp0007.oracle.com (abhmp0007.oracle.com [141.146.116.13])
+ by aserv0122.oracle.com (8.14.4/8.14.4) with ESMTP id x46F7gJH005600;
+ Mon, 6 May 2019 15:07:42 GMT
+Received: from kadam (/196.110.137.40) by default (Oracle Beehive Gateway v4.0)
+ with ESMTP ; Mon, 06 May 2019 08:07:42 -0700
+Date: Mon, 6 May 2019 18:07:13 +0300
+From: Dan Carpenter <dan.carpenter@oracle.com>
+To: Petr =?utf-8?Q?=C5=A0tetiar?= <ynezz@true.cz>
+Message-ID: <20190506150713.GH2269@kadam>
+References: <1557136717-531-1-git-send-email-ynezz@true.cz>
+ <1557136717-531-2-git-send-email-ynezz@true.cz>
+MIME-Version: 1.0
+Content-Disposition: inline
+In-Reply-To: <1557136717-531-2-git-send-email-ynezz@true.cz>
+User-Agent: Mutt/1.9.4 (2018-02-28)
+X-Proofpoint-Virus-Version: vendor=nai engine=5900 definitions=9249
+ signatures=668686
+X-Proofpoint-Spam-Details: rule=notspam policy=default score=0 suspectscore=0
+ malwarescore=0
+ phishscore=0 bulkscore=0 spamscore=0 mlxscore=0 mlxlogscore=814
+ adultscore=0 classifier=spam adjust=0 reason=mlx scancount=1
+ engine=8.0.1-1810050000 definitions=main-1905060130
+X-Proofpoint-Virus-Version: vendor=nai engine=5900 definitions=9249
+ signatures=668686
+X-Proofpoint-Spam-Details: rule=notspam policy=default score=0
+ priorityscore=1501 malwarescore=0
+ suspectscore=0 phishscore=0 bulkscore=0 spamscore=0 clxscore=1011
+ lowpriorityscore=0 mlxscore=0 impostorscore=0 mlxlogscore=845 adultscore=0
+ classifier=spam adjust=0 reason=mlx scancount=1 engine=8.0.1-1810050000
+ definitions=main-1905060130
+Cc: Andrew Lunn <andrew@lunn.ch>, Thor Thayer <thor.thayer@linux.intel.com>,
+ Kunihiko Hayashi <hayashi.kunihiko@socionext.com>,
+ Andreas Larsson <andreas@gaisler.com>,
+ Maxime Ripard <maxime.ripard@bootlin.com>,
+ Thomas Petazzoni <thomas.petazzoni@bootlin.com>,
+ Pantelis Antoniou <pantelis.antoniou@gmail.com>,
+ Byungho An <bh74.an@samsung.com>, Frank Rowand <frowand.list@gmail.com>,
+ John Linn <John.Linn@xilinx.com>, Vipul Pandya <vipul.pandya@samsung.com>,
+ linux-renesas-soc@vger.kernel.org, Felix Fietkau <nbd@openwrt.org>,
+ Florian Fainelli <f.fainelli@gmail.com>, Madalin Bucur <madalin.bucur@nxp.com>,
+ Michal Simek <michal.simek@xilinx.com>,
+ linux-stm32@st-md-mailman.stormreply.com, Chen-Yu Tsai <wens@csie.org>,
+ Jose Abreu <joabreu@synopsys.com>, bcm-kernel-feedback-list@broadcom.com,
+ Sylvain Lemieux <slemieux.tyco@gmail.com>, Sunil Goutham <sgoutham@cavium.com>,
+ Yisen Zhuang <yisen.zhuang@huawei.com>,
+ Sebastian Hesselbarth <sebastian.hesselbarth@gmail.com>,
+ nios2-dev@lists.rocketboards.org, devel@driverdev.osuosl.org,
+ Grygorii Strashko <grygorii.strashko@ti.com>, Robert Richter <rric@kernel.org>,
+ Girish K S <ks.giri@samsung.com>, Nelson Chang <nelson.chang@mediatek.com>,
+ Wingman Kwok <w-kwok2@ti.com>, Hauke Mehrtens <hauke@hauke-m.de>,
+ Sean Wang <sean.wang@mediatek.com>, Vladimir Zapolskiy <vz@mleia.com>,
+ Claudiu Manoil <claudiu.manoil@nxp.com>, Doug Berger <opendmb@gmail.com>,
+ linux-mediatek@lists.infradead.org, Murali Karicheri <m-karicheri2@ti.com>,
+ John Crispin <john@phrozen.org>, Matthias Brugger <matthias.bgg@gmail.com>,
+ Giuseppe Cavallaro <peppe.cavallaro@st.com>, linux-omap@vger.kernel.org,
+ linux-arm-kernel@lists.infradead.org, Mirko Lindner <mlindner@marvell.com>,
+ Salil Mehta <salil.mehta@huawei.com>, Fugang Duan <fugang.duan@nxp.com>,
+ Sergei Shtylyov <sergei.shtylyov@cogentembedded.com>,
+ Greg Kroah-Hartman <gregkh@linuxfoundation.org>, linux-kernel@vger.kernel.org,
+ Li Yang <leoyang.li@nxp.com>, Stephen Hemminger <stephen@networkplumber.org>,
+ Maxime Coquelin <mcoquelin.stm32@gmail.com>, netdev@vger.kernel.org,
+ Anirudha Sarangi <anirudh@xilinx.com>, linuxppc-dev@lists.ozlabs.org,
+ "David S. Miller" <davem@davemloft.net>,
+ Heiner Kallweit <hkallweit1@gmail.com>
+Subject: Re: [Linux-stm32] [PATCH net-next 1/3] net: ethernet: support
+ of_get_mac_address new ERR_PTR error
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -55,73 +114,21 @@ List-Post: <mailto:linux-stm32@st-md-mailman.stormreply.com>
 List-Help: <mailto:linux-stm32-request@st-md-mailman.stormreply.com?subject=help>
 List-Subscribe: <https://st-md-mailman.stormreply.com/mailman/listinfo/linux-stm32>, 
  <mailto:linux-stm32-request@st-md-mailman.stormreply.com?subject=subscribe>
-MIME-Version: 1.0
-Content-Type: text/plain; charset="us-ascii"
-Content-Transfer-Encoding: 7bit
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: base64
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
-The patch
-
-   ASoC: stm32: spdifrx: update pcm hardware constraints
-
-has been applied to the asoc tree at
-
-   https://git.kernel.org/pub/scm/linux/kernel/git/broonie/sound.git for-5.2
-
-All being well this means that it will be integrated into the linux-next
-tree (usually sometime in the next 24 hours) and sent to Linus during
-the next merge window (or sooner if it is a bug fix), however if
-problems are discovered then the patch may be dropped or reverted.  
-
-You may get further e-mails resulting from automated or manual testing
-and review of the tree, please engage with people reporting problems and
-send followup patches addressing any issues that are reported if needed.
-
-If any updates are required or you are submitting further changes they
-should be sent as incremental updates against current git, existing
-patches will not be replaced.
-
-Please add any relevant lists and maintainers to the CCs when replying
-to this mail.
-
-Thanks,
-Mark
-
-From 863137f0bc5eb2a3a65d1d29778ac65642171b17 Mon Sep 17 00:00:00 2001
-From: Olivier Moysan <olivier.moysan@st.com>
-Date: Mon, 6 May 2019 14:44:04 +0200
-Subject: [PATCH] ASoC: stm32: spdifrx: update pcm hardware constraints
-
-- Set period minimum size. Ensure at least 5ms period
-up to 48kHz/16 bits to prevent underrun/overrun.
-- Remove MDMA constraints on period maximum size and
-set period maximum to half the buffer maximum size.
-
-Signed-off-by: Olivier Moysan <olivier.moysan@st.com>
-Signed-off-by: Mark Brown <broonie@kernel.org>
----
- sound/soc/stm/stm32_spdifrx.c | 3 ++-
- 1 file changed, 2 insertions(+), 1 deletion(-)
-
-diff --git a/sound/soc/stm/stm32_spdifrx.c b/sound/soc/stm/stm32_spdifrx.c
-index b4c3d983e195..aa83b50efabb 100644
---- a/sound/soc/stm/stm32_spdifrx.c
-+++ b/sound/soc/stm/stm32_spdifrx.c
-@@ -845,7 +845,8 @@ static struct snd_soc_dai_driver stm32_spdifrx_dai[] = {
- static const struct snd_pcm_hardware stm32_spdifrx_pcm_hw = {
- 	.info = SNDRV_PCM_INFO_INTERLEAVED | SNDRV_PCM_INFO_MMAP,
- 	.buffer_bytes_max = 8 * PAGE_SIZE,
--	.period_bytes_max = 2048, /* MDMA constraint */
-+	.period_bytes_min = 1024,
-+	.period_bytes_max = 4 * PAGE_SIZE,
- 	.periods_min = 2,
- 	.periods_max = 8,
- };
--- 
-2.20.1
-
-_______________________________________________
-Linux-stm32 mailing list
-Linux-stm32@st-md-mailman.stormreply.com
-https://st-md-mailman.stormreply.com/mailman/listinfo/linux-stm32
+T24gTW9uLCBNYXkgMDYsIDIwMTkgYXQgMTE6NTg6MzVBTSArMDIwMCwgUGV0ciDFoHRldGlhciB3
+cm90ZToKPiBUaGVyZSB3YXMgTlZNRU0gc3VwcG9ydCBhZGRlZCB0byBvZl9nZXRfbWFjX2FkZHJl
+c3MsIHNvIGl0IGNvdWxkIG5vdyByZXR1cm4KPiBFUlJfUFRSIGVuY29kZWQgZXJyb3IgdmFsdWVz
+LCBzbyB3ZSBuZWVkIHRvIGFkanVzdCBhbGwgY3VycmVudCB1c2VycyBvZgo+IG9mX2dldF9tYWNf
+YWRkcmVzcyB0byB0aGlzIG5ldyBmYWN0LgoKV2UgbmVlZCBhIEZpeGVzIHRhZyBzbyB3ZSBjYW4g
+bG9vayBhdCB0aGUgY29tbWl0IHdoaWNoIGFkZHMgTlZNRU0Kc3VwcG9ydC4KCkl0J3Mgbm90IGNs
+ZWFyIHRvIG1lIHRoYXQgYW55b25lIGV2ZXIgYXBwbGllZCB0aGF0IHBhdGNoLiAgSWYgbm90IHRo
+ZW4Kd2hvIGhvbyEgIExldCdzIG5vdCBhcHBseSBpdC4gIEJ1dCBpZiBpdCBoYXMgYmVlbiBjb21t
+aXR0ZWQgdGhlbiBpdCBoYXMKYSBnaXQgaGFzaC4KCnJlZ2FyZHMsCmRhbiBjYXJwZW50ZXIKX19f
+X19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX18KTGludXgtc3RtMzIg
+bWFpbGluZyBsaXN0CkxpbnV4LXN0bTMyQHN0LW1kLW1haWxtYW4uc3Rvcm1yZXBseS5jb20KaHR0
+cHM6Ly9zdC1tZC1tYWlsbWFuLnN0b3JtcmVwbHkuY29tL21haWxtYW4vbGlzdGluZm8vbGludXgt
+c3RtMzIK
