@@ -2,42 +2,42 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id 04940157A3
-	for <lists+linux-stm32@lfdr.de>; Tue,  7 May 2019 04:30:59 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 368E2157AA
+	for <lists+linux-stm32@lfdr.de>; Tue,  7 May 2019 04:33:04 +0200 (CEST)
 Received: from ip-172-31-3-76.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 4189CC35E0E
-	for <lists+linux-stm32@lfdr.de>; Tue,  7 May 2019 02:30:58 +0000 (UTC)
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id EBFAFC35E17
+	for <lists+linux-stm32@lfdr.de>; Tue,  7 May 2019 02:33:03 +0000 (UTC)
 Received: from heliosphere.sirena.org.uk (heliosphere.sirena.org.uk
  [172.104.155.198])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 58ADBC35E0D
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 6C859C35E16
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Tue,  7 May 2019 02:30:57 +0000 (UTC)
+ Tue,  7 May 2019 02:33:03 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
  d=sirena.org.uk; s=20170815-heliosphere; h=Date:Message-Id:In-Reply-To:
  Subject:Cc:To:From:Sender:Reply-To:MIME-Version:Content-Type:
  Content-Transfer-Encoding:Content-ID:Content-Description:Resent-Date:
  Resent-From:Resent-Sender:Resent-To:Resent-Cc:Resent-Message-ID:References:
  List-Id:List-Help:List-Unsubscribe:List-Subscribe:List-Post:List-Owner:
- List-Archive; bh=ulGxU59+SHg0LveLVxFzfgXsIwZDWNfvFJ6byVaTrN4=; b=inpTcYnsbYBC
- RXzSlqPMPbhywhoEEOZ12cSdNDZKetcVk2o8QMn/M1u89/Hw5qJq/LA+9y5mkpHPQkh9oiusUfErE
- /5cLCWnlynFDjUm55jCmzNLd1GKiGHJcqVAsti5pPV58KqRQHi89y/+hnh8lqcpRv/QDHqKIbp8Ow
- hW6dQ=;
+ List-Archive; bh=ulGxU59+SHg0LveLVxFzfgXsIwZDWNfvFJ6byVaTrN4=; b=L0/VEO+W2/21
+ 51anoW1FdyyRxfq0q/AiTj/LsOLLjLPZIAyyasE52MezVB59pwN0OWpnqHuyDQR1LguB4AuLFneU6
+ RJPW1HEHVyp3xYfNGXI+FY3dETq3JV8wCsH+PVXcXQxF7hBILmw0cm2lyb4Z31feHXq/rJmbANf68
+ LCfNg=;
 Received: from kd111239185057.au-net.ne.jp ([111.239.185.57]
  helo=finisterre.sirena.org.uk)
  by heliosphere.sirena.org.uk with esmtpsa
  (TLS1.2:ECDHE_RSA_AES_256_GCM_SHA384:256) (Exim 4.89)
  (envelope-from <broonie@sirena.org.uk>)
- id 1hNpsN-0003Sy-6i; Tue, 07 May 2019 02:30:40 +0000
+ id 1hNpuU-0003UI-A4; Tue, 07 May 2019 02:32:51 +0000
 Received: by finisterre.ee.mobilebroadband (Postfix, from userid 1000)
- id B7423440036; Tue,  7 May 2019 03:30:33 +0100 (BST)
+ id A64D7440017; Tue,  7 May 2019 03:32:46 +0100 (BST)
 From: Mark Brown <broonie@kernel.org>
 To: Olivier Moysan <olivier.moysan@st.com>
 In-Reply-To: <1557146646-18150-4-git-send-email-olivier.moysan@st.com>
 X-Patchwork-Hint: ignore
-Message-Id: <20190507023033.B7423440036@finisterre.sirena.org.uk>
-Date: Tue,  7 May 2019 03:30:33 +0100 (BST)
+Message-Id: <20190507023246.A64D7440017@finisterre.sirena.org.uk>
+Date: Tue,  7 May 2019 03:32:46 +0100 (BST)
 Cc: alsa-devel@alsa-project.org, tiwai@suse.com, lgirdwood@gmail.com,
  linux-kernel@vger.kernel.org, Mark Brown <broonie@kernel.org>,
  mcoquelin.stm32@gmail.com, perex@perex.cz,
