@@ -2,70 +2,87 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id 62D5F171FC
-	for <lists+linux-stm32@lfdr.de>; Wed,  8 May 2019 09:01:13 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 5FDD01728E
+	for <lists+linux-stm32@lfdr.de>; Wed,  8 May 2019 09:28:13 +0200 (CEST)
 Received: from ip-172-31-3-76.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 70353C36B3F
-	for <lists+linux-stm32@lfdr.de>; Wed,  8 May 2019 07:01:12 +0000 (UTC)
-Received: from mail-wr1-f65.google.com (mail-wr1-f65.google.com
- [209.85.221.65])
- (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 52D08C36B3F
+	for <lists+linux-stm32@lfdr.de>; Wed,  8 May 2019 07:28:12 +0000 (UTC)
+Received: from EUR02-AM5-obe.outbound.protection.outlook.com
+ (mail-eopbgr00105.outbound.protection.outlook.com [40.107.0.105])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 84E0BC36B3E
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 32F56C36B3E
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Wed,  8 May 2019 07:01:10 +0000 (UTC)
-Received: by mail-wr1-f65.google.com with SMTP id l2so25667883wrb.9
- for <linux-stm32@st-md-mailman.stormreply.com>;
- Wed, 08 May 2019 00:01:10 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linaro.org; s=google;
- h=date:from:to:cc:subject:message-id:references:mime-version
- :content-disposition:content-transfer-encoding:in-reply-to
- :user-agent; bh=Jgc8tHCqCzHZc3qhbbI5pSp+Yx7TXVxlmwULDXcgErQ=;
- b=f5zEBuYHZeBkLFMRO2NhfXM25Cd+QEnnZaCuimuK3skx86XUNpgCO6magbg/pJIHpd
- 2VCLFYSx34ENbvYzlrSGMa75iXhXuibmKPzDxRvQ6ll9yU89uNsKCB67hO9D8EJH1amu
- GKE/K5rDGCI62PTK9sxpN2EcyiFtx2pdqOP2ilQQ94Vw8wiSQGN4AgjNJkX3TJ/vAuxp
- 900wcsdES0l7a9TmlDEQPYHb0Lh0hvvhiJnWo2iFUv1gFEGKMNTXK+ABnAkMBsK5Ctrv
- Mwc//YmUX/NDi5VC9SKBpG3x2xI5B2R3STAcX7xZdeLCpR7hiLf8pai8uDM37vQ6eSd1
- 4srA==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20161025;
- h=x-gm-message-state:date:from:to:cc:subject:message-id:references
- :mime-version:content-disposition:content-transfer-encoding
- :in-reply-to:user-agent;
- bh=Jgc8tHCqCzHZc3qhbbI5pSp+Yx7TXVxlmwULDXcgErQ=;
- b=O6NkEeePKgmERBD1niBaONpCug8vgDmrGAYI+VY5q07pY+hX5DwMDKT9VCz54MUAdu
- 82DTkxItGrhrYKmmqwmx/KW8g4yplTC1PWWiv82UB4Qf/58rlwsyF4H7OVR/8QczHTje
- PVQyYnXfG3xMKJ6EODkYI1nlyjX6fZXOtfwTdUd5ce7khD+y3kXi4X9IBjy0FhNo0Euc
- R5ZPuJ3+isMYBj/8eyg8qyETH+k4rvcewagFDouQAkHUQyTwmh4EqO0YU0JH1ZIeerl9
- x/LtH77G3IPbE7wrlSxVEmZ06eDVXXqV1NHnaJgHUBkrdZrO8egJPOAVcLelJVKyT+bm
- jEHA==
-X-Gm-Message-State: APjAAAXT6l5yTTU5G2R+hsIgBl4x4iBj5Yl2+eQzt1tX2otQJbqLMtqC
- Hqk1aKBi7Nu/7e6RE7uhwfRgaw==
-X-Google-Smtp-Source: APXvYqzH6iM6RnE4EChPWDuvGbuVhd/S7odkzz/aRHxlQLliQCVC3T+tM0j+VmKEfslHzUm1PP9DtQ==
-X-Received: by 2002:adf:d081:: with SMTP id y1mr20069624wrh.283.1557298870131; 
- Wed, 08 May 2019 00:01:10 -0700 (PDT)
-Received: from dell ([2.27.167.43])
- by smtp.gmail.com with ESMTPSA id r10sm1802946wml.10.2019.05.08.00.01.09
- (version=TLS1_2 cipher=ECDHE-RSA-CHACHA20-POLY1305 bits=256/256);
- Wed, 08 May 2019 00:01:09 -0700 (PDT)
-Date: Wed, 8 May 2019 08:01:07 +0100
-From: Lee Jones <lee.jones@linaro.org>
-To: Philippe Schenker <dev@pschenker.ch>
-Message-ID: <20190508070107.GG7627@dell>
+ Wed,  8 May 2019 07:28:11 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=toradex.com;
+ s=selector1;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=qWKbaahYiA9lYMyegZeWHf8b2vQmLuiL+B95D4p8mLk=;
+ b=cx+jDf1d2Tc/swdAuzjj69EfNTsgEVzvC64FIoFK9O8ellLAtuppmrmY4GrQC9ue0SZkLR0mvfME6+r3z++EXrv87BR+NLb8bklYwXVqHcJ894wNrZXAkORv6Y9sMiopCclSzr5MdYL/67tdrbFhVlmPjGNvatixrfIz0flGjH8=
+Received: from VI1PR0502MB3965.eurprd05.prod.outlook.com (52.134.17.157) by
+ VI1PR0502MB3933.eurprd05.prod.outlook.com (52.134.4.33) with Microsoft SMTP
+ Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.20.1878.20; Wed, 8 May 2019 07:28:05 +0000
+Received: from VI1PR0502MB3965.eurprd05.prod.outlook.com
+ ([fe80::48ff:f344:98da:6571]) by VI1PR0502MB3965.eurprd05.prod.outlook.com
+ ([fe80::48ff:f344:98da:6571%5]) with mapi id 15.20.1856.012; Wed, 8 May 2019
+ 07:28:05 +0000
+From: Philippe Schenker <philippe.schenker@toradex.com>
+To: "lee.jones@linaro.org" <lee.jones@linaro.org>
+Thread-Topic: [PATCH 1/5] iio: stmpe-adc: Add compatible name
+Thread-Index: AQHVBOJChjWKjOCYJEK9rCCD5+wLmaZgzdmAgAAHiAA=
+Date: Wed, 8 May 2019 07:28:05 +0000
+Message-ID: <0cf03cb66eebb1aa87a4460f96db5cadab47392c.camel@toradex.com>
 References: <20190507143615.28477-1-dev@pschenker.ch>
+ <20190508070107.GG7627@dell>
+In-Reply-To: <20190508070107.GG7627@dell>
+Accept-Language: en-GB, en-US
+Content-Language: en-US
+X-MS-Has-Attach: 
+X-MS-TNEF-Correlator: 
+authentication-results: spf=none (sender IP is )
+ smtp.mailfrom=philippe.schenker@toradex.com; 
+x-originating-ip: [46.140.72.82]
+x-ms-publictraffictype: Email
+x-ms-office365-filtering-correlation-id: ddaba678-98d0-4676-a0d7-08d6d386b649
+x-microsoft-antispam: BCL:0; PCL:0;
+ RULEID:(2390118)(7020095)(4652040)(8989299)(4534185)(4627221)(201703031133081)(201702281549075)(8990200)(5600141)(711020)(4605104)(2017052603328)(7193020);
+ SRVR:VI1PR0502MB3933; 
+x-ms-traffictypediagnostic: VI1PR0502MB3933:
+x-microsoft-antispam-prvs: <VI1PR0502MB3933A22E607CF338585F3446F4320@VI1PR0502MB3933.eurprd05.prod.outlook.com>
+x-ms-oob-tlc-oobclassifiers: OLM:390;
+x-forefront-prvs: 0031A0FFAF
+x-forefront-antispam-report: SFV:NSPM;
+ SFS:(10019020)(39850400004)(366004)(136003)(346002)(376002)(396003)(199004)(189003)(305945005)(6246003)(2351001)(7416002)(36756003)(14454004)(86362001)(6116002)(6506007)(6486002)(68736007)(4326008)(3846002)(6916009)(53936002)(229853002)(44832011)(2501003)(478600001)(25786009)(11346002)(446003)(6436002)(2906002)(14444005)(102836004)(5640700003)(186003)(118296001)(2616005)(7736002)(5660300002)(76176011)(99286004)(316002)(91956017)(486006)(73956011)(64756008)(66476007)(81156014)(76116006)(8676002)(66556008)(66446008)(66946007)(4744005)(54906003)(81166006)(6512007)(476003)(71200400001)(71190400001)(256004)(26005)(8936002)(66066001);
+ DIR:OUT; SFP:1102; SCL:1; SRVR:VI1PR0502MB3933;
+ H:VI1PR0502MB3965.eurprd05.prod.outlook.com; FPR:; SPF:None; LANG:en;
+ PTR:InfoNoRecords; A:1; MX:1; 
+received-spf: None (protection.outlook.com: toradex.com does not designate
+ permitted sender hosts)
+x-ms-exchange-senderadcheck: 1
+x-microsoft-antispam-message-info: vP6X/d4d8ipD7XPGF7pXKL7U/j493agGxP5tq5U58tT/kegeV2D96FB8i+yqZP0j5ytWjuDDu4e+DSgJw3Rd5GuNzWNRIPgMoICAPMeThjEdV2vYIjWgoH+0PaZHqgm3hUgKOqHigHBwXDyDNb/oZLDi5pkRJjKAZKEl2Zg/XYPux/xHGdx5jes4Lg5eN5cAbevBDONQRVF7j8S6ylwWY6miJ91dydVOFVmN69+zR2b7xx8JRei5D7NjFIQlAAJvaTD53SFuNGj+Jn4XV98WUDVvJlTZ3BDv20HDy+w7FUrkoo6HAGSFtOqdbCDIlAPTyRzr8qWdzZxdXlrKINCvyMMD6F8z5xfSilFh7hdKUuQAMq/CVwcvbCi1ALIP7C+yfiAHqtLBh4P391yTt0msSuNKbSFyVVCfrXVQv+wlHi4=
+Content-ID: <14D6D287240A1F4587BD207F33A3EE13@eurprd05.prod.outlook.com>
 MIME-Version: 1.0
-Content-Disposition: inline
-In-Reply-To: <20190507143615.28477-1-dev@pschenker.ch>
-User-Agent: Mutt/1.9.4 (2018-02-28)
-Cc: Maxime Coquelin <mcoquelin.stm32@gmail.com>,
- Lars-Peter Clausen <lars@metafoo.de>,
+X-OriginatorOrg: toradex.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: ddaba678-98d0-4676-a0d7-08d6d386b649
+X-MS-Exchange-CrossTenant-originalarrivaltime: 08 May 2019 07:28:05.4849 (UTC)
+X-MS-Exchange-CrossTenant-fromentityheader: Hosted
+X-MS-Exchange-CrossTenant-id: d9995866-0d9b-4251-8315-093f062abab4
+X-MS-Exchange-CrossTenant-mailboxtype: HOSTED
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: VI1PR0502MB3933
+Cc: "mcoquelin.stm32@gmail.com" <mcoquelin.stm32@gmail.com>,
  Max Krummenacher <max.krummenacher@toradex.com>,
- Philippe Schenker <philippe.schenker@toradex.com>, linux-iio@vger.kernel.org,
- linux-kernel@vger.kernel.org, Stefan Agner <stefan@agner.ch>,
+ "lars@metafoo.de" <lars@metafoo.de>,
  Marcel Ziswiler <marcel.ziswiler@toradex.com>,
- David Laight <David.Laight@ACULAB.COM>, linux-arm-kernel@lists.infradead.org,
- Peter Meerwald-Stadler <pmeerw@pmeerw.net>, Hartmut Knaack <knaack.h@gmx.de>,
- linux-stm32@st-md-mailman.stormreply.com, Jonathan Cameron <jic23@kernel.org>
+ "linux-kernel@vger.kernel.org" <linux-kernel@vger.kernel.org>,
+ "stefan@agner.ch" <stefan@agner.ch>,
+ "linux-iio@vger.kernel.org" <linux-iio@vger.kernel.org>,
+ "David.Laight@ACULAB.COM" <David.Laight@ACULAB.COM>,
+ "linux-arm-kernel@lists.infradead.org" <linux-arm-kernel@lists.infradead.org>,
+ "pmeerw@pmeerw.net" <pmeerw@pmeerw.net>, "knaack.h@gmx.de" <knaack.h@gmx.de>,
+ "linux-stm32@st-md-mailman.stormreply.com"
+ <linux-stm32@st-md-mailman.stormreply.com>,
+ "jic23@kernel.org" <jic23@kernel.org>
 Subject: Re: [Linux-stm32] [PATCH 1/5] iio: stmpe-adc: Add compatible name
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
@@ -78,22 +95,33 @@ List-Post: <mailto:linux-stm32@st-md-mailman.stormreply.com>
 List-Help: <mailto:linux-stm32-request@st-md-mailman.stormreply.com?subject=help>
 List-Subscribe: <https://st-md-mailman.stormreply.com/mailman/listinfo/linux-stm32>, 
  <mailto:linux-stm32-request@st-md-mailman.stormreply.com?subject=subscribe>
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: base64
+Content-Type: text/plain; charset="us-ascii"
+Content-Transfer-Encoding: 7bit
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
-T24gVHVlLCAwNyBNYXkgMjAxOSwgUGhpbGlwcGUgU2NoZW5rZXIgd3JvdGU6Cgo+IEZyb206IFBo
-aWxpcHBlIFNjaGVua2VyIDxwaGlsaXBwZS5zY2hlbmtlckB0b3JhZGV4LmNvbT4KPiAKPiBBZGQg
-dGhlIGNvbXBhdGlibGUgbmFtZSB0byB0aGUgZHJpdmVyIHNvIGl0IGdldHMgbG9hZGVkIHdoZW4g
-dGhlIHByb3Blcgo+IG5vZGUgaW4gRFQgaXMgZGV0ZWN0ZWQuCj4gCj4gU2lnbmVkLW9mZi1ieTog
-UGhpbGlwcGUgU2NoZW5rZXIgPHBoaWxpcHBlLnNjaGVua2VyQHRvcmFkZXguY29tPgo+IC0tLQo+
-IAo+ICBkcml2ZXJzL2lpby9hZGMvc3RtcGUtYWRjLmMgfCA3ICsrKysrKy0KPiAgMSBmaWxlIGNo
-YW5nZWQsIDYgaW5zZXJ0aW9ucygrKSwgMSBkZWxldGlvbigtKQoKV2h5IGhhdmUgeW91IHNlbnQg
-dGhpcyBzZXQgdG8gbWU/CgotLSAKTGVlIEpvbmVzIFvmnY7nkLzmlq9dCkxpbmFybyBTZXJ2aWNl
-cyBUZWNobmljYWwgTGVhZApMaW5hcm8ub3JnIOKUgiBPcGVuIHNvdXJjZSBzb2Z0d2FyZSBmb3Ig
-QVJNIFNvQ3MKRm9sbG93IExpbmFybzogRmFjZWJvb2sgfCBUd2l0dGVyIHwgQmxvZwpfX19fX19f
-X19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fXwpMaW51eC1zdG0zMiBtYWls
-aW5nIGxpc3QKTGludXgtc3RtMzJAc3QtbWQtbWFpbG1hbi5zdG9ybXJlcGx5LmNvbQpodHRwczov
-L3N0LW1kLW1haWxtYW4uc3Rvcm1yZXBseS5jb20vbWFpbG1hbi9saXN0aW5mby9saW51eC1zdG0z
-Mgo=
+On Wed, 2019-05-08 at 08:01 +0100, Lee Jones wrote:
+> On Tue, 07 May 2019, Philippe Schenker wrote:
+> 
+> > From: Philippe Schenker <philippe.schenker@toradex.com>
+> > 
+> > Add the compatible name to the driver so it gets loaded when the proper
+> > node in DT is detected.
+> > 
+> > Signed-off-by: Philippe Schenker <philippe.schenker@toradex.com>
+> > ---
+> > 
+> >  drivers/iio/adc/stmpe-adc.c | 7 ++++++-
+> >  1 file changed, 6 insertions(+), 1 deletion(-)
+> 
+> Why have you sent this set to me?
+> 
+
+get_maintainer.pl returned you as a commit signer. You signed the initial commit
+of this driver and pulled it back then because it is part of a mfd.
+
+Philippe
+_______________________________________________
+Linux-stm32 mailing list
+Linux-stm32@st-md-mailman.stormreply.com
+https://st-md-mailman.stormreply.com/mailman/listinfo/linux-stm32
