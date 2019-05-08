@@ -2,69 +2,47 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id 86BA2173F7
-	for <lists+linux-stm32@lfdr.de>; Wed,  8 May 2019 10:36:27 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id C692017466
+	for <lists+linux-stm32@lfdr.de>; Wed,  8 May 2019 11:01:46 +0200 (CEST)
 Received: from ip-172-31-3-76.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 4B407C36B3F
-	for <lists+linux-stm32@lfdr.de>; Wed,  8 May 2019 08:36:27 +0000 (UTC)
-Received: from mail-wr1-f65.google.com (mail-wr1-f65.google.com
- [209.85.221.65])
- (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 223F2C36B3F
+	for <lists+linux-stm32@lfdr.de>; Wed,  8 May 2019 09:01:46 +0000 (UTC)
+Received: from heliosphere.sirena.org.uk (heliosphere.sirena.org.uk
+ [172.104.155.198])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id E09DDC36B3E
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 7D7D2C36B3E
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Wed,  8 May 2019 08:36:25 +0000 (UTC)
-Received: by mail-wr1-f65.google.com with SMTP id e11so12967978wrs.0
- for <linux-stm32@st-md-mailman.stormreply.com>;
- Wed, 08 May 2019 01:36:25 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linaro.org; s=google;
- h=date:from:to:cc:subject:message-id:references:mime-version
- :content-disposition:content-transfer-encoding:in-reply-to
- :user-agent; bh=ejPFMkOH4nB71JZvtpUtWYEnESDbhR46KwiTRhKlpYY=;
- b=UjCs3Hs1A1TJz4DrCCO/HqxUmNOfQ6FSRZ6sFMN9YJDCePqd/HmwzWjhu7RpcoJwz+
- /JrIpB2YpWQew4DEl2ZtyDTQjS8b/+zlowtBmkd+OIAOQ3YcIle1pp7r2vJu3NmKNc0j
- hVlTGg1hIBxDH6ycl5Hk/z3g0ZOC2iW/6nMd7KkivdoOe+9V0ZxuREZtObMxQE46caxV
- k4SmJQGioYFNyG/icUmOgrVLKM6fCbZq62FFRVi7YLE9GyK7MF2HL0nYaTMrbVyL8epH
- 3IUgVewddBCo5bPUl6gEqxyJDSBF1f1gO38Cqgao1xyAVsrS+ReMQk36AoEMtQFXKd3N
- daPQ==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20161025;
- h=x-gm-message-state:date:from:to:cc:subject:message-id:references
- :mime-version:content-disposition:content-transfer-encoding
- :in-reply-to:user-agent;
- bh=ejPFMkOH4nB71JZvtpUtWYEnESDbhR46KwiTRhKlpYY=;
- b=gXLrrBqM8FnhJywccO1mBH3X6wa0/li0Cs57R1Ybqcj4TWVTX+WPtrAaxTE/jK0XOr
- 8UB8QiEoq3v/2gocJmfY3Gjk8zMv+Xn8cLlbY4f/ggyQTtF+wkStQR9ThBMov9utoDkH
- 2B9hBAC3T8AtCKL2B5bB4eMgZRJgSFt0yrtB8uFbA7hqI4VsiM0Mp19s/61TdgZssIVX
- tTqisknosTuVWw9uFX27CUi3oaEcVour6gh//VfAeUf3qPaQS+k9Lgc33OazvacsrTUA
- Q5gStdzxVvChPyuY/6yCQ8JF41aVnGcByF17I4yCZpkYPh23k0Iy5AU1qAJ+iXkTibom
- mYdA==
-X-Gm-Message-State: APjAAAWqZNLOHDDGd2OCFXuohkLHl+zV5Egk1GJMxahM6ca4He1+c3JO
- bzH8xV7uy4sYEsMJQz/OTESZjg==
-X-Google-Smtp-Source: APXvYqwlWje+MSQTBFRqBzBoroHEdoXKAKxsvLDPUcZCTX9f2N+4cHc99gR6xe83PLsRey3KS/pjTw==
-X-Received: by 2002:adf:eb87:: with SMTP id t7mr19904084wrn.39.1557304585426; 
- Wed, 08 May 2019 01:36:25 -0700 (PDT)
-Received: from dell ([2.27.167.43])
- by smtp.gmail.com with ESMTPSA id r9sm7673925wrj.57.2019.05.08.01.36.24
- (version=TLS1_2 cipher=ECDHE-RSA-CHACHA20-POLY1305 bits=256/256);
- Wed, 08 May 2019 01:36:24 -0700 (PDT)
-Date: Wed, 8 May 2019 09:36:22 +0100
-From: Lee Jones <lee.jones@linaro.org>
-To: Amelie Delaunay <amelie.delaunay@st.com>
-Message-ID: <20190508083622.GE3995@dell>
-References: <1554794651-6874-1-git-send-email-amelie.delaunay@st.com>
- <1554794651-6874-3-git-send-email-amelie.delaunay@st.com>
-MIME-Version: 1.0
-Content-Disposition: inline
-In-Reply-To: <1554794651-6874-3-git-send-email-amelie.delaunay@st.com>
-User-Agent: Mutt/1.9.4 (2018-02-28)
-Cc: Mark Rutland <mark.rutland@arm.com>, devicetree@vger.kernel.org,
- Linus Walleij <linus.walleij@linaro.org>, linux-kernel@vger.kernel.org,
- linux-gpio@vger.kernel.org, Rob Herring <robh+dt@kernel.org>,
- Maxime Coquelin <mcoquelin.stm32@gmail.com>,
+ Wed,  8 May 2019 09:01:44 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
+ d=sirena.org.uk; s=20170815-heliosphere; h=Date:Message-Id:In-Reply-To:
+ Subject:Cc:To:From:Sender:Reply-To:MIME-Version:Content-Type:
+ Content-Transfer-Encoding:Content-ID:Content-Description:Resent-Date:
+ Resent-From:Resent-Sender:Resent-To:Resent-Cc:Resent-Message-ID:References:
+ List-Id:List-Help:List-Unsubscribe:List-Subscribe:List-Post:List-Owner:
+ List-Archive; bh=j0BVhUdSsVNZZmpI2QpfiLV2xfXPtZzCwrFt5yURFYU=; b=JWKWuMRHWILi
+ YdbjuGBH0MzGGR++caNDzWDv0M5Sf+mBkpcSJl3TobMeo91jjbvDPHvEpIF57VeJzgW9L+iF/Y6kk
+ fiYhbtUEU633ojVYx3CNClm3uWB2PmKPdZ7/kIJ0KLdqUoybRrhTcOa7mHjm/TPrGBwrWi4r5HDG1
+ a/DcY=;
+Received: from [61.199.190.11] (helo=finisterre.sirena.org.uk)
+ by heliosphere.sirena.org.uk with esmtpsa
+ (TLS1.2:ECDHE_RSA_AES_256_GCM_SHA384:256) (Exim 4.89)
+ (envelope-from <broonie@sirena.org.uk>)
+ id 1hOISD-0007dQ-0A; Wed, 08 May 2019 09:01:36 +0000
+Received: by finisterre.sirena.org.uk (Postfix, from userid 1000)
+ id 495B0440017; Wed,  8 May 2019 10:01:27 +0100 (BST)
+From: Mark Brown <broonie@kernel.org>
+To: Olivier Moysan <olivier.moysan@st.com>
+In-Reply-To: <1557147252-18679-3-git-send-email-olivier.moysan@st.com>
+X-Patchwork-Hint: ignore
+Message-Id: <20190508090127.495B0440017@finisterre.sirena.org.uk>
+Date: Wed,  8 May 2019 10:01:27 +0100 (BST)
+Cc: alsa-devel@alsa-project.org, tiwai@suse.com, lgirdwood@gmail.com,
+ linux-kernel@vger.kernel.org, Mark Brown <broonie@kernel.org>,
+ mcoquelin.stm32@gmail.com, perex@perex.cz,
  linux-stm32@st-md-mailman.stormreply.com, linux-arm-kernel@lists.infradead.org
-Subject: Re: [Linux-stm32] [PATCH v5 2/9] mfd: Add ST Multi-Function
- eXpander (STMFX) core driver
+Subject: [Linux-stm32] Applied "ASoC: stm32: i2s: manage identification
+	registers" to the asoc tree
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -76,112 +54,172 @@ List-Post: <mailto:linux-stm32@st-md-mailman.stormreply.com>
 List-Help: <mailto:linux-stm32-request@st-md-mailman.stormreply.com?subject=help>
 List-Subscribe: <https://st-md-mailman.stormreply.com/mailman/listinfo/linux-stm32>, 
  <mailto:linux-stm32-request@st-md-mailman.stormreply.com?subject=subscribe>
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: base64
+MIME-Version: 1.0
+Content-Type: text/plain; charset="us-ascii"
+Content-Transfer-Encoding: 7bit
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
-T24gVHVlLCAwOSBBcHIgMjAxOSwgQW1lbGllIERlbGF1bmF5IHdyb3RlOgoKPiBTVE1pY3JvZWxl
-Y3Ryb25pY3MgTXVsdGktRnVuY3Rpb24gZVhwYW5kZXIgKFNUTUZYKSBpcyBhIHNsYXZlIGNvbnRy
-b2xsZXIKPiB1c2luZyBJMkMgZm9yIGNvbW11bmljYXRpb24gd2l0aCB0aGUgbWFpbiBNQ1UuIE1h
-aW4gZmVhdHVyZXMgYXJlOgo+IC0gMTYgZmFzdCBHUElPcyBpbmRpdmlkdWFsbHkgY29uZmlndXJh
-YmxlIGluIGlucHV0L291dHB1dAo+IC0gOCBhbHRlcm5hdGUgR1BJT3MgaW5kaXZpZHVhbGx5IGNv
-bmZpZ3VyYWJsZSBpbiBpbnB1dC9vdXRwdXQgd2hlbiBvdGhlcgo+IFNUTUZYIGZ1bmN0aW9ucyBh
-cmUgbm90IHVzZWQKPiAtIE1haW4gTUNVIElERCBtZWFzdXJlbWVudAo+IC0gUmVzaXN0aXZlIHRv
-dWNoc2NyZWVuIGNvbnRyb2xsZXIKPiAKPiBTaWduZWQtb2ZmLWJ5OiBBbWVsaWUgRGVsYXVuYXkg
-PGFtZWxpZS5kZWxhdW5heUBzdC5jb20+Cj4gLS0tCj4gIGRyaXZlcnMvbWZkL0tjb25maWcgICAg
-ICAgfCAgMTMgKysKPiAgZHJpdmVycy9tZmQvTWFrZWZpbGUgICAgICB8ICAgMiArLQo+ICBkcml2
-ZXJzL21mZC9zdG1meC5jICAgICAgIHwgNTY2ICsrKysrKysrKysrKysrKysrKysrKysrKysrKysr
-KysrKysrKysrKysrKysrKysKPiAgaW5jbHVkZS9saW51eC9tZmQvc3RtZnguaCB8IDEyMyArKysr
-KysrKysrCj4gIDQgZmlsZXMgY2hhbmdlZCwgNzAzIGluc2VydGlvbnMoKyksIDEgZGVsZXRpb24o
-LSkKPiAgY3JlYXRlIG1vZGUgMTAwNjQ0IGRyaXZlcnMvbWZkL3N0bWZ4LmMKPiAgY3JlYXRlIG1v
-ZGUgMTAwNjQ0IGluY2x1ZGUvbGludXgvbWZkL3N0bWZ4LmgKPiAKPiBkaWZmIC0tZ2l0IGEvZHJp
-dmVycy9tZmQvS2NvbmZpZyBiL2RyaXZlcnMvbWZkL0tjb25maWcKPiBpbmRleCAzNDQzZjFhLi45
-NzgzZTE4IDEwMDY0NAo+IC0tLSBhL2RyaXZlcnMvbWZkL0tjb25maWcKPiArKysgYi9kcml2ZXJz
-L21mZC9LY29uZmlnCj4gQEAgLTE5MDcsNiArMTkwNywxOSBAQCBjb25maWcgTUZEX1NUUE1JQzEK
-PiAgCSAgVG8gY29tcGlsZSB0aGlzIGRyaXZlciBhcyBhIG1vZHVsZSwgY2hvb3NlIE0gaGVyZTog
-dGhlCj4gIAkgIG1vZHVsZSB3aWxsIGJlIGNhbGxlZCBzdHBtaWMxLgo+ICAKPiArY29uZmlnIE1G
-RF9TVE1GWAo+ICsJdHJpc3RhdGUgIlN1cHBvcnQgZm9yIFNUTWljcm9lbGVjdHJvbmljcyBNdWx0
-aS1GdW5jdGlvbiBlWHBhbmRlciAoU1RNRlgpIgo+ICsJZGVwZW5kcyBvbiBJMkMKPiArCWRlcGVu
-ZHMgb24gT0YgfHwgQ09NUElMRV9URVNUCj4gKwlzZWxlY3QgTUZEX0NPUkUKPiArCXNlbGVjdCBS
-RUdNQVBfSTJDCj4gKwloZWxwCj4gKwkgIFN1cHBvcnQgZm9yIHRoZSBTVE1pY3JvZWxlY3Ryb25p
-Y3MgTXVsdGktRnVuY3Rpb24gZVhwYW5kZXIuCj4gKwo+ICsJICBUaGlzIGRyaXZlciBwcm92aWRl
-cyBjb21tb24gc3VwcG9ydCBmb3IgYWNjZXNzaW5nIHRoZSBkZXZpY2UsCj4gKwkgIGFkZGl0aW9u
-YWwgZHJpdmVycyBtdXN0IGJlIGVuYWJsZWQgaW4gb3JkZXIgdG8gdXNlIHRoZSBmdW5jdGlvbmFs
-aXR5Cj4gKwkgIG9mIHRoZSBkZXZpY2UuCj4gKwo+ICBtZW51ICJNdWx0aW1lZGlhIENhcGFiaWxp
-dGllcyBQb3J0IGRyaXZlcnMiCj4gIAlkZXBlbmRzIG9uIEFSQ0hfU0ExMTAwCj4gIAo+IGRpZmYg
-LS1naXQgYS9kcml2ZXJzL21mZC9NYWtlZmlsZSBiL2RyaXZlcnMvbWZkL01ha2VmaWxlCj4gaW5k
-ZXggYjQ1NjllZDcuLjYxNGVlYTggMTAwNjQ0Cj4gLS0tIGEvZHJpdmVycy9tZmQvTWFrZWZpbGUK
-PiArKysgYi9kcml2ZXJzL21mZC9NYWtlZmlsZQo+IEBAIC0yNDYsNCArMjQ2LDQgQEAgb2JqLSQo
-Q09ORklHX01GRF9NWFNfTFJBREMpICAgICArPSBteHMtbHJhZGMubwo+ICBvYmotJChDT05GSUdf
-TUZEX1NDMjdYWF9QTUlDKQkrPSBzcHJkLXNjMjd4eC1zcGkubwo+ICBvYmotJChDT05GSUdfUkFW
-RV9TUF9DT1JFKQkrPSByYXZlLXNwLm8KPiAgb2JqLSQoQ09ORklHX01GRF9ST0hNX0JENzE4WFgp
-CSs9IHJvaG0tYmQ3MTh4Ny5vCj4gLQo+ICtvYmotJChDT05GSUdfTUZEX1NUTUZYKSAJKz0gc3Rt
-Zngubwo+IGRpZmYgLS1naXQgYS9kcml2ZXJzL21mZC9zdG1meC5jIGIvZHJpdmVycy9tZmQvc3Rt
-ZnguYwo+IG5ldyBmaWxlIG1vZGUgMTAwNjQ0Cj4gaW5kZXggMDAwMDAwMC4uNTlmMGEwMwo+IC0t
-LSAvZGV2L251bGwKPiArKysgYi9kcml2ZXJzL21mZC9zdG1meC5jCj4gQEAgLTAsMCArMSw1NjYg
-QEAKPiArLy8gU1BEWC1MaWNlbnNlLUlkZW50aWZpZXI6IEdQTC0yLjAKPiArLyoKPiArICogRHJp
-dmVyIGZvciBTVE1pY3JvZWxlY3Ryb25pY3MgTXVsdGktRnVuY3Rpb24gZVhwYW5kZXIgKFNUTUZY
-KSBjb3JlCj4gKyAqCj4gKyAqIENvcHlyaWdodCAoQykgMjAxOSBTVE1pY3JvZWxlY3Ryb25pY3MK
-PiArICogQXV0aG9yKHMpOiBBbWVsaWUgRGVsYXVuYXkgPGFtZWxpZS5kZWxhdW5heUBzdC5jb20+
-Lgo+ICsgKi8KPiArI2luY2x1ZGUgPGxpbnV4L2JpdGZpZWxkLmg+Cj4gKyNpbmNsdWRlIDxsaW51
-eC9pMmMuaD4KPiArI2luY2x1ZGUgPGxpbnV4L2ludGVycnVwdC5oPgo+ICsjaW5jbHVkZSA8bGlu
-dXgvaXJxLmg+Cj4gKyNpbmNsdWRlIDxsaW51eC9tZmQvY29yZS5oPgo+ICsjaW5jbHVkZSA8bGlu
-dXgvbWZkL3N0bWZ4Lmg+Cj4gKyNpbmNsdWRlIDxsaW51eC9tb2R1bGUuaD4KPiArI2luY2x1ZGUg
-PGxpbnV4L3JlZ3VsYXRvci9jb25zdW1lci5oPgoKWy4uLl0KCj4gK3N0YXRpYyBpbnQgc3RtZnhf
-Y2hpcF9pbml0KHN0cnVjdCBpMmNfY2xpZW50ICpjbGllbnQpCj4gK3sKPiArCXN0cnVjdCBzdG1m
-eCAqc3RtZnggPSBpMmNfZ2V0X2NsaWVudGRhdGEoY2xpZW50KTsKPiArCXUzMiBpZDsKPiArCXU4
-IHZlcnNpb25bMl07Cj4gKwlpbnQgcmV0Owo+ICsKPiArCXN0bWZ4LT52ZGQgPSBkZXZtX3JlZ3Vs
-YXRvcl9nZXRfb3B0aW9uYWwoJmNsaWVudC0+ZGV2LCAidmRkIik7Cj4gKwlpZiAoSVNfRVJSKHN0
-bWZ4LT52ZGQpKSB7Cj4gKwkJcmV0ID0gUFRSX0VSUihzdG1meC0+dmRkKTsKPiArCQlpZiAocmV0
-ICE9IC1FTk9ERVYpIHsKPiArCQkJaWYgKHJldCAhPSAtRVBST0JFX0RFRkVSKQo+ICsJCQkJZGV2
-X2VycigmY2xpZW50LT5kZXYsCj4gKwkJCQkJIkNhbid0IGdldCBWREQgcmVndWxhdG9yOiVkXG4i
-LCByZXQpOwo+ICsJCQlyZXR1cm4gcmV0Owo+ICsJCX0KCkFueSByZWFzb24geW91J3ZlIGRlY2lk
-ZWQgdG8gc3RpY2sgd2l0aCB0aGlzIDMtbGF5ZXIgbmVzdGVkIGlmIGluc3RlYWQKb2YgZ29pbmcg
-d2l0aCBteSBzdWdnZXN0aW9uPwoKPiArCX0gZWxzZSB7Cj4gKwkJcmV0ID0gcmVndWxhdG9yX2Vu
-YWJsZShzdG1meC0+dmRkKTsKPiArCQlpZiAocmV0KSB7Cj4gKwkJCWRldl9lcnIoJmNsaWVudC0+
-ZGV2LCAiVkREIGVuYWJsZSBmYWlsZWQ6ICVkXG4iLCByZXQpOwo+ICsJCQlyZXR1cm4gcmV0Owo+
-ICsJCX0KPiArCX0KClsuLi5dCgo+ICsjaWZkZWYgQ09ORklHX1BNX1NMRUVQCj4gK3N0YXRpYyBp
-bnQgc3RtZnhfYmFja3VwX3JlZ3Moc3RydWN0IHN0bWZ4ICpzdG1meCkKPiArewo+ICsJaW50IHJl
-dDsKPiArCj4gKwlyZXQgPSByZWdtYXBfcmF3X3JlYWQoc3RtZngtPm1hcCwgU1RNRlhfUkVHX1NZ
-U19DVFJMLAo+ICsJCQkgICAgICAmc3RtZngtPmJrcF9zeXNjdHJsLCBzaXplb2Yoc3RtZngtPmJr
-cF9zeXNjdHJsKSk7Cj4gKwlpZiAocmV0KQo+ICsJCXJldHVybiByZXQ7Cj4gKwo+ICsJcmV0ID0g
-cmVnbWFwX3Jhd19yZWFkKHN0bWZ4LT5tYXAsIFNUTUZYX1JFR19JUlFfT1VUX1BJTiwKPiArCQkJ
-ICAgICAgJnN0bWZ4LT5ia3BfaXJxb3V0cGluLAo+ICsJCQkgICAgICBzaXplb2Yoc3RtZngtPmJr
-cF9pcnFvdXRwaW4pKTsKPiArCWlmIChyZXQpCj4gKwkJcmV0dXJuIHJldDsKPiArCj4gKwlyZXR1
-cm4gMDsKPiArfQo+ICsKPiArc3RhdGljIGludCBzdG1meF9yZXN0b3JlX3JlZ3Moc3RydWN0IHN0
-bWZ4ICpzdG1meCkKPiArewo+ICsJaW50IHJldDsKPiArCj4gKwlyZXQgPSByZWdtYXBfcmF3X3dy
-aXRlKHN0bWZ4LT5tYXAsIFNUTUZYX1JFR19TWVNfQ1RSTCwKPiArCQkJICAgICAgICZzdG1meC0+
-YmtwX3N5c2N0cmwsIHNpemVvZihzdG1meC0+YmtwX3N5c2N0cmwpKTsKPiArCWlmIChyZXQpCj4g
-KwkJcmV0dXJuIHJldDsKPiArCj4gKwlyZXQgPSByZWdtYXBfcmF3X3dyaXRlKHN0bWZ4LT5tYXAs
-IFNUTUZYX1JFR19JUlFfT1VUX1BJTiwKPiArCQkJICAgICAgICZzdG1meC0+YmtwX2lycW91dHBp
-biwKPiArCQkJICAgICAgIHNpemVvZihzdG1meC0+YmtwX2lycW91dHBpbikpOwo+ICsJaWYgKHJl
-dCkKPiArCQlyZXR1cm4gcmV0Owo+ICsKPiArCXJldCA9IHJlZ21hcF9yYXdfd3JpdGUoc3RtZngt
-Pm1hcCwgU1RNRlhfUkVHX0lSUV9TUkNfRU4sCj4gKwkJCSAgICAgICAmc3RtZngtPmlycV9zcmMs
-IHNpemVvZihzdG1meC0+aXJxX3NyYykpOwo+ICsJaWYgKHJldCkKPiArCQlyZXR1cm4gcmV0Owo+
-ICsKPiArCXJldHVybiAwOwo+ICt9Cj4gKwo+ICtzdGF0aWMgaW50IHN0bWZ4X3N1c3BlbmQoc3Ry
-dWN0IGRldmljZSAqZGV2KQo+ICt7Cj4gKwlzdHJ1Y3Qgc3RtZnggKnN0bWZ4ID0gZGV2X2dldF9k
-cnZkYXRhKGRldik7Cj4gKwlpbnQgcmV0Owo+ICsKPiArCXJldCA9IHN0bWZ4X2JhY2t1cF9yZWdz
-KHN0bWZ4KTsKPiArCWlmIChyZXQpIHsKPiArCQlkZXZfZXJyKHN0bWZ4LT5kZXYsICJSZWdpc3Rl
-cnMgYmFja3VwIGZhaWx1cmVcbiIpOwo+ICsJCXJldHVybiByZXQ7Cj4gKwl9CgpUaGlzIGRvZXNu
-J3QgbmVlZCB0byBiZSBhbiBleHRyYSBmdW5jdGlvbi4gIFlvdSdyZSBqdXN0IGFkZGluZyBtb3Jl
-CmxpbmVzIG9mIGNvZGUgZm9yIG5vIHJlYWwgZ2FpbiBpbiByZXVzYWJpbGl0eS9yZWFkYWJpbGl0
-eS4KCj4gKwlpZiAoIUlTX0VSUihzdG1meC0+dmRkKSkgewo+ICsJCXJldCA9IHJlZ3VsYXRvcl9k
-aXNhYmxlKHN0bWZ4LT52ZGQpOwo+ICsJCWlmIChyZXQpCj4gKwkJCXJldHVybiByZXQ7Cj4gKwl9
-Cj4gKwo+ICsJcmV0dXJuIDA7Cj4gK30KPiArCj4gK3N0YXRpYyBpbnQgc3RtZnhfcmVzdW1lKHN0
-cnVjdCBkZXZpY2UgKmRldikKPiArewo+ICsJc3RydWN0IHN0bWZ4ICpzdG1meCA9IGRldl9nZXRf
-ZHJ2ZGF0YShkZXYpOwo+ICsJaW50IHJldDsKPiArCj4gKwlpZiAoIUlTX0VSUihzdG1meC0+dmRk
-KSkgewo+ICsJCXJldCA9IHJlZ3VsYXRvcl9lbmFibGUoc3RtZngtPnZkZCk7Cj4gKwkJaWYgKHJl
-dCkgewo+ICsJCQlkZXZfZXJyKHN0bWZ4LT5kZXYsCj4gKwkJCQkiVkREIGVuYWJsZSBmYWlsZWQ6
-ICVkXG4iLCByZXQpOwo+ICsJCQlyZXR1cm4gcmV0Owo+ICsJCX0KPiArCX0KPiArCj4gKwlyZXQg
-PSBzdG1meF9yZXN0b3JlX3JlZ3Moc3RtZngpOwo+ICsJaWYgKHJldCkgewo+ICsJCWRldl9lcnIo
-c3RtZngtPmRldiwgIlJlZ2lzdGVycyByZXN0b3JhdGlvbiBmYWlsdXJlXG4iKTsKPiArCQlyZXR1
-cm4gcmV0Owo+ICsJfQoKVGhpcyBkb2Vzbid0IG5lZWQgdG8gYmUgYW4gZXh0cmEgZnVuY3Rpb24u
-ICBZb3UncmUganVzdCBhZGRpbmcgbW9yZQpsaW5lcyBvZiBjb2RlIGZvciBubyByZWFsIGdhaW4g
-aW4gcmV1c2FiaWxpdHkvcmVhZGFiaWxpdHkuCgo+ICsJcmV0dXJuIDA7Cj4gK30KPiArI2VuZGlm
-CgpbLi4uXQoKLS0gCkxlZSBKb25lcyBb5p2O55C85pavXQpMaW5hcm8gU2VydmljZXMgVGVjaG5p
-Y2FsIExlYWQKTGluYXJvLm9yZyDilIIgT3BlbiBzb3VyY2Ugc29mdHdhcmUgZm9yIEFSTSBTb0Nz
-CkZvbGxvdyBMaW5hcm86IEZhY2Vib29rIHwgVHdpdHRlciB8IEJsb2cKX19fX19fX19fX19fX19f
-X19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX18KTGludXgtc3RtMzIgbWFpbGluZyBsaXN0
-CkxpbnV4LXN0bTMyQHN0LW1kLW1haWxtYW4uc3Rvcm1yZXBseS5jb20KaHR0cHM6Ly9zdC1tZC1t
-YWlsbWFuLnN0b3JtcmVwbHkuY29tL21haWxtYW4vbGlzdGluZm8vbGludXgtc3RtMzIK
+The patch
+
+   ASoC: stm32: i2s: manage identification registers
+
+has been applied to the asoc tree at
+
+   https://git.kernel.org/pub/scm/linux/kernel/git/broonie/sound.git for-5.3
+
+All being well this means that it will be integrated into the linux-next
+tree (usually sometime in the next 24 hours) and sent to Linus during
+the next merge window (or sooner if it is a bug fix), however if
+problems are discovered then the patch may be dropped or reverted.  
+
+You may get further e-mails resulting from automated or manual testing
+and review of the tree, please engage with people reporting problems and
+send followup patches addressing any issues that are reported if needed.
+
+If any updates are required or you are submitting further changes they
+should be sent as incremental updates against current git, existing
+patches will not be replaced.
+
+Please add any relevant lists and maintainers to the CCs when replying
+to this mail.
+
+Thanks,
+Mark
+
+From 71ed4bddde08285cd02d6d28c861ea1815d67476 Mon Sep 17 00:00:00 2001
+From: Olivier Moysan <olivier.moysan@st.com>
+Date: Mon, 6 May 2019 14:54:12 +0200
+Subject: [PATCH] ASoC: stm32: i2s: manage identification registers
+
+Add support of identification registers in STM32 I2S.
+
+Signed-off-by: Olivier Moysan <olivier.moysan@st.com>
+Signed-off-by: Mark Brown <broonie@kernel.org>
+---
+ sound/soc/stm/stm32_i2s.c | 60 +++++++++++++++++++++++++++++++++++++--
+ 1 file changed, 57 insertions(+), 3 deletions(-)
+
+diff --git a/sound/soc/stm/stm32_i2s.c b/sound/soc/stm/stm32_i2s.c
+index 97d5e9901a0e..9755c49ae7dc 100644
+--- a/sound/soc/stm/stm32_i2s.c
++++ b/sound/soc/stm/stm32_i2s.c
+@@ -16,6 +16,7 @@
+  * details.
+  */
+ 
++#include <linux/bitfield.h>
+ #include <linux/clk.h>
+ #include <linux/delay.h>
+ #include <linux/module.h>
+@@ -37,6 +38,10 @@
+ #define STM32_I2S_TXDR_REG	0X20
+ #define STM32_I2S_RXDR_REG	0x30
+ #define STM32_I2S_CGFR_REG	0X50
++#define STM32_I2S_HWCFGR_REG	0x3F0
++#define STM32_I2S_VERR_REG	0x3F4
++#define STM32_I2S_IPIDR_REG	0x3F8
++#define STM32_I2S_SIDR_REG	0x3FC
+ 
+ /* Bit definition for SPI2S_CR1 register */
+ #define I2S_CR1_SPE		BIT(0)
+@@ -143,6 +148,23 @@
+ #define I2S_CGFR_ODD		BIT(I2S_CGFR_ODD_SHIFT)
+ #define I2S_CGFR_MCKOE		BIT(25)
+ 
++/* Registers below apply to I2S version 1.1 and more */
++
++/* Bit definition for SPI_HWCFGR register */
++#define I2S_HWCFGR_I2S_SUPPORT_MASK	GENMASK(15, 12)
++
++/* Bit definition for SPI_VERR register */
++#define I2S_VERR_MIN_MASK	GENMASK(3, 0)
++#define I2S_VERR_MAJ_MASK	GENMASK(7, 4)
++
++/* Bit definition for SPI_IPIDR register */
++#define I2S_IPIDR_ID_MASK	GENMASK(31, 0)
++
++/* Bit definition for SPI_SIDR register */
++#define I2S_SIDR_ID_MASK	GENMASK(31, 0)
++
++#define I2S_IPIDR_NUMBER	0x00130022
++
+ enum i2s_master_mode {
+ 	I2S_MS_NOT_SET,
+ 	I2S_MS_MASTER,
+@@ -280,6 +302,10 @@ static bool stm32_i2s_readable_reg(struct device *dev, unsigned int reg)
+ 	case STM32_I2S_SR_REG:
+ 	case STM32_I2S_RXDR_REG:
+ 	case STM32_I2S_CGFR_REG:
++	case STM32_I2S_HWCFGR_REG:
++	case STM32_I2S_VERR_REG:
++	case STM32_I2S_IPIDR_REG:
++	case STM32_I2S_SIDR_REG:
+ 		return true;
+ 	default:
+ 		return false;
+@@ -711,10 +737,11 @@ static const struct regmap_config stm32_h7_i2s_regmap_conf = {
+ 	.reg_bits = 32,
+ 	.reg_stride = 4,
+ 	.val_bits = 32,
+-	.max_register = STM32_I2S_CGFR_REG,
++	.max_register = STM32_I2S_SIDR_REG,
+ 	.readable_reg = stm32_i2s_readable_reg,
+ 	.volatile_reg = stm32_i2s_volatile_reg,
+ 	.writeable_reg = stm32_i2s_writeable_reg,
++	.num_reg_defaults_raw = STM32_I2S_SIDR_REG / sizeof(u32) + 1,
+ 	.fast_io = true,
+ 	.cache_type = REGCACHE_FLAT,
+ };
+@@ -864,6 +891,7 @@ static int stm32_i2s_parse_dt(struct platform_device *pdev,
+ static int stm32_i2s_probe(struct platform_device *pdev)
+ {
+ 	struct stm32_i2s_data *i2s;
++	u32 val;
+ 	int ret;
+ 
+ 	i2s = devm_kzalloc(&pdev->dev, sizeof(*i2s), GFP_KERNEL);
+@@ -902,8 +930,34 @@ static int stm32_i2s_probe(struct platform_device *pdev)
+ 		return ret;
+ 
+ 	/* Set SPI/I2S in i2s mode */
+-	return regmap_update_bits(i2s->regmap, STM32_I2S_CGFR_REG,
+-				  I2S_CGFR_I2SMOD, I2S_CGFR_I2SMOD);
++	ret = regmap_update_bits(i2s->regmap, STM32_I2S_CGFR_REG,
++				 I2S_CGFR_I2SMOD, I2S_CGFR_I2SMOD);
++	if (ret)
++		return ret;
++
++	ret = regmap_read(i2s->regmap, STM32_I2S_IPIDR_REG, &val);
++	if (ret)
++		return ret;
++
++	if (val == I2S_IPIDR_NUMBER) {
++		ret = regmap_read(i2s->regmap, STM32_I2S_HWCFGR_REG, &val);
++		if (ret)
++			return ret;
++
++		if (!FIELD_GET(I2S_HWCFGR_I2S_SUPPORT_MASK, val)) {
++			dev_err(&pdev->dev,
++				"Device does not support i2s mode\n");
++			return -EPERM;
++		}
++
++		ret = regmap_read(i2s->regmap, STM32_I2S_VERR_REG, &val);
++
++		dev_dbg(&pdev->dev, "I2S version: %lu.%lu registered\n",
++			FIELD_GET(I2S_VERR_MAJ_MASK, val),
++			FIELD_GET(I2S_VERR_MIN_MASK, val));
++	}
++
++	return ret;
+ }
+ 
+ MODULE_DEVICE_TABLE(of, stm32_i2s_ids);
+-- 
+2.20.1
+
+_______________________________________________
+Linux-stm32 mailing list
+Linux-stm32@st-md-mailman.stormreply.com
+https://st-md-mailman.stormreply.com/mailman/listinfo/linux-stm32
