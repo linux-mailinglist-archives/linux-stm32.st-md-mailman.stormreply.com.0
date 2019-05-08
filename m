@@ -2,82 +2,57 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id 3844617BC4
-	for <lists+linux-stm32@lfdr.de>; Wed,  8 May 2019 16:44:27 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id C72C818158
+	for <lists+linux-stm32@lfdr.de>; Wed,  8 May 2019 22:54:23 +0200 (CEST)
 Received: from ip-172-31-3-76.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id D8A78C36B3F
-	for <lists+linux-stm32@lfdr.de>; Wed,  8 May 2019 14:44:26 +0000 (UTC)
-Received: from mx07-00178001.pphosted.com (mx08-00178001.pphosted.com
- [91.207.212.93])
- (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 77B37C55598
+	for <lists+linux-stm32@lfdr.de>; Wed,  8 May 2019 20:54:23 +0000 (UTC)
+Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
+ (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 95046C36B3E
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 994A3C55597
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Wed,  8 May 2019 14:44:25 +0000 (UTC)
-Received: from pps.filterd (m0046661.ppops.net [127.0.0.1])
- by mx08-00178001.pphosted.com (8.16.0.27/8.16.0.27) with SMTP id
- x48EfRWK016745; Wed, 8 May 2019 16:44:12 +0200
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=st.com;
- h=from : to : cc : subject
- : date : message-id : references : in-reply-to : content-type : content-id
- : content-transfer-encoding : mime-version; s=STMicroelectronics;
- bh=ujx99i/SdmhJJY/rTfyjZ25oaMJTjnJ2T2B83DEfQao=;
- b=NDBJhGUrF+5cuInlJHlGw+Wa11TeVKy9sCKxakUcQg4M/gC07uoIxkT24K1/ylLXCY5k
- Wqkzt57AQ4QQIWbdeDTm64k50D83HpQnavgmO3DPW3lFsa43MPtwtayz9mF9D0q6vOea
- Cv2pYd5EDB78dz4AIOFkcw3UEc1gqZcvm1DrQJfcuWPdA+G59vhtndIXoHLbKyIC9h2d
- 0gjVQ+9DE8jS5lMkO35E8SA8A8VboazvOKB1Nl+eAUmASF8V5MofiqFSZz50jFA9fMOP
- Zfo6w4OdapO7LKAhrAa18JXran0E0YZ3FWsA3nNZK/0kg5Jqs6zDVyLeVp+csBDU6TcD Vw== 
-Received: from beta.dmz-eu.st.com (beta.dmz-eu.st.com [164.129.1.35])
- by mx08-00178001.pphosted.com with ESMTP id 2s94c3qnkd-1
- (version=TLSv1 cipher=ECDHE-RSA-AES256-SHA bits=256 verify=NOT);
- Wed, 08 May 2019 16:44:12 +0200
-Received: from zeta.dmz-eu.st.com (zeta.dmz-eu.st.com [164.129.230.9])
- by beta.dmz-eu.st.com (STMicroelectronics) with ESMTP id 0476338;
- Wed,  8 May 2019 14:44:10 +0000 (GMT)
-Received: from Webmail-eu.st.com (sfhdag3node1.st.com [10.75.127.7])
- by zeta.dmz-eu.st.com (STMicroelectronics) with ESMTP id C010028CA;
- Wed,  8 May 2019 14:44:10 +0000 (GMT)
-Received: from SFHDAG3NODE2.st.com (10.75.127.8) by SFHDAG3NODE1.st.com
- (10.75.127.7) with Microsoft SMTP Server (TLS) id 15.0.1347.2; Wed, 8 May
- 2019 16:44:10 +0200
-Received: from SFHDAG3NODE2.st.com ([fe80::b82f:1ce:8854:5b96]) by
- SFHDAG3NODE2.st.com ([fe80::b82f:1ce:8854:5b96%20]) with mapi id
- 15.00.1347.000; Wed, 8 May 2019 16:44:10 +0200
-From: Amelie DELAUNAY <amelie.delaunay@st.com>
-To: Lee Jones <lee.jones@linaro.org>
-Thread-Topic: [PATCH v5 2/9] mfd: Add ST Multi-Function eXpander (STMFX) core
- driver
-Thread-Index: AQHU7qVAy3Bds8UGv0OmxPFvTsiQh6Zg82kAgABmwoA=
-Date: Wed, 8 May 2019 14:44:10 +0000
-Message-ID: <697597b2-088d-9ffb-54bd-e50b3ca8c012@st.com>
-References: <1554794651-6874-1-git-send-email-amelie.delaunay@st.com>
- <1554794651-6874-3-git-send-email-amelie.delaunay@st.com>
- <20190508083622.GE3995@dell>
-In-Reply-To: <20190508083622.GE3995@dell>
-Accept-Language: fr-FR, en-US
-Content-Language: en-US
-X-MS-Has-Attach: 
-X-MS-TNEF-Correlator: 
-user-agent: Mozilla/5.0 (X11; Linux x86_64; rv:60.0) Gecko/20100101
- Thunderbird/60.6.1
-x-ms-exchange-messagesentrepresentingtype: 1
-x-ms-exchange-transport-fromentityheader: Hosted
-x-originating-ip: [10.75.127.44]
-Content-ID: <AA71AC5806FEE94686A2708FB6B887B8@st.com>
+ Wed,  8 May 2019 20:54:21 +0000 (UTC)
+Received: from mail-qt1-f172.google.com (mail-qt1-f172.google.com
+ [209.85.160.172])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+ (No client certificate requested)
+ by mail.kernel.org (Postfix) with ESMTPSA id DC4D621726
+ for <linux-stm32@st-md-mailman.stormreply.com>;
+ Wed,  8 May 2019 20:54:19 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
+ s=default; t=1557348860;
+ bh=tWV/gWokrqjEWW86w0MvmRWKkr4PcsLZwu+5cA4DvzA=;
+ h=References:In-Reply-To:From:Date:Subject:To:Cc:From;
+ b=u4XyIss2ZXPprn66sZ96vvDCzr3ElW8ae4YOO7qN+8ylqNt6qfhtICVT7SKnaUbzO
+ Foc2/SbyKg2TWjcyuQ349Ls/2ezeJRLrrLI8S+p6vVQBVRZ6mEWKTauDEWq0LO3PxH
+ WRPHnz1ry4j1pOFVRC7rgyf35PhzgQ2DgkAOw1dE=
+Received: by mail-qt1-f172.google.com with SMTP id t1so30347qtc.12
+ for <linux-stm32@st-md-mailman.stormreply.com>;
+ Wed, 08 May 2019 13:54:19 -0700 (PDT)
+X-Gm-Message-State: APjAAAXgpaOcPcy1RRRVr7OQwGz9yyTkd0HibWUTq4knKlwoUI0UgFwB
+ poXcOT7hYEHGp8eagFFF6tKQhUKV5FFLYqGwcQ==
+X-Google-Smtp-Source: APXvYqyIJO9jyUOfSxSgewiDo7+nsX9cXd1yYrxNAIDDw7xZk7u75QnrWiHLuORUna7KxFgMuRPNFiFYpjr5kLEeL6Y=
+X-Received: by 2002:aed:306c:: with SMTP id 99mr128390qte.38.1557348859072;
+ Wed, 08 May 2019 13:54:19 -0700 (PDT)
 MIME-Version: 1.0
-X-Proofpoint-Virus-Version: vendor=fsecure engine=2.50.10434:, ,
- definitions=2019-05-08_08:, , signatures=0
-Cc: Mark Rutland <mark.rutland@arm.com>,
- "devicetree@vger.kernel.org" <devicetree@vger.kernel.org>,
+References: <1556876854-32441-1-git-send-email-alexandre.torgue@st.com>
+In-Reply-To: <1556876854-32441-1-git-send-email-alexandre.torgue@st.com>
+From: Rob Herring <robh+dt@kernel.org>
+Date: Wed, 8 May 2019 15:54:07 -0500
+X-Gmail-Original-Message-ID: <CAL_Jsq+sydL5tHafgOWaW-+j4OJZ1JxVh5b=YXSMYRDxEDG3-g@mail.gmail.com>
+Message-ID: <CAL_Jsq+sydL5tHafgOWaW-+j4OJZ1JxVh5b=YXSMYRDxEDG3-g@mail.gmail.com>
+To: Alexandre Torgue <alexandre.torgue@st.com>
+Cc: Mark Rutland <mark.rutland@arm.com>, devicetree@vger.kernel.org,
  Linus Walleij <linus.walleij@linaro.org>,
  "linux-kernel@vger.kernel.org" <linux-kernel@vger.kernel.org>,
- "linux-gpio@vger.kernel.org" <linux-gpio@vger.kernel.org>,
- Rob Herring <robh+dt@kernel.org>, Maxime Coquelin <mcoquelin.stm32@gmail.com>,
- "linux-stm32@st-md-mailman.stormreply.com"
- <linux-stm32@st-md-mailman.stormreply.com>,
- "linux-arm-kernel@lists.infradead.org" <linux-arm-kernel@lists.infradead.org>
-Subject: Re: [Linux-stm32] [PATCH v5 2/9] mfd: Add ST Multi-Function
- eXpander (STMFX) core driver
+ "open list:GPIO SUBSYSTEM" <linux-gpio@vger.kernel.org>,
+ Maxime Coquelin <mcoquelin.stm32@gmail.com>,
+ linux-stm32@st-md-mailman.stormreply.com,
+ "moderated list:ARM/FREESCALE IMX / MXC ARM ARCHITECTURE"
+ <linux-arm-kernel@lists.infradead.org>
+Subject: Re: [Linux-stm32] [PATCH] dt-bindings: pinctrl: Convert stm32
+	pinctrl bindings to jason-schema
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -94,218 +69,363 @@ Content-Transfer-Encoding: 7bit
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
-On 5/8/19 10:36 AM, Lee Jones wrote:
-> On Tue, 09 Apr 2019, Amelie Delaunay wrote:
-> 
->> STMicroelectronics Multi-Function eXpander (STMFX) is a slave controller
->> using I2C for communication with the main MCU. Main features are:
->> - 16 fast GPIOs individually configurable in input/output
->> - 8 alternate GPIOs individually configurable in input/output when other
->> STMFX functions are not used
->> - Main MCU IDD measurement
->> - Resistive touchscreen controller
->>
->> Signed-off-by: Amelie Delaunay <amelie.delaunay@st.com>
->> ---
->>   drivers/mfd/Kconfig       |  13 ++
->>   drivers/mfd/Makefile      |   2 +-
->>   drivers/mfd/stmfx.c       | 566 ++++++++++++++++++++++++++++++++++++++++++++++
->>   include/linux/mfd/stmfx.h | 123 ++++++++++
->>   4 files changed, 703 insertions(+), 1 deletion(-)
->>   create mode 100644 drivers/mfd/stmfx.c
->>   create mode 100644 include/linux/mfd/stmfx.h
->>
->> diff --git a/drivers/mfd/Kconfig b/drivers/mfd/Kconfig
->> index 3443f1a..9783e18 100644
->> --- a/drivers/mfd/Kconfig
->> +++ b/drivers/mfd/Kconfig
->> @@ -1907,6 +1907,19 @@ config MFD_STPMIC1
->>   	  To compile this driver as a module, choose M here: the
->>   	  module will be called stpmic1.
->>   
->> +config MFD_STMFX
->> +	tristate "Support for STMicroelectronics Multi-Function eXpander (STMFX)"
->> +	depends on I2C
->> +	depends on OF || COMPILE_TEST
->> +	select MFD_CORE
->> +	select REGMAP_I2C
->> +	help
->> +	  Support for the STMicroelectronics Multi-Function eXpander.
->> +
->> +	  This driver provides common support for accessing the device,
->> +	  additional drivers must be enabled in order to use the functionality
->> +	  of the device.
->> +
->>   menu "Multimedia Capabilities Port drivers"
->>   	depends on ARCH_SA1100
->>   
->> diff --git a/drivers/mfd/Makefile b/drivers/mfd/Makefile
->> index b4569ed7..614eea8 100644
->> --- a/drivers/mfd/Makefile
->> +++ b/drivers/mfd/Makefile
->> @@ -246,4 +246,4 @@ obj-$(CONFIG_MFD_MXS_LRADC)     += mxs-lradc.o
->>   obj-$(CONFIG_MFD_SC27XX_PMIC)	+= sprd-sc27xx-spi.o
->>   obj-$(CONFIG_RAVE_SP_CORE)	+= rave-sp.o
->>   obj-$(CONFIG_MFD_ROHM_BD718XX)	+= rohm-bd718x7.o
->> -
->> +obj-$(CONFIG_MFD_STMFX) 	+= stmfx.o
->> diff --git a/drivers/mfd/stmfx.c b/drivers/mfd/stmfx.c
->> new file mode 100644
->> index 0000000..59f0a03
->> --- /dev/null
->> +++ b/drivers/mfd/stmfx.c
->> @@ -0,0 +1,566 @@
->> +// SPDX-License-Identifier: GPL-2.0
->> +/*
->> + * Driver for STMicroelectronics Multi-Function eXpander (STMFX) core
->> + *
->> + * Copyright (C) 2019 STMicroelectronics
->> + * Author(s): Amelie Delaunay <amelie.delaunay@st.com>.
->> + */
->> +#include <linux/bitfield.h>
->> +#include <linux/i2c.h>
->> +#include <linux/interrupt.h>
->> +#include <linux/irq.h>
->> +#include <linux/mfd/core.h>
->> +#include <linux/mfd/stmfx.h>
->> +#include <linux/module.h>
->> +#include <linux/regulator/consumer.h>
-> 
-> [...]
-> 
->> +static int stmfx_chip_init(struct i2c_client *client)
->> +{
->> +	struct stmfx *stmfx = i2c_get_clientdata(client);
->> +	u32 id;
->> +	u8 version[2];
->> +	int ret;
->> +
->> +	stmfx->vdd = devm_regulator_get_optional(&client->dev, "vdd");
->> +	if (IS_ERR(stmfx->vdd)) {
->> +		ret = PTR_ERR(stmfx->vdd);
->> +		if (ret != -ENODEV) {
->> +			if (ret != -EPROBE_DEFER)
->> +				dev_err(&client->dev,
->> +					"Can't get VDD regulator:%d\n", ret);
->> +			return ret;
->> +		}
-> 
-> Any reason you've decided to stick with this 3-layer nested if instead
-> of going with my suggestion?
-> 
+What's jason-schema? ;)
 
-Sorry, I didn't see your suggestion. I'll go with it in v6.
+On Fri, May 3, 2019 at 4:47 AM Alexandre Torgue <alexandre.torgue@st.com> wrote:
+>
+> Convert the STM32 pinctrl binding to DT schema format using json-schema.
+>
+> Signed-off-by: Alexandre Torgue <alexandre.torgue@st.com>
+> ---
+>
+> Hi,
+>
+> First pacth to convert DT bindings file (here pinctrl STM32) to jsaon-schema
+> in order to take advantage of devicetree validation tool for STM32.
 
->> +	} else {
->> +		ret = regulator_enable(stmfx->vdd);
->> +		if (ret) {
->> +			dev_err(&client->dev, "VDD enable failed: %d\n", ret);
->> +			return ret;
->> +		}
->> +	}
-> 
-> [...]
-> 
->> +#ifdef CONFIG_PM_SLEEP
->> +static int stmfx_backup_regs(struct stmfx *stmfx)
->> +{
->> +	int ret;
->> +
->> +	ret = regmap_raw_read(stmfx->map, STMFX_REG_SYS_CTRL,
->> +			      &stmfx->bkp_sysctrl, sizeof(stmfx->bkp_sysctrl));
->> +	if (ret)
->> +		return ret;
->> +
->> +	ret = regmap_raw_read(stmfx->map, STMFX_REG_IRQ_OUT_PIN,
->> +			      &stmfx->bkp_irqoutpin,
->> +			      sizeof(stmfx->bkp_irqoutpin));
->> +	if (ret)
->> +		return ret;
->> +
->> +	return 0;
->> +}
->> +
->> +static int stmfx_restore_regs(struct stmfx *stmfx)
->> +{
->> +	int ret;
->> +
->> +	ret = regmap_raw_write(stmfx->map, STMFX_REG_SYS_CTRL,
->> +			       &stmfx->bkp_sysctrl, sizeof(stmfx->bkp_sysctrl));
->> +	if (ret)
->> +		return ret;
->> +
->> +	ret = regmap_raw_write(stmfx->map, STMFX_REG_IRQ_OUT_PIN,
->> +			       &stmfx->bkp_irqoutpin,
->> +			       sizeof(stmfx->bkp_irqoutpin));
->> +	if (ret)
->> +		return ret;
->> +
->> +	ret = regmap_raw_write(stmfx->map, STMFX_REG_IRQ_SRC_EN,
->> +			       &stmfx->irq_src, sizeof(stmfx->irq_src));
->> +	if (ret)
->> +		return ret;
->> +
->> +	return 0;
->> +}
->> +
->> +static int stmfx_suspend(struct device *dev)
->> +{
->> +	struct stmfx *stmfx = dev_get_drvdata(dev);
->> +	int ret;
->> +
->> +	ret = stmfx_backup_regs(stmfx);
->> +	if (ret) {
->> +		dev_err(stmfx->dev, "Registers backup failure\n");
->> +		return ret;
->> +	}
-> 
-> This doesn't need to be an extra function.  You're just adding more
-> lines of code for no real gain in reusability/readability.
-> 
+> diff --git a/Documentation/devicetree/bindings/pinctrl/st,stm32-pinctrl.yaml b/Documentation/devicetree/bindings/pinctrl/st,stm32-pinctrl.yaml
+> new file mode 100644
+> index 0000000..fcceca0
+> --- /dev/null
+> +++ b/Documentation/devicetree/bindings/pinctrl/st,stm32-pinctrl.yaml
+> @@ -0,0 +1,271 @@
+> +# SPDX-License-Identifier: (GPL-2.0 OR BSD-2-Clause)
+> +# Copyright (C) STMicroelectronics 2019.
+> +%YAML 1.2
+> +---
+> +$id: http://devicetree.org/schemas/pinctrl/st,stm32-pinctrl.yaml#
+> +$schema: http://devicetree.org/meta-schemas/core.yaml#
+> +
+> +title: STM32 GPIO and Pin Mux/Config controller
+> +
+> +maintainers:
+> +  - Alexandre TORGUE <alexandre.torgue@st.com>
 
-I used a separate function to have only one dev_err in case of 
-backup/restore failure.
-But anyway, I'll drop backup/restore functions and put the code in 
-suspend/resume.
+nit: add a blank line
 
->> +	if (!IS_ERR(stmfx->vdd)) {
->> +		ret = regulator_disable(stmfx->vdd);
->> +		if (ret)
->> +			return ret;
->> +	}
->> +
->> +	return 0;
->> +}
->> +
->> +static int stmfx_resume(struct device *dev)
->> +{
->> +	struct stmfx *stmfx = dev_get_drvdata(dev);
->> +	int ret;
->> +
->> +	if (!IS_ERR(stmfx->vdd)) {
->> +		ret = regulator_enable(stmfx->vdd);
->> +		if (ret) {
->> +			dev_err(stmfx->dev,
->> +				"VDD enable failed: %d\n", ret);
->> +			return ret;
->> +		}
->> +	}
->> +
->> +	ret = stmfx_restore_regs(stmfx);
->> +	if (ret) {
->> +		dev_err(stmfx->dev, "Registers restoration failure\n");
->> +		return ret;
->> +	}
-> 
-> This doesn't need to be an extra function.  You're just adding more
-> lines of code for no real gain in reusability/readability.
-> 
->> +	return 0;
->> +}
->> +#endif
-> 
-> [...]
-> 
+> +description: |
+> +  STMicroelectronics's STM32 MCUs intregrate a GPIO and Pin mux/config hardware
+> +  controller. It controls the input/output settings on the available pins and
+> +  also provides ability to multiplex and configure the output of various
+> +  on-chip controllers onto these pads.
+> +
+> +properties:
+> +  compatible:
+> +      items:
+
+You can drop items since there is only 1.
+
+> +        - enum:
+> +          - st,stm32f429-pinctrl
+> +          - st,stm32f469-pinctrl
+> +          - st,stm32f746-pinctrl
+> +          - st,stm32f769-pinctrl
+> +          - st,stm32h743-pinctrl
+> +          - st,stm32mp157-pinctrl
+> +          - st,stm32mp157-z-pinctrl
+> +
+> +  '#address-cells':
+> +    const: 1
+> +  '#size-cells':
+> +    const: 1
+> +    description:
+> +      Defines mapping between pin controller node (parent) to
+> +      gpio-bank node (children).
+
+Don't need description for common properties unless there's really
+something binding specific to add. Same is true on a bunch of other
+description entries.
+
+> +
+> +  ranges:
+> +    description:
+> +      Defines mapping between pin controller node (parent) to
+> +      gpio-bank node (children).
+> +  pins-are-numbered:
+> +    description:
+> +      Specify the subnodes are using numbered pinmux to
+> +      specify pins.
+> +  st,syscfg:
+
+Needs to define the type (phandle-array).
+
+> +    description: |
+> +      Should be phandle/offset/mask:
+> +        - The phandle to the syscon node which includes IRQ mux selection register.
+> +        - The offset of the IRQ mux selection register
+> +        - The field mask of IRQ mux, needed if different of 0xf.
+
+This can be expressed as a constraint:
+
+items:
+  - items:
+    - description: The phandle to the syscon node which includes IRQ
+mux selection register.
+    - description: The offset of the IRQ mux selection register
+    - description: The field mask of IRQ mux, needed if different of 0xf.
+
+Perhaps there are some constraints on the values of the cells.
+
+> +
+> +  hwlocks:
+> +    description: Reference to a phandle of a hardware spinlock provider node.
+
+No need for a description.
+
+> +  st,package:
+> +    description:
+> +     Indicates the SOC package used.
+> +     More details in include/dt-bindings/pinctrl/stm32-pinfunc.h
+> +    allOf:
+> +      - $ref: /schemas/types.yaml#/definitions/uint32
+> +      - enum: [1, 2, 4, 8]
+> +
+> +patternProperties:
+> +  '^gpio@[0-9a-z]*$':
+
+Hex only: a-f
+
+> +    properties:
+> +      gpio-controller:
+> +        description:
+> +          Indicates this device is a GPIO controller.
+
+No need to describe standard properties.
+
+> +      '#gpio-cells':
+> +        const: 2
+> +        description: |
+> +          The first cell is the pin number.
+> +          The second one is the polarity
+> +          * 0 for active high.
+> +          * 1 for active low.
+
+As long as this is the standard cell definition, no need to describe.
+
+> +
+> +      reg:
+> +        description:
+> +          The gpio address range, relative to the pinctrl range.
+
+Need to say how many entries (maxItems), not what reg is.
+
+> +      clocks:
+> +        description:
+> +          Clock that drives this bank.
+
+ditto.
+
+> +      st,bank-name:
+
+type?
+
+possible values or regex match?
+
+> +        description:
+> +          Should be a name string for this bank as specified in the datasheet.
+> +      reset:
+
+resets
+
+How many items?
+
+> +        description:
+> +          Reference to the reset controller.
+> +      gpio-ranges:
+> +        description: |
+> +          Define a dedicated mapping between a pin-controller and
+> +          a gpio controller. Format is <&phandle a b c> with:
+> +          -(phandle): phandle of pin-controller.
+> +          -(a): gpio base offset in range.
+> +          -(b): pin base offset in range.
+> +          -(c): gpio count in range.
+
+All common, so not needed here.
+
+> +          This entry has to be used either if there are holes inside a bank:
+> +          GPIOB0/B1/B2/B14/B15 (see example 2) or if banks are not contiguous:
+> +          GPIOA/B/C/E...
+> +          NOTE: If "gpio-ranges" is used for a gpio controller, all gpio-controller
+> +          have to use a "gpio-ranges" entry.
+> +          More details in Documentation/devicetree/bindings/gpio/gpio.txt.
+> +
+> +      ngpios:
+> +        description:
+> +          Number of available gpios in a bank.
+> +        minimum: 1
+> +        maximum: 16
+> +
+> +      st,bank-ioport:
+
+type?
+
+> +        description:
+> +          Should correspond to the EXTI IOport selection (EXTI line used
+> +          to select GPIOs as interrupts).
+> +
+> +    required:
+> +      - gpio-controller
+> +      - '#gpio-cells'
+> +      - reg
+> +      - clocks
+> +      - st,bank-name
+> +
+> +  '-[0-9]*$':
+> +    patternProperties:
+> +      '^pins':
+> +        description: |
+> +          A pinctrl node should contain at least one subnode representing the
+> +          pinctrl group available on the machine. Each subnode will list the
+> +          pins it needs, and how they should be configured, with regard to muxer
+> +          configuration, pullups, drive, output high/low and output speed.
+> +        properties:
+> +          pinmux:
+> +            allOf:
+> +              - $ref: "/schemas/types.yaml#/definitions/uint32-array"
+> +            description: |
+> +              Integer array, represents gpio pin number and mux setting.
+> +              Supported pin number and mux varies for different SoCs, and are
+> +              defined in dt-bindings/pinctrl/<soc>-pinfunc.h directly.
+> +              These defines are calculated as: ((port * 16 + line) << 8) | function
+> +              With:
+> +              - port: The gpio port index (PA = 0, PB = 1, ..., PK = 11)
+> +              - line: The line offset within the port (PA0 = 0, PA1 = 1, ..., PA15 = 15)
+> +              - function: The function number, can be:
+> +              * 0 : GPIO
+> +              * 1 : Alternate Function 0
+> +              * 2 : Alternate Function 1
+> +              * 3 : Alternate Function 2
+> +              * ...
+> +              * 16 : Alternate Function 15
+> +              * 17 : Analog
+> +              To simplify the usage, macro is available to generate "pinmux" field.
+> +              This macro is available here:
+> +                - include/dt-bindings/pinctrl/stm32-pinfunc.h
+> +              Some examples of using macro:
+> +               /* GPIO A9 set as alernate function 2 */
+> +               ... {
+> +                          pinmux = <STM32_PINMUX('A', 9, AF2)>;
+> +               };
+> +               /* GPIO A9 set as GPIO  */
+> +               ... {
+> +                          pinmux = <STM32_PINMUX('A', 9, GPIO)>;
+> +               };
+> +               /* GPIO A9 set as analog */
+> +               ... {
+> +                          pinmux = <STM32_PINMUX('A', 9, ANALOG)>;
+> +               };
+> +
+> +          bias-disable:
+> +            type: boolean
+> +          bias-pull-down:
+> +            type: boolean
+> +          bias-pull-up:
+> +            type: boolean
+> +          drive-push-pull:
+> +            type: boolean
+> +          drive-open-drain:
+> +            type: boolean
+> +          output-low:
+> +            type: boolean
+> +          output-high:
+> +            type: boolean
+> +          slew-rate:
+> +            description: |
+> +              0: Low speed
+> +              1: Medium speed
+> +              2: Fast speed
+> +              3: High speed
+> +            allOf:
+> +              - $ref: /schemas/types.yaml#/definitions/uint32
+> +              - enum: [0, 1, 2, 3]
+> +
+> +        required:
+> +          - pinmux
+> +
+> +required:
+> +  - compatible
+> +  - '#address-cells'
+> +  - '#size-cells'
+> +  - ranges
+> +  - pins-are-numbered
+> +
+> +examples:
+> +  - |
+> +    #include <dt-bindings/pinctrl/stm32-pinfunc.h>
+> +    //Example 1
+> +      pin-controller@40020000 {
+
+Because we're horribly inconsistent, 'pinctrl' is the standard node name.
+
+> +              #address-cells = <1>;
+> +              #size-cells = <1>;
+> +              compatible = "st,stm32f429-pinctrl";
+> +              ranges = <0 0x40020000 0x3000>;
+> +              pins-are-numbered;
+> +
+> +              gpioa: gpio@0 {
+> +                      gpio-controller;
+> +                      #gpio-cells = <2>;
+> +                      reg = <0x0 0x400>;
+> +                      resets = <&reset_ahb1 0>;
+> +                      st,bank-name = "GPIOA";
+> +              };
+> +       };
+> +
+> +    //Example 2 (using gpio-ranges)
+> +      pin-controller@50020000 {
+> +              #address-cells = <1>;
+> +              #size-cells = <1>;
+> +              compatible = "st,stm32f429-pinctrl";
+> +              ranges = <0 0x50020000 0x3000>;
+> +              pins-are-numbered;
+> +
+> +              gpiob: gpio@1000 {
+> +                      gpio-controller;
+> +                      #gpio-cells = <2>;
+> +                      reg = <0x1000 0x400>;
+> +                      resets = <&reset_ahb1 0>;
+> +                      st,bank-name = "GPIOB";
+> +                      gpio-ranges = <&pinctrl 0 0 16>;
+> +              };
+> +
+> +              gpioc: gpio@2000 {
+> +                      gpio-controller;
+> +                      #gpio-cells = <2>;
+> +                      reg = <0x2000 0x400>;
+> +                      resets = <&reset_ahb1 0>;
+> +                      st,bank-name = "GPIOC";
+> +                      ngpios = <5>;
+> +                      gpio-ranges = <&pinctrl 0 16 3>,
+> +                                    <&pinctrl 14 30 2>;
+> +              };
+> +      };
+> +
+> +    //Example 3 pin groups
+> +      pin-controller@60020000 {
+> +        usart1_pins_a: usart1-0 {
+> +                pins1 {
+> +                        pinmux = <STM32_PINMUX('A', 9, AF7)>;
+> +                        bias-disable;
+> +                        drive-push-pull;
+> +                        slew-rate = <0>;
+> +                };
+> +                pins2 {
+> +                        pinmux = <STM32_PINMUX('A', 10, AF7)>;
+> +                        bias-disable;
+> +                };
+> +        };
+> +    };
+> +
+> +    usart1 {
+> +                pinctrl-0 = <&usart1_pins_a>;
+> +                pinctrl-names = "default";
+> +    };
+> +
+> +...
+> --
+> 2.7.4
+>
 _______________________________________________
 Linux-stm32 mailing list
 Linux-stm32@st-md-mailman.stormreply.com
