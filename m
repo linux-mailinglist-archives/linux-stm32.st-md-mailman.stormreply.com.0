@@ -2,69 +2,37 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id 64FF7187D2
-	for <lists+linux-stm32@lfdr.de>; Thu,  9 May 2019 11:33:45 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 49FF51990A
+	for <lists+linux-stm32@lfdr.de>; Fri, 10 May 2019 09:34:03 +0200 (CEST)
 Received: from ip-172-31-3-76.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 32216C555BF
-	for <lists+linux-stm32@lfdr.de>; Thu,  9 May 2019 09:33:45 +0000 (UTC)
-Received: from mail-wr1-f66.google.com (mail-wr1-f66.google.com
- [209.85.221.66])
- (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 9AB5CC07A4B
+	for <lists+linux-stm32@lfdr.de>; Fri, 10 May 2019 07:34:02 +0000 (UTC)
+Received: from huawei.com (szxga06-in.huawei.com [45.249.212.32])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 548A0C555BE
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 261CEC05849
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Thu,  9 May 2019 09:33:44 +0000 (UTC)
-Received: by mail-wr1-f66.google.com with SMTP id w12so2058197wrp.2
- for <linux-stm32@st-md-mailman.stormreply.com>;
- Thu, 09 May 2019 02:33:44 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linaro.org; s=google;
- h=date:from:to:cc:subject:message-id:references:mime-version
- :content-disposition:content-transfer-encoding:in-reply-to
- :user-agent; bh=o7y1Eq5XE68bwd6aXqoeahdc2GOPTkNRx2HYwO3zXRM=;
- b=MGyl/NoSKew0c+r/VW5jKj8+RY1Be0lr7+iIyBpWo2JyYY2+4Zj0KIOT5UyS2IH7p6
- Xl8Db2PnGHM3+pD5QLCTzzpzGSmEtTFTZ6XOaQOj2ECmn0uQBKyeIxF4HZBVzRqUiJI2
- NEDAmdlp9PxYJcXxwi7whT1QkFYbEdWMx6tV43o4yLEvaQyl/FMlzPKNIZr4j26kLmou
- amPYy2ATk+pcA9Lju+4267nyRZtaBxE1pCly3geHfLV8Bl8qMtI3tyJAkYKyWCIXlAY2
- nu6Mdw5YSWjgkIa1xZ/wflstOgUkvca0cuPgMnpdZ+lPpSfs8EDVYQWEFaBKZ397A7hp
- Bz7A==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20161025;
- h=x-gm-message-state:date:from:to:cc:subject:message-id:references
- :mime-version:content-disposition:content-transfer-encoding
- :in-reply-to:user-agent;
- bh=o7y1Eq5XE68bwd6aXqoeahdc2GOPTkNRx2HYwO3zXRM=;
- b=T0weLtJbevRwr7Bxo7WAD9/UNinUu5DUoM7+ShY4hWbR371EsFHL7IAGKFEdATBDZb
- w+Yci9ij1fkSxq8lkCop7NIERxTOWIfAn+KvwGmYCOAQABBxKLna2dyPrSiGI1TsA6Er
- RG8DoFxYENhhjQ4xrhN7rLSe+B1HalBXNDYM/jJFk1MmC62iTqPt2jvsTd+Z53TGAajI
- Oeh+P9hagKI+PY58Z1aoyrzpGr9DnjY+u6Nd/Vdfpj/8rBrg59Wg/XSNd5V5jQD6dWzg
- t+ok8bcqc3CSoNe2PfVW5gEU5Poh8ptglZKBPnRAoWCy6QZ73gDK70uThx1yYhbRUHk+
- 0cYg==
-X-Gm-Message-State: APjAAAUFG+kiq9/UittDZ3927hvUDb63FOxUIzUJ3TQVwmQJHi/tkEXt
- Y//KNJABtMvzRAvdZ/mGyWjBqA==
-X-Google-Smtp-Source: APXvYqyaoHx3f0sqPQbDtBs8Z9JyejUps85iOp6Wh0y/gQuPQM64c/u7mmfNhXTMA9EEM9TWbH/fpA==
-X-Received: by 2002:adf:ec51:: with SMTP id w17mr2358350wrn.326.1557394423897; 
- Thu, 09 May 2019 02:33:43 -0700 (PDT)
-Received: from dell ([2.27.167.43])
- by smtp.gmail.com with ESMTPSA id u8sm1141266wmc.14.2019.05.09.02.33.41
- (version=TLS1_2 cipher=ECDHE-RSA-CHACHA20-POLY1305 bits=256/256);
- Thu, 09 May 2019 02:33:43 -0700 (PDT)
-Date: Thu, 9 May 2019 10:33:38 +0100
-From: Lee Jones <lee.jones@linaro.org>
-To: Amelie Delaunay <amelie.delaunay@st.com>
-Message-ID: <20190509093338.GW31645@dell>
-References: <1557392336-28239-1-git-send-email-amelie.delaunay@st.com>
- <1557392336-28239-3-git-send-email-amelie.delaunay@st.com>
+ Thu,  9 May 2019 15:16:22 +0000 (UTC)
+Received: from DGGEMS410-HUB.china.huawei.com (unknown [172.30.72.59])
+ by Forcepoint Email with ESMTP id F276B41CE563CF9AD641;
+ Thu,  9 May 2019 23:16:08 +0800 (CST)
+Received: from huawei.com (10.184.227.228) by DGGEMS410-HUB.china.huawei.com
+ (10.3.19.210) with Microsoft SMTP Server id 14.3.439.0; Thu, 9 May 2019
+ 23:16:01 +0800
+From: Wang Hai <wanghai26@huawei.com>
+To: <alexander.shishkin@linux.intel.com>, <mcoquelin.stm32@gmail.com>,
+ <alexandre.torgue@st.com>
+Date: Thu, 9 May 2019 23:14:24 +0800
+Message-ID: <20190509151424.31612-1-wanghai26@huawei.com>
+X-Mailer: git-send-email 2.10.2.windows.1
 MIME-Version: 1.0
-Content-Disposition: inline
-In-Reply-To: <1557392336-28239-3-git-send-email-amelie.delaunay@st.com>
-User-Agent: Mutt/1.9.4 (2018-02-28)
-Cc: Mark Rutland <mark.rutland@arm.com>, devicetree@vger.kernel.org,
- Linus Walleij <linus.walleij@linaro.org>, linux-kernel@vger.kernel.org,
- linux-gpio@vger.kernel.org, Rob Herring <robh+dt@kernel.org>,
- Maxime Coquelin <mcoquelin.stm32@gmail.com>,
- linux-stm32@st-md-mailman.stormreply.com, linux-arm-kernel@lists.infradead.org
-Subject: Re: [Linux-stm32] [PATCH v6 2/9] mfd: Add ST Multi-Function
- eXpander (STMFX) core driver
+X-Originating-IP: [10.184.227.228]
+X-CFilter-Loop: Reflected
+X-Mailman-Approved-At: Fri, 10 May 2019 07:34:02 +0000
+Cc: wanghai26@huawei.com, linux-stm32@st-md-mailman.stormreply.com,
+ linux-arm-kernel@lists.infradead.org, linux-kernel@vger.kernel.org
+Subject: [Linux-stm32] [PATCH] stm class: fix possible double-free in
+	stm_source_register_device()
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -76,29 +44,106 @@ List-Post: <mailto:linux-stm32@st-md-mailman.stormreply.com>
 List-Help: <mailto:linux-stm32-request@st-md-mailman.stormreply.com?subject=help>
 List-Subscribe: <https://st-md-mailman.stormreply.com/mailman/listinfo/linux-stm32>, 
  <mailto:linux-stm32-request@st-md-mailman.stormreply.com?subject=subscribe>
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: base64
+Content-Type: text/plain; charset="us-ascii"
+Content-Transfer-Encoding: 7bit
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
-T24gVGh1LCAwOSBNYXkgMjAxOSwgQW1lbGllIERlbGF1bmF5IHdyb3RlOgoKPiBTVE1pY3JvZWxl
-Y3Ryb25pY3MgTXVsdGktRnVuY3Rpb24gZVhwYW5kZXIgKFNUTUZYKSBpcyBhIHNsYXZlIGNvbnRy
-b2xsZXIKPiB1c2luZyBJMkMgZm9yIGNvbW11bmljYXRpb24gd2l0aCB0aGUgbWFpbiBNQ1UuIE1h
-aW4gZmVhdHVyZXMgYXJlOgo+IC0gMTYgZmFzdCBHUElPcyBpbmRpdmlkdWFsbHkgY29uZmlndXJh
-YmxlIGluIGlucHV0L291dHB1dAo+IC0gOCBhbHRlcm5hdGUgR1BJT3MgaW5kaXZpZHVhbGx5IGNv
-bmZpZ3VyYWJsZSBpbiBpbnB1dC9vdXRwdXQgd2hlbiBvdGhlcgo+IFNUTUZYIGZ1bmN0aW9ucyBh
-cmUgbm90IHVzZWQKPiAtIE1haW4gTUNVIElERCBtZWFzdXJlbWVudAo+IC0gUmVzaXN0aXZlIHRv
-dWNoc2NyZWVuIGNvbnRyb2xsZXIKPiAKPiBTaWduZWQtb2ZmLWJ5OiBBbWVsaWUgRGVsYXVuYXkg
-PGFtZWxpZS5kZWxhdW5heUBzdC5jb20+Cj4gLS0tCj4gIGRyaXZlcnMvbWZkL0tjb25maWcgICAg
-ICAgfCAgMTMgKysKPiAgZHJpdmVycy9tZmQvTWFrZWZpbGUgICAgICB8ICAgMiArLQo+ICBkcml2
-ZXJzL21mZC9zdG1meC5jICAgICAgIHwgNTQ1ICsrKysrKysrKysrKysrKysrKysrKysrKysrKysr
-KysrKysrKysrKysrKysrKysKPiAgaW5jbHVkZS9saW51eC9tZmQvc3RtZnguaCB8IDEyMyArKysr
-KysrKysrKwo+ICA0IGZpbGVzIGNoYW5nZWQsIDY4MiBpbnNlcnRpb25zKCspLCAxIGRlbGV0aW9u
-KC0pCj4gIGNyZWF0ZSBtb2RlIDEwMDY0NCBkcml2ZXJzL21mZC9zdG1meC5jCj4gIGNyZWF0ZSBt
-b2RlIDEwMDY0NCBpbmNsdWRlL2xpbnV4L21mZC9zdG1meC5oCgpBcHBsaWVkLCB0aGFua3MuCgot
-LSAKTGVlIEpvbmVzIFvmnY7nkLzmlq9dCkxpbmFybyBTZXJ2aWNlcyBUZWNobmljYWwgTGVhZApM
-aW5hcm8ub3JnIOKUgiBPcGVuIHNvdXJjZSBzb2Z0d2FyZSBmb3IgQVJNIFNvQ3MKRm9sbG93IExp
-bmFybzogRmFjZWJvb2sgfCBUd2l0dGVyIHwgQmxvZwpfX19fX19fX19fX19fX19fX19fX19fX19f
-X19fX19fX19fX19fX19fX19fX19fXwpMaW51eC1zdG0zMiBtYWlsaW5nIGxpc3QKTGludXgtc3Rt
-MzJAc3QtbWQtbWFpbG1hbi5zdG9ybXJlcGx5LmNvbQpodHRwczovL3N0LW1kLW1haWxtYW4uc3Rv
-cm1yZXBseS5jb20vbWFpbG1hbi9saXN0aW5mby9saW51eC1zdG0zMgo=
+Syzkaller report this:
+
+BUG: KASAN: double-free or invalid-free in stm_source_register_device+0x137/0x2b0 [stm_core]
+
+CPU: 1 PID: 6763 Comm: syz-executor.0 Tainted: G         C        5.0.0+ #5
+Hardware name: QEMU Standard PC (i440FX + PIIX, 1996),
+BIOS 1.10.2-1ubuntu1 04/01/2014
+Call Trace:
+ __dump_stack lib/dump_stack.c:77 [inline]
+ dump_stack+0xa9/0x10e lib/dump_stack.c:113
+ print_address_description+0x65/0x270 mm/kasan/report.c:187
+ kasan_report_invalid_free+0x60/0xa0 mm/kasan/report.c:278
+ __kasan_slab_free+0x159/0x180 mm/kasan/common.c:438
+ slab_free_hook mm/slub.c:1429 [inline]
+ slab_free_freelist_hook mm/slub.c:1456 [inline]
+ slab_free mm/slub.c:3003 [inline]
+ kfree+0xe1/0x270 mm/slub.c:3955
+ stm_source_register_device+0x137/0x2b0 [stm_core]
+ do_one_initcall+0xbc/0x47d init/main.c:887
+ do_init_module+0x1b5/0x547 kernel/module.c:3456
+ load_module+0x6405/0x8c10 kernel/module.c:3804
+ __do_sys_finit_module+0x162/0x190 kernel/module.c:3898
+ do_syscall_64+0x9f/0x450 arch/x86/entry/common.c:290
+ entry_SYSCALL_64_after_hwframe+0x49/0xbe
+
+Allocated by task 6763:
+ set_track mm/kasan/common.c:87 [inline]
+ __kasan_kmalloc.constprop.3+0xa0/0xd0 mm/kasan/common.c:497
+ stm_source_register_device+0x5c/0x2b0 [stm_core]
+ do_one_initcall+0xbc/0x47d init/main.c:887
+ do_init_module+0x1b5/0x547 kernel/module.c:3456
+ load_module+0x6405/0x8c10 kernel/module.c:3804
+ __do_sys_finit_module+0x162/0x190 kernel/module.c:3898
+ do_syscall_64+0x9f/0x450 arch/x86/entry/common.c:290
+ entry_SYSCALL_64_after_hwframe+0x49/0xbe
+
+Freed by task 6763:
+ set_track mm/kasan/common.c:87 [inline]
+ __kasan_slab_free+0x130/0x180 mm/kasan/common.c:459
+ slab_free_hook mm/slub.c:1429 [inline]
+ slab_free_freelist_hook mm/slub.c:1456 [inline]
+ slab_free mm/slub.c:3003 [inline]
+ kfree+0xe1/0x270 mm/slub.c:3955
+ device_release+0x78/0x200 drivers/base/core.c:1064
+ kobject_cleanup lib/kobject.c:662 [inline]
+ kobject_release lib/kobject.c:691 [inline]
+ kref_put include/linux/kref.h:67 [inline]
+ kobject_put+0x2a8/0x400 lib/kobject.c:708
+ put_device+0x1c/0x30 drivers/base/core.c:2205
+ stm_source_register_device+0x12f/0x2b0 [stm_core]
+ do_one_initcall+0xbc/0x47d init/main.c:887
+ do_init_module+0x1b5/0x547 kernel/module.c:3456
+ load_module+0x6405/0x8c10 kernel/module.c:3804
+ __do_sys_finit_module+0x162/0x190 kernel/module.c:3898
+ do_syscall_64+0x9f/0x450 arch/x86/entry/common.c:290
+ entry_SYSCALL_64_after_hwframe+0x49/0xbe
+
+int stm_source_register_device(){
+	...
+    src->dev.release = stm_source_device_release;
+	...
+    err:
+         put_device(&src->dev);
+         kfree(src);
+
+         return err;
+}
+In the error handling path of stm_source_register_device
+Put_device() causes stm_source_device_release->kfree(src) to be
+called. So calling kfree(src) again will cause double free
+
+Fixes: 7bd1d4093c2f ("stm class: Introduce an abstraction for System Trace Module devices")
+Reported-by: Hulk Robot <hulkci@huawei.com>
+Signed-off-by: Wang Hai <wanghai26@huawei.com>
+---
+ drivers/hwtracing/stm/core.c | 1 -
+ 1 file changed, 1 deletion(-)
+
+diff --git a/drivers/hwtracing/stm/core.c b/drivers/hwtracing/stm/core.c
+index e55b902560de..181e7ff1ec4f 100644
+--- a/drivers/hwtracing/stm/core.c
++++ b/drivers/hwtracing/stm/core.c
+@@ -1276,7 +1276,6 @@ int stm_source_register_device(struct device *parent,
+ 
+ err:
+ 	put_device(&src->dev);
+-	kfree(src);
+ 
+ 	return err;
+ }
+-- 
+2.17.1
+
+
+_______________________________________________
+Linux-stm32 mailing list
+Linux-stm32@st-md-mailman.stormreply.com
+https://st-md-mailman.stormreply.com/mailman/listinfo/linux-stm32
