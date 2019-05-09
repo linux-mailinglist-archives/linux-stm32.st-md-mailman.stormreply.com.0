@@ -2,84 +2,70 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id 1A8AA1864E
-	for <lists+linux-stm32@lfdr.de>; Thu,  9 May 2019 09:41:57 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 51EFD1870F
+	for <lists+linux-stm32@lfdr.de>; Thu,  9 May 2019 10:52:25 +0200 (CEST)
 Received: from ip-172-31-3-76.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 7053DC54B1C
-	for <lists+linux-stm32@lfdr.de>; Thu,  9 May 2019 07:41:56 +0000 (UTC)
-Received: from mx07-00178001.pphosted.com (mx08-00178001.pphosted.com
- [91.207.212.93])
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id D6DA9C55597
+	for <lists+linux-stm32@lfdr.de>; Thu,  9 May 2019 08:52:23 +0000 (UTC)
+Received: from mx07-00178001.pphosted.com (mx07-00178001.pphosted.com
+ [62.209.51.94])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 2A51AC54B1B
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id A60FEC55592
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Thu,  9 May 2019 07:41:55 +0000 (UTC)
-Received: from pps.filterd (m0046660.ppops.net [127.0.0.1])
- by mx08-00178001.pphosted.com (8.16.0.27/8.16.0.27) with SMTP id
- x497W7il022468; Thu, 9 May 2019 09:41:31 +0200
+ Thu,  9 May 2019 08:52:22 +0000 (UTC)
+Received: from pps.filterd (m0046668.ppops.net [127.0.0.1])
+ by mx07-00178001.pphosted.com (8.16.0.27/8.16.0.27) with SMTP id
+ x498pRLl002955; Thu, 9 May 2019 10:52:09 +0200
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=st.com;
- h=from : to : cc : subject
- : date : message-id : references : in-reply-to : content-type : content-id
- : content-transfer-encoding : mime-version; s=STMicroelectronics;
- bh=wG0Xfxv+jPDjeJvGNsddWLb0baeLwqwmAheX1cvn5mo=;
- b=xroSGT35wM+MwOSVuCcNBYuVxd6Nx9HlzVvuAMPDwtR1JgRWNSaMTeJ8wC21yy52qZdq
- OZwIlLpfX9uPZLo+cSR5YHYiVQf/TYM9PPsyThkvcQCfH70etUzG0u+mE5hQJn9cY69B
- DdLwGnf7tqaOZJrZ25KauCaVJnH1mYMUmD0OCCa1JnWCZwsUcaS76ZXswjtqEe/N+SFk
- GjRHlNg4DoS21qlQUIyIAuUnadLQMnnUmPRpxKgIMLPI1A3JlXdbub3WWIgb5Qm8Eb9I
- 4RWgfsh0T/G8WYVSz6i14Or2W7JD5NtXNq9wMyLlZsE24Kw3Y0brFIDST/tHpvgq2o0c gA== 
+ h=subject : to : cc :
+ references : from : message-id : date : mime-version : in-reply-to :
+ content-type : content-transfer-encoding; s=STMicroelectronics;
+ bh=3RcEpN3hk0Vwg4lYyV5tUNMvABJ0n4qYAU1BVSxn00k=;
+ b=p80npJ8cbpg4vo7IXkhRRpozE4FCp3tArIzNbRsoKlSMX0IFl20v1AJ2rY3lKZnYW8AP
+ swtsLbL6ENG3zbgLSEhLFVJ/qBArp11BVZKpBescnMaixzgNjRL7c6QG/vOB5Ur/y/Ge
+ RAoe+qZl7xv0n7+un12igXM/4gRqJCkb9siRWmg2pdSlxSY5gZBmsFjRlGuRp5NUU6wF
+ d/zzv9sJI0sPHlltiN7xwyx4DEnliE7u98okqYN/xDXWDOtGlkbuQmwgn8HHx7ytmQ2y
+ KVrTE4hqKO7U926yUNF93DxItR2fN11j/jpzHuxiarw3Vhbn43stO+dZOyg/DieBQvZd jw== 
 Received: from beta.dmz-eu.st.com (beta.dmz-eu.st.com [164.129.1.35])
- by mx08-00178001.pphosted.com with ESMTP id 2sc9s49sr4-1
+ by mx07-00178001.pphosted.com with ESMTP id 2scdjp16mg-1
  (version=TLSv1 cipher=ECDHE-RSA-AES256-SHA bits=256 verify=NOT);
- Thu, 09 May 2019 09:41:31 +0200
+ Thu, 09 May 2019 10:52:09 +0200
 Received: from zeta.dmz-eu.st.com (zeta.dmz-eu.st.com [164.129.230.9])
- by beta.dmz-eu.st.com (STMicroelectronics) with ESMTP id 0422642;
- Thu,  9 May 2019 07:41:28 +0000 (GMT)
-Received: from Webmail-eu.st.com (sfhdag3node3.st.com [10.75.127.9])
- by zeta.dmz-eu.st.com (STMicroelectronics) with ESMTP id B6AE413C2;
- Thu,  9 May 2019 07:41:28 +0000 (GMT)
-Received: from SFHDAG3NODE1.st.com (10.75.127.7) by SFHDAG3NODE3.st.com
- (10.75.127.9) with Microsoft SMTP Server (TLS) id 15.0.1347.2; Thu, 9 May
- 2019 09:41:28 +0200
-Received: from SFHDAG3NODE1.st.com ([fe80::1166:1abb:aad4:5f86]) by
- SFHDAG3NODE1.st.com ([fe80::1166:1abb:aad4:5f86%20]) with mapi id
- 15.00.1347.000; Thu, 9 May 2019 09:41:28 +0200
-From: Erwan LE RAY <erwan.leray@st.com>
-To: Olof Johansson <olof@lixom.net>, Arnd Bergmann <arnd@arndb.de>, "Kevin
- Hilman" <khilman@baylibre.com>
-Thread-Topic: [PATCH] ARM: debug: stm32: add UART early console configuration
-Thread-Index: AQHU73OP100nvdfkikCtYg1KY+YHZqY1DV8AgC1naoA=
-Date: Thu, 9 May 2019 07:41:28 +0000
-Message-ID: <deebc332-277b-76b9-421f-7f67c6bdacc8@st.com>
-References: <1554883239-12051-1-git-send-email-erwan.leray@st.com>
- <CAJiuCcd9884Kn2MAtLMzZpdSa-=xpCDKRLQSVC6NmRNC+YFtaA@mail.gmail.com>
-In-Reply-To: <CAJiuCcd9884Kn2MAtLMzZpdSa-=xpCDKRLQSVC6NmRNC+YFtaA@mail.gmail.com>
-Accept-Language: en-US, fr-FR
-Content-Language: en-US
-X-MS-Has-Attach: 
-X-MS-TNEF-Correlator: 
-user-agent: Mozilla/5.0 (X11; Linux x86_64; rv:60.0) Gecko/20100101
+ by beta.dmz-eu.st.com (STMicroelectronics) with ESMTP id 9C4DA34;
+ Thu,  9 May 2019 08:52:08 +0000 (GMT)
+Received: from Webmail-eu.st.com (sfhdag3node2.st.com [10.75.127.8])
+ by zeta.dmz-eu.st.com (STMicroelectronics) with ESMTP id 685E5151D;
+ Thu,  9 May 2019 08:52:08 +0000 (GMT)
+Received: from [10.48.0.204] (10.75.127.48) by SFHDAG3NODE2.st.com
+ (10.75.127.8) with Microsoft SMTP Server (TLS) id 15.0.1347.2; Thu, 9 May
+ 2019 10:52:07 +0200
+To: Rob Herring <robh+dt@kernel.org>
+References: <1556876854-32441-1-git-send-email-alexandre.torgue@st.com>
+ <CAL_Jsq+sydL5tHafgOWaW-+j4OJZ1JxVh5b=YXSMYRDxEDG3-g@mail.gmail.com>
+From: Alexandre Torgue <alexandre.torgue@st.com>
+Message-ID: <d46e6909-ac3c-72cb-ad32-1fdd529b7405@st.com>
+Date: Thu, 9 May 2019 10:52:07 +0200
+User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:60.0) Gecko/20100101
  Thunderbird/60.6.1
-x-ms-exchange-messagesentrepresentingtype: 1
-x-ms-exchange-transport-fromentityheader: Hosted
-x-originating-ip: [10.75.127.47]
-Content-ID: <7E58E97697490E4C89F88A875D7CF662@st.com>
 MIME-Version: 1.0
+In-Reply-To: <CAL_Jsq+sydL5tHafgOWaW-+j4OJZ1JxVh5b=YXSMYRDxEDG3-g@mail.gmail.com>
+Content-Language: en-US
+X-Originating-IP: [10.75.127.48]
+X-ClientProxiedBy: SFHDAG7NODE2.st.com (10.75.127.20) To SFHDAG3NODE2.st.com
+ (10.75.127.8)
 X-Proofpoint-Virus-Version: vendor=fsecure engine=2.50.10434:, ,
  definitions=2019-05-09_02:, , signatures=0
-Cc: Fabrice GASNIER <fabrice.gasnier@st.com>,
- Uwe Kleine-Koenig <u.kleine-koenig@pengutronix.de>,
- Russell King <linux@armlinux.org.uk>, Stefan Agner <stefan@agner.ch>,
- linux-kernel <linux-kernel@vger.kernel.org>,
- Clement Peron <clement.peron@devialet.com>,
- =?utf-8?B?Q2zDqW1lbnQgUMOpcm9u?= <peron.clem@gmail.com>,
- Maxime Coquelin <mcoquelin.stm32@gmail.com>, Gerald
- BAEZA <gerald.baeza@st.com>, Simon Horman <horms+renesas@verge.net.au>,
- Biju Das <biju.das@bp.renesas.com>,
- "linux-stm32@st-md-mailman.stormreply.com"
- <linux-stm32@st-md-mailman.stormreply.com>,
- linux-arm-kernel <linux-arm-kernel@lists.infradead.org>
-Subject: Re: [Linux-stm32] [PATCH] ARM: debug: stm32: add UART early console
-	configuration
+Cc: Mark Rutland <mark.rutland@arm.com>, devicetree@vger.kernel.org,
+ Linus Walleij <linus.walleij@linaro.org>,
+ "linux-kernel@vger.kernel.org" <linux-kernel@vger.kernel.org>, "open
+ list:GPIO SUBSYSTEM" <linux-gpio@vger.kernel.org>,
+ Maxime Coquelin <mcoquelin.stm32@gmail.com>,
+ linux-stm32@st-md-mailman.stormreply.com, "moderated
+ list:ARM/FREESCALE IMX / MXC ARM ARCHITECTURE"
+ <linux-arm-kernel@lists.infradead.org>
+Subject: Re: [Linux-stm32] [PATCH] dt-bindings: pinctrl: Convert stm32
+ pinctrl bindings to jason-schema
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -91,136 +77,406 @@ List-Post: <mailto:linux-stm32@st-md-mailman.stormreply.com>
 List-Help: <mailto:linux-stm32-request@st-md-mailman.stormreply.com?subject=help>
 List-Subscribe: <https://st-md-mailman.stormreply.com/mailman/listinfo/linux-stm32>, 
  <mailto:linux-stm32-request@st-md-mailman.stormreply.com?subject=subscribe>
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: base64
+Content-Transfer-Encoding: 7bit
+Content-Type: text/plain; charset="us-ascii"; Format="flowed"
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
-SGkgT2xvZiwgQXJuZCBhbmQgS2V2aW4sDQoNCkNhbiB5b3UgcGxlYXNlIHByb3ZpZGUgbWUgeW91
-ciBmZWVkYmFjayBhYm91dCB0aGUgcGF0Y2gsIGFuZCBhYm91dCANCkNsZW1lbnQgY2hhbmdlcyBw
-cm9wb3NhbC4NCg0KSSB3b3VsZCBsaWtlIHRvIGtub3cgaWYgeW91IGV4cGVjdCBhIFYyIChiYXNl
-ZCBvbiBDbGVtZW50IGNvbW1lbnRzKSwgb3IgDQppZiB0aGUgVjEgaWYgT0sgZm9yIHlvdXIuDQoN
-CkJlc3QgcmVnYXJkcywgRXJ3YW4uDQoNCg0KT24gNC8xMC8xOSAxMjoxOSBQTSwgQ2zDqW1lbnQg
-UMOpcm9uIHdyb3RlOg0KPiBIaSwNCj4NCj4gT24gV2VkLCAxMCBBcHIgMjAxOSBhdCAxMDowMywg
-RXJ3YW4gTGUgUmF5IDxlcndhbi5sZXJheUBzdC5jb20+IHdyb3RlOg0KPj4gLSBUaGlzIHBhdGNo
-IGFsbG93cyB0byBjb25maWd1cmUgVUFSVCBpbnN0YW5jZSBmb3IgZWFybHkgY29uc29sZSBieSBz
-ZXR0aW5nDQo+PiBwaHlzaWNhbCBhbmQgdmlydHVhbCBiYXNlIGFkZHJlc3Nlcy4NCj4+IC0gVGhp
-cyBwYXRjaCBhZGRzIFVBUlQgZWFybHkgY29uc29sZSBzdXBwb3J0IGZvciBzdG0zMmg3IGFuZCBz
-dG0zMm1wMTU3Yy4NCj4gKk5ld2JpZSBrZXJuZWwgc3BlYWtpbmcqDQo+DQo+IEkgdGhpbmsgdGhp
-cyBwYXRjaCBpbnRyb2R1Y2UgYXQgbGVhc3QgMiwgSSB3aWxsIGdvIGZvciAzIG1vZGlmaWNhdGlv
-bnM6DQo+IC1BZGRpbmcgSDcgRGVidWcNCj4gLUFkZGluZyBNUDEgZGVidWcNCj4gLShGaXhpbmcg
-ZGVwZW5kZW5jaWVzIEY0L0Y3KQ0KPg0KPiBXaXRoIG15IGxpdHRsZSBrbm93bGVkZ2UsIEkgd2ls
-bCBzZXBhcmF0ZSB0aGlzIHBhdGNoIGluIDMuDQo+IEFsc28gdHJ5IHRvIGhhdmUgYSBjb21taXQg
-bG9nIGxpa2UgdGhpcyA6DQo+IDEpIEV4cGxhaW4gV2hhdCdzIHdyb25nIG9yIGlzIG5vdCBwcmVz
-ZW50DQo+IDIpIEV4cGxhaW4gd2hhdCB5b3UgZG8gaW4gdGhlIHBhdGNoDQo+DQo+IGhlcmUgeW91
-IGRvbid0IGV4cGxhaW4gYSBsb3Qgd2hhdCB0aGUgaXNzdWVzIGFyZS4NCj4NCj4gTXkgMmN0cyBv
-biB5b3VyIHBhdGNoLCBhZ2FpbiBuZXdiaWUgdXNlciBoZXJlIGFuZCBJIGhhdmUgcG9zdCBvbmx5
-IGZldw0KPiBwYXRjaGVzIGJ1dCB0aGlzIGlzIG15IHNoYXJpbmcuDQo+DQo+IFRoYW5rcywNCj4g
-Q2xlbWVudA0KPg0KPj4gU2lnbmVkLW9mZi1ieTogRXJ3YW4gTGUgUmF5IDxlcndhbi5sZXJheUBz
-dC5jb20+DQo+Pg0KPj4gZGlmZiAtLWdpdCBhL2FyY2gvYXJtL0tjb25maWcuZGVidWcgYi9hcmNo
-L2FybS9LY29uZmlnLmRlYnVnDQo+PiBpbmRleCA2ZDZlMDMzLi40ZWEzZTE3IDEwMDY0NA0KPj4g
-LS0tIGEvYXJjaC9hcm0vS2NvbmZpZy5kZWJ1Zw0KPj4gKysrIGIvYXJjaC9hcm0vS2NvbmZpZy5k
-ZWJ1Zw0KPj4gQEAgLTEyMDEsMjMgKzEyMDEsNDkgQEAgY2hvaWNlDQo+Pg0KPj4gICAgICAgICAg
-Y29uZmlnIFNUTTMyRjRfREVCVUdfVUFSVA0KPj4gICAgICAgICAgICAgICAgICBib29sICJVc2Ug
-U1RNMzJGNCBVQVJUIGZvciBsb3ctbGV2ZWwgZGVidWciDQo+PiAtICAgICAgICAgICAgICAgZGVw
-ZW5kcyBvbiBBUkNIX1NUTTMyDQo+PiArICAgICAgICAgICAgICAgZGVwZW5kcyBvbiBNQUNIX1NU
-TTMyRjQyOSB8fCBNQUNIX1NUTTMyRjQ2OQ0KPj4gICAgICAgICAgICAgICAgICBzZWxlY3QgREVC
-VUdfU1RNMzJfVUFSVA0KPj4gICAgICAgICAgICAgICAgICBoZWxwDQo+PiAgICAgICAgICAgICAg
-ICAgICAgU2F5IFkgaGVyZSBpZiB5b3Ugd2FudCBrZXJuZWwgbG93LWxldmVsIGRlYnVnZ2luZyBz
-dXBwb3J0DQo+PiAgICAgICAgICAgICAgICAgICAgb24gU1RNMzJGNCBiYXNlZCBwbGF0Zm9ybXMs
-IHdoaWNoIGRlZmF1bHQgVUFSVCBpcyB3aXJlZCBvbg0KPj4gLSAgICAgICAgICAgICAgICAgVVNB
-UlQxLg0KPj4gKyAgICAgICAgICAgICAgICAgVVNBUlQxLCBidXQgYW5vdGhlciBVQVJUIGluc3Rh
-bmNlIGNhbiBiZSBzZWxlY3RlZCBieSBtb2RpZnlpbmcNCj4+ICsgICAgICAgICAgICAgICAgIENP
-TkZJR19ERUJVR19VQVJUX1BIWVMuDQo+Pg0KPj4gICAgICAgICAgICAgICAgICAgIElmIHVuc3Vy
-ZSwgc2F5IE4uDQo+Pg0KPj4gICAgICAgICAgY29uZmlnIFNUTTMyRjdfREVCVUdfVUFSVA0KPj4g
-ICAgICAgICAgICAgICAgICBib29sICJVc2UgU1RNMzJGNyBVQVJUIGZvciBsb3ctbGV2ZWwgZGVi
-dWciDQo+PiAtICAgICAgICAgICAgICAgZGVwZW5kcyBvbiBBUkNIX1NUTTMyDQo+PiArICAgICAg
-ICAgICAgICAgZGVwZW5kcyBvbiBNQUNIX1NUTTMyRjc0NiB8fCBNQUNIX1NUTTMyRjc2OQ0KPj4g
-ICAgICAgICAgICAgICAgICBzZWxlY3QgREVCVUdfU1RNMzJfVUFSVA0KPj4gICAgICAgICAgICAg
-ICAgICBoZWxwDQo+PiAgICAgICAgICAgICAgICAgICAgU2F5IFkgaGVyZSBpZiB5b3Ugd2FudCBr
-ZXJuZWwgbG93LWxldmVsIGRlYnVnZ2luZyBzdXBwb3J0DQo+PiAgICAgICAgICAgICAgICAgICAg
-b24gU1RNMzJGNyBiYXNlZCBwbGF0Zm9ybXMsIHdoaWNoIGRlZmF1bHQgVUFSVCBpcyB3aXJlZCBv
-bg0KPj4gLSAgICAgICAgICAgICAgICAgVVNBUlQxLg0KPj4gKyAgICAgICAgICAgICAgICAgVVNB
-UlQxLCBidXQgYW5vdGhlciBVQVJUIGluc3RhbmNlIGNhbiBiZSBzZWxlY3RlZCBieSBtb2RpZnlp
-bmcNCj4+ICsgICAgICAgICAgICAgICAgIENPTkZJR19ERUJVR19VQVJUX1BIWVMuDQo+PiArDQo+
-PiArICAgICAgICAgICAgICAgICBJZiB1bnN1cmUsIHNheSBOLg0KPj4gKw0KPj4gKyAgICAgICBj
-b25maWcgU1RNMzJIN19ERUJVR19VQVJUDQo+PiArICAgICAgICAgICAgICAgYm9vbCAiVXNlIFNU
-TTMySDcgVUFSVCBmb3IgbG93LWxldmVsIGRlYnVnIg0KPj4gKyAgICAgICAgICAgICAgIGRlcGVu
-ZHMgb24gTUFDSF9TVE0zMkg3NDMNCj4+ICsgICAgICAgICAgICAgICBzZWxlY3QgREVCVUdfU1RN
-MzJfVUFSVA0KPj4gKyAgICAgICAgICAgICAgIGhlbHANCj4+ICsgICAgICAgICAgICAgICAgIFNh
-eSBZIGhlcmUgaWYgeW91IHdhbnQga2VybmVsIGxvdy1sZXZlbCBkZWJ1Z2dpbmcgc3VwcG9ydA0K
-Pj4gKyAgICAgICAgICAgICAgICAgb24gU1RNMzJINyBiYXNlZCBwbGF0Zm9ybXMsIHdoaWNoIGRl
-ZmF1bHQgVUFSVCBpcyB3aXJlZCBvbg0KPj4gKyAgICAgICAgICAgICAgICAgVVNBUlQxLCBidXQg
-YW5vdGhlciBVQVJUIGluc3RhbmNlIGNhbiBiZSBzZWxlY3RlZCBieSBtb2RpZnlpbmcNCj4+ICsg
-ICAgICAgICAgICAgICAgIENPTkZJR19ERUJVR19VQVJUX1BIWVMuDQo+PiArDQo+PiArICAgICAg
-ICAgICAgICAgICBJZiB1bnN1cmUsIHNheSBOLg0KPj4gKw0KPj4gKyAgICAgICBjb25maWcgU1RN
-MzJNUDFfREVCVUdfVUFSVA0KPj4gKyAgICAgICAgICAgICAgIGJvb2wgIlVzZSBTVE0zMk1QMSBV
-QVJUIGZvciBsb3ctbGV2ZWwgZGVidWciDQo+PiArICAgICAgICAgICAgICAgZGVwZW5kcyBvbiBN
-QUNIX1NUTTMyTVAxNTcNCj4+ICsgICAgICAgICAgICAgICBzZWxlY3QgREVCVUdfU1RNMzJfVUFS
-VA0KPj4gKyAgICAgICAgICAgICAgIGhlbHANCj4+ICsgICAgICAgICAgICAgICAgIFNheSBZIGhl
-cmUgaWYgeW91IHdhbnQga2VybmVsIGxvdy1sZXZlbCBkZWJ1Z2dpbmcgc3VwcG9ydA0KPj4gKyAg
-ICAgICAgICAgICAgICAgb24gU1RNMzJNUDEgYmFzZWQgcGxhdGZvcm1zLCB3aWNoIGRlZmF1bHQg
-VUFSVCBpcyB3aXJlZCBvbg0KPj4gKyAgICAgICAgICAgICAgICAgVUFSVDQsIGJ1dCBhbm90aGVy
-IFVBUlQgaW5zdGFuY2UgY2FuIGJlIHNlbGVjdGVkIGJ5IG1vZGlmeWluZw0KPj4gKyAgICAgICAg
-ICAgICAgICAgQ09ORklHX0RFQlVHX1VBUlRfUEhZUyBhbmQgQ09ORklHX0RFQlVHX1VBUlRfVklS
-VC4NCj4+DQo+PiAgICAgICAgICAgICAgICAgICAgSWYgdW5zdXJlLCBzYXkgTi4NCj4+DQo+PiBA
-QCAtMTYyMiw2ICsxNjQ4LDkgQEAgY29uZmlnIERFQlVHX1VBUlRfUEhZUw0KPj4gICAgICAgICAg
-ZGVmYXVsdCAweDNlMDAwMDAwIGlmIERFQlVHX0JDTV9LT05BX1VBUlQNCj4+ICAgICAgICAgIGRl
-ZmF1bHQgMHgzZjIwMTAwMCBpZiBERUJVR19CQ00yODM2DQo+PiAgICAgICAgICBkZWZhdWx0IDB4
-NDAwMGU0MDAgaWYgREVCVUdfTExfVUFSVF9FRk0zMg0KPj4gKyAgICAgICBkZWZhdWx0IDB4NDAw
-MTAwMDAgaWYgU1RNMzJNUDFfREVCVUdfVUFSVA0KPj4gKyAgICAgICBkZWZhdWx0IDB4NDAwMTEw
-MDAgaWYgU1RNMzJGNF9ERUJVR19VQVJUIHx8IFNUTTMyRjdfREVCVUdfVUFSVCB8fCBcDQo+PiAr
-ICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgIFNUTTMySDdfREVCVUdfVUFSVA0KPj4gICAg
-ICAgICAgZGVmYXVsdCAweDQwMDI4MDAwIGlmIERFQlVHX0FUOTFfU0FNVjdfVVNBUlQxDQo+PiAg
-ICAgICAgICBkZWZhdWx0IDB4NDAwODEwMDAgaWYgREVCVUdfTFBDMThYWF9VQVJUMA0KPj4gICAg
-ICAgICAgZGVmYXVsdCAweDQwMDkwMDAwIGlmIERFQlVHX0xQQzMyWFgNCj4+IEBAIC0xNzE2LDcg
-KzE3NDUsNyBAQCBjb25maWcgREVCVUdfVUFSVF9QSFlTDQo+PiAgICAgICAgICAgICAgICAgIERF
-QlVHX1MzQzY0WFhfVUFSVCB8fCBcDQo+PiAgICAgICAgICAgICAgICAgIERFQlVHX0JDTTYzWFhf
-VUFSVCB8fCBERUJVR19BU005MjYwX1VBUlQgfHwgXA0KPj4gICAgICAgICAgICAgICAgICBERUJV
-R19TSVJGU09DX1VBUlQgfHwgREVCVUdfRElHSUNPTE9SX1VBMCB8fCBcDQo+PiAtICAgICAgICAg
-ICAgICAgREVCVUdfQVQ5MV9VQVJUDQo+PiArICAgICAgICAgICAgICAgREVCVUdfQVQ5MV9VQVJU
-IHx8IERFQlVHX1NUTTMyX1VBUlQNCj4+DQo+PiAgIGNvbmZpZyBERUJVR19VQVJUX1ZJUlQNCj4+
-ICAgICAgICAgIGhleCAiVmlydHVhbCBiYXNlIGFkZHJlc3Mgb2YgZGVidWcgVUFSVCINCj4+IEBA
-IC0xNzg0LDYgKzE4MTMsNyBAQCBjb25maWcgREVCVUdfVUFSVF9WSVJUDQo+PiAgICAgICAgICBk
-ZWZhdWx0IDB4ZmQwMTIwMDAgaWYgREVCVUdfTVZFQlVfVUFSVDBfQUxURVJOQVRFICYmIEFSQ0hf
-TVY3OFhYMA0KPj4gICAgICAgICAgZGVmYXVsdCAweGZkODgzMDAwIGlmIERFQlVHX0FMUElORV9V
-QVJUMA0KPj4gICAgICAgICAgZGVmYXVsdCAweGZkZTEyMDAwIGlmIERFQlVHX01WRUJVX1VBUlQw
-X0FMVEVSTkFURSAmJiBBUkNIX0RPVkUNCj4+ICsgICAgICAgZGVmYXVsdCAweGZlMDEwMDAwIGlm
-IFNUTTMyTVAxX0RFQlVHX1VBUlQNCj4+ICAgICAgICAgIGRlZmF1bHQgMHhmZTAxMjAwMCBpZiBE
-RUJVR19NVkVCVV9VQVJUMF9BTFRFUk5BVEUgJiYgQVJDSF9PUklPTjVYDQo+PiAgICAgICAgICBk
-ZWZhdWx0IDB4ZmUwMTcwMDAgaWYgREVCVUdfTU1QX1VBUlQyDQo+PiAgICAgICAgICBkZWZhdWx0
-IDB4ZmUwMTgwMDAgaWYgREVCVUdfTU1QX1VBUlQzDQo+PiBAQCAtMTgzMiw3ICsxODYyLDcgQEAg
-Y29uZmlnIERFQlVHX1VBUlRfVklSVA0KPj4gICAgICAgICAgICAgICAgICBERUJVR19TM0M2NFhY
-X1VBUlQgfHwgXA0KPj4gICAgICAgICAgICAgICAgICBERUJVR19CQ002M1hYX1VBUlQgfHwgREVC
-VUdfQVNNOTI2MF9VQVJUIHx8IFwNCj4+ICAgICAgICAgICAgICAgICAgREVCVUdfU0lSRlNPQ19V
-QVJUIHx8IERFQlVHX0RJR0lDT0xPUl9VQTAgfHwgXA0KPj4gLSAgICAgICAgICAgICAgIERFQlVH
-X0FUOTFfVUFSVA0KPj4gKyAgICAgICAgICAgICAgIERFQlVHX0FUOTFfVUFSVCB8fCBERUJVR19T
-VE0zMl9VQVJUDQo+Pg0KPj4gICBjb25maWcgREVCVUdfVUFSVF84MjUwX1NISUZUDQo+PiAgICAg
-ICAgICBpbnQgIlJlZ2lzdGVyIG9mZnNldCBzaGlmdCBmb3IgdGhlIDgyNTAgZGVidWcgVUFSVCIN
-Cj4+IGRpZmYgLS1naXQgYS9hcmNoL2FybS9pbmNsdWRlL2RlYnVnL3N0bTMyLlMgYi9hcmNoL2Fy
-bS9pbmNsdWRlL2RlYnVnL3N0bTMyLlMNCj4+IGluZGV4IDFhYmIzMmYuLjY0NDZlNDYgMTAwNjQ0
-DQo+PiAtLS0gYS9hcmNoL2FybS9pbmNsdWRlL2RlYnVnL3N0bTMyLlMNCj4+ICsrKyBiL2FyY2gv
-YXJtL2luY2x1ZGUvZGVidWcvc3RtMzIuUw0KPj4gQEAgLTQsMTQgKzQsMTMgQEANCj4+ICAgICog
-QXV0aG9yOiAgIEdlcmFsZCBCYWV6YSA8Z2VyYWxkLmJhZXphQHN0LmNvbT4gZm9yIFNUTWljcm9l
-bGVjdHJvbmljcy4NCj4+ICAgICovDQo+Pg0KPj4gLSNkZWZpbmUgU1RNMzJfVUFSVF9CQVNFICAg
-ICAgICAgICAgICAgICAgICAgICAgMHg0MDAxMTAwMCAgICAgIC8qIFVTQVJUMSAqLw0KPj4gLQ0K
-Pj4gICAjaWZkZWYgQ09ORklHX1NUTTMyRjRfREVCVUdfVUFSVA0KPj4gICAjZGVmaW5lIFNUTTMy
-X1VTQVJUX1NSX09GRiAgICAgICAgICAgICAweDAwDQo+PiAgICNkZWZpbmUgU1RNMzJfVVNBUlRf
-VERSX09GRiAgICAgICAgICAgIDB4MDQNCj4+ICAgI2VuZGlmDQo+Pg0KPj4gLSNpZmRlZiBDT05G
-SUdfU1RNMzJGN19ERUJVR19VQVJUDQo+PiArI2lmIGRlZmluZWQoQ09ORklHX1NUTTMyRjdfREVC
-VUdfVUFSVCkgfHwgKENPTkZJR19TVE0zMkg3X0RFQlVHX1VBUlQpIHx8IFwNCj4+ICsgICAgICAg
-ZGVmaW5lZChDT05GSUdfU1RNMzJNUDFfREVCVUdfVUFSVCkNCj4+ICAgI2RlZmluZSBTVE0zMl9V
-U0FSVF9TUl9PRkYgICAgICAgICAgICAgMHgxQw0KPj4gICAjZGVmaW5lIFNUTTMyX1VTQVJUX1RE
-Ul9PRkYgICAgICAgICAgICAweDI4DQo+PiAgICNlbmRpZg0KPj4gQEAgLTIwLDggKzE5LDggQEAN
-Cj4+ICAgI2RlZmluZSBTVE0zMl9VU0FSVF9UWEUgICAgICAgICAgICAgICAgICAgICAgICAoMSA8
-PCA3KSAgICAgICAgLyogVHggZGF0YSByZWcgZW1wdHkgKi8NCj4+DQo+PiAgIC5tYWNybyBhZGRy
-dWFydCwgcnAsIHJ2LCB0bXANCj4+IC0gICAgICAgbGRyICAgICBccnAsICAgICAgPVNUTTMyX1VB
-UlRfQkFTRSAgICAgIEAgcGh5c2ljYWwgYmFzZQ0KPj4gLSAgICAgICBsZHIgICAgIFxydiwgICAg
-ICA9U1RNMzJfVUFSVF9CQVNFICAgICAgQCB2aXJ0IGJhc2UgLyogTm9NTVUgKi8NCj4+ICsgICAg
-ICAgbGRyICAgICBccnAsID1DT05GSUdfREVCVUdfVUFSVF9QSFlTIEAgcGh5c2ljYWwgYmFzZQ0K
-Pj4gKyAgICAgICBsZHIgICAgIFxydiwgPUNPTkZJR19ERUJVR19VQVJUX1ZJUlQgQCB2aXJ0IGJh
-c2UNCj4+ICAgLmVuZG0NCj4+DQo+PiAgIC5tYWNybyAgc2VuZHVhcnQscmQscngNCj4+IC0tDQo+
-PiAxLjkuMQ0KPj4KX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19f
-X18KTGludXgtc3RtMzIgbWFpbGluZyBsaXN0CkxpbnV4LXN0bTMyQHN0LW1kLW1haWxtYW4uc3Rv
-cm1yZXBseS5jb20KaHR0cHM6Ly9zdC1tZC1tYWlsbWFuLnN0b3JtcmVwbHkuY29tL21haWxtYW4v
-bGlzdGluZm8vbGludXgtc3RtMzIK
+Hi Rob
+
+On 5/8/19 10:54 PM, Rob Herring wrote:
+> What's jason-schema? ;)
+
+I thought It sounds better than JSON :). I'll fix it in v2.
+
+
+> On Fri, May 3, 2019 at 4:47 AM Alexandre Torgue <alexandre.torgue@st.com> wrote:
+>>
+>> Convert the STM32 pinctrl binding to DT schema format using json-schema.
+>>
+>> Signed-off-by: Alexandre Torgue <alexandre.torgue@st.com>
+>> ---
+>>
+>> Hi,
+>>
+>> First pacth to convert DT bindings file (here pinctrl STM32) to jsaon-schema
+>> in order to take advantage of devicetree validation tool for STM32.
+> 
+>> diff --git a/Documentation/devicetree/bindings/pinctrl/st,stm32-pinctrl.yaml b/Documentation/devicetree/bindings/pinctrl/st,stm32-pinctrl.yaml
+>> new file mode 100644
+>> index 0000000..fcceca0
+>> --- /dev/null
+>> +++ b/Documentation/devicetree/bindings/pinctrl/st,stm32-pinctrl.yaml
+>> @@ -0,0 +1,271 @@
+>> +# SPDX-License-Identifier: (GPL-2.0 OR BSD-2-Clause)
+>> +# Copyright (C) STMicroelectronics 2019.
+>> +%YAML 1.2
+>> +---
+>> +$id: http://devicetree.org/schemas/pinctrl/st,stm32-pinctrl.yaml#
+>> +$schema: http://devicetree.org/meta-schemas/core.yaml#
+>> +
+>> +title: STM32 GPIO and Pin Mux/Config controller
+>> +
+>> +maintainers:
+>> +  - Alexandre TORGUE <alexandre.torgue@st.com>
+> 
+> nit: add a blank line
+
+ok
+
+> 
+>> +description: |
+>> +  STMicroelectronics's STM32 MCUs intregrate a GPIO and Pin mux/config hardware
+>> +  controller. It controls the input/output settings on the available pins and
+>> +  also provides ability to multiplex and configure the output of various
+>> +  on-chip controllers onto these pads.
+>> +
+>> +properties:
+>> +  compatible:
+>> +      items:
+> 
+> You can drop items since there is only 1.
+> 
+
+ok
+
+>> +        - enum:
+>> +          - st,stm32f429-pinctrl
+>> +          - st,stm32f469-pinctrl
+>> +          - st,stm32f746-pinctrl
+>> +          - st,stm32f769-pinctrl
+>> +          - st,stm32h743-pinctrl
+>> +          - st,stm32mp157-pinctrl
+>> +          - st,stm32mp157-z-pinctrl
+>> +
+>> +  '#address-cells':
+>> +    const: 1
+>> +  '#size-cells':
+>> +    const: 1
+>> +    description:
+>> +      Defines mapping between pin controller node (parent) to
+>> +      gpio-bank node (children).
+> 
+> Don't need description for common properties unless there's really
+> something binding specific to add. Same is true on a bunch of other
+> description entries.
+
+Ok, I'll remove description for cells, ranges, pins-are-numbered.
+Actually, I kept them to have the same information level than the txt file.
+
+So no issue to not have the same level of information ?
+
+> 
+>> +
+>> +  ranges:
+>> +    description:
+>> +      Defines mapping between pin controller node (parent) to
+>> +      gpio-bank node (children).
+>> +  pins-are-numbered:
+>> +    description:
+>> +      Specify the subnodes are using numbered pinmux to
+>> +      specify pins.
+>> +  st,syscfg:
+> 
+> Needs to define the type (phandle-array).
+
+ok
+
+> 
+>> +    description: |
+>> +      Should be phandle/offset/mask:
+>> +        - The phandle to the syscon node which includes IRQ mux selection register.
+>> +        - The offset of the IRQ mux selection register
+>> +        - The field mask of IRQ mux, needed if different of 0xf.
+> 
+> This can be expressed as a constraint:
+> 
+> items:
+>    - items:
+>      - description: The phandle to the syscon node which includes IRQ
+> mux selection register.
+>      - description: The offset of the IRQ mux selection register
+>      - description: The field mask of IRQ mux, needed if different of 0xf.
+> 
+> Perhaps there are some constraints on the values of the cells.
+
+Ok
+
+> 
+>> +
+>> +  hwlocks:
+>> +    description: Reference to a phandle of a hardware spinlock provider node.
+> 
+> No need for a description.
+
+ok
+
+> 
+>> +  st,package:
+>> +    description:
+>> +     Indicates the SOC package used.
+>> +     More details in include/dt-bindings/pinctrl/stm32-pinfunc.h
+>> +    allOf:
+>> +      - $ref: /schemas/types.yaml#/definitions/uint32
+>> +      - enum: [1, 2, 4, 8]
+>> +
+>> +patternProperties:
+>> +  '^gpio@[0-9a-z]*$':
+> 
+> Hex only: a-f
+
+:)
+
+> 
+>> +    properties:
+>> +      gpio-controller:
+>> +        description:
+>> +          Indicates this device is a GPIO controller.
+> 
+> No need to describe standard properties.
+> 
+>> +      '#gpio-cells':
+>> +        const: 2
+>> +        description: |
+>> +          The first cell is the pin number.
+>> +          The second one is the polarity
+>> +          * 0 for active high.
+>> +          * 1 for active low.
+> 
+> As long as this is the standard cell definition, no need to describe.
+> 
+>> +
+>> +      reg:
+>> +        description:
+>> +          The gpio address range, relative to the pinctrl range.
+> 
+> Need to say how many entries (maxItems), not what reg is.
+
+Sorry, what is for reg and clocks ?
+
+> 
+>> +      clocks:
+>> +        description:
+>> +          Clock that drives this bank.
+> 
+> ditto.
+> 
+>> +      st,bank-name:
+> 
+> type?
+> 
+> possible values or regex match?
+> 
+>> +        description:
+>> +          Should be a name string for this bank as specified in the datasheet.
+>> +      reset:
+> 
+> resets
+> 
+> How many items?
+> 
+>> +        description:
+>> +          Reference to the reset controller.
+>> +      gpio-ranges:
+>> +        description: |
+>> +          Define a dedicated mapping between a pin-controller and
+>> +          a gpio controller. Format is <&phandle a b c> with:
+>> +          -(phandle): phandle of pin-controller.
+>> +          -(a): gpio base offset in range.
+>> +          -(b): pin base offset in range.
+>> +          -(c): gpio count in range.
+> 
+> All common, so not needed here.
+> 
+>> +          This entry has to be used either if there are holes inside a bank:
+>> +          GPIOB0/B1/B2/B14/B15 (see example 2) or if banks are not contiguous:
+>> +          GPIOA/B/C/E...
+>> +          NOTE: If "gpio-ranges" is used for a gpio controller, all gpio-controller
+>> +          have to use a "gpio-ranges" entry.
+>> +          More details in Documentation/devicetree/bindings/gpio/gpio.txt.
+>> +
+>> +      ngpios:
+>> +        description:
+>> +          Number of available gpios in a bank.
+>> +        minimum: 1
+>> +        maximum: 16
+>> +
+>> +      st,bank-ioport:
+> 
+> type?
+> 
+>> +        description:
+>> +          Should correspond to the EXTI IOport selection (EXTI line used
+>> +          to select GPIOs as interrupts).
+>> +
+>> +    required:
+>> +      - gpio-controller
+>> +      - '#gpio-cells'
+>> +      - reg
+>> +      - clocks
+>> +      - st,bank-name
+>> +
+>> +  '-[0-9]*$':
+>> +    patternProperties:
+>> +      '^pins':
+>> +        description: |
+>> +          A pinctrl node should contain at least one subnode representing the
+>> +          pinctrl group available on the machine. Each subnode will list the
+>> +          pins it needs, and how they should be configured, with regard to muxer
+>> +          configuration, pullups, drive, output high/low and output speed.
+>> +        properties:
+>> +          pinmux:
+>> +            allOf:
+>> +              - $ref: "/schemas/types.yaml#/definitions/uint32-array"
+>> +            description: |
+>> +              Integer array, represents gpio pin number and mux setting.
+>> +              Supported pin number and mux varies for different SoCs, and are
+>> +              defined in dt-bindings/pinctrl/<soc>-pinfunc.h directly.
+>> +              These defines are calculated as: ((port * 16 + line) << 8) | function
+>> +              With:
+>> +              - port: The gpio port index (PA = 0, PB = 1, ..., PK = 11)
+>> +              - line: The line offset within the port (PA0 = 0, PA1 = 1, ..., PA15 = 15)
+>> +              - function: The function number, can be:
+>> +              * 0 : GPIO
+>> +              * 1 : Alternate Function 0
+>> +              * 2 : Alternate Function 1
+>> +              * 3 : Alternate Function 2
+>> +              * ...
+>> +              * 16 : Alternate Function 15
+>> +              * 17 : Analog
+>> +              To simplify the usage, macro is available to generate "pinmux" field.
+>> +              This macro is available here:
+>> +                - include/dt-bindings/pinctrl/stm32-pinfunc.h
+>> +              Some examples of using macro:
+>> +               /* GPIO A9 set as alernate function 2 */
+>> +               ... {
+>> +                          pinmux = <STM32_PINMUX('A', 9, AF2)>;
+>> +               };
+>> +               /* GPIO A9 set as GPIO  */
+>> +               ... {
+>> +                          pinmux = <STM32_PINMUX('A', 9, GPIO)>;
+>> +               };
+>> +               /* GPIO A9 set as analog */
+>> +               ... {
+>> +                          pinmux = <STM32_PINMUX('A', 9, ANALOG)>;
+>> +               };
+>> +
+>> +          bias-disable:
+>> +            type: boolean
+>> +          bias-pull-down:
+>> +            type: boolean
+>> +          bias-pull-up:
+>> +            type: boolean
+>> +          drive-push-pull:
+>> +            type: boolean
+>> +          drive-open-drain:
+>> +            type: boolean
+>> +          output-low:
+>> +            type: boolean
+>> +          output-high:
+>> +            type: boolean
+>> +          slew-rate:
+>> +            description: |
+>> +              0: Low speed
+>> +              1: Medium speed
+>> +              2: Fast speed
+>> +              3: High speed
+>> +            allOf:
+>> +              - $ref: /schemas/types.yaml#/definitions/uint32
+>> +              - enum: [0, 1, 2, 3]
+>> +
+>> +        required:
+>> +          - pinmux
+>> +
+>> +required:
+>> +  - compatible
+>> +  - '#address-cells'
+>> +  - '#size-cells'
+>> +  - ranges
+>> +  - pins-are-numbered
+>> +
+>> +examples:
+>> +  - |
+>> +    #include <dt-bindings/pinctrl/stm32-pinfunc.h>
+>> +    //Example 1
+>> +      pin-controller@40020000 {
+> 
+> Because we're horribly inconsistent, 'pinctrl' is the standard node name.
+
+Ok. I'll also fix it in dts files for STM32.
+
+
+> 
+>> +              #address-cells = <1>;
+>> +              #size-cells = <1>;
+>> +              compatible = "st,stm32f429-pinctrl";
+>> +              ranges = <0 0x40020000 0x3000>;
+>> +              pins-are-numbered;
+>> +
+>> +              gpioa: gpio@0 {
+>> +                      gpio-controller;
+>> +                      #gpio-cells = <2>;
+>> +                      reg = <0x0 0x400>;
+>> +                      resets = <&reset_ahb1 0>;
+>> +                      st,bank-name = "GPIOA";
+>> +              };
+>> +       };
+>> +
+>> +    //Example 2 (using gpio-ranges)
+>> +      pin-controller@50020000 {
+>> +              #address-cells = <1>;
+>> +              #size-cells = <1>;
+>> +              compatible = "st,stm32f429-pinctrl";
+>> +              ranges = <0 0x50020000 0x3000>;
+>> +              pins-are-numbered;
+>> +
+>> +              gpiob: gpio@1000 {
+>> +                      gpio-controller;
+>> +                      #gpio-cells = <2>;
+>> +                      reg = <0x1000 0x400>;
+>> +                      resets = <&reset_ahb1 0>;
+>> +                      st,bank-name = "GPIOB";
+>> +                      gpio-ranges = <&pinctrl 0 0 16>;
+>> +              };
+>> +
+>> +              gpioc: gpio@2000 {
+>> +                      gpio-controller;
+>> +                      #gpio-cells = <2>;
+>> +                      reg = <0x2000 0x400>;
+>> +                      resets = <&reset_ahb1 0>;
+>> +                      st,bank-name = "GPIOC";
+>> +                      ngpios = <5>;
+>> +                      gpio-ranges = <&pinctrl 0 16 3>,
+>> +                                    <&pinctrl 14 30 2>;
+>> +              };
+>> +      };
+>> +
+>> +    //Example 3 pin groups
+>> +      pin-controller@60020000 {
+>> +        usart1_pins_a: usart1-0 {
+>> +                pins1 {
+>> +                        pinmux = <STM32_PINMUX('A', 9, AF7)>;
+>> +                        bias-disable;
+>> +                        drive-push-pull;
+>> +                        slew-rate = <0>;
+>> +                };
+>> +                pins2 {
+>> +                        pinmux = <STM32_PINMUX('A', 10, AF7)>;
+>> +                        bias-disable;
+>> +                };
+>> +        };
+>> +    };
+>> +
+>> +    usart1 {
+>> +                pinctrl-0 = <&usart1_pins_a>;
+>> +                pinctrl-names = "default";
+>> +    };
+>> +
+>> +...
+>> --
+>> 2.7.4
+>>
+_______________________________________________
+Linux-stm32 mailing list
+Linux-stm32@st-md-mailman.stormreply.com
+https://st-md-mailman.stormreply.com/mailman/listinfo/linux-stm32
