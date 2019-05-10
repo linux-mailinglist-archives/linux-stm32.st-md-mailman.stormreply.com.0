@@ -2,66 +2,66 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id 340401992E
-	for <lists+linux-stm32@lfdr.de>; Fri, 10 May 2019 09:51:20 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id B09A619EEE
+	for <lists+linux-stm32@lfdr.de>; Fri, 10 May 2019 16:20:46 +0200 (CEST)
 Received: from ip-172-31-3-76.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id E12A1C65043
-	for <lists+linux-stm32@lfdr.de>; Fri, 10 May 2019 07:51:19 +0000 (UTC)
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id A065BC712A3
+	for <lists+linux-stm32@lfdr.de>; Fri, 10 May 2019 14:20:45 +0000 (UTC)
 Received: from mx07-00178001.pphosted.com (mx07-00178001.pphosted.com
  [62.209.51.94])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 4E402C6411F
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id BE47BC712A2
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Fri, 10 May 2019 07:51:19 +0000 (UTC)
-Received: from pps.filterd (m0046668.ppops.net [127.0.0.1])
+ Fri, 10 May 2019 14:20:44 +0000 (UTC)
+Received: from pps.filterd (m0046037.ppops.net [127.0.0.1])
  by mx07-00178001.pphosted.com (8.16.0.27/8.16.0.27) with SMTP id
- x4A7ke2e019336; Fri, 10 May 2019 09:51:04 +0200
+ x4AE1A8q018315; Fri, 10 May 2019 16:20:30 +0200
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=st.com;
- h=subject : to : cc :
- references : from : message-id : date : mime-version : in-reply-to :
- content-type : content-transfer-encoding; s=STMicroelectronics;
- bh=nmDxg4+93XGhQH+CBc6pkLSbg19CIe1swFbFgCL8ynY=;
- b=uR/72ikBnHLXDX5yi8jl/nbg4R6bAWIlVXcz+WyWuipKJP7UA4+VROg3MFgElPvXKUu+
- PrAexkTBVIP4hZvUSn3QFTiBL/0r8aRlUL33o9THxXKlkhyz5LuG668SvRR2d77uRgYR
- M/rENVvB5J8brAwKB4ZCsUnECND3xm58KDJtaUdq4jzUIj+R90IbaWrTd51J6ZryrrdQ
- OEDsDGHUo3K8vAu7mCrb8bwT1NIpnrAZyXoj7ylz1ceOibnGzdXqbSCOlkxgiaGKw7Hp
- G1CYGHSnbQ1RR4cAl9bndfPzGH7buA5hNwhCCSQAnJ/wXMwyg6CBKYzauGASOmzG6XEN LQ== 
+ h=from : to : subject :
+ date : message-id : mime-version : content-type :
+ content-transfer-encoding; s=STMicroelectronics;
+ bh=SFxogR9JPF6xdKCGoAamjmYfeUtysrEoecdQ7E/pxnY=;
+ b=mEL2JpCF2XTXzAYSgFKO3ZZSG1AtAHEA3xHUV3AAztHXrLVyy5gNUe/YZG6XVi3GBobL
+ /CMniv9lTNLF/SoWjiCKqKaVpamyr/RM15PGCeglVxiSMum0h8TaGN0DnwFfMBPKokMp
+ JDHGqRXK0GfXCWc5y+jZSx6hFQOmtMcQa+HJoIDkbxL63gHT+ZDhnb4V+byBXEfT+USI
+ fKMCPAvj32RSQO6WFgDpUpMKUq8IggydLO1icYXcjqzmt2LEwdkRuuhedAbCClmLNZM1
+ nnWOR9f2ltj3T2piC8A7gYI5q5UfftWaRFI/usmAh5Cc5iPSFRx7kwqjdKECk7wWtGk9 pg== 
 Received: from beta.dmz-eu.st.com (beta.dmz-eu.st.com [164.129.1.35])
- by mx07-00178001.pphosted.com with ESMTP id 2scdjp7fum-1
+ by mx07-00178001.pphosted.com with ESMTP id 2scbkaj2fs-1
  (version=TLSv1 cipher=ECDHE-RSA-AES256-SHA bits=256 verify=NOT);
- Fri, 10 May 2019 09:51:04 +0200
+ Fri, 10 May 2019 16:20:30 +0200
 Received: from zeta.dmz-eu.st.com (zeta.dmz-eu.st.com [164.129.230.9])
- by beta.dmz-eu.st.com (STMicroelectronics) with ESMTP id 9800A3D;
- Fri, 10 May 2019 07:51:03 +0000 (GMT)
-Received: from Webmail-eu.st.com (sfhdag5node3.st.com [10.75.127.15])
- by zeta.dmz-eu.st.com (STMicroelectronics) with ESMTP id 10EFC15CE;
- Fri, 10 May 2019 07:51:02 +0000 (GMT)
-Received: from [10.48.0.167] (10.75.127.44) by SFHDAG5NODE3.st.com
- (10.75.127.15) with Microsoft SMTP Server (TLS) id 15.0.1347.2; Fri, 10 May
- 2019 09:51:02 +0200
-To: <thierry.reding@gmail.com>
-References: <1555580267-29299-1-git-send-email-fabrice.gasnier@st.com>
-From: Fabrice Gasnier <fabrice.gasnier@st.com>
-Message-ID: <45e934af-d677-d7d4-09ea-3ed01872dab6@st.com>
-Date: Fri, 10 May 2019 09:51:01 +0200
-User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:60.0) Gecko/20100101
- Thunderbird/60.6.1
+ by beta.dmz-eu.st.com (STMicroelectronics) with ESMTP id D418C31;
+ Fri, 10 May 2019 14:20:29 +0000 (GMT)
+Received: from Webmail-eu.st.com (Safex1hubcas24.st.com [10.75.90.94])
+ by zeta.dmz-eu.st.com (STMicroelectronics) with ESMTP id 81557113A;
+ Fri, 10 May 2019 14:20:29 +0000 (GMT)
+Received: from SAFEX1HUBCAS23.st.com (10.75.90.47) by Safex1hubcas24.st.com
+ (10.75.90.94) with Microsoft SMTP Server (TLS) id 14.3.439.0; Fri, 10 May
+ 2019 16:20:29 +0200
+Received: from localhost (10.201.23.97) by webmail-ga.st.com (10.75.90.48)
+ with Microsoft SMTP Server (TLS) id 14.3.439.0; Fri, 10 May 2019 16:20:28
+ +0200
+From: =?UTF-8?q?Yannick=20Fertr=C3=A9?= <yannick.fertre@st.com>
+To: Yannick Fertre <yannick.fertre@st.com>, Philippe Cornu
+ <philippe.cornu@st.com>, Benjamin Gaignard <benjamin.gaignard@st.com>,
+ Vincent Abriou <vincent.abriou@st.com>,
+ David Airlie <airlied@linux.ie>, Daniel Vetter <daniel@ffwll.ch>,
+ Rob Herring <robh+dt@kernel.org>, "Mark Rutland" <mark.rutland@arm.com>,
+ Maxime Coquelin <mcoquelin.stm32@gmail.com>,
+ Alexandre Torgue <alexandre.torgue@st.com>,
+ <dri-devel@lists.freedesktop.org>, <devicetree@vger.kernel.org>,
+ <linux-stm32@st-md-mailman.stormreply.com>,
+ <linux-arm-kernel@lists.infradead.org>, <linux-kernel@vger.kernel.org>
+Date: Fri, 10 May 2019 16:20:18 +0200
+Message-ID: <1557498023-10766-1-git-send-email-yannick.fertre@st.com>
+X-Mailer: git-send-email 2.7.4
 MIME-Version: 1.0
-In-Reply-To: <1555580267-29299-1-git-send-email-fabrice.gasnier@st.com>
-Content-Language: en-US
-X-Originating-IP: [10.75.127.44]
-X-ClientProxiedBy: SFHDAG1NODE1.st.com (10.75.127.1) To SFHDAG5NODE3.st.com
- (10.75.127.15)
+X-Originating-IP: [10.201.23.97]
 X-Proofpoint-Virus-Version: vendor=fsecure engine=2.50.10434:, ,
  definitions=2019-05-09_02:, , signatures=0
-Cc: mark.rutland@arm.com, devicetree@vger.kernel.org, tduszyns@gmail.com,
- Mark Brown <broonie@kernel.org>, linux-kernel@vger.kernel.org,
- linux-pwm@vger.kernel.org, robh+dt@kernel.org, mcoquelin.stm32@gmail.com,
- u.kleine-koenig@pengutronix.de, linux-stm32@st-md-mailman.stormreply.com,
- linux-arm-kernel@lists.infradead.org
-Subject: Re: [Linux-stm32] [RESEND PATCH v5 0/3] Add PM support to STM32 LP
-	Timer drivers
+Subject: [Linux-stm32] [PATCH v2 0/5] Add supply property for DSI controller
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -73,63 +73,32 @@ List-Post: <mailto:linux-stm32@st-md-mailman.stormreply.com>
 List-Help: <mailto:linux-stm32-request@st-md-mailman.stormreply.com?subject=help>
 List-Subscribe: <https://st-md-mailman.stormreply.com/mailman/listinfo/linux-stm32>, 
  <mailto:linux-stm32-request@st-md-mailman.stormreply.com?subject=subscribe>
-Content-Type: text/plain; charset="us-ascii"
-Content-Transfer-Encoding: 7bit
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: base64
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
-On 4/18/19 11:37 AM, Fabrice Gasnier wrote:
-> This patch series adds power management support for STM32 LP Timer:
-> - PWM driver
-> - Document the pinctrl states for sleep mode
-> 
-> It also adds device link between the PWM consumer and the PWM provider.
-> This allows proper sequencing for suspend/resume (e.g. user will likely
-> do a pwm_disable() before the PWM provider suspend executes), see [1].
-> 
-> [1] https://lkml.org/lkml/2019/2/5/770
-> 
-
-Hi Thierry,
-
-Please let me know if you have some more comments on this series. It's
-been under review since quite some time now.
-
-Thanks in advance,
-Best Regards,
-Fabrice
-
-> ---
-> resend v5:
-> - update collected acks
-> 
-> Changes in v5:
-> - improve a warning message, fix a style issue.
-> 
-> Changes in v4:
-> - improve error handling when adding the PWM consumer device link.
-> 
-> Changes in v3:
-> - Move the device_link_add() call to of_pwm_get() as discussed with Uwe.
-> 
-> Changes in v2:
-> - Don't disable PWM channel in PWM provider: rather refuse to suspend
->   and report an error as suggested by Uwe and Thierry.
-> - Add patch 3/3 to propose device link addition.
-> - No updates for STM32 LP Timer IIO driver. Patches can be send separately.
-> 
-> Fabrice Gasnier (3):
->   dt-bindings: pwm-stm32-lp: document pinctrl sleep state
->   pwm: stm32-lp: Add power management support
->   pwm: core: add consumer device link
-> 
->  .../devicetree/bindings/pwm/pwm-stm32-lp.txt       |  9 ++--
->  drivers/pwm/core.c                                 | 50 ++++++++++++++++++++--
->  drivers/pwm/pwm-stm32-lp.c                         | 25 +++++++++++
->  include/linux/pwm.h                                |  6 ++-
->  4 files changed, 82 insertions(+), 8 deletions(-)
-> 
-_______________________________________________
-Linux-stm32 mailing list
-Linux-stm32@st-md-mailman.stormreply.com
-https://st-md-mailman.stormreply.com/mailman/listinfo/linux-stm32
+VGhlIERTSSBjb250cm9sbGVyIG5lZWRzIGEgbmV3IHByb3BlcnR5IHRoYXQgcG93ZXJzIGl0cyBw
+aHlzaWNhbCBsYXllci4KQmluZGluZyBoYXMgYmVlbiB1cGRhdGVkIHRvIGRvY3VtZW50ZWQgdGhp
+cyBwcm9wZXJ0eS4KRGV2aWNlIHRyZWUgb2Ygc3RtMzJtcDE1N2Mgc29jLgpNb3ZlIHJlZzE4ICYg
+cmVnMTEgdG8gc3RtMzJtcDE1N2MgZGV2aWNlIHRyZWUgZmlsZS4KUmVtb3ZlIHByb3BlcnR5IHBo
+eS1kc2ktc3VwcGx5IHByb3BlcnR5IHRvIHN0bTMybXAxNTdjLWRrMi5kdHMgZmlsZS4KCgpDaGFu
+Z2VzIGluIHYyOgotIHJlbmFtZSBwYXRjaCBkcm0vc3RtOiBkc2k6IGFkZCBzdXBwb3J0IG9mIGFu
+IG9wdGlvbmFsIHJlZ3VsYXRvcgotIHJld29yayBkd19taXBpX2RzaS1zdG0gcHJvYmUgc2VxdWVu
+Y2UKCllhbm5pY2sgRmVydHLDqSAoNSk6CiAgZHQtYmluZGluZ3M6IGRpc3BsYXk6IHN0bTMyOiBh
+ZGQgc3VwcGx5IHByb3BlcnR5IHRvIERTSSBjb250cm9sbGVyCiAgZHJtL3N0bTogZHNpOiBhZGQg
+c3VwcG9ydCBvZiBhbiBvcHRpb25hbCByZWd1bGF0b3IKICBBUk06IGR0czogc3RtMzI6IGFkZCBw
+aHktZHNpLXN1cHBseSBwcm9wZXJ0eSBvbiBzdG0zMm1wMTU3YwogIEFSTTogZHRzOiBzdG0zMjog
+bW92ZSBmaXhlIHJlZ3VsYXRvcnMgcmVnMTEgJiByZWcxOAogIEFSTTogZHRzOiBzdG0zMjogcmVt
+b3ZlIHBoeS1kc2ktc3VwcGx5IHByb3BlcnR5IG9uIHN0bTMybXAxNTdjLWRrMgogICAgYm9hcmQK
+CiAuLi4vZGV2aWNldHJlZS9iaW5kaW5ncy9kaXNwbGF5L3N0LHN0bTMyLWx0ZGMudHh0ICAgIHwg
+IDMgKysrCiBhcmNoL2FybS9ib290L2R0cy9zdG0zMm1wMTU3Yy1kazIuZHRzICAgICAgICAgICAg
+ICAgIHwgIDkgLS0tLS0tLS0tCiBhcmNoL2FybS9ib290L2R0cy9zdG0zMm1wMTU3Yy1lZDEuZHRz
+ICAgICAgICAgICAgICAgIHwgMTYgLS0tLS0tLS0tLS0tLS0tLQogYXJjaC9hcm0vYm9vdC9kdHMv
+c3RtMzJtcDE1N2MuZHRzaSAgICAgICAgICAgICAgICAgICB8IDE3ICsrKysrKysrKysrKysrKysr
+CiBkcml2ZXJzL2dwdS9kcm0vc3RtL2R3X21pcGlfZHNpLXN0bS5jICAgICAgICAgICAgICB8IDQ1
+ICsrKysrKysrKysrKysrKysrKystLS0KIDUgZmlsZXMgY2hhbmdlZCwgNDAgaW5zZXJ0aW9ucygr
+KSwgMjUgZGVsZXRpb25zKC0pCgotLQoyLjcuNAoKX19fX19fX19fX19fX19fX19fX19fX19fX19f
+X19fX19fX19fX19fX19fX19fX18KTGludXgtc3RtMzIgbWFpbGluZyBsaXN0CkxpbnV4LXN0bTMy
+QHN0LW1kLW1haWxtYW4uc3Rvcm1yZXBseS5jb20KaHR0cHM6Ly9zdC1tZC1tYWlsbWFuLnN0b3Jt
+cmVwbHkuY29tL21haWxtYW4vbGlzdGluZm8vbGludXgtc3RtMzIK
