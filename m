@@ -2,63 +2,49 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id 6CB471A621
-	for <lists+linux-stm32@lfdr.de>; Sat, 11 May 2019 03:23:47 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 661611A75B
+	for <lists+linux-stm32@lfdr.de>; Sat, 11 May 2019 11:58:23 +0200 (CEST)
 Received: from ip-172-31-3-76.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 266E4C0D697
-	for <lists+linux-stm32@lfdr.de>; Sat, 11 May 2019 01:23:47 +0000 (UTC)
-Received: from mail-ed1-f65.google.com (mail-ed1-f65.google.com
- [209.85.208.65])
- (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 19010C54B14
+	for <lists+linux-stm32@lfdr.de>; Sat, 11 May 2019 09:58:23 +0000 (UTC)
+Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
+ (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 6595AC0D696
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id E8E43C54B13
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Sat, 11 May 2019 01:23:45 +0000 (UTC)
-Received: by mail-ed1-f65.google.com with SMTP id w37so7589880edw.4
- for <linux-stm32@st-md-mailman.stormreply.com>;
- Fri, 10 May 2019 18:23:45 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20161025;
- h=from:to:cc:subject:date:message-id:mime-version
- :content-transfer-encoding;
- bh=8Sy6IJVq4VJSGNsCncCOevfEMVkxJ4DdVxf3Fz7dO1o=;
- b=rnMpbkIZV4iQ4uC1XfVbzikGIDK3Y+X7xhPA0psUZYD05UE/Dqd5RuIMhOxiYAFKqn
- uKs3xy3l40Rp4PJym3z08kOPIuHzjGzk2tezFv6qMlcYGEncR0+Y7n0whFx+kDsCB6Tb
- Z49SYnDW8VehUpLEXctnUsWYHTGT++65Lp23fGWAICCifApmLlteKtlNTK2oFp3mQ6lH
- ikukBB6HUN+zaBVSvGe1nLUw/HbhQ8ruWgpsy/T66ozOwjE5ykYJtuGBAtvUAPDllIxf
- /gCI9y5LGU9tCSG/+V5w754Nbb8UPqwBMl1/pqEk1U0JYG6UXtn9r/cJGpKeIlOC2zyt
- q7HQ==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20161025;
- h=x-gm-message-state:from:to:cc:subject:date:message-id:mime-version
- :content-transfer-encoding;
- bh=8Sy6IJVq4VJSGNsCncCOevfEMVkxJ4DdVxf3Fz7dO1o=;
- b=gweLaejMCaDYkhC8uSYg6isIT/x6VpVNlgy6PGPDm4XbM0f4WNfLuj36xEs0D/xteH
- 47vq0tFdRv7CYkZkilSEnqKCrRCJpRjg5VqIgXQCpdjDdmbA86qXfa4MsfHhpDIdZvJK
- PTcp+n9aqMj442W0Qf6Eeg5iq0BFnkHFO6vbb9NC0Emo6vC/OcsJcsVGQ1X5rPp6hHnp
- /yFoktaihXW/pwKW/997pO/7M8kFJ+Ou2F+PZSs7aoki+f7/T8Ka6sgLiF+kK8qqXMdm
- l0i91QNLVl1W7C5dUQBvNfAfJYdWZ/GhMCr3ie6DD2og4krtOEziwVnT+YULqoAaztWG
- CTVg==
-X-Gm-Message-State: APjAAAXRKD+ululF1S4OF1GZxSL1OTeAZGDq6zA8ZRvSXLSkce98DcIt
- kBMjaazdwzLP04qNWc6d86U=
-X-Google-Smtp-Source: APXvYqx0DjxzxMiJASMnY3yXqVa1UNYgM9oYsPoKMw+8rRXJ93TwPZ8R959C69MGa/Os41aCsPmcww==
-X-Received: by 2002:a50:b3a4:: with SMTP id s33mr14924192edd.112.1557537824828; 
- Fri, 10 May 2019 18:23:44 -0700 (PDT)
-Received: from localhost.localdomain ([2a01:4f9:2b:2b84::2])
- by smtp.gmail.com with ESMTPSA id r3sm941779ejb.88.2019.05.10.18.23.43
- (version=TLS1_2 cipher=ECDHE-RSA-AES128-GCM-SHA256 bits=128/128);
- Fri, 10 May 2019 18:23:44 -0700 (PDT)
-From: Nathan Chancellor <natechancellor@gmail.com>
-To: Amelie Delaunay <amelie.delaunay@st.com>, Lee Jones <lee.jones@linaro.org>
-Date: Fri, 10 May 2019 18:23:01 -0700
-Message-Id: <20190511012301.2661-1-natechancellor@gmail.com>
-X-Mailer: git-send-email 2.21.0
+ Sat, 11 May 2019 09:58:20 +0000 (UTC)
+Received: from archlinux (cpc91196-cmbg18-2-0-cust659.5-4.cable.virginm.net
+ [81.96.234.148])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+ (No client certificate requested)
+ by mail.kernel.org (Postfix) with ESMTPSA id 1620D21479;
+ Sat, 11 May 2019 09:58:15 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
+ s=default; t=1557568699;
+ bh=w06xIIDrPLNrUYunIGSuFxnclJ9Ts8pgisvyPGIll0c=;
+ h=Date:From:To:Cc:Subject:In-Reply-To:References:From;
+ b=KpuAxiSrFCRO5aA7AgDmR6XNEY/HgQMzyfHQlLiLaqKhuXAve4OUfzRbsxkC9lgoo
+ u/KWxxXhC0NdI3bWI0AQ+Kfxm8DqpWmK0ppR3q+pBOeKkQK7DDyIvUC1u5+4tbpxef
+ pPvH/wpW2lxtd4V+kNlF6XUZ8GeqTyFZu7QD9EZA=
+Date: Sat, 11 May 2019 10:58:12 +0100
+From: Jonathan Cameron <jic23@kernel.org>
+To: Philippe Schenker <dev@pschenker.ch>
+Message-ID: <20190511105812.54f6d5f0@archlinux>
+In-Reply-To: <20190507143615.28477-1-dev@pschenker.ch>
+References: <20190507143615.28477-1-dev@pschenker.ch>
+X-Mailer: Claws Mail 3.17.3 (GTK+ 2.24.32; x86_64-pc-linux-gnu)
 MIME-Version: 1.0
-X-Patchwork-Bot: notify
-Cc: linux-kernel@vger.kernel.org, clang-built-linux@googlegroups.com,
- Maxime Coquelin <mcoquelin.stm32@gmail.com>,
- Nathan Chancellor <natechancellor@gmail.com>,
- linux-stm32@st-md-mailman.stormreply.com, linux-arm-kernel@lists.infradead.org
-Subject: [Linux-stm32] [PATCH] mfd: stmfx: Fix macro definition spelling
+Cc: Maxime Coquelin <mcoquelin.stm32@gmail.com>,
+ Lars-Peter Clausen <lars@metafoo.de>,
+ Max Krummenacher <max.krummenacher@toradex.com>,
+ Philippe Schenker <philippe.schenker@toradex.com>, linux-iio@vger.kernel.org,
+ linux-kernel@vger.kernel.org, Stefan Agner <stefan@agner.ch>,
+ Marcel Ziswiler <marcel.ziswiler@toradex.com>,
+ David Laight <David.Laight@ACULAB.COM>,
+ Peter Meerwald-Stadler <pmeerw@pmeerw.net>, Hartmut Knaack <knaack.h@gmx.de>,
+ Lee Jones <lee.jones@linaro.org>, linux-stm32@st-md-mailman.stormreply.com,
+ linux-arm-kernel@lists.infradead.org
+Subject: Re: [Linux-stm32] [PATCH 1/5] iio: stmpe-adc: Add compatible name
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -75,35 +61,44 @@ Content-Transfer-Encoding: 7bit
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
-Clang warns:
+On Tue,  7 May 2019 16:36:11 +0200
+Philippe Schenker <dev@pschenker.ch> wrote:
 
-In file included from drivers/mfd/stmfx.c:13:
-include/linux/mfd/stmfx.h:7:9: warning: 'MFD_STMFX_H' is used as a
-header guard here, followed by #define of a different macro
-[-Wheader-guard]
+> From: Philippe Schenker <philippe.schenker@toradex.com>
+> 
+> Add the compatible name to the driver so it gets loaded when the proper
+> node in DT is detected.
+> 
+> Signed-off-by: Philippe Schenker <philippe.schenker@toradex.com>
+Applied thanks,
 
-Fixes: 06252ade9156 ("mfd: Add ST Multi-Function eXpander (STMFX) core driver")
-Link: https://github.com/ClangBuiltLinux/linux/issues/475
-Signed-off-by: Nathan Chancellor <natechancellor@gmail.com>
----
- include/linux/mfd/stmfx.h | 2 +-
- 1 file changed, 1 insertion(+), 1 deletion(-)
+Jonathan
 
-diff --git a/include/linux/mfd/stmfx.h b/include/linux/mfd/stmfx.h
-index d890595b89b6..3c67983678ec 100644
---- a/include/linux/mfd/stmfx.h
-+++ b/include/linux/mfd/stmfx.h
-@@ -5,7 +5,7 @@
-  */
- 
- #ifndef MFD_STMFX_H
--#define MFX_STMFX_H
-+#define MFD_STMFX_H
- 
- #include <linux/regmap.h>
- 
--- 
-2.21.0
+> ---
+> 
+>  drivers/iio/adc/stmpe-adc.c | 7 ++++++-
+>  1 file changed, 6 insertions(+), 1 deletion(-)
+> 
+> diff --git a/drivers/iio/adc/stmpe-adc.c b/drivers/iio/adc/stmpe-adc.c
+> index 37f4b74a5d32..9ec338ba3440 100644
+> --- a/drivers/iio/adc/stmpe-adc.c
+> +++ b/drivers/iio/adc/stmpe-adc.c
+> @@ -354,9 +354,14 @@ static struct platform_driver stmpe_adc_driver = {
+>  		.pm	= &stmpe_adc_pm_ops,
+>  	},
+>  };
+> -
+>  module_platform_driver(stmpe_adc_driver);
+>  
+> +static const struct of_device_id stmpe_adc_ids[] = {
+> +	{ .compatible = "st,stmpe-adc", },
+> +	{ },
+> +};
+> +MODULE_DEVICE_TABLE(of, stmpe_adc_ids);
+> +
+>  MODULE_AUTHOR("Stefan Agner <stefan.agner@toradex.com>");
+>  MODULE_DESCRIPTION("STMPEXXX ADC driver");
+>  MODULE_LICENSE("GPL v2");
 
 _______________________________________________
 Linux-stm32 mailing list
