@@ -2,80 +2,63 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id A7A831A1AE
-	for <lists+linux-stm32@lfdr.de>; Fri, 10 May 2019 18:40:15 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 6CB471A621
+	for <lists+linux-stm32@lfdr.de>; Sat, 11 May 2019 03:23:47 +0200 (CEST)
 Received: from ip-172-31-3-76.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 4F75FCB3CD3
-	for <lists+linux-stm32@lfdr.de>; Fri, 10 May 2019 16:40:14 +0000 (UTC)
-Received: from mx07-00178001.pphosted.com (mx07-00178001.pphosted.com
- [62.209.51.94])
- (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 266E4C0D697
+	for <lists+linux-stm32@lfdr.de>; Sat, 11 May 2019 01:23:47 +0000 (UTC)
+Received: from mail-ed1-f65.google.com (mail-ed1-f65.google.com
+ [209.85.208.65])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 6F24CCB3CD2
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 6595AC0D696
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Fri, 10 May 2019 16:40:13 +0000 (UTC)
-Received: from pps.filterd (m0046668.ppops.net [127.0.0.1])
- by mx07-00178001.pphosted.com (8.16.0.27/8.16.0.27) with SMTP id
- x4AGZtVj027928; Fri, 10 May 2019 18:40:07 +0200
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=st.com;
- h=from : to : subject :
- date : message-id : references : in-reply-to : content-type : content-id :
- content-transfer-encoding : mime-version; s=STMicroelectronics;
- bh=fDK2pUKnts0/2XyIv5cUGXTEXKWAR3aldEBvpXZ7VTI=;
- b=Ey4pb4EdeDMM19KPcSg9nHnXTVOch4HpmrFb4ZCEyqyH3wCyY8dP8p1IrB2E7AqkIXHl
- yV2MgQzE8VwAxHHStg2zN92vTKRPfFA4oDS5OoxaX5m+6vEON45nHPPftAyA5NXqXpcV
- vjPCTKy4hYug8CrPW7JHZhHQDQh0ORBztG9qNWP2INF2BLBvsFHXmBP3Tvykzve60NNn
- NkhCAvMULjlW1UhmG0wK0NY5Oz5+FQdyr+cUTtPnkpa+Z4z1wvlQpGrti+YNH8U+bXWa
- qZCjTdsojVIlbbxRRURHSZG4OfhrawFMHv8sd2DBJIhP/86fY9sJyL30XYK+b9v7vUSS jg== 
-Received: from beta.dmz-eu.st.com (beta.dmz-eu.st.com [164.129.1.35])
- by mx07-00178001.pphosted.com with ESMTP id 2scdjpa6c6-1
- (version=TLSv1 cipher=ECDHE-RSA-AES256-SHA bits=256 verify=NOT);
- Fri, 10 May 2019 18:40:07 +0200
-Received: from zeta.dmz-eu.st.com (zeta.dmz-eu.st.com [164.129.230.9])
- by beta.dmz-eu.st.com (STMicroelectronics) with ESMTP id 3B3E834;
- Fri, 10 May 2019 16:40:06 +0000 (GMT)
-Received: from Webmail-eu.st.com (sfhdag3node1.st.com [10.75.127.7])
- by zeta.dmz-eu.st.com (STMicroelectronics) with ESMTP id 163C82CB4;
- Fri, 10 May 2019 16:40:06 +0000 (GMT)
-Received: from SFHDAG6NODE3.st.com (10.75.127.18) by SFHDAG3NODE1.st.com
- (10.75.127.7) with Microsoft SMTP Server (TLS) id 15.0.1347.2; Fri, 10 May
- 2019 18:40:05 +0200
-Received: from SFHDAG6NODE3.st.com ([fe80::d04:5337:ab17:b6f6]) by
- SFHDAG6NODE3.st.com ([fe80::d04:5337:ab17:b6f6%20]) with mapi id
- 15.00.1347.000; Fri, 10 May 2019 18:40:05 +0200
-From: Philippe CORNU <philippe.cornu@st.com>
-To: Yannick FERTRE <yannick.fertre@st.com>, Benjamin GAIGNARD
- <benjamin.gaignard@st.com>, Vincent ABRIOU <vincent.abriou@st.com>, "David
- Airlie" <airlied@linux.ie>, Daniel Vetter <daniel@ffwll.ch>,
- Maxime Coquelin <mcoquelin.stm32@gmail.com>,
- Alexandre TORGUE <alexandre.torgue@st.com>,
- "dri-devel@lists.freedesktop.org" <dri-devel@lists.freedesktop.org>,
- "linux-stm32@st-md-mailman.stormreply.com"
- <linux-stm32@st-md-mailman.stormreply.com>,
- "linux-arm-kernel@lists.infradead.org"
- <linux-arm-kernel@lists.infradead.org>, "linux-kernel@vger.kernel.org"
- <linux-kernel@vger.kernel.org>
-Thread-Topic: [PATCH] drm/stm: ltdc: remove clk_round_rate comment
-Thread-Index: AQHVB0GDvPb0BWdKa0uOjh9ZFPgpeqZkbf8A
-Date: Fri, 10 May 2019 16:40:05 +0000
-Message-ID: <c84e4be5-ec3d-aa6a-9571-4c6d2877fa5f@st.com>
-References: <1557500600-19771-1-git-send-email-yannick.fertre@st.com>
-In-Reply-To: <1557500600-19771-1-git-send-email-yannick.fertre@st.com>
-Accept-Language: fr-FR, en-US
-Content-Language: en-US
-X-MS-Has-Attach: 
-X-MS-TNEF-Correlator: 
-user-agent: Mozilla/5.0 (X11; Linux x86_64; rv:60.0) Gecko/20100101
- Thunderbird/60.6.1
-x-ms-exchange-messagesentrepresentingtype: 1
-x-ms-exchange-transport-fromentityheader: Hosted
-x-originating-ip: [10.75.127.47]
-Content-ID: <10FDEE3B6C3BE84288DE873FAFE85886@st.com>
+ Sat, 11 May 2019 01:23:45 +0000 (UTC)
+Received: by mail-ed1-f65.google.com with SMTP id w37so7589880edw.4
+ for <linux-stm32@st-md-mailman.stormreply.com>;
+ Fri, 10 May 2019 18:23:45 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20161025;
+ h=from:to:cc:subject:date:message-id:mime-version
+ :content-transfer-encoding;
+ bh=8Sy6IJVq4VJSGNsCncCOevfEMVkxJ4DdVxf3Fz7dO1o=;
+ b=rnMpbkIZV4iQ4uC1XfVbzikGIDK3Y+X7xhPA0psUZYD05UE/Dqd5RuIMhOxiYAFKqn
+ uKs3xy3l40Rp4PJym3z08kOPIuHzjGzk2tezFv6qMlcYGEncR0+Y7n0whFx+kDsCB6Tb
+ Z49SYnDW8VehUpLEXctnUsWYHTGT++65Lp23fGWAICCifApmLlteKtlNTK2oFp3mQ6lH
+ ikukBB6HUN+zaBVSvGe1nLUw/HbhQ8ruWgpsy/T66ozOwjE5ykYJtuGBAtvUAPDllIxf
+ /gCI9y5LGU9tCSG/+V5w754Nbb8UPqwBMl1/pqEk1U0JYG6UXtn9r/cJGpKeIlOC2zyt
+ q7HQ==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20161025;
+ h=x-gm-message-state:from:to:cc:subject:date:message-id:mime-version
+ :content-transfer-encoding;
+ bh=8Sy6IJVq4VJSGNsCncCOevfEMVkxJ4DdVxf3Fz7dO1o=;
+ b=gweLaejMCaDYkhC8uSYg6isIT/x6VpVNlgy6PGPDm4XbM0f4WNfLuj36xEs0D/xteH
+ 47vq0tFdRv7CYkZkilSEnqKCrRCJpRjg5VqIgXQCpdjDdmbA86qXfa4MsfHhpDIdZvJK
+ PTcp+n9aqMj442W0Qf6Eeg5iq0BFnkHFO6vbb9NC0Emo6vC/OcsJcsVGQ1X5rPp6hHnp
+ /yFoktaihXW/pwKW/997pO/7M8kFJ+Ou2F+PZSs7aoki+f7/T8Ka6sgLiF+kK8qqXMdm
+ l0i91QNLVl1W7C5dUQBvNfAfJYdWZ/GhMCr3ie6DD2og4krtOEziwVnT+YULqoAaztWG
+ CTVg==
+X-Gm-Message-State: APjAAAXRKD+ululF1S4OF1GZxSL1OTeAZGDq6zA8ZRvSXLSkce98DcIt
+ kBMjaazdwzLP04qNWc6d86U=
+X-Google-Smtp-Source: APXvYqx0DjxzxMiJASMnY3yXqVa1UNYgM9oYsPoKMw+8rRXJ93TwPZ8R959C69MGa/Os41aCsPmcww==
+X-Received: by 2002:a50:b3a4:: with SMTP id s33mr14924192edd.112.1557537824828; 
+ Fri, 10 May 2019 18:23:44 -0700 (PDT)
+Received: from localhost.localdomain ([2a01:4f9:2b:2b84::2])
+ by smtp.gmail.com with ESMTPSA id r3sm941779ejb.88.2019.05.10.18.23.43
+ (version=TLS1_2 cipher=ECDHE-RSA-AES128-GCM-SHA256 bits=128/128);
+ Fri, 10 May 2019 18:23:44 -0700 (PDT)
+From: Nathan Chancellor <natechancellor@gmail.com>
+To: Amelie Delaunay <amelie.delaunay@st.com>, Lee Jones <lee.jones@linaro.org>
+Date: Fri, 10 May 2019 18:23:01 -0700
+Message-Id: <20190511012301.2661-1-natechancellor@gmail.com>
+X-Mailer: git-send-email 2.21.0
 MIME-Version: 1.0
-X-Proofpoint-Virus-Version: vendor=fsecure engine=2.50.10434:, ,
- definitions=2019-05-09_02:, , signatures=0
-Subject: Re: [Linux-stm32] [PATCH] drm/stm: ltdc: remove clk_round_rate
-	comment
+X-Patchwork-Bot: notify
+Cc: linux-kernel@vger.kernel.org, clang-built-linux@googlegroups.com,
+ Maxime Coquelin <mcoquelin.stm32@gmail.com>,
+ Nathan Chancellor <natechancellor@gmail.com>,
+ linux-stm32@st-md-mailman.stormreply.com, linux-arm-kernel@lists.infradead.org
+Subject: [Linux-stm32] [PATCH] mfd: stmfx: Fix macro definition spelling
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -87,39 +70,42 @@ List-Post: <mailto:linux-stm32@st-md-mailman.stormreply.com>
 List-Help: <mailto:linux-stm32-request@st-md-mailman.stormreply.com?subject=help>
 List-Subscribe: <https://st-md-mailman.stormreply.com/mailman/listinfo/linux-stm32>, 
  <mailto:linux-stm32-request@st-md-mailman.stormreply.com?subject=subscribe>
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: base64
+Content-Type: text/plain; charset="us-ascii"
+Content-Transfer-Encoding: 7bit
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
-RGVhciBZYW5uaWNrLA0KVGhhbmsgeW91IGZvciB5b3VyIHBhdGNoLA0KDQpJbiB5b3VyIHBhdGNo
-LCB5b3UgaGF2ZSByZW1vdmVkIGNsa19kaXNhYmxlKCkgJiBjbGtfZW5hYmxlKCkuDQpDb3VsZCB5
-b3UgcGxlYXNlIGRvdWJsZSBjb25maXJtID8NCg0KdGhhbmtzDQpQaGlsaXBwZSA6LSkNCg0KDQpP
-biA1LzEwLzE5IDU6MDMgUE0sIFlhbm5pY2sgRmVydHLDqSB3cm90ZToNCj4gQ2xrX3JvdW5kX3Jh
-dGUgcmV0dXJucyByb3VuZGVkIGNsb2NrIHdpdGhvdXQgY2hhbmdpbmcNCj4gdGhlIGhhcmR3YXJl
-IGluIGFueSB3YXkuDQo+IFRoaXMgZnVuY3Rpb24gY291bGRuJ3QgcmVwbGFjZSBzZXRfcmF0ZS9n
-ZXRfcmF0ZSBjYWxscy4NCj4gVG9kbyBjb21tZW50IGhhcyBiZWVuIHJlbW92ZWQgJiBhIG5ldyBs
-b2cgaW5zZXJ0ZWQuDQo+IA0KPiBTaWduZWQtb2ZmLWJ5OiBZYW5uaWNrIEZlcnRyw6kgPHlhbm5p
-Y2suZmVydHJlQHN0LmNvbT4NCj4gLS0tDQo+ICAgZHJpdmVycy9ncHUvZHJtL3N0bS9sdGRjLmMg
-fCAxMCArKystLS0tLS0tDQo+ICAgMSBmaWxlIGNoYW5nZWQsIDMgaW5zZXJ0aW9ucygrKSwgNyBk
-ZWxldGlvbnMoLSkNCj4gDQo+IGRpZmYgLS1naXQgYS9kcml2ZXJzL2dwdS9kcm0vc3RtL2x0ZGMu
-YyBiL2RyaXZlcnMvZ3B1L2RybS9zdG0vbHRkYy5jDQo+IGluZGV4IDk3OTEyZTIuLjJmOGFhMmUg
-MTAwNjQ0DQo+IC0tLSBhL2RyaXZlcnMvZ3B1L2RybS9zdG0vbHRkYy5jDQo+ICsrKyBiL2RyaXZl
-cnMvZ3B1L2RybS9zdG0vbHRkYy5jDQo+IEBAIC01MDcsMjAgKzUwNywxNiBAQCBzdGF0aWMgYm9v
-bCBsdGRjX2NydGNfbW9kZV9maXh1cChzdHJ1Y3QgZHJtX2NydGMgKmNydGMsDQo+ICAgCXN0cnVj
-dCBsdGRjX2RldmljZSAqbGRldiA9IGNydGNfdG9fbHRkYyhjcnRjKTsNCj4gICAJaW50IHJhdGUg
-PSBtb2RlLT5jbG9jayAqIDEwMDA7DQo+ICAgDQo+IC0JLyoNCj4gLQkgKiBUT0RPIGNsa19yb3Vu
-ZF9yYXRlKCkgZG9lcyBub3Qgd29yayB5ZXQuIFdoZW4gcmVhZHksIGl0IGNhbg0KPiAtCSAqIGJl
-IHVzZWQgaW5zdGVhZCBvZiBjbGtfc2V0X3JhdGUoKSB0aGVuIGNsa19nZXRfcmF0ZSgpLg0KPiAt
-CSAqLw0KPiAtDQo+IC0JY2xrX2Rpc2FibGUobGRldi0+cGl4ZWxfY2xrKTsNCj4gICAJaWYgKGNs
-a19zZXRfcmF0ZShsZGV2LT5waXhlbF9jbGssIHJhdGUpIDwgMCkgew0KPiAgIAkJRFJNX0VSUk9S
-KCJDYW5ub3Qgc2V0IHJhdGUgKCVkSHopIGZvciBwaXhlbCBjbGtcbiIsIHJhdGUpOw0KPiAgIAkJ
-cmV0dXJuIGZhbHNlOw0KPiAgIAl9DQo+IC0JY2xrX2VuYWJsZShsZGV2LT5waXhlbF9jbGspOw0K
-PiAgIA0KPiAgIAlhZGp1c3RlZF9tb2RlLT5jbG9jayA9IGNsa19nZXRfcmF0ZShsZGV2LT5waXhl
-bF9jbGspIC8gMTAwMDsNCj4gICANCj4gKwlEUk1fREVCVUdfRFJJVkVSKCJyZXF1ZXN0ZWQgY2xv
-Y2sgJWRrSHosIGFkanVzdGVkIGNsb2NrICVka0h6XG4iLA0KPiArCQkJIG1vZGUtPmNsb2NrLCBh
-ZGp1c3RlZF9tb2RlLT5jbG9jayk7DQo+ICsNCj4gICAJcmV0dXJuIHRydWU7DQo+ICAgfQ0KPiAg
-IA0KPiAKX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX18KTGlu
-dXgtc3RtMzIgbWFpbGluZyBsaXN0CkxpbnV4LXN0bTMyQHN0LW1kLW1haWxtYW4uc3Rvcm1yZXBs
-eS5jb20KaHR0cHM6Ly9zdC1tZC1tYWlsbWFuLnN0b3JtcmVwbHkuY29tL21haWxtYW4vbGlzdGlu
-Zm8vbGludXgtc3RtMzIK
+Clang warns:
+
+In file included from drivers/mfd/stmfx.c:13:
+include/linux/mfd/stmfx.h:7:9: warning: 'MFD_STMFX_H' is used as a
+header guard here, followed by #define of a different macro
+[-Wheader-guard]
+
+Fixes: 06252ade9156 ("mfd: Add ST Multi-Function eXpander (STMFX) core driver")
+Link: https://github.com/ClangBuiltLinux/linux/issues/475
+Signed-off-by: Nathan Chancellor <natechancellor@gmail.com>
+---
+ include/linux/mfd/stmfx.h | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
+
+diff --git a/include/linux/mfd/stmfx.h b/include/linux/mfd/stmfx.h
+index d890595b89b6..3c67983678ec 100644
+--- a/include/linux/mfd/stmfx.h
++++ b/include/linux/mfd/stmfx.h
+@@ -5,7 +5,7 @@
+  */
+ 
+ #ifndef MFD_STMFX_H
+-#define MFX_STMFX_H
++#define MFD_STMFX_H
+ 
+ #include <linux/regmap.h>
+ 
+-- 
+2.21.0
+
+_______________________________________________
+Linux-stm32 mailing list
+Linux-stm32@st-md-mailman.stormreply.com
+https://st-md-mailman.stormreply.com/mailman/listinfo/linux-stm32
