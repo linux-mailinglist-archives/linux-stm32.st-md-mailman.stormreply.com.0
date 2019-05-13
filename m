@@ -2,68 +2,90 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id EE4661B160
-	for <lists+linux-stm32@lfdr.de>; Mon, 13 May 2019 09:44:44 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id F36E71B173
+	for <lists+linux-stm32@lfdr.de>; Mon, 13 May 2019 09:47:19 +0200 (CEST)
 Received: from ip-172-31-3-76.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 9D9ECC5B646
-	for <lists+linux-stm32@lfdr.de>; Mon, 13 May 2019 07:44:44 +0000 (UTC)
-Received: from mail-wr1-f65.google.com (mail-wr1-f65.google.com
- [209.85.221.65])
- (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id E5B2AC5B649
+	for <lists+linux-stm32@lfdr.de>; Mon, 13 May 2019 07:47:18 +0000 (UTC)
+Received: from EUR04-VI1-obe.outbound.protection.outlook.com
+ (mail-eopbgr80118.outbound.protection.outlook.com [40.107.8.118])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES256-SHA384 (256/256 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id CA967C5B645
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 56E57C5B648
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Mon, 13 May 2019 07:44:42 +0000 (UTC)
-Received: by mail-wr1-f65.google.com with SMTP id d12so13970265wrm.8
- for <linux-stm32@st-md-mailman.stormreply.com>;
- Mon, 13 May 2019 00:44:42 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linaro.org; s=google;
- h=date:from:to:cc:subject:message-id:references:mime-version
- :content-disposition:content-transfer-encoding:in-reply-to
- :user-agent; bh=OT71EAwxl4wA6+YtX4rN0OJahyazfPvJiN7l6rKFsek=;
- b=Zyz0HHajuuueQ14dGBCAfnblxjKE63v6ovBq+xccC0TKAh0JGEjTZdmOOAyXfRourg
- Hkm3tNCyg6tFgqLZVzY7Cq/q84ISaM+vYaAjjbRWOvqHXWzvyV9AmjqMOA7dH2tuPk98
- b4vbcDt0GfpM9yfTGsQM5+ZlX9K2Vzj0irJIZoXo3WlwgGJcGaWEDv5zHknRy1fv2jLY
- qz2bxVbyfYssedNu5+e8xERXXgXfNfHaTrojeAfBfY5ziL70MWZwXQnFJ1fyPgszLCwq
- Q9QdMrBk0bb/0WlljPRgNAwCjGRVjSYDZ3lQinsYUf9o2PDsOCf7jhaB/7seBrb+GMsj
- NWTQ==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20161025;
- h=x-gm-message-state:date:from:to:cc:subject:message-id:references
- :mime-version:content-disposition:content-transfer-encoding
- :in-reply-to:user-agent;
- bh=OT71EAwxl4wA6+YtX4rN0OJahyazfPvJiN7l6rKFsek=;
- b=bbitlBqRewlfdRAuC6a21K6SZfmf3P0clN898/6i+jpyA3xWCjOhVpR8TbqORge6f8
- 3NXR1G6k190sjwsXDomK7Y0AUmWE34CkKdfXNms5NDI1KM+8daPyWRj2LEhRfZZtpvBa
- cKvBTE7uLx3nm4iaAeizfDvCMczvV2VWb8j8k8FD+lLtVZyXydeHKPngqvZOFcho3UfS
- ksyvHqxCXGFlvqS1B6YsVbQDOp9jPWWOGn/BACaW7Za3JA0Wza+lt/Jt0mM4d0iJJ4SF
- AW++FBnk0R342L7FA5IelGTsTG840KxluW3msfjNwsfvajA0TaXKkFSIMB/R3VBLBehH
- wgcA==
-X-Gm-Message-State: APjAAAUorVzLuGz7G+AhJcOXg6c7+8f8F5pQm14Jk8KJbOCj1xvpUT+3
- qHjGAu7xRivHwFmkfCEJTiCE/w==
-X-Google-Smtp-Source: APXvYqxAXI43awYbJUlo3tZn1JOtkzPnPJ5Kpu6uf5DsvNl0ikrAa2gpF4ov4OG9hj0nfcDVurgUjA==
-X-Received: by 2002:a5d:6cae:: with SMTP id a14mr1830626wra.214.1557733482420; 
- Mon, 13 May 2019 00:44:42 -0700 (PDT)
-Received: from dell ([2.27.167.43])
- by smtp.gmail.com with ESMTPSA id h12sm9258467wrq.95.2019.05.13.00.44.41
- (version=TLS1_2 cipher=ECDHE-RSA-CHACHA20-POLY1305 bits=256/256);
- Mon, 13 May 2019 00:44:41 -0700 (PDT)
-Date: Mon, 13 May 2019 08:44:40 +0100
-From: Lee Jones <lee.jones@linaro.org>
-To: Amelie Delaunay <amelie.delaunay@st.com>
-Message-ID: <20190513074440.GK4319@dell>
-References: <1557732606-14662-1-git-send-email-amelie.delaunay@st.com>
+ Mon, 13 May 2019 07:47:17 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=toradex.com;
+ s=selector1;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=Idj7L7lGUdG6n77DQwKx3XrrWz8l64DyegcDCLArJRg=;
+ b=k8ZJK1puhabwPXvMuG8nd3S5IhfCJ7VwOf2RhMKYpPKr36NE+x9T6YtOsfYMkPqXTzpqyylI/ERwdfYERvCRtnGPbETc4SAmY7JEyQyP47fFcp1Bl2AAS5iwO6sITuj4Ml/cKunLwseuEdV/DiYSLccHvaRLGUAs3Tld9OFQsKU=
+Received: from VI1PR0502MB3965.eurprd05.prod.outlook.com (52.134.17.157) by
+ VI1PR0502MB2957.eurprd05.prod.outlook.com (10.175.21.7) with Microsoft SMTP
+ Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.20.1878.21; Mon, 13 May 2019 07:47:14 +0000
+Received: from VI1PR0502MB3965.eurprd05.prod.outlook.com
+ ([fe80::48ff:f344:98da:6571]) by VI1PR0502MB3965.eurprd05.prod.outlook.com
+ ([fe80::48ff:f344:98da:6571%5]) with mapi id 15.20.1878.024; Mon, 13 May 2019
+ 07:47:14 +0000
+From: Philippe Schenker <philippe.schenker@toradex.com>
+To: "jic23@kernel.org" <jic23@kernel.org>
+Thread-Topic: [PATCH 5/5] iio: stmpe-adc: Reset possible interrupts
+Thread-Index: AQHVBOJDlcfa27rPFkC6CK5LLhcgfqZlvamAgAL4uYA=
+Date: Mon, 13 May 2019 07:47:14 +0000
+Message-ID: <b2cb0c244d95d1e1e267c75eb40045b7a3cee6d1.camel@toradex.com>
+References: <20190507143615.28477-1-dev@pschenker.ch>
+ <20190507143615.28477-5-dev@pschenker.ch>
+ <20190511112429.25ddd84d@archlinux>
+In-Reply-To: <20190511112429.25ddd84d@archlinux>
+Accept-Language: en-GB, en-US
+Content-Language: en-US
+X-MS-Has-Attach: 
+X-MS-TNEF-Correlator: 
+authentication-results: spf=none (sender IP is )
+ smtp.mailfrom=philippe.schenker@toradex.com; 
+x-originating-ip: [46.140.72.82]
+x-ms-publictraffictype: Email
+x-ms-office365-filtering-correlation-id: 82491514-95af-4da6-b44b-08d6d77736f1
+x-microsoft-antispam: BCL:0; PCL:0;
+ RULEID:(2390118)(7020095)(4652040)(8989299)(4534185)(4627221)(201703031133081)(201702281549075)(8990200)(5600141)(711020)(4605104)(2017052603328)(7193020);
+ SRVR:VI1PR0502MB2957; 
+x-ms-traffictypediagnostic: VI1PR0502MB2957:
+x-microsoft-antispam-prvs: <VI1PR0502MB2957448724AAEF9B4AF4CB87F40F0@VI1PR0502MB2957.eurprd05.prod.outlook.com>
+x-ms-oob-tlc-oobclassifiers: OLM:8882;
+x-forefront-prvs: 0036736630
+x-forefront-antispam-report: SFV:NSPM;
+ SFS:(10019020)(136003)(366004)(346002)(39840400004)(396003)(376002)(189003)(199004)(476003)(486006)(53936002)(446003)(2616005)(11346002)(4326008)(6246003)(64756008)(6916009)(6512007)(118296001)(91956017)(66946007)(66476007)(66556008)(73956011)(2501003)(66446008)(76116006)(5640700003)(6506007)(6436002)(54906003)(26005)(102836004)(6486002)(76176011)(99286004)(86362001)(7736002)(305945005)(229853002)(316002)(7416002)(8676002)(81166006)(81156014)(8936002)(256004)(36756003)(14444005)(71200400001)(71190400001)(2351001)(186003)(6116002)(3846002)(44832011)(5660300002)(25786009)(2906002)(66066001)(478600001)(14454004)(68736007);
+ DIR:OUT; SFP:1102; SCL:1; SRVR:VI1PR0502MB2957;
+ H:VI1PR0502MB3965.eurprd05.prod.outlook.com; FPR:; SPF:None; LANG:en;
+ PTR:InfoNoRecords; MX:1; A:1; 
+received-spf: None (protection.outlook.com: toradex.com does not designate
+ permitted sender hosts)
+x-ms-exchange-senderadcheck: 1
+x-microsoft-antispam-message-info: 61JyQFfRSPT/OTeNvYQXkW5F9uBqgDwP89pq7O/zUWbGF23O6knRzBLCRfrl52zT0unDq32pQJTbVxv25AZI6C6NV//jjvdV6RrIVNYR7dTWp6vQTxLRCI9ad9OHpisA95D+pAVPoRJdUp68KiG03xy5diAMYohObi4w04RgutY4dppz8EamDVVCPcuvgTd0IS6YtQAJeus+fGUACzVOeHOtJRPNswb+S+/iyot6m3F5KxmJy0lXDv6I2luqP7JCnbMjFmLRVstwsilmy9/HhD3lCna1RrSfT6phW/d9RZNSWKN+OrBrsMhGa0GI5T3AZIUH53ACqfwjk04ySiFSiuKqSIxjhhbwtmICDQ1G7i3jKySXac+x6WxdaSaVRN1SJ5K4ZdV5ZLD9w/n6zZ2B/8ASpFguRFsmTjzSGwm8n2U=
+Content-ID: <01947B48A97B014CA10C2DC0D37BDAF9@eurprd05.prod.outlook.com>
 MIME-Version: 1.0
-Content-Disposition: inline
-In-Reply-To: <1557732606-14662-1-git-send-email-amelie.delaunay@st.com>
-User-Agent: Mutt/1.9.4 (2018-02-28)
-Cc: Julia Lawall <julia.lawall@lip6.fr>,
- Linus Walleij <linus.walleij@linaro.org>, linux-kernel@vger.kernel.org,
- linux-gpio@vger.kernel.org, kbuild-all@01.org,
- Maxime Coquelin <mcoquelin.stm32@gmail.com>,
- linux-stm32@st-md-mailman.stormreply.com, linux-arm-kernel@lists.infradead.org
-Subject: Re: [Linux-stm32] [PATCH] pinctrl: stmfx: Fix comparison of
- unsigned expression warnings
+X-OriginatorOrg: toradex.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: 82491514-95af-4da6-b44b-08d6d77736f1
+X-MS-Exchange-CrossTenant-originalarrivaltime: 13 May 2019 07:47:14.1393 (UTC)
+X-MS-Exchange-CrossTenant-fromentityheader: Hosted
+X-MS-Exchange-CrossTenant-id: d9995866-0d9b-4251-8315-093f062abab4
+X-MS-Exchange-CrossTenant-mailboxtype: HOSTED
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: VI1PR0502MB2957
+Cc: "mcoquelin.stm32@gmail.com" <mcoquelin.stm32@gmail.com>,
+ "lars@metafoo.de" <lars@metafoo.de>, "pmeerw@pmeerw.net" <pmeerw@pmeerw.net>,
+ Marcel Ziswiler <marcel.ziswiler@toradex.com>,
+ "linux-kernel@vger.kernel.org" <linux-kernel@vger.kernel.org>,
+ "stefan@agner.ch" <stefan@agner.ch>,
+ "linux-iio@vger.kernel.org" <linux-iio@vger.kernel.org>,
+ "David.Laight@ACULAB.COM" <David.Laight@ACULAB.COM>,
+ Max Krummenacher <max.krummenacher@toradex.com>,
+ "knaack.h@gmx.de" <knaack.h@gmx.de>,
+ "lee.jones@linaro.org" <lee.jones@linaro.org>,
+ "linux-stm32@st-md-mailman.stormreply.com"
+ <linux-stm32@st-md-mailman.stormreply.com>,
+ "linux-arm-kernel@lists.infradead.org" <linux-arm-kernel@lists.infradead.org>
+Subject: Re: [Linux-stm32] [PATCH 5/5] iio: stmpe-adc: Reset possible
+	interrupts
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -75,37 +97,71 @@ List-Post: <mailto:linux-stm32@st-md-mailman.stormreply.com>
 List-Help: <mailto:linux-stm32-request@st-md-mailman.stormreply.com?subject=help>
 List-Subscribe: <https://st-md-mailman.stormreply.com/mailman/listinfo/linux-stm32>, 
  <mailto:linux-stm32-request@st-md-mailman.stormreply.com?subject=subscribe>
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: base64
+Content-Type: text/plain; charset="us-ascii"
+Content-Transfer-Encoding: 7bit
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
-T24gTW9uLCAxMyBNYXkgMjAxOSwgQW1lbGllIERlbGF1bmF5IHdyb3RlOgoKPiBUaGlzIHBhdGNo
-IGZpeGVzIHRoZSBmb2xsb3dpbmcgd2FybmluZ3M6Cj4gCj4gZHJpdmVycy9waW5jdHJsL3BpbmN0
-cmwtc3RtZnguYzoyMjU6NS04OiBXQVJOSU5HOiBVbnNpZ25lZCBleHByZXNzaW9uCj4gY29tcGFy
-ZWQgd2l0aCB6ZXJvOiBkaXIgPCAwCj4gZHJpdmVycy9waW5jdHJsL3BpbmN0cmwtc3RtZnguYzoy
-MzE6NS05OiBXQVJOSU5HOiBVbnNpZ25lZCBleHByZXNzaW9uCj4gY29tcGFyZWQgd2l0aCB6ZXJv
-OiBwdXBkIDwgMAo+IGRyaXZlcnMvcGluY3RybC9waW5jdHJsLXN0bWZ4LmM6MjI4OjUtOTogV0FS
-TklORzogVW5zaWduZWQgZXhwcmVzc2lvbgo+IGNvbXBhcmVkIHdpdGggemVybzogdHlwZSA8IDAK
-PiAKPiBGaXhlczogMTQ5MGQ5Zjg0MWIxICgicGluY3RybDogQWRkIFNUTUZYIEdQSU8gZXhwYW5k
-ZXIgUGluY3RybC9HUElPIGRyaXZlciIpCj4gUmVwb3J0ZWQtYnk6IGtidWlsZCB0ZXN0IHJvYm90
-IDxsa3BAaW50ZWwuY29tPgo+IFJlcG9ydGVkLWJ5OiBKdWxpYSBMYXdhbGwgPGp1bGlhLmxhd2Fs
-bEBsaXA2LmZyPgo+IFNpZ25lZC1vZmYtYnk6IEFtZWxpZSBEZWxhdW5heSA8YW1lbGllLmRlbGF1
-bmF5QHN0LmNvbT4KPiAtLS0KPiAgZHJpdmVycy9waW5jdHJsL3BpbmN0cmwtc3RtZnguYyB8IDIg
-Ky0KPiAgMSBmaWxlIGNoYW5nZWQsIDEgaW5zZXJ0aW9uKCspLCAxIGRlbGV0aW9uKC0pCgpBbHJl
-YWR5IGZpeGVkIHVwIGFuZCBwdXNoZWQuCgo+IGRpZmYgLS1naXQgYS9kcml2ZXJzL3BpbmN0cmwv
-cGluY3RybC1zdG1meC5jIGIvZHJpdmVycy9waW5jdHJsL3BpbmN0cmwtc3RtZnguYwo+IGluZGV4
-IGJjZDgxMjYuLjNiZDVkNmYgMTAwNjQ0Cj4gLS0tIGEvZHJpdmVycy9waW5jdHJsL3BpbmN0cmwt
-c3RtZnguYwo+ICsrKyBiL2RyaXZlcnMvcGluY3RybC9waW5jdHJsLXN0bWZ4LmMKPiBAQCAtMjEz
-LDcgKzIxMyw3IEBAIHN0YXRpYyBpbnQgc3RtZnhfcGluY29uZl9nZXQoc3RydWN0IHBpbmN0cmxf
-ZGV2ICpwY3RsZGV2LAo+ICAJc3RydWN0IHN0bWZ4X3BpbmN0cmwgKnBjdGwgPSBwaW5jdHJsX2Rl
-dl9nZXRfZHJ2ZGF0YShwY3RsZGV2KTsKPiAgCXUzMiBwYXJhbSA9IHBpbmNvbmZfdG9fY29uZmln
-X3BhcmFtKCpjb25maWcpOwo+ICAJc3RydWN0IHBpbmN0cmxfZ3Bpb19yYW5nZSAqcmFuZ2U7Cj4g
-LQl1MzIgZGlyLCB0eXBlLCBwdXBkOwo+ICsJaW50IGRpciwgdHlwZSwgcHVwZDsKPiAgCXUzMiBh
-cmcgPSAwOwo+ICAJaW50IHJldDsKPiAgCgotLSAKTGVlIEpvbmVzIFvmnY7nkLzmlq9dCkxpbmFy
-byBTZXJ2aWNlcyBUZWNobmljYWwgTGVhZApMaW5hcm8ub3JnIOKUgiBPcGVuIHNvdXJjZSBzb2Z0
-d2FyZSBmb3IgQVJNIFNvQ3MKRm9sbG93IExpbmFybzogRmFjZWJvb2sgfCBUd2l0dGVyIHwgQmxv
-ZwpfX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fXwpMaW51eC1z
-dG0zMiBtYWlsaW5nIGxpc3QKTGludXgtc3RtMzJAc3QtbWQtbWFpbG1hbi5zdG9ybXJlcGx5LmNv
-bQpodHRwczovL3N0LW1kLW1haWxtYW4uc3Rvcm1yZXBseS5jb20vbWFpbG1hbi9saXN0aW5mby9s
-aW51eC1zdG0zMgo=
+On Sat, 2019-05-11 at 11:24 +0100, Jonathan Cameron wrote:
+> On Tue,  7 May 2019 16:36:15 +0200
+> Philippe Schenker <dev@pschenker.ch> wrote:
+> 
+> > From: Philippe Schenker <philippe.schenker@toradex.com>
+> > 
+> > Clear any interrupt that still is on the device on every channel
+> > this driver is activated for in probe and specific channels in
+> > the timeout handler.
+> > 
+> > Signed-off-by: Philippe Schenker <philippe.schenker@toradex.com>
+> I'm never particularly clean on blanket resets as they do tend to
+> hide bugs. However, the probe one is something that would happen anyway
+> if there was a 'reset' function.
+> 
+> Applied to the togreg branch of iio.git and pushed out as testing
+> for the autobuilders to play with it.
+> 
+> Thanks,
+> 
+> Jonathan
+
+You're right about hiding bugs. But if the interrupt for whatever (hardware?)
+reason does not occur, it prevents further interrupts as it does not get reset.
+
+So this reset takes care that after a timeout one is still able to read out the
+ADC.
+
+Philippe
+
+> 
+> > ---
+> > 
+> >  drivers/iio/adc/stmpe-adc.c | 5 +++++
+> >  1 file changed, 5 insertions(+)
+> > 
+> > diff --git a/drivers/iio/adc/stmpe-adc.c b/drivers/iio/adc/stmpe-adc.c
+> > index cc752a47444c..a5990e9f2c80 100644
+> > --- a/drivers/iio/adc/stmpe-adc.c
+> > +++ b/drivers/iio/adc/stmpe-adc.c
+> > @@ -80,6 +80,8 @@ static int stmpe_read_voltage(struct stmpe_adc *info,
+> >  	ret = wait_for_completion_timeout(&info->completion, STMPE_ADC_TIMEOUT);
+> >  
+> >  	if (ret <= 0) {
+> > +		stmpe_reg_write(info->stmpe, STMPE_REG_ADC_INT_STA,
+> > +				STMPE_ADC_CH(info->channel));
+> >  		mutex_unlock(&info->lock);
+> >  		return -ETIMEDOUT;
+> >  	}
+> > @@ -326,6 +328,9 @@ static int stmpe_adc_probe(struct platform_device *pdev)
+> >  	stmpe_reg_write(info->stmpe, STMPE_REG_ADC_INT_EN,
+> >  			~(norequest_mask & 0xFF));
+> >  
+> > +	stmpe_reg_write(info->stmpe, STMPE_REG_ADC_INT_STA,
+> > +			~(norequest_mask & 0xFF));
+> > +
+> >  	return devm_iio_device_register(&pdev->dev, indio_dev);
+> >  }
+> >  
+_______________________________________________
+Linux-stm32 mailing list
+Linux-stm32@st-md-mailman.stormreply.com
+https://st-md-mailman.stormreply.com/mailman/listinfo/linux-stm32
