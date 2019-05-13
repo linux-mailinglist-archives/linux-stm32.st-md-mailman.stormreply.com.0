@@ -2,80 +2,60 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id 665CB1B8ED
-	for <lists+linux-stm32@lfdr.de>; Mon, 13 May 2019 16:46:08 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 11FA91BBAA
+	for <lists+linux-stm32@lfdr.de>; Mon, 13 May 2019 19:19:27 +0200 (CEST)
 Received: from ip-172-31-3-76.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 1B743C349C8
-	for <lists+linux-stm32@lfdr.de>; Mon, 13 May 2019 14:46:08 +0000 (UTC)
-Received: from mx07-00178001.pphosted.com (mx08-00178001.pphosted.com
- [91.207.212.93])
- (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 6BA2DC36B3F
+	for <lists+linux-stm32@lfdr.de>; Mon, 13 May 2019 17:19:26 +0000 (UTC)
+Received: from mail-ot1-f66.google.com (mail-ot1-f66.google.com
+ [209.85.210.66])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id E45C4C35E17
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 83A87C36B3E
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Mon, 13 May 2019 14:46:06 +0000 (UTC)
-Received: from pps.filterd (m0046660.ppops.net [127.0.0.1])
- by mx08-00178001.pphosted.com (8.16.0.27/8.16.0.27) with SMTP id
- x4DEaYv6023224; Mon, 13 May 2019 16:46:00 +0200
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=st.com;
- h=from : to : subject :
- date : message-id : references : in-reply-to : content-type : content-id :
- content-transfer-encoding : mime-version; s=STMicroelectronics;
- bh=4RLw9OtwLPiC58gpakKeZWkMrIYxXGSjksr4AaKMiTI=;
- b=gh+JW4EHKwNxad8e0fF2rwRstYh+CMk6nPtvdlw8VT9lfAmdCE6Gm9ZvdLSF1IPuDPI/
- 3fBVEn0REdHW0hCxOZR2vfzOpBlNLQhnt2td7C6J+fBqCf+4BWnWhI57SgouZY6CDzgA
- 6U0ddKwjTy3zLxgX7iU7fGGq3Rs/F105blEgcFV0OERhxygCCWYfOTpgm7eT8P+7NeCj
- BG0vFm6qgCEM2bY+zPIwIlZXPNU/nVMlC8d+E+gVcKoRJ6SLZM9JfrWQCKLG05/c402B
- OPMCiTziQSR3oJRBpGOUw5U9uoiJvh00L4o0W2x/zZTX0UUoPL7TgF3bc1K4l1OrKnZL Gg== 
-Received: from beta.dmz-eu.st.com (beta.dmz-eu.st.com [164.129.1.35])
- by mx08-00178001.pphosted.com with ESMTP id 2sek5a5j11-1
- (version=TLSv1 cipher=ECDHE-RSA-AES256-SHA bits=256 verify=NOT);
- Mon, 13 May 2019 16:46:00 +0200
-Received: from zeta.dmz-eu.st.com (zeta.dmz-eu.st.com [164.129.230.9])
- by beta.dmz-eu.st.com (STMicroelectronics) with ESMTP id 86AEA34;
- Mon, 13 May 2019 14:45:59 +0000 (GMT)
-Received: from Webmail-eu.st.com (sfhdag6node2.st.com [10.75.127.17])
- by zeta.dmz-eu.st.com (STMicroelectronics) with ESMTP id 6C944287B;
- Mon, 13 May 2019 14:45:59 +0000 (GMT)
-Received: from SFHDAG6NODE3.st.com (10.75.127.18) by SFHDAG6NODE2.st.com
- (10.75.127.17) with Microsoft SMTP Server (TLS) id 15.0.1347.2; Mon, 13 May
- 2019 16:45:58 +0200
-Received: from SFHDAG6NODE3.st.com ([fe80::d04:5337:ab17:b6f6]) by
- SFHDAG6NODE3.st.com ([fe80::d04:5337:ab17:b6f6%20]) with mapi id
- 15.00.1347.000; Mon, 13 May 2019 16:45:58 +0200
-From: Philippe CORNU <philippe.cornu@st.com>
-To: Yannick FERTRE <yannick.fertre@st.com>, Benjamin GAIGNARD
- <benjamin.gaignard@st.com>, Vincent ABRIOU <vincent.abriou@st.com>, "David
- Airlie" <airlied@linux.ie>, Daniel Vetter <daniel@ffwll.ch>,
- Maxime Coquelin <mcoquelin.stm32@gmail.com>,
- Alexandre TORGUE <alexandre.torgue@st.com>,
- "dri-devel@lists.freedesktop.org" <dri-devel@lists.freedesktop.org>,
- "linux-stm32@st-md-mailman.stormreply.com"
- <linux-stm32@st-md-mailman.stormreply.com>,
- "linux-arm-kernel@lists.infradead.org"
- <linux-arm-kernel@lists.infradead.org>, "linux-kernel@vger.kernel.org"
- <linux-kernel@vger.kernel.org>
-Thread-Topic: [PATCH v2] drm/stm: ltdc: remove clk_round_rate comment
-Thread-Index: AQHVCY3rREh+NHqJykqFxhbYBvyWoKZpAIMA
-Date: Mon, 13 May 2019 14:45:58 +0000
-Message-ID: <317f94d6-846f-92e2-bd0f-b44377ea7845@st.com>
-References: <1557753318-11218-1-git-send-email-yannick.fertre@st.com>
-In-Reply-To: <1557753318-11218-1-git-send-email-yannick.fertre@st.com>
-Accept-Language: fr-FR, en-US
-Content-Language: en-US
-X-MS-Has-Attach: 
-X-MS-TNEF-Correlator: 
-user-agent: Mozilla/5.0 (X11; Linux x86_64; rv:60.0) Gecko/20100101
- Thunderbird/60.6.1
-x-ms-exchange-messagesentrepresentingtype: 1
-x-ms-exchange-transport-fromentityheader: Hosted
-x-originating-ip: [10.75.127.48]
-Content-ID: <98ED9AB3A1602942B2A3C068394174FC@st.com>
+ Mon, 13 May 2019 17:19:25 +0000 (UTC)
+Received: by mail-ot1-f66.google.com with SMTP id r10so11773986otd.4
+ for <linux-stm32@st-md-mailman.stormreply.com>;
+ Mon, 13 May 2019 10:19:25 -0700 (PDT)
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20161025;
+ h=x-gm-message-state:date:from:to:cc:subject:message-id:references
+ :mime-version:content-disposition:in-reply-to:user-agent;
+ bh=gxg55zJpNlVm2nYvWvCM959D+KA++JweeXldKs1l7XI=;
+ b=totp1mn3T60wIGMuIlfezPj57zgx5BtLLZEq6QUS375Dv8RZrVsizYmDY8u7znZQcW
+ 1g5/Ro9Pv0irzs9a/gWhxlNAkjrsbl7fyY/VSv58Y0LMK6PemA9V1B0Y5UxARXuA5xL4
+ TWQucVdmVodXkIEGkvbz1huiuR/Qo6XBvHM6NnSs6rqJGkJJra6FdssqL5eMYjZAT42w
+ ppLfoy0XmHTGJHgCYmb1XmrfrMQaBv/FwuUMaxcnIAd5huSvGucegGBG8u9ubcStFlJc
+ JYniF7deJXgx+gFVxO+8zQXy66nFIeG7TPtlJ93Qr0Bh/g0p7Q+wQNGTB4yir4NDNn5j
+ qQsA==
+X-Gm-Message-State: APjAAAUMOU1bxkkdjk+BSB27fMScb5rA0nf1pNL581Sz4wVQ3DBfa2Ar
+ 91mPb/9bVHgBc1BTpuHxZA==
+X-Google-Smtp-Source: APXvYqx7PhGUwDZEi+8Vj6jS0VwAlzO0fyOLufMf85clsIBI268PujGqMZ25iGzjREBsER4YemD1fg==
+X-Received: by 2002:a05:6830:11ce:: with SMTP id
+ v14mr15390493otq.184.1557767964113; 
+ Mon, 13 May 2019 10:19:24 -0700 (PDT)
+Received: from localhost (24-155-109-49.dyn.grandenetworks.net.
+ [24.155.109.49])
+ by smtp.gmail.com with ESMTPSA id g84sm5482087oia.31.2019.05.13.10.19.22
+ (version=TLS1_2 cipher=ECDHE-RSA-CHACHA20-POLY1305 bits=256/256);
+ Mon, 13 May 2019 10:19:23 -0700 (PDT)
+Date: Mon, 13 May 2019 12:19:22 -0500
+From: Rob Herring <robh@kernel.org>
+To: Fabien Dessenne <fabien.dessenne@st.com>
+Message-ID: <20190513171922.GA25458@bogus>
+References: <1556784606-3016-1-git-send-email-fabien.dessenne@st.com>
+ <1556784606-3016-3-git-send-email-fabien.dessenne@st.com>
 MIME-Version: 1.0
-X-Proofpoint-Virus-Version: vendor=fsecure engine=2.50.10434:, ,
- definitions=2019-05-13_07:, , signatures=0
-Subject: Re: [Linux-stm32] [PATCH v2] drm/stm: ltdc: remove clk_round_rate
-	comment
+Content-Disposition: inline
+In-Reply-To: <1556784606-3016-3-git-send-email-fabien.dessenne@st.com>
+User-Agent: Mutt/1.10.1 (2018-07-13)
+Cc: Mark Rutland <mark.rutland@arm.com>, Ohad Ben-Cohen <ohad@wizery.com>,
+ devicetree@vger.kernel.org, linux-remoteproc@vger.kernel.org,
+ linux-kernel@vger.kernel.org, Bjorn Andersson <bjorn.andersson@linaro.org>,
+ Maxime Coquelin <mcoquelin.stm32@gmail.com>,
+ linux-stm32@st-md-mailman.stormreply.com, linux-arm-kernel@lists.infradead.org
+Subject: Re: [Linux-stm32] [PATCH v3 2/8] dt-bindings: remoteproc: add
+ bindings for stm32 remote processor driver
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -87,41 +67,99 @@ List-Post: <mailto:linux-stm32@st-md-mailman.stormreply.com>
 List-Help: <mailto:linux-stm32-request@st-md-mailman.stormreply.com?subject=help>
 List-Subscribe: <https://st-md-mailman.stormreply.com/mailman/listinfo/linux-stm32>, 
  <mailto:linux-stm32-request@st-md-mailman.stormreply.com?subject=subscribe>
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: base64
+Content-Type: text/plain; charset="us-ascii"
+Content-Transfer-Encoding: 7bit
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
-RGVhciBZYW5uaWNrLA0KDQpBY2tlZC1ieTogUGhpbGlwcGUgQ29ybnUgPHBoaWxpcHBlLmNvcm51
-QHN0LmNvbT4NCg0KVGhhbmsgeW91LA0KDQpQaGlsaXBwZSA6LSkNCg0KT24gNS8xMy8xOSAzOjE1
-IFBNLCBZYW5uaWNrIEZlcnRyw6kgd3JvdGU6DQo+IENsa19yb3VuZF9yYXRlIHJldHVybnMgcm91
-bmRlZCBjbG9jayB3aXRob3V0IGNoYW5naW5nDQo+IHRoZSBoYXJkd2FyZSBpbiBhbnkgd2F5Lg0K
-PiBUaGlzIGZ1bmN0aW9uIGNvdWxkbid0IHJlcGxhY2Ugc2V0X3JhdGUvZ2V0X3JhdGUgY2FsbHMu
-DQo+IFRvZG8gY29tbWVudCBoYXMgYmVlbiByZW1vdmVkICYgYSBuZXcgbG9nIGluc2VydGVkLg0K
-PiANCj4gU2lnbmVkLW9mZi1ieTogWWFubmljayBGZXJ0csOpIDx5YW5uaWNrLmZlcnRyZUBzdC5j
-b20+DQo+IC0tLQ0KPiBDaGFuZ2VzIGluIHYyOg0KPiAJLSBDbGtfZW5hYmxlICYgY2xrX2Rpc2Fi
-bGUgYXJlIG5lZWRlZCBmb3IgdGhlIFNPQyBTVE0zMkY3DQo+IAkgKG5vdCBmb3IgU1RNMzJNUDEp
-LiBJIHJldHVybiB0aGlzIHBhcnQgb2YgdGhlIHBhdGNoIHRvIG1ha2Ugc3VyZSB0aGUNCj4gCSBk
-cml2ZXIgaXMgY29tcGF0aWJsZSB3aXRoIGFsbCBTT0MgU1RNMzIuDQo+IA0KPiAgIGRyaXZlcnMv
-Z3B1L2RybS9zdG0vbHRkYy5jIHwgOCArKystLS0tLQ0KPiAgIDEgZmlsZSBjaGFuZ2VkLCAzIGlu
-c2VydGlvbnMoKyksIDUgZGVsZXRpb25zKC0pDQo+IA0KPiBkaWZmIC0tZ2l0IGEvZHJpdmVycy9n
-cHUvZHJtL3N0bS9sdGRjLmMgYi9kcml2ZXJzL2dwdS9kcm0vc3RtL2x0ZGMuYw0KPiBpbmRleCA5
-NzkxMmUyLi4xMTA0ZTc4IDEwMDY0NA0KPiAtLS0gYS9kcml2ZXJzL2dwdS9kcm0vc3RtL2x0ZGMu
-Yw0KPiArKysgYi9kcml2ZXJzL2dwdS9kcm0vc3RtL2x0ZGMuYw0KPiBAQCAtNTA3LDExICs1MDcs
-NiBAQCBzdGF0aWMgYm9vbCBsdGRjX2NydGNfbW9kZV9maXh1cChzdHJ1Y3QgZHJtX2NydGMgKmNy
-dGMsDQo+ICAgCXN0cnVjdCBsdGRjX2RldmljZSAqbGRldiA9IGNydGNfdG9fbHRkYyhjcnRjKTsN
-Cj4gICAJaW50IHJhdGUgPSBtb2RlLT5jbG9jayAqIDEwMDA7DQo+IA0KPiAtCS8qDQo+IC0JICog
-VE9ETyBjbGtfcm91bmRfcmF0ZSgpIGRvZXMgbm90IHdvcmsgeWV0LiBXaGVuIHJlYWR5LCBpdCBj
-YW4NCj4gLQkgKiBiZSB1c2VkIGluc3RlYWQgb2YgY2xrX3NldF9yYXRlKCkgdGhlbiBjbGtfZ2V0
-X3JhdGUoKS4NCj4gLQkgKi8NCj4gLQ0KPiAgIAljbGtfZGlzYWJsZShsZGV2LT5waXhlbF9jbGsp
-Ow0KPiAgIAlpZiAoY2xrX3NldF9yYXRlKGxkZXYtPnBpeGVsX2NsaywgcmF0ZSkgPCAwKSB7DQo+
-ICAgCQlEUk1fRVJST1IoIkNhbm5vdCBzZXQgcmF0ZSAoJWRIeikgZm9yIHBpeGVsIGNsa1xuIiwg
-cmF0ZSk7DQo+IEBAIC01MjEsNiArNTE2LDkgQEAgc3RhdGljIGJvb2wgbHRkY19jcnRjX21vZGVf
-Zml4dXAoc3RydWN0IGRybV9jcnRjICpjcnRjLA0KPiANCj4gICAJYWRqdXN0ZWRfbW9kZS0+Y2xv
-Y2sgPSBjbGtfZ2V0X3JhdGUobGRldi0+cGl4ZWxfY2xrKSAvIDEwMDA7DQo+IA0KPiArCURSTV9E
-RUJVR19EUklWRVIoInJlcXVlc3RlZCBjbG9jayAlZGtIeiwgYWRqdXN0ZWQgY2xvY2sgJWRrSHpc
-biIsDQo+ICsJCQkgbW9kZS0+Y2xvY2ssIGFkanVzdGVkX21vZGUtPmNsb2NrKTsNCj4gKw0KPiAg
-IAlyZXR1cm4gdHJ1ZTsNCj4gICB9DQo+IA0KPiAtLQ0KPiAyLjcuNA0KPiAKX19fX19fX19fX19f
-X19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX18KTGludXgtc3RtMzIgbWFpbGluZyBs
-aXN0CkxpbnV4LXN0bTMyQHN0LW1kLW1haWxtYW4uc3Rvcm1yZXBseS5jb20KaHR0cHM6Ly9zdC1t
-ZC1tYWlsbWFuLnN0b3JtcmVwbHkuY29tL21haWxtYW4vbGlzdGluZm8vbGludXgtc3RtMzIK
+On Thu, May 02, 2019 at 10:10:00AM +0200, Fabien Dessenne wrote:
+> Add the device tree bindings document for the stm32 remoteproc devices.
+> 
+> Signed-off-by: Fabien Dessenne <fabien.dessenne@st.com>
+> ---
+>  .../devicetree/bindings/remoteproc/stm32-rproc.txt | 63 ++++++++++++++++++++++
+>  1 file changed, 63 insertions(+)
+>  create mode 100644 Documentation/devicetree/bindings/remoteproc/stm32-rproc.txt
+> 
+> diff --git a/Documentation/devicetree/bindings/remoteproc/stm32-rproc.txt b/Documentation/devicetree/bindings/remoteproc/stm32-rproc.txt
+> new file mode 100644
+> index 0000000..a495757
+> --- /dev/null
+> +++ b/Documentation/devicetree/bindings/remoteproc/stm32-rproc.txt
+> @@ -0,0 +1,63 @@
+> +STMicroelectronics STM32 Remoteproc
+> +-----------------------------------
+> +This document defines the binding for the remoteproc component that loads and
+> +boots firmwares on the ST32MP family chipset.
+> +
+> +Required properties:
+> +- compatible:	Must be "st,stm32mp1-m4"
+> +- reg:		Address ranges of the RETRAM and MCU SRAM memories used by the
+> +		remote processor.
+> +- resets:	Reference to a reset controller asserting the remote processor.
+> +- st,syscfg-holdboot: Reference to the system configuration which holds the
+> +		remote processor reset hold boot
+> +	1st cell: phandle of syscon block
+> +	2nd cell: register offset containing the hold boot setting
+> +	3rd cell: register bitmask for the hold boot field
+> +- st,syscfg-tz: Reference to the system configuration which holds the RCC trust
+> +		zone mode
+> +	1st cell: phandle to syscon block
+> +	2nd cell: register offset containing the RCC trust zone mode setting
+> +	3rd cell: register bitmask for the RCC trust zone mode bit
+> +
+> +Optional properties:
+> +- interrupts:	Should contain the watchdog interrupt
+> +- mboxes:	This property is required only if the rpmsg/virtio functionality
+> +		is used. List of phandle and mailbox channel specifiers:
+> +		- a channel (a) used to communicate through virtqueues with the
+> +		  remote proc.
+> +		  Bi-directional channel:
+> +		      - from local to remote = send message
+> +		      - from remote to local = send message ack
+> +		- a channel (b) working the opposite direction of channel (a)
+> +		- a channel (c) used by the local proc to notify the remote proc
+> +		  that it is about to be shut down.
+> +		  Unidirectional channel:
+> +		      - from local to remote, where ACK from the remote means
+> +		        that it is ready for shutdown
+> +- mbox-names:	This property is required if the mboxes property is used.
+> +		- must be "vq0" for channel (a)
+> +		- must be "vq1" for channel (b)
+> +		- must be "shutdown" for channel (c)
+> +- memory-region: List of phandles to the reserved memory regions associated with
+> +		the remoteproc device. This is variable and describes the
+> +		memories shared with the remote processor (eg: remoteproc
+> +		firmware and carveouts, rpmsg vrings, ...).
+> +		(see ../reserved-memory/reserved-memory.txt)
+> +- st,syscfg-pdds: Reference to the system configuration which holds the remote
+> +		processor deep sleep setting
+> +	1st cell: phandle to syscon block
+> +	2nd cell: register offset containing the deep sleep setting
+> +	3rd cell: register bitmask for the deep sleep bit
+> +- st,auto_boot:	If defined, when remoteproc is probed, it loads the default
+> +		firmware and starts the remote processor.
+
+s/_/-/
+
+> +
+> +Example:
+> +	m4_rproc: m4@38000000 {
+> +		compatible = "st,stm32mp1-m4";
+> +		reg = <0x00000000 0x10000>,
+
+Doesn't match the unit-address.
+
+> +		      <0x10000000 0x40000>,
+> +		      <0x30000000 0x40000>;
+> +		resets = <&rcc MCU_R>;
+> +		st,syscfg-holdboot = <&rcc 0x10C 0x1>;
+> +		st,syscfg-tz = <&rcc 0x000 0x1>;
+> +	};
+> -- 
+> 2.7.4
+> 
+_______________________________________________
+Linux-stm32 mailing list
+Linux-stm32@st-md-mailman.stormreply.com
+https://st-md-mailman.stormreply.com/mailman/listinfo/linux-stm32
