@@ -2,51 +2,76 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id 6E95D1A78A
-	for <lists+linux-stm32@lfdr.de>; Sat, 11 May 2019 12:24:38 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id B08551B0E2
+	for <lists+linux-stm32@lfdr.de>; Mon, 13 May 2019 09:11:13 +0200 (CEST)
 Received: from ip-172-31-3-76.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 18D2FC1630E
-	for <lists+linux-stm32@lfdr.de>; Sat, 11 May 2019 10:24:38 +0000 (UTC)
-Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
- (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
- (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 8ADACC1630D
- for <linux-stm32@st-md-mailman.stormreply.com>;
- Sat, 11 May 2019 10:24:37 +0000 (UTC)
-Received: from archlinux (cpc91196-cmbg18-2-0-cust659.5-4.cable.virginm.net
- [81.96.234.148])
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 65D10C5AB6E
+	for <lists+linux-stm32@lfdr.de>; Mon, 13 May 2019 07:11:13 +0000 (UTC)
+Received: from mx07-00178001.pphosted.com (mx07-00178001.pphosted.com
+ [62.209.51.94])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by mail.kernel.org (Postfix) with ESMTPSA id BE1E62173B;
- Sat, 11 May 2019 10:24:32 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
- s=default; t=1557570276;
- bh=Ol9ib5bihEYIjrd1c8mt+AxCWFeb4Ti7BaHuwJkxvQA=;
- h=Date:From:To:Cc:Subject:In-Reply-To:References:From;
- b=v4U603/bLabnldrLM6MOiPNDVz7DK0r/MC9QoaiSqqorwz+ySd4TjrJKypZ3+bF9s
- Oi7pE83vuWve+W8K6qopE3LO/K10MtfkVM1TJXht3uXte67oWPnpF2vxXDyky7JEUN
- So9eLCXfDPm7MdKyCanuDsLdFHH6/rXp2DvYpyD8=
-Date: Sat, 11 May 2019 11:24:29 +0100
-From: Jonathan Cameron <jic23@kernel.org>
-To: Philippe Schenker <dev@pschenker.ch>
-Message-ID: <20190511112429.25ddd84d@archlinux>
-In-Reply-To: <20190507143615.28477-5-dev@pschenker.ch>
-References: <20190507143615.28477-1-dev@pschenker.ch>
- <20190507143615.28477-5-dev@pschenker.ch>
-X-Mailer: Claws Mail 3.17.3 (GTK+ 2.24.32; x86_64-pc-linux-gnu)
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 7DA01C5AB6D
+ for <linux-stm32@st-md-mailman.stormreply.com>;
+ Mon, 13 May 2019 07:11:12 +0000 (UTC)
+Received: from pps.filterd (m0046037.ppops.net [127.0.0.1])
+ by mx07-00178001.pphosted.com (8.16.0.27/8.16.0.27) with SMTP id
+ x4D76Z3g018397; Mon, 13 May 2019 09:11:01 +0200
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=st.com;
+ h=from : to : cc : subject
+ : date : message-id : references : in-reply-to : content-type : content-id
+ : content-transfer-encoding : mime-version; s=STMicroelectronics;
+ bh=JYRjcj+5cTxazjxY/B951yi7qS02YpZMEXM7PHXUwy4=;
+ b=yk3DRz8jkDR7UA6D2eC8U4dsHgdTPmqaRYz8IjGjLOcH1jX1pB0SyAHUIJjl24K1zRir
+ gTa4zIQm5w45UNYq3hGZqti1aoq0LUd7NAp5h+FQa0ErQ4B+Pn5SKKL+Xl+xgga3bPPr
+ Vkp+10au+5USjn4foWaHAYETXA9y60PxWa7PsXTEtBr9RcHf470PDc97ZZGGFrrh2BKr
+ fYtD0u9n8XJe6grNK5CQmy3S8PBSEBxFDnnMl8erehwfHP20IHz6D7RE0RFe9Wp0bTsx
+ ByQLHvmQTB5fqzIALQRrobxDIynF0FipT0AtxkuYLGoRbOnPt4UiwMyg/UM0A4ykoM5M dQ== 
+Received: from beta.dmz-eu.st.com (beta.dmz-eu.st.com [164.129.1.35])
+ by mx07-00178001.pphosted.com with ESMTP id 2sdm5tsars-1
+ (version=TLSv1 cipher=ECDHE-RSA-AES256-SHA bits=256 verify=NOT);
+ Mon, 13 May 2019 09:11:01 +0200
+Received: from zeta.dmz-eu.st.com (zeta.dmz-eu.st.com [164.129.230.9])
+ by beta.dmz-eu.st.com (STMicroelectronics) with ESMTP id 37CF734;
+ Mon, 13 May 2019 07:11:00 +0000 (GMT)
+Received: from Webmail-eu.st.com (sfhdag3node1.st.com [10.75.127.7])
+ by zeta.dmz-eu.st.com (STMicroelectronics) with ESMTP id 153CB13AC;
+ Mon, 13 May 2019 07:11:00 +0000 (GMT)
+Received: from SFHDAG3NODE2.st.com (10.75.127.8) by SFHDAG3NODE1.st.com
+ (10.75.127.7) with Microsoft SMTP Server (TLS) id 15.0.1347.2; Mon, 13 May
+ 2019 09:10:59 +0200
+Received: from SFHDAG3NODE2.st.com ([fe80::b82f:1ce:8854:5b96]) by
+ SFHDAG3NODE2.st.com ([fe80::b82f:1ce:8854:5b96%20]) with mapi id
+ 15.00.1347.000; Mon, 13 May 2019 09:10:59 +0200
+From: Amelie DELAUNAY <amelie.delaunay@st.com>
+To: Nathan Chancellor <natechancellor@gmail.com>, Lee Jones
+ <lee.jones@linaro.org>
+Thread-Topic: [PATCH] mfd: stmfx: Fix macro definition spelling
+Thread-Index: AQHVB5gud9k1UvxEHEasdnpmS8J2KqZohVCA
+Date: Mon, 13 May 2019 07:10:59 +0000
+Message-ID: <954f759a-4e13-ef95-d461-03cdb385e0a3@st.com>
+References: <20190511012301.2661-1-natechancellor@gmail.com>
+In-Reply-To: <20190511012301.2661-1-natechancellor@gmail.com>
+Accept-Language: fr-FR, en-US
+Content-Language: en-US
+X-MS-Has-Attach: 
+X-MS-TNEF-Correlator: 
+user-agent: Mozilla/5.0 (X11; Linux x86_64; rv:60.0) Gecko/20100101
+ Thunderbird/60.6.1
+x-ms-exchange-messagesentrepresentingtype: 1
+x-ms-exchange-transport-fromentityheader: Hosted
+x-originating-ip: [10.75.127.51]
+Content-ID: <A0B9C8FAB4FD1041A984A48DD3EB2CCC@st.com>
 MIME-Version: 1.0
-Cc: Maxime Coquelin <mcoquelin.stm32@gmail.com>,
- Lars-Peter Clausen <lars@metafoo.de>,
- Max Krummenacher <max.krummenacher@toradex.com>,
- Philippe Schenker <philippe.schenker@toradex.com>, linux-iio@vger.kernel.org,
- linux-kernel@vger.kernel.org, Stefan Agner <stefan@agner.ch>,
- Marcel Ziswiler <marcel.ziswiler@toradex.com>,
- David Laight <David.Laight@ACULAB.COM>,
- Peter Meerwald-Stadler <pmeerw@pmeerw.net>, Hartmut Knaack <knaack.h@gmx.de>,
- Lee Jones <lee.jones@linaro.org>, linux-stm32@st-md-mailman.stormreply.com,
- linux-arm-kernel@lists.infradead.org
-Subject: Re: [Linux-stm32] [PATCH 5/5] iio: stmpe-adc: Reset possible
-	interrupts
+X-Proofpoint-Virus-Version: vendor=fsecure engine=2.50.10434:, ,
+ definitions=2019-05-13_05:, , signatures=0
+Cc: "linux-kernel@vger.kernel.org" <linux-kernel@vger.kernel.org>,
+ "clang-built-linux@googlegroups.com" <clang-built-linux@googlegroups.com>,
+ Maxime Coquelin <mcoquelin.stm32@gmail.com>,
+ "linux-stm32@st-md-mailman.stormreply.com"
+ <linux-stm32@st-md-mailman.stormreply.com>,
+ "linux-arm-kernel@lists.infradead.org" <linux-arm-kernel@lists.infradead.org>
+Subject: Re: [Linux-stm32] [PATCH] mfd: stmfx: Fix macro definition spelling
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -63,57 +88,38 @@ Content-Transfer-Encoding: 7bit
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
-On Tue,  7 May 2019 16:36:15 +0200
-Philippe Schenker <dev@pschenker.ch> wrote:
-
-> From: Philippe Schenker <philippe.schenker@toradex.com>
+On 5/11/19 3:23 AM, Nathan Chancellor wrote:
+> Clang warns:
 > 
-> Clear any interrupt that still is on the device on every channel
-> this driver is activated for in probe and specific channels in
-> the timeout handler.
+> In file included from drivers/mfd/stmfx.c:13:
+> include/linux/mfd/stmfx.h:7:9: warning: 'MFD_STMFX_H' is used as a
+> header guard here, followed by #define of a different macro
+> [-Wheader-guard]
 > 
-> Signed-off-by: Philippe Schenker <philippe.schenker@toradex.com>
-I'm never particularly clean on blanket resets as they do tend to
-hide bugs. However, the probe one is something that would happen anyway
-if there was a 'reset' function.
+> Fixes: 06252ade9156 ("mfd: Add ST Multi-Function eXpander (STMFX) core driver")
+> Link: https://github.com/ClangBuiltLinux/linux/issues/475
+> Signed-off-by: Nathan Chancellor <natechancellor@gmail.com>
 
-Applied to the togreg branch of iio.git and pushed out as testing
-for the autobuilders to play with it.
+Reviewed-by: Amelie Delaunay <amelie.delaunay@st.com>
 
-Thanks,
-
-Jonathan
-
-> 
 > ---
+>   include/linux/mfd/stmfx.h | 2 +-
+>   1 file changed, 1 insertion(+), 1 deletion(-)
 > 
->  drivers/iio/adc/stmpe-adc.c | 5 +++++
->  1 file changed, 5 insertions(+)
+> diff --git a/include/linux/mfd/stmfx.h b/include/linux/mfd/stmfx.h
+> index d890595b89b6..3c67983678ec 100644
+> --- a/include/linux/mfd/stmfx.h
+> +++ b/include/linux/mfd/stmfx.h
+> @@ -5,7 +5,7 @@
+>    */
+>   
+>   #ifndef MFD_STMFX_H
+> -#define MFX_STMFX_H
+> +#define MFD_STMFX_H
+>   
+>   #include <linux/regmap.h>
+>   
 > 
-> diff --git a/drivers/iio/adc/stmpe-adc.c b/drivers/iio/adc/stmpe-adc.c
-> index cc752a47444c..a5990e9f2c80 100644
-> --- a/drivers/iio/adc/stmpe-adc.c
-> +++ b/drivers/iio/adc/stmpe-adc.c
-> @@ -80,6 +80,8 @@ static int stmpe_read_voltage(struct stmpe_adc *info,
->  	ret = wait_for_completion_timeout(&info->completion, STMPE_ADC_TIMEOUT);
->  
->  	if (ret <= 0) {
-> +		stmpe_reg_write(info->stmpe, STMPE_REG_ADC_INT_STA,
-> +				STMPE_ADC_CH(info->channel));
->  		mutex_unlock(&info->lock);
->  		return -ETIMEDOUT;
->  	}
-> @@ -326,6 +328,9 @@ static int stmpe_adc_probe(struct platform_device *pdev)
->  	stmpe_reg_write(info->stmpe, STMPE_REG_ADC_INT_EN,
->  			~(norequest_mask & 0xFF));
->  
-> +	stmpe_reg_write(info->stmpe, STMPE_REG_ADC_INT_STA,
-> +			~(norequest_mask & 0xFF));
-> +
->  	return devm_iio_device_register(&pdev->dev, indio_dev);
->  }
->  
-
 _______________________________________________
 Linux-stm32 mailing list
 Linux-stm32@st-md-mailman.stormreply.com
