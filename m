@@ -2,67 +2,60 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id 0CE7D1C62D
-	for <lists+linux-stm32@lfdr.de>; Tue, 14 May 2019 11:36:23 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 1F4C01CEED
+	for <lists+linux-stm32@lfdr.de>; Tue, 14 May 2019 20:20:49 +0200 (CEST)
 Received: from ip-172-31-3-76.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id CF8EDC35E05
-	for <lists+linux-stm32@lfdr.de>; Tue, 14 May 2019 09:36:22 +0000 (UTC)
-Received: from mx07-00178001.pphosted.com (mx07-00178001.pphosted.com
- [62.209.51.94])
- (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id CA206C35E04
+	for <lists+linux-stm32@lfdr.de>; Tue, 14 May 2019 18:20:46 +0000 (UTC)
+Received: from mail-ot1-f66.google.com (mail-ot1-f66.google.com
+ [209.85.210.66])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id A8500C36B3F
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id A5080C36B3E
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Tue, 14 May 2019 09:36:21 +0000 (UTC)
-Received: from pps.filterd (m0046037.ppops.net [127.0.0.1])
- by mx07-00178001.pphosted.com (8.16.0.27/8.16.0.27) with SMTP id
- x4E9WgDo021984; Tue, 14 May 2019 11:36:13 +0200
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=st.com;
- h=from : to : subject :
- date : message-id : in-reply-to : references : mime-version : content-type
- : content-transfer-encoding; s=STMicroelectronics;
- bh=p4KJTrB20tDL7D759q2SgCgcwhHiCq4+y8XxWZe2CVk=;
- b=JH+JrhXM2KRQ1Gy7PMP6OgN9+bDXQhVScvsY8CtqFQa4/pReFbAbIWv59MpEbL1bFscA
- twt3rcTyGOI7g3hDTXH4N3KBxRn53lJUbQo5xABuJeMtc1f7dmwmLNLtlnhZFnf6fIJe
- FlRsxXMnCp48TSUo/s5ERsH9on8TaElDjpIRhqC+kwV0hLyMEbiwnLENKwKnw+nHBPVd
- aL7G6+FQpBcbeEBUq6MkchoSuGbcwRpRdG6GuVgD9nQRKJzzjAcVjPdE2Ieil5zav3OI
- WMbR3kH13Caaxz0dgmwYsnz08XkGtNS6MvX0WnNc0shFmcCt66Sl2tvNvbrkdHXEiUc4 rQ== 
-Received: from beta.dmz-eu.st.com (beta.dmz-eu.st.com [164.129.1.35])
- by mx07-00178001.pphosted.com with ESMTP id 2sdm5u01m8-1
- (version=TLSv1 cipher=ECDHE-RSA-AES256-SHA bits=256 verify=NOT);
- Tue, 14 May 2019 11:36:13 +0200
-Received: from zeta.dmz-eu.st.com (zeta.dmz-eu.st.com [164.129.230.9])
- by beta.dmz-eu.st.com (STMicroelectronics) with ESMTP id BE70D34;
- Tue, 14 May 2019 09:36:12 +0000 (GMT)
-Received: from Webmail-eu.st.com (Safex1hubcas21.st.com [10.75.90.44])
- by zeta.dmz-eu.st.com (STMicroelectronics) with ESMTP id 9D4F6179A;
- Tue, 14 May 2019 09:36:12 +0000 (GMT)
-Received: from SAFEX1HUBCAS24.st.com (10.75.90.95) by SAFEX1HUBCAS21.st.com
- (10.75.90.44) with Microsoft SMTP Server (TLS) id 14.3.439.0; Tue, 14 May
- 2019 11:36:12 +0200
-Received: from localhost (10.201.23.97) by webmail-ga.st.com (10.75.90.48)
- with Microsoft SMTP Server (TLS) id 14.3.439.0; Tue, 14 May 2019 11:36:11
- +0200
-From: =?UTF-8?q?Yannick=20Fertr=C3=A9?= <yannick.fertre@st.com>
-To: Yannick Fertre <yannick.fertre@st.com>, Philippe Cornu
- <philippe.cornu@st.com>, Benjamin Gaignard <benjamin.gaignard@st.com>,
- Vincent Abriou <vincent.abriou@st.com>,
- David Airlie <airlied@linux.ie>, Daniel Vetter <daniel@ffwll.ch>,
- Maxime Coquelin <mcoquelin.stm32@gmail.com>,
- Alexandre Torgue <alexandre.torgue@st.com>,
- <dri-devel@lists.freedesktop.org>,
- <linux-stm32@st-md-mailman.stormreply.com>,
- <linux-arm-kernel@lists.infradead.org>, <linux-kernel@vger.kernel.org>
-Date: Tue, 14 May 2019 11:35:56 +0200
-Message-ID: <1557826556-10079-3-git-send-email-yannick.fertre@st.com>
-X-Mailer: git-send-email 2.7.4
-In-Reply-To: <1557826556-10079-1-git-send-email-yannick.fertre@st.com>
-References: <1557826556-10079-1-git-send-email-yannick.fertre@st.com>
+ Tue, 14 May 2019 18:20:45 +0000 (UTC)
+Received: by mail-ot1-f66.google.com with SMTP id 66so16181853otq.0
+ for <linux-stm32@st-md-mailman.stormreply.com>;
+ Tue, 14 May 2019 11:20:45 -0700 (PDT)
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20161025;
+ h=x-gm-message-state:date:from:to:cc:subject:message-id:references
+ :mime-version:content-disposition:in-reply-to:user-agent;
+ bh=OKJTOSFDQe74oP+wcypIqwl6MFEVGiVBSsqYDDAQDPc=;
+ b=kWnifoWe5kQzonFjtkY8yDalXNCGj4uVZANRoA+5q0aEAcVfCYN3PsE0QURtI1lHcC
+ NTOtFZ4pOE29HAfIqSO0ZEz4tOH6l0M1Bxj6fe6/0UEeB0asoMo4GtykudWyTafOI1TX
+ KQAsNM0My7s0sz/iSN0N2oKija0sZWdOTY0NmtOR/3JG1hbBYlZy6NBtzw0+3R09W9Xw
+ g7RlSfDGixgDqZXZxnhAP5Ejr4UyKAI03OsVZ6Eskctu6xsupyPnD35rMwF9cxtaPiU9
+ Ng/ZqdqyWBrGRAm7AXicPSbCmAgVUnLt635pLqa/pSddnwLdgi+36Rf294+ST8pC5Iqs
+ B9Qg==
+X-Gm-Message-State: APjAAAVTncOXIuyOFxv1kXFKj24kdadnpAuYOHoCiBg9ehKKYk+fLkpw
+ XtMGihy2hPlIGXYI0KlQBA==
+X-Google-Smtp-Source: APXvYqwo5lRcs0PbbSdUqX0bwV+G31tQy4bJg/f5bK9hHGr5zRLHyV6p4NyvX9B3ICaQkkJ2BwjMkQ==
+X-Received: by 2002:a9d:66c3:: with SMTP id t3mr22211827otm.80.1557858044189; 
+ Tue, 14 May 2019 11:20:44 -0700 (PDT)
+Received: from localhost (24-155-109-49.dyn.grandenetworks.net.
+ [24.155.109.49])
+ by smtp.gmail.com with ESMTPSA id x64sm6771926oia.32.2019.05.14.11.20.43
+ (version=TLS1_2 cipher=ECDHE-RSA-CHACHA20-POLY1305 bits=256/256);
+ Tue, 14 May 2019 11:20:43 -0700 (PDT)
+Date: Tue, 14 May 2019 13:20:42 -0500
+From: Rob Herring <robh@kernel.org>
+To: Fabien Dessenne <fabien.dessenne@st.com>
+Message-ID: <20190514182042.GA26928@bogus>
+References: <1557822423-22658-1-git-send-email-fabien.dessenne@st.com>
+ <1557822423-22658-2-git-send-email-fabien.dessenne@st.com>
 MIME-Version: 1.0
-X-Originating-IP: [10.201.23.97]
-X-Proofpoint-Virus-Version: vendor=fsecure engine=2.50.10434:, ,
- definitions=2019-05-14_06:, , signatures=0
-Subject: [Linux-stm32] [PATCH v4 2/2] drm/stm: dsi: add regulator support
+Content-Disposition: inline
+In-Reply-To: <1557822423-22658-2-git-send-email-fabien.dessenne@st.com>
+User-Agent: Mutt/1.10.1 (2018-07-13)
+Cc: Mark Rutland <mark.rutland@arm.com>, Ohad Ben-Cohen <ohad@wizery.com>,
+ devicetree@vger.kernel.org, linux-remoteproc@vger.kernel.org,
+ linux-kernel@vger.kernel.org, Fabien Dessenne <fabien.dessenne@st.com>,
+ Bjorn Andersson <bjorn.andersson@linaro.org>,
+ Maxime Coquelin <mcoquelin.stm32@gmail.com>,
+ linux-stm32@st-md-mailman.stormreply.com, linux-arm-kernel@lists.infradead.org
+Subject: Re: [Linux-stm32] [PATCH v4 1/8] dt-bindings: stm32: add bindings
+ for ML-AHB interconnect
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -74,82 +67,23 @@ List-Post: <mailto:linux-stm32@st-md-mailman.stormreply.com>
 List-Help: <mailto:linux-stm32-request@st-md-mailman.stormreply.com?subject=help>
 List-Subscribe: <https://st-md-mailman.stormreply.com/mailman/listinfo/linux-stm32>, 
  <mailto:linux-stm32-request@st-md-mailman.stormreply.com?subject=subscribe>
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: base64
+Content-Type: text/plain; charset="us-ascii"
+Content-Transfer-Encoding: 7bit
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
-QWRkIHN1cHBvcnQgb2YgcmVndWxhdG9yIGZvciB0aGUgcGh5IHBhcnQgb2YgdGhlIERTSQpjb250
-cm9sbGVyLgoKU2lnbmVkLW9mZi1ieTogWWFubmljayBGZXJ0csOpIDx5YW5uaWNrLmZlcnRyZUBz
-dC5jb20+CkFja2VkLWJ5OiBQaGlsaXBwZSBDb3JudSA8cGhpbGlwcGUuY29ybnVAc3QuY29tPgot
-LS0KIGRyaXZlcnMvZ3B1L2RybS9zdG0vZHdfbWlwaV9kc2ktc3RtLmMgfCA2MCArKysrKysrKysr
-KysrKysrKysrKysrKysrKysrLS0tLS0tLQogMSBmaWxlIGNoYW5nZWQsIDQ5IGluc2VydGlvbnMo
-KyksIDExIGRlbGV0aW9ucygtKQoKZGlmZiAtLWdpdCBhL2RyaXZlcnMvZ3B1L2RybS9zdG0vZHdf
-bWlwaV9kc2ktc3RtLmMgYi9kcml2ZXJzL2dwdS9kcm0vc3RtL2R3X21pcGlfZHNpLXN0bS5jCmlu
-ZGV4IDFiZWY3M2UuLmQ4ZTRhMTQgMTAwNjQ0Ci0tLSBhL2RyaXZlcnMvZ3B1L2RybS9zdG0vZHdf
-bWlwaV9kc2ktc3RtLmMKKysrIGIvZHJpdmVycy9ncHUvZHJtL3N0bS9kd19taXBpX2RzaS1zdG0u
-YwpAQCAtOSw2ICs5LDcgQEAKICNpbmNsdWRlIDxsaW51eC9jbGsuaD4KICNpbmNsdWRlIDxsaW51
-eC9pb3BvbGwuaD4KICNpbmNsdWRlIDxsaW51eC9tb2R1bGUuaD4KKyNpbmNsdWRlIDxsaW51eC9y
-ZWd1bGF0b3IvY29uc3VtZXIuaD4KICNpbmNsdWRlIDxkcm0vZHJtUC5oPgogI2luY2x1ZGUgPGRy
-bS9kcm1fbWlwaV9kc2kuaD4KICNpbmNsdWRlIDxkcm0vYnJpZGdlL2R3X21pcGlfZHNpLmg+CkBA
-IC03Niw2ICs3Nyw3IEBAIHN0cnVjdCBkd19taXBpX2RzaV9zdG0gewogCXUzMiBod192ZXJzaW9u
-OwogCWludCBsYW5lX21pbl9rYnBzOwogCWludCBsYW5lX21heF9rYnBzOworCXN0cnVjdCByZWd1
-bGF0b3IgKnZkZF9zdXBwbHk7CiB9OwogCiBzdGF0aWMgaW5saW5lIHZvaWQgZHNpX3dyaXRlKHN0
-cnVjdCBkd19taXBpX2RzaV9zdG0gKmRzaSwgdTMyIHJlZywgdTMyIHZhbCkKQEAgLTMxNCwyMSAr
-MzE2LDM2IEBAIHN0YXRpYyBpbnQgZHdfbWlwaV9kc2lfc3RtX3Byb2JlKHN0cnVjdCBwbGF0Zm9y
-bV9kZXZpY2UgKnBkZXYpCiAJcmVzID0gcGxhdGZvcm1fZ2V0X3Jlc291cmNlKHBkZXYsIElPUkVT
-T1VSQ0VfTUVNLCAwKTsKIAlkc2ktPmJhc2UgPSBkZXZtX2lvcmVtYXBfcmVzb3VyY2UoZGV2LCBy
-ZXMpOwogCWlmIChJU19FUlIoZHNpLT5iYXNlKSkgewotCQlEUk1fRVJST1IoIlVuYWJsZSB0byBn
-ZXQgZHNpIHJlZ2lzdGVyc1xuIik7Ci0JCXJldHVybiBQVFJfRVJSKGRzaS0+YmFzZSk7CisJCXJl
-dCA9IFBUUl9FUlIoZHNpLT5iYXNlKTsKKwkJRFJNX0VSUk9SKCJVbmFibGUgdG8gZ2V0IGRzaSBy
-ZWdpc3RlcnMgJWRcbiIsIHJldCk7CisJCXJldHVybiByZXQ7CisJfQorCisJZHNpLT52ZGRfc3Vw
-cGx5ID0gZGV2bV9yZWd1bGF0b3JfZ2V0KGRldiwgInBoeS1kc2kiKTsKKwlpZiAoSVNfRVJSKGRz
-aS0+dmRkX3N1cHBseSkpIHsKKwkJcmV0ID0gUFRSX0VSUihkc2ktPnZkZF9zdXBwbHkpOworCQlp
-ZiAocmV0ICE9IC1FUFJPQkVfREVGRVIpCisJCQlEUk1fRVJST1IoIkZhaWxlZCB0byByZXF1ZXN0
-IHJlZ3VsYXRvcjogJWRcbiIsIHJldCk7CisJCXJldHVybiByZXQ7CisJfQorCisJcmV0ID0gcmVn
-dWxhdG9yX2VuYWJsZShkc2ktPnZkZF9zdXBwbHkpOworCWlmIChyZXQpIHsKKwkJRFJNX0VSUk9S
-KCJGYWlsZWQgdG8gZW5hYmxlIHJlZ3VsYXRvcjogJWRcbiIsIHJldCk7CisJCXJldHVybiByZXQ7
-CiAJfQogCiAJZHNpLT5wbGxyZWZfY2xrID0gZGV2bV9jbGtfZ2V0KGRldiwgInJlZiIpOwogCWlm
-IChJU19FUlIoZHNpLT5wbGxyZWZfY2xrKSkgewogCQlyZXQgPSBQVFJfRVJSKGRzaS0+cGxscmVm
-X2Nsayk7Ci0JCWRldl9lcnIoZGV2LCAiVW5hYmxlIHRvIGdldCBwbGwgcmVmZXJlbmNlIGNsb2Nr
-OiAlZFxuIiwgcmV0KTsKLQkJcmV0dXJuIHJldDsKKwkJRFJNX0VSUk9SKCJVbmFibGUgdG8gZ2V0
-IHBsbCByZWZlcmVuY2UgY2xvY2s6ICVkXG4iLCByZXQpOworCQlnb3RvIGVycl9jbGtfZ2V0Owog
-CX0KIAogCXJldCA9IGNsa19wcmVwYXJlX2VuYWJsZShkc2ktPnBsbHJlZl9jbGspOwogCWlmIChy
-ZXQpIHsKLQkJZGV2X2VycihkZXYsICIlczogRmFpbGVkIHRvIGVuYWJsZSBwbGxyZWZfY2xrXG4i
-LCBfX2Z1bmNfXyk7Ci0JCXJldHVybiByZXQ7CisJCURSTV9FUlJPUigiRmFpbGVkIHRvIGVuYWJs
-ZSBwbGxyZWZfY2xrOiAlZFxuIiwgcmV0KTsKKwkJZ290byBlcnJfY2xrX2dldDsKIAl9CiAKIAlk
-d19taXBpX2RzaV9zdG1fcGxhdF9kYXRhLmJhc2UgPSBkc2ktPmJhc2U7CkBAIC0zMzgsMjAgKzM1
-NSwyOCBAQCBzdGF0aWMgaW50IGR3X21pcGlfZHNpX3N0bV9wcm9iZShzdHJ1Y3QgcGxhdGZvcm1f
-ZGV2aWNlICpwZGV2KQogCiAJZHNpLT5kc2kgPSBkd19taXBpX2RzaV9wcm9iZShwZGV2LCAmZHdf
-bWlwaV9kc2lfc3RtX3BsYXRfZGF0YSk7CiAJaWYgKElTX0VSUihkc2ktPmRzaSkpIHsKLQkJRFJN
-X0VSUk9SKCJGYWlsZWQgdG8gaW5pdGlhbGl6ZSBtaXBpIGRzaSBob3N0XG4iKTsKLQkJY2xrX2Rp
-c2FibGVfdW5wcmVwYXJlKGRzaS0+cGxscmVmX2Nsayk7Ci0JCXJldHVybiBQVFJfRVJSKGRzaS0+
-ZHNpKTsKKwkJcmV0ID0gUFRSX0VSUihkc2ktPmRzaSk7CisJCURSTV9FUlJPUigiRmFpbGVkIHRv
-IGluaXRpYWxpemUgbWlwaSBkc2kgaG9zdDogJWRcbiIsIHJldCk7CisJCWdvdG8gZXJyX2RzaV9w
-cm9iZTsKIAl9CiAKIAlyZXR1cm4gMDsKKworZXJyX2RzaV9wcm9iZToKKwljbGtfZGlzYWJsZV91
-bnByZXBhcmUoZHNpLT5wbGxyZWZfY2xrKTsKK2Vycl9jbGtfZ2V0OgorCXJlZ3VsYXRvcl9kaXNh
-YmxlKGRzaS0+dmRkX3N1cHBseSk7CisKKwlyZXR1cm4gcmV0OwogfQogCiBzdGF0aWMgaW50IGR3
-X21pcGlfZHNpX3N0bV9yZW1vdmUoc3RydWN0IHBsYXRmb3JtX2RldmljZSAqcGRldikKIHsKIAlz
-dHJ1Y3QgZHdfbWlwaV9kc2lfc3RtICpkc2kgPSBwbGF0Zm9ybV9nZXRfZHJ2ZGF0YShwZGV2KTsK
-IAotCWNsa19kaXNhYmxlX3VucHJlcGFyZShkc2ktPnBsbHJlZl9jbGspOwogCWR3X21pcGlfZHNp
-X3JlbW92ZShkc2ktPmRzaSk7CisJY2xrX2Rpc2FibGVfdW5wcmVwYXJlKGRzaS0+cGxscmVmX2Ns
-ayk7CisJcmVndWxhdG9yX2Rpc2FibGUoZHNpLT52ZGRfc3VwcGx5KTsKIAogCXJldHVybiAwOwog
-fQpAQCAtMzYzLDYgKzM4OCw3IEBAIHN0YXRpYyBpbnQgX19tYXliZV91bnVzZWQgZHdfbWlwaV9k
-c2lfc3RtX3N1c3BlbmQoc3RydWN0IGRldmljZSAqZGV2KQogCURSTV9ERUJVR19EUklWRVIoIlxu
-Iik7CiAKIAljbGtfZGlzYWJsZV91bnByZXBhcmUoZHNpLT5wbGxyZWZfY2xrKTsKKwlyZWd1bGF0
-b3JfZGlzYWJsZShkc2ktPnZkZF9zdXBwbHkpOwogCiAJcmV0dXJuIDA7CiB9CkBAIC0zNzAsMTAg
-KzM5NiwyMiBAQCBzdGF0aWMgaW50IF9fbWF5YmVfdW51c2VkIGR3X21pcGlfZHNpX3N0bV9zdXNw
-ZW5kKHN0cnVjdCBkZXZpY2UgKmRldikKIHN0YXRpYyBpbnQgX19tYXliZV91bnVzZWQgZHdfbWlw
-aV9kc2lfc3RtX3Jlc3VtZShzdHJ1Y3QgZGV2aWNlICpkZXYpCiB7CiAJc3RydWN0IGR3X21pcGlf
-ZHNpX3N0bSAqZHNpID0gZHdfbWlwaV9kc2lfc3RtX3BsYXRfZGF0YS5wcml2X2RhdGE7CisJaW50
-IHJldDsKIAogCURSTV9ERUJVR19EUklWRVIoIlxuIik7CiAKLQljbGtfcHJlcGFyZV9lbmFibGUo
-ZHNpLT5wbGxyZWZfY2xrKTsKKwlyZXQgPSByZWd1bGF0b3JfZW5hYmxlKGRzaS0+dmRkX3N1cHBs
-eSk7CisJaWYgKHJldCkgeworCQlEUk1fRVJST1IoIkZhaWxlZCB0byBlbmFibGUgcmVndWxhdG9y
-OiAlZFxuIiwgcmV0KTsKKwkJcmV0dXJuIHJldDsKKwl9CisKKwlyZXQgPSBjbGtfcHJlcGFyZV9l
-bmFibGUoZHNpLT5wbGxyZWZfY2xrKTsKKwlpZiAocmV0KSB7CisJCXJlZ3VsYXRvcl9kaXNhYmxl
-KGRzaS0+dmRkX3N1cHBseSk7CisJCURSTV9FUlJPUigiRmFpbGVkIHRvIGVuYWJsZSBwbGxyZWZf
-Y2xrOiAlZFxuIiwgcmV0KTsKKwkJcmV0dXJuIHJldDsKKwl9CiAKIAlyZXR1cm4gMDsKIH0KLS0g
-CjIuNy40CgpfX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fXwpM
-aW51eC1zdG0zMiBtYWlsaW5nIGxpc3QKTGludXgtc3RtMzJAc3QtbWQtbWFpbG1hbi5zdG9ybXJl
-cGx5LmNvbQpodHRwczovL3N0LW1kLW1haWxtYW4uc3Rvcm1yZXBseS5jb20vbWFpbG1hbi9saXN0
-aW5mby9saW51eC1zdG0zMgo=
+On Tue, 14 May 2019 10:26:56 +0200, Fabien Dessenne wrote:
+> Document the ML-AHB interconnect for stm32 SoCs.
+> 
+> Signed-off-by: Fabien Dessenne <fabien.dessenne@st.com>
+> ---
+>  .../devicetree/bindings/arm/stm32/mlahb.txt        | 37 ++++++++++++++++++++++
+>  1 file changed, 37 insertions(+)
+>  create mode 100644 Documentation/devicetree/bindings/arm/stm32/mlahb.txt
+> 
+
+Reviewed-by: Rob Herring <robh@kernel.org>
+_______________________________________________
+Linux-stm32 mailing list
+Linux-stm32@st-md-mailman.stormreply.com
+https://st-md-mailman.stormreply.com/mailman/listinfo/linux-stm32
