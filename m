@@ -2,49 +2,45 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id 175D51C0F4
-	for <lists+linux-stm32@lfdr.de>; Tue, 14 May 2019 05:37:43 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id A7DE21C10C
+	for <lists+linux-stm32@lfdr.de>; Tue, 14 May 2019 05:39:06 +0200 (CEST)
 Received: from ip-172-31-3-76.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id D3769C35E09
-	for <lists+linux-stm32@lfdr.de>; Tue, 14 May 2019 03:37:42 +0000 (UTC)
-Received: from mailgw02.mediatek.com (unknown [210.61.82.184])
- (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
- (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 3CC6FC35E07
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 07366C35E0B
+	for <lists+linux-stm32@lfdr.de>; Tue, 14 May 2019 03:39:06 +0000 (UTC)
+Received: from mailgw02.mediatek.com (unknown [1.203.163.81])
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id DFD95C35E0A
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Tue, 14 May 2019 03:37:40 +0000 (UTC)
-X-UUID: 3c8e7df6f26343faa879a53b2744ee03-20190514
-X-UUID: 3c8e7df6f26343faa879a53b2744ee03-20190514
-Received: from mtkexhb01.mediatek.inc [(172.21.101.102)] by
- mailgw02.mediatek.com (envelope-from <biao.huang@mediatek.com>)
- (mhqrelay.mediatek.com ESMTP with TLS)
- with ESMTP id 1346034389; Tue, 14 May 2019 11:37:34 +0800
-Received: from mtkcas09.mediatek.inc (172.21.101.178) by
- mtkmbs01n2.mediatek.inc (172.21.101.79) with Microsoft SMTP Server (TLS) id
- 15.0.1395.4; Tue, 14 May 2019 11:37:32 +0800
-Received: from localhost.localdomain (10.17.3.153) by mtkcas09.mediatek.inc
- (172.21.101.73) with Microsoft SMTP Server id 15.0.1395.4 via Frontend
- Transport; Tue, 14 May 2019 11:37:31 +0800
-From: Biao Huang <biao.huang@mediatek.com>
-To: Jose Abreu <joabreu@synopsys.com>
-Date: Tue, 14 May 2019 11:37:26 +0800
-Message-ID: <1557805046-306-5-git-send-email-biao.huang@mediatek.com>
-X-Mailer: git-send-email 1.7.9.5
-In-Reply-To: <1557805046-306-1-git-send-email-biao.huang@mediatek.com>
-References: <1557805046-306-1-git-send-email-biao.huang@mediatek.com>
+ Tue, 14 May 2019 03:39:03 +0000 (UTC)
+X-UUID: d78f6c5d285847fb879771b0a7456d4a-20190514
+X-UUID: d78f6c5d285847fb879771b0a7456d4a-20190514
+Received: from mtkcas34.mediatek.inc [(172.27.4.253)] by mailgw02.mediatek.com
+ (envelope-from <biao.huang@mediatek.com>)
+ (mailgw01.mediatek.com ESMTP with TLS)
+ with ESMTP id 1403175480; Tue, 14 May 2019 11:38:53 +0800
+Received: from MTKCAS36.mediatek.inc (172.27.4.186) by MTKMBS31DR.mediatek.inc
+ (172.27.6.102) with Microsoft SMTP Server (TLS) id 15.0.1395.4;
+ Tue, 14 May 2019 11:38:52 +0800
+Received: from [10.17.3.153] (172.27.4.253) by MTKCAS36.mediatek.inc
+ (172.27.4.170) with Microsoft SMTP Server id 15.0.1395.4 via Frontend
+ Transport; Tue, 14 May 2019 11:38:51 +0800
+Message-ID: <1557805131.24897.41.camel@mhfsdcap03>
+From: biao huang <biao.huang@mediatek.com>
+To: Andrew Lunn <andrew@lunn.ch>
+Date: Tue, 14 May 2019 11:38:51 +0800
+In-Reply-To: <20190514030016.GA19642@lunn.ch>
+References: <1557800933-30759-1-git-send-email-biao.huang@mediatek.com>
+ <20190514030016.GA19642@lunn.ch>
+X-Mailer: Evolution 3.2.3-0ubuntu6 
 MIME-Version: 1.0
-X-TM-SNTS-SMTP: F2B365903E93E975129223F92EB2A84756F66B62B388A4727965D843D351ADDA2000:8
 X-MTK: N
-Cc: jianguo.zhang@mediatek.comi, biao.huang@mediatek.com,
- netdev@vger.kernel.org, linux-kernel@vger.kernel.org, boon.leong.ong@intel.com,
- yt.shen@mediatek.com, linux-mediatek@lists.infradead.org,
- Maxime Coquelin <mcoquelin.stm32@gmail.com>,
- Matthias Brugger <matthias.bgg@gmail.com>,
- Giuseppe Cavallaro <peppe.cavallaro@st.com>,
- linux-stm32@st-md-mailman.stormreply.com, linux-arm-kernel@lists.infradead.org
-Subject: [Linux-stm32] [v3,
-	PATCH 4/4] net: stmmac: dwmac-mediatek: modify csr_clk value to fix
-	mdio read/write fail
+Cc: netdev@vger.kernel.org, linux-kernel@vger.kernel.org,
+ linux-stm32@st-md-mailman.stormreply.com, yt.shen@mediatek.com,
+ Jose Abreu <joabreu@synopsys.com>, linux-mediatek@lists.infradead.org,
+ Maxime Coquelin <mcoquelin.stm32@gmail.com>, jianguo.zhang@mediatek.com,
+ Giuseppe Cavallaro <peppe.cavallaro@st.com>, davem@davemloft.net,
+ linux-arm-kernel@lists.infradead.org,
+ Matthias Brugger <matthias.bgg@gmail.com>
+Subject: Re: [Linux-stm32] [v2, PATCH 0/4] fix some bugs in stmmac
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -61,31 +57,23 @@ Content-Transfer-Encoding: 7bit
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
-1. the frequency of csr clock is 66.5MHz, so the csr_clk value should
-be 0 other than 5.
-2. the csr_clk can be got from device tree, so remove initialization here.
+Hi Andrew,
+	Add a Fixes:tag in series v3, please review.
 
-Fixes: 9992f37e346b ("stmmac: dwmac-mediatek: add support for mt2712")
-Signed-off-by: Biao Huang <biao.huang@mediatek.com>
----
- .../net/ethernet/stmicro/stmmac/dwmac-mediatek.c   |    2 --
- 1 file changed, 2 deletions(-)
+On Tue, 2019-05-14 at 05:00 +0200, Andrew Lunn wrote:
+> On Tue, May 14, 2019 at 10:28:49AM +0800, Biao Huang wrote:
+> > changes in v2:                                                                  
+> >         1. update rx_tail_addr as Jose's comment                                
+> >         2. changes clk_csr condition as Alex's proposition                      
+> >         3. remove init lines in dwmac-mediatek, get clk_csr from dts instead.   
+> 
+> Hi Biao
+> 
+> Since these are fixes, could you provide a Fixes: tag for each one?
+> 
+> Thanks
+> 	Andrew
 
-diff --git a/drivers/net/ethernet/stmicro/stmmac/dwmac-mediatek.c b/drivers/net/ethernet/stmicro/stmmac/dwmac-mediatek.c
-index bf25629..126b66b 100644
---- a/drivers/net/ethernet/stmicro/stmmac/dwmac-mediatek.c
-+++ b/drivers/net/ethernet/stmicro/stmmac/dwmac-mediatek.c
-@@ -346,8 +346,6 @@ static int mediatek_dwmac_probe(struct platform_device *pdev)
- 		return PTR_ERR(plat_dat);
- 
- 	plat_dat->interface = priv_plat->phy_mode;
--	/* clk_csr_i = 250-300MHz & MDC = clk_csr_i/124 */
--	plat_dat->clk_csr = 5;
- 	plat_dat->has_gmac4 = 1;
- 	plat_dat->has_gmac = 0;
- 	plat_dat->pmt = 0;
--- 
-1.7.9.5
 
 _______________________________________________
 Linux-stm32 mailing list
