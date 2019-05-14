@@ -2,33 +2,33 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id 208CA1C09D
+	by mail.lfdr.de (Postfix) with ESMTPS id 118AB1C09C
 	for <lists+linux-stm32@lfdr.de>; Tue, 14 May 2019 04:29:16 +0200 (CEST)
 Received: from ip-172-31-3-76.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id D1168C35E08
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id C5205C35E06
 	for <lists+linux-stm32@lfdr.de>; Tue, 14 May 2019 02:29:15 +0000 (UTC)
 Received: from mailgw02.mediatek.com (unknown [210.61.82.184])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 710A4C35E03
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 6DAD6C35E02
  for <linux-stm32@st-md-mailman.stormreply.com>;
  Tue, 14 May 2019 02:29:13 +0000 (UTC)
-X-UUID: 477adf8be90040efa94d9a7d15314c71-20190514
-X-UUID: 477adf8be90040efa94d9a7d15314c71-20190514
+X-UUID: d2e75ffffc7847a1a92b8b546277dfea-20190514
+X-UUID: d2e75ffffc7847a1a92b8b546277dfea-20190514
 Received: from mtkcas06.mediatek.inc [(172.21.101.30)] by mailgw02.mediatek.com
  (envelope-from <biao.huang@mediatek.com>)
  (mhqrelay.mediatek.com ESMTP with TLS)
- with ESMTP id 231203543; Tue, 14 May 2019 10:29:01 +0800
+ with ESMTP id 548314089; Tue, 14 May 2019 10:29:02 +0800
 Received: from mtkcas09.mediatek.inc (172.21.101.178) by
  mtkmbs01n1.mediatek.inc (172.21.101.68) with Microsoft SMTP Server (TLS) id
- 15.0.1395.4; Tue, 14 May 2019 10:29:00 +0800
+ 15.0.1395.4; Tue, 14 May 2019 10:29:01 +0800
 Received: from localhost.localdomain (10.17.3.153) by mtkcas09.mediatek.inc
  (172.21.101.73) with Microsoft SMTP Server id 15.0.1395.4 via Frontend
- Transport; Tue, 14 May 2019 10:28:59 +0800
+ Transport; Tue, 14 May 2019 10:29:00 +0800
 From: Biao Huang <biao.huang@mediatek.com>
 To: Jose Abreu <joabreu@synopsys.com>, <davem@davemloft.net>
-Date: Tue, 14 May 2019 10:28:51 +0800
-Message-ID: <1557800933-30759-3-git-send-email-biao.huang@mediatek.com>
+Date: Tue, 14 May 2019 10:28:52 +0800
+Message-ID: <1557800933-30759-4-git-send-email-biao.huang@mediatek.com>
 X-Mailer: git-send-email 1.7.9.5
 In-Reply-To: <1557800933-30759-1-git-send-email-biao.huang@mediatek.com>
 References: <1557800933-30759-1-git-send-email-biao.huang@mediatek.com>
@@ -42,7 +42,8 @@ Cc: jianguo.zhang@mediatek.com, biao.huang@mediatek.com, netdev@vger.kernel.org,
  Giuseppe Cavallaro <peppe.cavallaro@st.com>,
  linux-stm32@st-md-mailman.stormreply.com, linux-arm-kernel@lists.infradead.org
 Subject: [Linux-stm32] [v2,
-	PATCH 2/4] net: stmmac: fix csr_clk can't be zero issue
+	PATCH 3/4] net: stmmac: write the modified value back to
+	MTL_OPERATION_MODE
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -59,51 +60,27 @@ Content-Transfer-Encoding: 7bit
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
-The specific clk_csr value can be zero, and
-stmmac_clk is necessary for MDC clock which can be set dynamically.
-So, change the condition from plat->clk_csr to plat->stmmac_clk to
-fix clk_csr can't be zero issue.
+The value of MTL_OPERATION_MODE is modified, and should
+be write back to the register.
 
 Signed-off-by: Biao Huang <biao.huang@mediatek.com>
 ---
- drivers/net/ethernet/stmicro/stmmac/stmmac_main.c  |    6 +++---
- .../net/ethernet/stmicro/stmmac/stmmac_platform.c  |    5 ++++-
- 2 files changed, 7 insertions(+), 4 deletions(-)
+ drivers/net/ethernet/stmicro/stmmac/dwmac4_core.c |    2 ++
+ 1 file changed, 2 insertions(+)
 
-diff --git a/drivers/net/ethernet/stmicro/stmmac/stmmac_main.c b/drivers/net/ethernet/stmicro/stmmac/stmmac_main.c
-index 906f2be..a905b63 100644
---- a/drivers/net/ethernet/stmicro/stmmac/stmmac_main.c
-+++ b/drivers/net/ethernet/stmicro/stmmac/stmmac_main.c
-@@ -4374,10 +4374,10 @@ int stmmac_dvr_probe(struct device *device,
- 	 * set the MDC clock dynamically according to the csr actual
- 	 * clock input.
- 	 */
--	if (!priv->plat->clk_csr)
--		stmmac_clk_csr_set(priv);
--	else
-+	if (priv->plat->clk_csr >= 0)
- 		priv->clk_csr = priv->plat->clk_csr;
-+	else
-+		stmmac_clk_csr_set(priv);
+diff --git a/drivers/net/ethernet/stmicro/stmmac/dwmac4_core.c b/drivers/net/ethernet/stmicro/stmmac/dwmac4_core.c
+index 7e5d5db..b4bb562 100644
+--- a/drivers/net/ethernet/stmicro/stmmac/dwmac4_core.c
++++ b/drivers/net/ethernet/stmicro/stmmac/dwmac4_core.c
+@@ -192,6 +192,8 @@ static void dwmac4_prog_mtl_tx_algorithms(struct mac_device_info *hw,
+ 	default:
+ 		break;
+ 	}
++
++	writel(value, ioaddr + MTL_OPERATION_MODE);
+ }
  
- 	stmmac_check_pcs_mode(priv);
- 
-diff --git a/drivers/net/ethernet/stmicro/stmmac/stmmac_platform.c b/drivers/net/ethernet/stmicro/stmmac/stmmac_platform.c
-index 3031f2b..f45bfbe 100644
---- a/drivers/net/ethernet/stmicro/stmmac/stmmac_platform.c
-+++ b/drivers/net/ethernet/stmicro/stmmac/stmmac_platform.c
-@@ -408,7 +408,10 @@ struct plat_stmmacenet_data *
- 	/* Default to phy auto-detection */
- 	plat->phy_addr = -1;
- 
--	/* Get clk_csr from device tree */
-+	/* Default to get clk_csr from stmmac_clk_crs_set(),
-+	 * or get clk_csr from device tree.
-+	 */
-+	plat->clk_csr = -1;
- 	of_property_read_u32(np, "clk_csr", &plat->clk_csr);
- 
- 	/* "snps,phy-addr" is not a standard property. Mark it as deprecated
+ static void dwmac4_set_mtl_tx_queue_weight(struct mac_device_info *hw,
 -- 
 1.7.9.5
 
