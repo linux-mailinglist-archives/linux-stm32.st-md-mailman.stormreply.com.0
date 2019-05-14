@@ -2,57 +2,44 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id 42BF71BC8F
-	for <lists+linux-stm32@lfdr.de>; Mon, 13 May 2019 20:02:51 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 12CA11C09A
+	for <lists+linux-stm32@lfdr.de>; Tue, 14 May 2019 04:29:14 +0200 (CEST)
 Received: from ip-172-31-3-76.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id CDCF2C35E08
-	for <lists+linux-stm32@lfdr.de>; Mon, 13 May 2019 18:02:50 +0000 (UTC)
-Received: from mail-oi1-f193.google.com (mail-oi1-f193.google.com
- [209.85.167.193])
- (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id B117BC35E05
+	for <lists+linux-stm32@lfdr.de>; Tue, 14 May 2019 02:29:13 +0000 (UTC)
+Received: from mailgw01.mediatek.com (unknown [210.61.82.183])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 1C88EC35E01
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 4362CC35E02
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Mon, 13 May 2019 18:02:49 +0000 (UTC)
-Received: by mail-oi1-f193.google.com with SMTP id z65so2819295oia.11
- for <linux-stm32@st-md-mailman.stormreply.com>;
- Mon, 13 May 2019 11:02:49 -0700 (PDT)
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20161025;
- h=x-gm-message-state:date:from:to:cc:subject:message-id:references
- :mime-version:content-disposition:in-reply-to:user-agent;
- bh=/XhxD4qfD0ns8reknvj9RpAcHKvugYCkDKZURXupK5s=;
- b=KtxTBHxeTdmnqCSM3EJtab6WuRgk/UKZ7QfdMqt19UlIM3kgC262vDnhiFF9Y9vonH
- hoycmCSNV65GCVWJOfUKOABI/5fi3Swzh47uaLSfNNy00idV7OpZhZm0WIFjBqI0savJ
- bweAqonGbGMM/FhO1DGIT87DKjfMjdHdQPoeZl4c+Zknrhr5EGjzapexhZQrKkEAGoBi
- mti8D8qiTkh/bURQWSFMrw18Lv6avK3T2wdXWrlPNfwAaLNWH3HD2IYrXw3ksPk8EtJL
- OBTn1JXcNKjECxQbzmDepdmaqlY725tBANuhdQiZ0LiiPGbRel6cesLNIRtItL2CYOqx
- qz5A==
-X-Gm-Message-State: APjAAAXaC2ZuN0KVocuNhG9rWMal183jm6Vyv9Pu7XkV1TT2Pek20azs
- zDHysiYXG7s3sbtN9AQXvw==
-X-Google-Smtp-Source: APXvYqx+ua4Ihwv0KGSXt2vA9ULzrBLsnrobys6zGYP5eS/LZsAKrESt0LAOr0df0+FCAMzvi5AZjQ==
-X-Received: by 2002:aca:bd09:: with SMTP id n9mr301808oif.56.1557770567715;
- Mon, 13 May 2019 11:02:47 -0700 (PDT)
-Received: from localhost (24-155-109-49.dyn.grandenetworks.net.
- [24.155.109.49])
- by smtp.gmail.com with ESMTPSA id y3sm5243396oto.58.2019.05.13.11.02.46
- (version=TLS1_2 cipher=ECDHE-RSA-CHACHA20-POLY1305 bits=256/256);
- Mon, 13 May 2019 11:02:46 -0700 (PDT)
-Date: Mon, 13 May 2019 13:02:46 -0500
-From: Rob Herring <robh@kernel.org>
-To: Manivannan Sadhasivam <manivannan.sadhasivam@linaro.org>
-Message-ID: <20190513180246.GA8487@bogus>
-References: <20190506100534.24145-1-manivannan.sadhasivam@linaro.org>
- <20190506100534.24145-2-manivannan.sadhasivam@linaro.org>
+ Tue, 14 May 2019 02:29:11 +0000 (UTC)
+X-UUID: 781b2acb1fcd4409801e6ecda65f8466-20190514
+X-UUID: 781b2acb1fcd4409801e6ecda65f8466-20190514
+Received: from mtkexhb02.mediatek.inc [(172.21.101.103)] by
+ mailgw01.mediatek.com (envelope-from <biao.huang@mediatek.com>)
+ (mhqrelay.mediatek.com ESMTP with TLS)
+ with ESMTP id 1269660347; Tue, 14 May 2019 10:29:00 +0800
+Received: from mtkcas09.mediatek.inc (172.21.101.178) by
+ mtkmbs01n1.mediatek.inc (172.21.101.68) with Microsoft SMTP Server (TLS) id
+ 15.0.1395.4; Tue, 14 May 2019 10:28:58 +0800
+Received: from localhost.localdomain (10.17.3.153) by mtkcas09.mediatek.inc
+ (172.21.101.73) with Microsoft SMTP Server id 15.0.1395.4 via Frontend
+ Transport; Tue, 14 May 2019 10:28:58 +0800
+From: Biao Huang <biao.huang@mediatek.com>
+To: Jose Abreu <joabreu@synopsys.com>, <davem@davemloft.net>
+Date: Tue, 14 May 2019 10:28:49 +0800
+Message-ID: <1557800933-30759-1-git-send-email-biao.huang@mediatek.com>
+X-Mailer: git-send-email 1.7.9.5
 MIME-Version: 1.0
-Content-Disposition: inline
-In-Reply-To: <20190506100534.24145-2-manivannan.sadhasivam@linaro.org>
-User-Agent: Mutt/1.10.1 (2018-07-13)
-Cc: devicetree@vger.kernel.org, linux-kernel@vger.kernel.org,
- mcoquelin.stm32@gmail.com, linux-stm32@st-md-mailman.stormreply.com,
- linux-arm-kernel@lists.infradead.org
-Subject: Re: [Linux-stm32] [PATCH v2 1/3] dt-bindings: arm: stm32: Document
- Avenger96 devicetree binding
+X-MTK: N
+Cc: jianguo.zhang@mediatek.com, biao.huang@mediatek.com, netdev@vger.kernel.org,
+ linux-kernel@vger.kernel.org, yt.shen@mediatek.com,
+ linux-mediatek@lists.infradead.org,
+ Maxime Coquelin <mcoquelin.stm32@gmail.com>,
+ Matthias Brugger <matthias.bgg@gmail.com>,
+ Giuseppe Cavallaro <peppe.cavallaro@st.com>,
+ linux-stm32@st-md-mailman.stormreply.com, linux-arm-kernel@lists.infradead.org
+Subject: [Linux-stm32] [v2, PATCH 0/4] fix some bugs in stmmac
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -69,34 +56,37 @@ Content-Transfer-Encoding: 7bit
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
-On Mon, May 06, 2019 at 03:35:32PM +0530, Manivannan Sadhasivam wrote:
-> Document devicetree binding for Avenger96 board.
-> 
-> Signed-off-by: Manivannan Sadhasivam <manivannan.sadhasivam@linaro.org>
-> ---
->  Documentation/devicetree/bindings/arm/stm32/stm32.txt | 6 ++++++
->  1 file changed, 6 insertions(+)
-> 
-> diff --git a/Documentation/devicetree/bindings/arm/stm32/stm32.txt b/Documentation/devicetree/bindings/arm/stm32/stm32.txt
-> index 6808ed9ddfd5..eba363a4b514 100644
-> --- a/Documentation/devicetree/bindings/arm/stm32/stm32.txt
-> +++ b/Documentation/devicetree/bindings/arm/stm32/stm32.txt
-> @@ -8,3 +8,9 @@ using one of the following compatible strings:
->    st,stm32f746
->    st,stm32h743
->    st,stm32mp157
-> +
-> +Boards:
-> +
-> +Root node property compatible must contain one of below depending on board:
-> +
-> + - Avenger96: "arrow,stm32mp157a-avenger96"
+changes in v2:                                                                  
+        1. update rx_tail_addr as Jose's comment                                
+        2. changes clk_csr condition as Alex's proposition                      
+        3. remove init lines in dwmac-mediatek, get clk_csr from dts instead.   
+                                                                                
+v1:                                                                             
+This series fix some bugs in stmmac driver                                      
+3 patches are for common stmmac or dwmac4:                                      
+        1. update rx tail pointer to fix rx dma hang issue.                     
+        2. change condition for mdc clock to fix csr_clk can't be zero issue.   
+        3. write the modified value back to MTL_OPERATION_MODE.                 
+1 patch is for dwmac-mediatek:                                                  
+        modify csr_clk value to fix mdio read/write fail issue for dwmac-mediatek
+                                                                                
+Biao Huang (4):                                                                 
+  net: stmmac: update rx tail pointer register to fix rx dma hang               
+    issue.                                                                      
+  net: stmmac: fix csr_clk can't be zero issue                                  
+  net: stmmac: write the modified value back to MTL_OPERATION_MODE              
+  net: stmmac: dwmac-mediatek: modify csr_clk value to fix mdio                 
+    read/write fail                                                             
+                                                                                
+ .../net/ethernet/stmicro/stmmac/dwmac-mediatek.c   |    2 --                   
+ drivers/net/ethernet/stmicro/stmmac/dwmac4_core.c  |    2 ++                   
+ drivers/net/ethernet/stmicro/stmmac/stmmac_main.c  |    7 ++++---              
+ .../net/ethernet/stmicro/stmmac/stmmac_platform.c  |    5 ++++-                
+ 4 files changed, 10 insertions(+), 6 deletions(-)                              
+                                                                                
+--                                                                              
+1.7.9.5 
 
-With which SoC compatible?
-
-> -- 
-> 2.17.1
-> 
 _______________________________________________
 Linux-stm32 mailing list
 Linux-stm32@st-md-mailman.stormreply.com
