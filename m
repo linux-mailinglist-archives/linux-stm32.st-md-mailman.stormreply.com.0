@@ -2,73 +2,62 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id 3439E1EAF1
-	for <lists+linux-stm32@lfdr.de>; Wed, 15 May 2019 11:32:00 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 9E9D91F521
+	for <lists+linux-stm32@lfdr.de>; Wed, 15 May 2019 15:12:17 +0200 (CEST)
 Received: from ip-172-31-3-76.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id CE814C35E07
-	for <lists+linux-stm32@lfdr.de>; Wed, 15 May 2019 09:31:59 +0000 (UTC)
-Received: from userp2120.oracle.com (userp2120.oracle.com [156.151.31.85])
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 62561C54B0C
+	for <lists+linux-stm32@lfdr.de>; Wed, 15 May 2019 13:12:17 +0000 (UTC)
+Received: from mx07-00178001.pphosted.com (mx07-00178001.pphosted.com
+ [62.209.51.94])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id F1415C35E06
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 53427C54B08
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Wed, 15 May 2019 09:31:57 +0000 (UTC)
-Received: from pps.filterd (userp2120.oracle.com [127.0.0.1])
- by userp2120.oracle.com (8.16.0.27/8.16.0.27) with SMTP id x4F9Oka8107637;
- Wed, 15 May 2019 09:31:53 GMT
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=oracle.com;
- h=date : from : to : cc
- : subject : message-id : mime-version : content-type; s=corp-2018-07-02;
- bh=hSu1AVv1i5MwGTlZX96Y2ojOopFKVDPdwp7odcEtjSU=;
- b=QxKz7pdrvgFAsizbgDOzDRwgYaxCVVOCZKxT6V2UQ5YrwlWM7dnYddmmQKgH52xwsiyF
- yDDDPg8rcWPTiSRhLHcrfOWh85hHiUa09rekpc6c9sHJ+lkRMXfYq2DRBrwFMBzJMrmL
- Y2vBL5aZCUseBkHAt9O1AGsDRf/hOnHL54ANFoej5iUdPo31j0lRklAWgJNzt1/0BJVx
- hIQ4pDwXPVxYnhQIfgbbYz4wOAEwQhednYjrmtjracQG/RdLKozlYNDNg4j8yZlrn9/Q
- xt3n+qqTSnvriClxUItv5X4b1emGDhmSzilE3u2FbxHgB4z21FJsZStgbjbbsBpuaqNC QQ== 
-Received: from userp3020.oracle.com (userp3020.oracle.com [156.151.31.79])
- by userp2120.oracle.com with ESMTP id 2sdq1qkgaa-1
- (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=OK);
- Wed, 15 May 2019 09:31:53 +0000
-Received: from pps.filterd (userp3020.oracle.com [127.0.0.1])
- by userp3020.oracle.com (8.16.0.27/8.16.0.27) with SMTP id x4F9Vdrw093333;
- Wed, 15 May 2019 09:31:52 GMT
-Received: from aserv0121.oracle.com (aserv0121.oracle.com [141.146.126.235])
- by userp3020.oracle.com with ESMTP id 2sdnqk433v-1
- (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=OK);
- Wed, 15 May 2019 09:31:52 +0000
-Received: from abhmp0020.oracle.com (abhmp0020.oracle.com [141.146.116.26])
- by aserv0121.oracle.com (8.14.4/8.13.8) with ESMTP id x4F9VoVH001813;
- Wed, 15 May 2019 09:31:50 GMT
-Received: from mwanda (/41.57.98.10) by default (Oracle Beehive Gateway v4.0)
- with ESMTP ; Wed, 15 May 2019 02:31:49 -0700
-Date: Wed, 15 May 2019 12:31:41 +0300
-From: Dan Carpenter <dan.carpenter@oracle.com>
-To: Lee Jones <lee.jones@linaro.org>, Amelie Delaunay <amelie.delaunay@st.com>
-Message-ID: <20190515093141.GA3409@mwanda>
+ Wed, 15 May 2019 13:12:16 +0000 (UTC)
+Received: from pps.filterd (m0046668.ppops.net [127.0.0.1])
+ by mx07-00178001.pphosted.com (8.16.0.27/8.16.0.27) with SMTP id
+ x4FD2OaG022898; Wed, 15 May 2019 15:12:03 +0200
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=st.com;
+ h=from : to : cc : subject
+ : date : message-id : mime-version : content-type; s=STMicroelectronics;
+ bh=8gW4OV6hlwcWKYSJ9ubV4B9vvzQp9RHTFnttoWQRbC8=;
+ b=0o/obq/MuqzQjBIOsYvfPNxULfMghhvDdt06quUJu3ztC6CxnOCJlF2NFa58K8+1gJBS
+ bL6WaPiy5zoY7SvNiLVewruh4ZRaW1s5mpRt6HhFT/eXmt8lj4WkSxjtubvgxzKWePIu
+ YxTDZR2P4FDl0ay0P40lWrDssNI/uuZ0/cQrTDsroBMLoKBSQvg8m6+T8bBH8SCWB+L+
+ rtDD9F/3pqnm9tq77g0zGbQ8UiQubwmSNRkiz+hCxikh5aYbv935naydhyT++55XbcSa
+ AXNuHUx7/6CtURTHJC72VVbj1pDHiXlK6xZVk1V+OSJMmviR0K7SfgmkZ+VE81Rtu7qN GQ== 
+Received: from beta.dmz-eu.st.com (beta.dmz-eu.st.com [164.129.1.35])
+ by mx07-00178001.pphosted.com with ESMTP id 2sdkv00p8e-1
+ (version=TLSv1 cipher=ECDHE-RSA-AES256-SHA bits=256 verify=NOT);
+ Wed, 15 May 2019 15:12:03 +0200
+Received: from zeta.dmz-eu.st.com (zeta.dmz-eu.st.com [164.129.230.9])
+ by beta.dmz-eu.st.com (STMicroelectronics) with ESMTP id AEAED31;
+ Wed, 15 May 2019 13:12:01 +0000 (GMT)
+Received: from Webmail-eu.st.com (Safex1hubcas21.st.com [10.75.90.44])
+ by zeta.dmz-eu.st.com (STMicroelectronics) with ESMTP id 5AF5727F5;
+ Wed, 15 May 2019 13:12:01 +0000 (GMT)
+Received: from SAFEX1HUBCAS22.st.com (10.75.90.93) by SAFEX1HUBCAS21.st.com
+ (10.75.90.44) with Microsoft SMTP Server (TLS) id 14.3.439.0; Wed, 15 May
+ 2019 15:12:01 +0200
+Received: from localhost (10.201.20.122) by Webmail-ga.st.com (10.75.90.48)
+ with Microsoft SMTP Server (TLS) id 14.3.439.0; Wed, 15 May 2019 15:12:00
+ +0200
+From: Benjamin Gaignard <benjamin.gaignard@st.com>
+To: <rafael.j.wysocki@intel.com>, <dmitry.torokhov@gmail.com>,
+ <robh+dt@kernel.org>, <mark.rutland@arm.com>, <hadess@hadess.net>,
+ <frowand.list@gmail.com>, <m.felsch@pengutronix.de>, <agx@sigxcpu.org>,
+ <arnd@arndb.de>
+Date: Wed, 15 May 2019 15:11:49 +0200
+Message-ID: <20190515131154.18373-1-benjamin.gaignard@st.com>
+X-Mailer: git-send-email 2.15.0
 MIME-Version: 1.0
-Content-Disposition: inline
-X-Mailer: git-send-email haha only kidding
-User-Agent: Mutt/1.10.1 (2018-07-13)
-X-Proofpoint-Virus-Version: vendor=nai engine=5900 definitions=9257
- signatures=668687
-X-Proofpoint-Spam-Details: rule=notspam policy=default score=0 suspectscore=0
- malwarescore=0
- phishscore=0 bulkscore=0 spamscore=0 mlxscore=0 mlxlogscore=999
- adultscore=0 classifier=spam adjust=0 reason=mlx scancount=1
- engine=8.0.1-1810050000 definitions=main-1905150061
-X-Proofpoint-Virus-Version: vendor=nai engine=5900 definitions=9257
- signatures=668687
-X-Proofpoint-Spam-Details: rule=notspam policy=default score=0
- priorityscore=1501 malwarescore=0
- suspectscore=0 phishscore=0 bulkscore=0 spamscore=0 clxscore=1011
- lowpriorityscore=0 mlxscore=0 impostorscore=0 mlxlogscore=999 adultscore=0
- classifier=spam adjust=0 reason=mlx scancount=1 engine=8.0.1-1810050000
- definitions=main-1905150061
-Cc: linux-kernel@vger.kernel.org, kernel-janitors@vger.kernel.org,
- Maxime Coquelin <mcoquelin.stm32@gmail.com>,
+X-Originating-IP: [10.201.20.122]
+X-Proofpoint-Virus-Version: vendor=fsecure engine=2.50.10434:, ,
+ definitions=2019-05-15_07:, , signatures=0
+Cc: devicetree@vger.kernel.org, linux-kernel@vger.kernel.org,
+ broonie@kernel.org, linux-input@vger.kernel.org,
  linux-stm32@st-md-mailman.stormreply.com
-Subject: [Linux-stm32] [PATCH] mfd: stmfx: Uninitialized variable in
-	stmfx_irq_handler()
+Subject: [Linux-stm32] [PATCH v2 0/5] Add of_device_link_add() functions
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -85,56 +74,42 @@ Content-Transfer-Encoding: 7bit
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
-The problem is that on 64bit systems then we don't clear the higher
-bits of the "pending" variable.  So when we do:
+It may happen that we need to ensure the order of suspend/resume
+calls between two devices without obvious link.
+It is for example the case on some boards where both panel and touchscreen
+are sharing the same reset line. In this case we need to control which
+device is going in resume first to do only one reset.
+An other example is make sure that GPU is suspend before composition
+hardware block to avoid pending drawing requests.
 
-	ack = pending & ~BIT(STMFX_REG_IRQ_SRC_EN_GPIO);
-	if (ack) {
+To not let everybody creating relationship between devices for free
+of_device_links_add() has to be called by each driver and not in the core.
 
-the if (ack) condition relies on uninitialized data.  The fix it that
-I've changed "pending" from an unsigned long to a u32.  I changed "n" as
-well, because that's a number in the 0-10 range and it fits easily
-inside an int.  We do need to add a cast to "pending" when we use it in
-the for_each_set_bit() loop, but that doesn't cause a proble, it's
-fine.
+version 2:
+- only keep of_device_links_add() and use 
+  DL_FLAG_PM_RUNTIME and DL_FLAG_AUTOREMOVE_CONSUMER flags to follow Rafael
+  advices
+- reword function description
+- try to use a more explicit property name
+- rebase on v5.1
 
-Fixes: 06252ade9156 ("mfd: Add ST Multi-Function eXpander (STMFX) core driver")
-Signed-off-by: Dan Carpenter <dan.carpenter@oracle.com>
----
- drivers/mfd/stmfx.c | 8 ++++----
- 1 file changed, 4 insertions(+), 4 deletions(-)
+Benjamin Gaignard (5):
+  of/device: Add of_device_link_add function
+  Input: edt-ft5x06: Document suspend-dependencies property
+  input: edt-ft5x06 - Call of_device_links_add() to create links
+  Input: goodix: Document suspend-dependencies property
+  input: goodix - Call of_device_links_add() to create links
 
-diff --git a/drivers/mfd/stmfx.c b/drivers/mfd/stmfx.c
-index fe8efba2d45f..fee75b5d098e 100644
---- a/drivers/mfd/stmfx.c
-+++ b/drivers/mfd/stmfx.c
-@@ -204,12 +204,12 @@ static struct irq_chip stmfx_irq_chip = {
- static irqreturn_t stmfx_irq_handler(int irq, void *data)
- {
- 	struct stmfx *stmfx = data;
--	unsigned long n, pending;
-+	u32 pending;
- 	u32 ack;
-+	int n;
- 	int ret;
- 
--	ret = regmap_read(stmfx->map, STMFX_REG_IRQ_PENDING,
--			  (u32 *)&pending);
-+	ret = regmap_read(stmfx->map, STMFX_REG_IRQ_PENDING, &pending);
- 	if (ret)
- 		return IRQ_NONE;
- 
-@@ -224,7 +224,7 @@ static irqreturn_t stmfx_irq_handler(int irq, void *data)
- 			return IRQ_NONE;
- 	}
- 
--	for_each_set_bit(n, &pending, STMFX_REG_IRQ_SRC_MAX)
-+	for_each_set_bit(n, (unsigned long *)&pending, STMFX_REG_IRQ_SRC_MAX)
- 		handle_nested_irq(irq_find_mapping(stmfx->irq_domain, n));
- 
- 	return IRQ_HANDLED;
+ .../bindings/input/touchscreen/edt-ft5x06.txt      |  2 ++
+ .../bindings/input/touchscreen/goodix.txt          |  2 ++
+ drivers/input/touchscreen/edt-ft5x06.c             |  2 ++
+ drivers/input/touchscreen/goodix.c                 |  3 ++
+ drivers/of/device.c                                | 37 ++++++++++++++++++++++
+ include/linux/of_device.h                          |  7 ++++
+ 6 files changed, 53 insertions(+)
+
 -- 
-2.20.1
+2.15.0
 
 _______________________________________________
 Linux-stm32 mailing list
