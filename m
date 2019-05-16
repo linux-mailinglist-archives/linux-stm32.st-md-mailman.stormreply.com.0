@@ -2,63 +2,58 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id 3330B20062
-	for <lists+linux-stm32@lfdr.de>; Thu, 16 May 2019 09:35:35 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 06F9B20B3F
+	for <lists+linux-stm32@lfdr.de>; Thu, 16 May 2019 17:30:41 +0200 (CEST)
 Received: from ip-172-31-3-76.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id E0957C35E08
-	for <lists+linux-stm32@lfdr.de>; Thu, 16 May 2019 07:35:34 +0000 (UTC)
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 977E1C35E01
+	for <lists+linux-stm32@lfdr.de>; Thu, 16 May 2019 15:30:40 +0000 (UTC)
 Received: from mx07-00178001.pphosted.com (mx07-00178001.pphosted.com
  [62.209.51.94])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id E29EFC35E07
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 7CE6BC36B3F
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Thu, 16 May 2019 07:35:33 +0000 (UTC)
-Received: from pps.filterd (m0046037.ppops.net [127.0.0.1])
+ Thu, 16 May 2019 15:30:39 +0000 (UTC)
+Received: from pps.filterd (m0046668.ppops.net [127.0.0.1])
  by mx07-00178001.pphosted.com (8.16.0.27/8.16.0.27) with SMTP id
- x4G7VXud003310; Thu, 16 May 2019 09:35:25 +0200
+ x4GFQ5Id007015; Thu, 16 May 2019 17:30:31 +0200
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=st.com;
- h=subject : to : cc :
- references : from : message-id : date : mime-version : in-reply-to :
- content-type : content-transfer-encoding; s=STMicroelectronics;
- bh=NeStz9nXNfTLRVan7mg48d/XzpugTtixbD8rWuY85vw=;
- b=htadwuFh2qSEgL9mc4tUg+WlP00M72TUJamH3X68lmPshmg4OTm1PrNUPzq9jpwqL+wQ
- b0zui4LlvyeYwWzbxI3a4SSmkgYrj3g6WTL8aRRvmlphmSmvPbCCn9zokgQqobqRT1SH
- J1gfhIxTlXcmyawgIVjWY1ee1Hg/rA4DAVnPxtNZX2d9rytQ4DmXfnTL5nqi1p/vfNjU
- Kz5jg6gfUh6OHzZGSRtmTPatA6bpLxXPY7CHGtIzcDa8FZZlBH4fiXrsRUlPFekv9kxD
- gXxFY7cE5mmMNMwcHzXavLd2wy3uBnFVsrZ3cVckA8jDG0uq9E5OhDFVvfoiowVfP8Z4 HA== 
+ h=from : to : cc : subject
+ : date : message-id : mime-version : content-type; s=STMicroelectronics;
+ bh=nC+lU5wFiqSbb880es2NIZVzXaC7ZVUAJusjLU3yQYw=;
+ b=yg0PstNKDCsxCaZA3Pna5TboHkvbKYHSHzpwv1ZGigG5M0fX/A0girzBMea0fC6kxcD7
+ 8w+XZ+CxBJPkDG2HqqO9E/bpzcIMR2XFqRrMPWqW6OHJqmvRmg5eiL7ruD+VcK+og36W
+ dfGLg3v3zLKAHdGmTF75lOxSbZn4ZmTvdJMXmYjviBptPN/ZM2531YJixOVs7Q4eoT+6
+ pT4zQUakHozg62LJ1YicUq5nNZKLeTz5Ma0Z8YX6/0BKbzCbvxzbOb3+skOtq7f7qjHE
+ cWdX+SjE7lDqWLkHhtEHwyqDXTMX1x5CpcRN/lvP0CcCax0qEJTFXTO4dhKWK9ZVuiye 0g== 
 Received: from beta.dmz-eu.st.com (beta.dmz-eu.st.com [164.129.1.35])
- by mx07-00178001.pphosted.com with ESMTP id 2sg0anb94y-1
+ by mx07-00178001.pphosted.com with ESMTP id 2sdkv07xm0-1
  (version=TLSv1 cipher=ECDHE-RSA-AES256-SHA bits=256 verify=NOT);
- Thu, 16 May 2019 09:35:25 +0200
+ Thu, 16 May 2019 17:30:31 +0200
 Received: from zeta.dmz-eu.st.com (zeta.dmz-eu.st.com [164.129.230.9])
- by beta.dmz-eu.st.com (STMicroelectronics) with ESMTP id D39FA38;
- Thu, 16 May 2019 07:35:24 +0000 (GMT)
-Received: from Webmail-eu.st.com (sfhdag5node2.st.com [10.75.127.14])
- by zeta.dmz-eu.st.com (STMicroelectronics) with ESMTP id AF09312F6;
- Thu, 16 May 2019 07:35:24 +0000 (GMT)
-Received: from [10.48.1.93] (10.75.127.49) by SFHDAG5NODE2.st.com
- (10.75.127.14) with Microsoft SMTP Server (TLS) id 15.0.1347.2; Thu, 16 May
- 2019 09:35:23 +0200
-To: Fabrice Gasnier <fabrice.gasnier@st.com>, <wsa@the-dreams.de>
-References: <1557932949-15912-1-git-send-email-fabrice.gasnier@st.com>
-From: Pierre Yves MORDRET <pierre-yves.mordret@st.com>
-Message-ID: <f0f4f7cd-b151-87d4-e1e1-44969a0ba33b@st.com>
-Date: Thu, 16 May 2019 09:35:21 +0200
-User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:60.0) Gecko/20100101
- Thunderbird/60.6.1
+ by beta.dmz-eu.st.com (STMicroelectronics) with ESMTP id CDBEE34;
+ Thu, 16 May 2019 15:30:30 +0000 (GMT)
+Received: from Webmail-eu.st.com (sfhdag5node3.st.com [10.75.127.15])
+ by zeta.dmz-eu.st.com (STMicroelectronics) with ESMTP id ADED6285D;
+ Thu, 16 May 2019 15:30:30 +0000 (GMT)
+Received: from localhost (10.75.127.46) by SFHDAG5NODE3.st.com (10.75.127.15)
+ with Microsoft SMTP Server (TLS) id 15.0.1347.2;
+ Thu, 16 May 2019 17:30:30 +0200
+From: Fabrice Gasnier <fabrice.gasnier@st.com>
+To: <wsa@the-dreams.de>, <pierre-yves.mordret@st.com>
+Date: Thu, 16 May 2019 17:29:54 +0200
+Message-ID: <1558020594-1498-1-git-send-email-fabrice.gasnier@st.com>
+X-Mailer: git-send-email 2.7.4
 MIME-Version: 1.0
-In-Reply-To: <1557932949-15912-1-git-send-email-fabrice.gasnier@st.com>
-Content-Language: en-US
-X-Originating-IP: [10.75.127.49]
-X-ClientProxiedBy: SFHDAG8NODE3.st.com (10.75.127.24) To SFHDAG5NODE2.st.com
- (10.75.127.14)
+X-Originating-IP: [10.75.127.46]
+X-ClientProxiedBy: SFHDAG6NODE2.st.com (10.75.127.17) To SFHDAG5NODE3.st.com
+ (10.75.127.15)
 X-Proofpoint-Virus-Version: vendor=fsecure engine=2.50.10434:, ,
- definitions=2019-05-16_06:, , signatures=0
-Cc: linux-kernel@vger.kernel.org, linux-i2c@vger.kernel.org,
- mcoquelin.stm32@gmail.com, linux-stm32@st-md-mailman.stormreply.com,
- linux-arm-kernel@lists.infradead.org
-Subject: Re: [Linux-stm32] [PATCH] i2c: i2c-stm32f7: fix the get_irq error
+ definitions=2019-05-16_13:, , signatures=0
+Cc: marc.w.gonzalez@free.fr, linux-kernel@vger.kernel.org,
+ fabien.dessenne@st.com, linux-i2c@vger.kernel.org, mcoquelin.stm32@gmail.com,
+ linux-stm32@st-md-mailman.stormreply.com, linux-arm-kernel@lists.infradead.org
+Subject: [Linux-stm32] [PATCH v2] i2c: i2c-stm32f7: fix the get_irq error
 	cases
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
@@ -76,89 +71,88 @@ Content-Transfer-Encoding: 7bit
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
-Hi
+During probe, return the "get_irq" error value instead of -EINVAL which
+allows the driver to be deferred probed if needed.
+Fix also the case where of_irq_get() returns a negative value.
+Note :
+On failure of_irq_get() returns 0 or a negative value while
+platform_get_irq() returns a negative value.
+
+Fixes: aeb068c57214 ("i2c: i2c-stm32f7: add driver")
 
 Reviewed-by: Pierre-Yves MORDRET <pierre-yves.mordret@st.com>
+Signed-off-by: Fabien Dessenne <fabien.dessenne@st.com>
+Signed-off-by: Fabrice Gasnier <fabrice.gasnier@st.com>
+---
+Changes in v2:
+- Also check for irq == 0 that means "does not exist" as pointed out by
+  Marc
+---
+ drivers/i2c/busses/i2c-stm32f7.c | 26 ++++++++++++++------------
+ 1 file changed, 14 insertions(+), 12 deletions(-)
 
-Thanks
-Regards
+diff --git a/drivers/i2c/busses/i2c-stm32f7.c b/drivers/i2c/busses/i2c-stm32f7.c
+index 4284fc9..d7d7dd7 100644
+--- a/drivers/i2c/busses/i2c-stm32f7.c
++++ b/drivers/i2c/busses/i2c-stm32f7.c
+@@ -25,7 +25,6 @@
+ #include <linux/module.h>
+ #include <linux/of.h>
+ #include <linux/of_address.h>
+-#include <linux/of_irq.h>
+ #include <linux/of_platform.h>
+ #include <linux/platform_device.h>
+ #include <linux/pinctrl/consumer.h>
+@@ -1812,15 +1811,14 @@ static struct i2c_algorithm stm32f7_i2c_algo = {
+ 
+ static int stm32f7_i2c_probe(struct platform_device *pdev)
+ {
+-	struct device_node *np = pdev->dev.of_node;
+ 	struct stm32f7_i2c_dev *i2c_dev;
+ 	const struct stm32f7_i2c_setup *setup;
+ 	struct resource *res;
+-	u32 irq_error, irq_event, clk_rate, rise_time, fall_time;
++	u32 clk_rate, rise_time, fall_time;
+ 	struct i2c_adapter *adap;
+ 	struct reset_control *rst;
+ 	dma_addr_t phy_addr;
+-	int ret;
++	int irq_error, irq_event, ret;
+ 
+ 	i2c_dev = devm_kzalloc(&pdev->dev, sizeof(*i2c_dev), GFP_KERNEL);
+ 	if (!i2c_dev)
+@@ -1832,16 +1830,20 @@ static int stm32f7_i2c_probe(struct platform_device *pdev)
+ 		return PTR_ERR(i2c_dev->base);
+ 	phy_addr = (dma_addr_t)res->start;
+ 
+-	irq_event = irq_of_parse_and_map(np, 0);
+-	if (!irq_event) {
+-		dev_err(&pdev->dev, "IRQ event missing or invalid\n");
+-		return -EINVAL;
++	irq_event = platform_get_irq(pdev, 0);
++	if (irq_event <= 0) {
++		if (irq_event != -EPROBE_DEFER)
++			dev_err(&pdev->dev, "Failed to get IRQ event: %d\n",
++				irq_event);
++		return irq_event ? irq_event : -ENODEV;
+ 	}
+ 
+-	irq_error = irq_of_parse_and_map(np, 1);
+-	if (!irq_error) {
+-		dev_err(&pdev->dev, "IRQ error missing or invalid\n");
+-		return -EINVAL;
++	irq_error = platform_get_irq(pdev, 1);
++	if (irq_error <= 0) {
++		if (irq_error != -EPROBE_DEFER)
++			dev_err(&pdev->dev, "Failed to get IRQ error: %d\n",
++				irq_error);
++		return irq_error ? irq_error : -ENODEV;
+ 	}
+ 
+ 	i2c_dev->clk = devm_clk_get(&pdev->dev, NULL);
+-- 
+2.7.4
 
-On 5/15/19 5:09 PM, Fabrice Gasnier wrote:
-> During probe, return the "get_irq" error value instead of -EINVAL which
-> allows the driver to be deferred probed if needed.
-> Fix also the case where of_irq_get() returns a negative value.
-> Note :
-> On failure of_irq_get() returns 0 or a negative value while
-> platform_get_irq() returns a negative value.
-> 
-> Fixes: aeb068c57214 ("i2c: i2c-stm32f7: add driver")
-> 
-> Signed-off-by: Fabien Dessenne <fabien.dessenne@st.com>
-> Signed-off-by: Fabrice Gasnier <fabrice.gasnier@st.com>
-> ---
->  drivers/i2c/busses/i2c-stm32f7.c | 26 ++++++++++++++------------
->  1 file changed, 14 insertions(+), 12 deletions(-)
-> 
-> diff --git a/drivers/i2c/busses/i2c-stm32f7.c b/drivers/i2c/busses/i2c-stm32f7.c
-> index 4284fc9..14fb105 100644
-> --- a/drivers/i2c/busses/i2c-stm32f7.c
-> +++ b/drivers/i2c/busses/i2c-stm32f7.c
-> @@ -25,7 +25,6 @@
->  #include <linux/module.h>
->  #include <linux/of.h>
->  #include <linux/of_address.h>
-> -#include <linux/of_irq.h>
->  #include <linux/of_platform.h>
->  #include <linux/platform_device.h>
->  #include <linux/pinctrl/consumer.h>
-> @@ -1812,15 +1811,14 @@ static struct i2c_algorithm stm32f7_i2c_algo = {
->  
->  static int stm32f7_i2c_probe(struct platform_device *pdev)
->  {
-> -	struct device_node *np = pdev->dev.of_node;
->  	struct stm32f7_i2c_dev *i2c_dev;
->  	const struct stm32f7_i2c_setup *setup;
->  	struct resource *res;
-> -	u32 irq_error, irq_event, clk_rate, rise_time, fall_time;
-> +	u32 clk_rate, rise_time, fall_time;
->  	struct i2c_adapter *adap;
->  	struct reset_control *rst;
->  	dma_addr_t phy_addr;
-> -	int ret;
-> +	int irq_error, irq_event, ret;
->  
->  	i2c_dev = devm_kzalloc(&pdev->dev, sizeof(*i2c_dev), GFP_KERNEL);
->  	if (!i2c_dev)
-> @@ -1832,16 +1830,20 @@ static int stm32f7_i2c_probe(struct platform_device *pdev)
->  		return PTR_ERR(i2c_dev->base);
->  	phy_addr = (dma_addr_t)res->start;
->  
-> -	irq_event = irq_of_parse_and_map(np, 0);
-> -	if (!irq_event) {
-> -		dev_err(&pdev->dev, "IRQ event missing or invalid\n");
-> -		return -EINVAL;
-> +	irq_event = platform_get_irq(pdev, 0);
-> +	if (irq_event < 0) {
-> +		if (irq_event != -EPROBE_DEFER)
-> +			dev_err(&pdev->dev, "Failed to get IRQ event: %d\n",
-> +				irq_event);
-> +		return irq_event;
->  	}
->  
-> -	irq_error = irq_of_parse_and_map(np, 1);
-> -	if (!irq_error) {
-> -		dev_err(&pdev->dev, "IRQ error missing or invalid\n");
-> -		return -EINVAL;
-> +	irq_error = platform_get_irq(pdev, 1);
-> +	if (irq_error < 0) {
-> +		if (irq_error != -EPROBE_DEFER)
-> +			dev_err(&pdev->dev, "Failed to get IRQ error: %d\n",
-> +				irq_error);
-> +		return irq_error;
->  	}
->  
->  	i2c_dev->clk = devm_clk_get(&pdev->dev, NULL);
-> 
 _______________________________________________
 Linux-stm32 mailing list
 Linux-stm32@st-md-mailman.stormreply.com
