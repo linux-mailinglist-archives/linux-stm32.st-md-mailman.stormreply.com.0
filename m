@@ -2,42 +2,42 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id 9AA9021577
+	by mail.lfdr.de (Postfix) with ESMTPS id 9B11121578
 	for <lists+linux-stm32@lfdr.de>; Fri, 17 May 2019 10:42:29 +0200 (CEST)
 Received: from ip-172-31-3-76.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 49980C5F1F3
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 535AAC5F1F1
 	for <lists+linux-stm32@lfdr.de>; Fri, 17 May 2019 08:42:29 +0000 (UTC)
 Received: from mx07-00178001.pphosted.com (mx07-00178001.pphosted.com
  [62.209.51.94])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id C34A2C5F1F1
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id D8A45C5F1F2
  for <linux-stm32@st-md-mailman.stormreply.com>;
  Fri, 17 May 2019 08:42:27 +0000 (UTC)
-Received: from pps.filterd (m0046037.ppops.net [127.0.0.1])
+Received: from pps.filterd (m0046668.ppops.net [127.0.0.1])
  by mx07-00178001.pphosted.com (8.16.0.27/8.16.0.27) with SMTP id
- x4H8cHCH032135; Fri, 17 May 2019 10:42:14 +0200
+ x4H8bogK025564; Fri, 17 May 2019 10:42:17 +0200
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=st.com;
  h=from : to : cc : subject
  : date : message-id : in-reply-to : references : mime-version :
  content-type; s=STMicroelectronics;
- bh=khjS2R2nmPFjF18UlwbWNS8oKt8MGfK2JdwVwOgpfX8=;
- b=0s0WR2SAGdG4K5K+rDpmw5YLIelfBP6mStAD149fHzIw9W6XLR02QF4ztuwdUowvPJdK
- +TtFVylVSMndMuJqtp+NhbdjX3qwPF9qYNHKvaDmz1jL6JRJ6D7pbRcntHsSgY6zTKOW
- W5/s7Ri9t6CDTpTMUFRXntcHV7WeSborvad6UiibbY0dWnArvywVrZrprrzFbv4JHP/1
- GupuyL36KFdspFvdoTmLlBi1md16bslJvoCSkIbyTq+W+sPg3It8kZfCDl6NNHtVC9pT
- EjWpDxjHQNe2jA0/O26erQm/QGyoRl2QwGCDyA5dpI/q2gpW+7deTbkOsQyXIutj5vAt ZA== 
+ bh=CTjBmZ/8Y8sJIntk4HY3GIldUOqlwVPxpqC9dk1e2Xg=;
+ b=G/PiZd7z5KUU5PMAnzNhU3Dft+T4aENocyHsKOxqSEtQFCeM/f2YVFrHxNlhFv10Zzkl
+ LxF2twnLWbhHNTkNBixinxyfq3NMu+Btu6RYo7h+OPlf6SYQcDNNIUijARzN3tCR2rge
+ 4epWlQF8H74Bgbg5FuPhAVDxjnKi/YGmwjMsi1wqlZqhx7XJVfHhjrncYjt8FyM40tlK
+ 6CNWOMRZ+NJ7st2o4W/iIT1ybhNniqi/+9dsBu3OuO/DzkXys8nxLIAy5fY+NIS/i9HR
+ j56P30iE9LkAJ0AAkmS0E2BBu37EtLyfwEhtCh33dGUyNLTJOkvG+My8zT70UHvBnvIO SA== 
 Received: from beta.dmz-eu.st.com (beta.dmz-eu.st.com [164.129.1.35])
- by mx07-00178001.pphosted.com with ESMTP id 2sg0anjddk-1
+ by mx07-00178001.pphosted.com with ESMTP id 2sdkv0cf0s-1
  (version=TLSv1 cipher=ECDHE-RSA-AES256-SHA bits=256 verify=NOT);
- Fri, 17 May 2019 10:42:14 +0200
+ Fri, 17 May 2019 10:42:17 +0200
 Received: from zeta.dmz-eu.st.com (zeta.dmz-eu.st.com [164.129.230.9])
- by beta.dmz-eu.st.com (STMicroelectronics) with ESMTP id A639538;
- Fri, 17 May 2019 08:42:13 +0000 (GMT)
+ by beta.dmz-eu.st.com (STMicroelectronics) with ESMTP id BC7303F;
+ Fri, 17 May 2019 08:42:14 +0000 (GMT)
 Received: from Webmail-eu.st.com (sfhdag5node2.st.com [10.75.127.14])
- by zeta.dmz-eu.st.com (STMicroelectronics) with ESMTP id 81DE2246E;
- Fri, 17 May 2019 08:42:13 +0000 (GMT)
-Received: from localhost (10.75.127.51) by SFHDAG5NODE2.st.com (10.75.127.14)
+ by zeta.dmz-eu.st.com (STMicroelectronics) with ESMTP id 5EFD9246D;
+ Fri, 17 May 2019 08:42:14 +0000 (GMT)
+Received: from localhost (10.75.127.49) by SFHDAG5NODE2.st.com (10.75.127.14)
  with Microsoft SMTP Server (TLS) id 15.0.1347.2;
  Fri, 17 May 2019 10:42:13 +0200
 From: Pierre-Yves MORDRET <pierre-yves.mordret@st.com>
@@ -47,20 +47,20 @@ To: Maxime Coquelin <mcoquelin.stm32@gmail.com>, Alexandre Torgue
  <linux-stm32@st-md-mailman.stormreply.com>,
  <linux-arm-kernel@lists.infradead.org>, <devicetree@vger.kernel.org>,
  <linux-kernel@vger.kernel.org>
-Date: Fri, 17 May 2019 10:42:07 +0200
-Message-ID: <1558082528-12889-3-git-send-email-pierre-yves.mordret@st.com>
+Date: Fri, 17 May 2019 10:42:08 +0200
+Message-ID: <1558082528-12889-4-git-send-email-pierre-yves.mordret@st.com>
 X-Mailer: git-send-email 2.7.4
 In-Reply-To: <1558082528-12889-1-git-send-email-pierre-yves.mordret@st.com>
 References: <1558082528-12889-1-git-send-email-pierre-yves.mordret@st.com>
 MIME-Version: 1.0
-X-Originating-IP: [10.75.127.51]
-X-ClientProxiedBy: SFHDAG5NODE2.st.com (10.75.127.14) To SFHDAG5NODE2.st.com
+X-Originating-IP: [10.75.127.49]
+X-ClientProxiedBy: SFHDAG4NODE1.st.com (10.75.127.10) To SFHDAG5NODE2.st.com
  (10.75.127.14)
 X-Proofpoint-Virus-Version: vendor=fsecure engine=2.50.10434:, ,
  definitions=2019-05-17_04:, , signatures=0
 Cc: Pierre-Yves MORDRET <pierre-yves.mordret@st.com>
-Subject: [Linux-stm32] [RESEND v2 2/3] ARM: dts: stm32: enable Vivante GPU
-	support on stm32mp157c-ed1 board
+Subject: [Linux-stm32] [RESEND v2 3/3] ARM: dts: stm32: enable Vivante GPU
+	support on stm32mp157a-dk1 board
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -77,7 +77,7 @@ Content-Transfer-Encoding: 7bit
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
-Enable Vivante GPU driver for stm32mp157c-ed1 board.
+Enable Vivante GPU driver for stm32mp157a-dk1 and dk2 boards.
 
 Signed-off-by: Pierre-Yves MORDRET <pierre-yves.mordret@st.com>
 ---
@@ -89,15 +89,15 @@ Signed-off-by: Pierre-Yves MORDRET <pierre-yves.mordret@st.com>
        * Initial
 ---
 ---
- arch/arm/boot/dts/stm32mp157c-ed1.dts | 16 ++++++++++++++++
+ arch/arm/boot/dts/stm32mp157a-dk1.dts | 16 ++++++++++++++++
  1 file changed, 16 insertions(+)
 
-diff --git a/arch/arm/boot/dts/stm32mp157c-ed1.dts b/arch/arm/boot/dts/stm32mp157c-ed1.dts
-index 9fd7943..7bcc122 100644
---- a/arch/arm/boot/dts/stm32mp157c-ed1.dts
-+++ b/arch/arm/boot/dts/stm32mp157c-ed1.dts
-@@ -22,6 +22,17 @@
- 		reg = <0xC0000000 0x40000000>;
+diff --git a/arch/arm/boot/dts/stm32mp157a-dk1.dts b/arch/arm/boot/dts/stm32mp157a-dk1.dts
+index 1b1886d..bd06f7b 100644
+--- a/arch/arm/boot/dts/stm32mp157a-dk1.dts
++++ b/arch/arm/boot/dts/stm32mp157a-dk1.dts
+@@ -27,6 +27,17 @@
+ 		reg = <0xc0000000 0x20000000>;
  	};
  
 +	reserved-memory {
@@ -105,16 +105,16 @@ index 9fd7943..7bcc122 100644
 +		#size-cells = <1>;
 +		ranges;
 +
-+		gpu_reserved: gpu@e8000000 {
-+			reg = <0xe8000000 0x8000000>;
++		gpu_reserved: gpu@d4000000 {
++			reg = <0xd4000000 0x4000000>;
 +			no-map;
 +		};
 +	};
 +
- 	aliases {
- 		serial0 = &uart4;
- 	};
-@@ -76,6 +87,11 @@
+ 	led {
+ 		compatible = "gpio-leds";
+ 		blue {
+@@ -69,6 +80,11 @@
  	status = "okay";
  };
  
@@ -123,9 +123,9 @@ index 9fd7943..7bcc122 100644
 +	status = "okay";
 +};
 +
- &i2c4 {
- 	pinctrl-names = "default";
- 	pinctrl-0 = <&i2c4_pins_a>;
+ &iwdg2 {
+ 	timeout-sec = <32>;
+ 	status = "okay";
 -- 
 2.7.4
 
