@@ -2,63 +2,62 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id 687A2216D2
-	for <lists+linux-stm32@lfdr.de>; Fri, 17 May 2019 12:14:31 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id EA8F2219CB
+	for <lists+linux-stm32@lfdr.de>; Fri, 17 May 2019 16:28:05 +0200 (CEST)
 Received: from ip-172-31-3-76.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 3639CC0B763
-	for <lists+linux-stm32@lfdr.de>; Fri, 17 May 2019 10:14:31 +0000 (UTC)
-Received: from mail-qk1-f194.google.com (mail-qk1-f194.google.com
- [209.85.222.194])
- (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 42960C5B66F
+	for <lists+linux-stm32@lfdr.de>; Fri, 17 May 2019 14:28:05 +0000 (UTC)
+Received: from mx07-00178001.pphosted.com (mx08-00178001.pphosted.com
+ [91.207.212.93])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 774E2C0B762
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id BDFF5C5B66D
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Fri, 17 May 2019 10:14:29 +0000 (UTC)
-Received: by mail-qk1-f194.google.com with SMTP id d4so4072888qkc.9
- for <linux-stm32@st-md-mailman.stormreply.com>;
- Fri, 17 May 2019 03:14:29 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linaro.org; s=google;
- h=mime-version:references:in-reply-to:from:date:message-id:subject:to
- :cc:content-transfer-encoding;
- bh=c2AcJv21LbYCYD5C9Jjpp5BCKygW6luQM6iJ5dPZwlA=;
- b=lQncQYniggfzZ8LMfFNfPm8ZuE9Yt7gKDDYK2B1lpPhyV0V6lMzqpbaJnQQp9ken6D
- UviiUJLEW8Gn9oGUMRErMd2XDMk4cD2cIXOlUyk1MWyWe6ANmXrTTy4ouKnfbOXcG5uS
- +Hy1nXkwnLFxZFjtaTK4ro37s4NKGxt9bLqVgAfiW3Aa3k1qc/PsbbbOasjpV4v0oR2a
- pApLyVKvEFTZfCT8grgONhlyTFBToshHNZ4SxDANwweiL75sUBT/jtj909UDHI2KChbW
- xs9DFoJ+I3YDX1Gke7gHMGY5rKN7j/jTJHi+kY7D4GikXNTi+wQuwadOU9+JivSXorW5
- BUkA==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20161025;
- h=x-gm-message-state:mime-version:references:in-reply-to:from:date
- :message-id:subject:to:cc:content-transfer-encoding;
- bh=c2AcJv21LbYCYD5C9Jjpp5BCKygW6luQM6iJ5dPZwlA=;
- b=OpUFSok+LvHNQa13c235f7pwm6kUaSJsCcKcPqzMrvuu5eF8weTp0mCsIvtx62kj5f
- R0sIdv1FZzUKwIJK0PCgAD+msU4eQWmihQL/C/oKL7GpKmoQb7GBSEkRQCrt3GP+4HTJ
- MN4A09C6b3NlzC6xSNVV0CHaBpD8LDkNb+BOtov1bbc2vtzNbH0gejRKZQvs3Kyv1K/A
- uS3MuJiOysId4iKuG3p0SBgKXq29IIHrCNho4Fh3beLq6y3ZKjRmxbERSEVdMwUf7tB3
- 8hU5F0XRC/TyuTdmlvwO5lEro7Nfgl3OrlMYGjlqMcnbYnuGSQitrzPnGgbbm1SYlrrn
- UhpQ==
-X-Gm-Message-State: APjAAAUWyeoGYFIPectl3+bjHozQ3f3DE8SCJGIj4paRkWtsbERZlcc9
- f+hJUiD09yXNm1mI5h+9+a4yKXyhq5V6iiY4CF2Oww==
-X-Google-Smtp-Source: APXvYqxVWn2bvh4TLQU8hA7wU5xUDlGjdTmy4QhvkCVnfiI9qFaHAIv4QUUclL6iglzysUdQhZdbFUDPdGhnmrBs0bA=
-X-Received: by 2002:a37:a555:: with SMTP id o82mr22147311qke.93.1558088068450; 
- Fri, 17 May 2019 03:14:28 -0700 (PDT)
+ Fri, 17 May 2019 14:28:03 +0000 (UTC)
+Received: from pps.filterd (m0046661.ppops.net [127.0.0.1])
+ by mx08-00178001.pphosted.com (8.16.0.27/8.16.0.27) with SMTP id
+ x4HERpQb031441; Fri, 17 May 2019 16:27:57 +0200
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=st.com;
+ h=from : to : cc : subject
+ : date : message-id : mime-version : content-type; s=STMicroelectronics;
+ bh=PHl9sPgHer9rFMqdEvzOj0lO4FTuuyduSnOabIiiXhw=;
+ b=p5t1gmwqmGxokQhFfCkrI7yiriG0RYbcNo5rx3HMUGvFayKfcjfgd1p7piaE4dmB7St1
+ 672RfK5+QYYksRFpt0IT7oKXoQ3XRc+coG4Zi0WPbxiNADvigpVhP62/7EcPxqWc04xl
+ R0CAF9++5wW0CefUZZLO0MBvqXkHqQ3ksQzqUv0vH23VT+J+DR8K1geM0xYs/QCmCHnW
+ hqxAxjYMtCFoWd/Y/aZb6ieD95kMdoalFUU4d3hVK99SD3Ppus5RdODqhk/yWCWT5I2S
+ kL6xugwNFjI0Ehd2Ly5aSPeu9v3ZVn2tcxX1Y3kQpK2yoE3jr2FaSj4qy6siDNXc719K xQ== 
+Received: from beta.dmz-eu.st.com (beta.dmz-eu.st.com [164.129.1.35])
+ by mx08-00178001.pphosted.com with ESMTP id 2sdn9get5c-1
+ (version=TLSv1 cipher=ECDHE-RSA-AES256-SHA bits=256 verify=NOT);
+ Fri, 17 May 2019 16:27:57 +0200
+Received: from zeta.dmz-eu.st.com (zeta.dmz-eu.st.com [164.129.230.9])
+ by beta.dmz-eu.st.com (STMicroelectronics) with ESMTP id D12A23A;
+ Fri, 17 May 2019 14:27:56 +0000 (GMT)
+Received: from Webmail-eu.st.com (Safex1hubcas24.st.com [10.75.90.94])
+ by zeta.dmz-eu.st.com (STMicroelectronics) with ESMTP id AA5792C9F;
+ Fri, 17 May 2019 14:27:56 +0000 (GMT)
+Received: from SAFEX1HUBCAS23.st.com (10.75.90.47) by Safex1hubcas24.st.com
+ (10.75.90.94) with Microsoft SMTP Server (TLS) id 14.3.439.0; Fri, 17 May
+ 2019 16:27:56 +0200
+Received: from localhost (10.48.0.131) by webmail-ga.st.com (10.75.90.48) with
+ Microsoft SMTP Server (TLS) id 14.3.439.0;
+ Fri, 17 May 2019 16:27:56 +0200
+From: Arnaud Pouliquen <arnaud.pouliquen@st.com>
+To: Ohad Ben-Cohen <ohad@wizery.com>, Bjorn Andersson
+ <bjorn.andersson@linaro.org>, Greg Kroah-Hartman
+ <gregkh@linuxfoundation.org>, Jiri Slaby <jslaby@suse.com>, xiang xiao
+ <xiaoxiang781216@gmail.com>, <linux-kernel@vger.kernel.org>
+Date: Fri, 17 May 2019 16:27:44 +0200
+Message-ID: <1558103266-1613-1-git-send-email-arnaud.pouliquen@st.com>
+X-Mailer: git-send-email 2.7.4
 MIME-Version: 1.0
-References: <1557826556-10079-1-git-send-email-yannick.fertre@st.com>
- <1557826556-10079-3-git-send-email-yannick.fertre@st.com>
-In-Reply-To: <1557826556-10079-3-git-send-email-yannick.fertre@st.com>
-From: Benjamin Gaignard <benjamin.gaignard@linaro.org>
-Date: Fri, 17 May 2019 12:14:17 +0200
-Message-ID: <CA+M3ks5hQnqdLxefcCskmNJTw4FeXEgWp=8mUhm7y0JSR4vsKQ@mail.gmail.com>
-To: =?UTF-8?Q?Yannick_Fertr=C3=A9?= <yannick.fertre@st.com>
-Cc: Daniel Vetter <daniel@ffwll.ch>, David Airlie <airlied@linux.ie>,
- ML dri-devel <dri-devel@lists.freedesktop.org>,
- Linux Kernel Mailing List <linux-kernel@vger.kernel.org>,
- Maxime Coquelin <mcoquelin.stm32@gmail.com>,
- Vincent Abriou <vincent.abriou@st.com>,
+X-Originating-IP: [10.48.0.131]
+X-Proofpoint-Virus-Version: vendor=fsecure engine=2.50.10434:, ,
+ definitions=2019-05-17_08:, , signatures=0
+Cc: Alan Cox <gnomes@lxorguk.ukuu.org.uk>,
  linux-stm32@st-md-mailman.stormreply.com,
- Linux ARM <linux-arm-kernel@lists.infradead.org>
-Subject: Re: [Linux-stm32] [PATCH v4 2/2] drm/stm: dsi: add regulator support
+ Fabien DESSENNE <fabien.dessenne@st.com>
+Subject: [Linux-stm32] [PATCH v3 0/2] TTY: add rpmsg tty driver
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -70,104 +69,68 @@ List-Post: <mailto:linux-stm32@st-md-mailman.stormreply.com>
 List-Help: <mailto:linux-stm32-request@st-md-mailman.stormreply.com?subject=help>
 List-Subscribe: <https://st-md-mailman.stormreply.com/mailman/listinfo/linux-stm32>, 
  <mailto:linux-stm32-request@st-md-mailman.stormreply.com?subject=subscribe>
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: base64
+Content-Type: text/plain; charset="us-ascii"
+Content-Transfer-Encoding: 7bit
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
-TGUgbWFyLiAxNCBtYWkgMjAxOSDDoCAxMTozNiwgWWFubmljayBGZXJ0csOpIDx5YW5uaWNrLmZl
-cnRyZUBzdC5jb20+IGEgw6ljcml0IDoKPgo+IEFkZCBzdXBwb3J0IG9mIHJlZ3VsYXRvciBmb3Ig
-dGhlIHBoeSBwYXJ0IG9mIHRoZSBEU0kKPiBjb250cm9sbGVyLgo+Cj4gU2lnbmVkLW9mZi1ieTog
-WWFubmljayBGZXJ0csOpIDx5YW5uaWNrLmZlcnRyZUBzdC5jb20+Cj4gQWNrZWQtYnk6IFBoaWxp
-cHBlIENvcm51IDxwaGlsaXBwZS5jb3JudUBzdC5jb20+CkFwcGxpZWQgb24gZHJtLW1pc2MtbmV4
-dCwKClRoYW5rcywKQmVuamFtaW4KCj4gLS0tCj4gIGRyaXZlcnMvZ3B1L2RybS9zdG0vZHdfbWlw
-aV9kc2ktc3RtLmMgfCA2MCArKysrKysrKysrKysrKysrKysrKysrKysrKysrLS0tLS0tLQo+ICAx
-IGZpbGUgY2hhbmdlZCwgNDkgaW5zZXJ0aW9ucygrKSwgMTEgZGVsZXRpb25zKC0pCj4KPiBkaWZm
-IC0tZ2l0IGEvZHJpdmVycy9ncHUvZHJtL3N0bS9kd19taXBpX2RzaS1zdG0uYyBiL2RyaXZlcnMv
-Z3B1L2RybS9zdG0vZHdfbWlwaV9kc2ktc3RtLmMKPiBpbmRleCAxYmVmNzNlLi5kOGU0YTE0IDEw
-MDY0NAo+IC0tLSBhL2RyaXZlcnMvZ3B1L2RybS9zdG0vZHdfbWlwaV9kc2ktc3RtLmMKPiArKysg
-Yi9kcml2ZXJzL2dwdS9kcm0vc3RtL2R3X21pcGlfZHNpLXN0bS5jCj4gQEAgLTksNiArOSw3IEBA
-Cj4gICNpbmNsdWRlIDxsaW51eC9jbGsuaD4KPiAgI2luY2x1ZGUgPGxpbnV4L2lvcG9sbC5oPgo+
-ICAjaW5jbHVkZSA8bGludXgvbW9kdWxlLmg+Cj4gKyNpbmNsdWRlIDxsaW51eC9yZWd1bGF0b3Iv
-Y29uc3VtZXIuaD4KPiAgI2luY2x1ZGUgPGRybS9kcm1QLmg+Cj4gICNpbmNsdWRlIDxkcm0vZHJt
-X21pcGlfZHNpLmg+Cj4gICNpbmNsdWRlIDxkcm0vYnJpZGdlL2R3X21pcGlfZHNpLmg+Cj4gQEAg
-LTc2LDYgKzc3LDcgQEAgc3RydWN0IGR3X21pcGlfZHNpX3N0bSB7Cj4gICAgICAgICB1MzIgaHdf
-dmVyc2lvbjsKPiAgICAgICAgIGludCBsYW5lX21pbl9rYnBzOwo+ICAgICAgICAgaW50IGxhbmVf
-bWF4X2ticHM7Cj4gKyAgICAgICBzdHJ1Y3QgcmVndWxhdG9yICp2ZGRfc3VwcGx5Owo+ICB9Owo+
-Cj4gIHN0YXRpYyBpbmxpbmUgdm9pZCBkc2lfd3JpdGUoc3RydWN0IGR3X21pcGlfZHNpX3N0bSAq
-ZHNpLCB1MzIgcmVnLCB1MzIgdmFsKQo+IEBAIC0zMTQsMjEgKzMxNiwzNiBAQCBzdGF0aWMgaW50
-IGR3X21pcGlfZHNpX3N0bV9wcm9iZShzdHJ1Y3QgcGxhdGZvcm1fZGV2aWNlICpwZGV2KQo+ICAg
-ICAgICAgcmVzID0gcGxhdGZvcm1fZ2V0X3Jlc291cmNlKHBkZXYsIElPUkVTT1VSQ0VfTUVNLCAw
-KTsKPiAgICAgICAgIGRzaS0+YmFzZSA9IGRldm1faW9yZW1hcF9yZXNvdXJjZShkZXYsIHJlcyk7
-Cj4gICAgICAgICBpZiAoSVNfRVJSKGRzaS0+YmFzZSkpIHsKPiAtICAgICAgICAgICAgICAgRFJN
-X0VSUk9SKCJVbmFibGUgdG8gZ2V0IGRzaSByZWdpc3RlcnNcbiIpOwo+IC0gICAgICAgICAgICAg
-ICByZXR1cm4gUFRSX0VSUihkc2ktPmJhc2UpOwo+ICsgICAgICAgICAgICAgICByZXQgPSBQVFJf
-RVJSKGRzaS0+YmFzZSk7Cj4gKyAgICAgICAgICAgICAgIERSTV9FUlJPUigiVW5hYmxlIHRvIGdl
-dCBkc2kgcmVnaXN0ZXJzICVkXG4iLCByZXQpOwo+ICsgICAgICAgICAgICAgICByZXR1cm4gcmV0
-Owo+ICsgICAgICAgfQo+ICsKPiArICAgICAgIGRzaS0+dmRkX3N1cHBseSA9IGRldm1fcmVndWxh
-dG9yX2dldChkZXYsICJwaHktZHNpIik7Cj4gKyAgICAgICBpZiAoSVNfRVJSKGRzaS0+dmRkX3N1
-cHBseSkpIHsKPiArICAgICAgICAgICAgICAgcmV0ID0gUFRSX0VSUihkc2ktPnZkZF9zdXBwbHkp
-Owo+ICsgICAgICAgICAgICAgICBpZiAocmV0ICE9IC1FUFJPQkVfREVGRVIpCj4gKyAgICAgICAg
-ICAgICAgICAgICAgICAgRFJNX0VSUk9SKCJGYWlsZWQgdG8gcmVxdWVzdCByZWd1bGF0b3I6ICVk
-XG4iLCByZXQpOwo+ICsgICAgICAgICAgICAgICByZXR1cm4gcmV0Owo+ICsgICAgICAgfQo+ICsK
-PiArICAgICAgIHJldCA9IHJlZ3VsYXRvcl9lbmFibGUoZHNpLT52ZGRfc3VwcGx5KTsKPiArICAg
-ICAgIGlmIChyZXQpIHsKPiArICAgICAgICAgICAgICAgRFJNX0VSUk9SKCJGYWlsZWQgdG8gZW5h
-YmxlIHJlZ3VsYXRvcjogJWRcbiIsIHJldCk7Cj4gKyAgICAgICAgICAgICAgIHJldHVybiByZXQ7
-Cj4gICAgICAgICB9Cj4KPiAgICAgICAgIGRzaS0+cGxscmVmX2NsayA9IGRldm1fY2xrX2dldChk
-ZXYsICJyZWYiKTsKPiAgICAgICAgIGlmIChJU19FUlIoZHNpLT5wbGxyZWZfY2xrKSkgewo+ICAg
-ICAgICAgICAgICAgICByZXQgPSBQVFJfRVJSKGRzaS0+cGxscmVmX2Nsayk7Cj4gLSAgICAgICAg
-ICAgICAgIGRldl9lcnIoZGV2LCAiVW5hYmxlIHRvIGdldCBwbGwgcmVmZXJlbmNlIGNsb2NrOiAl
-ZFxuIiwgcmV0KTsKPiAtICAgICAgICAgICAgICAgcmV0dXJuIHJldDsKPiArICAgICAgICAgICAg
-ICAgRFJNX0VSUk9SKCJVbmFibGUgdG8gZ2V0IHBsbCByZWZlcmVuY2UgY2xvY2s6ICVkXG4iLCBy
-ZXQpOwo+ICsgICAgICAgICAgICAgICBnb3RvIGVycl9jbGtfZ2V0Owo+ICAgICAgICAgfQo+Cj4g
-ICAgICAgICByZXQgPSBjbGtfcHJlcGFyZV9lbmFibGUoZHNpLT5wbGxyZWZfY2xrKTsKPiAgICAg
-ICAgIGlmIChyZXQpIHsKPiAtICAgICAgICAgICAgICAgZGV2X2VycihkZXYsICIlczogRmFpbGVk
-IHRvIGVuYWJsZSBwbGxyZWZfY2xrXG4iLCBfX2Z1bmNfXyk7Cj4gLSAgICAgICAgICAgICAgIHJl
-dHVybiByZXQ7Cj4gKyAgICAgICAgICAgICAgIERSTV9FUlJPUigiRmFpbGVkIHRvIGVuYWJsZSBw
-bGxyZWZfY2xrOiAlZFxuIiwgcmV0KTsKPiArICAgICAgICAgICAgICAgZ290byBlcnJfY2xrX2dl
-dDsKPiAgICAgICAgIH0KPgo+ICAgICAgICAgZHdfbWlwaV9kc2lfc3RtX3BsYXRfZGF0YS5iYXNl
-ID0gZHNpLT5iYXNlOwo+IEBAIC0zMzgsMjAgKzM1NSwyOCBAQCBzdGF0aWMgaW50IGR3X21pcGlf
-ZHNpX3N0bV9wcm9iZShzdHJ1Y3QgcGxhdGZvcm1fZGV2aWNlICpwZGV2KQo+Cj4gICAgICAgICBk
-c2ktPmRzaSA9IGR3X21pcGlfZHNpX3Byb2JlKHBkZXYsICZkd19taXBpX2RzaV9zdG1fcGxhdF9k
-YXRhKTsKPiAgICAgICAgIGlmIChJU19FUlIoZHNpLT5kc2kpKSB7Cj4gLSAgICAgICAgICAgICAg
-IERSTV9FUlJPUigiRmFpbGVkIHRvIGluaXRpYWxpemUgbWlwaSBkc2kgaG9zdFxuIik7Cj4gLSAg
-ICAgICAgICAgICAgIGNsa19kaXNhYmxlX3VucHJlcGFyZShkc2ktPnBsbHJlZl9jbGspOwo+IC0g
-ICAgICAgICAgICAgICByZXR1cm4gUFRSX0VSUihkc2ktPmRzaSk7Cj4gKyAgICAgICAgICAgICAg
-IHJldCA9IFBUUl9FUlIoZHNpLT5kc2kpOwo+ICsgICAgICAgICAgICAgICBEUk1fRVJST1IoIkZh
-aWxlZCB0byBpbml0aWFsaXplIG1pcGkgZHNpIGhvc3Q6ICVkXG4iLCByZXQpOwo+ICsgICAgICAg
-ICAgICAgICBnb3RvIGVycl9kc2lfcHJvYmU7Cj4gICAgICAgICB9Cj4KPiAgICAgICAgIHJldHVy
-biAwOwo+ICsKPiArZXJyX2RzaV9wcm9iZToKPiArICAgICAgIGNsa19kaXNhYmxlX3VucHJlcGFy
-ZShkc2ktPnBsbHJlZl9jbGspOwo+ICtlcnJfY2xrX2dldDoKPiArICAgICAgIHJlZ3VsYXRvcl9k
-aXNhYmxlKGRzaS0+dmRkX3N1cHBseSk7Cj4gKwo+ICsgICAgICAgcmV0dXJuIHJldDsKPiAgfQo+
-Cj4gIHN0YXRpYyBpbnQgZHdfbWlwaV9kc2lfc3RtX3JlbW92ZShzdHJ1Y3QgcGxhdGZvcm1fZGV2
-aWNlICpwZGV2KQo+ICB7Cj4gICAgICAgICBzdHJ1Y3QgZHdfbWlwaV9kc2lfc3RtICpkc2kgPSBw
-bGF0Zm9ybV9nZXRfZHJ2ZGF0YShwZGV2KTsKPgo+IC0gICAgICAgY2xrX2Rpc2FibGVfdW5wcmVw
-YXJlKGRzaS0+cGxscmVmX2Nsayk7Cj4gICAgICAgICBkd19taXBpX2RzaV9yZW1vdmUoZHNpLT5k
-c2kpOwo+ICsgICAgICAgY2xrX2Rpc2FibGVfdW5wcmVwYXJlKGRzaS0+cGxscmVmX2Nsayk7Cj4g
-KyAgICAgICByZWd1bGF0b3JfZGlzYWJsZShkc2ktPnZkZF9zdXBwbHkpOwo+Cj4gICAgICAgICBy
-ZXR1cm4gMDsKPiAgfQo+IEBAIC0zNjMsNiArMzg4LDcgQEAgc3RhdGljIGludCBfX21heWJlX3Vu
-dXNlZCBkd19taXBpX2RzaV9zdG1fc3VzcGVuZChzdHJ1Y3QgZGV2aWNlICpkZXYpCj4gICAgICAg
-ICBEUk1fREVCVUdfRFJJVkVSKCJcbiIpOwo+Cj4gICAgICAgICBjbGtfZGlzYWJsZV91bnByZXBh
-cmUoZHNpLT5wbGxyZWZfY2xrKTsKPiArICAgICAgIHJlZ3VsYXRvcl9kaXNhYmxlKGRzaS0+dmRk
-X3N1cHBseSk7Cj4KPiAgICAgICAgIHJldHVybiAwOwo+ICB9Cj4gQEAgLTM3MCwxMCArMzk2LDIy
-IEBAIHN0YXRpYyBpbnQgX19tYXliZV91bnVzZWQgZHdfbWlwaV9kc2lfc3RtX3N1c3BlbmQoc3Ry
-dWN0IGRldmljZSAqZGV2KQo+ICBzdGF0aWMgaW50IF9fbWF5YmVfdW51c2VkIGR3X21pcGlfZHNp
-X3N0bV9yZXN1bWUoc3RydWN0IGRldmljZSAqZGV2KQo+ICB7Cj4gICAgICAgICBzdHJ1Y3QgZHdf
-bWlwaV9kc2lfc3RtICpkc2kgPSBkd19taXBpX2RzaV9zdG1fcGxhdF9kYXRhLnByaXZfZGF0YTsK
-PiArICAgICAgIGludCByZXQ7Cj4KPiAgICAgICAgIERSTV9ERUJVR19EUklWRVIoIlxuIik7Cj4K
-PiAtICAgICAgIGNsa19wcmVwYXJlX2VuYWJsZShkc2ktPnBsbHJlZl9jbGspOwo+ICsgICAgICAg
-cmV0ID0gcmVndWxhdG9yX2VuYWJsZShkc2ktPnZkZF9zdXBwbHkpOwo+ICsgICAgICAgaWYgKHJl
-dCkgewo+ICsgICAgICAgICAgICAgICBEUk1fRVJST1IoIkZhaWxlZCB0byBlbmFibGUgcmVndWxh
-dG9yOiAlZFxuIiwgcmV0KTsKPiArICAgICAgICAgICAgICAgcmV0dXJuIHJldDsKPiArICAgICAg
-IH0KPiArCj4gKyAgICAgICByZXQgPSBjbGtfcHJlcGFyZV9lbmFibGUoZHNpLT5wbGxyZWZfY2xr
-KTsKPiArICAgICAgIGlmIChyZXQpIHsKPiArICAgICAgICAgICAgICAgcmVndWxhdG9yX2Rpc2Fi
-bGUoZHNpLT52ZGRfc3VwcGx5KTsKPiArICAgICAgICAgICAgICAgRFJNX0VSUk9SKCJGYWlsZWQg
-dG8gZW5hYmxlIHBsbHJlZl9jbGs6ICVkXG4iLCByZXQpOwo+ICsgICAgICAgICAgICAgICByZXR1
-cm4gcmV0Owo+ICsgICAgICAgfQo+Cj4gICAgICAgICByZXR1cm4gMDsKPiAgfQo+IC0tCj4gMi43
-LjQKPgo+IF9fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fCj4g
-ZHJpLWRldmVsIG1haWxpbmcgbGlzdAo+IGRyaS1kZXZlbEBsaXN0cy5mcmVlZGVza3RvcC5vcmcK
-PiBodHRwczovL2xpc3RzLmZyZWVkZXNrdG9wLm9yZy9tYWlsbWFuL2xpc3RpbmZvL2RyaS1kZXZl
-bApfX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fXwpMaW51eC1z
-dG0zMiBtYWlsaW5nIGxpc3QKTGludXgtc3RtMzJAc3QtbWQtbWFpbG1hbi5zdG9ybXJlcGx5LmNv
-bQpodHRwczovL3N0LW1kLW1haWxtYW4uc3Rvcm1yZXBseS5jb20vbWFpbG1hbi9saXN0aW5mby9s
-aW51eC1zdG0zMgo=
+This patch set introduces a TTY console on top of the RPMsg framework which
+enables the following use cases:
+- Provide a console to communicate easily with the remote processor
+  application.
+- Provide an interface to get the remote processor log traces without
+  ring buffer limitation.
+- Ease the migration from MPU + MCU processors to multi core processors
+  (MPU and MCU integrated in one processor)
+
+An alternative of this proposed solution would consist in using the virtio
+console:
+The drawback with that solution is that it requires a specific virtio buffer
+(in addition to the one already used for RPMsg) which does not fit with remote
+processors with little memory. The proposed solution allows to multiplex the
+console with the other rpmsg services, optimizing the memory.
+
+The first patch adds an API to the rpmsg framework ('get buffer size') and the
+second one is the rpmsg tty driver itself.
+
+History:
+-V2 to V3:
+	- suppress error return on rpmsg callback as not tested in rpmsg framework
+	- change some flow messages level to debug
+	- add missing out of memory checks
+
+-V1 to V2:
+	- modify message structure to allow to data transmission but also
+	flow control
+	- add documentation file to describe message structure for remote
+	  implementation
+	- add dtr/rts management
+	- disable termios modes that generates non optimized behavior on RPMsg
+	  transfers
+	- replace rpmsg_send by rpmsg_trysend to not block the write
+	- suppress useless spinlock on read
+	- miscellaneous fixes to improve robustness
+
+Arnaud Pouliquen (2):
+  rpmsg: core: add possibility to get message payload length
+  tty: add rpmsg driver
+
+ Documentation/serial/tty_rpmsg.txt |  38 +++
+ drivers/rpmsg/rpmsg_core.c         |  20 ++
+ drivers/rpmsg/rpmsg_internal.h     |   2 +
+ drivers/rpmsg/virtio_rpmsg_bus.c   |  11 +
+ drivers/tty/Kconfig                |   9 +
+ drivers/tty/Makefile               |   1 +
+ drivers/tty/rpmsg_tty.c            | 479 +++++++++++++++++++++++++++++++++++++
+ include/linux/rpmsg.h              |  10 +
+ 8 files changed, 570 insertions(+)
+ create mode 100644 Documentation/serial/tty_rpmsg.txt
+ create mode 100644 drivers/tty/rpmsg_tty.c
+
+-- 
+2.7.4
+
+_______________________________________________
+Linux-stm32 mailing list
+Linux-stm32@st-md-mailman.stormreply.com
+https://st-md-mailman.stormreply.com/mailman/listinfo/linux-stm32
