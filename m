@@ -2,81 +2,38 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id C095123C07
-	for <lists+linux-stm32@lfdr.de>; Mon, 20 May 2019 17:27:47 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 70C2B2448D
+	for <lists+linux-stm32@lfdr.de>; Tue, 21 May 2019 01:50:15 +0200 (CEST)
 Received: from ip-172-31-3-76.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 84EC3C5E2D4
-	for <lists+linux-stm32@lfdr.de>; Mon, 20 May 2019 15:27:47 +0000 (UTC)
-Received: from mx07-00178001.pphosted.com (mx07-00178001.pphosted.com
- [62.209.51.94])
- (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 9B40FC63A42
+	for <lists+linux-stm32@lfdr.de>; Mon, 20 May 2019 23:50:13 +0000 (UTC)
+Received: from vps.xff.cz (vps.xff.cz [195.181.215.36])
+ (using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id DD3F9C5E2CE
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 3E488C63A41
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Mon, 20 May 2019 15:27:45 +0000 (UTC)
-Received: from pps.filterd (m0046037.ppops.net [127.0.0.1])
- by mx07-00178001.pphosted.com (8.16.0.27/8.16.0.27) with SMTP id
- x4KFLfDZ012618; Mon, 20 May 2019 17:27:19 +0200
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=st.com;
- h=from : to : cc : subject
- : date : message-id : references : in-reply-to : content-type :
- content-transfer-encoding : mime-version; s=STMicroelectronics;
- bh=Wcu5oEUF6XRVV7E1tKSPLsOlMzvEqIXsC6he8uYfnbE=;
- b=m+eyy6w4Mbf9I9nvYPMkZncCtVYKi4Q2vWUovXFOesGoLrtByXHN/nAi4KaJL3QzB1zC
- h87cRd3iPYuBS5oTZ+fzoKumjOivkw/5jMIwSNl1OpxXnpHTfiwcpJeqYk2KhD0reYPr
- EEeP/lG7PTJS6NSlmUM2E3Koe+qTuFYhJPLFd4pNo/5B4n6o1SkEte2RjKrtzogb8ZZw
- UQzzDvXMdx3z3s+6ZOGP2fxPWpYntd9OYZ3T9QU3p2QkHwcnla9HkW+c2vlTVZifvm1/
- fia4DeIkgaOcw9Zcde2iJGUMZzHJg5OGGU/1CGEEhlq3680osi5YFsMjmuMpHDgok7HW 6Q== 
-Received: from beta.dmz-eu.st.com (beta.dmz-eu.st.com [164.129.1.35])
- by mx07-00178001.pphosted.com with ESMTP id 2sj7ttv8tq-1
- (version=TLSv1 cipher=ECDHE-RSA-AES256-SHA bits=256 verify=NOT);
- Mon, 20 May 2019 17:27:19 +0200
-Received: from zeta.dmz-eu.st.com (zeta.dmz-eu.st.com [164.129.230.9])
- by beta.dmz-eu.st.com (STMicroelectronics) with ESMTP id 2EFB23F;
- Mon, 20 May 2019 15:27:19 +0000 (GMT)
-Received: from Webmail-eu.st.com (sfhdag3node1.st.com [10.75.127.7])
- by zeta.dmz-eu.st.com (STMicroelectronics) with ESMTP id 0A4C12BAC;
- Mon, 20 May 2019 15:27:19 +0000 (GMT)
-Received: from SFHDAG5NODE1.st.com (10.75.127.13) by SFHDAG3NODE1.st.com
- (10.75.127.7) with Microsoft SMTP Server (TLS) id 15.0.1347.2; Mon, 20 May
- 2019 17:27:18 +0200
-Received: from SFHDAG5NODE1.st.com ([fe80::cc53:528c:36c8:95f6]) by
- SFHDAG5NODE1.st.com ([fe80::cc53:528c:36c8:95f6%20]) with mapi id
- 15.00.1347.000; Mon, 20 May 2019 17:27:18 +0200
-From: Gerald BAEZA <gerald.baeza@st.com>
-To: "will.deacon@arm.com" <will.deacon@arm.com>, "mark.rutland@arm.com"
- <mark.rutland@arm.com>, "robh+dt@kernel.org" <robh+dt@kernel.org>,
- "mcoquelin.stm32@gmail.com" <mcoquelin.stm32@gmail.com>, Alexandre TORGUE
- <alexandre.torgue@st.com>, "corbet@lwn.net" <corbet@lwn.net>,
- "linux@armlinux.org.uk" <linux@armlinux.org.uk>, "olof@lixom.net"
- <olof@lixom.net>,
- "horms+renesas@verge.net.au" <horms+renesas@verge.net.au>,
- "arnd@arndb.de" <arnd@arndb.de>
-Thread-Topic: [PATCH v2 5/5] ARM: dts: stm32: add ddrperfm on stm32mp157c
-Thread-Index: AQHVDyCCaooiUmBaFEePA6987tY5VA==
-Date: Mon, 20 May 2019 15:27:18 +0000
-Message-ID: <1558366019-24214-6-git-send-email-gerald.baeza@st.com>
-References: <1558366019-24214-1-git-send-email-gerald.baeza@st.com>
-In-Reply-To: <1558366019-24214-1-git-send-email-gerald.baeza@st.com>
-Accept-Language: fr-FR, en-US
-Content-Language: en-US
-X-MS-Has-Attach: 
-X-MS-TNEF-Correlator: 
-x-ms-exchange-messagesentrepresentingtype: 1
-x-ms-exchange-transport-fromentityheader: Hosted
-x-originating-ip: [10.75.127.45]
+ Mon, 20 May 2019 23:50:12 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=megous.com; s=mail;
+ t=1558396211; bh=+aeg2Woz3+t2JiBhDAFfN1sYNAy9B08eCt2djEk7ne0=;
+ h=From:To:Cc:Subject:Date:From;
+ b=pybKZZw/LV6TBhvgmgqJqq0Elr1IZbcbZjytlPDYuLCiQrEktOxUx9aYh+OKJP7iB
+ HktF4znuabQM0ww4K6UTzqoCzjgVM7nEb8lDvTGNExpmE6acHDjcakz3c6EYxVHJUx
+ pggpD1ZjE7l1h6Kcx5kXciPEgUleZpI6+ahkEyLs=
+From: megous@megous.com
+To: linux-sunxi@googlegroups.com, Maxime Ripard <maxime.ripard@bootlin.com>,
+ Chen-Yu Tsai <wens@csie.org>, Rob Herring <robh+dt@kernel.org>
+Date: Tue, 21 May 2019 01:50:03 +0200
+Message-Id: <20190520235009.16734-1-megous@megous.com>
 MIME-Version: 1.0
-X-Proofpoint-Virus-Version: vendor=fsecure engine=2.50.10434:, ,
- definitions=2019-05-20_07:, , signatures=0
-Cc: "devicetree@vger.kernel.org" <devicetree@vger.kernel.org>,
- "linux-doc@vger.kernel.org" <linux-doc@vger.kernel.org>,
- "linux-kernel@vger.kernel.org" <linux-kernel@vger.kernel.org>,
- Gerald BAEZA <gerald.baeza@st.com>,
- "linux-stm32@st-md-mailman.stormreply.com"
- <linux-stm32@st-md-mailman.stormreply.com>,
- "linux-arm-kernel@lists.infradead.org" <linux-arm-kernel@lists.infradead.org>
-Subject: [Linux-stm32] [PATCH v2 5/5] ARM: dts: stm32: add ddrperfm on
-	stm32mp157c
+Cc: Ondrej Jirman <megous@megous.com>, Mark Rutland <mark.rutland@arm.com>,
+ devicetree@vger.kernel.org, David Airlie <airlied@linux.ie>,
+ netdev@vger.kernel.org, linux-kernel@vger.kernel.org,
+ dri-devel@lists.freedesktop.org, linux-stm32@st-md-mailman.stormreply.com,
+ Jose Abreu <joabreu@synopsys.com>, linux-arm-kernel@lists.infradead.org,
+ Daniel Vetter <daniel@ffwll.ch>, Giuseppe Cavallaro <peppe.cavallaro@st.com>,
+ "David S. Miller" <davem@davemloft.net>,
+ Maxime Coquelin <mcoquelin.stm32@gmail.com>
+Subject: [Linux-stm32] [PATCH v5 0/6] Add support for Orange Pi 3
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -93,36 +50,90 @@ Content-Transfer-Encoding: 7bit
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
-The DDRPERFM is the DDR Performance Monitor embedded
-in STM32MP1 SOC.
+From: Ondrej Jirman <megous@megous.com>
 
-Signed-off-by: Gerald Baeza <gerald.baeza@st.com>
----
- arch/arm/boot/dts/stm32mp157c.dtsi | 9 +++++++++
- 1 file changed, 9 insertions(+)
+This series implements support for Xunlong Orange Pi 3 board.
 
-diff --git a/arch/arm/boot/dts/stm32mp157c.dtsi b/arch/arm/boot/dts/stm32mp157c.dtsi
-index 2afeee6..7dad246 100644
---- a/arch/arm/boot/dts/stm32mp157c.dtsi
-+++ b/arch/arm/boot/dts/stm32mp157c.dtsi
-@@ -1198,6 +1198,15 @@
- 			};
- 		};
- 
-+		ddrperfm: perf@5a007000 {
-+			compatible = "st,stm32-ddr-pmu";
-+			reg = <0x5a007000 0x400>;
-+			clocks = <&rcc DDRPERFM>, <&rcc PLL2_R>;
-+			clock-names = "bus", "ddr";
-+			resets = <&rcc DDRPERFM_R>;
-+			status = "okay";
-+		};
-+
- 		usart1: serial@5c000000 {
- 			compatible = "st,stm32h7-uart";
- 			reg = <0x5c000000 0x400>;
+Unfortunately, this board needs some small driver patches, so I have
+split the boards DT patch into chunks that require patches for drivers
+in various subsystems.
+
+Suggested merging plan/dependencies:
+
+- stmmac patches are needed for ethernet support (patches 1-3)
+  - these should be ready now
+- HDMI support (patches 4-6)
+  - needs DT and driver review
+
+Changes in v2:
+- added dt-bindings documentation for the board's compatible string
+  (suggested by Clement)
+- addressed checkpatch warnings and code formatting issues (on Maxime's
+  suggestions)
+- stmmac: dropped useless parenthesis, reworded description of the patch
+  (suggested by Sergei)
+- drop useles dev_info() about the selected io bias voltage
+- docummented io voltage bias selection variant macros
+- wifi: marked WiFi DTS patch and realted mmc1_pins as "DO NOT MERGE",
+  because wifi depends on H6 RTC support that's not merged yet (suggested
+  by Clement)
+- added missing signed-of-bys
+- changed &usb2otg dr_mode to otg, and added a note about VBUS
+- improved wording of HDMI driver's DDC power supply patch
+
+Changes in v3:
+- dropped already applied patches
+- changed pinctrl I/O bias selection constants to enum and renamed
+- added /omit-if-no-ref/ to mmc1_pins
+- made mmc1_pins default pinconf for mmc1 in H6 dtsi
+- move ddc-supply to HDMI connector node, updated patch descriptions,
+  changed dt-bindings docs
+
+Changes in v4:
+- fix checkpatch warnings/style issues
+- use enum in struct sunxi_desc_function for io_bias_cfg_variant
+- collected acked-by's
+- fix compile error in drivers/pinctrl/sunxi/pinctrl-sun9i-a80-r.c:156
+  caused by missing conversion from has_io_bias_cfg struct member
+  (I've kept the acked-by, because it's a trivial change, but feel free
+  to object.) (reported by Martin A. on github)
+  I did not have A80 pinctrl enabled for some reason, so I did not catch
+  this sooner.
+- dropped brcm firmware patch (was already applied)
+- dropped the wifi dts patch (will re-send after H6 RTC gets merged,
+  along with bluetooth support, in a separate series)
+
+Changes in v5:
+- dropped already applied patches (pinctrl patches, mmc1 pinconf patch)
+- rename GMAC-3V3 -> GMAC-3V to match the schematic (Jagan)
+- changed hdmi-connector's ddc-supply property to ddc-en-gpios
+  (Rob Herring)
+
+Please take a look.
+
+thank you and regards,
+  Ondrej Jirman
+
+Icenowy Zheng (2):
+  net: stmmac: sun8i: add support for Allwinner H6 EMAC
+  net: stmmac: sun8i: force select external PHY when no internal one
+
+Ondrej Jirman (4):
+  arm64: dts: allwinner: orange-pi-3: Enable ethernet
+  dt-bindings: display: hdmi-connector: Support DDC bus enable
+  drm: sun4i: Add support for enabling DDC I2C bus to sun8i_dw_hdmi glue
+  arm64: dts: allwinner: orange-pi-3: Enable HDMI output
+
+ .../display/connector/hdmi-connector.txt      |  1 +
+ .../dts/allwinner/sun50i-h6-orangepi-3.dts    | 70 +++++++++++++++++++
+ drivers/gpu/drm/sun4i/sun8i_dw_hdmi.c         | 55 ++++++++++++++-
+ drivers/gpu/drm/sun4i/sun8i_dw_hdmi.h         |  3 +
+ .../net/ethernet/stmicro/stmmac/dwmac-sun8i.c | 21 ++++++
+ 5 files changed, 147 insertions(+), 3 deletions(-)
+
 -- 
-2.7.4
+2.21.0
+
 _______________________________________________
 Linux-stm32 mailing list
 Linux-stm32@st-md-mailman.stormreply.com
