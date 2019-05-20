@@ -2,41 +2,81 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id 0077423A11
-	for <lists+linux-stm32@lfdr.de>; Mon, 20 May 2019 16:32:00 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id ACF4023C03
+	for <lists+linux-stm32@lfdr.de>; Mon, 20 May 2019 17:27:45 +0200 (CEST)
 Received: from ip-172-31-3-76.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id A3BD5C5E2AC
-	for <lists+linux-stm32@lfdr.de>; Mon, 20 May 2019 14:31:59 +0000 (UTC)
-Received: from relay5-d.mail.gandi.net (relay5-d.mail.gandi.net
- [217.70.183.197])
- (using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 57320C5E2CD
+	for <lists+linux-stm32@lfdr.de>; Mon, 20 May 2019 15:27:45 +0000 (UTC)
+Received: from mx07-00178001.pphosted.com (mx08-00178001.pphosted.com
+ [91.207.212.93])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 92EDEC5E2AB
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 5D552C5E2CC
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Mon, 20 May 2019 14:31:58 +0000 (UTC)
-X-Originating-IP: 90.88.22.185
-Received: from xps13 (aaubervilliers-681-1-80-185.w90-88.abo.wanadoo.fr
- [90.88.22.185]) (Authenticated sender: miquel.raynal@bootlin.com)
- by relay5-d.mail.gandi.net (Postfix) with ESMTPSA id 3B8801C001A;
- Mon, 20 May 2019 14:31:52 +0000 (UTC)
-Date: Mon, 20 May 2019 16:31:51 +0200
-From: Miquel Raynal <miquel.raynal@bootlin.com>
-To: Fabien Dessenne <fabien.dessenne@st.com>
-Message-ID: <20190520163151.7408b005@xps13>
-In-Reply-To: <1556117346-5608-1-git-send-email-fabien.dessenne@st.com>
-References: <1556117346-5608-1-git-send-email-fabien.dessenne@st.com>
-Organization: Bootlin
-X-Mailer: Claws Mail 3.17.1 (GTK+ 2.24.32; x86_64-pc-linux-gnu)
+ Mon, 20 May 2019 15:27:44 +0000 (UTC)
+Received: from pps.filterd (m0046661.ppops.net [127.0.0.1])
+ by mx08-00178001.pphosted.com (8.16.0.27/8.16.0.27) with SMTP id
+ x4KFLJQj031963; Mon, 20 May 2019 17:27:19 +0200
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=st.com;
+ h=from : to : cc : subject
+ : date : message-id : references : in-reply-to : content-type :
+ content-transfer-encoding : mime-version; s=STMicroelectronics;
+ bh=LkTdd7E2MxZuZ4AhmICRbNTuZ1ixfkA53WYKdrN9npk=;
+ b=Dqs5gJtazuH92by9IDSNRvPO/j/HtIJpg+wTeVFrAQF9ZLMLW+zgdbWwbrMlFlXA/hb6
+ zGAmgEHwWpyBSIah5OWEllDOVwNU0xfeHhSniDYFEGn+e3KPKGyzAvNPi2FJjwhZJMQQ
+ Fc+7gCUpyJbs+LQGhRN2UxuL6pqKL/yzTzol0v0eXwaKHACq9grjNFyZNFlUArkgjY+1
+ 4VNMmDGMvjFicm25D6Som/4o+6S/GlVMcPjNOzl/ehB6CuLAdNZ4+NNkuQjMmFd9Gt7/
+ fOQna5khAGhlly1NkTOr6pK6awl1myTR6wl5vD12cz6b8k3leDcAPRi5qiSovflVPi+Y uw== 
+Received: from beta.dmz-eu.st.com (beta.dmz-eu.st.com [164.129.1.35])
+ by mx08-00178001.pphosted.com with ESMTP id 2sj8xg450b-1
+ (version=TLSv1 cipher=ECDHE-RSA-AES256-SHA bits=256 verify=NOT);
+ Mon, 20 May 2019 17:27:19 +0200
+Received: from zeta.dmz-eu.st.com (zeta.dmz-eu.st.com [164.129.230.9])
+ by beta.dmz-eu.st.com (STMicroelectronics) with ESMTP id C51AC3A;
+ Mon, 20 May 2019 15:27:16 +0000 (GMT)
+Received: from Webmail-eu.st.com (sfhdag5node3.st.com [10.75.127.15])
+ by zeta.dmz-eu.st.com (STMicroelectronics) with ESMTP id 955D32BAD;
+ Mon, 20 May 2019 15:27:16 +0000 (GMT)
+Received: from SFHDAG5NODE1.st.com (10.75.127.13) by SFHDAG5NODE3.st.com
+ (10.75.127.15) with Microsoft SMTP Server (TLS) id 15.0.1347.2; Mon, 20 May
+ 2019 17:27:16 +0200
+Received: from SFHDAG5NODE1.st.com ([fe80::cc53:528c:36c8:95f6]) by
+ SFHDAG5NODE1.st.com ([fe80::cc53:528c:36c8:95f6%20]) with mapi id
+ 15.00.1347.000; Mon, 20 May 2019 17:27:16 +0200
+From: Gerald BAEZA <gerald.baeza@st.com>
+To: "will.deacon@arm.com" <will.deacon@arm.com>, "mark.rutland@arm.com"
+ <mark.rutland@arm.com>, "robh+dt@kernel.org" <robh+dt@kernel.org>,
+ "mcoquelin.stm32@gmail.com" <mcoquelin.stm32@gmail.com>, Alexandre TORGUE
+ <alexandre.torgue@st.com>, "corbet@lwn.net" <corbet@lwn.net>,
+ "linux@armlinux.org.uk" <linux@armlinux.org.uk>, "olof@lixom.net"
+ <olof@lixom.net>,
+ "horms+renesas@verge.net.au" <horms+renesas@verge.net.au>,
+ "arnd@arndb.de" <arnd@arndb.de>
+Thread-Topic: [PATCH v2 1/5] Documentation: perf: stm32: ddrperfm support
+Thread-Index: AQHVDyCBNdrf91E160uuVjvaW40lug==
+Date: Mon, 20 May 2019 15:27:15 +0000
+Message-ID: <1558366019-24214-2-git-send-email-gerald.baeza@st.com>
+References: <1558366019-24214-1-git-send-email-gerald.baeza@st.com>
+In-Reply-To: <1558366019-24214-1-git-send-email-gerald.baeza@st.com>
+Accept-Language: fr-FR, en-US
+Content-Language: en-US
+X-MS-Has-Attach: 
+X-MS-TNEF-Correlator: 
+x-ms-exchange-messagesentrepresentingtype: 1
+x-ms-exchange-transport-fromentityheader: Hosted
+x-originating-ip: [10.75.127.45]
 MIME-Version: 1.0
-Cc: Boris Brezillon <bbrezillon@kernel.org>,
- Richard Weinberger <richard@nod.at>, linux-kernel@vger.kernel.org,
- Marek Vasut <marek.vasut@gmail.com>, linux-mtd@lists.infradead.org,
- Maxime Coquelin <mcoquelin.stm32@gmail.com>,
- Brian Norris <computersforpeace@gmail.com>,
- David Woodhouse <dwmw2@infradead.org>,
- linux-stm32@st-md-mailman.stormreply.com, linux-arm-kernel@lists.infradead.org
-Subject: Re: [Linux-stm32] [PATCH] mtd: rawnand: stm32_fmc2: manage the
-	get_irq error case
+X-Proofpoint-Virus-Version: vendor=fsecure engine=2.50.10434:, ,
+ definitions=2019-05-20_07:, , signatures=0
+Cc: "devicetree@vger.kernel.org" <devicetree@vger.kernel.org>,
+ "linux-doc@vger.kernel.org" <linux-doc@vger.kernel.org>,
+ "linux-kernel@vger.kernel.org" <linux-kernel@vger.kernel.org>,
+ Gerald BAEZA <gerald.baeza@st.com>,
+ "linux-stm32@st-md-mailman.stormreply.com"
+ <linux-stm32@st-md-mailman.stormreply.com>,
+ "linux-arm-kernel@lists.infradead.org" <linux-arm-kernel@lists.infradead.org>
+Subject: [Linux-stm32] [PATCH v2 1/5] Documentation: perf: stm32: ddrperfm
+	support
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -48,28 +88,72 @@ List-Post: <mailto:linux-stm32@st-md-mailman.stormreply.com>
 List-Help: <mailto:linux-stm32-request@st-md-mailman.stormreply.com?subject=help>
 List-Subscribe: <https://st-md-mailman.stormreply.com/mailman/listinfo/linux-stm32>, 
  <mailto:linux-stm32-request@st-md-mailman.stormreply.com?subject=subscribe>
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: base64
+Content-Type: text/plain; charset="us-ascii"
+Content-Transfer-Encoding: 7bit
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
-SGkgRmFiaWVuLAoKRmFiaWVuIERlc3Nlbm5lIDxmYWJpZW4uZGVzc2VubmVAc3QuY29tPiB3cm90
-ZSBvbiBXZWQsIDI0IEFwciAyMDE5CjE2OjQ5OjA2ICswMjAwOgoKPiBEdXJpbmcgcHJvYmUsIGNo
-ZWNrIHRoZSAiZ2V0X2lycSIgZXJyb3IgdmFsdWUuCj4gCj4gU2lnbmVkLW9mZi1ieTogRmFiaWVu
-IERlc3Nlbm5lIDxmYWJpZW4uZGVzc2VubmVAc3QuY29tPgo+IC0tLQo+ICBkcml2ZXJzL210ZC9u
-YW5kL3Jhdy9zdG0zMl9mbWMyX25hbmQuYyB8IDYgKysrKysrCj4gIDEgZmlsZSBjaGFuZ2VkLCA2
-IGluc2VydGlvbnMoKykKPiAKPiBkaWZmIC0tZ2l0IGEvZHJpdmVycy9tdGQvbmFuZC9yYXcvc3Rt
-MzJfZm1jMl9uYW5kLmMgYi9kcml2ZXJzL210ZC9uYW5kL3Jhdy9zdG0zMl9mbWMyX25hbmQuYwo+
-IGluZGV4IDk5OWNhNmEuLjRhYWJlYTIgMTAwNjQ0Cj4gLS0tIGEvZHJpdmVycy9tdGQvbmFuZC9y
-YXcvc3RtMzJfZm1jMl9uYW5kLmMKPiArKysgYi9kcml2ZXJzL210ZC9uYW5kL3Jhdy9zdG0zMl9m
-bWMyX25hbmQuYwo+IEBAIC0xOTA5LDYgKzE5MDksMTIgQEAgc3RhdGljIGludCBzdG0zMl9mbWMy
-X3Byb2JlKHN0cnVjdCBwbGF0Zm9ybV9kZXZpY2UgKnBkZXYpCj4gIAl9Cj4gIAo+ICAJaXJxID0g
-cGxhdGZvcm1fZ2V0X2lycShwZGV2LCAwKTsKPiArCWlmIChpcnEgPCAwKSB7Cj4gKwkJaWYgKGly
-cSAhPSAtRVBST0JFX0RFRkVSKQo+ICsJCQlkZXZfZXJyKGRldiwgIklSUSBlcnJvciBtaXNzaW5n
-IG9yIGludmFsaWRcbiIpOwo+ICsJCXJldHVybiBpcnE7Cj4gKwl9Cj4gKwo+ICAJcmV0ID0gZGV2
-bV9yZXF1ZXN0X2lycShkZXYsIGlycSwgc3RtMzJfZm1jMl9pcnEsIDAsCj4gIAkJCSAgICAgICBk
-ZXZfbmFtZShkZXYpLCBmbWMyKTsKPiAgCWlmIChyZXQpIHsKCgpBcHBsaWVkIHRvIG5hbmQvbmV4
-dC4KClRoYW5rcywKTWlxdcOobApfX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19f
-X19fX19fX19fXwpMaW51eC1zdG0zMiBtYWlsaW5nIGxpc3QKTGludXgtc3RtMzJAc3QtbWQtbWFp
-bG1hbi5zdG9ybXJlcGx5LmNvbQpodHRwczovL3N0LW1kLW1haWxtYW4uc3Rvcm1yZXBseS5jb20v
-bWFpbG1hbi9saXN0aW5mby9saW51eC1zdG0zMgo=
+The DDRPERFM is the DDR Performance Monitor embedded in STM32MP1 SOC.
+
+This documentation introduces the DDRPERFM, the stm32-ddr-pmu driver
+supporting it and how to use it with the perf tool.
+
+Signed-off-by: Gerald Baeza <gerald.baeza@st.com>
+---
+ Documentation/perf/stm32-ddr-pmu.txt | 41 ++++++++++++++++++++++++++++++++++++
+ 1 file changed, 41 insertions(+)
+ create mode 100644 Documentation/perf/stm32-ddr-pmu.txt
+
+diff --git a/Documentation/perf/stm32-ddr-pmu.txt b/Documentation/perf/stm32-ddr-pmu.txt
+new file mode 100644
+index 0000000..d5b35b3
+--- /dev/null
++++ b/Documentation/perf/stm32-ddr-pmu.txt
+@@ -0,0 +1,41 @@
++STM32 DDR Performance Monitor (DDRPERFM)
++========================================
++
++The DDRPERFM is the DDR Performance Monitor embedded in STM32MP1 SOC.
++See STM32MP157 reference manual RM0436 to get a description of this peripheral.
++
++
++The five following counters are supported by stm32-ddr-pmu driver:
++	cnt0: read operations counters		(read_cnt)
++	cnt1: write operations counters		(write_cnt)
++	cnt2: active state counters		(activate_cnt)
++	cnt3: idle state counters		(idle_cnt)
++	tcnt: time count, present for all sets	(time_cnt)
++
++The stm32-ddr-pmu driver relies on the perf PMU framework to expose the
++counters via sysfs:
++	$ ls /sys/bus/event_source/devices/ddrperfm/events
++	activate_cnt  idle_cnt  read_cnt  time_cnt  write_cnt
++
++
++The perf PMU framework is usually invoked via the 'perf stat' tool.
++
++The DDRPERFM is a system monitor that cannot isolate the traffic coming from a
++given thread or CPU, that is why stm32-ddr-pmu driver rejects any 'perf stat'
++call that does not request a system-wide collection: the '-a, --all-cpus'
++option is mandatory!
++
++Example:
++	$ perf stat -e ddrperfm/read_cnt/,ddrperfm/time_cnt/ -a sleep 20
++	Performance counter stats for 'system wide':
++
++	         342541560      ddrperfm/read_cnt/
++	       10660011400      ddrperfm/time_cnt/
++
++	      20.021068551 seconds time elapsed
++
++
++The driver also exposes a 'bandwidth' attribute that can be used to display
++the read/write/total bandwidth achieved during the last 'perf stat' execution.
++	$ cat /sys/bus/event_source/devices/ddrperfm/bandwidth
++	Read = 403, Write = 239, Read & Write = 642 (MB/s)
+-- 
+2.7.4
+_______________________________________________
+Linux-stm32 mailing list
+Linux-stm32@st-md-mailman.stormreply.com
+https://st-md-mailman.stormreply.com/mailman/listinfo/linux-stm32
