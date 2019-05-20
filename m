@@ -2,61 +2,38 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id C9EC022D66
-	for <lists+linux-stm32@lfdr.de>; Mon, 20 May 2019 09:52:30 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 951BD2AF2B
+	for <lists+linux-stm32@lfdr.de>; Mon, 27 May 2019 09:07:43 +0200 (CEST)
 Received: from ip-172-31-3-76.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 6AA98CB40BD
-	for <lists+linux-stm32@lfdr.de>; Mon, 20 May 2019 07:52:30 +0000 (UTC)
-Received: from mx07-00178001.pphosted.com (mx07-00178001.pphosted.com
- [62.209.51.94])
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 43190C59785
+	for <lists+linux-stm32@lfdr.de>; Mon, 27 May 2019 07:07:43 +0000 (UTC)
+Received: from huawei.com (szxga05-in.huawei.com [45.249.212.191])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id A817FCB40BC
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 300A7C06F9B
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Mon, 20 May 2019 07:52:29 +0000 (UTC)
-Received: from pps.filterd (m0046037.ppops.net [127.0.0.1])
- by mx07-00178001.pphosted.com (8.16.0.27/8.16.0.27) with SMTP id
- x4K7owVV024214; Mon, 20 May 2019 09:52:18 +0200
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=st.com;
- h=from : to : cc : subject
- : date : message-id : mime-version : content-type; s=STMicroelectronics;
- bh=AmLaTPn+4Y+PnO2cSAi1LC9tZLLiMimnsWha5pKlny8=;
- b=zyzJqh5vP+aveI2mQhAv7Ag2QoFpavLrSaMApQZSN9cAxXZdhg6aeig49lB0g5BR8zOn
- Rm6/+8XRMIhwB7oiEOgQeEqoW6mqADkW3HlYZVqyfaeMt4tnfH4p3FkTJhGJzGgKXRGQ
- BXsjLEUtYHWxWiqnbrTNwB401MyI2ttSeqy+tXXbOyuHKagD6qf2gjEZIb8Dz64jpY43
- 01QEPQ5yVxVANbsIOqBHkCUmTn9T4DUL7XvCBXwZufXbSG2sbnMOBw/CbSpXWvgWwrsb
- I5MKAZ/vEsav5KYikZQlq1IAJvfDbvkw3j5wahF59uPByqIkQiGKTJ3/T8r2SFB52+TQ Ow== 
-Received: from beta.dmz-eu.st.com (beta.dmz-eu.st.com [164.129.1.35])
- by mx07-00178001.pphosted.com with ESMTP id 2sj7ttt4nb-1
- (version=TLSv1 cipher=ECDHE-RSA-AES256-SHA bits=256 verify=NOT);
- Mon, 20 May 2019 09:52:18 +0200
-Received: from zeta.dmz-eu.st.com (zeta.dmz-eu.st.com [164.129.230.9])
- by beta.dmz-eu.st.com (STMicroelectronics) with ESMTP id 7A11E3A;
- Mon, 20 May 2019 07:52:16 +0000 (GMT)
-Received: from Webmail-eu.st.com (Safex1hubcas23.st.com [10.75.90.46])
- by zeta.dmz-eu.st.com (STMicroelectronics) with ESMTP id 40E3C1557;
- Mon, 20 May 2019 07:52:16 +0000 (GMT)
-Received: from SAFEX1HUBCAS22.st.com (10.75.90.93) by SAFEX1HUBCAS23.st.com
- (10.75.90.46) with Microsoft SMTP Server (TLS) id 14.3.439.0; Mon, 20 May
- 2019 09:52:16 +0200
-Received: from localhost (10.201.20.5) by Webmail-ga.st.com (10.75.90.48) with
- Microsoft SMTP Server (TLS) id 14.3.439.0;
- Mon, 20 May 2019 09:52:15 +0200
-From: Amelie Delaunay <amelie.delaunay@st.com>
-To: Lee Jones <lee.jones@linaro.org>, Linus Walleij <linus.walleij@linaro.org>,
- Alexandre Torgue <alexandre.torgue@st.com>,
- Maxime Coquelin <mcoquelin.stm32@gmail.com>
-Date: Mon, 20 May 2019 09:52:15 +0200
-Message-ID: <1558338735-8444-1-git-send-email-amelie.delaunay@st.com>
-X-Mailer: git-send-email 2.7.4
+ Mon, 20 May 2019 09:04:42 +0000 (UTC)
+Received: from DGGEMS411-HUB.china.huawei.com (unknown [172.30.72.58])
+ by Forcepoint Email with ESMTP id D2B7C1D3391B934B038E;
+ Mon, 20 May 2019 17:04:38 +0800 (CST)
+Received: from localhost.localdomain.localdomain (10.175.113.25) by
+ DGGEMS411-HUB.china.huawei.com (10.3.19.211) with Microsoft SMTP Server id
+ 14.3.439.0; Mon, 20 May 2019 17:04:29 +0800
+From: Kefeng Wang <wangkefeng.wang@huawei.com>
+To: Alexander Shishkin <alexander.shishkin@linux.intel.com>, "Greg
+ Kroah-Hartman" <gregkh@linuxfoundation.org>, Maxime Coquelin
+ <mcoquelin.stm32@gmail.com>, Alexandre Torgue <alexandre.torgue@st.com>,
+ <linux-stm32@st-md-mailman.stormreply.com>, <linux-kernel@vger.kernel.org>
+Date: Mon, 20 May 2019 17:13:14 +0800
+Message-ID: <20190520091315.27898-1-wangkefeng.wang@huawei.com>
+X-Mailer: git-send-email 2.20.1
 MIME-Version: 1.0
-X-Originating-IP: [10.201.20.5]
-X-Proofpoint-Virus-Version: vendor=fsecure engine=2.50.10434:, ,
- definitions=2019-05-20_04:, , signatures=0
-Cc: linux-kernel@vger.kernel.org, linux-gpio@vger.kernel.org, kbuild-all@01.org,
- linux-stm32@st-md-mailman.stormreply.com, linux-arm-kernel@lists.infradead.org
-Subject: [Linux-stm32] [PATCH] pinctrl: stmfx: Fix compile issue when
-	CONFIG_OF_GPIO is not defined
+X-Originating-IP: [10.175.113.25]
+X-CFilter-Loop: Reflected
+X-Mailman-Approved-At: Mon, 27 May 2019 07:07:42 +0000
+Cc: Hulk Robot <hulkci@huawei.com>, Kefeng Wang <wangkefeng.wang@huawei.com>
+Subject: [Linux-stm32] [PATCH 1/2] hwtracing: stm: fix vfree() nonexistent
+	vm_area
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -73,35 +50,59 @@ Content-Transfer-Encoding: 7bit
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
-When CONFIG_GPIO_OF is not defined, struct gpio_chip 'of_node' member does
-not exist:
-drivers/pinctrl/pinctrl-stmfx.c: In function 'stmfx_pinctrl_probe':
-drivers/pinctrl/pinctrl-stmfx.c:652:17: error: 'struct gpio_chip' has no member named 'of_node'
-     pctl->gpio_chip.of_node = np;
+If device_add() in stm_register_device() fails, stm_device_release()
+is called to free stm, free stm again on err_device path will trigger
+following warning,
 
-Fixes: 1490d9f841b1 ("pinctrl: Add STMFX GPIO expander Pinctrl/GPIO driver")
-Reported-by: kbuild test robot <lkp@intel.com>
-Signed-off-by: Amelie Delaunay <amelie.delaunay@st.com>
+  Trying to vfree() nonexistent vm area (0000000054b5e7bc)
+  WARNING: CPU: 0 PID: 6004 at mm/vmalloc.c:1595 __vunmap+0x72/0x480 mm/vmalloc.c:1594
+  Kernel panic - not syncing: panic_on_warn set ...
+  CPU: 0 PID: 6004 Comm: syz-executor.0 Tainted: G         C 5.1.0+ #28
+  Hardware name: QEMU Standard PC (i440FX + PIIX, 1996), BIOS 1.10.2-1ubuntu1 04/01/2014
+  Call Trace:
+   __vfree+0x2a/0x80 mm/vmalloc.c:1658
+   _vfree+0x49/0x70 mm/vmalloc.c:1688
+   stm_register_device+0x295/0x330 [stm_core]
+   dummy_stm_init+0xfe/0x1e0 [dummy_stm]
+   do_one_initcall+0xb9/0x3b5 init/main.c:914
+   do_init_module+0xe0/0x330 kernel/module.c:3468
+   load_module+0x38eb/0x4270 kernel/module.c:3819
+   __do_sys_finit_module+0x162/0x190 kernel/module.c:3909
+   do_syscall_64+0x72/0x2a0 arch/x86/entry/common.c:298
+   entry_SYSCALL_64_after_hwframe+0x49/0xbe
+
+Only free stm once if device_add() fails to fix it.
+
+Reported-by: Hulk Robot <hulkci@huawei.com>
+Signed-off-by: Kefeng Wang <wangkefeng.wang@huawei.com>
 ---
- drivers/pinctrl/pinctrl-stmfx.c | 2 ++
- 1 file changed, 2 insertions(+)
+ drivers/hwtracing/stm/core.c | 4 +++-
+ 1 file changed, 3 insertions(+), 1 deletion(-)
 
-diff --git a/drivers/pinctrl/pinctrl-stmfx.c b/drivers/pinctrl/pinctrl-stmfx.c
-index eba872c..bb64aa0 100644
---- a/drivers/pinctrl/pinctrl-stmfx.c
-+++ b/drivers/pinctrl/pinctrl-stmfx.c
-@@ -648,7 +648,9 @@ static int stmfx_pinctrl_probe(struct platform_device *pdev)
- 	pctl->gpio_chip.base = -1;
- 	pctl->gpio_chip.ngpio = pctl->pctl_desc.npins;
- 	pctl->gpio_chip.can_sleep = true;
-+#ifdef CONFIG_OF_GPIO
- 	pctl->gpio_chip.of_node = np;
-+#endif
- 	pctl->gpio_chip.need_valid_mask = true;
+diff --git a/drivers/hwtracing/stm/core.c b/drivers/hwtracing/stm/core.c
+index e55b902560de..7b2ab7b2cc4d 100644
+--- a/drivers/hwtracing/stm/core.c
++++ b/drivers/hwtracing/stm/core.c
+@@ -864,6 +864,7 @@ static void stm_device_release(struct device *dev)
+ 	struct stm_device *stm = to_stm_device(dev);
  
- 	ret = devm_gpiochip_add_data(pctl->dev, &pctl->gpio_chip, pctl);
+ 	vfree(stm);
++	stm->data->stm = NULL;
+ }
+ 
+ int stm_register_device(struct device *parent, struct stm_data *stm_data,
+@@ -933,7 +934,8 @@ int stm_register_device(struct device *parent, struct stm_data *stm_data,
+ 	/* matches device_initialize() above */
+ 	put_device(&stm->dev);
+ err_free:
+-	vfree(stm);
++	if (stm->data->stm)
++		vfree(stm);
+ 
+ 	return err;
+ }
 -- 
-2.7.4
+2.20.1
 
 _______________________________________________
 Linux-stm32 mailing list
