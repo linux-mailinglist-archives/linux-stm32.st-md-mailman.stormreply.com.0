@@ -2,43 +2,38 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id C1FEE2AF2E
+	by mail.lfdr.de (Postfix) with ESMTPS id C92F42AF2F
 	for <lists+linux-stm32@lfdr.de>; Mon, 27 May 2019 09:07:43 +0200 (CEST)
 Received: from ip-172-31-3-76.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 77E1BC5978E
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 8561EC59790
 	for <lists+linux-stm32@lfdr.de>; Mon, 27 May 2019 07:07:43 +0000 (UTC)
-Received: from huawei.com (szxga07-in.huawei.com [45.249.212.35])
+Received: from huawei.com (szxga05-in.huawei.com [45.249.212.191])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 7C82DC06FAD
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 8DA01C09062
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Mon, 20 May 2019 09:22:46 +0000 (UTC)
-Received: from DGGEMS408-HUB.china.huawei.com (unknown [172.30.72.60])
- by Forcepoint Email with ESMTP id D299CDB958CE3EFD0220;
- Mon, 20 May 2019 17:22:42 +0800 (CST)
-Received: from [127.0.0.1] (10.177.19.180) by DGGEMS408-HUB.china.huawei.com
- (10.3.19.208) with Microsoft SMTP Server id 14.3.439.0; Mon, 20 May 2019
- 17:22:36 +0800
+ Mon, 20 May 2019 09:30:59 +0000 (UTC)
+Received: from DGGEMS411-HUB.china.huawei.com (unknown [172.30.72.58])
+ by Forcepoint Email with ESMTP id 164E21D770B4A287A969;
+ Mon, 20 May 2019 17:30:56 +0800 (CST)
+Received: from localhost.localdomain.localdomain (10.175.113.25) by
+ DGGEMS411-HUB.china.huawei.com (10.3.19.211) with Microsoft SMTP Server id
+ 14.3.439.0; Mon, 20 May 2019 17:30:48 +0800
+From: Kefeng Wang <wangkefeng.wang@huawei.com>
 To: Alexander Shishkin <alexander.shishkin@linux.intel.com>, "Greg
  Kroah-Hartman" <gregkh@linuxfoundation.org>, Maxime Coquelin
  <mcoquelin.stm32@gmail.com>, Alexandre Torgue <alexandre.torgue@st.com>,
  <linux-stm32@st-md-mailman.stormreply.com>, <linux-kernel@vger.kernel.org>
-References: <20190520091315.27898-1-wangkefeng.wang@huawei.com>
- <20190520091315.27898-2-wangkefeng.wang@huawei.com>
-From: Kefeng Wang <wangkefeng.wang@huawei.com>
-Message-ID: <edba9581-3a7b-e8c6-8bb5-89846d84cf98@huawei.com>
-Date: Mon, 20 May 2019 17:20:43 +0800
-User-Agent: Mozilla/5.0 (Windows NT 6.1; WOW64; rv:60.0) Gecko/20100101
- Thunderbird/60.3.1
+Date: Mon, 20 May 2019 17:39:33 +0800
+Message-ID: <20190520093933.29066-1-wangkefeng.wang@huawei.com>
+X-Mailer: git-send-email 2.20.1
 MIME-Version: 1.0
-In-Reply-To: <20190520091315.27898-2-wangkefeng.wang@huawei.com>
-Content-Language: en-US
-X-Originating-IP: [10.177.19.180]
+X-Originating-IP: [10.175.113.25]
 X-CFilter-Loop: Reflected
 X-Mailman-Approved-At: Mon, 27 May 2019 07:07:42 +0000
-Cc: Hulk Robot <hulkci@huawei.com>
-Subject: Re: [Linux-stm32] [PATCH 2/2] hwtracing: stm: fix double-free in
- stm_source_register_device()
+Cc: Hulk Robot <hulkci@huawei.com>, Kefeng Wang <wangkefeng.wang@huawei.com>
+Subject: [Linux-stm32] [PATCH v2] hwtracing: stm: fix vfree() nonexistent
+	vm_area
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -50,87 +45,71 @@ List-Post: <mailto:linux-stm32@st-md-mailman.stormreply.com>
 List-Help: <mailto:linux-stm32-request@st-md-mailman.stormreply.com?subject=help>
 List-Subscribe: <https://st-md-mailman.stormreply.com/mailman/listinfo/linux-stm32>, 
  <mailto:linux-stm32-request@st-md-mailman.stormreply.com?subject=subscribe>
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: base64
+Content-Type: text/plain; charset="us-ascii"
+Content-Transfer-Encoding: 7bit
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
-c29ycnksIHNlbmQgd3JvbmcgdmVyc2lvbizCoCBwbGVhc2UgaWdub3JlLgoKT24gMjAxOS81LzIw
-IDE3OjEzLCBLZWZlbmcgV2FuZyB3cm90ZToKPiBJZiBkZXZpY2VfYWRkKCkgaW4gc3RtX3NvdXJj
-ZV9yZWdpc3Rlcl9kZXZpY2UoKSBmYWlscywKPiBzdG1fc291cmNlX2RldmljZV9yZWxlYXNlKCkg
-aXMgY2FsbGVkIHRvIGZyZWUgc3JjLCBmcmVlCj4gc3JjIGFnYWluIG9uIGVyciBwYXRoIHdpbGwg
-dHJpZ2dlciBkb3VibGUgZnJlZSBpc3N1ZS4KPgo+IEJVRzogS0FTQU46IGRvdWJsZS1mcmVlIG9y
-IGludmFsaWQtZnJlZSBpbiBzdG1fc291cmNlX3JlZ2lzdGVyX2RldmljZSsweGQwLzB4MWEwIFtz
-dG1fY29yZV0KPgo+IENQVTogMSBQSUQ6IDg1NTYgQ29tbTogc3l6LWV4ZWN1dG9yLjAgVGFpbnRl
-ZDogRyAgICAgICAgIEMgICAgICAgIDUuMS4wKyAjMjgKPiBIYXJkd2FyZSBuYW1lOiBRRU1VIFN0
-YW5kYXJkIFBDIChpNDQwRlggKyBQSUlYLCAxOTk2KSwgQklPUyAxLjEwLjItMXVidW50dTEgMDQv
-MDEvMjAxNAo+IENhbGwgVHJhY2U6Cj4gIF9fZHVtcF9zdGFjayBsaWIvZHVtcF9zdGFjay5jOjc3
-IFtpbmxpbmVdCj4gIGR1bXBfc3RhY2srMHhhOS8weDEwZSBsaWIvZHVtcF9zdGFjay5jOjExMwo+
-ICBwcmludF9hZGRyZXNzX2Rlc2NyaXB0aW9uKzB4NjUvMHgyNzAgbW0va2FzYW4vcmVwb3J0LmM6
-MTg4Cj4gIGthc2FuX3JlcG9ydF9pbnZhbGlkX2ZyZWUrMHg2MC8weGEwIG1tL2thc2FuL3JlcG9y
-dC5jOjI3OQo+ICBfX2thc2FuX3NsYWJfZnJlZSsweDE1OS8weDE4MCBtbS9rYXNhbi9jb21tb24u
-Yzo0MzAKPiAgc2xhYl9mcmVlX2hvb2sgbW0vc2x1Yi5jOjE0MjAgW2lubGluZV0KPiAgc2xhYl9m
-cmVlX2ZyZWVsaXN0X2hvb2sgbW0vc2x1Yi5jOjE0NDcgW2lubGluZV0KPiAgc2xhYl9mcmVlIG1t
-L3NsdWIuYzoyOTk0IFtpbmxpbmVdCj4gIGtmcmVlKzB4ZTEvMHgyNzAgbW0vc2x1Yi5jOjM5NDkK
-PiAgc3RtX3NvdXJjZV9yZWdpc3Rlcl9kZXZpY2UrMHhkMC8weDFhMCBbc3RtX2NvcmVdCj4gIHN0
-bV9oZWFydGJlYXRfaW5pdCsweGI2LzB4MWIwIFtzdG1faGVhcnRiZWF0XQo+ICBkb19vbmVfaW5p
-dGNhbGwrMHhiOS8weDNiNSBpbml0L21haW4uYzo5MTQKPiAgZG9faW5pdF9tb2R1bGUrMHhlMC8w
-eDMzMCBrZXJuZWwvbW9kdWxlLmM6MzQ2OAo+ICBsb2FkX21vZHVsZSsweDM4ZWIvMHg0MjcwIGtl
-cm5lbC9tb2R1bGUuYzozODE5Cj4gIF9fZG9fc3lzX2Zpbml0X21vZHVsZSsweDE2Mi8weDE5MCBr
-ZXJuZWwvbW9kdWxlLmM6MzkwOQo+ICBkb19zeXNjYWxsXzY0KzB4NzIvMHgyYTAgYXJjaC94ODYv
-ZW50cnkvY29tbW9uLmM6Mjk4Cj4gIGVudHJ5X1NZU0NBTExfNjRfYWZ0ZXJfaHdmcmFtZSsweDQ5
-LzB4YmUKPgo+ICAuLi4KPgo+IEFsbG9jYXRlZCBieSB0YXNrIDg1NTY6Cj4gIHNhdmVfc3RhY2sr
-MHgxOS8weDgwIG1tL2thc2FuL2NvbW1vbi5jOjcxCj4gIHNldF90cmFjayBtbS9rYXNhbi9jb21t
-b24uYzo3OSBbaW5saW5lXQo+ICBfX2thc2FuX2ttYWxsb2MuY29uc3Rwcm9wLjIrMHhhMC8weGQw
-IG1tL2thc2FuL2NvbW1vbi5jOjQ4OQo+ICBzdG1fc291cmNlX3JlZ2lzdGVyX2RldmljZSsweDQ2
-LzB4MWEwIFtzdG1fY29yZV0KPiAgc3RtX2hlYXJ0YmVhdF9pbml0KzB4YjYvMHgxYjAgW3N0bV9o
-ZWFydGJlYXRdCj4gIGRvX29uZV9pbml0Y2FsbCsweGI5LzB4M2I1IGluaXQvbWFpbi5jOjkxNAo+
-ICBkb19pbml0X21vZHVsZSsweGUwLzB4MzMwIGtlcm5lbC9tb2R1bGUuYzozNDY4Cj4gIGxvYWRf
-bW9kdWxlKzB4MzhlYi8weDQyNzAga2VybmVsL21vZHVsZS5jOjM4MTkKPiAgX19kb19zeXNfZmlu
-aXRfbW9kdWxlKzB4MTYyLzB4MTkwIGtlcm5lbC9tb2R1bGUuYzozOTA5Cj4gIGRvX3N5c2NhbGxf
-NjQrMHg3Mi8weDJhMCBhcmNoL3g4Ni9lbnRyeS9jb21tb24uYzoyOTgKPiAgZW50cnlfU1lTQ0FM
-TF82NF9hZnRlcl9od2ZyYW1lKzB4NDkvMHhiZQo+Cj4gRnJlZWQgYnkgdGFzayA4NTU2Ogo+ICBz
-YXZlX3N0YWNrKzB4MTkvMHg4MCBtbS9rYXNhbi9jb21tb24uYzo3MQo+ICBzZXRfdHJhY2sgbW0v
-a2FzYW4vY29tbW9uLmM6NzkgW2lubGluZV0KPiAgX19rYXNhbl9zbGFiX2ZyZWUrMHgxMzAvMHgx
-ODAgbW0va2FzYW4vY29tbW9uLmM6NDUxCj4gIHNsYWJfZnJlZV9ob29rIG1tL3NsdWIuYzoxNDIw
-IFtpbmxpbmVdCj4gIHNsYWJfZnJlZV9mcmVlbGlzdF9ob29rIG1tL3NsdWIuYzoxNDQ3IFtpbmxp
-bmVdCj4gIHNsYWJfZnJlZSBtbS9zbHViLmM6Mjk5NCBbaW5saW5lXQo+ICBrZnJlZSsweGUxLzB4
-MjcwIG1tL3NsdWIuYzozOTQ5Cj4gIGRldmljZV9yZWxlYXNlKzB4NDYvMHgxMDAgZHJpdmVycy9i
-YXNlL2NvcmUuYzoxMDY0Cj4gIGtvYmplY3RfY2xlYW51cCBsaWIva29iamVjdC5jOjY5MSBbaW5s
-aW5lXQo+ICBrb2JqZWN0X3JlbGVhc2UgbGliL2tvYmplY3QuYzo3MjAgW2lubGluZV0KPiAga3Jl
-Zl9wdXQgaW5jbHVkZS9saW51eC9rcmVmLmg6NjcgW2lubGluZV0KPiAga29iamVjdF9wdXQrMHgx
-YTgvMHgyMjAgbGliL2tvYmplY3QuYzo3MzcKPiAgcHV0X2RldmljZSsweDFiLzB4MzAgZHJpdmVy
-cy9iYXNlL2NvcmUuYzoyMjEwCj4gIHN0bV9zb3VyY2VfcmVnaXN0ZXJfZGV2aWNlKzB4YzgvMHgx
-YTAgW3N0bV9jb3JlXQo+ICBzdG1faGVhcnRiZWF0X2luaXQrMHhiNi8weDFiMCBbc3RtX2hlYXJ0
-YmVhdF0KPiAgZG9fb25lX2luaXRjYWxsKzB4YjkvMHgzYjUgaW5pdC9tYWluLmM6OTE0Cj4gIGRv
-X2luaXRfbW9kdWxlKzB4ZTAvMHgzMzAga2VybmVsL21vZHVsZS5jOjM0NjgKPiAgbG9hZF9tb2R1
-bGUrMHgzOGViLzB4NDI3MCBrZXJuZWwvbW9kdWxlLmM6MzgxOQo+ICBfX2RvX3N5c19maW5pdF9t
-b2R1bGUrMHgxNjIvMHgxOTAga2VybmVsL21vZHVsZS5jOjM5MDkKPiAgZG9fc3lzY2FsbF82NCsw
-eDcyLzB4MmEwIGFyY2gveDg2L2VudHJ5L2NvbW1vbi5jOjI5OAo+ICBlbnRyeV9TWVNDQUxMXzY0
-X2FmdGVyX2h3ZnJhbWUrMHg0OS8weGJlCj4KPiBEb24ndCBjYWxsIGtmcmVlKHNyYykgaWYgZGV2
-aWNlX2FkZCgpIGZhaWxzIHRvIGZpeCBpdC4KPgo+IFJlcG9ydGVkLWJ5OiBIdWxrIFJvYm90IDxo
-dWxrY2lAaHVhd2VpLmNvbT4KPiBTaWduZWQtb2ZmLWJ5OiBLZWZlbmcgV2FuZyA8d2FuZ2tlZmVu
-Zy53YW5nQGh1YXdlaS5jb20+Cj4gLS0tCj4gIGRyaXZlcnMvaHd0cmFjaW5nL3N0bS9jb3JlLmMg
-fCAxNyArKysrKysrKy0tLS0tLS0tLQo+ICAxIGZpbGUgY2hhbmdlZCwgOCBpbnNlcnRpb25zKCsp
-LCA5IGRlbGV0aW9ucygtKQo+Cj4gZGlmZiAtLWdpdCBhL2RyaXZlcnMvaHd0cmFjaW5nL3N0bS9j
-b3JlLmMgYi9kcml2ZXJzL2h3dHJhY2luZy9zdG0vY29yZS5jCj4gaW5kZXggN2IyYWI3YjJjYzRk
-Li41Y2UzMGY4ZjhjNGYgMTAwNjQ0Cj4gLS0tIGEvZHJpdmVycy9od3RyYWNpbmcvc3RtL2NvcmUu
-Ywo+ICsrKyBiL2RyaXZlcnMvaHd0cmFjaW5nL3N0bS9jb3JlLmMKPiBAQCAtMTI1OCwxNSArMTI1
-OCwyMCBAQCBpbnQgc3RtX3NvdXJjZV9yZWdpc3Rlcl9kZXZpY2Uoc3RydWN0IGRldmljZSAqcGFy
-ZW50LAo+ICAJc3JjLT5kZXYucmVsZWFzZSA9IHN0bV9zb3VyY2VfZGV2aWNlX3JlbGVhc2U7Cj4g
-IAo+ICAJZXJyID0ga29iamVjdF9zZXRfbmFtZSgmc3JjLT5kZXYua29iaiwgIiVzIiwgZGF0YS0+
-bmFtZSk7Cj4gLQlpZiAoZXJyKQo+ICsJaWYgKGVycikgewo+ICsJCXB1dF9kZXZpY2UoJnNyYy0+
-ZGV2KTsKPiArCQlrZnJlZShzcmMpOwo+ICAJCWdvdG8gZXJyOwo+ICsJfQo+ICAKPiAgCXBtX3J1
-bnRpbWVfbm9fY2FsbGJhY2tzKCZzcmMtPmRldik7Cj4gIAlwbV9ydW50aW1lX2ZvcmJpZCgmc3Jj
-LT5kZXYpOwo+ICAKPiAgCWVyciA9IGRldmljZV9hZGQoJnNyYy0+ZGV2KTsKPiAtCWlmIChlcnIp
-Cj4gLQkJZ290byBlcnI7Cj4gKwlpZiAoZXJyKSB7Cj4gKwkJcHV0X2RldmljZSgmc3JjLT5kZXYp
-Owo+ICsJCXJldHVybiBlcnI7Cj4gKwl9Cj4gIAo+ICAJc3RtX291dHB1dF9pbml0KCZzcmMtPm91
-dHB1dCk7Cj4gIAlzcGluX2xvY2tfaW5pdCgmc3JjLT5saW5rX2xvY2spOwo+IEBAIC0xMjc1LDEy
-ICsxMjgwLDYgQEAgaW50IHN0bV9zb3VyY2VfcmVnaXN0ZXJfZGV2aWNlKHN0cnVjdCBkZXZpY2Ug
-KnBhcmVudCwKPiAgCWRhdGEtPnNyYyA9IHNyYzsKPiAgCj4gIAlyZXR1cm4gMDsKPiAtCj4gLWVy
-cjoKPiAtCXB1dF9kZXZpY2UoJnNyYy0+ZGV2KTsKPiAtCWtmcmVlKHNyYyk7Cj4gLQo+IC0JcmV0
-dXJuIGVycjsKPiAgfQo+ICBFWFBPUlRfU1lNQk9MX0dQTChzdG1fc291cmNlX3JlZ2lzdGVyX2Rl
-dmljZSk7Cj4gIAoKX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19f
-X18KTGludXgtc3RtMzIgbWFpbGluZyBsaXN0CkxpbnV4LXN0bTMyQHN0LW1kLW1haWxtYW4uc3Rv
-cm1yZXBseS5jb20KaHR0cHM6Ly9zdC1tZC1tYWlsbWFuLnN0b3JtcmVwbHkuY29tL21haWxtYW4v
-bGlzdGluZm8vbGludXgtc3RtMzIK
+If device_add() in stm_register_device() fails, stm_device_release()
+is called by put_device() to free stm, free stm again on err_device
+path will trigger following warning,
+
+  Trying to vfree() nonexistent vm area (0000000054b5e7bc)
+  WARNING: CPU: 0 PID: 6004 at mm/vmalloc.c:1595 __vunmap+0x72/0x480 mm/vmalloc.c:1594
+  Kernel panic - not syncing: panic_on_warn set ...
+  CPU: 0 PID: 6004 Comm: syz-executor.0 Tainted: G         C 5.1.0+ #28
+  Hardware name: QEMU Standard PC (i440FX + PIIX, 1996), BIOS 1.10.2-1ubuntu1 04/01/2014
+  Call Trace:
+   __vfree+0x2a/0x80 mm/vmalloc.c:1658
+   _vfree+0x49/0x70 mm/vmalloc.c:1688
+   stm_register_device+0x295/0x330 [stm_core]
+   dummy_stm_init+0xfe/0x1e0 [dummy_stm]
+   do_one_initcall+0xb9/0x3b5 init/main.c:914
+   do_init_module+0xe0/0x330 kernel/module.c:3468
+   load_module+0x38eb/0x4270 kernel/module.c:3819
+   __do_sys_finit_module+0x162/0x190 kernel/module.c:3909
+   do_syscall_64+0x72/0x2a0 arch/x86/entry/common.c:298
+   entry_SYSCALL_64_after_hwframe+0x49/0xbe
+
+Change error handling path and only free stm once if device_add() fails
+to fix it.
+
+Reported-by: Hulk Robot <hulkci@huawei.com>
+Signed-off-by: Kefeng Wang <wangkefeng.wang@huawei.com>
+---
+ drivers/hwtracing/stm/core.c | 8 ++++----
+ 1 file changed, 4 insertions(+), 4 deletions(-)
+
+diff --git a/drivers/hwtracing/stm/core.c b/drivers/hwtracing/stm/core.c
+index e55b902560de..afb7999eb863 100644
+--- a/drivers/hwtracing/stm/core.c
++++ b/drivers/hwtracing/stm/core.c
+@@ -885,8 +885,10 @@ int stm_register_device(struct device *parent, struct stm_data *stm_data,
+ 		return -ENOMEM;
+ 
+ 	stm->major = register_chrdev(0, stm_data->name, &stm_fops);
+-	if (stm->major < 0)
+-		goto err_free;
++	if (stm->major < 0) {
++		vfree(stm);
++		return stm->major;
++	}
+ 
+ 	device_initialize(&stm->dev);
+ 	stm->dev.devt = MKDEV(stm->major, 0);
+@@ -932,8 +934,6 @@ int stm_register_device(struct device *parent, struct stm_data *stm_data,
+ 
+ 	/* matches device_initialize() above */
+ 	put_device(&stm->dev);
+-err_free:
+-	vfree(stm);
+ 
+ 	return err;
+ }
+-- 
+2.20.1
+
+_______________________________________________
+Linux-stm32 mailing list
+Linux-stm32@st-md-mailman.stormreply.com
+https://st-md-mailman.stormreply.com/mailman/listinfo/linux-stm32
