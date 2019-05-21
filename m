@@ -2,65 +2,75 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id 2CD0A2545E
-	for <lists+linux-stm32@lfdr.de>; Tue, 21 May 2019 17:46:59 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id EA15C2AF30
+	for <lists+linux-stm32@lfdr.de>; Mon, 27 May 2019 09:07:43 +0200 (CEST)
 Received: from ip-172-31-3-76.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id E8A54C7BF7A
-	for <lists+linux-stm32@lfdr.de>; Tue, 21 May 2019 15:46:58 +0000 (UTC)
-Received: from mx07-00178001.pphosted.com (mx07-00178001.pphosted.com
- [62.209.51.94])
- (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 92915C59792
+	for <lists+linux-stm32@lfdr.de>; Mon, 27 May 2019 07:07:43 +0000 (UTC)
+Received: from mail-pg1-f195.google.com (mail-pg1-f195.google.com
+ [209.85.215.195])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 37A97C7BF78
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id EED07C82933
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Tue, 21 May 2019 15:46:58 +0000 (UTC)
-Received: from pps.filterd (m0046668.ppops.net [127.0.0.1])
- by mx07-00178001.pphosted.com (8.16.0.27/8.16.0.27) with SMTP id
- x4LFkWKv028109; Tue, 21 May 2019 17:46:46 +0200
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=st.com;
- h=from : to : cc : subject
- : date : message-id : in-reply-to : references : mime-version :
- content-type; s=STMicroelectronics;
- bh=/FwJ1TQFru+32XoeDMyEaHFno8vBWsvjxdibmbx8Z44=;
- b=gbBFvw9PfoW4Jz1Z5DI5evS/YoZjHP52RrV3HaNP/qCmI+pE+lF5J1aHrDRpoiRo8ugv
- eueMNl8Oed88Ojs9BomX52FAr+86xmAVlTb9LN5sy2P9u4FK5YumzMcNjrr7SufkZR2e
- s2G6lVfq6UDuTD0jexrlTomUSgiG7BYulNcqB8pStV9yxmtnsQCovd8Z7d2gdfE/KgsU
- eakofKIn0tJPCHqWS23ZnEOHpj+aJmX0aJNXEkobP+WRF5gl+WuhgS06y2i44abJAAq9
- sRnfNEMpyLqUOp/PiFW5kJlJB9el1v4bkkep7gvNuXihyWVl6NKXkdnokN0IN0vEncKF kA== 
-Received: from beta.dmz-eu.st.com (beta.dmz-eu.st.com [164.129.1.35])
- by mx07-00178001.pphosted.com with ESMTP id 2sj7h0tkyr-1
- (version=TLSv1 cipher=ECDHE-RSA-AES256-SHA bits=256 verify=NOT);
- Tue, 21 May 2019 17:46:46 +0200
-Received: from zeta.dmz-eu.st.com (zeta.dmz-eu.st.com [164.129.230.9])
- by beta.dmz-eu.st.com (STMicroelectronics) with ESMTP id 522913A;
- Tue, 21 May 2019 15:46:45 +0000 (GMT)
-Received: from Webmail-eu.st.com (Safex1hubcas24.st.com [10.75.90.94])
- by zeta.dmz-eu.st.com (STMicroelectronics) with ESMTP id 35CBE2CED;
- Tue, 21 May 2019 15:46:45 +0000 (GMT)
-Received: from SAFEX1HUBCAS23.st.com (10.75.90.46) by Safex1hubcas24.st.com
- (10.75.90.94) with Microsoft SMTP Server (TLS) id 14.3.439.0; Tue, 21 May
- 2019 17:46:45 +0200
-Received: from localhost (10.201.23.31) by webmail-ga.st.com (10.75.90.48)
- with Microsoft SMTP Server (TLS) id 14.3.439.0; Tue, 21 May 2019 17:46:43
- +0200
-From: Erwan Le Ray <erwan.leray@st.com>
-To: Greg Kroah-Hartman <gregkh@linuxfoundation.org>, Jiri Slaby
- <jslaby@suse.com>, Maxime Coquelin <mcoquelin.stm32@gmail.com>, "Alexandre
- Torgue" <alexandre.torgue@st.com>
-Date: Tue, 21 May 2019 17:45:47 +0200
-Message-ID: <1558453547-22866-8-git-send-email-erwan.leray@st.com>
-X-Mailer: git-send-email 1.9.1
-In-Reply-To: <1558453547-22866-1-git-send-email-erwan.leray@st.com>
-References: <1558453547-22866-1-git-send-email-erwan.leray@st.com>
-MIME-Version: 1.0
-X-Originating-IP: [10.201.23.31]
-X-Proofpoint-Virus-Version: vendor=fsecure engine=2.50.10434:, ,
- definitions=2019-05-21_03:, , signatures=0
-Cc: linux-kernel@vger.kernel.org, Fabien Dessenne <fabien.dessenne@st.com>,
- Erwan Le Ray <erwan.leray@st.com>, linux-serial@vger.kernel.org,
- Fabrice Gasnier <fabrice.gasnier@st.com>,
- linux-stm32@st-md-mailman.stormreply.com, linux-arm-kernel@lists.infradead.org
-Subject: [Linux-stm32] [PATCH 7/7] serial: stm32: fix the get_irq error case
+ Tue, 21 May 2019 19:28:21 +0000 (UTC)
+Received: by mail-pg1-f195.google.com with SMTP id n27so7099pgm.4
+ for <linux-stm32@st-md-mailman.stormreply.com>;
+ Tue, 21 May 2019 12:28:21 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20161025;
+ h=from:to:cc:subject:date:message-id;
+ bh=H6go7CcUBjX3mzKpRCwd0evI+2M4u0B9z6h4VcPCc1A=;
+ b=qLGkbLDwWl0lVlk/adYib/b/sDlGbf+3aKNtAQ3O61E873sJulejk9R09Kh89wwLye
+ ajPQnhV2iQKzg+8KBPhytmKKMghOjbek15ssXUAs6QGuTmFb3EzcjMd2Q28Xb+DSuE+7
+ Saq5DMSYn9s2x02pMiob21ba7HglJEgfF9E3DcQ7ZzyhGZn+QmK746STqlkgAeAV1RVY
+ MfMADVSvxPHkazzGDhPWH5FTTir7EHmDVKoImDsYSBI2/IrT5L0jGfZLtT+V0N2Zd4As
+ w52Nb0c0IwjzByhvunK2xdC4CQ7HZdvyesHWuWn8VbSOlBW5sYDQfB2ONrCY101qtB+a
+ yBaw==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20161025;
+ h=x-gm-message-state:from:to:cc:subject:date:message-id;
+ bh=H6go7CcUBjX3mzKpRCwd0evI+2M4u0B9z6h4VcPCc1A=;
+ b=IHc0xTIek7JkTd6zXlipq1FH6ZzGiM3xlSdgDY4OUmcftBUekjFJIbmecvzA27YvPD
+ yMdl/q4mFsOysQOOcoxo33DH+4uU6uwO4QYNDdM2Krt6Mtgz9vmP1Cg4lVZsJLykc0Fk
+ LOXuOach5O8GYIulBTpUktI8maFsFmt9tfuK1Tq45uoPV2sXFnu+K9DHBIZLjVvv0t0J
+ 3MmM6047C7dUFlQ0szLk4JqLz++GDtd1s3vD+twe75cWyNH9AMZ398hsxTmGbRLgY8cZ
+ JIoXZfG1Tdd4ptBSICLxnbekYb4Z6tDlpdvkYVydIqWybh3wtFHtf/pAvYr7pWaNOJ6i
+ QhCA==
+X-Gm-Message-State: APjAAAUgpRKftjt5/rIih0eLuDri0ehLYlU1VdABDyPba4lIKDlDqBD8
+ xeKQNAOXyaWyz41wckD24fI=
+X-Google-Smtp-Source: APXvYqyXddJUHTc2OzpreTHB+PQuLPhDAlw52ZnNU9kP+z7JjpLNUDOgkon9dSKxYcJcwywTMqSnIA==
+X-Received: by 2002:aa7:9289:: with SMTP id j9mr2874365pfa.251.1558466900256; 
+ Tue, 21 May 2019 12:28:20 -0700 (PDT)
+Received: from mail.broadcom.com ([192.19.231.250])
+ by smtp.gmail.com with ESMTPSA id c76sm41382743pfc.43.2019.05.21.12.28.16
+ (version=TLS1_2 cipher=ECDHE-RSA-AES128-GCM-SHA256 bits=128/128);
+ Tue, 21 May 2019 12:28:19 -0700 (PDT)
+From: Kamal Dasu <kdasu.kdev@gmail.com>
+To: linux-mtd@lists.infradead.org
+Date: Tue, 21 May 2019 15:27:57 -0400
+Message-Id: <1558466890-45471-1-git-send-email-kdasu.kdev@gmail.com>
+X-Mailer: git-send-email 1.9.0.138.g2de3478
+X-Mailman-Approved-At: Mon, 27 May 2019 07:07:42 +0000
+Cc: Mark Rutland <mark.rutland@arm.com>, Mans Rullgard <mans@mansr.com>,
+ Lucas Stach <dev@lynxeye.de>, Vignesh Raghavendra <vigneshr@ti.com>,
+ Neil Armstrong <narmstrong@baylibre.com>, Stefan Agner <stefan@agner.ch>,
+ David Brown <david.brown@linaro.org>, Liang Yang <liang.yang@amlogic.com>,
+ Miquel Raynal <miquel.raynal@bootlin.com>,
+ linux-stm32@st-md-mailman.stormreply.com, Kamal Dasu <kdasu.kdev@gmail.com>,
+ Richard Weinberger <richard@nod.at>, Jonathan Hunter <jonathanh@nvidia.com>,
+ Marek Vasut <marek.vasut@gmail.com>, Andy Gross <agross@kernel.org>,
+ bcm-kernel-feedback-list@broadcom.com, devicetree@vger.kernel.org,
+ Marc Gonzalez <marc.w.gonzalez@free.fr>, linux-arm-msm@vger.kernel.org,
+ Rob Herring <robh+dt@kernel.org>, linux-tegra@vger.kernel.org,
+ linux-amlogic@lists.infradead.org, linux-arm-kernel@lists.infradead.org,
+ linux-oxnas@groups.io, linux-kernel@vger.kernel.org,
+ Thierry Reding <thierry.reding@gmail.com>,
+ Maxime Coquelin <mcoquelin.stm32@gmail.com>,
+ Kevin Hilman <khilman@baylibre.com>,
+ Brian Norris <computersforpeace@gmail.com>,
+ David Woodhouse <dwmw2@infradead.org>
+Subject: [Linux-stm32] [PATCH] dt: bindings: mtd: replace references to
+	nand.txt with nand-controller.yaml
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -72,108 +82,323 @@ List-Post: <mailto:linux-stm32@st-md-mailman.stormreply.com>
 List-Help: <mailto:linux-stm32-request@st-md-mailman.stormreply.com?subject=help>
 List-Subscribe: <https://st-md-mailman.stormreply.com/mailman/listinfo/linux-stm32>, 
  <mailto:linux-stm32-request@st-md-mailman.stormreply.com?subject=subscribe>
+MIME-Version: 1.0
 Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
-Checks the returned values of platform_get_irq() for both required
-"event" and optional "wakeup" IRQs during probe. This allows the driver
-probe to be deferred if needed.
-Removes redundant checks for 'cfg.has_wakeup'.
+nand-controller.yaml replaced nand.txt however the references to it were
+not updated. This change updates these references wherever it appears in
+bindings documentation.
 
-Signed-off-by: Fabien Dessenne <fabien.dessenne@st.com>
-Signed-off-by: Erwan Le Ray <erwan.leray@st.com>
+Fixes: 212e49693592 ("dt-bindings: mtd: Add YAML schemas for the generic NAND options")
 
-diff --git a/drivers/tty/serial/stm32-usart.c b/drivers/tty/serial/stm32-usart.c
-index 1334e42..9c2b04e 100644
---- a/drivers/tty/serial/stm32-usart.c
-+++ b/drivers/tty/serial/stm32-usart.c
-@@ -852,12 +852,31 @@ static int stm32_init_port(struct stm32_port *stm32port,
- 	port->flags	= UPF_BOOT_AUTOCONF;
- 	port->ops	= &stm32_uart_ops;
- 	port->dev	= &pdev->dev;
--	port->irq	= platform_get_irq(pdev, 0);
-+
-+	ret = platform_get_irq(pdev, 0);
-+	if (ret <= 0) {
-+		if (ret != -EPROBE_DEFER)
-+			dev_err(&pdev->dev, "Can't get event IRQ: %d\n", ret);
-+		return ret ? ret : -ENODEV;
-+	}
-+	port->irq = ret;
-+
- 	port->rs485_config = stm32_config_rs485;
+Signed-off-by: Kamal Dasu <kdasu.kdev@gmail.com>
+---
+ .../devicetree/bindings/mtd/amlogic,meson-nand.txt         |  2 +-
+ Documentation/devicetree/bindings/mtd/brcm,brcmnand.txt    |  6 +++---
+ Documentation/devicetree/bindings/mtd/denali-nand.txt      |  6 +++---
+ Documentation/devicetree/bindings/mtd/fsmc-nand.txt        |  6 +++---
+ Documentation/devicetree/bindings/mtd/gpmc-nand.txt        |  2 +-
+ Documentation/devicetree/bindings/mtd/hisi504-nand.txt     |  2 +-
+ Documentation/devicetree/bindings/mtd/marvell-nand.txt     | 14 +++++++-------
+ Documentation/devicetree/bindings/mtd/mxc-nand.txt         |  6 +++---
+ .../devicetree/bindings/mtd/nvidia-tegra20-nand.txt        |  6 +++---
+ Documentation/devicetree/bindings/mtd/oxnas-nand.txt       |  2 +-
+ Documentation/devicetree/bindings/mtd/qcom_nandc.txt       |  4 ++--
+ Documentation/devicetree/bindings/mtd/samsung-s3c2410.txt  |  6 +++---
+ Documentation/devicetree/bindings/mtd/stm32-fmc2-nand.txt  |  6 +++---
+ Documentation/devicetree/bindings/mtd/tango-nand.txt       |  2 +-
+ Documentation/devicetree/bindings/mtd/vf610-nfc.txt        |  8 ++++----
+ 15 files changed, 39 insertions(+), 39 deletions(-)
+
+diff --git a/Documentation/devicetree/bindings/mtd/amlogic,meson-nand.txt b/Documentation/devicetree/bindings/mtd/amlogic,meson-nand.txt
+index 3983c11..5794ab11 100644
+--- a/Documentation/devicetree/bindings/mtd/amlogic,meson-nand.txt
++++ b/Documentation/devicetree/bindings/mtd/amlogic,meson-nand.txt
+@@ -24,7 +24,7 @@ Optional children nodes:
+ Children nodes represent the available nand chips.
  
- 	stm32_init_rs485(port, pdev);
+ Other properties:
+-see Documentation/devicetree/bindings/mtd/nand.txt for generic bindings.
++see Documentation/devicetree/bindings/mtd/nand-controller.yaml for generic bindings.
  
--	stm32port->wakeirq = platform_get_irq(pdev, 1);
-+	if (stm32port->info->cfg.has_wakeup) {
-+		stm32port->wakeirq = platform_get_irq(pdev, 1);
-+		if (stm32port->wakeirq <= 0 && stm32port->wakeirq != -ENXIO) {
-+			if (stm32port->wakeirq != -EPROBE_DEFER)
-+				dev_err(&pdev->dev,
-+					"Can't get event wake IRQ: %d\n",
-+					stm32port->wakeirq);
-+			return stm32port->wakeirq ? stm32port->wakeirq :
-+				-ENODEV;
-+		}
-+	}
-+
- 	stm32port->fifoen = stm32port->info->cfg.has_fifo;
+ Example demonstrate on AXG SoC:
  
- 	res = platform_get_resource(pdev, IORESOURCE_MEM, 0);
-@@ -1064,7 +1083,7 @@ static int stm32_serial_probe(struct platform_device *pdev)
- 	if (ret)
- 		return ret;
+diff --git a/Documentation/devicetree/bindings/mtd/brcm,brcmnand.txt b/Documentation/devicetree/bindings/mtd/brcm,brcmnand.txt
+index bcda1df..0b7c373 100644
+--- a/Documentation/devicetree/bindings/mtd/brcm,brcmnand.txt
++++ b/Documentation/devicetree/bindings/mtd/brcm,brcmnand.txt
+@@ -101,12 +101,12 @@ Required properties:
+                               number (e.g., 0, 1, 2, etc.)
+ - #address-cells            : see partition.txt
+ - #size-cells               : see partition.txt
+-- nand-ecc-strength         : see nand.txt
+-- nand-ecc-step-size        : must be 512 or 1024. See nand.txt
++- nand-ecc-strength         : see nand-controller.yaml
++- nand-ecc-step-size        : must be 512 or 1024. See nand-controller.yaml
  
--	if (stm32port->info->cfg.has_wakeup && stm32port->wakeirq >= 0) {
-+	if (stm32port->wakeirq > 0) {
- 		ret = device_init_wakeup(&pdev->dev, true);
- 		if (ret)
- 			goto err_uninit;
-@@ -1094,11 +1113,11 @@ static int stm32_serial_probe(struct platform_device *pdev)
- 	return 0;
+ Optional properties:
+ - nand-on-flash-bbt         : boolean, to enable the on-flash BBT for this
+-                              chip-select. See nand.txt
++                              chip-select. See nand-controller.yaml
+ - brcm,nand-oob-sector-size : integer, to denote the spare area sector size
+                               expected for the ECC layout in use. This size, in
+                               addition to the strength and step-size,
+diff --git a/Documentation/devicetree/bindings/mtd/denali-nand.txt b/Documentation/devicetree/bindings/mtd/denali-nand.txt
+index b14b675..b32aed1 100644
+--- a/Documentation/devicetree/bindings/mtd/denali-nand.txt
++++ b/Documentation/devicetree/bindings/mtd/denali-nand.txt
+@@ -22,16 +22,16 @@ Sub-nodes:
+       select is connected.
  
- err_wirq:
--	if (stm32port->info->cfg.has_wakeup && stm32port->wakeirq >= 0)
-+	if (stm32port->wakeirq > 0)
- 		dev_pm_clear_wake_irq(&pdev->dev);
+   Optional properties:
+-    - nand-ecc-step-size: see nand.txt for details.
++    - nand-ecc-step-size: see nand-controller.yaml for details.
+       If present, the value must be
+         512        for "altr,socfpga-denali-nand"
+         1024       for "socionext,uniphier-denali-nand-v5a"
+         1024       for "socionext,uniphier-denali-nand-v5b"
+-    - nand-ecc-strength: see nand.txt for details. Valid values are:
++    - nand-ecc-strength: see nand-controller.yaml for details. Valid values are:
+         8, 15      for "altr,socfpga-denali-nand"
+         8, 16, 24  for "socionext,uniphier-denali-nand-v5a"
+         8, 16      for "socionext,uniphier-denali-nand-v5b"
+-    - nand-ecc-maximize: see nand.txt for details
++    - nand-ecc-maximize: see nand-controller.yaml for details
  
- err_nowup:
--	if (stm32port->info->cfg.has_wakeup && stm32port->wakeirq >= 0)
-+	if (stm32port->wakeirq > 0)
- 		device_init_wakeup(&pdev->dev, false);
+ The chip nodes may optionally contain sub-nodes describing partitions of the
+ address space. See partition.txt for more detail.
+diff --git a/Documentation/devicetree/bindings/mtd/fsmc-nand.txt b/Documentation/devicetree/bindings/mtd/fsmc-nand.txt
+index 32636eb..6762d3c 100644
+--- a/Documentation/devicetree/bindings/mtd/fsmc-nand.txt
++++ b/Documentation/devicetree/bindings/mtd/fsmc-nand.txt
+@@ -30,9 +30,9 @@ Optional properties:
+                  command is asserted. Zero means one cycle, 255 means 256
+                  cycles.
+ - bank: default NAND bank to use (0-3 are valid, 0 is the default).
+-- nand-ecc-mode      : see nand.txt
+-- nand-ecc-strength  : see nand.txt
+-- nand-ecc-step-size : see nand.txt
++- nand-ecc-mode      : see nand-controller.yaml
++- nand-ecc-strength  : see nand-controller.yaml
++- nand-ecc-step-size : see nand-controller.yaml
  
- err_uninit:
-@@ -1112,7 +1131,6 @@ static int stm32_serial_remove(struct platform_device *pdev)
- 	struct uart_port *port = platform_get_drvdata(pdev);
- 	struct stm32_port *stm32_port = to_stm32_port(port);
- 	struct stm32_usart_offsets *ofs = &stm32_port->info->ofs;
--	struct stm32_usart_config *cfg = &stm32_port->info->cfg;
+ Can support 1-bit HW ECC (default) or if stronger correction is required,
+ software-based BCH.
+diff --git a/Documentation/devicetree/bindings/mtd/gpmc-nand.txt b/Documentation/devicetree/bindings/mtd/gpmc-nand.txt
+index c059ab7..44919d4 100644
+--- a/Documentation/devicetree/bindings/mtd/gpmc-nand.txt
++++ b/Documentation/devicetree/bindings/mtd/gpmc-nand.txt
+@@ -8,7 +8,7 @@ explained in a separate documents - please refer to
+ Documentation/devicetree/bindings/memory-controllers/omap-gpmc.txt
  
- 	stm32_clr_bits(port, ofs->cr3, USART_CR3_DMAR);
+ For NAND specific properties such as ECC modes or bus width, please refer to
+-Documentation/devicetree/bindings/mtd/nand.txt
++Documentation/devicetree/bindings/mtd/nand-controller.yaml
  
-@@ -1134,7 +1152,7 @@ static int stm32_serial_remove(struct platform_device *pdev)
- 				  TX_BUF_L, stm32_port->tx_buf,
- 				  stm32_port->tx_dma_buf);
  
--	if (cfg->has_wakeup && stm32_port->wakeirq >= 0) {
-+	if (stm32_port->wakeirq > 0) {
- 		dev_pm_clear_wake_irq(&pdev->dev);
- 		device_init_wakeup(&pdev->dev, false);
- 	}
-@@ -1252,7 +1270,7 @@ static void stm32_serial_enable_wakeup(struct uart_port *port, bool enable)
- 	struct stm32_usart_config *cfg = &stm32_port->info->cfg;
- 	u32 val;
+ Required properties:
+diff --git a/Documentation/devicetree/bindings/mtd/hisi504-nand.txt b/Documentation/devicetree/bindings/mtd/hisi504-nand.txt
+index 2e35f06..8963983 100644
+--- a/Documentation/devicetree/bindings/mtd/hisi504-nand.txt
++++ b/Documentation/devicetree/bindings/mtd/hisi504-nand.txt
+@@ -7,7 +7,7 @@ Required properties:
+                        NAND controller's registers. The second contains base
+                        physical address and size of NAND controller's buffer.
+ - interrupts:          Interrupt number for nfc.
+-- nand-bus-width:      See nand.txt.
++- nand-bus-width:      See nand-controller.yaml.
+ - nand-ecc-mode:       Support none and hw ecc mode.
+ - #address-cells:      Partition address, should be set 1.
+ - #size-cells:         Partition size, should be set 1.
+diff --git a/Documentation/devicetree/bindings/mtd/marvell-nand.txt b/Documentation/devicetree/bindings/mtd/marvell-nand.txt
+index e0c7907..a2d9a0f 100644
+--- a/Documentation/devicetree/bindings/mtd/marvell-nand.txt
++++ b/Documentation/devicetree/bindings/mtd/marvell-nand.txt
+@@ -36,29 +36,29 @@ Children nodes represent the available NAND chips.
  
--	if (!cfg->has_wakeup || stm32_port->wakeirq < 0)
-+	if (stm32_port->wakeirq <= 0)
- 		return;
+ Required properties:
+ - reg: shall contain the native Chip Select ids (0-3).
+-- nand-rb: see nand.txt (0-1).
++- nand-rb: see nand-controller.yaml (0-1).
  
- 	if (enable) {
+ Optional properties:
+ - marvell,nand-keep-config: orders the driver not to take the timings
+   from the core and leaving them completely untouched. Bootloader
+   timings will then be used.
+ - label: MTD name.
+-- nand-on-flash-bbt: see nand.txt.
+-- nand-ecc-mode: see nand.txt. Will use hardware ECC if not specified.
+-- nand-ecc-algo: see nand.txt. This property is essentially useful when
++- nand-on-flash-bbt: see nand-controller.yaml.
++- nand-ecc-mode: see nand-controller.yaml. Will use hardware ECC if not specified.
++- nand-ecc-algo: see nand-controller.yaml. This property is essentially useful when
+   not using hardware ECC. Howerver, it may be added when using hardware
+   ECC for clarification but will be ignored by the driver because ECC
+   mode is chosen depending on the page size and the strength required by
+   the NAND chip. This value may be overwritten with nand-ecc-strength
+   property.
+-- nand-ecc-strength: see nand.txt.
+-- nand-ecc-step-size: see nand.txt. Marvell's NAND flash controller does
++- nand-ecc-strength: see nand-controller.yaml.
++- nand-ecc-step-size: see nand-controller.yaml. Marvell's NAND flash controller does
+   use fixed strength (1-bit for Hamming, 16-bit for BCH), so the actual
+   step size will shrink or grow in order to fit the required strength.
+   Step sizes are not completely random for all and follow certain
+   patterns described in AN-379, "Marvell SoC NFC ECC".
+ 
+-See Documentation/devicetree/bindings/mtd/nand.txt for more details on
++See Documentation/devicetree/bindings/mtd/nand-controller.yaml for more details on
+ generic bindings.
+ 
+ 
+diff --git a/Documentation/devicetree/bindings/mtd/mxc-nand.txt b/Documentation/devicetree/bindings/mtd/mxc-nand.txt
+index b5833d1..2857c62 100644
+--- a/Documentation/devicetree/bindings/mtd/mxc-nand.txt
++++ b/Documentation/devicetree/bindings/mtd/mxc-nand.txt
+@@ -4,9 +4,9 @@ Required properties:
+ - compatible: "fsl,imxXX-nand"
+ - reg: address range of the nfc block
+ - interrupts: irq to be used
+-- nand-bus-width: see nand.txt
+-- nand-ecc-mode: see nand.txt
+-- nand-on-flash-bbt: see nand.txt
++- nand-bus-width: see nand-controller.yaml
++- nand-ecc-mode: see nand-controller.yaml
++- nand-on-flash-bbt: see nand-controller.yaml
+ 
+ Example:
+ 
+diff --git a/Documentation/devicetree/bindings/mtd/nvidia-tegra20-nand.txt b/Documentation/devicetree/bindings/mtd/nvidia-tegra20-nand.txt
+index b2f2ca1..e737e5b 100644
+--- a/Documentation/devicetree/bindings/mtd/nvidia-tegra20-nand.txt
++++ b/Documentation/devicetree/bindings/mtd/nvidia-tegra20-nand.txt
+@@ -26,14 +26,14 @@ Optional children node properties:
+ 		 "hw" is supported.
+ - nand-ecc-algo: string, algorithm of NAND ECC.
+ 		 Supported values with "hw" ECC mode are: "rs", "bch".
+-- nand-bus-width : See nand.txt
+-- nand-on-flash-bbt: See nand.txt
++- nand-bus-width : See nand-controller.yaml
++- nand-on-flash-bbt: See nand-controller.yaml
+ - nand-ecc-strength: integer representing the number of bits to correct
+ 		     per ECC step (always 512). Supported strength using HW ECC
+ 		     modes are:
+ 		     - RS: 4, 6, 8
+ 		     - BCH: 4, 8, 14, 16
+-- nand-ecc-maximize: See nand.txt
++- nand-ecc-maximize: See nand-controller.yaml
+ - nand-is-boot-medium: Makes sure only ECC strengths supported by the boot ROM
+ 		       are chosen.
+ - wp-gpios: GPIO specifier for the write protect pin.
+diff --git a/Documentation/devicetree/bindings/mtd/oxnas-nand.txt b/Documentation/devicetree/bindings/mtd/oxnas-nand.txt
+index 56d5c19d..2ba07fc 100644
+--- a/Documentation/devicetree/bindings/mtd/oxnas-nand.txt
++++ b/Documentation/devicetree/bindings/mtd/oxnas-nand.txt
+@@ -1,6 +1,6 @@
+ * Oxford Semiconductor OXNAS NAND Controller
+ 
+-Please refer to nand.txt for generic information regarding MTD NAND bindings.
++Please refer to nand-controller.yaml for generic information regarding MTD NAND bindings.
+ 
+ Required properties:
+  - compatible: "oxsemi,ox820-nand"
+diff --git a/Documentation/devicetree/bindings/mtd/qcom_nandc.txt b/Documentation/devicetree/bindings/mtd/qcom_nandc.txt
+index 1123cc6..5c2fba4 100644
+--- a/Documentation/devicetree/bindings/mtd/qcom_nandc.txt
++++ b/Documentation/devicetree/bindings/mtd/qcom_nandc.txt
+@@ -47,8 +47,8 @@ Required properties:
+ - #size-cells:		see partition.txt
+ 
+ Optional properties:
+-- nand-bus-width:	see nand.txt
+-- nand-ecc-strength:	see nand.txt. If not specified, then ECC strength will
++- nand-bus-width:	see nand-controller.yaml
++- nand-ecc-strength:	see nand-controller.yaml. If not specified, then ECC strength will
+ 			be used according to chip requirement and available
+ 			OOB size.
+ 
+diff --git a/Documentation/devicetree/bindings/mtd/samsung-s3c2410.txt b/Documentation/devicetree/bindings/mtd/samsung-s3c2410.txt
+index 0040eb8..09815c4 100644
+--- a/Documentation/devicetree/bindings/mtd/samsung-s3c2410.txt
++++ b/Documentation/devicetree/bindings/mtd/samsung-s3c2410.txt
+@@ -6,7 +6,7 @@ Required properties:
+ 	"samsung,s3c2412-nand"
+ 	"samsung,s3c2440-nand"
+ - reg : register's location and length.
+-- #address-cells, #size-cells : see nand.txt
++- #address-cells, #size-cells : see nand-controller.yaml
+ - clocks : phandle to the nand controller clock
+ - clock-names : must contain "nand"
+ 
+@@ -14,8 +14,8 @@ Optional child nodes:
+ Child nodes representing the available nand chips.
+ 
+ Optional child properties:
+-- nand-ecc-mode : see nand.txt
+-- nand-on-flash-bbt : see nand.txt
++- nand-ecc-mode : see nand-controller.yaml
++- nand-on-flash-bbt : see nand-controller.yaml
+ 
+ Each child device node may optionally contain a 'partitions' sub-node,
+ which further contains sub-nodes describing the flash partition mapping.
+diff --git a/Documentation/devicetree/bindings/mtd/stm32-fmc2-nand.txt b/Documentation/devicetree/bindings/mtd/stm32-fmc2-nand.txt
+index ad2bef8..e55895e 100644
+--- a/Documentation/devicetree/bindings/mtd/stm32-fmc2-nand.txt
++++ b/Documentation/devicetree/bindings/mtd/stm32-fmc2-nand.txt
+@@ -24,9 +24,9 @@ Required properties:
+ - reg: describes the CS lines assigned to the NAND device.
+ 
+ Optional properties:
+-- nand-on-flash-bbt: see nand.txt
+-- nand-ecc-strength: see nand.txt
+-- nand-ecc-step-size: see nand.txt
++- nand-on-flash-bbt: see nand-controller.yaml
++- nand-ecc-strength: see nand-controller.yaml
++- nand-ecc-step-size: see nand-controller.yaml
+ 
+ The following ECC strength and step size are currently supported:
+  - nand-ecc-strength = <1>, nand-ecc-step-size = <512> (Hamming)
+diff --git a/Documentation/devicetree/bindings/mtd/tango-nand.txt b/Documentation/devicetree/bindings/mtd/tango-nand.txt
+index cd1bf2a..91c8420 100644
+--- a/Documentation/devicetree/bindings/mtd/tango-nand.txt
++++ b/Documentation/devicetree/bindings/mtd/tango-nand.txt
+@@ -11,7 +11,7 @@ Required properties:
+ - #size-cells: <0>
+ 
+ Children nodes represent the available NAND chips.
+-See Documentation/devicetree/bindings/mtd/nand.txt for generic bindings.
++See Documentation/devicetree/bindings/mtd/nand-controller.yaml for generic bindings.
+ 
+ Example:
+ 
+diff --git a/Documentation/devicetree/bindings/mtd/vf610-nfc.txt b/Documentation/devicetree/bindings/mtd/vf610-nfc.txt
+index c96eeb6..7db5e6e 100644
+--- a/Documentation/devicetree/bindings/mtd/vf610-nfc.txt
++++ b/Documentation/devicetree/bindings/mtd/vf610-nfc.txt
+@@ -25,14 +25,14 @@ only handle one NAND chip.
+ 
+ Required properties:
+ - compatible: Should be set to "fsl,vf610-nfc-cs".
+-- nand-bus-width: see nand.txt
+-- nand-ecc-mode: see nand.txt
++- nand-bus-width: see nand-controller.yaml
++- nand-ecc-mode: see nand-controller.yaml
+ 
+ Required properties for hardware ECC:
+-- nand-ecc-strength: supported strengths are 24 and 32 bit (see nand.txt)
++- nand-ecc-strength: supported strengths are 24 and 32 bit (see nand-controller.yaml)
+ - nand-ecc-step-size: step size equals page size, currently only 2k pages are
+     supported
+-- nand-on-flash-bbt: see nand.txt
++- nand-on-flash-bbt: see nand-controller.yaml
+ 
+ Example:
+ 
 -- 
-1.9.1
+1.9.0.138.g2de3478
 
 _______________________________________________
 Linux-stm32 mailing list
