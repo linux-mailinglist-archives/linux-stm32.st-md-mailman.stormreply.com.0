@@ -2,60 +2,64 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id F3E0C24C07
-	for <lists+linux-stm32@lfdr.de>; Tue, 21 May 2019 11:56:35 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id BE7F224C16
+	for <lists+linux-stm32@lfdr.de>; Tue, 21 May 2019 11:59:54 +0200 (CEST)
 Received: from ip-172-31-3-76.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 2D29AC73B1E
-	for <lists+linux-stm32@lfdr.de>; Tue, 21 May 2019 09:56:34 +0000 (UTC)
-Received: from vps.xff.cz (vps.xff.cz [195.181.215.36])
- (using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 82234C73B27
+	for <lists+linux-stm32@lfdr.de>; Tue, 21 May 2019 09:59:54 +0000 (UTC)
+Received: from mx07-00178001.pphosted.com (mx08-00178001.pphosted.com
+ [91.207.212.93])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 6FA0FC73B1D
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id B63A4C73B26
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Tue, 21 May 2019 09:56:32 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=megous.com; s=mail;
- t=1558432591; bh=1nbvGwWgSb1jI/P1ZT27Mo4T3fhSGGa/u2NrHc/bhEY=;
- h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
- b=aQxlmz+L5OjzAbaGr0IgpRjnbM2RyEQ9ga6eu6t3E1wgEuRsrhjeZ3D6nbtxshUqQ
- EFtz03J7GkN8M0jpVIqGGEF95yxB7bHBJWFoHkXR0AupOG3A5VI/5BhgWHf71ZAzVl
- J10mK1Th7bIsLg6pDXlJsqz4NYBtfHlHzsAteH3k=
-Date: Tue, 21 May 2019 11:56:31 +0200
-From: =?utf-8?Q?Ond=C5=99ej?= Jirman <megous@megous.com>
-To: Sergei Shtylyov <sergei.shtylyov@cogentembedded.com>
-Message-ID: <20190521095631.v5n3qml5ujofufk4@core.my.home>
-Mail-Followup-To: Sergei Shtylyov <sergei.shtylyov@cogentembedded.com>,
- linux-sunxi@googlegroups.com,
- Maxime Ripard <maxime.ripard@bootlin.com>,
- Chen-Yu Tsai <wens@csie.org>, Rob Herring <robh+dt@kernel.org>,
- Icenowy Zheng <icenowy@aosc.io>, David Airlie <airlied@linux.ie>,
- Daniel Vetter <daniel@ffwll.ch>,
- Mark Rutland <mark.rutland@arm.com>,
- Giuseppe Cavallaro <peppe.cavallaro@st.com>,
- Alexandre Torgue <alexandre.torgue@st.com>,
- Jose Abreu <joabreu@synopsys.com>,
- "David S. Miller" <davem@davemloft.net>,
- Maxime Coquelin <mcoquelin.stm32@gmail.com>,
- dri-devel@lists.freedesktop.org, devicetree@vger.kernel.org,
- linux-arm-kernel@lists.infradead.org, linux-kernel@vger.kernel.org,
- netdev@vger.kernel.org, linux-stm32@st-md-mailman.stormreply.com
-References: <20190520235009.16734-1-megous@megous.com>
- <20190520235009.16734-3-megous@megous.com>
- <4e031eeb-2819-a97f-73bf-af84b04aa7b2@cogentembedded.com>
+ Tue, 21 May 2019 09:59:53 +0000 (UTC)
+Received: from pps.filterd (m0046661.ppops.net [127.0.0.1])
+ by mx08-00178001.pphosted.com (8.16.0.27/8.16.0.27) with SMTP id
+ x4L9aWVY004730; Tue, 21 May 2019 11:59:30 +0200
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=st.com;
+ h=from : to : cc : subject
+ : date : message-id : mime-version : content-type; s=STMicroelectronics;
+ bh=vq/nSg27gm3FHERhSOAoi49hkfDWTgsfrmKdS0NWRuQ=;
+ b=Lmt7Iilg41yXC1xW3J70M6+DiPxFhJIzaHq5DuDyeK0+xzcm2shiV77gRGtJCd1astgT
+ E38pT13GIuDb4oPf2GEieYc7/O/l9QWk6UjtTunUeI+c9mSrzhGngYjuoyB2STtxrEWf
+ UnmilkGCtXt7IqKDEKpolRyQS5nfrJKmxROrk6sVPYQIl13An785VlTtxTP0CWoL531q
+ QNT58mkXktrLM5JWgspDNSJvaMkZE4nWXPOWZVSTXScd1DpG3uYWjbG8cYjz3sBIdnI6
+ E7Rf63ObG/UgtRBcXs7uaRgBE3myi3oB50AlABFwwY02ROhqiZRJ/ilGPX6+fhwroE3o Yg== 
+Received: from beta.dmz-eu.st.com (beta.dmz-eu.st.com [164.129.1.35])
+ by mx08-00178001.pphosted.com with ESMTP id 2sj8xg8jk8-1
+ (version=TLSv1 cipher=ECDHE-RSA-AES256-SHA bits=256 verify=NOT);
+ Tue, 21 May 2019 11:59:30 +0200
+Received: from zeta.dmz-eu.st.com (zeta.dmz-eu.st.com [164.129.230.9])
+ by beta.dmz-eu.st.com (STMicroelectronics) with ESMTP id 31B3F31;
+ Tue, 21 May 2019 09:59:29 +0000 (GMT)
+Received: from Webmail-eu.st.com (Safex1hubcas24.st.com [10.75.90.94])
+ by zeta.dmz-eu.st.com (STMicroelectronics) with ESMTP id EF2DE256F;
+ Tue, 21 May 2019 09:59:28 +0000 (GMT)
+Received: from SAFEX1HUBCAS22.st.com (10.75.90.93) by Safex1hubcas24.st.com
+ (10.75.90.94) with Microsoft SMTP Server (TLS) id 14.3.439.0; Tue, 21 May
+ 2019 11:59:28 +0200
+Received: from localhost (10.201.20.5) by Webmail-ga.st.com (10.75.90.48) with
+ Microsoft SMTP Server (TLS) id 14.3.439.0;
+ Tue, 21 May 2019 11:59:28 +0200
+From: Amelie Delaunay <amelie.delaunay@st.com>
+To: Russell King <linux@armlinux.org.uk>, Alexandre Torgue
+ <alexandre.torgue@st.com>, Olof Johansson <olof@lixom.net>, Simon Horman
+ <horms+renesas@verge.net.au>, Arnd Bergmann <arnd@arndb.de>,
+ Masahiro Yamada <yamada.masahiro@socionext.com>, Geert Uytterhoeven
+ <geert+renesas@glider.be>,
+ Kunihiko Hayashi <hayashi.kunihiko@socionext.com>
+Date: Tue, 21 May 2019 11:59:27 +0200
+Message-ID: <1558432767-23139-1-git-send-email-amelie.delaunay@st.com>
+X-Mailer: git-send-email 2.7.4
 MIME-Version: 1.0
-Content-Disposition: inline
-In-Reply-To: <4e031eeb-2819-a97f-73bf-af84b04aa7b2@cogentembedded.com>
-Cc: Mark Rutland <mark.rutland@arm.com>, Jose Abreu <joabreu@synopsys.com>,
- devicetree@vger.kernel.org, Maxime Ripard <maxime.ripard@bootlin.com>,
- netdev@vger.kernel.org, linux-stm32@st-md-mailman.stormreply.com,
- Chen-Yu Tsai <wens@csie.org>, dri-devel@lists.freedesktop.org,
- linux-kernel@vger.kernel.org, David Airlie <airlied@linux.ie>,
- linux-sunxi@googlegroups.com, Rob Herring <robh+dt@kernel.org>,
- linux-arm-kernel@lists.infradead.org, Daniel Vetter <daniel@ffwll.ch>,
- Giuseppe Cavallaro <peppe.cavallaro@st.com>,
- "David S. Miller" <davem@davemloft.net>,
- Maxime Coquelin <mcoquelin.stm32@gmail.com>, Icenowy Zheng <icenowy@aosc.io>
-Subject: Re: [Linux-stm32] [PATCH v5 2/6] net: stmmac: sun8i: force select
- external PHY when no internal one
+X-Originating-IP: [10.201.20.5]
+X-Proofpoint-Virus-Version: vendor=fsecure engine=2.50.10434:, ,
+ definitions=2019-05-21_01:, , signatures=0
+Cc: linux-kernel@vger.kernel.org, linux-arm-kernel@lists.infradead.org,
+ linux-stm32@st-md-mailman.stormreply.com
+Subject: [Linux-stm32] [PATCH] ARM: multi_v7_defconfig: enable STMFX pinctrl
+	support
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -72,37 +76,28 @@ Content-Transfer-Encoding: 7bit
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
-Hello Sergei,
+This patch enables support for STMFX pinctrl.
 
-On Tue, May 21, 2019 at 12:27:24PM +0300, Sergei Shtylyov wrote:
-> Hello!
-> 
-> On 21.05.2019 2:50, megous@megous.com wrote:
-> 
-> > From: Icenowy Zheng <icenowy@aosc.io>
-> > 
-> > The PHY selection bit also exists on SoCs without an internal PHY; if it's
-> > set to 1 (internal PHY, default value) then the MAC will not make use of
-> > any PHY such SoCs.
->          ^ "on" or "with" missing?
+Signed-off-by: Amelie Delaunay <amelie.delaunay@st.com>
+---
+ arch/arm/configs/multi_v7_defconfig | 1 +
+ 1 file changed, 1 insertion(+)
 
-It's missing 'on'.
+diff --git a/arch/arm/configs/multi_v7_defconfig b/arch/arm/configs/multi_v7_defconfig
+index c75051b..7f6f5bf 100644
+--- a/arch/arm/configs/multi_v7_defconfig
++++ b/arch/arm/configs/multi_v7_defconfig
+@@ -408,6 +408,7 @@ CONFIG_SPI_SPIDEV=y
+ CONFIG_SPMI=y
+ CONFIG_PINCTRL_AS3722=y
+ CONFIG_PINCTRL_RZA2=y
++CONFIG_PINCTRL_STMFX=y
+ CONFIG_PINCTRL_PALMAS=y
+ CONFIG_PINCTRL_APQ8064=y
+ CONFIG_PINCTRL_APQ8084=y
+-- 
+2.7.4
 
-thank you,
-	Ondrej
-
-> > This problem appears when adapting for H6, which has no real internal PHY
-> > (the "internal PHY" on H6 is not on-die, but on a co-packaged AC200 chip,
-> > connected via RMII interface at GPIO bank A).
-> > 
-> > Force the PHY selection bit to 0 when the SOC doesn't have an internal PHY,
-> > to address the problem of a wrong default value.
-> > 
-> > Signed-off-by: Icenowy Zheng <icenowy@aosc.io>
-> > Signed-off-by: Ondrej Jirman <megous@megous.com>
-> [...]
-> 
-> MBR, Sergei
 _______________________________________________
 Linux-stm32 mailing list
 Linux-stm32@st-md-mailman.stormreply.com
