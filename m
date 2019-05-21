@@ -2,67 +2,67 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id 41D222497B
-	for <lists+linux-stm32@lfdr.de>; Tue, 21 May 2019 09:56:49 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id E15CF249EC
+	for <lists+linux-stm32@lfdr.de>; Tue, 21 May 2019 10:13:47 +0200 (CEST)
 Received: from ip-172-31-3-76.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id F1721C69F4B
-	for <lists+linux-stm32@lfdr.de>; Tue, 21 May 2019 07:56:48 +0000 (UTC)
-Received: from mail-vs1-f66.google.com (mail-vs1-f66.google.com
- [209.85.217.66])
- (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 8D158C725A9
+	for <lists+linux-stm32@lfdr.de>; Tue, 21 May 2019 08:13:47 +0000 (UTC)
+Received: from mx07-00178001.pphosted.com (mx07-00178001.pphosted.com
+ [62.209.51.94])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 93B3BC65C28
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 2F84EC725A8
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Tue, 21 May 2019 07:56:47 +0000 (UTC)
-Received: by mail-vs1-f66.google.com with SMTP id w124so2609223vsb.11
- for <linux-stm32@st-md-mailman.stormreply.com>;
- Tue, 21 May 2019 00:56:47 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linaro.org; s=google;
- h=mime-version:references:in-reply-to:from:date:message-id:subject:to
- :cc; bh=FtQxjrgLrdOuTSlhu4LkRzwqAzUSzK8W0aKxAbgs+38=;
- b=F5EyexQaa0bp0wPObS0GOV2fVBnRHWOPre4mgWtyFd+AZ2jy1wnr/0x0uDEiuWGeJ2
- x54itVgHoIeRfX64D+f8f1ov2JNjm4z9MqJRfzHEdo1QXpZz7GslDUsVAFoSyLagjPrT
- ugwOXDGmwSI5O4Hf9N/TIwdjo3inNrzlsS7ATtZiBJilOcfV2RKJX2F3yjhL3wh0pn7z
- 1gJIeiyPYxdIs8kS2q6MkhiVdjsS69JS3nx6xEQ46SMXWxpeaz+KJrawK4ANuLNH/Syy
- x0UMQXrOgL+Y83N/WwWNWxek6DqXC6/mKTFZlj4O9kk3v/z5QlEKUir+Jb1IHzUGMHHJ
- /RsQ==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20161025;
- h=x-gm-message-state:mime-version:references:in-reply-to:from:date
- :message-id:subject:to:cc;
- bh=FtQxjrgLrdOuTSlhu4LkRzwqAzUSzK8W0aKxAbgs+38=;
- b=Towf7LFHJX3rKG0UHyyMT/cjFv53DQaQ1eCGH1x9mtcqa+/Ao1+0dAYRSaJbxw+xme
- ziOtw2CEwPvLmC7aA1YfOUZfNtwRw+Sffl5Pyq/X7BzQWWIhuXcRjS8oNGU/sQNxUDOI
- oW/csM4klDX90uwQVm6934JWSyAoLpkdG9LVScx1R6EbOhm/C2ontU2d+q2izGpM8cR2
- AWH0n3ScQ1NAzegXepSbVQf5EuSkcJKVVyJu02OGPDD8CDl9olA49rEVvcs54n8FFAwj
- mNuF/9mG9bMvkMPldEowMs2Cd0ajP+3oDVt0xmqQbTGQzMocYXrUR8EoQ4ukN7COveVo
- zRuw==
-X-Gm-Message-State: APjAAAVpw89xtWAKUrnqJL9zndhXymNu3rmzpBs6Xa6PUz+sMbinTClv
- BEnZ/LBWB2ZyjRz9EsjUrv+hzCczOLBi67IMXqsfpQ==
-X-Google-Smtp-Source: APXvYqxy+vnW+gDM9sIawmZ1xfypyZ+973iUhEqyUgGr8DtqjIiEFy8/ahRDodOxF5dcpTZCuXdm3fwUb+Nvl/aPNSQ=
-X-Received: by 2002:a67:3046:: with SMTP id w67mr21968255vsw.165.1558425406507; 
- Tue, 21 May 2019 00:56:46 -0700 (PDT)
+ Tue, 21 May 2019 08:13:46 +0000 (UTC)
+Received: from pps.filterd (m0046668.ppops.net [127.0.0.1])
+ by mx07-00178001.pphosted.com (8.16.0.27/8.16.0.27) with SMTP id
+ x4L875aA001663; Tue, 21 May 2019 10:13:37 +0200
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=st.com;
+ h=subject : to : cc :
+ references : from : message-id : date : mime-version : in-reply-to :
+ content-type : content-transfer-encoding; s=STMicroelectronics;
+ bh=wbqGG8HuDpV3tZJFOhJKGCU27qgfbSdFuxdaOzI8vDQ=;
+ b=Qa0hmHH3fbgr1Qh1hO3qmsjBmLMxNUiuF2akEV2t1FZ+ymEY/RoQG2Sd6wOw2yMHsUwE
+ tyUWx/GFZbFk77lanlGc9DENBAFoUjcs9Yc4h2gX9v5Rxe+YPRAOQIUmt8B/XQY1dauJ
+ Az4cSInjeewi4fCnbtuVbUzVXEgGUfndzsFzpVKiuAtPeorw70Ol3Z5gtj9OQM4pdWVN
+ QzL1PNjj2Xbleil4j/QqkJJu9osO1xzjHGLC/L6qlSoWtoQNe2alBIi38qOJvBvpA37z
+ p3QqGZ1G3umnhIDWZR18W1Pz8zoqrzMwVrFkWajybeg0q9cySz2ZumtQ4C+BAQQoNwUm OQ== 
+Received: from beta.dmz-eu.st.com (beta.dmz-eu.st.com [164.129.1.35])
+ by mx07-00178001.pphosted.com with ESMTP id 2sj7h0r4ck-1
+ (version=TLSv1 cipher=ECDHE-RSA-AES256-SHA bits=256 verify=NOT);
+ Tue, 21 May 2019 10:13:37 +0200
+Received: from zeta.dmz-eu.st.com (zeta.dmz-eu.st.com [164.129.230.9])
+ by beta.dmz-eu.st.com (STMicroelectronics) with ESMTP id 0040A34;
+ Tue, 21 May 2019 08:13:36 +0000 (GMT)
+Received: from Webmail-eu.st.com (sfhdag3node2.st.com [10.75.127.8])
+ by zeta.dmz-eu.st.com (STMicroelectronics) with ESMTP id 8D20E17FB;
+ Tue, 21 May 2019 08:13:36 +0000 (GMT)
+Received: from [10.48.0.204] (10.75.127.51) by SFHDAG3NODE2.st.com
+ (10.75.127.8) with Microsoft SMTP Server (TLS) id 15.0.1347.2; Tue, 21 May
+ 2019 10:13:34 +0200
+To: Amelie Delaunay <amelie.delaunay@st.com>, Lee Jones <lee.jones@linaro.org>,
+ Linus Walleij <linus.walleij@linaro.org>, Rob Herring
+ <robh+dt@kernel.org>, Mark Rutland <mark.rutland@arm.com>, Maxime Coquelin
+ <mcoquelin.stm32@gmail.com>
+References: <1557392336-28239-1-git-send-email-amelie.delaunay@st.com>
+From: Alexandre Torgue <alexandre.torgue@st.com>
+Message-ID: <0a9bf716-addc-9342-09fe-06ff048ff7d7@st.com>
+Date: Tue, 21 May 2019 10:13:34 +0200
+User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:60.0) Gecko/20100101
+ Thunderbird/60.6.1
 MIME-Version: 1.0
-References: <1556264798-18540-1-git-send-email-ludovic.Barre@st.com>
- <CAPDyKFqbn=UcbwoH_z+yjrjvHQZaMtmsD=n0yrBV7DAK5VRJEQ@mail.gmail.com>
- <74b91eb4-e5a3-38b2-f732-29cdd058eb6a@st.com>
- <CAPDyKFoURwnai1hbCbO+Uh6+hc7A4dYHjWkqeFAEgMQET-BzwA@mail.gmail.com>
- <e884b614-14d4-1cae-5b77-c6aacabb764a@st.com>
-In-Reply-To: <e884b614-14d4-1cae-5b77-c6aacabb764a@st.com>
-From: Ulf Hansson <ulf.hansson@linaro.org>
-Date: Tue, 21 May 2019 09:56:09 +0200
-Message-ID: <CAPDyKFo4Y9PF_QL47rO2c_szUHahPMuzHV=j_SL9dxvAzst17w@mail.gmail.com>
-To: Ludovic BARRE <ludovic.barre@st.com>
-Cc: DTML <devicetree@vger.kernel.org>,
- "linux-mmc@vger.kernel.org" <linux-mmc@vger.kernel.org>,
- Linux Kernel Mailing List <linux-kernel@vger.kernel.org>,
- Rob Herring <robh+dt@kernel.org>,
- Srinivas Kandagatla <srinivas.kandagatla@linaro.org>,
- Maxime Coquelin <mcoquelin.stm32@gmail.com>,
- linux-stm32@st-md-mailman.stormreply.com,
- Linux ARM <linux-arm-kernel@lists.infradead.org>
-Subject: Re: [Linux-stm32] [PATCH V2 0/5] mmc: mmci: add busy detect for
-	stm32 sdmmc variant
+In-Reply-To: <1557392336-28239-1-git-send-email-amelie.delaunay@st.com>
+Content-Language: en-US
+X-Originating-IP: [10.75.127.51]
+X-ClientProxiedBy: SFHDAG1NODE2.st.com (10.75.127.2) To SFHDAG3NODE2.st.com
+ (10.75.127.8)
+X-Proofpoint-Virus-Version: vendor=fsecure engine=2.50.10434:, ,
+ definitions=2019-05-21_01:, , signatures=0
+Cc: linux-gpio@vger.kernel.org, linux-stm32@st-md-mailman.stormreply.com,
+ linux-kernel@vger.kernel.org, linux-arm-kernel@lists.infradead.org,
+ devicetree@vger.kernel.org
+Subject: Re: [Linux-stm32] [PATCH v6 0/9] Introduce STMFX I2C Multi-Function
+	eXpander
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -74,109 +74,33 @@ List-Post: <mailto:linux-stm32@st-md-mailman.stormreply.com>
 List-Help: <mailto:linux-stm32-request@st-md-mailman.stormreply.com?subject=help>
 List-Subscribe: <https://st-md-mailman.stormreply.com/mailman/listinfo/linux-stm32>, 
  <mailto:linux-stm32-request@st-md-mailman.stormreply.com?subject=subscribe>
-Content-Type: text/plain; charset="us-ascii"
-Content-Transfer-Encoding: 7bit
+Content-Transfer-Encoding: base64
+Content-Type: text/plain; charset="utf-8"; Format="flowed"
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
-On Tue, 21 May 2019 at 09:38, Ludovic BARRE <ludovic.barre@st.com> wrote:
->
-> hi Ulf
->
-> Just a "gentleman ping" about the rest of series.
-> "mmc: mmci: add busy detect for stm32 sdmmc variant"
-
-Thanks!
-
-It's been a busy period and I am currently traveling. My plan is to
-look at in detail beginning of next week when get back home. I hope
-that's okay.
-
-Kind regards
-Uffe
-
->
-> Regards
-> Ludo
->
-> On 5/3/19 3:29 PM, Ulf Hansson wrote:
-> > On Tue, 30 Apr 2019 at 14:06, Ludovic BARRE <ludovic.barre@st.com> wrote:
-> >>
-> >>
-> >>
-> >> On 4/30/19 1:13 PM, Ulf Hansson wrote:
-> >>> On Fri, 26 Apr 2019 at 09:46, Ludovic Barre <ludovic.Barre@st.com> wrote:
-> >>>>
-> >>>> From: Ludovic Barre <ludovic.barre@st.com>
-> >>>>
-> >>>> This patch series adds busy detect for stm32 sdmmc variant.
-> >>>> Some adaptations are required:
-> >>>> -Avoid to check and poll busy status when is not expected.
-> >>>> -Clear busy status bit if busy_detect_flag and busy_detect_mask are
-> >>>>    different.
-> >>>> -Add hardware busy timeout with MMCIDATATIMER register.
-> >>>>
-> >>>> V2:
-> >>>> -mmci_cmd_irq cleanup in separate patch.
-> >>>> -simplify the busy_detect_flag exclude
-> >>>> -replace sdmmc specific comment in
-> >>>> "mmc: mmci: avoid fake busy polling in mmci_irq"
-> >>>> to focus on common behavior
-> >>>>
-> >>>> Ludovic Barre (5):
-> >>>>     mmc: mmci: cleanup mmci_cmd_irq for busy detect feature
-> >>>>     mmc: mmci: avoid fake busy polling in mmci_irq
-> >>>>     mmc: mmci: fix clear of busy detect status
-> >>>>     mmc: mmci: add hardware busy timeout feature
-> >>>>     mmc: mmci: add busy detect for stm32 sdmmc variant
-> >>>>
-> >>>>    drivers/mmc/host/mmci.c | 61 ++++++++++++++++++++++++++++++++++++++-----------
-> >>>>    drivers/mmc/host/mmci.h |  3 +++
-> >>>>    2 files changed, 51 insertions(+), 13 deletions(-)
-> >>>>
-> >>>> --
-> >>>> 2.7.4
-> >>>>
-> >>>
-> >>> Ludovic, just wanted to let you know that I am reviewing and testing
-> >>> this series.
-> >>>
-> >>> However, while running some tests on Ux500 for validating the busy
-> >>> detection code, even without your series applied, I encounter some odd
-> >>> behaviors. I am looking into the problem to understand better and will
-> >>> let you know as soon as I have some more data to share.
-> >>
-> >> Oops, don't hesitate to share your status, if I could help.
-> >
-> > Thanks! Good and bad news here, then.
-> >
-> > I now understand what is going on - and there is certainly room for
-> > improvements here, but more importantly the actual mmci busy detection
-> > works as expected.
-> >
-> > When it comes to improvements, the main issue I have found is how we
-> > treat DATA WRITES. In many cases we simply don't use the HW busy
-> > detection at all, but instead rely on the mmc core to send CMD13 in a
-> > loop to poll. Well, then if the polling would have consisted of a
-> > couple of CMD13s that wouldn't be an issue, but my observations is
-> > rather that the numbers of CMD13 sent to poll is in the range or
-> > hundreds/thousands - per each WRITE request!
-> >
-> > I am going to send a patch (or two) that improves the behavior. It
-> > might even involve changing parts in core layer, not sure how the end
-> > result will look like yet.
-> >
-> > In any case, I have applied patch 1 and patch2 for next, as the tests
-> > turned out well at my side. I also took the liberty of updating some
-> > of the comments/changelogs, please have look and tell if there is
-> > something you want to change.
-> >
-> > I will continue with the rest of series next week.
-> >
-> > Kind regards
-> > Uffe
-> >
-_______________________________________________
-Linux-stm32 mailing list
-Linux-stm32@st-md-mailman.stormreply.com
-https://st-md-mailman.stormreply.com/mailman/listinfo/linux-stm32
+SGkgQW3DqWxpZSwKCk9uIDUvOS8xOSAxMDo1OCBBTSwgQW1lbGllIERlbGF1bmF5IHdyb3RlOgo+
+IFRoaXMgc2VyaWVzIGFkZHMgc3VwcG9ydCBmb3IgU1RNaWNyb2VsZWN0cm9uaWNzIE11bHRpLUZ1
+bmN0aW9uIGVYcGFuZGVyCj4gKFNUTUZYKSwgdXNlZCBvbiBzb21lIFNUTTMyIGRpc2NvdmVyeSBh
+bmQgZXZhbHVhdGlvbiBib2FyZHMuCj4gCj4gU1RNRlggaXMgYW4gU1RNMzJMMTUyIHNsYXZlIGNv
+bnRyb2xsZXIgd2hvc2UgZmlybXdhcmUgZW1iZWRzIHRoZSBmb2xsb3dpbmcKPiBmZWF0dXJlczoK
+PiAtIEkvTyBleHBhbmRlciAoMTYgR1BJT3MgKyA4IGV4dHJhIGlmIHRoZSBvdGhlciBmZWF0dXJl
+cyBhcmUgbm90IGVuYWJsZWQpLAo+IC0gcmVzaXN0aXZlIHRvdWNoc2NyZWVuIGNvbnRyb2xsZXIs
+Cj4gLSBJREQgbWVhc3VyZW1lbnQuCj4gCj4gSTJDIHN0dWZmIGFuZCBjaGlwIGluaXRpYWxpemF0
+aW9uIGlzIGJhc2VkIG9uIGFuIE1GRCBwYXJlbnQgZHJpdmVyLCB3aGljaAo+IHJlZ2lzdGVycyBT
+VE1GWCBmZWF0dXJlcyBNRkQgY2hpbGRyZW4uCgouLi4KCj4gQW1lbGllIERlbGF1bmF5ICg5KToK
+PiAgICBkdC1iaW5kaW5nczogbWZkOiBBZGQgU1QgTXVsdGktRnVuY3Rpb24gZVhwYW5kZXIgKFNU
+TUZYKSBjb3JlIGJpbmRpbmdzCj4gICAgbWZkOiBBZGQgU1QgTXVsdGktRnVuY3Rpb24gZVhwYW5k
+ZXIgKFNUTUZYKSBjb3JlIGRyaXZlcgo+ICAgIGR0LWJpbmRpbmdzOiBwaW5jdHJsOiBkb2N1bWVu
+dCB0aGUgU1RNRlggcGluY3RybCBiaW5kaW5ncwo+ICAgIHBpbmN0cmw6IEFkZCBTVE1GWCBHUElP
+IGV4cGFuZGVyIFBpbmN0cmwvR1BJTyBkcml2ZXIKPiAgICBBUk06IGR0czogc3RtMzI6IGFkZCBT
+VE1GWCBzdXBwb3J0IG9uIHN0bTMyNzQ2Zy1ldmFsCj4gICAgQVJNOiBkdHM6IHN0bTMyOiBhZGQg
+am95c3RpY2sgc3VwcG9ydCBvbiBzdG0zMjc0NmctZXZhbAo+ICAgIEFSTTogZHRzOiBzdG0zMjog
+YWRkIG9yYW5nZSBhbmQgYmx1ZSBsZWRzIG9uIHN0bTMyNzQ2Zy1ldmFsCj4gICAgQVJNOiBkdHM6
+IHN0bTMyOiBhZGQgU1RNRlggc3VwcG9ydCBvbiBzdG0zMm1wMTU3Yy1ldjEKPiAgICBBUk06IGR0
+czogc3RtMzI6IGFkZCBqb3lzdGljayBzdXBwb3J0IG9uIHN0bTMybXAxNTdjLWV2MQoKRGV2aWNl
+IHRyZWUgcGF0Y2hlcyAoNSB0byA5KSBhcHBsaWVkIG9uIHN0bTMyLW5leHQuCgpUaGFua3MKQWxl
+eAoKX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX18KTGludXgt
+c3RtMzIgbWFpbGluZyBsaXN0CkxpbnV4LXN0bTMyQHN0LW1kLW1haWxtYW4uc3Rvcm1yZXBseS5j
+b20KaHR0cHM6Ly9zdC1tZC1tYWlsbWFuLnN0b3JtcmVwbHkuY29tL21haWxtYW4vbGlzdGluZm8v
+bGludXgtc3RtMzIK
