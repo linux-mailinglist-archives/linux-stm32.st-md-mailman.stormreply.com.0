@@ -2,74 +2,76 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id 68C8B24B4D
-	for <lists+linux-stm32@lfdr.de>; Tue, 21 May 2019 11:17:59 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 23D7524B75
+	for <lists+linux-stm32@lfdr.de>; Tue, 21 May 2019 11:27:34 +0200 (CEST)
 Received: from ip-172-31-3-76.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 25CA8C725D7
-	for <lists+linux-stm32@lfdr.de>; Tue, 21 May 2019 09:17:59 +0000 (UTC)
-Received: from mx07-00178001.pphosted.com (mx08-00178001.pphosted.com
- [91.207.212.93])
- (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id D11EEC725DE
+	for <lists+linux-stm32@lfdr.de>; Tue, 21 May 2019 09:27:33 +0000 (UTC)
+Received: from mail-lj1-f194.google.com (mail-lj1-f194.google.com
+ [209.85.208.194])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 71436C725D6
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 7FC9EC725DD
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Tue, 21 May 2019 09:17:58 +0000 (UTC)
-Received: from pps.filterd (m0046661.ppops.net [127.0.0.1])
- by mx08-00178001.pphosted.com (8.16.0.27/8.16.0.27) with SMTP id
- x4L96iJ0014021; Tue, 21 May 2019 11:17:51 +0200
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=st.com;
- h=subject : to : cc :
- references : from : message-id : date : mime-version : in-reply-to :
- content-type : content-transfer-encoding; s=STMicroelectronics;
- bh=4RTuKGHCLsvh6APcX9ZvfmHkgHj7OwihyknGBu1Dl3k=;
- b=zu0FNCpQ3k5YZ+Hsbbr3+WOhETEEI/gIOo8/DQQg6XhVOH+wQN5fmQxRdPoCRMQl5YHP
- BXFwqOgCQeT/O3uvkr/R1btmto74WK/L9rN8UnYKQwZC6LfYnCeswjgmf0wBmOOQ72ir
- HTGEDPHbl3+VDiPOrxUgouddIuxMgctnPwiTu5l9Ssm+sdJOvMDGmYaWJCNFq/8AP21Y
- NRJfA5saQo7a+yG5I5A4LjLOrqk74BBnHvNZfK2ealDkR4PahOAymzNzuVwKd1LkSaDJ
- T881Rf3ep8OKCnHgANMCr9YhMkR7PBygemChfoWMJoXEYrd+Rz/tnM6pM3JXW+ZSRigb VQ== 
-Received: from beta.dmz-eu.st.com (beta.dmz-eu.st.com [164.129.1.35])
- by mx08-00178001.pphosted.com with ESMTP id 2sj8xg8bpr-1
- (version=TLSv1 cipher=ECDHE-RSA-AES256-SHA bits=256 verify=NOT);
- Tue, 21 May 2019 11:17:51 +0200
-Received: from zeta.dmz-eu.st.com (zeta.dmz-eu.st.com [164.129.230.9])
- by beta.dmz-eu.st.com (STMicroelectronics) with ESMTP id 4ECC531;
- Tue, 21 May 2019 09:17:50 +0000 (GMT)
-Received: from Webmail-eu.st.com (sfhdag6node1.st.com [10.75.127.16])
- by zeta.dmz-eu.st.com (STMicroelectronics) with ESMTP id 1DB7C24EC;
- Tue, 21 May 2019 09:17:50 +0000 (GMT)
-Received: from [10.48.0.237] (10.75.127.44) by SFHDAG6NODE1.st.com
- (10.75.127.16) with Microsoft SMTP Server (TLS) id 15.0.1347.2; Tue, 21 May
- 2019 11:17:49 +0200
-To: Ulf Hansson <ulf.hansson@linaro.org>
-References: <1556264798-18540-1-git-send-email-ludovic.Barre@st.com>
- <CAPDyKFqbn=UcbwoH_z+yjrjvHQZaMtmsD=n0yrBV7DAK5VRJEQ@mail.gmail.com>
- <74b91eb4-e5a3-38b2-f732-29cdd058eb6a@st.com>
- <CAPDyKFoURwnai1hbCbO+Uh6+hc7A4dYHjWkqeFAEgMQET-BzwA@mail.gmail.com>
- <e884b614-14d4-1cae-5b77-c6aacabb764a@st.com>
- <CAPDyKFo4Y9PF_QL47rO2c_szUHahPMuzHV=j_SL9dxvAzst17w@mail.gmail.com>
-From: Ludovic BARRE <ludovic.barre@st.com>
-Message-ID: <7e15c8ec-f851-b0d3-a3ce-dfad2a398e78@st.com>
-Date: Tue, 21 May 2019 11:17:48 +0200
-User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:60.0) Gecko/20100101
+ Tue, 21 May 2019 09:27:33 +0000 (UTC)
+Received: by mail-lj1-f194.google.com with SMTP id z5so15172515lji.10
+ for <linux-stm32@st-md-mailman.stormreply.com>;
+ Tue, 21 May 2019 02:27:33 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=cogentembedded-com.20150623.gappssmtp.com; s=20150623;
+ h=subject:to:cc:references:from:message-id:date:user-agent
+ :mime-version:in-reply-to:content-language:content-transfer-encoding;
+ bh=5Xy6KpBMf4VElfSxI8JZgNkIn+5swVz4A7VXhYDp2D4=;
+ b=gi0FnqEmcboPROS3aUYX2FmzKmldrXp2Xd53Cs+z0s80NF/1tJ+89FLSOmuykkWh0a
+ Bseps+m7BHSnZFk5NVsRLKcGhVs10u9VBXuk7ZFWImQxcj/UfGSJbg6gJGqG3M6Eryu0
+ +6VMdvaQODEdkEjm10eVWCg6HQioXvq/vhckhU8CXA37bZxImLyV9zUqEhECALNCOSWj
+ Io7qmy3Kwb5wIloKJURrXpWb2PPdq2gW5p7a9/ShaO6loZBFBAo1n7iTGu7RKvdGnRAu
+ 5KIh2bLGig4OqmPNCI6RFNpRPS27XWQk6PKwqmubBBllN7izvBcvS8lnUx17EQ9e1BYP
+ sbbQ==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20161025;
+ h=x-gm-message-state:subject:to:cc:references:from:message-id:date
+ :user-agent:mime-version:in-reply-to:content-language
+ :content-transfer-encoding;
+ bh=5Xy6KpBMf4VElfSxI8JZgNkIn+5swVz4A7VXhYDp2D4=;
+ b=m2AJTfPJgyagbSrx0CaQaXkapGC4Um7q2TK1J7Dmat5Nu0ESmeWXHUhRvSQNss0IHY
+ E3aiKldKDjOqmExZV2wi1SG4UzkwfYoG/1Tk56/ou2oM+mRQOjsR9P9Jld/xgiantaCL
+ Q5A10pkii8m8koub1+8AOI/nbyBoAJ+EQvOjzayme6lBA0bEw4QDviF1GugboQFx1fmV
+ MG9fZ8iC3Jhwmpej04a8tLCmHqkSHxLjFgHbH8sFY1TqK8Wg/zb3JaXUGf8QNpPWPdfb
+ rDyi9xTzYAgS6OkclcQwVyTNK0ko2k1tsPh60kwmnshVgeDF0UIgWo7EksT0ho/zoM9p
+ 5dag==
+X-Gm-Message-State: APjAAAXNynCP1Qi6pkAtrFY6HL7lLH7AcxtD6lxi+sOafjZyTaK+dkC7
+ NSBGO6hVt5JM5taHXvsmssPWZYK9cDo=
+X-Google-Smtp-Source: APXvYqz2W9cUR77wBpFQtxU/OEIMqFs1dqOYZh2m5bXIMOiU7pDh+NaARFsIcqKmxsWQZ0msZguFsQ==
+X-Received: by 2002:a2e:60a:: with SMTP id 10mr3542802ljg.126.1558430852654;
+ Tue, 21 May 2019 02:27:32 -0700 (PDT)
+Received: from [192.168.0.199] ([31.173.81.21])
+ by smtp.gmail.com with ESMTPSA id u128sm1039382lja.23.2019.05.21.02.27.30
+ (version=TLS1_2 cipher=ECDHE-RSA-AES128-GCM-SHA256 bits=128/128);
+ Tue, 21 May 2019 02:27:31 -0700 (PDT)
+To: megous@megous.com, linux-sunxi@googlegroups.com,
+ Maxime Ripard <maxime.ripard@bootlin.com>, Chen-Yu Tsai <wens@csie.org>,
+ Rob Herring <robh+dt@kernel.org>
+References: <20190520235009.16734-1-megous@megous.com>
+ <20190520235009.16734-3-megous@megous.com>
+From: Sergei Shtylyov <sergei.shtylyov@cogentembedded.com>
+Message-ID: <4e031eeb-2819-a97f-73bf-af84b04aa7b2@cogentembedded.com>
+Date: Tue, 21 May 2019 12:27:24 +0300
+User-Agent: Mozilla/5.0 (Windows NT 6.3; WOW64; rv:60.0) Gecko/20100101
  Thunderbird/60.6.1
 MIME-Version: 1.0
-In-Reply-To: <CAPDyKFo4Y9PF_QL47rO2c_szUHahPMuzHV=j_SL9dxvAzst17w@mail.gmail.com>
+In-Reply-To: <20190520235009.16734-3-megous@megous.com>
 Content-Language: en-US
-X-Originating-IP: [10.75.127.44]
-X-ClientProxiedBy: SFHDAG3NODE1.st.com (10.75.127.7) To SFHDAG6NODE1.st.com
- (10.75.127.16)
-X-Proofpoint-Virus-Version: vendor=fsecure engine=2.50.10434:, ,
- definitions=2019-05-21_01:, , signatures=0
-Cc: DTML <devicetree@vger.kernel.org>,
- "linux-mmc@vger.kernel.org" <linux-mmc@vger.kernel.org>,
- Linux Kernel Mailing List <linux-kernel@vger.kernel.org>,
- Rob Herring <robh+dt@kernel.org>,
- Srinivas Kandagatla <srinivas.kandagatla@linaro.org>,
- Maxime Coquelin <mcoquelin.stm32@gmail.com>,
- linux-stm32@st-md-mailman.stormreply.com,
- Linux ARM <linux-arm-kernel@lists.infradead.org>
-Subject: Re: [Linux-stm32] [PATCH V2 0/5] mmc: mmci: add busy detect for
-	stm32 sdmmc variant
+Cc: Mark Rutland <mark.rutland@arm.com>,
+ Maxime Coquelin <mcoquelin.stm32@gmail.com>, devicetree@vger.kernel.org,
+ David Airlie <airlied@linux.ie>, netdev@vger.kernel.org,
+ linux-kernel@vger.kernel.org, dri-devel@lists.freedesktop.org,
+ linux-stm32@st-md-mailman.stormreply.com, Jose Abreu <joabreu@synopsys.com>,
+ Daniel Vetter <daniel@ffwll.ch>, Giuseppe Cavallaro <peppe.cavallaro@st.com>,
+ "David S. Miller" <davem@davemloft.net>, linux-arm-kernel@lists.infradead.org,
+ Icenowy Zheng <icenowy@aosc.io>
+Subject: Re: [Linux-stm32] [PATCH v5 2/6] net: stmmac: sun8i: force select
+ external PHY when no internal one
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -86,109 +88,29 @@ Content-Type: text/plain; charset="us-ascii"; Format="flowed"
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
+Hello!
 
+On 21.05.2019 2:50, megous@megous.com wrote:
 
-On 5/21/19 9:56 AM, Ulf Hansson wrote:
-> On Tue, 21 May 2019 at 09:38, Ludovic BARRE <ludovic.barre@st.com> wrote:
->>
->> hi Ulf
->>
->> Just a "gentleman ping" about the rest of series.
->> "mmc: mmci: add busy detect for stm32 sdmmc variant"
+> From: Icenowy Zheng <icenowy@aosc.io>
 > 
-> Thanks!
-> 
-> It's been a busy period and I am currently traveling. My plan is to
-> look at in detail beginning of next week when get back home. I hope
-> that's okay.
+> The PHY selection bit also exists on SoCs without an internal PHY; if it's
+> set to 1 (internal PHY, default value) then the MAC will not make use of
+> any PHY such SoCs.
+          ^ "on" or "with" missing?
 
-yes, I understand, it's just to not forget me :-)
+> This problem appears when adapting for H6, which has no real internal PHY
+> (the "internal PHY" on H6 is not on-die, but on a co-packaged AC200 chip,
+> connected via RMII interface at GPIO bank A).
+> 
+> Force the PHY selection bit to 0 when the SOC doesn't have an internal PHY,
+> to address the problem of a wrong default value.
+> 
+> Signed-off-by: Icenowy Zheng <icenowy@aosc.io>
+> Signed-off-by: Ondrej Jirman <megous@megous.com>
+[...]
 
-> 
-> Kind regards
-> Uffe
-> 
->>
->> Regards
->> Ludo
->>
->> On 5/3/19 3:29 PM, Ulf Hansson wrote:
->>> On Tue, 30 Apr 2019 at 14:06, Ludovic BARRE <ludovic.barre@st.com> wrote:
->>>>
->>>>
->>>>
->>>> On 4/30/19 1:13 PM, Ulf Hansson wrote:
->>>>> On Fri, 26 Apr 2019 at 09:46, Ludovic Barre <ludovic.Barre@st.com> wrote:
->>>>>>
->>>>>> From: Ludovic Barre <ludovic.barre@st.com>
->>>>>>
->>>>>> This patch series adds busy detect for stm32 sdmmc variant.
->>>>>> Some adaptations are required:
->>>>>> -Avoid to check and poll busy status when is not expected.
->>>>>> -Clear busy status bit if busy_detect_flag and busy_detect_mask are
->>>>>>     different.
->>>>>> -Add hardware busy timeout with MMCIDATATIMER register.
->>>>>>
->>>>>> V2:
->>>>>> -mmci_cmd_irq cleanup in separate patch.
->>>>>> -simplify the busy_detect_flag exclude
->>>>>> -replace sdmmc specific comment in
->>>>>> "mmc: mmci: avoid fake busy polling in mmci_irq"
->>>>>> to focus on common behavior
->>>>>>
->>>>>> Ludovic Barre (5):
->>>>>>      mmc: mmci: cleanup mmci_cmd_irq for busy detect feature
->>>>>>      mmc: mmci: avoid fake busy polling in mmci_irq
->>>>>>      mmc: mmci: fix clear of busy detect status
->>>>>>      mmc: mmci: add hardware busy timeout feature
->>>>>>      mmc: mmci: add busy detect for stm32 sdmmc variant
->>>>>>
->>>>>>     drivers/mmc/host/mmci.c | 61 ++++++++++++++++++++++++++++++++++++++-----------
->>>>>>     drivers/mmc/host/mmci.h |  3 +++
->>>>>>     2 files changed, 51 insertions(+), 13 deletions(-)
->>>>>>
->>>>>> --
->>>>>> 2.7.4
->>>>>>
->>>>>
->>>>> Ludovic, just wanted to let you know that I am reviewing and testing
->>>>> this series.
->>>>>
->>>>> However, while running some tests on Ux500 for validating the busy
->>>>> detection code, even without your series applied, I encounter some odd
->>>>> behaviors. I am looking into the problem to understand better and will
->>>>> let you know as soon as I have some more data to share.
->>>>
->>>> Oops, don't hesitate to share your status, if I could help.
->>>
->>> Thanks! Good and bad news here, then.
->>>
->>> I now understand what is going on - and there is certainly room for
->>> improvements here, but more importantly the actual mmci busy detection
->>> works as expected.
->>>
->>> When it comes to improvements, the main issue I have found is how we
->>> treat DATA WRITES. In many cases we simply don't use the HW busy
->>> detection at all, but instead rely on the mmc core to send CMD13 in a
->>> loop to poll. Well, then if the polling would have consisted of a
->>> couple of CMD13s that wouldn't be an issue, but my observations is
->>> rather that the numbers of CMD13 sent to poll is in the range or
->>> hundreds/thousands - per each WRITE request!
->>>
->>> I am going to send a patch (or two) that improves the behavior. It
->>> might even involve changing parts in core layer, not sure how the end
->>> result will look like yet.
->>>
->>> In any case, I have applied patch 1 and patch2 for next, as the tests
->>> turned out well at my side. I also took the liberty of updating some
->>> of the comments/changelogs, please have look and tell if there is
->>> something you want to change.
->>>
->>> I will continue with the rest of series next week.
->>>
->>> Kind regards
->>> Uffe
->>>
+MBR, Sergei
 _______________________________________________
 Linux-stm32 mailing list
 Linux-stm32@st-md-mailman.stormreply.com
