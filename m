@@ -2,65 +2,78 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id C7E1F25DC4
-	for <lists+linux-stm32@lfdr.de>; Wed, 22 May 2019 07:48:37 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 5CC0925F14
+	for <lists+linux-stm32@lfdr.de>; Wed, 22 May 2019 10:08:29 +0200 (CEST)
 Received: from ip-172-31-3-76.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id B3333C9BCBC
-	for <lists+linux-stm32@lfdr.de>; Wed, 22 May 2019 05:48:36 +0000 (UTC)
-Received: from mail-wm1-f68.google.com (mail-wm1-f68.google.com
- [209.85.128.68])
- (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 0C03DC6DD89
+	for <lists+linux-stm32@lfdr.de>; Wed, 22 May 2019 08:08:29 +0000 (UTC)
+Received: from mx07-00178001.pphosted.com (mx08-00178001.pphosted.com
+ [91.207.212.93])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 340A1C9BCBB
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id D8615C69F24
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Wed, 22 May 2019 05:48:36 +0000 (UTC)
-Received: by mail-wm1-f68.google.com with SMTP id c66so3840844wme.0
- for <linux-stm32@st-md-mailman.stormreply.com>;
- Tue, 21 May 2019 22:48:36 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linaro.org; s=google;
- h=date:from:to:cc:subject:message-id:references:mime-version
- :content-disposition:content-transfer-encoding:in-reply-to
- :user-agent; bh=/tTf0o0S8X8KnChjJDfa2qYc6+8coCPQJrmnG5nMMms=;
- b=uUve0ZipnHu6cyNoI44TVwaoHbwO5Byw+UNySCQATErAkisI+mHPIbXN4XMMGxFRbd
- YU40swFzP8fPVrDfpyRwt0K1sNhjTFKRFTZ0jvSzNnDU0aayBXnXPkYQat15PEkbB7B2
- vdZImcsk6mklId16PzEv6fSWDOnOUW7nUpfiCksXPkZXigHjnI5aKhbvqJXFMXLtR1k2
- r1UkXhC+sh+5Qx+M+vywvf0UdtefyAn9GD2w+2709N6CFU7uSw9jsRL/28jYYhx4QoH4
- JLdQdZRONICn8J4EdMWYVD3d35LNAwi7oVsGBzBZiP2B7vylayIdp89IvWCQxbdPoC41
- LGKQ==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20161025;
- h=x-gm-message-state:date:from:to:cc:subject:message-id:references
- :mime-version:content-disposition:content-transfer-encoding
- :in-reply-to:user-agent;
- bh=/tTf0o0S8X8KnChjJDfa2qYc6+8coCPQJrmnG5nMMms=;
- b=mTHuZBV6N8FXzZbEcwXrNKAP9wJdJrZnPY0W/3DY0sFBqErvFPlAb2z7SYU1d+ncz/
- yh2Lf6wMsB8agKqGgpu4cpAP07WGUqhfNUsVoHzYDCMKyRBEFA7Ajwf6bLs/YGPKKMjV
- tRTd7txNgV4ILwi5alH2If/n2uLftzCnmNENtv/ycxcruuoIt/DslkSVQjDc92cCNiBV
- Xp3fuhEx77atcFbt79VYRg8UFbinM+DzeVLR+Bz4ZBcbii/un7VIFSg81bwtIqRYg+Dy
- h/BsR0RdKvk4o+LrXEM7ZmXzQK/64sLr5OzErU+OMCW/x2xwu9CGGpGW2RRB1MVrCENK
- CszQ==
-X-Gm-Message-State: APjAAAUMjvTx1MSn85sFcs16RpBzQXVEy7D8WQjLwOLFcRDRLoF4zd8Z
- 2uQm13cxvP0Pikm10Q03tE0CXA==
-X-Google-Smtp-Source: APXvYqw7YHeamUnm0AYxBgRDczx++fDFxFoKXuD29B3Z8t2mMkfJ9/TcKb9Bf8lpkjRJKl0djf95Gw==
-X-Received: by 2002:a1c:f10f:: with SMTP id p15mr6051518wmh.150.1558504115720; 
- Tue, 21 May 2019 22:48:35 -0700 (PDT)
-Received: from dell ([2.27.167.43])
- by smtp.gmail.com with ESMTPSA id p8sm15177511wro.0.2019.05.21.22.48.34
- (version=TLS1_2 cipher=ECDHE-RSA-CHACHA20-POLY1305 bits=256/256);
- Tue, 21 May 2019 22:48:34 -0700 (PDT)
-Date: Wed, 22 May 2019 06:48:33 +0100
-From: Lee Jones <lee.jones@linaro.org>
-To: Amelie Delaunay <amelie.delaunay@st.com>
-Message-ID: <20190522054833.GB4574@dell>
+ Wed, 22 May 2019 08:08:27 +0000 (UTC)
+Received: from pps.filterd (m0046660.ppops.net [127.0.0.1])
+ by mx08-00178001.pphosted.com (8.16.0.27/8.16.0.27) with SMTP id
+ x4M86k0n002750; Wed, 22 May 2019 10:08:18 +0200
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=st.com;
+ h=from : to : cc : subject
+ : date : message-id : references : in-reply-to : content-type : content-id
+ : content-transfer-encoding : mime-version; s=STMicroelectronics;
+ bh=31LcOJHiVU7kM7i+jYHMtvLW3Ng5hRb7rd4vsjEaOEI=;
+ b=MPxkK+advOYvKxUWlQp8XawP3OkLWmtDv1F6BBmG3Z4jkIliGmkzdxjdMNZZUVuqFH0M
+ jjVWDfeqpBQjs4VZogXcJvxwPYL27cicFu+/qXsvJtHKAImcqdNPzksV9G2AyPIIrno1
+ gUVD8B2kuIus3hHJyagg/2jeQTfYcI0iCv1oCECKNiSz7e3NlAXvYjBArZmQyhww/kEG
+ /GjJZfvne05cITC7K2VqFxKbIA2PPl55lYg1kFxyeZe7Gf7373tNCFL/gIwjySJKaJMv
+ R4ZKz13t5TBlmsQyCEeFlPqoELdO4pODBRB/eF/+T8gDgABW/sQvHWWN9MAKnuqW9632 xA== 
+Received: from beta.dmz-eu.st.com (beta.dmz-eu.st.com [164.129.1.35])
+ by mx08-00178001.pphosted.com with ESMTP id 2sj77477wh-1
+ (version=TLSv1 cipher=ECDHE-RSA-AES256-SHA bits=256 verify=NOT);
+ Wed, 22 May 2019 10:08:18 +0200
+Received: from zeta.dmz-eu.st.com (zeta.dmz-eu.st.com [164.129.230.9])
+ by beta.dmz-eu.st.com (STMicroelectronics) with ESMTP id 65C4A34;
+ Wed, 22 May 2019 08:08:17 +0000 (GMT)
+Received: from Webmail-eu.st.com (sfhdag3node3.st.com [10.75.127.9])
+ by zeta.dmz-eu.st.com (STMicroelectronics) with ESMTP id 23F6118FC;
+ Wed, 22 May 2019 08:08:13 +0000 (GMT)
+Received: from SFHDAG3NODE2.st.com (10.75.127.8) by SFHDAG3NODE3.st.com
+ (10.75.127.9) with Microsoft SMTP Server (TLS) id 15.0.1347.2; Wed, 22 May
+ 2019 10:08:12 +0200
+Received: from SFHDAG3NODE2.st.com ([fe80::b82f:1ce:8854:5b96]) by
+ SFHDAG3NODE2.st.com ([fe80::b82f:1ce:8854:5b96%20]) with mapi id
+ 15.00.1347.000; Wed, 22 May 2019 10:08:12 +0200
+From: Amelie DELAUNAY <amelie.delaunay@st.com>
+To: Lee Jones <lee.jones@linaro.org>
+Thread-Topic: [PATCH] pinctrl: stmfx: Fix compile issue when CONFIG_OF_GPIO is
+ not defined
+Thread-Index: AQHVDuDxK6HzwnJUFE6SYGi4rooWzqZ2hLKAgAAnAgA=
+Date: Wed, 22 May 2019 08:08:12 +0000
+Message-ID: <eb8425ec-989a-9701-7fee-61bd1d2b93c1@st.com>
 References: <1558338735-8444-1-git-send-email-amelie.delaunay@st.com>
+ <20190522054833.GB4574@dell>
+In-Reply-To: <20190522054833.GB4574@dell>
+Accept-Language: fr-FR, en-US
+Content-Language: en-US
+X-MS-Has-Attach: 
+X-MS-TNEF-Correlator: 
+user-agent: Mozilla/5.0 (X11; Linux x86_64; rv:60.0) Gecko/20100101
+ Thunderbird/60.6.1
+x-ms-exchange-messagesentrepresentingtype: 1
+x-ms-exchange-transport-fromentityheader: Hosted
+x-originating-ip: [10.75.127.47]
+Content-ID: <E9CA614ECF5A6949ACD7AA72A5C4B2BA@st.com>
 MIME-Version: 1.0
-Content-Disposition: inline
-In-Reply-To: <1558338735-8444-1-git-send-email-amelie.delaunay@st.com>
-User-Agent: Mutt/1.9.4 (2018-02-28)
-Cc: Linus Walleij <linus.walleij@linaro.org>, linux-kernel@vger.kernel.org,
- linux-gpio@vger.kernel.org, kbuild-all@01.org,
+X-Proofpoint-Virus-Version: vendor=fsecure engine=2.50.10434:, ,
+ definitions=2019-05-22_03:, , signatures=0
+Cc: Linus Walleij <linus.walleij@linaro.org>,
+ "linux-kernel@vger.kernel.org" <linux-kernel@vger.kernel.org>,
+ "linux-gpio@vger.kernel.org" <linux-gpio@vger.kernel.org>,
+ "kbuild-all@01.org" <kbuild-all@01.org>,
  Maxime Coquelin <mcoquelin.stm32@gmail.com>,
- linux-stm32@st-md-mailman.stormreply.com, linux-arm-kernel@lists.infradead.org
+ "linux-stm32@st-md-mailman.stormreply.com"
+ <linux-stm32@st-md-mailman.stormreply.com>,
+ "linux-arm-kernel@lists.infradead.org" <linux-arm-kernel@lists.infradead.org>
 Subject: Re: [Linux-stm32] [PATCH] pinctrl: stmfx: Fix compile issue when
  CONFIG_OF_GPIO is not defined
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
@@ -74,40 +87,64 @@ List-Post: <mailto:linux-stm32@st-md-mailman.stormreply.com>
 List-Help: <mailto:linux-stm32-request@st-md-mailman.stormreply.com?subject=help>
 List-Subscribe: <https://st-md-mailman.stormreply.com/mailman/listinfo/linux-stm32>, 
  <mailto:linux-stm32-request@st-md-mailman.stormreply.com?subject=subscribe>
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: base64
+Content-Type: text/plain; charset="us-ascii"
+Content-Transfer-Encoding: 7bit
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
-T24gTW9uLCAyMCBNYXkgMjAxOSwgQW1lbGllIERlbGF1bmF5IHdyb3RlOgoKPiBXaGVuIENPTkZJ
-R19HUElPX09GIGlzIG5vdCBkZWZpbmVkLCBzdHJ1Y3QgZ3Bpb19jaGlwICdvZl9ub2RlJyBtZW1i
-ZXIgZG9lcwo+IG5vdCBleGlzdDoKPiBkcml2ZXJzL3BpbmN0cmwvcGluY3RybC1zdG1meC5jOiBJ
-biBmdW5jdGlvbiAnc3RtZnhfcGluY3RybF9wcm9iZSc6Cj4gZHJpdmVycy9waW5jdHJsL3BpbmN0
-cmwtc3RtZnguYzo2NTI6MTc6IGVycm9yOiAnc3RydWN0IGdwaW9fY2hpcCcgaGFzIG5vIG1lbWJl
-ciBuYW1lZCAnb2Zfbm9kZScKPiAgICAgIHBjdGwtPmdwaW9fY2hpcC5vZl9ub2RlID0gbnA7Cj4g
-Cj4gRml4ZXM6IDE0OTBkOWY4NDFiMSAoInBpbmN0cmw6IEFkZCBTVE1GWCBHUElPIGV4cGFuZGVy
-IFBpbmN0cmwvR1BJTyBkcml2ZXIiKQo+IFJlcG9ydGVkLWJ5OiBrYnVpbGQgdGVzdCByb2JvdCA8
-bGtwQGludGVsLmNvbT4KPiBTaWduZWQtb2ZmLWJ5OiBBbWVsaWUgRGVsYXVuYXkgPGFtZWxpZS5k
-ZWxhdW5heUBzdC5jb20+Cj4gLS0tCj4gIGRyaXZlcnMvcGluY3RybC9waW5jdHJsLXN0bWZ4LmMg
-fCAyICsrCj4gIDEgZmlsZSBjaGFuZ2VkLCAyIGluc2VydGlvbnMoKykKPiAKPiBkaWZmIC0tZ2l0
-IGEvZHJpdmVycy9waW5jdHJsL3BpbmN0cmwtc3RtZnguYyBiL2RyaXZlcnMvcGluY3RybC9waW5j
-dHJsLXN0bWZ4LmMKPiBpbmRleCBlYmE4NzJjLi5iYjY0YWEwIDEwMDY0NAo+IC0tLSBhL2RyaXZl
-cnMvcGluY3RybC9waW5jdHJsLXN0bWZ4LmMKPiArKysgYi9kcml2ZXJzL3BpbmN0cmwvcGluY3Ry
-bC1zdG1meC5jCj4gQEAgLTY0OCw3ICs2NDgsOSBAQCBzdGF0aWMgaW50IHN0bWZ4X3BpbmN0cmxf
-cHJvYmUoc3RydWN0IHBsYXRmb3JtX2RldmljZSAqcGRldikKPiAgCXBjdGwtPmdwaW9fY2hpcC5i
-YXNlID0gLTE7Cj4gIAlwY3RsLT5ncGlvX2NoaXAubmdwaW8gPSBwY3RsLT5wY3RsX2Rlc2MubnBp
-bnM7Cj4gIAlwY3RsLT5ncGlvX2NoaXAuY2FuX3NsZWVwID0gdHJ1ZTsKPiArI2lmZGVmIENPTkZJ
-R19PRl9HUElPCj4gIAlwY3RsLT5ncGlvX2NoaXAub2Zfbm9kZSA9IG5wOwo+ICsjZW5kaWYKClRo
-aXMgaXMgcHJldHR5IHVnbHkuICBXaWxsIFNUTUZYIGV2ZXIgYmUgdXNlZCB3aXRob3V0IE9GIHN1
-cHBvcnQ/ICBJZgpub3QsIGl0IG1pZ2h0IGJlIGJldHRlciB0byBwbGFjZSB0aGlzIHJlc3RyaWN0
-aW9uIG9uIHRoZSBkcml2ZXIgYXMgYQp3aG9sZS4KCkluY2lkZW50YWxseSwgd2h5IGlzIHRoaXMg
-YmxhbmtlZCBvdXQgaW4gdGhlIHN0cnVjdHVyZSBkZWZpbml0aW9uPwpFdmVuICdzdHJ1Y3QgZGV2
-aWNlJyBkb2Vzbid0IGRvIHRoaXMuCgo+ICAJcGN0bC0+Z3Bpb19jaGlwLm5lZWRfdmFsaWRfbWFz
-ayA9IHRydWU7Cj4gIAo+ICAJcmV0ID0gZGV2bV9ncGlvY2hpcF9hZGRfZGF0YShwY3RsLT5kZXYs
-ICZwY3RsLT5ncGlvX2NoaXAsIHBjdGwpOwoKLS0gCkxlZSBKb25lcyBb5p2O55C85pavXQpMaW5h
-cm8gU2VydmljZXMgVGVjaG5pY2FsIExlYWQKTGluYXJvLm9yZyDilIIgT3BlbiBzb3VyY2Ugc29m
-dHdhcmUgZm9yIEFSTSBTb0NzCkZvbGxvdyBMaW5hcm86IEZhY2Vib29rIHwgVHdpdHRlciB8IEJs
-b2cKX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX18KTGludXgt
-c3RtMzIgbWFpbGluZyBsaXN0CkxpbnV4LXN0bTMyQHN0LW1kLW1haWxtYW4uc3Rvcm1yZXBseS5j
-b20KaHR0cHM6Ly9zdC1tZC1tYWlsbWFuLnN0b3JtcmVwbHkuY29tL21haWxtYW4vbGlzdGluZm8v
-bGludXgtc3RtMzIK
+
+
+On 5/22/19 7:48 AM, Lee Jones wrote:
+> On Mon, 20 May 2019, Amelie Delaunay wrote:
+> 
+>> When CONFIG_GPIO_OF is not defined, struct gpio_chip 'of_node' member does
+>> not exist:
+>> drivers/pinctrl/pinctrl-stmfx.c: In function 'stmfx_pinctrl_probe':
+>> drivers/pinctrl/pinctrl-stmfx.c:652:17: error: 'struct gpio_chip' has no member named 'of_node'
+>>       pctl->gpio_chip.of_node = np;
+>>
+>> Fixes: 1490d9f841b1 ("pinctrl: Add STMFX GPIO expander Pinctrl/GPIO driver")
+>> Reported-by: kbuild test robot <lkp@intel.com>
+>> Signed-off-by: Amelie Delaunay <amelie.delaunay@st.com>
+>> ---
+>>   drivers/pinctrl/pinctrl-stmfx.c | 2 ++
+>>   1 file changed, 2 insertions(+)
+>>
+>> diff --git a/drivers/pinctrl/pinctrl-stmfx.c b/drivers/pinctrl/pinctrl-stmfx.c
+>> index eba872c..bb64aa0 100644
+>> --- a/drivers/pinctrl/pinctrl-stmfx.c
+>> +++ b/drivers/pinctrl/pinctrl-stmfx.c
+>> @@ -648,7 +648,9 @@ static int stmfx_pinctrl_probe(struct platform_device *pdev)
+>>   	pctl->gpio_chip.base = -1;
+>>   	pctl->gpio_chip.ngpio = pctl->pctl_desc.npins;
+>>   	pctl->gpio_chip.can_sleep = true;
+>> +#ifdef CONFIG_OF_GPIO
+>>   	pctl->gpio_chip.of_node = np;
+>> +#endif
+> 
+> This is pretty ugly.  Will STMFX ever be used without OF support?  If
+> not, it might be better to place this restriction on the driver as a
+> whole.
+> 
+> Incidentally, why is this blanked out in the structure definition?
+> Even 'struct device' doesn't do this.
+> 
+config PINCTRL_STMFX
+	tristate "STMicroelectronics STMFX GPIO expander pinctrl driver"
+	depends on I2C
+	depends on OF || COMPILE_TEST
+	select GENERIC_PINCONF
+	select GPIOLIB_IRQCHIP
+	select MFD_STMFX
+
+The issue is due to COMPILE_TEST: would "depends on OF || (OF && 
+COMPILE_TEST)" be better ?
+
+>>   	pctl->gpio_chip.need_valid_mask = true;
+>>   
+>>   	ret = devm_gpiochip_add_data(pctl->dev, &pctl->gpio_chip, pctl);
+> 
+_______________________________________________
+Linux-stm32 mailing list
+Linux-stm32@st-md-mailman.stormreply.com
+https://st-md-mailman.stormreply.com/mailman/listinfo/linux-stm32
