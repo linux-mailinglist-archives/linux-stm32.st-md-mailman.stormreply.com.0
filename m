@@ -2,73 +2,105 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id 1598425FAF
-	for <lists+linux-stm32@lfdr.de>; Wed, 22 May 2019 10:41:39 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id F1C022AF32
+	for <lists+linux-stm32@lfdr.de>; Mon, 27 May 2019 09:07:43 +0200 (CEST)
 Received: from ip-172-31-3-76.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id B50CAC9E800
-	for <lists+linux-stm32@lfdr.de>; Wed, 22 May 2019 08:41:38 +0000 (UTC)
-Received: from mail-wm1-f67.google.com (mail-wm1-f67.google.com
- [209.85.128.67])
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id BAE65C59789
+	for <lists+linux-stm32@lfdr.de>; Mon, 27 May 2019 07:07:43 +0000 (UTC)
+Received: from mail-wm1-f68.google.com (mail-wm1-f68.google.com
+ [209.85.128.68])
  (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 1A66CCBD2F0
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 06A8CC9E8A9
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Wed, 22 May 2019 08:41:37 +0000 (UTC)
-Received: by mail-wm1-f67.google.com with SMTP id f204so1291826wme.0
+ Wed, 22 May 2019 09:01:38 +0000 (UTC)
+Received: by mail-wm1-f68.google.com with SMTP id q15so1331523wmj.0
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Wed, 22 May 2019 01:41:37 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linaro.org; s=google;
- h=date:from:to:cc:subject:message-id:references:mime-version
- :content-disposition:content-transfer-encoding:in-reply-to
- :user-agent; bh=q7L1/sUPR8W9L8sXprMVyL5Z/bzVpXnH1aOKj/GG+/A=;
- b=n69/2+lx5ga5KpFONpiST2P4CX7PPHu2WceXSABiNdhAyiDvk8C+SCACxIwNaL2x9N
- cPJo848qpz6mgcUMpwNgiOvQfmiAyRBFmL+cP7i+cWKeP7HUW/lfrpQAYK4u1cFQn10z
- ojiLKlRLkE5cbhH9A7s2FMUtzFRxim2ipoXrvUa3DFtFqX8zQLSxkWtPlb7j4jj+kwBc
- SEKoopT21GfIZhHs7OBJHWXImJBXHqG9avaIOnHpT93VTAByAWbNVfMPVzprWMQTBcEK
- /Xl7dk+EW/rugC26Cm1IR+tnlktJj2mv1S2NfqKzpal8eQqC7E/YLGy54eGX/6C4+gMS
- 577g==
+ Wed, 22 May 2019 02:01:38 -0700 (PDT)
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=1e100.net; s=20161025;
- h=x-gm-message-state:date:from:to:cc:subject:message-id:references
- :mime-version:content-disposition:content-transfer-encoding
- :in-reply-to:user-agent;
- bh=q7L1/sUPR8W9L8sXprMVyL5Z/bzVpXnH1aOKj/GG+/A=;
- b=OuGYAm9wOs/1qs+buIjdDSBptlF3zwP1u0mcCRcgH/N9k7Xe/YgUcqDTJPJ1FfO90/
- FRPJPSxZolm19iAMWrVNTQ/Iw0G40+L8FXR1KmV4DpL44dswT1F22jQ2CkrsiC/7qDoT
- Ziugp4BYN9SwfrQ2KnMA7YKmYw3izMpaLiWcM9RGzGj8WnI6n793kFis715doHh3c6Dj
- PGlSHvf5xBjumW7wsZceq7sPwVzyrjPEf1YZRLTKK6n2WdyNlCGTQDDuE6ZkP3u5mHXu
- eiCHKgTgy9pBRhtHJ1eMKt+Y3Jor1oxXp/ugB1M1QUnR7rjfsxsNiNUCWKODlJ5JCDpC
- nbDw==
-X-Gm-Message-State: APjAAAWQcYL9vkpMePbZwcyxK+GaOA6jrs+S21wUDTMNxiKBJazHv8Hy
- EjGlINxst7m6Ynb8bH7MxeIgEg==
-X-Google-Smtp-Source: APXvYqymC4/6/Dt/5Im40Dr4o+wcxROcVrKiMvQ98uY3QS+nO3KOw2P2dBJz6PSyiQem8zGp3U2B9w==
-X-Received: by 2002:a1c:a00a:: with SMTP id j10mr1164973wme.41.1558514496607; 
- Wed, 22 May 2019 01:41:36 -0700 (PDT)
-Received: from dell ([2.27.167.43])
- by smtp.gmail.com with ESMTPSA id j13sm21086795wru.78.2019.05.22.01.41.34
- (version=TLS1_2 cipher=ECDHE-RSA-CHACHA20-POLY1305 bits=256/256);
- Wed, 22 May 2019 01:41:35 -0700 (PDT)
-Date: Wed, 22 May 2019 09:41:33 +0100
-From: Lee Jones <lee.jones@linaro.org>
-To: Amelie DELAUNAY <amelie.delaunay@st.com>
-Message-ID: <20190522084133.GF4574@dell>
-References: <1558338735-8444-1-git-send-email-amelie.delaunay@st.com>
- <20190522054833.GB4574@dell>
- <eb8425ec-989a-9701-7fee-61bd1d2b93c1@st.com>
+ h=x-gm-message-state:subject:to:cc:references:from:openpgp:autocrypt
+ :message-id:date:user-agent:mime-version:in-reply-to
+ :content-language:content-transfer-encoding;
+ bh=L8RX4sPU7xtBZ/Yu6Cb5KIGIoicE2IW+b+xnWX81zOc=;
+ b=XP3tVwJTe9LN+SpVAGqXqMr73kf+UUKFhlib95naRgGUGQz/4Ug0e0OKAGFT0+TBsu
+ bT5eNziIKLgw/ZXdUuHU0ra+tN+r2AAgwazAKMeys1oocli33A/56eWYp/UaOZzl11JY
+ v/RQ2dUv0/Jh6omlzIpYF5PijSsdcHOkTmISZb0Xg8iff8oVoFyxVp4bQZDXLfE23Ds4
+ UcGHLUa+Rq/sW//fKAjOrBFFajXd/IhQF8J7d81ki9XgkaYB/o1Nkv/s+JLv1BrZlUmo
+ v2EgqhacRz+BtUrVbjLWCd9OpJnhRsOSFReFIJpgC6+hDSjIetvDDoS9JOvMCOruw+5j
+ mOLA==
+X-Gm-Message-State: APjAAAV1ljq9RX7fuBqNIJdgexL99TzwbaKpnliQMy+ZI4GHKIf7gp0R
+ QGbdzuVE+hKHxDtAdaP2VGM=
+X-Google-Smtp-Source: APXvYqyjb14fkukdqvHfwxTl9zyI4MF0r2ufe6I477JVKU2qbXpMI2csyNmjd9zhFdxzHUOma1foMQ==
+X-Received: by 2002:a1c:be0b:: with SMTP id o11mr6834750wmf.63.1558515697516; 
+ Wed, 22 May 2019 02:01:37 -0700 (PDT)
+Received: from ?IPv6:2a0b:e7c0:0:107::49? ([2a0b:e7c0:0:107::49])
+ by smtp.gmail.com with ESMTPSA id u15sm43778174wru.16.2019.05.22.02.01.35
+ (version=TLS1_2 cipher=ECDHE-RSA-AES128-GCM-SHA256 bits=128/128);
+ Wed, 22 May 2019 02:01:36 -0700 (PDT)
+To: Arnaud Pouliquen <arnaud.pouliquen@st.com>,
+ xiang xiao <xiaoxiang781216@gmail.com>,
+ Bjorn Andersson <bjorn.andersson@linaro.org>,
+ Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
+ linux-kernel@vger.kernel.org, Ohad Ben-Cohen <ohad@wizery.com>
+References: <1558103266-1613-1-git-send-email-arnaud.pouliquen@st.com>
+ <1558103266-1613-3-git-send-email-arnaud.pouliquen@st.com>
+From: Jiri Slaby <jslaby@suse.cz>
+Openpgp: preference=signencrypt
+Autocrypt: addr=jslaby@suse.cz; prefer-encrypt=mutual; keydata=
+ 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
+Message-ID: <433332bb-e066-e752-7204-e4df336e4c95@suse.cz>
+Date: Wed, 22 May 2019 11:01:34 +0200
+User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:60.0) Gecko/20100101
+ Thunderbird/60.6.1
 MIME-Version: 1.0
-Content-Disposition: inline
-In-Reply-To: <eb8425ec-989a-9701-7fee-61bd1d2b93c1@st.com>
-User-Agent: Mutt/1.9.4 (2018-02-28)
-Cc: Linus Walleij <linus.walleij@linaro.org>,
- "linux-kernel@vger.kernel.org" <linux-kernel@vger.kernel.org>,
- "linux-gpio@vger.kernel.org" <linux-gpio@vger.kernel.org>,
- "kbuild-all@01.org" <kbuild-all@01.org>,
- Maxime Coquelin <mcoquelin.stm32@gmail.com>,
- "linux-stm32@st-md-mailman.stormreply.com"
- <linux-stm32@st-md-mailman.stormreply.com>,
- "linux-arm-kernel@lists.infradead.org" <linux-arm-kernel@lists.infradead.org>
-Subject: Re: [Linux-stm32] [PATCH] pinctrl: stmfx: Fix compile issue when
- CONFIG_OF_GPIO is not defined
+In-Reply-To: <1558103266-1613-3-git-send-email-arnaud.pouliquen@st.com>
+Content-Language: en-GB
+X-Mailman-Approved-At: Mon, 27 May 2019 07:07:42 +0000
+Cc: Alan Cox <gnomes@lxorguk.ukuu.org.uk>,
+ linux-stm32@st-md-mailman.stormreply.com,
+ Fabien DESSENNE <fabien.dessenne@st.com>
+Subject: Re: [Linux-stm32] [PATCH v3 2/2] tty: add rpmsg driver
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -80,63 +112,429 @@ List-Post: <mailto:linux-stm32@st-md-mailman.stormreply.com>
 List-Help: <mailto:linux-stm32-request@st-md-mailman.stormreply.com?subject=help>
 List-Subscribe: <https://st-md-mailman.stormreply.com/mailman/listinfo/linux-stm32>, 
  <mailto:linux-stm32-request@st-md-mailman.stormreply.com?subject=subscribe>
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: base64
+Content-Type: text/plain; charset="us-ascii"
+Content-Transfer-Encoding: 7bit
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
-T24gV2VkLCAyMiBNYXkgMjAxOSwgQW1lbGllIERFTEFVTkFZIHdyb3RlOgo+IE9uIDUvMjIvMTkg
-Nzo0OCBBTSwgTGVlIEpvbmVzIHdyb3RlOgo+ID4gT24gTW9uLCAyMCBNYXkgMjAxOSwgQW1lbGll
-IERlbGF1bmF5IHdyb3RlOgo+ID4gCj4gPj4gV2hlbiBDT05GSUdfR1BJT19PRiBpcyBub3QgZGVm
-aW5lZCwgc3RydWN0IGdwaW9fY2hpcCAnb2Zfbm9kZScgbWVtYmVyIGRvZXMKPiA+PiBub3QgZXhp
-c3Q6Cj4gPj4gZHJpdmVycy9waW5jdHJsL3BpbmN0cmwtc3RtZnguYzogSW4gZnVuY3Rpb24gJ3N0
-bWZ4X3BpbmN0cmxfcHJvYmUnOgo+ID4+IGRyaXZlcnMvcGluY3RybC9waW5jdHJsLXN0bWZ4LmM6
-NjUyOjE3OiBlcnJvcjogJ3N0cnVjdCBncGlvX2NoaXAnIGhhcyBubyBtZW1iZXIgbmFtZWQgJ29m
-X25vZGUnCj4gPj4gICAgICAgcGN0bC0+Z3Bpb19jaGlwLm9mX25vZGUgPSBucDsKPiA+Pgo+ID4+
-IEZpeGVzOiAxNDkwZDlmODQxYjEgKCJwaW5jdHJsOiBBZGQgU1RNRlggR1BJTyBleHBhbmRlciBQ
-aW5jdHJsL0dQSU8gZHJpdmVyIikKPiA+PiBSZXBvcnRlZC1ieToga2J1aWxkIHRlc3Qgcm9ib3Qg
-PGxrcEBpbnRlbC5jb20+Cj4gPj4gU2lnbmVkLW9mZi1ieTogQW1lbGllIERlbGF1bmF5IDxhbWVs
-aWUuZGVsYXVuYXlAc3QuY29tPgo+ID4+IC0tLQo+ID4+ICAgZHJpdmVycy9waW5jdHJsL3BpbmN0
-cmwtc3RtZnguYyB8IDIgKysKPiA+PiAgIDEgZmlsZSBjaGFuZ2VkLCAyIGluc2VydGlvbnMoKykK
-PiA+Pgo+ID4+IGRpZmYgLS1naXQgYS9kcml2ZXJzL3BpbmN0cmwvcGluY3RybC1zdG1meC5jIGIv
-ZHJpdmVycy9waW5jdHJsL3BpbmN0cmwtc3RtZnguYwo+ID4+IGluZGV4IGViYTg3MmMuLmJiNjRh
-YTAgMTAwNjQ0Cj4gPj4gLS0tIGEvZHJpdmVycy9waW5jdHJsL3BpbmN0cmwtc3RtZnguYwo+ID4+
-ICsrKyBiL2RyaXZlcnMvcGluY3RybC9waW5jdHJsLXN0bWZ4LmMKPiA+PiBAQCAtNjQ4LDcgKzY0
-OCw5IEBAIHN0YXRpYyBpbnQgc3RtZnhfcGluY3RybF9wcm9iZShzdHJ1Y3QgcGxhdGZvcm1fZGV2
-aWNlICpwZGV2KQo+ID4+ICAgCXBjdGwtPmdwaW9fY2hpcC5iYXNlID0gLTE7Cj4gPj4gICAJcGN0
-bC0+Z3Bpb19jaGlwLm5ncGlvID0gcGN0bC0+cGN0bF9kZXNjLm5waW5zOwo+ID4+ICAgCXBjdGwt
-PmdwaW9fY2hpcC5jYW5fc2xlZXAgPSB0cnVlOwo+ID4+ICsjaWZkZWYgQ09ORklHX09GX0dQSU8K
-PiA+PiAgIAlwY3RsLT5ncGlvX2NoaXAub2Zfbm9kZSA9IG5wOwo+ID4+ICsjZW5kaWYKPiA+IAo+
-ID4gVGhpcyBpcyBwcmV0dHkgdWdseS4gIFdpbGwgU1RNRlggZXZlciBiZSB1c2VkIHdpdGhvdXQg
-T0Ygc3VwcG9ydD8gIElmCj4gPiBub3QsIGl0IG1pZ2h0IGJlIGJldHRlciB0byBwbGFjZSB0aGlz
-IHJlc3RyaWN0aW9uIG9uIHRoZSBkcml2ZXIgYXMgYQo+ID4gd2hvbGUuCj4gPiAKPiA+IEluY2lk
-ZW50YWxseSwgd2h5IGlzIHRoaXMgYmxhbmtlZCBvdXQgaW4gdGhlIHN0cnVjdHVyZSBkZWZpbml0
-aW9uPwo+ID4gRXZlbiAnc3RydWN0IGRldmljZScgZG9lc24ndCBkbyB0aGlzLgo+ID4gCj4gY29u
-ZmlnIFBJTkNUUkxfU1RNRlgKPiAJdHJpc3RhdGUgIlNUTWljcm9lbGVjdHJvbmljcyBTVE1GWCBH
-UElPIGV4cGFuZGVyIHBpbmN0cmwgZHJpdmVyIgo+IAlkZXBlbmRzIG9uIEkyQwo+IAlkZXBlbmRz
-IG9uIE9GIHx8IENPTVBJTEVfVEVTVAo+IAlzZWxlY3QgR0VORVJJQ19QSU5DT05GCj4gCXNlbGVj
-dCBHUElPTElCX0lSUUNISVAKPiAJc2VsZWN0IE1GRF9TVE1GWAo+IAo+IFRoZSBpc3N1ZSBpcyBk
-dWUgdG8gQ09NUElMRV9URVNUOiB3b3VsZCAiZGVwZW5kcyBvbiBPRiB8fCAoT0YgJiYgCj4gQ09N
-UElMRV9URVNUKSIgYmUgYmV0dGVyID8KCkxpbnVzIHdvdWxkIGJlIGluIGEgYmV0dGVyIHBvc2l0
-aW9uIHRvIHJlc3BvbmQsIGJ1dCBmcm9tIHdoYXQgSSBjYW4Kc2VlLCBtYXliZToKCiAgZGVwZW5k
-cyBvbiBPRiB8fCAoT0ZfR1BJTyAmJiBDT01QSUxFX1RFU1QpCgpBbHRob3VnaCwgSSdtIHVuc3Vy
-ZSB3aHkgb3RoZXIgQ09NUElMRV9URVNUcyBoYXZlbid0IGhpZ2hsaWdodGVkIHRoaXMKaXNzdWUu
-ICBQZXJoYXBzIGJlY2F1c2UgdGhleSBoYXZlIGFsbCBiZWVuIGxvY2tlZCBkb3duIHRvIGEgcGFy
-dGljdWxhcgphcmNoOgoKJCBncmVwIENPTVBJTEVfVEVTVCAtLSBkcml2ZXJzL3BpbmN0cmwvS2Nv
-bmZpZyAKCWJvb2wgIlN1cHBvcnQgcGluIG11bHRpcGxleGluZyBjb250cm9sbGVycyIgaWYgQ09N
-UElMRV9URVNUCglib29sICJTdXBwb3J0IHBpbiBjb25maWd1cmF0aW9uIGNvbnRyb2xsZXJzIiBp
-ZiBDT01QSUxFX1RFU1QKCWRlcGVuZHMgb24gT0YgJiYgKEFSQ0hfREFWSU5DSV9EQTg1MCB8fCBD
-T01QSUxFX1RFU1QpCglkZXBlbmRzIG9uIE9GICYmIChBUkNIX0RJR0lDT0xPUiB8fCBDT01QSUxF
-X1RFU1QpCglkZXBlbmRzIG9uIE9GICYmIChBUkNIX0xQQzE4WFggfHwgQ09NUElMRV9URVNUKQoJ
-ZGVwZW5kcyBvbiBBUkNIX1I3UzcyMTAwIHx8IENPTVBJTEVfVEVTVAoJZGVwZW5kcyBvbiBBUkNI
-X1I3UzkyMTAgfHwgQ09NUElMRV9URVNUCglkZXBlbmRzIG9uIEFSQ0hfUlpOMSB8fCBDT01QSUxF
-X1RFU1QKCWRlcGVuZHMgb24gTUlQUyB8fCBDT01QSUxFX1RFU1QKCldoYXQgYWJvdXQgYWRkaW5n
-IHRoaXMgdG8geW91ciBLY29uZmlnIGVudHJ5OgoKICBzZWxlY3QgT0ZfR1BJTwoKPiA+PiAgIAlw
-Y3RsLT5ncGlvX2NoaXAubmVlZF92YWxpZF9tYXNrID0gdHJ1ZTsKPiA+PiAgIAo+ID4+ICAgCXJl
-dCA9IGRldm1fZ3Bpb2NoaXBfYWRkX2RhdGEocGN0bC0+ZGV2LCAmcGN0bC0+Z3Bpb19jaGlwLCBw
-Y3RsKTsKPiA+IAoKLS0gCkxlZSBKb25lcyBb5p2O55C85pavXQpMaW5hcm8gU2VydmljZXMgVGVj
-aG5pY2FsIExlYWQKTGluYXJvLm9yZyDilIIgT3BlbiBzb3VyY2Ugc29mdHdhcmUgZm9yIEFSTSBT
-b0NzCkZvbGxvdyBMaW5hcm86IEZhY2Vib29rIHwgVHdpdHRlciB8IEJsb2cKX19fX19fX19fX19f
-X19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX18KTGludXgtc3RtMzIgbWFpbGluZyBs
-aXN0CkxpbnV4LXN0bTMyQHN0LW1kLW1haWxtYW4uc3Rvcm1yZXBseS5jb20KaHR0cHM6Ly9zdC1t
-ZC1tYWlsbWFuLnN0b3JtcmVwbHkuY29tL21haWxtYW4vbGlzdGluZm8vbGludXgtc3RtMzIK
+On 17. 05. 19, 16:27, Arnaud Pouliquen wrote:
+> This driver exposes a standard tty interface on top of the rpmsg
+> framework through the "rpmsg-tty-channel" rpmsg service.
+> 
+> This driver supports multi-instances, offering a /dev/ttyRPMSGx entry
+> per rpmsg endpoint.
+> 
+> Signed-off-by: Arnaud Pouliquen <arnaud.pouliquen@st.com>
+> Signed-off-by: Fabien Dessenne <fabien.dessenne@st.com>
+> ---
+>  Documentation/serial/tty_rpmsg.txt |  38 +++
+>  drivers/tty/Kconfig                |   9 +
+>  drivers/tty/Makefile               |   1 +
+>  drivers/tty/rpmsg_tty.c            | 479 +++++++++++++++++++++++++++++++++++++
+>  4 files changed, 527 insertions(+)
+>  create mode 100644 Documentation/serial/tty_rpmsg.txt
+>  create mode 100644 drivers/tty/rpmsg_tty.c
+> 
+> diff --git a/Documentation/serial/tty_rpmsg.txt b/Documentation/serial/tty_rpmsg.txt
+> new file mode 100644
+> index 000000000000..e069ed268a2b
+> --- /dev/null
+> +++ b/Documentation/serial/tty_rpmsg.txt
+> @@ -0,0 +1,38 @@
+> +
+> +			The rpmsg TTY
+
+Perhaps you should use rst nowadays.
+
+> diff --git a/drivers/tty/rpmsg_tty.c b/drivers/tty/rpmsg_tty.c
+> new file mode 100644
+> index 000000000000..c7f53352acb6
+> --- /dev/null
+> +++ b/drivers/tty/rpmsg_tty.c
+> @@ -0,0 +1,479 @@
+...
+> +struct rpmsg_tty_port {
+> +	struct tty_port		port;	 /* TTY port data */
+> +	int			id;	 /* TTY rpmsg index */
+> +	struct rpmsg_device	*rpdev;	 /* rpmsg device */
+> +	int			cts;	 /* remote reception status */
+
+Just a nit, but if you move this int to the one above, you save some
+bytes thanks to alignment and holes.
+
+> +};
+> +
+> +typedef void (*rpmsg_tty_rx_cb_t)(struct rpmsg_device *, void *, int, void *,
+> +				  u32);
+> +
+> +static void rpmsg_tty_data_handler(struct rpmsg_device *rpdev, void *data,
+> +				   int len, void *priv, u32 src)
+> +{
+> +	struct rpmsg_tty_port *cport = dev_get_drvdata(&rpdev->dev);
+> +	u8 *cbuf;
+> +	int space;
+> +
+> +	dev_dbg(&rpdev->dev, "msg(<- src 0x%x) len %d\n", src, len);
+> +
+> +	if (!len)
+> +		return;
+> +
+> +	space = tty_prepare_flip_string(&cport->port, &cbuf, len);
+> +	if (space != len)
+> +		dev_dbg(&rpdev->dev, "trunc buffer: available space is %d\n",
+> +			len, space);
+> +	if (space <= 0)
+> +		return;
+> +
+> +	memcpy(cbuf, data, space);
+
+Why is the above not tty_insert_flip_string_fixed_flag instead?
+
+> +	tty_flip_buffer_push(&cport->port);
+> +}
+> +
+> +static void rpmsg_tty_ctrl_handler(struct rpmsg_device *rpdev, void *data,
+> +				   int len, void *priv, u32 src)
+> +{
+> +	struct rpmsg_tty_port *cport = dev_get_drvdata(&rpdev->dev);
+> +	struct rpmsg_tty_ctrl *ctrl = data;
+> +
+> +	dev_dbg(&rpdev->dev, "%s: ctrl received %d\n", __func__, ctrl->ctrl);
+> +	print_hex_dump_debug(__func__, DUMP_PREFIX_NONE, 16, 1, data, len,
+> +			     true);
+> +
+> +	if (len <= sizeof(*ctrl)) {
+> +		dev_err(&rpdev->dev, "%s: ctrl message invalid\n", __func__);
+> +		return;
+> +	}
+> +
+> +	if (ctrl->ctrl == DATA_TERM_READY) {
+
+Could this be switch-case instead?
+
+> +		/* Update the CTS according to remote RTS */
+> +		if (!ctrl->values[0]) {
+> +			cport->cts = 0;
+> +		} else {
+> +			cport->cts = 1;
+> +			tty_port_tty_wakeup(&cport->port);
+> +		}
+> +	} else {
+> +		dev_err(&rpdev->dev, "unknown control ID %d\n", ctrl->ctrl);
+> +	}
+> +}
+> +
+> +static const rpmsg_tty_rx_cb_t rpmsg_tty_handler[] = {
+> +	[RPMSG_DATA] = rpmsg_tty_data_handler,
+> +	[RPMSG_CTRL] = rpmsg_tty_ctrl_handler,
+> +};
+> +
+> +static int rpmsg_tty_cb(struct rpmsg_device *rpdev, void *data, int len,
+> +			void *priv, u32 src)
+> +{
+> +	struct rpmsg_tty_payload  *rbuf = data;
+> +
+> +	if (len <= sizeof(*rbuf) || rbuf->cmd > NUM_RPMSG_TTY_TYPE) {
+> +		dev_err(&rpdev->dev, "Invalid message: size %d, type %d\n",
+> +			len, rbuf->cmd);
+> +		return -EINVAL;
+> +	}
+> +
+> +	rpmsg_tty_handler[rbuf->cmd](rpdev, &rbuf->data,
+> +				     len - sizeof(rbuf->cmd), priv, src);
+
+Out-of-bound access if rbuf->cmd == NUM_RPMSG_TTY_TYPE, right? Nice hole.
+
+> +
+> +	return 0;
+> +}
+> +
+> +static int rpmsg_tty_write_control(struct tty_struct *tty, u8 ctrl, u8 *values,
+> +				   unsigned int n_value)
+> +{
+> +	struct rpmsg_tty_port *cport = idr_find(&tty_idr, tty->index);
+> +	struct rpmsg_tty_payload *msg;
+> +	struct rpmsg_tty_ctrl *m_ctrl;
+> +	struct rpmsg_device *rpdev;
+> +	unsigned int msg_size;
+> +	int ret;
+> +
+> +	if (!cport) {
+> +		dev_err(tty->dev, "cannot get cport\n");
+> +		return -ENODEV;
+> +	}
+> +
+> +	rpdev = cport->rpdev;
+> +
+> +	msg_size = sizeof(*msg) + sizeof(*m_ctrl) + n_value;
+> +	msg = kzalloc(msg_size, GFP_KERNEL);
+> +	if (!msg)
+> +		return -ENOMEM;
+> +
+> +	msg->cmd = RPMSG_CTRL;
+> +	m_ctrl =  (struct rpmsg_tty_ctrl *)&msg->data[0];
+> +	m_ctrl->ctrl = DATA_TERM_READY;
+> +	memcpy(m_ctrl->values, values, n_value);
+> +
+> +	ret = rpmsg_trysend(rpdev->ept, msg, msg_size);
+> +	if (ret < 0) {
+> +		dev_dbg(tty->dev, "cannot send control (%d)\n", ret);
+> +		ret = 0;
+> +	}
+> +	kfree(msg);
+> +
+> +	return ret;
+> +};
+> +
+> +static void rpmsg_tty_throttle(struct tty_struct *tty)
+> +{
+> +	u8 rts = 0;
+> +
+> +	/* Disable remote transmission */
+> +	rpmsg_tty_write_control(tty, DATA_TERM_READY, &rts, 1);
+> +};
+> +
+> +static void rpmsg_tty_unthrottle(struct tty_struct *tty)
+> +{
+> +	u8 rts = 1;
+> +
+> +	/* Enable remote transmission */
+> +	rpmsg_tty_write_control(tty, DATA_TERM_READY, &rts, 1);
+> +};
+> +
+> +static int rpmsg_tty_install(struct tty_driver *driver, struct tty_struct *tty)
+> +{
+> +	struct rpmsg_tty_port *cport = idr_find(&tty_idr, tty->index);
+> +
+> +	if (!cport) {
+> +		dev_err(tty->dev, "cannot get cport\n");
+> +		return -ENODEV;
+> +	}
+
+Set cport to driver_data?
+
+> +
+> +	return tty_port_install(&cport->port, driver, tty);
+> +}
+> +
+> +static int rpmsg_tty_open(struct tty_struct *tty, struct file *filp)
+> +{
+> +	return tty_port_open(tty->port, tty, filp);
+> +}
+> +
+> +static void rpmsg_tty_close(struct tty_struct *tty, struct file *filp)
+> +{
+> +	return tty_port_close(tty->port, tty, filp);
+> +}
+> +
+> +static int rpmsg_tty_write(struct tty_struct *tty, const u8 *buf, int len)
+> +{
+> +	struct rpmsg_tty_port *cport = idr_find(&tty_idr, tty->index);
+
+Get from driver_data?
+
+> +	struct rpmsg_device *rpdev;
+> +	int msg_size, msg_max_size, ret = 0;
+> +	int cmd_sz = sizeof(struct rpmsg_tty_payload);
+> +	u8 *tmpbuf;
+> +
+> +	if (!cport) {
+
+This would be superflous then?
+
+> +		dev_err(tty->dev, "cannot get cport\n");
+> +		return -ENODEV;
+> +	}
+> +
+> +	/* If cts not set, the message is not sent*/
+> +	if (!cport->cts)
+> +		return 0;
+> +
+> +	rpdev = cport->rpdev;
+> +
+> +	dev_dbg(&rpdev->dev, "%s: send msg from tty->index = %d, len = %d\n",
+> +		__func__, tty->index, len);
+> +	if (!buf) {
+
+How can this happen?
+
+> +		dev_err(&rpdev->dev, "buf shouldn't be null.\n");
+> +		return -ENOMEM;
+> +	}
+> +
+> +	msg_max_size = rpmsg_get_buf_payload_size(rpdev->ept);
+> +	if (msg_max_size < 0)
+> +		return msg_max_size;
+> +
+> +	msg_size = min(len + cmd_sz, msg_max_size);
+> +	tmpbuf = kzalloc(msg_size, GFP_KERNEL);
+> +	if (!tmpbuf)
+> +		return -ENOMEM;
+> +
+> +	tmpbuf[0] = RPMSG_DATA;
+> +	memcpy(&tmpbuf[cmd_sz], buf, msg_size - cmd_sz);
+
+Just curious: could "msg_size - cmd_sz" overflow to negatives? i.e.
+msg_max_size < sizeof(struct rpmsg_tty_payload)?
+
+> +
+> +	/*
+> +	 * Try to send the message to remote processor, if failed return 0 as
+> +	 * no data sent
+> +	 */
+> +	ret = rpmsg_trysend(rpdev->ept, (void *)tmpbuf, msg_size);
+
+No need to cast.
+
+> +	kfree(tmpbuf);
+> +	if (ret) {
+> +		dev_dbg(&rpdev->dev, "rpmsg_send failed: %d\n", ret);
+> +		return 0;
+> +	}
+> +
+> +	return msg_size - sizeof(struct rpmsg_tty_payload);
+
+The latter is cmd_sz or not?
+
+> +}
+> +
+> +static int rpmsg_tty_write_room(struct tty_struct *tty)
+> +{
+> +	struct rpmsg_tty_port *cport = idr_find(&tty_idr, tty->index);
+> +	int space = 0;
+> +
+> +	if (!cport) {
+
+The same as above.
+
+> +		dev_err(tty->dev, "cannot get cport\n");
+> +		return -ENODEV;
+> +	}
+> +
+> +	/*
+> +	 * Report the space in the rpmsg buffer, first byte is reserved to
+> +	 * define the buffer type.
+> +	 */
+> +	if (cport->cts) {
+> +		space = rpmsg_get_buf_payload_size(cport->rpdev->ept);
+> +		space -= sizeof(struct rpmsg_tty_payload);
+> +	}
+> +
+> +	return space;
+> +}
+> +
+> +static const struct tty_operations rpmsg_tty_ops = {
+> +	.install	= rpmsg_tty_install,
+> +	.open		= rpmsg_tty_open,
+> +	.close		= rpmsg_tty_close,
+> +	.write		= rpmsg_tty_write,
+> +	.write_room	= rpmsg_tty_write_room,
+> +	.throttle	= rpmsg_tty_throttle,
+> +	.unthrottle	= rpmsg_tty_unthrottle,
+> +};
+> +
+> +static struct rpmsg_tty_port *rpmsg_tty_alloc_cport(void)
+> +{
+> +	struct rpmsg_tty_port *cport;
+> +
+> +	cport = kzalloc(sizeof(*cport), GFP_KERNEL);
+> +	if (!cport)
+> +		return ERR_PTR(-ENOMEM);
+> +
+> +	mutex_lock(&idr_lock);
+> +	cport->id = idr_alloc(&tty_idr, cport, 0, MAX_TTY_RPMSG, GFP_KERNEL);
+> +	mutex_unlock(&idr_lock);
+> +
+> +	if (cport->id < 0) {
+> +		kfree(cport);
+> +		return ERR_PTR(-ENOSPC);
+> +	}
+> +
+> +	return cport;
+> +}
+> +
+> +static void rpmsg_tty_release_cport(struct rpmsg_tty_port *cport)
+> +{
+> +	mutex_lock(&idr_lock);
+> +	idr_remove(&tty_idr, cport->id);
+> +	mutex_unlock(&idr_lock);
+> +
+> +	kfree(cport);
+> +}
+> +
+> +static int rpmsg_tty_port_activate(struct tty_port *p, struct tty_struct *tty)
+> +{
+> +	/* Allocate the buffer we use for writing data */
+> +	return tty_port_alloc_xmit_buf(p);
+> +}
+> +
+> +static void rpmsg_tty_port_shutdown(struct tty_port *p)
+> +{
+> +	/* Free the write buffer */
+> +	tty_port_free_xmit_buf(p);
+> +}
+> +
+> +static void rpmsg_tty_dtr_rts(struct tty_port *port, int raise)
+> +{
+> +	struct rpmsg_tty_port *cport =
+> +				container_of(port, struct rpmsg_tty_port, port);
+> +
+> +	pr_debug("%s: dtr_rts state %d\n", __func__, raise);
+> +	if (!port->tty || !cport) {
+
+The latter barely can happen given you use container_of above.
+
+> +		pr_err("invalid port\n");
+> +		return;
+> +	}
+> +
+> +	cport->cts = raise;
+> +
+> +	if (raise)
+> +		rpmsg_tty_unthrottle(port->tty);
+> +	else
+> +		rpmsg_tty_throttle(port->tty);
+> +}
+> +
+> +static const struct tty_port_operations rpmsg_tty_port_ops = {
+> +	.activate = rpmsg_tty_port_activate,
+> +	.shutdown = rpmsg_tty_port_shutdown,
+> +	.dtr_rts  = rpmsg_tty_dtr_rts,
+> +};
+> +
+> +static int rpmsg_tty_probe(struct rpmsg_device *rpdev)
+> +{
+> +	struct rpmsg_tty_port *cport;
+> +	struct device *dev = &rpdev->dev;
+> +	struct device *tty_dev;
+> +	int ret;
+> +
+> +	cport = rpmsg_tty_alloc_cport();
+> +	if (IS_ERR(cport)) {
+> +		dev_err(dev, "failed to alloc tty port\n");
+> +		return PTR_ERR(cport);
+> +	}
+> +
+> +	tty_port_init(&cport->port);
+> +	cport->port.low_latency = cport->port.flags | ASYNC_LOW_LATENCY;
+
+"|"? Not "&"? You should prepend "!!" in any way as low latency is 13th bit.
+
+> +	cport->port.ops = &rpmsg_tty_port_ops;
+> +
+> +	tty_dev = tty_port_register_device(&cport->port, rpmsg_tty_driver,
+> +					   cport->id, dev);
+> +	if (IS_ERR(tty_dev)) {
+> +		dev_err(dev, "failed to register tty port\n");
+> +		ret = PTR_ERR(tty_dev);
+> +		goto  err_destroy;
+> +	}
+...
+regards,
+-- 
+js
+suse labs
+_______________________________________________
+Linux-stm32 mailing list
+Linux-stm32@st-md-mailman.stormreply.com
+https://st-md-mailman.stormreply.com/mailman/listinfo/linux-stm32
