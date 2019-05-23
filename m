@@ -2,65 +2,130 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id 31D8028213
-	for <lists+linux-stm32@lfdr.de>; Thu, 23 May 2019 18:04:03 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id B13B9285BA
+	for <lists+linux-stm32@lfdr.de>; Thu, 23 May 2019 20:17:07 +0200 (CEST)
 Received: from ip-172-31-3-76.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id F17F9CD2CC5
-	for <lists+linux-stm32@lfdr.de>; Thu, 23 May 2019 16:04:02 +0000 (UTC)
-Received: from mx07-00178001.pphosted.com (mx07-00178001.pphosted.com
- [62.209.51.94])
- (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 6C28DC10CB9
+	for <lists+linux-stm32@lfdr.de>; Thu, 23 May 2019 18:17:07 +0000 (UTC)
+Received: from mail-wm1-f68.google.com (mail-wm1-f68.google.com
+ [209.85.128.68])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 3295FCD2CC5
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 77523CD5B74
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Thu, 23 May 2019 16:04:01 +0000 (UTC)
-Received: from pps.filterd (m0046037.ppops.net [127.0.0.1])
- by mx07-00178001.pphosted.com (8.16.0.27/8.16.0.27) with SMTP id
- x4NG0qiD026668; Thu, 23 May 2019 18:03:58 +0200
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=st.com;
- h=from : to : cc : subject
- : date : message-id : in-reply-to : references : mime-version :
- content-type; s=STMicroelectronics;
- bh=5hI8e6ZPQsGWd16AXQZ48E8SF9A1eKHn+PFkt0sf6cI=;
- b=Qk1cKxAEtru+kBs84o6iSy0uIp98tJ5AmYS5Z5hhoeNx7+TO7l+Qa8G8TivAzde2H8E5
- xCs/RVAhVaggfr79Abew2wMF5n2WpnO6Bm5M1dLN+C3r7G//z4tQNvmK3yc6yK5upjWU
- 8KAlwfNZQaXF3dAvT8f5NMB/FvU3OCWHXRj8iUXq5XkiZ5GEzyFd+Ergtdz7+sEhaxmM
- QT1rH38tlCEDTxl0O4FrVhzJfwJoVw0RRO0S7vMyXiUUMoEx3pr8xUmCTEtWJ+2z1Jf+
- CiFtOlJGc9nJA6yX0gs3ZK8nAPuNF6zOsNDKmp6H0VEu+9eFTNa1ax31Jsrl33u2MT+H vA== 
-Received: from beta.dmz-eu.st.com (beta.dmz-eu.st.com [164.129.1.35])
- by mx07-00178001.pphosted.com with ESMTP id 2snrve289m-1
- (version=TLSv1 cipher=ECDHE-RSA-AES256-SHA bits=256 verify=NOT);
- Thu, 23 May 2019 18:03:58 +0200
-Received: from zeta.dmz-eu.st.com (zeta.dmz-eu.st.com [164.129.230.9])
- by beta.dmz-eu.st.com (STMicroelectronics) with ESMTP id EFC5034;
- Thu, 23 May 2019 16:03:57 +0000 (GMT)
-Received: from Webmail-eu.st.com (Safex1hubcas24.st.com [10.75.90.94])
- by zeta.dmz-eu.st.com (STMicroelectronics) with ESMTP id 772364E9A;
- Thu, 23 May 2019 16:03:57 +0000 (GMT)
-Received: from SAFEX1HUBCAS21.st.com (10.75.90.44) by Safex1hubcas24.st.com
- (10.75.90.94) with Microsoft SMTP Server (TLS) id 14.3.439.0; Thu, 23 May
- 2019 18:03:57 +0200
-Received: from localhost (10.48.0.131) by Webmail-ga.st.com (10.75.90.48) with
- Microsoft SMTP Server (TLS) id 14.3.439.0;
- Thu, 23 May 2019 18:03:56 +0200
-From: Arnaud Pouliquen <arnaud.pouliquen@st.com>
-To: Ohad Ben-Cohen <ohad@wizery.com>, Bjorn Andersson
- <bjorn.andersson@linaro.org>, Greg Kroah-Hartman
- <gregkh@linuxfoundation.org>, Jiri Slaby <jslaby@suse.com>, xiang xiao
- <xiaoxiang781216@gmail.com>, <linux-kernel@vger.kernel.org>
-Date: Thu, 23 May 2019 18:03:21 +0200
-Message-ID: <1558627401-1090-3-git-send-email-arnaud.pouliquen@st.com>
-X-Mailer: git-send-email 2.7.4
-In-Reply-To: <1558627401-1090-1-git-send-email-arnaud.pouliquen@st.com>
-References: <1558627401-1090-1-git-send-email-arnaud.pouliquen@st.com>
+ Thu, 23 May 2019 18:17:06 +0000 (UTC)
+Received: by mail-wm1-f68.google.com with SMTP id i3so6811217wml.4
+ for <linux-stm32@st-md-mailman.stormreply.com>;
+ Thu, 23 May 2019 11:17:06 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20161025;
+ h=subject:to:cc:references:from:openpgp:autocrypt:message-id:date
+ :user-agent:mime-version:in-reply-to:content-language
+ :content-transfer-encoding;
+ bh=rOCpAgwSlJyGCM5mQhDHQFFGcbo16Hm2rBki/beRDS0=;
+ b=pAI1FG5dffBe+/l0iXMlrFzmlBeTY06ZDKb/0Ez08L/tZii+3ZP643/7vVQn5t0PTG
+ ceRQoHScfoEAnweHwLe9BjSNHHGwqNnZ7nsUrFTN+xRPBcNIc5putVF3DLyX+B3SDJzm
+ iCZKEzvJxl4JyBmGvdbpgBU37iDo8UOB8vNY1GtwlugDyYFltkw4uLhjTxdT7DKV351L
+ wGx1ySn66b+v9x0Eoz+hPKnqn+o/fherY31RK7Poz7FB9OsqLIDgsGcDNui7FUdljevM
+ 2T/JDjDH4Et9UCpBICQw1lxf64+MPwUrgoHkK2HOvVY/bgt4Dvw/sfNPBaHoaRaH+7Ew
+ S3cA==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20161025;
+ h=x-gm-message-state:subject:to:cc:references:from:openpgp:autocrypt
+ :message-id:date:user-agent:mime-version:in-reply-to
+ :content-language:content-transfer-encoding;
+ bh=rOCpAgwSlJyGCM5mQhDHQFFGcbo16Hm2rBki/beRDS0=;
+ b=lnAvyi7Aky0gW7KwmVU4tdWtD7yBR10/RWdhG5ka2rmo0fkrb+2avwCo5gIi6CNV36
+ /DwFujzABT7vpqLcxWoMU8Jt8N8WWiFhwYJN6eK2K4OwjrhbPuhDp29WhO3cPyWBJNay
+ H2IbWfESnRf5S+0VdCvV3jfy2UuKLjPboUekj9yDfA71BffAV2YtcdRlhsyCe+7y5ZLa
+ ITpdhCE9ImcYUkiGi2OkzLkQFl76AcBBZypXOBjDD/tSc2vTCJU7Cosx6ZusoEIy4wOr
+ CI6OOj+/duRrH1dMP1eLVsAVJX6866ewFT1Om3+QdFr7nXhkQd6i4kotmjR+kCNjdQHN
+ KRLw==
+X-Gm-Message-State: APjAAAV0FxYcXIjPTdFfkfwwGlJ9g/+RG162HU+bEESBTd5FzA9QvAGO
+ 61sqXSDFZEYrnEQmAdqAywE=
+X-Google-Smtp-Source: APXvYqwolNUTJQNFmkcqVBpyXmCjYo54fGuM1+ACYPhybXi2YjA0EYP06lck56epViJTxq62cWZyoA==
+X-Received: by 2002:a1c:7d8e:: with SMTP id
+ y136mr12493029wmc.129.1558635425947; 
+ Thu, 23 May 2019 11:17:05 -0700 (PDT)
+Received: from [10.67.49.213] ([192.19.223.252])
+ by smtp.googlemail.com with ESMTPSA id q68sm252189wme.11.2019.05.23.11.17.02
+ (version=TLS1_2 cipher=ECDHE-RSA-AES128-GCM-SHA256 bits=128/128);
+ Thu, 23 May 2019 11:17:04 -0700 (PDT)
+To: Maxime Ripard <maxime.ripard@bootlin.com>,
+ Mark Rutland <mark.rutland@arm.com>, Rob Herring <robh+dt@kernel.org>,
+ Frank Rowand <frowand.list@gmail.com>, "David S . Miller"
+ <davem@davemloft.net>, Chen-Yu Tsai <wens@csie.org>
+References: <74d98cc3c744d53710c841381efd41cf5f15e656.1558605170.git-series.maxime.ripard@bootlin.com>
+ <aa5ec90854429c2d9e2c565604243e1b10cfd94b.1558605170.git-series.maxime.ripard@bootlin.com>
+From: Florian Fainelli <f.fainelli@gmail.com>
+Openpgp: preference=signencrypt
+Autocrypt: addr=f.fainelli@gmail.com; prefer-encrypt=mutual; keydata=
+ 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
+ M5kY0ACeNhCZJvZ5g4C2Lc9fcTHu8jxmEkI=
+Message-ID: <e39b7a35-3235-6040-b3c1-648897fabc70@gmail.com>
+Date: Thu, 23 May 2019 11:16:55 -0700
+User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:60.0) Gecko/20100101
+ Thunderbird/60.6.1
 MIME-Version: 1.0
-X-Originating-IP: [10.48.0.131]
-X-Proofpoint-Virus-Version: vendor=fsecure engine=2.50.10434:, ,
- definitions=2019-05-23_13:, , signatures=0
-Cc: Alan Cox <gnomes@lxorguk.ukuu.org.uk>,
- linux-stm32@st-md-mailman.stormreply.com,
- Fabien DESSENNE <fabien.dessenne@st.com>
-Subject: [Linux-stm32] [PATCH v4 2/2] tty: add rpmsg driver
+In-Reply-To: <aa5ec90854429c2d9e2c565604243e1b10cfd94b.1558605170.git-series.maxime.ripard@bootlin.com>
+Content-Language: en-US
+Cc: devicetree@vger.kernel.org,
+ =?UTF-8?Q?Antoine_T=c3=a9nart?= <antoine.tenart@bootlin.com>,
+ netdev@vger.kernel.org, Maxime Chevallier <maxime.chevallier@bootlin.com>,
+ Maxime Coquelin <mcoquelin.stm32@gmail.com>,
+ linux-stm32@st-md-mailman.stormreply.com, linux-arm-kernel@lists.infradead.org
+Subject: Re: [Linux-stm32] [PATCH 2/8] dt-bindings: net: Add a YAML schemas
+ for the generic PHY options
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -77,567 +142,21 @@ Content-Transfer-Encoding: 7bit
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
-This driver exposes a standard tty interface on top of the rpmsg
-framework through the "rpmsg-tty-channel" rpmsg service.
+On 5/23/19 2:56 AM, Maxime Ripard wrote:
+> The networking PHYs have a number of available device tree properties that
+> can be used in their device tree node. Add a YAML schemas for those.
+> 
+> Signed-off-by: Maxime Ripard <maxime.ripard@bootlin.com>
+> ---
+>  Documentation/devicetree/bindings/net/ethernet-phy.yaml | 148 +++++++++-
+>  Documentation/devicetree/bindings/net/phy.txt           |  80 +-----
+>  2 files changed, 149 insertions(+), 79 deletions(-)
+>  create mode 100644 Documentation/devicetree/bindings/net/ethernet-phy.yaml
 
-This driver supports multi-instances, offering a /dev/ttyRPMSGx entry
-per rpmsg endpoint.
-
-Signed-off-by: Arnaud Pouliquen <arnaud.pouliquen@st.com>
-Signed-off-by: Fabien Dessenne <fabien.dessenne@st.com>
----
- Documentation/serial/tty_rpmsg.rst |  43 ++++
- drivers/tty/Kconfig                |   9 +
- drivers/tty/Makefile               |   1 +
- drivers/tty/rpmsg_tty.c            | 455 +++++++++++++++++++++++++++++++++++++
- 4 files changed, 508 insertions(+)
- create mode 100644 Documentation/serial/tty_rpmsg.rst
- create mode 100644 drivers/tty/rpmsg_tty.c
-
-diff --git a/Documentation/serial/tty_rpmsg.rst b/Documentation/serial/tty_rpmsg.rst
-new file mode 100644
-index 000000000000..b65345cc82e8
---- /dev/null
-+++ b/Documentation/serial/tty_rpmsg.rst
-@@ -0,0 +1,43 @@
-+.. SPDX-License-Identifier: GPL-2.0
-+
-+=============
-+The rpmsg TTY
-+=============
-+
-+The rpmsg tty driver implements a serial communication on the rpmsg bus,
-+to communicate with a remote processor devices in asymmetric multiprocessing
-+(AMP) configurations.
-+
-+The remote processor can instantiate a new tty by requesting a new "rpmsg-tty-channel" RPMsg service. Information related to the RPMsg and
-+associated tty device is available in /sys/bus/rpmsg/devices/virtio0.rpmsg-tty-channel.-1.<X>, with
-+<X> corresponding to the ttyRPMSG instance.
-+
-+RPMsg data/control structure
-+----------------------------
-+
-+The RPMsg is used to send data or control messages. Differentiation between the
-+stream and the control messages is done thanks to the first byte of the
-+RPMsg payload:
-+
-+
-+- RPMSG_DATA	- rest of messages contains data
-+
-+- RPMSG_CTRL 	- message contains control.
-+
-+
-+To be compliant with this driver, the remote firmware has to respect this RPMsg
-+payload structure. At least the RPMSG_DATA type has to be supported. The
-+RPMSG_CTRL is optional.
-+
-+Flow control type
-+-----------------
-+
-+A minimum flow control can be implemented to allow/block communication with the remote processor.
-+
-+- DATA_TERM_READY
-+  one asocated parameter:
-+
-+  - u8 state:
-+
-+    - Set to indicate to remote side that terminal is ready for communication.
-+    - Reset to block communication with remote side.
-diff --git a/drivers/tty/Kconfig b/drivers/tty/Kconfig
-index e0a04bfc873e..d7b426939f69 100644
---- a/drivers/tty/Kconfig
-+++ b/drivers/tty/Kconfig
-@@ -442,6 +442,15 @@ config VCC
- 	help
- 	  Support for Sun logical domain consoles.
- 
-+config RPMSG_TTY
-+	tristate "RPMSG tty driver"
-+	depends on RPMSG
-+	help
-+	  Say y here to export rpmsg endpoints as tty devices, usually found
-+	  in /dev/ttyRPMSGx.
-+	  This makes it possible for user-space programs to send and receive
-+	  rpmsg messages as a standard tty protocol.
-+
- config LDISC_AUTOLOAD
- 	bool "Automatically load TTY Line Disciplines"
- 	default y
-diff --git a/drivers/tty/Makefile b/drivers/tty/Makefile
-index c72cafdf32b4..90a98a20714d 100644
---- a/drivers/tty/Makefile
-+++ b/drivers/tty/Makefile
-@@ -33,5 +33,6 @@ obj-$(CONFIG_PPC_EPAPR_HV_BYTECHAN) += ehv_bytechan.o
- obj-$(CONFIG_GOLDFISH_TTY)	+= goldfish.o
- obj-$(CONFIG_MIPS_EJTAG_FDC_TTY) += mips_ejtag_fdc.o
- obj-$(CONFIG_VCC)		+= vcc.o
-+obj-$(CONFIG_RPMSG_TTY)		+= rpmsg_tty.o
- 
- obj-y += ipwireless/
-diff --git a/drivers/tty/rpmsg_tty.c b/drivers/tty/rpmsg_tty.c
-new file mode 100644
-index 000000000000..f5894438536f
---- /dev/null
-+++ b/drivers/tty/rpmsg_tty.c
-@@ -0,0 +1,455 @@
-+// SPDX-License-Identifier: GPL-2.0
-+/*
-+ * Copyright (C) STMicroelectronics 2019 - All Rights Reserved
-+ * Authors: Arnaud Pouliquen <arnaud.pouliquen@st.com> for STMicroelectronics.
-+ *          Fabien Dessenne <fabien.dessenne@st.com> for STMicroelectronics.
-+ */
-+
-+#include <linux/module.h>
-+#include <linux/rpmsg.h>
-+#include <linux/slab.h>
-+#include <linux/tty.h>
-+#include <linux/tty_flip.h>
-+
-+#define MAX_TTY_RPMSG		32
-+
-+static DEFINE_IDR(tty_idr);	/* tty instance id */
-+static DEFINE_MUTEX(idr_lock);	/* protects tty_idr */
-+
-+static struct tty_driver *rpmsg_tty_driver;
-+
-+enum rpmsg_tty_type_t {
-+	RPMSG_DATA,
-+	RPMSG_CTRL,
-+	NUM_RPMSG_TTY_TYPE
-+};
-+
-+enum rpmsg_tty_ctrl_t {
-+	DATA_TERM_READY,	/* ready to accept data */
-+	NUM_RPMSG_TTY_CTRL_TYPE
-+};
-+
-+struct rpmsg_tty_payload {
-+	u8 cmd;
-+	u8 data[0];
-+};
-+
-+struct rpmsg_tty_ctrl {
-+	u8 ctrl;
-+	u8 values[0];
-+};
-+
-+struct rpmsg_tty_port {
-+	struct tty_port		port;	 /* TTY port data */
-+	int			id;	 /* TTY rpmsg index */
-+	int			cts;	 /* remote reception status */
-+	struct rpmsg_device	*rpdev;	 /* rpmsg device */
-+};
-+
-+typedef void (*rpmsg_tty_rx_cb_t)(struct rpmsg_device *, void *, int, void *,
-+				  u32);
-+
-+static void rpmsg_tty_data_handler(struct rpmsg_device *rpdev, void *data,
-+				   int len, void *priv, u32 src)
-+{
-+	struct rpmsg_tty_port *cport = dev_get_drvdata(&rpdev->dev);
-+	int copied;
-+
-+	dev_dbg(&rpdev->dev, "msg(<- src 0x%x) len %d\n", src, len);
-+
-+	if (!len)
-+		return;
-+
-+	copied = tty_insert_flip_string_fixed_flag(&cport->port, data,
-+						   TTY_NORMAL, len);
-+	if (copied != len)
-+		dev_dbg(&rpdev->dev, "trunc buffer: available space is %d\n",
-+			copied);
-+	tty_flip_buffer_push(&cport->port);
-+}
-+
-+static void rpmsg_tty_ctrl_handler(struct rpmsg_device *rpdev, void *data,
-+				   int len, void *priv, u32 src)
-+{
-+	struct rpmsg_tty_port *cport = dev_get_drvdata(&rpdev->dev);
-+	struct rpmsg_tty_ctrl *ctrl = data;
-+
-+	dev_dbg(&rpdev->dev, "%s: ctrl received %d\n", __func__, ctrl->ctrl);
-+	print_hex_dump_debug(__func__, DUMP_PREFIX_NONE, 16, 1, data, len,
-+			     true);
-+
-+	if (len <= sizeof(*ctrl)) {
-+		dev_err(&rpdev->dev, "%s: ctrl message invalid\n", __func__);
-+		return;
-+	}
-+
-+	if (ctrl->ctrl == DATA_TERM_READY) {
-+		/* Update the CTS according to remote RTS */
-+		if (!ctrl->values[0]) {
-+			cport->cts = 0;
-+		} else {
-+			cport->cts = 1;
-+			tty_port_tty_wakeup(&cport->port);
-+		}
-+	} else {
-+		dev_err(&rpdev->dev, "unknown control ID %d\n", ctrl->ctrl);
-+	}
-+}
-+
-+static const rpmsg_tty_rx_cb_t rpmsg_tty_handler[] = {
-+	[RPMSG_DATA] = rpmsg_tty_data_handler,
-+	[RPMSG_CTRL] = rpmsg_tty_ctrl_handler,
-+};
-+
-+static int rpmsg_tty_cb(struct rpmsg_device *rpdev, void *data, int len,
-+			void *priv, u32 src)
-+{
-+	struct rpmsg_tty_payload  *rbuf = data;
-+
-+	if (len <= sizeof(*rbuf) || rbuf->cmd >= NUM_RPMSG_TTY_TYPE) {
-+		dev_err(&rpdev->dev, "Invalid message: size %d, type %d\n",
-+			len, rbuf->cmd);
-+		return -EINVAL;
-+	}
-+
-+	rpmsg_tty_handler[rbuf->cmd](rpdev, &rbuf->data,
-+				     len - sizeof(rbuf->cmd), priv, src);
-+
-+	return 0;
-+}
-+
-+static int rpmsg_tty_write_control(struct tty_struct *tty, u8 ctrl, u8 *values,
-+				   unsigned int n_value)
-+{
-+	struct rpmsg_tty_port *cport = tty->driver_data;
-+	struct rpmsg_tty_payload *msg;
-+	struct rpmsg_tty_ctrl *m_ctrl;
-+	struct rpmsg_device *rpdev;
-+	unsigned int msg_size;
-+	int ret;
-+
-+	rpdev = cport->rpdev;
-+
-+	msg_size = sizeof(*msg) + sizeof(*m_ctrl) + n_value;
-+	msg = kzalloc(msg_size, GFP_KERNEL);
-+	if (!msg)
-+		return -ENOMEM;
-+
-+	msg->cmd = RPMSG_CTRL;
-+	m_ctrl =  (struct rpmsg_tty_ctrl *)&msg->data[0];
-+	m_ctrl->ctrl = DATA_TERM_READY;
-+	memcpy(m_ctrl->values, values, n_value);
-+
-+	ret = rpmsg_trysend(rpdev->ept, msg, msg_size);
-+	if (ret < 0) {
-+		dev_dbg(tty->dev, "cannot send control (%d)\n", ret);
-+		ret = 0;
-+	}
-+	kfree(msg);
-+
-+	return ret;
-+};
-+
-+static void rpmsg_tty_throttle(struct tty_struct *tty)
-+{
-+	u8 rts = 0;
-+
-+	/* Disable remote transmission */
-+	rpmsg_tty_write_control(tty, DATA_TERM_READY, &rts, 1);
-+};
-+
-+static void rpmsg_tty_unthrottle(struct tty_struct *tty)
-+{
-+	u8 rts = 1;
-+
-+	/* Enable remote transmission */
-+	rpmsg_tty_write_control(tty, DATA_TERM_READY, &rts, 1);
-+};
-+
-+static int rpmsg_tty_install(struct tty_driver *driver, struct tty_struct *tty)
-+{
-+	struct rpmsg_tty_port *cport = idr_find(&tty_idr, tty->index);
-+
-+	if (!cport) {
-+		dev_err(tty->dev, "cannot get cport\n");
-+		return -ENODEV;
-+	}
-+
-+	tty->driver_data = cport;
-+	return tty_port_install(&cport->port, driver, tty);
-+}
-+
-+static int rpmsg_tty_open(struct tty_struct *tty, struct file *filp)
-+{
-+	return tty_port_open(tty->port, tty, filp);
-+}
-+
-+static void rpmsg_tty_close(struct tty_struct *tty, struct file *filp)
-+{
-+	return tty_port_close(tty->port, tty, filp);
-+}
-+
-+static int rpmsg_tty_write(struct tty_struct *tty, const u8 *buf, int len)
-+{
-+	struct rpmsg_tty_port *cport = tty->driver_data;
-+	struct rpmsg_device *rpdev;
-+	int msg_max_size, ret = 0;
-+	unsigned int msg_size;
-+	int cmd_sz = sizeof(struct rpmsg_tty_payload);
-+	u8 *tmpbuf;
-+
-+	/* If cts not set, the message is not sent*/
-+	if (!cport->cts)
-+		return 0;
-+
-+	rpdev = cport->rpdev;
-+
-+	dev_dbg(&rpdev->dev, "%s: send msg from tty->index = %d, len = %d\n",
-+		__func__, tty->index, len);
-+
-+	msg_max_size = rpmsg_get_buf_payload_size(rpdev->ept);
-+	if (msg_max_size < 0)
-+		return msg_max_size;
-+
-+	msg_size = min(len + cmd_sz, msg_max_size);
-+	tmpbuf = kzalloc(msg_size, GFP_KERNEL);
-+	if (!tmpbuf)
-+		return -ENOMEM;
-+
-+	tmpbuf[0] = RPMSG_DATA;
-+	memcpy(&tmpbuf[cmd_sz], buf, msg_size - cmd_sz);
-+
-+	/*
-+	 * Try to send the message to remote processor, if failed return 0 as
-+	 * no data sent
-+	 */
-+	ret = rpmsg_trysend(rpdev->ept, tmpbuf, msg_size);
-+	kfree(tmpbuf);
-+	if (ret) {
-+		dev_dbg(&rpdev->dev, "rpmsg_send failed: %d\n", ret);
-+		return 0;
-+	}
-+
-+	return msg_size - cmd_sz;
-+}
-+
-+static int rpmsg_tty_write_room(struct tty_struct *tty)
-+{
-+	struct rpmsg_tty_port *cport = tty->driver_data;
-+	int space = 0;
-+
-+	/*
-+	 * Report the space in the rpmsg buffer, first byte is reserved to
-+	 * define the buffer type.
-+	 */
-+	if (cport->cts) {
-+		space = rpmsg_get_buf_payload_size(cport->rpdev->ept);
-+		space -= sizeof(struct rpmsg_tty_payload);
-+	}
-+
-+	return space;
-+}
-+
-+static const struct tty_operations rpmsg_tty_ops = {
-+	.install	= rpmsg_tty_install,
-+	.open		= rpmsg_tty_open,
-+	.close		= rpmsg_tty_close,
-+	.write		= rpmsg_tty_write,
-+	.write_room	= rpmsg_tty_write_room,
-+	.throttle	= rpmsg_tty_throttle,
-+	.unthrottle	= rpmsg_tty_unthrottle,
-+};
-+
-+static struct rpmsg_tty_port *rpmsg_tty_alloc_cport(void)
-+{
-+	struct rpmsg_tty_port *cport;
-+
-+	cport = kzalloc(sizeof(*cport), GFP_KERNEL);
-+	if (!cport)
-+		return ERR_PTR(-ENOMEM);
-+
-+	mutex_lock(&idr_lock);
-+	cport->id = idr_alloc(&tty_idr, cport, 0, MAX_TTY_RPMSG, GFP_KERNEL);
-+	mutex_unlock(&idr_lock);
-+
-+	if (cport->id < 0) {
-+		kfree(cport);
-+		return ERR_PTR(-ENOSPC);
-+	}
-+
-+	return cport;
-+}
-+
-+static void rpmsg_tty_release_cport(struct rpmsg_tty_port *cport)
-+{
-+	mutex_lock(&idr_lock);
-+	idr_remove(&tty_idr, cport->id);
-+	mutex_unlock(&idr_lock);
-+
-+	kfree(cport);
-+}
-+
-+static int rpmsg_tty_port_activate(struct tty_port *p, struct tty_struct *tty)
-+{
-+	p->low_latency = (p->flags & ASYNC_LOW_LATENCY) ? 1 : 0;
-+
-+	/* Allocate the buffer we use for writing data */
-+	return tty_port_alloc_xmit_buf(p);
-+}
-+
-+static void rpmsg_tty_port_shutdown(struct tty_port *p)
-+{
-+	/* Free the write buffer */
-+	tty_port_free_xmit_buf(p);
-+}
-+
-+static void rpmsg_tty_dtr_rts(struct tty_port *port, int raise)
-+{
-+	struct rpmsg_tty_port *cport =
-+				container_of(port, struct rpmsg_tty_port, port);
-+
-+	pr_debug("%s: dtr_rts state %d\n", __func__, raise);
-+
-+	cport->cts = raise;
-+
-+	if (raise)
-+		rpmsg_tty_unthrottle(port->tty);
-+	else
-+		rpmsg_tty_throttle(port->tty);
-+}
-+
-+static const struct tty_port_operations rpmsg_tty_port_ops = {
-+	.activate = rpmsg_tty_port_activate,
-+	.shutdown = rpmsg_tty_port_shutdown,
-+	.dtr_rts  = rpmsg_tty_dtr_rts,
-+};
-+
-+static int rpmsg_tty_probe(struct rpmsg_device *rpdev)
-+{
-+	struct rpmsg_tty_port *cport;
-+	struct device *dev = &rpdev->dev;
-+	struct device *tty_dev;
-+	int ret;
-+
-+	cport = rpmsg_tty_alloc_cport();
-+	if (IS_ERR(cport)) {
-+		dev_err(dev, "failed to alloc tty port\n");
-+		return PTR_ERR(cport);
-+	}
-+
-+	tty_port_init(&cport->port);
-+	cport->port.ops = &rpmsg_tty_port_ops;
-+
-+	tty_dev = tty_port_register_device(&cport->port, rpmsg_tty_driver,
-+					   cport->id, dev);
-+	if (IS_ERR(tty_dev)) {
-+		dev_err(dev, "failed to register tty port\n");
-+		ret = PTR_ERR(tty_dev);
-+		goto  err_destroy;
-+	}
-+
-+	cport->rpdev = rpdev;
-+
-+	dev_set_drvdata(dev, cport);
-+
-+	dev_dbg(dev, "new channel: 0x%x -> 0x%x : ttyRPMSG%d\n",
-+		rpdev->src, rpdev->dst, cport->id);
-+
-+	return 0;
-+
-+err_destroy:
-+	tty_port_destroy(&cport->port);
-+	rpmsg_tty_release_cport(cport);
-+
-+	return ret;
-+}
-+
-+static void rpmsg_tty_remove(struct rpmsg_device *rpdev)
-+{
-+	struct rpmsg_tty_port *cport = dev_get_drvdata(&rpdev->dev);
-+
-+	dev_dbg(&rpdev->dev, "removing rpmsg tty device %d\n", cport->id);
-+
-+	/* User hang up to release the tty */
-+	if (tty_port_initialized(&cport->port))
-+		tty_port_tty_hangup(&cport->port, false);
-+
-+	tty_unregister_device(rpmsg_tty_driver, cport->id);
-+
-+	tty_port_destroy(&cport->port);
-+	rpmsg_tty_release_cport(cport);
-+}
-+
-+static struct rpmsg_device_id rpmsg_driver_tty_id_table[] = {
-+	{ .name	= "rpmsg-tty-channel" },
-+	{ },
-+};
-+MODULE_DEVICE_TABLE(rpmsg, rpmsg_driver_tty_id_table);
-+
-+static struct rpmsg_driver rpmsg_tty_rpmsg_drv = {
-+	.drv.name	= KBUILD_MODNAME,
-+	.id_table	= rpmsg_driver_tty_id_table,
-+	.probe		= rpmsg_tty_probe,
-+	.callback	= rpmsg_tty_cb,
-+	.remove		= rpmsg_tty_remove,
-+};
-+
-+static int __init rpmsg_tty_init(void)
-+{
-+	int err;
-+
-+	rpmsg_tty_driver = tty_alloc_driver(MAX_TTY_RPMSG, TTY_DRIVER_REAL_RAW |
-+					    TTY_DRIVER_DYNAMIC_DEV);
-+	if (IS_ERR(rpmsg_tty_driver))
-+		return PTR_ERR(rpmsg_tty_driver);
-+
-+	rpmsg_tty_driver->driver_name = "rpmsg_tty";
-+	rpmsg_tty_driver->name = "ttyRPMSG";
-+	rpmsg_tty_driver->major = 0;
-+	rpmsg_tty_driver->type = TTY_DRIVER_TYPE_CONSOLE;
-+
-+	/* Disable unused mode by default */
-+	rpmsg_tty_driver->init_termios = tty_std_termios;
-+	rpmsg_tty_driver->init_termios.c_lflag &= ~(ECHO | ICANON);
-+	rpmsg_tty_driver->init_termios.c_oflag &= ~(OPOST | ONLCR);
-+
-+	tty_set_operations(rpmsg_tty_driver, &rpmsg_tty_ops);
-+
-+	err = tty_register_driver(rpmsg_tty_driver);
-+	if (err < 0) {
-+		pr_err("Couldn't install rpmsg tty driver: err %d\n", err);
-+		goto error_put;
-+	}
-+
-+	err = register_rpmsg_driver(&rpmsg_tty_rpmsg_drv);
-+	if (err < 0) {
-+		pr_err("Couldn't register rpmsg tty driver: err %d\n", err);
-+		goto error_unregister;
-+	}
-+
-+	return 0;
-+
-+error_unregister:
-+	tty_unregister_driver(rpmsg_tty_driver);
-+
-+error_put:
-+	put_tty_driver(rpmsg_tty_driver);
-+
-+	return err;
-+}
-+
-+static void __exit rpmsg_tty_exit(void)
-+{
-+	unregister_rpmsg_driver(&rpmsg_tty_rpmsg_drv);
-+	tty_unregister_driver(rpmsg_tty_driver);
-+	put_tty_driver(rpmsg_tty_driver);
-+	idr_destroy(&tty_idr);
-+}
-+
-+module_init(rpmsg_tty_init);
-+module_exit(rpmsg_tty_exit);
-+
-+MODULE_AUTHOR("Arnaud Pouliquen <arnaud.pouliquen@st.com>");
-+MODULE_AUTHOR("Fabien Dessenne <fabien.dessenne@st.com>");
-+MODULE_DESCRIPTION("virtio remote processor messaging tty driver");
-+MODULE_LICENSE("GPL v2");
+Updating the PHY Library section of the MAINTAINERS file to include that
+binding document (not sure why it was not there) would be nice.
 -- 
-2.7.4
-
+Florian
 _______________________________________________
 Linux-stm32 mailing list
 Linux-stm32@st-md-mailman.stormreply.com
