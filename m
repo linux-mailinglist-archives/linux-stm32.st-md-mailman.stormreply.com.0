@@ -2,66 +2,44 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id 2899929333
-	for <lists+linux-stm32@lfdr.de>; Fri, 24 May 2019 10:35:24 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id A40B929425
+	for <lists+linux-stm32@lfdr.de>; Fri, 24 May 2019 11:05:36 +0200 (CEST)
 Received: from ip-172-31-3-76.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id E7AA6C57778
-	for <lists+linux-stm32@lfdr.de>; Fri, 24 May 2019 08:35:23 +0000 (UTC)
-Received: from mail-qk1-f195.google.com (mail-qk1-f195.google.com
- [209.85.222.195])
- (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 009D2C57DD6
+	for <lists+linux-stm32@lfdr.de>; Fri, 24 May 2019 09:05:36 +0000 (UTC)
+Received: from relay6-d.mail.gandi.net (relay6-d.mail.gandi.net
+ [217.70.183.198])
+ (using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id C95E0C57776
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id F1FC0C57DD5
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Fri, 24 May 2019 08:35:21 +0000 (UTC)
-Received: by mail-qk1-f195.google.com with SMTP id m18so6225846qki.8
- for <linux-stm32@st-md-mailman.stormreply.com>;
- Fri, 24 May 2019 01:35:21 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linaro.org; s=google;
- h=mime-version:references:in-reply-to:from:date:message-id:subject:to
- :cc:content-transfer-encoding;
- bh=stihjVpyL81uND5ibC7iaE+uqyg/RcZbMfoVKMB+mtE=;
- b=COOin8sWa/lSfTHzEbCe7QsWKGFHiwbo+Kuqmt7jQDTjGn3ID2t5iZEWRjwnG6By71
- uv4qD+B6V+lTSd1cGxfjm6xdUqKzNvZcPCCozGAex2g3HPLoSyGt0NRZJNju326CVrUV
- MZiPPpSrfATRPBRj69TBl8hi4mwSD9d9Ry0RIkDRDarSJhV7v4vh0sMntfyLf1zjBRF6
- ur+A0Nr18atc8xLW4L1cLh+ev5aI/b8CI+deN/SFEn4H6FL/TkNMHhBha/cCFesIbyQj
- 44MwusoS5aJ1WsuHrDOHZoGBVhNW/7ciTNwIzlDSGh3AbxWasZnSztVK7nzT87PYKu6H
- HZOg==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20161025;
- h=x-gm-message-state:mime-version:references:in-reply-to:from:date
- :message-id:subject:to:cc:content-transfer-encoding;
- bh=stihjVpyL81uND5ibC7iaE+uqyg/RcZbMfoVKMB+mtE=;
- b=LafaJ09smrFYYv9Ug9tDFSFO9gUfAE0x1nJOc42c7PcC0wrbQqSoa8+yvvT2aO4o71
- VMath7y+gIkMc2kjyL6oDVQTKjPokWqCHHznmfP7a8KMQyyfGFROHrT1SCQ3Aq1DIZQT
- 3nSwA9g2KcOnr28/BDlQg8XupY6OEKs/YqN/q3DQAaXqp/akQcb001h6Ba0tinlN0sGL
- yh2CMJZXEPEpZTNKEnOfp/Pb/NPvqUEfeYqGnYqlRr1d2MgV7j0J7ykuPeA9YAnCksgX
- HJ4M09QUpvtoPp/XQ9HSdbEgUEh/9Oxi5ztMztRtQijUP8Tn5Xq14dgD0jmS+MO7l++r
- gZGQ==
-X-Gm-Message-State: APjAAAUzj6L0mC0/ME2BLXuwfLsA4WgHlWpSCdNv7Dm3Tqnt5hyXQ4/i
- Zv0Co4j8cjVLShz9XR/f71EdUwgT2kZ/A+HlA21HyA==
-X-Google-Smtp-Source: APXvYqzoub85iC3qRkUT/1rqPcbCAqf2PraA42mUh6gZCy1soKl7824Xl/NLHnNFN2zZSje+ohS+z/SwZ9ZQTmdisuQ=
-X-Received: by 2002:a0c:ad85:: with SMTP id w5mr11932788qvc.242.1558686920808; 
- Fri, 24 May 2019 01:35:20 -0700 (PDT)
+ Fri, 24 May 2019 09:05:33 +0000 (UTC)
+X-Originating-IP: 90.88.147.134
+Received: from localhost (aaubervilliers-681-1-27-134.w90-88.abo.wanadoo.fr
+ [90.88.147.134]) (Authenticated sender: maxime.ripard@bootlin.com)
+ by relay6-d.mail.gandi.net (Postfix) with ESMTPSA id B1F24C0017;
+ Fri, 24 May 2019 09:05:29 +0000 (UTC)
+Date: Fri, 24 May 2019 11:05:29 +0200
+From: Maxime Ripard <maxime.ripard@bootlin.com>
+To: Rob Herring <robh+dt@kernel.org>
+Message-ID: <20190524090529.bvjzapgy35pfcow5@flea>
+References: <74d98cc3c744d53710c841381efd41cf5f15e656.1558605170.git-series.maxime.ripard@bootlin.com>
+ <ba1a5d8ad34a8c9ab99f504c04fbe65bde42081b.1558605170.git-series.maxime.ripard@bootlin.com>
+ <CAL_JsqLrE31vWVhApGgr8JU56sDc1TWWm9HiH=Z-tn5C1GwXQA@mail.gmail.com>
 MIME-Version: 1.0
-References: <1557753318-11218-1-git-send-email-yannick.fertre@st.com>
- <317f94d6-846f-92e2-bd0f-b44377ea7845@st.com>
-In-Reply-To: <317f94d6-846f-92e2-bd0f-b44377ea7845@st.com>
-From: Benjamin Gaignard <benjamin.gaignard@linaro.org>
-Date: Fri, 24 May 2019 10:35:10 +0200
-Message-ID: <CA+M3ks77XPTZubS8icLdTF3mpQ3OHsvSqX35hHQik3ygRiGSZg@mail.gmail.com>
-To: Philippe CORNU <philippe.cornu@st.com>
-Cc: David Airlie <airlied@linux.ie>,
- "linux-kernel@vger.kernel.org" <linux-kernel@vger.kernel.org>,
- "dri-devel@lists.freedesktop.org" <dri-devel@lists.freedesktop.org>,
- Yannick FERTRE <yannick.fertre@st.com>,
- Maxime Coquelin <mcoquelin.stm32@gmail.com>, Daniel Vetter <daniel@ffwll.ch>,
- Vincent ABRIOU <vincent.abriou@st.com>,
- "linux-stm32@st-md-mailman.stormreply.com"
- <linux-stm32@st-md-mailman.stormreply.com>,
- "linux-arm-kernel@lists.infradead.org" <linux-arm-kernel@lists.infradead.org>
-Subject: Re: [Linux-stm32] [PATCH v2] drm/stm: ltdc: remove clk_round_rate
-	comment
+In-Reply-To: <CAL_JsqLrE31vWVhApGgr8JU56sDc1TWWm9HiH=Z-tn5C1GwXQA@mail.gmail.com>
+User-Agent: NeoMutt/20180716
+Cc: Mark Rutland <mark.rutland@arm.com>, devicetree@vger.kernel.org,
+ Antoine =?utf-8?Q?T=C3=A9nart?= <antoine.tenart@bootlin.com>,
+ netdev <netdev@vger.kernel.org>, linux-stm32@st-md-mailman.stormreply.com,
+ Chen-Yu Tsai <wens@csie.org>, Maxime Coquelin <mcoquelin.stm32@gmail.com>,
+ Maxime Chevallier <maxime.chevallier@bootlin.com>,
+ Frank Rowand <frowand.list@gmail.com>,
+ "David S . Miller" <davem@davemloft.net>,
+ "moderated list:ARM/FREESCALE IMX / MXC ARM ARCHITECTURE"
+ <linux-arm-kernel@lists.infradead.org>
+Subject: Re: [Linux-stm32] [PATCH 6/8] dt-bindings: net: stmmac: Convert the
+ binding to a schemas
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -73,49 +51,267 @@ List-Post: <mailto:linux-stm32@st-md-mailman.stormreply.com>
 List-Help: <mailto:linux-stm32-request@st-md-mailman.stormreply.com?subject=help>
 List-Subscribe: <https://st-md-mailman.stormreply.com/mailman/listinfo/linux-stm32>, 
  <mailto:linux-stm32-request@st-md-mailman.stormreply.com?subject=subscribe>
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: base64
+Content-Type: multipart/mixed; boundary="===============0369778001462401797=="
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
-TGUgbHVuLiAxMyBtYWkgMjAxOSDDoCAxNjo0NiwgUGhpbGlwcGUgQ09STlUgPHBoaWxpcHBlLmNv
-cm51QHN0LmNvbT4gYSDDqWNyaXQgOgo+Cj4gRGVhciBZYW5uaWNrLAo+Cj4gQWNrZWQtYnk6IFBo
-aWxpcHBlIENvcm51IDxwaGlsaXBwZS5jb3JudUBzdC5jb20+Cj4KQXBwbGllZCBvbiBkcm0tbWlz
-Yy1uZXh0LAoKQmVuamFtaW4KCj4gVGhhbmsgeW91LAo+Cj4gUGhpbGlwcGUgOi0pCj4KPiBPbiA1
-LzEzLzE5IDM6MTUgUE0sIFlhbm5pY2sgRmVydHLDqSB3cm90ZToKPiA+IENsa19yb3VuZF9yYXRl
-IHJldHVybnMgcm91bmRlZCBjbG9jayB3aXRob3V0IGNoYW5naW5nCj4gPiB0aGUgaGFyZHdhcmUg
-aW4gYW55IHdheS4KPiA+IFRoaXMgZnVuY3Rpb24gY291bGRuJ3QgcmVwbGFjZSBzZXRfcmF0ZS9n
-ZXRfcmF0ZSBjYWxscy4KPiA+IFRvZG8gY29tbWVudCBoYXMgYmVlbiByZW1vdmVkICYgYSBuZXcg
-bG9nIGluc2VydGVkLgo+ID4KPiA+IFNpZ25lZC1vZmYtYnk6IFlhbm5pY2sgRmVydHLDqSA8eWFu
-bmljay5mZXJ0cmVAc3QuY29tPgo+ID4gLS0tCj4gPiBDaGFuZ2VzIGluIHYyOgo+ID4gICAgICAg
-LSBDbGtfZW5hYmxlICYgY2xrX2Rpc2FibGUgYXJlIG5lZWRlZCBmb3IgdGhlIFNPQyBTVE0zMkY3
-Cj4gPiAgICAgICAgKG5vdCBmb3IgU1RNMzJNUDEpLiBJIHJldHVybiB0aGlzIHBhcnQgb2YgdGhl
-IHBhdGNoIHRvIG1ha2Ugc3VyZSB0aGUKPiA+ICAgICAgICBkcml2ZXIgaXMgY29tcGF0aWJsZSB3
-aXRoIGFsbCBTT0MgU1RNMzIuCj4gPgo+ID4gICBkcml2ZXJzL2dwdS9kcm0vc3RtL2x0ZGMuYyB8
-IDggKysrLS0tLS0KPiA+ICAgMSBmaWxlIGNoYW5nZWQsIDMgaW5zZXJ0aW9ucygrKSwgNSBkZWxl
-dGlvbnMoLSkKPiA+Cj4gPiBkaWZmIC0tZ2l0IGEvZHJpdmVycy9ncHUvZHJtL3N0bS9sdGRjLmMg
-Yi9kcml2ZXJzL2dwdS9kcm0vc3RtL2x0ZGMuYwo+ID4gaW5kZXggOTc5MTJlMi4uMTEwNGU3OCAx
-MDA2NDQKPiA+IC0tLSBhL2RyaXZlcnMvZ3B1L2RybS9zdG0vbHRkYy5jCj4gPiArKysgYi9kcml2
-ZXJzL2dwdS9kcm0vc3RtL2x0ZGMuYwo+ID4gQEAgLTUwNywxMSArNTA3LDYgQEAgc3RhdGljIGJv
-b2wgbHRkY19jcnRjX21vZGVfZml4dXAoc3RydWN0IGRybV9jcnRjICpjcnRjLAo+ID4gICAgICAg
-c3RydWN0IGx0ZGNfZGV2aWNlICpsZGV2ID0gY3J0Y190b19sdGRjKGNydGMpOwo+ID4gICAgICAg
-aW50IHJhdGUgPSBtb2RlLT5jbG9jayAqIDEwMDA7Cj4gPgo+ID4gLSAgICAgLyoKPiA+IC0gICAg
-ICAqIFRPRE8gY2xrX3JvdW5kX3JhdGUoKSBkb2VzIG5vdCB3b3JrIHlldC4gV2hlbiByZWFkeSwg
-aXQgY2FuCj4gPiAtICAgICAgKiBiZSB1c2VkIGluc3RlYWQgb2YgY2xrX3NldF9yYXRlKCkgdGhl
-biBjbGtfZ2V0X3JhdGUoKS4KPiA+IC0gICAgICAqLwo+ID4gLQo+ID4gICAgICAgY2xrX2Rpc2Fi
-bGUobGRldi0+cGl4ZWxfY2xrKTsKPiA+ICAgICAgIGlmIChjbGtfc2V0X3JhdGUobGRldi0+cGl4
-ZWxfY2xrLCByYXRlKSA8IDApIHsKPiA+ICAgICAgICAgICAgICAgRFJNX0VSUk9SKCJDYW5ub3Qg
-c2V0IHJhdGUgKCVkSHopIGZvciBwaXhlbCBjbGtcbiIsIHJhdGUpOwo+ID4gQEAgLTUyMSw2ICs1
-MTYsOSBAQCBzdGF0aWMgYm9vbCBsdGRjX2NydGNfbW9kZV9maXh1cChzdHJ1Y3QgZHJtX2NydGMg
-KmNydGMsCj4gPgo+ID4gICAgICAgYWRqdXN0ZWRfbW9kZS0+Y2xvY2sgPSBjbGtfZ2V0X3JhdGUo
-bGRldi0+cGl4ZWxfY2xrKSAvIDEwMDA7Cj4gPgo+ID4gKyAgICAgRFJNX0RFQlVHX0RSSVZFUigi
-cmVxdWVzdGVkIGNsb2NrICVka0h6LCBhZGp1c3RlZCBjbG9jayAlZGtIelxuIiwKPiA+ICsgICAg
-ICAgICAgICAgICAgICAgICAgbW9kZS0+Y2xvY2ssIGFkanVzdGVkX21vZGUtPmNsb2NrKTsKPiA+
-ICsKPiA+ICAgICAgIHJldHVybiB0cnVlOwo+ID4gICB9Cj4gPgo+ID4gLS0KPiA+IDIuNy40Cj4g
-Pgo+IF9fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fCj4gZHJp
-LWRldmVsIG1haWxpbmcgbGlzdAo+IGRyaS1kZXZlbEBsaXN0cy5mcmVlZGVza3RvcC5vcmcKPiBo
-dHRwczovL2xpc3RzLmZyZWVkZXNrdG9wLm9yZy9tYWlsbWFuL2xpc3RpbmZvL2RyaS1kZXZlbApf
-X19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fXwpMaW51eC1zdG0z
-MiBtYWlsaW5nIGxpc3QKTGludXgtc3RtMzJAc3QtbWQtbWFpbG1hbi5zdG9ybXJlcGx5LmNvbQpo
-dHRwczovL3N0LW1kLW1haWxtYW4uc3Rvcm1yZXBseS5jb20vbWFpbG1hbi9saXN0aW5mby9saW51
-eC1zdG0zMgo=
+
+--===============0369778001462401797==
+Content-Type: multipart/signed; micalg=pgp-sha256;
+	protocol="application/pgp-signature"; boundary="feqnt36fgpyz3hlk"
+Content-Disposition: inline
+
+
+--feqnt36fgpyz3hlk
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+
+Hi Rob,
+
+On Thu, May 23, 2019 at 10:33:05AM -0500, Rob Herring wrote:
+> On Thu, May 23, 2019 at 4:57 AM Maxime Ripard <maxime.ripard@bootlin.com> wrote:
+> >
+> > Switch the STMMAC / Synopsys DesignWare MAC controller binding to a YAML
+> > schema to enable the DT validation.
+>
+> You picked an easy one. ;)
+
+Yeah, that's what happens when you run out of trivial bindings, you
+end up with only the hard ones left to work on :)
+
+> > Signed-off-by: Maxime Ripard <maxime.ripard@bootlin.com>
+> > ---
+> >  Documentation/devicetree/bindings/net/snps,dwmac.yaml | 344 +++++++++++-
+> >  Documentation/devicetree/bindings/net/stmmac.txt      | 179 +------
+> >  2 files changed, 345 insertions(+), 178 deletions(-)
+> >  create mode 100644 Documentation/devicetree/bindings/net/snps,dwmac.yaml
+> >
+> > diff --git a/Documentation/devicetree/bindings/net/snps,dwmac.yaml b/Documentation/devicetree/bindings/net/snps,dwmac.yaml
+> > new file mode 100644
+> > index 000000000000..be3ada5121e1
+> > --- /dev/null
+> > +++ b/Documentation/devicetree/bindings/net/snps,dwmac.yaml
+> > @@ -0,0 +1,344 @@
+> > +# SPDX-License-Identifier: GPL-2.0
+> > +%YAML 1.2
+> > +---
+> > +$id: http://devicetree.org/schemas/net/snps,dwmac.yaml#
+> > +$schema: http://devicetree.org/meta-schemas/core.yaml#
+> > +
+> > +title: Synopsys DesignWare MAC Device Tree Bindings
+> > +
+> > +maintainers:
+> > +  - Alexandre Torgue <alexandre.torgue@st.com>
+> > +  - Giuseppe Cavallaro <peppe.cavallaro@st.com>
+> > +  - Jose Abreu <joabreu@synopsys.com>
+> > +
+> > +properties:
+> > +  compatible:
+> > +    oneOf:
+> > +      - const: snps,dwmac
+> > +      - const: snps,dwmac-3.50a
+> > +      - const: snps,dwmac-3.610
+> > +      - const: snps,dwmac-3.70a
+> > +      - const: snps,dwmac-3.710
+> > +      - const: snps,dwmac-4.00
+> > +      - const: snps,dwmac-4.10a
+> > +      - const: snps,dwxgmac
+> > +      - const: snps,dwxgmac-2.10
+> > +      - const: st,spear600-gmac
+> > +        description: Deprecated
+>
+> Like the other, just make this an enum.
+
+Ack.
+
+I did this initially because the sun8i-emac bindings also have
+multiple compatibles we can use, and thus I needed an items here, but
+since we will move them away in separate files, we can just use an
+enum (with a contains).
+
+> Though, what to do on deprecated things? If we expect dts files to be
+> updated, then we should remove or disallow in the schema (e.g. 'prop:
+> false' for properties).
+
+Oh, so that's what the false are here for. I wanted to send a PR to
+the meta-schemas because *-gpio was not working, and that binding uses
+one, but I guess that solves it.
+
+For the deprecation process, I haven't made up my mind yet. We could
+put in comment the deprecated properties and compatibles, but that has
+two significant drawbacks:
+
+  - for the compatibles, we wouldn't have the nodes with a deprecated
+    compatible validated, and thus we wouldn't even have a warning
+    that our compatible is deprecated in the first place. And any
+    property we might have not used properly will be ignored as well.
+
+  - for the other properties, it's still pretty hard to disable
+    additionalProperties, so any deprecated property wouldn't be
+    validated if they were in a comment, and we wouldn't have a
+    warning either if additionalProperties is true, because we
+    tolerate them.
+
+I guess we can workaround the first one with a custom select that has
+all the supported compatibles (including the deprecated ones), but
+only list the non-deprecated options in the compatible properties.
+
+I don't really see a solution for the second one.
+
+> The issue with updating dts files, is it may break old kernels with
+> new dtbs.
+
+While this is something that is mentionned by some people, and I can
+see how it's problematic to some, it's also something we never really
+committed to, so I'm fine with that.
+
+> > +  snps,axi-config:
+> > +    $ref: /schemas/types.yaml#definitions/phandle
+> > +    description:
+> > +      AXI BUS Mode parameters. Phandle to a node that can contain the
+> > +      following properties
+> > +        * snps,lpi_en, enable Low Power Interface
+> > +        * snps,xit_frm, unlock on WoL
+> > +        * snps,wr_osr_lmt, max write outstanding req. limit
+> > +        * snps,rd_osr_lmt, max read outstanding req. limit
+> > +        * snps,kbbe, do not cross 1KiB boundary.
+> > +        * snps,blen, this is a vector of supported burst length.
+> > +        * snps,fb, fixed-burst
+> > +        * snps,mb, mixed-burst
+> > +        * snps,rb, rebuild INCRx Burst
+>
+> This obviously needs its own schema, but that can come latter.
+
+I haven't been able to describe a node that doesn't have any
+particular copmatible or node name, but we just need to follow a
+phandle.
+
+How could we do this?
+
+> > +  snps,reset-gpio:
+> > +    description:
+> > +      PHY Reset GPIO
+>
+> maxItems: 1
+>
+> > +
+> > +  snps,reset-active-low:
+> > +    $ref: /schemas/types.yaml#definitions/flag
+> > +    description:
+> > +      Indicates that the PHY Reset is active low
+>
+> Would be nice to deprecate these 2 properties for just 'reset-gpios'.
+> Though really, this should be in the phy node as this is a phy reset.
+
+The PHYs already have such a property, so we should just deprecate
+them.
+
+> > +
+> > +  snps,reset-delay-us:
+> > +    allOf:
+> > +      - $ref: /schemas/types.yaml#definitions/uint32-array
+> > +      - minItems: 3
+> > +        maxItems: 3
+> > +    description:
+> > +      Triplet of delays. The 1st cell is reset pre-delay in micro
+> > +      seconds. The 2nd cell is reset pulse in micro seconds. The 3rd
+> > +      cell is reset post-delay in micro seconds.
+
+And this one too I guess?
+
+> > +  snps,aal:
+> > +    $ref: /schemas/types.yaml#definitions/flag
+> > +    description:
+> > +      Use Address-Aligned Beats
+> > +
+> > +  snps,fixed-burst:
+> > +    $ref: /schemas/types.yaml#definitions/flag
+> > +    description:
+> > +      Program the DMA to use the fixed burst mode
+> > +
+> > +  snps,mixed-burst:
+> > +    $ref: /schemas/types.yaml#definitions/flag
+> > +    description:
+> > +      Program the DMA to use the mixed burst mode
+> > +
+> > +  snps,force_thresh_dma_mode:
+> > +    $ref: /schemas/types.yaml#definitions/flag
+> > +    description:
+> > +      Force DMA to use the threshold mode for both tx and rx
+> > +
+> > +  snps,force_sf_dma_mode:
+> > +    $ref: /schemas/types.yaml#definitions/flag
+> > +    description:
+> > +      Force DMA to use the Store and Forward mode for both tx and
+> > +      rx. This flag is ignored if force_thresh_dma_mode is set.
+> > +
+> > +  snps,en-tx-lpi-clockgating:
+> > +    $ref: /schemas/types.yaml#definitions/flag
+> > +    description:
+> > +      Enable gating of the MAC TX clock during TX low-power mode
+> > +
+> > +  snps,multicast-filter-bins:
+> > +    $ref: /schemas/types.yaml#definitions/uint32
+> > +    description:
+> > +      Number of multicast filter hash bins supported by this device
+> > +      instance
+> > +
+> > +  snps,perfect-filter-entries:
+> > +    $ref: /schemas/types.yaml#definitions/uint32
+> > +    description:
+> > +      Number of perfect filter entries supported by this device
+> > +      instance
+> > +
+> > +  snps,ps-speed:
+> > +    $ref: /schemas/types.yaml#definitions/uint32
+> > +    description:
+> > +      Port selection speed that can be passed to the core when PCS
+> > +      is supported. For example, this is used in case of SGMII and
+> > +      MAC2MAC connection.
+> > +
+> > +  mdio:
+> > +    type: object
+> > +    description:
+> > +      Creates and registers an MDIO bus.
+> > +
+> > +    properties:
+> > +      compatible:
+> > +        const: snps,dwmac-mdio
+>
+> required?
+
+Yep, I'll add it.
+
+Thanks!
+Maxime
+
+--
+Maxime Ripard, Bootlin
+Embedded Linux and Kernel engineering
+https://bootlin.com
+
+--feqnt36fgpyz3hlk
+Content-Type: application/pgp-signature; name="signature.asc"
+
+-----BEGIN PGP SIGNATURE-----
+
+iHUEABYIAB0WIQRcEzekXsqa64kGDp7j7w1vZxhRxQUCXOez2QAKCRDj7w1vZxhR
+xe/NAPwPdSE4B39GjzI0+sjp0j/vK4Hlg4A+3uLLJjEAO/CpowD/cRbzLnJfLN2U
+cEJXc12nJ54M6GHljxzLwfapQynBkQU=
+=sFc+
+-----END PGP SIGNATURE-----
+
+--feqnt36fgpyz3hlk--
+
+--===============0369778001462401797==
+Content-Type: text/plain; charset="us-ascii"
+MIME-Version: 1.0
+Content-Transfer-Encoding: 7bit
+Content-Disposition: inline
+
+_______________________________________________
+Linux-stm32 mailing list
+Linux-stm32@st-md-mailman.stormreply.com
+https://st-md-mailman.stormreply.com/mailman/listinfo/linux-stm32
+
+--===============0369778001462401797==--
