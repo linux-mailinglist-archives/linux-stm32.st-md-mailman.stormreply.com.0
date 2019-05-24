@@ -2,58 +2,57 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id 1188A297FB
-	for <lists+linux-stm32@lfdr.de>; Fri, 24 May 2019 14:26:31 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 2B65C29800
+	for <lists+linux-stm32@lfdr.de>; Fri, 24 May 2019 14:27:44 +0200 (CEST)
 Received: from ip-172-31-3-76.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id BF9B0C5A4D8
-	for <lists+linux-stm32@lfdr.de>; Fri, 24 May 2019 12:26:30 +0000 (UTC)
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id D8DEEC5A4DB
+	for <lists+linux-stm32@lfdr.de>; Fri, 24 May 2019 12:27:43 +0000 (UTC)
 Received: from mx07-00178001.pphosted.com (mx08-00178001.pphosted.com
  [91.207.212.93])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 67E92C5A4D5
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id E43D9C5A4DA
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Fri, 24 May 2019 12:26:29 +0000 (UTC)
+ Fri, 24 May 2019 12:27:41 +0000 (UTC)
 Received: from pps.filterd (m0046660.ppops.net [127.0.0.1])
  by mx08-00178001.pphosted.com (8.16.0.27/8.16.0.27) with SMTP id
- x4OCJ6Hq021165; Fri, 24 May 2019 14:26:21 +0200
+ x4OCJ95L021182; Fri, 24 May 2019 14:27:37 +0200
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=st.com;
  h=subject : to : cc :
  references : from : message-id : date : mime-version : in-reply-to :
  content-type : content-transfer-encoding; s=STMicroelectronics;
- bh=MRkkLHdMQA+fa243SgLqmgSMuMqZksxq6zRTMMLwqTI=;
- b=UBkDOjp+86RcHTz7CrpA0k7LNC39DmwaTk3HVvoWoQGecrJtUjcvL29dWEKfb/b/sJgW
- qXPr18nlCniLI3rhEv4fCjUGz/9rNmlf6HeEwh3gEwxrNcSSJVcSSueBDcH1JVgmmFCT
- VWhdz34tvJpQLziQRDBJXlzWz3Q7g0D5ZMbAhL9v3MVnqAdC/IBzGyHRO/hoJmYsmO9b
- pgsVSILuEZvytnIPiBXjxUhdLNqkUxIxxkyLJLNcvbaPB7+U9nHiZKgwLf43Ialw9uJP
- QeOUiNJBLqyWdvOfSzReKN7Hsgd/oo9z9p4262dpW1KPVXLUSsAiRoaOHxGAJtJuCOlK BA== 
+ bh=MdpIdUdNGJR6m4iESQ3gTxnReITFgYYhJ/kDykj9tog=;
+ b=I9t2r1VA8l2a7kr7zIZnBibwo+QjBbH1wDc+jwQ5/0t0RfGUSDAkjkMiQ8p1JNJQ5X42
+ peFlxwVSZ00L4hJmPpGv45mLkjtXnMEGnHq4Pojwux83AKCe5AWsOjLLXKq+Vcn+8jD9
+ 3FkCwXGEsI8GQEfqyslfRbUEhBtuvVoYEhz0wvDEcT1nvjDN8kHvHqdqNkjkGLawOQnG
+ p9WNLO7Tb+5UezMvRsI1ttZhyrFa7vHzHgVL5DzJHgeBXAcekRr/cC5QRwNqQWVDANDk
+ q3UWWniN8o3t1SpLuQmgu24AVcILsESj0IecZphlm2Gva2+Ly5vC72Wkq/7m4lHP43qH 7A== 
 Received: from beta.dmz-eu.st.com (beta.dmz-eu.st.com [164.129.1.35])
- by mx08-00178001.pphosted.com with ESMTP id 2sj774nmu5-1
+ by mx08-00178001.pphosted.com with ESMTP id 2sj774nn1r-1
  (version=TLSv1 cipher=ECDHE-RSA-AES256-SHA bits=256 verify=NOT);
- Fri, 24 May 2019 14:26:21 +0200
+ Fri, 24 May 2019 14:27:37 +0200
 Received: from zeta.dmz-eu.st.com (zeta.dmz-eu.st.com [164.129.230.9])
- by beta.dmz-eu.st.com (STMicroelectronics) with ESMTP id 23DA034;
- Fri, 24 May 2019 12:26:21 +0000 (GMT)
+ by beta.dmz-eu.st.com (STMicroelectronics) with ESMTP id E567038;
+ Fri, 24 May 2019 12:27:36 +0000 (GMT)
 Received: from Webmail-eu.st.com (sfhdag3node2.st.com [10.75.127.8])
- by zeta.dmz-eu.st.com (STMicroelectronics) with ESMTP id EEDDD2BCC;
- Fri, 24 May 2019 12:26:20 +0000 (GMT)
+ by zeta.dmz-eu.st.com (STMicroelectronics) with ESMTP id CD1912BCE;
+ Fri, 24 May 2019 12:27:36 +0000 (GMT)
 Received: from [10.48.0.204] (10.75.127.50) by SFHDAG3NODE2.st.com
  (10.75.127.8) with Microsoft SMTP Server (TLS) id 15.0.1347.2; Fri, 24 May
- 2019 14:26:20 +0200
-To: Linus Walleij <linus.walleij@linaro.org>, Benjamin Gaignard
- <benjamin.gaignard@st.com>
-References: <1557474150-19618-1-git-send-email-alexandre.torgue@st.com>
- <CACRpkdYgTbTa6RmM3y-myk31ZxLGZ+8KvLof1XHkockrX4tofA@mail.gmail.com>
+ 2019 14:27:36 +0200
+To: Linus Walleij <linus.walleij@linaro.org>
+References: <1557474183-19719-1-git-send-email-alexandre.torgue@st.com>
+ <CACRpkdZ4P=PSCu86p48nBPeVk-h5T0Ytc1CYV3XZGd4fLuJLGw@mail.gmail.com>
 From: Alexandre Torgue <alexandre.torgue@st.com>
-Message-ID: <4a35e070-b18a-e0f5-76b6-72054eb98b43@st.com>
-Date: Fri, 24 May 2019 14:26:19 +0200
+Message-ID: <ae00fd9c-d25e-c401-4d21-d526a63538f2@st.com>
+Date: Fri, 24 May 2019 14:27:35 +0200
 User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:60.0) Gecko/20100101
  Thunderbird/60.6.1
 MIME-Version: 1.0
-In-Reply-To: <CACRpkdYgTbTa6RmM3y-myk31ZxLGZ+8KvLof1XHkockrX4tofA@mail.gmail.com>
+In-Reply-To: <CACRpkdZ4P=PSCu86p48nBPeVk-h5T0Ytc1CYV3XZGd4fLuJLGw@mail.gmail.com>
 Content-Language: en-US
 X-Originating-IP: [10.75.127.50]
-X-ClientProxiedBy: SFHDAG5NODE2.st.com (10.75.127.14) To SFHDAG3NODE2.st.com
+X-ClientProxiedBy: SFHDAG8NODE1.st.com (10.75.127.22) To SFHDAG3NODE2.st.com
  (10.75.127.8)
 X-Proofpoint-Virus-Version: vendor=fsecure engine=2.50.10434:, ,
  definitions=2019-05-24_05:, , signatures=0
@@ -62,8 +61,8 @@ Cc: Linux ARM <linux-arm-kernel@lists.infradead.org>, "open
  "linux-kernel@vger.kernel.org" <linux-kernel@vger.kernel.org>,
  Maxime Coquelin <mcoquelin.stm32@gmail.com>,
  linux-stm32@st-md-mailman.stormreply.com
-Subject: Re: [Linux-stm32] [PATCH 0/2] pinctrl: stm32: add suspend/resume
-	management
+Subject: Re: [Linux-stm32] [PATCH] pinctrl: stm32: add lock mechanism for
+	irqmux selection
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -82,37 +81,28 @@ Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
 
 
-On 5/24/19 1:24 PM, Linus Walleij wrote:
-> On Fri, May 10, 2019 at 9:42 AM Alexandre Torgue
+On 5/24/19 1:26 PM, Linus Walleij wrote:
+> On Fri, May 10, 2019 at 9:43 AM Alexandre Torgue
 > <alexandre.torgue@st.com> wrote:
 > 
->> During power sequence, GPIO hardware registers could be lost if the power
->> supply is switched off. Each device using pinctrl API is in charge of
->> managing pins during suspend/resume sequences. But for pins used as gpio or
->> irq stm32 pinctrl driver has to save the hardware configuration.
->> Each register will be saved at runtime and restored during resume sequence.
+>> GPIOs are split between several banks (A, B, ...) and each bank can have
+>> up to 16 lines. Those GPIOs could be used as interrupt lines thanks to
+>> exti lines. As there are only 16 exti lines, a mux is used to select which
+>> gpio line is connected to which exti line. Mapping is done as follow:
+>>
+>> -A0, B0, C0.. -->exti_line_0 (X0 selected by mux_0)
+>> -A1, B1, C1.. -->exti_line_1 (X1 selected by mux_1)
+>> ...
+>>
+>> This patch adds a protection to avoid overriding on mux_n for exti_line_n.
+>>
+>> Signed-off-by: Alexandre Torgue <alexandre.torgue@st.com>
 > 
-> Both patches applied.
-> 
-> On the same pinctrl devel branch is also Benjamin's patches to support
-> the "link_consumers" property on the pin controller descriptor to
-> enable links from pin control consumers back to their pin controller
-> suppliers, especially important for STMFX.
-> 
-> Would you please check if it work fine if you turn on this feature
-> for the SoC STM32 pin controller?
-> 
+> Patch applied, can't say I fully understand it but you know what
+> you're doing!
 
-Sure. Either today or next Monday.
+Thanks :). Do you need a better explanation ?
 
-I let you know.
-
-regards
-Alex
-
-> I am working a bit on refining the patches, so I want to enable testing
-> with some SoC pin controllers as well and possibly make the
-> behavior default.
 > 
 > Yours,
 > Linus Walleij
