@@ -2,56 +2,43 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id B1D6929509
-	for <lists+linux-stm32@lfdr.de>; Fri, 24 May 2019 11:45:03 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 9198429696
+	for <lists+linux-stm32@lfdr.de>; Fri, 24 May 2019 13:06:57 +0200 (CEST)
 Received: from ip-172-31-3-76.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 75783C05843
-	for <lists+linux-stm32@lfdr.de>; Fri, 24 May 2019 09:45:03 +0000 (UTC)
-Received: from mailgw01.mediatek.com (unknown [210.61.82.183])
- (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 48003C58D7D
+	for <lists+linux-stm32@lfdr.de>; Fri, 24 May 2019 11:06:57 +0000 (UTC)
+Received: from relay12.mail.gandi.net (relay12.mail.gandi.net [217.70.178.232])
+ (using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 39CF6C58D45
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 6C62FC58D7B
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Fri, 24 May 2019 09:44:59 +0000 (UTC)
-X-UUID: daf92e84950644cfa0396206d837043a-20190524
-X-UUID: daf92e84950644cfa0396206d837043a-20190524
-Received: from mtkcas08.mediatek.inc [(172.21.101.126)] by
- mailgw01.mediatek.com (envelope-from <biao.huang@mediatek.com>)
- (mhqrelay.mediatek.com ESMTP with TLS)
- with ESMTP id 1523258147; Fri, 24 May 2019 17:44:48 +0800
-Received: from MTKCAS32.mediatek.inc (172.27.4.184) by mtkmbs01n2.mediatek.inc
- (172.21.101.79) with Microsoft SMTP Server (TLS) id 15.0.1395.4;
- Fri, 24 May 2019 17:44:46 +0800
-Received: from [10.17.3.153] (172.27.4.253) by MTKCAS32.mediatek.inc
- (172.27.4.170) with Microsoft SMTP Server id 15.0.1395.4 via Frontend
- Transport; Fri, 24 May 2019 17:44:44 +0800
-Message-ID: <1558691084.24897.51.camel@mhfsdcap03>
-From: biao huang <biao.huang@mediatek.com>
-To: Jose Abreu <Jose.Abreu@synopsys.com>
-Date: Fri, 24 May 2019 17:44:44 +0800
-In-Reply-To: <78EB27739596EE489E55E81C33FEC33A0B92D26F@DE02WEMBXB.internal.synopsys.com>
-References: <1557802843-31718-1-git-send-email-biao.huang@mediatek.com>
- <78EB27739596EE489E55E81C33FEC33A0B92D26F@DE02WEMBXB.internal.synopsys.com>
-X-Mailer: Evolution 3.2.3-0ubuntu6 
+ Fri, 24 May 2019 11:06:56 +0000 (UTC)
+Received: from localhost (aaubervilliers-681-1-27-134.w90-88.abo.wanadoo.fr
+ [90.88.147.134]) (Authenticated sender: maxime.ripard@bootlin.com)
+ by relay12.mail.gandi.net (Postfix) with ESMTPSA id 4D254200012;
+ Fri, 24 May 2019 11:06:50 +0000 (UTC)
+Date: Fri, 24 May 2019 13:06:49 +0200
+From: Maxime Ripard <maxime.ripard@bootlin.com>
+To: Rob Herring <robh+dt@kernel.org>
+Message-ID: <20190524110649.56o7g7xkgdb5loyk@flea>
+References: <74d98cc3c744d53710c841381efd41cf5f15e656.1558605170.git-series.maxime.ripard@bootlin.com>
+ <aa5ec90854429c2d9e2c565604243e1b10cfd94b.1558605170.git-series.maxime.ripard@bootlin.com>
+ <CAL_JsqJvgUAmON5Vew-mnwkFjNuRkx_f7quiy_7Rv_55JpzOOA@mail.gmail.com>
 MIME-Version: 1.0
-X-TM-SNTS-SMTP: 238D8347CAB595BF80BC7F148B95AD8BE5BE1F4F748A6570F199B0DC4BF2A9D82000:8
-X-MTK: N
-Cc: "jianguo.zhang@mediatek.comi" <jianguo.zhang@mediatek.comi>,
- "netdev@vger.kernel.org" <netdev@vger.kernel.org>,
- "linux-kernel@vger.kernel.org" <linux-kernel@vger.kernel.org>,
- "linux-stm32@st-md-mailman.stormreply.com"
- <linux-stm32@st-md-mailman.stormreply.com>,
- "yt.shen@mediatek.com" <yt.shen@mediatek.com>,
- "linux-mediatek@lists.infradead.org" <linux-mediatek@lists.infradead.org>,
- "boon.leong.ong@intel.com" <boon.leong.ong@intel.com>,
- Maxime Coquelin <mcoquelin.stm32@gmail.com>,
- Matthias Brugger <matthias.bgg@gmail.com>,
- Giuseppe Cavallaro <peppe.cavallaro@st.com>,
- "davem@davemloft.net" <davem@davemloft.net>,
- "linux-arm-kernel@lists.infradead.org" <linux-arm-kernel@lists.infradead.org>
-Subject: Re: [Linux-stm32] [v2,
- PATCH] net: stmmac: add support for hash table size 128/256 in
- dwmac4
+Content-Disposition: inline
+In-Reply-To: <CAL_JsqJvgUAmON5Vew-mnwkFjNuRkx_f7quiy_7Rv_55JpzOOA@mail.gmail.com>
+User-Agent: NeoMutt/20180716
+Cc: Mark Rutland <mark.rutland@arm.com>, devicetree@vger.kernel.org,
+ Antoine =?utf-8?Q?T=C3=A9nart?= <antoine.tenart@bootlin.com>,
+ netdev <netdev@vger.kernel.org>, linux-stm32@st-md-mailman.stormreply.com,
+ Chen-Yu Tsai <wens@csie.org>, Maxime Coquelin <mcoquelin.stm32@gmail.com>,
+ Maxime Chevallier <maxime.chevallier@bootlin.com>,
+ Frank Rowand <frowand.list@gmail.com>,
+ "David S . Miller" <davem@davemloft.net>,
+ "moderated list:ARM/FREESCALE IMX / MXC ARM ARCHITECTURE"
+ <linux-arm-kernel@lists.infradead.org>
+Subject: Re: [Linux-stm32] [PATCH 2/8] dt-bindings: net: Add a YAML schemas
+ for the generic PHY options
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -68,43 +55,38 @@ Content-Transfer-Encoding: 7bit
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
-Seems I should modify this patch base on
-"https://patchwork.ozlabs.org/project/netdev/list/?series=109699"
+Hi Rob,
 
-On Fri, 2019-05-24 at 09:24 +0000, Jose Abreu wrote:
-> From: biao huang <biao.huang@mediatek.com>
-> Date: Fri, May 24, 2019 at 09:31:44
-> 
-> > On Fri, 2019-05-24 at 08:24 +0000, Jose Abreu wrote:
-> > > From: biao huang <biao.huang@mediatek.com>
-> > > Date: Fri, May 24, 2019 at 07:33:37
-> > > 
-> > > > any comments about this patch?
-> > > 
-> > > Can you please test your series on top of this one [1] and let me know 
-> > > the output of :
-> > > # ethtool -t eth0
-> > "ethtol -T eth0"? This patch only affect hash table filter, seems no
-> > relation to timestamp.
-> > > 
-execute "ethtool -t eth0", then we got "Cannot test: Operation not
-supported", is there any config should be enabled?
-> > > Just to make sure that this patch does not introduce any regressions. The 
-> > > remaining ones of the series look fine by me!
-> > > 
-> > > [1] 
-> > which one? Did I miss anything here?
-> 
-> Sorry, my mail client tried to wrap the long link and ended up in a 
-> loooong email.
-> 
-> [1] https://patchwork.ozlabs.org/project/netdev/list/?series=109699
-> 
-Got it.
-> Thanks,
-> Jose Miguel Abreu
+On Thu, May 23, 2019 at 09:44:51AM -0500, Rob Herring wrote:
+> > +  reg:
+> > +    maxItems: 1
+> > +    minimum: 0
+> > +    maximum: 31
+>
+> min/max need to be under 'items'. I don't think these would ever be
+> valid if the type is an array.
+>
+> I've modified the meta-schema to catch this.
 
+Have you pushed it already?
 
+Using:
+  reg:
+    maxItems: 1
+    items:
+      minimum: 0
+      maximum: 31
+
+is creating this error when running dtbs_check
+
+ethernet-phy.yaml: properties:reg: {'maxItems': 1, 'items': {'minimum': 0, 'maximum': 31}, 'description': 'The ID number for the PHY.'} is not valid under any of the given schemas
+
+Maxime
+
+--
+Maxime Ripard, Bootlin
+Embedded Linux and Kernel engineering
+https://bootlin.com
 _______________________________________________
 Linux-stm32 mailing list
 Linux-stm32@st-md-mailman.stormreply.com
