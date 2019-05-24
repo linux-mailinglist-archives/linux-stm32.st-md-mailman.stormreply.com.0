@@ -2,43 +2,61 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id E63E5291D2
-	for <lists+linux-stm32@lfdr.de>; Fri, 24 May 2019 09:35:04 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id AEB3329278
+	for <lists+linux-stm32@lfdr.de>; Fri, 24 May 2019 10:10:25 +0200 (CEST)
 Received: from ip-172-31-3-76.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id AC7A2C57188
-	for <lists+linux-stm32@lfdr.de>; Fri, 24 May 2019 07:35:04 +0000 (UTC)
-Received: from relay2-d.mail.gandi.net (relay2-d.mail.gandi.net
- [217.70.183.194])
- (using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 123FBC055F3
+	for <lists+linux-stm32@lfdr.de>; Fri, 24 May 2019 08:10:25 +0000 (UTC)
+Received: from mail-lj1-f194.google.com (mail-lj1-f194.google.com
+ [209.85.208.194])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id BC98AC57186
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id E0EF3C055F0
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Fri, 24 May 2019 07:35:01 +0000 (UTC)
-X-Originating-IP: 90.88.147.134
-Received: from localhost (aaubervilliers-681-1-27-134.w90-88.abo.wanadoo.fr
- [90.88.147.134]) (Authenticated sender: maxime.ripard@bootlin.com)
- by relay2-d.mail.gandi.net (Postfix) with ESMTPSA id EDB8E40011;
- Fri, 24 May 2019 07:34:55 +0000 (UTC)
-Date: Fri, 24 May 2019 09:34:55 +0200
-From: Maxime Ripard <maxime.ripard@bootlin.com>
-To: Alexandre Torgue <alexandre.torgue@st.com>
-Message-ID: <20190524073455.46auhvhwb5no6ebp@flea>
-References: <74d98cc3c744d53710c841381efd41cf5f15e656.1558605170.git-series.maxime.ripard@bootlin.com>
- <ba1a5d8ad34a8c9ab99f504c04fbe65bde42081b.1558605170.git-series.maxime.ripard@bootlin.com>
- <9094f39f-0e26-55dd-9b47-9a55089400da@st.com>
+ Fri, 24 May 2019 08:10:22 +0000 (UTC)
+Received: by mail-lj1-f194.google.com with SMTP id a10so7854538ljf.6
+ for <linux-stm32@st-md-mailman.stormreply.com>;
+ Fri, 24 May 2019 01:10:22 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linaro.org; s=google;
+ h=mime-version:references:in-reply-to:from:date:message-id:subject:to
+ :cc; bh=RcI5nX0zsFocv6c9Dh5dsyELmuugz9pu4xszs0C7sEQ=;
+ b=TuplLlJStenwIfjMi0SPcifzNyONWCjOAlzsqNaVJLUf0JuryBZSSfqTfFouJIuKzD
+ 0YC70wD3x8HwBrd+c6N7bKprIw/j7WEBdykVkNvZ5kfd1Q1dAik3xDID7CXPN47G5nKV
+ 2aBSa3fo6+2pNul3KMaZQtmWsojWbkfJ3TU7f/MQ26mY1/WEdKrxO0X3tLBuaN0kuqw1
+ +YegxUN9DJ/Twi84rwuicS92wlXlg2Ir6jLEZ5BElnExtPPOot/MYLcJ94OvTDN/UACH
+ l3GMGETArM3mdVdYN3y3YkrYU4j8JovLoxeuYk9/NgH+4yLCITdjm01+eKqcIJUoU543
+ lETw==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20161025;
+ h=x-gm-message-state:mime-version:references:in-reply-to:from:date
+ :message-id:subject:to:cc;
+ bh=RcI5nX0zsFocv6c9Dh5dsyELmuugz9pu4xszs0C7sEQ=;
+ b=PZykTiWJCg1SiO7LAdESY6uJ5HKtcDJqp1hzr/QVJ4Sorfw0hzrywtI5LBrAmpf1BF
+ YJvtgBBS3BpzYvXdR30i78ao5CteAET68TDjcjXmVwAjEpjYcqT3fbG6ejqPz/vhDxnN
+ tCeFKHPqYnjnSpqtaz7X0sv2D6DweywtqgMa5k+YQhhwlwKXCv7L+QDYJk5+4jNg9Wki
+ 2YcgLrGCxNsR3Xyj6OdP8QoBp+x6Mjnk40miAM1ncAWu4/1umcx7uilng0J0M2iFzmgh
+ Ut3ViCN++/gx6XVtPEve12Kx6L/q+hpWv/tpSJNNeUOqfo7HHej0NCTIowAIBsTg5JYO
+ bY4w==
+X-Gm-Message-State: APjAAAWY/UlCQ1gTnSLrX0z6iB1gzLG4/TXq/PwYGhHWWGqD+ujaQ8Ji
+ 1y4MrTgnIIrziS+v0UjNHI3keLXRF7e4dQoZ6FJ6/A==
+X-Google-Smtp-Source: APXvYqwVNWAVXwkUBL7c8AEmHQLOpoFiD7Z4FJzo1VkNZyw8J0vlNLuTHQZ22OQHfGXFRXfI0eoS6GlJNewBVqn8NeY=
+X-Received: by 2002:a2e:9cd1:: with SMTP id g17mr11514251ljj.191.1558685422051; 
+ Fri, 24 May 2019 01:10:22 -0700 (PDT)
 MIME-Version: 1.0
-In-Reply-To: <9094f39f-0e26-55dd-9b47-9a55089400da@st.com>
-User-Agent: NeoMutt/20180716
-Cc: Mark Rutland <mark.rutland@arm.com>, devicetree@vger.kernel.org,
- Antoine =?utf-8?Q?T=C3=A9nart?= <antoine.tenart@bootlin.com>,
- netdev@vger.kernel.org, linux-stm32@st-md-mailman.stormreply.com,
- Chen-Yu Tsai <wens@csie.org>, Rob Herring <robh+dt@kernel.org>,
- Maxime Coquelin <mcoquelin.stm32@gmail.com>,
- Maxime Chevallier <maxime.chevallier@bootlin.com>,
- Frank Rowand <frowand.list@gmail.com>,
- "David S . Miller" <davem@davemloft.net>, linux-arm-kernel@lists.infradead.org
-Subject: Re: [Linux-stm32] [PATCH 6/8] dt-bindings: net: stmmac: Convert the
- binding to a schemas
+References: <1558683125-31882-1-git-send-email-amelie.delaunay@st.com>
+In-Reply-To: <1558683125-31882-1-git-send-email-amelie.delaunay@st.com>
+From: Linus Walleij <linus.walleij@linaro.org>
+Date: Fri, 24 May 2019 10:10:10 +0200
+Message-ID: <CACRpkdbRuveWT8huqpvo6vrSqyF2_g=xcHF+YjAs6AH4xcA65w@mail.gmail.com>
+To: Amelie Delaunay <amelie.delaunay@st.com>
+Cc: Randy Dunlap <rdunlap@infradead.org>,
+ "linux-kernel@vger.kernel.org" <linux-kernel@vger.kernel.org>,
+ "open list:GPIO SUBSYSTEM" <linux-gpio@vger.kernel.org>, kbuild-all@01.org,
+ Maxime Coquelin <mcoquelin.stm32@gmail.com>, Lee Jones <lee.jones@linaro.org>,
+ linux-stm32@st-md-mailman.stormreply.com,
+ Linux ARM <linux-arm-kernel@lists.infradead.org>
+Subject: Re: [Linux-stm32] [PATCH v2] pinctrl: stmfx: Fix compile issue when
+ CONFIG_OF_GPIO is not defined
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -50,84 +68,28 @@ List-Post: <mailto:linux-stm32@st-md-mailman.stormreply.com>
 List-Help: <mailto:linux-stm32-request@st-md-mailman.stormreply.com?subject=help>
 List-Subscribe: <https://st-md-mailman.stormreply.com/mailman/listinfo/linux-stm32>, 
  <mailto:linux-stm32-request@st-md-mailman.stormreply.com?subject=subscribe>
-Content-Type: multipart/mixed; boundary="===============5628258444208164755=="
+Content-Type: text/plain; charset="us-ascii"
+Content-Transfer-Encoding: 7bit
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
+On Fri, May 24, 2019 at 9:32 AM Amelie Delaunay <amelie.delaunay@st.com> wrote:
 
---===============5628258444208164755==
-Content-Type: multipart/signed; micalg=pgp-sha256;
-	protocol="application/pgp-signature"; boundary="23ickihnik62sivg"
-Content-Disposition: inline
-
-
---23ickihnik62sivg
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-
-Hi Alexandre,
-
-On Thu, May 23, 2019 at 05:05:51PM +0200, Alexandre Torgue wrote:
-> Hi Maxime
+> When CONFIG_GPIO_OF is not defined, struct gpio_chip 'of_node' member does
+> not exist:
+> drivers/pinctrl/pinctrl-stmfx.c: In function 'stmfx_pinctrl_probe':
+> drivers/pinctrl/pinctrl-stmfx.c:652:17: error: 'struct gpio_chip' has no member named 'of_node'
+>      pctl->gpio_chip.of_node = np;
 >
-> On 5/23/19 11:56 AM, Maxime Ripard wrote:
-> > Switch the STMMAC / Synopsys DesignWare MAC controller binding to a YAML
-> > schema to enable the DT validation.
-> >
-> > Signed-off-by: Maxime Ripard <maxime.ripard@bootlin.com>
-> > ---
->
-> First, thanks a lot for this patch. Just one question:
-> We could add ranges for some properties in order to avoid "bad value" for a
-> property. If I understand correctly you do it only for snps,dwxgmac,
-> snps,dwxgmac-2.10 and st,spear600-gmac. Why not do it for all supported IPs
-> ? (Maybe it is something that we could add later)
->
+> Fixes: 1490d9f841b1 ("pinctrl: Add STMFX GPIO expander Pinctrl/GPIO driver")
+> Reported-by: kbuild test robot <lkp@intel.com>
+> Signed-off-by: Amelie Delaunay <amelie.delaunay@st.com>
 
-We definitely can do that. It wasn't really obvious to me what the
-limits were by reading the previous documentation, but if you can
-provide them we can definitely add them.
+Patch applied for fixes.
 
-> > +        snps,tso:
-> > +          $ref: /schemas/types.yaml#definitions/flag
-> > +          description:
-> > +            Enables the TSO feature otherwise it will be managed by
-> > +            MAC HW capability register. Only for GMAC4 and newer.
->
-> TSO is also available for snps,dwmac-4.00 and snps,dwmac-4.10a
-
-Ack, I'll change it.
-
-Thanks!
-Maxime
-
---
-Maxime Ripard, Bootlin
-Embedded Linux and Kernel engineering
-https://bootlin.com
-
---23ickihnik62sivg
-Content-Type: application/pgp-signature; name="signature.asc"
-
------BEGIN PGP SIGNATURE-----
-
-iHUEABYIAB0WIQRcEzekXsqa64kGDp7j7w1vZxhRxQUCXOeenwAKCRDj7w1vZxhR
-xeATAQCcQsgy7vfEdnFVRTUYXu4cQi7yVev/HZ6IHxvhXUxohQEAlunQSSosiD+q
-hCssuxFFbw2++ejr0HSjYCaQvSZesQA=
-=FrHP
------END PGP SIGNATURE-----
-
---23ickihnik62sivg--
-
---===============5628258444208164755==
-Content-Type: text/plain; charset="us-ascii"
-MIME-Version: 1.0
-Content-Transfer-Encoding: 7bit
-Content-Disposition: inline
-
+Yours,
+Linus Walleij
 _______________________________________________
 Linux-stm32 mailing list
 Linux-stm32@st-md-mailman.stormreply.com
 https://st-md-mailman.stormreply.com/mailman/listinfo/linux-stm32
-
---===============5628258444208164755==--
