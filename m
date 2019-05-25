@@ -2,64 +2,40 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id 67FA92A0BB
-	for <lists+linux-stm32@lfdr.de>; Fri, 24 May 2019 23:55:53 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 01F4E2A5F3
+	for <lists+linux-stm32@lfdr.de>; Sat, 25 May 2019 20:02:57 +0200 (CEST)
 Received: from ip-172-31-3-76.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 1679FC06B94
-	for <lists+linux-stm32@lfdr.de>; Fri, 24 May 2019 21:55:53 +0000 (UTC)
-Received: from mail-ot1-f68.google.com (mail-ot1-f68.google.com
- [209.85.210.68])
- (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id A9E7CC2907D
+	for <lists+linux-stm32@lfdr.de>; Sat, 25 May 2019 18:02:56 +0000 (UTC)
+Received: from shards.monkeyblade.net (shards.monkeyblade.net [23.128.96.9])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id B31A3C072EC
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id CA6A4C32EAB
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Fri, 24 May 2019 21:55:51 +0000 (UTC)
-Received: by mail-ot1-f68.google.com with SMTP id t24so9989494otl.12
- for <linux-stm32@st-md-mailman.stormreply.com>;
- Fri, 24 May 2019 14:55:51 -0700 (PDT)
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20161025;
- h=x-gm-message-state:date:from:to:cc:subject:message-id:references
- :mime-version:content-disposition:in-reply-to:user-agent;
- bh=1Hd5HUE8FtAVIHZ0zOMuprsDH1qucHlAidVwNXNR0kE=;
- b=RvuDoW4rtWu/nxjj8XadfJCMeVKf+YeV4tBv51k2dROeLuzlAzpnTysvsdPsiM8y84
- hLhFVMexkkcgS88DV9DyDkn79fUzPsVS/werfPvhFGl/5C7YK8s4K3yE4Ac9yOskcicF
- 0V1EYNt9gV8wJQd9UdrouPt2qhwh7KGSYVnXTsK9iJhlJICfAqQDlshgw0MJVWZMpuOW
- HRZcMbFC5hEBkDmnrQeP/SqI9madqTAaefqzJdd/T9EN87uOXt76ayibZlx/SuHsD0ny
- cbb17y5punajC++raNivv3hI1qenhJh+gD5LCYqHuq2gNRyWmKQ0pAOSZ+wxnGLRkEWH
- RFXg==
-X-Gm-Message-State: APjAAAXxnD6imDSD+6Z/ya9HUQHBtXtjyCEnjoBSzqEVw6K5K1G15Q8x
- XfC33kkCfCzeWaV8K2G8LQ==
-X-Google-Smtp-Source: APXvYqx38nwGxFFCwmvC358jGtt2sCWNYPbMOthN/1AGAmXZzhMX9GG7akLemxmhb6zk5JKBh2ArBw==
-X-Received: by 2002:a9d:6312:: with SMTP id q18mr14150968otk.45.1558734950429; 
- Fri, 24 May 2019 14:55:50 -0700 (PDT)
-Received: from localhost (24-155-109-49.dyn.grandenetworks.net.
- [24.155.109.49])
- by smtp.gmail.com with ESMTPSA id b25sm1193569otq.65.2019.05.24.14.55.49
- (version=TLS1_2 cipher=ECDHE-RSA-CHACHA20-POLY1305 bits=256/256);
- Fri, 24 May 2019 14:55:49 -0700 (PDT)
-Date: Fri, 24 May 2019 16:55:49 -0500
-From: Rob Herring <robh@kernel.org>
-To: megous@megous.com
-Message-ID: <20190524215549.GA13928@bogus>
-References: <20190520235009.16734-1-megous@megous.com>
- <20190520235009.16734-5-megous@megous.com>
-MIME-Version: 1.0
-Content-Disposition: inline
-In-Reply-To: <20190520235009.16734-5-megous@megous.com>
-User-Agent: Mutt/1.10.1 (2018-07-13)
-Cc: Ondrej Jirman <megous@megous.com>, Mark Rutland <mark.rutland@arm.com>,
- devicetree@vger.kernel.org, Maxime Ripard <maxime.ripard@bootlin.com>,
- netdev@vger.kernel.org, linux-stm32@st-md-mailman.stormreply.com,
- Chen-Yu Tsai <wens@csie.org>, dri-devel@lists.freedesktop.org,
- linux-kernel@vger.kernel.org, David Airlie <airlied@linux.ie>,
- linux-sunxi@googlegroups.com, Jose Abreu <joabreu@synopsys.com>,
- linux-arm-kernel@lists.infradead.org, Daniel Vetter <daniel@ffwll.ch>,
- Giuseppe Cavallaro <peppe.cavallaro@st.com>,
- "David S. Miller" <davem@davemloft.net>,
- Maxime Coquelin <mcoquelin.stm32@gmail.com>
-Subject: Re: [Linux-stm32] [PATCH v5 4/6] dt-bindings: display:
- hdmi-connector: Support DDC bus enable
+ Sat, 25 May 2019 18:02:55 +0000 (UTC)
+Received: from localhost (unknown [IPv6:2601:601:9f80:35cd::3d8])
+ (using TLSv1 with cipher AES256-SHA (256/256 bits))
+ (Client did not present a certificate)
+ (Authenticated sender: davem-davemloft)
+ by shards.monkeyblade.net (Postfix) with ESMTPSA id 282C814FC9282;
+ Sat, 25 May 2019 11:02:53 -0700 (PDT)
+Date: Sat, 25 May 2019 11:02:52 -0700 (PDT)
+Message-Id: <20190525.110252.292904127953775877.davem@davemloft.net>
+To: biao.huang@mediatek.com
+From: David Miller <davem@davemloft.net>
+In-Reply-To: <1558679169-26752-1-git-send-email-biao.huang@mediatek.com>
+References: <1558679169-26752-1-git-send-email-biao.huang@mediatek.com>
+X-Mailer: Mew version 6.8 on Emacs 26.1
+Mime-Version: 1.0
+X-Greylist: Sender succeeded SMTP AUTH, not delayed by milter-greylist-4.5.12
+ (shards.monkeyblade.net [149.20.54.216]);
+ Sat, 25 May 2019 11:02:53 -0700 (PDT)
+Cc: jianguo.zhang@mediatek.comi, netdev@vger.kernel.org,
+ linux-kernel@vger.kernel.org, boon.leong.ong@intel.com, yt.shen@mediatek.com,
+ joabreu@synopsys.com, linux-mediatek@lists.infradead.org,
+ mcoquelin.stm32@gmail.com, matthias.bgg@gmail.com, peppe.cavallaro@st.com,
+ linux-stm32@st-md-mailman.stormreply.com, linux-arm-kernel@lists.infradead.org
+Subject: Re: [Linux-stm32] [v4, PATCH 0/3] fix some bugs in stmmac
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -76,23 +52,31 @@ Content-Transfer-Encoding: 7bit
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
-On Tue, 21 May 2019 01:50:07 +0200, megous@megous.com wrote:
-> From: Ondrej Jirman <megous@megous.com>
-> 
-> Some Allwinner SoC using boards (Orange Pi 3 for example) need to enable
-> on-board voltage shifting logic for the DDC bus using a gpio to be able
-> to access DDC bus. Use ddc-en-gpios property on the hdmi-connector to
-> model this.
-> 
-> Add binding documentation for optional ddc-en-gpios property.
-> 
-> Signed-off-by: Ondrej Jirman <megous@megous.com>
-> ---
->  .../devicetree/bindings/display/connector/hdmi-connector.txt     | 1 +
->  1 file changed, 1 insertion(+)
-> 
+From: Biao Huang <biao.huang@mediatek.com>
+Date: Fri, 24 May 2019 14:26:06 +0800
 
-Reviewed-by: Rob Herring <robh@kernel.org>
+> changes in v4:                                                                  
+>         since MTL_OPERATION_MODE write back issue has be fixed in the latest driver,
+> remove original patch#3                                                         
+>                                                                                 
+> changes in v3:                                                                  
+>         add a Fixes:tag for each patch                                          
+>                                                                                 
+> changes in v2:                                                                  
+>         1. update rx_tail_addr as Jose's comment                                
+>         2. changes clk_csr condition as Alex's proposition                      
+>         3. remove init lines in dwmac-mediatek, get clk_csr from dts instead.   
+>                                                                                 
+> v1:                                                                             
+> This series fix some bugs in stmmac driver                                      
+> 3 patches are for common stmmac or dwmac4:                                      
+>         1. update rx tail pointer to fix rx dma hang issue.                     
+>         2. change condition for mdc clock to fix csr_clk can't be zero issue.   
+>         3. write the modified value back to MTL_OPERATION_MODE.                 
+> 1 patch is for dwmac-mediatek:                                                  
+>         modify csr_clk value to fix mdio read/write fail issue for dwmac-mediatek
+
+Series applied, thanks.
 _______________________________________________
 Linux-stm32 mailing list
 Linux-stm32@st-md-mailman.stormreply.com
