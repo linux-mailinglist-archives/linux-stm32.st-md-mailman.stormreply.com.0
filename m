@@ -2,40 +2,60 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id 01F4E2A5F3
-	for <lists+linux-stm32@lfdr.de>; Sat, 25 May 2019 20:02:57 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 098852AF33
+	for <lists+linux-stm32@lfdr.de>; Mon, 27 May 2019 09:07:44 +0200 (CEST)
 Received: from ip-172-31-3-76.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id A9E7CC2907D
-	for <lists+linux-stm32@lfdr.de>; Sat, 25 May 2019 18:02:56 +0000 (UTC)
-Received: from shards.monkeyblade.net (shards.monkeyblade.net [23.128.96.9])
- (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id C80A5C59795
+	for <lists+linux-stm32@lfdr.de>; Mon, 27 May 2019 07:07:43 +0000 (UTC)
+Received: from mail-pf1-f194.google.com (mail-pf1-f194.google.com
+ [209.85.210.194])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id CA6A4C32EAB
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 1A140C36B3E
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Sat, 25 May 2019 18:02:55 +0000 (UTC)
-Received: from localhost (unknown [IPv6:2601:601:9f80:35cd::3d8])
- (using TLSv1 with cipher AES256-SHA (256/256 bits))
- (Client did not present a certificate)
- (Authenticated sender: davem-davemloft)
- by shards.monkeyblade.net (Postfix) with ESMTPSA id 282C814FC9282;
- Sat, 25 May 2019 11:02:53 -0700 (PDT)
-Date: Sat, 25 May 2019 11:02:52 -0700 (PDT)
-Message-Id: <20190525.110252.292904127953775877.davem@davemloft.net>
-To: biao.huang@mediatek.com
-From: David Miller <davem@davemloft.net>
-In-Reply-To: <1558679169-26752-1-git-send-email-biao.huang@mediatek.com>
-References: <1558679169-26752-1-git-send-email-biao.huang@mediatek.com>
-X-Mailer: Mew version 6.8 on Emacs 26.1
-Mime-Version: 1.0
-X-Greylist: Sender succeeded SMTP AUTH, not delayed by milter-greylist-4.5.12
- (shards.monkeyblade.net [149.20.54.216]);
- Sat, 25 May 2019 11:02:53 -0700 (PDT)
-Cc: jianguo.zhang@mediatek.comi, netdev@vger.kernel.org,
- linux-kernel@vger.kernel.org, boon.leong.ong@intel.com, yt.shen@mediatek.com,
- joabreu@synopsys.com, linux-mediatek@lists.infradead.org,
- mcoquelin.stm32@gmail.com, matthias.bgg@gmail.com, peppe.cavallaro@st.com,
- linux-stm32@st-md-mailman.stormreply.com, linux-arm-kernel@lists.infradead.org
-Subject: Re: [Linux-stm32] [v4, PATCH 0/3] fix some bugs in stmmac
+ Sun, 26 May 2019 07:14:08 +0000 (UTC)
+Received: by mail-pf1-f194.google.com with SMTP id y11so2891639pfm.13
+ for <linux-stm32@st-md-mailman.stormreply.com>;
+ Sun, 26 May 2019 00:14:07 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20161025;
+ h=from:to:cc:subject:date:message-id;
+ bh=gpKp1Ji3NbYE6dlIioVp6OmCdvPteX1H1EwDeUiYnRo=;
+ b=SlQO+gvKGyFVekP53VsMEkLrnYKIXnPeCfyVJpCc6L5giIU+OyiuvYGxLKys+i4eEg
+ x4Bxv0XjnhN+IX32qe7Y6ElOmFVk5JLdxHDQghLROUfhfkS/yI7y9AsqY8dDjZTmx9Qd
+ xQq6iB6wwJHfMzKKMnLuHIqOGcQm72DQLSdgSd8p2BRMGx11qnpAKZACoV3zQish1JUA
+ LHrdhVNgk2vQzJ78O0MaTc2cM+d8KmN9D06jyp3OatZm4LGXzYiLtYWkToQNPYiS/QdZ
+ HJroVs+UoCH+9+RMl3xE/lALsZKw7lFYjaYgbdr4apzaQv8q/VQyLTftAW25QN3sZjdX
+ a30w==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20161025;
+ h=x-gm-message-state:from:to:cc:subject:date:message-id;
+ bh=gpKp1Ji3NbYE6dlIioVp6OmCdvPteX1H1EwDeUiYnRo=;
+ b=pLaX8jD53l72ntmxhnpnh2YIU5IvnQcnmaDjT16XuCQwKwxQe32I70A6DELwHyC0eC
+ UXYNmtAbraSwLxdgsqpbGFWyibQqZzfMswRiB3frR4T2Kw/HKGi8IOn72SGR7D/26GTG
+ ZTAve0foArzZSdDcHIvNWqn22Cqkr+Rt+wCmBo9eBfPBjv6QNQRJXkj3jDKD+g5hHDT4
+ K6498AjSL7FpwvzTd+6eca/+6eGp2g+SA9RVEs9MUNRM1X3PpvUgAdhfkSDxSki416qb
+ 0YDo9XkIK3JE6b4W2ar3v+/7QeKlqFD0SOpVC1JO2b1R52G2yKfiBoC5AnqyGC7uFyXD
+ MYLQ==
+X-Gm-Message-State: APjAAAXjydG5NVpUPaOouZ4dxFulV2pZBXJ/Q+ZGxdgoemb82A5vX91s
+ CPpYMbe2lxarS70PeD0S3ss=
+X-Google-Smtp-Source: APXvYqwTC0FptfX7CPxxhryj2laivRpDqWwH7V8fygp/VEbP5GYpQPJX1vkSLqIrM2RDP7oYdhrGsA==
+X-Received: by 2002:aa7:8e46:: with SMTP id d6mr98123175pfr.91.1558854846680; 
+ Sun, 26 May 2019 00:14:06 -0700 (PDT)
+Received: from localhost ([43.224.245.181])
+ by smtp.gmail.com with ESMTPSA id 4sm11313421pfj.111.2019.05.26.00.14.05
+ (version=TLS1_2 cipher=ECDHE-RSA-AES128-GCM-SHA256 bits=128/128);
+ Sun, 26 May 2019 00:14:06 -0700 (PDT)
+From: Weitao Hou <houweitaoo@gmail.com>
+To: vkoul@kernel.org, dan.j.williams@intel.com, mcoquelin.stm32@gmail.com,
+ alexandre.torgue@st.com
+Date: Sun, 26 May 2019 15:13:24 +0800
+Message-Id: <20190526071324.15307-1-houweitaoo@gmail.com>
+X-Mailer: git-send-email 2.18.0
+X-Mailman-Approved-At: Mon, 27 May 2019 07:07:42 +0000
+Cc: dmaengine@vger.kernel.org, Weitao Hou <houweitaoo@gmail.com>,
+ linux-stm32@st-md-mailman.stormreply.com, linux-arm-kernel@lists.infradead.org,
+ linux-kernel@vger.kernel.org
+Subject: [Linux-stm32] [PATCH] dmaengine: use to_platform_device()
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -47,36 +67,46 @@ List-Post: <mailto:linux-stm32@st-md-mailman.stormreply.com>
 List-Help: <mailto:linux-stm32-request@st-md-mailman.stormreply.com?subject=help>
 List-Subscribe: <https://st-md-mailman.stormreply.com/mailman/listinfo/linux-stm32>, 
  <mailto:linux-stm32-request@st-md-mailman.stormreply.com?subject=subscribe>
+MIME-Version: 1.0
 Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
-From: Biao Huang <biao.huang@mediatek.com>
-Date: Fri, 24 May 2019 14:26:06 +0800
+Use to_platform_device() instead of open-coding it.
 
-> changes in v4:                                                                  
->         since MTL_OPERATION_MODE write back issue has be fixed in the latest driver,
-> remove original patch#3                                                         
->                                                                                 
-> changes in v3:                                                                  
->         add a Fixes:tag for each patch                                          
->                                                                                 
-> changes in v2:                                                                  
->         1. update rx_tail_addr as Jose's comment                                
->         2. changes clk_csr condition as Alex's proposition                      
->         3. remove init lines in dwmac-mediatek, get clk_csr from dts instead.   
->                                                                                 
-> v1:                                                                             
-> This series fix some bugs in stmmac driver                                      
-> 3 patches are for common stmmac or dwmac4:                                      
->         1. update rx tail pointer to fix rx dma hang issue.                     
->         2. change condition for mdc clock to fix csr_clk can't be zero issue.   
->         3. write the modified value back to MTL_OPERATION_MODE.                 
-> 1 patch is for dwmac-mediatek:                                                  
->         modify csr_clk value to fix mdio read/write fail issue for dwmac-mediatek
+Signed-off-by: Weitao Hou <houweitaoo@gmail.com>
+---
+ drivers/dma/stm32-dmamux.c | 6 ++----
+ 1 file changed, 2 insertions(+), 4 deletions(-)
 
-Series applied, thanks.
+diff --git a/drivers/dma/stm32-dmamux.c b/drivers/dma/stm32-dmamux.c
+index a67119199c45..63af24d4c834 100644
+--- a/drivers/dma/stm32-dmamux.c
++++ b/drivers/dma/stm32-dmamux.c
+@@ -306,8 +306,7 @@ static int stm32_dmamux_probe(struct platform_device *pdev)
+ #ifdef CONFIG_PM
+ static int stm32_dmamux_runtime_suspend(struct device *dev)
+ {
+-	struct platform_device *pdev =
+-		container_of(dev, struct platform_device, dev);
++	struct platform_device *pdev = to_platform_device(dev);
+ 	struct stm32_dmamux_data *stm32_dmamux = platform_get_drvdata(pdev);
+ 
+ 	clk_disable_unprepare(stm32_dmamux->clk);
+@@ -317,8 +316,7 @@ static int stm32_dmamux_runtime_suspend(struct device *dev)
+ 
+ static int stm32_dmamux_runtime_resume(struct device *dev)
+ {
+-	struct platform_device *pdev =
+-		container_of(dev, struct platform_device, dev);
++	struct platform_device *pdev = to_platform_device(dev);
+ 	struct stm32_dmamux_data *stm32_dmamux = platform_get_drvdata(pdev);
+ 	int ret;
+ 
+-- 
+2.18.0
+
 _______________________________________________
 Linux-stm32 mailing list
 Linux-stm32@st-md-mailman.stormreply.com
