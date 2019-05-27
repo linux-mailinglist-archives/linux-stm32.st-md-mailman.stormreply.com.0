@@ -2,85 +2,59 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id CDC8A2B5CF
-	for <lists+linux-stm32@lfdr.de>; Mon, 27 May 2019 14:55:05 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 3FD3D2B60C
+	for <lists+linux-stm32@lfdr.de>; Mon, 27 May 2019 15:10:27 +0200 (CEST)
 Received: from ip-172-31-3-76.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 84649C5B675
-	for <lists+linux-stm32@lfdr.de>; Mon, 27 May 2019 12:55:05 +0000 (UTC)
-Received: from mx07-00178001.pphosted.com (mx08-00178001.pphosted.com
- [91.207.212.93])
- (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 2BF23C5B67D
+	for <lists+linux-stm32@lfdr.de>; Mon, 27 May 2019 13:10:26 +0000 (UTC)
+Received: from mail-pg1-f196.google.com (mail-pg1-f196.google.com
+ [209.85.215.196])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 88F12C5B674
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 0CFDCC5B67C
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Mon, 27 May 2019 12:55:04 +0000 (UTC)
-Received: from pps.filterd (m0046661.ppops.net [127.0.0.1])
- by mx08-00178001.pphosted.com (8.16.0.27/8.16.0.27) with SMTP id
- x4RCkREG004574; Mon, 27 May 2019 14:54:40 +0200
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=st.com;
- h=from : to : subject :
- date : message-id : references : in-reply-to : content-type : content-id :
- content-transfer-encoding : mime-version; s=STMicroelectronics;
- bh=sKrW0CioPqMIKO8cNXujdrTmMUPJlLJ5MTbTFhfNccQ=;
- b=nHYSdG55hwRAIl0JS0bL8PAPbQlQThN0XOM5pQzfYk61TA8xNH/voyoRIvkd9xhtwD/v
- /S1fAn93tpkCliT9se5ZYdLZafa9ckLQVpPIHaV02W5odIx8CY0CBCLe4tedvZzVFlwu
- lD64NAU0spMB4lwQaJilTyZ8hBlHAjxlcw+qAqZZJrTG1jJcViEQM6zeTwji7gQ3yikZ
- yqB8+Ab2UMWzBKPokDCOG+C8Pb69+iE8pp8vobsnR1lTqYZmUQO+JKBQH5uQQhzGAJFM
- 9/tgJBnBYd7R+LMsRwiq3qpZUciYdbstWWkzs5UbFdKFiUnxBnbHau7VBp4qRtt5VdhV dw== 
-Received: from beta.dmz-eu.st.com (beta.dmz-eu.st.com [164.129.1.35])
- by mx08-00178001.pphosted.com with ESMTP id 2spvkgtv5m-1
- (version=TLSv1 cipher=ECDHE-RSA-AES256-SHA bits=256 verify=NOT);
- Mon, 27 May 2019 14:54:40 +0200
-Received: from zeta.dmz-eu.st.com (zeta.dmz-eu.st.com [164.129.230.9])
- by beta.dmz-eu.st.com (STMicroelectronics) with ESMTP id 88A6238;
- Mon, 27 May 2019 12:54:37 +0000 (GMT)
-Received: from Webmail-eu.st.com (gpxdag6node4.st.com [10.75.127.80])
- by zeta.dmz-eu.st.com (STMicroelectronics) with ESMTP id 65A092ADC;
- Mon, 27 May 2019 12:54:37 +0000 (GMT)
-Received: from GPXDAG6NODE6.st.com (10.75.127.82) by GPXDAG6NODE4.st.com
- (10.75.127.80) with Microsoft SMTP Server (TLS) id 15.0.1347.2; Mon, 27 May
- 2019 14:54:37 +0200
-Received: from GPXDAG6NODE6.st.com ([fe80::57f:5f53:243f:cb11]) by
- GPXDAG6NODE6.st.com ([fe80::57f:5f53:243f:cb11%19]) with mapi id
- 15.00.1473.003; Mon, 27 May 2019 14:54:37 +0200
-From: Philippe CORNU <philippe.cornu@st.com>
-To: Yannick FERTRE <yannick.fertre@st.com>, Andrzej Hajda
- <a.hajda@samsung.com>,
- Laurent Pinchart <Laurent.pinchart@ideasonboard.com>,
- David Airlie <airlied@linux.ie>, Daniel Vetter <daniel@ffwll.ch>, "Heiko
- Stuebner" <heiko@sntech.de>, Sam Ravnborg <sam@ravnborg.org>, Nickey Yang
- <nickey.yang@rock-chips.com>, Benjamin Gaignard
- <benjamin.gaignard@linaro.org>, Vincent ABRIOU <vincent.abriou@st.com>,
- Maxime Coquelin <mcoquelin.stm32@gmail.com>, Alexandre TORGUE
- <alexandre.torgue@st.com>, "dri-devel@lists.freedesktop.org"
- <dri-devel@lists.freedesktop.org>,
- "linux-stm32@st-md-mailman.stormreply.com"
- <linux-stm32@st-md-mailman.stormreply.com>,
- "linux-arm-kernel@lists.infradead.org"
- <linux-arm-kernel@lists.infradead.org>, "linux-kernel@vger.kernel.org"
- <linux-kernel@vger.kernel.org>
-Thread-Topic: [PATCH v1 2/2] drm/stm: dsi: add power on/off phy ops
-Thread-Index: AQHVFHX+VSs7HxnBmUmbgwP5oNYjkKZ+zDkA
-Date: Mon, 27 May 2019 12:54:37 +0000
-Message-ID: <24c1ee24-af80-8605-d042-76a43c985068@st.com>
-References: <1558952499-15418-1-git-send-email-yannick.fertre@st.com>
- <1558952499-15418-3-git-send-email-yannick.fertre@st.com>
-In-Reply-To: <1558952499-15418-3-git-send-email-yannick.fertre@st.com>
-Accept-Language: fr-FR, en-US
-Content-Language: en-US
-X-MS-Has-Attach: 
-X-MS-TNEF-Correlator: 
-user-agent: Mozilla/5.0 (X11; Linux x86_64; rv:60.0) Gecko/20100101
- Thunderbird/60.6.1
-x-ms-exchange-messagesentrepresentingtype: 1
-x-ms-exchange-transport-fromentityheader: Hosted
-x-originating-ip: [10.75.127.44]
-Content-ID: <738E4C142AF00C40B55910A8F5EDC6C4@st.com>
+ Mon, 27 May 2019 13:10:25 +0000 (UTC)
+Received: by mail-pg1-f196.google.com with SMTP id n2so9088703pgp.11
+ for <linux-stm32@st-md-mailman.stormreply.com>;
+ Mon, 27 May 2019 06:10:24 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20161025;
+ h=mime-version:references:in-reply-to:from:date:message-id:subject:to
+ :cc; bh=BEdTvHrM8MBzA6eurnzuHG7AgtE6/R70nIrkLd6SpCU=;
+ b=aiXR/CoJXSRV/poSqc6yyZcU6J2tP3cl0uCr45jqH0sYWaPpegMcVF8oxgCupBqRII
+ sdx4FLDzZRN1EWMdW5FHZDLcA7Tr6LQQ+KmArrUpYh2nNsVzjULxOXsesvlXr/nFWtnr
+ 8R+66mTo1qV/4fThj504goty3v0GxwW3SVjN7FZmwin4K0Zh/1FmmXs+Sh6rMKkeQLmm
+ kJtVIiV4SYob0kmdlC9AbWpHccnOdI0IKhgwoctAtUNAwl/fErLbQsfn78EUshjorZ8e
+ q2o0OROpnJxSHupUDFsKFXRnDxG5u4fayhz55aKf6dLDrml2d6aHxFR7dqa8B6CEGcKF
+ 6yiA==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20161025;
+ h=x-gm-message-state:mime-version:references:in-reply-to:from:date
+ :message-id:subject:to:cc;
+ bh=BEdTvHrM8MBzA6eurnzuHG7AgtE6/R70nIrkLd6SpCU=;
+ b=fwCIBefSHt15DcK/yk2cdHLH/Ir9YcF0BIlRM9xR7AZFrIDyRT5jV1ytgewdd55FKf
+ D6i/dM0jTL3bB3Tk7iEkW5S4WYTlrPlsX07X+qj6j4faza46MX9oULAVCnZEF7cIZq+O
+ t2zchJxuk/CvObFVA5gKL/4Y9eeXkYLAJTD9aIYMkClo2byaPenNy2LqT1kpQ1xsJQr4
+ IvL1H9R8TpuMZuaXRyMzb78uBOsgDJkzTCooWRmojQvzMUyRjo7x3kvp3To1Xdr7myER
+ qRc5rFgACT8uYEAvfCyDnyu0nnoLY+3z72gQyFEX8pRP7t+5R4gWp1nyioMcnWHDVNY2
+ ErzA==
+X-Gm-Message-State: APjAAAWUWZ+uIiMClJvWVkc4J6oAcsXyh8+6w1CVpNC0LKsNLsYk9Xt/
+ QuNTTW5+WERu39F/FUoa0/enWB0RUE+ChXNqQjs=
+X-Google-Smtp-Source: APXvYqw1+zCfcD9kc248BYpaPRhS/Ruwur2JclU6lfZoyDFrjylKjDXH+uObYS4hiyNyGBSzRXTTglbkPiWWdSgpse8=
+X-Received: by 2002:a63:1b65:: with SMTP id
+ b37mr125795061pgm.408.1558962623547; 
+ Mon, 27 May 2019 06:10:23 -0700 (PDT)
 MIME-Version: 1.0
-X-Proofpoint-Virus-Version: vendor=fsecure engine=2.50.10434:, ,
- definitions=2019-05-27_07:, , signatures=0
-Subject: Re: [Linux-stm32] [PATCH v1 2/2] drm/stm: dsi: add power on/off phy
-	ops
+References: <20190526071324.15307-1-houweitaoo@gmail.com>
+ <20190527064303.GG15118@vkoul-mobl>
+In-Reply-To: <20190527064303.GG15118@vkoul-mobl>
+From: Weitao Hou <houweitaoo@gmail.com>
+Date: Mon, 27 May 2019 21:10:12 +0800
+Message-ID: <CAK98mP9teTxZn9mMZ_yXSmC7h8gimgN14kX=GT0Q43O58zC-rw@mail.gmail.com>
+To: Vinod Koul <vkoul@kernel.org>
+Cc: linux-kernel@vger.kernel.org, mcoquelin.stm32@gmail.com,
+ dmaengine@vger.kernel.org, dan.j.williams@intel.com,
+ linux-stm32@st-md-mailman.stormreply.com, linux-arm-kernel@lists.infradead.org
+Subject: Re: [Linux-stm32] [PATCH] dmaengine: use to_platform_device()
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -92,46 +66,63 @@ List-Post: <mailto:linux-stm32@st-md-mailman.stormreply.com>
 List-Help: <mailto:linux-stm32-request@st-md-mailman.stormreply.com?subject=help>
 List-Subscribe: <https://st-md-mailman.stormreply.com/mailman/listinfo/linux-stm32>, 
  <mailto:linux-stm32-request@st-md-mailman.stormreply.com?subject=subscribe>
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: base64
+Content-Type: multipart/mixed; boundary="===============6883573346439451089=="
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
-SGkgWWFubmljaywNCmFuZCB0aGFuayB5b3UgZm9yIHlvdXIgcGF0Y2guDQoNClRlc3RlZCBzdWNj
-ZXNzZnVsbHkgb24gc3RtMzJmIHRvby4NCg0KQWNrZWQtYnk6IFBoaWxpcHBlIENvcm51IDxwaGls
-aXBwZS5jb3JudUBzdC5jb20+DQpUZXN0ZWQtYnk6IFBoaWxpcHBlIENvcm51IDxwaGlsaXBwZS5j
-b3JudUBzdC5jb20+DQoNClBoaWxpcHBlIDotKQ0KDQpPbiA1LzI3LzE5IDEyOjIxIFBNLCBZYW5u
-aWNrIEZlcnRyw6kgd3JvdGU6DQo+IFRoZXNlIG5ldyBwaHlzaWNhbCBvcGVyYXRpb25zIGFyZSBo
-ZWxwZnVsIHRvIHBvd2VyX29uL29mZiB0aGUgZHNpDQo+IHdyYXBwZXIuIElmIHRoZSBkc2kgd3Jh
-cHBlciBpcyBwb3dlcmVkIGluIHZpZGVvIG1vZGUsIHRoZSBkaXNwbGF5DQo+IGNvbnRyb2xsZXIg
-KGx0ZGMpIHJlZ2lzdGVyIGFjY2VzcyB3aWxsIGhhbmcgd2hlbiBEU0kgZmlmb3MgYXJlIGZ1bGwu
-DQo+IA0KPiBTaWduZWQtb2ZmLWJ5OiBZYW5uaWNrIEZlcnRyw6kgPHlhbm5pY2suZmVydHJlQHN0
-LmNvbT4NCj4gLS0tDQo+ICAgZHJpdmVycy9ncHUvZHJtL3N0bS9kd19taXBpX2RzaS1zdG0uYyB8
-IDIxICsrKysrKysrKysrKysrKysrKysrLQ0KPiAgIDEgZmlsZSBjaGFuZ2VkLCAyMCBpbnNlcnRp
-b25zKCspLCAxIGRlbGV0aW9uKC0pDQo+IA0KPiBkaWZmIC0tZ2l0IGEvZHJpdmVycy9ncHUvZHJt
-L3N0bS9kd19taXBpX2RzaS1zdG0uYyBiL2RyaXZlcnMvZ3B1L2RybS9zdG0vZHdfbWlwaV9kc2kt
-c3RtLmMNCj4gaW5kZXggMDFkYjAyMC4uMGFiMzJmZSAxMDA2NDQNCj4gLS0tIGEvZHJpdmVycy9n
-cHUvZHJtL3N0bS9kd19taXBpX2RzaS1zdG0uYw0KPiArKysgYi9kcml2ZXJzL2dwdS9kcm0vc3Rt
-L2R3X21pcGlfZHNpLXN0bS5jDQo+IEBAIC0yMTAsMTAgKzIxMCwyNyBAQCBzdGF0aWMgaW50IGR3
-X21pcGlfZHNpX3BoeV9pbml0KHZvaWQgKnByaXZfZGF0YSkNCj4gICAJaWYgKHJldCkNCj4gICAJ
-CURSTV9ERUJVR19EUklWRVIoIiFUSU1FT1VUISB3YWl0aW5nIFBMTCwgbGV0J3MgY29udGludWVc
-biIpOw0KPiAgIA0KPiArCXJldHVybiAwOw0KPiArfQ0KPiArDQo+ICtzdGF0aWMgdm9pZCBkd19t
-aXBpX2RzaV9waHlfcG93ZXJfb24odm9pZCAqcHJpdl9kYXRhKQ0KPiArew0KPiArCXN0cnVjdCBk
-d19taXBpX2RzaV9zdG0gKmRzaSA9IHByaXZfZGF0YTsNCj4gKw0KPiArCURSTV9ERUJVR19EUklW
-RVIoIlxuIik7DQo+ICsNCj4gICAJLyogRW5hYmxlIHRoZSBEU0kgd3JhcHBlciAqLw0KPiAgIAlk
-c2lfc2V0KGRzaSwgRFNJX1dDUiwgV0NSX0RTSUVOKTsNCj4gK30NCj4gICANCj4gLQlyZXR1cm4g
-MDsNCj4gK3N0YXRpYyB2b2lkIGR3X21pcGlfZHNpX3BoeV9wb3dlcl9vZmYodm9pZCAqcHJpdl9k
-YXRhKQ0KPiArew0KPiArCXN0cnVjdCBkd19taXBpX2RzaV9zdG0gKmRzaSA9IHByaXZfZGF0YTsN
-Cj4gKw0KPiArCURSTV9ERUJVR19EUklWRVIoIlxuIik7DQo+ICsNCj4gKwkvKiBEaXNhYmxlIHRo
-ZSBEU0kgd3JhcHBlciAqLw0KPiArCWRzaV9jbGVhcihkc2ksIERTSV9XQ1IsIFdDUl9EU0lFTik7
-DQo+ICAgfQ0KPiAgIA0KPiAgIHN0YXRpYyBpbnQNCj4gQEAgLTI4Nyw2ICszMDQsOCBAQCBkd19t
-aXBpX2RzaV9nZXRfbGFuZV9tYnBzKHZvaWQgKnByaXZfZGF0YSwgY29uc3Qgc3RydWN0IGRybV9k
-aXNwbGF5X21vZGUgKm1vZGUsDQo+ICAgDQo+ICAgc3RhdGljIGNvbnN0IHN0cnVjdCBkd19taXBp
-X2RzaV9waHlfb3BzIGR3X21pcGlfZHNpX3N0bV9waHlfb3BzID0gew0KPiAgIAkuaW5pdCA9IGR3
-X21pcGlfZHNpX3BoeV9pbml0LA0KPiArCS5wb3dlcl9vbiA9IGR3X21pcGlfZHNpX3BoeV9wb3dl
-cl9vbiwNCj4gKwkucG93ZXJfb2ZmID0gZHdfbWlwaV9kc2lfcGh5X3Bvd2VyX29mZiwNCj4gICAJ
-LmdldF9sYW5lX21icHMgPSBkd19taXBpX2RzaV9nZXRfbGFuZV9tYnBzLA0KPiAgIH07DQo+ICAg
-DQo+IApfX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fXwpMaW51
-eC1zdG0zMiBtYWlsaW5nIGxpc3QKTGludXgtc3RtMzJAc3QtbWQtbWFpbG1hbi5zdG9ybXJlcGx5
-LmNvbQpodHRwczovL3N0LW1kLW1haWxtYW4uc3Rvcm1yZXBseS5jb20vbWFpbG1hbi9saXN0aW5m
-by9saW51eC1zdG0zMgo=
+--===============6883573346439451089==
+Content-Type: multipart/alternative; boundary="0000000000006512fa0589de452a"
+
+--0000000000006512fa0589de452a
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
+
+Hi,Vinod
+    Need I add the stm32 driver tag and resend v2 patch?
+
+Vinod Koul <vkoul@kernel.org> =E4=BA=8E2019=E5=B9=B45=E6=9C=8827=E6=97=A5=
+=E5=91=A8=E4=B8=80 =E4=B8=8B=E5=8D=882:43=E5=86=99=E9=81=93=EF=BC=9A
+
+> On 26-05-19, 15:13, Weitao Hou wrote:
+> > Use to_platform_device() instead of open-coding it.
+>
+> Applied after adding stm32 driver tag, thanks
+>
+> --
+> ~Vinod
+>
+
+--0000000000006512fa0589de452a
+Content-Type: text/html; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
+
+<div dir=3D"ltr">Hi,Vinod<div>=C2=A0 =C2=A0 Need I add the stm32 driver tag=
+ and resend v2 patch?</div></div><br><div class=3D"gmail_quote"><div dir=3D=
+"ltr" class=3D"gmail_attr">Vinod Koul &lt;<a href=3D"mailto:vkoul@kernel.or=
+g">vkoul@kernel.org</a>&gt; =E4=BA=8E2019=E5=B9=B45=E6=9C=8827=E6=97=A5=E5=
+=91=A8=E4=B8=80 =E4=B8=8B=E5=8D=882:43=E5=86=99=E9=81=93=EF=BC=9A<br></div>=
+<blockquote class=3D"gmail_quote" style=3D"margin:0px 0px 0px 0.8ex;border-=
+left:1px solid rgb(204,204,204);padding-left:1ex">On 26-05-19, 15:13, Weita=
+o Hou wrote:<br>
+&gt; Use to_platform_device() instead of open-coding it.<br>
+<br>
+Applied after adding stm32 driver tag, thanks<br>
+<br>
+-- <br>
+~Vinod<br>
+</blockquote></div>
+
+--0000000000006512fa0589de452a--
+
+--===============6883573346439451089==
+Content-Type: text/plain; charset="us-ascii"
+MIME-Version: 1.0
+Content-Transfer-Encoding: 7bit
+Content-Disposition: inline
+
+_______________________________________________
+Linux-stm32 mailing list
+Linux-stm32@st-md-mailman.stormreply.com
+https://st-md-mailman.stormreply.com/mailman/listinfo/linux-stm32
+
+--===============6883573346439451089==--
