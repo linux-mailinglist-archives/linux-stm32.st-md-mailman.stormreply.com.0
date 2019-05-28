@@ -2,37 +2,37 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id 4F2FF2C276
-	for <lists+linux-stm32@lfdr.de>; Tue, 28 May 2019 11:05:19 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id C59122C2CD
+	for <lists+linux-stm32@lfdr.de>; Tue, 28 May 2019 11:11:17 +0200 (CEST)
 Received: from ip-172-31-3-76.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 11C3CC71293
-	for <lists+linux-stm32@lfdr.de>; Tue, 28 May 2019 09:05:19 +0000 (UTC)
-Received: from huawei.com (szxga06-in.huawei.com [45.249.212.32])
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 75F95C71299
+	for <lists+linux-stm32@lfdr.de>; Tue, 28 May 2019 09:11:17 +0000 (UTC)
+Received: from huawei.com (szxga04-in.huawei.com [45.249.212.190])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 25F47C71292
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id AD850C71298
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Tue, 28 May 2019 09:05:17 +0000 (UTC)
-Received: from DGGEMS401-HUB.china.huawei.com (unknown [172.30.72.58])
- by Forcepoint Email with ESMTP id 929DD88CD603B13F05D2;
- Tue, 28 May 2019 17:05:12 +0800 (CST)
-Received: from localhost (10.177.31.96) by DGGEMS401-HUB.china.huawei.com
- (10.3.19.201) with Microsoft SMTP Server id 14.3.439.0; Tue, 28 May 2019
- 17:04:56 +0800
+ Tue, 28 May 2019 09:11:15 +0000 (UTC)
+Received: from DGGEMS407-HUB.china.huawei.com (unknown [172.30.72.60])
+ by Forcepoint Email with ESMTP id 5831C91C97D14D4ADA04;
+ Tue, 28 May 2019 17:11:12 +0800 (CST)
+Received: from localhost (10.177.31.96) by DGGEMS407-HUB.china.huawei.com
+ (10.3.19.207) with Microsoft SMTP Server id 14.3.439.0; Tue, 28 May 2019
+ 17:11:03 +0800
 From: YueHaibing <yuehaibing@huawei.com>
-To: <gregkh@linuxfoundation.org>, <jslaby@suse.com>,
- <mcoquelin.stm32@gmail.com>, <alexandre.torgue@st.com>
-Date: Tue, 28 May 2019 17:04:49 +0800
-Message-ID: <20190528090449.22868-1-yuehaibing@huawei.com>
+To: <peppe.cavallaro@st.com>, <alexandre.torgue@st.com>,
+ <joabreu@synopsys.com>, <davem@davemloft.net>, <mcoquelin.stm32@gmail.com>
+Date: Tue, 28 May 2019 17:10:40 +0800
+Message-ID: <20190528091040.20288-1-yuehaibing@huawei.com>
 X-Mailer: git-send-email 2.10.2.windows.1
 MIME-Version: 1.0
 X-Originating-IP: [10.177.31.96]
 X-CFilter-Loop: Reflected
-Cc: YueHaibing <yuehaibing@huawei.com>, linux-serial@vger.kernel.org,
+Cc: netdev@vger.kernel.org, YueHaibing <yuehaibing@huawei.com>,
  linux-kernel@vger.kernel.org, linux-arm-kernel@lists.infradead.org,
  linux-stm32@st-md-mailman.stormreply.com
-Subject: [Linux-stm32] [PATCH -next] serial: stm32: Make stm32_get_databits
-	static
+Subject: [Linux-stm32] [PATCH net-next] net: stmmac: Fix build error without
+	CONFIG_INET
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -49,30 +49,33 @@ Content-Transfer-Encoding: 7bit
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
-Fix sparse warning:
+Fix gcc build error while CONFIG_INET is not set
 
-drivers/tty/serial/stm32-usart.c:603:14: warning:
- symbol 'stm32_get_databits' was not declared. Should it be static?
+drivers/net/ethernet/stmicro/stmmac/stmmac_selftests.o: In function `__stmmac_test_loopback':
+stmmac_selftests.c:(.text+0x8ec): undefined reference to `ip_send_check'
+stmmac_selftests.c:(.text+0xacc): undefined reference to `udp4_hwcsum'
+
+Add CONFIG_INET dependency to fix this.
 
 Reported-by: Hulk Robot <hulkci@huawei.com>
+Fixes: 091810dbded9 ("net: stmmac: Introduce selftests support")
 Signed-off-by: YueHaibing <yuehaibing@huawei.com>
 ---
- drivers/tty/serial/stm32-usart.c | 2 +-
- 1 file changed, 1 insertion(+), 1 deletion(-)
+ drivers/net/ethernet/stmicro/stmmac/Kconfig | 1 +
+ 1 file changed, 1 insertion(+)
 
-diff --git a/drivers/tty/serial/stm32-usart.c b/drivers/tty/serial/stm32-usart.c
-index 9c2b04e..4517f2b 100644
---- a/drivers/tty/serial/stm32-usart.c
-+++ b/drivers/tty/serial/stm32-usart.c
-@@ -600,7 +600,7 @@ static void stm32_shutdown(struct uart_port *port)
- 	free_irq(port->irq, port);
- }
+diff --git a/drivers/net/ethernet/stmicro/stmmac/Kconfig b/drivers/net/ethernet/stmicro/stmmac/Kconfig
+index 7791ad5..0b5c8d7 100644
+--- a/drivers/net/ethernet/stmicro/stmmac/Kconfig
++++ b/drivers/net/ethernet/stmicro/stmmac/Kconfig
+@@ -15,6 +15,7 @@ if STMMAC_ETH
  
--unsigned int stm32_get_databits(struct ktermios *termios)
-+static unsigned int stm32_get_databits(struct ktermios *termios)
- {
- 	unsigned int bits;
- 
+ config STMMAC_SELFTESTS
+ 	bool "Support for STMMAC Selftests"
++	depends on INET
+ 	depends on STMMAC_ETH
+ 	default n
+ 	---help---
 -- 
 2.7.4
 
