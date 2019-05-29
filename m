@@ -2,77 +2,66 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id 6E4942DACD
-	for <lists+linux-stm32@lfdr.de>; Wed, 29 May 2019 12:31:03 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 759722DAE7
+	for <lists+linux-stm32@lfdr.de>; Wed, 29 May 2019 12:37:30 +0200 (CEST)
 Received: from ip-172-31-3-76.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 99BCDC35E0A
-	for <lists+linux-stm32@lfdr.de>; Wed, 29 May 2019 10:31:01 +0000 (UTC)
-Received: from smtprelay-out1.synopsys.com (smtprelay-out1.synopsys.com
- [198.182.47.102])
- (using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 2E2EFC35E09
+	for <lists+linux-stm32@lfdr.de>; Wed, 29 May 2019 10:37:30 +0000 (UTC)
+Received: from mail-vs1-f68.google.com (mail-vs1-f68.google.com
+ [209.85.217.68])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 7C02BC35E09
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 5084AC35E03
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Wed, 29 May 2019 10:30:59 +0000 (UTC)
-Received: from mailhost.synopsys.com (dc2-mailhost2.synopsys.com
- [10.12.135.162])
- (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits))
- (No client certificate requested)
- by smtprelay-out1.synopsys.com (Postfix) with ESMTPS id ABC78C0B59;
- Wed, 29 May 2019 10:31:00 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=synopsys.com; s=mail;
- t=1559125866; bh=L/zcOt3uTfx3QhugJlownAMFQSm3dP+6sx2sVmiAnyQ=;
- h=From:To:CC:Subject:Date:References:In-Reply-To:From;
- b=OfcezbJfSbiSnMClNxogVHod+fr2745De2QQ7yOrncJNWbJ4Kr7y50mxqm6okcCs/
- Si0HOCdbJBNGEzsuQUYrUt4C9vmhQ9K7tdaf1g3GBjpoJ2F/i0IXtouSu0mokP22ry
- sB0FBWiv6mm25LRF6Toev9LeuvfoW1/Kj/SJyUYQ0YUCNVha/M7+cK0FsXJjDrJ5gV
- ArF+B4G5fLTtD6CsqGcK4Z3lDZlw/8YGGL5IS4oKxnM8/xqW+v2AkcA34F2gWMJ45b
- 4BeKIsRZdmUNzlOCTqRAHcoWQ6SOgtOJaNEhU3/EAmBdm+eBbWLySxOkGrXS2nozbR
- kpofpnVlRFBSQ==
-Received: from US01WXQAHTC1.internal.synopsys.com
- (us01wxqahtc1.internal.synopsys.com [10.12.238.230])
- (using TLSv1.2 with cipher AES128-SHA256 (128/128 bits))
- (No client certificate requested)
- by mailhost.synopsys.com (Postfix) with ESMTPS id 55124A00A3;
- Wed, 29 May 2019 10:30:49 +0000 (UTC)
-Received: from DE02WEHTCA.internal.synopsys.com (10.225.19.92) by
- US01WXQAHTC1.internal.synopsys.com (10.12.238.230) with Microsoft SMTP Server
- (TLS) id 14.3.408.0; Wed, 29 May 2019 03:30:49 -0700
-Received: from DE02WEMBXB.internal.synopsys.com ([fe80::95ce:118a:8321:a099])
- by DE02WEHTCA.internal.synopsys.com ([::1]) with mapi id
- 14.03.0415.000; Wed, 29 May 2019 12:30:47 +0200
-From: Jose Abreu <Jose.Abreu@synopsys.com>
-To: Biao Huang <biao.huang@mediatek.com>
-Thread-Topic: [v5, PATCH] net: stmmac: add support for hash table size
- 128/256 in dwmac4
-Thread-Index: AQHVFgFMgnlWoV6tbES+hcM7ZfkqbqaB5uaw
-Date: Wed, 29 May 2019 10:30:46 +0000
-Message-ID: <78EB27739596EE489E55E81C33FEC33A0B9334CE@DE02WEMBXB.internal.synopsys.com>
-References: <1559122268-22545-1-git-send-email-biao.huang@mediatek.com>
- <1559122268-22545-2-git-send-email-biao.huang@mediatek.com>
-In-Reply-To: <1559122268-22545-2-git-send-email-biao.huang@mediatek.com>
-Accept-Language: en-US
-Content-Language: en-US
-X-MS-Has-Attach: 
-X-MS-TNEF-Correlator: 
-x-originating-ip: [10.107.19.176]
+ Wed, 29 May 2019 10:37:29 +0000 (UTC)
+Received: by mail-vs1-f68.google.com with SMTP id y6so1436096vsb.0
+ for <linux-stm32@st-md-mailman.stormreply.com>;
+ Wed, 29 May 2019 03:37:29 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linaro.org; s=google;
+ h=mime-version:references:in-reply-to:from:date:message-id:subject:to
+ :cc; bh=tjnCyAMKOLgkdZookUva/jit8+LoVCiTGzc0TNGq/oA=;
+ b=wOZ28q0Dbsa83UgZEqBAyC7OuWb0kt0Le7tZXn7K4Cvh6Qd+xStSW7Yy8L8potaaWt
+ vCbmGvPV8IcOQ/DvUiQ+adosG5dqCgOU0cxAlWaHwgdAWEQOwpa7mZd3r2dQfTTa/2Xp
+ xfPvIdlyNqkUFyFUY7m71UUGC1xzQFWh/BD7nQZZSeEY2xfK/LMN48ajDbNJGFbWO1VN
+ bLgEW84wPlSshhv5X9kGiTUuNdGdVICyMUMKraO5xgLstqh0aOGGWLQgBSCCB89yzogY
+ Q9AQwpTs7/7RAYNEQnseubioA2ZJ7re36Nw2eitt4gpv7aqrecWSSXkKxIZOQg4hewD7
+ y3bQ==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20161025;
+ h=x-gm-message-state:mime-version:references:in-reply-to:from:date
+ :message-id:subject:to:cc;
+ bh=tjnCyAMKOLgkdZookUva/jit8+LoVCiTGzc0TNGq/oA=;
+ b=iU2J4ebPjZnRJiLacxTHPualx6SIMDHJsPf8xylEopIW0nOFR75hBkUfnsyfYKSfhU
+ tvEtLgyrPTEagXJHjVW1xtTuO15Cac16YUQcXHS6l+XFv32vEw4dwVwL/QqAkXxI29i6
+ MPu4MqyTIal7uPoYqhtvloXESZzjhgVUEKnfjMg27qt0ELrQJ6IWgn3GUvxrW7VILhOa
+ +QYxob9l06cRPhL2LZlFZYsWFa7lRCE9uk+YlpXg9fITimEMyaecGcnWtqBB2KuVFbnj
+ 2zPV1ut3X/JB5JyF1ipgTmEWNz4ziuGUufm8F4xGTtqoHLtdEEhZp8BcC6aFfZXygC+U
+ 9iZQ==
+X-Gm-Message-State: APjAAAWhgPgWZB/bTAG6kXSjWdDgyHfcBL04hMuaOffoyJpV9NVCzPPo
+ mAdYcA3nymW5mFskPcntT3B4vHNMDlyYHBR9/gI9nQ==
+X-Google-Smtp-Source: APXvYqx8zt/2mUaOcclrGUfqtNcoqVnj8CT/3HypSvAAWyzH7F3cDGM/H+pIvoe/h4PMDjOkbfsFLwZh6e2SC0ttcNo=
+X-Received: by 2002:a67:fa51:: with SMTP id j17mr38251200vsq.89.1559126247816; 
+ Wed, 29 May 2019 03:37:27 -0700 (PDT)
 MIME-Version: 1.0
-Cc: "andrew@lunn.ch" <andrew@lunn.ch>,
- "jianguo.zhang@mediatek.com" <jianguo.zhang@mediatek.com>,
- "boon.leong.ong@intel.com" <boon.leong.ong@intel.com>,
- "netdev@vger.kernel.org" <netdev@vger.kernel.org>,
- "linux-kernel@vger.kernel.org" <linux-kernel@vger.kernel.org>,
- "yt.shen@mediatek.com" <yt.shen@mediatek.com>,
- "linux-mediatek@lists.infradead.org" <linux-mediatek@lists.infradead.org>,
+References: <1556264798-18540-1-git-send-email-ludovic.Barre@st.com>
+ <1556264798-18540-4-git-send-email-ludovic.Barre@st.com>
+ <CAPDyKFrxp3Y3AudNvkkSRaph2Fe-A-F6Cs0jfy9RUja76GYeiA@mail.gmail.com>
+ <a6a74431-50a6-6298-b77d-9d27a77fd6cc@st.com>
+In-Reply-To: <a6a74431-50a6-6298-b77d-9d27a77fd6cc@st.com>
+From: Ulf Hansson <ulf.hansson@linaro.org>
+Date: Wed, 29 May 2019 12:36:50 +0200
+Message-ID: <CAPDyKFqzNy3hDzovSxb6pd37u7SxWqYoJeu9+tf_qDF7gs0euA@mail.gmail.com>
+To: Ludovic BARRE <ludovic.barre@st.com>
+Cc: DTML <devicetree@vger.kernel.org>,
+ "linux-mmc@vger.kernel.org" <linux-mmc@vger.kernel.org>,
+ Linux Kernel Mailing List <linux-kernel@vger.kernel.org>,
+ Rob Herring <robh+dt@kernel.org>,
+ Srinivas Kandagatla <srinivas.kandagatla@linaro.org>,
  Maxime Coquelin <mcoquelin.stm32@gmail.com>,
- Matthias Brugger <matthias.bgg@gmail.com>,
- Giuseppe Cavallaro <peppe.cavallaro@st.com>,
- "linux-stm32@st-md-mailman.stormreply.com"
- <linux-stm32@st-md-mailman.stormreply.com>,
- "linux-arm-kernel@lists.infradead.org" <linux-arm-kernel@lists.infradead.org>
-Subject: Re: [Linux-stm32] [v5,
- PATCH] net: stmmac: add support for hash table size 128/256 in
- dwmac4
+ linux-stm32@st-md-mailman.stormreply.com,
+ Linux ARM <linux-arm-kernel@lists.infradead.org>
+Subject: Re: [Linux-stm32] [PATCH V2 3/5] mmc: mmci: fix clear of busy
+	detect status
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -89,35 +78,90 @@ Content-Transfer-Encoding: 7bit
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
-From: Biao Huang <biao.huang@mediatek.com>
-Date: Wed, May 29, 2019 at 10:31:08
+On Wed, 29 May 2019 at 11:20, Ludovic BARRE <ludovic.barre@st.com> wrote:
+>
+> hi Ulf
+>
+> On 5/27/19 8:17 PM, Ulf Hansson wrote:
+> > On Fri, 26 Apr 2019 at 09:46, Ludovic Barre <ludovic.Barre@st.com> wrote:
+> >>
+> >> From: Ludovic Barre <ludovic.barre@st.com>
+> >>
+> >> The "busy_detect_flag" is used to read/clear busy value of
+> >> mmci status. The "busy_detect_mask" is used to manage busy irq of
+> >> mmci mask.
+> >> For sdmmc variant, the 2 properties have not the same offset.
+> >> To clear the busyd0 status bit, we must add busy detect flag,
+> >> the mmci mask is not enough.
+> >>
+> >> Signed-off-by: Ludovic Barre <ludovic.barre@st.com>
+> >
+> > Ludovic, again, apologies for the delay.
+> >
+> >> ---
+> >>   drivers/mmc/host/mmci.c | 3 ++-
+> >>   1 file changed, 2 insertions(+), 1 deletion(-)
+> >>
+> >> diff --git a/drivers/mmc/host/mmci.c b/drivers/mmc/host/mmci.c
+> >> index a040f54..3cd52e8 100644
+> >> --- a/drivers/mmc/host/mmci.c
+> >> +++ b/drivers/mmc/host/mmci.c
+> >> @@ -1517,7 +1517,8 @@ static irqreturn_t mmci_irq(int irq, void *dev_id)
+> >>                   * to make sure that both start and end interrupts are always
+> >>                   * cleared one after the other.
+> >>                   */
+> >> -               status &= readl(host->base + MMCIMASK0);
+> >> +               status &= readl(host->base + MMCIMASK0) |
+> >> +                       host->variant->busy_detect_flag;
+> >
+> > I think this is not entirely correct, because it would mean we check
+> > for busy even if we haven't unmasked the busy IRQ via the
+> > variant->busy_detect_mask.
+>
+> if the variant is busy_detect false:
+>   => no problem because the busy_detect_flag or busy_detect_mask is not
+>      defined.
 
-> 1. get hash table size in hw feature reigster, and add support
-> for taller hash table(128/256) in dwmac4.
-> 2. only clear GMAC_PACKET_FILTER bits used in this function,
-> to avoid side effect to functions of other bits.
-> 
-> stmmac selftests output log:
-> 	ethtool -t eth0
-> 	The test result is FAIL
-> 	The test extra info:
-> 	 1. MAC Loopback                 0
-> 	 2. PHY Loopback                 -95
-> 	 3. MMC Counters                 0
-> 	 4. EEE                          -95
-> 	 5. Hash Filter MC               0
-> 	 6. Perfect Filter UC            0
-> 	 7. MC Filter                    0
-> 	 8. UC Filter                    0
-> 	 9. Flow Control                 1
+Right.
 
-Thanks for testing, this patch looks good to me.
+>
+> if variant is busy_detect true:
+> the busy handle is split in 3 steps (see mmci_cmd_irq):
+> step 1: detection of busy line => unmasked the busy irq end
+> step 2: in busy wait => ignore cmd irq while current busy flag is
+> enabled.
+> step 3: end of busy => clear and mask busy irq
+>
+> To detect the first step (see mmci_cmd_irq: which unmasks the busy irq)
+> we need to know the current busy state. Actually, the status register is
+> re-read in mmci_cmd_irq, why not used the status read in mmci_irq and in
+> parameter ?
 
-Do you want to check why Flow Control selftest is failing ?
+Right, I see your point.
 
+On the other hand, that re-read of the status registers should really
+not be needed. Maybe it's a leftover from my initial version of the
+code, but in any case we should remove that.
 
-Thanks,
-Jose Miguel Abreu
+>
+> Regards,
+> Ludo
+>
+> >
+> > I suggest to store a new bool in the host (call it
+> > "busy_detect_unmasked" or whatever makes sense to you), to track
+> > whether we have unmasked the busy IRQ or not. Then take this flag into
+> > account, before ORing the value of host->variant->busy_detect_flag,
+> > according to above.
+> >
+> >>                  if (host->variant->busy_detect)
+> >>                          writel(status & ~host->variant->busy_detect_mask,
+> >>                                 host->base + MMCICLEAR);
+> >> --
+> >> 2.7.4
+
+Kind regards
+Uffe
 _______________________________________________
 Linux-stm32 mailing list
 Linux-stm32@st-md-mailman.stormreply.com
