@@ -2,31 +2,31 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id 0E99B2EA49
-	for <lists+linux-stm32@lfdr.de>; Thu, 30 May 2019 03:39:21 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id C98A52ED1A
+	for <lists+linux-stm32@lfdr.de>; Thu, 30 May 2019 05:31:49 +0200 (CEST)
 Received: from ip-172-31-3-76.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id B451BC36B3F
-	for <lists+linux-stm32@lfdr.de>; Thu, 30 May 2019 01:39:20 +0000 (UTC)
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 79590C35E02
+	for <lists+linux-stm32@lfdr.de>; Thu, 30 May 2019 03:31:49 +0000 (UTC)
 Received: from mailgw02.mediatek.com (unknown [1.203.163.81])
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 00486C36B3E
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id A8FACC36B3F
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Thu, 30 May 2019 01:39:18 +0000 (UTC)
-X-UUID: eb0d16995d464ece951d8d337d91a496-20190530
-X-UUID: eb0d16995d464ece951d8d337d91a496-20190530
-Received: from mtkcas32.mediatek.inc [(172.27.4.253)] by mailgw02.mediatek.com
+ Thu, 30 May 2019 03:31:47 +0000 (UTC)
+X-UUID: 53bb568e824a4622b0892084898b44a9-20190530
+X-UUID: 53bb568e824a4622b0892084898b44a9-20190530
+Received: from mtkcas35.mediatek.inc [(172.27.4.253)] by mailgw02.mediatek.com
  (envelope-from <biao.huang@mediatek.com>)
  (mailgw01.mediatek.com ESMTP with TLS)
- with ESMTP id 1220763986; Thu, 30 May 2019 09:39:13 +0800
+ with ESMTP id 584813171; Thu, 30 May 2019 11:31:43 +0800
 Received: from MTKCAS36.mediatek.inc (172.27.4.186) by MTKMBS31N2.mediatek.inc
  (172.27.4.87) with Microsoft SMTP Server (TLS) id 15.0.1395.4;
- Thu, 30 May 2019 09:39:11 +0800
+ Thu, 30 May 2019 11:31:41 +0800
 Received: from [10.17.3.153] (172.27.4.253) by MTKCAS36.mediatek.inc
  (172.27.4.170) with Microsoft SMTP Server id 15.0.1395.4 via Frontend
- Transport; Thu, 30 May 2019 09:39:10 +0800
-Message-ID: <1559180349.24897.72.camel@mhfsdcap03>
+ Transport; Thu, 30 May 2019 11:31:40 +0800
+Message-ID: <1559187100.24897.81.camel@mhfsdcap03>
 From: biao huang <biao.huang@mediatek.com>
 To: Jose Abreu <Jose.Abreu@synopsys.com>
-Date: Thu, 30 May 2019 09:39:09 +0800
+Date: Thu, 30 May 2019 11:31:40 +0800
 In-Reply-To: <78EB27739596EE489E55E81C33FEC33A0B9334CE@DE02WEMBXB.internal.synopsys.com>
 References: <1559122268-22545-1-git-send-email-biao.huang@mediatek.com>
  <1559122268-22545-2-git-send-email-biao.huang@mediatek.com>
@@ -67,24 +67,21 @@ Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
 Hi Jose,
-	Flow control is disabled in v5 commit.
+	I also try "ethtool -A eth0 tx on rx on", and selftests pass.
 
-	I tried "insmod stmmac flow_ctrl=1", and the output log shows self test
-pass:
-	ethtool -t eth0                                    
-	The test result is PASS
- 	The test extra info:
- 	 1. MAC Loopback                 0
- 	 2. PHY Loopback                 -95
- 	 3. MMC Counters                 0
- 	 4. EEE                          -95
- 	 5. Hash Filter MC               0
- 	 6. Perfect Filter UC            0
- 	 7. MC Filter                    0
- 	 8. UC Filter                    0
-	 9. Flow Control                 0
+	But there are bugs in dwmac4_flow_ctrl:
+		flow control will keep on once enabled. 
+		ethtool -A eth0 tx off rx off can't change it.
 
-	Is v5 OK? Should I resend a v6?
+	if (fc & FLOW_RX)  {
+		pr_debug ...
+		flow |= GMAC_RX_FLOW_CTRL_RFE;
+		writel(flow, ioaddr + GMAC_RX_FLOW_CTRL);
+		>> this should move outside to enasure rx flow control will be off
+when execute "ethtool -A eth0 rx off"
+	} 
+
+	same for tx.
 
 On Wed, 2019-05-29 at 10:30 +0000, Jose Abreu wrote:
 > From: Biao Huang <biao.huang@mediatek.com>
@@ -116,9 +113,6 @@ On Wed, 2019-05-29 at 10:30 +0000, Jose Abreu wrote:
 > 
 > Thanks,
 > Jose Miguel Abreu
-
-Thanks,
-Biao
 
 
 _______________________________________________
