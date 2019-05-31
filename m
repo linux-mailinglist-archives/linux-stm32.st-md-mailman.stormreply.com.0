@@ -2,42 +2,41 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id 071B42FBD2
-	for <lists+linux-stm32@lfdr.de>; Thu, 30 May 2019 14:58:42 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 7C6D23064E
+	for <lists+linux-stm32@lfdr.de>; Fri, 31 May 2019 03:46:56 +0200 (CEST)
 Received: from ip-172-31-3-76.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 805F8C57197
-	for <lists+linux-stm32@lfdr.de>; Thu, 30 May 2019 12:58:41 +0000 (UTC)
-Received: from vps0.lunn.ch (vps0.lunn.ch [185.16.172.187])
- (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
- (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 772FBC57196
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id D304CC06B9E
+	for <lists+linux-stm32@lfdr.de>; Fri, 31 May 2019 01:46:55 +0000 (UTC)
+Received: from mailgw02.mediatek.com (unknown [1.203.163.81])
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 0D454C06B9C
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Thu, 30 May 2019 12:58:39 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=lunn.ch;
- s=20171124; h=In-Reply-To:Content-Type:MIME-Version:References:Message-ID:
- Subject:Cc:To:From:Date:Sender:Reply-To:Content-Transfer-Encoding:Content-ID:
- Content-Description:Resent-Date:Resent-From:Resent-Sender:Resent-To:Resent-Cc
- :Resent-Message-ID:List-Id:List-Help:List-Unsubscribe:List-Subscribe:
- List-Post:List-Owner:List-Archive;
- bh=xB8+uSAdIi4vE4Eke8RLPhwzB3Hq8CNeR8jI1cAMG4Y=; b=au90tRQVfIG3mn4gw9H55zbnEe
- 2X/auosHq6eeIf3yI8q9MoXw6bsCpn+t+hQuP4nMOsfZAU3LJLwuxeCEpqFbkIy5EbfQ7UQJg5x46
- hn1FMNgYEko9UF2kViIYhRyXeXVgyfJl3zpWoGGZxey0OkaZYCr2oONQjsUf+qWzxJl0=;
-Received: from andrew by vps0.lunn.ch with local (Exim 4.89)
- (envelope-from <andrew@lunn.ch>)
- id 1hWKdc-0006T7-PS; Thu, 30 May 2019 14:58:32 +0200
-Date: Thu, 30 May 2019 14:58:32 +0200
-From: Andrew Lunn <andrew@lunn.ch>
-To: Biao Huang <biao.huang@mediatek.com>
-Message-ID: <20190530125832.GB22727@lunn.ch>
+ Fri, 31 May 2019 01:46:53 +0000 (UTC)
+X-UUID: 05a641429e3146f69f07f2838f987952-20190531
+X-UUID: 05a641429e3146f69f07f2838f987952-20190531
+Received: from mtkcas32.mediatek.inc [(172.27.4.253)] by mailgw02.mediatek.com
+ (envelope-from <biao.huang@mediatek.com>)
+ (mailgw01.mediatek.com ESMTP with TLS)
+ with ESMTP id 578061618; Fri, 31 May 2019 09:46:50 +0800
+Received: from MTKCAS36.mediatek.inc (172.27.4.186) by MTKMBS31N2.mediatek.inc
+ (172.27.4.87) with Microsoft SMTP Server (TLS) id 15.0.1395.4;
+ Fri, 31 May 2019 09:46:47 +0800
+Received: from [10.17.3.153] (172.27.4.253) by MTKCAS36.mediatek.inc
+ (172.27.4.170) with Microsoft SMTP Server id 15.0.1395.4 via Frontend
+ Transport; Fri, 31 May 2019 09:46:44 +0800
+Message-ID: <1559267203.24897.101.camel@mhfsdcap03>
+From: biao huang <biao.huang@mediatek.com>
+To: Andrew Lunn <andrew@lunn.ch>, Jose Abreu <joabreu@synopsys.com>
+Date: Fri, 31 May 2019 09:46:43 +0800
+In-Reply-To: <20190530125832.GB22727@lunn.ch>
 References: <1559206484-1825-1-git-send-email-biao.huang@mediatek.com>
  <1559206484-1825-4-git-send-email-biao.huang@mediatek.com>
+ <20190530125832.GB22727@lunn.ch>
+X-Mailer: Evolution 3.2.3-0ubuntu6 
 MIME-Version: 1.0
-Content-Disposition: inline
-In-Reply-To: <1559206484-1825-4-git-send-email-biao.huang@mediatek.com>
-User-Agent: Mutt/1.5.23 (2014-03-12)
+X-MTK: N
 Cc: jianguo.zhang@mediatek.com, boon.leong.ong@intel.com,
  netdev@vger.kernel.org, linux-kernel@vger.kernel.org, yt.shen@mediatek.com,
- Jose Abreu <joabreu@synopsys.com>, linux-mediatek@lists.infradead.org,
+ linux-mediatek@lists.infradead.org,
  Maxime Coquelin <mcoquelin.stm32@gmail.com>,
  Matthias Brugger <matthias.bgg@gmail.com>,
  Giuseppe Cavallaro <peppe.cavallaro@st.com>,
@@ -60,33 +59,58 @@ Content-Transfer-Encoding: 7bit
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
-On Thu, May 30, 2019 at 04:54:43PM +0800, Biao Huang wrote:
-> the default value of tx-frames is 25, it's too late when
-> passing tstamp to stack, then the ptp4l will fail:
+Hi Andrew,
+
+On Thu, 2019-05-30 at 14:58 +0200, Andrew Lunn wrote:
+> On Thu, May 30, 2019 at 04:54:43PM +0800, Biao Huang wrote:
+> > the default value of tx-frames is 25, it's too late when
+> > passing tstamp to stack, then the ptp4l will fail:
+> > 
+> > ptp4l -i eth0 -f gPTP.cfg -m
+> > ptp4l: selected /dev/ptp0 as PTP clock
+> > ptp4l: port 1: INITIALIZING to LISTENING on INITIALIZE
+> > ptp4l: port 0: INITIALIZING to LISTENING on INITIALIZE
+> > ptp4l: port 1: link up
+> > ptp4l: timed out while polling for tx timestamp
+> > ptp4l: increasing tx_timestamp_timeout may correct this issue,
+> >        but it is likely caused by a driver bug
+> > ptp4l: port 1: send peer delay response failed
+> > ptp4l: port 1: LISTENING to FAULTY on FAULT_DETECTED (FT_UNSPECIFIED)
+> > 
+> > ptp4l tests pass when changing the tx-frames from 25 to 1 with
+> > ethtool -C option.
+> > It should be fine to set tx-frames default value to 1, so ptp4l will pass
+> > by default.
 > 
-> ptp4l -i eth0 -f gPTP.cfg -m
-> ptp4l: selected /dev/ptp0 as PTP clock
-> ptp4l: port 1: INITIALIZING to LISTENING on INITIALIZE
-> ptp4l: port 0: INITIALIZING to LISTENING on INITIALIZE
-> ptp4l: port 1: link up
-> ptp4l: timed out while polling for tx timestamp
-> ptp4l: increasing tx_timestamp_timeout may correct this issue,
->        but it is likely caused by a driver bug
-> ptp4l: port 1: send peer delay response failed
-> ptp4l: port 1: LISTENING to FAULTY on FAULT_DETECTED (FT_UNSPECIFIED)
+> Hi Biao
 > 
-> ptp4l tests pass when changing the tx-frames from 25 to 1 with
-> ethtool -C option.
-> It should be fine to set tx-frames default value to 1, so ptp4l will pass
-> by default.
+> What does this do to the number of interrupts? Do we get 25 times more
+> interrupts? Have you done any performance tests to see if this causes
+> performance regressions?
+Yes, it seems tx-frames=25 can reduce interrupts.
+But the tx interrupt is handled in napi now, which will disable/enable
+tx interrupts at the beginning/ending of napi flow.
 
-Hi Biao
+Here is the test result on our platform:
+		tx-frames=1		tx-frames=25		
+irq number	478514			393750	
+performance	904Mbits/sec		902Mbits/sec
 
-What does this do to the number of interrupts? Do we get 25 times more
-interrupts? Have you done any performance tests to see if this causes
-performance regressions?
+commands for test:
+	"cat /proc/interrupts | grep eth0"
+	"iperf3 -c ipaddress -w 256K -t 60"
 
-	    Andrew
+Thanks to napi, the interrupts will not grow 25 times more(almost the
+same level), and no obvious performance degradation.
+
+Is there anybody can double check the performance with tx-frames = 0 or
+25?
+> 
+> 	    Andrew
+Thanks.
+Biao
+
+
 _______________________________________________
 Linux-stm32 mailing list
 Linux-stm32@st-md-mailman.stormreply.com
