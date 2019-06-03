@@ -2,75 +2,47 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id 67AE332ED3
-	for <lists+linux-stm32@lfdr.de>; Mon,  3 Jun 2019 13:40:52 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 32E5C57E83
+	for <lists+linux-stm32@lfdr.de>; Thu, 27 Jun 2019 10:49:49 +0200 (CEST)
 Received: from ip-172-31-3-76.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 160F6CB36D4
-	for <lists+linux-stm32@lfdr.de>; Mon,  3 Jun 2019 11:40:52 +0000 (UTC)
-Received: from smtprelay-out1.synopsys.com (dc2-smtprelay2.synopsys.com
- [198.182.61.142])
- (using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id DE6FBC57B6D
+	for <lists+linux-stm32@lfdr.de>; Thu, 27 Jun 2019 08:49:48 +0000 (UTC)
+Received: from lb2-smtp-cloud9.xs4all.net (lb2-smtp-cloud9.xs4all.net
+ [194.109.24.26])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id D7F82CB36D2
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 45DB6CB36D8
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Mon,  3 Jun 2019 11:40:49 +0000 (UTC)
-Received: from mailhost.synopsys.com (dc8-mailhost2.synopsys.com
- [10.13.135.210])
- (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits))
- (No client certificate requested)
- by smtprelay-out1.synopsys.com (Postfix) with ESMTPS id 30711C1E73;
- Mon,  3 Jun 2019 11:40:25 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=synopsys.com; s=mail;
- t=1559562028; bh=JNgLsT7LPunYfej4pP5aCroqrdhvEaNr8asK8r1HI7Y=;
- h=From:To:CC:Subject:Date:References:In-Reply-To:From;
- b=QnpyQMXRrAFzeVwuPSVQX9syBt+Hb02uRHs7Fs7uKpQolYd8MaUOTYFEKb3Tvkqt9
- ryS1+FR7+e8qYxHQFmZexwW9ROZau/gsFbKRW8YZxLn2JNuZh0RFRNvE3Kww/Cahjm
- /VUoCFFnV/yofaYRK2uhyZ+RJ7lRutTQ9dWPb1YmY7UW8cmdF60WTBv9hcvoxI4Aa1
- tw6oUYRs/E7Xfe8+LHapSeLdJuzhzEiI2BZQ0K/HHKSB/fX0xsfVFNPqGQUdZIPVMS
- dbyLdu/ckJRdYQAGzW7p+A4V8h3eT/bTrRTjx0LBuOmQ6nw2vvbDvdGQ7gKWFrOtEn
- NrO2YR068NpfA==
-Received: from us01wehtc1.internal.synopsys.com
- (us01wehtc1-vip.internal.synopsys.com [10.12.239.236])
- (using TLSv1.2 with cipher ECDHE-RSA-AES256-SHA384 (256/256 bits))
- (No client certificate requested)
- by mailhost.synopsys.com (Postfix) with ESMTPS id 87BABA0067;
- Mon,  3 Jun 2019 11:40:40 +0000 (UTC)
-Received: from DE02WEHTCA.internal.synopsys.com (10.225.19.92) by
- us01wehtc1.internal.synopsys.com (10.12.239.231) with Microsoft SMTP Server
- (TLS) id 14.3.408.0; Mon, 3 Jun 2019 04:40:40 -0700
-Received: from DE02WEMBXB.internal.synopsys.com ([fe80::95ce:118a:8321:a099])
- by DE02WEHTCA.internal.synopsys.com ([::1]) with mapi id
- 14.03.0415.000; Mon, 3 Jun 2019 13:40:37 +0200
-From: Jose Abreu <Jose.Abreu@synopsys.com>
-To: Biao Huang <biao.huang@mediatek.com>, "davem@davemloft.net"
- <davem@davemloft.net>, "andrew@lunn.ch" <andrew@lunn.ch>
-Thread-Topic: [v2, PATCH 3/4] net: stmmac: modify default value of tx-frames
-Thread-Index: AQHVGa/XGYfQ4t70BkaeZd4pZlVHSKaJzoyA
-Date: Mon, 3 Jun 2019 11:40:37 +0000
-Message-ID: <78EB27739596EE489E55E81C33FEC33A0B93B6DF@DE02WEMBXB.internal.synopsys.com>
-References: <1559527086-7227-1-git-send-email-biao.huang@mediatek.com>
- <1559527086-7227-4-git-send-email-biao.huang@mediatek.com>
-In-Reply-To: <1559527086-7227-4-git-send-email-biao.huang@mediatek.com>
-Accept-Language: en-US
-Content-Language: en-US
-X-MS-Has-Attach: 
-X-MS-TNEF-Correlator: 
-x-originating-ip: [10.107.19.176]
-MIME-Version: 1.0
-Cc: "jianguo.zhang@mediatek.com" <jianguo.zhang@mediatek.com>,
- "boon.leong.ong@intel.com" <boon.leong.ong@intel.com>,
- "netdev@vger.kernel.org" <netdev@vger.kernel.org>,
- "linux-kernel@vger.kernel.org" <linux-kernel@vger.kernel.org>,
- "yt.shen@mediatek.com" <yt.shen@mediatek.com>,
- "linux-mediatek@lists.infradead.org" <linux-mediatek@lists.infradead.org>,
+ Mon,  3 Jun 2019 11:45:32 +0000 (UTC)
+Received: from [192.168.2.10] ([46.9.252.75])
+ by smtp-cloud9.xs4all.net with ESMTPA
+ id XlP5hL7kAsDWyXlP8hsryq; Mon, 03 Jun 2019 13:45:31 +0200
+To: Fabien Dessenne <fabien.dessenne@st.com>,
+ Hugues Fruchet <hugues.fruchet@st.com>,
+ Mauro Carvalho Chehab <mchehab@kernel.org>,
  Maxime Coquelin <mcoquelin.stm32@gmail.com>,
- Matthias Brugger <matthias.bgg@gmail.com>,
- Giuseppe Cavallaro <peppe.cavallaro@st.com>,
- "linux-stm32@st-md-mailman.stormreply.com"
- <linux-stm32@st-md-mailman.stormreply.com>,
- "linux-arm-kernel@lists.infradead.org" <linux-arm-kernel@lists.infradead.org>
-Subject: Re: [Linux-stm32] [v2,
-	PATCH 3/4] net: stmmac: modify default value of tx-frames
+ Alexandre Torgue <alexandre.torgue@st.com>, Pavel Machek <pavel@denx.de>,
+ linux-media@vger.kernel.org, linux-stm32@st-md-mailman.stormreply.com,
+ linux-arm-kernel@lists.infradead.org, linux-kernel@vger.kernel.org
+References: <1559294295-20573-1-git-send-email-fabien.dessenne@st.com>
+From: Hans Verkuil <hverkuil-cisco@xs4all.nl>
+Message-ID: <46944972-1f88-ef3b-fef9-8e37753c0ffe@xs4all.nl>
+Date: Mon, 3 Jun 2019 13:45:27 +0200
+User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:60.0) Gecko/20100101
+ Thunderbird/60.6.1
+MIME-Version: 1.0
+In-Reply-To: <1559294295-20573-1-git-send-email-fabien.dessenne@st.com>
+Content-Language: en-US
+X-CMAE-Envelope: MS4wfCN0MWjkjUyGzp6RpvMIZ2ZANeW2kYEP03Lpq3iqxfDwME2NkMqcJ+4u8wJA/QHfTb1eUz+uisc7OqX0O7kndwdR0ZVW6uYMPcB/P15b1VaJn538Lf+x
+ NpoGEuGPiPtkBx9DsS6X0tLYlnRiI7z09uP0CoCsy8Xjtn42bpslVuei6PSli3eMoap5saASbpiDX6XpET+OFtD9B3RPXBwVdY8s8ZorQPRjKWBS+iFs5tU5
+ JcyHlEgjEwFC3lQWFrLx7IKttSJSdQhzLTcFNI4C/GGkE2trkxzNun+9+Ruulo+8qY9ak+/SmKIQ+kgTg7xKgQBhwcWRnLRBWT55TpNhtogX6wNgZDrHA6R+
+ DP8O8sDZLy5bkdDBxfik+WTTyrM7PXg/048e9w11h0IqIIlGhif1381FUXcLSGcLziyMd6bFNfwfgVfEUgK16hHn9FgCB4acy5ykhFHypGJ47adWQgK/dE6G
+ 9TJhkrGyPEBntvMjPZ9BgUNRVSNLdIIqLJzmuyPjIYgbtaRxjKOprgUXnCZ2Mg+Lh4zk3jdL6wiFvQH6IqSYwOZc/HHUQ3Mu+pq0ncGcj1p4oBZbHedZLcz6
+ 1ZXK7+Aa9y7T7q16w8DCGy61
+X-Mailman-Approved-At: Thu, 27 Jun 2019 08:49:46 +0000
+Cc: Sasha Levin <sashal@kernel.org>,
+ Greg Kroah-Hartman <gregkh@linuxfoundation.org>
+Subject: Re: [Linux-stm32] [PATCH] media: stm32-dcmi: fix irq = 0 case
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -87,32 +59,39 @@ Content-Transfer-Encoding: 7bit
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
-From: Biao Huang <biao.huang@mediatek.com>
-
-> the default value of tx-frames is 25, it's too late when
-> passing tstamp to stack, then the ptp4l will fail:
+On 5/31/19 11:18 AM, Fabien Dessenne wrote:
+> Manage the irq = 0 case, where we shall return an error.
 > 
-> ptp4l -i eth0 -f gPTP.cfg -m
-> ptp4l: selected /dev/ptp0 as PTP clock
-> ptp4l: port 1: INITIALIZING to LISTENING on INITIALIZE
-> ptp4l: port 0: INITIALIZING to LISTENING on INITIALIZE
-> ptp4l: port 1: link up
-> ptp4l: timed out while polling for tx timestamp
-> ptp4l: increasing tx_timestamp_timeout may correct this issue,
->        but it is likely caused by a driver bug
-> ptp4l: port 1: send peer delay response failed
-> ptp4l: port 1: LISTENING to FAULTY on FAULT_DETECTED (FT_UNSPECIFIED)
+> Fixes: b5b5a27bee58 ("media: stm32-dcmi: return appropriate error codes during probe")
+> Signed-off-by: Fabien Dessenne <fabien.dessenne@st.com>
+> ---
+>  drivers/media/platform/stm32/stm32-dcmi.c | 2 +-
+>  1 file changed, 1 insertion(+), 1 deletion(-)
 > 
-> ptp4l tests pass when changing the tx-frames from 25 to 1 with
-> ethtool -C option.
-> It should be fine to set tx-frames default value to 1, so ptp4l will pass
-> by default.
+> diff --git a/drivers/media/platform/stm32/stm32-dcmi.c b/drivers/media/platform/stm32/stm32-dcmi.c
+> index b9dad0a..d855e9c 100644
+> --- a/drivers/media/platform/stm32/stm32-dcmi.c
+> +++ b/drivers/media/platform/stm32/stm32-dcmi.c
+> @@ -1702,7 +1702,7 @@ static int dcmi_probe(struct platform_device *pdev)
+>  	if (irq <= 0) {
 
-I'm not sure if this is the right approach ... What's the timeout value 
-you have for TX Timestamp ?
+Shouldn't this be 'irq < 0' instead of '<=' ?
 
-Thanks,
-Jose Miguel Abreu
+AFAICT irq == 0 can be a valid irq and isn't an error.
+
+Regards,
+
+	Hans
+
+>  		if (irq != -EPROBE_DEFER)
+>  			dev_err(&pdev->dev, "Could not get irq\n");
+> -		return irq;
+> +		return irq ? irq : -ENXIO;
+>  	}
+>  
+>  	dcmi->res = platform_get_resource(pdev, IORESOURCE_MEM, 0);
+> 
+
 _______________________________________________
 Linux-stm32 mailing list
 Linux-stm32@st-md-mailman.stormreply.com
