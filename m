@@ -2,64 +2,44 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id BA61633437
-	for <lists+linux-stm32@lfdr.de>; Mon,  3 Jun 2019 17:55:40 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id B3A87337C4
+	for <lists+linux-stm32@lfdr.de>; Mon,  3 Jun 2019 20:25:14 +0200 (CEST)
 Received: from ip-172-31-3-76.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 68B0FCBA4D4
-	for <lists+linux-stm32@lfdr.de>; Mon,  3 Jun 2019 15:55:40 +0000 (UTC)
-Received: from mx07-00178001.pphosted.com (mx08-00178001.pphosted.com
- [91.207.212.93])
- (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 59687CBC201
+	for <lists+linux-stm32@lfdr.de>; Mon,  3 Jun 2019 18:25:14 +0000 (UTC)
+Received: from relay2-d.mail.gandi.net (relay2-d.mail.gandi.net
+ [217.70.183.194])
+ (using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 0F034CBA4D0
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id A8F88CBB8DF
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Mon,  3 Jun 2019 15:55:39 +0000 (UTC)
-Received: from pps.filterd (m0046660.ppops.net [127.0.0.1])
- by mx08-00178001.pphosted.com (8.16.0.27/8.16.0.27) with SMTP id
- x53Frao7004235; Mon, 3 Jun 2019 17:55:32 +0200
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=st.com;
- h=from : to : cc : subject
- : date : message-id : in-reply-to : references : mime-version :
- content-type; s=STMicroelectronics;
- bh=oj2i9QotepYR2OEJaRA4rA4osloqDgU7KpWmr2xHAV4=;
- b=Z5RTgstEjTOu3kJzZDKFMDW0pptuG4kynxRZd4pfrSSzUfc5448kRLvPE9By7hDZtOII
- AVFchbmjzobh8nvqt9IUvPQahxuv0ayDJDl+IISHGEbIGM8Ggr8TLriFO9L+obMcUhWA
- apQnahQGLNggaqyqciQ5SjUkCXrjnGVqufkmHVpYOMwlrTozcf3uiy+s8srrwn7cYK+J
- ptm56t88CzYu6ViQzX5fReyuLsava8GrQ2hlKtzD1qgYFYqHM3voavDPr2pUfORMSDQS
- S/p9D6pkw9EvMm/aAD8LdiRo7swQcOfAjQgWPqBWuH1iI+padv5R34fNJNjoabGRdPtV 9A== 
-Received: from beta.dmz-eu.st.com (beta.dmz-eu.st.com [164.129.1.35])
- by mx08-00178001.pphosted.com with ESMTP id 2sunmeb8pu-1
- (version=TLSv1 cipher=ECDHE-RSA-AES256-SHA bits=256 verify=NOT);
- Mon, 03 Jun 2019 17:55:32 +0200
-Received: from zeta.dmz-eu.st.com (zeta.dmz-eu.st.com [164.129.230.9])
- by beta.dmz-eu.st.com (STMicroelectronics) with ESMTP id 8A7D931;
- Mon,  3 Jun 2019 15:55:31 +0000 (GMT)
-Received: from Webmail-eu.st.com (Safex1hubcas21.st.com [10.75.90.44])
- by zeta.dmz-eu.st.com (STMicroelectronics) with ESMTP id 69E414E66;
- Mon,  3 Jun 2019 15:55:31 +0000 (GMT)
-Received: from SAFEX1HUBCAS23.st.com (10.75.90.47) by SAFEX1HUBCAS21.st.com
- (10.75.90.44) with Microsoft SMTP Server (TLS) id 14.3.439.0; Mon, 3 Jun 2019
- 17:55:31 +0200
-Received: from lmecxl0923.lme.st.com (10.48.0.237) by webmail-ga.st.com
- (10.75.90.48) with Microsoft SMTP Server (TLS) id 14.3.439.0; Mon, 3 Jun 2019
- 17:55:30 +0200
-From: Ludovic Barre <ludovic.Barre@st.com>
-To: Ulf Hansson <ulf.hansson@linaro.org>, Rob Herring <robh+dt@kernel.org>
-Date: Mon, 3 Jun 2019 17:55:25 +0200
-Message-ID: <1559577325-19266-4-git-send-email-ludovic.Barre@st.com>
-X-Mailer: git-send-email 2.7.4
-In-Reply-To: <1559577325-19266-1-git-send-email-ludovic.Barre@st.com>
-References: <1559577325-19266-1-git-send-email-ludovic.Barre@st.com>
-MIME-Version: 1.0
-X-Originating-IP: [10.48.0.237]
-X-Proofpoint-Virus-Version: vendor=fsecure engine=2.50.10434:, ,
- definitions=2019-06-03_12:, , signatures=0
-Cc: devicetree@vger.kernel.org, linux-mmc@vger.kernel.org,
- linux-kernel@vger.kernel.org, srinivas.kandagatla@linaro.org,
+ Mon,  3 Jun 2019 18:25:12 +0000 (UTC)
+X-Originating-IP: 90.89.68.76
+Received: from localhost (lfbn-1-10718-76.w90-89.abo.wanadoo.fr [90.89.68.76])
+ (Authenticated sender: maxime.ripard@bootlin.com)
+ by relay2-d.mail.gandi.net (Postfix) with ESMTPSA id 125B44000A;
+ Mon,  3 Jun 2019 18:25:04 +0000 (UTC)
+Date: Mon, 3 Jun 2019 19:53:09 +0200
+From: Maxime Ripard <maxime.ripard@bootlin.com>
+To: linux-sunxi@googlegroups.com, Chen-Yu Tsai <wens@csie.org>,
+ Rob Herring <robh+dt@kernel.org>, David Airlie <airlied@linux.ie>,
+ Daniel Vetter <daniel@ffwll.ch>, Mark Rutland <mark.rutland@arm.com>,
+ Giuseppe Cavallaro <peppe.cavallaro@st.com>,
+ Alexandre Torgue <alexandre.torgue@st.com>,
+ Jose Abreu <joabreu@synopsys.com>, "David S. Miller" <davem@davemloft.net>,
  Maxime Coquelin <mcoquelin.stm32@gmail.com>,
- linux-stm32@st-md-mailman.stormreply.com, linux-arm-kernel@lists.infradead.org
-Subject: [Linux-stm32] [PATCH V3 3/3] mmc: mmci: add busy detect for stm32
-	sdmmc variant
+ dri-devel@lists.freedesktop.org, devicetree@vger.kernel.org,
+ linux-arm-kernel@lists.infradead.org, linux-kernel@vger.kernel.org,
+ netdev@vger.kernel.org, linux-stm32@st-md-mailman.stormreply.com
+Message-ID: <20190603175309.qjlyfymbl6ybrpag@flea>
+References: <20190527162237.18495-1-megous@megous.com>
+ <20190531125246.qqfvmgmw2mv442tq@core.my.home>
+MIME-Version: 1.0
+Content-Disposition: inline
+In-Reply-To: <20190531125246.qqfvmgmw2mv442tq@core.my.home>
+User-Agent: NeoMutt/20180716
+Subject: Re: [Linux-stm32] [linux-sunxi] [PATCH v6 0/6] Add support for
+	Orange Pi 3
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -71,57 +51,28 @@ List-Post: <mailto:linux-stm32@st-md-mailman.stormreply.com>
 List-Help: <mailto:linux-stm32-request@st-md-mailman.stormreply.com?subject=help>
 List-Subscribe: <https://st-md-mailman.stormreply.com/mailman/listinfo/linux-stm32>, 
  <mailto:linux-stm32-request@st-md-mailman.stormreply.com?subject=subscribe>
-Content-Type: text/plain; charset="us-ascii"
-Content-Transfer-Encoding: 7bit
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: base64
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
-From: Ludovic Barre <ludovic.barre@st.com>
-
-This patch enables busy detection for stm32 sdmmc which requires
-to set data timer to define the busy timeout.
-sdmmc has 2 flags:
--busyd0: inverted value of d0 line.
--busyd0end which indicates only end of busy following a cmd response.
-Only one interrupt on busyd0end.
-
-Signed-off-by: Ludovic Barre <ludovic.barre@st.com>
----
- drivers/mmc/host/mmci.c | 4 ++++
- drivers/mmc/host/mmci.h | 1 +
- 2 files changed, 5 insertions(+)
-
-diff --git a/drivers/mmc/host/mmci.c b/drivers/mmc/host/mmci.c
-index 5a8b232..6210f1f 100644
---- a/drivers/mmc/host/mmci.c
-+++ b/drivers/mmc/host/mmci.c
-@@ -264,6 +264,10 @@ static struct variant_data variant_stm32_sdmmc = {
- 	.datalength_bits	= 25,
- 	.datactrl_blocksz	= 14,
- 	.stm32_idmabsize_mask	= GENMASK(12, 5),
-+	.busy_detect		= true,
-+	.busy_timeout		= true,
-+	.busy_detect_flag	= MCI_STM32_BUSYD0,
-+	.busy_detect_mask	= MCI_STM32_BUSYD0ENDMASK,
- 	.init			= sdmmc_variant_init,
- };
- 
-diff --git a/drivers/mmc/host/mmci.h b/drivers/mmc/host/mmci.h
-index b43a958..ac19de8 100644
---- a/drivers/mmc/host/mmci.h
-+++ b/drivers/mmc/host/mmci.h
-@@ -167,6 +167,7 @@
- #define MCI_ST_CARDBUSY		(1 << 24)
- /* Extended status bits for the STM32 variants */
- #define MCI_STM32_BUSYD0	BIT(20)
-+#define MCI_STM32_BUSYD0END	BIT(21)
- 
- #define MMCICLEAR		0x038
- #define MCI_CMDCRCFAILCLR	(1 << 0)
--- 
-2.7.4
-
-_______________________________________________
-Linux-stm32 mailing list
-Linux-stm32@st-md-mailman.stormreply.com
-https://st-md-mailman.stormreply.com/mailman/listinfo/linux-stm32
+T24gRnJpLCBNYXkgMzEsIDIwMTkgYXQgMDI6NTI6NDZQTSArMDIwMCwgT25kxZllaiBKaXJtYW4g
+d3JvdGU6Cj4gSGVsbG8sCj4KPiBPbiBNb24sIE1heSAyNywgMjAxOSBhdCAwNjoyMjozMVBNICsw
+MjAwLCBtZWdvdXMgdmlhIGxpbnV4LXN1bnhpIHdyb3RlOgo+ID4gRnJvbTogT25kcmVqIEppcm1h
+biA8bWVnb3VzQG1lZ291cy5jb20+Cj4gPgo+ID4gVGhpcyBzZXJpZXMgaW1wbGVtZW50cyBzdXBw
+b3J0IGZvciBYdW5sb25nIE9yYW5nZSBQaSAzIGJvYXJkLgo+ID4KPiA+IFVuZm9ydHVuYXRlbHks
+IHRoaXMgYm9hcmQgbmVlZHMgc29tZSBzbWFsbCBkcml2ZXIgcGF0Y2hlcywgc28gSSBoYXZlCj4g
+PiBzcGxpdCB0aGUgYm9hcmRzIERUIHBhdGNoIGludG8gY2h1bmtzIHRoYXQgcmVxdWlyZSBwYXRj
+aGVzIGZvciBkcml2ZXJzCj4gPiBpbiB2YXJpb3VzIHN1YnN5c3RlbXMuCj4gPgo+ID4gU3VnZ2Vz
+dGVkIG1lcmdpbmcgcGxhbi9kZXBlbmRlbmNpZXM6Cj4gPgo+ID4gLSBzdG1tYWMgcGF0Y2hlcyBh
+cmUgbmVlZGVkIGZvciBldGhlcm5ldCBzdXBwb3J0IChwYXRjaGVzIDEtMykKPiA+ICAgLSB0aGVz
+ZSBzaG91bGQgYmUgcmVhZHkgbm93Cj4gPiAtIEhETUkgc3VwcG9ydCAocGF0Y2hlcyA0LTYpCj4g
+PiAgIC0gc2hvdWxkIGJlIHJlYWR5Cj4KPiBJZiB0aGVyZSBhcmUgbm8gZnV0aGVyIGNvbW1lbnRz
+LCBjYW4gYWxsIHRoZXNlIHBhdGNoZXMgcGxlYXNlIGJlIG1lcmdlZD8KCkknbSB3YWl0aW5nIGZv
+ciBzb21lIGZlZWRiYWNrIG9uIHRoZSBzdG1tYWMgYW5kIHRoZSBEVy1IRE1JCmRldmVsb3BwZXJz
+IHRvIG1lcmdlIHRoZSByZXN0CgpNYXhpbWUKCi0tCk1heGltZSBSaXBhcmQsIEJvb3RsaW4KRW1i
+ZWRkZWQgTGludXggYW5kIEtlcm5lbCBlbmdpbmVlcmluZwpodHRwczovL2Jvb3RsaW4uY29tCl9f
+X19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fCkxpbnV4LXN0bTMy
+IG1haWxpbmcgbGlzdApMaW51eC1zdG0zMkBzdC1tZC1tYWlsbWFuLnN0b3JtcmVwbHkuY29tCmh0
+dHBzOi8vc3QtbWQtbWFpbG1hbi5zdG9ybXJlcGx5LmNvbS9tYWlsbWFuL2xpc3RpbmZvL2xpbnV4
+LXN0bTMyCg==
