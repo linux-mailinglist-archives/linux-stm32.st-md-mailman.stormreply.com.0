@@ -2,38 +2,36 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id B393332641
-	for <lists+linux-stm32@lfdr.de>; Mon,  3 Jun 2019 03:58:35 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id AC6C43263D
+	for <lists+linux-stm32@lfdr.de>; Mon,  3 Jun 2019 03:58:29 +0200 (CEST)
 Received: from ip-172-31-3-76.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 7BD99C65577
-	for <lists+linux-stm32@lfdr.de>; Mon,  3 Jun 2019 01:58:35 +0000 (UTC)
-Received: from mailgw02.mediatek.com (unknown [210.61.82.184])
- (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
- (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 826F7C8D85D
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 5064BC8D85A
+	for <lists+linux-stm32@lfdr.de>; Mon,  3 Jun 2019 01:58:29 +0000 (UTC)
+Received: from mailgw01.mediatek.com (unknown [210.61.82.183])
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id C2D16C8D857
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Mon,  3 Jun 2019 01:58:33 +0000 (UTC)
-X-UUID: f0f7dc039f7c4edf9d9ff850f1708a70-20190603
-X-UUID: f0f7dc039f7c4edf9d9ff850f1708a70-20190603
-Received: from mtkcas08.mediatek.inc [(172.21.101.126)] by
- mailgw02.mediatek.com (envelope-from <biao.huang@mediatek.com>)
+ Mon,  3 Jun 2019 01:58:27 +0000 (UTC)
+X-UUID: dba7bda82c7a4c1fa0ba485903dde9b1-20190603
+X-UUID: dba7bda82c7a4c1fa0ba485903dde9b1-20190603
+Received: from mtkmrs01.mediatek.inc [(172.21.131.159)] by
+ mailgw01.mediatek.com (envelope-from <biao.huang@mediatek.com>)
  (mhqrelay.mediatek.com ESMTP with TLS)
- with ESMTP id 2125373192; Mon, 03 Jun 2019 09:58:22 +0800
+ with ESMTP id 1617138134; Mon, 03 Jun 2019 09:58:23 +0800
 Received: from mtkcas07.mediatek.inc (172.21.101.84) by
  mtkmbs01n2.mediatek.inc (172.21.101.79) with Microsoft SMTP Server (TLS) id
- 15.0.1395.4; Mon, 3 Jun 2019 09:58:20 +0800
+ 15.0.1395.4; Mon, 3 Jun 2019 09:58:21 +0800
 Received: from localhost.localdomain (10.17.3.153) by mtkcas07.mediatek.inc
  (172.21.101.73) with Microsoft SMTP Server id 15.0.1395.4 via Frontend
- Transport; Mon, 3 Jun 2019 09:58:19 +0800
+ Transport; Mon, 3 Jun 2019 09:58:20 +0800
 From: Biao Huang <biao.huang@mediatek.com>
 To: <davem@davemloft.net>, Jose Abreu <joabreu@synopsys.com>, <andrew@lunn.ch>
-Date: Mon, 3 Jun 2019 09:58:04 +0800
-Message-ID: <1559527086-7227-3-git-send-email-biao.huang@mediatek.com>
+Date: Mon, 3 Jun 2019 09:58:05 +0800
+Message-ID: <1559527086-7227-4-git-send-email-biao.huang@mediatek.com>
 X-Mailer: git-send-email 1.7.9.5
 In-Reply-To: <1559527086-7227-1-git-send-email-biao.huang@mediatek.com>
 References: <1559527086-7227-1-git-send-email-biao.huang@mediatek.com>
 MIME-Version: 1.0
-X-TM-SNTS-SMTP: 7D0565A1FE1EFC274A578540D2089DD78AB5CB210095DDB5636615ACBAD78AAD2000:8
+X-TM-SNTS-SMTP: BD275BFD7C7B409CEB7828DFEDF77080E409217901078B7CB600EA6F89081E792000:8
 X-MTK: N
 Cc: jianguo.zhang@mediatek.com, boon.leong.ong@intel.com,
  biao.huang@mediatek.com, netdev@vger.kernel.org, linux-kernel@vger.kernel.org,
@@ -43,7 +41,7 @@ Cc: jianguo.zhang@mediatek.com, boon.leong.ong@intel.com,
  Giuseppe Cavallaro <peppe.cavallaro@st.com>,
  linux-stm32@st-md-mailman.stormreply.com, linux-arm-kernel@lists.infradead.org
 Subject: [Linux-stm32] [v2,
-	PATCH 2/4] net: stmmac: dwmac-mediatek: disable rx watchdog
+	PATCH 3/4] net: stmmac: modify default value of tx-frames
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -60,27 +58,43 @@ Content-Transfer-Encoding: 7bit
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
-disable rx watchdog for dwmac-mediatek, then the hw will
-issue a rx interrupt once receiving a packet, so the responding time
-for rx path will be reduced.
+the default value of tx-frames is 25, it's too late when
+passing tstamp to stack, then the ptp4l will fail:
+
+ptp4l -i eth0 -f gPTP.cfg -m
+ptp4l: selected /dev/ptp0 as PTP clock
+ptp4l: port 1: INITIALIZING to LISTENING on INITIALIZE
+ptp4l: port 0: INITIALIZING to LISTENING on INITIALIZE
+ptp4l: port 1: link up
+ptp4l: timed out while polling for tx timestamp
+ptp4l: increasing tx_timestamp_timeout may correct this issue,
+       but it is likely caused by a driver bug
+ptp4l: port 1: send peer delay response failed
+ptp4l: port 1: LISTENING to FAULTY on FAULT_DETECTED (FT_UNSPECIFIED)
+
+ptp4l tests pass when changing the tx-frames from 25 to 1 with
+ethtool -C option.
+It should be fine to set tx-frames default value to 1, so ptp4l will pass
+by default.
 
 Signed-off-by: Biao Huang <biao.huang@mediatek.com>
 ---
- .../net/ethernet/stmicro/stmmac/dwmac-mediatek.c   |    1 +
- 1 file changed, 1 insertion(+)
+ drivers/net/ethernet/stmicro/stmmac/common.h |    2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
 
-diff --git a/drivers/net/ethernet/stmicro/stmmac/dwmac-mediatek.c b/drivers/net/ethernet/stmicro/stmmac/dwmac-mediatek.c
-index b84269e..79f2ee3 100644
---- a/drivers/net/ethernet/stmicro/stmmac/dwmac-mediatek.c
-+++ b/drivers/net/ethernet/stmicro/stmmac/dwmac-mediatek.c
-@@ -356,6 +356,7 @@ static int mediatek_dwmac_probe(struct platform_device *pdev)
- 	plat_dat->has_gmac4 = 1;
- 	plat_dat->has_gmac = 0;
- 	plat_dat->pmt = 0;
-+	plat_dat->riwt_off = 1;
- 	plat_dat->maxmtu = ETH_DATA_LEN;
- 	plat_dat->bsp_priv = priv_plat;
- 	plat_dat->init = mediatek_dwmac_init;
+diff --git a/drivers/net/ethernet/stmicro/stmmac/common.h b/drivers/net/ethernet/stmicro/stmmac/common.h
+index 26bbcd8..6a08cec 100644
+--- a/drivers/net/ethernet/stmicro/stmmac/common.h
++++ b/drivers/net/ethernet/stmicro/stmmac/common.h
+@@ -261,7 +261,7 @@ struct stmmac_safety_stats {
+ #define STMMAC_COAL_TX_TIMER	1000
+ #define STMMAC_MAX_COAL_TX_TICK	100000
+ #define STMMAC_TX_MAX_FRAMES	256
+-#define STMMAC_TX_FRAMES	25
++#define STMMAC_TX_FRAMES	1
+ 
+ /* Packets types */
+ enum packets_types {
 -- 
 1.7.9.5
 
