@@ -2,53 +2,61 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id 367FC57E85
-	for <lists+linux-stm32@lfdr.de>; Thu, 27 Jun 2019 10:49:49 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id BF30B33438
+	for <lists+linux-stm32@lfdr.de>; Mon,  3 Jun 2019 17:55:40 +0200 (CEST)
 Received: from ip-172-31-3-76.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id EC0A6C57B61
-	for <lists+linux-stm32@lfdr.de>; Thu, 27 Jun 2019 08:49:48 +0000 (UTC)
-Received: from lb1-smtp-cloud9.xs4all.net (lb1-smtp-cloud9.xs4all.net
- [194.109.24.22])
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 7C31ACBA4D7
+	for <lists+linux-stm32@lfdr.de>; Mon,  3 Jun 2019 15:55:40 +0000 (UTC)
+Received: from mx07-00178001.pphosted.com (mx07-00178001.pphosted.com
+ [62.209.51.94])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 776B4CB4A77
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 18BB1CBA4D1
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Mon,  3 Jun 2019 13:08:15 +0000 (UTC)
-Received: from [192.168.2.10] ([46.9.252.75])
- by smtp-cloud9.xs4all.net with ESMTPA
- id Xmh9hLfvDsDWyXmhChtE4r; Mon, 03 Jun 2019 15:08:15 +0200
-To: Fabien DESSENNE <fabien.dessenne@st.com>,
- Hugues FRUCHET <hugues.fruchet@st.com>,
- Mauro Carvalho Chehab <mchehab@kernel.org>,
- Maxime Coquelin <mcoquelin.stm32@gmail.com>,
- Alexandre TORGUE <alexandre.torgue@st.com>, Pavel Machek <pavel@denx.de>,
- "linux-media@vger.kernel.org" <linux-media@vger.kernel.org>,
- "linux-stm32@st-md-mailman.stormreply.com"
- <linux-stm32@st-md-mailman.stormreply.com>,
- "linux-arm-kernel@lists.infradead.org"
- <linux-arm-kernel@lists.infradead.org>,
- "linux-kernel@vger.kernel.org" <linux-kernel@vger.kernel.org>
-References: <1559294295-20573-1-git-send-email-fabien.dessenne@st.com>
- <46944972-1f88-ef3b-fef9-8e37753c0ffe@xs4all.nl>
- <dd4ca76b-9f93-5ddc-e878-25b9905e0cd2@st.com>
-From: Hans Verkuil <hverkuil-cisco@xs4all.nl>
-Message-ID: <aa40a88d-9995-8cfc-682a-3c33445199e9@xs4all.nl>
-Date: Mon, 3 Jun 2019 15:08:10 +0200
-User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:60.0) Gecko/20100101
- Thunderbird/60.6.1
+ Mon,  3 Jun 2019 15:55:39 +0000 (UTC)
+Received: from pps.filterd (m0046037.ppops.net [127.0.0.1])
+ by mx07-00178001.pphosted.com (8.16.0.27/8.16.0.27) with SMTP id
+ x53Ffkex011067; Mon, 3 Jun 2019 17:55:29 +0200
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=st.com;
+ h=from : to : cc : subject
+ : date : message-id : mime-version : content-type; s=STMicroelectronics;
+ bh=ZCdO21K/HCc+rGX1H596yCycvup/VxX5uy2+Ur8pj+A=;
+ b=Xgg2ZonOC8ICExILsYQjJB8StuOl0e2H710XlD5MZSS3zImj1hi5WdbVYJ5ZI8jnT8PT
+ zj6EQFf4cwf/mdnQRtkP6UcGj16VHkGEmqiJAVuWrOvYTAmcpJVPAAVY3/IvAJvWjN3e
+ /oB818VDB5uGOlAdvlPlzvZYGUEXPM0VnoNjel+A46HIXyLrvJIvAn/+G1feRJzmFOJS
+ 8T2FGfn3yn8narTH7t2KEYTP+Ft+RdTj2O8NLEtX7FQp7X/3gy/zad7mgfR721FKOFnd
+ 6blcLZAmaJjbgLhjpsRJLZquSpxBBshJLXdNCn1GsQCgWA+ehSEz1n8xFE7fPlMd0s8p 0g== 
+Received: from beta.dmz-eu.st.com (beta.dmz-eu.st.com [164.129.1.35])
+ by mx07-00178001.pphosted.com with ESMTP id 2sunmc2xs0-1
+ (version=TLSv1 cipher=ECDHE-RSA-AES256-SHA bits=256 verify=NOT);
+ Mon, 03 Jun 2019 17:55:29 +0200
+Received: from zeta.dmz-eu.st.com (zeta.dmz-eu.st.com [164.129.230.9])
+ by beta.dmz-eu.st.com (STMicroelectronics) with ESMTP id 67D3131;
+ Mon,  3 Jun 2019 15:55:28 +0000 (GMT)
+Received: from Webmail-eu.st.com (Safex1hubcas22.st.com [10.75.90.92])
+ by zeta.dmz-eu.st.com (STMicroelectronics) with ESMTP id 425804E66;
+ Mon,  3 Jun 2019 15:55:28 +0000 (GMT)
+Received: from SAFEX1HUBCAS23.st.com (10.75.90.47) by Safex1hubcas22.st.com
+ (10.75.90.92) with Microsoft SMTP Server (TLS) id 14.3.439.0; Mon, 3 Jun 2019
+ 17:55:28 +0200
+Received: from lmecxl0923.lme.st.com (10.48.0.237) by webmail-ga.st.com
+ (10.75.90.48) with Microsoft SMTP Server (TLS) id 14.3.439.0; Mon, 3 Jun 2019
+ 17:55:27 +0200
+From: Ludovic Barre <ludovic.Barre@st.com>
+To: Ulf Hansson <ulf.hansson@linaro.org>, Rob Herring <robh+dt@kernel.org>
+Date: Mon, 3 Jun 2019 17:55:22 +0200
+Message-ID: <1559577325-19266-1-git-send-email-ludovic.Barre@st.com>
+X-Mailer: git-send-email 2.7.4
 MIME-Version: 1.0
-In-Reply-To: <dd4ca76b-9f93-5ddc-e878-25b9905e0cd2@st.com>
-Content-Language: en-US
-X-CMAE-Envelope: MS4wfHHih37cLk8I5B7UWMg29h9+t3yjqMdqAeL1cmDBDScWB9AhtcP4c+T5U0qPVbKT00KNHg2pVihXau+13MBWQo78rkablFd9Va3TEOo3lq/b7D8ShVTF
- 1dk4Y9ghkLFLuzutb6p9jfN9EHM64jfRmG2XDMxMoR0sERAPgWcj2QJPAwcYV1fumSqr2UC31Vq4upPPihDg+OqFHyln4/equHH8gk3y/Ujgi0qK7loUwmEF
- 7asWsoHB8XPXfs6gm4n3EHg183Q59pXsQS+QUtZnschVSFFBaKXZz/ckdMk2s816Ue1bmf8tO88FyypzoXOnmb8ikzZXWbHSxEP0dEYoKvTBrqoK91jFyYUA
- w9FYP35FitxsSSem7++x3S1uZT9HudDm6CP3T8KhEQ4rt1JSiWwe6X0Z3FdItW1VjYaEWJE+9PRORGpuPElzXCj5jgTkgit1dZENMV+fPrgi4bxrg+7mDUjv
- Y/x1bkC2MF2lT4Vs9vgiFP45BgKgv/boSIWysJfkOzTTc4tuZuXebciu/EP7Nay9quMrDHLVMdCQVaVqykwwNBqJy4lumr8x9l3mUwE1ROoI0XSoPBCPuGKO
- SAbecdcZ05HgiEQau1DOk57w
-X-Mailman-Approved-At: Thu, 27 Jun 2019 08:49:46 +0000
-Cc: Sasha Levin <sashal@kernel.org>,
- Greg Kroah-Hartman <gregkh@linuxfoundation.org>
-Subject: Re: [Linux-stm32] [PATCH] media: stm32-dcmi: fix irq = 0 case
+X-Originating-IP: [10.48.0.237]
+X-Proofpoint-Virus-Version: vendor=fsecure engine=2.50.10434:, ,
+ definitions=2019-06-03_12:, , signatures=0
+Cc: devicetree@vger.kernel.org, linux-mmc@vger.kernel.org,
+ linux-kernel@vger.kernel.org, srinivas.kandagatla@linaro.org,
+ Maxime Coquelin <mcoquelin.stm32@gmail.com>,
+ linux-stm32@st-md-mailman.stormreply.com, linux-arm-kernel@lists.infradead.org
+Subject: [Linux-stm32] [PATCH V3 0/3] mmc: mmci: add busy detect for stm32
+	sdmmc variant
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -65,61 +73,36 @@ Content-Transfer-Encoding: 7bit
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
-On 6/3/19 3:03 PM, Fabien DESSENNE wrote:
-> Hi Hans
-> 
-> 
-> "platform_get_irq() = 0" shall be considered as an error. See these 
-> discussions:
-> https://patchwork.kernel.org/patch/10006651/
-> https://yarchive.net/comp/linux/zero.html
+From: Ludovic Barre <ludovic.barre@st.com>
 
-Hmm, then many media drivers are wrong since most check for < 0.
+This patch series adds busy detect for stm32 sdmmc variant.
+Some adaptations are required:
+-Clear busy status bit if busy_detect_flag and busy_detect_mask are
+ different.
+-Add hardware busy timeout with MMCIDATATIMER register.
 
-In any case, I'll pick up this patch whenever I make a next pull request
-for fixes like this.
+V3:
+-rebase on latest mmc next
+-replace re-read by status parameter. 
 
-Regards,
+V2:
+-mmci_cmd_irq cleanup in separate patch.
+-simplify the busy_detect_flag exclude
+-replace sdmmc specific comment in
+"mmc: mmci: avoid fake busy polling in mmci_irq"
+to focus on common behavior
 
-	Hans
+Ludovic Barre (3):
+  mmc: mmci: fix read status for busy detect
+  mmc: mmci: add hardware busy timeout feature
+  mmc: mmci: add busy detect for stm32 sdmmc variant
 
-> 
-> BR
-> 
-> Fabien
-> 
-> On 03/06/2019 1:45 PM, Hans Verkuil wrote:
->> On 5/31/19 11:18 AM, Fabien Dessenne wrote:
->>> Manage the irq = 0 case, where we shall return an error.
->>>
->>> Fixes: b5b5a27bee58 ("media: stm32-dcmi: return appropriate error codes during probe")
->>> Signed-off-by: Fabien Dessenne <fabien.dessenne@st.com>
->>> ---
->>>   drivers/media/platform/stm32/stm32-dcmi.c | 2 +-
->>>   1 file changed, 1 insertion(+), 1 deletion(-)
->>>
->>> diff --git a/drivers/media/platform/stm32/stm32-dcmi.c b/drivers/media/platform/stm32/stm32-dcmi.c
->>> index b9dad0a..d855e9c 100644
->>> --- a/drivers/media/platform/stm32/stm32-dcmi.c
->>> +++ b/drivers/media/platform/stm32/stm32-dcmi.c
->>> @@ -1702,7 +1702,7 @@ static int dcmi_probe(struct platform_device *pdev)
->>>   	if (irq <= 0) {
->> Shouldn't this be 'irq < 0' instead of '<=' ?
->>
->> AFAICT irq == 0 can be a valid irq and isn't an error.
->>
->> Regards,
->>
->> 	Hans
->>
->>>   		if (irq != -EPROBE_DEFER)
->>>   			dev_err(&pdev->dev, "Could not get irq\n");
->>> -		return irq;
->>> +		return irq ? irq : -ENXIO;
->>>   	}
->>>   
->>>   	dcmi->res = platform_get_resource(pdev, IORESOURCE_MEM, 0);
->> >
+ drivers/mmc/host/mmci.c | 49 +++++++++++++++++++++++++++++++++++++++++--------
+ drivers/mmc/host/mmci.h |  3 +++
+ 2 files changed, 44 insertions(+), 8 deletions(-)
+
+-- 
+2.7.4
 
 _______________________________________________
 Linux-stm32 mailing list
