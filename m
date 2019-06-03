@@ -2,65 +2,75 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id DC84C32AE0
-	for <lists+linux-stm32@lfdr.de>; Mon,  3 Jun 2019 10:32:14 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id CE9A732CA4
+	for <lists+linux-stm32@lfdr.de>; Mon,  3 Jun 2019 11:20:09 +0200 (CEST)
 Received: from ip-172-31-3-76.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id A5392C9F15E
-	for <lists+linux-stm32@lfdr.de>; Mon,  3 Jun 2019 08:32:14 +0000 (UTC)
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 7C4F3CA4C87
+	for <lists+linux-stm32@lfdr.de>; Mon,  3 Jun 2019 09:20:09 +0000 (UTC)
 Received: from mx07-00178001.pphosted.com (mx07-00178001.pphosted.com
  [62.209.51.94])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 88730C9F15B
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 566B5CA4C85
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Mon,  3 Jun 2019 08:32:13 +0000 (UTC)
-Received: from pps.filterd (m0046668.ppops.net [127.0.0.1])
+ Mon,  3 Jun 2019 09:20:08 +0000 (UTC)
+Received: from pps.filterd (m0046037.ppops.net [127.0.0.1])
  by mx07-00178001.pphosted.com (8.16.0.27/8.16.0.27) with SMTP id
- x538VNLc015409; Mon, 3 Jun 2019 10:32:05 +0200
+ x539G8qF016966; Mon, 3 Jun 2019 11:20:03 +0200
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=st.com;
- h=from : to : subject :
- date : message-id : mime-version : content-type :
- content-transfer-encoding; s=STMicroelectronics;
- bh=K7GP/e9ogP2jWBP7ZWjLuKQJvmA/pqM3oS7ksSoK7qs=;
- b=nNdr+wueRBWTUZDhagWJPW6TbscsGlBcco9fPVS5BS2EoAcdJcsacABT/o4xJd5GlZSt
- IbInJer+QrWd6SKMpXW3spzOmMJSrxYOhgciILDkm741+BSA5FDO/Jf7sUVMuKBWmtUw
- Awld1dqNxys3BOK5te/YyGuBZlyBSSnEIlnBx0CIFoptxhqI2ieno62r55g/waO+c5ka
- myx2MsggyJdWlgYN7kw0sqgApKKGD42mPLkF54TYSwm9ENEQAeZT2336+9Oc1dfYgsTn
- 7e2JMLFiK9TRkLWSE839Gq1tnPGLfzz/zsxbdpBfVwt576LsiCevO1t4XHS8SSf4cst9 Ag== 
+ h=from : to : cc : subject
+ : date : message-id : references : in-reply-to : content-type : content-id
+ : content-transfer-encoding : mime-version; s=STMicroelectronics;
+ bh=KP1E2smY61q6p4hXM1Poa06ylj50nuS1wWa3VqF16Hw=;
+ b=HFaqQm0fM+7F/PSlDShv3fAXd4tCEhioUJFUpktHYtv5ej4P2yund40IoGpbUy3RoFb7
+ y0KYACDxLfOLieIn71YtUCyn3sg1J+h0P6BoP3KWybqkqDw6789aMJoyimNIyvCB5A6j
+ cGgA1yvkQeL3kDgm8jljxHwkrMvpDMjBKH34jqNl/MKvcfF9efDOPUixbGVrf22WLZpD
+ kdmPChZA45thqjZeUYsc6jP6rbJSEURQwiEmpV10l+ZifMbj+VGp4dSP4kBuHRjlMv1f
+ 3D6eEGaXbd6UugL8HuNQXoNLkh5oRWtpJdHV0ZnHtwcNhu7TTRYy5rhF4rb4nQetXSjj Kg== 
 Received: from beta.dmz-eu.st.com (beta.dmz-eu.st.com [164.129.1.35])
- by mx07-00178001.pphosted.com with ESMTP id 2sund0gwsc-1
+ by mx07-00178001.pphosted.com with ESMTP id 2sunmc13fk-1
  (version=TLSv1 cipher=ECDHE-RSA-AES256-SHA bits=256 verify=NOT);
- Mon, 03 Jun 2019 10:32:05 +0200
+ Mon, 03 Jun 2019 11:20:03 +0200
 Received: from zeta.dmz-eu.st.com (zeta.dmz-eu.st.com [164.129.230.9])
- by beta.dmz-eu.st.com (STMicroelectronics) with ESMTP id 1826234;
- Mon,  3 Jun 2019 08:32:05 +0000 (GMT)
-Received: from Webmail-eu.st.com (Safex1hubcas24.st.com [10.75.90.94])
- by zeta.dmz-eu.st.com (STMicroelectronics) with ESMTP id DDDDB2514;
- Mon,  3 Jun 2019 08:32:04 +0000 (GMT)
-Received: from SAFEX1HUBCAS23.st.com (10.75.90.47) by Safex1hubcas24.st.com
- (10.75.90.94) with Microsoft SMTP Server (TLS) id 14.3.439.0; Mon, 3 Jun 2019
- 10:32:04 +0200
-Received: from localhost (10.201.23.97) by webmail-ga.st.com (10.75.90.48)
- with Microsoft SMTP Server (TLS) id 14.3.439.0; Mon, 3 Jun 2019 10:32:04
- +0200
-From: =?UTF-8?q?Yannick=20Fertr=C3=A9?= <yannick.fertre@st.com>
-To: Yannick Fertre <yannick.fertre@st.com>, Philippe Cornu
- <philippe.cornu@st.com>, Benjamin Gaignard <benjamin.gaignard@st.com>,
- Vincent Abriou <vincent.abriou@st.com>,
- David Airlie <airlied@linux.ie>, Daniel Vetter <daniel@ffwll.ch>,
- Maxime Coquelin <mcoquelin.stm32@gmail.com>,
- Alexandre Torgue <alexandre.torgue@st.com>,
- <dri-devel@lists.freedesktop.org>,
- <linux-stm32@st-md-mailman.stormreply.com>,
- <linux-arm-kernel@lists.infradead.org>, <linux-kernel@vger.kernel.org>
-Date: Mon, 3 Jun 2019 10:32:02 +0200
-Message-ID: <1559550722-14091-1-git-send-email-yannick.fertre@st.com>
-X-Mailer: git-send-email 2.7.4
+ by beta.dmz-eu.st.com (STMicroelectronics) with ESMTP id 939683F;
+ Mon,  3 Jun 2019 09:20:02 +0000 (GMT)
+Received: from Webmail-eu.st.com (sfhdag3node3.st.com [10.75.127.9])
+ by zeta.dmz-eu.st.com (STMicroelectronics) with ESMTP id 3B8BC2619;
+ Mon,  3 Jun 2019 09:20:02 +0000 (GMT)
+Received: from SFHDAG3NODE2.st.com (10.75.127.8) by SFHDAG3NODE3.st.com
+ (10.75.127.9) with Microsoft SMTP Server (TLS) id 15.0.1347.2; Mon, 3 Jun
+ 2019 11:20:02 +0200
+Received: from SFHDAG3NODE2.st.com ([fe80::b82f:1ce:8854:5b96]) by
+ SFHDAG3NODE2.st.com ([fe80::b82f:1ce:8854:5b96%20]) with mapi id
+ 15.00.1347.000; Mon, 3 Jun 2019 11:20:01 +0200
+From: Amelie DELAUNAY <amelie.delaunay@st.com>
+To: Dan Carpenter <dan.carpenter@oracle.com>, Lee Jones <lee.jones@linaro.org>
+Thread-Topic: [PATCH] mfd: stmfx: Uninitialized variable in stmfx_irq_handler()
+Thread-Index: AQHVCwEO/u3xED8wwkiZua0lI4uaJqaJo4GA
+Date: Mon, 3 Jun 2019 09:20:01 +0000
+Message-ID: <ccefbd0b-3397-a26e-95e7-059fcced9154@st.com>
+References: <20190515093141.GA3409@mwanda>
+In-Reply-To: <20190515093141.GA3409@mwanda>
+Accept-Language: fr-FR, en-US
+Content-Language: en-US
+X-MS-Has-Attach: 
+X-MS-TNEF-Correlator: 
+user-agent: Mozilla/5.0 (X11; Linux x86_64; rv:60.0) Gecko/20100101
+ Thunderbird/60.7.0
+x-ms-exchange-messagesentrepresentingtype: 1
+x-ms-exchange-transport-fromentityheader: Hosted
+x-originating-ip: [10.75.127.49]
+Content-ID: <DC5391FCB7987D46B2273D74DD2C441A@st.com>
 MIME-Version: 1.0
-X-Originating-IP: [10.201.23.97]
 X-Proofpoint-Virus-Version: vendor=fsecure engine=2.50.10434:, ,
- definitions=2019-06-03_06:, , signatures=0
-Subject: [Linux-stm32] [PATCH] drm/stm: support runtime power management
+ definitions=2019-06-03_07:, , signatures=0
+Cc: "linux-kernel@vger.kernel.org" <linux-kernel@vger.kernel.org>,
+ "kernel-janitors@vger.kernel.org" <kernel-janitors@vger.kernel.org>,
+ Maxime Coquelin <mcoquelin.stm32@gmail.com>,
+ "linux-stm32@st-md-mailman.stormreply.com"
+ <linux-stm32@st-md-mailman.stormreply.com>
+Subject: Re: [Linux-stm32] [PATCH] mfd: stmfx: Uninitialized variable in
+	stmfx_irq_handler()
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -72,145 +82,78 @@ List-Post: <mailto:linux-stm32@st-md-mailman.stormreply.com>
 List-Help: <mailto:linux-stm32-request@st-md-mailman.stormreply.com?subject=help>
 List-Subscribe: <https://st-md-mailman.stormreply.com/mailman/listinfo/linux-stm32>, 
  <mailto:linux-stm32-request@st-md-mailman.stormreply.com?subject=subscribe>
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: base64
+Content-Type: text/plain; charset="us-ascii"
+Content-Transfer-Encoding: 7bit
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
-VGhpcyBwYXRjaCBlbmFibGVzIHJ1bnRpbWUgcG93ZXIgbWFuYWdlbWVudCAocnVudGltZSBQTSkg
-c3VwcG9ydCBmb3IKdGhlIGRpc3BsYXkgY29udHJvbGxlci4gcG1fcnVudGltZV9lbmFibGUoKSBh
-bmQgcG1fcnVudGltZV9kaXNhYmxlKCkKYXJlIGFkZGVkIGR1cmluZyBsdGRjIGxvYWQgYW5kIHVu
-bG9hZCByZXNwZWN0aXZlbHkuCnBtX3J1bnRpbWVfZ2V0X3N5bmMoKSBhbmQgcG1fcnVudGltZV9w
-dXRfc3luYygpIGFyZSBhZGRlZCBmb3IgbHRkYwpyZWdpc3RlciBhY2Nlc3MuCgpTaWduZWQtb2Zm
-LWJ5OiBZYW5uaWNrIEZlcnRyw6kgPHlhbm5pY2suZmVydHJlQHN0LmNvbT4KLS0tCiBkcml2ZXJz
-L2dwdS9kcm0vc3RtL2Rydi5jICB8IDQzICsrKysrKysrKysrKysrKysrKysrKysrLS0tLS0tCiBk
-cml2ZXJzL2dwdS9kcm0vc3RtL2x0ZGMuYyB8IDY3ICsrKysrKysrKysrKysrKysrKysrKysrKysr
-KysrKysrKysrLS0tLS0tLS0tLS0KIDIgZmlsZXMgY2hhbmdlZCwgODYgaW5zZXJ0aW9ucygrKSwg
-MjQgZGVsZXRpb25zKC0pCgpkaWZmIC0tZ2l0IGEvZHJpdmVycy9ncHUvZHJtL3N0bS9kcnYuYyBi
-L2RyaXZlcnMvZ3B1L2RybS9zdG0vZHJ2LmMKaW5kZXggNTgzNGVmNS4uNTY1OTU3MiAxMDA2NDQK
-LS0tIGEvZHJpdmVycy9ncHUvZHJtL3N0bS9kcnYuYworKysgYi9kcml2ZXJzL2dwdS9kcm0vc3Rt
-L2Rydi5jCkBAIC0xMiw2ICsxMiw3IEBACiAjaW5jbHVkZSA8bGludXgvZG1hLW1hcHBpbmcuaD4K
-ICNpbmNsdWRlIDxsaW51eC9tb2R1bGUuaD4KICNpbmNsdWRlIDxsaW51eC9vZl9wbGF0Zm9ybS5o
-PgorI2luY2x1ZGUgPGxpbnV4L3BtX3J1bnRpbWUuaD4KIAogI2luY2x1ZGUgPGRybS9kcm1fYXRv
-bWljLmg+CiAjaW5jbHVkZSA8ZHJtL2RybV9hdG9taWNfaGVscGVyLmg+CkBAIC0xMzUsMTQgKzEz
-NiwxNSBAQCBzdGF0aWMgX19tYXliZV91bnVzZWQgaW50IGRydl9zdXNwZW5kKHN0cnVjdCBkZXZp
-Y2UgKmRldikKIAlzdHJ1Y3QgbHRkY19kZXZpY2UgKmxkZXYgPSBkZGV2LT5kZXZfcHJpdmF0ZTsK
-IAlzdHJ1Y3QgZHJtX2F0b21pY19zdGF0ZSAqc3RhdGU7CiAKLQlkcm1fa21zX2hlbHBlcl9wb2xs
-X2Rpc2FibGUoZGRldik7CisJaWYgKFdBUk5fT04oIWxkZXYtPnN1c3BlbmRfc3RhdGUpKQorCQly
-ZXR1cm4gLUVOT0VOVDsKKwogCXN0YXRlID0gZHJtX2F0b21pY19oZWxwZXJfc3VzcGVuZChkZGV2
-KTsKLQlpZiAoSVNfRVJSKHN0YXRlKSkgewotCQlkcm1fa21zX2hlbHBlcl9wb2xsX2VuYWJsZShk
-ZGV2KTsKKwlpZiAoSVNfRVJSKHN0YXRlKSkKIAkJcmV0dXJuIFBUUl9FUlIoc3RhdGUpOwotCX0K
-KwogCWxkZXYtPnN1c3BlbmRfc3RhdGUgPSBzdGF0ZTsKLQlsdGRjX3N1c3BlbmQoZGRldik7CisJ
-cG1fcnVudGltZV9mb3JjZV9zdXNwZW5kKGRldik7CiAKIAlyZXR1cm4gMDsKIH0KQEAgLTE1MSwx
-NiArMTUzLDQxIEBAIHN0YXRpYyBfX21heWJlX3VudXNlZCBpbnQgZHJ2X3Jlc3VtZShzdHJ1Y3Qg
-ZGV2aWNlICpkZXYpCiB7CiAJc3RydWN0IGRybV9kZXZpY2UgKmRkZXYgPSBkZXZfZ2V0X2RydmRh
-dGEoZGV2KTsKIAlzdHJ1Y3QgbHRkY19kZXZpY2UgKmxkZXYgPSBkZGV2LT5kZXZfcHJpdmF0ZTsK
-KwlpbnQgcmV0OwogCi0JbHRkY19yZXN1bWUoZGRldik7Ci0JZHJtX2F0b21pY19oZWxwZXJfcmVz
-dW1lKGRkZXYsIGxkZXYtPnN1c3BlbmRfc3RhdGUpOwotCWRybV9rbXNfaGVscGVyX3BvbGxfZW5h
-YmxlKGRkZXYpOworCXBtX3J1bnRpbWVfZm9yY2VfcmVzdW1lKGRldik7CisJcmV0ID0gZHJtX2F0
-b21pY19oZWxwZXJfcmVzdW1lKGRkZXYsIGxkZXYtPnN1c3BlbmRfc3RhdGUpOworCWlmIChyZXQp
-IHsKKwkJcG1fcnVudGltZV9mb3JjZV9zdXNwZW5kKGRldik7CisJCWxkZXYtPnN1c3BlbmRfc3Rh
-dGUgPSBOVUxMOworCQlyZXR1cm4gcmV0OworCX0KIAogCXJldHVybiAwOwogfQogCitzdGF0aWMg
-X19tYXliZV91bnVzZWQgaW50IGRydl9ydW50aW1lX3N1c3BlbmQoc3RydWN0IGRldmljZSAqZGV2
-KQoreworCXN0cnVjdCBkcm1fZGV2aWNlICpkZGV2ID0gZGV2X2dldF9kcnZkYXRhKGRldik7CisK
-KwlEUk1fREVCVUdfRFJJVkVSKCJcbiIpOworCWx0ZGNfc3VzcGVuZChkZGV2KTsKKworCXJldHVy
-biAwOworfQorCitzdGF0aWMgX19tYXliZV91bnVzZWQgaW50IGRydl9ydW50aW1lX3Jlc3VtZShz
-dHJ1Y3QgZGV2aWNlICpkZXYpCit7CisJc3RydWN0IGRybV9kZXZpY2UgKmRkZXYgPSBkZXZfZ2V0
-X2RydmRhdGEoZGV2KTsKKworCURSTV9ERUJVR19EUklWRVIoIlxuIik7CisJcmV0dXJuIGx0ZGNf
-cmVzdW1lKGRkZXYpOworfQorCiBzdGF0aWMgY29uc3Qgc3RydWN0IGRldl9wbV9vcHMgZHJ2X3Bt
-X29wcyA9IHsKIAlTRVRfU1lTVEVNX1NMRUVQX1BNX09QUyhkcnZfc3VzcGVuZCwgZHJ2X3Jlc3Vt
-ZSkKKwlTRVRfUlVOVElNRV9QTV9PUFMoZHJ2X3J1bnRpbWVfc3VzcGVuZCwKKwkJCSAgIGRydl9y
-dW50aW1lX3Jlc3VtZSwgTlVMTCkKIH07CiAKIHN0YXRpYyBpbnQgc3RtX2RybV9wbGF0Zm9ybV9w
-cm9iZShzdHJ1Y3QgcGxhdGZvcm1fZGV2aWNlICpwZGV2KQpkaWZmIC0tZ2l0IGEvZHJpdmVycy9n
-cHUvZHJtL3N0bS9sdGRjLmMgYi9kcml2ZXJzL2dwdS9kcm0vc3RtL2x0ZGMuYwppbmRleCBhYzI5
-ODkwLi5hNDA4NzBiIDEwMDY0NAotLS0gYS9kcml2ZXJzL2dwdS9kcm0vc3RtL2x0ZGMuYworKysg
-Yi9kcml2ZXJzL2dwdS9kcm0vc3RtL2x0ZGMuYwpAQCAtMTYsNiArMTYsNyBAQAogI2luY2x1ZGUg
-PGxpbnV4L29mX2FkZHJlc3MuaD4KICNpbmNsdWRlIDxsaW51eC9vZl9ncmFwaC5oPgogI2luY2x1
-ZGUgPGxpbnV4L3BsYXRmb3JtX2RldmljZS5oPgorI2luY2x1ZGUgPGxpbnV4L3BtX3J1bnRpbWUu
-aD4KICNpbmNsdWRlIDxsaW51eC9yZXNldC5oPgogCiAjaW5jbHVkZSA8ZHJtL2RybV9hdG9taWMu
-aD4KQEAgLTQ0NCw2ICs0NDUsNyBAQCBzdGF0aWMgdm9pZCBsdGRjX2NydGNfYXRvbWljX2Rpc2Fi
-bGUoc3RydWN0IGRybV9jcnRjICpjcnRjLAogCQkJCSAgICAgc3RydWN0IGRybV9jcnRjX3N0YXRl
-ICpvbGRfc3RhdGUpCiB7CiAJc3RydWN0IGx0ZGNfZGV2aWNlICpsZGV2ID0gY3J0Y190b19sdGRj
-KGNydGMpOworCXN0cnVjdCBkcm1fZGV2aWNlICpkZGV2ID0gY3J0Yy0+ZGV2OwogCiAJRFJNX0RF
-QlVHX0RSSVZFUigiXG4iKTsKIApAQCAtNDU3LDYgKzQ1OSw4IEBAIHN0YXRpYyB2b2lkIGx0ZGNf
-Y3J0Y19hdG9taWNfZGlzYWJsZShzdHJ1Y3QgZHJtX2NydGMgKmNydGMsCiAKIAkvKiBpbW1lZGlh
-dGVseSBjb21taXQgZGlzYWJsZSBvZiBsYXllcnMgYmVmb3JlIHN3aXRjaGluZyBvZmYgTFREQyAq
-LwogCXJlZ19zZXQobGRldi0+cmVncywgTFREQ19TUkNSLCBTUkNSX0lNUik7CisKKwlwbV9ydW50
-aW1lX3B1dF9zeW5jKGRkZXYtPmRldik7CiB9CiAKICNkZWZpbmUgQ0xLX1RPTEVSQU5DRV9IWiA1
-MApAQCAtNTA1LDE3ICs1MDksMzEgQEAgc3RhdGljIGJvb2wgbHRkY19jcnRjX21vZGVfZml4dXAo
-c3RydWN0IGRybV9jcnRjICpjcnRjLAogCQkJCSBzdHJ1Y3QgZHJtX2Rpc3BsYXlfbW9kZSAqYWRq
-dXN0ZWRfbW9kZSkKIHsKIAlzdHJ1Y3QgbHRkY19kZXZpY2UgKmxkZXYgPSBjcnRjX3RvX2x0ZGMo
-Y3J0Yyk7CisJc3RydWN0IGRybV9kZXZpY2UgKmRkZXYgPSBjcnRjLT5kZXY7CiAJaW50IHJhdGUg
-PSBtb2RlLT5jbG9jayAqIDEwMDA7CisJYm9vbCBydW50aW1lX2FjdGl2ZTsKKwlpbnQgcmV0Owor
-CisJcnVudGltZV9hY3RpdmUgPSBwbV9ydW50aW1lX2FjdGl2ZShkZGV2LT5kZXYpOworCisJaWYg
-KHJ1bnRpbWVfYWN0aXZlKQorCQlwbV9ydW50aW1lX3B1dF9zeW5jKGRkZXYtPmRldik7CiAKLQlj
-bGtfZGlzYWJsZShsZGV2LT5waXhlbF9jbGspOwogCWlmIChjbGtfc2V0X3JhdGUobGRldi0+cGl4
-ZWxfY2xrLCByYXRlKSA8IDApIHsKIAkJRFJNX0VSUk9SKCJDYW5ub3Qgc2V0IHJhdGUgKCVkSHop
-IGZvciBwaXhlbCBjbGtcbiIsIHJhdGUpOwogCQlyZXR1cm4gZmFsc2U7CiAJfQotCWNsa19lbmFi
-bGUobGRldi0+cGl4ZWxfY2xrKTsKIAogCWFkanVzdGVkX21vZGUtPmNsb2NrID0gY2xrX2dldF9y
-YXRlKGxkZXYtPnBpeGVsX2NsaykgLyAxMDAwOwogCisJaWYgKHJ1bnRpbWVfYWN0aXZlKSB7CisJ
-CXJldCA9IHBtX3J1bnRpbWVfZ2V0X3N5bmMoZGRldi0+ZGV2KTsKKwkJaWYgKHJldCkgeworCQkJ
-RFJNX0VSUk9SKCJGYWlsZWQgdG8gZml4dXAgbW9kZSwgY2Fubm90IGdldCBzeW5jXG4iKTsKKwkJ
-CXJldHVybiBmYWxzZTsKKwkJfQorCX0KKwogCURSTV9ERUJVR19EUklWRVIoInJlcXVlc3RlZCBj
-bG9jayAlZGtIeiwgYWRqdXN0ZWQgY2xvY2sgJWRrSHpcbiIsCiAJCQkgbW9kZS0+Y2xvY2ssIGFk
-anVzdGVkX21vZGUtPmNsb2NrKTsKIApAQCAtNTI1LDExICs1NDMsMjEgQEAgc3RhdGljIGJvb2wg
-bHRkY19jcnRjX21vZGVfZml4dXAoc3RydWN0IGRybV9jcnRjICpjcnRjLAogc3RhdGljIHZvaWQg
-bHRkY19jcnRjX21vZGVfc2V0X25vZmIoc3RydWN0IGRybV9jcnRjICpjcnRjKQogewogCXN0cnVj
-dCBsdGRjX2RldmljZSAqbGRldiA9IGNydGNfdG9fbHRkYyhjcnRjKTsKKwlzdHJ1Y3QgZHJtX2Rl
-dmljZSAqZGRldiA9IGNydGMtPmRldjsKIAlzdHJ1Y3QgZHJtX2Rpc3BsYXlfbW9kZSAqbW9kZSA9
-ICZjcnRjLT5zdGF0ZS0+YWRqdXN0ZWRfbW9kZTsKIAlzdHJ1Y3QgdmlkZW9tb2RlIHZtOwogCXUz
-MiBoc3luYywgdnN5bmMsIGFjY3VtX2hicCwgYWNjdW1fdmJwLCBhY2N1bV9hY3RfdywgYWNjdW1f
-YWN0X2g7CiAJdTMyIHRvdGFsX3dpZHRoLCB0b3RhbF9oZWlnaHQ7CiAJdTMyIHZhbDsKKwlpbnQg
-cmV0OworCisJaWYgKCFwbV9ydW50aW1lX2FjdGl2ZShkZGV2LT5kZXYpKSB7CisJCXJldCA9IHBt
-X3J1bnRpbWVfZ2V0X3N5bmMoZGRldi0+ZGV2KTsKKwkJaWYgKHJldCkgeworCQkJRFJNX0VSUk9S
-KCJGYWlsZWQgdG8gc2V0IG1vZGUsIGNhbm5vdCBnZXQgc3luY1xuIik7CisJCQlyZXR1cm47CisJ
-CX0KKwl9CiAKIAlkcm1fZGlzcGxheV9tb2RlX3RvX3ZpZGVvbW9kZShtb2RlLCAmdm0pOwogCkBA
-IC01OTAsNiArNjE4LDcgQEAgc3RhdGljIHZvaWQgbHRkY19jcnRjX2F0b21pY19mbHVzaChzdHJ1
-Y3QgZHJtX2NydGMgKmNydGMsCiAJCQkJICAgc3RydWN0IGRybV9jcnRjX3N0YXRlICpvbGRfY3J0
-Y19zdGF0ZSkKIHsKIAlzdHJ1Y3QgbHRkY19kZXZpY2UgKmxkZXYgPSBjcnRjX3RvX2x0ZGMoY3J0
-Yyk7CisJc3RydWN0IGRybV9kZXZpY2UgKmRkZXYgPSBjcnRjLT5kZXY7CiAJc3RydWN0IGRybV9w
-ZW5kaW5nX3ZibGFua19ldmVudCAqZXZlbnQgPSBjcnRjLT5zdGF0ZS0+ZXZlbnQ7CiAKIAlEUk1f
-REVCVUdfQVRPTUlDKCJcbiIpOwpAQCAtNjAyLDEyICs2MzEsMTIgQEAgc3RhdGljIHZvaWQgbHRk
-Y19jcnRjX2F0b21pY19mbHVzaChzdHJ1Y3QgZHJtX2NydGMgKmNydGMsCiAJaWYgKGV2ZW50KSB7
-CiAJCWNydGMtPnN0YXRlLT5ldmVudCA9IE5VTEw7CiAKLQkJc3Bpbl9sb2NrX2lycSgmY3J0Yy0+
-ZGV2LT5ldmVudF9sb2NrKTsKKwkJc3Bpbl9sb2NrX2lycSgmZGRldi0+ZXZlbnRfbG9jayk7CiAJ
-CWlmIChkcm1fY3J0Y192YmxhbmtfZ2V0KGNydGMpID09IDApCiAJCQlkcm1fY3J0Y19hcm1fdmJs
-YW5rX2V2ZW50KGNydGMsIGV2ZW50KTsKIAkJZWxzZQogCQkJZHJtX2NydGNfc2VuZF92Ymxhbmtf
-ZXZlbnQoY3J0YywgZXZlbnQpOwotCQlzcGluX3VubG9ja19pcnEoJmNydGMtPmRldi0+ZXZlbnRf
-bG9jayk7CisJCXNwaW5fdW5sb2NrX2lycSgmZGRldi0+ZXZlbnRfbG9jayk7CiAJfQogfQogCkBA
-IC02NjMsMTUgKzY5MiwxOSBAQCBib29sIGx0ZGNfY3J0Y19zY2Fub3V0cG9zKHN0cnVjdCBkcm1f
-ZGV2aWNlICpkZGV2LCB1bnNpZ25lZCBpbnQgcGlwZSwKIAkgKiBDb21wdXRhdGlvbiBmb3IgdGhl
-IHR3byBmaXJzdCBjYXNlcyBhcmUgaWRlbnRpY2FsIHNvIHdlIGNhbgogCSAqIHNpbXBsaWZ5IHRo
-ZSBjb2RlIGFuZCBvbmx5IHRlc3QgaWYgbGluZSA+IHZhY3RpdmVfZW5kCiAJICovCi0JbGluZSA9
-IHJlZ19yZWFkKGxkZXYtPnJlZ3MsIExURENfQ1BTUikgJiBDUFNSX0NZUE9TOwotCXZhY3RpdmVf
-c3RhcnQgPSByZWdfcmVhZChsZGV2LT5yZWdzLCBMVERDX0JQQ1IpICYgQlBDUl9BVkJQOwotCXZh
-Y3RpdmVfZW5kID0gcmVnX3JlYWQobGRldi0+cmVncywgTFREQ19BV0NSKSAmIEFXQ1JfQUFIOwot
-CXZ0b3RhbCA9IHJlZ19yZWFkKGxkZXYtPnJlZ3MsIExURENfVFdDUikgJiBUV0NSX1RPVEFMSDsK
-LQotCWlmIChsaW5lID4gdmFjdGl2ZV9lbmQpCi0JCSp2cG9zID0gbGluZSAtIHZ0b3RhbCAtIHZh
-Y3RpdmVfc3RhcnQ7Ci0JZWxzZQotCQkqdnBvcyA9IGxpbmUgLSB2YWN0aXZlX3N0YXJ0OworCWlm
-IChwbV9ydW50aW1lX2FjdGl2ZShkZGV2LT5kZXYpKSB7CisJCWxpbmUgPSByZWdfcmVhZChsZGV2
-LT5yZWdzLCBMVERDX0NQU1IpICYgQ1BTUl9DWVBPUzsKKwkJdmFjdGl2ZV9zdGFydCA9IHJlZ19y
-ZWFkKGxkZXYtPnJlZ3MsIExURENfQlBDUikgJiBCUENSX0FWQlA7CisJCXZhY3RpdmVfZW5kID0g
-cmVnX3JlYWQobGRldi0+cmVncywgTFREQ19BV0NSKSAmIEFXQ1JfQUFIOworCQl2dG90YWwgPSBy
-ZWdfcmVhZChsZGV2LT5yZWdzLCBMVERDX1RXQ1IpICYgVFdDUl9UT1RBTEg7CisKKwkJaWYgKGxp
-bmUgPiB2YWN0aXZlX2VuZCkKKwkJCSp2cG9zID0gbGluZSAtIHZ0b3RhbCAtIHZhY3RpdmVfc3Rh
-cnQ7CisJCWVsc2UKKwkJCSp2cG9zID0gbGluZSAtIHZhY3RpdmVfc3RhcnQ7CisJfSBlbHNlIHsK
-KwkJKnZwb3MgPSAwOworCX0KIAogCSpocG9zID0gMDsKIApAQCAtMTI0Myw4ICsxMjc2LDExIEBA
-IGludCBsdGRjX2xvYWQoc3RydWN0IGRybV9kZXZpY2UgKmRkZXYpCiAJLyogQWxsb3cgdXNhZ2Ug
-b2YgdmJsYW5rIHdpdGhvdXQgaGF2aW5nIHRvIGNhbGwgZHJtX2lycV9pbnN0YWxsICovCiAJZGRl
-di0+aXJxX2VuYWJsZWQgPSAxOwogCi0JcmV0dXJuIDA7CisJY2xrX2Rpc2FibGVfdW5wcmVwYXJl
-KGxkZXYtPnBpeGVsX2Nsayk7CisKKwlwbV9ydW50aW1lX2VuYWJsZShkZGV2LT5kZXYpOwogCisJ
-cmV0dXJuIDA7CiBlcnI6CiAJZm9yIChpID0gMDsgaSA8IE1BWF9FTkRQT0lOVFM7IGkrKykKIAkJ
-ZHJtX3BhbmVsX2JyaWRnZV9yZW1vdmUoYnJpZGdlW2ldKTsKQEAgLTEyNTYsNyArMTI5Miw2IEBA
-IGludCBsdGRjX2xvYWQoc3RydWN0IGRybV9kZXZpY2UgKmRkZXYpCiAKIHZvaWQgbHRkY191bmxv
-YWQoc3RydWN0IGRybV9kZXZpY2UgKmRkZXYpCiB7Ci0Jc3RydWN0IGx0ZGNfZGV2aWNlICpsZGV2
-ID0gZGRldi0+ZGV2X3ByaXZhdGU7CiAJaW50IGk7CiAKIAlEUk1fREVCVUdfRFJJVkVSKCJcbiIp
-OwpAQCAtMTI2NCw3ICsxMjk5LDcgQEAgdm9pZCBsdGRjX3VubG9hZChzdHJ1Y3QgZHJtX2Rldmlj
-ZSAqZGRldikKIAlmb3IgKGkgPSAwOyBpIDwgTUFYX0VORFBPSU5UUzsgaSsrKQogCQlkcm1fb2Zf
-cGFuZWxfYnJpZGdlX3JlbW92ZShkZGV2LT5kZXYtPm9mX25vZGUsIDAsIGkpOwogCi0JY2xrX2Rp
-c2FibGVfdW5wcmVwYXJlKGxkZXYtPnBpeGVsX2Nsayk7CisJcG1fcnVudGltZV9kaXNhYmxlKGRk
-ZXYtPmRldik7CiB9CiAKIE1PRFVMRV9BVVRIT1IoIlBoaWxpcHBlIENvcm51IDxwaGlsaXBwZS5j
-b3JudUBzdC5jb20+Iik7Ci0tIAoyLjcuNAoKX19fX19fX19fX19fX19fX19fX19fX19fX19fX19f
-X19fX19fX19fX19fX19fX18KTGludXgtc3RtMzIgbWFpbGluZyBsaXN0CkxpbnV4LXN0bTMyQHN0
-LW1kLW1haWxtYW4uc3Rvcm1yZXBseS5jb20KaHR0cHM6Ly9zdC1tZC1tYWlsbWFuLnN0b3JtcmVw
-bHkuY29tL21haWxtYW4vbGlzdGluZm8vbGludXgtc3RtMzIK
+Hi Dan,
+
+Thanks for your patch. One minor comment:
+
+On 5/15/19 11:31 AM, Dan Carpenter wrote:
+> The problem is that on 64bit systems then we don't clear the higher
+> bits of the "pending" variable.  So when we do:
+> 
+> 	ack = pending & ~BIT(STMFX_REG_IRQ_SRC_EN_GPIO);
+> 	if (ack) {
+> 
+> the if (ack) condition relies on uninitialized data.  The fix it that
+> I've changed "pending" from an unsigned long to a u32.  I changed "n" as
+> well, because that's a number in the 0-10 range and it fits easily
+> inside an int.  We do need to add a cast to "pending" when we use it in
+> the for_each_set_bit() loop, but that doesn't cause a proble, it's
+> fine.
+> 
+> Fixes: 06252ade9156 ("mfd: Add ST Multi-Function eXpander (STMFX) core driver")
+> Signed-off-by: Dan Carpenter <dan.carpenter@oracle.com>
+> ---
+>   drivers/mfd/stmfx.c | 8 ++++----
+>   1 file changed, 4 insertions(+), 4 deletions(-)
+> 
+> diff --git a/drivers/mfd/stmfx.c b/drivers/mfd/stmfx.c
+> index fe8efba2d45f..fee75b5d098e 100644
+> --- a/drivers/mfd/stmfx.c
+> +++ b/drivers/mfd/stmfx.c
+> @@ -204,12 +204,12 @@ static struct irq_chip stmfx_irq_chip = {
+>   static irqreturn_t stmfx_irq_handler(int irq, void *data)
+>   {
+>   	struct stmfx *stmfx = data;
+> -	unsigned long n, pending;
+> +	u32 pending;
+>   	u32 ack;
+> +	int n;
+>   	int ret;
+
+Could you group:
+
+u32 pending, ack;
+int n, ret;
+
+>   
+> -	ret = regmap_read(stmfx->map, STMFX_REG_IRQ_PENDING,
+> -			  (u32 *)&pending);
+> +	ret = regmap_read(stmfx->map, STMFX_REG_IRQ_PENDING, &pending);
+>   	if (ret)
+>   		return IRQ_NONE;
+>   
+> @@ -224,7 +224,7 @@ static irqreturn_t stmfx_irq_handler(int irq, void *data)
+>   			return IRQ_NONE;
+>   	}
+>   
+> -	for_each_set_bit(n, &pending, STMFX_REG_IRQ_SRC_MAX)
+> +	for_each_set_bit(n, (unsigned long *)&pending, STMFX_REG_IRQ_SRC_MAX)
+>   		handle_nested_irq(irq_find_mapping(stmfx->irq_domain, n));
+>   
+>   	return IRQ_HANDLED;
+> 
+
+I've tested it on stm32mp157c-ev1, so you can add my
+Tested-by: Amelie Delaunay <amelie.delaunay@st.com>
+
+Regards,
+Amelie
+_______________________________________________
+Linux-stm32 mailing list
+Linux-stm32@st-md-mailman.stormreply.com
+https://st-md-mailman.stormreply.com/mailman/listinfo/linux-stm32
