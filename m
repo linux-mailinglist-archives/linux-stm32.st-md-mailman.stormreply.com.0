@@ -2,66 +2,63 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id CF46532A82
-	for <lists+linux-stm32@lfdr.de>; Mon,  3 Jun 2019 10:12:08 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id ACF7732A9A
+	for <lists+linux-stm32@lfdr.de>; Mon,  3 Jun 2019 10:17:31 +0200 (CEST)
 Received: from ip-172-31-3-76.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 73DA2C9DBDD
-	for <lists+linux-stm32@lfdr.de>; Mon,  3 Jun 2019 08:12:08 +0000 (UTC)
-Received: from mail-wm1-f65.google.com (mail-wm1-f65.google.com
- [209.85.128.65])
- (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 658ACC9F14A
+	for <lists+linux-stm32@lfdr.de>; Mon,  3 Jun 2019 08:17:31 +0000 (UTC)
+Received: from mx07-00178001.pphosted.com (mx08-00178001.pphosted.com
+ [91.207.212.93])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 4B4B1C9DBDB
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 15073C9F148
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Mon,  3 Jun 2019 08:12:07 +0000 (UTC)
-Received: by mail-wm1-f65.google.com with SMTP id u16so4736696wmc.5
- for <linux-stm32@st-md-mailman.stormreply.com>;
- Mon, 03 Jun 2019 01:12:07 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linaro.org; s=google;
- h=date:from:to:cc:subject:message-id:references:mime-version
- :content-disposition:content-transfer-encoding:in-reply-to
- :user-agent; bh=rA1VCD3GAb0PD3btTSc5UgdukJM3iIv+UYfmDc9ijRY=;
- b=HGDr+SaPaEwwAm5phsdsWmtpxmne/TyhXv5ImfuOj5Gdkuffhte9CgCwbYvRoDlMGW
- cZe1B3eJ6guyNqvjTTos4JKJ0TZtV7wTXJdtoL28/uBddgf9sTiCHJSdgOpLl8/VQKl5
- 6eS5cwBV47ZjOAXI3mPTXUF9k67RJEO44bMyXgZ0gq/lakJg9LeGdKiY0v2OHO2wrial
- nW6bjAV1pfhovdKC8wax7NwTLOArUb4g664DhmxNdX1OCjpYA8pU/UCUPGPtzEZa2g/G
- IPVzQy/MrRWfbHKXecWu7c0/BNRP8WBhgTUYJOPMmyAcJSMWFhN3DAsuYiiRfBgD8GBs
- O7yA==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20161025;
- h=x-gm-message-state:date:from:to:cc:subject:message-id:references
- :mime-version:content-disposition:content-transfer-encoding
- :in-reply-to:user-agent;
- bh=rA1VCD3GAb0PD3btTSc5UgdukJM3iIv+UYfmDc9ijRY=;
- b=c/fLGbUBsx+/0bYnOmtkVxdTEzZ3RN9t3dt/c84rFTyo1KJY+dPmx1uQwWbOKCZJRp
- e0/+zgltx0hnhVbBbbY9Val2D/wJg8Ut/JLz5xKpp6vtV3JMr8pA/wS1NeUXz7gcgFzM
- T/3zpZiHzsqTWySSXByVMXAByO7gGEi2KsYYMMXUCHBeOwayC9D/cM/D+LKrkZwuPT3I
- zECDMpDbwaFH4vKMj68WGkm/E4cfYnagxf2eb+3sLW7j9hIMxdAlPQZQFhVjr5y/kDRr
- Moh2izorjoBv+iCo40Eu5U0mmhU7tuLUhWPh2Ql37SwvFQLZbRZyKXWQUxpQWRwmhcTb
- eoLw==
-X-Gm-Message-State: APjAAAW7DFDdv5yn1xxskT/sd2SOJ/O+UwzuRfxC6lgH8vcluZZHBXcu
- I5gweYMxetpmkfN+h8HxbyRfWA==
-X-Google-Smtp-Source: APXvYqzs9kYOpuv0Oqi4vkNcyrdkKxl7+hada0n0FgsvyjwLdnHbT2Pjc30QWl9yRlT4LRH3YpsV6Q==
-X-Received: by 2002:a1c:e356:: with SMTP id a83mr1365844wmh.38.1559549526778; 
- Mon, 03 Jun 2019 01:12:06 -0700 (PDT)
-Received: from dell ([2.27.167.43])
- by smtp.gmail.com with ESMTPSA id x83sm12809175wmb.42.2019.06.03.01.12.06
- (version=TLS1_2 cipher=ECDHE-RSA-CHACHA20-POLY1305 bits=256/256);
- Mon, 03 Jun 2019 01:12:06 -0700 (PDT)
-Date: Mon, 3 Jun 2019 09:12:04 +0100
-From: Lee Jones <lee.jones@linaro.org>
-To: Dan Carpenter <dan.carpenter@oracle.com>
-Message-ID: <20190603081204.GG4797@dell>
-References: <20190515093141.GA3409@mwanda>
+ Mon,  3 Jun 2019 08:17:29 +0000 (UTC)
+Received: from pps.filterd (m0046660.ppops.net [127.0.0.1])
+ by mx08-00178001.pphosted.com (8.16.0.27/8.16.0.27) with SMTP id
+ x538GSkA019279; Mon, 3 Jun 2019 10:16:39 +0200
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=st.com;
+ h=from : to : cc : subject
+ : date : message-id : mime-version : content-type; s=STMicroelectronics;
+ bh=nJJR92I5ibVaH2yVpxa8sBGMNjPbjpb7V7G3xIRyUhE=;
+ b=tCByvdYsqRDPa8blOzVu31JMEuWi4EHrVKY8o2bNne9PsClKlfMiwa3c1Xt2cKV6elMm
+ QwBRJWCoOYUnxB6solkDSEFRTsKW+ipZGIp0ReYQBbxoSL6IbLdEgIUhUGvaUc2H4uFo
+ nIzM5Xkf/AXz+R7hFSYmMU03Grirw26kTSfq6NT2S7ZSiK5X2nLA+jBhBhC4INtB16Zb
+ Doodo/qISSSjJ4atFgjyjWfRIfgX5VDpoNF+3/zk/FUmAkRz9KD/yoNHlLcaJ0+mSYHk
+ Y0Y1rWdmoc2eI0IcWwujNp+AjZwYGEf6KTBQj29eNO68yiyNY7vanjUQDb1Edjh6GL7i qw== 
+Received: from beta.dmz-eu.st.com (beta.dmz-eu.st.com [164.129.1.35])
+ by mx08-00178001.pphosted.com with ESMTP id 2sunme9150-1
+ (version=TLSv1 cipher=ECDHE-RSA-AES256-SHA bits=256 verify=NOT);
+ Mon, 03 Jun 2019 10:16:39 +0200
+Received: from zeta.dmz-eu.st.com (zeta.dmz-eu.st.com [164.129.230.9])
+ by beta.dmz-eu.st.com (STMicroelectronics) with ESMTP id D937A34;
+ Mon,  3 Jun 2019 08:16:37 +0000 (GMT)
+Received: from Webmail-eu.st.com (Safex1hubcas23.st.com [10.75.90.46])
+ by zeta.dmz-eu.st.com (STMicroelectronics) with ESMTP id 6BB7E2489;
+ Mon,  3 Jun 2019 08:16:37 +0000 (GMT)
+Received: from SAFEX1HUBCAS24.st.com (10.75.90.95) by SAFEX1HUBCAS23.st.com
+ (10.75.90.46) with Microsoft SMTP Server (TLS) id 14.3.439.0; Mon, 3 Jun 2019
+ 10:16:37 +0200
+Received: from localhost (10.201.23.16) by webmail-ga.st.com (10.75.90.48)
+ with Microsoft SMTP Server (TLS) id 14.3.439.0; Mon, 3 Jun 2019 10:16:36
+ +0200
+From: Olivier Moysan <olivier.moysan@st.com>
+To: <lgirdwood@gmail.com>, <broonie@kernel.org>, <perex@perex.cz>,
+ <tiwai@suse.com>, <mcoquelin.stm32@gmail.com>,
+ <alexandre.torgue@st.com>, <alsa-devel@alsa-project.org>,
+ <linux-arm-kernel@lists.infradead.org>,
+ <linux-stm32@st-md-mailman.stormreply.com>,
+ <linux-kernel@vger.kernel.org>, <olivier.moysan@st.com>,
+ <arnaud.pouliquen@st.com>
+Date: Mon, 3 Jun 2019 10:16:34 +0200
+Message-ID: <1559549794-7246-1-git-send-email-olivier.moysan@st.com>
+X-Mailer: git-send-email 2.7.4
 MIME-Version: 1.0
-Content-Disposition: inline
-In-Reply-To: <20190515093141.GA3409@mwanda>
-User-Agent: Mutt/1.9.4 (2018-02-28)
-Cc: kernel-janitors@vger.kernel.org, linux-kernel@vger.kernel.org,
- Maxime Coquelin <mcoquelin.stm32@gmail.com>,
- linux-stm32@st-md-mailman.stormreply.com
-Subject: Re: [Linux-stm32] [PATCH] mfd: stmfx: Uninitialized variable in
-	stmfx_irq_handler()
+X-Originating-IP: [10.201.23.16]
+X-Proofpoint-Virus-Version: vendor=fsecure engine=2.50.10434:, ,
+ definitions=2019-06-03_06:, , signatures=0
+Subject: [Linux-stm32] [PATCH] ASoC: stm32: sai: manage identification
+	registers
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -73,30 +70,268 @@ List-Post: <mailto:linux-stm32@st-md-mailman.stormreply.com>
 List-Help: <mailto:linux-stm32-request@st-md-mailman.stormreply.com?subject=help>
 List-Subscribe: <https://st-md-mailman.stormreply.com/mailman/listinfo/linux-stm32>, 
  <mailto:linux-stm32-request@st-md-mailman.stormreply.com?subject=subscribe>
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: base64
+Content-Type: text/plain; charset="us-ascii"
+Content-Transfer-Encoding: 7bit
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
-T24gV2VkLCAxNSBNYXkgMjAxOSwgRGFuIENhcnBlbnRlciB3cm90ZToKCj4gVGhlIHByb2JsZW0g
-aXMgdGhhdCBvbiA2NGJpdCBzeXN0ZW1zIHRoZW4gd2UgZG9uJ3QgY2xlYXIgdGhlIGhpZ2hlcgo+
-IGJpdHMgb2YgdGhlICJwZW5kaW5nIiB2YXJpYWJsZS4gIFNvIHdoZW4gd2UgZG86Cj4gCj4gCWFj
-ayA9IHBlbmRpbmcgJiB+QklUKFNUTUZYX1JFR19JUlFfU1JDX0VOX0dQSU8pOwo+IAlpZiAoYWNr
-KSB7Cj4gCj4gdGhlIGlmIChhY2spIGNvbmRpdGlvbiByZWxpZXMgb24gdW5pbml0aWFsaXplZCBk
-YXRhLiAgVGhlIGZpeCBpdCB0aGF0Cj4gSSd2ZSBjaGFuZ2VkICJwZW5kaW5nIiBmcm9tIGFuIHVu
-c2lnbmVkIGxvbmcgdG8gYSB1MzIuICBJIGNoYW5nZWQgIm4iIGFzCj4gd2VsbCwgYmVjYXVzZSB0
-aGF0J3MgYSBudW1iZXIgaW4gdGhlIDAtMTAgcmFuZ2UgYW5kIGl0IGZpdHMgZWFzaWx5Cj4gaW5z
-aWRlIGFuIGludC4gIFdlIGRvIG5lZWQgdG8gYWRkIGEgY2FzdCB0byAicGVuZGluZyIgd2hlbiB3
-ZSB1c2UgaXQgaW4KPiB0aGUgZm9yX2VhY2hfc2V0X2JpdCgpIGxvb3AsIGJ1dCB0aGF0IGRvZXNu
-J3QgY2F1c2UgYSBwcm9ibGUsIGl0J3MKPiBmaW5lLgo+IAo+IEZpeGVzOiAwNjI1MmFkZTkxNTYg
-KCJtZmQ6IEFkZCBTVCBNdWx0aS1GdW5jdGlvbiBlWHBhbmRlciAoU1RNRlgpIGNvcmUgZHJpdmVy
-IikKPiBTaWduZWQtb2ZmLWJ5OiBEYW4gQ2FycGVudGVyIDxkYW4uY2FycGVudGVyQG9yYWNsZS5j
-b20+Cj4gLS0tCj4gIGRyaXZlcnMvbWZkL3N0bWZ4LmMgfCA4ICsrKystLS0tCj4gIDEgZmlsZSBj
-aGFuZ2VkLCA0IGluc2VydGlvbnMoKyksIDQgZGVsZXRpb25zKC0pCgpDb3VsZCBkbyB3aXRoIGFu
-IGF1dGhvcidzIEFjayBoZXJlLgoKLS0gCkxlZSBKb25lcyBb5p2O55C85pavXQpMaW5hcm8gU2Vy
-dmljZXMgVGVjaG5pY2FsIExlYWQKTGluYXJvLm9yZyDilIIgT3BlbiBzb3VyY2Ugc29mdHdhcmUg
-Zm9yIEFSTSBTb0NzCkZvbGxvdyBMaW5hcm86IEZhY2Vib29rIHwgVHdpdHRlciB8IEJsb2cKX19f
-X19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX18KTGludXgtc3RtMzIg
-bWFpbGluZyBsaXN0CkxpbnV4LXN0bTMyQHN0LW1kLW1haWxtYW4uc3Rvcm1yZXBseS5jb20KaHR0
-cHM6Ly9zdC1tZC1tYWlsbWFuLnN0b3JtcmVwbHkuY29tL21haWxtYW4vbGlzdGluZm8vbGludXgt
-c3RtMzIK
+Add support of identification registers in STM32 SAI.
+
+Signed-off-by: Olivier Moysan <olivier.moysan@st.com>
+---
+ sound/soc/stm/stm32_sai.c     | 44 +++++++++++++++++++++++++++++++----
+ sound/soc/stm/stm32_sai.h     | 54 ++++++++++++++++++++++++++++++++-----------
+ sound/soc/stm/stm32_sai_sub.c | 14 ++++++-----
+ 3 files changed, 88 insertions(+), 24 deletions(-)
+
+diff --git a/sound/soc/stm/stm32_sai.c b/sound/soc/stm/stm32_sai.c
+index 7550d5f08be3..98b29f712831 100644
+--- a/sound/soc/stm/stm32_sai.c
++++ b/sound/soc/stm/stm32_sai.c
+@@ -30,13 +30,20 @@
+ #include "stm32_sai.h"
+ 
+ static const struct stm32_sai_conf stm32_sai_conf_f4 = {
+-	.version = SAI_STM32F4,
+-	.has_spdif = false,
++	.version = STM_SAI_STM32F4,
++	.fifo_size = 8,
++	.has_spdif_pdm = false,
+ };
+ 
++/*
++ * Default settings for stm32 H7 socs and next.
++ * These default settings will be overridden if the soc provides
++ * support of hardware configuration registers.
++ */
+ static const struct stm32_sai_conf stm32_sai_conf_h7 = {
+-	.version = SAI_STM32H7,
+-	.has_spdif = true,
++	.version = STM_SAI_STM32H7,
++	.fifo_size = 8,
++	.has_spdif_pdm = true,
+ };
+ 
+ static const struct of_device_id stm32_sai_ids[] = {
+@@ -157,6 +164,8 @@ static int stm32_sai_probe(struct platform_device *pdev)
+ 	struct reset_control *rst;
+ 	struct resource *res;
+ 	const struct of_device_id *of_id;
++	u32 val;
++	int ret;
+ 
+ 	sai = devm_kzalloc(&pdev->dev, sizeof(*sai), GFP_KERNEL);
+ 	if (!sai)
+@@ -169,7 +178,8 @@ static int stm32_sai_probe(struct platform_device *pdev)
+ 
+ 	of_id = of_match_device(stm32_sai_ids, &pdev->dev);
+ 	if (of_id)
+-		sai->conf = (struct stm32_sai_conf *)of_id->data;
++		memcpy(&sai->conf, (const struct stm32_sai_conf *)of_id->data,
++		       sizeof(struct stm32_sai_conf));
+ 	else
+ 		return -EINVAL;
+ 
+@@ -208,6 +218,30 @@ static int stm32_sai_probe(struct platform_device *pdev)
+ 		reset_control_deassert(rst);
+ 	}
+ 
++	/* Enable peripheral clock to allow register access */
++	ret = clk_prepare_enable(sai->pclk);
++	if (ret) {
++		dev_err(&pdev->dev, "failed to enable clock: %d\n", ret);
++		return ret;
++	}
++
++	val = FIELD_GET(SAI_IDR_ID_MASK,
++			readl_relaxed(sai->base + STM_SAI_IDR));
++	if (val == SAI_IPIDR_NUMBER) {
++		val = readl_relaxed(sai->base + STM_SAI_HWCFGR);
++		sai->conf.fifo_size = FIELD_GET(SAI_HWCFGR_FIFO_SIZE, val);
++		sai->conf.has_spdif_pdm = !!FIELD_GET(SAI_HWCFGR_SPDIF_PDM,
++						      val);
++
++		val = readl_relaxed(sai->base + STM_SAI_VERR);
++		sai->conf.version = val;
++
++		dev_dbg(&pdev->dev, "SAI version: %lu.%lu registered\n",
++			FIELD_GET(SAI_VERR_MAJ_MASK, val),
++			FIELD_GET(SAI_VERR_MIN_MASK, val));
++	}
++	clk_disable_unprepare(sai->pclk);
++
+ 	sai->pdev = pdev;
+ 	sai->set_sync = &stm32_sai_set_sync;
+ 	platform_set_drvdata(pdev, sai);
+diff --git a/sound/soc/stm/stm32_sai.h b/sound/soc/stm/stm32_sai.h
+index 9c36a393ab7b..158c73f557f7 100644
+--- a/sound/soc/stm/stm32_sai.h
++++ b/sound/soc/stm/stm32_sai.h
+@@ -37,6 +37,12 @@
+ #define STM_SAI_PDMCR_REGX	0x40
+ #define STM_SAI_PDMLY_REGX	0x44
+ 
++/* Hardware configuration registers */
++#define STM_SAI_HWCFGR		0x3F0
++#define STM_SAI_VERR		0x3F4
++#define STM_SAI_IDR		0x3F8
++#define STM_SAI_SIDR		0x3FC
++
+ /******************** Bit definition for SAI_GCR register *******************/
+ #define SAI_GCR_SYNCIN_SHIFT	0
+ #define SAI_GCR_SYNCIN_WDTH	2
+@@ -82,7 +88,7 @@
+ #define SAI_XCR1_NODIV		BIT(SAI_XCR1_NODIV_SHIFT)
+ 
+ #define SAI_XCR1_MCKDIV_SHIFT	20
+-#define SAI_XCR1_MCKDIV_WIDTH(x)	(((x) == SAI_STM32F4) ? 4 : 6)
++#define SAI_XCR1_MCKDIV_WIDTH(x)	(((x) == STM_SAI_STM32F4) ? 4 : 6)
+ #define SAI_XCR1_MCKDIV_MASK(x) GENMASK((SAI_XCR1_MCKDIV_SHIFT + (x) - 1),\
+ 				SAI_XCR1_MCKDIV_SHIFT)
+ #define SAI_XCR1_MCKDIV_SET(x)	((x) << SAI_XCR1_MCKDIV_SHIFT)
+@@ -234,8 +240,33 @@
+ #define SAI_PDMDLY_4R_MASK	GENMASK(30, SAI_PDMDLY_4R_SHIFT)
+ #define SAI_PDMDLY_4R_WIDTH	3
+ 
+-#define STM_SAI_IS_F4(ip)	((ip)->conf->version == SAI_STM32F4)
+-#define STM_SAI_IS_H7(ip)	((ip)->conf->version == SAI_STM32H7)
++/* Registers below apply to SAI version 2.1 and more */
++
++/* Bit definition for SAI_HWCFGR register */
++#define SAI_HWCFGR_FIFO_SIZE	GENMASK(7, 0)
++#define SAI_HWCFGR_SPDIF_PDM	GENMASK(11, 8)
++#define SAI_HWCFGR_REGOUT	GENMASK(19, 12)
++
++/* Bit definition for SAI_VERR register */
++#define SAI_VERR_MIN_MASK	GENMASK(3, 0)
++#define SAI_VERR_MAJ_MASK	GENMASK(7, 4)
++
++/* Bit definition for SAI_IDR register */
++#define SAI_IDR_ID_MASK		GENMASK(31, 0)
++
++/* Bit definition for SAI_SIDR register */
++#define SAI_SIDR_ID_MASK	GENMASK(31, 0)
++
++#define SAI_IPIDR_NUMBER	0x00130031
++
++/* SAI version numbers are 1.x for F4. Major version number set to 1 for F4 */
++#define STM_SAI_STM32F4		BIT(4)
++/* Dummy version number for H7 socs and next */
++#define STM_SAI_STM32H7		0x0
++
++#define STM_SAI_IS_F4(ip)	((ip)->conf.version == STM_SAI_STM32F4)
++#define STM_SAI_HAS_SPDIF_PDM(ip)\
++				((ip)->pdata->conf.has_spdif_pdm)
+ 
+ enum stm32_sai_syncout {
+ 	STM_SAI_SYNC_OUT_NONE,
+@@ -243,19 +274,16 @@ enum stm32_sai_syncout {
+ 	STM_SAI_SYNC_OUT_B,
+ };
+ 
+-enum stm32_sai_version {
+-	SAI_STM32F4,
+-	SAI_STM32H7
+-};
+-
+ /**
+  * struct stm32_sai_conf - SAI configuration
+  * @version: SAI version
+- * @has_spdif: SAI S/PDIF support flag
++ * @fifo_size: SAI fifo size as words number
++ * @has_spdif_pdm: SAI S/PDIF and PDM features support flag
+  */
+ struct stm32_sai_conf {
+-	int version;
+-	bool has_spdif;
++	u32 version;
++	u32 fifo_size;
++	bool has_spdif_pdm;
+ };
+ 
+ /**
+@@ -265,7 +293,7 @@ struct stm32_sai_conf {
+  * @pclk: SAI bus clock
+  * @clk_x8k: SAI parent clock for sampling frequencies multiple of 8kHz
+  * @clk_x11k: SAI parent clock for sampling frequencies multiple of 11kHz
+- * @version: SOC version
++ * @conf: SAI hardware capabitilites
+  * @irq: SAI interrupt line
+  * @set_sync: pointer to synchro mode configuration callback
+  * @gcr: SAI Global Configuration Register
+@@ -276,7 +304,7 @@ struct stm32_sai_data {
+ 	struct clk *pclk;
+ 	struct clk *clk_x8k;
+ 	struct clk *clk_x11k;
+-	struct stm32_sai_conf *conf;
++	struct stm32_sai_conf conf;
+ 	int irq;
+ 	int (*set_sync)(struct stm32_sai_data *sai,
+ 			struct device_node *np_provider, int synco, int synci);
+diff --git a/sound/soc/stm/stm32_sai_sub.c b/sound/soc/stm/stm32_sai_sub.c
+index 2a74ce7c9440..7d27efb19380 100644
+--- a/sound/soc/stm/stm32_sai_sub.c
++++ b/sound/soc/stm/stm32_sai_sub.c
+@@ -45,7 +45,6 @@
+ #define SAI_DATASIZE_24		0x6
+ #define SAI_DATASIZE_32		0x7
+ 
+-#define STM_SAI_FIFO_SIZE	8
+ #define STM_SAI_DAI_NAME_SIZE	15
+ 
+ #define STM_SAI_IS_PLAYBACK(ip)	((ip)->dir == SNDRV_PCM_STREAM_PLAYBACK)
+@@ -63,7 +62,8 @@
+ #define SAI_SYNC_EXTERNAL	0x2
+ 
+ #define STM_SAI_PROTOCOL_IS_SPDIF(ip)	((ip)->spdif)
+-#define STM_SAI_HAS_SPDIF(x)	((x)->pdata->conf->has_spdif)
++#define STM_SAI_HAS_SPDIF(x)	((x)->pdata->conf.has_spdif_pdm)
++#define STM_SAI_HAS_PDM(x)	((x)->pdata->conf.has_spdif_pdm)
+ #define STM_SAI_HAS_EXT_SYNC(x) (!STM_SAI_IS_F4(sai->pdata))
+ 
+ #define SAI_IEC60958_BLOCK_FRAMES	192
+@@ -274,7 +274,7 @@ static int stm32_sai_get_clk_div(struct stm32_sai_sub_data *sai,
+ 				 unsigned long input_rate,
+ 				 unsigned long output_rate)
+ {
+-	int version = sai->pdata->conf->version;
++	int version = sai->pdata->conf.version;
+ 	int div;
+ 
+ 	div = DIV_ROUND_CLOSEST(input_rate, output_rate);
+@@ -295,7 +295,7 @@ static int stm32_sai_get_clk_div(struct stm32_sai_sub_data *sai,
+ static int stm32_sai_set_clk_div(struct stm32_sai_sub_data *sai,
+ 				 unsigned int div)
+ {
+-	int version = sai->pdata->conf->version;
++	int version = sai->pdata->conf.version;
+ 	int ret, cr1, mask;
+ 
+ 	if (div > SAI_XCR1_MCKDIV_MAX(version)) {
+@@ -1148,6 +1148,8 @@ static int stm32_sai_dai_probe(struct snd_soc_dai *cpu_dai)
+ 	 * constraints).
+ 	 */
+ 	sai->dma_params.maxburst = 4;
++	if (sai->pdata->conf.fifo_size < 8)
++		sai->dma_params.maxburst = 1;
+ 	/* Buswidth will be set by framework at runtime */
+ 	sai->dma_params.addr_width = DMA_SLAVE_BUSWIDTH_UNDEFINED;
+ 
+@@ -1315,8 +1317,8 @@ static int stm32_sai_sub_parse_of(struct platform_device *pdev,
+ 	sai->phys_addr = res->start;
+ 
+ 	sai->regmap_config = &stm32_sai_sub_regmap_config_f4;
+-	/* Note: PDM registers not available for H7 sub-block B */
+-	if (STM_SAI_IS_H7(sai->pdata) && STM_SAI_IS_SUB_A(sai))
++	/* Note: PDM registers not available for sub-block B */
++	if (STM_SAI_HAS_PDM(sai) && STM_SAI_IS_SUB_A(sai))
+ 		sai->regmap_config = &stm32_sai_sub_regmap_config_h7;
+ 
+ 	sai->regmap = devm_regmap_init_mmio_clk(&pdev->dev, "sai_ck",
+-- 
+2.7.4
+
+_______________________________________________
+Linux-stm32 mailing list
+Linux-stm32@st-md-mailman.stormreply.com
+https://st-md-mailman.stormreply.com/mailman/listinfo/linux-stm32
