@@ -2,54 +2,63 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id B93DC33D28
-	for <lists+linux-stm32@lfdr.de>; Tue,  4 Jun 2019 04:31:17 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 39EA734245
+	for <lists+linux-stm32@lfdr.de>; Tue,  4 Jun 2019 10:55:42 +0200 (CEST)
 Received: from ip-172-31-3-76.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 6DA4FCC2399
-	for <lists+linux-stm32@lfdr.de>; Tue,  4 Jun 2019 02:31:17 +0000 (UTC)
-Received: from mailgw02.mediatek.com (unknown [1.203.163.81])
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 50416CC2397
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 6FE74C544F8
+	for <lists+linux-stm32@lfdr.de>; Tue,  4 Jun 2019 08:55:40 +0000 (UTC)
+Received: from mx07-00178001.pphosted.com (mx08-00178001.pphosted.com
+ [91.207.212.93])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+ (No client certificate requested)
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id CC92DC544F4
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Tue,  4 Jun 2019 02:31:14 +0000 (UTC)
-X-UUID: f291c6e07a734aa6b35d260fd5e5b799-20190604
-X-UUID: f291c6e07a734aa6b35d260fd5e5b799-20190604
-Received: from mtkcas35.mediatek.inc [(172.27.4.253)] by mailgw02.mediatek.com
- (envelope-from <biao.huang@mediatek.com>)
- (mailgw01.mediatek.com ESMTP with TLS)
- with ESMTP id 1956888644; Tue, 04 Jun 2019 10:31:08 +0800
-Received: from MTKCAS32.mediatek.inc (172.27.4.184) by MTKMBS31DR.mediatek.inc
- (172.27.6.102) with Microsoft SMTP Server (TLS) id 15.0.1395.4;
- Tue, 4 Jun 2019 10:31:06 +0800
-Received: from [10.17.3.153] (172.27.4.253) by MTKCAS32.mediatek.inc
- (172.27.4.170) with Microsoft SMTP Server id 15.0.1395.4 via Frontend
- Transport; Tue, 4 Jun 2019 10:31:06 +0800
-Message-ID: <1559615466.24897.106.camel@mhfsdcap03>
-From: biao huang <biao.huang@mediatek.com>
-To: Jose Abreu <Jose.Abreu@synopsys.com>
-Date: Tue, 4 Jun 2019 10:31:06 +0800
-In-Reply-To: <78EB27739596EE489E55E81C33FEC33A0B93B6DF@DE02WEMBXB.internal.synopsys.com>
-References: <1559527086-7227-1-git-send-email-biao.huang@mediatek.com>
- <1559527086-7227-4-git-send-email-biao.huang@mediatek.com>
- <78EB27739596EE489E55E81C33FEC33A0B93B6DF@DE02WEMBXB.internal.synopsys.com>
-X-Mailer: Evolution 3.2.3-0ubuntu6 
+ Tue,  4 Jun 2019 08:55:39 +0000 (UTC)
+Received: from pps.filterd (m0046661.ppops.net [127.0.0.1])
+ by mx08-00178001.pphosted.com (8.16.0.27/8.16.0.27) with SMTP id
+ x548tKLL021280; Tue, 4 Jun 2019 10:55:28 +0200
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=st.com;
+ h=from : to : cc : subject
+ : date : message-id : mime-version : content-type; s=STMicroelectronics;
+ bh=aeRZHet8+3ng2HzHWI6D57uf7dMIn0WG1kjDInB0Y8s=;
+ b=wiKlCJWMv8lNPSmBz84bvLgrRRzwH7Tdnn57y/e+lH3rwW6YNBFk715p8vQlrG0EeHAj
+ P9hJBWBssMTTmBjE7FS8g58EUH4icp+Z5fzOZD3IU4CMNjqInVPxOxp8tWA9P/IpoLyT
+ 1yxYYI211XVh1IvWTEAhfAOv2ofLBPYfw+S0h03B/93sDS0ecOW0KAWl9hu9pnddQ/1Y
+ fUcuMqIe7LitRBXZ836EwKcWGUnoVesQm0SPZPn9rJRV+SJVWiHu75dcERTR6Vfh/v3z
+ g6NshufKOarSyR0AszxMPlGgJNcZeChWbEZUQK4xXxQIXmQYtsAzRnwaDcueef4o9Cn5 yA== 
+Received: from beta.dmz-eu.st.com (beta.dmz-eu.st.com [164.129.1.35])
+ by mx08-00178001.pphosted.com with ESMTP id 2sundryngq-1
+ (version=TLSv1 cipher=ECDHE-RSA-AES256-SHA bits=256 verify=NOT);
+ Tue, 04 Jun 2019 10:55:28 +0200
+Received: from zeta.dmz-eu.st.com (zeta.dmz-eu.st.com [164.129.230.9])
+ by beta.dmz-eu.st.com (STMicroelectronics) with ESMTP id 34DFA163;
+ Tue,  4 Jun 2019 08:55:24 +0000 (GMT)
+Received: from Webmail-eu.st.com (Safex1hubcas23.st.com [10.75.90.46])
+ by zeta.dmz-eu.st.com (STMicroelectronics) with ESMTP id 066B92507;
+ Tue,  4 Jun 2019 08:55:24 +0000 (GMT)
+Received: from SAFEX1HUBCAS22.st.com (10.75.90.93) by SAFEX1HUBCAS23.st.com
+ (10.75.90.46) with Microsoft SMTP Server (TLS) id 14.3.439.0; Tue, 4 Jun 2019
+ 10:55:23 +0200
+Received: from localhost (10.201.23.31) by Webmail-ga.st.com (10.75.90.48)
+ with Microsoft SMTP Server (TLS) id 14.3.439.0; Tue, 4 Jun 2019 10:55:23
+ +0200
+From: Erwan Le Ray <erwan.leray@st.com>
+To: Greg Kroah-Hartman <gregkh@linuxfoundation.org>, Jiri Slaby
+ <jslaby@suse.com>, Maxime Coquelin <mcoquelin.stm32@gmail.com>, "Alexandre
+ Torgue" <alexandre.torgue@st.com>, Rob Herring <robh+dt@kernel.org>, "Mark
+ Rutland" <mark.rutland@arm.com>
+Date: Tue, 4 Jun 2019 10:55:09 +0200
+Message-ID: <1559638519-6128-1-git-send-email-erwan.leray@st.com>
+X-Mailer: git-send-email 1.9.1
 MIME-Version: 1.0
-X-MTK: N
-Cc: "andrew@lunn.ch" <andrew@lunn.ch>,
- "jianguo.zhang@mediatek.com" <jianguo.zhang@mediatek.com>,
- "boon.leong.ong@intel.com" <boon.leong.ong@intel.com>,
- "netdev@vger.kernel.org" <netdev@vger.kernel.org>,
- "linux-kernel@vger.kernel.org" <linux-kernel@vger.kernel.org>,
- "linux-stm32@st-md-mailman.stormreply.com"
- <linux-stm32@st-md-mailman.stormreply.com>,
- "yt.shen@mediatek.com" <yt.shen@mediatek.com>,
- "linux-mediatek@lists.infradead.org" <linux-mediatek@lists.infradead.org>,
- Maxime Coquelin <mcoquelin.stm32@gmail.com>,
- Matthias Brugger <matthias.bgg@gmail.com>,
- Giuseppe Cavallaro <peppe.cavallaro@st.com>,
- "davem@davemloft.net" <davem@davemloft.net>,
- "linux-arm-kernel@lists.infradead.org" <linux-arm-kernel@lists.infradead.org>
-Subject: Re: [Linux-stm32] [v2,
-	PATCH 3/4] net: stmmac: modify default value of tx-frames
+X-Originating-IP: [10.201.23.31]
+X-Proofpoint-Virus-Version: vendor=fsecure engine=2.50.10434:, ,
+ definitions=2019-06-04_07:, , signatures=0
+Cc: devicetree@vger.kernel.org, linux-kernel@vger.kernel.org,
+ Erwan Le Ray <erwan.leray@st.com>, linux-serial@vger.kernel.org, Fabrice
+ Gasnier <fabrice.gasnier@st.com>, linux-stm32@st-md-mailman.stormreply.com,
+ linux-arm-kernel@lists.infradead.org
+Subject: [Linux-stm32] [PATCH 00/10] STM32 usart power improvements
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -66,40 +75,34 @@ Content-Transfer-Encoding: 7bit
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
-On Mon, 2019-06-03 at 11:40 +0000, Jose Abreu wrote:
-> From: Biao Huang <biao.huang@mediatek.com>
-> 
-> > the default value of tx-frames is 25, it's too late when
-> > passing tstamp to stack, then the ptp4l will fail:
-> > 
-> > ptp4l -i eth0 -f gPTP.cfg -m
-> > ptp4l: selected /dev/ptp0 as PTP clock
-> > ptp4l: port 1: INITIALIZING to LISTENING on INITIALIZE
-> > ptp4l: port 0: INITIALIZING to LISTENING on INITIALIZE
-> > ptp4l: port 1: link up
-> > ptp4l: timed out while polling for tx timestamp
-> > ptp4l: increasing tx_timestamp_timeout may correct this issue,
-> >        but it is likely caused by a driver bug
-> > ptp4l: port 1: send peer delay response failed
-> > ptp4l: port 1: LISTENING to FAULTY on FAULT_DETECTED (FT_UNSPECIFIED)
-> > 
-> > ptp4l tests pass when changing the tx-frames from 25 to 1 with
-> > ethtool -C option.
-> > It should be fine to set tx-frames default value to 1, so ptp4l will pass
-> > by default.
-> 
-> I'm not sure if this is the right approach ... What's the timeout value 
-> you have for TX Timestamp ?
-I use the default tx_timestamp_timeout value 1, which represents 1ms.
-do you try ptp4l on your side?
+This series delivers power improvements for stm32-usart driver.
 
-performance test is done in https://lkml.org/lkml/2019/5/30/1617
-and seems no performance degradation.
+Bich Hemon (4):
+  dt-bindings: serial: add optional pinctrl states
+  serial: stm32: select pinctrl state in each suspend/resume function
+  ARM: dts: stm32: Update pin states for uart4 on stm32mp157c-ed1
+  ARM: dts: stm32: Update UART4 pin states on stm32mp157a-dk1
 
-> 
-> Thanks,
-> Jose Miguel Abreu
+Erwan Le Ray (6):
+  dt-bindings: serial: stm32: add wakeup option
+  serial: stm32: add pm_runtime support
+  serial: stm32: Use __maybe_unused instead of #if CONFIG_PM_SLEEP
+  serial: stm32: add support for no_console_suspend
+  ARM: dts: stm32: update uart4 pin configurations for low power
+  ARM: dts: stm32: add wakeup capability on each usart/uart on
+    stm32mp157c
 
+ .../devicetree/bindings/serial/st,stm32-usart.txt  | 19 ++++-
+ arch/arm/boot/dts/stm32mp157-pinctrl.dtsi          | 17 +++++
+ arch/arm/boot/dts/stm32mp157a-dk1.dts              |  5 +-
+ arch/arm/boot/dts/stm32mp157c-ed1.dts              |  5 +-
+ arch/arm/boot/dts/stm32mp157c.dtsi                 | 40 ++++++++--
+ drivers/tty/serial/stm32-usart.c                   | 88 ++++++++++++++++++++--
+ drivers/tty/serial/stm32-usart.h                   |  1 +
+ 7 files changed, 155 insertions(+), 20 deletions(-)
+
+-- 
+1.9.1
 
 _______________________________________________
 Linux-stm32 mailing list
