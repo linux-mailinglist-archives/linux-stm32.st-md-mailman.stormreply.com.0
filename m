@@ -2,80 +2,60 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id 70D983497F
-	for <lists+linux-stm32@lfdr.de>; Tue,  4 Jun 2019 15:55:51 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 1C9DC349ED
+	for <lists+linux-stm32@lfdr.de>; Tue,  4 Jun 2019 16:18:22 +0200 (CEST)
 Received: from ip-172-31-3-76.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 247A8C5719E
-	for <lists+linux-stm32@lfdr.de>; Tue,  4 Jun 2019 13:55:51 +0000 (UTC)
-Received: from mx07-00178001.pphosted.com (mx08-00178001.pphosted.com
- [91.207.212.93])
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id DD7CDC57751
+	for <lists+linux-stm32@lfdr.de>; Tue,  4 Jun 2019 14:18:21 +0000 (UTC)
+Received: from bombadil.infradead.org (bombadil.infradead.org
+ [198.137.202.133])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id C05BCC5719C
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id CB826C5774F
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Tue,  4 Jun 2019 13:55:49 +0000 (UTC)
-Received: from pps.filterd (m0046661.ppops.net [127.0.0.1])
- by mx08-00178001.pphosted.com (8.16.0.27/8.16.0.27) with SMTP id
- x54DlLtO019052; Tue, 4 Jun 2019 15:55:44 +0200
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=st.com;
- h=from : to : subject :
- date : message-id : references : in-reply-to : content-type : content-id :
- content-transfer-encoding : mime-version; s=STMicroelectronics;
- bh=/l+I9/VrslMxF9koCf1mice5DTAFdPweFnW/HGgh+yI=;
- b=rv9CHvkXyrmpcAoDio1Pfc/MNx3qZ51DB0Q5F3hkUzvJKrd3xH1K+w4/qRbYM0SylD6d
- xN76Ltc2s9LmsGqKNES984we0hKcBkDGCGwoPd8aQCyUgW9Xfbo7N8FtEEItSeX1vNbz
- z/6HWuw55C/2E+LnHwa97k/59GASjfVM3WrEkh+D0scfNsIKRU0A1vhPdJvj4FJ0Mhnj
- F/kRxHd8fdO0TWjewwgHhWcUcMgyoJiDwKq8p5TVwPQDmw9ryk8/HjjzTfqtuJgfL4LZ
- N2CdQImk8Qx2n2ALqAFfLNMkD3E8jLRpDiFy1Es+aejds6vvLamHuljewox7UD+SLEkU AA== 
-Received: from beta.dmz-eu.st.com (beta.dmz-eu.st.com [164.129.1.35])
- by mx08-00178001.pphosted.com with ESMTP id 2sunds184k-1
- (version=TLSv1 cipher=ECDHE-RSA-AES256-SHA bits=256 verify=NOT);
- Tue, 04 Jun 2019 15:55:44 +0200
-Received: from zeta.dmz-eu.st.com (zeta.dmz-eu.st.com [164.129.230.9])
- by beta.dmz-eu.st.com (STMicroelectronics) with ESMTP id 88BD738;
- Tue,  4 Jun 2019 13:55:43 +0000 (GMT)
-Received: from Webmail-eu.st.com (sfhdag3node3.st.com [10.75.127.9])
- by zeta.dmz-eu.st.com (STMicroelectronics) with ESMTP id 666A12B3B;
- Tue,  4 Jun 2019 13:55:43 +0000 (GMT)
-Received: from SFHDAG3NODE1.st.com (10.75.127.7) by SFHDAG3NODE3.st.com
- (10.75.127.9) with Microsoft SMTP Server (TLS) id 15.0.1347.2; Tue, 4 Jun
- 2019 15:55:43 +0200
-Received: from SFHDAG3NODE1.st.com ([fe80::1166:1abb:aad4:5f86]) by
- SFHDAG3NODE1.st.com ([fe80::1166:1abb:aad4:5f86%20]) with mapi id
- 15.00.1347.000; Tue, 4 Jun 2019 15:55:43 +0200
-From: Erwan LE RAY <erwan.leray@st.com>
-To: Borut Seljak <borut.seljak@t-2.net>, Maxime Coquelin
- <mcoquelin.stm32@gmail.com>, Alexandre TORGUE <alexandre.torgue@st.com>,
- "Greg Kroah-Hartman" <gregkh@linuxfoundation.org>,
- "linux-kernel@vger.kernel.org" <linux-kernel@vger.kernel.org>,
- "linux-serial@vger.kernel.org" <linux-serial@vger.kernel.org>, Jiri Slaby
- <jslaby@suse.com>, "linux-stm32@st-md-mailman.stormreply.com"
- <linux-stm32@st-md-mailman.stormreply.com>,
- "linux-arm-kernel@lists.infradead.org" <linux-arm-kernel@lists.infradead.org>
-Thread-Topic: Fwd: [PATCH] serial: stm32: fix a recursive locking in
- stm32_config_rs485
-Thread-Index: AQHVGr0egfGBr+I5bUuvhxEmcTN9eaaLX30AgAAD5wA=
-Date: Tue, 4 Jun 2019 13:55:42 +0000
-Message-ID: <33271a7e-644b-70e3-f84c-d019b394ce77@st.com>
-References: <20190604095452.6360-1-borut.seljak@t-2.net>
- <f2a264ac-e334-63b7-18c9-e45cde7bdf95@st.com>
- <41dddd5f-5c1c-3346-890a-8018f26ebd49@st.com>
-In-Reply-To: <41dddd5f-5c1c-3346-890a-8018f26ebd49@st.com>
-Accept-Language: en-US, fr-FR
-Content-Language: en-US
-X-MS-Has-Attach: 
-X-MS-TNEF-Correlator: 
-user-agent: Mozilla/5.0 (X11; Linux x86_64; rv:60.0) Gecko/20100101
- Thunderbird/60.6.1
-x-ms-exchange-messagesentrepresentingtype: 1
-x-ms-exchange-transport-fromentityheader: Hosted
-x-originating-ip: [10.75.127.46]
-Content-ID: <D7564DEF725C3147AC98F2B3035C4186@st.com>
+ Tue,  4 Jun 2019 14:18:20 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
+ d=infradead.org; s=bombadil.20170209; h=Sender:Content-Transfer-Encoding:
+ MIME-Version:References:In-Reply-To:Message-Id:Date:Subject:Cc:To:From:
+ Reply-To:Content-Type:Content-ID:Content-Description:Resent-Date:Resent-From:
+ Resent-Sender:Resent-To:Resent-Cc:Resent-Message-ID:List-Id:List-Help:
+ List-Unsubscribe:List-Subscribe:List-Post:List-Owner:List-Archive;
+ bh=dqaD3wghyI6IWFrArZRMjNM4vtEr+hqHLagvjFWdfkg=; b=Zs3KQXTOPjmcHFgUgxG5qH+gKO
+ o8BJz6y3IPantgcA/Voyx6kH/hrE9ccQ3FZi6STf8TVmNX3mkcfsoh0ZxT3ZI3w1tG56iFWPGuiay
+ fHK+QOmvCUpgAVnSPhpqFd56jlL0V6NoAZHlFCbPi8/Ejej/f3oBNuy1f6sslmGARdoNvQfDBV2Da
+ h+mmNSzuadqqucttR9O4Ayry8wEzO+MptxTN7giKFVJvtiAXHfibZ5j1TmziUWXZ5eJ0O3mTu3oE0
+ BcBjLpRasxpfI2PClkJKdwUgtAW+p0SZt3CqGsdTKTJzh139ngqBGbIlL6s77zCzADuP5DTAD5j8B
+ OoIbhHLQ==;
+Received: from [179.182.172.34] (helo=bombadil.infradead.org)
+ by bombadil.infradead.org with esmtpsa (Exim 4.90_1 #2 (Red Hat Linux))
+ id 1hYAGH-0001Rw-UE; Tue, 04 Jun 2019 14:18:01 +0000
+Received: from mchehab by bombadil.infradead.org with local (Exim 4.92)
+ (envelope-from <mchehab@bombadil.infradead.org>)
+ id 1hYAGE-0002kz-LE; Tue, 04 Jun 2019 11:17:58 -0300
+From: Mauro Carvalho Chehab <mchehab+samsung@kernel.org>
+To: Linux Doc Mailing List <linux-doc@vger.kernel.org>
+Date: Tue,  4 Jun 2019 11:17:40 -0300
+Message-Id: <4afa83787acec906c383978dc01f286940e28616.1559656538.git.mchehab+samsung@kernel.org>
+X-Mailer: git-send-email 2.21.0
+In-Reply-To: <cover.1559656538.git.mchehab+samsung@kernel.org>
+References: <cover.1559656538.git.mchehab+samsung@kernel.org>
 MIME-Version: 1.0
-X-Proofpoint-Virus-Version: vendor=fsecure engine=2.50.10434:, ,
- definitions=2019-06-04_09:, , signatures=0
-Subject: Re: [Linux-stm32] Fwd: [PATCH] serial: stm32: fix a recursive
- locking in stm32_config_rs485
+Cc: Maxime Ripard <maxime.ripard@bootlin.com>,
+ Benjamin Herrenschmidt <benh@kernel.crashing.org>,
+ dri-devel@lists.freedesktop.org, platform-driver-x86@vger.kernel.org,
+ Paul Mackerras <paulus@samba.org>,
+ Mauro Carvalho Chehab <mchehab+samsung@kernel.org>,
+ linux-stm32@st-md-mailman.stormreply.com, Jonathan Corbet <corbet@lwn.net>,
+ Michael Ellerman <mpe@ellerman.id.au>, David Airlie <airlied@linux.ie>,
+ Andrew Donnellan <ajd@linux.ibm.com>, linux-pm@vger.kernel.org,
+ Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
+ Matan Ziv-Av <matan@svgalib.org>,
+ Mauro Carvalho Chehab <mchehab@infradead.org>, Daniel Vetter <daniel@ffwll.ch>,
+ Sean Paul <sean@poorly.run>, linux-arm-kernel@lists.infradead.org,
+ linux-kernel@vger.kernel.org, Maxime Coquelin <mcoquelin.stm32@gmail.com>,
+ Frederic Barrat <fbarrat@linux.ibm.com>, linuxppc-dev@lists.ozlabs.org,
+ Georgi Djakov <georgi.djakov@linaro.org>
+Subject: [Linux-stm32] [PATCH v2 06/22] docs: mark orphan documents as such
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -87,71 +67,162 @@ List-Post: <mailto:linux-stm32@st-md-mailman.stormreply.com>
 List-Help: <mailto:linux-stm32-request@st-md-mailman.stormreply.com?subject=help>
 List-Subscribe: <https://st-md-mailman.stormreply.com/mailman/listinfo/linux-stm32>, 
  <mailto:linux-stm32-request@st-md-mailman.stormreply.com?subject=subscribe>
-Content-Type: text/plain; charset="windows-1252"
-Content-Transfer-Encoding: quoted-printable
+Content-Type: text/plain; charset="us-ascii"
+Content-Transfer-Encoding: 7bit
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
+Sphinx doesn't like orphan documents:
 
-> Hi Borut,
->
-> Please add the following line in the commit message (before your =
+    Documentation/accelerators/ocxl.rst: WARNING: document isn't included in any toctree
+    Documentation/arm/stm32/overview.rst: WARNING: document isn't included in any toctree
+    Documentation/arm/stm32/stm32f429-overview.rst: WARNING: document isn't included in any toctree
+    Documentation/arm/stm32/stm32f746-overview.rst: WARNING: document isn't included in any toctree
+    Documentation/arm/stm32/stm32f769-overview.rst: WARNING: document isn't included in any toctree
+    Documentation/arm/stm32/stm32h743-overview.rst: WARNING: document isn't included in any toctree
+    Documentation/arm/stm32/stm32mp157-overview.rst: WARNING: document isn't included in any toctree
+    Documentation/gpu/msm-crash-dump.rst: WARNING: document isn't included in any toctree
+    Documentation/interconnect/interconnect.rst: WARNING: document isn't included in any toctree
+    Documentation/laptops/lg-laptop.rst: WARNING: document isn't included in any toctree
+    Documentation/powerpc/isa-versions.rst: WARNING: document isn't included in any toctree
+    Documentation/virtual/kvm/amd-memory-encryption.rst: WARNING: document isn't included in any toctree
+    Documentation/virtual/kvm/vcpu-requests.rst: WARNING: document isn't included in any toctree
 
-> sign-off) in a V2 of your patch:
->
-> fixes: 1bcda09d291081 ("serial: stm32: add support for RS485 hardware =
+So, while they aren't on any toctree, add :orphan: to them, in order
+to silent this warning.
 
-> control mode")
->
-> I'm OK with the patch itself.
->
-> Erwan.
->
->
-> Subject: [PATCH] serial: stm32: fix a recursive locking in
->> stm32_config_rs485
->> Date: Tue,=A0 4 Jun 2019 11:54:51 +0200
->> From: Borut Seljak <borut.seljak@t-2.net>
->> CC: Maxime Coquelin <mcoquelin.stm32@gmail.com>, Alexandre Torgue
->> <alexandre.torgue@st.com>, Greg Kroah-Hartman
->> <gregkh@linuxfoundation.org>, linux-kernel@vger.kernel.org,
->> borut.seljak@t-2.net, linux-serial@vger.kernel.org, Jiri Slaby
->> <jslaby@suse.com>, linux-stm32@st-md-mailman.stormreply.com,
->> linux-arm-kernel@lists.infradead.org
->>
->> Remove spin_lock_irqsave in stm32_config_rs485, it cause recursive =
+Signed-off-by: Mauro Carvalho Chehab <mchehab+samsung@kernel.org>
+---
+ Documentation/accelerators/ocxl.rst             | 2 ++
+ Documentation/arm/stm32/overview.rst            | 2 ++
+ Documentation/arm/stm32/stm32f429-overview.rst  | 2 ++
+ Documentation/arm/stm32/stm32f746-overview.rst  | 2 ++
+ Documentation/arm/stm32/stm32f769-overview.rst  | 2 ++
+ Documentation/arm/stm32/stm32h743-overview.rst  | 2 ++
+ Documentation/arm/stm32/stm32mp157-overview.rst | 2 ++
+ Documentation/gpu/msm-crash-dump.rst            | 2 ++
+ Documentation/interconnect/interconnect.rst     | 2 ++
+ Documentation/laptops/lg-laptop.rst             | 2 ++
+ Documentation/powerpc/isa-versions.rst          | 2 ++
+ 11 files changed, 22 insertions(+)
 
->> locking.
->> Already locked in uart_set_rs485_config.
->>
->> Signed-off-by: Borut Seljak <borut.seljak@t-2.net>
->> ---
->> =A0 drivers/tty/serial/stm32-usart.c | 2 --
->> =A0 1 file changed, 2 deletions(-)
->>
->> diff --git a/drivers/tty/serial/stm32-usart.c
->> b/drivers/tty/serial/stm32-usart.c
->> index e8d7a7bb4339..da373a465f51 100644
->> --- a/drivers/tty/serial/stm32-usart.c
->> +++ b/drivers/tty/serial/stm32-usart.c
->> @@ -107,7 +107,6 @@ static int stm32_config_rs485(struct uart_port =
+diff --git a/Documentation/accelerators/ocxl.rst b/Documentation/accelerators/ocxl.rst
+index 14cefc020e2d..b1cea19a90f5 100644
+--- a/Documentation/accelerators/ocxl.rst
++++ b/Documentation/accelerators/ocxl.rst
+@@ -1,3 +1,5 @@
++:orphan:
++
+ ========================================================
+ OpenCAPI (Open Coherent Accelerator Processor Interface)
+ ========================================================
+diff --git a/Documentation/arm/stm32/overview.rst b/Documentation/arm/stm32/overview.rst
+index 85cfc8410798..f7e734153860 100644
+--- a/Documentation/arm/stm32/overview.rst
++++ b/Documentation/arm/stm32/overview.rst
+@@ -1,3 +1,5 @@
++:orphan:
++
+ ========================
+ STM32 ARM Linux Overview
+ ========================
+diff --git a/Documentation/arm/stm32/stm32f429-overview.rst b/Documentation/arm/stm32/stm32f429-overview.rst
+index 18feda97f483..65bbb1c3b423 100644
+--- a/Documentation/arm/stm32/stm32f429-overview.rst
++++ b/Documentation/arm/stm32/stm32f429-overview.rst
+@@ -1,3 +1,5 @@
++:orphan:
++
+ STM32F429 Overview
+ ==================
+ 
+diff --git a/Documentation/arm/stm32/stm32f746-overview.rst b/Documentation/arm/stm32/stm32f746-overview.rst
+index b5f4b6ce7656..42d593085015 100644
+--- a/Documentation/arm/stm32/stm32f746-overview.rst
++++ b/Documentation/arm/stm32/stm32f746-overview.rst
+@@ -1,3 +1,5 @@
++:orphan:
++
+ STM32F746 Overview
+ ==================
+ 
+diff --git a/Documentation/arm/stm32/stm32f769-overview.rst b/Documentation/arm/stm32/stm32f769-overview.rst
+index 228656ced2fe..f6adac862b17 100644
+--- a/Documentation/arm/stm32/stm32f769-overview.rst
++++ b/Documentation/arm/stm32/stm32f769-overview.rst
+@@ -1,3 +1,5 @@
++:orphan:
++
+ STM32F769 Overview
+ ==================
+ 
+diff --git a/Documentation/arm/stm32/stm32h743-overview.rst b/Documentation/arm/stm32/stm32h743-overview.rst
+index 3458dc00095d..c525835e7473 100644
+--- a/Documentation/arm/stm32/stm32h743-overview.rst
++++ b/Documentation/arm/stm32/stm32h743-overview.rst
+@@ -1,3 +1,5 @@
++:orphan:
++
+ STM32H743 Overview
+ ==================
+ 
+diff --git a/Documentation/arm/stm32/stm32mp157-overview.rst b/Documentation/arm/stm32/stm32mp157-overview.rst
+index 62e176d47ca7..2c52cd020601 100644
+--- a/Documentation/arm/stm32/stm32mp157-overview.rst
++++ b/Documentation/arm/stm32/stm32mp157-overview.rst
+@@ -1,3 +1,5 @@
++:orphan:
++
+ STM32MP157 Overview
+ ===================
+ 
+diff --git a/Documentation/gpu/msm-crash-dump.rst b/Documentation/gpu/msm-crash-dump.rst
+index 757cd257e0d8..240ef200f76c 100644
+--- a/Documentation/gpu/msm-crash-dump.rst
++++ b/Documentation/gpu/msm-crash-dump.rst
+@@ -1,3 +1,5 @@
++:orphan:
++
+ =====================
+ MSM Crash Dump Format
+ =====================
+diff --git a/Documentation/interconnect/interconnect.rst b/Documentation/interconnect/interconnect.rst
+index c3e004893796..56e331dab70e 100644
+--- a/Documentation/interconnect/interconnect.rst
++++ b/Documentation/interconnect/interconnect.rst
+@@ -1,5 +1,7 @@
+ .. SPDX-License-Identifier: GPL-2.0
+ 
++:orphan:
++
+ =====================================
+ GENERIC SYSTEM INTERCONNECT SUBSYSTEM
+ =====================================
+diff --git a/Documentation/laptops/lg-laptop.rst b/Documentation/laptops/lg-laptop.rst
+index aa503ee9b3bc..f2c2ffe31101 100644
+--- a/Documentation/laptops/lg-laptop.rst
++++ b/Documentation/laptops/lg-laptop.rst
+@@ -1,5 +1,7 @@
+ .. SPDX-License-Identifier: GPL-2.0+
+ 
++:orphan:
++
+ LG Gram laptop extra features
+ =============================
+ 
+diff --git a/Documentation/powerpc/isa-versions.rst b/Documentation/powerpc/isa-versions.rst
+index 812e20cc898c..66c24140ebf1 100644
+--- a/Documentation/powerpc/isa-versions.rst
++++ b/Documentation/powerpc/isa-versions.rst
+@@ -1,3 +1,5 @@
++:orphan:
++
+ CPU to ISA Version Mapping
+ ==========================
+ 
+-- 
+2.21.0
 
->> *port,
->> =A0=A0=A0=A0=A0 bool over8;
->> =A0=A0=A0=A0=A0 unsigned long flags;
->> =A0 -=A0=A0=A0 spin_lock_irqsave(&port->lock, flags);
->> =A0=A0=A0=A0=A0 stm32_clr_bits(port, ofs->cr1, BIT(cfg->uart_enable_bit)=
-);
->> =A0=A0=A0=A0=A0=A0 port->rs485 =3D *rs485conf;
->> @@ -147,7 +146,6 @@ static int stm32_config_rs485(struct uart_port =
-
->> *port,
->> =A0=A0=A0=A0=A0 }
->> =A0=A0=A0=A0=A0=A0 stm32_set_bits(port, ofs->cr1, BIT(cfg->uart_enable_b=
-it));
->> -=A0=A0=A0 spin_unlock_irqrestore(&port->lock, flags);
->> =A0=A0=A0=A0=A0=A0 return 0;
->> =A0 }
 _______________________________________________
 Linux-stm32 mailing list
 Linux-stm32@st-md-mailman.stormreply.com
