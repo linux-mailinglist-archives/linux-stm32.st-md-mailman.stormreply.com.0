@@ -2,58 +2,55 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id 37D60349EB
-	for <lists+linux-stm32@lfdr.de>; Tue,  4 Jun 2019 16:18:17 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 4237857E86
+	for <lists+linux-stm32@lfdr.de>; Thu, 27 Jun 2019 10:49:49 +0200 (CEST)
 Received: from ip-172-31-3-76.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id D0CA3C5774F
-	for <lists+linux-stm32@lfdr.de>; Tue,  4 Jun 2019 14:18:16 +0000 (UTC)
-Received: from bombadil.infradead.org (bombadil.infradead.org
- [198.137.202.133])
- (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 0A75FC57B64
+	for <lists+linux-stm32@lfdr.de>; Thu, 27 Jun 2019 08:49:49 +0000 (UTC)
+Received: from smtp-good-out-2.t-2.net (smtp-good-out-2.t-2.net
+ [84.255.208.44])
+ (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id C6421C055F0
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 86003C57DFD
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Tue,  4 Jun 2019 14:18:14 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
- d=infradead.org; s=bombadil.20170209; h=Sender:Content-Transfer-Encoding:
- MIME-Version:References:In-Reply-To:Message-Id:Date:Subject:Cc:To:From:
- Reply-To:Content-Type:Content-ID:Content-Description:Resent-Date:Resent-From:
- Resent-Sender:Resent-To:Resent-Cc:Resent-Message-ID:List-Id:List-Help:
- List-Unsubscribe:List-Subscribe:List-Post:List-Owner:List-Archive;
- bh=mg43HsbuIUpIY3IZlyoqhA6BT/bTMdQva0Wd1znkidQ=; b=mZBNRm0NbpbBZmnL/j+lOVKrJD
- ec/CqZkcU8Tn0FANuPI9rDCxmHE6x388Bg07ZRLESUJeiSMxzWAS/NwdxAkxYQSqBhRYYxm7ljyIF
- RDB7puPWazquTOozeiI6hM1i0fqqM68aEUCPAOYyJaHrpYASlRqTNghQnDcKwgwvq4Smb3wbRtswp
- nj64T47Mt4vC42bGlVpSvdFWnEqgQJAtJO63EI1llPpaacKJxt6bVPDbLqhFNn+iyzUf4EoarOQiz
- Bo4SuauI6J7/pG/TgUuQNLeEKowQtQ8J4aNee8EdIpoN5lzipPWLprpKZob2gEoGsfs2DjWzGZHWE
- MdMnATYQ==;
-Received: from [179.182.172.34] (helo=bombadil.infradead.org)
- by bombadil.infradead.org with esmtpsa (Exim 4.90_1 #2 (Red Hat Linux))
- id 1hYAGH-0001S0-U2; Tue, 04 Jun 2019 14:18:01 +0000
-Received: from mchehab by bombadil.infradead.org with local (Exim 4.92)
- (envelope-from <mchehab@bombadil.infradead.org>)
- id 1hYAGF-0002m9-15; Tue, 04 Jun 2019 11:17:59 -0300
-From: Mauro Carvalho Chehab <mchehab+samsung@kernel.org>
-To: Linux Doc Mailing List <linux-doc@vger.kernel.org>
-Date: Tue,  4 Jun 2019 11:17:54 -0300
-Message-Id: <92db0dbd37803154475fc73948fe59893ea041e8.1559656538.git.mchehab+samsung@kernel.org>
-X-Mailer: git-send-email 2.21.0
-In-Reply-To: <cover.1559656538.git.mchehab+samsung@kernel.org>
-References: <cover.1559656538.git.mchehab+samsung@kernel.org>
-MIME-Version: 1.0
-Cc: Mark Rutland <mark.rutland@arm.com>, alsa-devel@alsa-project.org,
- Linus Walleij <linus.walleij@linaro.org>,
- Nicolas Ferre <nicolas.ferre@microchip.com>,
- Mauro Carvalho Chehab <mchehab+samsung@kernel.org>,
- "Paul E. McKenney" <paulmck@linux.ibm.com>,
- linux-stm32@st-md-mailman.stormreply.com, Jonathan Corbet <corbet@lwn.net>,
- devicetree@vger.kernel.org, Mauro Carvalho Chehab <mchehab@infradead.org>,
- Mark Brown <broonie@kernel.org>, linux-arm-kernel@lists.infradead.org,
- Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
- Liam Girdwood <lgirdwood@gmail.com>, linux-kernel@vger.kernel.org,
- Rob Herring <robh+dt@kernel.org>, Maxime Coquelin <mcoquelin.stm32@gmail.com>,
- "David S. Miller" <davem@davemloft.net>
-Subject: [Linux-stm32] [PATCH v2 20/22] dt: bindings: fix some broken links
-	from txt->yaml conversion
+ Tue,  4 Jun 2019 16:15:30 +0000 (UTC)
+Received: from smtp-2.t-2.si (smtp-2.t-2.si [IPv6:2a01:260:1:4::1f])
+ by smtp-good-out-2.t-2.net (Postfix) with ESMTP id 45JH8K75cCzZC9;
+ Tue,  4 Jun 2019 18:15:29 +0200 (CEST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=t-2.net;
+ s=smtp-out-2; t=1559664930;
+ bh=Nm0CTY9O9Jph9TjFeOTe73ck/7qXqL8hFmMf283KJ4Y=;
+ h=From:To:Cc:Subject:Date:In-Reply-To:References;
+ b=opCDLjuLS51OPR3oIklcGovEgUBHiRmMSNHg38Aacg6q2bxv9U+uCKPRv9+kSaPhh
+ QAUf4mwhn3C1WNJ2lxzKodcYA26ZLlUAD2+WjuaBAGXsjy3auN7t6lCFjxLmS/eIrk
+ ftutAhUXES57MzBc+xndD4ElCZ6bAeAYn8gBfnrA=
+Received: from localhost (localhost [127.0.0.1])
+ by smtp-2.t-2.si (Postfix) with ESMTP id 45JH8K6rmFzMs33d;
+ Tue,  4 Jun 2019 18:15:29 +0200 (CEST)
+X-Virus-Scanned: amavisd-new at t-2.si
+Received: from smtp-2.t-2.si ([127.0.0.1])
+ by localhost (smtp-2.t-2.si [127.0.0.1]) (amavisd-new, port 10024)
+ with ESMTP id NRqyCHxikLg0; Tue,  4 Jun 2019 18:15:29 +0200 (CEST)
+Received: from localhost.localdomain (unknown [89.212.35.59])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+ (No client certificate requested)
+ (Authenticated sender: borut_seljak@t-2.net)
+ by smtp-2.t-2.si (Postfix) with ESMTPSA;
+ Tue,  4 Jun 2019 18:15:03 +0200 (CEST)
+From: Borut Seljak <borut.seljak@t-2.net>
+To: borut.seljak@t-2.net
+Date: Tue,  4 Jun 2019 18:14:44 +0200
+Message-Id: <20190604161444.8819-1-borut.seljak@t-2.net>
+X-Mailer: git-send-email 2.17.1
+In-Reply-To: <20190604095452.6360-1-borut.seljak@t-2.net>
+References: <20190604095452.6360-1-borut.seljak@t-2.net>
+X-Mailman-Approved-At: Thu, 27 Jun 2019 08:49:47 +0000
+Cc: Maxime Coquelin <mcoquelin.stm32@gmail.com>,
+ Greg Kroah-Hartman <gregkh@linuxfoundation.org>, linux-kernel@vger.kernel.org,
+ linux-serial@vger.kernel.org, Jiri Slaby <jslaby@suse.com>,
+ linux-stm32@st-md-mailman.stormreply.com, linux-arm-kernel@lists.infradead.org
+Subject: [Linux-stm32] [PATCH v2] serial: stm32: fix a recursive locking in
+	stm32_config_rs485
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -65,76 +62,44 @@ List-Post: <mailto:linux-stm32@st-md-mailman.stormreply.com>
 List-Help: <mailto:linux-stm32-request@st-md-mailman.stormreply.com?subject=help>
 List-Subscribe: <https://st-md-mailman.stormreply.com/mailman/listinfo/linux-stm32>, 
  <mailto:linux-stm32-request@st-md-mailman.stormreply.com?subject=subscribe>
+MIME-Version: 1.0
 Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
-Some new files got converted to yaml, but references weren't
-updated accordingly.
+Remove spin_lock_irqsave in stm32_config_rs485, it cause recursive locking.
+Already locked in uart_set_rs485_config.
 
-Signed-off-by: Mauro Carvalho Chehab <mchehab+samsung@kernel.org>
+fixes: 1bcda09d291081 ("serial: stm32: add support for RS485 hardware control mode")
+
+Signed-off-by: Borut Seljak <borut.seljak@t-2.net>
 ---
- Documentation/devicetree/bindings/media/st,stm32-dcmi.txt | 2 +-
- Documentation/devicetree/bindings/sound/st,stm32-i2s.txt  | 2 +-
- Documentation/devicetree/bindings/sound/st,stm32-sai.txt  | 2 +-
- MAINTAINERS                                               | 2 +-
- 4 files changed, 4 insertions(+), 4 deletions(-)
+ drivers/tty/serial/stm32-usart.c | 2 --
+ 1 file changed, 2 deletions(-)
 
-diff --git a/Documentation/devicetree/bindings/media/st,stm32-dcmi.txt b/Documentation/devicetree/bindings/media/st,stm32-dcmi.txt
-index 249790a93017..3122ded82eb4 100644
---- a/Documentation/devicetree/bindings/media/st,stm32-dcmi.txt
-+++ b/Documentation/devicetree/bindings/media/st,stm32-dcmi.txt
-@@ -11,7 +11,7 @@ Required properties:
- - clock-names: must contain "mclk", which is the DCMI peripherial clock
- - pinctrl: the pincontrol settings to configure muxing properly
-            for pins that connect to DCMI device.
--           See Documentation/devicetree/bindings/pinctrl/st,stm32-pinctrl.txt.
-+           See Documentation/devicetree/bindings/pinctrl/st,stm32-pinctrl.yaml.
- - dmas: phandle to DMA controller node,
-         see Documentation/devicetree/bindings/dma/stm32-dma.txt
- - dma-names: must contain "tx", which is the transmit channel from DCMI to DMA
-diff --git a/Documentation/devicetree/bindings/sound/st,stm32-i2s.txt b/Documentation/devicetree/bindings/sound/st,stm32-i2s.txt
-index 58c341300552..cbf24bcd1b8d 100644
---- a/Documentation/devicetree/bindings/sound/st,stm32-i2s.txt
-+++ b/Documentation/devicetree/bindings/sound/st,stm32-i2s.txt
-@@ -18,7 +18,7 @@ Required properties:
-     See Documentation/devicetree/bindings/dma/stm32-dma.txt.
-   - dma-names: Identifier for each DMA request line. Must be "tx" and "rx".
-   - pinctrl-names: should contain only value "default"
--  - pinctrl-0: see Documentation/devicetree/bindings/pinctrl/st,stm32-pinctrl.txt
-+  - pinctrl-0: see Documentation/devicetree/bindings/pinctrl/st,stm32-pinctrl.yaml
+diff --git a/drivers/tty/serial/stm32-usart.c b/drivers/tty/serial/stm32-usart.c
+index e8d7a7bb4339..da373a465f51 100644
+--- a/drivers/tty/serial/stm32-usart.c
++++ b/drivers/tty/serial/stm32-usart.c
+@@ -107,7 +107,6 @@ static int stm32_config_rs485(struct uart_port *port,
+ 	bool over8;
+ 	unsigned long flags;
  
- Optional properties:
-   - resets: Reference to a reset controller asserting the reset controller
-diff --git a/Documentation/devicetree/bindings/sound/st,stm32-sai.txt b/Documentation/devicetree/bindings/sound/st,stm32-sai.txt
-index 3f4467ff0aa2..944743dd9212 100644
---- a/Documentation/devicetree/bindings/sound/st,stm32-sai.txt
-+++ b/Documentation/devicetree/bindings/sound/st,stm32-sai.txt
-@@ -41,7 +41,7 @@ SAI subnodes required properties:
- 	"tx": if sai sub-block is configured as playback DAI
- 	"rx": if sai sub-block is configured as capture DAI
-   - pinctrl-names: should contain only value "default"
--  - pinctrl-0: see Documentation/devicetree/bindings/pinctrl/st,stm32-pinctrl.txt
-+  - pinctrl-0: see Documentation/devicetree/bindings/pinctrl/st,stm32-pinctrl.yaml
+-	spin_lock_irqsave(&port->lock, flags);
+ 	stm32_clr_bits(port, ofs->cr1, BIT(cfg->uart_enable_bit));
  
- SAI subnodes Optional properties:
-   - st,sync: specify synchronization mode.
-diff --git a/MAINTAINERS b/MAINTAINERS
-index 0dc7c3c5ddb0..2ab2337a029c 100644
---- a/MAINTAINERS
-+++ b/MAINTAINERS
-@@ -1298,7 +1298,7 @@ ARM PRIMECELL SSP PL022 SPI DRIVER
- M:	Linus Walleij <linus.walleij@linaro.org>
- L:	linux-arm-kernel@lists.infradead.org (moderated for non-subscribers)
- S:	Maintained
--F:	Documentation/devicetree/bindings/spi/spi_pl022.txt
-+F:	Documentation/devicetree/bindings/spi/spi-pl022.yaml
- F:	drivers/spi/spi-pl022.c
+ 	port->rs485 = *rs485conf;
+@@ -147,7 +146,6 @@ static int stm32_config_rs485(struct uart_port *port,
+ 	}
  
- ARM PRIMECELL UART PL010 AND PL011 DRIVERS
+ 	stm32_set_bits(port, ofs->cr1, BIT(cfg->uart_enable_bit));
+-	spin_unlock_irqrestore(&port->lock, flags);
+ 
+ 	return 0;
+ }
 -- 
-2.21.0
+2.17.1
 
 _______________________________________________
 Linux-stm32 mailing list
