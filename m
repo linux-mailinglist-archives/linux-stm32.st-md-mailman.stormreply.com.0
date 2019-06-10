@@ -2,30 +2,30 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id B472A3B1FE
-	for <lists+linux-stm32@lfdr.de>; Mon, 10 Jun 2019 11:26:46 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id B8FEA3B204
+	for <lists+linux-stm32@lfdr.de>; Mon, 10 Jun 2019 11:26:53 +0200 (CEST)
 Received: from ip-172-31-3-76.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 7ED5DC0757F
-	for <lists+linux-stm32@lfdr.de>; Mon, 10 Jun 2019 09:26:46 +0000 (UTC)
-Received: from relay6-d.mail.gandi.net (relay6-d.mail.gandi.net
- [217.70.183.198])
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 86A1CC072F6
+	for <lists+linux-stm32@lfdr.de>; Mon, 10 Jun 2019 09:26:53 +0000 (UTC)
+Received: from relay4-d.mail.gandi.net (relay4-d.mail.gandi.net
+ [217.70.183.196])
  (using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 31048C0757E
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id D1552C0757F
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Mon, 10 Jun 2019 09:26:45 +0000 (UTC)
+ Mon, 10 Jun 2019 09:26:51 +0000 (UTC)
 X-Originating-IP: 90.88.159.246
 Received: from localhost (aaubervilliers-681-1-40-246.w90-88.abo.wanadoo.fr
  [90.88.159.246]) (Authenticated sender: maxime.ripard@bootlin.com)
- by relay6-d.mail.gandi.net (Postfix) with ESMTPSA id A773AC000B;
- Mon, 10 Jun 2019 09:26:42 +0000 (UTC)
+ by relay4-d.mail.gandi.net (Postfix) with ESMTPSA id 70C42E000C;
+ Mon, 10 Jun 2019 09:26:45 +0000 (UTC)
 From: Maxime Ripard <maxime.ripard@bootlin.com>
 To: Mark Rutland <mark.rutland@arm.com>, Rob Herring <robh+dt@kernel.org>,
  Frank Rowand <frowand.list@gmail.com>,
  "David S . Miller" <davem@davemloft.net>, Chen-Yu Tsai <wens@csie.org>,
  Maxime Ripard <maxime.ripard@bootlin.com>
-Date: Mon, 10 Jun 2019 11:25:49 +0200
-Message-Id: <ff6306c71a6b6ad174007f9f2823499d3093e21c.1560158667.git-series.maxime.ripard@bootlin.com>
+Date: Mon, 10 Jun 2019 11:25:50 +0200
+Message-Id: <af3a342a6cba1dda27763c13093a8fc060946c1e.1560158667.git-series.maxime.ripard@bootlin.com>
 X-Mailer: git-send-email 2.21.0
 In-Reply-To: <91618c7e9a5497462afa74c6d8a947f709f54331.1560158667.git-series.maxime.ripard@bootlin.com>
 References: <91618c7e9a5497462afa74c6d8a947f709f54331.1560158667.git-series.maxime.ripard@bootlin.com>
@@ -37,8 +37,8 @@ Cc: devicetree@vger.kernel.org, Florian Fainelli <f.fainelli@gmail.com>,
  Maxime Coquelin <mcoquelin.stm32@gmail.com>,
  linux-stm32@st-md-mailman.stormreply.com, linux-arm-kernel@lists.infradead.org,
  Heiner Kallweit <hkallweit1@gmail.com>
-Subject: [Linux-stm32] [PATCH v2 10/11] dt-bindings: net: dwmac: Deprecate
-	the PHY reset properties
+Subject: [Linux-stm32] [PATCH v2 11/11] ARM: dts: sunxi: Switch to the
+	generic PHY properties
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -55,100 +55,113 @@ Content-Transfer-Encoding: 7bit
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
-Even though the DWMAC driver uses some driver specific properties, the PHY
-core has a bunch of generic properties and can deal with them nicely.
-
-Let's deprecate our specific properties.
+The DWMAC specific properties to manage the PHY have been superseeded by
+the generic PHY properties. Let's move to it.
 
 Signed-off-by: Maxime Ripard <maxime.ripard@bootlin.com>
 
 ---
 
+This patch should go through arm-soc.
+
 Changes from v1:
   - New patch
 ---
- Documentation/devicetree/bindings/net/snps,dwmac.yaml | 54 ++++++------
- 1 file changed, 30 insertions(+), 24 deletions(-)
+ arch/arm/boot/dts/sun6i-a31-hummingbird.dts       |  6 +++---
+ arch/arm/boot/dts/sun6i-a31s-sinovoip-bpi-m2.dts  |  6 +++---
+ arch/arm/boot/dts/sun7i-a20-hummingbird.dts       |  9 ++++-----
+ arch/arm/boot/dts/sun7i-a20-olimex-som204-evb.dts |  8 ++++----
+ 4 files changed, 14 insertions(+), 15 deletions(-)
 
-diff --git a/Documentation/devicetree/bindings/net/snps,dwmac.yaml b/Documentation/devicetree/bindings/net/snps,dwmac.yaml
-index c48a089edc21..a2d56e8a7a39 100644
---- a/Documentation/devicetree/bindings/net/snps,dwmac.yaml
-+++ b/Documentation/devicetree/bindings/net/snps,dwmac.yaml
-@@ -171,26 +171,6 @@ properties:
-             * snps,low_credit, max read outstanding req. limit
-           * snps,priority, TX queue priority (Range 0x0 to 0xF)
+diff --git a/arch/arm/boot/dts/sun6i-a31-hummingbird.dts b/arch/arm/boot/dts/sun6i-a31-hummingbird.dts
+index 09832b4e8fc8..2652d737fe7c 100644
+--- a/arch/arm/boot/dts/sun6i-a31-hummingbird.dts
++++ b/arch/arm/boot/dts/sun6i-a31-hummingbird.dts
+@@ -155,13 +155,13 @@
+ 	pinctrl-0 = <&gmac_rgmii_pins>;
+ 	phy = <&phy1>;
+ 	phy-mode = "rgmii";
+-	snps,reset-gpio = <&pio 0 21 GPIO_ACTIVE_HIGH>;
+-	snps,reset-active-low;
+-	snps,reset-delays-us = <0 10000 30000>;
+ 	status = "okay";
  
--  snps,reset-gpio:
--    maxItems: 1
--    description:
--      PHY Reset GPIO
--
--  snps,reset-active-low:
--    $ref: /schemas/types.yaml#definitions/flag
--    description:
--      Indicates that the PHY Reset is active low
--
--  snps,reset-delays-us:
--    allOf:
--      - $ref: /schemas/types.yaml#definitions/uint32-array
--      - minItems: 3
--        maxItems: 3
--    description:
--      Triplet of delays. The 1st cell is reset pre-delay in micro
--      seconds. The 2nd cell is reset pulse in micro seconds. The 3rd
--      cell is reset post-delay in micro seconds.
--
-   snps,aal:
-     $ref: /schemas/types.yaml#definitions/flag
-     description:
-@@ -253,6 +233,36 @@ properties:
-     required:
-       - compatible
+ 	phy1: ethernet-phy@1 {
+ 		reg = <1>;
++		reset-gpios = <&pio 0 21 GPIO_ACTIVE_LOW>;
++		reset-assert-us = <10000>;
++		reset-deassert-us = <30000>;
+ 	};
+ };
  
-+  ## Deprecated properties
-+  #
-+  # Deprecated in favor of ethernet phy's reset-gpios property
-+  # snps,reset-gpio:
-+  #   maxItems: 1
-+  #   description:
-+  #     PHY Reset GPIO
-+
-+  # Deprecated in favor of ethernet phy's reset-gpios property
-+  # snps,reset-active-low:
-+  #   $ref: /schemas/types.yaml#definitions/flag
-+  #   description:
-+  #     Indicates that the PHY Reset is active low
-+
-+  # Deprecated in favor of ethernet phy's reset-assert-us and
-+  # reset-deassert-us properties
-+  # snps,reset-delays-us:
-+  #   allOf:
-+  #     - $ref: /schemas/types.yaml#definitions/uint32-array
-+  #     - minItems: 3
-+  #       maxItems: 3
-+  #   description:
-+  #     Triplet of delays. The 1st cell is reset pre-delay in micro
-+  #     seconds. The 2nd cell is reset pulse in micro seconds. The 3rd
-+  #     cell is reset post-delay in micro seconds.
-+
-+# dependencies:
-+#   snps,reset-active-low: ["snps,reset-gpio"]
-+#   snps,reset-delay-us: ["snps,reset-gpio"]
-+
- required:
-   - compatible
-   - reg
-@@ -260,10 +270,6 @@ required:
-   - interrupt-names
-   - phy-mode
+diff --git a/arch/arm/boot/dts/sun6i-a31s-sinovoip-bpi-m2.dts b/arch/arm/boot/dts/sun6i-a31s-sinovoip-bpi-m2.dts
+index 8e724c52feff..7899712400b2 100644
+--- a/arch/arm/boot/dts/sun6i-a31s-sinovoip-bpi-m2.dts
++++ b/arch/arm/boot/dts/sun6i-a31s-sinovoip-bpi-m2.dts
+@@ -95,13 +95,13 @@
+ 	phy = <&phy1>;
+ 	phy-mode = "rgmii";
+ 	phy-supply = <&reg_dldo1>;
+-	snps,reset-gpio = <&pio 0 21 GPIO_ACTIVE_HIGH>; /* PA21 */
+-	snps,reset-active-low;
+-	snps,reset-delays-us = <0 10000 30000>;
+ 	status = "okay";
  
--dependencies:
--  snps,reset-active-low: ["snps,reset-gpio"]
--  snps,reset-delay-us: ["snps,reset-gpio"]
+ 	phy1: ethernet-phy@1 {
+ 		reg = <1>;
++		reset-gpios = <&pio 0 21 GPIO_ACTIVE_LOW>; /* PA21 */
++		reset-assert-us = <10000>;
++		reset-deassert-us = <30000>;
+ 	};
+ };
+ 
+diff --git a/arch/arm/boot/dts/sun7i-a20-hummingbird.dts b/arch/arm/boot/dts/sun7i-a20-hummingbird.dts
+index fd0153f65685..b01d91d025ec 100644
+--- a/arch/arm/boot/dts/sun7i-a20-hummingbird.dts
++++ b/arch/arm/boot/dts/sun7i-a20-hummingbird.dts
+@@ -103,15 +103,14 @@
+ 	phy = <&phy1>;
+ 	phy-mode = "rgmii";
+ 	phy-supply = <&reg_gmac_vdd>;
+-	/* phy reset config */
+-	snps,reset-gpio = <&pio 0 17 GPIO_ACTIVE_HIGH>; /* PA17 */
+-	snps,reset-active-low;
+-	/* wait 1s after reset, otherwise fail to read phy id */
+-	snps,reset-delays-us = <0 10000 1000000>;
+ 	status = "okay";
+ 
+ 	phy1: ethernet-phy@1 {
+ 		reg = <1>;
++		reset-gpios = <&pio 0 17 GPIO_ACTIVE_LOW>; /* PA17 */
++		reset-assert-us = <10000>;
++		/* wait 1s after reset, otherwise fail to read phy id */
++		reset-deassert-us = <1000000>;
+ 	};
+ };
+ 
+diff --git a/arch/arm/boot/dts/sun7i-a20-olimex-som204-evb.dts b/arch/arm/boot/dts/sun7i-a20-olimex-som204-evb.dts
+index c34a83f666c7..ca12cee27072 100644
+--- a/arch/arm/boot/dts/sun7i-a20-olimex-som204-evb.dts
++++ b/arch/arm/boot/dts/sun7i-a20-olimex-som204-evb.dts
+@@ -108,14 +108,14 @@
+ 	phy = <&phy3>;
+ 	phy-mode = "rgmii";
+ 	phy-supply = <&reg_vcc3v3>;
 -
- allOf:
-   - $ref: "ethernet-controller.yaml#"
-   - if:
+-	snps,reset-gpio = <&pio 0 17 GPIO_ACTIVE_HIGH>;
+-	snps,reset-active-low;
+-	snps,reset-delays-us = <0 10000 1000000>;
+ 	status = "okay";
+ 
+ 	phy3: ethernet-phy@3 {
+ 		reg = <3>;
++		reset-gpios = <&pio 0 17 GPIO_ACTIVE_LOW>; /* PA17 */
++		reset-assert-us = <10000>;
++		/* wait 1s after reset, otherwise fail to read phy id */
++		reset-deassert-us = <1000000>;
+ 	};
+ };
+ 
 -- 
 git-series 0.9.1
 _______________________________________________
