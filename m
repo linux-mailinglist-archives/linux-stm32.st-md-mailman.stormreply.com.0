@@ -2,62 +2,59 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id 8CF8F3BC4D
-	for <lists+linux-stm32@lfdr.de>; Mon, 10 Jun 2019 20:59:44 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id C9E1D3BC5F
+	for <lists+linux-stm32@lfdr.de>; Mon, 10 Jun 2019 21:03:03 +0200 (CEST)
 Received: from ip-172-31-3-76.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 44412CF240F
-	for <lists+linux-stm32@lfdr.de>; Mon, 10 Jun 2019 18:59:44 +0000 (UTC)
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 87DF6C6DD69
+	for <lists+linux-stm32@lfdr.de>; Mon, 10 Jun 2019 19:03:03 +0000 (UTC)
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
  (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 1713DCF240D
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id EDC8DCF2413
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Mon, 10 Jun 2019 18:59:43 +0000 (UTC)
-Received: from mail-qt1-f173.google.com (mail-qt1-f173.google.com
- [209.85.160.173])
+ Mon, 10 Jun 2019 19:03:02 +0000 (UTC)
+Received: from mail-qt1-f171.google.com (mail-qt1-f171.google.com
+ [209.85.160.171])
  (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by mail.kernel.org (Postfix) with ESMTPSA id 9C46920859
+ by mail.kernel.org (Postfix) with ESMTPSA id 87BA820859
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Mon, 10 Jun 2019 18:59:41 +0000 (UTC)
+ Mon, 10 Jun 2019 19:03:01 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
- s=default; t=1560193181;
- bh=NiQ6TSS68zMVARMk1UxtRrBtgarpzq8OIbKEFYq7Nyw=;
+ s=default; t=1560193381;
+ bh=NblxIERz+Cyc8pebQ/YTyK3Qt134gIJ9b11F5HCfcSw=;
  h=References:In-Reply-To:From:Date:Subject:To:Cc:From;
- b=PZy7xeMMzhmsda1hjKJ29ExmrhdZQYjnrUmbMWO8BP81vJK3DXvIkdTzD9GV/r1Ta
- QEwqvvJUFE93GJeXm1+pobl+zg78XWx5FA1zDP9ROVKQooOyrpWOkm9JmoyVZS0fRR
- MUiMJ+kawdHnnw7xPP3a2XNiVFIPhPOLiKhjgY48=
-Received: by mail-qt1-f173.google.com with SMTP id i34so11662721qta.6
+ b=PgJJh642AWLqqi0z4cBc8Uz8AaKinC3+7XqnMIaw+qbjRmFeUnOF9pmKTHsL4eTK+
+ 00D2dCkgrqb7KkPk9lllmW1lWRxp2XPZ1jf4C905eYEKe+RTNiHPksmJInX6DeFguH
+ ajEfOhWUGO9IuJjJNba0/6WgzIHh7EeZvR62u+8s=
+Received: by mail-qt1-f171.google.com with SMTP id x47so11651587qtk.11
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Mon, 10 Jun 2019 11:59:41 -0700 (PDT)
-X-Gm-Message-State: APjAAAV3nhgVe65uXBmojDzA4tvVA2t/5gw9iB8uwvWRiPT4NUfafQnb
- MI/KTpiHtKEj2i6eftZ4W2N0KhbEex1C0PlBZQ==
-X-Google-Smtp-Source: APXvYqwCmscLJYNa3hNvdJokj1iSTo/T0hJq/eoSYOtoTwBoqS29ewgLPnrTr6A8IxSA+xvJ3iYP3g7C2lZ8C89tCMA=
-X-Received: by 2002:ac8:36b9:: with SMTP id a54mr61317703qtc.300.1560193180904; 
- Mon, 10 Jun 2019 11:59:40 -0700 (PDT)
+ Mon, 10 Jun 2019 12:03:01 -0700 (PDT)
+X-Gm-Message-State: APjAAAXXbTHacNwS5U9gBXqAF6JtpX2LkfYdEJtLG6ATyixGnF4+chwh
+ GIIp7m4CoU804Hf35Kx2tqJye5PJ/MWNj4wfSg==
+X-Google-Smtp-Source: APXvYqy9lwcAc459jdixSn0EhQcrOn2ydIJGUumtuZb7Ajh2SHHffvWIy0UNqYr9ntVCWt/AeFq56dTqVeVGcjluGpQ=
+X-Received: by 2002:aed:3b33:: with SMTP id p48mr53898280qte.143.1560193380845; 
+ Mon, 10 Jun 2019 12:03:00 -0700 (PDT)
 MIME-Version: 1.0
 References: <91618c7e9a5497462afa74c6d8a947f709f54331.1560158667.git-series.maxime.ripard@bootlin.com>
- <d198d29119b37b2fdb700d8992b31963e98b6693.1560158667.git-series.maxime.ripard@bootlin.com>
- <20190610143139.GG28724@lunn.ch>
-In-Reply-To: <20190610143139.GG28724@lunn.ch>
+In-Reply-To: <91618c7e9a5497462afa74c6d8a947f709f54331.1560158667.git-series.maxime.ripard@bootlin.com>
 From: Rob Herring <robh+dt@kernel.org>
-Date: Mon, 10 Jun 2019 12:59:29 -0600
-X-Gmail-Original-Message-ID: <CAL_JsqJahCJcdu=+fA=ewbGezuEJ2W6uwMVxkQpdY6w+1OWVVA@mail.gmail.com>
-Message-ID: <CAL_JsqJahCJcdu=+fA=ewbGezuEJ2W6uwMVxkQpdY6w+1OWVVA@mail.gmail.com>
-To: Andrew Lunn <andrew@lunn.ch>
+Date: Mon, 10 Jun 2019 13:02:49 -0600
+X-Gmail-Original-Message-ID: <CAL_Jsq+8_+OPVO14xu1yZU8q1Nux70TjP42j6SiBo9KdHL-4qQ@mail.gmail.com>
+Message-ID: <CAL_Jsq+8_+OPVO14xu1yZU8q1Nux70TjP42j6SiBo9KdHL-4qQ@mail.gmail.com>
+To: Maxime Ripard <maxime.ripard@bootlin.com>
 Cc: Mark Rutland <mark.rutland@arm.com>, devicetree@vger.kernel.org,
- Florian Fainelli <f.fainelli@gmail.com>,
- Maxime Ripard <maxime.ripard@bootlin.com>, netdev <netdev@vger.kernel.org>,
- linux-stm32@st-md-mailman.stormreply.com,
+ Florian Fainelli <f.fainelli@gmail.com>, Andrew Lunn <andrew@lunn.ch>,
  =?UTF-8?Q?Antoine_T=C3=A9nart?= <antoine.tenart@bootlin.com>,
+ netdev <netdev@vger.kernel.org>, linux-stm32@st-md-mailman.stormreply.com,
  Chen-Yu Tsai <wens@csie.org>, Maxime Coquelin <mcoquelin.stm32@gmail.com>,
  Maxime Chevallier <maxime.chevallier@bootlin.com>,
  Frank Rowand <frowand.list@gmail.com>,
  "David S . Miller" <davem@davemloft.net>,
  "moderated list:ARM/FREESCALE IMX / MXC ARM ARCHITECTURE"
  <linux-arm-kernel@lists.infradead.org>, Heiner Kallweit <hkallweit1@gmail.com>
-Subject: Re: [Linux-stm32] [PATCH v2 05/11] dt-bindings: net: sun4i-emac:
- Convert the binding to a schemas
+Subject: Re: [Linux-stm32] [PATCH v2 01/11] dt-bindings: net: Add YAML
+ schemas for the generic Ethernet options
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -74,33 +71,28 @@ Content-Transfer-Encoding: 7bit
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
-On Mon, Jun 10, 2019 at 8:31 AM Andrew Lunn <andrew@lunn.ch> wrote:
+On Mon, Jun 10, 2019 at 3:26 AM Maxime Ripard <maxime.ripard@bootlin.com> wrote:
 >
-> > +required:
-> > +  - compatible
-> > +  - reg
-> > +  - interrupts
-> > +  - clocks
-> > +  - phy
-> > +  - allwinner,sram
+> The Ethernet controllers have a good number of generic options that can be
+> needed in a device tree. Add a YAML schemas for those.
 >
-> Quoting ethernet.txt:
+> Signed-off-by: Maxime Ripard <maxime.ripard@bootlin.com>
 >
-> - phy: the same as "phy-handle" property, not recommended for new bindings.
+> ---
 >
-> - phy-handle: phandle, specifies a reference to a node representing a PHY
->   device; this property is described in the Devicetree Specification and so
->   preferred;
->
-> Can this be expressed in Yaml? Accept phy, but give a warning. Accept
-> phy-handle without a warning? Enforce that one or the other is
-> present?
+> Changes from v1:
+>   - Use an enum for phy-connection-types
+>   - Validate the items for the fixed-link array
+>   - Set the number of valid items for link-gpios to 1
+>   - Removed deprecated properties (phy-mode, phy, phy-device)
+> ---
+>  Documentation/devicetree/bindings/net/ethernet-controller.yaml | 194 +++++++-
+>  Documentation/devicetree/bindings/net/ethernet.txt             |  69 +--
+>  Documentation/devicetree/bindings/net/fixed-link.txt           |  55 +--
+>  3 files changed, 196 insertions(+), 122 deletions(-)
+>  create mode 100644 Documentation/devicetree/bindings/net/ethernet-controller.yaml
 
-The common schema could have 'phy: false'. This works as long as we've
-updated (or plan to) all the dts files to use phy-handle. The issue is
-how far back do you need kernels to work with newer dtbs.
-
-Rob
+Reviewed-by: Rob Herring <robh@kernel.org>
 _______________________________________________
 Linux-stm32 mailing list
 Linux-stm32@st-md-mailman.stormreply.com
