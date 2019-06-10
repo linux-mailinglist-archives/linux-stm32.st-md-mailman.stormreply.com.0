@@ -2,76 +2,66 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id 242EF3B87F
-	for <lists+linux-stm32@lfdr.de>; Mon, 10 Jun 2019 17:50:35 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id C539C3B8CA
+	for <lists+linux-stm32@lfdr.de>; Mon, 10 Jun 2019 18:00:52 +0200 (CEST)
 Received: from ip-172-31-3-76.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id CB2CFCD9476
-	for <lists+linux-stm32@lfdr.de>; Mon, 10 Jun 2019 15:50:34 +0000 (UTC)
-Received: from mail-wm1-f68.google.com (mail-wm1-f68.google.com
- [209.85.128.68])
- (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 78E8FCD948B
+	for <lists+linux-stm32@lfdr.de>; Mon, 10 Jun 2019 16:00:52 +0000 (UTC)
+Received: from mx07-00178001.pphosted.com (mx07-00178001.pphosted.com
+ [62.209.51.94])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id ECAF7CD9475
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 80674CD9489
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Mon, 10 Jun 2019 15:50:33 +0000 (UTC)
-Received: by mail-wm1-f68.google.com with SMTP id a15so8949313wmj.5
- for <linux-stm32@st-md-mailman.stormreply.com>;
- Mon, 10 Jun 2019 08:50:33 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=googlemail.com; s=20161025;
- h=from:to:cc:subject:date:message-id:in-reply-to:references
- :mime-version:content-transfer-encoding;
- bh=j0cvrW0LiR2yAWHacC+paieH/BsPhO653fx0ilOqwbQ=;
- b=XrYcjT7N66H7PZl89qVvjkYy2lcUUR+p2y5QlMqTrKSYLfpAHr+5bhPvrKUDoDW2Gn
- gc8KQUOivmTgSCQR5PIvdxh3Np5UEb4HOX5Y/TgrcVFjLu1N/l6ZRZHcLQwZoZkFB2PK
- dnHDV+JZ8jRZwikhp0mK3D3c9YrIoYwTbrv+XI3t6hXqkMvOg/CU3HdRVKBqqbiWsoYb
- ZmrGKLaXtkNsJEc6GlFos05req6azeUDaSh/0lsYh1U2oaNxBegmv6xh+NlQSfkKDqss
- qqcF/nZdT+NcxD5fD2IRb0hwvT8zPzyEN97nHCywHGtE8NnApD9T/+hYylByZ803tbq9
- bqbA==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20161025;
- h=x-gm-message-state:from:to:cc:subject:date:message-id:in-reply-to
- :references:mime-version:content-transfer-encoding;
- bh=j0cvrW0LiR2yAWHacC+paieH/BsPhO653fx0ilOqwbQ=;
- b=KDV15Rg6Fa2yy7RTP91IbMY95F3EhFhKO4jr18HQoGhfW2gcqw8jKj5AmNWpnebb1K
- mL8qZeYi4EceKxAk5tAM0Mt7NrSPlwOidX9ONZV9HKq8WQp6rUpuIFykH89bkpt/xvWm
- BAdZ0KIFe9AoN3up5SyMpWWi+g+q8wXUrZKQ9vKR6wdPQRXqZiX51s24HjA8XggteJTW
- akS1a2sqpoSLAc7DBfttNpyHrYwmnUUK+BKllBCeYcpURuUBGIKPFbuUx4fOJUKpWNNS
- NKB0nN189wA715wkO+urmvMMCirs6kZaEQ3VRgEPWiBxGD+wcITFnG0bbzbc43bzVe9G
- RC2A==
-X-Gm-Message-State: APjAAAWJhuQSBgyE2AOGr2vWoYkcgm1NONxfW8RDwILK5DBMGcgNCGas
- 6oA02/QmLbIIUSM+r9GbU0U=
-X-Google-Smtp-Source: APXvYqzLna+aVnK3OUUKYltUUrEa4DJqameWzsVBUOMurnw3ZFvBDcb4Rdm+t6M1JqO46Sv5jxt2fg==
-X-Received: by 2002:a7b:c751:: with SMTP id w17mr14836813wmk.127.1560181833344; 
- Mon, 10 Jun 2019 08:50:33 -0700 (PDT)
-Received: from blackbox.darklights.net
- (p200300F133DDA40000C4C39937FBD289.dip0.t-ipconnect.de.
- [2003:f1:33dd:a400:c4:c399:37fb:d289])
- by smtp.googlemail.com with ESMTPSA id z17sm9711917wru.21.2019.06.10.08.50.31
- (version=TLS1_3 cipher=AEAD-AES256-GCM-SHA384 bits=256/256);
- Mon, 10 Jun 2019 08:50:32 -0700 (PDT)
-From: Martin Blumenstingl <martin.blumenstingl@googlemail.com>
-To: Maxime Ripard <maxime.ripard@bootlin.com>,
-	netdev@vger.kernel.org
-Date: Mon, 10 Jun 2019 17:50:11 +0200
-Message-Id: <20190610155011.4305-1-martin.blumenstingl@googlemail.com>
-X-Mailer: git-send-email 2.22.0
-In-Reply-To: <ff6306c71a6b6ad174007f9f2823499d3093e21c.1560158667.git-series.maxime.ripard@bootlin.com>
-References: <ff6306c71a6b6ad174007f9f2823499d3093e21c.1560158667.git-series.maxime.ripard@bootlin.com>
+ Mon, 10 Jun 2019 16:00:50 +0000 (UTC)
+Received: from pps.filterd (m0046037.ppops.net [127.0.0.1])
+ by mx07-00178001.pphosted.com (8.16.0.27/8.16.0.27) with SMTP id
+ x5AFpjoA009189; Mon, 10 Jun 2019 18:00:39 +0200
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=st.com;
+ h=subject : to : cc :
+ references : from : message-id : date : mime-version : in-reply-to :
+ content-type : content-transfer-encoding; s=STMicroelectronics;
+ bh=hL5doPAk7gz0oURE8Qq+x0YUW9RAa/CHoF+4B6z8r2k=;
+ b=ENZtCi9dMus0j1k6iHnZpCQ1RX+RtshUvGAffIQ9bro55dGz1QKditKnTUFiuWS0zw8h
+ JX6hS18qOmYCUfcopHomtLXHOQeMOQqY57MJ5RH/6w1rW6zRFhLRsMeHVCP9oG2V4f/Z
+ LMvh1q8dwxlCthe780b4xdGec8F4Am5dUaBGNol1Xc+KZ5aAJaykZQrtv3wVL85A5Bbm
+ C0p5IGHLiZc46sw+L0Gq3sj5cj6TVQGfpbUYL23tDdTC4MeosEjC8HxMUe7brT/ecanB
+ GPznEItkcwq2tMWlFGO285T7SY2Pma8heSyluzp7Q7uZfU5kQNMeK4Cxg17UBJft1Dk1 0Q== 
+Received: from beta.dmz-eu.st.com (beta.dmz-eu.st.com [164.129.1.35])
+ by mx07-00178001.pphosted.com with ESMTP id 2t02st9vxe-1
+ (version=TLSv1 cipher=ECDHE-RSA-AES256-SHA bits=256 verify=NOT);
+ Mon, 10 Jun 2019 18:00:39 +0200
+Received: from zeta.dmz-eu.st.com (zeta.dmz-eu.st.com [164.129.230.9])
+ by beta.dmz-eu.st.com (STMicroelectronics) with ESMTP id C44BB31;
+ Mon, 10 Jun 2019 16:00:38 +0000 (GMT)
+Received: from Webmail-eu.st.com (sfhdag3node2.st.com [10.75.127.8])
+ by zeta.dmz-eu.st.com (STMicroelectronics) with ESMTP id 9BD9A4F5B;
+ Mon, 10 Jun 2019 16:00:38 +0000 (GMT)
+Received: from [10.48.0.204] (10.75.127.48) by SFHDAG3NODE2.st.com
+ (10.75.127.8) with Microsoft SMTP Server (TLS) id 15.0.1347.2; Mon, 10 Jun
+ 2019 18:00:38 +0200
+To: Erwan Le Ray <erwan.leray@st.com>, Greg Kroah-Hartman
+ <gregkh@linuxfoundation.org>, Jiri Slaby <jslaby@suse.com>, Maxime Coquelin
+ <mcoquelin.stm32@gmail.com>, Rob Herring <robh+dt@kernel.org>, Mark Rutland
+ <mark.rutland@arm.com>
+References: <1559638519-6128-1-git-send-email-erwan.leray@st.com>
+From: Alexandre Torgue <alexandre.torgue@st.com>
+Message-ID: <e6fecf4c-cb07-4cf7-099a-201b14e90a00@st.com>
+Date: Mon, 10 Jun 2019 18:00:37 +0200
+User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:60.0) Gecko/20100101
+ Thunderbird/60.7.0
 MIME-Version: 1.0
-Cc: Mark Rutland <mark.rutland@arm.com>, devicetree@vger.kernel.org,
- Florian Fainelli <f.fainelli@gmail.com>, Andrew Lunn <andrew@lunn.ch>,
- =?UTF-8?q?Antoine=20T=C3=A9nart?= <antoine.tenart@bootlin.com>,
- linux-stm32@st-md-mailman.stormreply.com,
- Martin Blumenstingl <martin.blumenstingl@googlemail.com>,
- Chen-Yu Tsai <wens@csie.org>, Rob Herring <robh+dt@kernel.org>,
- Maxime Coquelin <mcoquelin.stm32@gmail.com>,
- Maxime Chevallier <maxime.chevallier@bootlin.com>,
- Frank Rowand <frowand.list@gmail.com>,
- "David S . Miller" <davem@davemloft.net>, linux-arm-kernel@lists.infradead.org,
- Heiner Kallweit <hkallweit1@gmail.com>
-Subject: Re: [Linux-stm32] [PATCH v2 10/11] dt-bindings: net: dwmac:
-	Deprecate the PHY reset properties
+In-Reply-To: <1559638519-6128-1-git-send-email-erwan.leray@st.com>
+Content-Language: en-US
+X-Originating-IP: [10.75.127.48]
+X-ClientProxiedBy: SFHDAG8NODE1.st.com (10.75.127.22) To SFHDAG3NODE2.st.com
+ (10.75.127.8)
+X-Proofpoint-Virus-Version: vendor=fsecure engine=2.50.10434:, ,
+ definitions=2019-06-10_07:, , signatures=0
+Cc: devicetree@vger.kernel.org, linux-kernel@vger.kernel.org,
+ linux-serial@vger.kernel.org, Fabrice Gasnier <fabrice.gasnier@st.com>,
+ linux-stm32@st-md-mailman.stormreply.com, linux-arm-kernel@lists.infradead.org
+Subject: Re: [Linux-stm32] [PATCH 00/10] STM32 usart power improvements
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -83,20 +73,46 @@ List-Post: <mailto:linux-stm32@st-md-mailman.stormreply.com>
 List-Help: <mailto:linux-stm32-request@st-md-mailman.stormreply.com?subject=help>
 List-Subscribe: <https://st-md-mailman.stormreply.com/mailman/listinfo/linux-stm32>, 
  <mailto:linux-stm32-request@st-md-mailman.stormreply.com?subject=subscribe>
-Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
+Content-Type: text/plain; charset="us-ascii"; Format="flowed"
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
-> Even though the DWMAC driver uses some driver specific properties, the PHY
-> core has a bunch of generic properties and can deal with them nicely.
+Hi Erwan,
+
+On 6/4/19 10:55 AM, Erwan Le Ray wrote:
+> This series delivers power improvements for stm32-usart driver.
 > 
-> Let's deprecate our specific properties.
+> Bich Hemon (4):
+>    dt-bindings: serial: add optional pinctrl states
+>    serial: stm32: select pinctrl state in each suspend/resume function
+>    ARM: dts: stm32: Update pin states for uart4 on stm32mp157c-ed1
+>    ARM: dts: stm32: Update UART4 pin states on stm32mp157a-dk1
 > 
-> Signed-off-by: Maxime Ripard <maxime.ripard@bootlin.com>
-I am not sure about the yaml syntax for deprecated properties but
-the description inside the .yaml file looks good to me so:
-Reviewed-by: Martin Blumenstingl <martin.blumenstingl@googlemail.com>
+> Erwan Le Ray (6):
+>    dt-bindings: serial: stm32: add wakeup option
+>    serial: stm32: add pm_runtime support
+>    serial: stm32: Use __maybe_unused instead of #if CONFIG_PM_SLEEP
+>    serial: stm32: add support for no_console_suspend
+>    ARM: dts: stm32: update uart4 pin configurations for low power
+>    ARM: dts: stm32: add wakeup capability on each usart/uart on
+>      stm32mp157c
+> 
+>   .../devicetree/bindings/serial/st,stm32-usart.txt  | 19 ++++-
+>   arch/arm/boot/dts/stm32mp157-pinctrl.dtsi          | 17 +++++
+>   arch/arm/boot/dts/stm32mp157a-dk1.dts              |  5 +-
+>   arch/arm/boot/dts/stm32mp157c-ed1.dts              |  5 +-
+>   arch/arm/boot/dts/stm32mp157c.dtsi                 | 40 ++++++++--
+>   drivers/tty/serial/stm32-usart.c                   | 88 ++++++++++++++++++++--
+>   drivers/tty/serial/stm32-usart.h                   |  1 +
+>   7 files changed, 155 insertions(+), 20 deletions(-)
+> 
+
+I'll merge device tree part into stm32-next branch when binding part 
+will be accepted.
+
+regards
+Alex
 _______________________________________________
 Linux-stm32 mailing list
 Linux-stm32@st-md-mailman.stormreply.com
