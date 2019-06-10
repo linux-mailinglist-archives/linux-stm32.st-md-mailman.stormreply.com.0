@@ -2,38 +2,38 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id 4D2F73B768
-	for <lists+linux-stm32@lfdr.de>; Mon, 10 Jun 2019 16:31:52 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id B52DD3B785
+	for <lists+linux-stm32@lfdr.de>; Mon, 10 Jun 2019 16:37:41 +0200 (CEST)
 Received: from ip-172-31-3-76.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id EEAA2C64100
-	for <lists+linux-stm32@lfdr.de>; Mon, 10 Jun 2019 14:31:51 +0000 (UTC)
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id AC252CD5E22
+	for <lists+linux-stm32@lfdr.de>; Mon, 10 Jun 2019 14:37:40 +0000 (UTC)
 Received: from vps0.lunn.ch (vps0.lunn.ch [185.16.172.187])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 79740C640FF
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 5098FCD5DE0
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Mon, 10 Jun 2019 14:31:51 +0000 (UTC)
+ Mon, 10 Jun 2019 14:37:39 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=lunn.ch;
  s=20171124; h=In-Reply-To:Content-Type:MIME-Version:References:Message-ID:
  Subject:Cc:To:From:Date:Sender:Reply-To:Content-Transfer-Encoding:Content-ID:
  Content-Description:Resent-Date:Resent-From:Resent-Sender:Resent-To:Resent-Cc
  :Resent-Message-ID:List-Id:List-Help:List-Unsubscribe:List-Subscribe:
  List-Post:List-Owner:List-Archive;
- bh=JRYueMLRQECogmZaB6ntHx4NwLFSr0m7XU9IdQBzel4=; b=m06qR7H0rnzOHJEwWUJ9aqNCao
- yHKplEn/FE3sVKF8/vKlMlQq8dwQiN+HnzaDdA17NCQ6HIftnvxJAonp8myb6r9qOI0EY0bhzEx8S
- cBOeIg3pl/zsC8/rW8TJMUcf1A7TMYAWVagSWhyTJUV1ElJpgOzXe+VGBh2nXURittk8=;
+ bh=HYYn865njW+2W8J+eqxrwIHkaNNxdD54yyMpNkodzM0=; b=uxDrju9eEcQmw4Tk8oZUqdFbTK
+ 3OWC9nYXDuIZpNyADLbkfap6YB15xFamOw8k/X8ZxyjTRLbUDYJrlNxiZHD8nKPjE0o2d4slQ4KGy
+ yJHgMQ+OHeNoVFXpDfpPQtEd27s4p5f3gEwPbFhv6ow3I1xXZTxtz55NpI3ARJa4mVBI=;
 Received: from andrew by vps0.lunn.ch with local (Exim 4.89)
  (envelope-from <andrew@lunn.ch>)
- id 1haLKl-0007g3-EW; Mon, 10 Jun 2019 16:31:39 +0200
-Date: Mon, 10 Jun 2019 16:31:39 +0200
+ id 1haLQQ-0007nJ-DG; Mon, 10 Jun 2019 16:37:30 +0200
+Date: Mon, 10 Jun 2019 16:37:30 +0200
 From: Andrew Lunn <andrew@lunn.ch>
 To: Maxime Ripard <maxime.ripard@bootlin.com>
-Message-ID: <20190610143139.GG28724@lunn.ch>
+Message-ID: <20190610143730.GH28724@lunn.ch>
 References: <91618c7e9a5497462afa74c6d8a947f709f54331.1560158667.git-series.maxime.ripard@bootlin.com>
- <d198d29119b37b2fdb700d8992b31963e98b6693.1560158667.git-series.maxime.ripard@bootlin.com>
+ <664da05aaf9a7029494d72d7c536baa192672fbe.1560158667.git-series.maxime.ripard@bootlin.com>
 MIME-Version: 1.0
 Content-Disposition: inline
-In-Reply-To: <d198d29119b37b2fdb700d8992b31963e98b6693.1560158667.git-series.maxime.ripard@bootlin.com>
+In-Reply-To: <664da05aaf9a7029494d72d7c536baa192672fbe.1560158667.git-series.maxime.ripard@bootlin.com>
 User-Agent: Mutt/1.5.23 (2014-03-12)
 Cc: Mark Rutland <mark.rutland@arm.com>, devicetree@vger.kernel.org,
  Florian Fainelli <f.fainelli@gmail.com>,
@@ -45,7 +45,7 @@ Cc: Mark Rutland <mark.rutland@arm.com>, devicetree@vger.kernel.org,
  Frank Rowand <frowand.list@gmail.com>,
  "David S . Miller" <davem@davemloft.net>, linux-arm-kernel@lists.infradead.org,
  Heiner Kallweit <hkallweit1@gmail.com>
-Subject: Re: [Linux-stm32] [PATCH v2 05/11] dt-bindings: net: sun4i-emac:
+Subject: Re: [Linux-stm32] [PATCH v2 06/11] dt-bindings: net: sun4i-mdio:
  Convert the binding to a schemas
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
@@ -63,27 +63,16 @@ Content-Transfer-Encoding: 7bit
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
-> +required:
-> +  - compatible
-> +  - reg
-> +  - interrupts
-> +  - clocks
-> +  - phy
-> +  - allwinner,sram
+On Mon, Jun 10, 2019 at 11:25:45AM +0200, Maxime Ripard wrote:
+> Switch our Allwinner A10 MDIO controller binding to a YAML schema to enable
+> the DT validation.
+> 
+> Signed-off-by: Maxime Ripard <maxime.ripard@bootlin.com>
 
-Quoting ethernet.txt:
+Should there be a generic part to cover what is listed in:
 
-- phy: the same as "phy-handle" property, not recommended for new bindings.
+Documentation/devicetree/bindings/net/mdio.txt
 
-- phy-handle: phandle, specifies a reference to a node representing a PHY
-  device; this property is described in the Devicetree Specification and so
-  preferred;
-
-Can this be expressed in Yaml? Accept phy, but give a warning. Accept
-phy-handle without a warning? Enforce that one or the other is
-present?
-
-Thanks
 	Andrew
 _______________________________________________
 Linux-stm32 mailing list
