@@ -2,85 +2,76 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id BA4283B878
-	for <lists+linux-stm32@lfdr.de>; Mon, 10 Jun 2019 17:47:58 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 242EF3B87F
+	for <lists+linux-stm32@lfdr.de>; Mon, 10 Jun 2019 17:50:35 +0200 (CEST)
 Received: from ip-172-31-3-76.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 6CC82C65054
-	for <lists+linux-stm32@lfdr.de>; Mon, 10 Jun 2019 15:47:58 +0000 (UTC)
-Received: from mx07-00178001.pphosted.com (mx08-00178001.pphosted.com
- [91.207.212.93])
- (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id CB2CFCD9476
+	for <lists+linux-stm32@lfdr.de>; Mon, 10 Jun 2019 15:50:34 +0000 (UTC)
+Received: from mail-wm1-f68.google.com (mail-wm1-f68.google.com
+ [209.85.128.68])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 75D57C65053
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id ECAF7CD9475
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Mon, 10 Jun 2019 15:47:57 +0000 (UTC)
-Received: from pps.filterd (m0046660.ppops.net [127.0.0.1])
- by mx08-00178001.pphosted.com (8.16.0.27/8.16.0.27) with SMTP id
- x5AFfYgf026022; Mon, 10 Jun 2019 17:47:32 +0200
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=st.com;
- h=from : to : cc : subject
- : date : message-id : references : in-reply-to : content-type : content-id
- : content-transfer-encoding : mime-version; s=STMicroelectronics;
- bh=LgERwqK45s8WxfYNJ2p/eCQHczqBFZZAr61TGRo2H+4=;
- b=gWnTJIR+98UCSxymsNwMRkgV+9V4yBZI5+4O8squ/S1WPag/BNss5IcSulDOH8T/qMqy
- q5rRWgjZh1+axSfpm4jGFsbHUXiEKvFm5yX1fVKRlgcGeUpMJ1UiBH3GQvUc006KNBYZ
- aaQBMZ5CoapQhFeAG4Xy6KLHH7l+oOyLUCEOe/V+gwEP4isq8+XLC7bW/5by5lGiK/x3
- XouigYxflqzytqopMhVNGFhEgQPEP7iffCr4OeoYE1zREws/pzQJfakAvhXlF3eR6ezU
- fzZSs6CeFFZkIWOMuauXgOa/ZhjVDilHLoY4vc8Z7eatw46qhvqsNEfDqCLJJMojWq9G AA== 
-Received: from beta.dmz-eu.st.com (beta.dmz-eu.st.com [164.129.1.35])
- by mx08-00178001.pphosted.com with ESMTP id 2t0256a973-1
- (version=TLSv1 cipher=ECDHE-RSA-AES256-SHA bits=256 verify=NOT);
- Mon, 10 Jun 2019 17:47:32 +0200
-Received: from zeta.dmz-eu.st.com (zeta.dmz-eu.st.com [164.129.230.9])
- by beta.dmz-eu.st.com (STMicroelectronics) with ESMTP id B078D34;
- Mon, 10 Jun 2019 15:47:30 +0000 (GMT)
-Received: from Webmail-eu.st.com (sfhdag5node3.st.com [10.75.127.15])
- by zeta.dmz-eu.st.com (STMicroelectronics) with ESMTP id 7E94F4F1D;
- Mon, 10 Jun 2019 15:47:30 +0000 (GMT)
-Received: from SFHDAG3NODE3.st.com (10.75.127.9) by SFHDAG5NODE3.st.com
- (10.75.127.15) with Microsoft SMTP Server (TLS) id 15.0.1473.3; Mon, 10 Jun
- 2019 17:47:30 +0200
-Received: from SFHDAG3NODE3.st.com ([fe80::3507:b372:7648:476]) by
- SFHDAG3NODE3.st.com ([fe80::3507:b372:7648:476%20]) with mapi id
- 15.00.1347.000; Mon, 10 Jun 2019 17:47:30 +0200
-From: Erwan LE RAY <erwan.leray@st.com>
-To: Olof Johansson <olof@lixom.net>, Arnd Bergmann <arnd@arndb.de>, "Kevin
- Hilman" <khilman@baylibre.com>
-Thread-Topic: [PATCH] ARM: debug: stm32: add UART early console configuration
-Thread-Index: AQHU73OP100nvdfkikCtYg1KY+YHZqY1DV8AgC1naoCAMtJmgA==
-Date: Mon, 10 Jun 2019 15:47:30 +0000
-Message-ID: <ff48768c-83e3-55dc-16a0-bd0af4133c7c@st.com>
-References: <1554883239-12051-1-git-send-email-erwan.leray@st.com>
- <CAJiuCcd9884Kn2MAtLMzZpdSa-=xpCDKRLQSVC6NmRNC+YFtaA@mail.gmail.com>
- <deebc332-277b-76b9-421f-7f67c6bdacc8@st.com>
-In-Reply-To: <deebc332-277b-76b9-421f-7f67c6bdacc8@st.com>
-Accept-Language: en-US, fr-FR
-Content-Language: en-US
-X-MS-Has-Attach: 
-X-MS-TNEF-Correlator: 
-user-agent: Mozilla/5.0 (X11; Linux x86_64; rv:60.0) Gecko/20100101
- Thunderbird/60.6.1
-x-ms-exchange-messagesentrepresentingtype: 1
-x-ms-exchange-transport-fromentityheader: Hosted
-x-originating-ip: [10.75.127.49]
-Content-ID: <70F78C8ABFDF92458A8685FA5F79E676@st.com>
+ Mon, 10 Jun 2019 15:50:33 +0000 (UTC)
+Received: by mail-wm1-f68.google.com with SMTP id a15so8949313wmj.5
+ for <linux-stm32@st-md-mailman.stormreply.com>;
+ Mon, 10 Jun 2019 08:50:33 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=googlemail.com; s=20161025;
+ h=from:to:cc:subject:date:message-id:in-reply-to:references
+ :mime-version:content-transfer-encoding;
+ bh=j0cvrW0LiR2yAWHacC+paieH/BsPhO653fx0ilOqwbQ=;
+ b=XrYcjT7N66H7PZl89qVvjkYy2lcUUR+p2y5QlMqTrKSYLfpAHr+5bhPvrKUDoDW2Gn
+ gc8KQUOivmTgSCQR5PIvdxh3Np5UEb4HOX5Y/TgrcVFjLu1N/l6ZRZHcLQwZoZkFB2PK
+ dnHDV+JZ8jRZwikhp0mK3D3c9YrIoYwTbrv+XI3t6hXqkMvOg/CU3HdRVKBqqbiWsoYb
+ ZmrGKLaXtkNsJEc6GlFos05req6azeUDaSh/0lsYh1U2oaNxBegmv6xh+NlQSfkKDqss
+ qqcF/nZdT+NcxD5fD2IRb0hwvT8zPzyEN97nHCywHGtE8NnApD9T/+hYylByZ803tbq9
+ bqbA==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20161025;
+ h=x-gm-message-state:from:to:cc:subject:date:message-id:in-reply-to
+ :references:mime-version:content-transfer-encoding;
+ bh=j0cvrW0LiR2yAWHacC+paieH/BsPhO653fx0ilOqwbQ=;
+ b=KDV15Rg6Fa2yy7RTP91IbMY95F3EhFhKO4jr18HQoGhfW2gcqw8jKj5AmNWpnebb1K
+ mL8qZeYi4EceKxAk5tAM0Mt7NrSPlwOidX9ONZV9HKq8WQp6rUpuIFykH89bkpt/xvWm
+ BAdZ0KIFe9AoN3up5SyMpWWi+g+q8wXUrZKQ9vKR6wdPQRXqZiX51s24HjA8XggteJTW
+ akS1a2sqpoSLAc7DBfttNpyHrYwmnUUK+BKllBCeYcpURuUBGIKPFbuUx4fOJUKpWNNS
+ NKB0nN189wA715wkO+urmvMMCirs6kZaEQ3VRgEPWiBxGD+wcITFnG0bbzbc43bzVe9G
+ RC2A==
+X-Gm-Message-State: APjAAAWJhuQSBgyE2AOGr2vWoYkcgm1NONxfW8RDwILK5DBMGcgNCGas
+ 6oA02/QmLbIIUSM+r9GbU0U=
+X-Google-Smtp-Source: APXvYqzLna+aVnK3OUUKYltUUrEa4DJqameWzsVBUOMurnw3ZFvBDcb4Rdm+t6M1JqO46Sv5jxt2fg==
+X-Received: by 2002:a7b:c751:: with SMTP id w17mr14836813wmk.127.1560181833344; 
+ Mon, 10 Jun 2019 08:50:33 -0700 (PDT)
+Received: from blackbox.darklights.net
+ (p200300F133DDA40000C4C39937FBD289.dip0.t-ipconnect.de.
+ [2003:f1:33dd:a400:c4:c399:37fb:d289])
+ by smtp.googlemail.com with ESMTPSA id z17sm9711917wru.21.2019.06.10.08.50.31
+ (version=TLS1_3 cipher=AEAD-AES256-GCM-SHA384 bits=256/256);
+ Mon, 10 Jun 2019 08:50:32 -0700 (PDT)
+From: Martin Blumenstingl <martin.blumenstingl@googlemail.com>
+To: Maxime Ripard <maxime.ripard@bootlin.com>,
+	netdev@vger.kernel.org
+Date: Mon, 10 Jun 2019 17:50:11 +0200
+Message-Id: <20190610155011.4305-1-martin.blumenstingl@googlemail.com>
+X-Mailer: git-send-email 2.22.0
+In-Reply-To: <ff6306c71a6b6ad174007f9f2823499d3093e21c.1560158667.git-series.maxime.ripard@bootlin.com>
+References: <ff6306c71a6b6ad174007f9f2823499d3093e21c.1560158667.git-series.maxime.ripard@bootlin.com>
 MIME-Version: 1.0
-X-Proofpoint-Virus-Version: vendor=fsecure engine=2.50.10434:, ,
- definitions=2019-06-10_07:, , signatures=0
-Cc: Fabrice GASNIER <fabrice.gasnier@st.com>,
- Uwe Kleine-Koenig <u.kleine-koenig@pengutronix.de>,
- Russell King <linux@armlinux.org.uk>, Stefan Agner <stefan@agner.ch>,
- linux-kernel <linux-kernel@vger.kernel.org>,
- Clement Peron <clement.peron@devialet.com>,
- =?utf-8?B?Q2zDqW1lbnQgUMOpcm9u?= <peron.clem@gmail.com>,
- Maxime Coquelin <mcoquelin.stm32@gmail.com>, Gerald
- BAEZA <gerald.baeza@st.com>, Simon Horman <horms+renesas@verge.net.au>,
- Bich HEMON <bich.hemon@st.com>, Biju Das <biju.das@bp.renesas.com>,
- "linux-stm32@st-md-mailman.stormreply.com"
- <linux-stm32@st-md-mailman.stormreply.com>,
- linux-arm-kernel <linux-arm-kernel@lists.infradead.org>
-Subject: Re: [Linux-stm32] [PATCH] ARM: debug: stm32: add UART early console
-	configuration
+Cc: Mark Rutland <mark.rutland@arm.com>, devicetree@vger.kernel.org,
+ Florian Fainelli <f.fainelli@gmail.com>, Andrew Lunn <andrew@lunn.ch>,
+ =?UTF-8?q?Antoine=20T=C3=A9nart?= <antoine.tenart@bootlin.com>,
+ linux-stm32@st-md-mailman.stormreply.com,
+ Martin Blumenstingl <martin.blumenstingl@googlemail.com>,
+ Chen-Yu Tsai <wens@csie.org>, Rob Herring <robh+dt@kernel.org>,
+ Maxime Coquelin <mcoquelin.stm32@gmail.com>,
+ Maxime Chevallier <maxime.chevallier@bootlin.com>,
+ Frank Rowand <frowand.list@gmail.com>,
+ "David S . Miller" <davem@davemloft.net>, linux-arm-kernel@lists.infradead.org,
+ Heiner Kallweit <hkallweit1@gmail.com>
+Subject: Re: [Linux-stm32] [PATCH v2 10/11] dt-bindings: net: dwmac:
+	Deprecate the PHY reset properties
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -97,11 +88,15 @@ Content-Transfer-Encoding: 7bit
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
-Hi Olof, Arnd and Kevin,
-
-Gentle reminder on my feedback request.
-
-Best regards, Erwan.
+> Even though the DWMAC driver uses some driver specific properties, the PHY
+> core has a bunch of generic properties and can deal with them nicely.
+> 
+> Let's deprecate our specific properties.
+> 
+> Signed-off-by: Maxime Ripard <maxime.ripard@bootlin.com>
+I am not sure about the yaml syntax for deprecated properties but
+the description inside the .yaml file looks good to me so:
+Reviewed-by: Martin Blumenstingl <martin.blumenstingl@googlemail.com>
 _______________________________________________
 Linux-stm32 mailing list
 Linux-stm32@st-md-mailman.stormreply.com
