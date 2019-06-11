@@ -2,54 +2,54 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id 3DE943CB33
-	for <lists+linux-stm32@lfdr.de>; Tue, 11 Jun 2019 14:25:51 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id C8A563CB37
+	for <lists+linux-stm32@lfdr.de>; Tue, 11 Jun 2019 14:25:57 +0200 (CEST)
 Received: from ip-172-31-3-76.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 09293D26CEA
-	for <lists+linux-stm32@lfdr.de>; Tue, 11 Jun 2019 12:25:51 +0000 (UTC)
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 1A346D26CEB
+	for <lists+linux-stm32@lfdr.de>; Tue, 11 Jun 2019 12:25:57 +0000 (UTC)
 Received: from mx07-00178001.pphosted.com (mx07-00178001.pphosted.com
  [62.209.51.94])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 29EB9D26CE9
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 60EAFD26CEA
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Tue, 11 Jun 2019 12:25:50 +0000 (UTC)
+ Tue, 11 Jun 2019 12:25:56 +0000 (UTC)
 Received: from pps.filterd (m0046037.ppops.net [127.0.0.1])
  by mx07-00178001.pphosted.com (8.16.0.27/8.16.0.27) with SMTP id
- x5BCLjBU023743; Tue, 11 Jun 2019 14:25:41 +0200
+ x5BCPmiL026689; Tue, 11 Jun 2019 14:25:48 +0200
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=st.com;
  h=from : to : cc : subject
  : date : message-id : in-reply-to : references : mime-version :
  content-type; s=STMicroelectronics;
- bh=9gSGjqYoy+Fbf2xPESzbOyGUbO7HOvEvjLu/ZOx6/bE=;
- b=vfqyNEARQmrgEmlmrqcuJv1pPBpIuYiWyPUO4H+t3g7kW7GBkM+Aq9xLaoNVfJuL+/FB
- ruoP07PfJHd1IzS0Lx/NxijwEUgohe+fsAMp1MxiSLYBNsTUYTFojV0tkjxGjvahR7vH
- sIQarKE9Y86DZQWCdRC48035eIYq0niGvvanYAIxfenDSy3o0mfH0VL2/JwdB150onnZ
- 8xUFJx70ld4Z1neM67d1d6R5N3S2cra6bQ56GMAMKCDhZQ2UH9lZE97gfyX0p5HjCUXD
- FMOnxu0ae9/5cInaw44RNuaXBpIFgGD1W6/3A6LGycJwNV2Is1j3zguC97rW7SMbrDfk 1A== 
+ bh=Psif9qopZgVPe8dWo9XocFzMybtKO3gMouXdNYlMSBI=;
+ b=R7bSMphe5F7ioVle8OyoWIwgQ41esdzxVd5DveQWEPH5ED5EjP5eY82uxHp7rpkOOT5l
+ 7r5/oMMyr6Hp3c2qcGMnLqDVfjvQdWr0Uw9Lo+I2ZrFr5WCXZK7PiF5Be/QUviDSFheu
+ 6ihYgdzSkjy8T3d3nSN7DtLIIyVvG4TM/ExUuts+ymydjdLPSXqBSyQJA8wyy6rYlB40
+ 0rKeVifcFilL2511Ew4vBHGpdyOZ/kaadapV3DmWuD8Rk2l8ZanBlPsQx0qZKtixLZVQ
+ d/cEnYoPk8WkD38q5ubi38cDOndZN0iyccY4EMwmxJqxANmg3QtRm/DglZleM7So7ZFe xw== 
 Received: from beta.dmz-eu.st.com (beta.dmz-eu.st.com [164.129.1.35])
- by mx07-00178001.pphosted.com with ESMTP id 2t26rm9vbd-1
+ by mx07-00178001.pphosted.com with ESMTP id 2t26rm9vbv-1
  (version=TLSv1 cipher=ECDHE-RSA-AES256-SHA bits=256 verify=NOT);
- Tue, 11 Jun 2019 14:25:41 +0200
+ Tue, 11 Jun 2019 14:25:48 +0200
 Received: from zeta.dmz-eu.st.com (zeta.dmz-eu.st.com [164.129.230.9])
- by beta.dmz-eu.st.com (STMicroelectronics) with ESMTP id A4E6D31;
- Tue, 11 Jun 2019 12:25:40 +0000 (GMT)
-Received: from Webmail-eu.st.com (Safex1hubcas23.st.com [10.75.90.46])
- by zeta.dmz-eu.st.com (STMicroelectronics) with ESMTP id 80D442A2C;
- Tue, 11 Jun 2019 12:25:40 +0000 (GMT)
-Received: from SAFEX1HUBCAS22.st.com (10.75.90.93) by SAFEX1HUBCAS23.st.com
- (10.75.90.46) with Microsoft SMTP Server (TLS) id 14.3.439.0; Tue, 11 Jun
- 2019 14:25:40 +0200
+ by beta.dmz-eu.st.com (STMicroelectronics) with ESMTP id 025DD3F;
+ Tue, 11 Jun 2019 12:25:43 +0000 (GMT)
+Received: from Webmail-eu.st.com (Safex1hubcas21.st.com [10.75.90.44])
+ by zeta.dmz-eu.st.com (STMicroelectronics) with ESMTP id BD8B92A2C;
+ Tue, 11 Jun 2019 12:25:43 +0000 (GMT)
+Received: from SAFEX1HUBCAS22.st.com (10.75.90.93) by SAFEX1HUBCAS21.st.com
+ (10.75.90.44) with Microsoft SMTP Server (TLS) id 14.3.439.0; Tue, 11 Jun
+ 2019 14:25:43 +0200
 Received: from localhost (10.201.23.31) by Webmail-ga.st.com (10.75.90.48)
- with Microsoft SMTP Server (TLS) id 14.3.439.0; Tue, 11 Jun 2019 14:25:37
+ with Microsoft SMTP Server (TLS) id 14.3.439.0; Tue, 11 Jun 2019 14:25:42
  +0200
 From: Erwan Le Ray <erwan.leray@st.com>
 To: Greg Kroah-Hartman <gregkh@linuxfoundation.org>, Jiri Slaby
  <jslaby@suse.com>, Maxime Coquelin <mcoquelin.stm32@gmail.com>, "Alexandre
  Torgue" <alexandre.torgue@st.com>, Rob Herring <robh+dt@kernel.org>, "Mark
  Rutland" <mark.rutland@arm.com>
-Date: Tue, 11 Jun 2019 14:25:21 +0200
-Message-ID: <1560255930-22554-2-git-send-email-erwan.leray@st.com>
+Date: Tue, 11 Jun 2019 14:25:22 +0200
+Message-ID: <1560255930-22554-3-git-send-email-erwan.leray@st.com>
 X-Mailer: git-send-email 1.9.1
 In-Reply-To: <1560255930-22554-1-git-send-email-erwan.leray@st.com>
 References: <1560255930-22554-1-git-send-email-erwan.leray@st.com>
@@ -62,8 +62,8 @@ Cc: devicetree@vger.kernel.org, linux-kernel@vger.kernel.org,
  Bich Hemon <bich.hemon@st.com>, Fabrice
  Gasnier <fabrice.gasnier@st.com>, linux-stm32@st-md-mailman.stormreply.com,
  linux-arm-kernel@lists.infradead.org
-Subject: [Linux-stm32] [PATCH v2 01/10] dt-bindings: serial: stm32: add
-	wakeup option
+Subject: [Linux-stm32] [PATCH v2 02/10] dt-bindings: serial: add optional
+	pinctrl states
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -80,27 +80,49 @@ Content-Transfer-Encoding: 7bit
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
-Add a note for enabling wakeup capabilities of usart
+From: Bich Hemon <bich.hemon@st.com>
+
+Add options for pinctrl states:
+- "sleep" for low power
+- "idle" for low power and wakeup capabilities enabled
+- "no_console_suspend" for enabling console messages in low power
 
 Signed-off-by: Bich Hemon <bich.hemon@st.com>
 Signed-off-by: Erwan Le Ray <erwan.leray@st.com>
 
 diff --git a/Documentation/devicetree/bindings/serial/st,stm32-usart.txt b/Documentation/devicetree/bindings/serial/st,stm32-usart.txt
-index 9d3efed..5ec80c1 100644
+index 5ec80c1..64a5ea9 100644
 --- a/Documentation/devicetree/bindings/serial/st,stm32-usart.txt
 +++ b/Documentation/devicetree/bindings/serial/st,stm32-usart.txt
-@@ -19,6 +19,11 @@ Optional properties:
-   linux,rs485-enabled-at-boot-time: see rs485.txt.
- - dmas: phandle(s) to DMA controller node(s). Refer to stm32-dma.txt
- - dma-names: "rx" and/or "tx"
-+- wakeup-source: bool flag to indicate this device has wakeup capabilities
-+- interrupt-names, if optional wake-up interrupt is used, should be:
-+  - "event": the name for the interrupt line of the USART instance
-+  - "wakeup" the name for the optional wake-up interrupt
-+
+@@ -13,7 +13,14 @@ Required properties:
+ - clocks: The input clock of the USART instance
  
- Examples:
- usart4: serial@40004c00 {
+ Optional properties:
+-- pinctrl: The reference on the pins configuration
++- pinctrl-names: Set to "default". An additional "sleep" state can be defined
++  to set pins in sleep state when in low power. In case the device is used as
++  a wakeup source, "idle" state is defined in order to keep RX pin active.
++  For a console device, an optional state "no_console_suspend" can be defined
++  to enable console messages during suspend. Typically, "no_console_suspend" and
++  "default" states can refer to the same pin configuration.
++- pinctrl-n: Phandle(s) pointing to pin configuration nodes.
++  For Pinctrl properties see ../pinctrl/pinctrl-bindings.txt
+ - st,hw-flow-ctrl: bool flag to enable hardware flow control.
+ - rs485-rts-delay, rs485-rx-during-tx, rs485-rts-active-low,
+   linux,rs485-enabled-at-boot-time: see rs485.txt.
+@@ -31,8 +38,11 @@ usart4: serial@40004c00 {
+ 	reg = <0x40004c00 0x400>;
+ 	interrupts = <52>;
+ 	clocks = <&clk_pclk1>;
+-	pinctrl-names = "default";
++	pinctrl-names = "default", "sleep", "idle", "no_console_suspend";
+ 	pinctrl-0 = <&pinctrl_usart4>;
++	pinctrl-1 = <&pinctrl_usart4_sleep>;
++	pinctrl-2 = <&pinctrl_usart4_idle>;
++	pinctrl-3 = <&pinctrl_usart4>;
+ };
+ 
+ usart2: serial@40004400 {
 -- 
 1.9.1
 
