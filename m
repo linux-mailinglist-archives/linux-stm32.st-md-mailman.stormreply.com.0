@@ -2,56 +2,63 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id 7EC0D3BF08
-	for <lists+linux-stm32@lfdr.de>; Mon, 10 Jun 2019 23:58:58 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 5BFA63C679
+	for <lists+linux-stm32@lfdr.de>; Tue, 11 Jun 2019 10:50:16 +0200 (CEST)
 Received: from ip-172-31-3-76.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 3C6E2D1DEA7
-	for <lists+linux-stm32@lfdr.de>; Mon, 10 Jun 2019 21:58:58 +0000 (UTC)
-Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
- (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 2A190C07CC5
+	for <lists+linux-stm32@lfdr.de>; Tue, 11 Jun 2019 08:50:16 +0000 (UTC)
+Received: from mx07-00178001.pphosted.com (mx07-00178001.pphosted.com
+ [62.209.51.94])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 56972D1DEA6
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id ACA75C07CC4
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Mon, 10 Jun 2019 21:58:56 +0000 (UTC)
-Received: from mail-qt1-f177.google.com (mail-qt1-f177.google.com
- [209.85.160.177])
- (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
- (No client certificate requested)
- by mail.kernel.org (Postfix) with ESMTPSA id DE2132145D
- for <linux-stm32@st-md-mailman.stormreply.com>;
- Mon, 10 Jun 2019 21:58:54 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
- s=default; t=1560203935;
- bh=0PkPVdz5GVGKK3sk7TXqMD/2uCtfIwQXWAIEJPKPXS4=;
- h=References:In-Reply-To:From:Date:Subject:To:Cc:From;
- b=vEfoYgbBq11nuojqIl5e9i7RXs8dtqVAB0ysyomiAsFQ60a3iO7+gRazCHpKv3+Hj
- d6Jk8KCJYSMSnVxDbznJoY7vuau7PB2vH0B4qYiipoC0DJtvfp0xKOURJglbDN1y8m
- CxMGrgGUwRyGnnzsA56KLz3KKAuNcrJE1e+3LTTY=
-Received: by mail-qt1-f177.google.com with SMTP id n11so10059966qtl.5
- for <linux-stm32@st-md-mailman.stormreply.com>;
- Mon, 10 Jun 2019 14:58:54 -0700 (PDT)
-X-Gm-Message-State: APjAAAXf63SGLAm/M2ikWeN3HT/wBHUbpA/oHgroZtoqi/Spg3kSgKkz
- aUEKPl/j/k8Yg/xiJcMYl5fXjjOex85CmMmo1g==
-X-Google-Smtp-Source: APXvYqzYmsQ1fTULRa5HAKFvUASBSBcpANP6JQU7H9+hyVCTO/yhwj4BIvezOoVzR8ZhDpYU91B05EHec2kVcFmKG98=
-X-Received: by 2002:ac8:36b9:: with SMTP id a54mr61757193qtc.300.1560203934207; 
- Mon, 10 Jun 2019 14:58:54 -0700 (PDT)
+ Tue, 11 Jun 2019 08:50:14 +0000 (UTC)
+Received: from pps.filterd (m0046668.ppops.net [127.0.0.1])
+ by mx07-00178001.pphosted.com (8.16.0.27/8.16.0.27) with SMTP id
+ x5B8fZfj022277; Tue, 11 Jun 2019 10:49:01 +0200
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=st.com;
+ h=from : to : cc : subject
+ : date : message-id : mime-version : content-type; s=STMicroelectronics;
+ bh=nHME65uYxFVg15qvo2dJiyv0ZUF80ZuF4ZZhe7U0Mxs=;
+ b=sjDAbRKT3dlO+wWszcQjeQoFndfDI35xkO/U9asiiFOgvImSjg0cY6bNcZbrto1qeLNY
+ r7t+ve5d3BjDUStLBw96srQ7VNExqoME54xG5SbknB/ujQFf1MEUuChWCyYZNkxRs42O
+ zuGpoTuEieGbTig4/bmOndh4oRyzgAkVHDMiZv2rTk5oSN2MmVku0aBKWGPAYo15dsy3
+ sc+SgdELwzM/He3QiIKUaHMOHuMQi7pEi5Okr63yuyEoJCddLShxgJ53FqbZS3h62Q2I
+ cBQxWbFVCnnUqj/JTVnxaL+HgA/upvUl9hkJoJJvMQ5KvixVSyIdJerXEqAEIlJg5idj 3Q== 
+Received: from beta.dmz-eu.st.com (beta.dmz-eu.st.com [164.129.1.35])
+ by mx07-00178001.pphosted.com with ESMTP id 2t26rjrtja-1
+ (version=TLSv1 cipher=ECDHE-RSA-AES256-SHA bits=256 verify=NOT);
+ Tue, 11 Jun 2019 10:49:01 +0200
+Received: from zeta.dmz-eu.st.com (zeta.dmz-eu.st.com [164.129.230.9])
+ by beta.dmz-eu.st.com (STMicroelectronics) with ESMTP id F293438;
+ Tue, 11 Jun 2019 08:48:59 +0000 (GMT)
+Received: from Webmail-eu.st.com (Safex1hubcas21.st.com [10.75.90.44])
+ by zeta.dmz-eu.st.com (STMicroelectronics) with ESMTP id 7A3372482;
+ Tue, 11 Jun 2019 08:48:59 +0000 (GMT)
+Received: from SAFEX1HUBCAS24.st.com (10.75.90.95) by SAFEX1HUBCAS21.st.com
+ (10.75.90.44) with Microsoft SMTP Server (TLS) id 14.3.439.0; Tue, 11 Jun
+ 2019 10:48:59 +0200
+Received: from localhost (10.201.23.19) by webmail-ga.st.com (10.75.90.48)
+ with Microsoft SMTP Server (TLS) id 14.3.439.0; Tue, 11 Jun 2019 10:48:55
+ +0200
+From: Hugues Fruchet <hugues.fruchet@st.com>
+To: Alexandre Torgue <alexandre.torgue@st.com>, Mauro Carvalho Chehab
+ <mchehab@kernel.org>, Hans Verkuil <hverkuil@xs4all.nl>, Sakari Ailus
+ <sakari.ailus@linux.intel.com>
+Date: Tue, 11 Jun 2019 10:48:29 +0200
+Message-ID: <1560242912-17138-1-git-send-email-hugues.fruchet@st.com>
+X-Mailer: git-send-email 2.7.4
 MIME-Version: 1.0
-References: <20190531063849.26142-1-manivannan.sadhasivam@linaro.org>
- <20190531063849.26142-4-manivannan.sadhasivam@linaro.org>
-In-Reply-To: <20190531063849.26142-4-manivannan.sadhasivam@linaro.org>
-From: Rob Herring <robh+dt@kernel.org>
-Date: Mon, 10 Jun 2019 15:58:43 -0600
-X-Gmail-Original-Message-ID: <CAL_JsqLjKu_1Gep348-ERQgJrZ6vM2RxB2UW4heqGGg5syEFWw@mail.gmail.com>
-Message-ID: <CAL_JsqLjKu_1Gep348-ERQgJrZ6vM2RxB2UW4heqGGg5syEFWw@mail.gmail.com>
-To: Manivannan Sadhasivam <manivannan.sadhasivam@linaro.org>
-Cc: devicetree@vger.kernel.org, loic pallardy <loic.pallardy@st.com>,
- "linux-kernel@vger.kernel.org" <linux-kernel@vger.kernel.org>,
- Maxime Coquelin <mcoquelin.stm32@gmail.com>,
- linux-stm32@st-md-mailman.stormreply.com,
- "moderated list:ARM/FREESCALE IMX / MXC ARM ARCHITECTURE"
- <linux-arm-kernel@lists.infradead.org>
-Subject: Re: [Linux-stm32] [PATCH v3 3/4] dt-bindings: arm: stm32: Document
- Avenger96 devicetree binding
+X-Originating-IP: [10.201.23.19]
+X-Proofpoint-Virus-Version: vendor=fsecure engine=2.50.10434:, ,
+ definitions=2019-06-11_03:, , signatures=0
+Cc: Mickael GUENE <mickael.guene@st.com>, linux-kernel@vger.kernel.org,
+ Philippe CORNU <philippe.cornu@st.com>, Yannick Fertre <yannick.fertre@st.com>,
+ Benjamin Gaignard <benjamin.gaignard@linaro.org>, Hugues
+ Fruchet <hugues.fruchet@st.com>, linux-stm32@st-md-mailman.stormreply.com,
+ linux-arm-kernel@lists.infradead.org, linux-media@vger.kernel.org
+Subject: [Linux-stm32] [PATCH v2 0/3] DCMI bridge support
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -68,18 +75,42 @@ Content-Transfer-Encoding: 7bit
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
-On Fri, May 31, 2019 at 12:39 AM Manivannan Sadhasivam
-<manivannan.sadhasivam@linaro.org> wrote:
->
-> This commit documents Avenger96 devicetree binding based on
-> STM32MP157 SoC.
->
-> Signed-off-by: Manivannan Sadhasivam <manivannan.sadhasivam@linaro.org>
-> ---
->  Documentation/devicetree/bindings/arm/stm32/stm32.yaml | 2 ++
->  1 file changed, 2 insertions(+)
+This patch serie allows to connect non-parallel camera sensor to
+DCMI thanks to a bridge connected in between such as STMIPID02 [1].
 
-Reviewed-by: Rob Herring <robh@kernel.org>
+Media controller support is introduced first, then support of
+several sub-devices within pipeline with dynamic linking
+between them.
+In order to keep backward compatibility with applications
+relying on V4L2 interface only, format set on video node
+is propagated to all sub-devices connected to camera interface.
+
+[1] https://www.spinics.net/lists/devicetree/msg278002.html
+
+===========
+= history =
+===========
+version 2:
+  - Fix bus_info not consistent between media and V4L:
+    https://www.spinics.net/lists/arm-kernel/msg717676.html
+  - Propagation of format set on video node to the sub-devices
+    chain connected on camera interface
+
+version 1:
+  - Initial submission
+
+Hugues Fruchet (3):
+  media: stm32-dcmi: improve sensor subdev naming
+  media: stm32-dcmi: add media controller support
+  media: stm32-dcmi: add support of several sub-devices
+
+ drivers/media/platform/Kconfig            |   2 +-
+ drivers/media/platform/stm32/stm32-dcmi.c | 317 +++++++++++++++++++++++++-----
+ 2 files changed, 266 insertions(+), 53 deletions(-)
+
+-- 
+2.7.4
+
 _______________________________________________
 Linux-stm32 mailing list
 Linux-stm32@st-md-mailman.stormreply.com
