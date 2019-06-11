@@ -2,64 +2,60 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id 9E0823CA36
-	for <lists+linux-stm32@lfdr.de>; Tue, 11 Jun 2019 13:42:48 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 173433CA49
+	for <lists+linux-stm32@lfdr.de>; Tue, 11 Jun 2019 13:46:11 +0200 (CEST)
 Received: from ip-172-31-3-76.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 5EB50D26B4B
-	for <lists+linux-stm32@lfdr.de>; Tue, 11 Jun 2019 11:42:48 +0000 (UTC)
-Received: from mail-qt1-f195.google.com (mail-qt1-f195.google.com
- [209.85.160.195])
- (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id C9EBCD26B4F
+	for <lists+linux-stm32@lfdr.de>; Tue, 11 Jun 2019 11:46:10 +0000 (UTC)
+Received: from mx07-00178001.pphosted.com (mx07-00178001.pphosted.com
+ [62.209.51.94])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 2F8B3D26B4A
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 754D6D26B4E
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Tue, 11 Jun 2019 11:42:47 +0000 (UTC)
-Received: by mail-qt1-f195.google.com with SMTP id a15so14044311qtn.7
- for <linux-stm32@st-md-mailman.stormreply.com>;
- Tue, 11 Jun 2019 04:42:47 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linaro.org; s=google;
- h=mime-version:references:in-reply-to:from:date:message-id:subject:to
- :cc:content-transfer-encoding;
- bh=vjOFdAaYDNmN3A5HT5pM3yHGhYnwl0N9Oc3jefh1rW8=;
- b=j0RVeHL8Khr0VlnuhcwdE+nOiCX1mQmd+StNdZEDBY8zoM8siTM15NLmIqnGoq0BS9
- o57ljDhdsozst5Nsd2nvSvCCF+Lrmqe2Ma7mb7oFFjhr3YR/IVqIHkk19zhD8iFSXM5U
- D1U4gng45f/WObLDk3TqJWH0lh77UMzGs0GRkDHNoJoYYONO8a726f/X8xB8tatszpu8
- O7Q0FPE1uMJl39ybF22UNV1YvvuXKBXYXjSwdCk2Z6jqqy3McW1C8pcXi0KGWJ9Jo2HR
- kBVIesagSyMrHP8WEO/Zn9/YlrGVbK3NlZGaWjnPwvnIw1MnVOpUDhx4G6gvNCk7gvQ3
- qq7A==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20161025;
- h=x-gm-message-state:mime-version:references:in-reply-to:from:date
- :message-id:subject:to:cc:content-transfer-encoding;
- bh=vjOFdAaYDNmN3A5HT5pM3yHGhYnwl0N9Oc3jefh1rW8=;
- b=c7OnoUI5QcnfGhAkNQ8o58TEauQWHSSXSKSusma9ottZIW/tqql9HL8kLj19vOIGJ2
- V4goNeCwBEzDfxsykvDXqoA4tNh6Bfk9Zlpf075sSa1MdSqJ7Rp5yOQ8nG+/SLLAlzYf
- gwHS6By7eNxPv0qS+YO+XgPwedUjj87Abg188sr01oqHynYMcRstxyb2JpTY87Pp5bMG
- eIVAoNOHbjuYBtkClt45ZfzwFHsea+7/V4bcnQS/mvi6N/PM4SaTTeJTSo4E7MdXLOL0
- G3pVIliUSSKJ5zMzmQp8DcbxxfhNZW6gWEFj0OorXXkkuRzwFVk3o6pTlHcRPN9HlGnJ
- y1Dw==
-X-Gm-Message-State: APjAAAWM5/KURm9MSTzgLGwOik/W1lLE3EutYt350RvXYR0mzPySiF1P
- qlrnBR1B6xaES7R943eD6KQtrkGP6sVKkEyIHZLlEg==
-X-Google-Smtp-Source: APXvYqyePZUiQGFy/pxLEHepqbJXYI67xMab3BFWslPBOL+viW6ZLRa45QU0Y62Q1TG83XbVR5WcaY3e7jRmywXQYW4=
-X-Received: by 2002:ac8:395b:: with SMTP id t27mr65198889qtb.115.1560253366125; 
- Tue, 11 Jun 2019 04:42:46 -0700 (PDT)
+ Tue, 11 Jun 2019 11:46:09 +0000 (UTC)
+Received: from pps.filterd (m0046668.ppops.net [127.0.0.1])
+ by mx07-00178001.pphosted.com (8.16.0.27/8.16.0.27) with SMTP id
+ x5BBf8g4027845; Tue, 11 Jun 2019 13:45:59 +0200
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=st.com;
+ h=from : to : subject :
+ date : message-id : mime-version : content-type; s=STMicroelectronics;
+ bh=UHkKYvr07JUPpR6+O+OHG40CIbSuZZB5RoqilIve/M8=;
+ b=fklX/5a88/vDeXzr6ZnFcOeRM38ODI41A3SchpcjzGGWGWjrx9SZwOOaPv7ZUnLH6sd3
+ /AyO6eVM1Rvwq/hR4v2rSNs+9Ceo+jbDttaobt6PKt+hO2Om1iXhJgt6jYLughQu5WjS
+ udiKEopvmQIIulcLGPotoQtVUD22VWjhCmw27ULfl2w9NNW54GlZVjAvH67h4pXKZ7Gr
+ pQSm/dkuNvBsLW4RoqHjibBSoI01SyRFtPrUbNkuI35W80jmydXqfT2VDeuRNwJqsvIr
+ hBpV1U5NJJmwx2xrpUFPxGrIQeXbqRgv0sgfIs9jgF8JZoilS5dwPvjz5iFfdUMpJdsG 0A== 
+Received: from beta.dmz-eu.st.com (beta.dmz-eu.st.com [164.129.1.35])
+ by mx07-00178001.pphosted.com with ESMTP id 2t26rjspev-1
+ (version=TLSv1 cipher=ECDHE-RSA-AES256-SHA bits=256 verify=NOT);
+ Tue, 11 Jun 2019 13:45:59 +0200
+Received: from zeta.dmz-eu.st.com (zeta.dmz-eu.st.com [164.129.230.9])
+ by beta.dmz-eu.st.com (STMicroelectronics) with ESMTP id A2CC434;
+ Tue, 11 Jun 2019 11:45:58 +0000 (GMT)
+Received: from Webmail-eu.st.com (Safex1hubcas24.st.com [10.75.90.94])
+ by zeta.dmz-eu.st.com (STMicroelectronics) with ESMTP id 7F0782953;
+ Tue, 11 Jun 2019 11:45:58 +0000 (GMT)
+Received: from SAFEX1HUBCAS21.st.com (10.75.90.45) by Safex1hubcas24.st.com
+ (10.75.90.94) with Microsoft SMTP Server (TLS) id 14.3.439.0; Tue, 11 Jun
+ 2019 13:45:58 +0200
+Received: from localhost (10.201.23.16) by Webmail-ga.st.com (10.75.90.48)
+ with Microsoft SMTP Server (TLS) id 14.3.439.0; Tue, 11 Jun 2019 13:45:58
+ +0200
+From: Olivier Moysan <olivier.moysan@st.com>
+To: <linux-stm32@st-md-mailman.stormreply.com>, <alexandre.torgue@st.com>,
+ <robh@kernel.org>, <mark.rutland@arm.com>,
+ <devicetree@vger.kernel.org>, <linux-arm-kernel@lists.infradead.org>,
+ <linux-kernel@vger.kernel.org>, <olivier.moysan@st.com>
+Date: Tue, 11 Jun 2019 13:45:56 +0200
+Message-ID: <1560253556-18399-1-git-send-email-olivier.moysan@st.com>
+X-Mailer: git-send-email 2.7.4
 MIME-Version: 1.0
-References: <20190214083145.15148-1-benjamin.gaignard@linaro.org>
- <e25b2626-231b-28d7-93b0-004a21a3685e@st.com>
- <CAOMZO5A6A2sYzfPgjsqQxWcc4Z0YW9-sENW21KumO_XkN3WBYQ@mail.gmail.com>
- <CA+M3ks7LPEpEfOEqiOZ4q2-We-8BjK0FZfeKts4hBzL7GRRHSw@mail.gmail.com>
-In-Reply-To: <CA+M3ks7LPEpEfOEqiOZ4q2-We-8BjK0FZfeKts4hBzL7GRRHSw@mail.gmail.com>
-From: Benjamin Gaignard <benjamin.gaignard@linaro.org>
-Date: Tue, 11 Jun 2019 13:42:34 +0200
-Message-ID: <CA+M3ks5UE8VSa1iHVHWw8NfQWU-v_MRYffVPBMLhy53PD9SJxA@mail.gmail.com>
-To: Fabio Estevam <festevam@gmail.com>
-Cc: Arnd Bergmann <arnd@arndb.de>,
- Russell King - ARM Linux <linux@armlinux.org.uk>,
- linux-kernel <linux-kernel@vger.kernel.org>, Hui Liu <jason.hui.liu@nxp.com>,
- linux-stm32@st-md-mailman.stormreply.com,
- "moderated list:ARM/FREESCALE IMX / MXC ARM ARCHITECTURE"
- <linux-arm-kernel@lists.infradead.org>
-Subject: Re: [Linux-stm32] [PATCH v2 0/2] ARM errata 814220
+X-Originating-IP: [10.201.23.16]
+X-Proofpoint-Virus-Version: vendor=fsecure engine=2.50.10434:, ,
+ definitions=2019-06-11_05:, , signatures=0
+Subject: [Linux-stm32] [PATCH] ARM: dts: stm32: add sai id registers to
+	stm32mp157c
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -71,29 +67,64 @@ List-Post: <mailto:linux-stm32@st-md-mailman.stormreply.com>
 List-Help: <mailto:linux-stm32-request@st-md-mailman.stormreply.com?subject=help>
 List-Subscribe: <https://st-md-mailman.stormreply.com/mailman/listinfo/linux-stm32>, 
  <mailto:linux-stm32-request@st-md-mailman.stormreply.com?subject=subscribe>
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: base64
+Content-Type: text/plain; charset="us-ascii"
+Content-Transfer-Encoding: 7bit
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
-TGUgbWVyLiAyNCBhdnIuIDIwMTkgw6AgMDk6MjUsIEJlbmphbWluIEdhaWduYXJkCjxiZW5qYW1p
-bi5nYWlnbmFyZEBsaW5hcm8ub3JnPiBhIMOpY3JpdCA6Cj4KPiBMZSBtYXIuIDIzIGF2ci4gMjAx
-OSDDoCAxOTo0NiwgRmFiaW8gRXN0ZXZhbSA8ZmVzdGV2YW1AZ21haWwuY29tPiBhIMOpY3JpdCA6
-Cj4gPgo+ID4gT24gV2VkLCBGZWIgMjcsIDIwMTkgYXQgMToyMSBQTSBBbGV4YW5kcmUgVG9yZ3Vl
-Cj4gPiA8YWxleGFuZHJlLnRvcmd1ZUBzdC5jb20+IHdyb3RlOgo+ID4gPgo+ID4gPgo+ID4gPiBP
-biAyLzE0LzE5IDk6MzEgQU0sIEJlbmphbWluIEdhaWduYXJkIHdyb3RlOgo+ID4gPiA+IEltcGxl
-bWVudCBBUk0gZXJyYXRhIDgxNDIyMCBmb3IgQ29ydGV4IEE3Lgo+ID4gPiA+Cj4gPiA+ID4gVGhp
-cyBwYXRjaCBoYXMgYmVlbiB3cm90ZW4gYnkgSmFzb24gTGl1IHllYXJzIGFnbyBidXQgbmV2ZXIg
-c2VuZCB1cHN0cmVhbS4KPiA+ID4gPiBJIGhhdmUgdHJpZWQgdG8gY29udGFjdCB0aGUgYXV0aG9y
-IG9uIG11bHRpcGxlIGVtYWlsIGFkZHJlc3NlcyBidXQgSSBoYXZlbid0Cj4gPiA+ID4gZm91bmQg
-YW55IHZhbGlkIG9uZS4uLgo+ID4gPiA+IEkgaGF2ZSBrZWVwIEphc29uJ3Mgc2lnbi1vZmYgYW5k
-IGp1c3QgcmViYXNlIHRoZSBwYXRjaCBvbiB0byB2NS1yYzYuCj4gPgo+ID4gQWRkaW5nIEphc29u
-J3MgTlhQIGUtbWFpbCBhZGRyZXNzLgo+IFRoYW5rcyAhCj4KPiBSdXNzZWxsLCBjYW4gQWxleGFu
-ZHJlIHB1c2ggdGhpcyBzZXJpZXMgaW4gc3RtMzIgdHJlZSBvciB5b3UgcHJlZmVyIHRvCj4gbWVy
-Z2UgaXQgeW91cnNlbGYgPwo+CgpIZWxsbyBSdXNzZWxsLAoKSSBoYXZlIHB1c2ggdGhpcyBzZXJp
-ZXMgaW4geW91ciBwYXRjaCBzeXN0ZW0gd2Vla3MgYWdvLCBidXQgbm90aGluZyBoYXBwZW5zLgpE
-byBJIG1pc3Mgc29tZXRoaW5nIGluIHlvdXIgcHJvY2VzcyA/CgpSZWdhcmRzLApCZW5qYW1pbgoK
-PiBSZWdhcmRzLAo+IEJlbmphbWluCj4gPgo+ID4gVGhhbmtzCl9fX19fX19fX19fX19fX19fX19f
-X19fX19fX19fX19fX19fX19fX19fX19fX19fCkxpbnV4LXN0bTMyIG1haWxpbmcgbGlzdApMaW51
-eC1zdG0zMkBzdC1tZC1tYWlsbWFuLnN0b3JtcmVwbHkuY29tCmh0dHBzOi8vc3QtbWQtbWFpbG1h
-bi5zdG9ybXJlcGx5LmNvbS9tYWlsbWFuL2xpc3RpbmZvL2xpbnV4LXN0bTMyCg==
+Add identification registers to address range
+of SAI DT parent node, for stm32mp157c.
+
+Change-Id: I696363794fab59ba8d7869b3ffbc041dacdf28de
+Signed-off-by: Olivier Moysan <olivier.moysan@st.com>
+---
+ arch/arm/boot/dts/stm32mp157c.dtsi | 8 ++++----
+ 1 file changed, 4 insertions(+), 4 deletions(-)
+
+diff --git a/arch/arm/boot/dts/stm32mp157c.dtsi b/arch/arm/boot/dts/stm32mp157c.dtsi
+index e98aad37ff9e..0c4e6ebc3529 100644
+--- a/arch/arm/boot/dts/stm32mp157c.dtsi
++++ b/arch/arm/boot/dts/stm32mp157c.dtsi
+@@ -746,7 +746,7 @@
+ 			#address-cells = <1>;
+ 			#size-cells = <1>;
+ 			ranges = <0 0x4400a000 0x400>;
+-			reg = <0x4400a000 0x4>;
++			reg = <0x4400a000 0x4>, <0x4400a3f0 0x10>;
+ 			interrupts = <GIC_SPI 87 IRQ_TYPE_LEVEL_HIGH>;
+ 			resets = <&rcc SAI1_R>;
+ 			status = "disabled";
+@@ -778,7 +778,7 @@
+ 			#address-cells = <1>;
+ 			#size-cells = <1>;
+ 			ranges = <0 0x4400b000 0x400>;
+-			reg = <0x4400b000 0x4>;
++			reg = <0x4400b000 0x4>, <0x4400b3f0 0x10>;
+ 			interrupts = <GIC_SPI 91 IRQ_TYPE_LEVEL_HIGH>;
+ 			resets = <&rcc SAI2_R>;
+ 			status = "disabled";
+@@ -809,7 +809,7 @@
+ 			#address-cells = <1>;
+ 			#size-cells = <1>;
+ 			ranges = <0 0x4400c000 0x400>;
+-			reg = <0x4400c000 0x4>;
++			reg = <0x4400c000 0x4>, <0x4400c3f0 0x10>;
+ 			interrupts = <GIC_SPI 114 IRQ_TYPE_LEVEL_HIGH>;
+ 			resets = <&rcc SAI3_R>;
+ 			status = "disabled";
+@@ -1164,7 +1164,7 @@
+ 			#address-cells = <1>;
+ 			#size-cells = <1>;
+ 			ranges = <0 0x50027000 0x400>;
+-			reg = <0x50027000 0x4>;
++			reg = <0x50027000 0x4>, <0x500273f0 0x10>;
+ 			interrupts = <GIC_SPI 146 IRQ_TYPE_LEVEL_HIGH>;
+ 			resets = <&rcc SAI4_R>;
+ 			status = "disabled";
+-- 
+2.7.4
+
+_______________________________________________
+Linux-stm32 mailing list
+Linux-stm32@st-md-mailman.stormreply.com
+https://st-md-mailman.stormreply.com/mailman/listinfo/linux-stm32
