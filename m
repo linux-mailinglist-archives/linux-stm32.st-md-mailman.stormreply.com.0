@@ -2,79 +2,63 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id BF9ED57E8D
-	for <lists+linux-stm32@lfdr.de>; Thu, 27 Jun 2019 10:49:49 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 6D0F44172D
+	for <lists+linux-stm32@lfdr.de>; Tue, 11 Jun 2019 23:52:12 +0200 (CEST)
 Received: from ip-172-31-3-76.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 894B1C57B7D
-	for <lists+linux-stm32@lfdr.de>; Thu, 27 Jun 2019 08:49:49 +0000 (UTC)
-Received: from mail-pg1-f194.google.com (mail-pg1-f194.google.com
- [209.85.215.194])
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 24852C58A7E
+	for <lists+linux-stm32@lfdr.de>; Tue, 11 Jun 2019 21:52:12 +0000 (UTC)
+Received: from mail-qt1-f196.google.com (mail-qt1-f196.google.com
+ [209.85.160.196])
  (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id C23BBD2BAA0
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id B1AA4C58A7D
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Tue, 11 Jun 2019 18:23:44 +0000 (UTC)
-Received: by mail-pg1-f194.google.com with SMTP id d30so7418908pgm.7
+ Tue, 11 Jun 2019 21:52:10 +0000 (UTC)
+Received: by mail-qt1-f196.google.com with SMTP id j19so16432406qtr.12
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Tue, 11 Jun 2019 11:23:44 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20161025;
- h=mime-version:references:in-reply-to:from:date:message-id:subject:to
- :cc; bh=RUaqGS6QUgdTDoLllogq970LN7Ava4NDdFpVFqXYY/M=;
- b=GiGCJBrmLCcwdoXR/hfEWhxRxVXP0yUu9sUUZqvg4wVFwA5vVS81R3w7B/Hws02GBs
- bQf5m5LzSY2evhzZIaPcrTxdlRnOKG6JcgzyoPlFQaOBfdx4zG/zxciv5YgK+lrLTrxM
- cYO9J/gPwcAT2TpewnRYZ31E6KAMbCy2diEh13IEFyvzxVtxzxo7VvptCqzuA/hlCovh
- ZjKXMOGRmPvdeF+5XJnjjjFZqUja5TFKSjRPTAWJT6DPCrYdGGCmiq3H5dJ2O/MfvLXb
- zKyrSiVi+o3Z7jKpHKP2VcOUjPmBH9gPMgDgTzpANCDXfrsR2Ml+cEgzRas33f/OlAYk
- 2KbA==
+ Tue, 11 Jun 2019 14:52:10 -0700 (PDT)
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=1e100.net; s=20161025;
- h=x-gm-message-state:mime-version:references:in-reply-to:from:date
- :message-id:subject:to:cc;
- bh=RUaqGS6QUgdTDoLllogq970LN7Ava4NDdFpVFqXYY/M=;
- b=KohdNW6hqheD+8rS52G6cjvODKdphh0JOehiEFaHWttLPxAgLnBoVZ1e4iYI5CyNNK
- EnfSgIBPJ0jvp83QU7qUsnHGTWxYTegue3LbAFQX7THizRL+zvMSRjNatCSfGoCe30dG
- tQnte9sfd41WGCKa7Tzit3yQXY5jUFWLsZzvTNpulGm267hVuLbNRngO1Wy5sR8UoCzJ
- 0NIrtw0myIKE94jvfTwWlH5VkAtpRkQk00DbMZ+cVIslsZdElvKLFqG9EOw1nexR5zH0
- v52OSIKdwyiMPjB4rMuM/TjcuhjDlUtfM/JAwdQL8FiH4dGGb79cRXraH0tMkW5Dop3H
- ASlg==
-X-Gm-Message-State: APjAAAXYl5HOFd0YLJOPb9He7SaMwiGyXabQJWtdWB9tE6gNEuF2b9OP
- 4AzZb+9TKOwH6JhYDOSmNRqoUT32gtK13qmlOnY=
-X-Google-Smtp-Source: APXvYqz0tqszhCDpzjSzH68sStNjjm2tLdRCgCOXbFIcDIoXYykPNvT0ZevAXzhMLOzrGgeFEbCuT5n6tl8XXCDe+dk=
-X-Received: by 2002:a17:90b:d8b:: with SMTP id
- bg11mr28168554pjb.30.1560277423232; 
- Tue, 11 Jun 2019 11:23:43 -0700 (PDT)
+ h=x-gm-message-state:date:from:to:cc:subject:message-id:references
+ :mime-version:content-disposition:in-reply-to:user-agent;
+ bh=3r12qJQBXAuvMT4EwoDNzavCtWYu4iRZchiufeeQkDA=;
+ b=cLLpMLcTmNEJAZ0ER027LGV+A214dtSQ8vkv5hwA1InKKowQCC5yo3T3D49ahRjlQE
+ oV8M/UkJdiaZdkaTT/RLmbBamumSnX5zHG9jnM0xYZkOnYNXEvfXagRu8SiQbq5+ZSFR
+ hXqA6SkEPMxtZGOwjj8+LOR3A6babP+a0O6dnTGjZxQ6Bran2l98aBCg58sZFTIVPfYS
+ GmGgovqqdOcwDgYwra5b2A0Cloz9mVCu3AzKNuo9wjrfg4MYV9ZL/Pp80RZkqHjAkK8f
+ ojnRhjvAxYGBjI+CgqMzpExEEINuKwZ8/iEYX6K3XjUFuKL9omzK238NLc2bnXi/W9at
+ kc5w==
+X-Gm-Message-State: APjAAAVdva4TGZdkGD6MNB78xfKxPEGzeNR8cXxsyLD9VCgXlsg8nUBN
+ lUNMc6J7rbJMg1G3mVUfqg==
+X-Google-Smtp-Source: APXvYqwYg7O90+eWMBJqzuTqXctWOHI40/oJ0GPlNFDUVF6CgMDfl7e03c/8RDgTcCt1Q9vjJvfAkA==
+X-Received: by 2002:a0c:b997:: with SMTP id v23mr62799346qvf.128.1560289929520; 
+ Tue, 11 Jun 2019 14:52:09 -0700 (PDT)
+Received: from localhost ([64.188.179.199])
+ by smtp.gmail.com with ESMTPSA id j26sm8645067qtj.70.2019.06.11.14.52.08
+ (version=TLS1_3 cipher=AEAD-AES256-GCM-SHA384 bits=256/256);
+ Tue, 11 Jun 2019 14:52:09 -0700 (PDT)
+Date: Tue, 11 Jun 2019 15:52:06 -0600
+From: Rob Herring <robh@kernel.org>
+To: megous@megous.com
+Message-ID: <20190611215206.GA17759@bogus>
+References: <20190527162237.18495-1-megous@megous.com>
+ <20190527162237.18495-5-megous@megous.com>
 MIME-Version: 1.0
-References: <ff457774d46d96e8fe56b45409aba39d87a8672a.1559933665.git.mchehab+samsung@kernel.org>
- <0bea1c7c4fc06c7edabbf3185c0cbbc6e85eafd0.1559933665.git.mchehab+samsung@kernel.org>
- <CAHp75VfTNJOGZx-PoUXLRvzghqf6bVUdJ+yFjE9hNtDLCQ1=UA@mail.gmail.com>
- <20190611140501.11ba091b@coco.lan>
-In-Reply-To: <20190611140501.11ba091b@coco.lan>
-From: Andy Shevchenko <andy.shevchenko@gmail.com>
-Date: Tue, 11 Jun 2019 21:23:32 +0300
-Message-ID: <CAHp75VcdMXHf=hz_m5ySZ-=fBU=qkFxry9Q-Dos9Jx0qoyHCXQ@mail.gmail.com>
-To: Mauro Carvalho Chehab <mchehab+samsung@kernel.org>
-X-Mailman-Approved-At: Thu, 27 Jun 2019 08:49:46 +0000
-Cc: Linux Doc Mailing List <linux-doc@vger.kernel.org>,
- David Airlie <airlied@linux.ie>,
- Benjamin Herrenschmidt <benh@kernel.crashing.org>,
- dri-devel@lists.freedesktop.org,
- Platform Driver <platform-driver-x86@vger.kernel.org>,
- Paul Mackerras <paulus@samba.org>, linux-stm32@st-md-mailman.stormreply.com,
- Jonathan Corbet <corbet@lwn.net>, Michael Ellerman <mpe@ellerman.id.au>,
- Maxime Ripard <maxime.ripard@bootlin.com>,
- Andrew Donnellan <ajd@linux.ibm.com>, Linux PM <linux-pm@vger.kernel.org>,
- Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
- Matan Ziv-Av <matan@svgalib.org>,
- Mauro Carvalho Chehab <mchehab@infradead.org>, Daniel Vetter <daniel@ffwll.ch>,
- Sean Paul <sean@poorly.run>,
- linux-arm Mailing List <linux-arm-kernel@lists.infradead.org>,
- Linux Kernel Mailing List <linux-kernel@vger.kernel.org>,
- Maxime Coquelin <mcoquelin.stm32@gmail.com>,
- Frederic Barrat <fbarrat@linux.ibm.com>,
- "open list:LINUX FOR POWERPC PA SEMI PWRFICIENT"
- <linuxppc-dev@lists.ozlabs.org>, Georgi Djakov <georgi.djakov@linaro.org>
-Subject: Re: [Linux-stm32] [PATCH v3 06/20] docs: mark orphan documents as
-	such
+Content-Disposition: inline
+In-Reply-To: <20190527162237.18495-5-megous@megous.com>
+User-Agent: Mutt/1.10.1 (2018-07-13)
+Cc: Ondrej Jirman <megous@megous.com>, Mark Rutland <mark.rutland@arm.com>,
+ devicetree@vger.kernel.org, Maxime Ripard <maxime.ripard@bootlin.com>,
+ netdev@vger.kernel.org, linux-stm32@st-md-mailman.stormreply.com,
+ Chen-Yu Tsai <wens@csie.org>, dri-devel@lists.freedesktop.org,
+ linux-kernel@vger.kernel.org, David Airlie <airlied@linux.ie>,
+ linux-sunxi@googlegroups.com, Jose Abreu <joabreu@synopsys.com>,
+ linux-arm-kernel@lists.infradead.org, Daniel Vetter <daniel@ffwll.ch>,
+ Giuseppe Cavallaro <peppe.cavallaro@st.com>,
+ "David S. Miller" <davem@davemloft.net>,
+ Maxime Coquelin <mcoquelin.stm32@gmail.com>
+Subject: Re: [Linux-stm32] [PATCH v6 4/6] dt-bindings: display:
+ hdmi-connector: Support DDC bus enable
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -91,52 +75,27 @@ Content-Transfer-Encoding: 7bit
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
-On Tue, Jun 11, 2019 at 8:05 PM Mauro Carvalho Chehab
-<mchehab+samsung@kernel.org> wrote:
->
-> Em Tue, 11 Jun 2019 19:52:04 +0300
-> Andy Shevchenko <andy.shevchenko@gmail.com> escreveu:
->
-> > On Fri, Jun 7, 2019 at 10:04 PM Mauro Carvalho Chehab
-> > <mchehab+samsung@kernel.org> wrote:
-> > > Sphinx doesn't like orphan documents:
-> >
-> > >     Documentation/laptops/lg-laptop.rst: WARNING: document isn't included in any toctree
-> >
-> > >  Documentation/laptops/lg-laptop.rst             | 2 ++
-> >
-> > > diff --git a/Documentation/laptops/lg-laptop.rst b/Documentation/laptops/lg-laptop.rst
-> > > index aa503ee9b3bc..f2c2ffe31101 100644
-> > > --- a/Documentation/laptops/lg-laptop.rst
-> > > +++ b/Documentation/laptops/lg-laptop.rst
-> > > @@ -1,5 +1,7 @@
-> > >  .. SPDX-License-Identifier: GPL-2.0+
-> > >
-> > > +:orphan:
-> > > +
-> > >  LG Gram laptop extra features
-> > >  =============================
-> > >
-> >
-> > Can we rather create a toc tree there?
-> > It was a first document in reST format in that folder.
->
-> Sure, but:
->
-> 1) I have a patch converting the other files on this dir to rst:
->
->         https://git.linuxtv.org/mchehab/experimental.git/commit/?h=convert_rst_renames_v4.1&id=abc13233035fdfdbc5ef2f2fbd3d127a1ab15530
->
-> 2) It probably makes sense to move the entire dir to
-> Documentation/admin-guide.
->
-> So, I would prefer to have the :orphan: here while (1) is not merged.
+On Mon, 27 May 2019 18:22:35 +0200, megous@megous.com wrote:
+> From: Ondrej Jirman <megous@megous.com>
+> 
+> Some Allwinner SoC using boards (Orange Pi 3 for example) need to enable
+> on-board voltage shifting logic for the DDC bus using a gpio to be able
+> to access DDC bus. Use ddc-en-gpios property on the hdmi-connector to
+> model this.
+> 
+> Add binding documentation for optional ddc-en-gpios property.
+> 
+> Signed-off-by: Ondrej Jirman <megous@megous.com>
+> ---
+>  .../devicetree/bindings/display/connector/hdmi-connector.txt     | 1 +
+>  1 file changed, 1 insertion(+)
+> 
 
-Fine to me as long as you will drop it by the mentioned effort.
+Please add Acked-by/Reviewed-by tags when posting new versions. However,
+there's no need to repost patches *only* to add the tags. The upstream
+maintainer will do that for acks received on the version they apply.
 
--- 
-With Best Regards,
-Andy Shevchenko
+If a tag was not added on purpose, please state why and what changed.
 _______________________________________________
 Linux-stm32 mailing list
 Linux-stm32@st-md-mailman.stormreply.com
