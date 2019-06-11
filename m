@@ -2,45 +2,64 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id 2D4323CA0B
-	for <lists+linux-stm32@lfdr.de>; Tue, 11 Jun 2019 13:31:14 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 9E0823CA36
+	for <lists+linux-stm32@lfdr.de>; Tue, 11 Jun 2019 13:42:48 +0200 (CEST)
 Received: from ip-172-31-3-76.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id D66DBC0C1B2
-	for <lists+linux-stm32@lfdr.de>; Tue, 11 Jun 2019 11:31:13 +0000 (UTC)
-Received: from relay3-d.mail.gandi.net (relay3-d.mail.gandi.net
- [217.70.183.195])
- (using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 5EB50D26B4B
+	for <lists+linux-stm32@lfdr.de>; Tue, 11 Jun 2019 11:42:48 +0000 (UTC)
+Received: from mail-qt1-f195.google.com (mail-qt1-f195.google.com
+ [209.85.160.195])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 32327D2689D
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 2F8B3D26B4A
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Tue, 11 Jun 2019 11:31:13 +0000 (UTC)
-X-Originating-IP: 90.88.159.246
-Received: from localhost (aaubervilliers-681-1-40-246.w90-88.abo.wanadoo.fr
- [90.88.159.246]) (Authenticated sender: maxime.ripard@bootlin.com)
- by relay3-d.mail.gandi.net (Postfix) with ESMTPSA id B79F460007;
- Tue, 11 Jun 2019 11:31:08 +0000 (UTC)
-Date: Tue, 11 Jun 2019 13:31:08 +0200
-From: Maxime Ripard <maxime.ripard@bootlin.com>
-To: Rob Herring <robh+dt@kernel.org>
-Message-ID: <20190611113108.pxiia2u5skbnl2au@flea>
-References: <91618c7e9a5497462afa74c6d8a947f709f54331.1560158667.git-series.maxime.ripard@bootlin.com>
- <f3f393db88b26d84a048cb71887a571611b984a2.1560158667.git-series.maxime.ripard@bootlin.com>
- <CAL_JsqL8ARs3jQECS+E-BtZGouLYJhofM+oPpS1a3SxPORwMZA@mail.gmail.com>
+ Tue, 11 Jun 2019 11:42:47 +0000 (UTC)
+Received: by mail-qt1-f195.google.com with SMTP id a15so14044311qtn.7
+ for <linux-stm32@st-md-mailman.stormreply.com>;
+ Tue, 11 Jun 2019 04:42:47 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linaro.org; s=google;
+ h=mime-version:references:in-reply-to:from:date:message-id:subject:to
+ :cc:content-transfer-encoding;
+ bh=vjOFdAaYDNmN3A5HT5pM3yHGhYnwl0N9Oc3jefh1rW8=;
+ b=j0RVeHL8Khr0VlnuhcwdE+nOiCX1mQmd+StNdZEDBY8zoM8siTM15NLmIqnGoq0BS9
+ o57ljDhdsozst5Nsd2nvSvCCF+Lrmqe2Ma7mb7oFFjhr3YR/IVqIHkk19zhD8iFSXM5U
+ D1U4gng45f/WObLDk3TqJWH0lh77UMzGs0GRkDHNoJoYYONO8a726f/X8xB8tatszpu8
+ O7Q0FPE1uMJl39ybF22UNV1YvvuXKBXYXjSwdCk2Z6jqqy3McW1C8pcXi0KGWJ9Jo2HR
+ kBVIesagSyMrHP8WEO/Zn9/YlrGVbK3NlZGaWjnPwvnIw1MnVOpUDhx4G6gvNCk7gvQ3
+ qq7A==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20161025;
+ h=x-gm-message-state:mime-version:references:in-reply-to:from:date
+ :message-id:subject:to:cc:content-transfer-encoding;
+ bh=vjOFdAaYDNmN3A5HT5pM3yHGhYnwl0N9Oc3jefh1rW8=;
+ b=c7OnoUI5QcnfGhAkNQ8o58TEauQWHSSXSKSusma9ottZIW/tqql9HL8kLj19vOIGJ2
+ V4goNeCwBEzDfxsykvDXqoA4tNh6Bfk9Zlpf075sSa1MdSqJ7Rp5yOQ8nG+/SLLAlzYf
+ gwHS6By7eNxPv0qS+YO+XgPwedUjj87Abg188sr01oqHynYMcRstxyb2JpTY87Pp5bMG
+ eIVAoNOHbjuYBtkClt45ZfzwFHsea+7/V4bcnQS/mvi6N/PM4SaTTeJTSo4E7MdXLOL0
+ G3pVIliUSSKJ5zMzmQp8DcbxxfhNZW6gWEFj0OorXXkkuRzwFVk3o6pTlHcRPN9HlGnJ
+ y1Dw==
+X-Gm-Message-State: APjAAAWM5/KURm9MSTzgLGwOik/W1lLE3EutYt350RvXYR0mzPySiF1P
+ qlrnBR1B6xaES7R943eD6KQtrkGP6sVKkEyIHZLlEg==
+X-Google-Smtp-Source: APXvYqyePZUiQGFy/pxLEHepqbJXYI67xMab3BFWslPBOL+viW6ZLRa45QU0Y62Q1TG83XbVR5WcaY3e7jRmywXQYW4=
+X-Received: by 2002:ac8:395b:: with SMTP id t27mr65198889qtb.115.1560253366125; 
+ Tue, 11 Jun 2019 04:42:46 -0700 (PDT)
 MIME-Version: 1.0
-In-Reply-To: <CAL_JsqL8ARs3jQECS+E-BtZGouLYJhofM+oPpS1a3SxPORwMZA@mail.gmail.com>
-User-Agent: NeoMutt/20180716
-Cc: Mark Rutland <mark.rutland@arm.com>, devicetree@vger.kernel.org,
- Florian Fainelli <f.fainelli@gmail.com>, Andrew Lunn <andrew@lunn.ch>,
- Antoine =?utf-8?Q?T=C3=A9nart?= <antoine.tenart@bootlin.com>,
- netdev <netdev@vger.kernel.org>, linux-stm32@st-md-mailman.stormreply.com,
- Chen-Yu Tsai <wens@csie.org>, Maxime Coquelin <mcoquelin.stm32@gmail.com>,
- Maxime Chevallier <maxime.chevallier@bootlin.com>,
- Frank Rowand <frowand.list@gmail.com>,
- "David S . Miller" <davem@davemloft.net>,
+References: <20190214083145.15148-1-benjamin.gaignard@linaro.org>
+ <e25b2626-231b-28d7-93b0-004a21a3685e@st.com>
+ <CAOMZO5A6A2sYzfPgjsqQxWcc4Z0YW9-sENW21KumO_XkN3WBYQ@mail.gmail.com>
+ <CA+M3ks7LPEpEfOEqiOZ4q2-We-8BjK0FZfeKts4hBzL7GRRHSw@mail.gmail.com>
+In-Reply-To: <CA+M3ks7LPEpEfOEqiOZ4q2-We-8BjK0FZfeKts4hBzL7GRRHSw@mail.gmail.com>
+From: Benjamin Gaignard <benjamin.gaignard@linaro.org>
+Date: Tue, 11 Jun 2019 13:42:34 +0200
+Message-ID: <CA+M3ks5UE8VSa1iHVHWw8NfQWU-v_MRYffVPBMLhy53PD9SJxA@mail.gmail.com>
+To: Fabio Estevam <festevam@gmail.com>
+Cc: Arnd Bergmann <arnd@arndb.de>,
+ Russell King - ARM Linux <linux@armlinux.org.uk>,
+ linux-kernel <linux-kernel@vger.kernel.org>, Hui Liu <jason.hui.liu@nxp.com>,
+ linux-stm32@st-md-mailman.stormreply.com,
  "moderated list:ARM/FREESCALE IMX / MXC ARM ARCHITECTURE"
- <linux-arm-kernel@lists.infradead.org>, Heiner Kallweit <hkallweit1@gmail.com>
-Subject: Re: [Linux-stm32] [PATCH v2 09/11] dt-bindings: net: sun8i-emac:
- Convert the binding to a schemas
+ <linux-arm-kernel@lists.infradead.org>
+Subject: Re: [Linux-stm32] [PATCH v2 0/2] ARM errata 814220
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -52,124 +71,29 @@ List-Post: <mailto:linux-stm32@st-md-mailman.stormreply.com>
 List-Help: <mailto:linux-stm32-request@st-md-mailman.stormreply.com?subject=help>
 List-Subscribe: <https://st-md-mailman.stormreply.com/mailman/listinfo/linux-stm32>, 
  <mailto:linux-stm32-request@st-md-mailman.stormreply.com?subject=subscribe>
-Content-Type: multipart/mixed; boundary="===============9075037277899330598=="
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: base64
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
-
---===============9075037277899330598==
-Content-Type: multipart/signed; micalg=pgp-sha256;
-	protocol="application/pgp-signature"; boundary="twpj3baugamuul24"
-Content-Disposition: inline
-
-
---twpj3baugamuul24
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-
-Hi,
-
-On Mon, Jun 10, 2019 at 01:22:00PM -0600, Rob Herring wrote:
-> On Mon, Jun 10, 2019 at 3:26 AM Maxime Ripard <maxime.ripard@bootlin.com> wrote:
-> > +    then:
-> > +      properties:
-> > +        allwinner,tx-delay-ps:
-> > +          allOf:
-> > +            - $ref: /schemas/types.yaml#definitions/uint32
->
-> Can drop this as anything with unit prefix has its type defined
-> already.
-
-Not for picoseconds though. I'll send a PR to dt-schema if you prefer
-to define it there.
-
->
-> > +            - enum: [0, 100, 200, 300, 400, 500, 600, 700]
-> > +              default: 0
-> > +          description:
-> > +            External RGMII PHY TX clock delay chain value in ps.
-> > +
-> > +        allwinner,rx-delay-ps:
-> > +          allOf:
-> > +            - $ref: /schemas/types.yaml#definitions/uint32
-> > +            - enum:
-> > +                - 0
-> > +                - 100
-> > +                - 200
-> > +                - 300
-> > +                - 400
-> > +                - 500
-> > +                - 600
-> > +                - 700
-> > +                - 800
-> > +                - 900
-> > +                - 1000
-> > +                - 1100
-> > +                - 1200
-> > +                - 1300
-> > +                - 1400
-> > +                - 1500
-> > +                - 1600
-> > +                - 1700
-> > +                - 1800
-> > +                - 1900
-> > +                - 2000
-> > +                - 2100
-> > +                - 2200
-> > +                - 2300
-> > +                - 2400
-> > +                - 2500
-> > +                - 2600
-> > +                - 2700
-> > +                - 2800
-> > +                - 2900
-> > +                - 3000
-> > +                - 3100
->
-> I think you can do
->
-> enum: [1, 2, 3,
->   4,  5, 6]
->
-> Or you can do:
->
-> minimum: 0
-> maximum: 3100
-> multipleOf: 100
->
-> IIRC that multipleOf is a json-schema key.
-
-I really like that second syntax, thanks!
-
-Maxime
-
---
-Maxime Ripard, Bootlin
-Embedded Linux and Kernel engineering
-https://bootlin.com
-
---twpj3baugamuul24
-Content-Type: application/pgp-signature; name="signature.asc"
-
------BEGIN PGP SIGNATURE-----
-
-iHUEABYIAB0WIQRcEzekXsqa64kGDp7j7w1vZxhRxQUCXP+Q/AAKCRDj7w1vZxhR
-xXNCAP9Z7+EYu847+4dOo5AEj3ZOyAIpaf0cfysGi59ElDt8YgEA36E6Jv7/cOpS
-KBTjh2j/vsuGvWij3L6KlfuKURO0UwM=
-=3dqX
------END PGP SIGNATURE-----
-
---twpj3baugamuul24--
-
---===============9075037277899330598==
-Content-Type: text/plain; charset="us-ascii"
-MIME-Version: 1.0
-Content-Transfer-Encoding: 7bit
-Content-Disposition: inline
-
-_______________________________________________
-Linux-stm32 mailing list
-Linux-stm32@st-md-mailman.stormreply.com
-https://st-md-mailman.stormreply.com/mailman/listinfo/linux-stm32
-
---===============9075037277899330598==--
+TGUgbWVyLiAyNCBhdnIuIDIwMTkgw6AgMDk6MjUsIEJlbmphbWluIEdhaWduYXJkCjxiZW5qYW1p
+bi5nYWlnbmFyZEBsaW5hcm8ub3JnPiBhIMOpY3JpdCA6Cj4KPiBMZSBtYXIuIDIzIGF2ci4gMjAx
+OSDDoCAxOTo0NiwgRmFiaW8gRXN0ZXZhbSA8ZmVzdGV2YW1AZ21haWwuY29tPiBhIMOpY3JpdCA6
+Cj4gPgo+ID4gT24gV2VkLCBGZWIgMjcsIDIwMTkgYXQgMToyMSBQTSBBbGV4YW5kcmUgVG9yZ3Vl
+Cj4gPiA8YWxleGFuZHJlLnRvcmd1ZUBzdC5jb20+IHdyb3RlOgo+ID4gPgo+ID4gPgo+ID4gPiBP
+biAyLzE0LzE5IDk6MzEgQU0sIEJlbmphbWluIEdhaWduYXJkIHdyb3RlOgo+ID4gPiA+IEltcGxl
+bWVudCBBUk0gZXJyYXRhIDgxNDIyMCBmb3IgQ29ydGV4IEE3Lgo+ID4gPiA+Cj4gPiA+ID4gVGhp
+cyBwYXRjaCBoYXMgYmVlbiB3cm90ZW4gYnkgSmFzb24gTGl1IHllYXJzIGFnbyBidXQgbmV2ZXIg
+c2VuZCB1cHN0cmVhbS4KPiA+ID4gPiBJIGhhdmUgdHJpZWQgdG8gY29udGFjdCB0aGUgYXV0aG9y
+IG9uIG11bHRpcGxlIGVtYWlsIGFkZHJlc3NlcyBidXQgSSBoYXZlbid0Cj4gPiA+ID4gZm91bmQg
+YW55IHZhbGlkIG9uZS4uLgo+ID4gPiA+IEkgaGF2ZSBrZWVwIEphc29uJ3Mgc2lnbi1vZmYgYW5k
+IGp1c3QgcmViYXNlIHRoZSBwYXRjaCBvbiB0byB2NS1yYzYuCj4gPgo+ID4gQWRkaW5nIEphc29u
+J3MgTlhQIGUtbWFpbCBhZGRyZXNzLgo+IFRoYW5rcyAhCj4KPiBSdXNzZWxsLCBjYW4gQWxleGFu
+ZHJlIHB1c2ggdGhpcyBzZXJpZXMgaW4gc3RtMzIgdHJlZSBvciB5b3UgcHJlZmVyIHRvCj4gbWVy
+Z2UgaXQgeW91cnNlbGYgPwo+CgpIZWxsbyBSdXNzZWxsLAoKSSBoYXZlIHB1c2ggdGhpcyBzZXJp
+ZXMgaW4geW91ciBwYXRjaCBzeXN0ZW0gd2Vla3MgYWdvLCBidXQgbm90aGluZyBoYXBwZW5zLgpE
+byBJIG1pc3Mgc29tZXRoaW5nIGluIHlvdXIgcHJvY2VzcyA/CgpSZWdhcmRzLApCZW5qYW1pbgoK
+PiBSZWdhcmRzLAo+IEJlbmphbWluCj4gPgo+ID4gVGhhbmtzCl9fX19fX19fX19fX19fX19fX19f
+X19fX19fX19fX19fX19fX19fX19fX19fX19fCkxpbnV4LXN0bTMyIG1haWxpbmcgbGlzdApMaW51
+eC1zdG0zMkBzdC1tZC1tYWlsbWFuLnN0b3JtcmVwbHkuY29tCmh0dHBzOi8vc3QtbWQtbWFpbG1h
+bi5zdG9ybXJlcGx5LmNvbS9tYWlsbWFuL2xpc3RpbmZvL2xpbnV4LXN0bTMyCg==
