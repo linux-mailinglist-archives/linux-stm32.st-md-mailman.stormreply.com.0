@@ -2,46 +2,77 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id 9EAFF4366F
-	for <lists+linux-stm32@lfdr.de>; Thu, 13 Jun 2019 15:25:32 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id AAA5257E8C
+	for <lists+linux-stm32@lfdr.de>; Thu, 27 Jun 2019 10:49:49 +0200 (CEST)
 Received: from ip-172-31-3-76.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id EA7AECB36F1
-	for <lists+linux-stm32@lfdr.de>; Thu, 13 Jun 2019 13:25:31 +0000 (UTC)
-Received: from relay6-d.mail.gandi.net (relay6-d.mail.gandi.net
- [217.70.183.198])
- (using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 764C5C57B70
+	for <lists+linux-stm32@lfdr.de>; Thu, 27 Jun 2019 08:49:49 +0000 (UTC)
+Received: from mail-pg1-f196.google.com (mail-pg1-f196.google.com
+ [209.85.215.196])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 6C59DCB36EE
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 2E977C20B7E
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Thu, 13 Jun 2019 13:25:30 +0000 (UTC)
-X-Originating-IP: 90.88.159.246
-Received: from localhost (aaubervilliers-681-1-40-246.w90-88.abo.wanadoo.fr
- [90.88.159.246]) (Authenticated sender: maxime.ripard@bootlin.com)
- by relay6-d.mail.gandi.net (Postfix) with ESMTPSA id B224FC0002;
- Thu, 13 Jun 2019 13:25:15 +0000 (UTC)
-Date: Tue, 11 Jun 2019 16:58:56 +0200
-From: Maxime Ripard <maxime.ripard@bootlin.com>
-To: Rob Herring <robh+dt@kernel.org>
-Message-ID: <20190611145856.ua2ggkn6ccww6vpp@flea>
-References: <91618c7e9a5497462afa74c6d8a947f709f54331.1560158667.git-series.maxime.ripard@bootlin.com>
- <d198d29119b37b2fdb700d8992b31963e98b6693.1560158667.git-series.maxime.ripard@bootlin.com>
- <20190610143139.GG28724@lunn.ch>
- <CAL_JsqJahCJcdu=+fA=ewbGezuEJ2W6uwMVxkQpdY6w+1OWVVA@mail.gmail.com>
+ Tue, 11 Jun 2019 16:52:17 +0000 (UTC)
+Received: by mail-pg1-f196.google.com with SMTP id f21so1273379pgi.3
+ for <linux-stm32@st-md-mailman.stormreply.com>;
+ Tue, 11 Jun 2019 09:52:17 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20161025;
+ h=mime-version:references:in-reply-to:from:date:message-id:subject:to
+ :cc; bh=DQYk/P/AHz+84MHAfqs8A9FFft/ChbHJqGQaIDzi6ok=;
+ b=cjJRH/tiJROWu574Li6WdMn+vr3Phrkemo9e0MrIa7BjfXn2y19eO6hPYoPqTcaHm+
+ hm86n1rLG16xTwB/lLMEZ2SGn8PMjk7ag060+cgnFYiLM2inu1qWcunQBV1YSvwfqYTT
+ DgE717bOFNLWOZArTH/miO/fXl2dyCUiS6unF3rjzsK53ET9uPUrfDplIbVezPaE0owq
+ T40LrouoYo1Kjly8EJOlF7nZLhlPBw95nQfBGP3R4rCFndbjLuo5+P13eHpc0hbKjwSf
+ j1WcA8dmRUBq2QbCXlBPmirBES11keCDGZCylHH6F7HiSk1MO2DGiSF9oKgwoUiwsuzg
+ zNOQ==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20161025;
+ h=x-gm-message-state:mime-version:references:in-reply-to:from:date
+ :message-id:subject:to:cc;
+ bh=DQYk/P/AHz+84MHAfqs8A9FFft/ChbHJqGQaIDzi6ok=;
+ b=CvozsSh9cth6C0g/pZDmlHeJZd9acFe1m3KKG4pS6J6b1sj6Ls5nHkFZb59eSJGmNn
+ QvA/bqzOoieBznxZ15KgOrsoQryKr9vYtEhkgJCWBrqiKjhp8Xcn+mIJwNeE4r4Q4NzT
+ rVSRe51J7I1OKOwuj5kx1Yknc7volSLckkpqMVvqCIFCfBlygqaRIiEeV8NZdHE7Pche
+ 3sHJ51Wlzr3GF9rGFWfIF/VzIxgCi0rlV5yX6l4S2QOiH+2J/mO7VEuToEvg/KtI4nD+
+ YANofI3zye8qcUFPnPGuNt9VTR6DvwyzqhFLVB7hpcmrBRvJS5xLgWOBuCW9h9Hw08l5
+ rIPQ==
+X-Gm-Message-State: APjAAAWpozPH15BxPihdHaAKWjmYCBhTq63X1iGNtZ+pYWUkAnHzC4/E
+ ewpCnktDwq0Matx+w0QvtRQbN2XA8eJFjRMfk+Y=
+X-Google-Smtp-Source: APXvYqwIRgwZSvbJvIgasj06odVOLwqV4e1NGaONT67RAQJDqA/rR9sRiGkufN8AoUbyfd4Xe69TJ3rJVeHoEHiPbLI=
+X-Received: by 2002:a17:90b:8d2:: with SMTP id
+ ds18mr3765976pjb.132.1560271935519; 
+ Tue, 11 Jun 2019 09:52:15 -0700 (PDT)
 MIME-Version: 1.0
-In-Reply-To: <CAL_JsqJahCJcdu=+fA=ewbGezuEJ2W6uwMVxkQpdY6w+1OWVVA@mail.gmail.com>
-User-Agent: NeoMutt/20180716
-Cc: Mark Rutland <mark.rutland@arm.com>, Andrew Lunn <andrew@lunn.ch>,
- Florian Fainelli <f.fainelli@gmail.com>, devicetree@vger.kernel.org,
- Antoine =?utf-8?Q?T=C3=A9nart?= <antoine.tenart@bootlin.com>,
- netdev <netdev@vger.kernel.org>, linux-stm32@st-md-mailman.stormreply.com,
- Chen-Yu Tsai <wens@csie.org>, Maxime Coquelin <mcoquelin.stm32@gmail.com>,
- Maxime Chevallier <maxime.chevallier@bootlin.com>,
- Frank Rowand <frowand.list@gmail.com>,
- "David S . Miller" <davem@davemloft.net>,
- "moderated list:ARM/FREESCALE IMX / MXC ARM ARCHITECTURE"
- <linux-arm-kernel@lists.infradead.org>, Heiner Kallweit <hkallweit1@gmail.com>
-Subject: Re: [Linux-stm32] [PATCH v2 05/11] dt-bindings: net: sun4i-emac:
- Convert the binding to a schemas
+References: <ff457774d46d96e8fe56b45409aba39d87a8672a.1559933665.git.mchehab+samsung@kernel.org>
+ <0bea1c7c4fc06c7edabbf3185c0cbbc6e85eafd0.1559933665.git.mchehab+samsung@kernel.org>
+In-Reply-To: <0bea1c7c4fc06c7edabbf3185c0cbbc6e85eafd0.1559933665.git.mchehab+samsung@kernel.org>
+From: Andy Shevchenko <andy.shevchenko@gmail.com>
+Date: Tue, 11 Jun 2019 19:52:04 +0300
+Message-ID: <CAHp75VfTNJOGZx-PoUXLRvzghqf6bVUdJ+yFjE9hNtDLCQ1=UA@mail.gmail.com>
+To: Mauro Carvalho Chehab <mchehab+samsung@kernel.org>
+X-Mailman-Approved-At: Thu, 27 Jun 2019 08:49:46 +0000
+Cc: Linux Doc Mailing List <linux-doc@vger.kernel.org>,
+ David Airlie <airlied@linux.ie>,
+ Benjamin Herrenschmidt <benh@kernel.crashing.org>,
+ dri-devel@lists.freedesktop.org,
+ Platform Driver <platform-driver-x86@vger.kernel.org>,
+ Paul Mackerras <paulus@samba.org>, linux-stm32@st-md-mailman.stormreply.com,
+ Jonathan Corbet <corbet@lwn.net>, Michael Ellerman <mpe@ellerman.id.au>,
+ Maxime Ripard <maxime.ripard@bootlin.com>,
+ Andrew Donnellan <ajd@linux.ibm.com>, Linux PM <linux-pm@vger.kernel.org>,
+ Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
+ Matan Ziv-Av <matan@svgalib.org>,
+ Mauro Carvalho Chehab <mchehab@infradead.org>, Daniel Vetter <daniel@ffwll.ch>,
+ Sean Paul <sean@poorly.run>,
+ linux-arm Mailing List <linux-arm-kernel@lists.infradead.org>,
+ Linux Kernel Mailing List <linux-kernel@vger.kernel.org>,
+ Maxime Coquelin <mcoquelin.stm32@gmail.com>,
+ Frederic Barrat <fbarrat@linux.ibm.com>,
+ "open list:LINUX FOR POWERPC PA SEMI PWRFICIENT"
+ <linuxppc-dev@lists.ozlabs.org>, Georgi Djakov <georgi.djakov@linaro.org>
+Subject: Re: [Linux-stm32] [PATCH v3 06/20] docs: mark orphan documents as
+	such
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -53,95 +84,39 @@ List-Post: <mailto:linux-stm32@st-md-mailman.stormreply.com>
 List-Help: <mailto:linux-stm32-request@st-md-mailman.stormreply.com?subject=help>
 List-Subscribe: <https://st-md-mailman.stormreply.com/mailman/listinfo/linux-stm32>, 
  <mailto:linux-stm32-request@st-md-mailman.stormreply.com?subject=subscribe>
-Content-Type: multipart/mixed; boundary="===============7122882756162846980=="
+Content-Type: text/plain; charset="us-ascii"
+Content-Transfer-Encoding: 7bit
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
+On Fri, Jun 7, 2019 at 10:04 PM Mauro Carvalho Chehab
+<mchehab+samsung@kernel.org> wrote:
+> Sphinx doesn't like orphan documents:
 
---===============7122882756162846980==
-Content-Type: multipart/signed; micalg=pgp-sha256;
-	protocol="application/pgp-signature"; boundary="akgu3rpnhcjfd75m"
-Content-Disposition: inline
+>     Documentation/laptops/lg-laptop.rst: WARNING: document isn't included in any toctree
 
+>  Documentation/laptops/lg-laptop.rst             | 2 ++
 
---akgu3rpnhcjfd75m
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-
-Hi Rob,
-
-On Mon, Jun 10, 2019 at 12:59:29PM -0600, Rob Herring wrote:
-> On Mon, Jun 10, 2019 at 8:31 AM Andrew Lunn <andrew@lunn.ch> wrote:
-> >
-> > > +required:
-> > > +  - compatible
-> > > +  - reg
-> > > +  - interrupts
-> > > +  - clocks
-> > > +  - phy
-> > > +  - allwinner,sram
-> >
-> > Quoting ethernet.txt:
-> >
-> > - phy: the same as "phy-handle" property, not recommended for new bindings.
-> >
-> > - phy-handle: phandle, specifies a reference to a node representing a PHY
-> >   device; this property is described in the Devicetree Specification and so
-> >   preferred;
-> >
-> > Can this be expressed in Yaml? Accept phy, but give a warning. Accept
-> > phy-handle without a warning? Enforce that one or the other is
-> > present?
+> diff --git a/Documentation/laptops/lg-laptop.rst b/Documentation/laptops/lg-laptop.rst
+> index aa503ee9b3bc..f2c2ffe31101 100644
+> --- a/Documentation/laptops/lg-laptop.rst
+> +++ b/Documentation/laptops/lg-laptop.rst
+> @@ -1,5 +1,7 @@
+>  .. SPDX-License-Identifier: GPL-2.0+
 >
-> The common schema could have 'phy: false'. This works as long as we've
-> updated (or plan to) all the dts files to use phy-handle. The issue is
-> how far back do you need kernels to work with newer dtbs.
+> +:orphan:
+> +
+>  LG Gram laptop extra features
+>  =============================
+>
 
-I guess another question being raised by this is how hard do we want
-to be a deprecating things, and should the DT validation be a tool to
-enforce that validation.
+Can we rather create a toc tree there?
+It was a first document in reST format in that folder.
 
-For example, you've used in you GPIO meta-schema false for anything
-ending with -gpio, since it's deprecated. This means that we can't
-convert any binding using a deprecated property without introducing a
-build error in the schemas, which in turn means that you'll have a lot
-of friction to support schemas, since you would have to convert your
-driver to support the new way of doing things, before being able to
-have a schema for your binding.
-
-And then, we need to agree on how to express the deprecation. I guess
-we could allow the deprecated keyword that will be there in the
-draft-8, instead of ad-hoc solutions?
-
-Maxime
-
---
-Maxime Ripard, Bootlin
-Embedded Linux and Kernel engineering
-https://bootlin.com
-
---akgu3rpnhcjfd75m
-Content-Type: application/pgp-signature; name="signature.asc"
-
------BEGIN PGP SIGNATURE-----
-
-iHUEABYIAB0WIQRcEzekXsqa64kGDp7j7w1vZxhRxQUCXP/BsAAKCRDj7w1vZxhR
-xU7tAQDcrE7AmbrNpKlW8XjNBwjZBTaNMJbwICwP0nzygayxHQD+MjHzz6TZnhQF
-Qm1qbD7O25WDq9BPnYW8XMjLhY6IgQE=
-=f1jE
------END PGP SIGNATURE-----
-
---akgu3rpnhcjfd75m--
-
---===============7122882756162846980==
-Content-Type: text/plain; charset="us-ascii"
-MIME-Version: 1.0
-Content-Transfer-Encoding: 7bit
-Content-Disposition: inline
-
+-- 
+With Best Regards,
+Andy Shevchenko
 _______________________________________________
 Linux-stm32 mailing list
 Linux-stm32@st-md-mailman.stormreply.com
 https://st-md-mailman.stormreply.com/mailman/listinfo/linux-stm32
-
---===============7122882756162846980==--
