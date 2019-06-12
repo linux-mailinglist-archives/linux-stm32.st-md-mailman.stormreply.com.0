@@ -2,57 +2,56 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id 82AB341E4B
-	for <lists+linux-stm32@lfdr.de>; Wed, 12 Jun 2019 09:55:18 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 8E36941E4D
+	for <lists+linux-stm32@lfdr.de>; Wed, 12 Jun 2019 09:55:24 +0200 (CEST)
 Received: from ip-172-31-3-76.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 4D26DC5DBD8
-	for <lists+linux-stm32@lfdr.de>; Wed, 12 Jun 2019 07:55:18 +0000 (UTC)
-Received: from mail-pl1-f195.google.com (mail-pl1-f195.google.com
- [209.85.214.195])
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 55C1CC5DBD9
+	for <lists+linux-stm32@lfdr.de>; Wed, 12 Jun 2019 07:55:24 +0000 (UTC)
+Received: from mail-pl1-f194.google.com (mail-pl1-f194.google.com
+ [209.85.214.194])
  (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 72CBBC5DBD7
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 80502C5DBD8
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Wed, 12 Jun 2019 07:55:16 +0000 (UTC)
-Received: by mail-pl1-f195.google.com with SMTP id p1so6302034plo.2
+ Wed, 12 Jun 2019 07:55:22 +0000 (UTC)
+Received: by mail-pl1-f194.google.com with SMTP id e5so6281186pls.13
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Wed, 12 Jun 2019 00:55:16 -0700 (PDT)
+ Wed, 12 Jun 2019 00:55:22 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linaro.org; s=google;
  h=from:to:cc:subject:date:message-id:in-reply-to:references;
- bh=ddmyf9yTEwlfHCzubut1+DzdJc/PcrZsJL5uTZc4yfE=;
- b=naECvcLA5b+ikhmyDk1YLXvhPLPCup9xIr0OEPfNZq/YqaOQKD1US6XtcnKca3PyrX
- bS4UZiBYiQmNmGgQ0PHd0Pc5zsJFZJte92oiMsouZ/6hZL5caUyz5JVsLCSMfcMwekA5
- W8GFIeuttEZGufRFlCDfOWDY6meAbjQfHmhtnqmKMl97G8fpOsIGpMdAr2Sx2or9umrH
- HGKJLY2DI7pkC2v9OSawkWU+Q8oq9CyE39MCKWWLqQEW17vncFA7PjIeEAyeF5vORafF
- +eTbVWyCkWrnw7G2YeduVn3IGEasK2w9lxkHgo8d5n/wtLwv0f3frqGhWVK86HxSmRZ0
- UgzQ==
+ bh=Fl90wvGVk9jQf/e3ED2nkXc10vHdjJ0BRJ8wEykJJm4=;
+ b=DyFfgQQEx33mWJYiam6MYxvlG5nNkiPk4WCy+71VVasj+drxJg4JufGNFag39gfBEH
+ zSr0p6ZySEs9Vb4s9fSruFnjk083UoQt1dAJ4v9r36BI/G4+w6wc6YDXy8MznwFvb6PI
+ xzXGKBOgdDXnJ6KvOtldHLy7rk0UPyZ/Ft0P8nTKlNScfLIYyaBJhBdneF3HNjOtP5Dw
+ J6CAweQoC3TLOnsXB9kf9xDoMJQKV8fdD2/AOPlBBy8PnfnoUFUrNt4PZ4G0cSrX/2BG
+ 1p34vLC0YZAaptN62xEiP6S45+MFJgjIVD2HV14gVazd9qNgNEjFwswjK/vwsWG+xD0L
+ vgMA==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=1e100.net; s=20161025;
  h=x-gm-message-state:from:to:cc:subject:date:message-id:in-reply-to
  :references;
- bh=ddmyf9yTEwlfHCzubut1+DzdJc/PcrZsJL5uTZc4yfE=;
- b=nKWbLqk3A5xSpiz4p6t6M5+jlvkiwUvY7G4jArWK+fm3I9+xBv871ohOkDC+6Uf9VZ
- 1PESUwxCXnhxbi+zZ6NRBnTHBUVRyj3fVueSI98fI6DZNd2vLz/RCqmgh1f1PmgMONC2
- eFipfGlDpQn90eLPkhrSouxLUzgSZMHNFbFuEp3ox8+94PLCm7u6UoYXdv5zGvkJRXf6
- tcM4AcUCL7DFJJWcU0eW+Tv9CxVQoJHWI1qZP2HV3NwHvuJ3fpGy12CKzzG3r0Ti9s5a
- Nf4FnZjMEtONqc47z7Cfp52QuyIwpw6Uw+dNe6GkgFKkWukpA67YgWv+QZ2vKbuX2de2
- AvFw==
-X-Gm-Message-State: APjAAAXqkV8ViAGgHazvI2aq4qO3RRHd9h3EWUAQ45C+l4H5Yj0l2lkd
- h3FVWC/kAMR1eXKhxRVsZzwHlWmQYpDK
-X-Google-Smtp-Source: APXvYqx7tmatLIV5lw0AoibaBm7aPYmU16s1G88Rxa+htlmSOMrfzpqbjFDCivcdIqj+XjXUxs362Q==
-X-Received: by 2002:a17:902:b905:: with SMTP id
- bf5mr80896870plb.155.1560326114920; 
- Wed, 12 Jun 2019 00:55:14 -0700 (PDT)
+ bh=Fl90wvGVk9jQf/e3ED2nkXc10vHdjJ0BRJ8wEykJJm4=;
+ b=rtIRLR/ImpRznwoGUs9Vhlgasl1wHPbuySYSsGMjPH9yVDc8QM7h/LfBb4bfFdqz/Y
+ gQVMnPt4Wp5N3Rdik7/lRP8CWqOKdHX6/+eu3dHIYJlSY1F1majR+KSLyeDFeeRqrL9/
+ hVXR8A21z0txCVUf7g+E07RqEG/KIpeOkaHrV97b8jwuTksPy7dIXV13PBw3sb9SIp3C
+ 4gE+ae9JF3sV8c9/e84H/YcpZE0tfLM0dUzZx7bG6weIA93AM4EVZAA5sRlGQSolTqEk
+ 5is7E4GCe3sm+4uX3k6zcADN/Wb3qs6Wur7BYhbpIIWi91v74eBZTxIM71RtnIv18hkK
+ 34eg==
+X-Gm-Message-State: APjAAAUA3IZWgMBx2fMIh9Rvpragdhq4JSM72tSPkDB/keP4I5oyUqMa
+ v30nuRrilSVKuj6PnXG6lkNz
+X-Google-Smtp-Source: APXvYqxWBYUdZW2Y4YlWacoCLLvBzvetdV8f6Kh7h4YdWN/CXwrhdOPQFCd141iMalRdxN8KCq/8mw==
+X-Received: by 2002:a17:902:61:: with SMTP id 88mr3378053pla.50.1560326121013; 
+ Wed, 12 Jun 2019 00:55:21 -0700 (PDT)
 Received: from localhost.localdomain ([2409:4072:894:d456:15b5:9ca9:e3ec:c06a])
- by smtp.gmail.com with ESMTPSA id b15sm16846399pfi.141.2019.06.12.00.55.09
+ by smtp.gmail.com with ESMTPSA id b15sm16846399pfi.141.2019.06.12.00.55.15
  (version=TLS1_2 cipher=ECDHE-RSA-AES128-GCM-SHA256 bits=128/128);
- Wed, 12 Jun 2019 00:55:14 -0700 (PDT)
+ Wed, 12 Jun 2019 00:55:20 -0700 (PDT)
 From: Manivannan Sadhasivam <manivannan.sadhasivam@linaro.org>
 To: mcoquelin.stm32@gmail.com,
 	alexandre.torgue@st.com,
 	robh+dt@kernel.org
-Date: Wed, 12 Jun 2019 13:24:49 +0530
-Message-Id: <20190612075451.8643-3-manivannan.sadhasivam@linaro.org>
+Date: Wed, 12 Jun 2019 13:24:50 +0530
+Message-Id: <20190612075451.8643-4-manivannan.sadhasivam@linaro.org>
 X-Mailer: git-send-email 2.17.1
 In-Reply-To: <20190612075451.8643-1-manivannan.sadhasivam@linaro.org>
 References: <20190612075451.8643-1-manivannan.sadhasivam@linaro.org>
@@ -60,8 +59,8 @@ Cc: devicetree@vger.kernel.org, loic.pallardy@st.com,
  linux-kernel@vger.kernel.org,
  Manivannan Sadhasivam <manivannan.sadhasivam@linaro.org>,
  linux-stm32@st-md-mailman.stormreply.com, linux-arm-kernel@lists.infradead.org
-Subject: [Linux-stm32] [PATCH v4 2/4] dt-bindings: arm: stm32: Convert STM32
-	SoC bindings to DT schema
+Subject: [Linux-stm32] [PATCH v4 3/4] dt-bindings: arm: stm32: Document
+	Avenger96 devicetree binding
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -79,67 +78,27 @@ Content-Transfer-Encoding: 7bit
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
-This commit converts STM32 SoC bindings to DT schema using jsonschema.
+This commit documents Avenger96 devicetree binding based on
+STM32MP157 SoC.
 
+Reviewed-by: Rob Herring <robh@kernel.org>
 Signed-off-by: Manivannan Sadhasivam <manivannan.sadhasivam@linaro.org>
 ---
- .../devicetree/bindings/arm/stm32/stm32.txt   | 10 -------
- .../devicetree/bindings/arm/stm32/stm32.yaml  | 29 +++++++++++++++++++
- 2 files changed, 29 insertions(+), 10 deletions(-)
- delete mode 100644 Documentation/devicetree/bindings/arm/stm32/stm32.txt
- create mode 100644 Documentation/devicetree/bindings/arm/stm32/stm32.yaml
+ Documentation/devicetree/bindings/arm/stm32/stm32.yaml | 2 ++
+ 1 file changed, 2 insertions(+)
 
-diff --git a/Documentation/devicetree/bindings/arm/stm32/stm32.txt b/Documentation/devicetree/bindings/arm/stm32/stm32.txt
-deleted file mode 100644
-index 6808ed9ddfd5..000000000000
---- a/Documentation/devicetree/bindings/arm/stm32/stm32.txt
-+++ /dev/null
-@@ -1,10 +0,0 @@
--STMicroelectronics STM32 Platforms Device Tree Bindings
--
--Each device tree must specify which STM32 SoC it uses,
--using one of the following compatible strings:
--
--  st,stm32f429
--  st,stm32f469
--  st,stm32f746
--  st,stm32h743
--  st,stm32mp157
 diff --git a/Documentation/devicetree/bindings/arm/stm32/stm32.yaml b/Documentation/devicetree/bindings/arm/stm32/stm32.yaml
-new file mode 100644
-index 000000000000..f53dc0f2d7b3
---- /dev/null
+index f53dc0f2d7b3..4d194f1eb03a 100644
+--- a/Documentation/devicetree/bindings/arm/stm32/stm32.yaml
 +++ b/Documentation/devicetree/bindings/arm/stm32/stm32.yaml
-@@ -0,0 +1,29 @@
-+# SPDX-License-Identifier: GPL-2.0
-+%YAML 1.2
-+---
-+$id: http://devicetree.org/schemas/arm/stm32/stm32.yaml#
-+$schema: http://devicetree.org/meta-schemas/core.yaml#
-+
-+title: STMicroelectronics STM32 Platforms Device Tree Bindings
-+
-+maintainers:
-+  - Alexandre Torgue <alexandre.torgue@st.com>
-+
-+properties:
-+  compatible:
-+    oneOf:
-+      - items:
-+          - const: st,stm32f429
-+
-+      - items:
-+          - const: st,stm32f469
-+
-+      - items:
-+          - const: st,stm32f746
-+
-+      - items:
-+          - const: st,stm32h743
-+
-+      - items:
-+          - const: st,stm32mp157
-+...
+@@ -25,5 +25,7 @@ properties:
+           - const: st,stm32h743
+ 
+       - items:
++          - enum:
++              - arrow,stm32mp157a-avenger96 # Avenger96
+           - const: st,stm32mp157
+ ...
 -- 
 2.17.1
 
