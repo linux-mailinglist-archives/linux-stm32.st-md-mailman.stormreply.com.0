@@ -2,113 +2,60 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id 0A98657E90
-	for <lists+linux-stm32@lfdr.de>; Thu, 27 Jun 2019 10:49:50 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 1FB7641D95
+	for <lists+linux-stm32@lfdr.de>; Wed, 12 Jun 2019 09:25:39 +0200 (CEST)
 Received: from ip-172-31-3-76.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id C6033C5AFB8
-	for <lists+linux-stm32@lfdr.de>; Thu, 27 Jun 2019 08:49:49 +0000 (UTC)
-Received: from mailout2.w1.samsung.com (mailout2.w1.samsung.com
- [210.118.77.12])
- (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id D4D87D23C78
+	for <lists+linux-stm32@lfdr.de>; Wed, 12 Jun 2019 07:25:38 +0000 (UTC)
+Received: from mx07-00178001.pphosted.com (mx07-00178001.pphosted.com
+ [62.209.51.94])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 7172BD0AAED
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 22812D20D7B
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Wed, 12 Jun 2019 07:18:08 +0000 (UTC)
-Received: from eucas1p1.samsung.com (unknown [182.198.249.206])
- by mailout2.w1.samsung.com (KnoxPortal) with ESMTP id
- 20190612071807euoutp022e94144ea57951791643b24b44842e9b~nYk8K4_YH0215502155euoutp02U
- for <linux-stm32@st-md-mailman.stormreply.com>;
- Wed, 12 Jun 2019 07:18:07 +0000 (GMT)
-DKIM-Filter: OpenDKIM Filter v2.11.0 mailout2.w1.samsung.com
- 20190612071807euoutp022e94144ea57951791643b24b44842e9b~nYk8K4_YH0215502155euoutp02U
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=samsung.com;
- s=mail20170921; t=1560323887;
- bh=Ib2hOUBwsOQPwhivWkswJDbQOGHqTT29bt2JNeyXdfM=;
- h=Subject:To:From:Date:In-Reply-To:References:From;
- b=MIIdtvuaP9oxdVbZEg1DbiOmlpKuRvd/xM99a1KFJ0RDPrkp7PNIQooNFTNS4i7C1
- n6OdoU4ny4H9GKh47xgPRq1FSUWmcDTv5qk2FlNi61vFMBAG6TyEmEfAgV0MCHDVwn
- uXV30KwKlzxFfiZ1R7mHxO6OBLyO9wpFJpKAlGPk=
-Received: from eusmges2new.samsung.com (unknown [203.254.199.244]) by
- eucas1p2.samsung.com (KnoxPortal) with ESMTP id
- 20190612071806eucas1p24457744ce55feb071aaada8e3fa3c118~nYk7cTv962271322713eucas1p2p;
- Wed, 12 Jun 2019 07:18:06 +0000 (GMT)
-Received: from eucas1p1.samsung.com ( [182.198.249.206]) by
- eusmges2new.samsung.com (EUCPMTA) with SMTP id C1.5A.04377.E27A00D5; Wed, 12
- Jun 2019 08:18:06 +0100 (BST)
-Received: from eusmtrp2.samsung.com (unknown [182.198.249.139]) by
- eucas1p2.samsung.com (KnoxPortal) with ESMTPA id
- 20190612071806eucas1p29bbe929b1df18938ce355e9f63320ce1~nYk6x4tin1127011270eucas1p24;
- Wed, 12 Jun 2019 07:18:06 +0000 (GMT)
-Received: from eusmgms1.samsung.com (unknown [182.198.249.179]) by
- eusmtrp2.samsung.com (KnoxPortal) with ESMTP id
- 20190612071805eusmtrp2dd48ceed9f5cd27bd15669b50836115e~nYk6iy9VE2761027610eusmtrp2i;
- Wed, 12 Jun 2019 07:18:05 +0000 (GMT)
-X-AuditID: cbfec7f4-12dff70000001119-8b-5d00a72e2f49
-Received: from eusmtip2.samsung.com ( [203.254.199.222]) by
- eusmgms1.samsung.com (EUCPMTA) with SMTP id 8D.9A.04146.D27A00D5; Wed, 12
- Jun 2019 08:18:05 +0100 (BST)
-Received: from [106.120.51.74] (unknown [106.120.51.74]) by
- eusmtip2.samsung.com (KnoxPortal) with ESMTPA id
- 20190612071805eusmtip2609a10c68b1a6cffa2e792a4a0929d3f~nYk54NAEO1398613986eusmtip2W;
- Wed, 12 Jun 2019 07:18:05 +0000 (GMT)
-To: =?UTF-8?Q?Yannick_Fertr=c3=a9?= <yannick.fertre@st.com>, Laurent
- Pinchart <Laurent.pinchart@ideasonboard.com>, David Airlie
- <airlied@linux.ie>, Daniel Vetter <daniel@ffwll.ch>, Heiko Stuebner
- <heiko@sntech.de>, Sam Ravnborg <sam@ravnborg.org>, Nickey Yang
- <nickey.yang@rock-chips.com>, Philippe Cornu <philippe.cornu@st.com>,
- Benjamin Gaignard <benjamin.gaignard@linaro.org>, Vincent Abriou
- <vincent.abriou@st.com>, Maxime Coquelin <mcoquelin.stm32@gmail.com>,
- Alexandre Torgue <alexandre.torgue@st.com>, dri-devel@lists.freedesktop.org,
- linux-stm32@st-md-mailman.stormreply.com,
- linux-arm-kernel@lists.infradead.org, linux-kernel@vger.kernel.org
-From: Andrzej Hajda <a.hajda@samsung.com>
-Message-ID: <8fad125a-54f2-7cca-fa01-5d7098930d62@samsung.com>
-Date: Wed, 12 Jun 2019 09:18:04 +0200
-User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:60.0) Gecko/20100101
- Thunderbird/60.7.0
+ Wed, 12 Jun 2019 07:25:38 +0000 (UTC)
+Received: from pps.filterd (m0046668.ppops.net [127.0.0.1])
+ by mx07-00178001.pphosted.com (8.16.0.27/8.16.0.27) with SMTP id
+ x5C7LWAv032477; Wed, 12 Jun 2019 09:25:00 +0200
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=st.com;
+ h=from : to : cc : subject
+ : date : message-id : mime-version : content-type; s=STMicroelectronics;
+ bh=KbcSWP4wfCKyU5i1RBXyvNUgYhKI0uEtgTlQINAU0ac=;
+ b=c3t1+sjSdVDhM/5oMjux9wwOHa5QHWdJTmK3WbucMzyaeLIy4YsF0R8OPjCMbV1+wROT
+ ED2kx0rGVEqJgJLXjG3SpVdKPCfJUR4W6cr5PEEHwTAD3EbwOfCpYhpyXRjd4bQI1pE6
+ PbzYknl5CilxKqX3E/0HATK5laDphch0zu3RZ0GsfSHc0R2N6qJRCEypWQSgeVXNrh2y
+ 8Usbg+x7UvB439EAgftWyVuTTVljh1nH7Q5Ik+0S+PEs7jOcYFjMp4+ZhThq2Dybx7a+
+ liSFnnlGLDMeSVlkwXT9P6UhiIhF3RYHbLOJHAPE+gIUZqUI7q4iX7TaGrEKNtRv1HOL Eg== 
+Received: from beta.dmz-eu.st.com (beta.dmz-eu.st.com [164.129.1.35])
+ by mx07-00178001.pphosted.com with ESMTP id 2t2f8bukd2-1
+ (version=TLSv1 cipher=ECDHE-RSA-AES256-SHA bits=256 verify=NOT);
+ Wed, 12 Jun 2019 09:25:00 +0200
+Received: from zeta.dmz-eu.st.com (zeta.dmz-eu.st.com [164.129.230.9])
+ by beta.dmz-eu.st.com (STMicroelectronics) with ESMTP id 0489A38;
+ Wed, 12 Jun 2019 07:24:58 +0000 (GMT)
+Received: from Webmail-eu.st.com (sfhdag5node3.st.com [10.75.127.15])
+ by zeta.dmz-eu.st.com (STMicroelectronics) with ESMTP id C09D3164B;
+ Wed, 12 Jun 2019 07:24:58 +0000 (GMT)
+Received: from localhost (10.75.127.48) by SFHDAG5NODE3.st.com (10.75.127.15)
+ with Microsoft SMTP Server (TLS) id 15.0.1473.3;
+ Wed, 12 Jun 2019 09:24:58 +0200
+From: Fabrice Gasnier <fabrice.gasnier@st.com>
+To: <jic23@kernel.org>, <robh+dt@kernel.org>, <alexandre.torgue@st.com>
+Date: Wed, 12 Jun 2019 09:24:33 +0200
+Message-ID: <1560324276-681-1-git-send-email-fabrice.gasnier@st.com>
+X-Mailer: git-send-email 2.7.4
 MIME-Version: 1.0
-In-Reply-To: <1558952499-15418-1-git-send-email-yannick.fertre@st.com>
-Content-Language: en-US
-X-Brightmail-Tracker: H4sIAAAAAAAAA02SeUiTYRzHfXwPX0ez12ntV1rhosAoTRF66KKi4wUhCvpDKrOVL54z2zyy
- /lC6nHaQGppzmYRDEY+aTptkXtg61JJy2eVM14FhUh61atnmu8j/Pr/v8/0dX3gYQmKnFjNx
- SSm8MkmeKKNFZON9W++aoAq3yLU9fUvwpd6H7vi29THCpzse0XimMY/Az6fGHTT8mcI5eeUe
- WD9ipvCzZi2Nc81WCpfaayis+/UF4aGznyhcaTMg3N3fRuLsnHP0FpZrmS4jOaPmrQdXoi6m
- uDfmuzTXND1EcZYLJneuvjyTKy/spzm7ppXkmsylBNd+L4R7/6OF4Cb0S/eI94s2RvOJcWm8
- MnjzYVHst4/PqORx+kT267ceWaiGykWeDLBhUPFh0MEiRsJWIhjuN9BCMYlg9OsAKRQTCL5l
- dxL/WuxjtYTwUIFA+1Lnco0huHOt21EwjA8bCbrhWd2X1VLQrv0+u5BmA8Fe/5J2spjdDO3P
- G2ankuwK6DI+QU5ewEbApFGPBI83PCy2kk72ZHeCfnhidg7BLoMzhhJCYCm8st5wdy4D9joD
- Ay9KXem2w6OmQg+BfWDU1OBif5gxOhucnAmWyrOE0KxGYLhldOXcAJ2mPsqZhnBcXdccLMhb
- YWzERjhlYL1gYMxbuMEL8huLXLIY1OclgjsALD0G10Ap6J5O0YKFg4sWvysoQDMnpGZOMM2c
- YJr/J5QhsgpJ+VSVIoZXhSbx6UEquUKVmhQTdPSYQo8cn/LxH9PkHdT8+0gHYhkkmyduK5o5
- KKHkaaoMRQcChpD5ikMT3CIl4mh5xkleeSxKmZrIqzqQH0PKpOJTbkMHJGyMPIVP4PlkXvnv
- 1Z3xXJyF8goUmdSVtbZ3y8fTjTGHyifUpl0Gm7++ZGbo3pRuNw6vjl/t+6BWWxUbrFjYik2d
- p+n11ZlRihUZWdGcOu7m4ekuS11d2M/iqU2B1vH7V2ukg10RqwoX7d0RWlBRG2+XmG0jvn3q
- jKZBN+m28PmGtJ8Hy9ZdLiLyNQPHE1a27pORqlh5yCpCqZL/BTswG1+QAwAA
-X-Brightmail-Tracker: H4sIAAAAAAAAA+NgFmplleLIzCtJLcpLzFFi42I5/e/4PV3d5QyxBn9ea1v0njvJZLHxyWlG
- i6ZDp9gs/m+byGxx5et7IOvRa1aLzolL2C02Pb7GanF51xw2i65rT1gt5v1dy2qx9Pc7RosH
- LS9YLVb83MpocebqARaL9s5WNgcBj73fFrB47Jx1l91jdsdMVo871/aweWz/9oDV4373cSaP
- zUvqPZZMu8rm8XfWfhaP7dfmMXsc3Gfo8fTHXmaPz5vkAnij9GyK8ktLUhUy8otLbJWiDS2M
- 9AwtLfSMTCz1DI3NY62MTJX07WxSUnMyy1KL9O0S9DI+Pb/MWvCeraL99l32Bsa1rF2MnBwS
- AiYSf9+uY+5i5OIQEljKKLH4zHIWiIS4xO75b5khbGGJP9e62CCKXjNKdFxpBOrm4BAWiJVY
- +ogFJC4isIBVou1qLyNE0UxGibcnHoN1swloSvzdfJMNxOYVsJM4eGULWJxFQFXi6M7zjCC2
- qECExOxdDSwQNYISJ2c+AbM5BdwkNj36DHYqs4C6xJ95l5ghbHmJ5q2zoWxxiVtP5jNNYBSc
- haR9FpKWWUhaZiFpWcDIsopRJLW0ODc9t9hQrzgxt7g0L10vOT93EyMwCWw79nPzDsZLG4MP
- MQpwMCrx8B6Y/j9GiDWxrLgy9xCjBAezkgivUTZDrBBvSmJlVWpRfnxRaU5q8SFGU6DnJjJL
- iSbnAxNUXkm8oamhuYWlobmxubGZhZI4b4fAwRghgfTEktTs1NSC1CKYPiYOTqkGRs4VXmUz
- Tgu8fNGyLfboae8wq7AHl+12LPa/v6haM+naCulNs00PWGpznzN9s2md8ManpyNaanXNbANU
- 9N+yZGo8vBv1+bqvoDx3q5t/biVLSJzCP+Nu1mkS+WqFKybYCjalZrqb7xDvEP2l/TQ8vPLa
- 7bm3J3g2bWs0DGc5eCJ0dnUz59ZOJZbijERDLeai4kQARRSawBgDAAA=
-X-CMS-MailID: 20190612071806eucas1p29bbe929b1df18938ce355e9f63320ce1
-X-Msg-Generator: CA
-X-RootMTR: 20190527102219epcas2p20eaad1cb2849841d8b0c3dbc8d0b2e99
-X-EPHeader: CA
-CMS-TYPE: 201P
-X-CMS-RootMailID: 20190527102219epcas2p20eaad1cb2849841d8b0c3dbc8d0b2e99
-References: <CGME20190527102219epcas2p20eaad1cb2849841d8b0c3dbc8d0b2e99@epcas2p2.samsung.com>
- <1558952499-15418-1-git-send-email-yannick.fertre@st.com>
-X-Mailman-Approved-At: Thu, 27 Jun 2019 08:49:46 +0000
-Subject: Re: [Linux-stm32] [PATCH v1 0/2] dw-mipi-dsi: add power on & off
- optional phy ops and update stm
+X-Originating-IP: [10.75.127.48]
+X-ClientProxiedBy: SFHDAG6NODE3.st.com (10.75.127.18) To SFHDAG5NODE3.st.com
+ (10.75.127.15)
+X-Proofpoint-Virus-Version: vendor=fsecure engine=2.50.10434:, ,
+ definitions=2019-06-12_04:, , signatures=0
+Cc: mark.rutland@arm.com, devicetree@vger.kernel.org, lars@metafoo.de,
+ mcoquelin.stm32@gmail.com, linux-iio@vger.kernel.org,
+ linux-kernel@vger.kernel.org, pmeerw@pmeerw.net, knaack.h@gmx.de,
+ fabrice.gasnier@st.com, linux-stm32@st-md-mailman.stormreply.com,
+ linux-arm-kernel@lists.infradead.org
+Subject: [Linux-stm32] [PATCH 0/3] STM32 ADC analog switches supply control
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -120,27 +67,32 @@ List-Post: <mailto:linux-stm32@st-md-mailman.stormreply.com>
 List-Help: <mailto:linux-stm32-request@st-md-mailman.stormreply.com?subject=help>
 List-Subscribe: <https://st-md-mailman.stormreply.com/mailman/listinfo/linux-stm32>, 
  <mailto:linux-stm32-request@st-md-mailman.stormreply.com?subject=subscribe>
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: base64
+Content-Type: text/plain; charset="us-ascii"
+Content-Transfer-Encoding: 7bit
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
-T24gMjcuMDUuMjAxOSAxMjoyMSwgWWFubmljayBGZXJ0csOpIHdyb3RlOgo+IFRoZXNlIHBhdGNo
-ZXMgZml4IGEgYnVnIGNvbmNlcm5pbmcgYW4gYWNjZXNzIGlzc3VlIHRvIGRpc3BsYXkgY29udHJv
-bGVyIChsdGRjKQo+IHJlZ2lzdGVycy4KPiBJZiB0aGUgcGh5c2ljYWwgbGF5ZXIgb2YgdGhlIERT
-SSBpcyBzdGFydGVkIHRvbyBlYXJseSB0aGVuIHRoZSBmaWZvIERTSSBhcmUgZnVsbAo+IHZlcnkg
-cXVpY2tseSB3aGljaCBpbXBsaWVzIGx0ZGMgcmVnaXN0ZXIncyBhY2Nlc3MgaGFuZyB1cC4gVG8g
-YXZvaWQgdGhpcwo+IHByb2JsZW0sIGl0IGlzIG5lY2Vzc2FyeSB0byBzdGFydCB0aGUgRFNJIHBo
-eXNpY2FsIGxheWVyIG9ubHkgd2hlbiB0aGUgYnJpZGdlCj4gaXMgZW5hYmxlLgo+Cj4gWWFubmlj
-ayBGZXJ0csOpICgyKToKPiAgIGRybS9icmlkZ2Uvc3lub3BzeXM6IGRzaTogYWRkIHBvd2VyIG9u
-L29mZiBvcHRpb25hbCBwaHkgb3BzCj4gICBkcm0vc3RtOiBkc2k6IGFkZCBwb3dlciBvbi9vZmYg
-cGh5IG9wcwo+Cj4gIGRyaXZlcnMvZ3B1L2RybS9icmlkZ2Uvc3lub3BzeXMvZHctbWlwaS1kc2ku
-YyB8ICA4ICsrKysrKysrCj4gIGRyaXZlcnMvZ3B1L2RybS9zdG0vZHdfbWlwaV9kc2ktc3RtLmMg
-ICAgICAgICB8IDIxICsrKysrKysrKysrKysrKysrKysrLQo+ICBpbmNsdWRlL2RybS9icmlkZ2Uv
-ZHdfbWlwaV9kc2kuaCAgICAgICAgICAgICAgfCAgMiArKwo+ICAzIGZpbGVzIGNoYW5nZWQsIDMw
-IGluc2VydGlvbnMoKyksIDEgZGVsZXRpb24oLSkKPgo+IC0tCj4gMi43LjQKPgo+Cj4KUXVldWVk
-IGJvdGggcGF0Y2hlcyB0byBkcm0tbWlzYy1uZXh0LgoKLS0KUmVnYXJkcwpBbmRyemVqCgpfX19f
-X19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fXwpMaW51eC1zdG0zMiBt
-YWlsaW5nIGxpc3QKTGludXgtc3RtMzJAc3QtbWQtbWFpbG1hbi5zdG9ybXJlcGx5LmNvbQpodHRw
-czovL3N0LW1kLW1haWxtYW4uc3Rvcm1yZXBseS5jb20vbWFpbG1hbi9saXN0aW5mby9saW51eC1z
-dG0zMgo=
+This series adds support for SYSCFG bits that control ADC analog switches
+supply on STM32MP1 and STM32H7.
+
+The ADC inputs are multiplexed with analog switches which have reduced
+performances when their supply is below 2.7V. Analog switches supply
+can be controlled using SYSCFG bits, to reach full ADC performance.
+
+Fabrice Gasnier (3):
+  dt-bindings: iio: adc: stm32: add analog switches supply control
+  iio: adc: stm32-adc: add analog switches supply control
+  ARM: dts: stm32: add ADC analog switches syscfg on stm32mp157c
+
+ .../devicetree/bindings/iio/adc/st,stm32-adc.txt   |   6 +
+ arch/arm/boot/dts/stm32mp157c.dtsi                 |   1 +
+ drivers/iio/adc/stm32-adc-core.c                   | 232 ++++++++++++++++++++-
+ 3 files changed, 237 insertions(+), 2 deletions(-)
+
+-- 
+2.7.4
+
+_______________________________________________
+Linux-stm32 mailing list
+Linux-stm32@st-md-mailman.stormreply.com
+https://st-md-mailman.stormreply.com/mailman/listinfo/linux-stm32
