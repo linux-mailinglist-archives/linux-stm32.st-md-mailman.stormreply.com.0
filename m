@@ -2,71 +2,65 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id C1D7B41E31
-	for <lists+linux-stm32@lfdr.de>; Wed, 12 Jun 2019 09:47:32 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 797EA41E49
+	for <lists+linux-stm32@lfdr.de>; Wed, 12 Jun 2019 09:55:07 +0200 (CEST)
 Received: from ip-172-31-3-76.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 76F37C5DBC8
-	for <lists+linux-stm32@lfdr.de>; Wed, 12 Jun 2019 07:47:32 +0000 (UTC)
-Received: from mail-pl1-f194.google.com (mail-pl1-f194.google.com
- [209.85.214.194])
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 3E987C5DBD6
+	for <lists+linux-stm32@lfdr.de>; Wed, 12 Jun 2019 07:55:07 +0000 (UTC)
+Received: from mail-pg1-f196.google.com (mail-pg1-f196.google.com
+ [209.85.215.196])
  (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 6FCB7C5DBC7
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id D4670C5DBD5
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Wed, 12 Jun 2019 07:47:31 +0000 (UTC)
-Received: by mail-pl1-f194.google.com with SMTP id c14so6895plo.0
+ Wed, 12 Jun 2019 07:55:04 +0000 (UTC)
+Received: by mail-pg1-f196.google.com with SMTP id v11so8469872pgl.5
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Wed, 12 Jun 2019 00:47:31 -0700 (PDT)
+ Wed, 12 Jun 2019 00:55:04 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linaro.org; s=google;
- h=date:from:to:cc:subject:message-id:references:mime-version
- :content-disposition:in-reply-to:user-agent;
- bh=RTEvowjVOZ1tt6yW3tt8znN/f0k1q7mGY13SshYdHu0=;
- b=ev+kVdsEuZay+u/9fs+NWPIBWNJyQcyQ6Ur5EFF5tKrCyVYcgNizj2gLPu5bxid0Hz
- tPLF7jTePnup5KqcxVjCHful3j9gTdvqX+Qriam8LVoek6qX29ezGElZwt6zYBEcb2SN
- Q37YLJtAP03GlRDoXXFwr55GafpU0rlhDZGhQcl3SWX6gJA9KQpqiKwUOmlIGxRiYosn
- dr9HK/RZVUvizdrr5OpBpHn4ChblEUXYJHENQsSph+PYnec44Z2CFtv0zFRptfx7TiLd
- S7/PaXMj+7j/nP3bEQCPT+x48srxZ2LXHIsDlMch7Ni6dFdgIfKRdUiOcsa/OwOyp9cP
- OrJg==
+ h=from:to:cc:subject:date:message-id:mime-version
+ :content-transfer-encoding;
+ bh=t/zZQ82E/N4gFFsCTmRZdYbvd54D5nSgY4uOp2BfUg4=;
+ b=JMuYTPILm5oCrO9h51xNSn+tS6CagMc0yZFGqpOBe60q4o0BGqiouryTqq5e1OMzHD
+ rPPNZ6vtqqgXRNsjRVtnkphRfkUPh+ageRVwawW3Zb9/JzbfLx2+gbG/Q05yndF8bg80
+ fdkSyEiFKeDP8Zg8eMMFLl4Xygesmch6UQi95PqTzgRYLLjzZCkfdxLcdEBzGvaufIuM
+ mcjHpczgaPIKv5/CQL1z9f3shXhEdLul5A9x2m0C5DeWaO8pItHJXx2sKOUZ/3wzfyQz
+ tO9WxRv1cwUSO9K7qfKf6uCA5ogtyUUpa4CaHtiviKvqDF28bKJZ/M9N7zW914ZOfNaF
+ a9qA==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=1e100.net; s=20161025;
- h=x-gm-message-state:date:from:to:cc:subject:message-id:references
- :mime-version:content-disposition:in-reply-to:user-agent;
- bh=RTEvowjVOZ1tt6yW3tt8znN/f0k1q7mGY13SshYdHu0=;
- b=qc8QX4puyM4YCz904lsyP7olPgNQtWBCGMpp+S22LmnQ35dOHKebZ9O8wGHxyoN5De
- PjKO3zL7ZEuYJ6yj2HsgHLTFwWskhwGxTjDa209lBltb9rlUP6cD+oM+EiUo8OXlqzbB
- y0PykcAirFj9dQeSKo5y1gO/sMJPzDlS6PEHMN5dMt+7LF9I2WGa1CBkRSnX75h4XmBV
- +6AZnAaaPdfkyl4zbWarJiqWvvDwwjU+QLgQlXDim2JlsrFScmCsIq/zvVqw0/FeLjob
- hnXtbwHii/6aFU5EfjEH/+PL+e6edx9LqNVswCuocoQBwTA2CM9csbiWv4TJ1ioUEmOu
- wrqQ==
-X-Gm-Message-State: APjAAAWWE9i6SHoLyXo59L2M2JmZG+gXMw1lsiHzzr0hwnuWUSVJsfZz
- RSBD5XSH+H/ePwT85jdsyR/g
-X-Google-Smtp-Source: APXvYqxdFNwHHUupAjw3XvuIJ/ZVdpM65R2uvHP1jCdfRej7cyXAdncrWoLq1ppn8UtyJYh5XGiOKw==
-X-Received: by 2002:a17:902:968b:: with SMTP id
- n11mr43028455plp.120.1560325649660; 
- Wed, 12 Jun 2019 00:47:29 -0700 (PDT)
-Received: from Mani-XPS-13-9360 ([2409:4072:894:d456:15b5:9ca9:e3ec:c06a])
- by smtp.gmail.com with ESMTPSA id v5sm16896474pfm.22.2019.06.12.00.47.23
- (version=TLS1_2 cipher=ECDHE-RSA-CHACHA20-POLY1305 bits=256/256);
- Wed, 12 Jun 2019 00:47:28 -0700 (PDT)
-Date: Wed, 12 Jun 2019 13:17:20 +0530
+ h=x-gm-message-state:from:to:cc:subject:date:message-id:mime-version
+ :content-transfer-encoding;
+ bh=t/zZQ82E/N4gFFsCTmRZdYbvd54D5nSgY4uOp2BfUg4=;
+ b=pkh15fGs/5SnfFaIGcPxmZT/Spgc71pKNL3wIU10rLau+mCdbsHzMQrMTsWZ5ntnGa
+ CIciA4FHuQ1Wh+aj6jv8ZEeOR3mdWvPN+ZIj0aJcFprz6SMQzvnzAaXw+kdvldryBkSf
+ 7p4ivVlRCB1kCa2pg1Ycr4hkJ3GpiBpXBec9cfr7r2Hr5IMGZ3Fim2X354p5pQA3h3Ia
+ nDXADS2TmfCbIv9pyCIQaPUBLmlNK0Z5iJuYzaRUCBD/pXQguwUIuGoa7ZglUjwaQdG2
+ q2eRcoWbmITdCWfMN5DxlYo4tnIpCVkdsReKPZ6Zvtolsb7c+mhS+uZvgwmNXrojWa4L
+ WVSg==
+X-Gm-Message-State: APjAAAVGFI24bzhIf49P4Qjbhhb2AUH9z1jMJRJgz0famELG32M5Wd7E
+ lzoqAyzhxmNTv/bVKjpfxi+p
+X-Google-Smtp-Source: APXvYqyhsNDJVnEra02+JvmqkHRHXuSl223Vx4mOQwGbwFeFfO1wG9ZHDU3uBEIjt7IKjmaKTRH8Uw==
+X-Received: by 2002:a17:90b:8d6:: with SMTP id
+ ds22mr31537248pjb.143.1560326103017; 
+ Wed, 12 Jun 2019 00:55:03 -0700 (PDT)
+Received: from localhost.localdomain ([2409:4072:894:d456:15b5:9ca9:e3ec:c06a])
+ by smtp.gmail.com with ESMTPSA id b15sm16846399pfi.141.2019.06.12.00.54.57
+ (version=TLS1_2 cipher=ECDHE-RSA-AES128-GCM-SHA256 bits=128/128);
+ Wed, 12 Jun 2019 00:55:02 -0700 (PDT)
 From: Manivannan Sadhasivam <manivannan.sadhasivam@linaro.org>
-To: Rob Herring <robh+dt@kernel.org>
-Message-ID: <20190612074720.GA5513@Mani-XPS-13-9360>
-References: <20190531063849.26142-1-manivannan.sadhasivam@linaro.org>
- <20190531063849.26142-3-manivannan.sadhasivam@linaro.org>
- <CAL_Jsq+N7NA7m+dp+zpwFeZLM6B+OwRrqZdzKkJp2TRWi_e3Mw@mail.gmail.com>
+To: mcoquelin.stm32@gmail.com,
+	alexandre.torgue@st.com,
+	robh+dt@kernel.org
+Date: Wed, 12 Jun 2019 13:24:47 +0530
+Message-Id: <20190612075451.8643-1-manivannan.sadhasivam@linaro.org>
+X-Mailer: git-send-email 2.17.1
 MIME-Version: 1.0
-Content-Disposition: inline
-In-Reply-To: <CAL_Jsq+N7NA7m+dp+zpwFeZLM6B+OwRrqZdzKkJp2TRWi_e3Mw@mail.gmail.com>
-User-Agent: Mutt/1.9.4 (2018-02-28)
-Cc: devicetree@vger.kernel.org, loic pallardy <loic.pallardy@st.com>,
- "linux-kernel@vger.kernel.org" <linux-kernel@vger.kernel.org>,
- Maxime Coquelin <mcoquelin.stm32@gmail.com>,
- linux-stm32@st-md-mailman.stormreply.com,
- "moderated list:ARM/FREESCALE IMX / MXC ARM ARCHITECTURE"
- <linux-arm-kernel@lists.infradead.org>
-Subject: Re: [Linux-stm32] [PATCH v3 2/4] dt-bindings: arm: stm32: Convert
- STM32 SoC bindings to DT schema
+Cc: devicetree@vger.kernel.org, loic.pallardy@st.com,
+ linux-kernel@vger.kernel.org,
+ Manivannan Sadhasivam <manivannan.sadhasivam@linaro.org>,
+ linux-stm32@st-md-mailman.stormreply.com, linux-arm-kernel@lists.infradead.org
+Subject: [Linux-stm32] [PATCH v4 0/4] Add Avenger96 board support
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -78,73 +72,45 @@ List-Post: <mailto:linux-stm32@st-md-mailman.stormreply.com>
 List-Help: <mailto:linux-stm32-request@st-md-mailman.stormreply.com?subject=help>
 List-Subscribe: <https://st-md-mailman.stormreply.com/mailman/listinfo/linux-stm32>, 
  <mailto:linux-stm32-request@st-md-mailman.stormreply.com?subject=subscribe>
-Content-Type: text/plain; charset="us-ascii"
-Content-Transfer-Encoding: 7bit
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: base64
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
-Hi Rob,
-
-On Mon, Jun 10, 2019 at 03:57:43PM -0600, Rob Herring wrote:
-> On Fri, May 31, 2019 at 12:39 AM Manivannan Sadhasivam
-> <manivannan.sadhasivam@linaro.org> wrote:
-> >
-> > This commit converts STM32 SoC bindings to DT schema using jsonschema.
-> >
-> > Signed-off-by: Manivannan Sadhasivam <manivannan.sadhasivam@linaro.org>
-> > ---
-> >  .../devicetree/bindings/arm/stm32/stm32.yaml  | 29 +++++++++++++++++++
-> >  1 file changed, 29 insertions(+)
-> >  create mode 100644 Documentation/devicetree/bindings/arm/stm32/stm32.yaml
-> 
-> Converting implies removal of something. The schema looks fine though.
-> 
-
-Ah, sorry. I forgot to delete the .txt file. Will do it in next revision.
-
-Thanks,
-Mani
-
-> >
-> > diff --git a/Documentation/devicetree/bindings/arm/stm32/stm32.yaml b/Documentation/devicetree/bindings/arm/stm32/stm32.yaml
-> > new file mode 100644
-> > index 000000000000..f53dc0f2d7b3
-> > --- /dev/null
-> > +++ b/Documentation/devicetree/bindings/arm/stm32/stm32.yaml
-> > @@ -0,0 +1,29 @@
-> > +# SPDX-License-Identifier: GPL-2.0
-> > +%YAML 1.2
-> > +---
-> > +$id: http://devicetree.org/schemas/arm/stm32/stm32.yaml#
-> > +$schema: http://devicetree.org/meta-schemas/core.yaml#
-> > +
-> > +title: STMicroelectronics STM32 Platforms Device Tree Bindings
-> > +
-> > +maintainers:
-> > +  - Alexandre Torgue <alexandre.torgue@st.com>
-> > +
-> > +properties:
-> > +  compatible:
-> > +    oneOf:
-> > +      - items:
-> > +          - const: st,stm32f429
-> > +
-> > +      - items:
-> > +          - const: st,stm32f469
-> > +
-> > +      - items:
-> > +          - const: st,stm32f746
-> > +
-> > +      - items:
-> > +          - const: st,stm32h743
-> > +
-> > +      - items:
-> > +          - const: st,stm32mp157
-> > +...
-> > --
-> > 2.17.1
-> >
-_______________________________________________
-Linux-stm32 mailing list
-Linux-stm32@st-md-mailman.stormreply.com
-https://st-md-mailman.stormreply.com/mailman/listinfo/linux-stm32
+SGVsbG8sCgpUaGlzIHBhdGNoc2V0IGFkZHMgQXZlbmdlcjk2IGJvYXJkIHN1cHBvcnQuIFRoaXMg
+Ym9hcmQgaXMgb25lIG9mIHRoZQpDb25zdW1lciBFZGl0aW9uIGJvYXJkcyBvZiB0aGUgOTZCb2Fy
+ZHMgZmFtaWx5IGZyb20gQXJyb3cgRWxlY3Ryb25pY3MKZmVhdHVyaW5nIFNUTTMyTVAxNTdBIE1Q
+VSBhbmQgaGFzIHRoZSBmb2xsb3dpbmcgZmVhdHVyZXM6CgpTb0M6IFNUTTMyTVAxNTdBQUMKUE1J
+QzogU1RQTUlDMUEKUkFNOiAxMDI0IE1ieXRlIEAgNTMzTUh6ClN0b3JhZ2U6IGVNTUMgdjQuNTE6
+IDggR2J5dGUKICAgICAgICAgbWljcm9TRCBTb2NrZXQ6IFVIUy0xIHYzLjAxCkV0aGVybmV0IFBv
+cnQ6IDEwLzEwMC8xMDAwIE1iaXQvcywgSUVFRSA4MDIuMyBDb21wbGlhbnQKV2lyZWxlc3M6IFdp
+RmkgNSBHSHogJiAyLjRHSHogSUVFRSA4MDIuMTFhL2IvZy9uL2FjCiAgICAgICAgICBCbHVldG9v
+dGjCrnY0LjIgKEJSL0VEUi9CTEUpClVTQjogMnggVHlwZSBBIChVU0IgMi4wKSBIb3N0IGFuZCAx
+eCBNaWNybyBCIChVU0IgMi4wKSBPVEcKRGlzcGxheTogSERNSTogV1hHQSAoMTM2Nng3NjgpQCA2
+MCBmcHMsIEhETUkgMS40CkxFRDogNHggVXNlciBMRUQsIDF4IFdpRmkgTEVELCAxeCBCVCBMRUQK
+Ck1vcmUgaW5mb3JtYXRpb24gYWJvdXQgdGhpcyBib2FyZCBjYW4gYmUgZm91bmQgaW4gOTZCb2Fy
+ZHMgd2Vic2l0ZToKaHR0cHM6Ly93d3cuOTZib2FyZHMub3JnL3Byb2R1Y3QvYXZlbmdlcjk2LwoK
+VGhhbmtzLApNYW5pCgpDaGFuZ2VzIGluIHY0CgoqIERlbGV0ZWQgdGhlIG9sZCBzdG0zMi50eHQg
+YmluZGluZwoqIEFkZGVkIFJvYidzIFJldmlld2VkLWJ5IHRhZwoKQ2hhbmdlcyBpbiB2MzoKCiog
+Q29udmVydGVkIFNUTTMyIHBsYXRmb3JtIGJpbmRpbmdzIHRvIERUIHNjaGVtYQoKQ2hhbmdlcyBp
+biB2MjoKCkFzIHBlciBBbGV4J3MgcmV2aWV3OgoKKiBGaXhlZCBJMkMyIHBpbmN0cmwgbm9kZQoq
+IFNvcnRlZCB0aGUgYXZlbmdlcjk2IGR0YiBpbiBhbHBoYWJldGljYWwgb3JkZXIKKiBBZGRlZCBk
+ZXZpY2UtdHlwZSBwcm9wZXJ0eSB0byBtZW1vcnkgbm9kZQoKTWFuaXZhbm5hbiBTYWRoYXNpdmFt
+ICg0KToKICBBUk06IGR0czogc3RtMzJtcDE1NzogQWRkIG1pc3NpbmcgcGluY3RybCBkZWZpbml0
+aW9ucwogIGR0LWJpbmRpbmdzOiBhcm06IHN0bTMyOiBDb252ZXJ0IFNUTTMyIFNvQyBiaW5kaW5n
+cyB0byBEVCBzY2hlbWEKICBkdC1iaW5kaW5nczogYXJtOiBzdG0zMjogRG9jdW1lbnQgQXZlbmdl
+cjk2IGRldmljZXRyZWUgYmluZGluZwogIEFSTTogZHRzOiBBZGQgQXZlbmdlcjk2IGRldmljZXRy
+ZWUgc3VwcG9ydCBiYXNlZCBvbiBTVE0zMk1QMTU3QQoKIC4uLi9kZXZpY2V0cmVlL2JpbmRpbmdz
+L2FybS9zdG0zMi9zdG0zMi50eHQgICB8ICAxMCAtCiAuLi4vZGV2aWNldHJlZS9iaW5kaW5ncy9h
+cm0vc3RtMzIvc3RtMzIueWFtbCAgfCAgMzEgKysKIGFyY2gvYXJtL2Jvb3QvZHRzL01ha2VmaWxl
+ICAgICAgICAgICAgICAgICAgICB8ICAgMSArCiBhcmNoL2FybS9ib290L2R0cy9zdG0zMm1wMTU3
+LXBpbmN0cmwuZHRzaSAgICAgfCAgNzUgKysrKwogYXJjaC9hcm0vYm9vdC9kdHMvc3RtMzJtcDE1
+N2EtYXZlbmdlcjk2LmR0cyAgIHwgMzIxICsrKysrKysrKysrKysrKysrKwogNSBmaWxlcyBjaGFu
+Z2VkLCA0MjggaW5zZXJ0aW9ucygrKSwgMTAgZGVsZXRpb25zKC0pCiBkZWxldGUgbW9kZSAxMDA2
+NDQgRG9jdW1lbnRhdGlvbi9kZXZpY2V0cmVlL2JpbmRpbmdzL2FybS9zdG0zMi9zdG0zMi50eHQK
+IGNyZWF0ZSBtb2RlIDEwMDY0NCBEb2N1bWVudGF0aW9uL2RldmljZXRyZWUvYmluZGluZ3MvYXJt
+L3N0bTMyL3N0bTMyLnlhbWwKIGNyZWF0ZSBtb2RlIDEwMDY0NCBhcmNoL2FybS9ib290L2R0cy9z
+dG0zMm1wMTU3YS1hdmVuZ2VyOTYuZHRzCgotLSAKMi4xNy4xCgpfX19fX19fX19fX19fX19fX19f
+X19fX19fX19fX19fX19fX19fX19fX19fX19fXwpMaW51eC1zdG0zMiBtYWlsaW5nIGxpc3QKTGlu
+dXgtc3RtMzJAc3QtbWQtbWFpbG1hbi5zdG9ybXJlcGx5LmNvbQpodHRwczovL3N0LW1kLW1haWxt
+YW4uc3Rvcm1yZXBseS5jb20vbWFpbG1hbi9saXN0aW5mby9saW51eC1zdG0zMgo=
