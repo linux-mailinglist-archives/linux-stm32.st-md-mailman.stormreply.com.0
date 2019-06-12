@@ -2,57 +2,57 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id 7AE6041E4A
-	for <lists+linux-stm32@lfdr.de>; Wed, 12 Jun 2019 09:55:12 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 82AB341E4B
+	for <lists+linux-stm32@lfdr.de>; Wed, 12 Jun 2019 09:55:18 +0200 (CEST)
 Received: from ip-172-31-3-76.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 45B9BC5DBD7
-	for <lists+linux-stm32@lfdr.de>; Wed, 12 Jun 2019 07:55:12 +0000 (UTC)
-Received: from mail-pl1-f196.google.com (mail-pl1-f196.google.com
- [209.85.214.196])
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 4D26DC5DBD8
+	for <lists+linux-stm32@lfdr.de>; Wed, 12 Jun 2019 07:55:18 +0000 (UTC)
+Received: from mail-pl1-f195.google.com (mail-pl1-f195.google.com
+ [209.85.214.195])
  (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 349D0C5DBD6
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 72CBBC5DBD7
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Wed, 12 Jun 2019 07:55:10 +0000 (UTC)
-Received: by mail-pl1-f196.google.com with SMTP id b7so1247344pls.6
+ Wed, 12 Jun 2019 07:55:16 +0000 (UTC)
+Received: by mail-pl1-f195.google.com with SMTP id p1so6302034plo.2
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Wed, 12 Jun 2019 00:55:10 -0700 (PDT)
+ Wed, 12 Jun 2019 00:55:16 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linaro.org; s=google;
  h=from:to:cc:subject:date:message-id:in-reply-to:references;
- bh=WKqEBPsoDpTtAdSfNyFLIMHr8olM8ej+c9mYA02GcCA=;
- b=KnVtUzbn4y5wXK66DHOCEynqGrwFHg1jSDBRV9mhX7i66tKXz9oXFXV6WoxIeHS3GA
- hiyzEVvQXc2Ay0j3OHSaZByQeHO15urTeWhXyUSwe0dDxG+UCoxDxAlqN+lMTOeS0eU2
- KzGt82P+OKm82m1t+ay/HCadfCsmS/nl6KUE6pBQTmMC0efUEiMPLgTbqMe1aPXs+c2Q
- fTC66TVMN6fj64k/p3Je+0+3XrFiZLayZ0TgPM2ifduVi9fnIYK3ehO72rKj+02xtaqn
- 4cqMe4YIdiGTbauY1hyUOFP6aU1EJLZUJa9zdAS6Y82XugTFEal1zgZu3VD3v5jg0kUI
- wPkg==
+ bh=ddmyf9yTEwlfHCzubut1+DzdJc/PcrZsJL5uTZc4yfE=;
+ b=naECvcLA5b+ikhmyDk1YLXvhPLPCup9xIr0OEPfNZq/YqaOQKD1US6XtcnKca3PyrX
+ bS4UZiBYiQmNmGgQ0PHd0Pc5zsJFZJte92oiMsouZ/6hZL5caUyz5JVsLCSMfcMwekA5
+ W8GFIeuttEZGufRFlCDfOWDY6meAbjQfHmhtnqmKMl97G8fpOsIGpMdAr2Sx2or9umrH
+ HGKJLY2DI7pkC2v9OSawkWU+Q8oq9CyE39MCKWWLqQEW17vncFA7PjIeEAyeF5vORafF
+ +eTbVWyCkWrnw7G2YeduVn3IGEasK2w9lxkHgo8d5n/wtLwv0f3frqGhWVK86HxSmRZ0
+ UgzQ==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=1e100.net; s=20161025;
  h=x-gm-message-state:from:to:cc:subject:date:message-id:in-reply-to
  :references;
- bh=WKqEBPsoDpTtAdSfNyFLIMHr8olM8ej+c9mYA02GcCA=;
- b=ny1gXzPWXJeuV10ERjLuoXyBV3W4bj/AE2pxku8RakoWTe0Bv3WrGX94kxSixbD83+
- g0JJEbQiIfKwNv8LNQ0Yu1DoazMc9mF1GTDAyhCfWHogBsFo2fUFwP6NeA3ZfHRZp8iF
- 2F2KZxHWnUPGJE2PuZNGKcUlHI5a+Gts7nTBW2lMryTqQoaVEma5Owk1zUGX+xl1D0Eb
- 0gA8NLgyURJdumRHMtZyoFWYnMkg7Fghwtmv35s3gZ5mpKZTVYB9UUgC5Y60Wc+kgzFq
- jeuQiMTh2uTrYx8e+bvkuOfO+F6yEaBUIMNRTP4o647A/7EBDBHLNwawcqwwNqBc1kIl
- VWgQ==
-X-Gm-Message-State: APjAAAW2m1QLHt++/5aqfJy/8LHeQIpv0gEh2pfQodbsqSeoTu37bctG
- oBbBDbZccOQaydF70iNQIjao
-X-Google-Smtp-Source: APXvYqzcYRWPu0WRf+RAfh3l26x12ZdiBB8Vmej1zRa+PnUBc+108slbJJ9iJJqfpv8tnFes6Kj2Aw==
-X-Received: by 2002:a17:902:165:: with SMTP id
- 92mr53109313plb.197.1560326108515; 
- Wed, 12 Jun 2019 00:55:08 -0700 (PDT)
+ bh=ddmyf9yTEwlfHCzubut1+DzdJc/PcrZsJL5uTZc4yfE=;
+ b=nKWbLqk3A5xSpiz4p6t6M5+jlvkiwUvY7G4jArWK+fm3I9+xBv871ohOkDC+6Uf9VZ
+ 1PESUwxCXnhxbi+zZ6NRBnTHBUVRyj3fVueSI98fI6DZNd2vLz/RCqmgh1f1PmgMONC2
+ eFipfGlDpQn90eLPkhrSouxLUzgSZMHNFbFuEp3ox8+94PLCm7u6UoYXdv5zGvkJRXf6
+ tcM4AcUCL7DFJJWcU0eW+Tv9CxVQoJHWI1qZP2HV3NwHvuJ3fpGy12CKzzG3r0Ti9s5a
+ Nf4FnZjMEtONqc47z7Cfp52QuyIwpw6Uw+dNe6GkgFKkWukpA67YgWv+QZ2vKbuX2de2
+ AvFw==
+X-Gm-Message-State: APjAAAXqkV8ViAGgHazvI2aq4qO3RRHd9h3EWUAQ45C+l4H5Yj0l2lkd
+ h3FVWC/kAMR1eXKhxRVsZzwHlWmQYpDK
+X-Google-Smtp-Source: APXvYqx7tmatLIV5lw0AoibaBm7aPYmU16s1G88Rxa+htlmSOMrfzpqbjFDCivcdIqj+XjXUxs362Q==
+X-Received: by 2002:a17:902:b905:: with SMTP id
+ bf5mr80896870plb.155.1560326114920; 
+ Wed, 12 Jun 2019 00:55:14 -0700 (PDT)
 Received: from localhost.localdomain ([2409:4072:894:d456:15b5:9ca9:e3ec:c06a])
- by smtp.gmail.com with ESMTPSA id b15sm16846399pfi.141.2019.06.12.00.55.03
+ by smtp.gmail.com with ESMTPSA id b15sm16846399pfi.141.2019.06.12.00.55.09
  (version=TLS1_2 cipher=ECDHE-RSA-AES128-GCM-SHA256 bits=128/128);
- Wed, 12 Jun 2019 00:55:08 -0700 (PDT)
+ Wed, 12 Jun 2019 00:55:14 -0700 (PDT)
 From: Manivannan Sadhasivam <manivannan.sadhasivam@linaro.org>
 To: mcoquelin.stm32@gmail.com,
 	alexandre.torgue@st.com,
 	robh+dt@kernel.org
-Date: Wed, 12 Jun 2019 13:24:48 +0530
-Message-Id: <20190612075451.8643-2-manivannan.sadhasivam@linaro.org>
+Date: Wed, 12 Jun 2019 13:24:49 +0530
+Message-Id: <20190612075451.8643-3-manivannan.sadhasivam@linaro.org>
 X-Mailer: git-send-email 2.17.1
 In-Reply-To: <20190612075451.8643-1-manivannan.sadhasivam@linaro.org>
 References: <20190612075451.8643-1-manivannan.sadhasivam@linaro.org>
@@ -60,8 +60,8 @@ Cc: devicetree@vger.kernel.org, loic.pallardy@st.com,
  linux-kernel@vger.kernel.org,
  Manivannan Sadhasivam <manivannan.sadhasivam@linaro.org>,
  linux-stm32@st-md-mailman.stormreply.com, linux-arm-kernel@lists.infradead.org
-Subject: [Linux-stm32] [PATCH v4 1/4] ARM: dts: stm32mp157: Add missing
-	pinctrl definitions
+Subject: [Linux-stm32] [PATCH v4 2/4] dt-bindings: arm: stm32: Convert STM32
+	SoC bindings to DT schema
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -79,120 +79,67 @@ Content-Transfer-Encoding: 7bit
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
-Add missing pinctrl definitions for STM32MP157 MPU.
+This commit converts STM32 SoC bindings to DT schema using jsonschema.
 
 Signed-off-by: Manivannan Sadhasivam <manivannan.sadhasivam@linaro.org>
 ---
- arch/arm/boot/dts/stm32mp157-pinctrl.dtsi | 75 +++++++++++++++++++++++
- 1 file changed, 75 insertions(+)
+ .../devicetree/bindings/arm/stm32/stm32.txt   | 10 -------
+ .../devicetree/bindings/arm/stm32/stm32.yaml  | 29 +++++++++++++++++++
+ 2 files changed, 29 insertions(+), 10 deletions(-)
+ delete mode 100644 Documentation/devicetree/bindings/arm/stm32/stm32.txt
+ create mode 100644 Documentation/devicetree/bindings/arm/stm32/stm32.yaml
 
-diff --git a/arch/arm/boot/dts/stm32mp157-pinctrl.dtsi b/arch/arm/boot/dts/stm32mp157-pinctrl.dtsi
-index 85c417d9983b..5efae4b4b37f 100644
---- a/arch/arm/boot/dts/stm32mp157-pinctrl.dtsi
-+++ b/arch/arm/boot/dts/stm32mp157-pinctrl.dtsi
-@@ -241,6 +241,23 @@
- 				};
- 			};
- 
-+			i2c1_pins_b: i2c1-2 {
-+				pins {
-+					pinmux = <STM32_PINMUX('F', 14, AF5)>, /* I2C1_SCL */
-+						 <STM32_PINMUX('F', 15, AF5)>; /* I2C1_SDA */
-+					bias-disable;
-+					drive-open-drain;
-+					slew-rate = <0>;
-+				};
-+			};
+diff --git a/Documentation/devicetree/bindings/arm/stm32/stm32.txt b/Documentation/devicetree/bindings/arm/stm32/stm32.txt
+deleted file mode 100644
+index 6808ed9ddfd5..000000000000
+--- a/Documentation/devicetree/bindings/arm/stm32/stm32.txt
++++ /dev/null
+@@ -1,10 +0,0 @@
+-STMicroelectronics STM32 Platforms Device Tree Bindings
+-
+-Each device tree must specify which STM32 SoC it uses,
+-using one of the following compatible strings:
+-
+-  st,stm32f429
+-  st,stm32f469
+-  st,stm32f746
+-  st,stm32h743
+-  st,stm32mp157
+diff --git a/Documentation/devicetree/bindings/arm/stm32/stm32.yaml b/Documentation/devicetree/bindings/arm/stm32/stm32.yaml
+new file mode 100644
+index 000000000000..f53dc0f2d7b3
+--- /dev/null
++++ b/Documentation/devicetree/bindings/arm/stm32/stm32.yaml
+@@ -0,0 +1,29 @@
++# SPDX-License-Identifier: GPL-2.0
++%YAML 1.2
++---
++$id: http://devicetree.org/schemas/arm/stm32/stm32.yaml#
++$schema: http://devicetree.org/meta-schemas/core.yaml#
 +
-+			i2c1_pins_sleep_b: i2c1-3 {
-+				pins {
-+					pinmux = <STM32_PINMUX('F', 14, ANALOG)>, /* I2C1_SCL */
-+						 <STM32_PINMUX('F', 15, ANALOG)>; /* I2C1_SDA */
-+				};
-+			};
++title: STMicroelectronics STM32 Platforms Device Tree Bindings
 +
- 			i2c2_pins_a: i2c2-0 {
- 				pins {
- 					pinmux = <STM32_PINMUX('H', 4, AF4)>, /* I2C2_SCL */
-@@ -258,6 +275,21 @@
- 				};
- 			};
- 
-+			i2c2_pins_b1: i2c2-2 {
-+				pins {
-+					pinmux = <STM32_PINMUX('H', 5, AF4)>; /* I2C2_SDA */
-+					bias-disable;
-+					drive-open-drain;
-+					slew-rate = <0>;
-+				};
-+			};
++maintainers:
++  - Alexandre Torgue <alexandre.torgue@st.com>
 +
-+			i2c2_pins_sleep_b1: i2c2-3 {
-+				pins {
-+					pinmux = <STM32_PINMUX('H', 5, ANALOG)>; /* I2C2_SDA */
-+				};
-+			};
++properties:
++  compatible:
++    oneOf:
++      - items:
++          - const: st,stm32f429
 +
- 			i2c5_pins_a: i2c5-0 {
- 				pins {
- 					pinmux = <STM32_PINMUX('A', 11, AF4)>, /* I2C5_SCL */
-@@ -599,6 +631,34 @@
- 					bias-disable;
- 				};
- 			};
++      - items:
++          - const: st,stm32f469
 +
-+			uart4_pins_b: uart4-1 {
-+				pins1 {
-+					pinmux = <STM32_PINMUX('D', 1, AF8)>; /* UART4_TX */
-+					bias-disable;
-+					drive-push-pull;
-+					slew-rate = <0>;
-+				};
-+				pins2 {
-+					pinmux = <STM32_PINMUX('B', 2, AF8)>; /* UART4_RX */
-+					bias-disable;
-+				};
-+			};
++      - items:
++          - const: st,stm32f746
 +
-+			uart7_pins_a: uart7-0 {
-+				pins1 {
-+					pinmux = <STM32_PINMUX('E', 8, AF7)>; /* UART4_TX */
-+					bias-disable;
-+					drive-push-pull;
-+					slew-rate = <0>;
-+				};
-+				pins2 {
-+					pinmux = <STM32_PINMUX('E', 7, AF7)>, /* UART4_RX */
-+						 <STM32_PINMUX('E', 10, AF7)>, /* UART4_CTS */
-+						 <STM32_PINMUX('E', 9, AF7)>; /* UART4_RTS */
-+					bias-disable;
-+				};
-+			};
- 		};
- 
- 		pinctrl_z: pin-controller-z@54004000 {
-@@ -623,6 +683,21 @@
- 				gpio-ranges = <&pinctrl_z 0 400 8>;
- 			};
- 
-+			i2c2_pins_b2: i2c2-0 {
-+				pins {
-+					pinmux = <STM32_PINMUX('Z', 0, AF3)>; /* I2C2_SCL */
-+					bias-disable;
-+					drive-open-drain;
-+					slew-rate = <0>;
-+				};
-+			};
++      - items:
++          - const: st,stm32h743
 +
-+			i2c2_pins_sleep_b2: i2c2-1 {
-+				pins {
-+					pinmux = <STM32_PINMUX('Z', 0, ANALOG)>; /* I2C2_SCL */
-+				};
-+			};
-+
- 			i2c4_pins_a: i2c4-0 {
- 				pins {
- 					pinmux = <STM32_PINMUX('Z', 4, AF6)>, /* I2C4_SCL */
++      - items:
++          - const: st,stm32mp157
++...
 -- 
 2.17.1
 
