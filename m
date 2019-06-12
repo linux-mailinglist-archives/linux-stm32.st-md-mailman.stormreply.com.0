@@ -2,64 +2,71 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id 24DF541D98
-	for <lists+linux-stm32@lfdr.de>; Wed, 12 Jun 2019 09:25:39 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id C1D7B41E31
+	for <lists+linux-stm32@lfdr.de>; Wed, 12 Jun 2019 09:47:32 +0200 (CEST)
 Received: from ip-172-31-3-76.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id CF035D23C75
-	for <lists+linux-stm32@lfdr.de>; Wed, 12 Jun 2019 07:25:38 +0000 (UTC)
-Received: from mx07-00178001.pphosted.com (mx07-00178001.pphosted.com
- [62.209.51.94])
- (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 76F37C5DBC8
+	for <lists+linux-stm32@lfdr.de>; Wed, 12 Jun 2019 07:47:32 +0000 (UTC)
+Received: from mail-pl1-f194.google.com (mail-pl1-f194.google.com
+ [209.85.214.194])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 1A962D20D7A
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 6FCB7C5DBC7
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Wed, 12 Jun 2019 07:25:38 +0000 (UTC)
-Received: from pps.filterd (m0046668.ppops.net [127.0.0.1])
- by mx07-00178001.pphosted.com (8.16.0.27/8.16.0.27) with SMTP id
- x5C7LXNM032480; Wed, 12 Jun 2019 09:25:04 +0200
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=st.com;
- h=from : to : cc : subject
- : date : message-id : in-reply-to : references : mime-version :
- content-type; s=STMicroelectronics;
- bh=mscPIPZ3FaNG1fi5inSmP9H7jFv8oBUHJnCQ3UPmBlE=;
- b=acMmyrCwj6N46GmEph6JwKd35yXOV71CZZlDPjJ3TYyG1LfBriKSz6H3Xg4mT0QTNJIc
- apRV1Lq8OdtXeYqfkWxEb0HF8pMi5+OWtd+bQdEPw73+D9J/ni1zFRFdkDEpRiDebMcv
- O9Mfsqf6ut9ZcQ4w3iXhazPoTKSNjqFxHQSRPAaoApScRlWo/3yPL+oV0cfO6J8okujh
- sEivAA8CaZggmlbBfIBKOuenOH/yIvQAZBpfKPF6kCT9yJF+d6q4kmPSadddkKynUEHr
- joqgQCjfL2Rtz5LdK9DtnS6JP8bhipdawayoBuvgDipL1leC18zifKehN5GiZJkr1SV2 1w== 
-Received: from beta.dmz-eu.st.com (beta.dmz-eu.st.com [164.129.1.35])
- by mx07-00178001.pphosted.com with ESMTP id 2t2f8bukdj-1
- (version=TLSv1 cipher=ECDHE-RSA-AES256-SHA bits=256 verify=NOT);
- Wed, 12 Jun 2019 09:25:04 +0200
-Received: from zeta.dmz-eu.st.com (zeta.dmz-eu.st.com [164.129.230.9])
- by beta.dmz-eu.st.com (STMicroelectronics) with ESMTP id 798D63D;
- Wed, 12 Jun 2019 07:25:03 +0000 (GMT)
-Received: from Webmail-eu.st.com (sfhdag5node3.st.com [10.75.127.15])
- by zeta.dmz-eu.st.com (STMicroelectronics) with ESMTP id 0C0C7164B;
- Wed, 12 Jun 2019 07:25:03 +0000 (GMT)
-Received: from localhost (10.75.127.48) by SFHDAG5NODE3.st.com (10.75.127.15)
- with Microsoft SMTP Server (TLS) id 15.0.1473.3;
- Wed, 12 Jun 2019 09:25:02 +0200
-From: Fabrice Gasnier <fabrice.gasnier@st.com>
-To: <jic23@kernel.org>, <robh+dt@kernel.org>, <alexandre.torgue@st.com>
-Date: Wed, 12 Jun 2019 09:24:36 +0200
-Message-ID: <1560324276-681-4-git-send-email-fabrice.gasnier@st.com>
-X-Mailer: git-send-email 2.7.4
-In-Reply-To: <1560324276-681-1-git-send-email-fabrice.gasnier@st.com>
-References: <1560324276-681-1-git-send-email-fabrice.gasnier@st.com>
+ Wed, 12 Jun 2019 07:47:31 +0000 (UTC)
+Received: by mail-pl1-f194.google.com with SMTP id c14so6895plo.0
+ for <linux-stm32@st-md-mailman.stormreply.com>;
+ Wed, 12 Jun 2019 00:47:31 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linaro.org; s=google;
+ h=date:from:to:cc:subject:message-id:references:mime-version
+ :content-disposition:in-reply-to:user-agent;
+ bh=RTEvowjVOZ1tt6yW3tt8znN/f0k1q7mGY13SshYdHu0=;
+ b=ev+kVdsEuZay+u/9fs+NWPIBWNJyQcyQ6Ur5EFF5tKrCyVYcgNizj2gLPu5bxid0Hz
+ tPLF7jTePnup5KqcxVjCHful3j9gTdvqX+Qriam8LVoek6qX29ezGElZwt6zYBEcb2SN
+ Q37YLJtAP03GlRDoXXFwr55GafpU0rlhDZGhQcl3SWX6gJA9KQpqiKwUOmlIGxRiYosn
+ dr9HK/RZVUvizdrr5OpBpHn4ChblEUXYJHENQsSph+PYnec44Z2CFtv0zFRptfx7TiLd
+ S7/PaXMj+7j/nP3bEQCPT+x48srxZ2LXHIsDlMch7Ni6dFdgIfKRdUiOcsa/OwOyp9cP
+ OrJg==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20161025;
+ h=x-gm-message-state:date:from:to:cc:subject:message-id:references
+ :mime-version:content-disposition:in-reply-to:user-agent;
+ bh=RTEvowjVOZ1tt6yW3tt8znN/f0k1q7mGY13SshYdHu0=;
+ b=qc8QX4puyM4YCz904lsyP7olPgNQtWBCGMpp+S22LmnQ35dOHKebZ9O8wGHxyoN5De
+ PjKO3zL7ZEuYJ6yj2HsgHLTFwWskhwGxTjDa209lBltb9rlUP6cD+oM+EiUo8OXlqzbB
+ y0PykcAirFj9dQeSKo5y1gO/sMJPzDlS6PEHMN5dMt+7LF9I2WGa1CBkRSnX75h4XmBV
+ +6AZnAaaPdfkyl4zbWarJiqWvvDwwjU+QLgQlXDim2JlsrFScmCsIq/zvVqw0/FeLjob
+ hnXtbwHii/6aFU5EfjEH/+PL+e6edx9LqNVswCuocoQBwTA2CM9csbiWv4TJ1ioUEmOu
+ wrqQ==
+X-Gm-Message-State: APjAAAWWE9i6SHoLyXo59L2M2JmZG+gXMw1lsiHzzr0hwnuWUSVJsfZz
+ RSBD5XSH+H/ePwT85jdsyR/g
+X-Google-Smtp-Source: APXvYqxdFNwHHUupAjw3XvuIJ/ZVdpM65R2uvHP1jCdfRej7cyXAdncrWoLq1ppn8UtyJYh5XGiOKw==
+X-Received: by 2002:a17:902:968b:: with SMTP id
+ n11mr43028455plp.120.1560325649660; 
+ Wed, 12 Jun 2019 00:47:29 -0700 (PDT)
+Received: from Mani-XPS-13-9360 ([2409:4072:894:d456:15b5:9ca9:e3ec:c06a])
+ by smtp.gmail.com with ESMTPSA id v5sm16896474pfm.22.2019.06.12.00.47.23
+ (version=TLS1_2 cipher=ECDHE-RSA-CHACHA20-POLY1305 bits=256/256);
+ Wed, 12 Jun 2019 00:47:28 -0700 (PDT)
+Date: Wed, 12 Jun 2019 13:17:20 +0530
+From: Manivannan Sadhasivam <manivannan.sadhasivam@linaro.org>
+To: Rob Herring <robh+dt@kernel.org>
+Message-ID: <20190612074720.GA5513@Mani-XPS-13-9360>
+References: <20190531063849.26142-1-manivannan.sadhasivam@linaro.org>
+ <20190531063849.26142-3-manivannan.sadhasivam@linaro.org>
+ <CAL_Jsq+N7NA7m+dp+zpwFeZLM6B+OwRrqZdzKkJp2TRWi_e3Mw@mail.gmail.com>
 MIME-Version: 1.0
-X-Originating-IP: [10.75.127.48]
-X-ClientProxiedBy: SFHDAG6NODE3.st.com (10.75.127.18) To SFHDAG5NODE3.st.com
- (10.75.127.15)
-X-Proofpoint-Virus-Version: vendor=fsecure engine=2.50.10434:, ,
- definitions=2019-06-12_04:, , signatures=0
-Cc: mark.rutland@arm.com, devicetree@vger.kernel.org, lars@metafoo.de,
- mcoquelin.stm32@gmail.com, linux-iio@vger.kernel.org,
- linux-kernel@vger.kernel.org, pmeerw@pmeerw.net, knaack.h@gmx.de,
- fabrice.gasnier@st.com, linux-stm32@st-md-mailman.stormreply.com,
- linux-arm-kernel@lists.infradead.org
-Subject: [Linux-stm32] [PATCH 3/3] ARM: dts: stm32: add ADC analog switches
-	syscfg on stm32mp157c
+Content-Disposition: inline
+In-Reply-To: <CAL_Jsq+N7NA7m+dp+zpwFeZLM6B+OwRrqZdzKkJp2TRWi_e3Mw@mail.gmail.com>
+User-Agent: Mutt/1.9.4 (2018-02-28)
+Cc: devicetree@vger.kernel.org, loic pallardy <loic.pallardy@st.com>,
+ "linux-kernel@vger.kernel.org" <linux-kernel@vger.kernel.org>,
+ Maxime Coquelin <mcoquelin.stm32@gmail.com>,
+ linux-stm32@st-md-mailman.stormreply.com,
+ "moderated list:ARM/FREESCALE IMX / MXC ARM ARCHITECTURE"
+ <linux-arm-kernel@lists.infradead.org>
+Subject: Re: [Linux-stm32] [PATCH v3 2/4] dt-bindings: arm: stm32: Convert
+ STM32 SoC bindings to DT schema
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -76,32 +83,67 @@ Content-Transfer-Encoding: 7bit
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
-On stm32mp157c, the ADC inputs are multiplexed with analog switches which
-have reduced performances when their supply is below 2.7V (vdda by
-default).
-Add syscfg registers that can be used on stm32mp157c, to get full ADC
-analog performances.
+Hi Rob,
 
-Signed-off-by: Fabrice Gasnier <fabrice.gasnier@st.com>
----
- arch/arm/boot/dts/stm32mp157c.dtsi | 1 +
- 1 file changed, 1 insertion(+)
+On Mon, Jun 10, 2019 at 03:57:43PM -0600, Rob Herring wrote:
+> On Fri, May 31, 2019 at 12:39 AM Manivannan Sadhasivam
+> <manivannan.sadhasivam@linaro.org> wrote:
+> >
+> > This commit converts STM32 SoC bindings to DT schema using jsonschema.
+> >
+> > Signed-off-by: Manivannan Sadhasivam <manivannan.sadhasivam@linaro.org>
+> > ---
+> >  .../devicetree/bindings/arm/stm32/stm32.yaml  | 29 +++++++++++++++++++
+> >  1 file changed, 29 insertions(+)
+> >  create mode 100644 Documentation/devicetree/bindings/arm/stm32/stm32.yaml
+> 
+> Converting implies removal of something. The schema looks fine though.
+> 
 
-diff --git a/arch/arm/boot/dts/stm32mp157c.dtsi b/arch/arm/boot/dts/stm32mp157c.dtsi
-index 2afeee6..64d71c9 100644
---- a/arch/arm/boot/dts/stm32mp157c.dtsi
-+++ b/arch/arm/boot/dts/stm32mp157c.dtsi
-@@ -856,6 +856,7 @@
- 			clocks = <&rcc ADC12>, <&rcc ADC12_K>;
- 			clock-names = "bus", "adc";
- 			interrupt-controller;
-+			st,syscfg = <&syscfg>;
- 			#interrupt-cells = <1>;
- 			#address-cells = <1>;
- 			#size-cells = <0>;
--- 
-2.7.4
+Ah, sorry. I forgot to delete the .txt file. Will do it in next revision.
 
+Thanks,
+Mani
+
+> >
+> > diff --git a/Documentation/devicetree/bindings/arm/stm32/stm32.yaml b/Documentation/devicetree/bindings/arm/stm32/stm32.yaml
+> > new file mode 100644
+> > index 000000000000..f53dc0f2d7b3
+> > --- /dev/null
+> > +++ b/Documentation/devicetree/bindings/arm/stm32/stm32.yaml
+> > @@ -0,0 +1,29 @@
+> > +# SPDX-License-Identifier: GPL-2.0
+> > +%YAML 1.2
+> > +---
+> > +$id: http://devicetree.org/schemas/arm/stm32/stm32.yaml#
+> > +$schema: http://devicetree.org/meta-schemas/core.yaml#
+> > +
+> > +title: STMicroelectronics STM32 Platforms Device Tree Bindings
+> > +
+> > +maintainers:
+> > +  - Alexandre Torgue <alexandre.torgue@st.com>
+> > +
+> > +properties:
+> > +  compatible:
+> > +    oneOf:
+> > +      - items:
+> > +          - const: st,stm32f429
+> > +
+> > +      - items:
+> > +          - const: st,stm32f469
+> > +
+> > +      - items:
+> > +          - const: st,stm32f746
+> > +
+> > +      - items:
+> > +          - const: st,stm32h743
+> > +
+> > +      - items:
+> > +          - const: st,stm32mp157
+> > +...
+> > --
+> > 2.17.1
+> >
 _______________________________________________
 Linux-stm32 mailing list
 Linux-stm32@st-md-mailman.stormreply.com
