@@ -2,67 +2,48 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id C1C0B4532F
-	for <lists+linux-stm32@lfdr.de>; Fri, 14 Jun 2019 05:57:41 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 14E7A45945
+	for <lists+linux-stm32@lfdr.de>; Fri, 14 Jun 2019 11:50:57 +0200 (CEST)
 Received: from ip-172-31-3-76.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 6EC00CC2398
-	for <lists+linux-stm32@lfdr.de>; Fri, 14 Jun 2019 03:57:41 +0000 (UTC)
-Received: from mail-ed1-f67.google.com (mail-ed1-f67.google.com
- [209.85.208.67])
- (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 06BC5C54B26
+	for <lists+linux-stm32@lfdr.de>; Fri, 14 Jun 2019 09:50:56 +0000 (UTC)
+Received: from relay6-d.mail.gandi.net (relay6-d.mail.gandi.net
+ [217.70.183.198])
+ (using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 822B9CC2397
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 8F602C54B24
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Fri, 14 Jun 2019 03:57:40 +0000 (UTC)
-Received: by mail-ed1-f67.google.com with SMTP id s49so1463571edb.1
- for <linux-stm32@st-md-mailman.stormreply.com>;
- Thu, 13 Jun 2019 20:57:40 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20161025;
- h=date:from:to:cc:subject:message-id:references:mime-version
- :content-disposition:in-reply-to:user-agent;
- bh=gDNeDNC6IhsxAfX1pCDhnGOlsLviHqkXzki8BiuCzfE=;
- b=pcbjuSreld4Y706hdj8M6kKp4kLTEsk7/zmxxGr/PyJ4Q63Evk+mFr05ZIUVlmh+xk
- +0sSwQJsJ3jl8VYasKac8A3nGlVpbTvobhzfAiK9jP8FOJMCcOUv8sOB66NZKQ2jc1ck
- GvR1DksaU4g55K+AlRMkee6MvlDCf7T7s4cjPBY5LeQTIxuG1Ff18gGqyPfQJUkqLLbq
- INWo7KBa6PX+s490TnOJjOoqdA+X/uqRhysLgQWo1Fsn7nqPJy+Pgx/UrGrn4Pw5b9jD
- R3nbCobM8hgSagh2KXO9ItEJz9DkEBVoe3ICfHdk6TImZ5kG7CFqaccEAYkebncKR1Ao
- klMQ==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20161025;
- h=x-gm-message-state:date:from:to:cc:subject:message-id:references
- :mime-version:content-disposition:in-reply-to:user-agent;
- bh=gDNeDNC6IhsxAfX1pCDhnGOlsLviHqkXzki8BiuCzfE=;
- b=KWX7sguboh6uir3gARw6ldWbtBeVGSNTJXrVULb59C2KQInEm0ocliUwCO1ii0c4yb
- iyNv3Baxo0QAgQmmb30gQ5Cow1f8waFtPX9TPYVBi3s5mnwuS+ZFbasi4ztEqzqFe6WN
- 06e4ypoz7Th5CMAhCA6s0fOwszJBgedUcUVaeQ3QcGSKY1UqvVLAvp0SZFHdILGghSJn
- ntyqGlyh88K2gxbkm9KG70b04TXM6en8Xh5TV/pSqMNt4WdBA1QLspso5gFPmDIgfiVo
- VkGGF7a6Gc9Xh61XlXQCEp3D/ZIcLTH20dHE2guI99UniYzaxy+SLxNOKKwOBBqR3Ysw
- 8Yig==
-X-Gm-Message-State: APjAAAXfEF1m3vDJ+Lj7CVOkJveBKI2vFQux0HKs+yb3UWsQ53zR5ONy
- FiGzupfBwHb0bf7cwyMx/zw=
-X-Google-Smtp-Source: APXvYqzJURQRQFhk+6yXhETpK9HjQuPFeyc8sNjYHpDFcm1C735qDO8j/cj2/Vadm8ArJoVnhREYtQ==
-X-Received: by 2002:a50:ac24:: with SMTP id v33mr72538475edc.30.1560484660031; 
- Thu, 13 Jun 2019 20:57:40 -0700 (PDT)
-Received: from archlinux-epyc ([2a01:4f9:2b:2b15::2])
- by smtp.gmail.com with ESMTPSA id m19sm332256eje.30.2019.06.13.20.57.38
- (version=TLS1_3 cipher=AEAD-AES256-GCM-SHA384 bits=256/256);
- Thu, 13 Jun 2019 20:57:39 -0700 (PDT)
-Date: Thu, 13 Jun 2019 20:57:36 -0700
-From: Nathan Chancellor <natechancellor@gmail.com>
-To: Lee Jones <lee.jones@linaro.org>
-Message-ID: <20190614035736.GA57346@archlinux-epyc>
-References: <20190511012301.2661-1-natechancellor@gmail.com>
- <20190513073059.GH4319@dell> <20190514183900.GA7559@archlinux-i9>
- <20190514185404.GP4319@dell>
+ Fri, 14 Jun 2019 09:50:54 +0000 (UTC)
+X-Originating-IP: 90.88.23.150
+Received: from localhost (aaubervilliers-681-1-81-150.w90-88.abo.wanadoo.fr
+ [90.88.23.150]) (Authenticated sender: maxime.ripard@bootlin.com)
+ by relay6-d.mail.gandi.net (Postfix) with ESMTPSA id F1BB4C0008;
+ Fri, 14 Jun 2019 09:50:48 +0000 (UTC)
+Date: Fri, 14 Jun 2019 11:50:48 +0200
+From: Maxime Ripard <maxime.ripard@bootlin.com>
+To: Rob Herring <robh+dt@kernel.org>
+Message-ID: <20190614095048.j2xwdsucucbakkl2@flea>
+References: <91618c7e9a5497462afa74c6d8a947f709f54331.1560158667.git-series.maxime.ripard@bootlin.com>
+ <d198d29119b37b2fdb700d8992b31963e98b6693.1560158667.git-series.maxime.ripard@bootlin.com>
+ <20190610143139.GG28724@lunn.ch>
+ <CAL_JsqJahCJcdu=+fA=ewbGezuEJ2W6uwMVxkQpdY6w+1OWVVA@mail.gmail.com>
+ <20190611145856.ua2ggkn6ccww6vpp@flea>
+ <CAL_Jsq+KwH-j8f+r+fWhMuqJPWcHdBQau+nUz3NRAXYTpsyuvg@mail.gmail.com>
 MIME-Version: 1.0
-Content-Disposition: inline
-In-Reply-To: <20190514185404.GP4319@dell>
-User-Agent: Mutt/1.12.0 (2019-05-25)
-Cc: Amelie Delaunay <amelie.delaunay@st.com>, linux-kernel@vger.kernel.org,
- clang-built-linux@googlegroups.com,
- Maxime Coquelin <mcoquelin.stm32@gmail.com>,
- linux-stm32@st-md-mailman.stormreply.com, linux-arm-kernel@lists.infradead.org
-Subject: Re: [Linux-stm32] [PATCH] mfd: stmfx: Fix macro definition spelling
+In-Reply-To: <CAL_Jsq+KwH-j8f+r+fWhMuqJPWcHdBQau+nUz3NRAXYTpsyuvg@mail.gmail.com>
+User-Agent: NeoMutt/20180716
+Cc: Mark Rutland <mark.rutland@arm.com>, Andrew Lunn <andrew@lunn.ch>,
+ Florian Fainelli <f.fainelli@gmail.com>, devicetree@vger.kernel.org,
+ Antoine =?utf-8?Q?T=C3=A9nart?= <antoine.tenart@bootlin.com>,
+ netdev <netdev@vger.kernel.org>, linux-stm32@st-md-mailman.stormreply.com,
+ Chen-Yu Tsai <wens@csie.org>, Maxime Coquelin <mcoquelin.stm32@gmail.com>,
+ Maxime Chevallier <maxime.chevallier@bootlin.com>,
+ Frank Rowand <frowand.list@gmail.com>,
+ "David S . Miller" <davem@davemloft.net>,
+ "moderated list:ARM/FREESCALE IMX / MXC ARM ARCHITECTURE"
+ <linux-arm-kernel@lists.infradead.org>, Heiner Kallweit <hkallweit1@gmail.com>
+Subject: Re: [Linux-stm32] [PATCH v2 05/11] dt-bindings: net: sun4i-emac:
+ Convert the binding to a schemas
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -74,52 +55,139 @@ List-Post: <mailto:linux-stm32@st-md-mailman.stormreply.com>
 List-Help: <mailto:linux-stm32-request@st-md-mailman.stormreply.com?subject=help>
 List-Subscribe: <https://st-md-mailman.stormreply.com/mailman/listinfo/linux-stm32>, 
  <mailto:linux-stm32-request@st-md-mailman.stormreply.com?subject=subscribe>
-Content-Type: text/plain; charset="us-ascii"
-Content-Transfer-Encoding: 7bit
+Content-Type: multipart/mixed; boundary="===============0493661014911966250=="
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
-On Tue, May 14, 2019 at 07:54:04PM +0100, Lee Jones wrote:
-> On Tue, 14 May 2019, Nathan Chancellor wrote:
-> 
-> > On Mon, May 13, 2019 at 08:30:59AM +0100, Lee Jones wrote:
-> > > On Fri, 10 May 2019, Nathan Chancellor wrote:
-> > > 
-> > > > Clang warns:
-> > > > 
-> > > > In file included from drivers/mfd/stmfx.c:13:
-> > > > include/linux/mfd/stmfx.h:7:9: warning: 'MFD_STMFX_H' is used as a
-> > > > header guard here, followed by #define of a different macro
-> > > > [-Wheader-guard]
-> > > > 
-> > > > Fixes: 06252ade9156 ("mfd: Add ST Multi-Function eXpander (STMFX) core driver")
-> > > > Link: https://github.com/ClangBuiltLinux/linux/issues/475
-> > > > Signed-off-by: Nathan Chancellor <natechancellor@gmail.com>
-> > > > ---
-> > > >  include/linux/mfd/stmfx.h | 2 +-
-> > > >  1 file changed, 1 insertion(+), 1 deletion(-)
-> > > 
-> > > Applied, thanks.
-> > > 
-> > 
-> > Hi Lee,
-> > 
-> > Thanks for picking it up. It seems this didn't make it into your MFD
-> > pull request for 5.2, was that intentional? It would be nice to avoid
-> > this warning.
-> 
-> Hmm... no it was not intentional.  Not sure what happened there.
-> 
-> I will pick it up for the -rcs.
 
-Hi Lee,
+--===============0493661014911966250==
+Content-Type: multipart/signed; micalg=pgp-sha256;
+	protocol="application/pgp-signature"; boundary="arfnxch5fo5pq4gp"
+Content-Disposition: inline
 
-Have you picked this up yet? I don't see it in -next or your public
-tree.
 
-Cheers,
-Nathan
+--arfnxch5fo5pq4gp
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+
+Hi Rob,
+
+On Thu, Jun 13, 2019 at 11:32:30AM -0600, Rob Herring wrote:
+> On Thu, Jun 13, 2019 at 7:25 AM Maxime Ripard <maxime.ripard@bootlin.com> wrote:
+> > On Mon, Jun 10, 2019 at 12:59:29PM -0600, Rob Herring wrote:
+> > > On Mon, Jun 10, 2019 at 8:31 AM Andrew Lunn <andrew@lunn.ch> wrote:
+> > > >
+> > > > > +required:
+> > > > > +  - compatible
+> > > > > +  - reg
+> > > > > +  - interrupts
+> > > > > +  - clocks
+> > > > > +  - phy
+> > > > > +  - allwinner,sram
+> > > >
+> > > > Quoting ethernet.txt:
+> > > >
+> > > > - phy: the same as "phy-handle" property, not recommended for new bindings.
+> > > >
+> > > > - phy-handle: phandle, specifies a reference to a node representing a PHY
+> > > >   device; this property is described in the Devicetree Specification and so
+> > > >   preferred;
+> > > >
+> > > > Can this be expressed in Yaml? Accept phy, but give a warning. Accept
+> > > > phy-handle without a warning? Enforce that one or the other is
+> > > > present?
+> > >
+> > > The common schema could have 'phy: false'. This works as long as we've
+> > > updated (or plan to) all the dts files to use phy-handle. The issue is
+> > > how far back do you need kernels to work with newer dtbs.
+> >
+> > I guess another question being raised by this is how hard do we want
+> > to be a deprecating things, and should the DT validation be a tool to
+> > enforce that validation.
+> >
+> > For example, you've used in you GPIO meta-schema false for anything
+> > ending with -gpio, since it's deprecated. This means that we can't
+> > convert any binding using a deprecated property without introducing a
+> > build error in the schemas, which in turn means that you'll have a lot
+> > of friction to support schemas, since you would have to convert your
+> > driver to support the new way of doing things, before being able to
+> > have a schema for your binding.
+>
+> I've err'ed on the stricter side. We may need to back off on some
+> things to get to warning free builds. Really, I'd like to have levels
+> to separate checks for existing bindings, new bindings, and pedantic
+> checks.
+
+That would be awesome. Do you have a plan for that already though? I
+can't really think of a way to implement it at the moment.
+
+> For '-gpio', we may be okay because the suffix is handled in the GPIO
+> core. It should be safe to update the binding to use the preferred
+> form.
+
+It might require a bit of work though in drivers, since the fallback
+is only handled if you're using the gpiod API, and not the legacy one.
+
+> > And then, we need to agree on how to express the deprecation. I guess
+> > we could allow the deprecated keyword that will be there in the
+> > draft-8, instead of ad-hoc solutions?
+>
+> Oh, nice! I hadn't seen that. Seems like we should use that. We can
+> start even without draft-8 support because unknown keywords are
+> ignored (though we probably have to add it to our meta-schema). Then
+> at some point we can add a 'disallow deprecated' flag to the tool.
+
+So, in the generic ethernet binding, we would have:
+
+properties:
+  phy-handle:
+    $ref: /schemas/types.yaml#definitions/phandle
+    description:
+      Specifies a reference to a node representing a PHY device.
+
+  phy:
+    $ref: "#/properties/phy-handle"
+    deprecated: true
+
+  phy-device:
+    $ref: "#/properties/phy-handle"
+    deprecated: true
+
+Does that sound good?
+
+Now, how do we handle the case above, in the device specific binding?
+We just require the non-deprecated one, or the three?
+
+Thanks!
+Maxime
+
+--
+Maxime Ripard, Bootlin
+Embedded Linux and Kernel engineering
+https://bootlin.com
+
+--arfnxch5fo5pq4gp
+Content-Type: application/pgp-signature; name="signature.asc"
+
+-----BEGIN PGP SIGNATURE-----
+
+iHUEABYIAB0WIQRcEzekXsqa64kGDp7j7w1vZxhRxQUCXQNt+AAKCRDj7w1vZxhR
+xc/rAP9oYo3RLFWNkmJJDZDeoHTXzgtXwUn55miw6RmHtD9HuQEAvRCq1//X+pH0
+3IHUv+mhhSTrjKtCcpuBHvJv5oWybg4=
+=S27r
+-----END PGP SIGNATURE-----
+
+--arfnxch5fo5pq4gp--
+
+--===============0493661014911966250==
+Content-Type: text/plain; charset="us-ascii"
+MIME-Version: 1.0
+Content-Transfer-Encoding: 7bit
+Content-Disposition: inline
+
 _______________________________________________
 Linux-stm32 mailing list
 Linux-stm32@st-md-mailman.stormreply.com
 https://st-md-mailman.stormreply.com/mailman/listinfo/linux-stm32
+
+--===============0493661014911966250==--
