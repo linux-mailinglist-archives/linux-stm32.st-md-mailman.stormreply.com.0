@@ -2,40 +2,27 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id 33F5945E58
-	for <lists+linux-stm32@lfdr.de>; Fri, 14 Jun 2019 15:38:04 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 76349461DC
+	for <lists+linux-stm32@lfdr.de>; Fri, 14 Jun 2019 16:59:11 +0200 (CEST)
 Received: from ip-172-31-3-76.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id E6258C5662A
-	for <lists+linux-stm32@lfdr.de>; Fri, 14 Jun 2019 13:38:03 +0000 (UTC)
-Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
- (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 115A8C5CDDA
+	for <lists+linux-stm32@lfdr.de>; Fri, 14 Jun 2019 14:59:11 +0000 (UTC)
+Received: from relay9-d.mail.gandi.net (relay9-d.mail.gandi.net
+ [217.70.183.199])
+ (using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id C54E5C56629
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 5C030C5CDDA
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Fri, 14 Jun 2019 13:38:02 +0000 (UTC)
-Received: from mail-qt1-f181.google.com (mail-qt1-f181.google.com
- [209.85.160.181])
- (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
- (No client certificate requested)
- by mail.kernel.org (Postfix) with ESMTPSA id 5324D208CA
- for <linux-stm32@st-md-mailman.stormreply.com>;
- Fri, 14 Jun 2019 13:38:01 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
- s=default; t=1560519481;
- bh=5kPUwCBQMbS2M8o+wglPzUUXRhVd4mGNXeo+GKUnF6A=;
- h=References:In-Reply-To:From:Date:Subject:To:Cc:From;
- b=0pkIZa6kP5BSGUByBNXPb11Mtf9FoTuMz5OP/9UhNutVmICtSUC0evQmkqa7iouuB
- gnqMfGThUsxcWLoeMeycy32pw31W8V3FRPXUbwnacWCx00mOPxpQA406tg6jwOfjOO
- cCPg8YY4ve8ySWSx2GrOulpCip2vxl2n5Arfh2Gg=
-Received: by mail-qt1-f181.google.com with SMTP id y57so2460182qtk.4
- for <linux-stm32@st-md-mailman.stormreply.com>;
- Fri, 14 Jun 2019 06:38:01 -0700 (PDT)
-X-Gm-Message-State: APjAAAVHwfroXsrtkg4DVJPdT4Ufb2pOO3/DKV192ndR45tyRkJ/AfYe
- 6vBgamJV28I5jt06BqPewuOpeWAliREHdZZCGw==
-X-Google-Smtp-Source: APXvYqyAj1odsDjtBwKdPSSywnQwCLoF/jNhPP0/kPXHppC/FT4M38muk0yGeu+a4kpzJwb49v6vKwKl9z5OZO/sjH8=
-X-Received: by 2002:aed:3f10:: with SMTP id p16mr15675043qtf.110.1560519480558; 
- Fri, 14 Jun 2019 06:38:00 -0700 (PDT)
-MIME-Version: 1.0
+ Fri, 14 Jun 2019 14:59:09 +0000 (UTC)
+X-Originating-IP: 90.88.23.150
+Received: from localhost (aaubervilliers-681-1-81-150.w90-88.abo.wanadoo.fr
+ [90.88.23.150]) (Authenticated sender: maxime.ripard@bootlin.com)
+ by relay9-d.mail.gandi.net (Postfix) with ESMTPSA id B5937FF806;
+ Fri, 14 Jun 2019 14:59:02 +0000 (UTC)
+Date: Fri, 14 Jun 2019 16:59:02 +0200
+From: Maxime Ripard <maxime.ripard@bootlin.com>
+To: Rob Herring <robh+dt@kernel.org>
+Message-ID: <20190614145902.vjytw74bs5roh2f2@flea>
 References: <91618c7e9a5497462afa74c6d8a947f709f54331.1560158667.git-series.maxime.ripard@bootlin.com>
  <d198d29119b37b2fdb700d8992b31963e98b6693.1560158667.git-series.maxime.ripard@bootlin.com>
  <20190610143139.GG28724@lunn.ch>
@@ -43,15 +30,13 @@ References: <91618c7e9a5497462afa74c6d8a947f709f54331.1560158667.git-series.maxi
  <20190611145856.ua2ggkn6ccww6vpp@flea>
  <CAL_Jsq+KwH-j8f+r+fWhMuqJPWcHdBQau+nUz3NRAXYTpsyuvg@mail.gmail.com>
  <20190614095048.j2xwdsucucbakkl2@flea>
-In-Reply-To: <20190614095048.j2xwdsucucbakkl2@flea>
-From: Rob Herring <robh+dt@kernel.org>
-Date: Fri, 14 Jun 2019 07:37:49 -0600
-X-Gmail-Original-Message-ID: <CAL_Jsq+=yh3WhTg=1G02LUHGLHts6mECR9BQ+n7qHAihFViAxA@mail.gmail.com>
-Message-ID: <CAL_Jsq+=yh3WhTg=1G02LUHGLHts6mECR9BQ+n7qHAihFViAxA@mail.gmail.com>
-To: Maxime Ripard <maxime.ripard@bootlin.com>
+ <CAL_Jsq+=yh3WhTg=1G02LUHGLHts6mECR9BQ+n7qHAihFViAxA@mail.gmail.com>
+MIME-Version: 1.0
+In-Reply-To: <CAL_Jsq+=yh3WhTg=1G02LUHGLHts6mECR9BQ+n7qHAihFViAxA@mail.gmail.com>
+User-Agent: NeoMutt/20180716
 Cc: Mark Rutland <mark.rutland@arm.com>, Andrew Lunn <andrew@lunn.ch>,
  Florian Fainelli <f.fainelli@gmail.com>, devicetree@vger.kernel.org,
- =?UTF-8?Q?Antoine_T=C3=A9nart?= <antoine.tenart@bootlin.com>,
+ Antoine =?utf-8?Q?T=C3=A9nart?= <antoine.tenart@bootlin.com>,
  netdev <netdev@vger.kernel.org>, linux-stm32@st-md-mailman.stormreply.com,
  Chen-Yu Tsai <wens@csie.org>, Maxime Coquelin <mcoquelin.stm32@gmail.com>,
  Maxime Chevallier <maxime.chevallier@bootlin.com>,
@@ -72,118 +57,102 @@ List-Post: <mailto:linux-stm32@st-md-mailman.stormreply.com>
 List-Help: <mailto:linux-stm32-request@st-md-mailman.stormreply.com?subject=help>
 List-Subscribe: <https://st-md-mailman.stormreply.com/mailman/listinfo/linux-stm32>, 
  <mailto:linux-stm32-request@st-md-mailman.stormreply.com?subject=subscribe>
-Content-Type: text/plain; charset="us-ascii"
-Content-Transfer-Encoding: 7bit
+Content-Type: multipart/mixed; boundary="===============7182243294749467452=="
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
-On Fri, Jun 14, 2019 at 3:50 AM Maxime Ripard <maxime.ripard@bootlin.com> wrote:
->
-> Hi Rob,
->
-> On Thu, Jun 13, 2019 at 11:32:30AM -0600, Rob Herring wrote:
-> > On Thu, Jun 13, 2019 at 7:25 AM Maxime Ripard <maxime.ripard@bootlin.com> wrote:
-> > > On Mon, Jun 10, 2019 at 12:59:29PM -0600, Rob Herring wrote:
-> > > > On Mon, Jun 10, 2019 at 8:31 AM Andrew Lunn <andrew@lunn.ch> wrote:
-> > > > >
-> > > > > > +required:
-> > > > > > +  - compatible
-> > > > > > +  - reg
-> > > > > > +  - interrupts
-> > > > > > +  - clocks
-> > > > > > +  - phy
-> > > > > > +  - allwinner,sram
-> > > > >
-> > > > > Quoting ethernet.txt:
-> > > > >
-> > > > > - phy: the same as "phy-handle" property, not recommended for new bindings.
-> > > > >
-> > > > > - phy-handle: phandle, specifies a reference to a node representing a PHY
-> > > > >   device; this property is described in the Devicetree Specification and so
-> > > > >   preferred;
-> > > > >
-> > > > > Can this be expressed in Yaml? Accept phy, but give a warning. Accept
-> > > > > phy-handle without a warning? Enforce that one or the other is
-> > > > > present?
-> > > >
-> > > > The common schema could have 'phy: false'. This works as long as we've
-> > > > updated (or plan to) all the dts files to use phy-handle. The issue is
-> > > > how far back do you need kernels to work with newer dtbs.
-> > >
-> > > I guess another question being raised by this is how hard do we want
-> > > to be a deprecating things, and should the DT validation be a tool to
-> > > enforce that validation.
-> > >
-> > > For example, you've used in you GPIO meta-schema false for anything
-> > > ending with -gpio, since it's deprecated. This means that we can't
-> > > convert any binding using a deprecated property without introducing a
-> > > build error in the schemas, which in turn means that you'll have a lot
-> > > of friction to support schemas, since you would have to convert your
-> > > driver to support the new way of doing things, before being able to
-> > > have a schema for your binding.
+
+--===============7182243294749467452==
+Content-Type: multipart/signed; micalg=pgp-sha256;
+	protocol="application/pgp-signature"; boundary="wmxpz6l3hrzuotke"
+Content-Disposition: inline
+
+
+--wmxpz6l3hrzuotke
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+
+Hi,
+
+On Fri, Jun 14, 2019 at 07:37:49AM -0600, Rob Herring wrote:
+> > > For '-gpio', we may be okay because the suffix is handled in the GPIO
+> > > core. It should be safe to update the binding to use the preferred
+> > > form.
 > >
-> > I've err'ed on the stricter side. We may need to back off on some
-> > things to get to warning free builds. Really, I'd like to have levels
-> > to separate checks for existing bindings, new bindings, and pedantic
-> > checks.
->
-> That would be awesome. Do you have a plan for that already though? I
-> can't really think of a way to implement it at the moment.
-
-The only idea I have so far is some sort of 'level' property and then
-we filter schema based on what level we run validation at. I'm not too
-sure if that would take some restructuring of schema though because
-it's all a mixture ATM.
-
-The other aspect is how to set the 'level' per platform so new
-platforms have to pass a higher level. We already have that problem
-just with dtc warnings. Ideally, we should build new platforms with
-'W=1' or 'W=12'. Maybe the soc/board schema's can specify the level.
-
-> > For '-gpio', we may be okay because the suffix is handled in the GPIO
-> > core. It should be safe to update the binding to use the preferred
-> > form.
->
-> It might require a bit of work though in drivers, since the fallback
-> is only handled if you're using the gpiod API, and not the legacy one.
->
-> > > And then, we need to agree on how to express the deprecation. I guess
-> > > we could allow the deprecated keyword that will be there in the
-> > > draft-8, instead of ad-hoc solutions?
+> > It might require a bit of work though in drivers, since the fallback
+> > is only handled if you're using the gpiod API, and not the legacy one.
 > >
-> > Oh, nice! I hadn't seen that. Seems like we should use that. We can
-> > start even without draft-8 support because unknown keywords are
-> > ignored (though we probably have to add it to our meta-schema). Then
-> > at some point we can add a 'disallow deprecated' flag to the tool.
+> > > > And then, we need to agree on how to express the deprecation. I guess
+> > > > we could allow the deprecated keyword that will be there in the
+> > > > draft-8, instead of ad-hoc solutions?
+> > >
+> > > Oh, nice! I hadn't seen that. Seems like we should use that. We can
+> > > start even without draft-8 support because unknown keywords are
+> > > ignored (though we probably have to add it to our meta-schema). Then
+> > > at some point we can add a 'disallow deprecated' flag to the tool.
+> >
+> > So, in the generic ethernet binding, we would have:
+> >
+> > properties:
+> >   phy-handle:
+> >     $ref: /schemas/types.yaml#definitions/phandle
+> >     description:
+> >       Specifies a reference to a node representing a PHY device.
+> >
+> >   phy:
+> >     $ref: "#/properties/phy-handle"
+> >     deprecated: true
+> >
+> >   phy-device:
+> >     $ref: "#/properties/phy-handle"
+> >     deprecated: true
+> >
+> > Does that sound good?
 >
-> So, in the generic ethernet binding, we would have:
->
-> properties:
->   phy-handle:
->     $ref: /schemas/types.yaml#definitions/phandle
->     description:
->       Specifies a reference to a node representing a PHY device.
->
->   phy:
->     $ref: "#/properties/phy-handle"
->     deprecated: true
->
->   phy-device:
->     $ref: "#/properties/phy-handle"
->     deprecated: true
->
-> Does that sound good?
+> Yes.
 
-Yes.
+Great, I'll post that.
 
-> Now, how do we handle the case above, in the device specific binding?
-> We just require the non-deprecated one, or the three?
+> > Now, how do we handle the case above, in the device specific binding?
+> > We just require the non-deprecated one, or the three?
+>
+> Wouldn't that just depend if all the instances of the device specific
+> binding have been updated?
 
-Wouldn't that just depend if all the instances of the device specific
-binding have been updated?
+You mean in the DTS?
 
-Rob
+It shouldn't matter, we'll want to have a warning anyway. But yeah,
+I'll update them too.
+
+Maxme
+
+--
+Maxime Ripard, Bootlin
+Embedded Linux and Kernel engineering
+https://bootlin.com
+
+--wmxpz6l3hrzuotke
+Content-Type: application/pgp-signature; name="signature.asc"
+
+-----BEGIN PGP SIGNATURE-----
+
+iHUEABYIAB0WIQRcEzekXsqa64kGDp7j7w1vZxhRxQUCXQO2NgAKCRDj7w1vZxhR
+xYYMAQCpuUGZecwJPnE6MJSUbuL1fXyUaH+2U+W+fTF4OHIb8gEAxykOmBXCzeYm
+qShBRvc18IIAbeOPCAbqTKJy+kpccgc=
+=AR23
+-----END PGP SIGNATURE-----
+
+--wmxpz6l3hrzuotke--
+
+--===============7182243294749467452==
+Content-Type: text/plain; charset="us-ascii"
+MIME-Version: 1.0
+Content-Transfer-Encoding: 7bit
+Content-Disposition: inline
+
 _______________________________________________
 Linux-stm32 mailing list
 Linux-stm32@st-md-mailman.stormreply.com
 https://st-md-mailman.stormreply.com/mailman/listinfo/linux-stm32
+
+--===============7182243294749467452==--
