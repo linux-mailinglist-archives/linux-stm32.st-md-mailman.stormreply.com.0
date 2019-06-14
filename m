@@ -2,32 +2,54 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id E342A46B45
-	for <lists+linux-stm32@lfdr.de>; Fri, 14 Jun 2019 22:53:33 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id BE67B46BE9
+	for <lists+linux-stm32@lfdr.de>; Fri, 14 Jun 2019 23:36:11 +0200 (CEST)
 Received: from ip-172-31-3-76.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 94CD0C06142
-	for <lists+linux-stm32@lfdr.de>; Fri, 14 Jun 2019 20:53:33 +0000 (UTC)
-Received: from pokefinder.org (sauhun.de [88.99.104.3])
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 3E4D2C05F08
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 73271C580E3
+	for <lists+linux-stm32@lfdr.de>; Fri, 14 Jun 2019 21:36:11 +0000 (UTC)
+Received: from asavdk3.altibox.net (asavdk3.altibox.net [109.247.116.14])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+ (No client certificate requested)
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 6DB36C580E2
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Fri, 14 Jun 2019 20:53:32 +0000 (UTC)
-Received: from localhost (p5486CF81.dip0.t-ipconnect.de [84.134.207.129])
- by pokefinder.org (Postfix) with ESMTPSA id D46602CF690;
- Fri, 14 Jun 2019 22:53:22 +0200 (CEST)
-Date: Fri, 14 Jun 2019 22:53:22 +0200
-From: Wolfram Sang <wsa@the-dreams.de>
-To: Fabrice Gasnier <fabrice.gasnier@st.com>
-Message-ID: <20190614205322.GA17899@ninjato>
-References: <1558020594-1498-1-git-send-email-fabrice.gasnier@st.com>
+ Fri, 14 Jun 2019 21:36:10 +0000 (UTC)
+Received: from ravnborg.org (unknown [158.248.194.18])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+ (No client certificate requested)
+ by asavdk3.altibox.net (Postfix) with ESMTPS id 837A32002E;
+ Fri, 14 Jun 2019 23:36:07 +0200 (CEST)
+Date: Fri, 14 Jun 2019 23:36:06 +0200
+From: Sam Ravnborg <sam@ravnborg.org>
+To: Daniel Vetter <daniel.vetter@ffwll.ch>
+Message-ID: <20190614213606.GB19476@ravnborg.org>
+References: <20190614203615.12639-1-daniel.vetter@ffwll.ch>
+ <20190614203615.12639-7-daniel.vetter@ffwll.ch>
 MIME-Version: 1.0
-In-Reply-To: <1558020594-1498-1-git-send-email-fabrice.gasnier@st.com>
+Content-Disposition: inline
+In-Reply-To: <20190614203615.12639-7-daniel.vetter@ffwll.ch>
 User-Agent: Mutt/1.10.1 (2018-07-13)
-Cc: pierre-yves.mordret@st.com, marc.w.gonzalez@free.fr,
- linux-kernel@vger.kernel.org, fabien.dessenne@st.com,
- linux-i2c@vger.kernel.org, mcoquelin.stm32@gmail.com,
- linux-stm32@st-md-mailman.stormreply.com, linux-arm-kernel@lists.infradead.org
-Subject: Re: [Linux-stm32] [PATCH v2] i2c: i2c-stm32f7: fix the get_irq
-	error cases
+X-CMAE-Score: 0
+X-CMAE-Analysis: v=2.3 cv=dqr19Wo4 c=1 sm=1 tr=0
+ a=UWs3HLbX/2nnQ3s7vZ42gw==:117 a=UWs3HLbX/2nnQ3s7vZ42gw==:17
+ a=jpOVt7BSZ2e4Z31A5e1TngXxSK0=:19 a=kj9zAlcOel0A:10
+ a=GAxTd-NkrUytLa5Px2AA:9 a=CjuIK1q_8ugA:10
+Cc: linux-aspeed@lists.ozlabs.org, nouveau@lists.freedesktop.org,
+ DRI Development <dri-devel@lists.freedesktop.org>,
+ virtualization@lists.linux-foundation.org,
+ Daniel Vetter <daniel.vetter@intel.com>,
+ linux-stm32@st-md-mailman.stormreply.com, linux-samsung-soc@vger.kernel.org,
+ lima@lists.freedesktop.org, amd-gfx@lists.freedesktop.org,
+ linux-rockchip@lists.infradead.org,
+ VMware Graphics <linux-graphics-maintainer@vmware.com>,
+ NXP Linux Team <linux-imx@nxp.com>, spice-devel@lists.freedesktop.org,
+ linux-arm-msm@vger.kernel.org,
+ Intel Graphics Development <intel-gfx@lists.freedesktop.org>,
+ etnaviv@lists.freedesktop.org, xen-devel@lists.xenproject.org,
+ linux-tegra@vger.kernel.org, linux-amlogic@lists.infradead.org,
+ linux-arm-kernel@lists.infradead.org, linux-renesas-soc@vger.kernel.org,
+ freedreno@lists.freedesktop.org
+Subject: Re: [Linux-stm32] [PATCH 06/59] drm/prime: Actually remove
+	DRIVER_PRIME everywhere
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -39,71 +61,30 @@ List-Post: <mailto:linux-stm32@st-md-mailman.stormreply.com>
 List-Help: <mailto:linux-stm32-request@st-md-mailman.stormreply.com?subject=help>
 List-Subscribe: <https://st-md-mailman.stormreply.com/mailman/listinfo/linux-stm32>, 
  <mailto:linux-stm32-request@st-md-mailman.stormreply.com?subject=subscribe>
-Content-Type: multipart/mixed; boundary="===============7824534735823782958=="
+Content-Type: text/plain; charset="us-ascii"
+Content-Transfer-Encoding: 7bit
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
+Hi Daniel.
 
---===============7824534735823782958==
-Content-Type: multipart/signed; micalg=pgp-sha512;
-	protocol="application/pgp-signature"; boundary="Dxnq1zWXvFF0Q93v"
-Content-Disposition: inline
+Minor nitpick..
 
+> diff --git a/drivers/gpu/drm/i915/i915_drv.c b/drivers/gpu/drm/i915/i915_drv.c
+> index 65d599065709..4fd09a9ad67a 100644
+> --- a/drivers/gpu/drm/i915/i915_drv.c
+> +++ b/drivers/gpu/drm/i915/i915_drv.c
+> @@ -3193,7 +3193,7 @@ static struct drm_driver driver = {
+>  	 * deal with them for Intel hardware.
+>  	 */
+>  	.driver_features =
+> -	    DRIVER_GEM | DRIVER_PRIME |
+> +	    DRIVER_GEM | 
+>  	    DRIVER_RENDER | DRIVER_MODESET | DRIVER_ATOMIC | DRIVER_SYNCOBJ,
+Adds a whitespace.
 
---Dxnq1zWXvFF0Q93v
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-
-Hi Fabrice,
-
-> +		return irq_event ? irq_event : -ENODEV;
-
-Maybe -ENOENT instead of -ENODEV? I mean you have a dev_err there, so
-the driver core should probably also complain?
-
-You could also shorten the ternary operator to:
-
-	return irq_event ? : -E<whatyouprefer>;
-
-However, both are minor nits. If you prefer to keep the patch as is,
-fine with me.
-
-Regards,
-
-   Wolfram
-
-
---Dxnq1zWXvFF0Q93v
-Content-Type: application/pgp-signature; name="signature.asc"
-
------BEGIN PGP SIGNATURE-----
-
-iQIzBAABCgAdFiEEOZGx6rniZ1Gk92RdFA3kzBSgKbYFAl0ECT4ACgkQFA3kzBSg
-KbaP8xAAiUUQ1YDf9eeO9qQ5B7FKo7kXJ7iUA/RbGjfpC5zhjsoVgb7DdHvc7npe
-PSrQ21fAXNJtFz4N1CcQ6A38C2/IYZ+A2NnmwNyzMhqL5W5Ah2gPl6UP7S6USF4J
-4NnHw0/0eeH7/i+F13uiVGJudC+MVesWYPZgOBq9GGqgwxp7IztsjSOliBDRkC6c
-6RtdlqXD0UfUt60sxIJz/Oy+SYRKc0V78KUeybe7+fT5gisBfF3E1Zs3OZFieupk
-BIRuhXDNBQUTb7Cy387Zh4Im2uEzUb1qBIqC3azfJhNVyMm9fyiFGgysXNhkgEJ5
-1CKiXadTzhYJQJUpxNDmYQcmk8t/cM69R9NKBXou8XCeutIbe4BA6myz0U0hz1Np
-E7iBJ//LJpXAptZErq3n2VzDFHKKFWn4hyIJKI7LOZIdO2t/I/6wzJPMKxHJSOTv
-soWDgPcS/D1to1Glq4+CPqwNicEXLm5q1H18UE0SjBskFaGwCwyjNFAvwwjmhJ4f
-73uuuJBC3Oq2W/JqnYY+IFcue4GO/VS6ZughqW8iebSmwaoArzN00L844leXDkHN
-0dBGj3bT/lcLrR+d7jLsWeHt4t6J0dTJAkIxBivl+dK2nta7NMalnqp6cFp/nHfY
-R8KQhpWqlKhaoFGQzW1XiLNlKq+ZPC4MGq3h3thFOc9Z4lo96KA=
-=VE/8
------END PGP SIGNATURE-----
-
---Dxnq1zWXvFF0Q93v--
-
---===============7824534735823782958==
-Content-Type: text/plain; charset="us-ascii"
-MIME-Version: 1.0
-Content-Transfer-Encoding: 7bit
-Content-Disposition: inline
-
+	Sam
 _______________________________________________
 Linux-stm32 mailing list
 Linux-stm32@st-md-mailman.stormreply.com
 https://st-md-mailman.stormreply.com/mailman/listinfo/linux-stm32
-
---===============7824534735823782958==--
