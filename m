@@ -2,59 +2,45 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id 658B047489
-	for <lists+linux-stm32@lfdr.de>; Sun, 16 Jun 2019 14:48:13 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id D789447564
+	for <lists+linux-stm32@lfdr.de>; Sun, 16 Jun 2019 17:07:41 +0200 (CEST)
 Received: from ip-172-31-3-76.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 162FDCF259F
-	for <lists+linux-stm32@lfdr.de>; Sun, 16 Jun 2019 12:48:13 +0000 (UTC)
-Received: from vps.xff.cz (vps.xff.cz [195.181.215.36])
- (using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 80C1DCFAEF1
+	for <lists+linux-stm32@lfdr.de>; Sun, 16 Jun 2019 15:07:41 +0000 (UTC)
+Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
+ (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id BA8BBCC139F
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id A4384C0B1BB
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Sun, 16 Jun 2019 12:48:11 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=megous.com; s=mail;
- t=1560689291; bh=qBJ9B0Xckt+HWWzbJLcLsikCH1xzty0YELtzbx90mkg=;
- h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
- b=oPWAnWFIpuRP6ETv3DDOQhM2QI5kMHea+JQ32AOu9youL4NSvqwmFmwzXYjtOhgdA
- 9FWoqGNXIs5wK/hiNjCxjUjOv+QJdWBWe6127EOIZR5gMeJOLnvT3x21C0m0lSYmRi
- irBZ/5vrY7a8yh1CJv8ZAHM8V3ZnQc1CETSSkceI=
-Date: Sun, 16 Jun 2019 14:48:10 +0200
-From: =?utf-8?Q?Ond=C5=99ej?= Jirman <megous@megous.com>
-To: Jernej =?utf-8?Q?=C5=A0krabec?= <jernej.skrabec@gmail.com>
-Message-ID: <20190616124810.qvlij6zkcl3leu3d@core.my.home>
-Mail-Followup-To: Jernej =?utf-8?Q?=C5=A0krabec?= <jernej.skrabec@gmail.com>, 
- linux-sunxi@googlegroups.com,
- Maxime Ripard <maxime.ripard@bootlin.com>,
- Chen-Yu Tsai <wens@csie.org>, Rob Herring <robh+dt@kernel.org>,
- David Airlie <airlied@linux.ie>, Daniel Vetter <daniel@ffwll.ch>,
- Mark Rutland <mark.rutland@arm.com>,
- Giuseppe Cavallaro <peppe.cavallaro@st.com>,
- Alexandre Torgue <alexandre.torgue@st.com>,
- Jose Abreu <joabreu@synopsys.com>,
- "David S. Miller" <davem@davemloft.net>,
- Maxime Coquelin <mcoquelin.stm32@gmail.com>,
- dri-devel@lists.freedesktop.org, devicetree@vger.kernel.org,
- linux-arm-kernel@lists.infradead.org, linux-kernel@vger.kernel.org,
- netdev@vger.kernel.org, linux-stm32@st-md-mailman.stormreply.com
-References: <20190527162237.18495-1-megous@megous.com>
- <20190527162237.18495-6-megous@megous.com>
- <1823986.m04BvQ5ALy@jernej-laptop>
+ Sun, 16 Jun 2019 15:07:39 +0000 (UTC)
+Received: from archlinux (cpc149474-cmbg20-2-0-cust94.5-4.cable.virginm.net
+ [82.4.196.95])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+ (No client certificate requested)
+ by mail.kernel.org (Postfix) with ESMTPSA id 846F72064B;
+ Sun, 16 Jun 2019 15:07:35 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
+ s=default; t=1560697658;
+ bh=KjfP2Iy5IlnLbdApS3yWSLJRMp/gBbiDEhtqpQsQYY4=;
+ h=Date:From:To:Cc:Subject:In-Reply-To:References:From;
+ b=I3hQow/clmsLGIG5T5PZS7cv+UiL2irY+3nUWUUYMQeHw1rG0vsyFm9bQVRVZ554m
+ YbwF957vdMGjkjs5VuaVkfP+G0HQIO0TYUDui+GSQ0UTJ/p/im78uQ8mqvjabEQ+7V
+ 2sAAfACYoarHwEZiH7DCC57mauFjEUBRiZbSZYIw=
+Date: Sun, 16 Jun 2019 16:07:32 +0100
+From: Jonathan Cameron <jic23@kernel.org>
+To: Fabrice Gasnier <fabrice.gasnier@st.com>
+Message-ID: <20190616160732.124a1eb9@archlinux>
+In-Reply-To: <1560324276-681-3-git-send-email-fabrice.gasnier@st.com>
+References: <1560324276-681-1-git-send-email-fabrice.gasnier@st.com>
+ <1560324276-681-3-git-send-email-fabrice.gasnier@st.com>
+X-Mailer: Claws Mail 3.17.3 (GTK+ 2.24.32; x86_64-pc-linux-gnu)
 MIME-Version: 1.0
-Content-Disposition: inline
-In-Reply-To: <1823986.m04BvQ5ALy@jernej-laptop>
-Cc: Mark Rutland <mark.rutland@arm.com>, Jose Abreu <joabreu@synopsys.com>,
- devicetree@vger.kernel.org, Maxime Ripard <maxime.ripard@bootlin.com>,
- netdev@vger.kernel.org, linux-stm32@st-md-mailman.stormreply.com,
- Chen-Yu Tsai <wens@csie.org>, dri-devel@lists.freedesktop.org,
- linux-kernel@vger.kernel.org, David Airlie <airlied@linux.ie>,
- linux-sunxi@googlegroups.com, Rob Herring <robh+dt@kernel.org>,
- linux-arm-kernel@lists.infradead.org, Daniel Vetter <daniel@ffwll.ch>,
- Giuseppe Cavallaro <peppe.cavallaro@st.com>,
- "David S. Miller" <davem@davemloft.net>,
- Maxime Coquelin <mcoquelin.stm32@gmail.com>
-Subject: Re: [Linux-stm32] [linux-sunxi] [PATCH v6 5/6] drm: sun4i: Add
- support for enabling DDC I2C bus to sun8i_dw_hdmi glue
+Cc: mark.rutland@arm.com, devicetree@vger.kernel.org, lars@metafoo.de,
+ linux-iio@vger.kernel.org, pmeerw@pmeerw.net, linux-kernel@vger.kernel.org,
+ robh+dt@kernel.org, mcoquelin.stm32@gmail.com, knaack.h@gmx.de,
+ linux-stm32@st-md-mailman.stormreply.com, linux-arm-kernel@lists.infradead.org
+Subject: Re: [Linux-stm32] [PATCH 2/3] iio: adc: stm32-adc: add analog
+ switches supply control
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -66,113 +52,394 @@ List-Post: <mailto:linux-stm32@st-md-mailman.stormreply.com>
 List-Help: <mailto:linux-stm32-request@st-md-mailman.stormreply.com?subject=help>
 List-Subscribe: <https://st-md-mailman.stormreply.com/mailman/listinfo/linux-stm32>, 
  <mailto:linux-stm32-request@st-md-mailman.stormreply.com?subject=subscribe>
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: base64
+Content-Type: text/plain; charset="us-ascii"
+Content-Transfer-Encoding: 7bit
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
-SGkgSmVybmVqLAoKT24gU3VuLCBKdW4gMTYsIDIwMTkgYXQgMDE6MDU6MTNQTSArMDIwMCwgSmVy
-bmVqIMWga3JhYmVjIHdyb3RlOgo+IEhpIE9uZHJlaiEKPiAKPiBEbmUgcG9uZWRlbGplaywgMjcu
-IG1haiAyMDE5IG9iIDE4OjIyOjM2IENFU1QgamUgbWVnb3VzIHZpYSBsaW51eC1zdW54aSAKPiBu
-YXBpc2FsKGEpOgo+ID4gRnJvbTogT25kcmVqIEppcm1hbiA8bWVnb3VzQG1lZ291cy5jb20+Cj4g
-PiAKPiA+IE9yYW5nZSBQaSAzIGJvYXJkIHJlcXVpcmVzIGVuYWJsaW5nIGEgdm9sdGFnZSBzaGlm
-dGluZyBjaXJjdWl0IHZpYSBHUElPCj4gPiBmb3IgdGhlIEREQyBidXMgdG8gYmUgdXNhYmxlLgo+
-ID4gCj4gPiBBZGQgc3VwcG9ydCBmb3IgaGRtaS1jb25uZWN0b3Igbm9kZSdzIG9wdGlvbmFsIGRk
-Yy1lbi1ncGlvcyBwcm9wZXJ0eSB0bwo+ID4gc3VwcG9ydCB0aGlzIHVzZSBjYXNlLgo+ID4gCj4g
-PiBTaWduZWQtb2ZmLWJ5OiBPbmRyZWogSmlybWFuIDxtZWdvdXNAbWVnb3VzLmNvbT4KPiA+IC0t
-LQo+ID4gIGRyaXZlcnMvZ3B1L2RybS9zdW40aS9zdW44aV9kd19oZG1pLmMgfCA1NSArKysrKysr
-KysrKysrKysrKysrKysrKysrLS0KPiA+ICBkcml2ZXJzL2dwdS9kcm0vc3VuNGkvc3VuOGlfZHdf
-aGRtaS5oIHwgIDMgKysKPiA+ICAyIGZpbGVzIGNoYW5nZWQsIDU1IGluc2VydGlvbnMoKyksIDMg
-ZGVsZXRpb25zKC0pCj4gPiAKPiA+IGRpZmYgLS1naXQgYS9kcml2ZXJzL2dwdS9kcm0vc3VuNGkv
-c3VuOGlfZHdfaGRtaS5jCj4gPiBiL2RyaXZlcnMvZ3B1L2RybS9zdW40aS9zdW44aV9kd19oZG1p
-LmMgaW5kZXggMzlkODUwOWQ5NmEwLi41OWI4MWJhMDJkOTYKPiA+IDEwMDY0NAo+ID4gLS0tIGEv
-ZHJpdmVycy9ncHUvZHJtL3N1bjRpL3N1bjhpX2R3X2hkbWkuYwo+ID4gKysrIGIvZHJpdmVycy9n
-cHUvZHJtL3N1bjRpL3N1bjhpX2R3X2hkbWkuYwo+ID4gQEAgLTk4LDYgKzk4LDMwIEBAIHN0YXRp
-YyB1MzIgc3VuOGlfZHdfaGRtaV9maW5kX3Bvc3NpYmxlX2NydGNzKHN0cnVjdAo+ID4gZHJtX2Rl
-dmljZSAqZHJtLCByZXR1cm4gY3J0Y3M7Cj4gPiAgfQo+ID4gCj4gPiArc3RhdGljIGludCBzdW44
-aV9kd19oZG1pX2ZpbmRfY29ubmVjdG9yX3BkZXYoc3RydWN0IGRldmljZSAqZGV2LAo+ID4gKwkJ
-CQkJICAgICBzdHJ1Y3QgCj4gcGxhdGZvcm1fZGV2aWNlICoqcGRldl9vdXQpCj4gPiArewo+ID4g
-KwlzdHJ1Y3QgcGxhdGZvcm1fZGV2aWNlICpwZGV2Owo+ID4gKwlzdHJ1Y3QgZGV2aWNlX25vZGUg
-KnJlbW90ZTsKPiA+ICsKPiA+ICsJcmVtb3RlID0gb2ZfZ3JhcGhfZ2V0X3JlbW90ZV9ub2RlKGRl
-di0+b2Zfbm9kZSwgMSwgLTEpOwo+ID4gKwlpZiAoIXJlbW90ZSkKPiA+ICsJCXJldHVybiAtRU5P
-REVWOwo+ID4gKwo+ID4gKwlpZiAoIW9mX2RldmljZV9pc19jb21wYXRpYmxlKHJlbW90ZSwgImhk
-bWktY29ubmVjdG9yIikpIHsKPiA+ICsJCW9mX25vZGVfcHV0KHJlbW90ZSk7Cj4gPiArCQlyZXR1
-cm4gLUVOT0RFVjsKPiA+ICsJfQo+ID4gKwo+ID4gKwlwZGV2ID0gb2ZfZmluZF9kZXZpY2VfYnlf
-bm9kZShyZW1vdGUpOwo+ID4gKwlvZl9ub2RlX3B1dChyZW1vdGUpOwo+ID4gKwlpZiAoIXBkZXYp
-Cj4gPiArCQlyZXR1cm4gLUVOT0RFVjsKPiA+ICsKPiA+ICsJKnBkZXZfb3V0ID0gcGRldjsKPiA+
-ICsJcmV0dXJuIDA7Cj4gPiArfQo+ID4gKwo+ID4gIHN0YXRpYyBpbnQgc3VuOGlfZHdfaGRtaV9i
-aW5kKHN0cnVjdCBkZXZpY2UgKmRldiwgc3RydWN0IGRldmljZSAqbWFzdGVyLAo+ID4gIAkJCSAg
-ICAgIHZvaWQgKmRhdGEpCj4gPiAgewo+ID4gQEAgLTE1MSwxNiArMTc1LDI5IEBAIHN0YXRpYyBp
-bnQgc3VuOGlfZHdfaGRtaV9iaW5kKHN0cnVjdCBkZXZpY2UgKmRldiwKPiA+IHN0cnVjdCBkZXZp
-Y2UgKm1hc3RlciwgcmV0dXJuIFBUUl9FUlIoaGRtaS0+cmVndWxhdG9yKTsKPiA+ICAJfQo+ID4g
-Cj4gPiArCXJldCA9IHN1bjhpX2R3X2hkbWlfZmluZF9jb25uZWN0b3JfcGRldihkZXYsICZoZG1p
-LT5jb25uZWN0b3JfcGRldik7Cj4gPiArCWlmICghcmV0KSB7Cj4gPiArCQloZG1pLT5kZGNfZW4g
-PSBncGlvZF9nZXRfb3B0aW9uYWwoJmhkbWktPmNvbm5lY3Rvcl9wZGV2LQo+ID5kZXYsCj4gPiAr
-CQkJCQkJICAiZGRjLWVuIiwgCj4gR1BJT0RfT1VUX0hJR0gpOwo+ID4gKwkJaWYgKElTX0VSUiho
-ZG1pLT5kZGNfZW4pKSB7Cj4gPiArCQkJcGxhdGZvcm1fZGV2aWNlX3B1dChoZG1pLT5jb25uZWN0
-b3JfcGRldik7Cj4gPiArCQkJZGV2X2VycihkZXYsICJDb3VsZG4ndCBnZXQgZGRjLWVuIGdwaW9c
-biIpOwo+ID4gKwkJCXJldHVybiBQVFJfRVJSKGhkbWktPmRkY19lbik7Cj4gPiArCQl9Cj4gPiAr
-CX0KPiA+ICsKPiA+ICAJcmV0ID0gcmVndWxhdG9yX2VuYWJsZShoZG1pLT5yZWd1bGF0b3IpOwo+
-ID4gIAlpZiAocmV0KSB7Cj4gPiAgCQlkZXZfZXJyKGRldiwgIkZhaWxlZCB0byBlbmFibGUgcmVn
-dWxhdG9yXG4iKTsKPiA+IC0JCXJldHVybiByZXQ7Cj4gPiArCQlnb3RvIGVycl91bnJlZl9kZGNf
-ZW47Cj4gPiAgCX0KPiA+IAo+ID4gKwlncGlvZF9zZXRfdmFsdWUoaGRtaS0+ZGRjX2VuLCAxKTsK
-PiAKPiBXaHkgZG9uJ3QgeW91IGRvIHRoYXQgaW5zaWRlIGlmIGNsYXVzZSB3aGVyZSBoZG1pLT5k
-ZGNfZW4gaXMgYXNzaWduZWQ/IEl0J3MgCj4gbm90IHVzZWZ1bCBvdGhlcndpc2UgYW55d2F5Lgo+
-IAo+IEJlc2lkZXMsIHlvdSB3b3VsZCB0aGVuIG9ubHkgbmVlZCB0byBhZGp1c3Qgb25lIGdvdG8g
-bGFiZWwgaW4gZXJyb3IgcGF0aC4KClRoZSBpZGVhIGlzIHRvIGVuYWJsZSBEREMgYWZ0ZXIgZW5h
-YmxpbmcgdGhlIHJlZ3VsYXRvci4gSSBkb24ndCB0aGluayBpdCBtYXR0ZXJzCmZvciB0aGUgcGFy
-dGljdWxhciBIVyB0aGF0J3Mgb24gT3JhbmdlIFBpIDMsIGFuZCBzaW1pbGFyIFh1bmxvbmcgYm9h
-cmRzLCBidXQKdGhpcyBpcyBhIGZhaXJseSBnZW5lcmljIGJpbmRpbmcgYW5kIGl0IG1ha2VzIG1v
-cmUgc2Vuc2UgdG8gcG93ZXIgdGhlIGJ1cywgYW5kCnRoZW4gZW5hYmxlIHdoYXRldmVyIGFkaXRp
-b25hbCBjaXJjdWl0cnkgbWlnaHQgYmUgdGhlcmUgZm9yIHRoZSBJTy4KCkkgY2FuIG1vdmUgc3Vu
-OGlfZHdfaGRtaV9maW5kX2Nvbm5lY3Rvcl9wZGV2IGxvd2VyLCBidXQgSSB3b3VsZCB0aGVuIG5l
-ZWQgdG8KZGlzYWJsZSB0aGUgcmVndWxhdG9yIGluIHRoZSBlcnJvciBwYXRoLCBhbmQgSSBsaWtl
-IHRvIGtlZXAgdGhpcyBvcmRlcjoKCi0gcGFyc2luZyBEVAotIGVuYWJsaW5nIGFjdHVhbCBIVyBz
-dHVmZgoKQmVjYXVzZSBwYXJzaW5nIGlzIGxpa2VseSB0byBmYWlsIHdpdGggREVGRVJFRF9QUk9C
-RSwgYmVjYXVzZSBHUElPIG9yIHdoYXRldmVyCmVsc2UgaXMgbm90IHlldCByZWFkeSwgYW5kIHRo
-aXMgYXBwcm9hY2ggYXZvaWRzIGVuYWJsaW5nL2Rpc2FibGluZyB0aGUgSFcKbmVlZGxlc3NseS4K
-Cj4gPiArCj4gPiAgCXJldCA9IHJlc2V0X2NvbnRyb2xfZGVhc3NlcnQoaGRtaS0+cnN0X2N0cmwp
-Owo+ID4gIAlpZiAocmV0KSB7Cj4gPiAgCQlkZXZfZXJyKGRldiwgIkNvdWxkIG5vdCBkZWFzc2Vy
-dCBjdHJsIHJlc2V0IAo+IGNvbnRyb2xcbiIpOwo+ID4gLQkJZ290byBlcnJfZGlzYWJsZV9yZWd1
-bGF0b3I7Cj4gPiArCQlnb3RvIGVycl9kaXNhYmxlX2RkY19lbjsKPiA+ICAJfQo+ID4gCj4gPiAg
-CXJldCA9IGNsa19wcmVwYXJlX2VuYWJsZShoZG1pLT5jbGtfdG1kcyk7Cj4gPiBAQCAtMjEzLDgg
-KzI1MCwxNCBAQCBzdGF0aWMgaW50IHN1bjhpX2R3X2hkbWlfYmluZChzdHJ1Y3QgZGV2aWNlICpk
-ZXYsCj4gPiBzdHJ1Y3QgZGV2aWNlICptYXN0ZXIsIGNsa19kaXNhYmxlX3VucHJlcGFyZShoZG1p
-LT5jbGtfdG1kcyk7Cj4gPiAgZXJyX2Fzc2VydF9jdHJsX3Jlc2V0Ogo+ID4gIAlyZXNldF9jb250
-cm9sX2Fzc2VydChoZG1pLT5yc3RfY3RybCk7Cj4gPiAtZXJyX2Rpc2FibGVfcmVndWxhdG9yOgo+
-ID4gK2Vycl9kaXNhYmxlX2RkY19lbjoKPiA+ICsJZ3Bpb2Rfc2V0X3ZhbHVlKGhkbWktPmRkY19l
-biwgMCk7Cj4gPiAgCXJlZ3VsYXRvcl9kaXNhYmxlKGhkbWktPnJlZ3VsYXRvcik7Cj4gPiArZXJy
-X3VucmVmX2RkY19lbjoKPiA+ICsJaWYgKGhkbWktPmRkY19lbikKPiA+ICsJCWdwaW9kX3B1dCho
-ZG1pLT5kZGNfZW4pOwo+ID4gKwo+ID4gKwlwbGF0Zm9ybV9kZXZpY2VfcHV0KGhkbWktPmNvbm5l
-Y3Rvcl9wZGV2KTsKPiA+IAo+ID4gIAlyZXR1cm4gcmV0Owo+ID4gIH0KPiA+IEBAIC0yMjgsNyAr
-MjcxLDEzIEBAIHN0YXRpYyB2b2lkIHN1bjhpX2R3X2hkbWlfdW5iaW5kKHN0cnVjdCBkZXZpY2Ug
-KmRldiwKPiA+IHN0cnVjdCBkZXZpY2UgKm1hc3Rlciwgc3VuOGlfaGRtaV9waHlfcmVtb3ZlKGhk
-bWkpOwo+ID4gIAljbGtfZGlzYWJsZV91bnByZXBhcmUoaGRtaS0+Y2xrX3RtZHMpOwo+ID4gIAly
-ZXNldF9jb250cm9sX2Fzc2VydChoZG1pLT5yc3RfY3RybCk7Cj4gPiArCWdwaW9kX3NldF92YWx1
-ZShoZG1pLT5kZGNfZW4sIDApOwo+ID4gIAlyZWd1bGF0b3JfZGlzYWJsZShoZG1pLT5yZWd1bGF0
-b3IpOwo+ID4gKwo+ID4gKwlpZiAoaGRtaS0+ZGRjX2VuKQo+ID4gKwkJZ3Bpb2RfcHV0KGhkbWkt
-PmRkY19lbik7Cj4gPiArCj4gPiArCXBsYXRmb3JtX2RldmljZV9wdXQoaGRtaS0+Y29ubmVjdG9y
-X3BkZXYpOwo+ID4gIH0KPiA+IAo+ID4gIHN0YXRpYyBjb25zdCBzdHJ1Y3QgY29tcG9uZW50X29w
-cyBzdW44aV9kd19oZG1pX29wcyA9IHsKPiA+IGRpZmYgLS1naXQgYS9kcml2ZXJzL2dwdS9kcm0v
-c3VuNGkvc3VuOGlfZHdfaGRtaS5oCj4gPiBiL2RyaXZlcnMvZ3B1L2RybS9zdW40aS9zdW44aV9k
-d19oZG1pLmggaW5kZXggNzIwYzVhYThhZGMxLi5kYWQ2NmI4MzAxYzIKPiA+IDEwMDY0NAo+ID4g
-LS0tIGEvZHJpdmVycy9ncHUvZHJtL3N1bjRpL3N1bjhpX2R3X2hkbWkuaAo+ID4gKysrIGIvZHJp
-dmVycy9ncHUvZHJtL3N1bjRpL3N1bjhpX2R3X2hkbWkuaAo+ID4gQEAgLTksNiArOSw3IEBACj4g
-PiAgI2luY2x1ZGUgPGRybS9icmlkZ2UvZHdfaGRtaS5oPgo+ID4gICNpbmNsdWRlIDxkcm0vZHJt
-X2VuY29kZXIuaD4KPiA+ICAjaW5jbHVkZSA8bGludXgvY2xrLmg+Cj4gPiArI2luY2x1ZGUgPGxp
-bnV4L2dwaW8vY29uc3VtZXIuaD4KPiA+ICAjaW5jbHVkZSA8bGludXgvcmVnbWFwLmg+Cj4gPiAg
-I2luY2x1ZGUgPGxpbnV4L3JlZ3VsYXRvci9jb25zdW1lci5oPgo+ID4gICNpbmNsdWRlIDxsaW51
-eC9yZXNldC5oPgo+ID4gQEAgLTE5MCw2ICsxOTEsOCBAQCBzdHJ1Y3Qgc3VuOGlfZHdfaGRtaSB7
-Cj4gPiAgCXN0cnVjdCByZWd1bGF0b3IJCSpyZWd1bGF0b3I7Cj4gPiAgCWNvbnN0IHN0cnVjdCBz
-dW44aV9kd19oZG1pX3F1aXJrcyAqcXVpcmtzOwo+ID4gIAlzdHJ1Y3QgcmVzZXRfY29udHJvbAkJ
-KnJzdF9jdHJsOwo+ID4gKwlzdHJ1Y3QgcGxhdGZvcm1fZGV2aWNlCQkqY29ubmVjdG9yX3BkZXY7
-Cj4gCj4gSXQgc2VlbXMgdGhhdCBjb25uZWN0b3JfcGRldiBpcyBuZWVkZWQgb25seSBkdXJpbmcg
-aW50aWFsaXphdGlvbi4gV2h5IGRvIHlvdSAKPiBzdG9yZSBpdD8KCkZvciBzb21lIHJlYXNvbiBJ
-IHRob3VnaHQgdGhhdCBJIG5lZWQgdG8ga2VlcCBpdCB0byBrZWVwIHRoZSBHUElPIGF2YWlsYWJs
-ZSwKYnV0IHRoYXQncyBub3QgdHJ1ZS4gSSdsbCBkcm9wIGl0LgoKdGhhbmsgeW91LAoJT25kcmVq
-Cgo+IEJlc3QgcmVnYXJkcywKPiBKZXJuZWoKPiAKPiA+ICsJc3RydWN0IGdwaW9fZGVzYwkJKmRk
-Y19lbjsKPiA+ICB9Owo+ID4gCj4gPiAgc3RhdGljIGlubGluZSBzdHJ1Y3Qgc3VuOGlfZHdfaGRt
-aSAqCl9fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fCkxpbnV4
-LXN0bTMyIG1haWxpbmcgbGlzdApMaW51eC1zdG0zMkBzdC1tZC1tYWlsbWFuLnN0b3JtcmVwbHku
-Y29tCmh0dHBzOi8vc3QtbWQtbWFpbG1hbi5zdG9ybXJlcGx5LmNvbS9tYWlsbWFuL2xpc3RpbmZv
-L2xpbnV4LXN0bTMyCg==
+On Wed, 12 Jun 2019 09:24:35 +0200
+Fabrice Gasnier <fabrice.gasnier@st.com> wrote:
+
+> On stm32h7 and stm32mp1, the ADC inputs are multiplexed with analog
+> switches which have reduced performances when their supply is below 2.7V
+> (vdda by default):
+> - vdd supply can be selected if above 2.7V by setting ANASWVDD syscfg bit
+>   (STM32MP1 only).
+> - Voltage booster can be used, to get full ADC performances by setting
+>   BOOSTE/EN_BOOSTER syscfg bit (increases power consumption).
+> 
+> Make this optional, since this is a trade-off between analog performance
+> and power consumption.
+> 
+> Note: STM32H7 syscfg has a set and clear register for "BOOSTE" control.
+> STM32MP1 has separate set and clear registers pair to control EN_BOOSTER
+> and ANASWVDD bits.
+> 
+> Signed-off-by: Fabrice Gasnier <fabrice.gasnier@st.com>
+
+A few minor bits inline, but mostly seems fine to me.
+
+Jonathan
+
+> ---
+>  drivers/iio/adc/stm32-adc-core.c | 232 ++++++++++++++++++++++++++++++++++++++-
+>  1 file changed, 230 insertions(+), 2 deletions(-)
+> 
+> diff --git a/drivers/iio/adc/stm32-adc-core.c b/drivers/iio/adc/stm32-adc-core.c
+> index 2327ec1..9d41b16 100644
+> --- a/drivers/iio/adc/stm32-adc-core.c
+> +++ b/drivers/iio/adc/stm32-adc-core.c
+> @@ -14,9 +14,11 @@
+>  #include <linux/irqchip/chained_irq.h>
+>  #include <linux/irqdesc.h>
+>  #include <linux/irqdomain.h>
+> +#include <linux/mfd/syscon.h>
+>  #include <linux/module.h>
+>  #include <linux/of_device.h>
+>  #include <linux/pm_runtime.h>
+> +#include <linux/regmap.h>
+>  #include <linux/regulator/consumer.h>
+>  #include <linux/slab.h>
+>  
+> @@ -51,6 +53,20 @@
+>  
+>  #define STM32_ADC_CORE_SLEEP_DELAY_MS	2000
+>  
+> +/* SYSCFG registers */
+> +#define STM32H7_SYSCFG_PMCR		0x04
+> +#define STM32MP1_SYSCFG_PMCSETR		0x04
+> +#define STM32MP1_SYSCFG_PMCCLRR		0x44
+> +
+> +/* SYSCFG bit fields */
+> +#define STM32H7_SYSCFG_BOOSTE_MASK	BIT(8)
+> +#define STM32MP1_SYSCFG_ANASWVDD_MASK	BIT(9)
+> +
+> +/* SYSCFG capability flags */
+> +#define HAS_VBOOSTER		BIT(0)
+> +#define HAS_ANASWVDD		BIT(1)
+> +#define HAS_CLEAR_REG		BIT(2)
+> +
+>  /**
+>   * stm32_adc_common_regs - stm32 common registers, compatible dependent data
+>   * @csr:	common status register offset
+> @@ -58,6 +74,11 @@
+>   * @eoc1:	adc1 end of conversion flag in @csr
+>   * @eoc2:	adc2 end of conversion flag in @csr
+>   * @eoc3:	adc3 end of conversion flag in @csr
+> + * @has_syscfg: SYSCFG capability flags
+> + * @pmcr:	SYSCFG_PMCSETR/SYSCFG_PMCR register offset
+> + * @pmcc:	SYSCFG_PMCCLRR clear register offset
+> + * @booste_msk:	SYSCFG BOOSTE / EN_BOOSTER bitmask in PMCR & PMCCLRR
+> + * @anaswvdd_msk: SYSCFG ANASWVDD bitmask in PMCR & PMCCLRR
+>   */
+>  struct stm32_adc_common_regs {
+>  	u32 csr;
+> @@ -65,6 +86,11 @@ struct stm32_adc_common_regs {
+>  	u32 eoc1_msk;
+>  	u32 eoc2_msk;
+>  	u32 eoc3_msk;
+> +	unsigned int has_syscfg;
+> +	u32 pmcr;
+> +	u32 pmcc;
+> +	u32 booste_msk;
+> +	u32 anaswvdd_msk;
+>  };
+>  
+>  struct stm32_adc_priv;
+> @@ -87,20 +113,26 @@ struct stm32_adc_priv_cfg {
+>   * @domain:		irq domain reference
+>   * @aclk:		clock reference for the analog circuitry
+>   * @bclk:		bus clock common for all ADCs, depends on part used
+> + * @vdd:		vdd supply reference
+> + * @vdda:		vdda supply reference
+>   * @vref:		regulator reference
+>   * @cfg:		compatible configuration data
+>   * @common:		common data for all ADC instances
+>   * @ccr_bak:		backup CCR in low power mode
+> + * @syscfg:		reference to syscon, system control registers
+>   */
+>  struct stm32_adc_priv {
+>  	int				irq[STM32_ADC_MAX_ADCS];
+>  	struct irq_domain		*domain;
+>  	struct clk			*aclk;
+>  	struct clk			*bclk;
+> +	struct regulator		*vdd;
+> +	struct regulator		*vdda;
+>  	struct regulator		*vref;
+>  	const struct stm32_adc_priv_cfg	*cfg;
+>  	struct stm32_adc_common		common;
+>  	u32				ccr_bak;
+> +	struct regmap			*syscfg;
+>  };
+>  
+>  static struct stm32_adc_priv *to_stm32_adc_priv(struct stm32_adc_common *com)
+> @@ -284,6 +316,22 @@ static const struct stm32_adc_common_regs stm32h7_adc_common_regs = {
+>  	.ccr = STM32H7_ADC_CCR,
+>  	.eoc1_msk = STM32H7_EOC_MST,
+>  	.eoc2_msk = STM32H7_EOC_SLV,
+> +	.has_syscfg = HAS_VBOOSTER,
+> +	.pmcr = STM32H7_SYSCFG_PMCR,
+> +	.booste_msk = STM32H7_SYSCFG_BOOSTE_MASK,
+> +};
+> +
+> +/* STM32MP1 common registers definitions */
+> +static const struct stm32_adc_common_regs stm32mp1_adc_common_regs = {
+> +	.csr = STM32H7_ADC_CSR,
+> +	.ccr = STM32H7_ADC_CCR,
+> +	.eoc1_msk = STM32H7_EOC_MST,
+> +	.eoc2_msk = STM32H7_EOC_SLV,
+> +	.has_syscfg =  HAS_VBOOSTER | HAS_ANASWVDD | HAS_CLEAR_REG,
+
+Extra space after =
+
+
+> +	.pmcr = STM32MP1_SYSCFG_PMCSETR,
+> +	.pmcc = STM32MP1_SYSCFG_PMCCLRR,
+> +	.booste_msk = STM32H7_SYSCFG_BOOSTE_MASK,
+> +	.anaswvdd_msk = STM32MP1_SYSCFG_ANASWVDD_MASK,
+>  };
+>  
+>  /* ADC common interrupt for all instances */
+> @@ -388,16 +436,145 @@ static void stm32_adc_irq_remove(struct platform_device *pdev,
+>  	}
+>  }
+>  
+> +static int stm32_adc_core_switches_supply_en(struct device *dev)
+> +{
+> +	struct stm32_adc_common *common = dev_get_drvdata(dev);
+> +	struct stm32_adc_priv *priv = to_stm32_adc_priv(common);
+> +	const struct stm32_adc_common_regs *regs = priv->cfg->regs;
+> +	int ret, vdda, vdd = 0;
+> +	u32 mask, clrmask, setmask = 0;
+> +
+> +	/*
+> +	 * On STM32H7 and STM32MP1, the ADC inputs are multiplexed with analog
+> +	 * switches (via PCSEL) which have reduced performances when their
+> +	 * supply is below 2.7V (vdda by default):
+> +	 * - Voltage booster can be used, to get full ADC performances
+> +	 *   (increases power consumption).
+> +	 * - Vdd can be used to supply them, if above 2.7V (STM32MP1 only).
+> +	 *
+> +	 * This is optional, as this is a trade-off between analog performance
+> +	 * and power consumption.
+> +	 */
+> +	if (!regs->has_syscfg || !priv->vdda || !priv->syscfg) {
+> +		dev_dbg(dev, "Not configuring analog switches\n");
+> +		return 0;
+> +	}
+> +
+> +	ret = regulator_enable(priv->vdda);
+> +	if (ret < 0) {
+> +		dev_err(dev, "vdda enable failed %d\n", ret);
+> +		return ret;
+> +	}
+> +
+> +	ret = regulator_get_voltage(priv->vdda);
+> +	if (ret < 0) {
+> +		dev_err(dev, "vdda get voltage failed %d\n", ret);
+> +		goto vdda_dis;
+> +	}
+> +	vdda = ret;
+> +
+We only need to do the following block if vdaa is too low.  Should probably
+not turn on vdd if there is not chance we are going to use it?
+
+> +	if (priv->vdd && regs->has_syscfg & HAS_ANASWVDD) {
+> +		ret = regulator_enable(priv->vdd);
+> +		if (ret < 0) {
+> +			dev_err(dev, "vdd enable failed %d\n", ret);
+> +			goto vdda_dis;
+> +		}
+> +
+> +		ret = regulator_get_voltage(priv->vdd);
+> +		if (ret < 0) {
+> +			dev_err(dev, "vdd get voltage failed %d\n", ret);
+> +			goto vdd_dis;
+> +		}
+> +		vdd = ret;
+> +	}
+> +
+> +	/*
+> +	 * Recommended settings for ANASWVDD and EN_BOOSTER:
+> +	 * - vdda < 2.7V but vdd > 2.7V: ANASWVDD = 1, EN_BOOSTER = 0 (stm32mp1)
+> +	 * - vdda < 2.7V and vdd < 2.7V: ANASWVDD = 0, EN_BOOSTER = 1
+> +	 * - vdda >= 2.7V:               ANASWVDD = 0, EN_BOOSTER = 0 (default)
+> +	 */
+> +	if (vdda < 2700000) {
+> +		if (vdd > 2700000) {
+> +			dev_dbg(dev, "analog switches supplied by vdd\n");
+> +			setmask = regs->anaswvdd_msk;
+> +			clrmask = regs->booste_msk;
+> +		} else {
+> +			dev_dbg(dev, "Enabling voltage booster\n");
+> +			setmask = regs->booste_msk;
+> +			clrmask = regs->anaswvdd_msk;
+> +		}
+> +	} else {
+> +		dev_dbg(dev, "analog switches supplied by vdda\n");
+> +		clrmask = regs->booste_msk | regs->anaswvdd_msk;
+> +	}
+> +
+> +	mask = regs->booste_msk | regs->anaswvdd_msk;
+> +	if (regs->has_syscfg & HAS_CLEAR_REG) {
+> +		ret = regmap_write(priv->syscfg, regs->pmcc, clrmask);
+> +		if (ret) {
+> +			dev_err(dev, "syscfg clear failed, %d\n", ret);
+> +			goto vdd_dis;
+> +		}
+> +		mask = setmask;
+> +	}
+> +
+> +	ret = regmap_update_bits(priv->syscfg, regs->pmcr, mask, setmask);
+> +	if (ret) {
+> +		dev_err(dev, "syscfg update failed, %d\n", ret);
+> +		goto vdd_dis;
+> +	}
+> +
+> +	/* Booster voltage can take up to 50 us to stabilize */
+> +	if (setmask & regs->booste_msk)
+> +		usleep_range(50, 100);
+> +
+> +	return ret;
+> +
+> +vdd_dis:
+> +	if (priv->vdd && (regs->has_syscfg & HAS_ANASWVDD))
+> +		regulator_disable(priv->vdd);
+> +vdda_dis:
+> +	regulator_disable(priv->vdda);
+> +
+> +	return ret;
+> +}
+> +
+> +static void stm32_adc_core_switches_supply_dis(struct device *dev)
+> +{
+> +	struct stm32_adc_common *common = dev_get_drvdata(dev);
+> +	struct stm32_adc_priv *priv = to_stm32_adc_priv(common);
+> +	const struct stm32_adc_common_regs *regs = priv->cfg->regs;
+> +	u32 mask = regs->booste_msk | regs->anaswvdd_msk;
+> +
+> +	if (!regs->has_syscfg || !priv->vdda || !priv->syscfg)
+> +		return;
+> +
+> +	if (regs->has_syscfg & HAS_CLEAR_REG)
+> +		regmap_write(priv->syscfg, regs->pmcc, mask);
+> +	else
+> +		regmap_update_bits(priv->syscfg, regs->pmcr, mask, 0);
+> +
+> +	if (priv->vdd && (regs->has_syscfg & HAS_ANASWVDD))
+> +		regulator_disable(priv->vdd);
+> +
+> +	regulator_disable(priv->vdda);
+> +}
+> +
+>  static int stm32_adc_core_hw_start(struct device *dev)
+>  {
+>  	struct stm32_adc_common *common = dev_get_drvdata(dev);
+>  	struct stm32_adc_priv *priv = to_stm32_adc_priv(common);
+>  	int ret;
+>  
+> +	ret = stm32_adc_core_switches_supply_en(dev);
+> +	if (ret < 0)
+> +		return ret;
+> +
+>  	ret = regulator_enable(priv->vref);
+>  	if (ret < 0) {
+>  		dev_err(dev, "vref enable failed\n");
+> -		return ret;
+> +		goto err_switches_disable;
+>  	}
+>  
+>  	if (priv->bclk) {
+> @@ -425,6 +602,8 @@ static int stm32_adc_core_hw_start(struct device *dev)
+>  		clk_disable_unprepare(priv->bclk);
+>  err_regulator_disable:
+>  	regulator_disable(priv->vref);
+> +err_switches_disable:
+> +	stm32_adc_core_switches_supply_dis(dev);
+>  
+>  	return ret;
+>  }
+> @@ -441,6 +620,24 @@ static void stm32_adc_core_hw_stop(struct device *dev)
+>  	if (priv->bclk)
+>  		clk_disable_unprepare(priv->bclk);
+>  	regulator_disable(priv->vref);
+> +	stm32_adc_core_switches_supply_dis(dev);
+> +}
+> +
+> +static int stm32_adc_core_syscfg_probe(struct device_node *np,
+> +				       struct stm32_adc_priv *priv)
+> +{
+> +	if (!priv->cfg->regs->has_syscfg)
+> +		return 0;
+> +
+> +	priv->syscfg = syscon_regmap_lookup_by_phandle(np, "st,syscfg");
+> +	if (IS_ERR(priv->syscfg)) {
+> +		/* Optional */
+> +		if (PTR_ERR(priv->syscfg) != -ENODEV)
+> +			return PTR_ERR(priv->syscfg);
+> +		priv->syscfg = NULL;
+> +	}
+> +
+> +	return 0;
+>  }
+>  
+>  static int stm32_adc_probe(struct platform_device *pdev)
+> @@ -475,6 +672,30 @@ static int stm32_adc_probe(struct platform_device *pdev)
+>  		return ret;
+>  	}
+>  
+> +	priv->vdda = devm_regulator_get_optional(&pdev->dev, "vdda");
+> +	if (IS_ERR(priv->vdda)) {
+> +		ret = PTR_ERR(priv->vdda);
+> +		if (ret != -ENODEV) {
+> +			if (ret != -EPROBE_DEFER)
+> +				dev_err(&pdev->dev, "vdda get failed, %d\n",
+> +					ret);
+> +			return ret;
+> +		}
+> +		priv->vdda = NULL;
+> +	}
+> +
+> +	priv->vdd = devm_regulator_get_optional(&pdev->dev, "vdd");
+> +	if (IS_ERR(priv->vdd)) {
+> +		ret = PTR_ERR(priv->vdd);
+> +		if (ret != -ENODEV) {
+> +			if (ret != -EPROBE_DEFER)
+> +				dev_err(&pdev->dev, "vdd get failed, %d\n",
+> +					ret);
+> +			return ret;
+> +		}
+> +		priv->vdd = NULL;
+> +	}
+> +
+>  	priv->aclk = devm_clk_get(&pdev->dev, "adc");
+>  	if (IS_ERR(priv->aclk)) {
+>  		ret = PTR_ERR(priv->aclk);
+> @@ -495,6 +716,13 @@ static int stm32_adc_probe(struct platform_device *pdev)
+>  		priv->bclk = NULL;
+>  	}
+>  
+> +	ret = stm32_adc_core_syscfg_probe(np, priv);
+> +	if (ret) {
+> +		if (ret != -EPROBE_DEFER)
+> +			dev_err(&pdev->dev, "Can't probe syscfg: %d\n", ret);
+> +		return ret;
+> +	}
+> +
+>  	pm_runtime_get_noresume(dev);
+>  	pm_runtime_set_active(dev);
+>  	pm_runtime_set_autosuspend_delay(dev, STM32_ADC_CORE_SLEEP_DELAY_MS);
+> @@ -595,7 +823,7 @@ static const struct stm32_adc_priv_cfg stm32h7_adc_priv_cfg = {
+>  };
+>  
+>  static const struct stm32_adc_priv_cfg stm32mp1_adc_priv_cfg = {
+> -	.regs = &stm32h7_adc_common_regs,
+> +	.regs = &stm32mp1_adc_common_regs,
+>  	.clk_sel = stm32h7_adc_clk_sel,
+>  	.max_clk_rate_hz = 40000000,
+>  };
+
+_______________________________________________
+Linux-stm32 mailing list
+Linux-stm32@st-md-mailman.stormreply.com
+https://st-md-mailman.stormreply.com/mailman/listinfo/linux-stm32
