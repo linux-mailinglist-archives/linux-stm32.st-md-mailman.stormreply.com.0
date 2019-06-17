@@ -2,66 +2,63 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id 06ABF47BB4
-	for <lists+linux-stm32@lfdr.de>; Mon, 17 Jun 2019 09:54:44 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 4DB5E57E93
+	for <lists+linux-stm32@lfdr.de>; Thu, 27 Jun 2019 10:49:50 +0200 (CEST)
 Received: from ip-172-31-3-76.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id BC956CE8FFF
-	for <lists+linux-stm32@lfdr.de>; Mon, 17 Jun 2019 07:54:43 +0000 (UTC)
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 18E1EC57B7D
+	for <lists+linux-stm32@lfdr.de>; Thu, 27 Jun 2019 08:49:50 +0000 (UTC)
 Received: from mx07-00178001.pphosted.com (mx08-00178001.pphosted.com
  [91.207.212.93])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 772ACCE8FFE
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id BD4E5C07A4B
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Mon, 17 Jun 2019 07:54:42 +0000 (UTC)
-Received: from pps.filterd (m0046660.ppops.net [127.0.0.1])
+ Mon, 17 Jun 2019 08:50:50 +0000 (UTC)
+Received: from pps.filterd (m0046661.ppops.net [127.0.0.1])
  by mx08-00178001.pphosted.com (8.16.0.27/8.16.0.27) with SMTP id
- x5H7rvFm026612; Mon, 17 Jun 2019 09:54:33 +0200
+ x5H8kHSM013185; Mon, 17 Jun 2019 10:50:33 +0200
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=st.com;
- h=subject : to : cc :
- references : from : message-id : date : mime-version : in-reply-to :
- content-type : content-transfer-encoding; s=STMicroelectronics;
- bh=t1pIXwC6qKMp7Evdyj53O8stjYaD2xF5xcWOfJEKCQM=;
- b=1BUzi8rYjfd3WsBgAkJxfn5BE6hVwyPAZLfVhsAK98Q1s+kQeiwYRwQWznB/j/mprjDM
- pAD0yIVXV8rz9gw17zwLiqv/+7KNwOG6Fi50uAWk0N+2wgD5IimxLb3GsdpIVM3gaN9I
- T1/m146BnSTl0/4E42WwI9qRJti4n8VL3WtrWtx1zbySpH0FapzYbUnj7Vg3VRNaazFQ
- klmbJZ2a+lh2hEqLZFd27GljA2dsmsntpUU0IKIKgWaM2f25bVGTFNluB4BAp362E2/H
- Ra6KIPoZ+OIfUg3/e7fCV9Hb4mxeIUQN31seC9Y4hvwr+P6TwqnBh8RTcYEZb04oI3NY PA== 
+ h=from : to : cc : subject
+ : date : message-id : mime-version : content-type; s=STMicroelectronics;
+ bh=bC3LMa6griAbLsTsO7rZBdQI82fOLOouwCRCKGb6yWo=;
+ b=0P2hgw7OSO+g2l9FRr/NH2Yp8meYJ17F6ZcwlInHSTOoAfRvYU1Xck2l3/C2A96grbgj
+ Z9GWXQ4v3zQoRh6lXSi158kURnAI2RkJs7+q4wpbU3OnLw3NZTCzcqgAeuxPmGwK8Cqd
+ R3zw9q0Vx2H+EO4RqTdfgBe67ysv//oub115SADAv9rhORW336Z+vl4f6W8Yxwi3p7wg
+ b/VdNAj+FQ8XNTCI6yGcv+Gibx6lwJj9c23v9e/PSzPHY3AyyoPnERbkX2r9wEnJ5oS2
+ qD18jiheP6fhEbvuMoQ4cISZubvejd0kCJ7VNCL9u0ZQnhpQZiRoKxTmK1aMIGvDjyDl 3A== 
 Received: from beta.dmz-eu.st.com (beta.dmz-eu.st.com [164.129.1.35])
- by mx08-00178001.pphosted.com with ESMTP id 2t4nt81hc3-1
+ by mx08-00178001.pphosted.com with ESMTP id 2t4qjhsexj-1
  (version=TLSv1 cipher=ECDHE-RSA-AES256-SHA bits=256 verify=NOT);
- Mon, 17 Jun 2019 09:54:33 +0200
+ Mon, 17 Jun 2019 10:50:33 +0200
 Received: from zeta.dmz-eu.st.com (zeta.dmz-eu.st.com [164.129.230.9])
- by beta.dmz-eu.st.com (STMicroelectronics) with ESMTP id 51CF031;
- Mon, 17 Jun 2019 07:54:33 +0000 (GMT)
-Received: from Webmail-eu.st.com (sfhdag5node3.st.com [10.75.127.15])
- by zeta.dmz-eu.st.com (STMicroelectronics) with ESMTP id CDCD9166A;
- Mon, 17 Jun 2019 07:54:32 +0000 (GMT)
-Received: from [10.48.0.167] (10.75.127.50) by SFHDAG5NODE3.st.com
- (10.75.127.15) with Microsoft SMTP Server (TLS) id 15.0.1473.3; Mon, 17 Jun
- 2019 09:54:32 +0200
-To: Wolfram Sang <wsa@the-dreams.de>
-References: <1558020594-1498-1-git-send-email-fabrice.gasnier@st.com>
- <20190614205322.GA17899@ninjato>
-From: Fabrice Gasnier <fabrice.gasnier@st.com>
-Message-ID: <b1fb50c0-b5ee-dd73-0b8e-f025dd843cbe@st.com>
-Date: Mon, 17 Jun 2019 09:54:31 +0200
-User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:60.0) Gecko/20100101
- Thunderbird/60.7.0
+ by beta.dmz-eu.st.com (STMicroelectronics) with ESMTP id 39F8B31;
+ Mon, 17 Jun 2019 08:50:31 +0000 (GMT)
+Received: from Webmail-eu.st.com (Safex1hubcas21.st.com [10.75.90.44])
+ by zeta.dmz-eu.st.com (STMicroelectronics) with ESMTP id 12DF7244F;
+ Mon, 17 Jun 2019 08:50:31 +0000 (GMT)
+Received: from SAFEX1HUBCAS24.st.com (10.75.90.95) by SAFEX1HUBCAS21.st.com
+ (10.75.90.44) with Microsoft SMTP Server (TLS) id 14.3.439.0; Mon, 17 Jun
+ 2019 10:50:30 +0200
+Received: from localhost (10.201.22.222) by webmail-ga.st.com (10.75.90.48)
+ with Microsoft SMTP Server (TLS) id 14.3.439.0; Mon, 17 Jun 2019 10:50:30
+ +0200
+From: Christophe Roullier <christophe.roullier@st.com>
+To: <robh@kernel.org>, <davem@davemloft.net>, <joabreu@synopsys.com>,
+ <mark.rutland@arm.com>, <mcoquelin.stm32@gmail.com>,
+ <alexandre.torgue@st.com>, <peppe.cavallaro@st.com>
+Date: Mon, 17 Jun 2019 10:50:17 +0200
+Message-ID: <20190617085018.20352-1-christophe.roullier@st.com>
+X-Mailer: git-send-email 2.17.1
 MIME-Version: 1.0
-In-Reply-To: <20190614205322.GA17899@ninjato>
-Content-Language: en-US
-X-Originating-IP: [10.75.127.50]
-X-ClientProxiedBy: SFHDAG8NODE3.st.com (10.75.127.24) To SFHDAG5NODE3.st.com
- (10.75.127.15)
+X-Originating-IP: [10.201.22.222]
 X-Proofpoint-Virus-Version: vendor=fsecure engine=2.50.10434:, ,
  definitions=2019-06-17_05:, , signatures=0
-Cc: pierre-yves.mordret@st.com, marc.w.gonzalez@free.fr,
- linux-kernel@vger.kernel.org, fabien.dessenne@st.com,
- linux-i2c@vger.kernel.org, mcoquelin.stm32@gmail.com,
- linux-stm32@st-md-mailman.stormreply.com, linux-arm-kernel@lists.infradead.org
-Subject: Re: [Linux-stm32] [PATCH v2] i2c: i2c-stm32f7: fix the get_irq
-	error cases
+X-Mailman-Approved-At: Thu, 27 Jun 2019 08:49:47 +0000
+Cc: devicetree@vger.kernel.org, andrew@lunn.ch, netdev@vger.kernel.org,
+ linux-kernel@vger.kernel.org, linux-stm32@st-md-mailman.stormreply.com,
+ linux-arm-kernel@lists.infradead.org
+Subject: [Linux-stm32] [PATCH 0/1] ARM: dts: stm32: replace rgmii mode with
+	rgmii-id on stm32mp15 boards
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -78,33 +75,21 @@ Content-Transfer-Encoding: 7bit
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
-On 6/14/19 10:53 PM, Wolfram Sang wrote:
-> Hi Fabrice,
-> 
->> +		return irq_event ? irq_event : -ENODEV;
-> 
-> Maybe -ENOENT instead of -ENODEV? I mean you have a dev_err there, so
-> the driver core should probably also complain?
-> 
-> You could also shorten the ternary operator to:
-> 
-> 	return irq_event ? : -E<whatyouprefer>;
-> 
-> However, both are minor nits. If you prefer to keep the patch as is,
-> fine with me.
+On disco and eval board, Tx and Rx delay are applied (pull-up of 4.7k
+put on VDD) so which correspond to RGMII-ID mode with internal RX and TX
+delays provided by the PHY, the MAC should not add the RX or TX delays
+in this case
 
-Hi Wolfram,
+Christophe Roullier (1):
+  ARM: dts: stm32: replace rgmii mode with rgmii-id on stm32mp15 boards
 
-Thanks for reviewing,
-I've sent a v3 with your suggestions.
+ arch/arm/boot/dts/stm32mp157a-dk1.dts | 2 +-
+ arch/arm/boot/dts/stm32mp157c-ev1.dts | 2 +-
+ 2 files changed, 2 insertions(+), 2 deletions(-)
 
-Regards,
-Fabrice
-> 
-> Regards,
-> 
->    Wolfram
-> 
+-- 
+2.17.1
+
 _______________________________________________
 Linux-stm32 mailing list
 Linux-stm32@st-md-mailman.stormreply.com
