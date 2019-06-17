@@ -2,45 +2,65 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id 3EBE547572
-	for <lists+linux-stm32@lfdr.de>; Sun, 16 Jun 2019 17:12:55 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id C1FF447AA0
+	for <lists+linux-stm32@lfdr.de>; Mon, 17 Jun 2019 09:18:34 +0200 (CEST)
 Received: from ip-172-31-3-76.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 2B8FECFAEF6
-	for <lists+linux-stm32@lfdr.de>; Sun, 16 Jun 2019 15:12:54 +0000 (UTC)
-Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
- (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
- (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id C3A0ECFAEF3
- for <linux-stm32@st-md-mailman.stormreply.com>;
- Sun, 16 Jun 2019 15:12:52 +0000 (UTC)
-Received: from archlinux (cpc149474-cmbg20-2-0-cust94.5-4.cable.virginm.net
- [82.4.196.95])
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 7487FCCBB7D
+	for <lists+linux-stm32@lfdr.de>; Mon, 17 Jun 2019 07:18:34 +0000 (UTC)
+Received: from mx07-00178001.pphosted.com (mx07-00178001.pphosted.com
+ [62.209.51.94])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by mail.kernel.org (Postfix) with ESMTPSA id AB5532084B;
- Sun, 16 Jun 2019 15:12:48 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
- s=default; t=1560697971;
- bh=XYxeE6m6iVjdndgF4Gpsy/J7kmBHdL5js7nG2GNIyZ0=;
- h=Date:From:To:Cc:Subject:In-Reply-To:References:From;
- b=aerEuJ3rVFrEPfO49k463mid3L5f8cFSHgrCjjsakURRDaaAI0y1DwgI+mFwbsyPf
- WfF8K4nRyeLJz6Ra1+OSmTm/wXzqeuFozHaVudTxyy2eoUTrLn3TlTl/i9VyYbwUtT
- pfFctaleQ0BF0vMjakzUyq/Zyz/Tli9jMAsgbEP0=
-Date: Sun, 16 Jun 2019 16:12:45 +0100
-From: Jonathan Cameron <jic23@kernel.org>
-To: Fabrice Gasnier <fabrice.gasnier@st.com>
-Message-ID: <20190616161245.38168d94@archlinux>
-In-Reply-To: <1560324276-681-2-git-send-email-fabrice.gasnier@st.com>
-References: <1560324276-681-1-git-send-email-fabrice.gasnier@st.com>
- <1560324276-681-2-git-send-email-fabrice.gasnier@st.com>
-X-Mailer: Claws Mail 3.17.3 (GTK+ 2.24.32; x86_64-pc-linux-gnu)
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id DE39DCCBB72
+ for <linux-stm32@st-md-mailman.stormreply.com>;
+ Mon, 17 Jun 2019 07:18:32 +0000 (UTC)
+Received: from pps.filterd (m0046037.ppops.net [127.0.0.1])
+ by mx07-00178001.pphosted.com (8.16.0.27/8.16.0.27) with SMTP id
+ x5H7G0ZS016840; Mon, 17 Jun 2019 09:18:22 +0200
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=st.com;
+ h=from : to : subject :
+ date : message-id : mime-version : content-type :
+ content-transfer-encoding; s=STMicroelectronics;
+ bh=Ia2/UrCUbgT3bw0BUTt336OAmpb+nVhfRSlDq35fcEs=;
+ b=djNFXoDB4cGYOdCBR/WaJaQgc3IkLbr6gG3WsKXYywl2EAUpnCglQjTOgMM3NgTdcALz
+ RnyxPh/XODS35rQRIAjo1GYk5FJto0TGQ53PiJItJY2wRMFfvAZMdCihDAVFxzhTwpII
+ sQ0yUGmVo4AX4apALbfQbpXmJ0vzkqNRS4KYccRtdBEP6MJaCHobWu9Lla2hxtkktYDZ
+ CHvFLsHbYqO/4n6bO6cD1IRs51HsaYrmZdKvYANqCjepEBGKuDPgSR9CvfoUbw7G7k97
+ RC5yVFldo0CzjKjNEBoaNniM2SmKQ7oJM50d/KITK4TyI5x9OY5n9bngEEOhonkb1mDL rw== 
+Received: from beta.dmz-eu.st.com (beta.dmz-eu.st.com [164.129.1.35])
+ by mx07-00178001.pphosted.com with ESMTP id 2t4peu0wyj-1
+ (version=TLSv1 cipher=ECDHE-RSA-AES256-SHA bits=256 verify=NOT);
+ Mon, 17 Jun 2019 09:18:22 +0200
+Received: from zeta.dmz-eu.st.com (zeta.dmz-eu.st.com [164.129.230.9])
+ by beta.dmz-eu.st.com (STMicroelectronics) with ESMTP id 0C73034;
+ Mon, 17 Jun 2019 07:18:20 +0000 (GMT)
+Received: from Webmail-eu.st.com (Safex1hubcas22.st.com [10.75.90.92])
+ by zeta.dmz-eu.st.com (STMicroelectronics) with ESMTP id A7417155B;
+ Mon, 17 Jun 2019 07:18:20 +0000 (GMT)
+Received: from SAFEX1HUBCAS24.st.com (10.75.90.95) by Safex1hubcas22.st.com
+ (10.75.90.92) with Microsoft SMTP Server (TLS) id 14.3.439.0; Mon, 17 Jun
+ 2019 09:18:20 +0200
+Received: from localhost (10.201.23.97) by webmail-ga.st.com (10.75.90.48)
+ with Microsoft SMTP Server (TLS) id 14.3.439.0; Mon, 17 Jun 2019 09:18:20
+ +0200
+From: =?UTF-8?q?Yannick=20Fertr=C3=A9?= <yannick.fertre@st.com>
+To: Yannick Fertre <yannick.fertre@st.com>, Philippe Cornu
+ <philippe.cornu@st.com>, Benjamin Gaignard <benjamin.gaignard@st.com>,
+ Vincent Abriou <vincent.abriou@st.com>,
+ David Airlie <airlied@linux.ie>, Daniel Vetter <daniel@ffwll.ch>,
+ Maxime Coquelin <mcoquelin.stm32@gmail.com>,
+ Alexandre Torgue <alexandre.torgue@st.com>,
+ <dri-devel@lists.freedesktop.org>,
+ <linux-stm32@st-md-mailman.stormreply.com>,
+ <linux-arm-kernel@lists.infradead.org>, <linux-kernel@vger.kernel.org>
+Date: Mon, 17 Jun 2019 09:18:17 +0200
+Message-ID: <1560755897-5002-1-git-send-email-yannick.fertre@st.com>
+X-Mailer: git-send-email 2.7.4
 MIME-Version: 1.0
-Cc: mark.rutland@arm.com, devicetree@vger.kernel.org, lars@metafoo.de,
- linux-iio@vger.kernel.org, pmeerw@pmeerw.net, linux-kernel@vger.kernel.org,
- robh+dt@kernel.org, mcoquelin.stm32@gmail.com, knaack.h@gmx.de,
- linux-stm32@st-md-mailman.stormreply.com, linux-arm-kernel@lists.infradead.org
-Subject: Re: [Linux-stm32] [PATCH 1/3] dt-bindings: iio: adc: stm32: add
- analog switches supply control
+X-Originating-IP: [10.201.23.97]
+X-Proofpoint-Virus-Version: vendor=fsecure engine=2.50.10434:, ,
+ definitions=2019-06-17_05:, , signatures=0
+Subject: [Linux-stm32] [PATCH 1/3] drm/stm: drv: fix suspend/resume
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -52,48 +72,35 @@ List-Post: <mailto:linux-stm32@st-md-mailman.stormreply.com>
 List-Help: <mailto:linux-stm32-request@st-md-mailman.stormreply.com?subject=help>
 List-Subscribe: <https://st-md-mailman.stormreply.com/mailman/listinfo/linux-stm32>, 
  <mailto:linux-stm32-request@st-md-mailman.stormreply.com?subject=subscribe>
-Content-Type: text/plain; charset="us-ascii"
-Content-Transfer-Encoding: 7bit
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: base64
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
-On Wed, 12 Jun 2019 09:24:34 +0200
-Fabrice Gasnier <fabrice.gasnier@st.com> wrote:
-
-> On stm32h7 and stm32mp1, the ADC inputs are multiplexed with analog
-> switches which have reduced performances when their supply is below 2.7V
-> (vdda by default).
-> 
-> Add documentation for optional vdda-supply & vdd-supply that can be used
-> to supply analog circuitry (controlled by syscfg bits).
-> 
-> Signed-off-by: Fabrice Gasnier <fabrice.gasnier@st.com>
-> ---
->  Documentation/devicetree/bindings/iio/adc/st,stm32-adc.txt | 6 ++++++
->  1 file changed, 6 insertions(+)
-> 
-> diff --git a/Documentation/devicetree/bindings/iio/adc/st,stm32-adc.txt b/Documentation/devicetree/bindings/iio/adc/st,stm32-adc.txt
-> index 8346bcb..3af48b9 100644
-> --- a/Documentation/devicetree/bindings/iio/adc/st,stm32-adc.txt
-> +++ b/Documentation/devicetree/bindings/iio/adc/st,stm32-adc.txt
-> @@ -46,6 +46,12 @@ Required properties:
->  Optional properties:
->  - A pinctrl state named "default" for each ADC channel may be defined to set
->    inX ADC pins in mode of operation for analog input on external pin.
-> +- vdda-supply: Phandle to the vdda input voltage. It can be used to supply ADC
-> +  analog inputs switches on stm32h7 and stm32mp1.
-
-input switches
-
-> +- vdd-supply: Phandle to the vdd input voltage. It can be used to supply ADC
-> +  analog inputs switches on stm32mp1.
-> +- st,syscfg: Phandle to system configuration controller. It can be used to
-> +  control the analog circuitry on stm32h7 and stm32mp1.
->  
->  Contents of a stm32 adc child node:
->  -----------------------------------
-
-_______________________________________________
-Linux-stm32 mailing list
-Linux-stm32@st-md-mailman.stormreply.com
-https://st-md-mailman.stormreply.com/mailman/listinfo/linux-stm32
+V2l0aG91dCB0aGlzIGZpeCwgdGhlIHN5c3RlbSBjYW4gbm90IGdvIGluICJzdXNwZW5kIiBtb2Rl
+CmR1ZSB0byBhbiBlcnJvciBpbiBkcnZfc3VzcGVuZCBmdW5jdGlvbi4KCkZpeGVzOiAzNWFiNmNm
+ICgiZHJtL3N0bTogc3VwcG9ydCBydW50aW1lIHBvd2VyIG1hbmFnZW1lbnQiKQoKU2lnbmVkLW9m
+Zi1ieTogWWFubmljayBGZXJ0csOpIDx5YW5uaWNrLmZlcnRyZUBzdC5jb20+Ci0tLQogZHJpdmVy
+cy9ncHUvZHJtL3N0bS9kcnYuYyB8IDE1ICsrKysrKysrLS0tLS0tLQogMSBmaWxlIGNoYW5nZWQs
+IDggaW5zZXJ0aW9ucygrKSwgNyBkZWxldGlvbnMoLSkKCmRpZmYgLS1naXQgYS9kcml2ZXJzL2dw
+dS9kcm0vc3RtL2Rydi5jIGIvZHJpdmVycy9ncHUvZHJtL3N0bS9kcnYuYwppbmRleCA1NjU5NTcy
+Li45ZGVlNGU0IDEwMDY0NAotLS0gYS9kcml2ZXJzL2dwdS9kcm0vc3RtL2Rydi5jCisrKyBiL2Ry
+aXZlcnMvZ3B1L2RybS9zdG0vZHJ2LmMKQEAgLTEzNiw4ICsxMzYsNyBAQCBzdGF0aWMgX19tYXli
+ZV91bnVzZWQgaW50IGRydl9zdXNwZW5kKHN0cnVjdCBkZXZpY2UgKmRldikKIAlzdHJ1Y3QgbHRk
+Y19kZXZpY2UgKmxkZXYgPSBkZGV2LT5kZXZfcHJpdmF0ZTsKIAlzdHJ1Y3QgZHJtX2F0b21pY19z
+dGF0ZSAqc3RhdGU7CiAKLQlpZiAoV0FSTl9PTighbGRldi0+c3VzcGVuZF9zdGF0ZSkpCi0JCXJl
+dHVybiAtRU5PRU5UOworCVdBUk5fT04obGRldi0+c3VzcGVuZF9zdGF0ZSk7CiAKIAlzdGF0ZSA9
+IGRybV9hdG9taWNfaGVscGVyX3N1c3BlbmQoZGRldik7CiAJaWYgKElTX0VSUihzdGF0ZSkpCkBA
+IC0xNTUsMTUgKzE1NCwxNyBAQCBzdGF0aWMgX19tYXliZV91bnVzZWQgaW50IGRydl9yZXN1bWUo
+c3RydWN0IGRldmljZSAqZGV2KQogCXN0cnVjdCBsdGRjX2RldmljZSAqbGRldiA9IGRkZXYtPmRl
+dl9wcml2YXRlOwogCWludCByZXQ7CiAKKwlpZiAoV0FSTl9PTighbGRldi0+c3VzcGVuZF9zdGF0
+ZSkpCisJCXJldHVybiAtRU5PRU5UOworCiAJcG1fcnVudGltZV9mb3JjZV9yZXN1bWUoZGV2KTsK
+IAlyZXQgPSBkcm1fYXRvbWljX2hlbHBlcl9yZXN1bWUoZGRldiwgbGRldi0+c3VzcGVuZF9zdGF0
+ZSk7Ci0JaWYgKHJldCkgeworCWlmIChyZXQpCiAJCXBtX3J1bnRpbWVfZm9yY2Vfc3VzcGVuZChk
+ZXYpOwotCQlsZGV2LT5zdXNwZW5kX3N0YXRlID0gTlVMTDsKLQkJcmV0dXJuIHJldDsKLQl9CiAK
+LQlyZXR1cm4gMDsKKwlsZGV2LT5zdXNwZW5kX3N0YXRlID0gTlVMTDsKKworCXJldHVybiByZXQ7
+CiB9CiAKIHN0YXRpYyBfX21heWJlX3VudXNlZCBpbnQgZHJ2X3J1bnRpbWVfc3VzcGVuZChzdHJ1
+Y3QgZGV2aWNlICpkZXYpCi0tIAoyLjcuNAoKX19fX19fX19fX19fX19fX19fX19fX19fX19fX19f
+X19fX19fX19fX19fX19fX18KTGludXgtc3RtMzIgbWFpbGluZyBsaXN0CkxpbnV4LXN0bTMyQHN0
+LW1kLW1haWxtYW4uc3Rvcm1yZXBseS5jb20KaHR0cHM6Ly9zdC1tZC1tYWlsbWFuLnN0b3JtcmVw
+bHkuY29tL21haWxtYW4vbGlzdGluZm8vbGludXgtc3RtMzIK
