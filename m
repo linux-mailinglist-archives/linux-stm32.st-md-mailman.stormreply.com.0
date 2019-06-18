@@ -2,53 +2,53 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id 08BA249DED
-	for <lists+linux-stm32@lfdr.de>; Tue, 18 Jun 2019 12:02:58 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id A250A49DEA
+	for <lists+linux-stm32@lfdr.de>; Tue, 18 Jun 2019 12:02:57 +0200 (CEST)
 Received: from ip-172-31-3-76.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id BCCE8C9FC67
-	for <lists+linux-stm32@lfdr.de>; Tue, 18 Jun 2019 10:02:57 +0000 (UTC)
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 99D1CC9FC67
+	for <lists+linux-stm32@lfdr.de>; Tue, 18 Jun 2019 10:02:56 +0000 (UTC)
 Received: from mx07-00178001.pphosted.com (mx08-00178001.pphosted.com
  [91.207.212.93])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 2ED5EC9FC68
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 818BAC9FC66
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Tue, 18 Jun 2019 10:02:57 +0000 (UTC)
-Received: from pps.filterd (m0046661.ppops.net [127.0.0.1])
+ Tue, 18 Jun 2019 10:02:55 +0000 (UTC)
+Received: from pps.filterd (m0046660.ppops.net [127.0.0.1])
  by mx08-00178001.pphosted.com (8.16.0.27/8.16.0.27) with SMTP id
- x5I9uvpM016668; Tue, 18 Jun 2019 12:02:51 +0200
+ x5I9ug4W007561; Tue, 18 Jun 2019 12:02:37 +0200
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=st.com;
  h=from : to : cc : subject
  : date : message-id : in-reply-to : references : mime-version :
  content-type; s=STMicroelectronics;
- bh=wHb4WREE9/72Kxb6pYtsF+ktYoPpYJcruLTaSIRla4U=;
- b=KBQCWkrNtt8+AWhcR+YEpAXq2SxF0TeMxxVyrWxk/5GMaSb3y89Oc7RKKWmjM6X2/KMR
- x67URoYaSyoNdBJPZ4063PC9z3F3ypHBmHQdLKghBz8QZ7yTenEAV5oSSf14Awo7E0xR
- heoNSpb+qOl5xKsopOpvQAe90zrXTjP6ZhTEH4E1y9zL/epJa2ZML1FHGV7VTM+6FE3+
- prLDsylzCV9XrGI6BqovmQVgG1ywX9K05vpgqi1VHyEr7dXsV/t1CZfdHA5/pgG89ByL
- KNSo4mmT/APZqI/1rVzw/emsXweEr0sRTzSLJ2PYSxwa8krZc7G8H8G/dIbIWGsfN0XY Hw== 
+ bh=h01JWVwcjqILFh4YSO7W65sajs6sEQaVQ79mN3RX8qQ=;
+ b=QLNmM8Ym6XwFgwWEWHrCnihEcWc1VtywI4qxDJ1y07gq6pLzS6LqMBnyj+bx4Bz4vXzd
+ /TauvCyjVPOhiJO1QvGhcOV9gNzPdMDgl/GxNPp4z5LOLi4df/L7Z1FttIduxDTgwc/5
+ +rvAI7NUxvqoGC+yZ9akFbW1Mqqn3IAsKFMW42TK/ijPpv/W9zYZW5UtN1QbZr82blPr
+ ecRstm6j6+unZ/8cvQeAe/NkKYJVT5fy9fmxLvP5GitcPz3ZfWMEkMcjagxZRRWcyzpD
+ xQop4ni9R2rTwxlJiJRvhUxq6sRrqRYCZYrkiR7qtt/S4V3reILsXQ6wTStX/5lhAhy1 8Q== 
 Received: from beta.dmz-eu.st.com (beta.dmz-eu.st.com [164.129.1.35])
- by mx08-00178001.pphosted.com with ESMTP id 2t4qjhyq1t-1
+ by mx08-00178001.pphosted.com with ESMTP id 2t4nt883jd-1
  (version=TLSv1 cipher=ECDHE-RSA-AES256-SHA bits=256 verify=NOT);
- Tue, 18 Jun 2019 12:02:50 +0200
+ Tue, 18 Jun 2019 12:02:37 +0200
 Received: from zeta.dmz-eu.st.com (zeta.dmz-eu.st.com [164.129.230.9])
- by beta.dmz-eu.st.com (STMicroelectronics) with ESMTP id 1573E31;
- Tue, 18 Jun 2019 10:02:35 +0000 (GMT)
-Received: from Webmail-eu.st.com (Safex1hubcas21.st.com [10.75.90.44])
- by zeta.dmz-eu.st.com (STMicroelectronics) with ESMTP id E590425D7;
- Tue, 18 Jun 2019 10:02:34 +0000 (GMT)
-Received: from SAFEX1HUBCAS23.st.com (10.75.90.47) by SAFEX1HUBCAS21.st.com
- (10.75.90.44) with Microsoft SMTP Server (TLS) id 14.3.439.0; Tue, 18 Jun
- 2019 12:02:35 +0200
+ by beta.dmz-eu.st.com (STMicroelectronics) with ESMTP id 7A74438;
+ Tue, 18 Jun 2019 10:02:36 +0000 (GMT)
+Received: from Webmail-eu.st.com (Safex1hubcas24.st.com [10.75.90.94])
+ by zeta.dmz-eu.st.com (STMicroelectronics) with ESMTP id 59DB025D7;
+ Tue, 18 Jun 2019 10:02:36 +0000 (GMT)
+Received: from SAFEX1HUBCAS23.st.com (10.75.90.47) by Safex1hubcas24.st.com
+ (10.75.90.94) with Microsoft SMTP Server (TLS) id 14.3.439.0; Tue, 18 Jun
+ 2019 12:02:36 +0200
 Received: from localhost (10.201.23.31) by webmail-ga.st.com (10.75.90.48)
- with Microsoft SMTP Server (TLS) id 14.3.439.0; Tue, 18 Jun 2019 12:02:33
+ with Microsoft SMTP Server (TLS) id 14.3.439.0; Tue, 18 Jun 2019 12:02:35
  +0200
 From: Erwan Le Ray <erwan.leray@st.com>
 To: Greg Kroah-Hartman <gregkh@linuxfoundation.org>, Jiri Slaby
  <jslaby@suse.com>, Maxime Coquelin <mcoquelin.stm32@gmail.com>, "Alexandre
  Torgue" <alexandre.torgue@st.com>
-Date: Tue, 18 Jun 2019 12:02:22 +0200
-Message-ID: <1560852146-3393-2-git-send-email-erwan.leray@st.com>
+Date: Tue, 18 Jun 2019 12:02:23 +0200
+Message-ID: <1560852146-3393-3-git-send-email-erwan.leray@st.com>
 X-Mailer: git-send-email 1.9.1
 In-Reply-To: <1560852146-3393-1-git-send-email-erwan.leray@st.com>
 References: <1560852146-3393-1-git-send-email-erwan.leray@st.com>
@@ -57,11 +57,9 @@ X-Originating-IP: [10.201.23.31]
 X-Proofpoint-Virus-Version: vendor=fsecure engine=2.50.10434:, ,
  definitions=2019-06-18_05:, , signatures=0
 Cc: linux-kernel@vger.kernel.org, Erwan Le Ray <erwan.leray@st.com>,
- linux-serial@vger.kernel.org, Gerald Baeza <gerald.baeza@st.com>,
- Fabrice Gasnier <fabrice.gasnier@st.com>,
+ linux-serial@vger.kernel.org, Fabrice Gasnier <fabrice.gasnier@st.com>,
  linux-stm32@st-md-mailman.stormreply.com, linux-arm-kernel@lists.infradead.org
-Subject: [Linux-stm32] [PATCH 1/5] serial: stm32: add support of timeout
-	interrupt for RX
+Subject: [Linux-stm32] [PATCH 2/5] serial: stm32: update PIO transmission
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -78,126 +76,61 @@ Content-Transfer-Encoding: 7bit
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
-Add support of RX timeout interrupts to limit the number of interrupts.
-RX timeout is a number of bits (baud clock cycles) without
-transmission seen in the receiver. One character  is used as an arbitrary
-RX timeout value.
-If parity is enabled, the number of bits has to include parity bit.
+Improves PIO transmission:
+- Replaces the FIFO filling per character by a filling per blocks of
+  characters, which provides better performances
+- Replaces the active waiting loop by TX empty interrupt dynamic handling.
+  TXE interrupt is now enabled when data has to be sent (ie when
+  uart_circ is not empty), and inhibited when there is no more data to
+  send (ie when uart_circ is empty).
 
-Signed-off-by: Gerald Baeza <gerald.baeza@st.com>
-Signed-off-by: Fabrice Gasnier <fabrice.gasnier@st.com>
 Signed-off-by: Erwan Le Ray <erwan.leray@st.com>
 
 diff --git a/drivers/tty/serial/stm32-usart.c b/drivers/tty/serial/stm32-usart.c
-index 9c2b04e..e1cfb1e 100644
+index e1cfb1e..8316e19 100644
 --- a/drivers/tty/serial/stm32-usart.c
 +++ b/drivers/tty/serial/stm32-usart.c
-@@ -437,6 +437,10 @@ static irqreturn_t stm32_interrupt(int irq, void *ptr)
- 
- 	sr = readl_relaxed(port->membase + ofs->isr);
- 
-+	if ((sr & USART_SR_RTOF) && ofs->icr != UNDEF_REG)
-+		writel_relaxed(USART_ICR_RTOCF,
-+			       port->membase + ofs->icr);
-+
- 	if ((sr & USART_SR_WUF) && (ofs->icr != UNDEF_REG))
- 		writel_relaxed(USART_ICR_WUCF,
- 			       port->membase + ofs->icr);
-@@ -523,7 +527,7 @@ static void stm32_throttle(struct uart_port *port)
- 	unsigned long flags;
- 
- 	spin_lock_irqsave(&port->lock, flags);
--	stm32_clr_bits(port, ofs->cr1, USART_CR1_RXNEIE);
-+	stm32_clr_bits(port, ofs->cr1, stm32_port->cr1_irq);
- 	spin_unlock_irqrestore(&port->lock, flags);
- }
- 
-@@ -535,7 +539,7 @@ static void stm32_unthrottle(struct uart_port *port)
- 	unsigned long flags;
- 
- 	spin_lock_irqsave(&port->lock, flags);
--	stm32_set_bits(port, ofs->cr1, USART_CR1_RXNEIE);
-+	stm32_set_bits(port, ofs->cr1, stm32_port->cr1_irq);
- 	spin_unlock_irqrestore(&port->lock, flags);
- }
- 
-@@ -545,7 +549,7 @@ static void stm32_stop_rx(struct uart_port *port)
+@@ -303,27 +303,26 @@ static void stm32_transmit_chars_pio(struct uart_port *port)
  	struct stm32_port *stm32_port = to_stm32_port(port);
  	struct stm32_usart_offsets *ofs = &stm32_port->info->ofs;
+ 	struct circ_buf *xmit = &port->state->xmit;
+-	unsigned int isr;
+-	int ret;
  
--	stm32_clr_bits(port, ofs->cr1, USART_CR1_RXNEIE);
-+	stm32_clr_bits(port, ofs->cr1, stm32_port->cr1_irq);
- }
+ 	if (stm32_port->tx_dma_busy) {
+ 		stm32_clr_bits(port, ofs->cr3, USART_CR3_DMAT);
+ 		stm32_port->tx_dma_busy = false;
+ 	}
  
- /* Handle breaks - ignored by us */
-@@ -567,7 +571,7 @@ static int stm32_startup(struct uart_port *port)
- 	if (ret)
- 		return ret;
- 
--	val = USART_CR1_RXNEIE | USART_CR1_TE | USART_CR1_RE;
-+	val = stm32_port->cr1_irq | USART_CR1_TE | USART_CR1_RE;
- 	if (stm32_port->fifoen)
- 		val |= USART_CR1_FIFOEN;
- 	stm32_set_bits(port, ofs->cr1, val);
-@@ -583,7 +587,8 @@ static void stm32_shutdown(struct uart_port *port)
- 	u32 val, isr;
- 	int ret;
- 
--	val = USART_CR1_TXEIE | USART_CR1_RXNEIE | USART_CR1_TE | USART_CR1_RE;
-+	val = USART_CR1_TXEIE | USART_CR1_TE;
-+	val |= stm32_port->cr1_irq | USART_CR1_RE;
- 	val |= BIT(cfg->uart_enable_bit);
- 	if (stm32_port->fifoen)
- 		val |= USART_CR1_FIFOEN;
-@@ -653,7 +658,7 @@ static void stm32_set_termios(struct uart_port *port, struct ktermios *termios,
- 	/* Stop serial port and reset value */
- 	writel_relaxed(0, port->membase + ofs->cr1);
- 
--	cr1 = USART_CR1_TE | USART_CR1_RE | USART_CR1_RXNEIE;
-+	cr1 = USART_CR1_TE | USART_CR1_RE;
- 
- 	if (stm32_port->fifoen)
- 		cr1 |= USART_CR1_FIFOEN;
-@@ -686,6 +691,19 @@ static void stm32_set_termios(struct uart_port *port, struct ktermios *termios,
- 		dev_dbg(port->dev, "Unsupported data bits config: %u bits\n"
- 			, bits);
- 
-+	if (ofs->rtor != UNDEF_REG && (stm32_port->rx_ch ||
-+				       stm32_port->fifoen)) {
-+		if (cflag & CSTOPB)
-+			bits = bits + 3; /* 1 start bit + 2 stop bits */
-+		else
-+			bits = bits + 2; /* 1 start bit + 1 stop bit */
-+
-+		/* RX timeout irq to occur after last stop bit + bits */
-+		stm32_port->cr1_irq = USART_CR1_RTOIE;
-+		writel_relaxed(bits, port->membase + ofs->rtor);
-+		cr2 |= USART_CR2_RTOEN;
+-	ret = readl_relaxed_poll_timeout_atomic(port->membase + ofs->isr,
+-						isr,
+-						(isr & USART_SR_TXE),
+-						10, 100000);
+-
+-	if (ret)
+-		dev_err(port->dev, "tx empty not set\n");
+-
+-	stm32_set_bits(port, ofs->cr1, USART_CR1_TXEIE);
++	while (!uart_circ_empty(xmit)) {
++		/* Check that TDR is empty before filling FIFO */
++		if (!(readl_relaxed(port->membase + ofs->isr) & USART_SR_TXE))
++			break;
++		writel_relaxed(xmit->buf[xmit->tail], port->membase + ofs->tdr);
++		xmit->tail = (xmit->tail + 1) & (UART_XMIT_SIZE - 1);
++		port->icount.tx++;
 +	}
-+
- 	if (cflag & PARODD)
- 		cr1 |= USART_CR1_PS;
  
-@@ -925,6 +943,7 @@ static struct stm32_port *stm32_of_get_stm32_port(struct platform_device *pdev)
- 	stm32_ports[id].hw_flow_control = of_property_read_bool(np,
- 							"st,hw-flow-ctrl");
- 	stm32_ports[id].port.line = id;
-+	stm32_ports[id].cr1_irq = USART_CR1_RXNEIE;
- 	stm32_ports[id].last_res = RX_BUF_L;
- 	return &stm32_ports[id];
+-	writel_relaxed(xmit->buf[xmit->tail], port->membase + ofs->tdr);
+-	xmit->tail = (xmit->tail + 1) & (UART_XMIT_SIZE - 1);
+-	port->icount.tx++;
++	/* rely on TXE irq (mask or unmask) for sending remaining data */
++	if (uart_circ_empty(xmit))
++		stm32_clr_bits(port, ofs->cr1, USART_CR1_TXEIE);
++	else
++		stm32_set_bits(port, ofs->cr1, USART_CR1_TXEIE);
  }
-diff --git a/drivers/tty/serial/stm32-usart.h b/drivers/tty/serial/stm32-usart.h
-index 30d2433..fcd01fe 100644
---- a/drivers/tty/serial/stm32-usart.h
-+++ b/drivers/tty/serial/stm32-usart.h
-@@ -249,6 +249,7 @@ struct stm32_port {
- 	struct dma_chan *tx_ch;  /* dma tx channel            */
- 	dma_addr_t tx_dma_buf;   /* dma tx buffer bus address */
- 	unsigned char *tx_buf;   /* dma tx buffer cpu address */
-+	u32 cr1_irq;		 /* USART_CR1_RXNEIE or RTOIE */
- 	int last_res;
- 	bool tx_dma_busy;	 /* dma tx busy               */
- 	bool hw_flow_control;
+ 
+ static void stm32_transmit_chars_dma(struct uart_port *port)
 -- 
 1.9.1
 
