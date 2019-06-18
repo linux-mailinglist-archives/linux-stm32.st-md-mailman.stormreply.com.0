@@ -2,69 +2,80 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id 6C57549BD4
-	for <lists+linux-stm32@lfdr.de>; Tue, 18 Jun 2019 10:16:50 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 80E4149DD9
+	for <lists+linux-stm32@lfdr.de>; Tue, 18 Jun 2019 11:56:10 +0200 (CEST)
 Received: from ip-172-31-3-76.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 10F55C07A55
-	for <lists+linux-stm32@lfdr.de>; Tue, 18 Jun 2019 08:16:50 +0000 (UTC)
-Received: from mail-wm1-f66.google.com (mail-wm1-f66.google.com
- [209.85.128.66])
- (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 90A39C9F14D
+	for <lists+linux-stm32@lfdr.de>; Tue, 18 Jun 2019 09:56:08 +0000 (UTC)
+Received: from mx07-00178001.pphosted.com (mx08-00178001.pphosted.com
+ [91.207.212.93])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 52647C06FAE
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id ECD1AC9F14C
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Tue, 18 Jun 2019 08:16:48 +0000 (UTC)
-Received: by mail-wm1-f66.google.com with SMTP id f17so2142141wme.2
- for <linux-stm32@st-md-mailman.stormreply.com>;
- Tue, 18 Jun 2019 01:16:48 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linaro.org; s=google;
- h=date:from:to:cc:subject:message-id:references:mime-version
- :content-disposition:content-transfer-encoding:in-reply-to
- :user-agent; bh=t/jrlwVbqUGm5LlxED/u8lqvV/TkMHlvG38VrHjMZwM=;
- b=LTei/vPtrKAGo+xiHG938K3xZdc34NOswQ0WZSU7et3BB+FoPlGssMxDzK6esyJSja
- QNoCDNSmTtY1kYZ1bly52+mKA135BDgOFFA6ugJ699DK43sih5uZp8XmvqgIr+LwLRtk
- LPQlyeWJ2hkr5rgaRT3CHorvxpilQW6OvrXFYHyeM1Viz545C2V/QhgMdcVGGVXI3p1d
- JTe27YjN3ZmjGvr6csX7WB6FYvbN1ywUAEKWlDIZg22hBeQ/qkQ+mp//G8FEvqKVaUFE
- tbHm6TLstQTl3vkr+1CBDxhm29P4fndqXWdxYbLcVb9eQQ32K3+qQc04c3/L600uA6Kx
- ezmA==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20161025;
- h=x-gm-message-state:date:from:to:cc:subject:message-id:references
- :mime-version:content-disposition:content-transfer-encoding
- :in-reply-to:user-agent;
- bh=t/jrlwVbqUGm5LlxED/u8lqvV/TkMHlvG38VrHjMZwM=;
- b=rhr77hd7/SNJ6Bg4GrQQGe20vl0rVfJHdHsab9+3B8mNHQDkkZjXY6O470+jU3bYWB
- utYwypPMsTHWY96G9lUjOJdlT8yOYB5G4bEb/YZzBgAXhYzpAg7AL7p9GHkcQf6qmQOv
- qxoe5djgbqM3nBfHoyxf5X98k5p1rW1s8xqFMUh68lbgmevF+kx3YN7TxterHc/4Am/A
- E3OZylMpblaWXaA7PWVoGLjoW0K6YiGCRQLJFTNx4LkbXaEQ5qcBY7ftBakfUm+mzCsM
- fDJyJ4iM2mwhZbNyG8fCpmnItdVQBSB+JZquiHMyFp17JjDlkZ05wdelTKASS6Vyj+sQ
- h84A==
-X-Gm-Message-State: APjAAAWOZr2vPvlraASG6LFHSMkAmgwjDNK7lYsoFp+1UesTYmM5b8Br
- QLe4Ug+tXl5jshUfYSA0OAXOCA==
-X-Google-Smtp-Source: APXvYqwYTr5x7DrdrPoLH+qfq4DTqLezqkCP1jdXSp6iYQxgp2pEEprK6f3SFvlWPAjwHdlqgPP9mw==
-X-Received: by 2002:a1c:208c:: with SMTP id g134mr2318494wmg.112.1560845807845; 
- Tue, 18 Jun 2019 01:16:47 -0700 (PDT)
-Received: from dell ([2.27.35.243])
- by smtp.gmail.com with ESMTPSA id k125sm2847763wmf.41.2019.06.18.01.16.47
- (version=TLS1_2 cipher=ECDHE-RSA-CHACHA20-POLY1305 bits=256/256);
- Tue, 18 Jun 2019 01:16:47 -0700 (PDT)
-Date: Tue, 18 Jun 2019 09:16:45 +0100
-From: Lee Jones <lee.jones@linaro.org>
-To: Dan Carpenter <dan.carpenter@oracle.com>
-Message-ID: <20190618081645.GM16364@dell>
-References: <CAHk-=wgTL5sYCGxX8+xQqyBRWRUE05GAdL58+UTG8bYwjFxMkw@mail.gmail.com>
- <20190617190605.GA21332@mwanda>
+ Tue, 18 Jun 2019 09:56:06 +0000 (UTC)
+Received: from pps.filterd (m0046660.ppops.net [127.0.0.1])
+ by mx08-00178001.pphosted.com (8.16.0.27/8.16.0.27) with SMTP id
+ x5I9qudb005040; Tue, 18 Jun 2019 11:55:53 +0200
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=st.com;
+ h=from : to : cc : subject
+ : date : message-id : references : in-reply-to : content-type : content-id
+ : content-transfer-encoding : mime-version; s=STMicroelectronics;
+ bh=6UA/B9nOCc5f1idH3NZT/7FGLUW2DK1pBlQj4NqpSyI=;
+ b=VKnDJqq9uoqmEPSwSry8KUis0DkFsCtSGm+Zut614Blnv8yFedzMoBRa8Iu5l7O+MJ0d
+ QcTjF3L5SKkPHQ52V7DjaSry2A6TeggE21DCDRSi1l+ixAjdYRLl+1md6zUS9F6ZLshD
+ FYtKruQ46cEVPGAKLQGOWhZ9WE0u+iqMlZTUbFsr/NTryGXF6bt/BgJOXdU86KYj2/19
+ icFcU0rxRdWLuym9g0dHGGvD+9s274rKGNY0kcpQUyaIv5A1lDcqbXYjtgbWI4zCFIQl
+ q/gklpsqNaCFePWQ/3WaGrnhqhAdhFU8ocI/CpzJgRkm0yAXi4ktEodY272RYozQhE47 oQ== 
+Received: from beta.dmz-eu.st.com (beta.dmz-eu.st.com [164.129.1.35])
+ by mx08-00178001.pphosted.com with ESMTP id 2t4nt882dk-1
+ (version=TLSv1 cipher=ECDHE-RSA-AES256-SHA bits=256 verify=NOT);
+ Tue, 18 Jun 2019 11:55:53 +0200
+Received: from zeta.dmz-eu.st.com (zeta.dmz-eu.st.com [164.129.230.9])
+ by beta.dmz-eu.st.com (STMicroelectronics) with ESMTP id 2283B3A;
+ Tue, 18 Jun 2019 09:55:51 +0000 (GMT)
+Received: from Webmail-eu.st.com (sfhdag5node2.st.com [10.75.127.14])
+ by zeta.dmz-eu.st.com (STMicroelectronics) with ESMTP id BBB2F25A7;
+ Tue, 18 Jun 2019 09:55:51 +0000 (GMT)
+Received: from SFHDAG6NODE3.st.com (10.75.127.18) by SFHDAG5NODE2.st.com
+ (10.75.127.14) with Microsoft SMTP Server (TLS) id 15.0.1347.2; Tue, 18 Jun
+ 2019 11:55:51 +0200
+Received: from SFHDAG6NODE3.st.com ([fe80::d04:5337:ab17:b6f6]) by
+ SFHDAG6NODE3.st.com ([fe80::d04:5337:ab17:b6f6%20]) with mapi id
+ 15.00.1473.003; Tue, 18 Jun 2019 11:55:51 +0200
+From: Philippe CORNU <philippe.cornu@st.com>
+To: Daniel Vetter <daniel.vetter@ffwll.ch>, DRI Development
+ <dri-devel@lists.freedesktop.org>
+Thread-Topic: [PATCH 30/59] drm/stm: Drop drm_gem_prime_export/import
+Thread-Index: AQHVIvDp+m2tmeOns0K9ARUDkRE2JKahEJIA
+Date: Tue, 18 Jun 2019 09:55:51 +0000
+Message-ID: <34a31eef-e720-bb71-9402-6a4a01ddfa8a@st.com>
+References: <20190614203615.12639-1-daniel.vetter@ffwll.ch>
+ <20190614203615.12639-31-daniel.vetter@ffwll.ch>
+In-Reply-To: <20190614203615.12639-31-daniel.vetter@ffwll.ch>
+Accept-Language: fr-FR, en-US
+Content-Language: en-US
+X-MS-Has-Attach: 
+X-MS-TNEF-Correlator: 
+user-agent: Mozilla/5.0 (X11; Linux x86_64; rv:60.0) Gecko/20100101
+ Thunderbird/60.7.0
+x-ms-exchange-messagesentrepresentingtype: 1
+x-ms-exchange-transport-fromentityheader: Hosted
+x-originating-ip: [10.75.127.45]
+Content-ID: <B884CE2004CC1745B816A4BE9D9C9100@st.com>
 MIME-Version: 1.0
-Content-Disposition: inline
-In-Reply-To: <20190617190605.GA21332@mwanda>
-User-Agent: Mutt/1.9.4 (2018-02-28)
-Cc: Amelie Delaunay <amelie.delaunay@st.com>, kernel-janitors@vger.kernel.org,
- Linux List Kernel Mailing <linux-kernel@vger.kernel.org>,
- Maxime Coquelin <mcoquelin.stm32@gmail.com>,
- Linus Torvalds <torvalds@linux-foundation.org>,
- linux-stm32@st-md-mailman.stormreply.com, linux-arm-kernel@lists.infradead.org
-Subject: Re: [Linux-stm32] [PATCH] mfd: stmfx: Fix an endian bug in
-	stmfx_irq_handler()
+X-Proofpoint-Virus-Version: vendor=fsecure engine=2.50.10434:, ,
+ definitions=2019-06-18_05:, , signatures=0
+Cc: Benjamin Gaignard <benjamin.gaignard@linaro.org>,
+ Intel Graphics Development <intel-gfx@lists.freedesktop.org>,
+ Yannick FERTRE <yannick.fertre@st.com>,
+ Maxime Coquelin <mcoquelin.stm32@gmail.com>, Daniel
+ Vetter <daniel.vetter@intel.com>, Vincent ABRIOU <vincent.abriou@st.com>,
+ "linux-stm32@st-md-mailman.stormreply.com"
+ <linux-stm32@st-md-mailman.stormreply.com>,
+ "linux-arm-kernel@lists.infradead.org" <linux-arm-kernel@lists.infradead.org>
+Subject: Re: [Linux-stm32] [PATCH 30/59] drm/stm: Drop
+	drm_gem_prime_export/import
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -76,36 +87,55 @@ List-Post: <mailto:linux-stm32@st-md-mailman.stormreply.com>
 List-Help: <mailto:linux-stm32-request@st-md-mailman.stormreply.com?subject=help>
 List-Subscribe: <https://st-md-mailman.stormreply.com/mailman/listinfo/linux-stm32>, 
  <mailto:linux-stm32-request@st-md-mailman.stormreply.com?subject=subscribe>
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: base64
+Content-Type: text/plain; charset="us-ascii"
+Content-Transfer-Encoding: 7bit
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
-T24gTW9uLCAxNyBKdW4gMjAxOSwgRGFuIENhcnBlbnRlciB3cm90ZToKCj4gSXQncyBub3Qgb2th
-eSB0byBjYXN0IGEgInUzMiAqIiB0byAidW5zaWduZWQgbG9uZyAqIiB3aGVuIHlvdSBhcmUKPiBk
-b2luZyBhIGZvcl9lYWNoX3NldF9iaXQoKSBsb29wIGJlY2F1c2UgdGhhdCB3aWxsIGJyZWFrIG9u
-IGJpZwo+IGVuZGlhbiBzeXN0ZW1zLgo+IAo+IFJlcG9ydGVkLWJ5OiBMaW51cyBUb3J2YWxkcyA8
-dG9ydmFsZHNAbGludXgtZm91bmRhdGlvbi5vcmc+CgpJZGVhbGx5IHdlIGNhbiBnZXQgYSByZXZp
-ZXcgdG9vLgoKPiBGaXhlczogMzg2MTQ1NjAxYjgyICgibWZkOiBzdG1meDogVW5pbml0aWFsaXpl
-ZCB2YXJpYWJsZSBpbiBzdG1meF9pcnFfaGFuZGxlcigpIikKPiBTaWduZWQtb2ZmLWJ5OiBEYW4g
-Q2FycGVudGVyIDxkYW4uY2FycGVudGVyQG9yYWNsZS5jb20+Cj4gLS0tCj4gIGRyaXZlcnMvbWZk
-L3N0bWZ4LmMgfCA0ICsrKy0KPiAgMSBmaWxlIGNoYW5nZWQsIDMgaW5zZXJ0aW9ucygrKSwgMSBk
-ZWxldGlvbigtKQo+IAo+IGRpZmYgLS1naXQgYS9kcml2ZXJzL21mZC9zdG1meC5jIGIvZHJpdmVy
-cy9tZmQvc3RtZnguYwo+IGluZGV4IDdjNDE5YzA3ODY4OC4uODU3OTkxY2IzY2JiIDEwMDY0NAo+
-IC0tLSBhL2RyaXZlcnMvbWZkL3N0bWZ4LmMKPiArKysgYi9kcml2ZXJzL21mZC9zdG1meC5jCj4g
-QEAgLTIwNCw2ICsyMDQsNyBAQCBzdGF0aWMgc3RydWN0IGlycV9jaGlwIHN0bWZ4X2lycV9jaGlw
-ID0gewo+ICBzdGF0aWMgaXJxcmV0dXJuX3Qgc3RtZnhfaXJxX2hhbmRsZXIoaW50IGlycSwgdm9p
-ZCAqZGF0YSkKPiAgewo+ICAJc3RydWN0IHN0bWZ4ICpzdG1meCA9IGRhdGE7Cj4gKwl1bnNpZ25l
-ZCBsb25nIGJpdHM7Cj4gIAl1MzIgcGVuZGluZywgYWNrOwo+ICAJaW50IG4sIHJldDsKPiAgCj4g
-QEAgLTIyMiw3ICsyMjMsOCBAQCBzdGF0aWMgaXJxcmV0dXJuX3Qgc3RtZnhfaXJxX2hhbmRsZXIo
-aW50IGlycSwgdm9pZCAqZGF0YSkKPiAgCQkJcmV0dXJuIElSUV9OT05FOwo+ICAJfQo+ICAKPiAt
-CWZvcl9lYWNoX3NldF9iaXQobiwgKHVuc2lnbmVkIGxvbmcgKikmcGVuZGluZywgU1RNRlhfUkVH
-X0lSUV9TUkNfTUFYKQo+ICsJYml0cyA9IHBlbmRpbmc7Cj4gKwlmb3JfZWFjaF9zZXRfYml0KG4s
-ICZiaXRzLCBTVE1GWF9SRUdfSVJRX1NSQ19NQVgpCj4gIAkJaGFuZGxlX25lc3RlZF9pcnEoaXJx
-X2ZpbmRfbWFwcGluZyhzdG1meC0+aXJxX2RvbWFpbiwgbikpOwo+ICAKPiAgCXJldHVybiBJUlFf
-SEFORExFRDsKCi0tIApMZWUgSm9uZXMgW+adjueQvOaWr10KTGluYXJvIFNlcnZpY2VzIFRlY2hu
-aWNhbCBMZWFkCkxpbmFyby5vcmcg4pSCIE9wZW4gc291cmNlIHNvZnR3YXJlIGZvciBBUk0gU29D
-cwpGb2xsb3cgTGluYXJvOiBGYWNlYm9vayB8IFR3aXR0ZXIgfCBCbG9nCl9fX19fX19fX19fX19f
-X19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fCkxpbnV4LXN0bTMyIG1haWxpbmcgbGlz
-dApMaW51eC1zdG0zMkBzdC1tZC1tYWlsbWFuLnN0b3JtcmVwbHkuY29tCmh0dHBzOi8vc3QtbWQt
-bWFpbG1hbi5zdG9ybXJlcGx5LmNvbS9tYWlsbWFuL2xpc3RpbmZvL2xpbnV4LXN0bTMyCg==
+Hi Daniel,
+
+Acked-by: Philippe Cornu <philippe.cornu@st.com>
+
+We will have a look to simplify this part of the code.
+
+Thank you for your patch.
+
+Philippe :-)
+
+On 6/14/19 10:35 PM, Daniel Vetter wrote:
+> They're the default.
+> 
+> Aside: Would be really nice to switch the others over to
+> drm_gem_object_funcs.
+> 
+> Signed-off-by: Daniel Vetter <daniel.vetter@intel.com>
+> Cc: Yannick Fertre <yannick.fertre@st.com>
+> Cc: Philippe Cornu <philippe.cornu@st.com>
+> Cc: Benjamin Gaignard <benjamin.gaignard@linaro.org>
+> Cc: Vincent Abriou <vincent.abriou@st.com>
+> Cc: Maxime Coquelin <mcoquelin.stm32@gmail.com>
+> Cc: Alexandre Torgue <alexandre.torgue@st.com>
+> Cc: linux-stm32@st-md-mailman.stormreply.com
+> Cc: linux-arm-kernel@lists.infradead.org
+> ---
+>   drivers/gpu/drm/stm/drv.c | 2 --
+>   1 file changed, 2 deletions(-)
+> 
+> diff --git a/drivers/gpu/drm/stm/drv.c b/drivers/gpu/drm/stm/drv.c
+> index 4026c33ccc39..331f5e8d779b 100644
+> --- a/drivers/gpu/drm/stm/drv.c
+> +++ b/drivers/gpu/drm/stm/drv.c
+> @@ -67,8 +67,6 @@ static struct drm_driver drv_driver = {
+>   	.prime_fd_to_handle = drm_gem_prime_fd_to_handle,
+>   	.gem_free_object_unlocked = drm_gem_cma_free_object,
+>   	.gem_vm_ops = &drm_gem_cma_vm_ops,
+> -	.gem_prime_export = drm_gem_prime_export,
+> -	.gem_prime_import = drm_gem_prime_import,
+>   	.gem_prime_get_sg_table = drm_gem_cma_prime_get_sg_table,
+>   	.gem_prime_import_sg_table = drm_gem_cma_prime_import_sg_table,
+>   	.gem_prime_vmap = drm_gem_cma_prime_vmap,
+> 
+_______________________________________________
+Linux-stm32 mailing list
+Linux-stm32@st-md-mailman.stormreply.com
+https://st-md-mailman.stormreply.com/mailman/listinfo/linux-stm32
