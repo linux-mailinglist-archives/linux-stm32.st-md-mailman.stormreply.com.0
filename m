@@ -2,48 +2,47 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id CF4064BB26
-	for <lists+linux-stm32@lfdr.de>; Wed, 19 Jun 2019 16:19:26 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 9FC7C4BBFB
+	for <lists+linux-stm32@lfdr.de>; Wed, 19 Jun 2019 16:46:44 +0200 (CEST)
 Received: from ip-172-31-3-76.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 9329CC5BB01
-	for <lists+linux-stm32@lfdr.de>; Wed, 19 Jun 2019 14:19:26 +0000 (UTC)
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 6477EC57168
+	for <lists+linux-stm32@lfdr.de>; Wed, 19 Jun 2019 14:46:44 +0000 (UTC)
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
  (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 36EDDC5BB00
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 01A9AC57167
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Wed, 19 Jun 2019 14:19:25 +0000 (UTC)
-Received: from mail-qk1-f173.google.com (mail-qk1-f173.google.com
- [209.85.222.173])
+ Wed, 19 Jun 2019 14:46:43 +0000 (UTC)
+Received: from mail-qt1-f177.google.com (mail-qt1-f177.google.com
+ [209.85.160.177])
  (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by mail.kernel.org (Postfix) with ESMTPSA id BF1D221874
+ by mail.kernel.org (Postfix) with ESMTPSA id 8432C21882
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Wed, 19 Jun 2019 14:19:23 +0000 (UTC)
+ Wed, 19 Jun 2019 14:46:41 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
- s=default; t=1560953963;
- bh=n8TEMp5NfQkh8hO6ix5AyOImy509Oc/VLYfShgqtBWw=;
+ s=default; t=1560955601;
+ bh=ybVW7Ea5eMfZg+bToe1PcrWBxJTqfPTPZQ35pTPG7h4=;
  h=References:In-Reply-To:From:Date:Subject:To:Cc:From;
- b=TQQzzcQOVDYujYjhiqpIrjGpja5ysim7xreIt+TN34F1ZsHgv6nHPk3OxP8icYFAD
- /4yV+c0m9zEmrqiyzOdAUMc8E7d/L6CCS4/dHHDBrcQ9Hyseb+KJGWqm294Lm1AlYO
- Zk7JA9zUGhIitAcrZj+D9Vw2m2VCiTZf1p9uTW7A=
-Received: by mail-qk1-f173.google.com with SMTP id m14so10985644qka.10
+ b=ZzUwgQGkvk0bBDa2uRT/zR74u7nL2T25/qTALzzZADu6+sV93WrM6REYlJw1kQFtE
+ HkeRAKjQYkEm+W5fJMYLgui2FKCdjvgMdjJHMsqg82p41ZW47pMylujCsT+bcr/Jko
+ FioKfD/f3GZuW6jMkoGxLVe+gDSTSHr9KjyZtnqY=
+Received: by mail-qt1-f177.google.com with SMTP id i34so14894531qta.6
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Wed, 19 Jun 2019 07:19:23 -0700 (PDT)
-X-Gm-Message-State: APjAAAVbJ71YwrTs0idMDPxlWAcsvQ7F4H71TGBKFlWY9ZRyb3AOZXEa
- IjqMZuGjuhJk8d1rV2AnoetzL/+6t/HHHzhaHw==
-X-Google-Smtp-Source: APXvYqz30or7ej65/SsSJs4x/X0k8P1S6woBKs9hS49G7m6m1H5U7iWLwPFZp3nxyKc4KLu6ce8JHx53OeFWyc6rypc=
-X-Received: by 2002:a05:620a:13d1:: with SMTP id
- g17mr45012878qkl.121.1560953963047; 
- Wed, 19 Jun 2019 07:19:23 -0700 (PDT)
+ Wed, 19 Jun 2019 07:46:41 -0700 (PDT)
+X-Gm-Message-State: APjAAAX3HhCnx9Hioi5qqva9OqfcNtJrK6z7TitGXsuYJrFolS1x27DI
+ ZTnNf64qB2Ra/he7xLgf7hk+x76R8g+7Q/0RPA==
+X-Google-Smtp-Source: APXvYqxsL55tBpnh7d1D58N3IolGY5fTDOQVrJmdjfIwoxLtWxuN1egPqybHkL3wTo4GaEANYh8XHiHR9+TvMpfENos=
+X-Received: by 2002:aed:3f10:: with SMTP id p16mr41487170qtf.110.1560955600704; 
+ Wed, 19 Jun 2019 07:46:40 -0700 (PDT)
 MIME-Version: 1.0
 References: <27aeb33cf5b896900d5d11bd6957eda268014f0c.1560937626.git-series.maxime.ripard@bootlin.com>
- <36bc43471d12502b3b49169ca16cf1f5de415f95.1560937626.git-series.maxime.ripard@bootlin.com>
-In-Reply-To: <36bc43471d12502b3b49169ca16cf1f5de415f95.1560937626.git-series.maxime.ripard@bootlin.com>
+ <e7c13fc3c4e287df6292dbee27ae1caeca0c06c4.1560937626.git-series.maxime.ripard@bootlin.com>
+In-Reply-To: <e7c13fc3c4e287df6292dbee27ae1caeca0c06c4.1560937626.git-series.maxime.ripard@bootlin.com>
 From: Rob Herring <robh+dt@kernel.org>
-Date: Wed, 19 Jun 2019 08:19:11 -0600
-X-Gmail-Original-Message-ID: <CAL_Jsq+thwOWdfu8Wa2=VeHNHbcUDtAzYEisntY=txnKriG2BA@mail.gmail.com>
-Message-ID: <CAL_Jsq+thwOWdfu8Wa2=VeHNHbcUDtAzYEisntY=txnKriG2BA@mail.gmail.com>
+Date: Wed, 19 Jun 2019 08:46:28 -0600
+X-Gmail-Original-Message-ID: <CAL_Jsq+A+jspyCpu9USL6FQ9y5qL_yqYS=DTE=aM5YzyeZwd0w@mail.gmail.com>
+Message-ID: <CAL_Jsq+A+jspyCpu9USL6FQ9y5qL_yqYS=DTE=aM5YzyeZwd0w@mail.gmail.com>
 To: Maxime Ripard <maxime.ripard@bootlin.com>
 Cc: Mark Rutland <mark.rutland@arm.com>, devicetree@vger.kernel.org,
  Florian Fainelli <f.fainelli@gmail.com>, Andrew Lunn <andrew@lunn.ch>,
@@ -55,7 +54,7 @@ Cc: Mark Rutland <mark.rutland@arm.com>, devicetree@vger.kernel.org,
  "David S . Miller" <davem@davemloft.net>,
  "moderated list:ARM/FREESCALE IMX / MXC ARM ARCHITECTURE"
  <linux-arm-kernel@lists.infradead.org>, Heiner Kallweit <hkallweit1@gmail.com>
-Subject: Re: [Linux-stm32] [PATCH v3 07/16] dt-bindings: net: sun4i-mdio:
+Subject: Re: [Linux-stm32] [PATCH v3 06/16] dt-bindings: net: sun4i-emac:
  Convert the binding to a schemas
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
@@ -75,7 +74,7 @@ Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
 On Wed, Jun 19, 2019 at 3:48 AM Maxime Ripard <maxime.ripard@bootlin.com> wrote:
 >
-> Switch our Allwinner A10 MDIO controller binding to a YAML schema to enable
+> Switch our Allwinner A10 EMAC controller binding to a YAML schema to enable
 > the DT validation.
 >
 > Signed-off-by: Maxime Ripard <maxime.ripard@bootlin.com>
@@ -83,19 +82,62 @@ On Wed, Jun 19, 2019 at 3:48 AM Maxime Ripard <maxime.ripard@bootlin.com> wrote:
 > ---
 >
 > Changes from v2:
->   - Add the generic MDIO YAML schema
->
-> Changes from v1:
->   - Add a select statement with the deprecated compatible, and remove it
->     from the valid compatibles
+>   - Switch from the deprecated phy property to phy-handle
 > ---
->  Documentation/devicetree/bindings/net/allwinner,sun4i-a10-mdio.yaml | 70 ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
->  Documentation/devicetree/bindings/net/allwinner,sun4i-mdio.txt      | 27 ---------------------------
->  2 files changed, 70 insertions(+), 27 deletions(-)
->  create mode 100644 Documentation/devicetree/bindings/net/allwinner,sun4i-a10-mdio.yaml
->  delete mode 100644 Documentation/devicetree/bindings/net/allwinner,sun4i-mdio.txt
+>  Documentation/devicetree/bindings/net/allwinner,sun4i-a10-emac.yaml | 55 +++++++++++++++++++++++++++++++++++++++++++++++++++++++
+>  Documentation/devicetree/bindings/net/allwinner,sun4i-emac.txt      | 19 -------------------
+>  2 files changed, 55 insertions(+), 19 deletions(-)
+>  create mode 100644 Documentation/devicetree/bindings/net/allwinner,sun4i-a10-emac.yaml
+>  delete mode 100644 Documentation/devicetree/bindings/net/allwinner,sun4i-emac.txt
+>
+> diff --git a/Documentation/devicetree/bindings/net/allwinner,sun4i-a10-emac.yaml b/Documentation/devicetree/bindings/net/allwinner,sun4i-a10-emac.yaml
+> new file mode 100644
+> index 000000000000..2ff9e605cd26
+> --- /dev/null
+> +++ b/Documentation/devicetree/bindings/net/allwinner,sun4i-a10-emac.yaml
+> @@ -0,0 +1,55 @@
+> +# SPDX-License-Identifier: GPL-2.0
+> +%YAML 1.2
+> +---
+> +$id: http://devicetree.org/schemas/net/allwinner,sun4i-a10-emac.yaml#
+> +$schema: http://devicetree.org/meta-schemas/core.yaml#
+> +
+> +title: Allwinner A10 EMAC Ethernet Controller Device Tree Bindings
+> +
+> +allOf:
+> +  - $ref: "ethernet-controller.yaml#"
+> +
+> +maintainers:
+> +  - Chen-Yu Tsai <wens@csie.org>
+> +  - Maxime Ripard <maxime.ripard@bootlin.com>
+> +
+> +properties:
+> +  compatible:
+> +    const: allwinner,sun4i-a10-emac
+> +
+> +  reg:
+> +    maxItems: 1
+> +
+> +  interrupts:
+> +    maxItems: 1
+> +
+> +  clocks:
+> +    maxItems: 1
+> +
+> +  allwinner,sram:
+> +    description: Phandle to the device SRAM
+> +    $ref: /schemas/types.yaml#/definitions/phandle-array
+> +
+> +required:
+> +  - compatible
+> +  - reg
+> +  - interrupts
+> +  - clocks
+> +  - phy-handle
 
-Reviewed-by: Rob Herring <robh@kernel.org>
+Doesn't this throw an error if not listed in properties?
+
+Rob
 _______________________________________________
 Linux-stm32 mailing list
 Linux-stm32@st-md-mailman.stormreply.com
