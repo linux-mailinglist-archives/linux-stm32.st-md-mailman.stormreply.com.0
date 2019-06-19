@@ -2,65 +2,50 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id D3B0C4B94F
-	for <lists+linux-stm32@lfdr.de>; Wed, 19 Jun 2019 15:04:33 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id EF9A04BAA6
+	for <lists+linux-stm32@lfdr.de>; Wed, 19 Jun 2019 16:03:32 +0200 (CEST)
 Received: from ip-172-31-3-76.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 9FDC2C5BAED
-	for <lists+linux-stm32@lfdr.de>; Wed, 19 Jun 2019 13:04:33 +0000 (UTC)
-Received: from mx07-00178001.pphosted.com (mx07-00178001.pphosted.com
- [62.209.51.94])
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 541DDC56628
+	for <lists+linux-stm32@lfdr.de>; Wed, 19 Jun 2019 14:03:32 +0000 (UTC)
+Received: from vps0.lunn.ch (vps0.lunn.ch [185.16.172.187])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 7AF4CC593FF
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id E97BDC56627
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Wed, 19 Jun 2019 13:04:32 +0000 (UTC)
-Received: from pps.filterd (m0046668.ppops.net [127.0.0.1])
- by mx07-00178001.pphosted.com (8.16.0.27/8.16.0.27) with SMTP id
- x5JCu1vs023624; Wed, 19 Jun 2019 15:04:03 +0200
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=st.com;
- h=from : to : subject :
- date : message-id : in-reply-to : references : mime-version :
- content-type; s=STMicroelectronics;
- bh=1RIed4PSnLNoF/Qg8Sp7JJ0Sajo64o3gdxbSWUs/b4M=;
- b=0xenS9bcGVcF8713j77nhv9uVF0N+3rssP3bIA4M00CmyUSAdrwem78TNJJNHfTMdReb
- hibMRJP0HII90WclTnhXFen799MWDD/raHoZnqsHbOBbPWUJFplV8tYCsdK8h7BOWAgB
- xk1FVwbkGYx828MwMagijwfaNOg1olBktgZfIZ5utfW8B/d5l+iFdSI+juK5e5c9iuKR
- x4dpT76VUixZ5pa0Yz+5LRtRPnSyXKu7GCWx+etdZhJt7Ei2O0LF3lXSLgV/jD/V4e1U
- Rs27nGZcFT54Z0W4601g8h6Ui5MHlqxcEanwRD+C6rqGePLtRs9XHJiNAg7pWbj8FW+J cA== 
-Received: from beta.dmz-eu.st.com (beta.dmz-eu.st.com [164.129.1.35])
- by mx07-00178001.pphosted.com with ESMTP id 2t7813c0aq-1
- (version=TLSv1 cipher=ECDHE-RSA-AES256-SHA bits=256 verify=NOT);
- Wed, 19 Jun 2019 15:04:03 +0200
-Received: from zeta.dmz-eu.st.com (zeta.dmz-eu.st.com [164.129.230.9])
- by beta.dmz-eu.st.com (STMicroelectronics) with ESMTP id DC7D638;
- Wed, 19 Jun 2019 13:04:02 +0000 (GMT)
-Received: from Webmail-eu.st.com (Safex1hubcas23.st.com [10.75.90.46])
- by zeta.dmz-eu.st.com (STMicroelectronics) with ESMTP id B5A452834;
- Wed, 19 Jun 2019 13:04:02 +0000 (GMT)
-Received: from SAFEX1HUBCAS21.st.com (10.75.90.45) by SAFEX1HUBCAS23.st.com
- (10.75.90.46) with Microsoft SMTP Server (TLS) id 14.3.439.0; Wed, 19 Jun
- 2019 15:04:02 +0200
-Received: from localhost (10.201.23.16) by Webmail-ga.st.com (10.75.90.48)
- with Microsoft SMTP Server (TLS) id 14.3.439.0; Wed, 19 Jun 2019 15:04:02
- +0200
-From: Olivier Moysan <olivier.moysan@st.com>
-To: <jic23@kernel.org>, <knaack.h@gmx.de>, <lars@metafoo.de>,
- <pmeerw@pmeerw.net>, <mcoquelin.stm32@gmail.com>,
- <alexandre.torgue@st.com>, <fabrice.gasnier@st.com>,
- <linux-iio@vger.kernel.org>, <linux-stm32@st-md-mailman.stormreply.com>,
- <linux-arm-kernel@lists.infradead.org>, <linux-kernel@vger.kernel.org>,
- <benjamin.gaignard@st.com>, <olivier.moysan@st.com>
-Date: Wed, 19 Jun 2019 15:03:51 +0200
-Message-ID: <1560949431-22948-6-git-send-email-olivier.moysan@st.com>
-X-Mailer: git-send-email 2.7.4
-In-Reply-To: <1560949431-22948-1-git-send-email-olivier.moysan@st.com>
-References: <1560949431-22948-1-git-send-email-olivier.moysan@st.com>
+ Wed, 19 Jun 2019 14:03:30 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=lunn.ch;
+ s=20171124; h=In-Reply-To:Content-Type:MIME-Version:References:Message-ID:
+ Subject:Cc:To:From:Date:Sender:Reply-To:Content-Transfer-Encoding:Content-ID:
+ Content-Description:Resent-Date:Resent-From:Resent-Sender:Resent-To:Resent-Cc
+ :Resent-Message-ID:List-Id:List-Help:List-Unsubscribe:List-Subscribe:
+ List-Post:List-Owner:List-Archive;
+ bh=g/6LlihmMyA9edalIxizKqgeDYFzECLoXeUK/dZh79M=; b=5MzChjyZGap1Y6rGKxn+CiNR/P
+ 34z6le3HpVkCKRfX2P6R5Fuv+EcVLn/CkrSkFlu70ZkNck4VhFnPTz3pRFR3oA8GM/mAjItrM4Kav
+ z/YpNbdI/CmKi6uaqf/30+8Rto7w75+NYufMlHfTW6R2Z1sZUtWqMHmTK7YuHZc/OBMM=;
+Received: from andrew by vps0.lunn.ch with local (Exim 4.89)
+ (envelope-from <andrew@lunn.ch>)
+ id 1hdbBD-0001kz-0q; Wed, 19 Jun 2019 16:03:15 +0200
+Date: Wed, 19 Jun 2019 16:03:14 +0200
+From: Andrew Lunn <andrew@lunn.ch>
+To: Maxime Ripard <maxime.ripard@bootlin.com>
+Message-ID: <20190619140314.GC18352@lunn.ch>
+References: <27aeb33cf5b896900d5d11bd6957eda268014f0c.1560937626.git-series.maxime.ripard@bootlin.com>
 MIME-Version: 1.0
-X-Originating-IP: [10.201.23.16]
-X-Proofpoint-Virus-Version: vendor=fsecure engine=2.50.10434:, ,
- definitions=2019-06-19_07:, , signatures=0
-Subject: [Linux-stm32] [PATCH 5/5] iio: adc: stm32-dfsdm: add comment for 16
-	bits record
+Content-Disposition: inline
+In-Reply-To: <27aeb33cf5b896900d5d11bd6957eda268014f0c.1560937626.git-series.maxime.ripard@bootlin.com>
+User-Agent: Mutt/1.5.23 (2014-03-12)
+Cc: Mark Rutland <mark.rutland@arm.com>, devicetree@vger.kernel.org,
+ Florian Fainelli <f.fainelli@gmail.com>, Rob Herring <robh@kernel.org>,
+ Antoine =?iso-8859-1?Q?T=E9nart?= <antoine.tenart@bootlin.com>,
+ netdev@vger.kernel.org, linux-stm32@st-md-mailman.stormreply.com,
+ Chen-Yu Tsai <wens@csie.org>, Rob Herring <robh+dt@kernel.org>,
+ Maxime Coquelin <mcoquelin.stm32@gmail.com>,
+ Maxime Chevallier <maxime.chevallier@bootlin.com>,
+ Frank Rowand <frowand.list@gmail.com>,
+ "David S . Miller" <davem@davemloft.net>, linux-arm-kernel@lists.infradead.org,
+ Heiner Kallweit <hkallweit1@gmail.com>
+Subject: Re: [Linux-stm32] [PATCH v3 01/16] dt-bindings: net: Add YAML
+ schemas for the generic Ethernet options
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -77,32 +62,85 @@ Content-Transfer-Encoding: 7bit
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
-Add a comment on DMA configuration for 16 bits record.
+Hi Maxime
 
-Signed-off-by: Olivier Moysan <olivier.moysan@st.com>
----
- drivers/iio/adc/stm32-dfsdm-adc.c | 5 +++++
- 1 file changed, 5 insertions(+)
+> +  phy-connection-type:
+> +    description:
+> +      Operation mode of the PHY interface
+> +    enum:
+> +      # There is not a standard bus between the MAC and the PHY,
+> +      # something proprietary is being used to embed the PHY in the
+> +      # MAC.
 
-diff --git a/drivers/iio/adc/stm32-dfsdm-adc.c b/drivers/iio/adc/stm32-dfsdm-adc.c
-index d855a605eab6..ee1e0569d0e1 100644
---- a/drivers/iio/adc/stm32-dfsdm-adc.c
-+++ b/drivers/iio/adc/stm32-dfsdm-adc.c
-@@ -918,6 +918,11 @@ static void stm32_dfsdm_dma_buffer_done(void *data)
- static int stm32_dfsdm_adc_dma_start(struct iio_dev *indio_dev)
- {
- 	struct stm32_dfsdm_adc *adc = iio_priv(indio_dev);
-+	/*
-+	 * The DFSDM supports half-word transfers. However, for 16 bits record,
-+	 * 4 bytes buswidth is kept, to avoid losing samples LSBs when left
-+	 * shift is required.
-+	 */
- 	struct dma_slave_config config = {
- 		.src_addr = (dma_addr_t)adc->dfsdm->phys_base,
- 		.src_addr_width = DMA_SLAVE_BUSWIDTH_4_BYTES,
--- 
-2.7.4
+...
 
+> +
+> +  phy-mode:
+> +    $ref: "#/properties/phy-connection-type"
+> +    deprecated: true
+
+I don't think phy-mode is actually deprecated. ethernet.txt actually says:
+
+"This is now a de-facto standard property;" and no mentions that is
+should not be used. Looking at actual device trees, phy-mode is by far
+more popular than phy-connection-type.
+
+fwnode_get_phy_mode() first looks for phy-mode and only falls back to
+phy-connection-type if it is not present. The same is true for
+of_get_phy_mode().
+
+> +  fixed-link:
+> +    allOf:
+> +      - if:
+> +          type: array
+> +        then:
+> +          minItems: 1
+> +          maxItems: 1
+> +          items:
+> +            items:
+> +              - minimum: 0
+> +                maximum: 31
+> +                description:
+> +                  Emulated PHY ID, choose any but unique to the all
+> +                  specified fixed-links
+> +
+> +              - enum: [0, 1]
+> +                description:
+> +                  Duplex configuration. 0 for half duplex or 1 for
+> +                  full duplex
+> +
+> +              - enum: [10, 100, 1000]
+> +                description:
+> +                  Link speed in Mbits/sec.
+> +
+> +              - enum: [0, 1]
+> +                description:
+> +                  Pause configuration. 0 for no pause, 1 for pause
+> +
+> +              - enum: [0, 1]
+> +                description:
+> +                  Asymmetric pause configuration. 0 for no asymmetric
+> +                  pause, 1 for asymmetric pause
+> +
+
+This array of 5 values format should be marked as deprecated.
+
+> +
+> +      - if:
+> +          type: object
+> +        then:
+> +          properties:
+> +            speed:
+> +              allOf:
+> +                - $ref: /schemas/types.yaml#definitions/uint32
+> +                - enum: [10, 100, 1000]
+
+This recently changed, depending on context. If PHYLINK is being used,
+any speed is allowed. If phylib is used, then only these speeds are
+allowed. And we are starting to see some speeds other than listed
+here.
+
+	Andrew
 _______________________________________________
 Linux-stm32 mailing list
 Linux-stm32@st-md-mailman.stormreply.com
