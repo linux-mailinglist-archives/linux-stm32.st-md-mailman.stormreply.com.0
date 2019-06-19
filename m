@@ -2,82 +2,41 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id 094A44B275
-	for <lists+linux-stm32@lfdr.de>; Wed, 19 Jun 2019 08:55:38 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 187554B531
+	for <lists+linux-stm32@lfdr.de>; Wed, 19 Jun 2019 11:47:37 +0200 (CEST)
 Received: from ip-172-31-3-76.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id B1707CC550F
-	for <lists+linux-stm32@lfdr.de>; Wed, 19 Jun 2019 06:55:37 +0000 (UTC)
-Received: from youngberry.canonical.com (youngberry.canonical.com
- [91.189.89.112]) (using TLSv1 with cipher AES256-SHA (256/256 bits))
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 8ABBEC593CF
+	for <lists+linux-stm32@lfdr.de>; Wed, 19 Jun 2019 09:47:35 +0000 (UTC)
+Received: from relay4-d.mail.gandi.net (relay4-d.mail.gandi.net
+ [217.70.183.196])
+ (using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id CABC6CC550E
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 96855C593CE
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Wed, 19 Jun 2019 06:55:36 +0000 (UTC)
-Received: from cpc129250-craw9-2-0-cust139.know.cable.virginm.net
- ([82.43.126.140] helo=[192.168.0.11])
- by youngberry.canonical.com with esmtpsa (TLS1.0:RSA_AES_128_CBC_SHA1:16)
- (Exim 4.76) (envelope-from <colin.king@canonical.com>)
- id 1hdUVF-0003eV-C9; Wed, 19 Jun 2019 06:55:29 +0000
-To: Martin Blumenstingl <martin.blumenstingl@googlemail.com>
-References: <20190617165836.4673-1-colin.king@canonical.com>
- <20190619051308.23582-1-martin.blumenstingl@googlemail.com>
-From: Colin Ian King <colin.king@canonical.com>
-Openpgp: preference=signencrypt
-Autocrypt: addr=colin.king@canonical.com; prefer-encrypt=mutual; keydata=
- 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
-Message-ID: <92f9e5a6-d2a2-6bf2-ff8a-2430fe977f93@canonical.com>
-Date: Wed, 19 Jun 2019 07:55:28 +0100
-User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:60.0) Gecko/20100101
- Thunderbird/60.7.1
+ Wed, 19 Jun 2019 09:47:33 +0000 (UTC)
+X-Originating-IP: 90.88.23.150
+Received: from localhost (aaubervilliers-681-1-81-150.w90-88.abo.wanadoo.fr
+ [90.88.23.150]) (Authenticated sender: maxime.ripard@bootlin.com)
+ by relay4-d.mail.gandi.net (Postfix) with ESMTPSA id 0D17BE0018;
+ Wed, 19 Jun 2019 09:47:26 +0000 (UTC)
+From: Maxime Ripard <maxime.ripard@bootlin.com>
+To: Mark Rutland <mark.rutland@arm.com>, Rob Herring <robh+dt@kernel.org>,
+ Frank Rowand <frowand.list@gmail.com>,
+ "David S . Miller" <davem@davemloft.net>, Chen-Yu Tsai <wens@csie.org>,
+ Maxime Ripard <maxime.ripard@bootlin.com>
+Date: Wed, 19 Jun 2019 11:47:10 +0200
+Message-Id: <27aeb33cf5b896900d5d11bd6957eda268014f0c.1560937626.git-series.maxime.ripard@bootlin.com>
+X-Mailer: git-send-email 2.21.0
 MIME-Version: 1.0
-In-Reply-To: <20190619051308.23582-1-martin.blumenstingl@googlemail.com>
-Content-Language: en-US
-Cc: netdev@vger.kernel.org, kernel-janitors@vger.kernel.org,
- linux-kernel@vger.kernel.org, linux-stm32@st-md-mailman.stormreply.com,
- joabreu@synopsys.com, mcoquelin.stm32@gmail.com, peppe.cavallaro@st.com,
- davem@davemloft.net, linux-arm-kernel@lists.infradead.org
-Subject: Re: [Linux-stm32] [PATCH] net: stmmac: add sanity check to
- device_property_read_u32_array call
+Cc: Rob Herring <robh@kernel.org>, devicetree@vger.kernel.org,
+ Florian Fainelli <f.fainelli@gmail.com>, Andrew Lunn <andrew@lunn.ch>,
+ =?UTF-8?q?Antoine=20T=C3=A9nart?= <antoine.tenart@bootlin.com>,
+ netdev@vger.kernel.org, Maxime Chevallier <maxime.chevallier@bootlin.com>,
+ Maxime Coquelin <mcoquelin.stm32@gmail.com>,
+ linux-stm32@st-md-mailman.stormreply.com, linux-arm-kernel@lists.infradead.org,
+ Heiner Kallweit <hkallweit1@gmail.com>
+Subject: [Linux-stm32] [PATCH v3 01/16] dt-bindings: net: Add YAML schemas
+	for the generic Ethernet options
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -94,43 +53,377 @@ Content-Transfer-Encoding: 7bit
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
-On 19/06/2019 06:13, Martin Blumenstingl wrote:
-> Hi Colin,
-> 
->> Currently the call to device_property_read_u32_array is not error checked
->> leading to potential garbage values in the delays array that are then used
->> in msleep delays.  Add a sanity check to the property fetching.
->>
->> Addresses-Coverity: ("Uninitialized scalar variable")
->> Signed-off-by: Colin Ian King <colin.king@canonical.com>
-> I have also sent a patch [0] to fix initialize the array.
-> can you please look at my patch so we can work out which one to use?
-> 
-> my concern is that the "snps,reset-delays-us" property is optional,
-> the current dt-bindings documentation states that it's a required
-> property. in reality it isn't, there are boards (two examples are
-> mentioned in my patch: [0]) without it.
-> 
-> so I believe that the resulting behavior has to be:
-> 1. don't delay if this property is missing (instead of delaying for
->    <garbage value> ms)
-> 2. don't error out if this property is missing
-> 
-> your patch covers #1, can you please check whether #2 is also covered?
-> I tested case #2 when submitting my patch and it worked fine (even
-> though I could not reproduce the garbage values which are being read
-> on some boards)
-> 
-> 
-> Thank you!
-> Martin
-> 
-> 
-> [0] https://lkml.org/lkml/2019/4/19/638
-> 
-Is that the correct link?
+The Ethernet controllers have a good number of generic options that can be
+needed in a device tree. Add a YAML schemas for those.
 
-Colin
+Reviewed-by: Rob Herring <robh@kernel.org>
+Signed-off-by: Maxime Ripard <maxime.ripard@bootlin.com>
+
+---
+
+Changes from v2:
+  - Add back the deprecated properties using the deprecated keyword
+
+Changes from v1:
+  - Use an enum for phy-connection-types
+  - Validate the items for the fixed-link array
+  - Set the number of valid items for link-gpios to 1
+  - Removed deprecated properties (phy-mode, phy, phy-device)
+---
+ Documentation/devicetree/bindings/net/ethernet-controller.yaml | 204 +++++++-
+ Documentation/devicetree/bindings/net/ethernet.txt             |  69 +--
+ Documentation/devicetree/bindings/net/fixed-link.txt           |  55 +--
+ 3 files changed, 206 insertions(+), 122 deletions(-)
+ create mode 100644 Documentation/devicetree/bindings/net/ethernet-controller.yaml
+
+diff --git a/Documentation/devicetree/bindings/net/ethernet-controller.yaml b/Documentation/devicetree/bindings/net/ethernet-controller.yaml
+new file mode 100644
+index 000000000000..501ea658b319
+--- /dev/null
++++ b/Documentation/devicetree/bindings/net/ethernet-controller.yaml
+@@ -0,0 +1,204 @@
++# SPDX-License-Identifier: GPL-2.0
++%YAML 1.2
++---
++$id: http://devicetree.org/schemas/net/ethernet-controller.yaml#
++$schema: http://devicetree.org/meta-schemas/core.yaml#
++
++title: Ethernet Controller Generic Binding
++
++maintainers:
++  - David S. Miller <davem@davemloft.net>
++
++properties:
++  $nodename:
++    pattern: "^ethernet(@.*)?$"
++
++  local-mac-address:
++    allOf:
++      - $ref: /schemas/types.yaml#definitions/uint8-array
++      - minItems: 6
++        maxItems: 6
++    description:
++      Specifies the MAC address that was assigned to the network device.
++
++  mac-address:
++    allOf:
++      - $ref: /schemas/types.yaml#definitions/uint8-array
++      - minItems: 6
++        maxItems: 6
++    description:
++      Specifies the MAC address that was last used by the boot
++      program; should be used in cases where the MAC address assigned
++      to the device by the boot program is different from the
++      local-mac-address property.
++
++  max-frame-size:
++    $ref: /schemas/types.yaml#definitions/uint32
++    description:
++      Maximum transfer unit (IEEE defined MTU), rather than the
++      maximum frame size (there\'s contradiction in the Devicetree
++      Specification).
++
++  max-speed:
++    $ref: /schemas/types.yaml#definitions/uint32
++    description:
++      Specifies maximum speed in Mbit/s supported by the device.
++
++  nvmem-cells:
++    maxItems: 1
++    description:
++      Reference to an nvmem node for the MAC address
++
++  nvmem-cells-names:
++    const: mac-address
++
++  phy-connection-type:
++    description:
++      Operation mode of the PHY interface
++    enum:
++      # There is not a standard bus between the MAC and the PHY,
++      # something proprietary is being used to embed the PHY in the
++      # MAC.
++      - internal
++      - mii
++      - gmii
++      - sgmii
++      - qsgmii
++      - tbi
++      - rev-mii
++      - rmii
++
++      # RX and TX delays are added by the MAC when required
++      - rgmii
++
++      # RGMII with internal RX and TX delays provided by the PHY,
++      # the MAC should not add the RX or TX delays in this case
++      - rgmii-id
++
++      # RGMII with internal RX delay provided by the PHY, the MAC
++      # should not add an RX delay in this case
++      - rgmii-rxid
++
++      # RGMII with internal TX delay provided by the PHY, the MAC
++      # should not add an TX delay in this case
++      - rgmii-txid
++      - rtbi
++      - smii
++      - xgmii
++      - trgmii
++      - 1000base-x
++      - 2500base-x
++      - rxaui
++      - xaui
++
++      # 10GBASE-KR, XFI, SFI
++      - 10gbase-kr
++      - usxgmii
++
++  phy-mode:
++    $ref: "#/properties/phy-connection-type"
++    deprecated: true
++
++  phy-handle:
++    $ref: /schemas/types.yaml#definitions/phandle
++    description:
++      Specifies a reference to a node representing a PHY device.
++
++  phy:
++    $ref: "#/properties/phy-handle"
++    deprecated: true
++
++  phy-device:
++    $ref: "#/properties/phy-handle"
++    deprecated: true
++
++  rx-fifo-depth:
++    $ref: /schemas/types.yaml#definitions/uint32
++    description:
++      The size of the controller\'s receive fifo in bytes. This is used
++      for components that can have configurable receive fifo sizes,
++      and is useful for determining certain configuration settings
++      such as flow control thresholds.
++
++  tx-fifo-depth:
++    $ref: /schemas/types.yaml#definitions/uint32
++    description:
++      The size of the controller\'s transmit fifo in bytes. This
++      is used for components that can have configurable fifo sizes.
++
++  managed:
++    allOf:
++      - $ref: /schemas/types.yaml#definitions/string
++      - default: auto
++        enum:
++          - auto
++          - in-band-status
++    description:
++      Specifies the PHY management type. If auto is set and fixed-link
++      is not specified, it uses MDIO for management.
++
++  fixed-link:
++    allOf:
++      - if:
++          type: array
++        then:
++          minItems: 1
++          maxItems: 1
++          items:
++            items:
++              - minimum: 0
++                maximum: 31
++                description:
++                  Emulated PHY ID, choose any but unique to the all
++                  specified fixed-links
++
++              - enum: [0, 1]
++                description:
++                  Duplex configuration. 0 for half duplex or 1 for
++                  full duplex
++
++              - enum: [10, 100, 1000]
++                description:
++                  Link speed in Mbits/sec.
++
++              - enum: [0, 1]
++                description:
++                  Pause configuration. 0 for no pause, 1 for pause
++
++              - enum: [0, 1]
++                description:
++                  Asymmetric pause configuration. 0 for no asymmetric
++                  pause, 1 for asymmetric pause
++
++
++      - if:
++          type: object
++        then:
++          properties:
++            speed:
++              allOf:
++                - $ref: /schemas/types.yaml#definitions/uint32
++                - enum: [10, 100, 1000]
++              description:
++                Link speed.
++
++            full-duplex:
++              $ref: /schemas/types.yaml#definitions/flag
++              description:
++                Indicates that full-duplex is used. When absent, half
++                duplex is assumed.
++
++            asym-pause:
++              $ref: /schemas/types.yaml#definitions/flag
++              description:
++                Indicates that asym_pause should be enabled.
++
++            link-gpios:
++              maxItems: 1
++              description:
++                GPIO to determine if the link is up
++
++          required:
++            - speed
++
++...
+diff --git a/Documentation/devicetree/bindings/net/ethernet.txt b/Documentation/devicetree/bindings/net/ethernet.txt
+index 5475682bf06e..5df413d01be2 100644
+--- a/Documentation/devicetree/bindings/net/ethernet.txt
++++ b/Documentation/devicetree/bindings/net/ethernet.txt
+@@ -1,68 +1 @@
+-The following properties are common to the Ethernet controllers:
+-
+-NOTE: All 'phy*' properties documented below are Ethernet specific. For the
+-generic PHY 'phys' property, see
+-Documentation/devicetree/bindings/phy/phy-bindings.txt.
+-
+-- mac-address: array of 6 bytes, specifies the MAC address that was last used by
+-  the boot program; should be used in cases where the MAC address assigned to
+-  the device by the boot program is different from the "local-mac-address"
+-  property;
+-- local-mac-address: array of 6 bytes, specifies the MAC address that was
+-  assigned to the network device;
+-- nvmem-cells: phandle, reference to an nvmem node for the MAC address
+-- nvmem-cell-names: string, should be "mac-address" if nvmem is to be used
+-- max-speed: number, specifies maximum speed in Mbit/s supported by the device;
+-- max-frame-size: number, maximum transfer unit (IEEE defined MTU), rather than
+-  the maximum frame size (there's contradiction in the Devicetree
+-  Specification).
+-- phy-mode: string, operation mode of the PHY interface. This is now a de-facto
+-  standard property; supported values are:
+-  * "internal" (Internal means there is not a standard bus between the MAC and
+-     the PHY, something proprietary is being used to embed the PHY in the MAC.)
+-  * "mii"
+-  * "gmii"
+-  * "sgmii"
+-  * "qsgmii"
+-  * "tbi"
+-  * "rev-mii"
+-  * "rmii"
+-  * "rgmii" (RX and TX delays are added by the MAC when required)
+-  * "rgmii-id" (RGMII with internal RX and TX delays provided by the PHY, the
+-     MAC should not add the RX or TX delays in this case)
+-  * "rgmii-rxid" (RGMII with internal RX delay provided by the PHY, the MAC
+-     should not add an RX delay in this case)
+-  * "rgmii-txid" (RGMII with internal TX delay provided by the PHY, the MAC
+-     should not add an TX delay in this case)
+-  * "rtbi"
+-  * "smii"
+-  * "xgmii"
+-  * "trgmii"
+-  * "1000base-x",
+-  * "2500base-x",
+-  * "rxaui"
+-  * "xaui"
+-  * "10gbase-kr" (10GBASE-KR, XFI, SFI)
+-  * "usxgmii"
+-- phy-connection-type: the same as "phy-mode" property but described in the
+-  Devicetree Specification;
+-- phy-handle: phandle, specifies a reference to a node representing a PHY
+-  device; this property is described in the Devicetree Specification and so
+-  preferred;
+-- phy: the same as "phy-handle" property, not recommended for new bindings.
+-- phy-device: the same as "phy-handle" property, not recommended for new
+-  bindings.
+-- rx-fifo-depth: the size of the controller's receive fifo in bytes. This
+-  is used for components that can have configurable receive fifo sizes,
+-  and is useful for determining certain configuration settings such as
+-  flow control thresholds.
+-- tx-fifo-depth: the size of the controller's transmit fifo in bytes. This
+-  is used for components that can have configurable fifo sizes.
+-- managed: string, specifies the PHY management type. Supported values are:
+-  "auto", "in-band-status". "auto" is the default, it usess MDIO for
+-  management if fixed-link is not specified.
+-
+-Child nodes of the Ethernet controller are typically the individual PHY devices
+-connected via the MDIO bus (sometimes the MDIO bus controller is separate).
+-They are described in the phy.txt file in this same directory.
+-For non-MDIO PHY management see fixed-link.txt.
++This file has moved to ethernet-controller.yaml.
+diff --git a/Documentation/devicetree/bindings/net/fixed-link.txt b/Documentation/devicetree/bindings/net/fixed-link.txt
+index ec5d889fe3d8..5df413d01be2 100644
+--- a/Documentation/devicetree/bindings/net/fixed-link.txt
++++ b/Documentation/devicetree/bindings/net/fixed-link.txt
+@@ -1,54 +1 @@
+-Fixed link Device Tree binding
+-------------------------------
+-
+-Some Ethernet MACs have a "fixed link", and are not connected to a
+-normal MDIO-managed PHY device. For those situations, a Device Tree
+-binding allows to describe a "fixed link".
+-
+-Such a fixed link situation is described by creating a 'fixed-link'
+-sub-node of the Ethernet MAC device node, with the following
+-properties:
+-
+-* 'speed' (integer, mandatory), to indicate the link speed. Accepted
+-  values are 10, 100 and 1000
+-* 'full-duplex' (boolean, optional), to indicate that full duplex is
+-  used. When absent, half duplex is assumed.
+-* 'pause' (boolean, optional), to indicate that pause should be
+-  enabled.
+-* 'asym-pause' (boolean, optional), to indicate that asym_pause should
+-  be enabled.
+-* 'link-gpios' ('gpio-list', optional), to indicate if a gpio can be read
+-  to determine if the link is up.
+-
+-Old, deprecated 'fixed-link' binding:
+-
+-* A 'fixed-link' property in the Ethernet MAC node, with 5 cells, of the
+-  form <a b c d e> with the following accepted values:
+-  - a: emulated PHY ID, choose any but but unique to the all specified
+-    fixed-links, from 0 to 31
+-  - b: duplex configuration: 0 for half duplex, 1 for full duplex
+-  - c: link speed in Mbits/sec, accepted values are: 10, 100 and 1000
+-  - d: pause configuration: 0 for no pause, 1 for pause
+-  - e: asymmetric pause configuration: 0 for no asymmetric pause, 1 for
+-    asymmetric pause
+-
+-Examples:
+-
+-ethernet@0 {
+-	...
+-	fixed-link {
+-	      speed = <1000>;
+-	      full-duplex;
+-	};
+-	...
+-};
+-
+-ethernet@1 {
+-	...
+-	fixed-link {
+-	      speed = <1000>;
+-	      pause;
+-	      link-gpios = <&gpio0 12 GPIO_ACTIVE_HIGH>;
+-	};
+-	...
+-};
++This file has moved to ethernet-controller.yaml.
+
+base-commit: f08776cae7f5ab26f0f239b9ec58aa60fdbb9a1a
+-- 
+git-series 0.9.1
 _______________________________________________
 Linux-stm32 mailing list
 Linux-stm32@st-md-mailman.stormreply.com
