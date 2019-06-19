@@ -2,71 +2,82 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id 9CEBB4B1BE
-	for <lists+linux-stm32@lfdr.de>; Wed, 19 Jun 2019 07:58:22 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 094A44B275
+	for <lists+linux-stm32@lfdr.de>; Wed, 19 Jun 2019 08:55:38 +0200 (CEST)
 Received: from ip-172-31-3-76.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id A932BCC2418
-	for <lists+linux-stm32@lfdr.de>; Wed, 19 Jun 2019 05:58:20 +0000 (UTC)
-Received: from mail-wr1-f67.google.com (mail-wr1-f67.google.com
- [209.85.221.67])
- (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id B1707CC550F
+	for <lists+linux-stm32@lfdr.de>; Wed, 19 Jun 2019 06:55:37 +0000 (UTC)
+Received: from youngberry.canonical.com (youngberry.canonical.com
+ [91.189.89.112]) (using TLSv1 with cipher AES256-SHA (256/256 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 0E7CACC2417
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id CABC6CC550E
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Wed, 19 Jun 2019 05:58:19 +0000 (UTC)
-Received: by mail-wr1-f67.google.com with SMTP id x4so1884666wrt.6
- for <linux-stm32@st-md-mailman.stormreply.com>;
- Tue, 18 Jun 2019 22:58:19 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linaro.org; s=google;
- h=date:from:to:cc:subject:message-id:references:mime-version
- :content-disposition:content-transfer-encoding:in-reply-to
- :user-agent; bh=v4Lzw69YqCGNT6d2yGg/IWB5HqmTYETWg/4G3e5GhcM=;
- b=E6zaAPAk1Z4K4tmdwrtkSOWC8nlnur95mxOoftmD56qCT5EXSvT6ycZbg/68lt02Db
- ANOwmUrYS8w8CEoIGQyyTc12+p7JBLChyKkAGMBvUm8921rg/86HOIoKnjA/G/R8389n
- OoRBu8SGvOjLJEhFA5uz6sPHwF/dhWNcH3R0aTlwJJfsHcOcmikrhYmCu1usEJe4lyTZ
- xN3ITGXrDBQodz+8qRz101FS4z+SouBbcBG9U+21yiSi6xIqsHcDAxzY3T1rlTCMg0y8
- ZGVDqtC6xipnmbNjTRJy0KVXGSMHUadcSXGoWZ7EkPIigPG06rZDh1hvsXAdJMmzfXJ2
- CxaA==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20161025;
- h=x-gm-message-state:date:from:to:cc:subject:message-id:references
- :mime-version:content-disposition:content-transfer-encoding
- :in-reply-to:user-agent;
- bh=v4Lzw69YqCGNT6d2yGg/IWB5HqmTYETWg/4G3e5GhcM=;
- b=l7fLRszQpNwLMP+9FmWd85sJWZK84AUx0ilLBFSzEVYzq48MV0g6A5eq5RKnhTYRkR
- xvpKw5n/X6dNqWHf+2lgLyrzzueNy08yXwSXjSH3cFkRy4G7sV+3aqTphlZgoI/wYrGT
- FTFja3N3e0Ef/C2t+3z0g/++ryk4L+KVfe95I2Zc/rOACMuh5JFkgvWIm+7XomgiqmVV
- f+oe9PZ6+YjxyjR9HOlX0YfqlH74Kdm/Bi4axGMEtwH9my8gii2ZgesP7esELbW3LnbW
- gy7ed2vIsD0Xpi8YnXXaCLPOg8ATtGfJJVpv1KKpxgPummE16W+404iK1ij/R8+pUamF
- 99uQ==
-X-Gm-Message-State: APjAAAU0jgbRMn+9yMBodyn40G1l1+K8z5W0quozSdCZi3ucgHo0YlFr
- C+NC0xc7bLoYh0uDiXflBg4iUg==
-X-Google-Smtp-Source: APXvYqwCLJB9gv/cQEHgS6YpUkbFLxhQLp+LQAxMubEfU+V09+07SkfNFDSXxJ+QjUIfsER9MWzsng==
-X-Received: by 2002:a5d:4950:: with SMTP id r16mr39947594wrs.136.1560923898554; 
- Tue, 18 Jun 2019 22:58:18 -0700 (PDT)
-Received: from dell ([2.27.35.243])
- by smtp.gmail.com with ESMTPSA id o126sm592028wmo.1.2019.06.18.22.58.17
- (version=TLS1_2 cipher=ECDHE-RSA-CHACHA20-POLY1305 bits=256/256);
- Tue, 18 Jun 2019 22:58:18 -0700 (PDT)
-Date: Wed, 19 Jun 2019 06:58:16 +0100
-From: Lee Jones <lee.jones@linaro.org>
-To: Linus Torvalds <torvalds@linux-foundation.org>
-Message-ID: <20190619055816.GF18371@dell>
-References: <CAHk-=wgTL5sYCGxX8+xQqyBRWRUE05GAdL58+UTG8bYwjFxMkw@mail.gmail.com>
- <20190617190605.GA21332@mwanda> <20190618081645.GM16364@dell>
- <CAHk-=wghW+AKvRGevUiVWwTqWObygSZSdq6Dz2ad81H73VeuRQ@mail.gmail.com>
+ Wed, 19 Jun 2019 06:55:36 +0000 (UTC)
+Received: from cpc129250-craw9-2-0-cust139.know.cable.virginm.net
+ ([82.43.126.140] helo=[192.168.0.11])
+ by youngberry.canonical.com with esmtpsa (TLS1.0:RSA_AES_128_CBC_SHA1:16)
+ (Exim 4.76) (envelope-from <colin.king@canonical.com>)
+ id 1hdUVF-0003eV-C9; Wed, 19 Jun 2019 06:55:29 +0000
+To: Martin Blumenstingl <martin.blumenstingl@googlemail.com>
+References: <20190617165836.4673-1-colin.king@canonical.com>
+ <20190619051308.23582-1-martin.blumenstingl@googlemail.com>
+From: Colin Ian King <colin.king@canonical.com>
+Openpgp: preference=signencrypt
+Autocrypt: addr=colin.king@canonical.com; prefer-encrypt=mutual; keydata=
+ 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
+Message-ID: <92f9e5a6-d2a2-6bf2-ff8a-2430fe977f93@canonical.com>
+Date: Wed, 19 Jun 2019 07:55:28 +0100
+User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:60.0) Gecko/20100101
+ Thunderbird/60.7.1
 MIME-Version: 1.0
-Content-Disposition: inline
-In-Reply-To: <CAHk-=wghW+AKvRGevUiVWwTqWObygSZSdq6Dz2ad81H73VeuRQ@mail.gmail.com>
-User-Agent: Mutt/1.9.4 (2018-02-28)
-Cc: Amelie Delaunay <amelie.delaunay@st.com>, kernel-janitors@vger.kernel.org,
- Linux List Kernel Mailing <linux-kernel@vger.kernel.org>,
- Dan Carpenter <dan.carpenter@oracle.com>,
- Maxime Coquelin <mcoquelin.stm32@gmail.com>,
- linux-stm32@st-md-mailman.stormreply.com,
- Linux ARM <linux-arm-kernel@lists.infradead.org>
-Subject: Re: [Linux-stm32] [PATCH] mfd: stmfx: Fix an endian bug in
-	stmfx_irq_handler()
+In-Reply-To: <20190619051308.23582-1-martin.blumenstingl@googlemail.com>
+Content-Language: en-US
+Cc: netdev@vger.kernel.org, kernel-janitors@vger.kernel.org,
+ linux-kernel@vger.kernel.org, linux-stm32@st-md-mailman.stormreply.com,
+ joabreu@synopsys.com, mcoquelin.stm32@gmail.com, peppe.cavallaro@st.com,
+ davem@davemloft.net, linux-arm-kernel@lists.infradead.org
+Subject: Re: [Linux-stm32] [PATCH] net: stmmac: add sanity check to
+ device_property_read_u32_array call
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -78,20 +89,49 @@ List-Post: <mailto:linux-stm32@st-md-mailman.stormreply.com>
 List-Help: <mailto:linux-stm32-request@st-md-mailman.stormreply.com?subject=help>
 List-Subscribe: <https://st-md-mailman.stormreply.com/mailman/listinfo/linux-stm32>, 
  <mailto:linux-stm32-request@st-md-mailman.stormreply.com?subject=subscribe>
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: base64
+Content-Type: text/plain; charset="us-ascii"
+Content-Transfer-Encoding: 7bit
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
-T24gVHVlLCAxOCBKdW4gMjAxOSwgTGludXMgVG9ydmFsZHMgd3JvdGU6Cgo+IE9uIFR1ZSwgSnVu
-IDE4LCAyMDE5IGF0IDE6MTYgQU0gTGVlIEpvbmVzIDxsZWUuam9uZXNAbGluYXJvLm9yZz4gd3Jv
-dGU6Cj4gPgo+ID4gPiBSZXBvcnRlZC1ieTogTGludXMgVG9ydmFsZHMgPHRvcnZhbGRzQGxpbnV4
-LWZvdW5kYXRpb24ub3JnPgo+ID4KPiA+IElkZWFsbHkgd2UgY2FuIGdldCBhIHJldmlldyB0b28u
-Cj4gCj4gTG9va3MgZmluZSB0byBtZSwgYnV0IG9idmlvdXNseSBzb21lYm9keSBzaG91bGQgYWN0
-dWFsbHkgX3Rlc3RfIGl0IHRvby4KCkFtZWxpZSwgd291bGQgeW91IGJlIHNvIGtpbmQ/CgotLSAK
-TGVlIEpvbmVzIFvmnY7nkLzmlq9dCkxpbmFybyBTZXJ2aWNlcyBUZWNobmljYWwgTGVhZApMaW5h
-cm8ub3JnIOKUgiBPcGVuIHNvdXJjZSBzb2Z0d2FyZSBmb3IgQVJNIFNvQ3MKRm9sbG93IExpbmFy
-bzogRmFjZWJvb2sgfCBUd2l0dGVyIHwgQmxvZwpfX19fX19fX19fX19fX19fX19fX19fX19fX19f
-X19fX19fX19fX19fX19fX19fXwpMaW51eC1zdG0zMiBtYWlsaW5nIGxpc3QKTGludXgtc3RtMzJA
-c3QtbWQtbWFpbG1hbi5zdG9ybXJlcGx5LmNvbQpodHRwczovL3N0LW1kLW1haWxtYW4uc3Rvcm1y
-ZXBseS5jb20vbWFpbG1hbi9saXN0aW5mby9saW51eC1zdG0zMgo=
+On 19/06/2019 06:13, Martin Blumenstingl wrote:
+> Hi Colin,
+> 
+>> Currently the call to device_property_read_u32_array is not error checked
+>> leading to potential garbage values in the delays array that are then used
+>> in msleep delays.  Add a sanity check to the property fetching.
+>>
+>> Addresses-Coverity: ("Uninitialized scalar variable")
+>> Signed-off-by: Colin Ian King <colin.king@canonical.com>
+> I have also sent a patch [0] to fix initialize the array.
+> can you please look at my patch so we can work out which one to use?
+> 
+> my concern is that the "snps,reset-delays-us" property is optional,
+> the current dt-bindings documentation states that it's a required
+> property. in reality it isn't, there are boards (two examples are
+> mentioned in my patch: [0]) without it.
+> 
+> so I believe that the resulting behavior has to be:
+> 1. don't delay if this property is missing (instead of delaying for
+>    <garbage value> ms)
+> 2. don't error out if this property is missing
+> 
+> your patch covers #1, can you please check whether #2 is also covered?
+> I tested case #2 when submitting my patch and it worked fine (even
+> though I could not reproduce the garbage values which are being read
+> on some boards)
+> 
+> 
+> Thank you!
+> Martin
+> 
+> 
+> [0] https://lkml.org/lkml/2019/4/19/638
+> 
+Is that the correct link?
+
+Colin
+_______________________________________________
+Linux-stm32 mailing list
+Linux-stm32@st-md-mailman.stormreply.com
+https://st-md-mailman.stormreply.com/mailman/listinfo/linux-stm32
