@@ -2,54 +2,54 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id 8B81B4B86E
-	for <lists+linux-stm32@lfdr.de>; Wed, 19 Jun 2019 14:31:24 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 9BBA74B872
+	for <lists+linux-stm32@lfdr.de>; Wed, 19 Jun 2019 14:31:26 +0200 (CEST)
 Received: from ip-172-31-3-76.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 56B9CC55184
-	for <lists+linux-stm32@lfdr.de>; Wed, 19 Jun 2019 12:31:24 +0000 (UTC)
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 65104C593F0
+	for <lists+linux-stm32@lfdr.de>; Wed, 19 Jun 2019 12:31:26 +0000 (UTC)
 Received: from mx07-00178001.pphosted.com (mx08-00178001.pphosted.com
  [91.207.212.93])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 85EE7C5451D
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 00A56C55183
  for <linux-stm32@st-md-mailman.stormreply.com>;
  Wed, 19 Jun 2019 12:31:23 +0000 (UTC)
 Received: from pps.filterd (m0046661.ppops.net [127.0.0.1])
  by mx08-00178001.pphosted.com (8.16.0.27/8.16.0.27) with SMTP id
- x5JCQslq023576; Wed, 19 Jun 2019 14:30:54 +0200
+ x5JCQslr023576; Wed, 19 Jun 2019 14:30:54 +0200
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=st.com;
  h=from : to : cc : subject
  : date : message-id : in-reply-to : references : mime-version :
  content-type; s=STMicroelectronics;
- bh=oAiWQhP8kjNHRQt1B3eYE6VWYU18HtqaWo8L2287044=;
- b=xdOPrEqF0DYh5Tm9FGLLzsu9avW1sSlgsFvk7TodQDtAuuYiDMd7QptdxsxChIcP69my
- S5scsqkOVv1pLoYcQfzlkB12RNe8un0R5KO5ggQc6uqvNnddV254QUTvCOM0SqwvG3sm
- 2gFjkUSbJNSR3Ps3Dw4pb6VUiEGvZYG5RpKAWXHiZBsi9sQH7Bn5171EBeasqP5knqFK
- i0UmeumY9ONV1U1dWy1/6yxu7cG4zT7gvRDahBiBklBvJoICDlPvPop1yrw8k7SeRu/N
- iG5wb1mC6nWqSBH/f6THD3QbERD2gg5GS5p5gzbQPDjAM4oTMFxFhnTQJpLE8BUmQLL9 Gw== 
+ bh=itx+N4q2/+O0OHhYwt8mmdIF3dz/cOb8wiZwNAeO4ps=;
+ b=VRltqKiVh2cBzw6RCCuSXewyxhUmFuTNrTURF9ZrXy9MB/OaED8Gu77K+QB2lmWEXVFi
+ 6FqnJn93NmaCfItUKEO5JgDHqO7kiRUjZ98dGsYKRtvhIQ++ZpAYH2Z+2fcM/gs4Kefo
+ xviBg7D0tpKv0F32GFbRI/dCP8dRsGYdiFSeJa/qXzAnZNTNYrHPoe44ChqgiWVxN69p
+ gVPgREkWTv8v4g2a6Ixow7UODTEU3kP/ovTNneN1KXkG8Sc7tNqAW/xGRa2Z+GUaeySl
+ bAbalphLmwsroh76+d7nSvz4oyNxjVCD8hrldLhFGjNws9flk6V7wPgNi/X52KsATwYA dA== 
 Received: from beta.dmz-eu.st.com (beta.dmz-eu.st.com [164.129.1.35])
- by mx08-00178001.pphosted.com with ESMTP id 2t7812uxwr-1
+ by mx08-00178001.pphosted.com with ESMTP id 2t7812uxwt-1
  (version=TLSv1 cipher=ECDHE-RSA-AES256-SHA bits=256 verify=NOT);
  Wed, 19 Jun 2019 14:30:54 +0200
 Received: from zeta.dmz-eu.st.com (zeta.dmz-eu.st.com [164.129.230.9])
- by beta.dmz-eu.st.com (STMicroelectronics) with ESMTP id 3BD723A;
+ by beta.dmz-eu.st.com (STMicroelectronics) with ESMTP id B1ADC3D;
  Wed, 19 Jun 2019 12:30:53 +0000 (GMT)
 Received: from Webmail-eu.st.com (sfhdag5node3.st.com [10.75.127.15])
- by zeta.dmz-eu.st.com (STMicroelectronics) with ESMTP id 0859227A7;
+ by zeta.dmz-eu.st.com (STMicroelectronics) with ESMTP id 90E6327A6;
  Wed, 19 Jun 2019 12:30:53 +0000 (GMT)
-Received: from localhost (10.75.127.44) by SFHDAG5NODE3.st.com (10.75.127.15)
+Received: from localhost (10.75.127.45) by SFHDAG5NODE3.st.com (10.75.127.15)
  with Microsoft SMTP Server (TLS) id 15.0.1473.3;
- Wed, 19 Jun 2019 14:30:52 +0200
+ Wed, 19 Jun 2019 14:30:53 +0200
 From: Fabrice Gasnier <fabrice.gasnier@st.com>
 To: <jic23@kernel.org>, <robh+dt@kernel.org>, <alexandre.torgue@st.com>
-Date: Wed, 19 Jun 2019 14:29:55 +0200
-Message-ID: <1560947398-11592-3-git-send-email-fabrice.gasnier@st.com>
+Date: Wed, 19 Jun 2019 14:29:56 +0200
+Message-ID: <1560947398-11592-4-git-send-email-fabrice.gasnier@st.com>
 X-Mailer: git-send-email 2.7.4
 In-Reply-To: <1560947398-11592-1-git-send-email-fabrice.gasnier@st.com>
 References: <1560947398-11592-1-git-send-email-fabrice.gasnier@st.com>
 MIME-Version: 1.0
-X-Originating-IP: [10.75.127.44]
-X-ClientProxiedBy: SFHDAG8NODE2.st.com (10.75.127.23) To SFHDAG5NODE3.st.com
+X-Originating-IP: [10.75.127.45]
+X-ClientProxiedBy: SFHDAG5NODE1.st.com (10.75.127.13) To SFHDAG5NODE3.st.com
  (10.75.127.15)
 X-Proofpoint-Virus-Version: vendor=fsecure engine=2.50.10434:, ,
  definitions=2019-06-19_07:, , signatures=0
@@ -58,8 +58,8 @@ Cc: mark.rutland@arm.com, devicetree@vger.kernel.org, lars@metafoo.de,
  linux-kernel@vger.kernel.org, pmeerw@pmeerw.net, knaack.h@gmx.de,
  fabrice.gasnier@st.com, linux-stm32@st-md-mailman.stormreply.com,
  linux-arm-kernel@lists.infradead.org
-Subject: [Linux-stm32] [PATCH 2/5] iio: adc: stm32-adc: add missing
-	vdda-supply
+Subject: [Linux-stm32] [PATCH 3/5] ARM: dts: stm32: remove fixed regulator
+	unit address on stm32429i-eval
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -76,87 +76,55 @@ Content-Transfer-Encoding: 7bit
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
-Add missing vdda-supply, analog power supply, to STM32 ADC. When vdda is
-an independent supply, it needs to be properly turned on or off to supply
-the ADC.
+vref fixed regulator shouldn't have unit address and reg properties.
+Rename the label and phandle to "vref" according to the schematics.
+Also remove it from simple-bus.
 
-Fixes: 1add69880240 ("iio: adc: Add support for STM32 ADC core").
+Fixes: 7465d81191a1 ("ARM: dts: stm32: enable ADC on stm32f429i-eval
+board")
 
 Signed-off-by: Fabrice Gasnier <fabrice.gasnier@st.com>
 ---
- drivers/iio/adc/stm32-adc-core.c | 21 ++++++++++++++++++++-
- 1 file changed, 20 insertions(+), 1 deletion(-)
+ arch/arm/boot/dts/stm32429i-eval.dts | 18 ++++++------------
+ 1 file changed, 6 insertions(+), 12 deletions(-)
 
-diff --git a/drivers/iio/adc/stm32-adc-core.c b/drivers/iio/adc/stm32-adc-core.c
-index 2327ec1..1f7ce51 100644
---- a/drivers/iio/adc/stm32-adc-core.c
-+++ b/drivers/iio/adc/stm32-adc-core.c
-@@ -87,6 +87,7 @@ struct stm32_adc_priv_cfg {
-  * @domain:		irq domain reference
-  * @aclk:		clock reference for the analog circuitry
-  * @bclk:		bus clock common for all ADCs, depends on part used
-+ * @vdda:		vdda analog supply reference
-  * @vref:		regulator reference
-  * @cfg:		compatible configuration data
-  * @common:		common data for all ADC instances
-@@ -97,6 +98,7 @@ struct stm32_adc_priv {
- 	struct irq_domain		*domain;
- 	struct clk			*aclk;
- 	struct clk			*bclk;
-+	struct regulator		*vdda;
- 	struct regulator		*vref;
- 	const struct stm32_adc_priv_cfg	*cfg;
- 	struct stm32_adc_common		common;
-@@ -394,10 +396,16 @@ static int stm32_adc_core_hw_start(struct device *dev)
- 	struct stm32_adc_priv *priv = to_stm32_adc_priv(common);
- 	int ret;
+diff --git a/arch/arm/boot/dts/stm32429i-eval.dts b/arch/arm/boot/dts/stm32429i-eval.dts
+index 73ea84d..d79f58f 100644
+--- a/arch/arm/boot/dts/stm32429i-eval.dts
++++ b/arch/arm/boot/dts/stm32429i-eval.dts
+@@ -81,18 +81,12 @@
+ 		dma-ranges = <0xc0000000 0x0 0x10000000>;
+ 	};
  
-+	ret = regulator_enable(priv->vdda);
-+	if (ret < 0) {
-+		dev_err(dev, "vdda enable failed %d\n", ret);
-+		return ret;
-+	}
-+
- 	ret = regulator_enable(priv->vref);
- 	if (ret < 0) {
- 		dev_err(dev, "vref enable failed\n");
--		return ret;
-+		goto err_vdda_disable;
- 	}
+-	regulators {
+-		compatible = "simple-bus";
+-		#address-cells = <1>;
+-		#size-cells = <0>;
  
- 	if (priv->bclk) {
-@@ -425,6 +433,8 @@ static int stm32_adc_core_hw_start(struct device *dev)
- 		clk_disable_unprepare(priv->bclk);
- err_regulator_disable:
- 	regulator_disable(priv->vref);
-+err_vdda_disable:
-+	regulator_disable(priv->vdda);
+-		reg_vref: regulator@0 {
+-			compatible = "regulator-fixed";
+-			reg = <0>;
+-			regulator-name = "vref";
+-			regulator-min-microvolt = <3300000>;
+-			regulator-max-microvolt = <3300000>;
+-		};
++	vref: regulator-vref {
++		compatible = "regulator-fixed";
++		regulator-name = "vref";
++		regulator-min-microvolt = <3300000>;
++		regulator-max-microvolt = <3300000>;
+ 	};
  
- 	return ret;
- }
-@@ -441,6 +451,7 @@ static void stm32_adc_core_hw_stop(struct device *dev)
- 	if (priv->bclk)
- 		clk_disable_unprepare(priv->bclk);
- 	regulator_disable(priv->vref);
-+	regulator_disable(priv->vdda);
- }
- 
- static int stm32_adc_probe(struct platform_device *pdev)
-@@ -468,6 +479,14 @@ static int stm32_adc_probe(struct platform_device *pdev)
- 		return PTR_ERR(priv->common.base);
- 	priv->common.phys_base = res->start;
- 
-+	priv->vdda = devm_regulator_get(&pdev->dev, "vdda");
-+	if (IS_ERR(priv->vdda)) {
-+		ret = PTR_ERR(priv->vdda);
-+		if (ret != -EPROBE_DEFER)
-+			dev_err(&pdev->dev, "vdda get failed, %d\n", ret);
-+		return ret;
-+	}
-+
- 	priv->vref = devm_regulator_get(&pdev->dev, "vref");
- 	if (IS_ERR(priv->vref)) {
- 		ret = PTR_ERR(priv->vref);
+ 	leds {
+@@ -157,7 +151,7 @@
+ &adc {
+ 	pinctrl-names = "default";
+ 	pinctrl-0 = <&adc3_in8_pin>;
+-	vref-supply = <&reg_vref>;
++	vref-supply = <&vref>;
+ 	status = "okay";
+ 	adc3: adc@200 {
+ 		st,adc-channels = <8>;
 -- 
 2.7.4
 
