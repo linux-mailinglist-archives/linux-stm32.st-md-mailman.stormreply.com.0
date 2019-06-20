@@ -2,49 +2,39 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id EEDC24CEB7
-	for <lists+linux-stm32@lfdr.de>; Thu, 20 Jun 2019 15:32:34 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 10B7D4CF5D
+	for <lists+linux-stm32@lfdr.de>; Thu, 20 Jun 2019 15:47:54 +0200 (CEST)
 Received: from ip-172-31-3-76.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id AC2D3C628BB
-	for <lists+linux-stm32@lfdr.de>; Thu, 20 Jun 2019 13:32:34 +0000 (UTC)
-Received: from heliosphere.sirena.org.uk (heliosphere.sirena.org.uk
- [172.104.155.198])
- (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id B047DC63332
+	for <lists+linux-stm32@lfdr.de>; Thu, 20 Jun 2019 13:47:53 +0000 (UTC)
+Received: from vps.xff.cz (vps.xff.cz [195.181.215.36])
+ (using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 31D4CC628BA
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 3C51AC63330
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Thu, 20 Jun 2019 13:32:33 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
- d=sirena.org.uk; s=20170815-heliosphere; h=Date:Message-Id:In-Reply-To:
- Subject:Cc:To:From:Sender:Reply-To:MIME-Version:Content-Type:
- Content-Transfer-Encoding:Content-ID:Content-Description:Resent-Date:
- Resent-From:Resent-Sender:Resent-To:Resent-Cc:Resent-Message-ID:References:
- List-Id:List-Help:List-Unsubscribe:List-Subscribe:List-Post:List-Owner:
- List-Archive; bh=Xmh5kmupsYkZefSvmh0+GLUxUu6Ox/qAde76AztFzu4=; b=Sekp60hrd2xU
- NaNS8uehgVfNNmU7fz0afMhE/ijpwcij5kGZqeYgJ8jKgq7tnqLmGhVpAUyVrTZiMCO24bpzmvdwI
- cw9IrkK86Vph290bcxyVQNkq1/3kTy+kHwglnRKCFsJ/ASBE4WFx/acJniTFIeGMi7iqLQdzvYmpI
- WOcOQ=;
-Received: from cpc102320-sgyl38-2-0-cust46.18-2.cable.virginm.net
- ([82.37.168.47] helo=finisterre.sirena.org.uk)
- by heliosphere.sirena.org.uk with esmtpsa
- (TLS1.2:ECDHE_RSA_AES_256_GCM_SHA384:256) (Exim 4.89)
- (envelope-from <broonie@sirena.org.uk>)
- id 1hdxAw-0000jB-TU; Thu, 20 Jun 2019 13:32:27 +0000
-Received: by finisterre.sirena.org.uk (Postfix, from userid 1000)
- id 587E544004B; Thu, 20 Jun 2019 14:32:26 +0100 (BST)
-From: Mark Brown <broonie@kernel.org>
-To: Olivier Moysan <olivier.moysan@st.com>
-In-Reply-To: <1560944402-8115-1-git-send-email-olivier.moysan@st.com>
-X-Patchwork-Hint: ignore
-Message-Id: <20190620133226.587E544004B@finisterre.sirena.org.uk>
-Date: Thu, 20 Jun 2019 14:32:26 +0100 (BST)
-Cc: alsa-devel@alsa-project.org, olivier.moysan@st.com, tiwai@suse.com,
- arnaud.pouliquen@st.com, lgirdwood@gmail.com, linux-kernel@vger.kernel.org,
- Mark Brown <broonie@kernel.org>, mcoquelin.stm32@gmail.com, perex@perex.cz,
- linux-stm32@st-md-mailman.stormreply.com, linux-arm-kernel@lists.infradead.org,
- benjamin.gaignard@st.com
-Subject: [Linux-stm32] Applied "ASoC: stm32: dfsdm: add 16 bits audio record
-	support" to the asoc tree
+ Thu, 20 Jun 2019 13:47:52 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=megous.com; s=mail;
+ t=1561038471; bh=EtxBSRR4SpnZbnkKuYOnn0iuta6FqDZ+zK2kZr5kejg=;
+ h=From:To:Cc:Subject:Date:From;
+ b=ckh/EsuH/Dff/Yy+mbHihrInZ6GTZhgcUd7uRM8A84U3v10l+iavQuIZJl3zN8vet
+ Ky8x1QlNp3WkmgTTztO+7jm0lD1+d6ArTPoZzjauaYCjEyl/RIW4NKLRTP9CuDcAio
+ 0YzHHuLwcPEcz2q2h2/j4xOEAZmQq3jnHefTrzBc=
+From: megous@megous.com
+To: linux-sunxi@googlegroups.com, Maxime Ripard <maxime.ripard@bootlin.com>,
+ Chen-Yu Tsai <wens@csie.org>, Rob Herring <robh+dt@kernel.org>,
+ =?UTF-8?q?Jernej=20=C5=A0krabec?= <jernej.skrabec@gmail.com>
+Date: Thu, 20 Jun 2019 15:47:42 +0200
+Message-Id: <20190620134748.17866-1-megous@megous.com>
+MIME-Version: 1.0
+Cc: Ondrej Jirman <megous@megous.com>, Mark Rutland <mark.rutland@arm.com>,
+ devicetree@vger.kernel.org, David Airlie <airlied@linux.ie>,
+ netdev@vger.kernel.org, linux-kernel@vger.kernel.org,
+ dri-devel@lists.freedesktop.org, linux-stm32@st-md-mailman.stormreply.com,
+ Jose Abreu <joabreu@synopsys.com>, linux-arm-kernel@lists.infradead.org,
+ Daniel Vetter <daniel@ffwll.ch>, Giuseppe Cavallaro <peppe.cavallaro@st.com>,
+ "David S. Miller" <davem@davemloft.net>,
+ Maxime Coquelin <mcoquelin.stm32@gmail.com>
+Subject: [Linux-stm32] [PATCH v7 0/6] Add support for Orange Pi 3
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -56,145 +46,106 @@ List-Post: <mailto:linux-stm32@st-md-mailman.stormreply.com>
 List-Help: <mailto:linux-stm32-request@st-md-mailman.stormreply.com?subject=help>
 List-Subscribe: <https://st-md-mailman.stormreply.com/mailman/listinfo/linux-stm32>, 
  <mailto:linux-stm32-request@st-md-mailman.stormreply.com?subject=subscribe>
-MIME-Version: 1.0
 Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
-The patch
+From: Ondrej Jirman <megous@megous.com>
 
-   ASoC: stm32: dfsdm: add 16 bits audio record support
+This series implements support for Xunlong Orange Pi 3 board.
 
-has been applied to the asoc tree at
+- ethernet support (patches 1-3)
+- HDMI support (patches 4-6)
 
-   https://git.kernel.org/pub/scm/linux/kernel/git/broonie/sound.git for-5.3
+For some people, ethernet doesn't work after reboot (but works on cold
+boot), when the stmmac driver is built into the kernel. It works when
+the driver is built as a module. It's either some timing issue, or power
+supply issue or a combination of both. Module build induces a power
+cycling of the phy.
 
-All being well this means that it will be integrated into the linux-next
-tree (usually sometime in the next 24 hours) and sent to Linus during
-the next merge window (or sooner if it is a bug fix), however if
-problems are discovered then the patch may be dropped or reverted.  
+I encourage people with this issue, to build the driver into the kernel,
+and try to alter the reset timings for the phy in DTS or
+startup-delay-us and report the findings.
 
-You may get further e-mails resulting from automated or manual testing
-and review of the tree, please engage with people reporting problems and
-send followup patches addressing any issues that are reported if needed.
 
-If any updates are required or you are submitting further changes they
-should be sent as incremental updates against current git, existing
-patches will not be replaced.
+Please take a look.
 
-Please add any relevant lists and maintainers to the CCs when replying
-to this mail.
+thank you and regards,
+  Ondrej Jirman
 
-Thanks,
-Mark
 
-From 1e7f6e1c69f0ff35c90878f9b44adcff77995eb9 Mon Sep 17 00:00:00 2001
-From: Olivier Moysan <olivier.moysan@st.com>
-Date: Wed, 19 Jun 2019 13:40:02 +0200
-Subject: [PATCH] ASoC: stm32: dfsdm: add 16 bits audio record support
+Changes in v7:
+- dropped stored reference to connector_pdev as suggested by Jernej
+- added forgotten dt-bindings reviewed-by tag
 
-Add support of audio 16 bits format record to STM32
-DFSDM driver.
+Changes in v6:
+- added dt-bindings reviewed-by tag
+- fix wording in stmmac commit (as suggested by Sergei)
 
-Signed-off-by: Olivier Moysan <olivier.moysan@st.com>
-Signed-off-by: Mark Brown <broonie@kernel.org>
----
- sound/soc/stm/stm32_adfsdm.c | 49 ++++++++++++++++++++++++++++--------
- 1 file changed, 39 insertions(+), 10 deletions(-)
+Changes in v5:
+- dropped already applied patches (pinctrl patches, mmc1 pinconf patch)
+- rename GMAC-3V3 -> GMAC-3V to match the schematic (Jagan)
+- changed hdmi-connector's ddc-supply property to ddc-en-gpios
+  (Rob Herring)
 
-diff --git a/sound/soc/stm/stm32_adfsdm.c b/sound/soc/stm/stm32_adfsdm.c
-index cc517e007039..3c9a9deec9af 100644
---- a/sound/soc/stm/stm32_adfsdm.c
-+++ b/sound/soc/stm/stm32_adfsdm.c
-@@ -45,7 +45,7 @@ struct stm32_adfsdm_priv {
- static const struct snd_pcm_hardware stm32_adfsdm_pcm_hw = {
- 	.info = SNDRV_PCM_INFO_INTERLEAVED | SNDRV_PCM_INFO_BLOCK_TRANSFER |
- 		SNDRV_PCM_INFO_MMAP | SNDRV_PCM_INFO_PAUSE,
--	.formats = SNDRV_PCM_FMTBIT_S32_LE,
-+	.formats = SNDRV_PCM_FMTBIT_S16_LE | SNDRV_PCM_FMTBIT_S32_LE,
- 
- 	.rate_min = 8000,
- 	.rate_max = 32000,
-@@ -141,7 +141,8 @@ static const struct snd_soc_dai_driver stm32_adfsdm_dai = {
- 	.capture = {
- 		    .channels_min = 1,
- 		    .channels_max = 1,
--		    .formats = SNDRV_PCM_FMTBIT_S32_LE,
-+		    .formats = SNDRV_PCM_FMTBIT_S16_LE |
-+			       SNDRV_PCM_FMTBIT_S32_LE,
- 		    .rates = (SNDRV_PCM_RATE_8000 | SNDRV_PCM_RATE_16000 |
- 			      SNDRV_PCM_RATE_32000),
- 		    },
-@@ -152,30 +153,58 @@ static const struct snd_soc_component_driver stm32_adfsdm_dai_component = {
- 	.name = "stm32_dfsdm_audio",
- };
- 
-+static void memcpy_32to16(void *dest, const void *src, size_t n)
-+{
-+	unsigned int i = 0;
-+	u16 *d = (u16 *)dest, *s = (u16 *)src;
-+
-+	s++;
-+	for (i = n; i > 0; i--) {
-+		*d++ = *s++;
-+		s++;
-+	}
-+}
-+
- static int stm32_afsdm_pcm_cb(const void *data, size_t size, void *private)
- {
- 	struct stm32_adfsdm_priv *priv = private;
- 	struct snd_soc_pcm_runtime *rtd = priv->substream->private_data;
- 	u8 *pcm_buff = priv->pcm_buff;
- 	u8 *src_buff = (u8 *)data;
--	unsigned int buff_size = snd_pcm_lib_buffer_bytes(priv->substream);
--	unsigned int period_size = snd_pcm_lib_period_bytes(priv->substream);
- 	unsigned int old_pos = priv->pos;
--	unsigned int cur_size = size;
-+	size_t buff_size = snd_pcm_lib_buffer_bytes(priv->substream);
-+	size_t period_size = snd_pcm_lib_period_bytes(priv->substream);
-+	size_t cur_size, src_size = size;
-+	snd_pcm_format_t format = priv->substream->runtime->format;
-+
-+	if (format == SNDRV_PCM_FORMAT_S16_LE)
-+		src_size >>= 1;
-+	cur_size = src_size;
- 
- 	dev_dbg(rtd->dev, "%s: buff_add :%pK, pos = %d, size = %zu\n",
--		__func__, &pcm_buff[priv->pos], priv->pos, size);
-+		__func__, &pcm_buff[priv->pos], priv->pos, src_size);
- 
--	if ((priv->pos + size) > buff_size) {
--		memcpy(&pcm_buff[priv->pos], src_buff, buff_size - priv->pos);
-+	if ((priv->pos + src_size) > buff_size) {
-+		if (format == SNDRV_PCM_FORMAT_S16_LE)
-+			memcpy_32to16(&pcm_buff[priv->pos], src_buff,
-+				      buff_size - priv->pos);
-+		else
-+			memcpy(&pcm_buff[priv->pos], src_buff,
-+			       buff_size - priv->pos);
- 		cur_size -= buff_size - priv->pos;
- 		priv->pos = 0;
- 	}
- 
--	memcpy(&pcm_buff[priv->pos], &src_buff[size - cur_size], cur_size);
-+	if (format == SNDRV_PCM_FORMAT_S16_LE)
-+		memcpy_32to16(&pcm_buff[priv->pos],
-+			      &src_buff[src_size - cur_size], cur_size);
-+	else
-+		memcpy(&pcm_buff[priv->pos], &src_buff[src_size - cur_size],
-+		       cur_size);
-+
- 	priv->pos = (priv->pos + cur_size) % buff_size;
- 
--	if (cur_size != size || (old_pos && (old_pos % period_size < size)))
-+	if (cur_size != src_size || (old_pos && (old_pos % period_size < size)))
- 		snd_pcm_period_elapsed(priv->substream);
- 
- 	return 0;
+Changes in v4:
+- fix checkpatch warnings/style issues
+- use enum in struct sunxi_desc_function for io_bias_cfg_variant
+- collected acked-by's
+- fix compile error in drivers/pinctrl/sunxi/pinctrl-sun9i-a80-r.c:156
+  caused by missing conversion from has_io_bias_cfg struct member
+  (I've kept the acked-by, because it's a trivial change, but feel free
+  to object.) (reported by Martin A. on github)
+  I did not have A80 pinctrl enabled for some reason, so I did not catch
+  this sooner.
+- dropped brcm firmware patch (was already applied)
+- dropped the wifi dts patch (will re-send after H6 RTC gets merged,
+  along with bluetooth support, in a separate series)
+
+Changes in v3:
+- dropped already applied patches
+- changed pinctrl I/O bias selection constants to enum and renamed
+- added /omit-if-no-ref/ to mmc1_pins
+- made mmc1_pins default pinconf for mmc1 in H6 dtsi
+- move ddc-supply to HDMI connector node, updated patch descriptions,
+  changed dt-bindings docs
+
+Changes in v2:
+- added dt-bindings documentation for the board's compatible string
+  (suggested by Clement)
+- addressed checkpatch warnings and code formatting issues (on Maxime's
+  suggestions)
+- stmmac: dropped useless parenthesis, reworded description of the patch
+  (suggested by Sergei)
+- drop useles dev_info() about the selected io bias voltage
+- docummented io voltage bias selection variant macros
+- wifi: marked WiFi DTS patch and realted mmc1_pins as "DO NOT MERGE",
+  because wifi depends on H6 RTC support that's not merged yet (suggested
+  by Clement)
+- added missing signed-of-bys
+- changed &usb2otg dr_mode to otg, and added a note about VBUS
+- improved wording of HDMI driver's DDC power supply patch
+
+Icenowy Zheng (2):
+  net: stmmac: sun8i: add support for Allwinner H6 EMAC
+  net: stmmac: sun8i: force select external PHY when no internal one
+
+Ondrej Jirman (4):
+  arm64: dts: allwinner: orange-pi-3: Enable ethernet
+  dt-bindings: display: hdmi-connector: Support DDC bus enable
+  drm: sun4i: Add support for enabling DDC I2C bus to sun8i_dw_hdmi glue
+  arm64: dts: allwinner: orange-pi-3: Enable HDMI output
+
+ .../display/connector/hdmi-connector.txt      |  1 +
+ .../dts/allwinner/sun50i-h6-orangepi-3.dts    | 70 +++++++++++++++++++
+ drivers/gpu/drm/sun4i/sun8i_dw_hdmi.c         | 54 ++++++++++++--
+ drivers/gpu/drm/sun4i/sun8i_dw_hdmi.h         |  2 +
+ .../net/ethernet/stmicro/stmmac/dwmac-sun8i.c | 21 ++++++
+ 5 files changed, 144 insertions(+), 4 deletions(-)
+
 -- 
-2.20.1
+2.22.0
 
 _______________________________________________
 Linux-stm32 mailing list
