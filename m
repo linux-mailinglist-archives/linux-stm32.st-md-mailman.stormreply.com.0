@@ -2,60 +2,49 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id 46D3A4CE60
-	for <lists+linux-stm32@lfdr.de>; Thu, 20 Jun 2019 15:14:04 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id EEDC24CEB7
+	for <lists+linux-stm32@lfdr.de>; Thu, 20 Jun 2019 15:32:34 +0200 (CEST)
 Received: from ip-172-31-3-76.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id E2827C628A8
-	for <lists+linux-stm32@lfdr.de>; Thu, 20 Jun 2019 13:14:03 +0000 (UTC)
-Received: from mx07-00178001.pphosted.com (mx07-00178001.pphosted.com
- [62.209.51.94])
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id AC2D3C628BB
+	for <lists+linux-stm32@lfdr.de>; Thu, 20 Jun 2019 13:32:34 +0000 (UTC)
+Received: from heliosphere.sirena.org.uk (heliosphere.sirena.org.uk
+ [172.104.155.198])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 47458C628A7
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 31D4CC628BA
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Thu, 20 Jun 2019 13:14:02 +0000 (UTC)
-Received: from pps.filterd (m0046668.ppops.net [127.0.0.1])
- by mx07-00178001.pphosted.com (8.16.0.27/8.16.0.27) with SMTP id
- x5KD6pbC021627; Thu, 20 Jun 2019 15:13:52 +0200
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=st.com;
- h=from : to : cc : subject
- : date : message-id : mime-version : content-type; s=STMicroelectronics;
- bh=AqEt1HjWRKgGGIYLNysj/iOUGva1/k0fnnA1DQfj/Nc=;
- b=1i2iITqjSzxjPDA0v34j1gyK2boQJeVzaXxp+3wBomDQ3gQiYTCFRnctwfbFI4hR7YO3
- ZabYwttKVrPzJ0COcQfryFixiLRLA7qvHsMT1LROqmgrPg1+QYAc9uEEkIIzSvvIxrXe
- VWA88QCqoUODGiKSlccTHZp8WEyR+Wh8vce4WBxoKn6ANShoXgSFeGGv3MbGlVA1JJ3j
- JuK1mx5iBqhoBEtg8ng2Pf6Z7/2JkcOka3Ncrc9E614228EYHyTJSKjy+ADBxfQK0lu0
- g3r9CUxF74F+pRGz7NyLXjzUI+PLXlAD4TeCNwnV2aVZJInur0W44tAM21BxACrkAEC1 Sw== 
-Received: from beta.dmz-eu.st.com (beta.dmz-eu.st.com [164.129.1.35])
- by mx07-00178001.pphosted.com with ESMTP id 2t7813hq5j-1
- (version=TLSv1 cipher=ECDHE-RSA-AES256-SHA bits=256 verify=NOT);
- Thu, 20 Jun 2019 15:13:52 +0200
-Received: from zeta.dmz-eu.st.com (zeta.dmz-eu.st.com [164.129.230.9])
- by beta.dmz-eu.st.com (STMicroelectronics) with ESMTP id 2F58B38;
- Thu, 20 Jun 2019 13:13:51 +0000 (GMT)
-Received: from Webmail-eu.st.com (sfhdag6node3.st.com [10.75.127.18])
- by zeta.dmz-eu.st.com (STMicroelectronics) with ESMTP id 16B4E27F7;
- Thu, 20 Jun 2019 13:13:51 +0000 (GMT)
-Received: from localhost (10.75.127.45) by SFHDAG6NODE3.st.com (10.75.127.18)
- with Microsoft SMTP Server (TLS) id 15.0.1473.3;
- Thu, 20 Jun 2019 15:13:50 +0200
-From: <patrice.chotard@st.com>
-To: Mark Brown <broonie@kernel.org>, Maxime Coquelin
- <mcoquelin.stm32@gmail.com>, Alexandre Torgue <alexandre.torgue@st.com>,
- <linux-spi@vger.kernel.org>, <linux-stm32@st-md-mailman.stormreply.com>,
- <linux-arm-kernel@lists.infradead.org>, <linux-kernel@vger.kernel.org>
-Date: Thu, 20 Jun 2019 15:13:23 +0200
-Message-ID: <20190620131323.5955-1-patrice.chotard@st.com>
-X-Mailer: git-send-email 2.17.1
-MIME-Version: 1.0
-X-Originating-IP: [10.75.127.45]
-X-ClientProxiedBy: SFHDAG7NODE1.st.com (10.75.127.19) To SFHDAG6NODE3.st.com
- (10.75.127.18)
-X-Proofpoint-Virus-Version: vendor=fsecure engine=2.50.10434:, ,
- definitions=2019-06-20_09:, , signatures=0
-Cc: christophe.kerello@st.com, patrice.chotard@st.com
-Subject: [Linux-stm32] [PATCH 1/1] spi: spi-stm32-qspi: Remove
-	CR_FTHRES_MASK usage
+ Thu, 20 Jun 2019 13:32:33 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
+ d=sirena.org.uk; s=20170815-heliosphere; h=Date:Message-Id:In-Reply-To:
+ Subject:Cc:To:From:Sender:Reply-To:MIME-Version:Content-Type:
+ Content-Transfer-Encoding:Content-ID:Content-Description:Resent-Date:
+ Resent-From:Resent-Sender:Resent-To:Resent-Cc:Resent-Message-ID:References:
+ List-Id:List-Help:List-Unsubscribe:List-Subscribe:List-Post:List-Owner:
+ List-Archive; bh=Xmh5kmupsYkZefSvmh0+GLUxUu6Ox/qAde76AztFzu4=; b=Sekp60hrd2xU
+ NaNS8uehgVfNNmU7fz0afMhE/ijpwcij5kGZqeYgJ8jKgq7tnqLmGhVpAUyVrTZiMCO24bpzmvdwI
+ cw9IrkK86Vph290bcxyVQNkq1/3kTy+kHwglnRKCFsJ/ASBE4WFx/acJniTFIeGMi7iqLQdzvYmpI
+ WOcOQ=;
+Received: from cpc102320-sgyl38-2-0-cust46.18-2.cable.virginm.net
+ ([82.37.168.47] helo=finisterre.sirena.org.uk)
+ by heliosphere.sirena.org.uk with esmtpsa
+ (TLS1.2:ECDHE_RSA_AES_256_GCM_SHA384:256) (Exim 4.89)
+ (envelope-from <broonie@sirena.org.uk>)
+ id 1hdxAw-0000jB-TU; Thu, 20 Jun 2019 13:32:27 +0000
+Received: by finisterre.sirena.org.uk (Postfix, from userid 1000)
+ id 587E544004B; Thu, 20 Jun 2019 14:32:26 +0100 (BST)
+From: Mark Brown <broonie@kernel.org>
+To: Olivier Moysan <olivier.moysan@st.com>
+In-Reply-To: <1560944402-8115-1-git-send-email-olivier.moysan@st.com>
+X-Patchwork-Hint: ignore
+Message-Id: <20190620133226.587E544004B@finisterre.sirena.org.uk>
+Date: Thu, 20 Jun 2019 14:32:26 +0100 (BST)
+Cc: alsa-devel@alsa-project.org, olivier.moysan@st.com, tiwai@suse.com,
+ arnaud.pouliquen@st.com, lgirdwood@gmail.com, linux-kernel@vger.kernel.org,
+ Mark Brown <broonie@kernel.org>, mcoquelin.stm32@gmail.com, perex@perex.cz,
+ linux-stm32@st-md-mailman.stormreply.com, linux-arm-kernel@lists.infradead.org,
+ benjamin.gaignard@st.com
+Subject: [Linux-stm32] Applied "ASoC: stm32: dfsdm: add 16 bits audio record
+	support" to the asoc tree
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -67,51 +56,145 @@ List-Post: <mailto:linux-stm32@st-md-mailman.stormreply.com>
 List-Help: <mailto:linux-stm32-request@st-md-mailman.stormreply.com?subject=help>
 List-Subscribe: <https://st-md-mailman.stormreply.com/mailman/listinfo/linux-stm32>, 
  <mailto:linux-stm32-request@st-md-mailman.stormreply.com?subject=subscribe>
+MIME-Version: 1.0
 Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
-From: Patrice Chotard <patrice.chotard@st.com>
+The patch
 
-On STM32 F4/F7/H7 SoCs, FTHRES is a 5 bits field in QSPI_CR register,
-but for STM32MP1 SoCs, FTHRES is a 4 bits field long. CR_FTHRES_MASK
-definition is not correct.
+   ASoC: stm32: dfsdm: add 16 bits audio record support
 
-As for all these SoCs, FTHRES field is set to 3, FIELD_PREP() macro
-is used with a constant as second parameter which make its usage useless.
+has been applied to the asoc tree at
 
-CR_FTHRES_MASK and FIELD_PREP() can be removed.
+   https://git.kernel.org/pub/scm/linux/kernel/git/broonie/sound.git for-5.3
 
-Signed-off-by: Patrice Chotard <patrice.chotard@st.com>
+All being well this means that it will be integrated into the linux-next
+tree (usually sometime in the next 24 hours) and sent to Linus during
+the next merge window (or sooner if it is a bug fix), however if
+problems are discovered then the patch may be dropped or reverted.  
+
+You may get further e-mails resulting from automated or manual testing
+and review of the tree, please engage with people reporting problems and
+send followup patches addressing any issues that are reported if needed.
+
+If any updates are required or you are submitting further changes they
+should be sent as incremental updates against current git, existing
+patches will not be replaced.
+
+Please add any relevant lists and maintainers to the CCs when replying
+to this mail.
+
+Thanks,
+Mark
+
+From 1e7f6e1c69f0ff35c90878f9b44adcff77995eb9 Mon Sep 17 00:00:00 2001
+From: Olivier Moysan <olivier.moysan@st.com>
+Date: Wed, 19 Jun 2019 13:40:02 +0200
+Subject: [PATCH] ASoC: stm32: dfsdm: add 16 bits audio record support
+
+Add support of audio 16 bits format record to STM32
+DFSDM driver.
+
+Signed-off-by: Olivier Moysan <olivier.moysan@st.com>
+Signed-off-by: Mark Brown <broonie@kernel.org>
 ---
- drivers/spi/spi-stm32-qspi.c | 4 ++--
- 1 file changed, 2 insertions(+), 2 deletions(-)
+ sound/soc/stm/stm32_adfsdm.c | 49 ++++++++++++++++++++++++++++--------
+ 1 file changed, 39 insertions(+), 10 deletions(-)
 
-diff --git a/drivers/spi/spi-stm32-qspi.c b/drivers/spi/spi-stm32-qspi.c
-index 42f8e3c6aa1f..5dbb6a8e893c 100644
---- a/drivers/spi/spi-stm32-qspi.c
-+++ b/drivers/spi/spi-stm32-qspi.c
-@@ -29,7 +29,7 @@
- #define CR_SSHIFT		BIT(4)
- #define CR_DFM			BIT(6)
- #define CR_FSEL			BIT(7)
--#define CR_FTHRES_MASK		GENMASK(12, 8)
-+#define CR_FTHRES_SHIFT		8
- #define CR_TEIE			BIT(16)
- #define CR_TCIE			BIT(17)
- #define CR_FTIE			BIT(18)
-@@ -463,7 +463,7 @@ static int stm32_qspi_setup(struct spi_device *spi)
- 	flash->presc = presc;
+diff --git a/sound/soc/stm/stm32_adfsdm.c b/sound/soc/stm/stm32_adfsdm.c
+index cc517e007039..3c9a9deec9af 100644
+--- a/sound/soc/stm/stm32_adfsdm.c
++++ b/sound/soc/stm/stm32_adfsdm.c
+@@ -45,7 +45,7 @@ struct stm32_adfsdm_priv {
+ static const struct snd_pcm_hardware stm32_adfsdm_pcm_hw = {
+ 	.info = SNDRV_PCM_INFO_INTERLEAVED | SNDRV_PCM_INFO_BLOCK_TRANSFER |
+ 		SNDRV_PCM_INFO_MMAP | SNDRV_PCM_INFO_PAUSE,
+-	.formats = SNDRV_PCM_FMTBIT_S32_LE,
++	.formats = SNDRV_PCM_FMTBIT_S16_LE | SNDRV_PCM_FMTBIT_S32_LE,
  
- 	mutex_lock(&qspi->lock);
--	qspi->cr_reg = FIELD_PREP(CR_FTHRES_MASK, 3) | CR_SSHIFT | CR_EN;
-+	qspi->cr_reg = 3 << CR_FTHRES_SHIFT | CR_SSHIFT | CR_EN;
- 	writel_relaxed(qspi->cr_reg, qspi->io_base + QSPI_CR);
+ 	.rate_min = 8000,
+ 	.rate_max = 32000,
+@@ -141,7 +141,8 @@ static const struct snd_soc_dai_driver stm32_adfsdm_dai = {
+ 	.capture = {
+ 		    .channels_min = 1,
+ 		    .channels_max = 1,
+-		    .formats = SNDRV_PCM_FMTBIT_S32_LE,
++		    .formats = SNDRV_PCM_FMTBIT_S16_LE |
++			       SNDRV_PCM_FMTBIT_S32_LE,
+ 		    .rates = (SNDRV_PCM_RATE_8000 | SNDRV_PCM_RATE_16000 |
+ 			      SNDRV_PCM_RATE_32000),
+ 		    },
+@@ -152,30 +153,58 @@ static const struct snd_soc_component_driver stm32_adfsdm_dai_component = {
+ 	.name = "stm32_dfsdm_audio",
+ };
  
- 	/* set dcr fsize to max address */
++static void memcpy_32to16(void *dest, const void *src, size_t n)
++{
++	unsigned int i = 0;
++	u16 *d = (u16 *)dest, *s = (u16 *)src;
++
++	s++;
++	for (i = n; i > 0; i--) {
++		*d++ = *s++;
++		s++;
++	}
++}
++
+ static int stm32_afsdm_pcm_cb(const void *data, size_t size, void *private)
+ {
+ 	struct stm32_adfsdm_priv *priv = private;
+ 	struct snd_soc_pcm_runtime *rtd = priv->substream->private_data;
+ 	u8 *pcm_buff = priv->pcm_buff;
+ 	u8 *src_buff = (u8 *)data;
+-	unsigned int buff_size = snd_pcm_lib_buffer_bytes(priv->substream);
+-	unsigned int period_size = snd_pcm_lib_period_bytes(priv->substream);
+ 	unsigned int old_pos = priv->pos;
+-	unsigned int cur_size = size;
++	size_t buff_size = snd_pcm_lib_buffer_bytes(priv->substream);
++	size_t period_size = snd_pcm_lib_period_bytes(priv->substream);
++	size_t cur_size, src_size = size;
++	snd_pcm_format_t format = priv->substream->runtime->format;
++
++	if (format == SNDRV_PCM_FORMAT_S16_LE)
++		src_size >>= 1;
++	cur_size = src_size;
+ 
+ 	dev_dbg(rtd->dev, "%s: buff_add :%pK, pos = %d, size = %zu\n",
+-		__func__, &pcm_buff[priv->pos], priv->pos, size);
++		__func__, &pcm_buff[priv->pos], priv->pos, src_size);
+ 
+-	if ((priv->pos + size) > buff_size) {
+-		memcpy(&pcm_buff[priv->pos], src_buff, buff_size - priv->pos);
++	if ((priv->pos + src_size) > buff_size) {
++		if (format == SNDRV_PCM_FORMAT_S16_LE)
++			memcpy_32to16(&pcm_buff[priv->pos], src_buff,
++				      buff_size - priv->pos);
++		else
++			memcpy(&pcm_buff[priv->pos], src_buff,
++			       buff_size - priv->pos);
+ 		cur_size -= buff_size - priv->pos;
+ 		priv->pos = 0;
+ 	}
+ 
+-	memcpy(&pcm_buff[priv->pos], &src_buff[size - cur_size], cur_size);
++	if (format == SNDRV_PCM_FORMAT_S16_LE)
++		memcpy_32to16(&pcm_buff[priv->pos],
++			      &src_buff[src_size - cur_size], cur_size);
++	else
++		memcpy(&pcm_buff[priv->pos], &src_buff[src_size - cur_size],
++		       cur_size);
++
+ 	priv->pos = (priv->pos + cur_size) % buff_size;
+ 
+-	if (cur_size != size || (old_pos && (old_pos % period_size < size)))
++	if (cur_size != src_size || (old_pos && (old_pos % period_size < size)))
+ 		snd_pcm_period_elapsed(priv->substream);
+ 
+ 	return 0;
 -- 
-2.17.1
+2.20.1
 
 _______________________________________________
 Linux-stm32 mailing list
