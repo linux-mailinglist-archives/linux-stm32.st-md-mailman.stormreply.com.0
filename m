@@ -2,62 +2,46 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id 73EF94C4FE
-	for <lists+linux-stm32@lfdr.de>; Thu, 20 Jun 2019 03:34:33 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id D63174CA1B
+	for <lists+linux-stm32@lfdr.de>; Thu, 20 Jun 2019 10:57:47 +0200 (CEST)
 Received: from ip-172-31-3-76.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 3CD0EC5C85A
-	for <lists+linux-stm32@lfdr.de>; Thu, 20 Jun 2019 01:34:33 +0000 (UTC)
-Received: from mail-oi1-f193.google.com (mail-oi1-f193.google.com
- [209.85.167.193])
- (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 98031C0E32E
+	for <lists+linux-stm32@lfdr.de>; Thu, 20 Jun 2019 08:57:47 +0000 (UTC)
+Received: from lb3-smtp-cloud9.xs4all.net (lb3-smtp-cloud9.xs4all.net
+ [194.109.24.30])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 3F566C5C859
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 5410AC0E32C
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Thu, 20 Jun 2019 01:34:31 +0000 (UTC)
-Received: by mail-oi1-f193.google.com with SMTP id t76so905819oih.4
- for <linux-stm32@st-md-mailman.stormreply.com>;
- Wed, 19 Jun 2019 18:34:31 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=googlemail.com; s=20161025;
- h=mime-version:references:in-reply-to:from:date:message-id:subject:to
- :cc; bh=nYuOW5lyxxT0zsgk7qqZi/7w20Oi72vHiGCqLTnTrl8=;
- b=XxxTCKxD/5Hh4mP6+R4KSzkOEhkkx9EXfAH8omqHrIeXVmLMBa406JF09S5I9/dOxR
- wc9h4G7Dflde6RcyDAZnRIMTkl43HRI69tjffugAWRVlUFXSiEWEbbvf1v8Dkv333ACz
- fPBTlaPJtNz1tic4Y8+juQsuQ6mnFj5eYHNiMilXbbr3elf5dvc2xJrALVZVKGSFd1iZ
- efEFfZAArnZa7GOg/IseyJDpc7KuRCJF8XYefzt5VhBC48jDwJGyC0kRcJOnDLUKC0In
- eFPF3hEUJBXxsibzw51TwqvsjDFIP78hjGH3zMbetl9Rq5+bOJEMbbz3Y1EtDIbZufot
- ZLMQ==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20161025;
- h=x-gm-message-state:mime-version:references:in-reply-to:from:date
- :message-id:subject:to:cc;
- bh=nYuOW5lyxxT0zsgk7qqZi/7w20Oi72vHiGCqLTnTrl8=;
- b=IQnUAedaA0VXzBwPBxuNo5KMaBllFGiXn9k86FCH9APy3g8anCiAA8nRDTXZS6x+Qz
- p44jBaGobNZ0XF0J/FQrctdVxXjvtW5seBzwdkGR5T7/9KL7WD70JZ/BnUYVM8Sfj/+L
- rRucve1JRLjxkUs5SuSTIFujg6vr4kLXyD5MFvKRaaCLVauDDrcCFK3ARHJ+wa2H4aRK
- +yVgImyzKGrb3KPvRNHCgCUDhrGRJlGPT3MaqRPfQXHgUMzewEWpQowjYpn7ntJ62iVJ
- QkQB7dIYgx26B74DAk1KnU7UurpDmIH34Vr9Kw+a7qvreUjgxFr03MK2/plJR6k0e077
- W0yg==
-X-Gm-Message-State: APjAAAULVmaL4ZMiZLIn7R15THEzjC/2QpLEyapMI4AMXvU7N3NeK1qY
- f+UB+mwT/Edu2t/yaXh/NNYLFdmHIoTmDiveeco=
-X-Google-Smtp-Source: APXvYqwrykrLtbD0pG9V8vBrsbsTo35v6Soy95FKONjQ0aI87GQhODvgpXAK5RhK2mM0+AszFXum8RjavMf7MOSMXic=
-X-Received: by 2002:aca:4403:: with SMTP id r3mr4853308oia.39.1560994469747;
- Wed, 19 Jun 2019 18:34:29 -0700 (PDT)
+ Thu, 20 Jun 2019 08:57:46 +0000 (UTC)
+Received: from [IPv6:2001:983:e9a7:1:bdf4:9145:f694:e7a2]
+ ([IPv6:2001:983:e9a7:1:bdf4:9145:f694:e7a2])
+ by smtp-cloud9.xs4all.net with ESMTPA
+ id dst6hWZyGSfvXdst7htbE9; Thu, 20 Jun 2019 10:57:46 +0200
+To: Hugues Fruchet <hugues.fruchet@st.com>,
+ Steve Longerbeam <slongerbeam@gmail.com>,
+ Sakari Ailus <sakari.ailus@linux.intel.com>,
+ Mauro Carvalho Chehab <mchehab@kernel.org>
+References: <1560779277-32465-1-git-send-email-hugues.fruchet@st.com>
+From: Hans Verkuil <hverkuil@xs4all.nl>
+Message-ID: <6a5c05d1-889f-5099-e1ed-0e661f65d6d2@xs4all.nl>
+Date: Thu, 20 Jun 2019 10:57:44 +0200
+User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:60.0) Gecko/20100101
+ Thunderbird/60.6.1
 MIME-Version: 1.0
-References: <20190617165836.4673-1-colin.king@canonical.com>
- <20190619051308.23582-1-martin.blumenstingl@googlemail.com>
- <92f9e5a6-d2a2-6bf2-ff8a-2430fe977f93@canonical.com>
-In-Reply-To: <92f9e5a6-d2a2-6bf2-ff8a-2430fe977f93@canonical.com>
-From: Martin Blumenstingl <martin.blumenstingl@googlemail.com>
-Date: Thu, 20 Jun 2019 03:34:18 +0200
-Message-ID: <CAFBinCDmYVPDMcwAAYhMfxxuTsG=xunduN58_8e20zE_Mhmb7Q@mail.gmail.com>
-To: Colin Ian King <colin.king@canonical.com>
-Cc: netdev@vger.kernel.org, kernel-janitors@vger.kernel.org,
- linux-kernel@vger.kernel.org, linux-stm32@st-md-mailman.stormreply.com,
- joabreu@synopsys.com, mcoquelin.stm32@gmail.com, peppe.cavallaro@st.com,
- davem@davemloft.net, linux-arm-kernel@lists.infradead.org
-Subject: Re: [Linux-stm32] [PATCH] net: stmmac: add sanity check to
- device_property_read_u32_array call
+In-Reply-To: <1560779277-32465-1-git-send-email-hugues.fruchet@st.com>
+Content-Language: en-US
+X-CMAE-Envelope: MS4wfHhNg8iOYmDxwkoqhtg/kbE1uiSLmyATFuMFYGdCCHGrcef0umY+xpDu3S2RzYjfVWZZgfozoL1MZ/HH+QHqcrdMXM2+9eHopHACkuDoY900n6jPnBkk
+ KqoveJMYNmr5AMEu5EoFLaqyIhSrZXoGXweMCte/OssSaS2Ils2jLJQoMA0q5nR7ILOP1mNAV8hzUdNOJgj6W7qlEYJp+1ny52/pDbHo2hbCQy+TPxiCMqAM
+ 8W9tJj8bZa+qCihY5YjOWaCoSkr9jbfmRmYTteLy81Zg3Wh2GKSowGptelCVvJfKVHaaDpUcYeFT+I03VujUg40JjSoNfCeF7CdmVuM1YeFw2RghdHAa+D2+
+ zl7HFcnuPKAkXN9fJcpSBzC0uHhugO5KihuUB6UstvaeIIcT3DN8dzM8MyVZJq38UWyahgQP+BryC7X15XxRbf52nqJyR9rDKQfVrrCXDCfy0LVjpuW0o/6W
+ HTGprztj3cxxXfDkljjldQZF+I0Z2mTuMn84zaExgUNz4CKt3Nzn9Kqdf1bgimT8FxO7hlYvM2SoY6nBXqZHAljYHBOMKpM0H46Wg5pipBO4HzIaiZMT11Tq
+ joE=
+Cc: Maxime Ripard <maxime.ripard@bootlin.com>, Jacopo Mondi <jacopo@jmondi.org>,
+ linux-stm32@st-md-mailman.stormreply.com,
+ Benjamin Gaignard <benjamin.gaignard@linaro.org>, linux-media@vger.kernel.org
+Subject: Re: [Linux-stm32] [PATCH] media: ov5640: add support of
+	V4L2_CID_LINK_FREQ
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -74,47 +58,75 @@ Content-Transfer-Encoding: 7bit
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
-Hi Colin,
+On 6/17/19 3:47 PM, Hugues Fruchet wrote:
+> Add support of V4L2_CID_LINK_FREQ, this is needed
+> by some CSI-2 receivers.
+> 
+> 384MHz is exposed for the time being, corresponding
+> to 96MHz pixel clock with 2 bytes per pixel on 2 data lanes.
+> 
+> This setup has been tested successfully with ST MIPID02
+> CSI-2 to parallel bridge.
+> 
+> Signed-off-by: Hugues Fruchet <hugues.fruchet@st.com>
+> ---
+>  drivers/media/i2c/ov5640.c | 10 ++++++++++
+>  1 file changed, 10 insertions(+)
+> 
+> diff --git a/drivers/media/i2c/ov5640.c b/drivers/media/i2c/ov5640.c
+> index 82d4ce9..79f8383 100644
+> --- a/drivers/media/i2c/ov5640.c
+> +++ b/drivers/media/i2c/ov5640.c
+> @@ -218,6 +218,7 @@ struct ov5640_ctrls {
+>  	struct v4l2_ctrl *test_pattern;
+>  	struct v4l2_ctrl *hflip;
+>  	struct v4l2_ctrl *vflip;
+> +	struct v4l2_ctrl *link_freq;
+>  };
+>  
+>  struct ov5640_dev {
+> @@ -2198,6 +2199,10 @@ static int ov5640_try_fmt_internal(struct v4l2_subdev *sd,
+>  	return 0;
+>  }
+>  
+> +static const s64 link_freq_menu_items[] = {
+> +	384000000,
+> +};
+> +
+>  static int ov5640_set_fmt(struct v4l2_subdev *sd,
+>  			  struct v4l2_subdev_pad_config *cfg,
+>  			  struct v4l2_subdev_format *format)
+> @@ -2703,6 +2708,11 @@ static int ov5640_init_controls(struct ov5640_dev *sensor)
+>  				       V4L2_CID_POWER_LINE_FREQUENCY_AUTO, 0,
+>  				       V4L2_CID_POWER_LINE_FREQUENCY_50HZ);
+>  
+> +	ctrls->link_freq = v4l2_ctrl_new_int_menu(hdl, ops, V4L2_CID_LINK_FREQ,
+> +						  0, 0, link_freq_menu_items);
+> +	if (ctrls->link_freq)
+> +		ctrls->link_freq->flags |= V4L2_CTRL_FLAG_READ_ONLY;
 
-On Wed, Jun 19, 2019 at 8:55 AM Colin Ian King <colin.king@canonical.com> wrote:
->
-> On 19/06/2019 06:13, Martin Blumenstingl wrote:
-> > Hi Colin,
-> >
-> >> Currently the call to device_property_read_u32_array is not error checked
-> >> leading to potential garbage values in the delays array that are then used
-> >> in msleep delays.  Add a sanity check to the property fetching.
-> >>
-> >> Addresses-Coverity: ("Uninitialized scalar variable")
-> >> Signed-off-by: Colin Ian King <colin.king@canonical.com>
-> > I have also sent a patch [0] to fix initialize the array.
-> > can you please look at my patch so we can work out which one to use?
-> >
-> > my concern is that the "snps,reset-delays-us" property is optional,
-> > the current dt-bindings documentation states that it's a required
-> > property. in reality it isn't, there are boards (two examples are
-> > mentioned in my patch: [0]) without it.
-> >
-> > so I believe that the resulting behavior has to be:
-> > 1. don't delay if this property is missing (instead of delaying for
-> >    <garbage value> ms)
-> > 2. don't error out if this property is missing
-> >
-> > your patch covers #1, can you please check whether #2 is also covered?
-> > I tested case #2 when submitting my patch and it worked fine (even
-> > though I could not reproduce the garbage values which are being read
-> > on some boards)
-> >
-> >
-> > Thank you!
-> > Martin
-> >
-> >
-> > [0] https://lkml.org/lkml/2019/4/19/638
-> >
-> Is that the correct link?
-sorry, that is a totally unrelated link
-the correct link is: https://patchwork.ozlabs.org/patch/1118313/
+I'd drop this. It's fine to set it, there is only one value here, so that's
+effectively a NOP.
+
+I see more drivers that set this flag, even though it is not necessary.
+The problem is that some application might assume this control can be set, and then
+fails because this returns an error.
+
+You do need to add an entry to ov5640_s_ctrl:
+
+	case V4L2_CID_LINK_FREQ:
+		return 0;
+
+Regards,
+
+	Hans
+
+> +
+>  	if (hdl->error) {
+>  		ret = hdl->error;
+>  		goto free_ctrls;
+> 
+
 _______________________________________________
 Linux-stm32 mailing list
 Linux-stm32@st-md-mailman.stormreply.com
