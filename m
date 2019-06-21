@@ -2,57 +2,93 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id 377C84E661
-	for <lists+linux-stm32@lfdr.de>; Fri, 21 Jun 2019 12:44:54 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 627AA57EA1
+	for <lists+linux-stm32@lfdr.de>; Thu, 27 Jun 2019 10:49:51 +0200 (CEST)
 Received: from ip-172-31-3-76.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id B7FE2C06937
-	for <lists+linux-stm32@lfdr.de>; Fri, 21 Jun 2019 10:44:52 +0000 (UTC)
-Received: from vps.xff.cz (vps.xff.cz [195.181.215.36])
- (using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 2C97AC57B65
+	for <lists+linux-stm32@lfdr.de>; Thu, 27 Jun 2019 08:49:51 +0000 (UTC)
+Received: from mail-wr1-f66.google.com (mail-wr1-f66.google.com
+ [209.85.221.66])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id F26E6C06936
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id D08ABC064FF
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Fri, 21 Jun 2019 10:44:51 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=megous.com; s=mail;
- t=1561113891; bh=uF+1BlMGKRS6vtUXDE5TvLdvEqjdbvyP/y5+AuCPrdw=;
- h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
- b=ow7PxS52be3W7D+CLStx+GnsxjXGCQTI1iuSUM4RsdIJWfx2Wksiz1Cnlbol/TQnf
- 0l7P19qDOVyz+44VF/o0q4TbwtyXww1V4VneGDWy5Uj9bzh5c0hpMrGskFUcj9TZ9P
- l7NFkU2RW73QR563UgLKHOamD9gE5HV9F+TY0g64=
-Date: Fri, 21 Jun 2019 12:44:50 +0200
-From: =?utf-8?Q?Ond=C5=99ej?= Jirman <megous@megous.com>
-To: linux-sunxi@googlegroups.com, Maxime Ripard <maxime.ripard@bootlin.com>,
- Chen-Yu Tsai <wens@csie.org>, Rob Herring <robh+dt@kernel.org>,
- Jernej =?utf-8?Q?=C5=A0krabec?= <jernej.skrabec@gmail.com>
-Message-ID: <20190621104450.vyemihcou5cjayju@core.my.home>
-Mail-Followup-To: linux-sunxi@googlegroups.com,
- Maxime Ripard <maxime.ripard@bootlin.com>,
- Chen-Yu Tsai <wens@csie.org>, Rob Herring <robh+dt@kernel.org>,
- Jernej =?utf-8?Q?=C5=A0krabec?= <jernej.skrabec@gmail.com>,
- Mark Rutland <mark.rutland@arm.com>,
- Alexandre Torgue <alexandre.torgue@st.com>,
- devicetree@vger.kernel.org, David Airlie <airlied@linux.ie>,
- netdev@vger.kernel.org, linux-kernel@vger.kernel.org,
- dri-devel@lists.freedesktop.org,
- linux-stm32@st-md-mailman.stormreply.com,
- Jose Abreu <joabreu@synopsys.com>,
- linux-arm-kernel@lists.infradead.org,
- Daniel Vetter <daniel@ffwll.ch>,
- Giuseppe Cavallaro <peppe.cavallaro@st.com>,
- "David S. Miller" <davem@davemloft.net>,
- Maxime Coquelin <mcoquelin.stm32@gmail.com>
-References: <20190620134748.17866-1-megous@megous.com>
+ Fri, 21 Jun 2019 13:00:02 +0000 (UTC)
+Received: by mail-wr1-f66.google.com with SMTP id x17so6475873wrl.9
+ for <linux-stm32@st-md-mailman.stormreply.com>;
+ Fri, 21 Jun 2019 06:00:02 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20161025;
+ h=date:from:to:cc:subject:message-id:references:mime-version
+ :content-disposition:in-reply-to:user-agent;
+ bh=8wF7WA98OxDDzb/JbNa9apiKkBno+3E3VvLccD/kQj0=;
+ b=OofVqYsQ+uEMxYNp1YF+yKBVLkict2Nn/d9BA5e8W0OtsE9NFZ8TRJcn9YAssJPzRl
+ u+Vfrrzmhau1eZTHg+pPk7MGHuBYzJqZ1k/YWaU8ZeBl9HdhIqqm0xz3Dkr4e2t9cbOp
+ Ym/bZIgijSOYchiaQpI3SWeBu8WymLXORjdGUKXVIGGRHYQvys+V3v0IeXKPSplpC7+m
+ 86cisHAXxaKOdjWB5AjG8xpLX5DmqFC2YmiClwaChMpotYUhxJDHocPjcrA+MQlSXZ/+
+ 9bVaOtF5ig0wINgh310gGStv0Mma+oWgk3H/i3zywRO/JPR0lRad7H98T/QQIDt/hs0i
+ PvhA==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20161025;
+ h=x-gm-message-state:date:from:to:cc:subject:message-id:references
+ :mime-version:content-disposition:in-reply-to:user-agent;
+ bh=8wF7WA98OxDDzb/JbNa9apiKkBno+3E3VvLccD/kQj0=;
+ b=PaK3Xb4NlMll+oZZk6vvAwg4xzxcqJBJBw1Iz690enh4tX1bSU5ZL45omS+ilDAljF
+ uvDN6fQnH9+U6TZm855B8Fn9FLgzpO897/PFiP0qVOFhhO7OxyrDj1mwgBKk7l5FIMvC
+ X2tDyHDx7XDnEUTYWcvj55RZpz7DGY6plFZbEBgZaX08A7wjR9TXacGLgUB5e0MWGsiC
+ NAq4x2IwJ3HBf5tCcRfgAD37Ice1hrCw9plBz7t972uvPGgoR5kRRn3pNY4Kc5pJzTZX
+ 1YT9egFfeRkV4w4hSFV8totNnsEM/QeEHxW9+cM4VbRrfQ0wjVXSZmgjNHcCBYMJElAv
+ cmEg==
+X-Gm-Message-State: APjAAAXo0zBJHxyYw5VblOJCzPZAgToN0jN9umDwc+tcE1KRszXnUhgV
+ tDA0cwr4BW9Uer4h7ni6B7I=
+X-Google-Smtp-Source: APXvYqzkLD+mTM8BMDClKNN7/zxRqd/YuZN3ue53KMZ3dB+TNMWWRlr4iHDFgc2/aBpuwMWHPQmcOw==
+X-Received: by 2002:adf:f84a:: with SMTP id d10mr16077615wrq.319.1561122002510; 
+ Fri, 21 Jun 2019 06:00:02 -0700 (PDT)
+Received: from Red ([2a01:cb1d:147:7200:2e56:dcff:fed2:c6d6])
+ by smtp.googlemail.com with ESMTPSA id 67sm2689625wmd.38.2019.06.21.05.59.59
+ (version=TLS1_2 cipher=ECDHE-RSA-AES128-GCM-SHA256 bits=128/128);
+ Fri, 21 Jun 2019 06:00:01 -0700 (PDT)
+Date: Fri, 21 Jun 2019 14:59:58 +0200
+From: Corentin Labbe <clabbe.montjoie@gmail.com>
+To: Mauro Carvalho Chehab <mchehab+samsung@kernel.org>
+Message-ID: <20190621125958.GA4299@Red>
+References: <cover.1560890800.git.mchehab+samsung@kernel.org>
+ <7cd1fc25708bc50ee487ef1b301b2528ebe8bb02.1560890800.git.mchehab+samsung@kernel.org>
 MIME-Version: 1.0
 Content-Disposition: inline
-In-Reply-To: <20190620134748.17866-1-megous@megous.com>
-Cc: Mark Rutland <mark.rutland@arm.com>, devicetree@vger.kernel.org,
- David Airlie <airlied@linux.ie>, netdev@vger.kernel.org,
- linux-kernel@vger.kernel.org, dri-devel@lists.freedesktop.org,
- "David S. Miller" <davem@davemloft.net>,
- Maxime Coquelin <mcoquelin.stm32@gmail.com>, Jose Abreu <joabreu@synopsys.com>,
- Daniel Vetter <daniel@ffwll.ch>, Giuseppe Cavallaro <peppe.cavallaro@st.com>,
- linux-stm32@st-md-mailman.stormreply.com, linux-arm-kernel@lists.infradead.org
-Subject: Re: [Linux-stm32] [PATCH v7 0/6] Add support for Orange Pi 3
+In-Reply-To: <7cd1fc25708bc50ee487ef1b301b2528ebe8bb02.1560890800.git.mchehab+samsung@kernel.org>
+User-Agent: Mutt/1.10.1 (2018-07-13)
+X-Mailman-Approved-At: Thu, 27 Jun 2019 08:49:46 +0000
+Cc: Mark Rutland <mark.rutland@arm.com>, linux-fbdev@vger.kernel.org,
+ Jakub Kicinski <jakub.kicinski@netronome.com>,
+ Linux Doc Mailing List <linux-doc@vger.kernel.org>,
+ Maxime Ripard <maxime.ripard@bootlin.com>,
+ Catalin Marinas <catalin.marinas@arm.com>, Will Deacon <will.deacon@arm.com>,
+ Alexei Starovoitov <ast@kernel.org>, linux-mips@vger.kernel.org,
+ Harry Wei <harryxiyou@gmail.com>, Alex Shi <alex.shi@linux.alibaba.com>,
+ linux-stm32@st-md-mailman.stormreply.com,
+ Jesper Dangaard Brouer <hawk@kernel.org>, xdp-newbies@vger.kernel.org,
+ Florian Fainelli <f.fainelli@gmail.com>,
+ Herbert Xu <herbert@gondor.apana.org.au>,
+ Daniel Borkmann <daniel@iogearbox.net>, Jonathan Corbet <corbet@lwn.net>,
+ Kevin Cernekee <cernekee@gmail.com>, John Fastabend <john.fastabend@gmail.com>,
+ Russell King <linux@armlinux.org.uk>, Krzysztof Kozlowski <krzk@kernel.org>,
+ linux-samsung-soc@vger.kernel.org, Chen-Yu Tsai <wens@csie.org>,
+ Kukjin Kim <kgene@kernel.org>, bcm-kernel-feedback-list@broadcom.com,
+ linux-serial@vger.kernel.org, James Hogan <jhogan@kernel.org>,
+ devicetree@vger.kernel.org, Jiri Slaby <jslaby@suse.com>,
+ Mauro Carvalho Chehab <mchehab@infradead.org>,
+ Rob Herring <robh+dt@kernel.org>, Krzysztof Halasa <khalasa@piap.pl>,
+ linux-omap@vger.kernel.org, linux-input@vger.kernel.org,
+ linux-arm-kernel@lists.infradead.org,
+ Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
+ Linus Walleij <linusw@kernel.org>, Dmitry Torokhov <dmitry.torokhov@gmail.com>,
+ linux-kernel@vger.kernel.org, Ralf Baechle <ralf@linux-mips.org>,
+ Paul Burton <paul.burton@mips.com>, linux-crypto@vger.kernel.org,
+ Maxime Coquelin <mcoquelin.stm32@gmail.com>, netdev@vger.kernel.org,
+ bpf@vger.kernel.org, Imre Kaloz <kaloz@openwrt.org>,
+ "David S. Miller" <davem@davemloft.net>
+Subject: Re: [Linux-stm32] [PATCH v2 10/29] docs: arm: convert docs to ReST
+ and rename to *.rst
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -69,119 +105,30 @@ Content-Transfer-Encoding: 7bit
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
-On Thu, Jun 20, 2019 at 03:47:42PM +0200, verejna wrote:
-> From: Ondrej Jirman <megous@megous.com>
+On Tue, Jun 18, 2019 at 05:53:28PM -0300, Mauro Carvalho Chehab wrote:
+> Converts ARM the text files to ReST, preparing them to be an
+> architecture book.
 > 
-> This series implements support for Xunlong Orange Pi 3 board.
+> The conversion is actually:
+>   - add blank lines and identation in order to identify paragraphs;
+>   - fix tables markups;
+>   - add some lists markups;
+>   - mark literal blocks;
+>   - adjust title markups.
 > 
-> - ethernet support (patches 1-3)
-> - HDMI support (patches 4-6)
+> At its new index.rst, let's add a :orphan: while this is not linked to
+> the main index.rst file, in order to avoid build warnings.
 > 
-> For some people, ethernet doesn't work after reboot (but works on cold
-> boot), when the stmmac driver is built into the kernel. It works when
-> the driver is built as a module. It's either some timing issue, or power
-> supply issue or a combination of both. Module build induces a power
-> cycling of the phy.
-> 
-> I encourage people with this issue, to build the driver into the kernel,
-> and try to alter the reset timings for the phy in DTS or
-> startup-delay-us and report the findings.
+> Signed-off-by: Mauro Carvalho Chehab <mchehab+samsung@kernel.org>
+> ---
+>  Documentation/arm/{sunxi/README => sunxi.rst} |  98 +++-
+>  drivers/crypto/sunxi-ss/sun4i-ss-cipher.c     |   2 +-
+>  drivers/crypto/sunxi-ss/sun4i-ss-core.c       |   2 +-
+>  drivers/crypto/sunxi-ss/sun4i-ss-hash.c       |   2 +-
+>  drivers/crypto/sunxi-ss/sun4i-ss.h            |   2 +-
 
-Other theory to test is that the PHY requires two power supplies to be
-enabled at the same time, and during reboot one of them (one controlled
-via GPIO) may be turned off, and ALDO2 controlled by AXP805 may not.
-
-It should be possible to turn off ALDO2 in u-boot via CONFIG_AXP_ALDO2_VOLT=0
-(You may need to enable CONFIG_AXP809_POWER and other options too, since
-it seems AXP805 support is not enabled for orange pi 3 in u-boot)
-
-regards,
-	o.
-
-> 
-> Please take a look.
-> 
-> thank you and regards,
->   Ondrej Jirman
-> 
-> 
-> Changes in v7:
-> - dropped stored reference to connector_pdev as suggested by Jernej
-> - added forgotten dt-bindings reviewed-by tag
-> 
-> Changes in v6:
-> - added dt-bindings reviewed-by tag
-> - fix wording in stmmac commit (as suggested by Sergei)
-> 
-> Changes in v5:
-> - dropped already applied patches (pinctrl patches, mmc1 pinconf patch)
-> - rename GMAC-3V3 -> GMAC-3V to match the schematic (Jagan)
-> - changed hdmi-connector's ddc-supply property to ddc-en-gpios
->   (Rob Herring)
-> 
-> Changes in v4:
-> - fix checkpatch warnings/style issues
-> - use enum in struct sunxi_desc_function for io_bias_cfg_variant
-> - collected acked-by's
-> - fix compile error in drivers/pinctrl/sunxi/pinctrl-sun9i-a80-r.c:156
->   caused by missing conversion from has_io_bias_cfg struct member
->   (I've kept the acked-by, because it's a trivial change, but feel free
->   to object.) (reported by Martin A. on github)
->   I did not have A80 pinctrl enabled for some reason, so I did not catch
->   this sooner.
-> - dropped brcm firmware patch (was already applied)
-> - dropped the wifi dts patch (will re-send after H6 RTC gets merged,
->   along with bluetooth support, in a separate series)
-> 
-> Changes in v3:
-> - dropped already applied patches
-> - changed pinctrl I/O bias selection constants to enum and renamed
-> - added /omit-if-no-ref/ to mmc1_pins
-> - made mmc1_pins default pinconf for mmc1 in H6 dtsi
-> - move ddc-supply to HDMI connector node, updated patch descriptions,
->   changed dt-bindings docs
-> 
-> Changes in v2:
-> - added dt-bindings documentation for the board's compatible string
->   (suggested by Clement)
-> - addressed checkpatch warnings and code formatting issues (on Maxime's
->   suggestions)
-> - stmmac: dropped useless parenthesis, reworded description of the patch
->   (suggested by Sergei)
-> - drop useles dev_info() about the selected io bias voltage
-> - docummented io voltage bias selection variant macros
-> - wifi: marked WiFi DTS patch and realted mmc1_pins as "DO NOT MERGE",
->   because wifi depends on H6 RTC support that's not merged yet (suggested
->   by Clement)
-> - added missing signed-of-bys
-> - changed &usb2otg dr_mode to otg, and added a note about VBUS
-> - improved wording of HDMI driver's DDC power supply patch
-> 
-> Icenowy Zheng (2):
->   net: stmmac: sun8i: add support for Allwinner H6 EMAC
->   net: stmmac: sun8i: force select external PHY when no internal one
-> 
-> Ondrej Jirman (4):
->   arm64: dts: allwinner: orange-pi-3: Enable ethernet
->   dt-bindings: display: hdmi-connector: Support DDC bus enable
->   drm: sun4i: Add support for enabling DDC I2C bus to sun8i_dw_hdmi glue
->   arm64: dts: allwinner: orange-pi-3: Enable HDMI output
-> 
->  .../display/connector/hdmi-connector.txt      |  1 +
->  .../dts/allwinner/sun50i-h6-orangepi-3.dts    | 70 +++++++++++++++++++
->  drivers/gpu/drm/sun4i/sun8i_dw_hdmi.c         | 54 ++++++++++++--
->  drivers/gpu/drm/sun4i/sun8i_dw_hdmi.h         |  2 +
->  .../net/ethernet/stmicro/stmmac/dwmac-sun8i.c | 21 ++++++
->  5 files changed, 144 insertions(+), 4 deletions(-)
-> 
-> -- 
-> 2.22.0
-> 
-> 
-> _______________________________________________
-> linux-arm-kernel mailing list
-> linux-arm-kernel@lists.infradead.org
-> http://lists.infradead.org/mailman/listinfo/linux-arm-kernel
+For sun4i-s::
+Reviewed-by Corentin Labbe <clabbe.montjoie@gmail.com>
 _______________________________________________
 Linux-stm32 mailing list
 Linux-stm32@st-md-mailman.stormreply.com
