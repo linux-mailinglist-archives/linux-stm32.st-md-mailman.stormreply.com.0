@@ -2,55 +2,57 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id 972D94E2F2
-	for <lists+linux-stm32@lfdr.de>; Fri, 21 Jun 2019 11:15:19 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 377C84E661
+	for <lists+linux-stm32@lfdr.de>; Fri, 21 Jun 2019 12:44:54 +0200 (CEST)
 Received: from ip-172-31-3-76.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 58E48C064EB
-	for <lists+linux-stm32@lfdr.de>; Fri, 21 Jun 2019 09:15:19 +0000 (UTC)
-Received: from mailgw01.mediatek.com (unknown [1.203.163.78])
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id AA8D0C064E9
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id B7FE2C06937
+	for <lists+linux-stm32@lfdr.de>; Fri, 21 Jun 2019 10:44:52 +0000 (UTC)
+Received: from vps.xff.cz (vps.xff.cz [195.181.215.36])
+ (using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
+ (No client certificate requested)
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id F26E6C06936
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Fri, 21 Jun 2019 09:15:17 +0000 (UTC)
-X-UUID: 47d82411630344caad74ecd6875a2838-20190621
-X-UUID: 47d82411630344caad74ecd6875a2838-20190621
-Received: from mtkcas34.mediatek.inc [(172.27.4.253)] by mailgw01.mediatek.com
- (envelope-from <biao.huang@mediatek.com>)
- (mailgw01.mediatek.com ESMTP with TLS)
- with ESMTP id 1568269254; Fri, 21 Jun 2019 17:15:14 +0800
-Received: from MTKCAS36.mediatek.inc (172.27.4.186) by MTKMBS31N1.mediatek.inc
- (172.27.4.69) with Microsoft SMTP Server (TLS) id 15.0.1395.4;
- Fri, 21 Jun 2019 17:15:12 +0800
-Received: from [10.17.3.153] (172.27.4.253) by MTKCAS36.mediatek.inc
- (172.27.4.170) with Microsoft SMTP Server id 15.0.1395.4 via Frontend
- Transport; Fri, 21 Jun 2019 17:15:11 +0800
-Message-ID: <1561108511.7458.0.camel@mhfsdcap03>
-From: biao huang <biao.huang@mediatek.com>
-To: "davem@davemloft.net" <davem@davemloft.net>, Jose Abreu
- <joabreu@synopsys.com>
-Date: Fri, 21 Jun 2019 17:15:11 +0800
-In-Reply-To: <1559208626-3218-2-git-send-email-biao.huang@mediatek.com>
-References: <1559208626-3218-1-git-send-email-biao.huang@mediatek.com>
- <1559208626-3218-2-git-send-email-biao.huang@mediatek.com>
-X-Mailer: Evolution 3.10.4-0ubuntu2 
-MIME-Version: 1.0
-X-MTK: N
-Cc: "andrew@lunn.ch" <andrew@lunn.ch>,
- Jianguo Zhang =?UTF-8?Q?=28=E5=BC=A0=E5=BB=BA=E5=9B=BD=29?=
- <Jianguo.Zhang@mediatek.com>,
- "boon.leong.ong@intel.com" <boon.leong.ong@intel.com>,
- "netdev@vger.kernel.org" <netdev@vger.kernel.org>,
- "linux-kernel@vger.kernel.org" <linux-kernel@vger.kernel.org>,
- YT Shen =?UTF-8?Q?=28=E6=B2=88=E5=B2=B3=E9=9C=86=29?= <Yt.Shen@mediatek.com>,
- "linux-mediatek@lists.infradead.org" <linux-mediatek@lists.infradead.org>,
- Maxime Coquelin <mcoquelin.stm32@gmail.com>,
- Matthias Brugger <matthias.bgg@gmail.com>,
+ Fri, 21 Jun 2019 10:44:51 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=megous.com; s=mail;
+ t=1561113891; bh=uF+1BlMGKRS6vtUXDE5TvLdvEqjdbvyP/y5+AuCPrdw=;
+ h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
+ b=ow7PxS52be3W7D+CLStx+GnsxjXGCQTI1iuSUM4RsdIJWfx2Wksiz1Cnlbol/TQnf
+ 0l7P19qDOVyz+44VF/o0q4TbwtyXww1V4VneGDWy5Uj9bzh5c0hpMrGskFUcj9TZ9P
+ l7NFkU2RW73QR563UgLKHOamD9gE5HV9F+TY0g64=
+Date: Fri, 21 Jun 2019 12:44:50 +0200
+From: =?utf-8?Q?Ond=C5=99ej?= Jirman <megous@megous.com>
+To: linux-sunxi@googlegroups.com, Maxime Ripard <maxime.ripard@bootlin.com>,
+ Chen-Yu Tsai <wens@csie.org>, Rob Herring <robh+dt@kernel.org>,
+ Jernej =?utf-8?Q?=C5=A0krabec?= <jernej.skrabec@gmail.com>
+Message-ID: <20190621104450.vyemihcou5cjayju@core.my.home>
+Mail-Followup-To: linux-sunxi@googlegroups.com,
+ Maxime Ripard <maxime.ripard@bootlin.com>,
+ Chen-Yu Tsai <wens@csie.org>, Rob Herring <robh+dt@kernel.org>,
+ Jernej =?utf-8?Q?=C5=A0krabec?= <jernej.skrabec@gmail.com>,
+ Mark Rutland <mark.rutland@arm.com>,
+ Alexandre Torgue <alexandre.torgue@st.com>,
+ devicetree@vger.kernel.org, David Airlie <airlied@linux.ie>,
+ netdev@vger.kernel.org, linux-kernel@vger.kernel.org,
+ dri-devel@lists.freedesktop.org,
+ linux-stm32@st-md-mailman.stormreply.com,
+ Jose Abreu <joabreu@synopsys.com>,
+ linux-arm-kernel@lists.infradead.org,
+ Daniel Vetter <daniel@ffwll.ch>,
  Giuseppe Cavallaro <peppe.cavallaro@st.com>,
- "linux-stm32@st-md-mailman.stormreply.com"
- <linux-stm32@st-md-mailman.stormreply.com>,
- "linux-arm-kernel@lists.infradead.org" <linux-arm-kernel@lists.infradead.org>
-Subject: Re: [Linux-stm32] [v7,
- PATCH] net: stmmac: add support for hash table size 128/256 in
- dwmac4
+ "David S. Miller" <davem@davemloft.net>,
+ Maxime Coquelin <mcoquelin.stm32@gmail.com>
+References: <20190620134748.17866-1-megous@megous.com>
+MIME-Version: 1.0
+Content-Disposition: inline
+In-Reply-To: <20190620134748.17866-1-megous@megous.com>
+Cc: Mark Rutland <mark.rutland@arm.com>, devicetree@vger.kernel.org,
+ David Airlie <airlied@linux.ie>, netdev@vger.kernel.org,
+ linux-kernel@vger.kernel.org, dri-devel@lists.freedesktop.org,
+ "David S. Miller" <davem@davemloft.net>,
+ Maxime Coquelin <mcoquelin.stm32@gmail.com>, Jose Abreu <joabreu@synopsys.com>,
+ Daniel Vetter <daniel@ffwll.ch>, Giuseppe Cavallaro <peppe.cavallaro@st.com>,
+ linux-stm32@st-md-mailman.stormreply.com, linux-arm-kernel@lists.infradead.org
+Subject: Re: [Linux-stm32] [PATCH v7 0/6] Add support for Orange Pi 3
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -67,195 +69,119 @@ Content-Transfer-Encoding: 7bit
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
-Dear David, Jose,
-
-	any comments about this patch?
-
-Thanks
-Biao
-
-On Thu, 2019-05-30 at 17:30 +0800, Biao Huang wrote:
-> 1. get hash table size in hw feature reigster, and add support
-> for taller hash table(128/256) in dwmac4.
-> 2. only clear GMAC_PACKET_FILTER bits used in this function,
-> to avoid side effect to functions of other bits.
+On Thu, Jun 20, 2019 at 03:47:42PM +0200, verejna wrote:
+> From: Ondrej Jirman <megous@megous.com>
 > 
-> stmmac selftests output log with flow control on:
-> 	ethtool -t eth0
-> 	The test result is PASS
-> 	The test extra info:
-> 	 1. MAC Loopback                 0
-> 	 2. PHY Loopback                 -95
-> 	 3. MMC Counters                 0
-> 	 4. EEE                          -95
-> 	 5. Hash Filter MC               0
-> 	 6. Perfect Filter UC            0
-> 	 7. MC Filter                    0
-> 	 8. UC Filter                    0
-> 	 9. Flow Control                 0
+> This series implements support for Xunlong Orange Pi 3 board.
 > 
-> Signed-off-by: Biao Huang <biao.huang@mediatek.com>
-> ---
->  drivers/net/ethernet/stmicro/stmmac/common.h      |    7 +--
->  drivers/net/ethernet/stmicro/stmmac/dwmac4.h      |    4 +-
->  drivers/net/ethernet/stmicro/stmmac/dwmac4_core.c |   49 ++++++++++++---------
->  drivers/net/ethernet/stmicro/stmmac/dwmac4_dma.c  |    1 +
->  drivers/net/ethernet/stmicro/stmmac/stmmac_main.c |    6 +++
->  5 files changed, 42 insertions(+), 25 deletions(-)
+> - ethernet support (patches 1-3)
+> - HDMI support (patches 4-6)
 > 
-> diff --git a/drivers/net/ethernet/stmicro/stmmac/common.h b/drivers/net/ethernet/stmicro/stmmac/common.h
-> index 1961fe9..26bbcd8 100644
-> --- a/drivers/net/ethernet/stmicro/stmmac/common.h
-> +++ b/drivers/net/ethernet/stmicro/stmmac/common.h
-> @@ -335,6 +335,7 @@ struct dma_features {
->  	/* 802.3az - Energy-Efficient Ethernet (EEE) */
->  	unsigned int eee;
->  	unsigned int av;
-> +	unsigned int hash_tb_sz;
->  	unsigned int tsoen;
->  	/* TX and RX csum */
->  	unsigned int tx_coe;
-> @@ -428,9 +429,9 @@ struct mac_device_info {
->  	struct mii_regs mii;	/* MII register Addresses */
->  	struct mac_link link;
->  	void __iomem *pcsr;     /* vpointer to device CSRs */
-> -	int multicast_filter_bins;
-> -	int unicast_filter_entries;
-> -	int mcast_bits_log2;
-> +	unsigned int multicast_filter_bins;
-> +	unsigned int unicast_filter_entries;
-> +	unsigned int mcast_bits_log2;
->  	unsigned int rx_csum;
->  	unsigned int pcs;
->  	unsigned int pmt;
-> diff --git a/drivers/net/ethernet/stmicro/stmmac/dwmac4.h b/drivers/net/ethernet/stmicro/stmmac/dwmac4.h
-> index 01c1089..b68785f7 100644
-> --- a/drivers/net/ethernet/stmicro/stmmac/dwmac4.h
-> +++ b/drivers/net/ethernet/stmicro/stmmac/dwmac4.h
-> @@ -18,8 +18,7 @@
->  /*  MAC registers */
->  #define GMAC_CONFIG			0x00000000
->  #define GMAC_PACKET_FILTER		0x00000008
-> -#define GMAC_HASH_TAB_0_31		0x00000010
-> -#define GMAC_HASH_TAB_32_63		0x00000014
-> +#define GMAC_HASH_TAB(x)		(0x10 + (x) * 4)
->  #define GMAC_RX_FLOW_CTRL		0x00000090
->  #define GMAC_QX_TX_FLOW_CTRL(x)		(0x70 + x * 4)
->  #define GMAC_TXQ_PRTY_MAP0		0x98
-> @@ -184,6 +183,7 @@ enum power_event {
->  #define GMAC_HW_FEAT_MIISEL		BIT(0)
->  
->  /* MAC HW features1 bitmap */
-> +#define GMAC_HW_HASH_TB_SZ		GENMASK(25, 24)
->  #define GMAC_HW_FEAT_AVSEL		BIT(20)
->  #define GMAC_HW_TSOEN			BIT(18)
->  #define GMAC_HW_TXFIFOSIZE		GENMASK(10, 6)
-> diff --git a/drivers/net/ethernet/stmicro/stmmac/dwmac4_core.c b/drivers/net/ethernet/stmicro/stmmac/dwmac4_core.c
-> index 5e98da4..4183607 100644
-> --- a/drivers/net/ethernet/stmicro/stmmac/dwmac4_core.c
-> +++ b/drivers/net/ethernet/stmicro/stmmac/dwmac4_core.c
-> @@ -403,41 +403,50 @@ static void dwmac4_set_filter(struct mac_device_info *hw,
->  			      struct net_device *dev)
->  {
->  	void __iomem *ioaddr = (void __iomem *)dev->base_addr;
-> -	unsigned int value = 0;
-> +	int numhashregs = (hw->multicast_filter_bins >> 5);
-> +	int mcbitslog2 = hw->mcast_bits_log2;
-> +	unsigned int value;
-> +	int i;
->  
-> +	value = readl(ioaddr + GMAC_PACKET_FILTER);
-> +	value &= ~GMAC_PACKET_FILTER_HMC;
-> +	value &= ~GMAC_PACKET_FILTER_HPF;
-> +	value &= ~GMAC_PACKET_FILTER_PCF;
-> +	value &= ~GMAC_PACKET_FILTER_PM;
-> +	value &= ~GMAC_PACKET_FILTER_PR;
->  	if (dev->flags & IFF_PROMISC) {
->  		value = GMAC_PACKET_FILTER_PR | GMAC_PACKET_FILTER_PCF;
->  	} else if ((dev->flags & IFF_ALLMULTI) ||
-> -			(netdev_mc_count(dev) > HASH_TABLE_SIZE)) {
-> +		   (netdev_mc_count(dev) > hw->multicast_filter_bins)) {
->  		/* Pass all multi */
-> -		value = GMAC_PACKET_FILTER_PM;
-> -		/* Set the 64 bits of the HASH tab. To be updated if taller
-> -		 * hash table is used
-> -		 */
-> -		writel(0xffffffff, ioaddr + GMAC_HASH_TAB_0_31);
-> -		writel(0xffffffff, ioaddr + GMAC_HASH_TAB_32_63);
-> +		value |= GMAC_PACKET_FILTER_PM;
-> +		/* Set all the bits of the HASH tab */
-> +		for (i = 0; i < numhashregs; i++)
-> +			writel(0xffffffff, ioaddr + GMAC_HASH_TAB(i));
->  	} else if (!netdev_mc_empty(dev)) {
-> -		u32 mc_filter[2];
->  		struct netdev_hw_addr *ha;
-> +		u32 mc_filter[8];
->  
->  		/* Hash filter for multicast */
-> -		value = GMAC_PACKET_FILTER_HMC;
-> +		value |= GMAC_PACKET_FILTER_HMC;
->  
->  		memset(mc_filter, 0, sizeof(mc_filter));
->  		netdev_for_each_mc_addr(ha, dev) {
-> -			/* The upper 6 bits of the calculated CRC are used to
-> -			 * index the content of the Hash Table Reg 0 and 1.
-> +			/* The upper n bits of the calculated CRC are used to
-> +			 * index the contents of the hash table. The number of
-> +			 * bits used depends on the hardware configuration
-> +			 * selected at core configuration time.
->  			 */
-> -			int bit_nr =
-> -				(bitrev32(~crc32_le(~0, ha->addr, 6)) >> 26);
-> -			/* The most significant bit determines the register
-> -			 * to use while the other 5 bits determines the bit
-> -			 * within the selected register
-> +			int bit_nr = bitrev32(~crc32_le(~0, ha->addr,
-> +					ETH_ALEN)) >> (32 - mcbitslog2);
-> +			/* The most significant bit determines the register to
-> +			 * use (H/L) while the other 5 bits determine the bit
-> +			 * within the register.
->  			 */
-> -			mc_filter[bit_nr >> 5] |= (1 << (bit_nr & 0x1F));
-> +			mc_filter[bit_nr >> 5] |= (1 << (bit_nr & 0x1f));
->  		}
-> -		writel(mc_filter[0], ioaddr + GMAC_HASH_TAB_0_31);
-> -		writel(mc_filter[1], ioaddr + GMAC_HASH_TAB_32_63);
-> +		for (i = 0; i < numhashregs; i++)
-> +			writel(mc_filter[i], ioaddr + GMAC_HASH_TAB(i));
->  	}
->  
->  	value |= GMAC_PACKET_FILTER_HPF;
-> diff --git a/drivers/net/ethernet/stmicro/stmmac/dwmac4_dma.c b/drivers/net/ethernet/stmicro/stmmac/dwmac4_dma.c
-> index edb6053..59afb53 100644
-> --- a/drivers/net/ethernet/stmicro/stmmac/dwmac4_dma.c
-> +++ b/drivers/net/ethernet/stmicro/stmmac/dwmac4_dma.c
-> @@ -354,6 +354,7 @@ static void dwmac4_get_hw_feature(void __iomem *ioaddr,
->  
->  	/* MAC HW feature1 */
->  	hw_cap = readl(ioaddr + GMAC_HW_FEATURE1);
-> +	dma_cap->hash_tb_sz = (hw_cap & GMAC_HW_HASH_TB_SZ) >> 24;
->  	dma_cap->av = (hw_cap & GMAC_HW_FEAT_AVSEL) >> 20;
->  	dma_cap->tsoen = (hw_cap & GMAC_HW_TSOEN) >> 18;
->  	/* RX and TX FIFO sizes are encoded as log2(n / 128). Undo that by
-> diff --git a/drivers/net/ethernet/stmicro/stmmac/stmmac_main.c b/drivers/net/ethernet/stmicro/stmmac/stmmac_main.c
-> index 8fcbf22..f7aac15 100644
-> --- a/drivers/net/ethernet/stmicro/stmmac/stmmac_main.c
-> +++ b/drivers/net/ethernet/stmicro/stmmac/stmmac_main.c
-> @@ -4166,6 +4166,12 @@ static int stmmac_hw_init(struct stmmac_priv *priv)
->  		priv->plat->enh_desc = priv->dma_cap.enh_desc;
->  		priv->plat->pmt = priv->dma_cap.pmt_remote_wake_up;
->  		priv->hw->pmt = priv->plat->pmt;
-> +		if (priv->dma_cap.hash_tb_sz) {
-> +			priv->hw->multicast_filter_bins =
-> +					(BIT(priv->dma_cap.hash_tb_sz) << 5);
-> +			priv->hw->mcast_bits_log2 =
-> +					ilog2(priv->hw->multicast_filter_bins);
-> +		}
->  
->  		/* TXCOE doesn't work in thresh DMA mode */
->  		if (priv->plat->force_thresh_dma_mode)
+> For some people, ethernet doesn't work after reboot (but works on cold
+> boot), when the stmmac driver is built into the kernel. It works when
+> the driver is built as a module. It's either some timing issue, or power
+> supply issue or a combination of both. Module build induces a power
+> cycling of the phy.
+> 
+> I encourage people with this issue, to build the driver into the kernel,
+> and try to alter the reset timings for the phy in DTS or
+> startup-delay-us and report the findings.
 
+Other theory to test is that the PHY requires two power supplies to be
+enabled at the same time, and during reboot one of them (one controlled
+via GPIO) may be turned off, and ALDO2 controlled by AXP805 may not.
 
+It should be possible to turn off ALDO2 in u-boot via CONFIG_AXP_ALDO2_VOLT=0
+(You may need to enable CONFIG_AXP809_POWER and other options too, since
+it seems AXP805 support is not enabled for orange pi 3 in u-boot)
+
+regards,
+	o.
+
+> 
+> Please take a look.
+> 
+> thank you and regards,
+>   Ondrej Jirman
+> 
+> 
+> Changes in v7:
+> - dropped stored reference to connector_pdev as suggested by Jernej
+> - added forgotten dt-bindings reviewed-by tag
+> 
+> Changes in v6:
+> - added dt-bindings reviewed-by tag
+> - fix wording in stmmac commit (as suggested by Sergei)
+> 
+> Changes in v5:
+> - dropped already applied patches (pinctrl patches, mmc1 pinconf patch)
+> - rename GMAC-3V3 -> GMAC-3V to match the schematic (Jagan)
+> - changed hdmi-connector's ddc-supply property to ddc-en-gpios
+>   (Rob Herring)
+> 
+> Changes in v4:
+> - fix checkpatch warnings/style issues
+> - use enum in struct sunxi_desc_function for io_bias_cfg_variant
+> - collected acked-by's
+> - fix compile error in drivers/pinctrl/sunxi/pinctrl-sun9i-a80-r.c:156
+>   caused by missing conversion from has_io_bias_cfg struct member
+>   (I've kept the acked-by, because it's a trivial change, but feel free
+>   to object.) (reported by Martin A. on github)
+>   I did not have A80 pinctrl enabled for some reason, so I did not catch
+>   this sooner.
+> - dropped brcm firmware patch (was already applied)
+> - dropped the wifi dts patch (will re-send after H6 RTC gets merged,
+>   along with bluetooth support, in a separate series)
+> 
+> Changes in v3:
+> - dropped already applied patches
+> - changed pinctrl I/O bias selection constants to enum and renamed
+> - added /omit-if-no-ref/ to mmc1_pins
+> - made mmc1_pins default pinconf for mmc1 in H6 dtsi
+> - move ddc-supply to HDMI connector node, updated patch descriptions,
+>   changed dt-bindings docs
+> 
+> Changes in v2:
+> - added dt-bindings documentation for the board's compatible string
+>   (suggested by Clement)
+> - addressed checkpatch warnings and code formatting issues (on Maxime's
+>   suggestions)
+> - stmmac: dropped useless parenthesis, reworded description of the patch
+>   (suggested by Sergei)
+> - drop useles dev_info() about the selected io bias voltage
+> - docummented io voltage bias selection variant macros
+> - wifi: marked WiFi DTS patch and realted mmc1_pins as "DO NOT MERGE",
+>   because wifi depends on H6 RTC support that's not merged yet (suggested
+>   by Clement)
+> - added missing signed-of-bys
+> - changed &usb2otg dr_mode to otg, and added a note about VBUS
+> - improved wording of HDMI driver's DDC power supply patch
+> 
+> Icenowy Zheng (2):
+>   net: stmmac: sun8i: add support for Allwinner H6 EMAC
+>   net: stmmac: sun8i: force select external PHY when no internal one
+> 
+> Ondrej Jirman (4):
+>   arm64: dts: allwinner: orange-pi-3: Enable ethernet
+>   dt-bindings: display: hdmi-connector: Support DDC bus enable
+>   drm: sun4i: Add support for enabling DDC I2C bus to sun8i_dw_hdmi glue
+>   arm64: dts: allwinner: orange-pi-3: Enable HDMI output
+> 
+>  .../display/connector/hdmi-connector.txt      |  1 +
+>  .../dts/allwinner/sun50i-h6-orangepi-3.dts    | 70 +++++++++++++++++++
+>  drivers/gpu/drm/sun4i/sun8i_dw_hdmi.c         | 54 ++++++++++++--
+>  drivers/gpu/drm/sun4i/sun8i_dw_hdmi.h         |  2 +
+>  .../net/ethernet/stmicro/stmmac/dwmac-sun8i.c | 21 ++++++
+>  5 files changed, 144 insertions(+), 4 deletions(-)
+> 
+> -- 
+> 2.22.0
+> 
+> 
+> _______________________________________________
+> linux-arm-kernel mailing list
+> linux-arm-kernel@lists.infradead.org
+> http://lists.infradead.org/mailman/listinfo/linux-arm-kernel
 _______________________________________________
 Linux-stm32 mailing list
 Linux-stm32@st-md-mailman.stormreply.com
