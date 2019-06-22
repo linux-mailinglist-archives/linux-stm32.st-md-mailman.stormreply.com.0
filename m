@@ -2,45 +2,42 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id 531214F4CB
-	for <lists+linux-stm32@lfdr.de>; Sat, 22 Jun 2019 11:39:26 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 1619C4F56A
+	for <lists+linux-stm32@lfdr.de>; Sat, 22 Jun 2019 12:53:05 +0200 (CEST)
 Received: from ip-172-31-3-76.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 0990EC5AFBB
-	for <lists+linux-stm32@lfdr.de>; Sat, 22 Jun 2019 09:39:26 +0000 (UTC)
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id BF1B2C5AFCB
+	for <lists+linux-stm32@lfdr.de>; Sat, 22 Jun 2019 10:53:04 +0000 (UTC)
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
  (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 0E35CC030C2
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 2899EC5AFC8
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Sat, 22 Jun 2019 09:39:25 +0000 (UTC)
+ Sat, 22 Jun 2019 10:53:03 +0000 (UTC)
 Received: from archlinux (cpc149474-cmbg20-2-0-cust94.5-4.cable.virginm.net
  [82.4.196.95])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by mail.kernel.org (Postfix) with ESMTPSA id 668842070B;
- Sat, 22 Jun 2019 09:39:21 +0000 (UTC)
+ by mail.kernel.org (Postfix) with ESMTPSA id DE8552070B;
+ Sat, 22 Jun 2019 10:53:00 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
- s=default; t=1561196363;
- bh=62wqamZTufCpuZJ2+wwSe9gHyryf/3KEt5zf+QDPazA=;
+ s=default; t=1561200781;
+ bh=XsbuTsWAoPCkGtHDg3vcdixFu29Z85KfcwCZsLv7mjk=;
  h=Date:From:To:Cc:Subject:In-Reply-To:References:From;
- b=AivjhXf/pCteBL38ChM4XsrZCIl4SXwVurhN97FIwh7bxNv4IP+1Z2Vvg+03XLer9
- cw0yYJrEf7ZfxGO3hiSQLbc5X4Q7JjmxQHPgOeJ3SkSg2cFMLxleAu2n1NDqfmxXUz
- SQgYKw4i7GUUdYZT6/5Rki7NlKgQ0QoPXeOUy3zU=
-Date: Sat, 22 Jun 2019 10:39:18 +0100
+ b=EPAoZkeC+6QAR2EdwogfOoGFFEZE+gmxui1DPjGHrEGbnyTkDXCNB4JV4jkWgM7RU
+ 4ZRclW5kES0zbpu/D1sqdT/fWDk5RHUnknTH/1sQO9YErbxx61w6Vof8f60uNhjh3i
+ sV3+9PRA+EAyyxE/3X1tQMsfJUVFX5BsGKVDkzeo=
+Date: Sat, 22 Jun 2019 11:52:57 +0100
 From: Jonathan Cameron <jic23@kernel.org>
-To: Fabrice Gasnier <fabrice.gasnier@st.com>
-Message-ID: <20190622103918.1ccbd452@archlinux>
-In-Reply-To: <1560947398-11592-3-git-send-email-fabrice.gasnier@st.com>
-References: <1560947398-11592-1-git-send-email-fabrice.gasnier@st.com>
- <1560947398-11592-3-git-send-email-fabrice.gasnier@st.com>
+To: Geert Uytterhoeven <geert+renesas@glider.be>
+Message-ID: <20190622115257.7198f8d4@archlinux>
+In-Reply-To: <20190617143057.4096-1-geert+renesas@glider.be>
+References: <20190617143057.4096-1-geert+renesas@glider.be>
 X-Mailer: Claws Mail 3.17.3 (GTK+ 2.24.32; x86_64-pc-linux-gnu)
 MIME-Version: 1.0
-Cc: mark.rutland@arm.com, devicetree@vger.kernel.org, lars@metafoo.de,
- linux-iio@vger.kernel.org, pmeerw@pmeerw.net, linux-kernel@vger.kernel.org,
- robh+dt@kernel.org, mcoquelin.stm32@gmail.com, knaack.h@gmx.de,
- linux-stm32@st-md-mailman.stormreply.com, linux-arm-kernel@lists.infradead.org
-Subject: Re: [Linux-stm32] [PATCH 2/5] iio: adc: stm32-adc: add missing
-	vdda-supply
+Cc: linux-iio@vger.kernel.org, linux-stm32@st-md-mailman.stormreply.com,
+ linux-kernel@vger.kernel.org
+Subject: Re: [Linux-stm32] [PATCH] Documentation: ABI: Add missing newline
+	at end of file
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -57,102 +54,49 @@ Content-Transfer-Encoding: 7bit
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
-On Wed, 19 Jun 2019 14:29:55 +0200
-Fabrice Gasnier <fabrice.gasnier@st.com> wrote:
+On Mon, 17 Jun 2019 16:30:57 +0200
+Geert Uytterhoeven <geert+renesas@glider.be> wrote:
 
-> Add missing vdda-supply, analog power supply, to STM32 ADC. When vdda is
-> an independent supply, it needs to be properly turned on or off to supply
-> the ADC.
+> "git diff" says:
 > 
-> Fixes: 1add69880240 ("iio: adc: Add support for STM32 ADC core").
+>     \ No newline at end of file
 > 
-> Signed-off-by: Fabrice Gasnier <fabrice.gasnier@st.com>
-I'm going to assume there is a board out there where this matters as that
-doesn't seem to be the case for the two in tree dts files so I've
-marked it for stable.
-
-Going via togreg branch however rather than fixes as we are late in this
-cycle so this can wait for the merge window.
+> after modifying the files.
+> 
+> Signed-off-by: Geert Uytterhoeven <geert+renesas@glider.be>
+Applied to the togreg branch of iio.git and pushed out as testing.
 
 Thanks,
 
 Jonathan
 
-
 > ---
->  drivers/iio/adc/stm32-adc-core.c | 21 ++++++++++++++++++++-
->  1 file changed, 20 insertions(+), 1 deletion(-)
+>  Documentation/ABI/testing/sysfs-bus-iio-dfsdm-adc-stm32 | 2 +-
+>  Documentation/ABI/testing/sysfs-power                   | 2 +-
+>  2 files changed, 2 insertions(+), 2 deletions(-)
 > 
-> diff --git a/drivers/iio/adc/stm32-adc-core.c b/drivers/iio/adc/stm32-adc-core.c
-> index 2327ec1..1f7ce51 100644
-> --- a/drivers/iio/adc/stm32-adc-core.c
-> +++ b/drivers/iio/adc/stm32-adc-core.c
-> @@ -87,6 +87,7 @@ struct stm32_adc_priv_cfg {
->   * @domain:		irq domain reference
->   * @aclk:		clock reference for the analog circuitry
->   * @bclk:		bus clock common for all ADCs, depends on part used
-> + * @vdda:		vdda analog supply reference
->   * @vref:		regulator reference
->   * @cfg:		compatible configuration data
->   * @common:		common data for all ADC instances
-> @@ -97,6 +98,7 @@ struct stm32_adc_priv {
->  	struct irq_domain		*domain;
->  	struct clk			*aclk;
->  	struct clk			*bclk;
-> +	struct regulator		*vdda;
->  	struct regulator		*vref;
->  	const struct stm32_adc_priv_cfg	*cfg;
->  	struct stm32_adc_common		common;
-> @@ -394,10 +396,16 @@ static int stm32_adc_core_hw_start(struct device *dev)
->  	struct stm32_adc_priv *priv = to_stm32_adc_priv(common);
->  	int ret;
+> diff --git a/Documentation/ABI/testing/sysfs-bus-iio-dfsdm-adc-stm32 b/Documentation/ABI/testing/sysfs-bus-iio-dfsdm-adc-stm32
+> index da9822309f0757bd..0e66ae9b0071e80b 100644
+> --- a/Documentation/ABI/testing/sysfs-bus-iio-dfsdm-adc-stm32
+> +++ b/Documentation/ABI/testing/sysfs-bus-iio-dfsdm-adc-stm32
+> @@ -13,4 +13,4 @@ Description:
+>  			error on writing
+>  		If DFSDM input is SPI Slave:
+>  			Reading returns value previously set.
+> -			Writing value before starting conversions.
+> \ No newline at end of file
+> +			Writing value before starting conversions.
+> diff --git a/Documentation/ABI/testing/sysfs-power b/Documentation/ABI/testing/sysfs-power
+> index 18b7dc929234f625..3c51303550118474 100644
+> --- a/Documentation/ABI/testing/sysfs-power
+> +++ b/Documentation/ABI/testing/sysfs-power
+> @@ -300,4 +300,4 @@ Description:
+>  		attempt.
 >  
-> +	ret = regulator_enable(priv->vdda);
-> +	if (ret < 0) {
-> +		dev_err(dev, "vdda enable failed %d\n", ret);
-> +		return ret;
-> +	}
-> +
->  	ret = regulator_enable(priv->vref);
->  	if (ret < 0) {
->  		dev_err(dev, "vref enable failed\n");
-> -		return ret;
-> +		goto err_vdda_disable;
->  	}
->  
->  	if (priv->bclk) {
-> @@ -425,6 +433,8 @@ static int stm32_adc_core_hw_start(struct device *dev)
->  		clk_disable_unprepare(priv->bclk);
->  err_regulator_disable:
->  	regulator_disable(priv->vref);
-> +err_vdda_disable:
-> +	regulator_disable(priv->vdda);
->  
->  	return ret;
->  }
-> @@ -441,6 +451,7 @@ static void stm32_adc_core_hw_stop(struct device *dev)
->  	if (priv->bclk)
->  		clk_disable_unprepare(priv->bclk);
->  	regulator_disable(priv->vref);
-> +	regulator_disable(priv->vdda);
->  }
->  
->  static int stm32_adc_probe(struct platform_device *pdev)
-> @@ -468,6 +479,14 @@ static int stm32_adc_probe(struct platform_device *pdev)
->  		return PTR_ERR(priv->common.base);
->  	priv->common.phys_base = res->start;
->  
-> +	priv->vdda = devm_regulator_get(&pdev->dev, "vdda");
-> +	if (IS_ERR(priv->vdda)) {
-> +		ret = PTR_ERR(priv->vdda);
-> +		if (ret != -EPROBE_DEFER)
-> +			dev_err(&pdev->dev, "vdda get failed, %d\n", ret);
-> +		return ret;
-> +	}
-> +
->  	priv->vref = devm_regulator_get(&pdev->dev, "vref");
->  	if (IS_ERR(priv->vref)) {
->  		ret = PTR_ERR(priv->vref);
+>  		Using this sysfs file will override any values that were
+> -		set using the kernel command line for disk offset.
+> \ No newline at end of file
+> +		set using the kernel command line for disk offset.
 
 _______________________________________________
 Linux-stm32 mailing list
