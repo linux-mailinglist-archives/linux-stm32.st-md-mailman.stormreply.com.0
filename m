@@ -2,80 +2,48 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id 5749750755
-	for <lists+linux-stm32@lfdr.de>; Mon, 24 Jun 2019 12:10:35 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 0B99B5289A
+	for <lists+linux-stm32@lfdr.de>; Tue, 25 Jun 2019 11:54:03 +0200 (CEST)
 Received: from ip-172-31-3-76.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 0869DCC589B
-	for <lists+linux-stm32@lfdr.de>; Mon, 24 Jun 2019 10:10:35 +0000 (UTC)
-Received: from mx07-00178001.pphosted.com (mx07-00178001.pphosted.com
- [62.209.51.94])
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id C9961C06FB1
+	for <lists+linux-stm32@lfdr.de>; Tue, 25 Jun 2019 09:54:02 +0000 (UTC)
+Received: from heliosphere.sirena.org.uk (heliosphere.sirena.org.uk
+ [172.104.155.198])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id C35B7CC589A
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id A1306C0D2A5
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Mon, 24 Jun 2019 10:10:33 +0000 (UTC)
-Received: from pps.filterd (m0046668.ppops.net [127.0.0.1])
- by mx07-00178001.pphosted.com (8.16.0.27/8.16.0.27) with SMTP id
- x5OA62I3032026; Mon, 24 Jun 2019 12:10:08 +0200
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=st.com;
- h=from : to : cc : subject
- : date : message-id : references : in-reply-to : content-type : content-id
- : content-transfer-encoding : mime-version; s=STMicroelectronics;
- bh=f7nKa6SlB25HuKxpO9ORVYe76aQxcf81fhY3D6AwPCY=;
- b=qVAS3sfAEQKMyPUYW5onOQocf3HQ1xMc8a9OD35wBW1ET4c0Z+4Dm3+rqFboLskfsnvq
- L8mMSSDW3Cwvjy3glbyAwXs6v05wRZy+NzeQ83Zf3S24eyII1+VfHuj/zjb5mblxv1Iv
- UO0OC8n4axKvQk5Ek1PG8cU8IxqL6PNFQ/CPrT1/+Z6u7yJEeCdnZ9YrJPn6XMhHtMbI
- eQJVmp3lvfvasGSVYBAR2Lebs7rZy2l/a381BzqK3tcgn6RHHFO4f3TjrST9Cf9oJAB1
- FPe6EN0eDxbQHR9+LqDu5Ja2axh+NPg3/kTx550GNqA2g+DFAnNpKo9yB7QJJwZ4JER7 Qw== 
-Received: from beta.dmz-eu.st.com (beta.dmz-eu.st.com [164.129.1.35])
- by mx07-00178001.pphosted.com with ESMTP id 2t9d2g29h3-1
- (version=TLSv1 cipher=ECDHE-RSA-AES256-SHA bits=256 verify=NOT);
- Mon, 24 Jun 2019 12:10:08 +0200
-Received: from zeta.dmz-eu.st.com (zeta.dmz-eu.st.com [164.129.230.9])
- by beta.dmz-eu.st.com (STMicroelectronics) with ESMTP id 541973A;
- Mon, 24 Jun 2019 10:10:06 +0000 (GMT)
-Received: from Webmail-eu.st.com (sfhdag3node1.st.com [10.75.127.7])
- by zeta.dmz-eu.st.com (STMicroelectronics) with ESMTP id 16CA22661;
- Mon, 24 Jun 2019 10:10:06 +0000 (GMT)
-Received: from SFHDAG5NODE1.st.com (10.75.127.13) by SFHDAG3NODE1.st.com
- (10.75.127.7) with Microsoft SMTP Server (TLS) id 15.0.1347.2; Mon, 24 Jun
- 2019 12:10:05 +0200
-Received: from SFHDAG5NODE1.st.com ([fe80::cc53:528c:36c8:95f6]) by
- SFHDAG5NODE1.st.com ([fe80::cc53:528c:36c8:95f6%20]) with mapi id
- 15.00.1347.000; Mon, 24 Jun 2019 12:10:05 +0200
-From: Hugues FRUCHET <hugues.fruchet@st.com>
-To: Sakari Ailus <sakari.ailus@linux.intel.com>
-Thread-Topic: [PATCH v2 0/3] DCMI bridge support
-Thread-Index: AQHVJ4OqL2qtYdvbaESId3efmYQAfaaqeW6A
-Date: Mon, 24 Jun 2019 10:10:05 +0000
-Message-ID: <ae097d67-58fe-82d7-78d6-2445664f28db@st.com>
-References: <1560242912-17138-1-git-send-email-hugues.fruchet@st.com>
- <20190620161721.h3wn4nibomrvriw4@kekkonen.localdomain>
-In-Reply-To: <20190620161721.h3wn4nibomrvriw4@kekkonen.localdomain>
-Accept-Language: en-US
-Content-Language: en-US
-X-MS-Has-Attach: 
-X-MS-TNEF-Correlator: 
-user-agent: Mozilla/5.0 (X11; Linux x86_64; rv:60.0) Gecko/20100101
- Thunderbird/60.7.0
-x-ms-exchange-messagesentrepresentingtype: 1
-x-ms-exchange-transport-fromentityheader: Hosted
-x-originating-ip: [10.75.127.48]
-Content-ID: <85607FCBA25C3B4296E8D683984E4084@st.com>
-MIME-Version: 1.0
-X-Proofpoint-Virus-Version: vendor=fsecure engine=2.50.10434:, ,
- definitions=2019-06-24_08:, , signatures=0
-Cc: Yannick FERTRE <yannick.fertre@st.com>,
- Mickael GUENE <mickael.guene@st.com>,
- "linux-kernel@vger.kernel.org" <linux-kernel@vger.kernel.org>,
- Philippe CORNU <philippe.cornu@st.com>, Hans Verkuil <hverkuil@xs4all.nl>,
- Benjamin Gaignard <benjamin.gaignard@linaro.org>,
- Mauro Carvalho Chehab <mchehab@kernel.org>,
- "linux-stm32@st-md-mailman.stormreply.com"
- <linux-stm32@st-md-mailman.stormreply.com>,
- "linux-arm-kernel@lists.infradead.org" <linux-arm-kernel@lists.infradead.org>,
- "linux-media@vger.kernel.org" <linux-media@vger.kernel.org>
-Subject: Re: [Linux-stm32] [PATCH v2 0/3] DCMI bridge support
+ Tue, 25 Jun 2019 09:54:01 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
+ d=sirena.org.uk; s=20170815-heliosphere; h=Date:Message-Id:In-Reply-To:
+ Subject:Cc:To:From:Sender:Reply-To:MIME-Version:Content-Type:
+ Content-Transfer-Encoding:Content-ID:Content-Description:Resent-Date:
+ Resent-From:Resent-Sender:Resent-To:Resent-Cc:Resent-Message-ID:References:
+ List-Id:List-Help:List-Unsubscribe:List-Subscribe:List-Post:List-Owner:
+ List-Archive; bh=4xhafNZ9vsKKvjfqO+yD1YjW/mVePLcmRuEcd5QcDMA=; b=SCJr7OJ8/Njz
+ sjrg808suH9HC4CBUz9daEFnlgLmMAzA5NIn6wpTTpHuJacXeImBpd1jD9AzN1rKJLX13BbcaUxxr
+ uFqawaJkOIdT6Qq4pqif2W5wJ3lbTxODiXA1sYC3ma8Qq5nd+VVgxao/29MX0Arurm+aWI+nzzXcU
+ EmTU4=;
+Received: from cpc102320-sgyl38-2-0-cust46.18-2.cable.virginm.net
+ ([82.37.168.47] helo=finisterre.sirena.org.uk)
+ by heliosphere.sirena.org.uk with esmtpsa
+ (TLS1.2:ECDHE_RSA_AES_256_GCM_SHA384:256) (Exim 4.89)
+ (envelope-from <broonie@sirena.org.uk>)
+ id 1hfi9F-0004mM-03; Tue, 25 Jun 2019 09:53:57 +0000
+Received: by finisterre.sirena.org.uk (Postfix, from userid 1000)
+ id DD2B044006F; Mon, 24 Jun 2019 17:32:28 +0100 (BST)
+From: Mark Brown <broonie@kernel.org>
+To: Patrice Chotard <patrice.chotard@st.com>
+In-Reply-To: <20190620131323.5955-1-patrice.chotard@st.com>
+X-Patchwork-Hint: ignore
+Message-Id: <20190624163228.DD2B044006F@finisterre.sirena.org.uk>
+Date: Mon, 24 Jun 2019 17:32:28 +0100 (BST)
+Cc: christophe.kerello@st.com, linux-kernel@vger.kernel.org,
+ linux-spi@vger.kernel.org, patrice.chotard@st.com,
+ Mark Brown <broonie@kernel.org>, Maxime Coquelin <mcoquelin.stm32@gmail.com>,
+ linux-stm32@st-md-mailman.stormreply.com, linux-arm-kernel@lists.infradead.org
+Subject: [Linux-stm32] Applied "spi: spi-stm32-qspi: Remove CR_FTHRES_MASK
+	usage" to the spi tree
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -87,92 +55,84 @@ List-Post: <mailto:linux-stm32@st-md-mailman.stormreply.com>
 List-Help: <mailto:linux-stm32-request@st-md-mailman.stormreply.com?subject=help>
 List-Subscribe: <https://st-md-mailman.stormreply.com/mailman/listinfo/linux-stm32>, 
  <mailto:linux-stm32-request@st-md-mailman.stormreply.com?subject=subscribe>
+MIME-Version: 1.0
 Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
-Hi Sakari,
+The patch
 
- > - Where's the sub-device representing the bridge itself?
-This is pointed by [1]: drivers/media/i2c/st-mipid02.c
+   spi: spi-stm32-qspi: Remove CR_FTHRES_MASK usage
 
- > - As the driver becomes MC-centric, crop configuration takes place
-through
- >   V4L2 sub-device interface, not through the video device node.
- > - Same goes for accessing sensor configuration: it does not take place
- >   through video node but through the sub-device nodes.
+has been applied to the spi tree at
 
-Our objective is to be able to support either a simple parallel sensor
-or a CSI-2 sensor connected through a bridge without any changes on 
-userspace side because no additional processing or conversion involved, 
-only deserialisation is m.
-With the proposed set of patches, we succeeded to do so, the same 
-non-regression tests campaign is passed with OV5640 parallel sensor 
-(STM32MP1 evaluation board) or OV5640 CSI-2 sensor (Avenger96 board with 
-D3 mezzanine board).
+   https://git.kernel.org/pub/scm/linux/kernel/git/broonie/spi.git for-5.2
 
-We don't want driver to be MC-centric, media controller support was 
-required only to get access to the set of functions needed to link and
-walk trough subdevices: media_create_pad_link(), 
-media_entity_remote_pad(), etc...
+All being well this means that it will be integrated into the linux-next
+tree (usually sometime in the next 24 hours) and sent to Linus during
+the next merge window (or sooner if it is a bug fix), however if
+problems are discovered then the patch may be dropped or reverted.  
 
-We did a try with the v1 version of this patchset, delegating subdevices 
-handling to userspace, by using media-controller, but this require to 
-configure first the pipeline for each single change of resolution and 
-format before making any capture using v4l2-ctl or GStreamer, quite 
-heavy in fact.
-Benjamin did another try using new libcamera codebase, but even for a 
-basic capture use-case, negotiation code is quite tricky in order to
-match the right subdevices bus format to the required V4L2 format.
-Moreover, it was not clear how to call libcamera library prior to any
-v4l2-ctl or GStreamer calls.
+You may get further e-mails resulting from automated or manual testing
+and review of the tree, please engage with people reporting problems and
+send followup patches addressing any issues that are reported if needed.
 
-Adding 100 lines of code into DCMI to well configure resolution and 
-formats fixes the point and allows us to keep backward compatibility
-as per our objective, so it seems far more reasonable to us to do so
-even if DCMI controls more than the subdevice it is connected to.
-Moreover we found similar code in other video interfaces code like 
-qcom/camss/camss.c and xilinx/xilinx-dma.c, controlling the whole 
-pipeline, so it seems to us quite natural to go this way.
+If any updates are required or you are submitting further changes they
+should be sent as incremental updates against current git, existing
+patches will not be replaced.
 
-To summarize, if we cannot do the negotiation within kernel, delegating
-this to userspace implies far more complexity and breaks compatibility
-with existing applications without adding new functionalities.
+Please add any relevant lists and maintainers to the CCs when replying
+to this mail.
 
-Having all that in mind, what should be reconsidered in your opinion 
-Sakari ? Do you have some alternatives ?
+Thanks,
+Mark
 
-Best regards,
-Hugues.
+From 94613d5ae1091a28b33f38e18d96e8d953ac18df Mon Sep 17 00:00:00 2001
+From: Patrice Chotard <patrice.chotard@st.com>
+Date: Thu, 20 Jun 2019 15:13:23 +0200
+Subject: [PATCH] spi: spi-stm32-qspi: Remove CR_FTHRES_MASK usage
 
+On STM32 F4/F7/H7 SoCs, FTHRES is a 5 bits field in QSPI_CR register,
+but for STM32MP1 SoCs, FTHRES is a 4 bits field long. CR_FTHRES_MASK
+definition is not correct.
 
-On 6/20/19 6:17 PM, Sakari Ailus wrote:
-> Hi Hugues,
-> 
-> On Tue, Jun 11, 2019 at 10:48:29AM +0200, Hugues Fruchet wrote:
->> This patch serie allows to connect non-parallel camera sensor to
->> DCMI thanks to a bridge connected in between such as STMIPID02 [1].
->>
->> Media controller support is introduced first, then support of
->> several sub-devices within pipeline with dynamic linking
->> between them.
->> In order to keep backward compatibility with applications
->> relying on V4L2 interface only, format set on video node
->> is propagated to all sub-devices connected to camera interface.
->>
->> [1] https://www.spinics.net/lists/devicetree/msg278002.html
-> 
-> General notes on the set, not related to any single patch:
-> 
-> - Where's the sub-device representing the bridge itself?
-> 
-> - As the driver becomes MC-centric, crop configuration takes place through
->    V4L2 sub-device interface, not through the video device node.
-> 
-> - Same goes for accessing sensor configuration: it does not take place
->    through video node but through the sub-device nodes.
-> 
+As for all these SoCs, FTHRES field is set to 3, FIELD_PREP() macro
+is used with a constant as second parameter which make its usage useless.
+
+CR_FTHRES_MASK and FIELD_PREP() can be removed.
+
+Signed-off-by: Patrice Chotard <patrice.chotard@st.com>
+Signed-off-by: Mark Brown <broonie@kernel.org>
+---
+ drivers/spi/spi-stm32-qspi.c | 4 ++--
+ 1 file changed, 2 insertions(+), 2 deletions(-)
+
+diff --git a/drivers/spi/spi-stm32-qspi.c b/drivers/spi/spi-stm32-qspi.c
+index 42f8e3c6aa1f..5dbb6a8e893c 100644
+--- a/drivers/spi/spi-stm32-qspi.c
++++ b/drivers/spi/spi-stm32-qspi.c
+@@ -29,7 +29,7 @@
+ #define CR_SSHIFT		BIT(4)
+ #define CR_DFM			BIT(6)
+ #define CR_FSEL			BIT(7)
+-#define CR_FTHRES_MASK		GENMASK(12, 8)
++#define CR_FTHRES_SHIFT		8
+ #define CR_TEIE			BIT(16)
+ #define CR_TCIE			BIT(17)
+ #define CR_FTIE			BIT(18)
+@@ -463,7 +463,7 @@ static int stm32_qspi_setup(struct spi_device *spi)
+ 	flash->presc = presc;
+ 
+ 	mutex_lock(&qspi->lock);
+-	qspi->cr_reg = FIELD_PREP(CR_FTHRES_MASK, 3) | CR_SSHIFT | CR_EN;
++	qspi->cr_reg = 3 << CR_FTHRES_SHIFT | CR_SSHIFT | CR_EN;
+ 	writel_relaxed(qspi->cr_reg, qspi->io_base + QSPI_CR);
+ 
+ 	/* set dcr fsize to max address */
+-- 
+2.20.1
+
 _______________________________________________
 Linux-stm32 mailing list
 Linux-stm32@st-md-mailman.stormreply.com
