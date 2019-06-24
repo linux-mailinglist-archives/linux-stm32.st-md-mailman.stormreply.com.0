@@ -2,34 +2,41 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id 6B2595198C
-	for <lists+linux-stm32@lfdr.de>; Mon, 24 Jun 2019 19:29:33 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id BB663519EA
+	for <lists+linux-stm32@lfdr.de>; Mon, 24 Jun 2019 19:46:40 +0200 (CEST)
 Received: from ip-172-31-3-76.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 1E7E1C5CB36
-	for <lists+linux-stm32@lfdr.de>; Mon, 24 Jun 2019 17:29:33 +0000 (UTC)
-Received: from shards.monkeyblade.net (shards.monkeyblade.net [23.128.96.9])
- (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id CC023C57DD7
+	for <lists+linux-stm32@lfdr.de>; Mon, 24 Jun 2019 17:46:39 +0000 (UTC)
+Received: from vps.xff.cz (vps.xff.cz [195.181.215.36])
+ (using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 0FBFDC5CB35
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id B3516C57DD6
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Mon, 24 Jun 2019 17:29:31 +0000 (UTC)
-Received: from localhost (unknown [IPv6:2601:601:9f80:35cd::d71])
- (using TLSv1 with cipher AES256-SHA (256/256 bits))
- (Client did not present a certificate)
- (Authenticated sender: davem-davemloft)
- by shards.monkeyblade.net (Postfix) with ESMTPSA id 5520C15065090;
- Mon, 24 Jun 2019 10:29:28 -0700 (PDT)
-Date: Mon, 24 Jun 2019 10:29:27 -0700 (PDT)
-Message-Id: <20190624.102927.1268781741493594465.davem@davemloft.net>
-To: megous@megous.com
-From: David Miller <davem@davemloft.net>
-In-Reply-To: <20190620134748.17866-1-megous@megous.com>
+ Mon, 24 Jun 2019 17:46:38 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=megous.com; s=mail;
+ t=1561398397; bh=l26+171beDHOxmBA8VQOvSCiteWk45rGxm72YTM5O5M=;
+ h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
+ b=pegVqKhp8mz968SWeU+w2vKRP6a4dc5+dBNm3nxwjuqAnevGGPHI4ZwfoFTXH8rjC
+ thu7zSl6O4mdMXvGt7ZiNDk2BDZdMjeXRx4UwQIv7JVVJa+Df0sZPc6ZKAo7frELlZ
+ 9z4OGEpcrYnbZdEHdsuYFHIY74nf+gLab1TwBX54=
+Date: Mon, 24 Jun 2019 19:46:37 +0200
+From: =?utf-8?Q?Ond=C5=99ej?= Jirman <megous@megous.com>
+To: David Miller <davem@davemloft.net>
+Message-ID: <20190624174637.6sznc5ifiuh4c3sm@core.my.home>
+Mail-Followup-To: David Miller <davem@davemloft.net>,
+ linux-sunxi@googlegroups.com, maxime.ripard@bootlin.com,
+ wens@csie.org, robh+dt@kernel.org, jernej.skrabec@gmail.com,
+ airlied@linux.ie, daniel@ffwll.ch, mark.rutland@arm.com,
+ peppe.cavallaro@st.com, alexandre.torgue@st.com,
+ joabreu@synopsys.com, mcoquelin.stm32@gmail.com,
+ dri-devel@lists.freedesktop.org, devicetree@vger.kernel.org,
+ linux-arm-kernel@lists.infradead.org, linux-kernel@vger.kernel.org,
+ netdev@vger.kernel.org, linux-stm32@st-md-mailman.stormreply.com
 References: <20190620134748.17866-1-megous@megous.com>
-X-Mailer: Mew version 6.8 on Emacs 26.1
-Mime-Version: 1.0
-X-Greylist: Sender succeeded SMTP AUTH, not delayed by milter-greylist-4.5.12
- (shards.monkeyblade.net [149.20.54.216]);
- Mon, 24 Jun 2019 10:29:29 -0700 (PDT)
+ <20190624.102927.1268781741493594465.davem@davemloft.net>
+MIME-Version: 1.0
+Content-Disposition: inline
+In-Reply-To: <20190624.102927.1268781741493594465.davem@davemloft.net>
 Cc: mark.rutland@arm.com, joabreu@synopsys.com, devicetree@vger.kernel.org,
  maxime.ripard@bootlin.com, netdev@vger.kernel.org, wens@csie.org,
  jernej.skrabec@gmail.com, linux-kernel@vger.kernel.org, airlied@linux.ie,
@@ -54,32 +61,46 @@ Content-Transfer-Encoding: 7bit
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
-From: megous@megous.com
-Date: Thu, 20 Jun 2019 15:47:42 +0200
-
-> From: Ondrej Jirman <megous@megous.com>
+On Mon, Jun 24, 2019 at 10:29:27AM -0700, David Miller wrote:
+> From: megous@megous.com
+> Date: Thu, 20 Jun 2019 15:47:42 +0200
 > 
-> This series implements support for Xunlong Orange Pi 3 board.
+> > From: Ondrej Jirman <megous@megous.com>
+> > 
+> > This series implements support for Xunlong Orange Pi 3 board.
+> > 
+> > - ethernet support (patches 1-3)
+> > - HDMI support (patches 4-6)
+> > 
+> > For some people, ethernet doesn't work after reboot (but works on cold
+> > boot), when the stmmac driver is built into the kernel. It works when
+> > the driver is built as a module. It's either some timing issue, or power
+> > supply issue or a combination of both. Module build induces a power
+> > cycling of the phy.
+> > 
+> > I encourage people with this issue, to build the driver into the kernel,
+> > and try to alter the reset timings for the phy in DTS or
+> > startup-delay-us and report the findings.
 > 
-> - ethernet support (patches 1-3)
-> - HDMI support (patches 4-6)
+> This is a mixture of networking and non-networking changes so it really
+> can't go through my tree.
 > 
-> For some people, ethernet doesn't work after reboot (but works on cold
-> boot), when the stmmac driver is built into the kernel. It works when
-> the driver is built as a module. It's either some timing issue, or power
-> supply issue or a combination of both. Module build induces a power
-> cycling of the phy.
+> I wonder how you expect this series to be merged?
 > 
-> I encourage people with this issue, to build the driver into the kernel,
-> and try to alter the reset timings for the phy in DTS or
-> startup-delay-us and report the findings.
+> Thanks.
 
-This is a mixture of networking and non-networking changes so it really
-can't go through my tree.
+This series was even longer before, with patches all around for various
+maintainers. I'd expect that relevant maintainers pick the range of patches
+meant for them. I don't know who's exactly responsible for what, but I think,
+this should work:
 
-I wonder how you expect this series to be merged?
+- 2 stmmac patches should go together via some networking tree (is there
+  something specific for stmmac?)
+- all DTS patches should go via sunxi
+- hdmi patches via some drm tree
 
-Thanks.
+thank you and regards,
+	o.
 _______________________________________________
 Linux-stm32 mailing list
 Linux-stm32@st-md-mailman.stormreply.com
