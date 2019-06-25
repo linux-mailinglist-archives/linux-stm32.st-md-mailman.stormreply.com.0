@@ -2,57 +2,78 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id BBA795223E
-	for <lists+linux-stm32@lfdr.de>; Tue, 25 Jun 2019 06:44:59 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 83121525A9
+	for <lists+linux-stm32@lfdr.de>; Tue, 25 Jun 2019 09:58:16 +0200 (CEST)
 Received: from ip-172-31-3-76.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 6BA87CDB429
-	for <lists+linux-stm32@lfdr.de>; Tue, 25 Jun 2019 04:44:59 +0000 (UTC)
-Received: from mail-ot1-f67.google.com (mail-ot1-f67.google.com
- [209.85.210.67])
- (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 3C498C5E7CC
+	for <lists+linux-stm32@lfdr.de>; Tue, 25 Jun 2019 07:58:16 +0000 (UTC)
+Received: from youngberry.canonical.com (youngberry.canonical.com
+ [91.189.89.112]) (using TLSv1 with cipher AES256-SHA (256/256 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 29C58CDB428
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 23A94C072E3
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Tue, 25 Jun 2019 04:44:58 +0000 (UTC)
-Received: by mail-ot1-f67.google.com with SMTP id 43so11097452otf.8
- for <linux-stm32@st-md-mailman.stormreply.com>;
- Mon, 24 Jun 2019 21:44:58 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=googlemail.com; s=20161025;
- h=mime-version:references:in-reply-to:from:date:message-id:subject:to
- :cc; bh=2Wp4HQypqw0rNbItr1Xs0WBR6fHG0G9gjAl5KxurVdE=;
- b=ICNF3PTZ1ZfG+bAeY8F8Pp7sQzesnEsLfQyVK4xXEW0fE9JbdoeEwICCri9MhuwgDe
- bm/0ejdD98vhkuaDReGiErs7EaKJphiOdNIOX5OTwKFKRbuUyOxVIAk4bHBff8k+v4sW
- T7OmIR81tdf3Fy8cR5DX0+mQ0tZ/Wu4tdvEcn1ySqLThg5Z+Cqiyv07RISHe3YwpWKkU
- mNX0GQfIvmuXGqm24S4OcATnGcJC5dp2nIjKXJ/eVlclscTS4ifWJKJt3gXQIn8V6JDV
- mBBDQVVDx+ijpZkFkPqRJLSkoToQRF0nF2/Dh+zYJ2NvIUQ+MXj1dcWGXJ7WX+IKrAi0
- Ackw==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20161025;
- h=x-gm-message-state:mime-version:references:in-reply-to:from:date
- :message-id:subject:to:cc;
- bh=2Wp4HQypqw0rNbItr1Xs0WBR6fHG0G9gjAl5KxurVdE=;
- b=NSO+skTpNEFjO/JvK4QUVZeG+vRCY1b+j9PWh6ReD6lJpEAa98rNwy9px8uI5BX0Sb
- vcn4S+Agb2YmZndxAenxNwk/3kdQRN7oLKWILJVXPE+oriMIpspdvaVAkIdWSk+We7yX
- 1de1COz3Ad7cTsTkZRJZuoiD0uQmjjDod1xPAEuNGT+PkJxiWt6yu5DK99jG7ZCBhlhI
- YPKcpmrDICW/upyjMT7qqIIMKY0IKS3X7xJadje3ZAkMHQ4uxMJccl+aszMGAMKbmzB4
- 5tJslGhcd+DHZT/do6jYSHcbtC2lC4tBBje9IqeLdboa0TVahklQUAP3FyrHOcY/uj8Q
- 2pYQ==
-X-Gm-Message-State: APjAAAXx13ediFUFl/KZeFE9FXJA2HoZdTG94jxNU7smqblHAp2GGbXE
- OuakG8Bh/LRFgC9xoo+DpKhWd0JbWrqpbwiCU94=
-X-Google-Smtp-Source: APXvYqxsOdEMaHKmim8mpE6aFtY/5w9wT+CBAa2iQ2fftmNQo7l1oux8418VMI5kU7usdjz86T8c871EA6XxIf+xwSc=
-X-Received: by 2002:a9d:14a:: with SMTP id 68mr70034647otu.96.1561437896776;
- Mon, 24 Jun 2019 21:44:56 -0700 (PDT)
-MIME-Version: 1.0
+ Tue, 25 Jun 2019 07:58:15 +0000 (UTC)
+Received: from 1.general.cking.uk.vpn ([10.172.193.212])
+ by youngberry.canonical.com with esmtpsa (TLS1.0:RSA_AES_128_CBC_SHA1:16)
+ (Exim 4.76) (envelope-from <colin.king@canonical.com>)
+ id 1hfgLD-00050k-HN; Tue, 25 Jun 2019 07:58:11 +0000
+To: Martin Blumenstingl <martin.blumenstingl@googlemail.com>
 References: <20190617165836.4673-1-colin.king@canonical.com>
  <20190619051308.23582-1-martin.blumenstingl@googlemail.com>
  <92f9e5a6-d2a2-6bf2-ff8a-2430fe977f93@canonical.com>
  <CAFBinCDmYVPDMcwAAYhMfxxuTsG=xunduN58_8e20zE_Mhmb7Q@mail.gmail.com>
-In-Reply-To: <CAFBinCDmYVPDMcwAAYhMfxxuTsG=xunduN58_8e20zE_Mhmb7Q@mail.gmail.com>
-From: Martin Blumenstingl <martin.blumenstingl@googlemail.com>
-Date: Tue, 25 Jun 2019 06:44:45 +0200
-Message-ID: <CAFBinCC-LLpfXQRFcKBbUpCfKc0S9Xtt60QrhEThsOFV-T7vFw@mail.gmail.com>
-To: Colin Ian King <colin.king@canonical.com>
+ <CAFBinCC-LLpfXQRFcKBbUpCfKc0S9Xtt60QrhEThsOFV-T7vFw@mail.gmail.com>
+From: Colin Ian King <colin.king@canonical.com>
+Openpgp: preference=signencrypt
+Autocrypt: addr=colin.king@canonical.com; prefer-encrypt=mutual; keydata=
+ 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
+Message-ID: <c46d2d17-c35b-46f0-0674-0c55bea3a272@canonical.com>
+Date: Tue, 25 Jun 2019 08:58:10 +0100
+User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:60.0) Gecko/20100101
+ Thunderbird/60.7.1
+MIME-Version: 1.0
+In-Reply-To: <CAFBinCC-LLpfXQRFcKBbUpCfKc0S9Xtt60QrhEThsOFV-T7vFw@mail.gmail.com>
+Content-Language: en-US
 Cc: netdev@vger.kernel.org, kernel-janitors@vger.kernel.org,
  linux-kernel@vger.kernel.org, linux-stm32@st-md-mailman.stormreply.com,
  joabreu@synopsys.com, mcoquelin.stm32@gmail.com, peppe.cavallaro@st.com,
@@ -75,54 +96,61 @@ Content-Transfer-Encoding: 7bit
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
-Hi Colin,
-
-On Thu, Jun 20, 2019 at 3:34 AM Martin Blumenstingl
-<martin.blumenstingl@googlemail.com> wrote:
->
+On 25/06/2019 05:44, Martin Blumenstingl wrote:
 > Hi Colin,
->
-> On Wed, Jun 19, 2019 at 8:55 AM Colin Ian King <colin.king@canonical.com> wrote:
-> >
-> > On 19/06/2019 06:13, Martin Blumenstingl wrote:
-> > > Hi Colin,
-> > >
-> > >> Currently the call to device_property_read_u32_array is not error checked
-> > >> leading to potential garbage values in the delays array that are then used
-> > >> in msleep delays.  Add a sanity check to the property fetching.
-> > >>
-> > >> Addresses-Coverity: ("Uninitialized scalar variable")
-> > >> Signed-off-by: Colin Ian King <colin.king@canonical.com>
-> > > I have also sent a patch [0] to fix initialize the array.
-> > > can you please look at my patch so we can work out which one to use?
-> > >
-> > > my concern is that the "snps,reset-delays-us" property is optional,
-> > > the current dt-bindings documentation states that it's a required
-> > > property. in reality it isn't, there are boards (two examples are
-> > > mentioned in my patch: [0]) without it.
-> > >
-> > > so I believe that the resulting behavior has to be:
-> > > 1. don't delay if this property is missing (instead of delaying for
-> > >    <garbage value> ms)
-> > > 2. don't error out if this property is missing
-> > >
-> > > your patch covers #1, can you please check whether #2 is also covered?
-> > > I tested case #2 when submitting my patch and it worked fine (even
-> > > though I could not reproduce the garbage values which are being read
-> > > on some boards)
-in the meantime I have tested your patch.
-when I don't set the "snps,reset-delays-us" property then I get the
-following error:
-  invalid property snps,reset-delays-us
+> 
+> On Thu, Jun 20, 2019 at 3:34 AM Martin Blumenstingl
+> <martin.blumenstingl@googlemail.com> wrote:
+>>
+>> Hi Colin,
+>>
+>> On Wed, Jun 19, 2019 at 8:55 AM Colin Ian King <colin.king@canonical.com> wrote:
+>>>
+>>> On 19/06/2019 06:13, Martin Blumenstingl wrote:
+>>>> Hi Colin,
+>>>>
+>>>>> Currently the call to device_property_read_u32_array is not error checked
+>>>>> leading to potential garbage values in the delays array that are then used
+>>>>> in msleep delays.  Add a sanity check to the property fetching.
+>>>>>
+>>>>> Addresses-Coverity: ("Uninitialized scalar variable")
+>>>>> Signed-off-by: Colin Ian King <colin.king@canonical.com>
+>>>> I have also sent a patch [0] to fix initialize the array.
+>>>> can you please look at my patch so we can work out which one to use?
+>>>>
+>>>> my concern is that the "snps,reset-delays-us" property is optional,
+>>>> the current dt-bindings documentation states that it's a required
+>>>> property. in reality it isn't, there are boards (two examples are
+>>>> mentioned in my patch: [0]) without it.
+>>>>
+>>>> so I believe that the resulting behavior has to be:
+>>>> 1. don't delay if this property is missing (instead of delaying for
+>>>>    <garbage value> ms)
+>>>> 2. don't error out if this property is missing
+>>>>
+>>>> your patch covers #1, can you please check whether #2 is also covered?
+>>>> I tested case #2 when submitting my patch and it worked fine (even
+>>>> though I could not reproduce the garbage values which are being read
+>>>> on some boards)
+> in the meantime I have tested your patch.
+> when I don't set the "snps,reset-delays-us" property then I get the
+> following error:
+>   invalid property snps,reset-delays-us
+> 
+> my patch has landed in the meantime: [0]
+> how should we proceed with your patch?
 
-my patch has landed in the meantime: [0]
-how should we proceed with your patch?
+I'm out of the office today. I'll get back to you on this tomorrow.
 
+Colin
+> 
+> 
+> Martin
+> 
+> 
+> [0] https://git.kernel.org/pub/scm/linux/kernel/git/davem/net-next.git/commit/drivers/net/ethernet/stmicro/stmmac/stmmac_mdio.c?id=84ce4d0f9f55b4f4ca4d4edcbb54a23d9dad1aae
+> 
 
-Martin
-
-
-[0] https://git.kernel.org/pub/scm/linux/kernel/git/davem/net-next.git/commit/drivers/net/ethernet/stmicro/stmmac/stmmac_mdio.c?id=84ce4d0f9f55b4f4ca4d4edcbb54a23d9dad1aae
 _______________________________________________
 Linux-stm32 mailing list
 Linux-stm32@st-md-mailman.stormreply.com
