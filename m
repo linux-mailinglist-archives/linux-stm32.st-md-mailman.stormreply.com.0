@@ -2,53 +2,34 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id 72DED56F80
-	for <lists+linux-stm32@lfdr.de>; Wed, 26 Jun 2019 19:27:33 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 4B60757287
+	for <lists+linux-stm32@lfdr.de>; Wed, 26 Jun 2019 22:24:38 +0200 (CEST)
 Received: from ip-172-31-3-76.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 247CFC20B57
-	for <lists+linux-stm32@lfdr.de>; Wed, 26 Jun 2019 17:27:33 +0000 (UTC)
-Received: from perceval.ideasonboard.com (perceval.ideasonboard.com
- [213.167.242.64])
- (using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id B2148C56C5B
+	for <lists+linux-stm32@lfdr.de>; Wed, 26 Jun 2019 20:24:37 +0000 (UTC)
+Received: from saturn.retrosnub.co.uk (saturn.retrosnub.co.uk [46.235.226.198])
+ (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 8D349C20B56
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id BEF03C56C5A
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Wed, 26 Jun 2019 17:27:31 +0000 (UTC)
-Received: from pendragon.ideasonboard.com (81-175-216-236.bb.dnainternet.fi
- [81.175.216.236])
- by perceval.ideasonboard.com (Postfix) with ESMTPSA id A1035510;
- Wed, 26 Jun 2019 19:27:30 +0200 (CEST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=ideasonboard.com;
- s=mail; t=1561570050;
- bh=i14VRbRUNWeaIKjEs5xAYIdwAOF9WuME1WNthjXo334=;
- h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
- b=D7AdT3iHB/0TaRDGPON3Uu1w9UZ1SWe8rNbHY0LKbFytsYZFOOX5xgYHPMDriKuNl
- go7zLXJ7/ylQZy/6QEXBEdVbwSV8/fCmLJx1TavUSbtS+hWyPvGBMeIoy6KK91cFx1
- xbNWGAxwk2PBZ+wMy9Yycyz0YHUUD+Ib8HSGU81c=
-Date: Wed, 26 Jun 2019 20:25:03 +0300
-From: Laurent Pinchart <laurent.pinchart@ideasonboard.com>
-To: Hugues FRUCHET <hugues.fruchet@st.com>
-Message-ID: <20190626172503.GB6118@pendragon.ideasonboard.com>
-References: <1560242912-17138-1-git-send-email-hugues.fruchet@st.com>
- <20190620161721.h3wn4nibomrvriw4@kekkonen.localdomain>
- <ae097d67-58fe-82d7-78d6-2445664f28db@st.com>
+ Wed, 26 Jun 2019 20:24:36 +0000 (UTC)
+Received: from archlinux (cpc149474-cmbg20-2-0-cust94.5-4.cable.virginm.net
+ [82.4.196.95]) by saturn.retrosnub.co.uk (Postfix;
+ Retrosnub mail submission) with ESMTPSA id 1DF5B9E751C; 
+ Wed, 26 Jun 2019 21:24:35 +0100 (BST)
+Date: Wed, 26 Jun 2019 21:24:34 +0100
+From: Jonathan Cameron <jic23@jic23.retrosnub.co.uk>
+To: Geert Uytterhoeven <geert+renesas@glider.be>
+Message-ID: <20190626212434.1b78b49e@archlinux>
+In-Reply-To: <20190622115257.7198f8d4@archlinux>
+References: <20190617143057.4096-1-geert+renesas@glider.be>
+ <20190622115257.7198f8d4@archlinux>
+X-Mailer: Claws Mail 3.17.3 (GTK+ 2.24.32; x86_64-pc-linux-gnu)
 MIME-Version: 1.0
-Content-Disposition: inline
-In-Reply-To: <ae097d67-58fe-82d7-78d6-2445664f28db@st.com>
-User-Agent: Mutt/1.10.1 (2018-07-13)
-Cc: Yannick FERTRE <yannick.fertre@st.com>,
- Benjamin Gaignard <benjamin.gaignard@linaro.org>,
- Alexandre TORGUE <alexandre.torgue@st.com>,
- Mickael GUENE <mickael.guene@st.com>,
- "linux-kernel@vger.kernel.org" <linux-kernel@vger.kernel.org>,
- Philippe CORNU <philippe.cornu@st.com>, Hans Verkuil <hverkuil@xs4all.nl>,
- Sakari Ailus <sakari.ailus@linux.intel.com>,
- Mauro Carvalho Chehab <mchehab@kernel.org>,
- "linux-stm32@st-md-mailman.stormreply.com"
- <linux-stm32@st-md-mailman.stormreply.com>,
- "linux-arm-kernel@lists.infradead.org" <linux-arm-kernel@lists.infradead.org>,
- "linux-media@vger.kernel.org" <linux-media@vger.kernel.org>
-Subject: Re: [Linux-stm32] [PATCH v2 0/3] DCMI bridge support
+Cc: linux-iio@vger.kernel.org, linux-stm32@st-md-mailman.stormreply.com,
+ linux-kernel@vger.kernel.org
+Subject: Re: [Linux-stm32] [PATCH] Documentation: ABI: Add missing newline
+	at end of file
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -65,131 +46,64 @@ Content-Transfer-Encoding: 7bit
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
-Hi Hugues,
+On Sat, 22 Jun 2019 11:52:57 +0100
+Jonathan Cameron <jic23@kernel.org> wrote:
 
-On Mon, Jun 24, 2019 at 10:10:05AM +0000, Hugues FRUCHET wrote:
-> Hi Sakari,
+> On Mon, 17 Jun 2019 16:30:57 +0200
+> Geert Uytterhoeven <geert+renesas@glider.be> wrote:
 > 
->  > - Where's the sub-device representing the bridge itself?
-> This is pointed by [1]: drivers/media/i2c/st-mipid02.c
-> 
->  > - As the driver becomes MC-centric, crop configuration takes place
-> through
->  >   V4L2 sub-device interface, not through the video device node.
->  > - Same goes for accessing sensor configuration: it does not take place
->  >   through video node but through the sub-device nodes.
-> 
-> Our objective is to be able to support either a simple parallel sensor
-> or a CSI-2 sensor connected through a bridge without any changes on 
-> userspace side because no additional processing or conversion involved, 
-> only deserialisation is m.
-> With the proposed set of patches, we succeeded to do so, the same 
-> non-regression tests campaign is passed with OV5640 parallel sensor 
-> (STM32MP1 evaluation board) or OV5640 CSI-2 sensor (Avenger96 board with 
-> D3 mezzanine board).
-> 
-> We don't want driver to be MC-centric, media controller support was 
-> required only to get access to the set of functions needed to link and
-> walk trough subdevices: media_create_pad_link(), 
-> media_entity_remote_pad(), etc...
-> 
-> We did a try with the v1 version of this patchset, delegating subdevices 
-> handling to userspace, by using media-controller, but this require to 
-> configure first the pipeline for each single change of resolution and 
-> format before making any capture using v4l2-ctl or GStreamer, quite 
-> heavy in fact.
-> Benjamin did another try using new libcamera codebase, but even for a 
-> basic capture use-case, negotiation code is quite tricky in order to
-> match the right subdevices bus format to the required V4L2 format.
-
-Why would it be trickier in userspace than in the kernel ? The V4L2
-subdev operations are more or less expose verbatim through the subdev
-userspace API.
-
-> Moreover, it was not clear how to call libcamera library prior to any
-> v4l2-ctl or GStreamer calls.
-
-libcamera isn't meant to be called before v4l2-ctl or GStreamer.
-Applications are supposed to be based directly on libcamera, or, for
-existing userspace APIs such as V4L2 or GStreamer, compatibility layers
-are supposed to be developed. For V4L2 it will take the form of a
-LD_PRELOAD-able .so that will intercept the V4L2 API calls, making most
-V4L2 applications work with libcamera unmodified (I said most as 100%
-compatibility will likely not be achievable). For GStreamer it will take
-the form of a GStreamer libcamera element that will replace the V4L2
-source element.
-
-> Adding 100 lines of code into DCMI to well configure resolution and 
-> formats fixes the point and allows us to keep backward compatibility
-> as per our objective, so it seems far more reasonable to us to do so
-> even if DCMI controls more than the subdevice it is connected to.
-> Moreover we found similar code in other video interfaces code like 
-> qcom/camss/camss.c and xilinx/xilinx-dma.c, controlling the whole 
-> pipeline, so it seems to us quite natural to go this way.
-
-I can't comment on the qcom-camss driver as I'm not aware of its
-internals, but where have you found such code in the Xilinx V4L2 drivers
-?
-
-> To summarize, if we cannot do the negotiation within kernel, delegating
-> this to userspace implies far more complexity and breaks compatibility
-> with existing applications without adding new functionalities.
-> 
-> Having all that in mind, what should be reconsidered in your opinion 
-> Sakari ? Do you have some alternatives ?
-
-First of all, let's note that your patch series performs to related but
-still independent changes: it enables MC support, *and* enables the V4L2
-subdev userspace API. The former is clearly needed and will allow you to
-use the MC API internally in the kernel, simplifying pipeline traversal.
-The latter then enables the V4L2 subdev userspace API, moving the
-pipeline configuration responsibility to userspace.
-
-You could in theory move to the MC API inside the kernel, without
-enabling support for the V4L2 subdev userspace API. Configuring the
-pipeline and propagating the formats would then be the responsibility of
-the kernel driver. However, this will limit your driver to the
-following:
-
-- Fully linear pipelines only (single sensor)
-- No support for controls implemented by multiple entities in the
-  pipeline (for instance controls that would exist in both the sensor
-  and the bridge, such as gains)
-- No proper support for scaling configuration if multiple components in
-  the pipeline can scale
-
-Are you willing to set those limitations in stone and give up on
-supporting those features ?
-
-> On 6/20/19 6:17 PM, Sakari Ailus wrote:
-> > On Tue, Jun 11, 2019 at 10:48:29AM +0200, Hugues Fruchet wrote:
-> >> This patch serie allows to connect non-parallel camera sensor to
-> >> DCMI thanks to a bridge connected in between such as STMIPID02 [1].
-> >>
-> >> Media controller support is introduced first, then support of
-> >> several sub-devices within pipeline with dynamic linking
-> >> between them.
-> >> In order to keep backward compatibility with applications
-> >> relying on V4L2 interface only, format set on video node
-> >> is propagated to all sub-devices connected to camera interface.
-> >>
-> >> [1] https://www.spinics.net/lists/devicetree/msg278002.html
+> > "git diff" says:
 > > 
-> > General notes on the set, not related to any single patch:
+> >     \ No newline at end of file
 > > 
-> > - Where's the sub-device representing the bridge itself?
+> > after modifying the files.
 > > 
-> > - As the driver becomes MC-centric, crop configuration takes place through
-> >    V4L2 sub-device interface, not through the video device node.
-> > 
-> > - Same goes for accessing sensor configuration: it does not take place
-> >    through video node but through the sub-device nodes.
-> > 
+> > Signed-off-by: Geert Uytterhoeven <geert+renesas@glider.be>  
+> Applied to the togreg branch of iio.git and pushed out as testing.
+Hmm. I only just noticed that this 'fixes' the sysfs-power file as
+well which isn't one of mind.
 
--- 
-Regards,
+I'm going to drop the patch to avoid any possible clashes.
+Please respin as separate patches.
 
-Laurent Pinchart
+Thanks,
+
+Jonathan
+
+> 
+> Thanks,
+> 
+> Jonathan
+> 
+> > ---
+> >  Documentation/ABI/testing/sysfs-bus-iio-dfsdm-adc-stm32 | 2 +-
+> >  Documentation/ABI/testing/sysfs-power                   | 2 +-
+> >  2 files changed, 2 insertions(+), 2 deletions(-)
+> > 
+> > diff --git a/Documentation/ABI/testing/sysfs-bus-iio-dfsdm-adc-stm32 b/Documentation/ABI/testing/sysfs-bus-iio-dfsdm-adc-stm32
+> > index da9822309f0757bd..0e66ae9b0071e80b 100644
+> > --- a/Documentation/ABI/testing/sysfs-bus-iio-dfsdm-adc-stm32
+> > +++ b/Documentation/ABI/testing/sysfs-bus-iio-dfsdm-adc-stm32
+> > @@ -13,4 +13,4 @@ Description:
+> >  			error on writing
+> >  		If DFSDM input is SPI Slave:
+> >  			Reading returns value previously set.
+> > -			Writing value before starting conversions.
+> > \ No newline at end of file
+> > +			Writing value before starting conversions.
+> > diff --git a/Documentation/ABI/testing/sysfs-power b/Documentation/ABI/testing/sysfs-power
+> > index 18b7dc929234f625..3c51303550118474 100644
+> > --- a/Documentation/ABI/testing/sysfs-power
+> > +++ b/Documentation/ABI/testing/sysfs-power
+> > @@ -300,4 +300,4 @@ Description:
+> >  		attempt.
+> >  
+> >  		Using this sysfs file will override any values that were
+> > -		set using the kernel command line for disk offset.
+> > \ No newline at end of file
+> > +		set using the kernel command line for disk offset.  
+> 
+
 _______________________________________________
 Linux-stm32 mailing list
 Linux-stm32@st-md-mailman.stormreply.com
