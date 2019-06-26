@@ -2,31 +2,32 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id 6ED5D56B01
-	for <lists+linux-stm32@lfdr.de>; Wed, 26 Jun 2019 15:45:37 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id B444756B37
+	for <lists+linux-stm32@lfdr.de>; Wed, 26 Jun 2019 15:50:32 +0200 (CEST)
 Received: from ip-172-31-3-76.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 1804BC10C84
-	for <lists+linux-stm32@lfdr.de>; Wed, 26 Jun 2019 13:45:37 +0000 (UTC)
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 72A35C10C88
+	for <lists+linux-stm32@lfdr.de>; Wed, 26 Jun 2019 13:50:32 +0000 (UTC)
 Received: from pokefinder.org (sauhun.de [88.99.104.3])
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 55A24C10C82
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 696DEC10C84
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Wed, 26 Jun 2019 13:45:36 +0000 (UTC)
+ Wed, 26 Jun 2019 13:50:30 +0000 (UTC)
 Received: from localhost (p54B330AF.dip0.t-ipconnect.de [84.179.48.175])
- by pokefinder.org (Postfix) with ESMTPSA id 00AF52C0114;
- Wed, 26 Jun 2019 15:45:35 +0200 (CEST)
-Date: Wed, 26 Jun 2019 15:45:35 +0200
+ by pokefinder.org (Postfix) with ESMTPSA id 213A42C0114;
+ Wed, 26 Jun 2019 15:50:30 +0200 (CEST)
+Date: Wed, 26 Jun 2019 15:50:29 +0200
 From: Wolfram Sang <wsa@the-dreams.de>
 To: Fabrice Gasnier <fabrice.gasnier@st.com>
-Message-ID: <20190626134535.GN801@ninjato>
-References: <1559654451-26612-1-git-send-email-fabrice.gasnier@st.com>
+Message-ID: <20190626135029.GO801@ninjato>
+References: <1559655253-27008-1-git-send-email-fabrice.gasnier@st.com>
 MIME-Version: 1.0
-In-Reply-To: <1559654451-26612-1-git-send-email-fabrice.gasnier@st.com>
+In-Reply-To: <1559655253-27008-1-git-send-email-fabrice.gasnier@st.com>
 User-Agent: Mutt/1.10.1 (2018-07-13)
-Cc: linux-kernel@vger.kernel.org, pierre-yves.mordret@st.com,
+Cc: mark.rutland@arm.com, devicetree@vger.kernel.org,
+ linux-kernel@vger.kernel.org, pierre-yves.mordret@st.com, robh+dt@kernel.org,
  linux-i2c@vger.kernel.org, mcoquelin.stm32@gmail.com,
  linux-stm32@st-md-mailman.stormreply.com, linux-arm-kernel@lists.infradead.org
-Subject: Re: [Linux-stm32] [PATCH] i2c: i2c-stm32f7: Add
-	I2C_SMBUS_I2C_BLOCK_DATA support
+Subject: Re: [Linux-stm32] [PATCH] dt-bindings: i2c-stm32: document optional
+	dmas
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -38,95 +39,79 @@ List-Post: <mailto:linux-stm32@st-md-mailman.stormreply.com>
 List-Help: <mailto:linux-stm32-request@st-md-mailman.stormreply.com?subject=help>
 List-Subscribe: <https://st-md-mailman.stormreply.com/mailman/listinfo/linux-stm32>, 
  <mailto:linux-stm32-request@st-md-mailman.stormreply.com?subject=subscribe>
-Content-Type: multipart/mixed; boundary="===============1433365546619745364=="
+Content-Type: multipart/mixed; boundary="===============8599572738040432442=="
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
 
---===============1433365546619745364==
+--===============8599572738040432442==
 Content-Type: multipart/signed; micalg=pgp-sha512;
-	protocol="application/pgp-signature"; boundary="8MZM6zh5Bb05FW+3"
+	protocol="application/pgp-signature"; boundary="keoAwTxaagou87Dg"
 Content-Disposition: inline
 
 
---8MZM6zh5Bb05FW+3
+--keoAwTxaagou87Dg
 Content-Type: text/plain; charset=us-ascii
 Content-Disposition: inline
 Content-Transfer-Encoding: quoted-printable
 
-On Tue, Jun 04, 2019 at 03:20:51PM +0200, Fabrice Gasnier wrote:
-> This patch adds the support of I2C_SMBUS_I2C_BLOCK_DATA transaction type
-> for the stm32f7 SMBUS Controller.
-> Use emulated I2C_SMBUS_I2C_BLOCK_DATA transactions as there is no specific
-> hardware in STM32 I2C to manage this (e.g. like no need for PEC here).
-> Emulated transfer will fall back calling i2c transfer method where there's
-> already support for DMAs for example.
-> So, use the I2C_FUNC_SMBUS_I2C_BLOCK in stm32f7_i2c_func(), and rely on
-> emulated transfer by returning -EOPNOTSUPP in the smbus_xfer() routine
-> for such a case.
+On Tue, Jun 04, 2019 at 03:34:13PM +0200, Fabrice Gasnier wrote:
+> Add missing documentation for "dmas" and "dma-names" properties that can =
+be
+> used on i2c-stm32.
 >=20
 > Signed-off-by: Fabrice Gasnier <fabrice.gasnier@st.com>
 
 Maintainers?
 
 > ---
->  drivers/i2c/busses/i2c-stm32f7.c | 6 +++++-
->  1 file changed, 5 insertions(+), 1 deletion(-)
+>  Documentation/devicetree/bindings/i2c/i2c-stm32.txt | 2 ++
+>  1 file changed, 2 insertions(+)
 >=20
-> diff --git a/drivers/i2c/busses/i2c-stm32f7.c b/drivers/i2c/busses/i2c-st=
-m32f7.c
-> index 48337be..68a751e 100644
-> --- a/drivers/i2c/busses/i2c-stm32f7.c
-> +++ b/drivers/i2c/busses/i2c-stm32f7.c
-> @@ -953,6 +953,9 @@ static int stm32f7_i2c_smbus_xfer_msg(struct stm32f7_=
-i2c_dev *i2c_dev,
->  		cr2 &=3D ~STM32F7_I2C_CR2_RD_WRN;
->  		f7_msg->read_write =3D I2C_SMBUS_READ;
->  		break;
-> +	case I2C_SMBUS_I2C_BLOCK_DATA:
-> +		/* Rely on emulated i2c transfer (through master_xfer) */
-> +		return -EOPNOTSUPP;
->  	default:
->  		dev_err(dev, "Unsupported smbus protocol %d\n", f7_msg->size);
->  		return -EOPNOTSUPP;
-> @@ -1803,7 +1806,8 @@ static u32 stm32f7_i2c_func(struct i2c_adapter *ada=
-p)
->  		I2C_FUNC_SMBUS_QUICK | I2C_FUNC_SMBUS_BYTE |
->  		I2C_FUNC_SMBUS_BYTE_DATA | I2C_FUNC_SMBUS_WORD_DATA |
->  		I2C_FUNC_SMBUS_BLOCK_DATA | I2C_FUNC_SMBUS_BLOCK_PROC_CALL |
-> -		I2C_FUNC_SMBUS_PROC_CALL | I2C_FUNC_SMBUS_PEC;
-> +		I2C_FUNC_SMBUS_PROC_CALL | I2C_FUNC_SMBUS_PEC |
-> +		I2C_FUNC_SMBUS_I2C_BLOCK;
->  }
-> =20
->  static struct i2c_algorithm stm32f7_i2c_algo =3D {
+> diff --git a/Documentation/devicetree/bindings/i2c/i2c-stm32.txt b/Docume=
+ntation/devicetree/bindings/i2c/i2c-stm32.txt
+> index f334738..ce3df2ff 100644
+> --- a/Documentation/devicetree/bindings/i2c/i2c-stm32.txt
+> +++ b/Documentation/devicetree/bindings/i2c/i2c-stm32.txt
+> @@ -21,6 +21,8 @@ Optional properties:
+>    100000 and 400000.
+>    For STM32F7, STM32H7 and STM32MP1 SoCs, Standard-mode, Fast-mode and F=
+ast-mode
+>    Plus are supported, possible values are 100000, 400000 and 1000000.
+> +- dmas: List of phandles to rx and tx DMA channels. Refer to stm32-dma.t=
+xt.
+> +- dma-names: List of dma names. Valid names are: "rx" and "tx".
+>  - i2c-scl-rising-time-ns: I2C SCL Rising time for the board (default: 25)
+>    For STM32F7, STM32H7 and STM32MP1 only.
+>  - i2c-scl-falling-time-ns: I2C SCL Falling time for the board (default: =
+10)
 > --=20
 > 2.7.4
 >=20
 
---8MZM6zh5Bb05FW+3
+--keoAwTxaagou87Dg
 Content-Type: application/pgp-signature; name="signature.asc"
 
 -----BEGIN PGP SIGNATURE-----
 
-iQIzBAABCgAdFiEEOZGx6rniZ1Gk92RdFA3kzBSgKbYFAl0Tdv8ACgkQFA3kzBSg
-KbY34A/8CYpfe2MHsAqTGHO1tyGPc3Fuatefa6I/N/YHYLpWoSl3mpGia6mLK7s7
-gpUm/ClB+7Sl5KKdUaQ2zbvDtBPKQHfpZ/2QAYgBIoTVpf+snQLYRv4I5EiDD9Hs
-EAD+2gH3nxPCHu4q/J97lT/wq4o5IxeyzsLHxeRnnBB+Ziov+9Zoad5ug3f6jRTp
-KcL9B7T1Is0CU4xlqO/m3sHiRgfzIjovv7l6UIWd4JgRCiXerqkDuaZ7kp/rin5h
-4JQplk9UxamamgkjDexY/CE1Jk2ZN1NYLck574DAFO2J0CpGsYYu+ykC046A1H2i
-1yPfuLWy6Ie3IHHmf0CWJOw9h0o0oxmZQkTiX8WoXwUAozrodjbHo5asLK8V+F+z
-mjv8YhvXjbZRePtqpusnwtU7p4kXNhfi2skCNUPMqEQlAMgHecagto0+rDcfy6qI
-icB1x3LegvBoO1wWRilTvjYAYC5/gFLSdqppZVYGF5kEEzmJ1Q/Tv+Ekb3fUbgEz
-50riYWCnCoOdCs6S2XNb8/aSgHkU+6sjRNA7hCJCNNLPxcMobmUCk5V2R56GWjPW
-4z30wWy4vO3eo4CtH7WDUsMDnxiNK4lxqMkiPZPXgcJRl+SDnIPsyWrQKN9CCNoq
-c2br40VJ1gnvj0OX0TSKItNmxc5K4Q1iQWGiEwmA7DMumfDW9Kw=
-=as2l
+iQIzBAABCgAdFiEEOZGx6rniZ1Gk92RdFA3kzBSgKbYFAl0TeCUACgkQFA3kzBSg
+KbYAzRAApZytjukntjxaFMm+so69LjERp5Yg3pQwCd5U0L3E3OjLo5dsPhuffoi8
+je+cHGsEMB7A8KV48HJ581rmyC/elLIsJ+rr39tLbiyUMvWrabTLB4BvFPq1FKRR
+ZTavWSA01Z+q6BTcrEynX6woY/SYD3WeES+sC+fILuqp1sY6t/RtSLPfT7Y657+g
+PU0AlBy/Z3reWy9pQVUWe93UHuEI4KP3MJXuEiRylCUq7FSip2BdMnVyEY7QIrCJ
+z9o1MeJ4BJD402tJI++NTPX4uxbkqCsIq1OaQkxn/lWcirCy8oL23oN7YAOzPMSw
+5akc4UgfiBeE5lxSyapgnUe2Bd4zPI1epSbiQpPCt5mWTRac3MhUko4YcjCTq6Lm
+i2RgCsQre1/B4ZBUOeD1A9atsqVsJvYj+X9sJW+9C/AWRT0VrIYlc0OVHZpIJO1L
+M2o0LQFeQdaSfcH/2xmVFAXilcUQYHi8AWb7X0awvBY65XeDA+Khl7cvQQ3lA+kL
+oJyQy0W52P6piSns80Ho+F77uGqJvKwca9GxFmNs6kM+21Ipfxux8NXaMeCWUEjR
+O1BUWFFumbh7VS4BN5pGsFJ6VWt9vrQe4ko37UkkLGkzNXvq2X6+OSAwQqLkiYTv
+MmykLVk1yMcVJAKSny8k/bjJKE5ushPTIINoUA6LiGxgBby4+TQ=
+=uE1/
 -----END PGP SIGNATURE-----
 
---8MZM6zh5Bb05FW+3--
+--keoAwTxaagou87Dg--
 
---===============1433365546619745364==
+--===============8599572738040432442==
 Content-Type: text/plain; charset="us-ascii"
 MIME-Version: 1.0
 Content-Transfer-Encoding: 7bit
@@ -137,4 +122,4 @@ Linux-stm32 mailing list
 Linux-stm32@st-md-mailman.stormreply.com
 https://st-md-mailman.stormreply.com/mailman/listinfo/linux-stm32
 
---===============1433365546619745364==--
+--===============8599572738040432442==--
