@@ -2,62 +2,45 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id D355E58300
-	for <lists+linux-stm32@lfdr.de>; Thu, 27 Jun 2019 14:57:28 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 1A36C58358
+	for <lists+linux-stm32@lfdr.de>; Thu, 27 Jun 2019 15:22:14 +0200 (CEST)
 Received: from ip-172-31-3-76.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 75CBCC597AC;
-	Thu, 27 Jun 2019 12:57:28 +0000 (UTC)
-Received: from mx07-00178001.pphosted.com (mx08-00178001.pphosted.com
- [91.207.212.93])
- (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id C928DC06139;
+	Thu, 27 Jun 2019 13:22:13 +0000 (UTC)
+Received: from relay5-d.mail.gandi.net (relay5-d.mail.gandi.net
+ [217.70.183.197])
+ (using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id B5876C5956F
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 3D2A5C5719A
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Thu, 27 Jun 2019 12:57:26 +0000 (UTC)
-Received: from pps.filterd (m0046660.ppops.net [127.0.0.1])
- by mx08-00178001.pphosted.com (8.16.0.27/8.16.0.27) with SMTP id
- x5RCshKq021292; Thu, 27 Jun 2019 14:57:18 +0200
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=st.com;
- h=from : to : cc : subject
- : date : message-id : mime-version : content-type; s=STMicroelectronics;
- bh=arNT3kHueZtPkqh5DU3MVQwqA8rvFeVHl3XFKrjrxPE=;
- b=NSM31XfOHAbntPM73K8RWoG08h0DnAngtWGI2TfaqucnfLb5bubUPGBIxccw9PDVgFfG
- qPhjNJmuF5RyoAUxv1dFuvmXZABOgiyLqZoszw3Pw9CMNJoiDDM/co0bWf1XhOnSsAQ8
- 7hpUzVubDY+9rX8xKC8TSXFihIA10e8elBtwBvQnotTXp8+Ggw8UwnOsAeuBwcxqJFBm
- PFPTpoiS6dpnrnVMGNCNu9imjIUea9DRW/ySh7c5PfdGjrMBfd3NM+f0n9JpkkDIHhUu
- PUncJdg85ineWyA7rFc6sinx6iz/GS9qlzD+erWjzDoayzRpQD/C3xJlOvOFyUmJvaSQ mw== 
-Received: from beta.dmz-eu.st.com (beta.dmz-eu.st.com [164.129.1.35])
- by mx08-00178001.pphosted.com with ESMTP id 2t9d2wxw70-1
- (version=TLSv1 cipher=ECDHE-RSA-AES256-SHA bits=256 verify=NOT);
- Thu, 27 Jun 2019 14:57:18 +0200
-Received: from zeta.dmz-eu.st.com (zeta.dmz-eu.st.com [164.129.230.9])
- by beta.dmz-eu.st.com (STMicroelectronics) with ESMTP id 480D434;
- Thu, 27 Jun 2019 12:57:17 +0000 (GMT)
-Received: from Webmail-eu.st.com (Safex1hubcas22.st.com [10.75.90.92])
- by zeta.dmz-eu.st.com (STMicroelectronics) with ESMTP id F244127E0;
- Thu, 27 Jun 2019 12:57:16 +0000 (GMT)
-Received: from SAFEX1HUBCAS24.st.com (10.75.90.95) by Safex1hubcas22.st.com
- (10.75.90.92) with Microsoft SMTP Server (TLS) id 14.3.439.0; Thu, 27 Jun
- 2019 14:57:16 +0200
-Received: from localhost (10.201.23.19) by webmail-ga.st.com (10.75.90.48)
- with Microsoft SMTP Server (TLS) id 14.3.439.0; Thu, 27 Jun 2019 14:57:16
- +0200
-From: Hugues Fruchet <hugues.fruchet@st.com>
-To: Steve Longerbeam <slongerbeam@gmail.com>, Sakari Ailus
- <sakari.ailus@linux.intel.com>, Hans Verkuil <hverkuil@xs4all.nl>, "Mauro
- Carvalho Chehab" <mchehab@kernel.org>
-Date: Thu, 27 Jun 2019 14:57:04 +0200
-Message-ID: <1561640224-24062-1-git-send-email-hugues.fruchet@st.com>
-X-Mailer: git-send-email 2.7.4
+ Thu, 27 Jun 2019 13:22:12 +0000 (UTC)
+X-Originating-IP: 92.137.69.152
+Received: from localhost (alyon-656-1-672-152.w92-137.abo.wanadoo.fr
+ [92.137.69.152])
+ (Authenticated sender: alexandre.belloni@bootlin.com)
+ by relay5-d.mail.gandi.net (Postfix) with ESMTPSA id BD3BD1C0011;
+ Thu, 27 Jun 2019 13:22:00 +0000 (UTC)
+Date: Thu, 27 Jun 2019 15:22:00 +0200
+From: Alexandre Belloni <alexandre.belloni@bootlin.com>
+To: Wolfram Sang <wsa@the-dreams.de>
+Message-ID: <20190627132200.GK3692@piout.net>
+References: <1561449642-26956-1-git-send-email-eugen.hristev@microchip.com>
+ <1561449642-26956-7-git-send-email-eugen.hristev@microchip.com>
+ <4e81d3c9-25f3-ca6e-f2d5-17fad5905bb8@axentia.se>
+ <84628b5e-bea7-7d91-f790-f3a2650040fa@microchip.com>
+ <20190625093156.GF5690@piout.net> <20190625095533.GC1688@kunai>
 MIME-Version: 1.0
-X-Originating-IP: [10.201.23.19]
-X-Proofpoint-Virus-Version: vendor=fsecure engine=2.50.10434:, ,
- definitions=2019-06-27_07:, , signatures=0
-Cc: Jacopo Mondi <jacopo@jmondi.org>, Maxime Ripard <maxime.ripard@bootlin.com>,
- Benjamin Gaignard <benjamin.gaignard@linaro.org>,
- linux-stm32@st-md-mailman.stormreply.com, linux-media@vger.kernel.org
-Subject: [Linux-stm32] [PATCH v2] media: ov5640: add support of
-	V4L2_CID_LINK_FREQ
+Content-Disposition: inline
+In-Reply-To: <20190625095533.GC1688@kunai>
+User-Agent: Mutt/1.12.0 (2019-05-25)
+Cc: mark.rutland@arm.com, devicetree@vger.kernel.org,
+ linux-stm32@st-md-mailman.stormreply.com, Nicolas.Ferre@microchip.com,
+ Pierre-Yves MORDRET <pierre-yves.mordret@st.com>, linux-kernel@vger.kernel.org,
+ Ludovic.Desroches@microchip.com, robh+dt@kernel.org, linux-i2c@vger.kernel.org,
+ Eugen.Hristev@microchip.com, peda@axentia.se,
+ linux-arm-kernel@lists.infradead.org
+Subject: Re: [Linux-stm32] I2C filtering (was Re: [PATCH v2 6/9]
+ dt-bindings: i2c: at91: add binding for enable-ana-filt)
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -74,69 +57,50 @@ Content-Transfer-Encoding: 7bit
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
-Add support of V4L2_CID_LINK_FREQ, this is needed
-by some CSI-2 receivers.
+On 25/06/2019 11:55:33+0200, Wolfram Sang wrote:
+> On Tue, Jun 25, 2019 at 11:31:56AM +0200, Alexandre Belloni wrote:
+> > On 25/06/2019 09:14:13+0000, Eugen.Hristev@microchip.com wrote:
+> > > > Perhaps
+> > > > 
+> > > > 	microchip,digital-filter;
+> > > > 	microchip,analog-filter;
+> > > > 
+> > > > ?
+> > > 
+> > > Hi Peter,
+> > > 
+> > > Thanks for reviewing. The name of the property does not matter much to 
+> > > me, and we have properties prefixed with vendor, and some are not.
+> > > 
+> > > @Alexandre Belloni: which name you think it's best ?
+> > > 
+> > 
+> > I'm not sure, it depends on whether Wolfram thinks it is generic enough
+> > to be used without a vendor prefix.
+> 
+> I could imagine that we design a generic property for filters. The ones
+> above make me wonder, though, because they are bool. I'd think you can
+> configure the filters in some way, too?
+> 
 
-384MHz is exposed for the time being, corresponding
-to 96MHz pixel clock with 2 bytes per pixel on 2 data lanes.
+Apart from enabling the filter there is indeed one configuration
+setting, the maximum pulse width of spikes to be suppressed by the input
+filter.
 
-This setup has been tested successfully with ST MIPID02
-CSI-2 to parallel bridge.
+> I never used such filtering, so I am unaware of the parameters needed /
+> suitable. Quick grepping through I2C master drivers reveals that
+> i2c-stm32f7.c also handles filters, but only with default values. Maybe
+> DT configuration would be benefitial to that driver, too?
+> 
+> Adding some people to CC.
+> 
 
-Signed-off-by: Hugues Fruchet <hugues.fruchet@st.com>
----
-version 2:
-  - do not set control read only as per Hans' comment:
-    See https://www.mail-archive.com/linux-media@vger.kernel.org/msg147910.html
 
- drivers/media/i2c/ov5640.c | 10 ++++++++++
- 1 file changed, 10 insertions(+)
 
-diff --git a/drivers/media/i2c/ov5640.c b/drivers/media/i2c/ov5640.c
-index 82d4ce9..e6307f3 100644
---- a/drivers/media/i2c/ov5640.c
-+++ b/drivers/media/i2c/ov5640.c
-@@ -218,6 +218,7 @@ struct ov5640_ctrls {
- 	struct v4l2_ctrl *test_pattern;
- 	struct v4l2_ctrl *hflip;
- 	struct v4l2_ctrl *vflip;
-+	struct v4l2_ctrl *link_freq;
- };
- 
- struct ov5640_dev {
-@@ -2198,6 +2199,10 @@ static int ov5640_try_fmt_internal(struct v4l2_subdev *sd,
- 	return 0;
- }
- 
-+static const s64 link_freq_menu_items[] = {
-+	384000000,
-+};
-+
- static int ov5640_set_fmt(struct v4l2_subdev *sd,
- 			  struct v4l2_subdev_pad_config *cfg,
- 			  struct v4l2_subdev_format *format)
-@@ -2636,6 +2641,8 @@ static int ov5640_s_ctrl(struct v4l2_ctrl *ctrl)
- 	case V4L2_CID_VFLIP:
- 		ret = ov5640_set_ctrl_vflip(sensor, ctrl->val);
- 		break;
-+	case V4L2_CID_LINK_FREQ:
-+		return 0;
- 	default:
- 		ret = -EINVAL;
- 		break;
-@@ -2703,6 +2710,9 @@ static int ov5640_init_controls(struct ov5640_dev *sensor)
- 				       V4L2_CID_POWER_LINE_FREQUENCY_AUTO, 0,
- 				       V4L2_CID_POWER_LINE_FREQUENCY_50HZ);
- 
-+	ctrls->link_freq = v4l2_ctrl_new_int_menu(hdl, ops, V4L2_CID_LINK_FREQ,
-+						  0, 0, link_freq_menu_items);
-+
- 	if (hdl->error) {
- 		ret = hdl->error;
- 		goto free_ctrls;
 -- 
-2.7.4
-
+Alexandre Belloni, Bootlin
+Embedded Linux and Kernel engineering
+https://bootlin.com
 _______________________________________________
 Linux-stm32 mailing list
 Linux-stm32@st-md-mailman.stormreply.com
