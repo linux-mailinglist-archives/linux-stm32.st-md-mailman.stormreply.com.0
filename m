@@ -2,62 +2,38 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id 7E406586A8
-	for <lists+linux-stm32@lfdr.de>; Thu, 27 Jun 2019 18:07:13 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 911BB587D1
+	for <lists+linux-stm32@lfdr.de>; Thu, 27 Jun 2019 18:59:12 +0200 (CEST)
 Received: from ip-172-31-3-76.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id D72D1C0A0F9;
-	Thu, 27 Jun 2019 16:07:12 +0000 (UTC)
-Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
- (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 3E0F5C0B787;
+	Thu, 27 Jun 2019 16:59:12 +0000 (UTC)
+Received: from relay9-d.mail.gandi.net (relay9-d.mail.gandi.net
+ [217.70.183.199])
+ (using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 59717C0A0CF
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 72145C0BA8D
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Thu, 27 Jun 2019 16:07:11 +0000 (UTC)
-Received: from mail-qt1-f181.google.com (mail-qt1-f181.google.com
- [209.85.160.181])
- (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
- (No client certificate requested)
- by mail.kernel.org (Postfix) with ESMTPSA id E1FDF208E3
- for <linux-stm32@st-md-mailman.stormreply.com>;
- Thu, 27 Jun 2019 16:07:09 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
- s=default; t=1561651630;
- bh=qnjDcvg2vr1/aDZRgXt8AUsw/e1VEUmL66zR+wNUqLQ=;
- h=References:In-Reply-To:From:Date:Subject:To:Cc:From;
- b=uStUCHmDp1p57SsCyxgo6iBQf6wFT3Wg8FvrqKIm4sUNjPPsiTnd7s2M1ezSNi2qX
- B3uScACkb0zwXtXPDWT9DDEphSX1XeoF187U8BaaTH4o6l/QNBRGq5LmC+oSiUxtzY
- tNfWR3V7PKLR3/v5yYRcxkeOlUudJj+of7MJ5VJo=
-Received: by mail-qt1-f181.google.com with SMTP id d23so3049439qto.2
- for <linux-stm32@st-md-mailman.stormreply.com>;
- Thu, 27 Jun 2019 09:07:09 -0700 (PDT)
-X-Gm-Message-State: APjAAAXMx0r7SOrJiVY4ENVsMjg6j8WoVXixb3HwhQ3XfZkY3UBQxoIe
- S2UH7VJbFCz2vXvopSwoMdlb8CRt8qc2O8kHuw==
-X-Google-Smtp-Source: APXvYqzeFDJzuV1gZ6S+zyrzfaa49Md1sFroJG0gDvbc/4XW9ZWqmmLiaHGfS1c2APb0JFORnUFqOnpCDDI8rp/vwfM=
-X-Received: by 2002:a0c:b627:: with SMTP id f39mr4191770qve.72.1561651629161; 
- Thu, 27 Jun 2019 09:07:09 -0700 (PDT)
+ Thu, 27 Jun 2019 16:59:10 +0000 (UTC)
+X-Originating-IP: 91.224.148.103
+Received: from xps13 (unknown [91.224.148.103])
+ (Authenticated sender: miquel.raynal@bootlin.com)
+ by relay9-d.mail.gandi.net (Postfix) with ESMTPSA id 5789AFF813;
+ Thu, 27 Jun 2019 16:59:04 +0000 (UTC)
+Date: Thu, 27 Jun 2019 18:59:01 +0200
+From: Miquel Raynal <miquel.raynal@bootlin.com>
+To: Christophe Kerello <christophe.kerello@st.com>
+Message-ID: <20190627185901.6247a77c@xps13>
+In-Reply-To: <1561128480-14531-1-git-send-email-christophe.kerello@st.com>
+References: <1561128480-14531-1-git-send-email-christophe.kerello@st.com>
+Organization: Bootlin
+X-Mailer: Claws Mail 3.17.1 (GTK+ 2.24.32; x86_64-pc-linux-gnu)
 MIME-Version: 1.0
-References: <cover.e80da8845680a45c2e07d5f17280fdba84555b8a.1561649505.git-series.maxime.ripard@bootlin.com>
- <e99ff7377a0d3d140cf62200fd9d62c108dac24e.1561649505.git-series.maxime.ripard@bootlin.com>
- <CAL_JsqKQoj6x-8cMxp2PFQLcu93aitGO2wALDYaH2h72cPSyfg@mail.gmail.com>
- <20190627155708.myxychzngc3trxhc@flea>
-In-Reply-To: <20190627155708.myxychzngc3trxhc@flea>
-From: Rob Herring <robh+dt@kernel.org>
-Date: Thu, 27 Jun 2019 10:06:57 -0600
-X-Gmail-Original-Message-ID: <CAL_JsqLhUP62vP=RY8Bn_0X92hFphbk_gLqi4K48us56Gxw7tA@mail.gmail.com>
-Message-ID: <CAL_JsqLhUP62vP=RY8Bn_0X92hFphbk_gLqi4K48us56Gxw7tA@mail.gmail.com>
-To: Maxime Ripard <maxime.ripard@bootlin.com>
-Cc: Mark Rutland <mark.rutland@arm.com>, devicetree@vger.kernel.org,
- Florian Fainelli <f.fainelli@gmail.com>, Andrew Lunn <andrew@lunn.ch>,
- =?UTF-8?Q?Antoine_T=C3=A9nart?= <antoine.tenart@bootlin.com>,
- netdev <netdev@vger.kernel.org>, linux-stm32@st-md-mailman.stormreply.com,
- Chen-Yu Tsai <wens@csie.org>, Maxime Coquelin <mcoquelin.stm32@gmail.com>,
- Maxime Chevallier <maxime.chevallier@bootlin.com>,
- Frank Rowand <frowand.list@gmail.com>,
- "David S . Miller" <davem@davemloft.net>,
- "moderated list:ARM/FREESCALE IMX / MXC ARM ARCHITECTURE"
- <linux-arm-kernel@lists.infradead.org>, Heiner Kallweit <hkallweit1@gmail.com>
-Subject: Re: [Linux-stm32] [PATCH v4 03/13] dt-bindings: net: Add a YAML
- schemas for the generic MDIO options
+Cc: vigneshr@ti.com, bbrezillon@kernel.org, richard@nod.at,
+ linux-kernel@vger.kernel.org, marek.vasut@gmail.com,
+ linux-mtd@lists.infradead.org, computersforpeace@gmail.com,
+ dwmw2@infradead.org, linux-stm32@st-md-mailman.stormreply.com
+Subject: Re: [Linux-stm32] [PATCH] mtd: rawnand: stm32_fmc2: increase DMA
+ completion timeouts
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -69,111 +45,47 @@ List-Post: <mailto:linux-stm32@st-md-mailman.stormreply.com>
 List-Help: <mailto:linux-stm32-request@st-md-mailman.stormreply.com?subject=help>
 List-Subscribe: <https://st-md-mailman.stormreply.com/mailman/listinfo/linux-stm32>, 
  <mailto:linux-stm32-request@st-md-mailman.stormreply.com?subject=subscribe>
-Content-Type: text/plain; charset="us-ascii"
-Content-Transfer-Encoding: 7bit
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: base64
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
-On Thu, Jun 27, 2019 at 9:57 AM Maxime Ripard <maxime.ripard@bootlin.com> wrote:
->
-> Hi Rob,
->
-> On Thu, Jun 27, 2019 at 09:48:06AM -0600, Rob Herring wrote:
-> > On Thu, Jun 27, 2019 at 9:32 AM Maxime Ripard <maxime.ripard@bootlin.com> wrote:
-> > >
-> > > The MDIO buses have a number of available device tree properties that can
-> > > be used in their device tree node. Add a YAML schemas for those.
-> > >
-> > > Suggested-by: Andrew Lunn <andrew@lunn.ch>
-> > > Signed-off-by: Maxime Ripard <maxime.ripard@bootlin.com>
-> > > ---
-> > >  Documentation/devicetree/bindings/net/mdio.txt  | 38 +-------------
-> > >  Documentation/devicetree/bindings/net/mdio.yaml | 51 ++++++++++++++++++-
-> > >  2 files changed, 52 insertions(+), 37 deletions(-)
-> > >  create mode 100644 Documentation/devicetree/bindings/net/mdio.yaml
-> >
-> > Reviewed-by: Rob Herring <robh@kernel.org>
-> >
-> > However, some comments for a follow-up...
-> >
-> > > diff --git a/Documentation/devicetree/bindings/net/mdio.yaml b/Documentation/devicetree/bindings/net/mdio.yaml
-> > > new file mode 100644
-> > > index 000000000000..b8fa8251c4bc
-> > > --- /dev/null
-> > > +++ b/Documentation/devicetree/bindings/net/mdio.yaml
-> > > @@ -0,0 +1,51 @@
-> > > +# SPDX-License-Identifier: GPL-2.0
-> > > +%YAML 1.2
-> > > +---
-> > > +$id: http://devicetree.org/schemas/net/mdio.yaml#
-> > > +$schema: http://devicetree.org/meta-schemas/core.yaml#
-> > > +
-> > > +title: MDIO Bus Generic Binding
-> > > +
-> > > +maintainers:
-> > > +  - Andrew Lunn <andrew@lunn.ch>
-> > > +  - Florian Fainelli <f.fainelli@gmail.com>
-> > > +  - Heiner Kallweit <hkallweit1@gmail.com>
-> > > +
-> > > +description:
-> > > +  These are generic properties that can apply to any MDIO bus. Any
-> > > +  MDIO bus must have a list of child nodes, one per device on the
-> > > +  bus. These should follow the generic ethernet-phy.yaml document, or
-> > > +  a device specific binding document.
-> > > +
-> > > +properties:
-> > > +  reset-gpios:
-> > > +    maxItems: 1
-> > > +    description:
-> > > +      The phandle and specifier for the GPIO that controls the RESET
-> > > +      lines of all PHYs on that MDIO bus.
-> > > +
-> > > +  reset-delay-us:
-> > > +    description:
-> > > +      RESET pulse width in microseconds. It applies to all PHY devices
-> > > +      and must therefore be appropriately determined based on all PHY
-> > > +      requirements (maximum value of all per-PHY RESET pulse widths).
-> > > +
-> > > +examples:
-> > > +  - |
-> > > +    davinci_mdio: mdio@5c030000 {
-> >
-> > Can we enforce nodename to be mdio? That may not work for muxes.
-> > You'll probably have to implement it and see.
->
-> Ok, I'll send a follow-up patch for this.
->
-> > > +        compatible = "ti,davinci_mdio";
-> > > +        reg = <0x5c030000 0x1000>;
-> > > +        #address-cells = <1>;
-> > > +        #size-cells = <0>;
-> >
-> > These 2 should have a schema.
->
-> Indeed, I'll do it for that too.
->
-> > > +
-> > > +        reset-gpios = <&gpio2 5 1>;
-> > > +        reset-delay-us = <2>;
-> > > +
-> > > +        ethphy0: ethernet-phy@1 {
-> > > +            reg = <1>;
-> >
-> > Need a child node schema to validate the unit-address and reg property.
->
-> This should be already covered by the ethernet-phy.yaml schemas
-> earlier in this series.
-
-Partially, yes.
-
-> Were you expecting something else?
-
-That would not prevent having a child node such as 'foo {};'  or
-'foo@bad {};'. It would also not check valid nodes named something
-other than 'ethernet-phy'.
-
-Rob
-_______________________________________________
-Linux-stm32 mailing list
-Linux-stm32@st-md-mailman.stormreply.com
-https://st-md-mailman.stormreply.com/mailman/listinfo/linux-stm32
+SGkgQ2hyaXN0b3BoZSwKCkNocmlzdG9waGUgS2VyZWxsbyA8Y2hyaXN0b3BoZS5rZXJlbGxvQHN0
+LmNvbT4gd3JvdGUgb24gRnJpLCAyMSBKdW4KMjAxOSAxNjo0ODowMCArMDIwMDoKCj4gV2hlbiB0
+aGUgc3lzdGVtIGlzIG92ZXJsb2FkZWQsIERNQSBkYXRhIHRyYW5zZmVyIGNvbXBsZXRpb24gb2Nj
+dXJzIGFmdGVyCj4gMTAwbXMuIEluY3JlYXNlIHRoZSB0aW1lb3V0cyB0byBsZXQgaXQgdGhlIHRp
+bWUgdG8gY29tcGxldGUuCj4gCj4gU2lnbmVkLW9mZi1ieTogQW1lbGllIERlbGF1bmF5IDxhbWVs
+aWUuZGVsYXVuYXlAc3QuY29tPgoKVGhlIGZpcnN0IFNvQiBzaG91bGQgYmUgdGhlIGF1dGhvcidz
+LiBFaXRoZXIgQW1lbGllIGlzIHRoZSBhdXRob3IgYW5kCnlvdSBzaG91bGQgdXNlICdnaXQgY29t
+bWl0IC0tYW1lbmQgLS1hdXRob3I9Li4uIiBvciBzaGUgaXMgbm90IGFuZApzaG91bGQgYmUgZHJv
+cHBlZCAodW5sZXNzIHNoZSBzZW5kcyB0aGUgcGF0Y2ggd2hpY2ggaXMgeW91cnMsIGFuZCBpbgp0
+aGlzIGNhc2UgaGVyIG5hbWUgc2hvdWxkIGFwcGVhciBzZWNvbmQpLgoKPiBTaWduZWQtb2ZmLWJ5
+OiBDaHJpc3RvcGhlIEtlcmVsbG8gPGNocmlzdG9waGUua2VyZWxsb0BzdC5jb20+Cj4gLS0tCj4g
+IGRyaXZlcnMvbXRkL25hbmQvcmF3L3N0bTMyX2ZtYzJfbmFuZC5jIHwgNCArKy0tCj4gIDEgZmls
+ZSBjaGFuZ2VkLCAyIGluc2VydGlvbnMoKyksIDIgZGVsZXRpb25zKC0pCj4gCj4gZGlmZiAtLWdp
+dCBhL2RyaXZlcnMvbXRkL25hbmQvcmF3L3N0bTMyX2ZtYzJfbmFuZC5jIGIvZHJpdmVycy9tdGQv
+bmFuZC9yYXcvc3RtMzJfZm1jMl9uYW5kLmMKPiBpbmRleCA0YWFiZWEyLi5jN2Y3YzZmIDEwMDY0
+NAo+IC0tLSBhL2RyaXZlcnMvbXRkL25hbmQvcmF3L3N0bTMyX2ZtYzJfbmFuZC5jCj4gKysrIGIv
+ZHJpdmVycy9tdGQvbmFuZC9yYXcvc3RtMzJfZm1jMl9uYW5kLmMKPiBAQCAtOTgxLDcgKzk4MSw3
+IEBAIHN0YXRpYyBpbnQgc3RtMzJfZm1jMl94ZmVyKHN0cnVjdCBuYW5kX2NoaXAgKmNoaXAsIGNv
+bnN0IHU4ICpidWYsCj4gIAo+ICAJLyogV2FpdCBETUEgZGF0YSB0cmFuc2ZlciBjb21wbGV0aW9u
+ICovCj4gIAlpZiAoIXdhaXRfZm9yX2NvbXBsZXRpb25fdGltZW91dCgmZm1jMi0+ZG1hX2RhdGFf
+Y29tcGxldGUsCj4gLQkJCQkJIG1zZWNzX3RvX2ppZmZpZXMoMTAwKSkpIHsKPiArCQkJCQkgbXNl
+Y3NfdG9famlmZmllcyg1MDApKSkgewo+ICAJCWRldl9lcnIoZm1jMi0+ZGV2LCAiZGF0YSBETUEg
+dGltZW91dFxuIik7Cj4gIAkJZG1hZW5naW5lX3Rlcm1pbmF0ZV9hbGwoZG1hX2NoKTsKPiAgCQly
+ZXQgPSAtRVRJTUVET1VUOwo+IEBAIC05OTAsNyArOTkwLDcgQEAgc3RhdGljIGludCBzdG0zMl9m
+bWMyX3hmZXIoc3RydWN0IG5hbmRfY2hpcCAqY2hpcCwgY29uc3QgdTggKmJ1ZiwKPiAgCS8qIFdh
+aXQgRE1BIEVDQyB0cmFuc2ZlciBjb21wbGV0aW9uICovCj4gIAlpZiAoIXdyaXRlX2RhdGEgJiYg
+IXJhdykgewo+ICAJCWlmICghd2FpdF9mb3JfY29tcGxldGlvbl90aW1lb3V0KCZmbWMyLT5kbWFf
+ZWNjX2NvbXBsZXRlLAo+IC0JCQkJCQkgbXNlY3NfdG9famlmZmllcygxMDApKSkgewo+ICsJCQkJ
+CQkgbXNlY3NfdG9famlmZmllcyg1MDApKSkgewoKSUlSQyBJIGFscmVhZHkgYXNrZWQgeW91IHRo
+aXMgYnV0IGNvdWxkIHlvdSBwbGVhc2UgbWFrZSBhIGRlZmluZSBhbmQgYXQKdGhlIHNhbWUgdGlt
+ZSBtYWtlIGl0IDEwMDAgbXMsIEkgZG9uJ3Qgc2VlIHRoZSBwb2ludCBpbiBiZWluZyBjbG9zZQp0
+byB0aGUgbWF4aW11bSBsYXRlbmN5LiBJZiB0aGlzIGlzIHJlYWNoZWQsIHlvdXIgdHJhbnNmZXIg
+d2FzCnNjcmV3ZWQgYWxyZWFkeSwgdGhlcmUgaXMgbm8gcGVyZm9ybWFuY2UgaW1wYWN0IGhlcmUu
+CgpTb3JyeSBmb3IgdGhlIGxhdGUgbm90aWNlIGJ1dCBJIHdpbGwgY2xvc2UgdGhlIG5hbmQvbmV4
+dCBicmFuY2gKdG9tb3Jyb3csIHNvIEknbGwgcXVldWUgeW91ciB2MiBvbmx5IGlmIEkgcmVjZWl2
+ZSBpdCBzb29uIGVub3VnaCA6KQoKVGhhbmtzLApNaXF1w6hsCl9fX19fX19fX19fX19fX19fX19f
+X19fX19fX19fX19fX19fX19fX19fX19fX19fCkxpbnV4LXN0bTMyIG1haWxpbmcgbGlzdApMaW51
+eC1zdG0zMkBzdC1tZC1tYWlsbWFuLnN0b3JtcmVwbHkuY29tCmh0dHBzOi8vc3QtbWQtbWFpbG1h
+bi5zdG9ybXJlcGx5LmNvbS9tYWlsbWFuL2xpc3RpbmZvL2xpbnV4LXN0bTMyCg==
