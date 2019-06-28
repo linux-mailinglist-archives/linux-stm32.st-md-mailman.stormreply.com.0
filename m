@@ -2,45 +2,50 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id 22BF159D2E
-	for <lists+linux-stm32@lfdr.de>; Fri, 28 Jun 2019 15:46:04 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 5657F5A0C9
+	for <lists+linux-stm32@lfdr.de>; Fri, 28 Jun 2019 18:28:15 +0200 (CEST)
 Received: from ip-172-31-3-76.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 52B77C35E15;
-	Fri, 28 Jun 2019 13:46:03 +0000 (UTC)
-Received: from relay10.mail.gandi.net (relay10.mail.gandi.net [217.70.178.230])
- (using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id E63CBC35E01;
+	Fri, 28 Jun 2019 16:28:14 +0000 (UTC)
+Received: from heliosphere.sirena.org.uk (heliosphere.sirena.org.uk
+ [172.104.155.198])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id E6143C36B3F
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id B015DC36B3E
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Fri, 28 Jun 2019 13:46:01 +0000 (UTC)
-Received: from localhost (lfbn-1-17395-211.w86-250.abo.wanadoo.fr
- [86.250.200.211]) (Authenticated sender: maxime.ripard@bootlin.com)
- by relay10.mail.gandi.net (Postfix) with ESMTPSA id 2633B240009;
- Fri, 28 Jun 2019 13:45:54 +0000 (UTC)
-Date: Fri, 28 Jun 2019 15:45:53 +0200
-From: Maxime Ripard <maxime.ripard@bootlin.com>
-To: Rob Herring <robh+dt@kernel.org>
-Message-ID: <20190628134553.l445r5idtejwlryl@flea>
-References: <cover.e80da8845680a45c2e07d5f17280fdba84555b8a.1561649505.git-series.maxime.ripard@bootlin.com>
- <e99ff7377a0d3d140cf62200fd9d62c108dac24e.1561649505.git-series.maxime.ripard@bootlin.com>
- <CAL_JsqKQoj6x-8cMxp2PFQLcu93aitGO2wALDYaH2h72cPSyfg@mail.gmail.com>
- <20190627155708.myxychzngc3trxhc@flea>
- <CAL_JsqLhUP62vP=RY8Bn_0X92hFphbk_gLqi4K48us56Gxw7tA@mail.gmail.com>
+ Fri, 28 Jun 2019 16:28:13 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
+ d=sirena.org.uk; s=20170815-heliosphere; h=In-Reply-To:Content-Type:
+ MIME-Version:References:Message-ID:Subject:Cc:To:From:Date:Sender:Reply-To:
+ Content-Transfer-Encoding:Content-ID:Content-Description:Resent-Date:
+ Resent-From:Resent-Sender:Resent-To:Resent-Cc:Resent-Message-ID:List-Id:
+ List-Help:List-Unsubscribe:List-Subscribe:List-Post:List-Owner:List-Archive;
+ bh=aiJProecfCoOFOmMzWWwfmO5TFzjKsVdJFvDr/zMYYo=; b=HBGZ+5qpNe4XDtk4pe9C5Q4z1
+ 5uaCDcqpoKb76uGbK0SMlo3mlLJGiIdvt73p4wedBNFu0A4+LMJdGnDslEkQBY3+FchygQrM9X5r3
+ l7fn98KeEEsrcTVcf4Ue4NC+97J4U5bYAg7Svk9esf8foCGUGYAjsZHC8Pl6tFfkLBuMM=;
+Received: from cpc102320-sgyl38-2-0-cust46.18-2.cable.virginm.net
+ ([82.37.168.47] helo=finisterre.sirena.org.uk)
+ by heliosphere.sirena.org.uk with esmtpsa
+ (TLS1.2:ECDHE_RSA_AES_256_GCM_SHA384:256) (Exim 4.89)
+ (envelope-from <broonie@sirena.org.uk>)
+ id 1hgtjO-00075K-Pu; Fri, 28 Jun 2019 16:28:10 +0000
+Received: by finisterre.sirena.org.uk (Postfix, from userid 1000)
+ id 660E0440050; Fri, 28 Jun 2019 15:32:29 +0100 (BST)
+Date: Fri, 28 Jun 2019 15:32:29 +0100
+From: Mark Brown <broonie@kernel.org>
+To: Fabrice Gasnier <fabrice.gasnier@st.com>
+Message-ID: <20190628143229.GI5379@sirena.org.uk>
+References: <1561709289-11174-1-git-send-email-fabrice.gasnier@st.com>
+ <1561709289-11174-3-git-send-email-fabrice.gasnier@st.com>
 MIME-Version: 1.0
-In-Reply-To: <CAL_JsqLhUP62vP=RY8Bn_0X92hFphbk_gLqi4K48us56Gxw7tA@mail.gmail.com>
-User-Agent: NeoMutt/20180716
-Cc: Mark Rutland <mark.rutland@arm.com>, devicetree@vger.kernel.org,
- Florian Fainelli <f.fainelli@gmail.com>, Andrew Lunn <andrew@lunn.ch>,
- Antoine =?utf-8?Q?T=C3=A9nart?= <antoine.tenart@bootlin.com>,
- netdev <netdev@vger.kernel.org>, linux-stm32@st-md-mailman.stormreply.com,
- Chen-Yu Tsai <wens@csie.org>, Maxime Coquelin <mcoquelin.stm32@gmail.com>,
- Maxime Chevallier <maxime.chevallier@bootlin.com>,
- Frank Rowand <frowand.list@gmail.com>,
- "David S . Miller" <davem@davemloft.net>,
- "moderated list:ARM/FREESCALE IMX / MXC ARM ARCHITECTURE"
- <linux-arm-kernel@lists.infradead.org>, Heiner Kallweit <hkallweit1@gmail.com>
-Subject: Re: [Linux-stm32] [PATCH v4 03/13] dt-bindings: net: Add a YAML
- schemas for the generic MDIO options
+In-Reply-To: <1561709289-11174-3-git-send-email-fabrice.gasnier@st.com>
+X-Cookie: You need not be present to win.
+User-Agent: Mutt/1.10.1 (2018-07-13)
+Cc: devicetree@vger.kernel.org, linux-kernel@vger.kernel.org,
+ lgirdwood@gmail.com, robh+dt@kernel.org, mcoquelin.stm32@gmail.com,
+ linux-stm32@st-md-mailman.stormreply.com, linux-arm-kernel@lists.infradead.org
+Subject: Re: [Linux-stm32] [PATCH 2/4] regulator: add support for the
+	stm32-booster
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -52,69 +57,51 @@ List-Post: <mailto:linux-stm32@st-md-mailman.stormreply.com>
 List-Help: <mailto:linux-stm32-request@st-md-mailman.stormreply.com?subject=help>
 List-Subscribe: <https://st-md-mailman.stormreply.com/mailman/listinfo/linux-stm32>, 
  <mailto:linux-stm32-request@st-md-mailman.stormreply.com?subject=subscribe>
-Content-Type: multipart/mixed; boundary="===============4646817919925389398=="
+Content-Type: multipart/mixed; boundary="===============4201687903652591394=="
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
 
---===============4646817919925389398==
-Content-Type: multipart/signed; micalg=pgp-sha256;
-	protocol="application/pgp-signature"; boundary="zjmpquddmsmyw3nm"
+--===============4201687903652591394==
+Content-Type: multipart/signed; micalg=pgp-sha512;
+	protocol="application/pgp-signature"; boundary="+ZmrHH5cGjskQnY1"
 Content-Disposition: inline
 
 
---zjmpquddmsmyw3nm
+--+ZmrHH5cGjskQnY1
 Content-Type: text/plain; charset=us-ascii
 Content-Disposition: inline
+Content-Transfer-Encoding: quoted-printable
 
-On Thu, Jun 27, 2019 at 10:06:57AM -0600, Rob Herring wrote:
-> On Thu, Jun 27, 2019 at 9:57 AM Maxime Ripard <maxime.ripard@bootlin.com> wrote:
-> > > > +
-> > > > +        reset-gpios = <&gpio2 5 1>;
-> > > > +        reset-delay-us = <2>;
-> > > > +
-> > > > +        ethphy0: ethernet-phy@1 {
-> > > > +            reg = <1>;
-> > >
-> > > Need a child node schema to validate the unit-address and reg property.
-> >
-> > This should be already covered by the ethernet-phy.yaml schemas
-> > earlier in this series.
->
-> Partially, yes.
->
-> > Were you expecting something else?
->
-> That would not prevent having a child node such as 'foo {};'  or
-> 'foo@bad {};'. It would also not check valid nodes named something
-> other than 'ethernet-phy'.
+On Fri, Jun 28, 2019 at 10:08:07AM +0200, Fabrice Gasnier wrote:
+> Add support for the 3.3V booster regulator embedded in stm32h7 and stm32m=
+p1
+> devices, that can be used to supply ADC analog input switches.
+>=20
+> This regulator is supplied by vdda. It's controlled by using SYSCFG:
+> - STM32H7 has a unique register to set/clear the booster enable bit
+> - STM32MP1 has separate set and clear registers to configure it.
 
-Right, but listing the nodes won't either, since we can't enable
-additionalProperties in that schema. So any node that wouldn't match
-ethernet-phy@.* wouldn't be validated, but wouldn't generate a warning
-either.
+This doesn't apply against current code, please check and resend.
 
-Maxime
-
---
-Maxime Ripard, Bootlin
-Embedded Linux and Kernel engineering
-https://bootlin.com
-
---zjmpquddmsmyw3nm
+--+ZmrHH5cGjskQnY1
 Content-Type: application/pgp-signature; name="signature.asc"
 
 -----BEGIN PGP SIGNATURE-----
 
-iHUEABYIAB0WIQRcEzekXsqa64kGDp7j7w1vZxhRxQUCXRYaEQAKCRDj7w1vZxhR
-xcfbAP0StcNKYljUjaKh+7kNRQmW2KY7UHR2qG+yIslRuaKsBwEA9WACBZA+N2PQ
-q0Mqev0oV23zbWU9jcIrJV2ljPCzGwE=
-=Klyx
+iQEzBAABCgAdFiEEreZoqmdXGLWf4p/qJNaLcl1Uh9AFAl0WJPwACgkQJNaLcl1U
+h9CEYwf/S479W8LgrEaeHTTFG3CzS+H7XcqwsFf6ZMmLHg4A/fZD3UOrWsupb7XW
+5Pn1ugPul+BpUs3M6dew3VdsiqOt/JWl3QC0KPKetya58X+NKnGTtnv+F17u5WyL
+pv5f6/FzM3/rN6AhpDN3pbRxUbMj87J3dxVDS/rNh6IYiTjrkIvkXIWO1oiN84aD
+KjarUQFfuqKmKDGsCvkzysX+e7npMdAyqntAdYJqtBVsUHPWDPygEfgedZlFjFUa
+ktNcysf3sDZpFdDiqzCgLYA52R2rWjJGQbZN9TlMx5iK45iLVjGjTbf11arVCcUw
+HT/WrvMzxZT3GvZsaV/sSCOpY7di8A==
+=l6Rr
 -----END PGP SIGNATURE-----
 
---zjmpquddmsmyw3nm--
+--+ZmrHH5cGjskQnY1--
 
---===============4646817919925389398==
+--===============4201687903652591394==
 Content-Type: text/plain; charset="us-ascii"
 MIME-Version: 1.0
 Content-Transfer-Encoding: 7bit
@@ -125,4 +112,4 @@ Linux-stm32 mailing list
 Linux-stm32@st-md-mailman.stormreply.com
 https://st-md-mailman.stormreply.com/mailman/listinfo/linux-stm32
 
---===============4646817919925389398==--
+--===============4201687903652591394==--
