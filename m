@@ -2,50 +2,67 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id 5657F5A0C9
-	for <lists+linux-stm32@lfdr.de>; Fri, 28 Jun 2019 18:28:15 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id EEA2F5A044
+	for <lists+linux-stm32@lfdr.de>; Fri, 28 Jun 2019 18:05:49 +0200 (CEST)
 Received: from ip-172-31-3-76.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id E63CBC35E01;
-	Fri, 28 Jun 2019 16:28:14 +0000 (UTC)
-Received: from heliosphere.sirena.org.uk (heliosphere.sirena.org.uk
- [172.104.155.198])
- (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 1AA56C35E05;
+	Fri, 28 Jun 2019 16:05:48 +0000 (UTC)
+Received: from mail-ot1-f67.google.com (mail-ot1-f67.google.com
+ [209.85.210.67])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id B015DC36B3E
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 1137EC36B3F
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Fri, 28 Jun 2019 16:28:13 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
- d=sirena.org.uk; s=20170815-heliosphere; h=In-Reply-To:Content-Type:
- MIME-Version:References:Message-ID:Subject:Cc:To:From:Date:Sender:Reply-To:
- Content-Transfer-Encoding:Content-ID:Content-Description:Resent-Date:
- Resent-From:Resent-Sender:Resent-To:Resent-Cc:Resent-Message-ID:List-Id:
- List-Help:List-Unsubscribe:List-Subscribe:List-Post:List-Owner:List-Archive;
- bh=aiJProecfCoOFOmMzWWwfmO5TFzjKsVdJFvDr/zMYYo=; b=HBGZ+5qpNe4XDtk4pe9C5Q4z1
- 5uaCDcqpoKb76uGbK0SMlo3mlLJGiIdvt73p4wedBNFu0A4+LMJdGnDslEkQBY3+FchygQrM9X5r3
- l7fn98KeEEsrcTVcf4Ue4NC+97J4U5bYAg7Svk9esf8foCGUGYAjsZHC8Pl6tFfkLBuMM=;
-Received: from cpc102320-sgyl38-2-0-cust46.18-2.cable.virginm.net
- ([82.37.168.47] helo=finisterre.sirena.org.uk)
- by heliosphere.sirena.org.uk with esmtpsa
- (TLS1.2:ECDHE_RSA_AES_256_GCM_SHA384:256) (Exim 4.89)
- (envelope-from <broonie@sirena.org.uk>)
- id 1hgtjO-00075K-Pu; Fri, 28 Jun 2019 16:28:10 +0000
-Received: by finisterre.sirena.org.uk (Postfix, from userid 1000)
- id 660E0440050; Fri, 28 Jun 2019 15:32:29 +0100 (BST)
-Date: Fri, 28 Jun 2019 15:32:29 +0100
-From: Mark Brown <broonie@kernel.org>
-To: Fabrice Gasnier <fabrice.gasnier@st.com>
-Message-ID: <20190628143229.GI5379@sirena.org.uk>
-References: <1561709289-11174-1-git-send-email-fabrice.gasnier@st.com>
- <1561709289-11174-3-git-send-email-fabrice.gasnier@st.com>
+ Fri, 28 Jun 2019 16:05:46 +0000 (UTC)
+Received: by mail-ot1-f67.google.com with SMTP id r21so5808538otq.6
+ for <linux-stm32@st-md-mailman.stormreply.com>;
+ Fri, 28 Jun 2019 09:05:46 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=googlemail.com; s=20161025;
+ h=mime-version:references:in-reply-to:from:date:message-id:subject:to
+ :cc; bh=rB3m6lymfmEJSrj5bHYQhYToOLJuP/M6N6+Gh/hsbFw=;
+ b=bc/qm2AfIl7/pff81NO1XSTxiwj/Tf0ODnPhZSJ5FTf056oge76zhm015auns2dWOc
+ RinrawyZ0O2i6XS3+Gia3nZKyP4l+hj94CO63lQVLxbXgIhu7crlszsOV628/OdmjOHs
+ sgA2BP1tBdIoQGCZBW6+NVSOzl9jEECi2MCa0a/YPJDDCTBDdePstSg/jnqv6PrxCsmQ
+ ThKE283f5h0W/IlmNX0oHfVqT1Ne7o8ahjcCU6dkor7BD58aVUBqhrXrvV7DJyiPPXkB
+ MJa5LLDboqWiBQHW5V5SO5bR4xRlOCIXS7xPSUT6OYP8peQqJOrSThluXwg3T02RX4Hq
+ coBg==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20161025;
+ h=x-gm-message-state:mime-version:references:in-reply-to:from:date
+ :message-id:subject:to:cc;
+ bh=rB3m6lymfmEJSrj5bHYQhYToOLJuP/M6N6+Gh/hsbFw=;
+ b=ln718I71kXF6HjjEaLxIuiTkNxl6gGY42/t4zp8nwU9LtBYB6LV9DvSbBfrUT4l4+W
+ +Ceb+SyJOiByGjilH/DrQjNIu1y91eAdFjUhgxGRPxG2M1YWnCXgGfBYcfmP0s4K3VZB
+ KiNTH2NnyiUGWVeMWWb7c6T+8nKGoS7VBW5o2dc0bIUnoMFHnQslByaGe57IqvXtYlZF
+ pvMFyKFWR4h5N/NFvzTi6jTYkka+N7UULj57wm4P6yHIUmRJy8CkpHBqEJ2ws0nES7jv
+ iBtc7rtDG9HVcLwo47oLUfA/RovRMWv/DHw2yB/Rw+xsN7Zvc4HrIwN3hgZkWXQ128Fr
+ wK1g==
+X-Gm-Message-State: APjAAAVP0gw/2GQK8qWsHbRi0W41XF9BVWPHyO/BXGnLIsgEzmQqIKPJ
+ lO5L3Tes4zlZ5r75TysAKxUKqC5cLZaniTFt/LQ=
+X-Google-Smtp-Source: APXvYqxpqVINGUIuZUIFanNgoXeInzShDbpDl64F0HtsRM7t1NOYrZCC3Ebzuzy9/EHv7T38+pkX4a5YcGAPWYaVwrw=
+X-Received: by 2002:a9d:23ca:: with SMTP id t68mr8604745otb.98.1561737944761; 
+ Fri, 28 Jun 2019 09:05:44 -0700 (PDT)
 MIME-Version: 1.0
-In-Reply-To: <1561709289-11174-3-git-send-email-fabrice.gasnier@st.com>
-X-Cookie: You need not be present to win.
-User-Agent: Mutt/1.10.1 (2018-07-13)
-Cc: devicetree@vger.kernel.org, linux-kernel@vger.kernel.org,
- lgirdwood@gmail.com, robh+dt@kernel.org, mcoquelin.stm32@gmail.com,
- linux-stm32@st-md-mailman.stormreply.com, linux-arm-kernel@lists.infradead.org
-Subject: Re: [Linux-stm32] [PATCH 2/4] regulator: add support for the
-	stm32-booster
+References: <20190617165836.4673-1-colin.king@canonical.com>
+ <20190619051308.23582-1-martin.blumenstingl@googlemail.com>
+ <92f9e5a6-d2a2-6bf2-ff8a-2430fe977f93@canonical.com>
+ <CAFBinCDmYVPDMcwAAYhMfxxuTsG=xunduN58_8e20zE_Mhmb7Q@mail.gmail.com>
+ <CAFBinCC-LLpfXQRFcKBbUpCfKc0S9Xtt60QrhEThsOFV-T7vFw@mail.gmail.com>
+ <c46d2d17-c35b-46f0-0674-0c55bea3a272@canonical.com>
+ <CAFBinCBk5aPVE+vq5px3QKS1T_R=WGXXxEJMC9X676KGvi9jdg@mail.gmail.com>
+ <26646ff1-059f-fb2d-e05d-43009aeb2150@canonical.com>
+In-Reply-To: <26646ff1-059f-fb2d-e05d-43009aeb2150@canonical.com>
+From: Martin Blumenstingl <martin.blumenstingl@googlemail.com>
+Date: Fri, 28 Jun 2019 18:05:33 +0200
+Message-ID: <CAFBinCAx5qrPK1z68bF-tGKpJQfKLnee65qBOxMS4nj8t381+Q@mail.gmail.com>
+To: Colin Ian King <colin.king@canonical.com>
+Cc: netdev@vger.kernel.org, kernel-janitors@vger.kernel.org,
+ linux-kernel@vger.kernel.org, linux-stm32@st-md-mailman.stormreply.com,
+ joabreu@synopsys.com, mcoquelin.stm32@gmail.com, peppe.cavallaro@st.com,
+ davem@davemloft.net, linux-arm-kernel@lists.infradead.org
+Subject: Re: [Linux-stm32] [PATCH] net: stmmac: add sanity check to
+ device_property_read_u32_array call
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -57,59 +74,73 @@ List-Post: <mailto:linux-stm32@st-md-mailman.stormreply.com>
 List-Help: <mailto:linux-stm32-request@st-md-mailman.stormreply.com?subject=help>
 List-Subscribe: <https://st-md-mailman.stormreply.com/mailman/listinfo/linux-stm32>, 
  <mailto:linux-stm32-request@st-md-mailman.stormreply.com?subject=subscribe>
-Content-Type: multipart/mixed; boundary="===============4201687903652591394=="
+Content-Type: text/plain; charset="us-ascii"
+Content-Transfer-Encoding: 7bit
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
+Hi Colin,
 
---===============4201687903652591394==
-Content-Type: multipart/signed; micalg=pgp-sha512;
-	protocol="application/pgp-signature"; boundary="+ZmrHH5cGjskQnY1"
-Content-Disposition: inline
+On Fri, Jun 28, 2019 at 10:32 AM Colin Ian King
+<colin.king@canonical.com> wrote:
+>
+> On 28/06/2019 05:15, Martin Blumenstingl wrote:
+> > On Tue, Jun 25, 2019 at 9:58 AM Colin Ian King <colin.king@canonical.com> wrote:
+> >>
+> >> On 25/06/2019 05:44, Martin Blumenstingl wrote:
+> >>> Hi Colin,
+> >>>
+> >>> On Thu, Jun 20, 2019 at 3:34 AM Martin Blumenstingl
+> >>> <martin.blumenstingl@googlemail.com> wrote:
+> >>>>
+> >>>> Hi Colin,
+> >>>>
+> >>>> On Wed, Jun 19, 2019 at 8:55 AM Colin Ian King <colin.king@canonical.com> wrote:
+> >>>>>
+> >>>>> On 19/06/2019 06:13, Martin Blumenstingl wrote:
+> >>>>>> Hi Colin,
+> >>>>>>
+> >>>>>>> Currently the call to device_property_read_u32_array is not error checked
+> >>>>>>> leading to potential garbage values in the delays array that are then used
+> >>>>>>> in msleep delays.  Add a sanity check to the property fetching.
+> >>>>>>>
+> >>>>>>> Addresses-Coverity: ("Uninitialized scalar variable")
+> >>>>>>> Signed-off-by: Colin Ian King <colin.king@canonical.com>
+> >>>>>> I have also sent a patch [0] to fix initialize the array.
+> >>>>>> can you please look at my patch so we can work out which one to use?
+> >>>>>>
+> >>>>>> my concern is that the "snps,reset-delays-us" property is optional,
+> >>>>>> the current dt-bindings documentation states that it's a required
+> >>>>>> property. in reality it isn't, there are boards (two examples are
+> >>>>>> mentioned in my patch: [0]) without it.
+> >>>>>>
+> >>>>>> so I believe that the resulting behavior has to be:
+> >>>>>> 1. don't delay if this property is missing (instead of delaying for
+> >>>>>>    <garbage value> ms)
+> >>>>>> 2. don't error out if this property is missing
+> >>>>>>
+> >>>>>> your patch covers #1, can you please check whether #2 is also covered?
+> >>>>>> I tested case #2 when submitting my patch and it worked fine (even
+> >>>>>> though I could not reproduce the garbage values which are being read
+> >>>>>> on some boards)
+> >>> in the meantime I have tested your patch.
+> >>> when I don't set the "snps,reset-delays-us" property then I get the
+> >>> following error:
+> >>>   invalid property snps,reset-delays-us
+> >>>
+> >>> my patch has landed in the meantime: [0]
+> >>> how should we proceed with your patch?
+>
+> Your fix is good, so I think we should just drop/forget about my fix.
+thank you for looking at the situation
+
+as far I understand the -net/-net-next tree all commits are immutable
+so if we want to remove your patch we need to send a revert
+do you want me to do that (I can do it on Monday) or will you take care of that?
 
 
---+ZmrHH5cGjskQnY1
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-Content-Transfer-Encoding: quoted-printable
-
-On Fri, Jun 28, 2019 at 10:08:07AM +0200, Fabrice Gasnier wrote:
-> Add support for the 3.3V booster regulator embedded in stm32h7 and stm32m=
-p1
-> devices, that can be used to supply ADC analog input switches.
->=20
-> This regulator is supplied by vdda. It's controlled by using SYSCFG:
-> - STM32H7 has a unique register to set/clear the booster enable bit
-> - STM32MP1 has separate set and clear registers to configure it.
-
-This doesn't apply against current code, please check and resend.
-
---+ZmrHH5cGjskQnY1
-Content-Type: application/pgp-signature; name="signature.asc"
-
------BEGIN PGP SIGNATURE-----
-
-iQEzBAABCgAdFiEEreZoqmdXGLWf4p/qJNaLcl1Uh9AFAl0WJPwACgkQJNaLcl1U
-h9CEYwf/S479W8LgrEaeHTTFG3CzS+H7XcqwsFf6ZMmLHg4A/fZD3UOrWsupb7XW
-5Pn1ugPul+BpUs3M6dew3VdsiqOt/JWl3QC0KPKetya58X+NKnGTtnv+F17u5WyL
-pv5f6/FzM3/rN6AhpDN3pbRxUbMj87J3dxVDS/rNh6IYiTjrkIvkXIWO1oiN84aD
-KjarUQFfuqKmKDGsCvkzysX+e7npMdAyqntAdYJqtBVsUHPWDPygEfgedZlFjFUa
-ktNcysf3sDZpFdDiqzCgLYA52R2rWjJGQbZN9TlMx5iK45iLVjGjTbf11arVCcUw
-HT/WrvMzxZT3GvZsaV/sSCOpY7di8A==
-=l6Rr
------END PGP SIGNATURE-----
-
---+ZmrHH5cGjskQnY1--
-
---===============4201687903652591394==
-Content-Type: text/plain; charset="us-ascii"
-MIME-Version: 1.0
-Content-Transfer-Encoding: 7bit
-Content-Disposition: inline
-
+Martin
 _______________________________________________
 Linux-stm32 mailing list
 Linux-stm32@st-md-mailman.stormreply.com
 https://st-md-mailman.stormreply.com/mailman/listinfo/linux-stm32
-
---===============4201687903652591394==--
