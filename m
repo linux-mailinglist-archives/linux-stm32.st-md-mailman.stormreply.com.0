@@ -2,67 +2,50 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id EEA2F5A044
-	for <lists+linux-stm32@lfdr.de>; Fri, 28 Jun 2019 18:05:49 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 885295A17B
+	for <lists+linux-stm32@lfdr.de>; Fri, 28 Jun 2019 18:56:39 +0200 (CEST)
 Received: from ip-172-31-3-76.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 1AA56C35E05;
-	Fri, 28 Jun 2019 16:05:48 +0000 (UTC)
-Received: from mail-ot1-f67.google.com (mail-ot1-f67.google.com
- [209.85.210.67])
- (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 4D1A9C35E04;
+	Fri, 28 Jun 2019 16:56:39 +0000 (UTC)
+Received: from heliosphere.sirena.org.uk (heliosphere.sirena.org.uk
+ [172.104.155.198])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 1137EC36B3F
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 9EFDAC36B3F
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Fri, 28 Jun 2019 16:05:46 +0000 (UTC)
-Received: by mail-ot1-f67.google.com with SMTP id r21so5808538otq.6
- for <linux-stm32@st-md-mailman.stormreply.com>;
- Fri, 28 Jun 2019 09:05:46 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=googlemail.com; s=20161025;
- h=mime-version:references:in-reply-to:from:date:message-id:subject:to
- :cc; bh=rB3m6lymfmEJSrj5bHYQhYToOLJuP/M6N6+Gh/hsbFw=;
- b=bc/qm2AfIl7/pff81NO1XSTxiwj/Tf0ODnPhZSJ5FTf056oge76zhm015auns2dWOc
- RinrawyZ0O2i6XS3+Gia3nZKyP4l+hj94CO63lQVLxbXgIhu7crlszsOV628/OdmjOHs
- sgA2BP1tBdIoQGCZBW6+NVSOzl9jEECi2MCa0a/YPJDDCTBDdePstSg/jnqv6PrxCsmQ
- ThKE283f5h0W/IlmNX0oHfVqT1Ne7o8ahjcCU6dkor7BD58aVUBqhrXrvV7DJyiPPXkB
- MJa5LLDboqWiBQHW5V5SO5bR4xRlOCIXS7xPSUT6OYP8peQqJOrSThluXwg3T02RX4Hq
- coBg==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20161025;
- h=x-gm-message-state:mime-version:references:in-reply-to:from:date
- :message-id:subject:to:cc;
- bh=rB3m6lymfmEJSrj5bHYQhYToOLJuP/M6N6+Gh/hsbFw=;
- b=ln718I71kXF6HjjEaLxIuiTkNxl6gGY42/t4zp8nwU9LtBYB6LV9DvSbBfrUT4l4+W
- +Ceb+SyJOiByGjilH/DrQjNIu1y91eAdFjUhgxGRPxG2M1YWnCXgGfBYcfmP0s4K3VZB
- KiNTH2NnyiUGWVeMWWb7c6T+8nKGoS7VBW5o2dc0bIUnoMFHnQslByaGe57IqvXtYlZF
- pvMFyKFWR4h5N/NFvzTi6jTYkka+N7UULj57wm4P6yHIUmRJy8CkpHBqEJ2ws0nES7jv
- iBtc7rtDG9HVcLwo47oLUfA/RovRMWv/DHw2yB/Rw+xsN7Zvc4HrIwN3hgZkWXQ128Fr
- wK1g==
-X-Gm-Message-State: APjAAAVP0gw/2GQK8qWsHbRi0W41XF9BVWPHyO/BXGnLIsgEzmQqIKPJ
- lO5L3Tes4zlZ5r75TysAKxUKqC5cLZaniTFt/LQ=
-X-Google-Smtp-Source: APXvYqxpqVINGUIuZUIFanNgoXeInzShDbpDl64F0HtsRM7t1NOYrZCC3Ebzuzy9/EHv7T38+pkX4a5YcGAPWYaVwrw=
-X-Received: by 2002:a9d:23ca:: with SMTP id t68mr8604745otb.98.1561737944761; 
- Fri, 28 Jun 2019 09:05:44 -0700 (PDT)
-MIME-Version: 1.0
-References: <20190617165836.4673-1-colin.king@canonical.com>
- <20190619051308.23582-1-martin.blumenstingl@googlemail.com>
- <92f9e5a6-d2a2-6bf2-ff8a-2430fe977f93@canonical.com>
- <CAFBinCDmYVPDMcwAAYhMfxxuTsG=xunduN58_8e20zE_Mhmb7Q@mail.gmail.com>
- <CAFBinCC-LLpfXQRFcKBbUpCfKc0S9Xtt60QrhEThsOFV-T7vFw@mail.gmail.com>
- <c46d2d17-c35b-46f0-0674-0c55bea3a272@canonical.com>
- <CAFBinCBk5aPVE+vq5px3QKS1T_R=WGXXxEJMC9X676KGvi9jdg@mail.gmail.com>
- <26646ff1-059f-fb2d-e05d-43009aeb2150@canonical.com>
-In-Reply-To: <26646ff1-059f-fb2d-e05d-43009aeb2150@canonical.com>
-From: Martin Blumenstingl <martin.blumenstingl@googlemail.com>
-Date: Fri, 28 Jun 2019 18:05:33 +0200
-Message-ID: <CAFBinCAx5qrPK1z68bF-tGKpJQfKLnee65qBOxMS4nj8t381+Q@mail.gmail.com>
-To: Colin Ian King <colin.king@canonical.com>
-Cc: netdev@vger.kernel.org, kernel-janitors@vger.kernel.org,
- linux-kernel@vger.kernel.org, linux-stm32@st-md-mailman.stormreply.com,
- joabreu@synopsys.com, mcoquelin.stm32@gmail.com, peppe.cavallaro@st.com,
- davem@davemloft.net, linux-arm-kernel@lists.infradead.org
-Subject: Re: [Linux-stm32] [PATCH] net: stmmac: add sanity check to
- device_property_read_u32_array call
+ Fri, 28 Jun 2019 16:56:37 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
+ d=sirena.org.uk; s=20170815-heliosphere; h=Date:Message-Id:In-Reply-To:
+ Subject:Cc:To:From:Sender:Reply-To:MIME-Version:Content-Type:
+ Content-Transfer-Encoding:Content-ID:Content-Description:Resent-Date:
+ Resent-From:Resent-Sender:Resent-To:Resent-Cc:Resent-Message-ID:References:
+ List-Id:List-Help:List-Unsubscribe:List-Subscribe:List-Post:List-Owner:
+ List-Archive; bh=lK0iOan3AVtLl5dzxhYffiHPtchPL13jyFaUkzzdnGY=; b=obVpWn5MXCPj
+ xsB7YM7Fl/AleM+yoj8xzMyX8MH6l9FGSrYsiLhtQYDHnbihQfnQNAgHQGSJBYYa7isdgs+zog5xP
+ sYNtslMjaYfQNaLjcglfBmSQi1qZ1FR7Hrhy3qyFSnQK5kZv9FeLJ54GeO8tvR3xlSrkSfuuMrhMU
+ /kTLo=;
+Received: from cpc102320-sgyl38-2-0-cust46.18-2.cable.virginm.net
+ ([82.37.168.47] helo=finisterre.sirena.org.uk)
+ by heliosphere.sirena.org.uk with esmtpsa
+ (TLS1.2:ECDHE_RSA_AES_256_GCM_SHA384:256) (Exim 4.89)
+ (envelope-from <broonie@sirena.org.uk>)
+ id 1hguAs-0007D3-B1; Fri, 28 Jun 2019 16:56:34 +0000
+Received: by finisterre.sirena.org.uk (Postfix, from userid 1000)
+ id E5C44440046; Fri, 28 Jun 2019 17:56:33 +0100 (BST)
+From: Mark Brown <broonie@kernel.org>
+To: Ludovic Barre <ludovic.barre@st.com>
+In-Reply-To: <1561621439-7305-2-git-send-email-ludovic.Barre@st.com>
+X-Patchwork-Hint: ignore
+Message-Id: <20190628165633.E5C44440046@finisterre.sirena.org.uk>
+Date: Fri, 28 Jun 2019 17:56:33 +0100 (BST)
+Cc: devicetree@vger.kernel.org, Boris Brezillon <bbrezillon@kernel.org>,
+ linux-kernel@vger.kernel.org, Rob Herring <robh+dt@kernel.org>,
+ linux-spi@vger.kernel.org, Marek Vasut <marek.vasut@gmail.com>,
+ Mark Brown <broonie@kernel.org>, linux-mtd@lists.infradead.org,
+ Maxime Coquelin <mcoquelin.stm32@gmail.com>,
+ linux-stm32@st-md-mailman.stormreply.com, linux-arm-kernel@lists.infradead.org
+Subject: [Linux-stm32] Applied "spi: stm32-qspi: remove signal sensitive on
+	completion" to the spi tree
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -74,72 +57,85 @@ List-Post: <mailto:linux-stm32@st-md-mailman.stormreply.com>
 List-Help: <mailto:linux-stm32-request@st-md-mailman.stormreply.com?subject=help>
 List-Subscribe: <https://st-md-mailman.stormreply.com/mailman/listinfo/linux-stm32>, 
  <mailto:linux-stm32-request@st-md-mailman.stormreply.com?subject=subscribe>
+MIME-Version: 1.0
 Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
-Hi Colin,
+The patch
 
-On Fri, Jun 28, 2019 at 10:32 AM Colin Ian King
-<colin.king@canonical.com> wrote:
->
-> On 28/06/2019 05:15, Martin Blumenstingl wrote:
-> > On Tue, Jun 25, 2019 at 9:58 AM Colin Ian King <colin.king@canonical.com> wrote:
-> >>
-> >> On 25/06/2019 05:44, Martin Blumenstingl wrote:
-> >>> Hi Colin,
-> >>>
-> >>> On Thu, Jun 20, 2019 at 3:34 AM Martin Blumenstingl
-> >>> <martin.blumenstingl@googlemail.com> wrote:
-> >>>>
-> >>>> Hi Colin,
-> >>>>
-> >>>> On Wed, Jun 19, 2019 at 8:55 AM Colin Ian King <colin.king@canonical.com> wrote:
-> >>>>>
-> >>>>> On 19/06/2019 06:13, Martin Blumenstingl wrote:
-> >>>>>> Hi Colin,
-> >>>>>>
-> >>>>>>> Currently the call to device_property_read_u32_array is not error checked
-> >>>>>>> leading to potential garbage values in the delays array that are then used
-> >>>>>>> in msleep delays.  Add a sanity check to the property fetching.
-> >>>>>>>
-> >>>>>>> Addresses-Coverity: ("Uninitialized scalar variable")
-> >>>>>>> Signed-off-by: Colin Ian King <colin.king@canonical.com>
-> >>>>>> I have also sent a patch [0] to fix initialize the array.
-> >>>>>> can you please look at my patch so we can work out which one to use?
-> >>>>>>
-> >>>>>> my concern is that the "snps,reset-delays-us" property is optional,
-> >>>>>> the current dt-bindings documentation states that it's a required
-> >>>>>> property. in reality it isn't, there are boards (two examples are
-> >>>>>> mentioned in my patch: [0]) without it.
-> >>>>>>
-> >>>>>> so I believe that the resulting behavior has to be:
-> >>>>>> 1. don't delay if this property is missing (instead of delaying for
-> >>>>>>    <garbage value> ms)
-> >>>>>> 2. don't error out if this property is missing
-> >>>>>>
-> >>>>>> your patch covers #1, can you please check whether #2 is also covered?
-> >>>>>> I tested case #2 when submitting my patch and it worked fine (even
-> >>>>>> though I could not reproduce the garbage values which are being read
-> >>>>>> on some boards)
-> >>> in the meantime I have tested your patch.
-> >>> when I don't set the "snps,reset-delays-us" property then I get the
-> >>> following error:
-> >>>   invalid property snps,reset-delays-us
-> >>>
-> >>> my patch has landed in the meantime: [0]
-> >>> how should we proceed with your patch?
->
-> Your fix is good, so I think we should just drop/forget about my fix.
-thank you for looking at the situation
+   spi: stm32-qspi: remove signal sensitive on completion
 
-as far I understand the -net/-net-next tree all commits are immutable
-so if we want to remove your patch we need to send a revert
-do you want me to do that (I can do it on Monday) or will you take care of that?
+has been applied to the spi tree at
 
+   https://git.kernel.org/pub/scm/linux/kernel/git/broonie/spi.git for-5.3
 
-Martin
+All being well this means that it will be integrated into the linux-next
+tree (usually sometime in the next 24 hours) and sent to Linus during
+the next merge window (or sooner if it is a bug fix), however if
+problems are discovered then the patch may be dropped or reverted.  
+
+You may get further e-mails resulting from automated or manual testing
+and review of the tree, please engage with people reporting problems and
+send followup patches addressing any issues that are reported if needed.
+
+If any updates are required or you are submitting further changes they
+should be sent as incremental updates against current git, existing
+patches will not be replaced.
+
+Please add any relevant lists and maintainers to the CCs when replying
+to this mail.
+
+Thanks,
+Mark
+
+From 775c4c0032c408b8a57a3fc2695eeda101da003a Mon Sep 17 00:00:00 2001
+From: Ludovic Barre <ludovic.barre@st.com>
+Date: Thu, 27 Jun 2019 09:43:59 +0200
+Subject: [PATCH] spi: stm32-qspi: remove signal sensitive on completion
+
+On umount step a sigkill signal is set (without user specific
+action), due to sigkill signal the completion will be interrupted and
+the data transfer can't be finished if a sync is needed.
+
+Signed-off-by: Ludovic Barre <ludovic.barre@st.com>
+Signed-off-by: Mark Brown <broonie@kernel.org>
+---
+ drivers/spi/spi-stm32-qspi.c | 10 +++-------
+ 1 file changed, 3 insertions(+), 7 deletions(-)
+
+diff --git a/drivers/spi/spi-stm32-qspi.c b/drivers/spi/spi-stm32-qspi.c
+index 42f8e3c6aa1f..0b07182f5660 100644
+--- a/drivers/spi/spi-stm32-qspi.c
++++ b/drivers/spi/spi-stm32-qspi.c
+@@ -245,12 +245,8 @@ static int stm32_qspi_tx_dma(struct stm32_qspi *qspi,
+ 	writel_relaxed(cr | CR_DMAEN, qspi->io_base + QSPI_CR);
+ 
+ 	t_out = sgt.nents * STM32_COMP_TIMEOUT_MS;
+-	if (!wait_for_completion_interruptible_timeout(&qspi->dma_completion,
+-						       msecs_to_jiffies(t_out)))
+-		err = -ETIMEDOUT;
+-
+-	if (dma_async_is_tx_complete(dma_ch, cookie,
+-				     NULL, NULL) != DMA_COMPLETE)
++	if (!wait_for_completion_timeout(&qspi->dma_completion,
++					 msecs_to_jiffies(t_out)))
+ 		err = -ETIMEDOUT;
+ 
+ 	if (err)
+@@ -304,7 +300,7 @@ static int stm32_qspi_wait_cmd(struct stm32_qspi *qspi,
+ 	cr = readl_relaxed(qspi->io_base + QSPI_CR);
+ 	writel_relaxed(cr | CR_TCIE | CR_TEIE, qspi->io_base + QSPI_CR);
+ 
+-	if (!wait_for_completion_interruptible_timeout(&qspi->data_completion,
++	if (!wait_for_completion_timeout(&qspi->data_completion,
+ 				msecs_to_jiffies(STM32_COMP_TIMEOUT_MS))) {
+ 		err = -ETIMEDOUT;
+ 	} else {
+-- 
+2.20.1
+
 _______________________________________________
 Linux-stm32 mailing list
 Linux-stm32@st-md-mailman.stormreply.com
