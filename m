@@ -2,67 +2,67 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id 260635AE0F
-	for <lists+linux-stm32@lfdr.de>; Sun, 30 Jun 2019 06:05:30 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 2DEB45AEDA
+	for <lists+linux-stm32@lfdr.de>; Sun, 30 Jun 2019 08:19:33 +0200 (CEST)
 Received: from ip-172-31-3-76.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 17D48C5E2DF
-	for <lists+linux-stm32@lfdr.de>; Sun, 30 Jun 2019 04:05:29 +0000 (UTC)
-Received: from mail-pl1-f196.google.com (mail-pl1-f196.google.com
- [209.85.214.196])
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id DF71AC0DB2C
+	for <lists+linux-stm32@lfdr.de>; Sun, 30 Jun 2019 06:19:32 +0000 (UTC)
+Received: from mail-lf1-f67.google.com (mail-lf1-f67.google.com
+ [209.85.167.67])
  (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id C7B2EC5E2DB
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 739FBC0DB2A
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Sun, 30 Jun 2019 04:05:26 +0000 (UTC)
-Received: by mail-pl1-f196.google.com with SMTP id a93so5486185pla.7
+ Sun, 30 Jun 2019 06:19:32 +0000 (UTC)
+Received: by mail-lf1-f67.google.com with SMTP id x144so6585151lfa.9
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Sat, 29 Jun 2019 21:05:26 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linaro.org; s=google;
- h=date:from:to:cc:subject:message-id:references:mime-version
- :content-disposition:in-reply-to:user-agent;
- bh=nZ4faO3Hxt6Vv9DkaePS/Kvvg767f3TOfeZ7FItgRpc=;
- b=rl7EAg+f3oXHBc8Pbo//vWa3my/Z7+d6GEro+N5fRkuf6eXL3Ar1+FGnrNGb58Nkyp
- c7f4MXGR0IHjlG7BmA/rmUzxOAnzGP6xMCHReP4yqY7rm3uihkIYFlHy3wUjZDJ+M/Zb
- I4I+XIWi4KVSVqdJxjdxlhdrAdIcqttsszNBUKYbP0wRubhUFc7zFvMQ4Icd1Vr/OWHA
- Q3y9oGRxxyPp07pxYRbtvqicG+f3Cwc8lH89BWEeheh3G9HiL3+ytCZtYrqHxKeNE6qj
- xFOCGAzC1hlSrLGFC34ZqTBi5S1XvC4x7RPzAUW2Pfb27bY6g4qhSCfWI/rBNsOVj4dh
- Ah/A==
+ Sat, 29 Jun 2019 23:19:32 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20161025;
+ h=sender:from:to:cc:subject:date:message-id:in-reply-to:references
+ :mime-version:content-transfer-encoding;
+ bh=WBff9Q31WytToFILW5VoVwYEkxeSh4M7iWNthN+AK6I=;
+ b=Gu+je+QvkPfwZwmVMBiAW+7QjNESKrsPTusBSrnlL6x3cKKjMpcKVv6OOktztRyFkm
+ LNDS/CQnqpeioeg2vD+CZRyTWXv7GVVUIYCi2LaxfNuCJrBh+SJt4ID4aN49YR8rW5sq
+ f0VKml1Mo1WCKiM614KKxegV0o566gY0yHAvQ1xhDPqtm9Z6+5664z/TfdPjNg0Kt3Py
+ RG8dQpnvd4zoSMtsFhbY4AKE68BUQ3LJVqix+9c6IYUVGSXXNiMBsDiDEw1SnbZpNeDY
+ 59Q0MlyqpbqjIk2cOKZEggFOph1f4OOES8KGKe9pjBPK7OWN2Il9qM+IlmBfa9oyxHXq
+ 8EyA==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=1e100.net; s=20161025;
- h=x-gm-message-state:date:from:to:cc:subject:message-id:references
- :mime-version:content-disposition:in-reply-to:user-agent;
- bh=nZ4faO3Hxt6Vv9DkaePS/Kvvg767f3TOfeZ7FItgRpc=;
- b=kFZoomsXLWZMPGjugfaeM523vL4RZo2Y9g0hc8en9FWYaYCb6wt6R/cHaS/aSMf1AM
- 4OvqXiGnfjE8JxG1wzQc7NBvEbstoQi/HgS/3bPCPKYrSqmAvMien1TGOAM7ogO3MxP5
- WsFnuRrAKUhY3/WTtPrx8qLUx7/Z81I+sIZNQrPgAT3ciUN5JUhUYV9cSc8kVX/KWi6l
- F6yg+JWu6SIiXDuXB90iSvl8qd8E1J0AB9ZDL3pHINvlfBiuxOYoMczqgPFgJgCriHnm
- LfJklwnMI+f07Ek752NyblJ3AytN90b2gntgSiyxN0DnqvvPbBHmreoF+Xq5gSxIk8fG
- NXuw==
-X-Gm-Message-State: APjAAAXRJjFv/3UVNXrci98bHUmAnlh3pA43EHmHFmhlWj9f66MekngE
- KxKz4QQK6ZB/kC0CXIL0ZDWTcg==
-X-Google-Smtp-Source: APXvYqxg5hDllg1TQKAIWeDHYzxBnrioiXmu06H2WlpeMePI7Rp+znhieN/1bfFWv6zaE9kfcQ+ElA==
-X-Received: by 2002:a17:902:a40c:: with SMTP id
- p12mr21215977plq.146.1561867525153; 
- Sat, 29 Jun 2019 21:05:25 -0700 (PDT)
-Received: from builder (104-188-17-28.lightspeed.sndgca.sbcglobal.net.
- [104.188.17.28])
- by smtp.gmail.com with ESMTPSA id z13sm6984605pjn.32.2019.06.29.21.05.23
- (version=TLS1_2 cipher=ECDHE-RSA-CHACHA20-POLY1305 bits=256/256);
- Sat, 29 Jun 2019 21:05:24 -0700 (PDT)
-Date: Sat, 29 Jun 2019 21:05:22 -0700
-From: Bjorn Andersson <bjorn.andersson@linaro.org>
-To: Fabien Dessenne <fabien.dessenne@st.com>
-Message-ID: <20190630040522.GA1263@builder>
-References: <1551973336-23048-1-git-send-email-fabien.dessenne@st.com>
+ h=x-gm-message-state:sender:from:to:cc:subject:date:message-id
+ :in-reply-to:references:mime-version:content-transfer-encoding;
+ bh=WBff9Q31WytToFILW5VoVwYEkxeSh4M7iWNthN+AK6I=;
+ b=PDespCXcPU5wn9r8PMIxhSyKeUD9QhZUjUT4Qbyg7Vgp3CKZCIAUvbItzzbntSBJe8
+ XtjOOYwmeEbeqBdFGtuV10wAWXnLNT5FA4uyAAZBGhjPG+rtQuKpugNwmW9B9xF+JR7G
+ 8gvqEBcCFpyXhWOl9lLw0r3O4aIZHPEZHmQQ0wLjEVAoG6GF5E3s6uQurzhDhWms1oAA
+ zCuRdg9hiYnv+MaOdD7Oy0OhZu9VMSps5HQvQwHLGCuoWycLkdliV9AAbmIXUF654pLx
+ M4heJJnVzCkPFlmouPM6FSFM+u+ISn1lULbsZCS27cbvyHkBXf3Sk/VXH/q/QAse0+M/
+ jpDg==
+X-Gm-Message-State: APjAAAXtkLUmtFmsE89sBLPKhHYcG2LqOZ7z8eYKwoLY7HfoCw9duJYF
+ A3yqX46tqTeUo88Mckt7p6U=
+X-Google-Smtp-Source: APXvYqwrcoTpWP5VhHTwC52oXSKcJgARlMY1UIo4OQXUv7/qwWhLp2ZyI7Xek4qR9uaa3DSxLagPRA==
+X-Received: by 2002:ac2:46ce:: with SMTP id p14mr9097784lfo.148.1561875571620; 
+ Sat, 29 Jun 2019 23:19:31 -0700 (PDT)
+Received: from saturn.lan (18.158-248-194.customer.lyse.net. [158.248.194.18])
+ by smtp.gmail.com with ESMTPSA id
+ o74sm1794024lff.46.2019.06.29.23.19.30
+ (version=TLS1_3 cipher=AEAD-AES256-GCM-SHA384 bits=256/256);
+ Sat, 29 Jun 2019 23:19:31 -0700 (PDT)
+From: Sam Ravnborg <sam@ravnborg.org>
+To: dri-devel@lists.freedesktop.org
+Date: Sun, 30 Jun 2019 08:18:52 +0200
+Message-Id: <20190630061922.7254-4-sam@ravnborg.org>
+X-Mailer: git-send-email 2.20.1
+In-Reply-To: <20190630061922.7254-1-sam@ravnborg.org>
+References: <20190630061922.7254-1-sam@ravnborg.org>
 MIME-Version: 1.0
-Content-Disposition: inline
-In-Reply-To: <1551973336-23048-1-git-send-email-fabien.dessenne@st.com>
-User-Agent: Mutt/1.10.0 (2018-05-17)
-Cc: Ohad Ben-Cohen <ohad@wizery.com>, linux-remoteproc@vger.kernel.org,
- linux-kernel@vger.kernel.org, Maxime Coquelin <mcoquelin.stm32@gmail.com>,
+Cc: Maxime Coquelin <mcoquelin.stm32@gmail.com>,
+ Daniel Vetter <daniel@ffwll.ch>, David Airlie <airlied@linux.ie>,
+ Sam Ravnborg <sam@ravnborg.org>, Yannick Fertre <yannick.fertre@st.com>,
+ Benjamin Gaignard <benjamin.gaignard@linaro.org>,
+ Vincent Abriou <vincent.abriou@st.com>,
  linux-stm32@st-md-mailman.stormreply.com, linux-arm-kernel@lists.infradead.org
-Subject: Re: [Linux-stm32] [PATCH] hwspinlock: stm32: implement the relax()
-	ops
+Subject: [Linux-stm32] [PATCH v1 03/33] drm/stm: drop use of drmP.h
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -79,53 +79,62 @@ Content-Transfer-Encoding: 7bit
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
-On Thu 07 Mar 07:42 PST 2019, Fabien Dessenne wrote:
+Drop use of the deprecated header file drmP.h
+from the sole user in the stm driver.
+Replace with necessary include files.
 
-> Implement this optional ops, called by hwspinlock core while spinning on
-> a lock, between two successive invocations of trylock().
-> 
-> Signed-off-by: Fabien Dessenne <fabien.dessenne@st.com>
+Signed-off-by: Sam Ravnborg <sam@ravnborg.org>
+Cc: Yannick Fertre <yannick.fertre@st.com>
+Cc: Philippe Cornu <philippe.cornu@st.com>
+Cc: Benjamin Gaignard <benjamin.gaignard@linaro.org>
+Cc: Vincent Abriou <vincent.abriou@st.com>
+Cc: David Airlie <airlied@linux.ie>
+Cc: Daniel Vetter <daniel@ffwll.ch>
+Cc: Maxime Coquelin <mcoquelin.stm32@gmail.com>
+Cc: Alexandre Torgue <alexandre.torgue@st.com>
+Cc: linux-stm32@st-md-mailman.stormreply.com
+Cc: linux-arm-kernel@lists.infradead.org
+Cc: linux-stm32@st-md-mailman.stormreply.com
+Cc: linux-arm-kernel@lists.infradead.org
+---
+The list of cc: was too large to add all recipients to the cover letter.
+Please find cover letter here:
+https://lists.freedesktop.org/archives/dri-devel/2019-June/thread.html
+Search for "drm: drop use of drmp.h in drm-misc"
 
-Applied
+        Sam
 
-Thanks,
-Bjorn
+ drivers/gpu/drm/stm/dw_mipi_dsi-stm.c | 10 +++++++---
+ 1 file changed, 7 insertions(+), 3 deletions(-)
 
-> ---
->  drivers/hwspinlock/stm32_hwspinlock.c | 7 +++++++
->  1 file changed, 7 insertions(+)
-> 
-> diff --git a/drivers/hwspinlock/stm32_hwspinlock.c b/drivers/hwspinlock/stm32_hwspinlock.c
-> index 4418392..c8eacf4 100644
-> --- a/drivers/hwspinlock/stm32_hwspinlock.c
-> +++ b/drivers/hwspinlock/stm32_hwspinlock.c
-> @@ -5,6 +5,7 @@
->   */
->  
->  #include <linux/clk.h>
-> +#include <linux/delay.h>
->  #include <linux/hwspinlock.h>
->  #include <linux/io.h>
->  #include <linux/kernel.h>
-> @@ -42,9 +43,15 @@ static void stm32_hwspinlock_unlock(struct hwspinlock *lock)
->  	writel(STM32_MUTEX_COREID, lock_addr);
->  }
->  
-> +static void stm32_hwspinlock_relax(struct hwspinlock *lock)
-> +{
-> +	ndelay(50);
-> +}
-> +
->  static const struct hwspinlock_ops stm32_hwspinlock_ops = {
->  	.trylock	= stm32_hwspinlock_trylock,
->  	.unlock		= stm32_hwspinlock_unlock,
-> +	.relax		= stm32_hwspinlock_relax,
->  };
->  
->  static int stm32_hwspinlock_probe(struct platform_device *pdev)
-> -- 
-> 2.7.4
-> 
+diff --git a/drivers/gpu/drm/stm/dw_mipi_dsi-stm.c b/drivers/gpu/drm/stm/dw_mipi_dsi-stm.c
+index 0ab32fee6c1b..a03a642c147c 100644
+--- a/drivers/gpu/drm/stm/dw_mipi_dsi-stm.c
++++ b/drivers/gpu/drm/stm/dw_mipi_dsi-stm.c
+@@ -8,13 +8,17 @@
+ 
+ #include <linux/clk.h>
+ #include <linux/iopoll.h>
++#include <linux/mod_devicetable.h>
+ #include <linux/module.h>
++#include <linux/platform_device.h>
+ #include <linux/regulator/consumer.h>
+-#include <drm/drmP.h>
+-#include <drm/drm_mipi_dsi.h>
+-#include <drm/bridge/dw_mipi_dsi.h>
++
+ #include <video/mipi_display.h>
+ 
++#include <drm/bridge/dw_mipi_dsi.h>
++#include <drm/drm_mipi_dsi.h>
++#include <drm/drm_print.h>
++
+ #define HWVER_130			0x31333000	/* IP version 1.30 */
+ #define HWVER_131			0x31333100	/* IP version 1.31 */
+ 
+-- 
+2.20.1
+
 _______________________________________________
 Linux-stm32 mailing list
 Linux-stm32@st-md-mailman.stormreply.com
