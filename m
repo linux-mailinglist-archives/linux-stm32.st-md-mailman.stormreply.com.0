@@ -2,90 +2,48 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id EF6CC5C980
-	for <lists+linux-stm32@lfdr.de>; Tue,  2 Jul 2019 08:48:23 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id E94835D004
+	for <lists+linux-stm32@lfdr.de>; Tue,  2 Jul 2019 15:04:56 +0200 (CEST)
 Received: from ip-172-31-3-76.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 9AD46C636F9
-	for <lists+linux-stm32@lfdr.de>; Tue,  2 Jul 2019 06:48:23 +0000 (UTC)
-Received: from youngberry.canonical.com (youngberry.canonical.com
- [91.189.89.112]) (using TLSv1 with cipher AES256-SHA (256/256 bits))
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id A13F1C6BAF3
+	for <lists+linux-stm32@lfdr.de>; Tue,  2 Jul 2019 13:04:56 +0000 (UTC)
+Received: from heliosphere.sirena.org.uk (heliosphere.sirena.org.uk
+ [172.104.155.198])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id BD7CBC636F6
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 9B460C6BAEE
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Tue,  2 Jul 2019 06:48:21 +0000 (UTC)
-Received: from cpc129250-craw9-2-0-cust139.know.cable.virginm.net
- ([82.43.126.140] helo=[192.168.0.10])
- by youngberry.canonical.com with esmtpsa (TLS1.0:RSA_AES_128_CBC_SHA1:16)
- (Exim 4.76) (envelope-from <colin.king@canonical.com>)
- id 1hiCaQ-0003VS-53; Tue, 02 Jul 2019 06:48:18 +0000
-To: Martin Blumenstingl <martin.blumenstingl@googlemail.com>
-References: <20190617165836.4673-1-colin.king@canonical.com>
- <20190619051308.23582-1-martin.blumenstingl@googlemail.com>
- <92f9e5a6-d2a2-6bf2-ff8a-2430fe977f93@canonical.com>
- <CAFBinCDmYVPDMcwAAYhMfxxuTsG=xunduN58_8e20zE_Mhmb7Q@mail.gmail.com>
- <CAFBinCC-LLpfXQRFcKBbUpCfKc0S9Xtt60QrhEThsOFV-T7vFw@mail.gmail.com>
- <c46d2d17-c35b-46f0-0674-0c55bea3a272@canonical.com>
- <CAFBinCBk5aPVE+vq5px3QKS1T_R=WGXXxEJMC9X676KGvi9jdg@mail.gmail.com>
- <26646ff1-059f-fb2d-e05d-43009aeb2150@canonical.com>
- <CAFBinCAx5qrPK1z68bF-tGKpJQfKLnee65qBOxMS4nj8t381+Q@mail.gmail.com>
- <CAFBinCCpJLSQiUeqpQTKQDgjy7-ROgjYa913Xe1My_oc6miTzw@mail.gmail.com>
-From: Colin Ian King <colin.king@canonical.com>
-Openpgp: preference=signencrypt
-Autocrypt: addr=colin.king@canonical.com; prefer-encrypt=mutual; keydata=
- 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
-Message-ID: <ae0207d3-6523-c197-d5b1-bdafafb800f9@canonical.com>
-Date: Tue, 2 Jul 2019 07:48:17 +0100
-User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:60.0) Gecko/20100101
- Thunderbird/60.7.2
-MIME-Version: 1.0
-In-Reply-To: <CAFBinCCpJLSQiUeqpQTKQDgjy7-ROgjYa913Xe1My_oc6miTzw@mail.gmail.com>
-Content-Language: en-US
-Cc: netdev@vger.kernel.org, kernel-janitors@vger.kernel.org,
- linux-kernel@vger.kernel.org, linux-stm32@st-md-mailman.stormreply.com,
- joabreu@synopsys.com, mcoquelin.stm32@gmail.com, peppe.cavallaro@st.com,
- davem@davemloft.net, linux-arm-kernel@lists.infradead.org
-Subject: Re: [Linux-stm32] [PATCH] net: stmmac: add sanity check to
- device_property_read_u32_array call
+ Tue,  2 Jul 2019 13:04:55 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
+ d=sirena.org.uk; s=20170815-heliosphere; h=Date:Message-Id:In-Reply-To:
+ Subject:Cc:To:From:Sender:Reply-To:MIME-Version:Content-Type:
+ Content-Transfer-Encoding:Content-ID:Content-Description:Resent-Date:
+ Resent-From:Resent-Sender:Resent-To:Resent-Cc:Resent-Message-ID:References:
+ List-Id:List-Help:List-Unsubscribe:List-Subscribe:List-Post:List-Owner:
+ List-Archive; bh=F04tVE/uH/qRXJLC7CQfRhTRh00eEbuM9Ceb3EulQu4=; b=vuTUc0fLJ4Ie
+ Kirr/Md+2YiI56rIZ2ERMo4aA/e+A3/1YJpEm4rNlWvlOMEH3PI+athaNTilFWsgqu5xeLImE63qD
+ gPhjEOiwtRYWg6wXHLCV9IbyexojLs28VfkEBPw08+eiXhFl6OFQrPslyos710c5sbWq6GS31sAfr
+ Fe238=;
+Received: from cpc102320-sgyl38-2-0-cust46.18-2.cable.virginm.net
+ ([82.37.168.47] helo=finisterre.sirena.org.uk)
+ by heliosphere.sirena.org.uk with esmtpsa
+ (TLS1.2:ECDHE_RSA_AES_256_GCM_SHA384:256) (Exim 4.89)
+ (envelope-from <broonie@sirena.org.uk>)
+ id 1hiISm-0002O2-O7; Tue, 02 Jul 2019 13:04:48 +0000
+Received: by finisterre.sirena.org.uk (Postfix, from userid 1000)
+ id 36CAD440049; Tue,  2 Jul 2019 14:04:48 +0100 (BST)
+From: Mark Brown <broonie@kernel.org>
+To: Fabrice Gasnier <fabrice.gasnier@st.com>
+In-Reply-To: <1561968865-22037-3-git-send-email-fabrice.gasnier@st.com>
+X-Patchwork-Hint: ignore
+Message-Id: <20190702130448.36CAD440049@finisterre.sirena.org.uk>
+Date: Tue,  2 Jul 2019 14:04:48 +0100 (BST)
+Cc: devicetree@vger.kernel.org, lgirdwood@gmail.com, robh+dt@kernel.org,
+ linux-kernel@vger.kernel.org, Mark Brown <broonie@kernel.org>,
+ mcoquelin.stm32@gmail.com, fabrice.gasnier@st.com,
+ linux-stm32@st-md-mailman.stormreply.com, linux-arm-kernel@lists.infradead.org
+Subject: [Linux-stm32] Applied "regulator: add support for the
+	stm32-booster" to the regulator tree
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -97,80 +55,234 @@ List-Post: <mailto:linux-stm32@st-md-mailman.stormreply.com>
 List-Help: <mailto:linux-stm32-request@st-md-mailman.stormreply.com?subject=help>
 List-Subscribe: <https://st-md-mailman.stormreply.com/mailman/listinfo/linux-stm32>, 
  <mailto:linux-stm32-request@st-md-mailman.stormreply.com?subject=subscribe>
+MIME-Version: 1.0
 Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
-On 01/07/2019 23:43, Martin Blumenstingl wrote:
-> On Fri, Jun 28, 2019 at 6:05 PM Martin Blumenstingl
-> <martin.blumenstingl@googlemail.com> wrote:
->>
->> Hi Colin,
->>
->> On Fri, Jun 28, 2019 at 10:32 AM Colin Ian King
->> <colin.king@canonical.com> wrote:
->>>
->>> On 28/06/2019 05:15, Martin Blumenstingl wrote:
->>>> On Tue, Jun 25, 2019 at 9:58 AM Colin Ian King <colin.king@canonical.com> wrote:
->>>>>
->>>>> On 25/06/2019 05:44, Martin Blumenstingl wrote:
->>>>>> Hi Colin,
->>>>>>
->>>>>> On Thu, Jun 20, 2019 at 3:34 AM Martin Blumenstingl
->>>>>> <martin.blumenstingl@googlemail.com> wrote:
->>>>>>>
->>>>>>> Hi Colin,
->>>>>>>
->>>>>>> On Wed, Jun 19, 2019 at 8:55 AM Colin Ian King <colin.king@canonical.com> wrote:
->>>>>>>>
->>>>>>>> On 19/06/2019 06:13, Martin Blumenstingl wrote:
->>>>>>>>> Hi Colin,
->>>>>>>>>
->>>>>>>>>> Currently the call to device_property_read_u32_array is not error checked
->>>>>>>>>> leading to potential garbage values in the delays array that are then used
->>>>>>>>>> in msleep delays.  Add a sanity check to the property fetching.
->>>>>>>>>>
->>>>>>>>>> Addresses-Coverity: ("Uninitialized scalar variable")
->>>>>>>>>> Signed-off-by: Colin Ian King <colin.king@canonical.com>
->>>>>>>>> I have also sent a patch [0] to fix initialize the array.
->>>>>>>>> can you please look at my patch so we can work out which one to use?
->>>>>>>>>
->>>>>>>>> my concern is that the "snps,reset-delays-us" property is optional,
->>>>>>>>> the current dt-bindings documentation states that it's a required
->>>>>>>>> property. in reality it isn't, there are boards (two examples are
->>>>>>>>> mentioned in my patch: [0]) without it.
->>>>>>>>>
->>>>>>>>> so I believe that the resulting behavior has to be:
->>>>>>>>> 1. don't delay if this property is missing (instead of delaying for
->>>>>>>>>    <garbage value> ms)
->>>>>>>>> 2. don't error out if this property is missing
->>>>>>>>>
->>>>>>>>> your patch covers #1, can you please check whether #2 is also covered?
->>>>>>>>> I tested case #2 when submitting my patch and it worked fine (even
->>>>>>>>> though I could not reproduce the garbage values which are being read
->>>>>>>>> on some boards)
->>>>>> in the meantime I have tested your patch.
->>>>>> when I don't set the "snps,reset-delays-us" property then I get the
->>>>>> following error:
->>>>>>   invalid property snps,reset-delays-us
->>>>>>
->>>>>> my patch has landed in the meantime: [0]
->>>>>> how should we proceed with your patch?
->>>
->>> Your fix is good, so I think we should just drop/forget about my fix.
->> thank you for looking at the situation
->>
->> as far I understand the -net/-net-next tree all commits are immutable
->> so if we want to remove your patch we need to send a revert
->> do you want me to do that (I can do it on Monday) or will you take care of that?
-> I just sent the patch: [0]
+The patch
 
-Thank you, much appreciated.
-> 
-> 
-> [0] https://patchwork.ozlabs.org/patch/1125686/
-> 
+   regulator: add support for the stm32-booster
+
+has been applied to the regulator tree at
+
+   https://git.kernel.org/pub/scm/linux/kernel/git/broonie/regulator.git for-5.3
+
+All being well this means that it will be integrated into the linux-next
+tree (usually sometime in the next 24 hours) and sent to Linus during
+the next merge window (or sooner if it is a bug fix), however if
+problems are discovered then the patch may be dropped or reverted.  
+
+You may get further e-mails resulting from automated or manual testing
+and review of the tree, please engage with people reporting problems and
+send followup patches addressing any issues that are reported if needed.
+
+If any updates are required or you are submitting further changes they
+should be sent as incremental updates against current git, existing
+patches will not be replaced.
+
+Please add any relevant lists and maintainers to the CCs when replying
+to this mail.
+
+Thanks,
+Mark
+
+From 4e210fbeee8e2f0eb04761c624fcccc8401eba4c Mon Sep 17 00:00:00 2001
+From: Fabrice Gasnier <fabrice.gasnier@st.com>
+Date: Mon, 1 Jul 2019 10:14:23 +0200
+Subject: [PATCH] regulator: add support for the stm32-booster
+
+Add support for the 3.3V booster regulator embedded in stm32h7 and stm32mp1
+devices, that can be used to supply ADC analog input switches.
+
+This regulator is supplied by vdda. It's controlled by using SYSCFG:
+- STM32H7 has a unique register to set/clear the booster enable bit
+- STM32MP1 has separate set and clear registers to configure it.
+
+Signed-off-by: Fabrice Gasnier <fabrice.gasnier@st.com>
+Signed-off-by: Mark Brown <broonie@kernel.org>
+---
+ drivers/regulator/Kconfig         |  11 +++
+ drivers/regulator/Makefile        |   1 +
+ drivers/regulator/stm32-booster.c | 132 ++++++++++++++++++++++++++++++
+ 3 files changed, 144 insertions(+)
+ create mode 100644 drivers/regulator/stm32-booster.c
+
+diff --git a/drivers/regulator/Kconfig b/drivers/regulator/Kconfig
+index 0e7d425ba9b1..1e590ecf1a9d 100644
+--- a/drivers/regulator/Kconfig
++++ b/drivers/regulator/Kconfig
+@@ -839,6 +839,17 @@ config REGULATOR_SLG51000
+ 	  The SLG51000 is seven compact and customizable low dropout
+ 	  regulators.
+ 
++config REGULATOR_STM32_BOOSTER
++	tristate "STMicroelectronics STM32 BOOSTER"
++	depends on ARCH_STM32 || COMPILE_TEST
++	help
++	  This driver supports internal booster (3V3) embedded in some
++	  STMicroelectronics STM32 chips. It can be used to supply ADC analog
++	  input switches when vdda supply is below 2.7V.
++
++	  This driver can also be built as a module. If so, the module
++	  will be called stm32-booster.
++
+ config REGULATOR_STM32_VREFBUF
+ 	tristate "STMicroelectronics STM32 VREFBUF"
+ 	depends on ARCH_STM32 || COMPILE_TEST
+diff --git a/drivers/regulator/Makefile b/drivers/regulator/Makefile
+index c15b0b613766..eef73b5a35a4 100644
+--- a/drivers/regulator/Makefile
++++ b/drivers/regulator/Makefile
+@@ -105,6 +105,7 @@ obj-$(CONFIG_REGULATOR_S5M8767) += s5m8767.o
+ obj-$(CONFIG_REGULATOR_SC2731) += sc2731-regulator.o
+ obj-$(CONFIG_REGULATOR_SKY81452) += sky81452-regulator.o
+ obj-$(CONFIG_REGULATOR_SLG51000) += slg51000-regulator.o
++obj-$(CONFIG_REGULATOR_STM32_BOOSTER) += stm32-booster.o
+ obj-$(CONFIG_REGULATOR_STM32_VREFBUF) += stm32-vrefbuf.o
+ obj-$(CONFIG_REGULATOR_STM32_PWR) += stm32-pwr.o
+ obj-$(CONFIG_REGULATOR_STPMIC1) += stpmic1_regulator.o
+diff --git a/drivers/regulator/stm32-booster.c b/drivers/regulator/stm32-booster.c
+new file mode 100644
+index 000000000000..2a897666c650
+--- /dev/null
++++ b/drivers/regulator/stm32-booster.c
+@@ -0,0 +1,132 @@
++// SPDX-License-Identifier: GPL-2.0
++// Copyright (C) STMicroelectronics 2019
++// Author(s): Fabrice Gasnier <fabrice.gasnier@st.com>.
++
++#include <linux/mfd/syscon.h>
++#include <linux/module.h>
++#include <linux/of_device.h>
++#include <linux/platform_device.h>
++#include <linux/regmap.h>
++#include <linux/regulator/driver.h>
++#include <linux/regulator/of_regulator.h>
++
++/* STM32H7 SYSCFG register */
++#define STM32H7_SYSCFG_PMCR		0x04
++#define STM32H7_SYSCFG_BOOSTE_MASK	BIT(8)
++
++/* STM32MP1 SYSCFG has set and clear registers */
++#define STM32MP1_SYSCFG_PMCSETR		0x04
++#define STM32MP1_SYSCFG_PMCCLRR		0x44
++#define STM32MP1_SYSCFG_EN_BOOSTER_MASK	BIT(8)
++
++static const struct regulator_ops stm32h7_booster_ops = {
++	.list_voltage	= regulator_list_voltage_linear,
++	.enable		= regulator_enable_regmap,
++	.disable	= regulator_disable_regmap,
++	.is_enabled	= regulator_is_enabled_regmap,
++};
++
++static const struct regulator_desc stm32h7_booster_desc = {
++	.name = "booster",
++	.supply_name = "vdda",
++	.n_voltages = 1,
++	.type = REGULATOR_VOLTAGE,
++	.min_uV = 3300000,
++	.fixed_uV = 3300000,
++	.ramp_delay = 66000, /* up to 50us to stabilize */
++	.ops = &stm32h7_booster_ops,
++	.enable_reg = STM32H7_SYSCFG_PMCR,
++	.enable_mask = STM32H7_SYSCFG_BOOSTE_MASK,
++	.owner = THIS_MODULE,
++};
++
++static int stm32mp1_booster_enable(struct regulator_dev *rdev)
++{
++	return regmap_write(rdev->regmap, STM32MP1_SYSCFG_PMCSETR,
++			    STM32MP1_SYSCFG_EN_BOOSTER_MASK);
++}
++
++static int stm32mp1_booster_disable(struct regulator_dev *rdev)
++{
++	return regmap_write(rdev->regmap, STM32MP1_SYSCFG_PMCCLRR,
++			    STM32MP1_SYSCFG_EN_BOOSTER_MASK);
++}
++
++static const struct regulator_ops stm32mp1_booster_ops = {
++	.list_voltage	= regulator_list_voltage_linear,
++	.enable		= stm32mp1_booster_enable,
++	.disable	= stm32mp1_booster_disable,
++	.is_enabled	= regulator_is_enabled_regmap,
++};
++
++static const struct regulator_desc stm32mp1_booster_desc = {
++	.name = "booster",
++	.supply_name = "vdda",
++	.n_voltages = 1,
++	.type = REGULATOR_VOLTAGE,
++	.min_uV = 3300000,
++	.fixed_uV = 3300000,
++	.ramp_delay = 66000,
++	.ops = &stm32mp1_booster_ops,
++	.enable_reg = STM32MP1_SYSCFG_PMCSETR,
++	.enable_mask = STM32MP1_SYSCFG_EN_BOOSTER_MASK,
++	.owner = THIS_MODULE,
++};
++
++static int stm32_booster_probe(struct platform_device *pdev)
++{
++	struct device *dev = &pdev->dev;
++	struct device_node *np = pdev->dev.of_node;
++	struct regulator_config config = { };
++	const struct regulator_desc *desc;
++	struct regulator_dev *rdev;
++	struct regmap *regmap;
++	int ret;
++
++	regmap = syscon_regmap_lookup_by_phandle(np, "st,syscfg");
++	if (IS_ERR(regmap))
++		return PTR_ERR(regmap);
++
++	desc = (const struct regulator_desc *)
++		of_match_device(dev->driver->of_match_table, dev)->data;
++
++	config.regmap = regmap;
++	config.dev = dev;
++	config.of_node = np;
++	config.init_data = of_get_regulator_init_data(dev, np, desc);
++
++	rdev = devm_regulator_register(dev, desc, &config);
++	if (IS_ERR(rdev)) {
++		ret = PTR_ERR(rdev);
++		dev_err(dev, "register failed with error %d\n", ret);
++		return ret;
++	}
++
++	return 0;
++}
++
++static const struct of_device_id stm32_booster_of_match[] = {
++	{
++		.compatible = "st,stm32h7-booster",
++		.data = (void *)&stm32h7_booster_desc
++	}, {
++		.compatible = "st,stm32mp1-booster",
++		.data = (void *)&stm32mp1_booster_desc
++	}, {
++	},
++};
++MODULE_DEVICE_TABLE(of, stm32_booster_of_match);
++
++static struct platform_driver stm32_booster_driver = {
++	.probe = stm32_booster_probe,
++	.driver = {
++		.name  = "stm32-booster",
++		.of_match_table = of_match_ptr(stm32_booster_of_match),
++	},
++};
++module_platform_driver(stm32_booster_driver);
++
++MODULE_LICENSE("GPL v2");
++MODULE_AUTHOR("Fabrice Gasnier <fabrice.gasnier@st.com>");
++MODULE_DESCRIPTION("STMicroelectronics STM32 booster regulator driver");
++MODULE_ALIAS("platform:stm32-booster");
+-- 
+2.20.1
 
 _______________________________________________
 Linux-stm32 mailing list
