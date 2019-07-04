@@ -2,72 +2,116 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id BC9CA5F887
-	for <lists+linux-stm32@lfdr.de>; Thu,  4 Jul 2019 14:49:47 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 4632C5F8AE
+	for <lists+linux-stm32@lfdr.de>; Thu,  4 Jul 2019 14:59:33 +0200 (CEST)
 Received: from ip-172-31-3-76.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 69E45CBB4BA
-	for <lists+linux-stm32@lfdr.de>; Thu,  4 Jul 2019 12:49:47 +0000 (UTC)
-Received: from mail-wm1-f68.google.com (mail-wm1-f68.google.com
- [209.85.128.68])
- (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 36E3CCBB4B7
+	for <lists+linux-stm32@lfdr.de>; Thu,  4 Jul 2019 12:59:32 +0000 (UTC)
+Received: from smtprelay-out1.synopsys.com (dc8-smtprelay2.synopsys.com
+ [198.182.47.102])
+ (using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 82CA6CBB4B7
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 23CF3C20B64
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Thu,  4 Jul 2019 12:49:45 +0000 (UTC)
-Received: by mail-wm1-f68.google.com with SMTP id s3so5635515wms.2
- for <linux-stm32@st-md-mailman.stormreply.com>;
- Thu, 04 Jul 2019 05:49:45 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linaro.org; s=google;
- h=date:from:to:cc:subject:message-id:references:mime-version
- :content-disposition:in-reply-to:user-agent;
- bh=pJR9Nbd+EOvZUGtVQfqXOkJPh6MJRl4K59V5gxu19nc=;
- b=pW28AYFsfz6lnQajSXfkgm0Hxur+z4zyo2+Mn98yniclwqQG8ecE+mzYQficvwPFQX
- CwaUtZA2yFftv6MUGI+P39gNRBhdcckVT6Z0SvAtY1DX2pnwSaoHEly7RoIVzrucF8G6
- QkNbFnvmuH8BK7WWkIuBgCbD3BytI6VZUw6ERP+uTPion1cNRcbhgGFAWdYp0RPt4EtJ
- M6uwQDJR9jYJanmQM8MXRDn0xqlApbLdnoCFWaJYCctFnhciK/AIsqBU+gRA1PhQpR1C
- M+emjXF3OofspwDRs4fsa/6DEY898+4AgcxTrYHV6MOPqtDDritljBieEejXK1CY6+2f
- kIRg==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20161025;
- h=x-gm-message-state:date:from:to:cc:subject:message-id:references
- :mime-version:content-disposition:in-reply-to:user-agent;
- bh=pJR9Nbd+EOvZUGtVQfqXOkJPh6MJRl4K59V5gxu19nc=;
- b=X6/yoIn218vBpi29w3V9kh+Z2317gKMYV5i5toI61IrzJTfu0i9GKoJbSwiG6zjDJq
- kcWb131OCVtXru0RMFSwZVQbODJaiIsPD5SfXalwQ+GPdnpLA78MsVEaO+m3fpideuAC
- Lp7E7EqGT5eq9YW+/XB/GQ95EE28B7hYH6Ro69AH3zQqzibSlla47NjjDLsKi3JJOwa8
- 4iVAJT78z8ZiKo+qA6AFVDp/eMBouXN1HbObOa+BsI7/vcBkVUrbpWXQ9HBdqw8z7PRx
- o2KM32UtA78T5cBemEq6m9Kgc2jJNLU+0ocEB+J34qKC8pBIv6bmFjEAu+AYsUTjsoX8
- WtFA==
-X-Gm-Message-State: APjAAAVKxIKrXpRqytkmTowo3bmsKmRjdrpWfsiItA2XhteC3EzhFEuY
- 6tXoT7ms4BzZSe0kNXiExguL4w==
-X-Google-Smtp-Source: APXvYqxkaYPEcpkgDFk9Q6mfIv5r2R6ZColj0lHQ9LOI2sMRzVJDlcVu4dSz0xDEM7lLB6xOpEFGdQ==
-X-Received: by 2002:a1c:18d:: with SMTP id 135mr12614483wmb.171.1562244584926; 
- Thu, 04 Jul 2019 05:49:44 -0700 (PDT)
-Received: from apalos (athedsl-428434.home.otenet.gr. [79.131.225.144])
- by smtp.gmail.com with ESMTPSA id s11sm2387689wrr.59.2019.07.04.05.49.43
- (version=TLS1_2 cipher=ECDHE-RSA-AES128-GCM-SHA256 bits=128/128);
- Thu, 04 Jul 2019 05:49:44 -0700 (PDT)
-Date: Thu, 4 Jul 2019 15:49:41 +0300
-From: Ilias Apalodimas <ilias.apalodimas@linaro.org>
-To: Arnd Bergmann <arnd@arndb.de>
-Message-ID: <20190704124941.GA9617@apalos>
+ Thu,  4 Jul 2019 12:59:30 +0000 (UTC)
+Received: from mailhost.synopsys.com (dc8-mailhost1.synopsys.com
+ [10.13.135.209])
+ (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits))
+ (No client certificate requested)
+ by smtprelay-out1.synopsys.com (Postfix) with ESMTPS id 4A663C0092;
+ Thu,  4 Jul 2019 12:59:27 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=synopsys.com; s=mail;
+ t=1562245168; bh=Yedl3Kehi4ZjU1SqExmNv9TW3SsQy4LZ1kgqHaYqmpE=;
+ h=From:To:CC:Subject:Date:References:In-Reply-To:From;
+ b=XYst7cK75RhtzzhSuF5SJ6bvqSVzx8NbPqp0L0kIR6UfUL1ybfFtPhpcke6Z0X58G
+ nC6R6gML14FSGhZbrTHtfz5RJAgu+bbf07U6wEFbcpBRoZP+tpMb6xkUAL1QNvyvBL
+ 7wC3v16HJi/uBiDSQtV2KlrmEac49U/BbGrox9gUa75WMTJdQNdt02dn/7chxrAmmJ
+ y25O+PI0fsuYBxLwR9Dw8quyzqvSdDNkfAMvuypf/g9bLQpRrVDOvceDMVVwwYY54m
+ sVKNn9pnhZ7iOEmDyaFVV3LT4qDc51J0lFVcFsrKluka2z7DcKriHSNbifv4EiJCIC
+ Z+RXwlsQly+2w==
+Received: from US01WXQAHTC1.internal.synopsys.com
+ (us01wxqahtc1.internal.synopsys.com [10.12.238.230])
+ (using TLSv1.2 with cipher AES128-SHA256 (128/128 bits))
+ (No client certificate requested)
+ by mailhost.synopsys.com (Postfix) with ESMTPS id 420D9A023C;
+ Thu,  4 Jul 2019 12:59:24 +0000 (UTC)
+Received: from US01HYBRID2.internal.synopsys.com (10.15.246.24) by
+ US01WXQAHTC1.internal.synopsys.com (10.12.238.230) with Microsoft SMTP Server
+ (TLS) id 14.3.408.0; Thu, 4 Jul 2019 05:59:24 -0700
+Received: from NAM03-BY2-obe.outbound.protection.outlook.com (10.13.134.195)
+ by mrs.synopsys.com (10.15.246.24) with Microsoft SMTP Server (TLS) id
+ 14.3.408.0; Thu, 4 Jul 2019 05:59:23 -0700
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=synopsys.onmicrosoft.com; s=selector1-synopsys-onmicrosoft-com;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=iPyqfXY3a9fYZtQe2eaGGDOnS31Zd9aT2Fdbr2m/CbE=;
+ b=KiSsUhqh3+nWrhHpb+jH0PszT/PV9OXwQa9d+k21eNfT1Lqr0SjYUMPn2zC0d0Pf35XSyWPv7RNabR1ZTckS7qquGfoZFBUWpL0Y/Jbrna0Nsvbv+bVJIce/XkJcWmxsD6fVc/0ZHakQxz07YTaDKWqJ56Ps8/oDPl8yypVBIEI=
+Received: from BYAPR12MB3269.namprd12.prod.outlook.com (20.179.93.146) by
+ BYAPR12MB3077.namprd12.prod.outlook.com (20.178.54.74) with Microsoft SMTP
+ Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.20.2052.18; Thu, 4 Jul 2019 12:59:22 +0000
+Received: from BYAPR12MB3269.namprd12.prod.outlook.com
+ ([fe80::f5b8:ac6e:ea68:cb1c]) by BYAPR12MB3269.namprd12.prod.outlook.com
+ ([fe80::f5b8:ac6e:ea68:cb1c%4]) with mapi id 15.20.2052.010; Thu, 4 Jul 2019
+ 12:59:22 +0000
+From: Jose Abreu <Jose.Abreu@synopsys.com>
+To: Ilias Apalodimas <ilias.apalodimas@linaro.org>, Jesper Dangaard Brouer
+ <brouer@redhat.com>
+Thread-Topic: [PATCH net-next 3/3] net: stmmac: Introducing support for Page
+ Pool
+Thread-Index: AQHVMYtq2Zx4WVoG/U2kL8GCK0bP/aa6O3oAgAABAmCAAB7TAIAAAuyAgAAGtdA=
+Date: Thu, 4 Jul 2019 12:59:22 +0000
+Message-ID: <BYAPR12MB3269D4FAAC5307A224D60A08D3FA0@BYAPR12MB3269.namprd12.prod.outlook.com>
 References: <cover.1562149883.git.joabreu@synopsys.com>
  <1b254bb7fc6044c5e6e2fdd9e00088d1d13a808b.1562149883.git.joabreu@synopsys.com>
- <20190704120018.4523a119@carbon> <20190704103057.GA29734@apalos>
- <CAK8P3a3GC6f-xHG7MqZRLhY66Ui4HQVi=4WXR703wqfMNY6A5A@mail.gmail.com>
+ <20190704120018.4523a119@carbon>
+ <BN8PR12MB3266BC5322AADFAC49D9BAFAD3FA0@BN8PR12MB3266.namprd12.prod.outlook.com>
+ <20190704135414.0dd5df76@carbon> <20190704120441.GA6866@apalos>
+In-Reply-To: <20190704120441.GA6866@apalos>
+Accept-Language: en-US
+Content-Language: en-US
+X-MS-Has-Attach: 
+X-MS-TNEF-Correlator: 
+authentication-results: spf=none (sender IP is )
+ smtp.mailfrom=joabreu@synopsys.com; 
+x-originating-ip: [83.174.63.141]
+x-ms-publictraffictype: Email
+x-ms-office365-filtering-correlation-id: 5e807869-9fe2-4faa-a818-08d7007f6f75
+x-microsoft-antispam: BCL:0; PCL:0;
+ RULEID:(2390118)(7020095)(4652040)(8989299)(4534185)(4627221)(201703031133081)(201702281549075)(8990200)(5600148)(711020)(4605104)(1401327)(2017052603328)(7193020);
+ SRVR:BYAPR12MB3077; 
+x-ms-traffictypediagnostic: BYAPR12MB3077:
+x-microsoft-antispam-prvs: <BYAPR12MB3077F4DBC190F8A132D194C8D3FA0@BYAPR12MB3077.namprd12.prod.outlook.com>
+x-ms-oob-tlc-oobclassifiers: OLM:1824;
+x-forefront-prvs: 0088C92887
+x-forefront-antispam-report: SFV:NSPM;
+ SFS:(10019020)(136003)(346002)(376002)(366004)(39860400002)(396003)(199004)(189003)(52536014)(26005)(102836004)(6506007)(446003)(66446008)(64756008)(2906002)(76176011)(7696005)(7736002)(55016002)(74316002)(11346002)(305945005)(110136005)(99286004)(54906003)(476003)(6246003)(25786009)(73956011)(76116006)(4326008)(66556008)(86362001)(66946007)(66476007)(316002)(3846002)(71200400001)(478600001)(66066001)(6116002)(71190400001)(486006)(53936002)(186003)(5660300002)(229853002)(8936002)(7416002)(33656002)(6436002)(68736007)(81156014)(81166006)(9686003)(8676002)(14454004)(256004);
+ DIR:OUT; SFP:1102; SCL:1; SRVR:BYAPR12MB3077;
+ H:BYAPR12MB3269.namprd12.prod.outlook.com; FPR:; SPF:None; LANG:en;
+ PTR:InfoNoRecords; A:1; MX:1; 
+received-spf: None (protection.outlook.com: synopsys.com does not designate
+ permitted sender hosts)
+x-ms-exchange-senderadcheck: 1
+x-microsoft-antispam-message-info: xrkdGt19J6qW0deTQUSZLHQm2BPRgkTis3u7UVIxLeyL97bSWYW5LNH0gvzjq5c6a5377u+jSKmHmXggZYEDYuexTLrcEVDYWLdAD0ODr78dwJpySJ2jqly1TwEJEVF00F2IFdAkwnsuOnYSVvAp3abHwx6loEWIGvGnm+eboGeX6sciH4gZC8p95rjc3PgWZZU5myINmqq9EXWO2lz6+R7Vo9+Kax2FpftU2/fPyjAeEFaTWPVusKIl+ojD7TEYQknBLosmAPzaS3Utw7HOjI1GJM5hnHjtkUlT4gfm3A2OAlPHmNTO7HybOzYNBpDIEeqANXUCG2p7SIJ61b0gK+oqflZjfIjNshkAUo528S5yCVBDP4rgKG5RFudIzj9l/RbVpQyqc6pfKH9lR4VhlUMIik/MGfxxrPWNaHM6qQk=
 MIME-Version: 1.0
-Content-Disposition: inline
-In-Reply-To: <CAK8P3a3GC6f-xHG7MqZRLhY66Ui4HQVi=4WXR703wqfMNY6A5A@mail.gmail.com>
-User-Agent: Mutt/1.5.24 (2015-08-30)
+X-MS-Exchange-CrossTenant-Network-Message-Id: 5e807869-9fe2-4faa-a818-08d7007f6f75
+X-MS-Exchange-CrossTenant-originalarrivaltime: 04 Jul 2019 12:59:22.6083 (UTC)
+X-MS-Exchange-CrossTenant-fromentityheader: Hosted
+X-MS-Exchange-CrossTenant-id: c33c9f88-1eb7-4099-9700-16013fd9e8aa
+X-MS-Exchange-CrossTenant-mailboxtype: HOSTED
+X-MS-Exchange-CrossTenant-userprincipalname: joabreu@synopsys.com
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: BYAPR12MB3077
+X-OriginatorOrg: synopsys.com
 Cc: Jose Abreu <Jose.Abreu@synopsys.com>, Joao Pinto <Joao.Pinto@synopsys.com>,
- Maxime Ripard <maxime.ripard@bootlin.com>, Networking <netdev@vger.kernel.org>,
- Linux Kernel Mailing List <linux-kernel@vger.kernel.org>,
- linux-stm32@st-md-mailman.stormreply.com, Chen-Yu Tsai <wens@csie.org>,
+ Maxime Ripard <maxime.ripard@bootlin.com>,
+ "netdev@vger.kernel.org" <netdev@vger.kernel.org>,
+ "linux-kernel@vger.kernel.org" <linux-kernel@vger.kernel.org>,
+ "David S . Miller" <davem@davemloft.net>, Chen-Yu Tsai <wens@csie.org>,
  Maxime Coquelin <mcoquelin.stm32@gmail.com>,
- Jesper Dangaard Brouer <brouer@redhat.com>,
  Giuseppe Cavallaro <peppe.cavallaro@st.com>,
- "David S . Miller" <davem@davemloft.net>,
- Linux ARM <linux-arm-kernel@lists.infradead.org>
+ "linux-stm32@st-md-mailman.stormreply.com"
+ <linux-stm32@st-md-mailman.stormreply.com>,
+ "linux-arm-kernel@lists.infradead.org" <linux-arm-kernel@lists.infradead.org>
 Subject: Re: [Linux-stm32] [PATCH net-next 3/3] net: stmmac: Introducing
  support for Page Pool
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
@@ -86,41 +130,96 @@ Content-Transfer-Encoding: 7bit
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
-On Thu, Jul 04, 2019 at 02:14:28PM +0200, Arnd Bergmann wrote:
-> On Thu, Jul 4, 2019 at 12:31 PM Ilias Apalodimas
-> <ilias.apalodimas@linaro.org> wrote:
-> > > On Wed,  3 Jul 2019 12:37:50 +0200
-> > > Jose Abreu <Jose.Abreu@synopsys.com> wrote:
-> 
-> > 1. page pool allocs packet. The API doesn't sync but i *think* you don't have to
-> > explicitly since the CPU won't touch that buffer until the NAPI handler kicks
-> > in. On the napi handler you need to dma_sync_single_for_cpu() and process the
-> > packet.
-> 
-> > So bvottom line i *think* we can skip the dma_sync_single_for_device() on the
-> > initial allocation *only*. If am terribly wrong please let me know :)
-> 
-> I think you have to do a sync_single_for_device /somewhere/ before the
-> buffer is given to the device. On a non-cache-coherent machine with
-> a write-back cache, there may be dirty cache lines that get written back
-> after the device DMA's data into it (e.g. from a previous memset
-> from before the buffer got freed), so you absolutely need to flush any
-> dirty cache lines on it first.
-Ok my bad here i forgot to add "when coherency is there", since the driver
-i had in mind runs on such a device (i think this is configurable though so i'll
-add the sync explicitly to make sure we won't break any configurations).
+Thank you all for your review comments !
 
-In general you are right, thanks for the explanation!
-> You may also need to invalidate the cache lines in the following
-> sync_single_for_cpu() to eliminate clean cache lines with stale data
-> that got there when speculatively reading between the cache-invalidate
-> and the DMA.
-> 
->        Arnd
+From: Ilias Apalodimas <ilias.apalodimas@linaro.org>
 
+> That's why i was concerned on what will happen on > 1000b frames and what the
+> memory pressure is going to be. 
+> The trade off here is copying vs mapping/unmapping.
 
-Thanks!
-/Ilias
+Well, the performance numbers I mentioned are for TSO with default MTU 
+(1500) and using iperf3 with zero-copy. Here follows netperf:
+
+---
+# netperf -c -C -H 1.2.3.2 -T 7,7 -t TCP_SENDFILE
+TCP SENDFILE TEST from 0.0.0.0 (0.0.0.0) port 0 AF_INET to 1.2.3.2 
+(1.2.3.2) port 0 AF_INET : demo : cpu bind
+Recv   Send    Send                          Utilization       Service 
+Demand
+Socket Socket  Message  Elapsed              Send     Recv     Send    
+Recv
+Size   Size    Size     Time     Throughput  local    remote   local   
+remote
+bytes  bytes   bytes    secs.    10^6bits/s  % S      % S      us/KB   
+us/KB
+
+131072  16384  16384    10.00      9132.37   6.13     11.79    0.440   
+0.846  
+
+---
+# netperf -c -C -H 1.2.3.2 -T 7,7 -t TCP_STREAM
+MIGRATED TCP STREAM TEST from 0.0.0.0 (0.0.0.0) port 0 AF_INET to 
+1.2.3.2 (1.2.3.2) port 0 AF_INET : demo : cpu bind
+Recv   Send    Send                          Utilization       Service 
+Demand
+Socket Socket  Message  Elapsed              Send     Recv     Send    
+Recv
+Size   Size    Size     Time     Throughput  local    remote   local   
+remote
+bytes  bytes   bytes    secs.    10^6bits/s  % S      % S      us/KB   
+us/KB
+
+131072  16384  16384    10.01      9041.21   3.20     11.75    0.232   
+0.852  
+
+---
+# netperf -c -C -H 1.2.3.2 -T 7,7 -t UDP_STREAM
+MIGRATED UDP STREAM TEST from 0.0.0.0 (0.0.0.0) port 0 AF_INET to 
+1.2.3.2 (1.2.3.2) port 0 AF_INET : demo : cpu bind
+Socket  Message  Elapsed      Messages                   CPU      
+Service
+Size    Size     Time         Okay Errors   Throughput   Util     Demand
+bytes   bytes    secs            #      #   10^6bits/sec % SS     us/KB
+
+212992   65507   10.00      114455      0     5997.0     12.55    1.371 
+212992           10.00      114455            5997.0     8.12     0.887
+
+---
+# netperf -c -C -H 1.2.3.2 -T 7,7 -t UDP_STREAM -- -m 64
+MIGRATED UDP STREAM TEST from 0.0.0.0 (0.0.0.0) port 0 AF_INET to 
+1.2.3.2 (1.2.3.2) port 0 AF_INET : demo : cpu bind
+Socket  Message  Elapsed      Messages                   CPU      
+Service
+Size    Size     Time         Okay Errors   Throughput   Util     Demand
+bytes   bytes    secs            #      #   10^6bits/sec % SS     us/KB
+
+212992      64   10.00     4013480      0      205.4     12.51    39.918
+212992           10.00     4013480             205.4     7.99     25.482
+
+---
+# netperf -c -C -H 1.2.3.2 -T 7,7 -t UDP_STREAM -- -m 128
+MIGRATED UDP STREAM TEST from 0.0.0.0 (0.0.0.0) port 0 AF_INET to 
+1.2.3.2 (1.2.3.2) port 0 AF_INET : demo : cpu bind
+Socket  Message  Elapsed      Messages                   CPU      
+Service
+Size    Size     Time         Okay Errors   Throughput   Util     Demand
+bytes   bytes    secs            #      #   10^6bits/sec % SS     us/KB
+
+212992     128   10.00     3950480      0      404.4     12.50    20.255
+212992           10.00     3950442             404.4     7.70     12.485
+
+---
+# netperf -c -C -H 1.2.3.2 -T 7,7 -t UDP_STREAM -- -m 1024
+MIGRATED UDP STREAM TEST from 0.0.0.0 (0.0.0.0) port 0 AF_INET to 
+1.2.3.2 (1.2.3.2) port 0 AF_INET : demo : cpu bind
+Socket  Message  Elapsed      Messages                   CPU      
+Service
+Size    Size     Time         Okay Errors   Throughput   Util     Demand
+bytes   bytes    secs            #      #   10^6bits/sec % SS     us/KB
+
+212992    1024   10.00     3466506      0     2838.8     12.50    2.886 
+212992           10.00     3466506            2838.8     7.39     1.707
 _______________________________________________
 Linux-stm32 mailing list
 Linux-stm32@st-md-mailman.stormreply.com
