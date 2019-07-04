@@ -2,107 +2,46 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id E28495F75B
-	for <lists+linux-stm32@lfdr.de>; Thu,  4 Jul 2019 13:46:56 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 7FC1B5F752
+	for <lists+linux-stm32@lfdr.de>; Thu,  4 Jul 2019 13:46:20 +0200 (CEST)
 Received: from ip-172-31-3-76.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id AD0EEC0CDEF
-	for <lists+linux-stm32@lfdr.de>; Thu,  4 Jul 2019 11:46:56 +0000 (UTC)
-Received: from lelv0143.ext.ti.com (lelv0143.ext.ti.com [198.47.23.248])
- (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 2C871CBB4A9
+	for <lists+linux-stm32@lfdr.de>; Thu,  4 Jul 2019 11:46:20 +0000 (UTC)
+Received: from mx1.redhat.com (mx1.redhat.com [209.132.183.28])
+ (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 4F27ECBA85B
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 75306C8D82A
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Thu,  4 Jul 2019 08:29:48 +0000 (UTC)
-Received: from fllv0034.itg.ti.com ([10.64.40.246])
- by lelv0143.ext.ti.com (8.15.2/8.15.2) with ESMTP id x648TWe8122314;
- Thu, 4 Jul 2019 03:29:32 -0500
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=ti.com;
- s=ti-com-17Q1; t=1562228972;
- bh=3egXhDb+0BEGsc9z+jUYoOJnG4f+8TqOeWKQ9O3F6XQ=;
- h=Subject:To:References:From:Date:In-Reply-To;
- b=rKllUdZGg7Y450IMxaVlJuNDJ41h3AOnnoxU+sk8hJhLSXRwRB2pmJSUkDomzG1hB
- /TUcbmAjmpwgOvF+LRgkqD74YnTmjSrIIOEi4O0kPF7YLvXk/vxIpNy5qjnWydybAa
- xsqYnWV2yrAOVdZPsOjL7iEYFjtZ16SKcfXiNpgM=
-Received: from DLEE102.ent.ti.com (dlee102.ent.ti.com [157.170.170.32])
- by fllv0034.itg.ti.com (8.15.2/8.15.2) with ESMTPS id x648TWg2016906
- (version=TLSv1.2 cipher=AES256-GCM-SHA384 bits=256 verify=FAIL);
- Thu, 4 Jul 2019 03:29:32 -0500
-Received: from DLEE114.ent.ti.com (157.170.170.25) by DLEE102.ent.ti.com
- (157.170.170.32) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_128_CBC_SHA256_P256) id 15.1.1713.5; Thu, 4 Jul
- 2019 03:29:29 -0500
-Received: from fllv0040.itg.ti.com (10.64.41.20) by DLEE114.ent.ti.com
- (157.170.170.25) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_128_CBC_SHA256_P256) id 15.1.1713.5 via
- Frontend Transport; Thu, 4 Jul 2019 03:29:30 -0500
-Received: from [10.1.3.6] (ileax41-snat.itg.ti.com [10.172.224.153])
- by fllv0040.itg.ti.com (8.15.2/8.15.2) with ESMTP id x648TQhG094955;
- Thu, 4 Jul 2019 03:29:27 -0500
-To: Olivier Moysan <olivier.moysan@st.com>, <a.hajda@samsung.com>,
- <narmstrong@baylibre.com>, <Laurent.pinchart@ideasonboard.com>,
- <jonas@kwiboo.se>, <jernej.skrabec@siol.net>, <airlied@linux.ie>,
- <daniel@ffwll.ch>, <dri-devel@lists.freedesktop.org>,
- <linux-kernel@vger.kernel.org>, <benjamin.gaignard@st.com>,
- <alexandre.torgue@st.com>, <linux-arm-kernel@lists.infradead.org>,
- <linux-stm32@st-md-mailman.stormreply.com>, <robh+dt@kernel.org>,
- <mark.rutland@arm.com>, <devicetree@vger.kernel.org>
-References: <1562082426-14876-1-git-send-email-olivier.moysan@st.com>
- <1562082426-14876-4-git-send-email-olivier.moysan@st.com>
-From: Jyri Sarha <jsarha@ti.com>
-Openpgp: preference=signencrypt
-Autocrypt: addr=jsarha@ti.com; prefer-encrypt=mutual; keydata=
- mQINBFbdWt8BEADnCIkQrHIvAmuDcDzp1h2pO9s22nacEffl0ZyzIS//ruiwjMfSnuzhhB33
- fNEWzMjm7eqoUBi1BUAQIReS6won0cXIEXFg9nDYQ3wNTPyh+VRjBvlb/gRJlf4MQnJDTGDP
- S5i63HxYtOfjPMSsUSu8NvhbzayNkN5YKspJDu1cK5toRtyUn1bMzUSKDHfwpdmuCDgXZSj2
- t+z+c6u7yx99/j4m9t0SVlaMt00p1vJJ3HJ2Pkm3IImWvtIfvCmxnOsK8hmwgNQY6PYK1Idk
- puSRjMIGLqjZo071Z6dyDe08zv6DWL1fMoOYbAk/H4elYBaqEsdhUlDCJxZURcheQUnOMYXo
- /kg+7TP6RqjcyXoGgqjfkqlf3hYKmyNMq0FaYmUAfeqCWGOOy3PPxR/IiACezs8mMya1XcIK
- Hk/5JAGuwsqT80bvDFAB2XfnF+fNIie/n5SUHHejJBxngb9lFE90BsSfdcVwzNJ9gVf/TOJc
- qJEHuUx0WPi0taO7hw9+jXV8KTHp6CQPmDSikEIlW7/tJmVDBXQx8n4RMUk4VzjE9Y/m9kHE
- UVJ0bJYzMqECMTAP6KgzgkQCD7n8OzswC18PrK69ByGFpcm664uCAa8YiMuX92MnesKMiYPQ
- z1rvR5riXZdplziIRjFRX+68fvhPverrvjNVmzz0bAFwfVjBsQARAQABtBpKeXJpIFNhcmhh
- IDxqc2FyaGFAdGkuY29tPokCOAQTAQIAIgUCVt1a3wIbAwYLCQgHAwIGFQgCCQoLBBYCAwEC
- HgECF4AACgkQkDazUNfWGUEVVhAAmFL/21tUhZECrDrP9FWuAUuDvg+1CgrrqBj7ZxKtMaiz
- qTcZwZdggp8bKlFaNrmsyrBsuPlAk99f7ToxufqbV5l/lAT3DdIkjb4nwN4rJkxqSU3PaUnh
- mDMKIAp6bo1N9L+h82LE6CjI89W4ydQp5i+cOeD/kbdxbHHvxgNwrv5x4gg1JvEQLVnUSHva
- R2kx7u2rlnq7OOyh9vU0MUq7U5enNNqdBjjBTeaOwa5xb3S2Cc9dR10mpFiy+jSSkuFOjPpc
- fLfr/s03NGqbZ4aXvZCGjCw4jclpTJkuWPKO+Gb+a/3oJ4qpGN9pJ+48n2Tx9MdSrR4aaXHi
- EYMrbYQz9ICJ5V80P5+yCY5PzCvqpkizP6vtKvRSi8itzsglauMZGu6GwGraMJNBgu5u+HIZ
- nfRtJO1AAiwuupOHxe1nH05c0zBJaEP4xJHyeyDsMDh+ThwbGwQmAkrLJZtOd3rTmqlJXnuj
- sfgQlFyC68t1YoMHukz9LHzg02xxBCaLb0KjslfwuDUTPrWtcDL1a5hccksrkHx7k9crVFA1
- o6XWsOPGKRHOGvYyo3TU3CRygXysO41UnGG40Q3B5R8RMwRHV925LOQIwEGF/6Os8MLgFXCb
- Lv3iJtan+PBdqO1Bv3u2fXUMbYgQ3v7jHctB8nHphwSwnHuGN7FAmto+SxzotE25Ag0EVt1a
- 3wEQAMHwOgNaIidGN8UqhSJJWDEfF/SPSCrsd3WsJklanbDlUCB3WFP2EB4k03JroIRvs7/V
- VMyITLQvPoKgaECbDS5U20r/Po/tmaAOEgC7m1VaWJUUEXhjYQIw7t/tSdWlo5XxZIcO4LwO
- Kf0S4BPrQux6hDLIFL8RkDH/8lKKc44ZnSLoF1gyjc5PUt6iwgGJRRkOD8gGxCv1RcUsu1xU
- U9lHBxdWdPmMwyXiyui1Vx7VJJyD55mqc7+qGrpDHG9yh3pUm2IWp7jVt/qw9+OE9dVwwhP9
- GV2RmBpDmB3oSFpk7lNvLJ11VPixl+9PpmRlozMBO00wA1W017EpDHgOm8XGkq++3wsFNOmx
- 6p631T2WuIthdCSlZ2kY32nGITWn4d8L9plgb4HnDX6smrMTy1VHVYX9vsHXzbqffDszQrHS
- wFo5ygKhbGNXO15Ses1r7Cs/XAZk3PkFsL78eDBHbQd+MveApRB7IyfffIz7pW1R1ZmCrmAg
- Bn36AkDXJTgUwWqGyJMd+5GHEOg1UPjR5Koxa4zFhj1jp1Fybn1t4N11cmEmWh0aGgI/zsty
- g/qtGRnFEywBbzyrDEoV4ZJy2Q5pnZohVhpbhsyETeYKQrRnMk/dIPWg6AJx38Cl4P9PK1JX
- 8VK661BG8GXsXJ3uZbPSu6K0+FiJy09N4IW7CPJNABEBAAGJAh8EGAECAAkFAlbdWt8CGwwA
- CgkQkDazUNfWGUFOfRAA5K/z9DXVEl2kkuMuIWkgtuuLQ7ZwqgxGP3dMA5z3Iv/N+VNRGbaw
- oxf+ZkTbJHEE/dWclj1TDtpET/t6BJNLaldLtJ1PborQH+0jTmGbsquemKPgaHeSU8vYLCdc
- GV/Rz+3FN0/fRdmoq2+bIHght4T6KZJ6jsrnBhm7y6gzjMOiftH6M5GXPjU0/FsU09qsk/af
- jbwLETaea0mlWMrLd9FC2KfVITA/f/YG2gqtUUF9WlizidyctWJqSTZn08MdzaoPItIkRUTv
- 6Bv6rmFn0daWkHt23BLd0ZP7e7pON1rqNVljWjWQ/b/E/SzeETrehgiyDr8pP+CLlC+vSQxi
- XtjhWjt1ItFLXxb4/HLZbb/L4gYX7zbZ3NwkON6Ifn3VU7UwqxGLmKfUwu/mFV+DXif1cKSS
- v6vWkVQ6Go9jPsSMFxMXPA5317sZZk/v18TAkIiwFqda3/SSjwc3e8Y76/DwPvUQd36lEbva
- uBrUXDDhCoiZnjQaNz/J+o9iYjuMTpY1Wp+igjIretYr9+kLvGsoPo/kTPWyiuh/WiFU2d6J
- PMCGFGhodTS5qmQA6IOuazek1qSZIl475u3E2uG98AEX/kRhSzgpsbvADPEUPaz75uvlmOCX
- tv+Sye9QT4Z1QCh3lV/Zh4GlY5lt4MwYnqFCxroK/1LpkLgdyQ4rRVw=
-Message-ID: <ac3cee7b-900a-45f6-b722-062e1d8b39d0@ti.com>
-Date: Thu, 4 Jul 2019 11:29:26 +0300
-User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:60.0) Gecko/20100101
- Thunderbird/60.7.1
+ Thu,  4 Jul 2019 09:39:36 +0000 (UTC)
+Received: from smtp.corp.redhat.com (int-mx02.intmail.prod.int.phx2.redhat.com
+ [10.5.11.12])
+ (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
+ (No client certificate requested)
+ by mx1.redhat.com (Postfix) with ESMTPS id F3FB880F7C;
+ Thu,  4 Jul 2019 09:39:33 +0000 (UTC)
+Received: from carbon (ovpn-200-17.brq.redhat.com [10.40.200.17])
+ by smtp.corp.redhat.com (Postfix) with ESMTP id 5C84B88F19;
+ Thu,  4 Jul 2019 09:39:17 +0000 (UTC)
+Date: Thu, 4 Jul 2019 11:39:16 +0200
+From: Jesper Dangaard Brouer <brouer@redhat.com>
+To: Jose Abreu <Jose.Abreu@synopsys.com>
+Message-ID: <20190704113916.665de2ec@carbon>
+In-Reply-To: <1b254bb7fc6044c5e6e2fdd9e00088d1d13a808b.1562149883.git.joabreu@synopsys.com>
+References: <cover.1562149883.git.joabreu@synopsys.com>
+ <1b254bb7fc6044c5e6e2fdd9e00088d1d13a808b.1562149883.git.joabreu@synopsys.com>
 MIME-Version: 1.0
-In-Reply-To: <1562082426-14876-4-git-send-email-olivier.moysan@st.com>
-Content-Language: en-GB
-X-EXCLAIMER-MD-CONFIG: e1e8a2fd-e40a-4ac6-ac9b-f7e9cc9ee180
-X-Mailman-Approved-At: Thu, 04 Jul 2019 11:46:55 +0000
-Subject: Re: [Linux-stm32] [PATCH 3/3] drm/bridge: sii902x: make audio mclk
-	optional
+X-Scanned-By: MIMEDefang 2.79 on 10.5.11.12
+X-Greylist: Sender IP whitelisted, not delayed by milter-greylist-4.5.16
+ (mx1.redhat.com [10.5.110.27]); Thu, 04 Jul 2019 09:39:35 +0000 (UTC)
+X-Mailman-Approved-At: Thu, 04 Jul 2019 11:46:18 +0000
+Cc: Joao Pinto <Joao.Pinto@synopsys.com>,
+ Maxime Ripard <maxime.ripard@bootlin.com>, netdev@vger.kernel.org,
+ linux-kernel@vger.kernel.org, "David S . Miller" <davem@davemloft.net>,
+ Chen-Yu Tsai <wens@csie.org>, Maxime Coquelin <mcoquelin.stm32@gmail.com>,
+ brouer@redhat.com, Giuseppe Cavallaro <peppe.cavallaro@st.com>,
+ linux-stm32@st-md-mailman.stormreply.com, linux-arm-kernel@lists.infradead.org
+Subject: Re: [Linux-stm32] [PATCH net-next 3/3] net: stmmac: Introducing
+ support for Page Pool
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -119,100 +58,35 @@ Content-Transfer-Encoding: 7bit
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
-On 02/07/2019 18:47, Olivier Moysan wrote:
-> The master clock on i2s bus is not mandatory,
-> as sii902X internal PLL can be used instead.
-> Make use of mclk optional.
-> 
-> Fixes: ff5781634c41 ("drm/bridge: sii902x: Implement HDMI audio support")
-> 
-> Signed-off-by: Olivier Moysan <olivier.moysan@st.com>
+On Wed,  3 Jul 2019 12:37:50 +0200
+Jose Abreu <Jose.Abreu@synopsys.com> wrote:
 
-Reviewed-by: Jyri Sarha <jsarha@ti.com>
-
-> ---
->  drivers/gpu/drm/bridge/sii902x.c | 39 +++++++++++++++++++++++----------------
->  1 file changed, 23 insertions(+), 16 deletions(-)
-> 
-> diff --git a/drivers/gpu/drm/bridge/sii902x.c b/drivers/gpu/drm/bridge/sii902x.c
-> index 36acc256e67e..a08bd9fdc046 100644
-> --- a/drivers/gpu/drm/bridge/sii902x.c
-> +++ b/drivers/gpu/drm/bridge/sii902x.c
-> @@ -562,19 +562,21 @@ static int sii902x_audio_hw_params(struct device *dev, void *data,
->  		}
+> @@ -1498,8 +1479,9 @@ static void free_dma_rx_desc_resources(struct stmmac_priv *priv)
+>  					  sizeof(struct dma_extended_desc),
+>  					  rx_q->dma_erx, rx_q->dma_rx_phy);
+>  
+> -		kfree(rx_q->rx_skbuff_dma);
+> -		kfree(rx_q->rx_skbuff);
+> +		kfree(rx_q->buf_pool);
+> +		if (rx_q->page_pool)
+> +			page_pool_request_shutdown(rx_q->page_pool);
 >  	}
->  
-> -	ret = clk_prepare_enable(sii902x->audio.mclk);
-> -	if (ret) {
-> -		dev_err(dev, "Enabling mclk failed: %d\n", ret);
-> -		return ret;
-> -	}
-> +	if (sii902x->audio.mclk) {
-> +		ret = clk_prepare_enable(sii902x->audio.mclk);
-> +		if (ret) {
-> +			dev_err(dev, "Enabling mclk failed: %d\n", ret);
-> +			return ret;
-> +		}
->  
-> -	mclk_rate = clk_get_rate(sii902x->audio.mclk);
-> +		mclk_rate = clk_get_rate(sii902x->audio.mclk);
->  
-> -	ret = sii902x_select_mclk_div(&i2s_config_reg, params->sample_rate,
-> -				      mclk_rate);
-> -	if (mclk_rate != ret * params->sample_rate)
-> -		dev_dbg(dev, "Inaccurate reference clock (%ld/%d != %u)\n",
-> -			mclk_rate, ret, params->sample_rate);
-> +		ret = sii902x_select_mclk_div(&i2s_config_reg,
-> +					      params->sample_rate, mclk_rate);
-> +		if (mclk_rate != ret * params->sample_rate)
-> +			dev_dbg(dev, "Inaccurate reference clock (%ld/%d != %u)\n",
-> +				mclk_rate, ret, params->sample_rate);
-> +	}
->  
->  	mutex_lock(&sii902x->mutex);
->  
-> @@ -640,7 +642,8 @@ static int sii902x_audio_hw_params(struct device *dev, void *data,
->  	mutex_unlock(&sii902x->mutex);
->  
->  	if (ret) {
-> -		clk_disable_unprepare(sii902x->audio.mclk);
-> +		if (sii902x->audio.mclk)
-> +			clk_disable_unprepare(sii902x->audio.mclk);
->  		dev_err(dev, "%s: hdmi audio enable failed: %d\n", __func__,
->  			ret);
->  	}
-> @@ -659,7 +662,8 @@ static void sii902x_audio_shutdown(struct device *dev, void *data)
->  
->  	mutex_unlock(&sii902x->mutex);
->  
-> -	clk_disable_unprepare(sii902x->audio.mclk);
-> +	if (sii902x->audio.mclk)
-> +		clk_disable_unprepare(sii902x->audio.mclk);
 >  }
 >  
->  int sii902x_audio_digital_mute(struct device *dev, void *data, bool enable)
-> @@ -752,9 +756,12 @@ static int sii902x_audio_codec_init(struct sii902x *sii902x,
->  
->  	sii902x->audio.mclk = devm_clk_get(dev, "mclk");
->  	if (IS_ERR(sii902x->audio.mclk)) {
-> -		dev_err(dev, "%s: No clock (audio mclk) found: %ld\n",
-> -			__func__, PTR_ERR(sii902x->audio.mclk));
-> -		return 0;
-> +		if (PTR_ERR(sii902x->audio.mclk) != -ENOENT) {
-> +			dev_err(dev, "%s: No clock (audio mclk) found: %ld\n",
-> +				__func__, PTR_ERR(sii902x->audio.mclk));
-> +			return PTR_ERR(sii902x->audio.mclk);
-> +		}
-> +		sii902x->audio.mclk = NULL;
->  	}
->  
->  	sii902x->audio.pdev = platform_device_register_data(
-> 
 
+The page_pool_request_shutdown() API return indication if there are any
+in-flight frames/pages, to know when it is safe to call
+page_pool_free(), which you are also missing a call to.
+
+This page_pool_request_shutdown() is only intended to be called from
+xdp_rxq_info_unreg() code, that handles and schedule a work queue if it
+need to wait for in-flight frames/pages.
 
 -- 
-Texas Instruments Finland Oy, Porkkalankatu 22, 00180 Helsinki.
-Y-tunnus/Business ID: 0615521-4. Kotipaikka/Domicile: Helsinki
+Best regards,
+  Jesper Dangaard Brouer
+  MSc.CS, Principal Kernel Engineer at Red Hat
+  LinkedIn: http://www.linkedin.com/in/brouer
 _______________________________________________
 Linux-stm32 mailing list
 Linux-stm32@st-md-mailman.stormreply.com
