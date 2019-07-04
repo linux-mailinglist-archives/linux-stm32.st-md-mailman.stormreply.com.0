@@ -2,42 +2,42 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id D53D35F75A
+	by mail.lfdr.de (Postfix) with ESMTPS id E28495F75B
 	for <lists+linux-stm32@lfdr.de>; Thu,  4 Jul 2019 13:46:56 +0200 (CEST)
 Received: from ip-172-31-3-76.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id A08B3C0D2B9
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id AD0EEC0CDEF
 	for <lists+linux-stm32@lfdr.de>; Thu,  4 Jul 2019 11:46:56 +0000 (UTC)
 Received: from lelv0143.ext.ti.com (lelv0143.ext.ti.com [198.47.23.248])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 60138CBA85B
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 4F27ECBA85B
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Thu,  4 Jul 2019 08:25:52 +0000 (UTC)
-Received: from fllv0035.itg.ti.com ([10.64.41.0])
- by lelv0143.ext.ti.com (8.15.2/8.15.2) with ESMTP id x648PTtb121299;
- Thu, 4 Jul 2019 03:25:29 -0500
+ Thu,  4 Jul 2019 08:29:48 +0000 (UTC)
+Received: from fllv0034.itg.ti.com ([10.64.40.246])
+ by lelv0143.ext.ti.com (8.15.2/8.15.2) with ESMTP id x648TWe8122314;
+ Thu, 4 Jul 2019 03:29:32 -0500
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=ti.com;
- s=ti-com-17Q1; t=1562228729;
- bh=fNPkwALi8NkKv8UqT4FQ103MHuhzRMQlVjnGvrouozA=;
+ s=ti-com-17Q1; t=1562228972;
+ bh=3egXhDb+0BEGsc9z+jUYoOJnG4f+8TqOeWKQ9O3F6XQ=;
  h=Subject:To:References:From:Date:In-Reply-To;
- b=Loj7VX+R0UeS8xCOs6Ab4egqHhFPCdSYwDp+D1InOC2TbUgLR4W3UHMBtczjqnVs2
- HlNgI//b7NUXG5JBG8SXY4YztgUnV2waT1THN+5XDGs44KTP4NhOnCRWNLJNKEs/nv
- iEO/b7h8sTwKkcOfV1sCistcU2h/v/078+0391Zg=
-Received: from DLEE109.ent.ti.com (dlee109.ent.ti.com [157.170.170.41])
- by fllv0035.itg.ti.com (8.15.2/8.15.2) with ESMTPS id x648PTYb091087
+ b=rKllUdZGg7Y450IMxaVlJuNDJ41h3AOnnoxU+sk8hJhLSXRwRB2pmJSUkDomzG1hB
+ /TUcbmAjmpwgOvF+LRgkqD74YnTmjSrIIOEi4O0kPF7YLvXk/vxIpNy5qjnWydybAa
+ xsqYnWV2yrAOVdZPsOjL7iEYFjtZ16SKcfXiNpgM=
+Received: from DLEE102.ent.ti.com (dlee102.ent.ti.com [157.170.170.32])
+ by fllv0034.itg.ti.com (8.15.2/8.15.2) with ESMTPS id x648TWg2016906
  (version=TLSv1.2 cipher=AES256-GCM-SHA384 bits=256 verify=FAIL);
- Thu, 4 Jul 2019 03:25:29 -0500
-Received: from DLEE105.ent.ti.com (157.170.170.35) by DLEE109.ent.ti.com
- (157.170.170.41) with Microsoft SMTP Server (version=TLS1_2,
+ Thu, 4 Jul 2019 03:29:32 -0500
+Received: from DLEE114.ent.ti.com (157.170.170.25) by DLEE102.ent.ti.com
+ (157.170.170.32) with Microsoft SMTP Server (version=TLS1_2,
  cipher=TLS_ECDHE_RSA_WITH_AES_128_CBC_SHA256_P256) id 15.1.1713.5; Thu, 4 Jul
- 2019 03:25:29 -0500
-Received: from lelv0327.itg.ti.com (10.180.67.183) by DLEE105.ent.ti.com
- (157.170.170.35) with Microsoft SMTP Server (version=TLS1_2,
+ 2019 03:29:29 -0500
+Received: from fllv0040.itg.ti.com (10.64.41.20) by DLEE114.ent.ti.com
+ (157.170.170.25) with Microsoft SMTP Server (version=TLS1_2,
  cipher=TLS_ECDHE_RSA_WITH_AES_128_CBC_SHA256_P256) id 15.1.1713.5 via
- Frontend Transport; Thu, 4 Jul 2019 03:25:29 -0500
+ Frontend Transport; Thu, 4 Jul 2019 03:29:30 -0500
 Received: from [10.1.3.6] (ileax41-snat.itg.ti.com [10.172.224.153])
- by lelv0327.itg.ti.com (8.15.2/8.15.2) with ESMTP id x648PPvh044715;
- Thu, 4 Jul 2019 03:25:26 -0500
+ by fllv0040.itg.ti.com (8.15.2/8.15.2) with ESMTP id x648TQhG094955;
+ Thu, 4 Jul 2019 03:29:27 -0500
 To: Olivier Moysan <olivier.moysan@st.com>, <a.hajda@samsung.com>,
  <narmstrong@baylibre.com>, <Laurent.pinchart@ideasonboard.com>,
  <jonas@kwiboo.se>, <jernej.skrabec@siol.net>, <airlied@linux.ie>,
@@ -47,7 +47,7 @@ To: Olivier Moysan <olivier.moysan@st.com>, <a.hajda@samsung.com>,
  <linux-stm32@st-md-mailman.stormreply.com>, <robh+dt@kernel.org>,
  <mark.rutland@arm.com>, <devicetree@vger.kernel.org>
 References: <1562082426-14876-1-git-send-email-olivier.moysan@st.com>
- <1562082426-14876-3-git-send-email-olivier.moysan@st.com>
+ <1562082426-14876-4-git-send-email-olivier.moysan@st.com>
 From: Jyri Sarha <jsarha@ti.com>
 Openpgp: preference=signencrypt
 Autocrypt: addr=jsarha@ti.com; prefer-encrypt=mutual; keydata=
@@ -92,17 +92,17 @@ Autocrypt: addr=jsarha@ti.com; prefer-encrypt=mutual; keydata=
  uBrUXDDhCoiZnjQaNz/J+o9iYjuMTpY1Wp+igjIretYr9+kLvGsoPo/kTPWyiuh/WiFU2d6J
  PMCGFGhodTS5qmQA6IOuazek1qSZIl475u3E2uG98AEX/kRhSzgpsbvADPEUPaz75uvlmOCX
  tv+Sye9QT4Z1QCh3lV/Zh4GlY5lt4MwYnqFCxroK/1LpkLgdyQ4rRVw=
-Message-ID: <85c5d6a8-95d9-d4c0-fb33-4a774caf0b5e@ti.com>
-Date: Thu, 4 Jul 2019 11:25:25 +0300
+Message-ID: <ac3cee7b-900a-45f6-b722-062e1d8b39d0@ti.com>
+Date: Thu, 4 Jul 2019 11:29:26 +0300
 User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:60.0) Gecko/20100101
  Thunderbird/60.7.1
 MIME-Version: 1.0
-In-Reply-To: <1562082426-14876-3-git-send-email-olivier.moysan@st.com>
+In-Reply-To: <1562082426-14876-4-git-send-email-olivier.moysan@st.com>
 Content-Language: en-GB
 X-EXCLAIMER-MD-CONFIG: e1e8a2fd-e40a-4ac6-ac9b-f7e9cc9ee180
 X-Mailman-Approved-At: Thu, 04 Jul 2019 11:46:55 +0000
-Subject: Re: [Linux-stm32] [PATCH 2/3] dt-bindings: display: sii902x: Change
- audio mclk binding
+Subject: Re: [Linux-stm32] [PATCH 3/3] drm/bridge: sii902x: make audio mclk
+	optional
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -120,40 +120,93 @@ Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
 On 02/07/2019 18:47, Olivier Moysan wrote:
-> As stated in SiL9022/24 datasheet, master clock is not required for I2S.
-> Make mclk property optional in DT bindings.
+> The master clock on i2s bus is not mandatory,
+> as sii902X internal PLL can be used instead.
+> Make use of mclk optional.
 > 
-> Fixes: 3f18021f43a3 ("dt-bindings: display: sii902x: Add HDMI audio bindings")
+> Fixes: ff5781634c41 ("drm/bridge: sii902x: Implement HDMI audio support")
 > 
 > Signed-off-by: Olivier Moysan <olivier.moysan@st.com>
-
-Looking the specs again it looks like the mclk is requred for sii9020,
-but not for sii9022 and sii9024.
-
-So I guess it is fine to accept the configurations without the mclk.
 
 Reviewed-by: Jyri Sarha <jsarha@ti.com>
 
 > ---
->  Documentation/devicetree/bindings/display/bridge/sii902x.txt | 5 ++---
->  1 file changed, 2 insertions(+), 3 deletions(-)
+>  drivers/gpu/drm/bridge/sii902x.c | 39 +++++++++++++++++++++++----------------
+>  1 file changed, 23 insertions(+), 16 deletions(-)
 > 
-> diff --git a/Documentation/devicetree/bindings/display/bridge/sii902x.txt b/Documentation/devicetree/bindings/display/bridge/sii902x.txt
-> index 2df44b7d3821..6e14e087c0d0 100644
-> --- a/Documentation/devicetree/bindings/display/bridge/sii902x.txt
-> +++ b/Documentation/devicetree/bindings/display/bridge/sii902x.txt
-> @@ -26,9 +26,8 @@ Optional properties:
->  	- clocks: phandle and clock specifier for each clock listed in
->             the clock-names property
->  	- clock-names: "mclk"
-> -	   Describes SII902x MCLK input. MCLK is used to produce
-> -	   HDMI audio CTS values. This property is required if
-> -	   "#sound-dai-cells"-property is present. This property follows
-> +	   Describes SII902x MCLK input. MCLK can be used to produce
-> +	   HDMI audio CTS values. This property follows
->  	   Documentation/devicetree/bindings/clock/clock-bindings.txt
->  	   consumer binding.
+> diff --git a/drivers/gpu/drm/bridge/sii902x.c b/drivers/gpu/drm/bridge/sii902x.c
+> index 36acc256e67e..a08bd9fdc046 100644
+> --- a/drivers/gpu/drm/bridge/sii902x.c
+> +++ b/drivers/gpu/drm/bridge/sii902x.c
+> @@ -562,19 +562,21 @@ static int sii902x_audio_hw_params(struct device *dev, void *data,
+>  		}
+>  	}
 >  
+> -	ret = clk_prepare_enable(sii902x->audio.mclk);
+> -	if (ret) {
+> -		dev_err(dev, "Enabling mclk failed: %d\n", ret);
+> -		return ret;
+> -	}
+> +	if (sii902x->audio.mclk) {
+> +		ret = clk_prepare_enable(sii902x->audio.mclk);
+> +		if (ret) {
+> +			dev_err(dev, "Enabling mclk failed: %d\n", ret);
+> +			return ret;
+> +		}
+>  
+> -	mclk_rate = clk_get_rate(sii902x->audio.mclk);
+> +		mclk_rate = clk_get_rate(sii902x->audio.mclk);
+>  
+> -	ret = sii902x_select_mclk_div(&i2s_config_reg, params->sample_rate,
+> -				      mclk_rate);
+> -	if (mclk_rate != ret * params->sample_rate)
+> -		dev_dbg(dev, "Inaccurate reference clock (%ld/%d != %u)\n",
+> -			mclk_rate, ret, params->sample_rate);
+> +		ret = sii902x_select_mclk_div(&i2s_config_reg,
+> +					      params->sample_rate, mclk_rate);
+> +		if (mclk_rate != ret * params->sample_rate)
+> +			dev_dbg(dev, "Inaccurate reference clock (%ld/%d != %u)\n",
+> +				mclk_rate, ret, params->sample_rate);
+> +	}
+>  
+>  	mutex_lock(&sii902x->mutex);
+>  
+> @@ -640,7 +642,8 @@ static int sii902x_audio_hw_params(struct device *dev, void *data,
+>  	mutex_unlock(&sii902x->mutex);
+>  
+>  	if (ret) {
+> -		clk_disable_unprepare(sii902x->audio.mclk);
+> +		if (sii902x->audio.mclk)
+> +			clk_disable_unprepare(sii902x->audio.mclk);
+>  		dev_err(dev, "%s: hdmi audio enable failed: %d\n", __func__,
+>  			ret);
+>  	}
+> @@ -659,7 +662,8 @@ static void sii902x_audio_shutdown(struct device *dev, void *data)
+>  
+>  	mutex_unlock(&sii902x->mutex);
+>  
+> -	clk_disable_unprepare(sii902x->audio.mclk);
+> +	if (sii902x->audio.mclk)
+> +		clk_disable_unprepare(sii902x->audio.mclk);
+>  }
+>  
+>  int sii902x_audio_digital_mute(struct device *dev, void *data, bool enable)
+> @@ -752,9 +756,12 @@ static int sii902x_audio_codec_init(struct sii902x *sii902x,
+>  
+>  	sii902x->audio.mclk = devm_clk_get(dev, "mclk");
+>  	if (IS_ERR(sii902x->audio.mclk)) {
+> -		dev_err(dev, "%s: No clock (audio mclk) found: %ld\n",
+> -			__func__, PTR_ERR(sii902x->audio.mclk));
+> -		return 0;
+> +		if (PTR_ERR(sii902x->audio.mclk) != -ENOENT) {
+> +			dev_err(dev, "%s: No clock (audio mclk) found: %ld\n",
+> +				__func__, PTR_ERR(sii902x->audio.mclk));
+> +			return PTR_ERR(sii902x->audio.mclk);
+> +		}
+> +		sii902x->audio.mclk = NULL;
+>  	}
+>  
+>  	sii902x->audio.pdev = platform_device_register_data(
 > 
 
 
