@@ -2,70 +2,107 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id B870C5F758
-	for <lists+linux-stm32@lfdr.de>; Thu,  4 Jul 2019 13:46:38 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id C3A495F759
+	for <lists+linux-stm32@lfdr.de>; Thu,  4 Jul 2019 13:46:56 +0200 (CEST)
 Received: from ip-172-31-3-76.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 85717C10CAD
-	for <lists+linux-stm32@lfdr.de>; Thu,  4 Jul 2019 11:46:38 +0000 (UTC)
-Received: from mail-qt1-f194.google.com (mail-qt1-f194.google.com
- [209.85.160.194])
- (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 9365BCBB4A9
+	for <lists+linux-stm32@lfdr.de>; Thu,  4 Jul 2019 11:46:56 +0000 (UTC)
+Received: from lelv0142.ext.ti.com (lelv0142.ext.ti.com [198.47.23.249])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 07522CB4A8C
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 76DA2CBA859
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Wed,  3 Jul 2019 20:41:19 +0000 (UTC)
-Received: by mail-qt1-f194.google.com with SMTP id h18so3401998qtm.9
- for <linux-stm32@st-md-mailman.stormreply.com>;
- Wed, 03 Jul 2019 13:41:18 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=netronome-com.20150623.gappssmtp.com; s=20150623;
- h=date:from:to:cc:subject:message-id:in-reply-to:references
- :organization:mime-version:content-transfer-encoding;
- bh=7UrgCJh7ynybyKVyA1NdfWdn/54CS6hsmMgsbu19Pro=;
- b=1xNP2ViByzwg7pUQH7ecLseKnc6Kf20ns0UGpDVoStT7GQGvwmwE6SJ0k1iU5yGYP1
- YkAGhrv0HN2QIN8wQn6mXjkbKkeU5iP2vQLDN2W3vBP0GIuM0QWyFHyFz6ZvUz/PtGTu
- LbFashhUsq2OaHMk3U4qMxU16BQ81vhjqjqPqmmr29MJZE1diWeHz5ZEjXmgySm2Zcwl
- vEonLtxm9XIuu8gCqbEbILaGG75AS6iF8/PterCoeKr5wJQYNeLwGrDFJEKOPk6IN3/W
- Do59BlnuM6zXZnfMXtx78p5hoPPsg3DnI2cUOWPuIIvurACVL6MnBqrNQuyXjnrggF21
- sFAQ==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20161025;
- h=x-gm-message-state:date:from:to:cc:subject:message-id:in-reply-to
- :references:organization:mime-version:content-transfer-encoding;
- bh=7UrgCJh7ynybyKVyA1NdfWdn/54CS6hsmMgsbu19Pro=;
- b=J5JSX9qgky7NPP48FPxpwQh9CK3OOdBrn6UVNe1jGSyw6sELR/izsHZjAbCAhKnbcX
- VprRmta0xbL8hy3tfTzhbAf5JoqGI65qSDpXY3zi0FBdvti+rVFhoaeunKYReUr9cZsR
- 7gu5BwR/HWDKd7m1IgVqbKsD3HnPr3wIfeCFIGAkxO4nae0yUoXIJMOlr9fkDMKUif69
- K631DZN1xk7gkjjl/YP2reUyHhyTUJejHDkgnmXiSlLAoNWlfKq3wAB98iTGx+7ISeFi
- llv3tKCVClGuVzk90n8uqQKnMAdNXi6AL4n4qi3v6OFzZ6eq8D9II+Lqjntc0TcYKamw
- 4YUQ==
-X-Gm-Message-State: APjAAAVXt26izU0yzLVVqArnZW6pxkQNBZ94qXm3/pvl4GLxzHklgILp
- k0recPfIY+7RgH+CfHZ++wYaTQ==
-X-Google-Smtp-Source: APXvYqyNeh/RKaf68L+vXqVqLoLkpZavQ2W3Xnd/iPV5JNOmdb39n5515aLelaTUJXaJbjErhrpkTg==
-X-Received: by 2002:aed:2fa7:: with SMTP id m36mr33207887qtd.344.1562186477682; 
- Wed, 03 Jul 2019 13:41:17 -0700 (PDT)
-Received: from cakuba.netronome.com ([66.60.152.14])
- by smtp.gmail.com with ESMTPSA id y20sm1452439qka.14.2019.07.03.13.41.15
- (version=TLS1_3 cipher=AEAD-AES256-GCM-SHA384 bits=256/256);
- Wed, 03 Jul 2019 13:41:17 -0700 (PDT)
-Date: Wed, 3 Jul 2019 13:41:13 -0700
-From: Jakub Kicinski <jakub.kicinski@netronome.com>
-To: Jose Abreu <Jose.Abreu@synopsys.com>
-Message-ID: <20190703134113.0e256b33@cakuba.netronome.com>
-In-Reply-To: <003df660052f33891ab74ee79c5f1272b72bde54.1562149883.git.joabreu@synopsys.com>
-References: <cover.1562149883.git.joabreu@synopsys.com>
- <003df660052f33891ab74ee79c5f1272b72bde54.1562149883.git.joabreu@synopsys.com>
-Organization: Netronome Systems, Ltd.
+ Thu,  4 Jul 2019 08:03:56 +0000 (UTC)
+Received: from fllv0035.itg.ti.com ([10.64.41.0])
+ by lelv0142.ext.ti.com (8.15.2/8.15.2) with ESMTP id x6483QBk046220;
+ Thu, 4 Jul 2019 03:03:26 -0500
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=ti.com;
+ s=ti-com-17Q1; t=1562227406;
+ bh=0kq++ky63kGYSgR8djc1FO813K4IO89kI5DZxoHH1Ls=;
+ h=Subject:To:References:From:Date:In-Reply-To;
+ b=v3Rl3LsLlDGsKmW/8RW/yIWhVVS8XfQTQ2NS6dlPI36OsKRxQf9cTRxz0yIaR7RbQ
+ /v7N3xDAMCajJSdhY4wyW53dO3hj/VCZBFbS2wQCwXpX0EuEECVuI8ZkALvtMhQK+5
+ 8IK5JaTNigxy+6m+EkiDhJ/5qHVvrF1GRauSmzGE=
+Received: from DLEE114.ent.ti.com (dlee114.ent.ti.com [157.170.170.25])
+ by fllv0035.itg.ti.com (8.15.2/8.15.2) with ESMTPS id x6483Q5K060792
+ (version=TLSv1.2 cipher=AES256-GCM-SHA384 bits=256 verify=FAIL);
+ Thu, 4 Jul 2019 03:03:26 -0500
+Received: from DLEE103.ent.ti.com (157.170.170.33) by DLEE114.ent.ti.com
+ (157.170.170.25) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_128_CBC_SHA256_P256) id 15.1.1713.5; Thu, 4 Jul
+ 2019 03:03:25 -0500
+Received: from lelv0327.itg.ti.com (10.180.67.183) by DLEE103.ent.ti.com
+ (157.170.170.33) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_128_CBC_SHA256_P256) id 15.1.1713.5 via
+ Frontend Transport; Thu, 4 Jul 2019 03:03:25 -0500
+Received: from [10.1.3.6] (ileax41-snat.itg.ti.com [10.172.224.153])
+ by lelv0327.itg.ti.com (8.15.2/8.15.2) with ESMTP id x6483MZX009020;
+ Thu, 4 Jul 2019 03:03:22 -0500
+To: Olivier Moysan <olivier.moysan@st.com>, <a.hajda@samsung.com>,
+ <narmstrong@baylibre.com>, <Laurent.pinchart@ideasonboard.com>,
+ <jonas@kwiboo.se>, <jernej.skrabec@siol.net>, <airlied@linux.ie>,
+ <daniel@ffwll.ch>, <dri-devel@lists.freedesktop.org>,
+ <linux-kernel@vger.kernel.org>, <benjamin.gaignard@st.com>,
+ <alexandre.torgue@st.com>, <linux-arm-kernel@lists.infradead.org>,
+ <linux-stm32@st-md-mailman.stormreply.com>, <robh+dt@kernel.org>,
+ <mark.rutland@arm.com>, <devicetree@vger.kernel.org>
+References: <1562082426-14876-1-git-send-email-olivier.moysan@st.com>
+ <1562082426-14876-2-git-send-email-olivier.moysan@st.com>
+From: Jyri Sarha <jsarha@ti.com>
+Openpgp: preference=signencrypt
+Autocrypt: addr=jsarha@ti.com; prefer-encrypt=mutual; keydata=
+ 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
+Message-ID: <36194ec6-2ea7-6c0d-6142-a6bb24a65ccb@ti.com>
+Date: Thu, 4 Jul 2019 11:03:21 +0300
+User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:60.0) Gecko/20100101
+ Thunderbird/60.7.1
 MIME-Version: 1.0
-X-Mailman-Approved-At: Thu, 04 Jul 2019 11:46:36 +0000
-Cc: Joao Pinto <Joao.Pinto@synopsys.com>,
- Maxime Ripard <maxime.ripard@bootlin.com>, netdev@vger.kernel.org,
- linux-kernel@vger.kernel.org, linux-stm32@st-md-mailman.stormreply.com,
- Chen-Yu Tsai <wens@csie.org>, Maxime Coquelin <mcoquelin.stm32@gmail.com>,
- Giuseppe Cavallaro <peppe.cavallaro@st.com>,
- "David S . Miller" <davem@davemloft.net>, linux-arm-kernel@lists.infradead.org
-Subject: Re: [Linux-stm32] [PATCH net-next 1/3] net: stmmac: Implement RX
- Coalesce Frames setting
+In-Reply-To: <1562082426-14876-2-git-send-email-olivier.moysan@st.com>
+Content-Language: en-GB
+X-EXCLAIMER-MD-CONFIG: e1e8a2fd-e40a-4ac6-ac9b-f7e9cc9ee180
+X-Mailman-Approved-At: Thu, 04 Jul 2019 11:46:55 +0000
+Subject: Re: [Linux-stm32] [PATCH 1/3] drm/bridge: sii902x: fix missing
+ reference to mclk clock
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -82,22 +119,43 @@ Content-Transfer-Encoding: 7bit
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
-On Wed,  3 Jul 2019 12:37:48 +0200, Jose Abreu wrote:
-> Add support for coalescing RX path by specifying number of frames which
-> don't need to have interrupt on completion bit set.
+On 02/07/2019 18:47, Olivier Moysan wrote:
+> Add devm_clk_get call to retrieve reference to master clock.
 > 
-> This is only available when RX Watchdog is enabled.
+> Fixes: ff5781634c41 ("drm/bridge: sii902x: Implement HDMI audio support")
 > 
-> Signed-off-by: Jose Abreu <joabreu@synopsys.com>
-> Cc: Joao Pinto <jpinto@synopsys.com>
-> Cc: David S. Miller <davem@davemloft.net>
-> Cc: Giuseppe Cavallaro <peppe.cavallaro@st.com>
-> Cc: Alexandre Torgue <alexandre.torgue@st.com>
-> Cc: Maxime Coquelin <mcoquelin.stm32@gmail.com>
-> Cc: Maxime Ripard <maxime.ripard@bootlin.com>
-> Cc: Chen-Yu Tsai <wens@csie.org>
+> Signed-off-by: Olivier Moysan <olivier.moysan@st.com>
 
-Acked-by: Jakub Kicinski <jakub.kicinski@netronome.com>
+Reviewed-by: Jyri Sarha <jsarha@ti.com>
+
+I wonder how that line was dropped and how the code past my final test.
+Any way, this fix is definitely needed.
+
+Thanks,
+Jyri
+
+> ---
+>  drivers/gpu/drm/bridge/sii902x.c | 1 +
+>  1 file changed, 1 insertion(+)
+> 
+> diff --git a/drivers/gpu/drm/bridge/sii902x.c b/drivers/gpu/drm/bridge/sii902x.c
+> index dd7aa466b280..36acc256e67e 100644
+> --- a/drivers/gpu/drm/bridge/sii902x.c
+> +++ b/drivers/gpu/drm/bridge/sii902x.c
+> @@ -750,6 +750,7 @@ static int sii902x_audio_codec_init(struct sii902x *sii902x,
+>  		sii902x->audio.i2s_fifo_sequence[i] |= audio_fifo_id[i] |
+>  			i2s_lane_id[lanes[i]] |	SII902X_TPI_I2S_FIFO_ENABLE;
+>  
+> +	sii902x->audio.mclk = devm_clk_get(dev, "mclk");
+>  	if (IS_ERR(sii902x->audio.mclk)) {
+>  		dev_err(dev, "%s: No clock (audio mclk) found: %ld\n",
+>  			__func__, PTR_ERR(sii902x->audio.mclk));
+> 
+
+
+-- 
+Texas Instruments Finland Oy, Porkkalankatu 22, 00180 Helsinki.
+Y-tunnus/Business ID: 0615521-4. Kotipaikka/Domicile: Helsinki
 _______________________________________________
 Linux-stm32 mailing list
 Linux-stm32@st-md-mailman.stormreply.com
