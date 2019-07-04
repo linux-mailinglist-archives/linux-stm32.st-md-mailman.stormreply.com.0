@@ -2,37 +2,37 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id 830815F753
+	by mail.lfdr.de (Postfix) with ESMTPS id 8C8F95F754
 	for <lists+linux-stm32@lfdr.de>; Thu,  4 Jul 2019 13:46:20 +0200 (CEST)
 Received: from ip-172-31-3-76.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 3CB70C20B64
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 50CA4C1634F
 	for <lists+linux-stm32@lfdr.de>; Thu,  4 Jul 2019 11:46:20 +0000 (UTC)
 Received: from mx1.redhat.com (mx1.redhat.com [209.132.183.28])
  (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id DF673CBB4AB
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 1B454CBB4BE
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Thu,  4 Jul 2019 09:48:33 +0000 (UTC)
-Received: from smtp.corp.redhat.com (int-mx07.intmail.prod.int.phx2.redhat.com
- [10.5.11.22])
+ Thu,  4 Jul 2019 10:00:39 +0000 (UTC)
+Received: from smtp.corp.redhat.com (int-mx06.intmail.prod.int.phx2.redhat.com
+ [10.5.11.16])
  (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
  (No client certificate requested)
- by mx1.redhat.com (Postfix) with ESMTPS id 3064A859FB;
- Thu,  4 Jul 2019 09:48:17 +0000 (UTC)
+ by mx1.redhat.com (Postfix) with ESMTPS id D6434C0586C4;
+ Thu,  4 Jul 2019 10:00:28 +0000 (UTC)
 Received: from carbon (ovpn-200-17.brq.redhat.com [10.40.200.17])
- by smtp.corp.redhat.com (Postfix) with ESMTP id 3643E1001DC8;
- Thu,  4 Jul 2019 09:48:05 +0000 (UTC)
-Date: Thu, 4 Jul 2019 11:48:04 +0200
+ by smtp.corp.redhat.com (Postfix) with ESMTP id 879E2379C;
+ Thu,  4 Jul 2019 10:00:19 +0000 (UTC)
+Date: Thu, 4 Jul 2019 12:00:18 +0200
 From: Jesper Dangaard Brouer <brouer@redhat.com>
 To: Jose Abreu <Jose.Abreu@synopsys.com>
-Message-ID: <20190704114804.10c38b42@carbon>
+Message-ID: <20190704120018.4523a119@carbon>
 In-Reply-To: <1b254bb7fc6044c5e6e2fdd9e00088d1d13a808b.1562149883.git.joabreu@synopsys.com>
 References: <cover.1562149883.git.joabreu@synopsys.com>
  <1b254bb7fc6044c5e6e2fdd9e00088d1d13a808b.1562149883.git.joabreu@synopsys.com>
 MIME-Version: 1.0
-X-Scanned-By: MIMEDefang 2.84 on 10.5.11.22
+X-Scanned-By: MIMEDefang 2.79 on 10.5.11.16
 X-Greylist: Sender IP whitelisted, not delayed by milter-greylist-4.5.16
- (mx1.redhat.com [10.5.110.26]); Thu, 04 Jul 2019 09:48:32 +0000 (UTC)
+ (mx1.redhat.com [10.5.110.31]); Thu, 04 Jul 2019 10:00:32 +0000 (UTC)
 X-Mailman-Approved-At: Thu, 04 Jul 2019 11:46:18 +0000
 Cc: Joao Pinto <Joao.Pinto@synopsys.com>,
  Maxime Ripard <maxime.ripard@bootlin.com>, netdev@vger.kernel.org,
@@ -62,48 +62,39 @@ Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 On Wed,  3 Jul 2019 12:37:50 +0200
 Jose Abreu <Jose.Abreu@synopsys.com> wrote:
 
-> --- a/drivers/net/ethernet/stmicro/stmmac/stmmac_main.c
-> +++ b/drivers/net/ethernet/stmicro/stmmac/stmmac_main.c
-> @@ -1197,26 +1197,14 @@ static int stmmac_init_rx_buffers(struct stmmac_priv *priv, struct dma_desc *p,
->  				  int i, gfp_t flags, u32 queue)
->  {
->  	struct stmmac_rx_queue *rx_q = &priv->rx_queue[queue];
-> -	struct sk_buff *skb;
-> +	struct stmmac_rx_buffer *buf = &rx_q->buf_pool[i];
+> @@ -3547,6 +3456,9 @@ static int stmmac_rx(struct stmmac_priv *priv, int limit, u32 queue)
 >  
-> -	skb = __netdev_alloc_skb_ip_align(priv->dev, priv->dma_buf_sz, flags);
-> -	if (!skb) {
-> -		netdev_err(priv->dev,
-> -			   "%s: Rx init fails; skb is NULL\n", __func__);
-> +	buf->page = page_pool_dev_alloc_pages(rx_q->page_pool);
-> +	if (!buf->page)
->  		return -ENOMEM;
-> -	}
-> -	rx_q->rx_skbuff[i] = skb;
-> -	rx_q->rx_skbuff_dma[i] = dma_map_single(priv->device, skb->data,
-> -						priv->dma_buf_sz,
-> -						DMA_FROM_DEVICE);
-> -	if (dma_mapping_error(priv->device, rx_q->rx_skbuff_dma[i])) {
-> -		netdev_err(priv->dev, "%s: DMA mapping error\n", __func__);
-> -		dev_kfree_skb_any(skb);
-> -		return -EINVAL;
-> -	}
-> -
-> -	stmmac_set_desc_addr(priv, p, rx_q->rx_skbuff_dma[i]);
+>  			napi_gro_receive(&ch->rx_napi, skb);
 >  
-> +	buf->addr = buf->page->dma_addr;
+> +			page_pool_recycle_direct(rx_q->page_pool, buf->page);
 
-We/Ilias added a wrapper/helper function for accessing dma_addr, as it
-will help us later identifying users.
+This doesn't look correct.
 
- page_pool_get_dma_addr(page)
+The page_pool DMA mapping cannot be "kept" when page traveling into the
+network stack attached to an SKB.  (Ilias and I have a long term plan[1]
+to allow this, but you cannot do it ATM).
 
-> +	stmmac_set_desc_addr(priv, p, buf->addr);
->  	if (priv->dma_buf_sz == BUF_SIZE_16KiB)
->  		stmmac_init_desc3(priv, p);
->  
+You will have to call:
+  page_pool_release_page(rx_q->page_pool, buf->page);
+
+This will do a DMA-unmap, and you will likely loose your performance
+gain :-(
 
 
+> +			buf->page = NULL;
+> +
+>  			priv->dev->stats.rx_packets++;
+>  			priv->dev->stats.rx_bytes += frame_len;
+>  		}
+
+Also remember that the page_pool requires you driver to do the DMA-sync
+operation.  I see a dma_sync_single_for_cpu(), but I didn't see a
+dma_sync_single_for_device() (well, I noticed one getting removed).
+(For some HW Ilias tells me that the dma_sync_single_for_device can be
+elided, so maybe this can still be correct for you).
+
+
+[1] https://github.com/xdp-project/xdp-project/blob/master/areas/mem/page_pool02_SKB_return_callback.org
 -- 
 Best regards,
   Jesper Dangaard Brouer
