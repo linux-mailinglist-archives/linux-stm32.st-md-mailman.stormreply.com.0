@@ -2,59 +2,53 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id CBEA96015E
-	for <lists+linux-stm32@lfdr.de>; Fri,  5 Jul 2019 09:23:10 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id EED8E601DB
+	for <lists+linux-stm32@lfdr.de>; Fri,  5 Jul 2019 09:56:29 +0200 (CEST)
 Received: from ip-172-31-3-76.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 7F953C2878C
-	for <lists+linux-stm32@lfdr.de>; Fri,  5 Jul 2019 07:23:10 +0000 (UTC)
-Received: from smtprelay-out1.synopsys.com (smtprelay-out1.synopsys.com
- [198.182.61.142])
- (using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 9F9EAC35E01
+	for <lists+linux-stm32@lfdr.de>; Fri,  5 Jul 2019 07:56:29 +0000 (UTC)
+Received: from mga18.intel.com (mga18.intel.com [134.134.136.126])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 74808C32EA2
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 1527BC36B3F
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Fri,  5 Jul 2019 07:23:08 +0000 (UTC)
-Received: from mailhost.synopsys.com (mdc-mailhost1.synopsys.com
- [10.225.0.209])
- (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits))
- (No client certificate requested)
- by smtprelay-out1.synopsys.com (Postfix) with ESMTPS id 39C0FC1009;
- Fri,  5 Jul 2019 07:23:04 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=synopsys.com; s=mail;
- t=1562311386; bh=MW0AfzFshhydKXyyKxhR6Eom9+t41KI9JzN1JgYMC/c=;
- h=From:To:Cc:Subject:Date:In-Reply-To:References:In-Reply-To:
- References:From;
- b=NCMyMlEFZRFKBdXI3W5/YT+pFfiYDpmC5RQDRQUT50CIvtoPAYvMKkVh0+4+J+Pj+
- lknPlJFnB+S/cU/yE7tOdkgRR0+msrMELQadDd0zbxsAHBIITfcUWTisJ+mJ5fPt9D
- OEBAfDE8ldPZUk7LHHzuaaPA7VL8vT5Xg4VLq9nPa7mET8c15Zz+S77MKPvLv2RuMw
- D84DZcaPDFDX24JEJIONljhsJxJ6jNINVeLDw1qmE5cQiDub+N6bgcvLZ50+65z7rq
- zibzivw014j1Ow57WdEKmbr+idJxkIKjEwP+RONv1Y4HVyNsernvpjMZbBye041/Ke
- rxl5Ez04ebKjQ==
-Received: from de02.synopsys.com (de02.internal.synopsys.com [10.225.17.21])
- by mailhost.synopsys.com (Postfix) with ESMTP id 28806A0063;
- Fri,  5 Jul 2019 07:23:03 +0000 (UTC)
-Received: from de02dwia024.internal.synopsys.com
- (de02dwia024.internal.synopsys.com [10.225.19.81])
- by de02.synopsys.com (Postfix) with ESMTP id DC4683E243;
- Fri,  5 Jul 2019 09:23:02 +0200 (CEST)
-From: Jose Abreu <Jose.Abreu@synopsys.com>
-To: linux-kernel@vger.kernel.org, netdev@vger.kernel.org,
- linux-stm32@st-md-mailman.stormreply.com,
- linux-arm-kernel@lists.infradead.org
-Date: Fri,  5 Jul 2019 09:23:00 +0200
-Message-Id: <384dab52828c4b65596ef4202562a574eed93b91.1562311299.git.joabreu@synopsys.com>
-X-Mailer: git-send-email 2.7.4
-In-Reply-To: <cover.1562311299.git.joabreu@synopsys.com>
-References: <cover.1562311299.git.joabreu@synopsys.com>
-In-Reply-To: <cover.1562311299.git.joabreu@synopsys.com>
-References: <cover.1562311299.git.joabreu@synopsys.com>
-Cc: Jose Abreu <Jose.Abreu@synopsys.com>, Joao Pinto <Joao.Pinto@synopsys.com>,
- Arnd Bergmann <arnd@arndb.de>, Ilias Apalodimas <ilias.apalodimas@linaro.org>,
- Jesper Dangaard Brouer <brouer@redhat.com>,
- Giuseppe Cavallaro <peppe.cavallaro@st.com>,
- "David S . Miller" <davem@davemloft.net>
-Subject: [Linux-stm32] [PATCH net-next v3 3/3] net: stmmac: Introducing
-	support for Page Pool
+ Fri,  5 Jul 2019 07:56:27 +0000 (UTC)
+X-Amp-Result: UNSCANNABLE
+X-Amp-File-Uploaded: False
+Received: from fmsmga004.fm.intel.com ([10.253.24.48])
+ by orsmga106.jf.intel.com with ESMTP/TLS/DHE-RSA-AES256-GCM-SHA384;
+ 05 Jul 2019 00:55:27 -0700
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="5.63,454,1557212400"; d="scan'208";a="187755810"
+Received: from paasikivi.fi.intel.com ([10.237.72.42])
+ by fmsmga004.fm.intel.com with ESMTP; 05 Jul 2019 00:55:23 -0700
+Received: by paasikivi.fi.intel.com (Postfix, from userid 1000)
+ id EE1FA2036A; Fri,  5 Jul 2019 10:55:22 +0300 (EEST)
+Date: Fri, 5 Jul 2019 10:55:22 +0300
+From: Sakari Ailus <sakari.ailus@linux.intel.com>
+To: Laurent Pinchart <laurent.pinchart@ideasonboard.com>
+Message-ID: <20190705075522.o7kuptdy3p3o64l7@paasikivi.fi.intel.com>
+References: <1560242912-17138-1-git-send-email-hugues.fruchet@st.com>
+ <20190620161721.h3wn4nibomrvriw4@kekkonen.localdomain>
+ <ae097d67-58fe-82d7-78d6-2445664f28db@st.com>
+ <20190626172503.GB6118@pendragon.ideasonboard.com>
+ <b21efe64-7762-308b-c2e5-503589041c35@st.com>
+ <20190627133824.GC5021@pendragon.ideasonboard.com>
+MIME-Version: 1.0
+Content-Disposition: inline
+In-Reply-To: <20190627133824.GC5021@pendragon.ideasonboard.com>
+User-Agent: NeoMutt/20170113 (1.7.2)
+Cc: Yannick FERTRE <yannick.fertre@st.com>,
+ Mickael GUENE <mickael.guene@st.com>,
+ "linux-kernel@vger.kernel.org" <linux-kernel@vger.kernel.org>,
+ Hans Verkuil <hverkuil@xs4all.nl>,
+ Benjamin Gaignard <benjamin.gaignard@linaro.org>,
+ Mauro Carvalho Chehab <mchehab@kernel.org>,
+ "linux-stm32@st-md-mailman.stormreply.com"
+ <linux-stm32@st-md-mailman.stormreply.com>,
+ "linux-arm-kernel@lists.infradead.org" <linux-arm-kernel@lists.infradead.org>,
+ "linux-media@vger.kernel.org" <linux-media@vger.kernel.org>
+Subject: Re: [Linux-stm32] [PATCH v2 0/3] DCMI bridge support
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -66,408 +60,168 @@ List-Post: <mailto:linux-stm32@st-md-mailman.stormreply.com>
 List-Help: <mailto:linux-stm32-request@st-md-mailman.stormreply.com?subject=help>
 List-Subscribe: <https://st-md-mailman.stormreply.com/mailman/listinfo/linux-stm32>, 
  <mailto:linux-stm32-request@st-md-mailman.stormreply.com?subject=subscribe>
-MIME-Version: 1.0
 Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
-Mapping and unmapping DMA region is an high bottleneck in stmmac driver,
-specially in the RX path.
+Hi Laurent,
 
-This commit introduces support for Page Pool API and uses it in all RX
-queues. With this change, we get more stable troughput and some increase
-of banwidth with iperf:
-	- MAC1000 - 950 Mbps
-	- XGMAC: 9.22 Gbps
+On Thu, Jun 27, 2019 at 04:38:24PM +0300, Laurent Pinchart wrote:
+> Hi Hugues,
+> 
+> On Thu, Jun 27, 2019 at 12:38:40PM +0000, Hugues FRUCHET wrote:
+> > On 6/26/19 7:25 PM, Laurent Pinchart wrote:
+> > > On Mon, Jun 24, 2019 at 10:10:05AM +0000, Hugues FRUCHET wrote:
+> > >> Hi Sakari,
+> > >>
+> > >>> - Where's the sub-device representing the bridge itself?
+> > >>
+> > >> This is pointed by [1]: drivers/media/i2c/st-mipid02.c
+> > >>
+> > >>> - As the driver becomes MC-centric, crop configuration takes place through
+> > >>>   V4L2 sub-device interface, not through the video device node.
+> > >>> - Same goes for accessing sensor configuration: it does not take place
+> > >>>   through video node but through the sub-device nodes.
+> > >>
+> > >> Our objective is to be able to support either a simple parallel sensor
+> > >> or a CSI-2 sensor connected through a bridge without any changes on
+> > >> userspace side because no additional processing or conversion involved,
+> > >> only deserialisation is m.
+> > >> With the proposed set of patches, we succeeded to do so, the same
+> > >> non-regression tests campaign is passed with OV5640 parallel sensor
+> > >> (STM32MP1 evaluation board) or OV5640 CSI-2 sensor (Avenger96 board with
+> > >> D3 mezzanine board).
+> > >>
+> > >> We don't want driver to be MC-centric, media controller support was
+> > >> required only to get access to the set of functions needed to link and
+> > >> walk trough subdevices: media_create_pad_link(),
+> > >> media_entity_remote_pad(), etc...
+> > >>
+> > >> We did a try with the v1 version of this patchset, delegating subdevices
+> > >> handling to userspace, by using media-controller, but this require to
+> > >> configure first the pipeline for each single change of resolution and
+> > >> format before making any capture using v4l2-ctl or GStreamer, quite
+> > >> heavy in fact.
+> > >> Benjamin did another try using new libcamera codebase, but even for a
+> > >> basic capture use-case, negotiation code is quite tricky in order to
+> > >> match the right subdevices bus format to the required V4L2 format.
+> > > 
+> > > Why would it be trickier in userspace than in the kernel ? The V4L2
+> > > subdev operations are more or less expose verbatim through the subdev
+> > > userspace API.
+> > > 
+> > >> Moreover, it was not clear how to call libcamera library prior to any
+> > >> v4l2-ctl or GStreamer calls.
+> > > 
+> > > libcamera isn't meant to be called before v4l2-ctl or GStreamer.
+> > > Applications are supposed to be based directly on libcamera, or, for
+> > > existing userspace APIs such as V4L2 or GStreamer, compatibility layers
+> > > are supposed to be developed. For V4L2 it will take the form of a
+> > > LD_PRELOAD-able .so that will intercept the V4L2 API calls, making most
+> > > V4L2 applications work with libcamera unmodified (I said most as 100%
+> > > compatibility will likely not be achievable). For GStreamer it will take
+> > > the form of a GStreamer libcamera element that will replace the V4L2
+> > > source element.
+> > > 
+> > >> Adding 100 lines of code into DCMI to well configure resolution and
+> > >> formats fixes the point and allows us to keep backward compatibility
+> > >> as per our objective, so it seems far more reasonable to us to do so
+> > >> even if DCMI controls more than the subdevice it is connected to.
+> > >> Moreover we found similar code in other video interfaces code like
+> > >> qcom/camss/camss.c and xilinx/xilinx-dma.c, controlling the whole
+> > >> pipeline, so it seems to us quite natural to go this way.
+> > > 
+> > > I can't comment on the qcom-camss driver as I'm not aware of its
+> > > internals, but where have you found such code in the Xilinx V4L2 drivers
+> > > ?
+> > 
+> > For ex. in xilinx/xilinx-dma.c, stream on/off is propagated to all 
+> > subdevices within pipeline:
+> >   * Walk the entities chain starting at the pipeline output video node 
+> > static int xvip_pipeline_start_stop(struct xvip_pipeline *pipe, bool start)
+> > 
+> > Same for qcom/camss/camss-video.c:
+> > static int video_start_streaming(struct vb2_queue *q, unsigned int count)
+> 
+> For stream start/stop, that's expected. Userspace only controls the
+> stream start/stop on the video node, and the kernel propagates that
+> along the pipeline. There is no VIDIOC_STREAMON or VIDIOC_STREAMOFF
+> ioctl exposed to userspace for V4L2 subdevs. What is not propagated in
+> the kernel for MC-centric devices is the pipeline configuration (formats
+> and selection rectangles).
+> 
+> > For resolution/format, in exynos4-is/fimc-capture.c:
+> > static int fimc_pipeline_try_format(struct fimc_ctx *ctx,
+> > ...
+> > 	while (1) {
+> > ...
+> > 		/* set format on all pipeline subdevs */
+> > 		while (me != &fimc->vid_cap.subdev.entity) {
+> > ...
+> > 			ret = v4l2_subdev_call(sd, pad, set_fmt, NULL, &sfmt);
+> 
+> As explained below, propagating formats is fine for video node-centric
+> drivers, but comes with limitations.
+> 
+> > >> To summarize, if we cannot do the negotiation within kernel, delegating
+> > >> this to userspace implies far more complexity and breaks compatibility
+> > >> with existing applications without adding new functionalities.
+> > >>
+> > >> Having all that in mind, what should be reconsidered in your opinion
+> > >> Sakari ? Do you have some alternatives ?
+> > > 
+> > > First of all, let's note that your patch series performs to related but
+> > > still independent changes: it enables MC support, *and* enables the V4L2
+> > > subdev userspace API. The former is clearly needed and will allow you to
+> > > use the MC API internally in the kernel, simplifying pipeline traversal.
+> > > The latter then enables the V4L2 subdev userspace API, moving the
+> > > pipeline configuration responsibility to userspace.
+> > > 
+> > > You could in theory move to the MC API inside the kernel, without
+> > > enabling support for the V4L2 subdev userspace API. Configuring the
+> > > pipeline and propagating the formats would then be the responsibility of
+> > > the kernel driver.
+> > 
+> > Yes this is exactly what we want to do.
+> > If I understand well, to disable the V4L2 subdev userspace API, I just 
+> > have to remove the media device registry:
+> > 
+> > -	/* Register the media device */
+> > -	ret = media_device_register(&dcmi->mdev);
+> > -	if (ret) {
+> > -		dev_err(dcmi->dev, "Failed to register media device (%d)\n",
+> > -			ret);
+> > -		goto err_media_device_cleanup;
+> > -	}
+> > 
+> > Do you see any additional things to do ?
+> 
+> That should be it. Note that in that case pipeline configuration has to
+> be handled by the master driver (DCMI in this case), the external
+> subdevs involved (such as the CSI-2 to parallel bridge) must not handle
+> any propagation of formats or selection rectangles.
 
-Changes from v2:
-	- Uncoditionally call page_pool_free() (Jesper)
-Changes from v1:
-	- Use page_pool_get_dma_addr() (Jesper)
-	- Add a comment (Jesper)
-	- Add page_pool_free() call (Jesper)
-	- Reintroduce sync_single_for_device (Arnd / Ilias)
+I wonder what we'd do in the case when someone needs to connect something
+else to the pipeline, such as a sensor with more than one sub-device, or a
+flash or a lens controller.
 
-Signed-off-by: Jose Abreu <joabreu@synopsys.com>
-Cc: Joao Pinto <jpinto@synopsys.com>
-Cc: David S. Miller <davem@davemloft.net>
-Cc: Giuseppe Cavallaro <peppe.cavallaro@st.com>
-Cc: Alexandre Torgue <alexandre.torgue@st.com>
-Cc: Ilias Apalodimas <ilias.apalodimas@linaro.org>
-Cc: Jesper Dangaard Brouer <brouer@redhat.com>
-Cc: Arnd Bergmann <arnd@arndb.de>
----
- drivers/net/ethernet/stmicro/stmmac/Kconfig       |   1 +
- drivers/net/ethernet/stmicro/stmmac/stmmac.h      |  10 +-
- drivers/net/ethernet/stmicro/stmmac/stmmac_main.c | 203 +++++++---------------
- 3 files changed, 70 insertions(+), 144 deletions(-)
+For future-proofness, I'd just use MC for hardware that may be part of a
+complex pipeline. In this case, if you think backwards compatibility is
+important (and for most hardware it probably is), I don't think there are
+perfect solutions if your existing driver is not MC-enabled.
 
-diff --git a/drivers/net/ethernet/stmicro/stmmac/Kconfig b/drivers/net/ethernet/stmicro/stmmac/Kconfig
-index 943189dcccb1..2325b40dff6e 100644
---- a/drivers/net/ethernet/stmicro/stmmac/Kconfig
-+++ b/drivers/net/ethernet/stmicro/stmmac/Kconfig
-@@ -3,6 +3,7 @@ config STMMAC_ETH
- 	tristate "STMicroelectronics Multi-Gigabit Ethernet driver"
- 	depends on HAS_IOMEM && HAS_DMA
- 	select MII
-+	select PAGE_POOL
- 	select PHYLINK
- 	select CRC32
- 	imply PTP_1588_CLOCK
-diff --git a/drivers/net/ethernet/stmicro/stmmac/stmmac.h b/drivers/net/ethernet/stmicro/stmmac/stmmac.h
-index 513f4e2df5f6..5cd966c154f3 100644
---- a/drivers/net/ethernet/stmicro/stmmac/stmmac.h
-+++ b/drivers/net/ethernet/stmicro/stmmac/stmmac.h
-@@ -20,6 +20,7 @@
- #include <linux/ptp_clock_kernel.h>
- #include <linux/net_tstamp.h>
- #include <linux/reset.h>
-+#include <net/page_pool.h>
- 
- struct stmmac_resources {
- 	void __iomem *addr;
-@@ -54,14 +55,19 @@ struct stmmac_tx_queue {
- 	u32 mss;
- };
- 
-+struct stmmac_rx_buffer {
-+	struct page *page;
-+	dma_addr_t addr;
-+};
-+
- struct stmmac_rx_queue {
- 	u32 rx_count_frames;
- 	u32 queue_index;
-+	struct page_pool *page_pool;
-+	struct stmmac_rx_buffer *buf_pool;
- 	struct stmmac_priv *priv_data;
- 	struct dma_extended_desc *dma_erx;
- 	struct dma_desc *dma_rx ____cacheline_aligned_in_smp;
--	struct sk_buff **rx_skbuff;
--	dma_addr_t *rx_skbuff_dma;
- 	unsigned int cur_rx;
- 	unsigned int dirty_rx;
- 	u32 rx_zeroc_thresh;
-diff --git a/drivers/net/ethernet/stmicro/stmmac/stmmac_main.c b/drivers/net/ethernet/stmicro/stmmac/stmmac_main.c
-index c8fe85ef9a7e..6566772e8ed5 100644
---- a/drivers/net/ethernet/stmicro/stmmac/stmmac_main.c
-+++ b/drivers/net/ethernet/stmicro/stmmac/stmmac_main.c
-@@ -1197,26 +1197,14 @@ static int stmmac_init_rx_buffers(struct stmmac_priv *priv, struct dma_desc *p,
- 				  int i, gfp_t flags, u32 queue)
- {
- 	struct stmmac_rx_queue *rx_q = &priv->rx_queue[queue];
--	struct sk_buff *skb;
-+	struct stmmac_rx_buffer *buf = &rx_q->buf_pool[i];
- 
--	skb = __netdev_alloc_skb_ip_align(priv->dev, priv->dma_buf_sz, flags);
--	if (!skb) {
--		netdev_err(priv->dev,
--			   "%s: Rx init fails; skb is NULL\n", __func__);
-+	buf->page = page_pool_dev_alloc_pages(rx_q->page_pool);
-+	if (!buf->page)
- 		return -ENOMEM;
--	}
--	rx_q->rx_skbuff[i] = skb;
--	rx_q->rx_skbuff_dma[i] = dma_map_single(priv->device, skb->data,
--						priv->dma_buf_sz,
--						DMA_FROM_DEVICE);
--	if (dma_mapping_error(priv->device, rx_q->rx_skbuff_dma[i])) {
--		netdev_err(priv->dev, "%s: DMA mapping error\n", __func__);
--		dev_kfree_skb_any(skb);
--		return -EINVAL;
--	}
--
--	stmmac_set_desc_addr(priv, p, rx_q->rx_skbuff_dma[i]);
- 
-+	buf->addr = page_pool_get_dma_addr(buf->page);
-+	stmmac_set_desc_addr(priv, p, buf->addr);
- 	if (priv->dma_buf_sz == BUF_SIZE_16KiB)
- 		stmmac_init_desc3(priv, p);
- 
-@@ -1232,13 +1220,11 @@ static int stmmac_init_rx_buffers(struct stmmac_priv *priv, struct dma_desc *p,
- static void stmmac_free_rx_buffer(struct stmmac_priv *priv, u32 queue, int i)
- {
- 	struct stmmac_rx_queue *rx_q = &priv->rx_queue[queue];
-+	struct stmmac_rx_buffer *buf = &rx_q->buf_pool[i];
- 
--	if (rx_q->rx_skbuff[i]) {
--		dma_unmap_single(priv->device, rx_q->rx_skbuff_dma[i],
--				 priv->dma_buf_sz, DMA_FROM_DEVICE);
--		dev_kfree_skb_any(rx_q->rx_skbuff[i]);
--	}
--	rx_q->rx_skbuff[i] = NULL;
-+	if (buf->page)
-+		page_pool_put_page(rx_q->page_pool, buf->page, false);
-+	buf->page = NULL;
- }
- 
- /**
-@@ -1321,10 +1307,6 @@ static int init_dma_rx_desc_rings(struct net_device *dev, gfp_t flags)
- 						     queue);
- 			if (ret)
- 				goto err_init_rx_buffers;
--
--			netif_dbg(priv, probe, priv->dev, "[%p]\t[%p]\t[%x]\n",
--				  rx_q->rx_skbuff[i], rx_q->rx_skbuff[i]->data,
--				  (unsigned int)rx_q->rx_skbuff_dma[i]);
- 		}
- 
- 		rx_q->cur_rx = 0;
-@@ -1498,8 +1480,11 @@ static void free_dma_rx_desc_resources(struct stmmac_priv *priv)
- 					  sizeof(struct dma_extended_desc),
- 					  rx_q->dma_erx, rx_q->dma_rx_phy);
- 
--		kfree(rx_q->rx_skbuff_dma);
--		kfree(rx_q->rx_skbuff);
-+		kfree(rx_q->buf_pool);
-+		if (rx_q->page_pool) {
-+			page_pool_request_shutdown(rx_q->page_pool);
-+			page_pool_free(rx_q->page_pool);
-+		}
- 	}
- }
- 
-@@ -1551,20 +1536,29 @@ static int alloc_dma_rx_desc_resources(struct stmmac_priv *priv)
- 	/* RX queues buffers and DMA */
- 	for (queue = 0; queue < rx_count; queue++) {
- 		struct stmmac_rx_queue *rx_q = &priv->rx_queue[queue];
-+		struct page_pool_params pp_params = { 0 };
- 
- 		rx_q->queue_index = queue;
- 		rx_q->priv_data = priv;
- 
--		rx_q->rx_skbuff_dma = kmalloc_array(DMA_RX_SIZE,
--						    sizeof(dma_addr_t),
--						    GFP_KERNEL);
--		if (!rx_q->rx_skbuff_dma)
-+		pp_params.flags = PP_FLAG_DMA_MAP;
-+		pp_params.pool_size = DMA_RX_SIZE;
-+		pp_params.order = DIV_ROUND_UP(priv->dma_buf_sz, PAGE_SIZE);
-+		pp_params.nid = dev_to_node(priv->device);
-+		pp_params.dev = priv->device;
-+		pp_params.dma_dir = DMA_FROM_DEVICE;
-+
-+		rx_q->page_pool = page_pool_create(&pp_params);
-+		if (IS_ERR(rx_q->page_pool)) {
-+			ret = PTR_ERR(rx_q->page_pool);
-+			rx_q->page_pool = NULL;
- 			goto err_dma;
-+		}
- 
--		rx_q->rx_skbuff = kmalloc_array(DMA_RX_SIZE,
--						sizeof(struct sk_buff *),
--						GFP_KERNEL);
--		if (!rx_q->rx_skbuff)
-+		rx_q->buf_pool = kmalloc_array(DMA_RX_SIZE,
-+					       sizeof(*rx_q->buf_pool),
-+					       GFP_KERNEL);
-+		if (!rx_q->buf_pool)
- 			goto err_dma;
- 
- 		if (priv->extend_desc) {
-@@ -3295,9 +3289,8 @@ static inline void stmmac_rx_refill(struct stmmac_priv *priv, u32 queue)
- 	int dirty = stmmac_rx_dirty(priv, queue);
- 	unsigned int entry = rx_q->dirty_rx;
- 
--	int bfsize = priv->dma_buf_sz;
--
- 	while (dirty-- > 0) {
-+		struct stmmac_rx_buffer *buf = &rx_q->buf_pool[entry];
- 		struct dma_desc *p;
- 		bool use_rx_wd;
- 
-@@ -3306,49 +3299,22 @@ static inline void stmmac_rx_refill(struct stmmac_priv *priv, u32 queue)
- 		else
- 			p = rx_q->dma_rx + entry;
- 
--		if (likely(!rx_q->rx_skbuff[entry])) {
--			struct sk_buff *skb;
--
--			skb = netdev_alloc_skb_ip_align(priv->dev, bfsize);
--			if (unlikely(!skb)) {
--				/* so for a while no zero-copy! */
--				rx_q->rx_zeroc_thresh = STMMAC_RX_THRESH;
--				if (unlikely(net_ratelimit()))
--					dev_err(priv->device,
--						"fail to alloc skb entry %d\n",
--						entry);
--				break;
--			}
--
--			rx_q->rx_skbuff[entry] = skb;
--			rx_q->rx_skbuff_dma[entry] =
--			    dma_map_single(priv->device, skb->data, bfsize,
--					   DMA_FROM_DEVICE);
--			if (dma_mapping_error(priv->device,
--					      rx_q->rx_skbuff_dma[entry])) {
--				netdev_err(priv->dev, "Rx DMA map failed\n");
--				dev_kfree_skb(skb);
-+		if (!buf->page) {
-+			buf->page = page_pool_dev_alloc_pages(rx_q->page_pool);
-+			if (!buf->page)
- 				break;
--			}
--
--			stmmac_set_desc_addr(priv, p, rx_q->rx_skbuff_dma[entry]);
--			stmmac_refill_desc3(priv, rx_q, p);
--
--			if (rx_q->rx_zeroc_thresh > 0)
--				rx_q->rx_zeroc_thresh--;
--
--			netif_dbg(priv, rx_status, priv->dev,
--				  "refill entry #%d\n", entry);
- 		}
--		dma_wmb();
-+
-+		buf->addr = page_pool_get_dma_addr(buf->page);
-+		stmmac_set_desc_addr(priv, p, buf->addr);
-+		stmmac_refill_desc3(priv, rx_q, p);
- 
- 		rx_q->rx_count_frames++;
- 		rx_q->rx_count_frames %= priv->rx_coal_frames;
- 		use_rx_wd = priv->use_riwt && rx_q->rx_count_frames;
- 
--		stmmac_set_rx_owner(priv, p, use_rx_wd);
--
- 		dma_wmb();
-+		stmmac_set_rx_owner(priv, p, use_rx_wd);
- 
- 		entry = STMMAC_GET_ENTRY(entry, DMA_RX_SIZE);
- 	}
-@@ -3373,9 +3339,6 @@ static int stmmac_rx(struct stmmac_priv *priv, int limit, u32 queue)
- 	unsigned int next_entry = rx_q->cur_rx;
- 	int coe = priv->hw->rx_csum;
- 	unsigned int count = 0;
--	bool xmac;
--
--	xmac = priv->plat->has_gmac4 || priv->plat->has_xgmac;
- 
- 	if (netif_msg_rx_status(priv)) {
- 		void *rx_head;
-@@ -3389,11 +3352,12 @@ static int stmmac_rx(struct stmmac_priv *priv, int limit, u32 queue)
- 		stmmac_display_ring(priv, rx_head, DMA_RX_SIZE, true);
- 	}
- 	while (count < limit) {
-+		struct stmmac_rx_buffer *buf;
-+		struct dma_desc *np, *p;
- 		int entry, status;
--		struct dma_desc *p;
--		struct dma_desc *np;
- 
- 		entry = next_entry;
-+		buf = &rx_q->buf_pool[entry];
- 
- 		if (priv->extend_desc)
- 			p = (struct dma_desc *)(rx_q->dma_erx + entry);
-@@ -3423,20 +3387,9 @@ static int stmmac_rx(struct stmmac_priv *priv, int limit, u32 queue)
- 			stmmac_rx_extended_status(priv, &priv->dev->stats,
- 					&priv->xstats, rx_q->dma_erx + entry);
- 		if (unlikely(status == discard_frame)) {
-+			page_pool_recycle_direct(rx_q->page_pool, buf->page);
- 			priv->dev->stats.rx_errors++;
--			if (priv->hwts_rx_en && !priv->extend_desc) {
--				/* DESC2 & DESC3 will be overwritten by device
--				 * with timestamp value, hence reinitialize
--				 * them in stmmac_rx_refill() function so that
--				 * device can reuse it.
--				 */
--				dev_kfree_skb_any(rx_q->rx_skbuff[entry]);
--				rx_q->rx_skbuff[entry] = NULL;
--				dma_unmap_single(priv->device,
--						 rx_q->rx_skbuff_dma[entry],
--						 priv->dma_buf_sz,
--						 DMA_FROM_DEVICE);
--			}
-+			buf->page = NULL;
- 		} else {
- 			struct sk_buff *skb;
- 			int frame_len;
-@@ -3476,58 +3429,20 @@ static int stmmac_rx(struct stmmac_priv *priv, int limit, u32 queue)
- 					   frame_len, status);
- 			}
- 
--			/* The zero-copy is always used for all the sizes
--			 * in case of GMAC4 because it needs
--			 * to refill the used descriptors, always.
--			 */
--			if (unlikely(!xmac &&
--				     ((frame_len < priv->rx_copybreak) ||
--				     stmmac_rx_threshold_count(rx_q)))) {
--				skb = netdev_alloc_skb_ip_align(priv->dev,
--								frame_len);
--				if (unlikely(!skb)) {
--					if (net_ratelimit())
--						dev_warn(priv->device,
--							 "packet dropped\n");
--					priv->dev->stats.rx_dropped++;
--					continue;
--				}
--
--				dma_sync_single_for_cpu(priv->device,
--							rx_q->rx_skbuff_dma
--							[entry], frame_len,
--							DMA_FROM_DEVICE);
--				skb_copy_to_linear_data(skb,
--							rx_q->
--							rx_skbuff[entry]->data,
--							frame_len);
--
--				skb_put(skb, frame_len);
--				dma_sync_single_for_device(priv->device,
--							   rx_q->rx_skbuff_dma
--							   [entry], frame_len,
--							   DMA_FROM_DEVICE);
--			} else {
--				skb = rx_q->rx_skbuff[entry];
--				if (unlikely(!skb)) {
--					if (net_ratelimit())
--						netdev_err(priv->dev,
--							   "%s: Inconsistent Rx chain\n",
--							   priv->dev->name);
--					priv->dev->stats.rx_dropped++;
--					continue;
--				}
--				prefetch(skb->data - NET_IP_ALIGN);
--				rx_q->rx_skbuff[entry] = NULL;
--				rx_q->rx_zeroc_thresh++;
--
--				skb_put(skb, frame_len);
--				dma_unmap_single(priv->device,
--						 rx_q->rx_skbuff_dma[entry],
--						 priv->dma_buf_sz,
--						 DMA_FROM_DEVICE);
-+			skb = netdev_alloc_skb_ip_align(priv->dev, frame_len);
-+			if (unlikely(!skb)) {
-+				priv->dev->stats.rx_dropped++;
-+				continue;
- 			}
- 
-+			dma_sync_single_for_cpu(priv->device, buf->addr,
-+						frame_len, DMA_FROM_DEVICE);
-+			skb_copy_to_linear_data(skb, page_address(buf->page),
-+						frame_len);
-+			skb_put(skb, frame_len);
-+			dma_sync_single_for_device(priv->device, buf->addr,
-+						   frame_len, DMA_FROM_DEVICE);
-+
- 			if (netif_msg_pktdata(priv)) {
- 				netdev_dbg(priv->dev, "frame received (%dbytes)",
- 					   frame_len);
-@@ -3547,6 +3462,10 @@ static int stmmac_rx(struct stmmac_priv *priv, int limit, u32 queue)
- 
- 			napi_gro_receive(&ch->rx_napi, skb);
- 
-+			/* Data payload copied into SKB, page ready for recycle */
-+			page_pool_recycle_direct(rx_q->page_pool, buf->page);
-+			buf->page = NULL;
-+
- 			priv->dev->stats.rx_packets++;
- 			priv->dev->stats.rx_bytes += frame_len;
- 		}
+A reasonable compromise would be to add a Kconfig option that allows
+enabling MC. This way you can provide backwards compatibility and allow
+making use of the full potential of the hardware. That's also why hardware
+that may be part of a non-trivial MC pipeline should start with MC-enabled
+so we wouldn't run into this.
+
 -- 
-2.7.4
+Kind regards,
 
+Sakari Ailus
+sakari.ailus@linux.intel.com
 _______________________________________________
 Linux-stm32 mailing list
 Linux-stm32@st-md-mailman.stormreply.com
