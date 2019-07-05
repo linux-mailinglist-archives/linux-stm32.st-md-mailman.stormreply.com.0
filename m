@@ -2,47 +2,47 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id 96A0B60603
-	for <lists+linux-stm32@lfdr.de>; Fri,  5 Jul 2019 14:37:39 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 7030A6061B
+	for <lists+linux-stm32@lfdr.de>; Fri,  5 Jul 2019 14:42:29 +0200 (CEST)
 Received: from ip-172-31-3-76.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 5C4C6C35E01
-	for <lists+linux-stm32@lfdr.de>; Fri,  5 Jul 2019 12:37:39 +0000 (UTC)
-Received: from mx07-00178001.pphosted.com (mx08-00178001.pphosted.com
- [91.207.212.93])
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 1DDDDC35E01
+	for <lists+linux-stm32@lfdr.de>; Fri,  5 Jul 2019 12:42:29 +0000 (UTC)
+Received: from mx07-00178001.pphosted.com (mx07-00178001.pphosted.com
+ [62.209.51.94])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 8F8D4C36B3E
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 689AAC36B3E
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Fri,  5 Jul 2019 12:37:37 +0000 (UTC)
-Received: from pps.filterd (m0046661.ppops.net [127.0.0.1])
- by mx08-00178001.pphosted.com (8.16.0.27/8.16.0.27) with SMTP id
- x65CWUBO015894; Fri, 5 Jul 2019 14:36:13 +0200
+ Fri,  5 Jul 2019 12:42:27 +0000 (UTC)
+Received: from pps.filterd (m0046668.ppops.net [127.0.0.1])
+ by mx07-00178001.pphosted.com (8.16.0.27/8.16.0.27) with SMTP id
+ x65CbDxP001281; Fri, 5 Jul 2019 14:41:05 +0200
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=st.com;
  h=from : to : subject :
  date : message-id : references : in-reply-to : content-type : content-id :
  content-transfer-encoding : mime-version; s=STMicroelectronics;
- bh=nuMS6p+p3kSwZitSa3B2HZ8uP0JDZ2NWsyUgLamNnd0=;
- b=NEVk99+KVuuwQZPkG0kmtuAaoM+1yQYeq2y07wKKVR5WjnQccS0/1HiOmmHp73HOR9N5
- 14Gq/eo3rYJLA6vGhwt0M0pufNUc3aE6mpbN8pZfVkbKPNWLoFx5Ym+pjNbBVmUDgUFz
- gchrebzYFkXdBgiX5AVCz3bEW5mCajFgor1PLMi960cttvIjiX/2ZCM6hzqrN0f66p3G
- mOAUyy30RfXCWGaVmAJLuUYcWKweyTVnWHc9ya1pxJutg7ydvnPwlRrHNkXybc01Qbiw
- znhM9q4rEBN9AylBWAWk9SpdUZ6y6woQN1iqTJ39KqDWhiNLO9ENi24xJvCTGXaF3Mfi Tg== 
+ bh=qh28dI5DvFVPJdueAPSh1Hk6ECUAJ6MLaEbc5I2IPDs=;
+ b=WcHpYZjYL64+yCVvOf1KAWbOCHMXUugif32Iyp6Dx0GO5T1alRnS5102dKuCLa/vY/Jh
+ 4RtA46QSdUmF/7miKyJ6CZ3zS4d/0yxAh9bjUblx02BIlT02CJ5lt6uOoXrcQhQBUYoM
+ u/yKBA9ZzVk3JTl74xYHJdt3omDCYcdgth0PR4OhZ4AUtyPnvPEQ4F4OW3LB7fz47VWt
+ GF6SAF7vPuWYMVIK9K3HTUM76veghmNsD+WqswgJZDnannj90aPPvBr4bSb+SLxOe6/g
+ 0bYsT8Fv+gEgQypIcr5PaI0SVufEOw3Ou8CeiltVAMGvlVCMkw5kMFUha6xppJWLW+FT pA== 
 Received: from beta.dmz-eu.st.com (beta.dmz-eu.st.com [164.129.1.35])
- by mx08-00178001.pphosted.com with ESMTP id 2tdxvjjgj1-1
+ by mx07-00178001.pphosted.com with ESMTP id 2tdwf1jjjq-1
  (version=TLSv1 cipher=ECDHE-RSA-AES256-SHA bits=256 verify=NOT);
- Fri, 05 Jul 2019 14:36:13 +0200
+ Fri, 05 Jul 2019 14:41:05 +0200
 Received: from zeta.dmz-eu.st.com (zeta.dmz-eu.st.com [164.129.230.9])
- by beta.dmz-eu.st.com (STMicroelectronics) with ESMTP id 7C90531;
- Fri,  5 Jul 2019 12:36:12 +0000 (GMT)
+ by beta.dmz-eu.st.com (STMicroelectronics) with ESMTP id CB5F731;
+ Fri,  5 Jul 2019 12:41:03 +0000 (GMT)
 Received: from Webmail-eu.st.com (sfhdag3node1.st.com [10.75.127.7])
- by zeta.dmz-eu.st.com (STMicroelectronics) with ESMTP id 4862E2C7F;
- Fri,  5 Jul 2019 12:36:12 +0000 (GMT)
+ by zeta.dmz-eu.st.com (STMicroelectronics) with ESMTP id 9F3182CC3;
+ Fri,  5 Jul 2019 12:41:03 +0000 (GMT)
 Received: from SFHDAG6NODE3.st.com (10.75.127.18) by SFHDAG3NODE1.st.com
  (10.75.127.7) with Microsoft SMTP Server (TLS) id 15.0.1347.2; Fri, 5 Jul
- 2019 14:36:11 +0200
+ 2019 14:41:03 +0200
 Received: from SFHDAG6NODE3.st.com ([fe80::d04:5337:ab17:b6f6]) by
  SFHDAG6NODE3.st.com ([fe80::d04:5337:ab17:b6f6%20]) with mapi id
- 15.00.1473.003; Fri, 5 Jul 2019 14:36:11 +0200
+ 15.00.1473.003; Fri, 5 Jul 2019 14:41:03 +0200
 From: Philippe CORNU <philippe.cornu@st.com>
 To: Olivier MOYSAN <olivier.moysan@st.com>, "a.hajda@samsung.com"
  <a.hajda@samsung.com>, "narmstrong@baylibre.com" <narmstrong@baylibre.com>,
@@ -57,17 +57,13 @@ To: Olivier MOYSAN <olivier.moysan@st.com>, "a.hajda@samsung.com"
  "linux-arm-kernel@lists.infradead.org"
  <linux-arm-kernel@lists.infradead.org>,
  "linux-stm32@st-md-mailman.stormreply.com"
- <linux-stm32@st-md-mailman.stormreply.com>,
- "jsarha@ti.com" <jsarha@ti.com>, "robh+dt@kernel.org" <robh+dt@kernel.org>,
- "mark.rutland@arm.com" <mark.rutland@arm.com>, "devicetree@vger.kernel.org"
- <devicetree@vger.kernel.org>
-Thread-Topic: [PATCH 3/3] drm/bridge: sii902x: make audio mclk optional
-Thread-Index: AQHVMO2M8CUkPHajiUCKtjETQ0unPqa72RGA
-Date: Fri, 5 Jul 2019 12:36:11 +0000
-Message-ID: <2828a8ca-6d25-fe49-f97a-cfd86e5d5fac@st.com>
-References: <1562082426-14876-1-git-send-email-olivier.moysan@st.com>
- <1562082426-14876-4-git-send-email-olivier.moysan@st.com>
-In-Reply-To: <1562082426-14876-4-git-send-email-olivier.moysan@st.com>
+ <linux-stm32@st-md-mailman.stormreply.com>, "jsarha@ti.com" <jsarha@ti.com>
+Thread-Topic: [PATCH] drm/bridge: sii902x: add audio graph card support
+Thread-Index: AQHVMXX5EUvh0puEZ0ygMEtXg5C9Kaa72VsA
+Date: Fri, 5 Jul 2019 12:41:03 +0000
+Message-ID: <7c17b3f2-afee-7548-7620-b67d11d09b24@st.com>
+References: <1562141052-26221-1-git-send-email-olivier.moysan@st.com>
+In-Reply-To: <1562141052-26221-1-git-send-email-olivier.moysan@st.com>
 Accept-Language: fr-FR, en-US
 Content-Language: en-US
 X-MS-Has-Attach: 
@@ -76,13 +72,13 @@ user-agent: Mozilla/5.0 (X11; Linux x86_64; rv:60.0) Gecko/20100101
  Thunderbird/60.7.2
 x-ms-exchange-messagesentrepresentingtype: 1
 x-ms-exchange-transport-fromentityheader: Hosted
-x-originating-ip: [10.75.127.47]
-Content-ID: <94B1862D7883AE44876E6AC9CEA4D8CD@st.com>
+x-originating-ip: [10.75.127.45]
+Content-ID: <019DC7758BBDE148B1C01A127A8F5761@st.com>
 MIME-Version: 1.0
 X-Proofpoint-Virus-Version: vendor=fsecure engine=2.50.10434:, ,
  definitions=2019-07-05_05:, , signatures=0
-Subject: Re: [Linux-stm32] [PATCH 3/3] drm/bridge: sii902x: make audio mclk
-	optional
+Subject: Re: [Linux-stm32] [PATCH] drm/bridge: sii902x: add audio graph card
+	support
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -101,95 +97,67 @@ Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
 Hi Olivier,
 and many thanks for your patch.
-
+Good to have the audio graph card support, looks ok.
 Reviewed-by: Philippe Cornu <philippe.cornu@st.com>
 Philippe :-)
 
-On 7/2/19 5:47 PM, Olivier Moysan wrote:
-> The master clock on i2s bus is not mandatory,
-> as sii902X internal PLL can be used instead.
-> Make use of mclk optional.
-> 
-> Fixes: ff5781634c41 ("drm/bridge: sii902x: Implement HDMI audio support")
+On 7/3/19 10:04 AM, Olivier Moysan wrote:
+> Implement get_dai_id callback of audio HDMI codec
+> to support ASoC audio graph card.
+> HDMI audio output has to be connected to sii902x port 3.
+> get_dai_id callback maps this port to ASoC DAI index 0.
 > 
 > Signed-off-by: Olivier Moysan <olivier.moysan@st.com>
 > ---
->   drivers/gpu/drm/bridge/sii902x.c | 39 +++++++++++++++++++++++----------------
->   1 file changed, 23 insertions(+), 16 deletions(-)
+>   drivers/gpu/drm/bridge/sii902x.c | 23 +++++++++++++++++++++++
+>   1 file changed, 23 insertions(+)
 > 
 > diff --git a/drivers/gpu/drm/bridge/sii902x.c b/drivers/gpu/drm/bridge/sii902x.c
-> index 36acc256e67e..a08bd9fdc046 100644
+> index dd7aa466b280..daf9ef3cd817 100644
 > --- a/drivers/gpu/drm/bridge/sii902x.c
 > +++ b/drivers/gpu/drm/bridge/sii902x.c
-> @@ -562,19 +562,21 @@ static int sii902x_audio_hw_params(struct device *dev, void *data,
->   		}
->   	}
+> @@ -158,6 +158,8 @@
 >   
-> -	ret = clk_prepare_enable(sii902x->audio.mclk);
-> -	if (ret) {
-> -		dev_err(dev, "Enabling mclk failed: %d\n", ret);
-> -		return ret;
-> -	}
-> +	if (sii902x->audio.mclk) {
-> +		ret = clk_prepare_enable(sii902x->audio.mclk);
-> +		if (ret) {
-> +			dev_err(dev, "Enabling mclk failed: %d\n", ret);
-> +			return ret;
-> +		}
+>   #define SII902X_I2C_BUS_ACQUISITION_TIMEOUT_MS	500
 >   
-> -	mclk_rate = clk_get_rate(sii902x->audio.mclk);
-> +		mclk_rate = clk_get_rate(sii902x->audio.mclk);
->   
-> -	ret = sii902x_select_mclk_div(&i2s_config_reg, params->sample_rate,
-> -				      mclk_rate);
-> -	if (mclk_rate != ret * params->sample_rate)
-> -		dev_dbg(dev, "Inaccurate reference clock (%ld/%d != %u)\n",
-> -			mclk_rate, ret, params->sample_rate);
-> +		ret = sii902x_select_mclk_div(&i2s_config_reg,
-> +					      params->sample_rate, mclk_rate);
-> +		if (mclk_rate != ret * params->sample_rate)
-> +			dev_dbg(dev, "Inaccurate reference clock (%ld/%d != %u)\n",
-> +				mclk_rate, ret, params->sample_rate);
-> +	}
->   
->   	mutex_lock(&sii902x->mutex);
->   
-> @@ -640,7 +642,8 @@ static int sii902x_audio_hw_params(struct device *dev, void *data,
->   	mutex_unlock(&sii902x->mutex);
->   
->   	if (ret) {
-> -		clk_disable_unprepare(sii902x->audio.mclk);
-> +		if (sii902x->audio.mclk)
-> +			clk_disable_unprepare(sii902x->audio.mclk);
->   		dev_err(dev, "%s: hdmi audio enable failed: %d\n", __func__,
->   			ret);
->   	}
-> @@ -659,7 +662,8 @@ static void sii902x_audio_shutdown(struct device *dev, void *data)
->   
->   	mutex_unlock(&sii902x->mutex);
->   
-> -	clk_disable_unprepare(sii902x->audio.mclk);
-> +	if (sii902x->audio.mclk)
-> +		clk_disable_unprepare(sii902x->audio.mclk);
+> +#define SII902X_AUDIO_PORT_INDEX		3
+> +
+>   struct sii902x {
+>   	struct i2c_client *i2c;
+>   	struct regmap *regmap;
+> @@ -690,11 +692,32 @@ static int sii902x_audio_get_eld(struct device *dev, void *data,
+>   	return 0;
 >   }
 >   
->   int sii902x_audio_digital_mute(struct device *dev, void *data, bool enable)
-> @@ -752,9 +756,12 @@ static int sii902x_audio_codec_init(struct sii902x *sii902x,
+> +static int sii902x_audio_get_dai_id(struct snd_soc_component *component,
+> +				    struct device_node *endpoint)
+> +{
+> +	struct of_endpoint of_ep;
+> +	int ret;
+> +
+> +	ret = of_graph_parse_endpoint(endpoint, &of_ep);
+> +	if (ret < 0)
+> +		return ret;
+> +
+> +	/*
+> +	 * HDMI sound should be located at reg = <3>
+> +	 * Return expected DAI index 0.
+> +	 */
+> +	if (of_ep.port == SII902X_AUDIO_PORT_INDEX)
+> +		return 0;
+> +
+> +	return -EINVAL;
+> +}
+> +
+>   static const struct hdmi_codec_ops sii902x_audio_codec_ops = {
+>   	.hw_params = sii902x_audio_hw_params,
+>   	.audio_shutdown = sii902x_audio_shutdown,
+>   	.digital_mute = sii902x_audio_digital_mute,
+>   	.get_eld = sii902x_audio_get_eld,
+> +	.get_dai_id = sii902x_audio_get_dai_id,
+>   };
 >   
->   	sii902x->audio.mclk = devm_clk_get(dev, "mclk");
->   	if (IS_ERR(sii902x->audio.mclk)) {
-> -		dev_err(dev, "%s: No clock (audio mclk) found: %ld\n",
-> -			__func__, PTR_ERR(sii902x->audio.mclk));
-> -		return 0;
-> +		if (PTR_ERR(sii902x->audio.mclk) != -ENOENT) {
-> +			dev_err(dev, "%s: No clock (audio mclk) found: %ld\n",
-> +				__func__, PTR_ERR(sii902x->audio.mclk));
-> +			return PTR_ERR(sii902x->audio.mclk);
-> +		}
-> +		sii902x->audio.mclk = NULL;
->   	}
->   
->   	sii902x->audio.pdev = platform_device_register_data(
+>   static int sii902x_audio_codec_init(struct sii902x *sii902x,
 > 
 _______________________________________________
 Linux-stm32 mailing list
