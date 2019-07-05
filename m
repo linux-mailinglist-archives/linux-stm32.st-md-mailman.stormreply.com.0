@@ -2,83 +2,69 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id 7030A6061B
-	for <lists+linux-stm32@lfdr.de>; Fri,  5 Jul 2019 14:42:29 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 5886460692
+	for <lists+linux-stm32@lfdr.de>; Fri,  5 Jul 2019 15:29:12 +0200 (CEST)
 Received: from ip-172-31-3-76.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 1DDDDC35E01
-	for <lists+linux-stm32@lfdr.de>; Fri,  5 Jul 2019 12:42:29 +0000 (UTC)
-Received: from mx07-00178001.pphosted.com (mx07-00178001.pphosted.com
- [62.209.51.94])
- (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 3B6FEC35E01
+	for <lists+linux-stm32@lfdr.de>; Fri,  5 Jul 2019 13:29:11 +0000 (UTC)
+Received: from mail-wr1-f68.google.com (mail-wr1-f68.google.com
+ [209.85.221.68])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 689AAC36B3E
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id F0FF1C36B3E
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Fri,  5 Jul 2019 12:42:27 +0000 (UTC)
-Received: from pps.filterd (m0046668.ppops.net [127.0.0.1])
- by mx07-00178001.pphosted.com (8.16.0.27/8.16.0.27) with SMTP id
- x65CbDxP001281; Fri, 5 Jul 2019 14:41:05 +0200
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=st.com;
- h=from : to : subject :
- date : message-id : references : in-reply-to : content-type : content-id :
- content-transfer-encoding : mime-version; s=STMicroelectronics;
- bh=qh28dI5DvFVPJdueAPSh1Hk6ECUAJ6MLaEbc5I2IPDs=;
- b=WcHpYZjYL64+yCVvOf1KAWbOCHMXUugif32Iyp6Dx0GO5T1alRnS5102dKuCLa/vY/Jh
- 4RtA46QSdUmF/7miKyJ6CZ3zS4d/0yxAh9bjUblx02BIlT02CJ5lt6uOoXrcQhQBUYoM
- u/yKBA9ZzVk3JTl74xYHJdt3omDCYcdgth0PR4OhZ4AUtyPnvPEQ4F4OW3LB7fz47VWt
- GF6SAF7vPuWYMVIK9K3HTUM76veghmNsD+WqswgJZDnannj90aPPvBr4bSb+SLxOe6/g
- 0bYsT8Fv+gEgQypIcr5PaI0SVufEOw3Ou8CeiltVAMGvlVCMkw5kMFUha6xppJWLW+FT pA== 
-Received: from beta.dmz-eu.st.com (beta.dmz-eu.st.com [164.129.1.35])
- by mx07-00178001.pphosted.com with ESMTP id 2tdwf1jjjq-1
- (version=TLSv1 cipher=ECDHE-RSA-AES256-SHA bits=256 verify=NOT);
- Fri, 05 Jul 2019 14:41:05 +0200
-Received: from zeta.dmz-eu.st.com (zeta.dmz-eu.st.com [164.129.230.9])
- by beta.dmz-eu.st.com (STMicroelectronics) with ESMTP id CB5F731;
- Fri,  5 Jul 2019 12:41:03 +0000 (GMT)
-Received: from Webmail-eu.st.com (sfhdag3node1.st.com [10.75.127.7])
- by zeta.dmz-eu.st.com (STMicroelectronics) with ESMTP id 9F3182CC3;
- Fri,  5 Jul 2019 12:41:03 +0000 (GMT)
-Received: from SFHDAG6NODE3.st.com (10.75.127.18) by SFHDAG3NODE1.st.com
- (10.75.127.7) with Microsoft SMTP Server (TLS) id 15.0.1347.2; Fri, 5 Jul
- 2019 14:41:03 +0200
-Received: from SFHDAG6NODE3.st.com ([fe80::d04:5337:ab17:b6f6]) by
- SFHDAG6NODE3.st.com ([fe80::d04:5337:ab17:b6f6%20]) with mapi id
- 15.00.1473.003; Fri, 5 Jul 2019 14:41:03 +0200
-From: Philippe CORNU <philippe.cornu@st.com>
-To: Olivier MOYSAN <olivier.moysan@st.com>, "a.hajda@samsung.com"
- <a.hajda@samsung.com>, "narmstrong@baylibre.com" <narmstrong@baylibre.com>,
- "Laurent.pinchart@ideasonboard.com" <Laurent.pinchart@ideasonboard.com>,
- "jonas@kwiboo.se" <jonas@kwiboo.se>, "jernej.skrabec@siol.net"
- <jernej.skrabec@siol.net>, "airlied@linux.ie" <airlied@linux.ie>,
- "daniel@ffwll.ch" <daniel@ffwll.ch>, "dri-devel@lists.freedesktop.org"
- <dri-devel@lists.freedesktop.org>, "linux-kernel@vger.kernel.org"
- <linux-kernel@vger.kernel.org>,
- Benjamin GAIGNARD <benjamin.gaignard@st.com>,
- Alexandre TORGUE <alexandre.torgue@st.com>,
- "linux-arm-kernel@lists.infradead.org"
- <linux-arm-kernel@lists.infradead.org>,
- "linux-stm32@st-md-mailman.stormreply.com"
- <linux-stm32@st-md-mailman.stormreply.com>, "jsarha@ti.com" <jsarha@ti.com>
-Thread-Topic: [PATCH] drm/bridge: sii902x: add audio graph card support
-Thread-Index: AQHVMXX5EUvh0puEZ0ygMEtXg5C9Kaa72VsA
-Date: Fri, 5 Jul 2019 12:41:03 +0000
-Message-ID: <7c17b3f2-afee-7548-7620-b67d11d09b24@st.com>
-References: <1562141052-26221-1-git-send-email-olivier.moysan@st.com>
-In-Reply-To: <1562141052-26221-1-git-send-email-olivier.moysan@st.com>
-Accept-Language: fr-FR, en-US
-Content-Language: en-US
-X-MS-Has-Attach: 
-X-MS-TNEF-Correlator: 
-user-agent: Mozilla/5.0 (X11; Linux x86_64; rv:60.0) Gecko/20100101
- Thunderbird/60.7.2
-x-ms-exchange-messagesentrepresentingtype: 1
-x-ms-exchange-transport-fromentityheader: Hosted
-x-originating-ip: [10.75.127.45]
-Content-ID: <019DC7758BBDE148B1C01A127A8F5761@st.com>
+ Fri,  5 Jul 2019 13:29:09 +0000 (UTC)
+Received: by mail-wr1-f68.google.com with SMTP id n4so9986230wrs.3
+ for <linux-stm32@st-md-mailman.stormreply.com>;
+ Fri, 05 Jul 2019 06:29:09 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linaro.org; s=google;
+ h=date:from:to:cc:subject:message-id:references:mime-version
+ :content-disposition:in-reply-to:user-agent;
+ bh=ES3Fxqq/qVk0kvCdNYd6vQVB8dMaCL8eLDDrQ6qbPig=;
+ b=jKImGNCLlO5An5dLyx2aVNvpjjInFeFKhGs2nmLuOp1EvadE1LSjGLgdbhRmtWQSfx
+ n3MOTFnCoJzCmRtYd/3UAJewbi640IocbvSpPJt28zuRLrYKdpCPXQhFGTjVn9VW4C6Q
+ ry3YKmLr46tCXpgWSMGkVOgJLCVZQWqszsNAslKm8KwOm6wxaXxui4og6rrSPEMBTUsv
+ MD8jq4UhEWSs7/giqq378k9I8OY3qdXHsisW2/V/PxXRF8+FbcG3x/a9jeCDlSCcJ50l
+ ogsrd3sOIYdRSvXPEg1u7n8rpdH45iY/fs3YdrbCuD8FAfLYp9Ey2AqdRR5tpntE1e0D
+ ONJA==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20161025;
+ h=x-gm-message-state:date:from:to:cc:subject:message-id:references
+ :mime-version:content-disposition:in-reply-to:user-agent;
+ bh=ES3Fxqq/qVk0kvCdNYd6vQVB8dMaCL8eLDDrQ6qbPig=;
+ b=Z09Zp3ZEt8ME2DkFjWhAShFQlrJjwx42tT/l708go/UlOYpt/qGI15Hvg8Uni1NCZN
+ JaqcyRskbnF57R/NpseZfSq0JZpUZ4ri68HgdXyA0o121R8azt1ZB9/So1xtUSAad7uw
+ r8r/lY8a7ClzUqgQQ4GI8G5aRkK1f89uW1I8dyzOgrbZ2/sUx33/TKyZ1hgYCkgi6IXz
+ DHpfqTExYSGCePauCfD9AZj0+SEwROkLsjni9R8pzGe8YOwMbu9M7RxLxsV5bbWwEG+N
+ ICPX2drLJQzkRLgT6v359TteJbnluxeQiNgUt15J+TsBr51X+cnIjE2252auhTcGcjOz
+ 0SzQ==
+X-Gm-Message-State: APjAAAXMkdBnvCHcWge13M/CYDQGgCyMFV/T59tEGRvZoUGytQDZnKC/
+ B7fFfImm5/HAZG6s2K468QgqFA==
+X-Google-Smtp-Source: APXvYqzjMQhemoYavZtb41OiKS8heBAFjJkN3Jzjp+CP4WqiX2GqTTD7wj40s7CG20LugioQJosqgg==
+X-Received: by 2002:adf:de08:: with SMTP id b8mr3606488wrm.282.1562333349431; 
+ Fri, 05 Jul 2019 06:29:09 -0700 (PDT)
+Received: from apalos (athedsl-428434.home.otenet.gr. [79.131.225.144])
+ by smtp.gmail.com with ESMTPSA id h8sm8749710wmf.12.2019.07.05.06.29.07
+ (version=TLS1_2 cipher=ECDHE-RSA-AES128-GCM-SHA256 bits=128/128);
+ Fri, 05 Jul 2019 06:29:08 -0700 (PDT)
+Date: Fri, 5 Jul 2019 16:29:05 +0300
+From: Ilias Apalodimas <ilias.apalodimas@linaro.org>
+To: Jose Abreu <Jose.Abreu@synopsys.com>
+Message-ID: <20190705132905.GA15433@apalos>
+References: <cover.1562311299.git.joabreu@synopsys.com>
+ <384dab52828c4b65596ef4202562a574eed93b91.1562311299.git.joabreu@synopsys.com>
 MIME-Version: 1.0
-X-Proofpoint-Virus-Version: vendor=fsecure engine=2.50.10434:, ,
- definitions=2019-07-05_05:, , signatures=0
-Subject: Re: [Linux-stm32] [PATCH] drm/bridge: sii902x: add audio graph card
-	support
+Content-Disposition: inline
+In-Reply-To: <384dab52828c4b65596ef4202562a574eed93b91.1562311299.git.joabreu@synopsys.com>
+User-Agent: Mutt/1.5.24 (2015-08-30)
+Cc: Joao Pinto <Joao.Pinto@synopsys.com>, Arnd Bergmann <arnd@arndb.de>,
+ netdev@vger.kernel.org, linux-kernel@vger.kernel.org,
+ linux-stm32@st-md-mailman.stormreply.com,
+ Jesper Dangaard Brouer <brouer@redhat.com>,
+ Giuseppe Cavallaro <peppe.cavallaro@st.com>,
+ "David S . Miller" <davem@davemloft.net>, linux-arm-kernel@lists.infradead.org
+Subject: Re: [Linux-stm32] [PATCH net-next v3 3/3] net: stmmac: Introducing
+ support for Page Pool
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -95,70 +81,62 @@ Content-Transfer-Encoding: 7bit
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
-Hi Olivier,
-and many thanks for your patch.
-Good to have the audio graph card support, looks ok.
-Reviewed-by: Philippe Cornu <philippe.cornu@st.com>
-Philippe :-)
+Hi Jose,
 
-On 7/3/19 10:04 AM, Olivier Moysan wrote:
-> Implement get_dai_id callback of audio HDMI codec
-> to support ASoC audio graph card.
-> HDMI audio output has to be connected to sii902x port 3.
-> get_dai_id callback maps this port to ASoC DAI index 0.
+I think this look ok for now. One request though, on page_pool_free 
+
+On Fri, Jul 05, 2019 at 09:23:00AM +0200, Jose Abreu wrote:
+> Mapping and unmapping DMA region is an high bottleneck in stmmac driver,
+> specially in the RX path.
 > 
-> Signed-off-by: Olivier Moysan <olivier.moysan@st.com>
+> This commit introduces support for Page Pool API and uses it in all RX
+> queues. With this change, we get more stable troughput and some increase
+> of banwidth with iperf:
+> 	- MAC1000 - 950 Mbps
+> 	- XGMAC: 9.22 Gbps
+> 
+> Changes from v2:
+> 	- Uncoditionally call page_pool_free() (Jesper)
+> Changes from v1:
+> 	- Use page_pool_get_dma_addr() (Jesper)
+> 	- Add a comment (Jesper)
+> 	- Add page_pool_free() call (Jesper)
+> 	- Reintroduce sync_single_for_device (Arnd / Ilias)
+> 
+> Signed-off-by: Jose Abreu <joabreu@synopsys.com>
+> Cc: Joao Pinto <jpinto@synopsys.com>
+> Cc: David S. Miller <davem@davemloft.net>
+> Cc: Giuseppe Cavallaro <peppe.cavallaro@st.com>
+> Cc: Alexandre Torgue <alexandre.torgue@st.com>
+> Cc: Ilias Apalodimas <ilias.apalodimas@linaro.org>
+> Cc: Jesper Dangaard Brouer <brouer@redhat.com>
+> Cc: Arnd Bergmann <arnd@arndb.de>
 > ---
->   drivers/gpu/drm/bridge/sii902x.c | 23 +++++++++++++++++++++++
->   1 file changed, 23 insertions(+)
+>  drivers/net/ethernet/stmicro/stmmac/Kconfig       |   1 +
+>  drivers/net/ethernet/stmicro/stmmac/stmmac.h      |  10 +-
+>  drivers/net/ethernet/stmicro/stmmac/stmmac_main.c | 203 +++++++---------------
+>  3 files changed, 70 insertions(+), 144 deletions(-)
 > 
-> diff --git a/drivers/gpu/drm/bridge/sii902x.c b/drivers/gpu/drm/bridge/sii902x.c
-> index dd7aa466b280..daf9ef3cd817 100644
-> --- a/drivers/gpu/drm/bridge/sii902x.c
-> +++ b/drivers/gpu/drm/bridge/sii902x.c
-> @@ -158,6 +158,8 @@
->   
->   #define SII902X_I2C_BUS_ACQUISITION_TIMEOUT_MS	500
->   
-> +#define SII902X_AUDIO_PORT_INDEX		3
-> +
->   struct sii902x {
->   	struct i2c_client *i2c;
->   	struct regmap *regmap;
-> @@ -690,11 +692,32 @@ static int sii902x_audio_get_eld(struct device *dev, void *data,
->   	return 0;
->   }
->   
-> +static int sii902x_audio_get_dai_id(struct snd_soc_component *component,
-> +				    struct device_node *endpoint)
-> +{
-> +	struct of_endpoint of_ep;
-> +	int ret;
-> +
-> +	ret = of_graph_parse_endpoint(endpoint, &of_ep);
-> +	if (ret < 0)
-> +		return ret;
-> +
-> +	/*
-> +	 * HDMI sound should be located at reg = <3>
-> +	 * Return expected DAI index 0.
-> +	 */
-> +	if (of_ep.port == SII902X_AUDIO_PORT_INDEX)
-> +		return 0;
-> +
-> +	return -EINVAL;
-> +}
-> +
->   static const struct hdmi_codec_ops sii902x_audio_codec_ops = {
->   	.hw_params = sii902x_audio_hw_params,
->   	.audio_shutdown = sii902x_audio_shutdown,
->   	.digital_mute = sii902x_audio_digital_mute,
->   	.get_eld = sii902x_audio_get_eld,
-> +	.get_dai_id = sii902x_audio_get_dai_id,
->   };
->   
->   static int sii902x_audio_codec_init(struct sii902x *sii902x,
-> 
+
+[...]
+> @@ -1498,8 +1480,11 @@ static void free_dma_rx_desc_resources(struct stmmac_priv *priv)
+>  					  sizeof(struct dma_extended_desc),
+>  					  rx_q->dma_erx, rx_q->dma_rx_phy);
+>  
+> -		kfree(rx_q->rx_skbuff_dma);
+> -		kfree(rx_q->rx_skbuff);
+> +		kfree(rx_q->buf_pool);
+> +		if (rx_q->page_pool) {
+> +			page_pool_request_shutdown(rx_q->page_pool);
+> +			page_pool_free(rx_q->page_pool);
+
+A patch currently under review will slightly change that [1] and [2]
+Can you defer this a bit till that one gets merged?
+The only thing you'll have to do is respin this and replace page_pool_free()
+with page_pool_destroy()
+
+[1] https://lore.kernel.org/netdev/20190705094346.13b06da6@carbon/
+[2] https://lore.kernel.org/netdev/156225871578.1603.6630229522953924907.stgit@firesoul/
 _______________________________________________
 Linux-stm32 mailing list
 Linux-stm32@st-md-mailman.stormreply.com
