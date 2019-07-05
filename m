@@ -2,55 +2,60 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id 88178602FD
-	for <lists+linux-stm32@lfdr.de>; Fri,  5 Jul 2019 11:16:46 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id B529860598
+	for <lists+linux-stm32@lfdr.de>; Fri,  5 Jul 2019 13:54:20 +0200 (CEST)
 Received: from ip-172-31-3-76.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id F2FA5C35E01
-	for <lists+linux-stm32@lfdr.de>; Fri,  5 Jul 2019 09:16:45 +0000 (UTC)
-Received: from mga18.intel.com (mga18.intel.com [134.134.136.126])
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 64E9CC35E01
+	for <lists+linux-stm32@lfdr.de>; Fri,  5 Jul 2019 11:54:20 +0000 (UTC)
+Received: from mx07-00178001.pphosted.com (mx07-00178001.pphosted.com
+ [62.209.51.94])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 0A43AC36B3E
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 72A3CC36B3E
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Fri,  5 Jul 2019 09:16:43 +0000 (UTC)
-X-Amp-Result: UNSCANNABLE
-X-Amp-File-Uploaded: False
-Received: from fmsmga006.fm.intel.com ([10.253.24.20])
- by orsmga106.jf.intel.com with ESMTP/TLS/DHE-RSA-AES256-GCM-SHA384;
- 05 Jul 2019 02:16:42 -0700
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="5.63,454,1557212400"; d="scan'208";a="363551708"
-Received: from paasikivi.fi.intel.com ([10.237.72.42])
- by fmsmga006.fm.intel.com with ESMTP; 05 Jul 2019 02:16:38 -0700
-Received: by paasikivi.fi.intel.com (Postfix, from userid 1000)
- id 07C2820904; Fri,  5 Jul 2019 12:16:37 +0300 (EEST)
-Date: Fri, 5 Jul 2019 12:16:37 +0300
-From: Sakari Ailus <sakari.ailus@linux.intel.com>
-To: Laurent Pinchart <laurent.pinchart@ideasonboard.com>
-Message-ID: <20190705091637.b5626yvkycumsp6z@paasikivi.fi.intel.com>
-References: <1560242912-17138-1-git-send-email-hugues.fruchet@st.com>
- <20190620161721.h3wn4nibomrvriw4@kekkonen.localdomain>
- <ae097d67-58fe-82d7-78d6-2445664f28db@st.com>
- <20190626172503.GB6118@pendragon.ideasonboard.com>
- <b21efe64-7762-308b-c2e5-503589041c35@st.com>
- <20190627133824.GC5021@pendragon.ideasonboard.com>
- <20190705075522.o7kuptdy3p3o64l7@paasikivi.fi.intel.com>
- <20190705080424.GA4994@pendragon.ideasonboard.com>
+ Fri,  5 Jul 2019 11:54:19 +0000 (UTC)
+Received: from pps.filterd (m0046037.ppops.net [127.0.0.1])
+ by mx07-00178001.pphosted.com (8.16.0.27/8.16.0.27) with SMTP id
+ x65Bp2ve022719; Fri, 5 Jul 2019 13:53:06 +0200
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=st.com;
+ h=from : to : subject :
+ date : message-id : mime-version : content-type; s=STMicroelectronics;
+ bh=eSNOE8LcuBwBrzx3QG6juaa+hRCbqowv2ukbBye9kmw=;
+ b=VnsqGIJmzTsOl5wvhOacnXOauRz+BhRB8crrhe1L/E6dtLpca8LVKMKvmhCBfuF7Wcuw
+ CBzJVyYxGLRJD8Pk05vm+b4eOiYykwKBx0FRVpPkqIj5EE+1/vgRSyZSIzO5ChzpPZYM
+ HXEFFyiyaBxHyzQDvCrlc7U0GDKArv9G3fMroiIdeZYNOX3E1/6HWOJABcsceo+lLr1s
+ kLJ6fL1E1xIHG7NEyEFmf8Ibf/vuO+M8w9c1FkW3bxPVAiwNRy0+iVccB4VimoZFzhE+
+ gxooDv1x/Vs85HcFXXayvY2lJYoVdsxtgQBGxUVdZVADeiaYxycENDWWYryLSrGmk814 ZQ== 
+Received: from beta.dmz-eu.st.com (beta.dmz-eu.st.com [164.129.1.35])
+ by mx07-00178001.pphosted.com with ESMTP id 2tgx0qx0pu-1
+ (version=TLSv1 cipher=ECDHE-RSA-AES256-SHA bits=256 verify=NOT);
+ Fri, 05 Jul 2019 13:53:05 +0200
+Received: from zeta.dmz-eu.st.com (zeta.dmz-eu.st.com [164.129.230.9])
+ by beta.dmz-eu.st.com (STMicroelectronics) with ESMTP id 35B3E3A;
+ Fri,  5 Jul 2019 11:53:04 +0000 (GMT)
+Received: from Webmail-eu.st.com (Safex1hubcas23.st.com [10.75.90.46])
+ by zeta.dmz-eu.st.com (STMicroelectronics) with ESMTP id DCF0B2BC8;
+ Fri,  5 Jul 2019 11:53:03 +0000 (GMT)
+Received: from SAFEX1HUBCAS21.st.com (10.75.90.45) by SAFEX1HUBCAS23.st.com
+ (10.75.90.46) with Microsoft SMTP Server (TLS) id 14.3.439.0; Fri, 5 Jul 2019
+ 13:53:04 +0200
+Received: from localhost (10.201.23.16) by Webmail-ga.st.com (10.75.90.48)
+ with Microsoft SMTP Server (TLS) id 14.3.439.0; Fri, 5 Jul 2019 13:53:03
+ +0200
+From: Olivier Moysan <olivier.moysan@st.com>
+To: <linux-stm32@st-md-mailman.stormreply.com>, <alexandre.torgue@st.com>,
+ <robh@kernel.org>, <mark.rutland@arm.com>,
+ <devicetree@vger.kernel.org>, <linux-arm-kernel@lists.infradead.org>,
+ <linux-kernel@vger.kernel.org>, <olivier.moysan@st.com>
+Date: Fri, 5 Jul 2019 13:53:00 +0200
+Message-ID: <1562327580-19647-1-git-send-email-olivier.moysan@st.com>
+X-Mailer: git-send-email 2.7.4
 MIME-Version: 1.0
-Content-Disposition: inline
-In-Reply-To: <20190705080424.GA4994@pendragon.ideasonboard.com>
-User-Agent: NeoMutt/20170113 (1.7.2)
-Cc: Yannick FERTRE <yannick.fertre@st.com>,
- Mickael GUENE <mickael.guene@st.com>,
- "linux-kernel@vger.kernel.org" <linux-kernel@vger.kernel.org>,
- Hans Verkuil <hverkuil@xs4all.nl>,
- Benjamin Gaignard <benjamin.gaignard@linaro.org>,
- Mauro Carvalho Chehab <mchehab@kernel.org>,
- "linux-stm32@st-md-mailman.stormreply.com"
- <linux-stm32@st-md-mailman.stormreply.com>,
- "linux-arm-kernel@lists.infradead.org" <linux-arm-kernel@lists.infradead.org>,
- "linux-media@vger.kernel.org" <linux-media@vger.kernel.org>
-Subject: Re: [Linux-stm32] [PATCH v2 0/3] DCMI bridge support
+X-Originating-IP: [10.201.23.16]
+X-Proofpoint-Virus-Version: vendor=fsecure engine=2.50.10434:, ,
+ definitions=2019-07-05_05:, , signatures=0
+Subject: [Linux-stm32] [PATCH] ARM: dts: stm32: add audio codec support on
+	stm32mp157a-dk1 board
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -67,41 +72,145 @@ Content-Transfer-Encoding: 7bit
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
-Hi Laurent,
+Add support of Cirrus cs42l51 audio codec on stm32mp157a-dk1 board.
+Configuration overview:
+- SAI2A is the CPU interface used for the codec audio playback
+- SAI2B is the CPU interface used for the codec audio record
+- SAI2A is configured as a clock provider for the audio codec
+- SAI2A&B are configured as slave of the audio codec
+- SAI2A&B share the same interface of the audio codec
 
-On Fri, Jul 05, 2019 at 11:04:24AM +0300, Laurent Pinchart wrote:
+Note:
+In master mode, cs42l51 audio codec provides a bitclock
+at 64 x FS, regardless of data width. This means that
+slot width is always 32 bits.
+Set slot width to 32 bits and slot number to 2
+in SAI2A&B endpoint nodes, to match this constraint.
+dai-tdm-slot-num and dai-tdm-slot-width properties are used here,
+assuming that i2s is a special case of tdm, where slot number is 2.
 
-...
+Signed-off-by: Olivier Moysan <olivier.moysan@st.com>
+---
+ arch/arm/boot/dts/stm32mp157a-dk1.dts | 89 +++++++++++++++++++++++++++++++++++
+ 1 file changed, 89 insertions(+)
 
-> > A reasonable compromise would be to add a Kconfig option that allows
-> > enabling MC. This way you can provide backwards compatibility and allow
-> > making use of the full potential of the hardware. That's also why hardware
-> > that may be part of a non-trivial MC pipeline should start with MC-enabled
-> > so we wouldn't run into this.
-> 
-> I really don't like this, as it introduces additional complexity. My
-> recommendation is to go for an MC-centric approach. Going for a video
-> node-centric approach is really shooting oneself in the foot regarding
-> future extensions. But that being said, if there's a strong desire to go
-> for foot self-shooting, the way to go is explained above.
-
-Well, there's nothing that can be done anymore as this has already
-happened: this is an existing driver in the mainline kernel. Unless you
-have a time machine of some sort, of course. :-) The choice is now really
-between breaking existing applications (plain V4L2) and supporting new
-functionality (MC-centric), so if you need both, I don't really see another
-choice than a Kconfig option.
-
-On the other hand, if we know there are no existing users that could not
-support the MC-centric view of the device, we could just change the driver
-API and forget the Kconfig option. It'd be much more simple that way
-indeed. But I don'k know what's the case.
-
+diff --git a/arch/arm/boot/dts/stm32mp157a-dk1.dts b/arch/arm/boot/dts/stm32mp157a-dk1.dts
+index f3f0e37aad4d..0f5b3c77153d 100644
+--- a/arch/arm/boot/dts/stm32mp157a-dk1.dts
++++ b/arch/arm/boot/dts/stm32mp157a-dk1.dts
+@@ -48,6 +48,17 @@
+ 			default-state = "off";
+ 		};
+ 	};
++
++	sound {
++		compatible = "audio-graph-card";
++		label = "STM32MP1-DK";
++		routing =
++			"Playback" , "MCLK",
++			"Capture" , "MCLK",
++			"MICL" , "Mic Bias";
++		dais = <&sai2a_port &sai2b_port>;
++		status = "okay";
++	};
+ };
+ 
+ &cec {
+@@ -116,6 +127,39 @@
+ 			};
+ 		};
+ 	};
++
++	cs42l51: cs42l51@4a {
++		compatible = "cirrus,cs42l51";
++		reg = <0x4a>;
++		#sound-dai-cells = <0>;
++		VL-supply = <&v3v3>;
++		VD-supply = <&v1v8_audio>;
++		VA-supply = <&v1v8_audio>;
++		VAHP-supply = <&v1v8_audio>;
++		reset-gpios = <&gpiog 9 GPIO_ACTIVE_LOW>;
++		clocks = <&sai2a>;
++		clock-names = "MCLK";
++		status = "okay";
++
++		cs42l51_port: port {
++			#address-cells = <1>;
++			#size-cells = <0>;
++
++			cs42l51_tx_endpoint: endpoint@0 {
++				reg = <0>;
++				remote-endpoint = <&sai2a_endpoint>;
++				frame-master;
++				bitclock-master;
++			};
++
++			cs42l51_rx_endpoint: endpoint@1 {
++				reg = <1>;
++				remote-endpoint = <&sai2b_endpoint>;
++				frame-master;
++				bitclock-master;
++			};
++		};
++	};
+ };
+ 
+ &i2c4 {
+@@ -297,6 +341,51 @@
+ 	status = "okay";
+ };
+ 
++&sai2 {
++	clocks = <&rcc SAI2>, <&rcc PLL3_Q>, <&rcc PLL3_R>;
++	clock-names = "pclk", "x8k", "x11k";
++	pinctrl-names = "default", "sleep";
++	pinctrl-0 = <&sai2a_pins_a>, <&sai2b_pins_b>;
++	pinctrl-1 = <&sai2a_sleep_pins_a>, <&sai2b_sleep_pins_b>;
++	status = "okay";
++
++	sai2a: audio-controller@4400b004 {
++		#clock-cells = <0>;
++		dma-names = "tx";
++		clocks = <&rcc SAI2_K>;
++		clock-names = "sai_ck";
++		status = "okay";
++
++		sai2a_port: port {
++			sai2a_endpoint: endpoint {
++				remote-endpoint = <&cs42l51_tx_endpoint>;
++				format = "i2s";
++				mclk-fs = <256>;
++				dai-tdm-slot-num = <2>;
++				dai-tdm-slot-width = <32>;
++			};
++		};
++	};
++
++	sai2b: audio-controller@4400b024 {
++		dma-names = "rx";
++		st,sync = <&sai2a 2>;
++		clocks = <&rcc SAI2_K>, <&sai2a>;
++		clock-names = "sai_ck", "MCLK";
++		status = "okay";
++
++		sai2b_port: port {
++			sai2b_endpoint: endpoint {
++				remote-endpoint = <&cs42l51_rx_endpoint>;
++				format = "i2s";
++				mclk-fs = <256>;
++				dai-tdm-slot-num = <2>;
++				dai-tdm-slot-width = <32>;
++			};
++		};
++	};
++};
++
+ &sdmmc1 {
+ 	pinctrl-names = "default", "opendrain", "sleep";
+ 	pinctrl-0 = <&sdmmc1_b4_pins_a>;
 -- 
-Regards,
+2.7.4
 
-Sakari Ailus
-sakari.ailus@linux.intel.com
 _______________________________________________
 Linux-stm32 mailing list
 Linux-stm32@st-md-mailman.stormreply.com
