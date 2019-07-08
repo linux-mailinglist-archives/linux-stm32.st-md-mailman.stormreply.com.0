@@ -2,53 +2,51 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id B95F061E60
-	for <lists+linux-stm32@lfdr.de>; Mon,  8 Jul 2019 14:26:52 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id A82D561EAB
+	for <lists+linux-stm32@lfdr.de>; Mon,  8 Jul 2019 14:43:22 +0200 (CEST)
 Received: from ip-172-31-3-76.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 5F0CFC5BF42
-	for <lists+linux-stm32@lfdr.de>; Mon,  8 Jul 2019 12:26:52 +0000 (UTC)
-Received: from smtprelay-out1.synopsys.com (dc8-smtprelay2.synopsys.com
- [198.182.47.102])
- (using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 33399C5C1F7
+	for <lists+linux-stm32@lfdr.de>; Mon,  8 Jul 2019 12:43:21 +0000 (UTC)
+Received: from mout.kundenserver.de (mout.kundenserver.de [217.72.192.73])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 8F275C5BF40
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 2FFF1C5C1F5
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Mon,  8 Jul 2019 12:26:50 +0000 (UTC)
-Received: from mailhost.synopsys.com (mdc-mailhost2.synopsys.com
- [10.225.0.210])
- (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits))
- (No client certificate requested)
- by smtprelay-out1.synopsys.com (Postfix) with ESMTPS id BCBBAC2A26;
- Mon,  8 Jul 2019 12:26:47 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=synopsys.com; s=mail;
- t=1562588809; bh=fLTBqcsohGmf5D926y4k3Ho/rhwsBNGOM4Be4eDgqSY=;
- h=From:To:Cc:Subject:Date:From;
- b=Kj3vmYt5roxkJWh4kP6YOgxjZo1VxdExS15uQaIqjfQYpJXi9hAXvG3OZ/h5BcdnZ
- jP0uR7F5Zz3LwNRW8vaxFt1nuKjVVQVoE90xuZQhxK8AmrY/CeGvYFKemo5dbaKsfX
- 1Pi3fY+EkRfOQGSM1qAJ/c3OLlsDAmbOuM8+zANx8FlrX9JkRCPL+IVjJ1VIvb97NY
- VzrdQOsQ9yWm123SixWprUW/PRrq075VMMPhgVaE5gdlhAjE1dJl9pITfLDycZxw9r
- f6ZgGeuvhnJXyBilUu6QHRBRRtQXhQzBDo0dK2767y/b6yqUvaS7BkpqaxG8dUvDD9
- tTar5NLiXNtTw==
-Received: from de02.synopsys.com (germany.internal.synopsys.com [10.225.17.21])
- by mailhost.synopsys.com (Postfix) with ESMTP id 14A83A005D;
- Mon,  8 Jul 2019 12:26:39 +0000 (UTC)
-Received: from de02dwia024.internal.synopsys.com
- (de02dwia024.internal.synopsys.com [10.225.19.81])
- by de02.synopsys.com (Postfix) with ESMTP id AFC2D7131;
- Mon,  8 Jul 2019 14:26:39 +0200 (CEST)
-From: Jose Abreu <Jose.Abreu@synopsys.com>
-To: netdev@vger.kernel.org
-Date: Mon,  8 Jul 2019 14:26:28 +0200
-Message-Id: <36018491f47206728e04d67a9e6263635e64f721.1562588640.git.joabreu@synopsys.com>
-X-Mailer: git-send-email 2.7.4
-Cc: Jose Abreu <Jose.Abreu@synopsys.com>, Joao Pinto <Joao.Pinto@synopsys.com>,
- linux-kernel@vger.kernel.org, linux-stm32@st-md-mailman.stormreply.com,
+ Mon,  8 Jul 2019 12:43:19 +0000 (UTC)
+Received: from threadripper.lan ([149.172.19.189]) by mrelayeu.kundenserver.de
+ (mreue108 [212.227.15.145]) with ESMTPA (Nemesis) id
+ 1N9Mh8-1iY7ev3NFE-015Mij; Mon, 08 Jul 2019 14:43:13 +0200
+From: Arnd Bergmann <arnd@arndb.de>
+To: Ohad Ben-Cohen <ohad@wizery.com>,
+ Bjorn Andersson <bjorn.andersson@linaro.org>,
  Maxime Coquelin <mcoquelin.stm32@gmail.com>,
- Giuseppe Cavallaro <peppe.cavallaro@st.com>,
- Ben Hutchings <ben@decadent.org.uk>, "David S. Miller" <davem@davemloft.net>,
- linux-arm-kernel@lists.infradead.org
-Subject: [Linux-stm32] [PATCH net] net: stmmac: Re-work the queue selection
-	for TSO packets
+ Alexandre Torgue <alexandre.torgue@st.com>
+Date: Mon,  8 Jul 2019 14:42:51 +0200
+Message-Id: <20190708124311.3448056-1-arnd@arndb.de>
+X-Mailer: git-send-email 2.20.0
+MIME-Version: 1.0
+X-Provags-ID: V03:K1:AkGDgfgp15g2CwVR7Facqvx2UQWGiD85o226q8pCrj+7T3ngYhv
+ IfLF3dxuiyn7foiSJbI+CjDMOWeNFw4kgugGEH9s7CEP/ITyLDc0js2XWpv06vcn8jwcVdi
+ htFSeTonIiSmWhiJ6NokkctrmpdXI6ajXctroI5KnraqIYGMuHO339AkvcR2SGhILxsSPPp
+ oXbARlZOVAkKCNuffxW2g==
+X-Spam-Flag: NO
+X-UI-Out-Filterresults: notjunk:1;V03:K0:NOG3AWT7dhY=:I1yuk6/XhruMMQoRCnVKYH
+ Dprmazilp2kNoyya7NhsRMMlH3fEEHyN+t7vYmASH7wZsnO8z9QnyNDYZD8PoF3PYbRSudiJr
+ beYiBGXOaQDkiZAklGiIcNdrspzn35663iyk0GQfGE9iK7UrGgJIHznTWOtzrtjtNLGhAYLRr
+ vVp1P2qtvMpmIk01cKQUB4BMDTDMHGU7IkkZHt+PtfqbkJD4ZqaPyNwpAKBnnFtEHJThM/rOc
+ mTKdXDWuUc0e8XsvFrwD8FN+5L4eBVlO0fkt2Bj8deLez+mlSgC75Bk++RkbBTAXKgtqYwlj5
+ 4Ir7mGd2pIZRTZk1Hyb5EKQdvhWXWClUp2sRj1lKVTQ5wBq2zhdk63UKWUmr16rgK+CdZZteb
+ XEKXOIEAfhTry3H0vfA8bm8WyJy4ZaJF7vFLzmxLit52Lt73TE9XN6giBVvGYS+hdoNcbNm3C
+ GCDm3qZZYwx9kM2wq/NoJE3S7283goKM3I7NfeaNIzon+gR9SQCxDQIE1OJOvrIPulXpjd51R
+ 0tUD9uoBueidEyEuuoRo+70FeDZZgh+PxOSgJFtOFxfS25GLarZZN5Ezaq+wacrZQ4DVFqZ8S
+ kmm1yamO+hiwkGBvfEC17KEgSZoRmfRDrGYdwG1X842K8zQCkf/Yrxw5PaPEQMtlk28+F2Qie
+ Clb7hFMAFS8EayWbwBwUwmuGm8WCiTDZ+uff7WLeLLuCyLgm+yfCb2YL/PGJrq56E4kUi6UcY
+ asXjZrOREjS+2fK2M//YtVvqIQpUbo66EFHOQg==
+Cc: Arnd Bergmann <arnd@arndb.de>, linux-remoteproc@vger.kernel.org,
+ linux-kernel@vger.kernel.org, Fabien Dessenne <fabien.dessenne@st.com>,
+ linux-arm-kernel@lists.infradead.org, linux-stm32@st-md-mailman.stormreply.com
+Subject: [Linux-stm32] [PATCH] remoteproc: stm32: fix building without ARM
+	SMCC
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -60,97 +58,43 @@ List-Post: <mailto:linux-stm32@st-md-mailman.stormreply.com>
 List-Help: <mailto:linux-stm32-request@st-md-mailman.stormreply.com?subject=help>
 List-Subscribe: <https://st-md-mailman.stormreply.com/mailman/listinfo/linux-stm32>, 
  <mailto:linux-stm32-request@st-md-mailman.stormreply.com?subject=subscribe>
-MIME-Version: 1.0
 Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
-Ben Hutchings says:
-	"This is the wrong place to change the queue mapping.
-	stmmac_xmit() is called with a specific TX queue locked,
-	and accessing a different TX queue results in a data race
-	for all of that queue's state.
+When compile testing this driver without SMCC support enabled,
+we get a link error:
 
-	I think this commit should be reverted upstream and in all
-	stable branches.  Instead, the driver should implement the
-	ndo_select_queue operation and override the queue mapping there."
+drivers/remoteproc/stm32_rproc.o: In function `stm32_rproc_start':
+stm32_rproc.c:(.text+0x776): undefined reference to `__arm_smccc_smc'
+drivers/remoteproc/stm32_rproc.o: In function `stm32_rproc_stop':
+stm32_rproc.c:(.text+0x92c): undefined reference to `__arm_smccc_smc'
 
-Fixes: c5acdbee22a1 ("net: stmmac: Send TSO packets always from Queue 0")
-Suggested-by: Ben Hutchings <ben@decadent.org.uk>
-Signed-off-by: Jose Abreu <joabreu@synopsys.com>
+Make the actual call to arm_smccc_smc conditional on the Kconfig
+symbol controlling its implementation.
 
+Fixes: 13140de09cc2 ("remoteproc: stm32: add an ST stm32_rproc driver")
+Signed-off-by: Arnd Bergmann <arnd@arndb.de>
 ---
-Cc: Giuseppe Cavallaro <peppe.cavallaro@st.com>
-Cc: Alexandre Torgue <alexandre.torgue@st.com>
-Cc: Jose Abreu <joabreu@synopsys.com>
-Cc: "David S. Miller" <davem@davemloft.net>
-Cc: Maxime Coquelin <mcoquelin.stm32@gmail.com>
-Cc: netdev@vger.kernel.org
-Cc: linux-stm32@st-md-mailman.stormreply.com
-Cc: linux-arm-kernel@lists.infradead.org
-Cc: linux-kernel@vger.kernel.org
-Cc: Ben Hutchings <ben@decadent.org.uk>
----
- drivers/net/ethernet/stmicro/stmmac/stmmac_main.c | 28 +++++++++++++++--------
- 1 file changed, 18 insertions(+), 10 deletions(-)
+ drivers/remoteproc/stm32_rproc.c | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
 
-diff --git a/drivers/net/ethernet/stmicro/stmmac/stmmac_main.c b/drivers/net/ethernet/stmicro/stmmac/stmmac_main.c
-index 06358fe5b245..11b6feb33b54 100644
---- a/drivers/net/ethernet/stmicro/stmmac/stmmac_main.c
-+++ b/drivers/net/ethernet/stmicro/stmmac/stmmac_main.c
-@@ -3045,17 +3045,8 @@ static netdev_tx_t stmmac_xmit(struct sk_buff *skb, struct net_device *dev)
+diff --git a/drivers/remoteproc/stm32_rproc.c b/drivers/remoteproc/stm32_rproc.c
+index e83077b9ebf5..e2da7198b65f 100644
+--- a/drivers/remoteproc/stm32_rproc.c
++++ b/drivers/remoteproc/stm32_rproc.c
+@@ -344,7 +344,7 @@ static int stm32_rproc_set_hold_boot(struct rproc *rproc, bool hold)
  
- 	/* Manage oversized TCP frames for GMAC4 device */
- 	if (skb_is_gso(skb) && priv->tso) {
--		if (skb_shinfo(skb)->gso_type & (SKB_GSO_TCPV4 | SKB_GSO_TCPV6)) {
--			/*
--			 * There is no way to determine the number of TSO
--			 * capable Queues. Let's use always the Queue 0
--			 * because if TSO is supported then at least this
--			 * one will be capable.
--			 */
--			skb_set_queue_mapping(skb, 0);
--
-+		if (skb_shinfo(skb)->gso_type & (SKB_GSO_TCPV4 | SKB_GSO_TCPV6))
- 			return stmmac_tso_xmit(skb, dev);
--		}
- 	}
+ 	val = hold ? HOLD_BOOT : RELEASE_BOOT;
  
- 	if (unlikely(stmmac_tx_avail(priv, queue) < nfrags + 1)) {
-@@ -3872,6 +3863,22 @@ static int stmmac_setup_tc(struct net_device *ndev, enum tc_setup_type type,
- 	}
- }
- 
-+static u16 stmmac_select_queue(struct net_device *dev, struct sk_buff *skb,
-+			       struct net_device *sb_dev)
-+{
-+	if (skb_shinfo(skb)->gso_type & (SKB_GSO_TCPV4 | SKB_GSO_TCPV6)) {
-+		/*
-+		 * There is no way to determine the number of TSO
-+		 * capable Queues. Let's use always the Queue 0
-+		 * because if TSO is supported then at least this
-+		 * one will be capable.
-+		 */
-+		return 0;
-+	}
-+
-+	return netdev_pick_tx(dev, skb, NULL) % dev->real_num_tx_queues;
-+}
-+
- static int stmmac_set_mac_address(struct net_device *ndev, void *addr)
- {
- 	struct stmmac_priv *priv = netdev_priv(ndev);
-@@ -4088,6 +4095,7 @@ static const struct net_device_ops stmmac_netdev_ops = {
- 	.ndo_tx_timeout = stmmac_tx_timeout,
- 	.ndo_do_ioctl = stmmac_ioctl,
- 	.ndo_setup_tc = stmmac_setup_tc,
-+	.ndo_select_queue = stmmac_select_queue,
- #ifdef CONFIG_NET_POLL_CONTROLLER
- 	.ndo_poll_controller = stmmac_poll_controller,
- #endif
+-	if (ddata->secured_soc) {
++	if (IS_ENABLED(CONFIG_HAVE_ARM_SMCCC) && ddata->secured_soc) {
+ 		arm_smccc_smc(STM32_SMC_RCC, STM32_SMC_REG_WRITE,
+ 			      hold_boot.reg, val, 0, 0, 0, 0, &smc_res);
+ 		err = smc_res.a0;
 -- 
-2.7.4
+2.20.0
 
 _______________________________________________
 Linux-stm32 mailing list
