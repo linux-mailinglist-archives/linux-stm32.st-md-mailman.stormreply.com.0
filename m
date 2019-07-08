@@ -2,33 +2,36 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id 4B00161AE5
-	for <lists+linux-stm32@lfdr.de>; Mon,  8 Jul 2019 09:06:53 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 2E29961BCA
+	for <lists+linux-stm32@lfdr.de>; Mon,  8 Jul 2019 10:42:50 +0200 (CEST)
 Received: from ip-172-31-3-76.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id ECE98C551BB
-	for <lists+linux-stm32@lfdr.de>; Mon,  8 Jul 2019 07:06:52 +0000 (UTC)
-Received: from mout.web.de (mout.web.de [212.227.15.14])
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id D2874C5848B
+	for <lists+linux-stm32@lfdr.de>; Mon,  8 Jul 2019 08:42:49 +0000 (UTC)
+Received: from mout.web.de (mout.web.de [212.227.17.11])
  (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 5D18EC36B3E
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id B5170C58489
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Fri,  5 Jul 2019 20:17:23 +0000 (UTC)
+ Mon,  8 Jul 2019 08:42:47 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=web.de;
- s=dbaedf251592; t=1562357833;
- bh=ElntTFy8IEV6WaPkcOGu5re12CCEOMkuhIikiyIfvCM=;
- h=X-UI-Sender-Class:To:Cc:From:Subject:Date;
- b=J+6EMmFMdi7yF6XxY2zZJQVhVE6SMKYBsiS1NYfsPfdKINb4AQdfHXaqPfsZder+3
- 78OPeF7FZwT7/tW2PWrTa9eSCaPniCGgIl9LswidzCteeNze7ChH13WihOffZAU+cA
- +cYealeWUYfR87iqwbF2/SMnAPLWHccxp+rIJ8rc=
+ s=dbaedf251592; t=1562575358;
+ bh=lEJJRcdmXlTIVj8k3C+1nfg3u7cryKn3CqmVSGmDYCg=;
+ h=X-UI-Sender-Class:Subject:To:Cc:References:From:Date:In-Reply-To;
+ b=KTYKABnOAbCf1p3uMvKHr4vUuzb9NOLrd8jZdGF/cyX4RH50b5SjfKTwLibFKyde3
+ ywOITkhkZM8YjQHB6uexvoR0EiYi6puRUixnLEpR92Z9DXdKFabzQpqzBKpVhCzi3A
+ dcWwinbr/hB9XGzV+aPUCWdXAlJJVYMkUfVnnbhw=
 X-UI-Sender-Class: c548c8c5-30a9-4db5-a2e7-cb6cb037b8f9
-Received: from [192.168.1.2] ([2.244.45.164]) by smtp.web.de (mrweb001
- [213.165.67.108]) with ESMTPSA (Nemesis) id 0M9Xfb-1ho9Li1lAF-00CyEw; Fri, 05
- Jul 2019 22:17:13 +0200
+Received: from [192.168.1.2] ([2.243.165.233]) by smtp.web.de (mrweb103
+ [213.165.67.124]) with ESMTPSA (Nemesis) id 0LvSLn-1iRopp28zD-010YiK; Mon, 08
+ Jul 2019 10:42:38 +0200
 To: linux-rtc@vger.kernel.org, linux-stm32@st-md-mailman.stormreply.com,
  linux-arm-kernel@lists.infradead.org, Alessandro Zummo
  <a.zummo@towertech.it>, Alexandre Belloni <alexandre.belloni@bootlin.com>,
  Alexandre Torgue <alexandre.torgue@st.com>,
- Maxime Coquelin <mcoquelin.stm32@gmail.com>
+ Maxime Coquelin <mcoquelin.stm32@gmail.com>,
+ Russell King <linux@armlinux.org.uk>
+References: <f04277da-8a98-473e-2566-ac7846f9f8e1@web.de>
+ <20190707211638.sehikkear25dffah@shell.armlinux.org.uk>
 From: Markus Elfring <Markus.Elfring@web.de>
 Openpgp: preference=signencrypt
 Autocrypt: addr=Markus.Elfring@web.de; prefer-encrypt=mutual; keydata=
@@ -74,38 +77,38 @@ Autocrypt: addr=Markus.Elfring@web.de; prefer-encrypt=mutual; keydata=
  Z/wsLiWTgKlih2QYULvW61XU+mWsK8+ZlYUrRMpkauN4CJ5yTpvp+Orcz5KixHQmc5tbkLWf
  x0n1QFc1xxJhbzN+r9djSGGN/5IBDfUqSANC8cWzHpWaHmSuU3JSAMB/N+yQjIad2ztTckZY
  pwT6oxng29LzZspTYUEzMz3wK2jQHw+U66qBFk8whA7B2uAU1QdGyPgahLYSOa4XAEGb6wbI FEE=
-Message-ID: <f04277da-8a98-473e-2566-ac7846f9f8e1@web.de>
-Date: Fri, 5 Jul 2019 22:17:11 +0200
+Message-ID: <4da614a4-83c6-548c-a112-033b846c561b@web.de>
+Date: Mon, 8 Jul 2019 10:42:35 +0200
 User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:60.0) Gecko/20100101
  Thunderbird/60.7.2
 MIME-Version: 1.0
+In-Reply-To: <20190707211638.sehikkear25dffah@shell.armlinux.org.uk>
 Content-Language: en-US
-X-Provags-ID: V03:K1:PYyiyh1i0HUYLgpacRvJhHOq6EVXqxLBjlXC0r+b6UysKpu9nVB
- pbs15qRvrT7YNNjcEx5EgqzPXsbnLLRnyDJssCZlM69AIsuq22sfNuVtMCf5KiR4ziGJCGs
- kc0FuDL5IqmiTZ9YL1a2IbUOICIgY8gJH5rNvf6iG24+eUZwGdUe5ZJYtZQrKfG8C4G80ad
- YI2JPtUtvnSKp1AoAElsA==
+X-Provags-ID: V03:K1:wh0iqueJEE1aqZAx5uF+5ResTjObNNmFpBi+frR0Fw4nTVaeDMX
+ Rx0keq+a8IZ0LyfQjad9ONCFtDtY9Nx+FXDZ1vlj3bxDOyHbBgzlRLiqNrl8w7Bdm7Yiovg
+ PNKHosZwwP8nrU04e3dy8GBQY1PWJSxA+VDnPt1alGW1GxBdh04Yg/Cui3yNm1ywr+QPauG
+ nVhk0g0u3Uimsu2VIf8eQ==
 X-Spam-Flag: NO
-X-UI-Out-Filterresults: notjunk:1;V03:K0:8moAN+rWVEA=:V0v1TnsXDxzm/Fi0I6maf1
- ae1n1/vL3obLD8yZ+LZBcAusJubQxeeCopNw5PPjfDg6PlyvOuR2bRHG3419tNJQsx8pG9EQl
- T8uUdzQyVa5R7/MECmIICHBXDtlqobLLjmp+K4o1s3eT/D8Gv6RzheXcOm5i6TOEPyi/msDlE
- JG66nUu8R5GgnKq/07L/bI0C5qWp70nR3lDO7arOnI/yBVsy8em4TifbUcx+De4XYIthK84n8
- ukppi9D30jJkmJLLN8uDz4ZlgOi6BXciS78mzr9065SXVu9thuFPZwLFKyZFzZ1787oOeIMAp
- J5tyMsfOF612tAPGPjjPF3SSZ+azGVi5wm0USHCxkDTSfWpZ+ADhcN1DuIlOtJQ5solCN6fjM
- AkbnSPkXOCsmn891JfLoDYvOSA6LiwT/2fPzb4SafvrK6ChmWJndK7cJQ6vrYq9bRL258vVlE
- eVbAHqml1IzEdwhw/grx8XCUCZaT8rc9AotUCIGgMYE1kDGnTvKMzDMbnZ8pMLkjySBLwhQsX
- YSv3hYteA/Hx8hD/V/X0LOtWsZaV1nffLLzZylclM1h6XM8nZ8Grd6vwJwXj0Srzekf791kqD
- IwaZ2+RwEvz/Of1Uw0bDV+fpNEGuBTevnK6d57fwo2YpIjMDT6G2oN5HmceQmadxm2T5aRIvG
- ty06kQkUFeV+BVKR+jevrVWoU5IDWZL3u/sPbEwnXJZNKxEi6d7s+t/hvjfm1HzLCSvOmVvAE
- Ir4f9uzid9vutwmy+SdGWcXtR57Ddn1qv+yFH0K0788AQsCZKnlU45amLLmhHl5F+YoQBniD8
- G6HLj5u5lP+9U/W+RokF0uplTGfhVG/ZRj6H4rBO3pHxOIu/fLDX3Kjs1QfdRepuArB6AzkGV
- B08YZvN7Lh8OUMUT6AfoPdWy0bakx3jcLBkS7cKhvFR6zIHv8sDWB+r+gslmQJPXMW0AjVLEK
- cRyNlyBG7Dm252jFnLG9k5VbYK0OwoH66pIGfBCOUxIFekMv+86K9UMxEmcouE9tI5ARcS+Y9
- 5gkx81ybI3+gKaJcwT07Mg3QSsDaRPKCOMKQys1smHAZ+WKcXSPZx4nVri+8yxexwb6brnPAu
- DnJToY24K7Me3jQwRiRNRimZ88bxMeZ+hZW
-X-Mailman-Approved-At: Mon, 08 Jul 2019 07:06:52 +0000
+X-UI-Out-Filterresults: notjunk:1;V03:K0:Yn62schdTuU=:DlF2xpvX4dTwP81KGg/kiw
+ arykr7yHiCwdAZXkGMTEf0yJOK2hZuwjep91AR2YDCSke8gyqv1n+raS3MEOLelGX7sFQmdtE
+ 47Bl/T+2pubfose8p8MvgPHbZ9zbzFxyw/pq9mQm+/pra2hMBulJ4ufvSbos73omjoegfE1je
+ 78Ua3KODkUxczYD3IMrqoCpns1xbbcf0K5oglWxb2sojGUsEDD3TbKHQf7tHctXUjiYP9H2uj
+ 5mSzcbyh0DWJh5QsMIDiMS35AtPPNb9tM8e3hAKxbfPsI1jDYBgIbt501Yz0hvcMx4QYvFXO8
+ 9tgeSe/Lo1tNqzIsIVSvo6us3FZspHAG8cMwGbW+wbipGJUokmSC6cWw8/GOBDlEraKg3kxoE
+ w/L9acygJS1diTONfHS0if99BjFyC+taL1LuvKxPorx/Jq80hagLWO/kpsMXf+SET0QrGu/7S
+ loq98OAxLXE7kfEPPB81xTfIJkXIQvb6Fnk0JPacsSy/bIn0+1AFRDIAigXybK16XiVb4rypL
+ arLFVNEf3e8oXqdYKYTJ9kxZdtQpnctKSUDgGyWIMWT761tyt7dQEq75/Zbj1kuF/5iigDfzf
+ 9EmOvxf8vh9E34Da9H/g9BsWETiuYyys3dpS5XVfv4ACP4DKF+/rWh/HlT9a4mXeLh+wceJJF
+ 6AAJNPGlBJruegBE3XlL8d00xUQvibxygJQFPxX4NLLzQddR+YLZx75pkYi8d3UAZzag184nC
+ 4iSoWuxVJcO+XQJ8Tj9OSa36vaNuAGUoNDO8hD3Q1Fbfa/5jCDLJ0r1G+0htStl6qAhz9XnSf
+ mXAbXaA4R/oHrmwrpN+AysyeIVu/rJQO/FIWBF05QYsazH/N1lUBDU44RMtDsoV21xWkBi8HG
+ evQpOBbNmMCjuePuXD79DH1sS04cfFFl/yqG5fEdV7gjMiIQ8mFg+qS45h2vCfZ3dwHAcnXW4
+ k205m7u36ABwYyi5jy976F+mOpoiMpbv89tWB7YbbKFh7d/8w7PzXiOjQ0aF6Gh0jzYLsl9P2
+ MlUR1XUeJR1/x16AzlprbPN3CaaNo8WOrKPXP+d3072RkbAqNDegzRMgk8baVdY+GKMut6aMl
+ 2VRVTwTv3zxTR7neA6I/uMgR321iJvzAIoc
 Cc: kernel-janitors@vger.kernel.org, LKML <linux-kernel@vger.kernel.org>
-Subject: [Linux-stm32] [PATCH] rtc: stm32: One function call less in
-	stm32_rtc_set_alarm()
+Subject: [Linux-stm32] [PATCH v2] rtc: stm32: One condition check and
+ function call less in stm32_rtc_set_alarm()
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -123,20 +126,30 @@ Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
 From: Markus Elfring <elfring@users.sourceforge.net>
-Date: Fri, 5 Jul 2019 22:10:10 +0200
+Date: Mon, 8 Jul 2019 10:26:47 +0200
 
-Avoid an extra function call by using a ternary operator instead of
-a conditional statement.
+A condition check was repeated in this function implementation despite of
+a corresponding check in the stm32_rtc_alarm_irq_enable() function.
+Thus delete redundant source code here.
+
+Suggested-by: Russell King <linux@armlinux.org.uk>
+Link: https://lore.kernel.org/lkml/20190707211638.sehikkear25dffah@shell.armlinux.org.uk/
 
 This issue was detected by using the Coccinelle software.
 
 Signed-off-by: Markus Elfring <elfring@users.sourceforge.net>
 ---
+
+v2:
+Russell King pointed the change possibility out to omit a condition check
+at this place.
+
+
  drivers/rtc/rtc-stm32.c | 6 +-----
  1 file changed, 1 insertion(+), 5 deletions(-)
 
 diff --git a/drivers/rtc/rtc-stm32.c b/drivers/rtc/rtc-stm32.c
-index 8e6c9b3bcc29..83793b530fed 100644
+index 8e6c9b3bcc29..773a1990b93f 100644
 --- a/drivers/rtc/rtc-stm32.c
 +++ b/drivers/rtc/rtc-stm32.c
 @@ -519,11 +519,7 @@ static int stm32_rtc_set_alarm(struct device *dev, struct rtc_wkalrm *alrm)
@@ -148,7 +161,7 @@ index 8e6c9b3bcc29..83793b530fed 100644
 -	else
 -		stm32_rtc_alarm_irq_enable(dev, 0);
 -
-+	stm32_rtc_alarm_irq_enable(dev, alrm->enabled ? 1 : 0);
++	stm32_rtc_alarm_irq_enable(dev, alrm->enabled);
  end:
  	stm32_rtc_wpr_lock(rtc);
 
