@@ -2,67 +2,116 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id BD594631DC
-	for <lists+linux-stm32@lfdr.de>; Tue,  9 Jul 2019 09:24:02 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 0CBA763241
+	for <lists+linux-stm32@lfdr.de>; Tue,  9 Jul 2019 09:38:53 +0200 (CEST)
 Received: from ip-172-31-3-76.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 6C1E6C79A62
-	for <lists+linux-stm32@lfdr.de>; Tue,  9 Jul 2019 07:24:02 +0000 (UTC)
-Received: from mail-wm1-f65.google.com (mail-wm1-f65.google.com
- [209.85.128.65])
- (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id AF2E0C79A80
+	for <lists+linux-stm32@lfdr.de>; Tue,  9 Jul 2019 07:38:52 +0000 (UTC)
+Received: from smtprelay-out1.synopsys.com (dc2-smtprelay2.synopsys.com
+ [198.182.61.142])
+ (using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 5C281C79A20
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id EE84EC79A7E
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Tue,  9 Jul 2019 07:24:00 +0000 (UTC)
-Received: by mail-wm1-f65.google.com with SMTP id v19so1983565wmj.5
- for <linux-stm32@st-md-mailman.stormreply.com>;
- Tue, 09 Jul 2019 00:24:00 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linaro.org; s=google;
- h=date:from:to:cc:subject:message-id:references:mime-version
- :content-disposition:in-reply-to:user-agent;
- bh=03TkoezjgkAZL2YmFuoEqna7NSM8InGqJI+3ARKjL1o=;
- b=FDJIw/XXd8rciEohBUKmddB8phPThT/PekIFiIN1cV+l66VsdC0Itam9we2NMoOqYP
- zBHeqKlzeTGyY3g/sM4yKyKMITVauqjdMGiSqi7Qe4u+ideDdLeEycXFIt1qMs8O091N
- IeEHWcipFxAp5FvVKok6cqbLm6foJ2Zf78DS35yfTVQp2IRNPHG4wJGKr5BCgRYX1fsC
- Gal52Dc2u9+vN7WHfgRi/AJPwy43zH8kL5FeQ6phfuf96q/RVuy7h5wgcKb5pNvQxq19
- j822OniI4eL5t2RDAoE5UHnZycbkUczRRXkOvxqbuVFHb0Bmuj/7/zlTbr6HBedkBEHo
- b7uA==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20161025;
- h=x-gm-message-state:date:from:to:cc:subject:message-id:references
- :mime-version:content-disposition:in-reply-to:user-agent;
- bh=03TkoezjgkAZL2YmFuoEqna7NSM8InGqJI+3ARKjL1o=;
- b=A/HUnZpDzVXwwEkgZ7nmT5Ab1pFTmpHbiQD7OA2bmxn927xg5l2pQLjAsLgY4qj6VD
- gDQfNKIQnmdg8vOmaa2aMw72a+QUfKSIvqbsOMqjYmetwS6ZyslhxJErntrX7ZiUKIkx
- eo1LF15p/tNGTDfcFsk5WxX5b6mJdKfyLjD+pbxoo4Gck9ZeyBy7QWbRHXSHdQ+J+ly1
- 2osckW1dPr7H+zCTJwlff3cRrzeC/P/ixDZ0C6pBbLQgJmY+AnpWrd3taMvypYj+jXDE
- daTwKGBbKlhrGJZ8X8nU8F+gu0jUnTJ/XBwvW+fxQ3ujwWBMeP1eWoTo5Ybec9GchvGU
- pUFg==
-X-Gm-Message-State: APjAAAWNt6WUNKDV00jPA80YMshZrdR7L9vdTGYUxrcm5rpP/zfQNpGn
- lS2+dmT0FAUXhMUiHkqFGLB5LA==
-X-Google-Smtp-Source: APXvYqwV3mcuJnhnz6QQouw2JqDfmNZCuA8kTITJotydtLJak8JAyntXVQPkwnHos7Fs8wIPg2lpNg==
-X-Received: by 2002:a7b:cae9:: with SMTP id t9mr20552772wml.126.1562657039819; 
- Tue, 09 Jul 2019 00:23:59 -0700 (PDT)
-Received: from apalos (athedsl-428434.home.otenet.gr. [79.131.225.144])
- by smtp.gmail.com with ESMTPSA id v67sm2225652wme.24.2019.07.09.00.23.58
- (version=TLS1_2 cipher=ECDHE-RSA-AES128-GCM-SHA256 bits=128/128);
- Tue, 09 Jul 2019 00:23:59 -0700 (PDT)
-Date: Tue, 9 Jul 2019 10:23:56 +0300
-From: Ilias Apalodimas <ilias.apalodimas@linaro.org>
-To: David Miller <davem@davemloft.net>
-Message-ID: <20190709072356.GA4599@apalos>
+ Tue,  9 Jul 2019 07:38:50 +0000 (UTC)
+Received: from mailhost.synopsys.com (badc-mailhost2.synopsys.com
+ [10.192.0.18])
+ (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits))
+ (No client certificate requested)
+ by smtprelay-out1.synopsys.com (Postfix) with ESMTPS id 3BBF4C0269;
+ Tue,  9 Jul 2019 07:38:47 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=synopsys.com; s=mail;
+ t=1562657929; bh=+LJlXz9wRRGJ9ijaGUy79RJrxoxGdW6dI2VFm65aYf4=;
+ h=From:To:CC:Subject:Date:References:In-Reply-To:From;
+ b=BNhPmv9CSlCVh3zStW9ek56EVeasGB+0tPoFIYud7i7lCvJKINt7l4Ueu8Mb3mCRi
+ OP2c8HBe1UppkFQzS49ZNZ+fgCZDZQMVdNDvtjak8FVZcuI0zK2k8d9JqKTHHN5bWF
+ egf9P0Pi0JFtq+HCilF/ORWlE2vzfTgQjg5PJqiVoUZlBbqKcjmEZmpEIKiOIPZd0m
+ crFqMLGzRqDq6q2Tv3wiYZGFfx9sXH4uWQxdR8qc9PRE8dRvPIqyEXpe4NEXxdr8/q
+ avj2xkPgcNHGBKLqheqNEW0CgnTqDkja3vDMhGyikPOH6/tvetkh7UPEBVx9BtPAZY
+ +IW/JATHkPKaA==
+Received: from US01WEHTC3.internal.synopsys.com
+ (us01wehtc3.internal.synopsys.com [10.15.84.232])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES256-SHA384 (256/256 bits))
+ (No client certificate requested)
+ by mailhost.synopsys.com (Postfix) with ESMTPS id 1BB97A0069;
+ Tue,  9 Jul 2019 07:38:44 +0000 (UTC)
+Received: from US01HYBRID2.internal.synopsys.com (10.15.246.24) by
+ US01WEHTC3.internal.synopsys.com (10.15.84.232) with Microsoft SMTP Server
+ (TLS) id 14.3.408.0; Tue, 9 Jul 2019 00:38:44 -0700
+Received: from NAM02-SN1-obe.outbound.protection.outlook.com (10.13.134.195)
+ by mrs.synopsys.com (10.15.246.24) with Microsoft SMTP Server (TLS) id
+ 14.3.408.0; Tue, 9 Jul 2019 00:38:44 -0700
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=synopsys.onmicrosoft.com; s=selector1-synopsys-onmicrosoft-com;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=+LJlXz9wRRGJ9ijaGUy79RJrxoxGdW6dI2VFm65aYf4=;
+ b=CM8Dc0Uz/NYavUvlCVr1i1ZHY+e1ZlJe+SSYUXTjVYoHuFQrzGcMqzUJeQFFs+KnK1vn6ZhFyB3GG/JjH7hQ+L0ovIhsb/PHHd4J7BoysMSBLqNc3K0WVs76zypjepoJCdMUYkeIU+F6EMKlLowlL8DKzapy2LIWWdDzuWIS4ng=
+Received: from BN8PR12MB3266.namprd12.prod.outlook.com (20.179.66.159) by
+ BN8PR12MB3204.namprd12.prod.outlook.com (20.179.65.83) with Microsoft SMTP
+ Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.20.2052.18; Tue, 9 Jul 2019 07:38:42 +0000
+Received: from BN8PR12MB3266.namprd12.prod.outlook.com
+ ([fe80::61ef:5598:59e0:fc9d]) by BN8PR12MB3266.namprd12.prod.outlook.com
+ ([fe80::61ef:5598:59e0:fc9d%5]) with mapi id 15.20.2052.020; Tue, 9 Jul 2019
+ 07:38:42 +0000
+From: Jose Abreu <Jose.Abreu@synopsys.com>
+To: Ilias Apalodimas <ilias.apalodimas@linaro.org>, David Miller
+ <davem@davemloft.net>
+Thread-Topic: [PATCH net-next v3 3/3] net: stmmac: Introducing support for
+ Page Pool
+Thread-Index: AQHVMwKNzVmUsJPJMUCkE31Cd4D9oqa8BTaAgAAezsCAAAGNgIAEwrOwgABWL4CAAKoRAIAABACg
+Date: Tue, 9 Jul 2019 07:38:42 +0000
+Message-ID: <BN8PR12MB3266F5F7775BF6DB2F93E1D9D3F10@BN8PR12MB3266.namprd12.prod.outlook.com>
 References: <BN8PR12MB32666359FABD7D7E55FE4761D3F50@BN8PR12MB3266.namprd12.prod.outlook.com>
  <20190705152453.GA24683@apalos>
  <BN8PR12MB32667BCA58B617432CACE677D3F60@BN8PR12MB3266.namprd12.prod.outlook.com>
  <20190708.141515.1767939731073284700.davem@davemloft.net>
+ <20190709072356.GA4599@apalos>
+In-Reply-To: <20190709072356.GA4599@apalos>
+Accept-Language: en-US
+Content-Language: en-US
+X-MS-Has-Attach: 
+X-MS-TNEF-Correlator: 
+authentication-results: spf=none (sender IP is )
+ smtp.mailfrom=joabreu@synopsys.com; 
+x-originating-ip: [83.174.63.141]
+x-ms-publictraffictype: Email
+x-ms-office365-filtering-correlation-id: 6a49f6ef-60fc-4750-17fb-08d704407784
+x-microsoft-antispam: BCL:0; PCL:0;
+ RULEID:(2390118)(7020095)(4652040)(8989299)(4534185)(4627221)(201703031133081)(201702281549075)(8990200)(5600148)(711020)(4605104)(1401327)(2017052603328)(7193020);
+ SRVR:BN8PR12MB3204; 
+x-ms-traffictypediagnostic: BN8PR12MB3204:
+x-microsoft-antispam-prvs: <BN8PR12MB3204AD2617366755E04E27AFD3F10@BN8PR12MB3204.namprd12.prod.outlook.com>
+x-ms-oob-tlc-oobclassifiers: OLM:597;
+x-forefront-prvs: 0093C80C01
+x-forefront-antispam-report: SFV:NSPM;
+ SFS:(10019020)(396003)(136003)(39860400002)(346002)(376002)(366004)(199004)(189003)(476003)(486006)(86362001)(6246003)(33656002)(14454004)(446003)(55016002)(71200400001)(71190400001)(11346002)(9686003)(99286004)(6506007)(52536014)(5660300002)(102836004)(229853002)(186003)(26005)(76176011)(7696005)(66066001)(305945005)(478600001)(7736002)(7416002)(81166006)(81156014)(25786009)(8676002)(73956011)(66476007)(66946007)(6116002)(53936002)(2906002)(66446008)(64756008)(66556008)(76116006)(110136005)(68736007)(316002)(74316002)(54906003)(4326008)(256004)(558084003)(6436002)(3846002)(8936002);
+ DIR:OUT; SFP:1102; SCL:1; SRVR:BN8PR12MB3204;
+ H:BN8PR12MB3266.namprd12.prod.outlook.com; FPR:; SPF:None; LANG:en;
+ PTR:InfoNoRecords; A:1; MX:1; 
+received-spf: None (protection.outlook.com: synopsys.com does not designate
+ permitted sender hosts)
+x-ms-exchange-senderadcheck: 1
+x-microsoft-antispam-message-info: bwwDIYSt/Lsyre2pV01qVybJYMLyJy5guO+pDaTONQpF2rp3B5GNRQetMWvESgdYHn7QSigRAMEYT/IWgO5Tk4WAGzZIQjKn+qWy74v11TBMsH7iDG63ifNUgKVSAtS3wfwSAlDKuoTCdrqmjLvVpzTkuOjoQZshymoG4ryuq1WwnI4XyCEex8qv2mzXV9BhVCGs5SbXu1FOHiaBO1cEdXmRgKaLS4cf9/HZ3wB/xdM2hOCR5rKRIaLr4p75CxjnN6n2UmJdEVaP1aRzb+7CnQpVItH2P2ORwC2mn6s7K6Pr12EJONxsSkdOr57ydo8lRgFZJu2fklKpaqlzbVR+R4FYytC6j76/vYw5MFloee7bpRfPiP4fIEcaNjX7g29rqaw5JisFaWcnRMdl05HKIgD6fc5dtRAsr6vembjjoLI=
 MIME-Version: 1.0
-Content-Disposition: inline
-In-Reply-To: <20190708.141515.1767939731073284700.davem@davemloft.net>
-User-Agent: Mutt/1.5.24 (2015-08-30)
-Cc: Jose.Abreu@synopsys.com, Joao.Pinto@synopsys.com, arnd@arndb.de,
- netdev@vger.kernel.org, linux-kernel@vger.kernel.org, brouer@redhat.com,
- peppe.cavallaro@st.com, linux-stm32@st-md-mailman.stormreply.com,
- linux-arm-kernel@lists.infradead.org
+X-MS-Exchange-CrossTenant-Network-Message-Id: 6a49f6ef-60fc-4750-17fb-08d704407784
+X-MS-Exchange-CrossTenant-originalarrivaltime: 09 Jul 2019 07:38:42.3859 (UTC)
+X-MS-Exchange-CrossTenant-fromentityheader: Hosted
+X-MS-Exchange-CrossTenant-id: c33c9f88-1eb7-4099-9700-16013fd9e8aa
+X-MS-Exchange-CrossTenant-mailboxtype: HOSTED
+X-MS-Exchange-CrossTenant-userprincipalname: joabreu@synopsys.com
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: BN8PR12MB3204
+X-OriginatorOrg: synopsys.com
+Cc: "Jose.Abreu@synopsys.com" <Jose.Abreu@synopsys.com>,
+ "Joao.Pinto@synopsys.com" <Joao.Pinto@synopsys.com>,
+ "arnd@arndb.de" <arnd@arndb.de>,
+ "netdev@vger.kernel.org" <netdev@vger.kernel.org>,
+ "linux-kernel@vger.kernel.org" <linux-kernel@vger.kernel.org>,
+ "brouer@redhat.com" <brouer@redhat.com>,
+ "peppe.cavallaro@st.com" <peppe.cavallaro@st.com>,
+ "linux-stm32@st-md-mailman.stormreply.com"
+ <linux-stm32@st-md-mailman.stormreply.com>,
+ "linux-arm-kernel@lists.infradead.org" <linux-arm-kernel@lists.infradead.org>
 Subject: Re: [Linux-stm32] [PATCH net-next v3 3/3] net: stmmac: Introducing
  support for Page Pool
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
@@ -81,31 +130,16 @@ Content-Transfer-Encoding: 7bit
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
-Hello, 
+From: Ilias Apalodimas <ilias.apalodimas@linaro.org> | Date: Tue, Jul 09, 2019 at 08:23:56
 
-> From: Jose Abreu <Jose.Abreu@synopsys.com>
-> Date: Mon, 8 Jul 2019 16:08:07 +0000
-> 
-> > From: Ilias Apalodimas <ilias.apalodimas@linaro.org> | Date: Fri, Jul 
-> > 05, 2019 at 16:24:53
-> > 
-> >> Well ideally we'd like to get the change in before the merge window ourselves,
-> >> since we dont want to remove->re-add the same function in stable kernels. If
-> >> that doesn't go in i am fine fixing it in the next merge window i guess, since
-> >> it offers substantial speedups
-> > 
-> > I think the series is marked as "Changes Requested" in patchwork. What's 
-> > the status of this ?
-> 
-> That means I expect a respin based upon feedback or similar.  If Ilias and
-> you agreed to put this series in as-is, my apologies and just resend the
-> series with appropriate ACK and Review tags added.
+> The patch from Ivan did get merged, can you change the free call to
+> page_pool_destroy and re-spin? You can add my acked-by
 
-The patch from Ivan did get merged, can you change the free call to
-page_pool_destroy and re-spin? You can add my acked-by
+Yes, I will re-spin then. Thanks!
 
-Thanks
-/Ilias
+---
+Thanks,
+Jose Miguel Abreu
 _______________________________________________
 Linux-stm32 mailing list
 Linux-stm32@st-md-mailman.stormreply.com
