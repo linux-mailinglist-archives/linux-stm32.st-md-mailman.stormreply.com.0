@@ -2,59 +2,60 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id B86D76328C
-	for <lists+linux-stm32@lfdr.de>; Tue,  9 Jul 2019 10:03:20 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 58B6D63399
+	for <lists+linux-stm32@lfdr.de>; Tue,  9 Jul 2019 11:42:49 +0200 (CEST)
 Received: from ip-172-31-3-76.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 7A7D7C7AB3A
-	for <lists+linux-stm32@lfdr.de>; Tue,  9 Jul 2019 08:03:20 +0000 (UTC)
-Received: from smtprelay-out1.synopsys.com (dc2-smtprelay2.synopsys.com
- [198.182.61.142])
- (using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id E9E22C7C292
+	for <lists+linux-stm32@lfdr.de>; Tue,  9 Jul 2019 09:42:48 +0000 (UTC)
+Received: from mx07-00178001.pphosted.com (mx08-00178001.pphosted.com
+ [91.207.212.93])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id A4173C7AB32
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 355D5C7C28F
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Tue,  9 Jul 2019 08:03:18 +0000 (UTC)
-Received: from mailhost.synopsys.com (mdc-mailhost1.synopsys.com
- [10.225.0.209])
- (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits))
- (No client certificate requested)
- by smtprelay-out1.synopsys.com (Postfix) with ESMTPS id CB6FBC0A74;
- Tue,  9 Jul 2019 08:03:16 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=synopsys.com; s=mail;
- t=1562659397; bh=utgIZ0MmwGeJhJE+hj23sGGUTNvCL1/79z2dgnYS5tY=;
- h=From:To:Cc:Subject:Date:In-Reply-To:References:In-Reply-To:
- References:From;
- b=j9gmMQ4uPZltW4u3nOOTLReJUBMZOvlLSPWgqu92siVf7ttYmgklA90F6TNPfBhd0
- UgVgsvqw/40ma84IpB/WSeulDJ25n6uEt4lvXUug4NoVK8Emn1cFOWQ/nSvCz1BnvS
- +3V0fLPJi/VOzjcL2DV1qS5s2mBs+F8w12Sdpb6N3CgaHTlAnnrkxDwHYo0zQfYgcr
- 2q/BrkBov5wWsXaDS7th3sUOzlsFSzWV1bD4tInbl+KSTXCU+zev5mmETSYCsqo67T
- v0hB1SngUA4DIZiJvN9w3Rr/TPTeBgvn3MxqDGcHF00YCSVhM3XokvZDzs6r8ZVuBp
- gMg2d18wx0CHA==
-Received: from de02.synopsys.com (de02.internal.synopsys.com [10.225.17.21])
- by mailhost.synopsys.com (Postfix) with ESMTP id EFFBBA005F;
- Tue,  9 Jul 2019 08:03:13 +0000 (UTC)
-Received: from de02dwia024.internal.synopsys.com
- (de02dwia024.internal.synopsys.com [10.225.19.81])
- by de02.synopsys.com (Postfix) with ESMTP id 877F23F836;
- Tue,  9 Jul 2019 10:03:13 +0200 (CEST)
-From: Jose Abreu <Jose.Abreu@synopsys.com>
-To: netdev@vger.kernel.org
-Date: Tue,  9 Jul 2019 10:03:00 +0200
-Message-Id: <a984010950c1f7a509808282fbfa5b7c157948c5.1562659012.git.joabreu@synopsys.com>
-X-Mailer: git-send-email 2.7.4
-In-Reply-To: <cover.1562659012.git.joabreu@synopsys.com>
-References: <cover.1562659012.git.joabreu@synopsys.com>
-In-Reply-To: <cover.1562659012.git.joabreu@synopsys.com>
-References: <cover.1562659012.git.joabreu@synopsys.com>
-Cc: Jose Abreu <Jose.Abreu@synopsys.com>, Joao Pinto <Joao.Pinto@synopsys.com>,
- Arnd Bergmann <arnd@arndb.de>, Ilias Apalodimas <ilias.apalodimas@linaro.org>,
- linux-kernel@vger.kernel.org, linux-stm32@st-md-mailman.stormreply.com,
- Maxime Coquelin <mcoquelin.stm32@gmail.com>,
- Jesper Dangaard Brouer <brouer@redhat.com>,
- Giuseppe Cavallaro <peppe.cavallaro@st.com>,
- "David S. Miller" <davem@davemloft.net>, linux-arm-kernel@lists.infradead.org
-Subject: [Linux-stm32] [PATCH net-next v4 3/3] net: stmmac: Introducing
-	support for Page Pool
+ Tue,  9 Jul 2019 09:42:47 +0000 (UTC)
+Received: from pps.filterd (m0046660.ppops.net [127.0.0.1])
+ by mx08-00178001.pphosted.com (8.16.0.27/8.16.0.27) with SMTP id
+ x699cLYh003072; Tue, 9 Jul 2019 11:42:27 +0200
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=st.com;
+ h=from : to : cc : subject
+ : date : message-id : mime-version : content-type :
+ content-transfer-encoding; s=STMicroelectronics;
+ bh=Hhmk6iW9AOz9YZht32O3NNPIHCz1mwLLYsAq3kZA/eQ=;
+ b=NOa5eozY9SNJGT1VQCEUJRBC+EASTP/H01RPGT9EJiKuqy+jrUk+OzqJmqzp4zGXBoUC
+ v/oTa9UjqFmZ+E5UXYVCVpEwTeIWzBOCgTFTw1oX9FwmCm4acMd2JzS/KWLxPgorvEIN
+ lEUBWGV/pkMmwrSABRLD9mdvoyxqCixbJbupuhl3OpsYduWGuGXngRjccj+a9ubnZCY5
+ K/Npm7q/rWObonHPpB69dnZ0XWuhxI7jOSjqwNb78uyMYj/DMYIwtk1vlQM00/FQnrmg
+ wESPGThwGouh10OIcUiJTdTOvuv2OwMj4PHUJgvGSKsFBLtOWll2UibDTaIrii0jphlm SA== 
+Received: from beta.dmz-eu.st.com (beta.dmz-eu.st.com [164.129.1.35])
+ by mx08-00178001.pphosted.com with ESMTP id 2tjgs9vnex-1
+ (version=TLSv1 cipher=ECDHE-RSA-AES256-SHA bits=256 verify=NOT);
+ Tue, 09 Jul 2019 11:42:27 +0200
+Received: from zeta.dmz-eu.st.com (zeta.dmz-eu.st.com [164.129.230.9])
+ by beta.dmz-eu.st.com (STMicroelectronics) with ESMTP id 47D2E34;
+ Tue,  9 Jul 2019 09:42:26 +0000 (GMT)
+Received: from Webmail-eu.st.com (sfhdag6node2.st.com [10.75.127.17])
+ by zeta.dmz-eu.st.com (STMicroelectronics) with ESMTP id 173FF2CE4;
+ Tue,  9 Jul 2019 09:42:26 +0000 (GMT)
+Received: from localhost (10.75.127.45) by SFHDAG6NODE2.st.com (10.75.127.17)
+ with Microsoft SMTP Server (TLS) id 15.0.1347.2;
+ Tue, 9 Jul 2019 11:42:25 +0200
+From: Christophe Kerello <christophe.kerello@st.com>
+To: <miquel.raynal@bootlin.com>, <richard@nod.at>, <dwmw2@infradead.org>,
+ <computersforpeace@gmail.com>, <marek.vasut@gmail.com>, <vigneshr@ti.com>
+Date: Tue, 9 Jul 2019 11:41:45 +0200
+Message-ID: <1562665305-31031-1-git-send-email-christophe.kerello@st.com>
+X-Mailer: git-send-email 1.9.1
+MIME-Version: 1.0
+X-Originating-IP: [10.75.127.45]
+X-ClientProxiedBy: SFHDAG2NODE2.st.com (10.75.127.5) To SFHDAG6NODE2.st.com
+ (10.75.127.17)
+X-Proofpoint-Virus-Version: vendor=fsecure engine=2.50.10434:, ,
+ definitions=2019-07-09_04:, , signatures=0
+Cc: bbrezillon@kernel.org, linux-kernel@vger.kernel.org, stable@vger.kernel.org,
+ linux-mtd@lists.infradead.org, linux-stm32@st-md-mailman.stormreply.com
+Subject: [Linux-stm32] [PATCH v2] mtd: rawnand: stm32_fmc2: avoid warnings
+	when building with W=1 option
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -66,419 +67,130 @@ List-Post: <mailto:linux-stm32@st-md-mailman.stormreply.com>
 List-Help: <mailto:linux-stm32-request@st-md-mailman.stormreply.com?subject=help>
 List-Subscribe: <https://st-md-mailman.stormreply.com/mailman/listinfo/linux-stm32>, 
  <mailto:linux-stm32-request@st-md-mailman.stormreply.com?subject=subscribe>
-MIME-Version: 1.0
-Content-Type: text/plain; charset="us-ascii"
-Content-Transfer-Encoding: 7bit
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: base64
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
-Mapping and unmapping DMA region is an high bottleneck in stmmac driver,
-specially in the RX path.
-
-This commit introduces support for Page Pool API and uses it in all RX
-queues. With this change, we get more stable troughput and some increase
-of banwidth with iperf:
-	- MAC1000 - 950 Mbps
-	- XGMAC: 9.22 Gbps
-
-Changes from v3:
-	- Use page_pool_destroy() (Ilias)
-Changes from v2:
-	- Uncoditionally call page_pool_free() (Jesper)
-Changes from v1:
-	- Use page_pool_get_dma_addr() (Jesper)
-	- Add a comment (Jesper)
-	- Add page_pool_free() call (Jesper)
-	- Reintroduce sync_single_for_device (Arnd / Ilias)
-
-Signed-off-by: Jose Abreu <joabreu@synopsys.com>
-Acked-by: Ilias Apalodimas <ilias.apalodimas@linaro.org>
-
----
-Cc: Giuseppe Cavallaro <peppe.cavallaro@st.com>
-Cc: Alexandre Torgue <alexandre.torgue@st.com>
-Cc: Jose Abreu <joabreu@synopsys.com>
-Cc: "David S. Miller" <davem@davemloft.net>
-Cc: Maxime Coquelin <mcoquelin.stm32@gmail.com>
-Cc: netdev@vger.kernel.org
-Cc: linux-stm32@st-md-mailman.stormreply.com
-Cc: linux-arm-kernel@lists.infradead.org
-Cc: linux-kernel@vger.kernel.org
-Cc: Ilias Apalodimas <ilias.apalodimas@linaro.org>
-Cc: Jesper Dangaard Brouer <brouer@redhat.com>
-Cc: Arnd Bergmann <arnd@arndb.de>
----
- drivers/net/ethernet/stmicro/stmmac/Kconfig       |   1 +
- drivers/net/ethernet/stmicro/stmmac/stmmac.h      |  10 +-
- drivers/net/ethernet/stmicro/stmmac/stmmac_main.c | 203 +++++++---------------
- 3 files changed, 70 insertions(+), 144 deletions(-)
-
-diff --git a/drivers/net/ethernet/stmicro/stmmac/Kconfig b/drivers/net/ethernet/stmicro/stmmac/Kconfig
-index 943189dcccb1..2325b40dff6e 100644
---- a/drivers/net/ethernet/stmicro/stmmac/Kconfig
-+++ b/drivers/net/ethernet/stmicro/stmmac/Kconfig
-@@ -3,6 +3,7 @@ config STMMAC_ETH
- 	tristate "STMicroelectronics Multi-Gigabit Ethernet driver"
- 	depends on HAS_IOMEM && HAS_DMA
- 	select MII
-+	select PAGE_POOL
- 	select PHYLINK
- 	select CRC32
- 	imply PTP_1588_CLOCK
-diff --git a/drivers/net/ethernet/stmicro/stmmac/stmmac.h b/drivers/net/ethernet/stmicro/stmmac/stmmac.h
-index 513f4e2df5f6..5cd966c154f3 100644
---- a/drivers/net/ethernet/stmicro/stmmac/stmmac.h
-+++ b/drivers/net/ethernet/stmicro/stmmac/stmmac.h
-@@ -20,6 +20,7 @@
- #include <linux/ptp_clock_kernel.h>
- #include <linux/net_tstamp.h>
- #include <linux/reset.h>
-+#include <net/page_pool.h>
- 
- struct stmmac_resources {
- 	void __iomem *addr;
-@@ -54,14 +55,19 @@ struct stmmac_tx_queue {
- 	u32 mss;
- };
- 
-+struct stmmac_rx_buffer {
-+	struct page *page;
-+	dma_addr_t addr;
-+};
-+
- struct stmmac_rx_queue {
- 	u32 rx_count_frames;
- 	u32 queue_index;
-+	struct page_pool *page_pool;
-+	struct stmmac_rx_buffer *buf_pool;
- 	struct stmmac_priv *priv_data;
- 	struct dma_extended_desc *dma_erx;
- 	struct dma_desc *dma_rx ____cacheline_aligned_in_smp;
--	struct sk_buff **rx_skbuff;
--	dma_addr_t *rx_skbuff_dma;
- 	unsigned int cur_rx;
- 	unsigned int dirty_rx;
- 	u32 rx_zeroc_thresh;
-diff --git a/drivers/net/ethernet/stmicro/stmmac/stmmac_main.c b/drivers/net/ethernet/stmicro/stmmac/stmmac_main.c
-index c142e9367a68..00f2df304e28 100644
---- a/drivers/net/ethernet/stmicro/stmmac/stmmac_main.c
-+++ b/drivers/net/ethernet/stmicro/stmmac/stmmac_main.c
-@@ -1197,26 +1197,14 @@ static int stmmac_init_rx_buffers(struct stmmac_priv *priv, struct dma_desc *p,
- 				  int i, gfp_t flags, u32 queue)
- {
- 	struct stmmac_rx_queue *rx_q = &priv->rx_queue[queue];
--	struct sk_buff *skb;
-+	struct stmmac_rx_buffer *buf = &rx_q->buf_pool[i];
- 
--	skb = __netdev_alloc_skb_ip_align(priv->dev, priv->dma_buf_sz, flags);
--	if (!skb) {
--		netdev_err(priv->dev,
--			   "%s: Rx init fails; skb is NULL\n", __func__);
-+	buf->page = page_pool_dev_alloc_pages(rx_q->page_pool);
-+	if (!buf->page)
- 		return -ENOMEM;
--	}
--	rx_q->rx_skbuff[i] = skb;
--	rx_q->rx_skbuff_dma[i] = dma_map_single(priv->device, skb->data,
--						priv->dma_buf_sz,
--						DMA_FROM_DEVICE);
--	if (dma_mapping_error(priv->device, rx_q->rx_skbuff_dma[i])) {
--		netdev_err(priv->dev, "%s: DMA mapping error\n", __func__);
--		dev_kfree_skb_any(skb);
--		return -EINVAL;
--	}
--
--	stmmac_set_desc_addr(priv, p, rx_q->rx_skbuff_dma[i]);
- 
-+	buf->addr = page_pool_get_dma_addr(buf->page);
-+	stmmac_set_desc_addr(priv, p, buf->addr);
- 	if (priv->dma_buf_sz == BUF_SIZE_16KiB)
- 		stmmac_init_desc3(priv, p);
- 
-@@ -1232,13 +1220,11 @@ static int stmmac_init_rx_buffers(struct stmmac_priv *priv, struct dma_desc *p,
- static void stmmac_free_rx_buffer(struct stmmac_priv *priv, u32 queue, int i)
- {
- 	struct stmmac_rx_queue *rx_q = &priv->rx_queue[queue];
-+	struct stmmac_rx_buffer *buf = &rx_q->buf_pool[i];
- 
--	if (rx_q->rx_skbuff[i]) {
--		dma_unmap_single(priv->device, rx_q->rx_skbuff_dma[i],
--				 priv->dma_buf_sz, DMA_FROM_DEVICE);
--		dev_kfree_skb_any(rx_q->rx_skbuff[i]);
--	}
--	rx_q->rx_skbuff[i] = NULL;
-+	if (buf->page)
-+		page_pool_put_page(rx_q->page_pool, buf->page, false);
-+	buf->page = NULL;
- }
- 
- /**
-@@ -1321,10 +1307,6 @@ static int init_dma_rx_desc_rings(struct net_device *dev, gfp_t flags)
- 						     queue);
- 			if (ret)
- 				goto err_init_rx_buffers;
--
--			netif_dbg(priv, probe, priv->dev, "[%p]\t[%p]\t[%x]\n",
--				  rx_q->rx_skbuff[i], rx_q->rx_skbuff[i]->data,
--				  (unsigned int)rx_q->rx_skbuff_dma[i]);
- 		}
- 
- 		rx_q->cur_rx = 0;
-@@ -1498,8 +1480,11 @@ static void free_dma_rx_desc_resources(struct stmmac_priv *priv)
- 					  sizeof(struct dma_extended_desc),
- 					  rx_q->dma_erx, rx_q->dma_rx_phy);
- 
--		kfree(rx_q->rx_skbuff_dma);
--		kfree(rx_q->rx_skbuff);
-+		kfree(rx_q->buf_pool);
-+		if (rx_q->page_pool) {
-+			page_pool_request_shutdown(rx_q->page_pool);
-+			page_pool_destroy(rx_q->page_pool);
-+		}
- 	}
- }
- 
-@@ -1551,20 +1536,29 @@ static int alloc_dma_rx_desc_resources(struct stmmac_priv *priv)
- 	/* RX queues buffers and DMA */
- 	for (queue = 0; queue < rx_count; queue++) {
- 		struct stmmac_rx_queue *rx_q = &priv->rx_queue[queue];
-+		struct page_pool_params pp_params = { 0 };
- 
- 		rx_q->queue_index = queue;
- 		rx_q->priv_data = priv;
- 
--		rx_q->rx_skbuff_dma = kmalloc_array(DMA_RX_SIZE,
--						    sizeof(dma_addr_t),
--						    GFP_KERNEL);
--		if (!rx_q->rx_skbuff_dma)
-+		pp_params.flags = PP_FLAG_DMA_MAP;
-+		pp_params.pool_size = DMA_RX_SIZE;
-+		pp_params.order = DIV_ROUND_UP(priv->dma_buf_sz, PAGE_SIZE);
-+		pp_params.nid = dev_to_node(priv->device);
-+		pp_params.dev = priv->device;
-+		pp_params.dma_dir = DMA_FROM_DEVICE;
-+
-+		rx_q->page_pool = page_pool_create(&pp_params);
-+		if (IS_ERR(rx_q->page_pool)) {
-+			ret = PTR_ERR(rx_q->page_pool);
-+			rx_q->page_pool = NULL;
- 			goto err_dma;
-+		}
- 
--		rx_q->rx_skbuff = kmalloc_array(DMA_RX_SIZE,
--						sizeof(struct sk_buff *),
--						GFP_KERNEL);
--		if (!rx_q->rx_skbuff)
-+		rx_q->buf_pool = kmalloc_array(DMA_RX_SIZE,
-+					       sizeof(*rx_q->buf_pool),
-+					       GFP_KERNEL);
-+		if (!rx_q->buf_pool)
- 			goto err_dma;
- 
- 		if (priv->extend_desc) {
-@@ -3286,9 +3280,8 @@ static inline void stmmac_rx_refill(struct stmmac_priv *priv, u32 queue)
- 	int dirty = stmmac_rx_dirty(priv, queue);
- 	unsigned int entry = rx_q->dirty_rx;
- 
--	int bfsize = priv->dma_buf_sz;
--
- 	while (dirty-- > 0) {
-+		struct stmmac_rx_buffer *buf = &rx_q->buf_pool[entry];
- 		struct dma_desc *p;
- 		bool use_rx_wd;
- 
-@@ -3297,49 +3290,22 @@ static inline void stmmac_rx_refill(struct stmmac_priv *priv, u32 queue)
- 		else
- 			p = rx_q->dma_rx + entry;
- 
--		if (likely(!rx_q->rx_skbuff[entry])) {
--			struct sk_buff *skb;
--
--			skb = netdev_alloc_skb_ip_align(priv->dev, bfsize);
--			if (unlikely(!skb)) {
--				/* so for a while no zero-copy! */
--				rx_q->rx_zeroc_thresh = STMMAC_RX_THRESH;
--				if (unlikely(net_ratelimit()))
--					dev_err(priv->device,
--						"fail to alloc skb entry %d\n",
--						entry);
--				break;
--			}
--
--			rx_q->rx_skbuff[entry] = skb;
--			rx_q->rx_skbuff_dma[entry] =
--			    dma_map_single(priv->device, skb->data, bfsize,
--					   DMA_FROM_DEVICE);
--			if (dma_mapping_error(priv->device,
--					      rx_q->rx_skbuff_dma[entry])) {
--				netdev_err(priv->dev, "Rx DMA map failed\n");
--				dev_kfree_skb(skb);
-+		if (!buf->page) {
-+			buf->page = page_pool_dev_alloc_pages(rx_q->page_pool);
-+			if (!buf->page)
- 				break;
--			}
--
--			stmmac_set_desc_addr(priv, p, rx_q->rx_skbuff_dma[entry]);
--			stmmac_refill_desc3(priv, rx_q, p);
--
--			if (rx_q->rx_zeroc_thresh > 0)
--				rx_q->rx_zeroc_thresh--;
--
--			netif_dbg(priv, rx_status, priv->dev,
--				  "refill entry #%d\n", entry);
- 		}
--		dma_wmb();
-+
-+		buf->addr = page_pool_get_dma_addr(buf->page);
-+		stmmac_set_desc_addr(priv, p, buf->addr);
-+		stmmac_refill_desc3(priv, rx_q, p);
- 
- 		rx_q->rx_count_frames++;
- 		rx_q->rx_count_frames %= priv->rx_coal_frames;
- 		use_rx_wd = priv->use_riwt && rx_q->rx_count_frames;
- 
--		stmmac_set_rx_owner(priv, p, use_rx_wd);
--
- 		dma_wmb();
-+		stmmac_set_rx_owner(priv, p, use_rx_wd);
- 
- 		entry = STMMAC_GET_ENTRY(entry, DMA_RX_SIZE);
- 	}
-@@ -3364,9 +3330,6 @@ static int stmmac_rx(struct stmmac_priv *priv, int limit, u32 queue)
- 	unsigned int next_entry = rx_q->cur_rx;
- 	int coe = priv->hw->rx_csum;
- 	unsigned int count = 0;
--	bool xmac;
--
--	xmac = priv->plat->has_gmac4 || priv->plat->has_xgmac;
- 
- 	if (netif_msg_rx_status(priv)) {
- 		void *rx_head;
-@@ -3380,11 +3343,12 @@ static int stmmac_rx(struct stmmac_priv *priv, int limit, u32 queue)
- 		stmmac_display_ring(priv, rx_head, DMA_RX_SIZE, true);
- 	}
- 	while (count < limit) {
-+		struct stmmac_rx_buffer *buf;
-+		struct dma_desc *np, *p;
- 		int entry, status;
--		struct dma_desc *p;
--		struct dma_desc *np;
- 
- 		entry = next_entry;
-+		buf = &rx_q->buf_pool[entry];
- 
- 		if (priv->extend_desc)
- 			p = (struct dma_desc *)(rx_q->dma_erx + entry);
-@@ -3414,20 +3378,9 @@ static int stmmac_rx(struct stmmac_priv *priv, int limit, u32 queue)
- 			stmmac_rx_extended_status(priv, &priv->dev->stats,
- 					&priv->xstats, rx_q->dma_erx + entry);
- 		if (unlikely(status == discard_frame)) {
-+			page_pool_recycle_direct(rx_q->page_pool, buf->page);
- 			priv->dev->stats.rx_errors++;
--			if (priv->hwts_rx_en && !priv->extend_desc) {
--				/* DESC2 & DESC3 will be overwritten by device
--				 * with timestamp value, hence reinitialize
--				 * them in stmmac_rx_refill() function so that
--				 * device can reuse it.
--				 */
--				dev_kfree_skb_any(rx_q->rx_skbuff[entry]);
--				rx_q->rx_skbuff[entry] = NULL;
--				dma_unmap_single(priv->device,
--						 rx_q->rx_skbuff_dma[entry],
--						 priv->dma_buf_sz,
--						 DMA_FROM_DEVICE);
--			}
-+			buf->page = NULL;
- 		} else {
- 			struct sk_buff *skb;
- 			int frame_len;
-@@ -3467,58 +3420,20 @@ static int stmmac_rx(struct stmmac_priv *priv, int limit, u32 queue)
- 					   frame_len, status);
- 			}
- 
--			/* The zero-copy is always used for all the sizes
--			 * in case of GMAC4 because it needs
--			 * to refill the used descriptors, always.
--			 */
--			if (unlikely(!xmac &&
--				     ((frame_len < priv->rx_copybreak) ||
--				     stmmac_rx_threshold_count(rx_q)))) {
--				skb = netdev_alloc_skb_ip_align(priv->dev,
--								frame_len);
--				if (unlikely(!skb)) {
--					if (net_ratelimit())
--						dev_warn(priv->device,
--							 "packet dropped\n");
--					priv->dev->stats.rx_dropped++;
--					continue;
--				}
--
--				dma_sync_single_for_cpu(priv->device,
--							rx_q->rx_skbuff_dma
--							[entry], frame_len,
--							DMA_FROM_DEVICE);
--				skb_copy_to_linear_data(skb,
--							rx_q->
--							rx_skbuff[entry]->data,
--							frame_len);
--
--				skb_put(skb, frame_len);
--				dma_sync_single_for_device(priv->device,
--							   rx_q->rx_skbuff_dma
--							   [entry], frame_len,
--							   DMA_FROM_DEVICE);
--			} else {
--				skb = rx_q->rx_skbuff[entry];
--				if (unlikely(!skb)) {
--					if (net_ratelimit())
--						netdev_err(priv->dev,
--							   "%s: Inconsistent Rx chain\n",
--							   priv->dev->name);
--					priv->dev->stats.rx_dropped++;
--					continue;
--				}
--				prefetch(skb->data - NET_IP_ALIGN);
--				rx_q->rx_skbuff[entry] = NULL;
--				rx_q->rx_zeroc_thresh++;
--
--				skb_put(skb, frame_len);
--				dma_unmap_single(priv->device,
--						 rx_q->rx_skbuff_dma[entry],
--						 priv->dma_buf_sz,
--						 DMA_FROM_DEVICE);
-+			skb = netdev_alloc_skb_ip_align(priv->dev, frame_len);
-+			if (unlikely(!skb)) {
-+				priv->dev->stats.rx_dropped++;
-+				continue;
- 			}
- 
-+			dma_sync_single_for_cpu(priv->device, buf->addr,
-+						frame_len, DMA_FROM_DEVICE);
-+			skb_copy_to_linear_data(skb, page_address(buf->page),
-+						frame_len);
-+			skb_put(skb, frame_len);
-+			dma_sync_single_for_device(priv->device, buf->addr,
-+						   frame_len, DMA_FROM_DEVICE);
-+
- 			if (netif_msg_pktdata(priv)) {
- 				netdev_dbg(priv->dev, "frame received (%dbytes)",
- 					   frame_len);
-@@ -3538,6 +3453,10 @@ static int stmmac_rx(struct stmmac_priv *priv, int limit, u32 queue)
- 
- 			napi_gro_receive(&ch->rx_napi, skb);
- 
-+			/* Data payload copied into SKB, page ready for recycle */
-+			page_pool_recycle_direct(rx_q->page_pool, buf->page);
-+			buf->page = NULL;
-+
- 			priv->dev->stats.rx_packets++;
- 			priv->dev->stats.rx_bytes += frame_len;
- 		}
--- 
-2.7.4
-
-_______________________________________________
-Linux-stm32 mailing list
-Linux-stm32@st-md-mailman.stormreply.com
-https://st-md-mailman.stormreply.com/mailman/listinfo/linux-stm32
+VGhpcyBwYXRjaCBzb2x2ZXMgd2FybmluZ3MgZGV0ZWN0ZWQgYnkgc2V0dGluZyBXPTEgd2hlbiBi
+dWlsZGluZy4KCldhcm5pbmdzIHR5cGUgZGV0ZWN0ZWQ6CmRyaXZlcnMvbXRkL25hbmQvcmF3L3N0
+bTMyX2ZtYzJfbmFuZC5jOiBJbiBmdW5jdGlvbiDigJhzdG0zMl9mbWMyX2NhbGNfdGltaW5nc+KA
+mToKZHJpdmVycy9tdGQvbmFuZC9yYXcvc3RtMzJfZm1jMl9uYW5kLmM6MTQxNzoyMzogd2Fybmlu
+ZzogY29tcGFyaXNvbiBpcwphbHdheXMgZmFsc2UgZHVlIHRvIGxpbWl0ZWQgcmFuZ2Ugb2YgZGF0
+YSB0eXBlIFstV3R5cGUtbGltaXRzXQogIGVsc2UgaWYgKHRpbXMtPnR3YWl0ID4gRk1DMl9QTUVN
+X1BBVFRfVElNSU5HX01BU0spCgpTaWduZWQtb2ZmLWJ5OiBDaHJpc3RvcGhlIEtlcmVsbG8gPGNo
+cmlzdG9waGUua2VyZWxsb0BzdC5jb20+CkNjOiBzdGFibGVAdmdlci5rZXJuZWwub3JnCkZpeGVz
+OiAyY2Q0NTdmMzI4YzEgKCJtdGQ6IHJhd25hbmQ6IHN0bTMyX2ZtYzI6IGFkZCBTVE0zMiBGTUMy
+IE5BTkQgZmxhc2gKY29udHJvbGxlciBkcml2ZXIiKQotLS0KQ2hhbmdlcyBpbiB2MjoKICAtIEZp
+eGVzL3N0YWJsZSB0YWcgYWRkZWQKCiBkcml2ZXJzL210ZC9uYW5kL3Jhdy9zdG0zMl9mbWMyX25h
+bmQuYyB8IDkwICsrKysrKysrKysrLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0KIDEgZmlsZSBjaGFu
+Z2VkLCAyOSBpbnNlcnRpb25zKCspLCA2MSBkZWxldGlvbnMoLSkKCmRpZmYgLS1naXQgYS9kcml2
+ZXJzL210ZC9uYW5kL3Jhdy9zdG0zMl9mbWMyX25hbmQuYyBiL2RyaXZlcnMvbXRkL25hbmQvcmF3
+L3N0bTMyX2ZtYzJfbmFuZC5jCmluZGV4IGU2M2FjYzAuLjhjYzg1MmQgMTAwNjQ0Ci0tLSBhL2Ry
+aXZlcnMvbXRkL25hbmQvcmF3L3N0bTMyX2ZtYzJfbmFuZC5jCisrKyBiL2RyaXZlcnMvbXRkL25h
+bmQvcmF3L3N0bTMyX2ZtYzJfbmFuZC5jCkBAIC0xNDI3LDIxICsxNDI3LDE2IEBAIHN0YXRpYyB2
+b2lkIHN0bTMyX2ZtYzJfY2FsY190aW1pbmdzKHN0cnVjdCBuYW5kX2NoaXAgKmNoaXAsCiAJc3Ry
+dWN0IHN0bTMyX2ZtYzJfdGltaW5ncyAqdGltcyA9ICZuYW5kLT50aW1pbmdzOwogCXVuc2lnbmVk
+IGxvbmcgaGNsayA9IGNsa19nZXRfcmF0ZShmbWMyLT5jbGspOwogCXVuc2lnbmVkIGxvbmcgaGNs
+a3AgPSBOU0VDX1BFUl9TRUMgLyAoaGNsayAvIDEwMDApOwotCWludCB0YXIsIHRjbHIsIHRoaXos
+IHR3YWl0LCB0c2V0X21lbSwgdHNldF9hdHQsIHRob2xkX21lbSwgdGhvbGRfYXR0OwotCi0JdGFy
+ID0gaGNsa3A7Ci0JaWYgKHRhciA8IHNkcnQtPnRBUl9taW4pCi0JCXRhciA9IHNkcnQtPnRBUl9t
+aW47Ci0JdGltcy0+dGFyID0gRElWX1JPVU5EX1VQKHRhciwgaGNsa3ApIC0gMTsKLQlpZiAodGlt
+cy0+dGFyID4gRk1DMl9QQ1JfVElNSU5HX01BU0spCi0JCXRpbXMtPnRhciA9IEZNQzJfUENSX1RJ
+TUlOR19NQVNLOwotCi0JdGNsciA9IGhjbGtwOwotCWlmICh0Y2xyIDwgc2RydC0+dENMUl9taW4p
+Ci0JCXRjbHIgPSBzZHJ0LT50Q0xSX21pbjsKLQl0aW1zLT50Y2xyID0gRElWX1JPVU5EX1VQKHRj
+bHIsIGhjbGtwKSAtIDE7Ci0JaWYgKHRpbXMtPnRjbHIgPiBGTUMyX1BDUl9USU1JTkdfTUFTSykK
+LQkJdGltcy0+dGNsciA9IEZNQzJfUENSX1RJTUlOR19NQVNLOworCXVuc2lnbmVkIGxvbmcgdGlt
+aW5nLCB0YXIsIHRjbHIsIHRoaXosIHR3YWl0OworCXVuc2lnbmVkIGxvbmcgdHNldF9tZW0sIHRz
+ZXRfYXR0LCB0aG9sZF9tZW0sIHRob2xkX2F0dDsKKworCXRhciA9IG1heF90KHVuc2lnbmVkIGxv
+bmcsIGhjbGtwLCBzZHJ0LT50QVJfbWluKTsKKwl0aW1pbmcgPSBESVZfUk9VTkRfVVAodGFyLCBo
+Y2xrcCkgLSAxOworCXRpbXMtPnRhciA9IG1pbl90KHVuc2lnbmVkIGxvbmcsIHRpbWluZywgRk1D
+Ml9QQ1JfVElNSU5HX01BU0spOworCisJdGNsciA9IG1heF90KHVuc2lnbmVkIGxvbmcsIGhjbGtw
+LCBzZHJ0LT50Q0xSX21pbik7CisJdGltaW5nID0gRElWX1JPVU5EX1VQKHRjbHIsIGhjbGtwKSAt
+IDE7CisJdGltcy0+dGNsciA9IG1pbl90KHVuc2lnbmVkIGxvbmcsIHRpbWluZywgRk1DMl9QQ1Jf
+VElNSU5HX01BU0spOwogCiAJdGltcy0+dGhpeiA9IEZNQzJfVEhJWjsKIAl0aGl6ID0gKHRpbXMt
+PnRoaXogKyAxKSAqIGhjbGtwOwpAQCAtMTQ1MSwxOCArMTQ0NiwxMSBAQCBzdGF0aWMgdm9pZCBz
+dG0zMl9mbWMyX2NhbGNfdGltaW5ncyhzdHJ1Y3QgbmFuZF9jaGlwICpjaGlwLAogCSAqIHRXQUlU
+ID4gdFdQCiAJICogdFdBSVQgPiB0UkVBICsgdElPCiAJICovCi0JdHdhaXQgPSBoY2xrcDsKLQlp
+ZiAodHdhaXQgPCBzZHJ0LT50UlBfbWluKQotCQl0d2FpdCA9IHNkcnQtPnRSUF9taW47Ci0JaWYg
+KHR3YWl0IDwgc2RydC0+dFdQX21pbikKLQkJdHdhaXQgPSBzZHJ0LT50V1BfbWluOwotCWlmICh0
+d2FpdCA8IHNkcnQtPnRSRUFfbWF4ICsgRk1DMl9USU8pCi0JCXR3YWl0ID0gc2RydC0+dFJFQV9t
+YXggKyBGTUMyX1RJTzsKLQl0aW1zLT50d2FpdCA9IERJVl9ST1VORF9VUCh0d2FpdCwgaGNsa3Ap
+OwotCWlmICh0aW1zLT50d2FpdCA9PSAwKQotCQl0aW1zLT50d2FpdCA9IDE7Ci0JZWxzZSBpZiAo
+dGltcy0+dHdhaXQgPiBGTUMyX1BNRU1fUEFUVF9USU1JTkdfTUFTSykKLQkJdGltcy0+dHdhaXQg
+PSBGTUMyX1BNRU1fUEFUVF9USU1JTkdfTUFTSzsKKwl0d2FpdCA9IG1heF90KHVuc2lnbmVkIGxv
+bmcsIGhjbGtwLCBzZHJ0LT50UlBfbWluKTsKKwl0d2FpdCA9IG1heF90KHVuc2lnbmVkIGxvbmcs
+IHR3YWl0LCBzZHJ0LT50V1BfbWluKTsKKwl0d2FpdCA9IG1heF90KHVuc2lnbmVkIGxvbmcsIHR3
+YWl0LCBzZHJ0LT50UkVBX21heCArIEZNQzJfVElPKTsKKwl0aW1pbmcgPSBESVZfUk9VTkRfVVAo
+dHdhaXQsIGhjbGtwKTsKKwl0aW1zLT50d2FpdCA9IGNsYW1wX3ZhbCh0aW1pbmcsIDEsIEZNQzJf
+UE1FTV9QQVRUX1RJTUlOR19NQVNLKTsKIAogCS8qCiAJICogdFNFVFVQX01FTSA+IHRDUyAtIHRX
+QUlUCkBAIC0xNDc3LDIwICsxNDY1LDE1IEBAIHN0YXRpYyB2b2lkIHN0bTMyX2ZtYzJfY2FsY190
+aW1pbmdzKHN0cnVjdCBuYW5kX2NoaXAgKmNoaXAsCiAJaWYgKHR3YWl0ID4gdGhpeiAmJiAoc2Ry
+dC0+dERTX21pbiA+IHR3YWl0IC0gdGhpeikgJiYKIAkgICAgKHRzZXRfbWVtIDwgc2RydC0+dERT
+X21pbiAtICh0d2FpdCAtIHRoaXopKSkKIAkJdHNldF9tZW0gPSBzZHJ0LT50RFNfbWluIC0gKHR3
+YWl0IC0gdGhpeik7Ci0JdGltcy0+dHNldF9tZW0gPSBESVZfUk9VTkRfVVAodHNldF9tZW0sIGhj
+bGtwKTsKLQlpZiAodGltcy0+dHNldF9tZW0gPT0gMCkKLQkJdGltcy0+dHNldF9tZW0gPSAxOwot
+CWVsc2UgaWYgKHRpbXMtPnRzZXRfbWVtID4gRk1DMl9QTUVNX1BBVFRfVElNSU5HX01BU0spCi0J
+CXRpbXMtPnRzZXRfbWVtID0gRk1DMl9QTUVNX1BBVFRfVElNSU5HX01BU0s7CisJdGltaW5nID0g
+RElWX1JPVU5EX1VQKHRzZXRfbWVtLCBoY2xrcCk7CisJdGltcy0+dHNldF9tZW0gPSBjbGFtcF92
+YWwodGltaW5nLCAxLCBGTUMyX1BNRU1fUEFUVF9USU1JTkdfTUFTSyk7CiAKIAkvKgogCSAqIHRI
+T0xEX01FTSA+IHRDSAogCSAqIHRIT0xEX01FTSA+IHRSRUggLSB0U0VUVVBfTUVNCiAJICogdEhP
+TERfTUVNID4gbWF4KHRSQywgdFdDKSAtICh0U0VUVVBfTUVNICsgdFdBSVQpCiAJICovCi0JdGhv
+bGRfbWVtID0gaGNsa3A7Ci0JaWYgKHRob2xkX21lbSA8IHNkcnQtPnRDSF9taW4pCi0JCXRob2xk
+X21lbSA9IHNkcnQtPnRDSF9taW47CisJdGhvbGRfbWVtID0gbWF4X3QodW5zaWduZWQgbG9uZywg
+aGNsa3AsIHNkcnQtPnRDSF9taW4pOwogCWlmIChzZHJ0LT50UkVIX21pbiA+IHRzZXRfbWVtICYm
+CiAJICAgICh0aG9sZF9tZW0gPCBzZHJ0LT50UkVIX21pbiAtIHRzZXRfbWVtKSkKIAkJdGhvbGRf
+bWVtID0gc2RydC0+dFJFSF9taW4gLSB0c2V0X21lbTsKQEAgLTE1MDAsMTEgKzE0ODMsOCBAQCBz
+dGF0aWMgdm9pZCBzdG0zMl9mbWMyX2NhbGNfdGltaW5ncyhzdHJ1Y3QgbmFuZF9jaGlwICpjaGlw
+LAogCWlmICgoc2RydC0+dFdDX21pbiA+IHRzZXRfbWVtICsgdHdhaXQpICYmCiAJICAgICh0aG9s
+ZF9tZW0gPCBzZHJ0LT50V0NfbWluIC0gKHRzZXRfbWVtICsgdHdhaXQpKSkKIAkJdGhvbGRfbWVt
+ID0gc2RydC0+dFdDX21pbiAtICh0c2V0X21lbSArIHR3YWl0KTsKLQl0aW1zLT50aG9sZF9tZW0g
+PSBESVZfUk9VTkRfVVAodGhvbGRfbWVtLCBoY2xrcCk7Ci0JaWYgKHRpbXMtPnRob2xkX21lbSA9
+PSAwKQotCQl0aW1zLT50aG9sZF9tZW0gPSAxOwotCWVsc2UgaWYgKHRpbXMtPnRob2xkX21lbSA+
+IEZNQzJfUE1FTV9QQVRUX1RJTUlOR19NQVNLKQotCQl0aW1zLT50aG9sZF9tZW0gPSBGTUMyX1BN
+RU1fUEFUVF9USU1JTkdfTUFTSzsKKwl0aW1pbmcgPSBESVZfUk9VTkRfVVAodGhvbGRfbWVtLCBo
+Y2xrcCk7CisJdGltcy0+dGhvbGRfbWVtID0gY2xhbXBfdmFsKHRpbWluZywgMSwgRk1DMl9QTUVN
+X1BBVFRfVElNSU5HX01BU0spOwogCiAJLyoKIAkgKiB0U0VUVVBfQVRUID4gdENTIC0gdFdBSVQK
+QEAgLTE1MjYsMTEgKzE1MDYsOCBAQCBzdGF0aWMgdm9pZCBzdG0zMl9mbWMyX2NhbGNfdGltaW5n
+cyhzdHJ1Y3QgbmFuZF9jaGlwICpjaGlwLAogCWlmICh0d2FpdCA+IHRoaXogJiYgKHNkcnQtPnRE
+U19taW4gPiB0d2FpdCAtIHRoaXopICYmCiAJICAgICh0c2V0X2F0dCA8IHNkcnQtPnREU19taW4g
+LSAodHdhaXQgLSB0aGl6KSkpCiAJCXRzZXRfYXR0ID0gc2RydC0+dERTX21pbiAtICh0d2FpdCAt
+IHRoaXopOwotCXRpbXMtPnRzZXRfYXR0ID0gRElWX1JPVU5EX1VQKHRzZXRfYXR0LCBoY2xrcCk7
+Ci0JaWYgKHRpbXMtPnRzZXRfYXR0ID09IDApCi0JCXRpbXMtPnRzZXRfYXR0ID0gMTsKLQllbHNl
+IGlmICh0aW1zLT50c2V0X2F0dCA+IEZNQzJfUE1FTV9QQVRUX1RJTUlOR19NQVNLKQotCQl0aW1z
+LT50c2V0X2F0dCA9IEZNQzJfUE1FTV9QQVRUX1RJTUlOR19NQVNLOworCXRpbWluZyA9IERJVl9S
+T1VORF9VUCh0c2V0X2F0dCwgaGNsa3ApOworCXRpbXMtPnRzZXRfYXR0ID0gY2xhbXBfdmFsKHRp
+bWluZywgMSwgRk1DMl9QTUVNX1BBVFRfVElNSU5HX01BU0spOwogCiAJLyoKIAkgKiB0SE9MRF9B
+VFQgPiB0QUxICkBAIC0xNTQ1LDE3ICsxNTIyLDExIEBAIHN0YXRpYyB2b2lkIHN0bTMyX2ZtYzJf
+Y2FsY190aW1pbmdzKHN0cnVjdCBuYW5kX2NoaXAgKmNoaXAsCiAJICogdEhPTERfQVRUID4gdFJD
+IC0gKHRTRVRVUF9BVFQgKyB0V0FJVCkKIAkgKiB0SE9MRF9BVFQgPiB0V0MgLSAodFNFVFVQX0FU
+VCArIHRXQUlUKQogCSAqLwotCXRob2xkX2F0dCA9IGhjbGtwOwotCWlmICh0aG9sZF9hdHQgPCBz
+ZHJ0LT50QUxIX21pbikKLQkJdGhvbGRfYXR0ID0gc2RydC0+dEFMSF9taW47Ci0JaWYgKHRob2xk
+X2F0dCA8IHNkcnQtPnRDSF9taW4pCi0JCXRob2xkX2F0dCA9IHNkcnQtPnRDSF9taW47Ci0JaWYg
+KHRob2xkX2F0dCA8IHNkcnQtPnRDTEhfbWluKQotCQl0aG9sZF9hdHQgPSBzZHJ0LT50Q0xIX21p
+bjsKLQlpZiAodGhvbGRfYXR0IDwgc2RydC0+dENPSF9taW4pCi0JCXRob2xkX2F0dCA9IHNkcnQt
+PnRDT0hfbWluOwotCWlmICh0aG9sZF9hdHQgPCBzZHJ0LT50REhfbWluKQotCQl0aG9sZF9hdHQg
+PSBzZHJ0LT50REhfbWluOworCXRob2xkX2F0dCA9IG1heF90KHVuc2lnbmVkIGxvbmcsIGhjbGtw
+LCBzZHJ0LT50QUxIX21pbik7CisJdGhvbGRfYXR0ID0gbWF4X3QodW5zaWduZWQgbG9uZywgdGhv
+bGRfYXR0LCBzZHJ0LT50Q0hfbWluKTsKKwl0aG9sZF9hdHQgPSBtYXhfdCh1bnNpZ25lZCBsb25n
+LCB0aG9sZF9hdHQsIHNkcnQtPnRDTEhfbWluKTsKKwl0aG9sZF9hdHQgPSBtYXhfdCh1bnNpZ25l
+ZCBsb25nLCB0aG9sZF9hdHQsIHNkcnQtPnRDT0hfbWluKTsKKwl0aG9sZF9hdHQgPSBtYXhfdCh1
+bnNpZ25lZCBsb25nLCB0aG9sZF9hdHQsIHNkcnQtPnRESF9taW4pOwogCWlmICgoc2RydC0+dFdC
+X21heCArIEZNQzJfVElPICsgRk1DMl9UU1lOQyA+IHRzZXRfbWVtKSAmJgogCSAgICAodGhvbGRf
+YXR0IDwgc2RydC0+dFdCX21heCArIEZNQzJfVElPICsgRk1DMl9UU1lOQyAtIHRzZXRfbWVtKSkK
+IAkJdGhvbGRfYXR0ID0gc2RydC0+dFdCX21heCArIEZNQzJfVElPICsgRk1DMl9UU1lOQyAtIHRz
+ZXRfbWVtOwpAQCAtMTU3NCwxMSArMTU0NSw4IEBAIHN0YXRpYyB2b2lkIHN0bTMyX2ZtYzJfY2Fs
+Y190aW1pbmdzKHN0cnVjdCBuYW5kX2NoaXAgKmNoaXAsCiAJaWYgKChzZHJ0LT50V0NfbWluID4g
+dHNldF9hdHQgKyB0d2FpdCkgJiYKIAkgICAgKHRob2xkX2F0dCA8IHNkcnQtPnRXQ19taW4gLSAo
+dHNldF9hdHQgKyB0d2FpdCkpKQogCQl0aG9sZF9hdHQgPSBzZHJ0LT50V0NfbWluIC0gKHRzZXRf
+YXR0ICsgdHdhaXQpOwotCXRpbXMtPnRob2xkX2F0dCA9IERJVl9ST1VORF9VUCh0aG9sZF9hdHQs
+IGhjbGtwKTsKLQlpZiAodGltcy0+dGhvbGRfYXR0ID09IDApCi0JCXRpbXMtPnRob2xkX2F0dCA9
+IDE7Ci0JZWxzZSBpZiAodGltcy0+dGhvbGRfYXR0ID4gRk1DMl9QTUVNX1BBVFRfVElNSU5HX01B
+U0spCi0JCXRpbXMtPnRob2xkX2F0dCA9IEZNQzJfUE1FTV9QQVRUX1RJTUlOR19NQVNLOworCXRp
+bWluZyA9IERJVl9ST1VORF9VUCh0aG9sZF9hdHQsIGhjbGtwKTsKKwl0aW1zLT50aG9sZF9hdHQg
+PSBjbGFtcF92YWwodGltaW5nLCAxLCBGTUMyX1BNRU1fUEFUVF9USU1JTkdfTUFTSyk7CiB9CiAK
+IHN0YXRpYyBpbnQgc3RtMzJfZm1jMl9zZXR1cF9pbnRlcmZhY2Uoc3RydWN0IG5hbmRfY2hpcCAq
+Y2hpcCwgaW50IGNoaXBuciwKLS0gCjEuOS4xCgpfX19fX19fX19fX19fX19fX19fX19fX19fX19f
+X19fX19fX19fX19fX19fX19fXwpMaW51eC1zdG0zMiBtYWlsaW5nIGxpc3QKTGludXgtc3RtMzJA
+c3QtbWQtbWFpbG1hbi5zdG9ybXJlcGx5LmNvbQpodHRwczovL3N0LW1kLW1haWxtYW4uc3Rvcm1y
+ZXBseS5jb20vbWFpbG1hbi9saXN0aW5mby9saW51eC1zdG0zMgo=
