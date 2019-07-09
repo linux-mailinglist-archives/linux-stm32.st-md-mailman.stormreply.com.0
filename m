@@ -2,47 +2,69 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id 0CF1462E32
-	for <lists+linux-stm32@lfdr.de>; Tue,  9 Jul 2019 04:37:15 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id BD594631DC
+	for <lists+linux-stm32@lfdr.de>; Tue,  9 Jul 2019 09:24:02 +0200 (CEST)
 Received: from ip-172-31-3-76.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id D00CBC6C344
-	for <lists+linux-stm32@lfdr.de>; Tue,  9 Jul 2019 02:37:14 +0000 (UTC)
-Received: from mailgw01.mediatek.com (unknown [210.61.82.183])
- (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 6C1E6C79A62
+	for <lists+linux-stm32@lfdr.de>; Tue,  9 Jul 2019 07:24:02 +0000 (UTC)
+Received: from mail-wm1-f65.google.com (mail-wm1-f65.google.com
+ [209.85.128.65])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id B1C78C6C341
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 5C281C79A20
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Tue,  9 Jul 2019 02:37:12 +0000 (UTC)
-X-UUID: 3601ec7aeea647349e0cea178f99bd14-20190709
-X-UUID: 3601ec7aeea647349e0cea178f99bd14-20190709
-Received: from mtkcas08.mediatek.inc [(172.21.101.126)] by
- mailgw01.mediatek.com (envelope-from <biao.huang@mediatek.com>)
- (mhqrelay.mediatek.com ESMTP with TLS)
- with ESMTP id 240360215; Tue, 09 Jul 2019 10:36:37 +0800
-Received: from mtkcas07.mediatek.inc (172.21.101.84) by
- mtkmbs01n1.mediatek.inc (172.21.101.68) with Microsoft SMTP Server (TLS) id
- 15.0.1395.4; Tue, 9 Jul 2019 10:36:36 +0800
-Received: from localhost.localdomain (10.17.3.153) by mtkcas07.mediatek.inc
- (172.21.101.73) with Microsoft SMTP Server id 15.0.1395.4 via Frontend
- Transport; Tue, 9 Jul 2019 10:36:36 +0800
-From: Biao Huang <biao.huang@mediatek.com>
-To: <davem@davemloft.net>, Jose Abreu <joabreu@synopsys.com>, <andrew@lunn.ch>
-Date: Tue, 9 Jul 2019 10:36:23 +0800
-Message-ID: <20190709023623.8358-3-biao.huang@mediatek.com>
-X-Mailer: git-send-email 2.18.0
-In-Reply-To: <20190709023623.8358-1-biao.huang@mediatek.com>
-References: <20190709023623.8358-1-biao.huang@mediatek.com>
+ Tue,  9 Jul 2019 07:24:00 +0000 (UTC)
+Received: by mail-wm1-f65.google.com with SMTP id v19so1983565wmj.5
+ for <linux-stm32@st-md-mailman.stormreply.com>;
+ Tue, 09 Jul 2019 00:24:00 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linaro.org; s=google;
+ h=date:from:to:cc:subject:message-id:references:mime-version
+ :content-disposition:in-reply-to:user-agent;
+ bh=03TkoezjgkAZL2YmFuoEqna7NSM8InGqJI+3ARKjL1o=;
+ b=FDJIw/XXd8rciEohBUKmddB8phPThT/PekIFiIN1cV+l66VsdC0Itam9we2NMoOqYP
+ zBHeqKlzeTGyY3g/sM4yKyKMITVauqjdMGiSqi7Qe4u+ideDdLeEycXFIt1qMs8O091N
+ IeEHWcipFxAp5FvVKok6cqbLm6foJ2Zf78DS35yfTVQp2IRNPHG4wJGKr5BCgRYX1fsC
+ Gal52Dc2u9+vN7WHfgRi/AJPwy43zH8kL5FeQ6phfuf96q/RVuy7h5wgcKb5pNvQxq19
+ j822OniI4eL5t2RDAoE5UHnZycbkUczRRXkOvxqbuVFHb0Bmuj/7/zlTbr6HBedkBEHo
+ b7uA==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20161025;
+ h=x-gm-message-state:date:from:to:cc:subject:message-id:references
+ :mime-version:content-disposition:in-reply-to:user-agent;
+ bh=03TkoezjgkAZL2YmFuoEqna7NSM8InGqJI+3ARKjL1o=;
+ b=A/HUnZpDzVXwwEkgZ7nmT5Ab1pFTmpHbiQD7OA2bmxn927xg5l2pQLjAsLgY4qj6VD
+ gDQfNKIQnmdg8vOmaa2aMw72a+QUfKSIvqbsOMqjYmetwS6ZyslhxJErntrX7ZiUKIkx
+ eo1LF15p/tNGTDfcFsk5WxX5b6mJdKfyLjD+pbxoo4Gck9ZeyBy7QWbRHXSHdQ+J+ly1
+ 2osckW1dPr7H+zCTJwlff3cRrzeC/P/ixDZ0C6pBbLQgJmY+AnpWrd3taMvypYj+jXDE
+ daTwKGBbKlhrGJZ8X8nU8F+gu0jUnTJ/XBwvW+fxQ3ujwWBMeP1eWoTo5Ybec9GchvGU
+ pUFg==
+X-Gm-Message-State: APjAAAWNt6WUNKDV00jPA80YMshZrdR7L9vdTGYUxrcm5rpP/zfQNpGn
+ lS2+dmT0FAUXhMUiHkqFGLB5LA==
+X-Google-Smtp-Source: APXvYqwV3mcuJnhnz6QQouw2JqDfmNZCuA8kTITJotydtLJak8JAyntXVQPkwnHos7Fs8wIPg2lpNg==
+X-Received: by 2002:a7b:cae9:: with SMTP id t9mr20552772wml.126.1562657039819; 
+ Tue, 09 Jul 2019 00:23:59 -0700 (PDT)
+Received: from apalos (athedsl-428434.home.otenet.gr. [79.131.225.144])
+ by smtp.gmail.com with ESMTPSA id v67sm2225652wme.24.2019.07.09.00.23.58
+ (version=TLS1_2 cipher=ECDHE-RSA-AES128-GCM-SHA256 bits=128/128);
+ Tue, 09 Jul 2019 00:23:59 -0700 (PDT)
+Date: Tue, 9 Jul 2019 10:23:56 +0300
+From: Ilias Apalodimas <ilias.apalodimas@linaro.org>
+To: David Miller <davem@davemloft.net>
+Message-ID: <20190709072356.GA4599@apalos>
+References: <BN8PR12MB32666359FABD7D7E55FE4761D3F50@BN8PR12MB3266.namprd12.prod.outlook.com>
+ <20190705152453.GA24683@apalos>
+ <BN8PR12MB32667BCA58B617432CACE677D3F60@BN8PR12MB3266.namprd12.prod.outlook.com>
+ <20190708.141515.1767939731073284700.davem@davemloft.net>
 MIME-Version: 1.0
-X-MTK: N
-Cc: jianguo.zhang@mediatek.com, boon.leong.ong@intel.com,
- biao.huang@mediatek.com, netdev@vger.kernel.org, linux-kernel@vger.kernel.org,
- yt.shen@mediatek.com, linux-mediatek@lists.infradead.org,
- Maxime Coquelin <mcoquelin.stm32@gmail.com>,
- Matthias Brugger <matthias.bgg@gmail.com>,
- Giuseppe Cavallaro <peppe.cavallaro@st.com>,
- linux-stm32@st-md-mailman.stormreply.com, linux-arm-kernel@lists.infradead.org
-Subject: [Linux-stm32] [PATCH 2/2 net-next] net: stmmac: add support for
-	hash table size 128/256 in dwmac4
+Content-Disposition: inline
+In-Reply-To: <20190708.141515.1767939731073284700.davem@davemloft.net>
+User-Agent: Mutt/1.5.24 (2015-08-30)
+Cc: Jose.Abreu@synopsys.com, Joao.Pinto@synopsys.com, arnd@arndb.de,
+ netdev@vger.kernel.org, linux-kernel@vger.kernel.org, brouer@redhat.com,
+ peppe.cavallaro@st.com, linux-stm32@st-md-mailman.stormreply.com,
+ linux-arm-kernel@lists.infradead.org
+Subject: Re: [Linux-stm32] [PATCH net-next v3 3/3] net: stmmac: Introducing
+ support for Page Pool
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -59,188 +81,31 @@ Content-Transfer-Encoding: 7bit
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
-1. get hash table size in hw feature reigster, and add support
-for taller hash table(128/256) in dwmac4.
-2. only clear GMAC_PACKET_FILTER bits used in this function,
-to avoid side effect to functions of other bits.
+Hello, 
 
-stmmac selftests output log with flow control on:
-	ethtool -t eth0
-	The test result is PASS
-	The test extra info:
-	 1. MAC Loopback                 0
-	 2. PHY Loopback                 -95
-	 3. MMC Counters                 0
-	 4. EEE                          -95
-	 5. Hash Filter MC               0
-	 6. Perfect Filter UC            0
-	 7. MC Filter                    0
-	 8. UC Filter                    0
-	 9. Flow Control                 0
+> From: Jose Abreu <Jose.Abreu@synopsys.com>
+> Date: Mon, 8 Jul 2019 16:08:07 +0000
+> 
+> > From: Ilias Apalodimas <ilias.apalodimas@linaro.org> | Date: Fri, Jul 
+> > 05, 2019 at 16:24:53
+> > 
+> >> Well ideally we'd like to get the change in before the merge window ourselves,
+> >> since we dont want to remove->re-add the same function in stable kernels. If
+> >> that doesn't go in i am fine fixing it in the next merge window i guess, since
+> >> it offers substantial speedups
+> > 
+> > I think the series is marked as "Changes Requested" in patchwork. What's 
+> > the status of this ?
+> 
+> That means I expect a respin based upon feedback or similar.  If Ilias and
+> you agreed to put this series in as-is, my apologies and just resend the
+> series with appropriate ACK and Review tags added.
 
-Signed-off-by: Biao Huang <biao.huang@mediatek.com>
----
- drivers/net/ethernet/stmicro/stmmac/common.h  |  7 +--
- drivers/net/ethernet/stmicro/stmmac/dwmac4.h  |  4 +-
- .../net/ethernet/stmicro/stmmac/dwmac4_core.c | 49 +++++++++++--------
- .../net/ethernet/stmicro/stmmac/dwmac4_dma.c  |  1 +
- .../net/ethernet/stmicro/stmmac/stmmac_main.c |  6 +++
- 5 files changed, 42 insertions(+), 25 deletions(-)
+The patch from Ivan did get merged, can you change the free call to
+page_pool_destroy and re-spin? You can add my acked-by
 
-diff --git a/drivers/net/ethernet/stmicro/stmmac/common.h b/drivers/net/ethernet/stmicro/stmmac/common.h
-index 2403a65167b2..af91e6b15eaa 100644
---- a/drivers/net/ethernet/stmicro/stmmac/common.h
-+++ b/drivers/net/ethernet/stmicro/stmmac/common.h
-@@ -325,6 +325,7 @@ struct dma_features {
- 	/* 802.3az - Energy-Efficient Ethernet (EEE) */
- 	unsigned int eee;
- 	unsigned int av;
-+	unsigned int hash_tb_sz;
- 	unsigned int tsoen;
- 	/* TX and RX csum */
- 	unsigned int tx_coe;
-@@ -423,9 +424,9 @@ struct mac_device_info {
- 	struct mii_regs mii;	/* MII register Addresses */
- 	struct mac_link link;
- 	void __iomem *pcsr;     /* vpointer to device CSRs */
--	int multicast_filter_bins;
--	int unicast_filter_entries;
--	int mcast_bits_log2;
-+	unsigned int multicast_filter_bins;
-+	unsigned int unicast_filter_entries;
-+	unsigned int mcast_bits_log2;
- 	unsigned int rx_csum;
- 	unsigned int pcs;
- 	unsigned int pmt;
-diff --git a/drivers/net/ethernet/stmicro/stmmac/dwmac4.h b/drivers/net/ethernet/stmicro/stmmac/dwmac4.h
-index 15a9f3c7cc6a..2ed11a581d80 100644
---- a/drivers/net/ethernet/stmicro/stmmac/dwmac4.h
-+++ b/drivers/net/ethernet/stmicro/stmmac/dwmac4.h
-@@ -15,8 +15,7 @@
- /*  MAC registers */
- #define GMAC_CONFIG			0x00000000
- #define GMAC_PACKET_FILTER		0x00000008
--#define GMAC_HASH_TAB_0_31		0x00000010
--#define GMAC_HASH_TAB_32_63		0x00000014
-+#define GMAC_HASH_TAB(x)		(0x10 + (x) * 4)
- #define GMAC_RX_FLOW_CTRL		0x00000090
- #define GMAC_QX_TX_FLOW_CTRL(x)		(0x70 + x * 4)
- #define GMAC_TXQ_PRTY_MAP0		0x98
-@@ -181,6 +180,7 @@ enum power_event {
- #define GMAC_HW_FEAT_MIISEL		BIT(0)
- 
- /* MAC HW features1 bitmap */
-+#define GMAC_HW_HASH_TB_SZ		GENMASK(25, 24)
- #define GMAC_HW_FEAT_AVSEL		BIT(20)
- #define GMAC_HW_TSOEN			BIT(18)
- #define GMAC_HW_TXFIFOSIZE		GENMASK(10, 6)
-diff --git a/drivers/net/ethernet/stmicro/stmmac/dwmac4_core.c b/drivers/net/ethernet/stmicro/stmmac/dwmac4_core.c
-index 776077ec1a23..01c2e2d83e76 100644
---- a/drivers/net/ethernet/stmicro/stmmac/dwmac4_core.c
-+++ b/drivers/net/ethernet/stmicro/stmmac/dwmac4_core.c
-@@ -400,41 +400,50 @@ static void dwmac4_set_filter(struct mac_device_info *hw,
- 			      struct net_device *dev)
- {
- 	void __iomem *ioaddr = (void __iomem *)dev->base_addr;
--	unsigned int value = 0;
-+	int numhashregs = (hw->multicast_filter_bins >> 5);
-+	int mcbitslog2 = hw->mcast_bits_log2;
-+	unsigned int value;
-+	int i;
- 
-+	value = readl(ioaddr + GMAC_PACKET_FILTER);
-+	value &= ~GMAC_PACKET_FILTER_HMC;
-+	value &= ~GMAC_PACKET_FILTER_HPF;
-+	value &= ~GMAC_PACKET_FILTER_PCF;
-+	value &= ~GMAC_PACKET_FILTER_PM;
-+	value &= ~GMAC_PACKET_FILTER_PR;
- 	if (dev->flags & IFF_PROMISC) {
- 		value = GMAC_PACKET_FILTER_PR | GMAC_PACKET_FILTER_PCF;
- 	} else if ((dev->flags & IFF_ALLMULTI) ||
--			(netdev_mc_count(dev) > HASH_TABLE_SIZE)) {
-+		   (netdev_mc_count(dev) > hw->multicast_filter_bins)) {
- 		/* Pass all multi */
--		value = GMAC_PACKET_FILTER_PM;
--		/* Set the 64 bits of the HASH tab. To be updated if taller
--		 * hash table is used
--		 */
--		writel(0xffffffff, ioaddr + GMAC_HASH_TAB_0_31);
--		writel(0xffffffff, ioaddr + GMAC_HASH_TAB_32_63);
-+		value |= GMAC_PACKET_FILTER_PM;
-+		/* Set all the bits of the HASH tab */
-+		for (i = 0; i < numhashregs; i++)
-+			writel(0xffffffff, ioaddr + GMAC_HASH_TAB(i));
- 	} else if (!netdev_mc_empty(dev)) {
--		u32 mc_filter[2];
- 		struct netdev_hw_addr *ha;
-+		u32 mc_filter[8];
- 
- 		/* Hash filter for multicast */
--		value = GMAC_PACKET_FILTER_HMC;
-+		value |= GMAC_PACKET_FILTER_HMC;
- 
- 		memset(mc_filter, 0, sizeof(mc_filter));
- 		netdev_for_each_mc_addr(ha, dev) {
--			/* The upper 6 bits of the calculated CRC are used to
--			 * index the content of the Hash Table Reg 0 and 1.
-+			/* The upper n bits of the calculated CRC are used to
-+			 * index the contents of the hash table. The number of
-+			 * bits used depends on the hardware configuration
-+			 * selected at core configuration time.
- 			 */
--			int bit_nr =
--				(bitrev32(~crc32_le(~0, ha->addr, 6)) >> 26);
--			/* The most significant bit determines the register
--			 * to use while the other 5 bits determines the bit
--			 * within the selected register
-+			int bit_nr = bitrev32(~crc32_le(~0, ha->addr,
-+					ETH_ALEN)) >> (32 - mcbitslog2);
-+			/* The most significant bit determines the register to
-+			 * use (H/L) while the other 5 bits determine the bit
-+			 * within the register.
- 			 */
--			mc_filter[bit_nr >> 5] |= (1 << (bit_nr & 0x1F));
-+			mc_filter[bit_nr >> 5] |= (1 << (bit_nr & 0x1f));
- 		}
--		writel(mc_filter[0], ioaddr + GMAC_HASH_TAB_0_31);
--		writel(mc_filter[1], ioaddr + GMAC_HASH_TAB_32_63);
-+		for (i = 0; i < numhashregs; i++)
-+			writel(mc_filter[i], ioaddr + GMAC_HASH_TAB(i));
- 	}
- 
- 	value |= GMAC_PACKET_FILTER_HPF;
-diff --git a/drivers/net/ethernet/stmicro/stmmac/dwmac4_dma.c b/drivers/net/ethernet/stmicro/stmmac/dwmac4_dma.c
-index 0f208e13da9f..6af79fd65ef7 100644
---- a/drivers/net/ethernet/stmicro/stmmac/dwmac4_dma.c
-+++ b/drivers/net/ethernet/stmicro/stmmac/dwmac4_dma.c
-@@ -351,6 +351,7 @@ static void dwmac4_get_hw_feature(void __iomem *ioaddr,
- 
- 	/* MAC HW feature1 */
- 	hw_cap = readl(ioaddr + GMAC_HW_FEATURE1);
-+	dma_cap->hash_tb_sz = (hw_cap & GMAC_HW_HASH_TB_SZ) >> 24;
- 	dma_cap->av = (hw_cap & GMAC_HW_FEAT_AVSEL) >> 20;
- 	dma_cap->tsoen = (hw_cap & GMAC_HW_TSOEN) >> 18;
- 	/* RX and TX FIFO sizes are encoded as log2(n / 128). Undo that by
-diff --git a/drivers/net/ethernet/stmicro/stmmac/stmmac_main.c b/drivers/net/ethernet/stmicro/stmmac/stmmac_main.c
-index 3425d4dda03d..3a04ace0379a 100644
---- a/drivers/net/ethernet/stmicro/stmmac/stmmac_main.c
-+++ b/drivers/net/ethernet/stmicro/stmmac/stmmac_main.c
-@@ -4174,6 +4174,12 @@ static int stmmac_hw_init(struct stmmac_priv *priv)
- 		priv->plat->enh_desc = priv->dma_cap.enh_desc;
- 		priv->plat->pmt = priv->dma_cap.pmt_remote_wake_up;
- 		priv->hw->pmt = priv->plat->pmt;
-+		if (priv->dma_cap.hash_tb_sz) {
-+			priv->hw->multicast_filter_bins =
-+					(BIT(priv->dma_cap.hash_tb_sz) << 5);
-+			priv->hw->mcast_bits_log2 =
-+					ilog2(priv->hw->multicast_filter_bins);
-+		}
- 
- 		/* TXCOE doesn't work in thresh DMA mode */
- 		if (priv->plat->force_thresh_dma_mode)
--- 
-2.18.0
-
+Thanks
+/Ilias
 _______________________________________________
 Linux-stm32 mailing list
 Linux-stm32@st-md-mailman.stormreply.com
