@@ -2,59 +2,40 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id 76D1663809
-	for <lists+linux-stm32@lfdr.de>; Tue,  9 Jul 2019 16:38:43 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 0A2F363BCC
+	for <lists+linux-stm32@lfdr.de>; Tue,  9 Jul 2019 21:20:32 +0200 (CEST)
 Received: from ip-172-31-3-76.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 6F3AAC930D4
-	for <lists+linux-stm32@lfdr.de>; Tue,  9 Jul 2019 14:38:42 +0000 (UTC)
-Received: from mail-io1-f66.google.com (mail-io1-f66.google.com
- [209.85.166.66])
- (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id B171BC9DB26
+	for <lists+linux-stm32@lfdr.de>; Tue,  9 Jul 2019 19:20:31 +0000 (UTC)
+Received: from shards.monkeyblade.net (shards.monkeyblade.net [23.128.96.9])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 745F3C930D2
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id CA23AC9DB24
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Tue,  9 Jul 2019 14:38:41 +0000 (UTC)
-Received: by mail-io1-f66.google.com with SMTP id k20so43596080ios.10
- for <linux-stm32@st-md-mailman.stormreply.com>;
- Tue, 09 Jul 2019 07:38:41 -0700 (PDT)
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20161025;
- h=x-gm-message-state:date:from:to:cc:subject:message-id:references
- :mime-version:content-disposition:in-reply-to:user-agent;
- bh=+prWP/l+NiaYOcrIk/R8mV2BTVhCl2S22LwiNWpEL0Q=;
- b=JlphTAhHo4EoI8w4eMjKTZWVDjA1Ed5iqf3XYIDc0pV8BLXvMkCVjf8wvqQ7B5j8b9
- HWB+96fS/oEVk7VS/6/SNsIK/VVT5W27L8Fs+hS3JabvbaB4fGddfItKsB1jxv1Vwh9j
- tibCfMnwb5miED/lCE20QPW5EtW8O0W3Hz80VfD2eND8hag1lHjx5wdNv2Nm4tyhRc+w
- zXLFQcttcDX4/sFvApcXADHdMdzd3JJDnJwOnoqpcJpFe/ufk+G/wC6H6m1gzAPbuuYa
- uBYZK+GKp3b4aHYJu2jARQnnJi1V5cFhXQc5ZhfzMFFiY8DU1Lsx51u8l2gw8voIkl78
- CuWA==
-X-Gm-Message-State: APjAAAWXqRR/yHAXgqNuaxp9cQNn2SjtKixKHSyia/CfRIR+T0NQEka+
- fN7Qqsyosper/ZLrKMmYFQ==
-X-Google-Smtp-Source: APXvYqySHhAtm9GlvHKsUPEMTbTk1st1sP64SKKq5dl6tEvxnFV5wYea+XzPa0VvC7nIO5Guff5xRg==
-X-Received: by 2002:a6b:6d07:: with SMTP id a7mr556026iod.254.1562683120146;
- Tue, 09 Jul 2019 07:38:40 -0700 (PDT)
-Received: from localhost ([64.188.179.251])
- by smtp.gmail.com with ESMTPSA id j1sm17618610iop.14.2019.07.09.07.38.38
- (version=TLS1_3 cipher=AEAD-AES256-GCM-SHA384 bits=256/256);
- Tue, 09 Jul 2019 07:38:39 -0700 (PDT)
-Date: Tue, 9 Jul 2019 08:38:38 -0600
-From: Rob Herring <robh@kernel.org>
-To: Erwan Le Ray <erwan.leray@st.com>
-Message-ID: <20190709143838.GA5665@bogus>
-References: <1560433800-12255-1-git-send-email-erwan.leray@st.com>
- <1560433800-12255-3-git-send-email-erwan.leray@st.com>
-MIME-Version: 1.0
-Content-Disposition: inline
-In-Reply-To: <1560433800-12255-3-git-send-email-erwan.leray@st.com>
-User-Agent: Mutt/1.10.1 (2018-07-13)
-Cc: Mark Rutland <mark.rutland@arm.com>,
- Maxime Coquelin <mcoquelin.stm32@gmail.com>, devicetree@vger.kernel.org,
- Greg Kroah-Hartman <gregkh@linuxfoundation.org>, linux-kernel@vger.kernel.org,
- linux-serial@vger.kernel.org, Jiri Slaby <jslaby@suse.com>,
- Fabrice Gasnier <fabrice.gasnier@st.com>,
- linux-stm32@st-md-mailman.stormreply.com, linux-arm-kernel@lists.infradead.org
-Subject: Re: [Linux-stm32] [PATCH v3 02/10] dt-bindings: serial: add
-	optional pinctrl states
+ Tue,  9 Jul 2019 19:20:30 +0000 (UTC)
+Received: from localhost (unknown [IPv6:2601:601:9f80:35cd::d71])
+ (using TLSv1 with cipher AES256-SHA (256/256 bits))
+ (Client did not present a certificate)
+ (Authenticated sender: davem-davemloft)
+ by shards.monkeyblade.net (Postfix) with ESMTPSA id 3E07D1403896D;
+ Tue,  9 Jul 2019 12:20:28 -0700 (PDT)
+Date: Tue, 09 Jul 2019 12:20:27 -0700 (PDT)
+Message-Id: <20190709.122027.77005575861873161.davem@davemloft.net>
+To: Jose.Abreu@synopsys.com
+From: David Miller <davem@davemloft.net>
+In-Reply-To: <cover.1562659012.git.joabreu@synopsys.com>
+References: <cover.1562659012.git.joabreu@synopsys.com>
+X-Mailer: Mew version 6.8 on Emacs 26.1
+Mime-Version: 1.0
+X-Greylist: Sender succeeded SMTP AUTH, not delayed by milter-greylist-4.5.12
+ (shards.monkeyblade.net [149.20.54.216]);
+ Tue, 09 Jul 2019 12:20:28 -0700 (PDT)
+Cc: Joao.Pinto@synopsys.com, maxime.ripard@bootlin.com, netdev@vger.kernel.org,
+ linux-kernel@vger.kernel.org, wens@csie.org, mcoquelin.stm32@gmail.com,
+ peppe.cavallaro@st.com, linux-stm32@st-md-mailman.stormreply.com,
+ linux-arm-kernel@lists.infradead.org
+Subject: Re: [Linux-stm32] [PATCH net-next v4 0/3] net: stmmac: Some
+ improvements and a fix
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -71,36 +52,13 @@ Content-Transfer-Encoding: 7bit
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
-On Thu, Jun 13, 2019 at 03:49:52PM +0200, Erwan Le Ray wrote:
-> From: Bich Hemon <bich.hemon@st.com>
-> 
-> Add options for pinctrl states:
-> - "sleep" for low power
-> - "idle" for low power and wakeup capabilities enabled
-> - "no_console_suspend" for enabling console messages in low power
-> 
-> Signed-off-by: Bich Hemon <bich.hemon@st.com>
-> Signed-off-by: Erwan Le Ray <erwan.leray@st.com>
-> 
-> diff --git a/Documentation/devicetree/bindings/serial/st,stm32-usart.txt b/Documentation/devicetree/bindings/serial/st,stm32-usart.txt
-> index 5ec80c1..64a5ea9 100644
-> --- a/Documentation/devicetree/bindings/serial/st,stm32-usart.txt
-> +++ b/Documentation/devicetree/bindings/serial/st,stm32-usart.txt
-> @@ -13,7 +13,14 @@ Required properties:
->  - clocks: The input clock of the USART instance
->  
->  Optional properties:
-> -- pinctrl: The reference on the pins configuration
-> +- pinctrl-names: Set to "default". An additional "sleep" state can be defined
-> +  to set pins in sleep state when in low power. In case the device is used as
-> +  a wakeup source, "idle" state is defined in order to keep RX pin active.
-> +  For a console device, an optional state "no_console_suspend" can be defined
-> +  to enable console messages during suspend. Typically, "no_console_suspend" and
-> +  "default" states can refer to the same pin configuration.
+From: Jose Abreu <Jose.Abreu@synopsys.com>
+Date: Tue,  9 Jul 2019 10:02:57 +0200
 
-no_console_suspend is a linux thing and doesn't belong in DT.
+> Some performace improvements (01/03 and 03/03) and a fix (02/03),
+> all for -next.
 
-Rob
+Series applied, thanks Jose.
 _______________________________________________
 Linux-stm32 mailing list
 Linux-stm32@st-md-mailman.stormreply.com
