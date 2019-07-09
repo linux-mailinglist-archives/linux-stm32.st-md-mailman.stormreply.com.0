@@ -2,42 +2,45 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id BD17562ABD
-	for <lists+linux-stm32@lfdr.de>; Mon,  8 Jul 2019 23:15:23 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id C789A62E2E
+	for <lists+linux-stm32@lfdr.de>; Tue,  9 Jul 2019 04:36:52 +0200 (CEST)
 Received: from ip-172-31-3-76.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 5C1FAC65AC5
-	for <lists+linux-stm32@lfdr.de>; Mon,  8 Jul 2019 21:15:23 +0000 (UTC)
-Received: from shards.monkeyblade.net (shards.monkeyblade.net [23.128.96.9])
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id BFC14C6C346
+	for <lists+linux-stm32@lfdr.de>; Tue,  9 Jul 2019 02:36:51 +0000 (UTC)
+Received: from mailgw02.mediatek.com (unknown [210.61.82.184])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 5BC01C65AC3
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 6F2F2C6C342
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Mon,  8 Jul 2019 21:15:22 +0000 (UTC)
-Received: from localhost (unknown [IPv6:2601:601:9f80:35cd::d71])
- (using TLSv1 with cipher AES256-SHA (256/256 bits))
- (Client did not present a certificate)
- (Authenticated sender: davem-davemloft)
- by shards.monkeyblade.net (Postfix) with ESMTPSA id A7B14136DDD39;
- Mon,  8 Jul 2019 14:15:19 -0700 (PDT)
-Date: Mon, 08 Jul 2019 14:15:15 -0700 (PDT)
-Message-Id: <20190708.141515.1767939731073284700.davem@davemloft.net>
-To: Jose.Abreu@synopsys.com
-From: David Miller <davem@davemloft.net>
-In-Reply-To: <BN8PR12MB32667BCA58B617432CACE677D3F60@BN8PR12MB3266.namprd12.prod.outlook.com>
-References: <BN8PR12MB32666359FABD7D7E55FE4761D3F50@BN8PR12MB3266.namprd12.prod.outlook.com>
- <20190705152453.GA24683@apalos>
- <BN8PR12MB32667BCA58B617432CACE677D3F60@BN8PR12MB3266.namprd12.prod.outlook.com>
-X-Mailer: Mew version 6.8 on Emacs 26.1
-Mime-Version: 1.0
-X-Greylist: Sender succeeded SMTP AUTH, not delayed by milter-greylist-4.5.12
- (shards.monkeyblade.net [149.20.54.216]);
- Mon, 08 Jul 2019 14:15:20 -0700 (PDT)
-Cc: Joao.Pinto@synopsys.com, arnd@arndb.de, netdev@vger.kernel.org,
- ilias.apalodimas@linaro.org, linux-kernel@vger.kernel.org, brouer@redhat.com,
- peppe.cavallaro@st.com, linux-stm32@st-md-mailman.stormreply.com,
- linux-arm-kernel@lists.infradead.org
-Subject: Re: [Linux-stm32] [PATCH net-next v3 3/3] net: stmmac: Introducing
- support for Page Pool
+ Tue,  9 Jul 2019 02:36:50 +0000 (UTC)
+X-UUID: 40d671520f5b410e8d94f18279514482-20190709
+X-UUID: 40d671520f5b410e8d94f18279514482-20190709
+Received: from mtkcas09.mediatek.inc [(172.21.101.178)] by
+ mailgw02.mediatek.com (envelope-from <biao.huang@mediatek.com>)
+ (mhqrelay.mediatek.com ESMTP with TLS)
+ with ESMTP id 851567057; Tue, 09 Jul 2019 10:36:36 +0800
+Received: from mtkcas07.mediatek.inc (172.21.101.84) by
+ mtkmbs01n1.mediatek.inc (172.21.101.68) with Microsoft SMTP Server (TLS) id
+ 15.0.1395.4; Tue, 9 Jul 2019 10:36:34 +0800
+Received: from localhost.localdomain (10.17.3.153) by mtkcas07.mediatek.inc
+ (172.21.101.73) with Microsoft SMTP Server id 15.0.1395.4 via Frontend
+ Transport; Tue, 9 Jul 2019 10:36:34 +0800
+From: Biao Huang <biao.huang@mediatek.com>
+To: <davem@davemloft.net>, Jose Abreu <joabreu@synopsys.com>, <andrew@lunn.ch>
+Date: Tue, 9 Jul 2019 10:36:21 +0800
+Message-ID: <20190709023623.8358-1-biao.huang@mediatek.com>
+X-Mailer: git-send-email 2.18.0
+MIME-Version: 1.0
+X-MTK: N
+Cc: jianguo.zhang@mediatek.com, boon.leong.ong@intel.com,
+ biao.huang@mediatek.com, netdev@vger.kernel.org, linux-kernel@vger.kernel.org,
+ yt.shen@mediatek.com, linux-mediatek@lists.infradead.org,
+ Maxime Coquelin <mcoquelin.stm32@gmail.com>,
+ Matthias Brugger <matthias.bgg@gmail.com>,
+ Giuseppe Cavallaro <peppe.cavallaro@st.com>,
+ linux-stm32@st-md-mailman.stormreply.com, linux-arm-kernel@lists.infradead.org
+Subject: [Linux-stm32] [PATCH 0/2 net-next] fix out-of-boundary issue and
+	add taller hash table support
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -54,25 +57,26 @@ Content-Transfer-Encoding: 7bit
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
-From: Jose Abreu <Jose.Abreu@synopsys.com>
-Date: Mon, 8 Jul 2019 16:08:07 +0000
+Fix mac address out-of-boundary issue in net-next tree.
+and resend the patch which was discussed in
+https://lore.kernel.org/patchwork/patch/1082117
+but with no further progress.
 
-> From: Ilias Apalodimas <ilias.apalodimas@linaro.org> | Date: Fri, Jul 
-> 05, 2019 at 16:24:53
-> 
->> Well ideally we'd like to get the change in before the merge window ourselves,
->> since we dont want to remove->re-add the same function in stable kernels. If
->> that doesn't go in i am fine fixing it in the next merge window i guess, since
->> it offers substantial speedups
-> 
-> I think the series is marked as "Changes Requested" in patchwork. What's 
-> the status of this ?
+Biao Huang (2):
+  net: stmmac: dwmac4: mac address array boudary violation issue
+  net: stmmac: add support for hash table size 128/256 in dwmac4
 
-That means I expect a respin based upon feedback or similar.  If Ilias and
-you agreed to put this series in as-is, my apologies and just resend the
-series with appropriate ACK and Review tags added.
+ drivers/net/ethernet/stmicro/stmmac/common.h  |  7 +--
+ drivers/net/ethernet/stmicro/stmmac/dwmac4.h  |  4 +-
+ .../net/ethernet/stmicro/stmmac/dwmac4_core.c | 51 +++++++++++--------
+ .../net/ethernet/stmicro/stmmac/dwmac4_dma.c  |  1 +
+ .../net/ethernet/stmicro/stmmac/stmmac_main.c |  6 +++
+ 5 files changed, 43 insertions(+), 26 deletions(-)
 
-Thanks.
+-- 
+2.18.0
+
+
 _______________________________________________
 Linux-stm32 mailing list
 Linux-stm32@st-md-mailman.stormreply.com
