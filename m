@@ -2,91 +2,60 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id C5ABE64986
-	for <lists+linux-stm32@lfdr.de>; Wed, 10 Jul 2019 17:27:24 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 91388649FA
+	for <lists+linux-stm32@lfdr.de>; Wed, 10 Jul 2019 17:46:12 +0200 (CEST)
 Received: from ip-172-31-3-76.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 8308ACDB63A
-	for <lists+linux-stm32@lfdr.de>; Wed, 10 Jul 2019 15:27:24 +0000 (UTC)
-Received: from mail-ed1-f68.google.com (mail-ed1-f68.google.com
- [209.85.208.68])
- (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 3E178CDC0D9
+	for <lists+linux-stm32@lfdr.de>; Wed, 10 Jul 2019 15:46:12 +0000 (UTC)
+Received: from smtprelay.hostedemail.com (smtprelay0058.hostedemail.com
+ [216.40.44.58])
+ (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id BF554CDB638
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 30BFBCDC0D7
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Wed, 10 Jul 2019 15:27:23 +0000 (UTC)
-Received: by mail-ed1-f68.google.com with SMTP id r12so2574595edo.5
- for <linux-stm32@st-md-mailman.stormreply.com>;
- Wed, 10 Jul 2019 08:27:23 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=ffwll.ch; s=google;
- h=sender:date:from:to:cc:subject:message-id:mail-followup-to
- :references:mime-version:content-disposition:in-reply-to:user-agent;
- bh=SgkufzQSTv6apsZUdNJaHjQjszSiq6lRFJLPOSo/AdU=;
- b=MPgH/N4l+levG/VhKT8jjXObPZPdcPsPGW9l4OkxWmh5Mga2fY36xiK9/aWYGSDWoA
- bZRJFhK/XNZzPxm2cB6rV9EN2rfyFht230HqwAoiyw113/16g8xpwbQ4NmZqP/eQrGRT
- eHf2BSBk83dh088+VhXnml/jxzrTjM1zMyJMY=
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20161025;
- h=x-gm-message-state:sender:date:from:to:cc:subject:message-id
- :mail-followup-to:references:mime-version:content-disposition
- :in-reply-to:user-agent;
- bh=SgkufzQSTv6apsZUdNJaHjQjszSiq6lRFJLPOSo/AdU=;
- b=otOWzaB7nnsC+WmJJViS6oGKw6Y1VnWSiQ3RsyGpM8XykojAm8itC+bedXrJB7oBAp
- kXG66Bm0fH5s/DgI1bU63djHEQfAKWfoi+rc9vFBGHMbsnmv8NE9hSuVWjRfMX2ID0a1
- br2xbGm8qMuOtLXttVf+gA548S0EzFLMmBOgLoNovfE0jvLoGY+pCbbXl27YfrIDl2CG
- uDA4Zba0yROokha1Ran/BmqqPJeV/8FTYpYDVqhMv/U0ZxKpNh1A+68oiYLKS1T/0l8/
- zKn47JCweVi13p40szUDSunxW4nmxDDhKwWzteC2KHt4j5OvQpOZjkQI4Vbr0Z5NqElE
- +hXg==
-X-Gm-Message-State: APjAAAUN5YC3jd6GHKeKd632WnU7dQHPl1GpYngtO1+Ny5qkQY0xFszJ
- iIdZe4+eKKoDtvWN3f8X4JAsBw==
-X-Google-Smtp-Source: APXvYqxigJ129/HrafCJTtiUL+NQg3j1KH4mPx69jB2LtBZDhrvgMPNuqQpiv9e5nrCEaY/ZCC3gxA==
-X-Received: by 2002:a17:906:12d7:: with SMTP id
- l23mr26929442ejb.282.1562772443347; 
- Wed, 10 Jul 2019 08:27:23 -0700 (PDT)
-Received: from phenom.ffwll.local ([2a02:168:569e:0:3106:d637:d723:e855])
- by smtp.gmail.com with ESMTPSA id q50sm811398edd.91.2019.07.10.08.27.21
- (version=TLS1_3 cipher=AEAD-AES256-GCM-SHA384 bits=256/256);
- Wed, 10 Jul 2019 08:27:22 -0700 (PDT)
-Date: Wed, 10 Jul 2019 17:27:20 +0200
-From: Daniel Vetter <daniel@ffwll.ch>
-To: Philippe CORNU <philippe.cornu@st.com>
-Message-ID: <20190710152720.GR15868@phenom.ffwll.local>
-Mail-Followup-To: Philippe CORNU <philippe.cornu@st.com>,
- Olivier MOYSAN <olivier.moysan@st.com>,
- "a.hajda@samsung.com" <a.hajda@samsung.com>,
- "narmstrong@baylibre.com" <narmstrong@baylibre.com>,
- "Laurent.pinchart@ideasonboard.com" <Laurent.pinchart@ideasonboard.com>,
- "jonas@kwiboo.se" <jonas@kwiboo.se>,
- "jernej.skrabec@siol.net" <jernej.skrabec@siol.net>,
- "airlied@linux.ie" <airlied@linux.ie>,
- "dri-devel@lists.freedesktop.org" <dri-devel@lists.freedesktop.org>,
- "linux-kernel@vger.kernel.org" <linux-kernel@vger.kernel.org>,
- Benjamin GAIGNARD <benjamin.gaignard@st.com>,
- Alexandre TORGUE <alexandre.torgue@st.com>,
- "linux-arm-kernel@lists.infradead.org" <linux-arm-kernel@lists.infradead.org>, 
- "linux-stm32@st-md-mailman.stormreply.com"
- <linux-stm32@st-md-mailman.stormreply.com>, 
- "jsarha@ti.com" <jsarha@ti.com>
-References: <1562141052-26221-1-git-send-email-olivier.moysan@st.com>
- <7c17b3f2-afee-7548-7620-b67d11d09b24@st.com>
+ Wed, 10 Jul 2019 15:46:11 +0000 (UTC)
+Received: from filter.hostedemail.com (clb03-v110.bra.tucows.net
+ [216.40.38.60])
+ by smtprelay05.hostedemail.com (Postfix) with ESMTP id C502F1802912E;
+ Wed, 10 Jul 2019 15:46:09 +0000 (UTC)
+X-Session-Marker: 6A6F6540706572636865732E636F6D
+X-Spam-Summary: 2, 0, 0, , d41d8cd98f00b204, joe@perches.com,
+ :::::::::::::::::::::::::::::::::::::::::::,
+ RULES_HIT:41:355:379:599:988:989:1260:1277:1311:1313:1314:1345:1359:1437:1515:1516:1518:1534:1541:1593:1594:1711:1730:1747:1777:1792:2198:2199:2393:2553:2559:2562:2692:2731:2828:2917:3138:3139:3140:3141:3142:3353:3622:3865:3866:3867:3868:3870:3871:3872:3873:3874:4250:4321:5007:6691:6742:7875:7904:10004:10400:10848:11026:11232:11473:11658:11914:12296:12297:12740:12760:12895:13069:13311:13357:13439:14096:14097:14659:21080:21220:21326:21451:21627:30012:30034:30054:30056:30090:30091,
+ 0,
+ RBL:23.242.196.136:@perches.com:.lbl8.mailshell.net-62.14.0.180 64.201.201.201,
+ CacheIP:none, Bayesian:0.5, 0.5, 0.5, Netcheck:none, DomainCache:0,
+ MSF:not bulk, SPF:fn, MSBL:0, DNSBL:neutral, Custom_rules:0:0:0, LFtime:25,
+ LUA_SUMMARY:none
+X-HE-Tag: range96_50d7d845d712e
+X-Filterd-Recvd-Size: 3121
+Received: from XPS-9350 (cpe-23-242-196-136.socal.res.rr.com [23.242.196.136])
+ (Authenticated sender: joe@perches.com)
+ by omf13.hostedemail.com (Postfix) with ESMTPA;
+ Wed, 10 Jul 2019 15:45:54 +0000 (UTC)
+Message-ID: <b9c3b83c9be50286062ae8cefd5d38e2baa0fb22.camel@perches.com>
+From: Joe Perches <joe@perches.com>
+To: Russell King - ARM Linux admin <linux@armlinux.org.uk>, Johannes Berg
+ <johannes@sipsolutions.net>
+Date: Wed, 10 Jul 2019 08:45:53 -0700
+In-Reply-To: <20190710094337.wf2lftxzfjq2etro@shell.armlinux.org.uk>
+References: <cover.1562734889.git.joe@perches.com>
+ <5fa1fa6998332642c49e2d5209193ffe2713f333.camel@sipsolutions.net>
+ <20190710094337.wf2lftxzfjq2etro@shell.armlinux.org.uk>
+User-Agent: Evolution 3.30.5-0ubuntu0.18.10.1 
 MIME-Version: 1.0
-Content-Disposition: inline
-In-Reply-To: <7c17b3f2-afee-7548-7620-b67d11d09b24@st.com>
-X-Operating-System: Linux phenom 4.19.0-5-amd64 
-User-Agent: Mutt/1.10.1 (2018-07-13)
-Cc: "jernej.skrabec@siol.net" <jernej.skrabec@siol.net>,
- "jonas@kwiboo.se" <jonas@kwiboo.se>, "airlied@linux.ie" <airlied@linux.ie>,
- "narmstrong@baylibre.com" <narmstrong@baylibre.com>,
- "jsarha@ti.com" <jsarha@ti.com>,
- "linux-kernel@vger.kernel.org" <linux-kernel@vger.kernel.org>,
- "dri-devel@lists.freedesktop.org" <dri-devel@lists.freedesktop.org>,
- "a.hajda@samsung.com" <a.hajda@samsung.com>,
- "Laurent.pinchart@ideasonboard.com" <Laurent.pinchart@ideasonboard.com>,
- "daniel@ffwll.ch" <daniel@ffwll.ch>,
- "linux-stm32@st-md-mailman.stormreply.com"
- <linux-stm32@st-md-mailman.stormreply.com>,
- "linux-arm-kernel@lists.infradead.org" <linux-arm-kernel@lists.infradead.org>
-Subject: Re: [Linux-stm32] [PATCH] drm/bridge: sii902x: add audio graph card
-	support
+Cc: devel@driverdev.osuosl.org, linux-mmc@vger.kernel.org,
+ alsa-devel@alsa-project.org, Benjamin Fair <benjaminfair@google.com>,
+ linux-aspeed@lists.ozlabs.org, Andrew Jeffery <andrew@aj.id.au>,
+ Patrick Venture <venture@google.com>, openbmc@lists.ozlabs.org,
+ linux-wireless@vger.kernel.org, linux-kernel@vger.kernel.org,
+ linux-iio@vger.kernel.org, Nancy Yuen <yuenn@google.com>,
+ linux-mediatek@lists.infradead.org, dri-devel@lists.freedesktop.org,
+ netdev@vger.kernel.org, linux-amlogic@lists.infradead.org,
+ Andrew Morton <akpm@linux-foundation.org>,
+ linux-stm32@st-md-mailman.stormreply.com, linux-arm-kernel@lists.infradead.org,
+ linux-media@vger.kernel.org
+Subject: Re: [Linux-stm32] [PATCH 00/12] treewide: Fix GENMASK misuses
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -103,81 +72,49 @@ Content-Transfer-Encoding: 7bit
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
-On Fri, Jul 05, 2019 at 12:41:03PM +0000, Philippe CORNU wrote:
-> Hi Olivier,
-> and many thanks for your patch.
-> Good to have the audio graph card support, looks ok.
-> Reviewed-by: Philippe Cornu <philippe.cornu@st.com>
+On Wed, 2019-07-10 at 10:43 +0100, Russell King - ARM Linux admin wrote:
+> On Wed, Jul 10, 2019 at 11:17:31AM +0200, Johannes Berg wrote:
+> > On Tue, 2019-07-09 at 22:04 -0700, Joe Perches wrote:
+> > > These GENMASK uses are inverted argument order and the
+> > > actual masks produced are incorrect.  Fix them.
+> > > 
+> > > Add checkpatch tests to help avoid more misuses too.
+> > > 
+> > > Joe Perches (12):
+> > >   checkpatch: Add GENMASK tests
+> > 
+> > IMHO this doesn't make a lot of sense as a checkpatch test - just throw
+> > in a BUILD_BUG_ON()?
 
-Since you have drm-misc commit rights I'm assuming you're going to push
-this too. Correct?
--Daniel
+I tried that.
 
-> Philippe :-)
+It'd can't be done as it's used in declarations
+and included in asm files and it uses the UL()
+macro.
+
+I also tried just making it do the right thing
+whatever the argument order.
+
+Oh well.
+
+> My personal take on this is that GENMASK() is really not useful, it's
+> just pure obfuscation and leads to exactly these kinds of mistakes.
 > 
-> On 7/3/19 10:04 AM, Olivier Moysan wrote:
-> > Implement get_dai_id callback of audio HDMI codec
-> > to support ASoC audio graph card.
-> > HDMI audio output has to be connected to sii902x port 3.
-> > get_dai_id callback maps this port to ASoC DAI index 0.
-> > 
-> > Signed-off-by: Olivier Moysan <olivier.moysan@st.com>
-> > ---
-> >   drivers/gpu/drm/bridge/sii902x.c | 23 +++++++++++++++++++++++
-> >   1 file changed, 23 insertions(+)
-> > 
-> > diff --git a/drivers/gpu/drm/bridge/sii902x.c b/drivers/gpu/drm/bridge/sii902x.c
-> > index dd7aa466b280..daf9ef3cd817 100644
-> > --- a/drivers/gpu/drm/bridge/sii902x.c
-> > +++ b/drivers/gpu/drm/bridge/sii902x.c
-> > @@ -158,6 +158,8 @@
-> >   
-> >   #define SII902X_I2C_BUS_ACQUISITION_TIMEOUT_MS	500
-> >   
-> > +#define SII902X_AUDIO_PORT_INDEX		3
-> > +
-> >   struct sii902x {
-> >   	struct i2c_client *i2c;
-> >   	struct regmap *regmap;
-> > @@ -690,11 +692,32 @@ static int sii902x_audio_get_eld(struct device *dev, void *data,
-> >   	return 0;
-> >   }
-> >   
-> > +static int sii902x_audio_get_dai_id(struct snd_soc_component *component,
-> > +				    struct device_node *endpoint)
-> > +{
-> > +	struct of_endpoint of_ep;
-> > +	int ret;
-> > +
-> > +	ret = of_graph_parse_endpoint(endpoint, &of_ep);
-> > +	if (ret < 0)
-> > +		return ret;
-> > +
-> > +	/*
-> > +	 * HDMI sound should be located at reg = <3>
-> > +	 * Return expected DAI index 0.
-> > +	 */
-> > +	if (of_ep.port == SII902X_AUDIO_PORT_INDEX)
-> > +		return 0;
-> > +
-> > +	return -EINVAL;
-> > +}
-> > +
-> >   static const struct hdmi_codec_ops sii902x_audio_codec_ops = {
-> >   	.hw_params = sii902x_audio_hw_params,
-> >   	.audio_shutdown = sii902x_audio_shutdown,
-> >   	.digital_mute = sii902x_audio_digital_mute,
-> >   	.get_eld = sii902x_audio_get_eld,
-> > +	.get_dai_id = sii902x_audio_get_dai_id,
-> >   };
-> >   
-> >   static int sii902x_audio_codec_init(struct sii902x *sii902x,
-> > 
+> Yes, I fully understand the argument that you can just specify the
+> start and end bits, and it _in theory_ makes the code more readable.
+> 
+> However, the problem is when writing code.  GENMASK(a, b).  Is a the
+> starting bit or ending bit?  Is b the number of bits?  It's confusing
+> and causes mistakes resulting in incorrect code.  A BUILD_BUG_ON()
+> can catch some of the cases, but not all of them.
 
--- 
-Daniel Vetter
-Software Engineer, Intel Corporation
-http://blog.ffwll.ch
+It's a horrid little macro and I agree with Russell.
+
+I also think if it existed at all it should have been
+GENMASK(low, high) not GENMASK(high, low).
+
+I
+
 _______________________________________________
 Linux-stm32 mailing list
 Linux-stm32@st-md-mailman.stormreply.com
