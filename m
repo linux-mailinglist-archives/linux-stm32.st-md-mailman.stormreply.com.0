@@ -2,112 +2,91 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id F1F7564533
-	for <lists+linux-stm32@lfdr.de>; Wed, 10 Jul 2019 12:34:00 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id C5ABE64986
+	for <lists+linux-stm32@lfdr.de>; Wed, 10 Jul 2019 17:27:24 +0200 (CEST)
 Received: from ip-172-31-3-76.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 9A95ECC7207
-	for <lists+linux-stm32@lfdr.de>; Wed, 10 Jul 2019 10:34:00 +0000 (UTC)
-Received: from smtprelay-out1.synopsys.com (dc2-smtprelay2.synopsys.com
- [198.182.61.142])
- (using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 8308ACDB63A
+	for <lists+linux-stm32@lfdr.de>; Wed, 10 Jul 2019 15:27:24 +0000 (UTC)
+Received: from mail-ed1-f68.google.com (mail-ed1-f68.google.com
+ [209.85.208.68])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 272C4CCB26F
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id BF554CDB638
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Wed, 10 Jul 2019 10:33:59 +0000 (UTC)
-Received: from mailhost.synopsys.com (dc2-mailhost2.synopsys.com
- [10.12.135.162])
- (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits))
- (No client certificate requested)
- by smtprelay-out1.synopsys.com (Postfix) with ESMTPS id 98DA0C0167;
- Wed, 10 Jul 2019 10:33:51 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=synopsys.com; s=mail;
- t=1562754837; bh=1hMf7QxxYpiL2DjBcQK0XBZelYzP+0nPC5LuDTJrJsM=;
- h=From:To:CC:Subject:Date:References:In-Reply-To:From;
- b=MBtSsTmarLyCnSAhcVnnAo44H4E9TtWms9RlNeYlpUw+BTRzP7+ZVhgUatE5G0ZfD
- qr4D57ErTmQz3kqIyB9sm6s0yO4NwlcOpykoDudugFYwS8HO9fkTuY5sUUlW8+2m3O
- 7fnG3IRiNf6AmyQX9tM2KDshyj+lvk3wglaks3zr2ea/+RBlRt1/1+O7JmbpSLkFQB
- zhs7J899xRlp2Lga3ofSM8Gi3dyr8mX924CIMxhWwD+LzULwLIVYZ0WNbBay8rvtXM
- XKY5x0zZkhDF0dojisK+CrATY9Yz18DjHScINq6A4u80Qo6S4bwcXxhcnGPPUvrBDS
- OurZINiWqQ8wA==
-Received: from US01WXQAHTC1.internal.synopsys.com
- (us01wxqahtc1.internal.synopsys.com [10.12.238.230])
- (using TLSv1.2 with cipher AES128-SHA256 (128/128 bits))
- (No client certificate requested)
- by mailhost.synopsys.com (Postfix) with ESMTPS id 9E321A009A;
- Wed, 10 Jul 2019 10:33:48 +0000 (UTC)
-Received: from US01HYBRID2.internal.synopsys.com (10.15.246.24) by
- US01WXQAHTC1.internal.synopsys.com (10.12.238.230) with Microsoft SMTP Server
- (TLS) id 14.3.408.0; Wed, 10 Jul 2019 03:33:48 -0700
-Received: from NAM02-BL2-obe.outbound.protection.outlook.com (10.13.134.195)
- by mrs.synopsys.com (10.15.246.24) with Microsoft SMTP Server (TLS) id
- 14.3.408.0; Wed, 10 Jul 2019 03:33:48 -0700
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=synopsys.onmicrosoft.com; s=selector1-synopsys-onmicrosoft-com;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=1hMf7QxxYpiL2DjBcQK0XBZelYzP+0nPC5LuDTJrJsM=;
- b=kIbkEPjxwLcz+fzaGETFiWeO8YXvSXfB3hfAf+z861d9s7pB+tL3cMaNqIAPw+aeoXKOeU/apC1CpRSs/aJ/pRkUrTP1gPRq6b6R6FPvenY9gl7tv5txG9bey0fehNxiUZ80SBL30WNAdbO/aNn7UyJ+SgNkPiu2xJcAU1jdgb0=
-Received: from BN8PR12MB3266.namprd12.prod.outlook.com (20.179.66.159) by
- BN8PR12MB3603.namprd12.prod.outlook.com (20.178.212.87) with Microsoft SMTP
- Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.20.2052.19; Wed, 10 Jul 2019 10:33:46 +0000
-Received: from BN8PR12MB3266.namprd12.prod.outlook.com
- ([fe80::61ef:5598:59e0:fc9d]) by BN8PR12MB3266.namprd12.prod.outlook.com
- ([fe80::61ef:5598:59e0:fc9d%5]) with mapi id 15.20.2052.020; Wed, 10 Jul 2019
- 10:33:46 +0000
-From: Jose Abreu <Jose.Abreu@synopsys.com>
-To: Joe Perches <joe@perches.com>, Andrew Morton <akpm@linux-foundation.org>, 
- Giuseppe Cavallaro <peppe.cavallaro@st.com>, Alexandre Torgue
- <alexandre.torgue@st.com>, Maxime Coquelin <mcoquelin.stm32@gmail.com>,
- Maxime Ripard <maxime.ripard@bootlin.com>, Chen-Yu Tsai <wens@csie.org>
-Thread-Topic: [PATCH 08/12] net: stmmac: Fix misuses of GENMASK macro
-Thread-Index: AQHVNt0RSTk/ZLig7EqtmWvteU3zKqbDp4tA
-Date: Wed, 10 Jul 2019 10:33:46 +0000
-Message-ID: <BN8PR12MB3266C01DFCB92FF8A9BDBADAD3F00@BN8PR12MB3266.namprd12.prod.outlook.com>
-References: <cover.1562734889.git.joe@perches.com>
- <b38b0b67e724cd026709194b68c2be5ee1058c57.1562734889.git.joe@perches.com>
-In-Reply-To: <b38b0b67e724cd026709194b68c2be5ee1058c57.1562734889.git.joe@perches.com>
-Accept-Language: en-US
-Content-Language: en-US
-X-MS-Has-Attach: 
-X-MS-TNEF-Correlator: 
-authentication-results: spf=none (sender IP is )
- smtp.mailfrom=joabreu@synopsys.com; 
-x-originating-ip: [83.174.63.141]
-x-ms-publictraffictype: Email
-x-ms-office365-filtering-correlation-id: be8102ad-26b5-4a41-7e7a-08d7052216d6
-x-microsoft-antispam: BCL:0; PCL:0;
- RULEID:(2390118)(7020095)(4652040)(8989299)(4534185)(4627221)(201703031133081)(201702281549075)(8990200)(5600148)(711020)(4605104)(1401327)(2017052603328)(7193020);
- SRVR:BN8PR12MB3603; 
-x-ms-traffictypediagnostic: BN8PR12MB3603:
-x-microsoft-antispam-prvs: <BN8PR12MB360355AAD18F2FA8D700BE24D3F00@BN8PR12MB3603.namprd12.prod.outlook.com>
-x-ms-oob-tlc-oobclassifiers: OLM:1169;
-x-forefront-prvs: 0094E3478A
-x-forefront-antispam-report: SFV:NSPM;
- SFS:(10019020)(376002)(346002)(39860400002)(396003)(136003)(366004)(189003)(199004)(229853002)(110136005)(6436002)(9686003)(3846002)(53936002)(25786009)(8936002)(4326008)(33656002)(478600001)(55016002)(6246003)(66066001)(71200400001)(54906003)(4744005)(76176011)(14454004)(7416002)(316002)(99286004)(7696005)(186003)(102836004)(26005)(52536014)(446003)(11346002)(71190400001)(7736002)(486006)(81156014)(5660300002)(8676002)(476003)(81166006)(6506007)(74316002)(68736007)(66946007)(6116002)(66446008)(66476007)(64756008)(2906002)(256004)(86362001)(76116006)(305945005)(66556008);
- DIR:OUT; SFP:1102; SCL:1; SRVR:BN8PR12MB3603;
- H:BN8PR12MB3266.namprd12.prod.outlook.com; FPR:; SPF:None; LANG:en;
- PTR:InfoNoRecords; MX:1; A:1; 
-received-spf: None (protection.outlook.com: synopsys.com does not designate
- permitted sender hosts)
-x-ms-exchange-senderadcheck: 1
-x-microsoft-antispam-message-info: YMAj++/Mek0ZoQXIjqzeYtjoM6G6n3D4oboFPjSo9tk+GKEtusGAFEYPF6LjTMQTxpPNUuAcXn8gzZEBsiydwBDcHwl9UiuSEghpZSIRjVlcG2vmLwhUT3gkkHTxAPA3VMsM7FdiS4SLkV3boO6jaHMRcfAcomZTFSRnnUCUYEvr3ztCMIu+g+NF+1GkPGZ0Jt5LiIHKLfeQsHl89f/31zSmRnEUXqB9o+uPQza3uDsPNII7pBWJgLKyKV8hK7KwGY9KjwEeGQksCvyuENUHNh/NXOH4Qp+sYgeBNKPdMM0Av4UyysW88fLx8pEKRzQ/55rbn1s8ABE3rfPrP/RIn+QPyQ2x1o461IxTkPrTpSWuWyaLu81IbvBQ2xri1We0ucaRJ3FZuw2RDqjbdgU6BJc48SeZ82oMDkNUDI3ibHk=
-MIME-Version: 1.0
-X-MS-Exchange-CrossTenant-Network-Message-Id: be8102ad-26b5-4a41-7e7a-08d7052216d6
-X-MS-Exchange-CrossTenant-originalarrivaltime: 10 Jul 2019 10:33:46.5417 (UTC)
-X-MS-Exchange-CrossTenant-fromentityheader: Hosted
-X-MS-Exchange-CrossTenant-id: c33c9f88-1eb7-4099-9700-16013fd9e8aa
-X-MS-Exchange-CrossTenant-mailboxtype: HOSTED
-X-MS-Exchange-CrossTenant-userprincipalname: joabreu@synopsys.com
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: BN8PR12MB3603
-X-OriginatorOrg: synopsys.com
-Cc: "netdev@vger.kernel.org" <netdev@vger.kernel.org>,
+ Wed, 10 Jul 2019 15:27:23 +0000 (UTC)
+Received: by mail-ed1-f68.google.com with SMTP id r12so2574595edo.5
+ for <linux-stm32@st-md-mailman.stormreply.com>;
+ Wed, 10 Jul 2019 08:27:23 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=ffwll.ch; s=google;
+ h=sender:date:from:to:cc:subject:message-id:mail-followup-to
+ :references:mime-version:content-disposition:in-reply-to:user-agent;
+ bh=SgkufzQSTv6apsZUdNJaHjQjszSiq6lRFJLPOSo/AdU=;
+ b=MPgH/N4l+levG/VhKT8jjXObPZPdcPsPGW9l4OkxWmh5Mga2fY36xiK9/aWYGSDWoA
+ bZRJFhK/XNZzPxm2cB6rV9EN2rfyFht230HqwAoiyw113/16g8xpwbQ4NmZqP/eQrGRT
+ eHf2BSBk83dh088+VhXnml/jxzrTjM1zMyJMY=
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20161025;
+ h=x-gm-message-state:sender:date:from:to:cc:subject:message-id
+ :mail-followup-to:references:mime-version:content-disposition
+ :in-reply-to:user-agent;
+ bh=SgkufzQSTv6apsZUdNJaHjQjszSiq6lRFJLPOSo/AdU=;
+ b=otOWzaB7nnsC+WmJJViS6oGKw6Y1VnWSiQ3RsyGpM8XykojAm8itC+bedXrJB7oBAp
+ kXG66Bm0fH5s/DgI1bU63djHEQfAKWfoi+rc9vFBGHMbsnmv8NE9hSuVWjRfMX2ID0a1
+ br2xbGm8qMuOtLXttVf+gA548S0EzFLMmBOgLoNovfE0jvLoGY+pCbbXl27YfrIDl2CG
+ uDA4Zba0yROokha1Ran/BmqqPJeV/8FTYpYDVqhMv/U0ZxKpNh1A+68oiYLKS1T/0l8/
+ zKn47JCweVi13p40szUDSunxW4nmxDDhKwWzteC2KHt4j5OvQpOZjkQI4Vbr0Z5NqElE
+ +hXg==
+X-Gm-Message-State: APjAAAUN5YC3jd6GHKeKd632WnU7dQHPl1GpYngtO1+Ny5qkQY0xFszJ
+ iIdZe4+eKKoDtvWN3f8X4JAsBw==
+X-Google-Smtp-Source: APXvYqxigJ129/HrafCJTtiUL+NQg3j1KH4mPx69jB2LtBZDhrvgMPNuqQpiv9e5nrCEaY/ZCC3gxA==
+X-Received: by 2002:a17:906:12d7:: with SMTP id
+ l23mr26929442ejb.282.1562772443347; 
+ Wed, 10 Jul 2019 08:27:23 -0700 (PDT)
+Received: from phenom.ffwll.local ([2a02:168:569e:0:3106:d637:d723:e855])
+ by smtp.gmail.com with ESMTPSA id q50sm811398edd.91.2019.07.10.08.27.21
+ (version=TLS1_3 cipher=AEAD-AES256-GCM-SHA384 bits=256/256);
+ Wed, 10 Jul 2019 08:27:22 -0700 (PDT)
+Date: Wed, 10 Jul 2019 17:27:20 +0200
+From: Daniel Vetter <daniel@ffwll.ch>
+To: Philippe CORNU <philippe.cornu@st.com>
+Message-ID: <20190710152720.GR15868@phenom.ffwll.local>
+Mail-Followup-To: Philippe CORNU <philippe.cornu@st.com>,
+ Olivier MOYSAN <olivier.moysan@st.com>,
+ "a.hajda@samsung.com" <a.hajda@samsung.com>,
+ "narmstrong@baylibre.com" <narmstrong@baylibre.com>,
+ "Laurent.pinchart@ideasonboard.com" <Laurent.pinchart@ideasonboard.com>,
+ "jonas@kwiboo.se" <jonas@kwiboo.se>,
+ "jernej.skrabec@siol.net" <jernej.skrabec@siol.net>,
+ "airlied@linux.ie" <airlied@linux.ie>,
+ "dri-devel@lists.freedesktop.org" <dri-devel@lists.freedesktop.org>,
  "linux-kernel@vger.kernel.org" <linux-kernel@vger.kernel.org>,
- "David S. Miller" <davem@davemloft.net>,
- "linux-arm-kernel@lists.infradead.org" <linux-arm-kernel@lists.infradead.org>,
+ Benjamin GAIGNARD <benjamin.gaignard@st.com>,
+ Alexandre TORGUE <alexandre.torgue@st.com>,
+ "linux-arm-kernel@lists.infradead.org" <linux-arm-kernel@lists.infradead.org>, 
  "linux-stm32@st-md-mailman.stormreply.com"
- <linux-stm32@st-md-mailman.stormreply.com>
-Subject: Re: [Linux-stm32] [PATCH 08/12] net: stmmac: Fix misuses of GENMASK
-	macro
+ <linux-stm32@st-md-mailman.stormreply.com>, 
+ "jsarha@ti.com" <jsarha@ti.com>
+References: <1562141052-26221-1-git-send-email-olivier.moysan@st.com>
+ <7c17b3f2-afee-7548-7620-b67d11d09b24@st.com>
+MIME-Version: 1.0
+Content-Disposition: inline
+In-Reply-To: <7c17b3f2-afee-7548-7620-b67d11d09b24@st.com>
+X-Operating-System: Linux phenom 4.19.0-5-amd64 
+User-Agent: Mutt/1.10.1 (2018-07-13)
+Cc: "jernej.skrabec@siol.net" <jernej.skrabec@siol.net>,
+ "jonas@kwiboo.se" <jonas@kwiboo.se>, "airlied@linux.ie" <airlied@linux.ie>,
+ "narmstrong@baylibre.com" <narmstrong@baylibre.com>,
+ "jsarha@ti.com" <jsarha@ti.com>,
+ "linux-kernel@vger.kernel.org" <linux-kernel@vger.kernel.org>,
+ "dri-devel@lists.freedesktop.org" <dri-devel@lists.freedesktop.org>,
+ "a.hajda@samsung.com" <a.hajda@samsung.com>,
+ "Laurent.pinchart@ideasonboard.com" <Laurent.pinchart@ideasonboard.com>,
+ "daniel@ffwll.ch" <daniel@ffwll.ch>,
+ "linux-stm32@st-md-mailman.stormreply.com"
+ <linux-stm32@st-md-mailman.stormreply.com>,
+ "linux-arm-kernel@lists.infradead.org" <linux-arm-kernel@lists.infradead.org>
+Subject: Re: [Linux-stm32] [PATCH] drm/bridge: sii902x: add audio graph card
+	support
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -124,21 +103,81 @@ Content-Transfer-Encoding: 7bit
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
-From: Joe Perches <joe@perches.com>
-Date: Jul/10/2019, 06:04:21 (UTC+00:00)
+On Fri, Jul 05, 2019 at 12:41:03PM +0000, Philippe CORNU wrote:
+> Hi Olivier,
+> and many thanks for your patch.
+> Good to have the audio graph card support, looks ok.
+> Reviewed-by: Philippe Cornu <philippe.cornu@st.com>
 
-> Arguments are supposed to be ordered high then low.
+Since you have drm-misc commit rights I'm assuming you're going to push
+this too. Correct?
+-Daniel
+
+> Philippe :-)
 > 
-> Signed-off-by: Joe Perches <joe@perches.com>
+> On 7/3/19 10:04 AM, Olivier Moysan wrote:
+> > Implement get_dai_id callback of audio HDMI codec
+> > to support ASoC audio graph card.
+> > HDMI audio output has to be connected to sii902x port 3.
+> > get_dai_id callback maps this port to ASoC DAI index 0.
+> > 
+> > Signed-off-by: Olivier Moysan <olivier.moysan@st.com>
+> > ---
+> >   drivers/gpu/drm/bridge/sii902x.c | 23 +++++++++++++++++++++++
+> >   1 file changed, 23 insertions(+)
+> > 
+> > diff --git a/drivers/gpu/drm/bridge/sii902x.c b/drivers/gpu/drm/bridge/sii902x.c
+> > index dd7aa466b280..daf9ef3cd817 100644
+> > --- a/drivers/gpu/drm/bridge/sii902x.c
+> > +++ b/drivers/gpu/drm/bridge/sii902x.c
+> > @@ -158,6 +158,8 @@
+> >   
+> >   #define SII902X_I2C_BUS_ACQUISITION_TIMEOUT_MS	500
+> >   
+> > +#define SII902X_AUDIO_PORT_INDEX		3
+> > +
+> >   struct sii902x {
+> >   	struct i2c_client *i2c;
+> >   	struct regmap *regmap;
+> > @@ -690,11 +692,32 @@ static int sii902x_audio_get_eld(struct device *dev, void *data,
+> >   	return 0;
+> >   }
+> >   
+> > +static int sii902x_audio_get_dai_id(struct snd_soc_component *component,
+> > +				    struct device_node *endpoint)
+> > +{
+> > +	struct of_endpoint of_ep;
+> > +	int ret;
+> > +
+> > +	ret = of_graph_parse_endpoint(endpoint, &of_ep);
+> > +	if (ret < 0)
+> > +		return ret;
+> > +
+> > +	/*
+> > +	 * HDMI sound should be located at reg = <3>
+> > +	 * Return expected DAI index 0.
+> > +	 */
+> > +	if (of_ep.port == SII902X_AUDIO_PORT_INDEX)
+> > +		return 0;
+> > +
+> > +	return -EINVAL;
+> > +}
+> > +
+> >   static const struct hdmi_codec_ops sii902x_audio_codec_ops = {
+> >   	.hw_params = sii902x_audio_hw_params,
+> >   	.audio_shutdown = sii902x_audio_shutdown,
+> >   	.digital_mute = sii902x_audio_digital_mute,
+> >   	.get_eld = sii902x_audio_get_eld,
+> > +	.get_dai_id = sii902x_audio_get_dai_id,
+> >   };
+> >   
+> >   static int sii902x_audio_codec_init(struct sii902x *sii902x,
+> > 
 
-If you submit another version please add:
-
-Fixes: 293e4365a1ad ("stmmac: change descriptor layout")
-Fixes: 9f93ac8d4085 ("net-next: stmmac: Add dwmac-sun8i")
-
----
-Thanks,
-Jose Miguel Abreu
+-- 
+Daniel Vetter
+Software Engineer, Intel Corporation
+http://blog.ffwll.ch
 _______________________________________________
 Linux-stm32 mailing list
 Linux-stm32@st-md-mailman.stormreply.com
