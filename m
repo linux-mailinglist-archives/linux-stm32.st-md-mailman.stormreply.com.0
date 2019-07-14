@@ -2,47 +2,81 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id 9741167E75
-	for <lists+linux-stm32@lfdr.de>; Sun, 14 Jul 2019 12:09:10 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 3091867FDC
+	for <lists+linux-stm32@lfdr.de>; Sun, 14 Jul 2019 17:33:14 +0200 (CEST)
 Received: from ip-172-31-3-76.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 8A249D1DB61
-	for <lists+linux-stm32@lfdr.de>; Sun, 14 Jul 2019 10:09:09 +0000 (UTC)
-Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
- (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
- (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id CBAFFC7D101
- for <linux-stm32@st-md-mailman.stormreply.com>;
- Sun, 14 Jul 2019 10:09:07 +0000 (UTC)
-Received: from archlinux (cpc149474-cmbg20-2-0-cust94.5-4.cable.virginm.net
- [82.4.196.95])
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id BE45EC930FD
+	for <lists+linux-stm32@lfdr.de>; Sun, 14 Jul 2019 15:33:12 +0000 (UTC)
+Received: from mx07-00178001.pphosted.com (mx08-00178001.pphosted.com
+ [91.207.212.93])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by mail.kernel.org (Postfix) with ESMTPSA id 72AEA20838;
- Sun, 14 Jul 2019 10:09:04 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
- s=default; t=1563098946;
- bh=Yc6A1cGAFiY0v3G2IKWiF9mvk1/HlO1sJcd6V4N1RLw=;
- h=Date:From:To:Cc:Subject:In-Reply-To:References:From;
- b=ZDxY3BZOCdUdALgKCB7dBFPWLfaNlyx1FB5VCelksB9alIU6P3TV62dLIed2S0tlT
- ve2lgBis3EJnUiaZ/rkU3FnfKX/xnpA7oZHs+IpX6Bfm+n0LiLQKGMrC1VAdO0ilGi
- twjFVTSheEUNKMg7GCzp5m6bPbumKhpSSSo7P8ok=
-Date: Sun, 14 Jul 2019 11:09:01 +0100
-From: Jonathan Cameron <jic23@kernel.org>
-To: William Breathitt Gray <vilhelm.gray@gmail.com>
-Message-ID: <20190714110901.752643ae@archlinux>
-In-Reply-To: <20190711121620.GA11661@icarus>
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 799DEC930FA
+ for <linux-stm32@st-md-mailman.stormreply.com>;
+ Sun, 14 Jul 2019 15:33:11 +0000 (UTC)
+Received: from pps.filterd (m0046660.ppops.net [127.0.0.1])
+ by mx08-00178001.pphosted.com (8.16.0.27/8.16.0.27) with SMTP id
+ x6EFVG4u028912; Sun, 14 Jul 2019 17:32:37 +0200
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=st.com;
+ h=from : to : cc : subject
+ : date : message-id : references : in-reply-to : content-type : content-id
+ : content-transfer-encoding : mime-version; s=STMicroelectronics;
+ bh=7EkE4ClqcnmG9AK4GgE4mRIrx94dxW03xdzea4KOY0A=;
+ b=Lp8WagODEfVY0Ihg5xT94mO0pyML9Trh6glVz9IkM7+RHd6Z7f3VjqXUvlZiutFkCOch
+ jEg0pK8UvfAaRLcfd7gkQ4Tt31ma2p18sxpBFOj8UopLzJYxWmOa9ftBRjp9IyNlLyvW
+ cOC2kEIXprJskO7u90NsTfG300OTAPp/aatwyE3+scc96937/ZfuizKP3V/wnL/cK7rp
+ D7QFqK6hbbkNKQBxjbGxAGLQM6MqA6MRGoHOp8fnjAUSqg7Y9SuXb9RjMs2cXAer4Mz+
+ 526XNCwVYtsQvKuMlZvL6phY5uKx2BCxC1xPS9A5HUgiFkv4GaCF8/ZPRWLn8fGZYyQ5 1w== 
+Received: from beta.dmz-eu.st.com (beta.dmz-eu.st.com [164.129.1.35])
+ by mx08-00178001.pphosted.com with ESMTP id 2tq4e8gp8x-1
+ (version=TLSv1 cipher=ECDHE-RSA-AES256-SHA bits=256 verify=NOT);
+ Sun, 14 Jul 2019 17:32:37 +0200
+Received: from zeta.dmz-eu.st.com (zeta.dmz-eu.st.com [164.129.230.9])
+ by beta.dmz-eu.st.com (STMicroelectronics) with ESMTP id 8213031;
+ Sun, 14 Jul 2019 15:32:34 +0000 (GMT)
+Received: from Webmail-eu.st.com (sfhdag5node3.st.com [10.75.127.15])
+ by zeta.dmz-eu.st.com (STMicroelectronics) with ESMTP id 5704D2CDE;
+ Sun, 14 Jul 2019 15:32:34 +0000 (GMT)
+Received: from SFHDAG3NODE3.st.com (10.75.127.9) by SFHDAG5NODE3.st.com
+ (10.75.127.15) with Microsoft SMTP Server (TLS) id 15.0.1473.3; Sun, 14 Jul
+ 2019 17:32:33 +0200
+Received: from SFHDAG3NODE3.st.com ([fe80::3507:b372:7648:476]) by
+ SFHDAG3NODE3.st.com ([fe80::3507:b372:7648:476%20]) with mapi id
+ 15.00.1347.000; Sun, 14 Jul 2019 17:32:34 +0200
+From: Benjamin GAIGNARD <benjamin.gaignard@st.com>
+To: Jonathan Cameron <jic23@kernel.org>, William Breathitt Gray
+ <vilhelm.gray@gmail.com>
+Thread-Topic: [PATCH] IIO: stm32: Remove quadrature related functions from
+ trigger driver
+Thread-Index: AQHVBLUCz+/gAEZUoUqVHnsxvwgdIqbFkt6AgAAGAICAAAEVAIAEk2yAgABaZAA=
+Date: Sun, 14 Jul 2019 15:32:33 +0000
+Message-ID: <08b3f84e-cee4-4fbe-031d-721aa9dc53d4@st.com>
 References: <20190507091224.17781-1-benjamin.gaignard@st.com>
  <20190711115059.GA7778@icarus>
  <CA+M3ks42Whd=QVQ-4==n5bRJKEwYpQtRHs=gBGEZ_Hr=_8YU1g@mail.gmail.com>
- <20190711121620.GA11661@icarus>
-X-Mailer: Claws Mail 3.17.3 (GTK+ 2.24.32; x86_64-pc-linux-gnu)
+ <20190711121620.GA11661@icarus> <20190714110901.752643ae@archlinux>
+In-Reply-To: <20190714110901.752643ae@archlinux>
+Accept-Language: en-US
+Content-Language: en-US
+X-MS-Has-Attach: 
+X-MS-TNEF-Correlator: 
+user-agent: Mozilla/5.0 (X11; Linux x86_64; rv:60.0) Gecko/20100101
+ Thunderbird/60.7.2
+x-ms-exchange-messagesentrepresentingtype: 1
+x-ms-exchange-transport-fromentityheader: Hosted
+x-originating-ip: [10.75.127.51]
+Content-ID: <AD430700EEE2CC40834D63B2834723B7@st.com>
 MIME-Version: 1.0
-Cc: Lars-Peter Clausen <lars@metafoo.de>, linux-iio@vger.kernel.org,
- Peter Meerwald-Stadler <pmeerw@pmeerw.net>,
- Linux Kernel Mailing List <linux-kernel@vger.kernel.org>,
- Benjamin Gaignard <benjamin.gaignard@linaro.org>,
- Hartmut Knaack <knaack.h@gmx.de>, Fabrice Gasnier <fabrice.gasnier@st.com>,
- linux-stm32@st-md-mailman.stormreply.com,
+X-Proofpoint-Virus-Version: vendor=fsecure engine=2.50.10434:, ,
+ definitions=2019-07-14_04:, , signatures=0
+Cc: Benjamin Gaignard <benjamin.gaignard@linaro.org>,
+ Lars-Peter Clausen <lars@metafoo.de>,
+ "linux-iio@vger.kernel.org" <linux-iio@vger.kernel.org>, Linux Kernel
+ Mailing List <linux-kernel@vger.kernel.org>,
+ Peter Meerwald-Stadler <pmeerw@pmeerw.net>, Hartmut Knaack <knaack.h@gmx.de>,
+ Fabrice GASNIER <fabrice.gasnier@st.com>,
+ "linux-stm32@st-md-mailman.stormreply.com"
+ <linux-stm32@st-md-mailman.stormreply.com>,
  Linux ARM <linux-arm-kernel@lists.infradead.org>
 Subject: Re: [Linux-stm32] [PATCH] IIO: stm32: Remove quadrature related
  functions from trigger driver
@@ -62,36 +96,39 @@ Content-Transfer-Encoding: base64
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
-T24gVGh1LCAxMSBKdWwgMjAxOSAyMToxNjoyMCArMDkwMApXaWxsaWFtIEJyZWF0aGl0dCBHcmF5
-IDx2aWxoZWxtLmdyYXlAZ21haWwuY29tPiB3cm90ZToKCj4gT24gVGh1LCBKdWwgMTEsIDIwMTkg
-YXQgMDI6MTI6MjdQTSArMDIwMCwgQmVuamFtaW4gR2FpZ25hcmQgd3JvdGU6Cj4gPiBMZSBqZXUu
-IDExIGp1aWwuIDIwMTkgw6AgMTM6NTEsIFdpbGxpYW0gQnJlYXRoaXR0IEdyYXkKPiA+IDx2aWxo
-ZWxtLmdyYXlAZ21haWwuY29tPiBhIMOpY3JpdCA6ICAKPiA+ID4KPiA+ID4gT24gVHVlLCBNYXkg
-MDcsIDIwMTkgYXQgMTE6MTI6MjRBTSArMDIwMCwgQmVuamFtaW4gR2FpZ25hcmQgd3JvdGU6ICAK
-PiA+ID4gPiBRdWFkcmF0dXJlIGZlYXR1cmUgaXMgbm93IGhvc3RlZCBvbiBpdCBvd24gZnJhbWV3
-b3JrLgo+ID4gPiA+IFJlbW92ZSBxdWFkcmF0dXJlIHJlbGF0ZWQgY29kZSBmcm9tIHN0bTMyLXRy
-aWdnZXIgZHJpdmVyIHRvIGF2b2lkCj4gPiA+ID4gY29kZSBkdXBsaWNhdGlvbiBhbmQgc2ltcGxp
-ZnkgdGhlIEFCSS4KPiA+ID4gPgo+ID4gPiA+IFNpZ25lZC1vZmYtYnk6IEJlbmphbWluIEdhaWdu
-YXJkIDxiZW5qYW1pbi5nYWlnbmFyZEBzdC5jb20+ICAKPiA+ID4KPiA+ID4gV2hhdCBpcyB0aGUg
-c3RhdHVzIG9mIHRoaXMgcGF0Y2g/IEFyZSB0aGVyZSBhbnkgb2JqZWN0aW9ucyBjdXJyZW50bHkg
-Zm9yCj4gPiA+IGl0cyBpbmNsdXNpb24/ICAKPiA+IAo+ID4gWW91IHdlcmUgdGhlIG9ubHkgb25l
-IGFza2luZyBmb3IgbW9yZSBkZXRhaWxzIGFib3V0IGl0IDotKQo+ID4gSWYgeW91IGFncmVlIEkg
-dGhpbmsgdGhhdCBKb25hdGhhbiBjYW4gbWVyZ2UgaXQuCj4gPiAKPiA+IEJlbmphbWluICAKPiA+
-ID4KPiA+ID4gV2lsbGlhbSBCcmVhdGhpdHQgR3JheQo+ID4gPgo+ID4gPiBfX19fX19fX19fX19f
-X19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fXwo+ID4gPiBsaW51eC1hcm0ta2VybmVs
-IG1haWxpbmcgbGlzdAo+ID4gPiBsaW51eC1hcm0ta2VybmVsQGxpc3RzLmluZnJhZGVhZC5vcmcK
-PiA+ID4gaHR0cDovL2xpc3RzLmluZnJhZGVhZC5vcmcvbWFpbG1hbi9saXN0aW5mby9saW51eC1h
-cm0ta2VybmVsICAKPiAKPiBZZXMsIEpvbmF0aGFuIHBsZWFzZSBtZXJnZSB0aGlzIGlmIHlvdSBo
-YXZlIG5vIG9iamVjdGlvbnMsIEkgaGFkbid0Cj4gcmVhbGl6ZWQgSSB3YXMgZGVsYXlpbmcgaXQu
-Cj4gCj4gVGhhbmsgeW91LAo+IAo+IFdpbGxpYW0gQnJlYXRoaXR0IEdyYXkKT25lIGxhc3QgdGhp
-bmcuLi4gIFRoaXMgc2VlbXMgdG8gYmUgYSB1c2Vyc3BhY2UgQUJJIGNoYW5nZS4gIFdoYXQKYXJl
-IG91ciBwb3RlbnRpYWwgaXNzdWVzIHdpdGggdXNlcnMgb2YgdGhpcyBBQkk/CgpJdCdzIG5vdCB0
-aGF0IGNvc3RseSB0byBrZWVwIHRoZSBjb2RlLCB0aG91Z2ggZHJvcHBpbmcgdGhlIGRvY3Mgb3IK
-cHV0dGluZyBhIGRlcHJlY2lhdGVkIG5vdGUgaW4gdGhlbSBpcyBwcm9iYWJseSBhIGdvb2QgaWRl
-YS4gIEhlbmNlCkknbSBub3QgdG90YWxseSBjb252aW5jZWQgdGhlIHJpc2sgb2YgYSByZWdyZXNz
-aW9uIGlzIHdvcnRoIGl0LgoKSWYgd2UgdGhpbmsgaXQncyB0aGUgc29ydCBvZiBjaGFuZ2Ugbm8g
-b25lIHdpbGwgbm90aWNlLCB0aGVuCmZhaXIgZW5vdWdoIHdlJ2xsIGdpdmUgaXQgYSBnbyBhbmQg
-Y3Jvc3Mgb3VyIGZpbmdlcnMuCgpUaGFua3MsCgpKb25hdGhhbgoKCl9fX19fX19fX19fX19fX19f
-X19fX19fX19fX19fX19fX19fX19fX19fX19fX19fCkxpbnV4LXN0bTMyIG1haWxpbmcgbGlzdApM
-aW51eC1zdG0zMkBzdC1tZC1tYWlsbWFuLnN0b3JtcmVwbHkuY29tCmh0dHBzOi8vc3QtbWQtbWFp
-bG1hbi5zdG9ybXJlcGx5LmNvbS9tYWlsbWFuL2xpc3RpbmZvL2xpbnV4LXN0bTMyCg==
+DQpPbiA3LzE0LzE5IDEyOjA5IFBNLCBKb25hdGhhbiBDYW1lcm9uIHdyb3RlOg0KPiBPbiBUaHUs
+IDExIEp1bCAyMDE5IDIxOjE2OjIwICswOTAwDQo+IFdpbGxpYW0gQnJlYXRoaXR0IEdyYXkgPHZp
+bGhlbG0uZ3JheUBnbWFpbC5jb20+IHdyb3RlOg0KPg0KPj4gT24gVGh1LCBKdWwgMTEsIDIwMTkg
+YXQgMDI6MTI6MjdQTSArMDIwMCwgQmVuamFtaW4gR2FpZ25hcmQgd3JvdGU6DQo+Pj4gTGUgamV1
+LiAxMSBqdWlsLiAyMDE5IMOgIDEzOjUxLCBXaWxsaWFtIEJyZWF0aGl0dCBHcmF5DQo+Pj4gPHZp
+bGhlbG0uZ3JheUBnbWFpbC5jb20+IGEgw6ljcml0IDoNCj4+Pj4gT24gVHVlLCBNYXkgMDcsIDIw
+MTkgYXQgMTE6MTI6MjRBTSArMDIwMCwgQmVuamFtaW4gR2FpZ25hcmQgd3JvdGU6DQo+Pj4+PiBR
+dWFkcmF0dXJlIGZlYXR1cmUgaXMgbm93IGhvc3RlZCBvbiBpdCBvd24gZnJhbWV3b3JrLg0KPj4+
+Pj4gUmVtb3ZlIHF1YWRyYXR1cmUgcmVsYXRlZCBjb2RlIGZyb20gc3RtMzItdHJpZ2dlciBkcml2
+ZXIgdG8gYXZvaWQNCj4+Pj4+IGNvZGUgZHVwbGljYXRpb24gYW5kIHNpbXBsaWZ5IHRoZSBBQkku
+DQo+Pj4+Pg0KPj4+Pj4gU2lnbmVkLW9mZi1ieTogQmVuamFtaW4gR2FpZ25hcmQgPGJlbmphbWlu
+LmdhaWduYXJkQHN0LmNvbT4NCj4+Pj4gV2hhdCBpcyB0aGUgc3RhdHVzIG9mIHRoaXMgcGF0Y2g/
+IEFyZSB0aGVyZSBhbnkgb2JqZWN0aW9ucyBjdXJyZW50bHkgZm9yDQo+Pj4+IGl0cyBpbmNsdXNp
+b24/DQo+Pj4gWW91IHdlcmUgdGhlIG9ubHkgb25lIGFza2luZyBmb3IgbW9yZSBkZXRhaWxzIGFi
+b3V0IGl0IDotKQ0KPj4+IElmIHlvdSBhZ3JlZSBJIHRoaW5rIHRoYXQgSm9uYXRoYW4gY2FuIG1l
+cmdlIGl0Lg0KPj4+DQo+Pj4gQmVuamFtaW4NCj4+Pj4gV2lsbGlhbSBCcmVhdGhpdHQgR3JheQ0K
+Pj4+Pg0KPj4+PiBfX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19f
+Xw0KPj4+PiBsaW51eC1hcm0ta2VybmVsIG1haWxpbmcgbGlzdA0KPj4+PiBsaW51eC1hcm0ta2Vy
+bmVsQGxpc3RzLmluZnJhZGVhZC5vcmcNCj4+Pj4gaHR0cDovL2xpc3RzLmluZnJhZGVhZC5vcmcv
+bWFpbG1hbi9saXN0aW5mby9saW51eC1hcm0ta2VybmVsDQo+PiBZZXMsIEpvbmF0aGFuIHBsZWFz
+ZSBtZXJnZSB0aGlzIGlmIHlvdSBoYXZlIG5vIG9iamVjdGlvbnMsIEkgaGFkbid0DQo+PiByZWFs
+aXplZCBJIHdhcyBkZWxheWluZyBpdC4NCj4+DQo+PiBUaGFuayB5b3UsDQo+Pg0KPj4gV2lsbGlh
+bSBCcmVhdGhpdHQgR3JheQ0KPiBPbmUgbGFzdCB0aGluZy4uLiAgVGhpcyBzZWVtcyB0byBiZSBh
+IHVzZXJzcGFjZSBBQkkgY2hhbmdlLiAgV2hhdA0KPiBhcmUgb3VyIHBvdGVudGlhbCBpc3N1ZXMg
+d2l0aCB1c2VycyBvZiB0aGlzIEFCST8NCj4NCj4gSXQncyBub3QgdGhhdCBjb3N0bHkgdG8ga2Vl
+cCB0aGUgY29kZSwgdGhvdWdoIGRyb3BwaW5nIHRoZSBkb2NzIG9yDQo+IHB1dHRpbmcgYSBkZXBy
+ZWNpYXRlZCBub3RlIGluIHRoZW0gaXMgcHJvYmFibHkgYSBnb29kIGlkZWEuICBIZW5jZQ0KPiBJ
+J20gbm90IHRvdGFsbHkgY29udmluY2VkIHRoZSByaXNrIG9mIGEgcmVncmVzc2lvbiBpcyB3b3J0
+aCBpdC4NCg0KQXMgZmFyIEkga25vdyBub2JvZHkgdXNlIHRoaXMgaW50ZXJmYWNlIHlldCBmb3Ig
+bWUgdGhlcmUgaXMgbm8gcmlzayB0byANCnJlbW92ZSB0aGlzIGNvZGUuDQoNCkJlbmphbWluDQoN
+Cj4NCj4gSWYgd2UgdGhpbmsgaXQncyB0aGUgc29ydCBvZiBjaGFuZ2Ugbm8gb25lIHdpbGwgbm90
+aWNlLCB0aGVuDQo+IGZhaXIgZW5vdWdoIHdlJ2xsIGdpdmUgaXQgYSBnbyBhbmQgY3Jvc3Mgb3Vy
+IGZpbmdlcnMuDQo+DQo+IFRoYW5rcywNCj4NCj4gSm9uYXRoYW4NCj4NCj4KX19fX19fX19fX19f
+X19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX18KTGludXgtc3RtMzIgbWFpbGluZyBs
+aXN0CkxpbnV4LXN0bTMyQHN0LW1kLW1haWxtYW4uc3Rvcm1yZXBseS5jb20KaHR0cHM6Ly9zdC1t
+ZC1tYWlsbWFuLnN0b3JtcmVwbHkuY29tL21haWxtYW4vbGlzdGluZm8vbGludXgtc3RtMzIK
