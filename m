@@ -2,70 +2,65 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id E44B8684C8
-	for <lists+linux-stm32@lfdr.de>; Mon, 15 Jul 2019 10:02:38 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id A365569916
+	for <lists+linux-stm32@lfdr.de>; Mon, 15 Jul 2019 18:31:54 +0200 (CEST)
 Received: from ip-172-31-3-76.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 2AAC2C61A39
-	for <lists+linux-stm32@lfdr.de>; Mon, 15 Jul 2019 08:02:38 +0000 (UTC)
-Received: from mail-vs1-f68.google.com (mail-vs1-f68.google.com
- [209.85.217.68])
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 509AEC584A0
+	for <lists+linux-stm32@lfdr.de>; Mon, 15 Jul 2019 16:31:54 +0000 (UTC)
+Received: from mail-vs1-f65.google.com (mail-vs1-f65.google.com
+ [209.85.217.65])
  (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 93441C59C9E
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 92561C57DCD
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Mon, 15 Jul 2019 08:02:35 +0000 (UTC)
-Received: by mail-vs1-f68.google.com with SMTP id h28so10731673vsl.12
+ Mon, 15 Jul 2019 16:31:52 +0000 (UTC)
+Received: by mail-vs1-f65.google.com with SMTP id u3so11800655vsh.6
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Mon, 15 Jul 2019 01:02:35 -0700 (PDT)
+ Mon, 15 Jul 2019 09:31:52 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linaro.org; s=google;
  h=mime-version:references:in-reply-to:from:date:message-id:subject:to
- :cc:content-transfer-encoding;
- bh=iuvLGLsstyrfvORfrha76hOJIbaEdkc5waXCSHT3U28=;
- b=oIEVkRA2iKUiSROtP71CyA8BYybIftJW4gJE9GU+nIJm0SBaF5fp5l5vvUbNiXyw60
- 42SCo5/Nj3mgoSpXo0t4tGsWjSAW6ZqxeyHcTbzvWydbI/DniEzHsE5m2ZfW9OVRxThJ
- olOiag19xKLJz6CAhLt0oqgOwCp+NPFNmlqkZABFsPn0/vI3LVKcjknVz0RiR+Ywltsi
- wjVCMktkiUC+J8Fq+C3nNKI6uC1eTZDxPosS7z6OSwCED1MM4Yy/n1MC/pBaR9kCd4I6
- k6qrMdPKcCGxS8Zp4Roi//B1ZYvQqxBCF2Ht+8BYpRW1an4f+rYdKo98YdHSoAFUX1hZ
- 9LlA==
+ :cc; bh=l9coYjSe3XSNr091GZSS9724rWMOjYgkm8g/YPUGrBk=;
+ b=NYNAvMcRho+50ikquItIbaA8xyQqZTsW5KuU71/3Q+SoqDVsAy0+FM2d2PDcePt7/n
+ 11RZxGJC6mTRC4h6FGCGzw5ghhxx3RwnG0GjedgAFNGGoDc3a9QiHq+8ObcMmIqDsmmR
+ J3Vsoi/0eyXbw2JYkw6d/qyG0Pcpoe3itkm/WnnZNuH1KiiwADvf3ntPy/+VrYE6PIw6
+ uIF81NM9pWUyOV4tcN7jlhU8hIQWnXcFmd8zg9BnmqlN0/rWPA8H02F6iWBLylvyWZNz
+ XJSLk/1VCaTu2yjDkpvSOUpRVRh2m0Rv0bmcg2VHCyu5QVYHl7BD6bBxYfh/jlUUzWJe
+ HABQ==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=1e100.net; s=20161025;
  h=x-gm-message-state:mime-version:references:in-reply-to:from:date
- :message-id:subject:to:cc:content-transfer-encoding;
- bh=iuvLGLsstyrfvORfrha76hOJIbaEdkc5waXCSHT3U28=;
- b=diJRbZjuy/Jsa432H8W6YCXMY2DJbUoD8NLevEsiiKGqshp6QXf2UNMbCkG8jTXMhl
- hEt5YffK76BbkD4FeR893J5Gpxk0iXOIYx43E5wxF6Eyn/ywrOsQEOzFu9Uf4hQuKPKB
- o9grcGqQhC8zp1CTsz9CUqov6+TywyWeiu24UfmiHx3bSUsFCnEfS1tZN+OTH0QuiRb2
- ukHr8+VOxPVwHNMmLfYZQ4Gtujq+XaOqzm6ktdGVUGhZJnqu9cjpLTqCh0n/eeCRXMxQ
- 0dCqodSpDQw+J7Jb8rTrX39AGClX/jn7nJ983nLUFp5BbYlC/shVbBHnoOPByES9cKZW
- R85g==
-X-Gm-Message-State: APjAAAUmd2LwnGOM+QFVIDo3iEUvKAFgYxybFoa4L5zzeN/Kkg+Wx1dB
- D/PXbSCOUWk6m8AFxGZRmEcyHsxda+e/NsuCOAQaWg==
-X-Google-Smtp-Source: APXvYqz9I5YBxjFFkO53VilAz3vY9qzYuKTKMoBVSx7wkqVdfBCSqxzgYb9P6olM18c/3fom7byG6FaKIJC0UxNoLH4=
+ :message-id:subject:to:cc;
+ bh=l9coYjSe3XSNr091GZSS9724rWMOjYgkm8g/YPUGrBk=;
+ b=NdO+zHOP418prm5JLPnZ93MDQLADblFuNarYCmIZJNMDHho203x9Gar3he9IZYDl3w
+ fdrbIKUWW3u3LIHfTM9dF/Z2D3dsK9wyhDMlfP9tFk58wNltQ/9w8Tzx4HVNMRY7tVAe
+ Tst0Mmi1DMCFZit0S1exHi9xjFay/Xq0wcp82RnCR3drN4VI4nBGFFGbXiwWSQN8uwT5
+ 4c/YsvVH7Hf5nCS7LKt/5HZOUIFmBVKyKiXaGxUamAawbq6e0QHIhNXFWtA0IiLwl2jH
+ GiXZFbvpHhg3NT1nBx5L/MunqGV72JtmCbk0GA/Apc7KCWzElkf7dU7Dy7TXGtB4PTTG
+ pgow==
+X-Gm-Message-State: APjAAAXCEFEISRJR1CXc5epFJSQ2X3UfCRBezP3fVlV8RdKQpEocgorK
+ V8gmI5eghiHEpJsfK4gQuJWaOViPrWAWbKQBrgXUVw==
+X-Google-Smtp-Source: APXvYqyUVL5RPnQWYVDvWMTPG8b/y4kpVO36hdyZcWBMkgiuUbpz8JwBx7OzH4gYy2hAxp1kCITo99T3NjrGPMBeorE=
 X-Received: by 2002:a67:7a90:: with SMTP id
- v138mr15572454vsc.200.1563177754346; 
- Mon, 15 Jul 2019 01:02:34 -0700 (PDT)
+ v138mr16907417vsc.200.1563208311475; 
+ Mon, 15 Jul 2019 09:31:51 -0700 (PDT)
 MIME-Version: 1.0
 References: <1559577325-19266-1-git-send-email-ludovic.Barre@st.com>
- <5b7e1ae5-c97e-5a21-fc3e-7cc328087f04@st.com>
- <CAPDyKFrULRk=cHzVodU9aa6LDX9ip-VPHNwG7QXhmNZrMpPjGw@mail.gmail.com>
- <CAPDyKFr_KNpNY-xgGdKXdAnmmD5OD1=wxgs2LmBAUJOn0mZwqg@mail.gmail.com>
- <1563176363071.36427@st.com>
-In-Reply-To: <1563176363071.36427@st.com>
+ <1559577325-19266-2-git-send-email-ludovic.Barre@st.com>
+In-Reply-To: <1559577325-19266-2-git-send-email-ludovic.Barre@st.com>
 From: Ulf Hansson <ulf.hansson@linaro.org>
-Date: Mon, 15 Jul 2019 10:01:58 +0200
-Message-ID: <CAPDyKFpLoqZxX=nnivt-8zF_Azen+Vyf6vE4acB+r=LGOcz=5Q@mail.gmail.com>
-To: Ludovic BARRE <ludovic.barre@st.com>
+Date: Mon, 15 Jul 2019 18:31:15 +0200
+Message-ID: <CAPDyKFpJPbpTnfA2cynFURyxFY_YCm7MRXw3m2nQyU+z=ZWsFA@mail.gmail.com>
+To: Ludovic Barre <ludovic.Barre@st.com>
 Cc: DTML <devicetree@vger.kernel.org>,
  "linux-mmc@vger.kernel.org" <linux-mmc@vger.kernel.org>,
  Linux Kernel Mailing List <linux-kernel@vger.kernel.org>,
  Rob Herring <robh+dt@kernel.org>,
  Srinivas Kandagatla <srinivas.kandagatla@linaro.org>,
  Maxime Coquelin <mcoquelin.stm32@gmail.com>,
- "linux-stm32@st-md-mailman.stormreply.com"
- <linux-stm32@st-md-mailman.stormreply.com>,
+ linux-stm32@st-md-mailman.stormreply.com,
  Linux ARM <linux-arm-kernel@lists.infradead.org>
-Subject: Re: [Linux-stm32] [PATCH V3 0/3] mmc: mmci: add busy detect for
-	stm32 sdmmc variant
+Subject: Re: [Linux-stm32] [PATCH V3 1/3] mmc: mmci: fix read status for
+	busy detect
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -77,58 +72,114 @@ List-Post: <mailto:linux-stm32@st-md-mailman.stormreply.com>
 List-Help: <mailto:linux-stm32-request@st-md-mailman.stormreply.com?subject=help>
 List-Subscribe: <https://st-md-mailman.stormreply.com/mailman/listinfo/linux-stm32>, 
  <mailto:linux-stm32-request@st-md-mailman.stormreply.com?subject=subscribe>
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: base64
+Content-Type: text/plain; charset="us-ascii"
+Content-Transfer-Encoding: 7bit
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
-T24gTW9uLCAxNSBKdWwgMjAxOSBhdCAwOTozOSwgTHVkb3ZpYyBCQVJSRSA8bHVkb3ZpYy5iYXJy
-ZUBzdC5jb20+IHdyb3RlOgo+Cj4gSGkgVWxmCj4KPiBsaWtlIHNjaGVkdWxlZCwgSSBzZW5kIHlv
-dSBhICJnZW50bGVtYW4gcGluZyIgYWJvdXQgdGhpcyBzZXJpZXMuCgpUaGFua3MsIEkgYW0ganVz
-dCBsb29raW5nIGF0IGl0LCBhZ2Fpbi4KCktpbmQgcmVnYXJkcwpVZmZlCgo+Cj4gUmVnYXJkcywK
-PiBMdWRvCj4gX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fXwo+IERlIDog
-VWxmIEhhbnNzb24gPHVsZi5oYW5zc29uQGxpbmFyby5vcmc+Cj4gRW52b3nDqSA6IGpldWRpIDIw
-IGp1aW4gMjAxOSAxNTo1MAo+IMOAIDogTHVkb3ZpYyBCQVJSRQo+IENjIDogUm9iIEhlcnJpbmc7
-IFNyaW5pdmFzIEthbmRhZ2F0bGE7IE1heGltZSBDb3F1ZWxpbjsgQWxleGFuZHJlIFRPUkdVRTsg
-TGludXggQVJNOyBMaW51eCBLZXJuZWwgTWFpbGluZyBMaXN0OyBEVE1MOyBsaW51eC1tbWNAdmdl
-ci5rZXJuZWwub3JnOyBsaW51eC1zdG0zMkBzdC1tZC1tYWlsbWFuLnN0b3JtcmVwbHkuY29tCj4g
-T2JqZXQgOiBSZTogW1BBVENIIFYzIDAvM10gbW1jOiBtbWNpOiBhZGQgYnVzeSBkZXRlY3QgZm9y
-IHN0bTMyIHNkbW1jIHZhcmlhbnQKPgo+IEhpIEx1ZG92aWMsCj4KPiBPbiBUaHUsIDEzIEp1biAy
-MDE5IGF0IDE1OjEzLCBVbGYgSGFuc3NvbiA8dWxmLmhhbnNzb25AbGluYXJvLm9yZz4gd3JvdGU6
-Cj4gPgo+ID4gT24gVGh1LCAxMyBKdW4gMjAxOSBhdCAxNTowMiwgTHVkb3ZpYyBCQVJSRSA8bHVk
-b3ZpYy5iYXJyZUBzdC5jb20+IHdyb3RlOgo+ID4gPgo+ID4gPiBoaSBVbGYKPiA+ID4KPiA+ID4g
-SnVzdCBhICJnZW50bGVtYW4gcGluZyIgYWJvdXQgdGhpcyBzZXJpZXMuCj4gPiA+IEkga25vdyB5
-b3UgYXJlIGJ1c3ksIGl0J3MganVzdCB0byBiZSBzdXJlIHlvdSBkbyBub3QgZm9yZ2V0IG1lIDot
-KQo+ID4KPiA+IFRoYW5rcyEgSSBzdGFydGVkIGJyaWVmbHkgdG8gcmV2aWV3LCBidXQgZ290IGRp
-c3RyYWN0ZWQgYWdhaW4uIEkgd2lsbAo+ID4gY29tZSB0byBpdCwgYnV0IGl0IGp1c3Qgc2VlbXMg
-dG8gdGFrZSBtb3JlIHRpbWUgdGhhbiBpdCBzaG91bGQsIG15Cj4gPiBhcG9sb2dpZXMuCj4KPiBB
-bHJpZ2h0LCBzbyBJIHBsYW5uZWQgdG8gcmV2aWV3IHRoaXMgdGhpcyB3ZWVrIC0gYnV0IGZhaWxl
-ZC4gSSBoYXZlCj4gYmVlbiBvdmVyd2hlbG1lZCB3aXRoIHdvcmsgbGF0ZWx5IChhcyB1c3VhbCB3
-aGVuIHZhY2F0aW9uIGlzIGdldHRpbmcKPiBjbG9zZXIpLgo+Cj4gSSBuZWVkIHRvIGdlbnRseSBy
-ZXF1ZXN0IHRvIGNvbWUgYmFjayB0byB0aGlzIGFzIG9mIHdlZWsgMjgsIHdoZW4gSQo+IHdpbGwg
-Z2l2ZSB0aGlzIHRoZSBoaWdoZXN0IHByaW8uIEFnYWluIGFwb2xvZ2l6ZSBmb3IgdGhlIGRlbGF5
-cyEKPgo+IEtpbmQgcmVnYXJkcwo+IFVmZmUKPgo+ID4KPiA+IEJyCj4gPiBVZmZlCj4gPgo+ID4g
-Pgo+ID4gPiBSZWdhcmRzCj4gPiA+IEx1ZG8KPiA+ID4KPiA+ID4gT24gNi8zLzE5IDU6NTUgUE0s
-IEx1ZG92aWMgQmFycmUgd3JvdGU6Cj4gPiA+ID4gRnJvbTogTHVkb3ZpYyBCYXJyZSA8bHVkb3Zp
-Yy5iYXJyZUBzdC5jb20+Cj4gPiA+ID4KPiA+ID4gPiBUaGlzIHBhdGNoIHNlcmllcyBhZGRzIGJ1
-c3kgZGV0ZWN0IGZvciBzdG0zMiBzZG1tYyB2YXJpYW50Lgo+ID4gPiA+IFNvbWUgYWRhcHRhdGlv
-bnMgYXJlIHJlcXVpcmVkOgo+ID4gPiA+IC1DbGVhciBidXN5IHN0YXR1cyBiaXQgaWYgYnVzeV9k
-ZXRlY3RfZmxhZyBhbmQgYnVzeV9kZXRlY3RfbWFzayBhcmUKPiA+ID4gPiAgIGRpZmZlcmVudC4K
-PiA+ID4gPiAtQWRkIGhhcmR3YXJlIGJ1c3kgdGltZW91dCB3aXRoIE1NQ0lEQVRBVElNRVIgcmVn
-aXN0ZXIuCj4gPiA+ID4KPiA+ID4gPiBWMzoKPiA+ID4gPiAtcmViYXNlIG9uIGxhdGVzdCBtbWMg
-bmV4dAo+ID4gPiA+IC1yZXBsYWNlIHJlLXJlYWQgYnkgc3RhdHVzIHBhcmFtZXRlci4KPiA+ID4g
-Pgo+ID4gPiA+IFYyOgo+ID4gPiA+IC1tbWNpX2NtZF9pcnEgY2xlYW51cCBpbiBzZXBhcmF0ZSBw
-YXRjaC4KPiA+ID4gPiAtc2ltcGxpZnkgdGhlIGJ1c3lfZGV0ZWN0X2ZsYWcgZXhjbHVkZQo+ID4g
-PiA+IC1yZXBsYWNlIHNkbW1jIHNwZWNpZmljIGNvbW1lbnQgaW4KPiA+ID4gPiAibW1jOiBtbWNp
-OiBhdm9pZCBmYWtlIGJ1c3kgcG9sbGluZyBpbiBtbWNpX2lycSIKPiA+ID4gPiB0byBmb2N1cyBv
-biBjb21tb24gYmVoYXZpb3IKPiA+ID4gPgo+ID4gPiA+IEx1ZG92aWMgQmFycmUgKDMpOgo+ID4g
-PiA+ICAgIG1tYzogbW1jaTogZml4IHJlYWQgc3RhdHVzIGZvciBidXN5IGRldGVjdAo+ID4gPiA+
-ICAgIG1tYzogbW1jaTogYWRkIGhhcmR3YXJlIGJ1c3kgdGltZW91dCBmZWF0dXJlCj4gPiA+ID4g
-ICAgbW1jOiBtbWNpOiBhZGQgYnVzeSBkZXRlY3QgZm9yIHN0bTMyIHNkbW1jIHZhcmlhbnQKPiA+
-ID4gPgo+ID4gPiA+ICAgZHJpdmVycy9tbWMvaG9zdC9tbWNpLmMgfCA0OSArKysrKysrKysrKysr
-KysrKysrKysrKysrKysrKysrKysrKysrKysrKy0tLS0tLS0tCj4gPiA+ID4gICBkcml2ZXJzL21t
-Yy9ob3N0L21tY2kuaCB8ICAzICsrKwo+ID4gPiA+ICAgMiBmaWxlcyBjaGFuZ2VkLCA0NCBpbnNl
-cnRpb25zKCspLCA4IGRlbGV0aW9ucygtKQo+ID4gPiA+Cl9fX19fX19fX19fX19fX19fX19fX19f
-X19fX19fX19fX19fX19fX19fX19fX19fCkxpbnV4LXN0bTMyIG1haWxpbmcgbGlzdApMaW51eC1z
-dG0zMkBzdC1tZC1tYWlsbWFuLnN0b3JtcmVwbHkuY29tCmh0dHBzOi8vc3QtbWQtbWFpbG1hbi5z
-dG9ybXJlcGx5LmNvbS9tYWlsbWFuL2xpc3RpbmZvL2xpbnV4LXN0bTMyCg==
+On Mon, 3 Jun 2019 at 17:55, Ludovic Barre <ludovic.Barre@st.com> wrote:
+>
+> From: Ludovic Barre <ludovic.barre@st.com>
+>
+> "busy_detect_flag" is used to read & clear busy value of mmci status.
+> "busy_detect_mask" is used to manage busy irq of mmci mask.
+> So to read mmci status the busy_detect_flag must be take account.
+> if the variant does not support busy detect feature the flag is null
+> and there is no impact.
+
+By reading the changelog, it doesn't tell me the purpose of this
+change. When going forward, please work harder on your changelogs.
+
+Make sure to answer the questions, *why* is this change needed,
+*what/how* does the change do.
+
+>
+> Not need to re-read the status register in mmci_cmd_irq, the
+> status parameter can be used.
+>
+> Signed-off-by: Ludovic Barre <ludovic.barre@st.com>
+> ---
+>  drivers/mmc/host/mmci.c | 5 +++--
+>  1 file changed, 3 insertions(+), 2 deletions(-)
+>
+> diff --git a/drivers/mmc/host/mmci.c b/drivers/mmc/host/mmci.c
+> index 356833a..5b5cc45 100644
+> --- a/drivers/mmc/host/mmci.c
+> +++ b/drivers/mmc/host/mmci.c
+> @@ -1240,7 +1240,7 @@ mmci_cmd_irq(struct mmci_host *host, struct mmc_command *cmd,
+>                  */
+>                 if (!host->busy_status &&
+>                     !(status & (MCI_CMDCRCFAIL|MCI_CMDTIMEOUT)) &&
+> -                   (readl(base + MMCISTATUS) & host->variant->busy_detect_flag)) {
+> +                   (status & host->variant->busy_detect_flag)) {
+
+I suggested you to do this change through some of my earlier comments,
+however I think it should be made as a stand alone change.
+
+Anyway, when looking at the details in your series, I decided to try
+to help out a bit, so I have prepared a couple of related patches for
+cleaning up and clarifying the busy detection code/comments in mmci. I
+have incorporated the above change, so let me post them asap.
+
+>
+>                         /* Clear the busy start IRQ */
+>                         writel(host->variant->busy_detect_mask,
+> @@ -1517,7 +1517,8 @@ static irqreturn_t mmci_irq(int irq, void *dev_id)
+>                  * to make sure that both start and end interrupts are always
+>                  * cleared one after the other.
+>                  */
+> -               status &= readl(host->base + MMCIMASK0);
+> +               status &= readl(host->base + MMCIMASK0) |
+> +                       host->variant->busy_detect_flag;
+
+As I told earlier in the review, this looks wrong to me.
+
+It means that you will add the bit for the ->busy_detect_flag to the
+status field we have just read from the MMCISTATUS register. That
+means the busy status may be set when it shouldn't.
+
+>                 if (host->variant->busy_detect)
+>                         writel(status & ~host->variant->busy_detect_mask,
+>                                host->base + MMCICLEAR);
+> --
+> 2.7.4
+>
+
+By looking at the other changes in the series, I assume @subject patch
+is intended to prepare for the other changes on top. But it's not
+really clear.
+
+Anyway, in that regards, the below is my observations of what seems to
+be important part, when supporting busy detection for the stm32 sdmmc
+variant (except the timeout things in patch2, which I intend to
+comment separately on).
+
+I figured, these are the involved register bits/masks:
+
+MMCISTATUS:
+MCI_STM32_BUSYD0 BIT(20)
+MCI_STM32_BUSYD0END BIT(21)
+
+MMCIMASK0:
+MCI_STM32_BUSYD0ENDMASK BIT(21)
+
+For the legacy ST variant, there is only one register bit in
+MMCISTATUS that is used for indicating busy (MCI_ST_CARDBUSY BIT(24)).
+There is no dedicated busy-end bit for the busy-end IRQ, which I
+believe is the reason to why the current code also is bit messy.
+
+It seems like the stm32 sdmmc variant have a separate status bit for
+the busy-end IRQ, correct?
+
+If I understand correctly by looking at patch3, you don't use the
+dedicated busy-end status bit (MCI_STM32_BUSYD0END), right? Then why
+not?
+
+Thoughts?
+
+Kind regards
+Uffe
+_______________________________________________
+Linux-stm32 mailing list
+Linux-stm32@st-md-mailman.stormreply.com
+https://st-md-mailman.stormreply.com/mailman/listinfo/linux-stm32
