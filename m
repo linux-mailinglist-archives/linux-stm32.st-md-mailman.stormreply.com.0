@@ -2,39 +2,37 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id 5767F6A2C3
-	for <lists+linux-stm32@lfdr.de>; Tue, 16 Jul 2019 09:19:48 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 64DC36A3DB
+	for <lists+linux-stm32@lfdr.de>; Tue, 16 Jul 2019 10:30:43 +0200 (CEST)
 Received: from ip-172-31-3-76.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 11478C1637B
-	for <lists+linux-stm32@lfdr.de>; Tue, 16 Jul 2019 07:19:48 +0000 (UTC)
-Received: from relay3-d.mail.gandi.net (relay3-d.mail.gandi.net
- [217.70.183.195])
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id B57A4C0C1C2
+	for <lists+linux-stm32@lfdr.de>; Tue, 16 Jul 2019 08:30:40 +0000 (UTC)
+Received: from relay10.mail.gandi.net (relay10.mail.gandi.net [217.70.178.230])
  (using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 6B9E8C07DA6
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id C8571C555B3
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Tue, 16 Jul 2019 07:19:46 +0000 (UTC)
-X-Originating-IP: 86.250.200.211
-Received: from xps13 (lfbn-1-17395-211.w86-250.abo.wanadoo.fr [86.250.200.211])
- (Authenticated sender: miquel.raynal@bootlin.com)
- by relay3-d.mail.gandi.net (Postfix) with ESMTPSA id 4582860017;
- Tue, 16 Jul 2019 07:19:34 +0000 (UTC)
-Date: Tue, 16 Jul 2019 09:19:33 +0200
-From: Miquel Raynal <miquel.raynal@bootlin.com>
+ Tue, 16 Jul 2019 08:30:39 +0000 (UTC)
+Received: from localhost (91-163-65-175.subs.proxad.net [91.163.65.175])
+ (Authenticated sender: maxime.ripard@bootlin.com)
+ by relay10.mail.gandi.net (Postfix) with ESMTPSA id C1EAD240005;
+ Tue, 16 Jul 2019 08:28:21 +0000 (UTC)
+Date: Tue, 16 Jul 2019 10:28:21 +0200
+From: Maxime Ripard <maxime.ripard@bootlin.com>
 To: Rob Herring <robh@kernel.org>
-Message-ID: <20190716091933.39db956e@xps13>
-In-Reply-To: <20190715230457.3901-1-robh@kernel.org>
+Message-ID: <20190716082821.eafjvqfczxahx4as@flea>
 References: <20190715230457.3901-1-robh@kernel.org>
-Organization: Bootlin
-X-Mailer: Claws Mail 3.17.1 (GTK+ 2.24.32; x86_64-pc-linux-gnu)
 MIME-Version: 1.0
+Content-Disposition: inline
+In-Reply-To: <20190715230457.3901-1-robh@kernel.org>
+User-Agent: NeoMutt/20180716
 Cc: devicetree@vger.kernel.org, Vignesh Raghavendra <vigneshr@ti.com>,
- linux-gpio@vger.kernel.org, Maxime Ripard <maxime.ripard@bootlin.com>,
- Richard Weinberger <richard@nod.at>, Linus Walleij <linus.walleij@linaro.org>,
- linux-kernel@vger.kernel.org, linux-spi@vger.kernel.org,
- Marek Vasut <marek.vasut@gmail.com>, Chen-Yu Tsai <wens@csie.org>,
- Mark Brown <broonie@kernel.org>, linux-mtd@lists.infradead.org,
- Maxime Coquelin <mcoquelin.stm32@gmail.com>,
+ linux-gpio@vger.kernel.org, Richard Weinberger <richard@nod.at>,
+ Linus Walleij <linus.walleij@linaro.org>, linux-kernel@vger.kernel.org,
+ linux-spi@vger.kernel.org, Marek Vasut <marek.vasut@gmail.com>,
+ Chen-Yu Tsai <wens@csie.org>, Mark Brown <broonie@kernel.org>,
+ linux-mtd@lists.infradead.org, Maxime Coquelin <mcoquelin.stm32@gmail.com>,
+ Miquel Raynal <miquel.raynal@bootlin.com>,
  Brian Norris <computersforpeace@gmail.com>,
  David Woodhouse <dwmw2@infradead.org>,
  linux-stm32@st-md-mailman.stormreply.com
@@ -51,50 +49,45 @@ List-Post: <mailto:linux-stm32@st-md-mailman.stormreply.com>
 List-Help: <mailto:linux-stm32-request@st-md-mailman.stormreply.com?subject=help>
 List-Subscribe: <https://st-md-mailman.stormreply.com/mailman/listinfo/linux-stm32>, 
  <mailto:linux-stm32-request@st-md-mailman.stormreply.com?subject=subscribe>
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: base64
+Content-Type: text/plain; charset="us-ascii"
+Content-Transfer-Encoding: 7bit
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
-SGkgUm9iLAoKUm9iIEhlcnJpbmcgPHJvYmhAa2VybmVsLm9yZz4gd3JvdGUgb24gTW9uLCAxNSBK
-dWwgMjAxOSAxNzowNDo1NyAtMDYwMDoKCj4gUHJvcGVydGllcyB3aGljaCBhcmUgY2hpbGQgbm9k
-ZSBkZWZpbml0aW9ucyBuZWVkIHRvIGhhdmUgYW4gZXhwbGljdAo+IHR5cGUuIE90aGVyd2lzZSwg
-YSBtYXRjaGluZyAoRFQpIHByb3BlcnR5IGNhbiBzaWxlbnRseSBtYXRjaCB3aGVuIGFuCj4gZXJy
-b3IgaXMgZGVzaXJlZC4gRml4IHRoaXMgdXAgdHJlZS13aWRlLiBPbmNlIHRoaXMgaXMgZml4ZWQs
-IHRoZQo+IG1ldGEtc2NoZW1hIHdpbGwgZW5mb3JjZSB0aGlzIG9uIGFueSBjaGlsZCBub2RlIGRl
-ZmluaXRpb25zLgo+IAo+IENjOiBNYXhpbWUgUmlwYXJkIDxtYXhpbWUucmlwYXJkQGJvb3RsaW4u
-Y29tPgo+IENjOiBDaGVuLVl1IFRzYWkgPHdlbnNAY3NpZS5vcmc+Cj4gQ2M6IERhdmlkIFdvb2Ro
-b3VzZSA8ZHdtdzJAaW5mcmFkZWFkLm9yZz4KPiBDYzogQnJpYW4gTm9ycmlzIDxjb21wdXRlcnNm
-b3JwZWFjZUBnbWFpbC5jb20+Cj4gQ2M6IE1hcmVrIFZhc3V0IDxtYXJlay52YXN1dEBnbWFpbC5j
-b20+Cj4gQ2M6IE1pcXVlbCBSYXluYWwgPG1pcXVlbC5yYXluYWxAYm9vdGxpbi5jb20+Cj4gQ2M6
-IFJpY2hhcmQgV2VpbmJlcmdlciA8cmljaGFyZEBub2QuYXQ+Cj4gQ2M6IFZpZ25lc2ggUmFnaGF2
-ZW5kcmEgPHZpZ25lc2hyQHRpLmNvbT4KPiBDYzogTGludXMgV2FsbGVpaiA8bGludXMud2FsbGVp
-akBsaW5hcm8ub3JnPgo+IENjOiBNYXhpbWUgQ29xdWVsaW4gPG1jb3F1ZWxpbi5zdG0zMkBnbWFp
-bC5jb20+Cj4gQ2M6IEFsZXhhbmRyZSBUb3JndWUgPGFsZXhhbmRyZS50b3JndWVAc3QuY29tPgo+
-IENjOiBNYXJrIEJyb3duIDxicm9vbmllQGtlcm5lbC5vcmc+Cj4gQ2M6IGxpbnV4LW10ZEBsaXN0
-cy5pbmZyYWRlYWQub3JnCj4gQ2M6IGxpbnV4LWdwaW9Admdlci5rZXJuZWwub3JnCj4gQ2M6IGxp
-bnV4LXN0bTMyQHN0LW1kLW1haWxtYW4uc3Rvcm1yZXBseS5jb20KPiBDYzogbGludXgtc3BpQHZn
-ZXIua2VybmVsLm9yZwo+IFNpZ25lZC1vZmYtYnk6IFJvYiBIZXJyaW5nIDxyb2JoQGtlcm5lbC5v
-cmc+Cj4gLS0tCj4gUGxlYXNlIGFjay4gSSB3aWxsIHRha2UgdGhpcyB2aWEgdGhlIERUIHRyZWUu
-Cj4gCj4gUm9iCj4gCj4gIC4uLi9kZXZpY2V0cmVlL2JpbmRpbmdzL2J1cy9hbGx3aW5uZXIsc3Vu
-OGktYTIzLXJzYi55YW1sICAgICAgIHwgMSArCj4gIC4uLi9kZXZpY2V0cmVlL2JpbmRpbmdzL210
-ZC9hbGx3aW5uZXIsc3VuNGktYTEwLW5hbmQueWFtbCAgICAgIHwgMSArCj4gIERvY3VtZW50YXRp
-b24vZGV2aWNldHJlZS9iaW5kaW5ncy9tdGQvbmFuZC1jb250cm9sbGVyLnlhbWwgICAgIHwgMSAr
-Cj4gIC4uLi9kZXZpY2V0cmVlL2JpbmRpbmdzL3BpbmN0cmwvc3Qsc3RtMzItcGluY3RybC55YW1s
-ICAgICAgICAgIHwgMyArKysKPiAgLi4uL2RldmljZXRyZWUvYmluZGluZ3Mvc3BpL2FsbHdpbm5l
-cixzdW40aS1hMTAtc3BpLnlhbWwgICAgICAgfCAxICsKPiAgLi4uL2RldmljZXRyZWUvYmluZGlu
-Z3Mvc3BpL2FsbHdpbm5lcixzdW42aS1hMzEtc3BpLnlhbWwgICAgICAgfCAxICsKPiAgNiBmaWxl
-cyBjaGFuZ2VkLCA4IGluc2VydGlvbnMoKykKPiAKClsuLi5dCgo+IGRpZmYgLS1naXQgYS9Eb2N1
-bWVudGF0aW9uL2RldmljZXRyZWUvYmluZGluZ3MvbXRkL25hbmQtY29udHJvbGxlci55YW1sIGIv
-RG9jdW1lbnRhdGlvbi9kZXZpY2V0cmVlL2JpbmRpbmdzL210ZC9uYW5kLWNvbnRyb2xsZXIueWFt
-bAo+IGluZGV4IDE5OWJhNWFjMmEwNi4uZDI2MWI3MDk2YzY5IDEwMDY0NAo+IC0tLSBhL0RvY3Vt
-ZW50YXRpb24vZGV2aWNldHJlZS9iaW5kaW5ncy9tdGQvbmFuZC1jb250cm9sbGVyLnlhbWwKPiAr
-KysgYi9Eb2N1bWVudGF0aW9uL2RldmljZXRyZWUvYmluZGluZ3MvbXRkL25hbmQtY29udHJvbGxl
-ci55YW1sCj4gQEAgLTQwLDYgKzQwLDcgQEAgcHJvcGVydGllczoKPiAgCj4gIHBhdHRlcm5Qcm9w
-ZXJ0aWVzOgo+ICAgICJebmFuZEBbYS1mMC05XSQiOgo+ICsgICAgdHlwZTogb2JqZWN0Cj4gICAg
-ICBwcm9wZXJ0aWVzOgo+ICAgICAgICByZWc6Cj4gICAgICAgICAgZGVzY3JpcHRpb246CgpGb3Ig
-dGhlIG10ZCAueWFtbDoKCkFja2VkLWJ5OiBNaXF1ZWwgUmF5bmFsIDxtaXF1ZWwucmF5bmFsQGJv
-b3RsaW4uY29tPgoKClRoYW5rcywKTWlxdcOobApfX19fX19fX19fX19fX19fX19fX19fX19fX19f
-X19fX19fX19fX19fX19fX19fXwpMaW51eC1zdG0zMiBtYWlsaW5nIGxpc3QKTGludXgtc3RtMzJA
-c3QtbWQtbWFpbG1hbi5zdG9ybXJlcGx5LmNvbQpodHRwczovL3N0LW1kLW1haWxtYW4uc3Rvcm1y
-ZXBseS5jb20vbWFpbG1hbi9saXN0aW5mby9saW51eC1zdG0zMgo=
+On Mon, Jul 15, 2019 at 05:04:57PM -0600, Rob Herring wrote:
+> Properties which are child node definitions need to have an explict
+> type. Otherwise, a matching (DT) property can silently match when an
+> error is desired. Fix this up tree-wide. Once this is fixed, the
+> meta-schema will enforce this on any child node definitions.
+>
+> Cc: Maxime Ripard <maxime.ripard@bootlin.com>
+> Cc: Chen-Yu Tsai <wens@csie.org>
+> Cc: David Woodhouse <dwmw2@infradead.org>
+> Cc: Brian Norris <computersforpeace@gmail.com>
+> Cc: Marek Vasut <marek.vasut@gmail.com>
+> Cc: Miquel Raynal <miquel.raynal@bootlin.com>
+> Cc: Richard Weinberger <richard@nod.at>
+> Cc: Vignesh Raghavendra <vigneshr@ti.com>
+> Cc: Linus Walleij <linus.walleij@linaro.org>
+> Cc: Maxime Coquelin <mcoquelin.stm32@gmail.com>
+> Cc: Alexandre Torgue <alexandre.torgue@st.com>
+> Cc: Mark Brown <broonie@kernel.org>
+> Cc: linux-mtd@lists.infradead.org
+> Cc: linux-gpio@vger.kernel.org
+> Cc: linux-stm32@st-md-mailman.stormreply.com
+> Cc: linux-spi@vger.kernel.org
+> Signed-off-by: Rob Herring <robh@kernel.org>
+
+Acked-by: Maxime Ripard <maxime.ripard@bootlin.com>
+
+Thanks!
+Maxime
+
+--
+Maxime Ripard, Bootlin
+Embedded Linux and Kernel engineering
+https://bootlin.com
+_______________________________________________
+Linux-stm32 mailing list
+Linux-stm32@st-md-mailman.stormreply.com
+https://st-md-mailman.stormreply.com/mailman/listinfo/linux-stm32
