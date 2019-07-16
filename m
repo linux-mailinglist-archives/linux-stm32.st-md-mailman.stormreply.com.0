@@ -2,56 +2,62 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id AF2D46A702
-	for <lists+linux-stm32@lfdr.de>; Tue, 16 Jul 2019 13:09:51 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id B59DF6AB12
+	for <lists+linux-stm32@lfdr.de>; Tue, 16 Jul 2019 16:55:45 +0200 (CEST)
 Received: from ip-172-31-3-76.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id A1143C7AB2B
-	for <lists+linux-stm32@lfdr.de>; Tue, 16 Jul 2019 11:09:50 +0000 (UTC)
-Received: from heliosphere.sirena.org.uk (heliosphere.sirena.org.uk
- [172.104.155.198])
- (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 61D83C930ED
+	for <lists+linux-stm32@lfdr.de>; Tue, 16 Jul 2019 14:55:45 +0000 (UTC)
+Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
+ (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 3D738C7AB25
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id D1DFBC930D7
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Tue, 16 Jul 2019 11:09:49 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
- d=sirena.org.uk; s=20170815-heliosphere; h=In-Reply-To:Content-Type:
- MIME-Version:References:Message-ID:Subject:Cc:To:From:Date:Sender:Reply-To:
- Content-Transfer-Encoding:Content-ID:Content-Description:Resent-Date:
- Resent-From:Resent-Sender:Resent-To:Resent-Cc:Resent-Message-ID:List-Id:
- List-Help:List-Unsubscribe:List-Subscribe:List-Post:List-Owner:List-Archive;
- bh=GTNttLKfykU0fMB8TWGXww71EUURBDV6zbj9y9y9CVY=; b=Stdaqrb4Nzvjz4Bj7OxsqHHhD
- +Td7CdZOlzO+ek+Wlj1/FC/WJHeQ9gSPUYQBkEz/5sipVYr/hPyWPqlS7cSDQnO+iL3ns21zEDaGi
- 3VvzwyAvDJ+Chvj8tqRy5yeKmx6ZrWTp1EMApgzMNqNyFnCUcN19Mpy6CuXjZ4JswoqRQ=;
-Received: from cpc102320-sgyl38-2-0-cust46.18-2.cable.virginm.net
- ([82.37.168.47] helo=ypsilon.sirena.org.uk)
- by heliosphere.sirena.org.uk with esmtpsa
- (TLS1.3:ECDHE_RSA_AES_256_GCM_SHA384:256) (Exim 4.92)
- (envelope-from <broonie@sirena.org.uk>)
- id 1hnLKz-0004Sl-R4; Tue, 16 Jul 2019 11:09:37 +0000
-Received: by ypsilon.sirena.org.uk (Postfix, from userid 1000)
- id 9164A2742C01; Tue, 16 Jul 2019 12:09:36 +0100 (BST)
-Date: Tue, 16 Jul 2019 12:09:36 +0100
-From: Mark Brown <broonie@kernel.org>
-To: Rob Herring <robh@kernel.org>
-Message-ID: <20190716110936.GA5428@sirena.org.uk>
-References: <20190715230457.3901-1-robh@kernel.org>
+ Tue, 16 Jul 2019 14:51:18 +0000 (UTC)
+Received: from mail-oi1-f180.google.com (mail-oi1-f180.google.com
+ [209.85.167.180])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+ (No client certificate requested)
+ by mail.kernel.org (Postfix) with ESMTPSA id 58D982182B
+ for <linux-stm32@st-md-mailman.stormreply.com>;
+ Tue, 16 Jul 2019 14:51:17 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
+ s=default; t=1563288677;
+ bh=sonO2Wj/dB2WVkbnigGOIptZBiYzU9g2oAVvNNhm8N0=;
+ h=References:In-Reply-To:From:Date:Subject:To:Cc:From;
+ b=cJpVGUzwvpQrBfw5VxnjM7fZDMqN8buukyY5uNJV0ilBSNzK8xmxbSP8KeFgOPVGk
+ CdhPYLcquPdpNPv9IfGMnbk93gK1YgS3rEW3NEieCmVZ/yyatbJnN9K/XZrO4tC0sv
+ vpJ81lt0Z15VjbKndmSpPGS7eGfx6pNckGHuM6H8=
+Received: by mail-oi1-f180.google.com with SMTP id e189so15708954oib.11
+ for <linux-stm32@st-md-mailman.stormreply.com>;
+ Tue, 16 Jul 2019 07:51:17 -0700 (PDT)
+X-Gm-Message-State: APjAAAWDimNkCJytU94wxaLYgIaQjiqCCA6mYvaPgOG9Qz8XcjKDfkdc
+ VQ4NobMeV5Z0/mMbY4hl5OoHxqi/0wTHf37oxTc=
+X-Google-Smtp-Source: APXvYqznotTEvyaymhJh/wAMu0w2H5gcuDv5j22SZvycyNMyxsk7XBmOnJ7QXnjodYkrV1FF1kduEHzUtbpafqpVCNU=
+X-Received: by 2002:aca:1b0c:: with SMTP id b12mr2605814oib.123.1563288676578; 
+ Tue, 16 Jul 2019 07:51:16 -0700 (PDT)
 MIME-Version: 1.0
-In-Reply-To: <20190715230457.3901-1-robh@kernel.org>
-X-Cookie: May be too intense for some viewers.
-User-Agent: Mutt/1.10.1 (2018-07-13)
-Cc: devicetree@vger.kernel.org, Vignesh Raghavendra <vigneshr@ti.com>,
- linux-gpio@vger.kernel.org, Maxime Ripard <maxime.ripard@bootlin.com>,
- Richard Weinberger <richard@nod.at>, Linus Walleij <linus.walleij@linaro.org>,
- linux-kernel@vger.kernel.org, linux-spi@vger.kernel.org,
- Marek Vasut <marek.vasut@gmail.com>, Chen-Yu Tsai <wens@csie.org>,
- linux-mtd@lists.infradead.org, Maxime Coquelin <mcoquelin.stm32@gmail.com>,
- Miquel Raynal <miquel.raynal@bootlin.com>,
- Brian Norris <computersforpeace@gmail.com>,
- David Woodhouse <dwmw2@infradead.org>,
- linux-stm32@st-md-mailman.stormreply.com
-Subject: Re: [Linux-stm32] [PATCH] dt-bindings: Ensure child nodes are of
-	type 'object'
+References: <20190712022018.27989-1-alex.shi@linux.alibaba.com>
+ <20190712022018.27989-2-alex.shi@linux.alibaba.com>
+In-Reply-To: <20190712022018.27989-2-alex.shi@linux.alibaba.com>
+From: Krzysztof Kozlowski <krzk@kernel.org>
+Date: Tue, 16 Jul 2019 16:51:05 +0200
+X-Gmail-Original-Message-ID: <CAJKOXPcnMM=h9-MW4qg4OTxaY5eBQ=4tH=Gbd3tSuckFvSOPcw@mail.gmail.com>
+Message-ID: <CAJKOXPcnMM=h9-MW4qg4OTxaY5eBQ=4tH=Gbd3tSuckFvSOPcw@mail.gmail.com>
+To: Alex Shi <alex.shi@linux.alibaba.com>
+X-Mailman-Approved-At: Tue, 16 Jul 2019 14:55:44 +0000
+Cc: linux-s390@vger.kernel.org, linux-fbdev@vger.kernel.org,
+ "linux-samsung-soc@vger.kernel.org" <linux-samsung-soc@vger.kernel.org>,
+ linux-ia64@vger.kernel.org, linux-scsi@vger.kernel.org,
+ linux-parisc@vger.kernel.org, Jonathan Corbet <corbet@lwn.net>,
+ linux-sh@vger.kernel.org, linux-doc@vger.kernel.org,
+ linux-kernel@vger.kernel.org, linux-mips@vger.kernel.org,
+ linux-serial@vger.kernel.org, Kukjin Kim <kgene@kernel.org>,
+ linux-crypto@vger.kernel.org, kvm@vger.kernel.org, linux-input@vger.kernel.org,
+ linux-riscv@lists.infradead.org, linux-omap@vger.kernel.org,
+ linuxppc-dev@lists.ozlabs.org, linux-stm32@st-md-mailman.stormreply.com,
+ linux-arm-kernel@lists.infradead.org
+Subject: Re: [Linux-stm32] [PATCH 02/12] Documentation/arm: repointer docs
+	to Documentation/arch/arm
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -63,55 +69,44 @@ List-Post: <mailto:linux-stm32@st-md-mailman.stormreply.com>
 List-Help: <mailto:linux-stm32-request@st-md-mailman.stormreply.com?subject=help>
 List-Subscribe: <https://st-md-mailman.stormreply.com/mailman/listinfo/linux-stm32>, 
  <mailto:linux-stm32-request@st-md-mailman.stormreply.com?subject=subscribe>
-Content-Type: multipart/mixed; boundary="===============7201752264188988165=="
+Content-Type: text/plain; charset="us-ascii"
+Content-Transfer-Encoding: 7bit
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
+On Fri, 12 Jul 2019 at 04:20, Alex Shi <alex.shi@linux.alibaba.com> wrote:
+>
+> Since we move 'arm/arm64' docs to Documentation/arch/{arm,arm64} dir,
+> redirect the doc pointer to them.
+>
+> Signed-off-by: Alex Shi <alex.shi@linux.alibaba.com>
+> Cc: Jonathan Corbet <corbet@lwn.net>
+> Cc: Kukjin Kim <kgene@kernel.org>
+> Cc: Krzysztof Kozlowski <krzk@kernel.org>
+> Cc: linux-doc@vger.kernel.org
+> Cc: linux-kernel@vger.kernel.org
+> Cc: linux-arm-kernel@lists.infradead.org
+> Cc: linux-samsung-soc@vger.kernel.org
+> Cc: linux-crypto@vger.kernel.org
+> Cc: linux-input@vger.kernel.org
+> Cc: linux-serial@vger.kernel.org
+> ---
+>  Documentation/arch/arm/Samsung-S3C24XX/GPIO.txt    |  2 +-
+>  .../arch/arm/Samsung-S3C24XX/Overview.txt          |  6 +++---
+>  Documentation/arch/arm/Samsung/GPIO.txt            |  2 +-
+>  Documentation/arch/arm/Samsung/Overview.txt        |  4 ++--
+>  Documentation/devicetree/bindings/arm/xen.txt      |  2 +-
+>  Documentation/devicetree/booting-without-of.txt    |  4 ++--
+>  Documentation/translations/zh_CN/arm/Booting       |  4 ++--
+>  .../translations/zh_CN/arm/kernel_user_helpers.txt |  4 ++--
+>  MAINTAINERS                                        |  6 +++---
 
---===============7201752264188988165==
-Content-Type: multipart/signed; micalg=pgp-sha512;
-	protocol="application/pgp-signature"; boundary="UugvWAfsgieZRqgk"
-Content-Disposition: inline
+I assume it will go through doc tree, so for Samsung:
+Acked-by: Krzysztof Kozlowski <krzk@kernel.org>
 
-
---UugvWAfsgieZRqgk
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-
-On Mon, Jul 15, 2019 at 05:04:57PM -0600, Rob Herring wrote:
-> Properties which are child node definitions need to have an explict
-> type. Otherwise, a matching (DT) property can silently match when an
-> error is desired. Fix this up tree-wide. Once this is fixed, the
-> meta-schema will enforce this on any child node definitions.
-
-Acked-by: Mark Brown <broonie@kernel.org>
-
---UugvWAfsgieZRqgk
-Content-Type: application/pgp-signature; name="signature.asc"
-
------BEGIN PGP SIGNATURE-----
-
-iQEzBAABCgAdFiEEreZoqmdXGLWf4p/qJNaLcl1Uh9AFAl0tsG0ACgkQJNaLcl1U
-h9DgRwf/RVQwM4uJZfc77Bg1QUPRV93uCJ6maAGlUjFImP1U0fpoRuD/zNm5kiIp
-hJhe5TMTX5ua+ajO5DV9S4HD4tRJBv5imHYgx7edGX0XnD6uBhO/Fx91okJhKb54
-hmWEPpZyjursasR/A6HjQi6+OYEnCqrMoTenaZQZ/R7MlS8Z57C5m8slR9m1tSBp
-xam5qvxG3pn5oNarJlCWF9VcVmZckekdU+qutRLVc3xH8bCF6pjfyR5E1M+qRJV6
-av5KFLsTopgBECl4QPHGqIXqhegIjWyeqeMC69s7Nh8pDFpLIwFJfXd7x7UGStgS
-RrPGZDcB2vfMfsXwQAGfu5lyMqkYJA==
-=IEmg
------END PGP SIGNATURE-----
-
---UugvWAfsgieZRqgk--
-
---===============7201752264188988165==
-Content-Type: text/plain; charset="us-ascii"
-MIME-Version: 1.0
-Content-Transfer-Encoding: 7bit
-Content-Disposition: inline
-
+Best regards,
+Krzysztof
 _______________________________________________
 Linux-stm32 mailing list
 Linux-stm32@st-md-mailman.stormreply.com
 https://st-md-mailman.stormreply.com/mailman/listinfo/linux-stm32
-
---===============7201752264188988165==--
