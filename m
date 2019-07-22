@@ -2,42 +2,42 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id 843526FB73
-	for <lists+linux-stm32@lfdr.de>; Mon, 22 Jul 2019 10:39:55 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 7E2E26FB74
+	for <lists+linux-stm32@lfdr.de>; Mon, 22 Jul 2019 10:39:56 +0200 (CEST)
 Received: from ip-172-31-3-76.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 40C4FCC269C;
-	Mon, 22 Jul 2019 08:39:55 +0000 (UTC)
-Received: from smtprelay-out1.synopsys.com (dc2-smtprelay2.synopsys.com
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 4CF1CCC269F;
+	Mon, 22 Jul 2019 08:39:56 +0000 (UTC)
+Received: from smtprelay-out1.synopsys.com (smtprelay-out1.synopsys.com
  [198.182.61.142])
  (using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 08BACCC2697
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id E082CCC2697
  for <linux-stm32@st-md-mailman.stormreply.com>;
  Mon, 22 Jul 2019 08:39:54 +0000 (UTC)
 Received: from mailhost.synopsys.com (mdc-mailhost1.synopsys.com
  [10.225.0.209])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits))
  (No client certificate requested)
- by smtprelay-out1.synopsys.com (Postfix) with ESMTPS id E9E2BC0070;
+ by smtprelay-out1.synopsys.com (Postfix) with ESMTPS id EE79AC1229;
  Mon, 22 Jul 2019 08:39:51 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=synopsys.com; s=mail;
- t=1563784792; bh=5hkdNv+d4ulwOI3yH55Iw6BH1syqXjCwb21YV26gLjU=;
+ t=1563784792; bh=yGAQYcxlEpE1qJEzwwdp1Ab0QN/5jmO1Cs2waCXk0JQ=;
  h=From:To:Cc:Subject:Date:In-Reply-To:References:In-Reply-To:
  References:From;
- b=MuBz0WJ31rRDWMQDsHazo4zP38yyAHMYpCgTWCGCnBq+/UCZdPTGSxxbIOApHBlqi
- eJGhMcA6wLuv6WBfqoIP+2TbwKpnLPP8bkExyP8/0JFd7qynDHBdNCuFL/5/085hfs
- M0H3D+0raSAcKMryfiHEmMDWgLBZY9ZPXE0jGOWZdT+rkOCUC1zMPsF+lv2zdhE38M
- 7AQ8t6zxRxnyL2NvregM1fLhQAMlCxFJUW/UvbmE4Z89yr18ch4a4ERdhN01g1fQgo
- E/nG/Zn920b7LFfUSW23wM/5AIzQK30Ni+tRuLIDWUuU9qRGZW1BEzU6xBwQ3OrxFw
- ayt1dGMD3Je4g==
+ b=ZhV4Ck3PJZWZNhsDBpAKMNSCZQLjIbXp8jiLjVW1RdZG9LvwYFsCgGFB1mYa2JeoB
+ jV1+MltoMmR5u689/H4+BERca4XdwjXnVZa6RlHoE3HoBVvxc1eG8i17f5dhmUqG7p
+ F+cJF11Y8BL9i6GxpkKO6oR86tMGZnecNsyRtnJc+Jq3av7nka4YwkIln8xIl6Vfzc
+ yHIGCOrqX84sg5bU30AanVYPisc9aROYwMRj64fyQ19OxFQBad1VyrwsA0gZooe03Y
+ y/If28nd4JM5q6csZ6/+xVhZQL15qkJG7MwohR8MZ02j9nzbwKYMQxfmuzqMJaTcZ9
+ Mfu8hTvQpF0cg==
 Received: from de02dwia024.internal.synopsys.com
  (de02dwia024.internal.synopsys.com [10.225.19.81])
- by mailhost.synopsys.com (Postfix) with ESMTP id 5FEB0A005C;
+ by mailhost.synopsys.com (Postfix) with ESMTP id 6C8D3A0061;
  Mon, 22 Jul 2019 08:39:50 +0000 (UTC)
 From: Jose Abreu <Jose.Abreu@synopsys.com>
 To: netdev@vger.kernel.org
-Date: Mon, 22 Jul 2019 10:39:30 +0200
-Message-Id: <00bfde6f589e60ba1a2d0671c8ba0fcd0964d6e7.1563784666.git.joabreu@synopsys.com>
+Date: Mon, 22 Jul 2019 10:39:31 +0200
+Message-Id: <95ab7c8083e5cd42cf6d4c5e1531e30cab540ff2.1563784666.git.joabreu@synopsys.com>
 X-Mailer: git-send-email 2.7.4
 In-Reply-To: <cover.1563784666.git.joabreu@synopsys.com>
 References: <cover.1563784666.git.joabreu@synopsys.com>
@@ -48,8 +48,8 @@ Cc: Jose Abreu <Jose.Abreu@synopsys.com>, Joao Pinto <Joao.Pinto@synopsys.com>,
  Maxime Coquelin <mcoquelin.stm32@gmail.com>,
  Giuseppe Cavallaro <peppe.cavallaro@st.com>,
  "David S. Miller" <davem@davemloft.net>, linux-arm-kernel@lists.infradead.org
-Subject: [Linux-stm32] [PATCH net 1/2] net: stmmac: RX Descriptors need to
-	be clean before setting buffers
+Subject: [Linux-stm32] [PATCH net 2/2] net: stmmac: Use kcalloc() instead of
+	kmalloc_array()
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -67,12 +67,9 @@ Content-Transfer-Encoding: 7bit
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
-RX Descriptors are being cleaned after setting the buffers which may
-lead to buffer addresses being wiped out.
+We need the memory to be zeroed upon allocation so use kcalloc()
+instead.
 
-Fix this by clearing earlier the RX Descriptors.
-
-Fixes: 2af6106ae949 ("net: stmmac: Introducing support for Page Pool")
 Signed-off-by: Jose Abreu <joabreu@synopsys.com>
 
 ---
@@ -86,31 +83,47 @@ Cc: linux-stm32@st-md-mailman.stormreply.com
 Cc: linux-arm-kernel@lists.infradead.org
 Cc: linux-kernel@vger.kernel.org
 ---
- drivers/net/ethernet/stmicro/stmmac/stmmac_main.c | 4 ++--
- 1 file changed, 2 insertions(+), 2 deletions(-)
+ drivers/net/ethernet/stmicro/stmmac/stmmac_main.c | 17 ++++++++---------
+ 1 file changed, 8 insertions(+), 9 deletions(-)
 
 diff --git a/drivers/net/ethernet/stmicro/stmmac/stmmac_main.c b/drivers/net/ethernet/stmicro/stmmac/stmmac_main.c
-index c7c9e5f162e6..5f1294ce0216 100644
+index 5f1294ce0216..0ac79f3e2cee 100644
 --- a/drivers/net/ethernet/stmicro/stmmac/stmmac_main.c
 +++ b/drivers/net/ethernet/stmicro/stmmac/stmmac_main.c
-@@ -1295,6 +1295,8 @@ static int init_dma_rx_desc_rings(struct net_device *dev, gfp_t flags)
- 			  "(%s) dma_rx_phy=0x%08x\n", __func__,
- 			  (u32)rx_q->dma_rx_phy);
+@@ -1555,9 +1555,8 @@ static int alloc_dma_rx_desc_resources(struct stmmac_priv *priv)
+ 			goto err_dma;
+ 		}
  
-+		stmmac_clear_rx_descriptors(priv, queue);
-+
- 		for (i = 0; i < DMA_RX_SIZE; i++) {
- 			struct dma_desc *p;
+-		rx_q->buf_pool = kmalloc_array(DMA_RX_SIZE,
+-					       sizeof(*rx_q->buf_pool),
+-					       GFP_KERNEL);
++		rx_q->buf_pool = kcalloc(DMA_RX_SIZE, sizeof(*rx_q->buf_pool),
++					 GFP_KERNEL);
+ 		if (!rx_q->buf_pool)
+ 			goto err_dma;
  
-@@ -1312,8 +1314,6 @@ static int init_dma_rx_desc_rings(struct net_device *dev, gfp_t flags)
- 		rx_q->cur_rx = 0;
- 		rx_q->dirty_rx = (unsigned int)(i - DMA_RX_SIZE);
+@@ -1608,15 +1607,15 @@ static int alloc_dma_tx_desc_resources(struct stmmac_priv *priv)
+ 		tx_q->queue_index = queue;
+ 		tx_q->priv_data = priv;
  
--		stmmac_clear_rx_descriptors(priv, queue);
--
- 		/* Setup the chained descriptor addresses */
- 		if (priv->mode == STMMAC_CHAIN_MODE) {
- 			if (priv->extend_desc)
+-		tx_q->tx_skbuff_dma = kmalloc_array(DMA_TX_SIZE,
+-						    sizeof(*tx_q->tx_skbuff_dma),
+-						    GFP_KERNEL);
++		tx_q->tx_skbuff_dma = kcalloc(DMA_TX_SIZE,
++					      sizeof(*tx_q->tx_skbuff_dma),
++					      GFP_KERNEL);
+ 		if (!tx_q->tx_skbuff_dma)
+ 			goto err_dma;
+ 
+-		tx_q->tx_skbuff = kmalloc_array(DMA_TX_SIZE,
+-						sizeof(struct sk_buff *),
+-						GFP_KERNEL);
++		tx_q->tx_skbuff = kcalloc(DMA_TX_SIZE,
++					  sizeof(struct sk_buff *),
++					  GFP_KERNEL);
+ 		if (!tx_q->tx_skbuff)
+ 			goto err_dma;
+ 
 -- 
 2.7.4
 
