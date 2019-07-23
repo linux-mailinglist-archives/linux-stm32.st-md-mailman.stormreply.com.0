@@ -2,77 +2,77 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id 51E937168B
-	for <lists+linux-stm32@lfdr.de>; Tue, 23 Jul 2019 12:50:18 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id BBD4A716E2
+	for <lists+linux-stm32@lfdr.de>; Tue, 23 Jul 2019 13:23:08 +0200 (CEST)
 Received: from ip-172-31-3-76.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 38C47CF5694;
-	Tue, 23 Jul 2019 10:50:17 +0000 (UTC)
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 7FD1ECF9183;
+	Tue, 23 Jul 2019 11:23:08 +0000 (UTC)
 Received: from smtprelay-out1.synopsys.com (dc8-smtprelay2.synopsys.com
  [198.182.47.102])
  (using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 35575CF5692
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id A61ADCF9181
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Tue, 23 Jul 2019 10:50:15 +0000 (UTC)
-Received: from mailhost.synopsys.com (dc2-mailhost2.synopsys.com
- [10.12.135.162])
+ Tue, 23 Jul 2019 11:23:06 +0000 (UTC)
+Received: from mailhost.synopsys.com (badc-mailhost2.synopsys.com
+ [10.192.0.18])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits))
  (No client certificate requested)
- by smtprelay-out1.synopsys.com (Postfix) with ESMTPS id 19AA1C0141;
- Tue, 23 Jul 2019 10:50:13 +0000 (UTC)
+ by smtprelay-out1.synopsys.com (Postfix) with ESMTPS id 1E752C0138;
+ Tue, 23 Jul 2019 11:23:04 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=synopsys.com; s=mail;
- t=1563879013; bh=3mkM3M0f40d6a+V7LkMD7dR21gv8wo41VcJOsox36Z0=;
+ t=1563880985; bh=9UW9/84TwIUIVuYiPPzMsdPqkNq+dXf/epk2GQkAG3w=;
  h=From:To:CC:Subject:Date:References:In-Reply-To:From;
- b=ja3PUCfnxXGvkrt6yAsuM3K1flFn80vNc07wEkjPMVsfCuErbH5LvraC1SQpWJQmM
- 7zGB+w1GB/GEt8MW2HOuGwwAJbx947pr4IYhOr7LjVTaKXQG5YKfmRNTTWAEqFsnU3
- SnyMFjY9aucwGU9uT0ahCGWUFuANMoznwLUy+hS+yHpio5O70xfDEK06frFklAwnk3
- tmifih5zyKiHeDjeYtL+LKqtDRLRHuCNyWFB6ZaeQTzIM0+JEzLfPI0j2r7sIiOW+O
- yPxpxH1brQGQiONvbFIj31EO190pIBxo6UUYk8TaWCpx1hR+4mfvM6Vppz998pMnYn
- 9oHvTQcM2v1FQ==
-Received: from US01WXQAHTC1.internal.synopsys.com
- (us01wxqahtc1.internal.synopsys.com [10.12.238.230])
- (using TLSv1.2 with cipher AES128-SHA256 (128/128 bits))
+ b=f3PAgNQ3t9TP3mHbYgDKoR92GyXyZgYU0wzuPnuRSIxC0vW+ikcdC3jIDutzjtKAU
+ SR+E52HMDBCpYpLWg5zRkHfo5fJPfh45Qe96Njmjg9aEa39eOrFYWVIZjlqe4JPnF2
+ SbX4jWty9hznpSZB5DVQBE5bWjabiV4WQVsxBbO0+1degZ8CqZahAmGvg5DKjOs7aB
+ 4AP4gH5/0QYn4w/veQqCZ88GImThj08ODNNhgnxGecp7fNIKft+jFg95Q1sVqTs5Ol
+ SfIbjpYEY5+uBO9/OgikBaAxw7JGzKk/72GOd6cQj2KlLEoWQdZU8ka3u9gh1ermhg
+ yrL+jsNOEOYjQ==
+Received: from US01WEHTC3.internal.synopsys.com
+ (us01wehtc3.internal.synopsys.com [10.15.84.232])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES256-SHA384 (256/256 bits))
  (No client certificate requested)
- by mailhost.synopsys.com (Postfix) with ESMTPS id 6574DA0093;
- Tue, 23 Jul 2019 10:49:55 +0000 (UTC)
+ by mailhost.synopsys.com (Postfix) with ESMTPS id BA33CA0067;
+ Tue, 23 Jul 2019 11:22:44 +0000 (UTC)
 Received: from US01HYBRID2.internal.synopsys.com (10.15.246.24) by
- US01WXQAHTC1.internal.synopsys.com (10.12.238.230) with Microsoft SMTP Server
- (TLS) id 14.3.408.0; Tue, 23 Jul 2019 03:49:52 -0700
-Received: from NAM01-SN1-obe.outbound.protection.outlook.com (10.13.134.195)
+ US01WEHTC3.internal.synopsys.com (10.15.84.232) with Microsoft SMTP Server
+ (TLS) id 14.3.408.0; Tue, 23 Jul 2019 04:22:42 -0700
+Received: from NAM03-BY2-obe.outbound.protection.outlook.com (10.13.134.195)
  by mrs.synopsys.com (10.15.246.24) with Microsoft SMTP Server (TLS) id
- 14.3.408.0; Tue, 23 Jul 2019 03:49:51 -0700
+ 14.3.408.0; Tue, 23 Jul 2019 04:22:41 -0700
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=keQKubvtCkA4oQwi1bxVHZ5/2/0FHBBLeJVRxaot9wfgJantzQOvk948/voQJNk2njzdPBQezacPWp+w8ORxGpSFOg4tlNEWgaBokvkDfnC6tD7PKh15S4MbzTOei5a6H2uCtOxcVXz99Q/fhpkknFTSrnwYRjUzsOSdMytK08cUyKvfY0FBHwEMaoDE2BnLOeICai6V8Ee2gPb9cZYk46U5ecAA4Gj0MCBBejb5nX7BKspTjPRoaHfbcSGf7Iq28A/L/CByhE537rA3lRq0pjbgOPghQJ4FjSSU/8ocgCE/v9tzVlLyESusq7LNsgmCrSlsIPCt7sZFud3KnA5scg==
+ b=f/ORiRDwIKqDq9eU+FFbL7KCqkD+3IhrrbY75YIhJbyGtXd4L1aZM6YVW2U+Bt0AIBxIvACyQ1A/ykc3hQxffg+/EO7CcGnu39SBjdyEvSux+edamNMdYjiAb4qfMq8iZm4R7xCdXN6SfaC3nU5YVIa1SBNGQ+ddiuOAEH3DdRjQ0bBkA/FIYUhSRuR99rXrZxVmpadHEuaD7QGSX/JsRjUzk2Zd8HQwX8t2BYNZE1RPphIefTuwOsoEiMMXB0fItDNrx3o2A/5j/tStpowpLH3mcIt8XxmCLHQXJftlHJKKaDKpvTPq/WMuByCL0D1qgLJai69FS6eAoFbkKu9ncQ==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
  s=arcselector9901;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=3mkM3M0f40d6a+V7LkMD7dR21gv8wo41VcJOsox36Z0=;
- b=YAmro6jMRczVsLv3JnOr5HaR/c75+ugvuv0TOo1WLj2JtDJViWMCRxypqCuQ9gtiFM4roJc3ddsXHRf4Wl79f36iSuWpnMNTBw/BseQpBGT/2XvAgl9SfymNs6aU7XFhqDMtykUThcFrXahEJVw8uebhNAJ44j2CVA+kxXOC6yOVmoxwLb/IXfcbbidelRP4VGCR9F9m5ZOWm9tBy+xN02MIf0e5eWeCbfbDb1Zd9FyWXIvwQMEbQQgfAflBGbklyhYkJZTxt+Zxybm0JI7/QlGWEQexmDPKusz+KCUbAARsGIZOzEkB3vLE9J9+03eXJ09q7jQCL/ICtu2WkInKBg==
+ bh=9UW9/84TwIUIVuYiPPzMsdPqkNq+dXf/epk2GQkAG3w=;
+ b=AcoJiAayhA8O1FMqTdpYGtsilDg2DrgCUsNhKJYOH0AY4i3mZNabYGBmLwTaG1JFrcF6qPc71dJDqEcvSZy24dMbPPyYdWhO1iaDxglz7+aRECKaGo5KRyUqZS/apiixSdm3tifzIU71ramOSOhycGyaRwGAxuy4/g/P4AvYs+NlvP9ddrm+PagSPNF1qvtZzNNmI+84n9c77iWyw+9CRmddnINL6cn0XDw0KPDM68oNwEvwzkOyEn1Ad+bRzvc4pgt3/ddUuLXtVnn8GWkFKSWJU0fgqYNP4nYdfnQHlfORKhUnVWdYRPaQOzHakUGuTxSsS7oz+YZJnhbd5VSV2A==
 ARC-Authentication-Results: i=1; mx.microsoft.com 1;spf=pass
  smtp.mailfrom=synopsys.com;dmarc=pass action=none
  header.from=synopsys.com;dkim=pass header.d=synopsys.com;arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=synopsys.onmicrosoft.com; s=selector1-synopsys-onmicrosoft-com;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=3mkM3M0f40d6a+V7LkMD7dR21gv8wo41VcJOsox36Z0=;
- b=qdb5JCSo7peH4NGoAbSsMmz3iosxOEq229OtgOUzNtdDkaOJoOLJfxtCvCRWI/gHBdcEtchToqHjbvG3svExMItrL/0eOEjHk1lM4WYI6O3Okij1X2ccMJDvywBMDTeVXa1IbrG1Vq7c09I1/suMUUYiC32PhbiwMVW5rzQsivU=
+ bh=9UW9/84TwIUIVuYiPPzMsdPqkNq+dXf/epk2GQkAG3w=;
+ b=JT49G9CEs8/9JNctF3dgafxaL2tyIGehczr/YsoKAsPBJPObvDAtndEkVOMv+zzLgqM+V3kJQTCSCP/fNY6f1uLh20qZswcbvd2cnaxuy/6QxQG/d+DtDvsegyEWRMFnclQojl1Cg9lCnQRnssohZwFzwOhhV8JBw/LqWqGI5kg=
 Received: from BYAPR12MB3269.namprd12.prod.outlook.com (20.179.93.146) by
- BYAPR12MB2695.namprd12.prod.outlook.com (20.176.255.224) with Microsoft SMTP
+ BYAPR12MB3109.namprd12.prod.outlook.com (20.178.54.202) with Microsoft SMTP
  Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.20.2094.14; Tue, 23 Jul 2019 10:49:50 +0000
+ 15.20.2094.17; Tue, 23 Jul 2019 11:22:40 +0000
 Received: from BYAPR12MB3269.namprd12.prod.outlook.com
  ([fe80::f5b8:ac6e:ea68:cb1c]) by BYAPR12MB3269.namprd12.prod.outlook.com
  ([fe80::f5b8:ac6e:ea68:cb1c%4]) with mapi id 15.20.2094.013; Tue, 23 Jul 2019
- 10:49:50 +0000
+ 11:22:40 +0000
 From: Jose Abreu <Jose.Abreu@synopsys.com>
-To: Jon Hunter <jonathanh@nvidia.com>,
- Jose Abreu <Jose.Abreu@synopsys.com>, Lars Persson <lists@bofh.nu>,
- Ilias Apalodimas <ilias.apalodimas@linaro.org>
+To: Robin Murphy <robin.murphy@arm.com>, Jose Abreu <Jose.Abreu@synopsys.com>,
+ Jon Hunter <jonathanh@nvidia.com>, Lars Persson <lists@bofh.nu>,
+ "Ilias  Apalodimas" <ilias.apalodimas@linaro.org>
 Thread-Topic: [PATCH net-next 3/3] net: stmmac: Introducing support for Page
  Pool
-Thread-Index: AQHVMYtq2Zx4WVoG/U2kL8GCK0bP/abPQEOAgADTx+CABnZ9AIAADuYAgAAFQOCAAAnIAIAABLTAgAFMy7CAAB4gAIAAAO7wgAAJdICAAAG8AA==
-Date: Tue, 23 Jul 2019 10:49:49 +0000
-Message-ID: <BYAPR12MB3269D050556BD51030DCDDFCD3C70@BYAPR12MB3269.namprd12.prod.outlook.com>
+Thread-Index: AQHVMYtq2Zx4WVoG/U2kL8GCK0bP/abPQEOAgADTx+CABnZ9AIAADuYAgAAFQOCAAAnIAIAABLTAgAFMy7CAAB4gAIAAAO7wgAAG6gCAAA6iEA==
+Date: Tue, 23 Jul 2019 11:22:40 +0000
+Message-ID: <BYAPR12MB32698DC13D8D531F3FDBAC5CD3C70@BYAPR12MB3269.namprd12.prod.outlook.com>
 References: <cover.1562149883.git.joabreu@synopsys.com>
  <1b254bb7fc6044c5e6e2fdd9e00088d1d13a808b.1562149883.git.joabreu@synopsys.com>
  <29dcc161-f7c8-026e-c3cc-5adb04df128c@nvidia.com>
@@ -85,8 +85,8 @@ References: <cover.1562149883.git.joabreu@synopsys.com>
  <BYAPR12MB3269A725AFDDA21E92946558D3C70@BYAPR12MB3269.namprd12.prod.outlook.com>
  <ab14f31f-2045-b1be-d31f-2a81b8527dac@nvidia.com>
  <BYAPR12MB32692AF2BA127C5DA5B74804D3C70@BYAPR12MB3269.namprd12.prod.outlook.com>
- <2ad7bf21-1f1f-db0f-2358-4901b7988b7d@nvidia.com>
-In-Reply-To: <2ad7bf21-1f1f-db0f-2358-4901b7988b7d@nvidia.com>
+ <6c769226-bdd9-6fe0-b96b-5a0d800fed24@arm.com>
+In-Reply-To: <6c769226-bdd9-6fe0-b96b-5a0d800fed24@arm.com>
 Accept-Language: en-US
 Content-Language: en-US
 X-MS-Has-Attach: 
@@ -95,31 +95,31 @@ authentication-results: spf=none (sender IP is )
  smtp.mailfrom=joabreu@synopsys.com; 
 x-originating-ip: [83.174.63.141]
 x-ms-publictraffictype: Email
-x-ms-office365-filtering-correlation-id: 558eb7de-5c07-404a-b392-08d70f5b7c73
+x-ms-office365-filtering-correlation-id: 97803c52-c8ef-413e-7052-08d70f6012be
 x-microsoft-antispam: BCL:0; PCL:0;
  RULEID:(2390118)(7020095)(4652040)(8989299)(4534185)(4627221)(201703031133081)(201702281549075)(8990200)(5600148)(711020)(4605104)(1401327)(2017052603328)(7193020);
- SRVR:BYAPR12MB2695; 
-x-ms-traffictypediagnostic: BYAPR12MB2695:
-x-microsoft-antispam-prvs: <BYAPR12MB2695FA4E9E874926B15A35C2D3C70@BYAPR12MB2695.namprd12.prod.outlook.com>
+ SRVR:BYAPR12MB3109; 
+x-ms-traffictypediagnostic: BYAPR12MB3109:
+x-microsoft-antispam-prvs: <BYAPR12MB31094C000AF17BA791461961D3C70@BYAPR12MB3109.namprd12.prod.outlook.com>
 x-ms-oob-tlc-oobclassifiers: OLM:10000;
 x-forefront-prvs: 0107098B6C
 x-forefront-antispam-report: SFV:NSPM;
- SFS:(10019020)(136003)(39860400002)(366004)(396003)(376002)(346002)(189003)(199004)(71190400001)(7416002)(33656002)(256004)(305945005)(7696005)(71200400001)(74316002)(102836004)(7736002)(6506007)(316002)(186003)(99286004)(486006)(26005)(54906003)(68736007)(4326008)(8676002)(11346002)(14454004)(446003)(53546011)(25786009)(476003)(76176011)(110136005)(8936002)(6116002)(81166006)(66946007)(6246003)(64756008)(3846002)(81156014)(66556008)(76116006)(5660300002)(66446008)(66476007)(52536014)(66066001)(229853002)(55016002)(9686003)(6436002)(86362001)(53936002)(478600001)(2906002);
- DIR:OUT; SFP:1102; SCL:1; SRVR:BYAPR12MB2695;
+ SFS:(10019020)(376002)(39860400002)(136003)(346002)(396003)(366004)(189003)(199004)(186003)(478600001)(6246003)(26005)(53936002)(25786009)(5660300002)(2906002)(52536014)(76176011)(7696005)(66946007)(4326008)(8936002)(76116006)(66446008)(64756008)(66556008)(66476007)(102836004)(6506007)(53546011)(81156014)(81166006)(8676002)(68736007)(99286004)(33656002)(71190400001)(110136005)(54906003)(486006)(71200400001)(14454004)(7736002)(256004)(7416002)(74316002)(305945005)(14444005)(316002)(6116002)(476003)(229853002)(11346002)(446003)(86362001)(3846002)(9686003)(66066001)(55016002)(6436002);
+ DIR:OUT; SFP:1102; SCL:1; SRVR:BYAPR12MB3109;
  H:BYAPR12MB3269.namprd12.prod.outlook.com; FPR:; SPF:None; LANG:en;
  PTR:InfoNoRecords; MX:1; A:1; 
 received-spf: None (protection.outlook.com: synopsys.com does not designate
  permitted sender hosts)
 x-ms-exchange-senderadcheck: 1
-x-microsoft-antispam-message-info: LOwEuxdiQ1uOAsthaaEN+J44Tt7A/gEQ+I2nyD+8jvkvLebEq3ZmgEfT+//FE4JRMtAqmvR0n0xg88YTuiC5P/h9h5SBiecKb22NUaUPGgj3CeOq873m7zKBy47bRZoeQjVmjcB41OQcSbwgbwzDsGpXcxM61jCObkfWLVTwZ0dUMrX0LemFfx0tj5wao0orZkyC9mD8Ow9xJ+pl2QVDLJVvXZ7PKQSJNdoc0amy/u4YWu2+GIIciVoFEF1/y030ct7MHVWbrRl/B2XNB7ugmpvUxmIx99ag2SAR9O+I3WGfdqcGFZFLqNT/rhC6zW9xRp0aM7e6Harhw68avNSNuM1gShmsMf3VXg31JWOw22Ms4sxwg50AkKfP+9iVFEjCiCSVG7BF5Eyqwr2K39NX+vF0sDXecmdl5K7of9d6b24=
+x-microsoft-antispam-message-info: 0RF8Opg4NJJmZSpkFh0ZlWKfiBK92ACBS3W4JjXXRmdgdrWN+3g7aWU0FC3GrAHV3IolS0pgne/vN16Jl902n7+TNyWv42YIiYhKLGIjR8MpguzvRc68i8uWQNdNxOQBndzrPNg2Tz64NQ/WcGdDExuRxVCeFYZwFxMNoZ/PLsINXyaqIZdcy6hqCVXT8icXcp8fgt/NragkB9CSUv9Als8Psi/IwnET/npzVkKwREKiPHu0QA7q0YOiRxGq0zchB0vJ1KoCWU92KiVyJxgrqm7wzYPB9TiSwyr6GfG51V7/Nhylb4W28hDL1+0cQ4xc+XYFzd9U8E2XiZ6pcz608fpn5PiMXsbcPcJLxij0yoWhd5cUCyIvPvrUX/NAU+QQnxGtD+l0+pccAMbkEqsATHl1gsTiIN84FntjFgVGrY4=
 MIME-Version: 1.0
-X-MS-Exchange-CrossTenant-Network-Message-Id: 558eb7de-5c07-404a-b392-08d70f5b7c73
-X-MS-Exchange-CrossTenant-originalarrivaltime: 23 Jul 2019 10:49:49.9693 (UTC)
+X-MS-Exchange-CrossTenant-Network-Message-Id: 97803c52-c8ef-413e-7052-08d70f6012be
+X-MS-Exchange-CrossTenant-originalarrivaltime: 23 Jul 2019 11:22:40.1032 (UTC)
 X-MS-Exchange-CrossTenant-fromentityheader: Hosted
 X-MS-Exchange-CrossTenant-id: c33c9f88-1eb7-4099-9700-16013fd9e8aa
 X-MS-Exchange-CrossTenant-mailboxtype: HOSTED
 X-MS-Exchange-CrossTenant-userprincipalname: joabreu@synopsys.com
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: BYAPR12MB2695
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: BYAPR12MB3109
 X-OriginatorOrg: synopsys.com
 Cc: Joao Pinto <Joao.Pinto@synopsys.com>,
  Maxime Ripard <maxime.ripard@bootlin.com>,
@@ -150,10 +150,9 @@ Content-Transfer-Encoding: 7bit
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
-From: Jon Hunter <jonathanh@nvidia.com>
-Date: Jul/23/2019, 11:38:33 (UTC+00:00)
+From: Robin Murphy <robin.murphy@arm.com>
+Date: Jul/23/2019, 11:29:28 (UTC+00:00)
 
-> 
 > On 23/07/2019 11:07, Jose Abreu wrote:
 > > From: Jon Hunter <jonathanh@nvidia.com>
 > > Date: Jul/23/2019, 11:01:24 (UTC+00:00)
@@ -172,20 +171,28 @@ Date: Jul/23/2019, 11:38:33 (UTC+00:00)
 > > +         even fewer good ones.  If saying YES here breaks your board
 > > +         you should work on fixing your board.
 > > 
-> > So, how can we fix this ? Is your ethernet DT node marked as 
+> > So, how can we fix this ? Is your ethernet DT node marked as
 > > "dma-coherent;" ?
 > 
-> TBH I have no idea. I can't say I fully understand your change or how it
-> is breaking things for us.
+> The first thing to try would be booting the failing setup with 
+> "iommu.passthrough=1" (or using CONFIG_IOMMU_DEFAULT_PASSTHROUGH) - if 
+> that makes things seem OK, then the problem is likely related to address 
+> translation; if not, then it's probably time to start looking at nasties 
+> like coherency and ordering, although in principle I wouldn't expect the 
+> SMMU to have too much impact there.
 > 
-> Currently, the Tegra DT binding does not have 'dma-coherent' set. I see
-> this is optional, but I am not sure how you determine whether or not
-> this should be set.
+> Do you know if the SMMU interrupts are working correctly? If not, it's 
+> possible that an incorrect address or mapping direction could lead to 
+> the DMA transaction just being silently terminated without any fault 
+> indication, which generally presents as inexplicable weirdness (I've 
+> certainly seen that on another platform with the mix of an unsupported 
+> interrupt controller and an 'imperfect' ethernet driver).
+> 
+> Just to confirm, has the original patch been tested with 
+> CONFIG_DMA_API_DEBUG to rule out any high-level mishaps?
 
-From my understanding it means that your device / IP DMA accesses are coherent regarding the CPU point of view. I think it will be the case if GMAC is not behind any kind of IOMMU in the HW arch.
-
-I don't know about this SMMU but the source does have some special 
-conditions when device is dma-coherent.
+Yes but both my setups don't have any IOMMU: One is x86 + SWIOTLB and 
+another is just coherent regarding CPU.
 
 ---
 Thanks,
