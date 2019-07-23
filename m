@@ -2,77 +2,23 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id CB71B715AF
-	for <lists+linux-stm32@lfdr.de>; Tue, 23 Jul 2019 12:07:59 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 6084171614
+	for <lists+linux-stm32@lfdr.de>; Tue, 23 Jul 2019 12:29:34 +0200 (CEST)
 Received: from ip-172-31-3-76.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 7FCCACF3944;
-	Tue, 23 Jul 2019 10:07:59 +0000 (UTC)
-Received: from smtprelay-out1.synopsys.com (smtprelay-out1.synopsys.com
- [198.182.47.102])
- (using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
- (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 41314CF3942
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 1AD23CF41AF;
+	Tue, 23 Jul 2019 10:29:34 +0000 (UTC)
+Received: from foss.arm.com (foss.arm.com [217.140.110.172])
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 07257CF41AD
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Tue, 23 Jul 2019 10:07:58 +0000 (UTC)
-Received: from mailhost.synopsys.com (dc8-mailhost1.synopsys.com
- [10.13.135.209])
- (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits))
- (No client certificate requested)
- by smtprelay-out1.synopsys.com (Postfix) with ESMTPS id C1DC3C01CB;
- Tue, 23 Jul 2019 10:07:54 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=synopsys.com; s=mail;
- t=1563876475; bh=B/FukePsT/8RmZAE8slOAobauCkkf2mTKzNmN8T/ULo=;
- h=From:To:CC:Subject:Date:References:In-Reply-To:From;
- b=hTcA4jwLSPayknpmXA5HnPkNUvWPFITiu0m2mIFt8Rk2a4Awgx2i4AyBpu8tl8wC4
- GpEc6y7EgIPuPpTHfc84nYfEWiU2QRhZqr3hWgOgLvnfch78ExROcFxX4bfNbjP0bg
- tpDuBRtWuhbm6r3j6sani8hEjGmj0Yapprsd7z7W0h6AIp1XWBH4dUsSc+oqa/oGQj
- GJ7c713Iy4P2q1bbqxtHS3i1U9zil9Kdz4bNUtwGT1COn02xSMPdfRf9fbgewULtgN
- QAFL8aP1SyMmjQXHvm3718ItImFL2XvQG4QFgr6aqFx4od1dgp0h2HHHLFzTuyCLHm
- qkraSfFZk0qaw==
-Received: from US01WXQAHTC1.internal.synopsys.com
- (us01wxqahtc1.internal.synopsys.com [10.12.238.230])
- (using TLSv1.2 with cipher AES128-SHA256 (128/128 bits))
- (No client certificate requested)
- by mailhost.synopsys.com (Postfix) with ESMTPS id 8F8C6A006A;
- Tue, 23 Jul 2019 10:07:53 +0000 (UTC)
-Received: from US01HYBRID2.internal.synopsys.com (10.15.246.24) by
- US01WXQAHTC1.internal.synopsys.com (10.12.238.230) with Microsoft SMTP Server
- (TLS) id 14.3.408.0; Tue, 23 Jul 2019 03:07:53 -0700
-Received: from NAM01-BN3-obe.outbound.protection.outlook.com (10.13.134.195)
- by mrs.synopsys.com (10.15.246.24) with Microsoft SMTP Server (TLS) id
- 14.3.408.0; Tue, 23 Jul 2019 03:07:53 -0700
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=V5pAsBHQNpr+rg+hsY2y44lwCJmyOAWUG9Duqe+3RvObE9/vyyxv+kQ+v1nPCi7MFkKwzu2ixsFPSaE9RkAQ1tcVcGqvE/ZCAcfXELgA5IrO8zt0LR0GV1qVAm4zG7NYYfzCsa+ay6K3s2V+udfRtzoOV4sxAsKoqMrrqovIHmCNYMdenEkI9BX4T86MC6V1cgJ0rFYu36J+J0HW8Z+p9bG4TxpjyzNGq2uYY9z7yyVg9Tlj5xNCMhdccGAARs6qxGVMR3SGU2lbUMGpHCRernD094PaZZgOpU9C93fN9i4HVRbZZ/CHTs7tYdfxjMOCSZhAs6MiBU69hHhW35H6zQ==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
- s=arcselector9901;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=B/FukePsT/8RmZAE8slOAobauCkkf2mTKzNmN8T/ULo=;
- b=R4lmfkcLMXkKLIDe2Fs2Cmg7zCgYglVN8+3TYSd/N//cVpx8Hkma9cliEwj6e6g7qD3Cbj4lZo4qY0Fhd8jGzrxsxKMwjqeRV6HosQ/76xF0kDOAuvwgQF8SLfHqTKbzEGCXs4SyzutuSrdJUVo+tsmn+LVcEQBart5CGTcqgxfkSBGvIIg8SUp2J5+tz6ksIEowPQyyOQBcHHycsHd0TGbORhGwL4j4r+NpjUcxIoSKkMqn0wDTLjTbxrhCXrlWCvrWZ5uYAiQP65VWORPTQFmnEqpXil1IgCmUSGL8Q/oZB6OsoxSCY4TZXOYbRc7+m8H+VM3iGH1DhGZKKHYkEg==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1;spf=pass
- smtp.mailfrom=synopsys.com;dmarc=pass action=none
- header.from=synopsys.com;dkim=pass header.d=synopsys.com;arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=synopsys.onmicrosoft.com; s=selector1-synopsys-onmicrosoft-com;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=B/FukePsT/8RmZAE8slOAobauCkkf2mTKzNmN8T/ULo=;
- b=vuC6r2b1s/q5QwMydOlzPCfTGDId/xZcuMKONZunMwnb1W79WCTKYhJlOvcrAVelJ45WnImrCfFlrW/6fNxD8fywmUsvBUr/Fh+MjF2VtEkqc/u3++LOa9mqOPk2K4W816w4tuu+OdGOMekpapE0Usar5W32cAfTBoWECGHYCP8=
-Received: from BYAPR12MB3269.namprd12.prod.outlook.com (20.179.93.146) by
- BYAPR12MB2693.namprd12.prod.outlook.com (20.176.255.222) with Microsoft SMTP
- Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.20.2094.15; Tue, 23 Jul 2019 10:07:51 +0000
-Received: from BYAPR12MB3269.namprd12.prod.outlook.com
- ([fe80::f5b8:ac6e:ea68:cb1c]) by BYAPR12MB3269.namprd12.prod.outlook.com
- ([fe80::f5b8:ac6e:ea68:cb1c%4]) with mapi id 15.20.2094.013; Tue, 23 Jul 2019
- 10:07:51 +0000
-From: Jose Abreu <Jose.Abreu@synopsys.com>
-To: Jon Hunter <jonathanh@nvidia.com>,
- Jose Abreu <Jose.Abreu@synopsys.com>, Lars Persson <lists@bofh.nu>,
- Ilias Apalodimas <ilias.apalodimas@linaro.org>
-Thread-Topic: [PATCH net-next 3/3] net: stmmac: Introducing support for Page
- Pool
-Thread-Index: AQHVMYtq2Zx4WVoG/U2kL8GCK0bP/abPQEOAgADTx+CABnZ9AIAADuYAgAAFQOCAAAnIAIAABLTAgAFMy7CAAB4gAIAAAO7w
-Date: Tue, 23 Jul 2019 10:07:51 +0000
-Message-ID: <BYAPR12MB32692AF2BA127C5DA5B74804D3C70@BYAPR12MB3269.namprd12.prod.outlook.com>
+ Tue, 23 Jul 2019 10:29:32 +0000 (UTC)
+Received: from usa-sjc-imap-foss1.foss.arm.com (unknown [10.121.207.14])
+ by usa-sjc-mx-foss1.foss.arm.com (Postfix) with ESMTP id 40CC0337;
+ Tue, 23 Jul 2019 03:29:31 -0700 (PDT)
+Received: from [10.1.197.57] (e110467-lin.cambridge.arm.com [10.1.197.57])
+ by usa-sjc-imap-foss1.foss.arm.com (Postfix) with ESMTPSA id 4B15A3F71A;
+ Tue, 23 Jul 2019 03:29:29 -0700 (PDT)
+To: Jose Abreu <Jose.Abreu@synopsys.com>, Jon Hunter <jonathanh@nvidia.com>,
+ Lars Persson <lists@bofh.nu>, Ilias Apalodimas <ilias.apalodimas@linaro.org>
 References: <cover.1562149883.git.joabreu@synopsys.com>
  <1b254bb7fc6044c5e6e2fdd9e00088d1d13a808b.1562149883.git.joabreu@synopsys.com>
  <29dcc161-f7c8-026e-c3cc-5adb04df128c@nvidia.com>
@@ -84,51 +30,25 @@ References: <cover.1562149883.git.joabreu@synopsys.com>
  <BN8PR12MB3266664ECA192E02C06061EED3C40@BN8PR12MB3266.namprd12.prod.outlook.com>
  <BYAPR12MB3269A725AFDDA21E92946558D3C70@BYAPR12MB3269.namprd12.prod.outlook.com>
  <ab14f31f-2045-b1be-d31f-2a81b8527dac@nvidia.com>
-In-Reply-To: <ab14f31f-2045-b1be-d31f-2a81b8527dac@nvidia.com>
-Accept-Language: en-US
-Content-Language: en-US
-X-MS-Has-Attach: 
-X-MS-TNEF-Correlator: 
-authentication-results: spf=none (sender IP is )
- smtp.mailfrom=joabreu@synopsys.com; 
-x-originating-ip: [83.174.63.141]
-x-ms-publictraffictype: Email
-x-ms-office365-filtering-correlation-id: 3e33fc0f-2178-49fe-7b7f-08d70f559f36
-x-microsoft-antispam: BCL:0; PCL:0;
- RULEID:(2390118)(7020095)(4652040)(8989299)(4534185)(4627221)(201703031133081)(201702281549075)(8990200)(5600148)(711020)(4605104)(1401327)(2017052603328)(7193020);
- SRVR:BYAPR12MB2693; 
-x-ms-traffictypediagnostic: BYAPR12MB2693:
-x-microsoft-antispam-prvs: <BYAPR12MB269332C6AB7724A944A95D61D3C70@BYAPR12MB2693.namprd12.prod.outlook.com>
-x-ms-oob-tlc-oobclassifiers: OLM:8273;
-x-forefront-prvs: 0107098B6C
-x-forefront-antispam-report: SFV:NSPM;
- SFS:(10019020)(39860400002)(366004)(376002)(396003)(136003)(346002)(199004)(189003)(446003)(4744005)(54906003)(81166006)(102836004)(14454004)(2906002)(99286004)(11346002)(76176011)(8676002)(68736007)(7696005)(316002)(186003)(476003)(81156014)(6116002)(3846002)(8936002)(33656002)(26005)(6506007)(71200400001)(71190400001)(110136005)(9686003)(229853002)(6246003)(55016002)(53936002)(76116006)(66066001)(66946007)(66476007)(64756008)(66556008)(5660300002)(66446008)(478600001)(4326008)(256004)(52536014)(86362001)(6436002)(486006)(7416002)(7736002)(25786009)(74316002)(305945005);
- DIR:OUT; SFP:1102; SCL:1; SRVR:BYAPR12MB2693;
- H:BYAPR12MB3269.namprd12.prod.outlook.com; FPR:; SPF:None; LANG:en;
- PTR:InfoNoRecords; A:1; MX:1; 
-received-spf: None (protection.outlook.com: synopsys.com does not designate
- permitted sender hosts)
-x-ms-exchange-senderadcheck: 1
-x-microsoft-antispam-message-info: Dj0EqqP9oB1l2vRzu3uln+wkq5zVtDcPDyl1BvYOnJZjR+23RUDPjYcTlGWv6LJ5PSMz0ifnvyA4SshvnyA9/XXuW4pxRz9q7OJ1mNgPT7qRsuJtyH1GB+8lhwpXO69ImIxIJIVJ52f7Ss0I1djVR7N6Q74ER86UXry8kjYgVM5JBcQJc1DNmJh0HS+SwPAzCKq+9bvTk9VtCQJXvhMPvFE1MQOmza3fmGerh6u8gDmiIUOAjPayfsYsg38R1kafTKkGaHs5UoxwLzJYbmkRhg2hIiqIRWpwNAk7rzth1fYH8EUGmA/tAhk/yKRC+Lhsj+420bTb3aprsW6p/2ujeDv+rUZFqYp7Zy4DP+PQY7DaFUFfaDRHGr2hRZHTT/hv6M4lDy0mQU+X85lyMRutD0/LP8nd62U7fgDmF/Z64xA=
+ <BYAPR12MB32692AF2BA127C5DA5B74804D3C70@BYAPR12MB3269.namprd12.prod.outlook.com>
+From: Robin Murphy <robin.murphy@arm.com>
+Message-ID: <6c769226-bdd9-6fe0-b96b-5a0d800fed24@arm.com>
+Date: Tue, 23 Jul 2019 11:29:28 +0100
+User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:60.0) Gecko/20100101
+ Thunderbird/60.6.1
 MIME-Version: 1.0
-X-MS-Exchange-CrossTenant-Network-Message-Id: 3e33fc0f-2178-49fe-7b7f-08d70f559f36
-X-MS-Exchange-CrossTenant-originalarrivaltime: 23 Jul 2019 10:07:51.3159 (UTC)
-X-MS-Exchange-CrossTenant-fromentityheader: Hosted
-X-MS-Exchange-CrossTenant-id: c33c9f88-1eb7-4099-9700-16013fd9e8aa
-X-MS-Exchange-CrossTenant-mailboxtype: HOSTED
-X-MS-Exchange-CrossTenant-userprincipalname: joabreu@synopsys.com
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: BYAPR12MB2693
-X-OriginatorOrg: synopsys.com
+In-Reply-To: <BYAPR12MB32692AF2BA127C5DA5B74804D3C70@BYAPR12MB3269.namprd12.prod.outlook.com>
+Content-Language: en-GB
 Cc: Joao Pinto <Joao.Pinto@synopsys.com>,
  Maxime Ripard <maxime.ripard@bootlin.com>,
  "netdev@vger.kernel.org" <netdev@vger.kernel.org>,
  "linux-kernel@vger.kernel.org" <linux-kernel@vger.kernel.org>,
- "linux-stm32@st-md-mailman.stormreply.com"
- <linux-stm32@st-md-mailman.stormreply.com>, Chen-Yu Tsai <wens@csie.org>,
+ "David S . Miller" <davem@davemloft.net>, Chen-Yu Tsai <wens@csie.org>,
  Maxime Coquelin <mcoquelin.stm32@gmail.com>,
  linux-tegra <linux-tegra@vger.kernel.org>,
  Giuseppe Cavallaro <peppe.cavallaro@st.com>,
- "David S . Miller" <davem@davemloft.net>,
+ "linux-stm32@st-md-mailman.stormreply.com"
+ <linux-stm32@st-md-mailman.stormreply.com>,
  "linux-arm-kernel@lists.infradead.org" <linux-arm-kernel@lists.infradead.org>
 Subject: Re: [Linux-stm32] [PATCH net-next 3/3] net: stmmac: Introducing
  support for Page Pool
@@ -143,34 +63,50 @@ List-Post: <mailto:linux-stm32@st-md-mailman.stormreply.com>
 List-Help: <mailto:linux-stm32-request@st-md-mailman.stormreply.com?subject=help>
 List-Subscribe: <https://st-md-mailman.stormreply.com/mailman/listinfo/linux-stm32>, 
  <mailto:linux-stm32-request@st-md-mailman.stormreply.com?subject=subscribe>
-Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
+Content-Type: text/plain; charset="us-ascii"; Format="flowed"
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
-From: Jon Hunter <jonathanh@nvidia.com>
-Date: Jul/23/2019, 11:01:24 (UTC+00:00)
+On 23/07/2019 11:07, Jose Abreu wrote:
+> From: Jon Hunter <jonathanh@nvidia.com>
+> Date: Jul/23/2019, 11:01:24 (UTC+00:00)
+> 
+>> This appears to be a winner and by disabling the SMMU for the ethernet
+>> controller and reverting commit 954a03be033c7cef80ddc232e7cbdb17df735663
+>> this worked! So yes appears to be related to the SMMU being enabled. We
+>> had to enable the SMMU for ethernet recently due to commit
+>> 954a03be033c7cef80ddc232e7cbdb17df735663.
+> 
+> Finally :)
+> 
+> However, from "git show 954a03be033c7cef80ddc232e7cbdb17df735663":
+> 
+> +         There are few reasons to allow unmatched stream bypass, and
+> +         even fewer good ones.  If saying YES here breaks your board
+> +         you should work on fixing your board.
+> 
+> So, how can we fix this ? Is your ethernet DT node marked as
+> "dma-coherent;" ?
 
-> This appears to be a winner and by disabling the SMMU for the ethernet
-> controller and reverting commit 954a03be033c7cef80ddc232e7cbdb17df735663
-> this worked! So yes appears to be related to the SMMU being enabled. We
-> had to enable the SMMU for ethernet recently due to commit
-> 954a03be033c7cef80ddc232e7cbdb17df735663.
+The first thing to try would be booting the failing setup with 
+"iommu.passthrough=1" (or using CONFIG_IOMMU_DEFAULT_PASSTHROUGH) - if 
+that makes things seem OK, then the problem is likely related to address 
+translation; if not, then it's probably time to start looking at nasties 
+like coherency and ordering, although in principle I wouldn't expect the 
+SMMU to have too much impact there.
 
-Finally :)
+Do you know if the SMMU interrupts are working correctly? If not, it's 
+possible that an incorrect address or mapping direction could lead to 
+the DMA transaction just being silently terminated without any fault 
+indication, which generally presents as inexplicable weirdness (I've 
+certainly seen that on another platform with the mix of an unsupported 
+interrupt controller and an 'imperfect' ethernet driver).
 
-However, from "git show 954a03be033c7cef80ddc232e7cbdb17df735663":
+Just to confirm, has the original patch been tested with 
+CONFIG_DMA_API_DEBUG to rule out any high-level mishaps?
 
-+         There are few reasons to allow unmatched stream bypass, and
-+         even fewer good ones.  If saying YES here breaks your board
-+         you should work on fixing your board.
-
-So, how can we fix this ? Is your ethernet DT node marked as 
-"dma-coherent;" ?
-
----
-Thanks,
-Jose Miguel Abreu
+Robin.
 _______________________________________________
 Linux-stm32 mailing list
 Linux-stm32@st-md-mailman.stormreply.com
