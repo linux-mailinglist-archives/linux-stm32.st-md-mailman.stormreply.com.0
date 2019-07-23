@@ -2,23 +2,30 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id 6084171614
-	for <lists+linux-stm32@lfdr.de>; Tue, 23 Jul 2019 12:29:34 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id F195B71647
+	for <lists+linux-stm32@lfdr.de>; Tue, 23 Jul 2019 12:38:43 +0200 (CEST)
 Received: from ip-172-31-3-76.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 1AD23CF41AF;
-	Tue, 23 Jul 2019 10:29:34 +0000 (UTC)
-Received: from foss.arm.com (foss.arm.com [217.140.110.172])
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 07257CF41AD
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id A9180CF438E;
+	Tue, 23 Jul 2019 10:38:43 +0000 (UTC)
+Received: from hqemgate16.nvidia.com (hqemgate16.nvidia.com [216.228.121.65])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256
+ bits)) (No client certificate requested)
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 4BB7ACF438C
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Tue, 23 Jul 2019 10:29:32 +0000 (UTC)
-Received: from usa-sjc-imap-foss1.foss.arm.com (unknown [10.121.207.14])
- by usa-sjc-mx-foss1.foss.arm.com (Postfix) with ESMTP id 40CC0337;
- Tue, 23 Jul 2019 03:29:31 -0700 (PDT)
-Received: from [10.1.197.57] (e110467-lin.cambridge.arm.com [10.1.197.57])
- by usa-sjc-imap-foss1.foss.arm.com (Postfix) with ESMTPSA id 4B15A3F71A;
- Tue, 23 Jul 2019 03:29:29 -0700 (PDT)
-To: Jose Abreu <Jose.Abreu@synopsys.com>, Jon Hunter <jonathanh@nvidia.com>,
- Lars Persson <lists@bofh.nu>, Ilias Apalodimas <ilias.apalodimas@linaro.org>
+ Tue, 23 Jul 2019 10:38:42 +0000 (UTC)
+Received: from hqpgpgate101.nvidia.com (Not Verified[216.228.121.13]) by
+ hqemgate16.nvidia.com (using TLS: TLSv1.2, DES-CBC3-SHA)
+ id <B5d36e3ac0000>; Tue, 23 Jul 2019 03:38:38 -0700
+Received: from hqmail.nvidia.com ([172.20.161.6])
+ by hqpgpgate101.nvidia.com (PGP Universal service);
+ Tue, 23 Jul 2019 03:38:40 -0700
+X-PGP-Universal: processed;
+ by hqpgpgate101.nvidia.com on Tue, 23 Jul 2019 03:38:40 -0700
+Received: from [10.21.132.148] (172.20.13.39) by HQMAIL107.nvidia.com
+ (172.20.187.13) with Microsoft SMTP Server (TLS) id 15.0.1473.3; Tue, 23 Jul
+ 2019 10:38:35 +0000
+To: Jose Abreu <Jose.Abreu@synopsys.com>, Lars Persson <lists@bofh.nu>, Ilias
+ Apalodimas <ilias.apalodimas@linaro.org>
 References: <cover.1562149883.git.joabreu@synopsys.com>
  <1b254bb7fc6044c5e6e2fdd9e00088d1d13a808b.1562149883.git.joabreu@synopsys.com>
  <29dcc161-f7c8-026e-c3cc-5adb04df128c@nvidia.com>
@@ -31,14 +38,29 @@ References: <cover.1562149883.git.joabreu@synopsys.com>
  <BYAPR12MB3269A725AFDDA21E92946558D3C70@BYAPR12MB3269.namprd12.prod.outlook.com>
  <ab14f31f-2045-b1be-d31f-2a81b8527dac@nvidia.com>
  <BYAPR12MB32692AF2BA127C5DA5B74804D3C70@BYAPR12MB3269.namprd12.prod.outlook.com>
-From: Robin Murphy <robin.murphy@arm.com>
-Message-ID: <6c769226-bdd9-6fe0-b96b-5a0d800fed24@arm.com>
-Date: Tue, 23 Jul 2019 11:29:28 +0100
+From: Jon Hunter <jonathanh@nvidia.com>
+Message-ID: <2ad7bf21-1f1f-db0f-2358-4901b7988b7d@nvidia.com>
+Date: Tue, 23 Jul 2019 11:38:33 +0100
 User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:60.0) Gecko/20100101
- Thunderbird/60.6.1
+ Thunderbird/60.8.0
 MIME-Version: 1.0
 In-Reply-To: <BYAPR12MB32692AF2BA127C5DA5B74804D3C70@BYAPR12MB3269.namprd12.prod.outlook.com>
-Content-Language: en-GB
+X-Originating-IP: [172.20.13.39]
+X-ClientProxiedBy: HQMAIL107.nvidia.com (172.20.187.13) To
+ HQMAIL107.nvidia.com (172.20.187.13)
+Content-Language: en-US
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=nvidia.com; s=n1;
+ t=1563878318; bh=TSX0vsbM4hlh2BIH8botP8IIgJ57VFrMnkO9PEsjFiU=;
+ h=X-PGP-Universal:Subject:To:CC:References:From:Message-ID:Date:
+ User-Agent:MIME-Version:In-Reply-To:X-Originating-IP:
+ X-ClientProxiedBy:Content-Type:Content-Language:
+ Content-Transfer-Encoding;
+ b=SLWuek9Aad242GhpJ3cjl7QUaspjMq8XtmMQsVUN7uLuU1ky5UNTYfiS8I7ieq1vc
+ J/+ZLQkdyE97RV1hsIoJ6BIpmCOOid8NDVDazvI2DmITdcVMGOVA+Izsa4zAlLdQaQ
+ Bq0DBnCNSsl6jvg1EPBgFCn0+BVZRyJ7q+pHWJUvfGQgTtSCsdlD81BuZy8ZbVyPzZ
+ E/7/UFyEWSflInoM9SfjLSOb/GZBvskPqvsbCr7xW5D7bx8sityJMKPg6EpSiVcjAS
+ 1+YdFxs8ODPw5pcugXm04Mry4B8L8DFjaQHIuKKSDs34jZStVfTitx9zMYyW34qJsb
+ Fe0dlqwrFLtog==
 Cc: Joao Pinto <Joao.Pinto@synopsys.com>,
  Maxime Ripard <maxime.ripard@bootlin.com>,
  "netdev@vger.kernel.org" <netdev@vger.kernel.org>,
@@ -63,10 +85,11 @@ List-Post: <mailto:linux-stm32@st-md-mailman.stormreply.com>
 List-Help: <mailto:linux-stm32-request@st-md-mailman.stormreply.com?subject=help>
 List-Subscribe: <https://st-md-mailman.stormreply.com/mailman/listinfo/linux-stm32>, 
  <mailto:linux-stm32-request@st-md-mailman.stormreply.com?subject=subscribe>
+Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
-Content-Type: text/plain; charset="us-ascii"; Format="flowed"
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
+
 
 On 23/07/2019 11:07, Jose Abreu wrote:
 > From: Jon Hunter <jonathanh@nvidia.com>
@@ -86,27 +109,20 @@ On 23/07/2019 11:07, Jose Abreu wrote:
 > +         even fewer good ones.  If saying YES here breaks your board
 > +         you should work on fixing your board.
 > 
-> So, how can we fix this ? Is your ethernet DT node marked as
+> So, how can we fix this ? Is your ethernet DT node marked as 
 > "dma-coherent;" ?
 
-The first thing to try would be booting the failing setup with 
-"iommu.passthrough=1" (or using CONFIG_IOMMU_DEFAULT_PASSTHROUGH) - if 
-that makes things seem OK, then the problem is likely related to address 
-translation; if not, then it's probably time to start looking at nasties 
-like coherency and ordering, although in principle I wouldn't expect the 
-SMMU to have too much impact there.
+TBH I have no idea. I can't say I fully understand your change or how it
+is breaking things for us.
 
-Do you know if the SMMU interrupts are working correctly? If not, it's 
-possible that an incorrect address or mapping direction could lead to 
-the DMA transaction just being silently terminated without any fault 
-indication, which generally presents as inexplicable weirdness (I've 
-certainly seen that on another platform with the mix of an unsupported 
-interrupt controller and an 'imperfect' ethernet driver).
+Currently, the Tegra DT binding does not have 'dma-coherent' set. I see
+this is optional, but I am not sure how you determine whether or not
+this should be set.
 
-Just to confirm, has the original patch been tested with 
-CONFIG_DMA_API_DEBUG to rule out any high-level mishaps?
+Jon
 
-Robin.
+-- 
+nvpublic
 _______________________________________________
 Linux-stm32 mailing list
 Linux-stm32@st-md-mailman.stormreply.com
