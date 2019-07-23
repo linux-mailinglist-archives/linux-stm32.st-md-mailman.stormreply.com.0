@@ -2,25 +2,31 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id 3F3D07190F
-	for <lists+linux-stm32@lfdr.de>; Tue, 23 Jul 2019 15:20:02 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 872D171957
+	for <lists+linux-stm32@lfdr.de>; Tue, 23 Jul 2019 15:35:13 +0200 (CEST)
 Received: from ip-172-31-3-76.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id E1B8CC46D57;
-	Tue, 23 Jul 2019 13:20:01 +0000 (UTC)
-Received: from foss.arm.com (foss.arm.com [217.140.110.172])
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id D15CECFAC5D
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id EE23CCFAC62;
+	Tue, 23 Jul 2019 13:35:12 +0000 (UTC)
+Received: from hqemgate16.nvidia.com (hqemgate16.nvidia.com [216.228.121.65])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256
+ bits)) (No client certificate requested)
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 5253BCFAC60
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Tue, 23 Jul 2019 13:19:59 +0000 (UTC)
-Received: from usa-sjc-imap-foss1.foss.arm.com (unknown [10.121.207.14])
- by usa-sjc-mx-foss1.foss.arm.com (Postfix) with ESMTP id EDAAF28;
- Tue, 23 Jul 2019 06:19:58 -0700 (PDT)
-Received: from [10.1.197.57] (e110467-lin.cambridge.arm.com [10.1.197.57])
- by usa-sjc-imap-foss1.foss.arm.com (Postfix) with ESMTPSA id EA0C83F71F;
- Tue, 23 Jul 2019 06:19:56 -0700 (PDT)
-To: Jon Hunter <jonathanh@nvidia.com>, Jose Abreu <Jose.Abreu@synopsys.com>,
- Lars Persson <lists@bofh.nu>, Ilias Apalodimas <ilias.apalodimas@linaro.org>
+ Tue, 23 Jul 2019 13:35:10 +0000 (UTC)
+Received: from hqpgpgate101.nvidia.com (Not Verified[216.228.121.13]) by
+ hqemgate16.nvidia.com (using TLS: TLSv1.2, DES-CBC3-SHA)
+ id <B5d370d0a0001>; Tue, 23 Jul 2019 06:35:06 -0700
+Received: from hqmail.nvidia.com ([172.20.161.6])
+ by hqpgpgate101.nvidia.com (PGP Universal service);
+ Tue, 23 Jul 2019 06:35:09 -0700
+X-PGP-Universal: processed;
+ by hqpgpgate101.nvidia.com on Tue, 23 Jul 2019 06:35:09 -0700
+Received: from [10.21.132.148] (10.124.1.5) by HQMAIL107.nvidia.com
+ (172.20.187.13) with Microsoft SMTP Server (TLS) id 15.0.1473.3; Tue, 23 Jul
+ 2019 13:34:23 +0000
+To: Jose Abreu <Jose.Abreu@synopsys.com>, Lars Persson <lists@bofh.nu>, "Ilias
+ Apalodimas" <ilias.apalodimas@linaro.org>
 References: <cover.1562149883.git.joabreu@synopsys.com>
- <1b254bb7fc6044c5e6e2fdd9e00088d1d13a808b.1562149883.git.joabreu@synopsys.com>
  <29dcc161-f7c8-026e-c3cc-5adb04df128c@nvidia.com>
  <BN8PR12MB32661E919A8DEBC7095BAA12D3C80@BN8PR12MB3266.namprd12.prod.outlook.com>
  <20190722101830.GA24948@apalos>
@@ -31,16 +37,33 @@ References: <cover.1562149883.git.joabreu@synopsys.com>
  <BYAPR12MB3269A725AFDDA21E92946558D3C70@BYAPR12MB3269.namprd12.prod.outlook.com>
  <ab14f31f-2045-b1be-d31f-2a81b8527dac@nvidia.com>
  <BYAPR12MB32692AF2BA127C5DA5B74804D3C70@BYAPR12MB3269.namprd12.prod.outlook.com>
- <6c769226-bdd9-6fe0-b96b-5a0d800fed24@arm.com>
- <8756d681-e167-fe4a-c6f0-47ae2dcbb100@nvidia.com>
-From: Robin Murphy <robin.murphy@arm.com>
-Message-ID: <3255edfa-4465-204b-4751-8d40c8fb1382@arm.com>
-Date: Tue, 23 Jul 2019 14:19:55 +0100
+ <2ad7bf21-1f1f-db0f-2358-4901b7988b7d@nvidia.com>
+ <BYAPR12MB3269D050556BD51030DCDDFCD3C70@BYAPR12MB3269.namprd12.prod.outlook.com>
+ <8093e352-d992-e17f-7168-5afbd9d3fb3f@nvidia.com>
+ <BYAPR12MB3269EC45ABAF8F279288B003D3C70@BYAPR12MB3269.namprd12.prod.outlook.com>
+From: Jon Hunter <jonathanh@nvidia.com>
+Message-ID: <f3525260-c43f-c983-0b5b-34a83bd53283@nvidia.com>
+Date: Tue, 23 Jul 2019 14:34:21 +0100
 User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:60.0) Gecko/20100101
- Thunderbird/60.6.1
+ Thunderbird/60.8.0
 MIME-Version: 1.0
-In-Reply-To: <8756d681-e167-fe4a-c6f0-47ae2dcbb100@nvidia.com>
-Content-Language: en-GB
+In-Reply-To: <BYAPR12MB3269EC45ABAF8F279288B003D3C70@BYAPR12MB3269.namprd12.prod.outlook.com>
+X-Originating-IP: [10.124.1.5]
+X-ClientProxiedBy: HQMAIL105.nvidia.com (172.20.187.12) To
+ HQMAIL107.nvidia.com (172.20.187.13)
+Content-Language: en-US
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=nvidia.com; s=n1;
+ t=1563888906; bh=7VGjRoH75ovO9tIALq3z4+jcrGznO3YZAKnO1R6So9M=;
+ h=X-PGP-Universal:Subject:To:CC:References:From:Message-ID:Date:
+ User-Agent:MIME-Version:In-Reply-To:X-Originating-IP:
+ X-ClientProxiedBy:Content-Type:Content-Language:
+ Content-Transfer-Encoding;
+ b=AMuTTrK149cSqktaiZ4bEIPKimlBVpQ4fVOi13I6VxYM4K0Cutj0Sk5zDx47aQUjO
+ uXn6mFEB7yRrK2dNZcrNtX/dqmF6A1fDsKy+3HQ9uAo8lylyysvAvYDhpF1MttzJBF
+ ABZkEknLIseNf+x/OhKgrHXPEIGJ6Zzpfm5pBXtbA0VHWIL2WXBme8bepGHzwY3jy4
+ /qYdriH76TTHPiRM4jygGqUWSTXI7V83RwaehzDNPo3gfL5u8aiSlV6o8/0xCf8NBj
+ dmZ3lZ4D/+zrCPFUSEhWeBXT03vU1IveZ7nBZQEbEKZrz69pcvHYNXXrcqh8yAw/cX
+ R1R2GdOrCnEHg==
 Cc: Joao Pinto <Joao.Pinto@synopsys.com>,
  Maxime Ripard <maxime.ripard@bootlin.com>,
  "netdev@vger.kernel.org" <netdev@vger.kernel.org>,
@@ -65,68 +88,68 @@ List-Post: <mailto:linux-stm32@st-md-mailman.stormreply.com>
 List-Help: <mailto:linux-stm32-request@st-md-mailman.stormreply.com?subject=help>
 List-Subscribe: <https://st-md-mailman.stormreply.com/mailman/listinfo/linux-stm32>, 
  <mailto:linux-stm32-request@st-md-mailman.stormreply.com?subject=subscribe>
-Content-Transfer-Encoding: base64
-Content-Type: text/plain; charset="utf-8"; Format="flowed"
+Content-Type: text/plain; charset="us-ascii"
+Content-Transfer-Encoding: 7bit
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
-T24gMjMvMDcvMjAxOSAxMzowOSwgSm9uIEh1bnRlciB3cm90ZToKPiAKPiBPbiAyMy8wNy8yMDE5
-IDExOjI5LCBSb2JpbiBNdXJwaHkgd3JvdGU6Cj4+IE9uIDIzLzA3LzIwMTkgMTE6MDcsIEpvc2Ug
-QWJyZXUgd3JvdGU6Cj4+PiBGcm9tOiBKb24gSHVudGVyIDxqb25hdGhhbmhAbnZpZGlhLmNvbT4K
-Pj4+IERhdGU6IEp1bC8yMy8yMDE5LCAxMTowMToyNCAoVVRDKzAwOjAwKQo+Pj4KPj4+PiBUaGlz
-IGFwcGVhcnMgdG8gYmUgYSB3aW5uZXIgYW5kIGJ5IGRpc2FibGluZyB0aGUgU01NVSBmb3IgdGhl
-IGV0aGVybmV0Cj4+Pj4gY29udHJvbGxlciBhbmQgcmV2ZXJ0aW5nIGNvbW1pdCA5NTRhMDNiZTAz
-M2M3Y2VmODBkZGMyMzJlN2NiZGIxN2RmNzM1NjYzCj4+Pj4gdGhpcyB3b3JrZWQhIFNvIHllcyBh
-cHBlYXJzIHRvIGJlIHJlbGF0ZWQgdG8gdGhlIFNNTVUgYmVpbmcgZW5hYmxlZC4gV2UKPj4+PiBo
-YWQgdG8gZW5hYmxlIHRoZSBTTU1VIGZvciBldGhlcm5ldCByZWNlbnRseSBkdWUgdG8gY29tbWl0
-Cj4+Pj4gOTU0YTAzYmUwMzNjN2NlZjgwZGRjMjMyZTdjYmRiMTdkZjczNTY2My4KPj4+Cj4+PiBG
-aW5hbGx5IDopCj4+Pgo+Pj4gSG93ZXZlciwgZnJvbSAiZ2l0IHNob3cgOTU0YTAzYmUwMzNjN2Nl
-ZjgwZGRjMjMyZTdjYmRiMTdkZjczNTY2MyI6Cj4+Pgo+Pj4gK8KgwqDCoMKgwqDCoMKgwqAgVGhl
-cmUgYXJlIGZldyByZWFzb25zIHRvIGFsbG93IHVubWF0Y2hlZCBzdHJlYW0gYnlwYXNzLCBhbmQK
-Pj4+ICvCoMKgwqDCoMKgwqDCoMKgIGV2ZW4gZmV3ZXIgZ29vZCBvbmVzLsKgIElmIHNheWluZyBZ
-RVMgaGVyZSBicmVha3MgeW91ciBib2FyZAo+Pj4gK8KgwqDCoMKgwqDCoMKgwqAgeW91IHNob3Vs
-ZCB3b3JrIG9uIGZpeGluZyB5b3VyIGJvYXJkLgo+Pj4KPj4+IFNvLCBob3cgY2FuIHdlIGZpeCB0
-aGlzID8gSXMgeW91ciBldGhlcm5ldCBEVCBub2RlIG1hcmtlZCBhcwo+Pj4gImRtYS1jb2hlcmVu
-dDsiID8KPj4KPj4gVGhlIGZpcnN0IHRoaW5nIHRvIHRyeSB3b3VsZCBiZSBib290aW5nIHRoZSBm
-YWlsaW5nIHNldHVwIHdpdGgKPj4gImlvbW11LnBhc3N0aHJvdWdoPTEiIChvciB1c2luZyBDT05G
-SUdfSU9NTVVfREVGQVVMVF9QQVNTVEhST1VHSCkgLSBpZgo+PiB0aGF0IG1ha2VzIHRoaW5ncyBz
-ZWVtIE9LLCB0aGVuIHRoZSBwcm9ibGVtIGlzIGxpa2VseSByZWxhdGVkIHRvIGFkZHJlc3MKPj4g
-dHJhbnNsYXRpb247IGlmIG5vdCwgdGhlbiBpdCdzIHByb2JhYmx5IHRpbWUgdG8gc3RhcnQgbG9v
-a2luZyBhdCBuYXN0aWVzCj4+IGxpa2UgY29oZXJlbmN5IGFuZCBvcmRlcmluZywgYWx0aG91Z2gg
-aW4gcHJpbmNpcGxlIEkgd291bGRuJ3QgZXhwZWN0IHRoZQo+PiBTTU1VIHRvIGhhdmUgdG9vIG11
-Y2ggaW1wYWN0IHRoZXJlLgo+IAo+IFNldHRpbmcgImlvbW11LnBhc3N0aHJvdWdoPTEiIHdvcmtz
-IGZvciBtZS4gSG93ZXZlciwgSSBhbSBub3Qgc3VyZSB3aGVyZQo+IHRvIGdvIGZyb20gaGVyZSwg
-c28gYW55IGlkZWFzIHlvdSBoYXZlIHdvdWxkIGJlIGdyZWF0LgoKT0ssIHNvIHRoYXQgcmVhbGx5
-IGltcGxpZXMgaXQncyBzb21ldGhpbmcgdG8gZG8gd2l0aCB0aGUgYWRkcmVzc2VzLiBGcm9tIAph
-IHF1aWNrIHNraW0gb2YgdGhlIHBhdGNoLCBJJ20gd29uZGVyaW5nIGlmIGl0J3MgcG9zc2libGUg
-Zm9yIGJ1Zi0+YWRkciAKYW5kIGJ1Zi0+cGFnZS0+ZG1hX2FkZHIgdG8gZ2V0IG91dC1vZi1zeW5j
-IGF0IGFueSBwb2ludC4gVGhlIG5hdHVyZSBvZiAKdGhlIElPVkEgYWxsb2NhdG9yIG1ha2VzIGl0
-IHF1aXRlIGxpa2VseSB0aGF0IGEgc3RhbGUgRE1BIGFkZHJlc3Mgd2lsbCAKaGF2ZSBiZWVuIHJl
-dXNlZCBmb3IgYSBuZXcgbWFwcGluZywgc28gcHV0dGluZyB0aGUgd3JvbmcgYWRkcmVzcyBpbiBh
-IApkZXNjcmlwdG9yIG1heSB3ZWxsIG1lYW4gdGhlIERNQSBzdGlsbCBlbmRzIHVwIGhpdHRpbmcg
-YSB2YWxpZCAKdHJhbnNsYXRpb24sIGJ1dCB3aGljaCBpcyBub3cgcG9pbnRpbmcgdG8gYSBkaWZm
-ZXJlbnQgcGFnZS4KCj4+IERvIHlvdSBrbm93IGlmIHRoZSBTTU1VIGludGVycnVwdHMgYXJlIHdv
-cmtpbmcgY29ycmVjdGx5PyBJZiBub3QsIGl0J3MKPj4gcG9zc2libGUgdGhhdCBhbiBpbmNvcnJl
-Y3QgYWRkcmVzcyBvciBtYXBwaW5nIGRpcmVjdGlvbiBjb3VsZCBsZWFkIHRvCj4+IHRoZSBETUEg
-dHJhbnNhY3Rpb24ganVzdCBiZWluZyBzaWxlbnRseSB0ZXJtaW5hdGVkIHdpdGhvdXQgYW55IGZh
-dWx0Cj4+IGluZGljYXRpb24sIHdoaWNoIGdlbmVyYWxseSBwcmVzZW50cyBhcyBpbmV4cGxpY2Fi
-bGUgd2VpcmRuZXNzIChJJ3ZlCj4+IGNlcnRhaW5seSBzZWVuIHRoYXQgb24gYW5vdGhlciBwbGF0
-Zm9ybSB3aXRoIHRoZSBtaXggb2YgYW4gdW5zdXBwb3J0ZWQKPj4gaW50ZXJydXB0IGNvbnRyb2xs
-ZXIgYW5kIGFuICdpbXBlcmZlY3QnIGV0aGVybmV0IGRyaXZlcikuCj4gCj4gSWYgSSBzaW1wbHkg
-cmVtb3ZlIHRoZSBpb21tdSBub2RlIGZvciB0aGUgZXRoZXJuZXQgY29udHJvbGxlciwgdGhlbiBJ
-Cj4gc2VlIGxvdHMgb2YgLi4uCj4gCj4gWyAgICA2LjI5NjEyMV0gYXJtLXNtbXUgMTIwMDAwMDAu
-aW9tbXU6IFVuZXhwZWN0ZWQgZ2xvYmFsIGZhdWx0LCB0aGlzIGNvdWxkIGJlIHNlcmlvdXMKPiBb
-ICAgIDYuMjk2MTI1XSBhcm0tc21tdSAxMjAwMDAwMC5pb21tdTogICAgICAgICBHRlNSIDB4MDAw
-MDAwMDIsIEdGU1lOUjAgMHgwMDAwMDAwMCwgR0ZTWU5SMSAweDAwMDAwMDE0LCBHRlNZTlIyIDB4
-MDAwMDAwMDAKPiAKPiBTbyBJIGFzc3VtZSB0aGF0IHRoaXMgaXMgdHJpZ2dlcmluZyB0aGUgU01N
-VSBpbnRlcnJ1cHQgY29ycmVjdGx5LgoKQWNjb3JkaW5nIHRvIHRlZ3JhMTg2LmR0c2kgaXQgYXBw
-ZWFycyB5b3UncmUgdXNpbmcgdGhlIE1NVS01MDAgY29tYmluZWQgCmludGVycnVwdCwgc28gaWYg
-Z2xvYmFsIGZhdWx0cyBhcmUgYmVpbmcgZGVsaXZlcmVkIHRoZW4gY29udGV4dCBmYXVsdHMgCipz
-aG91bGQqIGFsc28sIGJ1dCBJJ2QgYmUgaW5jbGluZWQgdG8gdHJ5IGEgcXVpY2sgaGFjayBvZiB0
-aGUgcmVsZXZhbnQgCnN0bW1hY19kZXNjX29wczo6c2V0X2FkZHIgY2FsbGJhY2sgdG8gd3JpdGUg
-c29tZSBib2d1cyB1bm1hcHBlZCBhZGRyZXNzIApqdXN0IHRvIG1ha2Ugc3VyZSBhcm1fc21tdV9j
-b250ZXh0X2ZhdWx0KCkgdGhlbiBzY3JlYW1zIGFzIGV4cGVjdGVkLCBhbmQgCndlJ3JlIG5vdCBt
-aXNzaW5nIGFueXRoaW5nIGVsc2UuCgpSb2Jpbi4KX19fX19fX19fX19fX19fX19fX19fX19fX19f
-X19fX19fX19fX19fX19fX19fX18KTGludXgtc3RtMzIgbWFpbGluZyBsaXN0CkxpbnV4LXN0bTMy
-QHN0LW1kLW1haWxtYW4uc3Rvcm1yZXBseS5jb20KaHR0cHM6Ly9zdC1tZC1tYWlsbWFuLnN0b3Jt
-cmVwbHkuY29tL21haWxtYW4vbGlzdGluZm8vbGludXgtc3RtMzIK
+
+On 23/07/2019 13:51, Jose Abreu wrote:
+> From: Jon Hunter <jonathanh@nvidia.com>
+> Date: Jul/23/2019, 12:58:55 (UTC+00:00)
+> 
+>>
+>> On 23/07/2019 11:49, Jose Abreu wrote:
+>>> From: Jon Hunter <jonathanh@nvidia.com>
+>>> Date: Jul/23/2019, 11:38:33 (UTC+00:00)
+>>>
+>>>>
+>>>> On 23/07/2019 11:07, Jose Abreu wrote:
+>>>>> From: Jon Hunter <jonathanh@nvidia.com>
+>>>>> Date: Jul/23/2019, 11:01:24 (UTC+00:00)
+>>>>>
+>>>>>> This appears to be a winner and by disabling the SMMU for the ethernet
+>>>>>> controller and reverting commit 954a03be033c7cef80ddc232e7cbdb17df735663
+>>>>>> this worked! So yes appears to be related to the SMMU being enabled. We
+>>>>>> had to enable the SMMU for ethernet recently due to commit
+>>>>>> 954a03be033c7cef80ddc232e7cbdb17df735663.
+>>>>>
+>>>>> Finally :)
+>>>>>
+>>>>> However, from "git show 954a03be033c7cef80ddc232e7cbdb17df735663":
+>>>>>
+>>>>> +         There are few reasons to allow unmatched stream bypass, and
+>>>>> +         even fewer good ones.  If saying YES here breaks your board
+>>>>> +         you should work on fixing your board.
+>>>>>
+>>>>> So, how can we fix this ? Is your ethernet DT node marked as 
+>>>>> "dma-coherent;" ?
+>>>>
+>>>> TBH I have no idea. I can't say I fully understand your change or how it
+>>>> is breaking things for us.
+>>>>
+>>>> Currently, the Tegra DT binding does not have 'dma-coherent' set. I see
+>>>> this is optional, but I am not sure how you determine whether or not
+>>>> this should be set.
+>>>
+>>> From my understanding it means that your device / IP DMA accesses are coherent regarding the CPU point of view. I think it will be the case if GMAC is not behind any kind of IOMMU in the HW arch.
+>>
+>> I understand what coherency is, I just don't know how you tell if this
+>> implementation of the ethernet controller is coherent or not.
+> 
+> Do you have any detailed diagram of your HW ? Such as blocks / IPs 
+> connection, address space wiring , ...
+
+Yes, this can be found in the Tegra X2 Technical Reference Manual [0].
+Unfortunately, you need to create an account to download it.
+
+Jon
+
+[0] https://developer.nvidia.com/embedded/dlc/parker-series-trm
+
+-- 
+nvpublic
+_______________________________________________
+Linux-stm32 mailing list
+Linux-stm32@st-md-mailman.stormreply.com
+https://st-md-mailman.stormreply.com/mailman/listinfo/linux-stm32
