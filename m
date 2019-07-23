@@ -2,39 +2,39 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id 140C270E9E
-	for <lists+linux-stm32@lfdr.de>; Tue, 23 Jul 2019 03:23:50 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id A95AC70EA9
+	for <lists+linux-stm32@lfdr.de>; Tue, 23 Jul 2019 03:30:39 +0200 (CEST)
 Received: from ip-172-31-3-76.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id B8481CE0B3D;
-	Tue, 23 Jul 2019 01:23:49 +0000 (UTC)
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 55FA0CE0B45;
+	Tue, 23 Jul 2019 01:30:39 +0000 (UTC)
 Received: from shards.monkeyblade.net (shards.monkeyblade.net [23.128.96.9])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id A03DDCE0B3B
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 134E0CE0B43
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Tue, 23 Jul 2019 01:23:48 +0000 (UTC)
+ Tue, 23 Jul 2019 01:30:38 +0000 (UTC)
 Received: from localhost (unknown [IPv6:2601:601:9f80:35cd::d71])
  (using TLSv1 with cipher AES256-SHA (256/256 bits))
  (Client did not present a certificate)
  (Authenticated sender: davem-davemloft)
- by shards.monkeyblade.net (Postfix) with ESMTPSA id 332D315305A2A;
- Mon, 22 Jul 2019 18:23:46 -0700 (PDT)
-Date: Mon, 22 Jul 2019 18:23:45 -0700 (PDT)
-Message-Id: <20190722.182345.1929981445585560230.davem@davemloft.net>
+ by shards.monkeyblade.net (Postfix) with ESMTPSA id 21AD915305EB2;
+ Mon, 22 Jul 2019 18:30:35 -0700 (PDT)
+Date: Mon, 22 Jul 2019 18:30:34 -0700 (PDT)
+Message-Id: <20190722.183034.1093194142173051399.davem@davemloft.net>
 To: Jose.Abreu@synopsys.com
 From: David Miller <davem@davemloft.net>
-In-Reply-To: <cover.1563784666.git.joabreu@synopsys.com>
-References: <cover.1563784666.git.joabreu@synopsys.com>
+In-Reply-To: <f9b8245ef4fbaca463a6084166c7f72793cb799b.1563804016.git.joabreu@synopsys.com>
+References: <f9b8245ef4fbaca463a6084166c7f72793cb799b.1563804016.git.joabreu@synopsys.com>
 X-Mailer: Mew version 6.8 on Emacs 26.1
 Mime-Version: 1.0
 X-Greylist: Sender succeeded SMTP AUTH, not delayed by milter-greylist-4.5.12
  (shards.monkeyblade.net [149.20.54.216]);
- Mon, 22 Jul 2019 18:23:46 -0700 (PDT)
+ Mon, 22 Jul 2019 18:30:35 -0700 (PDT)
 Cc: Joao.Pinto@synopsys.com, netdev@vger.kernel.org,
- linux-kernel@vger.kernel.org, mcoquelin.stm32@gmail.com,
+ linux-kernel@vger.kernel.org, megi@xff.cz, mcoquelin.stm32@gmail.com,
  peppe.cavallaro@st.com, linux-stm32@st-md-mailman.stormreply.com,
  linux-arm-kernel@lists.infradead.org
-Subject: Re: [Linux-stm32] [PATCH net 0/2] net: stmmac: Two fixes
+Subject: Re: [Linux-stm32] [PATCH net] net: stmmac: Do not cut down 1G modes
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -52,11 +52,18 @@ Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
 From: Jose Abreu <Jose.Abreu@synopsys.com>
-Date: Mon, 22 Jul 2019 10:39:29 +0200
+Date: Mon, 22 Jul 2019 16:07:21 +0200
 
-> Two fixes targeting -net.
+> Some glue logic drivers support 1G without having GMAC/GMAC4/XGMAC.
+> 
+> Let's allow this speed by default.
+> 
+> Reported-by: Ondrej Jirman <megi@xff.cz>
+> Tested-by: Ondrej Jirman <megi@xff.cz>
+> Fixes: 5b0d7d7da64b ("net: stmmac: Add the missing speeds that XGMAC supports")
+> Signed-off-by: Jose Abreu <joabreu@synopsys.com>
 
-Series applied.
+Applied.
 _______________________________________________
 Linux-stm32 mailing list
 Linux-stm32@st-md-mailman.stormreply.com
