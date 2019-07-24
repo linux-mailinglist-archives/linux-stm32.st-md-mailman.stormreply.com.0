@@ -2,58 +2,131 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id 02A3472BFA
-	for <lists+linux-stm32@lfdr.de>; Wed, 24 Jul 2019 12:03:18 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 15BCF72C03
+	for <lists+linux-stm32@lfdr.de>; Wed, 24 Jul 2019 12:04:21 +0200 (CEST)
 Received: from ip-172-31-3-76.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id A5067CFAC68;
-	Wed, 24 Jul 2019 10:03:17 +0000 (UTC)
-Received: from foss.arm.com (foss.arm.com [217.140.110.172])
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 762BFCFAC67
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id C0091C544EF;
+	Wed, 24 Jul 2019 10:04:20 +0000 (UTC)
+Received: from smtprelay-out1.synopsys.com (dc2-smtprelay2.synopsys.com
+ [198.182.61.142])
+ (using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
+ (No client certificate requested)
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id C3DB7CFAC68
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Wed, 24 Jul 2019 10:03:16 +0000 (UTC)
-Received: from usa-sjc-imap-foss1.foss.arm.com (unknown [10.121.207.14])
- by usa-sjc-mx-foss1.foss.arm.com (Postfix) with ESMTP id 8EBAD337;
- Wed, 24 Jul 2019 03:03:15 -0700 (PDT)
-Received: from [10.1.197.57] (e110467-lin.cambridge.arm.com [10.1.197.57])
- by usa-sjc-imap-foss1.foss.arm.com (Postfix) with ESMTPSA id A29953F71F;
- Wed, 24 Jul 2019 03:03:13 -0700 (PDT)
-To: Jon Hunter <jonathanh@nvidia.com>, Jose Abreu <Jose.Abreu@synopsys.com>,
- Lars Persson <lists@bofh.nu>, Ilias Apalodimas <ilias.apalodimas@linaro.org>
-References: <cover.1562149883.git.joabreu@synopsys.com>
- <1b254bb7fc6044c5e6e2fdd9e00088d1d13a808b.1562149883.git.joabreu@synopsys.com>
- <29dcc161-f7c8-026e-c3cc-5adb04df128c@nvidia.com>
- <BN8PR12MB32661E919A8DEBC7095BAA12D3C80@BN8PR12MB3266.namprd12.prod.outlook.com>
- <20190722101830.GA24948@apalos>
- <CADnJP=thexf2sWcVVOLWw14rpteEj0RrfDdY8ER90MpbNN4-oA@mail.gmail.com>
- <BN8PR12MB326661846D53AAEE315A7434D3C40@BN8PR12MB3266.namprd12.prod.outlook.com>
- <11557fe0-0cba-cb49-0fb6-ad24792d4a53@nvidia.com>
- <BN8PR12MB3266664ECA192E02C06061EED3C40@BN8PR12MB3266.namprd12.prod.outlook.com>
- <BYAPR12MB3269A725AFDDA21E92946558D3C70@BYAPR12MB3269.namprd12.prod.outlook.com>
- <ab14f31f-2045-b1be-d31f-2a81b8527dac@nvidia.com>
- <BYAPR12MB32692AF2BA127C5DA5B74804D3C70@BYAPR12MB3269.namprd12.prod.outlook.com>
+ Wed, 24 Jul 2019 10:04:19 +0000 (UTC)
+Received: from mailhost.synopsys.com (dc8-mailhost1.synopsys.com
+ [10.13.135.209])
+ (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits))
+ (No client certificate requested)
+ by smtprelay-out1.synopsys.com (Postfix) with ESMTPS id 235A0C0BB2;
+ Wed, 24 Jul 2019 10:04:17 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=synopsys.com; s=mail;
+ t=1563962658; bh=aP3K0n56iD2GV2tMKqRDC9jDRRcIFwnGZY13HJrLpg0=;
+ h=From:To:CC:Subject:Date:References:In-Reply-To:From;
+ b=I+IX9dGszn2NEfy6ojNUoQcyKVn4Nj9DHuhUAygKM2IfDTlF5s8GRC0/Y4pdjFODQ
+ +4sjqkCmlS1lnCTM19SD+1NYnQwDydeH5J2NBwLy775hQiPbJ9aOTo45Hb4jAw7Dnw
+ ubDh7JFMCkaStcroLvBcJcDNq1NtGnPWCOSGmAPjyQxFk3OHuOuW14FEzxDJauocPV
+ l3DtD1MpoYJJKkfV7vlxlnabRzs0AyNRwfLGK9tzRXXFc0GpyLDsLNofXTMFXQrI97
+ UnOSqBD1eZF0IXadpOdZvRoBf5rb2ZpuTGmj9BnIdxX9OmkTntAdd1SB12YNF3zcRN
+ kBlxqPInoJjYA==
+Received: from US01WXQAHTC1.internal.synopsys.com
+ (us01wxqahtc1.internal.synopsys.com [10.12.238.230])
+ (using TLSv1.2 with cipher AES128-SHA256 (128/128 bits))
+ (No client certificate requested)
+ by mailhost.synopsys.com (Postfix) with ESMTPS id 66FDCA006B;
+ Wed, 24 Jul 2019 10:04:14 +0000 (UTC)
+Received: from US01HYBRID2.internal.synopsys.com (10.15.246.24) by
+ US01WXQAHTC1.internal.synopsys.com (10.12.238.230) with Microsoft SMTP Server
+ (TLS) id 14.3.408.0; Wed, 24 Jul 2019 03:04:10 -0700
+Received: from NAM02-CY1-obe.outbound.protection.outlook.com (10.13.134.195)
+ by mrs.synopsys.com (10.15.246.24) with Microsoft SMTP Server (TLS) id
+ 14.3.408.0; Wed, 24 Jul 2019 03:04:10 -0700
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
+ b=KCPQ/8sf/1oyS7DUkhmS7F8DQ/WTdWVAV1h+j+13nzeibOQjHt2XaEQSDTONFbSYCyuE2wfL+SV5vGO0j4/9Xrf2ECwfWIhalBfYMravZ9xjsZchZM1AzFmTqhZ04x4A0Si0zfTc9hDNFf6k9/QrlVTvDJJdrcfsymZC+RaztaFwYY10Cpo0M3yHUBXR3plo8dVsNLFLF6B1RBOv4GCmytpfe3dT10pOXdDEKJRZ+sPYXQWh5xoINGhPak93m96A0LC4RdlHOL/HSfxMV9i3d7I2s2QhlIY0NBUxN6pcarFG28N/o/7poIEzXN3o6pwkX2oY1FbS4TwX1EYtjCrp4Q==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
+ s=arcselector9901;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=h6p8o2QeT7yDcrfLoA3KDOGJicYtqtsnGWtqbb/I9TM=;
+ b=LmduNuAJ5AWso6mc0tWoHvIz6tA/I/aH/ezqrEKLoaJrC8ZYr17kXrnna/fBJcj6/O4idUL2cr4DskK4LK77Y4la4bAj+1HzxBA3+PB+4DiyPljKXNX7QW1HtGErxrhg3DyS+INpxCWkSsO7SZKzWG359Hfm9CqOdKBeHEipvX/ouP5k0yjUMdCWhu6dyT84/nd58BTKT0cdZW9ZxfsHl0jiMDLkkyIqOEwwhl7LvnQqUlq8U8OqF+mOfJoK7KIIfWB0iN1SXrK7Pv7Dq4SN7cjZGEPK5a5dRCPv3tlQUHGLhres7uFCmS+yznPWsZiD59WlQQAJzenUF+TjYZ6cSg==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1;spf=pass
+ smtp.mailfrom=synopsys.com;dmarc=pass action=none
+ header.from=synopsys.com;dkim=pass header.d=synopsys.com;arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=synopsys.onmicrosoft.com; s=selector1-synopsys-onmicrosoft-com;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=h6p8o2QeT7yDcrfLoA3KDOGJicYtqtsnGWtqbb/I9TM=;
+ b=ScGzKo97ust2yC5YOynzTuZdAGeh8+u+NRngOMntOcQoAuxCpTMx2JlxAT/Mpd4qMWImvLTQNHCoqNlwdwPBv4d1IG6erftvzsjEbnnH/pXGjzi+Y9oi1zrnbsLSbftqs6vD4vitJuZXkYiEhc+pAAbhJ78/4/9LWd2Gq5G+t1w=
+Received: from BYAPR12MB3269.namprd12.prod.outlook.com (20.179.93.146) by
+ BYAPR12MB2645.namprd12.prod.outlook.com (20.176.255.210) with Microsoft SMTP
+ Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.20.2094.16; Wed, 24 Jul 2019 10:04:08 +0000
+Received: from BYAPR12MB3269.namprd12.prod.outlook.com
+ ([fe80::f5b8:ac6e:ea68:cb1c]) by BYAPR12MB3269.namprd12.prod.outlook.com
+ ([fe80::f5b8:ac6e:ea68:cb1c%4]) with mapi id 15.20.2094.013; Wed, 24 Jul 2019
+ 10:04:07 +0000
+From: Jose Abreu <Jose.Abreu@synopsys.com>
+To: Ilias Apalodimas <ilias.apalodimas@linaro.org>,
+ Jose Abreu <Jose.Abreu@synopsys.com>
+Thread-Topic: [PATCH net-next 3/3] net: stmmac: Introducing support for Page
+ Pool
+Thread-Index: AQHVMYtq2Zx4WVoG/U2kL8GCK0bP/abPQEOAgADTx+CABnZ9AIAADuYAgAAFQOCAAAnIAIAABLTAgAFMy7CAAB4gAIAAAO7wgAAG6gCAABvPAIAAcGAAgADrmoCAAA0XIIAAA1AAgAAAhFA=
+Date: Wed, 24 Jul 2019 10:04:07 +0000
+Message-ID: <BYAPR12MB3269C5766F553438ECFF2C9BD3C60@BYAPR12MB3269.namprd12.prod.outlook.com>
+References: <BYAPR12MB32692AF2BA127C5DA5B74804D3C70@BYAPR12MB3269.namprd12.prod.outlook.com>
  <6c769226-bdd9-6fe0-b96b-5a0d800fed24@arm.com>
  <8756d681-e167-fe4a-c6f0-47ae2dcbb100@nvidia.com>
- <3255edfa-4465-204b-4751-8d40c8fb1382@arm.com>
- <ae11deb4-abec-f0f9-312d-b11d72bc74cd@nvidia.com>
-From: Robin Murphy <robin.murphy@arm.com>
-Message-ID: <bdfe91d0-96a4-91d3-3955-66933c319462@arm.com>
-Date: Wed, 24 Jul 2019 11:03:12 +0100
-User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:60.0) Gecko/20100101
- Thunderbird/60.6.1
+ <20190723.115112.1824255524103179323.davem@davemloft.net>
+ <20190724085427.GA10736@apalos>
+ <BYAPR12MB3269AA9955844E317B62A239D3C60@BYAPR12MB3269.namprd12.prod.outlook.com>
+ <20190724095310.GA12991@apalos>
+In-Reply-To: <20190724095310.GA12991@apalos>
+Accept-Language: en-US
+Content-Language: en-US
+X-MS-Has-Attach: 
+X-MS-TNEF-Correlator: 
+authentication-results: spf=none (sender IP is )
+ smtp.mailfrom=joabreu@synopsys.com; 
+x-originating-ip: [83.174.63.141]
+x-ms-publictraffictype: Email
+x-ms-office365-filtering-correlation-id: a1f1d3e2-1896-419d-aa05-08d7101e4474
+x-microsoft-antispam: BCL:0; PCL:0;
+ RULEID:(2390118)(7020095)(4652040)(8989299)(4534185)(4627221)(201703031133081)(201702281549075)(8990200)(5600148)(711020)(4605104)(1401327)(2017052603328)(7193020);
+ SRVR:BYAPR12MB2645; 
+x-ms-traffictypediagnostic: BYAPR12MB2645:
+x-microsoft-antispam-prvs: <BYAPR12MB26459B116217C0BF431AEA88D3C60@BYAPR12MB2645.namprd12.prod.outlook.com>
+x-ms-oob-tlc-oobclassifiers: OLM:9508;
+x-forefront-prvs: 0108A997B2
+x-forefront-antispam-report: SFV:NSPM;
+ SFS:(10019020)(136003)(376002)(396003)(346002)(39860400002)(366004)(199004)(189003)(20864003)(9686003)(7736002)(8676002)(14454004)(19627235002)(14444005)(81166006)(53936002)(71190400001)(81156014)(8936002)(229853002)(7416002)(71200400001)(99286004)(33656002)(256004)(74316002)(5660300002)(4326008)(305945005)(486006)(6506007)(6246003)(68736007)(66066001)(316002)(102836004)(7696005)(76116006)(66946007)(66476007)(66556008)(64756008)(6436002)(478600001)(476003)(76176011)(446003)(11346002)(186003)(2906002)(26005)(54906003)(25786009)(3846002)(6116002)(66446008)(86362001)(110136005)(6636002)(52536014)(55016002);
+ DIR:OUT; SFP:1102; SCL:1; SRVR:BYAPR12MB2645;
+ H:BYAPR12MB3269.namprd12.prod.outlook.com; FPR:; SPF:None; LANG:en;
+ PTR:InfoNoRecords; A:1; MX:1; 
+received-spf: None (protection.outlook.com: synopsys.com does not designate
+ permitted sender hosts)
+x-ms-exchange-senderadcheck: 1
+x-microsoft-antispam-message-info: OZqbdMxTlt7QJYLKK6EZGH0CUqWGDLdRs/JKF0m5N+sCiOYcg8LDz/+hCiZ15pFYU2h/ZnyjoXuZahYMIZ3G2lgS/GqwtsxYAWW2O9v/2KYVOT6Kq4YstGXRzbBm0QQ4Om1H7kOYe9dc0U0LCPRPat62okJgd3h41mAGa5ib+cAPPuY4WTsPJ2NHQybOCQ8E8AaA7pRuiMo7B6iB68eValYx5V7rL0WW3R2BTuUyuqAb8NXUTLtWaW7zhbqm9RdscOTwfzPUiIhghP6YA1na9nTxlGigOjixrOiEstQN73yf1j68qBIvb7JnIpnQp6JZyhEPHBHj6vHZLAv11Xag21MoWOahNVSmPJzpj/iCDEJvLu2FwQGGZKblEuPyMirm6gVdzp0Nkz/URUC7LfT+G1lXonV0R5bwiO6gF2GRB0w=
 MIME-Version: 1.0
-In-Reply-To: <ae11deb4-abec-f0f9-312d-b11d72bc74cd@nvidia.com>
-Content-Language: en-GB
-Cc: Joao Pinto <Joao.Pinto@synopsys.com>,
- Maxime Ripard <maxime.ripard@bootlin.com>,
+X-MS-Exchange-CrossTenant-Network-Message-Id: a1f1d3e2-1896-419d-aa05-08d7101e4474
+X-MS-Exchange-CrossTenant-originalarrivaltime: 24 Jul 2019 10:04:07.8864 (UTC)
+X-MS-Exchange-CrossTenant-fromentityheader: Hosted
+X-MS-Exchange-CrossTenant-id: c33c9f88-1eb7-4099-9700-16013fd9e8aa
+X-MS-Exchange-CrossTenant-mailboxtype: HOSTED
+X-MS-Exchange-CrossTenant-userprincipalname: joabreu@synopsys.com
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: BYAPR12MB2645
+X-OriginatorOrg: synopsys.com
+Cc: "Joao.Pinto@synopsys.com" <Joao.Pinto@synopsys.com>,
+ "maxime.ripard@bootlin.com" <maxime.ripard@bootlin.com>,
  "netdev@vger.kernel.org" <netdev@vger.kernel.org>,
- "linux-kernel@vger.kernel.org" <linux-kernel@vger.kernel.org>,
- "David S . Miller" <davem@davemloft.net>, Chen-Yu Tsai <wens@csie.org>,
- Maxime Coquelin <mcoquelin.stm32@gmail.com>,
- linux-tegra <linux-tegra@vger.kernel.org>,
- Giuseppe Cavallaro <peppe.cavallaro@st.com>,
  "linux-stm32@st-md-mailman.stormreply.com"
  <linux-stm32@st-md-mailman.stormreply.com>,
- "linux-arm-kernel@lists.infradead.org" <linux-arm-kernel@lists.infradead.org>
+ "linux-kernel@vger.kernel.org" <linux-kernel@vger.kernel.org>,
+ "jonathanh@nvidia.com" <jonathanh@nvidia.com>, "wens@csie.org" <wens@csie.org>,
+ "linux-arm-kernel@lists.infradead.org" <linux-arm-kernel@lists.infradead.org>,
+ "mcoquelin.stm32@gmail.com" <mcoquelin.stm32@gmail.com>,
+ "linux-tegra@vger.kernel.org" <linux-tegra@vger.kernel.org>,
+ "peppe.cavallaro@st.com" <peppe.cavallaro@st.com>,
+ "robin.murphy@arm.com" <robin.murphy@arm.com>,
+ David Miller <davem@davemloft.net>, "lists@bofh.nu" <lists@bofh.nu>
 Subject: Re: [Linux-stm32] [PATCH net-next 3/3] net: stmmac: Introducing
  support for Page Pool
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
@@ -67,47 +140,135 @@ List-Post: <mailto:linux-stm32@st-md-mailman.stormreply.com>
 List-Help: <mailto:linux-stm32-request@st-md-mailman.stormreply.com?subject=help>
 List-Subscribe: <https://st-md-mailman.stormreply.com/mailman/listinfo/linux-stm32>, 
  <mailto:linux-stm32-request@st-md-mailman.stormreply.com?subject=subscribe>
-Content-Transfer-Encoding: base64
-Content-Type: text/plain; charset="utf-8"; Format="flowed"
+Content-Type: text/plain; charset="us-ascii"
+Content-Transfer-Encoding: 7bit
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
-T24gMjMvMDcvMjAxOSAyMjozOSwgSm9uIEh1bnRlciB3cm90ZToKPiAKPiBPbiAyMy8wNy8yMDE5
-IDE0OjE5LCBSb2JpbiBNdXJwaHkgd3JvdGU6Cj4gCj4gLi4uCj4gCj4+Pj4gRG8geW91IGtub3cg
-aWYgdGhlIFNNTVUgaW50ZXJydXB0cyBhcmUgd29ya2luZyBjb3JyZWN0bHk/IElmIG5vdCwgaXQn
-cwo+Pj4+IHBvc3NpYmxlIHRoYXQgYW4gaW5jb3JyZWN0IGFkZHJlc3Mgb3IgbWFwcGluZyBkaXJl
-Y3Rpb24gY291bGQgbGVhZCB0bwo+Pj4+IHRoZSBETUEgdHJhbnNhY3Rpb24ganVzdCBiZWluZyBz
-aWxlbnRseSB0ZXJtaW5hdGVkIHdpdGhvdXQgYW55IGZhdWx0Cj4+Pj4gaW5kaWNhdGlvbiwgd2hp
-Y2ggZ2VuZXJhbGx5IHByZXNlbnRzIGFzIGluZXhwbGljYWJsZSB3ZWlyZG5lc3MgKEkndmUKPj4+
-PiBjZXJ0YWlubHkgc2VlbiB0aGF0IG9uIGFub3RoZXIgcGxhdGZvcm0gd2l0aCB0aGUgbWl4IG9m
-IGFuIHVuc3VwcG9ydGVkCj4+Pj4gaW50ZXJydXB0IGNvbnRyb2xsZXIgYW5kIGFuICdpbXBlcmZl
-Y3QnIGV0aGVybmV0IGRyaXZlcikuCj4+Pgo+Pj4gSWYgSSBzaW1wbHkgcmVtb3ZlIHRoZSBpb21t
-dSBub2RlIGZvciB0aGUgZXRoZXJuZXQgY29udHJvbGxlciwgdGhlbiBJCj4+PiBzZWUgbG90cyBv
-ZiAuLi4KPj4+Cj4+PiBbwqDCoMKgIDYuMjk2MTIxXSBhcm0tc21tdSAxMjAwMDAwMC5pb21tdTog
-VW5leHBlY3RlZCBnbG9iYWwgZmF1bHQsIHRoaXMKPj4+IGNvdWxkIGJlIHNlcmlvdXMKPj4+IFvC
-oMKgwqAgNi4yOTYxMjVdIGFybS1zbW11IDEyMDAwMDAwLmlvbW11OsKgwqDCoMKgwqDCoMKgwqAg
-R0ZTUiAweDAwMDAwMDAyLAo+Pj4gR0ZTWU5SMCAweDAwMDAwMDAwLCBHRlNZTlIxIDB4MDAwMDAw
-MTQsIEdGU1lOUjIgMHgwMDAwMDAwMAo+Pj4KPj4+IFNvIEkgYXNzdW1lIHRoYXQgdGhpcyBpcyB0
-cmlnZ2VyaW5nIHRoZSBTTU1VIGludGVycnVwdCBjb3JyZWN0bHkuCj4+Cj4+IEFjY29yZGluZyB0
-byB0ZWdyYTE4Ni5kdHNpIGl0IGFwcGVhcnMgeW91J3JlIHVzaW5nIHRoZSBNTVUtNTAwIGNvbWJp
-bmVkCj4+IGludGVycnVwdCwgc28gaWYgZ2xvYmFsIGZhdWx0cyBhcmUgYmVpbmcgZGVsaXZlcmVk
-IHRoZW4gY29udGV4dCBmYXVsdHMKPj4gKnNob3VsZCogYWxzbywgYnV0IEknZCBiZSBpbmNsaW5l
-ZCB0byB0cnkgYSBxdWljayBoYWNrIG9mIHRoZSByZWxldmFudAo+PiBzdG1tYWNfZGVzY19vcHM6
-OnNldF9hZGRyIGNhbGxiYWNrIHRvIHdyaXRlIHNvbWUgYm9ndXMgdW5tYXBwZWQgYWRkcmVzcwo+
-PiBqdXN0IHRvIG1ha2Ugc3VyZSBhcm1fc21tdV9jb250ZXh0X2ZhdWx0KCkgdGhlbiBzY3JlYW1z
-IGFzIGV4cGVjdGVkLCBhbmQKPj4gd2UncmUgbm90IG1pc3NpbmcgYW55dGhpbmcgZWxzZS4KPiAK
-PiBJIGhhY2tlZCB0aGUgZHJpdmVyIGFuZCBmb3JjZWQgdGhlIGFkZHJlc3MgdG8gemVybyBmb3Ig
-YSB0ZXN0IGFuZAo+IGluIGRvaW5nIHNvIEkgc2VlIC4uLgo+IAo+IFsgICAxMC40NDAwNzJdIGFy
-bS1zbW11IDEyMDAwMDAwLmlvbW11OiBVbmhhbmRsZWQgY29udGV4dCBmYXVsdDogZnNyPTB4NDAy
-LCBpb3ZhPTB4MDAwMDAwMDAsIGZzeW5yPTB4MWMwMDExLCBjYmZyc3lucmE9MHgxNCwgY2I9MAo+
-IAo+IFNvIGxvb2tzIGxpa2UgdGhlIGludGVycnVwdHMgYXJlIHdvcmtpbmcgQUZBSUNULgoKT0ss
-IHRoYXQncyBnb29kLCB0aGFua3MgZm9yIGNvbmZpcm1pbmcuIFVuZm9ydHVuYXRlbHkgdGhhdCBu
-b3cgbGVhdmVzIHVzIAp3aXRoIHRoZSBjaGFsbGVuZ2Ugb2YgZmlndXJpbmcgb3V0IGhvdyB0aGlu
-Z3MgYXJlIG1hbmFnaW5nIHRvIGdvIHdyb25nIAoqd2l0aG91dCogZXZlciBmYXVsdGluZy4uLiA6
-KQoKSSB3b25kZXIgaWYgd2UgY2FuIHByb3Zva2UgdGhlIGZhaWx1cmUgb24gbm9uLUlPTU1VIHBs
-YXRmb3JtcyB3aXRoIAoic3dpb3RsYj1mb3JjZSIgLSBJIGhhdmUgYSBmZXcgYm94ZXMgSSBjb3Vs
-ZCBwb3RlbnRpYWxseSB0ZXN0IHRoYXQgb24sIApidXQgc2FkbHkgZm9yZ290IG15IHBsYW4gdG8g
-YnJpbmcgb25lIHdpdGggbWUgdGhpcyBtb3JuaW5nLgoKUm9iaW4uCl9fX19fX19fX19fX19fX19f
-X19fX19fX19fX19fX19fX19fX19fX19fX19fX19fCkxpbnV4LXN0bTMyIG1haWxpbmcgbGlzdApM
-aW51eC1zdG0zMkBzdC1tZC1tYWlsbWFuLnN0b3JtcmVwbHkuY29tCmh0dHBzOi8vc3QtbWQtbWFp
-bG1hbi5zdG9ybXJlcGx5LmNvbS9tYWlsbWFuL2xpc3RpbmZvL2xpbnV4LXN0bTMyCg==
+From: Ilias Apalodimas <ilias.apalodimas@linaro.org>
+Date: Jul/24/2019, 10:53:10 (UTC+00:00)
+
+> Jose, 
+> > From: Ilias Apalodimas <ilias.apalodimas@linaro.org>
+> > Date: Jul/24/2019, 09:54:27 (UTC+00:00)
+> > 
+> > > Hi David, 
+> > > 
+> > > > From: Jon Hunter <jonathanh@nvidia.com>
+> > > > Date: Tue, 23 Jul 2019 13:09:00 +0100
+> > > > 
+> > > > > Setting "iommu.passthrough=1" works for me. However, I am not sure where
+> > > > > to go from here, so any ideas you have would be great.
+> > > > 
+> > > > Then definitely we are accessing outside of a valid IOMMU mapping due
+> > > > to the page pool support changes.
+> > > 
+> > > Yes. On the netsec driver i did test with and without SMMU to make sure i am not
+> > > breaking anything.
+> > > Since we map the whole page on the API i think some offset on the driver causes
+> > > that. In any case i'll have another look on page_pool to make sure we are not
+> > > missing anything. 
+> > 
+> > Ilias, can it be due to this:
+> > 
+> > stmmac_main.c:
+> > 	pp_params.order = DIV_ROUND_UP(priv->dma_buf_sz, PAGE_SIZE);
+> > 
+> > page_pool.c:
+> > 	dma = dma_map_page_attrs(pool->p.dev, page, 0,
+> > 				 (PAGE_SIZE << pool->p.order),
+> > 				 pool->p.dma_dir, DMA_ATTR_SKIP_CPU_SYNC);
+> > 
+> > "order", will be at least 1 and then mapping the page can cause overlap 
+> > ?
+> 
+> well the API is calling the map with the correct page, page offset (0) and size
+> right? I don't see any overlapping here. Aren't we mapping what we allocate?
+> 
+> Why do you need higher order pages? Jumbo frames? Can we do a quick test with
+> the order being 0?
+
+Yes, it's for Jumbo frames that can be as large as 16k.
+
+From Jon logs it can be seen that buffers are 8k but frames are 1500 max 
+so it is using order = 1.
+
+Jon, I was able to replicate (at some level) your setup:
+
+# dmesg | grep -i arm-smmu
+[    1.337322] arm-smmu 70040000.iommu: probing hardware 
+configuration...
+[    1.337330] arm-smmu 70040000.iommu: SMMUv2 with:
+[    1.337338] arm-smmu 70040000.iommu:         stage 1 translation
+[    1.337346] arm-smmu 70040000.iommu:         stage 2 translation
+[    1.337354] arm-smmu 70040000.iommu:         nested translation
+[    1.337363] arm-smmu 70040000.iommu:         stream matching with 128 
+register groups
+[    1.337374] arm-smmu 70040000.iommu:         1 context banks (0 
+stage-2 only)
+[    1.337383] arm-smmu 70040000.iommu:         Supported page sizes: 
+0x61311000
+[    1.337393] arm-smmu 70040000.iommu:         Stage-1: 48-bit VA -> 
+48-bit IPA
+[    1.337402] arm-smmu 70040000.iommu:         Stage-2: 48-bit IPA -> 
+48-bit PA
+
+# dmesg | grep -i stmmac
+[    1.344106] stmmaceth 70000000.ethernet: Adding to iommu group 0
+[    1.344233] stmmaceth 70000000.ethernet: no reset control found
+[    1.348276] stmmaceth 70000000.ethernet: User ID: 0x10, Synopsys ID: 
+0x51
+[    1.348285] stmmaceth 70000000.ethernet:     DWMAC4/5
+[    1.348293] stmmaceth 70000000.ethernet: DMA HW capability register 
+supported
+[    1.348302] stmmaceth 70000000.ethernet: RX Checksum Offload Engine 
+supported
+[    1.348311] stmmaceth 70000000.ethernet: TX Checksum insertion 
+supported
+[    1.348320] stmmaceth 70000000.ethernet: TSO supported
+[    1.348328] stmmaceth 70000000.ethernet: Enable RX Mitigation via HW 
+Watchdog Timer
+[    1.348337] stmmaceth 70000000.ethernet: TSO feature enabled
+[    1.348409] libphy: stmmac: probed
+[ 4159.140990] stmmaceth 70000000.ethernet eth0: PHY [stmmac-0:01] 
+driver [Generic PHY]
+[ 4159.141005] stmmaceth 70000000.ethernet eth0: phy: setting supported 
+00,00000000,000062ff advertising 00,00000000,000062ff
+[ 4159.142359] stmmaceth 70000000.ethernet eth0: No Safety Features 
+support found
+[ 4159.142369] stmmaceth 70000000.ethernet eth0: IEEE 1588-2008 Advanced 
+Timestamp supported
+[ 4159.142429] stmmaceth 70000000.ethernet eth0: registered PTP clock
+[ 4159.142439] stmmaceth 70000000.ethernet eth0: configuring for 
+phy/gmii link mode
+[ 4159.142452] stmmaceth 70000000.ethernet eth0: phylink_mac_config: 
+mode=phy/gmii/Unknown/Unknown adv=00,00000000,000062ff pause=10 link=0 
+an=1
+[ 4159.142466] stmmaceth 70000000.ethernet eth0: phy link up 
+gmii/1Gbps/Full
+[ 4159.142475] stmmaceth 70000000.ethernet eth0: phylink_mac_config: 
+mode=phy/gmii/1Gbps/Full adv=00,00000000,00000000 pause=0f link=1 an=0
+[ 4159.142481] stmmaceth 70000000.ethernet eth0: Link is Up - 1Gbps/Full 
+- flow control rx/tx
+
+The only missing point is the NFS boot that I can't replicate with this 
+setup. But I did some sanity checks:
+
+Remote Enpoint:
+# dd if=/dev/urandom of=output.dat bs=128M count=1
+# nc -c 192.168.0.2 1234 < output.dat
+# md5sum output.dat 
+fde9e0818281836e4fc0edfede2b8762  output.dat
+
+DUT:
+# nc -l -c -p 1234 > output.dat
+# md5sum output.dat 
+fde9e0818281836e4fc0edfede2b8762  output.dat
+
+---
+Thanks,
+Jose Miguel Abreu
+_______________________________________________
+Linux-stm32 mailing list
+Linux-stm32@st-md-mailman.stormreply.com
+https://st-md-mailman.stormreply.com/mailman/listinfo/linux-stm32
