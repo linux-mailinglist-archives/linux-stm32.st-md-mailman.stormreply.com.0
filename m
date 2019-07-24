@@ -2,76 +2,30 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id DEB4472DB1
-	for <lists+linux-stm32@lfdr.de>; Wed, 24 Jul 2019 13:34:47 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id D897672E4A
+	for <lists+linux-stm32@lfdr.de>; Wed, 24 Jul 2019 13:58:24 +0200 (CEST)
 Received: from ip-172-31-3-76.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 929F5C32EA1;
-	Wed, 24 Jul 2019 11:34:47 +0000 (UTC)
-Received: from smtprelay-out1.synopsys.com (dc8-smtprelay2.synopsys.com
- [198.182.47.102])
- (using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
- (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id E8DB6C35E03
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 37B4BC32EA1;
+	Wed, 24 Jul 2019 11:58:24 +0000 (UTC)
+Received: from hqemgate15.nvidia.com (hqemgate15.nvidia.com [216.228.121.64])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256
+ bits)) (No client certificate requested)
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 95B33C35E03
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Wed, 24 Jul 2019 11:34:45 +0000 (UTC)
-Received: from mailhost.synopsys.com (badc-mailhost2.synopsys.com
- [10.192.0.18])
- (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits))
- (No client certificate requested)
- by smtprelay-out1.synopsys.com (Postfix) with ESMTPS id 3DEB4C0C24;
- Wed, 24 Jul 2019 11:34:37 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=synopsys.com; s=mail;
- t=1563968084; bh=W2MXqvrO6iDlCAN/UEJX0xsEcjKjgQxZC+iRMsZ/Kn4=;
- h=From:To:CC:Subject:Date:References:In-Reply-To:From;
- b=SF8ym/OrMgZJYRMlB1VkWmAefOgeL0gsWMlgnbpJBqjWjow0hMnstTwBJoT6DkKqc
- d0q74abRzAAbBgD5fnuikqEHROE8m6gA6NXeRCdSEZO1A8SflWRxAmnFTm+hwzOXBH
- GlfZ6NWmF2xpbkoacHxxkMH0mdzN6UfZVHMvtt//sleKY74eVuh/Fb/1ouzB3cljxz
- l6WHsvwF3hBZyrugFymp00ad7PtiE7me1i/Fdxrt0KoFAl6eh3kcbBk4vxzTcGFSMx
- fDfhEYPvW3GAuwyR6WDVDceL4tlYISybdVCh3DY/I6Vnr7RxoibFp5XA5JNn1O/9QN
- PIzmDXqRPMWzg==
-Received: from US01WEHTC3.internal.synopsys.com
- (us01wehtc3.internal.synopsys.com [10.15.84.232])
- (using TLSv1.2 with cipher ECDHE-RSA-AES256-SHA384 (256/256 bits))
- (No client certificate requested)
- by mailhost.synopsys.com (Postfix) with ESMTPS id CE79DA006B;
- Wed, 24 Jul 2019 11:34:33 +0000 (UTC)
-Received: from US01HYBRID2.internal.synopsys.com (10.15.246.24) by
- US01WEHTC3.internal.synopsys.com (10.15.84.232) with Microsoft SMTP Server
- (TLS) id 14.3.408.0; Wed, 24 Jul 2019 04:34:28 -0700
-Received: from NAM05-BY2-obe.outbound.protection.outlook.com (10.13.134.195)
- by mrs.synopsys.com (10.15.246.24) with Microsoft SMTP Server (TLS) id
- 14.3.408.0; Wed, 24 Jul 2019 04:34:28 -0700
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=D/p/HXeKnn0WDMdXN8x+jseBImFXcqgl4zzH0ENtyZ/aWQdcWwDMjIzJ/N0tW/eNAWoc7Wx6RxJXP3fA5FaReXUQ326R9TcJ8Z1XAoAcEyltcPDoeNGoiGrfw77Y3sdGiM/L0wUEXdCP2m1DBf3NTsg/qkkCRzLG2hEEYxHK+5Zq+vW1QoGUgCvu3YQGEy4/3qooKKvt0+HWhMK/ramj+xrFKCJP2bDsQp7mi27I98o+z3wdenae/LZwG9nMTqa+QzbugBZHPwQ6F2CIMxbsUBiuMP11IrLqalEIZ6hthbeWE7Xu5pZqCYcjgPRwuEie6/0f1XRwrz2UxPVigWNaAg==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
- s=arcselector9901;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=W2MXqvrO6iDlCAN/UEJX0xsEcjKjgQxZC+iRMsZ/Kn4=;
- b=d3coYi05x80GUcgUjWfjOwRxQ0L1GLCuK1tLcBXcgWaF8XYROdTKUgZBC0/jDPs6rkRIDnWL3U44CDU8asi80jclJtroSaG1VDmo1m4Hv0AIN3SylVFSLq9CMiAFySD37FYaLF1KCIueNZ+SpRHXVqZwI8OZO1srHM5G9FKSpZoI8V8Gq3n0LH9o0Q+k9yJI9WJ75rt9t3jH0k6ftt6QxR3G9yB8cYA6uUlzlMMBzWjBN77NrTHhS/eLa+R3Dvtp1cmBRSzf7zaIc+C9bKH/Jyj0Ws1SIAghZmomjsplPVI/s9LkhHFP2FEfvQUZWCmSU2/eduOPamXTCFDvXojHYA==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1;spf=pass
- smtp.mailfrom=synopsys.com;dmarc=pass action=none
- header.from=synopsys.com;dkim=pass header.d=synopsys.com;arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=synopsys.onmicrosoft.com; s=selector1-synopsys-onmicrosoft-com;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=W2MXqvrO6iDlCAN/UEJX0xsEcjKjgQxZC+iRMsZ/Kn4=;
- b=YazhVwslzDD7+fDgd9gV+aaIBhY91B4izveFsVqUSIJg/ubjdw/tGtD5qhgqL6EmHpW4l5K08MerNWI0obUYa3LvOdWzl7pl8DwFVHeDKxyudAbvVxo8+eA61SXqsyW8g2oi4SQFp5FyUFJ5qWmpXlx5gfofydeFBQWgF6sNW8c=
-Received: from BYAPR12MB3269.namprd12.prod.outlook.com (20.179.93.146) by
- BYAPR12MB2981.namprd12.prod.outlook.com (20.178.53.18) with Microsoft SMTP
- Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.20.2094.16; Wed, 24 Jul 2019 11:34:26 +0000
-Received: from BYAPR12MB3269.namprd12.prod.outlook.com
- ([fe80::f5b8:ac6e:ea68:cb1c]) by BYAPR12MB3269.namprd12.prod.outlook.com
- ([fe80::f5b8:ac6e:ea68:cb1c%4]) with mapi id 15.20.2094.013; Wed, 24 Jul 2019
- 11:34:26 +0000
-From: Jose Abreu <Jose.Abreu@synopsys.com>
-To: Jon Hunter <jonathanh@nvidia.com>, Jose Abreu <Jose.Abreu@synopsys.com>,
- Ilias Apalodimas <ilias.apalodimas@linaro.org>
-Thread-Topic: [PATCH net-next 3/3] net: stmmac: Introducing support for Page
- Pool
-Thread-Index: AQHVMYtq2Zx4WVoG/U2kL8GCK0bP/abPQEOAgADTx+CABnZ9AIAADuYAgAAFQOCAAAnIAIAABLTAgAFMy7CAAB4gAIAAAO7wgAAG6gCAABvPAIAAcGAAgADrmoCAAA0XIIAAA1AAgAAAhFCAABUsgIAABPNg
-Date: Wed, 24 Jul 2019 11:34:26 +0000
-Message-ID: <BYAPR12MB32696F0A2BFDF69F31C4311CD3C60@BYAPR12MB3269.namprd12.prod.outlook.com>
+ Wed, 24 Jul 2019 11:58:22 +0000 (UTC)
+Received: from hqpgpgate101.nvidia.com (Not Verified[216.228.121.13]) by
+ hqemgate15.nvidia.com (using TLS: TLSv1.2, DES-CBC3-SHA)
+ id <B5d3847e40000>; Wed, 24 Jul 2019 04:58:28 -0700
+Received: from hqmail.nvidia.com ([172.20.161.6])
+ by hqpgpgate101.nvidia.com (PGP Universal service);
+ Wed, 24 Jul 2019 04:58:20 -0700
+X-PGP-Universal: processed;
+ by hqpgpgate101.nvidia.com on Wed, 24 Jul 2019 04:58:20 -0700
+Received: from [10.21.132.148] (10.124.1.5) by HQMAIL107.nvidia.com
+ (172.20.187.13) with Microsoft SMTP Server (TLS) id 15.0.1473.3; Wed, 24 Jul
+ 2019 11:58:17 +0000
+To: Jose Abreu <Jose.Abreu@synopsys.com>, Ilias Apalodimas
+ <ilias.apalodimas@linaro.org>
 References: <BYAPR12MB32692AF2BA127C5DA5B74804D3C70@BYAPR12MB3269.namprd12.prod.outlook.com>
  <6c769226-bdd9-6fe0-b96b-5a0d800fed24@arm.com>
  <8756d681-e167-fe4a-c6f0-47ae2dcbb100@nvidia.com>
@@ -81,41 +35,30 @@ References: <BYAPR12MB32692AF2BA127C5DA5B74804D3C70@BYAPR12MB3269.namprd12.prod.
  <20190724095310.GA12991@apalos>
  <BYAPR12MB3269C5766F553438ECFF2C9BD3C60@BYAPR12MB3269.namprd12.prod.outlook.com>
  <33de62bf-2f8a-bf00-9260-418b12bed24c@nvidia.com>
-In-Reply-To: <33de62bf-2f8a-bf00-9260-418b12bed24c@nvidia.com>
-Accept-Language: en-US
-Content-Language: en-US
-X-MS-Has-Attach: 
-X-MS-TNEF-Correlator: 
-authentication-results: spf=none (sender IP is )
- smtp.mailfrom=joabreu@synopsys.com; 
-x-originating-ip: [83.174.63.141]
-x-ms-publictraffictype: Email
-x-ms-office365-filtering-correlation-id: ac25b55d-2661-4e17-666a-08d7102ae208
-x-microsoft-antispam: BCL:0; PCL:0;
- RULEID:(2390118)(7020095)(4652040)(8989299)(5600148)(711020)(4605104)(1401327)(4534185)(4627221)(201703031133081)(201702281549075)(8990200)(2017052603328)(7193020);
- SRVR:BYAPR12MB2981; 
-x-ms-traffictypediagnostic: BYAPR12MB2981:
-x-microsoft-antispam-prvs: <BYAPR12MB298134CEB1F689F0A70EEF97D3C60@BYAPR12MB2981.namprd12.prod.outlook.com>
-x-ms-oob-tlc-oobclassifiers: OLM:9508;
-x-forefront-prvs: 0108A997B2
-x-forefront-antispam-report: SFV:NSPM;
- SFS:(10019020)(376002)(136003)(396003)(346002)(366004)(39860400002)(189003)(199004)(20864003)(66946007)(76116006)(81166006)(66556008)(81156014)(8676002)(52536014)(5660300002)(14454004)(66446008)(4326008)(64756008)(3846002)(53936002)(9686003)(68736007)(8936002)(55016002)(6246003)(71190400001)(66476007)(186003)(229853002)(2906002)(478600001)(476003)(305945005)(71200400001)(7736002)(110136005)(316002)(54906003)(74316002)(102836004)(19627235002)(256004)(86362001)(6436002)(53546011)(66066001)(6116002)(11346002)(486006)(25786009)(33656002)(99286004)(6506007)(76176011)(7696005)(26005)(446003)(7416002);
- DIR:OUT; SFP:1102; SCL:1; SRVR:BYAPR12MB2981;
- H:BYAPR12MB3269.namprd12.prod.outlook.com; FPR:; SPF:None; LANG:en;
- PTR:InfoNoRecords; MX:1; A:1; 
-received-spf: None (protection.outlook.com: synopsys.com does not designate
- permitted sender hosts)
-x-ms-exchange-senderadcheck: 1
-x-microsoft-antispam-message-info: KmsRYGvimlHNzDBlH1Axage4DPz/EjcfncS/o397fyLDR39CYCp0fizzHxf+wmdauKFUdsBOf0bFDnFlF4FM8nCriCXGZUTrZHLyB0bdHpeYFLuBaRInalJNsYS/02yxrw8JveCmTlRJeg6GAHaVRx9tbJm5hDSLWXA1lzlmmmI1nnFHX1rNI5OnWkGQzNUkkpKKxXkqyOqzPHAEYOSTDvLaCsV0CldboptDdbD24FvYDrQaahA4nJBBfvDvEBEF9vL9tfbtifaZS7vdHe2wKneMRXHqL/DDRp7eaiD9KBP/h7iGP5RFePbYjflJDYIpgm811xhaR/Qk3ZF3MhjtX9ilgAv2LxLaM8OfRCplcoV1V7+uED1oVC1XlFHVR3IJVhDB7VLtYpQ4Wh83VwEFhXoAOIK8HSN05uM+wK2w72A=
+ <BYAPR12MB32696F0A2BFDF69F31C4311CD3C60@BYAPR12MB3269.namprd12.prod.outlook.com>
+From: Jon Hunter <jonathanh@nvidia.com>
+Message-ID: <a07c3480-af03-a61b-4e9c-d9ceb29ce622@nvidia.com>
+Date: Wed, 24 Jul 2019 12:58:15 +0100
+User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:60.0) Gecko/20100101
+ Thunderbird/60.8.0
 MIME-Version: 1.0
-X-MS-Exchange-CrossTenant-Network-Message-Id: ac25b55d-2661-4e17-666a-08d7102ae208
-X-MS-Exchange-CrossTenant-originalarrivaltime: 24 Jul 2019 11:34:26.2457 (UTC)
-X-MS-Exchange-CrossTenant-fromentityheader: Hosted
-X-MS-Exchange-CrossTenant-id: c33c9f88-1eb7-4099-9700-16013fd9e8aa
-X-MS-Exchange-CrossTenant-mailboxtype: HOSTED
-X-MS-Exchange-CrossTenant-userprincipalname: joabreu@synopsys.com
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: BYAPR12MB2981
-X-OriginatorOrg: synopsys.com
+In-Reply-To: <BYAPR12MB32696F0A2BFDF69F31C4311CD3C60@BYAPR12MB3269.namprd12.prod.outlook.com>
+X-Originating-IP: [10.124.1.5]
+X-ClientProxiedBy: HQMAIL104.nvidia.com (172.18.146.11) To
+ HQMAIL107.nvidia.com (172.20.187.13)
+Content-Language: en-US
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=nvidia.com; s=n1;
+ t=1563969508; bh=MAA3D4oh2twLiXTungHRnZV2u/pKAWOhongP9WRyQ6w=;
+ h=X-PGP-Universal:Subject:To:CC:References:From:Message-ID:Date:
+ User-Agent:MIME-Version:In-Reply-To:X-Originating-IP:
+ X-ClientProxiedBy:Content-Type:Content-Language:
+ Content-Transfer-Encoding;
+ b=leET5dACvWh4OGkh9sSpgVxYbpfGDJjAS/zB2KfMZ+N0FM54yU8F8V8XHIlmAGFzY
+ SdRPn+bWXWsPwFS/MsnopXQvrVnDQKmEE8YASOMQkCJY+x6DJzHC9F8zl28Ki+1n6E
+ 6FR/GNLwDo0A/7TXdPRTw9fK+dIHTVl93Z28bDah1lWcDoWeVGcmkqxHvX5EVA5qbZ
+ t9ERGJQ7voAYBZe6oL8mmvhJuhmmXLUq7fXBe4xzi3IErr7RDuI51UEhXub0hSuGG7
+ 2mdOz8F6SeXe4j5A501Ub1v14ngez3RTvMt7ei5VuAy5uK8b9kJnluoUhIFbuPBvsg
+ MArTR73CMWBPg==
 Cc: "Joao.Pinto@synopsys.com" <Joao.Pinto@synopsys.com>,
  "maxime.ripard@bootlin.com" <maxime.ripard@bootlin.com>,
  "netdev@vger.kernel.org" <netdev@vger.kernel.org>,
@@ -146,109 +89,118 @@ Content-Transfer-Encoding: 7bit
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
-From: Jon Hunter <jonathanh@nvidia.com>
-Date: Jul/24/2019, 12:10:47 (UTC+00:00)
 
+On 24/07/2019 12:34, Jose Abreu wrote:
+> From: Jon Hunter <jonathanh@nvidia.com>
+> Date: Jul/24/2019, 12:10:47 (UTC+00:00)
 > 
-> On 24/07/2019 11:04, Jose Abreu wrote:
+>>
+>> On 24/07/2019 11:04, Jose Abreu wrote:
+>>
+>> ...
+>>
+>>> Jon, I was able to replicate (at some level) your setup:
+>>>
+>>> # dmesg | grep -i arm-smmu
+>>> [    1.337322] arm-smmu 70040000.iommu: probing hardware 
+>>> configuration...
+>>> [    1.337330] arm-smmu 70040000.iommu: SMMUv2 with:
+>>> [    1.337338] arm-smmu 70040000.iommu:         stage 1 translation
+>>> [    1.337346] arm-smmu 70040000.iommu:         stage 2 translation
+>>> [    1.337354] arm-smmu 70040000.iommu:         nested translation
+>>> [    1.337363] arm-smmu 70040000.iommu:         stream matching with 128 
+>>> register groups
+>>> [    1.337374] arm-smmu 70040000.iommu:         1 context banks (0 
+>>> stage-2 only)
+>>> [    1.337383] arm-smmu 70040000.iommu:         Supported page sizes: 
+>>> 0x61311000
+>>> [    1.337393] arm-smmu 70040000.iommu:         Stage-1: 48-bit VA -> 
+>>> 48-bit IPA
+>>> [    1.337402] arm-smmu 70040000.iommu:         Stage-2: 48-bit IPA -> 
+>>> 48-bit PA
+>>>
+>>> # dmesg | grep -i stmmac
+>>> [    1.344106] stmmaceth 70000000.ethernet: Adding to iommu group 0
+>>> [    1.344233] stmmaceth 70000000.ethernet: no reset control found
+>>> [    1.348276] stmmaceth 70000000.ethernet: User ID: 0x10, Synopsys ID: 
+>>> 0x51
+>>> [    1.348285] stmmaceth 70000000.ethernet:     DWMAC4/5
+>>> [    1.348293] stmmaceth 70000000.ethernet: DMA HW capability register 
+>>> supported
+>>> [    1.348302] stmmaceth 70000000.ethernet: RX Checksum Offload Engine 
+>>> supported
+>>> [    1.348311] stmmaceth 70000000.ethernet: TX Checksum insertion 
+>>> supported
+>>> [    1.348320] stmmaceth 70000000.ethernet: TSO supported
+>>> [    1.348328] stmmaceth 70000000.ethernet: Enable RX Mitigation via HW 
+>>> Watchdog Timer
+>>> [    1.348337] stmmaceth 70000000.ethernet: TSO feature enabled
+>>> [    1.348409] libphy: stmmac: probed
+>>> [ 4159.140990] stmmaceth 70000000.ethernet eth0: PHY [stmmac-0:01] 
+>>> driver [Generic PHY]
+>>> [ 4159.141005] stmmaceth 70000000.ethernet eth0: phy: setting supported 
+>>> 00,00000000,000062ff advertising 00,00000000,000062ff
+>>> [ 4159.142359] stmmaceth 70000000.ethernet eth0: No Safety Features 
+>>> support found
+>>> [ 4159.142369] stmmaceth 70000000.ethernet eth0: IEEE 1588-2008 Advanced 
+>>> Timestamp supported
+>>> [ 4159.142429] stmmaceth 70000000.ethernet eth0: registered PTP clock
+>>> [ 4159.142439] stmmaceth 70000000.ethernet eth0: configuring for 
+>>> phy/gmii link mode
+>>> [ 4159.142452] stmmaceth 70000000.ethernet eth0: phylink_mac_config: 
+>>> mode=phy/gmii/Unknown/Unknown adv=00,00000000,000062ff pause=10 link=0 
+>>> an=1
+>>> [ 4159.142466] stmmaceth 70000000.ethernet eth0: phy link up 
+>>> gmii/1Gbps/Full
+>>> [ 4159.142475] stmmaceth 70000000.ethernet eth0: phylink_mac_config: 
+>>> mode=phy/gmii/1Gbps/Full adv=00,00000000,00000000 pause=0f link=1 an=0
+>>> [ 4159.142481] stmmaceth 70000000.ethernet eth0: Link is Up - 1Gbps/Full 
+>>> - flow control rx/tx
+>>>
+>>> The only missing point is the NFS boot that I can't replicate with this 
+>>> setup. But I did some sanity checks:
+>>>
+>>> Remote Enpoint:
+>>> # dd if=/dev/urandom of=output.dat bs=128M count=1
+>>> # nc -c 192.168.0.2 1234 < output.dat
+>>> # md5sum output.dat 
+>>> fde9e0818281836e4fc0edfede2b8762  output.dat
+>>>
+>>> DUT:
+>>> # nc -l -c -p 1234 > output.dat
+>>> # md5sum output.dat 
+>>> fde9e0818281836e4fc0edfede2b8762  output.dat
+>>
+>> On my setup, if I do not use NFS to mount the rootfs, but then manually
+>> mount the NFS share after booting, I do not see any problems reading or
+>> writing to files on the share. So I am not sure if it is some sort of
+>> race that is occurring when mounting the NFS share on boot. It is 100%
+>> reproducible when using NFS for the root file-system.
 > 
-> ...
+> I don't understand how can there be corruption then unless the IP AXI 
+> parameters are misconfigured which can lead to sporadic undefined 
+> behavior.
 > 
-> > Jon, I was able to replicate (at some level) your setup:
-> > 
-> > # dmesg | grep -i arm-smmu
-> > [    1.337322] arm-smmu 70040000.iommu: probing hardware 
-> > configuration...
-> > [    1.337330] arm-smmu 70040000.iommu: SMMUv2 with:
-> > [    1.337338] arm-smmu 70040000.iommu:         stage 1 translation
-> > [    1.337346] arm-smmu 70040000.iommu:         stage 2 translation
-> > [    1.337354] arm-smmu 70040000.iommu:         nested translation
-> > [    1.337363] arm-smmu 70040000.iommu:         stream matching with 128 
-> > register groups
-> > [    1.337374] arm-smmu 70040000.iommu:         1 context banks (0 
-> > stage-2 only)
-> > [    1.337383] arm-smmu 70040000.iommu:         Supported page sizes: 
-> > 0x61311000
-> > [    1.337393] arm-smmu 70040000.iommu:         Stage-1: 48-bit VA -> 
-> > 48-bit IPA
-> > [    1.337402] arm-smmu 70040000.iommu:         Stage-2: 48-bit IPA -> 
-> > 48-bit PA
-> > 
-> > # dmesg | grep -i stmmac
-> > [    1.344106] stmmaceth 70000000.ethernet: Adding to iommu group 0
-> > [    1.344233] stmmaceth 70000000.ethernet: no reset control found
-> > [    1.348276] stmmaceth 70000000.ethernet: User ID: 0x10, Synopsys ID: 
-> > 0x51
-> > [    1.348285] stmmaceth 70000000.ethernet:     DWMAC4/5
-> > [    1.348293] stmmaceth 70000000.ethernet: DMA HW capability register 
-> > supported
-> > [    1.348302] stmmaceth 70000000.ethernet: RX Checksum Offload Engine 
-> > supported
-> > [    1.348311] stmmaceth 70000000.ethernet: TX Checksum insertion 
-> > supported
-> > [    1.348320] stmmaceth 70000000.ethernet: TSO supported
-> > [    1.348328] stmmaceth 70000000.ethernet: Enable RX Mitigation via HW 
-> > Watchdog Timer
-> > [    1.348337] stmmaceth 70000000.ethernet: TSO feature enabled
-> > [    1.348409] libphy: stmmac: probed
-> > [ 4159.140990] stmmaceth 70000000.ethernet eth0: PHY [stmmac-0:01] 
-> > driver [Generic PHY]
-> > [ 4159.141005] stmmaceth 70000000.ethernet eth0: phy: setting supported 
-> > 00,00000000,000062ff advertising 00,00000000,000062ff
-> > [ 4159.142359] stmmaceth 70000000.ethernet eth0: No Safety Features 
-> > support found
-> > [ 4159.142369] stmmaceth 70000000.ethernet eth0: IEEE 1588-2008 Advanced 
-> > Timestamp supported
-> > [ 4159.142429] stmmaceth 70000000.ethernet eth0: registered PTP clock
-> > [ 4159.142439] stmmaceth 70000000.ethernet eth0: configuring for 
-> > phy/gmii link mode
-> > [ 4159.142452] stmmaceth 70000000.ethernet eth0: phylink_mac_config: 
-> > mode=phy/gmii/Unknown/Unknown adv=00,00000000,000062ff pause=10 link=0 
-> > an=1
-> > [ 4159.142466] stmmaceth 70000000.ethernet eth0: phy link up 
-> > gmii/1Gbps/Full
-> > [ 4159.142475] stmmaceth 70000000.ethernet eth0: phylink_mac_config: 
-> > mode=phy/gmii/1Gbps/Full adv=00,00000000,00000000 pause=0f link=1 an=0
-> > [ 4159.142481] stmmaceth 70000000.ethernet eth0: Link is Up - 1Gbps/Full 
-> > - flow control rx/tx
-> > 
-> > The only missing point is the NFS boot that I can't replicate with this 
-> > setup. But I did some sanity checks:
-> > 
-> > Remote Enpoint:
-> > # dd if=/dev/urandom of=output.dat bs=128M count=1
-> > # nc -c 192.168.0.2 1234 < output.dat
-> > # md5sum output.dat 
-> > fde9e0818281836e4fc0edfede2b8762  output.dat
-> > 
-> > DUT:
-> > # nc -l -c -p 1234 > output.dat
-> > # md5sum output.dat 
-> > fde9e0818281836e4fc0edfede2b8762  output.dat
+> These prints from your logs:
+> [   14.579392] Run /init as init process
+> /init: line 58: chmod: command not found
+> [ 10:22:46 ] L4T-INITRD Build DATE: Mon Jul 22 10:22:46 UTC 2019
+> [ 10:22:46 ] Root device found: nfs
+> [ 10:22:46 ] Ethernet interfaces: eth0
+> [ 10:22:46 ] IP Address: 10.21.140.41
 > 
-> On my setup, if I do not use NFS to mount the rootfs, but then manually
-> mount the NFS share after booting, I do not see any problems reading or
-> writing to files on the share. So I am not sure if it is some sort of
-> race that is occurring when mounting the NFS share on boot. It is 100%
-> reproducible when using NFS for the root file-system.
+> Where are they coming from ? Do you have any extra init script ?
 
-I don't understand how can there be corruption then unless the IP AXI 
-parameters are misconfigured which can lead to sporadic undefined 
-behavior.
+By default there is an initial ramdisk that is loaded first and then the
+rootfs is mounted over NFS. However, even if I remove this ramdisk and
+directly mount the rootfs via NFS without it the problem persists. So I
+don't see any issue with the ramdisk and whats more is we have been
+using this for a long long time. Nothing has changed here.
 
-These prints from your logs:
-[   14.579392] Run /init as init process
-/init: line 58: chmod: command not found
-[ 10:22:46 ] L4T-INITRD Build DATE: Mon Jul 22 10:22:46 UTC 2019
-[ 10:22:46 ] Root device found: nfs
-[ 10:22:46 ] Ethernet interfaces: eth0
-[ 10:22:46 ] IP Address: 10.21.140.41
+Jon
 
-Where are they coming from ? Do you have any extra init script ?
-
----
-Thanks,
-Jose Miguel Abreu
+-- 
+nvpublic
 _______________________________________________
 Linux-stm32 mailing list
 Linux-stm32@st-md-mailman.stormreply.com
