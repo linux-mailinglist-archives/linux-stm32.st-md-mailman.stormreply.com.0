@@ -2,65 +2,66 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id 94F6574B17
-	for <lists+linux-stm32@lfdr.de>; Thu, 25 Jul 2019 12:07:06 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id D623374B67
+	for <lists+linux-stm32@lfdr.de>; Thu, 25 Jul 2019 12:21:00 +0200 (CEST)
 Received: from ip-172-31-3-76.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 512FAC1E9DD
-	for <lists+linux-stm32@lfdr.de>; Thu, 25 Jul 2019 10:07:01 +0000 (UTC)
-Received: from mail-qk1-f195.google.com (mail-qk1-f195.google.com
- [209.85.222.195])
- (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 2ECDDCFAC72;
+	Thu, 25 Jul 2019 10:21:00 +0000 (UTC)
+Received: from mx07-00178001.pphosted.com (mx07-00178001.pphosted.com
+ [62.209.51.94])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 4685AC24029
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 05413C35E02
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Thu, 25 Jul 2019 10:06:59 +0000 (UTC)
-Received: by mail-qk1-f195.google.com with SMTP id t8so35977292qkt.1
- for <linux-stm32@st-md-mailman.stormreply.com>;
- Thu, 25 Jul 2019 03:06:59 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linaro.org; s=google;
- h=mime-version:references:in-reply-to:from:date:message-id:subject:to
- :cc:content-transfer-encoding;
- bh=iDpc/h+t5HFPyYg4DUmqC3W/qj3IevlDqgxyrC8qmFg=;
- b=D48sYZRL49X/JEbjE/r+QGhbeKkMsgqVaKMFLmOjCdr3YqKIT05SYNaAAMElekTSdy
- grLASidXkibREaU6S2+N3uGDYzXDx0wAcWLyM9t6J0TSwTkMpE9Nu0CsUDS/0p3lNHNx
- 7AXO0fG9OQFtDA3RquO9nbP1Ba1/YPUR9PvzFvSdG52vMXOppoJHj6uTM1AauVgLRoT5
- qawGIHUhMJGV2jQg8TDNFz7Bzj8vgpsUy29QDy/TLL/U0LlWRdCiFuPoGWlzYbprWYz3
- gx9FjcyMa+K0wrOsEhtKpTlI9CWJw+mRJtZVLQGefAHOWwyNtwfVLkJ9WwBbMp/D0Wd1
- S/JQ==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20161025;
- h=x-gm-message-state:mime-version:references:in-reply-to:from:date
- :message-id:subject:to:cc:content-transfer-encoding;
- bh=iDpc/h+t5HFPyYg4DUmqC3W/qj3IevlDqgxyrC8qmFg=;
- b=JNhvd+RrJXpUkoJ0z0YyFum+VqXSYR4zrElcf6axr61eddYHiv4jAR8NEgBYa8j9Jc
- Tkqga435soT/uAWBjM/4RCEz+jrepmiNgYfUpRca0BzzgDEKKX0YdvPYPqsoFFgMZ7Fw
- y2K8VFW1h68br2Q6IxdtMLLVJFmD+jkBzYSwnFbQaK1acKIlRMP0vmwInqcT0ec21FaM
- SksdrFvmAbd2ZHDSY4flORUcxv8DNwggjc06hDQjwlUyARuizevePcRxljJ23ZLEVLkY
- JCQ2ED2Qqdub6dQ4H8vRj2zFvfORd9lrC475pKvgdfOfV6XQqlmPWUfV53i8tBy+hodf
- z3yw==
-X-Gm-Message-State: APjAAAXV0ht88GMd8NIsNE2TA0gCTFoHsmgzxK/muACuQ2xDQ+xhVb+p
- PO7OE+j/S/P4tP7jeMj3eL0xeNkF/MiekG8CDKH/ww==
-X-Google-Smtp-Source: APXvYqwM5mUhz7rtyBZANnmdZKEEAOrmxIhFLIoB8HQG4cb7P+EEkjkvxv8hFVfZ1gPWOziZXmVet9TbybYpvNSqnPs=
-X-Received: by 2002:a37:9c94:: with SMTP id
- f142mr52099337qke.427.1564049218292; 
- Thu, 25 Jul 2019 03:06:58 -0700 (PDT)
+ Thu, 25 Jul 2019 10:20:57 +0000 (UTC)
+Received: from pps.filterd (m0046037.ppops.net [127.0.0.1])
+ by mx07-00178001.pphosted.com (8.16.0.27/8.16.0.27) with SMTP id
+ x6PAGBi3023124; Thu, 25 Jul 2019 12:20:37 +0200
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=st.com;
+ h=subject : to : cc :
+ references : from : message-id : date : mime-version : in-reply-to :
+ content-type : content-transfer-encoding; s=STMicroelectronics;
+ bh=PuANcSYUEr2h1YiccGZF5KbI11ZnNfnGmreQcfFcH0U=;
+ b=fZjQNeAlzyROf+NRDgI5o941gWC5rqhiFUKF7WOkjv6ekb1mK3ZzaWnd1/9gHoh6QATr
+ Uv3RD3OZRTek5QmSeNEAXGDJtC8oKhB7JKmA5SlnhyQ3OSRsQzohm+xvNqnI27a5x7pR
+ CRcUDQNabZA9KPQIx772g8fVoy+K3aRz0j3WlxKo7ISAZEae0MeZOilBTh2007t1SRZ9
+ ddZ/1ThE/uKHHQv+y3tAwp7KLJTHXwtYiz0LXYsIFlv6eLK9dg5bZ5faKgjOXT3DdvYW
+ 9uifGSCOLaaal21dfTH3iSEA2XMbavAMEBTcEKXfvfn7ZKQld7PXHmt3pIUJBnKb4HT6 Fw== 
+Received: from beta.dmz-eu.st.com (beta.dmz-eu.st.com [164.129.1.35])
+ by mx07-00178001.pphosted.com with ESMTP id 2tx60433ce-1
+ (version=TLSv1 cipher=ECDHE-RSA-AES256-SHA bits=256 verify=NOT);
+ Thu, 25 Jul 2019 12:20:37 +0200
+Received: from zeta.dmz-eu.st.com (zeta.dmz-eu.st.com [164.129.230.9])
+ by beta.dmz-eu.st.com (STMicroelectronics) with ESMTP id 6B4223A;
+ Thu, 25 Jul 2019 10:20:36 +0000 (GMT)
+Received: from Webmail-eu.st.com (sfhdag3node2.st.com [10.75.127.8])
+ by zeta.dmz-eu.st.com (STMicroelectronics) with ESMTP id 31C672945;
+ Thu, 25 Jul 2019 10:20:36 +0000 (GMT)
+Received: from lmecxl0912.lme.st.com (10.75.127.48) by SFHDAG3NODE2.st.com
+ (10.75.127.8) with Microsoft SMTP Server (TLS) id 15.0.1347.2; Thu, 25 Jul
+ 2019 12:20:35 +0200
+To: Christophe Kerello <christophe.kerello@st.com>, <robh+dt@kernel.org>,
+ <mark.rutland@arm.com>, <linux@armlinux.org.uk>, <olof@lixom.net>,
+ <arnd@arndb.de>
+References: <1561128590-14621-1-git-send-email-christophe.kerello@st.com>
+From: Alexandre Torgue <alexandre.torgue@st.com>
+Message-ID: <cc4c56ca-c3cb-fc8c-e223-4b98754d3592@st.com>
+Date: Thu, 25 Jul 2019 12:20:34 +0200
+User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:60.0) Gecko/20100101
+ Thunderbird/60.8.0
 MIME-Version: 1.0
-References: <20190712084228.8338-1-l.stach@pengutronix.de>
- <e09dc82c-51dc-830c-a297-fe951faeb306@st.com>
-In-Reply-To: <e09dc82c-51dc-830c-a297-fe951faeb306@st.com>
-From: Benjamin Gaignard <benjamin.gaignard@linaro.org>
-Date: Thu, 25 Jul 2019 12:06:47 +0200
-Message-ID: <CA+M3ks4TgL=+gzCNL_c4Dwa5AiohM-uDFw7tk-bQ8gD9uu4v0A@mail.gmail.com>
-To: Philippe CORNU <philippe.cornu@st.com>
-Cc: "dri-devel@lists.freedesktop.org" <dri-devel@lists.freedesktop.org>,
- "patchwork-lst@pengutronix.de" <patchwork-lst@pengutronix.de>,
- Yannick FERTRE <yannick.fertre@st.com>,
- "kernel@pengutronix.de" <kernel@pengutronix.de>,
- Vincent ABRIOU <vincent.abriou@st.com>,
- "linux-stm32@st-md-mailman.stormreply.com"
- <linux-stm32@st-md-mailman.stormreply.com>,
- Lucas Stach <l.stach@pengutronix.de>
-Subject: Re: [Linux-stm32] [PATCH] drm/stm: attach gem fence to atomic state
+In-Reply-To: <1561128590-14621-1-git-send-email-christophe.kerello@st.com>
+Content-Language: en-US
+X-Originating-IP: [10.75.127.48]
+X-ClientProxiedBy: SFHDAG2NODE1.st.com (10.75.127.4) To SFHDAG3NODE2.st.com
+ (10.75.127.8)
+X-Proofpoint-Virus-Version: vendor=fsecure engine=2.50.10434:, ,
+ definitions=2019-07-25_04:, , signatures=0
+Cc: linux-arm-kernel@lists.infradead.org, devicetree@vger.kernel.org,
+ linux-stm32@st-md-mailman.stormreply.com, mcoquelin.stm32@gmail.com,
+ linux-kernel@vger.kernel.org
+Subject: Re: [Linux-stm32] [PATCH 0/4] ARM: dts: stm32: enable FMC2 NAND
+ controller on stm32mp157c-ev1
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -72,42 +73,37 @@ List-Post: <mailto:linux-stm32@st-md-mailman.stormreply.com>
 List-Help: <mailto:linux-stm32-request@st-md-mailman.stormreply.com?subject=help>
 List-Subscribe: <https://st-md-mailman.stormreply.com/mailman/listinfo/linux-stm32>, 
  <mailto:linux-stm32-request@st-md-mailman.stormreply.com?subject=subscribe>
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: base64
+Content-Transfer-Encoding: 7bit
+Content-Type: text/plain; charset="us-ascii"; Format="flowed"
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
-TGUgdmVuLiAxOSBqdWlsLiAyMDE5IMOgIDE1OjM1LCBQaGlsaXBwZSBDT1JOVSA8cGhpbGlwcGUu
-Y29ybnVAc3QuY29tPiBhIMOpY3JpdCA6Cj4KPiBIaSBMdWNhcyAmIEFobWFkLAo+Cj4gTWFueSB0
-aGFua3MgZm9yIHlvdXIgcGF0Y2gsCj4KPiBUZXN0ZWQgc3VjY2Vzc2Z1bGx5IG9uIHN0bTMybXAx
-NTctZGsyICh3ZXN0b24gJiBkcm0pLgo+Cj4gQWNrZWQtYnk6IFBoaWxpcHBlIENvcm51IDxwaGls
-aXBwZS5jb3JudUBzdC5jb20+Cj4gVGVzdGVkLWJ5OiBQaGlsaXBwZSBDb3JudSA8cGhpbGlwcGUu
-Y29ybnVAc3QuY29tPgoKQXBwbGllZCBvbiBkcm0tbWlzYy1uZXh0LgpUaGFua3MsCkJlbmphbWlu
-Cgo+Cj4gUGhpbGlwcGUgOi0pCj4KPiBPbiA3LzEyLzE5IDEwOjQyIEFNLCBMdWNhcyBTdGFjaCB3
-cm90ZToKPiA+IEZyb206IEFobWFkIEZhdG91bSA8YS5mYXRvdW1AcGVuZ3V0cm9uaXguZGU+Cj4g
-Pgo+ID4gVG8gcHJvcGVybHkgc3luY2hyb25pemUgd2l0aCBvdGhlciBkZXZpY2VzIHRoZSBmZW5j
-ZSBmcm9tIHRoZSBHRU0KPiA+IG9iamVjdCBiYWNraW5nIHRoZSBmcmFtZWJ1ZmZlciBuZWVkcyB0
-byBiZSBhdHRhY2hlZCB0byB0aGUgYXRvbWljCj4gPiBzdGF0ZSwgc28gdGhlIGNvbW1pdCB3b3Jr
-IGNhbiB3YWl0IG9uIGZlbmNlIHNpZ25hbGluZy4KPiA+Cj4gPiBTaWduZWQtb2ZmLWJ5OiBBaG1h
-ZCBGYXRvdW0gPGEuZmF0b3VtQHBlbmd1dHJvbml4LmRlPgo+ID4gU2lnbmVkLW9mZi1ieTogTHVj
-YXMgU3RhY2ggPGwuc3RhY2hAcGVuZ3V0cm9uaXguZGU+Cj4gPiAtLS0KPiA+ICAgZHJpdmVycy9n
-cHUvZHJtL3N0bS9sdGRjLmMgfCAyICsrCj4gPiAgIDEgZmlsZSBjaGFuZ2VkLCAyIGluc2VydGlv
-bnMoKykKPiA+Cj4gPiBkaWZmIC0tZ2l0IGEvZHJpdmVycy9ncHUvZHJtL3N0bS9sdGRjLmMgYi9k
-cml2ZXJzL2dwdS9kcm0vc3RtL2x0ZGMuYwo+ID4gaW5kZXggMmZlNmM0YThkOTE1Li4zYWI0ZmJm
-OGViMGQgMTAwNjQ0Cj4gPiAtLS0gYS9kcml2ZXJzL2dwdS9kcm0vc3RtL2x0ZGMuYwo+ID4gKysr
-IGIvZHJpdmVycy9ncHUvZHJtL3N0bS9sdGRjLmMKPiA+IEBAIC0yNiw2ICsyNiw3IEBACj4gPiAg
-ICNpbmNsdWRlIDxkcm0vZHJtX2ZiX2NtYV9oZWxwZXIuaD4KPiA+ICAgI2luY2x1ZGUgPGRybS9k
-cm1fZm91cmNjLmg+Cj4gPiAgICNpbmNsdWRlIDxkcm0vZHJtX2dlbV9jbWFfaGVscGVyLmg+Cj4g
-PiArI2luY2x1ZGUgPGRybS9kcm1fZ2VtX2ZyYW1lYnVmZmVyX2hlbHBlci5oPgo+ID4gICAjaW5j
-bHVkZSA8ZHJtL2RybV9vZi5oPgo+ID4gICAjaW5jbHVkZSA8ZHJtL2RybV9wbGFuZV9oZWxwZXIu
-aD4KPiA+ICAgI2luY2x1ZGUgPGRybS9kcm1fcHJvYmVfaGVscGVyLmg+Cj4gPiBAQCAtOTIyLDYg
-KzkyMyw3IEBAIHN0YXRpYyBjb25zdCBzdHJ1Y3QgZHJtX3BsYW5lX2Z1bmNzIGx0ZGNfcGxhbmVf
-ZnVuY3MgPSB7Cj4gPiAgIH07Cj4gPgo+ID4gICBzdGF0aWMgY29uc3Qgc3RydWN0IGRybV9wbGFu
-ZV9oZWxwZXJfZnVuY3MgbHRkY19wbGFuZV9oZWxwZXJfZnVuY3MgPSB7Cj4gPiArICAgICAucHJl
-cGFyZV9mYiA9IGRybV9nZW1fZmJfcHJlcGFyZV9mYiwKPiA+ICAgICAgIC5hdG9taWNfY2hlY2sg
-PSBsdGRjX3BsYW5lX2F0b21pY19jaGVjaywKPiA+ICAgICAgIC5hdG9taWNfdXBkYXRlID0gbHRk
-Y19wbGFuZV9hdG9taWNfdXBkYXRlLAo+ID4gICAgICAgLmF0b21pY19kaXNhYmxlID0gbHRkY19w
-bGFuZV9hdG9taWNfZGlzYWJsZSwKPiA+Cl9fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19f
-X19fX19fX19fX19fX19fCkxpbnV4LXN0bTMyIG1haWxpbmcgbGlzdApMaW51eC1zdG0zMkBzdC1t
-ZC1tYWlsbWFuLnN0b3JtcmVwbHkuY29tCmh0dHBzOi8vc3QtbWQtbWFpbG1hbi5zdG9ybXJlcGx5
-LmNvbS9tYWlsbWFuL2xpc3RpbmZvL2xpbnV4LXN0bTMyCg==
+Hi Christophe
+
+On 6/21/19 4:49 PM, Christophe Kerello wrote:
+> This patchset adds and enables FMC2 NAND controller used on
+> stm32mp157c-ev1.
+> 
+> Christophe Kerello (4):
+>    ARM: dts: stm32: add FMC2 NAND controller support on stm32mp157c
+>    ARM: dts: stm32: add FMC2 NAND controller pins muxing on
+>      stm32mp157c-ev1
+>    ARM: dts: stm32: enable FMC2 NAND controller on stm32mp157c-ev1
+>    ARM: multi_v7_defconfig: add FMC2 NAND  controller support
+> 
+>   arch/arm/boot/dts/stm32mp157-pinctrl.dtsi | 44 +++++++++++++++++++++++++++++++
+>   arch/arm/boot/dts/stm32mp157c-ev1.dts     | 16 +++++++++++
+>   arch/arm/boot/dts/stm32mp157c.dtsi        | 19 +++++++++++++
+>   arch/arm/configs/multi_v7_defconfig       |  1 +
+>   4 files changed, 80 insertions(+)
+> 
+
+Series applied on stm32-next.
+Note, I changed capital letter in patch1 directly (As I responded late).
+
+Regards
+Alex
+_______________________________________________
+Linux-stm32 mailing list
+Linux-stm32@st-md-mailman.stormreply.com
+https://st-md-mailman.stormreply.com/mailman/listinfo/linux-stm32
