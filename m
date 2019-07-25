@@ -2,50 +2,66 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id 0D88174D4C
-	for <lists+linux-stm32@lfdr.de>; Thu, 25 Jul 2019 13:40:15 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 9CF5174E28
+	for <lists+linux-stm32@lfdr.de>; Thu, 25 Jul 2019 14:31:37 +0200 (CEST)
 Received: from ip-172-31-3-76.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id CAD47C16346;
-	Thu, 25 Jul 2019 11:40:14 +0000 (UTC)
-Received: from lb3-smtp-cloud7.xs4all.net (lb3-smtp-cloud7.xs4all.net
- [194.109.24.31])
- (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 56702C29037;
+	Thu, 25 Jul 2019 12:31:37 +0000 (UTC)
+Received: from mail-qk1-f196.google.com (mail-qk1-f196.google.com
+ [209.85.222.196])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 91C41C16340
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 79A33C32E9F
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Thu, 25 Jul 2019 11:40:13 +0000 (UTC)
-Received: from [IPv6:2001:420:44c1:2579:64cb:e917:d1ce:4f27]
- ([IPv6:2001:420:44c1:2579:64cb:e917:d1ce:4f27])
- by smtp-cloud7.xs4all.net with ESMTPA
- id qc6RhDzVqLqASqc6UhTNZH; Thu, 25 Jul 2019 13:40:13 +0200
-To: Hugues Fruchet <hugues.fruchet@st.com>,
- Alexandre Torgue <alexandre.torgue@st.com>,
- Mauro Carvalho Chehab <mchehab@kernel.org>,
- Sakari Ailus <sakari.ailus@linux.intel.com>
-References: <1562082779-31165-1-git-send-email-hugues.fruchet@st.com>
- <1562082779-31165-4-git-send-email-hugues.fruchet@st.com>
-From: Hans Verkuil <hverkuil@xs4all.nl>
-Message-ID: <81e1a94d-af25-302c-64a6-3cec096d4144@xs4all.nl>
-Date: Thu, 25 Jul 2019 13:40:07 +0200
-User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:60.0) Gecko/20100101
- Thunderbird/60.5.1
+ Thu, 25 Jul 2019 12:31:36 +0000 (UTC)
+Received: by mail-qk1-f196.google.com with SMTP id g18so36230739qkl.3
+ for <linux-stm32@st-md-mailman.stormreply.com>;
+ Thu, 25 Jul 2019 05:31:36 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linaro.org; s=google;
+ h=mime-version:references:in-reply-to:from:date:message-id:subject:to
+ :cc:content-transfer-encoding;
+ bh=3vOhJr4R9IHXs2ns1CQPNi9tups8zk+9lQf/RJAnA0w=;
+ b=oyGpE2Mdzy7CUufchd8ehSD43VuTFwk8fz2D/ftoUm+otR7MhqugXIeS0KEE3Y2HvZ
+ y8Ur6mOC9Ux+nbHqhK5HwulszZ7kC9jZe+6ctmJpl83GjOrr6ngsFAHfCtnmeBr30L9i
+ HIbouEFLFnWjGWiYVh6RcUsSKFNhhscC1Wv2Skt+AT2xCaBZvNr2Mc4Xfl3f8FMy+axk
+ Ytx39Mgh9a3bzcryxeAEPDFMahDuRnO6Q6lhJFoOVQko81LaCcchwFiwLFJ23i6LJ/7H
+ yCrbyaIRSyTEFGh7IY+eROAyPHPH2hjL8Bv2PSRyfDdwYUnlUwqmBnvxtmSclgsHCCd+
+ fPig==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20161025;
+ h=x-gm-message-state:mime-version:references:in-reply-to:from:date
+ :message-id:subject:to:cc:content-transfer-encoding;
+ bh=3vOhJr4R9IHXs2ns1CQPNi9tups8zk+9lQf/RJAnA0w=;
+ b=T/rojV9XyxR4ASL3SOz0ONpjYEL8IIaWTQtR0KF0QCLuBGFIapp5EM+QH/Ye/D07lr
+ T1b/Ygu5K8mNo7quBdfOC1ChMHJXyqrZJFKsgEseVG4dTc/FUArzQS6aC3l87S8s/v8s
+ rDQcBivjBAbrZ5t4rhJGf9eH4AEyFKVmEE96bNSFcA485NMjLEzfhJxrE4ur7BjQyrtz
+ hBmgngclrPPIB8OVKkTwMlQd33W++u+nt5pUkHpDZEoROQiZN2AXUF+xMTuZQ00F+wE3
+ wpHGcx+lo7c+Nk8QywyTS6KCloSTJvAsbbE+1j5TS0sVS4Ind5xVuJFXhLbXWoe2kWcn
+ xufA==
+X-Gm-Message-State: APjAAAWsf/CS2ohNkClmqMQOj4Eby/cqTWJhObX8ZXeV786U6vF0Cbv+
+ WgP0TKEATWfNQ/alLuvHNcJMJPfgvFA5FKN00ddaxg==
+X-Google-Smtp-Source: APXvYqzw0OOD7qxJ+qp3p00p/2GWwD3VFv4Bn031dtzHiYXsJAGBNbun3scyLD1DLCPkYYTMixPKN3qbD+BIOKe+yV4=
+X-Received: by 2002:a05:620a:1286:: with SMTP id
+ w6mr56787652qki.219.1564057895419; 
+ Thu, 25 Jul 2019 05:31:35 -0700 (PDT)
 MIME-Version: 1.0
-In-Reply-To: <1562082779-31165-4-git-send-email-hugues.fruchet@st.com>
-Content-Language: en-US
-X-CMAE-Envelope: MS4wfD6zZs5Xe3b+Cna/lTQDRan8ATsxRHeJ7bRwfRroa/o2dWYrjaFm0sAsGST+vIhhzj6gPB6DoA25iIFlJhW/AFzMkB8B34TMfcYJMjqAzPAwsYuD70eP
- DH3uremVITRXBeZgiNs7Y964Y7R8lrCwZ7SC8TRv80Y6OzUjXhnGlMkKScyXQ+dRIsK7FtmqK+yxiHyzUfLIVWudUgA/x0+lb7WcrC+qAyS7sgTcZUL3JRGy
- bXQJFZc5K6mSbEi6hHYVR61Jp79NPX+UPT3CT5DG1lRY0cL02l7VF8D8w4fxCyWomIcIbz7M6IbxgN0wGIaeAyJmfkjWAPVI8p4wEGIH7FogcMKU6tdMPmUu
- SnhveOX5cRDtwHVoZdRcQy7GreS3OoACS8Dw1h4AyoMktRv3srfYwt7XRHUguhVG2HBG25jFQBGiYSIZz0a4r8G5Hvb4mev1mRYj8mOZLMaXlMjf+rwatAti
- e4YSglYv/OXPV39b6a7nFZVL/a8qf7BvLE4MTiPvWom/pUxrYGOMhwFV6RvlqSdfmNMSPaunYccoyrUdev1EeV9a4zFbsEgQXVCMbrrZC6VbBW/yNZBful1h
- u6NGaXbQWk0F/0qOGY8Td2yL+jzAED6w+YbXMAZgsf6hmm9cEmWW2/HjglgYG2LV9+59P5L0LydUYseeedjZvpse0O5+xOWQ4XSk/s5cdqBL56dkR2evi4jt
- wrSTdGFT+9U=
-Cc: Mickael GUENE <mickael.guene@st.com>, linux-kernel@vger.kernel.org,
- Yannick Fertre <yannick.fertre@st.com>,
- Benjamin Gaignard <benjamin.gaignard@linaro.org>,
- linux-stm32@st-md-mailman.stormreply.com, linux-arm-kernel@lists.infradead.org,
- linux-media@vger.kernel.org
-Subject: Re: [Linux-stm32] [PATCH v3 3/3] media: stm32-dcmi: add support of
- several sub-devices
+References: <1562141052-26221-1-git-send-email-olivier.moysan@st.com>
+ <129ffc9a-0bfc-354e-c4a1-9043260832c0@ti.com>
+In-Reply-To: <129ffc9a-0bfc-354e-c4a1-9043260832c0@ti.com>
+From: Benjamin Gaignard <benjamin.gaignard@linaro.org>
+Date: Thu, 25 Jul 2019 14:31:24 +0200
+Message-ID: <CA+M3ks6H4OC0SUUj=34OxCq-chA-W_YxO_xs_0hkJAuxQv12JQ@mail.gmail.com>
+To: Jyri Sarha <jsarha@ti.com>
+Cc: jernej.skrabec@siol.net, Jonas Karlman <jonas@kwiboo.se>,
+ David Airlie <airlied@linux.ie>, Neil Armstrong <narmstrong@baylibre.com>,
+ Linux Kernel Mailing List <linux-kernel@vger.kernel.org>,
+ ML dri-devel <dri-devel@lists.freedesktop.org>,
+ Andrzej Hajda <a.hajda@samsung.com>,
+ Laurent Pinchart <Laurent.pinchart@ideasonboard.com>,
+ Daniel Vetter <daniel@ffwll.ch>, linux-stm32@st-md-mailman.stormreply.com,
+ Linux ARM <linux-arm-kernel@lists.infradead.org>
+Subject: Re: [Linux-stm32] [PATCH] drm/bridge: sii902x: add audio graph card
+	support
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -57,322 +73,57 @@ List-Post: <mailto:linux-stm32@st-md-mailman.stormreply.com>
 List-Help: <mailto:linux-stm32-request@st-md-mailman.stormreply.com?subject=help>
 List-Subscribe: <https://st-md-mailman.stormreply.com/mailman/listinfo/linux-stm32>, 
  <mailto:linux-stm32-request@st-md-mailman.stormreply.com?subject=subscribe>
-Content-Type: text/plain; charset="us-ascii"
-Content-Transfer-Encoding: 7bit
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: base64
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
-On 7/2/19 5:52 PM, Hugues Fruchet wrote:
-> Add support of several sub-devices within pipeline instead
-> of a single one.
-> This allows to support a CSI-2 camera sensor connected
-> through a CSI-2 to parallel bridge.
-> 
-> Signed-off-by: Hugues Fruchet <hugues.fruchet@st.com>
-> ---
->  drivers/media/platform/stm32/stm32-dcmi.c | 204 +++++++++++++++++++++++++++---
->  1 file changed, 186 insertions(+), 18 deletions(-)
-> 
-> diff --git a/drivers/media/platform/stm32/stm32-dcmi.c b/drivers/media/platform/stm32/stm32-dcmi.c
-> index 6f37617..6921e6b 100644
-> --- a/drivers/media/platform/stm32/stm32-dcmi.c
-> +++ b/drivers/media/platform/stm32/stm32-dcmi.c
-> @@ -172,6 +172,7 @@ struct stm32_dcmi {
->  
->  	struct media_device		mdev;
->  	struct media_pad		vid_cap_pad;
-> +	struct media_pipeline		pipeline;
->  };
->  
->  static inline struct stm32_dcmi *notifier_to_dcmi(struct v4l2_async_notifier *n)
-> @@ -583,6 +584,131 @@ static void dcmi_buf_queue(struct vb2_buffer *vb)
->  	spin_unlock_irq(&dcmi->irqlock);
->  }
->  
-> +static struct media_entity *dcmi_find_source(struct stm32_dcmi *dcmi)
-> +{
-> +	struct media_entity *entity = &dcmi->vdev->entity;
-> +	struct media_pad *pad;
-> +
-> +	/* Walk searching for entity having no sink */
-> +	while (1) {
-> +		pad = &entity->pads[0];
-> +		if (!(pad->flags & MEDIA_PAD_FL_SINK))
-> +			break;
-> +
-> +		pad = media_entity_remote_pad(pad);
-> +		if (!pad || !is_media_entity_v4l2_subdev(pad->entity))
-> +			break;
-> +
-> +		entity = pad->entity;
-> +	}
-> +
-> +	return entity;
-> +}
-> +
-> +static int dcmi_pipeline_s_fmt(struct stm32_dcmi *dcmi,
-> +			       struct v4l2_subdev_pad_config *pad_cfg,
-> +			       struct v4l2_subdev_format *format)
-> +{
-> +	struct media_entity *entity = &dcmi->entity.source->entity;
-> +	struct v4l2_subdev *subdev;
-> +	struct media_pad *sink_pad = NULL;
-> +	struct media_pad *src_pad = NULL;
-> +	struct media_pad *pad = NULL;
-> +	struct v4l2_subdev_format fmt = *format;
-> +	bool found = false;
-> +	int ret;
-> +
-> +	/*
-> +	 * Starting from sensor subdevice, walk within
-> +	 * pipeline and set format on each subdevice
-> +	 */
-> +	while (1) {
-> +		unsigned int i;
-> +
-> +		/* Search if current entity has a source pad */
-> +		for (i = 0; i < entity->num_pads; i++) {
-> +			pad = &entity->pads[i];
-> +			if (pad->flags & MEDIA_PAD_FL_SOURCE) {
-> +				src_pad = pad;
-> +				found = true;
-> +				break;
-> +			}
-> +		}
-> +		if (!found)
-> +			break;
-> +
-> +		subdev = media_entity_to_v4l2_subdev(entity);
-> +
-> +		/* Propagate format on sink pad if any, otherwise source pad */
-> +		if (sink_pad)
-> +			pad = sink_pad;
-> +
-> +		dev_dbg(dcmi->dev, "%s[%d] pad format set to 0x%x %ux%u\n",
-> +			subdev->name, pad->index, format->format.code,
-> +			format->format.width, format->format.height);
-> +
-> +		fmt.pad = pad->index;
-> +		ret = v4l2_subdev_call(subdev, pad, set_fmt, pad_cfg, &fmt);
-> +		if (ret < 0)
-> +			return ret;
-> +
-> +		/* Walk to next entity */
-> +		sink_pad = media_entity_remote_pad(src_pad);
-> +		if (!sink_pad || !is_media_entity_v4l2_subdev(sink_pad->entity))
-> +			break;
-> +
-> +		entity = sink_pad->entity;
-> +	}
-> +	*format = fmt;
-> +
-> +	return 0;
-> +}
-> +
-> +static int dcmi_pipeline_s_stream(struct stm32_dcmi *dcmi, int state)
-> +{
-> +	struct media_entity *entity = &dcmi->vdev->entity;
-> +	struct v4l2_subdev *subdev;
-> +	struct media_pad *pad;
-> +	int ret;
-> +
-> +	/* Start/stop all entities within pipeline */
-> +	while (1) {
-> +		pad = &entity->pads[0];
-> +		if (!(pad->flags & MEDIA_PAD_FL_SINK))
-> +			break;
-> +
-> +		pad = media_entity_remote_pad(pad);
-> +		if (!pad || !is_media_entity_v4l2_subdev(pad->entity))
-> +			break;
-> +
-> +		entity = pad->entity;
-> +		subdev = media_entity_to_v4l2_subdev(entity);
-> +
-> +		ret = v4l2_subdev_call(subdev, video, s_stream, state);
-> +		if (ret < 0 && ret != -ENOIOCTLCMD) {
-> +			dev_err(dcmi->dev, "%s: %s failed to %s streaming (%d)\n",
-> +				__func__, subdev->name,
-> +				state ? "start" : "stop", ret);
-> +			return ret;
-> +		}
-> +
-> +		dev_dbg(dcmi->dev, "%s is %s\n",
-> +			subdev->name, state ? "started" : "stopped");
-> +	}
-> +
-> +	return 0;
-> +}
-> +
-> +static int dcmi_pipeline_start(struct stm32_dcmi *dcmi)
-> +{
-> +	return dcmi_pipeline_s_stream(dcmi, 1);
-> +}
-> +
-> +static void dcmi_pipeline_stop(struct stm32_dcmi *dcmi)
-> +{
-> +	dcmi_pipeline_s_stream(dcmi, 0);
-> +}
-> +
->  static int dcmi_start_streaming(struct vb2_queue *vq, unsigned int count)
->  {
->  	struct stm32_dcmi *dcmi = vb2_get_drv_priv(vq);
-> @@ -597,14 +723,17 @@ static int dcmi_start_streaming(struct vb2_queue *vq, unsigned int count)
->  		goto err_release_buffers;
->  	}
->  
-> -	/* Enable stream on the sub device */
-> -	ret = v4l2_subdev_call(dcmi->entity.source, video, s_stream, 1);
-> -	if (ret && ret != -ENOIOCTLCMD) {
-> -		dev_err(dcmi->dev, "%s: Failed to start streaming, subdev streamon error",
-> -			__func__);
-> +	ret = media_pipeline_start(&dcmi->vdev->entity, &dcmi->pipeline);
-> +	if (ret < 0) {
-> +		dev_err(dcmi->dev, "%s: Failed to start streaming, media pipeline start error (%d)\n",
-> +			__func__, ret);
->  		goto err_pm_put;
->  	}
->  
-> +	ret = dcmi_pipeline_start(dcmi);
-> +	if (ret)
-> +		goto err_media_pipeline_stop;
-> +
->  	spin_lock_irq(&dcmi->irqlock);
->  
->  	/* Set bus width */
-> @@ -676,7 +805,7 @@ static int dcmi_start_streaming(struct vb2_queue *vq, unsigned int count)
->  	if (ret) {
->  		dev_err(dcmi->dev, "%s: Start streaming failed, cannot start capture\n",
->  			__func__);
-> -		goto err_subdev_streamoff;
-> +		goto err_pipeline_stop;
->  	}
->  
->  	/* Enable interruptions */
-> @@ -687,8 +816,11 @@ static int dcmi_start_streaming(struct vb2_queue *vq, unsigned int count)
->  
->  	return 0;
->  
-> -err_subdev_streamoff:
-> -	v4l2_subdev_call(dcmi->entity.source, video, s_stream, 0);
-> +err_pipeline_stop:
-> +	dcmi_pipeline_stop(dcmi);
-> +
-> +err_media_pipeline_stop:
-> +	media_pipeline_stop(&dcmi->vdev->entity);
->  
->  err_pm_put:
->  	pm_runtime_put(dcmi->dev);
-> @@ -713,13 +845,10 @@ static void dcmi_stop_streaming(struct vb2_queue *vq)
->  {
->  	struct stm32_dcmi *dcmi = vb2_get_drv_priv(vq);
->  	struct dcmi_buf *buf, *node;
-> -	int ret;
->  
-> -	/* Disable stream on the sub device */
-> -	ret = v4l2_subdev_call(dcmi->entity.source, video, s_stream, 0);
-> -	if (ret && ret != -ENOIOCTLCMD)
-> -		dev_err(dcmi->dev, "%s: Failed to stop streaming, subdev streamoff error (%d)\n",
-> -			__func__, ret);
-> +	dcmi_pipeline_stop(dcmi);
-> +
-> +	media_pipeline_stop(&dcmi->vdev->entity);
->  
->  	spin_lock_irq(&dcmi->irqlock);
->  
-> @@ -937,8 +1066,7 @@ static int dcmi_set_fmt(struct stm32_dcmi *dcmi, struct v4l2_format *f)
->  	mf->width = sd_framesize.width;
->  	mf->height = sd_framesize.height;
->  
-> -	ret = v4l2_subdev_call(dcmi->entity.source, pad,
-> -			       set_fmt, NULL, &format);
-> +	ret = dcmi_pipeline_s_fmt(dcmi, NULL, &format);
->  	if (ret < 0)
->  		return ret;
->  
-> @@ -1529,7 +1657,20 @@ static int dcmi_graph_notify_complete(struct v4l2_async_notifier *notifier)
->  	struct stm32_dcmi *dcmi = notifier_to_dcmi(notifier);
->  	int ret;
->  
-> +	/*
-> +	 * Now that the graph is complete,
-> +	 * we search for the source subdevice
-> +	 * in order to expose it through V4L2 interface
-> +	 */
-> +	dcmi->entity.source =
-> +		media_entity_to_v4l2_subdev(dcmi_find_source(dcmi));
-> +	if (!dcmi->entity.source) {
-> +		dev_err(dcmi->dev, "Source subdevice not found\n");
-> +		return -ENODEV;
-> +	}
-> +
->  	dcmi->vdev->ctrl_handler = dcmi->entity.source->ctrl_handler;
-> +
->  	ret = dcmi_formats_init(dcmi);
->  	if (ret) {
->  		dev_err(dcmi->dev, "No supported mediabus format found\n");
-> @@ -1574,12 +1715,30 @@ static int dcmi_graph_notify_bound(struct v4l2_async_notifier *notifier,
->  				   struct v4l2_async_subdev *asd)
->  {
->  	struct stm32_dcmi *dcmi = notifier_to_dcmi(notifier);
-> +	unsigned int ret;
-> +	int src_pad;
->  
->  	dev_dbg(dcmi->dev, "Subdev %s bound\n", subdev->name);
->  
-> -	dcmi->entity.source = subdev;
-> +	/*
-> +	 * Link this sub-device to DCMI, it could be
-> +	 * a parallel camera sensor or a bridge
-> +	 */
-> +	src_pad = media_entity_get_fwnode_pad(&subdev->entity,
-> +					      subdev->fwnode,
-> +					      MEDIA_PAD_FL_SOURCE);
-> +
-> +	ret = media_create_pad_link(&subdev->entity, src_pad,
-> +				    &dcmi->vdev->entity, 0,
-> +				    MEDIA_LNK_FL_IMMUTABLE |
-> +				    MEDIA_LNK_FL_ENABLED);
-> +	if (ret)
-> +		dev_err(dcmi->dev, "Failed to create media pad link with subdev %s\n",
-> +			subdev->name);
-> +	else
-> +		dev_dbg(dcmi->dev, "DCMI is now linked to %s\n", subdev->name);
->  
-> -	return 0;
-> +	return ret;
->  }
->  
->  static const struct v4l2_async_notifier_operations dcmi_graph_notify_ops = {
-> @@ -1639,6 +1798,15 @@ static int dcmi_graph_init(struct stm32_dcmi *dcmi)
->  		return ret;
->  	}
->  
-> +	/* Register all the subdev nodes */
-> +	ret = v4l2_device_register_subdev_nodes(&dcmi->v4l2_dev);
-
-This shouldn't be needed. Only MC-centric drivers (i.e. where the pipeline
-has to be configured by userspace) need to do this.
-
-Otherwise this patch looks good.
-
-Regards,
-
-	Hans
-
-> +	if (ret) {
-> +		dev_err(dcmi->dev, "Failed to register subdev nodes\n");
-> +		v4l2_async_notifier_unregister(&dcmi->notifier);
-> +		of_node_put(dcmi->entity.remote_node);
-> +		return ret;
-> +	}
-> +
->  	return 0;
->  }
->  
-> 
-
-_______________________________________________
-Linux-stm32 mailing list
-Linux-stm32@st-md-mailman.stormreply.com
-https://st-md-mailman.stormreply.com/mailman/listinfo/linux-stm32
+TGUgamV1LiAxMSBqdWlsLiAyMDE5IMOgIDEzOjA5LCBKeXJpIFNhcmhhIDxqc2FyaGFAdGkuY29t
+PiBhIMOpY3JpdCA6Cj4KPiBPbiAwMy8wNy8yMDE5IDExOjA0LCBPbGl2aWVyIE1veXNhbiB3cm90
+ZToKPiA+IEltcGxlbWVudCBnZXRfZGFpX2lkIGNhbGxiYWNrIG9mIGF1ZGlvIEhETUkgY29kZWMK
+PiA+IHRvIHN1cHBvcnQgQVNvQyBhdWRpbyBncmFwaCBjYXJkLgo+ID4gSERNSSBhdWRpbyBvdXRw
+dXQgaGFzIHRvIGJlIGNvbm5lY3RlZCB0byBzaWk5MDJ4IHBvcnQgMy4KPiA+IGdldF9kYWlfaWQg
+Y2FsbGJhY2sgbWFwcyB0aGlzIHBvcnQgdG8gQVNvQyBEQUkgaW5kZXggMC4KPiA+Cj4gPiBTaWdu
+ZWQtb2ZmLWJ5OiBPbGl2aWVyIE1veXNhbiA8b2xpdmllci5tb3lzYW5Ac3QuY29tPgo+Cj4gSSBo
+YXZlIG5vdCB1c2VkIGF1ZGlvIGdyYXBoIGJpbmRpbmcsIGJ1dCBjb21wYXJlZCB0byB0aGUgb3Ro
+ZXIKPiBnZXRfZGFpX2lkKCkgaW1wbGVtZW50YXRpb25zLCB0aGlzIGxvb2tzIGlkZW50aWNhbC4g
+U286Cj4KPiBSZXZpZXdlZC1ieTogSnlyaSBTYXJoYSA8anNhcmhhQHRpLmNvbT4KCkFwcGxpZWQg
+b24gZHJtLW1pc2MtbmV4dCwKVGhhbmtzLApCZW5qYW1pbgoKPgo+ID4gLS0tCj4gPiAgZHJpdmVy
+cy9ncHUvZHJtL2JyaWRnZS9zaWk5MDJ4LmMgfCAyMyArKysrKysrKysrKysrKysrKysrKysrKwo+
+ID4gIDEgZmlsZSBjaGFuZ2VkLCAyMyBpbnNlcnRpb25zKCspCj4gPgo+ID4gZGlmZiAtLWdpdCBh
+L2RyaXZlcnMvZ3B1L2RybS9icmlkZ2Uvc2lpOTAyeC5jIGIvZHJpdmVycy9ncHUvZHJtL2JyaWRn
+ZS9zaWk5MDJ4LmMKPiA+IGluZGV4IGRkN2FhNDY2YjI4MC4uZGFmOWVmM2NkODE3IDEwMDY0NAo+
+ID4gLS0tIGEvZHJpdmVycy9ncHUvZHJtL2JyaWRnZS9zaWk5MDJ4LmMKPiA+ICsrKyBiL2RyaXZl
+cnMvZ3B1L2RybS9icmlkZ2Uvc2lpOTAyeC5jCj4gPiBAQCAtMTU4LDYgKzE1OCw4IEBACj4gPgo+
+ID4gICNkZWZpbmUgU0lJOTAyWF9JMkNfQlVTX0FDUVVJU0lUSU9OX1RJTUVPVVRfTVMgICAgICAg
+NTAwCj4gPgo+ID4gKyNkZWZpbmUgU0lJOTAyWF9BVURJT19QT1JUX0lOREVYICAgICAgICAgICAg
+IDMKPiA+ICsKPiA+ICBzdHJ1Y3Qgc2lpOTAyeCB7Cj4gPiAgICAgICBzdHJ1Y3QgaTJjX2NsaWVu
+dCAqaTJjOwo+ID4gICAgICAgc3RydWN0IHJlZ21hcCAqcmVnbWFwOwo+ID4gQEAgLTY5MCwxMSAr
+NjkyLDMyIEBAIHN0YXRpYyBpbnQgc2lpOTAyeF9hdWRpb19nZXRfZWxkKHN0cnVjdCBkZXZpY2Ug
+KmRldiwgdm9pZCAqZGF0YSwKPiA+ICAgICAgIHJldHVybiAwOwo+ID4gIH0KPiA+Cj4gPiArc3Rh
+dGljIGludCBzaWk5MDJ4X2F1ZGlvX2dldF9kYWlfaWQoc3RydWN0IHNuZF9zb2NfY29tcG9uZW50
+ICpjb21wb25lbnQsCj4gPiArICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgc3RydWN0
+IGRldmljZV9ub2RlICplbmRwb2ludCkKPiA+ICt7Cj4gPiArICAgICBzdHJ1Y3Qgb2ZfZW5kcG9p
+bnQgb2ZfZXA7Cj4gPiArICAgICBpbnQgcmV0Owo+ID4gKwo+ID4gKyAgICAgcmV0ID0gb2ZfZ3Jh
+cGhfcGFyc2VfZW5kcG9pbnQoZW5kcG9pbnQsICZvZl9lcCk7Cj4gPiArICAgICBpZiAocmV0IDwg
+MCkKPiA+ICsgICAgICAgICAgICAgcmV0dXJuIHJldDsKPiA+ICsKPiA+ICsgICAgIC8qCj4gPiAr
+ICAgICAgKiBIRE1JIHNvdW5kIHNob3VsZCBiZSBsb2NhdGVkIGF0IHJlZyA9IDwzPgo+ID4gKyAg
+ICAgICogUmV0dXJuIGV4cGVjdGVkIERBSSBpbmRleCAwLgo+ID4gKyAgICAgICovCj4gPiArICAg
+ICBpZiAob2ZfZXAucG9ydCA9PSBTSUk5MDJYX0FVRElPX1BPUlRfSU5ERVgpCj4gPiArICAgICAg
+ICAgICAgIHJldHVybiAwOwo+ID4gKwo+ID4gKyAgICAgcmV0dXJuIC1FSU5WQUw7Cj4gPiArfQo+
+ID4gKwo+ID4gIHN0YXRpYyBjb25zdCBzdHJ1Y3QgaGRtaV9jb2RlY19vcHMgc2lpOTAyeF9hdWRp
+b19jb2RlY19vcHMgPSB7Cj4gPiAgICAgICAuaHdfcGFyYW1zID0gc2lpOTAyeF9hdWRpb19od19w
+YXJhbXMsCj4gPiAgICAgICAuYXVkaW9fc2h1dGRvd24gPSBzaWk5MDJ4X2F1ZGlvX3NodXRkb3du
+LAo+ID4gICAgICAgLmRpZ2l0YWxfbXV0ZSA9IHNpaTkwMnhfYXVkaW9fZGlnaXRhbF9tdXRlLAo+
+ID4gICAgICAgLmdldF9lbGQgPSBzaWk5MDJ4X2F1ZGlvX2dldF9lbGQsCj4gPiArICAgICAuZ2V0
+X2RhaV9pZCA9IHNpaTkwMnhfYXVkaW9fZ2V0X2RhaV9pZCwKPiA+ICB9Owo+ID4KPiA+ICBzdGF0
+aWMgaW50IHNpaTkwMnhfYXVkaW9fY29kZWNfaW5pdChzdHJ1Y3Qgc2lpOTAyeCAqc2lpOTAyeCwK
+PiA+Cj4KPgo+IC0tCj4gVGV4YXMgSW5zdHJ1bWVudHMgRmlubGFuZCBPeSwgUG9ya2thbGFua2F0
+dSAyMiwgMDAxODAgSGVsc2lua2kuCj4gWS10dW5udXMvQnVzaW5lc3MgSUQ6IDA2MTU1MjEtNC4g
+S290aXBhaWtrYS9Eb21pY2lsZTogSGVsc2lua2kKPiBfX19fX19fX19fX19fX19fX19fX19fX19f
+X19fX19fX19fX19fX19fX19fX19fXwo+IGRyaS1kZXZlbCBtYWlsaW5nIGxpc3QKPiBkcmktZGV2
+ZWxAbGlzdHMuZnJlZWRlc2t0b3Aub3JnCj4gaHR0cHM6Ly9saXN0cy5mcmVlZGVza3RvcC5vcmcv
+bWFpbG1hbi9saXN0aW5mby9kcmktZGV2ZWwKX19fX19fX19fX19fX19fX19fX19fX19fX19fX19f
+X19fX19fX19fX19fX19fX18KTGludXgtc3RtMzIgbWFpbGluZyBsaXN0CkxpbnV4LXN0bTMyQHN0
+LW1kLW1haWxtYW4uc3Rvcm1yZXBseS5jb20KaHR0cHM6Ly9zdC1tZC1tYWlsbWFuLnN0b3JtcmVw
+bHkuY29tL21haWxtYW4vbGlzdGluZm8vbGludXgtc3RtMzIK
