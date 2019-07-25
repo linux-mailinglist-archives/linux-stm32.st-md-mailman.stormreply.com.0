@@ -2,66 +2,64 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id 9CF5174E28
-	for <lists+linux-stm32@lfdr.de>; Thu, 25 Jul 2019 14:31:37 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id A672374F0C
+	for <lists+linux-stm32@lfdr.de>; Thu, 25 Jul 2019 15:20:16 +0200 (CEST)
 Received: from ip-172-31-3-76.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 56702C29037;
-	Thu, 25 Jul 2019 12:31:37 +0000 (UTC)
-Received: from mail-qk1-f196.google.com (mail-qk1-f196.google.com
- [209.85.222.196])
- (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
- (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 79A33C32E9F
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 56354C35E16;
+	Thu, 25 Jul 2019 13:20:16 +0000 (UTC)
+Received: from hqemgate15.nvidia.com (hqemgate15.nvidia.com [216.228.121.64])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256
+ bits)) (No client certificate requested)
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id DB731C35E0E
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Thu, 25 Jul 2019 12:31:36 +0000 (UTC)
-Received: by mail-qk1-f196.google.com with SMTP id g18so36230739qkl.3
- for <linux-stm32@st-md-mailman.stormreply.com>;
- Thu, 25 Jul 2019 05:31:36 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linaro.org; s=google;
- h=mime-version:references:in-reply-to:from:date:message-id:subject:to
- :cc:content-transfer-encoding;
- bh=3vOhJr4R9IHXs2ns1CQPNi9tups8zk+9lQf/RJAnA0w=;
- b=oyGpE2Mdzy7CUufchd8ehSD43VuTFwk8fz2D/ftoUm+otR7MhqugXIeS0KEE3Y2HvZ
- y8Ur6mOC9Ux+nbHqhK5HwulszZ7kC9jZe+6ctmJpl83GjOrr6ngsFAHfCtnmeBr30L9i
- HIbouEFLFnWjGWiYVh6RcUsSKFNhhscC1Wv2Skt+AT2xCaBZvNr2Mc4Xfl3f8FMy+axk
- Ytx39Mgh9a3bzcryxeAEPDFMahDuRnO6Q6lhJFoOVQko81LaCcchwFiwLFJ23i6LJ/7H
- yCrbyaIRSyTEFGh7IY+eROAyPHPH2hjL8Bv2PSRyfDdwYUnlUwqmBnvxtmSclgsHCCd+
- fPig==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20161025;
- h=x-gm-message-state:mime-version:references:in-reply-to:from:date
- :message-id:subject:to:cc:content-transfer-encoding;
- bh=3vOhJr4R9IHXs2ns1CQPNi9tups8zk+9lQf/RJAnA0w=;
- b=T/rojV9XyxR4ASL3SOz0ONpjYEL8IIaWTQtR0KF0QCLuBGFIapp5EM+QH/Ye/D07lr
- T1b/Ygu5K8mNo7quBdfOC1ChMHJXyqrZJFKsgEseVG4dTc/FUArzQS6aC3l87S8s/v8s
- rDQcBivjBAbrZ5t4rhJGf9eH4AEyFKVmEE96bNSFcA485NMjLEzfhJxrE4ur7BjQyrtz
- hBmgngclrPPIB8OVKkTwMlQd33W++u+nt5pUkHpDZEoROQiZN2AXUF+xMTuZQ00F+wE3
- wpHGcx+lo7c+Nk8QywyTS6KCloSTJvAsbbE+1j5TS0sVS4Ind5xVuJFXhLbXWoe2kWcn
- xufA==
-X-Gm-Message-State: APjAAAWsf/CS2ohNkClmqMQOj4Eby/cqTWJhObX8ZXeV786U6vF0Cbv+
- WgP0TKEATWfNQ/alLuvHNcJMJPfgvFA5FKN00ddaxg==
-X-Google-Smtp-Source: APXvYqzw0OOD7qxJ+qp3p00p/2GWwD3VFv4Bn031dtzHiYXsJAGBNbun3scyLD1DLCPkYYTMixPKN3qbD+BIOKe+yV4=
-X-Received: by 2002:a05:620a:1286:: with SMTP id
- w6mr56787652qki.219.1564057895419; 
- Thu, 25 Jul 2019 05:31:35 -0700 (PDT)
+ Thu, 25 Jul 2019 13:20:14 +0000 (UTC)
+Received: from hqpgpgate101.nvidia.com (Not Verified[216.228.121.13]) by
+ hqemgate15.nvidia.com (using TLS: TLSv1.2, DES-CBC3-SHA)
+ id <B5d39ac940000>; Thu, 25 Jul 2019 06:20:20 -0700
+Received: from hqmail.nvidia.com ([172.20.161.6])
+ by hqpgpgate101.nvidia.com (PGP Universal service);
+ Thu, 25 Jul 2019 06:20:12 -0700
+X-PGP-Universal: processed;
+ by hqpgpgate101.nvidia.com on Thu, 25 Jul 2019 06:20:12 -0700
+Received: from [10.21.132.148] (172.20.13.39) by HQMAIL107.nvidia.com
+ (172.20.187.13) with Microsoft SMTP Server (TLS) id 15.0.1473.3; Thu, 25 Jul
+ 2019 13:20:09 +0000
+To: Jose Abreu <Jose.Abreu@synopsys.com>, <linux-kernel@vger.kernel.org>,
+ <netdev@vger.kernel.org>, <linux-stm32@st-md-mailman.stormreply.com>,
+ <linux-arm-kernel@lists.infradead.org>
+References: <cover.1562149883.git.joabreu@synopsys.com>
+ <1b254bb7fc6044c5e6e2fdd9e00088d1d13a808b.1562149883.git.joabreu@synopsys.com>
+From: Jon Hunter <jonathanh@nvidia.com>
+Message-ID: <7a79be5d-7ba2-c457-36d3-1ccef6572181@nvidia.com>
+Date: Thu, 25 Jul 2019 14:20:07 +0100
+User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:60.0) Gecko/20100101
+ Thunderbird/60.8.0
 MIME-Version: 1.0
-References: <1562141052-26221-1-git-send-email-olivier.moysan@st.com>
- <129ffc9a-0bfc-354e-c4a1-9043260832c0@ti.com>
-In-Reply-To: <129ffc9a-0bfc-354e-c4a1-9043260832c0@ti.com>
-From: Benjamin Gaignard <benjamin.gaignard@linaro.org>
-Date: Thu, 25 Jul 2019 14:31:24 +0200
-Message-ID: <CA+M3ks6H4OC0SUUj=34OxCq-chA-W_YxO_xs_0hkJAuxQv12JQ@mail.gmail.com>
-To: Jyri Sarha <jsarha@ti.com>
-Cc: jernej.skrabec@siol.net, Jonas Karlman <jonas@kwiboo.se>,
- David Airlie <airlied@linux.ie>, Neil Armstrong <narmstrong@baylibre.com>,
- Linux Kernel Mailing List <linux-kernel@vger.kernel.org>,
- ML dri-devel <dri-devel@lists.freedesktop.org>,
- Andrzej Hajda <a.hajda@samsung.com>,
- Laurent Pinchart <Laurent.pinchart@ideasonboard.com>,
- Daniel Vetter <daniel@ffwll.ch>, linux-stm32@st-md-mailman.stormreply.com,
- Linux ARM <linux-arm-kernel@lists.infradead.org>
-Subject: Re: [Linux-stm32] [PATCH] drm/bridge: sii902x: add audio graph card
-	support
+In-Reply-To: <1b254bb7fc6044c5e6e2fdd9e00088d1d13a808b.1562149883.git.joabreu@synopsys.com>
+X-Originating-IP: [172.20.13.39]
+X-ClientProxiedBy: HQMAIL107.nvidia.com (172.20.187.13) To
+ HQMAIL107.nvidia.com (172.20.187.13)
+Content-Language: en-US
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=nvidia.com; s=n1;
+ t=1564060820; bh=0UU4p4fjSvuq+XgEx2myYMcD6cODEFOXywbe+DQR42Y=;
+ h=X-PGP-Universal:Subject:To:CC:References:From:Message-ID:Date:
+ User-Agent:MIME-Version:In-Reply-To:X-Originating-IP:
+ X-ClientProxiedBy:Content-Type:Content-Language:
+ Content-Transfer-Encoding;
+ b=isQLuIiSVeLw7cn+/BRLZrFTRMXNgmPPF16oiSOHPfNeyumjr63w6TZtNtKuV1T2e
+ P17wS19TRokQFI5cvZJ76VRFyYk7PuYIqQjQ5Bf68HgOB/N7gSId073r5SUhZ+ASVS
+ chMa2uQjJG6MDZl06C5fOdJvC3ytWA9s1ol0J3TuqoRgBPNbialMHD/+1CuqvUbnsi
+ HhVtgM7YnBPHMqCIwicc16LgQL5ZUS7eyJFoNwjIOpHsrj1W40KMJevK4K5a89qYSK
+ 91RNn6AJCz70A6CHt+WcnSBkGdCPktYqRFL5wxve7j99z5Jnoy5X1Bj2WS6Ikm5F2R
+ 5SFgMFTGGbZjg==
+Cc: Joao Pinto <Joao.Pinto@synopsys.com>,
+ Maxime Ripard <maxime.ripard@bootlin.com>, "wens@csie.org" <wens@csie.org>,
+ Maxime Coquelin <mcoquelin.stm32@gmail.com>,
+ linux-tegra <linux-tegra@vger.kernel.org>,
+ "peppe.cavallaro@st.com" <peppe.cavallaro@st.com>,
+ Robin Murphy <robin.murphy@arm.com>, "David S . Miller" <davem@davemloft.net>
+Subject: Re: [Linux-stm32] [PATCH net-next 3/3] net: stmmac: Introducing
+ support for Page Pool
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -73,57 +71,142 @@ List-Post: <mailto:linux-stm32@st-md-mailman.stormreply.com>
 List-Help: <mailto:linux-stm32-request@st-md-mailman.stormreply.com?subject=help>
 List-Subscribe: <https://st-md-mailman.stormreply.com/mailman/listinfo/linux-stm32>, 
  <mailto:linux-stm32-request@st-md-mailman.stormreply.com?subject=subscribe>
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: base64
+Content-Type: text/plain; charset="us-ascii"
+Content-Transfer-Encoding: 7bit
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
-TGUgamV1LiAxMSBqdWlsLiAyMDE5IMOgIDEzOjA5LCBKeXJpIFNhcmhhIDxqc2FyaGFAdGkuY29t
-PiBhIMOpY3JpdCA6Cj4KPiBPbiAwMy8wNy8yMDE5IDExOjA0LCBPbGl2aWVyIE1veXNhbiB3cm90
-ZToKPiA+IEltcGxlbWVudCBnZXRfZGFpX2lkIGNhbGxiYWNrIG9mIGF1ZGlvIEhETUkgY29kZWMK
-PiA+IHRvIHN1cHBvcnQgQVNvQyBhdWRpbyBncmFwaCBjYXJkLgo+ID4gSERNSSBhdWRpbyBvdXRw
-dXQgaGFzIHRvIGJlIGNvbm5lY3RlZCB0byBzaWk5MDJ4IHBvcnQgMy4KPiA+IGdldF9kYWlfaWQg
-Y2FsbGJhY2sgbWFwcyB0aGlzIHBvcnQgdG8gQVNvQyBEQUkgaW5kZXggMC4KPiA+Cj4gPiBTaWdu
-ZWQtb2ZmLWJ5OiBPbGl2aWVyIE1veXNhbiA8b2xpdmllci5tb3lzYW5Ac3QuY29tPgo+Cj4gSSBo
-YXZlIG5vdCB1c2VkIGF1ZGlvIGdyYXBoIGJpbmRpbmcsIGJ1dCBjb21wYXJlZCB0byB0aGUgb3Ro
-ZXIKPiBnZXRfZGFpX2lkKCkgaW1wbGVtZW50YXRpb25zLCB0aGlzIGxvb2tzIGlkZW50aWNhbC4g
-U286Cj4KPiBSZXZpZXdlZC1ieTogSnlyaSBTYXJoYSA8anNhcmhhQHRpLmNvbT4KCkFwcGxpZWQg
-b24gZHJtLW1pc2MtbmV4dCwKVGhhbmtzLApCZW5qYW1pbgoKPgo+ID4gLS0tCj4gPiAgZHJpdmVy
-cy9ncHUvZHJtL2JyaWRnZS9zaWk5MDJ4LmMgfCAyMyArKysrKysrKysrKysrKysrKysrKysrKwo+
-ID4gIDEgZmlsZSBjaGFuZ2VkLCAyMyBpbnNlcnRpb25zKCspCj4gPgo+ID4gZGlmZiAtLWdpdCBh
-L2RyaXZlcnMvZ3B1L2RybS9icmlkZ2Uvc2lpOTAyeC5jIGIvZHJpdmVycy9ncHUvZHJtL2JyaWRn
-ZS9zaWk5MDJ4LmMKPiA+IGluZGV4IGRkN2FhNDY2YjI4MC4uZGFmOWVmM2NkODE3IDEwMDY0NAo+
-ID4gLS0tIGEvZHJpdmVycy9ncHUvZHJtL2JyaWRnZS9zaWk5MDJ4LmMKPiA+ICsrKyBiL2RyaXZl
-cnMvZ3B1L2RybS9icmlkZ2Uvc2lpOTAyeC5jCj4gPiBAQCAtMTU4LDYgKzE1OCw4IEBACj4gPgo+
-ID4gICNkZWZpbmUgU0lJOTAyWF9JMkNfQlVTX0FDUVVJU0lUSU9OX1RJTUVPVVRfTVMgICAgICAg
-NTAwCj4gPgo+ID4gKyNkZWZpbmUgU0lJOTAyWF9BVURJT19QT1JUX0lOREVYICAgICAgICAgICAg
-IDMKPiA+ICsKPiA+ICBzdHJ1Y3Qgc2lpOTAyeCB7Cj4gPiAgICAgICBzdHJ1Y3QgaTJjX2NsaWVu
-dCAqaTJjOwo+ID4gICAgICAgc3RydWN0IHJlZ21hcCAqcmVnbWFwOwo+ID4gQEAgLTY5MCwxMSAr
-NjkyLDMyIEBAIHN0YXRpYyBpbnQgc2lpOTAyeF9hdWRpb19nZXRfZWxkKHN0cnVjdCBkZXZpY2Ug
-KmRldiwgdm9pZCAqZGF0YSwKPiA+ICAgICAgIHJldHVybiAwOwo+ID4gIH0KPiA+Cj4gPiArc3Rh
-dGljIGludCBzaWk5MDJ4X2F1ZGlvX2dldF9kYWlfaWQoc3RydWN0IHNuZF9zb2NfY29tcG9uZW50
-ICpjb21wb25lbnQsCj4gPiArICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgc3RydWN0
-IGRldmljZV9ub2RlICplbmRwb2ludCkKPiA+ICt7Cj4gPiArICAgICBzdHJ1Y3Qgb2ZfZW5kcG9p
-bnQgb2ZfZXA7Cj4gPiArICAgICBpbnQgcmV0Owo+ID4gKwo+ID4gKyAgICAgcmV0ID0gb2ZfZ3Jh
-cGhfcGFyc2VfZW5kcG9pbnQoZW5kcG9pbnQsICZvZl9lcCk7Cj4gPiArICAgICBpZiAocmV0IDwg
-MCkKPiA+ICsgICAgICAgICAgICAgcmV0dXJuIHJldDsKPiA+ICsKPiA+ICsgICAgIC8qCj4gPiAr
-ICAgICAgKiBIRE1JIHNvdW5kIHNob3VsZCBiZSBsb2NhdGVkIGF0IHJlZyA9IDwzPgo+ID4gKyAg
-ICAgICogUmV0dXJuIGV4cGVjdGVkIERBSSBpbmRleCAwLgo+ID4gKyAgICAgICovCj4gPiArICAg
-ICBpZiAob2ZfZXAucG9ydCA9PSBTSUk5MDJYX0FVRElPX1BPUlRfSU5ERVgpCj4gPiArICAgICAg
-ICAgICAgIHJldHVybiAwOwo+ID4gKwo+ID4gKyAgICAgcmV0dXJuIC1FSU5WQUw7Cj4gPiArfQo+
-ID4gKwo+ID4gIHN0YXRpYyBjb25zdCBzdHJ1Y3QgaGRtaV9jb2RlY19vcHMgc2lpOTAyeF9hdWRp
-b19jb2RlY19vcHMgPSB7Cj4gPiAgICAgICAuaHdfcGFyYW1zID0gc2lpOTAyeF9hdWRpb19od19w
-YXJhbXMsCj4gPiAgICAgICAuYXVkaW9fc2h1dGRvd24gPSBzaWk5MDJ4X2F1ZGlvX3NodXRkb3du
-LAo+ID4gICAgICAgLmRpZ2l0YWxfbXV0ZSA9IHNpaTkwMnhfYXVkaW9fZGlnaXRhbF9tdXRlLAo+
-ID4gICAgICAgLmdldF9lbGQgPSBzaWk5MDJ4X2F1ZGlvX2dldF9lbGQsCj4gPiArICAgICAuZ2V0
-X2RhaV9pZCA9IHNpaTkwMnhfYXVkaW9fZ2V0X2RhaV9pZCwKPiA+ICB9Owo+ID4KPiA+ICBzdGF0
-aWMgaW50IHNpaTkwMnhfYXVkaW9fY29kZWNfaW5pdChzdHJ1Y3Qgc2lpOTAyeCAqc2lpOTAyeCwK
-PiA+Cj4KPgo+IC0tCj4gVGV4YXMgSW5zdHJ1bWVudHMgRmlubGFuZCBPeSwgUG9ya2thbGFua2F0
-dSAyMiwgMDAxODAgSGVsc2lua2kuCj4gWS10dW5udXMvQnVzaW5lc3MgSUQ6IDA2MTU1MjEtNC4g
-S290aXBhaWtrYS9Eb21pY2lsZTogSGVsc2lua2kKPiBfX19fX19fX19fX19fX19fX19fX19fX19f
-X19fX19fX19fX19fX19fX19fX19fXwo+IGRyaS1kZXZlbCBtYWlsaW5nIGxpc3QKPiBkcmktZGV2
-ZWxAbGlzdHMuZnJlZWRlc2t0b3Aub3JnCj4gaHR0cHM6Ly9saXN0cy5mcmVlZGVza3RvcC5vcmcv
-bWFpbG1hbi9saXN0aW5mby9kcmktZGV2ZWwKX19fX19fX19fX19fX19fX19fX19fX19fX19fX19f
-X19fX19fX19fX19fX19fX18KTGludXgtc3RtMzIgbWFpbGluZyBsaXN0CkxpbnV4LXN0bTMyQHN0
-LW1kLW1haWxtYW4uc3Rvcm1yZXBseS5jb20KaHR0cHM6Ly9zdC1tZC1tYWlsbWFuLnN0b3JtcmVw
-bHkuY29tL21haWxtYW4vbGlzdGluZm8vbGludXgtc3RtMzIK
+
+On 03/07/2019 11:37, Jose Abreu wrote:
+> Mapping and unmapping DMA region is an high bottleneck in stmmac driver,
+> specially in the RX path.
+> 
+> This commit introduces support for Page Pool API and uses it in all RX
+> queues. With this change, we get more stable troughput and some increase
+> of banwidth with iperf:
+> 	- MAC1000 - 950 Mbps
+> 	- XGMAC: 9.22 Gbps
+> 
+> Signed-off-by: Jose Abreu <joabreu@synopsys.com>
+> Cc: Joao Pinto <jpinto@synopsys.com>
+> Cc: David S. Miller <davem@davemloft.net>
+> Cc: Giuseppe Cavallaro <peppe.cavallaro@st.com>
+> Cc: Alexandre Torgue <alexandre.torgue@st.com>
+> Cc: Maxime Coquelin <mcoquelin.stm32@gmail.com>
+> Cc: Maxime Ripard <maxime.ripard@bootlin.com>
+> Cc: Chen-Yu Tsai <wens@csie.org>
+> ---
+>  drivers/net/ethernet/stmicro/stmmac/Kconfig       |   1 +
+>  drivers/net/ethernet/stmicro/stmmac/stmmac.h      |  10 +-
+>  drivers/net/ethernet/stmicro/stmmac/stmmac_main.c | 196 ++++++----------------
+>  3 files changed, 63 insertions(+), 144 deletions(-)
+
+...
+
+> @@ -3306,49 +3295,22 @@ static inline void stmmac_rx_refill(struct stmmac_priv *priv, u32 queue)
+>  		else
+>  			p = rx_q->dma_rx + entry;
+>  
+> -		if (likely(!rx_q->rx_skbuff[entry])) {
+> -			struct sk_buff *skb;
+> -
+> -			skb = netdev_alloc_skb_ip_align(priv->dev, bfsize);
+> -			if (unlikely(!skb)) {
+> -				/* so for a while no zero-copy! */
+> -				rx_q->rx_zeroc_thresh = STMMAC_RX_THRESH;
+> -				if (unlikely(net_ratelimit()))
+> -					dev_err(priv->device,
+> -						"fail to alloc skb entry %d\n",
+> -						entry);
+> -				break;
+> -			}
+> -
+> -			rx_q->rx_skbuff[entry] = skb;
+> -			rx_q->rx_skbuff_dma[entry] =
+> -			    dma_map_single(priv->device, skb->data, bfsize,
+> -					   DMA_FROM_DEVICE);
+> -			if (dma_mapping_error(priv->device,
+> -					      rx_q->rx_skbuff_dma[entry])) {
+> -				netdev_err(priv->dev, "Rx DMA map failed\n");
+> -				dev_kfree_skb(skb);
+> +		if (!buf->page) {
+> +			buf->page = page_pool_dev_alloc_pages(rx_q->page_pool);
+> +			if (!buf->page)
+>  				break;
+> -			}
+> -
+> -			stmmac_set_desc_addr(priv, p, rx_q->rx_skbuff_dma[entry]);
+> -			stmmac_refill_desc3(priv, rx_q, p);
+> -
+> -			if (rx_q->rx_zeroc_thresh > 0)
+> -				rx_q->rx_zeroc_thresh--;
+> -
+> -			netif_dbg(priv, rx_status, priv->dev,
+> -				  "refill entry #%d\n", entry);
+>  		}
+> -		dma_wmb();
+> +
+> +		buf->addr = buf->page->dma_addr;
+> +		stmmac_set_desc_addr(priv, p, buf->addr);
+> +		stmmac_refill_desc3(priv, rx_q, p);
+>  
+>  		rx_q->rx_count_frames++;
+>  		rx_q->rx_count_frames %= priv->rx_coal_frames;
+>  		use_rx_wd = priv->use_riwt && rx_q->rx_count_frames;
+>  
+> -		stmmac_set_rx_owner(priv, p, use_rx_wd);
+> -
+>  		dma_wmb();
+> +		stmmac_set_rx_owner(priv, p, use_rx_wd);
+>  
+>  		entry = STMMAC_GET_ENTRY(entry, DMA_RX_SIZE);
+>  	}
+
+I was looking at this change in a bit closer detail and one thing that
+stuck out to me was the above where the barrier had been moved from
+after the stmmac_set_rx_owner() call to before. 
+
+So I moved this back and I no longer saw the crash. However, then I
+recalled I had the patch to enable the debug prints for the buffer
+address applied but after reverting that, the crash occurred again. 
+
+In other words, what works for me is moving the above barrier and adding
+the debug print, which appears to suggest that there is some
+timing/coherency issue here. Anyway, maybe this is clue to what is going
+on?
+
+diff --git a/drivers/net/ethernet/stmicro/stmmac/stmmac_main.c b/drivers/net/ethernet/stmicro/stmmac/stmmac_main.c
+index a7486c2f3221..2f016397231b 100644
+--- a/drivers/net/ethernet/stmicro/stmmac/stmmac_main.c
++++ b/drivers/net/ethernet/stmicro/stmmac/stmmac_main.c
+@@ -3303,8 +3303,8 @@ static inline void stmmac_rx_refill(struct stmmac_priv *priv, u32 queue)
+                rx_q->rx_count_frames %= priv->rx_coal_frames;
+                use_rx_wd = priv->use_riwt && rx_q->rx_count_frames;
+ 
+-               dma_wmb();
+                stmmac_set_rx_owner(priv, p, use_rx_wd);
++               dma_wmb();
+ 
+                entry = STMMAC_GET_ENTRY(entry, DMA_RX_SIZE);
+        }
+@@ -3438,6 +3438,10 @@ static int stmmac_rx(struct stmmac_priv *priv, int limit, u32 queue)
+                        dma_sync_single_for_device(priv->device, buf->addr,
+                                                   frame_len, DMA_FROM_DEVICE);
+ 
++                       pr_info("%s: paddr=0x%llx, vaddr=0x%llx, len=%d", __func__,
++                                       buf->addr, page_address(buf->page),
++                                       frame_len);
++
+                        if (netif_msg_pktdata(priv)) {
+                                netdev_dbg(priv->dev, "frame received (%dbytes)",
+                                           frame_len);
+
+Cheers
+Jon
+
+-- 
+nvpublic
+_______________________________________________
+Linux-stm32 mailing list
+Linux-stm32@st-md-mailman.stormreply.com
+https://st-md-mailman.stormreply.com/mailman/listinfo/linux-stm32
