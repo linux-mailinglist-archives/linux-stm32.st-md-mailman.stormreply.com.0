@@ -2,71 +2,65 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id A6BDA76B27
-	for <lists+linux-stm32@lfdr.de>; Fri, 26 Jul 2019 16:11:08 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id DF36A76E69
+	for <lists+linux-stm32@lfdr.de>; Fri, 26 Jul 2019 18:00:59 +0200 (CEST)
 Received: from ip-172-31-3-76.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 64911C1635F;
-	Fri, 26 Jul 2019 14:11:08 +0000 (UTC)
-Received: from hqemgate16.nvidia.com (hqemgate16.nvidia.com [216.228.121.65])
- (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256
- bits)) (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 8F309C1635C
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 908EEC32E9F;
+	Fri, 26 Jul 2019 16:00:59 +0000 (UTC)
+Received: from mx07-00178001.pphosted.com (mx08-00178001.pphosted.com
+ [91.207.212.93])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+ (No client certificate requested)
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 2D5A7C35E19
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Fri, 26 Jul 2019 14:11:06 +0000 (UTC)
-Received: from hqpgpgate101.nvidia.com (Not Verified[216.228.121.13]) by
- hqemgate16.nvidia.com (using TLS: TLSv1.2, DES-CBC3-SHA)
- id <B5d3b09f60000>; Fri, 26 Jul 2019 07:11:02 -0700
-Received: from hqmail.nvidia.com ([172.20.161.6])
- by hqpgpgate101.nvidia.com (PGP Universal service);
- Fri, 26 Jul 2019 07:11:04 -0700
-X-PGP-Universal: processed;
- by hqpgpgate101.nvidia.com on Fri, 26 Jul 2019 07:11:04 -0700
-Received: from [10.26.11.58] (10.124.1.5) by HQMAIL107.nvidia.com
- (172.20.187.13) with Microsoft SMTP Server (TLS) id 15.0.1473.3; Fri, 26 Jul
- 2019 14:11:01 +0000
-To: Jose Abreu <Jose.Abreu@synopsys.com>, "linux-kernel@vger.kernel.org"
- <linux-kernel@vger.kernel.org>, "netdev@vger.kernel.org"
- <netdev@vger.kernel.org>, "linux-stm32@st-md-mailman.stormreply.com"
- <linux-stm32@st-md-mailman.stormreply.com>,
- "linux-arm-kernel@lists.infradead.org" <linux-arm-kernel@lists.infradead.org>
-References: <cover.1562149883.git.joabreu@synopsys.com>
- <1b254bb7fc6044c5e6e2fdd9e00088d1d13a808b.1562149883.git.joabreu@synopsys.com>
- <7a79be5d-7ba2-c457-36d3-1ccef6572181@nvidia.com>
- <BYAPR12MB3269927AB1F67D46E150ED6BD3C10@BYAPR12MB3269.namprd12.prod.outlook.com>
- <9e695f33-fd9f-a910-0891-2b63bd75e082@nvidia.com>
- <BYAPR12MB3269B4A401E4DA10A07515C7D3C10@BYAPR12MB3269.namprd12.prod.outlook.com>
-From: Jon Hunter <jonathanh@nvidia.com>
-Message-ID: <1e2ea942-28fe-15b9-f675-8d6585f9a33f@nvidia.com>
-Date: Fri, 26 Jul 2019 15:11:00 +0100
+ Fri, 26 Jul 2019 16:00:58 +0000 (UTC)
+Received: from pps.filterd (m0046660.ppops.net [127.0.0.1])
+ by mx08-00178001.pphosted.com (8.16.0.27/8.16.0.27) with SMTP id
+ x6QFuGIF006272; Fri, 26 Jul 2019 18:00:09 +0200
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=st.com;
+ h=subject : to : cc :
+ references : from : message-id : date : mime-version : in-reply-to :
+ content-type : content-transfer-encoding; s=STMicroelectronics;
+ bh=Y75BNG+ZG7vXH0PyAhO98l9SHQ/zPoys4fP5bNxiSws=;
+ b=xElqh+q7EgccAjNQffkCsqWxvs1nv14CqX4moJ8gnskKJjhmcurLrp+L6KGCmIbqUU+8
+ idG0GWPq5KfFQxUHs/pA/fE6LLVPbe7a//MWkqB3C3kuTz85tjREBD/c7kMCXbmU+VDB
+ ZC6tyHrW+L6KDVBw1ohv2H7vYRBm05IizZ0hIoVNFb6M+jS+aiJjfX0TQTpcih7j9TTW
+ qgnLb3PZdzbMD0Y+9EHvhA/SBUIzrbd4I2DDFeb7ifE2VD2+/+uonT2CbxWm710JcTWu
+ +AeFXe3AmdqjLHxLmPQtNZeRXVbkrVWIvDieTT/1KAwarNxxemk09vbJe5BS4jHwJvG7 2w== 
+Received: from beta.dmz-eu.st.com (beta.dmz-eu.st.com [164.129.1.35])
+ by mx08-00178001.pphosted.com with ESMTP id 2tx60abn3e-1
+ (version=TLSv1 cipher=ECDHE-RSA-AES256-SHA bits=256 verify=NOT);
+ Fri, 26 Jul 2019 18:00:08 +0200
+Received: from zeta.dmz-eu.st.com (zeta.dmz-eu.st.com [164.129.230.9])
+ by beta.dmz-eu.st.com (STMicroelectronics) with ESMTP id A40D634;
+ Fri, 26 Jul 2019 16:00:07 +0000 (GMT)
+Received: from Webmail-eu.st.com (sfhdag3node2.st.com [10.75.127.8])
+ by zeta.dmz-eu.st.com (STMicroelectronics) with ESMTP id 4EF254F17;
+ Fri, 26 Jul 2019 16:00:07 +0000 (GMT)
+Received: from lmecxl0912.lme.st.com (10.75.127.49) by SFHDAG3NODE2.st.com
+ (10.75.127.8) with Microsoft SMTP Server (TLS) id 15.0.1347.2; Fri, 26 Jul
+ 2019 18:00:06 +0200
+To: Fabrice Gasnier <fabrice.gasnier@st.com>, <jic23@kernel.org>,
+ <robh+dt@kernel.org>
+References: <1560947398-11592-1-git-send-email-fabrice.gasnier@st.com>
+From: Alexandre Torgue <alexandre.torgue@st.com>
+Message-ID: <b91163f5-ad6f-0a22-eb8a-ceb0b0c056c6@st.com>
+Date: Fri, 26 Jul 2019 18:00:06 +0200
 User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:60.0) Gecko/20100101
  Thunderbird/60.8.0
 MIME-Version: 1.0
-In-Reply-To: <BYAPR12MB3269B4A401E4DA10A07515C7D3C10@BYAPR12MB3269.namprd12.prod.outlook.com>
-X-Originating-IP: [10.124.1.5]
-X-ClientProxiedBy: HQMAIL104.nvidia.com (172.18.146.11) To
- HQMAIL107.nvidia.com (172.20.187.13)
+In-Reply-To: <1560947398-11592-1-git-send-email-fabrice.gasnier@st.com>
 Content-Language: en-US
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=nvidia.com; s=n1;
- t=1564150262; bh=7V/0vUwcrIsIcIy2xWgyyeEieWEZr2FRYFdBVkYbeyQ=;
- h=X-PGP-Universal:Subject:To:CC:References:From:Message-ID:Date:
- User-Agent:MIME-Version:In-Reply-To:X-Originating-IP:
- X-ClientProxiedBy:Content-Type:Content-Language:
- Content-Transfer-Encoding;
- b=mJDWo1CPsTJea2C7XpERAf9KXg8RisOceJD+uSLFeI1yyUzkGurA7BChg+6xKS9wa
- yLkxSzCVyt6hC2yWO1w5HZUPPkPCFd/KbaZtV1vWd5NCVt+3LH+09luniQCev/R06V
- ClVqhzPr+ebBRMamcTph3XbpD1oJSLEHC+tQQq8zN5FTrYrLk2FbwMVCPLYelEhzGv
- 1Ba0uS43gyhxp68YWyqG7GN1bJasAEjqijE1paEjN/rJe5I8or0GrIRwvZNrPQboZy
- vb6yMlFe8nldtK2ANvrJp/Zj9fVC6e7JkvK3TBe7+O8Hu1OXs7SP6j8/nZfoB5pQN2
- 04nm16vaN1x0g==
-Cc: Joao Pinto <Joao.Pinto@synopsys.com>,
- Maxime Ripard <maxime.ripard@bootlin.com>, Chen-Yu Tsai <wens@csie.org>,
- Maxime Coquelin <mcoquelin.stm32@gmail.com>,
- linux-tegra <linux-tegra@vger.kernel.org>,
- Giuseppe Cavallaro <peppe.cavallaro@st.com>,
- Robin Murphy <robin.murphy@arm.com>, "David S .
- Miller" <davem@davemloft.net>
-Subject: Re: [Linux-stm32] [PATCH net-next 3/3] net: stmmac: Introducing
- support for Page Pool
+X-Originating-IP: [10.75.127.49]
+X-ClientProxiedBy: SFHDAG8NODE3.st.com (10.75.127.24) To SFHDAG3NODE2.st.com
+ (10.75.127.8)
+X-Proofpoint-Virus-Version: vendor=fsecure engine=2.50.10434:, ,
+ definitions=2019-07-26_12:, , signatures=0
+Cc: mark.rutland@arm.com, devicetree@vger.kernel.org, lars@metafoo.de,
+ mcoquelin.stm32@gmail.com, linux-iio@vger.kernel.org,
+ linux-kernel@vger.kernel.org, pmeerw@pmeerw.net, knaack.h@gmx.de,
+ linux-stm32@st-md-mailman.stormreply.com, linux-arm-kernel@lists.infradead.org
+Subject: Re: [Linux-stm32] [PATCH 0/5] Add missing vdda-supply to STM32 ADC
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -78,54 +72,40 @@ List-Post: <mailto:linux-stm32@st-md-mailman.stormreply.com>
 List-Help: <mailto:linux-stm32-request@st-md-mailman.stormreply.com?subject=help>
 List-Subscribe: <https://st-md-mailman.stormreply.com/mailman/listinfo/linux-stm32>, 
  <mailto:linux-stm32-request@st-md-mailman.stormreply.com?subject=subscribe>
-Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
+Content-Type: text/plain; charset="us-ascii"; Format="flowed"
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
+Hi Fabrice
 
-On 25/07/2019 16:12, Jose Abreu wrote:
-> From: Jon Hunter <jonathanh@nvidia.com>
-> Date: Jul/25/2019, 15:25:59 (UTC+00:00)
+On 6/19/19 2:29 PM, Fabrice Gasnier wrote:
+> Add missing vdda-supply, analog power supply, to STM32 ADC. When vdda is
+> an independent supply, it needs to be properly turned on or off to supply
+> the ADC.
+> This series proposes fixes for the dt-bindings, IIO driver and relevant
+> device tree files.
 > 
->>
->> On 25/07/2019 14:26, Jose Abreu wrote:
->>
->> ...
->>
->>> Well, I wasn't expecting that :/
->>>
->>> Per documentation of barriers I think we should set descriptor fields 
->>> and then barrier and finally ownership to HW so that remaining fields 
->>> are coherent before owner is set.
->>>
->>> Anyway, can you also add a dma_rmb() after the call to 
->>> stmmac_rx_status() ?
->>
->> Yes. I removed the debug print added the barrier, but that did not help.
+> Fabrice Gasnier (5):
+>    dt-bindings: iio: adc: stm32: add missing vdda supply
+>    iio: adc: stm32-adc: add missing vdda-supply
+>    ARM: dts: stm32: remove fixed regulator unit address on stm32429i-eval
+>    ARM: dts: stm32: add missing vdda-supply to adc on stm32429i-eval
+>    ARM: dts: stm32: add missing vdda-supply to adc on stm32h743i-eval
 > 
-> So, I was finally able to setup NFS using your replicated setup and I 
-> can't see the issue :(
+>   .../devicetree/bindings/iio/adc/st,stm32-adc.txt   |  1 +
+>   arch/arm/boot/dts/stm32429i-eval.dts               | 25 +++++++++++-----------
+>   arch/arm/boot/dts/stm32h743i-eval.dts              |  1 +
+>   drivers/iio/adc/stm32-adc-core.c                   | 21 +++++++++++++++++-
+>   4 files changed, 35 insertions(+), 13 deletions(-)
 > 
-> The only difference I have from yours is that I'm using TCP in NFS 
-> whilst you (I believe from the logs), use UDP.
 
-So I tried TCP by setting the kernel boot params to 'nfsvers=3' and
-'proto=tcp' and this does appear to be more stable, but not 100% stable.
-It still appears to fail in the same place about 50% of the time.
+DT patches applied on stm32-next. I plan to add them in my PR for v5.4.
+However those patches are marked as "fixes", do you see an issue to only 
+send it for v5.4 ?
 
-> You do have flow control active right ? And your HW FIFO size is >= 4k ?
-
-How can I verify if flow control is active?
-
-The documentation for this device indicates a max transfer size of 16kB
-for TX and RX.
-
-Cheers
-Jon
-
--- 
-nvpublic
+Regards
+alex
 _______________________________________________
 Linux-stm32 mailing list
 Linux-stm32@st-md-mailman.stormreply.com
