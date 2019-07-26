@@ -2,39 +2,72 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id 56A0475745
-	for <lists+linux-stm32@lfdr.de>; Thu, 25 Jul 2019 20:53:01 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 45B57762C7
+	for <lists+linux-stm32@lfdr.de>; Fri, 26 Jul 2019 11:51:27 +0200 (CEST)
 Received: from ip-172-31-3-76.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 015BCC16347;
-	Thu, 25 Jul 2019 18:53:01 +0000 (UTC)
-Received: from shards.monkeyblade.net (shards.monkeyblade.net [23.128.96.9])
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 633B0C1635B;
+	Fri, 26 Jul 2019 09:42:12 +0000 (UTC)
+Received: from mx07-00178001.pphosted.com (mx08-00178001.pphosted.com
+ [91.207.212.93])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 38362C16340
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 275DFC16359
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Thu, 25 Jul 2019 18:52:59 +0000 (UTC)
-Received: from localhost (unknown [IPv6:2601:601:9f80:35cd::d71])
- (using TLSv1 with cipher AES256-SHA (256/256 bits))
- (Client did not present a certificate)
- (Authenticated sender: davem-davemloft)
- by shards.monkeyblade.net (Postfix) with ESMTPSA id D7C4E1439869E;
- Thu, 25 Jul 2019 11:52:56 -0700 (PDT)
-Date: Thu, 25 Jul 2019 11:52:56 -0700 (PDT)
-Message-Id: <20190725.115256.1232519801887604352.davem@davemloft.net>
-To: navid.emamdoost@gmail.com
-From: David Miller <davem@davemloft.net>
-In-Reply-To: <20190723222809.9752-1-navid.emamdoost@gmail.com>
-References: <20190723222809.9752-1-navid.emamdoost@gmail.com>
-X-Mailer: Mew version 6.8 on Emacs 26.1
-Mime-Version: 1.0
-X-Greylist: Sender succeeded SMTP AUTH, not delayed by milter-greylist-4.5.12
- (shards.monkeyblade.net [149.20.54.216]);
- Thu, 25 Jul 2019 11:52:57 -0700 (PDT)
-Cc: joabreu@synopsys.com, secalert@redhat.com, netdev@vger.kernel.org,
- kjlu@umn.edu, linux-kernel@vger.kernel.org, emamd001@umn.edu,
- mcoquelin.stm32@gmail.com, smccaman@umn.edu, peppe.cavallaro@st.com,
- linux-stm32@st-md-mailman.stormreply.com, linux-arm-kernel@lists.infradead.org
-Subject: Re: [Linux-stm32] [PATCH] stmmac_dt_phy: null check the allocation
+ Fri, 26 Jul 2019 09:42:10 +0000 (UTC)
+Received: from pps.filterd (m0046660.ppops.net [127.0.0.1])
+ by mx08-00178001.pphosted.com (8.16.0.27/8.16.0.27) with SMTP id
+ x6Q9ZtYv029674; Fri, 26 Jul 2019 11:41:59 +0200
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=st.com;
+ h=subject : to : cc :
+ references : from : message-id : date : mime-version : in-reply-to :
+ content-type : content-transfer-encoding; s=STMicroelectronics;
+ bh=LVVvxI73KteVTSQLUQB0C3OwsMFN3n2yWOleDQX+feE=;
+ b=TjEfMntPKEPBSdbIg1lMy59VAhRtkrQPZs/6mQAUaH+HdEf6dEsO++FikHMtTtbMT0/8
+ oRe6Xbg/Ep+CYlxRGk2tBxhhFDsguNiynEFKCS3LjVUxYudqxaexHxRum9EX1OP5ZJrO
+ ubzEvCkV4yomY22wEbMaWZ/3QCjYVQirkvZR3i+FY54HLI8MkE3Sv1iqTbMxtIb0nkXb
+ fwBSU+Kjwt2p6UH5uznkzqds6epKEw0GreobyiUnW+DUJUz4C8kxBWZ0B76Q25BRmalJ
+ O353FdUAYZKv8e6EnHyO4jNQeCQjw8ZuCINpH2ipGsiiphp8lpnbseoC7Tbvn6DjndYl 0A== 
+Received: from beta.dmz-eu.st.com (beta.dmz-eu.st.com [164.129.1.35])
+ by mx08-00178001.pphosted.com with ESMTP id 2tx60a9qws-1
+ (version=TLSv1 cipher=ECDHE-RSA-AES256-SHA bits=256 verify=NOT);
+ Fri, 26 Jul 2019 11:41:59 +0200
+Received: from zeta.dmz-eu.st.com (zeta.dmz-eu.st.com [164.129.230.9])
+ by beta.dmz-eu.st.com (STMicroelectronics) with ESMTP id CB4C231;
+ Fri, 26 Jul 2019 09:41:58 +0000 (GMT)
+Received: from Webmail-eu.st.com (Safex1hubcas23.st.com [10.75.90.46])
+ by zeta.dmz-eu.st.com (STMicroelectronics) with ESMTP id 9F8D82586;
+ Fri, 26 Jul 2019 09:41:58 +0000 (GMT)
+Received: from SAFEX1HUBCAS22.st.com (10.75.90.93) by SAFEX1HUBCAS23.st.com
+ (10.75.90.46) with Microsoft SMTP Server (TLS) id 14.3.439.0; Fri, 26 Jul
+ 2019 11:41:58 +0200
+Received: from lmecxl0923.lme.st.com (10.48.0.237) by Webmail-ga.st.com
+ (10.75.90.48) with Microsoft SMTP Server (TLS) id 14.3.439.0; Fri, 26 Jul
+ 2019 11:41:58 +0200
+To: Ulf Hansson <ulf.hansson@linaro.org>
+References: <1559577325-19266-1-git-send-email-ludovic.Barre@st.com>
+ <1559577325-19266-2-git-send-email-ludovic.Barre@st.com>
+ <CAPDyKFpJPbpTnfA2cynFURyxFY_YCm7MRXw3m2nQyU+z=ZWsFA@mail.gmail.com>
+From: Ludovic BARRE <ludovic.barre@st.com>
+Message-ID: <dd5c1e86-f0b1-cdfa-1b91-486f99d4e50c@st.com>
+Date: Fri, 26 Jul 2019 11:41:57 +0200
+User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:60.0) Gecko/20100101
+ Thunderbird/60.7.2
+MIME-Version: 1.0
+In-Reply-To: <CAPDyKFpJPbpTnfA2cynFURyxFY_YCm7MRXw3m2nQyU+z=ZWsFA@mail.gmail.com>
+Content-Language: en-US
+X-Originating-IP: [10.48.0.237]
+X-Proofpoint-Virus-Version: vendor=fsecure engine=2.50.10434:, ,
+ definitions=2019-07-26_06:, , signatures=0
+Cc: DTML <devicetree@vger.kernel.org>,
+ "linux-mmc@vger.kernel.org" <linux-mmc@vger.kernel.org>,
+ Linux Kernel Mailing List <linux-kernel@vger.kernel.org>,
+ Rob Herring <robh+dt@kernel.org>,
+ Srinivas Kandagatla <srinivas.kandagatla@linaro.org>,
+ Maxime Coquelin <mcoquelin.stm32@gmail.com>,
+ linux-stm32@st-md-mailman.stormreply.com,
+ Linux ARM <linux-arm-kernel@lists.infradead.org>
+Subject: Re: [Linux-stm32] [PATCH V3 1/3] mmc: mmci: fix read status for
+	busy detect
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -46,36 +79,205 @@ List-Post: <mailto:linux-stm32@st-md-mailman.stormreply.com>
 List-Help: <mailto:linux-stm32-request@st-md-mailman.stormreply.com?subject=help>
 List-Subscribe: <https://st-md-mailman.stormreply.com/mailman/listinfo/linux-stm32>, 
  <mailto:linux-stm32-request@st-md-mailman.stormreply.com?subject=subscribe>
-Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
+Content-Type: text/plain; charset="us-ascii"; Format="flowed"
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
-From: Navid Emamdoost <navid.emamdoost@gmail.com>
-Date: Tue, 23 Jul 2019 17:28:09 -0500
+hi Ulf
 
-> @@ -342,10 +342,13 @@ static int stmmac_dt_phy(struct plat_stmmacenet_data *plat,
->  		mdio = true;
->  	}
->  
-> -	if (mdio)
-> +	if (mdio) {
->  		plat->mdio_bus_data =
->  			devm_kzalloc(dev, sizeof(struct stmmac_mdio_bus_data),
->  				     GFP_KERNEL);
-> +		if (!plat->mdio_bus_data)
-> +			return -ENOMEM;
+Thanks to your "Clarify comments ..." commit, like is closes
+I resumed upstream of this series.
 
-This leaks a reference to plat->mdio_node() which is acquired in the
-for_each_child_of_node() loop right before the context here.
+On 7/15/19 6:31 PM, Ulf Hansson wrote:
+> On Mon, 3 Jun 2019 at 17:55, Ludovic Barre <ludovic.Barre@st.com> wrote:
+>>
+>> From: Ludovic Barre <ludovic.barre@st.com>
+>>
+>> "busy_detect_flag" is used to read & clear busy value of mmci status.
+>> "busy_detect_mask" is used to manage busy irq of mmci mask.
+>> So to read mmci status the busy_detect_flag must be take account.
+>> if the variant does not support busy detect feature the flag is null
+>> and there is no impact.
+> 
+> By reading the changelog, it doesn't tell me the purpose of this
+> change. When going forward, please work harder on your changelogs.
+> 
+> Make sure to answer the questions, *why* is this change needed,
+> *what/how* does the change do.
 
-This is what I really fear about these automated patches, it is quite
-often the case that acquired resources are subtly acquired in nearby
-code and not released by the proposed "fix".
+Ok, I will explain the differences with the legacy and the needs of 
+sdmmc variant about busy detection.
 
-Therefore, either we end up with a regression, or as is the case here
-a reviewer invests more time into double checking your patch than you
-put into writing the patch in the first place.
+> 
+>>
+>> Not need to re-read the status register in mmci_cmd_irq, the
+>> status parameter can be used.
+>>
+>> Signed-off-by: Ludovic Barre <ludovic.barre@st.com>
+>> ---
+>>   drivers/mmc/host/mmci.c | 5 +++--
+>>   1 file changed, 3 insertions(+), 2 deletions(-)
+>>
+>> diff --git a/drivers/mmc/host/mmci.c b/drivers/mmc/host/mmci.c
+>> index 356833a..5b5cc45 100644
+>> --- a/drivers/mmc/host/mmci.c
+>> +++ b/drivers/mmc/host/mmci.c
+>> @@ -1240,7 +1240,7 @@ mmci_cmd_irq(struct mmci_host *host, struct mmc_command *cmd,
+>>                   */
+>>                  if (!host->busy_status &&
+>>                      !(status & (MCI_CMDCRCFAIL|MCI_CMDTIMEOUT)) &&
+>> -                   (readl(base + MMCISTATUS) & host->variant->busy_detect_flag)) {
+>> +                   (status & host->variant->busy_detect_flag)) {
+> 
+> I suggested you to do this change through some of my earlier comments,
+> however I think it should be made as a stand alone change.
+> 
+> Anyway, when looking at the details in your series, I decided to try
+> to help out a bit, so I have prepared a couple of related patches for
+> cleaning up and clarifying the busy detection code/comments in mmci. I
+> have incorporated the above change, so let me post them asap.
+> 
+>>
+>>                          /* Clear the busy start IRQ */
+>>                          writel(host->variant->busy_detect_mask,
+>> @@ -1517,7 +1517,8 @@ static irqreturn_t mmci_irq(int irq, void *dev_id)
+>>                   * to make sure that both start and end interrupts are always
+>>                   * cleared one after the other.
+>>                   */
+>> -               status &= readl(host->base + MMCIMASK0);
+>> +               status &= readl(host->base + MMCIMASK0) |
+>> +                       host->variant->busy_detect_flag;
+> 
+> As I told earlier in the review, this looks wrong to me.
+> 
+> It means that you will add the bit for the ->busy_detect_flag to the
+> status field we have just read from the MMCISTATUS register. That
+> means the busy status may be set when it shouldn't.
+> 
+>>                  if (host->variant->busy_detect)
+>>                          writel(status & ~host->variant->busy_detect_mask,
+>>                                 host->base + MMCICLEAR);
+>> --
+>> 2.7.4
+>>
+> 
+> By looking at the other changes in the series, I assume @subject patch
+> is intended to prepare for the other changes on top. But it's not
+> really clear.
+> 
+> Anyway, in that regards, the below is my observations of what seems to
+> be important part, when supporting busy detection for the stm32 sdmmc
+> variant (except the timeout things in patch2, which I intend to
+> comment separately on).
+> 
+> I figured, these are the involved register bits/masks:
+> 
+> MMCISTATUS:
+> MCI_STM32_BUSYD0 BIT(20)
+> MCI_STM32_BUSYD0END BIT(21)
+> 
+> MMCIMASK0:
+> MCI_STM32_BUSYD0ENDMASK BIT(21)
+
+it's exact:
+MCI_STM32_BUSYD0 BIT(20): This is a hardware status flag only (inverted 
+value of d0 line), it does not generate an interrupt, and so no mask
+bit.
+
+MCI_STM32_BUSYD0ENDMASK BIT(21): This indicates only end of busy
+following a CMD response. On busy to Not busy changes, an interrupt
+is generated (if unmask) and BUSYD0END status flag is set.
+status flag is cleared by writing corresponding interrupt clear bit in 
+MMCICLEAR.
+
+> 
+> For the legacy ST variant, there is only one register bit in
+> MMCISTATUS that is used for indicating busy (MCI_ST_CARDBUSY BIT(24)).
+> There is no dedicated busy-end bit for the busy-end IRQ, which I
+> believe is the reason to why the current code also is bit messy.
+
+yes
+
+> 
+> It seems like the stm32 sdmmc variant have a separate status bit for
+> the busy-end IRQ, correct?
+
+yes
+
+> 
+> If I understand correctly by looking at patch3, you don't use the
+> dedicated busy-end status bit (MCI_STM32_BUSYD0END), right? Then why
+> not?
+
+like your are clarify in previous series, the busy detection is done
+in 3 steps.
+
+if I use:
+.busy_detect_flag	= MCI_STM32_BUSYD0ENDMASK,
+.busy_detect_mask	= MCI_STM32_BUSYD0ENDMASK,
+
+the sdmmc request will be not correctly completed, because the third 
+step can't be happen.
+
+chronologies:
+step1: when busyd0end change to 1
+  => busyd0end interrupt is unmasked
+  => busy_status = cmd_sent | respend
+  => return to mmci_irq
+step2: busyd0end is yet to 1
+  => clear the busyd0end interrupt
+	=> the hardware clear busyd0end status flag on interrupt clear
+  => return to mmci_irq
+
+like MCI_STM32_BUSYD0END interrupt is generated only on change
+busy to not busy, when the interrupt is cleared (status is 0)
+the step 3 can't happen (no irq pending to re-enter in mmci_cmd_irq).
+sdmmc can't complete the request.
+
+If I use:
+.busy_detect_flag	= MCI_STM32_BUSYD0,
+.busy_detect_mask	= MCI_STM32_BUSYD0ENDMASK,
+
+Like there is no MCI_STM32_BUSYD0 irq mask, the status read in mmci_irq
+"status &= readl(host->base + MMCIMASK0)" can't take account the 
+busy_detect_flag (for sdmmc). So the  step 2 can't be passed.
+However we could share re-read between step 1 and step 2.
+
+proposal:
+
++
++		u32 busy_val = readl(base + MMCISTATUS) &
++			host->variant->busy_detect_flag;
++
+  		if (!host->busy_status &&
+-		    !(status & (MCI_CMDCRCFAIL|MCI_CMDTIMEOUT)) &&
+-		    (readl(base + MMCISTATUS) & host->variant->busy_detect_flag)) {
++		    !(status & (MCI_CMDCRCFAIL|MCI_CMDTIMEOUT)) && busy_val) {
+
+  			writel(readl(base + MMCIMASK0) |
+  			       host->variant->busy_detect_mask,
+@@ -1262,8 +1265,7 @@ mmci_cmd_irq(struct mmci_host *host, struct 
+mmc_command *cmd,
+  		 * both the start and the end interrupts needs to be cleared,
+  		 * one after the other. So, clear the busy start IRQ here.
+  		 */
+-		if (host->busy_status &&
+-		    (status & host->variant->busy_detect_flag)) {
++		if (host->busy_status && busy_val) {
+
+
+what do you think about it ?
+
+> 
+> Thoughts?
+> 
+> Kind regards
+> Uffe
+> 
+
+Regards
+Ludo
 _______________________________________________
 Linux-stm32 mailing list
 Linux-stm32@st-md-mailman.stormreply.com
