@@ -2,72 +2,71 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id 45B57762C7
-	for <lists+linux-stm32@lfdr.de>; Fri, 26 Jul 2019 11:51:27 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id A6BDA76B27
+	for <lists+linux-stm32@lfdr.de>; Fri, 26 Jul 2019 16:11:08 +0200 (CEST)
 Received: from ip-172-31-3-76.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 633B0C1635B;
-	Fri, 26 Jul 2019 09:42:12 +0000 (UTC)
-Received: from mx07-00178001.pphosted.com (mx08-00178001.pphosted.com
- [91.207.212.93])
- (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
- (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 275DFC16359
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 64911C1635F;
+	Fri, 26 Jul 2019 14:11:08 +0000 (UTC)
+Received: from hqemgate16.nvidia.com (hqemgate16.nvidia.com [216.228.121.65])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256
+ bits)) (No client certificate requested)
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 8F309C1635C
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Fri, 26 Jul 2019 09:42:10 +0000 (UTC)
-Received: from pps.filterd (m0046660.ppops.net [127.0.0.1])
- by mx08-00178001.pphosted.com (8.16.0.27/8.16.0.27) with SMTP id
- x6Q9ZtYv029674; Fri, 26 Jul 2019 11:41:59 +0200
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=st.com;
- h=subject : to : cc :
- references : from : message-id : date : mime-version : in-reply-to :
- content-type : content-transfer-encoding; s=STMicroelectronics;
- bh=LVVvxI73KteVTSQLUQB0C3OwsMFN3n2yWOleDQX+feE=;
- b=TjEfMntPKEPBSdbIg1lMy59VAhRtkrQPZs/6mQAUaH+HdEf6dEsO++FikHMtTtbMT0/8
- oRe6Xbg/Ep+CYlxRGk2tBxhhFDsguNiynEFKCS3LjVUxYudqxaexHxRum9EX1OP5ZJrO
- ubzEvCkV4yomY22wEbMaWZ/3QCjYVQirkvZR3i+FY54HLI8MkE3Sv1iqTbMxtIb0nkXb
- fwBSU+Kjwt2p6UH5uznkzqds6epKEw0GreobyiUnW+DUJUz4C8kxBWZ0B76Q25BRmalJ
- O353FdUAYZKv8e6EnHyO4jNQeCQjw8ZuCINpH2ipGsiiphp8lpnbseoC7Tbvn6DjndYl 0A== 
-Received: from beta.dmz-eu.st.com (beta.dmz-eu.st.com [164.129.1.35])
- by mx08-00178001.pphosted.com with ESMTP id 2tx60a9qws-1
- (version=TLSv1 cipher=ECDHE-RSA-AES256-SHA bits=256 verify=NOT);
- Fri, 26 Jul 2019 11:41:59 +0200
-Received: from zeta.dmz-eu.st.com (zeta.dmz-eu.st.com [164.129.230.9])
- by beta.dmz-eu.st.com (STMicroelectronics) with ESMTP id CB4C231;
- Fri, 26 Jul 2019 09:41:58 +0000 (GMT)
-Received: from Webmail-eu.st.com (Safex1hubcas23.st.com [10.75.90.46])
- by zeta.dmz-eu.st.com (STMicroelectronics) with ESMTP id 9F8D82586;
- Fri, 26 Jul 2019 09:41:58 +0000 (GMT)
-Received: from SAFEX1HUBCAS22.st.com (10.75.90.93) by SAFEX1HUBCAS23.st.com
- (10.75.90.46) with Microsoft SMTP Server (TLS) id 14.3.439.0; Fri, 26 Jul
- 2019 11:41:58 +0200
-Received: from lmecxl0923.lme.st.com (10.48.0.237) by Webmail-ga.st.com
- (10.75.90.48) with Microsoft SMTP Server (TLS) id 14.3.439.0; Fri, 26 Jul
- 2019 11:41:58 +0200
-To: Ulf Hansson <ulf.hansson@linaro.org>
-References: <1559577325-19266-1-git-send-email-ludovic.Barre@st.com>
- <1559577325-19266-2-git-send-email-ludovic.Barre@st.com>
- <CAPDyKFpJPbpTnfA2cynFURyxFY_YCm7MRXw3m2nQyU+z=ZWsFA@mail.gmail.com>
-From: Ludovic BARRE <ludovic.barre@st.com>
-Message-ID: <dd5c1e86-f0b1-cdfa-1b91-486f99d4e50c@st.com>
-Date: Fri, 26 Jul 2019 11:41:57 +0200
+ Fri, 26 Jul 2019 14:11:06 +0000 (UTC)
+Received: from hqpgpgate101.nvidia.com (Not Verified[216.228.121.13]) by
+ hqemgate16.nvidia.com (using TLS: TLSv1.2, DES-CBC3-SHA)
+ id <B5d3b09f60000>; Fri, 26 Jul 2019 07:11:02 -0700
+Received: from hqmail.nvidia.com ([172.20.161.6])
+ by hqpgpgate101.nvidia.com (PGP Universal service);
+ Fri, 26 Jul 2019 07:11:04 -0700
+X-PGP-Universal: processed;
+ by hqpgpgate101.nvidia.com on Fri, 26 Jul 2019 07:11:04 -0700
+Received: from [10.26.11.58] (10.124.1.5) by HQMAIL107.nvidia.com
+ (172.20.187.13) with Microsoft SMTP Server (TLS) id 15.0.1473.3; Fri, 26 Jul
+ 2019 14:11:01 +0000
+To: Jose Abreu <Jose.Abreu@synopsys.com>, "linux-kernel@vger.kernel.org"
+ <linux-kernel@vger.kernel.org>, "netdev@vger.kernel.org"
+ <netdev@vger.kernel.org>, "linux-stm32@st-md-mailman.stormreply.com"
+ <linux-stm32@st-md-mailman.stormreply.com>,
+ "linux-arm-kernel@lists.infradead.org" <linux-arm-kernel@lists.infradead.org>
+References: <cover.1562149883.git.joabreu@synopsys.com>
+ <1b254bb7fc6044c5e6e2fdd9e00088d1d13a808b.1562149883.git.joabreu@synopsys.com>
+ <7a79be5d-7ba2-c457-36d3-1ccef6572181@nvidia.com>
+ <BYAPR12MB3269927AB1F67D46E150ED6BD3C10@BYAPR12MB3269.namprd12.prod.outlook.com>
+ <9e695f33-fd9f-a910-0891-2b63bd75e082@nvidia.com>
+ <BYAPR12MB3269B4A401E4DA10A07515C7D3C10@BYAPR12MB3269.namprd12.prod.outlook.com>
+From: Jon Hunter <jonathanh@nvidia.com>
+Message-ID: <1e2ea942-28fe-15b9-f675-8d6585f9a33f@nvidia.com>
+Date: Fri, 26 Jul 2019 15:11:00 +0100
 User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:60.0) Gecko/20100101
- Thunderbird/60.7.2
+ Thunderbird/60.8.0
 MIME-Version: 1.0
-In-Reply-To: <CAPDyKFpJPbpTnfA2cynFURyxFY_YCm7MRXw3m2nQyU+z=ZWsFA@mail.gmail.com>
+In-Reply-To: <BYAPR12MB3269B4A401E4DA10A07515C7D3C10@BYAPR12MB3269.namprd12.prod.outlook.com>
+X-Originating-IP: [10.124.1.5]
+X-ClientProxiedBy: HQMAIL104.nvidia.com (172.18.146.11) To
+ HQMAIL107.nvidia.com (172.20.187.13)
 Content-Language: en-US
-X-Originating-IP: [10.48.0.237]
-X-Proofpoint-Virus-Version: vendor=fsecure engine=2.50.10434:, ,
- definitions=2019-07-26_06:, , signatures=0
-Cc: DTML <devicetree@vger.kernel.org>,
- "linux-mmc@vger.kernel.org" <linux-mmc@vger.kernel.org>,
- Linux Kernel Mailing List <linux-kernel@vger.kernel.org>,
- Rob Herring <robh+dt@kernel.org>,
- Srinivas Kandagatla <srinivas.kandagatla@linaro.org>,
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=nvidia.com; s=n1;
+ t=1564150262; bh=7V/0vUwcrIsIcIy2xWgyyeEieWEZr2FRYFdBVkYbeyQ=;
+ h=X-PGP-Universal:Subject:To:CC:References:From:Message-ID:Date:
+ User-Agent:MIME-Version:In-Reply-To:X-Originating-IP:
+ X-ClientProxiedBy:Content-Type:Content-Language:
+ Content-Transfer-Encoding;
+ b=mJDWo1CPsTJea2C7XpERAf9KXg8RisOceJD+uSLFeI1yyUzkGurA7BChg+6xKS9wa
+ yLkxSzCVyt6hC2yWO1w5HZUPPkPCFd/KbaZtV1vWd5NCVt+3LH+09luniQCev/R06V
+ ClVqhzPr+ebBRMamcTph3XbpD1oJSLEHC+tQQq8zN5FTrYrLk2FbwMVCPLYelEhzGv
+ 1Ba0uS43gyhxp68YWyqG7GN1bJasAEjqijE1paEjN/rJe5I8or0GrIRwvZNrPQboZy
+ vb6yMlFe8nldtK2ANvrJp/Zj9fVC6e7JkvK3TBe7+O8Hu1OXs7SP6j8/nZfoB5pQN2
+ 04nm16vaN1x0g==
+Cc: Joao Pinto <Joao.Pinto@synopsys.com>,
+ Maxime Ripard <maxime.ripard@bootlin.com>, Chen-Yu Tsai <wens@csie.org>,
  Maxime Coquelin <mcoquelin.stm32@gmail.com>,
- linux-stm32@st-md-mailman.stormreply.com,
- Linux ARM <linux-arm-kernel@lists.infradead.org>
-Subject: Re: [Linux-stm32] [PATCH V3 1/3] mmc: mmci: fix read status for
-	busy detect
+ linux-tegra <linux-tegra@vger.kernel.org>,
+ Giuseppe Cavallaro <peppe.cavallaro@st.com>,
+ Robin Murphy <robin.murphy@arm.com>, "David S .
+ Miller" <davem@davemloft.net>
+Subject: Re: [Linux-stm32] [PATCH net-next 3/3] net: stmmac: Introducing
+ support for Page Pool
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -79,205 +78,54 @@ List-Post: <mailto:linux-stm32@st-md-mailman.stormreply.com>
 List-Help: <mailto:linux-stm32-request@st-md-mailman.stormreply.com?subject=help>
 List-Subscribe: <https://st-md-mailman.stormreply.com/mailman/listinfo/linux-stm32>, 
  <mailto:linux-stm32-request@st-md-mailman.stormreply.com?subject=subscribe>
+Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
-Content-Type: text/plain; charset="us-ascii"; Format="flowed"
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
-hi Ulf
 
-Thanks to your "Clarify comments ..." commit, like is closes
-I resumed upstream of this series.
-
-On 7/15/19 6:31 PM, Ulf Hansson wrote:
-> On Mon, 3 Jun 2019 at 17:55, Ludovic Barre <ludovic.Barre@st.com> wrote:
->>
->> From: Ludovic Barre <ludovic.barre@st.com>
->>
->> "busy_detect_flag" is used to read & clear busy value of mmci status.
->> "busy_detect_mask" is used to manage busy irq of mmci mask.
->> So to read mmci status the busy_detect_flag must be take account.
->> if the variant does not support busy detect feature the flag is null
->> and there is no impact.
-> 
-> By reading the changelog, it doesn't tell me the purpose of this
-> change. When going forward, please work harder on your changelogs.
-> 
-> Make sure to answer the questions, *why* is this change needed,
-> *what/how* does the change do.
-
-Ok, I will explain the differences with the legacy and the needs of 
-sdmmc variant about busy detection.
-
+On 25/07/2019 16:12, Jose Abreu wrote:
+> From: Jon Hunter <jonathanh@nvidia.com>
+> Date: Jul/25/2019, 15:25:59 (UTC+00:00)
 > 
 >>
->> Not need to re-read the status register in mmci_cmd_irq, the
->> status parameter can be used.
+>> On 25/07/2019 14:26, Jose Abreu wrote:
 >>
->> Signed-off-by: Ludovic Barre <ludovic.barre@st.com>
->> ---
->>   drivers/mmc/host/mmci.c | 5 +++--
->>   1 file changed, 3 insertions(+), 2 deletions(-)
+>> ...
 >>
->> diff --git a/drivers/mmc/host/mmci.c b/drivers/mmc/host/mmci.c
->> index 356833a..5b5cc45 100644
->> --- a/drivers/mmc/host/mmci.c
->> +++ b/drivers/mmc/host/mmci.c
->> @@ -1240,7 +1240,7 @@ mmci_cmd_irq(struct mmci_host *host, struct mmc_command *cmd,
->>                   */
->>                  if (!host->busy_status &&
->>                      !(status & (MCI_CMDCRCFAIL|MCI_CMDTIMEOUT)) &&
->> -                   (readl(base + MMCISTATUS) & host->variant->busy_detect_flag)) {
->> +                   (status & host->variant->busy_detect_flag)) {
-> 
-> I suggested you to do this change through some of my earlier comments,
-> however I think it should be made as a stand alone change.
-> 
-> Anyway, when looking at the details in your series, I decided to try
-> to help out a bit, so I have prepared a couple of related patches for
-> cleaning up and clarifying the busy detection code/comments in mmci. I
-> have incorporated the above change, so let me post them asap.
-> 
+>>> Well, I wasn't expecting that :/
+>>>
+>>> Per documentation of barriers I think we should set descriptor fields 
+>>> and then barrier and finally ownership to HW so that remaining fields 
+>>> are coherent before owner is set.
+>>>
+>>> Anyway, can you also add a dma_rmb() after the call to 
+>>> stmmac_rx_status() ?
 >>
->>                          /* Clear the busy start IRQ */
->>                          writel(host->variant->busy_detect_mask,
->> @@ -1517,7 +1517,8 @@ static irqreturn_t mmci_irq(int irq, void *dev_id)
->>                   * to make sure that both start and end interrupts are always
->>                   * cleared one after the other.
->>                   */
->> -               status &= readl(host->base + MMCIMASK0);
->> +               status &= readl(host->base + MMCIMASK0) |
->> +                       host->variant->busy_detect_flag;
+>> Yes. I removed the debug print added the barrier, but that did not help.
 > 
-> As I told earlier in the review, this looks wrong to me.
+> So, I was finally able to setup NFS using your replicated setup and I 
+> can't see the issue :(
 > 
-> It means that you will add the bit for the ->busy_detect_flag to the
-> status field we have just read from the MMCISTATUS register. That
-> means the busy status may be set when it shouldn't.
-> 
->>                  if (host->variant->busy_detect)
->>                          writel(status & ~host->variant->busy_detect_mask,
->>                                 host->base + MMCICLEAR);
->> --
->> 2.7.4
->>
-> 
-> By looking at the other changes in the series, I assume @subject patch
-> is intended to prepare for the other changes on top. But it's not
-> really clear.
-> 
-> Anyway, in that regards, the below is my observations of what seems to
-> be important part, when supporting busy detection for the stm32 sdmmc
-> variant (except the timeout things in patch2, which I intend to
-> comment separately on).
-> 
-> I figured, these are the involved register bits/masks:
-> 
-> MMCISTATUS:
-> MCI_STM32_BUSYD0 BIT(20)
-> MCI_STM32_BUSYD0END BIT(21)
-> 
-> MMCIMASK0:
-> MCI_STM32_BUSYD0ENDMASK BIT(21)
+> The only difference I have from yours is that I'm using TCP in NFS 
+> whilst you (I believe from the logs), use UDP.
 
-it's exact:
-MCI_STM32_BUSYD0 BIT(20): This is a hardware status flag only (inverted 
-value of d0 line), it does not generate an interrupt, and so no mask
-bit.
+So I tried TCP by setting the kernel boot params to 'nfsvers=3' and
+'proto=tcp' and this does appear to be more stable, but not 100% stable.
+It still appears to fail in the same place about 50% of the time.
 
-MCI_STM32_BUSYD0ENDMASK BIT(21): This indicates only end of busy
-following a CMD response. On busy to Not busy changes, an interrupt
-is generated (if unmask) and BUSYD0END status flag is set.
-status flag is cleared by writing corresponding interrupt clear bit in 
-MMCICLEAR.
+> You do have flow control active right ? And your HW FIFO size is >= 4k ?
 
-> 
-> For the legacy ST variant, there is only one register bit in
-> MMCISTATUS that is used for indicating busy (MCI_ST_CARDBUSY BIT(24)).
-> There is no dedicated busy-end bit for the busy-end IRQ, which I
-> believe is the reason to why the current code also is bit messy.
+How can I verify if flow control is active?
 
-yes
+The documentation for this device indicates a max transfer size of 16kB
+for TX and RX.
 
-> 
-> It seems like the stm32 sdmmc variant have a separate status bit for
-> the busy-end IRQ, correct?
+Cheers
+Jon
 
-yes
-
-> 
-> If I understand correctly by looking at patch3, you don't use the
-> dedicated busy-end status bit (MCI_STM32_BUSYD0END), right? Then why
-> not?
-
-like your are clarify in previous series, the busy detection is done
-in 3 steps.
-
-if I use:
-.busy_detect_flag	= MCI_STM32_BUSYD0ENDMASK,
-.busy_detect_mask	= MCI_STM32_BUSYD0ENDMASK,
-
-the sdmmc request will be not correctly completed, because the third 
-step can't be happen.
-
-chronologies:
-step1: when busyd0end change to 1
-  => busyd0end interrupt is unmasked
-  => busy_status = cmd_sent | respend
-  => return to mmci_irq
-step2: busyd0end is yet to 1
-  => clear the busyd0end interrupt
-	=> the hardware clear busyd0end status flag on interrupt clear
-  => return to mmci_irq
-
-like MCI_STM32_BUSYD0END interrupt is generated only on change
-busy to not busy, when the interrupt is cleared (status is 0)
-the step 3 can't happen (no irq pending to re-enter in mmci_cmd_irq).
-sdmmc can't complete the request.
-
-If I use:
-.busy_detect_flag	= MCI_STM32_BUSYD0,
-.busy_detect_mask	= MCI_STM32_BUSYD0ENDMASK,
-
-Like there is no MCI_STM32_BUSYD0 irq mask, the status read in mmci_irq
-"status &= readl(host->base + MMCIMASK0)" can't take account the 
-busy_detect_flag (for sdmmc). So the  step 2 can't be passed.
-However we could share re-read between step 1 and step 2.
-
-proposal:
-
-+
-+		u32 busy_val = readl(base + MMCISTATUS) &
-+			host->variant->busy_detect_flag;
-+
-  		if (!host->busy_status &&
--		    !(status & (MCI_CMDCRCFAIL|MCI_CMDTIMEOUT)) &&
--		    (readl(base + MMCISTATUS) & host->variant->busy_detect_flag)) {
-+		    !(status & (MCI_CMDCRCFAIL|MCI_CMDTIMEOUT)) && busy_val) {
-
-  			writel(readl(base + MMCIMASK0) |
-  			       host->variant->busy_detect_mask,
-@@ -1262,8 +1265,7 @@ mmci_cmd_irq(struct mmci_host *host, struct 
-mmc_command *cmd,
-  		 * both the start and the end interrupts needs to be cleared,
-  		 * one after the other. So, clear the busy start IRQ here.
-  		 */
--		if (host->busy_status &&
--		    (status & host->variant->busy_detect_flag)) {
-+		if (host->busy_status && busy_val) {
-
-
-what do you think about it ?
-
-> 
-> Thoughts?
-> 
-> Kind regards
-> Uffe
-> 
-
-Regards
-Ludo
+-- 
+nvpublic
 _______________________________________________
 Linux-stm32 mailing list
 Linux-stm32@st-md-mailman.stormreply.com
