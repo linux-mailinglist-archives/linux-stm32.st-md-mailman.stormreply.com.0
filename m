@@ -2,23 +2,23 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id A4D0477980
-	for <lists+linux-stm32@lfdr.de>; Sat, 27 Jul 2019 17:10:09 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id B4B4C77981
+	for <lists+linux-stm32@lfdr.de>; Sat, 27 Jul 2019 17:10:10 +0200 (CEST)
 Received: from ip-172-31-3-76.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 73B6CC32EA1;
-	Sat, 27 Jul 2019 15:10:09 +0000 (UTC)
-Received: from huawei.com (szxga04-in.huawei.com [45.249.212.190])
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 7FBA9C32EA3;
+	Sat, 27 Jul 2019 15:10:10 +0000 (UTC)
+Received: from huawei.com (szxga05-in.huawei.com [45.249.212.191])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 951ECC32E9F
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id D29AEC32E9F
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Sat, 27 Jul 2019 15:10:07 +0000 (UTC)
-Received: from DGGEMS414-HUB.china.huawei.com (unknown [172.30.72.58])
- by Forcepoint Email with ESMTP id 5847837D049430CC0E55;
- Sat, 27 Jul 2019 23:10:02 +0800 (CST)
-Received: from localhost (10.133.213.239) by DGGEMS414-HUB.china.huawei.com
- (10.3.19.214) with Microsoft SMTP Server id 14.3.439.0; Sat, 27 Jul 2019
- 23:09:55 +0800
+ Sat, 27 Jul 2019 15:10:08 +0000 (UTC)
+Received: from DGGEMS402-HUB.china.huawei.com (unknown [172.30.72.60])
+ by Forcepoint Email with ESMTP id 53D2A344F7D54AFB3CA9;
+ Sat, 27 Jul 2019 23:10:06 +0800 (CST)
+Received: from localhost (10.133.213.239) by DGGEMS402-HUB.china.huawei.com
+ (10.3.19.202) with Microsoft SMTP Server id 14.3.439.0; Sat, 27 Jul 2019
+ 23:09:58 +0800
 From: YueHaibing <yuehaibing@huawei.com>
 To: <lgirdwood@gmail.com>, <broonie@kernel.org>, <perex@perex.cz>,
  <tiwai@suse.com>, <eric@anholt.net>, <wahrenst@gmx.net>,
@@ -34,8 +34,8 @@ To: <lgirdwood@gmail.com>, <broonie@kernel.org>, <perex@perex.cz>,
  <wens@csie.org>, <thierry.reding@gmail.com>, <jonathanh@nvidia.com>,
  <yamada.masahiro@socionext.com>, <michal.simek@xilinx.com>,
  <jcmvbkbc@gmail.com>
-Date: Sat, 27 Jul 2019 23:07:15 +0800
-Message-ID: <20190727150738.54764-12-yuehaibing@huawei.com>
+Date: Sat, 27 Jul 2019 23:07:16 +0800
+Message-ID: <20190727150738.54764-13-yuehaibing@huawei.com>
 X-Mailer: git-send-email 2.10.2.windows.1
 In-Reply-To: <20190727150738.54764-1-yuehaibing@huawei.com>
 References: <20190727150738.54764-1-yuehaibing@huawei.com>
@@ -48,7 +48,7 @@ Cc: linux-xtensa@linux-xtensa.org, alsa-devel@alsa-project.org,
  linux-rpi-kernel@lists.infradead.org, linux-tegra@vger.kernel.org,
  linux-amlogic@lists.infradead.org, linuxppc-dev@lists.ozlabs.org,
  linux-stm32@st-md-mailman.stormreply.com, linux-arm-kernel@lists.infradead.org
-Subject: [Linux-stm32] [PATCH -next 11/34] ASoC: mxs-saif: use
+Subject: [Linux-stm32] [PATCH -next 12/34] ASoC: spear: use
 	devm_platform_ioremap_resource() to simplify code
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
@@ -72,31 +72,27 @@ This is detected by coccinelle.
 Reported-by: Hulk Robot <hulkci@huawei.com>
 Signed-off-by: YueHaibing <yuehaibing@huawei.com>
 ---
- sound/soc/mxs/mxs-saif.c | 5 +----
- 1 file changed, 1 insertion(+), 4 deletions(-)
+ sound/soc/spear/spdif_in.c | 5 ++---
+ 1 file changed, 2 insertions(+), 3 deletions(-)
 
-diff --git a/sound/soc/mxs/mxs-saif.c b/sound/soc/mxs/mxs-saif.c
-index 269b6d6..a2c7942 100644
---- a/sound/soc/mxs/mxs-saif.c
-+++ b/sound/soc/mxs/mxs-saif.c
-@@ -732,7 +732,6 @@ static int mxs_saif_mclk_init(struct platform_device *pdev)
- static int mxs_saif_probe(struct platform_device *pdev)
+diff --git a/sound/soc/spear/spdif_in.c b/sound/soc/spear/spdif_in.c
+index 78a6a36..4b68d6e 100644
+--- a/sound/soc/spear/spdif_in.c
++++ b/sound/soc/spear/spdif_in.c
+@@ -202,12 +202,11 @@ static int spdif_in_probe(struct platform_device *pdev)
  {
- 	struct device_node *np = pdev->dev.of_node;
--	struct resource *iores;
- 	struct mxs_saif *saif;
- 	int irq, ret = 0;
- 	struct device_node *master;
-@@ -786,9 +785,7 @@ static int mxs_saif_probe(struct platform_device *pdev)
- 		return ret;
- 	}
+ 	struct spdif_in_dev *host;
+ 	struct spear_spdif_platform_data *pdata;
+-	struct resource *res, *res_fifo;
++	struct resource *res_fifo;
+ 	void __iomem *io_base;
+ 	int ret;
  
--	iores = platform_get_resource(pdev, IORESOURCE_MEM, 0);
--
--	saif->base = devm_ioremap_resource(&pdev->dev, iores);
-+	saif->base = devm_platform_ioremap_resource(pdev, 0);
- 	if (IS_ERR(saif->base))
- 		return PTR_ERR(saif->base);
+-	res = platform_get_resource(pdev, IORESOURCE_MEM, 0);
+-	io_base = devm_ioremap_resource(&pdev->dev, res);
++	io_base = devm_platform_ioremap_resource(pdev, 0);
+ 	if (IS_ERR(io_base))
+ 		return PTR_ERR(io_base);
  
 -- 
 2.7.4
