@@ -2,65 +2,52 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id 7671C76F08
-	for <lists+linux-stm32@lfdr.de>; Fri, 26 Jul 2019 18:27:12 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id E581077961
+	for <lists+linux-stm32@lfdr.de>; Sat, 27 Jul 2019 17:09:17 +0200 (CEST)
 Received: from ip-172-31-3-76.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 0C312C16363;
-	Fri, 26 Jul 2019 16:27:11 +0000 (UTC)
-Received: from mx07-00178001.pphosted.com (mx08-00178001.pphosted.com
- [91.207.212.93])
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 951CCC35E06;
+	Sat, 27 Jul 2019 15:09:17 +0000 (UTC)
+Received: from huawei.com (szxga06-in.huawei.com [45.249.212.32])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 3D641C1635F
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 992BDC36B3E
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Fri, 26 Jul 2019 16:27:10 +0000 (UTC)
-Received: from pps.filterd (m0046660.ppops.net [127.0.0.1])
- by mx08-00178001.pphosted.com (8.16.0.27/8.16.0.27) with SMTP id
- x6QG7fWq014148; Fri, 26 Jul 2019 18:27:03 +0200
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=st.com;
- h=subject : to : cc :
- references : from : message-id : date : mime-version : in-reply-to :
- content-type : content-transfer-encoding; s=STMicroelectronics;
- bh=n6HKe0PgjUg51eRmGPMx0Q+MwoGoF4rstkH/lFHzWaM=;
- b=JsisJ/fpUkrGVDfSbnAzLrhU0vpu091fbUaYeaRC1Do+Xg5R8AE1Wdflko+wosp4+R7F
- ya+MTVXY6X0yGUrx2znky65+IAwBMKRttphn0UXtGe3GuDxucpAACX+UQmTk3q3poqeC
- /DcYKUe81hr1OIfNwuVYApiAUVhWiMLl2SDq6d1fn6P/iPB0ORPk8iXb+1Hy1XIeQQA8
- gM2gLphuWIzte4rglgFqd7h56FKz+gcjVNe5DiVtVuYPCroIYfnHwgXM83CWu3yPYQGz
- X3sch1vB/47ieQ44MWFKSwACSBmJYcw/smxwLA/hkavoRMvNjBkqXJ9CtUS6zsD0HViW dw== 
-Received: from beta.dmz-eu.st.com (beta.dmz-eu.st.com [164.129.1.35])
- by mx08-00178001.pphosted.com with ESMTP id 2tx60absu1-1
- (version=TLSv1 cipher=ECDHE-RSA-AES256-SHA bits=256 verify=NOT);
- Fri, 26 Jul 2019 18:27:03 +0200
-Received: from zeta.dmz-eu.st.com (zeta.dmz-eu.st.com [164.129.230.9])
- by beta.dmz-eu.st.com (STMicroelectronics) with ESMTP id 10B1231;
- Fri, 26 Jul 2019 16:27:03 +0000 (GMT)
-Received: from Webmail-eu.st.com (sfhdag3node2.st.com [10.75.127.8])
- by zeta.dmz-eu.st.com (STMicroelectronics) with ESMTP id DF60D4FD0;
- Fri, 26 Jul 2019 16:27:02 +0000 (GMT)
-Received: from lmecxl0912.lme.st.com (10.75.127.51) by SFHDAG3NODE2.st.com
- (10.75.127.8) with Microsoft SMTP Server (TLS) id 15.0.1347.2; Fri, 26 Jul
- 2019 18:27:02 +0200
-To: Erwan Le Ray <erwan.leray@st.com>, Maxime Coquelin
- <mcoquelin.stm32@gmail.com>, Rob Herring <robh+dt@kernel.org>, Mark Rutland
- <mark.rutland@arm.com>
-References: <1561972686-23281-1-git-send-email-erwan.leray@st.com>
-From: Alexandre Torgue <alexandre.torgue@st.com>
-Message-ID: <8cb628b9-dbbf-98d6-e09a-2ecc082315d4@st.com>
-Date: Fri, 26 Jul 2019 18:27:01 +0200
-User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:60.0) Gecko/20100101
- Thunderbird/60.8.0
+ Sat, 27 Jul 2019 15:09:15 +0000 (UTC)
+Received: from DGGEMS407-HUB.china.huawei.com (unknown [172.30.72.60])
+ by Forcepoint Email with ESMTP id 40F02F258955C599E725;
+ Sat, 27 Jul 2019 23:09:12 +0800 (CST)
+Received: from localhost (10.133.213.239) by DGGEMS407-HUB.china.huawei.com
+ (10.3.19.207) with Microsoft SMTP Server id 14.3.439.0; Sat, 27 Jul 2019
+ 23:09:06 +0800
+From: YueHaibing <yuehaibing@huawei.com>
+To: <lgirdwood@gmail.com>, <broonie@kernel.org>, <perex@perex.cz>,
+ <tiwai@suse.com>, <eric@anholt.net>, <wahrenst@gmx.net>,
+ <f.fainelli@gmail.com>, <rjui@broadcom.com>, <sbranden@broadcom.com>,
+ <bcm-kernel-feedback-list@broadcom.com>, <paul@crapouillou.net>,
+ <timur@kernel.org>, <nicoleotsuka@gmail.com>, <Xiubo.Lee@gmail.com>,
+ <festevam@gmail.com>, <shawnguo@kernel.org>, <s.hauer@pengutronix.de>,
+ <kernel@pengutronix.de>, <linux-imx@nxp.com>, <matthias.bgg@gmail.com>,
+ <jbrunet@baylibre.com>, <khilman@baylibre.com>, <daniel@zonque.org>,
+ <haojian.zhuang@gmail.com>, <robert.jarzmik@free.fr>, <baohua@kernel.org>,
+ <olivier.moysan@st.com>, <arnaud.pouliquen@st.com>,
+ <mcoquelin.stm32@gmail.com>, <alexandre.torgue@st.com>, <mripard@kernel.org>, 
+ <wens@csie.org>, <thierry.reding@gmail.com>, <jonathanh@nvidia.com>,
+ <yamada.masahiro@socionext.com>, <michal.simek@xilinx.com>,
+ <jcmvbkbc@gmail.com>
+Date: Sat, 27 Jul 2019 23:07:04 +0800
+Message-ID: <20190727150738.54764-1-yuehaibing@huawei.com>
+X-Mailer: git-send-email 2.10.2.windows.1
 MIME-Version: 1.0
-In-Reply-To: <1561972686-23281-1-git-send-email-erwan.leray@st.com>
-Content-Language: en-US
-X-Originating-IP: [10.75.127.51]
-X-ClientProxiedBy: SFHDAG2NODE1.st.com (10.75.127.4) To SFHDAG3NODE2.st.com
- (10.75.127.8)
-X-Proofpoint-Virus-Version: vendor=fsecure engine=2.50.10434:, ,
- definitions=2019-07-26_12:, , signatures=0
-Cc: devicetree@vger.kernel.org, linux-stm32@st-md-mailman.stormreply.com,
- linux-arm-kernel@lists.infradead.org, linux-kernel@vger.kernel.org
-Subject: Re: [Linux-stm32] [PATCH] ARM: dts: stm32: fix -Wall W=1
- compilation warnings for can1_sleep pinctrl
+X-Originating-IP: [10.133.213.239]
+X-CFilter-Loop: Reflected
+Cc: linux-xtensa@linux-xtensa.org, alsa-devel@alsa-project.org,
+ gregkh@linuxfoundation.org, YueHaibing <yuehaibing@huawei.com>,
+ linux-kernel@vger.kernel.org, linux-mediatek@lists.infradead.org,
+ linux-rpi-kernel@lists.infradead.org, linux-tegra@vger.kernel.org,
+ linux-amlogic@lists.infradead.org, linuxppc-dev@lists.ozlabs.org,
+ linux-stm32@st-md-mailman.stormreply.com, linux-arm-kernel@lists.infradead.org
+Subject: [Linux-stm32] [PATCH -next 00/34] ASoC: use
+	devm_platform_ioremap_resource() to simplify code
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -72,40 +59,115 @@ List-Post: <mailto:linux-stm32@st-md-mailman.stormreply.com>
 List-Help: <mailto:linux-stm32-request@st-md-mailman.stormreply.com?subject=help>
 List-Subscribe: <https://st-md-mailman.stormreply.com/mailman/listinfo/linux-stm32>, 
  <mailto:linux-stm32-request@st-md-mailman.stormreply.com?subject=subscribe>
+Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
-Content-Type: text/plain; charset="us-ascii"; Format="flowed"
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
-Hi Erwan		
+devm_platform_ioremap_resource() internally have platform_get_resource()
+and devm_ioremap_resource() in it. So instead of calling them separately
+use devm_platform_ioremap_resource() directly.
 
-On 7/1/19 11:18 AM, Erwan Le Ray wrote:
-> Fix compilations warnings detected by -Wall W=1 compilation option:
-> - node has a unit name, but no reg property
-> 
-> Signed-off-by: Erwan Le Ray <erwan.leray@st.com>
-> 
-> diff --git a/arch/arm/boot/dts/stm32mp157-pinctrl.dtsi b/arch/arm/boot/dts/stm32mp157-pinctrl.dtsi
-> index 140a983..ce98fd8 100644
-> --- a/arch/arm/boot/dts/stm32mp157-pinctrl.dtsi
-> +++ b/arch/arm/boot/dts/stm32mp157-pinctrl.dtsi
-> @@ -427,7 +427,7 @@
->   				};
->   			};
->   
-> -			m_can1_sleep_pins_a: m_can1-sleep@0 {
-> +			m_can1_sleep_pins_a: m_can1-sleep-0 {
->   				pins {
->   					pinmux = <STM32_PINMUX('H', 13, ANALOG)>, /* CAN1_TX */
->   						 <STM32_PINMUX('I', 9, ANALOG)>; /* CAN1_RX */
-> 
+YueHaibing (34):
+  ASoC: tegra20_das: use devm_platform_ioremap_resource() to simplify
+    code
+  ASoC: tegra: use devm_platform_ioremap_resource() to simplify code
+  ASoC: rockchip: use devm_platform_ioremap_resource() to simplify code
+  ASoC: ep93xx-i2s: use devm_platform_ioremap_resource() to simplify
+    code
+  ASoC: mt8173: use devm_platform_ioremap_resource() to simplify code
+  ASoC: mt6797: use devm_platform_ioremap_resource() to simplify code
+  ASoC: imx-audmux: use devm_platform_ioremap_resource() to simplify
+    code
+  ASoC: fsl_audmix: use devm_platform_ioremap_resource() to simplify
+    code
+  ASoC: bcm2835-i2s: use devm_platform_ioremap_resource() to simplify
+    code
+  ASoC: sirf: use devm_platform_ioremap_resource() to simplify code
+  ASoC: mxs-saif: use devm_platform_ioremap_resource() to simplify code
+  ASoC: spear: use devm_platform_ioremap_resource() to simplify code
+  ASoC: kirkwood-i2s: use devm_platform_ioremap_resource() to simplify
+    code
+  ASoC: xtfpga-i2s: use devm_platform_ioremap_resource() to simplify
+    code
+  ASoC: stm32: sai: use devm_platform_ioremap_resource() to simplify
+    code
+  ASoC: codecs: msm8916-wcd: use devm_platform_ioremap_resource() to
+    simplify code
+  ASoC: codecs: jz4725b: use devm_platform_ioremap_resource() to
+    simplify code
+  ASoC: mmp-sspa: use devm_platform_ioremap_resource() to simplify code
+  ASoC: jz4740: use devm_platform_ioremap_resource() to simplify code
+  ASoC: inno_rk3036: use devm_platform_ioremap_resource() to simplify
+    code
+  ASoC: uniphier: evea: use devm_platform_ioremap_resource() to simplify
+    code
+  ASoC: uniphier: aio-dma: use devm_platform_ioremap_resource() to
+    simplify code
+  ASoC: psc-ac97: use devm_platform_ioremap_resource() to simplify code
+  ASoC: au1x: psc-i2s: use devm_platform_ioremap_resource() to simplify
+    code
+  ASoC: meson: g12a-tohdmitx: use devm_platform_ioremap_resource() to
+    simplify code
+  ASoC: meson: axg-tdm-formatter: use devm_platform_ioremap_resource()
+    to simplify code
+  ASoC: meson: axg-pdm: use devm_platform_ioremap_resource() to simplify
+    code
+  ASoC: meson: axg-spdifin: use devm_platform_ioremap_resource() to
+    simplify code
+  ASoC: meson: axg-spdifout: use devm_platform_ioremap_resource() to
+    simplify code
+  ASoC: meson: axg-fifo: use devm_platform_ioremap_resource() to
+    simplify code
+  ASoC: xlnx: use devm_platform_ioremap_resource() to simplify code
+  ASoC: sun8i-codec-analog: use devm_platform_ioremap_resource() to
+    simplify code
+  ASoC: sunxi: sun50i-codec-analog: use devm_platform_ioremap_resource()
+    to simplify code
+  ASoC: sun8i-codec: use devm_platform_ioremap_resource() to simplify
+    code
 
-Thanks for cleaning the STM32 DT. Applied on stm32-next. Note that I 
-changed commit title to indicate which STM32 platform is targeted by 
-this patch.
+ sound/soc/au1x/psc-ac97.c                  | 5 ++---
+ sound/soc/au1x/psc-i2s.c                   | 5 ++---
+ sound/soc/bcm/bcm2835-i2s.c                | 4 +---
+ sound/soc/cirrus/ep93xx-i2s.c              | 4 +---
+ sound/soc/codecs/inno_rk3036.c             | 4 +---
+ sound/soc/codecs/jz4725b.c                 | 4 +---
+ sound/soc/codecs/jz4740.c                  | 4 +---
+ sound/soc/codecs/msm8916-wcd-digital.c     | 4 +---
+ sound/soc/codecs/rk3328_codec.c            | 4 +---
+ sound/soc/fsl/fsl_audmix.c                 | 4 +---
+ sound/soc/fsl/imx-audmux.c                 | 4 +---
+ sound/soc/kirkwood/kirkwood-i2s.c          | 4 +---
+ sound/soc/mediatek/mt6797/mt6797-afe-pcm.c | 5 +----
+ sound/soc/mediatek/mt8173/mt8173-afe-pcm.c | 4 +---
+ sound/soc/meson/axg-fifo.c                 | 4 +---
+ sound/soc/meson/axg-pdm.c                  | 4 +---
+ sound/soc/meson/axg-spdifin.c              | 4 +---
+ sound/soc/meson/axg-spdifout.c             | 4 +---
+ sound/soc/meson/axg-tdm-formatter.c        | 4 +---
+ sound/soc/meson/g12a-tohdmitx.c            | 4 +---
+ sound/soc/mxs/mxs-saif.c                   | 5 +----
+ sound/soc/pxa/mmp-sspa.c                   | 4 +---
+ sound/soc/sirf/sirf-usp.c                  | 4 +---
+ sound/soc/spear/spdif_in.c                 | 5 ++---
+ sound/soc/stm/stm32_sai.c                  | 4 +---
+ sound/soc/sunxi/sun50i-codec-analog.c      | 4 +---
+ sound/soc/sunxi/sun8i-codec-analog.c       | 4 +---
+ sound/soc/sunxi/sun8i-codec.c              | 4 +---
+ sound/soc/tegra/tegra20_das.c              | 4 +---
+ sound/soc/tegra/tegra30_i2s.c              | 4 +---
+ sound/soc/uniphier/aio-dma.c               | 4 +---
+ sound/soc/uniphier/evea.c                  | 4 +---
+ sound/soc/xilinx/xlnx_i2s.c                | 4 +---
+ sound/soc/xilinx/xlnx_spdif.c              | 3 +--
+ sound/soc/xtensa/xtfpga-i2s.c              | 4 +---
+ 35 files changed, 38 insertions(+), 106 deletions(-)
 
-Regards
-Alex
+-- 
+2.7.4
+
+
 _______________________________________________
 Linux-stm32 mailing list
 Linux-stm32@st-md-mailman.stormreply.com
