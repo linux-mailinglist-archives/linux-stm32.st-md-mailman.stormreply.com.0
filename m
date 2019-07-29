@@ -2,65 +2,80 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id E8CFB78DF5
-	for <lists+linux-stm32@lfdr.de>; Mon, 29 Jul 2019 16:29:29 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 8FC2579B1B
+	for <lists+linux-stm32@lfdr.de>; Mon, 29 Jul 2019 23:33:14 +0200 (CEST)
 Received: from ip-172-31-3-76.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id E2856C35E01;
-	Mon, 29 Jul 2019 14:29:28 +0000 (UTC)
-Received: from mx07-00178001.pphosted.com (mx08-00178001.pphosted.com
- [91.207.212.93])
- (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
- (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 4A4A4C36B3E
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 44084C35E01;
+	Mon, 29 Jul 2019 21:33:14 +0000 (UTC)
+Received: from hqemgate16.nvidia.com (hqemgate16.nvidia.com [216.228.121.65])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256
+ bits)) (No client certificate requested)
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 1901AC36B3E
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Mon, 29 Jul 2019 14:29:26 +0000 (UTC)
-Received: from pps.filterd (m0046660.ppops.net [127.0.0.1])
- by mx08-00178001.pphosted.com (8.16.0.27/8.16.0.27) with SMTP id
- x6TERLrM022428; Mon, 29 Jul 2019 16:29:17 +0200
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=st.com;
- h=from : to : subject :
- date : message-id : mime-version : content-type :
- content-transfer-encoding; s=STMicroelectronics;
- bh=/E0GksnkJiKefciHBvFyL+s1X3i9mUeBZFhV3J5bfCA=;
- b=MejLdAC5egEPFYo+PeRI2KZ59gQepBm4PjuE4dYHUmy2ipCTkYeM8cPmcIuSB5SWQNZc
- RWkDgdoUWvw3LPq0VRRbTRfja20BeoQ43YZJjo73gjX75besD6SIgzfQwDq3U6bS6jX4
- L9ELCvaiRoeRT73MTMLKzNRLuVenb8F1Kp+dQ3QMliTZWXCRQIjCAtmzQdq5k/AfDJSE
- Jcm28weMNsKgnLktPyiKeaCpGOtZrBUi0IA3MLu/DH7f+Jm0RWGCxy/j4HwaUzG1/tlU
- Sm0oYVM+dOOe63K/wy8W/kCEDgi0jnnm8h05EyWzJ4dJZfn1fAhTIaGveh3kVOEjKjcL +A== 
-Received: from beta.dmz-eu.st.com (beta.dmz-eu.st.com [164.129.1.35])
- by mx08-00178001.pphosted.com with ESMTP id 2u0br9n7jv-1
- (version=TLSv1 cipher=ECDHE-RSA-AES256-SHA bits=256 verify=NOT);
- Mon, 29 Jul 2019 16:29:17 +0200
-Received: from zeta.dmz-eu.st.com (zeta.dmz-eu.st.com [164.129.230.9])
- by beta.dmz-eu.st.com (STMicroelectronics) with ESMTP id 1F17F34;
- Mon, 29 Jul 2019 14:29:16 +0000 (GMT)
-Received: from Webmail-eu.st.com (Safex1hubcas24.st.com [10.75.90.94])
- by zeta.dmz-eu.st.com (STMicroelectronics) with ESMTP id D1D6B5A7C;
- Mon, 29 Jul 2019 14:29:15 +0000 (GMT)
-Received: from SAFEX1HUBCAS23.st.com (10.75.90.47) by Safex1hubcas24.st.com
- (10.75.90.94) with Microsoft SMTP Server (TLS) id 14.3.439.0; Mon, 29 Jul
- 2019 16:29:15 +0200
-Received: from localhost (10.201.23.97) by webmail-ga.st.com (10.75.90.48)
- with Microsoft SMTP Server (TLS) id 14.3.439.0; Mon, 29 Jul 2019 16:29:15
- +0200
-From: =?UTF-8?q?Yannick=20Fertr=C3=A9?= <yannick.fertre@st.com>
-To: Maxime Coquelin <mcoquelin.stm32@gmail.com>, Alexandre Torgue
- <alexandre.torgue@st.com>, Rob Herring <robh+dt@kernel.org>, Mark Rutland
- <mark.rutland@arm.com>, <linux-stm32@st-md-mailman.stormreply.com>,
- <linux-arm-kernel@lists.infradead.org>, <devicetree@vger.kernel.org>,
- <linux-kernel@vger.kernel.org>,
- Benjamin Gaignard <benjamin.gaignard@st.com>,
- Yannick Fertre <yannick.fertre@st.com>, Philippe Cornu
- <philippe.cornu@st.com>, Fabrice Gasnier <fabrice.gasnier@st.com>
-Date: Mon, 29 Jul 2019 16:29:08 +0200
-Message-ID: <1564410548-20436-1-git-send-email-yannick.fertre@st.com>
-X-Mailer: git-send-email 2.7.4
+ Mon, 29 Jul 2019 21:33:11 +0000 (UTC)
+Received: from hqpgpgate101.nvidia.com (Not Verified[216.228.121.13]) by
+ hqemgate16.nvidia.com (using TLS: TLSv1.2, DES-CBC3-SHA)
+ id <B5d3f660d0000>; Mon, 29 Jul 2019 14:33:01 -0700
+Received: from hqmail.nvidia.com ([172.20.161.6])
+ by hqpgpgate101.nvidia.com (PGP Universal service);
+ Mon, 29 Jul 2019 14:33:10 -0700
+X-PGP-Universal: processed;
+ by hqpgpgate101.nvidia.com on Mon, 29 Jul 2019 14:33:10 -0700
+Received: from [10.26.11.172] (10.124.1.5) by HQMAIL107.nvidia.com
+ (172.20.187.13) with Microsoft SMTP Server (TLS) id 15.0.1473.3; Mon, 29 Jul
+ 2019 21:33:06 +0000
+To: Jose Abreu <Jose.Abreu@synopsys.com>, Robin Murphy <robin.murphy@arm.com>, 
+ "linux-kernel@vger.kernel.org" <linux-kernel@vger.kernel.org>,
+ "netdev@vger.kernel.org" <netdev@vger.kernel.org>,
+ "linux-stm32@st-md-mailman.stormreply.com"
+ <linux-stm32@st-md-mailman.stormreply.com>,
+ "linux-arm-kernel@lists.infradead.org"
+ <linux-arm-kernel@lists.infradead.org>, Catalin Marinas
+ <catalin.marinas@arm.com>, Will Deacon <will@kernel.org>
+References: <cover.1562149883.git.joabreu@synopsys.com>
+ <1b254bb7fc6044c5e6e2fdd9e00088d1d13a808b.1562149883.git.joabreu@synopsys.com>
+ <7a79be5d-7ba2-c457-36d3-1ccef6572181@nvidia.com>
+ <BYAPR12MB3269927AB1F67D46E150ED6BD3C10@BYAPR12MB3269.namprd12.prod.outlook.com>
+ <9e695f33-fd9f-a910-0891-2b63bd75e082@nvidia.com>
+ <BYAPR12MB3269B4A401E4DA10A07515C7D3C10@BYAPR12MB3269.namprd12.prod.outlook.com>
+ <1e2ea942-28fe-15b9-f675-8d6585f9a33f@nvidia.com>
+ <BYAPR12MB326922CDCB1D4B3D4A780CFDD3C30@BYAPR12MB3269.namprd12.prod.outlook.com>
+ <MN2PR12MB327907D4A6FB378AC989571AD3DD0@MN2PR12MB3279.namprd12.prod.outlook.com>
+ <b99b1e49-0cbc-2c66-6325-50fa6f263d91@nvidia.com>
+ <MN2PR12MB327997BDF2EA5CEE00F45AC3D3DD0@MN2PR12MB3279.namprd12.prod.outlook.com>
+ <fcf648d2-70cc-d734-871a-ca7f745791b7@arm.com>
+ <MN2PR12MB3279ABF628C52883021123C5D3DD0@MN2PR12MB3279.namprd12.prod.outlook.com>
+From: Jon Hunter <jonathanh@nvidia.com>
+Message-ID: <8a60361f-b914-93ef-0d80-92ae4ad8b808@nvidia.com>
+Date: Mon, 29 Jul 2019 22:33:04 +0100
+User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:60.0) Gecko/20100101
+ Thunderbird/60.8.0
 MIME-Version: 1.0
-X-Originating-IP: [10.201.23.97]
-X-Proofpoint-Virus-Version: vendor=fsecure engine=2.50.10434:, ,
- definitions=2019-07-29_07:, , signatures=0
-Subject: [Linux-stm32] [PATCH] ARM: dts: stm32: add phy-dsi-supply property
-	on stm32mp157c-ev1
+In-Reply-To: <MN2PR12MB3279ABF628C52883021123C5D3DD0@MN2PR12MB3279.namprd12.prod.outlook.com>
+X-Originating-IP: [10.124.1.5]
+X-ClientProxiedBy: HQMAIL105.nvidia.com (172.20.187.12) To
+ HQMAIL107.nvidia.com (172.20.187.13)
+Content-Language: en-US
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=nvidia.com; s=n1;
+ t=1564435981; bh=+tXkvnJomdlQUldytIfFdlsTnBE+q42y36xSnoRaYvU=;
+ h=X-PGP-Universal:Subject:To:CC:References:From:Message-ID:Date:
+ User-Agent:MIME-Version:In-Reply-To:X-Originating-IP:
+ X-ClientProxiedBy:Content-Type:Content-Language:
+ Content-Transfer-Encoding;
+ b=BuHiU6CuSm73jgRPvxOtqlowqNvcDo0RdVEDsM3mou7XM1jZUGREQyFZuANpF/PvP
+ 74z9Kajzmn7ZZkLJODbpWKiSvdL21YH+vAaT4lbeq0A48hDAGkx5dlYGbRySj7NVSl
+ eeR8oEZNAaZmfNT/jAKBhIQ+ySqvcIJ+QGLGssZkoEGbiNaFn8PYEVr7Ogq3qxp6OC
+ MGKfMF0rF+daOjLKHG4uwYzh0Z1m5F8/2SDgm4MUDbOQLBKmeq5ImF6yfeemzmZKpt
+ Y8cvlCRKwGq0mSIJ3Pe9pq+Sm2pP0vRg32Z8tYF44uOAcTpCxzdqQDnj/bpHX1F7GO
+ PyR6nJoawG9Ig==
+Cc: Joao Pinto <Joao.Pinto@synopsys.com>,
+ Maxime Ripard <maxime.ripard@bootlin.com>, Chen-Yu Tsai <wens@csie.org>,
+ Maxime Coquelin <mcoquelin.stm32@gmail.com>,
+ linux-tegra <linux-tegra@vger.kernel.org>,
+ Giuseppe Cavallaro <peppe.cavallaro@st.com>,
+ "David S . Miller" <davem@davemloft.net>
+Subject: Re: [Linux-stm32] [PATCH net-next 3/3] net: stmmac: Introducing
+ support for Page Pool
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -72,21 +87,75 @@ List-Post: <mailto:linux-stm32@st-md-mailman.stormreply.com>
 List-Help: <mailto:linux-stm32-request@st-md-mailman.stormreply.com?subject=help>
 List-Subscribe: <https://st-md-mailman.stormreply.com/mailman/listinfo/linux-stm32>, 
  <mailto:linux-stm32-request@st-md-mailman.stormreply.com?subject=subscribe>
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: base64
+Content-Type: text/plain; charset="us-ascii"
+Content-Transfer-Encoding: 7bit
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
-VGhlIGRzaSBwaHlzaWNhbCBsYXllciBpcyBwb3dlcmVkIGJ5IHRoZSAxdjggcG93ZXIgY29udHJv
-bGxlciBzdXBwbHkuCgpTaWduZWQtb2ZmLWJ5OiBZYW5uaWNrIEZlcnRyw6kgPHlhbm5pY2suZmVy
-dHJlQHN0LmNvbT4KLS0tCiBhcmNoL2FybS9ib290L2R0cy9zdG0zMm1wMTU3Yy1ldjEuZHRzIHwg
-MSArCiAxIGZpbGUgY2hhbmdlZCwgMSBpbnNlcnRpb24oKykKCmRpZmYgLS1naXQgYS9hcmNoL2Fy
-bS9ib290L2R0cy9zdG0zMm1wMTU3Yy1ldjEuZHRzIGIvYXJjaC9hcm0vYm9vdC9kdHMvc3RtMzJt
-cDE1N2MtZXYxLmR0cwppbmRleCBmZWI4Zjc3Li4xOWQ2OWQwIDEwMDY0NAotLS0gYS9hcmNoL2Fy
-bS9ib290L2R0cy9zdG0zMm1wMTU3Yy1ldjEuZHRzCisrKyBiL2FyY2gvYXJtL2Jvb3QvZHRzL3N0
-bTMybXAxNTdjLWV2MS5kdHMKQEAgLTEwMSw2ICsxMDEsNyBAQAogJmRzaSB7CiAJI2FkZHJlc3Mt
-Y2VsbHMgPSA8MT47CiAJI3NpemUtY2VsbHMgPSA8MD47CisJcGh5LWRzaS1zdXBwbHkgPSA8JnJl
-ZzE4PjsKIAlzdGF0dXMgPSAib2theSI7CiAKIAlwb3J0cyB7Ci0tIAoyLjcuNAoKX19fX19fX19f
-X19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX18KTGludXgtc3RtMzIgbWFpbGlu
-ZyBsaXN0CkxpbnV4LXN0bTMyQHN0LW1kLW1haWxtYW4uc3Rvcm1yZXBseS5jb20KaHR0cHM6Ly9z
-dC1tZC1tYWlsbWFuLnN0b3JtcmVwbHkuY29tL21haWxtYW4vbGlzdGluZm8vbGludXgtc3RtMzIK
+
+On 29/07/2019 15:08, Jose Abreu wrote:
+
+...
+
+>>> Hi Catalin and Will,
+>>>
+>>> Sorry to add you in such a long thread but we are seeing a DMA issue
+>>> with stmmac driver in an ARM64 platform with IOMMU enabled.
+>>>
+>>> The issue seems to be solved when buffers allocation for DMA based
+>>> transfers are *not* mapped with the DMA_ATTR_SKIP_CPU_SYNC flag *OR*
+>>> when IOMMU is disabled.
+>>>
+>>> Notice that after transfer is done we do use
+>>> dma_sync_single_for_{cpu,device} and then we reuse *the same* page for
+>>> another transfer.
+>>>
+>>> Can you please comment on whether DMA_ATTR_SKIP_CPU_SYNC can not be used
+>>> in ARM64 platforms with IOMMU ?
+>>
+>> In terms of what they do, there should be no difference on arm64 between:
+>>
+>> dma_map_page(..., dir);
+>> ...
+>> dma_unmap_page(..., dir);
+>>
+>> and:
+>>
+>> dma_map_page_attrs(..., dir, DMA_ATTR_SKIP_CPU_SYNC);
+>> dma_sync_single_for_device(..., dir);
+>> ...
+>> dma_sync_single_for_cpu(..., dir);
+>> dma_unmap_page_attrs(..., dir, DMA_ATTR_SKIP_CPU_SYNC);
+>>
+>> provided that the first sync covers the whole buffer and any subsequent 
+>> ones cover at least the parts of the buffer which may have changed. Plus 
+>> for coherent hardware it's entirely moot either way.
+> 
+> Thanks for confirming. That's indeed what stmmac is doing when buffer is 
+> received by syncing the packet size to CPU.
+> 
+>>
+>> Given Jon's previous findings, I would lean towards the idea that 
+>> performing the extra (redundant) cache maintenance plus barrier in 
+>> dma_unmap is mostly just perturbing timing in the same way as the debug 
+>> print which also made things seem OK.
+> 
+> Mikko said that Tegra186 is not coherent so we have to explicit flush 
+> pipeline but I don't understand why sync_single() is not doing it ...
+> 
+> Jon, can you please remove *all* debug prints, hacks, etc ... and test 
+> this one in attach with plain -net tree ?
+
+So far I have just been testing on the mainline kernel branch. The issue
+still persists after applying this on mainline. I can test on the -net
+tree, but I am not sure that will make a difference.
+
+Cheers
+Jon
+
+-- 
+nvpublic
+_______________________________________________
+Linux-stm32 mailing list
+Linux-stm32@st-md-mailman.stormreply.com
+https://st-md-mailman.stormreply.com/mailman/listinfo/linux-stm32
