@@ -2,56 +2,60 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id 9C64078AEB
-	for <lists+linux-stm32@lfdr.de>; Mon, 29 Jul 2019 13:52:07 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 31F0A78D3B
+	for <lists+linux-stm32@lfdr.de>; Mon, 29 Jul 2019 15:55:46 +0200 (CEST)
 Received: from ip-172-31-3-76.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 56775C35E01;
-	Mon, 29 Jul 2019 11:52:07 +0000 (UTC)
-Received: from foss.arm.com (foss.arm.com [217.140.110.172])
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 84C75C36B3E
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id DE2BBC35E02;
+	Mon, 29 Jul 2019 13:55:45 +0000 (UTC)
+Received: from mx07-00178001.pphosted.com (mx08-00178001.pphosted.com
+ [91.207.212.93])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+ (No client certificate requested)
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id C320FC36B3F
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Mon, 29 Jul 2019 11:52:06 +0000 (UTC)
-Received: from usa-sjc-imap-foss1.foss.arm.com (unknown [10.121.207.14])
- by usa-sjc-mx-foss1.foss.arm.com (Postfix) with ESMTP id 8CC9E28;
- Mon, 29 Jul 2019 04:52:05 -0700 (PDT)
-Received: from [10.1.197.57] (e110467-lin.cambridge.arm.com [10.1.197.57])
- by usa-sjc-imap-foss1.foss.arm.com (Postfix) with ESMTPSA id A1E553F694;
- Mon, 29 Jul 2019 04:52:03 -0700 (PDT)
-To: Jose Abreu <Jose.Abreu@synopsys.com>, Jon Hunter <jonathanh@nvidia.com>,
- "linux-kernel@vger.kernel.org" <linux-kernel@vger.kernel.org>,
- "netdev@vger.kernel.org" <netdev@vger.kernel.org>,
- "linux-stm32@st-md-mailman.stormreply.com"
- <linux-stm32@st-md-mailman.stormreply.com>,
- "linux-arm-kernel@lists.infradead.org"
- <linux-arm-kernel@lists.infradead.org>,
- Catalin Marinas <catalin.marinas@arm.com>, Will Deacon <will@kernel.org>
-References: <cover.1562149883.git.joabreu@synopsys.com>
- <1b254bb7fc6044c5e6e2fdd9e00088d1d13a808b.1562149883.git.joabreu@synopsys.com>
- <7a79be5d-7ba2-c457-36d3-1ccef6572181@nvidia.com>
- <BYAPR12MB3269927AB1F67D46E150ED6BD3C10@BYAPR12MB3269.namprd12.prod.outlook.com>
- <9e695f33-fd9f-a910-0891-2b63bd75e082@nvidia.com>
- <BYAPR12MB3269B4A401E4DA10A07515C7D3C10@BYAPR12MB3269.namprd12.prod.outlook.com>
- <1e2ea942-28fe-15b9-f675-8d6585f9a33f@nvidia.com>
- <BYAPR12MB326922CDCB1D4B3D4A780CFDD3C30@BYAPR12MB3269.namprd12.prod.outlook.com>
- <MN2PR12MB327907D4A6FB378AC989571AD3DD0@MN2PR12MB3279.namprd12.prod.outlook.com>
- <b99b1e49-0cbc-2c66-6325-50fa6f263d91@nvidia.com>
- <MN2PR12MB327997BDF2EA5CEE00F45AC3D3DD0@MN2PR12MB3279.namprd12.prod.outlook.com>
-From: Robin Murphy <robin.murphy@arm.com>
-Message-ID: <fcf648d2-70cc-d734-871a-ca7f745791b7@arm.com>
-Date: Mon, 29 Jul 2019 12:52:02 +0100
-User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:60.0) Gecko/20100101
- Thunderbird/60.6.1
+ Mon, 29 Jul 2019 13:55:43 +0000 (UTC)
+Received: from pps.filterd (m0046661.ppops.net [127.0.0.1])
+ by mx08-00178001.pphosted.com (8.16.0.27/8.16.0.27) with SMTP id
+ x6TDq2J2020057; Mon, 29 Jul 2019 15:55:19 +0200
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=st.com;
+ h=from : to : cc : subject
+ : date : message-id : mime-version : content-type; s=STMicroelectronics;
+ bh=wfkrOwgCeZzV4fJ7ha2E0UrU2pJwRZbxnCDoHpSL6Lo=;
+ b=aaHEAo21qSIaSv7R6MRoTxb5QmXdL8npp7YI9RenusW41aiT6cgb4klBMF3wLyarrKDq
+ VlCfH0Ea/1CItcbbkdgcvqYmTVOYEzXmD6MSivh/DHf7yNpCh/NQ0bVrJmyUAvb5lcxj
+ YNhIlNNqKG8VNke65yg2C2PGnOWMgAg9cdQpnrn4dNCNBgSZ3AzSgAz08fyvpx7d2BX8
+ HmUT6+CPMxc6ynXrbVmIYYl4SFJYakXL0ySQKOfCSCI5RD3BP2DLZ3HhiQQYQT+8bbwU
+ 68k82la8jxiEDdAtjvlO/moctGJwbPwnGwydR2UimtYeMvC6YHrW+cHrspuLzN0rWIWc BA== 
+Received: from beta.dmz-eu.st.com (beta.dmz-eu.st.com [164.129.1.35])
+ by mx08-00178001.pphosted.com with ESMTP id 2u0dggvkww-1
+ (version=TLSv1 cipher=ECDHE-RSA-AES256-SHA bits=256 verify=NOT);
+ Mon, 29 Jul 2019 15:55:19 +0200
+Received: from zeta.dmz-eu.st.com (zeta.dmz-eu.st.com [164.129.230.9])
+ by beta.dmz-eu.st.com (STMicroelectronics) with ESMTP id A308F3D;
+ Mon, 29 Jul 2019 13:55:17 +0000 (GMT)
+Received: from Webmail-eu.st.com (Safex1hubcas24.st.com [10.75.90.94])
+ by zeta.dmz-eu.st.com (STMicroelectronics) with ESMTP id 7810B5747;
+ Mon, 29 Jul 2019 13:55:17 +0000 (GMT)
+Received: from SAFEX1HUBCAS23.st.com (10.75.90.47) by Safex1hubcas24.st.com
+ (10.75.90.94) with Microsoft SMTP Server (TLS) id 14.3.439.0; Mon, 29 Jul
+ 2019 15:55:17 +0200
+Received: from localhost (10.201.23.73) by webmail-ga.st.com (10.75.90.48)
+ with Microsoft SMTP Server (TLS) id 14.3.439.0; Mon, 29 Jul 2019 15:55:17
+ +0200
+From: <patrice.chotard@st.com>
+To: Arnd Bergmann <arnd@arndb.de>, Olof Johansson <olof@lixom.net>,
+ "Alexandre Torgue" <alexandre.torgue@st.com>, Russell King
+ <linux@armlinux.org.uk>
+Date: Mon, 29 Jul 2019 15:55:05 +0200
+Message-ID: <20190729135505.15394-1-patrice.chotard@st.com>
+X-Mailer: git-send-email 2.17.1
 MIME-Version: 1.0
-In-Reply-To: <MN2PR12MB327997BDF2EA5CEE00F45AC3D3DD0@MN2PR12MB3279.namprd12.prod.outlook.com>
-Content-Language: en-GB
-Cc: Joao Pinto <Joao.Pinto@synopsys.com>,
- Maxime Ripard <maxime.ripard@bootlin.com>, Chen-Yu Tsai <wens@csie.org>,
- Maxime Coquelin <mcoquelin.stm32@gmail.com>,
- linux-tegra <linux-tegra@vger.kernel.org>,
- Giuseppe Cavallaro <peppe.cavallaro@st.com>,
- "David S . Miller" <davem@davemloft.net>
-Subject: Re: [Linux-stm32] [PATCH net-next 3/3] net: stmmac: Introducing
- support for Page Pool
+X-Originating-IP: [10.201.23.73]
+X-Proofpoint-Virus-Version: vendor=fsecure engine=2.50.10434:, ,
+ definitions=2019-07-29_06:, , signatures=0
+Cc: linux-kernel@vger.kernel.org, linux-arm-kernel@lists.infradead.org,
+ linux-stm32@st-md-mailman.stormreply.com
+Subject: [Linux-stm32] ARM: multi_v7_defconfig: Enable SPI_STM32_QSPI support
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -63,117 +67,35 @@ List-Post: <mailto:linux-stm32@st-md-mailman.stormreply.com>
 List-Help: <mailto:linux-stm32-request@st-md-mailman.stormreply.com?subject=help>
 List-Subscribe: <https://st-md-mailman.stormreply.com/mailman/listinfo/linux-stm32>, 
  <mailto:linux-stm32-request@st-md-mailman.stormreply.com?subject=subscribe>
+Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
-Content-Type: text/plain; charset="us-ascii"; Format="flowed"
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
-On 29/07/2019 12:29, Jose Abreu wrote:
-> ++ Catalin, Will (ARM64 Maintainers)
-> 
-> From: Jon Hunter <jonathanh@nvidia.com>
-> Date: Jul/29/2019, 11:55:18 (UTC+00:00)
-> 
->>
->> On 29/07/2019 09:16, Jose Abreu wrote:
->>> From: Jose Abreu <joabreu@synopsys.com>
->>> Date: Jul/27/2019, 16:56:37 (UTC+00:00)
->>>
->>>> From: Jon Hunter <jonathanh@nvidia.com>
->>>> Date: Jul/26/2019, 15:11:00 (UTC+00:00)
->>>>
->>>>>
->>>>> On 25/07/2019 16:12, Jose Abreu wrote:
->>>>>> From: Jon Hunter <jonathanh@nvidia.com>
->>>>>> Date: Jul/25/2019, 15:25:59 (UTC+00:00)
->>>>>>
->>>>>>>
->>>>>>> On 25/07/2019 14:26, Jose Abreu wrote:
->>>>>>>
->>>>>>> ...
->>>>>>>
->>>>>>>> Well, I wasn't expecting that :/
->>>>>>>>
->>>>>>>> Per documentation of barriers I think we should set descriptor fields
->>>>>>>> and then barrier and finally ownership to HW so that remaining fields
->>>>>>>> are coherent before owner is set.
->>>>>>>>
->>>>>>>> Anyway, can you also add a dma_rmb() after the call to
->>>>>>>> stmmac_rx_status() ?
->>>>>>>
->>>>>>> Yes. I removed the debug print added the barrier, but that did not help.
->>>>>>
->>>>>> So, I was finally able to setup NFS using your replicated setup and I
->>>>>> can't see the issue :(
->>>>>>
->>>>>> The only difference I have from yours is that I'm using TCP in NFS
->>>>>> whilst you (I believe from the logs), use UDP.
->>>>>
->>>>> So I tried TCP by setting the kernel boot params to 'nfsvers=3' and
->>>>> 'proto=tcp' and this does appear to be more stable, but not 100% stable.
->>>>> It still appears to fail in the same place about 50% of the time.
->>>>>
->>>>>> You do have flow control active right ? And your HW FIFO size is >= 4k ?
->>>>>
->>>>> How can I verify if flow control is active?
->>>>
->>>> You can check it by dumping register MTL_RxQ_Operation_Mode (0xd30).
->>
->> Where would be the appropriate place to dump this? After probe? Maybe
->> best if you can share a code snippet of where to dump this.
->>
->>>> Can you also add IOMMU debug in file "drivers/iommu/iommu.c" ?
->>
->> You can find a boot log here:
->>
->> https://urldefense.proofpoint.com/v2/url?u=https-3A__paste.ubuntu.com_p_qtRqtYKHGF_&d=DwICaQ&c=DPL6_X_6JkXFx7AXWqB0tg&r=WHDsc6kcWAl4i96Vm5hJ_19IJiuxx_p_Rzo2g-uHDKw&m=NrxsR2etpZHGb7HkN4XdgaGmKM1XYyldihNPL6qVSv0&s=CMATEcHVoqZw4sIrNOXc7SFE_kV_5CO5EU21-yJez6c&e=
->>
->>> And, please try attached debug patch.
->>
->> With this patch it appears to boot fine. So far no issues seen.
-> 
-> Thank you for testing.
-> 
-> Hi Catalin and Will,
-> 
-> Sorry to add you in such a long thread but we are seeing a DMA issue
-> with stmmac driver in an ARM64 platform with IOMMU enabled.
-> 
-> The issue seems to be solved when buffers allocation for DMA based
-> transfers are *not* mapped with the DMA_ATTR_SKIP_CPU_SYNC flag *OR*
-> when IOMMU is disabled.
-> 
-> Notice that after transfer is done we do use
-> dma_sync_single_for_{cpu,device} and then we reuse *the same* page for
-> another transfer.
-> 
-> Can you please comment on whether DMA_ATTR_SKIP_CPU_SYNC can not be used
-> in ARM64 platforms with IOMMU ?
+From: Patrice Chotard <patrice.chotard@st.com>
 
-In terms of what they do, there should be no difference on arm64 between:
+Enable support for QSPI block on STM32 SoCs.
 
-dma_map_page(..., dir);
-...
-dma_unmap_page(..., dir);
+Signed-off-by: Patrice Chotard <patrice.chotard@st.com>
+---
+ arch/arm/configs/multi_v7_defconfig | 1 +
+ 1 file changed, 1 insertion(+)
 
-and:
+diff --git a/arch/arm/configs/multi_v7_defconfig b/arch/arm/configs/multi_v7_defconfig
+index 6a40bc2ef271..78d1d93298af 100644
+--- a/arch/arm/configs/multi_v7_defconfig
++++ b/arch/arm/configs/multi_v7_defconfig
+@@ -403,6 +403,7 @@ CONFIG_SPI_SH_MSIOF=m
+ CONFIG_SPI_SH_HSPI=y
+ CONFIG_SPI_SIRF=y
+ CONFIG_SPI_STM32=m
++CONFIG_SPI_STM32_QSPI=m
+ CONFIG_SPI_SUN4I=y
+ CONFIG_SPI_SUN6I=y
+ CONFIG_SPI_TEGRA114=y
+-- 
+2.17.1
 
-dma_map_page_attrs(..., dir, DMA_ATTR_SKIP_CPU_SYNC);
-dma_sync_single_for_device(..., dir);
-...
-dma_sync_single_for_cpu(..., dir);
-dma_unmap_page_attrs(..., dir, DMA_ATTR_SKIP_CPU_SYNC);
-
-provided that the first sync covers the whole buffer and any subsequent 
-ones cover at least the parts of the buffer which may have changed. Plus 
-for coherent hardware it's entirely moot either way.
-
-Given Jon's previous findings, I would lean towards the idea that 
-performing the extra (redundant) cache maintenance plus barrier in 
-dma_unmap is mostly just perturbing timing in the same way as the debug 
-print which also made things seem OK.
-
-Robin.
 _______________________________________________
 Linux-stm32 mailing list
 Linux-stm32@st-md-mailman.stormreply.com
