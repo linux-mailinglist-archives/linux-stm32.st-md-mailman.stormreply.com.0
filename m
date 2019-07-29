@@ -2,70 +2,133 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id A858078651
-	for <lists+linux-stm32@lfdr.de>; Mon, 29 Jul 2019 09:24:22 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 7DA7178725
+	for <lists+linux-stm32@lfdr.de>; Mon, 29 Jul 2019 10:17:30 +0200 (CEST)
 Received: from ip-172-31-3-76.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 707F4C35E01;
-	Mon, 29 Jul 2019 07:24:22 +0000 (UTC)
-Received: from mx07-00178001.pphosted.com (mx07-00178001.pphosted.com
- [62.209.51.94])
- (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 65DE3C35E01;
+	Mon, 29 Jul 2019 08:17:29 +0000 (UTC)
+Received: from smtprelay-out1.synopsys.com (dc8-smtprelay2.synopsys.com
+ [198.182.47.102])
+ (using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id ED385C36B3E
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 7EA7FC36B3E
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Mon, 29 Jul 2019 07:24:20 +0000 (UTC)
-Received: from pps.filterd (m0046037.ppops.net [127.0.0.1])
- by mx07-00178001.pphosted.com (8.16.0.27/8.16.0.27) with SMTP id
- x6T7Lfvg024841; Mon, 29 Jul 2019 09:24:10 +0200
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=st.com;
- h=subject : to : references
- : from : message-id : date : mime-version : in-reply-to : content-type :
- content-transfer-encoding; s=STMicroelectronics;
- bh=ag3607f4rZRHcp8HUBaVypYdYUkemynvgAUvHb2YYs0=;
- b=cTa6HUutdsFxJUHgsniQS2DcXuwLLWJsFjrVZtH8En5C2JGiJZ2b/TGEgzSPi0kJRVQe
- ejdE0EP46/cWqytEhxJasHdNELl3Tty51MdQxdAdKkjBHBsnmDg6ibXRh/jicctJCY1S
- qjVPxUSYrYpx1uct2CopUHWbLjevIw9utzejE0aexuXIky5ooOCUO3YKesuC12yucoPT
- FEKdY8MrsoVBnzRDxtSnyWlmyYUmgVN6MMhRNyOGKDPYCMEnqlqGFKhLIE0bsKYePFzI
- 1CAWdNkAHFnNrSHfezPxkIDy1V2pssTGHMOJrYnk385lHt1AcipeBrX+zTd9KetUwU+z 2g== 
-Received: from beta.dmz-eu.st.com (beta.dmz-eu.st.com [164.129.1.35])
- by mx07-00178001.pphosted.com with ESMTP id 2u0ccwanxs-1
- (version=TLSv1 cipher=ECDHE-RSA-AES256-SHA bits=256 verify=NOT);
- Mon, 29 Jul 2019 09:24:10 +0200
-Received: from zeta.dmz-eu.st.com (zeta.dmz-eu.st.com [164.129.230.9])
- by beta.dmz-eu.st.com (STMicroelectronics) with ESMTP id 5051342;
- Mon, 29 Jul 2019 07:24:01 +0000 (GMT)
-Received: from Webmail-eu.st.com (sfhdag3node2.st.com [10.75.127.8])
- by zeta.dmz-eu.st.com (STMicroelectronics) with ESMTP id 332AC56D1;
- Mon, 29 Jul 2019 07:24:01 +0000 (GMT)
-Received: from lmecxl0912.lme.st.com (10.75.127.48) by SFHDAG3NODE2.st.com
- (10.75.127.8) with Microsoft SMTP Server (TLS) id 15.0.1347.2; Mon, 29 Jul
- 2019 09:24:00 +0200
-To: Olivier MOYSAN <olivier.moysan@st.com>,
+ Mon, 29 Jul 2019 08:17:27 +0000 (UTC)
+Received: from mailhost.synopsys.com (dc2-mailhost2.synopsys.com
+ [10.12.135.162])
+ (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits))
+ (No client certificate requested)
+ by smtprelay-out1.synopsys.com (Postfix) with ESMTPS id C0C94C01A5;
+ Mon, 29 Jul 2019 08:17:19 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=synopsys.com; s=mail;
+ t=1564388245; bh=jomg73WNcWkB4SunBMf9ppAWHFTZWPgwSKUGvfxNaxs=;
+ h=From:To:CC:Subject:Date:References:In-Reply-To:From;
+ b=XtP4H+51GxAvIqsC9avVFn0Q43uq0WVrha50QVmNCBR/jLupcBzo8sk1XF57iHBEy
+ vmEvG/x7LXmFlEvSJaW0/w1Z5VMRVS/evkwn4rzcZk457mYmcXJ5BLICRX/Pu+fMHu
+ skFVPeSSipOKZ8C4KVkhzy6DgcvV0C+k2NMSJyuSwTJXt8g/tQU82nc6uW+Ou6bjQa
+ xt2xILONdrPW4/ScZYEGGjfKzBqzabSsoXtpAYr495VKGYLqEd9qdSEHgXVlMszJxy
+ 1SzGISTwbCe96/gZHt5bFS2rn3PzWoM2JJ1z6UNUkscCBztXXMJ+4D0t2umbaMgScR
+ eyeMuUugJLdRA==
+Received: from US01WXQAHTC1.internal.synopsys.com
+ (us01wxqahtc1.internal.synopsys.com [10.12.238.230])
+ (using TLSv1.2 with cipher AES128-SHA256 (128/128 bits))
+ (No client certificate requested)
+ by mailhost.synopsys.com (Postfix) with ESMTPS id 54A9BA0093;
+ Mon, 29 Jul 2019 08:17:18 +0000 (UTC)
+Received: from US01HYBRID2.internal.synopsys.com (10.15.246.24) by
+ US01WXQAHTC1.internal.synopsys.com (10.12.238.230) with Microsoft SMTP Server
+ (TLS) id 14.3.408.0; Mon, 29 Jul 2019 01:16:17 -0700
+Received: from NAM01-BN3-obe.outbound.protection.outlook.com (10.13.134.195)
+ by mrs.synopsys.com (10.15.246.24) with Microsoft SMTP Server (TLS) id
+ 14.3.408.0; Mon, 29 Jul 2019 01:16:17 -0700
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
+ b=G8PUqbHY3v2T4dLD8MhjXzyq0TrkHSo/y0SB5wdN/gaGyMDTw7EtQ37kkHfSS66jYbxe/IktcqnUXKf9W+oKxZHeroQvZj12cRBgnW/bV+CGxqV2+t4Ow7QLwxhaKtaioNMwtwxK2bOIWl/PsFvhlxh0pk3QRgk5HmIIMhjJlFo+O9rcgJuqgU5byO9BllA+sH8tuYc33Dxf5jgwfK976HoxZHsXFzOdJpK04oMpGGE9kHdr6raC/gIFsVe3d1RilWLhnq09+hIu128ecjAvvMfrkWXMzL/V7JOuKMxuEzlyxsuKLtcist1Y2fXf0k3BDKInAyO+p2ORW6AICf2Fxw==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
+ s=arcselector9901;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=ggRDWLuzaX2XwRa9LXmg4kRowGxvpEUQxDBHXvXFGts=;
+ b=cARhPU+pzw51Xzah+3puWt0u+/GsVNu7jr47abZmDQq5HOluza3Zqm23TqB7ZHLFcMTLaJZBMtXMbWHsFXvtmNe6H9zz5fDwES9S+9XPxV4P9dk6mz2uVN59FmNuzp3uy5v0O87562dgr4euJ5o2lcUeEOtaH/QGRupqJWLDramHy6xu4g/DMmY4ofjkfCgdgsKq0Xp4BrVVLaOksmMVdn6Wtel3S7BBWqa+wG3w/YgidlnbMW94R36cLaanXZtsgcAS2IKDIQEMazcMFA/grCTLQeqYr7gTp9H2EjTtqbiMzOohpq1885/8c74cmz/2rMFj//Jb414yWBy1xVvxeg==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1;spf=pass
+ smtp.mailfrom=synopsys.com;dmarc=pass action=none
+ header.from=synopsys.com;dkim=pass header.d=synopsys.com;arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=synopsys.onmicrosoft.com; s=selector1-synopsys-onmicrosoft-com;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=ggRDWLuzaX2XwRa9LXmg4kRowGxvpEUQxDBHXvXFGts=;
+ b=ARuIxtY0o32r39XEKnwrtiaRliHqFvE6XqW7OQVIPUp6bG/pBsrLLAC/LUBA4mP69ngWqmavm1fvhDVwjCjYIjme12UkMeB7DZi8ijCgKn51GegqmC8m28jMgs9YC6EZMZDSUgTpnTowBBGdIMH2RV1poanvfJHR46fe9CakdGg=
+Received: from MN2PR12MB3279.namprd12.prod.outlook.com (20.179.83.83) by
+ MN2PR12MB3326.namprd12.prod.outlook.com (20.178.242.204) with Microsoft SMTP
+ Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.20.2115.15; Mon, 29 Jul 2019 08:16:15 +0000
+Received: from MN2PR12MB3279.namprd12.prod.outlook.com
+ ([fe80::3128:f343:a3d9:41a7]) by MN2PR12MB3279.namprd12.prod.outlook.com
+ ([fe80::3128:f343:a3d9:41a7%3]) with mapi id 15.20.2115.005; Mon, 29 Jul 2019
+ 08:16:15 +0000
+From: Jose Abreu <Jose.Abreu@synopsys.com>
+To: Jon Hunter <jonathanh@nvidia.com>, Jose Abreu <Jose.Abreu@synopsys.com>,
+ "linux-kernel@vger.kernel.org" <linux-kernel@vger.kernel.org>,
+ "netdev@vger.kernel.org" <netdev@vger.kernel.org>,
  "linux-stm32@st-md-mailman.stormreply.com"
- <linux-stm32@st-md-mailman.stormreply.com>, "robh@kernel.org"
- <robh@kernel.org>, "mark.rutland@arm.com" <mark.rutland@arm.com>,
- "devicetree@vger.kernel.org" <devicetree@vger.kernel.org>,
- "linux-arm-kernel@lists.infradead.org"
- <linux-arm-kernel@lists.infradead.org>, "linux-kernel@vger.kernel.org"
- <linux-kernel@vger.kernel.org>
-References: <1562327580-19647-1-git-send-email-olivier.moysan@st.com>
- <27476214-07fe-886b-1cab-20902837f29c@st.com>
- <f43b8af7-e2c0-6193-d666-9fa60050e07d@st.com>
-From: Alexandre Torgue <alexandre.torgue@st.com>
-Message-ID: <f87aaed6-1aa4-fd52-9476-b22f9b122aeb@st.com>
-Date: Mon, 29 Jul 2019 09:23:59 +0200
-User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:60.0) Gecko/20100101
- Thunderbird/60.8.0
-MIME-Version: 1.0
-In-Reply-To: <f43b8af7-e2c0-6193-d666-9fa60050e07d@st.com>
+ <linux-stm32@st-md-mailman.stormreply.com>, 
+ "linux-arm-kernel@lists.infradead.org" <linux-arm-kernel@lists.infradead.org>
+Thread-Topic: [PATCH net-next 3/3] net: stmmac: Introducing support for Page
+ Pool
+Thread-Index: AQHVMYtq2Zx4WVoG/U2kL8GCK0bP/abbdEOAgAAAgcCAABHmgIAADDMggAGB8wCAAa8dIIACpFig
+Date: Mon, 29 Jul 2019 08:16:15 +0000
+Message-ID: <MN2PR12MB327907D4A6FB378AC989571AD3DD0@MN2PR12MB3279.namprd12.prod.outlook.com>
+References: <cover.1562149883.git.joabreu@synopsys.com>
+ <1b254bb7fc6044c5e6e2fdd9e00088d1d13a808b.1562149883.git.joabreu@synopsys.com>
+ <7a79be5d-7ba2-c457-36d3-1ccef6572181@nvidia.com>
+ <BYAPR12MB3269927AB1F67D46E150ED6BD3C10@BYAPR12MB3269.namprd12.prod.outlook.com>
+ <9e695f33-fd9f-a910-0891-2b63bd75e082@nvidia.com>
+ <BYAPR12MB3269B4A401E4DA10A07515C7D3C10@BYAPR12MB3269.namprd12.prod.outlook.com>
+ <1e2ea942-28fe-15b9-f675-8d6585f9a33f@nvidia.com>
+ <BYAPR12MB326922CDCB1D4B3D4A780CFDD3C30@BYAPR12MB3269.namprd12.prod.outlook.com>
+In-Reply-To: <BYAPR12MB326922CDCB1D4B3D4A780CFDD3C30@BYAPR12MB3269.namprd12.prod.outlook.com>
+Accept-Language: en-US
 Content-Language: en-US
-X-Originating-IP: [10.75.127.48]
-X-ClientProxiedBy: SFHDAG7NODE2.st.com (10.75.127.20) To SFHDAG3NODE2.st.com
- (10.75.127.8)
-X-Proofpoint-Virus-Version: vendor=fsecure engine=2.50.10434:, ,
- definitions=2019-07-29_04:, , signatures=0
-Subject: Re: [Linux-stm32] [PATCH] ARM: dts: stm32: add audio codec support
- on stm32mp157a-dk1 board
+X-MS-Has-Attach: yes
+X-MS-TNEF-Correlator: 
+authentication-results: spf=none (sender IP is )
+ smtp.mailfrom=joabreu@synopsys.com; 
+x-originating-ip: [83.174.63.141]
+x-ms-publictraffictype: Email
+x-ms-office365-filtering-correlation-id: dcfbdc21-f1e1-4b53-c281-08d713fd06ae
+x-microsoft-antispam: BCL:0; PCL:0;
+ RULEID:(2390118)(7020095)(4652040)(8989299)(4534185)(4627221)(201703031133081)(201702281549075)(8990200)(5600148)(711020)(4605104)(1401327)(2017052603328)(49563074)(7193020);
+ SRVR:MN2PR12MB3326; 
+x-ms-traffictypediagnostic: MN2PR12MB3326:|MN2PR12MB3326:
+x-microsoft-antispam-prvs: <MN2PR12MB3326615BBA0AADB68B513719D3DD0@MN2PR12MB3326.namprd12.prod.outlook.com>
+x-ms-oob-tlc-oobclassifiers: OLM:8273;
+x-forefront-prvs: 01136D2D90
+x-forefront-antispam-report: SFV:NSPM;
+ SFS:(10019020)(346002)(39850400004)(136003)(396003)(366004)(376002)(189003)(199004)(52314003)(71200400001)(186003)(6246003)(256004)(14444005)(5024004)(26005)(305945005)(6506007)(71190400001)(99936001)(2501003)(3846002)(6116002)(11346002)(486006)(68736007)(476003)(14454004)(7416002)(2906002)(99286004)(446003)(74316002)(102836004)(478600001)(53546011)(5660300002)(2201001)(33656002)(9686003)(66946007)(76116006)(53936002)(229853002)(66446008)(64756008)(66556008)(66476007)(66616009)(76176011)(66066001)(110136005)(4326008)(7736002)(55016002)(8676002)(6436002)(81156014)(81166006)(25786009)(54906003)(52536014)(8936002)(86362001)(7696005)(316002)(440614002);
+ DIR:OUT; SFP:1102; SCL:1; SRVR:MN2PR12MB3326;
+ H:MN2PR12MB3279.namprd12.prod.outlook.com; FPR:; SPF:None; LANG:en;
+ PTR:InfoNoRecords; MX:1; A:1; 
+received-spf: None (protection.outlook.com: synopsys.com does not designate
+ permitted sender hosts)
+x-ms-exchange-senderadcheck: 1
+x-microsoft-antispam-message-info: 6jtKGzHigD3uez2UCyGpdLXxS3XxA6wavQ+zr1j21/SqdQKLsC/yfP7RdLhZ7RW+UTFTghcIzwiTqf0p4okJmPqamNzEVy6AnJ4xOo2vJZldYSaTMf0dzNeLBi2l1Z3T93yX2+EnyJwFTTSCz6+/qd3ugIWTFoOlYM/7slbsfxs0eyhl9n2Ac2GxAPLndLXXKE/PUfbaijBAtq2H2LaLXnpzzQbvYwzLAwjsGfq2YyKsDhoM7feRYzGpqPfg0/cUg9LAAVRMEP3ZDfoSkoROFHxEx+SdmMicGaJS0NPoz3iHPdcxopToahLaooa5kzhd8i5QjFfZcHlCK8wZneJ+qeR99TTTRgJaFK/8c0d3qapH+UEijQrE/jqWb6QDGJZm0r86pD3kdeG9glNY+VjUL7l5e3pd9aYLEgwx8A+Xuqk=
+Content-Type: multipart/mixed;
+ boundary="_002_MN2PR12MB327907D4A6FB378AC989571AD3DD0MN2PR12MB3279namp_"
+MIME-Version: 1.0
+X-MS-Exchange-CrossTenant-Network-Message-Id: dcfbdc21-f1e1-4b53-c281-08d713fd06ae
+X-MS-Exchange-CrossTenant-originalarrivaltime: 29 Jul 2019 08:16:15.4155 (UTC)
+X-MS-Exchange-CrossTenant-fromentityheader: Hosted
+X-MS-Exchange-CrossTenant-id: c33c9f88-1eb7-4099-9700-16013fd9e8aa
+X-MS-Exchange-CrossTenant-mailboxtype: HOSTED
+X-MS-Exchange-CrossTenant-userprincipalname: joabreu@synopsys.com
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: MN2PR12MB3326
+X-OriginatorOrg: synopsys.com
+Cc: Joao Pinto <Joao.Pinto@synopsys.com>,
+ Maxime Ripard <maxime.ripard@bootlin.com>, Chen-Yu Tsai <wens@csie.org>,
+ Maxime Coquelin <mcoquelin.stm32@gmail.com>,
+ linux-tegra <linux-tegra@vger.kernel.org>,
+ Giuseppe Cavallaro <peppe.cavallaro@st.com>,
+ Robin Murphy <robin.murphy@arm.com>, "David S .  Miller" <davem@davemloft.net>
+Subject: Re: [Linux-stm32] [PATCH net-next 3/3] net: stmmac: Introducing
+ support for Page Pool
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -77,58 +140,91 @@ List-Post: <mailto:linux-stm32@st-md-mailman.stormreply.com>
 List-Help: <mailto:linux-stm32-request@st-md-mailman.stormreply.com?subject=help>
 List-Subscribe: <https://st-md-mailman.stormreply.com/mailman/listinfo/linux-stm32>, 
  <mailto:linux-stm32-request@st-md-mailman.stormreply.com?subject=subscribe>
-Content-Transfer-Encoding: base64
-Content-Type: text/plain; charset="utf-8"; Format="flowed"
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
-CgpPbiA3LzI1LzE5IDExOjQxIEFNLCBPbGl2aWVyIE1PWVNBTiB3cm90ZToKPiAKPiAKPiBPbiA3
-LzI0LzE5IDY6NDAgUE0sIEFsZXhhbmRyZSBUb3JndWUgd3JvdGU6Cj4+IEhpIE9saXZpZXIKPj4g
-Cj4+IE9uIDcvNS8xOSAxOjUzIFBNLCBPbGl2aWVyIE1veXNhbiB3cm90ZToKPj4+IEFkZCBzdXBw
-b3J0IG9mIENpcnJ1cyBjczQybDUxIGF1ZGlvIGNvZGVjIG9uIHN0bTMybXAxNTdhLWRrMSBib2Fy
-ZC4KPj4+IENvbmZpZ3VyYXRpb24gb3ZlcnZpZXc6Cj4+PiAtIFNBSTJBIGlzIHRoZSBDUFUgaW50
-ZXJmYWNlIHVzZWQgZm9yIHRoZSBjb2RlYyBhdWRpbyBwbGF5YmFjawo+Pj4gLSBTQUkyQiBpcyB0
-aGUgQ1BVIGludGVyZmFjZSB1c2VkIGZvciB0aGUgY29kZWMgYXVkaW8gcmVjb3JkCj4+PiAtIFNB
-STJBIGlzIGNvbmZpZ3VyZWQgYXMgYSBjbG9jayBwcm92aWRlciBmb3IgdGhlIGF1ZGlvIGNvZGVj
-Cj4+PiAtIFNBSTJBJkIgYXJlIGNvbmZpZ3VyZWQgYXMgc2xhdmUgb2YgdGhlIGF1ZGlvIGNvZGVj
-Cj4+PiAtIFNBSTJBJkIgc2hhcmUgdGhlIHNhbWUgaW50ZXJmYWNlIG9mIHRoZSBhdWRpbyBjb2Rl
-Ywo+Pj4KPj4+IE5vdGU6Cj4+PiBJbiBtYXN0ZXIgbW9kZSwgY3M0Mmw1MSBhdWRpbyBjb2RlYyBw
-cm92aWRlcyBhIGJpdGNsb2NrCj4+PiBhdCA2NCB4IEZTLCByZWdhcmRsZXNzIG9mIGRhdGEgd2lk
-dGguIFRoaXMgbWVhbnMgdGhhdAo+Pj4gc2xvdCB3aWR0aCBpcyBhbHdheXMgMzIgYml0cy4KPj4+
-IFNldCBzbG90IHdpZHRoIHRvIDMyIGJpdHMgYW5kIHNsb3QgbnVtYmVyIHRvIDIKPj4+IGluIFNB
-STJBJkIgZW5kcG9pbnQgbm9kZXMsIHRvIG1hdGNoIHRoaXMgY29uc3RyYWludC4KPj4+IGRhaS10
-ZG0tc2xvdC1udW0gYW5kIGRhaS10ZG0tc2xvdC13aWR0aCBwcm9wZXJ0aWVzIGFyZSB1c2VkIGhl
-cmUsCj4+PiBhc3N1bWluZyB0aGF0IGkycyBpcyBhIHNwZWNpYWwgY2FzZSBvZiB0ZG0sIHdoZXJl
-IHNsb3QgbnVtYmVyIGlzIDIuCj4+Pgo+Pj4gU2lnbmVkLW9mZi1ieTogT2xpdmllciBNb3lzYW4g
-PG9saXZpZXIubW95c2FuQHN0LmNvbT4KPj4+IC0tLQo+Pj7CoMKgwqAgYXJjaC9hcm0vYm9vdC9k
-dHMvc3RtMzJtcDE1N2EtZGsxLmR0cyB8IDg5ICsrKysrKysrKysrKysrKysrKysrKysrKysrKysr
-KysrKysrCj4+PsKgwqDCoCAxIGZpbGUgY2hhbmdlZCwgODkgaW5zZXJ0aW9ucygrKQo+Pj4KPj4g
-Cj4+IC4uLgo+PiAKPj4+ICAgIAo+Pj4gKyZzYWkyIHsKPj4+ICvCoMKgwqAgY2xvY2tzID0gPCZy
-Y2MgU0FJMj4sIDwmcmNjIFBMTDNfUT4sIDwmcmNjIFBMTDNfUj47Cj4+PiArwqDCoMKgIGNsb2Nr
-LW5hbWVzID0gInBjbGsiLCAieDhrIiwgIngxMWsiOwo+Pj4gK8KgwqDCoCBwaW5jdHJsLW5hbWVz
-ID0gImRlZmF1bHQiLCAic2xlZXAiOwo+Pj4gK8KgwqDCoCBwaW5jdHJsLTAgPSA8JnNhaTJhX3Bp
-bnNfYT4sIDwmc2FpMmJfcGluc19iPjsKPj4+ICvCoMKgwqAgcGluY3RybC0xID0gPCZzYWkyYV9z
-bGVlcF9waW5zX2E+LCA8JnNhaTJiX3NsZWVwX3BpbnNfYj47Cj4+PiArwqDCoMKgIHN0YXR1cyA9
-ICJva2F5IjsKPj4+ICsKPj4+ICvCoMKgwqAgc2FpMmE6IGF1ZGlvLWNvbnRyb2xsZXJANDQwMGIw
-MDQgewo+Pj4gK8KgwqDCoMKgwqDCoMKgwqDCoMKgwqAgI2Nsb2NrLWNlbGxzID0gPDA+Owo+Pj4g
-K8KgwqDCoMKgwqDCoMKgwqDCoMKgwqAgZG1hLW5hbWVzID0gInR4IjsKPj4+ICvCoMKgwqDCoMKg
-wqDCoMKgwqDCoMKgIGNsb2NrcyA9IDwmcmNjIFNBSTJfSz47Cj4+PiArwqDCoMKgwqDCoMKgwqDC
-oMKgwqDCoCBjbG9jay1uYW1lcyA9ICJzYWlfY2siOwo+Pj4gK8KgwqDCoMKgwqDCoMKgwqDCoMKg
-wqAgc3RhdHVzID0gIm9rYXkiOwo+Pj4gKwo+Pj4gK8KgwqDCoMKgwqDCoMKgwqDCoMKgwqAgc2Fp
-MmFfcG9ydDogcG9ydCB7Cj4+PiArwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKg
-wqAgc2FpMmFfZW5kcG9pbnQ6IGVuZHBvaW50IHsKPj4+ICvCoMKgwqDCoMKgwqDCoMKgwqDCoMKg
-wqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqAgcmVtb3RlLWVuZHBvaW50ID0gPCZjczQy
-bDUxX3R4X2VuZHBvaW50PjsKPj4+ICvCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKg
-wqDCoMKgwqDCoMKgwqDCoMKgwqAgZm9ybWF0ID0gImkycyI7Cj4+PiArwqDCoMKgwqDCoMKgwqDC
-oMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgIG1jbGstZnMgPSA8MjU2PjsK
-Pj4+ICvCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKg
-wqAgZGFpLXRkbS1zbG90LW51bSA9IDwyPjsKPj4+ICvCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDC
-oMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqAgZGFpLXRkbS1zbG90LXdpZHRoID0gPDMyPjsK
-Pj4+ICvCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoCB9Owo+Pj4gK8KgwqDC
-oMKgwqDCoMKgwqDCoMKgwqAgfTsKPj4+ICvCoMKgwqAgfTsKPj4+ICsKPj4gWW91IGNvdWxkIHVz
-ZSBsYWJlbCB0byBvdmVybG9hZCBzYWkyYSBhbmQgc2FpMmIuIG5vID8KPiBJIHByb3Bvc2UgdG8g
-a2VlcCBpdCB1bmNoYW5nZWQgZm9yIGJldHRlciByZWFkYWJpbGl0eQo+PiAKCk9rLiBBcHBsaWVk
-IG9uIHN0bTMyLW5leHQuCgpSZWdhcmRzCkFsZXgKCl9fX19fX19fX19fX19fX19fX19fX19fX19f
-X19fX19fX19fX19fX19fX19fX19fCkxpbnV4LXN0bTMyIG1haWxpbmcgbGlzdApMaW51eC1zdG0z
-MkBzdC1tZC1tYWlsbWFuLnN0b3JtcmVwbHkuY29tCmh0dHBzOi8vc3QtbWQtbWFpbG1hbi5zdG9y
-bXJlcGx5LmNvbS9tYWlsbWFuL2xpc3RpbmZvL2xpbnV4LXN0bTMyCg==
+--_002_MN2PR12MB327907D4A6FB378AC989571AD3DD0MN2PR12MB3279namp_
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: base64
+
+RnJvbTogSm9zZSBBYnJldSA8am9hYnJldUBzeW5vcHN5cy5jb20+DQpEYXRlOiBKdWwvMjcvMjAx
+OSwgMTY6NTY6MzcgKFVUQyswMDowMCkNCg0KPiBGcm9tOiBKb24gSHVudGVyIDxqb25hdGhhbmhA
+bnZpZGlhLmNvbT4NCj4gRGF0ZTogSnVsLzI2LzIwMTksIDE1OjExOjAwIChVVEMrMDA6MDApDQo+
+IA0KPiA+IA0KPiA+IE9uIDI1LzA3LzIwMTkgMTY6MTIsIEpvc2UgQWJyZXUgd3JvdGU6DQo+ID4g
+PiBGcm9tOiBKb24gSHVudGVyIDxqb25hdGhhbmhAbnZpZGlhLmNvbT4NCj4gPiA+IERhdGU6IEp1
+bC8yNS8yMDE5LCAxNToyNTo1OSAoVVRDKzAwOjAwKQ0KPiA+ID4gDQo+ID4gPj4NCj4gPiA+PiBP
+biAyNS8wNy8yMDE5IDE0OjI2LCBKb3NlIEFicmV1IHdyb3RlOg0KPiA+ID4+DQo+ID4gPj4gLi4u
+DQo+ID4gPj4NCj4gPiA+Pj4gV2VsbCwgSSB3YXNuJ3QgZXhwZWN0aW5nIHRoYXQgOi8NCj4gPiA+
+Pj4NCj4gPiA+Pj4gUGVyIGRvY3VtZW50YXRpb24gb2YgYmFycmllcnMgSSB0aGluayB3ZSBzaG91
+bGQgc2V0IGRlc2NyaXB0b3IgZmllbGRzIA0KPiA+ID4+PiBhbmQgdGhlbiBiYXJyaWVyIGFuZCBm
+aW5hbGx5IG93bmVyc2hpcCB0byBIVyBzbyB0aGF0IHJlbWFpbmluZyBmaWVsZHMgDQo+ID4gPj4+
+IGFyZSBjb2hlcmVudCBiZWZvcmUgb3duZXIgaXMgc2V0Lg0KPiA+ID4+Pg0KPiA+ID4+PiBBbnl3
+YXksIGNhbiB5b3UgYWxzbyBhZGQgYSBkbWFfcm1iKCkgYWZ0ZXIgdGhlIGNhbGwgdG8gDQo+ID4g
+Pj4+IHN0bW1hY19yeF9zdGF0dXMoKSA/DQo+ID4gPj4NCj4gPiA+PiBZZXMuIEkgcmVtb3ZlZCB0
+aGUgZGVidWcgcHJpbnQgYWRkZWQgdGhlIGJhcnJpZXIsIGJ1dCB0aGF0IGRpZCBub3QgaGVscC4N
+Cj4gPiA+IA0KPiA+ID4gU28sIEkgd2FzIGZpbmFsbHkgYWJsZSB0byBzZXR1cCBORlMgdXNpbmcg
+eW91ciByZXBsaWNhdGVkIHNldHVwIGFuZCBJIA0KPiA+ID4gY2FuJ3Qgc2VlIHRoZSBpc3N1ZSA6
+KA0KPiA+ID4gDQo+ID4gPiBUaGUgb25seSBkaWZmZXJlbmNlIEkgaGF2ZSBmcm9tIHlvdXJzIGlz
+IHRoYXQgSSdtIHVzaW5nIFRDUCBpbiBORlMgDQo+ID4gPiB3aGlsc3QgeW91IChJIGJlbGlldmUg
+ZnJvbSB0aGUgbG9ncyksIHVzZSBVRFAuDQo+ID4gDQo+ID4gU28gSSB0cmllZCBUQ1AgYnkgc2V0
+dGluZyB0aGUga2VybmVsIGJvb3QgcGFyYW1zIHRvICduZnN2ZXJzPTMnIGFuZA0KPiA+ICdwcm90
+bz10Y3AnIGFuZCB0aGlzIGRvZXMgYXBwZWFyIHRvIGJlIG1vcmUgc3RhYmxlLCBidXQgbm90IDEw
+MCUgc3RhYmxlLg0KPiA+IEl0IHN0aWxsIGFwcGVhcnMgdG8gZmFpbCBpbiB0aGUgc2FtZSBwbGFj
+ZSBhYm91dCA1MCUgb2YgdGhlIHRpbWUuDQo+ID4gDQo+ID4gPiBZb3UgZG8gaGF2ZSBmbG93IGNv
+bnRyb2wgYWN0aXZlIHJpZ2h0ID8gQW5kIHlvdXIgSFcgRklGTyBzaXplIGlzID49IDRrID8NCj4g
+PiANCj4gPiBIb3cgY2FuIEkgdmVyaWZ5IGlmIGZsb3cgY29udHJvbCBpcyBhY3RpdmU/DQo+IA0K
+PiBZb3UgY2FuIGNoZWNrIGl0IGJ5IGR1bXBpbmcgcmVnaXN0ZXIgTVRMX1J4UV9PcGVyYXRpb25f
+TW9kZSAoMHhkMzApLg0KPiANCj4gQ2FuIHlvdSBhbHNvIGFkZCBJT01NVSBkZWJ1ZyBpbiBmaWxl
+ICJkcml2ZXJzL2lvbW11L2lvbW11LmMiID8NCg0KQW5kLCBwbGVhc2UgdHJ5IGF0dGFjaGVkIGRl
+YnVnIHBhdGNoLg0KDQotLS0NClRoYW5rcywNCkpvc2UgTWlndWVsIEFicmV1DQo=
+
+--_002_MN2PR12MB327907D4A6FB378AC989571AD3DD0MN2PR12MB3279namp_
+Content-Type: application/octet-stream;
+	name="0001-net-page_pool-Do-not-skip-CPU-sync.patch"
+Content-Description: 0001-net-page_pool-Do-not-skip-CPU-sync.patch
+Content-Disposition: attachment;
+	filename="0001-net-page_pool-Do-not-skip-CPU-sync.patch"; size=1532;
+	creation-date="Mon, 29 Jul 2019 08:14:35 GMT";
+	modification-date="Mon, 29 Jul 2019 08:14:35 GMT"
+Content-Transfer-Encoding: base64
+
+RnJvbSBkMjAzYTRmMDU1YTM2YWUyMGVmYmNlZTdjZGY3MGNlMTNmZmYxMmM5IE1vbiBTZXAgMTcg
+MDA6MDA6MDAgMjAwMQpNZXNzYWdlLUlkOiA8ZDIwM2E0ZjA1NWEzNmFlMjBlZmJjZWU3Y2RmNzBj
+ZTEzZmZmMTJjOS4xNTY0Mzg4MDc1LmdpdC5qb2FicmV1QHN5bm9wc3lzLmNvbT4KRnJvbTogSm9z
+ZSBBYnJldSA8am9hYnJldUBzeW5vcHN5cy5jb20+CkRhdGU6IE1vbiwgMjkgSnVsIDIwMTkgMTA6
+MTQ6MjEgKzAyMDAKU3ViamVjdDogW1BBVENIIG5ldF0gbmV0OiBwYWdlX3Bvb2w6IERvIG5vdCBz
+a2lwIENQVSBzeW5jCgpTaWduZWQtb2ZmLWJ5OiBKb3NlIEFicmV1IDxqb2FicmV1QHN5bm9wc3lz
+LmNvbT4KLS0tCkNjOiBKZXNwZXIgRGFuZ2FhcmQgQnJvdWVyIDxoYXdrQGtlcm5lbC5vcmc+CkNj
+OiBJbGlhcyBBcGFsb2RpbWFzIDxpbGlhcy5hcGFsb2RpbWFzQGxpbmFyby5vcmc+CkNjOiAiRGF2
+aWQgUy4gTWlsbGVyIiA8ZGF2ZW1AZGF2ZW1sb2Z0Lm5ldD4KQ2M6IG5ldGRldkB2Z2VyLmtlcm5l
+bC5vcmcKQ2M6IGxpbnV4LWtlcm5lbEB2Z2VyLmtlcm5lbC5vcmcKLS0tCiBuZXQvY29yZS9wYWdl
+X3Bvb2wuYyB8IDUgKystLS0KIDEgZmlsZSBjaGFuZ2VkLCAyIGluc2VydGlvbnMoKyksIDMgZGVs
+ZXRpb25zKC0pCgpkaWZmIC0tZ2l0IGEvbmV0L2NvcmUvcGFnZV9wb29sLmMgYi9uZXQvY29yZS9w
+YWdlX3Bvb2wuYwppbmRleCAzMjcyZGM3YThjODEuLjAyNjJmY2RmMjE3ZSAxMDA2NDQKLS0tIGEv
+bmV0L2NvcmUvcGFnZV9wb29sLmMKKysrIGIvbmV0L2NvcmUvcGFnZV9wb29sLmMKQEAgLTE1Niw3
+ICsxNTYsNyBAQCBzdGF0aWMgc3RydWN0IHBhZ2UgKl9fcGFnZV9wb29sX2FsbG9jX3BhZ2VzX3Ns
+b3coc3RydWN0IHBhZ2VfcG9vbCAqcG9vbCwKIAkgKi8KIAlkbWEgPSBkbWFfbWFwX3BhZ2VfYXR0
+cnMocG9vbC0+cC5kZXYsIHBhZ2UsIDAsCiAJCQkJIChQQUdFX1NJWkUgPDwgcG9vbC0+cC5vcmRl
+ciksCi0JCQkJIHBvb2wtPnAuZG1hX2RpciwgRE1BX0FUVFJfU0tJUF9DUFVfU1lOQyk7CisJCQkJ
+IHBvb2wtPnAuZG1hX2RpciwgMCk7CiAJaWYgKGRtYV9tYXBwaW5nX2Vycm9yKHBvb2wtPnAuZGV2
+LCBkbWEpKSB7CiAJCXB1dF9wYWdlKHBhZ2UpOwogCQlyZXR1cm4gTlVMTDsKQEAgLTIzMCw4ICsy
+MzAsNyBAQCBzdGF0aWMgdm9pZCBfX3BhZ2VfcG9vbF9jbGVhbl9wYWdlKHN0cnVjdCBwYWdlX3Bv
+b2wgKnBvb2wsCiAJZG1hID0gcGFnZS0+ZG1hX2FkZHI7CiAJLyogRE1BIHVubWFwICovCiAJZG1h
+X3VubWFwX3BhZ2VfYXR0cnMocG9vbC0+cC5kZXYsIGRtYSwKLQkJCSAgICAgUEFHRV9TSVpFIDw8
+IHBvb2wtPnAub3JkZXIsIHBvb2wtPnAuZG1hX2RpciwKLQkJCSAgICAgRE1BX0FUVFJfU0tJUF9D
+UFVfU1lOQyk7CisJCQkgICAgIFBBR0VfU0laRSA8PCBwb29sLT5wLm9yZGVyLCBwb29sLT5wLmRt
+YV9kaXIsIDApOwogCXBhZ2UtPmRtYV9hZGRyID0gMDsKIHNraXBfZG1hX3VubWFwOgogCWF0b21p
+Y19pbmMoJnBvb2wtPnBhZ2VzX3N0YXRlX3JlbGVhc2VfY250KTsKLS0gCjIuNy40Cgo=
+
+--_002_MN2PR12MB327907D4A6FB378AC989571AD3DD0MN2PR12MB3279namp_
+Content-Type: text/plain; charset="us-ascii"
+MIME-Version: 1.0
+Content-Transfer-Encoding: 7bit
+Content-Disposition: inline
+
+_______________________________________________
+Linux-stm32 mailing list
+Linux-stm32@st-md-mailman.stormreply.com
+https://st-md-mailman.stormreply.com/mailman/listinfo/linux-stm32
+
+--_002_MN2PR12MB327907D4A6FB378AC989571AD3DD0MN2PR12MB3279namp_--
