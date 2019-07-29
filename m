@@ -2,33 +2,81 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id 69D9B789EC
-	for <lists+linux-stm32@lfdr.de>; Mon, 29 Jul 2019 12:55:27 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 571AA78A91
+	for <lists+linux-stm32@lfdr.de>; Mon, 29 Jul 2019 13:29:57 +0200 (CEST)
 Received: from ip-172-31-3-76.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 1747FC35E01;
-	Mon, 29 Jul 2019 10:55:27 +0000 (UTC)
-Received: from hqemgate16.nvidia.com (hqemgate16.nvidia.com [216.228.121.65])
- (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256
- bits)) (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 4E57DC36B3E
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 03552C35E01;
+	Mon, 29 Jul 2019 11:29:57 +0000 (UTC)
+Received: from smtprelay-out1.synopsys.com (dc8-smtprelay2.synopsys.com
+ [198.182.47.102])
+ (using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
+ (No client certificate requested)
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 83EEEC36B3E
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Mon, 29 Jul 2019 10:55:25 +0000 (UTC)
-Received: from hqpgpgate102.nvidia.com (Not Verified[216.228.121.13]) by
- hqemgate16.nvidia.com (using TLS: TLSv1.2, DES-CBC3-SHA)
- id <B5d3ed0940000>; Mon, 29 Jul 2019 03:55:16 -0700
-Received: from hqmail.nvidia.com ([172.20.161.6])
- by hqpgpgate102.nvidia.com (PGP Universal service);
- Mon, 29 Jul 2019 03:55:23 -0700
-X-PGP-Universal: processed;
- by hqpgpgate102.nvidia.com on Mon, 29 Jul 2019 03:55:23 -0700
-Received: from [10.21.132.148] (10.124.1.5) by HQMAIL107.nvidia.com
- (172.20.187.13) with Microsoft SMTP Server (TLS) id 15.0.1473.3; Mon, 29 Jul
- 2019 10:55:20 +0000
-To: Jose Abreu <Jose.Abreu@synopsys.com>, "linux-kernel@vger.kernel.org"
- <linux-kernel@vger.kernel.org>, "netdev@vger.kernel.org"
- <netdev@vger.kernel.org>, "linux-stm32@st-md-mailman.stormreply.com"
- <linux-stm32@st-md-mailman.stormreply.com>,
- "linux-arm-kernel@lists.infradead.org" <linux-arm-kernel@lists.infradead.org>
+ Mon, 29 Jul 2019 11:29:55 +0000 (UTC)
+Received: from mailhost.synopsys.com (dc2-mailhost2.synopsys.com
+ [10.12.135.162])
+ (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits))
+ (No client certificate requested)
+ by smtprelay-out1.synopsys.com (Postfix) with ESMTPS id D20C7C21D4;
+ Mon, 29 Jul 2019 11:29:52 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=synopsys.com; s=mail;
+ t=1564399793; bh=1AmAllxgnxHuY2mFSN+Q5zImnjTIrx7ksfZnG1anoBc=;
+ h=From:To:CC:Subject:Date:References:In-Reply-To:From;
+ b=LpH/Wsz4gcmIS3b0qRU9LNcDow69zdbnOh3F8LEZDV68/OAkQmlex1MzYbJXcaZzV
+ KUnAtLuoQ3PgGvXZeZSdF1IVlX8VtprYtbiwbxq27Gn/jhRAO4PDDC2KS2t+b57NPY
+ 5ZoEuL0mnHpZTs+k7Q4oLx1qRrQFUNJ1T8uRvsxjeLnWuh1SsGLyNAJyiRwslBXFoh
+ sBYKgOUaauneb4G9QGyzJCAt56lfwmeqeNfRYiiGjfuqLTMEcd7ZY9iCaWz9R/Il4z
+ NU05aJaY0Ke9nfQYWqZbzmt0nENTeAPQATxkFiEjZHnR53zuXx+nHJFVvjn5TLWkZu
+ yGCIdUFMS60uA==
+Received: from US01WXQAHTC1.internal.synopsys.com
+ (us01wxqahtc1.internal.synopsys.com [10.12.238.230])
+ (using TLSv1.2 with cipher AES128-SHA256 (128/128 bits))
+ (No client certificate requested)
+ by mailhost.synopsys.com (Postfix) with ESMTPS id C5100A0093;
+ Mon, 29 Jul 2019 11:29:51 +0000 (UTC)
+Received: from US01HYBRID2.internal.synopsys.com (10.15.246.24) by
+ US01WXQAHTC1.internal.synopsys.com (10.12.238.230) with Microsoft SMTP Server
+ (TLS) id 14.3.408.0; Mon, 29 Jul 2019 04:29:11 -0700
+Received: from NAM01-SN1-obe.outbound.protection.outlook.com (10.13.134.195)
+ by mrs.synopsys.com (10.15.246.24) with Microsoft SMTP Server (TLS) id
+ 14.3.408.0; Mon, 29 Jul 2019 04:29:12 -0700
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
+ b=jpoCHARqylHq0WLHi9y/WWJm8E7Mo0FMIt22N8PP8Dgd7gCu7yHlkniILU8X552toKhIIOs/1IwH7LMO0qQyFZ8uUFDsq/Y3m9FUfm3p7E0NhdpPRs/ZZTFR8nawWNVhmyfqKblDVWnJ+i5w7Fz1Ohmy+PEcJ7gfvMd/qopXhLHsaR/VjZ99TDMOGAZOpzbzAHkYfRGGacKqjidNXUqhxNMDkCQQfMoF3ZJ0LR7rNJwgGiofepz1/oLnoPi68P+/o6G91CmjOYQrge70YRC+HAXWTh0U3FSzt5mXb5SgTPZXTPfYqfo/yI92sJ5R/juOVfEjSjXZ6FYMtU9FgzkvFg==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
+ s=arcselector9901;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=1AmAllxgnxHuY2mFSN+Q5zImnjTIrx7ksfZnG1anoBc=;
+ b=KP/A5M5HvzJMRICYb1mIxmCgRVsUfGqQU7Ocb6JdTlIgkTwx+pfeqI94xeZQiX7+bNkhZEd2n2YGWYzK9nX5GOVai08da5RBwZ4rU0Afb3OWIYv7lSUwXu86kBOoT0lJJ6WguaSEHiwAStB08SbjPZ/mKhfjuoqeYNcDifqbMOLytbqWDWKU0xxOnvOnEMWAz/CxPmDstSBhfBokS73BGxS6RpNK3wry7QFA3gea1nKkQ+Y9Ti3Y4JSLo1YIdSnNgobkiArB0XMTOtvg+c2U4S9OGtBR5OihxJwZZC9tya7OXMDZaaWJuFJ0QDJ2w7+BhxbmxB2gW0hk2D7bEaIj2g==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1;spf=pass
+ smtp.mailfrom=synopsys.com;dmarc=pass action=none
+ header.from=synopsys.com;dkim=pass header.d=synopsys.com;arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=synopsys.onmicrosoft.com; s=selector1-synopsys-onmicrosoft-com;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=1AmAllxgnxHuY2mFSN+Q5zImnjTIrx7ksfZnG1anoBc=;
+ b=q2w+OUQ1oW19gLRbgA8WEsulr5zFxGzX6VtJ4uBbDX6+NSxOz7vWX7jYSKtygQK3A++xLL5N1Q/f+SnyNbsnv85gbdn5hqWDQ6euaEZaQMM/6uuqHB67QJsjRRj2MDo7Oqj3OqZ41RzMtKp5jyCodq+8PmevmwLUc8LrOdOI9IE=
+Received: from MN2PR12MB3279.namprd12.prod.outlook.com (20.179.83.83) by
+ MN2PR12MB4078.namprd12.prod.outlook.com (52.135.51.82) with Microsoft SMTP
+ Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.20.2115.10; Mon, 29 Jul 2019 11:29:09 +0000
+Received: from MN2PR12MB3279.namprd12.prod.outlook.com
+ ([fe80::3128:f343:a3d9:41a7]) by MN2PR12MB3279.namprd12.prod.outlook.com
+ ([fe80::3128:f343:a3d9:41a7%3]) with mapi id 15.20.2115.005; Mon, 29 Jul 2019
+ 11:29:08 +0000
+From: Jose Abreu <Jose.Abreu@synopsys.com>
+To: Jon Hunter <jonathanh@nvidia.com>, Jose Abreu <Jose.Abreu@synopsys.com>,
+ "linux-kernel@vger.kernel.org" <linux-kernel@vger.kernel.org>,
+ "netdev@vger.kernel.org" <netdev@vger.kernel.org>,
+ "linux-stm32@st-md-mailman.stormreply.com"
+ <linux-stm32@st-md-mailman.stormreply.com>, 
+ "linux-arm-kernel@lists.infradead.org" <linux-arm-kernel@lists.infradead.org>, 
+ Catalin Marinas <catalin.marinas@arm.com>, Will Deacon <will@kernel.org>
+Thread-Topic: [PATCH net-next 3/3] net: stmmac: Introducing support for Page
+ Pool
+Thread-Index: AQHVMYtq2Zx4WVoG/U2kL8GCK0bP/abbdEOAgAAAgcCAABHmgIAADDMggAGB8wCAAa8dIIACpFiggAAs3ACAAAdb0A==
+Date: Mon, 29 Jul 2019 11:29:08 +0000
+Message-ID: <MN2PR12MB327997BDF2EA5CEE00F45AC3D3DD0@MN2PR12MB3279.namprd12.prod.outlook.com>
 References: <cover.1562149883.git.joabreu@synopsys.com>
  <1b254bb7fc6044c5e6e2fdd9e00088d1d13a808b.1562149883.git.joabreu@synopsys.com>
  <7a79be5d-7ba2-c457-36d3-1ccef6572181@nvidia.com>
@@ -38,36 +86,49 @@ References: <cover.1562149883.git.joabreu@synopsys.com>
  <1e2ea942-28fe-15b9-f675-8d6585f9a33f@nvidia.com>
  <BYAPR12MB326922CDCB1D4B3D4A780CFDD3C30@BYAPR12MB3269.namprd12.prod.outlook.com>
  <MN2PR12MB327907D4A6FB378AC989571AD3DD0@MN2PR12MB3279.namprd12.prod.outlook.com>
-From: Jon Hunter <jonathanh@nvidia.com>
-Message-ID: <b99b1e49-0cbc-2c66-6325-50fa6f263d91@nvidia.com>
-Date: Mon, 29 Jul 2019 11:55:18 +0100
-User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:60.0) Gecko/20100101
- Thunderbird/60.8.0
-MIME-Version: 1.0
-In-Reply-To: <MN2PR12MB327907D4A6FB378AC989571AD3DD0@MN2PR12MB3279.namprd12.prod.outlook.com>
-X-Originating-IP: [10.124.1.5]
-X-ClientProxiedBy: HQMAIL105.nvidia.com (172.20.187.12) To
- HQMAIL107.nvidia.com (172.20.187.13)
+ <b99b1e49-0cbc-2c66-6325-50fa6f263d91@nvidia.com>
+In-Reply-To: <b99b1e49-0cbc-2c66-6325-50fa6f263d91@nvidia.com>
+Accept-Language: en-US
 Content-Language: en-US
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=nvidia.com; s=n1;
- t=1564397716; bh=omDvOxcL+shZp/+aXr1xB3RKxxO5BazPvZPcci4EFmo=;
- h=X-PGP-Universal:Subject:To:CC:References:From:Message-ID:Date:
- User-Agent:MIME-Version:In-Reply-To:X-Originating-IP:
- X-ClientProxiedBy:Content-Type:Content-Language:
- Content-Transfer-Encoding;
- b=ar0IAPUIBvyLVDB7OfxBEElq9IxI3GlwIo/u0cfRm5nKXcpNqte6llsmeQm/AsVdP
- gnQGwqDf6FNqcNGx4W2M1Y4ce7rAEYBmOGFq2jYx7P7JwRQf4p1ML3QVow9yIumCp7
- gID5AZOb8ub1z/PCB/z1B7BAEer01kfYjKTfjhFLXpPMrrIUAuEHUzHoOVEebIILVs
- I2l1SUVpSY/CfoR7PmAveqXp5fnAfJpvAmjMhADK72H+A5MgxoQEd/6wdVmm1chZQJ
- SxsAyQe9hSmDAdA0Vzp+ImSAf1jhs6pqkVwPVs6MYoUtzbdPBf0TAGwA4oOtTDV44+
- aubzSqRST5vhA==
+X-MS-Has-Attach: 
+X-MS-TNEF-Correlator: 
+authentication-results: spf=none (sender IP is )
+ smtp.mailfrom=joabreu@synopsys.com; 
+x-originating-ip: [83.174.63.141]
+x-ms-publictraffictype: Email
+x-ms-office365-filtering-correlation-id: 46e4c96f-17c4-491f-9b69-08d71417f8e2
+x-microsoft-antispam: BCL:0; PCL:0;
+ RULEID:(2390118)(7020095)(4652040)(8989299)(4534185)(4627221)(201703031133081)(201702281549075)(8990200)(5600148)(711020)(4605104)(1401327)(2017052603328)(7193020);
+ SRVR:MN2PR12MB4078; 
+x-ms-traffictypediagnostic: MN2PR12MB4078:|MN2PR12MB4078:
+x-ms-exchange-purlcount: 1
+x-microsoft-antispam-prvs: <MN2PR12MB407890A93A7CB58F3CFFC20AD3DD0@MN2PR12MB4078.namprd12.prod.outlook.com>
+x-ms-oob-tlc-oobclassifiers: OLM:9508;
+x-forefront-prvs: 01136D2D90
+x-forefront-antispam-report: SFV:NSPM;
+ SFS:(10019020)(366004)(39850400004)(396003)(376002)(136003)(346002)(52314003)(199004)(189003)(5024004)(14444005)(66476007)(486006)(110136005)(66556008)(102836004)(66946007)(2201001)(64756008)(2501003)(86362001)(478600001)(446003)(76116006)(476003)(11346002)(5660300002)(52536014)(966005)(7416002)(316002)(76176011)(6506007)(7736002)(7696005)(53546011)(66446008)(186003)(54906003)(99286004)(26005)(3846002)(25786009)(229853002)(6436002)(68736007)(305945005)(8936002)(74316002)(4326008)(33656002)(81166006)(256004)(81156014)(2906002)(6116002)(8676002)(55016002)(6306002)(9686003)(66066001)(71190400001)(14454004)(6246003)(53936002)(71200400001)(440614002);
+ DIR:OUT; SFP:1102; SCL:1; SRVR:MN2PR12MB4078;
+ H:MN2PR12MB3279.namprd12.prod.outlook.com; FPR:; SPF:None; LANG:en;
+ PTR:InfoNoRecords; A:1; MX:1; 
+received-spf: None (protection.outlook.com: synopsys.com does not designate
+ permitted sender hosts)
+x-ms-exchange-senderadcheck: 1
+x-microsoft-antispam-message-info: HcfYRvidqxqcqKmvc4OJYwpHW9//N2U3IhvOO+0F5a7FR9xHweZ5X69aWrakosmtei9oV+Y57siURotlmhwEGuinh4Hwgm9AYrxZzIkfsbG3EZ1yfpWMm3npJBEnYK/a1qaD74hhDH+DNODzt340iEf9/M3Jpp7OZL+aZrYu9zLUurFpyEdsUpTWaRXOF4edh65U7Lvt8S6Cst5K25KVgM8kPHRxPYV0Hnd7H1vUVW4c5OneZn1sAEqg6A87I9zXeofQgJwdK1NYdF7/+Jy/9c+y+twQchCEdcCdU3kBg/PqBeKkYHdW6XGcNDQysTtQSJkLDkuSpBz9x95Mmq880+X6S3m7C3Y6ry604KAxXonSxdlqld0u43Q5IooZVzFxoQNX2bxSsPKoGtUidYKisa5CWP4Pqylkqwv9RB8EUyk=
+MIME-Version: 1.0
+X-MS-Exchange-CrossTenant-Network-Message-Id: 46e4c96f-17c4-491f-9b69-08d71417f8e2
+X-MS-Exchange-CrossTenant-originalarrivaltime: 29 Jul 2019 11:29:08.7838 (UTC)
+X-MS-Exchange-CrossTenant-fromentityheader: Hosted
+X-MS-Exchange-CrossTenant-id: c33c9f88-1eb7-4099-9700-16013fd9e8aa
+X-MS-Exchange-CrossTenant-mailboxtype: HOSTED
+X-MS-Exchange-CrossTenant-userprincipalname: joabreu@synopsys.com
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: MN2PR12MB4078
+X-OriginatorOrg: synopsys.com
 Cc: Joao Pinto <Joao.Pinto@synopsys.com>,
  Maxime Ripard <maxime.ripard@bootlin.com>, Chen-Yu Tsai <wens@csie.org>,
  Maxime Coquelin <mcoquelin.stm32@gmail.com>,
  linux-tegra <linux-tegra@vger.kernel.org>,
  Giuseppe Cavallaro <peppe.cavallaro@st.com>,
- Robin Murphy <robin.murphy@arm.com>, "David S .
- Miller" <davem@davemloft.net>
+ Robin Murphy <robin.murphy@arm.com>, "David S .  Miller" <davem@davemloft.net>
 Subject: Re: [Linux-stm32] [PATCH net-next 3/3] net: stmmac: Introducing
  support for Page Pool
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
@@ -86,68 +147,90 @@ Content-Transfer-Encoding: 7bit
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
+++ Catalin, Will (ARM64 Maintainers)
 
-On 29/07/2019 09:16, Jose Abreu wrote:
-> From: Jose Abreu <joabreu@synopsys.com>
-> Date: Jul/27/2019, 16:56:37 (UTC+00:00)
+From: Jon Hunter <jonathanh@nvidia.com>
+Date: Jul/29/2019, 11:55:18 (UTC+00:00)
+
 > 
->> From: Jon Hunter <jonathanh@nvidia.com>
->> Date: Jul/26/2019, 15:11:00 (UTC+00:00)
->>
->>>
->>> On 25/07/2019 16:12, Jose Abreu wrote:
->>>> From: Jon Hunter <jonathanh@nvidia.com>
->>>> Date: Jul/25/2019, 15:25:59 (UTC+00:00)
->>>>
->>>>>
->>>>> On 25/07/2019 14:26, Jose Abreu wrote:
->>>>>
->>>>> ...
->>>>>
->>>>>> Well, I wasn't expecting that :/
->>>>>>
->>>>>> Per documentation of barriers I think we should set descriptor fields 
->>>>>> and then barrier and finally ownership to HW so that remaining fields 
->>>>>> are coherent before owner is set.
->>>>>>
->>>>>> Anyway, can you also add a dma_rmb() after the call to 
->>>>>> stmmac_rx_status() ?
->>>>>
->>>>> Yes. I removed the debug print added the barrier, but that did not help.
->>>>
->>>> So, I was finally able to setup NFS using your replicated setup and I 
->>>> can't see the issue :(
->>>>
->>>> The only difference I have from yours is that I'm using TCP in NFS 
->>>> whilst you (I believe from the logs), use UDP.
->>>
->>> So I tried TCP by setting the kernel boot params to 'nfsvers=3' and
->>> 'proto=tcp' and this does appear to be more stable, but not 100% stable.
->>> It still appears to fail in the same place about 50% of the time.
->>>
->>>> You do have flow control active right ? And your HW FIFO size is >= 4k ?
->>>
->>> How can I verify if flow control is active?
->>
->> You can check it by dumping register MTL_RxQ_Operation_Mode (0xd30).
+> On 29/07/2019 09:16, Jose Abreu wrote:
+> > From: Jose Abreu <joabreu@synopsys.com>
+> > Date: Jul/27/2019, 16:56:37 (UTC+00:00)
+> > 
+> >> From: Jon Hunter <jonathanh@nvidia.com>
+> >> Date: Jul/26/2019, 15:11:00 (UTC+00:00)
+> >>
+> >>>
+> >>> On 25/07/2019 16:12, Jose Abreu wrote:
+> >>>> From: Jon Hunter <jonathanh@nvidia.com>
+> >>>> Date: Jul/25/2019, 15:25:59 (UTC+00:00)
+> >>>>
+> >>>>>
+> >>>>> On 25/07/2019 14:26, Jose Abreu wrote:
+> >>>>>
+> >>>>> ...
+> >>>>>
+> >>>>>> Well, I wasn't expecting that :/
+> >>>>>>
+> >>>>>> Per documentation of barriers I think we should set descriptor fields 
+> >>>>>> and then barrier and finally ownership to HW so that remaining fields 
+> >>>>>> are coherent before owner is set.
+> >>>>>>
+> >>>>>> Anyway, can you also add a dma_rmb() after the call to 
+> >>>>>> stmmac_rx_status() ?
+> >>>>>
+> >>>>> Yes. I removed the debug print added the barrier, but that did not help.
+> >>>>
+> >>>> So, I was finally able to setup NFS using your replicated setup and I 
+> >>>> can't see the issue :(
+> >>>>
+> >>>> The only difference I have from yours is that I'm using TCP in NFS 
+> >>>> whilst you (I believe from the logs), use UDP.
+> >>>
+> >>> So I tried TCP by setting the kernel boot params to 'nfsvers=3' and
+> >>> 'proto=tcp' and this does appear to be more stable, but not 100% stable.
+> >>> It still appears to fail in the same place about 50% of the time.
+> >>>
+> >>>> You do have flow control active right ? And your HW FIFO size is >= 4k ?
+> >>>
+> >>> How can I verify if flow control is active?
+> >>
+> >> You can check it by dumping register MTL_RxQ_Operation_Mode (0xd30).
+> 
+> Where would be the appropriate place to dump this? After probe? Maybe
+> best if you can share a code snippet of where to dump this.
+> 
+> >> Can you also add IOMMU debug in file "drivers/iommu/iommu.c" ?
+> 
+> You can find a boot log here:
+> 
+> https://urldefense.proofpoint.com/v2/url?u=https-3A__paste.ubuntu.com_p_qtRqtYKHGF_&d=DwICaQ&c=DPL6_X_6JkXFx7AXWqB0tg&r=WHDsc6kcWAl4i96Vm5hJ_19IJiuxx_p_Rzo2g-uHDKw&m=NrxsR2etpZHGb7HkN4XdgaGmKM1XYyldihNPL6qVSv0&s=CMATEcHVoqZw4sIrNOXc7SFE_kV_5CO5EU21-yJez6c&e= 
+> 
+> > And, please try attached debug patch.
+> 
+> With this patch it appears to boot fine. So far no issues seen.
 
-Where would be the appropriate place to dump this? After probe? Maybe
-best if you can share a code snippet of where to dump this.
+Thank you for testing.
 
->> Can you also add IOMMU debug in file "drivers/iommu/iommu.c" ?
+Hi Catalin and Will,
 
-You can find a boot log here:
+Sorry to add you in such a long thread but we are seeing a DMA issue 
+with stmmac driver in an ARM64 platform with IOMMU enabled.
 
-https://paste.ubuntu.com/p/qtRqtYKHGF/
+The issue seems to be solved when buffers allocation for DMA based 
+transfers are *not* mapped with the DMA_ATTR_SKIP_CPU_SYNC flag *OR* 
+when IOMMU is disabled.
 
-> And, please try attached debug patch.
+Notice that after transfer is done we do use 
+dma_sync_single_for_{cpu,device} and then we reuse *the same* page for 
+another transfer.
 
-With this patch it appears to boot fine. So far no issues seen.
+Can you please comment on whether DMA_ATTR_SKIP_CPU_SYNC can not be used 
+in ARM64 platforms with IOMMU ?
 
-Jon
-
--- 
-nvpublic
+---
+Thanks,
+Jose Miguel Abreu
 _______________________________________________
 Linux-stm32 mailing list
 Linux-stm32@st-md-mailman.stormreply.com
