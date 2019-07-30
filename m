@@ -2,82 +2,48 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id 3AC737A9C3
-	for <lists+linux-stm32@lfdr.de>; Tue, 30 Jul 2019 15:36:49 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id A75ED7AA48
+	for <lists+linux-stm32@lfdr.de>; Tue, 30 Jul 2019 15:57:43 +0200 (CEST)
 Received: from ip-172-31-3-76.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id DF0AAC35E01;
-	Tue, 30 Jul 2019 13:36:48 +0000 (UTC)
-Received: from hqemgate14.nvidia.com (hqemgate14.nvidia.com [216.228.121.143])
- (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256
- bits)) (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id BDCA8C36B3E
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 3BC00C35E01;
+	Tue, 30 Jul 2019 13:57:42 +0000 (UTC)
+Received: from smtprelay-out1.synopsys.com (unknown [198.182.47.102])
+ (using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
+ (No client certificate requested)
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id EBD10C36B3E
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Tue, 30 Jul 2019 13:36:46 +0000 (UTC)
-Received: from hqpgpgate102.nvidia.com (Not Verified[216.228.121.13]) by
- hqemgate14.nvidia.com (using TLS: TLSv1.2, DES-CBC3-SHA)
- id <B5d4047ee0000>; Tue, 30 Jul 2019 06:36:46 -0700
-Received: from hqmail.nvidia.com ([172.20.161.6])
- by hqpgpgate102.nvidia.com (PGP Universal service);
- Tue, 30 Jul 2019 06:36:44 -0700
-X-PGP-Universal: processed;
- by hqpgpgate102.nvidia.com on Tue, 30 Jul 2019 06:36:44 -0700
-Received: from [10.21.132.148] (10.124.1.5) by HQMAIL107.nvidia.com
- (172.20.187.13) with Microsoft SMTP Server (TLS) id 15.0.1473.3; Tue, 30 Jul
- 2019 13:36:41 +0000
-To: Jose Abreu <Jose.Abreu@synopsys.com>, Robin Murphy <robin.murphy@arm.com>, 
- "linux-kernel@vger.kernel.org" <linux-kernel@vger.kernel.org>,
- "netdev@vger.kernel.org" <netdev@vger.kernel.org>,
- "linux-stm32@st-md-mailman.stormreply.com"
- <linux-stm32@st-md-mailman.stormreply.com>,
- "linux-arm-kernel@lists.infradead.org"
- <linux-arm-kernel@lists.infradead.org>, Catalin Marinas
- <catalin.marinas@arm.com>, Will Deacon <will@kernel.org>
-References: <cover.1562149883.git.joabreu@synopsys.com>
- <1b254bb7fc6044c5e6e2fdd9e00088d1d13a808b.1562149883.git.joabreu@synopsys.com>
- <7a79be5d-7ba2-c457-36d3-1ccef6572181@nvidia.com>
- <BYAPR12MB3269927AB1F67D46E150ED6BD3C10@BYAPR12MB3269.namprd12.prod.outlook.com>
- <9e695f33-fd9f-a910-0891-2b63bd75e082@nvidia.com>
- <BYAPR12MB3269B4A401E4DA10A07515C7D3C10@BYAPR12MB3269.namprd12.prod.outlook.com>
- <1e2ea942-28fe-15b9-f675-8d6585f9a33f@nvidia.com>
- <BYAPR12MB326922CDCB1D4B3D4A780CFDD3C30@BYAPR12MB3269.namprd12.prod.outlook.com>
- <MN2PR12MB327907D4A6FB378AC989571AD3DD0@MN2PR12MB3279.namprd12.prod.outlook.com>
- <b99b1e49-0cbc-2c66-6325-50fa6f263d91@nvidia.com>
- <MN2PR12MB327997BDF2EA5CEE00F45AC3D3DD0@MN2PR12MB3279.namprd12.prod.outlook.com>
- <fcf648d2-70cc-d734-871a-ca7f745791b7@arm.com>
- <MN2PR12MB3279ABF628C52883021123C5D3DD0@MN2PR12MB3279.namprd12.prod.outlook.com>
- <8a60361f-b914-93ef-0d80-92ae4ad8b808@nvidia.com>
- <BN8PR12MB32664E23137805984F6FB2DAD3DC0@BN8PR12MB3266.namprd12.prod.outlook.com>
-From: Jon Hunter <jonathanh@nvidia.com>
-Message-ID: <8cb2ac13-3009-2117-d55f-6f1126b690e4@nvidia.com>
-Date: Tue, 30 Jul 2019 14:36:39 +0100
-User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:60.0) Gecko/20100101
- Thunderbird/60.8.0
-MIME-Version: 1.0
-In-Reply-To: <BN8PR12MB32664E23137805984F6FB2DAD3DC0@BN8PR12MB3266.namprd12.prod.outlook.com>
-X-Originating-IP: [10.124.1.5]
-X-ClientProxiedBy: HQMAIL105.nvidia.com (172.20.187.12) To
- HQMAIL107.nvidia.com (172.20.187.13)
-Content-Language: en-US
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=nvidia.com; s=n1;
- t=1564493806; bh=HacDlfvXZhjwdQNemg3f+1KENoSodR+AJ9DMM7MgZXM=;
- h=X-PGP-Universal:Subject:To:CC:References:From:Message-ID:Date:
- User-Agent:MIME-Version:In-Reply-To:X-Originating-IP:
- X-ClientProxiedBy:Content-Type:Content-Language:
- Content-Transfer-Encoding;
- b=r+lHpSghERB2qPV8QeTvnlJ26APFnGjovZYNgpVjKEfFPW/0QV4n4JbQK3wiefryU
- GLPeczHgcGWttDAQxC2FB822Wq0g+bPt9KH1ZtSVy4nFfe9r9cdDMl7R2vNT+2fUgn
- 7Km7IBTaJmkwduPNxTRHA0IPPBV2rtPpgBQT+sqC2mHlyh4ACbqGGhgsidKYr3WnVe
- /N82lv0Ch9DQCOgNLC28RiZBE8kLfq5PNydM0cusjxXUI73fjpZVkFbhlWlBnEPZxR
- bEzDZbTqyJ8j7Ypg9a7H0OFD7U0EqSwJ4Ua+oquA3dRTzT4ZdF/GL07EkOBL/1LLLX
- 3FPxTekGsJ8Yg==
-Cc: Joao Pinto <Joao.Pinto@synopsys.com>,
- Maxime Ripard <maxime.ripard@bootlin.com>, Chen-Yu Tsai <wens@csie.org>,
+ Tue, 30 Jul 2019 13:57:38 +0000 (UTC)
+Received: from mailhost.synopsys.com (mdc-mailhost1.synopsys.com
+ [10.225.0.209])
+ (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits))
+ (No client certificate requested)
+ by smtprelay-out1.synopsys.com (Postfix) with ESMTPS id EEE85C01EC;
+ Tue, 30 Jul 2019 13:57:30 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=synopsys.com; s=mail;
+ t=1564495056; bh=+Frtc0dG6BHyi2YIPiv1kiBX3xPQtzw2fnWMGHBYnQU=;
+ h=From:To:Cc:Subject:Date:From;
+ b=X73C+VCdT/Ev8CiZNgGQDfGtPAtpuQJMuBI/h3MHAWEFTOAj/pjdWdTfXxa1dRqIL
+ 8nC6Ymu0Tn882kLdhCHjBQOsN1avF6ajt/K8wsGFruGajkqEzCH8JnW+XE2am3CExL
+ GF7NNmU4V0N0QOCj5l5sIsxZktNvKU9xs+3M15gBr/BhgkhnusjDCXcA70Z1RwOPOL
+ AjJIPc1lFmZuNTol9YAXGyKVYqyb/BwYxOL//EvFZjM15/pGMb7XTWA2eqTWGHrQU2
+ N3Rpchhz7bKHMXnIHgnIcN0Li579OaCSW0LS3mFsAHpcF5V8VoXCoHPuNWLP4BZMB+
+ zWEnSkh3OZjhg==
+Received: from de02dwia024.internal.synopsys.com
+ (de02dwia024.internal.synopsys.com [10.225.19.81])
+ by mailhost.synopsys.com (Postfix) with ESMTP id E0BECA0057;
+ Tue, 30 Jul 2019 13:57:28 +0000 (UTC)
+From: Jose Abreu <Jose.Abreu@synopsys.com>
+To: netdev@vger.kernel.org
+Date: Tue, 30 Jul 2019 15:57:16 +0200
+Message-Id: <3601e3ae4357d48b3294f42781d0f19095d1b00e.1564479382.git.joabreu@synopsys.com>
+X-Mailer: git-send-email 2.7.4
+Cc: Jose Abreu <Jose.Abreu@synopsys.com>, Joao Pinto <Joao.Pinto@synopsys.com>,
+ linux-kernel@vger.kernel.org, linux-stm32@st-md-mailman.stormreply.com,
  Maxime Coquelin <mcoquelin.stm32@gmail.com>,
- linux-tegra <linux-tegra@vger.kernel.org>,
- Giuseppe Cavallaro <peppe.cavallaro@st.com>,
- "David S . Miller" <davem@davemloft.net>
-Subject: Re: [Linux-stm32] [PATCH net-next 3/3] net: stmmac: Introducing
- support for Page Pool
+ Giuseppe Cavallaro <peppe.cavallaro@st.com>, Jon Hunter <jonathanh@nvidia.com>,
+ "David S. Miller" <davem@davemloft.net>, linux-arm-kernel@lists.infradead.org
+Subject: [Linux-stm32] [PATCH net] net: stmmac: Sync RX Buffer upon
+	allocation
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -89,33 +55,91 @@ List-Post: <mailto:linux-stm32@st-md-mailman.stormreply.com>
 List-Help: <mailto:linux-stm32-request@st-md-mailman.stormreply.com?subject=help>
 List-Subscribe: <https://st-md-mailman.stormreply.com/mailman/listinfo/linux-stm32>, 
  <mailto:linux-stm32-request@st-md-mailman.stormreply.com?subject=subscribe>
+MIME-Version: 1.0
 Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
+With recent changes that introduced support for Page Pool in stmmac, Jon
+reported that NFS boot was no longer working on an ARM64 based platform
+that had the IP behind an IOMMU.
 
-On 30/07/2019 10:39, Jose Abreu wrote:
+As Page Pool API does not guarantee DMA syncing because of the use of
+DMA_ATTR_SKIP_CPU_SYNC flag, we have to explicit sync the whole buffer upon
+re-allocation because we are always re-using same pages.
 
-...
+In fact, ARM64 code invalidates the DMA area upon two situations [1]:
+	- sync_single_for_cpu(): Invalidates if direction != DMA_TO_DEVICE
+	- sync_single_for_device(): Invalidates if direction == DMA_FROM_DEVICE
 
-> I looked at netsec implementation and I noticed that we are syncing the 
-> old buffer for device instead of the new one. netsec syncs the buffer 
-> for device immediately after the allocation which may be what we have to 
-> do. Maybe the attached patch can make things work for you ?
+So, as we must invalidate both the current RX buffer and the newly allocated
+buffer we propose this fix.
 
-Great! This one works. I have booted this several times and I am no
-longer seeing any issues. Thanks for figuring this out!
+[1] arch/arm64/mm/cache.S
 
-Feel free to add my ...
-
+Reported-by: Jon Hunter <jonathanh@nvidia.com>
 Tested-by: Jon Hunter <jonathanh@nvidia.com>
+Fixes: 2af6106ae949 ("net: stmmac: Introducing support for Page Pool")
+Signed-off-by: Jose Abreu <joabreu@synopsys.com>
+---
+Cc: Giuseppe Cavallaro <peppe.cavallaro@st.com>
+Cc: Alexandre Torgue <alexandre.torgue@st.com>
+Cc: Jose Abreu <joabreu@synopsys.com>
+Cc: "David S. Miller" <davem@davemloft.net>
+Cc: Maxime Coquelin <mcoquelin.stm32@gmail.com>
+Cc: netdev@vger.kernel.org
+Cc: linux-stm32@st-md-mailman.stormreply.com
+Cc: linux-arm-kernel@lists.infradead.org
+Cc: linux-kernel@vger.kernel.org
+Cc: Jon Hunter <jonathanh@nvidia.com>
+---
+ drivers/net/ethernet/stmicro/stmmac/stmmac_main.c | 13 ++++++++++---
+ 1 file changed, 10 insertions(+), 3 deletions(-)
 
-Cheers
-Jon
-
+diff --git a/drivers/net/ethernet/stmicro/stmmac/stmmac_main.c b/drivers/net/ethernet/stmicro/stmmac/stmmac_main.c
+index 98b1a5c6d537..9a4a56ad35cd 100644
+--- a/drivers/net/ethernet/stmicro/stmmac/stmmac_main.c
++++ b/drivers/net/ethernet/stmicro/stmmac/stmmac_main.c
+@@ -3271,9 +3271,11 @@ static inline int stmmac_rx_threshold_count(struct stmmac_rx_queue *rx_q)
+ static inline void stmmac_rx_refill(struct stmmac_priv *priv, u32 queue)
+ {
+ 	struct stmmac_rx_queue *rx_q = &priv->rx_queue[queue];
+-	int dirty = stmmac_rx_dirty(priv, queue);
++	int len, dirty = stmmac_rx_dirty(priv, queue);
+ 	unsigned int entry = rx_q->dirty_rx;
+ 
++	len = DIV_ROUND_UP(priv->dma_buf_sz, PAGE_SIZE) * PAGE_SIZE;
++
+ 	while (dirty-- > 0) {
+ 		struct stmmac_rx_buffer *buf = &rx_q->buf_pool[entry];
+ 		struct dma_desc *p;
+@@ -3291,6 +3293,13 @@ static inline void stmmac_rx_refill(struct stmmac_priv *priv, u32 queue)
+ 		}
+ 
+ 		buf->addr = page_pool_get_dma_addr(buf->page);
++
++		/* Sync whole allocation to device. This will invalidate old
++		 * data.
++		 */
++		dma_sync_single_for_device(priv->device, buf->addr, len,
++					   DMA_FROM_DEVICE);
++
+ 		stmmac_set_desc_addr(priv, p, buf->addr);
+ 		stmmac_refill_desc3(priv, rx_q, p);
+ 
+@@ -3425,8 +3434,6 @@ static int stmmac_rx(struct stmmac_priv *priv, int limit, u32 queue)
+ 			skb_copy_to_linear_data(skb, page_address(buf->page),
+ 						frame_len);
+ 			skb_put(skb, frame_len);
+-			dma_sync_single_for_device(priv->device, buf->addr,
+-						   frame_len, DMA_FROM_DEVICE);
+ 
+ 			if (netif_msg_pktdata(priv)) {
+ 				netdev_dbg(priv->dev, "frame received (%dbytes)",
 -- 
-nvpublic
+2.7.4
+
 _______________________________________________
 Linux-stm32 mailing list
 Linux-stm32@st-md-mailman.stormreply.com
