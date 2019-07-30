@@ -2,80 +2,70 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id 8FC2579B1B
-	for <lists+linux-stm32@lfdr.de>; Mon, 29 Jul 2019 23:33:14 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 12B3F79F9F
+	for <lists+linux-stm32@lfdr.de>; Tue, 30 Jul 2019 05:51:20 +0200 (CEST)
 Received: from ip-172-31-3-76.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 44084C35E01;
-	Mon, 29 Jul 2019 21:33:14 +0000 (UTC)
-Received: from hqemgate16.nvidia.com (hqemgate16.nvidia.com [216.228.121.65])
- (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256
- bits)) (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 1901AC36B3E
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id AFECAC35E01;
+	Tue, 30 Jul 2019 03:51:19 +0000 (UTC)
+Received: from mail-ed1-f67.google.com (mail-ed1-f67.google.com
+ [209.85.208.67])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+ (No client certificate requested)
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 05EC1C36B3E
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Mon, 29 Jul 2019 21:33:11 +0000 (UTC)
-Received: from hqpgpgate101.nvidia.com (Not Verified[216.228.121.13]) by
- hqemgate16.nvidia.com (using TLS: TLSv1.2, DES-CBC3-SHA)
- id <B5d3f660d0000>; Mon, 29 Jul 2019 14:33:01 -0700
-Received: from hqmail.nvidia.com ([172.20.161.6])
- by hqpgpgate101.nvidia.com (PGP Universal service);
- Mon, 29 Jul 2019 14:33:10 -0700
-X-PGP-Universal: processed;
- by hqpgpgate101.nvidia.com on Mon, 29 Jul 2019 14:33:10 -0700
-Received: from [10.26.11.172] (10.124.1.5) by HQMAIL107.nvidia.com
- (172.20.187.13) with Microsoft SMTP Server (TLS) id 15.0.1473.3; Mon, 29 Jul
- 2019 21:33:06 +0000
-To: Jose Abreu <Jose.Abreu@synopsys.com>, Robin Murphy <robin.murphy@arm.com>, 
- "linux-kernel@vger.kernel.org" <linux-kernel@vger.kernel.org>,
- "netdev@vger.kernel.org" <netdev@vger.kernel.org>,
- "linux-stm32@st-md-mailman.stormreply.com"
- <linux-stm32@st-md-mailman.stormreply.com>,
- "linux-arm-kernel@lists.infradead.org"
- <linux-arm-kernel@lists.infradead.org>, Catalin Marinas
- <catalin.marinas@arm.com>, Will Deacon <will@kernel.org>
-References: <cover.1562149883.git.joabreu@synopsys.com>
- <1b254bb7fc6044c5e6e2fdd9e00088d1d13a808b.1562149883.git.joabreu@synopsys.com>
- <7a79be5d-7ba2-c457-36d3-1ccef6572181@nvidia.com>
- <BYAPR12MB3269927AB1F67D46E150ED6BD3C10@BYAPR12MB3269.namprd12.prod.outlook.com>
- <9e695f33-fd9f-a910-0891-2b63bd75e082@nvidia.com>
- <BYAPR12MB3269B4A401E4DA10A07515C7D3C10@BYAPR12MB3269.namprd12.prod.outlook.com>
- <1e2ea942-28fe-15b9-f675-8d6585f9a33f@nvidia.com>
- <BYAPR12MB326922CDCB1D4B3D4A780CFDD3C30@BYAPR12MB3269.namprd12.prod.outlook.com>
- <MN2PR12MB327907D4A6FB378AC989571AD3DD0@MN2PR12MB3279.namprd12.prod.outlook.com>
- <b99b1e49-0cbc-2c66-6325-50fa6f263d91@nvidia.com>
- <MN2PR12MB327997BDF2EA5CEE00F45AC3D3DD0@MN2PR12MB3279.namprd12.prod.outlook.com>
- <fcf648d2-70cc-d734-871a-ca7f745791b7@arm.com>
- <MN2PR12MB3279ABF628C52883021123C5D3DD0@MN2PR12MB3279.namprd12.prod.outlook.com>
-From: Jon Hunter <jonathanh@nvidia.com>
-Message-ID: <8a60361f-b914-93ef-0d80-92ae4ad8b808@nvidia.com>
-Date: Mon, 29 Jul 2019 22:33:04 +0100
-User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:60.0) Gecko/20100101
- Thunderbird/60.8.0
+ Tue, 30 Jul 2019 03:51:17 +0000 (UTC)
+Received: by mail-ed1-f67.google.com with SMTP id k8so61216330edr.11
+ for <linux-stm32@st-md-mailman.stormreply.com>;
+ Mon, 29 Jul 2019 20:51:17 -0700 (PDT)
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20161025;
+ h=x-gm-message-state:mime-version:references:in-reply-to:from:date
+ :message-id:subject:to:cc;
+ bh=ISIVHu+AuwTJR7JUopUzw4hbupo9+MlQhSrhmHZcakc=;
+ b=W2QvHQ6fbkeIwoIWyO32E0Thmg6E8q524GcnkF7uSxCEHs/Nl2rmi5DEA4SXfyruEI
+ NPxY3SlgFCLQVOgIhXFUjkRcqZewZdep7bKKHlXa52tA2VKuzCGdJtwYCKFoEpiyxGC5
+ P5vyea3zmHE+dnTOqGoJQJPODhW0vOe2g5CmCxd7rIE/fMHGavuiiYg4OCHjvtNt/WcJ
+ IoPNptOxS63MrUMOQ+5nVpZolrZdhHp3eHrVYiO6xwT+G1UowJPflA45XDrVJI5Ds+/S
+ Wk3zdtLK3F/e8gB4AzE6k+ah4IhreXOIxLph3Xse9xhQ6Y06bwnd6dY0g2QpMgETbAgw
+ 9doA==
+X-Gm-Message-State: APjAAAV4WXibv1JOkAyeNhPBGPj3QMqFjYuIEs/cRhwtE/U8/UQlPx13
+ 5whIQftrUcEa7xD5HmsvjORAoKVJ5WQ=
+X-Google-Smtp-Source: APXvYqxtYlTWmSqF6UpBH/Hu7ZZi5IL5d1CAalzuRV6uGHDsztgtMlQEscPTnld0qR8opIP3Czy1hg==
+X-Received: by 2002:aa7:d68e:: with SMTP id d14mr99374299edr.253.1564458676490; 
+ Mon, 29 Jul 2019 20:51:16 -0700 (PDT)
+Received: from mail-wr1-f51.google.com (mail-wr1-f51.google.com.
+ [209.85.221.51])
+ by smtp.gmail.com with ESMTPSA id j30sm16200342edb.8.2019.07.29.20.51.15
+ for <linux-stm32@st-md-mailman.stormreply.com>
+ (version=TLS1_3 cipher=AEAD-AES128-GCM-SHA256 bits=128/128);
+ Mon, 29 Jul 2019 20:51:16 -0700 (PDT)
+Received: by mail-wr1-f51.google.com with SMTP id f9so64039719wre.12
+ for <linux-stm32@st-md-mailman.stormreply.com>;
+ Mon, 29 Jul 2019 20:51:15 -0700 (PDT)
+X-Received: by 2002:adf:e941:: with SMTP id m1mr37011261wrn.279.1564458675544; 
+ Mon, 29 Jul 2019 20:51:15 -0700 (PDT)
 MIME-Version: 1.0
-In-Reply-To: <MN2PR12MB3279ABF628C52883021123C5D3DD0@MN2PR12MB3279.namprd12.prod.outlook.com>
-X-Originating-IP: [10.124.1.5]
-X-ClientProxiedBy: HQMAIL105.nvidia.com (172.20.187.12) To
- HQMAIL107.nvidia.com (172.20.187.13)
-Content-Language: en-US
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=nvidia.com; s=n1;
- t=1564435981; bh=+tXkvnJomdlQUldytIfFdlsTnBE+q42y36xSnoRaYvU=;
- h=X-PGP-Universal:Subject:To:CC:References:From:Message-ID:Date:
- User-Agent:MIME-Version:In-Reply-To:X-Originating-IP:
- X-ClientProxiedBy:Content-Type:Content-Language:
- Content-Transfer-Encoding;
- b=BuHiU6CuSm73jgRPvxOtqlowqNvcDo0RdVEDsM3mou7XM1jZUGREQyFZuANpF/PvP
- 74z9Kajzmn7ZZkLJODbpWKiSvdL21YH+vAaT4lbeq0A48hDAGkx5dlYGbRySj7NVSl
- eeR8oEZNAaZmfNT/jAKBhIQ+ySqvcIJ+QGLGssZkoEGbiNaFn8PYEVr7Ogq3qxp6OC
- MGKfMF0rF+daOjLKHG4uwYzh0Z1m5F8/2SDgm4MUDbOQLBKmeq5ImF6yfeemzmZKpt
- Y8cvlCRKwGq0mSIJ3Pe9pq+Sm2pP0vRg32Z8tYF44uOAcTpCxzdqQDnj/bpHX1F7GO
- PyR6nJoawG9Ig==
-Cc: Joao Pinto <Joao.Pinto@synopsys.com>,
- Maxime Ripard <maxime.ripard@bootlin.com>, Chen-Yu Tsai <wens@csie.org>,
- Maxime Coquelin <mcoquelin.stm32@gmail.com>,
- linux-tegra <linux-tegra@vger.kernel.org>,
- Giuseppe Cavallaro <peppe.cavallaro@st.com>,
- "David S . Miller" <davem@davemloft.net>
-Subject: Re: [Linux-stm32] [PATCH net-next 3/3] net: stmmac: Introducing
- support for Page Pool
+References: <cover.e80da8845680a45c2e07d5f17280fdba84555b8a.1561649505.git-series.maxime.ripard@bootlin.com>
+ <a1a33392c64c71099021fb49cc811a30790d40a8.1561649505.git-series.maxime.ripard@bootlin.com>
+In-Reply-To: <a1a33392c64c71099021fb49cc811a30790d40a8.1561649505.git-series.maxime.ripard@bootlin.com>
+From: Chen-Yu Tsai <wens@csie.org>
+Date: Tue, 30 Jul 2019 11:51:02 +0800
+X-Gmail-Original-Message-ID: <CAGb2v67u3pvS1veHTHVPySK1YGJYwGzPF7-iziefsbWRNZNyrg@mail.gmail.com>
+Message-ID: <CAGb2v67u3pvS1veHTHVPySK1YGJYwGzPF7-iziefsbWRNZNyrg@mail.gmail.com>
+To: Maxime Ripard <maxime.ripard@bootlin.com>
+Cc: Mark Rutland <mark.rutland@arm.com>,
+ devicetree <devicetree@vger.kernel.org>,
+ Florian Fainelli <f.fainelli@gmail.com>, Andrew Lunn <andrew@lunn.ch>,
+ =?UTF-8?Q?Antoine_T=C3=A9nart?= <antoine.tenart@bootlin.com>,
+ netdev <netdev@vger.kernel.org>, linux-stm32@st-md-mailman.stormreply.com,
+ Rob Herring <robh+dt@kernel.org>, Maxime Coquelin <mcoquelin.stm32@gmail.com>,
+ Maxime Chevallier <maxime.chevallier@bootlin.com>,
+ Frank Rowand <frowand.list@gmail.com>,
+ "David S . Miller" <davem@davemloft.net>,
+ linux-arm-kernel <linux-arm-kernel@lists.infradead.org>,
+ Heiner Kallweit <hkallweit1@gmail.com>
+Subject: Re: [Linux-stm32] [PATCH v4 13/13] ARM: dts: sunxi: Switch from phy
+	to phy-handle
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -92,69 +82,27 @@ Content-Transfer-Encoding: 7bit
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
+On Thu, Jun 27, 2019 at 11:32 PM Maxime Ripard
+<maxime.ripard@bootlin.com> wrote:
+>
+> The phy device tree property has been deprecated in favor of phy-handle,
+> let's replace it.
+>
+> Signed-off-by: Maxime Ripard <maxime.ripard@bootlin.com>
 
-On 29/07/2019 15:08, Jose Abreu wrote:
+This patch breaks Ethernet on all my dwmac-sunxi, i.e. old GMAC, boards, with
+the following error messages:
 
-...
+    sun7i-dwmac 1c50000.ethernet eth0: no phy at addr -1
+    sun7i-dwmac 1c50000.ethernet eth0: stmmac_open: Cannot attach to
+PHY (error: -19)
 
->>> Hi Catalin and Will,
->>>
->>> Sorry to add you in such a long thread but we are seeing a DMA issue
->>> with stmmac driver in an ARM64 platform with IOMMU enabled.
->>>
->>> The issue seems to be solved when buffers allocation for DMA based
->>> transfers are *not* mapped with the DMA_ATTR_SKIP_CPU_SYNC flag *OR*
->>> when IOMMU is disabled.
->>>
->>> Notice that after transfer is done we do use
->>> dma_sync_single_for_{cpu,device} and then we reuse *the same* page for
->>> another transfer.
->>>
->>> Can you please comment on whether DMA_ATTR_SKIP_CPU_SYNC can not be used
->>> in ARM64 platforms with IOMMU ?
->>
->> In terms of what they do, there should be no difference on arm64 between:
->>
->> dma_map_page(..., dir);
->> ...
->> dma_unmap_page(..., dir);
->>
->> and:
->>
->> dma_map_page_attrs(..., dir, DMA_ATTR_SKIP_CPU_SYNC);
->> dma_sync_single_for_device(..., dir);
->> ...
->> dma_sync_single_for_cpu(..., dir);
->> dma_unmap_page_attrs(..., dir, DMA_ATTR_SKIP_CPU_SYNC);
->>
->> provided that the first sync covers the whole buffer and any subsequent 
->> ones cover at least the parts of the buffer which may have changed. Plus 
->> for coherent hardware it's entirely moot either way.
-> 
-> Thanks for confirming. That's indeed what stmmac is doing when buffer is 
-> received by syncing the packet size to CPU.
-> 
->>
->> Given Jon's previous findings, I would lean towards the idea that 
->> performing the extra (redundant) cache maintenance plus barrier in 
->> dma_unmap is mostly just perturbing timing in the same way as the debug 
->> print which also made things seem OK.
-> 
-> Mikko said that Tegra186 is not coherent so we have to explicit flush 
-> pipeline but I don't understand why sync_single() is not doing it ...
-> 
-> Jon, can you please remove *all* debug prints, hacks, etc ... and test 
-> this one in attach with plain -net tree ?
+Reverting this patch fixes it.
 
-So far I have just been testing on the mainline kernel branch. The issue
-still persists after applying this on mainline. I can test on the -net
-tree, but I am not sure that will make a difference.
+It also breaks the A10/A10s, but that's probably because the sun4i-emac
+driver doesn't recognize the "phy-handle" property.
 
-Cheers
-Jon
-
--- 
-nvpublic
+ChenYu
 _______________________________________________
 Linux-stm32 mailing list
 Linux-stm32@st-md-mailman.stormreply.com
