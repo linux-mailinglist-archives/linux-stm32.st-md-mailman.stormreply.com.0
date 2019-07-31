@@ -2,41 +2,41 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id 554287BF4E
-	for <lists+linux-stm32@lfdr.de>; Wed, 31 Jul 2019 13:30:15 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 82BE77BF58
+	for <lists+linux-stm32@lfdr.de>; Wed, 31 Jul 2019 13:30:17 +0200 (CEST)
 Received: from ip-172-31-3-76.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 18E5BC32E9F;
-	Wed, 31 Jul 2019 11:30:15 +0000 (UTC)
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 47357C10C82;
+	Wed, 31 Jul 2019 11:30:17 +0000 (UTC)
 Received: from heliosphere.sirena.org.uk (heliosphere.sirena.org.uk
  [172.104.155.198])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 9551BC35E06
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id B25ACC32EAB
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Wed, 31 Jul 2019 11:30:13 +0000 (UTC)
+ Wed, 31 Jul 2019 11:30:15 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
  d=sirena.org.uk; s=20170815-heliosphere; h=Date:Message-Id:In-Reply-To:
  Subject:Cc:To:From:Sender:Reply-To:MIME-Version:Content-Type:
  Content-Transfer-Encoding:Content-ID:Content-Description:Resent-Date:
  Resent-From:Resent-Sender:Resent-To:Resent-Cc:Resent-Message-ID:References:
  List-Id:List-Help:List-Unsubscribe:List-Subscribe:List-Post:List-Owner:
- List-Archive; bh=K4dBNNe+2/c2mZTXmVu24RlhUWhqDFMfpcb8oX0TQPA=; b=C1M1tN19u/6S
- SE6PoJIo/ClPdBJe3SBwVgKy38tZfiWagcIjhaTSUkBY0AjjTodV5ZI4T9ePdn8MOgdNU1ywpLgzQ
- +Z3+nXZa5PXS7FS+pq3VjfojT1Fm+8ZLn/YalvhKU0bY+jl0SSPxqlztJNIA0DRu7TqIZvIqmEsjr
- eEP1k=;
+ List-Archive; bh=1oZpHXseB2euC0HA5arCblB3iFVCG5p5FPASzfvK/ww=; b=C+zXeG6OWbUR
+ r3wiOJDc2XV0cL5IIcDcDjOtNytsyDc0JLLElh1P4TFVGFFGxqpY5zEPXVgRDfU40myGol7kClduB
+ Ju0D7T/NqR2rZcYORB2SzQAdT95m0q5y7ZVrFsJucNdrYMXSeB++Ems7BG3yfFdqDxpv4yNShzCmz
+ SBt+I=;
 Received: from cpc102320-sgyl38-2-0-cust46.18-2.cable.virginm.net
  ([82.37.168.47] helo=ypsilon.sirena.org.uk)
  by heliosphere.sirena.org.uk with esmtpsa
  (TLS1.3:ECDHE_RSA_AES_256_GCM_SHA384:256) (Exim 4.92)
  (envelope-from <broonie@sirena.org.uk>)
- id 1hsmnh-0001lu-9I; Wed, 31 Jul 2019 11:29:45 +0000
+ id 1hsmng-0001lr-TT; Wed, 31 Jul 2019 11:29:45 +0000
 Received: by ypsilon.sirena.org.uk (Postfix, from userid 1000)
- id B9D4B2742C99; Wed, 31 Jul 2019 12:29:44 +0100 (BST)
+ id 6C4FE2742CC3; Wed, 31 Jul 2019 12:29:44 +0100 (BST)
 From: Mark Brown <broonie@kernel.org>
 To: YueHaibing <yuehaibing@huawei.com>
-In-Reply-To: <20190727150738.54764-30-yuehaibing@huawei.com>
+In-Reply-To: <20190727150738.54764-31-yuehaibing@huawei.com>
 X-Patchwork-Hint: ignore
-Message-Id: <20190731112944.B9D4B2742C99@ypsilon.sirena.org.uk>
+Message-Id: <20190731112944.6C4FE2742CC3@ypsilon.sirena.org.uk>
 Date: Wed, 31 Jul 2019 12:29:44 +0100 (BST)
 Cc: mripard@kernel.org, alsa-devel@alsa-project.org, Xiubo.Lee@gmail.com,
  linux-kernel@vger.kernel.org, paul@crapouillou.net, jcmvbkbc@gmail.com,
@@ -55,7 +55,7 @@ Cc: mripard@kernel.org, alsa-devel@alsa-project.org, Xiubo.Lee@gmail.com,
  baohua@kernel.org, timur@kernel.org, sbranden@broadcom.com, eric@anholt.net,
  gregkh@linuxfoundation.org, lgirdwood@gmail.com, wahrenst@gmx.net,
  kernel@pengutronix.de, linuxppc-dev@lists.ozlabs.org, daniel@zonque.org
-Subject: [Linux-stm32] Applied "ASoC: meson: axg-spdifout: use
+Subject: [Linux-stm32] Applied "ASoC: meson: axg-fifo: use
 	devm_platform_ioremap_resource() to simplify code" to the asoc tree
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
@@ -76,7 +76,7 @@ Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
 The patch
 
-   ASoC: meson: axg-spdifout: use devm_platform_ioremap_resource() to simplify code
+   ASoC: meson: axg-fifo: use devm_platform_ioremap_resource() to simplify code
 
 has been applied to the asoc tree at
 
@@ -101,38 +101,38 @@ to this mail.
 Thanks,
 Mark
 
-From c43fd289dd58951f3cfddb3bb66a6ed7747c5986 Mon Sep 17 00:00:00 2001
+From 9b2089313156ad16bd257217cc67e10597a82923 Mon Sep 17 00:00:00 2001
 From: YueHaibing <yuehaibing@huawei.com>
-Date: Sat, 27 Jul 2019 23:07:33 +0800
-Subject: [PATCH] ASoC: meson: axg-spdifout: use
- devm_platform_ioremap_resource() to simplify code
+Date: Sat, 27 Jul 2019 23:07:34 +0800
+Subject: [PATCH] ASoC: meson: axg-fifo: use devm_platform_ioremap_resource()
+ to simplify code
 
 Use devm_platform_ioremap_resource() to simplify the code a bit.
 This is detected by coccinelle.
 
 Reported-by: Hulk Robot <hulkci@huawei.com>
 Signed-off-by: YueHaibing <yuehaibing@huawei.com>
-Link: https://lore.kernel.org/r/20190727150738.54764-30-yuehaibing@huawei.com
+Link: https://lore.kernel.org/r/20190727150738.54764-31-yuehaibing@huawei.com
 Signed-off-by: Mark Brown <broonie@kernel.org>
 ---
- sound/soc/meson/axg-spdifout.c | 4 +---
+ sound/soc/meson/axg-fifo.c | 4 +---
  1 file changed, 1 insertion(+), 3 deletions(-)
 
-diff --git a/sound/soc/meson/axg-spdifout.c b/sound/soc/meson/axg-spdifout.c
-index 9dea528053ad..7ce6aa97ddf7 100644
---- a/sound/soc/meson/axg-spdifout.c
-+++ b/sound/soc/meson/axg-spdifout.c
-@@ -401,7 +401,6 @@ static int axg_spdifout_probe(struct platform_device *pdev)
- {
+diff --git a/sound/soc/meson/axg-fifo.c b/sound/soc/meson/axg-fifo.c
+index 01c1c7db2510..80a3dde35b5c 100644
+--- a/sound/soc/meson/axg-fifo.c
++++ b/sound/soc/meson/axg-fifo.c
+@@ -314,7 +314,6 @@ int axg_fifo_probe(struct platform_device *pdev)
  	struct device *dev = &pdev->dev;
- 	struct axg_spdifout *priv;
+ 	const struct axg_fifo_match_data *data;
+ 	struct axg_fifo *fifo;
 -	struct resource *res;
  	void __iomem *regs;
- 	int ret;
  
-@@ -410,8 +409,7 @@ static int axg_spdifout_probe(struct platform_device *pdev)
+ 	data = of_device_get_match_data(dev);
+@@ -328,8 +327,7 @@ int axg_fifo_probe(struct platform_device *pdev)
  		return -ENOMEM;
- 	platform_set_drvdata(pdev, priv);
+ 	platform_set_drvdata(pdev, fifo);
  
 -	res = platform_get_resource(pdev, IORESOURCE_MEM, 0);
 -	regs = devm_ioremap_resource(dev, res);
