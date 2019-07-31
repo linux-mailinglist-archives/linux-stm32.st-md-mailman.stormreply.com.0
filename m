@@ -2,42 +2,41 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id F2A907BF51
-	for <lists+linux-stm32@lfdr.de>; Wed, 31 Jul 2019 13:30:16 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id A0C707BF5A
+	for <lists+linux-stm32@lfdr.de>; Wed, 31 Jul 2019 13:30:17 +0200 (CEST)
 Received: from ip-172-31-3-76.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id A1C43C28E2F;
-	Wed, 31 Jul 2019 11:30:16 +0000 (UTC)
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 62BA4C10C8A;
+	Wed, 31 Jul 2019 11:30:17 +0000 (UTC)
 Received: from heliosphere.sirena.org.uk (heliosphere.sirena.org.uk
  [172.104.155.198])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id D2968C35E05
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 66200C2907D
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Wed, 31 Jul 2019 11:30:13 +0000 (UTC)
+ Wed, 31 Jul 2019 11:30:16 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
  d=sirena.org.uk; s=20170815-heliosphere; h=Date:Message-Id:In-Reply-To:
  Subject:Cc:To:From:Sender:Reply-To:MIME-Version:Content-Type:
  Content-Transfer-Encoding:Content-ID:Content-Description:Resent-Date:
  Resent-From:Resent-Sender:Resent-To:Resent-Cc:Resent-Message-ID:References:
  List-Id:List-Help:List-Unsubscribe:List-Subscribe:List-Post:List-Owner:
- List-Archive; bh=LYS2TWunl0umuUPSWvasAE0nCSO1RPXL/p7pwlJsc88=; b=farXO/9rKhTS
- cKMbTDlBxhygDYHcV5Lj97j9kZD1E3UV4IB7QL9B7Zc5ijvZLWJBxW45P8kC/ucfrye/4srKBloWR
- 4MtIThC2SA3hq1CE01ny8rwqdi38PZLL+DCjNT9DRPATvjBYn+zp5jw64XvbiXoFxyUocv5u4L7rW
- gXvOA=;
-Received: from cpc102320-sgyl38-2-0-cust46.18-2.cable.virginm.net
- ([82.37.168.47] helo=ypsilon.sirena.org.uk)
+ List-Archive; bh=eTlh4lvM63+Wx0DzBrmZ0tzksgKJVQojvvLUdCsPwUA=; b=ptiskyC7AuFD
+ XFnW3gNje3mu5imMWSxNCSDDUac5sGXS2eNwaQrGNd2bUVueDxyIrCCVt7TdFqepH/vfy5p6yJd5f
+ ON4tmFUsHpJmBMdrCq/QR5PB5O8WqUZAj1se4LRFM9ZvP3AW+ITXLRoGhGEDXf9AwqB/5FB4EF1xv
+ AExDA=;
+Received: from ypsilon.sirena.org.uk ([2001:470:1f1d:6b5::7])
  by heliosphere.sirena.org.uk with esmtpsa
  (TLS1.3:ECDHE_RSA_AES_256_GCM_SHA384:256) (Exim 4.92)
  (envelope-from <broonie@sirena.org.uk>)
- id 1hsmne-0001lQ-BP; Wed, 31 Jul 2019 11:29:42 +0000
+ id 1hsmne-0001lS-R2; Wed, 31 Jul 2019 11:29:42 +0000
 Received: by ypsilon.sirena.org.uk (Postfix, from userid 1000)
- id D8C9D2742C99; Wed, 31 Jul 2019 12:29:41 +0100 (BST)
+ id 3841B2742CDE; Wed, 31 Jul 2019 12:29:42 +0100 (BST)
 From: Mark Brown <broonie@kernel.org>
 To: YueHaibing <yuehaibing@huawei.com>
-In-Reply-To: <20190727150738.54764-18-yuehaibing@huawei.com>
+In-Reply-To: <20190727150738.54764-17-yuehaibing@huawei.com>
 X-Patchwork-Hint: ignore
-Message-Id: <20190731112941.D8C9D2742C99@ypsilon.sirena.org.uk>
-Date: Wed, 31 Jul 2019 12:29:41 +0100 (BST)
+Message-Id: <20190731112942.3841B2742CDE@ypsilon.sirena.org.uk>
+Date: Wed, 31 Jul 2019 12:29:42 +0100 (BST)
 Cc: mripard@kernel.org, alsa-devel@alsa-project.org, Xiubo.Lee@gmail.com,
  linux-kernel@vger.kernel.org, paul@crapouillou.net, jcmvbkbc@gmail.com,
  thierry.reding@gmail.com, shawnguo@kernel.org, festevam@gmail.com,
@@ -55,7 +54,7 @@ Cc: mripard@kernel.org, alsa-devel@alsa-project.org, Xiubo.Lee@gmail.com,
  baohua@kernel.org, timur@kernel.org, sbranden@broadcom.com, eric@anholt.net,
  gregkh@linuxfoundation.org, lgirdwood@gmail.com, wahrenst@gmx.net,
  kernel@pengutronix.de, linuxppc-dev@lists.ozlabs.org, daniel@zonque.org
-Subject: [Linux-stm32] Applied "ASoC: codecs: jz4725b: use
+Subject: [Linux-stm32] Applied "ASoC: codecs: msm8916-wcd: use
 	devm_platform_ioremap_resource() to simplify code" to the asoc tree
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
@@ -76,7 +75,7 @@ Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
 The patch
 
-   ASoC: codecs: jz4725b: use devm_platform_ioremap_resource() to simplify code
+   ASoC: codecs: msm8916-wcd: use devm_platform_ioremap_resource() to simplify code
 
 has been applied to the asoc tree at
 
@@ -101,43 +100,44 @@ to this mail.
 Thanks,
 Mark
 
-From 94db63761576a98279e19f51173dec85f803bad4 Mon Sep 17 00:00:00 2001
+From f62d6426718837663484bbf0ed94e56573cbc365 Mon Sep 17 00:00:00 2001
 From: YueHaibing <yuehaibing@huawei.com>
-Date: Sat, 27 Jul 2019 23:07:21 +0800
-Subject: [PATCH] ASoC: codecs: jz4725b: use devm_platform_ioremap_resource()
- to simplify code
+Date: Sat, 27 Jul 2019 23:07:20 +0800
+Subject: [PATCH] ASoC: codecs: msm8916-wcd: use
+ devm_platform_ioremap_resource() to simplify code
 
 Use devm_platform_ioremap_resource() to simplify the code a bit.
 This is detected by coccinelle.
 
 Reported-by: Hulk Robot <hulkci@huawei.com>
 Signed-off-by: YueHaibing <yuehaibing@huawei.com>
-Link: https://lore.kernel.org/r/20190727150738.54764-18-yuehaibing@huawei.com
+Link: https://lore.kernel.org/r/20190727150738.54764-17-yuehaibing@huawei.com
 Signed-off-by: Mark Brown <broonie@kernel.org>
 ---
- sound/soc/codecs/jz4725b.c | 4 +---
+ sound/soc/codecs/msm8916-wcd-digital.c | 4 +---
  1 file changed, 1 insertion(+), 3 deletions(-)
 
-diff --git a/sound/soc/codecs/jz4725b.c b/sound/soc/codecs/jz4725b.c
-index 766354c73076..2567a5d15b55 100644
---- a/sound/soc/codecs/jz4725b.c
-+++ b/sound/soc/codecs/jz4725b.c
-@@ -545,15 +545,13 @@ static int jz4725b_codec_probe(struct platform_device *pdev)
- {
+diff --git a/sound/soc/codecs/msm8916-wcd-digital.c b/sound/soc/codecs/msm8916-wcd-digital.c
+index 1db7e43ec203..9fa5d44fdc79 100644
+--- a/sound/soc/codecs/msm8916-wcd-digital.c
++++ b/sound/soc/codecs/msm8916-wcd-digital.c
+@@ -1143,7 +1143,6 @@ static int msm8916_wcd_digital_probe(struct platform_device *pdev)
+ 	struct msm8916_wcd_digital_priv *priv;
  	struct device *dev = &pdev->dev;
- 	struct jz_icdc *icdc;
--	struct resource *mem;
+ 	void __iomem *base;
+-	struct resource *mem_res;
+ 	struct regmap *digital_map;
  	int ret;
  
- 	icdc = devm_kzalloc(dev, sizeof(*icdc), GFP_KERNEL);
- 	if (!icdc)
+@@ -1151,8 +1150,7 @@ static int msm8916_wcd_digital_probe(struct platform_device *pdev)
+ 	if (!priv)
  		return -ENOMEM;
  
--	mem = platform_get_resource(pdev, IORESOURCE_MEM, 0);
--	icdc->base = devm_ioremap_resource(dev, mem);
-+	icdc->base = devm_platform_ioremap_resource(pdev, 0);
- 	if (IS_ERR(icdc->base))
- 		return PTR_ERR(icdc->base);
+-	mem_res = platform_get_resource(pdev, IORESOURCE_MEM, 0);
+-	base = devm_ioremap_resource(&pdev->dev, mem_res);
++	base = devm_platform_ioremap_resource(pdev, 0);
+ 	if (IS_ERR(base))
+ 		return PTR_ERR(base);
  
 -- 
 2.20.1
