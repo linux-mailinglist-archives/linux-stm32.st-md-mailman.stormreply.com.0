@@ -2,41 +2,41 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id 47A857BF55
-	for <lists+linux-stm32@lfdr.de>; Wed, 31 Jul 2019 13:30:17 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 34C557BF4D
+	for <lists+linux-stm32@lfdr.de>; Wed, 31 Jul 2019 13:30:15 +0200 (CEST)
 Received: from ip-172-31-3-76.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 156EAC2402D;
-	Wed, 31 Jul 2019 11:30:17 +0000 (UTC)
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id EAD67C35E19;
+	Wed, 31 Jul 2019 11:30:14 +0000 (UTC)
 Received: from heliosphere.sirena.org.uk (heliosphere.sirena.org.uk
  [172.104.155.198])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 9EA14C35E0A
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 60BFBC35E05
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Wed, 31 Jul 2019 11:30:14 +0000 (UTC)
+ Wed, 31 Jul 2019 11:30:13 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
  d=sirena.org.uk; s=20170815-heliosphere; h=Date:Message-Id:In-Reply-To:
  Subject:Cc:To:From:Sender:Reply-To:MIME-Version:Content-Type:
  Content-Transfer-Encoding:Content-ID:Content-Description:Resent-Date:
  Resent-From:Resent-Sender:Resent-To:Resent-Cc:Resent-Message-ID:References:
  List-Id:List-Help:List-Unsubscribe:List-Subscribe:List-Post:List-Owner:
- List-Archive; bh=H/kG5zveA/jnIRdFNFW7HC5Y8I2561aVM6OnMW2Mlrk=; b=wYgUZSRIUHxL
- UEkJHHCV6TAGe5sXe566IqTC6/tKD2urVO+Mb0An9KN9juunp2dpD8nUw0LzG4IK7Zuf0TZxuCJuA
- ufqLTNfgsd70PAyr9xmM0E439pDUPX7j2KaU5kBoRR5a6YzEi5fRr1HEVCSK7yAvetPC/Oif7ldvp
- m9qOc=;
+ List-Archive; bh=8aPxbPzX12K8YvP3KgBIApYxjMFJoZqlhnC/uijFIZI=; b=pLLKVvhA0U5i
+ HSorWl2d3QOdaOFqJ/GyAXduWDoY5IrN0eruRUmJLlv1yp0xoivAtbrkQyfGYjILHG4C74Peae4xr
+ WFOzjznHo/9M6PN4gufB8W4vzQ2pURDKeIC4woampwNdFDJN8gs9C3H7lnC5rkBkdsSgN3DoWUkFM
+ 1cAQ0=;
 Received: from ypsilon.sirena.org.uk ([2001:470:1f1d:6b5::7])
  by heliosphere.sirena.org.uk with esmtpsa
  (TLS1.3:ECDHE_RSA_AES_256_GCM_SHA384:256) (Exim 4.92)
  (envelope-from <broonie@sirena.org.uk>)
- id 1hsmnc-0001lA-Vh; Wed, 31 Jul 2019 11:29:41 +0000
+ id 1hsmnd-0001lG-Mj; Wed, 31 Jul 2019 11:29:41 +0000
 Received: by ypsilon.sirena.org.uk (Postfix, from userid 1000)
- id 61CCD2742C99; Wed, 31 Jul 2019 12:29:40 +0100 (BST)
+ id 2119E2742C99; Wed, 31 Jul 2019 12:29:41 +0100 (BST)
 From: Mark Brown <broonie@kernel.org>
 To: YueHaibing <yuehaibing@huawei.com>
-In-Reply-To: <20190727150738.54764-22-yuehaibing@huawei.com>
+In-Reply-To: <20190727150738.54764-20-yuehaibing@huawei.com>
 X-Patchwork-Hint: ignore
-Message-Id: <20190731112940.61CCD2742C99@ypsilon.sirena.org.uk>
-Date: Wed, 31 Jul 2019 12:29:40 +0100 (BST)
+Message-Id: <20190731112941.2119E2742C99@ypsilon.sirena.org.uk>
+Date: Wed, 31 Jul 2019 12:29:41 +0100 (BST)
 Cc: mripard@kernel.org, alsa-devel@alsa-project.org, Xiubo.Lee@gmail.com,
  linux-kernel@vger.kernel.org, paul@crapouillou.net, jcmvbkbc@gmail.com,
  thierry.reding@gmail.com, shawnguo@kernel.org, festevam@gmail.com,
@@ -54,7 +54,7 @@ Cc: mripard@kernel.org, alsa-devel@alsa-project.org, Xiubo.Lee@gmail.com,
  baohua@kernel.org, timur@kernel.org, sbranden@broadcom.com, eric@anholt.net,
  gregkh@linuxfoundation.org, lgirdwood@gmail.com, wahrenst@gmx.net,
  kernel@pengutronix.de, linuxppc-dev@lists.ozlabs.org, daniel@zonque.org
-Subject: [Linux-stm32] Applied "ASoC: uniphier: evea: use
+Subject: [Linux-stm32] Applied "ASoC: jz4740: use
 	devm_platform_ioremap_resource() to simplify code" to the asoc tree
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
@@ -75,7 +75,7 @@ Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
 The patch
 
-   ASoC: uniphier: evea: use devm_platform_ioremap_resource() to simplify code
+   ASoC: jz4740: use devm_platform_ioremap_resource() to simplify code
 
 has been applied to the asoc tree at
 
@@ -100,10 +100,10 @@ to this mail.
 Thanks,
 Mark
 
-From 4e5bc35988af2483138feb3c5c3bf5fb0cae4228 Mon Sep 17 00:00:00 2001
+From a8dc106410a2c3c87917447fb8c132b66062443e Mon Sep 17 00:00:00 2001
 From: YueHaibing <yuehaibing@huawei.com>
-Date: Sat, 27 Jul 2019 23:07:25 +0800
-Subject: [PATCH] ASoC: uniphier: evea: use devm_platform_ioremap_resource() to
+Date: Sat, 27 Jul 2019 23:07:23 +0800
+Subject: [PATCH] ASoC: jz4740: use devm_platform_ioremap_resource() to
  simplify code
 
 Use devm_platform_ioremap_resource() to simplify the code a bit.
@@ -111,33 +111,33 @@ This is detected by coccinelle.
 
 Reported-by: Hulk Robot <hulkci@huawei.com>
 Signed-off-by: YueHaibing <yuehaibing@huawei.com>
-Link: https://lore.kernel.org/r/20190727150738.54764-22-yuehaibing@huawei.com
+Link: https://lore.kernel.org/r/20190727150738.54764-20-yuehaibing@huawei.com
 Signed-off-by: Mark Brown <broonie@kernel.org>
 ---
- sound/soc/uniphier/evea.c | 4 +---
+ sound/soc/codecs/jz4740.c | 4 +---
  1 file changed, 1 insertion(+), 3 deletions(-)
 
-diff --git a/sound/soc/uniphier/evea.c b/sound/soc/uniphier/evea.c
-index f9c10165fbc1..d27e9ca07856 100644
---- a/sound/soc/uniphier/evea.c
-+++ b/sound/soc/uniphier/evea.c
-@@ -451,7 +451,6 @@ static const struct regmap_config evea_regmap_config = {
- static int evea_probe(struct platform_device *pdev)
+diff --git a/sound/soc/codecs/jz4740.c b/sound/soc/codecs/jz4740.c
+index 974e17fa1911..460aa1fd1efe 100644
+--- a/sound/soc/codecs/jz4740.c
++++ b/sound/soc/codecs/jz4740.c
+@@ -318,7 +318,6 @@ static int jz4740_codec_probe(struct platform_device *pdev)
  {
- 	struct evea_priv *evea;
--	struct resource *res;
- 	void __iomem *preg;
  	int ret;
+ 	struct jz4740_codec *jz4740_codec;
+-	struct resource *mem;
+ 	void __iomem *base;
  
-@@ -475,8 +474,7 @@ static int evea_probe(struct platform_device *pdev)
- 	if (IS_ERR(evea->rst_exiv))
- 		return PTR_ERR(evea->rst_exiv);
+ 	jz4740_codec = devm_kzalloc(&pdev->dev, sizeof(*jz4740_codec),
+@@ -326,8 +325,7 @@ static int jz4740_codec_probe(struct platform_device *pdev)
+ 	if (!jz4740_codec)
+ 		return -ENOMEM;
  
--	res = platform_get_resource(pdev, IORESOURCE_MEM, 0);
--	preg = devm_ioremap_resource(&pdev->dev, res);
-+	preg = devm_platform_ioremap_resource(pdev, 0);
- 	if (IS_ERR(preg))
- 		return PTR_ERR(preg);
+-	mem = platform_get_resource(pdev, IORESOURCE_MEM, 0);
+-	base = devm_ioremap_resource(&pdev->dev, mem);
++	base = devm_platform_ioremap_resource(pdev, 0);
+ 	if (IS_ERR(base))
+ 		return PTR_ERR(base);
  
 -- 
 2.20.1
