@@ -2,60 +2,63 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id 257057BF69
-	for <lists+linux-stm32@lfdr.de>; Wed, 31 Jul 2019 13:30:30 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 751F47C260
+	for <lists+linux-stm32@lfdr.de>; Wed, 31 Jul 2019 14:56:46 +0200 (CEST)
 Received: from ip-172-31-3-76.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id E53ACC10CA0;
-	Wed, 31 Jul 2019 11:30:29 +0000 (UTC)
-Received: from heliosphere.sirena.org.uk (heliosphere.sirena.org.uk
- [172.104.155.198])
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 31A6AC35E04;
+	Wed, 31 Jul 2019 12:56:46 +0000 (UTC)
+Received: from mx07-00178001.pphosted.com (mx08-00178001.pphosted.com
+ [91.207.212.93])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 3A1DFC10C8E
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 361DEC35E01
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Wed, 31 Jul 2019 11:30:20 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
- d=sirena.org.uk; s=20170815-heliosphere; h=Date:Message-Id:In-Reply-To:
- Subject:Cc:To:From:Sender:Reply-To:MIME-Version:Content-Type:
- Content-Transfer-Encoding:Content-ID:Content-Description:Resent-Date:
- Resent-From:Resent-Sender:Resent-To:Resent-Cc:Resent-Message-ID:References:
- List-Id:List-Help:List-Unsubscribe:List-Subscribe:List-Post:List-Owner:
- List-Archive; bh=LPcMA1o77HKX43GsHKyVecF06+o1mUT9VBwNz+iFXMo=; b=HzFMQvEjsOVh
- XLfYvHR/3qgBqQK0ZJzR+WOLriQDmxegipE/C6imXRGHa7CDbinVSkkj678e4/+t3O1hGpl29jcCQ
- 5BsOjLDFSFCiBXHceELzZ96ibSaYRDxwVwdPpCtWlnSPqE7ksYn+JzL2uWdQ1r6g2Ik9j0+TQjKcq
- PtkWU=;
-Received: from ypsilon.sirena.org.uk ([2001:470:1f1d:6b5::7])
- by heliosphere.sirena.org.uk with esmtpsa
- (TLS1.3:ECDHE_RSA_AES_256_GCM_SHA384:256) (Exim 4.92)
- (envelope-from <broonie@sirena.org.uk>)
- id 1hsmnn-0001pL-RE; Wed, 31 Jul 2019 11:29:51 +0000
-Received: by ypsilon.sirena.org.uk (Postfix, from userid 1000)
- id 10AC62742D57; Wed, 31 Jul 2019 12:29:51 +0100 (BST)
-From: Mark Brown <broonie@kernel.org>
-To: YueHaibing <yuehaibing@huawei.com>
-In-Reply-To: <20190727150738.54764-2-yuehaibing@huawei.com>
-X-Patchwork-Hint: ignore
-Message-Id: <20190731112951.10AC62742D57@ypsilon.sirena.org.uk>
-Date: Wed, 31 Jul 2019 12:29:51 +0100 (BST)
-Cc: mripard@kernel.org, alsa-devel@alsa-project.org, Xiubo.Lee@gmail.com,
- linux-kernel@vger.kernel.org, paul@crapouillou.net, jcmvbkbc@gmail.com,
- thierry.reding@gmail.com, shawnguo@kernel.org, festevam@gmail.com,
- linux-stm32@st-md-mailman.stormreply.com, jbrunet@baylibre.com,
- f.fainelli@gmail.com, khilman@baylibre.com, tiwai@suse.com,
- michal.simek@xilinx.com, jonathanh@nvidia.com, Hulk Robot <hulkci@huawei.com>,
- wens@csie.org, bcm-kernel-feedback-list@broadcom.com, linux-imx@nxp.com,
- s.hauer@pengutronix.de, matthias.bgg@gmail.com, linux-xtensa@linux-xtensa.org,
- yamada.masahiro@socionext.com, rjui@broadcom.com, robert.jarzmik@free.fr,
- haojian.zhuang@gmail.com, nicoleotsuka@gmail.com,
- Mark Brown <broonie@kernel.org>, linux-mediatek@lists.infradead.org,
- linux-rpi-kernel@lists.infradead.org, linux-tegra@vger.kernel.org,
- linux-amlogic@lists.infradead.org, perex@perex.cz,
- linux-arm-kernel@lists.infradead.org, mcoquelin.stm32@gmail.com,
- baohua@kernel.org, timur@kernel.org, sbranden@broadcom.com, eric@anholt.net,
- gregkh@linuxfoundation.org, lgirdwood@gmail.com, wahrenst@gmx.net,
- kernel@pengutronix.de, linuxppc-dev@lists.ozlabs.org, daniel@zonque.org
-Subject: [Linux-stm32] Applied "ASoC: tegra20_das: use
-	devm_platform_ioremap_resource() to simplify code" to the asoc tree
+ Wed, 31 Jul 2019 12:56:44 +0000 (UTC)
+Received: from pps.filterd (m0046660.ppops.net [127.0.0.1])
+ by mx08-00178001.pphosted.com (8.16.0.27/8.16.0.27) with SMTP id
+ x6VCpUJh016802; Wed, 31 Jul 2019 14:56:27 +0200
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=st.com;
+ h=from : to : cc : subject
+ : date : message-id : mime-version : content-type; s=STMicroelectronics;
+ bh=lcqx0uZw6dlZ+99bC8ZqWM7F55NO2x68BB/LQEBznPQ=;
+ b=fC5Mvih1s6e2NHIa7kpJqYmXDYNq5LPcYDGyWs9UN+KhhqsDI8Oaba0sHyd1pCDeDUPV
+ bhlDGWDGqrtjuFkX3xtVdbkQHvskitO6AZRDm07MIyIewmctAFvNiY3JhcG3qZ/FSgwk
+ Wptqa+Tzqhb8iUz5o9pv5L64GCBFfzQP/v1syJOREnhzsGL3B6qdyW19ikLeHoF9aCOm
+ LTrtlOkhmEYvZxWuWgGpgz867OkHPzWWtaQx6VnP02KFIVStB7BxUbABptMEQSHzDAZW
+ 6z1CxQLaEWqSWYXrZFdw+8+w2CnKuA9GENaeJ+/xDfFHWrAcoq2zsFsUhbXBT6hWowIT KA== 
+Received: from beta.dmz-eu.st.com (beta.dmz-eu.st.com [164.129.1.35])
+ by mx08-00178001.pphosted.com with ESMTP id 2u0bra4m1u-1
+ (version=TLSv1 cipher=ECDHE-RSA-AES256-SHA bits=256 verify=NOT);
+ Wed, 31 Jul 2019 14:56:27 +0200
+Received: from euls16034.sgp.st.com (euls16034.sgp.st.com [10.75.44.20])
+ by beta.dmz-eu.st.com (STMicroelectronics) with ESMTP id 168B231;
+ Wed, 31 Jul 2019 12:56:26 +0000 (GMT)
+Received: from Webmail-eu.st.com (Safex1hubcas22.st.com [10.75.90.92])
+ by euls16034.sgp.st.com (STMicroelectronics) with ESMTP id F3F25CB312;
+ Wed, 31 Jul 2019 14:56:25 +0200 (CEST)
+Received: from SAFEX1HUBCAS23.st.com (10.75.90.47) by Safex1hubcas22.st.com
+ (10.75.90.92) with Microsoft SMTP Server (TLS) id 14.3.439.0; Wed, 31 Jul
+ 2019 14:56:25 +0200
+Received: from localhost (10.201.23.19) by webmail-ga.st.com (10.75.90.48)
+ with Microsoft SMTP Server (TLS) id 14.3.439.0; Wed, 31 Jul 2019 14:56:25
+ +0200
+From: Hugues Fruchet <hugues.fruchet@st.com>
+To: Alexandre Torgue <alexandre.torgue@st.com>, Mauro Carvalho Chehab
+ <mchehab@kernel.org>, Hans Verkuil <hverkuil@xs4all.nl>, Sakari Ailus
+ <sakari.ailus@linux.intel.com>
+Date: Wed, 31 Jul 2019 14:56:20 +0200
+Message-ID: <1564577783-18627-1-git-send-email-hugues.fruchet@st.com>
+X-Mailer: git-send-email 2.7.4
+MIME-Version: 1.0
+X-Originating-IP: [10.201.23.19]
+X-Proofpoint-Virus-Version: vendor=fsecure engine=2.50.10434:, ,
+ definitions=2019-07-31_06:, , signatures=0
+Cc: Mickael GUENE <mickael.guene@st.com>, linux-kernel@vger.kernel.org,
+ Yannick Fertre <yannick.fertre@st.com>,
+ Benjamin Gaignard <benjamin.gaignard@linaro.org>,
+ linux-stm32@st-md-mailman.stormreply.com, linux-arm-kernel@lists.infradead.org,
+ linux-media@vger.kernel.org
+Subject: [Linux-stm32] [PATCH v4 0/3] DCMI bridge support
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -67,80 +70,61 @@ List-Post: <mailto:linux-stm32@st-md-mailman.stormreply.com>
 List-Help: <mailto:linux-stm32-request@st-md-mailman.stormreply.com?subject=help>
 List-Subscribe: <https://st-md-mailman.stormreply.com/mailman/listinfo/linux-stm32>, 
  <mailto:linux-stm32-request@st-md-mailman.stormreply.com?subject=subscribe>
-MIME-Version: 1.0
 Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
-The patch
+This patch serie allows to connect non-parallel camera sensor to
+DCMI thanks to a bridge connected in between such as STMIPID02 [1].
 
-   ASoC: tegra20_das: use devm_platform_ioremap_resource() to simplify code
+Media controller support is introduced first, then support of
+several sub-devices within pipeline with dynamic linking
+between them.
+In order to keep backward compatibility with applications
+relying on V4L2 interface only, format set on video node
+is propagated to all sub-devices connected to camera interface.
 
-has been applied to the asoc tree at
+[1] https://www.spinics.net/lists/devicetree/msg278002.html
 
-   https://git.kernel.org/pub/scm/linux/kernel/git/broonie/sound.git for-5.4
+===========
+= history =
+===========
+version 4:
+  - Also drop subdev nodes registry as suggested by Hans:
+    https://www.spinics.net/lists/arm-kernel/msg743375.html
 
-All being well this means that it will be integrated into the linux-next
-tree (usually sometime in the next 24 hours) and sent to Linus during
-the next merge window (or sooner if it is a bug fix), however if
-problems are discovered then the patch may be dropped or reverted.  
+version 3:
+  - Drop media device registry to not expose media controller
+    interface to userspace as per Laurent' suggestion:
+    https://www.spinics.net/lists/linux-media/msg153417.html
+  - Prefer "source" instead of "sensor" and keep it in 
+    dcmi_graph_entity struct, move asd as first member
+    of struct as per Sakari' suggestion:
+    https://www.spinics.net/lists/linux-media/msg153119.html
+  - Drop dcmi_graph_deinit() as per Sakari' suggestion:
+    https://www.spinics.net/lists/linux-media/msg153417.html
 
-You may get further e-mails resulting from automated or manual testing
-and review of the tree, please engage with people reporting problems and
-send followup patches addressing any issues that are reported if needed.
+version 2:
+  - Fix bus_info not consistent between media and V4L:
+    https://www.spinics.net/lists/arm-kernel/msg717676.html
+  - Propagation of format set on video node to the sub-devices
+    chain connected on camera interface
 
-If any updates are required or you are submitting further changes they
-should be sent as incremental updates against current git, existing
-patches will not be replaced.
+version 1:
+  - Initial submission
 
-Please add any relevant lists and maintainers to the CCs when replying
-to this mail.
+Hugues Fruchet (3):
+  media: stm32-dcmi: improve sensor subdev naming
+  media: stm32-dcmi: add media controller support
+  media: stm32-dcmi: add support of several sub-devices
 
-Thanks,
-Mark
+ drivers/media/platform/Kconfig            |   2 +-
+ drivers/media/platform/stm32/stm32-dcmi.c | 283 +++++++++++++++++++++++++-----
+ 2 files changed, 236 insertions(+), 49 deletions(-)
 
-From 21cc4ea85879c1b424fb01caa6e481c14286f7f0 Mon Sep 17 00:00:00 2001
-From: YueHaibing <yuehaibing@huawei.com>
-Date: Sat, 27 Jul 2019 23:07:05 +0800
-Subject: [PATCH] ASoC: tegra20_das: use devm_platform_ioremap_resource() to
- simplify code
-
-Use devm_platform_ioremap_resource() to simplify the code a bit.
-This is detected by coccinelle.
-
-Reported-by: Hulk Robot <hulkci@huawei.com>
-Signed-off-by: YueHaibing <yuehaibing@huawei.com>
-Link: https://lore.kernel.org/r/20190727150738.54764-2-yuehaibing@huawei.com
-Signed-off-by: Mark Brown <broonie@kernel.org>
----
- sound/soc/tegra/tegra20_das.c | 4 +---
- 1 file changed, 1 insertion(+), 3 deletions(-)
-
-diff --git a/sound/soc/tegra/tegra20_das.c b/sound/soc/tegra/tegra20_das.c
-index 10f9c3b19c88..1070b2710d5e 100644
---- a/sound/soc/tegra/tegra20_das.c
-+++ b/sound/soc/tegra/tegra20_das.c
-@@ -120,7 +120,6 @@ static const struct regmap_config tegra20_das_regmap_config = {
- 
- static int tegra20_das_probe(struct platform_device *pdev)
- {
--	struct resource *res;
- 	void __iomem *regs;
- 	int ret = 0;
- 
-@@ -134,8 +133,7 @@ static int tegra20_das_probe(struct platform_device *pdev)
- 	}
- 	das->dev = &pdev->dev;
- 
--	res = platform_get_resource(pdev, IORESOURCE_MEM, 0);
--	regs = devm_ioremap_resource(&pdev->dev, res);
-+	regs = devm_platform_ioremap_resource(pdev, 0);
- 	if (IS_ERR(regs)) {
- 		ret = PTR_ERR(regs);
- 		goto err;
 -- 
-2.20.1
+2.7.4
 
 _______________________________________________
 Linux-stm32 mailing list
