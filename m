@@ -2,16 +2,16 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id A80D57BF5B
+	by mail.lfdr.de (Postfix) with ESMTPS id 5B8447BF56
 	for <lists+linux-stm32@lfdr.de>; Wed, 31 Jul 2019 13:30:17 +0200 (CEST)
 Received: from ip-172-31-3-76.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 3CD72CFAC4F;
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 23B08C1E9D8;
 	Wed, 31 Jul 2019 11:30:17 +0000 (UTC)
 Received: from heliosphere.sirena.org.uk (heliosphere.sirena.org.uk
  [172.104.155.198])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id F213AC349C8
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id B9E1EC35E0D
  for <linux-stm32@st-md-mailman.stormreply.com>;
  Wed, 31 Jul 2019 11:30:14 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
@@ -20,22 +20,23 @@ DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
  Content-Transfer-Encoding:Content-ID:Content-Description:Resent-Date:
  Resent-From:Resent-Sender:Resent-To:Resent-Cc:Resent-Message-ID:References:
  List-Id:List-Help:List-Unsubscribe:List-Subscribe:List-Post:List-Owner:
- List-Archive; bh=JDdIiMRNxz3nh4P58eL+dgzzdUBoAUTuWptHyMpnAPw=; b=AxqqpbRNKGZD
- w7Hz+Ywyhl2Kr8lziN1RSWQFJDQzfSWLBm9w/6ibuQAD9OcT8Ttni2/CJdmYmT+ZoVFm35FVdAquM
- Km4dy2OJ/K/R985/Xoc47p5GQaPquCn+N3FHCDrZfE50MFOQp+1vXpi7JxBrSOS0LhsRSh/4kDIFz
- dMwqE=;
-Received: from ypsilon.sirena.org.uk ([2001:470:1f1d:6b5::7])
+ List-Archive; bh=OIRXF4mfO7Br2fQ1fZb1Pc3EMeXv07m1hzXGN8o/l8M=; b=oIT1eWTI6Laz
+ NiWBHy7aM7L2qx2KjSIkvQHTXoCsSyR3Iug5sP0l4soz0bKXywL3t6Y3QHGvQqSa7GPoasNGZ2QfM
+ 7UXKNlCSWIMxS3osy5d2NHbUVvLd9vKbg91OiL7QKw5jWJdgYYQX669MKB5p1n8SFy9+9unnLWIpK
+ fQvYk=;
+Received: from cpc102320-sgyl38-2-0-cust46.18-2.cable.virginm.net
+ ([82.37.168.47] helo=ypsilon.sirena.org.uk)
  by heliosphere.sirena.org.uk with esmtpsa
  (TLS1.3:ECDHE_RSA_AES_256_GCM_SHA384:256) (Exim 4.92)
  (envelope-from <broonie@sirena.org.uk>)
- id 1hsmnc-0001kz-23; Wed, 31 Jul 2019 11:29:40 +0000
+ id 1hsmnc-0001l4-3x; Wed, 31 Jul 2019 11:29:40 +0000
 Received: by ypsilon.sirena.org.uk (Postfix, from userid 1000)
- id 5B1722742C99; Wed, 31 Jul 2019 12:29:39 +0100 (BST)
+ id 9E6DE2742CC3; Wed, 31 Jul 2019 12:29:39 +0100 (BST)
 From: Mark Brown <broonie@kernel.org>
 To: YueHaibing <yuehaibing@huawei.com>
-In-Reply-To: <20190727150738.54764-25-yuehaibing@huawei.com>
+In-Reply-To: <20190727150738.54764-24-yuehaibing@huawei.com>
 X-Patchwork-Hint: ignore
-Message-Id: <20190731112939.5B1722742C99@ypsilon.sirena.org.uk>
+Message-Id: <20190731112939.9E6DE2742CC3@ypsilon.sirena.org.uk>
 Date: Wed, 31 Jul 2019 12:29:39 +0100 (BST)
 Cc: mripard@kernel.org, alsa-devel@alsa-project.org, Xiubo.Lee@gmail.com,
  linux-kernel@vger.kernel.org, paul@crapouillou.net, jcmvbkbc@gmail.com,
@@ -54,7 +55,7 @@ Cc: mripard@kernel.org, alsa-devel@alsa-project.org, Xiubo.Lee@gmail.com,
  baohua@kernel.org, timur@kernel.org, sbranden@broadcom.com, eric@anholt.net,
  gregkh@linuxfoundation.org, lgirdwood@gmail.com, wahrenst@gmx.net,
  kernel@pengutronix.de, linuxppc-dev@lists.ozlabs.org, daniel@zonque.org
-Subject: [Linux-stm32] Applied "ASoC: au1x: psc-i2s: use
+Subject: [Linux-stm32] Applied "ASoC: psc-ac97: use
 	devm_platform_ioremap_resource() to simplify code" to the asoc tree
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
@@ -75,7 +76,7 @@ Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
 The patch
 
-   ASoC: au1x: psc-i2s: use devm_platform_ioremap_resource() to simplify code
+   ASoC: psc-ac97: use devm_platform_ioremap_resource() to simplify code
 
 has been applied to the asoc tree at
 
@@ -100,10 +101,10 @@ to this mail.
 Thanks,
 Mark
 
-From 12a63c0fa03691328b948690601dc7dde8fc527b Mon Sep 17 00:00:00 2001
+From b1abe8780041d568ae07013a3592519fca855a1c Mon Sep 17 00:00:00 2001
 From: YueHaibing <yuehaibing@huawei.com>
-Date: Sat, 27 Jul 2019 23:07:28 +0800
-Subject: [PATCH] ASoC: au1x: psc-i2s: use devm_platform_ioremap_resource() to
+Date: Sat, 27 Jul 2019 23:07:27 +0800
+Subject: [PATCH] ASoC: psc-ac97: use devm_platform_ioremap_resource() to
  simplify code
 
 Use devm_platform_ioremap_resource() to simplify the code a bit.
@@ -111,28 +112,28 @@ This is detected by coccinelle.
 
 Reported-by: Hulk Robot <hulkci@huawei.com>
 Signed-off-by: YueHaibing <yuehaibing@huawei.com>
-Link: https://lore.kernel.org/r/20190727150738.54764-25-yuehaibing@huawei.com
+Link: https://lore.kernel.org/r/20190727150738.54764-24-yuehaibing@huawei.com
 Signed-off-by: Mark Brown <broonie@kernel.org>
 ---
- sound/soc/au1x/psc-i2s.c | 5 ++---
+ sound/soc/au1x/psc-ac97.c | 5 ++---
  1 file changed, 2 insertions(+), 3 deletions(-)
 
-diff --git a/sound/soc/au1x/psc-i2s.c b/sound/soc/au1x/psc-i2s.c
-index 076303f96b8c..767ce950d0da 100644
---- a/sound/soc/au1x/psc-i2s.c
-+++ b/sound/soc/au1x/psc-i2s.c
-@@ -291,7 +291,7 @@ static const struct snd_soc_component_driver au1xpsc_i2s_component = {
- 
- static int au1xpsc_i2s_drvprobe(struct platform_device *pdev)
+diff --git a/sound/soc/au1x/psc-ac97.c b/sound/soc/au1x/psc-ac97.c
+index 21e5f6aed7f3..08bc04e2da2a 100644
+--- a/sound/soc/au1x/psc-ac97.c
++++ b/sound/soc/au1x/psc-ac97.c
+@@ -363,7 +363,7 @@ static const struct snd_soc_component_driver au1xpsc_ac97_component = {
+ static int au1xpsc_ac97_drvprobe(struct platform_device *pdev)
  {
+ 	int ret;
 -	struct resource *iores, *dmares;
 +	struct resource *dmares;
  	unsigned long sel;
  	struct au1xpsc_audio_data *wd;
  
-@@ -300,8 +300,7 @@ static int au1xpsc_i2s_drvprobe(struct platform_device *pdev)
- 	if (!wd)
- 		return -ENOMEM;
+@@ -374,8 +374,7 @@ static int au1xpsc_ac97_drvprobe(struct platform_device *pdev)
+ 
+ 	mutex_init(&wd->lock);
  
 -	iores = platform_get_resource(pdev, IORESOURCE_MEM, 0);
 -	wd->mmio = devm_ioremap_resource(&pdev->dev, iores);
