@@ -2,70 +2,68 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id 5A1677E31F
-	for <lists+linux-stm32@lfdr.de>; Thu,  1 Aug 2019 21:12:38 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id EF69C7ED9E
+	for <lists+linux-stm32@lfdr.de>; Fri,  2 Aug 2019 09:36:38 +0200 (CEST)
 Received: from ip-172-31-3-76.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 0F503C35E03;
-	Thu,  1 Aug 2019 19:12:38 +0000 (UTC)
-Received: from mail-pl1-f196.google.com (mail-pl1-f196.google.com
- [209.85.214.196])
- (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id ADB7AC35E04;
+	Fri,  2 Aug 2019 07:36:38 +0000 (UTC)
+Received: from mx07-00178001.pphosted.com (mx07-00178001.pphosted.com
+ [62.209.51.94])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 51AD8C35E01
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 9CA4AC35E01
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Thu,  1 Aug 2019 19:12:36 +0000 (UTC)
-Received: by mail-pl1-f196.google.com with SMTP id i2so32642616plt.1
- for <linux-stm32@st-md-mailman.stormreply.com>;
- Thu, 01 Aug 2019 12:12:36 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linaro.org; s=google;
- h=date:from:to:cc:subject:message-id:references:mime-version
- :content-disposition:in-reply-to:user-agent;
- bh=u3M46kJjAPF4b1mqVIN/QqF1xk0nbqKlZydzEhZoL6s=;
- b=Iu1CH4ToXYW90mTOdeHkqHqps0H4/Jt6nXnjawYRwpFRpCQ3R+FOjlvAHtsf0q+cca
- g/GwPjYINrkuM0M27UfcxGN0Hpzq1z+zbIQRr9A8cLNBE6045TW8YO5B1jv+3zrSM+AI
- RwmR2ijMX/YKSlorl4qZN6W9VRTC6OW7Mk6NYDrjpVniQ6cLad/+XzqpNwinuFtcNb6o
- GTdsYR1aNvUhF9KHd0BLzgdnZis8Y+VjfG/T5HxcorMnvqNAW8q864HiIsdjCkh4XWvu
- mGmSsJd4vy/0+OKrbqrS2lRjhwOvHCzqJiDH6nI0GAHQ2FHm8Lic/V7jrb83izS6/2/D
- KuMw==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20161025;
- h=x-gm-message-state:date:from:to:cc:subject:message-id:references
- :mime-version:content-disposition:in-reply-to:user-agent;
- bh=u3M46kJjAPF4b1mqVIN/QqF1xk0nbqKlZydzEhZoL6s=;
- b=jAMCZo/+Xa1MtWChRScuIQ6R9gIkrFEosNlRM01/0ZZ+KAKN8tHVbi3U4lZ1LIPQ2W
- Bu0oNuSTO9qzkn4p/re/4egeK6hZssCUe135cEOmr4JMypvLVw7xI6bW3ay7B/cmo9RW
- aMQK2thUXnEWAzYLO/13Ubj7sruQ2DSbemzDHK++W1dy6cdiNjmY6pk23+2JKXFiIHRi
- 5rivjFHBhhXC9uR0dp5ixyy+cKZQMy2F6r0LPtsni9XCl0uZcNCNCeL+oIDmyX/b79Yh
- /O465AQqJRTVBKv+e+dc/K2DGCTtBm+yx+KuF+Fu1hdNeOzzG+L9lzGKlPqKh24ZIdEd
- AP8g==
-X-Gm-Message-State: APjAAAW9aD8hZbi3ethI/X4NJ0DVouyPx3NTfTKM2vTqJOCK/GPCi7NM
- g28IL5OcaJwntBhwnnd6C+KEPw==
-X-Google-Smtp-Source: APXvYqyXQfNjDuCkBrlF9sH4WaQpLYB6kh01jQJmr+SAa0EdEbp3B9CGOkSzrUP/hpK0bXspTKw35A==
-X-Received: by 2002:a17:902:d90a:: with SMTP id
- c10mr124505738plz.208.1564686753720; 
- Thu, 01 Aug 2019 12:12:33 -0700 (PDT)
-Received: from tuxbook-pro (104-188-17-28.lightspeed.sndgca.sbcglobal.net.
- [104.188.17.28])
- by smtp.gmail.com with ESMTPSA id q4sm5434151pjq.27.2019.08.01.12.12.32
- (version=TLS1_3 cipher=AEAD-AES256-GCM-SHA384 bits=256/256);
- Thu, 01 Aug 2019 12:12:33 -0700 (PDT)
-Date: Thu, 1 Aug 2019 12:14:03 -0700
-From: Bjorn Andersson <bjorn.andersson@linaro.org>
-To: Fabien Dessenne <fabien.dessenne@st.com>
-Message-ID: <20190801191403.GA7234@tuxbook-pro>
-References: <1552492237-28810-1-git-send-email-fabien.dessenne@st.com>
+ Fri,  2 Aug 2019 07:36:37 +0000 (UTC)
+Received: from pps.filterd (m0046037.ppops.net [127.0.0.1])
+ by mx07-00178001.pphosted.com (8.16.0.27/8.16.0.27) with SMTP id
+ x727VJJx012518; Fri, 2 Aug 2019 09:36:20 +0200
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=st.com;
+ h=subject : to : references
+ : from : message-id : date : mime-version : in-reply-to : content-type :
+ content-transfer-encoding; s=STMicroelectronics;
+ bh=dNdFBpnmHr57yWOWaZOQqM6cLIxmm15yY5RHlO47mkw=;
+ b=n2uaUNmkk6TmujMSGcFYd1PxMzfaQYxVJS1u7h+b2LKKp3xO1AKkBOnKdOlODirELbPq
+ OStYdNHcG56tCBok3AwwXvVTcUv+fxLTl9y8h/nDTjGGDbwzMFX+OKWvtOTNRwBsUwHz
+ PSDWOAU6DAZyTN12Xz70gYK1lqSnejizUWzCy3jjP/8v+7cUTyNXIBk5QP5iTMoEIbcd
+ IXqmPht/XJSsjIIOjDGeRsRJrQ1HJVszrxXoHGYxg80yDFNp5nAYgyLgtOv4KDhP1/5G
+ SRDAKqvTQLzs5PI48F7cexIDRrXt+Ftkf4aKeW2SrlqIE97nUKd2b8IUUPHAO2aqLYjo 2w== 
+Received: from beta.dmz-eu.st.com (beta.dmz-eu.st.com [164.129.1.35])
+ by mx07-00178001.pphosted.com with ESMTP id 2u3vd05qye-1
+ (version=TLSv1 cipher=ECDHE-RSA-AES256-SHA bits=256 verify=NOT);
+ Fri, 02 Aug 2019 09:36:20 +0200
+Received: from euls16034.sgp.st.com (euls16034.sgp.st.com [10.75.44.20])
+ by beta.dmz-eu.st.com (STMicroelectronics) with ESMTP id 1386F3A;
+ Fri,  2 Aug 2019 07:36:19 +0000 (GMT)
+Received: from Webmail-eu.st.com (sfhdag3node2.st.com [10.75.127.8])
+ by euls16034.sgp.st.com (STMicroelectronics) with ESMTP id 037D5206862;
+ Fri,  2 Aug 2019 09:36:19 +0200 (CEST)
+Received: from lmecxl0912.lme.st.com (10.75.127.45) by SFHDAG3NODE2.st.com
+ (10.75.127.8) with Microsoft SMTP Server (TLS) id 15.0.1347.2; Fri, 2 Aug
+ 2019 09:36:18 +0200
+To: =?UTF-8?Q?Yannick_Fertr=c3=a9?= <yannick.fertre@st.com>, Maxime Coquelin
+ <mcoquelin.stm32@gmail.com>, Rob Herring <robh+dt@kernel.org>, Mark Rutland
+ <mark.rutland@arm.com>, <linux-stm32@st-md-mailman.stormreply.com>,
+ <linux-arm-kernel@lists.infradead.org>, <devicetree@vger.kernel.org>,
+ <linux-kernel@vger.kernel.org>,
+ Benjamin Gaignard <benjamin.gaignard@st.com>,
+ Philippe Cornu <philippe.cornu@st.com>, Fabrice Gasnier
+ <fabrice.gasnier@st.com>
+References: <1564410548-20436-1-git-send-email-yannick.fertre@st.com>
+From: Alexandre Torgue <alexandre.torgue@st.com>
+Message-ID: <346d04ad-17ed-40c8-f10a-b13a2ea79d92@st.com>
+Date: Fri, 2 Aug 2019 09:36:17 +0200
+User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:60.0) Gecko/20100101
+ Thunderbird/60.8.0
 MIME-Version: 1.0
-Content-Disposition: inline
-In-Reply-To: <1552492237-28810-1-git-send-email-fabien.dessenne@st.com>
-User-Agent: Mutt/1.11.4 (2019-03-13)
-Cc: Ohad Ben-Cohen <ohad@wizery.com>, Mark Rutland <mark.rutland@arm.com>,
- Jonathan Corbet <corbet@lwn.net>, linux-doc@vger.kernel.org,
- linux-remoteproc@vger.kernel.org, linux-kernel@vger.kernel.org,
- devicetree@vger.kernel.org, Rob Herring <robh+dt@kernel.org>,
- Maxime Coquelin <mcoquelin.stm32@gmail.com>,
- linux-stm32@st-md-mailman.stormreply.com, linux-arm-kernel@lists.infradead.org
-Subject: Re: [Linux-stm32] [PATCH 0/6] hwspinlock: allow sharing of
-	hwspinlocks
+In-Reply-To: <1564410548-20436-1-git-send-email-yannick.fertre@st.com>
+Content-Language: en-US
+X-Originating-IP: [10.75.127.45]
+X-ClientProxiedBy: SFHDAG1NODE1.st.com (10.75.127.1) To SFHDAG3NODE2.st.com
+ (10.75.127.8)
+X-Proofpoint-Virus-Version: vendor=fsecure engine=2.50.10434:, ,
+ definitions=2019-08-02_04:, , signatures=0
+Subject: Re: [Linux-stm32] [PATCH] ARM: dts: stm32: add phy-dsi-supply
+ property on stm32mp157c-ev1
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -77,80 +75,24 @@ List-Post: <mailto:linux-stm32@st-md-mailman.stormreply.com>
 List-Help: <mailto:linux-stm32-request@st-md-mailman.stormreply.com?subject=help>
 List-Subscribe: <https://st-md-mailman.stormreply.com/mailman/listinfo/linux-stm32>, 
  <mailto:linux-stm32-request@st-md-mailman.stormreply.com?subject=subscribe>
-Content-Type: text/plain; charset="us-ascii"
-Content-Transfer-Encoding: 7bit
+Content-Transfer-Encoding: base64
+Content-Type: text/plain; charset="utf-8"; Format="flowed"
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
-On Wed 13 Mar 08:50 PDT 2019, Fabien Dessenne wrote:
-
-> The current implementation does not allow two different devices to use
-> a common hwspinlock. This patch set proposes to have, as an option, some
-> hwspinlocks shared between several users.
-> 
-> Below is an example that explain the need for this:
-> 	exti: interrupt-controller@5000d000 {
-> 		compatible = "st,stm32mp1-exti", "syscon";
-> 		interrupt-controller;
-> 		#interrupt-cells = <2>;
-> 		reg = <0x5000d000 0x400>;
-> 		hwlocks = <&hsem 1>;
-> 	};
-> The two drivers (stm32mp1-exti and syscon) refer to the same hwlock.
-> With the current hwspinlock implementation, only the first driver succeeds
-> in requesting (hwspin_lock_request_specific) the hwlock. The second request
-> fails.
-> 
-> 
-> The proposed approach does not modify the API, but extends the DT 'hwlocks'
-> property with a second optional parameter (the first one identifies an
-> hwlock) that specifies whether an hwlock is requested for exclusive usage
-> (current behavior) or can be shared between several users.
-> Examples:
-> 	hwlocks = <&hsem 8>;	Ref to hwlock #8 for exclusive usage
-> 	hwlocks = <&hsem 8 0>;	Ref to hwlock #8 for exclusive (0) usage
-> 	hwlocks = <&hsem 8 1>;	Ref to hwlock #8 for shared (1) usage
-> 
-> As a constraint, the #hwlock-cells value must be 1 or 2.
-> In the current implementation, this can have theorically any value but:
-> - all of the exisiting drivers use the same value : 1.
-> - the framework supports only one value : 1 (see implementation of
->   of_hwspin_lock_simple_xlate())
-> Hence, it shall not be a problem to restrict this value to 1 or 2 since
-> it won't break any driver.
-> 
-
-Hi Fabien,
-
-Your series looks good, but it makes me wonder why the hardware locks
-should be an exclusive resource.
-
-How about just making all (specific) locks shared?
-
-Regards,
-Bjorn
-
-> Fabien Dessenne (6):
->   dt-bindings: hwlock: add support of shared locks
->   hwspinlock: allow sharing of hwspinlocks
->   dt-bindings: hwlock: update STM32 #hwlock-cells value
->   ARM: dts: stm32: Add hwspinlock node for stm32mp157 SoC
->   ARM: dts: stm32: Add hwlock for irqchip on stm32mp157
->   ARM: dts: stm32: hwlocks for GPIO for stm32mp157
-> 
->  .../devicetree/bindings/hwlock/hwlock.txt          | 27 +++++--
->  .../bindings/hwlock/st,stm32-hwspinlock.txt        |  6 +-
->  Documentation/hwspinlock.txt                       | 10 ++-
->  arch/arm/boot/dts/stm32mp157-pinctrl.dtsi          |  2 +
->  arch/arm/boot/dts/stm32mp157c.dtsi                 | 10 +++
->  drivers/hwspinlock/hwspinlock_core.c               | 82 +++++++++++++++++-----
->  drivers/hwspinlock/hwspinlock_internal.h           |  2 +
->  7 files changed, 108 insertions(+), 31 deletions(-)
-> 
-> -- 
-> 2.7.4
-> 
-_______________________________________________
-Linux-stm32 mailing list
-Linux-stm32@st-md-mailman.stormreply.com
-https://st-md-mailman.stormreply.com/mailman/listinfo/linux-stm32
+SGkgWWFubmljawoKT24gNy8yOS8xOSA0OjI5IFBNLCBZYW5uaWNrIEZlcnRyw6kgd3JvdGU6Cj4g
+VGhlIGRzaSBwaHlzaWNhbCBsYXllciBpcyBwb3dlcmVkIGJ5IHRoZSAxdjggcG93ZXIgY29udHJv
+bGxlciBzdXBwbHkuCj4gCj4gU2lnbmVkLW9mZi1ieTogWWFubmljayBGZXJ0csOpIDx5YW5uaWNr
+LmZlcnRyZUBzdC5jb20+Cj4gLS0tCj4gICBhcmNoL2FybS9ib290L2R0cy9zdG0zMm1wMTU3Yy1l
+djEuZHRzIHwgMSArCj4gICAxIGZpbGUgY2hhbmdlZCwgMSBpbnNlcnRpb24oKykKPiAKPiBkaWZm
+IC0tZ2l0IGEvYXJjaC9hcm0vYm9vdC9kdHMvc3RtMzJtcDE1N2MtZXYxLmR0cyBiL2FyY2gvYXJt
+L2Jvb3QvZHRzL3N0bTMybXAxNTdjLWV2MS5kdHMKPiBpbmRleCBmZWI4Zjc3Li4xOWQ2OWQwIDEw
+MDY0NAo+IC0tLSBhL2FyY2gvYXJtL2Jvb3QvZHRzL3N0bTMybXAxNTdjLWV2MS5kdHMKPiArKysg
+Yi9hcmNoL2FybS9ib290L2R0cy9zdG0zMm1wMTU3Yy1ldjEuZHRzCj4gQEAgLTEwMSw2ICsxMDEs
+NyBAQAo+ICAgJmRzaSB7Cj4gICAJI2FkZHJlc3MtY2VsbHMgPSA8MT47Cj4gICAJI3NpemUtY2Vs
+bHMgPSA8MD47Cj4gKwlwaHktZHNpLXN1cHBseSA9IDwmcmVnMTg+Owo+ICAgCXN0YXR1cyA9ICJv
+a2F5IjsKPiAgIAo+ICAgCXBvcnRzIHsKPiAKCkFwcGxpZWQgb24gc3RtMzItbmV4dC4KClRoYW5r
+cy4KQWxleApfX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fXwpM
+aW51eC1zdG0zMiBtYWlsaW5nIGxpc3QKTGludXgtc3RtMzJAc3QtbWQtbWFpbG1hbi5zdG9ybXJl
+cGx5LmNvbQpodHRwczovL3N0LW1kLW1haWxtYW4uc3Rvcm1yZXBseS5jb20vbWFpbG1hbi9saXN0
+aW5mby9saW51eC1zdG0zMgo=
