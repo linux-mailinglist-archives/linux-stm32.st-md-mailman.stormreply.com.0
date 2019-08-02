@@ -2,23 +2,23 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id 5BA9C7F9E3
-	for <lists+linux-stm32@lfdr.de>; Fri,  2 Aug 2019 15:31:15 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id BBEC07F9E8
+	for <lists+linux-stm32@lfdr.de>; Fri,  2 Aug 2019 15:31:20 +0200 (CEST)
 Received: from ip-172-31-3-76.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 43E68C35E04;
-	Fri,  2 Aug 2019 13:31:14 +0000 (UTC)
-Received: from huawei.com (szxga06-in.huawei.com [45.249.212.32])
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 89736C35E04;
+	Fri,  2 Aug 2019 13:31:20 +0000 (UTC)
+Received: from huawei.com (szxga04-in.huawei.com [45.249.212.190])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 7B765C35E01
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 4B496C35E01
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Fri,  2 Aug 2019 13:31:09 +0000 (UTC)
-Received: from DGGEMS414-HUB.china.huawei.com (unknown [172.30.72.59])
- by Forcepoint Email with ESMTP id 98B08AA14CE5C9058219;
- Fri,  2 Aug 2019 21:31:07 +0800 (CST)
-Received: from localhost (10.133.213.239) by DGGEMS414-HUB.china.huawei.com
- (10.3.19.214) with Microsoft SMTP Server id 14.3.439.0; Fri, 2 Aug 2019
- 21:30:59 +0800
+ Fri,  2 Aug 2019 13:31:18 +0000 (UTC)
+Received: from DGGEMS401-HUB.china.huawei.com (unknown [172.30.72.59])
+ by Forcepoint Email with ESMTP id 61F773DF0942A566E1DE;
+ Fri,  2 Aug 2019 21:31:15 +0800 (CST)
+Received: from localhost (10.133.213.239) by DGGEMS401-HUB.china.huawei.com
+ (10.3.19.201) with Microsoft SMTP Server id 14.3.439.0; Fri, 2 Aug 2019
+ 21:31:05 +0800
 From: YueHaibing <yuehaibing@huawei.com>
 To: <herbert@gondor.apana.org.au>, <lars.persson@axis.com>,
  <jesper.nilsson@axis.com>, <davem@davemloft.net>, <thomas.lendacky@amd.com>,
@@ -27,9 +27,11 @@ To: <herbert@gondor.apana.org.au>, <lars.persson@axis.com>,
  <jamie@jamieiles.com>, <agross@kernel.org>, <heiko@sntech.de>,
  <mcoquelin.stm32@gmail.com>, <alexandre.torgue@st.com>,
  <clabbe.montjoie@gmail.com>, <mripard@kernel.org>, <wens@csie.org>
-Date: Fri, 2 Aug 2019 21:27:57 +0800
-Message-ID: <20190802132809.8116-1-yuehaibing@huawei.com>
+Date: Fri, 2 Aug 2019 21:27:58 +0800
+Message-ID: <20190802132809.8116-2-yuehaibing@huawei.com>
 X-Mailer: git-send-email 2.10.2.windows.1
+In-Reply-To: <20190802132809.8116-1-yuehaibing@huawei.com>
+References: <20190802132809.8116-1-yuehaibing@huawei.com>
 MIME-Version: 1.0
 X-Originating-IP: [10.133.213.239]
 X-CFilter-Loop: Reflected
@@ -38,7 +40,7 @@ Cc: linux-samsung-soc@vger.kernel.org, linux-arm-msm@vger.kernel.org,
  linux-arm-kernel@axis.com, linux-rockchip@lists.infradead.org,
  linux-mediatek@lists.infradead.org, linux-crypto@vger.kernel.org,
  linux-stm32@st-md-mailman.stormreply.com, linux-arm-kernel@lists.infradead.org
-Subject: [Linux-stm32] [PATCH -next 00/12] crypto: use
+Subject: [Linux-stm32] [PATCH -next 01/12] crypto: artpec6 - use
 	devm_platform_ioremap_resource() to simplify code
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
@@ -56,47 +58,37 @@ Content-Transfer-Encoding: 7bit
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
-devm_platform_ioremap_resource() internally have platform_get_resource()
-and devm_ioremap_resource() in it. So instead of calling them separately
-use devm_platform_ioremap_resource() directly.
+Use devm_platform_ioremap_resource() to simplify the code a bit.
+This is detected by coccinelle.
 
-YueHaibing (12):
-  crypto: artpec6 - use devm_platform_ioremap_resource() to simplify
-    code
-  crypto: ccp - use devm_platform_ioremap_resource() to simplify code
-  crypto: exynos - use devm_platform_ioremap_resource() to simplify code
-  crypto: img-hash - use devm_platform_ioremap_resource() to simplify
-    code
-  crypto: inside-secure - use devm_platform_ioremap_resource() to
-    simplify code
-  crypto: mediatek - use devm_platform_ioremap_resource() to simplify
-    code
-  crypto: picoxcell - use devm_platform_ioremap_resource() to simplify
-    code
-  crypto: sunxi-ss - use devm_platform_ioremap_resource() to simplify
-    code
-  crypto: rockchip - use devm_platform_ioremap_resource() to simplify
-    code
-  crypto: stm32 - use devm_platform_ioremap_resource() to simplify code
-  crypto: qce - use devm_platform_ioremap_resource() to simplify code
-  crypto: qcom-rng - use devm_platform_ioremap_resource() to simplify
-    code
+Reported-by: Hulk Robot <hulkci@huawei.com>
+Signed-off-by: YueHaibing <yuehaibing@huawei.com>
+---
+ drivers/crypto/axis/artpec6_crypto.c | 4 +---
+ 1 file changed, 1 insertion(+), 3 deletions(-)
 
- drivers/crypto/axis/artpec6_crypto.c    | 4 +---
- drivers/crypto/ccp/sp-platform.c        | 4 +---
- drivers/crypto/exynos-rng.c             | 4 +---
- drivers/crypto/img-hash.c               | 4 +---
- drivers/crypto/inside-secure/safexcel.c | 4 +---
- drivers/crypto/mediatek/mtk-platform.c  | 3 +--
- drivers/crypto/picoxcell_crypto.c       | 5 ++---
- drivers/crypto/qce/core.c               | 4 +---
- drivers/crypto/qcom-rng.c               | 4 +---
- drivers/crypto/rockchip/rk3288_crypto.c | 4 +---
- drivers/crypto/stm32/stm32-crc32.c      | 4 +---
- drivers/crypto/stm32/stm32-cryp.c       | 4 +---
- drivers/crypto/sunxi-ss/sun4i-ss-core.c | 4 +---
- 13 files changed, 14 insertions(+), 38 deletions(-)
-
+diff --git a/drivers/crypto/axis/artpec6_crypto.c b/drivers/crypto/axis/artpec6_crypto.c
+index 80fa04e..4b20606 100644
+--- a/drivers/crypto/axis/artpec6_crypto.c
++++ b/drivers/crypto/axis/artpec6_crypto.c
+@@ -2854,7 +2854,6 @@ static int artpec6_crypto_probe(struct platform_device *pdev)
+ 	struct artpec6_crypto *ac;
+ 	struct device *dev = &pdev->dev;
+ 	void __iomem *base;
+-	struct resource *res;
+ 	int irq;
+ 	int err;
+ 
+@@ -2867,8 +2866,7 @@ static int artpec6_crypto_probe(struct platform_device *pdev)
+ 
+ 	variant = (enum artpec6_crypto_variant)match->data;
+ 
+-	res = platform_get_resource(pdev, IORESOURCE_MEM, 0);
+-	base = devm_ioremap_resource(&pdev->dev, res);
++	base = devm_platform_ioremap_resource(pdev, 0);
+ 	if (IS_ERR(base))
+ 		return PTR_ERR(base);
+ 
 -- 
 2.7.4
 
