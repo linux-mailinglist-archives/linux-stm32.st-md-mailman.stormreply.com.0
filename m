@@ -2,63 +2,61 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id 73E778153D
-	for <lists+linux-stm32@lfdr.de>; Mon,  5 Aug 2019 11:18:39 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 3F67F8160D
+	for <lists+linux-stm32@lfdr.de>; Mon,  5 Aug 2019 11:57:08 +0200 (CEST)
 Received: from ip-172-31-3-76.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id A9AA2C35E04;
-	Mon,  5 Aug 2019 09:18:38 +0000 (UTC)
-Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
- (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id E576BC35E04;
+	Mon,  5 Aug 2019 09:57:07 +0000 (UTC)
+Received: from mx07-00178001.pphosted.com (mx08-00178001.pphosted.com
+ [91.207.212.93])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 3E1CBC35E01
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 40A9DC35E01
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Mon,  5 Aug 2019 09:18:31 +0000 (UTC)
-Received: from mail-lj1-f175.google.com (mail-lj1-f175.google.com
- [209.85.208.175])
- (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
- (No client certificate requested)
- by mail.kernel.org (Postfix) with ESMTPSA id EE1D621841
- for <linux-stm32@st-md-mailman.stormreply.com>;
- Mon,  5 Aug 2019 09:18:29 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
- s=default; t=1564996710;
- bh=3y/xyKQqQxOI/5O7S65myq1HgXxKlZai9ugc4r5PFAs=;
- h=References:In-Reply-To:From:Date:Subject:To:Cc:From;
- b=ZVGEXyWfKHiNU9ykvQl6iP/vhiDaIIbECZVQoz2dbKXg0o9tNCy9OFZbp1ZbwMw5u
- vtFxzrASGVSEXmSa62HUtsG05ILylao9uKfI2n+4eJuhzYlYWjorLeb1C2fe8A23w6
- pGRPWmqT9BT+nmjsc6bnzwIbMDRuMZZZ05gPQ21o=
-Received: by mail-lj1-f175.google.com with SMTP id i21so78680386ljj.3
- for <linux-stm32@st-md-mailman.stormreply.com>;
- Mon, 05 Aug 2019 02:18:29 -0700 (PDT)
-X-Gm-Message-State: APjAAAWCYh87yh6Nz7c3Zuu3FoSAKi8n2LeYVtrnGKt/dU6LEiDdmdV9
- DISftcIPs0C0MFnh4D1LHSR1NgwXS6L4YYz7uHM=
-X-Google-Smtp-Source: APXvYqzggkPHLZ3va+adONzA3B+P4PCDn3noO8lcrGqBRgo8WuH7Fq5Bq7XwbmzdzXRtDWDsIpDJCC30bufng4pCbXM=
-X-Received: by 2002:a2e:124b:: with SMTP id t72mr78893429lje.143.1564996708108; 
- Mon, 05 Aug 2019 02:18:28 -0700 (PDT)
+ Mon,  5 Aug 2019 09:57:07 +0000 (UTC)
+Received: from pps.filterd (m0046660.ppops.net [127.0.0.1])
+ by mx08-00178001.pphosted.com (8.16.0.27/8.16.0.27) with SMTP id
+ x758adt9030839; Mon, 5 Aug 2019 11:56:59 +0200
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=st.com;
+ h=from : to : cc : subject
+ : date : message-id : mime-version : content-type; s=STMicroelectronics;
+ bh=zJZbElTZ8XMjuV/mB4+St0kC8YSwld+3sVm7VXWPPao=;
+ b=E2A1quZkD9TpSlrqXOADLK8s3PoN6tFN6NOTwqqGx22ScNeuNMMy+vOhvRYwp0IkcleS
+ Yc8vUNOro5KMpLW2yihSHCLZvoJOMuot+wFk5mMjEYgvoAktypMsbBt2sQhva6Ox20WT
+ Zs026QYsv06i4RWKB+UHipEEOZYCOglmSqSqyeYLf8p+lLTyfLOkjnXSl5Oa7CHzOLYv
+ +POMeOtpUjmG2CezYnAZ565DkIQ2U6ZeJd4N6E+BkfDssaO2e39HB80hVg7kaOrTGE4/
+ 7/YXpANlmlsQqDNTbIIrbcmGMgB7Ha3/VStGbed7xwsfuYkcaO9Eg4aGMxd4/WgQsRPJ 5Q== 
+Received: from beta.dmz-eu.st.com (beta.dmz-eu.st.com [164.129.1.35])
+ by mx08-00178001.pphosted.com with ESMTP id 2u5sd1du6q-1
+ (version=TLSv1 cipher=ECDHE-RSA-AES256-SHA bits=256 verify=NOT);
+ Mon, 05 Aug 2019 11:56:59 +0200
+Received: from euls16034.sgp.st.com (euls16034.sgp.st.com [10.75.44.20])
+ by beta.dmz-eu.st.com (STMicroelectronics) with ESMTP id C0EB738;
+ Mon,  5 Aug 2019 09:56:58 +0000 (GMT)
+Received: from Webmail-eu.st.com (Safex1hubcas24.st.com [10.75.90.94])
+ by euls16034.sgp.st.com (STMicroelectronics) with ESMTP id A684E3023DC;
+ Mon,  5 Aug 2019 11:56:58 +0200 (CEST)
+Received: from SAFEX1HUBCAS23.st.com (10.75.90.47) by Safex1hubcas24.st.com
+ (10.75.90.94) with Microsoft SMTP Server (TLS) id 14.3.439.0; Mon, 5 Aug 2019
+ 11:56:58 +0200
+Received: from lmecxl0923.lme.st.com (10.48.0.237) by webmail-ga.st.com
+ (10.75.90.48) with Microsoft SMTP Server (TLS) id 14.3.439.0; Mon, 5 Aug 2019
+ 11:56:58 +0200
+From: Ludovic Barre <ludovic.Barre@st.com>
+To: Ulf Hansson <ulf.hansson@linaro.org>, Rob Herring <robh+dt@kernel.org>
+Date: Mon, 5 Aug 2019 11:56:23 +0200
+Message-ID: <20190805095626.25998-1-ludovic.Barre@st.com>
+X-Mailer: git-send-email 2.17.1
 MIME-Version: 1.0
-References: <20190802132809.8116-1-yuehaibing@huawei.com>
- <20190802132809.8116-4-yuehaibing@huawei.com>
-In-Reply-To: <20190802132809.8116-4-yuehaibing@huawei.com>
-From: Krzysztof Kozlowski <krzk@kernel.org>
-Date: Mon, 5 Aug 2019 11:18:17 +0200
-X-Gmail-Original-Message-ID: <CAJKOXPfvMLehLn+iNOGDEFvsWc93eShUx0=8fn9JWiBOc7wpFw@mail.gmail.com>
-Message-ID: <CAJKOXPfvMLehLn+iNOGDEFvsWc93eShUx0=8fn9JWiBOc7wpFw@mail.gmail.com>
-To: YueHaibing <yuehaibing@huawei.com>
-Cc: heiko@sntech.de, gary.hook@amd.com, clabbe.montjoie@gmail.com,
- jamie@jamieiles.com, linux-stm32@st-md-mailman.stormreply.com,
- jesper.nilsson@axis.com,
- "linux-samsung-soc@vger.kernel.org" <linux-samsung-soc@vger.kernel.org>,
- herbert@gondor.apana.org.au, linux-arm-kernel@axis.com,
- linux-rockchip@lists.infradead.org, wens@csie.org, agross@kernel.org,
- thomas.lendacky@amd.com, antoine.tenart@bootlin.com,
- linux-arm-msm@vger.kernel.org, mripard@kernel.org,
- linux-mediatek@lists.infradead.org, lars.persson@axis.com,
- matthias.bgg@gmail.com, linux-arm-kernel@lists.infradead.org,
- "linux-kernel@vger.kernel.org" <linux-kernel@vger.kernel.org>,
- linux-crypto@vger.kernel.org, mcoquelin.stm32@gmail.com, kgene@kernel.org,
- davem@davemloft.net
-Subject: Re: [Linux-stm32] [PATCH -next 03/12] crypto: exynos - use
- devm_platform_ioremap_resource() to simplify code
+X-Originating-IP: [10.48.0.237]
+X-Proofpoint-Virus-Version: vendor=fsecure engine=2.50.10434:, ,
+ definitions=2019-08-05_04:, , signatures=0
+Cc: devicetree@vger.kernel.org, linux-mmc@vger.kernel.org,
+ linux-kernel@vger.kernel.org, srinivas.kandagatla@linaro.org,
+ Maxime Coquelin <mcoquelin.stm32@gmail.com>,
+ linux-stm32@st-md-mailman.stormreply.com, linux-arm-kernel@lists.infradead.org
+Subject: [Linux-stm32] [PATCH V4 0/3] mmc: mmci: add busy detect for stm32
+	sdmmc variant
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -75,22 +73,45 @@ Content-Transfer-Encoding: 7bit
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
-On Fri, 2 Aug 2019 at 15:31, YueHaibing <yuehaibing@huawei.com> wrote:
->
-> Use devm_platform_ioremap_resource() to simplify the code a bit.
-> This is detected by coccinelle.
->
-> Reported-by: Hulk Robot <hulkci@huawei.com>
-> Signed-off-by: YueHaibing <yuehaibing@huawei.com>
-> ---
->  drivers/crypto/exynos-rng.c | 4 +---
->  1 file changed, 1 insertion(+), 3 deletions(-)
->
+From: Ludovic Barre <ludovic.barre@st.com>
 
-Reviewed-by: Krzysztof Kozlowski <krzk@kernel.org>
+This patch series adds busy detect for stm32 sdmmc variant.
+Some adaptations are required:
+-On sdmmc the data timer is started on data transfert
+and busy state, so we must add hardware busy timeout support.
+-Add busy_complete callback at mmci_host_ops to allow to define
+a specific busy completion by variant.
+-Add sdmmc busy_complete calback.
 
-Best regards,
-Krzysztof
+V4:
+-Re-work with busy_complete callback
+-In series, move "mmc: mmci: add hardware busy timeout feature" in
+first to simplify busy_complete prototype with err_msk parameter.
+
+V3:
+-rebase on latest mmc next
+-replace re-read by status parameter. 
+
+V2:
+-mmci_cmd_irq cleanup in separate patch.
+-simplify the busy_detect_flag exclude
+-replace sdmmc specific comment in
+"mmc: mmci: avoid fake busy polling in mmci_irq"
+to focus on common behavior
+
+Ludovic Barre (3):
+  mmc: mmci: add hardware busy timeout feature
+  mmc: mmci: add busy_complete callback
+  mmc: mmci: sdmmc: add busy_complete callback
+
+ drivers/mmc/host/mmci.c             | 178 +++++++++++++++++-----------
+ drivers/mmc/host/mmci.h             |   7 +-
+ drivers/mmc/host/mmci_stm32_sdmmc.c |  38 ++++++
+ 3 files changed, 151 insertions(+), 72 deletions(-)
+
+-- 
+2.17.1
+
 _______________________________________________
 Linux-stm32 mailing list
 Linux-stm32@st-md-mailman.stormreply.com
