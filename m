@@ -2,59 +2,49 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id 74355816A4
-	for <lists+linux-stm32@lfdr.de>; Mon,  5 Aug 2019 12:15:22 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 9C0B6822BE
+	for <lists+linux-stm32@lfdr.de>; Mon,  5 Aug 2019 18:45:36 +0200 (CEST)
 Received: from ip-172-31-3-76.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 260F8C35E04;
-	Mon,  5 Aug 2019 10:15:22 +0000 (UTC)
-Received: from mail-lj1-f195.google.com (mail-lj1-f195.google.com
- [209.85.208.195])
- (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 63056C10CA9;
+	Mon,  5 Aug 2019 16:45:36 +0000 (UTC)
+Received: from smtprelay-out1.synopsys.com (dc8-smtprelay2.synopsys.com
+ [198.182.47.102])
+ (using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 996ECC35E01
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 2BAC6C32EA2
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Mon,  5 Aug 2019 10:15:21 +0000 (UTC)
-Received: by mail-lj1-f195.google.com with SMTP id i21so78822547ljj.3
- for <linux-stm32@st-md-mailman.stormreply.com>;
- Mon, 05 Aug 2019 03:15:21 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linaro.org; s=google;
- h=mime-version:references:in-reply-to:from:date:message-id:subject:to
- :cc; bh=EVUakBz4HVrBvU5WozBP9zRGYaZ2u063yCbTr8IH9wg=;
- b=h7hSXRNhw+BgWJVjsm3CUTt+gZ14IRMN5LjwbEypK2d6eMw0PVs2ntw/YUTNTo6K5c
- YvYdlQu43bwvSdSCHbk9ALOWXZGSYh2Z6De9g/Su7n1CVvElbTYf5Sk4V3CWU/t6arn5
- QL5v+l4NitaSIZfsmJrgpY7tfjio4lzr/M6up+lXW9V3Ps9ZuOirB94gxrz8x1FG8GQs
- RttJ3Vra50Bu2sxlntxYoVh4k7IcugIs4VJCZaH9TonMZSuJSrbdbZTXGgz+gcjtPoyh
- AP/Ox8IvhETub7PSCfZSGGX1tuRPisg0IWmhPaXV0jTRZ/ydreArtzV03pszTkbXybr9
- hJFg==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20161025;
- h=x-gm-message-state:mime-version:references:in-reply-to:from:date
- :message-id:subject:to:cc;
- bh=EVUakBz4HVrBvU5WozBP9zRGYaZ2u063yCbTr8IH9wg=;
- b=duGYE/gOdCmIRJP5R3+iD6K2iZ14Qs6iBrcV8ccsTwuuA8jEMp6doR3ZDtrPG0DQly
- Y70sHfB/aZ3cq02zdQOBgx9VjFdVj5adSGsFVzoO0YUS8ItdrOTzBtF/Oy4Oz/9JQdaT
- eWmcIbcBNsfgWyb1/ZP5fPEeSTTfSW6YMUL7V/r1GDTdPfo3QrCrm1kkZiw2ju3K2Kk0
- icRO1u2ihypUUI0qVvjj3F7hv1ZFMBK1g35OQKJrApzRS8V3WnurZtU7E7kFjEAGPV5t
- 1MwmUR1XqG4Itjbh2WzGbjUv2FgmpYWgAJc/fq3h/kauAQVlynWfh9VWh0lAq9moG3/e
- RNoQ==
-X-Gm-Message-State: APjAAAW7GxhGfEsmNWG++IfFfDK9mcPwVfQTJHgyUtw4HedgZiN3MQdd
- B0QyUvDftxKj8w96v8GK36WDJN+exyY4uaguV8XnxQ==
-X-Google-Smtp-Source: APXvYqySHuR6d+bEQrsbTHzEENtYOVUi+8awDm/vDpXZ3zt3zWFIJstQGj1Z5v+QGxwqmgpUNdelEqXuxOip7mnqSPc=
-X-Received: by 2002:a2e:8195:: with SMTP id e21mr9719149ljg.62.1565000120908; 
- Mon, 05 Aug 2019 03:15:20 -0700 (PDT)
-MIME-Version: 1.0
-References: <1564053416-32192-1-git-send-email-amelie.delaunay@st.com>
-In-Reply-To: <1564053416-32192-1-git-send-email-amelie.delaunay@st.com>
-From: Linus Walleij <linus.walleij@linaro.org>
-Date: Mon, 5 Aug 2019 12:15:09 +0200
-Message-ID: <CACRpkdbeTQE1SGFeU0NQzgYxz_rjA_6Lw=3WLmeAF7pyEw7aLA@mail.gmail.com>
-To: Amelie Delaunay <amelie.delaunay@st.com>
-Cc: "linux-kernel@vger.kernel.org" <linux-kernel@vger.kernel.org>,
- "open list:GPIO SUBSYSTEM" <linux-gpio@vger.kernel.org>,
+ Mon,  5 Aug 2019 16:45:33 +0000 (UTC)
+Received: from mailhost.synopsys.com (mdc-mailhost2.synopsys.com
+ [10.225.0.210])
+ (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits))
+ (No client certificate requested)
+ by smtprelay-out1.synopsys.com (Postfix) with ESMTPS id 67A76C015B;
+ Mon,  5 Aug 2019 16:45:28 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=synopsys.com; s=mail;
+ t=1565023530; bh=0LbPrLAJZPL+E0+EEkTDfdECwXLyTc0PWcn5jnubUI8=;
+ h=From:To:Cc:Subject:Date:From;
+ b=fwhulZuLa3ryglwiiwLjF4/2ithvclLv+FstYbrMDuZUUzbasLHK6bKffdBkzXJbw
+ Bze7ohv14AR+/LgKzBrDhlrZ922jio5ql9f+PUa5FEcwYYyeAXs+QkqwOQr3/UQUBb
+ hywH00ci3zmVycCrIu0L1pOeotaSjKBgV9l864aNVk2LgVEOzpRcrwGKi1EhLmzoUP
+ qure26YhNg7npw16CSBy72d8V4vyNnmbY9G/beRv3rnFEipdd05UGN+VH2rafPGzT+
+ WT9LOXYfKY/xU+TzcfDjPLJmNSAVOu/7dGib4K7dwl+sJoZTIaBIj94VkSxpryQzzU
+ TG0wIbOb+vBpA==
+Received: from de02dwia024.internal.synopsys.com
+ (de02dwia024.internal.synopsys.com [10.225.19.81])
+ by mailhost.synopsys.com (Postfix) with ESMTP id CD08FA005D;
+ Mon,  5 Aug 2019 16:45:25 +0000 (UTC)
+From: Jose Abreu <Jose.Abreu@synopsys.com>
+To: netdev@vger.kernel.org
+Date: Mon,  5 Aug 2019 18:44:27 +0200
+Message-Id: <cover.1565022597.git.joabreu@synopsys.com>
+X-Mailer: git-send-email 2.7.4
+Cc: Jose Abreu <Jose.Abreu@synopsys.com>, Joao Pinto <Joao.Pinto@synopsys.com>,
+ linux-kernel@vger.kernel.org, linux-stm32@st-md-mailman.stormreply.com,
  Maxime Coquelin <mcoquelin.stm32@gmail.com>,
- linux-stm32@st-md-mailman.stormreply.com,
- Linux ARM <linux-arm-kernel@lists.infradead.org>
-Subject: Re: [Linux-stm32] [PATCH] pinctrl: stmfx: update pinconf settings
+ Giuseppe Cavallaro <peppe.cavallaro@st.com>,
+ "David S. Miller" <davem@davemloft.net>, linux-arm-kernel@lists.infradead.org
+Subject: [Linux-stm32] [PATCH net-next 00/26] net: stmmac: Misc improvements
+	for XGMAC
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -66,45 +56,81 @@ List-Post: <mailto:linux-stm32@st-md-mailman.stormreply.com>
 List-Help: <mailto:linux-stm32-request@st-md-mailman.stormreply.com?subject=help>
 List-Subscribe: <https://st-md-mailman.stormreply.com/mailman/listinfo/linux-stm32>, 
  <mailto:linux-stm32-request@st-md-mailman.stormreply.com?subject=subscribe>
+MIME-Version: 1.0
 Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
-On Thu, Jul 25, 2019 at 1:16 PM Amelie Delaunay <amelie.delaunay@st.com> wrote:
+[ This series depend on 3caa61c20875 ("net: stmmac: Sync RX Buffer upon allocation")
+which is already in -net but not -next ]
 
-> From: Alexandre Torgue <alexandre.torgue@st.com>
->
-> According to the following tab (coming from STMFX datasheet), updates
-> have to done in stmfx_pinconf_set function:
->
-> -"type" has to be set when "bias" is configured as "pull-up or pull-down"
-> -PIN_CONFIG_DRIVE_PUSH_PULL should only be used when gpio is configured as
->  output. There is so no need to check direction.
->
-> DIR | TYPE | PUPD | MFX GPIO configuration
-> ----|------|------|---------------------------------------------------
-> 1   | 1    | 1    | OUTPUT open drain with internal pull-up resistor
-> ----|------|------|---------------------------------------------------
-> 1   | 1    | 0    | OUTPUT open drain with internal pull-down resistor
-> ----|------|------|---------------------------------------------------
-> 1   | 0    | 0/1  | OUTPUT push pull no pull
-> ----|------|------|---------------------------------------------------
-> 0   | 1    | 1    | INPUT with internal pull-up resistor
-> ----|------|------|---------------------------------------------------
-> 0   | 1    | 0    | INPUT with internal pull-down resistor
-> ----|------|------|---------------------------------------------------
-> 0   | 0    | 1    | INPUT floating
-> ----|------|------|---------------------------------------------------
-> 0   | 0    | 0    | analog (GPIO not used, default setting)
->
-> Signed-off-by: Alexandre Torgue <alexandre.torgue@st.com>
-> Signed-off-by: Amelie Delaunay <amelie.delaunay@st.com>
+Misc improvements for -next which adds new features in XGMAC cores.
 
-Patch applied.
+More info in commit logs.
 
-Yours,
-Linus Walleij
+---
+Cc: Giuseppe Cavallaro <peppe.cavallaro@st.com>
+Cc: Alexandre Torgue <alexandre.torgue@st.com>
+Cc: Jose Abreu <joabreu@synopsys.com>
+Cc: "David S. Miller" <davem@davemloft.net>
+Cc: Maxime Coquelin <mcoquelin.stm32@gmail.com>
+Cc: netdev@vger.kernel.org
+Cc: linux-stm32@st-md-mailman.stormreply.com
+Cc: linux-arm-kernel@lists.infradead.org
+Cc: linux-kernel@vger.kernel.org
+---
+
+Jose Abreu (26):
+  net: stmmac: xgmac: Fix XGMAC selftests
+  net: stmmac: xgmac: Implement MMC counters
+  net: stmmac: Fix issues when number of Queues >= 4
+  net: stmmac: xgmac: Implement set_mtl_tx_queue_weight()
+  net: stmmac: xgmac: Implement tx_queue_prio()
+  net: stmmac: Implement RSS and enable it in XGMAC core
+  net: stmmac: selftests: Add RSS test
+  net: stmmac: Implement VLAN Hash Filtering in XGMAC
+  net: stmmac: selftests: Add test for VLAN and Double VLAN Filtering
+  net: stmmac: Implement Safety Features in XGMAC core
+  net: stmmac: Add Flexible RX Parser support in XGMAC
+  net: stmmac: tc: Do not return a fragment entry
+  net: stmmac: selftests: Add a selftest for Flexible RX Parser
+  net: stmmac: Get correct timestamp values from XGMAC
+  net: stmmac: Prepare to add Split Header support
+  net: stmmac: xgmac: Correctly return that RX descriptor is not last
+    one
+  net: stmmac: Add Split Header support and enable it in XGMAC cores
+  net: stmmac: dwxgmac: Add Flexible PPS support
+  net: stmmac: Add ethtool register dump for XGMAC cores
+  net: stmmac: Add a counter for Split Header packets
+  net: stmmac: Add support for SA Insertion/Replacement in XGMAC cores
+  net: stmmac: selftests: Add tests for SA Insertion/Replacement
+  net: stmmac: xgmac: Add EEE support
+  net: stmmac: Add support for VLAN Insertion Offload
+  net: stmmac: selftests: Add selftest for VLAN TX Offload
+  net: stmmac: selftests: Return proper error code to userspace
+
+ drivers/net/ethernet/stmicro/stmmac/common.h       |  16 +
+ drivers/net/ethernet/stmicro/stmmac/dwmac4_core.c  |   4 +
+ drivers/net/ethernet/stmicro/stmmac/dwxgmac2.h     | 135 +++-
+ .../net/ethernet/stmicro/stmmac/dwxgmac2_core.c    | 880 ++++++++++++++++++++-
+ .../net/ethernet/stmicro/stmmac/dwxgmac2_descs.c   | 118 ++-
+ drivers/net/ethernet/stmicro/stmmac/dwxgmac2_dma.c |  41 +-
+ drivers/net/ethernet/stmicro/stmmac/hwif.c         |   4 +-
+ drivers/net/ethernet/stmicro/stmmac/hwif.h         |  47 ++
+ drivers/net/ethernet/stmicro/stmmac/mmc.h          |   9 +
+ drivers/net/ethernet/stmicro/stmmac/mmc_core.c     | 192 +++++
+ drivers/net/ethernet/stmicro/stmmac/stmmac.h       |  21 +
+ .../net/ethernet/stmicro/stmmac/stmmac_ethtool.c   | 106 ++-
+ drivers/net/ethernet/stmicro/stmmac/stmmac_main.c  | 380 +++++++--
+ .../net/ethernet/stmicro/stmmac/stmmac_selftests.c | 513 +++++++++++-
+ drivers/net/ethernet/stmicro/stmmac/stmmac_tc.c    |   2 +-
+ include/linux/stmmac.h                             |   1 +
+ 16 files changed, 2361 insertions(+), 108 deletions(-)
+
+-- 
+2.7.4
+
 _______________________________________________
 Linux-stm32 mailing list
 Linux-stm32@st-md-mailman.stormreply.com
