@@ -2,73 +2,75 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id 1DED082A7E
-	for <lists+linux-stm32@lfdr.de>; Tue,  6 Aug 2019 06:46:42 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 0407282CBD
+	for <lists+linux-stm32@lfdr.de>; Tue,  6 Aug 2019 09:30:39 +0200 (CEST)
 Received: from ip-172-31-3-76.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id CF310C35E03;
-	Tue,  6 Aug 2019 04:46:41 +0000 (UTC)
-Received: from mail-pg1-f196.google.com (mail-pg1-f196.google.com
- [209.85.215.196])
- (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 9E837C35E03;
+	Tue,  6 Aug 2019 07:30:38 +0000 (UTC)
+Received: from mx1.redhat.com (mx1.redhat.com [209.132.183.28])
+ (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id E506EC36B3E
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id B1E13C35E01
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Tue,  6 Aug 2019 04:46:39 +0000 (UTC)
-Received: by mail-pg1-f196.google.com with SMTP id w3so3667052pgt.13
- for <linux-stm32@st-md-mailman.stormreply.com>;
- Mon, 05 Aug 2019 21:46:39 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=netronome-com.20150623.gappssmtp.com; s=20150623;
- h=date:from:to:cc:subject:message-id:in-reply-to:references
- :organization:mime-version:content-transfer-encoding;
- bh=2j7+zajW8YHjJb6vtd6GGK8PfR2IXlyooiMNjhgqda4=;
- b=0WEACkB6+tkSwapaLx3mUtGXDP8tMN+Mw0CtY4oq4TY6eb6BPbFQ03Rq2JZAoM20/u
- FY8yhlRyoAUr2kF8VcVVR4h1UEAzDuwkzsU7nYIJ1qyZPWUMp23JmIfyrAGr3kvvZPrF
- Sdjlj4dm+VQbaqllPiRCeTV7Da9fWHPMaV77IFgzqVJwYBuAK/0TvHPhNfqAJveP7gSq
- 6umgH6JcdQoRVJeg1LsHHvrANHxAgrbqwGK/adiCXx9KDqVtIjQOy89BCabkWAd+YMco
- nwsihxmqdAzfW6NyggGtIhUVCR96fStCxpW/zabYpJcYfwuyq0TJWULFKJYpIURYyfDn
- dv0w==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20161025;
- h=x-gm-message-state:date:from:to:cc:subject:message-id:in-reply-to
- :references:organization:mime-version:content-transfer-encoding;
- bh=2j7+zajW8YHjJb6vtd6GGK8PfR2IXlyooiMNjhgqda4=;
- b=FQHZKRZ9kv/WKQ2AHkAcRw7ell5pM32uYHzs2g591F6dF3pD6Evhrhg2O71SUwwJQR
- N+k2aoBH8liNVSeM8kJydy4ZAvi0R22w6KMa5jmSGS2FhcqLIileGnbW/+TX7PoZ37W0
- 8F8sEXOD0WWzpiHr5DwIJ9L7PPpR9IpSTcbkQ0McDAWH+V5B2MkwpaFGN5iiOEf3mmz2
- 3+LzcNCNLa6JOeVs9y7vGa7MFXtKuh9aIWTRWr7gcs5N3KdrPYlc/QCKMy5ysMznUJSn
- cvcEQkswdZ4aKCo4N8P/Eq8HJm4sGXtmx0N7dVzX5QzdUnXuMbL9eQ3W4ms/EjMmeI1T
- bPHA==
-X-Gm-Message-State: APjAAAU4KVOq2X8nNyug2+4ZYb0hmeSwdHzPawGQSymdlmlyoV+9deM7
- 1Q+FPfE0BDJ4l1HtjNANxinobA==
-X-Google-Smtp-Source: APXvYqxJ1GU+jM362HNbpRUZRKuHn12ZYsRHo95Oyr4gTePUavWdw/B4lZOUiOayXIOV5B07X0OeVQ==
-X-Received: by 2002:a17:90a:a489:: with SMTP id
- z9mr1170396pjp.24.1565066798435; 
- Mon, 05 Aug 2019 21:46:38 -0700 (PDT)
-Received: from cakuba.netronome.com (c-71-204-185-212.hsd1.ca.comcast.net.
- [71.204.185.212])
- by smtp.gmail.com with ESMTPSA id v18sm85291165pgl.87.2019.08.05.21.46.37
- (version=TLS1_3 cipher=AEAD-AES256-GCM-SHA384 bits=256/256);
- Mon, 05 Aug 2019 21:46:38 -0700 (PDT)
-Date: Mon, 5 Aug 2019 21:46:14 -0700
-From: Jakub Kicinski <jakub.kicinski@netronome.com>
-To: Jose Abreu <Jose.Abreu@synopsys.com>
-Message-ID: <20190805214600.4c84ccd7@cakuba.netronome.com>
-In-Reply-To: <e70981c111ac857a0bac77750bd69a3383d99ee0.1565027782.git.joabreu@synopsys.com>
-References: <cover.1565027782.git.joabreu@synopsys.com>
- <e70981c111ac857a0bac77750bd69a3383d99ee0.1565027782.git.joabreu@synopsys.com>
-Organization: Netronome Systems, Ltd.
+ Mon,  5 Aug 2019 17:39:09 +0000 (UTC)
+Received: from smtp.corp.redhat.com (int-mx04.intmail.prod.int.phx2.redhat.com
+ [10.5.11.14])
+ (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
+ (No client certificate requested)
+ by mx1.redhat.com (Postfix) with ESMTPS id 74DB8C056807;
+ Mon,  5 Aug 2019 17:39:06 +0000 (UTC)
+Received: from rt4.app.eng.rdu2.redhat.com (rt4.app.eng.rdu2.redhat.com
+ [10.10.161.56])
+ by smtp.corp.redhat.com (Postfix) with ESMTPS id D7C3E5DA60;
+ Mon,  5 Aug 2019 17:39:01 +0000 (UTC)
+Received: from rt4.app.eng.rdu2.redhat.com (localhost [127.0.0.1])
+ by rt4.app.eng.rdu2.redhat.com (8.14.4/8.14.4) with ESMTP id x75Hd0BJ023399;
+ Mon, 5 Aug 2019 13:39:00 -0400
+Received: (from apache@localhost)
+ by rt4.app.eng.rdu2.redhat.com (8.14.4/8.14.4/Submit) id x75Hcnwa023396;
+ Mon, 5 Aug 2019 13:38:49 -0400
+From: Red Hat Product Security <secalert@redhat.com>
+X-PGP-Public-Key: https://www.redhat.com/security/650d5882.txt
+In-Reply-To: <CAJ7L_Gp2HJoFOVxTgakCJw3LMuiPY0+60-giOtw3OwRD6zyNTQ@mail.gmail.com>
+References: <RT-Ticket-494100@engineering.redhat.com>
+ <CAJ7L_Gp2HJoFOVxTgakCJw3LMuiPY0+60-giOtw3OwRD6zyNTQ@mail.gmail.com>
+Message-ID: <rt-4.0.13-23214-1565026728-1358.494100-5-0@engineering.redhat.com>
+Precedence: bulk
+X-RT-Loop-Prevention: engineering.redhat.com
+RT-Ticket: engineering.redhat.com #494100
+Managed-BY: RT 4.0.13 (http://www.bestpractical.com/rt/)
+RT-Originator: pjp@redhat.com
+To: b.zolnierkie@samsung.com, bob.liu@oracle.com, chuck.lever@oracle.com,
+ davem@davemloft.net, emamd001@umn.edu, gregkh@linuxfoundation.org,
+ kubakici@wp.pl, kvalo@codeaurora.org, navid.emamdoost@gmail.com,
+ sam@ravnborg.org
 MIME-Version: 1.0
-Cc: Joao Pinto <Joao.Pinto@synopsys.com>, netdev@vger.kernel.org,
- linux-kernel@vger.kernel.org, linux-stm32@st-md-mailman.stormreply.com,
- Maxime Coquelin <mcoquelin.stm32@gmail.com>,
- Giuseppe Cavallaro <peppe.cavallaro@st.com>,
- "David S. Miller" <davem@davemloft.net>, linux-arm-kernel@lists.infradead.org
-Subject: Re: [Linux-stm32] [PATCH net-next 06/10] net: stmmac: Implement RSS
- and enable it in XGMAC core
+X-RT-Original-Encoding: utf-8
+Date: Mon, 5 Aug 2019 13:38:48 -0400
+X-Scanned-By: MIMEDefang 2.79 on 10.5.11.14
+X-Greylist: Sender IP whitelisted, not delayed by milter-greylist-4.5.16
+ (mx1.redhat.com [10.5.110.32]); Mon, 05 Aug 2019 17:39:08 +0000 (UTC)
+X-Mailman-Approved-At: Tue, 06 Aug 2019 07:30:37 +0000
+Cc: kstewart@linuxfoundation.org, alexandre.belloni@bootlin.com,
+ airlied@linux.ie, dri-devel@lists.freedesktop.org, bfields@fieldses.org,
+ linux-ide@vger.kernel.org, thierry.reding@gmail.com,
+ linux-stm32@st-md-mailman.stormreply.com, devel@driverdev.osuosl.org,
+ joabreu@synopsys.com, linux-arm-kernel@lists.infradead.org,
+ linux-serial@vger.kernel.org, jslaby@suse.com, matthias@redhat.com,
+ smccaman@umn.edu, kjlu@umn.edu, josef@toxicpanda.com, johnfwhitmore@gmail.com,
+ nbd@other.debian.org, linux-block@vger.kernel.org,
+ linux-mediatek@lists.infradead.org, nishkadg.linux@gmail.com,
+ matthias.bgg@gmail.com, peppe.cavallaro@st.com, tglx@linutronix.de,
+ andriy.shevchenko@linux.intel.com, trond.myklebust@hammerspace.com,
+ allison@lohutok.net, axboe@kernel.dk, mcoquelin.stm32@gmail.com,
+ linux-nfs@vger.kernel.org, netdev@vger.kernel.org,
+ linux-wireless@vger.kernel.org, linux-kernel@vger.kernel.org,
+ unglinuxdriver@microchip.com, vkoul@kernel.org, vishal@chelsio.com,
+ daniel@ffwll.ch, colin.king@canonical.com, anna.schumaker@netapp.com
+Subject: [Linux-stm32] [engineering.redhat.com #494100] Question on
+	submitting patch for a security bug
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
-Precedence: list
 List-Id: <linux-stm32.st-md-mailman.stormreply.com>
 List-Unsubscribe: <https://st-md-mailman.stormreply.com/mailman/options/linux-stm32>, 
  <mailto:linux-stm32-request@st-md-mailman.stormreply.com?subject=unsubscribe>
@@ -77,96 +79,49 @@ List-Post: <mailto:linux-stm32@st-md-mailman.stormreply.com>
 List-Help: <mailto:linux-stm32-request@st-md-mailman.stormreply.com?subject=help>
 List-Subscribe: <https://st-md-mailman.stormreply.com/mailman/listinfo/linux-stm32>, 
  <mailto:linux-stm32-request@st-md-mailman.stormreply.com?subject=subscribe>
+Reply-To: secalert@redhat.com
 Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
-On Mon,  5 Aug 2019 20:01:19 +0200, Jose Abreu wrote:
-> Implement the RSS functionality and add the corresponding callbacks in
-> XGMAC core.
-> 
-> Signed-off-by: Jose Abreu <joabreu@synopsys.com>
-> ---
-> Cc: Giuseppe Cavallaro <peppe.cavallaro@st.com>
-> Cc: Alexandre Torgue <alexandre.torgue@st.com>
-> Cc: Jose Abreu <joabreu@synopsys.com>
-> Cc: "David S. Miller" <davem@davemloft.net>
-> Cc: Maxime Coquelin <mcoquelin.stm32@gmail.com>
-> Cc: netdev@vger.kernel.org
-> Cc: linux-stm32@st-md-mailman.stormreply.com
-> Cc: linux-arm-kernel@lists.infradead.org
-> Cc: linux-kernel@vger.kernel.org
+Hello Navid,
 
-> diff --git a/drivers/net/ethernet/stmicro/stmmac/dwxgmac2_descs.c b/drivers/net/ethernet/stmicro/stmmac/dwxgmac2_descs.c
-> index c4c45402b8f8..9ff9d9ac1a50 100644
-> --- a/drivers/net/ethernet/stmicro/stmmac/dwxgmac2_descs.c
-> +++ b/drivers/net/ethernet/stmicro/stmmac/dwxgmac2_descs.c
-> @@ -254,6 +254,34 @@ static void dwxgmac2_clear(struct dma_desc *p)
->  	p->des3 = 0;
->  }
->  
-> +static int dwxgmac2_get_rx_hash(struct dma_desc *p, u32 *hash,
-> +				enum pkt_hash_types *type)
-> +{
-> +	unsigned int rdes3 = le32_to_cpu(p->des3);
-> +	u32 ptype;
-> +
-> +	if (rdes3 & XGMAC_RDES3_RSV) {
-> +		ptype = (rdes3 & XGMAC_RDES3_L34T) >> XGMAC_RDES3_L34T_SHIFT;
-> +
-> +		switch (ptype) {
-> +		case 0x1:
-> +		case 0x2:
-> +		case 0x9:
-> +		case 0xA:
+On Thu, 18 Jul 2019 01:30:20 GMT, emamd001@umn.edu wrote:
+> I've found a null dereference bug in the Linux kernel source code. I was
+> wondering should I cc the patch to you as well (along with the
+> maintainers)?
 
-nit: it'd be nice to have defines for these constants
+No. Please do not cc <secalert@redhat.com> on the upstream kernel patches.
+It is meant for reporting security issues only.
 
-> +			*type = PKT_HASH_TYPE_L4;
-> +			break;
-> +		default:
-> +			*type = PKT_HASH_TYPE_L3;
-> +			break;
-> +		}
-> +
-> +		*hash = le32_to_cpu(p->des1);
-> +		return 0;
-> +	}
-> +
-> +	return -EINVAL;
-> +}
-> +
->  const struct stmmac_desc_ops dwxgmac210_desc_ops = {
->  	.tx_status = dwxgmac2_get_tx_status,
->  	.rx_status = dwxgmac2_get_rx_status,
+Going through the patches here
 
-> @@ -4182,7 +4208,7 @@ int stmmac_dvr_probe(struct device *device,
->  	struct net_device *ndev = NULL;
->  	struct stmmac_priv *priv;
->  	u32 queue, maxq;
-> -	int ret = 0;
-> +	int i, ret = 0;
->  
->  	ndev = devm_alloc_etherdev_mqs(device, sizeof(struct stmmac_priv),
->  				       MTL_MAX_TX_QUEUES, MTL_MAX_RX_QUEUES);
-> @@ -4290,6 +4316,14 @@ int stmmac_dvr_probe(struct device *device,
->  #endif
->  	priv->msg_enable = netif_msg_init(debug, default_msg_level);
->  
-> +	/* Initialize RSS */
-> +	netdev_rss_key_fill(priv->rss.key, sizeof(priv->rss.key));
-> +	for (i = 0; i < ARRAY_SIZE(priv->rss.table); i++)
-> +		priv->rss.table[i] = i % priv->plat->rx_queues_to_use;
+1. Issues in ../staging/ drivers are not considered for CVE, they are not to be
+used
+in production environment.
 
-ethtool_rxfh_indir_default() ?
+2. Many of the patches listed fix NULL pointer dereference when memory
+allocation
+fails and returns NULL.
 
-> +	if (priv->dma_cap.rssen && priv->plat->rss_en)
-> +		ndev->features |= NETIF_F_RXHASH;
-> +
->  	/* MTU range: 46 - hw-specific max */
->  	ndev->min_mtu = ETH_ZLEN - ETH_HLEN;
->  	if ((priv->plat->enh_desc) || (priv->synopsys_id >= DWMAC_CORE_4_00))
+3. Do you happen to have reproducers for these issues? Could an unprivileged
+user trigger them?
+
+> Also, I was wondering what are the steps to get CVE for the bug (this is
+> the first time I am reporting a bug)?
+
+Generally CVE is assigned after confirming that a given issue really is a
+security issue. And it may
+have impact ranging from information leakage, DoS to privilege escalation or
+maybe arbitrary code
+execution. Every NULL pointer dereference is not security issue.
+
+
+Hope it helps. Thank you.
+---
+Prasad J Pandit / Red Hat Product Security Team
+
 _______________________________________________
 Linux-stm32 mailing list
 Linux-stm32@st-md-mailman.stormreply.com
