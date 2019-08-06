@@ -2,45 +2,80 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id 3241683680
-	for <lists+linux-stm32@lfdr.de>; Tue,  6 Aug 2019 18:12:23 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 9B97F8387E
+	for <lists+linux-stm32@lfdr.de>; Tue,  6 Aug 2019 20:20:03 +0200 (CEST)
 Received: from ip-172-31-3-76.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id D0DA0C35E01;
-	Tue,  6 Aug 2019 16:12:22 +0000 (UTC)
-Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
- (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 4A6E7C35E01;
+	Tue,  6 Aug 2019 18:20:03 +0000 (UTC)
+Received: from mail-pg1-f195.google.com (mail-pg1-f195.google.com
+ [209.85.215.195])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 8C052C36B3E
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 388BCC36B3E
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Tue,  6 Aug 2019 16:12:21 +0000 (UTC)
-Received: from localhost (83-86-89-107.cable.dynamic.v4.ziggo.nl
- [83.86.89.107])
- (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
- (No client certificate requested)
- by mail.kernel.org (Postfix) with ESMTPSA id 7FC5C216F4;
- Tue,  6 Aug 2019 16:12:19 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
- s=default; t=1565107940;
- bh=yIW5I4jNU8ZxgTIOZUX43QxSzUJrmRVvvUxdtGVi7FY=;
- h=From:To:Cc:Subject:Date:In-Reply-To:References:From;
- b=k7SY+W+duBsC07xfJd8dzdOjQq1wQvl9hv7/BfpknKQ4jb6BqQUdOPSVbA09GhU1l
- +9RMJUYhFT80/MVUXLHC9XAg8tEkJbWOwHXtNbWsXbl9/KeuagY1aZu9OD5aOZu5pL
- RkYbOV4soAuENBzbChBwNk8nXBHMz9euT5pC9k8k=
-From: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
-To: netdev@vger.kernel.org
-Date: Tue,  6 Aug 2019 18:11:20 +0200
-Message-Id: <20190806161128.31232-10-gregkh@linuxfoundation.org>
-X-Mailer: git-send-email 2.22.0
-In-Reply-To: <20190806161128.31232-1-gregkh@linuxfoundation.org>
-References: <20190806161128.31232-1-gregkh@linuxfoundation.org>
+ Tue,  6 Aug 2019 18:20:00 +0000 (UTC)
+Received: by mail-pg1-f195.google.com with SMTP id l21so42014531pgm.3
+ for <linux-stm32@st-md-mailman.stormreply.com>;
+ Tue, 06 Aug 2019 11:20:00 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linaro.org; s=google;
+ h=date:from:to:cc:subject:message-id:references:mime-version
+ :content-disposition:content-transfer-encoding:in-reply-to
+ :user-agent; bh=YagwnSKjQ9AFWb+JwZGJEtizWqnGfGkBH4aRSOhIlmw=;
+ b=KoIGmartaNCDHdqRUk7Y5Z8Djc1SV/l1OncetDnEvj8Y7O4V4mxOvdEOuedUC+SE8C
+ L3V76Jc0LaKIpmR/+PRqkdcexS0s9/ippez+JIzrD2uaZ8vEiSRslr3cgd+VIuiM52QX
+ UKkayxiP3Niz/PnebgM5RJf5bijdRk/QHRPcI2umtokyw+lgh8mUQmZutLc2UavKlAMl
+ 9DsNUqOCqaJfuNzRa8ybgIg7EngFO9wrtSBuGkOeRiXT33yHIRmdcWOB8NajmQgx6uwm
+ EXukoSfpWUj+TmypMGa/lcJH6n5cSEuFwHzMmlTs8RPT39FlDbg/1jHQX/8jCX+N8vYb
+ cvfA==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20161025;
+ h=x-gm-message-state:date:from:to:cc:subject:message-id:references
+ :mime-version:content-disposition:content-transfer-encoding
+ :in-reply-to:user-agent;
+ bh=YagwnSKjQ9AFWb+JwZGJEtizWqnGfGkBH4aRSOhIlmw=;
+ b=eBqPQUIqbTAesowLfJGvgRGJWKpc/RhyztwQFTEafzkTTTYw/norIyKIDU60uK8pxW
+ F9qzDlgkvpuWaviMNj1I/vK84XiDho6Uk6fel5uvheflKMIbjw2cWRqdxP4noYSoxcoM
+ V7Jg3EmAkgAPyjd33ap8Kb5mJp+mN2uV0LGpuVyuVbb6hV8J7EDQXvYYMyWaHpwOkXMi
+ VPY8ie+EqxREWqh0gZGI6K3b9bsk9NbSUbbK0sIOhoG/xySDLkoYPJfrLO9QffT8Ba8y
+ bhMwSAW2LpbAj5tT6+OV6UBDnkPiviiEQNERdhfiJb3m06KOuesVKJYI+zU1GZXYAoWi
+ aI+A==
+X-Gm-Message-State: APjAAAVgi5qmmp/QPOKpBlGOLijj0WrJSFnTkDJJx4y6AtmFL8cU36az
+ gWilIoAIVIjHijwpDiM9h7DR3A==
+X-Google-Smtp-Source: APXvYqxvajvknV5Crc2GPBDACD5q5nc5DS/TZ3iQqT5dzZ4pFCLgRCC1lLvaVW/QfeBBtQ2Q4V9PrA==
+X-Received: by 2002:a17:90a:d3d4:: with SMTP id
+ d20mr4673518pjw.28.1565115598199; 
+ Tue, 06 Aug 2019 11:19:58 -0700 (PDT)
+Received: from tuxbook-pro (104-188-17-28.lightspeed.sndgca.sbcglobal.net.
+ [104.188.17.28])
+ by smtp.gmail.com with ESMTPSA id 33sm101572057pgy.22.2019.08.06.11.19.56
+ (version=TLS1_3 cipher=AEAD-AES256-GCM-SHA384 bits=256/256);
+ Tue, 06 Aug 2019 11:19:57 -0700 (PDT)
+Date: Tue, 6 Aug 2019 11:21:28 -0700
+From: Bjorn Andersson <bjorn.andersson@linaro.org>
+To: Suman Anna <s-anna@ti.com>
+Message-ID: <20190806182128.GD26807@tuxbook-pro>
+References: <1552492237-28810-1-git-send-email-fabien.dessenne@st.com>
+ <20190801191403.GA7234@tuxbook-pro>
+ <1a057176-81ab-e302-4375-2717ceef6924@st.com>
+ <20190805174659.GA23928@tuxbook-pro>
+ <dcd1aeea-cffe-d5fb-af5a-e52efcc2e046@ti.com>
 MIME-Version: 1.0
-Cc: Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
- linux-stm32@st-md-mailman.stormreply.com, Jose Abreu <joabreu@synopsys.com>,
- Maxime Coquelin <mcoquelin.stm32@gmail.com>,
- Giuseppe Cavallaro <peppe.cavallaro@st.com>,
- "David S. Miller" <davem@davemloft.net>
-Subject: [Linux-stm32] [PATCH 09/17] stmmac: no need to check return value
-	of debugfs_create functions
+Content-Disposition: inline
+In-Reply-To: <dcd1aeea-cffe-d5fb-af5a-e52efcc2e046@ti.com>
+User-Agent: Mutt/1.12.1 (2019-06-15)
+Cc: Ohad Ben-Cohen <ohad@wizery.com>, Mark Rutland <mark.rutland@arm.com>,
+ Jonathan Corbet <corbet@lwn.net>,
+ "linux-doc@vger.kernel.org" <linux-doc@vger.kernel.org>,
+ "linux-remoteproc@vger.kernel.org" <linux-remoteproc@vger.kernel.org>,
+ "linux-kernel@vger.kernel.org" <linux-kernel@vger.kernel.org>,
+ Fabien DESSENNE <fabien.dessenne@st.com>,
+ "devicetree@vger.kernel.org" <devicetree@vger.kernel.org>,
+ Rob Herring <robh+dt@kernel.org>, Maxime Coquelin <mcoquelin.stm32@gmail.com>,
+ "linux-stm32@st-md-mailman.stormreply.com"
+ <linux-stm32@st-md-mailman.stormreply.com>,
+ "linux-arm-kernel@lists.infradead.org" <linux-arm-kernel@lists.infradead.org>
+Subject: Re: [Linux-stm32] [PATCH 0/6] hwspinlock: allow sharing of
+	hwspinlocks
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -52,142 +87,99 @@ List-Post: <mailto:linux-stm32@st-md-mailman.stormreply.com>
 List-Help: <mailto:linux-stm32-request@st-md-mailman.stormreply.com?subject=help>
 List-Subscribe: <https://st-md-mailman.stormreply.com/mailman/listinfo/linux-stm32>, 
  <mailto:linux-stm32-request@st-md-mailman.stormreply.com?subject=subscribe>
-Content-Type: text/plain; charset="us-ascii"
-Content-Transfer-Encoding: 7bit
+Content-Type: text/plain; charset="iso-8859-1"
+Content-Transfer-Encoding: quoted-printable
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
-When calling debugfs functions, there is no need to ever check the
-return value.  The function can work or not, but the code logic should
-never do something different based on this.
+On Tue 06 Aug 10:38 PDT 2019, Suman Anna wrote:
 
-Because we don't care about the individual files, we can remove the
-stored dentry for the files, as they are not needed to be kept track of
-at all.
+> Hi Fabien,
+> =
 
-Cc: Giuseppe Cavallaro <peppe.cavallaro@st.com>
-Cc: Alexandre Torgue <alexandre.torgue@st.com>
-Cc: Jose Abreu <joabreu@synopsys.com>
-Cc: "David S. Miller" <davem@davemloft.net>
-Cc: Maxime Coquelin <mcoquelin.stm32@gmail.com>
-Cc: netdev@vger.kernel.org
-Cc: linux-stm32@st-md-mailman.stormreply.com
-Signed-off-by: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
----
- drivers/net/ethernet/stmicro/stmmac/stmmac.h  |  2 -
- .../net/ethernet/stmicro/stmmac/stmmac_main.c | 52 +++----------------
- 2 files changed, 8 insertions(+), 46 deletions(-)
+> On 8/5/19 12:46 PM, Bjorn Andersson wrote:
+> > On Mon 05 Aug 01:48 PDT 2019, Fabien DESSENNE wrote:
+> > =
 
-diff --git a/drivers/net/ethernet/stmicro/stmmac/stmmac.h b/drivers/net/ethernet/stmicro/stmmac/stmmac.h
-index 5cd966c154f3..fcc68782f8f8 100644
---- a/drivers/net/ethernet/stmicro/stmmac/stmmac.h
-+++ b/drivers/net/ethernet/stmicro/stmmac/stmmac.h
-@@ -188,8 +188,6 @@ struct stmmac_priv {
- 
- #ifdef CONFIG_DEBUG_FS
- 	struct dentry *dbgfs_dir;
--	struct dentry *dbgfs_rings_status;
--	struct dentry *dbgfs_dma_cap;
- #endif
- 
- 	unsigned long state;
-diff --git a/drivers/net/ethernet/stmicro/stmmac/stmmac_main.c b/drivers/net/ethernet/stmicro/stmmac/stmmac_main.c
-index c7c9e5f162e6..f8a8e88ab05b 100644
---- a/drivers/net/ethernet/stmicro/stmmac/stmmac_main.c
-+++ b/drivers/net/ethernet/stmicro/stmmac/stmmac_main.c
-@@ -105,7 +105,7 @@ MODULE_PARM_DESC(chain_mode, "To use chain instead of ring mode");
- static irqreturn_t stmmac_interrupt(int irq, void *dev_id);
- 
- #ifdef CONFIG_DEBUG_FS
--static int stmmac_init_fs(struct net_device *dev);
-+static void stmmac_init_fs(struct net_device *dev);
- static void stmmac_exit_fs(struct net_device *dev);
- #endif
- 
-@@ -3961,45 +3961,20 @@ static int stmmac_dma_cap_show(struct seq_file *seq, void *v)
- }
- DEFINE_SHOW_ATTRIBUTE(stmmac_dma_cap);
- 
--static int stmmac_init_fs(struct net_device *dev)
-+static void stmmac_init_fs(struct net_device *dev)
- {
- 	struct stmmac_priv *priv = netdev_priv(dev);
- 
- 	/* Create per netdev entries */
- 	priv->dbgfs_dir = debugfs_create_dir(dev->name, stmmac_fs_dir);
- 
--	if (!priv->dbgfs_dir || IS_ERR(priv->dbgfs_dir)) {
--		netdev_err(priv->dev, "ERROR failed to create debugfs directory\n");
--
--		return -ENOMEM;
--	}
--
- 	/* Entry to report DMA RX/TX rings */
--	priv->dbgfs_rings_status =
--		debugfs_create_file("descriptors_status", 0444,
--				    priv->dbgfs_dir, dev,
--				    &stmmac_rings_status_fops);
--
--	if (!priv->dbgfs_rings_status || IS_ERR(priv->dbgfs_rings_status)) {
--		netdev_err(priv->dev, "ERROR creating stmmac ring debugfs file\n");
--		debugfs_remove_recursive(priv->dbgfs_dir);
--
--		return -ENOMEM;
--	}
-+	debugfs_create_file("descriptors_status", 0444, priv->dbgfs_dir, dev,
-+			    &stmmac_rings_status_fops);
- 
- 	/* Entry to report the DMA HW features */
--	priv->dbgfs_dma_cap = debugfs_create_file("dma_cap", 0444,
--						  priv->dbgfs_dir,
--						  dev, &stmmac_dma_cap_fops);
--
--	if (!priv->dbgfs_dma_cap || IS_ERR(priv->dbgfs_dma_cap)) {
--		netdev_err(priv->dev, "ERROR creating stmmac MMC debugfs file\n");
--		debugfs_remove_recursive(priv->dbgfs_dir);
--
--		return -ENOMEM;
--	}
--
--	return 0;
-+	debugfs_create_file("dma_cap", 0444, priv->dbgfs_dir, dev,
-+			    &stmmac_dma_cap_fops);
- }
- 
- static void stmmac_exit_fs(struct net_device *dev)
-@@ -4366,10 +4341,7 @@ int stmmac_dvr_probe(struct device *device,
- 	}
- 
- #ifdef CONFIG_DEBUG_FS
--	ret = stmmac_init_fs(ndev);
--	if (ret < 0)
--		netdev_warn(priv->dev, "%s: failed debugFS registration\n",
--			    __func__);
-+	stmmac_init_fs(ndev);
- #endif
- 
- 	return ret;
-@@ -4615,16 +4587,8 @@ static int __init stmmac_init(void)
- {
- #ifdef CONFIG_DEBUG_FS
- 	/* Create debugfs main directory if it doesn't exist yet */
--	if (!stmmac_fs_dir) {
-+	if (!stmmac_fs_dir)
- 		stmmac_fs_dir = debugfs_create_dir(STMMAC_RESOURCE_NAME, NULL);
--
--		if (!stmmac_fs_dir || IS_ERR(stmmac_fs_dir)) {
--			pr_err("ERROR %s, debugfs create directory failed\n",
--			       STMMAC_RESOURCE_NAME);
--
--			return -ENOMEM;
--		}
--	}
- #endif
- 
- 	return 0;
--- 
-2.22.0
+> >>
+> >> On 01/08/2019 9:14 PM, Bjorn Andersson wrote:
+> >>> On Wed 13 Mar 08:50 PDT 2019, Fabien Dessenne wrote:
+[..]
+> >> B/ This would introduce some inconsistency between the two 'request' A=
+PI
+> >> which are hwspin_lock_request() and hwspin_lock_request_specific().
+> >> hwspin_lock_request() looks for an unused lock, so requests for an exc=
+lusive
+> >> usage. On the other side, request_specific() would request shared lock=
+s.
+> >> Worst the following sequence can transform an exclusive usage into a s=
+hared
+> >>
+> > =
 
+> > There is already an inconsistency in between these; as with above any
+> > system that uses both request() and request_specific() will be suffering
+> > from intermittent failures due to probe ordering.
+> > =
+
+> >> one:
+> >>  =A0 -hwspin_lock_request() -> returns Id#0 (exclusive)
+> >>  =A0 -hwspin_lock_request() -> returns Id#1 (exclusive)
+> >>  =A0 -hwspin_lock_request_specific(0) -> returns Id#0 and makes Id#0 s=
+hared
+> >> Honestly I am not sure that this is a real issue, but it's better to h=
+ave it
+> >> in mind before we take ay decision
+> =
+
+> Wouldn't it be actually simpler to just introduce a new specific API
+> variant for this, similar to the reset core for example (it uses a
+> separate exclusive API), without having to modify the bindings at all.
+> It is just a case of your driver using the right API, and the core can
+> be modified to use the additional tag semantics based on the API. It
+> should avoid any confusion with say using a different second cell value
+> for the same lock in two different nodes.
+> =
+
+
+But this implies that there is an actual need to hold these locks
+exclusively. Given that they are (except for the raw case) all wrapped
+by Linux locking primitives there shouldn't be a problem sharing a lock
+(except possibly for the raw case).
+
+
+I agree that we shouldn't specify this property in DT - if anything it
+should be a variant of the API.
+
+> If you are sharing a hwlock on the Linux side, surely your driver should
+> be aware that it is a shared lock. The tag can be set during the first
+> request API, and you look through both tags when giving out a handle.
+> =
+
+
+Why would the driver need to know about it?
+
+> Obviously, the hwspin_lock_request() API usage semantics always had the
+> implied additional need for communicating the lock id to the other peer
+> entity, so a realistic usage is most always the specific API variant. I
+> doubt this API would be of much use for the shared driver usage. This
+> also implies that the client user does not care about specifying a lock
+> in DT.
+> =
+
+
+Afaict if the lock are shared then there shouldn't be a problem with
+some clients using the request API and others request_specific(). As any
+collisions would simply mean that there are more contention on the lock.
+
+With the current exclusive model that is not possible and the success of
+the request_specific will depend on probe order.
+
+But perhaps it should be explicitly prohibited to use both APIs on the
+same hwspinlock instance?
+
+Regards,
+Bjorn
 _______________________________________________
 Linux-stm32 mailing list
 Linux-stm32@st-md-mailman.stormreply.com
