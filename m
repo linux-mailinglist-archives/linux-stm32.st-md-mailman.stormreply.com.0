@@ -2,72 +2,49 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id 9BEAC84607
-	for <lists+linux-stm32@lfdr.de>; Wed,  7 Aug 2019 09:32:10 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 1F6AD84695
+	for <lists+linux-stm32@lfdr.de>; Wed,  7 Aug 2019 10:03:38 +0200 (CEST)
 Received: from ip-172-31-3-76.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 4B245C35E05;
-	Wed,  7 Aug 2019 07:32:10 +0000 (UTC)
-Received: from lelv0143.ext.ti.com (lelv0143.ext.ti.com [198.47.23.248])
- (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id D269FC35E05;
+	Wed,  7 Aug 2019 08:03:32 +0000 (UTC)
+Received: from smtprelay-out1.synopsys.com (dc2-smtprelay2.synopsys.com
+ [198.182.61.142])
+ (using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 5F72AC36B3E
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 172E1C35E03
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Tue,  6 Aug 2019 21:30:32 +0000 (UTC)
-Received: from lelv0266.itg.ti.com ([10.180.67.225])
- by lelv0143.ext.ti.com (8.15.2/8.15.2) with ESMTP id x76LUIHF012505;
- Tue, 6 Aug 2019 16:30:18 -0500
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=ti.com;
- s=ti-com-17Q1; t=1565127018;
- bh=WdeZC33FQzUWVkojwaOQI3NxAt+YMap5Tl9hn+mPGaA=;
- h=Subject:To:CC:References:From:Date:In-Reply-To;
- b=kOAGLiHHmutdic+kFgKihOFdUxHKB7ihp+q0M1HR8vSrqzCpkJvEw4p6uF7yWq+JO
- ff4xkY1QqHsvraG3Urzv98BF+dmBOffCU3lytoIrcPlUzD25N9ZHsjb4blGVvoS3bd
- wunaAkYh25prIMpCyfE1RcAigwMMzRfE6zg9awew=
-Received: from DLEE114.ent.ti.com (dlee114.ent.ti.com [157.170.170.25])
- by lelv0266.itg.ti.com (8.15.2/8.15.2) with ESMTPS id x76LUIEn119700
- (version=TLSv1.2 cipher=AES256-GCM-SHA384 bits=256 verify=FAIL);
- Tue, 6 Aug 2019 16:30:18 -0500
-Received: from DLEE105.ent.ti.com (157.170.170.35) by DLEE114.ent.ti.com
- (157.170.170.25) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_128_CBC_SHA256_P256) id 15.1.1713.5; Tue, 6 Aug
- 2019 16:30:18 -0500
-Received: from lelv0326.itg.ti.com (10.180.67.84) by DLEE105.ent.ti.com
- (157.170.170.35) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_128_CBC_SHA256_P256) id 15.1.1713.5 via
- Frontend Transport; Tue, 6 Aug 2019 16:30:18 -0500
-Received: from [128.247.58.153] (ileax41-snat.itg.ti.com [10.172.224.153])
- by lelv0326.itg.ti.com (8.15.2/8.15.2) with ESMTP id x76LUH4a105393;
- Tue, 6 Aug 2019 16:30:18 -0500
-To: Bjorn Andersson <bjorn.andersson@linaro.org>
-References: <1552492237-28810-1-git-send-email-fabien.dessenne@st.com>
- <20190801191403.GA7234@tuxbook-pro>
- <1a057176-81ab-e302-4375-2717ceef6924@st.com>
- <20190805174659.GA23928@tuxbook-pro>
- <dcd1aeea-cffe-d5fb-af5a-e52efcc2e046@ti.com>
- <20190806182128.GD26807@tuxbook-pro>
-From: Suman Anna <s-anna@ti.com>
-Message-ID: <1aea3d28-29dc-f9de-3b86-cf777e0d5caa@ti.com>
-Date: Tue, 6 Aug 2019 16:30:17 -0500
-User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:60.0) Gecko/20100101
- Thunderbird/60.6.1
-MIME-Version: 1.0
-In-Reply-To: <20190806182128.GD26807@tuxbook-pro>
-Content-Language: en-US
-X-EXCLAIMER-MD-CONFIG: e1e8a2fd-e40a-4ac6-ac9b-f7e9cc9ee180
-X-Mailman-Approved-At: Wed, 07 Aug 2019 07:32:09 +0000
-Cc: Ohad Ben-Cohen <ohad@wizery.com>, Mark Rutland <mark.rutland@arm.com>,
- Jonathan Corbet <corbet@lwn.net>,
- "linux-doc@vger.kernel.org" <linux-doc@vger.kernel.org>,
- "linux-remoteproc@vger.kernel.org" <linux-remoteproc@vger.kernel.org>,
- "linux-kernel@vger.kernel.org" <linux-kernel@vger.kernel.org>,
- Fabien DESSENNE <fabien.dessenne@st.com>,
- "devicetree@vger.kernel.org" <devicetree@vger.kernel.org>,
- Rob Herring <robh+dt@kernel.org>, Maxime Coquelin <mcoquelin.stm32@gmail.com>,
- "linux-stm32@st-md-mailman.stormreply.com"
- <linux-stm32@st-md-mailman.stormreply.com>,
- "linux-arm-kernel@lists.infradead.org" <linux-arm-kernel@lists.infradead.org>
-Subject: Re: [Linux-stm32] [PATCH 0/6] hwspinlock: allow sharing of
-	hwspinlocks
+ Wed,  7 Aug 2019 08:03:30 +0000 (UTC)
+Received: from mailhost.synopsys.com (mdc-mailhost2.synopsys.com
+ [10.225.0.210])
+ (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits))
+ (No client certificate requested)
+ by smtprelay-out1.synopsys.com (Postfix) with ESMTPS id 9135FC0BBE;
+ Wed,  7 Aug 2019 08:03:27 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=synopsys.com; s=mail;
+ t=1565165008; bh=bHZeuqh+A4HXIxvR7wW8nFizE/h0mhPF5BRmuOVjENw=;
+ h=From:To:Cc:Subject:Date:From;
+ b=jRTcCVg+hjilIDAzB0b/6j2tuuirHwQ26dmyfMl8cky41nMHGV4s/V6egPWmw/kG8
+ YLleJaVQjG+OG/A1fRPUcdLEw/3wu6dSFUk9nFOTi/vkxm+yUugykBept9oTcSRbZq
+ YXhUPAXdjc52+T1quqZKngZvWyfefdXmZQwiN49UxxalxH6LyCjVg3UCTIyU0r63Ar
+ Y5pZOstknQDF6g4y+dKc09GZK2alU0Xa68p5VJxbaxzbi95Uj2BgkVsKXiEMHqCis6
+ f9fPLrQvCZvhk4SJrrLKlKBpSEHHvRcpUD9rK5bza2pg5e6gaLeDHva93NgQyVM3Vf
+ JhqajgFIpezcg==
+Received: from de02dwia024.internal.synopsys.com
+ (de02dwia024.internal.synopsys.com [10.225.19.81])
+ by mailhost.synopsys.com (Postfix) with ESMTP id 883C7A0057;
+ Wed,  7 Aug 2019 08:03:25 +0000 (UTC)
+From: Jose Abreu <Jose.Abreu@synopsys.com>
+To: netdev@vger.kernel.org
+Date: Wed,  7 Aug 2019 10:03:08 +0200
+Message-Id: <cover.1565164729.git.joabreu@synopsys.com>
+X-Mailer: git-send-email 2.7.4
+Cc: Jose Abreu <Jose.Abreu@synopsys.com>, Joao Pinto <Joao.Pinto@synopsys.com>,
+ linux-kernel@vger.kernel.org, linux-stm32@st-md-mailman.stormreply.com,
+ Maxime Coquelin <mcoquelin.stm32@gmail.com>,
+ Giuseppe Cavallaro <peppe.cavallaro@st.com>,
+ "David S. Miller" <davem@davemloft.net>, linux-arm-kernel@lists.infradead.org
+Subject: [Linux-stm32] [PATCH net-next v3 00/10] net: stmmac: Improvements
+	for -next
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -79,90 +56,61 @@ List-Post: <mailto:linux-stm32@st-md-mailman.stormreply.com>
 List-Help: <mailto:linux-stm32-request@st-md-mailman.stormreply.com?subject=help>
 List-Subscribe: <https://st-md-mailman.stormreply.com/mailman/listinfo/linux-stm32>, 
  <mailto:linux-stm32-request@st-md-mailman.stormreply.com?subject=subscribe>
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: base64
+MIME-Version: 1.0
+Content-Type: text/plain; charset="us-ascii"
+Content-Transfer-Encoding: 7bit
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
-T24gOC82LzE5IDE6MjEgUE0sIEJqb3JuIEFuZGVyc3NvbiB3cm90ZToKPiBPbiBUdWUgMDYgQXVn
-IDEwOjM4IFBEVCAyMDE5LCBTdW1hbiBBbm5hIHdyb3RlOgo+IAo+PiBIaSBGYWJpZW4sCj4+Cj4+
-IE9uIDgvNS8xOSAxMjo0NiBQTSwgQmpvcm4gQW5kZXJzc29uIHdyb3RlOgo+Pj4gT24gTW9uIDA1
-IEF1ZyAwMTo0OCBQRFQgMjAxOSwgRmFiaWVuIERFU1NFTk5FIHdyb3RlOgo+Pj4KPj4+Pgo+Pj4+
-IE9uIDAxLzA4LzIwMTkgOToxNCBQTSwgQmpvcm4gQW5kZXJzc29uIHdyb3RlOgo+Pj4+PiBPbiBX
-ZWQgMTMgTWFyIDA4OjUwIFBEVCAyMDE5LCBGYWJpZW4gRGVzc2VubmUgd3JvdGU6Cj4gWy4uXQo+
-Pj4+IEIvIFRoaXMgd291bGQgaW50cm9kdWNlIHNvbWUgaW5jb25zaXN0ZW5jeSBiZXR3ZWVuIHRo
-ZSB0d28gJ3JlcXVlc3QnIEFQSQo+Pj4+IHdoaWNoIGFyZSBod3NwaW5fbG9ja19yZXF1ZXN0KCkg
-YW5kIGh3c3Bpbl9sb2NrX3JlcXVlc3Rfc3BlY2lmaWMoKS4KPj4+PiBod3NwaW5fbG9ja19yZXF1
-ZXN0KCkgbG9va3MgZm9yIGFuIHVudXNlZCBsb2NrLCBzbyByZXF1ZXN0cyBmb3IgYW4gZXhjbHVz
-aXZlCj4+Pj4gdXNhZ2UuIE9uIHRoZSBvdGhlciBzaWRlLCByZXF1ZXN0X3NwZWNpZmljKCkgd291
-bGQgcmVxdWVzdCBzaGFyZWQgbG9ja3MuCj4+Pj4gV29yc3QgdGhlIGZvbGxvd2luZyBzZXF1ZW5j
-ZSBjYW4gdHJhbnNmb3JtIGFuIGV4Y2x1c2l2ZSB1c2FnZSBpbnRvIGEgc2hhcmVkCj4+Pj4KPj4+
-Cj4+PiBUaGVyZSBpcyBhbHJlYWR5IGFuIGluY29uc2lzdGVuY3kgaW4gYmV0d2VlbiB0aGVzZTsg
-YXMgd2l0aCBhYm92ZSBhbnkKPj4+IHN5c3RlbSB0aGF0IHVzZXMgYm90aCByZXF1ZXN0KCkgYW5k
-IHJlcXVlc3Rfc3BlY2lmaWMoKSB3aWxsIGJlIHN1ZmZlcmluZwo+Pj4gZnJvbSBpbnRlcm1pdHRl
-bnQgZmFpbHVyZXMgZHVlIHRvIHByb2JlIG9yZGVyaW5nLgo+Pj4KPj4+PiBvbmU6Cj4+Pj4gIMKg
-IC1od3NwaW5fbG9ja19yZXF1ZXN0KCkgLT4gcmV0dXJucyBJZCMwIChleGNsdXNpdmUpCj4+Pj4g
-IMKgIC1od3NwaW5fbG9ja19yZXF1ZXN0KCkgLT4gcmV0dXJucyBJZCMxIChleGNsdXNpdmUpCj4+
-Pj4gIMKgIC1od3NwaW5fbG9ja19yZXF1ZXN0X3NwZWNpZmljKDApIC0+IHJldHVybnMgSWQjMCBh
-bmQgbWFrZXMgSWQjMCBzaGFyZWQKPj4+PiBIb25lc3RseSBJIGFtIG5vdCBzdXJlIHRoYXQgdGhp
-cyBpcyBhIHJlYWwgaXNzdWUsIGJ1dCBpdCdzIGJldHRlciB0byBoYXZlIGl0Cj4+Pj4gaW4gbWlu
-ZCBiZWZvcmUgd2UgdGFrZSBheSBkZWNpc2lvbgo+Pgo+PiBXb3VsZG4ndCBpdCBiZSBhY3R1YWxs
-eSBzaW1wbGVyIHRvIGp1c3QgaW50cm9kdWNlIGEgbmV3IHNwZWNpZmljIEFQSQo+PiB2YXJpYW50
-IGZvciB0aGlzLCBzaW1pbGFyIHRvIHRoZSByZXNldCBjb3JlIGZvciBleGFtcGxlIChpdCB1c2Vz
-IGEKPj4gc2VwYXJhdGUgZXhjbHVzaXZlIEFQSSksIHdpdGhvdXQgaGF2aW5nIHRvIG1vZGlmeSB0
-aGUgYmluZGluZ3MgYXQgYWxsLgo+PiBJdCBpcyBqdXN0IGEgY2FzZSBvZiB5b3VyIGRyaXZlciB1
-c2luZyB0aGUgcmlnaHQgQVBJLCBhbmQgdGhlIGNvcmUgY2FuCj4+IGJlIG1vZGlmaWVkIHRvIHVz
-ZSB0aGUgYWRkaXRpb25hbCB0YWcgc2VtYW50aWNzIGJhc2VkIG9uIHRoZSBBUEkuIEl0Cj4+IHNo
-b3VsZCBhdm9pZCBhbnkgY29uZnVzaW9uIHdpdGggc2F5IHVzaW5nIGEgZGlmZmVyZW50IHNlY29u
-ZCBjZWxsIHZhbHVlCj4+IGZvciB0aGUgc2FtZSBsb2NrIGluIHR3byBkaWZmZXJlbnQgbm9kZXMu
-Cj4+Cj4gCj4gQnV0IHRoaXMgaW1wbGllcyB0aGF0IHRoZXJlIGlzIGFuIGFjdHVhbCBuZWVkIHRv
-IGhvbGQgdGhlc2UgbG9ja3MKPiBleGNsdXNpdmVseS4gR2l2ZW4gdGhhdCB0aGV5IGFyZSAoZXhj
-ZXB0IGZvciB0aGUgcmF3IGNhc2UpIGFsbCB3cmFwcGVkCj4gYnkgTGludXggbG9ja2luZyBwcmlt
-aXRpdmVzIHRoZXJlIHNob3VsZG4ndCBiZSBhIHByb2JsZW0gc2hhcmluZyBhIGxvY2sKPiAoZXhj
-ZXB0IHBvc3NpYmx5IGZvciB0aGUgcmF3IGNhc2UpLgoKWWVzIGFncmVlZCwgdGhlIEhXTE9DS19S
-QVcgYW5kIEhXTE9DS19JTl9BVE9NSUMgY2FzZXMgYXJlIHVucHJvdGVjdGVkLiBJCmFtIHN0aWxs
-IHRyeWluZyB0byB1bmRlcnN0YW5kIGJldHRlciB0aGUgdXNlY2FzZSB0byBzZWUgaWYgdGhlIHNh
-bWUgbG9jawppcyBiZWluZyBtdWx0aXBsZXhlZCBmb3IgZGlmZmVyZW50IHByb3RlY3Rpb24gY29u
-dGV4dHMsIG9yIGlmIGFsbCBvZgp0aGVtIGFyZSBwcm90ZWN0aW5nIHRoZSBzYW1lIGNvbnRleHQu
-Cgo+IAo+IEkgYWdyZWUgdGhhdCB3ZSBzaG91bGRuJ3Qgc3BlY2lmeSB0aGlzIHByb3BlcnR5IGlu
-IERUIC0gaWYgYW55dGhpbmcgaXQKPiBzaG91bGQgYmUgYSB2YXJpYW50IG9mIHRoZSBBUEkuCj4g
-Cj4+IElmIHlvdSBhcmUgc2hhcmluZyBhIGh3bG9jayBvbiB0aGUgTGludXggc2lkZSwgc3VyZWx5
-IHlvdXIgZHJpdmVyIHNob3VsZAo+PiBiZSBhd2FyZSB0aGF0IGl0IGlzIGEgc2hhcmVkIGxvY2su
-IFRoZSB0YWcgY2FuIGJlIHNldCBkdXJpbmcgdGhlIGZpcnN0Cj4+IHJlcXVlc3QgQVBJLCBhbmQg
-eW91IGxvb2sgdGhyb3VnaCBib3RoIHRhZ3Mgd2hlbiBnaXZpbmcgb3V0IGEgaGFuZGxlLgo+Pgo+
-IAo+IFdoeSB3b3VsZCB0aGUgZHJpdmVyIG5lZWQgdG8ga25vdyBhYm91dCBpdD8KCkp1c3QgdGhl
-IHNlbWFudGljcyBpZiB3ZSB3ZXJlIHRvIHN1cHBvcnQgc2luZ2xlIHVzZXIgdnMgbXVsdGlwbGUg
-dXNlcnMKb24gTGludXgtc2lkZSB0byBldmVuIGdldCBhIGhhbmRsZS4gWW91ciBwb2ludCBpcyB0
-aGF0IHRoaXMgbWF5IGJlIG1vb3QKc2luY2Ugd2UgaGF2ZSBwcm90ZWN0aW9uIGFueXdheSBvdGhl
-ciB0aGFuIHRoZSByYXcgY2FzZXMuIEJ1dCB3ZSBuZWVkIHRvCmJlIGFibGUgdG8gaGF2ZSB0aGUg
-c2FtZSBBUEkgd29yayBhY3Jvc3MgYWxsIGNhc2VzLgoKU28gZmFyLCBpdCBoYWQgbW9zdGx5IGJl
-ZW4gdGhhdCB0aGVyZSB3b3VsZCBiZSBvbmUgdXNlciBvbiBMaW51eApjb21wZXRpbmcgd2l0aCBv
-dGhlciBlcXVpdmFsZW50IHBlZXIgZW50aXRpZXMgb24gZGlmZmVyZW50IHByb2Nlc3NvcnMuCkl0
-IGlzIG5vdCBjb21tb24gdG8gaGF2ZSBtdWx0aXBsZSB1c2VycyBzaW5jZSB0aGVzZSBwcm90ZWN0
-aW9uIHNjaGVtZXMKYXJlIHVzdWFsbHkgbmVlZGVkIG9ubHkgYXQgdGhlIGxvd2VzdCBsZXZlbHMg
-b2YgYSBzdGFjaywgc28gdGhlCmV4Y2x1c2l2ZSBoYW5kbGUgc3R1ZmYgaGFkIGJlZW4gc3VmZmlj
-aWVudC4KCj4gCj4+IE9idmlvdXNseSwgdGhlIGh3c3Bpbl9sb2NrX3JlcXVlc3QoKSBBUEkgdXNh
-Z2Ugc2VtYW50aWNzIGFsd2F5cyBoYWQgdGhlCj4+IGltcGxpZWQgYWRkaXRpb25hbCBuZWVkIGZv
-ciBjb21tdW5pY2F0aW5nIHRoZSBsb2NrIGlkIHRvIHRoZSBvdGhlciBwZWVyCj4+IGVudGl0eSwg
-c28gYSByZWFsaXN0aWMgdXNhZ2UgaXMgbW9zdCBhbHdheXMgdGhlIHNwZWNpZmljIEFQSSB2YXJp
-YW50LiBJCj4+IGRvdWJ0IHRoaXMgQVBJIHdvdWxkIGJlIG9mIG11Y2ggdXNlIGZvciB0aGUgc2hh
-cmVkIGRyaXZlciB1c2FnZS4gVGhpcwo+PiBhbHNvIGltcGxpZXMgdGhhdCB0aGUgY2xpZW50IHVz
-ZXIgZG9lcyBub3QgY2FyZSBhYm91dCBzcGVjaWZ5aW5nIGEgbG9jawo+PiBpbiBEVC4KPj4KPiAK
-PiBBZmFpY3QgaWYgdGhlIGxvY2sgYXJlIHNoYXJlZCB0aGVuIHRoZXJlIHNob3VsZG4ndCBiZSBh
-IHByb2JsZW0gd2l0aAo+IHNvbWUgY2xpZW50cyB1c2luZyB0aGUgcmVxdWVzdCBBUEkgYW5kIG90
-aGVycyByZXF1ZXN0X3NwZWNpZmljKCkuIEFzIGFueQo+IGNvbGxpc2lvbnMgd291bGQgc2ltcGx5
-IG1lYW4gdGhhdCB0aGVyZSBhcmUgbW9yZSBjb250ZW50aW9uIG9uIHRoZSBsb2NrLgo+IAo+IFdp
-dGggdGhlIGN1cnJlbnQgZXhjbHVzaXZlIG1vZGVsIHRoYXQgaXMgbm90IHBvc3NpYmxlIGFuZCB0
-aGUgc3VjY2VzcyBvZgo+IHRoZSByZXF1ZXN0X3NwZWNpZmljIHdpbGwgZGVwZW5kIG9uIHByb2Jl
-IG9yZGVyLgo+IAo+IEJ1dCBwZXJoYXBzIGl0IHNob3VsZCBiZSBleHBsaWNpdGx5IHByb2hpYml0
-ZWQgdG8gdXNlIGJvdGggQVBJcyBvbiB0aGUKPiBzYW1lIGh3c3BpbmxvY2sgaW5zdGFuY2U/CgpZ
-ZWFoLCB0aGV5IGFyZSBtZWFudCB0byBiZSBjb21wbGltZW50YXJ5IHVzYWdlLCB0aG91Z2ggSSBk
-b3VidCB3ZSB3aWxsCmV2ZXIgaGF2ZSBhbnkgcmVhbGlzdGljIHVzZXJzIGZvciB0aGUgZ2VuZXJp
-YyBBUEkgaWYgd2UgaGF2ZW4ndCBoYWQgYQp1c2FnZSBzbyBmYXIuIEkgaGFkIHBvc3RlZCBhIGNv
-bmNlcHQgb2YgcmVzZXJ2ZWQgbG9ja3MgbG9uZyBiYWNrIFsxXSB0bwprZWVwIGF3YXkgY2VydGFp
-biBsb2NrcyBmcm9tIHRoZSBnZW5lcmljIHJlcXVlc3RvciwgYnV0IGRyb3BwZWQgaXQgc2luY2UK
-d2UgZGlkIG5vdCBoYXZlIGFuIGFjdHVhbCB1c2UtY2FzZSBuZWVkaW5nIGl0LgoKcmVnYXJkcwpT
-dW1hbgoKWzFdIGh0dHBzOi8vbHduLm5ldC9BcnRpY2xlcy82MTE5NDQvCl9fX19fX19fX19fX19f
-X19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fCkxpbnV4LXN0bTMyIG1haWxpbmcgbGlz
-dApMaW51eC1zdG0zMkBzdC1tZC1tYWlsbWFuLnN0b3JtcmVwbHkuY29tCmh0dHBzOi8vc3QtbWQt
-bWFpbG1hbi5zdG9ybXJlcGx5LmNvbS9tYWlsbWFuL2xpc3RpbmZvL2xpbnV4LXN0bTMyCg==
+[ This is just a rebase of v2 into latest -next in order to avoid a merge
+conflict ]
+
+Couple of improvements for -next tree. More info in commit logs.
+
+---
+Cc: Giuseppe Cavallaro <peppe.cavallaro@st.com>
+Cc: Alexandre Torgue <alexandre.torgue@st.com>
+Cc: Jose Abreu <joabreu@synopsys.com>
+Cc: "David S. Miller" <davem@davemloft.net>
+Cc: Maxime Coquelin <mcoquelin.stm32@gmail.com>
+Cc: netdev@vger.kernel.org
+Cc: linux-stm32@st-md-mailman.stormreply.com
+Cc: linux-arm-kernel@lists.infradead.org
+Cc: linux-kernel@vger.kernel.org
+---
+
+Jose Abreu (10):
+  net: stmmac: xgmac: Implement MMC counters
+  net: stmmac: xgmac: Implement set_mtl_tx_queue_weight()
+  net: stmmac: xgmac: Implement tx_queue_prio()
+  net: stmmac: Implement RSS and enable it in XGMAC core
+  net: stmmac: selftests: Add RSS test
+  net: stmmac: Implement VLAN Hash Filtering in XGMAC
+  net: stmmac: selftests: Add test for VLAN and Double VLAN Filtering
+  net: stmmac: Implement Safety Features in XGMAC core
+  net: stmmac: Add Flexible RX Parser support in XGMAC
+  net: stmmac: selftests: Add a selftest for Flexible RX Parser
+
+ drivers/net/ethernet/stmicro/stmmac/common.h       |   6 +
+ drivers/net/ethernet/stmicro/stmmac/dwxgmac2.h     |  76 ++-
+ .../net/ethernet/stmicro/stmmac/dwxgmac2_core.c    | 605 ++++++++++++++++++++-
+ .../net/ethernet/stmicro/stmmac/dwxgmac2_descs.c   |  29 +
+ drivers/net/ethernet/stmicro/stmmac/dwxgmac2_dma.c |  10 +
+ drivers/net/ethernet/stmicro/stmmac/hwif.c         |   4 +-
+ drivers/net/ethernet/stmicro/stmmac/hwif.h         |  17 +
+ drivers/net/ethernet/stmicro/stmmac/mmc.h          |   9 +
+ drivers/net/ethernet/stmicro/stmmac/mmc_core.c     | 192 +++++++
+ drivers/net/ethernet/stmicro/stmmac/stmmac.h       |  11 +
+ .../net/ethernet/stmicro/stmmac/stmmac_ethtool.c   |  81 +++
+ drivers/net/ethernet/stmicro/stmmac/stmmac_main.c  | 120 +++-
+ .../net/ethernet/stmicro/stmmac/stmmac_selftests.c | 322 ++++++++++-
+ include/linux/stmmac.h                             |   1 +
+ 14 files changed, 1474 insertions(+), 9 deletions(-)
+
+-- 
+2.7.4
+
+_______________________________________________
+Linux-stm32 mailing list
+Linux-stm32@st-md-mailman.stormreply.com
+https://st-md-mailman.stormreply.com/mailman/listinfo/linux-stm32
