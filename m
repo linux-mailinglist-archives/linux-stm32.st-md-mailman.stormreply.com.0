@@ -2,42 +2,42 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id 6F0AE8469A
+	by mail.lfdr.de (Postfix) with ESMTPS id 3286E84697
 	for <lists+linux-stm32@lfdr.de>; Wed,  7 Aug 2019 10:03:38 +0200 (CEST)
 Received: from ip-172-31-3-76.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id D7B96C349EC;
-	Wed,  7 Aug 2019 08:03:33 +0000 (UTC)
-Received: from smtprelay-out1.synopsys.com (smtprelay-out1.synopsys.com
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id E5334C35E08;
+	Wed,  7 Aug 2019 08:03:32 +0000 (UTC)
+Received: from smtprelay-out1.synopsys.com (dc2-smtprelay2.synopsys.com
  [198.182.61.142])
  (using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id BA92FC35E03
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id EE04EC36B3F
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Wed,  7 Aug 2019 08:03:30 +0000 (UTC)
+ Wed,  7 Aug 2019 08:03:29 +0000 (UTC)
 Received: from mailhost.synopsys.com (mdc-mailhost2.synopsys.com
  [10.225.0.210])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits))
  (No client certificate requested)
- by smtprelay-out1.synopsys.com (Postfix) with ESMTPS id 9B944C0BC7;
+ by smtprelay-out1.synopsys.com (Postfix) with ESMTPS id 9F95EC0BD0;
  Wed,  7 Aug 2019 08:03:27 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=synopsys.com; s=mail;
- t=1565165009; bh=A6oJ3xy+X62gQqMeT+1xG7LvX7bhvMEUhkdkX+YYtXg=;
+ t=1565165008; bh=SAjBsqpaJXqi+dF6OXS+5et5v2cw5mG0s/Z67cMC8Sk=;
  h=From:To:Cc:Subject:Date:In-Reply-To:References:In-Reply-To:
  References:From;
- b=YgAQBglMvUPpv/YlJ3KX/Z8ticroiUojCRdEnWVkkgf3uz8dsf99Eq3615Cfk3aW5
- exi94PBNPiLiuMQwadQJPHfrK51PUz7PRZLKcyUUHOHlcjMpYpxGJrkq7yG3pQxxks
- OYLMBvPrsZ8aEKEnyv4nPu10a8kBK3tK3Q1Q4cnb1LNfuUqL1rz3/7Rp1m1UWs2/kZ
- mk3Msj/vv3icxN4KFDXYBfHqS9pcG96DAR6ozIrGX3xyjC+F4tTN0nHXJAQs5NdnrL
- BUJhpjZC/7GVgYuzFbbGRdWmwpXmGRMxwinMK7eBdjEyF+ipz4CS7oeJQdvil1MKy4
- gcMqSrxPt3b4w==
+ b=d8E2LYX9KdolLg9JJltUZONxaPLYTp/Dcuiw9qT+94NeXo+GTIKb0+s396kLXURoQ
+ L7jib4NdMrHjZsxc9k4B7Ioe5e07gmuA/8X4BcjFlgPKAC1b81Q4V2sQ1QV7yrZLZH
+ Xhcqa7q+jIDyzUC+qWVNXWyfj4V6hn/EXquoyNVNGk+xfh3KtmEyW4VM/44rU4cHKM
+ dVlnpTPsklbabjdw09Py/19Sz9iw4rvrR6gL5v53fo05Sc0vQh+deucqLKysZRRBhl
+ PMCw0jHNdUgKZ0tKUljZoG4nqVojj2eqVSkV/06SXdF9FkdrW97+BEwmlLP7RaJOSf
+ JWnSQWhvw5WnA==
 Received: from de02dwia024.internal.synopsys.com
  (de02dwia024.internal.synopsys.com [10.225.19.81])
- by mailhost.synopsys.com (Postfix) with ESMTP id 29675A0066;
+ by mailhost.synopsys.com (Postfix) with ESMTP id 3E9D1A0067;
  Wed,  7 Aug 2019 08:03:26 +0000 (UTC)
 From: Jose Abreu <Jose.Abreu@synopsys.com>
 To: netdev@vger.kernel.org
-Date: Wed,  7 Aug 2019 10:03:10 +0200
-Message-Id: <c5b536e9eed3e0d8caa80e845a8ce508f8ef1b8f.1565164729.git.joabreu@synopsys.com>
+Date: Wed,  7 Aug 2019 10:03:11 +0200
+Message-Id: <ed0a5e81de71c28f2749698ccbf77ce0b19a6ad7.1565164729.git.joabreu@synopsys.com>
 X-Mailer: git-send-email 2.7.4
 In-Reply-To: <cover.1565164729.git.joabreu@synopsys.com>
 References: <cover.1565164729.git.joabreu@synopsys.com>
@@ -48,8 +48,8 @@ Cc: Jose Abreu <Jose.Abreu@synopsys.com>, Joao Pinto <Joao.Pinto@synopsys.com>,
  Maxime Coquelin <mcoquelin.stm32@gmail.com>,
  Giuseppe Cavallaro <peppe.cavallaro@st.com>,
  "David S. Miller" <davem@davemloft.net>, linux-arm-kernel@lists.infradead.org
-Subject: [Linux-stm32] [PATCH net-next v3 02/10] net: stmmac: xgmac:
-	Implement set_mtl_tx_queue_weight()
+Subject: [Linux-stm32] [PATCH net-next v3 03/10] net: stmmac: xgmac:
+	Implement tx_queue_prio()
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -67,8 +67,7 @@ Content-Transfer-Encoding: 7bit
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
-Implement the TX Queue Weight callback. In order for this to be active
-we also need to set ETS algorithm when configuring Queue.
+Implement the TX Queue Priority callback in XGMAC core.
 
 Signed-off-by: Jose Abreu <joabreu@synopsys.com>
 
@@ -83,61 +82,62 @@ Cc: linux-stm32@st-md-mailman.stormreply.com
 Cc: linux-arm-kernel@lists.infradead.org
 Cc: linux-kernel@vger.kernel.org
 ---
- .../net/ethernet/stmicro/stmmac/dwxgmac2_core.c    | 22 +++++++++++++++++++++-
- 1 file changed, 21 insertions(+), 1 deletion(-)
+ drivers/net/ethernet/stmicro/stmmac/dwxgmac2.h      |  4 ++++
+ drivers/net/ethernet/stmicro/stmmac/dwxgmac2_core.c | 19 ++++++++++++++++++-
+ 2 files changed, 22 insertions(+), 1 deletion(-)
 
+diff --git a/drivers/net/ethernet/stmicro/stmmac/dwxgmac2.h b/drivers/net/ethernet/stmicro/stmmac/dwxgmac2.h
+index 86a42bc39d21..b77091161765 100644
+--- a/drivers/net/ethernet/stmicro/stmmac/dwxgmac2.h
++++ b/drivers/net/ethernet/stmicro/stmmac/dwxgmac2.h
+@@ -127,6 +127,10 @@
+ #define XGMAC_MTL_RXQ_DMA_MAP1		0x00001034
+ #define XGMAC_QxMDMACH(x)		GENMASK((x) * 8 + 3, (x) * 8)
+ #define XGMAC_QxMDMACH_SHIFT(x)		((x) * 8)
++#define XGMAC_TC_PRTY_MAP0		0x00001040
++#define XGMAC_TC_PRTY_MAP1		0x00001044
++#define XGMAC_PSTC(x)			GENMASK((x) * 8 + 7, (x) * 8)
++#define XGMAC_PSTC_SHIFT(x)		((x) * 8)
+ #define XGMAC_MTL_TXQ_OPMODE(x)		(0x00001100 + (0x80 * (x)))
+ #define XGMAC_TQS			GENMASK(25, 16)
+ #define XGMAC_TQS_SHIFT			16
 diff --git a/drivers/net/ethernet/stmicro/stmmac/dwxgmac2_core.c b/drivers/net/ethernet/stmicro/stmmac/dwxgmac2_core.c
-index 85c68b7ee8c6..ce6503dfc86d 100644
+index ce6503dfc86d..bfbd5ae11540 100644
 --- a/drivers/net/ethernet/stmicro/stmmac/dwxgmac2_core.c
 +++ b/drivers/net/ethernet/stmicro/stmmac/dwxgmac2_core.c
-@@ -144,7 +144,9 @@ static void dwxgmac2_prog_mtl_tx_algorithms(struct mac_device_info *hw,
- 					    u32 tx_alg)
- {
- 	void __iomem *ioaddr = hw->pcsr;
-+	bool ets = true;
- 	u32 value;
-+	int i;
- 
- 	value = readl(ioaddr + XGMAC_MTL_OPMODE);
- 	value &= ~XGMAC_ETSALG;
-@@ -160,10 +162,28 @@ static void dwxgmac2_prog_mtl_tx_algorithms(struct mac_device_info *hw,
- 		value |= XGMAC_DWRR;
- 		break;
- 	default:
-+		ets = false;
- 		break;
- 	}
- 
- 	writel(value, ioaddr + XGMAC_MTL_OPMODE);
-+
-+	/* Set ETS if desired */
-+	for (i = 0; i < MTL_MAX_TX_QUEUES; i++) {
-+		value = readl(ioaddr + XGMAC_MTL_TCx_ETS_CONTROL(i));
-+		value &= ~XGMAC_TSA;
-+		if (ets)
-+			value |= XGMAC_ETS;
-+		writel(value, ioaddr + XGMAC_MTL_TCx_ETS_CONTROL(i));
-+	}
-+}
-+
-+static void dwxgmac2_set_mtl_tx_queue_weight(struct mac_device_info *hw,
-+					     u32 weight, u32 queue)
-+{
-+	void __iomem *ioaddr = hw->pcsr;
-+
-+	writel(weight, ioaddr + XGMAC_MTL_TCx_QUANTUM_WEIGHT(queue));
+@@ -118,6 +118,23 @@ static void dwxgmac2_rx_queue_prio(struct mac_device_info *hw, u32 prio,
+ 	writel(value, ioaddr + reg);
  }
  
- static void dwxgmac2_map_mtl_to_dma(struct mac_device_info *hw, u32 queue,
-@@ -412,7 +432,7 @@ const struct stmmac_ops dwxgmac210_ops = {
++static void dwxgmac2_tx_queue_prio(struct mac_device_info *hw, u32 prio,
++				   u32 queue)
++{
++	void __iomem *ioaddr = hw->pcsr;
++	u32 value, reg;
++
++	reg = (queue < 4) ? XGMAC_TC_PRTY_MAP0 : XGMAC_TC_PRTY_MAP1;
++	if (queue >= 4)
++		queue -= 4;
++
++	value = readl(ioaddr + reg);
++	value &= ~XGMAC_PSTC(queue);
++	value |= (prio << XGMAC_PSTC_SHIFT(queue)) & XGMAC_PSTC(queue);
++
++	writel(value, ioaddr + reg);
++}
++
+ static void dwxgmac2_prog_mtl_rx_algorithms(struct mac_device_info *hw,
+ 					    u32 rx_alg)
+ {
+@@ -428,7 +445,7 @@ const struct stmmac_ops dwxgmac210_ops = {
+ 	.rx_ipc = dwxgmac2_rx_ipc,
+ 	.rx_queue_enable = dwxgmac2_rx_queue_enable,
+ 	.rx_queue_prio = dwxgmac2_rx_queue_prio,
+-	.tx_queue_prio = NULL,
++	.tx_queue_prio = dwxgmac2_tx_queue_prio,
  	.rx_queue_routing = NULL,
  	.prog_mtl_rx_algorithms = dwxgmac2_prog_mtl_rx_algorithms,
  	.prog_mtl_tx_algorithms = dwxgmac2_prog_mtl_tx_algorithms,
--	.set_mtl_tx_queue_weight = NULL,
-+	.set_mtl_tx_queue_weight = dwxgmac2_set_mtl_tx_queue_weight,
- 	.map_mtl_to_dma = dwxgmac2_map_mtl_to_dma,
- 	.config_cbs = dwxgmac2_config_cbs,
- 	.dump_regs = NULL,
 -- 
 2.7.4
 
