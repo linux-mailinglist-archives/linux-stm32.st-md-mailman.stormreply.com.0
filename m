@@ -2,73 +2,80 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id 59DEC850E5
-	for <lists+linux-stm32@lfdr.de>; Wed,  7 Aug 2019 18:19:56 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 82A9585ED3
+	for <lists+linux-stm32@lfdr.de>; Thu,  8 Aug 2019 11:39:39 +0200 (CEST)
 Received: from ip-172-31-3-76.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 9C1B7C35E02;
-	Wed,  7 Aug 2019 16:19:55 +0000 (UTC)
-Received: from fllv0015.ext.ti.com (fllv0015.ext.ti.com [198.47.19.141])
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 729CBC35E01;
+	Thu,  8 Aug 2019 09:39:38 +0000 (UTC)
+Received: from mx07-00178001.pphosted.com (mx08-00178001.pphosted.com
+ [91.207.212.93])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id B52BEC36B3F
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id A057BC36B3E
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Wed,  7 Aug 2019 16:19:52 +0000 (UTC)
-Received: from lelv0266.itg.ti.com ([10.180.67.225])
- by fllv0015.ext.ti.com (8.15.2/8.15.2) with ESMTP id x77GJf7I067099;
- Wed, 7 Aug 2019 11:19:41 -0500
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=ti.com;
- s=ti-com-17Q1; t=1565194781;
- bh=Zb8W9EuN9h+ioKpDhDbW8AsmcjUEyy8dsKXf060zWuM=;
- h=Subject:To:CC:References:From:Date:In-Reply-To;
- b=P0uPmYZpjT3lslMFU9rmNZDlKcspm94fWdIbgfnTqy+QUW27VO9oWdvXFMJJsXAr7
- +lnkn+w2pDVhq0hdGJhKW3rX7D/258xuMD6SsqVRYEgMBqZsxwRYGHSNjq4vXrwT6P
- iBnicme/oQVnDrTFoii0DGlrC1TbtrZ6ROyljvk0=
-Received: from DLEE108.ent.ti.com (dlee108.ent.ti.com [157.170.170.38])
- by lelv0266.itg.ti.com (8.15.2/8.15.2) with ESMTPS id x77GJfBw056200
- (version=TLSv1.2 cipher=AES256-GCM-SHA384 bits=256 verify=FAIL);
- Wed, 7 Aug 2019 11:19:41 -0500
-Received: from DLEE111.ent.ti.com (157.170.170.22) by DLEE108.ent.ti.com
- (157.170.170.38) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_128_CBC_SHA256_P256) id 15.1.1713.5; Wed, 7 Aug
- 2019 11:19:41 -0500
-Received: from lelv0326.itg.ti.com (10.180.67.84) by DLEE111.ent.ti.com
- (157.170.170.22) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_128_CBC_SHA256_P256) id 15.1.1713.5 via
- Frontend Transport; Wed, 7 Aug 2019 11:19:41 -0500
-Received: from [128.247.58.153] (ileax41-snat.itg.ti.com [10.172.224.153])
- by lelv0326.itg.ti.com (8.15.2/8.15.2) with ESMTP id x77GJfwg110878;
- Wed, 7 Aug 2019 11:19:41 -0500
-To: Fabien DESSENNE <fabien.dessenne@st.com>, Bjorn Andersson
- <bjorn.andersson@linaro.org>
-References: <1552492237-28810-1-git-send-email-fabien.dessenne@st.com>
- <20190801191403.GA7234@tuxbook-pro>
- <1a057176-81ab-e302-4375-2717ceef6924@st.com>
- <20190805174659.GA23928@tuxbook-pro>
- <dcd1aeea-cffe-d5fb-af5a-e52efcc2e046@ti.com>
- <20190806182128.GD26807@tuxbook-pro>
- <1aea3d28-29dc-f9de-3b86-cf777e0d5caa@ti.com>
- <02329102-5571-c6c1-b78c-693747133f0e@st.com>
-From: Suman Anna <s-anna@ti.com>
-Message-ID: <f0893b3f-0124-007a-3ca2-831f60ad9a80@ti.com>
-Date: Wed, 7 Aug 2019 11:19:41 -0500
-User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:60.0) Gecko/20100101
- Thunderbird/60.6.1
-MIME-Version: 1.0
-In-Reply-To: <02329102-5571-c6c1-b78c-693747133f0e@st.com>
+ Thu,  8 Aug 2019 09:39:37 +0000 (UTC)
+Received: from pps.filterd (m0046661.ppops.net [127.0.0.1])
+ by mx08-00178001.pphosted.com (8.16.0.27/8.16.0.27) with SMTP id
+ x789cIQd023410; Thu, 8 Aug 2019 11:38:22 +0200
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=st.com;
+ h=from : to : cc : subject
+ : date : message-id : references : in-reply-to : content-type : content-id
+ : content-transfer-encoding : mime-version; s=STMicroelectronics;
+ bh=rfAy2kQie5nyqet5futdME6zq6BbLniw6BappTO8JW8=;
+ b=bZw3ufJS0Ny+6r7smXCGChSxzXuJohT5YuZKYP1I1STBqCiHttUYNKPztyOe3HPD3ezE
+ 00qBEr8ooA9XY7NWjJSrQm8yN9iAWoGSKfzGkM+8KTp5oFvUlJvRCYHxAUd53g7tDU2V
+ bfBVvIA/bwifv9nZiJVrCb7ZV3fUGU2p9Ao4zvD1XuKdY5yOpU9CVzV6Pdf59cBjfurz
+ sChiUvSoCuJVF3Iw1e1yPDyLh6jzdK+En+LVy0KVIwqG1oYXhRh6uu9SRAf3WBz0haBa
+ NPrkaYgnJxtlyIuoI/QlmfjOWQiomFLAZf/ACwBAczRiCPu7Iazvf++zx+AlS5TiPgSu Zg== 
+Received: from beta.dmz-eu.st.com (beta.dmz-eu.st.com [164.129.1.35])
+ by mx08-00178001.pphosted.com with ESMTP id 2u515mvb4c-1
+ (version=TLSv1 cipher=ECDHE-RSA-AES256-SHA bits=256 verify=NOT);
+ Thu, 08 Aug 2019 11:38:22 +0200
+Received: from euls16034.sgp.st.com (euls16034.sgp.st.com [10.75.44.20])
+ by beta.dmz-eu.st.com (STMicroelectronics) with ESMTP id 468F938;
+ Thu,  8 Aug 2019 09:38:03 +0000 (GMT)
+Received: from Webmail-eu.st.com (sfhdag6node3.st.com [10.75.127.18])
+ by euls16034.sgp.st.com (STMicroelectronics) with ESMTP id 22B312DAD65;
+ Thu,  8 Aug 2019 11:38:03 +0200 (CEST)
+Received: from SFHDAG5NODE1.st.com (10.75.127.13) by SFHDAG6NODE3.st.com
+ (10.75.127.18) with Microsoft SMTP Server (TLS) id 15.0.1473.3; Thu, 8 Aug
+ 2019 11:38:02 +0200
+Received: from SFHDAG5NODE1.st.com ([fe80::cc53:528c:36c8:95f6]) by
+ SFHDAG5NODE1.st.com ([fe80::cc53:528c:36c8:95f6%20]) with mapi id
+ 15.00.1473.003; Thu, 8 Aug 2019 11:38:02 +0200
+From: Hugues FRUCHET <hugues.fruchet@st.com>
+To: Hans Verkuil <hverkuil@xs4all.nl>, Alexandre TORGUE
+ <alexandre.torgue@st.com>, Mauro Carvalho Chehab <mchehab@kernel.org>,
+ "Sakari Ailus" <sakari.ailus@linux.intel.com>
+Thread-Topic: [PATCH v4 0/3] DCMI bridge support
+Thread-Index: AQHVTQkgTcvIjOQmAEWftzhpiuOH2qbw3leA
+Date: Thu, 8 Aug 2019 09:38:02 +0000
+Message-ID: <85edd40f-68cc-13aa-52e0-6ec832bf6c2f@st.com>
+References: <1564577783-18627-1-git-send-email-hugues.fruchet@st.com>
+ <28a2a9ac-d5b9-a312-616a-620e0385cf66@xs4all.nl>
+In-Reply-To: <28a2a9ac-d5b9-a312-616a-620e0385cf66@xs4all.nl>
+Accept-Language: en-US
 Content-Language: en-US
-X-EXCLAIMER-MD-CONFIG: e1e8a2fd-e40a-4ac6-ac9b-f7e9cc9ee180
-Cc: Ohad Ben-Cohen <ohad@wizery.com>, Mark Rutland <mark.rutland@arm.com>,
- Jonathan Corbet <corbet@lwn.net>,
- "linux-doc@vger.kernel.org" <linux-doc@vger.kernel.org>,
- "linux-remoteproc@vger.kernel.org" <linux-remoteproc@vger.kernel.org>,
+X-MS-Has-Attach: 
+X-MS-TNEF-Correlator: 
+user-agent: Mozilla/5.0 (X11; Linux x86_64; rv:60.0) Gecko/20100101
+ Thunderbird/60.8.0
+x-ms-exchange-messagesentrepresentingtype: 1
+x-ms-exchange-transport-fromentityheader: Hosted
+x-originating-ip: [10.75.127.45]
+Content-ID: <68E7D2C351D66940A2DE53144A771ACE@st.com>
+MIME-Version: 1.0
+X-Proofpoint-Virus-Version: vendor=fsecure engine=2.50.10434:, ,
+ definitions=2019-08-08_05:, , signatures=0
+Cc: Mickael GUENE <mickael.guene@st.com>,
  "linux-kernel@vger.kernel.org" <linux-kernel@vger.kernel.org>,
- "devicetree@vger.kernel.org" <devicetree@vger.kernel.org>,
- Rob Herring <robh+dt@kernel.org>, Maxime Coquelin <mcoquelin.stm32@gmail.com>,
+ Yannick FERTRE <yannick.fertre@st.com>,
+ Benjamin Gaignard <benjamin.gaignard@linaro.org>,
  "linux-stm32@st-md-mailman.stormreply.com"
  <linux-stm32@st-md-mailman.stormreply.com>,
- "linux-arm-kernel@lists.infradead.org" <linux-arm-kernel@lists.infradead.org>
-Subject: Re: [Linux-stm32] [PATCH 0/6] hwspinlock: allow sharing of
-	hwspinlocks
+ "linux-arm-kernel@lists.infradead.org" <linux-arm-kernel@lists.infradead.org>,
+ "linux-media@vger.kernel.org" <linux-media@vger.kernel.org>
+Subject: Re: [Linux-stm32] [PATCH v4 0/3] DCMI bridge support
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -80,138 +87,160 @@ List-Post: <mailto:linux-stm32@st-md-mailman.stormreply.com>
 List-Help: <mailto:linux-stm32-request@st-md-mailman.stormreply.com?subject=help>
 List-Subscribe: <https://st-md-mailman.stormreply.com/mailman/listinfo/linux-stm32>, 
  <mailto:linux-stm32-request@st-md-mailman.stormreply.com?subject=subscribe>
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: base64
+Content-Type: text/plain; charset="us-ascii"
+Content-Transfer-Encoding: 7bit
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
-SGkgRmFiaWVuLAoKT24gOC83LzE5IDM6MzkgQU0sIEZhYmllbiBERVNTRU5ORSB3cm90ZToKPiBI
-aQo+IAo+IE9uIDA2LzA4LzIwMTkgMTE6MzAgUE0sIFN1bWFuIEFubmEgd3JvdGU6Cj4+IE9uIDgv
-Ni8xOSAxOjIxIFBNLCBCam9ybiBBbmRlcnNzb24gd3JvdGU6Cj4+PiBPbiBUdWUgMDYgQXVnIDEw
-OjM4IFBEVCAyMDE5LCBTdW1hbiBBbm5hIHdyb3RlOgo+Pj4KPj4+PiBIaSBGYWJpZW4sCj4+Pj4K
-Pj4+PiBPbiA4LzUvMTkgMTI6NDYgUE0sIEJqb3JuIEFuZGVyc3NvbiB3cm90ZToKPj4+Pj4gT24g
-TW9uIDA1IEF1ZyAwMTo0OCBQRFQgMjAxOSwgRmFiaWVuIERFU1NFTk5FIHdyb3RlOgo+Pj4+Pgo+
-Pj4+Pj4gT24gMDEvMDgvMjAxOSA5OjE0IFBNLCBCam9ybiBBbmRlcnNzb24gd3JvdGU6Cj4+Pj4+
-Pj4gT24gV2VkIDEzIE1hciAwODo1MCBQRFQgMjAxOSwgRmFiaWVuIERlc3Nlbm5lIHdyb3RlOgo+
-Pj4gWy4uXQo+Pj4+Pj4gQi8gVGhpcyB3b3VsZCBpbnRyb2R1Y2Ugc29tZSBpbmNvbnNpc3RlbmN5
-IGJldHdlZW4gdGhlIHR3byAncmVxdWVzdCcgQVBJCj4+Pj4+PiB3aGljaCBhcmUgaHdzcGluX2xv
-Y2tfcmVxdWVzdCgpIGFuZCBod3NwaW5fbG9ja19yZXF1ZXN0X3NwZWNpZmljKCkuCj4+Pj4+PiBo
-d3NwaW5fbG9ja19yZXF1ZXN0KCkgbG9va3MgZm9yIGFuIHVudXNlZCBsb2NrLCBzbyByZXF1ZXN0
-cyBmb3IgYW4gZXhjbHVzaXZlCj4+Pj4+PiB1c2FnZS4gT24gdGhlIG90aGVyIHNpZGUsIHJlcXVl
-c3Rfc3BlY2lmaWMoKSB3b3VsZCByZXF1ZXN0IHNoYXJlZCBsb2Nrcy4KPj4+Pj4+IFdvcnN0IHRo
-ZSBmb2xsb3dpbmcgc2VxdWVuY2UgY2FuIHRyYW5zZm9ybSBhbiBleGNsdXNpdmUgdXNhZ2UgaW50
-byBhIHNoYXJlZAo+Pj4+Pj4KPj4+Pj4gVGhlcmUgaXMgYWxyZWFkeSBhbiBpbmNvbnNpc3RlbmN5
-IGluIGJldHdlZW4gdGhlc2U7IGFzIHdpdGggYWJvdmUgYW55Cj4+Pj4+IHN5c3RlbSB0aGF0IHVz
-ZXMgYm90aCByZXF1ZXN0KCkgYW5kIHJlcXVlc3Rfc3BlY2lmaWMoKSB3aWxsIGJlIHN1ZmZlcmlu
-Zwo+Pj4+PiBmcm9tIGludGVybWl0dGVudCBmYWlsdXJlcyBkdWUgdG8gcHJvYmUgb3JkZXJpbmcu
-Cj4+Pj4+Cj4+Pj4+PiBvbmU6Cj4+Pj4+PiAgIMKgIC1od3NwaW5fbG9ja19yZXF1ZXN0KCkgLT4g
-cmV0dXJucyBJZCMwIChleGNsdXNpdmUpCj4+Pj4+PiAgIMKgIC1od3NwaW5fbG9ja19yZXF1ZXN0
-KCkgLT4gcmV0dXJucyBJZCMxIChleGNsdXNpdmUpCj4+Pj4+PiAgIMKgIC1od3NwaW5fbG9ja19y
-ZXF1ZXN0X3NwZWNpZmljKDApIC0+IHJldHVybnMgSWQjMCBhbmQgbWFrZXMgSWQjMCBzaGFyZWQK
-Pj4+Pj4+IEhvbmVzdGx5IEkgYW0gbm90IHN1cmUgdGhhdCB0aGlzIGlzIGEgcmVhbCBpc3N1ZSwg
-YnV0IGl0J3MgYmV0dGVyIHRvIGhhdmUgaXQKPj4+Pj4+IGluIG1pbmQgYmVmb3JlIHdlIHRha2Ug
-YXkgZGVjaXNpb24KPj4+PiBXb3VsZG4ndCBpdCBiZSBhY3R1YWxseSBzaW1wbGVyIHRvIGp1c3Qg
-aW50cm9kdWNlIGEgbmV3IHNwZWNpZmljIEFQSQo+Pj4+IHZhcmlhbnQgZm9yIHRoaXMsIHNpbWls
-YXIgdG8gdGhlIHJlc2V0IGNvcmUgZm9yIGV4YW1wbGUgKGl0IHVzZXMgYQo+Pj4+IHNlcGFyYXRl
-IGV4Y2x1c2l2ZSBBUEkpLCB3aXRob3V0IGhhdmluZyB0byBtb2RpZnkgdGhlIGJpbmRpbmdzIGF0
-IGFsbC4KPj4+PiBJdCBpcyBqdXN0IGEgY2FzZSBvZiB5b3VyIGRyaXZlciB1c2luZyB0aGUgcmln
-aHQgQVBJLCBhbmQgdGhlIGNvcmUgY2FuCj4+Pj4gYmUgbW9kaWZpZWQgdG8gdXNlIHRoZSBhZGRp
-dGlvbmFsIHRhZyBzZW1hbnRpY3MgYmFzZWQgb24gdGhlIEFQSS4gSXQKPj4+PiBzaG91bGQgYXZv
-aWQgYW55IGNvbmZ1c2lvbiB3aXRoIHNheSB1c2luZyBhIGRpZmZlcmVudCBzZWNvbmQgY2VsbCB2
-YWx1ZQo+Pj4+IGZvciB0aGUgc2FtZSBsb2NrIGluIHR3byBkaWZmZXJlbnQgbm9kZXMuCj4+Pj4K
-Pj4+IEJ1dCB0aGlzIGltcGxpZXMgdGhhdCB0aGVyZSBpcyBhbiBhY3R1YWwgbmVlZCB0byBob2xk
-IHRoZXNlIGxvY2tzCj4+PiBleGNsdXNpdmVseS4gR2l2ZW4gdGhhdCB0aGV5IGFyZSAoZXhjZXB0
-IGZvciB0aGUgcmF3IGNhc2UpIGFsbCB3cmFwcGVkCj4+PiBieSBMaW51eCBsb2NraW5nIHByaW1p
-dGl2ZXMgdGhlcmUgc2hvdWxkbid0IGJlIGEgcHJvYmxlbSBzaGFyaW5nIGEgbG9jawo+Pj4gKGV4
-Y2VwdCBwb3NzaWJseSBmb3IgdGhlIHJhdyBjYXNlKS4KPj4gWWVzIGFncmVlZCwgdGhlIEhXTE9D
-S19SQVcgYW5kIEhXTE9DS19JTl9BVE9NSUMgY2FzZXMgYXJlIHVucHJvdGVjdGVkLiBJCj4+IGFt
-IHN0aWxsIHRyeWluZyB0byB1bmRlcnN0YW5kIGJldHRlciB0aGUgdXNlY2FzZSB0byBzZWUgaWYg
-dGhlIHNhbWUgbG9jawo+PiBpcyBiZWluZyBtdWx0aXBsZXhlZCBmb3IgZGlmZmVyZW50IHByb3Rl
-Y3Rpb24gY29udGV4dHMsIG9yIGlmIGFsbCBvZgo+PiB0aGVtIGFyZSBwcm90ZWN0aW5nIHRoZSBz
-YW1lIGNvbnRleHQuCj4gCj4gCj4gSGVyZSBhcmUgdHdvIGRpZmZlcmVudCBleGFtcGxlcyB0aGF0
-IGV4cGxhaW4gdGhlIG5lZWQgZm9yIGNoYW5nZXMuCj4gSW4gYm90aCBjYXNlcyB0aGUgTGludXgg
-Y2xpZW50cyBhcmUgdGFsa2luZyB0byBhIHNpbmdsZSBlbnRpdHkgb24gdGhlCj4gcmVtb3RlLXNp
-ZGUuCj4gCj4gRXhhbXBsZSAxOgo+ICDCoMKgwqAgZXh0aTogaW50ZXJydXB0LWNvbnRyb2xsZXJA
-NTAwMGQwMDAgewo+ICDCoMKgwqAgwqDCoMKgIGNvbXBhdGlibGUgPSAic3Qsc3RtMzJtcDEtZXh0
-aSIsICJzeXNjb24iOwo+ICDCoMKgwqAgwqDCoMKgIGludGVycnVwdC1jb250cm9sbGVyOwo+ICDC
-oMKgwqAgwqDCoMKgICNpbnRlcnJ1cHQtY2VsbHMgPSA8Mj47Cj4gIMKgwqDCoCDCoMKgwqAgcmVn
-ID0gPDB4NTAwMGQwMDAgMHg0MDA+Owo+ICDCoMKgwqAgwqDCoMKgIGh3bG9ja3MgPSA8JmhzZW0g
-MT47Cj4gIMKgwqDCoCB9Owo+IFRoZSB0d28gZHJpdmVycyAoc3RtMzJtcDEtZXh0aSBhbmQgc3lz
-Y29uKSByZWZlciB0byB0aGUgc2FtZSBod2xvY2suCj4gV2l0aCB0aGUgY3VycmVudCBod3NwaW5s
-b2NrIGltcGxlbWVudGF0aW9uLCBvbmx5IHRoZSBmaXJzdCBkcml2ZXIgc3VjY2VlZHMKPiBpbiBy
-ZXF1ZXN0aW5nIChod3NwaW5fbG9ja19yZXF1ZXN0X3NwZWNpZmljKSB0aGUgaHdsb2NrLiBUaGUg
-c2Vjb25kIHJlcXVlc3QKPiBmYWlscy4KPiBIZXJlLCB3ZSByZWFsbHkgbmVlZCB0byBzaGFyZSB0
-aGUgaHdsb2NrIGJldHdlZW4gdGhlIHR3byBkcml2ZXJzLgo+IE5vdGU6IGhhcmR3YXJlIHNwaW5s
-b2NrIHN1cHBvcnQgZm9yIHJlZ21hcCB3YXMgJ3JlY2VudGx5JyBpbnRyb2R1Y2VkIGluIDQuMTUK
-PiBzZWUgaHR0cHM6Ly9sb3JlLmtlcm5lbC5vcmcvcGF0Y2h3b3JrL3BhdGNoLzg0NTk0MS8KPiAK
-PiAKPiAKPiBFeGFtcGxlIDI6Cj4gSGVyZSBpdCBpcyBtb3JlIGEgcXVlc3Rpb24gb2Ygb3B0aW1p
-emF0aW9uIDogd2Ugd2FudCB0byBzYXZlIHRoZSBudW1iZXIgb2YKPiBod2xvY2tzIHVzZWQgdG8g
-cHJvdGVjdCByZXNvdXJjZXMsIHVzaW5nIGFuIHVuaXF1ZSBod2xvY2sgdG8gcHJvdGVjdCBhbGwK
-PiBwaW5jdHJsIHJlc291cmNlczoKPiAgwqDCoMKgIMKgwqDCoCBwaW5jdHJsOiBwaW4tY29udHJv
-bGxlckA1MDAwMjAwMCB7Cj4gIMKgwqDCoCDCoMKgwqAgwqDCoMKgIGNvbXBhdGlibGUgPSAic3Qs
-c3RtMzJtcDE1Ny1waW5jdHJsIjsKPiAgwqDCoMKgIMKgwqDCoCDCoMKgwqAgcmFuZ2VzID0gPDAg
-MHg1MDAwMjAwMCAweGE0MDA+Owo+ICDCoMKgwqAgwqDCoMKgIMKgwqDCoCBod2xvY2tzID0gPCZo
-c2VtIDAgMT47Cj4gCj4gIMKgwqDCoCDCoMKgwqAgcGluY3RybF96OiBwaW4tY29udHJvbGxlci16
-QDU0MDA0MDAwIHsKPiAgwqDCoMKgIMKgwqDCoCDCoMKgwqAgY29tcGF0aWJsZSA9ICJzdCxzdG0z
-Mm1wMTU3LXotcGluY3RybCI7Cj4gIMKgwqDCoCDCoMKgwqAgwqDCoMKgIHJhbmdlcyA9IDwwIDB4
-NTQwMDQwMDAgMHg0MDA+Owo+ICDCoMKgwqAgwqDCoMKgIMKgwqDCoCBwaW5zLWFyZS1udW1iZXJl
-ZDsKPiAgwqDCoMKgIMKgwqDCoCDCoMKgwqAgaHdsb2NrcyA9IDwmaHNlbSAwIDE+OwoKVGhhbmtz
-IGZvciB0aGUgZXhhbXBsZXMuCgo+IAo+Pgo+Pj4gSSBhZ3JlZSB0aGF0IHdlIHNob3VsZG4ndCBz
-cGVjaWZ5IHRoaXMgcHJvcGVydHkgaW4gRFQgLSBpZiBhbnl0aGluZyBpdAo+Pj4gc2hvdWxkIGJl
-IGEgdmFyaWFudCBvZiB0aGUgQVBJLgo+IAo+IAo+IElmIHdlIGRlY2lkZSB0byBhZGQgYSAnc2hh
-cmVkJyBBUEksIHRoZW4sIHdoYXQgYWJvdXQgdGhlIGdlbmVyaWMgcmVnbWFwIAo+IGRyaXZlcj8K
-PiAKPiBJbiB0aGUgY29udGV4dCBvZiBhYm92ZSBleGFtcGxlMSwgdGhpcyB3b3VsZCByZXF1aXJl
-IHRvIHVwZGF0ZSB0aGUgCj4gcmVnbWFwIGRyaXZlci4KPiAKPiBCdXQgd291bGQgdGhpcyBiZSBh
-Y2NlcHRhYmxlIGZvciBhbnkgZHJpdmVyIHVzaW5nIHN5c2Nvbi9yZWdtYXA/Cj4gCj4gCj4gSSB0
-aGluayBpdCBpcyBiZXR0ZXIgdG8ga2VlcCB0aGUgZXhpc3RpbmcgQVBJIChtb2RpZnlpbmcgaXQg
-c28gaXQgYWx3YXlzIAo+IGFsbG93cwo+IAo+IGh3bG9ja3Mgc2hhcmluZywgc28gbm8gbmVlZCBm
-b3IgYmluZGluZ3MgdXBkYXRlKSB0aGFuIGFkZGluZyBhbm90aGVyIEFQSS4KCkZvciB5b3VyIHVz
-ZWNhc2VzLCB5b3Ugd291bGQgZGVmaW5pdGVseSBuZWVkIHRoZSBzeXNjb24vcmVnbWFwIGJlaGF2
-aW9yCnRvIGJlIHNoYXJlZCByaWdodC4gV2hldGhlciB3ZSBpbnRyb2R1Y2UgYSAnc2hhcmVkJyBB
-UEkgb3IgYW4KJ2V4Y2x1c2l2ZScgQVBJIGFuZCBjaGFuZ2UgdGhlIGN1cnJlbnQgQVBJIGJlaGF2
-aW9yIHRvIHNoYXJlZCwgaXQgaXMKZGVmaW5pdGVseSBhIGNhc2UtYnktY2FzZSB1c2FnZSBzY2Vu
-YXJpbyBmb3IgdGhlIGV4aXN0aW5nIGRyaXZlcnMgYW5kCnVzYWdlIHJpZ2h0LiBUaGUgbWFpbiBj
-b250ZW50aW9uIHBvaW50IGlzIHdoYXQgdG8gZG8gd2l0aCB0aGUKdW5wcm90ZWN0ZWQgdXNlY2Fz
-ZXMgbGlrZSBCam9ybiBvcmlnaW5hbGx5IHBvaW50ZWQgb3V0LgoKcmVnYXJkcwpTdW1hbgoKPiAK
-PiAKPiAKPj4+Cj4+Pj4gSWYgeW91IGFyZSBzaGFyaW5nIGEgaHdsb2NrIG9uIHRoZSBMaW51eCBz
-aWRlLCBzdXJlbHkgeW91ciBkcml2ZXIgc2hvdWxkCj4+Pj4gYmUgYXdhcmUgdGhhdCBpdCBpcyBh
-IHNoYXJlZCBsb2NrLiBUaGUgdGFnIGNhbiBiZSBzZXQgZHVyaW5nIHRoZSBmaXJzdAo+Pj4+IHJl
-cXVlc3QgQVBJLCBhbmQgeW91IGxvb2sgdGhyb3VnaCBib3RoIHRhZ3Mgd2hlbiBnaXZpbmcgb3V0
-IGEgaGFuZGxlLgo+Pj4+Cj4+PiBXaHkgd291bGQgdGhlIGRyaXZlciBuZWVkIHRvIGtub3cgYWJv
-dXQgaXQ/Cj4+IEp1c3QgdGhlIHNlbWFudGljcyBpZiB3ZSB3ZXJlIHRvIHN1cHBvcnQgc2luZ2xl
-IHVzZXIgdnMgbXVsdGlwbGUgdXNlcnMKPj4gb24gTGludXgtc2lkZSB0byBldmVuIGdldCBhIGhh
-bmRsZS4gWW91ciBwb2ludCBpcyB0aGF0IHRoaXMgbWF5IGJlIG1vb3QKPj4gc2luY2Ugd2UgaGF2
-ZSBwcm90ZWN0aW9uIGFueXdheSBvdGhlciB0aGFuIHRoZSByYXcgY2FzZXMuIEJ1dCB3ZSBuZWVk
-IHRvCj4+IGJlIGFibGUgdG8gaGF2ZSB0aGUgc2FtZSBBUEkgd29yayBhY3Jvc3MgYWxsIGNhc2Vz
-Lgo+Pgo+PiBTbyBmYXIsIGl0IGhhZCBtb3N0bHkgYmVlbiB0aGF0IHRoZXJlIHdvdWxkIGJlIG9u
-ZSB1c2VyIG9uIExpbnV4Cj4+IGNvbXBldGluZyB3aXRoIG90aGVyIGVxdWl2YWxlbnQgcGVlciBl
-bnRpdGllcyBvbiBkaWZmZXJlbnQgcHJvY2Vzc29ycy4KPj4gSXQgaXMgbm90IGNvbW1vbiB0byBo
-YXZlIG11bHRpcGxlIHVzZXJzIHNpbmNlIHRoZXNlIHByb3RlY3Rpb24gc2NoZW1lcwo+PiBhcmUg
-dXN1YWxseSBuZWVkZWQgb25seSBhdCB0aGUgbG93ZXN0IGxldmVscyBvZiBhIHN0YWNrLCBzbyB0
-aGUKPj4gZXhjbHVzaXZlIGhhbmRsZSBzdHVmZiBoYWQgYmVlbiBzdWZmaWNpZW50Lgo+Pgo+Pj4+
-IE9idmlvdXNseSwgdGhlIGh3c3Bpbl9sb2NrX3JlcXVlc3QoKSBBUEkgdXNhZ2Ugc2VtYW50aWNz
-IGFsd2F5cyBoYWQgdGhlCj4+Pj4gaW1wbGllZCBhZGRpdGlvbmFsIG5lZWQgZm9yIGNvbW11bmlj
-YXRpbmcgdGhlIGxvY2sgaWQgdG8gdGhlIG90aGVyIHBlZXIKPj4+PiBlbnRpdHksIHNvIGEgcmVh
-bGlzdGljIHVzYWdlIGlzIG1vc3QgYWx3YXlzIHRoZSBzcGVjaWZpYyBBUEkgdmFyaWFudC4gSQo+
-Pj4+IGRvdWJ0IHRoaXMgQVBJIHdvdWxkIGJlIG9mIG11Y2ggdXNlIGZvciB0aGUgc2hhcmVkIGRy
-aXZlciB1c2FnZS4gVGhpcwo+Pj4+IGFsc28gaW1wbGllcyB0aGF0IHRoZSBjbGllbnQgdXNlciBk
-b2VzIG5vdCBjYXJlIGFib3V0IHNwZWNpZnlpbmcgYSBsb2NrCj4+Pj4gaW4gRFQuCj4+Pj4KPj4+
-IEFmYWljdCBpZiB0aGUgbG9jayBhcmUgc2hhcmVkIHRoZW4gdGhlcmUgc2hvdWxkbid0IGJlIGEg
-cHJvYmxlbSB3aXRoCj4+PiBzb21lIGNsaWVudHMgdXNpbmcgdGhlIHJlcXVlc3QgQVBJIGFuZCBv
-dGhlcnMgcmVxdWVzdF9zcGVjaWZpYygpLiBBcyBhbnkKPj4+IGNvbGxpc2lvbnMgd291bGQgc2lt
-cGx5IG1lYW4gdGhhdCB0aGVyZSBhcmUgbW9yZSBjb250ZW50aW9uIG9uIHRoZSBsb2NrLgo+Pj4K
-Pj4+IFdpdGggdGhlIGN1cnJlbnQgZXhjbHVzaXZlIG1vZGVsIHRoYXQgaXMgbm90IHBvc3NpYmxl
-IGFuZCB0aGUgc3VjY2VzcyBvZgo+Pj4gdGhlIHJlcXVlc3Rfc3BlY2lmaWMgd2lsbCBkZXBlbmQg
-b24gcHJvYmUgb3JkZXIuCj4+Pgo+Pj4gQnV0IHBlcmhhcHMgaXQgc2hvdWxkIGJlIGV4cGxpY2l0
-bHkgcHJvaGliaXRlZCB0byB1c2UgYm90aCBBUElzIG9uIHRoZQo+Pj4gc2FtZSBod3NwaW5sb2Nr
-IGluc3RhbmNlPwo+PiBZZWFoLCB0aGV5IGFyZSBtZWFudCB0byBiZSBjb21wbGltZW50YXJ5IHVz
-YWdlLCB0aG91Z2ggSSBkb3VidCB3ZSB3aWxsCj4+IGV2ZXIgaGF2ZSBhbnkgcmVhbGlzdGljIHVz
-ZXJzIGZvciB0aGUgZ2VuZXJpYyBBUEkgaWYgd2UgaGF2ZW4ndCBoYWQgYQo+PiB1c2FnZSBzbyBm
-YXIuIEkgaGFkIHBvc3RlZCBhIGNvbmNlcHQgb2YgcmVzZXJ2ZWQgbG9ja3MgbG9uZyBiYWNrIFsx
-XSB0bwo+PiBrZWVwIGF3YXkgY2VydGFpbiBsb2NrcyBmcm9tIHRoZSBnZW5lcmljIHJlcXVlc3Rv
-ciwgYnV0IGRyb3BwZWQgaXQgc2luY2UKPj4gd2UgZGlkIG5vdCBoYXZlIGFuIGFjdHVhbCB1c2Ut
-Y2FzZSBuZWVkaW5nIGl0Lgo+Pgo+PiByZWdhcmRzCj4+IFN1bWFuCj4+Cj4+IFsxXSBodHRwczov
-L2x3bi5uZXQvQXJ0aWNsZXMvNjExOTQ0LwoKX19fX19fX19fX19fX19fX19fX19fX19fX19fX19f
-X19fX19fX19fX19fX19fX18KTGludXgtc3RtMzIgbWFpbGluZyBsaXN0CkxpbnV4LXN0bTMyQHN0
-LW1kLW1haWxtYW4uc3Rvcm1yZXBseS5jb20KaHR0cHM6Ly9zdC1tZC1tYWlsbWFuLnN0b3JtcmVw
-bHkuY29tL21haWxtYW4vbGlzdGluZm8vbGludXgtc3RtMzIK
+Hi Hans,
+
+You're welcome, here it is:
+
+1) v4l-utils master branch, commit 
+6aa15f7447d4aeca6af1ed7ee9644a0c7e891ece "v4l2-ctl: fix double 
+decrementing of stream_count"
+
+2) Cropping test is failed as usual because of OV5640 discrete framesizes
+
+3) No more /dev/media* and /dev/v4l-*:
+root@stm32mp1-av96:~# ls -al /dev/video0
+crw-rw---- 1 root video 81, 0 Mar 19 17:42 /dev/video0
+root@stm32mp1-av96:~# ls -al /dev/media*
+ls: cannot access '/dev/media*': No such file or directory
+root@stm32mp1-av96:~# ls -al /dev/v4l-*
+ls: cannot access '/dev/v4l-*': No such file or directory
+
+
+root@stm32mp1-av96:~# v4l2-compliance -s
+v4l2-compliance SHA: 6aa15f7447d4aeca6af1ed7ee9644a0c7e891ece, 32 bits
+
+Compliance test for stm32-dcmi device /dev/video0:
+
+Driver Info:
+         Driver name      : stm32-dcmi
+         Card type        : STM32 Camera Memory Interface
+         Bus info         : platform:dcmi
+         Driver version   : 4.19.49
+         Capabilities     : 0x85200001
+                 Video Capture
+                 Read/Write
+                 Streaming
+                 Extended Pix Format
+                 Device Capabilities
+         Device Caps      : 0x05200001
+                 Video Capture
+                 Read/Write
+                 Streaming
+                 Extended Pix Format
+
+Required ioctls:
+         test VIDIOC_QUERYCAP: OK
+
+Allow for multiple opens:
+         test second /dev/video0 open: OK
+         test VIDIOC_QUERYCAP: OK
+         test VIDIOC_G/S_PRIORITY: OK
+         test for unlimited opens: OK
+
+Debug ioctls:
+         test VIDIOC_DBG_G/S_REGISTER: OK (Not Supported)
+         test VIDIOC_LOG_STATUS: OK
+
+Input ioctls:
+         test VIDIOC_G/S_TUNER/ENUM_FREQ_BANDS: OK (Not Supported)
+         test VIDIOC_G/S_FREQUENCY: OK (Not Supported)
+         test VIDIOC_S_HW_FREQ_SEEK: OK (Not Supported)
+         test VIDIOC_ENUMAUDIO: OK (Not Supported)
+         test VIDIOC_G/S/ENUMINPUT: OK
+         test VIDIOC_G/S_AUDIO: OK (Not Supported)
+         Inputs: 1 Audio Inputs: 0 Tuners: 0
+
+Output ioctls:
+         test VIDIOC_G/S_MODULATOR: OK (Not Supported)
+         test VIDIOC_G/S_FREQUENCY: OK (Not Supported)
+         test VIDIOC_ENUMAUDOUT: OK (Not Supported)
+         test VIDIOC_G/S/ENUMOUTPUT: OK (Not Supported)
+         test VIDIOC_G/S_AUDOUT: OK (Not Supported)
+         Outputs: 0 Audio Outputs: 0 Modulators: 0
+
+Input/Output configuration ioctls:
+         test VIDIOC_ENUM/G/S/QUERY_STD: OK (Not Supported)
+         test VIDIOC_ENUM/G/S/QUERY_DV_TIMINGS: OK (Not Supported)
+         test VIDIOC_DV_TIMINGS_CAP: OK (Not Supported)
+         test VIDIOC_G/S_EDID: OK (Not Supported)
+
+Control ioctls (Input 0):
+         test VIDIOC_QUERY_EXT_CTRL/QUERYMENU: OK
+         test VIDIOC_QUERYCTRL: OK
+         test VIDIOC_G/S_CTRL: OK
+         test VIDIOC_G/S/TRY_EXT_CTRLS: OK
+         test VIDIOC_(UN)SUBSCRIBE_EVENT/DQEVENT: OK
+         test VIDIOC_G/S_JPEGCOMP: OK (Not Supported)
+         Standard Controls: 18 Private Controls: 0
+
+Format ioctls (Input 0):
+         test VIDIOC_ENUM_FMT/FRAMESIZES/FRAMEINTERVALS: OK
+         test VIDIOC_G/S_PARM: OK
+         test VIDIOC_G_FBUF: OK (Not Supported)
+         test VIDIOC_G_FMT: OK
+         test VIDIOC_TRY_FMT: OK
+         test VIDIOC_S_FMT: OK
+         test VIDIOC_G_SLICED_VBI_CAP: OK (Not Supported)
+                 fail: 
+../../../../../../../../../sources/v4l-utils/utils/v4l2-compliance/v4l2-test-formats.cpp(1414): 
+node->frmsizes_count[pixfm
+t] > 1
+         test Cropping: FAIL
+         test Composing: OK (Not Supported)
+         test Scaling: OK (Not Supported)
+
+Codec ioctls (Input 0):
+         test VIDIOC_(TRY_)ENCODER_CMD: OK (Not Supported)
+         test VIDIOC_G_ENC_INDEX: OK (Not Supported)
+         test VIDIOC_(TRY_)DECODER_CMD: OK (Not Supported)
+
+Buffer ioctls (Input 0):
+         test VIDIOC_REQBUFS/CREATE_BUFS/QUERYBUF: OK
+         test VIDIOC_EXPBUF: OK
+         test Requests: OK (Not Supported)
+
+Test input 0:
+
+Streaming ioctls:
+         test read/write: OK
+         test blocking wait: OK
+         test MMAP (no poll): OK
+         test MMAP (select): OK
+         test MMAP (epoll): OK
+         test USERPTR (no poll): OK (Not Supported)
+         test USERPTR (select): OK (Not Supported)
+         test DMABUF: Cannot test, specify --expbuf-device
+
+Total for stm32-dcmi device /dev/video0: 51, Succeeded: 50, Failed: 1, 
+Warnings: 0
+
+
+On 8/7/19 12:15 PM, Hans Verkuil wrote:
+> Hi Hugues,
+> 
+> Can you provide the output of the most recent v4l2-compliance?
+> 
+> Use 'v4l2-compliance -s'.
+> 
+> Also, just to confirm, with this v4 there are no /dev/mediaX or
+> /dev/v4l-subdevX devices created anymore, right?
+> 
+> This v4 looks good to me, I just want to have these final checks
+> done.
+> 
+> Regards,
+> 
+> 	Hans
+> 
+
+Best regards,
+Hugues.
+_______________________________________________
+Linux-stm32 mailing list
+Linux-stm32@st-md-mailman.stormreply.com
+https://st-md-mailman.stormreply.com/mailman/listinfo/linux-stm32
