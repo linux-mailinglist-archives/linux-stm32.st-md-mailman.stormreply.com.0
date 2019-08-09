@@ -2,46 +2,45 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id 4A7A887228
-	for <lists+linux-stm32@lfdr.de>; Fri,  9 Aug 2019 08:20:55 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id CE72C87A0C
+	for <lists+linux-stm32@lfdr.de>; Fri,  9 Aug 2019 14:31:54 +0200 (CEST)
 Received: from ip-172-31-3-76.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id E0C97C35E01;
-	Fri,  9 Aug 2019 06:20:54 +0000 (UTC)
-Received: from fornost.hmeau.com (helcar.hmeau.com [216.24.177.18])
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 7277AC35E01;
+	Fri,  9 Aug 2019 12:31:54 +0000 (UTC)
+Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
+ (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
+ (No client certificate requested)
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id B0786C36B3E
+ for <linux-stm32@st-md-mailman.stormreply.com>;
+ Fri,  9 Aug 2019 12:31:52 +0000 (UTC)
+Received: from localhost (83-86-89-107.cable.dynamic.v4.ziggo.nl
+ [83.86.89.107])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 3F931C36B3E
- for <linux-stm32@st-md-mailman.stormreply.com>;
- Fri,  9 Aug 2019 06:20:53 +0000 (UTC)
-Received: from gondolin.me.apana.org.au ([192.168.0.6]
- helo=gondolin.hengli.com.au)
- by fornost.hmeau.com with esmtps (Exim 4.89 #2 (Debian))
- id 1hvyG7-0007PS-Tu; Fri, 09 Aug 2019 16:20:16 +1000
-Received: from herbert by gondolin.hengli.com.au with local (Exim 4.80)
- (envelope-from <herbert@gondor.apana.org.au>)
- id 1hvyFz-0002sF-Ec; Fri, 09 Aug 2019 16:20:07 +1000
-Date: Fri, 9 Aug 2019 16:20:07 +1000
-From: Herbert Xu <herbert@gondor.apana.org.au>
-To: YueHaibing <yuehaibing@huawei.com>
-Message-ID: <20190809062007.GP10392@gondor.apana.org.au>
-References: <20190802132809.8116-1-yuehaibing@huawei.com>
+ by mail.kernel.org (Postfix) with ESMTPSA id 7151A208C3;
+ Fri,  9 Aug 2019 12:31:50 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
+ s=default; t=1565353910;
+ bh=rXWLDZzqIQg31I3qtJjIAc4ozyG8Smi324/RjUpFiYE=;
+ h=From:To:Cc:Subject:Date:In-Reply-To:References:From;
+ b=0YhGMaFtxY2igJO+TB7rHxhcjKk4OKebq/jkSNioJ/V5+3upfRePgV9PKWn8W1RwM
+ 4YCrSe7HI6ZLr8td+DTxq+whPeaVKuwX/CrqvUEA90BbD3iYn6gg0yP0cHs6yYnjgc
+ 83md3dN1MuyvEayXTIHLKG4dr2ew6PN7rQLFBeSQ=
+From: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
+To: netdev@vger.kernel.org
+Date: Fri,  9 Aug 2019 14:31:00 +0200
+Message-Id: <20190809123108.27065-10-gregkh@linuxfoundation.org>
+X-Mailer: git-send-email 2.22.0
+In-Reply-To: <20190809123108.27065-1-gregkh@linuxfoundation.org>
+References: <20190809123108.27065-1-gregkh@linuxfoundation.org>
 MIME-Version: 1.0
-Content-Disposition: inline
-In-Reply-To: <20190802132809.8116-1-yuehaibing@huawei.com>
-User-Agent: Mutt/1.5.21 (2010-09-15)
-Cc: heiko@sntech.de, gary.hook@amd.com, clabbe.montjoie@gmail.com,
- linux-arm-kernel@axis.com, jamie@jamieiles.com,
- linux-stm32@st-md-mailman.stormreply.com, jesper.nilsson@axis.com,
- linux-samsung-soc@vger.kernel.org, kgene@kernel.org, krzk@kernel.org,
- linux-rockchip@lists.infradead.org, wens@csie.org, agross@kernel.org,
- thomas.lendacky@amd.com, antoine.tenart@bootlin.com,
- linux-arm-msm@vger.kernel.org, mripard@kernel.org,
- linux-mediatek@lists.infradead.org, lars.persson@axis.com,
- matthias.bgg@gmail.com, linux-arm-kernel@lists.infradead.org,
- linux-kernel@vger.kernel.org, linux-crypto@vger.kernel.org,
- mcoquelin.stm32@gmail.com, davem@davemloft.net
-Subject: Re: [Linux-stm32] [PATCH -next 00/12] crypto: use
- devm_platform_ioremap_resource() to simplify code
+Cc: Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
+ linux-stm32@st-md-mailman.stormreply.com, Jose Abreu <joabreu@synopsys.com>,
+ Maxime Coquelin <mcoquelin.stm32@gmail.com>,
+ Giuseppe Cavallaro <peppe.cavallaro@st.com>,
+ "David S. Miller" <davem@davemloft.net>
+Subject: [Linux-stm32] [PATCH v2 09/17] stmmac: no need to check return
+	value of debugfs_create functions
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -58,53 +57,137 @@ Content-Transfer-Encoding: 7bit
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
-On Fri, Aug 02, 2019 at 09:27:57PM +0800, YueHaibing wrote:
-> devm_platform_ioremap_resource() internally have platform_get_resource()
-> and devm_ioremap_resource() in it. So instead of calling them separately
-> use devm_platform_ioremap_resource() directly.
-> 
-> YueHaibing (12):
->   crypto: artpec6 - use devm_platform_ioremap_resource() to simplify
->     code
->   crypto: ccp - use devm_platform_ioremap_resource() to simplify code
->   crypto: exynos - use devm_platform_ioremap_resource() to simplify code
->   crypto: img-hash - use devm_platform_ioremap_resource() to simplify
->     code
->   crypto: inside-secure - use devm_platform_ioremap_resource() to
->     simplify code
->   crypto: mediatek - use devm_platform_ioremap_resource() to simplify
->     code
->   crypto: picoxcell - use devm_platform_ioremap_resource() to simplify
->     code
->   crypto: sunxi-ss - use devm_platform_ioremap_resource() to simplify
->     code
->   crypto: rockchip - use devm_platform_ioremap_resource() to simplify
->     code
->   crypto: stm32 - use devm_platform_ioremap_resource() to simplify code
->   crypto: qce - use devm_platform_ioremap_resource() to simplify code
->   crypto: qcom-rng - use devm_platform_ioremap_resource() to simplify
->     code
-> 
->  drivers/crypto/axis/artpec6_crypto.c    | 4 +---
->  drivers/crypto/ccp/sp-platform.c        | 4 +---
->  drivers/crypto/exynos-rng.c             | 4 +---
->  drivers/crypto/img-hash.c               | 4 +---
->  drivers/crypto/inside-secure/safexcel.c | 4 +---
->  drivers/crypto/mediatek/mtk-platform.c  | 3 +--
->  drivers/crypto/picoxcell_crypto.c       | 5 ++---
->  drivers/crypto/qce/core.c               | 4 +---
->  drivers/crypto/qcom-rng.c               | 4 +---
->  drivers/crypto/rockchip/rk3288_crypto.c | 4 +---
->  drivers/crypto/stm32/stm32-crc32.c      | 4 +---
->  drivers/crypto/stm32/stm32-cryp.c       | 4 +---
->  drivers/crypto/sunxi-ss/sun4i-ss-core.c | 4 +---
->  13 files changed, 14 insertions(+), 38 deletions(-)
+When calling debugfs functions, there is no need to ever check the
+return value.  The function can work or not, but the code logic should
+never do something different based on this.
 
-All applied.  Thanks.
+Because we don't care about the individual files, we can remove the
+stored dentry for the files, as they are not needed to be kept track of
+at all.
+
+Cc: Giuseppe Cavallaro <peppe.cavallaro@st.com>
+Cc: Alexandre Torgue <alexandre.torgue@st.com>
+Cc: Jose Abreu <joabreu@synopsys.com>
+Cc: "David S. Miller" <davem@davemloft.net>
+Cc: Maxime Coquelin <mcoquelin.stm32@gmail.com>
+Cc: netdev@vger.kernel.org
+Cc: linux-stm32@st-md-mailman.stormreply.com
+Signed-off-by: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
+---
+ drivers/net/ethernet/stmicro/stmmac/stmmac.h  |  2 -
+ .../net/ethernet/stmicro/stmmac/stmmac_main.c | 52 +++----------------
+ 2 files changed, 8 insertions(+), 46 deletions(-)
+
+diff --git a/drivers/net/ethernet/stmicro/stmmac/stmmac.h b/drivers/net/ethernet/stmicro/stmmac/stmmac.h
+index 4179559b11ad..80276587048a 100644
+--- a/drivers/net/ethernet/stmicro/stmmac/stmmac.h
++++ b/drivers/net/ethernet/stmicro/stmmac/stmmac.h
+@@ -196,8 +196,6 @@ struct stmmac_priv {
+ 
+ #ifdef CONFIG_DEBUG_FS
+ 	struct dentry *dbgfs_dir;
+-	struct dentry *dbgfs_rings_status;
+-	struct dentry *dbgfs_dma_cap;
+ #endif
+ 
+ 	unsigned long state;
+diff --git a/drivers/net/ethernet/stmicro/stmmac/stmmac_main.c b/drivers/net/ethernet/stmicro/stmmac/stmmac_main.c
+index 2274bb58eefa..06a63df1c2c5 100644
+--- a/drivers/net/ethernet/stmicro/stmmac/stmmac_main.c
++++ b/drivers/net/ethernet/stmicro/stmmac/stmmac_main.c
+@@ -105,7 +105,7 @@ MODULE_PARM_DESC(chain_mode, "To use chain instead of ring mode");
+ static irqreturn_t stmmac_interrupt(int irq, void *dev_id);
+ 
+ #ifdef CONFIG_DEBUG_FS
+-static int stmmac_init_fs(struct net_device *dev);
++static void stmmac_init_fs(struct net_device *dev);
+ static void stmmac_exit_fs(struct net_device *dev);
+ #endif
+ 
+@@ -3988,45 +3988,20 @@ static int stmmac_dma_cap_show(struct seq_file *seq, void *v)
+ }
+ DEFINE_SHOW_ATTRIBUTE(stmmac_dma_cap);
+ 
+-static int stmmac_init_fs(struct net_device *dev)
++static void stmmac_init_fs(struct net_device *dev)
+ {
+ 	struct stmmac_priv *priv = netdev_priv(dev);
+ 
+ 	/* Create per netdev entries */
+ 	priv->dbgfs_dir = debugfs_create_dir(dev->name, stmmac_fs_dir);
+ 
+-	if (!priv->dbgfs_dir || IS_ERR(priv->dbgfs_dir)) {
+-		netdev_err(priv->dev, "ERROR failed to create debugfs directory\n");
+-
+-		return -ENOMEM;
+-	}
+-
+ 	/* Entry to report DMA RX/TX rings */
+-	priv->dbgfs_rings_status =
+-		debugfs_create_file("descriptors_status", 0444,
+-				    priv->dbgfs_dir, dev,
+-				    &stmmac_rings_status_fops);
+-
+-	if (!priv->dbgfs_rings_status || IS_ERR(priv->dbgfs_rings_status)) {
+-		netdev_err(priv->dev, "ERROR creating stmmac ring debugfs file\n");
+-		debugfs_remove_recursive(priv->dbgfs_dir);
+-
+-		return -ENOMEM;
+-	}
++	debugfs_create_file("descriptors_status", 0444, priv->dbgfs_dir, dev,
++			    &stmmac_rings_status_fops);
+ 
+ 	/* Entry to report the DMA HW features */
+-	priv->dbgfs_dma_cap = debugfs_create_file("dma_cap", 0444,
+-						  priv->dbgfs_dir,
+-						  dev, &stmmac_dma_cap_fops);
+-
+-	if (!priv->dbgfs_dma_cap || IS_ERR(priv->dbgfs_dma_cap)) {
+-		netdev_err(priv->dev, "ERROR creating stmmac MMC debugfs file\n");
+-		debugfs_remove_recursive(priv->dbgfs_dir);
+-
+-		return -ENOMEM;
+-	}
+-
+-	return 0;
++	debugfs_create_file("dma_cap", 0444, priv->dbgfs_dir, dev,
++			    &stmmac_dma_cap_fops);
+ }
+ 
+ static void stmmac_exit_fs(struct net_device *dev)
+@@ -4482,10 +4457,7 @@ int stmmac_dvr_probe(struct device *device,
+ 	}
+ 
+ #ifdef CONFIG_DEBUG_FS
+-	ret = stmmac_init_fs(ndev);
+-	if (ret < 0)
+-		netdev_warn(priv->dev, "%s: failed debugFS registration\n",
+-			    __func__);
++	stmmac_init_fs(ndev);
+ #endif
+ 
+ 	return ret;
+@@ -4731,16 +4703,8 @@ static int __init stmmac_init(void)
+ {
+ #ifdef CONFIG_DEBUG_FS
+ 	/* Create debugfs main directory if it doesn't exist yet */
+-	if (!stmmac_fs_dir) {
++	if (!stmmac_fs_dir)
+ 		stmmac_fs_dir = debugfs_create_dir(STMMAC_RESOURCE_NAME, NULL);
+-
+-		if (!stmmac_fs_dir || IS_ERR(stmmac_fs_dir)) {
+-			pr_err("ERROR %s, debugfs create directory failed\n",
+-			       STMMAC_RESOURCE_NAME);
+-
+-			return -ENOMEM;
+-		}
+-	}
+ #endif
+ 
+ 	return 0;
 -- 
-Email: Herbert Xu <herbert@gondor.apana.org.au>
-Home Page: http://gondor.apana.org.au/~herbert/
-PGP Key: http://gondor.apana.org.au/~herbert/pubkey.txt
+2.22.0
+
 _______________________________________________
 Linux-stm32 mailing list
 Linux-stm32@st-md-mailman.stormreply.com
