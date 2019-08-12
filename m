@@ -2,82 +2,48 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id 1B16089856
-	for <lists+linux-stm32@lfdr.de>; Mon, 12 Aug 2019 09:55:21 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 5632C89A1C
+	for <lists+linux-stm32@lfdr.de>; Mon, 12 Aug 2019 11:44:35 +0200 (CEST)
 Received: from ip-172-31-3-76.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id B8AECC35E02;
-	Mon, 12 Aug 2019 07:55:20 +0000 (UTC)
-Received: from mx07-00178001.pphosted.com (mx07-00178001.pphosted.com
- [62.209.51.94])
- (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 24CEAC28E30;
+	Mon, 12 Aug 2019 09:44:35 +0000 (UTC)
+Received: from smtprelay-out1.synopsys.com (unknown [198.182.47.102])
+ (using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 322ABC36B3F
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 728E9C36B3F
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Mon, 12 Aug 2019 07:55:19 +0000 (UTC)
-Received: from pps.filterd (m0046037.ppops.net [127.0.0.1])
- by mx07-00178001.pphosted.com (8.16.0.27/8.16.0.27) with SMTP id
- x7C7pJws019345; Mon, 12 Aug 2019 09:55:06 +0200
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=st.com;
- h=from : to : cc : subject
- : date : message-id : references : in-reply-to : content-type : content-id
- : content-transfer-encoding : mime-version; s=STMicroelectronics;
- bh=K4f2t1Y5I/EziBGPEJ+ljv/yOyY+PHAdMeuhhuVCD0A=;
- b=ueE8QJvJ5XEt07B7hhwIm9PHXk8vr9MMQx57+IV19RtrYnKCgN2NH2NndaUKX9AhuEXf
- kdpIHS1q2gg7KQFcH5AlSnETBmFxMtNRZ1hYT6DBMPYQjsFLt5SHmtVW740XB8rlNuyi
- V1gsoTXk6RY+epahTtKdy3KZ09zx71p4tzYmpaWG7N5m1EK5lH2nKpWvKK1cbx7/Rjoo
- QCm1wsT5q+wFGgpmWpEuYAlbijeqf0s/xGFcBtsotZw4++HsQiPZ5A6xLXWfuj/ameX3
- ceADR+LDgFwhHiJOBFYkr5FX8e8lUdTAYBch3xSIo7VYGs6E3TyAL80orPKf4BMnmF0W lQ== 
-Received: from beta.dmz-eu.st.com (beta.dmz-eu.st.com [164.129.1.35])
- by mx07-00178001.pphosted.com with ESMTP id 2u9kpuhmue-1
- (version=TLSv1 cipher=ECDHE-RSA-AES256-SHA bits=256 verify=NOT);
- Mon, 12 Aug 2019 09:55:05 +0200
-Received: from euls16034.sgp.st.com (euls16034.sgp.st.com [10.75.44.20])
- by beta.dmz-eu.st.com (STMicroelectronics) with ESMTP id 1D80031;
- Mon, 12 Aug 2019 07:55:05 +0000 (GMT)
-Received: from Webmail-eu.st.com (sfhdag6node3.st.com [10.75.127.18])
- by euls16034.sgp.st.com (STMicroelectronics) with ESMTP id E99412C1097;
- Mon, 12 Aug 2019 09:55:04 +0200 (CEST)
-Received: from SFHDAG5NODE1.st.com (10.75.127.13) by SFHDAG6NODE3.st.com
- (10.75.127.18) with Microsoft SMTP Server (TLS) id 15.0.1473.3; Mon, 12 Aug
- 2019 09:55:04 +0200
-Received: from SFHDAG5NODE1.st.com ([fe80::cc53:528c:36c8:95f6]) by
- SFHDAG5NODE1.st.com ([fe80::cc53:528c:36c8:95f6%20]) with mapi id
- 15.00.1473.003; Mon, 12 Aug 2019 09:55:04 +0200
-From: Hugues FRUCHET <hugues.fruchet@st.com>
-To: Sakari Ailus <sakari.ailus@linux.intel.com>
-Thread-Topic: [PATCH v4 1/3] media: stm32-dcmi: improve sensor subdev naming
-Thread-Index: AQHVTsvbNiH8ciXV5ESmNTxaXVzk1ab3B2CA
-Date: Mon, 12 Aug 2019 07:55:04 +0000
-Message-ID: <0deb258d-bb11-15ee-0beb-8355cfd3782b@st.com>
-References: <1564577783-18627-1-git-send-email-hugues.fruchet@st.com>
- <1564577783-18627-2-git-send-email-hugues.fruchet@st.com>
- <20190809160121.GA6194@paasikivi.fi.intel.com>
-In-Reply-To: <20190809160121.GA6194@paasikivi.fi.intel.com>
-Accept-Language: en-US
-Content-Language: en-US
-X-MS-Has-Attach: 
-X-MS-TNEF-Correlator: 
-user-agent: Mozilla/5.0 (X11; Linux x86_64; rv:60.0) Gecko/20100101
- Thunderbird/60.8.0
-x-ms-exchange-messagesentrepresentingtype: 1
-x-ms-exchange-transport-fromentityheader: Hosted
-x-originating-ip: [10.75.127.51]
-Content-ID: <C5F0FC3B1E518747BF9EB47BB034675C@st.com>
-MIME-Version: 1.0
-X-Proofpoint-Virus-Version: vendor=fsecure engine=2.50.10434:, ,
- definitions=2019-08-12_04:, , signatures=0
-Cc: Yannick FERTRE <yannick.fertre@st.com>,
- Mickael GUENE <mickael.guene@st.com>,
- "linux-kernel@vger.kernel.org" <linux-kernel@vger.kernel.org>,
- Hans Verkuil <hverkuil@xs4all.nl>,
- Benjamin Gaignard <benjamin.gaignard@linaro.org>,
- Mauro Carvalho Chehab <mchehab@kernel.org>,
- "linux-stm32@st-md-mailman.stormreply.com"
- <linux-stm32@st-md-mailman.stormreply.com>,
- "linux-arm-kernel@lists.infradead.org" <linux-arm-kernel@lists.infradead.org>,
- "linux-media@vger.kernel.org" <linux-media@vger.kernel.org>
-Subject: Re: [Linux-stm32] [PATCH v4 1/3] media: stm32-dcmi: improve sensor
-	subdev naming
+ Mon, 12 Aug 2019 09:44:31 +0000 (UTC)
+Received: from mailhost.synopsys.com (mdc-mailhost1.synopsys.com
+ [10.225.0.209])
+ (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits))
+ (No client certificate requested)
+ by smtprelay-out1.synopsys.com (Postfix) with ESMTPS id 7FC1DC21DB;
+ Mon, 12 Aug 2019 09:44:24 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=synopsys.com; s=mail;
+ t=1565603069; bh=NmX8XhNa7Yyj0AxzvLSwb00xjlHeMa4pt6SjJT15Duc=;
+ h=From:To:Cc:Subject:Date:From;
+ b=lbK+nvM84AiTIyQALrUBPzY3qhpsKJeh7YtMIojwkkFDT10ox6TGJHtrqZHBnlqR+
+ r38hAbmG+8J82BfSoiqg0mFZtAYhoJ3l1wdMvaZpL2AOmKNB85rGrSd9yd2REBeF0h
+ p+gIiXLodAFmiwbjge1+XD4i/dKA6M9Bo+s3qTW1XDk1J8B2C9hzW/pjrakMqxNUCb
+ 2rT9Ba+/5X87/g242ocQ9vNNF11/ZAoSFBsKbe+KzV+VzJtHmmHawB3VcnEXFAQiuJ
+ BeS4CVaoX+hk+GNRdJE7YuimD8HIV3EqpD4qWTDcK199FTtwicCDpLinI57PdNt32E
+ S9IeUC7gq473g==
+Received: from de02dwia024.internal.synopsys.com
+ (de02dwia024.internal.synopsys.com [10.225.19.81])
+ by mailhost.synopsys.com (Postfix) with ESMTP id 2E897A0057;
+ Mon, 12 Aug 2019 09:44:21 +0000 (UTC)
+From: Jose Abreu <Jose.Abreu@synopsys.com>
+To: netdev@vger.kernel.org
+Date: Mon, 12 Aug 2019 11:43:59 +0200
+Message-Id: <cover.1565602974.git.joabreu@synopsys.com>
+X-Mailer: git-send-email 2.7.4
+Cc: Jose Abreu <Jose.Abreu@synopsys.com>, Joao Pinto <Joao.Pinto@synopsys.com>,
+ linux-kernel@vger.kernel.org, linux-stm32@st-md-mailman.stormreply.com,
+ Maxime Coquelin <mcoquelin.stm32@gmail.com>,
+ Giuseppe Cavallaro <peppe.cavallaro@st.com>,
+ "David S. Miller" <davem@davemloft.net>, linux-arm-kernel@lists.infradead.org
+Subject: [Linux-stm32] [PATCH net-next v2 00/12] net: stmmac: Improvements
+	for -next
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -89,39 +55,56 @@ List-Post: <mailto:linux-stm32@st-md-mailman.stormreply.com>
 List-Help: <mailto:linux-stm32-request@st-md-mailman.stormreply.com?subject=help>
 List-Subscribe: <https://st-md-mailman.stormreply.com/mailman/listinfo/linux-stm32>, 
  <mailto:linux-stm32-request@st-md-mailman.stormreply.com?subject=subscribe>
+MIME-Version: 1.0
 Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
-Hi Sakari,
+Couple of improvements for -next tree. More info in commit logs.
 
-Sorry for inconvenience, I will push a V5 with that fixed.
+---
+Cc: Giuseppe Cavallaro <peppe.cavallaro@st.com>
+Cc: Alexandre Torgue <alexandre.torgue@st.com>
+Cc: Jose Abreu <joabreu@synopsys.com>
+Cc: "David S. Miller" <davem@davemloft.net>
+Cc: Maxime Coquelin <mcoquelin.stm32@gmail.com>
+Cc: netdev@vger.kernel.org
+Cc: linux-stm32@st-md-mailman.stormreply.com
+Cc: linux-arm-kernel@lists.infradead.org
+Cc: linux-kernel@vger.kernel.org
+---
 
-May I put your "Acked-by" also on the 2 other commits ? Or just this one ?
+Jose Abreu (12):
+  net: stmmac: Get correct timestamp values from XGMAC
+  net: stmmac: Prepare to add Split Header support
+  net: stmmac: xgmac: Correctly return that RX descriptor is not last
+    one
+  net: stmmac: Add Split Header support and enable it in XGMAC cores
+  net: stmmac: Add a counter for Split Header packets
+  net: stmmac: dwxgmac: Add Flexible PPS support
+  net: stmmac: Add ethtool register dump for XGMAC cores
+  net: stmmac: Add support for SA Insertion/Replacement in XGMAC cores
+  net: stmmac: selftests: Add tests for SA Insertion/Replacement
+  net: stmmac: xgmac: Add EEE support
+  net: stmmac: Add support for VLAN Insertion Offload
+  net: stmmac: selftests: Add selftest for VLAN TX Offload
 
-On 8/9/19 6:01 PM, Sakari Ailus wrote:
-> Hi Hugues,
-> 
-> Thanks for teh update.
-> 
-> On Wed, Jul 31, 2019 at 02:56:21PM +0200, Hugues Fruchet wrote:
->> Rename "subdev" entity struct field to "source"
->> to prepare for several subdev support.
->> Move asd field on top of entity struct.
->>
->> Signed-off-by: Hugues Fruchet <hugues.fruchet@st.com>
->> Change-Id: I1545a1a29a8061ee67cc6e4b799e9a69071911e7
-> 
-> No Change-Id tags in the kernel, please. Check the other two as well.
-> 
-> With that fixed,
-> 
-> Acked-by: Sakari Ailus <sakari.ailus@linux.intel.com>
-> 
+ drivers/net/ethernet/stmicro/stmmac/common.h       |  10 +
+ drivers/net/ethernet/stmicro/stmmac/dwxgmac2.h     |  56 ++++
+ .../net/ethernet/stmicro/stmmac/dwxgmac2_core.c    | 182 ++++++++++++-
+ .../net/ethernet/stmicro/stmmac/dwxgmac2_descs.c   |  88 ++++++-
+ drivers/net/ethernet/stmicro/stmmac/dwxgmac2_dma.c |  31 ++-
+ drivers/net/ethernet/stmicro/stmmac/hwif.h         |  30 +++
+ drivers/net/ethernet/stmicro/stmmac/stmmac.h       |  10 +
+ .../net/ethernet/stmicro/stmmac/stmmac_ethtool.c   |  25 +-
+ drivers/net/ethernet/stmicro/stmmac/stmmac_main.c  | 287 ++++++++++++++++-----
+ .../net/ethernet/stmicro/stmmac/stmmac_selftests.c | 194 +++++++++++++-
+ 10 files changed, 822 insertions(+), 91 deletions(-)
 
-Best regards,
-Hugues.
+-- 
+2.7.4
+
 _______________________________________________
 Linux-stm32 mailing list
 Linux-stm32@st-md-mailman.stormreply.com
