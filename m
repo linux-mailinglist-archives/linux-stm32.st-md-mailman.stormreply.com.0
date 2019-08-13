@@ -2,64 +2,54 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id 6E1008B4C3
-	for <lists+linux-stm32@lfdr.de>; Tue, 13 Aug 2019 12:00:31 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 6EAD28C25D
+	for <lists+linux-stm32@lfdr.de>; Tue, 13 Aug 2019 22:55:33 +0200 (CEST)
 Received: from ip-172-31-3-76.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 3A8E7C35E0A;
-	Tue, 13 Aug 2019 10:00:31 +0000 (UTC)
-Received: from mx07-00178001.pphosted.com (mx08-00178001.pphosted.com
- [91.207.212.93])
- (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id C7521C35E02;
+	Tue, 13 Aug 2019 20:55:32 +0000 (UTC)
+Received: from mail-oi1-f195.google.com (mail-oi1-f195.google.com
+ [209.85.167.195])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id ACE5AC35E03
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id A081DC36B3F
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Tue, 13 Aug 2019 10:00:29 +0000 (UTC)
-Received: from pps.filterd (m0046661.ppops.net [127.0.0.1])
- by mx08-00178001.pphosted.com (8.16.0.27/8.16.0.27) with SMTP id
- x7D9uvqx019950; Tue, 13 Aug 2019 12:00:21 +0200
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=st.com;
- h=from : to : cc : subject
- : date : message-id : in-reply-to : references : mime-version :
- content-type; s=STMicroelectronics;
- bh=Ew0jpCMbOhB8LJL0i2smq1Jsu/IjtJ4+t0EckSDmj7s=;
- b=vb/ucef+X+hg73LkawoYQfoCed3ejnD4d/mbq55LGlU4sWrxvvDUJIstPrhovBdrbS9I
- SrNkhWIIaM/LRJMD4WGd7LC4TacuSPc/8MBsF4VvSKy4Dh4OBTvHGMeZVqoiSR/TBJF6
- FSXXFFJ04FRNIQKEGtywQYRtwrTs/hHyrY99Q+A6sbt/HsnTxuFDN7QDHo+hoPoTzQXb
- k3GJFr2VHTJ3zgfnvlPSIEVt/YzjOT4VMoCmEm7hcerchypN349F/8Vw1uBBH0qMCy3V
- wK3FR6twZS3la5n1cEpn3eeg4W+8G1ePoU4XhPmW8YNecF6xEs9eFRy/OlJKE57ciLy3 1w== 
-Received: from beta.dmz-eu.st.com (beta.dmz-eu.st.com [164.129.1.35])
- by mx08-00178001.pphosted.com with ESMTP id 2u9mtky9vp-1
- (version=TLSv1 cipher=ECDHE-RSA-AES256-SHA bits=256 verify=NOT);
- Tue, 13 Aug 2019 12:00:21 +0200
-Received: from euls16034.sgp.st.com (euls16034.sgp.st.com [10.75.44.20])
- by beta.dmz-eu.st.com (STMicroelectronics) with ESMTP id 1041234;
- Tue, 13 Aug 2019 10:00:20 +0000 (GMT)
-Received: from Webmail-eu.st.com (Safex1hubcas22.st.com [10.75.90.92])
- by euls16034.sgp.st.com (STMicroelectronics) with ESMTP id EC7F32CC9D3;
- Tue, 13 Aug 2019 12:00:19 +0200 (CEST)
-Received: from SAFEX1HUBCAS23.st.com (10.75.90.47) by Safex1hubcas22.st.com
- (10.75.90.92) with Microsoft SMTP Server (TLS) id 14.3.439.0; Tue, 13 Aug
- 2019 12:00:19 +0200
-Received: from lmecxl0923.lme.st.com (10.48.0.237) by webmail-ga.st.com
- (10.75.90.48) with Microsoft SMTP Server (TLS) id 14.3.439.0; Tue, 13 Aug
- 2019 12:00:18 +0200
-From: Ludovic Barre <ludovic.Barre@st.com>
-To: Ulf Hansson <ulf.hansson@linaro.org>, Rob Herring <robh+dt@kernel.org>
-Date: Tue, 13 Aug 2019 11:59:51 +0200
-Message-ID: <20190813095951.26275-4-ludovic.Barre@st.com>
-X-Mailer: git-send-email 2.17.1
-In-Reply-To: <20190813095951.26275-1-ludovic.Barre@st.com>
-References: <20190813095951.26275-1-ludovic.Barre@st.com>
+ Tue, 13 Aug 2019 20:55:31 +0000 (UTC)
+Received: by mail-oi1-f195.google.com with SMTP id h21so662186oie.7
+ for <linux-stm32@st-md-mailman.stormreply.com>;
+ Tue, 13 Aug 2019 13:55:31 -0700 (PDT)
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20161025;
+ h=x-gm-message-state:from:to:cc:subject:date:message-id:mime-version
+ :content-transfer-encoding;
+ bh=vRcjRzXsLYZcKkMeLECf7vG301P7B0XZvNn+RUsuARg=;
+ b=kny9GzeBGIovqOEQ4MOQJT6vsRYZgFk4icS/77K1bqDfX8w/YkiH/XBY1fSaxagQB5
+ 5ExipAVnsWgSeVS6g9mNsndPPbKSS9WzMMs5IsxDWXb1uf5EFww9P9nT2+ZYv4Z4GT2h
+ HCyg1WBEPzje6KLuk4CSOWs23mCksKZcCtYrtoFIIYUk3Wdk9qgTilIAbl3V19TA2kVC
+ 30T2o8sSpx5JiA8W84Uxoaj4ZgR2rtESD9cmdX/FgsDrGiIECwrehHrVAhrAnLaixu1l
+ rdNt9O/CWAKbAwCPFGl78JaKYLSabAGtpDzAbZfu0TFDabke++cNbiM+1UdAi1rQkw02
+ nDmA==
+X-Gm-Message-State: APjAAAV/E2yrI803lHa0+FQvBOZXcHaHKV5wQfFgvJ3GIDCJBBQ0zwHv
+ +bPMgY9O84QTf8UaQgA8Aw==
+X-Google-Smtp-Source: APXvYqxjYk48K/xApN8bRzF+K+cyfVT+7GZOGNiswrJt4E2UxIRabfgvTQ/6FwmQTxYes48I9p8I+g==
+X-Received: by 2002:a02:7121:: with SMTP id n33mr45263919jac.19.1565729730148; 
+ Tue, 13 Aug 2019 13:55:30 -0700 (PDT)
+Received: from xps15.herring.priv ([64.188.179.254])
+ by smtp.googlemail.com with ESMTPSA id
+ m10sm204917375ioj.75.2019.08.13.13.55.29
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Tue, 13 Aug 2019 13:55:29 -0700 (PDT)
+From: Rob Herring <robh@kernel.org>
+To: devicetree@vger.kernel.org
+Date: Tue, 13 Aug 2019 14:55:28 -0600
+Message-Id: <20190813205528.16651-1-robh@kernel.org>
+X-Mailer: git-send-email 2.20.1
 MIME-Version: 1.0
-X-Originating-IP: [10.48.0.237]
-X-Proofpoint-Virus-Version: vendor=fsecure engine=2.50.10434:, ,
- definitions=2019-08-13_04:, , signatures=0
-Cc: devicetree@vger.kernel.org, linux-mmc@vger.kernel.org,
- linux-kernel@vger.kernel.org, srinivas.kandagatla@linaro.org,
+Cc: Mark Rutland <mark.rutland@arm.com>,
+ Linus Walleij <linus.walleij@linaro.org>, linux-gpio@vger.kernel.org,
  Maxime Coquelin <mcoquelin.stm32@gmail.com>,
  linux-stm32@st-md-mailman.stormreply.com, linux-arm-kernel@lists.infradead.org
-Subject: [Linux-stm32] [PATCH V5 3/3] mmc: mmci: sdmmc: add busy_complete
-	callback
+Subject: [Linux-stm32] [PATCH] dt-bindings: pinctrl: stm32: Fix 'st,
+	syscfg' schema
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -76,115 +66,42 @@ Content-Transfer-Encoding: 7bit
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
-From: Ludovic Barre <ludovic.barre@st.com>
+The proper way to add additional contraints to an existing json-schema
+is using 'allOf' to reference the base schema. Using just '$ref' doesn't
+work. Fix this for the 'st,syscfg' property.
 
-This patch adds a specific busy_complete callback for sdmmc variant.
-
-sdmmc has 2 status flags:
--busyd0: This is a hardware status flag (inverted value of d0 line).
-it does not generate an interrupt.
--busyd0end: This indicates only end of busy following a CMD response.
-On busy to Not busy changes, an interrupt is generated (if unmask)
-and BUSYD0END status flag is set. Status flag is cleared by writing
-corresponding interrupt clear bit in MMCICLEAR.
-
-The legacy busy completion monitors step by step the busy progression
-start/in-progress/end. On sdmmc variant, the monitoring of busy steps
-is difficult and not adapted (the software can miss a step and locks
-the monitoring), the sdmmc has just need to wait the busyd0end bit
-without monitoring all the changes.
-
-Signed-off-by: Ludovic Barre <ludovic.barre@st.com>
+Cc: Linus Walleij <linus.walleij@linaro.org>
+Cc: Mark Rutland <mark.rutland@arm.com>
+Cc: Maxime Coquelin <mcoquelin.stm32@gmail.com>
+Cc: Alexandre Torgue <alexandre.torgue@st.com>
+Cc: linux-gpio@vger.kernel.org
+Cc: linux-stm32@st-md-mailman.stormreply.com
+Cc: linux-arm-kernel@lists.infradead.org
+Signed-off-by: Rob Herring <robh@kernel.org>
 ---
- drivers/mmc/host/mmci.c             |  3 +++
- drivers/mmc/host/mmci.h             |  1 +
- drivers/mmc/host/mmci_stm32_sdmmc.c | 38 +++++++++++++++++++++++++++++
- 3 files changed, 42 insertions(+)
+I've got some other fixes queued up and can take this via the DT tree.
 
-diff --git a/drivers/mmc/host/mmci.c b/drivers/mmc/host/mmci.c
-index 9eac3f482119..9bec82d2dbf7 100644
---- a/drivers/mmc/host/mmci.c
-+++ b/drivers/mmc/host/mmci.c
-@@ -260,6 +260,9 @@ static struct variant_data variant_stm32_sdmmc = {
- 	.datalength_bits	= 25,
- 	.datactrl_blocksz	= 14,
- 	.stm32_idmabsize_mask	= GENMASK(12, 5),
-+	.busy_timeout		= true,
-+	.busy_detect_flag	= MCI_STM32_BUSYD0,
-+	.busy_detect_mask	= MCI_STM32_BUSYD0ENDMASK,
- 	.init			= sdmmc_variant_init,
- };
+Rob
+
+ .../devicetree/bindings/pinctrl/st,stm32-pinctrl.yaml          | 3 ++-
+ 1 file changed, 2 insertions(+), 1 deletion(-)
+
+diff --git a/Documentation/devicetree/bindings/pinctrl/st,stm32-pinctrl.yaml b/Documentation/devicetree/bindings/pinctrl/st,stm32-pinctrl.yaml
+index 91d3e78b3395..400df2da018a 100644
+--- a/Documentation/devicetree/bindings/pinctrl/st,stm32-pinctrl.yaml
++++ b/Documentation/devicetree/bindings/pinctrl/st,stm32-pinctrl.yaml
+@@ -37,7 +37,8 @@ properties:
+   hwlocks: true
  
-diff --git a/drivers/mmc/host/mmci.h b/drivers/mmc/host/mmci.h
-index 733f9a035b06..841c5281beb5 100644
---- a/drivers/mmc/host/mmci.h
-+++ b/drivers/mmc/host/mmci.h
-@@ -164,6 +164,7 @@
- #define MCI_ST_CARDBUSY		(1 << 24)
- /* Extended status bits for the STM32 variants */
- #define MCI_STM32_BUSYD0	BIT(20)
-+#define MCI_STM32_BUSYD0END	BIT(21)
- 
- #define MMCICLEAR		0x038
- #define MCI_CMDCRCFAILCLR	(1 << 0)
-diff --git a/drivers/mmc/host/mmci_stm32_sdmmc.c b/drivers/mmc/host/mmci_stm32_sdmmc.c
-index 8e83ae6920ae..bb5499cc9e81 100644
---- a/drivers/mmc/host/mmci_stm32_sdmmc.c
-+++ b/drivers/mmc/host/mmci_stm32_sdmmc.c
-@@ -282,6 +282,43 @@ static u32 sdmmc_get_dctrl_cfg(struct mmci_host *host)
- 	return datactrl;
- }
- 
-+bool sdmmc_busy_complete(struct mmci_host *host, u32 status, u32 err_msk)
-+{
-+	void __iomem *base = host->base;
-+	u32 busy_d0, busy_d0end, mask;
-+
-+	mask = readl_relaxed(base + MMCIMASK0);
-+	busy_d0end = readl_relaxed(base + MMCISTATUS) & MCI_STM32_BUSYD0END;
-+	busy_d0 = readl_relaxed(base + MMCISTATUS) & MCI_STM32_BUSYD0;
-+
-+	/* complete if there is an error or busy_d0end */
-+	if ((status & err_msk) || busy_d0end)
-+		goto complete;
-+
-+	/*
-+	 * On response the busy signaling is reflected in the BUSYD0 flag.
-+	 * if busy_d0 is in-progress we must activate busyd0end interrupt
-+	 * to wait this completion. Else this request has no busy step.
-+	 */
-+	if (busy_d0) {
-+		if (!host->busy_status) {
-+			writel_relaxed(mask | host->variant->busy_detect_mask,
-+				       base + MMCIMASK0);
-+			host->busy_status = status &
-+				(MCI_CMDSENT | MCI_CMDRESPEND);
-+		}
-+		return false;
-+	}
-+
-+complete:
-+	writel_relaxed(mask & ~host->variant->busy_detect_mask,
-+		       base + MMCIMASK0);
-+	writel_relaxed(host->variant->busy_detect_mask, base + MMCICLEAR);
-+	host->busy_status = 0;
-+
-+	return true;
-+}
-+
- static struct mmci_host_ops sdmmc_variant_ops = {
- 	.validate_data = sdmmc_idma_validate_data,
- 	.prep_data = sdmmc_idma_prep_data,
-@@ -292,6 +329,7 @@ static struct mmci_host_ops sdmmc_variant_ops = {
- 	.dma_finalize = sdmmc_idma_finalize,
- 	.set_clkreg = mmci_sdmmc_set_clkreg,
- 	.set_pwrreg = mmci_sdmmc_set_pwrreg,
-+	.busy_complete = sdmmc_busy_complete,
- };
- 
- void sdmmc_variant_init(struct mmci_host *host)
+   st,syscfg:
+-    $ref: "/schemas/types.yaml#/definitions/phandle-array"
++    allOf:
++      - $ref: "/schemas/types.yaml#/definitions/phandle-array"
+     description: Should be phandle/offset/mask
+     items:
+       - description: Phandle to the syscon node which includes IRQ mux selection.
 -- 
-2.17.1
+2.20.1
 
 _______________________________________________
 Linux-stm32 mailing list
