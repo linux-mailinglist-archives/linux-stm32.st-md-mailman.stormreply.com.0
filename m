@@ -2,55 +2,40 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id 4F6A591269
-	for <lists+linux-stm32@lfdr.de>; Sat, 17 Aug 2019 20:55:04 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id C8E5A912BD
+	for <lists+linux-stm32@lfdr.de>; Sat, 17 Aug 2019 21:44:49 +0200 (CEST)
 Received: from ip-172-31-3-76.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 1DBBEC35E15;
-	Sat, 17 Aug 2019 18:55:04 +0000 (UTC)
-Received: from smtprelay-out1.synopsys.com (smtprelay-out1.synopsys.com
- [198.182.47.102])
- (using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 654DDC35E01;
+	Sat, 17 Aug 2019 19:44:49 +0000 (UTC)
+Received: from shards.monkeyblade.net (shards.monkeyblade.net [23.128.96.9])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 0FA9DC35E03
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 72669C36B3E
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Sat, 17 Aug 2019 18:55:00 +0000 (UTC)
-Received: from mailhost.synopsys.com (mdc-mailhost2.synopsys.com
- [10.225.0.210])
- (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits))
- (No client certificate requested)
- by smtprelay-out1.synopsys.com (Postfix) with ESMTPS id 7B6C5C0C4D;
- Sat, 17 Aug 2019 18:54:57 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=synopsys.com; s=mail;
- t=1566068098; bh=RVdfzAnkLd2cFbezBg+5+IcJ5jUr94r8t2wC6fXWHBw=;
- h=From:To:Cc:Subject:Date:In-Reply-To:References:In-Reply-To:
- References:From;
- b=fqGFp86KDvPB2tbQFDTC2IJ2j6VbZCB/3O07q0YxVTVEwUEeeVpvVWHX8epyVgfth
- UaLR2VXR/jt6HQ4wrvOv1yhgVniWEQSK5jnYsf/62c1+KCoaTMZqJcoC2EX6rNOE+C
- 5gOTo9wOMPKFESeVHnB8GrS4ggsruj+8AJek9fRCc5lZvGFvigXFXi198WE7j9HUql
- JaBSOjX7kovNzkLKr1mC5XnOD4PW/WSAY/jGAmzgSW8RNVlCQOHrr79R9sKJCopvIM
- OpNuaJ0uc5b2fUBy5/NayCcDCNNULyW/oM3EqldiYj6hzWAGlnAWcnRelVGpGy+D2I
- 4GVPqC/Iu+K5A==
-Received: from de02dwia024.internal.synopsys.com
- (de02dwia024.internal.synopsys.com [10.225.19.81])
- by mailhost.synopsys.com (Postfix) with ESMTP id 20D4CA0082;
- Sat, 17 Aug 2019 18:54:56 +0000 (UTC)
-From: Jose Abreu <Jose.Abreu@synopsys.com>
-To: netdev@vger.kernel.org
-Date: Sat, 17 Aug 2019 20:54:51 +0200
-Message-Id: <7b3d9c56e7a010c47c994341f03f962090b3ee68.1566067803.git.joabreu@synopsys.com>
-X-Mailer: git-send-email 2.7.4
+ Sat, 17 Aug 2019 19:44:48 +0000 (UTC)
+Received: from localhost (unknown [IPv6:2601:601:9f80:35cd::d71])
+ (using TLSv1 with cipher AES256-SHA (256/256 bits))
+ (Client did not present a certificate)
+ (Authenticated sender: davem-davemloft)
+ by shards.monkeyblade.net (Postfix) with ESMTPSA id 1364C14DB71BA;
+ Sat, 17 Aug 2019 12:44:46 -0700 (PDT)
+Date: Sat, 17 Aug 2019 12:44:45 -0700 (PDT)
+Message-Id: <20190817.124445.2249439351744280795.davem@davemloft.net>
+To: Jose.Abreu@synopsys.com
+From: David Miller <davem@davemloft.net>
 In-Reply-To: <cover.1566067802.git.joabreu@synopsys.com>
 References: <cover.1566067802.git.joabreu@synopsys.com>
-In-Reply-To: <cover.1566067802.git.joabreu@synopsys.com>
-References: <cover.1566067802.git.joabreu@synopsys.com>
-Cc: Jose Abreu <Jose.Abreu@synopsys.com>, Joao Pinto <Joao.Pinto@synopsys.com>,
- Jakub Kicinski <jakub.kicinski@netronome.com>, linux-kernel@vger.kernel.org,
- linux-stm32@st-md-mailman.stormreply.com,
- Maxime Coquelin <mcoquelin.stm32@gmail.com>,
- Giuseppe Cavallaro <peppe.cavallaro@st.com>,
- "David S. Miller" <davem@davemloft.net>, linux-arm-kernel@lists.infradead.org
-Subject: [Linux-stm32] [PATCH net-next v3 12/12] net: stmmac: selftests: Add
-	selftest for VLAN TX Offload
+X-Mailer: Mew version 6.8 on Emacs 26.1
+Mime-Version: 1.0
+X-Greylist: Sender succeeded SMTP AUTH, not delayed by milter-greylist-4.5.12
+ (shards.monkeyblade.net [149.20.54.216]);
+ Sat, 17 Aug 2019 12:44:46 -0700 (PDT)
+Cc: Joao.Pinto@synopsys.com, jakub.kicinski@netronome.com,
+ netdev@vger.kernel.org, linux-kernel@vger.kernel.org,
+ mcoquelin.stm32@gmail.com, peppe.cavallaro@st.com,
+ linux-stm32@st-md-mailman.stormreply.com, linux-arm-kernel@lists.infradead.org
+Subject: Re: [Linux-stm32] [PATCH net-next v3 00/12] net: stmmac:
+	Improvements for -next
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -62,176 +47,17 @@ List-Post: <mailto:linux-stm32@st-md-mailman.stormreply.com>
 List-Help: <mailto:linux-stm32-request@st-md-mailman.stormreply.com?subject=help>
 List-Subscribe: <https://st-md-mailman.stormreply.com/mailman/listinfo/linux-stm32>, 
  <mailto:linux-stm32-request@st-md-mailman.stormreply.com?subject=subscribe>
-MIME-Version: 1.0
 Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
-Add 2 new selftests for VLAN Insertion offloading. Tests are for inner
-and outer VLAN offloading.
+From: Jose Abreu <Jose.Abreu@synopsys.com>
+Date: Sat, 17 Aug 2019 20:54:39 +0200
 
-Signed-off-by: Jose Abreu <joabreu@synopsys.com>
+> Couple of improvements for -next tree. More info in commit logs.
 
----
-Cc: Giuseppe Cavallaro <peppe.cavallaro@st.com>
-Cc: Alexandre Torgue <alexandre.torgue@st.com>
-Cc: Jose Abreu <joabreu@synopsys.com>
-Cc: "David S. Miller" <davem@davemloft.net>
-Cc: Maxime Coquelin <mcoquelin.stm32@gmail.com>
-Cc: netdev@vger.kernel.org
-Cc: linux-stm32@st-md-mailman.stormreply.com
-Cc: linux-arm-kernel@lists.infradead.org
-Cc: linux-kernel@vger.kernel.org
----
- .../net/ethernet/stmicro/stmmac/stmmac_selftests.c | 96 +++++++++++++++++++++-
- 1 file changed, 94 insertions(+), 2 deletions(-)
-
-diff --git a/drivers/net/ethernet/stmicro/stmmac/stmmac_selftests.c b/drivers/net/ethernet/stmicro/stmmac/stmmac_selftests.c
-index acfab86431b1..ecc8602c6799 100644
---- a/drivers/net/ethernet/stmicro/stmmac/stmmac_selftests.c
-+++ b/drivers/net/ethernet/stmicro/stmmac/stmmac_selftests.c
-@@ -296,7 +296,9 @@ static int __stmmac_test_loopback(struct stmmac_priv *priv,
- 	tpriv->pt.dev = priv->dev;
- 	tpriv->pt.af_packet_priv = tpriv;
- 	tpriv->packet = attr;
--	dev_add_pack(&tpriv->pt);
-+
-+	if (!attr->dont_wait)
-+		dev_add_pack(&tpriv->pt);
- 
- 	skb = stmmac_test_get_udp_skb(priv, attr);
- 	if (!skb) {
-@@ -319,7 +321,8 @@ static int __stmmac_test_loopback(struct stmmac_priv *priv,
- 	ret = !tpriv->ok;
- 
- cleanup:
--	dev_remove_pack(&tpriv->pt);
-+	if (!attr->dont_wait)
-+		dev_remove_pack(&tpriv->pt);
- 	kfree(tpriv);
- 	return ret;
- }
-@@ -731,6 +734,9 @@ static int stmmac_test_vlan_validate(struct sk_buff *skb,
- 	struct ethhdr *ehdr;
- 	struct udphdr *uhdr;
- 	struct iphdr *ihdr;
-+	u16 proto;
-+
-+	proto = tpriv->double_vlan ? ETH_P_8021AD : ETH_P_8021Q;
- 
- 	skb = skb_unshare(skb, GFP_ATOMIC);
- 	if (!skb)
-@@ -740,6 +746,12 @@ static int stmmac_test_vlan_validate(struct sk_buff *skb,
- 		goto out;
- 	if (skb_headlen(skb) < (STMMAC_TEST_PKT_SIZE - ETH_HLEN))
- 		goto out;
-+	if (tpriv->vlan_id) {
-+		if (skb->vlan_proto != htons(proto))
-+			goto out;
-+		if (skb->vlan_tci != tpriv->vlan_id)
-+			goto out;
-+	}
- 
- 	ehdr = (struct ethhdr *)skb_mac_header(skb);
- 	if (!ether_addr_equal(ehdr->h_dest, tpriv->packet->dst))
-@@ -1084,6 +1096,78 @@ static int stmmac_test_reg_sar(struct stmmac_priv *priv)
- 	return ret;
- }
- 
-+static int stmmac_test_vlanoff_common(struct stmmac_priv *priv, bool svlan)
-+{
-+	struct stmmac_packet_attrs attr = { };
-+	struct stmmac_test_priv *tpriv;
-+	struct sk_buff *skb = NULL;
-+	int ret = 0;
-+	u16 proto;
-+
-+	if (!priv->dma_cap.vlins)
-+		return -EOPNOTSUPP;
-+
-+	tpriv = kzalloc(sizeof(*tpriv), GFP_KERNEL);
-+	if (!tpriv)
-+		return -ENOMEM;
-+
-+	proto = svlan ? ETH_P_8021AD : ETH_P_8021Q;
-+
-+	tpriv->ok = false;
-+	tpriv->double_vlan = svlan;
-+	init_completion(&tpriv->comp);
-+
-+	tpriv->pt.type = svlan ? htons(ETH_P_8021Q) : htons(ETH_P_IP);
-+	tpriv->pt.func = stmmac_test_vlan_validate;
-+	tpriv->pt.dev = priv->dev;
-+	tpriv->pt.af_packet_priv = tpriv;
-+	tpriv->packet = &attr;
-+	tpriv->vlan_id = 0x123;
-+	dev_add_pack(&tpriv->pt);
-+
-+	ret = vlan_vid_add(priv->dev, htons(proto), tpriv->vlan_id);
-+	if (ret)
-+		goto cleanup;
-+
-+	attr.dst = priv->dev->dev_addr;
-+
-+	skb = stmmac_test_get_udp_skb(priv, &attr);
-+	if (!skb) {
-+		ret = -ENOMEM;
-+		goto vlan_del;
-+	}
-+
-+	__vlan_hwaccel_put_tag(skb, htons(proto), tpriv->vlan_id);
-+	skb->protocol = htons(proto);
-+
-+	skb_set_queue_mapping(skb, 0);
-+	ret = dev_queue_xmit(skb);
-+	if (ret)
-+		goto vlan_del;
-+
-+	wait_for_completion_timeout(&tpriv->comp, STMMAC_LB_TIMEOUT);
-+	ret = tpriv->ok ? 0 : -ETIMEDOUT;
-+
-+vlan_del:
-+	vlan_vid_del(priv->dev, htons(proto), tpriv->vlan_id);
-+cleanup:
-+	dev_remove_pack(&tpriv->pt);
-+	kfree(tpriv);
-+	return ret;
-+}
-+
-+static int stmmac_test_vlanoff(struct stmmac_priv *priv)
-+{
-+	return stmmac_test_vlanoff_common(priv, false);
-+}
-+
-+static int stmmac_test_svlanoff(struct stmmac_priv *priv)
-+{
-+	if (!priv->dma_cap.dvlan)
-+		return -EOPNOTSUPP;
-+	return stmmac_test_vlanoff_common(priv, true);
-+}
-+
- #define STMMAC_LOOPBACK_NONE	0
- #define STMMAC_LOOPBACK_MAC	1
- #define STMMAC_LOOPBACK_PHY	2
-@@ -1161,6 +1245,14 @@ static const struct stmmac_test {
- 		.name = "SA Replacement (reg)",
- 		.lb = STMMAC_LOOPBACK_PHY,
- 		.fn = stmmac_test_reg_sar,
-+	}, {
-+		.name = "VLAN TX Insertion   ",
-+		.lb = STMMAC_LOOPBACK_PHY,
-+		.fn = stmmac_test_vlanoff,
-+	}, {
-+		.name = "SVLAN TX Insertion  ",
-+		.lb = STMMAC_LOOPBACK_PHY,
-+		.fn = stmmac_test_svlanoff,
- 	},
- };
- 
--- 
-2.7.4
-
+Series applied.
 _______________________________________________
 Linux-stm32 mailing list
 Linux-stm32@st-md-mailman.stormreply.com
