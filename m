@@ -2,40 +2,48 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id 1D4A99630D
-	for <lists+linux-stm32@lfdr.de>; Tue, 20 Aug 2019 16:53:50 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id E185E964B6
+	for <lists+linux-stm32@lfdr.de>; Tue, 20 Aug 2019 17:39:56 +0200 (CEST)
 Received: from ip-172-31-3-76.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id E0187C35E02;
-	Tue, 20 Aug 2019 14:53:49 +0000 (UTC)
-Received: from vps.xff.cz (vps.xff.cz [195.181.215.36])
- (using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id C3186C35E01;
+	Tue, 20 Aug 2019 15:39:55 +0000 (UTC)
+Received: from vps0.lunn.ch (vps0.lunn.ch [185.16.172.187])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 6D92EC35E05
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 5C985C36B3E
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Tue, 20 Aug 2019 14:53:47 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=megous.com; s=mail;
- t=1566312827; bh=/wCPaAVAhM9jkrpOgFjJQndvFQSZ3vor/dhJP6G9DqM=;
- h=From:To:Cc:Subject:Date:References:From;
- b=pr0wChX5ZN4OrzzMX3Txai82qwcOk2weMbp798hGCqayc02tBmkgal0EJDif4lKiO
- 0Z5ZyF08kJhi3AKPIG1VQOkAsPGnlq1Ffa9zqT3kRxYLJPaLRGt+jqjuSwbMnK0NXU
- NDc9zrMaKXcYD+Jlu6URuc8eMVTnKofwFD/p2/Bo=
-From: megous@megous.com
-To: "David S. Miller" <davem@davemloft.net>, Rob Herring <robh+dt@kernel.org>,
- Mark Rutland <mark.rutland@arm.com>, Maxime Ripard <mripard@kernel.org>,
- Chen-Yu Tsai <wens@csie.org>, Giuseppe Cavallaro <peppe.cavallaro@st.com>,
- Alexandre Torgue <alexandre.torgue@st.com>,
- Jose Abreu <joabreu@synopsys.com>,
- Maxime Coquelin <mcoquelin.stm32@gmail.com>
-Date: Tue, 20 Aug 2019 16:53:43 +0200
-Message-Id: <20190820145343.29108-7-megous@megous.com>
-In-Reply-To: <20190820145343.29108-1-megous@megous.com>
+ Tue, 20 Aug 2019 15:39:53 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=lunn.ch;
+ s=20171124; h=In-Reply-To:Content-Type:MIME-Version:References:Message-ID:
+ Subject:Cc:To:From:Date:Sender:Reply-To:Content-Transfer-Encoding:Content-ID:
+ Content-Description:Resent-Date:Resent-From:Resent-Sender:Resent-To:Resent-Cc
+ :Resent-Message-ID:List-Id:List-Help:List-Unsubscribe:List-Subscribe:
+ List-Post:List-Owner:List-Archive;
+ bh=UrZPMCqJMHdP7J4z6kRN/Pg74Win9kev4rEIRPJuYrg=; b=lon6YRZc0uv6oxr9A3V4P3CajP
+ Kgjkttxfyd1SiOYcgq8D17AUnolYIEFVPcitpLNhCsLJICvxFxEquuT65jXRtrGhCFImvbj0JisEn
+ OxOpjQsqkciwEZSes77TRY1zgy3B2saD27QabCW94Vkn019I0oL767zrfoOVkaD6P8fU=;
+Received: from andrew by vps0.lunn.ch with local (Exim 4.89)
+ (envelope-from <andrew@lunn.ch>)
+ id 1i06EV-0006VL-FQ; Tue, 20 Aug 2019 17:39:39 +0200
+Date: Tue, 20 Aug 2019 17:39:39 +0200
+From: Andrew Lunn <andrew@lunn.ch>
+To: megous@megous.com
+Message-ID: <20190820153939.GL29991@lunn.ch>
 References: <20190820145343.29108-1-megous@megous.com>
+ <20190820145343.29108-4-megous@megous.com>
 MIME-Version: 1.0
-Cc: Ondrej Jirman <megous@megous.com>, devicetree@vger.kernel.org,
- netdev@vger.kernel.org, linux-kernel@vger.kernel.org,
- linux-stm32@st-md-mailman.stormreply.com, linux-arm-kernel@lists.infradead.org
-Subject: [Linux-stm32] [PATCH 6/6] arm64: dts: allwinner: orange-pi-3:
-	Enable ethernet
+Content-Disposition: inline
+In-Reply-To: <20190820145343.29108-4-megous@megous.com>
+User-Agent: Mutt/1.5.23 (2014-03-12)
+Cc: Mark Rutland <mark.rutland@arm.com>, Jose Abreu <joabreu@synopsys.com>,
+ devicetree@vger.kernel.org, netdev@vger.kernel.org,
+ linux-kernel@vger.kernel.org, Maxime Ripard <mripard@kernel.org>,
+ linux-stm32@st-md-mailman.stormreply.com, Chen-Yu Tsai <wens@csie.org>,
+ Rob Herring <robh+dt@kernel.org>, Maxime Coquelin <mcoquelin.stm32@gmail.com>,
+ Giuseppe Cavallaro <peppe.cavallaro@st.com>,
+ "David S. Miller" <davem@davemloft.net>, linux-arm-kernel@lists.infradead.org
+Subject: Re: [Linux-stm32] [PATCH 3/6] net: stmmac: sun8i: Use
+ devm_regulator_get for PHY regulator
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -52,108 +60,20 @@ Content-Transfer-Encoding: 7bit
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
-From: Ondrej Jirman <megous@megous.com>
+On Tue, Aug 20, 2019 at 04:53:40PM +0200, megous@megous.com wrote:
+> From: Ondrej Jirman <megous@megous.com>
+> 
+> Use devm_regulator_get instead of devm_regulator_get_optional and rely
+> on dummy supply. This avoids NULL checks before regulator_enable/disable
+> calls.
 
-Orange Pi 3 has two regulators that power the Realtek RTL8211E
-PHY. According to the datasheet, both regulators need to be enabled
-at the same time, or that "phy-io" should be enabled slightly earlier
-than "phy" regulator.
+Hi Ondrej
 
-RTL8211E/RTL8211EG datasheet says:
+What do you mean by a dummy supply? I'm just trying to make sure you
+are not breaking backwards compatibility.
 
-  Note 4: 2.5V (or 1.8/1.5V) RGMII power should be risen simultaneously
-  or slightly earlier than 3.3V power. Rising 2.5V (or 1.8/1.5V) power
-  later than 3.3V power may lead to errors.
-
-The driver ensures the regulator enable ordering. The timing is set
-in DT via startup-delay-us.
-
-We also need to wait at least 30ms after power-up/reset, before
-accessing the PHY registers.
-
-All values of RX/TX delay were tested exhaustively and a middle one
-of the range of working values was chosen.
-
-Signed-off-by: Ondrej Jirman <megous@megous.com>
----
- .../dts/allwinner/sun50i-h6-orangepi-3.dts    | 40 +++++++++++++++++++
- 1 file changed, 40 insertions(+)
-
-diff --git a/arch/arm64/boot/dts/allwinner/sun50i-h6-orangepi-3.dts b/arch/arm64/boot/dts/allwinner/sun50i-h6-orangepi-3.dts
-index eda9d5f640b9..18349e60b8c6 100644
---- a/arch/arm64/boot/dts/allwinner/sun50i-h6-orangepi-3.dts
-+++ b/arch/arm64/boot/dts/allwinner/sun50i-h6-orangepi-3.dts
-@@ -15,6 +15,7 @@
- 
- 	aliases {
- 		serial0 = &uart0;
-+		ethernet0 = &emac;
- 	};
- 
- 	chosen {
-@@ -56,6 +57,15 @@
- 		regulator-max-microvolt = <5000000>;
- 		regulator-always-on;
- 	};
-+
-+	reg_gmac_2v5: gmac-2v5 {
-+		compatible = "regulator-fixed";
-+		regulator-name = "gmac-2v5";
-+		regulator-min-microvolt = <2500000>;
-+		regulator-max-microvolt = <2500000>;
-+		enable-active-high;
-+		gpio = <&pio 3 6 GPIO_ACTIVE_HIGH>; /* PD6 */
-+	};
- };
- 
- &cpu0 {
-@@ -74,6 +84,35 @@
- 	status = "okay";
- };
- 
-+&emac {
-+	pinctrl-names = "default";
-+	pinctrl-0 = <&ext_rgmii_pins>;
-+	phy-mode = "rgmii";
-+	phy-handle = <&ext_rgmii_phy>;
-+	/*
-+	 * The board uses 2.5V RGMII signalling. Power sequence to enable
-+	 * the phy is to enable GMAC-2V5 and GMAC-3V (aldo2) power rails
-+	 * at the same time and to wait 100ms. The driver enables phy-io
-+	 * first. Delay is achieved with enable-ramp-delay on reg_aldo2.
-+	 */
-+	phy-supply = <&reg_aldo2>;
-+	phy-io-supply = <&reg_gmac_2v5>;
-+	allwinner,rx-delay-ps = <1500>;
-+	allwinner,tx-delay-ps = <700>;
-+	status = "okay";
-+};
-+
-+&mdio {
-+	ext_rgmii_phy: ethernet-phy@1 {
-+		compatible = "ethernet-phy-ieee802.3-c22";
-+		reg = <1>;
-+
-+		reset-gpios = <&pio 3 14 GPIO_ACTIVE_LOW>; /* PD14 */
-+		reset-assert-us = <15000>;
-+		reset-deassert-us = <40000>;
-+	};
-+};
-+
- &hdmi {
- 	status = "okay";
- };
-@@ -136,6 +175,7 @@
- 				regulator-min-microvolt = <3300000>;
- 				regulator-max-microvolt = <3300000>;
- 				regulator-name = "vcc33-audio-tv-ephy-mac";
-+				regulator-enable-ramp-delay = <100000>;
- 			};
- 
- 			/* ALDO3 is shorted to CLDO1 */
--- 
-2.22.1
-
+     Thanks
+	Andrew
 _______________________________________________
 Linux-stm32 mailing list
 Linux-stm32@st-md-mailman.stormreply.com
