@@ -2,39 +2,48 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id E185E964B6
-	for <lists+linux-stm32@lfdr.de>; Tue, 20 Aug 2019 17:39:56 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 8D46C96507
+	for <lists+linux-stm32@lfdr.de>; Tue, 20 Aug 2019 17:47:17 +0200 (CEST)
 Received: from ip-172-31-3-76.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id C3186C35E01;
-	Tue, 20 Aug 2019 15:39:55 +0000 (UTC)
-Received: from vps0.lunn.ch (vps0.lunn.ch [185.16.172.187])
- (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 3C4CAC35E01;
+	Tue, 20 Aug 2019 15:47:17 +0000 (UTC)
+Received: from vps.xff.cz (vps.xff.cz [195.181.215.36])
+ (using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 5C985C36B3E
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id CFFC0C36B3E
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Tue, 20 Aug 2019 15:39:53 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=lunn.ch;
- s=20171124; h=In-Reply-To:Content-Type:MIME-Version:References:Message-ID:
- Subject:Cc:To:From:Date:Sender:Reply-To:Content-Transfer-Encoding:Content-ID:
- Content-Description:Resent-Date:Resent-From:Resent-Sender:Resent-To:Resent-Cc
- :Resent-Message-ID:List-Id:List-Help:List-Unsubscribe:List-Subscribe:
- List-Post:List-Owner:List-Archive;
- bh=UrZPMCqJMHdP7J4z6kRN/Pg74Win9kev4rEIRPJuYrg=; b=lon6YRZc0uv6oxr9A3V4P3CajP
- Kgjkttxfyd1SiOYcgq8D17AUnolYIEFVPcitpLNhCsLJICvxFxEquuT65jXRtrGhCFImvbj0JisEn
- OxOpjQsqkciwEZSes77TRY1zgy3B2saD27QabCW94Vkn019I0oL767zrfoOVkaD6P8fU=;
-Received: from andrew by vps0.lunn.ch with local (Exim 4.89)
- (envelope-from <andrew@lunn.ch>)
- id 1i06EV-0006VL-FQ; Tue, 20 Aug 2019 17:39:39 +0200
-Date: Tue, 20 Aug 2019 17:39:39 +0200
-From: Andrew Lunn <andrew@lunn.ch>
-To: megous@megous.com
-Message-ID: <20190820153939.GL29991@lunn.ch>
+ Tue, 20 Aug 2019 15:47:15 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=megous.com; s=mail;
+ t=1566316035; bh=+WetNuZhgsPVrJpioXtAn4eK1dq+iJ2qVlbpblbtjW4=;
+ h=Date:From:To:Cc:Subject:References:X-My-GPG-KeyId:From;
+ b=hP54zVonCSbd4zXVtywOUAO5skboSj0IERBMVv++b8InA7BK9VB27HeH7mYCTQuH2
+ 4Le6mzzhSoXaVM6Dr/19kjLEesxX8WweIzbVQu0I2k75qcV+BB2m//1C81g4tlSYw1
+ aCtfMtwX+imflszImRWYPRPZENIcBTQ1VAySnfxU=
+Date: Tue, 20 Aug 2019 17:47:14 +0200
+From: =?utf-8?Q?Ond=C5=99ej?= Jirman <megous@megous.com>
+To: Andrew Lunn <andrew@lunn.ch>
+Message-ID: <20190820154714.2rt4ctovil5ol3u2@core.my.home>
+Mail-Followup-To: Andrew Lunn <andrew@lunn.ch>,
+ "David S. Miller" <davem@davemloft.net>,
+ Rob Herring <robh+dt@kernel.org>,
+ Mark Rutland <mark.rutland@arm.com>,
+ Maxime Ripard <mripard@kernel.org>, Chen-Yu Tsai <wens@csie.org>,
+ Giuseppe Cavallaro <peppe.cavallaro@st.com>,
+ Alexandre Torgue <alexandre.torgue@st.com>,
+ Jose Abreu <joabreu@synopsys.com>,
+ Maxime Coquelin <mcoquelin.stm32@gmail.com>,
+ devicetree@vger.kernel.org, netdev@vger.kernel.org,
+ linux-kernel@vger.kernel.org,
+ linux-stm32@st-md-mailman.stormreply.com,
+ linux-arm-kernel@lists.infradead.org
 References: <20190820145343.29108-1-megous@megous.com>
  <20190820145343.29108-4-megous@megous.com>
+ <20190820153939.GL29991@lunn.ch>
 MIME-Version: 1.0
 Content-Disposition: inline
-In-Reply-To: <20190820145343.29108-4-megous@megous.com>
-User-Agent: Mutt/1.5.23 (2014-03-12)
+In-Reply-To: <20190820153939.GL29991@lunn.ch>
+X-My-GPG-KeyId: EBFBDDE11FB918D44D1F56C1F9F0A873BE9777ED
+ <https://xff.cz/key.txt>
 Cc: Mark Rutland <mark.rutland@arm.com>, Jose Abreu <joabreu@synopsys.com>,
  devicetree@vger.kernel.org, netdev@vger.kernel.org,
  linux-kernel@vger.kernel.org, Maxime Ripard <mripard@kernel.org>,
@@ -60,20 +69,37 @@ Content-Transfer-Encoding: 7bit
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
-On Tue, Aug 20, 2019 at 04:53:40PM +0200, megous@megous.com wrote:
-> From: Ondrej Jirman <megous@megous.com>
+Hi Andrew,
+
+On Tue, Aug 20, 2019 at 05:39:39PM +0200, Andrew Lunn wrote:
+> On Tue, Aug 20, 2019 at 04:53:40PM +0200, megous@megous.com wrote:
+> > From: Ondrej Jirman <megous@megous.com>
+> > 
+> > Use devm_regulator_get instead of devm_regulator_get_optional and rely
+> > on dummy supply. This avoids NULL checks before regulator_enable/disable
+> > calls.
 > 
-> Use devm_regulator_get instead of devm_regulator_get_optional and rely
-> on dummy supply. This avoids NULL checks before regulator_enable/disable
-> calls.
+> Hi Ondrej
+> 
+> What do you mean by a dummy supply? I'm just trying to make sure you
+> are not breaking backwards compatibility.
 
-Hi Ondrej
+Sorry, I mean dummy regulator. See:
 
-What do you mean by a dummy supply? I'm just trying to make sure you
-are not breaking backwards compatibility.
+https://elixir.bootlin.com/linux/latest/source/drivers/regulator/core.c#L1874
 
-     Thanks
-	Andrew
+On systems that use DT (i.e. have_full_constraints() == true), when the
+regulator is not found (ENODEV, not specified in DT), regulator_get will return
+a fake dummy regulator that can be enabled/disabled, but doesn't do anything
+real.
+
+This can be used to avoid NULL checks and make the code simpler.
+
+regards,
+	Ondrej
+
+>      Thanks
+> 	Andrew
 _______________________________________________
 Linux-stm32 mailing list
 Linux-stm32@st-md-mailman.stormreply.com
