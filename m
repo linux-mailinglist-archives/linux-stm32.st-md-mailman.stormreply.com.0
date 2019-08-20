@@ -2,50 +2,37 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id F2F6795AB6
-	for <lists+linux-stm32@lfdr.de>; Tue, 20 Aug 2019 11:13:20 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id C726E96305
+	for <lists+linux-stm32@lfdr.de>; Tue, 20 Aug 2019 16:53:47 +0200 (CEST)
 Received: from ip-172-31-3-76.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 99885C35E01;
-	Tue, 20 Aug 2019 09:13:20 +0000 (UTC)
-Received: from mga12.intel.com (mga12.intel.com [192.55.52.136])
- (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 98EC5C35E02;
+	Tue, 20 Aug 2019 14:53:46 +0000 (UTC)
+Received: from vps.xff.cz (vps.xff.cz [195.181.215.36])
+ (using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id F0526C36B3E
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 9B972C36B3E
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Tue, 20 Aug 2019 09:13:18 +0000 (UTC)
-X-Amp-Result: UNKNOWN
-X-Amp-Original-Verdict: FILE UNKNOWN
-X-Amp-File-Uploaded: False
-Received: from fmsmga001.fm.intel.com ([10.253.24.23])
- by fmsmga106.fm.intel.com with ESMTP/TLS/DHE-RSA-AES256-GCM-SHA384;
- 20 Aug 2019 02:13:16 -0700
-X-IronPort-AV: E=Sophos;i="5.64,408,1559545200"; d="scan'208";a="195728293"
-Received: from paasikivi.fi.intel.com ([10.237.72.42])
- by fmsmga001-auth.fm.intel.com with ESMTP/TLS/DHE-RSA-AES256-GCM-SHA384;
- 20 Aug 2019 02:13:14 -0700
-Received: by paasikivi.fi.intel.com (Postfix, from userid 1000)
- id 0D9FE20928; Tue, 20 Aug 2019 12:13:12 +0300 (EEST)
-Date: Tue, 20 Aug 2019 12:13:12 +0300
-From: Sakari Ailus <sakari.ailus@linux.intel.com>
-To: Hugues FRUCHET <hugues.fruchet@st.com>
-Message-ID: <20190820091311.GB5123@paasikivi.fi.intel.com>
-References: <1561640224-24062-1-git-send-email-hugues.fruchet@st.com>
- <20190627160518.ylc2xfvqdw5w77xc@paasikivi.fi.intel.com>
- <5b43d59c-92d0-7234-71aa-b283e7462a84@st.com>
+ Tue, 20 Aug 2019 14:53:45 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=megous.com; s=mail;
+ t=1566312824; bh=py02IQSJ2y0fP6mE701P/T7DLz5rHrBBsdi+SrYtmAQ=;
+ h=From:To:Cc:Subject:Date:From;
+ b=ihT3jfMZjyNKOOmCAeVt8DagRKcxrgxjzBtMNrrsWuA2kW/0aWuyGUxkSeqV3zmDF
+ DR8RbXPdWB0aunx4ASN4un+qj3dbjsy6VQ9bOV82+6a5KJ1i6hIjs1eEfFfqrBW1cW
+ 4zQmFKTHoUOoKsCOJgwVFpzgGDvjG2WzldaFI9rU=
+From: megous@megous.com
+To: "David S. Miller" <davem@davemloft.net>, Rob Herring <robh+dt@kernel.org>,
+ Mark Rutland <mark.rutland@arm.com>, Maxime Ripard <mripard@kernel.org>,
+ Chen-Yu Tsai <wens@csie.org>, Giuseppe Cavallaro <peppe.cavallaro@st.com>,
+ Alexandre Torgue <alexandre.torgue@st.com>,
+ Jose Abreu <joabreu@synopsys.com>,
+ Maxime Coquelin <mcoquelin.stm32@gmail.com>
+Date: Tue, 20 Aug 2019 16:53:37 +0200
+Message-Id: <20190820145343.29108-1-megous@megous.com>
 MIME-Version: 1.0
-Content-Disposition: inline
-In-Reply-To: <5b43d59c-92d0-7234-71aa-b283e7462a84@st.com>
-User-Agent: Mutt/1.10.1 (2018-07-13)
-Cc: Jacopo Mondi <jacopo@jmondi.org>, Maxime Ripard <maxime.ripard@bootlin.com>,
- Hans Verkuil <hverkuil@xs4all.nl>,
- Benjamin Gaignard <benjamin.gaignard@linaro.org>,
- Steve Longerbeam <slongerbeam@gmail.com>,
- Mauro Carvalho Chehab <mchehab@kernel.org>,
- "linux-stm32@st-md-mailman.stormreply.com"
- <linux-stm32@st-md-mailman.stormreply.com>,
- "linux-media@vger.kernel.org" <linux-media@vger.kernel.org>
-Subject: Re: [Linux-stm32] [PATCH v2] media: ov5640: add support of
-	V4L2_CID_LINK_FREQ
+Cc: Ondrej Jirman <megous@megous.com>, devicetree@vger.kernel.org,
+ netdev@vger.kernel.org, linux-kernel@vger.kernel.org,
+ linux-stm32@st-md-mailman.stormreply.com, linux-arm-kernel@lists.infradead.org
+Subject: [Linux-stm32] [PATCH 0/6] Add ethernet support for Orange Pi 3
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -62,135 +49,49 @@ Content-Transfer-Encoding: 7bit
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
-Hi Hugues,
+From: Ondrej Jirman <megous@megous.com>
 
-On Tue, Jul 02, 2019 at 04:05:46PM +0000, Hugues FRUCHET wrote:
-> Hi Sakari,
-> 
-> On 6/27/19 6:05 PM, Sakari Ailus wrote:
-> > Hi Hugues,
-> > 
-> > On Thu, Jun 27, 2019 at 02:57:04PM +0200, Hugues Fruchet wrote:
-> >> Add support of V4L2_CID_LINK_FREQ, this is needed
-> >> by some CSI-2 receivers.
-> >>
-> >> 384MHz is exposed for the time being, corresponding
-> >> to 96MHz pixel clock with 2 bytes per pixel on 2 data lanes.
-> >>
-> >> This setup has been tested successfully with ST MIPID02
-> >> CSI-2 to parallel bridge.
-> >>
-> >> Signed-off-by: Hugues Fruchet <hugues.fruchet@st.com>
-> >> ---
-> > 
-> > Thanks for the patch.
-> > 
-> > The driver calculates the sensor configuration based on its configuration,
-> > and this needs to be reflected in the link frequency: it's not a static
-> > value. See e.g. ov5640_calc_sys_clk().
-> > 
-> 
-> I know this code, but for a reason I don't understand yet, this seems
-> to not have effects on the CSI-2 link frequency.
-> 
-> This has been verified with MIPID02 CSI-2 bridge which only work with
-> this fixed link frequency as input to program its ui_x4 register 
-> setting, see 
-> https://www.mail-archive.com/linux-kernel@vger.kernel.org/msg2028171.html.
-> All resolutions and all framerate have been tested succesfully with this 
-> setting.
-> 
-> Initially I tried to set the link frequency according to the value 
-> computed in ov5640_calc_sys_clk() but it was only functional when 
-> resolutions/framerate was close to the 384MHz value...
-> 
-> As OV5640 D3 engineering board has been initially developped for 
-> dragonboard, I'll dig into this and found this commit:
-> https://lore.kernel.org/patchwork/patch/886794/
-> which set a fixed pixel rate value to 96MHz, which match perfectly
-> with the 384MHz value I found for link frequency...
-> 
-> Perhaps other CSI-2 OV5640 users can comment about it and have the 
-> explanations of what I experiment...
-> Maxime, Jacopo, do you have any idea about it ?
+This series implements ethernet support for Xunlong Orange Pi 3 board, by:
 
-I would also like to wee a comment from someone who's familiar with the
-device. Yet I can tell a static value of 348 MHz is clearly incorrect as it
-ignores sensor runtime configuration as well as platform configuration
-(external clock frequency for instance).
+- making small cleanups of existing dwmac-sun8i code
+- adding DT bindings docummentation
+- adding support for phy-io-supply to dwmac-sun8i code
+- adding DT configuration for Orange Pi 3 board
 
-Generally speaking, configuring a CSI-2 receiver to expect a particular
-frequency usually doesn't mean it's going to fail even if the transmitter
-uses a different frequency, albeit the likelihood of it not working
-increases as the difference grows. Could the problem be at the receiver's
-end?
+For some people, ethernet doesn't work after reboot because u-boot doesn't
+support AXP805 PMIC, and will not turn off the etherent PHY regulators.
+So the regulator controlled by gpio will be shut down, but the other one
+controlled by the AXP PMIC will not.
 
-Have you checked what kind of values ov5640_calc_pclk() returns for
-different configurations? It would seem like that this is what the
-LINK_FREQ (divided by lanes and multiplied by two) should be.
+This is a problem only when running with a builtin driver. This needs
+to be fixed in u-boot and should not prevent these patches from being
+merged.
 
-> 
-> 
-> >> version 2:
-> >>    - do not set control read only as per Hans' comment:
-> >>      See https://www.mail-archive.com/linux-media@vger.kernel.org/msg147910.html
-> >>
-> >>   drivers/media/i2c/ov5640.c | 10 ++++++++++
-> >>   1 file changed, 10 insertions(+)
-> >>
-> >> diff --git a/drivers/media/i2c/ov5640.c b/drivers/media/i2c/ov5640.c
-> >> index 82d4ce9..e6307f3 100644
-> >> --- a/drivers/media/i2c/ov5640.c
-> >> +++ b/drivers/media/i2c/ov5640.c
-> >> @@ -218,6 +218,7 @@ struct ov5640_ctrls {
-> >>   	struct v4l2_ctrl *test_pattern;
-> >>   	struct v4l2_ctrl *hflip;
-> >>   	struct v4l2_ctrl *vflip;
-> >> +	struct v4l2_ctrl *link_freq;
-> >>   };
-> >>   
-> >>   struct ov5640_dev {
-> >> @@ -2198,6 +2199,10 @@ static int ov5640_try_fmt_internal(struct v4l2_subdev *sd,
-> >>   	return 0;
-> >>   }
-> >>   
-> >> +static const s64 link_freq_menu_items[] = {
-> >> +	384000000,
-> >> +};
-> >> +
-> >>   static int ov5640_set_fmt(struct v4l2_subdev *sd,
-> >>   			  struct v4l2_subdev_pad_config *cfg,
-> >>   			  struct v4l2_subdev_format *format)
-> >> @@ -2636,6 +2641,8 @@ static int ov5640_s_ctrl(struct v4l2_ctrl *ctrl)
-> >>   	case V4L2_CID_VFLIP:
-> >>   		ret = ov5640_set_ctrl_vflip(sensor, ctrl->val);
-> >>   		break;
-> >> +	case V4L2_CID_LINK_FREQ:
-> >> +		return 0;
-> >>   	default:
-> >>   		ret = -EINVAL;
-> >>   		break;
-> >> @@ -2703,6 +2710,9 @@ static int ov5640_init_controls(struct ov5640_dev *sensor)
-> >>   				       V4L2_CID_POWER_LINE_FREQUENCY_AUTO, 0,
-> >>   				       V4L2_CID_POWER_LINE_FREQUENCY_50HZ);
-> >>   
-> >> +	ctrls->link_freq = v4l2_ctrl_new_int_menu(hdl, ops, V4L2_CID_LINK_FREQ,
-> >> +						  0, 0, link_freq_menu_items);
-> >> +
-> >>   	if (hdl->error) {
-> >>   		ret = hdl->error;
-> >>   		goto free_ctrls;
-> >> -- 
-> >> 2.7.4
-> >>
-> > 
-> 
-> BR,
-> Hugues.
+This evolved out of the Orange Pi 3 patches series, as I didn't want
+to stretch that out any longer.
+
+Please take a look.
+
+thank you and regards,
+  Ondrej Jirman
+
+Ondrej Jirman (6):
+  dt-bindings: net: sun8i-a83t-emac: Add phy-supply property
+  dt-bindings: net: sun8i-a83t-emac: Add phy-io-supply property
+  net: stmmac: sun8i: Use devm_regulator_get for PHY regulator
+  net: stmmac: sun8i: Rename PHY regulator variable to regulator_phy
+  net: stmmac: sun8i: Add support for enabling a regulator for PHY I/O
+    pins
+  arm64: dts: allwinner: orange-pi-3: Enable ethernet
+
+ .../net/allwinner,sun8i-a83t-emac.yaml        |  8 ++
+ .../dts/allwinner/sun50i-h6-orangepi-3.dts    | 40 ++++++++++
+ .../net/ethernet/stmicro/stmmac/dwmac-sun8i.c | 74 ++++++++++++-------
+ 3 files changed, 96 insertions(+), 26 deletions(-)
 
 -- 
-Sakari Ailus
-sakari.ailus@linux.intel.com
+2.22.1
+
 _______________________________________________
 Linux-stm32 mailing list
 Linux-stm32@st-md-mailman.stormreply.com
