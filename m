@@ -2,43 +2,116 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id 369239E36A
+	by mail.lfdr.de (Postfix) with ESMTPS id 44E199E36B
 	for <lists+linux-stm32@lfdr.de>; Tue, 27 Aug 2019 10:58:32 +0200 (CEST)
 Received: from ip-172-31-3-76.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 041B9C2402B;
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 11595C2402E;
 	Tue, 27 Aug 2019 08:58:32 +0000 (UTC)
-Received: from relay10.mail.gandi.net (relay10.mail.gandi.net [217.70.178.230])
- (using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-wr1-f65.google.com (mail-wr1-f65.google.com
+ [209.85.221.65])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 4ACC6C36B3E
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 1B95DC36B3E
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Wed, 21 Aug 2019 14:22:41 +0000 (UTC)
-Received: from uno.localdomain (unknown [87.18.63.98])
- (Authenticated sender: jacopo@jmondi.org)
- by relay10.mail.gandi.net (Postfix) with ESMTPSA id 5F671240003;
- Wed, 21 Aug 2019 14:22:37 +0000 (UTC)
-Date: Wed, 21 Aug 2019 16:24:07 +0200
-From: Jacopo Mondi <jacopo@jmondi.org>
-To: Sakari Ailus <sakari.ailus@linux.intel.com>
-Message-ID: <20190821142407.facveek5omjdide6@uno.localdomain>
-References: <1561640224-24062-1-git-send-email-hugues.fruchet@st.com>
- <20190627160518.ylc2xfvqdw5w77xc@paasikivi.fi.intel.com>
- <5b43d59c-92d0-7234-71aa-b283e7462a84@st.com>
- <20190820091311.GB5123@paasikivi.fi.intel.com>
+ Wed, 21 Aug 2019 16:28:18 +0000 (UTC)
+Received: by mail-wr1-f65.google.com with SMTP id k2so2655276wrq.2
+ for <linux-stm32@st-md-mailman.stormreply.com>;
+ Wed, 21 Aug 2019 09:28:18 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=20161025;
+ h=date:from:to:cc:subject:message-id:references:mime-version
+ :content-disposition:in-reply-to:user-agent;
+ bh=ywUCIB+cRj4cRKcIpwpQFY+NrjfdLRDV76eNoo3hv/0=;
+ b=uFvB4ztTYbbnWUcXOBHe8H8LAboUxJ40gdIQ8giCnWFtsb9UgOEjxHLhk991t4jTGN
+ eCF76EMqqZcwUUggeElvFMdSv3nd9GMdRRD9/ueZ3l1sGFh5qp4rzV/F9exy0Pan40hz
+ 4PQXQbcn/bS4V4Ul6j8X/xkS1A8t6hbKtC0+feu4M4x0ug7E9eohpDOGPbdTZEdGE5xp
+ oWXf5eGy9tXHQQNCAJ9qKHkVI+1qxH9DjXQVHnnzGFDT8vXyGGF07ivgT28hGYHqtMYz
+ uRt7OuhZuQdSsp1AC48M9oSsPdaOf8XzF4sRuu6fi+yDIBmpequ4bcfS0OekejftB9Zu
+ GYlw==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20161025;
+ h=x-gm-message-state:date:from:to:cc:subject:message-id:references
+ :mime-version:content-disposition:in-reply-to:user-agent;
+ bh=ywUCIB+cRj4cRKcIpwpQFY+NrjfdLRDV76eNoo3hv/0=;
+ b=pgEO2luU94qhfypU/AToWY+uWsthJ2aWV7Qau73hDnI4+uzGwX0cNWuTwNUt8DfdZS
+ zZVmmZbQDLDqCv/uLxvNAaycn1NktYC3oztW5fXWUG10FlKiBlx+BNWU06AgERI5jjpQ
+ Y4OcA/QmJefsAjsbHFSJv0BdvNSy4k0Au8pPmZNdBkY0R27z7CKZfikBClZxitSqvnOY
+ vaYoY2cF/D6KTmB/GjClBbwhEArMdTFpYyJR1ev5BEJlsAvpsbUy8dU+DqLdI1RK5NTr
+ BfCkjhHplT/72W9F3/q7f2H215Od/Wfhl28JiewMh35ifsoRLkPQ+5F5CzbaUXGvLRgG
+ SXgw==
+X-Gm-Message-State: APjAAAWdV/Bxds8Ab7QSY17dBF/+iW9oinWPxIsDDI+Ib88VgOzyuWGq
+ yDvvz2dXThBmmmG80KZZcmObKQ==
+X-Google-Smtp-Source: APXvYqzzf/pBZTUAqrSrh8E6fLbQ03SLEZocUzQ/q912ZaLgwow4co7GX1wxWZBSfdK4XkjU4huGbA==
+X-Received: by 2002:adf:e750:: with SMTP id c16mr2099535wrn.199.1566404897059; 
+ Wed, 21 Aug 2019 09:28:17 -0700 (PDT)
+Received: from google.com ([2a00:79e0:d:210:e8f7:125b:61e9:733d])
+ by smtp.gmail.com with ESMTPSA id u130sm1026138wmg.28.2019.08.21.09.28.15
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Wed, 21 Aug 2019 09:28:16 -0700 (PDT)
+Date: Wed, 21 Aug 2019 17:28:12 +0100
+From: Matthias Maennich <maennich@google.com>
+To: Guenter Roeck <linux@roeck-us.net>
+Message-ID: <20190821162812.GB77665@google.com>
+References: <20190813121733.52480-1-maennich@google.com>
+ <20190821114955.12788-1-maennich@google.com>
+ <20190821114955.12788-12-maennich@google.com>
+ <20190821145911.GA6521@roeck-us.net>
 MIME-Version: 1.0
-In-Reply-To: <20190820091311.GB5123@paasikivi.fi.intel.com>
-User-Agent: NeoMutt/20180716
+Content-Disposition: inline
+In-Reply-To: <20190821145911.GA6521@roeck-us.net>
+User-Agent: Mutt/1.10.1 (2018-07-13)
 X-Mailman-Approved-At: Tue, 27 Aug 2019 08:58:26 +0000
-Cc: Laura Nao <laura.nao@kynetics.com>,
- Maxime Ripard <maxime.ripard@bootlin.com>, Hans Verkuil <hverkuil@xs4all.nl>,
- Benjamin Gaignard <benjamin.gaignard@linaro.org>,
- Steve Longerbeam <slongerbeam@gmail.com>,
- Mauro Carvalho Chehab <mchehab@kernel.org>,
- "linux-stm32@st-md-mailman.stormreply.com"
- <linux-stm32@st-md-mailman.stormreply.com>,
- "linux-media@vger.kernel.org" <linux-media@vger.kernel.org>
-Subject: Re: [Linux-stm32] [PATCH v2] media: ov5640: add support of
-	V4L2_CID_LINK_FREQ
+Cc: Tomer Maimon <tmaimon77@gmail.com>, lucas.de.marchi@gmail.com,
+ linux-stm32@st-md-mailman.stormreply.com, linux-arch@vger.kernel.org,
+ linux-samsung-soc@vger.kernel.org, Kevin Hilman <khilman@baylibre.com>,
+ Michal Simek <michal.simek@xilinx.com>,
+ Ludovic Desroches <ludovic.desroches@microchip.com>, mingo@redhat.com,
+ geert@linux-m68k.org, NXP Linux Team <linux-imx@nxp.com>,
+ Tomas Winkler <tomas.winkler@intel.com>, Jean Delvare <jdelvare@suse.com>,
+ Sascha Hauer <s.hauer@pengutronix.de>, tglx@linutronix.de,
+ michal.lkml@markovi.net, Scott Branden <sbranden@broadcom.com>,
+ Andrew Jeffery <andrew@aj.id.au>, gregkh@linuxfoundation.org,
+ linux-usb@vger.kernel.org, linux-kernel@vger.kernel.org,
+ Pengutronix Kernel Team <kernel@pengutronix.de>,
+ Alexandre Belloni <alexandre.belloni@bootlin.com>,
+ linux-aspeed@lists.ozlabs.org, yamada.masahiro@socionext.com,
+ Thierry Reding <thierry.reding@gmail.com>,
+ Chunyan Zhang <zhang.lyra@gmail.com>, Jonathan Hunter <jonathanh@nvidia.com>,
+ Kukjin Kim <kgene@kernel.org>, kernel-team@android.com, sspatil@google.com,
+ linux-watchdog@vger.kernel.org, linux-kbuild@vger.kernel.org,
+ linux-arm-msm@vger.kernel.org, pombredanne@nexb.com,
+ linux-m68k@lists.linux-m68k.org, linux-rpi-kernel@lists.infradead.org,
+ linux-amlogic@lists.infradead.org, maco@android.com,
+ linux-arm-kernel@lists.infradead.org, Barry Song <baohua@kernel.org>,
+ Johannes Thumshirn <morbidrsa@gmail.com>, oneukum@suse.com,
+ Stefan Wahren <wahrenst@gmx.net>, Maxime Coquelin <mcoquelin.stm32@gmail.com>,
+ kstewart@linuxfoundation.org, usb-storage@lists.one-eyed-alien.net,
+ linux-tegra@vger.kernel.org, patches@opensource.cirrus.com,
+ joel@joelfernandes.org, sam@ravnborg.org, linux-rtc@vger.kernel.org,
+ Florian Fainelli <f.fainelli@gmail.com>,
+ Benjamin Fair <benjaminfair@google.com>, Eric Anholt <eric@anholt.net>,
+ Krzysztof Kozlowski <krzk@kernel.org>, Nancy Yuen <yuenn@google.com>,
+ Chen-Yu Tsai <wens@csie.org>, bcm-kernel-feedback-list@broadcom.com,
+ Joel Stanley <joel@jms.id.au>, stern@rowland.harvard.edu, arnd@arndb.de,
+ Ray Jui <rjui@broadcom.com>, Vladimir Zapolskiy <vz@mleia.com>,
+ Orson Zhai <orsonzhai@gmail.com>, linux-hwmon@vger.kernel.org,
+ Support Opensource <support.opensource@diasemi.com>,
+ Andreas Werner <andreas.werner@men.de>, Avi Fishman <avifishman70@gmail.com>,
+ maco@google.com, jeyu@kernel.org, Shawn Guo <shawnguo@kernel.org>,
+ Baruch Siach <baruch@tkos.co.il>, Mans Rullgard <mans@mansr.com>,
+ Maxime Ripard <maxime.ripard@bootlin.com>,
+ Jerry Hoemann <jerry.hoemann@hpe.com>, Tali Perry <tali.perry1@gmail.com>,
+ hpa@zytor.com, linux-scsi@vger.kernel.org, openbmc@lists.ozlabs.org,
+ x86@kernel.org, Andy Gross <agross@kernel.org>,
+ Marc Gonzalez <marc.w.gonzalez@free.fr>,
+ William Breathitt Gray <vilhelm.gray@gmail.com>,
+ linux-mediatek@lists.infradead.org, Fabio Estevam <festevam@gmail.com>,
+ Matthias Brugger <matthias.bgg@gmail.com>,
+ Wim Van Sebroeck <wim@linux-watchdog.org>,
+ Alessandro Zummo <a.zummo@towertech.it>, Baolin Wang <baolin.wang@linaro.org>,
+ Patrick Venture <venture@google.com>,
+ Nicolas Ferre <nicolas.ferre@microchip.com>, linux-modules@vger.kernel.org
+Subject: Re: [Linux-stm32] [PATCH v3 11/11] RFC: watchdog: export core
+ symbols in WATCHDOG_CORE namespace
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -50,254 +123,121 @@ List-Post: <mailto:linux-stm32@st-md-mailman.stormreply.com>
 List-Help: <mailto:linux-stm32-request@st-md-mailman.stormreply.com?subject=help>
 List-Subscribe: <https://st-md-mailman.stormreply.com/mailman/listinfo/linux-stm32>, 
  <mailto:linux-stm32-request@st-md-mailman.stormreply.com?subject=subscribe>
-Content-Type: multipart/mixed; boundary="===============6573655626940429400=="
+Content-Transfer-Encoding: 7bit
+Content-Type: text/plain; charset="us-ascii"; Format="flowed"
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
+Hi Guenter!
 
---===============6573655626940429400==
-Content-Type: multipart/signed; micalg=pgp-sha256;
-	protocol="application/pgp-signature"; boundary="tpwyogjc36kfnbru"
-Content-Disposition: inline
-
-
---tpwyogjc36kfnbru
-Content-Type: text/plain; charset=utf-8
-Content-Disposition: inline
-
-Hello,
-   +laura who has been working on supporting RAW capture for this
-   driver.
-
-On Tue, Aug 20, 2019 at 12:13:12PM +0300, Sakari Ailus wrote:
-> Hi Hugues,
+On Wed, 21 Aug, 07:59, Guenter Roeck wrote:
+>On Wed, Aug 21, 2019 at 12:49:26PM +0100, Matthias Maennich wrote:
+>> Modules using these symbols are required to explicitly import the
+>> namespace. This patch was generated with the following steps and serves
+>> as a reference to use the symbol namespace feature:
+>>
+>>  1) Use EXPORT_SYMBOL_NS* macros instead of EXPORT_SYMBOL* for symbols
+>>     in watchdog_core.c
+>>  2) make  (see warnings during modpost about missing imports)
+>>  3) make nsdeps
+>>
+>> I used 'allmodconfig' for the above steps to ensure all occurrences are
+>> patched.
+>>
+>> Defining DEFAULT_SYMBOL_NAMESPACE in the Makefile is not trivial in this
+>> case as not only watchdog_core is defined in drivers/watchdog/Makefile.
+>> Hence this patch uses the variant of using the EXPORT_SYMBOL_NS* macros
+>> to export into a different namespace.
+>>
+>I don't have the context, and thus I am missing the point of this patch
+>set. Whatever it is supposed to accomplish, it seems extreme to me
+>to require extra code in each driver for it.
 >
-> On Tue, Jul 02, 2019 at 04:05:46PM +0000, Hugues FRUCHET wrote:
-> > Hi Sakari,
-> >
-> > On 6/27/19 6:05 PM, Sakari Ailus wrote:
-> > > Hi Hugues,
-> > >
-> > > On Thu, Jun 27, 2019 at 02:57:04PM +0200, Hugues Fruchet wrote:
-> > >> Add support of V4L2_CID_LINK_FREQ, this is needed
-> > >> by some CSI-2 receivers.
-> > >>
-> > >> 384MHz is exposed for the time being, corresponding
-> > >> to 96MHz pixel clock with 2 bytes per pixel on 2 data lanes.
-> > >>
-> > >> This setup has been tested successfully with ST MIPID02
-> > >> CSI-2 to parallel bridge.
-> > >>
-> > >> Signed-off-by: Hugues Fruchet <hugues.fruchet@st.com>
-> > >> ---
-> > >
-> > > Thanks for the patch.
-> > >
-> > > The driver calculates the sensor configuration based on its configuration,
-> > > and this needs to be reflected in the link frequency: it's not a static
-> > > value. See e.g. ov5640_calc_sys_clk().
-> > >
-> >
-> > I know this code, but for a reason I don't understand yet, this seems
-> > to not have effects on the CSI-2 link frequency.
-> >
 
-This seems unlikely to me, as the ov5640_calc_sys_clk() calculates the
-system clock, which then generates the MIPI CLK.
+Unfortunately, get_maintainer.pl has helped me too much and this series
+got blocked by some mailing lists due to the large amount of recipients.
+Following versions will be sent to the previous audience + the
+linux-watchdog list.
+For context, the full series (including previous versions) can be found
+on lore at
+https://lore.kernel.org/lkml/20180716122125.175792-1-maco@android.com/
+and the cover letter for v3 has made it to linux-amlogic
+https://lore.kernel.org/linux-amlogic/20190821114955.12788-1-maennich@google.com/
 
-I would really be interested to know if you could measure somehow the
-actual frequency of the clock lane, to make sure it actually
-changes according to to the driver calculations.
+>Anyway, WATCHDOG_CORE would be the default namespace (if it is what
+>I think it is) for watchdog drivers, even though not all watchdog drivers
+>use it. As such, I am missing an explanation why defining it in Makefile
+>is not trivial. "... as not only watchdog_core is defined in
+>drivers/watchdog/Makefile" does not mean anything to me and is not a real
 
-> > This has been verified with MIPID02 CSI-2 bridge which only work with
-> > this fixed link frequency as input to program its ui_x4 register
-> > setting, see
-> > https://www.mail-archive.com/linux-kernel@vger.kernel.org/msg2028171.html.
-> > All resolutions and all framerate have been tested succesfully with this
-> > setting.
-> >
-> > Initially I tried to set the link frequency according to the value
-> > computed in ov5640_calc_sys_clk() but it was only functional when
-> > resolutions/framerate was close to the 384MHz value...
-> >
-> > As OV5640 D3 engineering board has been initially developped for
-> > dragonboard, I'll dig into this and found this commit:
-> > https://lore.kernel.org/patchwork/patch/886794/
-> > which set a fixed pixel rate value to 96MHz, which match perfectly
-> > with the 384MHz value I found for link frequency...
-> >
-> > Perhaps other CSI-2 OV5640 users can comment about it and have the
-> > explanations of what I experiment...
-> > Maxime, Jacopo, do you have any idea about it ?
+True, that is a bit out of context. Especially considering you did not
+receive any other messages of that series.
+Defining a namespace a symbol should be exported to can be done in
+different ways. All of them effectively change the EXPORT_SYMBOL*
+macro's behaviour. The method I am referring to is using
+
+  ccflags-y += -DDEFAULT_SYMBOL_NAMESPACE=WATCHDOG_CORE
+
+directly in drivers/watchdog/Makefile. Since this would also apply the
+namespace to exports in non-core modules it would be incorrect. Thus I
+used the method of applying the namespace directly by changing the
+EXPORT_SYMBOL macro expansion.
+
+>explanation. Also, it is not immediately obvious to me why "select
+>WATCHDOG_CORE" in Kconfig would not automatically imply that WATCHDOG_CORE
+>is used by a given driver, and why it is impossible to use that
+>information to avoid the per-driver changes.
 >
-> I would also like to wee a comment from someone who's familiar with the
-> device. Yet I can tell a static value of 348 MHz is clearly incorrect as it
-> ignores sensor runtime configuration as well as platform configuration
-> (external clock frequency for instance).
+
+One intention of this patch series is to make exporting and using of
+namespaces explicit. As such, the subsystem exporting symbols is
+defining the namespace it exports to and the module using a namespace is
+supposed to explicitly declare its usage via import. In case of watchdog
+(and probably other cases) it might make sense to find a way to
+implicitly import the namespace for in-tree drivers in the same area.
+
+>I am also missing an explanation why WATCHDOG_CORE is going to be a
+>separate namespace to start with. Maybe that discussion has happened,
+>but I don't recall being advised or asked or told about it. Are we also
+>going to have a new HWMON_CORE namespace ? And the same for each other
+>subsystem in the kernel ?
 >
-> Generally speaking, configuring a CSI-2 receiver to expect a particular
-> frequency usually doesn't mean it's going to fail even if the transmitter
-> uses a different frequency, albeit the likelihood of it not working
-> increases as the difference grows. Could the problem be at the receiver's
-> end?
+
+This very patch is an RFC to demonstrate how Symbol Namespaces would be
+used based on the current implementation (the other RFC as part of this
+series is for the introduction of the namespace USB_STORAGE).
+WATCHDOG_CORE serves as one of two examples. I do not think the two RFC
+patches should be merged along with this series.
+
+>Since this is being added to the watchdog API, it will have to be
+>documented accordingly. Watchdog driver writers, both inside and outside
+>the watchdog subsystem, will need to know that they now have to add an
+>additional boilerplate declaration into their drivers.
 >
-> Have you checked what kind of values ov5640_calc_pclk() returns for
-> different configurations? It would seem like that this is what the
-> LINK_FREQ (divided by lanes and multiplied by two) should be.
 
-Not exactly. ov5640_calc_pclk() is only used when computing the
-parallel bus pixel clock not for the CSI-2 bus.
+Completely agree. This is just an RFC that omits these details as it
+purely focuses on the introduction and consequences of such a namespace
+to demonstrate how the feature works.
 
-To obtain the link frequency for the MIPI interface I would consider
-the system clock frequency calculated by ov5640_calc_sys_clk(), which
-represents the bandwidth per lane in bits per second. This should then
-be divided by 2 to compensate the MIPI DDR mode [*] (no need to divide
-by the number of lanes, as this is already the bandwidth -per lane-)
+>Last but not least, combining patches affecting multiple subsystems in a
+>single patch will make it difficult to apply and will likely result in
+>conflicts. Personally I would prefer a split into one patch per affected
+>subsystem. Also, please keep in mind that new pending watchdog drivers
+>won't have the new boilerplate.
 
-For 640x480 YUYV8_2X8 (and 1024x768) with 2 data lanes and 24MHz xclk
-I have calculated the following values:
+I understand the point. Especially as I am already now affected by the
+long list of recipients when sending this patch. The problem with single
+patches here is, that once a symbol is exported into a namespace, all
+modules using it have to declare that import to avoid a warning at
+compile time and module load time. Hence the all-in-one approach.
+Luckily, the patch series also provides a way to address such a warning
+(via `make nsdeps`) that creates the necessary source code fix as a
+single line per module and namespace right after MODULE_LICENSE(). That
+is how this patch was created in the first place.
 
-SYSCLK = 492MHz
-MIPISCLK = 256MHz
-PCLK = 61,50MHz
-
-For 1280x720 with the same setup
-SYSCLK = 340MHz
-MIPI_CLK = 170MHz
-PCLK = 42,50 (this seems veeery low according to datasheet)
-
-For 1920x1080
-SYSCLK = 680MHz
-MIPI_CLK = 340MHz
-PCLK = 85MHz (slightly slow according to the datasheet)
-
-All captured images seems fine...
-
-If you could confirm those values by probing the actual clock lane it
-would be just great.
-
-However, this only work assuming the here below [*], and we're still
-missing something because RAW still doesn't work as expected :(
-
-Anyway, clock tree madness apart, fixing the LINK_FREQ control value
-to 96MHz seems like it does not reflect what the driver actual does.
-
-Could you try setting the control value to what the driver actually
-computes as here suggested?
-
-Thanks
-   j
-
-PS. I'm still confused why the have the link-frequencies property in
-DTS bindings. What is its purpose if all drivers compute or hardcode
-it?
-
-[*] There is a big assumption here, that the MIPI bus clock gets
-generated by two different clock outputs depending if the mode goes
-through the the scaler or not. You can see this at line 967 in the
-driver code. If mode goes though the scaler, MIPI_DIV = 2 and you get
-the bus clock from the MIPISCLK signal. If it does not go through the
-scaler MIPI_DIV = 1 and then the MIPI bus clock gets provided by the
-MIPI_CLK signal. This is the result of several attempts to decode the
-ov5640 clock tree, but it has only been tested with modes with bpp =
-16 and 2 data lanes. As it has been recently reported, for RAW mode,
-this does not work well, so the assumption might not be correct.
-
->
-> >
-> >
-> > >> version 2:
-> > >>    - do not set control read only as per Hans' comment:
-> > >>      See https://www.mail-archive.com/linux-media@vger.kernel.org/msg147910.html
-> > >>
-> > >>   drivers/media/i2c/ov5640.c | 10 ++++++++++
-> > >>   1 file changed, 10 insertions(+)
-> > >>
-> > >> diff --git a/drivers/media/i2c/ov5640.c b/drivers/media/i2c/ov5640.c
-> > >> index 82d4ce9..e6307f3 100644
-> > >> --- a/drivers/media/i2c/ov5640.c
-> > >> +++ b/drivers/media/i2c/ov5640.c
-> > >> @@ -218,6 +218,7 @@ struct ov5640_ctrls {
-> > >>   	struct v4l2_ctrl *test_pattern;
-> > >>   	struct v4l2_ctrl *hflip;
-> > >>   	struct v4l2_ctrl *vflip;
-> > >> +	struct v4l2_ctrl *link_freq;
-> > >>   };
-> > >>
-> > >>   struct ov5640_dev {
-> > >> @@ -2198,6 +2199,10 @@ static int ov5640_try_fmt_internal(struct v4l2_subdev *sd,
-> > >>   	return 0;
-> > >>   }
-> > >>
-> > >> +static const s64 link_freq_menu_items[] = {
-> > >> +	384000000,
-> > >> +};
-> > >> +
-> > >>   static int ov5640_set_fmt(struct v4l2_subdev *sd,
-> > >>   			  struct v4l2_subdev_pad_config *cfg,
-> > >>   			  struct v4l2_subdev_format *format)
-> > >> @@ -2636,6 +2641,8 @@ static int ov5640_s_ctrl(struct v4l2_ctrl *ctrl)
-> > >>   	case V4L2_CID_VFLIP:
-> > >>   		ret = ov5640_set_ctrl_vflip(sensor, ctrl->val);
-> > >>   		break;
-> > >> +	case V4L2_CID_LINK_FREQ:
-> > >> +		return 0;
-> > >>   	default:
-> > >>   		ret = -EINVAL;
-> > >>   		break;
-> > >> @@ -2703,6 +2710,9 @@ static int ov5640_init_controls(struct ov5640_dev *sensor)
-> > >>   				       V4L2_CID_POWER_LINE_FREQUENCY_AUTO, 0,
-> > >>   				       V4L2_CID_POWER_LINE_FREQUENCY_50HZ);
-> > >>
-> > >> +	ctrls->link_freq = v4l2_ctrl_new_int_menu(hdl, ops, V4L2_CID_LINK_FREQ,
-> > >> +						  0, 0, link_freq_menu_items);
-> > >> +
-> > >>   	if (hdl->error) {
-> > >>   		ret = hdl->error;
-> > >>   		goto free_ctrls;
-> > >> --
-> > >> 2.7.4
-> > >>
-> > >
-> >
-> > BR,
-> > Hugues.
->
-> --
-> Sakari Ailus
-> sakari.ailus@linux.intel.com
-
---tpwyogjc36kfnbru
-Content-Type: application/pgp-signature; name="signature.asc"
-
------BEGIN PGP SIGNATURE-----
-
-iQIzBAABCAAdFiEEtcQ9SICaIIqPWDjAcjQGjxahVjwFAl1dVAcACgkQcjQGjxah
-VjyHyRAAh6Ss4Pmz2okaFdBK2bZiPHTtR4Bur7ry6mnaFHlLA+jcAm6WxMB12oU4
-87hsWPJaznT8TAhkTtR9RoZ1ejXwDrSubZmc4d/AM4lQBJ9LHkby9tsd4o/xCzGJ
-EI0DDNqRViSKDNv8HNZDx0gnINLoJJLUYp4CkuzGkZAlKyR2qWWLS4oT/3aPdZBe
-cSh8vOZphd2AzN2M8YP7C0ycKK9PcV02gAYPwqx94zKVOXJuKJMytKOWjUZ3/tQQ
-L+ugmbilxjBRnIMqNPiC0+RaRCTrShth7dQtCQeKyCycfkGEd6dLn9dlpHmYhbDP
-qutHVzDDYSiYyB33rMBIZjPihjDLB442wS5d6parqeEvgWf0NeEdnZPyNSH1uSH0
-ApkCbCRFuHku40BEluCKVTSggyIXvRLWCV689YqIQz/9ggrlG9xTVMy2AlD3SmNd
-NsJDUYbUK/B71BQQT3yGufv5KzrJ3SgzgwRfckQrlFJdKiEHoLffMzEDzprvk5Dd
-QznKat2OSTiXoIpyrlbUVu+Q/yyAb7XI1WfqSjliAUPhWwV9ks0LameRjtwRa7QN
-elNlCnnv/J0dtIASfsBQov8wV8lEZ/etQXxmqn9zGrtgSfuWeYF4IMYL6F9xj691
-XnVX8i6nriyonRzhz7OJcYlYAr3llXrdeJikgy/evyV2jvnluYU=
-=E2f4
------END PGP SIGNATURE-----
-
---tpwyogjc36kfnbru--
-
---===============6573655626940429400==
-Content-Type: text/plain; charset="us-ascii"
-MIME-Version: 1.0
-Content-Transfer-Encoding: 7bit
-Content-Disposition: inline
-
+Cheers,
+Matthias
 _______________________________________________
 Linux-stm32 mailing list
 Linux-stm32@st-md-mailman.stormreply.com
 https://st-md-mailman.stormreply.com/mailman/listinfo/linux-stm32
-
---===============6573655626940429400==--
