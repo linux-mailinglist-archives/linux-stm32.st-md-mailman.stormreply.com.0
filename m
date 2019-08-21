@@ -2,92 +2,76 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id 6307E9799B
-	for <lists+linux-stm32@lfdr.de>; Wed, 21 Aug 2019 14:39:38 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 76E6097B01
+	for <lists+linux-stm32@lfdr.de>; Wed, 21 Aug 2019 15:37:43 +0200 (CEST)
 Received: from ip-172-31-3-76.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 0F0EEC35E01;
-	Wed, 21 Aug 2019 12:39:38 +0000 (UTC)
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 03DC0C35E01;
+	Wed, 21 Aug 2019 13:37:43 +0000 (UTC)
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
  (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id D50E7C36B3E
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 0C0D5C36B3E
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Wed, 21 Aug 2019 12:39:35 +0000 (UTC)
+ Wed, 21 Aug 2019 13:37:39 +0000 (UTC)
 Received: from localhost (unknown [12.166.174.13])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by mail.kernel.org (Postfix) with ESMTPSA id 81D002341E;
- Wed, 21 Aug 2019 12:39:33 +0000 (UTC)
+ by mail.kernel.org (Postfix) with ESMTPSA id E680322DD3;
+ Wed, 21 Aug 2019 13:37:37 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
- s=default; t=1566391173;
- bh=9bKz63tfFMpFQqEEIloPUowFJ5JwR4y30ptvJscL/Iw=;
+ s=default; t=1566394658;
+ bh=JFZU36i6Q9F7XtqSZvUlAaottGIkq60hvCD4Lb1NkFY=;
  h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
- b=TupyVj17ES+TfT+ew5wxVn8/RoB+TY3kzi7v4OUpPABmXN54r5OmVi6tbiKQX/bZY
- 5gCzoLUZziA2oHRwBivvPBaJ3vxbNxMmuKTqKq08ygNvwKx22cXMo1ObY0kyFKURpq
- clArw0ZdRLuq6XCWIqAV2EpnFRwl4GNUZtxnjD1Y=
-Date: Wed, 21 Aug 2019 05:39:33 -0700
+ b=cIqReoHFVucef4CCqQuTnAmpOF23VUGpLWhIJduxBHBHjRm6xTK0+5/6KHG9YQQUy
+ 7E7ICWHeZ+PfIMbPOHCtW0EsikkuDW4rqQzLMHXLZkWwflmQcj7oyp22v/ErogArj2
+ yBQpm8qYDzszZrhAZd+3wVHH7CwyeRktpNT3XFzM=
+Date: Wed, 21 Aug 2019 06:37:37 -0700
 From: Greg KH <gregkh@linuxfoundation.org>
-To: Matthias Maennich <maennich@google.com>
-Message-ID: <20190821123933.GC4059@kroah.com>
+To: Nicolas Pitre <nico@fluxnic.net>
+Message-ID: <20190821133737.GB4890@kroah.com>
 References: <20190813121733.52480-1-maennich@google.com>
  <20190821114955.12788-1-maennich@google.com>
- <20190821114955.12788-12-maennich@google.com>
+ <nycvar.YSQ.7.76.1908210840490.19480@knanqh.ubzr>
 MIME-Version: 1.0
 Content-Disposition: inline
-In-Reply-To: <20190821114955.12788-12-maennich@google.com>
+In-Reply-To: <nycvar.YSQ.7.76.1908210840490.19480@knanqh.ubzr>
 User-Agent: Mutt/1.12.1 (2019-06-15)
-Cc: Tomer Maimon <tmaimon77@gmail.com>, lucas.de.marchi@gmail.com,
- linux-stm32@st-md-mailman.stormreply.com, linux-arch@vger.kernel.org,
- linux-samsung-soc@vger.kernel.org, Kevin Hilman <khilman@baylibre.com>,
- Michal Simek <michal.simek@xilinx.com>,
- Ludovic Desroches <ludovic.desroches@microchip.com>, mingo@redhat.com,
+Cc: kstewart@linuxfoundation.org, oneukum@suse.com,
+ linux-aspeed@lists.ozlabs.org, usb-storage@lists.one-eyed-alien.net,
+ Toru Komatsu <k0ma@utam0k.jp>,
+ Mauro Carvalho Chehab <mchehab+samsung@kernel.org>,
+ Nicolas Ferre <nicolas.ferre@microchip.com>,
+ David Howells <dhowells@redhat.com>, yamada.masahiro@socionext.com,
+ Will Deacon <will@kernel.org>, patches@opensource.cirrus.com,
+ Michael Ellerman <mpe@ellerman.id.au>, hpa@zytor.com, joel@joelfernandes.org,
+ bcm-kernel-feedback-list@broadcom.com, sam@ravnborg.org, cocci@systeme.lip6.fr,
+ linux-arch@vger.kernel.org, linux-samsung-soc@vger.kernel.org,
+ Benjamin Fair <benjaminfair@google.com>, linux-scsi@vger.kernel.org,
+ Fabio Estevam <festevam@gmail.com>, openbmc@lists.ozlabs.org, x86@kernel.org,
+ lucas.de.marchi@gmail.com, Nancy Yuen <yuenn@google.com>, mingo@redhat.com,
  geert@linux-m68k.org, NXP Linux Team <linux-imx@nxp.com>,
- Tomas Winkler <tomas.winkler@intel.com>, Guenter Roeck <linux@roeck-us.net>,
- Jean Delvare <jdelvare@suse.com>, Sascha Hauer <s.hauer@pengutronix.de>,
- tglx@linutronix.de, michal.lkml@markovi.net,
- Scott Branden <sbranden@broadcom.com>, Andrew Jeffery <andrew@aj.id.au>,
- linux-usb@vger.kernel.org, linux-kernel@vger.kernel.org,
- Pengutronix Kernel Team <kernel@pengutronix.de>,
- Alexandre Belloni <alexandre.belloni@bootlin.com>,
- linux-aspeed@lists.ozlabs.org, yamada.masahiro@socionext.com,
- Thierry Reding <thierry.reding@gmail.com>,
- Chunyan Zhang <zhang.lyra@gmail.com>, Jonathan Hunter <jonathanh@nvidia.com>,
- Kukjin Kim <kgene@kernel.org>, kernel-team@android.com, sspatil@google.com,
- linux-watchdog@vger.kernel.org, linux-kbuild@vger.kernel.org,
- linux-arm-msm@vger.kernel.org, pombredanne@nexb.com,
- linux-m68k@lists.linux-m68k.org, linux-rpi-kernel@lists.infradead.org,
- linux-amlogic@lists.infradead.org, maco@android.com,
- linux-arm-kernel@lists.infradead.org, Barry Song <baohua@kernel.org>,
- Johannes Thumshirn <morbidrsa@gmail.com>, oneukum@suse.com,
- Stefan Wahren <wahrenst@gmx.net>, Maxime Coquelin <mcoquelin.stm32@gmail.com>,
- kstewart@linuxfoundation.org, usb-storage@lists.one-eyed-alien.net,
- linux-tegra@vger.kernel.org, patches@opensource.cirrus.com,
- joel@joelfernandes.org, sam@ravnborg.org, linux-rtc@vger.kernel.org,
- Florian Fainelli <f.fainelli@gmail.com>,
- Benjamin Fair <benjaminfair@google.com>, Eric Anholt <eric@anholt.net>,
- Krzysztof Kozlowski <krzk@kernel.org>, Nancy Yuen <yuenn@google.com>,
- Chen-Yu Tsai <wens@csie.org>, bcm-kernel-feedback-list@broadcom.com,
- Joel Stanley <joel@jms.id.au>, stern@rowland.harvard.edu, arnd@arndb.de,
- Ray Jui <rjui@broadcom.com>, Vladimir Zapolskiy <vz@mleia.com>,
- Orson Zhai <orsonzhai@gmail.com>, linux-hwmon@vger.kernel.org,
- Support Opensource <support.opensource@diasemi.com>,
- Andreas Werner <andreas.werner@men.de>, Avi Fishman <avifishman70@gmail.com>,
- maco@google.com, jeyu@kernel.org, Shawn Guo <shawnguo@kernel.org>,
- Baruch Siach <baruch@tkos.co.il>, Mans Rullgard <mans@mansr.com>,
- Maxime Ripard <maxime.ripard@bootlin.com>,
- Jerry Hoemann <jerry.hoemann@hpe.com>, Tali Perry <tali.perry1@gmail.com>,
- hpa@zytor.com, linux-scsi@vger.kernel.org, openbmc@lists.ozlabs.org,
- x86@kernel.org, Andy Gross <agross@kernel.org>,
- Marc Gonzalez <marc.w.gonzalez@free.fr>,
- William Breathitt Gray <vilhelm.gray@gmail.com>,
- linux-mediatek@lists.infradead.org, Fabio Estevam <festevam@gmail.com>,
- Matthias Brugger <matthias.bgg@gmail.com>,
- Wim Van Sebroeck <wim@linux-watchdog.org>,
- Alessandro Zummo <a.zummo@towertech.it>, Baolin Wang <baolin.wang@linaro.org>,
- Patrick Venture <venture@google.com>,
- Nicolas Ferre <nicolas.ferre@microchip.com>, linux-modules@vger.kernel.org
-Subject: Re: [Linux-stm32] [PATCH v3 11/11] RFC: watchdog: export core
- symbols in WATCHDOG_CORE namespace
+ Johannes Weiner <hannes@cmpxchg.org>, Patrick Venture <venture@google.com>,
+ stern@rowland.harvard.edu, kernel-team@android.com,
+ Dan Williams <dan.j.williams@intel.com>, Ingo Molnar <mingo@kernel.org>,
+ linux-rtc@vger.kernel.org, Gleb Fotengauer-Malinovskiy <glebfm@altlinux.org>,
+ sspatil@google.com, linux-watchdog@vger.kernel.org,
+ Arnd Bergmann <arnd@arndb.de>, linux-kbuild@vger.kernel.org,
+ Jani Nikula <jani.nikula@intel.com>, linux-arm-msm@vger.kernel.org,
+ jeyu@kernel.org, Matthias Maennich <maennich@google.com>,
+ Julia Lawall <julia.lawall@lip6.fr>, linux-m68k@lists.linux-m68k.org,
+ linux-mediatek@lists.infradead.org, linux-rpi-kernel@lists.infradead.org,
+ linux-tegra@vger.kernel.org, linux-amlogic@lists.infradead.org,
+ tglx@linutronix.de, maco@android.com, linux-arm-kernel@lists.infradead.org,
+ Adrian Reber <adrian@lisas.de>, linux-hwmon@vger.kernel.org,
+ michal.lkml@markovi.net, Ard Biesheuvel <ard.biesheuvel@linaro.org>,
+ Andrew Jeffery <andrew@aj.id.au>, Alexey Gladkov <gladkov.alexey@gmail.com>,
+ linux-usb@vger.kernel.org, linux-stm32@st-md-mailman.stormreply.com,
+ linux-kernel@vger.kernel.org, Patrick Bellasi <patrick.bellasi@arm.com>,
+ Richard Guy Briggs <rgb@redhat.com>, maco@google.com,
+ Pengutronix Kernel Team <kernel@pengutronix.de>, pombredanne@nexb.com,
+ Tejun Heo <tj@kernel.org>, Andrew Morton <akpm@linux-foundation.org>,
+ "David S. Miller" <davem@davemloft.net>, linux-modules@vger.kernel.org
+Subject: Re: [Linux-stm32] [PATCH v3 00/11] Symbol Namespaces
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -104,38 +88,22 @@ Content-Transfer-Encoding: 7bit
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
-On Wed, Aug 21, 2019 at 12:49:26PM +0100, Matthias Maennich wrote:
-> Modules using these symbols are required to explicitly import the
-> namespace. This patch was generated with the following steps and serves
-> as a reference to use the symbol namespace feature:
+On Wed, Aug 21, 2019 at 08:46:47AM -0400, Nicolas Pitre wrote:
+> On Wed, 21 Aug 2019, Matthias Maennich wrote:
 > 
->  1) Use EXPORT_SYMBOL_NS* macros instead of EXPORT_SYMBOL* for symbols
->     in watchdog_core.c
->  2) make  (see warnings during modpost about missing imports)
->  3) make nsdeps
+> > As of Linux 5.3-rc5, there are 31205 [1] exported symbols in the kernel.
+> > That is a growth of roughly 1000 symbols since 4.17 (30206 [2]).  There
+> > seems to be some consensus amongst kernel devs that the export surface
+> > is too large, and hard to reason about.
 > 
-> I used 'allmodconfig' for the above steps to ensure all occurrences are
-> patched.
+> This is good work.
 > 
-> Defining DEFAULT_SYMBOL_NAMESPACE in the Makefile is not trivial in this
-> case as not only watchdog_core is defined in drivers/watchdog/Makefile.
-> Hence this patch uses the variant of using the EXPORT_SYMBOL_NS* macros
-> to export into a different namespace.
-> 
-> An alternative to this patch would be a single definition line before
-> any use of EXPORT_SYMBOL*:
->  #define DEFAULT_SYMBOL_NAMESPACE WATCHDOG_CORE
-> 
-> Signed-off-by: Matthias Maennich <maennich@google.com>
+> One solution for drastically reducing the effective export surface is to 
+> have CONFIG_TRIM_UNUSED_KSYMS=y. This is more extreme than symbol 
+> namespace, but might be worth mentioning nevertheless.
 
-As we talked in chat, the cc: list for this patch was crazy :)
-
-If you end up resending this (as odds are the mailing lists will trash
-it for too many recipients), feel free to add:
-
-Reviewed-by: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
-
-Great work,
+Oh that's amazing, I never noticed that feature.  That is a nice thing,
+thanks for pointing it out.
 
 greg k-h
 _______________________________________________
