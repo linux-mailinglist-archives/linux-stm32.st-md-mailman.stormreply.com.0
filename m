@@ -2,59 +2,59 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id 5809797BDA
-	for <lists+linux-stm32@lfdr.de>; Wed, 21 Aug 2019 16:02:14 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id B765997BF1
+	for <lists+linux-stm32@lfdr.de>; Wed, 21 Aug 2019 16:03:25 +0200 (CEST)
 Received: from ip-172-31-3-76.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 013B2C35E01;
-	Wed, 21 Aug 2019 14:02:14 +0000 (UTC)
-Received: from mail-wm1-f68.google.com (mail-wm1-f68.google.com
- [209.85.128.68])
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 1D32FC35E01;
+	Wed, 21 Aug 2019 14:03:25 +0000 (UTC)
+Received: from mail-wm1-f65.google.com (mail-wm1-f65.google.com
+ [209.85.128.65])
  (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 0D333C36B3E
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 960E8C36B3E
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Wed, 21 Aug 2019 14:02:13 +0000 (UTC)
-Received: by mail-wm1-f68.google.com with SMTP id d16so2270780wme.2
+ Wed, 21 Aug 2019 14:03:24 +0000 (UTC)
+Received: by mail-wm1-f65.google.com with SMTP id v15so2268817wml.0
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Wed, 21 Aug 2019 07:02:12 -0700 (PDT)
+ Wed, 21 Aug 2019 07:03:24 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=baylibre-com.20150623.gappssmtp.com; s=20150623;
  h=subject:to:cc:references:from:openpgp:autocrypt:organization
  :message-id:date:user-agent:mime-version:in-reply-to
  :content-language:content-transfer-encoding;
- bh=IZEKwFYXuWCOYE64Kw//BzsntDGfKNxAopmprtAyQf4=;
- b=alBPyLj+2yYgcjmHKaxGD6h85XL3T1+ifV52J1FpG3ih/YSizFZD0hYsq7oROk1Tlv
- d+ECwMsFGF2T46G7Z+OP/ZWy/f8p0EA1whlIJHqR/ax392d0NHicAIfdq1BH+4E/DSfq
- jcU/4wApBE7Dd2Gzq0Pl6i/yagESSLwAGWedVOwmkEwT3l14H5wVlcUXvBl0yDBFebbF
- ty3yEVY0Ruqgy7FpHQ19+FIxLG28S0AKKKTu3+oNSh1/GZAG1ZUcbOdpMo8CiUZiqoax
- vhZ2YlfqZYBT1s7zirLWu6ZZ6RYGjqJj6of94dxbsB1RB6fZTtwzzJ8HQunGX8nDRGzX
- AU3w==
+ bh=CLOw/hEMUQ9/5tlE3cojRH7apiTWHcQg1Sw+ywKgLCE=;
+ b=CpkE/GAB00ki5KXft8btdkV/XrnGxj5rGRiwXKPnhYwGh+DG5TUI4REXdBW0Ylwupn
+ L2NdKDQI0maZIx1fP9vC3QSGmphx5sEzOmBeZBKmISvKR9tQrdDRnKhKIPz4bpN399aH
+ xeCMksxmahixsgLz9YnabifXmbp7A14xDUjE9X0Wv3KPfDHBIoyNNXNqOAWaPMCZDO7i
+ OUwfYcezDs1wXhRqj0X6Vn8jCGGyXJEx8Prpjajs2UCWmFlGexVhPCecjduJHwRbisFi
+ IEBznLA+7MoA/SDM2o8Is3+NBJ0sk84OXH2xuzBItxHAUuCkCBSLvOSbCNR/wtIMY6ur
+ EK2Q==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=1e100.net; s=20161025;
  h=x-gm-message-state:subject:to:cc:references:from:openpgp:autocrypt
  :organization:message-id:date:user-agent:mime-version:in-reply-to
  :content-language:content-transfer-encoding;
- bh=IZEKwFYXuWCOYE64Kw//BzsntDGfKNxAopmprtAyQf4=;
- b=D/wl3ud6VS6RKR8LXRAgJjU2nabRCO3bSMqqaAR7nGgC1T/OO6R/W4Mir1XVi5ls9p
- W6GbJzxm7YTcVTpLxxdWtBipnjj6tFHJnka0QOLCqAQ83Z9/fnLcApYOWJdEUAwk0wrU
- gereRxSNN8bffI/X8tq/gM/ti7EwArGpT2vL3qA9g2oLqtEHNZR/MHg9vuQW8oCbPTxe
- 9xrCYsSVm9vi9SEc5D1X+T/ncr5QY7xZD0XWcqgzkHQ4EzhP3Sz/nf9vVhAGnqna30Bq
- tgO0Ih6wjLORtUNRRly+9zY35ZvKdxy9doslslTPkXiJgHEf8GXj/cueuDWwVXR/2pKs
- idFw==
-X-Gm-Message-State: APjAAAUQJVhA2LPS+iMQ79G+6tJq81SQadtINFKKNNvHTBBhqQk4pThG
- 0L1Ovcj9wr/f/1Ym43IGWLRjgQ==
-X-Google-Smtp-Source: APXvYqz4tA/t2YZmiPSUxIVU/546/9jfDpXPE2raNA0LgI6EXxb+qQJpmVk20PaXP9puq7m9mxFvAg==
-X-Received: by 2002:a1c:1a87:: with SMTP id a129mr180543wma.21.1566396132308; 
- Wed, 21 Aug 2019 07:02:12 -0700 (PDT)
+ bh=CLOw/hEMUQ9/5tlE3cojRH7apiTWHcQg1Sw+ywKgLCE=;
+ b=BWJIRBsSUCgkW8o9LfAHAH0W+i6ZABBu3ViL3y/0O5uCGQYJfTsnlRMQZmha37zCIb
+ 9M16GOoaZUdlFquqWIcZqf1Ls0q8tg8W0vst+pWypCZt/rpxyQyVly0i1WHd1DJR0yCY
+ F9ncs+O4pHllCKYfBWgt4CKtl1dPtw5BxzjhoRknGC363PazDtPhez4BcKAoBH1Qccjs
+ klf09KBf92Geii1RbHRQe1eXpAUGZ73I6+oDVs28lb/3vpz+OvoJaqYo44+GaOj6ec1n
+ Wn2E5PS81J51ABffsQU+2PHtB/prcx5KrrYaWSvFuBl0bgpnYi/LyuSQF7R37p3SRcJb
+ V1sg==
+X-Gm-Message-State: APjAAAVJrz8oLui0Va7gGD3ZRkulwxnK6y15NY4X5Dddmm/KWV5W43VZ
+ Q2mEnYLIz+zVKZ287Vmp5SVZPA==
+X-Google-Smtp-Source: APXvYqxrweEJjRnaFR20j6Qnbjw/4ZsedAf0FK41D9veE1O4/yaJ+aYdi+tCgXvFD18KlpV+PdOTnw==
+X-Received: by 2002:a1c:2582:: with SMTP id l124mr161208wml.153.1566396203956; 
+ Wed, 21 Aug 2019 07:03:23 -0700 (PDT)
 Received: from [192.168.1.62] (wal59-h01-176-150-251-154.dsl.sta.abo.bbox.fr.
  [176.150.251.154])
- by smtp.gmail.com with ESMTPSA id u8sm167571wmj.3.2019.08.21.07.02.11
+ by smtp.gmail.com with ESMTPSA id a141sm4478525wmd.0.2019.08.21.07.03.22
  (version=TLS1_2 cipher=ECDHE-RSA-AES128-GCM-SHA256 bits=128/128);
- Wed, 21 Aug 2019 07:02:11 -0700 (PDT)
+ Wed, 21 Aug 2019 07:03:23 -0700 (PDT)
 To: YueHaibing <yuehaibing@huawei.com>, davem@davemloft.net,
  peppe.cavallaro@st.com, alexandre.torgue@st.com, joabreu@synopsys.com,
  khilman@baylibre.com, mcoquelin.stm32@gmail.com
-References: <20190821135406.26200-1-yuehaibing@huawei.com>
+References: <20190821135130.68636-1-yuehaibing@huawei.com>
 From: Neil Armstrong <narmstrong@baylibre.com>
 Openpgp: preference=signencrypt
 Autocrypt: addr=narmstrong@baylibre.com; prefer-encrypt=mutual; keydata=
@@ -107,17 +107,17 @@ Autocrypt: addr=narmstrong@baylibre.com; prefer-encrypt=mutual; keydata=
  VsbXrP9BZ6snXyHfebPnno/te5XRqZTL9aJOytB/1iUna+1MAwBxGFPvqeEUUyT+gx1l3Acl
  ZaTUOEkgIor5losDrePdPgE=
 Organization: Baylibre
-Message-ID: <f65f3f5c-5113-ff00-8b9f-f358e7775828@baylibre.com>
-Date: Wed, 21 Aug 2019 16:02:10 +0200
+Message-ID: <0405cd33-9bbc-b2db-d066-2934b76c5dc2@baylibre.com>
+Date: Wed, 21 Aug 2019 16:03:22 +0200
 User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:60.0) Gecko/20100101
  Thunderbird/60.8.0
 MIME-Version: 1.0
-In-Reply-To: <20190821135406.26200-1-yuehaibing@huawei.com>
+In-Reply-To: <20190821135130.68636-1-yuehaibing@huawei.com>
 Content-Language: en-US
 Cc: netdev@vger.kernel.org, linux-stm32@st-md-mailman.stormreply.com,
  linux-kernel@vger.kernel.org, linux-arm-kernel@lists.infradead.org,
  linux-amlogic@lists.infradead.org
-Subject: Re: [Linux-stm32] [PATCH net-next] net: stmmac: dwmac-meson: use
+Subject: Re: [Linux-stm32] [PATCH net-next] net: stmmac: dwmac-meson8b: use
  devm_platform_ioremap_resource() to simplify code
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
@@ -135,37 +135,37 @@ Content-Transfer-Encoding: 7bit
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
-On 21/08/2019 15:54, YueHaibing wrote:
+On 21/08/2019 15:51, YueHaibing wrote:
 > Use devm_platform_ioremap_resource() to simplify the code a bit.
 > This is detected by coccinelle.
 > 
 > Reported-by: Hulk Robot <hulkci@huawei.com>
 > Signed-off-by: YueHaibing <yuehaibing@huawei.com>
 > ---
->  drivers/net/ethernet/stmicro/stmmac/dwmac-meson.c | 4 +---
+>  drivers/net/ethernet/stmicro/stmmac/dwmac-meson8b.c | 4 +---
 >  1 file changed, 1 insertion(+), 3 deletions(-)
 > 
-> diff --git a/drivers/net/ethernet/stmicro/stmmac/dwmac-meson.c b/drivers/net/ethernet/stmicro/stmmac/dwmac-meson.c
-> index 88eb169..bbc16b5 100644
-> --- a/drivers/net/ethernet/stmicro/stmmac/dwmac-meson.c
-> +++ b/drivers/net/ethernet/stmicro/stmmac/dwmac-meson.c
-> @@ -46,7 +46,6 @@ static int meson6_dwmac_probe(struct platform_device *pdev)
+> diff --git a/drivers/net/ethernet/stmicro/stmmac/dwmac-meson8b.c b/drivers/net/ethernet/stmicro/stmmac/dwmac-meson8b.c
+> index 786ca4a..9cda29e 100644
+> --- a/drivers/net/ethernet/stmicro/stmmac/dwmac-meson8b.c
+> +++ b/drivers/net/ethernet/stmicro/stmmac/dwmac-meson8b.c
+> @@ -308,7 +308,6 @@ static int meson8b_dwmac_probe(struct platform_device *pdev)
+>  {
 >  	struct plat_stmmacenet_data *plat_dat;
 >  	struct stmmac_resources stmmac_res;
->  	struct meson_dwmac *dwmac;
 > -	struct resource *res;
+>  	struct meson8b_dwmac *dwmac;
 >  	int ret;
 >  
->  	ret = stmmac_get_platform_resources(pdev, &stmmac_res);
-> @@ -63,8 +62,7 @@ static int meson6_dwmac_probe(struct platform_device *pdev)
+> @@ -332,8 +331,7 @@ static int meson8b_dwmac_probe(struct platform_device *pdev)
+>  		ret = -EINVAL;
 >  		goto err_remove_config_dt;
 >  	}
->  
 > -	res = platform_get_resource(pdev, IORESOURCE_MEM, 1);
-> -	dwmac->reg = devm_ioremap_resource(&pdev->dev, res);
-> +	dwmac->reg = devm_platform_ioremap_resource(pdev, 1);
->  	if (IS_ERR(dwmac->reg)) {
->  		ret = PTR_ERR(dwmac->reg);
+> -	dwmac->regs = devm_ioremap_resource(&pdev->dev, res);
+> +	dwmac->regs = devm_platform_ioremap_resource(pdev, 1);
+>  	if (IS_ERR(dwmac->regs)) {
+>  		ret = PTR_ERR(dwmac->regs);
 >  		goto err_remove_config_dt;
 > 
 
