@@ -2,55 +2,52 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id 536F69E368
-	for <lists+linux-stm32@lfdr.de>; Tue, 27 Aug 2019 10:58:31 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 7E4499E365
+	for <lists+linux-stm32@lfdr.de>; Tue, 27 Aug 2019 10:58:30 +0200 (CEST)
 Received: from ip-172-31-3-76.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 822B8C24023;
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 3E9ABC32EAB;
 	Tue, 27 Aug 2019 08:58:30 +0000 (UTC)
-Received: from pb-sasl-trial21.pobox.com (pb-sasl-trial21.pobox.com
- [173.228.157.51])
- (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
- (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 9947FC36B3E
- for <linux-stm32@st-md-mailman.stormreply.com>;
- Wed, 21 Aug 2019 12:55:31 +0000 (UTC)
-Received: from pb-sasl-trial21.pobox.com (localhost.local [127.0.0.1])
- by pb-sasl-trial21.pobox.com (Postfix) with ESMTP id 436CE19497;
- Wed, 21 Aug 2019 08:55:29 -0400 (EDT)
- (envelope-from nico@fluxnic.net)
-DKIM-Signature: v=1; a=rsa-sha1; c=relaxed; d=pobox.com; h=date:from:to
- :cc:subject:in-reply-to:message-id:references:mime-version
- :content-type; s=sasl; bh=8OJtyeNZ9sCoH4BVmhH8yW8Bvtc=; b=c1PME/
- SJzr4aFk09ikfKp1bezTdBSw1zwNS3hrdNtoOqlYZR7yA8XltYBalyFTKDMKbjP0
- N65/OlgmcPY1jK1+z15I44JCS9KM0+7x8/h7bHxlIX4/NT+azCbj5YqM8+gMtbTp
- uXIkLMunbK+ZmjnijFcehZ1TUdsCiepGgzujk=
-Received: from pb-smtp21.sea.icgroup.com (pb-smtp21.pobox.com [10.110.30.21])
- by pb-sasl-trial21.pobox.com (Postfix) with ESMTP id 2440419496;
- Wed, 21 Aug 2019 08:55:29 -0400 (EDT)
- (envelope-from nico@fluxnic.net)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed; d=fluxnic.net;
- h=date:from:to:cc:subject:in-reply-to:message-id:references:mime-version:content-type;
- s=2016-12.pbsmtp; bh=V25/yKN9jlMjRVCEXCSuKB+Re2Fd96dfPM01Z+/Jqwg=;
- b=u8QzXJ4jPt13KgiTpgzojpKoWuF5UnQufQIrmIF1V1GDjy6AYPilfpABHbSnzJ1cD46DKsQ+JPEMRPYBtPL2vVu09z8iN4C6o7z6Kg63KVX0atNi1l+zBI4OCk5fsPv9COf6vzghotcslIvOnBR1dt1b3O/PjBpbMEOUK+25Eh8=
-Received: from yoda.home (unknown [24.203.50.76])
+Received: from bombadil.infradead.org (bombadil.infradead.org
+ [198.137.202.133])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by pb-smtp21.pobox.com (Postfix) with ESMTPSA id 8A9D482416;
- Wed, 21 Aug 2019 08:55:24 -0400 (EDT)
- (envelope-from nico@fluxnic.net)
-Received: from xanadu.home (xanadu.home [192.168.2.2])
- by yoda.home (Postfix) with ESMTPSA id 0CE5A2DA023B;
- Wed, 21 Aug 2019 08:46:48 -0400 (EDT)
-Date: Wed, 21 Aug 2019 08:46:47 -0400 (EDT)
-From: Nicolas Pitre <nico@fluxnic.net>
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id A32C1C36B3E
+ for <linux-stm32@st-md-mailman.stormreply.com>;
+ Wed, 21 Aug 2019 13:11:55 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
+ d=infradead.org; s=bombadil.20170209; h=In-Reply-To:Content-Type:MIME-Version
+ :References:Message-ID:Subject:Cc:To:From:Date:Sender:Reply-To:
+ Content-Transfer-Encoding:Content-ID:Content-Description:Resent-Date:
+ Resent-From:Resent-Sender:Resent-To:Resent-Cc:Resent-Message-ID:List-Id:
+ List-Help:List-Unsubscribe:List-Subscribe:List-Post:List-Owner:List-Archive;
+ bh=3W7OIKWVX6WxkwIdgHyI0+xyh1dbNAC13qBYkWnh7Cg=; b=ExBQWoID40jLGUT+TDDWejOqb
+ 4ix2l1k0o07DxHNphrY8/u7CCVeHBOBE1DdO0fUV7z7p6gTPd2dMeXqEP8tsXxzKJzczXtEh4TA/i
+ QsVS4DjQSqt3D8R2G6I3/LvtKRsZ1a0Y/Eh9F57pf8S8ONyrR1s+XnMYW6UOU3Xq/QUG8IzL+6fjw
+ wPIX+zJGpKISB1+pFv/l0tzBAzLI+XLkJB8KtxTdfFYUdRqGsYZajDDPHMybjI9tMKuAZ82Bf6Mg/
+ qyvQ2Tmu6URLwRoowyzhOAC+RQd7A61blj1cnygBihybZN/nVFrTg33zIGHyf+ekbDkA9jjCzt3r/
+ ETxVPDwBQ==;
+Received: from j217100.upc-j.chello.nl ([24.132.217.100]
+ helo=noisy.programming.kicks-ass.net)
+ by bombadil.infradead.org with esmtpsa (Exim 4.92 #3 (Red Hat Linux))
+ id 1i0QOu-00039v-6g; Wed, 21 Aug 2019 13:11:44 +0000
+Received: from hirez.programming.kicks-ass.net
+ (hirez.programming.kicks-ass.net [192.168.1.225])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+ (Client did not present a certificate)
+ by noisy.programming.kicks-ass.net (Postfix) with ESMTPS id 21C9B306B81;
+ Wed, 21 Aug 2019 15:11:09 +0200 (CEST)
+Received: by hirez.programming.kicks-ass.net (Postfix, from userid 1000)
+ id BF01120F0D378; Wed, 21 Aug 2019 15:11:40 +0200 (CEST)
+Date: Wed, 21 Aug 2019 15:11:40 +0200
+From: Peter Zijlstra <peterz@infradead.org>
 To: Matthias Maennich <maennich@google.com>
-In-Reply-To: <20190821114955.12788-1-maennich@google.com>
-Message-ID: <nycvar.YSQ.7.76.1908210840490.19480@knanqh.ubzr>
+Message-ID: <20190821131140.GC2349@hirez.programming.kicks-ass.net>
 References: <20190813121733.52480-1-maennich@google.com>
  <20190821114955.12788-1-maennich@google.com>
-User-Agent: Alpine 2.21 (LFD 202 2017-01-01)
 MIME-Version: 1.0
-X-Pobox-Relay-ID: F127EA26-C412-11E9-8458-8D86F504CC47-78420484!pb-smtp21.pobox.com
+Content-Disposition: inline
+In-Reply-To: <20190821114955.12788-1-maennich@google.com>
+User-Agent: Mutt/1.10.1 (2018-07-13)
 X-Mailman-Approved-At: Tue, 27 Aug 2019 08:58:26 +0000
 Cc: kstewart@linuxfoundation.org, oneukum@suse.com,
  linux-stm32@st-md-mailman.stormreply.com, linux-aspeed@lists.ozlabs.org,
@@ -70,18 +67,18 @@ Cc: kstewart@linuxfoundation.org, oneukum@suse.com,
  stern@rowland.harvard.edu, kernel-team@android.com,
  Ingo Molnar <mingo@kernel.org>, linux-rtc@vger.kernel.org,
  Gleb Fotengauer-Malinovskiy <glebfm@altlinux.org>, sspatil@google.com,
- linux-watchdog@vger.kernel.org, Arnd Bergmann <arnd@arndb.de>,
- linux-kbuild@vger.kernel.org, Jani Nikula <jani.nikula@intel.com>,
- linux-arm-msm@vger.kernel.org, jeyu@kernel.org,
- Dan Williams <dan.j.williams@intel.com>, Julia Lawall <julia.lawall@lip6.fr>,
- linux-m68k@lists.linux-m68k.org, linux-mediatek@lists.infradead.org,
- linux-rpi-kernel@lists.infradead.org, linux-tegra@vger.kernel.org,
- linux-amlogic@lists.infradead.org, tglx@linutronix.de, maco@android.com,
- linux-arm-kernel@lists.infradead.org, Adrian Reber <adrian@lisas.de>,
- linux-hwmon@vger.kernel.org, michal.lkml@markovi.net,
- Ard Biesheuvel <ard.biesheuvel@linaro.org>, Andrew Jeffery <andrew@aj.id.au>,
- gregkh@linuxfoundation.org, linux-usb@vger.kernel.org,
- Alexey Gladkov <gladkov.alexey@gmail.com>, linux-kernel@vger.kernel.org,
+ linux-watchdog@vger.kernel.org, arnd@arndb.de, linux-kbuild@vger.kernel.org,
+ Jani Nikula <jani.nikula@intel.com>, linux-arm-msm@vger.kernel.org,
+ jeyu@kernel.org, Dan Williams <dan.j.williams@intel.com>,
+ Julia Lawall <julia.lawall@lip6.fr>, linux-m68k@lists.linux-m68k.org,
+ linux-mediatek@lists.infradead.org, linux-rpi-kernel@lists.infradead.org,
+ linux-tegra@vger.kernel.org, linux-amlogic@lists.infradead.org,
+ tglx@linutronix.de, maco@android.com, linux-arm-kernel@lists.infradead.org,
+ Adrian Reber <adrian@lisas.de>, linux-hwmon@vger.kernel.org,
+ michal.lkml@markovi.net, Ard Biesheuvel <ard.biesheuvel@linaro.org>,
+ Andrew Jeffery <andrew@aj.id.au>, gregkh@linuxfoundation.org,
+ linux-usb@vger.kernel.org, Alexey Gladkov <gladkov.alexey@gmail.com>,
+ linux-kernel@vger.kernel.org, Nicolas Pitre <nico@fluxnic.net>,
  Patrick Bellasi <patrick.bellasi@arm.com>, Richard Guy Briggs <rgb@redhat.com>,
  maco@google.com, Pengutronix Kernel Team <kernel@pengutronix.de>,
  pombredanne@nexb.com, Tejun Heo <tj@kernel.org>,
@@ -104,21 +101,44 @@ Content-Transfer-Encoding: 7bit
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
-On Wed, 21 Aug 2019, Matthias Maennich wrote:
-
+On Wed, Aug 21, 2019 at 12:49:15PM +0100, Matthias Maennich wrote:
 > As of Linux 5.3-rc5, there are 31205 [1] exported symbols in the kernel.
 > That is a growth of roughly 1000 symbols since 4.17 (30206 [2]).  There
 > seems to be some consensus amongst kernel devs that the export surface
 > is too large, and hard to reason about.
+> 
+> Generally, these symbols fall in one of these categories:
+> 1) Symbols actually meant for drivers
+> 2) Symbols that are only exported because functionality is split over
+>    multiple modules, yet they really shouldn't be used by modules outside
+>    of their own subsystem
+> 3) Symbols really only meant for in-tree use
+> 
+> When module developers try to upstream their code, it regularly turns
+> out that they are using exported symbols that they really shouldn't be
+> using. This problem is even bigger for drivers that are currently
+> out-of-tree, which may be using many symbols that they shouldn't be
+> using, and that break when those symbols are removed or modified.
+> 
+> This patch allows subsystem maintainers to partition their exported
+> symbols into separate namespaces, and module authors to import such
+> namespaces only when needed.
+> 
+> This allows subsystem maintainers to more easily limit availability of
+> these namespaced symbols to other parts of the kernel. It can also be
+> used to partition the set of exported symbols for documentation
+> purposes; for example, a set of symbols that is really only used for
+> debugging could be in a "SUBSYSTEM_DEBUG" namespace.
 
-This is good work.
+I'm missing how one can prohibit these random out of tree modules from
+doing MODULE_IMPORT_NS().
 
-One solution for drastically reducing the effective export surface is to 
-have CONFIG_TRIM_UNUSED_KSYMS=y. This is more extreme than symbol 
-namespace, but might be worth mentioning nevertheless.
+That is; suppose I stick all the preempt_notifier symbols in a KVM
+namespace, how do I enforce no out-of-tree modules ever do
+MODULE_IMPORT_NS(KVM) and gain access?
 
-
-Nicolas
+(the above would basically break virtualbox, which I knows uses preempt
+notifiers too, but I don't give a rats arse about that)
 _______________________________________________
 Linux-stm32 mailing list
 Linux-stm32@st-md-mailman.stormreply.com
