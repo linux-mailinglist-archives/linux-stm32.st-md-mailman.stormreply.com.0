@@ -2,39 +2,39 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id 7743A985ED
-	for <lists+linux-stm32@lfdr.de>; Wed, 21 Aug 2019 22:53:39 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 8276D985F0
+	for <lists+linux-stm32@lfdr.de>; Wed, 21 Aug 2019 22:53:44 +0200 (CEST)
 Received: from ip-172-31-3-76.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 44A26C35E01;
-	Wed, 21 Aug 2019 20:53:39 +0000 (UTC)
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 51194C35E01;
+	Wed, 21 Aug 2019 20:53:44 +0000 (UTC)
 Received: from shards.monkeyblade.net (shards.monkeyblade.net [23.128.96.9])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 6CFB6C36B3E
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 0C6EBC36B3E
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Wed, 21 Aug 2019 20:53:36 +0000 (UTC)
+ Wed, 21 Aug 2019 20:53:43 +0000 (UTC)
 Received: from localhost (unknown [IPv6:2601:601:9f80:35cd::d71])
  (using TLSv1 with cipher AES256-SHA (256/256 bits))
  (Client did not present a certificate)
  (Authenticated sender: davem-davemloft)
- by shards.monkeyblade.net (Postfix) with ESMTPSA id C2C9514D6EAC3;
- Wed, 21 Aug 2019 13:53:34 -0700 (PDT)
-Date: Wed, 21 Aug 2019 13:53:34 -0700 (PDT)
-Message-Id: <20190821.135334.39526649595657864.davem@davemloft.net>
+ by shards.monkeyblade.net (Postfix) with ESMTPSA id 67B1214D7AA63;
+ Wed, 21 Aug 2019 13:53:41 -0700 (PDT)
+Date: Wed, 21 Aug 2019 13:53:40 -0700 (PDT)
+Message-Id: <20190821.135340.679707509667677738.davem@davemloft.net>
 To: yuehaibing@huawei.com
 From: David Miller <davem@davemloft.net>
-In-Reply-To: <20190821135406.26200-1-yuehaibing@huawei.com>
-References: <20190821135406.26200-1-yuehaibing@huawei.com>
+In-Reply-To: <20190821135550.55200-1-yuehaibing@huawei.com>
+References: <20190821135550.55200-1-yuehaibing@huawei.com>
 X-Mailer: Mew version 6.8 on Emacs 26.1
 Mime-Version: 1.0
 X-Greylist: Sender succeeded SMTP AUTH, not delayed by milter-greylist-4.5.12
  (shards.monkeyblade.net [149.20.54.216]);
- Wed, 21 Aug 2019 13:53:35 -0700 (PDT)
+ Wed, 21 Aug 2019 13:53:41 -0700 (PDT)
 Cc: khilman@baylibre.com, linux-kernel@vger.kernel.org, joabreu@synopsys.com,
  mcoquelin.stm32@gmail.com, netdev@vger.kernel.org, peppe.cavallaro@st.com,
  linux-amlogic@lists.infradead.org, linux-stm32@st-md-mailman.stormreply.com,
  linux-arm-kernel@lists.infradead.org
-Subject: Re: [Linux-stm32] [PATCH net-next] net: stmmac: dwmac-meson: use
+Subject: Re: [Linux-stm32] [PATCH net-next] net: stmmac: dwmac-anarion: use
  devm_platform_ioremap_resource() to simplify code
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
@@ -53,7 +53,7 @@ Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
 From: YueHaibing <yuehaibing@huawei.com>
-Date: Wed, 21 Aug 2019 21:54:06 +0800
+Date: Wed, 21 Aug 2019 21:55:50 +0800
 
 > Use devm_platform_ioremap_resource() to simplify the code a bit.
 > This is detected by coccinelle.
