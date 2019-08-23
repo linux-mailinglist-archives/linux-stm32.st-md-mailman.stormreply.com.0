@@ -2,94 +2,57 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id 5C1479E36C
+	by mail.lfdr.de (Postfix) with ESMTPS id 614609E36D
 	for <lists+linux-stm32@lfdr.de>; Tue, 27 Aug 2019 10:58:32 +0200 (CEST)
 Received: from ip-172-31-3-76.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 1FF04C1E9D9;
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 2A7ECC1E9DC;
 	Tue, 27 Aug 2019 08:58:32 +0000 (UTC)
-Received: from pb-sasl-trial20.pobox.com (pb-sasl-trial20.pobox.com
- [173.228.157.50])
- (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
+Received: from smtp.smtpout.orange.fr (smtp03.smtpout.orange.fr
+ [80.12.242.125])
+ (using TLSv1 with cipher DHE-RSA-AES128-SHA (128/128 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 7672EC36B3E
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id C3543C36B3E
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Wed, 21 Aug 2019 20:55:33 +0000 (UTC)
-Received: from pb-sasl-trial20.pobox.com (localhost.local [127.0.0.1])
- by pb-sasl-trial20.pobox.com (Postfix) with ESMTP id 894ED35263;
- Wed, 21 Aug 2019 16:55:31 -0400 (EDT)
- (envelope-from nico@fluxnic.net)
-DKIM-Signature: v=1; a=rsa-sha1; c=relaxed; d=pobox.com; h=date:from:to
- :cc:subject:in-reply-to:message-id:references:mime-version
- :content-type; s=sasl; bh=gHPWV6ywNNDw4FaVfFzykWXQZaE=; b=coNCGr
- qwt7i3R4tUyQi0ZhT3/3VIDhWBBLTzAw70AivukbL9ghU9nPl7F0FIRPBuvKPbKw
- c7CalAaCzCWnkkCCcwbqy1o3zKk9TWKjPdhJsnfKwF9VQuO/B09UmksTxgYUz9wu
- bRu8C5k5LKc4Gf9x7hn/+DaQYD2aeK8p0IeXw=
-Received: from pb-smtp20.sea.icgroup.com (pb-smtp20.pobox.com [10.110.30.20])
- by pb-sasl-trial20.pobox.com (Postfix) with ESMTP id 6E5AE35262;
- Wed, 21 Aug 2019 16:55:31 -0400 (EDT)
- (envelope-from nico@fluxnic.net)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed; d=fluxnic.net;
- h=date:from:to:cc:subject:in-reply-to:message-id:references:mime-version:content-type;
- s=2016-12.pbsmtp; bh=tGJUtEAORBsdDqaz81artd/xlpJm4+O0vI06mhjfh+c=;
- b=Bm6jH5TeJ8u7zHDr3U+j7uM4LAxY52cFgZwdS2EFFWXNFK9GQtn5eZUA1GzXW9KWEcBn6hCr6F+jjjS1njBtHu40IijCBy9feUsunydCJOnkBH26hfO8gr4uvy5QgPrfiAWE7p+UCt2+09N9I0cpH0M/jOvLnV1kk5DmQyr29ak=
-Received: from yoda.home (unknown [24.203.50.76])
- (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
- (No client certificate requested)
- by pb-smtp20.pobox.com (Postfix) with ESMTPSA id 5346231588;
- Wed, 21 Aug 2019 16:55:28 -0400 (EDT)
- (envelope-from nico@fluxnic.net)
-Received: from xanadu.home (xanadu.home [192.168.2.2])
- by yoda.home (Postfix) with ESMTPSA id E8EF12DA023B;
- Wed, 21 Aug 2019 16:48:10 -0400 (EDT)
-Date: Wed, 21 Aug 2019 16:48:10 -0400 (EDT)
-From: Nicolas Pitre <nico@fluxnic.net>
-To: Greg KH <gregkh@linuxfoundation.org>
-In-Reply-To: <20190821133737.GB4890@kroah.com>
-Message-ID: <nycvar.YSQ.7.76.1908211642050.19480@knanqh.ubzr>
-References: <20190813121733.52480-1-maennich@google.com>
- <20190821114955.12788-1-maennich@google.com>
- <nycvar.YSQ.7.76.1908210840490.19480@knanqh.ubzr>
- <20190821133737.GB4890@kroah.com>
-User-Agent: Alpine 2.21 (LFD 202 2017-01-01)
+ Fri, 23 Aug 2019 14:08:36 +0000 (UTC)
+Received: from [192.168.1.41] ([90.126.160.115]) by mwinf5d06 with ME
+ id se8M200092Vh0YS03e8M18; Fri, 23 Aug 2019 16:08:36 +0200
+X-ME-Helo: [192.168.1.41]
+X-ME-Auth: Y2hyaXN0b3BoZS5qYWlsbGV0QHdhbmFkb28uZnI=
+X-ME-Date: Fri, 23 Aug 2019 16:08:36 +0200
+X-ME-IP: 90.126.160.115
+To: Markus Elfring <Markus.Elfring@web.de>, netdev@vger.kernel.org,
+ linux-arm-kernel@lists.infradead.org,
+ linux-stm32@st-md-mailman.stormreply.com, intel-wired-lan@lists.osuosl.org,
+ bcm-kernel-feedback-list@broadcom.com, UNGLinuxDriver@microchip.com,
+ Alexandre Torgue <alexandre.torgue@st.com>,
+ Alexios Zavras <alexios.zavras@intel.com>,
+ Allison Randal <allison@lohutok.net>,
+ Bryan Whitehead <bryan.whitehead@microchip.com>,
+ Claudiu Manoil <claudiu.manoil@nxp.com>,
+ "David S. Miller" <davem@davemloft.net>, Doug Berger <opendmb@gmail.com>,
+ Douglas Miller <dougmill@linux.ibm.com>,
+ Florian Fainelli <f.fainelli@gmail.com>,
+ Giuseppe Cavallaro <peppe.cavallaro@st.com>,
+ Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
+ Jeff Kirsher <jeffrey.t.kirsher@intel.com>,
+ Jilayne Lovejoy <opensource@jilayne.com>,
+ Jonathan Lemon <jonathan.lemon@gmail.com>, Jose Abreu
+ <joabreu@synopsys.com>, Kate Stewart <kstewart@linuxfoundation.org>
+References: <af1ae1cf-4a01-5e3a-edc2-058668487137@web.de>
+From: Christophe JAILLET <christophe.jaillet@wanadoo.fr>
+Message-ID: <4ab7f2a5-f472-f462-9d4c-7c8d5237c44e@wanadoo.fr>
+Date: Fri, 23 Aug 2019 16:08:20 +0200
+User-Agent: Mozilla/5.0 (Windows NT 10.0; WOW64; rv:60.0) Gecko/20100101
+ Thunderbird/60.8.0
 MIME-Version: 1.0
-X-Pobox-Relay-ID: 018ACB2A-C456-11E9-98E8-B0405B776F7B-78420484!pb-smtp20.pobox.com
+In-Reply-To: <af1ae1cf-4a01-5e3a-edc2-058668487137@web.de>
+Content-Language: en-US
 X-Mailman-Approved-At: Tue, 27 Aug 2019 08:58:26 +0000
-Cc: kstewart@linuxfoundation.org, oneukum@suse.com,
- linux-aspeed@lists.ozlabs.org, usb-storage@lists.one-eyed-alien.net,
- Toru Komatsu <k0ma@utam0k.jp>,
- Mauro Carvalho Chehab <mchehab+samsung@kernel.org>,
- Nicolas Ferre <nicolas.ferre@microchip.com>,
- David Howells <dhowells@redhat.com>, yamada.masahiro@socionext.com,
- Will Deacon <will@kernel.org>, patches@opensource.cirrus.com,
- Michael Ellerman <mpe@ellerman.id.au>, hpa@zytor.com, joel@joelfernandes.org,
- bcm-kernel-feedback-list@broadcom.com, sam@ravnborg.org, cocci@systeme.lip6.fr,
- linux-arch@vger.kernel.org, linux-samsung-soc@vger.kernel.org,
- Benjamin Fair <benjaminfair@google.com>, linux-scsi@vger.kernel.org,
- Fabio Estevam <festevam@gmail.com>, openbmc@lists.ozlabs.org, x86@kernel.org,
- lucas.de.marchi@gmail.com, Nancy Yuen <yuenn@google.com>, mingo@redhat.com,
- geert@linux-m68k.org, NXP Linux Team <linux-imx@nxp.com>,
- Johannes Weiner <hannes@cmpxchg.org>, Patrick Venture <venture@google.com>,
- stern@rowland.harvard.edu, kernel-team@android.com,
- Dan Williams <dan.j.williams@intel.com>, Ingo Molnar <mingo@kernel.org>,
- linux-rtc@vger.kernel.org, Gleb Fotengauer-Malinovskiy <glebfm@altlinux.org>,
- sspatil@google.com, linux-watchdog@vger.kernel.org,
- Arnd Bergmann <arnd@arndb.de>, linux-kbuild@vger.kernel.org,
- Jani Nikula <jani.nikula@intel.com>, linux-arm-msm@vger.kernel.org,
- jeyu@kernel.org, Matthias Maennich <maennich@google.com>,
- Julia Lawall <julia.lawall@lip6.fr>, linux-m68k@lists.linux-m68k.org,
- linux-mediatek@lists.infradead.org, linux-rpi-kernel@lists.infradead.org,
- linux-tegra@vger.kernel.org, linux-amlogic@lists.infradead.org,
- tglx@linutronix.de, maco@android.com, linux-arm-kernel@lists.infradead.org,
- Adrian Reber <adrian@lisas.de>, linux-hwmon@vger.kernel.org,
- michal.lkml@markovi.net, Ard Biesheuvel <ard.biesheuvel@linaro.org>,
- Andrew Jeffery <andrew@aj.id.au>, Alexey Gladkov <gladkov.alexey@gmail.com>,
- linux-usb@vger.kernel.org, linux-stm32@st-md-mailman.stormreply.com,
- linux-kernel@vger.kernel.org, Patrick Bellasi <patrick.bellasi@arm.com>,
- Richard Guy Briggs <rgb@redhat.com>, maco@google.com,
- Pengutronix Kernel Team <kernel@pengutronix.de>, pombredanne@nexb.com,
- Tejun Heo <tj@kernel.org>, Andrew Morton <akpm@linux-foundation.org>,
- "David S. Miller" <davem@davemloft.net>, linux-modules@vger.kernel.org
-Subject: Re: [Linux-stm32] [PATCH v3 00/11] Symbol Namespaces
+Cc: kernel-janitors@vger.kernel.org, LKML <linux-kernel@vger.kernel.org>
+Subject: Re: [Linux-stm32]
+ =?utf-8?q?=5BPATCH=5D_ethernet=3A_Delete_unnecessar?=
+ =?utf-8?q?y_checks_before_the_macro_call_=E2=80=9Cdev=5Fkfree=5Fskb?=
+ =?utf-8?b?4oCd?=
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -101,29 +64,36 @@ List-Post: <mailto:linux-stm32@st-md-mailman.stormreply.com>
 List-Help: <mailto:linux-stm32-request@st-md-mailman.stormreply.com?subject=help>
 List-Subscribe: <https://st-md-mailman.stormreply.com/mailman/listinfo/linux-stm32>, 
  <mailto:linux-stm32-request@st-md-mailman.stormreply.com?subject=subscribe>
-Content-Type: text/plain; charset="us-ascii"
-Content-Transfer-Encoding: 7bit
+Content-Transfer-Encoding: base64
+Content-Type: text/plain; charset="utf-8"; Format="flowed"
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
-On Wed, 21 Aug 2019, Greg KH wrote:
-
-> On Wed, Aug 21, 2019 at 08:46:47AM -0400, Nicolas Pitre wrote:
-> 
-> > One solution for drastically reducing the effective export surface is to 
-> > have CONFIG_TRIM_UNUSED_KSYMS=y. This is more extreme than symbol 
-> > namespace, but might be worth mentioning nevertheless.
-> 
-> Oh that's amazing, I never noticed that feature.  That is a nice thing,
-> thanks for pointing it out.
-
-For those interested, this feature was demonstrated with numbers here:
-
-https://lwn.net/Articles/746780/
-
-
-Nicolas
-_______________________________________________
-Linux-stm32 mailing list
-Linux-stm32@st-md-mailman.stormreply.com
-https://st-md-mailman.stormreply.com/mailman/listinfo/linux-stm32
+SGksCgppbiB0aGlzIHBhdGNoLCB0aGVyZSBpcyBvbmUgcGllY2UgdGhhdCBsb29rZWQgYmV0dGVy
+IGJlZm9yZS4gKHNlZSBiZWxvdykKClJlbW92aW5nIHRoZSAnaWYgKHNrYiknIGlzIGZpbmUsIGJ1
+dCBjb25jYXRlbmluZyBldmVyeXRoaW5nIGluIG9uZSAKc3RhdGVtZW50IGp1c3QgdG8gc2F2ZSAy
+IHZhcmlhYmxlcyBhbmQgYSBmZXcgTE9DIGlzIG9mIG5vIHVzZSwgSU1ITywgYW5kIAp0aGUgY29k
+ZSBpcyBsZXNzIHJlYWRhYmxlLgoKanVzdCBteSAyYy4KCgpDSgoKCmRpZmYgLS1naXQgYS9kcml2
+ZXJzL25ldC9ldGhlcm5ldC9icm9hZGNvbS9nZW5ldC9iY21nZW5ldC5jIApiL2RyaXZlcnMvbmV0
+L2V0aGVybmV0L2Jyb2FkY29tL2dlbmV0L2JjbWdlbmV0LmMKaW5kZXggZDNhMGI2MTRkYmZhLi44
+YjE5ZGRjZGFmYWEgMTAwNjQ0Ci0tLSBhL2RyaXZlcnMvbmV0L2V0aGVybmV0L2Jyb2FkY29tL2dl
+bmV0L2JjbWdlbmV0LmMKKysrIGIvZHJpdmVycy9uZXQvZXRoZXJuZXQvYnJvYWRjb20vZ2VuZXQv
+YmNtZ2VuZXQuYwpAQCAtMjUxNSwxOSArMjUxNSwxNCBAQCBzdGF0aWMgaW50IGJjbWdlbmV0X2Rt
+YV90ZWFyZG93bihzdHJ1Y3QgCmJjbWdlbmV0X3ByaXYgKnByaXYpCiDCoHN0YXRpYyB2b2lkIGJj
+bWdlbmV0X2ZpbmlfZG1hKHN0cnVjdCBiY21nZW5ldF9wcml2ICpwcml2KQogwqB7CiDCoMKgwqDC
+oCBzdHJ1Y3QgbmV0ZGV2X3F1ZXVlICp0eHE7Ci3CoMKgwqAgc3RydWN0IHNrX2J1ZmYgKnNrYjsK
+LcKgwqDCoCBzdHJ1Y3QgZW5ldF9jYiAqY2I7CiDCoMKgwqDCoCBpbnQgaTsKCiDCoMKgwqDCoCBi
+Y21nZW5ldF9maW5pX3J4X25hcGkocHJpdik7CiDCoMKgwqDCoCBiY21nZW5ldF9maW5pX3R4X25h
+cGkocHJpdik7CgotwqDCoMKgIGZvciAoaSA9IDA7IGkgPCBwcml2LT5udW1fdHhfYmRzOyBpKysp
+IHsKLcKgwqDCoMKgwqDCoMKgIGNiID0gcHJpdi0+dHhfY2JzICsgaTsKLcKgwqDCoMKgwqDCoMKg
+IHNrYiA9IGJjbWdlbmV0X2ZyZWVfdHhfY2IoJnByaXYtPnBkZXYtPmRldiwgY2IpOwotwqDCoMKg
+wqDCoMKgwqAgaWYgKHNrYikKLcKgwqDCoMKgwqDCoMKgwqDCoMKgwqAgZGV2X2tmcmVlX3NrYihz
+a2IpOwotwqDCoMKgIH0KK8KgwqDCoCBmb3IgKGkgPSAwOyBpIDwgcHJpdi0+bnVtX3R4X2Jkczsg
+aSsrKQorIGRldl9rZnJlZV9za2IoYmNtZ2VuZXRfZnJlZV90eF9jYigmcHJpdi0+cGRldi0+ZGV2
+LAorwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqAgcHJp
+di0+dHhfY2JzICsgaSkpOwoKIMKgwqDCoMKgIGZvciAoaSA9IDA7IGkgPCBwcml2LT5od19wYXJh
+bXMtPnR4X3F1ZXVlczsgaSsrKSB7CiDCoMKgwqDCoMKgwqDCoMKgIHR4cSA9IG5ldGRldl9nZXRf
+dHhfcXVldWUocHJpdi0+ZGV2LCBwcml2LT50eF9yaW5nc1tpXS5xdWV1ZSk7Cl9fX19fX19fX19f
+X19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fCkxpbnV4LXN0bTMyIG1haWxpbmcg
+bGlzdApMaW51eC1zdG0zMkBzdC1tZC1tYWlsbWFuLnN0b3JtcmVwbHkuY29tCmh0dHBzOi8vc3Qt
+bWQtbWFpbG1hbi5zdG9ybXJlcGx5LmNvbS9tYWlsbWFuL2xpc3RpbmZvL2xpbnV4LXN0bTMyCg==
