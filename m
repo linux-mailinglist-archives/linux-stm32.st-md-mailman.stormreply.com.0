@@ -2,64 +2,90 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id 52A1E9CE4D
-	for <lists+linux-stm32@lfdr.de>; Mon, 26 Aug 2019 13:39:49 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id D61139D094
+	for <lists+linux-stm32@lfdr.de>; Mon, 26 Aug 2019 15:31:06 +0200 (CEST)
 Received: from ip-172-31-3-76.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 77D46C35E01;
-	Mon, 26 Aug 2019 11:39:47 +0000 (UTC)
-Received: from mail-ua1-f68.google.com (mail-ua1-f68.google.com
- [209.85.222.68])
- (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 823EEC35E01;
+	Mon, 26 Aug 2019 13:31:04 +0000 (UTC)
+Received: from mx07-00178001.pphosted.com (mx07-00178001.pphosted.com
+ [62.209.51.94])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 75C67C36B3E
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 83FA5C36B3E
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Mon, 26 Aug 2019 11:39:44 +0000 (UTC)
-Received: by mail-ua1-f68.google.com with SMTP id m8so2775323uap.2
- for <linux-stm32@st-md-mailman.stormreply.com>;
- Mon, 26 Aug 2019 04:39:44 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linaro.org; s=google;
- h=mime-version:references:in-reply-to:from:date:message-id:subject:to
- :cc; bh=z/ztN8aKj4HB6n/hOxgolZXF13lbGa3GFNj3CAvhcvI=;
- b=b5l/BmE/uVAAVYWaAv+kS/L9Dln+VeDeUv3DKBvJ12y7hQD/IWkxE91tg/AC8Lmvdq
- F9hi4/zJ0s4cpvU1RMIDXpUv0yy1YGe8BGC2qHwPmIIZWlELp5y7+4lV69+YRZ+l2JTw
- N8yGVg3ivX1VhHdKRJHQD/5Um4HTYVP8V68GLc0hIrzyisti2CHjVnOvluhphHrb1/9m
- 6kdWGkG6QYX2PceBF7CeKTnERuC/pKDJJtUqhKObzN1KpzNMmrgVrudmwG1ga4lvNu6l
- pIbxv2nKiNFd7EMAHS62726BiC4F4R0ntwnsc0xvV1Xuo4GmDxhItwsFhfc//nGF1KVI
- sQjQ==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20161025;
- h=x-gm-message-state:mime-version:references:in-reply-to:from:date
- :message-id:subject:to:cc;
- bh=z/ztN8aKj4HB6n/hOxgolZXF13lbGa3GFNj3CAvhcvI=;
- b=bDLFvWjC9d7gjimIargsc/ciPkATSBKDu5sVMf+AOOZz0Wj/Pr5iSrvyLtnu6NTuZS
- s9xYvomh52xcEMFz38SlOFTBJQwUdV7dJINr4VZIiwHE82eogOG/lPyj1jN7sYaFxptU
- JsviClCXEtJHmno066RYfA3Dw5n2QPRMxdB6dUPpPEufNwBHS1MFg6Zx6YUxgLnN85mc
- qB30Rd/j56zkfT/ZtnTGNY2yHx8cUyn43JtOF+ueoBb/eOIZOw7AdxbmUETKJB3jXr5N
- KxSRfyusHgODVLhAw0VG4qeYsO+rNDYrddAjVKnzqEXReswTZQZWHPhsn0st+RPS5lzM
- 7LbQ==
-X-Gm-Message-State: APjAAAUrJibEA7AoRQXl0ZI7e9/VpVRDXvtRq6XStMUlffr19zhI3vZ+
- r4utoj5JRMsSH9BzwvxESh83DLyJetNKTtnojIqBZw==
-X-Google-Smtp-Source: APXvYqz7S0pSN+WeOoO47//MqKvJ32+rI0KoknCDGuol7xTw/uTMylWuLA8O7lgaQMBaQaBJrYLQI9MjrkaBX78hK04=
-X-Received: by 2002:ab0:6883:: with SMTP id t3mr8159552uar.104.1566819582903; 
- Mon, 26 Aug 2019 04:39:42 -0700 (PDT)
+ Mon, 26 Aug 2019 13:31:01 +0000 (UTC)
+Received: from pps.filterd (m0046037.ppops.net [127.0.0.1])
+ by mx07-00178001.pphosted.com (8.16.0.27/8.16.0.27) with SMTP id
+ x7QDPuqd019991; Mon, 26 Aug 2019 15:30:44 +0200
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=st.com;
+ h=from : to : cc : subject
+ : date : message-id : references : in-reply-to : content-type : content-id
+ : content-transfer-encoding : mime-version; s=STMicroelectronics;
+ bh=thK12+DIfZ9qs61+1jR8YxxKTQeC2eKKI+kwQtWjFW8=;
+ b=UJzzoS3r1ctLfNaP+lyXdKBS2FIQLMiHWCb/mPrnvyzIHvCU7paWugYoA4K7sSGgko8G
+ 0DB0xHCcLkfNwoqJg+8p/95CexVpBZq78eQuU98H6cYGfWri69qQTQvK0zP0bCwQbdUd
+ zVV/y4SEHKtFmSznoRzoakSZbY4HUyAYg9GAJ2IvKAA1IUeAnsQhsCC+J8HQOFz5BdZ8
+ ujfROSdH/z7D4FJi/EY9m83jGXN7M2XMFnji9UtCAGlxqZXTFejCmQ4A1lA9IcZLpoLz
+ YePR6SYgMQRIHulT8W4Yylwb5CG3bNVYfKkE0XVCpOfZZGhdLwPSsIWik8bsfs2SkVKw cw== 
+Received: from beta.dmz-eu.st.com (beta.dmz-eu.st.com [164.129.1.35])
+ by mx07-00178001.pphosted.com with ESMTP id 2uju0vkx2r-1
+ (version=TLSv1 cipher=ECDHE-RSA-AES256-SHA bits=256 verify=NOT);
+ Mon, 26 Aug 2019 15:30:44 +0200
+Received: from euls16034.sgp.st.com (euls16034.sgp.st.com [10.75.44.20])
+ by beta.dmz-eu.st.com (STMicroelectronics) with ESMTP id 89D3231;
+ Mon, 26 Aug 2019 13:30:43 +0000 (GMT)
+Received: from Webmail-eu.st.com (sfhdag3node2.st.com [10.75.127.8])
+ by euls16034.sgp.st.com (STMicroelectronics) with ESMTP id 643E82D378B;
+ Mon, 26 Aug 2019 15:30:43 +0200 (CEST)
+Received: from SFHDAG5NODE3.st.com (10.75.127.15) by SFHDAG3NODE2.st.com
+ (10.75.127.8) with Microsoft SMTP Server (TLS) id 15.0.1347.2; Mon, 26 Aug
+ 2019 15:30:42 +0200
+Received: from SFHDAG5NODE3.st.com ([fe80::7c09:5d6b:d2c7:5f47]) by
+ SFHDAG5NODE3.st.com ([fe80::7c09:5d6b:d2c7:5f47%20]) with mapi id
+ 15.00.1473.003; Mon, 26 Aug 2019 15:30:42 +0200
+From: Fabien DESSENNE <fabien.dessenne@st.com>
+To: Bjorn Andersson <bjorn.andersson@linaro.org>
+Thread-Topic: [PATCH 0/6] hwspinlock: allow sharing of hwspinlocks
+Thread-Index: AQHU2bSOZtnkIyxqbUq77/gp1YrMkqbnZZ+AgAWakoCAAJZugIABj+mAgAAMDgCAADTBgIAAuucAgACApoCAAVhTAIAALi6AgBwmkgA=
+Date: Mon, 26 Aug 2019 13:30:42 +0000
+Message-ID: <8fa3e61a-a798-4c3c-d99b-691755dbf8df@st.com>
+References: <1552492237-28810-1-git-send-email-fabien.dessenne@st.com>
+ <20190801191403.GA7234@tuxbook-pro>
+ <1a057176-81ab-e302-4375-2717ceef6924@st.com>
+ <20190805174659.GA23928@tuxbook-pro>
+ <dcd1aeea-cffe-d5fb-af5a-e52efcc2e046@ti.com>
+ <20190806182128.GD26807@tuxbook-pro>
+ <1aea3d28-29dc-f9de-3b86-cf777e0d5caa@ti.com>
+ <02329102-5571-c6c1-b78c-693747133f0e@st.com>
+ <f0893b3f-0124-007a-3ca2-831f60ad9a80@ti.com>
+ <d8d4a172-ec18-a758-d994-8e05bb6a1f48@st.com>
+ <20190808153721.GI26807@tuxbook-pro>
+In-Reply-To: <20190808153721.GI26807@tuxbook-pro>
+Accept-Language: fr-FR, en-US
+Content-Language: en-US
+X-MS-Has-Attach: 
+X-MS-TNEF-Correlator: 
+user-agent: Mozilla/5.0 (X11; Linux x86_64; rv:60.0) Gecko/20100101
+ Thunderbird/60.8.0
+x-ms-exchange-messagesentrepresentingtype: 1
+x-ms-exchange-transport-fromentityheader: Hosted
+x-originating-ip: [10.75.127.47]
+Content-ID: <D296F5589EE83E4A907D41CEBE1E0049@st.com>
 MIME-Version: 1.0
-References: <20190813095951.26275-1-ludovic.Barre@st.com>
- <20190813095951.26275-2-ludovic.Barre@st.com>
-In-Reply-To: <20190813095951.26275-2-ludovic.Barre@st.com>
-From: Ulf Hansson <ulf.hansson@linaro.org>
-Date: Mon, 26 Aug 2019 13:39:06 +0200
-Message-ID: <CAPDyKFpOj8g+eY-vTxW4Sk+wVYTP1-4jDJB=nE=24eSubBvN-g@mail.gmail.com>
-To: Ludovic Barre <ludovic.Barre@st.com>
-Cc: DTML <devicetree@vger.kernel.org>,
- "linux-mmc@vger.kernel.org" <linux-mmc@vger.kernel.org>,
- Linux Kernel Mailing List <linux-kernel@vger.kernel.org>,
- Rob Herring <robh+dt@kernel.org>,
- Srinivas Kandagatla <srinivas.kandagatla@linaro.org>,
- Maxime Coquelin <mcoquelin.stm32@gmail.com>,
- linux-stm32@st-md-mailman.stormreply.com,
- Linux ARM <linux-arm-kernel@lists.infradead.org>
-Subject: Re: [Linux-stm32] [PATCH V5 1/3] mmc: mmci: add hardware busy
-	timeout feature
+X-Proofpoint-Virus-Version: vendor=fsecure engine=2.50.10434:, ,
+ definitions=2019-08-26_07:, , signatures=0
+Cc: Ohad Ben-Cohen <ohad@wizery.com>, Mark Rutland <mark.rutland@arm.com>,
+ Jonathan Corbet <corbet@lwn.net>,
+ "linux-doc@vger.kernel.org" <linux-doc@vger.kernel.org>,
+ "linux-remoteproc@vger.kernel.org" <linux-remoteproc@vger.kernel.org>,
+ "linux-kernel@vger.kernel.org" <linux-kernel@vger.kernel.org>,
+ "devicetree@vger.kernel.org" <devicetree@vger.kernel.org>,
+ Rob Herring <robh+dt@kernel.org>, Maxime Coquelin <mcoquelin.stm32@gmail.com>,
+ Suman Anna <s-anna@ti.com>, "linux-stm32@st-md-mailman.stormreply.com"
+ <linux-stm32@st-md-mailman.stormreply.com>,
+ "linux-arm-kernel@lists.infradead.org" <linux-arm-kernel@lists.infradead.org>
+Subject: Re: [Linux-stm32] [PATCH 0/6] hwspinlock: allow sharing of
+	hwspinlocks
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -71,207 +97,129 @@ List-Post: <mailto:linux-stm32@st-md-mailman.stormreply.com>
 List-Help: <mailto:linux-stm32-request@st-md-mailman.stormreply.com?subject=help>
 List-Subscribe: <https://st-md-mailman.stormreply.com/mailman/listinfo/linux-stm32>, 
  <mailto:linux-stm32-request@st-md-mailman.stormreply.com?subject=subscribe>
-Content-Type: text/plain; charset="us-ascii"
-Content-Transfer-Encoding: 7bit
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: base64
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
-On Tue, 13 Aug 2019 at 12:00, Ludovic Barre <ludovic.Barre@st.com> wrote:
->
-> From: Ludovic Barre <ludovic.barre@st.com>
->
-> In some variants, the data timer starts and decrements
-> when the DPSM enters in Wait_R or Busy state
-> (while data transfer or MMC_RSP_BUSY), and generates a
-> data timeout error if the counter reach 0.
-
-I don't quite follow here, sorry. Can you please try to elaborate on
-the use case(s) more exactly?
-
-For example, what happens when a data transfer has just finished (for
-example when MCI_DATAEND has been received) and we are going to send a
-CMD12 to stop it? In this case the CMD12 has the MMC_RSP_BUSY flag
-set.
-
-Another example is the CMD5, which has no data with it.
-
->
-> -Define max_busy_timeout (in ms) according to clock.
-> -Set data timer register if the command has rsp_busy flag.
->  If busy_timeout is not defined by framework, the busy
->  length after Data Burst is defined as 1 second
->  (refer: 4.6.2.2 Write of sd specification part1 v6-0).
-
-One second is not sufficient for all operations, like ERASE for
-example. However, I understand that you want to pick some value, as a
-safety. I guess that's fine.
-
-I am thinking that if the command has the MMC_RSP_BUSY flag set, the
-core should really provide a busy timeout for it. That said, maybe the
-host driver should splat a WARN in case there is not busy timeout
-specified.
-
-> -Add MCI_DATATIMEOUT error management in mmci_cmd_irq.
->
-> Signed-off-by: Ludovic Barre <ludovic.barre@st.com>
-> ---
->  drivers/mmc/host/mmci.c | 37 ++++++++++++++++++++++++++++++++-----
->  drivers/mmc/host/mmci.h |  3 +++
->  2 files changed, 35 insertions(+), 5 deletions(-)
->
-> diff --git a/drivers/mmc/host/mmci.c b/drivers/mmc/host/mmci.c
-> index c37e70dbe250..c50586540765 100644
-> --- a/drivers/mmc/host/mmci.c
-> +++ b/drivers/mmc/host/mmci.c
-> @@ -1075,6 +1075,7 @@ static void
->  mmci_start_command(struct mmci_host *host, struct mmc_command *cmd, u32 c)
->  {
->         void __iomem *base = host->base;
-> +       unsigned long long clks = 0;
->
->         dev_dbg(mmc_dev(host->mmc), "op %02x arg %08x flags %08x\n",
->             cmd->opcode, cmd->arg, cmd->flags);
-> @@ -1097,6 +1098,19 @@ mmci_start_command(struct mmci_host *host, struct mmc_command *cmd, u32 c)
->                 else
->                         c |= host->variant->cmdreg_srsp;
->         }
-> +
-> +       if (host->variant->busy_timeout && !host->mrq->data) {
-
-Suppose this is a CMD12 command, having the MMC_RSP_BUSY flag set. The
-command would then be sent to stop the transmission and then
-host->mrq->data would also be set.
-
-If I recall earlier what you stated about the new sdmmc variant, the
-CMD12 is needed to exit the DPSM. Hence don't you need to re-program a
-new value for the MMCIDATATIMER register for this scenario?
-
-> +               if (cmd->flags & MMC_RSP_BUSY) {
-> +                       if (!cmd->busy_timeout)
-> +                               cmd->busy_timeout = 1000;
-> +
-> +                       clks = (unsigned long long)cmd->busy_timeout;
-> +                       clks *= host->cclk;
-
-Any problems with putting the above on one line?
-
-> +                       do_div(clks, MSEC_PER_SEC);
-> +               }
-> +               writel_relaxed(clks, host->base + MMCIDATATIMER);
-
-This is writing zero to MMCIDATATIMER in case the MMC_RSP_BUSY isn't
-set, is that on purpose?
-
-> +       }
-> +
->         if (/*interrupt*/0)
->                 c |= MCI_CPSM_INTERRUPT;
->
-> @@ -1203,6 +1217,7 @@ mmci_cmd_irq(struct mmci_host *host, struct mmc_command *cmd,
->  {
->         void __iomem *base = host->base;
->         bool sbc, busy_resp;
-> +       u32 err_msk;
->
->         if (!cmd)
->                 return;
-> @@ -1215,8 +1230,12 @@ mmci_cmd_irq(struct mmci_host *host, struct mmc_command *cmd,
->          * handling. Note that we tag on any latent IRQs postponed
->          * due to waiting for busy status.
->          */
-> -       if (!((status|host->busy_status) &
-> -             (MCI_CMDCRCFAIL|MCI_CMDTIMEOUT|MCI_CMDSENT|MCI_CMDRESPEND)))
-> +       err_msk = MCI_CMDCRCFAIL | MCI_CMDTIMEOUT;
-
-You might as well move the initial assignment of err_msk to the its
-declaration above.
-
-> +       if (host->variant->busy_timeout && busy_resp)
-> +               err_msk |= MCI_DATATIMEOUT;
-> +
-> +       if (!((status | host->busy_status) &
-> +             (err_msk | MCI_CMDSENT | MCI_CMDRESPEND)))
->                 return;
->
->         /* Handle busy detection on DAT0 if the variant supports it. */
-> @@ -1235,8 +1254,7 @@ mmci_cmd_irq(struct mmci_host *host, struct mmc_command *cmd,
->                  * while, to allow it to be set, but tests indicates that it
->                  * isn't needed.
->                  */
-> -               if (!host->busy_status &&
-> -                   !(status & (MCI_CMDCRCFAIL|MCI_CMDTIMEOUT)) &&
-> +               if (!host->busy_status && !(status & err_msk) &&
->                     (readl(base + MMCISTATUS) & host->variant->busy_detect_flag)) {
->
->                         writel(readl(base + MMCIMASK0) |
-> @@ -1290,6 +1308,9 @@ mmci_cmd_irq(struct mmci_host *host, struct mmc_command *cmd,
->                 cmd->error = -ETIMEDOUT;
->         } else if (status & MCI_CMDCRCFAIL && cmd->flags & MMC_RSP_CRC) {
->                 cmd->error = -EILSEQ;
-> +       } else if (host->variant->busy_timeout && busy_resp &&
-> +                  status & MCI_DATATIMEOUT) {
-> +               cmd->error = -ETIMEDOUT;
->         } else {
->                 cmd->resp[0] = readl(base + MMCIRESPONSE0);
->                 cmd->resp[1] = readl(base + MMCIRESPONSE1);
-> @@ -1948,6 +1969,8 @@ static int mmci_probe(struct amba_device *dev,
->          * Enable busy detection.
->          */
->         if (variant->busy_detect) {
-> +               u32 max_busy_timeout = 0;
-> +
->                 mmci_ops.card_busy = mmci_card_busy;
->                 /*
->                  * Not all variants have a flag to enable busy detection
-> @@ -1957,7 +1980,11 @@ static int mmci_probe(struct amba_device *dev,
->                         mmci_write_datactrlreg(host,
->                                                host->variant->busy_dpsm_flag);
->                 mmc->caps |= MMC_CAP_WAIT_WHILE_BUSY;
-> -               mmc->max_busy_timeout = 0;
-> +
-> +               if (variant->busy_timeout)
-> +                       max_busy_timeout = ~0UL / (mmc->f_max / MSEC_PER_SEC);
-
-It looks like the max busy timeout is depending on the current picked
-clock rate, right?
-
-In such case, perhaps it's better to update mmc->max_busy_timeout as
-part of the ->set_ios() callback, as it's from there the clock rate
-gets updated. Or what do you think?
-
-> +
-> +               mmc->max_busy_timeout = max_busy_timeout;
->         }
->
->         /* Prepare a CMD12 - needed to clear the DPSM on some variants. */
-> diff --git a/drivers/mmc/host/mmci.h b/drivers/mmc/host/mmci.h
-> index 833236ecb31e..d8b7f6774e8f 100644
-> --- a/drivers/mmc/host/mmci.h
-> +++ b/drivers/mmc/host/mmci.h
-> @@ -287,6 +287,8 @@ struct mmci_host;
->   * @signal_direction: input/out direction of bus signals can be indicated
->   * @pwrreg_clkgate: MMCIPOWER register must be used to gate the clock
->   * @busy_detect: true if the variant supports busy detection on DAT0.
-> + * @busy_timeout: true if the variant starts data timer when the DPSM
-> + *               enter in Wait_R or Busy state.
->   * @busy_dpsm_flag: bitmask enabling busy detection in the DPSM
->   * @busy_detect_flag: bitmask identifying the bit in the MMCISTATUS register
->   *                   indicating that the card is busy
-> @@ -333,6 +335,7 @@ struct variant_data {
->         u8                      signal_direction:1;
->         u8                      pwrreg_clkgate:1;
->         u8                      busy_detect:1;
-> +       u8                      busy_timeout:1;
->         u32                     busy_dpsm_flag;
->         u32                     busy_detect_flag;
->         u32                     busy_detect_mask;
-> --
-> 2.17.1
->
-
-Kind regards
-Uffe
-_______________________________________________
-Linux-stm32 mailing list
-Linux-stm32@st-md-mailman.stormreply.com
-https://st-md-mailman.stormreply.com/mailman/listinfo/linux-stm32
+SGkgQmpvcm4sDQoNCg0KT24gMDgvMDgvMjAxOSA1OjM3IFBNLCBCam9ybiBBbmRlcnNzb24gd3Jv
+dGU6DQo+IE9uIFRodSAwOCBBdWcgMDU6NTIgUERUIDIwMTksIEZhYmllbiBERVNTRU5ORSB3cm90
+ZToNCj4NCj4+IE9uIDA3LzA4LzIwMTkgNjoxOSBQTSwgU3VtYW4gQW5uYSB3cm90ZToNCj4+PiBI
+aSBGYWJpZW4sDQo+Pj4NCj4+PiBPbiA4LzcvMTkgMzozOSBBTSwgRmFiaWVuIERFU1NFTk5FIHdy
+b3RlOg0KPj4+PiBIaQ0KPj4+Pg0KPj4+PiBPbiAwNi8wOC8yMDE5IDExOjMwIFBNLCBTdW1hbiBB
+bm5hIHdyb3RlOg0KPj4+Pj4gT24gOC82LzE5IDE6MjEgUE0sIEJqb3JuIEFuZGVyc3NvbiB3cm90
+ZToNCj4+Pj4+PiBPbiBUdWUgMDYgQXVnIDEwOjM4IFBEVCAyMDE5LCBTdW1hbiBBbm5hIHdyb3Rl
+Og0KPj4+Pj4+DQo+Pj4+Pj4+IEhpIEZhYmllbiwNCj4+Pj4+Pj4NCj4+Pj4+Pj4gT24gOC81LzE5
+IDEyOjQ2IFBNLCBCam9ybiBBbmRlcnNzb24gd3JvdGU6DQo+Pj4+Pj4gSSBhZ3JlZSB0aGF0IHdl
+IHNob3VsZG4ndCBzcGVjaWZ5IHRoaXMgcHJvcGVydHkgaW4gRFQgLSBpZiBhbnl0aGluZyBpdA0K
+Pj4+Pj4+IHNob3VsZCBiZSBhIHZhcmlhbnQgb2YgdGhlIEFQSS4NCj4+Pj4gSWYgd2UgZGVjaWRl
+IHRvIGFkZCBhICdzaGFyZWQnIEFQSSwgdGhlbiwgd2hhdCBhYm91dCB0aGUgZ2VuZXJpYyByZWdt
+YXANCj4+Pj4gZHJpdmVyPw0KPj4+Pg0KPj4+PiBJbiB0aGUgY29udGV4dCBvZiBhYm92ZSBleGFt
+cGxlMSwgdGhpcyB3b3VsZCByZXF1aXJlIHRvIHVwZGF0ZSB0aGUNCj4+Pj4gcmVnbWFwIGRyaXZl
+ci4NCj4+Pj4NCj4+Pj4gQnV0IHdvdWxkIHRoaXMgYmUgYWNjZXB0YWJsZSBmb3IgYW55IGRyaXZl
+ciB1c2luZyBzeXNjb24vcmVnbWFwPw0KPj4+Pg0KPj4+Pg0KPj4+PiBJIHRoaW5rIGl0IGlzIGJl
+dHRlciB0byBrZWVwIHRoZSBleGlzdGluZyBBUEkgKG1vZGlmeWluZyBpdCBzbyBpdCBhbHdheXMN
+Cj4+Pj4gYWxsb3dzDQo+Pj4+DQo+Pj4+IGh3bG9ja3Mgc2hhcmluZywgc28gbm8gbmVlZCBmb3Ig
+YmluZGluZ3MgdXBkYXRlKSB0aGFuIGFkZGluZyBhbm90aGVyIEFQSS4NCj4+PiBGb3IgeW91ciB1
+c2VjYXNlcywgeW91IHdvdWxkIGRlZmluaXRlbHkgbmVlZCB0aGUgc3lzY29uL3JlZ21hcCBiZWhh
+dmlvcg0KPj4+IHRvIGJlIHNoYXJlZCByaWdodC4gV2hldGhlciB3ZSBpbnRyb2R1Y2UgYSAnc2hh
+cmVkJyBBUEkgb3IgYW4NCj4+PiAnZXhjbHVzaXZlJyBBUEkgYW5kIGNoYW5nZSB0aGUgY3VycmVu
+dCBBUEkgYmVoYXZpb3IgdG8gc2hhcmVkLCBpdCBpcw0KPj4+IGRlZmluaXRlbHkgYSBjYXNlLWJ5
+LWNhc2UgdXNhZ2Ugc2NlbmFyaW8gZm9yIHRoZSBleGlzdGluZyBkcml2ZXJzIGFuZA0KPj4+IHVz
+YWdlIHJpZ2h0LiBUaGUgbWFpbiBjb250ZW50aW9uIHBvaW50IGlzIHdoYXQgdG8gZG8gd2l0aCB0
+aGUNCj4+PiB1bnByb3RlY3RlZCB1c2VjYXNlcyBsaWtlIEJqb3JuIG9yaWdpbmFsbHkgcG9pbnRl
+ZCBvdXQuDQo+PiBPSywgSSBzZWUgOiB0aGUgaHdzcGlubG9jayBmcmFtZXdvcmsgZG9lcyBub3Qg
+b2ZmZXIgYW55IGxvY2sgcHJvdGVjdGlvbg0KPj4gd2l0aCB0aGUgUkFXL0lOX0FUT01JQyBtb2Rl
+cy4NCj4+IFRoaXMgaXMgYW4gaXNzdWUgaWYgc2V2ZXJhbCBkaWZmZXJlbnQgJ2xvY2FsJyBkcml2
+ZXJzIHRyeSB0byBnZXQgYQ0KPj4gc2hhcmVkIGxvY2sgaW4gdGhlIHNhbWUgdGltZS4NCj4+IEFu
+ZCB0aGlzIGlzIGEgcGVyc29uYWwgcHJvYmxlbSBzaW5jZSBJIG5lZWQgdG8gdXNlIHNoYXJlZCBs
+b2NrcyBpbg0KPj4gLi4uYXRvbWljIG1vZGUuDQo+Pg0KPiBXaHkgY2FuJ3QgeW91IHVzZSBIV0xP
+Q0tfSVJRU1RBVEUgaW4gdGhpcyBtb2RlPw0KPg0KPj4gSSBoYXZlIHRyaWVkIHRvIHNlZSBob3cg
+aXQgaXMgcG9zc2libGUgdG8gcHV0IGEgY29uc3RyYWludCBvbiB0aGUNCj4+IGNhbGxlcnMsIGp1
+c3QgbGlrZSB0aGlzIGlzIGRvY3VtZW50ZWQgZm9yIHRoZSBSQVcgbW9kZSB3aGljaCBpczoNCj4+
+ICAgwqDCoCAiQ2F1dGlvbjogSWYgdGhlIG1vZGUgaXMgSFdMT0NLX1JBVywgdGhhdCBtZWFucyB1
+c2VyIG11c3QgcHJvdGVjdA0KPj4gdGhlIHJvdXRpbmUNCj4+ICAgwqDCoMKgIG9mIGdldHRpbmcg
+aGFyZHdhcmUgbG9jayB3aXRoIG11dGV4IG9yIHNwaW5sb2NrLi4iDQo+PiBJIGRvIG5vdCB0aGlu
+ayB0aGF0IGl0IGlzIGFjY2VwdGFibGUgdG8gYXNrIHNldmVyYWwgZHJpdmVycyB0byBzaGFyZSBh
+DQo+PiBjb21tb24gbXV0ZXgvc3BpbmxvY2sgZm9yIHNoYXJlZCBsb2Nrcy4NCj4gTm8gaXQncyBu
+b3QuDQo+DQo+PiBCdXQgSSB0aGluayBhYm91dCBhbm90aGVyIG9wdGlvbjogdGhlIGRyaXZlciBp
+bXBsZW1lbnRpbmcgdGhlIHRyeWxvY2sNCj4+IG9wcyBtYXkgb2ZmZXIgc3VjaCBwcm90ZWN0aW9u
+LiBUaGlzIGlzIHRoZSBjYXNlIGlmIHRoZSBkcml2ZXIgcmV0dXJucw0KPj4gImJ1c3kiIGlmIHRo
+ZSBsb2NrIGlzIGFscmVhZHkgdGFrZW4sIG5vdCBvbmx5IGJ5IHRoZSByZW1vdGUgcHJvY2Vzc29y
+LA0KPj4gYnV0IGFsc28gYnkgdGhlIGxvY2FsIGhvc3QuDQo+Pg0KPiBJIHRoaW5rIGl0J3MgdHlw
+aWNhbCBmb3IgaHdzcGlubG9jayBoYXJkd2FyZSB0byBub3QgYmUgYWJsZSB0bw0KPiBkaXN0aW5n
+dWlzaCBiZXR3ZWVuIGRpZmZlcmVudCBjbGllbnRzIHdpdGhpbiBMaW51eCwgc28gd2Ugd291bGQg
+bmVlZCB0bw0KDQoNCkFncmVlIHdpdGggdGhhdCwgbGV0J3MgZm9yZ2V0IHRoaXMgaWRlYS4NCg0K
+DQo+IHdyYXAgdGhlIHVzYWdlIGluIHNvbWUgY29uc3RydWN0IHRoYXQgZW5zdXJlcyBtdXR1YWwg
+ZXhjbHVzaW9uIGluIExpbnV4DQo+IC0gbGlrZSBhIHNwaW5sb2NrLi4uDQo+DQo+PiBTbyB3aGF0
+IGRvIHlvdSB0aGluayBhYm91dCBhZGRpbmcgc3VjaCBhIGRvY3VtZW50YXRpb24gbm90ZSA6DQo+
+PiAiQ2F1dGlvbiA6IHRoZSBIV0xPQ0tfUkFXIC8gSFdMT0NLX0lOX0FUT01JQyBtb2RlcyBzaGFs
+bCBub3QgYmUgdXNlZA0KPj4gd2l0aCBzaGFyZWQgbG9ja3MgdW5sZXNzIHRoZSBod3NwaW5sb2Nr
+IGRyaXZlciBzdXBwb3J0cyBsb2NhbCBsb2NrDQo+PiBwcm90ZWN0aW9uIg0KPj4NCj4gQnV0IGhh
+dmluZyBsb2NhbCBsb2NrIHByb3RlY3Rpb24gaW4gdGhlIGh3c3BpbmxvY2sgZHJpdmVyIHdvdWxk
+IGRlZmVhdA0KPiB0aGUgcHVycG9zZSBvZiBIV0xPQ0tfUkFXLg0KDQoNCk15IHVuZGVyc3RhbmRp
+bmcgaXMgdGhhdCB0aGUgcHVycG9zZSBvZiB0aGUgUkFXIG1vZGUgaXMgdG8gYWxsb3cgdGhlIA0K
+dXNlciB0byBkbyBzb21lIHRpbWUtY29uc3VtaW5nIG9yIHNsZWVwYWJsZSBvcGVyYXRpb25zIHVu
+ZGVyIHRoZSANCmhhcmR3YXJlIHNwaW5sb2NrIHByb3RlY3Rpb24uDQoNClRoaXMgaXMgcHJvYmFi
+bHkgdGhlIHJlYXNvbiB3aHkgdGhlIFJBVyBtb2RlIGRvZXMgbm90IHVzZXMgYW55IHNwaW5sb2Nr
+IA0KaXMgdXNlZCBpbiBSQVcgbW9kZS4NCg0KQnV0IEkgZG8gbm90IHRoaW5rIHRoYXQgdGhpcyBp
+cyBhIHJlcXVpcmVtZW50IHRvIG5vdCB1c2UgYW55IGxvY2FsIA0KcHJvdGVjdGlvbi4NCg0KU28s
+IGluIHRoaXMgbW9kZSwgaW5zdGVhZCBvZiB1c2luZyBhIHNwaW5sb2NrLCB3aGF0IGFib3V0IGNh
+bGxpbmcgdGhlIA0KYXRvbWljIGJpdG9wIHRlc3RfYW5kX3NldF9iaXQoKcKgID8NCg0KVGhpcyB3
+b3VsZCBlbnN1cmUgc2FmZSBjb25jdXJyZW5jeSBiZXR3ZWVuIHRoZSBod3NwaW5sb2NrIGxpbnV4
+IHVzZXJzLCANCmFuZCB3aWxsIHJlc3BlY3QgdGhlIHB1cnBvc2Ugb2YgdGhlIFJBVyBtb2RlLg0K
+DQpMZXQgbWUga25vdyBpZiB0aGlzIGlzIGFjY2VwdGFibGUuDQoNCg0KQlINCg0KRmFiaWVuDQoN
+Cg0KPg0KPiBBbHNvIHRoaXMga2luZCBvZiB3YXJuaW5nIHdpbGwgYXQgYmVzdCBiZSBjb25zdW1l
+ZCBieSB0aGUgY2xpZW50IGRyaXZlcg0KPiBhdXRob3JzLCBpdCB3aWxsIG5vdCBiZSByZWFkIGJ5
+IHRoZSBkdHMgYXV0aG9ycy4NCj4NCj4gUmVnYXJkcywNCj4gQmpvcm4NCj4NCj4+IE9wdGlvbmFs
+bHksIHdlIG1heSBhZGQgYSAibG9jYWxfbG9ja19wcm90ZWN0aW9uIiBmbGFnIGluIHRoZQ0KPj4g
+aHdzcGlubG9ja19kZXZpY2Ugc3RydWN0LCBzZXQgYnkgdGhlIGRyaXZlciBiZWZvcmUgaXQgY2Fs
+bHMNCj4+IGh3c3Bpbl9sb2NrX3JlZ2lzdGVyKCkuDQo+PiBUaGlzIGZsYWcgY2FuIHRoZW4gYmUg
+Y2hlY2tlZCBieSBod3NwaW5sb2NrIGNvcmUgdG8gYWxsb3cvZGVueSB1c2Ugb2YNCj4+IHNoYXJl
+ZCBsb2NrcyBpbiB0aGUgcmF3L2F0b21pYyBtb2Rlcy4NCj4+DQo+PiBMZXQgbWUga25vdyB3aGF0
+IHlvdSB0aGluayBhYm91dCBpdC4NCj4+DQo+PiBCUg0KPj4NCj4+IEZhYmllbg0KPj4NCj4+PiBy
+ZWdhcmRzDQo+Pj4gU3VtYW4NCj4+Pg0KPj4+Pg0KPj4+Pj4+PiBJZiB5b3UgYXJlIHNoYXJpbmcg
+YSBod2xvY2sgb24gdGhlIExpbnV4IHNpZGUsIHN1cmVseSB5b3VyIGRyaXZlciBzaG91bGQNCj4+
+Pj4+Pj4gYmUgYXdhcmUgdGhhdCBpdCBpcyBhIHNoYXJlZCBsb2NrLiBUaGUgdGFnIGNhbiBiZSBz
+ZXQgZHVyaW5nIHRoZSBmaXJzdA0KPj4+Pj4+PiByZXF1ZXN0IEFQSSwgYW5kIHlvdSBsb29rIHRo
+cm91Z2ggYm90aCB0YWdzIHdoZW4gZ2l2aW5nIG91dCBhIGhhbmRsZS4NCj4+Pj4+Pj4NCj4+Pj4+
+PiBXaHkgd291bGQgdGhlIGRyaXZlciBuZWVkIHRvIGtub3cgYWJvdXQgaXQ/DQo+Pj4+PiBKdXN0
+IHRoZSBzZW1hbnRpY3MgaWYgd2Ugd2VyZSB0byBzdXBwb3J0IHNpbmdsZSB1c2VyIHZzIG11bHRp
+cGxlIHVzZXJzDQo+Pj4+PiBvbiBMaW51eC1zaWRlIHRvIGV2ZW4gZ2V0IGEgaGFuZGxlLiBZb3Vy
+IHBvaW50IGlzIHRoYXQgdGhpcyBtYXkgYmUgbW9vdA0KPj4+Pj4gc2luY2Ugd2UgaGF2ZSBwcm90
+ZWN0aW9uIGFueXdheSBvdGhlciB0aGFuIHRoZSByYXcgY2FzZXMuIEJ1dCB3ZSBuZWVkIHRvDQo+
+Pj4+PiBiZSBhYmxlIHRvIGhhdmUgdGhlIHNhbWUgQVBJIHdvcmsgYWNyb3NzIGFsbCBjYXNlcy4N
+Cj4+Pj4+DQo+Pj4+PiBTbyBmYXIsIGl0IGhhZCBtb3N0bHkgYmVlbiB0aGF0IHRoZXJlIHdvdWxk
+IGJlIG9uZSB1c2VyIG9uIExpbnV4DQo+Pj4+PiBjb21wZXRpbmcgd2l0aCBvdGhlciBlcXVpdmFs
+ZW50IHBlZXIgZW50aXRpZXMgb24gZGlmZmVyZW50IHByb2Nlc3NvcnMuDQo+Pj4+PiBJdCBpcyBu
+b3QgY29tbW9uIHRvIGhhdmUgbXVsdGlwbGUgdXNlcnMgc2luY2UgdGhlc2UgcHJvdGVjdGlvbiBz
+Y2hlbWVzDQo+Pj4+PiBhcmUgdXN1YWxseSBuZWVkZWQgb25seSBhdCB0aGUgbG93ZXN0IGxldmVs
+cyBvZiBhIHN0YWNrLCBzbyB0aGUNCj4+Pj4+IGV4Y2x1c2l2ZSBoYW5kbGUgc3R1ZmYgaGFkIGJl
+ZW4gc3VmZmljaWVudC4NCj4+Pj4+DQo+Pj4+Pj4+IE9idmlvdXNseSwgdGhlIGh3c3Bpbl9sb2Nr
+X3JlcXVlc3QoKSBBUEkgdXNhZ2Ugc2VtYW50aWNzIGFsd2F5cyBoYWQgdGhlDQo+Pj4+Pj4+IGlt
+cGxpZWQgYWRkaXRpb25hbCBuZWVkIGZvciBjb21tdW5pY2F0aW5nIHRoZSBsb2NrIGlkIHRvIHRo
+ZSBvdGhlciBwZWVyDQo+Pj4+Pj4+IGVudGl0eSwgc28gYSByZWFsaXN0aWMgdXNhZ2UgaXMgbW9z
+dCBhbHdheXMgdGhlIHNwZWNpZmljIEFQSSB2YXJpYW50LiBJDQo+Pj4+Pj4+IGRvdWJ0IHRoaXMg
+QVBJIHdvdWxkIGJlIG9mIG11Y2ggdXNlIGZvciB0aGUgc2hhcmVkIGRyaXZlciB1c2FnZS4gVGhp
+cw0KPj4+Pj4+PiBhbHNvIGltcGxpZXMgdGhhdCB0aGUgY2xpZW50IHVzZXIgZG9lcyBub3QgY2Fy
+ZSBhYm91dCBzcGVjaWZ5aW5nIGEgbG9jaw0KPj4+Pj4+PiBpbiBEVC4NCj4+Pj4+Pj4NCj4+Pj4+
+PiBBZmFpY3QgaWYgdGhlIGxvY2sgYXJlIHNoYXJlZCB0aGVuIHRoZXJlIHNob3VsZG4ndCBiZSBh
+IHByb2JsZW0gd2l0aA0KPj4+Pj4+IHNvbWUgY2xpZW50cyB1c2luZyB0aGUgcmVxdWVzdCBBUEkg
+YW5kIG90aGVycyByZXF1ZXN0X3NwZWNpZmljKCkuIEFzIGFueQ0KPj4+Pj4+IGNvbGxpc2lvbnMg
+d291bGQgc2ltcGx5IG1lYW4gdGhhdCB0aGVyZSBhcmUgbW9yZSBjb250ZW50aW9uIG9uIHRoZSBs
+b2NrLg0KPj4+Pj4+DQo+Pj4+Pj4gV2l0aCB0aGUgY3VycmVudCBleGNsdXNpdmUgbW9kZWwgdGhh
+dCBpcyBub3QgcG9zc2libGUgYW5kIHRoZSBzdWNjZXNzIG9mDQo+Pj4+Pj4gdGhlIHJlcXVlc3Rf
+c3BlY2lmaWMgd2lsbCBkZXBlbmQgb24gcHJvYmUgb3JkZXIuDQo+Pj4+Pj4NCj4+Pj4+PiBCdXQg
+cGVyaGFwcyBpdCBzaG91bGQgYmUgZXhwbGljaXRseSBwcm9oaWJpdGVkIHRvIHVzZSBib3RoIEFQ
+SXMgb24gdGhlDQo+Pj4+Pj4gc2FtZSBod3NwaW5sb2NrIGluc3RhbmNlPw0KPj4+Pj4gWWVhaCwg
+dGhleSBhcmUgbWVhbnQgdG8gYmUgY29tcGxpbWVudGFyeSB1c2FnZSwgdGhvdWdoIEkgZG91YnQg
+d2Ugd2lsbA0KPj4+Pj4gZXZlciBoYXZlIGFueSByZWFsaXN0aWMgdXNlcnMgZm9yIHRoZSBnZW5l
+cmljIEFQSSBpZiB3ZSBoYXZlbid0IGhhZCBhDQo+Pj4+PiB1c2FnZSBzbyBmYXIuIEkgaGFkIHBv
+c3RlZCBhIGNvbmNlcHQgb2YgcmVzZXJ2ZWQgbG9ja3MgbG9uZyBiYWNrIFsxXSB0bw0KPj4+Pj4g
+a2VlcCBhd2F5IGNlcnRhaW4gbG9ja3MgZnJvbSB0aGUgZ2VuZXJpYyByZXF1ZXN0b3IsIGJ1dCBk
+cm9wcGVkIGl0IHNpbmNlDQo+Pj4+PiB3ZSBkaWQgbm90IGhhdmUgYW4gYWN0dWFsIHVzZS1jYXNl
+IG5lZWRpbmcgaXQuDQo+Pj4+Pg0KPj4+Pj4gcmVnYXJkcw0KPj4+Pj4gU3VtYW4NCj4+Pj4+DQo+
+Pj4+PiBbMV0gaHR0cHM6Ly9sd24ubmV0L0FydGljbGVzLzYxMTk0NC8KX19fX19fX19fX19fX19f
+X19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX18KTGludXgtc3RtMzIgbWFpbGluZyBsaXN0
+CkxpbnV4LXN0bTMyQHN0LW1kLW1haWxtYW4uc3Rvcm1yZXBseS5jb20KaHR0cHM6Ly9zdC1tZC1t
+YWlsbWFuLnN0b3JtcmVwbHkuY29tL21haWxtYW4vbGlzdGluZm8vbGludXgtc3RtMzIK
