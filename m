@@ -2,65 +2,55 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id 24494A5AF9
-	for <lists+linux-stm32@lfdr.de>; Mon,  2 Sep 2019 18:01:37 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 89366A5B79
+	for <lists+linux-stm32@lfdr.de>; Mon,  2 Sep 2019 18:42:40 +0200 (CEST)
 Received: from ip-172-31-3-76.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id E69C0C35E02;
-	Mon,  2 Sep 2019 16:01:36 +0000 (UTC)
-Received: from mx07-00178001.pphosted.com (mx07-00178001.pphosted.com
- [62.209.51.94])
- (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 431C1C35E01;
+	Mon,  2 Sep 2019 16:42:40 +0000 (UTC)
+Received: from mail-qt1-f193.google.com (mail-qt1-f193.google.com
+ [209.85.160.193])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id DC16DC35E02
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 9E268C36B3E
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Mon,  2 Sep 2019 16:01:35 +0000 (UTC)
-Received: from pps.filterd (m0046668.ppops.net [127.0.0.1])
- by mx07-00178001.pphosted.com (8.16.0.42/8.16.0.42) with SMTP id
- x82G1NEh013661; Mon, 2 Sep 2019 18:01:24 +0200
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=st.com;
- h=from : to : cc : subject
- : date : message-id : in-reply-to : references : mime-version :
- content-type; s=STMicroelectronics;
- bh=n/9J04bMASd91Yvy3ukzh2dvhlV4FPmYy3RQUpNIw6g=;
- b=tc8HivKwomhriFxrWx2/yMRi933JjZQRofezTwsFF4HKT3Q2Y/yXzPc/RaBolmt3R+20
- UeWPxSHZH9Yh91ix/A6VJZAIMleeIMHsoKskMMxvC7lMomfYOGuNgg182Te/KrdODZ8u
- +dN2oSp7/v8a8oWE2ee6D36KS2ND2jFgCbwayyO7XaCciLzmxwykMF+WNWHZwNyuMz3R
- fL1T8+eOSm3VHwI3Ay/Vg8lSMvKrCoaERHa2JAw045lZg/cGhpZIwrBIaxI7xX1xy5/G
- NhXyiV+0nHPezHDP+ViJChofBt/w3JQ+shRWqw8FRSG8DKFajBGrxiJ72zk3v9l21s66 mA== 
-Received: from beta.dmz-ap.st.com (beta.dmz-ap.st.com [138.198.100.35])
- by mx07-00178001.pphosted.com with ESMTP id 2uqec2ngs8-1
- (version=TLSv1 cipher=ECDHE-RSA-AES256-SHA bits=256 verify=NOT);
- Mon, 02 Sep 2019 18:01:24 +0200
-Received: from euls16034.sgp.st.com (euls16034.sgp.st.com [10.75.44.20])
- by beta.dmz-ap.st.com (STMicroelectronics) with ESMTP id 3784F23;
- Mon,  2 Sep 2019 16:01:11 +0000 (GMT)
-Received: from Webmail-eu.st.com (Safex1hubcas23.st.com [10.75.90.46])
- by euls16034.sgp.st.com (STMicroelectronics) with ESMTP id 9596C2CF15F;
- Mon,  2 Sep 2019 18:01:10 +0200 (CEST)
-Received: from SAFEX1HUBCAS24.st.com (10.75.90.95) by SAFEX1HUBCAS23.st.com
- (10.75.90.46) with Microsoft SMTP Server (TLS) id 14.3.439.0; Mon, 2 Sep 2019
- 18:01:04 +0200
-Received: from localhost (10.201.23.16) by webmail-ga.st.com (10.75.90.48)
- with Microsoft SMTP Server (TLS) id 14.3.439.0; Mon, 2 Sep 2019 18:01:04
- +0200
-From: Olivier Moysan <olivier.moysan@st.com>
-To: <alexandre.torgue@st.com>, <olof@lixom.net>, <horms+renesas@verge.net.au>, 
- <arnd@arndb.de>, <krzk@kernel.org>, <yannick.fertre@st.com>,
- <tony@atomide.com>, <m.szyprowski@samsung.com>,
- <fabrice.gasnier@st.com>, <enric.balletbo@collabora.com>,
- <linux-arm-kernel@lists.infradead.org>, <linux-kernel@vger.kernel.org>,
- <linux-stm32@st-md-mailman.stormreply.com>
-Date: Mon, 2 Sep 2019 18:00:41 +0200
-Message-ID: <1567440041-19220-5-git-send-email-olivier.moysan@st.com>
-X-Mailer: git-send-email 2.7.4
-In-Reply-To: <1567440041-19220-1-git-send-email-olivier.moysan@st.com>
-References: <1567440041-19220-1-git-send-email-olivier.moysan@st.com>
+ Mon,  2 Sep 2019 16:42:39 +0000 (UTC)
+Received: by mail-qt1-f193.google.com with SMTP id n7so16186841qtb.6
+ for <linux-stm32@st-md-mailman.stormreply.com>;
+ Mon, 02 Sep 2019 09:42:39 -0700 (PDT)
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20161025;
+ h=x-gm-message-state:mime-version:references:in-reply-to:from:date
+ :message-id:subject:to:cc;
+ bh=ESVPzvoDmyhr0qPHPc2dAllaJ5z0kVzBcRcJ6MBqm24=;
+ b=bpbvnBrd3PCQB+v9NgCG841OSGxygFjRle3CVASbp/JG4oLxdTeaLFpmoQuAjA3kjI
+ EKapdP75grpgUV6kcufZbSJ95Kn4AHdNkzP6keS2UdSB7vQimrQra6VphWfxwgzAuyHn
+ Vr3LT73OnRmFJ6i9fSfrj61ZdXfbZimidDHOtmPacZ8MhtKIc4pvimFk2Ak3nh+nXFaI
+ DUkjFq3fTiwJyIqjbpoNiCpaNJ86sDXylndkaTucT6rWcqvLTnN7pyv57VZw04GRdVV0
+ us4q7siyxSjz6Om2FZNQlUYjddO0nBroIb9bh+qYqylKQ/IMz1beJt400ac1YTEKR3ND
+ n2mw==
+X-Gm-Message-State: APjAAAUqDZK6CSqlCLqvWGmFVAyLwkNBLBUfdUWsy8F5lrE8gE57yT5d
+ iHIO5AcSqz8Xn+27yPq9fBgPgAfyvnxi29IfmBk=
+X-Google-Smtp-Source: APXvYqyBIip2MdBOWy21R2bhPQrCc7eiTrHZFC+NOHCN4Z9fnQKXYsfcYC6/YlQc/qHGnz8aoQ0TFDMFoEZIE2D91R0=
+X-Received: by 2002:a0c:e74b:: with SMTP id g11mr18622746qvn.62.1567442558193; 
+ Mon, 02 Sep 2019 09:42:38 -0700 (PDT)
 MIME-Version: 1.0
-X-Originating-IP: [10.201.23.16]
-X-Proofpoint-Virus-Version: vendor=fsecure engine=2.50.10434:6.0.70,1.0.8
- definitions=2019-09-02_06:2019-08-29,2019-09-02 signatures=0
-Subject: [Linux-stm32] [PATCH 4/4] ARM: multi_v7_defconfig: enable audio
-	graph card support
+References: <1567440041-19220-1-git-send-email-olivier.moysan@st.com>
+In-Reply-To: <1567440041-19220-1-git-send-email-olivier.moysan@st.com>
+From: Arnd Bergmann <arnd@arndb.de>
+Date: Mon, 2 Sep 2019 18:42:21 +0200
+Message-ID: <CAK8P3a3WvXmMys3mamCZef1-ychtdg+XbV=H-WTs2ZN6Jsrcbg@mail.gmail.com>
+To: Olivier Moysan <olivier.moysan@st.com>
+Cc: Tony Lindgren <tony@atomide.com>,
+ "linux-kernel@vger.kernel.org" <linux-kernel@vger.kernel.org>,
+ Krzysztof Kozlowski <krzk@kernel.org>, Yannick Fertre <yannick.fertre@st.com>,
+ Enric Balletbo i Serra <enric.balletbo@collabora.com>,
+ Olof Johansson <olof@lixom.net>, Simon Horman <horms+renesas@verge.net.au>,
+ Fabrice Gasnier <fabrice.gasnier@st.com>,
+ linux-stm32@st-md-mailman.stormreply.com,
+ Linux ARM <linux-arm-kernel@lists.infradead.org>,
+ Marek Szyprowski <m.szyprowski@samsung.com>
+Subject: Re: [Linux-stm32] [PATCH 0/4] ARM: multi_v7_defconfig: add audio
+	support for stm32mp157a-dk1
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -77,28 +67,23 @@ Content-Transfer-Encoding: 7bit
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
-Enable audio graph card support for stm32mp157a-dk1 board.
+On Mon, Sep 2, 2019 at 6:01 PM Olivier Moysan <olivier.moysan@st.com> wrote:
+>
+> This patchset adds audio support for stm32mp157a-dk1 board.
+>
+> Olivier Moysan (4):
+>   ARM: multi_v7_defconfig: enable stm32 sai support
+>   ARM: multi_v7_defconfig: enable stm32 i2s support
+>   ARM: multi_v7_defconfig: enable cs42l51 codec support
+>   ARM: multi_v7_defconfig: enable audio graph card support
 
-Signed-off-by: Olivier Moysan <olivier.moysan@st.com>
----
- arch/arm/configs/multi_v7_defconfig | 1 +
- 1 file changed, 1 insertion(+)
+The changes are ok, and I expect Alexandre will pick them up and forward
+to the soc tree.
 
-diff --git a/arch/arm/configs/multi_v7_defconfig b/arch/arm/configs/multi_v7_defconfig
-index 03a4d93df8c4..c7104a1c1687 100644
---- a/arch/arm/configs/multi_v7_defconfig
-+++ b/arch/arm/configs/multi_v7_defconfig
-@@ -719,6 +719,7 @@ CONFIG_SND_SOC_SGTL5000=m
- CONFIG_SND_SOC_SPDIF=m
- CONFIG_SND_SOC_STI_SAS=m
- CONFIG_SND_SOC_WM8978=m
-+CONFIG_SND_AUDIO_GRAPH_CARD=m
- CONFIG_USB=y
- CONFIG_USB_OTG=y
- CONFIG_USB_XHCI_HCD=y
--- 
-2.7.4
+However, I would prefer these to just be a single patch, as there is little
+use in splitting the intended change up into one line per patch.
 
+       Arnd
 _______________________________________________
 Linux-stm32 mailing list
 Linux-stm32@st-md-mailman.stormreply.com
