@@ -2,23 +2,23 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id 80DCAA8266
-	for <lists+linux-stm32@lfdr.de>; Wed,  4 Sep 2019 14:34:44 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id A86B3A8269
+	for <lists+linux-stm32@lfdr.de>; Wed,  4 Sep 2019 14:34:51 +0200 (CEST)
 Received: from ip-172-31-3-76.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 4E13FC35E04;
-	Wed,  4 Sep 2019 12:34:44 +0000 (UTC)
-Received: from huawei.com (szxga04-in.huawei.com [45.249.212.190])
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 6EFC5C35E06;
+	Wed,  4 Sep 2019 12:34:51 +0000 (UTC)
+Received: from huawei.com (szxga07-in.huawei.com [45.249.212.35])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 328A3C35E02
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 376B0C35E01
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Wed,  4 Sep 2019 12:34:43 +0000 (UTC)
-Received: from DGGEMS403-HUB.china.huawei.com (unknown [172.30.72.59])
- by Forcepoint Email with ESMTP id 2319A2F04A125DBFABEF;
- Wed,  4 Sep 2019 20:34:41 +0800 (CST)
+ Wed,  4 Sep 2019 12:34:49 +0000 (UTC)
+Received: from DGGEMS403-HUB.china.huawei.com (unknown [172.30.72.60])
+ by Forcepoint Email with ESMTP id 33425D06DACD2BBE5109;
+ Wed,  4 Sep 2019 20:34:46 +0800 (CST)
 Received: from localhost (10.133.213.239) by DGGEMS403-HUB.china.huawei.com
  (10.3.19.203) with Microsoft SMTP Server id 14.3.439.0; Wed, 4 Sep 2019
- 20:34:33 +0800
+ 20:34:35 +0800
 From: YueHaibing <yuehaibing@huawei.com>
 To: <miquel.raynal@bootlin.com>, <rui.zhang@intel.com>, <edubezval@gmail.com>, 
  <daniel.lezcano@linaro.org>, <amit.kucheria@verdurent.com>,
@@ -32,8 +32,8 @@ To: <miquel.raynal@bootlin.com>, <rui.zhang@intel.com>, <edubezval@gmail.com>,
  <yuehaibing@huawei.com>, <gregkh@linuxfoundation.org>,
  <david.hernandezsanchez@st.com>, <horms+renesas@verge.net.au>,
  <wsa+renesas@sang-engineering.com>
-Date: Wed, 4 Sep 2019 20:29:30 +0800
-Message-ID: <20190904122939.23780-7-yuehaibing@huawei.com>
+Date: Wed, 4 Sep 2019 20:29:31 +0800
+Message-ID: <20190904122939.23780-8-yuehaibing@huawei.com>
 X-Mailer: git-send-email 2.10.2.windows.1
 In-Reply-To: <20190904122939.23780-1-yuehaibing@huawei.com>
 References: <20190904122939.23780-1-yuehaibing@huawei.com>
@@ -45,7 +45,7 @@ Cc: linux-pm@vger.kernel.org, linux-arm-msm@vger.kernel.org,
  linux-mediatek@lists.infradead.org, linux-rpi-kernel@lists.infradead.org,
  bcm-kernel-feedback-list@broadcom.com,
  linux-stm32@st-md-mailman.stormreply.com, linux-arm-kernel@lists.infradead.org
-Subject: [Linux-stm32] [PATCH -next 06/15] thermal: mtk: use
+Subject: [Linux-stm32] [PATCH -next 07/15] thermal: kirkwood: use
 	devm_platform_ioremap_resource() to simplify code
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
@@ -69,30 +69,28 @@ This is detected by coccinelle.
 Reported-by: Hulk Robot <hulkci@huawei.com>
 Signed-off-by: YueHaibing <yuehaibing@huawei.com>
 ---
- drivers/thermal/mtk_thermal.c | 4 +---
+ drivers/thermal/kirkwood_thermal.c | 4 +---
  1 file changed, 1 insertion(+), 3 deletions(-)
 
-diff --git a/drivers/thermal/mtk_thermal.c b/drivers/thermal/mtk_thermal.c
-index acf4854..da36271 100644
---- a/drivers/thermal/mtk_thermal.c
-+++ b/drivers/thermal/mtk_thermal.c
-@@ -867,7 +867,6 @@ static int mtk_thermal_probe(struct platform_device *pdev)
- 	int ret, i, ctrl_id;
- 	struct device_node *auxadc, *apmixedsys, *np = pdev->dev.of_node;
- 	struct mtk_thermal *mt;
+diff --git a/drivers/thermal/kirkwood_thermal.c b/drivers/thermal/kirkwood_thermal.c
+index 189b675..762ef12 100644
+--- a/drivers/thermal/kirkwood_thermal.c
++++ b/drivers/thermal/kirkwood_thermal.c
+@@ -64,14 +64,12 @@ static int kirkwood_thermal_probe(struct platform_device *pdev)
+ {
+ 	struct thermal_zone_device *thermal = NULL;
+ 	struct kirkwood_thermal_priv *priv;
 -	struct resource *res;
- 	u64 auxadc_phys_base, apmixed_phys_base;
- 	struct thermal_zone_device *tzdev;
  
-@@ -885,8 +884,7 @@ static int mtk_thermal_probe(struct platform_device *pdev)
- 	if (IS_ERR(mt->clk_auxadc))
- 		return PTR_ERR(mt->clk_auxadc);
+ 	priv = devm_kzalloc(&pdev->dev, sizeof(*priv), GFP_KERNEL);
+ 	if (!priv)
+ 		return -ENOMEM;
  
 -	res = platform_get_resource(pdev, IORESOURCE_MEM, 0);
--	mt->thermal_base = devm_ioremap_resource(&pdev->dev, res);
-+	mt->thermal_base = devm_platform_ioremap_resource(pdev, 0);
- 	if (IS_ERR(mt->thermal_base))
- 		return PTR_ERR(mt->thermal_base);
+-	priv->sensor = devm_ioremap_resource(&pdev->dev, res);
++	priv->sensor = devm_platform_ioremap_resource(pdev, 0);
+ 	if (IS_ERR(priv->sensor))
+ 		return PTR_ERR(priv->sensor);
  
 -- 
 2.7.4
