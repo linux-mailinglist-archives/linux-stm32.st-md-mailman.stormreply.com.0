@@ -2,23 +2,23 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id DEEB4A826F
-	for <lists+linux-stm32@lfdr.de>; Wed,  4 Sep 2019 14:35:01 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id F0561A8271
+	for <lists+linux-stm32@lfdr.de>; Wed,  4 Sep 2019 14:35:06 +0200 (CEST)
 Received: from ip-172-31-3-76.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id ACE2AC35E0C;
-	Wed,  4 Sep 2019 12:35:01 +0000 (UTC)
-Received: from huawei.com (szxga07-in.huawei.com [45.249.212.35])
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id B9690C35E0B;
+	Wed,  4 Sep 2019 12:35:06 +0000 (UTC)
+Received: from huawei.com (szxga06-in.huawei.com [45.249.212.32])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 0D5F3C35E05
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id A5566C35E06
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Wed,  4 Sep 2019 12:35:00 +0000 (UTC)
-Received: from DGGEMS414-HUB.china.huawei.com (unknown [172.30.72.58])
- by Forcepoint Email with ESMTP id 96905D15FA8A6C9EB11B;
- Wed,  4 Sep 2019 20:34:57 +0800 (CST)
+ Wed,  4 Sep 2019 12:35:04 +0000 (UTC)
+Received: from DGGEMS414-HUB.china.huawei.com (unknown [172.30.72.60])
+ by Forcepoint Email with ESMTP id A81A4A5EDAF4016F2AE5;
+ Wed,  4 Sep 2019 20:35:02 +0800 (CST)
 Received: from localhost (10.133.213.239) by DGGEMS414-HUB.china.huawei.com
  (10.3.19.214) with Microsoft SMTP Server id 14.3.439.0; Wed, 4 Sep 2019
- 20:34:51 +0800
+ 20:34:53 +0800
 From: YueHaibing <yuehaibing@huawei.com>
 To: <miquel.raynal@bootlin.com>, <rui.zhang@intel.com>, <edubezval@gmail.com>, 
  <daniel.lezcano@linaro.org>, <amit.kucheria@verdurent.com>,
@@ -32,8 +32,8 @@ To: <miquel.raynal@bootlin.com>, <rui.zhang@intel.com>, <edubezval@gmail.com>,
  <yuehaibing@huawei.com>, <gregkh@linuxfoundation.org>,
  <david.hernandezsanchez@st.com>, <horms+renesas@verge.net.au>,
  <wsa+renesas@sang-engineering.com>
-Date: Wed, 4 Sep 2019 20:29:37 +0800
-Message-ID: <20190904122939.23780-14-yuehaibing@huawei.com>
+Date: Wed, 4 Sep 2019 20:29:38 +0800
+Message-ID: <20190904122939.23780-15-yuehaibing@huawei.com>
 X-Mailer: git-send-email 2.10.2.windows.1
 In-Reply-To: <20190904122939.23780-1-yuehaibing@huawei.com>
 References: <20190904122939.23780-1-yuehaibing@huawei.com>
@@ -45,7 +45,7 @@ Cc: linux-pm@vger.kernel.org, linux-arm-msm@vger.kernel.org,
  linux-mediatek@lists.infradead.org, linux-rpi-kernel@lists.infradead.org,
  bcm-kernel-feedback-list@broadcom.com,
  linux-stm32@st-md-mailman.stormreply.com, linux-arm-kernel@lists.infradead.org
-Subject: [Linux-stm32] [PATCH -next 13/15] thermal: thermal_mmio: use
+Subject: [Linux-stm32] [PATCH -next 14/15] thermal: zx2967: use
 	devm_platform_ioremap_resource() to simplify code
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
@@ -69,31 +69,30 @@ This is detected by coccinelle.
 Reported-by: Hulk Robot <hulkci@huawei.com>
 Signed-off-by: YueHaibing <yuehaibing@huawei.com>
 ---
- drivers/thermal/thermal_mmio.c | 4 +---
+ drivers/thermal/zx2967_thermal.c | 4 +---
  1 file changed, 1 insertion(+), 3 deletions(-)
 
-diff --git a/drivers/thermal/thermal_mmio.c b/drivers/thermal/thermal_mmio.c
-index 40524fa..1663152 100644
---- a/drivers/thermal/thermal_mmio.c
-+++ b/drivers/thermal/thermal_mmio.c
-@@ -40,7 +40,6 @@ static struct thermal_zone_of_device_ops thermal_mmio_ops = {
- 
- static int thermal_mmio_probe(struct platform_device *pdev)
+diff --git a/drivers/thermal/zx2967_thermal.c b/drivers/thermal/zx2967_thermal.c
+index 7c8a82c..b67e776 100644
+--- a/drivers/thermal/zx2967_thermal.c
++++ b/drivers/thermal/zx2967_thermal.c
+@@ -117,15 +117,13 @@ static const struct thermal_zone_of_device_ops zx2967_of_thermal_ops = {
+ static int zx2967_thermal_probe(struct platform_device *pdev)
  {
--	struct resource *resource;
- 	struct thermal_mmio *sensor;
- 	int (*sensor_init_func)(struct platform_device *pdev,
- 				struct thermal_mmio *sensor);
-@@ -52,8 +51,7 @@ static int thermal_mmio_probe(struct platform_device *pdev)
- 	if (!sensor)
+ 	struct zx2967_thermal_priv *priv;
+-	struct resource *res;
+ 	int ret;
+ 
+ 	priv = devm_kzalloc(&pdev->dev, sizeof(*priv), GFP_KERNEL);
+ 	if (!priv)
  		return -ENOMEM;
  
--	resource = platform_get_resource(pdev, IORESOURCE_MEM, 0);
--	sensor->mmio_base = devm_ioremap_resource(&pdev->dev, resource);
-+	sensor->mmio_base = devm_platform_ioremap_resource(pdev, 0);
- 	if (IS_ERR(sensor->mmio_base)) {
- 		dev_err(&pdev->dev, "failed to ioremap memory (%ld)\n",
- 			PTR_ERR(sensor->mmio_base));
+-	res = platform_get_resource(pdev, IORESOURCE_MEM, 0);
+-	priv->regs = devm_ioremap_resource(&pdev->dev, res);
++	priv->regs = devm_platform_ioremap_resource(pdev, 0);
+ 	if (IS_ERR(priv->regs))
+ 		return PTR_ERR(priv->regs);
+ 
 -- 
 2.7.4
 
