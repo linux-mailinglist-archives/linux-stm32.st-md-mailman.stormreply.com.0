@@ -2,42 +2,42 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id 72BDCA8385
-	for <lists+linux-stm32@lfdr.de>; Wed,  4 Sep 2019 15:17:21 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 2BAF3A8380
+	for <lists+linux-stm32@lfdr.de>; Wed,  4 Sep 2019 15:17:18 +0200 (CEST)
 Received: from ip-172-31-3-76.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 3E967C24028;
-	Wed,  4 Sep 2019 13:17:21 +0000 (UTC)
-Received: from smtprelay-out1.synopsys.com (dc2-smtprelay2.synopsys.com
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id D7C9CC32EA1;
+	Wed,  4 Sep 2019 13:17:17 +0000 (UTC)
+Received: from smtprelay-out1.synopsys.com (smtprelay-out1.synopsys.com
  [198.182.61.142])
  (using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 94796C28E2E
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 7C768C35E03
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Wed,  4 Sep 2019 13:17:18 +0000 (UTC)
+ Wed,  4 Sep 2019 13:17:16 +0000 (UTC)
 Received: from mailhost.synopsys.com (mdc-mailhost2.synopsys.com
  [10.225.0.210])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits))
  (No client certificate requested)
- by smtprelay-out1.synopsys.com (Postfix) with ESMTPS id 78F4EC5740;
+ by smtprelay-out1.synopsys.com (Postfix) with ESMTPS id 7A880C5739;
  Wed,  4 Sep 2019 13:17:13 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=synopsys.com; s=mail;
- t=1567603037; bh=KtB3Uov2hN4nf9kUa8PMFbl3ixv9iikyZQaPSyHRMNw=;
+ t=1567603034; bh=KCQxzNKdPciLpCzMYFXS00/1ZDMQ64xO5mQOdoiRlGM=;
  h=From:To:Cc:Subject:Date:In-Reply-To:References:In-Reply-To:
  References:From;
- b=TTl1bzQi9wafn8aTGF4cwQ9XIZVRroMxpt87Sjf3ljSSbsf0iCqDT2n1K6IS0hT+c
- J4N7o59AmdUA/+UXlEL8VKjexhaVnohJ8i1zrk3UMC/oD09gqs0+jdqwn3y492O1RS
- wlORvU6iAUiZVrFvzgsJFNo0LSwXhoWKU9iU8HRpYKk3xazRjGoIrIreOWWiqIQv54
- 7Nqw5Z/QWWVQE9/HHd+XUXhryWhsjFJRCGykyZteitT8r6OPbBWPP3fMjnwOD6CT4f
- 6QRvkZXrcv9qdruoS+mLADL/hkbjD2rN7V85sM8JqiDijCk4o3E/tjbMWbQ/HX0DsO
- c4a/kac5Ft5Zw==
+ b=LrQLnL9TNVB0sEP0RLSqKIC7mMIs7rPaXWeroMbywkEtXelwxhVPTgX4Wab2iqUIk
+ KZdprBXxNC3GrTv1XIV4iX0YUDZMgVZpGAxlHlQRSaplxKK0kU9/LNg6VjR2r7uVoD
+ Hcd8BBSD0EwmXvtatGjG7zvZP6GRWF/D2gdVxc5BO9pGIt6bAEfDj8rGsLjvVmM63S
+ ujfnhRBXBs08Zn7Jmaxw/h+RBZTqYW+4/MhGCb16NFACF+UMvCMXXY7l/bkF3dXK2q
+ HLtA8H81o9zNnMfq2ck/b3325Fa0CTyehjA1uRMmrbAVhbI/0zsr+l0t0fqoLo6KT+
+ 2jIU9NlNWKjvw==
 Received: from de02dwia024.internal.synopsys.com
  (de02dwia024.internal.synopsys.com [10.225.19.81])
- by mailhost.synopsys.com (Postfix) with ESMTP id 2888FA0066;
+ by mailhost.synopsys.com (Postfix) with ESMTP id 3B957A0069;
  Wed,  4 Sep 2019 13:17:12 +0000 (UTC)
 From: Jose Abreu <Jose.Abreu@synopsys.com>
 To: netdev@vger.kernel.org
-Date: Wed,  4 Sep 2019 15:16:54 +0200
-Message-Id: <42759cafe734764d692597437835b42eec66e059.1567602867.git.joabreu@synopsys.com>
+Date: Wed,  4 Sep 2019 15:16:55 +0200
+Message-Id: <acfa0062f7bd087e3b80eaa87ff8dc1f058b5e61.1567602867.git.joabreu@synopsys.com>
 X-Mailer: git-send-email 2.7.4
 In-Reply-To: <cover.1567602867.git.joabreu@synopsys.com>
 References: <cover.1567602867.git.joabreu@synopsys.com>
@@ -48,8 +48,8 @@ Cc: Jose Abreu <Jose.Abreu@synopsys.com>, Joao Pinto <Joao.Pinto@synopsys.com>,
  Maxime Coquelin <mcoquelin.stm32@gmail.com>,
  Giuseppe Cavallaro <peppe.cavallaro@st.com>,
  "David S. Miller" <davem@davemloft.net>, linux-arm-kernel@lists.infradead.org
-Subject: [Linux-stm32] [PATCH v2 net-next 02/13] net: stmmac: xgmac: Add RBU
-	handling in DMA interrupt
+Subject: [Linux-stm32] [PATCH v2 net-next 03/13] net: stmmac: Do not return
+	error code in TC Initialization
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -67,8 +67,8 @@ Content-Transfer-Encoding: 7bit
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
-Add the handling of Receive Buffer Unavailable interrupt in the DMA
-handler of XGMAC cores.
+As we can still use the remaining TC callbacks, e.g. CBS. We should not
+fail in the initialization only because RX Parser is not available.
 
 Signed-off-by: Jose Abreu <joabreu@synopsys.com>
 
@@ -83,24 +83,24 @@ Cc: linux-stm32@st-md-mailman.stormreply.com
 Cc: linux-arm-kernel@lists.infradead.org
 Cc: linux-kernel@vger.kernel.org
 ---
- drivers/net/ethernet/stmicro/stmmac/dwxgmac2_dma.c | 4 ++++
- 1 file changed, 4 insertions(+)
+ drivers/net/ethernet/stmicro/stmmac/stmmac_tc.c | 3 ++-
+ 1 file changed, 2 insertions(+), 1 deletion(-)
 
-diff --git a/drivers/net/ethernet/stmicro/stmmac/dwxgmac2_dma.c b/drivers/net/ethernet/stmicro/stmmac/dwxgmac2_dma.c
-index 64956465c030..e77eb0ddf9b5 100644
---- a/drivers/net/ethernet/stmicro/stmmac/dwxgmac2_dma.c
-+++ b/drivers/net/ethernet/stmicro/stmmac/dwxgmac2_dma.c
-@@ -322,6 +322,10 @@ static int dwxgmac2_dma_interrupt(void __iomem *ioaddr,
+diff --git a/drivers/net/ethernet/stmicro/stmmac/stmmac_tc.c b/drivers/net/ethernet/stmicro/stmmac/stmmac_tc.c
+index 6c305b6ecad0..8dbbbf181ada 100644
+--- a/drivers/net/ethernet/stmicro/stmmac/stmmac_tc.c
++++ b/drivers/net/ethernet/stmicro/stmmac/stmmac_tc.c
+@@ -243,8 +243,9 @@ static int tc_init(struct stmmac_priv *priv)
+ 	struct dma_features *dma_cap = &priv->dma_cap;
+ 	unsigned int count;
  
- 	/* ABNORMAL interrupts */
- 	if (unlikely(intr_status & XGMAC_AIS)) {
-+		if (unlikely(intr_status & XGMAC_RBU)) {
-+			x->rx_buf_unav_irq++;
-+			ret |= handle_rx;
-+		}
- 		if (unlikely(intr_status & XGMAC_TPS)) {
- 			x->tx_process_stopped_irq++;
- 			ret |= tx_hard_error;
++	/* Fail silently as we can still use remaining features, e.g. CBS */
+ 	if (!dma_cap->frpsel)
+-		return -EINVAL;
++		return 0;
+ 
+ 	switch (dma_cap->frpbs) {
+ 	case 0x0:
 -- 
 2.7.4
 
