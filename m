@@ -2,23 +2,23 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id BF5C2A826B
-	for <lists+linux-stm32@lfdr.de>; Wed,  4 Sep 2019 14:34:53 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id D975DA826E
+	for <lists+linux-stm32@lfdr.de>; Wed,  4 Sep 2019 14:35:00 +0200 (CEST)
 Received: from ip-172-31-3-76.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 8C4EFC35E06;
-	Wed,  4 Sep 2019 12:34:53 +0000 (UTC)
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id A207EC35E0B;
+	Wed,  4 Sep 2019 12:35:00 +0000 (UTC)
 Received: from huawei.com (szxga06-in.huawei.com [45.249.212.32])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id DA820C35E0A
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 1501BC35E06
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Wed,  4 Sep 2019 12:34:51 +0000 (UTC)
-Received: from DGGEMS402-HUB.china.huawei.com (unknown [172.30.72.60])
- by Forcepoint Email with ESMTP id D4D8B587BB74CD696DDA;
- Wed,  4 Sep 2019 20:34:49 +0800 (CST)
-Received: from localhost (10.133.213.239) by DGGEMS402-HUB.china.huawei.com
- (10.3.19.202) with Microsoft SMTP Server id 14.3.439.0; Wed, 4 Sep 2019
- 20:34:43 +0800
+ Wed,  4 Sep 2019 12:34:59 +0000 (UTC)
+Received: from DGGEMS403-HUB.china.huawei.com (unknown [172.30.72.60])
+ by Forcepoint Email with ESMTP id 5003824D2CC81ADC7DA9;
+ Wed,  4 Sep 2019 20:34:56 +0800 (CST)
+Received: from localhost (10.133.213.239) by DGGEMS403-HUB.china.huawei.com
+ (10.3.19.203) with Microsoft SMTP Server id 14.3.439.0; Wed, 4 Sep 2019
+ 20:34:45 +0800
 From: YueHaibing <yuehaibing@huawei.com>
 To: <miquel.raynal@bootlin.com>, <rui.zhang@intel.com>, <edubezval@gmail.com>, 
  <daniel.lezcano@linaro.org>, <amit.kucheria@verdurent.com>,
@@ -32,8 +32,8 @@ To: <miquel.raynal@bootlin.com>, <rui.zhang@intel.com>, <edubezval@gmail.com>,
  <yuehaibing@huawei.com>, <gregkh@linuxfoundation.org>,
  <david.hernandezsanchez@st.com>, <horms+renesas@verge.net.au>,
  <wsa+renesas@sang-engineering.com>
-Date: Wed, 4 Sep 2019 20:29:34 +0800
-Message-ID: <20190904122939.23780-11-yuehaibing@huawei.com>
+Date: Wed, 4 Sep 2019 20:29:35 +0800
+Message-ID: <20190904122939.23780-12-yuehaibing@huawei.com>
 X-Mailer: git-send-email 2.10.2.windows.1
 In-Reply-To: <20190904122939.23780-1-yuehaibing@huawei.com>
 References: <20190904122939.23780-1-yuehaibing@huawei.com>
@@ -45,7 +45,7 @@ Cc: linux-pm@vger.kernel.org, linux-arm-msm@vger.kernel.org,
  linux-mediatek@lists.infradead.org, linux-rpi-kernel@lists.infradead.org,
  bcm-kernel-feedback-list@broadcom.com,
  linux-stm32@st-md-mailman.stormreply.com, linux-arm-kernel@lists.infradead.org
-Subject: [Linux-stm32] [PATCH -next 10/15] thermal: spear: use
+Subject: [Linux-stm32] [PATCH -next 11/15] thermal: stm32: use
 	devm_platform_ioremap_resource() to simplify code
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
@@ -69,30 +69,30 @@ This is detected by coccinelle.
 Reported-by: Hulk Robot <hulkci@huawei.com>
 Signed-off-by: YueHaibing <yuehaibing@huawei.com>
 ---
- drivers/thermal/spear_thermal.c | 4 +---
+ drivers/thermal/st/stm_thermal.c | 4 +---
  1 file changed, 1 insertion(+), 3 deletions(-)
 
-diff --git a/drivers/thermal/spear_thermal.c b/drivers/thermal/spear_thermal.c
-index f68f581..19c690f 100644
---- a/drivers/thermal/spear_thermal.c
-+++ b/drivers/thermal/spear_thermal.c
-@@ -91,7 +91,6 @@ static int spear_thermal_probe(struct platform_device *pdev)
- 	struct thermal_zone_device *spear_thermal = NULL;
- 	struct spear_thermal_dev *stdev;
- 	struct device_node *np = pdev->dev.of_node;
+diff --git a/drivers/thermal/st/stm_thermal.c b/drivers/thermal/st/stm_thermal.c
+index cf9ddc5..a5d85f5 100644
+--- a/drivers/thermal/st/stm_thermal.c
++++ b/drivers/thermal/st/stm_thermal.c
+@@ -611,7 +611,6 @@ MODULE_DEVICE_TABLE(of, stm_thermal_of_match);
+ static int stm_thermal_probe(struct platform_device *pdev)
+ {
+ 	struct stm_thermal_sensor *sensor;
 -	struct resource *res;
- 	int ret = 0, val;
+ 	const struct thermal_trip *trip;
+ 	void __iomem *base;
+ 	int ret, i;
+@@ -630,8 +629,7 @@ static int stm_thermal_probe(struct platform_device *pdev)
  
- 	if (!np || !of_property_read_u32(np, "st,thermal-flags", &val)) {
-@@ -104,8 +103,7 @@ static int spear_thermal_probe(struct platform_device *pdev)
- 		return -ENOMEM;
+ 	sensor->dev = &pdev->dev;
  
- 	/* Enable thermal sensor */
 -	res = platform_get_resource(pdev, IORESOURCE_MEM, 0);
--	stdev->thermal_base = devm_ioremap_resource(&pdev->dev, res);
-+	stdev->thermal_base = devm_platform_ioremap_resource(pdev, 0);
- 	if (IS_ERR(stdev->thermal_base))
- 		return PTR_ERR(stdev->thermal_base);
+-	base = devm_ioremap_resource(&pdev->dev, res);
++	base = devm_platform_ioremap_resource(pdev, 0);
+ 	if (IS_ERR(base))
+ 		return PTR_ERR(base);
  
 -- 
 2.7.4
