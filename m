@@ -2,23 +2,23 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id 94140A8268
-	for <lists+linux-stm32@lfdr.de>; Wed,  4 Sep 2019 14:34:50 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id B0E0FA826A
+	for <lists+linux-stm32@lfdr.de>; Wed,  4 Sep 2019 14:34:51 +0200 (CEST)
 Received: from ip-172-31-3-76.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 5EB13C35E04;
-	Wed,  4 Sep 2019 12:34:50 +0000 (UTC)
-Received: from huawei.com (szxga06-in.huawei.com [45.249.212.32])
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 7A916C35E09;
+	Wed,  4 Sep 2019 12:34:51 +0000 (UTC)
+Received: from huawei.com (szxga07-in.huawei.com [45.249.212.35])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 1E3B0C35E01
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id F0BECC35E01
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Wed,  4 Sep 2019 12:34:48 +0000 (UTC)
-Received: from DGGEMS410-HUB.china.huawei.com (unknown [172.30.72.58])
- by Forcepoint Email with ESMTP id C0EC68271B1F103FB06F;
- Wed,  4 Sep 2019 20:34:45 +0800 (CST)
-Received: from localhost (10.133.213.239) by DGGEMS410-HUB.china.huawei.com
- (10.3.19.210) with Microsoft SMTP Server id 14.3.439.0; Wed, 4 Sep 2019
- 20:34:37 +0800
+ Wed,  4 Sep 2019 12:34:49 +0000 (UTC)
+Received: from DGGEMS414-HUB.china.huawei.com (unknown [172.30.72.60])
+ by Forcepoint Email with ESMTP id 80A6C828F4A9CBFC9278;
+ Wed,  4 Sep 2019 20:34:47 +0800 (CST)
+Received: from localhost (10.133.213.239) by DGGEMS414-HUB.china.huawei.com
+ (10.3.19.214) with Microsoft SMTP Server id 14.3.439.0; Wed, 4 Sep 2019
+ 20:34:40 +0800
 From: YueHaibing <yuehaibing@huawei.com>
 To: <miquel.raynal@bootlin.com>, <rui.zhang@intel.com>, <edubezval@gmail.com>, 
  <daniel.lezcano@linaro.org>, <amit.kucheria@verdurent.com>,
@@ -32,8 +32,8 @@ To: <miquel.raynal@bootlin.com>, <rui.zhang@intel.com>, <edubezval@gmail.com>,
  <yuehaibing@huawei.com>, <gregkh@linuxfoundation.org>,
  <david.hernandezsanchez@st.com>, <horms+renesas@verge.net.au>,
  <wsa+renesas@sang-engineering.com>
-Date: Wed, 4 Sep 2019 20:29:32 +0800
-Message-ID: <20190904122939.23780-9-yuehaibing@huawei.com>
+Date: Wed, 4 Sep 2019 20:29:33 +0800
+Message-ID: <20190904122939.23780-10-yuehaibing@huawei.com>
 X-Mailer: git-send-email 2.10.2.windows.1
 In-Reply-To: <20190904122939.23780-1-yuehaibing@huawei.com>
 References: <20190904122939.23780-1-yuehaibing@huawei.com>
@@ -45,7 +45,7 @@ Cc: linux-pm@vger.kernel.org, linux-arm-msm@vger.kernel.org,
  linux-mediatek@lists.infradead.org, linux-rpi-kernel@lists.infradead.org,
  bcm-kernel-feedback-list@broadcom.com,
  linux-stm32@st-md-mailman.stormreply.com, linux-arm-kernel@lists.infradead.org
-Subject: [Linux-stm32] [PATCH -next 08/15] thermal: tsens: use
+Subject: [Linux-stm32] [PATCH -next 09/15] thermal: rockchip: use
 	devm_platform_ioremap_resource() to simplify code
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
@@ -69,41 +69,31 @@ This is detected by coccinelle.
 Reported-by: Hulk Robot <hulkci@huawei.com>
 Signed-off-by: YueHaibing <yuehaibing@huawei.com>
 ---
- drivers/thermal/qcom/tsens-common.c | 7 ++-----
- 1 file changed, 2 insertions(+), 5 deletions(-)
+ drivers/thermal/rockchip_thermal.c | 4 +---
+ 1 file changed, 1 insertion(+), 3 deletions(-)
 
-diff --git a/drivers/thermal/qcom/tsens-common.c b/drivers/thermal/qcom/tsens-common.c
-index 528df88..43ce4fb 100644
---- a/drivers/thermal/qcom/tsens-common.c
-+++ b/drivers/thermal/qcom/tsens-common.c
-@@ -155,7 +155,6 @@ int __init init_common(struct tsens_priv *priv)
- {
- 	void __iomem *tm_base, *srot_base;
- 	struct device *dev = priv->dev;
+diff --git a/drivers/thermal/rockchip_thermal.c b/drivers/thermal/rockchip_thermal.c
+index 343c2f5..044e6eb 100644
+--- a/drivers/thermal/rockchip_thermal.c
++++ b/drivers/thermal/rockchip_thermal.c
+@@ -1219,7 +1219,6 @@ static int rockchip_thermal_probe(struct platform_device *pdev)
+ 	struct device_node *np = pdev->dev.of_node;
+ 	struct rockchip_thermal_data *thermal;
+ 	const struct of_device_id *match;
 -	struct resource *res;
- 	u32 enabled;
- 	int ret, i, j;
- 	struct platform_device *op = of_find_device_by_node(priv->dev->of_node);
-@@ -166,8 +165,7 @@ int __init init_common(struct tsens_priv *priv)
- 	if (op->num_resources > 1) {
- 		/* DT with separate SROT and TM address space */
- 		priv->tm_offset = 0;
--		res = platform_get_resource(op, IORESOURCE_MEM, 1);
--		srot_base = devm_ioremap_resource(&op->dev, res);
-+		srot_base = devm_platform_ioremap_resource(op, 1);
- 		if (IS_ERR(srot_base)) {
- 			ret = PTR_ERR(srot_base);
- 			goto err_put_device;
-@@ -184,8 +182,7 @@ int __init init_common(struct tsens_priv *priv)
- 		priv->tm_offset = 0x1000;
- 	}
+ 	int irq;
+ 	int i;
+ 	int error;
+@@ -1245,8 +1244,7 @@ static int rockchip_thermal_probe(struct platform_device *pdev)
+ 	if (!thermal->chip)
+ 		return -EINVAL;
  
--	res = platform_get_resource(op, IORESOURCE_MEM, 0);
--	tm_base = devm_ioremap_resource(&op->dev, res);
-+	tm_base = devm_platform_ioremap_resource(op, 0);
- 	if (IS_ERR(tm_base)) {
- 		ret = PTR_ERR(tm_base);
- 		goto err_put_device;
+-	res = platform_get_resource(pdev, IORESOURCE_MEM, 0);
+-	thermal->regs = devm_ioremap_resource(&pdev->dev, res);
++	thermal->regs = devm_platform_ioremap_resource(pdev, 0);
+ 	if (IS_ERR(thermal->regs))
+ 		return PTR_ERR(thermal->regs);
+ 
 -- 
 2.7.4
 
