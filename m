@@ -2,64 +2,62 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id 7DAB8AA5C4
-	for <lists+linux-stm32@lfdr.de>; Thu,  5 Sep 2019 16:27:26 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 1A083AA684
+	for <lists+linux-stm32@lfdr.de>; Thu,  5 Sep 2019 16:51:53 +0200 (CEST)
 Received: from ip-172-31-3-76.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 48DF4C35E07;
-	Thu,  5 Sep 2019 14:27:26 +0000 (UTC)
-Received: from mx07-00178001.pphosted.com (mx07-00178001.pphosted.com
- [62.209.51.94])
- (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id C6594C35E01;
+	Thu,  5 Sep 2019 14:51:52 +0000 (UTC)
+Received: from mail-io1-f67.google.com (mail-io1-f67.google.com
+ [209.85.166.67])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 45B7AC35E06
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 51C36C36B3E
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Thu,  5 Sep 2019 14:27:25 +0000 (UTC)
-Received: from pps.filterd (m0046668.ppops.net [127.0.0.1])
- by mx07-00178001.pphosted.com (8.16.0.42/8.16.0.42) with SMTP id
- x85EQC1b002067; Thu, 5 Sep 2019 16:27:24 +0200
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=st.com;
- h=from : to : cc : subject
- : date : message-id : in-reply-to : references : mime-version :
- content-type; s=STMicroelectronics;
- bh=I25v1nGgd0oB934K7CvEPzrYGTMEjRKegcH/B1pV2tE=;
- b=aGcnV3R3g8lgKmTYEM6XrDWRO/ZY8NjnWR1BNmyaKMNhkx5KQNO2J5lKDq+2ra1fASoq
- wGPKGkNfG659b+Dg/GCFs/3TaLWgn5qM0ukuby+kTMDumhnjZmlYVNOj4RFHa7kic4Xn
- VLmiO5b62cjs/Zc3BdpVLLy57QU40ufQ+Z+BmwkjGjU8+NOV3yau5eB9DEuEHhLa6mNZ
- b64CjFK/SgXEHa/hZjXYEMFaCYPW2FZ7wZIIeZXJyGzlZ4oZIvvTybFTjVR6QExknJEY
- MiYwJ22QdVneXdXgevGxXfteJPWDnPnkUnlPaLUQQlcmYxkW6NpQUnNiF28Uws5o44pO yQ== 
-Received: from beta.dmz-ap.st.com (beta.dmz-ap.st.com [138.198.100.35])
- by mx07-00178001.pphosted.com with ESMTP id 2uqec38u1s-1
- (version=TLSv1 cipher=ECDHE-RSA-AES256-SHA bits=256 verify=NOT);
- Thu, 05 Sep 2019 16:27:24 +0200
-Received: from euls16034.sgp.st.com (euls16034.sgp.st.com [10.75.44.20])
- by beta.dmz-ap.st.com (STMicroelectronics) with ESMTP id 51E7124;
- Thu,  5 Sep 2019 14:27:21 +0000 (GMT)
-Received: from Webmail-eu.st.com (Safex1hubcas22.st.com [10.75.90.92])
- by euls16034.sgp.st.com (STMicroelectronics) with ESMTP id AEFCB2D6C48;
- Thu,  5 Sep 2019 16:27:20 +0200 (CEST)
-Received: from SAFEX1HUBCAS21.st.com (10.75.90.45) by Safex1hubcas22.st.com
- (10.75.90.92) with Microsoft SMTP Server (TLS) id 14.3.439.0; Thu, 5 Sep 2019
- 16:27:20 +0200
-Received: from localhost (10.48.0.131) by Webmail-ga.st.com (10.75.90.48) with
- Microsoft SMTP Server (TLS) id 14.3.439.0;
- Thu, 5 Sep 2019 16:27:20 +0200
-From: Arnaud Pouliquen <arnaud.pouliquen@st.com>
-To: Ohad Ben-Cohen <ohad@wizery.com>, Bjorn Andersson
- <bjorn.andersson@linaro.org>,
- <linux-kernel@vger.kernel.org>, <linux-remoteproc@vger.kernel.org>,
- <linux-arm-msm@vger.kernel.org>
-Date: Thu, 5 Sep 2019 16:27:10 +0200
-Message-ID: <1567693630-27544-4-git-send-email-arnaud.pouliquen@st.com>
-X-Mailer: git-send-email 2.7.4
-In-Reply-To: <1567693630-27544-1-git-send-email-arnaud.pouliquen@st.com>
-References: <1567693630-27544-1-git-send-email-arnaud.pouliquen@st.com>
+ Thu,  5 Sep 2019 14:42:20 +0000 (UTC)
+Received: by mail-io1-f67.google.com with SMTP id s21so5465636ioa.1
+ for <linux-stm32@st-md-mailman.stormreply.com>;
+ Thu, 05 Sep 2019 07:42:20 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20161025;
+ h=mime-version:references:in-reply-to:from:date:message-id:subject:to
+ :cc; bh=bdAudQZ0HCJ8TRBm9ijNYepraRe/QpJqgeTn8uQsQX8=;
+ b=BIontiK2DTv/qpkcw8bqo+nSW7AR/xoHc7DGBgv5kPqhit+aqYI4uEyMy/Ss6RSaK5
+ hmWpjMQ9lfx7I0535vhSC3ozL00wKYYG5TSEaDh5y1MS7n/m0GkpcsbpLw+EjYfGS6rW
+ +nHaGhOCacxctPQGekqTXVouPBMX5i4VlYb++4o/GQSyiogo2erqjE7dYL7ho0IOYQhe
+ +1Bosh4NY01j5tPmU+lrHJkAyw2dMmGuI6RmMLaMrnc0UJMA5g4oCZ1xVHG4f1O1cG3N
+ h5Kq7PuHfOedJ/uZYlRHf+nxz1eyncsLhwmH5eGZ7wO60AXazvUiqrC4F+QNc35/SPSu
+ w3Ug==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20161025;
+ h=x-gm-message-state:mime-version:references:in-reply-to:from:date
+ :message-id:subject:to:cc;
+ bh=bdAudQZ0HCJ8TRBm9ijNYepraRe/QpJqgeTn8uQsQX8=;
+ b=FppLVZ46tocvaa+kXx6c+mCS+6jyngUoy1PjKkD+POMzNPr0ZAzKyA2rDjd95+Aa+a
+ 3L2L6pMZGsEvFfOrO8OvYpqGC5et54uglkupunEYxz+2DloetphkLFad5yZDAV12czDe
+ xMC8+1g7rb4L1x4CAIVdcQ3R3kSVtQoiOzJ7PdzxifIJgF5fX9zCY5FOnQZa1twO52Ul
+ BHcKV4tUEAQN4A34+QeXsagF2Fm8Z3kIXTEFj+vX8IzVkDbDEsozhAO0kAfaI6gbJRvk
+ Ymya/T3dy7fAaHiTITXmtUwWyUcT+eoqYepd6gNfoOy7PamelHe7l57Fu2s6IdGQBsoD
+ ADBQ==
+X-Gm-Message-State: APjAAAXhnSqoiIXo2AKkPTXP+VzZVhDa3Yv2rhRlQeWNyhMkB4v2jhJp
+ yNAhZm8WW7e+DXTIJU7l1Tc1w1PBomoL53wVA2Q=
+X-Google-Smtp-Source: APXvYqyX2pWhcTrhvray5HVD4t5UgZhCevIB50IwYtht6X5wox9aszGhaDh07sqZYAAepAbIq9CCwMnECTOlso4Ws3A=
+X-Received: by 2002:a02:a90a:: with SMTP id n10mr4223757jam.140.1567694539038; 
+ Thu, 05 Sep 2019 07:42:19 -0700 (PDT)
 MIME-Version: 1.0
-X-Originating-IP: [10.48.0.131]
-X-Proofpoint-Virus-Version: vendor=fsecure engine=2.50.10434:6.0.70,1.0.8
- definitions=2019-09-05_04:2019-09-04,2019-09-05 signatures=0
-Cc: Suman Anna <s-anna@ti.com>, linux-stm32@st-md-mailman.stormreply.com,
- Fabien DESSENNE <fabien.dessenne@st.com>
-Subject: [Linux-stm32] [PATCH 3/3] rpmsg: smd: implement get_mtu ops
+References: <1567693630-27544-1-git-send-email-arnaud.pouliquen@st.com>
+ <1567693630-27544-2-git-send-email-arnaud.pouliquen@st.com>
+In-Reply-To: <1567693630-27544-2-git-send-email-arnaud.pouliquen@st.com>
+From: Jeffrey Hugo <jeffrey.l.hugo@gmail.com>
+Date: Thu, 5 Sep 2019 08:42:08 -0600
+Message-ID: <CAOCk7Nrja=31soMB+MhcrxhGHMT+bj9U+3_h6cTLo3+AAsFKqQ@mail.gmail.com>
+To: Arnaud Pouliquen <arnaud.pouliquen@st.com>
+X-Mailman-Approved-At: Thu, 05 Sep 2019 14:51:52 +0000
+Cc: Ohad Ben-Cohen <ohad@wizery.com>, MSM <linux-arm-msm@vger.kernel.org>,
+ linux-remoteproc@vger.kernel.org, lkml <linux-kernel@vger.kernel.org>,
+ Fabien DESSENNE <fabien.dessenne@st.com>,
+ Bjorn Andersson <bjorn.andersson@linaro.org>, Suman Anna <s-anna@ti.com>,
+ linux-stm32@st-md-mailman.stormreply.com
+Subject: Re: [Linux-stm32] [PATCH 1/3] rpmsg: core: add API to get message
+	length
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -76,43 +74,60 @@ Content-Transfer-Encoding: 7bit
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
-Implement the get_mtu ops to return the maximum size of
-the message that can be sent.
+On Thu, Sep 5, 2019 at 8:35 AM Arnaud Pouliquen <arnaud.pouliquen@st.com> wrote:
+>
+> Return the rpmsg buffer size for sending message, so rpmsg users
+> can split a long message in several sub rpmsg buffers.
+>
+> Signed-off-by: Arnaud Pouliquen <arnaud.pouliquen@st.com>
+> ---
+>  drivers/rpmsg/rpmsg_core.c       | 21 +++++++++++++++++++++
+>  drivers/rpmsg/rpmsg_internal.h   |  2 ++
+>  drivers/rpmsg/virtio_rpmsg_bus.c | 10 ++++++++++
+>  include/linux/rpmsg.h            | 10 ++++++++++
+>  4 files changed, 43 insertions(+)
+>
+> diff --git a/drivers/rpmsg/rpmsg_core.c b/drivers/rpmsg/rpmsg_core.c
+> index e330ec4dfc33..a6ef54c4779a 100644
+> --- a/drivers/rpmsg/rpmsg_core.c
+> +++ b/drivers/rpmsg/rpmsg_core.c
+> @@ -283,6 +283,27 @@ int rpmsg_trysend_offchannel(struct rpmsg_endpoint *ept, u32 src, u32 dst,
+>  }
+>  EXPORT_SYMBOL(rpmsg_trysend_offchannel);
+>
+> +/**
+> + * rpmsg_get_mtu() - get maximum transmission buffer size for sending message.
+> + * @ept: the rpmsg endpoint
+> + *
+> + * This function returns maximum buffer size available for a single message.
+> + *
+> + * Return: the maximum transmission size on success and an appropriate error
+> + * value on failure.
+> + */
 
-Signed-off-by: Arnaud Pouliquen <arnaud.pouliquen@st.com>
----
- drivers/rpmsg/qcom_smd.c | 8 ++++++++
- 1 file changed, 8 insertions(+)
+What is the intent of this?
 
-diff --git a/drivers/rpmsg/qcom_smd.c b/drivers/rpmsg/qcom_smd.c
-index 4abbeea782fa..f233f8d85062 100644
---- a/drivers/rpmsg/qcom_smd.c
-+++ b/drivers/rpmsg/qcom_smd.c
-@@ -989,6 +989,13 @@ static __poll_t qcom_smd_poll(struct rpmsg_endpoint *ept,
- 	return mask;
- }
- 
-+static ssize_t qcom_smd_get_mtu(struct rpmsg_endpoint *ept)
-+{
-+	struct qcom_smd_endpoint *qsept = to_smd_endpoint(ept);
-+
-+	return qcom_smd_get_tx_avail(qsept->qsch);
-+}
-+
- /*
-  * Finds the device_node for the smd child interested in this channel.
-  */
-@@ -1040,6 +1047,7 @@ static const struct rpmsg_endpoint_ops qcom_smd_endpoint_ops = {
- 	.send = qcom_smd_send,
- 	.trysend = qcom_smd_trysend,
- 	.poll = qcom_smd_poll,
-+	.get_mtu = qcom_smd_get_mtu,
- };
- 
- static void qcom_smd_release_device(struct device *dev)
--- 
-2.7.4
+The term "mtu" is "maximum transfer unit" - ie the largest payload of
+data that could possibly be sent, however at any one point in time,
+that might not be able to be accommodated.
 
+I don't think this is implemented correctly.  In GLINK and SMD, you've
+not implemented MTU, you've implemented "how much can I send at this
+point in time".  To me, this is not mtu.
+
+In the case of SMD, you could get the fifo size and return that as the
+mtu, but since you seem to be wanting to use this from the TTY layer
+to determine how much can be sent at a particular point in time, I
+don't think you actually want mtu.
+
+For GLINK, I don't actually think you can get a mtu based on the
+design, but I'm trying to remember from 5-6 years ago when we designed
+it.  It would be possible that a larger intent would be made available
+later.
+
+I think you need to first determine if you are actually looking for
+mtu, or "how much data can I send right now", because right now, it
+isn't clear.
 _______________________________________________
 Linux-stm32 mailing list
 Linux-stm32@st-md-mailman.stormreply.com
