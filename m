@@ -2,63 +2,49 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id 71A72AD5C1
-	for <lists+linux-stm32@lfdr.de>; Mon,  9 Sep 2019 11:33:10 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 6BD45ADD8F
+	for <lists+linux-stm32@lfdr.de>; Mon,  9 Sep 2019 18:54:36 +0200 (CEST)
 Received: from ip-172-31-3-76.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id C3960C35E01;
-	Mon,  9 Sep 2019 09:33:09 +0000 (UTC)
-Received: from mail-qk1-f193.google.com (mail-qk1-f193.google.com
- [209.85.222.193])
- (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 079FFC35E01;
+	Mon,  9 Sep 2019 16:54:36 +0000 (UTC)
+Received: from smtprelay-out1.synopsys.com (dc2-smtprelay2.synopsys.com
+ [198.182.61.142])
+ (using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 458F7C36B3E
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 358A5C36B3E
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Mon,  9 Sep 2019 09:33:09 +0000 (UTC)
-Received: by mail-qk1-f193.google.com with SMTP id f13so12353035qkm.9
- for <linux-stm32@st-md-mailman.stormreply.com>;
- Mon, 09 Sep 2019 02:33:09 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linaro.org; s=google;
- h=mime-version:references:in-reply-to:from:date:message-id:subject:to
- :cc:content-transfer-encoding;
- bh=2tHmH1stIAhWci8qIBPtmNf+VD11DJ+UCL9f9Y17abo=;
- b=vrZnv+PStMf+ECSwAA9EBVmkJ1p3GaWvYFKNeMG3Owov4IHFuOEVR00hBZEXUYgKSh
- OieKMKPXAWSyeWC/HP+/8QjHPAQdr34fWMdBDb4EyrTrZzcaWm+bFSXF8/i1Qu+HEiyz
- CKq1XWiDER91AclIs00Rtj003JXkH1Eu9Ku5Gq5DOUvFkeqvW6kHPWF61Px47znWI9K1
- S/swfW3z34aw9icDEOL4KLxAVFXkRZCd61hfEJTlf//onBcY4c/nTKxMTOkbTn4T4qAu
- gUry9EPHH1pj8bML9BWQUN4v2UvpiQKwO3J3lFPxgg0Hq0i2zXZ1H1fYb9CNTHuZvNPo
- y/0w==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20161025;
- h=x-gm-message-state:mime-version:references:in-reply-to:from:date
- :message-id:subject:to:cc:content-transfer-encoding;
- bh=2tHmH1stIAhWci8qIBPtmNf+VD11DJ+UCL9f9Y17abo=;
- b=V/Jj8Od9IUrnlNQyUZzIO0JWXfCYbeD8OoheIwsXLl9czgNNEDpKbznE8DuRSvUh/e
- KoYM++bWbsirU2vnyHl30AUyVoWyznCArzCooOp6vBJShzWNipSgjiZr93sg1568GfpE
- eKzykquHpUhzinkqzvCkyZUfYe/gtfPXaBUcowp2WyY9A9VPxNSiRp+96+xIUMJQlSVm
- rrbBB2eRJ04iP9f2j3R2R1+s8+IZpmw+3cstzDlS61b/ekO8iBl/vO+PbhT78OB1bnUR
- wFTu7wu5VXIrD2i42R9vVnV1Qvp4Ua2Dsy4aU0vSA4lOZyABNsvyz1lNgTeTvq/evlEc
- l4dw==
-X-Gm-Message-State: APjAAAWmomwPJjX3Og25I/Ifi0sYH5m2YybbNI8Q6kcTJtB6ta1DVHDb
- PHaeSgeWUT8KY0MuQ4eUY4BimB8OGaXzkHZy6ZkEgw==
-X-Google-Smtp-Source: APXvYqyJ2skoDsCxCcviaFJEdYxXi0/LKrzEr6iBfeSawT0Q0tTImcnSBrPILhJzLyjKObBRKhPopIxIjwlVAoBadOo=
-X-Received: by 2002:ae9:dd81:: with SMTP id r123mr6813864qkf.103.1568021588009; 
- Mon, 09 Sep 2019 02:33:08 -0700 (PDT)
-MIME-Version: 1.0
-References: <1567761708-31777-1-git-send-email-yannick.fertre@st.com>
-In-Reply-To: <1567761708-31777-1-git-send-email-yannick.fertre@st.com>
-From: Benjamin Gaignard <benjamin.gaignard@linaro.org>
-Date: Mon, 9 Sep 2019 11:32:57 +0200
-Message-ID: <CA+M3ks6MQBScJ4mOY3VD-OTP-wG2VfSLMxA-9z6ZkNAeO53SMA@mail.gmail.com>
-To: =?UTF-8?Q?Yannick_Fertr=C3=A9?= <yannick.fertre@st.com>
-Cc: Daniel Vetter <daniel@ffwll.ch>, David Airlie <airlied@linux.ie>,
- ML dri-devel <dri-devel@lists.freedesktop.org>,
- Linux Kernel Mailing List <linux-kernel@vger.kernel.org>,
+ Mon,  9 Sep 2019 16:54:34 +0000 (UTC)
+Received: from mailhost.synopsys.com (mdc-mailhost1.synopsys.com
+ [10.225.0.209])
+ (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits))
+ (No client certificate requested)
+ by smtprelay-out1.synopsys.com (Postfix) with ESMTPS id EB2B7C0196;
+ Mon,  9 Sep 2019 16:54:31 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=synopsys.com; s=mail;
+ t=1568048072; bh=ztU5cXLi0V4K5mhBVrPh5y1if4Ams78t+OFbPXBvR9E=;
+ h=From:To:Cc:Subject:Date:From;
+ b=RIpsg1ujBISZCK6V15inoKksfPMnzSXgBKiCvP3SBoKcYo2tSiaqiVXAVjoTKz6LT
+ G2nTzlz5HF9Dia7IQ96oqJRA/DqBbUKFmFimUb3oR/vkGLI8reJf5sopl3bGe0y8+c
+ c6O6+lqyAEsU71J2Fe0cRvbCZUXLvCquZiQsrYpaUPpKdLMQnRt2MvvolBHpJ40IhS
+ el/Mfq+W4iXG77c7vqT+VdG4edAdoOwcBRdf6RaW5oNhOYscLkA6piuVMhfFh+iCG4
+ 8KGA2iGbImOqqih0IfeNIY4Flp4QNjhfAXoNs3OvOWmS8cC/wuGWz+ZOJ97EEgdrmw
+ M97Tz76vpaUcw==
+Received: from de02dwia024.internal.synopsys.com
+ (de02dwia024.internal.synopsys.com [10.225.19.81])
+ by mailhost.synopsys.com (Postfix) with ESMTP id E1219A0057;
+ Mon,  9 Sep 2019 16:54:28 +0000 (UTC)
+From: Jose Abreu <Jose.Abreu@synopsys.com>
+To: netdev@vger.kernel.org
+Date: Mon,  9 Sep 2019 18:54:26 +0200
+Message-Id: <c37a55225e1ef66233b47c02b1441b91abeb3b76.1568047994.git.joabreu@synopsys.com>
+X-Mailer: git-send-email 2.7.4
+Cc: Jose Abreu <Jose.Abreu@synopsys.com>, Joao Pinto <Joao.Pinto@synopsys.com>,
+ linux-kernel@vger.kernel.org, linux-stm32@st-md-mailman.stormreply.com,
  Maxime Coquelin <mcoquelin.stm32@gmail.com>,
- Vincent Abriou <vincent.abriou@st.com>,
- linux-stm32@st-md-mailman.stormreply.com,
- Linux ARM <linux-arm-kernel@lists.infradead.org>
-Subject: Re: [Linux-stm32] [PATCH] drm/stm: ltdc: add pinctrl for DPI
-	encoder mode
+ Giuseppe Cavallaro <peppe.cavallaro@st.com>,
+ "David S. Miller" <davem@davemloft.net>, linux-arm-kernel@lists.infradead.org
+Subject: [Linux-stm32] [PATCH net-next] net: stmmac: pci: Add HAPS support
+	using GMAC5
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -70,68 +56,130 @@ List-Post: <mailto:linux-stm32@st-md-mailman.stormreply.com>
 List-Help: <mailto:linux-stm32-request@st-md-mailman.stormreply.com?subject=help>
 List-Subscribe: <https://st-md-mailman.stormreply.com/mailman/listinfo/linux-stm32>, 
  <mailto:linux-stm32-request@st-md-mailman.stormreply.com?subject=subscribe>
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: base64
+MIME-Version: 1.0
+Content-Type: text/plain; charset="us-ascii"
+Content-Transfer-Encoding: 7bit
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
-TGUgdmVuLiA2IHNlcHQuIDIwMTkgw6AgMTE6MjIsIFlhbm5pY2sgRmVydHLDqSA8eWFubmljay5m
-ZXJ0cmVAc3QuY29tPiBhIMOpY3JpdCA6Cj4KPiBUaGUgaW1wbGVtZW50YXRpb24gb2YgZnVuY3Rp
-b25zIGVuY29kZXJfZW5hYmxlIGFuZCBlbmNvZGVyX2Rpc2FibGUKPiBtYWtlIHBvc3NpYmxlIHRv
-IGNvbnRyb2wgdGhlIHBpbmN0cmwgYWNjb3JkaW5nIHRvIHRoZSBlbmNvZGVyIHR5cGUuCj4gVGhl
-IHBpbmN0cmwgbXVzdCBiZSBhY3RpdmF0ZWQgb25seSBpZiB0aGUgZW5jb2RlciB0eXBlIGlzIERQ
-SS4KPiBUaGlzIGhlbHBzIHRvIG1vdmUgdGhlIERQSS1yZWxhdGVkIHBpbmN0cmwgY29uZmlndXJh
-dGlvbiBmcm9tCj4gYWxsIHRoZSBwYW5lbCBvciBicmlkZ2UgdG8gdGhlIExUREMgZHQgbm9kZS4K
-Pgo+IFJldmlld2VkLWJ5OiBQaGlsaXBwZSBDb3JudSA8cGhpbGlwcGUuY29ybnVAc3QuY29tPgo+
-Cj4gU2lnbmVkLW9mZi1ieTogWWFubmljayBGZXJ0csOpIDx5YW5uaWNrLmZlcnRyZUBzdC5jb20+
-CgpBcHBsaWVkIG9uIGRybS1taXNjLW5leHQsClRoYW5rcywKQmVuamFtaW4KCj4gLS0tCj4gIGRy
-aXZlcnMvZ3B1L2RybS9zdG0vbHRkYy5jIHwgMzUgKysrKysrKysrKysrKysrKysrKysrKysrKysr
-KysrKysrKysKPiAgMSBmaWxlIGNoYW5nZWQsIDM1IGluc2VydGlvbnMoKykKPgo+IGRpZmYgLS1n
-aXQgYS9kcml2ZXJzL2dwdS9kcm0vc3RtL2x0ZGMuYyBiL2RyaXZlcnMvZ3B1L2RybS9zdG0vbHRk
-Yy5jCj4gaW5kZXggM2FiNGZiZi4uMWM0ZmRlMCAxMDA2NDQKPiAtLS0gYS9kcml2ZXJzL2dwdS9k
-cm0vc3RtL2x0ZGMuYwo+ICsrKyBiL2RyaXZlcnMvZ3B1L2RybS9zdG0vbHRkYy5jCj4gQEAgLTE1
-LDYgKzE1LDcgQEAKPiAgI2luY2x1ZGUgPGxpbnV4L21vZHVsZS5oPgo+ICAjaW5jbHVkZSA8bGlu
-dXgvb2ZfYWRkcmVzcy5oPgo+ICAjaW5jbHVkZSA8bGludXgvb2ZfZ3JhcGguaD4KPiArI2luY2x1
-ZGUgPGxpbnV4L3BpbmN0cmwvY29uc3VtZXIuaD4KPiAgI2luY2x1ZGUgPGxpbnV4L3BsYXRmb3Jt
-X2RldmljZS5oPgo+ICAjaW5jbHVkZSA8bGludXgvcG1fcnVudGltZS5oPgo+ICAjaW5jbHVkZSA8
-bGludXgvcmVzZXQuaD4KPiBAQCAtMTA0MCw2ICsxMDQxLDM2IEBAIHN0YXRpYyBjb25zdCBzdHJ1
-Y3QgZHJtX2VuY29kZXJfZnVuY3MgbHRkY19lbmNvZGVyX2Z1bmNzID0gewo+ICAgICAgICAgLmRl
-c3Ryb3kgPSBkcm1fZW5jb2Rlcl9jbGVhbnVwLAo+ICB9Owo+Cj4gK3N0YXRpYyB2b2lkIGx0ZGNf
-ZW5jb2Rlcl9kaXNhYmxlKHN0cnVjdCBkcm1fZW5jb2RlciAqZW5jb2RlcikKPiArewo+ICsgICAg
-ICAgc3RydWN0IGRybV9kZXZpY2UgKmRkZXYgPSBlbmNvZGVyLT5kZXY7Cj4gKwo+ICsgICAgICAg
-RFJNX0RFQlVHX0RSSVZFUigiXG4iKTsKPiArCj4gKyAgICAgICAvKiBTZXQgdG8gc2xlZXAgc3Rh
-dGUgdGhlIHBpbmN0cmwgd2hhdGV2ZXIgdHlwZSBvZiBlbmNvZGVyICovCj4gKyAgICAgICBwaW5j
-dHJsX3BtX3NlbGVjdF9zbGVlcF9zdGF0ZShkZGV2LT5kZXYpOwo+ICt9Cj4gKwo+ICtzdGF0aWMg
-dm9pZCBsdGRjX2VuY29kZXJfZW5hYmxlKHN0cnVjdCBkcm1fZW5jb2RlciAqZW5jb2RlcikKPiAr
-ewo+ICsgICAgICAgc3RydWN0IGRybV9kZXZpY2UgKmRkZXYgPSBlbmNvZGVyLT5kZXY7Cj4gKwo+
-ICsgICAgICAgRFJNX0RFQlVHX0RSSVZFUigiXG4iKTsKPiArCj4gKyAgICAgICAvKgo+ICsgICAg
-ICAgICogU2V0IHRvIGRlZmF1bHQgc3RhdGUgdGhlIHBpbmN0cmwgb25seSB3aXRoIERQSSB0eXBl
-Lgo+ICsgICAgICAgICogT3RoZXJzIHR5cGVzIGxpa2UgRFNJLCBkb24ndCBuZWVkIHBpbmN0cmwg
-ZHVlIHRvCj4gKyAgICAgICAgKiBpbnRlcm5hbCBicmlkZ2UgKHRoZSBzaWduYWxzIGRvIG5vdCBj
-b21lIG91dCBvZiB0aGUgY2hpcHNldCkuCj4gKyAgICAgICAgKi8KPiArICAgICAgIGlmIChlbmNv
-ZGVyLT5lbmNvZGVyX3R5cGUgPT0gRFJNX01PREVfRU5DT0RFUl9EUEkpCj4gKyAgICAgICAgICAg
-ICAgIHBpbmN0cmxfcG1fc2VsZWN0X2RlZmF1bHRfc3RhdGUoZGRldi0+ZGV2KTsKPiArfQo+ICsK
-PiArc3RhdGljIGNvbnN0IHN0cnVjdCBkcm1fZW5jb2Rlcl9oZWxwZXJfZnVuY3MgbHRkY19lbmNv
-ZGVyX2hlbHBlcl9mdW5jcyA9IHsKPiArICAgICAgIC5kaXNhYmxlID0gbHRkY19lbmNvZGVyX2Rp
-c2FibGUsCj4gKyAgICAgICAuZW5hYmxlID0gbHRkY19lbmNvZGVyX2VuYWJsZSwKPiArfTsKPiAr
-Cj4gIHN0YXRpYyBpbnQgbHRkY19lbmNvZGVyX2luaXQoc3RydWN0IGRybV9kZXZpY2UgKmRkZXYs
-IHN0cnVjdCBkcm1fYnJpZGdlICpicmlkZ2UpCj4gIHsKPiAgICAgICAgIHN0cnVjdCBkcm1fZW5j
-b2RlciAqZW5jb2RlcjsKPiBAQCAtMTA1NSw2ICsxMDg2LDggQEAgc3RhdGljIGludCBsdGRjX2Vu
-Y29kZXJfaW5pdChzdHJ1Y3QgZHJtX2RldmljZSAqZGRldiwgc3RydWN0IGRybV9icmlkZ2UgKmJy
-aWRnZSkKPiAgICAgICAgIGRybV9lbmNvZGVyX2luaXQoZGRldiwgZW5jb2RlciwgJmx0ZGNfZW5j
-b2Rlcl9mdW5jcywKPiAgICAgICAgICAgICAgICAgICAgICAgICAgRFJNX01PREVfRU5DT0RFUl9E
-UEksIE5VTEwpOwo+Cj4gKyAgICAgICBkcm1fZW5jb2Rlcl9oZWxwZXJfYWRkKGVuY29kZXIsICZs
-dGRjX2VuY29kZXJfaGVscGVyX2Z1bmNzKTsKPiArCj4gICAgICAgICByZXQgPSBkcm1fYnJpZGdl
-X2F0dGFjaChlbmNvZGVyLCBicmlkZ2UsIE5VTEwpOwo+ICAgICAgICAgaWYgKHJldCkgewo+ICAg
-ICAgICAgICAgICAgICBkcm1fZW5jb2Rlcl9jbGVhbnVwKGVuY29kZXIpOwo+IEBAIC0xMjgwLDYg
-KzEzMTMsOCBAQCBpbnQgbHRkY19sb2FkKHN0cnVjdCBkcm1fZGV2aWNlICpkZGV2KQo+Cj4gICAg
-ICAgICBjbGtfZGlzYWJsZV91bnByZXBhcmUobGRldi0+cGl4ZWxfY2xrKTsKPgo+ICsgICAgICAg
-cGluY3RybF9wbV9zZWxlY3Rfc2xlZXBfc3RhdGUoZGRldi0+ZGV2KTsKPiArCj4gICAgICAgICBw
-bV9ydW50aW1lX2VuYWJsZShkZGV2LT5kZXYpOwo+Cj4gICAgICAgICByZXR1cm4gMDsKPiAtLQo+
-IDIuNy40Cj4KPiBfX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19f
-Xwo+IGRyaS1kZXZlbCBtYWlsaW5nIGxpc3QKPiBkcmktZGV2ZWxAbGlzdHMuZnJlZWRlc2t0b3Au
-b3JnCj4gaHR0cHM6Ly9saXN0cy5mcmVlZGVza3RvcC5vcmcvbWFpbG1hbi9saXN0aW5mby9kcmkt
-ZGV2ZWwKX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX18KTGlu
-dXgtc3RtMzIgbWFpbGluZyBsaXN0CkxpbnV4LXN0bTMyQHN0LW1kLW1haWxtYW4uc3Rvcm1yZXBs
-eS5jb20KaHR0cHM6Ly9zdC1tZC1tYWlsbWFuLnN0b3JtcmVwbHkuY29tL21haWxtYW4vbGlzdGlu
-Zm8vbGludXgtc3RtMzIK
+Add the support for Synopsys HAPS board that uses GMAC5.
+
+Signed-off-by: Jose Abreu <joabreu@synopsys.com>
+
+---
+Cc: Giuseppe Cavallaro <peppe.cavallaro@st.com>
+Cc: Alexandre Torgue <alexandre.torgue@st.com>
+Cc: Jose Abreu <joabreu@synopsys.com>
+Cc: "David S. Miller" <davem@davemloft.net>
+Cc: Maxime Coquelin <mcoquelin.stm32@gmail.com>
+Cc: netdev@vger.kernel.org
+Cc: linux-stm32@st-md-mailman.stormreply.com
+Cc: linux-arm-kernel@lists.infradead.org
+Cc: linux-kernel@vger.kernel.org
+---
+ drivers/net/ethernet/stmicro/stmmac/stmmac_pci.c | 71 ++++++++++++++++++++++++
+ 1 file changed, 71 insertions(+)
+
+diff --git a/drivers/net/ethernet/stmicro/stmmac/stmmac_pci.c b/drivers/net/ethernet/stmicro/stmmac/stmmac_pci.c
+index 20906287b6d4..292045f4581f 100644
+--- a/drivers/net/ethernet/stmicro/stmmac/stmmac_pci.c
++++ b/drivers/net/ethernet/stmicro/stmmac/stmmac_pci.c
+@@ -375,6 +375,75 @@ static const struct stmmac_pci_info quark_pci_info = {
+ 	.setup = quark_default_data,
+ };
+ 
++static int snps_gmac5_default_data(struct pci_dev *pdev,
++				   struct plat_stmmacenet_data *plat)
++{
++	int i;
++
++	plat->clk_csr = 5;
++	plat->has_gmac4 = 1;
++	plat->force_sf_dma_mode = 1;
++	plat->tso_en = 1;
++	plat->pmt = 1;
++
++	plat->mdio_bus_data->phy_mask = 0;
++
++	/* Set default value for multicast hash bins */
++	plat->multicast_filter_bins = HASH_TABLE_SIZE;
++
++	/* Set default value for unicast filter entries */
++	plat->unicast_filter_entries = 1;
++
++	/* Set the maxmtu to a default of JUMBO_LEN */
++	plat->maxmtu = JUMBO_LEN;
++
++	/* Set default number of RX and TX queues to use */
++	plat->tx_queues_to_use = 4;
++	plat->rx_queues_to_use = 4;
++
++	plat->tx_sched_algorithm = MTL_TX_ALGORITHM_WRR;
++	for (i = 0; i < plat->tx_queues_to_use; i++) {
++		plat->tx_queues_cfg[i].use_prio = false;
++		plat->tx_queues_cfg[i].mode_to_use = MTL_QUEUE_DCB;
++		plat->tx_queues_cfg[i].weight = 25;
++	}
++
++	plat->rx_sched_algorithm = MTL_RX_ALGORITHM_SP;
++	for (i = 0; i < plat->rx_queues_to_use; i++) {
++		plat->rx_queues_cfg[i].use_prio = false;
++		plat->rx_queues_cfg[i].mode_to_use = MTL_QUEUE_DCB;
++		plat->rx_queues_cfg[i].pkt_route = 0x0;
++		plat->rx_queues_cfg[i].chan = i;
++	}
++
++	plat->bus_id = 1;
++	plat->phy_addr = -1;
++	plat->interface = PHY_INTERFACE_MODE_GMII;
++
++	plat->dma_cfg->pbl = 32;
++	plat->dma_cfg->pblx8 = true;
++
++	/* Axi Configuration */
++	plat->axi = devm_kzalloc(&pdev->dev, sizeof(*plat->axi), GFP_KERNEL);
++	if (!plat->axi)
++		return -ENOMEM;
++
++	plat->axi->axi_wr_osr_lmt = 31;
++	plat->axi->axi_rd_osr_lmt = 31;
++
++	plat->axi->axi_fb = false;
++	plat->axi->axi_blen[0] = 4;
++	plat->axi->axi_blen[1] = 8;
++	plat->axi->axi_blen[2] = 16;
++	plat->axi->axi_blen[3] = 32;
++
++	return 0;
++}
++
++static const struct stmmac_pci_info snps_gmac5_pci_info = {
++	.setup = snps_gmac5_default_data,
++};
++
+ /**
+  * stmmac_pci_probe
+  *
+@@ -518,6 +587,7 @@ static SIMPLE_DEV_PM_OPS(stmmac_pm_ops, stmmac_pci_suspend, stmmac_pci_resume);
+ #define STMMAC_EHL_RGMII1G_ID	0x4b30
+ #define STMMAC_EHL_SGMII1G_ID	0x4b31
+ #define STMMAC_TGL_SGMII1G_ID	0xa0ac
++#define STMMAC_GMAC5_ID		0x7102
+ 
+ #define STMMAC_DEVICE(vendor_id, dev_id, info)	{	\
+ 	PCI_VDEVICE(vendor_id, dev_id),			\
+@@ -531,6 +601,7 @@ static const struct pci_device_id stmmac_id_table[] = {
+ 	STMMAC_DEVICE(INTEL, STMMAC_EHL_RGMII1G_ID, ehl_rgmii1g_pci_info),
+ 	STMMAC_DEVICE(INTEL, STMMAC_EHL_SGMII1G_ID, ehl_sgmii1g_pci_info),
+ 	STMMAC_DEVICE(INTEL, STMMAC_TGL_SGMII1G_ID, tgl_sgmii1g_pci_info),
++	STMMAC_DEVICE(SYNOPSYS, STMMAC_GMAC5_ID, snps_gmac5_pci_info),
+ 	{}
+ };
+ 
+-- 
+2.7.4
+
+_______________________________________________
+Linux-stm32 mailing list
+Linux-stm32@st-md-mailman.stormreply.com
+https://st-md-mailman.stormreply.com/mailman/listinfo/linux-stm32
