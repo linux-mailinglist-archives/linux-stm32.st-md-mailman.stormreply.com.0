@@ -2,104 +2,122 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id 10C22AEF28
-	for <lists+linux-stm32@lfdr.de>; Tue, 10 Sep 2019 18:07:52 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 80E0BAEFEE
+	for <lists+linux-stm32@lfdr.de>; Tue, 10 Sep 2019 18:50:45 +0200 (CEST)
 Received: from ip-172-31-3-76.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id BA752C35E01;
-	Tue, 10 Sep 2019 16:07:51 +0000 (UTC)
-Received: from mail-wr1-f65.google.com (mail-wr1-f65.google.com
- [209.85.221.65])
- (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 3EF7AC35E01;
+	Tue, 10 Sep 2019 16:50:45 +0000 (UTC)
+Received: from smtprelay-out1.synopsys.com (smtprelay-out1.synopsys.com
+ [198.182.47.102])
+ (using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 80F91C36B3E
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id DDD4BC36B3E
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Tue, 10 Sep 2019 16:05:41 +0000 (UTC)
-Received: by mail-wr1-f65.google.com with SMTP id t16so21239647wra.6
- for <linux-stm32@st-md-mailman.stormreply.com>;
- Tue, 10 Sep 2019 09:05:41 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linaro.org; s=google;
- h=mime-version:references:in-reply-to:from:date:message-id:subject:to
- :cc; bh=bmUQUZCrkmmER7Gwmy8S0BUpeyPHQQl8phfWONZCLwc=;
- b=rjQLp1SQr9CFzSv+cqoe7o9cqn+LoOLnCw6J0BFN4Tni+fdgPvLVAYatxfC2z7ESKE
- BkdyYaUVrSd0CbHPE9a2dbSSVQVUsvKQxYRxHecNPFgTP4QkJ/K/Zr187OXzDGRIHw9l
- nAoWLQTucRc9SGEzkSPX+SEchIPHWGYhKIMisx13n4yV6i7po9MtQZkAsqrwfecG8eWn
- FFLnuPUd8pih/wPmIQbuZ5tVnoItuRaDfRIIy9/J9gaUJrpELIBFZM8YUm5ONa65jXRd
- Iw0q8S78n+M9kLbl6kjHW0INM+Z2JrzvoxpR65RTBW5R0pDJuamPDJ27N1/rYFEc/LKc
- 1xCQ==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20161025;
- h=x-gm-message-state:mime-version:references:in-reply-to:from:date
- :message-id:subject:to:cc;
- bh=bmUQUZCrkmmER7Gwmy8S0BUpeyPHQQl8phfWONZCLwc=;
- b=bEuvzv2p5a97ZH9bTOLPTzNXSl9XXG7mamF5KiXWTE5JrUO/FUxzPiiPS8xDJwXIQg
- hXcvnAF0PFBzla/f9QJyOfGwCqF2rzsFuP/TDx3llwtrjOBRjYaN1OCpMbsZkyNmi0v2
- 0XmQgU4gMiQ0qFOY3gEphtfqeKvbXPEoPH40KKOfSATa79z1dGxQiKKnw3JCc80lpTZV
- FNHMc6T48CtOEY66Dz7H9dMWO3JNEL9AWfI4U4FCFnf6R8wPKiSGIkiSa1s4MmeLb8oI
- c/Nz3hAZunQcc5hbcVm4z1KcEXdDEE65+fnemwhRJsatOuSNZTcGcN6Lv3uwccZpCmkB
- YTXQ==
-X-Gm-Message-State: APjAAAUWA98GV0Bc8RlYb1INLell6w5HxLQJVeTYbue6kj5M5TovqF8Y
- G5mg+cekmpr+Ng/LM3LFCKYHNWluuWzj56Nl4wCTVA==
-X-Google-Smtp-Source: APXvYqwHpOAzxh0Vj814CN8tokkTqoSrdFGwVy5mHO7nLon/MoZecZG1w1hZQ/4dXw5R04KRe3J/iX/8TD1h6uS2EUA=
-X-Received: by 2002:a05:6000:49:: with SMTP id k9mr7049475wrx.21.1568131540932; 
- Tue, 10 Sep 2019 09:05:40 -0700 (PDT)
+ Tue, 10 Sep 2019 16:50:42 +0000 (UTC)
+Received: from mailhost.synopsys.com (dc8-mailhost2.synopsys.com
+ [10.13.135.210])
+ (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits))
+ (No client certificate requested)
+ by smtprelay-out1.synopsys.com (Postfix) with ESMTPS id A046DC0EB9;
+ Tue, 10 Sep 2019 16:50:38 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=synopsys.com; s=mail;
+ t=1568134240; bh=1l2N/1ITeD+vI3yMCijQCzfXn6NxAl88T7WdyuPMavc=;
+ h=From:To:CC:Subject:Date:References:In-Reply-To:From;
+ b=GDYvI7y/CuZtO/3MfGy0cPxmE68GvQQv03nQxVa0sgM/MhD19KobvRUb8x7lIxQd5
+ RTXFCNVDnPdgfMmKogstZN09SRp6l8rtXwVVVbzzGv49352xOrNSmAjdEpjDN/5ku4
+ i99sAKZ6DLvfrf2XQ0At/dh5Z63HVzOFkCJ96jNx4TinnonmHj9Sxi8QyD3AF77mbI
+ eFUZndvUfQ3onGLWa3XUvPaEgQEwlcIavDEeidx8iM/GmJtvVxU6LLShN4F4Wol+Iw
+ NalklicLsp5w6C0faeQa6PLVWYy8/l5gQ6rUYrcSWayJpPHly+M527cSf8EAK639uE
+ 5Sx42V41NOu6A==
+Received: from us01wehtc1.internal.synopsys.com
+ (us01wehtc1-vip.internal.synopsys.com [10.12.239.236])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES256-SHA384 (256/256 bits))
+ (No client certificate requested)
+ by mailhost.synopsys.com (Postfix) with ESMTPS id DA6F7A005A;
+ Tue, 10 Sep 2019 16:50:36 +0000 (UTC)
+Received: from US01HYBRID2.internal.synopsys.com (10.15.246.24) by
+ us01wehtc1.internal.synopsys.com (10.12.239.231) with Microsoft SMTP Server
+ (TLS) id 14.3.408.0; Tue, 10 Sep 2019 09:50:36 -0700
+Received: from NAM03-BY2-obe.outbound.protection.outlook.com (10.13.134.195)
+ by mrs.synopsys.com (10.15.246.24) with Microsoft SMTP Server (TLS) id
+ 14.3.408.0; Tue, 10 Sep 2019 09:50:36 -0700
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
+ b=SU7VQGDXq6CaoOBmgAFkUtHy61gv1ZU6Qd1iAt4Db1MxVHkbggj7WuDlPpV+41LlFpI9Uuq37+sn/pctS0badoGK9cwlbbtFBWs7jYoG5JrTjSjKDz7o2VT7V4gnll36w1DEq/hf6T8P5Nc6YNMCMj0x1V381Yi1vFYEqt9XJyO6G7xnXDrnGrx3LXBPlbUjpCfPu2nyOBv1y6RM6a4cAcurp46bi7xRnFGpGLM6MxbGM80DeIiWARLUt+8WixRzAfWIVHXYyXLa1xmjNU8SII4qO8O7Ve4kxl4Lyqi+2TSmUnhAUrkDeNFVii+g4k7d1w40762ZDeBT4/2/DYaXqw==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
+ s=arcselector9901;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=pK1jXmQmS5bBm+tartDs95dhp2zoy76QGHzByDkwdhk=;
+ b=P0Dj5f632eVU2PL/Bc9OPiVbK0ih3MU+MvZ/AkSNz6h5CFbl8Wh+4UQzPHHKb61DOrG0r1H/DjWpXHXtmOIaFYqtyykW7oyJX8HpI60GGxnj6BXDwxCOYSWW0T6XjMCMCNEqEaFXb8P1Q/I2vxNoe/gyvHpLt7nLVnlSx7iu0nuWgiaMJw+Bkb+NkhR1DH5xZICiri0fnPfLYVu8DkFY+QP7CZvMoU5swaOgPw60T89gerj9S79jFsnNFJXk3fT6NVUfGZM92WvVYztFjIrDyZzX0cFwYH+8BXX3+dLSR8XWzw30mZgU9iY2rXY/JoWHyGZ8BOOO3k06qYZ01kPswg==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=synopsys.com; dmarc=pass action=none header.from=synopsys.com;
+ dkim=pass header.d=synopsys.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=synopsys.onmicrosoft.com; s=selector2-synopsys-onmicrosoft-com;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=pK1jXmQmS5bBm+tartDs95dhp2zoy76QGHzByDkwdhk=;
+ b=Wl+DxopzM3VC9f7hCXIVpUpX0bcWrrXdLlBgbKkbNXPQfREqs7dBBzdDWlqC5VgebekTKRSgu2I/X+kEQi6NSFmbP8/2kjU+624sd44EZCea7cT1bwVdr5XD9nezWgxDl1EJfGZ1zKBivVkRVY6rkVteeio62PmaPWeQJwtKK3E=
+Received: from BN8PR12MB3266.namprd12.prod.outlook.com (20.179.67.145) by
+ BN8PR12MB3458.namprd12.prod.outlook.com (20.178.211.32) with Microsoft SMTP
+ Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.20.2241.14; Tue, 10 Sep 2019 16:50:35 +0000
+Received: from BN8PR12MB3266.namprd12.prod.outlook.com
+ ([fe80::59fc:d942:487d:15b8]) by BN8PR12MB3266.namprd12.prod.outlook.com
+ ([fe80::59fc:d942:487d:15b8%7]) with mapi id 15.20.2263.005; Tue, 10 Sep 2019
+ 16:50:35 +0000
+From: Jose Abreu <Jose.Abreu@synopsys.com>
+To: Jose Abreu <Jose.Abreu@synopsys.com>,
+ "netdev@vger.kernel.org" <netdev@vger.kernel.org>
+Thread-Topic: [PATCH net-next 0/6] net: stmmac: Improvements for -next
+Thread-Index: AQHVZ+Xjv6EH/CtyAkiGIiwkAINrlqclH45Q
+Date: Tue, 10 Sep 2019 16:50:34 +0000
+Message-ID: <BN8PR12MB3266C0DED372AEE787FA00DAD3B60@BN8PR12MB3266.namprd12.prod.outlook.com>
+References: <cover.1568126224.git.joabreu@synopsys.com>
+In-Reply-To: <cover.1568126224.git.joabreu@synopsys.com>
+Accept-Language: en-US
+Content-Language: en-US
+X-MS-Has-Attach: 
+X-MS-TNEF-Correlator: 
+authentication-results: spf=none (sender IP is )
+ smtp.mailfrom=joabreu@synopsys.com; 
+x-originating-ip: [148.69.85.38]
+x-ms-publictraffictype: Email
+x-ms-office365-filtering-correlation-id: d25fcdc0-e733-4dc1-e47f-08d7360f001c
+x-microsoft-antispam: BCL:0; PCL:0;
+ RULEID:(2390118)(7020095)(4652040)(8989299)(4534185)(4627221)(201703031133081)(201702281549075)(8990200)(5600166)(711020)(4605104)(1401327)(2017052603328)(7193020);
+ SRVR:BN8PR12MB3458; 
+x-ms-traffictypediagnostic: BN8PR12MB3458:
+x-ms-exchange-transport-forked: True
+x-microsoft-antispam-prvs: <BN8PR12MB3458932C71B2EE3A1CBABBFAD3B60@BN8PR12MB3458.namprd12.prod.outlook.com>
+x-ms-oob-tlc-oobclassifiers: OLM:6430;
+x-forefront-prvs: 01565FED4C
+x-forefront-antispam-report: SFV:NSPM;
+ SFS:(10019020)(366004)(396003)(39860400002)(136003)(376002)(346002)(189003)(199004)(76176011)(74316002)(486006)(66446008)(11346002)(99286004)(6506007)(53936002)(6116002)(3846002)(4326008)(71190400001)(71200400001)(478600001)(25786009)(6246003)(66066001)(33656002)(7736002)(8676002)(26005)(52536014)(102836004)(5660300002)(81166006)(81156014)(186003)(86362001)(476003)(14454004)(66946007)(76116006)(6436002)(8936002)(2501003)(66476007)(66556008)(64756008)(305945005)(2906002)(446003)(256004)(9686003)(229853002)(54906003)(316002)(110136005)(7696005)(5024004)(55016002);
+ DIR:OUT; SFP:1102; SCL:1; SRVR:BN8PR12MB3458;
+ H:BN8PR12MB3266.namprd12.prod.outlook.com; FPR:; SPF:None; LANG:en;
+ PTR:InfoNoRecords; MX:1; A:1; 
+received-spf: None (protection.outlook.com: synopsys.com does not designate
+ permitted sender hosts)
+x-ms-exchange-senderadcheck: 1
+x-microsoft-antispam-message-info: jI4J8bP9YBjKLPhqYt2/qdVBKroL53ehztPo5xhA3E79Ir7u5l0o5imZewypoleZVCr5lnIHY7iaTPnWxxzPD+2eD2+rVS/dneG48oxA3OTQLn41XnTelGQmM439/iJhZsbnWeJSVlz/fg3NJQXwvpMrJrZMbGJwDvMvuX58CPoArBwgkHnGb69ILloY2TnDjIEW+t17Vqx/4xKVo5KmBMIdKlWJbm7rmz+IKIsVUHjNj9GIHycoZWvHApOiIshF/cTbQJ889RZXM6P78l+TH/IF6YuPoZ6b99bCKfYL+jXYxmcZb20cPFPyfZC1IjWdP5Y0MsdEZAAn6uMlmYdO2dQHAtCdAXktHQsZjxdsSmG2++Sar+V461q3Ie7OjPWBGpTEgcqIN+CKr/fuF7JRRJ4acPYPLVPxg3y46wCYxXw=
 MIME-Version: 1.0
-References: <1568123236-767-1-git-send-email-claudiu.beznea@microchip.com>
-In-Reply-To: <1568123236-767-1-git-send-email-claudiu.beznea@microchip.com>
-From: John Stultz <john.stultz@linaro.org>
-Date: Tue, 10 Sep 2019 09:05:30 -0700
-Message-ID: <CALAqxLWLStTqGx5DAvUKOYupdgK-doOxRF5Z_Us=L5vnFaa=7w@mail.gmail.com>
-To: Claudiu Beznea <claudiu.beznea@microchip.com>
-X-Mailman-Approved-At: Tue, 10 Sep 2019 16:07:51 +0000
-Cc: tmaimon77@gmail.com, Linus Walleij <linus.walleij@linaro.org>,
- nsekhar@ti.com, guoren@kernel.org, linux-stm32@st-md-mailman.stormreply.com,
- =?UTF-8?Q?Heiko_St=C3=BCbner?= <heiko@sntech.de>,
- linux-samsung-soc@vger.kernel.org,
- "open list:ARM/Rockchip SoC..." <linux-rockchip@lists.infradead.org>,
- Kevin Hilman <khilman@baylibre.com>, ludovic.desroches@microchip.com,
- linux-imx@nxp.com,
- =?UTF-8?Q?Uwe_Kleine=2DK=C3=B6nig?= <u.kleine-koenig@pengutronix.de>,
- uclinux-h8-devel@lists.sourceforge.jp, Marc Zyngier <marc.zyngier@arm.com>,
- Sascha Hauer <s.hauer@pengutronix.de>, linux-unisoc@lists.infradead.org,
- =?UTF-8?Q?Krzysztof_Ha=C5=82asa?= <khalasa@piap.pl>,
- Thomas Gleixner <tglx@linutronix.de>, sbranden@broadcom.com,
- lkml <linux-kernel@vger.kernel.org>, Ralf Baechle <ralf@linux-mips.org>,
- Paul Burton <paul.burton@mips.com>, kernel@pengutronix.de,
- Mark Rutland <mark.rutland@arm.com>,
- Alexandre Belloni <alexandre.belloni@bootlin.com>, jhogan@kernel.org,
- palmer@sifive.com, eric@anholt.net, Thierry Reding <thierry.reding@gmail.com>,
- Manivannan Sadhasivam <manivannan.sadhasivam@linaro.org>,
- Yoshinori Sato <ysato@users.sourceforge.jp>, zhang.lyra@gmail.com,
- Daniel Lezcano <daniel.lezcano@linaro.org>, Jon Hunter <jonathanh@nvidia.com>,
- bgolaszewski@baylibre.com, Kukjin Kim <kgene@kernel.org>,
- linux-arm-msm@vger.kernel.org, Sudeep Holla <sudeep.holla@arm.com>,
- Florian Fainelli <f.fainelli@gmail.com>, linux-rpi-kernel@lists.infradead.org,
- linux-amlogic@lists.infradead.org,
- linux-arm-kernel <linux-arm-kernel@lists.infradead.org>, baohua@kernel.org,
- kaloz@openwrt.org, Stephen Boyd <sboyd@kernel.org>, wahrenst@gmx.net,
- mcoquelin.stm32@gmail.com, Neil Armstrong <narmstrong@baylibre.com>,
- linux-tegra@vger.kernel.org, Fabio Estevam <festevam@gmail.com>,
- Lorenzo Pieralisi <lorenzo.pieralisi@arm.com>, benjaminfair@google.com,
- shc_work@mail.ru, Krzysztof Kozlowski <krzk@kernel.org>, yuenn@google.com,
- Chen-Yu Tsai <wens@csie.org>, bcm-kernel-feedback-list@broadcom.com,
- orsonzhai@gmail.com, linux-snps-arc@lists.infradead.org, rjui@broadcom.com,
- vz@mleia.com, john@phrozen.org, tali.perry1@gmail.com, avifishman70@gmail.com,
- venture@google.com, lftan@altera.com, linux-oxnas@groups.io,
- Shawn Guo <shawnguo@kernel.org>, afaerber@suse.de,
- Baruch Siach <baruch@tkos.co.il>, maxime.ripard@bootlin.com,
- Liviu Dudau <liviu.dudau@arm.com>, linux-mips@vger.kernel.org,
- linux-riscv@lists.infradead.org, openbmc@lists.ozlabs.org,
- Russell King - ARM Linux <linux@armlinux.org.uk>,
- Andy Gross <agross@kernel.org>, slemieux.tyco@gmail.com,
- "open list:OPEN FIRMWARE AND FLATTENED DEVICE TREE BINDINGS"
- <devicetree@vger.kernel.org>, aou@eecs.berkeley.edu,
- Rob Herring <robh+dt@kernel.org>, linux-mediatek@lists.infradead.org,
- Santosh Shilimkar <ssantosh@kernel.org>,
- Matthias Brugger <matthias.bgg@gmail.com>, Michal Simek <monstr@monstr.eu>,
- Baolin Wang <baolin.wang@linaro.org>, vgupta@synopsys.com,
- nicolas.ferre@microchip.com, linux@prisktech.co.nz,
- nios2-dev@lists.rocketboards.org
-Subject: Re: [Linux-stm32] [PATCH 0/7] add support for
-	clocksource/clockevent DT selection
+X-MS-Exchange-CrossTenant-Network-Message-Id: d25fcdc0-e733-4dc1-e47f-08d7360f001c
+X-MS-Exchange-CrossTenant-originalarrivaltime: 10 Sep 2019 16:50:34.8948 (UTC)
+X-MS-Exchange-CrossTenant-fromentityheader: Hosted
+X-MS-Exchange-CrossTenant-id: c33c9f88-1eb7-4099-9700-16013fd9e8aa
+X-MS-Exchange-CrossTenant-mailboxtype: HOSTED
+X-MS-Exchange-CrossTenant-userprincipalname: w7JKThsDzv0tcnkHCQxLib/NRgc4h4LP8F5FXHSPdmv1QgCP4eNQDtf9ngY1OGrRsoIM7ItjyATbGq2LIQoGog==
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: BN8PR12MB3458
+X-OriginatorOrg: synopsys.com
+Cc: Joao Pinto <Joao.Pinto@synopsys.com>,
+ "linux-kernel@vger.kernel.org" <linux-kernel@vger.kernel.org>,
+ "David  S. Miller" <davem@davemloft.net>,
+ Maxime Coquelin <mcoquelin.stm32@gmail.com>,
+ Giuseppe Cavallaro <peppe.cavallaro@st.com>,
+ "linux-stm32@st-md-mailman.stormreply.com"
+ <linux-stm32@st-md-mailman.stormreply.com>,
+ "linux-arm-kernel@lists.infradead.org" <linux-arm-kernel@lists.infradead.org>
+Subject: Re: [Linux-stm32] [PATCH net-next 0/6] net: stmmac: Improvements
+	for -next
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -116,20 +134,52 @@ Content-Transfer-Encoding: 7bit
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
-On Tue, Sep 10, 2019 at 6:47 AM Claudiu Beznea
-<claudiu.beznea@microchip.com> wrote:
->
-> This series adds support to permit the selection of clocksource/clockevent
-> via DT.
+From: Jose Abreu <joabreu@synopsys.com>
+Date: Sep/10/2019, 15:41:21 (UTC+00:00)
 
-Sorry about this, but could you try to include more of a rational for
-*why* this would be useful in your cover-letter/commit messages?
+> Misc patches for -next. It includes:
+>  - Two fixes for features in -next only
+>  - New features support for GMAC cores (which includes GMAC4 and GMAC5)
 
-I'm not sure I understand the limitation that requires such an option
-to be added to the dts.
+BTW, just for reference (and because I forgot to attach it earlier), 
+this is the selftests output for GMAC5.10 after this patchset:
 
-thanks
--john
+# ethtool -t ens4
+The test result is PASS
+The test extra info:
+ 1. MAC Loopback         	 0
+ 2. PHY Loopback         	 0
+ 3. MMC Counters         	 0
+ 4. EEE                  	 -95
+ 5. Hash Filter MC       	 0
+ 6. Perfect Filter UC    	 0
+ 7. MC Filter            	 0
+ 8. UC Filter            	 0
+ 9. Flow Control         	 0
+10. RSS                  	 -95
+11. VLAN Filtering       	 0
+12. Double VLAN Filtering	 0
+13. Flexible RX Parser   	 0
+14. SA Insertion (desc)  	 0
+15. SA Replacement (desc)	 0
+16. SA Insertion (reg)  	 0
+17. SA Replacement (reg)	 0
+18. VLAN TX Insertion   	 0
+19. SVLAN TX Insertion  	 0
+20. L3 DA Filtering     	 -95
+21. L3 SA Filtering     	 -95
+22. L4 DA TCP Filtering 	 -95
+23. L4 SA TCP Filtering 	 -95
+24. L4 DA UDP Filtering 	 -95
+25. L4 SA UDP Filtering 	 -95
+26. ARP Offload         	 0
+27. Jumbo Frame         	 0
+28. Multichannel Jumbo  	 0
+29. Split Header        	 -95
+
+---
+Thanks,
+Jose Miguel Abreu
 _______________________________________________
 Linux-stm32 mailing list
 Linux-stm32@st-md-mailman.stormreply.com
