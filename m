@@ -2,68 +2,48 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id E47BEAED17
-	for <lists+linux-stm32@lfdr.de>; Tue, 10 Sep 2019 16:33:52 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id A8E06AED4F
+	for <lists+linux-stm32@lfdr.de>; Tue, 10 Sep 2019 16:41:36 +0200 (CEST)
 Received: from ip-172-31-3-76.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id AE539C35E01;
-	Tue, 10 Sep 2019 14:33:52 +0000 (UTC)
-Received: from foss.arm.com (foss.arm.com [217.140.110.172])
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 19219C36B3E
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 6634AC35E07;
+	Tue, 10 Sep 2019 14:41:36 +0000 (UTC)
+Received: from smtprelay-out1.synopsys.com (unknown [198.182.61.142])
+ (using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
+ (No client certificate requested)
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id A7E92C35E05
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Tue, 10 Sep 2019 14:32:49 +0000 (UTC)
-Received: from usa-sjc-imap-foss1.foss.arm.com (unknown [10.121.207.14])
- by usa-sjc-mx-foss1.foss.arm.com (Postfix) with ESMTP id 0E7A81000;
- Tue, 10 Sep 2019 07:32:48 -0700 (PDT)
-Received: from e107533-lin.cambridge.arm.com (unknown [172.31.20.19])
- by usa-sjc-imap-foss1.foss.arm.com (Postfix) with ESMTPSA id 85C8A3F71F;
- Tue, 10 Sep 2019 07:32:33 -0700 (PDT)
-Date: Tue, 10 Sep 2019 15:32:31 +0100
-From: Sudeep Holla <sudeep.holla@arm.com>
-To: Claudiu Beznea <claudiu.beznea@microchip.com>
-Message-ID: <20190910143231.GB14966@e107533-lin.cambridge.arm.com>
-References: <1568123236-767-1-git-send-email-claudiu.beznea@microchip.com>
- <1568123236-767-5-git-send-email-claudiu.beznea@microchip.com>
-MIME-Version: 1.0
-Content-Disposition: inline
-In-Reply-To: <1568123236-767-5-git-send-email-claudiu.beznea@microchip.com>
-User-Agent: Mutt/1.9.4 (2018-02-28)
-X-Mailman-Approved-At: Tue, 10 Sep 2019 14:33:51 +0000
-Cc: tmaimon77@gmail.com, linus.walleij@linaro.org, nsekhar@ti.com,
- guoren@kernel.org, linux-stm32@st-md-mailman.stormreply.com, heiko@sntech.de,
- linux-samsung-soc@vger.kernel.org, linux-rockchip@lists.infradead.org,
- khilman@baylibre.com, ludovic.desroches@microchip.com, linux-imx@nxp.com,
- u.kleine-koenig@pengutronix.de, uclinux-h8-devel@lists.sourceforge.jp,
- marc.zyngier@arm.com, s.hauer@pengutronix.de, linux-unisoc@lists.infradead.org,
- khalasa@piap.pl, tglx@linutronix.de, sbranden@broadcom.com,
- linux-kernel@vger.kernel.org, ralf@linux-mips.org, paul.burton@mips.com,
- kernel@pengutronix.de, mark.rutland@arm.com, alexandre.belloni@bootlin.com,
- jhogan@kernel.org, palmer@sifive.com, eric@anholt.net,
- thierry.reding@gmail.com, manivannan.sadhasivam@linaro.org,
- ysato@users.sourceforge.jp, zhang.lyra@gmail.com, daniel.lezcano@linaro.org,
- jonathanh@nvidia.com, bgolaszewski@baylibre.com, kgene@kernel.org,
- linux-arm-msm@vger.kernel.org, Sudeep Holla <sudeep.holla@arm.com>,
- f.fainelli@gmail.com, john.stultz@linaro.org,
- linux-rpi-kernel@lists.infradead.org, linux-amlogic@lists.infradead.org,
- linux-arm-kernel@lists.infradead.org, baohua@kernel.org, kaloz@openwrt.org,
- sboyd@kernel.org, wahrenst@gmx.net, mcoquelin.stm32@gmail.com,
- narmstrong@baylibre.com, linux-tegra@vger.kernel.org, festevam@gmail.com,
- lorenzo.pieralisi@arm.com, benjaminfair@google.com, shc_work@mail.ru,
- krzk@kernel.org, yuenn@google.com, wens@csie.org,
- bcm-kernel-feedback-list@broadcom.com, orsonzhai@gmail.com,
- linux-snps-arc@lists.infradead.org, rjui@broadcom.com, vz@mleia.com,
- john@phrozen.org, tali.perry1@gmail.com, avifishman70@gmail.com,
- venture@google.com, lftan@altera.com, linux-oxnas@groups.io,
- shawnguo@kernel.org, afaerber@suse.de, baruch@tkos.co.il,
- maxime.ripard@bootlin.com, liviu.dudau@arm.com, linux-mips@vger.kernel.org,
- linux-riscv@lists.infradead.org, openbmc@lists.ozlabs.org,
- linux@armlinux.org.uk, agross@kernel.org, slemieux.tyco@gmail.com,
- devicetree@vger.kernel.org, aou@eecs.berkeley.edu, robh+dt@kernel.org,
- linux-mediatek@lists.infradead.org, ssantosh@kernel.org,
- matthias.bgg@gmail.com, monstr@monstr.eu, baolin.wang@linaro.org,
- vgupta@synopsys.com, nicolas.ferre@microchip.com, linux@prisktech.co.nz,
- nios2-dev@lists.rocketboards.org
-Subject: Re: [Linux-stm32] [PATCH 4/7] dt-bindings: chosen: Add clocksource
- and clockevent selection
+ Tue, 10 Sep 2019 14:41:33 +0000 (UTC)
+Received: from mailhost.synopsys.com (mdc-mailhost2.synopsys.com
+ [10.225.0.210])
+ (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits))
+ (No client certificate requested)
+ by smtprelay-out1.synopsys.com (Postfix) with ESMTPS id 4F355C2B07;
+ Tue, 10 Sep 2019 14:41:31 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=synopsys.com; s=mail;
+ t=1568126491; bh=Tub4nxbeU4nreRv8Psll6baSDgasdHP9Jdi2H3FUuM0=;
+ h=From:To:Cc:Subject:Date:From;
+ b=C2o6PJo4/Gf/7lp2JOLM+WEG1MfCOq73flr31Z7C9+k5tPz3ahpk3X+Jdiw3i1fn9
+ imLq+yTn/PJJlWrTdXHoTa/8aus7nXy5gjO+RrI80mGiwkgCCXASzT7qN2WCdjCmue
+ OfxO8I9cv2dqEbJBlSWxOiLrHu6RW1A/4GkyB+sQraKB0raSVjXXKSPSvCrFaIga4B
+ y9BuCLwa04cyaUqPgnY6ADYrMAWgEQzFctN1M50DadnTDXTeUkweuOTpiwzxUdd5pr
+ rfMt62re75WqJhRakCtdR1TKDAOFu4McgBvPV74oFBSIxBzoQgSa7LdCuXxvsneLn/
+ kptY6jHGqPW/g==
+Received: from de02dwia024.internal.synopsys.com
+ (de02dwia024.internal.synopsys.com [10.225.19.81])
+ by mailhost.synopsys.com (Postfix) with ESMTP id B7508A0057;
+ Tue, 10 Sep 2019 14:41:28 +0000 (UTC)
+From: Jose Abreu <Jose.Abreu@synopsys.com>
+To: netdev@vger.kernel.org
+Date: Tue, 10 Sep 2019 16:41:21 +0200
+Message-Id: <cover.1568126224.git.joabreu@synopsys.com>
+X-Mailer: git-send-email 2.7.4
+Cc: Jose Abreu <Jose.Abreu@synopsys.com>, Joao Pinto <Joao.Pinto@synopsys.com>,
+ linux-kernel@vger.kernel.org, linux-stm32@st-md-mailman.stormreply.com,
+ Maxime Coquelin <mcoquelin.stm32@gmail.com>,
+ Giuseppe Cavallaro <peppe.cavallaro@st.com>,
+ "David S. Miller" <davem@davemloft.net>, linux-arm-kernel@lists.infradead.org
+Subject: [Linux-stm32] [PATCH net-next 0/6] net: stmmac: Improvements for
+	-next
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -75,30 +55,48 @@ List-Post: <mailto:linux-stm32@st-md-mailman.stormreply.com>
 List-Help: <mailto:linux-stm32-request@st-md-mailman.stormreply.com?subject=help>
 List-Subscribe: <https://st-md-mailman.stormreply.com/mailman/listinfo/linux-stm32>, 
  <mailto:linux-stm32-request@st-md-mailman.stormreply.com?subject=subscribe>
+MIME-Version: 1.0
 Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
-On Tue, Sep 10, 2019 at 04:47:13PM +0300, Claudiu Beznea wrote:
-> From: Alexandre Belloni <alexandre.belloni@bootlin.com>
->
-> Some timer drivers may behave either as clocksource or clockevent
-> or both. Until now, in case of platforms with multiple hardware
-> resources of the same type, the drivers were chosing the first
-> registered hardware resource as clocksource/clockevent and the
-> next one as clockevent/clocksource. Other were using different
-> compatibles (one for each functionality, although its about the
-> same hardware). Add DT bindings to be able to choose the
-> functionality of a timer.
->
+Misc patches for -next. It includes:
+ - Two fixes for features in -next only
+ - New features support for GMAC cores (which includes GMAC4 and GMAC5)
 
-Is the piece of hardware not capable of serving as both clocksource
-and clockevent or is it just the platform choice ?
+---
+Cc: Giuseppe Cavallaro <peppe.cavallaro@st.com>
+Cc: Alexandre Torgue <alexandre.torgue@st.com>
+Cc: Jose Abreu <joabreu@synopsys.com>
+Cc: "David S. Miller" <davem@davemloft.net>
+Cc: Maxime Coquelin <mcoquelin.stm32@gmail.com>
+Cc: netdev@vger.kernel.org
+Cc: linux-stm32@st-md-mailman.stormreply.com
+Cc: linux-arm-kernel@lists.infradead.org
+Cc: linux-kernel@vger.kernel.org
+---
 
---
-Regards,
-Sudeep
+Jose Abreu (6):
+  net: stmmac: Prevent divide-by-zero
+  net: stmmac: Add VLAN HASH filtering support in GMAC4+
+  net: stmmac: xgmac: Reinitialize correctly a variable
+  net: stmmac: Add support for SA Insertion/Replacement in GMAC4+
+  net: stmmac: Add support for VLAN Insertion Offload in GMAC4+
+  net: stmmac: ARP Offload for GMAC4+ Cores
+
+ drivers/net/ethernet/stmicro/stmmac/dwmac4.h       | 23 +++++++
+ drivers/net/ethernet/stmicro/stmmac/dwmac4_core.c  | 79 ++++++++++++++++++++++
+ drivers/net/ethernet/stmicro/stmmac/dwmac4_descs.c | 43 ++++++++++++
+ drivers/net/ethernet/stmicro/stmmac/dwmac4_descs.h |  9 +++
+ drivers/net/ethernet/stmicro/stmmac/dwmac4_dma.c   |  5 +-
+ .../net/ethernet/stmicro/stmmac/dwxgmac2_core.c    |  2 +-
+ drivers/net/ethernet/stmicro/stmmac/stmmac_main.c  |  4 +-
+ 7 files changed, 162 insertions(+), 3 deletions(-)
+
+-- 
+2.7.4
+
 _______________________________________________
 Linux-stm32 mailing list
 Linux-stm32@st-md-mailman.stormreply.com
