@@ -2,18 +2,18 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id 36714AEC34
+	by mail.lfdr.de (Postfix) with ESMTPS id 35CF3AEC33
 	for <lists+linux-stm32@lfdr.de>; Tue, 10 Sep 2019 15:50:16 +0200 (CEST)
 Received: from ip-172-31-3-76.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 869CCC35E01;
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 98A35C35E04;
 	Tue, 10 Sep 2019 13:50:15 +0000 (UTC)
 Received: from esa2.microchip.iphmx.com (esa2.microchip.iphmx.com
  [68.232.149.84])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 773B3C36B3E
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 5C359C36B3F
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Tue, 10 Sep 2019 13:48:40 +0000 (UTC)
+ Tue, 10 Sep 2019 13:49:47 +0000 (UTC)
 Received-SPF: Pass (esa2.microchip.iphmx.com: domain of
  Claudiu.Beznea@microchip.com designates 198.175.253.82 as
  permitted sender) identity=mailfrom;
@@ -36,23 +36,23 @@ Authentication-Results: esa2.microchip.iphmx.com;
  spf=Pass smtp.mailfrom=Claudiu.Beznea@microchip.com;
  spf=None smtp.helo=postmaster@email.microchip.com;
  dmarc=pass (p=none dis=none) d=microchip.com
-IronPort-SDR: WvoLGrVoxjslM87EDFMb9g86ApmanbguCNUE5A2YbhQIImBRyDer1lqnauMyNS1gL5mTYHvqgN
- j7kHWfmb7I0RcDrnrrDy7+HL+RCMeWEZB5hSixr1urMOa23Rd3Oj0oIt2s1y+lo+qSDlWGR/Tg
- Q4MHn2pZIXIMBnjaT8GptZgxiKRLUaiC6g0KRekADZdLL1D7PZiEo0Ww6OO+kSaTYJqoy3Qn3U
- MHrLbhvLg5Mrc3QcxM00sABdbO2lAI+c/P1xzPcdH3v+G38wz4YO6MvSOJQ/O/Phe7s0xcaWXy
- TxM=
-X-IronPort-AV: E=Sophos;i="5.64,489,1559545200"; d="scan'208";a="48355799"
+IronPort-SDR: zyHfnB06nCg+geFme7VfLt5wnHKcDDkhj/IEdWHrCQoLn9L127NVdYqM2PkP2pObvKn8ZHf7+t
+ Bkiej9Fs080VbiF+h3hFRdZLzw/4F3jmfE3tYXSB7uvXGy08JSoVDlpmOPpCcFEXzFqv3N83JF
+ rhuS33uP+l8ZDpJBUSlPB9aLbIwcipxTsc4wXhVL+bPkJBnGlmDHN0bhxYk0nLysMg1F13H+Rx
+ xU209k35gxrgOCQoyETZCTBG1XFfftb3JH0GR/Y0h94l0/3gY1KVAbJBFSpUnzYhSYGJeEHCln
+ ZcY=
+X-IronPort-AV: E=Sophos;i="5.64,489,1559545200"; d="scan'208";a="48356035"
 Received: from smtpout.microchip.com (HELO email.microchip.com)
  ([198.175.253.82])
  by esa2.microchip.iphmx.com with ESMTP/TLS/AES256-SHA256;
- 10 Sep 2019 06:48:36 -0700
+ 10 Sep 2019 06:49:42 -0700
 Received: from chn-vm-ex03.mchp-main.com (10.10.85.151) by
  chn-vm-ex03.mchp-main.com (10.10.85.151) with Microsoft SMTP Server
  (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
- 15.1.1713.5; Tue, 10 Sep 2019 06:48:36 -0700
+ 15.1.1713.5; Tue, 10 Sep 2019 06:49:42 -0700
 Received: from m18063-ThinkPad-T460p.mchp-main.com (10.10.85.251) by
  chn-vm-ex03.mchp-main.com (10.10.85.151) with Microsoft SMTP Server id
- 15.1.1713.5 via Frontend Transport; Tue, 10 Sep 2019 06:48:15 -0700
+ 15.1.1713.5 via Frontend Transport; Tue, 10 Sep 2019 06:49:20 -0700
 From: Claudiu Beznea <claudiu.beznea@microchip.com>
 To: <daniel.lezcano@linaro.org>, <robh+dt@kernel.org>, <mark.rutland@arm.com>, 
  <linux@armlinux.org.uk>, <nsekhar@ti.com>, <bgolaszewski@baylibre.com>,
@@ -81,8 +81,8 @@ To: <daniel.lezcano@linaro.org>, <robh+dt@kernel.org>, <mark.rutland@arm.com>,
  <maxime.ripard@bootlin.com>, <wens@csie.org>, <thierry.reding@gmail.com>,
  <jonathanh@nvidia.com>, <linux@prisktech.co.nz>, <john.stultz@linaro.org>,
  <sboyd@kernel.org>, <matthias.bgg@gmail.com>
-Date: Tue, 10 Sep 2019 16:47:11 +0300
-Message-ID: <1568123236-767-3-git-send-email-claudiu.beznea@microchip.com>
+Date: Tue, 10 Sep 2019 16:47:14 +0300
+Message-ID: <1568123236-767-6-git-send-email-claudiu.beznea@microchip.com>
 X-Mailer: git-send-email 2.7.4
 In-Reply-To: <1568123236-767-1-git-send-email-claudiu.beznea@microchip.com>
 References: <1568123236-767-1-git-send-email-claudiu.beznea@microchip.com>
@@ -98,8 +98,8 @@ Cc: uclinux-h8-devel@lists.sourceforge.jp, devicetree@vger.kernel.org,
  linux-riscv@lists.infradead.org, linux-snps-arc@lists.infradead.org, Claudiu
  Beznea <claudiu.beznea@microchip.com>, linux-stm32@st-md-mailman.stormreply.com,
  linux-arm-kernel@lists.infradead.org
-Subject: [Linux-stm32] [PATCH 2/7] clocksource: change timer registration
-	macros
+Subject: [Linux-stm32] [PATCH 5/7] clocksource/drivers/timer-of: add support
+	support for timer's functionalities
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -116,1581 +116,1441 @@ Content-Transfer-Encoding: 7bit
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
-Change timer registration macros (TIMER_OF_DECLARE() and
-CLOCKSOURCE_OF_DECLARE()) by adding a new argument. This new argument
-is a pointer to an object of type struct timer_of and is used in
-timer_probe(). Based on the flags filled in the struct timer_of object
-the probing process will parse different DT bindings. Later on the
-drivers will use the result of this parsing. Even at the moment only
-few drivers are using this functionality there are other that could
-be converted to use it.
+Timers could feed clocksource and clockevent devices. Even so, there are
+timers that could work as clocksource only, clockevent only or both. For
+timers that could work only as clocksource or as clockevent there were
+used different mechanisms to register one hardware resource to feed a
+clocksource device and one hardware resource to feed a clockevent
+device.
+One of this is: first probed hardware works as clockevent, 2nd probed
+hardware works as clocksource device. Another one is to have different
+DT compatible for the same hardware but one to register a clocksource
+device, another to register a clockevent device. To avoid this, in [1]
+it was proposed a chosen node mechanism in DT. The changes in this patch
+integrate the proposals in [1] and goes further. It uses TIMER_OF
+library
+and adapt it. It passes to the probing macro arrays of objects of type
+struct timer_of. We need arrays here to cover the following scenario:
+One timer driver could be probe 2 times: 1st time to register a physical
+device to feed a clocksource device, 2nd timer to register another
+physical device (of the same type with the 1st one registered) but that
+will feed a clockevent device. If these are 2 different physical devices
+they are mapped to a different address, they use different clocks and
+also
+different IRQ numbers. So for every probe we need a different struct
+timer_of object. New flags were introduced in this patch to specify
+the functionality that timer drivers support:
+- TIMER_OF_TYPE_CE
+- TIMER_OF_TYPE_CS
+- TIMER_OF_TYPE_CE_AND_CS.
+
+Drivers that could work only as a clocksource could register a
+minimum struct timer_of array as follows:
+
+static struct timer_of to[] = {
+	{ .flags = TIMER_OF_TYPE_CS },
+	{ /* sentinel */ }
+};
+
+drivers that could work only as a clockevent could register a minimum
+struct timer_of array as follows:
+
+static struct timer_of to[] = {
+	{ .flags = TIMER_OF_TYPE_CE },
+	{ /* sentinel */ }
+};
+
+drivers that could work as both	clocksource and clockevent at the same
+time could register a minimum struct timer_of array as follows:
+
+static struct timer_of to[] = {
+	{ .flags = TIMER_OF_TYPE_CE_AND_CS },
+	{ /* sentinel*/ }
+};
+
+And these arrays are passed to the probing system via:
+TIMER_OF_DECLARE() or CLOCKSOURCE_OF_DECLARE() macros.
+
+For backward compatibility all the current drivers that are using
+TIMER_OF library are registered with TIMER_OF_TYPE_CE_AND_CS flag.
+
+At the probing time, the probing CPU will call timer_of_probe() ->
+timer_of_init(). timer_of_init() parses the DT bindings looking for
+"linux,clocksource" and "linux,clockevent" chosen DT bindings,
+and is looking into the to[] array, passed via TIMER_OF_DELCARE()/
+CLOCKSOURCE_OF_DECLARE(), for a unused entry which matches with
+the DT bindings (this is done by comparing TIMER_OF_TYPE* probing
+flags with TIMER_OF_TYPE* flags retrieved from DT). If there is a
+match the to[] entry will be used for the current probing and the
+entry is marked as used. to[] entry is considered to be used
+if to->np is set. Also the used to[] entry is saved into the data
+field of struct device_node used in the probe. In this way the
+probing functions of the timer drivers would retrieve the struct
+timer_of object to be used in the current probe.
+
+In case of timers which are registering percpu struct timer_of
+objects for probing only the percpu timer_of object is used in
+the probe time. Currently, these kind of drivers are using only
+the struct timer_of object corresponding to the probing CPU to
+retrieve DT bindings and then replicate/adapt this information
+for the other CPUs.
+
+All the drivers were adapted to this mechanism using
+TIMER_OF_TYPE_CE_AND_CS flag for backward compatibility.
+
+[1] https://lore.kernel.org/lkml/20171213185313.20017-3-alexandre.belloni@free-electrons.com/
 
 Signed-off-by: Claudiu Beznea <claudiu.beznea@microchip.com>
 ---
- arch/arm/kernel/smp_twd.c                 | 10 ++--
- arch/arm/mach-davinci/time.c              |  2 +-
- arch/microblaze/kernel/timer.c            |  2 +-
- arch/mips/ralink/cevt-rt3352.c            |  2 +-
- arch/nios2/kernel/time.c                  |  2 +-
- drivers/clocksource/arc_timer.c           |  6 +--
- drivers/clocksource/arm_arch_timer.c      |  6 +--
- drivers/clocksource/arm_global_timer.c    |  2 +-
- drivers/clocksource/armv7m_systick.c      |  2 +-
- drivers/clocksource/asm9260_timer.c       |  2 +-
- drivers/clocksource/bcm2835_timer.c       |  2 +-
- drivers/clocksource/bcm_kona_timer.c      |  4 +-
- drivers/clocksource/clksrc-dbx500-prcmu.c |  2 +-
- drivers/clocksource/clksrc_st_lpc.c       |  2 +-
- drivers/clocksource/clps711x-timer.c      |  2 +-
- drivers/clocksource/dw_apb_timer_of.c     |  9 ++--
- drivers/clocksource/exynos_mct.c          |  4 +-
- drivers/clocksource/h8300_timer16.c       |  2 +-
- drivers/clocksource/h8300_timer8.c        |  2 +-
- drivers/clocksource/h8300_tpu.c           |  2 +-
- drivers/clocksource/jcore-pit.c           |  2 +-
- drivers/clocksource/mips-gic-timer.c      |  2 +-
- drivers/clocksource/mps2-timer.c          |  2 +-
- drivers/clocksource/mxs_timer.c           |  2 +-
- drivers/clocksource/nomadik-mtu.c         |  2 +-
- drivers/clocksource/renesas-ostm.c        |  2 +-
- drivers/clocksource/samsung_pwm_timer.c   | 12 +++--
- drivers/clocksource/timer-armada-370-xp.c |  6 +--
- drivers/clocksource/timer-atcpit100.c     |  6 +--
- drivers/clocksource/timer-atlas7.c        |  3 +-
- drivers/clocksource/timer-atmel-pit.c     |  2 +-
- drivers/clocksource/timer-atmel-st.c      |  2 +-
- drivers/clocksource/timer-atmel-tcb.c     |  2 +-
- drivers/clocksource/timer-cadence-ttc.c   |  2 +-
- drivers/clocksource/timer-davinci.c       |  3 +-
- drivers/clocksource/timer-digicolor.c     |  2 +-
- drivers/clocksource/timer-efm32.c         |  4 +-
- drivers/clocksource/timer-fsl-ftm.c       |  2 +-
- drivers/clocksource/timer-fttmr010.c      | 10 ++--
- drivers/clocksource/timer-gx6605s.c       |  7 +--
- drivers/clocksource/timer-imx-gpt.c       | 24 ++++-----
- drivers/clocksource/timer-imx-sysctr.c    |  9 +---
- drivers/clocksource/timer-imx-tpm.c       |  6 +--
- drivers/clocksource/timer-integrator-ap.c |  2 +-
- drivers/clocksource/timer-ixp4xx.c        |  2 +-
- drivers/clocksource/timer-keystone.c      |  2 +-
- drivers/clocksource/timer-lpc32xx.c       |  2 +-
- drivers/clocksource/timer-mediatek.c      | 84 ++++++++++++++++---------------
- drivers/clocksource/timer-meson6.c        |  2 +-
- drivers/clocksource/timer-milbeaut.c      |  7 +--
- drivers/clocksource/timer-mp-csky.c       | 15 ++----
- drivers/clocksource/timer-npcm7xx.c       |  9 +---
- drivers/clocksource/timer-nps.c           |  6 +--
- drivers/clocksource/timer-of.c            |  8 ++-
- drivers/clocksource/timer-of.h            | 11 ++++
- drivers/clocksource/timer-orion.c         |  2 +-
- drivers/clocksource/timer-owl.c           |  6 +--
- drivers/clocksource/timer-oxnas-rps.c     |  4 +-
- drivers/clocksource/timer-pistachio.c     |  2 +-
- drivers/clocksource/timer-prima2.c        |  2 +-
- drivers/clocksource/timer-probe.c         | 17 ++++++-
- drivers/clocksource/timer-pxa.c           |  2 +-
- drivers/clocksource/timer-qcom.c          |  4 +-
- drivers/clocksource/timer-rda.c           |  8 +--
- drivers/clocksource/timer-riscv.c         |  2 +-
- drivers/clocksource/timer-rockchip.c      |  4 +-
- drivers/clocksource/timer-sp804.c         |  4 +-
- drivers/clocksource/timer-sprd.c          | 16 +-----
- drivers/clocksource/timer-stm32.c         | 44 +++++++---------
- drivers/clocksource/timer-sun4i.c         | 12 ++---
- drivers/clocksource/timer-sun5i.c         |  4 +-
- drivers/clocksource/timer-tango-xtal.c    |  2 +-
- drivers/clocksource/timer-tegra.c         | 20 +++-----
- drivers/clocksource/timer-ti-32k.c        |  2 +-
- drivers/clocksource/timer-u300.c          |  2 +-
- drivers/clocksource/timer-versatile.c     |  4 +-
- drivers/clocksource/timer-vf-pit.c        |  2 +-
- drivers/clocksource/timer-vt8500.c        |  2 +-
- drivers/clocksource/timer-zevio.c         |  2 +-
- include/linux/clocksource.h               | 30 ++++++++++-
- 80 files changed, 266 insertions(+), 264 deletions(-)
+ drivers/clocksource/timer-atcpit100.c  | 70 +++++++++++++++-------------
+ drivers/clocksource/timer-gx6605s.c    | 53 ++++++++++++---------
+ drivers/clocksource/timer-imx-sysctr.c | 56 ++++++++++++----------
+ drivers/clocksource/timer-imx-tpm.c    | 65 ++++++++++++++------------
+ drivers/clocksource/timer-mediatek.c   | 64 ++++++++++++++-----------
+ drivers/clocksource/timer-milbeaut.c   | 54 +++++++++++----------
+ drivers/clocksource/timer-mp-csky.c    |  4 +-
+ drivers/clocksource/timer-npcm7xx.c    | 82 ++++++++++++++++----------------
+ drivers/clocksource/timer-of.c         | 85 ++++++++++++++++++++++++++++++++--
+ drivers/clocksource/timer-of.h         | 16 +++++++
+ drivers/clocksource/timer-rda.c        | 60 +++++++++++++-----------
+ drivers/clocksource/timer-sprd.c       | 67 +++++++++++++++------------
+ drivers/clocksource/timer-stm32.c      | 33 +++++++------
+ drivers/clocksource/timer-sun4i.c      | 74 +++++++++++++++--------------
+ drivers/clocksource/timer-tegra.c      | 13 +++---
+ 15 files changed, 479 insertions(+), 317 deletions(-)
 
-diff --git a/arch/arm/kernel/smp_twd.c b/arch/arm/kernel/smp_twd.c
-index 9a14f721a2b0..02ea5ac511ff 100644
---- a/arch/arm/kernel/smp_twd.c
-+++ b/arch/arm/kernel/smp_twd.c
-@@ -335,6 +335,10 @@ static int __init twd_local_timer_of_register(struct device_node *np)
- 	WARN(err, "twd_local_timer_of_register failed (%d)\n", err);
- 	return err;
- }
--TIMER_OF_DECLARE(arm_twd_a9, "arm,cortex-a9-twd-timer", twd_local_timer_of_register);
--TIMER_OF_DECLARE(arm_twd_a5, "arm,cortex-a5-twd-timer", twd_local_timer_of_register);
--TIMER_OF_DECLARE(arm_twd_11mp, "arm,arm11mp-twd-timer", twd_local_timer_of_register);
-+TIMER_OF_DECLARE(arm_twd_a9, "arm,cortex-a9-twd-timer",
-+		 twd_local_timer_of_register, NULL);
-+TIMER_OF_DECLARE(arm_twd_a5, "arm,cortex-a5-twd-timer",
-+		 twd_local_timer_of_register, NULL);
-+TIMER_OF_DECLARE(arm_twd_11mp, "arm,arm11mp-twd-timer",
-+		 twd_local_timer_of_register, NULL);
-+#endif
-diff --git a/arch/arm/mach-davinci/time.c b/arch/arm/mach-davinci/time.c
-index 5a6de5368ab0..ac36b29ef6bc 100644
---- a/arch/arm/mach-davinci/time.c
-+++ b/arch/arm/mach-davinci/time.c
-@@ -411,4 +411,4 @@ static int __init of_davinci_timer_init(struct device_node *np)
- 
- 	return 0;
- }
--TIMER_OF_DECLARE(davinci_timer, "ti,da830-timer", of_davinci_timer_init);
-+TIMER_OF_DECLARE(davinci_timer, "ti,da830-timer", of_davinci_timer_init, NULL);
-diff --git a/arch/microblaze/kernel/timer.c b/arch/microblaze/kernel/timer.c
-index a6683484b3a1..21c4a3717d73 100644
---- a/arch/microblaze/kernel/timer.c
-+++ b/arch/microblaze/kernel/timer.c
-@@ -329,4 +329,4 @@ static int __init xilinx_timer_init(struct device_node *timer)
- }
- 
- TIMER_OF_DECLARE(xilinx_timer, "xlnx,xps-timer-1.00.a",
--		       xilinx_timer_init);
-+		       xilinx_timer_init, NULL);
-diff --git a/arch/mips/ralink/cevt-rt3352.c b/arch/mips/ralink/cevt-rt3352.c
-index 61a08943eb2f..ad7cd4e228ce 100644
---- a/arch/mips/ralink/cevt-rt3352.c
-+++ b/arch/mips/ralink/cevt-rt3352.c
-@@ -152,4 +152,4 @@ static int __init ralink_systick_init(struct device_node *np)
- 	return 0;
- }
- 
--TIMER_OF_DECLARE(systick, "ralink,cevt-systick", ralink_systick_init);
-+TIMER_OF_DECLARE(systick, "ralink,cevt-systick", ralink_systick_init, NULL);
-diff --git a/arch/nios2/kernel/time.c b/arch/nios2/kernel/time.c
-index 54467d0085a1..37c74196dc8b 100644
---- a/arch/nios2/kernel/time.c
-+++ b/arch/nios2/kernel/time.c
-@@ -356,4 +356,4 @@ void __init time_init(void)
- 	timer_probe();
- }
- 
--TIMER_OF_DECLARE(nios2_timer, ALTR_TIMER_COMPATIBLE, nios2_time_init);
-+TIMER_OF_DECLARE(nios2_timer, ALTR_TIMER_COMPATIBLE, nios2_time_init, NULL);
-diff --git a/drivers/clocksource/arc_timer.c b/drivers/clocksource/arc_timer.c
-index b29b5a75333e..0178315c37e7 100644
---- a/drivers/clocksource/arc_timer.c
-+++ b/drivers/clocksource/arc_timer.c
-@@ -119,7 +119,7 @@ static int __init arc_cs_setup_gfrc(struct device_node *node)
- 
- 	return clocksource_register_hz(&arc_counter_gfrc, arc_timer_freq);
- }
--TIMER_OF_DECLARE(arc_gfrc, "snps,archs-timer-gfrc", arc_cs_setup_gfrc);
-+TIMER_OF_DECLARE(arc_gfrc, "snps,archs-timer-gfrc", arc_cs_setup_gfrc, NULL);
- 
- #define AUX_RTC_CTRL	0x103
- #define AUX_RTC_LOW	0x104
-@@ -185,7 +185,7 @@ static int __init arc_cs_setup_rtc(struct device_node *node)
- 
- 	return clocksource_register_hz(&arc_counter_rtc, arc_timer_freq);
- }
--TIMER_OF_DECLARE(arc_rtc, "snps,archs-timer-rtc", arc_cs_setup_rtc);
-+TIMER_OF_DECLARE(arc_rtc, "snps,archs-timer-rtc", arc_cs_setup_rtc, NULL);
- 
- #endif
- 
-@@ -372,4 +372,4 @@ static int __init arc_of_timer_init(struct device_node *np)
- 
- 	return ret;
- }
--TIMER_OF_DECLARE(arc_clkevt, "snps,arc-timer", arc_of_timer_init);
-+TIMER_OF_DECLARE(arc_clkevt, "snps,arc-timer", arc_of_timer_init, NULL);
-diff --git a/drivers/clocksource/arm_arch_timer.c b/drivers/clocksource/arm_arch_timer.c
-index 9a5464c625b4..553ef338cec7 100644
---- a/drivers/clocksource/arm_arch_timer.c
-+++ b/drivers/clocksource/arm_arch_timer.c
-@@ -1295,8 +1295,8 @@ static int __init arch_timer_of_init(struct device_node *np)
- 
- 	return arch_timer_common_init();
- }
--TIMER_OF_DECLARE(armv7_arch_timer, "arm,armv7-timer", arch_timer_of_init);
--TIMER_OF_DECLARE(armv8_arch_timer, "arm,armv8-timer", arch_timer_of_init);
-+TIMER_OF_DECLARE(armv7_arch_timer, "arm,armv7-timer", arch_timer_of_init, NULL);
-+TIMER_OF_DECLARE(armv8_arch_timer, "arm,armv8-timer", arch_timer_of_init, NULL);
- 
- static u32 __init
- arch_timer_mem_frame_get_cntfrq(struct arch_timer_mem_frame *frame)
-@@ -1482,7 +1482,7 @@ static int __init arch_timer_mem_of_init(struct device_node *np)
- 	return ret;
- }
- TIMER_OF_DECLARE(armv7_arch_timer_mem, "arm,armv7-timer-mem",
--		       arch_timer_mem_of_init);
-+		       arch_timer_mem_of_init, NULL);
- 
- #ifdef CONFIG_ACPI_GTDT
- static int __init
-diff --git a/drivers/clocksource/arm_global_timer.c b/drivers/clocksource/arm_global_timer.c
-index 88b2d38a7a61..7f65c9ea0ffb 100644
---- a/drivers/clocksource/arm_global_timer.c
-+++ b/drivers/clocksource/arm_global_timer.c
-@@ -337,4 +337,4 @@ static int __init global_timer_of_register(struct device_node *np)
- 
- /* Only tested on r2p2 and r3p0  */
- TIMER_OF_DECLARE(arm_gt, "arm,cortex-a9-global-timer",
--			global_timer_of_register);
-+			global_timer_of_register, NULL);
-diff --git a/drivers/clocksource/armv7m_systick.c b/drivers/clocksource/armv7m_systick.c
-index 7e78074480e4..e74a53e218be 100644
---- a/drivers/clocksource/armv7m_systick.c
-+++ b/drivers/clocksource/armv7m_systick.c
-@@ -83,4 +83,4 @@ static int __init system_timer_of_register(struct device_node *np)
- }
- 
- TIMER_OF_DECLARE(arm_systick, "arm,armv7m-systick",
--			system_timer_of_register);
-+			system_timer_of_register, NULL);
-diff --git a/drivers/clocksource/asm9260_timer.c b/drivers/clocksource/asm9260_timer.c
-index 9f09a59161e7..05a264337ef3 100644
---- a/drivers/clocksource/asm9260_timer.c
-+++ b/drivers/clocksource/asm9260_timer.c
-@@ -235,4 +235,4 @@ static int __init asm9260_timer_init(struct device_node *np)
- 	return 0;
- }
- TIMER_OF_DECLARE(asm9260_timer, "alphascale,asm9260-timer",
--		asm9260_timer_init);
-+		asm9260_timer_init, NULL);
-diff --git a/drivers/clocksource/bcm2835_timer.c b/drivers/clocksource/bcm2835_timer.c
-index 2b196cbfadb6..55ad32fe6088 100644
---- a/drivers/clocksource/bcm2835_timer.c
-+++ b/drivers/clocksource/bcm2835_timer.c
-@@ -135,4 +135,4 @@ static int __init bcm2835_timer_init(struct device_node *node)
- 	return ret;
- }
- TIMER_OF_DECLARE(bcm2835, "brcm,bcm2835-system-timer",
--			bcm2835_timer_init);
-+			bcm2835_timer_init, NULL);
-diff --git a/drivers/clocksource/bcm_kona_timer.c b/drivers/clocksource/bcm_kona_timer.c
-index 5c40be9880f5..5d850ac27268 100644
---- a/drivers/clocksource/bcm_kona_timer.c
-+++ b/drivers/clocksource/bcm_kona_timer.c
-@@ -198,9 +198,9 @@ static int __init kona_timer_init(struct device_node *node)
- 	return 0;
- }
- 
--TIMER_OF_DECLARE(brcm_kona, "brcm,kona-timer", kona_timer_init);
-+TIMER_OF_DECLARE(brcm_kona, "brcm,kona-timer", kona_timer_init, NULL);
- /*
-  * bcm,kona-timer is deprecated by brcm,kona-timer
-  * being kept here for driver compatibility
-  */
--TIMER_OF_DECLARE(bcm_kona, "bcm,kona-timer", kona_timer_init);
-+TIMER_OF_DECLARE(bcm_kona, "bcm,kona-timer", kona_timer_init, NULL);
-diff --git a/drivers/clocksource/clksrc-dbx500-prcmu.c b/drivers/clocksource/clksrc-dbx500-prcmu.c
-index 996900d017c6..953e92ab6ec4 100644
---- a/drivers/clocksource/clksrc-dbx500-prcmu.c
-+++ b/drivers/clocksource/clksrc-dbx500-prcmu.c
-@@ -69,4 +69,4 @@ static int __init clksrc_dbx500_prcmu_init(struct device_node *node)
- 	return clocksource_register_hz(&clocksource_dbx500_prcmu, RATE_32K);
- }
- TIMER_OF_DECLARE(dbx500_prcmu, "stericsson,db8500-prcmu-timer-4",
--		       clksrc_dbx500_prcmu_init);
-+		       clksrc_dbx500_prcmu_init, NULL);
-diff --git a/drivers/clocksource/clksrc_st_lpc.c b/drivers/clocksource/clksrc_st_lpc.c
-index 419a886876e4..be09e9bee98a 100644
---- a/drivers/clocksource/clksrc_st_lpc.c
-+++ b/drivers/clocksource/clksrc_st_lpc.c
-@@ -128,4 +128,4 @@ static int __init st_clksrc_of_register(struct device_node *np)
- 
- 	return ret;
- }
--TIMER_OF_DECLARE(ddata, "st,stih407-lpc", st_clksrc_of_register);
-+TIMER_OF_DECLARE(ddata, "st,stih407-lpc", st_clksrc_of_register, NULL);
-diff --git a/drivers/clocksource/clps711x-timer.c b/drivers/clocksource/clps711x-timer.c
-index e95fdc49c226..9017215246ff 100644
---- a/drivers/clocksource/clps711x-timer.c
-+++ b/drivers/clocksource/clps711x-timer.c
-@@ -98,4 +98,4 @@ static int __init clps711x_timer_init(struct device_node *np)
- 
- 	return 0;
- }
--TIMER_OF_DECLARE(clps711x, "cirrus,ep7209-timer", clps711x_timer_init);
-+TIMER_OF_DECLARE(clps711x, "cirrus,ep7209-timer", clps711x_timer_init, NULL);
-diff --git a/drivers/clocksource/dw_apb_timer_of.c b/drivers/clocksource/dw_apb_timer_of.c
-index 8c28b127759f..a7d61712677c 100644
---- a/drivers/clocksource/dw_apb_timer_of.c
-+++ b/drivers/clocksource/dw_apb_timer_of.c
-@@ -168,7 +168,8 @@ static int __init dw_apb_timer_init(struct device_node *timer)
- 
- 	return 0;
- }
--TIMER_OF_DECLARE(pc3x2_timer, "picochip,pc3x2-timer", dw_apb_timer_init);
--TIMER_OF_DECLARE(apb_timer_osc, "snps,dw-apb-timer-osc", dw_apb_timer_init);
--TIMER_OF_DECLARE(apb_timer_sp, "snps,dw-apb-timer-sp", dw_apb_timer_init);
--TIMER_OF_DECLARE(apb_timer, "snps,dw-apb-timer", dw_apb_timer_init);
-+TIMER_OF_DECLARE(pc3x2_timer, "picochip,pc3x2-timer", dw_apb_timer_init, NULL);
-+TIMER_OF_DECLARE(apb_timer_osc, "snps,dw-apb-timer-osc", dw_apb_timer_init,
-+		 NULL);
-+TIMER_OF_DECLARE(apb_timer_sp, "snps,dw-apb-timer-sp", dw_apb_timer_init, NULL);
-+TIMER_OF_DECLARE(apb_timer, "snps,dw-apb-timer", dw_apb_timer_init, NULL);
-diff --git a/drivers/clocksource/exynos_mct.c b/drivers/clocksource/exynos_mct.c
-index 74cb299f5089..0c7abbe50b38 100644
---- a/drivers/clocksource/exynos_mct.c
-+++ b/drivers/clocksource/exynos_mct.c
-@@ -613,5 +613,5 @@ static int __init mct_init_ppi(struct device_node *np)
- {
- 	return mct_init_dt(np, MCT_INT_PPI);
- }
--TIMER_OF_DECLARE(exynos4210, "samsung,exynos4210-mct", mct_init_spi);
--TIMER_OF_DECLARE(exynos4412, "samsung,exynos4412-mct", mct_init_ppi);
-+TIMER_OF_DECLARE(exynos4210, "samsung,exynos4210-mct", mct_init_spi, NULL);
-+TIMER_OF_DECLARE(exynos4412, "samsung,exynos4412-mct", mct_init_ppi, NULL);
-diff --git a/drivers/clocksource/h8300_timer16.c b/drivers/clocksource/h8300_timer16.c
-index 86ca91451b2e..0c217e590348 100644
---- a/drivers/clocksource/h8300_timer16.c
-+++ b/drivers/clocksource/h8300_timer16.c
-@@ -189,4 +189,4 @@ static int __init h8300_16timer_init(struct device_node *node)
- }
- 
- TIMER_OF_DECLARE(h8300_16bit, "renesas,16bit-timer",
--			   h8300_16timer_init);
-+			   h8300_16timer_init, NULL);
-diff --git a/drivers/clocksource/h8300_timer8.c b/drivers/clocksource/h8300_timer8.c
-index 1d740a8c42ab..99896b40758a 100644
---- a/drivers/clocksource/h8300_timer8.c
-+++ b/drivers/clocksource/h8300_timer8.c
-@@ -208,4 +208,4 @@ static int __init h8300_8timer_init(struct device_node *node)
- 	return ret;
- }
- 
--TIMER_OF_DECLARE(h8300_8bit, "renesas,8bit-timer", h8300_8timer_init);
-+TIMER_OF_DECLARE(h8300_8bit, "renesas,8bit-timer", h8300_8timer_init, NULL);
-diff --git a/drivers/clocksource/h8300_tpu.c b/drivers/clocksource/h8300_tpu.c
-index 17d4ab0f6ad1..4b937d67e1d6 100644
---- a/drivers/clocksource/h8300_tpu.c
-+++ b/drivers/clocksource/h8300_tpu.c
-@@ -155,4 +155,4 @@ static int __init h8300_tpu_init(struct device_node *node)
- 	return ret;
- }
- 
--TIMER_OF_DECLARE(h8300_tpu, "renesas,tpu", h8300_tpu_init);
-+TIMER_OF_DECLARE(h8300_tpu, "renesas,tpu", h8300_tpu_init, NULL);
-diff --git a/drivers/clocksource/jcore-pit.c b/drivers/clocksource/jcore-pit.c
-index 5d3d88e0fc8c..8d346fcf2b78 100644
---- a/drivers/clocksource/jcore-pit.c
-+++ b/drivers/clocksource/jcore-pit.c
-@@ -246,4 +246,4 @@ static int __init jcore_pit_init(struct device_node *node)
- 	return 0;
- }
- 
--TIMER_OF_DECLARE(jcore_pit, "jcore,pit", jcore_pit_init);
-+TIMER_OF_DECLARE(jcore_pit, "jcore,pit", jcore_pit_init, NULL);
-diff --git a/drivers/clocksource/mips-gic-timer.c b/drivers/clocksource/mips-gic-timer.c
-index 37671a5d4ed9..2313cdcec182 100644
---- a/drivers/clocksource/mips-gic-timer.c
-+++ b/drivers/clocksource/mips-gic-timer.c
-@@ -231,4 +231,4 @@ static int __init gic_clocksource_of_init(struct device_node *node)
- 	return 0;
- }
- TIMER_OF_DECLARE(mips_gic_timer, "mti,gic-timer",
--		       gic_clocksource_of_init);
-+		       gic_clocksource_of_init, NULL);
-diff --git a/drivers/clocksource/mps2-timer.c b/drivers/clocksource/mps2-timer.c
-index 2e64d984c83a..30a17dca5608 100644
---- a/drivers/clocksource/mps2-timer.c
-+++ b/drivers/clocksource/mps2-timer.c
-@@ -270,4 +270,4 @@ static int __init mps2_timer_init(struct device_node *np)
- 	return 0;
- }
- 
--TIMER_OF_DECLARE(mps2_timer, "arm,mps2-timer", mps2_timer_init);
-+TIMER_OF_DECLARE(mps2_timer, "arm,mps2-timer", mps2_timer_init, NULL);
-diff --git a/drivers/clocksource/mxs_timer.c b/drivers/clocksource/mxs_timer.c
-index f6ddae30933f..e9c956343b1b 100644
---- a/drivers/clocksource/mxs_timer.c
-+++ b/drivers/clocksource/mxs_timer.c
-@@ -279,4 +279,4 @@ static int __init mxs_timer_init(struct device_node *np)
- 
- 	return setup_irq(irq, &mxs_timer_irq);
- }
--TIMER_OF_DECLARE(mxs, "fsl,timrot", mxs_timer_init);
-+TIMER_OF_DECLARE(mxs, "fsl,timrot", mxs_timer_init, NULL);
-diff --git a/drivers/clocksource/nomadik-mtu.c b/drivers/clocksource/nomadik-mtu.c
-index 3f7fa8c01367..20f936d82cf2 100644
---- a/drivers/clocksource/nomadik-mtu.c
-+++ b/drivers/clocksource/nomadik-mtu.c
-@@ -278,4 +278,4 @@ static int __init nmdk_timer_of_init(struct device_node *node)
- 	return nmdk_timer_init(base, irq, pclk, clk);
- }
- TIMER_OF_DECLARE(nomadik_mtu, "st,nomadik-mtu",
--		       nmdk_timer_of_init);
-+		       nmdk_timer_of_init, NULL);
-diff --git a/drivers/clocksource/renesas-ostm.c b/drivers/clocksource/renesas-ostm.c
-index 37c39b901bb1..3f1ce12c08b1 100644
---- a/drivers/clocksource/renesas-ostm.c
-+++ b/drivers/clocksource/renesas-ostm.c
-@@ -253,4 +253,4 @@ static int __init ostm_init(struct device_node *np)
- 	return 0;
- }
- 
--TIMER_OF_DECLARE(ostm, "renesas,ostm", ostm_init);
-+TIMER_OF_DECLARE(ostm, "renesas,ostm", ostm_init, NULL);
-diff --git a/drivers/clocksource/samsung_pwm_timer.c b/drivers/clocksource/samsung_pwm_timer.c
-index 895f53eb5771..c11efae14130 100644
---- a/drivers/clocksource/samsung_pwm_timer.c
-+++ b/drivers/clocksource/samsung_pwm_timer.c
-@@ -463,7 +463,8 @@ static int __init s3c2410_pwm_clocksource_init(struct device_node *np)
- {
- 	return samsung_pwm_alloc(np, &s3c24xx_variant);
- }
--TIMER_OF_DECLARE(s3c2410_pwm, "samsung,s3c2410-pwm", s3c2410_pwm_clocksource_init);
-+TIMER_OF_DECLARE(s3c2410_pwm, "samsung,s3c2410-pwm",
-+		 s3c2410_pwm_clocksource_init, NULL);
- 
- static const struct samsung_pwm_variant s3c64xx_variant = {
- 	.bits		= 32,
-@@ -476,7 +477,8 @@ static int __init s3c64xx_pwm_clocksource_init(struct device_node *np)
- {
- 	return samsung_pwm_alloc(np, &s3c64xx_variant);
- }
--TIMER_OF_DECLARE(s3c6400_pwm, "samsung,s3c6400-pwm", s3c64xx_pwm_clocksource_init);
-+TIMER_OF_DECLARE(s3c6400_pwm, "samsung,s3c6400-pwm",
-+		 s3c64xx_pwm_clocksource_init, NULL);
- 
- static const struct samsung_pwm_variant s5p64x0_variant = {
- 	.bits		= 32,
-@@ -489,7 +491,8 @@ static int __init s5p64x0_pwm_clocksource_init(struct device_node *np)
- {
- 	return samsung_pwm_alloc(np, &s5p64x0_variant);
- }
--TIMER_OF_DECLARE(s5p6440_pwm, "samsung,s5p6440-pwm", s5p64x0_pwm_clocksource_init);
-+TIMER_OF_DECLARE(s5p6440_pwm, "samsung,s5p6440-pwm",
-+		 s5p64x0_pwm_clocksource_init, NULL);
- 
- static const struct samsung_pwm_variant s5p_variant = {
- 	.bits		= 32,
-@@ -502,5 +505,6 @@ static int __init s5p_pwm_clocksource_init(struct device_node *np)
- {
- 	return samsung_pwm_alloc(np, &s5p_variant);
- }
--TIMER_OF_DECLARE(s5pc100_pwm, "samsung,s5pc100-pwm", s5p_pwm_clocksource_init);
-+TIMER_OF_DECLARE(s5pc100_pwm, "samsung,s5pc100-pwm",
-+		 s5p_pwm_clocksource_init, NULL);
- #endif
-diff --git a/drivers/clocksource/timer-armada-370-xp.c b/drivers/clocksource/timer-armada-370-xp.c
-index edf1a46269f1..377158491bf0 100644
---- a/drivers/clocksource/timer-armada-370-xp.c
-+++ b/drivers/clocksource/timer-armada-370-xp.c
-@@ -352,7 +352,7 @@ static int __init armada_xp_timer_init(struct device_node *np)
- 	return armada_370_xp_timer_common_init(np);
- }
- TIMER_OF_DECLARE(armada_xp, "marvell,armada-xp-timer",
--		       armada_xp_timer_init);
-+		       armada_xp_timer_init, NULL);
- 
- static int __init armada_375_timer_init(struct device_node *np)
- {
-@@ -390,7 +390,7 @@ static int __init armada_375_timer_init(struct device_node *np)
- 	return armada_370_xp_timer_common_init(np);
- }
- TIMER_OF_DECLARE(armada_375, "marvell,armada-375-timer",
--		       armada_375_timer_init);
-+		       armada_375_timer_init, NULL);
- 
- static int __init armada_370_timer_init(struct device_node *np)
- {
-@@ -413,4 +413,4 @@ static int __init armada_370_timer_init(struct device_node *np)
- 	return armada_370_xp_timer_common_init(np);
- }
- TIMER_OF_DECLARE(armada_370, "marvell,armada-370-timer",
--		       armada_370_timer_init);
-+		       armada_370_timer_init, NULL);
 diff --git a/drivers/clocksource/timer-atcpit100.c b/drivers/clocksource/timer-atcpit100.c
-index b4bd2f5b801d..111f722bf76a 100644
+index 111f722bf76a..586199b6eeda 100644
 --- a/drivers/clocksource/timer-atcpit100.c
 +++ b/drivers/clocksource/timer-atcpit100.c
-@@ -224,10 +224,6 @@ static int __init atcpit100_timer_init(struct device_node *node)
- 	u32 val;
- 	void __iomem *base;
- 
--	ret = timer_of_init(node, &to);
--	if (ret)
--		return ret;
--
- 	base = timer_of_base(&to);
- 
- 	sched_clock_register(atcpit100_timer_sched_read, 32,
-@@ -263,4 +259,4 @@ static int __init atcpit100_timer_init(struct device_node *node)
- 	return ret;
- }
- 
--TIMER_OF_DECLARE(atcpit100, "andestech,atcpit100", atcpit100_timer_init);
-+TIMER_OF_DECLARE(atcpit100, "andestech,atcpit100", atcpit100_timer_init, &to);
-diff --git a/drivers/clocksource/timer-atlas7.c b/drivers/clocksource/timer-atlas7.c
-index 93c3ac6d72bd..a352fa0c8827 100644
---- a/drivers/clocksource/timer-atlas7.c
-+++ b/drivers/clocksource/timer-atlas7.c
-@@ -282,4 +282,5 @@ static int __init sirfsoc_of_timer_init(struct device_node *np)
- 
- 	return sirfsoc_atlas7_timer_init(np);
- }
--TIMER_OF_DECLARE(sirfsoc_atlas7_timer, "sirf,atlas7-tick", sirfsoc_of_timer_init);
-+TIMER_OF_DECLARE(sirfsoc_atlas7_timer, "sirf,atlas7-tick",
-+		 sirfsoc_of_timer_init, NULL);
-diff --git a/drivers/clocksource/timer-atmel-pit.c b/drivers/clocksource/timer-atmel-pit.c
-index b4f264ed1937..8937cdcd2fb3 100644
---- a/drivers/clocksource/timer-atmel-pit.c
-+++ b/drivers/clocksource/timer-atmel-pit.c
-@@ -261,4 +261,4 @@ static int __init at91sam926x_pit_dt_init(struct device_node *node)
- 	return ret;
- }
- TIMER_OF_DECLARE(at91sam926x_pit, "atmel,at91sam9260-pit",
--		       at91sam926x_pit_dt_init);
-+		       at91sam926x_pit_dt_init, NULL);
-diff --git a/drivers/clocksource/timer-atmel-st.c b/drivers/clocksource/timer-atmel-st.c
-index ab0aabfae5f0..a538e1820f29 100644
---- a/drivers/clocksource/timer-atmel-st.c
-+++ b/drivers/clocksource/timer-atmel-st.c
-@@ -248,4 +248,4 @@ static int __init atmel_st_timer_init(struct device_node *node)
- 	return clocksource_register_hz(&clk32k, sclk_rate);
- }
- TIMER_OF_DECLARE(atmel_st_timer, "atmel,at91rm9200-st",
--		       atmel_st_timer_init);
-+		       atmel_st_timer_init, NULL);
-diff --git a/drivers/clocksource/timer-atmel-tcb.c b/drivers/clocksource/timer-atmel-tcb.c
-index 7427b07495a8..f551a5bd6421 100644
---- a/drivers/clocksource/timer-atmel-tcb.c
-+++ b/drivers/clocksource/timer-atmel-tcb.c
-@@ -492,4 +492,4 @@ static int __init tcb_clksrc_init(struct device_node *node)
- 
- 	return ret;
- }
--TIMER_OF_DECLARE(atmel_tcb_clksrc, "atmel,tcb-timer", tcb_clksrc_init);
-+TIMER_OF_DECLARE(atmel_tcb_clksrc, "atmel,tcb-timer", tcb_clksrc_init, NULL);
-diff --git a/drivers/clocksource/timer-cadence-ttc.c b/drivers/clocksource/timer-cadence-ttc.c
-index 88fe2e9ba9a3..8762fd1b807c 100644
---- a/drivers/clocksource/timer-cadence-ttc.c
-+++ b/drivers/clocksource/timer-cadence-ttc.c
-@@ -532,4 +532,4 @@ static int __init ttc_timer_init(struct device_node *timer)
- 	return 0;
- }
- 
--TIMER_OF_DECLARE(ttc, "cdns,ttc", ttc_timer_init);
-+TIMER_OF_DECLARE(ttc, "cdns,ttc", ttc_timer_init, NULL);
-diff --git a/drivers/clocksource/timer-davinci.c b/drivers/clocksource/timer-davinci.c
-index 62745c962049..3c16f14c01f0 100644
---- a/drivers/clocksource/timer-davinci.c
-+++ b/drivers/clocksource/timer-davinci.c
-@@ -366,4 +366,5 @@ static int __init of_davinci_timer_register(struct device_node *np)
- 
- 	return rv;
- }
--TIMER_OF_DECLARE(davinci_timer, "ti,da830-timer", of_davinci_timer_register);
-+TIMER_OF_DECLARE(davinci_timer, "ti,da830-timer", of_davinci_timer_register,
-+		 NULL);
-diff --git a/drivers/clocksource/timer-digicolor.c b/drivers/clocksource/timer-digicolor.c
-index 1e984a4d8ad0..e292c1331d49 100644
---- a/drivers/clocksource/timer-digicolor.c
-+++ b/drivers/clocksource/timer-digicolor.c
-@@ -204,4 +204,4 @@ static int __init digicolor_timer_init(struct device_node *node)
- 	return 0;
- }
- TIMER_OF_DECLARE(conexant_digicolor, "cnxt,cx92755-timer",
--		       digicolor_timer_init);
-+		       digicolor_timer_init, NULL);
-diff --git a/drivers/clocksource/timer-efm32.c b/drivers/clocksource/timer-efm32.c
-index 5a22cb079ad3..75ec67a085f4 100644
---- a/drivers/clocksource/timer-efm32.c
-+++ b/drivers/clocksource/timer-efm32.c
-@@ -280,5 +280,5 @@ static int __init efm32_timer_init(struct device_node *np)
- 
- 	return ret;
- }
--TIMER_OF_DECLARE(efm32compat, "efm32,timer", efm32_timer_init);
--TIMER_OF_DECLARE(efm32, "energymicro,efm32-timer", efm32_timer_init);
-+TIMER_OF_DECLARE(efm32compat, "efm32,timer", efm32_timer_init, NULL);
-+TIMER_OF_DECLARE(efm32, "energymicro,efm32-timer", efm32_timer_init, NULL);
-diff --git a/drivers/clocksource/timer-fsl-ftm.c b/drivers/clocksource/timer-fsl-ftm.c
-index a9d9a3ca5996..8b97a777a39e 100644
---- a/drivers/clocksource/timer-fsl-ftm.c
-+++ b/drivers/clocksource/timer-fsl-ftm.c
-@@ -358,4 +358,4 @@ static int __init ftm_timer_init(struct device_node *np)
- 	kfree(priv);
- 	return ret;
- }
--TIMER_OF_DECLARE(flextimer, "fsl,ftm-timer", ftm_timer_init);
-+TIMER_OF_DECLARE(flextimer, "fsl,ftm-timer", ftm_timer_init, NULL);
-diff --git a/drivers/clocksource/timer-fttmr010.c b/drivers/clocksource/timer-fttmr010.c
-index fadff7915dd9..d1e4dbe3c494 100644
---- a/drivers/clocksource/timer-fttmr010.c
-+++ b/drivers/clocksource/timer-fttmr010.c
-@@ -414,8 +414,8 @@ static __init int fttmr010_timer_init(struct device_node *np)
- 	return fttmr010_common_init(np, false);
- }
- 
--TIMER_OF_DECLARE(fttmr010, "faraday,fttmr010", fttmr010_timer_init);
--TIMER_OF_DECLARE(gemini, "cortina,gemini-timer", fttmr010_timer_init);
--TIMER_OF_DECLARE(moxart, "moxa,moxart-timer", fttmr010_timer_init);
--TIMER_OF_DECLARE(ast2400, "aspeed,ast2400-timer", aspeed_timer_init);
--TIMER_OF_DECLARE(ast2500, "aspeed,ast2500-timer", aspeed_timer_init);
-+TIMER_OF_DECLARE(fttmr010, "faraday,fttmr010", fttmr010_timer_init, NULL);
-+TIMER_OF_DECLARE(gemini, "cortina,gemini-timer", fttmr010_timer_init, NULL);
-+TIMER_OF_DECLARE(moxart, "moxa,moxart-timer", fttmr010_timer_init, NULL);
-+TIMER_OF_DECLARE(ast2400, "aspeed,ast2400-timer", aspeed_timer_init, NULL);
-+TIMER_OF_DECLARE(ast2500, "aspeed,ast2500-timer", aspeed_timer_init, NULL);
-diff --git a/drivers/clocksource/timer-gx6605s.c b/drivers/clocksource/timer-gx6605s.c
-index 80d0939d040b..e92822cde2a1 100644
---- a/drivers/clocksource/timer-gx6605s.c
-+++ b/drivers/clocksource/timer-gx6605s.c
-@@ -143,12 +143,9 @@ static int __init gx6605s_timer_init(struct device_node *np)
- 	 * The counter at 0x40 offset is clock source.
- 	 * They are the same in hardware, just different used by driver.
- 	 */
--	ret = timer_of_init(np, &to);
--	if (ret)
--		return ret;
--
- 	gx6605s_clkevt_init(timer_of_base(&to));
- 
- 	return gx6605s_clksrc_init(timer_of_base(&to) + CLKSRC_OFFSET);
- }
--TIMER_OF_DECLARE(csky_gx6605s_timer, "csky,gx6605s-timer", gx6605s_timer_init);
-+TIMER_OF_DECLARE(csky_gx6605s_timer, "csky,gx6605s-timer", gx6605s_timer_init,
-+		 &to);
-diff --git a/drivers/clocksource/timer-imx-gpt.c b/drivers/clocksource/timer-imx-gpt.c
-index 706c0d0ff56c..c7ff0c6b5208 100644
---- a/drivers/clocksource/timer-imx-gpt.c
-+++ b/drivers/clocksource/timer-imx-gpt.c
-@@ -516,15 +516,15 @@ static int __init imx6dl_timer_init_dt(struct device_node *np)
- 	return mxc_timer_init_dt(np, GPT_TYPE_IMX6DL);
- }
- 
--TIMER_OF_DECLARE(imx1_timer, "fsl,imx1-gpt", imx1_timer_init_dt);
--TIMER_OF_DECLARE(imx21_timer, "fsl,imx21-gpt", imx21_timer_init_dt);
--TIMER_OF_DECLARE(imx27_timer, "fsl,imx27-gpt", imx21_timer_init_dt);
--TIMER_OF_DECLARE(imx31_timer, "fsl,imx31-gpt", imx31_timer_init_dt);
--TIMER_OF_DECLARE(imx25_timer, "fsl,imx25-gpt", imx31_timer_init_dt);
--TIMER_OF_DECLARE(imx50_timer, "fsl,imx50-gpt", imx31_timer_init_dt);
--TIMER_OF_DECLARE(imx51_timer, "fsl,imx51-gpt", imx31_timer_init_dt);
--TIMER_OF_DECLARE(imx53_timer, "fsl,imx53-gpt", imx31_timer_init_dt);
--TIMER_OF_DECLARE(imx6q_timer, "fsl,imx6q-gpt", imx31_timer_init_dt);
--TIMER_OF_DECLARE(imx6dl_timer, "fsl,imx6dl-gpt", imx6dl_timer_init_dt);
--TIMER_OF_DECLARE(imx6sl_timer, "fsl,imx6sl-gpt", imx6dl_timer_init_dt);
--TIMER_OF_DECLARE(imx6sx_timer, "fsl,imx6sx-gpt", imx6dl_timer_init_dt);
-+TIMER_OF_DECLARE(imx1_timer, "fsl,imx1-gpt", imx1_timer_init_dt, NULL);
-+TIMER_OF_DECLARE(imx21_timer, "fsl,imx21-gpt", imx21_timer_init_dt, NULL);
-+TIMER_OF_DECLARE(imx27_timer, "fsl,imx27-gpt", imx21_timer_init_dt, NULL);
-+TIMER_OF_DECLARE(imx31_timer, "fsl,imx31-gpt", imx31_timer_init_dt, NULL);
-+TIMER_OF_DECLARE(imx25_timer, "fsl,imx25-gpt", imx31_timer_init_dt, NULL);
-+TIMER_OF_DECLARE(imx50_timer, "fsl,imx50-gpt", imx31_timer_init_dt, NULL);
-+TIMER_OF_DECLARE(imx51_timer, "fsl,imx51-gpt", imx31_timer_init_dt, NULL);
-+TIMER_OF_DECLARE(imx53_timer, "fsl,imx53-gpt", imx31_timer_init_dt, NULL);
-+TIMER_OF_DECLARE(imx6q_timer, "fsl,imx6q-gpt", imx31_timer_init_dt, NULL);
-+TIMER_OF_DECLARE(imx6dl_timer, "fsl,imx6dl-gpt", imx6dl_timer_init_dt, NULL);
-+TIMER_OF_DECLARE(imx6sl_timer, "fsl,imx6sl-gpt", imx6dl_timer_init_dt, NULL);
-+TIMER_OF_DECLARE(imx6sx_timer, "fsl,imx6sx-gpt", imx6dl_timer_init_dt, NULL);
-diff --git a/drivers/clocksource/timer-imx-sysctr.c b/drivers/clocksource/timer-imx-sysctr.c
-index b7c80a368a1b..bf6b13e9037a 100644
---- a/drivers/clocksource/timer-imx-sysctr.c
-+++ b/drivers/clocksource/timer-imx-sysctr.c
-@@ -130,12 +130,6 @@ static void __init sysctr_clockevent_init(void)
- 
- static int __init sysctr_timer_init(struct device_node *np)
- {
--	int ret = 0;
--
--	ret = timer_of_init(np, &to_sysctr);
--	if (ret)
--		return ret;
--
- 	/* system counter clock is divided by 3 internally */
- 	to_sysctr.of_clk.rate /= SYS_CTR_CLK_DIV;
- 
-@@ -147,4 +141,5 @@ static int __init sysctr_timer_init(struct device_node *np)
- 
- 	return 0;
- }
--TIMER_OF_DECLARE(sysctr_timer, "nxp,sysctr-timer", sysctr_timer_init);
-+TIMER_OF_DECLARE(sysctr_timer, "nxp,sysctr-timer", sysctr_timer_init,
-+		 &to_sysctr);
-diff --git a/drivers/clocksource/timer-imx-tpm.c b/drivers/clocksource/timer-imx-tpm.c
-index c1d52d5264c2..208a6281bd90 100644
---- a/drivers/clocksource/timer-imx-tpm.c
-+++ b/drivers/clocksource/timer-imx-tpm.c
-@@ -188,10 +188,6 @@ static int __init tpm_timer_init(struct device_node *np)
- 		return ret;
- 	}
- 
--	ret = timer_of_init(np, &to_tpm);
--	if (ret)
--		return ret;
--
- 	timer_base = timer_of_base(&to_tpm);
- 
- 	counter_width = (readl(timer_base + TPM_PARAM)
-@@ -231,4 +227,4 @@ static int __init tpm_timer_init(struct device_node *np)
- 
- 	return tpm_clocksource_init();
- }
--TIMER_OF_DECLARE(imx7ulp, "fsl,imx7ulp-tpm", tpm_timer_init);
-+TIMER_OF_DECLARE(imx7ulp, "fsl,imx7ulp-tpm", tpm_timer_init, &to_tpm);
-diff --git a/drivers/clocksource/timer-integrator-ap.c b/drivers/clocksource/timer-integrator-ap.c
-index c90a69c7b5fa..8d6f814ace36 100644
---- a/drivers/clocksource/timer-integrator-ap.c
-+++ b/drivers/clocksource/timer-integrator-ap.c
-@@ -227,4 +227,4 @@ static int __init integrator_ap_timer_init_of(struct device_node *node)
- }
- 
- TIMER_OF_DECLARE(integrator_ap_timer, "arm,integrator-timer",
--		       integrator_ap_timer_init_of);
-+		       integrator_ap_timer_init_of, NULL);
-diff --git a/drivers/clocksource/timer-ixp4xx.c b/drivers/clocksource/timer-ixp4xx.c
-index 9396745e1c17..dc38f714183b 100644
---- a/drivers/clocksource/timer-ixp4xx.c
-+++ b/drivers/clocksource/timer-ixp4xx.c
-@@ -290,5 +290,5 @@ static __init int ixp4xx_of_timer_init(struct device_node *np)
- 	iounmap(base);
- 	return ret;
- }
--TIMER_OF_DECLARE(ixp4xx, "intel,ixp4xx-timer", ixp4xx_of_timer_init);
-+TIMER_OF_DECLARE(ixp4xx, "intel,ixp4xx-timer", ixp4xx_of_timer_init, NULL);
- #endif
-diff --git a/drivers/clocksource/timer-keystone.c b/drivers/clocksource/timer-keystone.c
-index fea8a4f85669..bcae8ba40cba 100644
---- a/drivers/clocksource/timer-keystone.c
-+++ b/drivers/clocksource/timer-keystone.c
-@@ -223,4 +223,4 @@ static int __init keystone_timer_init(struct device_node *np)
- }
- 
- TIMER_OF_DECLARE(keystone_timer, "ti,keystone-timer",
--			   keystone_timer_init);
-+			   keystone_timer_init, NULL);
-diff --git a/drivers/clocksource/timer-lpc32xx.c b/drivers/clocksource/timer-lpc32xx.c
-index d51a62a79ef7..e1b979a3a95d 100644
---- a/drivers/clocksource/timer-lpc32xx.c
-+++ b/drivers/clocksource/timer-lpc32xx.c
-@@ -311,4 +311,4 @@ static int __init lpc32xx_timer_init(struct device_node *np)
- 
- 	return ret;
- }
--TIMER_OF_DECLARE(lpc32xx_timer, "nxp,lpc3220-timer", lpc32xx_timer_init);
-+TIMER_OF_DECLARE(lpc32xx_timer, "nxp,lpc3220-timer", lpc32xx_timer_init, NULL);
-diff --git a/drivers/clocksource/timer-mediatek.c b/drivers/clocksource/timer-mediatek.c
-index a562f491b0f8..f9532c9cee41 100644
---- a/drivers/clocksource/timer-mediatek.c
-+++ b/drivers/clocksource/timer-mediatek.c
-@@ -241,7 +241,7 @@ static void mtk_gpt_enable_irq(struct timer_of *to, u8 timer)
- 	       timer_of_base(to) + GPT_IRQ_EN_REG);
+@@ -173,38 +173,43 @@ static irqreturn_t atcpit100_timer_interrupt(int irq, void *dev_id)
+ 	return IRQ_HANDLED;
  }
  
 -static struct timer_of to = {
-+static struct timer_of mtk_syst_to = {
- 	.flags = TIMER_OF_IRQ | TIMER_OF_BASE | TIMER_OF_CLOCK,
- 
- 	.clkevt = {
-@@ -251,69 +251,71 @@ static struct timer_of to = {
+-	.flags = TIMER_OF_IRQ | TIMER_OF_CLOCK | TIMER_OF_BASE,
+-
+-	.clkevt = {
+-		.name = "atcpit100_tick",
+-		.rating = 300,
+-		.features = CLOCK_EVT_FEAT_PERIODIC | CLOCK_EVT_FEAT_ONESHOT,
+-		.set_state_shutdown = atcpit100_clkevt_shutdown,
+-		.set_state_periodic = atcpit100_clkevt_set_periodic,
+-		.set_state_oneshot = atcpit100_clkevt_set_oneshot,
+-		.tick_resume = atcpit100_clkevt_shutdown,
+-		.set_next_event = atcpit100_clkevt_next_event,
+-		.cpumask = cpu_possible_mask,
++static struct timer_of to[] = {
++	{
++		.flags = TIMER_OF_IRQ | TIMER_OF_CLOCK | TIMER_OF_BASE |
++			 TIMER_OF_TYPE_CE_AND_CS,
++
++		.clkevt = {
++			.name = "atcpit100_tick",
++			.rating = 300,
++			.features = CLOCK_EVT_FEAT_PERIODIC |
++				    CLOCK_EVT_FEAT_ONESHOT,
++			.set_state_shutdown = atcpit100_clkevt_shutdown,
++			.set_state_periodic = atcpit100_clkevt_set_periodic,
++			.set_state_oneshot = atcpit100_clkevt_set_oneshot,
++			.tick_resume = atcpit100_clkevt_shutdown,
++			.set_next_event = atcpit100_clkevt_next_event,
++			.cpumask = cpu_possible_mask,
++		},
++
++		.of_irq = {
++			.handler = atcpit100_timer_interrupt,
++			.flags = IRQF_TIMER | IRQF_IRQPOLL,
++		},
++
++		/*
++		 * FIXME: we currently only support clocking using PCLK
++		 * and using EXTCLK is not supported in the driver.
++		 */
++		.of_clk = {
++			.name = "PCLK",
++		}
  	},
+-
+-	.of_irq = {
+-		.handler = atcpit100_timer_interrupt,
+-		.flags = IRQF_TIMER | IRQF_IRQPOLL,
+-	},
+-
+-	/*
+-	 * FIXME: we currently only support clocking using PCLK
+-	 * and using EXTCLK is not supported in the driver.
+-	 */
+-	.of_clk = {
+-		.name = "PCLK",
+-	}
++	{ /* sentinel. */ }
+ };
  
- 	.of_irq = {
-+		.handler = mtk_syst_handler,
-+		.flags = IRQF_TIMER | IRQF_IRQPOLL,
-+	},
-+};
-+
-+static struct timer_of mtk_gpt_to = {
-+	.flags = TIMER_OF_IRQ | TIMER_OF_BASE | TIMER_OF_CLOCK,
-+
-+	.clkevt = {
-+		.name = "mtk-clkevt",
-+		.rating = 300,
-+		.cpumask = cpu_possible_mask,
-+	},
-+
-+	.of_irq = {
-+		.handler = mtk_gpt_interrupt,
- 		.flags = IRQF_TIMER | IRQF_IRQPOLL,
+ static u64 notrace atcpit100_timer_sched_read(void)
+ {
+-	return ~readl(timer_of_base(&to) + CH1_CNT);
++	return ~readl(timer_of_base(to) + CH1_CNT);
+ }
+ 
+ #ifdef CONFIG_NDS32
+@@ -223,14 +228,15 @@ static int __init atcpit100_timer_init(struct device_node *node)
+ 	int ret;
+ 	u32 val;
+ 	void __iomem *base;
++	struct timer_of *to = node->data;
+ 
+-	base = timer_of_base(&to);
++	base = timer_of_base(to);
+ 
+ 	sched_clock_register(atcpit100_timer_sched_read, 32,
+-		timer_of_rate(&to));
++		timer_of_rate(to));
+ 
+ 	ret = clocksource_mmio_init(base + CH1_CNT,
+-		node->name, timer_of_rate(&to), 300, 32,
++		node->name, timer_of_rate(to), 300, 32,
+ 		clocksource_mmio_readl_down);
+ 
+ 	if (ret) {
+@@ -241,7 +247,7 @@ static int __init atcpit100_timer_init(struct device_node *node)
+ 	/* clear channel 0 timer0 interrupt */
+ 	atcpit100_timer_clear_interrupt(base);
+ 
+-	clockevents_config_and_register(&to.clkevt, timer_of_rate(&to),
++	clockevents_config_and_register(&to->clkevt, timer_of_rate(to),
+ 					TIMER_SYNC_TICKS, 0xffffffff);
+ 	atcpit100_ch0_tmr0_en(base);
+ 	atcpit100_ch1_tmr0_en(base);
+@@ -259,4 +265,4 @@ static int __init atcpit100_timer_init(struct device_node *node)
+ 	return ret;
+ }
+ 
+-TIMER_OF_DECLARE(atcpit100, "andestech,atcpit100", atcpit100_timer_init, &to);
++TIMER_OF_DECLARE(atcpit100, "andestech,atcpit100", atcpit100_timer_init, to);
+diff --git a/drivers/clocksource/timer-gx6605s.c b/drivers/clocksource/timer-gx6605s.c
+index e92822cde2a1..ed39aecf4feb 100644
+--- a/drivers/clocksource/timer-gx6605s.c
++++ b/drivers/clocksource/timer-gx6605s.c
+@@ -73,21 +73,25 @@ static int gx6605s_timer_shutdown(struct clock_event_device *ce)
+ 	return 0;
+ }
+ 
+-static struct timer_of to = {
+-	.flags = TIMER_OF_IRQ | TIMER_OF_BASE | TIMER_OF_CLOCK,
+-	.clkevt = {
+-		.rating			= 300,
+-		.features		= CLOCK_EVT_FEAT_DYNIRQ |
+-					  CLOCK_EVT_FEAT_ONESHOT,
+-		.set_state_shutdown	= gx6605s_timer_shutdown,
+-		.set_state_oneshot	= gx6605s_timer_set_oneshot,
+-		.set_next_event		= gx6605s_timer_set_next_event,
+-		.cpumask		= cpu_possible_mask,
+-	},
+-	.of_irq = {
+-		.handler		= gx6605s_timer_interrupt,
+-		.flags			= IRQF_TIMER | IRQF_IRQPOLL,
++static struct timer_of to[] = {
++	{
++		.flags = TIMER_OF_IRQ | TIMER_OF_BASE | TIMER_OF_CLOCK |
++			 TIMER_OF_TYPE_CE_AND_CS,
++		.clkevt = {
++			.rating			= 300,
++			.features		= CLOCK_EVT_FEAT_DYNIRQ |
++						  CLOCK_EVT_FEAT_ONESHOT,
++			.set_state_shutdown	= gx6605s_timer_shutdown,
++			.set_state_oneshot	= gx6605s_timer_set_oneshot,
++			.set_next_event		= gx6605s_timer_set_next_event,
++			.cpumask		= cpu_possible_mask,
++		},
++		.of_irq = {
++			.handler		= gx6605s_timer_interrupt,
++			.flags			= IRQF_TIMER | IRQF_IRQPOLL,
++		},
  	},
++	{ /* sentinel. */ }
+ };
+ 
+ static u64 notrace gx6605s_sched_clock_read(void)
+@@ -99,17 +103,19 @@ static u64 notrace gx6605s_sched_clock_read(void)
+ 	return (u64)readl_relaxed(base + TIMER_VALUE);
+ }
+ 
+-static void gx6605s_clkevt_init(void __iomem *base)
++static void gx6605s_clkevt_init(struct timer_of *to)
+ {
+-	writel_relaxed(0, base + TIMER_DIV);
+-	writel_relaxed(0, base + TIMER_CONFIG);
++	writel_relaxed(0, timer_of_base(to) + TIMER_DIV);
++	writel_relaxed(0, timer_of_base(to) + TIMER_CONFIG);
+ 
+-	clockevents_config_and_register(&to.clkevt, timer_of_rate(&to), 2,
++	clockevents_config_and_register(&to->clkevt, timer_of_rate(to), 2,
+ 					ULONG_MAX);
+ }
+ 
+-static int gx6605s_clksrc_init(void __iomem *base)
++static int gx6605s_clksrc_init(struct timer_of *to)
+ {
++	void __iomem *base = timer_of_base(to) + CLKSRC_OFFSET;
++
+ 	writel_relaxed(0, base + TIMER_DIV);
+ 	writel_relaxed(0, base + TIMER_INI);
+ 
+@@ -119,7 +125,7 @@ static int gx6605s_clksrc_init(void __iomem *base)
+ 
+ 	writel_relaxed(GX6605S_CONTRL_START, base + TIMER_CONTRL);
+ 
+-	sched_clock_register(gx6605s_sched_clock_read, 32, timer_of_rate(&to));
++	sched_clock_register(gx6605s_sched_clock_read, 32, timer_of_rate(to));
+ 
+ 	return clocksource_mmio_init(base + TIMER_VALUE, "gx6605s",
+ 			timer_of_rate(&to), 200, 32, clocksource_mmio_readl_up);
+@@ -127,6 +133,7 @@ static int gx6605s_clksrc_init(void __iomem *base)
+ 
+ static int __init gx6605s_timer_init(struct device_node *np)
+ {
++	struct timer_of *to = np->data;
+ 	int ret;
+ 
+ 	/*
+@@ -143,9 +150,9 @@ static int __init gx6605s_timer_init(struct device_node *np)
+ 	 * The counter at 0x40 offset is clock source.
+ 	 * They are the same in hardware, just different used by driver.
+ 	 */
+-	gx6605s_clkevt_init(timer_of_base(&to));
++	gx6605s_clkevt_init(to);
+ 
+-	return gx6605s_clksrc_init(timer_of_base(&to) + CLKSRC_OFFSET);
++	return gx6605s_clksrc_init(to);
+ }
+ TIMER_OF_DECLARE(csky_gx6605s_timer, "csky,gx6605s-timer", gx6605s_timer_init,
+-		 &to);
++		 to);
+diff --git a/drivers/clocksource/timer-imx-sysctr.c b/drivers/clocksource/timer-imx-sysctr.c
+index bf6b13e9037a..680f4af1acc0 100644
+--- a/drivers/clocksource/timer-imx-sysctr.c
++++ b/drivers/clocksource/timer-imx-sysctr.c
+@@ -99,47 +99,53 @@ static irqreturn_t sysctr_timer_interrupt(int irq, void *dev_id)
+ 	return IRQ_HANDLED;
+ }
+ 
+-static struct timer_of to_sysctr = {
+-	.flags = TIMER_OF_IRQ | TIMER_OF_CLOCK | TIMER_OF_BASE,
+-	.clkevt = {
+-		.name			= "i.MX system counter timer",
+-		.features		= CLOCK_EVT_FEAT_ONESHOT |
+-						CLOCK_EVT_FEAT_DYNIRQ,
+-		.set_state_oneshot	= sysctr_set_state_oneshot,
+-		.set_next_event		= sysctr_set_next_event,
+-		.set_state_shutdown	= sysctr_set_state_shutdown,
+-		.rating			= 200,
+-	},
+-	.of_irq = {
+-		.handler		= sysctr_timer_interrupt,
+-		.flags			= IRQF_TIMER | IRQF_IRQPOLL,
+-	},
+-	.of_clk = {
+-		.name = "per",
++static struct timer_of to_sysctr[] = {
++	{
++		.flags = TIMER_OF_IRQ | TIMER_OF_CLOCK | TIMER_OF_BASE |
++			 TIMER_OF_TYPE_CE_AND_CS,
++		.clkevt = {
++			.name			= "i.MX system counter timer",
++			.features		= CLOCK_EVT_FEAT_ONESHOT |
++						  CLOCK_EVT_FEAT_DYNIRQ,
++			.set_state_oneshot	= sysctr_set_state_oneshot,
++			.set_next_event		= sysctr_set_next_event,
++			.set_state_shutdown	= sysctr_set_state_shutdown,
++			.rating			= 200,
++		},
++		.of_irq = {
++			.handler		= sysctr_timer_interrupt,
++			.flags			= IRQF_TIMER | IRQF_IRQPOLL,
++		},
++		.of_clk = {
++			.name = "per",
++		},
+ 	},
++	{ /* sentinel */ },
+ };
+ 
+-static void __init sysctr_clockevent_init(void)
++static void __init sysctr_clockevent_init(struct timer_of *to)
+ {
+-	to_sysctr.clkevt.cpumask = cpumask_of(0);
++	to->clkevt.cpumask = cpumask_of(0);
+ 
+-	clockevents_config_and_register(&to_sysctr.clkevt,
+-					timer_of_rate(&to_sysctr),
++	clockevents_config_and_register(&to->clkevt,
++					timer_of_rate(to),
+ 					0xff, 0x7fffffff);
+ }
+ 
+ static int __init sysctr_timer_init(struct device_node *np)
+ {
++	struct timer_of *to = np->data;
++
+ 	/* system counter clock is divided by 3 internally */
+-	to_sysctr.of_clk.rate /= SYS_CTR_CLK_DIV;
++	to->of_clk.rate /= SYS_CTR_CLK_DIV;
+ 
+-	sys_ctr_base = timer_of_base(&to_sysctr);
++	sys_ctr_base = timer_of_base(to);
+ 	cmpcr = readl(sys_ctr_base + CMPCR);
+ 	cmpcr &= ~SYS_CTR_EN;
+ 
+-	sysctr_clockevent_init();
++	sysctr_clockevent_init(to);
+ 
+ 	return 0;
+ }
+ TIMER_OF_DECLARE(sysctr_timer, "nxp,sysctr-timer", sysctr_timer_init,
+-		 &to_sysctr);
++		 to_sysctr);
+diff --git a/drivers/clocksource/timer-imx-tpm.c b/drivers/clocksource/timer-imx-tpm.c
+index 208a6281bd90..c0512d21e0cb 100644
+--- a/drivers/clocksource/timer-imx-tpm.c
++++ b/drivers/clocksource/timer-imx-tpm.c
+@@ -124,47 +124,51 @@ static irqreturn_t tpm_timer_interrupt(int irq, void *dev_id)
+ 	return IRQ_HANDLED;
+ }
+ 
+-static struct timer_of to_tpm = {
+-	.flags = TIMER_OF_IRQ | TIMER_OF_BASE | TIMER_OF_CLOCK,
+-	.clkevt = {
+-		.name			= "i.MX7ULP TPM Timer",
+-		.rating			= 200,
+-		.features		= CLOCK_EVT_FEAT_ONESHOT,
+-		.set_state_shutdown	= tpm_set_state_shutdown,
+-		.set_state_oneshot	= tpm_set_state_oneshot,
+-		.set_next_event		= tpm_set_next_event,
+-		.cpumask		= cpu_possible_mask,
+-	},
+-	.of_irq = {
+-		.handler		= tpm_timer_interrupt,
+-		.flags			= IRQF_TIMER | IRQF_IRQPOLL,
+-	},
+-	.of_clk = {
+-		.name = "per",
++static struct timer_of to_tpm[] = {
++	{
++		.flags = TIMER_OF_IRQ | TIMER_OF_BASE | TIMER_OF_CLOCK |
++			 TIMER_OF_TYPE_CE_AND_CS,
++		.clkevt = {
++			.name			= "i.MX7ULP TPM Timer",
++			.rating			= 200,
++			.features		= CLOCK_EVT_FEAT_ONESHOT,
++			.set_state_shutdown	= tpm_set_state_shutdown,
++			.set_state_oneshot	= tpm_set_state_oneshot,
++			.set_next_event		= tpm_set_next_event,
++			.cpumask		= cpu_possible_mask,
++		},
++		.of_irq = {
++			.handler		= tpm_timer_interrupt,
++			.flags			= IRQF_TIMER | IRQF_IRQPOLL,
++		},
++		.of_clk = {
++			.name = "per",
++		},
+ 	},
++	{ /* sentinel */ }
+ };
+ 
+-static int __init tpm_clocksource_init(void)
++static int __init tpm_clocksource_init(struct timer_of *to)
+ {
+ 	tpm_delay_timer.read_current_timer = &tpm_read_current_timer;
+-	tpm_delay_timer.freq = timer_of_rate(&to_tpm) >> 3;
++	tpm_delay_timer.freq = timer_of_rate(to) >> 3;
+ 	register_current_timer_delay(&tpm_delay_timer);
+ 
+ 	sched_clock_register(tpm_read_sched_clock, counter_width,
+-			     timer_of_rate(&to_tpm) >> 3);
++			     timer_of_rate(to) >> 3);
+ 
+ 	return clocksource_mmio_init(timer_base + TPM_CNT,
+ 				     "imx-tpm",
+-				     timer_of_rate(&to_tpm) >> 3,
+-				     to_tpm.clkevt.rating,
++				     timer_of_rate(to) >> 3,
++				     to->clkevt.rating,
+ 				     counter_width,
+ 				     clocksource_mmio_readl_up);
+ }
+ 
+-static void __init tpm_clockevent_init(void)
++static void __init tpm_clockevent_init(struct timer_of *to)
+ {
+-	clockevents_config_and_register(&to_tpm.clkevt,
+-					timer_of_rate(&to_tpm) >> 3,
++	clockevents_config_and_register(&to->clkevt,
++					timer_of_rate(to) >> 3,
+ 					300,
+ 					GENMASK(counter_width - 1,
+ 					1));
+@@ -172,6 +176,7 @@ static void __init tpm_clockevent_init(void)
+ 
+ static int __init tpm_timer_init(struct device_node *np)
+ {
++	struct timer_of *to = np->data;
+ 	struct clk *ipg;
+ 	int ret;
+ 
+@@ -188,12 +193,12 @@ static int __init tpm_timer_init(struct device_node *np)
+ 		return ret;
+ 	}
+ 
+-	timer_base = timer_of_base(&to_tpm);
++	timer_base = timer_of_base(to);
+ 
+ 	counter_width = (readl(timer_base + TPM_PARAM)
+ 		& TPM_PARAM_WIDTH_MASK) >> TPM_PARAM_WIDTH_SHIFT;
+ 	/* use rating 200 for 32-bit counter and 150 for 16-bit counter */
+-	to_tpm.clkevt.rating = counter_width == 0x20 ? 200 : 150;
++	to->clkevt.rating = counter_width == 0x20 ? 200 : 150;
+ 
+ 	/*
+ 	 * Initialize tpm module to a known state
+@@ -223,8 +228,8 @@ static int __init tpm_timer_init(struct device_node *np)
+ 	/* set MOD register to maximum for free running mode */
+ 	writel(GENMASK(counter_width - 1, 0), timer_base + TPM_MOD);
+ 
+-	tpm_clockevent_init();
++	tpm_clockevent_init(to);
+ 
+-	return tpm_clocksource_init();
++	return tpm_clocksource_init(to);
+ }
+-TIMER_OF_DECLARE(imx7ulp, "fsl,imx7ulp-tpm", tpm_timer_init, &to_tpm);
++TIMER_OF_DECLARE(imx7ulp, "fsl,imx7ulp-tpm", tpm_timer_init, to_tpm);
+diff --git a/drivers/clocksource/timer-mediatek.c b/drivers/clocksource/timer-mediatek.c
+index f9532c9cee41..fcffbefdebb6 100644
+--- a/drivers/clocksource/timer-mediatek.c
++++ b/drivers/clocksource/timer-mediatek.c
+@@ -241,39 +241,47 @@ static void mtk_gpt_enable_irq(struct timer_of *to, u8 timer)
+ 	       timer_of_base(to) + GPT_IRQ_EN_REG);
+ }
+ 
+-static struct timer_of mtk_syst_to = {
+-	.flags = TIMER_OF_IRQ | TIMER_OF_BASE | TIMER_OF_CLOCK,
+-
+-	.clkevt = {
+-		.name = "mtk-clkevt",
+-		.rating = 300,
+-		.cpumask = cpu_possible_mask,
+-	},
+-
+-	.of_irq = {
+-		.handler = mtk_syst_handler,
+-		.flags = IRQF_TIMER | IRQF_IRQPOLL,
++static struct timer_of mtk_syst_to[] = {
++	{
++		.flags = TIMER_OF_IRQ | TIMER_OF_BASE | TIMER_OF_CLOCK |
++			 TIMER_OF_TYPE_CE_AND_CS,
++
++		.clkevt = {
++			.name = "mtk-clkevt",
++			.rating = 300,
++			.cpumask = cpu_possible_mask,
++		},
++
++		.of_irq = {
++			.handler = mtk_syst_handler,
++			.flags = IRQF_TIMER | IRQF_IRQPOLL,
++		},
+ 	},
++	{ /* sentinel */ }
+ };
+ 
+-static struct timer_of mtk_gpt_to = {
+-	.flags = TIMER_OF_IRQ | TIMER_OF_BASE | TIMER_OF_CLOCK,
+-
+-	.clkevt = {
+-		.name = "mtk-clkevt",
+-		.rating = 300,
+-		.cpumask = cpu_possible_mask,
+-	},
+-
+-	.of_irq = {
+-		.handler = mtk_gpt_interrupt,
+-		.flags = IRQF_TIMER | IRQF_IRQPOLL,
++static struct timer_of mtk_gpt_to[] = {
++	{
++		.flags = TIMER_OF_IRQ | TIMER_OF_BASE | TIMER_OF_CLOCK |
++			 TIMER_OF_TYPE_CE_AND_CS,
++
++		.clkevt = {
++			.name = "mtk-clkevt",
++			.rating = 300,
++			.cpumask = cpu_possible_mask,
++		},
++
++		.of_irq = {
++			.handler = mtk_gpt_interrupt,
++			.flags = IRQF_TIMER | IRQF_IRQPOLL,
++		},
+ 	},
++	{ /* sentinel */ }
  };
  
  static int __init mtk_syst_init(struct device_node *node)
  {
--	int ret;
--
--	to.clkevt.features = CLOCK_EVT_FEAT_DYNIRQ | CLOCK_EVT_FEAT_ONESHOT;
--	to.clkevt.set_state_shutdown = mtk_syst_clkevt_shutdown;
--	to.clkevt.set_state_oneshot = mtk_syst_clkevt_oneshot;
--	to.clkevt.tick_resume = mtk_syst_clkevt_resume;
--	to.clkevt.set_next_event = mtk_syst_clkevt_next_event;
--	to.of_irq.handler = mtk_syst_handler;
-+	struct timer_of *to = &mtk_syst_to;
+-	struct timer_of *to = &mtk_syst_to;
++	struct timer_of *to = node->data;
  
--	ret = timer_of_init(node, &to);
--	if (ret)
--		goto err;
-+	to->clkevt.features = CLOCK_EVT_FEAT_DYNIRQ | CLOCK_EVT_FEAT_ONESHOT;
-+	to->clkevt.set_state_shutdown = mtk_syst_clkevt_shutdown;
-+	to->clkevt.set_state_oneshot = mtk_syst_clkevt_oneshot;
-+	to->clkevt.tick_resume = mtk_syst_clkevt_resume;
-+	to->clkevt.set_next_event = mtk_syst_clkevt_next_event;
- 
--	clockevents_config_and_register(&to.clkevt, timer_of_rate(&to),
-+	clockevents_config_and_register(&to->clkevt, timer_of_rate(to),
- 					TIMER_SYNC_TICKS, 0xffffffff);
- 
- 	return 0;
--err:
--	timer_of_cleanup(&to);
--	return ret;
- }
+ 	to->clkevt.features = CLOCK_EVT_FEAT_DYNIRQ | CLOCK_EVT_FEAT_ONESHOT;
+ 	to->clkevt.set_state_shutdown = mtk_syst_clkevt_shutdown;
+@@ -289,7 +297,7 @@ static int __init mtk_syst_init(struct device_node *node)
  
  static int __init mtk_gpt_init(struct device_node *node)
  {
--	int ret;
--
--	to.clkevt.features = CLOCK_EVT_FEAT_PERIODIC | CLOCK_EVT_FEAT_ONESHOT;
--	to.clkevt.set_state_shutdown = mtk_gpt_clkevt_shutdown;
--	to.clkevt.set_state_periodic = mtk_gpt_clkevt_set_periodic;
--	to.clkevt.set_state_oneshot = mtk_gpt_clkevt_shutdown;
--	to.clkevt.tick_resume = mtk_gpt_clkevt_shutdown;
--	to.clkevt.set_next_event = mtk_gpt_clkevt_next_event;
--	to.of_irq.handler = mtk_gpt_interrupt;
-+	struct timer_of *to = &mtk_gpt_to;
+-	struct timer_of *to = &mtk_gpt_to;
++	struct timer_of *to = node->data;
  
--	ret = timer_of_init(node, &to);
--	if (ret)
--		goto err;
-+	to->clkevt.features = CLOCK_EVT_FEAT_PERIODIC | CLOCK_EVT_FEAT_ONESHOT;
-+	to->clkevt.set_state_shutdown = mtk_gpt_clkevt_shutdown;
-+	to->clkevt.set_state_periodic = mtk_gpt_clkevt_set_periodic;
-+	to->clkevt.set_state_oneshot = mtk_gpt_clkevt_shutdown;
-+	to->clkevt.tick_resume = mtk_gpt_clkevt_shutdown;
-+	to->clkevt.set_next_event = mtk_gpt_clkevt_next_event;
- 
- 	/* Configure clock source */
--	mtk_gpt_setup(&to, TIMER_CLK_SRC, GPT_CTRL_OP_FREERUN);
--	clocksource_mmio_init(timer_of_base(&to) + GPT_CNT_REG(TIMER_CLK_SRC),
--			      node->name, timer_of_rate(&to), 300, 32,
-+	mtk_gpt_setup(to, TIMER_CLK_SRC, GPT_CTRL_OP_FREERUN);
-+	clocksource_mmio_init(timer_of_base(to) + GPT_CNT_REG(TIMER_CLK_SRC),
-+			      node->name, timer_of_rate(to), 300, 32,
- 			      clocksource_mmio_readl_up);
--	gpt_sched_reg = timer_of_base(&to) + GPT_CNT_REG(TIMER_CLK_SRC);
--	sched_clock_register(mtk_gpt_read_sched_clock, 32, timer_of_rate(&to));
-+	gpt_sched_reg = timer_of_base(to) + GPT_CNT_REG(TIMER_CLK_SRC);
-+	sched_clock_register(mtk_gpt_read_sched_clock, 32, timer_of_rate(to));
- 
- 	/* Configure clock event */
--	mtk_gpt_setup(&to, TIMER_CLK_EVT, GPT_CTRL_OP_REPEAT);
--	clockevents_config_and_register(&to.clkevt, timer_of_rate(&to),
-+	mtk_gpt_setup(to, TIMER_CLK_EVT, GPT_CTRL_OP_REPEAT);
-+	clockevents_config_and_register(&to->clkevt, timer_of_rate(to),
- 					TIMER_SYNC_TICKS, 0xffffffff);
- 
--	mtk_gpt_enable_irq(&to, TIMER_CLK_EVT);
-+	mtk_gpt_enable_irq(to, TIMER_CLK_EVT);
- 
- 	return 0;
--err:
--	timer_of_cleanup(&to);
--	return ret;
- }
--TIMER_OF_DECLARE(mtk_mt6577, "mediatek,mt6577-timer", mtk_gpt_init);
--TIMER_OF_DECLARE(mtk_mt6765, "mediatek,mt6765-timer", mtk_syst_init);
-+TIMER_OF_DECLARE(mtk_mt6577, "mediatek,mt6577-timer", mtk_gpt_init,
-+		 &mtk_gpt_to);
-+TIMER_OF_DECLARE(mtk_mt6765, "mediatek,mt6765-timer", mtk_syst_init,
-+		 &mtk_syst_to);
-diff --git a/drivers/clocksource/timer-meson6.c b/drivers/clocksource/timer-meson6.c
-index 9e8b467c71da..2cb0bfcc56d7 100644
---- a/drivers/clocksource/timer-meson6.c
-+++ b/drivers/clocksource/timer-meson6.c
-@@ -214,4 +214,4 @@ static int __init meson6_timer_init(struct device_node *node)
+ 	to->clkevt.features = CLOCK_EVT_FEAT_PERIODIC | CLOCK_EVT_FEAT_ONESHOT;
+ 	to->clkevt.set_state_shutdown = mtk_gpt_clkevt_shutdown;
+@@ -316,6 +324,6 @@ static int __init mtk_gpt_init(struct device_node *node)
  	return 0;
  }
- TIMER_OF_DECLARE(meson6, "amlogic,meson6-timer",
--		       meson6_timer_init);
-+		       meson6_timer_init, NULL);
+ TIMER_OF_DECLARE(mtk_mt6577, "mediatek,mt6577-timer", mtk_gpt_init,
+-		 &mtk_gpt_to);
++		 mtk_gpt_to);
+ TIMER_OF_DECLARE(mtk_mt6765, "mediatek,mt6765-timer", mtk_syst_init,
+-		 &mtk_syst_to);
++		 mtk_syst_to);
 diff --git a/drivers/clocksource/timer-milbeaut.c b/drivers/clocksource/timer-milbeaut.c
-index fa9fb4eacade..f601ac905751 100644
+index f601ac905751..96a2a1a4eee0 100644
 --- a/drivers/clocksource/timer-milbeaut.c
 +++ b/drivers/clocksource/timer-milbeaut.c
-@@ -167,13 +167,8 @@ static u64 notrace mlb_timer_sched_read(void)
+@@ -140,45 +140,51 @@ static int mlb_config_clock_event(struct timer_of *to)
+ 	return 0;
+ }
+ 
+-static struct timer_of to = {
+-	.flags = TIMER_OF_IRQ | TIMER_OF_BASE | TIMER_OF_CLOCK,
+-
+-	.clkevt = {
+-		.name = "mlb-clkevt",
+-		.rating = MLB_TIMER_RATING,
+-		.cpumask = cpu_possible_mask,
+-		.features = CLOCK_EVT_FEAT_DYNIRQ | CLOCK_EVT_FEAT_ONESHOT,
+-		.set_state_oneshot = mlb_set_state_oneshot,
+-		.set_state_periodic = mlb_set_state_periodic,
+-		.set_state_shutdown = mlb_set_state_shutdown,
+-		.set_next_event = mlb_clkevt_next_event,
+-	},
+-
+-	.of_irq = {
+-		.flags = IRQF_TIMER | IRQF_IRQPOLL,
+-		.handler = mlb_timer_interrupt,
++static struct timer_of to[] = {
++	{
++		.flags = TIMER_OF_IRQ | TIMER_OF_BASE | TIMER_OF_CLOCK |
++			 TIMER_OF_TYPE_CE_AND_CS,
++
++		.clkevt = {
++			.name = "mlb-clkevt",
++			.rating = MLB_TIMER_RATING,
++			.cpumask = cpu_possible_mask,
++			.features = CLOCK_EVT_FEAT_DYNIRQ |
++				    CLOCK_EVT_FEAT_ONESHOT,
++			.set_state_oneshot = mlb_set_state_oneshot,
++			.set_state_periodic = mlb_set_state_periodic,
++			.set_state_shutdown = mlb_set_state_shutdown,
++			.set_next_event = mlb_clkevt_next_event,
++		},
++
++		.of_irq = {
++			.flags = IRQF_TIMER | IRQF_IRQPOLL,
++			.handler = mlb_timer_interrupt,
++		},
+ 	},
++	{ /* sentinel */ }
+ };
+ 
+ static u64 notrace mlb_timer_sched_read(void)
+ {
+-	return ~readl_relaxed(timer_of_base(&to) + MLB_TMR_SRC_TMR_OFS);
++	return ~readl_relaxed(timer_of_base(to) + MLB_TMR_SRC_TMR_OFS);
+ }
  
  static int __init mlb_timer_init(struct device_node *node)
  {
--	int ret;
++	struct timer_of *to = node->data;
  	unsigned long rate;
  
--	ret = timer_of_init(node, &to);
--	if (ret)
--		return ret;
--
- 	rate = timer_of_rate(&to) / MLB_TMR_DIV_CNT;
- 	mlb_config_clock_source(&to);
- 	clocksource_mmio_init(timer_of_base(&to) + MLB_TMR_SRC_TMR_OFS,
-@@ -186,4 +181,4 @@ static int __init mlb_timer_init(struct device_node *node)
+-	rate = timer_of_rate(&to) / MLB_TMR_DIV_CNT;
+-	mlb_config_clock_source(&to);
+-	clocksource_mmio_init(timer_of_base(&to) + MLB_TMR_SRC_TMR_OFS,
++	rate = timer_of_rate(to) / MLB_TMR_DIV_CNT;
++	mlb_config_clock_source(to);
++	clocksource_mmio_init(timer_of_base(to) + MLB_TMR_SRC_TMR_OFS,
+ 		node->name, rate, MLB_TIMER_RATING, 32,
+ 		clocksource_mmio_readl_down);
+ 	sched_clock_register(mlb_timer_sched_read, 32, rate);
+-	mlb_config_clock_event(&to);
+-	clockevents_config_and_register(&to.clkevt, timer_of_rate(&to), 15,
++	mlb_config_clock_event(to);
++	clockevents_config_and_register(&to->clkevt, timer_of_rate(to), 15,
+ 		0xffffffff);
  	return 0;
  }
  TIMER_OF_DECLARE(mlb_peritimer, "socionext,milbeaut-timer",
--		mlb_timer_init);
-+		mlb_timer_init, &to);
+-		mlb_timer_init, &to);
++		mlb_timer_init, to);
 diff --git a/drivers/clocksource/timer-mp-csky.c b/drivers/clocksource/timer-mp-csky.c
-index dd263c8de580..0ac315597571 100644
+index 0ac315597571..566c741c228c 100644
 --- a/drivers/clocksource/timer-mp-csky.c
 +++ b/drivers/clocksource/timer-mp-csky.c
-@@ -48,6 +48,7 @@ static int csky_mptimer_oneshot_stopped(struct clock_event_device *ce)
+@@ -47,7 +47,9 @@ static int csky_mptimer_oneshot_stopped(struct clock_event_device *ce)
+ }
  
  static DEFINE_PER_CPU(struct timer_of, csky_to) = {
- 	.flags					= TIMER_OF_CLOCK | TIMER_OF_IRQ,
-+	.percpu					= true,
+-	.flags					= TIMER_OF_CLOCK | TIMER_OF_IRQ,
++	.flags					= TIMER_OF_CLOCK |
++						  TIMER_OF_IRQ |
++						  TIMER_OF_TYPE_CE_AND_CS,
+ 	.percpu					= true,
  	.clkevt = {
  		.rating				= 300,
- 		.features			= CLOCK_EVT_FEAT_PERCPU |
-@@ -138,11 +139,6 @@ static int __init csky_mptimer_init(struct device_node *np)
- 	 * We use private irq for the mptimer and irq number is the same
- 	 * for every core. So we use request_percpu_irq() in timer_of_init.
- 	 */
--
--	ret = timer_of_init(np, to);
--	if (ret)
--		return -EINVAL;
--
- 	for_each_possible_cpu(cpu) {
- 		struct timer_of *cpu_to = per_cpu_ptr(&csky_to, cpu);
- 
-@@ -162,13 +158,8 @@ static int __init csky_mptimer_init(struct device_node *np)
- 				csky_mptimer_starting_cpu,
- 				csky_mptimer_dying_cpu);
- 	if (ret)
--		goto rollback;
-+		return -EINVAL;
- 
- 	return 0;
--
--rollback:
--	timer_of_cleanup(to);
--
--	return -EINVAL;
- }
--TIMER_OF_DECLARE(csky_mptimer, "csky,mptimer", csky_mptimer_init);
-+TIMER_OF_DECLARE(csky_mptimer, "csky,mptimer", csky_mptimer_init, &csky_to);
 diff --git a/drivers/clocksource/timer-npcm7xx.c b/drivers/clocksource/timer-npcm7xx.c
-index 9780ffd8010e..031d1ad2f54d 100644
+index 031d1ad2f54d..f55a7c519faa 100644
 --- a/drivers/clocksource/timer-npcm7xx.c
 +++ b/drivers/clocksource/timer-npcm7xx.c
-@@ -188,12 +188,6 @@ static void __init npcm7xx_clocksource_init(void)
+@@ -131,77 +131,79 @@ static irqreturn_t npcm7xx_timer0_interrupt(int irq, void *dev_id)
+ 	return IRQ_HANDLED;
+ }
+ 
+-static struct timer_of npcm7xx_to = {
+-	.flags = TIMER_OF_IRQ | TIMER_OF_BASE | TIMER_OF_CLOCK,
+-
+-	.clkevt = {
+-		.name		    = "npcm7xx-timer0",
+-		.features	    = CLOCK_EVT_FEAT_PERIODIC |
+-				      CLOCK_EVT_FEAT_ONESHOT,
+-		.set_next_event	    = npcm7xx_clockevent_set_next_event,
+-		.set_state_shutdown = npcm7xx_timer_shutdown,
+-		.set_state_periodic = npcm7xx_timer_periodic,
+-		.set_state_oneshot  = npcm7xx_timer_oneshot,
+-		.tick_resume	    = npcm7xx_timer_resume,
+-		.rating		    = 300,
+-	},
+-
+-	.of_irq = {
+-		.handler = npcm7xx_timer0_interrupt,
+-		.flags = IRQF_TIMER | IRQF_IRQPOLL,
++static struct timer_of npcm7xx_to[] = {
++	{
++		.flags = TIMER_OF_IRQ | TIMER_OF_BASE | TIMER_OF_CLOCK |
++			 TIMER_OF_TYPE_CE_AND_CS,
++
++		.clkevt = {
++			.name		    = "npcm7xx-timer0",
++			.features	    = CLOCK_EVT_FEAT_PERIODIC |
++					      CLOCK_EVT_FEAT_ONESHOT,
++			.set_next_event	    = npcm7xx_clockevent_set_next_event,
++			.set_state_shutdown = npcm7xx_timer_shutdown,
++			.set_state_periodic = npcm7xx_timer_periodic,
++			.set_state_oneshot  = npcm7xx_timer_oneshot,
++			.tick_resume	    = npcm7xx_timer_resume,
++			.rating		    = 300,
++		},
++
++		.of_irq = {
++			.handler = npcm7xx_timer0_interrupt,
++			.flags = IRQF_TIMER | IRQF_IRQPOLL,
++		},
+ 	},
++	{ /* sentinel */ }
+ };
+ 
+-static void __init npcm7xx_clockevents_init(void)
++static void __init npcm7xx_clockevents_init(struct timer_of *to)
+ {
+-	writel(NPCM7XX_DEFAULT_CSR,
+-		timer_of_base(&npcm7xx_to) + NPCM7XX_REG_TCSR0);
++	writel(NPCM7XX_DEFAULT_CSR, timer_of_base(to) + NPCM7XX_REG_TCSR0);
+ 
+-	writel(NPCM7XX_Tx_RESETINT,
+-		timer_of_base(&npcm7xx_to) + NPCM7XX_REG_TISR);
++	writel(NPCM7XX_Tx_RESETINT, timer_of_base(to) + NPCM7XX_REG_TISR);
+ 
+-	npcm7xx_to.clkevt.cpumask = cpumask_of(0);
+-	clockevents_config_and_register(&npcm7xx_to.clkevt,
+-					timer_of_rate(&npcm7xx_to),
+-					0x1, NPCM7XX_Tx_MAX_CNT);
++	to->clkevt.cpumask = cpumask_of(0);
++	clockevents_config_and_register(&to->clkevt, timer_of_rate(to), 0x1,
++					NPCM7XX_Tx_MAX_CNT);
+ }
+ 
+-static void __init npcm7xx_clocksource_init(void)
++static void __init npcm7xx_clocksource_init(struct timer_of *to)
+ {
+ 	u32 val;
+ 
+ 	writel(NPCM7XX_DEFAULT_CSR,
+-		timer_of_base(&npcm7xx_to) + NPCM7XX_REG_TCSR1);
++		timer_of_base(to) + NPCM7XX_REG_TCSR1);
+ 	writel(NPCM7XX_Tx_MAX_CNT,
+-		timer_of_base(&npcm7xx_to) + NPCM7XX_REG_TICR1);
++		timer_of_base(to) + NPCM7XX_REG_TICR1);
+ 
+-	val = readl(timer_of_base(&npcm7xx_to) + NPCM7XX_REG_TCSR1);
++	val = readl(timer_of_base(to) + NPCM7XX_REG_TCSR1);
+ 	val |= NPCM7XX_START_Tx;
+-	writel(val, timer_of_base(&npcm7xx_to) + NPCM7XX_REG_TCSR1);
++	writel(val, timer_of_base(to) + NPCM7XX_REG_TCSR1);
+ 
+-	clocksource_mmio_init(timer_of_base(&npcm7xx_to) +
++	clocksource_mmio_init(timer_of_base(to) +
+ 				NPCM7XX_REG_TDR1,
+-				"npcm7xx-timer1", timer_of_rate(&npcm7xx_to),
++				"npcm7xx-timer1", timer_of_rate(to),
+ 				200, (unsigned int)NPCM7XX_Tx_TDR_MASK_BITS,
+ 				clocksource_mmio_readl_down);
+ }
  
  static int __init npcm7xx_timer_init(struct device_node *np)
  {
--	int ret;
--
--	ret = timer_of_init(np, &npcm7xx_to);
--	if (ret)
--		return ret;
--
++	struct timer_of *to = np->data;
++
  	/* Clock input is divided by PRESCALE + 1 before it is fed */
  	/* to the counter */
- 	npcm7xx_to.of_clk.rate = npcm7xx_to.of_clk.rate /
-@@ -208,5 +202,6 @@ static int __init npcm7xx_timer_init(struct device_node *np)
+-	npcm7xx_to.of_clk.rate = npcm7xx_to.of_clk.rate /
+-		(NPCM7XX_Tx_MIN_PRESCALE + 1);
++	to->of_clk.rate = to->of_clk.rate / (NPCM7XX_Tx_MIN_PRESCALE + 1);
+ 
+-	npcm7xx_clocksource_init();
+-	npcm7xx_clockevents_init();
++	npcm7xx_clocksource_init(to);
++	npcm7xx_clockevents_init(to);
+ 
+ 	pr_info("Enabling NPCM7xx clocksource timer base: %px, IRQ: %d ",
+-		timer_of_base(&npcm7xx_to), timer_of_irq(&npcm7xx_to));
++		timer_of_base(to), timer_of_irq(to));
+ 
  	return 0;
  }
  
--TIMER_OF_DECLARE(npcm7xx, "nuvoton,npcm750-timer", npcm7xx_timer_init);
-+TIMER_OF_DECLARE(npcm7xx, "nuvoton,npcm750-timer", npcm7xx_timer_init,
-+		 &npcm7xx_to);
+ TIMER_OF_DECLARE(npcm7xx, "nuvoton,npcm750-timer", npcm7xx_timer_init,
+-		 &npcm7xx_to);
++		 npcm7xx_to);
  
-diff --git a/drivers/clocksource/timer-nps.c b/drivers/clocksource/timer-nps.c
-index 7b6bb0df96ae..4d6b60b9eaa7 100644
---- a/drivers/clocksource/timer-nps.c
-+++ b/drivers/clocksource/timer-nps.c
-@@ -111,9 +111,9 @@ static int __init nps_setup_clocksource(struct device_node *node)
- }
- 
- TIMER_OF_DECLARE(ezchip_nps400_clksrc, "ezchip,nps400-timer",
--		       nps_setup_clocksource);
-+		       nps_setup_clocksource, NULL);
- TIMER_OF_DECLARE(ezchip_nps400_clk_src, "ezchip,nps400-timer1",
--		       nps_setup_clocksource);
-+		       nps_setup_clocksource, NULL);
- 
- #ifdef CONFIG_EZNPS_MTM_EXT
- #include <soc/nps/mtm.h>
-@@ -280,5 +280,5 @@ static int __init nps_setup_clockevent(struct device_node *node)
- }
- 
- TIMER_OF_DECLARE(ezchip_nps400_clk_evt, "ezchip,nps400-timer0",
--		       nps_setup_clockevent);
-+		       nps_setup_clockevent, NULL);
- #endif /* CONFIG_EZNPS_MTM_EXT */
 diff --git a/drivers/clocksource/timer-of.c b/drivers/clocksource/timer-of.c
-index d8c2bd4391d0..814276decb07 100644
+index 814276decb07..3d4ebda7e365 100644
 --- a/drivers/clocksource/timer-of.c
 +++ b/drivers/clocksource/timer-of.c
-@@ -165,9 +165,12 @@ static __init int timer_of_base_init(struct device_node *np,
+@@ -163,14 +163,84 @@ static __init int timer_of_base_init(struct device_node *np,
+ 	return 0;
+ }
  
- int __init timer_of_init(struct device_node *np, struct timer_of *to)
+-int __init timer_of_init(struct device_node *np, struct timer_of *to)
++static unsigned int __init timer_of_is_type(struct device_node *np,
++					    const char *type)
  {
--	int ret = -EINVAL;
-+	int ret = 0;
++	struct device_node *node, *timer;
++
++	if (!of_chosen)
++		return 0;
++
++	node = of_get_child_by_name(of_chosen, type);
++	if (!node)
++		return 0;
++
++	timer = of_parse_phandle(node, "timer", 0);
++	of_node_put(node);
++	if (!timer)
++		return 0;
++
++	if (timer == np)
++		return 1;
++
++	return 0;
++}
++
++static unsigned int __init timer_of_type_get(struct device_node *np)
++{
++	unsigned int type = 0;
++
++	if (timer_of_is_type(np, "linux,clocksource"))
++		type |= TIMER_OF_TYPE_CS;
++	if (timer_of_is_type(np, "linux,clockevent"))
++		type |= TIMER_OF_TYPE_CE;
++
++	if (!type || /* For backward compatibility. */
++	    ((type & (TIMER_OF_TYPE_CS | TIMER_OF_TYPE_CE)) ==
++		     (TIMER_OF_TYPE_CS | TIMER_OF_TYPE_CE)))
++		type = TIMER_OF_TYPE_CE_AND_CS;
++
++	return type;
++}
++
++static struct timer_of __init *timer_of_type_match(unsigned int dt_type,
++						   struct timer_of *probe_to)
++{
++	struct timer_of *to;
++
++	for (to = probe_to; to && to->flags; to++) {
++		/* Resource already used. */
++		if (to->np)
++			continue;
++
++		if ((dt_type & to->flags) == dt_type)
++			return to;
++
++		/* At the moment percpu struct timer_of objects are probed only
++		 * by the probing CPU. No need to go further.
++		 */
++		if (probe_to->percpu)
++			return NULL;
++	}
++
++	return NULL;
++}
++
++int __init timer_of_init(struct device_node *np, struct timer_of *probe_to)
++{
++	unsigned int dt_type;
++	struct timer_of *to;
+ 	int ret = 0;
  	int flags = 0;
  
+-	if (!to)
++	if (!probe_to)
+ 		return ret;
+ 
++	dt_type = timer_of_type_get(np);
++	to = timer_of_type_match(dt_type, probe_to);
 +	if (!to)
-+		return ret;
++		return -EBUSY;
 +
  	if (to->flags & TIMER_OF_BASE) {
  		ret = timer_of_base_init(np, &to->of_base);
  		if (ret)
-@@ -217,6 +220,9 @@ int __init timer_of_init(struct device_node *np, struct timer_of *to)
-  */
- void __init timer_of_cleanup(struct timer_of *to)
- {
-+	if (!to)
-+		return;
+@@ -192,10 +262,14 @@ int __init timer_of_init(struct device_node *np, struct timer_of *to)
+ 		flags |= TIMER_OF_IRQ;
+ 	}
+ 
+-	if (!to->clkevt.name)
++	flags |= to->of_type = dt_type;
++
++	if (!to->clkevt.name &&
++	    (to->of_type & (TIMER_OF_TYPE_CE | TIMER_OF_TYPE_CE_AND_CS)))
+ 		to->clkevt.name = np->name;
+ 
+ 	to->np = np;
++	np->data = to;
+ 
+ 	return ret;
+ 
+@@ -208,6 +282,9 @@ int __init timer_of_init(struct device_node *np, struct timer_of *to)
+ 
+ 	if (flags & TIMER_OF_BASE)
+ 		timer_of_base_exit(&to->of_base);
++
++	to->of_type = 0;
++
+ 	return ret;
+ }
+ 
+@@ -223,6 +300,8 @@ void __init timer_of_cleanup(struct timer_of *to)
+ 	if (!to)
+ 		return;
+ 
++	to->of_type = 0;
 +
  	if (to->flags & TIMER_OF_IRQ)
  		timer_of_irq_exit(&to->of_irq);
  
 diff --git a/drivers/clocksource/timer-of.h b/drivers/clocksource/timer-of.h
-index a5478f3e8589..ee467bb16ca3 100644
+index df861ea2ec42..9fb8c5523150 100644
 --- a/drivers/clocksource/timer-of.h
 +++ b/drivers/clocksource/timer-of.h
-@@ -33,6 +33,7 @@ struct of_timer_clk {
+@@ -7,6 +7,9 @@
+ #define TIMER_OF_BASE		BIT(0)
+ #define TIMER_OF_CLOCK		BIT(1)
+ #define TIMER_OF_IRQ		BIT(2)
++#define TIMER_OF_TYPE_CE	BIT(3)
++#define TIMER_OF_TYPE_CS	BIT(4)
++#define TIMER_OF_TYPE_CE_AND_CS	BIT(5)
  
- struct timer_of {
- 	unsigned int flags;
-+	unsigned int percpu;
- 	struct device_node *np;
- 	struct clock_event_device clkevt;
+ struct of_timer_irq {
+ 	int irq;
+@@ -39,6 +42,7 @@ struct timer_of {
  	struct of_timer_base of_base;
-@@ -41,6 +42,7 @@ struct timer_of {
+ 	struct of_timer_irq  of_irq;
+ 	struct of_timer_clk  of_clk;
++	unsigned int	     of_type;
  	void *private_data;
  };
  
-+#ifdef CONFIG_OF
- static inline struct timer_of *to_timer_of(struct clock_event_device *clkevt)
- {
- 	return container_of(clkevt, struct timer_of, clkevt);
-@@ -71,4 +73,13 @@ extern int __init timer_of_init(struct device_node *np,
+@@ -68,6 +72,18 @@ static inline unsigned long timer_of_period(struct timer_of *to)
+ 	return to->of_clk.period;
+ }
  
- extern void __init timer_of_cleanup(struct timer_of *to);
- 
-+#else
-+
-+static int __init timer_of_init(struct device_node *np, struct timer_of *to)
++static inline unsigned int timer_of_is_clocksource(struct timer_of *to)
 +{
-+	return 0;
++	return !!(to && to->of_type &
++		 (TIMER_OF_TYPE_CS | TIMER_OF_TYPE_CE_AND_CS));
 +}
 +
-+#endif
++static inline unsigned int timer_of_is_clockevent(struct timer_of *to)
++{
++	return !!(to && to->of_type &
++		 (TIMER_OF_TYPE_CE | TIMER_OF_TYPE_CE_AND_CS));
++}
 +
- #endif
-diff --git a/drivers/clocksource/timer-orion.c b/drivers/clocksource/timer-orion.c
-index 7d487107e3cd..28b6ec2b99c6 100644
---- a/drivers/clocksource/timer-orion.c
-+++ b/drivers/clocksource/timer-orion.c
-@@ -189,4 +189,4 @@ static int __init orion_timer_init(struct device_node *np)
+ extern int __init timer_of_init(struct device_node *np,
+ 				struct timer_of *to);
  
- 	return 0;
- }
--TIMER_OF_DECLARE(orion_timer, "marvell,orion-timer", orion_timer_init);
-+TIMER_OF_DECLARE(orion_timer, "marvell,orion-timer", orion_timer_init, NULL);
-diff --git a/drivers/clocksource/timer-owl.c b/drivers/clocksource/timer-owl.c
-index 900fe736145d..b7f376f13a52 100644
---- a/drivers/clocksource/timer-owl.c
-+++ b/drivers/clocksource/timer-owl.c
-@@ -164,6 +164,6 @@ static int __init owl_timer_init(struct device_node *node)
- 
- 	return 0;
- }
--TIMER_OF_DECLARE(owl_s500, "actions,s500-timer", owl_timer_init);
--TIMER_OF_DECLARE(owl_s700, "actions,s700-timer", owl_timer_init);
--TIMER_OF_DECLARE(owl_s900, "actions,s900-timer", owl_timer_init);
-+TIMER_OF_DECLARE(owl_s500, "actions,s500-timer", owl_timer_init, NULL);
-+TIMER_OF_DECLARE(owl_s700, "actions,s700-timer", owl_timer_init, NULL);
-+TIMER_OF_DECLARE(owl_s900, "actions,s900-timer", owl_timer_init, NULL);
-diff --git a/drivers/clocksource/timer-oxnas-rps.c b/drivers/clocksource/timer-oxnas-rps.c
-index 56c0cc32d0ac..348c3b9ce207 100644
---- a/drivers/clocksource/timer-oxnas-rps.c
-+++ b/drivers/clocksource/timer-oxnas-rps.c
-@@ -283,6 +283,6 @@ static int __init oxnas_rps_timer_init(struct device_node *np)
- }
- 
- TIMER_OF_DECLARE(ox810se_rps,
--		       "oxsemi,ox810se-rps-timer", oxnas_rps_timer_init);
-+		       "oxsemi,ox810se-rps-timer", oxnas_rps_timer_init, NULL);
- TIMER_OF_DECLARE(ox820_rps,
--		       "oxsemi,ox820-rps-timer", oxnas_rps_timer_init);
-+		       "oxsemi,ox820-rps-timer", oxnas_rps_timer_init, NULL);
-diff --git a/drivers/clocksource/timer-pistachio.c b/drivers/clocksource/timer-pistachio.c
-index a2dd85d0c1d7..4bd35269a71e 100644
---- a/drivers/clocksource/timer-pistachio.c
-+++ b/drivers/clocksource/timer-pistachio.c
-@@ -215,4 +215,4 @@ static int __init pistachio_clksrc_of_init(struct device_node *node)
- 	return clocksource_register_hz(&pcs_gpt.cs, rate);
- }
- TIMER_OF_DECLARE(pistachio_gptimer, "img,pistachio-gptimer",
--		       pistachio_clksrc_of_init);
-+		       pistachio_clksrc_of_init, NULL);
-diff --git a/drivers/clocksource/timer-prima2.c b/drivers/clocksource/timer-prima2.c
-index d4a9dcf5fba2..b3fa5333edbe 100644
---- a/drivers/clocksource/timer-prima2.c
-+++ b/drivers/clocksource/timer-prima2.c
-@@ -245,4 +245,4 @@ static int __init sirfsoc_prima2_timer_init(struct device_node *np)
- 	return 0;
- }
- TIMER_OF_DECLARE(sirfsoc_prima2_timer,
--	"sirf,prima2-tick", sirfsoc_prima2_timer_init);
-+	"sirf,prima2-tick", sirfsoc_prima2_timer_init, NULL);
-diff --git a/drivers/clocksource/timer-probe.c b/drivers/clocksource/timer-probe.c
-index ee9574da53c0..bda1875cda13 100644
---- a/drivers/clocksource/timer-probe.c
-+++ b/drivers/clocksource/timer-probe.c
-@@ -7,6 +7,9 @@
- #include <linux/init.h>
- #include <linux/of.h>
- #include <linux/clocksource.h>
-+#include <linux/interrupt.h>
-+
-+#include "timer-of.h"
- 
- extern struct of_device_id __timer_of_table[];
- 
-@@ -18,6 +21,8 @@ void __init timer_probe(void)
- 	struct device_node *np;
- 	const struct of_device_id *match;
- 	of_init_fn_1_ret init_func_ret;
-+	const struct timer_probe_data *data;
-+	struct timer_of *to;
- 	unsigned timers = 0;
- 	int ret;
- 
-@@ -25,13 +30,23 @@ void __init timer_probe(void)
- 		if (!of_device_is_available(np))
- 			continue;
- 
--		init_func_ret = match->data;
-+		data = match->data;
-+		to = data->timer_of;
-+		if (to && to->percpu)
-+			to = this_cpu_ptr(to);
-+		ret = timer_of_init(np, to);
-+		if (ret) {
-+			pr_err("Failed to initialize timer_of: '%pOF': %d\n", np, ret);
-+			continue;
-+		}
- 
-+		init_func_ret = data->fn;
- 		ret = init_func_ret(np);
- 		if (ret) {
- 			if (ret != -EPROBE_DEFER)
- 				pr_err("Failed to initialize '%pOF': %d\n", np,
- 				       ret);
-+			timer_of_cleanup(to);
- 			continue;
- 		}
- 
-diff --git a/drivers/clocksource/timer-pxa.c b/drivers/clocksource/timer-pxa.c
-index 913a5d354a1f..ac4bcf357f59 100644
---- a/drivers/clocksource/timer-pxa.c
-+++ b/drivers/clocksource/timer-pxa.c
-@@ -213,7 +213,7 @@ static int __init pxa_timer_dt_init(struct device_node *np)
- 
- 	return pxa_timer_common_init(irq, clk_get_rate(clk));
- }
--TIMER_OF_DECLARE(pxa_timer, "marvell,pxa-timer", pxa_timer_dt_init);
-+TIMER_OF_DECLARE(pxa_timer, "marvell,pxa-timer", pxa_timer_dt_init, NULL);
- 
- /*
-  * Legacy timer init for non device-tree boards.
-diff --git a/drivers/clocksource/timer-qcom.c b/drivers/clocksource/timer-qcom.c
-index b4afe3a67583..582070502810 100644
---- a/drivers/clocksource/timer-qcom.c
-+++ b/drivers/clocksource/timer-qcom.c
-@@ -245,5 +245,5 @@ static int __init msm_dt_timer_init(struct device_node *np)
- 
- 	return msm_timer_init(freq, 32, irq, !!percpu_offset);
- }
--TIMER_OF_DECLARE(kpss_timer, "qcom,kpss-timer", msm_dt_timer_init);
--TIMER_OF_DECLARE(scss_timer, "qcom,scss-timer", msm_dt_timer_init);
-+TIMER_OF_DECLARE(kpss_timer, "qcom,kpss-timer", msm_dt_timer_init, NULL);
-+TIMER_OF_DECLARE(scss_timer, "qcom,scss-timer", msm_dt_timer_init, NULL);
 diff --git a/drivers/clocksource/timer-rda.c b/drivers/clocksource/timer-rda.c
-index fd1199c189bf..74f4f60a3d36 100644
+index 74f4f60a3d36..132fbb1eaa5f 100644
 --- a/drivers/clocksource/timer-rda.c
 +++ b/drivers/clocksource/timer-rda.c
-@@ -178,11 +178,6 @@ static struct clocksource rda_hwtimer_clocksource = {
+@@ -126,36 +126,40 @@ static irqreturn_t rda_ostimer_interrupt(int irq, void *dev_id)
+ 	return IRQ_HANDLED;
+ }
+ 
+-static struct timer_of rda_ostimer_of = {
+-	.flags = TIMER_OF_IRQ | TIMER_OF_BASE,
+-
+-	.clkevt = {
+-		.name = "rda-ostimer",
+-		.rating = 250,
+-		.features = CLOCK_EVT_FEAT_PERIODIC | CLOCK_EVT_FEAT_ONESHOT |
+-			    CLOCK_EVT_FEAT_DYNIRQ,
+-		.set_state_shutdown = rda_ostimer_set_state_shutdown,
+-		.set_state_oneshot = rda_ostimer_set_state_oneshot,
+-		.set_state_periodic = rda_ostimer_set_state_periodic,
+-		.tick_resume = rda_ostimer_tick_resume,
+-		.set_next_event	= rda_ostimer_set_next_event,
+-	},
+-
+-	.of_base = {
+-		.name = "rda-timer",
+-		.index = 0,
+-	},
+-
+-	.of_irq = {
+-		.name = "ostimer",
+-		.handler = rda_ostimer_interrupt,
+-		.flags = IRQF_TIMER,
++static struct timer_of rda_ostimer_of[] = {
++	{
++		.flags = TIMER_OF_IRQ | TIMER_OF_BASE | TIMER_OF_TYPE_CE_AND_CS,
++
++		.clkevt = {
++			.name = "rda-ostimer",
++			.rating = 250,
++			.features = CLOCK_EVT_FEAT_PERIODIC |
++				    CLOCK_EVT_FEAT_ONESHOT |
++				    CLOCK_EVT_FEAT_DYNIRQ,
++			.set_state_shutdown = rda_ostimer_set_state_shutdown,
++			.set_state_oneshot = rda_ostimer_set_state_oneshot,
++			.set_state_periodic = rda_ostimer_set_state_periodic,
++			.tick_resume = rda_ostimer_tick_resume,
++			.set_next_event	= rda_ostimer_set_next_event,
++		},
++
++		.of_base = {
++			.name = "rda-timer",
++			.index = 0,
++		},
++
++		.of_irq = {
++			.name = "ostimer",
++			.handler = rda_ostimer_interrupt,
++			.flags = IRQF_TIMER,
++		},
+ 	},
++	{ /* sentinel */ }
+ };
+ 
+ static u64 rda_hwtimer_read(struct clocksource *cs)
+ {
+-	void __iomem *base = timer_of_base(&rda_ostimer_of);
++	void __iomem *base = timer_of_base(&rda_ostimer_of[0]);
+ 	u32 lo, hi;
+ 
+ 	/* Always read low 32 bits first */
+@@ -177,15 +181,15 @@ static struct clocksource rda_hwtimer_clocksource = {
+ 
  static int __init rda_timer_init(struct device_node *np)
  {
++	struct timer_of *to = np->data;
  	unsigned long rate = 2000000;
--	int ret;
--
--	ret = timer_of_init(np, &rda_ostimer_of);
--	if (ret)
--		return ret;
  
  	clocksource_register_hz(&rda_hwtimer_clocksource, rate);
  
-@@ -192,4 +187,5 @@ static int __init rda_timer_init(struct device_node *np)
+-	clockevents_config_and_register(&rda_ostimer_of.clkevt, rate,
+-					0x2, UINT_MAX);
++	clockevents_config_and_register(&to->clkevt, rate, 0x2, UINT_MAX);
+ 
  	return 0;
  }
  
--TIMER_OF_DECLARE(rda8810pl, "rda,8810pl-timer", rda_timer_init);
-+TIMER_OF_DECLARE(rda8810pl, "rda,8810pl-timer", rda_timer_init,
-+		 &rda_ostimer_of);
-diff --git a/drivers/clocksource/timer-riscv.c b/drivers/clocksource/timer-riscv.c
-index 5e6038fbf115..083be1d65474 100644
---- a/drivers/clocksource/timer-riscv.c
-+++ b/drivers/clocksource/timer-riscv.c
-@@ -131,4 +131,4 @@ static int __init riscv_timer_init_dt(struct device_node *n)
- 	return error;
- }
- 
--TIMER_OF_DECLARE(riscv_timer, "riscv", riscv_timer_init_dt);
-+TIMER_OF_DECLARE(riscv_timer, "riscv", riscv_timer_init_dt, NULL);
-diff --git a/drivers/clocksource/timer-rockchip.c b/drivers/clocksource/timer-rockchip.c
-index 1f95d0aca08f..ee1861028b81 100644
---- a/drivers/clocksource/timer-rockchip.c
-+++ b/drivers/clocksource/timer-rockchip.c
-@@ -300,5 +300,5 @@ static int __init rk_timer_init(struct device_node *np)
- 	return -EINVAL;
- }
- 
--TIMER_OF_DECLARE(rk3288_timer, "rockchip,rk3288-timer", rk_timer_init);
--TIMER_OF_DECLARE(rk3399_timer, "rockchip,rk3399-timer", rk_timer_init);
-+TIMER_OF_DECLARE(rk3288_timer, "rockchip,rk3288-timer", rk_timer_init, NULL);
-+TIMER_OF_DECLARE(rk3399_timer, "rockchip,rk3399-timer", rk_timer_init, NULL);
-diff --git a/drivers/clocksource/timer-sp804.c b/drivers/clocksource/timer-sp804.c
-index 9c841980eed1..4091092cc285 100644
---- a/drivers/clocksource/timer-sp804.c
-+++ b/drivers/clocksource/timer-sp804.c
-@@ -275,7 +275,7 @@ static int __init sp804_of_init(struct device_node *np)
- 	iounmap(base);
- 	return ret;
- }
--TIMER_OF_DECLARE(sp804, "arm,sp804", sp804_of_init);
-+TIMER_OF_DECLARE(sp804, "arm,sp804", sp804_of_init, NULL);
- 
- static int __init integrator_cp_of_init(struct device_node *np)
- {
-@@ -323,4 +323,4 @@ static int __init integrator_cp_of_init(struct device_node *np)
- 	iounmap(base);
- 	return ret;
- }
--TIMER_OF_DECLARE(intcp, "arm,integrator-cp-timer", integrator_cp_of_init);
-+TIMER_OF_DECLARE(intcp, "arm,integrator-cp-timer", integrator_cp_of_init, NULL);
+ TIMER_OF_DECLARE(rda8810pl, "rda,8810pl-timer", rda_timer_init,
+-		 &rda_ostimer_of);
++		 rda_ostimer_of);
 diff --git a/drivers/clocksource/timer-sprd.c b/drivers/clocksource/timer-sprd.c
-index 430cb99d8d79..8b50fcc996ac 100644
+index 8b50fcc996ac..8a6a591ea9c2 100644
 --- a/drivers/clocksource/timer-sprd.c
 +++ b/drivers/clocksource/timer-sprd.c
-@@ -143,12 +143,6 @@ static struct timer_of to = {
+@@ -121,57 +121,65 @@ static irqreturn_t sprd_timer_interrupt(int irq, void *dev_id)
+ 	return IRQ_HANDLED;
+ }
+ 
+-static struct timer_of to = {
+-	.flags = TIMER_OF_IRQ | TIMER_OF_BASE | TIMER_OF_CLOCK,
+-
+-	.clkevt = {
+-		.name = TIMER_NAME,
+-		.rating = 300,
+-		.features = CLOCK_EVT_FEAT_DYNIRQ | CLOCK_EVT_FEAT_PERIODIC |
+-			CLOCK_EVT_FEAT_ONESHOT,
+-		.set_state_shutdown = sprd_timer_shutdown,
+-		.set_state_periodic = sprd_timer_set_periodic,
+-		.set_next_event = sprd_timer_set_next_event,
+-		.cpumask = cpu_possible_mask,
+-	},
+-
+-	.of_irq = {
+-		.handler = sprd_timer_interrupt,
+-		.flags = IRQF_TIMER | IRQF_IRQPOLL,
++static struct timer_of to[] = {
++	{
++		.flags = TIMER_OF_IRQ | TIMER_OF_BASE | TIMER_OF_CLOCK |
++			 TIMER_OF_TYPE_CE_AND_CS,
++
++		.clkevt = {
++			.name = TIMER_NAME,
++			.rating = 300,
++			.features = CLOCK_EVT_FEAT_DYNIRQ |
++				    CLOCK_EVT_FEAT_PERIODIC |
++				    CLOCK_EVT_FEAT_ONESHOT,
++			.set_state_shutdown = sprd_timer_shutdown,
++			.set_state_periodic = sprd_timer_set_periodic,
++			.set_next_event = sprd_timer_set_next_event,
++			.cpumask = cpu_possible_mask,
++		},
++
++		.of_irq = {
++			.handler = sprd_timer_interrupt,
++			.flags = IRQF_TIMER | IRQF_IRQPOLL,
++		},
+ 	},
++	{ /* sentinel */ }
+ };
  
  static int __init sprd_timer_init(struct device_node *np)
  {
--	int ret;
--
--	ret = timer_of_init(np, &to);
--	if (ret)
--		return ret;
--
- 	sprd_timer_enable_interrupt(timer_of_base(&to));
- 	clockevents_config_and_register(&to.clkevt, timer_of_rate(&to),
+-	sprd_timer_enable_interrupt(timer_of_base(&to));
+-	clockevents_config_and_register(&to.clkevt, timer_of_rate(&to),
++	struct timer_of *to = np->data;
++
++	sprd_timer_enable_interrupt(timer_of_base(to));
++	clockevents_config_and_register(&to->clkevt, timer_of_rate(to),
  					1, UINT_MAX);
-@@ -192,18 +186,12 @@ static struct clocksource suspend_clocksource = {
+ 
+ 	return 0;
+ }
+ 
+-static struct timer_of suspend_to = {
+-	.flags = TIMER_OF_BASE | TIMER_OF_CLOCK,
++static struct timer_of suspend_to[] = {
++	{ .flags = TIMER_OF_BASE | TIMER_OF_CLOCK | TIMER_OF_TYPE_CE_AND_CS, },
++	{ /* sentinel */ }
+ };
+ 
+ static u64 sprd_suspend_timer_read(struct clocksource *cs)
+ {
+-	return ~(u64)readl_relaxed(timer_of_base(&suspend_to) +
++	return ~(u64)readl_relaxed(timer_of_base(&suspend_to[0]) +
+ 				   TIMER_VALUE_SHDW_LO) & cs->mask;
+ }
+ 
+ static int sprd_suspend_timer_enable(struct clocksource *cs)
+ {
+-	sprd_timer_update_counter(timer_of_base(&suspend_to),
++	sprd_timer_update_counter(timer_of_base(&suspend_to[0]),
+ 				  TIMER_VALUE_LO_MASK);
+-	sprd_timer_enable(timer_of_base(&suspend_to), TIMER_CTL_PERIOD_MODE);
++	sprd_timer_enable(timer_of_base(&suspend_to[0]), TIMER_CTL_PERIOD_MODE);
+ 
+ 	return 0;
+ }
+ 
+ static void sprd_suspend_timer_disable(struct clocksource *cs)
+ {
+-	sprd_timer_disable(timer_of_base(&suspend_to));
++	sprd_timer_disable(timer_of_base(&suspend_to[0]));
+ }
+ 
+ static struct clocksource suspend_clocksource = {
+@@ -186,12 +194,13 @@ static struct clocksource suspend_clocksource = {
  
  static int __init sprd_suspend_timer_init(struct device_node *np)
  {
--	int ret;
--
--	ret = timer_of_init(np, &suspend_to);
--	if (ret)
--		return ret;
--
- 	clocksource_register_hz(&suspend_clocksource,
- 				timer_of_rate(&suspend_to));
+-	clocksource_register_hz(&suspend_clocksource,
+-				timer_of_rate(&suspend_to));
++	struct timer_of *to = np->data;
++
++	clocksource_register_hz(&suspend_clocksource, timer_of_rate(to));
  
  	return 0;
  }
  
--TIMER_OF_DECLARE(sc9860_timer, "sprd,sc9860-timer", sprd_timer_init);
-+TIMER_OF_DECLARE(sc9860_timer, "sprd,sc9860-timer", sprd_timer_init, &to);
+-TIMER_OF_DECLARE(sc9860_timer, "sprd,sc9860-timer", sprd_timer_init, &to);
++TIMER_OF_DECLARE(sc9860_timer, "sprd,sc9860-timer", sprd_timer_init, to);
  TIMER_OF_DECLARE(sc9860_persistent_timer, "sprd,sc9860-suspend-timer",
--		 sprd_suspend_timer_init);
-+		 sprd_suspend_timer_init, &suspend_to);
+-		 sprd_suspend_timer_init, &suspend_to);
++		 sprd_suspend_timer_init, suspend_to);
 diff --git a/drivers/clocksource/timer-stm32.c b/drivers/clocksource/timer-stm32.c
-index c9a753f96ba1..4a07e02e7c84 100644
+index 4a07e02e7c84..1e387e15fa08 100644
 --- a/drivers/clocksource/timer-stm32.c
 +++ b/drivers/clocksource/timer-stm32.c
-@@ -285,52 +285,44 @@ static void __init stm32_clockevent_init(struct timer_of *to)
+@@ -285,22 +285,27 @@ static void __init stm32_clockevent_init(struct timer_of *to)
  		to->np, bits);
  }
  
-+static struct timer_of to = {
-+	.flags = TIMER_OF_IRQ | TIMER_OF_CLOCK | TIMER_OF_BASE,
+-static struct timer_of to = {
+-	.flags = TIMER_OF_IRQ | TIMER_OF_CLOCK | TIMER_OF_BASE,
+-
+-	.of_irq = {
+-		.handler = stm32_clock_event_handler,
++static struct timer_of to[] = {
++	{
++		.flags = TIMER_OF_IRQ | TIMER_OF_CLOCK | TIMER_OF_BASE |
++			 TIMER_OF_TYPE_CE_AND_CS,
 +
-+	.of_irq = {
-+		.handler = stm32_clock_event_handler,
-+	},
-+};
-+
++		.of_irq = {
++			.handler = stm32_clock_event_handler,
++		},
+ 	},
++	{ /* sentinel */ }
+ };
+ 
  static int __init stm32_timer_init(struct device_node *node)
  {
++	struct timer_of *to = node->data;
  	struct reset_control *rstc;
--	struct timer_of *to;
  	int ret;
  
--	to = kzalloc(sizeof(*to), GFP_KERNEL);
--	if (!to)
-+	to.private_data = kzalloc(sizeof(struct stm32_timer_private),
-+				  GFP_KERNEL);
-+	if (!to.private_data)
+-	to.private_data = kzalloc(sizeof(struct stm32_timer_private),
+-				  GFP_KERNEL);
+-	if (!to.private_data)
++	to->private_data = kzalloc(sizeof(struct stm32_timer_private),
++				   GFP_KERNEL);
++	if (!to->private_data)
  		return -ENOMEM;
  
--	to->flags = TIMER_OF_IRQ | TIMER_OF_CLOCK | TIMER_OF_BASE;
--	to->of_irq.handler = stm32_clock_event_handler;
--
--	ret = timer_of_init(node, to);
--	if (ret)
--		goto err;
--
--	to->private_data = kzalloc(sizeof(struct stm32_timer_private),
--				   GFP_KERNEL);
--	if (!to->private_data) {
--		ret = -ENOMEM;
--		goto deinit;
--	}
--
  	rstc = of_reset_control_get(node, NULL);
- 	if (!IS_ERR(rstc)) {
- 		reset_control_assert(rstc);
+@@ -309,20 +314,20 @@ static int __init stm32_timer_init(struct device_node *node)
  		reset_control_deassert(rstc);
  	}
  
--	stm32_timer_set_width(to);
-+	stm32_timer_set_width(&to);
+-	stm32_timer_set_width(&to);
++	stm32_timer_set_width(to);
  
--	stm32_timer_set_prescaler(to);
-+	stm32_timer_set_prescaler(&to);
+-	stm32_timer_set_prescaler(&to);
++	stm32_timer_set_prescaler(to);
  
--	ret = stm32_clocksource_init(to);
-+	ret = stm32_clocksource_init(&to);
+-	ret = stm32_clocksource_init(&to);
++	ret = stm32_clocksource_init(to);
  	if (ret)
--		goto deinit;
-+		goto err;
+ 		goto err;
  
--	stm32_clockevent_init(to);
-+	stm32_clockevent_init(&to);
+-	stm32_clockevent_init(&to);
++	stm32_clockevent_init(to);
  	return 0;
  
--deinit:
--	timer_of_cleanup(to);
  err:
--	kfree(to);
-+	kfree(to.private_data);
+-	kfree(to.private_data);
++	kfree(to->private_data);
  	return ret;
  }
  
--TIMER_OF_DECLARE(stm32, "st,stm32-timer", stm32_timer_init);
-+TIMER_OF_DECLARE(stm32, "st,stm32-timer", stm32_timer_init, &to);
+-TIMER_OF_DECLARE(stm32, "st,stm32-timer", stm32_timer_init, &to);
++TIMER_OF_DECLARE(stm32, "st,stm32-timer", stm32_timer_init, to);
 diff --git a/drivers/clocksource/timer-sun4i.c b/drivers/clocksource/timer-sun4i.c
-index 0ba8155b8287..1443cf5ca92b 100644
+index 1443cf5ca92b..4f8935118251 100644
 --- a/drivers/clocksource/timer-sun4i.c
 +++ b/drivers/clocksource/timer-sun4i.c
-@@ -171,10 +171,6 @@ static int __init sun4i_timer_init(struct device_node *node)
+@@ -140,41 +140,47 @@ static irqreturn_t sun4i_timer_interrupt(int irq, void *dev_id)
+ 	return IRQ_HANDLED;
+ }
+ 
+-static struct timer_of to = {
+-	.flags = TIMER_OF_IRQ | TIMER_OF_CLOCK | TIMER_OF_BASE,
+-
+-	.clkevt = {
+-		.name = "sun4i_tick",
+-		.rating = 350,
+-		.features = CLOCK_EVT_FEAT_PERIODIC | CLOCK_EVT_FEAT_ONESHOT,
+-		.set_state_shutdown = sun4i_clkevt_shutdown,
+-		.set_state_periodic = sun4i_clkevt_set_periodic,
+-		.set_state_oneshot = sun4i_clkevt_set_oneshot,
+-		.tick_resume = sun4i_clkevt_shutdown,
+-		.set_next_event = sun4i_clkevt_next_event,
+-		.cpumask = cpu_possible_mask,
+-	},
+-
+-	.of_irq = {
+-		.handler = sun4i_timer_interrupt,
+-		.flags = IRQF_TIMER | IRQF_IRQPOLL,
++static struct timer_of to[] = {
++	{
++		.flags = TIMER_OF_IRQ | TIMER_OF_CLOCK | TIMER_OF_BASE |
++			 TIMER_OF_TYPE_CE_AND_CS,
++
++		.clkevt = {
++			.name = "sun4i_tick",
++			.rating = 350,
++			.features = CLOCK_EVT_FEAT_PERIODIC |
++				    CLOCK_EVT_FEAT_ONESHOT,
++			.set_state_shutdown = sun4i_clkevt_shutdown,
++			.set_state_periodic = sun4i_clkevt_set_periodic,
++			.set_state_oneshot = sun4i_clkevt_set_oneshot,
++			.tick_resume = sun4i_clkevt_shutdown,
++			.set_next_event = sun4i_clkevt_next_event,
++			.cpumask = cpu_possible_mask,
++		},
++
++		.of_irq = {
++			.handler = sun4i_timer_interrupt,
++			.flags = IRQF_TIMER | IRQF_IRQPOLL,
++		},
+ 	},
++	{ /* sentinel */ }
+ };
+ 
+ static u64 notrace sun4i_timer_sched_read(void)
+ {
+-	return ~readl(timer_of_base(&to) + TIMER_CNTVAL_REG(1));
++	return ~readl(timer_of_base(to) + TIMER_CNTVAL_REG(1));
+ }
+ 
+ static int __init sun4i_timer_init(struct device_node *node)
+ {
++	struct timer_of *to = node->data;
  	int ret;
  	u32 val;
  
--	ret = timer_of_init(node, &to);
--	if (ret)
--		return ret;
--
- 	writel(~0, timer_of_base(&to) + TIMER_INTVAL_REG(1));
+-	writel(~0, timer_of_base(&to) + TIMER_INTVAL_REG(1));
++	writel(~0, timer_of_base(to) + TIMER_INTVAL_REG(1));
  	writel(TIMER_CTL_ENABLE | TIMER_CTL_RELOAD |
  	       TIMER_CTL_CLK_SRC(TIMER_CTL_CLK_SRC_OSC24M),
-@@ -218,10 +214,10 @@ static int __init sun4i_timer_init(struct device_node *node)
+-	       timer_of_base(&to) + TIMER_CTL_REG(1));
++	       timer_of_base(to) + TIMER_CTL_REG(1));
+ 
+ 	/*
+ 	 * sched_clock_register does not have priorities, and on sun6i and
+@@ -185,10 +191,10 @@ static int __init sun4i_timer_init(struct device_node *node)
+ 	    of_machine_is_compatible("allwinner,sun5i-a10s") ||
+ 	    of_machine_is_compatible("allwinner,suniv-f1c100s"))
+ 		sched_clock_register(sun4i_timer_sched_read, 32,
+-				     timer_of_rate(&to));
++				     timer_of_rate(to));
+ 
+-	ret = clocksource_mmio_init(timer_of_base(&to) + TIMER_CNTVAL_REG(1),
+-				    node->name, timer_of_rate(&to), 350, 32,
++	ret = clocksource_mmio_init(timer_of_base(to) + TIMER_CNTVAL_REG(1),
++				    node->name, timer_of_rate(to), 350, 32,
+ 				    clocksource_mmio_readl_down);
+ 	if (ret) {
+ 		pr_err("Failed to register clocksource\n");
+@@ -196,28 +202,28 @@ static int __init sun4i_timer_init(struct device_node *node)
+ 	}
+ 
+ 	writel(TIMER_CTL_CLK_SRC(TIMER_CTL_CLK_SRC_OSC24M),
+-	       timer_of_base(&to) + TIMER_CTL_REG(0));
++	       timer_of_base(to) + TIMER_CTL_REG(0));
+ 
+ 	/* Make sure timer is stopped before playing with interrupts */
+-	sun4i_clkevt_time_stop(timer_of_base(&to), 0);
++	sun4i_clkevt_time_stop(timer_of_base(to), 0);
+ 
+ 	/* clear timer0 interrupt */
+-	sun4i_timer_clear_interrupt(timer_of_base(&to));
++	sun4i_timer_clear_interrupt(timer_of_base(to));
+ 
+-	clockevents_config_and_register(&to.clkevt, timer_of_rate(&to),
++	clockevents_config_and_register(&to->clkevt, timer_of_rate(to),
+ 					TIMER_SYNC_TICKS, 0xffffffff);
+ 
+ 	/* Enable timer0 interrupt */
+-	val = readl(timer_of_base(&to) + TIMER_IRQ_EN_REG);
+-	writel(val | TIMER_IRQ_EN(0), timer_of_base(&to) + TIMER_IRQ_EN_REG);
++	val = readl(timer_of_base(to) + TIMER_IRQ_EN_REG);
++	writel(val | TIMER_IRQ_EN(0), timer_of_base(to) + TIMER_IRQ_EN_REG);
+ 
  	return ret;
  }
  TIMER_OF_DECLARE(sun4i, "allwinner,sun4i-a10-timer",
--		       sun4i_timer_init);
-+		       sun4i_timer_init, &to);
+-		       sun4i_timer_init, &to);
++		       sun4i_timer_init, to);
  TIMER_OF_DECLARE(sun8i_a23, "allwinner,sun8i-a23-timer",
--		 sun4i_timer_init);
-+		 sun4i_timer_init, &to);
+-		 sun4i_timer_init, &to);
++		 sun4i_timer_init, to);
  TIMER_OF_DECLARE(sun8i_v3s, "allwinner,sun8i-v3s-timer",
--		 sun4i_timer_init);
-+		 sun4i_timer_init, &to);
+-		 sun4i_timer_init, &to);
++		 sun4i_timer_init, to);
  TIMER_OF_DECLARE(suniv, "allwinner,suniv-f1c100s-timer",
--		       sun4i_timer_init);
-+		       sun4i_timer_init, &to);
-diff --git a/drivers/clocksource/timer-sun5i.c b/drivers/clocksource/timer-sun5i.c
-index 552c5254390c..78aa54474db6 100644
---- a/drivers/clocksource/timer-sun5i.c
-+++ b/drivers/clocksource/timer-sun5i.c
-@@ -370,6 +370,6 @@ static int __init sun5i_timer_init(struct device_node *node)
- 	return sun5i_setup_clockevent(node, timer_base, clk, irq);
- }
- TIMER_OF_DECLARE(sun5i_a13, "allwinner,sun5i-a13-hstimer",
--			   sun5i_timer_init);
-+			   sun5i_timer_init, NULL);
- TIMER_OF_DECLARE(sun7i_a20, "allwinner,sun7i-a20-hstimer",
--			   sun5i_timer_init);
-+			   sun5i_timer_init, NULL);
-diff --git a/drivers/clocksource/timer-tango-xtal.c b/drivers/clocksource/timer-tango-xtal.c
-index 3f94e454ef99..9b731a29f572 100644
---- a/drivers/clocksource/timer-tango-xtal.c
-+++ b/drivers/clocksource/timer-tango-xtal.c
-@@ -54,4 +54,4 @@ static int __init tango_clocksource_init(struct device_node *np)
- 	return 0;
- }
- 
--TIMER_OF_DECLARE(tango, "sigma,tick-counter", tango_clocksource_init);
-+TIMER_OF_DECLARE(tango, "sigma,tick-counter", tango_clocksource_init, NULL);
+-		       sun4i_timer_init, &to);
++		       sun4i_timer_init, to);
 diff --git a/drivers/clocksource/timer-tegra.c b/drivers/clocksource/timer-tegra.c
-index e9635c25eef4..6da57c51127a 100644
+index 6da57c51127a..2a9c9bc93ec1 100644
 --- a/drivers/clocksource/timer-tegra.c
 +++ b/drivers/clocksource/timer-tegra.c
-@@ -115,6 +115,7 @@ static void tegra_timer_resume(struct clock_event_device *evt)
+@@ -114,7 +114,7 @@ static void tegra_timer_resume(struct clock_event_device *evt)
+ }
  
  static DEFINE_PER_CPU(struct timer_of, tegra_to) = {
- 	.flags = TIMER_OF_CLOCK | TIMER_OF_BASE,
-+	.percpu = true,
+-	.flags = TIMER_OF_CLOCK | TIMER_OF_BASE,
++	.flags = TIMER_OF_CLOCK | TIMER_OF_BASE | TIMER_OF_TYPE_CE_AND_CS,
+ 	.percpu = true,
  
  	.clkevt = {
- 		.name = "tegra_timer",
-@@ -255,10 +256,6 @@ static int __init tegra_init_timer(struct device_node *np, bool tegra20,
+@@ -182,8 +182,9 @@ static struct delay_timer tegra_delay_timer = {
+ };
+ #endif
+ 
+-static struct timer_of suspend_rtc_to = {
+-	.flags = TIMER_OF_BASE | TIMER_OF_CLOCK,
++static struct timer_of suspend_rtc_to[] = {
++	{ .flags = TIMER_OF_BASE | TIMER_OF_CLOCK | TIMER_OF_TYPE_CE_AND_CS },
++	{ /* sentinel */ }
+ };
+ 
+ /*
+@@ -194,7 +195,7 @@ static struct timer_of suspend_rtc_to = {
+  */
+ static u64 tegra_rtc_read_ms(struct clocksource *cs)
+ {
+-	void __iomem *reg_base = timer_of_base(&suspend_rtc_to);
++	void __iomem *reg_base = timer_of_base(&suspend_rtc_to[0]);
+ 
+ 	u32 ms = readl_relaxed(reg_base + RTC_MILLISECONDS);
+ 	u32 s = readl_relaxed(reg_base + RTC_SHADOW_SECONDS);
+@@ -252,7 +253,7 @@ static inline unsigned long tegra_rate_for_timer(struct timer_of *to,
+ static int __init tegra_init_timer(struct device_node *np, bool tegra20,
+ 				   int rating)
+ {
+-	struct timer_of *to;
++	struct timer_of *to = np->data;
  	int cpu, ret;
  
  	to = this_cpu_ptr(&tegra_to);
--	ret = timer_of_init(np, to);
--	if (ret)
--		goto out;
--
- 	timer_reg_base = timer_of_base(to);
- 
- 	/*
-@@ -379,7 +376,8 @@ static int __init tegra210_init_timer(struct device_node *np)
- 	 */
- 	return tegra_init_timer(np, false, 460);
- }
--TIMER_OF_DECLARE(tegra210_timer, "nvidia,tegra210-timer", tegra210_init_timer);
-+TIMER_OF_DECLARE(tegra210_timer, "nvidia,tegra210-timer", tegra210_init_timer,
-+		 &tegra_to);
- 
- static int __init tegra20_init_timer(struct device_node *np)
- {
-@@ -401,16 +399,12 @@ static int __init tegra20_init_timer(struct device_node *np)
- 
- 	return tegra_init_timer(np, true, rating);
- }
--TIMER_OF_DECLARE(tegra20_timer, "nvidia,tegra20-timer", tegra20_init_timer);
-+TIMER_OF_DECLARE(tegra20_timer, "nvidia,tegra20-timer", tegra20_init_timer,
-+		 &tegra_to);
- 
- static int __init tegra20_init_rtc(struct device_node *np)
- {
--	int ret;
--
--	ret = timer_of_init(np, &suspend_rtc_to);
--	if (ret)
--		return ret;
--
+@@ -407,4 +408,4 @@ static int __init tegra20_init_rtc(struct device_node *np)
  	return clocksource_register_hz(&suspend_rtc_clocksource, 1000);
  }
--TIMER_OF_DECLARE(tegra20_rtc, "nvidia,tegra20-rtc", tegra20_init_rtc);
-+TIMER_OF_DECLARE(tegra20_rtc, "nvidia,tegra20-rtc", tegra20_init_rtc,
-+		 &suspend_rtc_to);
-diff --git a/drivers/clocksource/timer-ti-32k.c b/drivers/clocksource/timer-ti-32k.c
-index abd5f158d6e2..a38d7b039b38 100644
---- a/drivers/clocksource/timer-ti-32k.c
-+++ b/drivers/clocksource/timer-ti-32k.c
-@@ -116,4 +116,4 @@ static int __init ti_32k_timer_init(struct device_node *np)
- 	return 0;
- }
- TIMER_OF_DECLARE(ti_32k_timer, "ti,omap-counter32k",
--		ti_32k_timer_init);
-+		ti_32k_timer_init, NULL);
-diff --git a/drivers/clocksource/timer-u300.c b/drivers/clocksource/timer-u300.c
-index 32adc3057dda..2a2d2f3b36ab 100644
---- a/drivers/clocksource/timer-u300.c
-+++ b/drivers/clocksource/timer-u300.c
-@@ -459,4 +459,4 @@ static int __init u300_timer_init_of(struct device_node *np)
- }
- 
- TIMER_OF_DECLARE(u300_timer, "stericsson,u300-apptimer",
--		       u300_timer_init_of);
-+		       u300_timer_init_of, NULL);
-diff --git a/drivers/clocksource/timer-versatile.c b/drivers/clocksource/timer-versatile.c
-index e4ebb656d005..61eb16c9d1cb 100644
---- a/drivers/clocksource/timer-versatile.c
-+++ b/drivers/clocksource/timer-versatile.c
-@@ -32,6 +32,6 @@ static int __init versatile_sched_clock_init(struct device_node *node)
- 	return 0;
- }
- TIMER_OF_DECLARE(vexpress, "arm,vexpress-sysreg",
--		       versatile_sched_clock_init);
-+		       versatile_sched_clock_init, NULL);
- TIMER_OF_DECLARE(versatile, "arm,versatile-sysreg",
--		       versatile_sched_clock_init);
-+		       versatile_sched_clock_init, NULL);
-diff --git a/drivers/clocksource/timer-vf-pit.c b/drivers/clocksource/timer-vf-pit.c
-index fef0bb4e0c8c..2aa0f6e93820 100644
---- a/drivers/clocksource/timer-vf-pit.c
-+++ b/drivers/clocksource/timer-vf-pit.c
-@@ -197,4 +197,4 @@ static int __init pit_timer_init(struct device_node *np)
- 
- 	return pit_clockevent_init(clk_rate, irq);
- }
--TIMER_OF_DECLARE(vf610, "fsl,vf610-pit", pit_timer_init);
-+TIMER_OF_DECLARE(vf610, "fsl,vf610-pit", pit_timer_init, NULL);
-diff --git a/drivers/clocksource/timer-vt8500.c b/drivers/clocksource/timer-vt8500.c
-index bb424bcefbb3..57d996863d5a 100644
---- a/drivers/clocksource/timer-vt8500.c
-+++ b/drivers/clocksource/timer-vt8500.c
-@@ -152,4 +152,4 @@ static int __init vt8500_timer_init(struct device_node *np)
- 	return 0;
- }
- 
--TIMER_OF_DECLARE(vt8500, "via,vt8500-timer", vt8500_timer_init);
-+TIMER_OF_DECLARE(vt8500, "via,vt8500-timer", vt8500_timer_init, NULL);
-diff --git a/drivers/clocksource/timer-zevio.c b/drivers/clocksource/timer-zevio.c
-index c0041561f1be..64cbb6f09dcb 100644
---- a/drivers/clocksource/timer-zevio.c
-+++ b/drivers/clocksource/timer-zevio.c
-@@ -211,4 +211,4 @@ static int __init zevio_timer_init(struct device_node *node)
- 	return zevio_timer_add(node);
- }
- 
--TIMER_OF_DECLARE(zevio_timer, "lsi,zevio-timer", zevio_timer_init);
-+TIMER_OF_DECLARE(zevio_timer, "lsi,zevio-timer", zevio_timer_init, NULL);
-diff --git a/include/linux/clocksource.h b/include/linux/clocksource.h
-index b21db536fd52..0db0eb4b6576 100644
---- a/include/linux/clocksource.h
-+++ b/include/linux/clocksource.h
-@@ -259,8 +259,34 @@ extern int clocksource_mmio_init(void __iomem *, const char *,
- 
- extern int clocksource_i8253_init(void);
- 
--#define TIMER_OF_DECLARE(name, compat, fn) \
--	OF_DECLARE_1_RET(timer, name, compat, fn)
-+#if defined(CONFIG_OF) && !defined(MODULE)
-+#define TIMER_OF_DECLARE_TABLE(name, compat, probe_data)		\
-+	static const struct of_device_id __timer_of_table_##name	\
-+		__used __section(__timer_of_table)			\
-+		= { .compatible = compat,				\
-+		    .data = probe_data }
-+#else
-+#define TIMER_OF_DECLARE_TABLE(name, compat, probe_data)		\
-+	static const struct of_device_id __timer_of_table_##name	\
-+		__attribute__((unused))					\
-+		= { .compatible = compat,				\
-+		    .data = probe_data }
-+#endif
-+
-+struct timer_of;
-+struct timer_probe_data {
-+	of_init_fn_1_ret fn;
-+	struct timer_of *timer_of;
-+};
-+
-+#define TIMER_OF_DECLARE(name, compat, handler, to)			\
-+	static const struct timer_probe_data timer_probe_data_##name	\
-+		= { .fn = (of_init_fn_1_ret)handler,			\
-+		    .timer_of = to };					\
-+	TIMER_OF_DECLARE_TABLE(name, compat, &timer_probe_data_##name)
-+
-+#define CLOCKSOURCE_OF_DECLARE(name, compat, fn, to) \
-+	TIMER_OF_DECLARE(name, compat, fn, to)
- 
- #ifdef CONFIG_TIMER_PROBE
- extern void timer_probe(void);
+ TIMER_OF_DECLARE(tegra20_rtc, "nvidia,tegra20-rtc", tegra20_init_rtc,
+-		 &suspend_rtc_to);
++		 suspend_rtc_to);
 -- 
 2.7.4
 
