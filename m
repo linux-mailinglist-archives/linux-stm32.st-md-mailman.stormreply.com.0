@@ -2,122 +2,118 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id 80E0BAEFEE
-	for <lists+linux-stm32@lfdr.de>; Tue, 10 Sep 2019 18:50:45 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id E0C2CAF375
+	for <lists+linux-stm32@lfdr.de>; Wed, 11 Sep 2019 01:48:47 +0200 (CEST)
 Received: from ip-172-31-3-76.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 3EF7AC35E01;
-	Tue, 10 Sep 2019 16:50:45 +0000 (UTC)
-Received: from smtprelay-out1.synopsys.com (smtprelay-out1.synopsys.com
- [198.182.47.102])
- (using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 8F34BC35E01;
+	Tue, 10 Sep 2019 23:48:47 +0000 (UTC)
+Received: from mail-lf1-f68.google.com (mail-lf1-f68.google.com
+ [209.85.167.68])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id DDD4BC36B3E
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id B70A5C36B3E
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Tue, 10 Sep 2019 16:50:42 +0000 (UTC)
-Received: from mailhost.synopsys.com (dc8-mailhost2.synopsys.com
- [10.13.135.210])
- (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits))
- (No client certificate requested)
- by smtprelay-out1.synopsys.com (Postfix) with ESMTPS id A046DC0EB9;
- Tue, 10 Sep 2019 16:50:38 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=synopsys.com; s=mail;
- t=1568134240; bh=1l2N/1ITeD+vI3yMCijQCzfXn6NxAl88T7WdyuPMavc=;
- h=From:To:CC:Subject:Date:References:In-Reply-To:From;
- b=GDYvI7y/CuZtO/3MfGy0cPxmE68GvQQv03nQxVa0sgM/MhD19KobvRUb8x7lIxQd5
- RTXFCNVDnPdgfMmKogstZN09SRp6l8rtXwVVVbzzGv49352xOrNSmAjdEpjDN/5ku4
- i99sAKZ6DLvfrf2XQ0At/dh5Z63HVzOFkCJ96jNx4TinnonmHj9Sxi8QyD3AF77mbI
- eFUZndvUfQ3onGLWa3XUvPaEgQEwlcIavDEeidx8iM/GmJtvVxU6LLShN4F4Wol+Iw
- NalklicLsp5w6C0faeQa6PLVWYy8/l5gQ6rUYrcSWayJpPHly+M527cSf8EAK639uE
- 5Sx42V41NOu6A==
-Received: from us01wehtc1.internal.synopsys.com
- (us01wehtc1-vip.internal.synopsys.com [10.12.239.236])
- (using TLSv1.2 with cipher ECDHE-RSA-AES256-SHA384 (256/256 bits))
- (No client certificate requested)
- by mailhost.synopsys.com (Postfix) with ESMTPS id DA6F7A005A;
- Tue, 10 Sep 2019 16:50:36 +0000 (UTC)
-Received: from US01HYBRID2.internal.synopsys.com (10.15.246.24) by
- us01wehtc1.internal.synopsys.com (10.12.239.231) with Microsoft SMTP Server
- (TLS) id 14.3.408.0; Tue, 10 Sep 2019 09:50:36 -0700
-Received: from NAM03-BY2-obe.outbound.protection.outlook.com (10.13.134.195)
- by mrs.synopsys.com (10.15.246.24) with Microsoft SMTP Server (TLS) id
- 14.3.408.0; Tue, 10 Sep 2019 09:50:36 -0700
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=SU7VQGDXq6CaoOBmgAFkUtHy61gv1ZU6Qd1iAt4Db1MxVHkbggj7WuDlPpV+41LlFpI9Uuq37+sn/pctS0badoGK9cwlbbtFBWs7jYoG5JrTjSjKDz7o2VT7V4gnll36w1DEq/hf6T8P5Nc6YNMCMj0x1V381Yi1vFYEqt9XJyO6G7xnXDrnGrx3LXBPlbUjpCfPu2nyOBv1y6RM6a4cAcurp46bi7xRnFGpGLM6MxbGM80DeIiWARLUt+8WixRzAfWIVHXYyXLa1xmjNU8SII4qO8O7Ve4kxl4Lyqi+2TSmUnhAUrkDeNFVii+g4k7d1w40762ZDeBT4/2/DYaXqw==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
- s=arcselector9901;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=pK1jXmQmS5bBm+tartDs95dhp2zoy76QGHzByDkwdhk=;
- b=P0Dj5f632eVU2PL/Bc9OPiVbK0ih3MU+MvZ/AkSNz6h5CFbl8Wh+4UQzPHHKb61DOrG0r1H/DjWpXHXtmOIaFYqtyykW7oyJX8HpI60GGxnj6BXDwxCOYSWW0T6XjMCMCNEqEaFXb8P1Q/I2vxNoe/gyvHpLt7nLVnlSx7iu0nuWgiaMJw+Bkb+NkhR1DH5xZICiri0fnPfLYVu8DkFY+QP7CZvMoU5swaOgPw60T89gerj9S79jFsnNFJXk3fT6NVUfGZM92WvVYztFjIrDyZzX0cFwYH+8BXX3+dLSR8XWzw30mZgU9iY2rXY/JoWHyGZ8BOOO3k06qYZ01kPswg==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=synopsys.com; dmarc=pass action=none header.from=synopsys.com;
- dkim=pass header.d=synopsys.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=synopsys.onmicrosoft.com; s=selector2-synopsys-onmicrosoft-com;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=pK1jXmQmS5bBm+tartDs95dhp2zoy76QGHzByDkwdhk=;
- b=Wl+DxopzM3VC9f7hCXIVpUpX0bcWrrXdLlBgbKkbNXPQfREqs7dBBzdDWlqC5VgebekTKRSgu2I/X+kEQi6NSFmbP8/2kjU+624sd44EZCea7cT1bwVdr5XD9nezWgxDl1EJfGZ1zKBivVkRVY6rkVteeio62PmaPWeQJwtKK3E=
-Received: from BN8PR12MB3266.namprd12.prod.outlook.com (20.179.67.145) by
- BN8PR12MB3458.namprd12.prod.outlook.com (20.178.211.32) with Microsoft SMTP
- Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.20.2241.14; Tue, 10 Sep 2019 16:50:35 +0000
-Received: from BN8PR12MB3266.namprd12.prod.outlook.com
- ([fe80::59fc:d942:487d:15b8]) by BN8PR12MB3266.namprd12.prod.outlook.com
- ([fe80::59fc:d942:487d:15b8%7]) with mapi id 15.20.2263.005; Tue, 10 Sep 2019
- 16:50:35 +0000
-From: Jose Abreu <Jose.Abreu@synopsys.com>
-To: Jose Abreu <Jose.Abreu@synopsys.com>,
- "netdev@vger.kernel.org" <netdev@vger.kernel.org>
-Thread-Topic: [PATCH net-next 0/6] net: stmmac: Improvements for -next
-Thread-Index: AQHVZ+Xjv6EH/CtyAkiGIiwkAINrlqclH45Q
-Date: Tue, 10 Sep 2019 16:50:34 +0000
-Message-ID: <BN8PR12MB3266C0DED372AEE787FA00DAD3B60@BN8PR12MB3266.namprd12.prod.outlook.com>
-References: <cover.1568126224.git.joabreu@synopsys.com>
-In-Reply-To: <cover.1568126224.git.joabreu@synopsys.com>
-Accept-Language: en-US
-Content-Language: en-US
-X-MS-Has-Attach: 
-X-MS-TNEF-Correlator: 
-authentication-results: spf=none (sender IP is )
- smtp.mailfrom=joabreu@synopsys.com; 
-x-originating-ip: [148.69.85.38]
-x-ms-publictraffictype: Email
-x-ms-office365-filtering-correlation-id: d25fcdc0-e733-4dc1-e47f-08d7360f001c
-x-microsoft-antispam: BCL:0; PCL:0;
- RULEID:(2390118)(7020095)(4652040)(8989299)(4534185)(4627221)(201703031133081)(201702281549075)(8990200)(5600166)(711020)(4605104)(1401327)(2017052603328)(7193020);
- SRVR:BN8PR12MB3458; 
-x-ms-traffictypediagnostic: BN8PR12MB3458:
-x-ms-exchange-transport-forked: True
-x-microsoft-antispam-prvs: <BN8PR12MB3458932C71B2EE3A1CBABBFAD3B60@BN8PR12MB3458.namprd12.prod.outlook.com>
-x-ms-oob-tlc-oobclassifiers: OLM:6430;
-x-forefront-prvs: 01565FED4C
-x-forefront-antispam-report: SFV:NSPM;
- SFS:(10019020)(366004)(396003)(39860400002)(136003)(376002)(346002)(189003)(199004)(76176011)(74316002)(486006)(66446008)(11346002)(99286004)(6506007)(53936002)(6116002)(3846002)(4326008)(71190400001)(71200400001)(478600001)(25786009)(6246003)(66066001)(33656002)(7736002)(8676002)(26005)(52536014)(102836004)(5660300002)(81166006)(81156014)(186003)(86362001)(476003)(14454004)(66946007)(76116006)(6436002)(8936002)(2501003)(66476007)(66556008)(64756008)(305945005)(2906002)(446003)(256004)(9686003)(229853002)(54906003)(316002)(110136005)(7696005)(5024004)(55016002);
- DIR:OUT; SFP:1102; SCL:1; SRVR:BN8PR12MB3458;
- H:BN8PR12MB3266.namprd12.prod.outlook.com; FPR:; SPF:None; LANG:en;
- PTR:InfoNoRecords; MX:1; A:1; 
-received-spf: None (protection.outlook.com: synopsys.com does not designate
- permitted sender hosts)
-x-ms-exchange-senderadcheck: 1
-x-microsoft-antispam-message-info: jI4J8bP9YBjKLPhqYt2/qdVBKroL53ehztPo5xhA3E79Ir7u5l0o5imZewypoleZVCr5lnIHY7iaTPnWxxzPD+2eD2+rVS/dneG48oxA3OTQLn41XnTelGQmM439/iJhZsbnWeJSVlz/fg3NJQXwvpMrJrZMbGJwDvMvuX58CPoArBwgkHnGb69ILloY2TnDjIEW+t17Vqx/4xKVo5KmBMIdKlWJbm7rmz+IKIsVUHjNj9GIHycoZWvHApOiIshF/cTbQJ889RZXM6P78l+TH/IF6YuPoZ6b99bCKfYL+jXYxmcZb20cPFPyfZC1IjWdP5Y0MsdEZAAn6uMlmYdO2dQHAtCdAXktHQsZjxdsSmG2++Sar+V461q3Ie7OjPWBGpTEgcqIN+CKr/fuF7JRRJ4acPYPLVPxg3y46wCYxXw=
+ Tue, 10 Sep 2019 23:48:45 +0000 (UTC)
+Received: by mail-lf1-f68.google.com with SMTP id x80so14919899lff.3
+ for <linux-stm32@st-md-mailman.stormreply.com>;
+ Tue, 10 Sep 2019 16:48:45 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linaro.org; s=google;
+ h=mime-version:references:in-reply-to:from:date:message-id:subject:to
+ :cc; bh=nL38C4T4rzT0VSsEiKY7BmomDl3hFeY7088tc9RdLq8=;
+ b=fNEGUezEn4ClsVHmX/nmNiF7ZG6JTfC2btDRxEWPcdmRk0a0FsvI5GS8qdYjx25FKp
+ Z5Q4/CFu+iDSAX2rFterlnGQ1MW2Sk6gR3mfMsTu8vyvU/jGEM0Jc08W0Sq44lgp0xR9
+ CuSR5RUBNAD9f/xSIv24vJgfP+XgU0l/RFI3nayQNe/1yYJJGrgKDIL8s6DHZhU39Dqr
+ TBKpHqE1DkJvJTHx2NFHskH6dl7p95yi4sNbTImUxUlyGuSbemOLPHLEtIfXkNBw9d7/
+ rUpU1+cMWUkAMn+hR7NDiGLEM6b9jVVLEIcpdiiAIbYGINkcClRodvCdYR9vR8oMDgr8
+ 5cAQ==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20161025;
+ h=x-gm-message-state:mime-version:references:in-reply-to:from:date
+ :message-id:subject:to:cc;
+ bh=nL38C4T4rzT0VSsEiKY7BmomDl3hFeY7088tc9RdLq8=;
+ b=OnmQ4hR+xY9Y33pT0TXoL3NE1+sBZoKR4FdrQATGIrXGlgJmyHKU+qw6C+m9J6WUt2
+ IsPRwZJsxZ3chnXmRjZzSLXw+EuatS/fzK4X6x85TuytztmpxYMZSiXfKGvQth8PooG3
+ ptKfoWOAFhc9IdCXuavieMthRgCvuYuibGCBr7PIJxMKglPk604txDpcTTeHWSXhqp3d
+ kI3b3c0wkkWgKxKt++LY90h8Hfped6Gg88gWsp5wNjp/M939CYEN1tGr8GoimguWFpUK
+ 6jKzm13G+U4AKXhEn8DIbzi90NYi0f8ToCQ7Lm/ow1XjTlV7SFw5j8/XojWn6oNt0Nz7
+ /AEw==
+X-Gm-Message-State: APjAAAVzHW8bkt5XitDolW3YFUgrRV+2blFn+1/ZPo78AbmoMdNlNHa/
+ s8gng1pgmdbo40DxNg/uBOcweZ4GCwPV9dS9ZHZuXg==
+X-Google-Smtp-Source: APXvYqxP4f7JH+QwULI+vOrlKcfc2e6lWO/TBU9/DTND7ll7mmRrx+NRPo2/Aht4Q5KFeqk+4RbtApAQjqBPq8BsL30=
+X-Received: by 2002:ac2:530e:: with SMTP id c14mr21391170lfh.165.1568159324971; 
+ Tue, 10 Sep 2019 16:48:44 -0700 (PDT)
 MIME-Version: 1.0
-X-MS-Exchange-CrossTenant-Network-Message-Id: d25fcdc0-e733-4dc1-e47f-08d7360f001c
-X-MS-Exchange-CrossTenant-originalarrivaltime: 10 Sep 2019 16:50:34.8948 (UTC)
-X-MS-Exchange-CrossTenant-fromentityheader: Hosted
-X-MS-Exchange-CrossTenant-id: c33c9f88-1eb7-4099-9700-16013fd9e8aa
-X-MS-Exchange-CrossTenant-mailboxtype: HOSTED
-X-MS-Exchange-CrossTenant-userprincipalname: w7JKThsDzv0tcnkHCQxLib/NRgc4h4LP8F5FXHSPdmv1QgCP4eNQDtf9ngY1OGrRsoIM7ItjyATbGq2LIQoGog==
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: BN8PR12MB3458
-X-OriginatorOrg: synopsys.com
-Cc: Joao Pinto <Joao.Pinto@synopsys.com>,
+References: <1568123236-767-1-git-send-email-claudiu.beznea@microchip.com>
+ <1568123236-767-8-git-send-email-claudiu.beznea@microchip.com>
+In-Reply-To: <1568123236-767-8-git-send-email-claudiu.beznea@microchip.com>
+From: Linus Walleij <linus.walleij@linaro.org>
+Date: Wed, 11 Sep 2019 00:48:33 +0100
+Message-ID: <CACRpkdYsCFUNAtarTQmaA2a3-HZjiVjxQ-Wr-7wJp9xrtQRKCg@mail.gmail.com>
+To: Claudiu Beznea <claudiu.beznea@microchip.com>
+Cc: Tomer Maimon <tmaimon77@gmail.com>, "Nori, Sekhar" <nsekhar@ti.com>,
+ guoren@kernel.org, linux-stm32@st-md-mailman.stormreply.com,
+ =?UTF-8?Q?Heiko_St=C3=BCbner?= <heiko@sntech.de>,
+ linux-samsung-soc <linux-samsung-soc@vger.kernel.org>,
+ "open list:ARM/Rockchip SoC..." <linux-rockchip@lists.infradead.org>,
+ Kevin Hilman <khilman@baylibre.com>,
+ Ludovic Desroches <ludovic.desroches@microchip.com>,
+ NXP Linux Team <linux-imx@nxp.com>,
+ =?UTF-8?Q?Uwe_Kleine=2DK=C3=B6nig?= <u.kleine-koenig@pengutronix.de>,
+ "moderated list:H8/300 ARCHITECTURE" <uclinux-h8-devel@lists.sourceforge.jp>,
+ Marc Zyngier <marc.zyngier@arm.com>, Sascha Hauer <s.hauer@pengutronix.de>,
+ linux-unisoc@lists.infradead.org, Krzysztof Halasa <khalasa@piap.pl>,
+ Thomas Gleixner <tglx@linutronix.de>, Scott Branden <sbranden@broadcom.com>,
  "linux-kernel@vger.kernel.org" <linux-kernel@vger.kernel.org>,
- "David  S. Miller" <davem@davemloft.net>,
+ Ralf Baechle <ralf@linux-mips.org>, Paul Burton <paul.burton@mips.com>,
+ Sascha Hauer <kernel@pengutronix.de>, Mark Rutland <mark.rutland@arm.com>,
+ Alexandre Belloni <alexandre.belloni@bootlin.com>,
+ James Hogan <jhogan@kernel.org>, Palmer Dabbelt <palmer@sifive.com>,
+ Eric Anholt <eric@anholt.net>,
+ "thierry.reding@gmail.com" <thierry.reding@gmail.com>,
+ Manivannan Sadhasivam <manivannan.sadhasivam@linaro.org>,
+ Yoshinori Sato <ysato@users.sourceforge.jp>, Lyra Zhang <zhang.lyra@gmail.com>,
+ Daniel Lezcano <daniel.lezcano@linaro.org>, Jon Hunter <jonathanh@nvidia.com>,
+ Bartosz Golaszewski <bgolaszewski@baylibre.com>, Kukjin Kim <kgene@kernel.org>,
+ MSM <linux-arm-msm@vger.kernel.org>, Sudeep Holla <sudeep.holla@arm.com>,
+ Florian Fainelli <f.fainelli@gmail.com>, John Stultz <john.stultz@linaro.org>,
+ linux-rpi-kernel <linux-rpi-kernel@lists.infradead.org>,
+ "open list:ARM/Amlogic Meson..." <linux-amlogic@lists.infradead.org>,
+ Linux ARM <linux-arm-kernel@lists.infradead.org>,
+ Barry Song <baohua@kernel.org>, Imre Kaloz <kaloz@openwrt.org>,
+ Stephen Boyd <sboyd@kernel.org>, Stefan Wahren <wahrenst@gmx.net>,
  Maxime Coquelin <mcoquelin.stm32@gmail.com>,
- Giuseppe Cavallaro <peppe.cavallaro@st.com>,
- "linux-stm32@st-md-mailman.stormreply.com"
- <linux-stm32@st-md-mailman.stormreply.com>,
- "linux-arm-kernel@lists.infradead.org" <linux-arm-kernel@lists.infradead.org>
-Subject: Re: [Linux-stm32] [PATCH net-next 0/6] net: stmmac: Improvements
-	for -next
+ Neil Armstrong <narmstrong@baylibre.com>, linux-tegra@vger.kernel.org,
+ Fabio Estevam <festevam@gmail.com>,
+ Lorenzo Pieralisi <lorenzo.pieralisi@arm.com>,
+ Benjamin Fair <benjaminfair@google.com>, Alexander Shiyan <shc_work@mail.ru>,
+ Krzysztof Kozlowski <krzk@kernel.org>, Nancy Yuen <yuenn@google.com>,
+ Chen-Yu Tsai <wens@csie.org>,
+ bcm-kernel-feedback-list <bcm-kernel-feedback-list@broadcom.com>,
+ Orson Zhai <orsonzhai@gmail.com>,
+ "open list:SYNOPSYS ARC ARCHITECTURE" <linux-snps-arc@lists.infradead.org>,
+ Ray Jui <rjui@broadcom.com>, Vladimir Zapolskiy <vz@mleia.com>,
+ John Crispin <john@phrozen.org>, tali.perry1@gmail.com,
+ Avi Fishman <avifishman70@gmail.com>, Patrick Venture <venture@google.com>,
+ Ley Foon Tan <lftan@altera.com>, linux-oxnas@groups.io,
+ Shawn Guo <shawnguo@kernel.org>,
+ =?UTF-8?Q?Andreas_F=C3=A4rber?= <afaerber@suse.de>,
+ Baruch Siach <baruch@tkos.co.il>, Maxime Ripard <maxime.ripard@bootlin.com>,
+ Liviu Dudau <liviu.dudau@arm.com>, linux-mips@vger.kernel.org,
+ linux-riscv@lists.infradead.org, OpenBMC Maillist <openbmc@lists.ozlabs.org>,
+ Russell King <linux@armlinux.org.uk>, Andy Gross <agross@kernel.org>,
+ Sylvain Lemieux <slemieux.tyco@gmail.com>,
+ "open list:OPEN FIRMWARE AND FLATTENED DEVICE TREE BINDINGS"
+ <devicetree@vger.kernel.org>, aou@eecs.berkeley.edu,
+ Rob Herring <robh+dt@kernel.org>,
+ "moderated list:ARM/Mediatek SoC support" <linux-mediatek@lists.infradead.org>,
+ Santosh Shilimkar <ssantosh@kernel.org>,
+ Matthias Brugger <matthias.bgg@gmail.com>, Michal Simek <monstr@monstr.eu>,
+ Baolin Wang <baolin.wang@linaro.org>, Vineet Gupta <vgupta@synopsys.com>,
+ Nicolas Ferre <nicolas.ferre@microchip.com>,
+ Tony Prisk <linux@prisktech.co.nz>,
+ "moderated list:NIOS2 ARCHITECTURE" <nios2-dev@lists.rocketboards.org>
+Subject: Re: [Linux-stm32] [PATCH 7/7] clocksource/drivers/integrator-ap:
+	parse the chosen node
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -134,52 +130,31 @@ Content-Transfer-Encoding: 7bit
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
-From: Jose Abreu <joabreu@synopsys.com>
-Date: Sep/10/2019, 15:41:21 (UTC+00:00)
+On Tue, Sep 10, 2019 at 2:50 PM Claudiu Beznea
+<claudiu.beznea@microchip.com> wrote:
+> From: Alexandre Belloni <alexandre.belloni@bootlin.com>
+>
+> The driver currently uses aliases to know whether the timer is the
+> clocksource or the clockevent.
 
-> Misc patches for -next. It includes:
->  - Two fixes for features in -next only
->  - New features support for GMAC cores (which includes GMAC4 and GMAC5)
+OK maybe that wasn't the most elegant solution.
 
-BTW, just for reference (and because I forgot to attach it earlier), 
-this is the selftests output for GMAC5.10 after this patchset:
+> Add the /chosen/linux,clocksource and
+> /chosen/linux,clockevent parsing while keeping backward compatibility.
 
-# ethtool -t ens4
-The test result is PASS
-The test extra info:
- 1. MAC Loopback         	 0
- 2. PHY Loopback         	 0
- 3. MMC Counters         	 0
- 4. EEE                  	 -95
- 5. Hash Filter MC       	 0
- 6. Perfect Filter UC    	 0
- 7. MC Filter            	 0
- 8. UC Filter            	 0
- 9. Flow Control         	 0
-10. RSS                  	 -95
-11. VLAN Filtering       	 0
-12. Double VLAN Filtering	 0
-13. Flexible RX Parser   	 0
-14. SA Insertion (desc)  	 0
-15. SA Replacement (desc)	 0
-16. SA Insertion (reg)  	 0
-17. SA Replacement (reg)	 0
-18. VLAN TX Insertion   	 0
-19. SVLAN TX Insertion  	 0
-20. L3 DA Filtering     	 -95
-21. L3 SA Filtering     	 -95
-22. L4 DA TCP Filtering 	 -95
-23. L4 SA TCP Filtering 	 -95
-24. L4 DA UDP Filtering 	 -95
-25. L4 SA UDP Filtering 	 -95
-26. ARP Offload         	 0
-27. Jumbo Frame         	 0
-28. Multichannel Jumbo  	 0
-29. Split Header        	 -95
+This is not how I would solve this today.
 
----
-Thanks,
-Jose Miguel Abreu
+I would simply remove/comment out the IRQ from the timer
+that cannot be used for clockevent from the device tree
+(apparently it doesn't work anyway), and make the code only
+pick a timer with a valid interrupt assigned as clock event,
+while a timer without interrupt can be used for clock source.
+
+This has the upside of not needing any special aliases or
+chosen things.
+
+Yours,
+Linus Walleij
 _______________________________________________
 Linux-stm32 mailing list
 Linux-stm32@st-md-mailman.stormreply.com
