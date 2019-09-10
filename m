@@ -2,22 +2,22 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id 4513CAEBF2
-	for <lists+linux-stm32@lfdr.de>; Tue, 10 Sep 2019 15:48:29 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 8F941AEC0A
+	for <lists+linux-stm32@lfdr.de>; Tue, 10 Sep 2019 15:49:04 +0200 (CEST)
 Received: from ip-172-31-3-76.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 0F557C35E01;
-	Tue, 10 Sep 2019 13:48:29 +0000 (UTC)
-Received: from esa6.microchip.iphmx.com (esa6.microchip.iphmx.com
- [216.71.154.253])
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 4515CC35E01;
+	Tue, 10 Sep 2019 13:49:04 +0000 (UTC)
+Received: from esa5.microchip.iphmx.com (esa5.microchip.iphmx.com
+ [216.71.150.166])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 2A1FDC36B3E
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id B0229C36B3E
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Tue, 10 Sep 2019 13:48:27 +0000 (UTC)
-Received-SPF: Pass (esa6.microchip.iphmx.com: domain of
+ Tue, 10 Sep 2019 13:49:02 +0000 (UTC)
+Received-SPF: Pass (esa5.microchip.iphmx.com: domain of
  Claudiu.Beznea@microchip.com designates 198.175.253.82 as
  permitted sender) identity=mailfrom;
- client-ip=198.175.253.82; receiver=esa6.microchip.iphmx.com;
+ client-ip=198.175.253.82; receiver=esa5.microchip.iphmx.com;
  envelope-from="Claudiu.Beznea@microchip.com";
  x-sender="Claudiu.Beznea@microchip.com";
  x-conformance=spf_only; x-record-type="v=spf1";
@@ -25,34 +25,34 @@ Received-SPF: Pass (esa6.microchip.iphmx.com: domain of
  a:smtpout.microchip.com a:mx1.microchip.iphmx.com
  a:mx2.microchip.iphmx.com include:servers.mcsv.net
  include:mktomail.com include:spf.protection.outlook.com ~all"
-Received-SPF: None (esa6.microchip.iphmx.com: no sender
+Received-SPF: None (esa5.microchip.iphmx.com: no sender
  authenticity information available from domain of
  postmaster@email.microchip.com) identity=helo;
- client-ip=198.175.253.82; receiver=esa6.microchip.iphmx.com;
+ client-ip=198.175.253.82; receiver=esa5.microchip.iphmx.com;
  envelope-from="Claudiu.Beznea@microchip.com";
  x-sender="postmaster@email.microchip.com"; x-conformance=spf_only
-Authentication-Results: esa6.microchip.iphmx.com;
+Authentication-Results: esa5.microchip.iphmx.com;
  dkim=none (message not signed) header.i=none;
  spf=Pass smtp.mailfrom=Claudiu.Beznea@microchip.com;
  spf=None smtp.helo=postmaster@email.microchip.com;
  dmarc=pass (p=none dis=none) d=microchip.com
-IronPort-SDR: 683XAQN9cp4PvWPaqfkswPOIVe8ed+z2/PAq+f5JbwUzTvxskB6TgBI5humDkARo19rIwUFt4F
- JzDtfX8pqdaTvCf5xrJyuiOTbmLIdfTBZj8qrSZO9+YVFXyDN0U4WcXn6dL9SSpUh4/3dqi5Xf
- X1CK53wyLz+ksXw4GCnfyxymjat+8N9sXtEswkYDIBJy9KWVsAg0I8VKBbVUJahRwl0rGXKZse
- tTI/HzuiqgKTdepmpiRMYHuCmvqPBYcgKq0bJKzkh7Ds3++Q6EUbOPHiJ1DHplps4/rkRql4eS
- 8NI=
-X-IronPort-AV: E=Sophos;i="5.64,489,1559545200"; d="scan'208";a="45604948"
+IronPort-SDR: MElAMnx6DZVg0Fxo1HADhYt/CKppFOarcOtVBiJiMKeqVnerD1EXIxGfHfSFctWJdco3XjLv78
+ xUkwH1JjmqvCa9jwOWHft9UhE4IXIlyPDEqRDe1OmIoHKpYSIJkLv0x17aUJyITNTyMRWpbodc
+ lneFK/GmovYQEw7PxtjEpC6x3k055LWthXiCT2LjFHc4mhhZjgYC9JbHpDUcCEUuK6GlcFGY4v
+ IB24qVrPtZXjzjhQigi2HVgLJL1r1E4yVKmsBEmm+UvKvhVt0qxPzmjS9H6KMJaeRjzAMwOHH2
+ jYg=
+X-IronPort-AV: E=Sophos;i="5.64,489,1559545200"; d="scan'208";a="46913719"
 Received: from smtpout.microchip.com (HELO email.microchip.com)
  ([198.175.253.82])
- by esa6.microchip.iphmx.com with ESMTP/TLS/AES256-SHA256;
- 10 Sep 2019 06:48:15 -0700
+ by esa5.microchip.iphmx.com with ESMTP/TLS/AES256-SHA256;
+ 10 Sep 2019 06:48:58 -0700
 Received: from chn-vm-ex03.mchp-main.com (10.10.85.151) by
  chn-vm-ex02.mchp-main.com (10.10.85.144) with Microsoft SMTP Server
  (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
- 15.1.1713.5; Tue, 10 Sep 2019 06:48:15 -0700
+ 15.1.1713.5; Tue, 10 Sep 2019 06:48:58 -0700
 Received: from m18063-ThinkPad-T460p.mchp-main.com (10.10.85.251) by
  chn-vm-ex03.mchp-main.com (10.10.85.151) with Microsoft SMTP Server id
- 15.1.1713.5 via Frontend Transport; Tue, 10 Sep 2019 06:47:52 -0700
+ 15.1.1713.5 via Frontend Transport; Tue, 10 Sep 2019 06:48:36 -0700
 From: Claudiu Beznea <claudiu.beznea@microchip.com>
 To: <daniel.lezcano@linaro.org>, <robh+dt@kernel.org>, <mark.rutland@arm.com>, 
  <linux@armlinux.org.uk>, <nsekhar@ti.com>, <bgolaszewski@baylibre.com>,
@@ -81,8 +81,8 @@ To: <daniel.lezcano@linaro.org>, <robh+dt@kernel.org>, <mark.rutland@arm.com>,
  <maxime.ripard@bootlin.com>, <wens@csie.org>, <thierry.reding@gmail.com>,
  <jonathanh@nvidia.com>, <linux@prisktech.co.nz>, <john.stultz@linaro.org>,
  <sboyd@kernel.org>, <matthias.bgg@gmail.com>
-Date: Tue, 10 Sep 2019 16:47:10 +0300
-Message-ID: <1568123236-767-2-git-send-email-claudiu.beznea@microchip.com>
+Date: Tue, 10 Sep 2019 16:47:12 +0300
+Message-ID: <1568123236-767-4-git-send-email-claudiu.beznea@microchip.com>
 X-Mailer: git-send-email 2.7.4
 In-Reply-To: <1568123236-767-1-git-send-email-claudiu.beznea@microchip.com>
 References: <1568123236-767-1-git-send-email-claudiu.beznea@microchip.com>
@@ -97,8 +97,7 @@ Cc: uclinux-h8-devel@lists.sourceforge.jp, devicetree@vger.kernel.org,
  linux-riscv@lists.infradead.org, linux-snps-arc@lists.infradead.org, Claudiu
  Beznea <claudiu.beznea@microchip.com>, linux-stm32@st-md-mailman.stormreply.com,
  linux-arm-kernel@lists.infradead.org
-Subject: [Linux-stm32] [PATCH 1/7] clocksource/drivers/c-sky: request
-	timer_of_init only for probing CPU
+Subject: [Linux-stm32] [PATCH 3/7] clocksource/timer_of: use BIT() macro
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -115,137 +114,30 @@ Content-Transfer-Encoding: 7bit
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
-timer_of_init() was initially called for all possible CPUs although it
-was requested clock with index 0 for the same device_node on behalf of
-all possible CPUs. This patch keeps the timer_of_init() only for probing
-CPU and use the information obtained by timer_of_init() to also
-initialize the timer_of structure for the rest of CPUs. Since the
-probing CPU was requested also a per CPU interrupt, and the
-timer_of_init() has such a mechanism implemented, the patch took also
-the chance to pass TIMER_OF_IRQ flag to timer_of_init(). Apart from
-this csky_mptimer_irq variable was removed and information in per CPU
-timer_of objects was used instead (to->clkevt.irq).
+Use BIT() macro for timer_of flags.
 
 Signed-off-by: Claudiu Beznea <claudiu.beznea@microchip.com>
 ---
- drivers/clocksource/timer-mp-csky.c | 45 +++++++++++++++++++------------------
- 1 file changed, 23 insertions(+), 22 deletions(-)
+ drivers/clocksource/timer-of.h | 6 +++---
+ 1 file changed, 3 insertions(+), 3 deletions(-)
 
-diff --git a/drivers/clocksource/timer-mp-csky.c b/drivers/clocksource/timer-mp-csky.c
-index 183a9955160a..dd263c8de580 100644
---- a/drivers/clocksource/timer-mp-csky.c
-+++ b/drivers/clocksource/timer-mp-csky.c
-@@ -15,7 +15,7 @@
- #define PTIM_LVR	"cr<6, 14>"
- #define PTIM_TSR	"cr<1, 14>"
+diff --git a/drivers/clocksource/timer-of.h b/drivers/clocksource/timer-of.h
+index ee467bb16ca3..df861ea2ec42 100644
+--- a/drivers/clocksource/timer-of.h
++++ b/drivers/clocksource/timer-of.h
+@@ -4,9 +4,9 @@
  
--static int csky_mptimer_irq;
-+static irqreturn_t csky_timer_interrupt(int irq, void *dev);
+ #include <linux/clockchips.h>
  
- static int csky_mptimer_set_next_event(unsigned long delta,
- 				       struct clock_event_device *ce)
-@@ -47,7 +47,7 @@ static int csky_mptimer_oneshot_stopped(struct clock_event_device *ce)
- }
+-#define TIMER_OF_BASE	0x1
+-#define TIMER_OF_CLOCK	0x2
+-#define TIMER_OF_IRQ	0x4
++#define TIMER_OF_BASE		BIT(0)
++#define TIMER_OF_CLOCK		BIT(1)
++#define TIMER_OF_IRQ		BIT(2)
  
- static DEFINE_PER_CPU(struct timer_of, csky_to) = {
--	.flags					= TIMER_OF_CLOCK,
-+	.flags					= TIMER_OF_CLOCK | TIMER_OF_IRQ,
- 	.clkevt = {
- 		.rating				= 300,
- 		.features			= CLOCK_EVT_FEAT_PERCPU |
-@@ -57,6 +57,10 @@ static DEFINE_PER_CPU(struct timer_of, csky_to) = {
- 		.set_state_oneshot_stopped	= csky_mptimer_oneshot_stopped,
- 		.set_next_event			= csky_mptimer_set_next_event,
- 	},
-+	.of_irq = {
-+		.percpu				= true,
-+		.handler			= csky_timer_interrupt,
-+	},
- };
- 
- static irqreturn_t csky_timer_interrupt(int irq, void *dev)
-@@ -79,7 +83,7 @@ static int csky_mptimer_starting_cpu(unsigned int cpu)
- 
- 	to->clkevt.cpumask = cpumask_of(cpu);
- 
--	enable_percpu_irq(csky_mptimer_irq, 0);
-+	enable_percpu_irq(to->clkevt.irq, 0);
- 
- 	clockevents_config_and_register(&to->clkevt, timer_of_rate(to),
- 					2, ULONG_MAX);
-@@ -89,7 +93,9 @@ static int csky_mptimer_starting_cpu(unsigned int cpu)
- 
- static int csky_mptimer_dying_cpu(unsigned int cpu)
- {
--	disable_percpu_irq(csky_mptimer_irq);
-+	struct timer_of *to = per_cpu_ptr(&csky_to, cpu);
-+
-+	disable_percpu_irq(to->clkevt.irq);
- 
- 	return 0;
- }
-@@ -117,8 +123,8 @@ struct clocksource csky_clocksource = {
- 
- static int __init csky_mptimer_init(struct device_node *np)
- {
--	int ret, cpu, cpu_rollback;
--	struct timer_of *to = NULL;
-+	struct timer_of *to = this_cpu_ptr(&csky_to);
-+	int ret, cpu;
- 
- 	/*
- 	 * Csky_mptimer is designed for C-SKY SMP multi-processors and
-@@ -132,20 +138,20 @@ static int __init csky_mptimer_init(struct device_node *np)
- 	 * We use private irq for the mptimer and irq number is the same
- 	 * for every core. So we use request_percpu_irq() in timer_of_init.
- 	 */
--	csky_mptimer_irq = irq_of_parse_and_map(np, 0);
--	if (csky_mptimer_irq <= 0)
--		return -EINVAL;
- 
--	ret = request_percpu_irq(csky_mptimer_irq, csky_timer_interrupt,
--				 "csky_mp_timer", &csky_to);
-+	ret = timer_of_init(np, to);
- 	if (ret)
- 		return -EINVAL;
- 
- 	for_each_possible_cpu(cpu) {
--		to = per_cpu_ptr(&csky_to, cpu);
--		ret = timer_of_init(np, to);
--		if (ret)
--			goto rollback;
-+		struct timer_of *cpu_to = per_cpu_ptr(&csky_to, cpu);
-+
-+		if (to == cpu_to)
-+			continue;
-+
-+		cpu_to->clkevt.irq = to->of_irq.irq;
-+		cpu_to->of_clk.rate = to->of_clk.rate;
-+		cpu_to->of_clk.period = to->of_clk.period;
- 	}
- 
- 	clocksource_register_hz(&csky_clocksource, timer_of_rate(to));
-@@ -156,18 +162,13 @@ static int __init csky_mptimer_init(struct device_node *np)
- 				csky_mptimer_starting_cpu,
- 				csky_mptimer_dying_cpu);
- 	if (ret)
--		return -EINVAL;
-+		goto rollback;
- 
- 	return 0;
- 
- rollback:
--	for_each_possible_cpu(cpu_rollback) {
--		if (cpu_rollback == cpu)
--			break;
-+	timer_of_cleanup(to);
- 
--		to = per_cpu_ptr(&csky_to, cpu_rollback);
--		timer_of_cleanup(to);
--	}
- 	return -EINVAL;
- }
- TIMER_OF_DECLARE(csky_mptimer, "csky,mptimer", csky_mptimer_init);
+ struct of_timer_irq {
+ 	int irq;
 -- 
 2.7.4
 
