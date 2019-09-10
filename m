@@ -2,71 +2,39 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id 73583AEE2F
-	for <lists+linux-stm32@lfdr.de>; Tue, 10 Sep 2019 17:11:14 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 8A4BDAEECC
+	for <lists+linux-stm32@lfdr.de>; Tue, 10 Sep 2019 17:45:53 +0200 (CEST)
 Received: from ip-172-31-3-76.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 37BA1C35E01;
-	Tue, 10 Sep 2019 15:11:14 +0000 (UTC)
-Received: from relay5-d.mail.gandi.net (relay5-d.mail.gandi.net
- [217.70.183.197])
- (using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 5025BC35E01;
+	Tue, 10 Sep 2019 15:45:53 +0000 (UTC)
+Received: from shards.monkeyblade.net (shards.monkeyblade.net [23.128.96.9])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id D55FDC36B3E
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id D6F3CC36B3E
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Tue, 10 Sep 2019 15:11:12 +0000 (UTC)
-X-Originating-IP: 148.69.85.38
+ Tue, 10 Sep 2019 15:45:51 +0000 (UTC)
 Received: from localhost (unknown [148.69.85.38])
- (Authenticated sender: alexandre.belloni@bootlin.com)
- by relay5-d.mail.gandi.net (Postfix) with ESMTPSA id D0F4F1C0019;
- Tue, 10 Sep 2019 15:10:57 +0000 (UTC)
-Date: Tue, 10 Sep 2019 17:10:55 +0200
-From: Alexandre Belloni <alexandre.belloni@bootlin.com>
-To: Sudeep Holla <sudeep.holla@arm.com>
-Message-ID: <20190910151055.GX21254@piout.net>
-References: <1568123236-767-1-git-send-email-claudiu.beznea@microchip.com>
- <1568123236-767-5-git-send-email-claudiu.beznea@microchip.com>
- <20190910143231.GB14966@e107533-lin.cambridge.arm.com>
- <ab43b209-78fa-0cab-b8ea-acd4c550e689@microchip.com>
- <20190910150826.GA18308@e107533-lin.cambridge.arm.com>
-MIME-Version: 1.0
-Content-Disposition: inline
-In-Reply-To: <20190910150826.GA18308@e107533-lin.cambridge.arm.com>
-User-Agent: Mutt/1.12.1 (2019-06-15)
-Cc: tmaimon77@gmail.com, linus.walleij@linaro.org, nsekhar@ti.com,
- guoren@kernel.org, linux-stm32@st-md-mailman.stormreply.com, heiko@sntech.de,
- linux-samsung-soc@vger.kernel.org, linux-rockchip@lists.infradead.org,
- khilman@baylibre.com, Ludovic.Desroches@microchip.com, linux-imx@nxp.com,
- u.kleine-koenig@pengutronix.de, uclinux-h8-devel@lists.sourceforge.jp,
- marc.zyngier@arm.com, s.hauer@pengutronix.de, linux-unisoc@lists.infradead.org,
- khalasa@piap.pl, tglx@linutronix.de, sbranden@broadcom.com,
- linux-kernel@vger.kernel.org, ralf@linux-mips.org, paul.burton@mips.com,
- kernel@pengutronix.de, Claudiu.Beznea@microchip.com, mark.rutland@arm.com,
- jhogan@kernel.org, palmer@sifive.com, eric@anholt.net,
- thierry.reding@gmail.com, manivannan.sadhasivam@linaro.org,
- ysato@users.sourceforge.jp, zhang.lyra@gmail.com, daniel.lezcano@linaro.org,
- jonathanh@nvidia.com, bgolaszewski@baylibre.com, kgene@kernel.org,
- linux-arm-msm@vger.kernel.org, f.fainelli@gmail.com, john.stultz@linaro.org,
- linux-rpi-kernel@lists.infradead.org, linux-amlogic@lists.infradead.org,
- linux-arm-kernel@lists.infradead.org, baohua@kernel.org, kaloz@openwrt.org,
- sboyd@kernel.org, wahrenst@gmx.net, mcoquelin.stm32@gmail.com,
- narmstrong@baylibre.com, linux-tegra@vger.kernel.org, festevam@gmail.com,
- lorenzo.pieralisi@arm.com, benjaminfair@google.com, shc_work@mail.ru,
- krzk@kernel.org, yuenn@google.com, wens@csie.org,
- bcm-kernel-feedback-list@broadcom.com, orsonzhai@gmail.com,
- linux-snps-arc@lists.infradead.org, rjui@broadcom.com, vz@mleia.com,
- john@phrozen.org, tali.perry1@gmail.com, avifishman70@gmail.com,
- venture@google.com, lftan@altera.com, linux-oxnas@groups.io,
- shawnguo@kernel.org, afaerber@suse.de, baruch@tkos.co.il,
- maxime.ripard@bootlin.com, liviu.dudau@arm.com, linux-mips@vger.kernel.org,
- linux-riscv@lists.infradead.org, openbmc@lists.ozlabs.org,
- linux@armlinux.org.uk, agross@kernel.org, slemieux.tyco@gmail.com,
- devicetree@vger.kernel.org, aou@eecs.berkeley.edu, robh+dt@kernel.org,
- linux-mediatek@lists.infradead.org, ssantosh@kernel.org,
- matthias.bgg@gmail.com, monstr@monstr.eu, baolin.wang@linaro.org,
- vgupta@synopsys.com, Nicolas.Ferre@microchip.com, linux@prisktech.co.nz,
- nios2-dev@lists.rocketboards.org
-Subject: Re: [Linux-stm32] [PATCH 4/7] dt-bindings: chosen: Add clocksource
- and clockevent selection
+ (using TLSv1 with cipher AES256-SHA (256/256 bits))
+ (Client did not present a certificate)
+ (Authenticated sender: davem-davemloft)
+ by shards.monkeyblade.net (Postfix) with ESMTPSA id C02AA154F499A;
+ Tue, 10 Sep 2019 08:45:47 -0700 (PDT)
+Date: Tue, 10 Sep 2019 17:45:44 +0200 (CEST)
+Message-Id: <20190910.174544.945128884852877943.davem@davemloft.net>
+To: alexandru.ardelean@analog.com
+From: David Miller <davem@davemloft.net>
+In-Reply-To: <20190906123054.5514-1-alexandru.ardelean@analog.com>
+References: <20190906123054.5514-1-alexandru.ardelean@analog.com>
+X-Mailer: Mew version 6.8 on Emacs 26.2
+Mime-Version: 1.0
+X-Greylist: Sender succeeded SMTP AUTH, not delayed by milter-greylist-4.5.12
+ (shards.monkeyblade.net [149.20.54.216]);
+ Tue, 10 Sep 2019 08:45:49 -0700 (PDT)
+Cc: netdev@vger.kernel.org, linux-kernel@vger.kernel.org, joabreu@synopsys.com,
+ mcoquelin.stm32@gmail.com, peppe.cavallaro@st.com,
+ linux-stm32@st-md-mailman.stormreply.com, linux-arm-kernel@lists.infradead.org
+Subject: Re: [Linux-stm32] [PATCH] net: stmmac: socfpga: re-use the
+ `interface` parameter from platform data
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -83,55 +51,25 @@ Content-Transfer-Encoding: 7bit
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
-On 10/09/2019 16:08:26+0100, Sudeep Holla wrote:
-> On Tue, Sep 10, 2019 at 02:51:50PM +0000, Claudiu.Beznea@microchip.com wrote:
-> > 
-> > 
-> > On 10.09.2019 17:32, Sudeep Holla wrote:
-> > > External E-Mail
-> > > 
-> > > 
-> > > On Tue, Sep 10, 2019 at 04:47:13PM +0300, Claudiu Beznea wrote:
-> > >> From: Alexandre Belloni <alexandre.belloni@bootlin.com>
-> > >>
-> > >> Some timer drivers may behave either as clocksource or clockevent
-> > >> or both. Until now, in case of platforms with multiple hardware
-> > >> resources of the same type, the drivers were chosing the first
-> > >> registered hardware resource as clocksource/clockevent and the
-> > >> next one as clockevent/clocksource. Other were using different
-> > >> compatibles (one for each functionality, although its about the
-> > >> same hardware). Add DT bindings to be able to choose the
-> > >> functionality of a timer.
-> > >>
-> > > 
-> > > Is the piece of hardware not capable of serving as both clocksource
-> > > and clockevent or is it just the platform choice ?
-> > 
-> > In my case, the hardware is not capable of serving at the same time
-> > a clocksource device and a clockevent device.
-> > 
-> > First, I published v1 for a hardware device having this behavior at
-> > [1] requesting 1st probed hardware device to work as clocksource and
-> > the 2nd one to work as clockevent. The discussion at [1] ended up with
-> > the idea of having a mechanism to specify which hardware device behaves
-> > as clocksource and which one behaves as clockevent.
-> >
-> 
-> In that case, why can't we identify capability that with the compatibles
-> for this timer IP ?
-> 
-> IOW, I don't like the proposal as it's hardware limitation.
-> 
+From: Alexandru Ardelean <alexandru.ardelean@analog.com>
+Date: Fri, 6 Sep 2019 15:30:54 +0300
 
-To be clear, bot timers are exactly the same but can't be clocksource
-and clockevent at the same time. Why would we have different compatibles
-for the exact same IP?
+> The socfpga sub-driver defines an `interface` field in the `socfpga_dwmac`
+> struct and parses it on init.
+> 
+> The shared `stmmac_probe_config_dt()` function also parses this from the
+> device-tree and makes it available on the returned `plat_data` (which is
+> the same data available via `netdev_priv()`).
+> 
+> All that's needed now is to dig that information out, via some
+> `dev_get_drvdata()` && `netdev_priv()` calls and re-use it.
+> 
+> Signed-off-by: Alexandru Ardelean <alexandru.ardelean@analog.com>
 
+This doesn't build even on net-next.
 
--- 
-Alexandre Belloni, Bootlin
-Embedded Linux and Kernel engineering
-https://bootlin.com
+And if your patch does target net-next you must indicate this properly in the
+Subject line as "[PATCH net-next]" vs. "[PATCH net]"
 _______________________________________________
 Linux-stm32 mailing list
 Linux-stm32@st-md-mailman.stormreply.com
