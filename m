@@ -2,22 +2,22 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id 19B95AF627
-	for <lists+linux-stm32@lfdr.de>; Wed, 11 Sep 2019 08:52:57 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 5BDD4AF67E
+	for <lists+linux-stm32@lfdr.de>; Wed, 11 Sep 2019 09:14:29 +0200 (CEST)
 Received: from ip-172-31-3-76.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id C4344C35E01;
-	Wed, 11 Sep 2019 06:52:56 +0000 (UTC)
-Received: from esa5.microchip.iphmx.com (esa5.microchip.iphmx.com
- [216.71.150.166])
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 1CD71C35E01;
+	Wed, 11 Sep 2019 07:14:29 +0000 (UTC)
+Received: from esa2.microchip.iphmx.com (esa2.microchip.iphmx.com
+ [68.232.149.84])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id E3BCDC36B3E
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 5F6A9C36B3E
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Wed, 11 Sep 2019 06:52:54 +0000 (UTC)
-Received-SPF: Pass (esa5.microchip.iphmx.com: domain of
+ Wed, 11 Sep 2019 07:14:27 +0000 (UTC)
+Received-SPF: Pass (esa2.microchip.iphmx.com: domain of
  Claudiu.Beznea@microchip.com designates 198.175.253.82 as
  permitted sender) identity=mailfrom;
- client-ip=198.175.253.82; receiver=esa5.microchip.iphmx.com;
+ client-ip=198.175.253.82; receiver=esa2.microchip.iphmx.com;
  envelope-from="Claudiu.Beznea@microchip.com";
  x-sender="Claudiu.Beznea@microchip.com";
  x-conformance=spf_only; x-record-type="v=spf1";
@@ -25,43 +25,43 @@ Received-SPF: Pass (esa5.microchip.iphmx.com: domain of
  a:smtpout.microchip.com a:mx1.microchip.iphmx.com
  a:mx2.microchip.iphmx.com include:servers.mcsv.net
  include:mktomail.com include:spf.protection.outlook.com ~all"
-Received-SPF: None (esa5.microchip.iphmx.com: no sender
+Received-SPF: None (esa2.microchip.iphmx.com: no sender
  authenticity information available from domain of
  postmaster@email.microchip.com) identity=helo;
- client-ip=198.175.253.82; receiver=esa5.microchip.iphmx.com;
+ client-ip=198.175.253.82; receiver=esa2.microchip.iphmx.com;
  envelope-from="Claudiu.Beznea@microchip.com";
  x-sender="postmaster@email.microchip.com"; x-conformance=spf_only
-Authentication-Results: esa5.microchip.iphmx.com;
+Authentication-Results: esa2.microchip.iphmx.com;
  spf=Pass smtp.mailfrom=Claudiu.Beznea@microchip.com;
  spf=None smtp.helo=postmaster@email.microchip.com;
  dkim=pass (signature verified) header.i=@microchiptechnology.onmicrosoft.com;
  dmarc=pass (p=none dis=none) d=microchip.com
-IronPort-SDR: BfXTGQWWn0vjXd94PPBj+sVXOY7LTMa2BOHYb9kqF90xMGcBUfAiggTl70fPg5AACdnViW+5tT
- mC0HNh3mquLOewoSGpr6pfOIvNZCr86cnU7AcqkjE/7VlrSVB1H7IYVU2powWLil9EpNSUN6lD
- 3rHkzvKXip/PmYLKPmnsYRAJ+DoG6cmYxeA9zoFDIgQdhq1pnnHjGArd0CO+8hMm8xkTAZq97b
- AMQAzRCoJo1vWGcztNSum660dtiMnwZ06Mgsj4P7ceIDDW3MTmA1AmQ+buNDvYoGYcIlN1a18x
- fGw=
-X-IronPort-AV: E=Sophos;i="5.64,492,1559545200"; d="scan'208";a="47026797"
+IronPort-SDR: JDPpigGbRSWL+j+pcuOH+LurKTowc/4sbyQumW2fCQrDDaMCsinFszmlv1jnX/C+UwL8H10cGn
+ +PKWtrbagGeeOti33o3j+69psh52+cnaD9WwEVXWw4JfYqEmK1S5J3gc67zQzqFFt7DuobGene
+ 5QUym5+80PlRuTTsKTf2+GDNpYmArmgYVRjD1Ukk5djDdQreKiy7WiyBOk7NLTCa6GWYm/FxTQ
+ 6pRmLculc6ZgZRhvaDMy1dU69WGMlT/VRiq3lspnHkfMDVW6rQcrdm48R64Hk8zyRo3PTno+L4
+ 1s0=
+X-IronPort-AV: E=Sophos;i="5.64,492,1559545200"; d="scan'208";a="48469517"
 Received: from smtpout.microchip.com (HELO email.microchip.com)
  ([198.175.253.82])
- by esa5.microchip.iphmx.com with ESMTP/TLS/AES256-SHA256;
- 10 Sep 2019 23:52:50 -0700
-Received: from chn-vm-ex02.mchp-main.com (10.10.85.144) by
- chn-vm-ex03.mchp-main.com (10.10.85.151) with Microsoft SMTP Server
+ by esa2.microchip.iphmx.com with ESMTP/TLS/AES256-SHA256;
+ 11 Sep 2019 00:14:17 -0700
+Received: from chn-vm-ex01.mchp-main.com (10.10.85.143) by
+ chn-vm-ex04.mchp-main.com (10.10.85.152) with Microsoft SMTP Server
  (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
- 15.1.1713.5; Tue, 10 Sep 2019 23:52:39 -0700
-Received: from NAM02-SN1-obe.outbound.protection.outlook.com (10.10.215.89) by
- email.microchip.com (10.10.87.72) with Microsoft SMTP Server
+ 15.1.1713.5; Wed, 11 Sep 2019 00:14:16 -0700
+Received: from NAM05-BY2-obe.outbound.protection.outlook.com (10.10.215.89) by
+ email.microchip.com (10.10.87.71) with Microsoft SMTP Server
  (version=TLS1_2, 
  cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.1713.5 via Frontend
- Transport; Tue, 10 Sep 2019 23:52:38 -0700
+ Transport; Wed, 11 Sep 2019 00:14:15 -0700
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=iMgiyBBoA2ADWBwvNws3u6bcsXSg5NtG87PoPRYna/WS2tW/tZUQMNiQe/uO0gqyRXg9yFE3BP6ScpHZZqjjYmfRzaQyji++a+T6OO8lm0umcrvPQIyn4UFY6wLbpaHFjEQMlQ8zYDP0Wm3CfeD6RBcpV+drRRGxdGRMKC7FGbRXy3lGQlKhGI3rtTqQiVPibabJo3nJWHLhXRYMTWUntPukoiTtxuMSvA0+1emZJPbkywPCTyYhvnDxMuH0gsNSoid9l/dI+734nnzgkXlGBhwbw2q6KVmnAIzb7Jj/uvakwORXrlfPJHT0YIm1j2KMcy2H0mrzZybkEhRktIn9DA==
+ b=CqADawqZICRPvUz66MrTow4+KF4hmrrJadMKRGG2KcykLp/hHn4+JqKwnqIwfxtmS2lBmNb18iuTP4EYOWpILpiFJGzDIlT2Vy8+R6wtZekjo97NLRtVyJRAhGx0tDSEb4rjQzp4v+l/h/qGQ120IA/Ol/iCMWmHHECDmyKvHX1emQ+q7Y83PqbsReYbRk/jHCKeRpZIEwzAIfo2Jz/xo72bQko7u0ckqiW54CVN0ZEIMphI3CRG+OtQ68t8xjNiFPsek7CApMIShP5fcYkFuHq3MOBYFEhGE4AmJ7lyurAjBQtmI//jLYKBj+LLZSPfAgEdBYYV/0Z4JeQW0uZK3Q==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
  s=arcselector9901;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=p1aPIAkRYuUSIqXxXGXMU/N7qlfWfdc/txSlmnIFK00=;
- b=JeYnCJAPGSOJ58OOKD0T6uJP+xPhVxpwGEaIJddtbwOKLX+W11HiS4qsyoE5/p/yqnR4pexplDM6pfTLYM/fvLoyUb/KlLKmxGp3gzBVcelga2kmxcZUVnr7pNA1y1ImvEw/GPoV70gvX7N+g03iSHnJWUeZrs2iqpY5WVUIzpvdD1eOmROKrloiEEfgYoXPvvIrD95eemQupAJIC6A0hCQhmgTltyMbjH/1jTNV0QAx9TnbM2eYHONmf23GBqGDyVs8Gjb7mRO/ZyyKmQeuag9fifo3RfkSL0xcsR0cUpToaH+SEU2tfQ3zvB+aGVxfKyZk5Pfmod9qEQbXAuNqCw==
+ bh=azcDEEvcMqMNYAqGSDo/gDDUFld4AFYh9dLRkG/lT0U=;
+ b=K24p5EUnM5+89Fq392N9mtQR0qLpsXZ/VCJnJHEAxvhgTB5aEql9Zd4IxvQaNAOgPJEtT6SKJpd32eHHTFxkm2lpWAbl4J7+iEQvWR/fmBTt2+p7OxKb1ibbQOExomJ2L09qElU3gqF24XTbVU2inYBRHJPvUF3ehYMQIDLRF5G17BFC6bptlocrQ+Bqwa5jI5XtaYWKxuisbGyrpJ0jJZVjd3zbhY0T9inh7XEo3NLsy3K6l/avRO14uT5WTGrvDRisHoM1wlUmVoh20lkuubNxyY63JPHZJEBTC7HjNCB4mWYZweql3M5wHY2QWwg+EFSa14VU6dLRYKuyuaMghg==
 ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
  smtp.mailfrom=microchip.com; dmarc=pass action=none
  header.from=microchip.com; dkim=pass header.d=microchip.com; arc=none
@@ -69,66 +69,68 @@ DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=microchiptechnology.onmicrosoft.com;
  s=selector2-microchiptechnology-onmicrosoft-com;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=p1aPIAkRYuUSIqXxXGXMU/N7qlfWfdc/txSlmnIFK00=;
- b=vkEnGukVuyNpcMVwT0jaUrdKJBbyFTil/D+LXDfD2aW49LJVrEhKdPbajZ1b2u5VuaEV3GWXVRYmpOtf1B/CahK02c0ZZVEAf6YQFkjDPy703EKcyCrOhsM9dZ4W9MRZY3BGH03Ph5r5M12Iz4DYVibHFIeZK7joeCa2+eiiP6Y=
+ bh=azcDEEvcMqMNYAqGSDo/gDDUFld4AFYh9dLRkG/lT0U=;
+ b=FCiYFQPbIy8DuN8DKeVHmNPSJ6bckDvaVpUT3XwBxLQPZxrWRcH/+MUrsOFccQXJ5VUn1jWn2qObH/kdI4GsN4KTMdpZXg/52tkZpRJ8x8wOGnhjck/E4D2Jrr1bMMrBZbZaSRQ7RwRa1oRt7EdNJjBQBC8anLzf0mmgHRzyamA=
 Received: from MWHPR11MB1549.namprd11.prod.outlook.com (10.172.54.17) by
- MWHPR11MB1247.namprd11.prod.outlook.com (10.169.237.11) with Microsoft SMTP
+ MWHPR11MB1471.namprd11.prod.outlook.com (10.172.53.141) with Microsoft SMTP
  Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.20.2241.15; Wed, 11 Sep 2019 06:52:37 +0000
+ 15.20.2263.15; Wed, 11 Sep 2019 07:14:12 +0000
 Received: from MWHPR11MB1549.namprd11.prod.outlook.com
  ([fe80::4c34:6012:3622:68ed]) by MWHPR11MB1549.namprd11.prod.outlook.com
  ([fe80::4c34:6012:3622:68ed%3]) with mapi id 15.20.2241.018; Wed, 11 Sep 2019
- 06:52:37 +0000
+ 07:14:12 +0000
 From: <Claudiu.Beznea@microchip.com>
-To: <john.stultz@linaro.org>
-Thread-Topic: [PATCH 0/7] add support for clocksource/clockevent DT selection
-Thread-Index: AQHVaG1srLXkUp4vH02J/Sk0g3X+4A==
-Date: Wed, 11 Sep 2019 06:52:36 +0000
-Message-ID: <cb451591-88ad-f1b3-b654-cea86ae11cac@microchip.com>
+To: <linus.walleij@linaro.org>
+Thread-Topic: [PATCH 7/7] clocksource/drivers/integrator-ap: parse the chosen
+ node
+Thread-Index: AQHVaDJo6+m97p4pO0OlgZvpR/W4dqcmEH0A
+Date: Wed, 11 Sep 2019 07:14:11 +0000
+Message-ID: <9c46343e-504e-fbd9-45aa-a67416109e36@microchip.com>
 References: <1568123236-767-1-git-send-email-claudiu.beznea@microchip.com>
- <CALAqxLWLStTqGx5DAvUKOYupdgK-doOxRF5Z_Us=L5vnFaa=7w@mail.gmail.com>
-In-Reply-To: <CALAqxLWLStTqGx5DAvUKOYupdgK-doOxRF5Z_Us=L5vnFaa=7w@mail.gmail.com>
+ <1568123236-767-8-git-send-email-claudiu.beznea@microchip.com>
+ <CACRpkdYsCFUNAtarTQmaA2a3-HZjiVjxQ-Wr-7wJp9xrtQRKCg@mail.gmail.com>
+In-Reply-To: <CACRpkdYsCFUNAtarTQmaA2a3-HZjiVjxQ-Wr-7wJp9xrtQRKCg@mail.gmail.com>
 Accept-Language: en-US
 Content-Language: en-US
 X-MS-Has-Attach: 
 X-MS-TNEF-Correlator: 
-x-clientproxiedby: VI1PR0901CA0097.eurprd09.prod.outlook.com
- (2603:10a6:800:7e::23) To MWHPR11MB1549.namprd11.prod.outlook.com
+x-clientproxiedby: VI1PR03CA0065.eurprd03.prod.outlook.com
+ (2603:10a6:803:50::36) To MWHPR11MB1549.namprd11.prod.outlook.com
  (2603:10b6:301:c::17)
 x-ms-exchange-messagesentrepresentingtype: 1
-x-tagtoolbar-keys: D20190911095205902
+x-tagtoolbar-keys: D20190911101342597
 x-originating-ip: [94.177.32.156]
 x-ms-publictraffictype: Email
-x-ms-office365-filtering-correlation-id: 56979c86-17b8-40cd-341e-08d73684a132
+x-ms-office365-filtering-correlation-id: 118d1a95-0d94-4552-8d57-08d73687a523
 x-microsoft-antispam: BCL:0; PCL:0;
  RULEID:(2390118)(7020095)(4652040)(8989299)(4534185)(4627221)(201703031133081)(201702281549075)(8990200)(5600166)(711020)(4605104)(1401327)(2017052603328)(7193020);
- SRVR:MWHPR11MB1247; 
-x-ms-traffictypediagnostic: MWHPR11MB1247:
-x-ms-exchange-purlcount: 2
+ SRVR:MWHPR11MB1471; 
+x-ms-traffictypediagnostic: MWHPR11MB1471:
+x-ms-exchange-purlcount: 1
 x-ms-exchange-transport-forked: True
-x-microsoft-antispam-prvs: <MWHPR11MB12477FE55EFE83052E85BBE487B10@MWHPR11MB1247.namprd11.prod.outlook.com>
-x-ms-oob-tlc-oobclassifiers: OLM:9508;
+x-microsoft-antispam-prvs: <MWHPR11MB14719355846234D641EF079F87B10@MWHPR11MB1471.namprd11.prod.outlook.com>
+x-ms-oob-tlc-oobclassifiers: OLM:10000;
 x-forefront-prvs: 0157DEB61B
 x-forefront-antispam-report: SFV:NSPM;
- SFS:(10009020)(39860400002)(396003)(346002)(376002)(136003)(366004)(199004)(189003)(71190400001)(71200400001)(14444005)(256004)(7736002)(966005)(305945005)(31686004)(7366002)(7406005)(8676002)(7416002)(81156014)(6436002)(81166006)(7336002)(6306002)(6512007)(6916009)(53936002)(2906002)(3846002)(6116002)(66556008)(6246003)(229853002)(4326008)(6486002)(25786009)(31696002)(478600001)(14454004)(86362001)(66446008)(64756008)(66476007)(66946007)(8936002)(99286004)(26005)(36756003)(66066001)(5660300002)(2616005)(476003)(486006)(11346002)(316002)(446003)(76176011)(54906003)(6506007)(386003)(186003)(102836004)(53546011)(52116002);
- DIR:OUT; SFP:1101; SCL:1; SRVR:MWHPR11MB1247;
+ SFS:(10009020)(396003)(346002)(39860400002)(366004)(376002)(136003)(199004)(189003)(31696002)(6486002)(71190400001)(71200400001)(229853002)(3846002)(54906003)(6116002)(316002)(86362001)(2906002)(966005)(6916009)(6436002)(14454004)(31686004)(478600001)(66066001)(8676002)(11346002)(53936002)(446003)(4326008)(81156014)(81166006)(386003)(6506007)(25786009)(5660300002)(2616005)(6306002)(476003)(486006)(26005)(186003)(53546011)(8936002)(102836004)(6246003)(66476007)(66446008)(64756008)(7336002)(7406005)(7366002)(7416002)(66556008)(256004)(66946007)(14444005)(7736002)(52116002)(76176011)(305945005)(6512007)(36756003)(99286004);
+ DIR:OUT; SFP:1101; SCL:1; SRVR:MWHPR11MB1471;
  H:MWHPR11MB1549.namprd11.prod.outlook.com; FPR:; SPF:None; LANG:en;
  PTR:InfoNoRecords; A:1; MX:1; 
 received-spf: None (protection.outlook.com: microchip.com does not designate
  permitted sender hosts)
 x-ms-exchange-senderadcheck: 1
-x-microsoft-antispam-message-info: SrX0aYDnktOiXXKYNwNT++cFX7Q2djULMPh8xNBqOIxY5eJ0VP8s0VBHZmCF6rxRRdp4IqoyCGjEmnAnVquMtc+jq3jn56uy47iG9HSYjKooK8kDI5YoxFe/DY9fg60B6aHankc3S1vhABBKbiESxevGEVEjTVpoXSCmqByM3+98x7RS4uuPbT1tuGD+fJwL4HtkEtAoWhP3aiQ+k3Ub13qQVj9EUESNl43bMNCnovq7k2LSPxEeUPFXiCY+2WH/txA7xA7G8tTFh13tT5gU++foImLwpk3+8lF/YBrNXa7rnLpS669Su4Tuxe2yZBifsVsS8Xu4TNvik4xyjMyV0hCgU4sZBDTFt+akUApxhPTOiXwnOUfpBliU73hxIxV/HdL4bqynmEpSGE7aU2gpMrziBuLjzBUIIzlFyCMwXa8=
-Content-ID: <C5F237E5FF12BA4F89A78E016541450F@namprd11.prod.outlook.com>
+x-microsoft-antispam-message-info: yZHDuRVbJtxDW9Vlx+3rF7LfIK62FNw7M7eqPDoSz38zIUhSEDkJPLf/6BC6uZOHK/iiaKdDlZt4xaTth+TTKcN3AZ3+ka6Az9/wNAdVjwSpSeqc6R1tpoXKaJPYPU8P8qvu+2AXEQBhT06uiPRdAKg8Uka/mjS8e55slOUTsvJAS5dcPz12RVXADuC71oU/hoiY8UPH//WycHD5yKpw0f1lT4Os+ySahdGNMHTUQnEm3INUHG3VgdLuCXVIQGvk4rEVktz9L3V6qKqXKCm246OUTsJitCD9WVLmOlJEMjYZRvUZ+SG2P7ORWwHgmlnb35cttbnPmSHbWtg4jlophNZDNBaRl2WTipJ1TIRUXIP9CtInZi0mElJFokPjF2G1nDRoH+lDjQLEPohCEz7T+hrZTPbxa666xZfqWACcOYU=
+Content-ID: <561EB454363D5F43AF07179372AB2643@namprd11.prod.outlook.com>
 MIME-Version: 1.0
-X-MS-Exchange-CrossTenant-Network-Message-Id: 56979c86-17b8-40cd-341e-08d73684a132
-X-MS-Exchange-CrossTenant-originalarrivaltime: 11 Sep 2019 06:52:36.6488 (UTC)
+X-MS-Exchange-CrossTenant-Network-Message-Id: 118d1a95-0d94-4552-8d57-08d73687a523
+X-MS-Exchange-CrossTenant-originalarrivaltime: 11 Sep 2019 07:14:11.7239 (UTC)
 X-MS-Exchange-CrossTenant-fromentityheader: Hosted
 X-MS-Exchange-CrossTenant-id: 3f4057f3-b418-4d4e-ba84-d55b4e897d88
 X-MS-Exchange-CrossTenant-mailboxtype: HOSTED
-X-MS-Exchange-CrossTenant-userprincipalname: 4sje3exn5bbKVCIi/swcKuY8wLGcrKnJhHwRnhTSYPpouScBZ46Sj+NJfUDkbsH9m+CQ+xr0Nm3kxiW1gWyWAYZIiJrlOkDVFfDxjd2qJi4=
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: MWHPR11MB1247
-Cc: tmaimon77@gmail.com, linus.walleij@linaro.org, nsekhar@ti.com,
- guoren@kernel.org, linux-stm32@st-md-mailman.stormreply.com, heiko@sntech.de,
+X-MS-Exchange-CrossTenant-userprincipalname: G8BB5SggMN/RZAQ/x3o8i1jxF1RDGyPtrctuYyT08AB+oJoCJ4yvlUA0dPwu7C0UrLvxCN5n2PEpEcZh8RjO/N27OmIc2rZgH2E4y5KlHXw=
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: MWHPR11MB1471
+Cc: tmaimon77@gmail.com, nsekhar@ti.com, guoren@kernel.org,
+ linux-stm32@st-md-mailman.stormreply.com, heiko@sntech.de,
  linux-samsung-soc@vger.kernel.org, linux-rockchip@lists.infradead.org,
  khilman@baylibre.com, Ludovic.Desroches@microchip.com, linux-imx@nxp.com,
  u.kleine-koenig@pengutronix.de, uclinux-h8-devel@lists.sourceforge.jp,
@@ -141,13 +143,13 @@ Cc: tmaimon77@gmail.com, linus.walleij@linaro.org, nsekhar@ti.com,
  ysato@users.sourceforge.jp, zhang.lyra@gmail.com, daniel.lezcano@linaro.org,
  jonathanh@nvidia.com, bgolaszewski@baylibre.com, kgene@kernel.org,
  linux-arm-msm@vger.kernel.org, sudeep.holla@arm.com, f.fainelli@gmail.com,
- linux-rpi-kernel@lists.infradead.org, linux-amlogic@lists.infradead.org,
- linux-arm-kernel@lists.infradead.org, baohua@kernel.org, kaloz@openwrt.org,
- sboyd@kernel.org, wahrenst@gmx.net, mcoquelin.stm32@gmail.com,
- narmstrong@baylibre.com, linux-tegra@vger.kernel.org, festevam@gmail.com,
- lorenzo.pieralisi@arm.com, benjaminfair@google.com, shc_work@mail.ru,
- krzk@kernel.org, yuenn@google.com, wens@csie.org,
- bcm-kernel-feedback-list@broadcom.com, orsonzhai@gmail.com,
+ john.stultz@linaro.org, linux-rpi-kernel@lists.infradead.org,
+ linux-amlogic@lists.infradead.org, linux-arm-kernel@lists.infradead.org,
+ baohua@kernel.org, kaloz@openwrt.org, sboyd@kernel.org, wahrenst@gmx.net,
+ mcoquelin.stm32@gmail.com, narmstrong@baylibre.com,
+ linux-tegra@vger.kernel.org, festevam@gmail.com, lorenzo.pieralisi@arm.com,
+ benjaminfair@google.com, shc_work@mail.ru, krzk@kernel.org, yuenn@google.com,
+ wens@csie.org, bcm-kernel-feedback-list@broadcom.com, orsonzhai@gmail.com,
  linux-snps-arc@lists.infradead.org, rjui@broadcom.com, vz@mleia.com,
  john@phrozen.org, tali.perry1@gmail.com, avifishman70@gmail.com,
  venture@google.com, lftan@altera.com, linux-oxnas@groups.io,
@@ -160,8 +162,8 @@ Cc: tmaimon77@gmail.com, linus.walleij@linaro.org, nsekhar@ti.com,
  matthias.bgg@gmail.com, monstr@monstr.eu, baolin.wang@linaro.org,
  vgupta@synopsys.com, Nicolas.Ferre@microchip.com, linux@prisktech.co.nz,
  nios2-dev@lists.rocketboards.org
-Subject: Re: [Linux-stm32] [PATCH 0/7] add support for
-	clocksource/clockevent DT selection
+Subject: Re: [Linux-stm32] [PATCH 7/7] clocksource/drivers/integrator-ap:
+ parse the chosen node
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -180,56 +182,52 @@ Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
 
 
-On 10.09.2019 19:05, John Stultz wrote:
+On 11.09.2019 02:48, Linus Walleij wrote:
 > External E-Mail
 > 
 > 
-> On Tue, Sep 10, 2019 at 6:47 AM Claudiu Beznea
+> On Tue, Sep 10, 2019 at 2:50 PM Claudiu Beznea
 > <claudiu.beznea@microchip.com> wrote:
+>> From: Alexandre Belloni <alexandre.belloni@bootlin.com>
 >>
->> This series adds support to permit the selection of clocksource/clockevent
->> via DT.
+>> The driver currently uses aliases to know whether the timer is the
+>> clocksource or the clockevent.
 > 
-> Sorry about this, but could you try to include more of a rational for
-> *why* this would be useful in your cover-letter/commit messages?
+> OK maybe that wasn't the most elegant solution.
 > 
+>> Add the /chosen/linux,clocksource and
+>> /chosen/linux,clockevent parsing while keeping backward compatibility.
+> 
+> This is not how I would solve this today.
+> 
+> I would simply remove/comment out the IRQ from the timer
+> that cannot be used for clockevent from the device tree
+> (apparently it doesn't work anyway), and make the code only
+> pick a timer with a valid interrupt assigned as clock event,
+> while a timer without interrupt can be used for clock source.
+This could also be used but it will not be compatible with old device
+trees. There are different ideas implemented in timer drivers with regards
+to this issue. Some of them are registering 1st timer to work as
+clocksource/clockevent and the 2nd one to work as clockevent/clocksource.
+Some are using different compatibles, one for clocksource, one for
+clockevent although these compatible seems to be for the same hardware type
+(I can point drivers/clocksource/timer-sprd.c).
 
-Sorry for not being to clear in the cover letter.
+The idea with this series was, at it has been proposed in [1] to have one
+single mechanism for this kind of situations.
 
-The case I am trying to solve here is as follows:
-The timer hardware for which I publish a driver at [1] cannot work at the
-same time as a clocksource and clockevent. On some of our platforms we have
-more than one such a timer. So we could use one hardware resource as
-clocksource and one as clockevent but not one for both.
-Due to this, I proposed in the driver at [1] to have 1st probed hardware to
-work as clocksource and the 2nd one to work as clockevent.
-There are also other timer drivers that uses this approach. While working
-on this series I noticed that there are others that are using even
-different compatibles (although it looks to be related to the same hardware).
-
-Due to this Daniel proposed to have an unified mechanism for this scenario,
-see [2], (something like what I proposed in this series), such that to have
-a determinism b/w the function that the hardware resources would behave
-(either clocksource or clockevent or both).
-
-The description I gave in cover letter was not the best one. Because,
-actually, at this time, the clocksource/clockevent of the system would not
-be the one pointed by DT bindings, these DT bindings would chose only the
-function that a timer would have. Because if more than one
-clocksource/clockevent would be registered in a system the rating field of
-struct clocksource/struct clockevent would be the one that would decide the
-chosen clocksource/clockevent.
+Thank you,
+Claudiu Beznea
 
 [1]
-https://lore.kernel.org/lkml/1552580772-8499-1-git-send-email-claudiu.beznea@microchip.com/
-[2]
 https://lore.kernel.org/lkml/2f831f1b-c87d-48bd-cf02-2ebb334b964c@linaro.org/
 
-> I'm not sure I understand the limitation that requires such an option
-> to be added to the dts.
 > 
-> thanks
-> -john
+> This has the upside of not needing any special aliases or
+> chosen things.
+> 
+> Yours,
+> Linus Walleij
 > 
 _______________________________________________
 Linux-stm32 mailing list
