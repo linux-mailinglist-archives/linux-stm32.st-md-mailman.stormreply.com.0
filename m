@@ -2,122 +2,113 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id D95D0AF387
-	for <lists+linux-stm32@lfdr.de>; Wed, 11 Sep 2019 02:03:17 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 7E4CEAF536
+	for <lists+linux-stm32@lfdr.de>; Wed, 11 Sep 2019 07:03:48 +0200 (CEST)
 Received: from ip-172-31-3-76.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 9AE45C35E01;
-	Wed, 11 Sep 2019 00:03:17 +0000 (UTC)
-Received: from mail-lf1-f68.google.com (mail-lf1-f68.google.com
- [209.85.167.68])
- (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 3DF53C35E01;
+	Wed, 11 Sep 2019 05:03:48 +0000 (UTC)
+Received: from mx0b-00128a01.pphosted.com (mx0b-00128a01.pphosted.com
+ [148.163.139.77])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 936C2C36B3E
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id BC932C36B3E
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Wed, 11 Sep 2019 00:03:16 +0000 (UTC)
-Received: by mail-lf1-f68.google.com with SMTP id w67so14908195lff.4
- for <linux-stm32@st-md-mailman.stormreply.com>;
- Tue, 10 Sep 2019 17:03:16 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linaro.org; s=google;
- h=mime-version:references:in-reply-to:from:date:message-id:subject:to
- :cc; bh=3h5YhApDdKtuz+D+gnGApd0B+4LCatw0L0XfiuEsBxQ=;
- b=NVJuR8bVMlcOgsf2yYP8qr45fff0pzpYW0BCQbtA3MsNrrnNBYVUkrPCtjMGuEx2eR
- vHG5rVpaM7qaL5D6ZhjkHfMm284dwMFpk/jTbelXuYGLLAopmskm5XPWQcubU3dyFgQP
- G88QxB3Jcb/plkyiz6fe5BqXD8nxBJ2xf0peSImUUZad5hQShUxqigYRk4Q9D8tv9p5a
- a8lcoGihpXhUGZiy7buZ+CKWHWGu0mF5S/9l1l5Cy2SeI8i3kGeBCygVnoSpYlUNWgIQ
- 22K9B0rcSqbfpLPD7mNpTKq7npU9JgB0CxGqWN97IT2niY6foO3t3Au+1txtUD0IGOth
- +r5A==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20161025;
- h=x-gm-message-state:mime-version:references:in-reply-to:from:date
- :message-id:subject:to:cc;
- bh=3h5YhApDdKtuz+D+gnGApd0B+4LCatw0L0XfiuEsBxQ=;
- b=Vxeyu5uSbpb1ZtiyVd1XTQVeHAowSzFXLAx9uhDOnl1xPa/hD96JEdDxnevObGg+HN
- GFjPbhqP0SpHZjDiIJSM8Fm40XCN/ctkQ5RLRnX8yuUctbZLPXNcUcVaG5/HLOXBJfJt
- OTitHUDMSqX6fDeN0gZM2uEK6wfNLqE3pzzgkLSW7BiHmxb7hG8pBNSCE2X6F6qawLbX
- cFyc26VD0f9iO61mXDK8QncOi80DD84T6wRZaDf37G78Sw6aAuUz74CGVZh69qtYKl+c
- ouwrxuTegNdHJ9TbgL3DXpXbtocNUz6ZDm4IvxTxwSohXczGBVsD6MqhxV8oV07+Hm4U
- HOdw==
-X-Gm-Message-State: APjAAAXlFzF35P8YwHPewJEGub7qK2/xe6fXBOZslT1M6wQ44xfBKZYv
- suIwOUcc0p1EWrJUJhLZdebtBtDKXQwJQvcBUHxEHA==
-X-Google-Smtp-Source: APXvYqwSiGgQfEWih9ymT87LJVnnaDlghzrxFki3OwEuC0IQ+sLwt8v1OcRFgydIQHHbkPzCMKjT6aFqwtFQHE75p7Y=
-X-Received: by 2002:a19:f512:: with SMTP id j18mr3365169lfb.169.1568160195293; 
- Tue, 10 Sep 2019 17:03:15 -0700 (PDT)
+ Wed, 11 Sep 2019 05:03:46 +0000 (UTC)
+Received: from pps.filterd (m0167090.ppops.net [127.0.0.1])
+ by mx0b-00128a01.pphosted.com (8.16.0.42/8.16.0.42) with SMTP id
+ x8B53HEo023307; Wed, 11 Sep 2019 01:03:38 -0400
+Received: from nam05-co1-obe.outbound.protection.outlook.com
+ (mail-co1nam05lp2053.outbound.protection.outlook.com [104.47.48.53])
+ by mx0b-00128a01.pphosted.com with ESMTP id 2uv967mnxg-1
+ (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
+ Wed, 11 Sep 2019 01:03:37 -0400
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
+ b=G9IokxyF9d1mieG5GC138owNyneBijTHg+eZKQwbjhWZGMPkE1uBzNzhiYu1qVUkubYF+tXf2xLVj+59ejxVyf5zU7deCAOhYWTbK9PEnnLH12f6ESJfzb/RiHGNgIBdDdF+36HWhRG/Xtjz7SgZFdJ/IHEgKnbr4jd/3tSIMm8ng0n4LEU5EYzZBZQkgdN6OQwuMS4eOVl2kijiTzd5iiAop461OCFc3OwqOM6xEAere/YkKvuWbWMteP2cT/zMa/v1hVetJaiLmGRyAwNhvpD1ofDOfX08JRp9eGQRJrGSvSMYsLPNOw0PgCnQyLi2YLd1cYE6SF0VAKHT1SG3AQ==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
+ s=arcselector9901;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=c2WMo+m1AAE1eZBl1EPzJZh7GOVLQQ3Wq8YlseAqhGg=;
+ b=DxanoqG6mKgZIXdwlTtOGfH9h+j6o27kTmC3IhzbYmHrz7pd9QzccFHjSy68Yw3HnBGJKMeQ2jGSWHyHNyF22bqnp9AFjoTKNkVjfT3z4HQJ4ravaAxVQmkkuVy1V8BLXDOAAA1NdHupw6WKhi5xiAYAZklTA9yY4ElO70W/bPJ6rBKsDOwu6tvyxYtLG9DYzSQJ41gs4wT58uH+6Pg0npRO6x4scLhjxooA3miMGOO8s9W+QxkCyO/j+Hlj3EHYa4kP88RdqdHTRb4wCmkl6nm60EGNIdDxc6VuEsbedMdDJTsKgLI3cNT61ZWfOTzNETbG5kQ4lzOXoXaLlUwmMQ==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=analog.com; dmarc=pass action=none header.from=analog.com;
+ dkim=pass header.d=analog.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=analog.onmicrosoft.com; s=selector2-analog-onmicrosoft-com;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=c2WMo+m1AAE1eZBl1EPzJZh7GOVLQQ3Wq8YlseAqhGg=;
+ b=Dm5B759GP+9RgcmCU8OcyQXVSpgP36As111oGCFksIgJ0+rDgoP7ApA2L0Fs3hCrEIhXRuVr4IKWexO9ArkOaSpTxEro2PTPI/UqpXB4p08nTNiLrnv0A9s9KY9896oRBIIULsslWRt4EbjCxlMdF3g67zt6GvcUCVfCHKZUExo=
+Received: from CH2PR03MB5192.namprd03.prod.outlook.com (20.180.12.152) by
+ CH2PR03MB5160.namprd03.prod.outlook.com (20.180.5.77) with Microsoft SMTP
+ Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.20.2241.18; Wed, 11 Sep 2019 05:03:36 +0000
+Received: from CH2PR03MB5192.namprd03.prod.outlook.com
+ ([fe80::344d:7f50:49a3:db1b]) by CH2PR03MB5192.namprd03.prod.outlook.com
+ ([fe80::344d:7f50:49a3:db1b%3]) with mapi id 15.20.2241.018; Wed, 11 Sep 2019
+ 05:03:36 +0000
+From: "Ardelean, Alexandru" <alexandru.Ardelean@analog.com>
+To: "davem@davemloft.net" <davem@davemloft.net>
+Thread-Topic: [PATCH] net: stmmac: socfpga: re-use the `interface` parameter
+ from platform data
+Thread-Index: AQHVZK71MotWq7Szq0ysUG4QFG+T4qclFD4AgAAAU4CAARDhAA==
+Date: Wed, 11 Sep 2019 05:03:35 +0000
+Message-ID: <06fc03662b540b057d214c85932ae2520ac7182f.camel@analog.com>
+References: <20190906123054.5514-1-alexandru.ardelean@analog.com>
+ <20190910.174544.945128884852877943.davem@davemloft.net>
+ <20190910.174653.800353422834551780.davem@davemloft.net>
+In-Reply-To: <20190910.174653.800353422834551780.davem@davemloft.net>
+Accept-Language: en-US
+Content-Language: en-US
+X-MS-Has-Attach: 
+X-MS-TNEF-Correlator: 
+x-originating-ip: [137.71.226.54]
+x-ms-publictraffictype: Email
+x-ms-office365-filtering-correlation-id: ac2185ad-6a56-44d9-15fd-08d7367566e0
+x-ms-office365-filtering-ht: Tenant
+x-microsoft-antispam: BCL:0; PCL:0;
+ RULEID:(2390118)(7020095)(4652040)(8989299)(4534185)(4627221)(201703031133081)(201702281549075)(8990200)(5600166)(711020)(4605104)(1401327)(4618075)(2017052603328)(7193020);
+ SRVR:CH2PR03MB5160; 
+x-ms-traffictypediagnostic: CH2PR03MB5160:
+x-microsoft-antispam-prvs: <CH2PR03MB51606CEEEC49CC2A047A6289F9B10@CH2PR03MB5160.namprd03.prod.outlook.com>
+x-ms-oob-tlc-oobclassifiers: OLM:7219;
+x-forefront-prvs: 0157DEB61B
+x-forefront-antispam-report: SFV:NSPM;
+ SFS:(10009020)(366004)(376002)(136003)(39860400002)(346002)(396003)(199004)(189003)(256004)(4326008)(2501003)(91956017)(81156014)(3846002)(2351001)(2616005)(8676002)(76116006)(14454004)(476003)(1730700003)(6116002)(5660300002)(66066001)(71190400001)(7736002)(66946007)(6506007)(81166006)(25786009)(118296001)(66476007)(478600001)(305945005)(71200400001)(186003)(26005)(486006)(86362001)(5640700003)(229853002)(76176011)(316002)(6512007)(6246003)(6436002)(6486002)(102836004)(8936002)(53936002)(6916009)(36756003)(446003)(11346002)(99286004)(2906002)(66556008)(64756008)(54906003)(66446008)(81973001);
+ DIR:OUT; SFP:1101; SCL:1; SRVR:CH2PR03MB5160;
+ H:CH2PR03MB5192.namprd03.prod.outlook.com; FPR:; SPF:None; LANG:en;
+ PTR:InfoNoRecords; A:1; MX:1; 
+received-spf: None (protection.outlook.com: analog.com does not designate
+ permitted sender hosts)
+x-ms-exchange-senderadcheck: 1
+x-microsoft-antispam-message-info: 2hNQ/ivRqDEh1GYD/gga26qN1IBDGXuVBDq6NAUNhcNhnxecSZqsd234GkCsCTv4jawVanll1wfTeZZ1VooASpu7Z+LEwMaoEstLtSQXh5xddk0kzgcdjTn1Y/2vtF+6LKdea6gD3hKheanDXUHN41gNWSIa9GZLGEBYK3VnBUSS50xd55F8VYUa/+fwLiPd0gWaJHEUA2ayHnyxZE9Vqfrc6YlRyzPa+dxifJqIyelppAoS8PiwKBYWAlZtvmkphAQW6tBsFb6ciwyVb0M3jKmUAX3Ja3EV9YaHqr5fiCe8TAK8dsvFUX5v2ZUHvfU2wKkIecYfYj4c+ehNSMK8pRs8nc3er9f6IZITaUM/7QEsvDQQi42IWwgtrVlgoSd+Of5yLUAblEwGkDu3pNQbJZg7E3nNgPbF7ypdXQhcQLg=
+x-ms-exchange-transport-forked: True
+Content-ID: <46B7C1F905245E4D83428112B3686E68@namprd03.prod.outlook.com>
 MIME-Version: 1.0
-References: <1568123236-767-1-git-send-email-claudiu.beznea@microchip.com>
- <1568123236-767-5-git-send-email-claudiu.beznea@microchip.com>
- <20190910143231.GB14966@e107533-lin.cambridge.arm.com>
- <ab43b209-78fa-0cab-b8ea-acd4c550e689@microchip.com>
- <20190910150826.GA18308@e107533-lin.cambridge.arm.com>
- <20190910151055.GX21254@piout.net>
-In-Reply-To: <20190910151055.GX21254@piout.net>
-From: Linus Walleij <linus.walleij@linaro.org>
-Date: Wed, 11 Sep 2019 01:03:03 +0100
-Message-ID: <CACRpkda4mmpbPWa2nD93CvD6HWzcTUDzyyLdQxC2gNB7XiJF3w@mail.gmail.com>
-To: Alexandre Belloni <alexandre.belloni@bootlin.com>
-Cc: Tomer Maimon <tmaimon77@gmail.com>, "Nori, Sekhar" <nsekhar@ti.com>,
- guoren@kernel.org, linux-stm32@st-md-mailman.stormreply.com,
- =?UTF-8?Q?Heiko_St=C3=BCbner?= <heiko@sntech.de>,
- linux-samsung-soc <linux-samsung-soc@vger.kernel.org>,
- "open list:ARM/Rockchip SoC..." <linux-rockchip@lists.infradead.org>,
- Kevin Hilman <khilman@baylibre.com>,
- Ludovic Desroches <Ludovic.Desroches@microchip.com>,
- NXP Linux Team <linux-imx@nxp.com>,
- =?UTF-8?Q?Uwe_Kleine=2DK=C3=B6nig?= <u.kleine-koenig@pengutronix.de>,
- "moderated list:H8/300 ARCHITECTURE" <uclinux-h8-devel@lists.sourceforge.jp>,
- Marc Zyngier <marc.zyngier@arm.com>, Sascha Hauer <s.hauer@pengutronix.de>,
- linux-unisoc@lists.infradead.org, Krzysztof Halasa <khalasa@piap.pl>,
- Thomas Gleixner <tglx@linutronix.de>, Scott Branden <sbranden@broadcom.com>,
+X-OriginatorOrg: analog.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: ac2185ad-6a56-44d9-15fd-08d7367566e0
+X-MS-Exchange-CrossTenant-originalarrivaltime: 11 Sep 2019 05:03:35.8637 (UTC)
+X-MS-Exchange-CrossTenant-fromentityheader: Hosted
+X-MS-Exchange-CrossTenant-id: eaa689b4-8f87-40e0-9c6f-7228de4d754a
+X-MS-Exchange-CrossTenant-mailboxtype: HOSTED
+X-MS-Exchange-CrossTenant-userprincipalname: jktkrWhPAHm8O6quKTk9pHuXm8fKLn7eULd44mupLV1cp0a50ylhgXY0yG3uOt4AjqimLN40qxlPWdShrqUf+zmUcL5/qUu+alWISHTd3BQ=
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: CH2PR03MB5160
+X-Proofpoint-Virus-Version: vendor=fsecure engine=2.50.10434:6.0.70,1.0.8
+ definitions=2019-09-11_03:2019-09-10,2019-09-11 signatures=0
+X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
+ lowpriorityscore=0
+ suspectscore=0 bulkscore=0 clxscore=1015 mlxscore=0 phishscore=0
+ mlxlogscore=999 impostorscore=0 adultscore=0 malwarescore=0 spamscore=0
+ priorityscore=1501 classifier=spam adjust=0 reason=mlx scancount=1
+ engine=8.12.0-1906280000 definitions=main-1909110048
+Cc: "netdev@vger.kernel.org" <netdev@vger.kernel.org>,
  "linux-kernel@vger.kernel.org" <linux-kernel@vger.kernel.org>,
- Ralf Baechle <ralf@linux-mips.org>, Paul Burton <paul.burton@mips.com>,
- Sascha Hauer <kernel@pengutronix.de>,
- Claudiu Beznea <Claudiu.Beznea@microchip.com>,
- Mark Rutland <mark.rutland@arm.com>, James Hogan <jhogan@kernel.org>,
- Palmer Dabbelt <palmer@sifive.com>, Eric Anholt <eric@anholt.net>,
- "thierry.reding@gmail.com" <thierry.reding@gmail.com>,
- Manivannan Sadhasivam <manivannan.sadhasivam@linaro.org>,
- Yoshinori Sato <ysato@users.sourceforge.jp>, Lyra Zhang <zhang.lyra@gmail.com>,
- Daniel Lezcano <daniel.lezcano@linaro.org>, Jon Hunter <jonathanh@nvidia.com>,
- Bartosz Golaszewski <bgolaszewski@baylibre.com>, Kukjin Kim <kgene@kernel.org>,
- MSM <linux-arm-msm@vger.kernel.org>, Sudeep Holla <sudeep.holla@arm.com>,
- Florian Fainelli <f.fainelli@gmail.com>, John Stultz <john.stultz@linaro.org>,
- linux-rpi-kernel <linux-rpi-kernel@lists.infradead.org>,
- "open list:ARM/Amlogic Meson..." <linux-amlogic@lists.infradead.org>,
- Linux ARM <linux-arm-kernel@lists.infradead.org>,
- Barry Song <baohua@kernel.org>, Imre Kaloz <kaloz@openwrt.org>,
- Stephen Boyd <sboyd@kernel.org>, Stefan Wahren <wahrenst@gmx.net>,
- Maxime Coquelin <mcoquelin.stm32@gmail.com>,
- Neil Armstrong <narmstrong@baylibre.com>, linux-tegra@vger.kernel.org,
- Fabio Estevam <festevam@gmail.com>,
- Lorenzo Pieralisi <lorenzo.pieralisi@arm.com>,
- Benjamin Fair <benjaminfair@google.com>, Alexander Shiyan <shc_work@mail.ru>,
- Krzysztof Kozlowski <krzk@kernel.org>, Nancy Yuen <yuenn@google.com>,
- Chen-Yu Tsai <wens@csie.org>,
- bcm-kernel-feedback-list <bcm-kernel-feedback-list@broadcom.com>,
- Orson Zhai <orsonzhai@gmail.com>,
- "open list:SYNOPSYS ARC ARCHITECTURE" <linux-snps-arc@lists.infradead.org>,
- Ray Jui <rjui@broadcom.com>, Vladimir Zapolskiy <vz@mleia.com>,
- John Crispin <john@phrozen.org>, tali.perry1@gmail.com,
- Avi Fishman <avifishman70@gmail.com>, Patrick Venture <venture@google.com>,
- Ley Foon Tan <lftan@altera.com>, linux-oxnas@groups.io,
- Shawn Guo <shawnguo@kernel.org>,
- =?UTF-8?Q?Andreas_F=C3=A4rber?= <afaerber@suse.de>,
- Baruch Siach <baruch@tkos.co.il>, Maxime Ripard <maxime.ripard@bootlin.com>,
- Liviu Dudau <liviu.dudau@arm.com>, linux-mips@vger.kernel.org,
- linux-riscv@lists.infradead.org, OpenBMC Maillist <openbmc@lists.ozlabs.org>,
- Russell King <linux@armlinux.org.uk>, Andy Gross <agross@kernel.org>,
- Sylvain Lemieux <slemieux.tyco@gmail.com>,
- "open list:OPEN FIRMWARE AND FLATTENED DEVICE TREE BINDINGS"
- <devicetree@vger.kernel.org>, aou@eecs.berkeley.edu,
- Rob Herring <robh+dt@kernel.org>,
- "moderated list:ARM/Mediatek SoC support" <linux-mediatek@lists.infradead.org>,
- Santosh Shilimkar <ssantosh@kernel.org>,
- Matthias Brugger <matthias.bgg@gmail.com>, Michal Simek <monstr@monstr.eu>,
- Baolin Wang <baolin.wang@linaro.org>, Vineet Gupta <vgupta@synopsys.com>,
- Nicolas Ferre <Nicolas.Ferre@microchip.com>,
- Tony Prisk <linux@prisktech.co.nz>,
- "moderated list:NIOS2 ARCHITECTURE" <nios2-dev@lists.rocketboards.org>
-Subject: Re: [Linux-stm32] [PATCH 4/7] dt-bindings: chosen: Add clocksource
-	and clockevent selection
+ "joabreu@synopsys.com" <joabreu@synopsys.com>,
+ "mcoquelin.stm32@gmail.com" <mcoquelin.stm32@gmail.com>,
+ "peppe.cavallaro@st.com" <peppe.cavallaro@st.com>,
+ "linux-stm32@st-md-mailman.stormreply.com"
+ <linux-stm32@st-md-mailman.stormreply.com>,
+ "linux-arm-kernel@lists.infradead.org" <linux-arm-kernel@lists.infradead.org>
+Subject: Re: [Linux-stm32] [PATCH] net: stmmac: socfpga: re-use the
+ `interface` parameter from platform data
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -129,61 +120,56 @@ List-Post: <mailto:linux-stm32@st-md-mailman.stormreply.com>
 List-Help: <mailto:linux-stm32-request@st-md-mailman.stormreply.com?subject=help>
 List-Subscribe: <https://st-md-mailman.stormreply.com/mailman/listinfo/linux-stm32>, 
  <mailto:linux-stm32-request@st-md-mailman.stormreply.com?subject=subscribe>
-Content-Type: text/plain; charset="us-ascii"
-Content-Transfer-Encoding: 7bit
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: base64
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
-On Tue, Sep 10, 2019 at 4:11 PM Alexandre Belloni
-<alexandre.belloni@bootlin.com> wrote:
-> On 10/09/2019 16:08:26+0100, Sudeep Holla wrote:
-> > On Tue, Sep 10, 2019 at 02:51:50PM +0000, Claudiu.Beznea@microchip.com wrote:
-
-> > In that case, why can't we identify capability that with the compatibles
-> > for this timer IP ?
-> >
-> > IOW, I don't like the proposal as it's hardware limitation.
->
-> To be clear, bot timers are exactly the same but can't be clocksource
-> and clockevent at the same time. Why would we have different compatibles
-> for the exact same IP?
-
-In that case why not just pick the first one you find as clocksource
-and the second one as clock event? As they all come to the
-same timer of init function two simple local state variables can
-solve that:
-
-static bool registered_clocksource;
-static bool registered_clockevent;
-
-probe(timer) {
-   if (!registered_clocksource) {
-       register_clocksource(timer);
-       registrered_clocksource = true;
-       return;
-   }
-   if (!registered_clockevent) {
-       register_clockevent(timer);
-       registered_clockevent = true;
-       return;
-   }
-   pr_info("surplus timer %p\n", timer);
-}
-
-Clocksource and clockevent are natural singletons so there is
-no need to handle more than one of each in a driver for identical
-hardware.
-
-With the Integrator AP timer there is a real reason to select one over
-the other but as I replied to that patch it is pretty easy to just identify
-which block has this limitation by simply commenting out the IRQ
-line for it from the device tree.
-
-Maybe there is something about this I don't understand.
-
-Yours,
-Linus Walleij
-_______________________________________________
-Linux-stm32 mailing list
-Linux-stm32@st-md-mailman.stormreply.com
-https://st-md-mailman.stormreply.com/mailman/listinfo/linux-stm32
+T24gVHVlLCAyMDE5LTA5LTEwIGF0IDE3OjQ2ICswMjAwLCBEYXZpZCBNaWxsZXIgd3JvdGU6DQo+
+IFtFeHRlcm5hbF0NCj4gDQo+IEZyb206IERhdmlkIE1pbGxlciA8ZGF2ZW1AZGF2ZW1sb2Z0Lm5l
+dD4NCj4gRGF0ZTogVHVlLCAxMCBTZXAgMjAxOSAxNzo0NTo0NCArMDIwMCAoQ0VTVCkNCj4gDQo+
+ID4gRnJvbTogQWxleGFuZHJ1IEFyZGVsZWFuIDxhbGV4YW5kcnUuYXJkZWxlYW5AYW5hbG9nLmNv
+bT4NCj4gPiBEYXRlOiBGcmksIDYgU2VwIDIwMTkgMTU6MzA6NTQgKzAzMDANCj4gPiANCj4gPiA+
+IFRoZSBzb2NmcGdhIHN1Yi1kcml2ZXIgZGVmaW5lcyBhbiBgaW50ZXJmYWNlYCBmaWVsZCBpbiB0
+aGUgYHNvY2ZwZ2FfZHdtYWNgDQo+ID4gPiBzdHJ1Y3QgYW5kIHBhcnNlcyBpdCBvbiBpbml0Lg0K
+PiA+ID4gDQo+ID4gPiBUaGUgc2hhcmVkIGBzdG1tYWNfcHJvYmVfY29uZmlnX2R0KClgIGZ1bmN0
+aW9uIGFsc28gcGFyc2VzIHRoaXMgZnJvbSB0aGUNCj4gPiA+IGRldmljZS10cmVlIGFuZCBtYWtl
+cyBpdCBhdmFpbGFibGUgb24gdGhlIHJldHVybmVkIGBwbGF0X2RhdGFgICh3aGljaCBpcw0KPiA+
+ID4gdGhlIHNhbWUgZGF0YSBhdmFpbGFibGUgdmlhIGBuZXRkZXZfcHJpdigpYCkuDQo+ID4gPiAN
+Cj4gPiA+IEFsbCB0aGF0J3MgbmVlZGVkIG5vdyBpcyB0byBkaWcgdGhhdCBpbmZvcm1hdGlvbiBv
+dXQsIHZpYSBzb21lDQo+ID4gPiBgZGV2X2dldF9kcnZkYXRhKClgICYmIGBuZXRkZXZfcHJpdigp
+YCBjYWxscyBhbmQgcmUtdXNlIGl0Lg0KPiA+ID4gDQo+ID4gPiBTaWduZWQtb2ZmLWJ5OiBBbGV4
+YW5kcnUgQXJkZWxlYW4gPGFsZXhhbmRydS5hcmRlbGVhbkBhbmFsb2cuY29tPg0KPiA+IA0KPiA+
+IFRoaXMgZG9lc24ndCBidWlsZCBldmVuIG9uIG5ldC1uZXh0Lg0KPiANCg0KUmlnaHQuDQpNeSBi
+YWQuDQoNCkkgdGhpbmsgSSBnb3QgY29uZnVzZWQgd2l0aCBtdWx0aXBsZS9jcm9zcy10ZXN0aW5n
+IGFuZCBwcm9iYWJseSB0aGlzIGNoYW5nZSBkaWRuJ3QgZXZlbiBnZXQgY29tcGlsZWQuDQoNCkFw
+b2xvZ2llcyBmb3IgdGhpcy4NCldpbGwgc2VuZCBhIGdvb2QgdmVyc2lvbi4NCg0KQWxleA0KDQo+
+IFNwZWNpZmljYWxseToNCj4gDQo+IGRyaXZlcnMvbmV0L2V0aGVybmV0L3N0bWljcm8vc3RtbWFj
+L2R3bWFjLXNvY2ZwZ2EuYzogSW4gZnVuY3Rpb24g4oCYc29jZnBnYV9nZW41X3NldF9waHlfbW9k
+ZeKAmToNCj4gZHJpdmVycy9uZXQvZXRoZXJuZXQvc3RtaWNyby9zdG1tYWMvZHdtYWMtc29jZnBn
+YS5jOjI2NDo0NDogZXJyb3I6IOKAmHBoeW1vZGXigJkgdW5kZWNsYXJlZCAoZmlyc3QgdXNlIGlu
+IHRoaXMgZnVuY3Rpb24pOw0KPiBkaWQgeW91IG1lYW4g4oCYcGh5X21vZGVz4oCZPw0KPiAgIDI2
+NCB8ICAgZGV2X2Vycihkd21hYy0+ZGV2LCAiYmFkIHBoeSBtb2RlICVkXG4iLCBwaHltb2RlKTsN
+Cj4gICAgICAgfCAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgXn5+
+fn5+fg0KPiAuL2luY2x1ZGUvbGludXgvZGV2aWNlLmg6MTQ5OTozMjogbm90ZTogaW4gZGVmaW5p
+dGlvbiBvZiBtYWNybyDigJhkZXZfZXJy4oCZDQo+ICAxNDk5IHwgIF9kZXZfZXJyKGRldiwgZGV2
+X2ZtdChmbXQpLCAjI19fVkFfQVJHU19fKQ0KPiAgICAgICB8ICAgICAgICAgICAgICAgICAgICAg
+ICAgICAgICAgICBefn5+fn5+fn5+fg0KPiBkcml2ZXJzL25ldC9ldGhlcm5ldC9zdG1pY3JvL3N0
+bW1hYy9kd21hYy1zb2NmcGdhLmM6MjY0OjQ0OiBub3RlOiBlYWNoIHVuZGVjbGFyZWQgaWRlbnRp
+ZmllciBpcyByZXBvcnRlZCBvbmx5IG9uY2UgZm9yDQo+IGVhY2ggZnVuY3Rpb24gaXQgYXBwZWFy
+cyBpbg0KPiAgIDI2NCB8ICAgZGV2X2Vycihkd21hYy0+ZGV2LCAiYmFkIHBoeSBtb2RlICVkXG4i
+LCBwaHltb2RlKTsNCj4gICAgICAgfCAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAg
+ICAgICAgICAgXn5+fn5+fg0KPiAuL2luY2x1ZGUvbGludXgvZGV2aWNlLmg6MTQ5OTozMjogbm90
+ZTogaW4gZGVmaW5pdGlvbiBvZiBtYWNybyDigJhkZXZfZXJy4oCZDQo+ICAxNDk5IHwgIF9kZXZf
+ZXJyKGRldiwgZGV2X2ZtdChmbXQpLCAjI19fVkFfQVJHU19fKQ0KPiAgICAgICB8ICAgICAgICAg
+ICAgICAgICAgICAgICAgICAgICAgICBefn5+fn5+fn5+fg0KPiBkcml2ZXJzL25ldC9ldGhlcm5l
+dC9zdG1pY3JvL3N0bW1hYy9kd21hYy1zb2NmcGdhLmM6IEluIGZ1bmN0aW9uIOKAmHNvY2ZwZ2Ff
+Z2VuMTBfc2V0X3BoeV9tb2Rl4oCZOg0KPiBkcml2ZXJzL25ldC9ldGhlcm5ldC9zdG1pY3JvL3N0
+bW1hYy9kd21hYy1zb2NmcGdhLmM6MzQwOjY6IGVycm9yOiDigJhwaHltb2Rl4oCZIHVuZGVjbGFy
+ZWQgKGZpcnN0IHVzZSBpbiB0aGlzIGZ1bmN0aW9uKTsNCj4gZGlkIHlvdSBtZWFuIOKAmHBoeV9t
+b2Rlc+KAmT8NCj4gICAzNDAgfCAgICAgIHBoeW1vZGUgPT0gUEhZX0lOVEVSRkFDRV9NT0RFX01J
+SSB8fA0KPiAgICAgICB8ICAgICAgXn5+fn5+fg0KPiAgICAgICB8ICAgICAgcGh5X21vZGVzDQpf
+X19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fXwpMaW51eC1zdG0z
+MiBtYWlsaW5nIGxpc3QKTGludXgtc3RtMzJAc3QtbWQtbWFpbG1hbi5zdG9ybXJlcGx5LmNvbQpo
+dHRwczovL3N0LW1kLW1haWxtYW4uc3Rvcm1yZXBseS5jb20vbWFpbG1hbi9saXN0aW5mby9saW51
+eC1zdG0zMgo=
