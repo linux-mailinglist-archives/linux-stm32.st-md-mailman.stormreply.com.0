@@ -2,67 +2,62 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id 644A4AF8A5
-	for <lists+linux-stm32@lfdr.de>; Wed, 11 Sep 2019 11:15:25 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 67F1BAFE2C
+	for <lists+linux-stm32@lfdr.de>; Wed, 11 Sep 2019 15:57:40 +0200 (CEST)
 Received: from ip-172-31-3-76.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 24767C35E01;
-	Wed, 11 Sep 2019 09:15:25 +0000 (UTC)
-Received: from relay11.mail.gandi.net (relay11.mail.gandi.net [217.70.178.231])
- (using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 2ECC1C35E01;
+	Wed, 11 Sep 2019 13:57:40 +0000 (UTC)
+Received: from mx07-00178001.pphosted.com (mx07-00178001.pphosted.com
+ [62.209.51.94])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 1F4DBC36B3E
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id E9335C36B3E
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Wed, 11 Sep 2019 09:15:23 +0000 (UTC)
-Received: from localhost (unknown [148.69.85.38])
- (Authenticated sender: alexandre.belloni@bootlin.com)
- by relay11.mail.gandi.net (Postfix) with ESMTPSA id 1EE6D10000D;
- Wed, 11 Sep 2019 09:15:02 +0000 (UTC)
-Date: Wed, 11 Sep 2019 11:14:58 +0200
-From: Alexandre Belloni <alexandre.belloni@bootlin.com>
-To: Neil Armstrong <narmstrong@baylibre.com>
-Message-ID: <20190911091458.GD21254@piout.net>
-References: <1568123236-767-1-git-send-email-claudiu.beznea@microchip.com>
- <1568123236-767-5-git-send-email-claudiu.beznea@microchip.com>
- <81da473f-54d7-2a00-61ec-9351cdfcaaf3@baylibre.com>
+ Wed, 11 Sep 2019 13:57:38 +0000 (UTC)
+Received: from pps.filterd (m0046668.ppops.net [127.0.0.1])
+ by mx07-00178001.pphosted.com (8.16.0.42/8.16.0.42) with SMTP id
+ x8BDtwkw031522; Wed, 11 Sep 2019 15:57:34 +0200
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=st.com;
+ h=from : to : cc : subject
+ : date : message-id : mime-version : content-type; s=STMicroelectronics;
+ bh=LIPK+mmht7E3Mdg8xZ7l7TYgMgc8zT91Yzpj/CithUk=;
+ b=sk4pwqlrLpyl+38JV1bjZthuj4I8wuM+xdwesG37RTHsBTbyLWDsnSnltU9E/3DzZlBs
+ 47HF0avQv8Xb/cBqAF85UtRiQrMZ6z8OckwOpROanbu0J8FOIzeUvH4OK0MANtj/x6Eo
+ DqqcFUWwW5piPtu+W3USZ1jAGawTIkD2O2lIAs+8znqcCbLwnlyjggytGO2bz4uRqFN3
+ ZnzidwhM4LBDy62UdB5Mpuq8djCvzaouQB05vTwoTobuMCpVExWf7mwlNSH4pztHeWeC
+ 9+ebsV8Rv2PhYEqAgeEBljEu4hIPNrlla+0KOMtyJfmE8idHWxOWNvd+FOxm/pT+8fvJ IA== 
+Received: from beta.dmz-ap.st.com (beta.dmz-ap.st.com [138.198.100.35])
+ by mx07-00178001.pphosted.com with ESMTP id 2uv212ud60-1
+ (version=TLSv1 cipher=ECDHE-RSA-AES256-SHA bits=256 verify=NOT);
+ Wed, 11 Sep 2019 15:57:34 +0200
+Received: from euls16034.sgp.st.com (euls16034.sgp.st.com [10.75.44.20])
+ by beta.dmz-ap.st.com (STMicroelectronics) with ESMTP id 622B624;
+ Wed, 11 Sep 2019 13:57:30 +0000 (GMT)
+Received: from Webmail-eu.st.com (Safex1hubcas21.st.com [10.75.90.44])
+ by euls16034.sgp.st.com (STMicroelectronics) with ESMTP id B7C7A2C7F50;
+ Wed, 11 Sep 2019 15:57:29 +0200 (CEST)
+Received: from SAFEX1HUBCAS23.st.com (10.75.90.47) by SAFEX1HUBCAS21.st.com
+ (10.75.90.44) with Microsoft SMTP Server (TLS) id 14.3.439.0; Wed, 11 Sep
+ 2019 15:57:29 +0200
+Received: from localhost (10.201.23.25) by webmail-ga.st.com (10.75.90.48)
+ with Microsoft SMTP Server (TLS) id 14.3.439.0; Wed, 11 Sep 2019 15:57:26
+ +0200
+From: Fabien Dessenne <fabien.dessenne@st.com>
+To: Ohad Ben-Cohen <ohad@wizery.com>, Bjorn Andersson
+ <bjorn.andersson@linaro.org>, Suman Anna <s-anna@ti.com>, Jonathan Corbet
+ <corbet@lwn.net>,
+ <linux-remoteproc@vger.kernel.org>, <linux-doc@vger.kernel.org>,
+ <linux-kernel@vger.kernel.org>
+Date: Wed, 11 Sep 2019 15:57:07 +0200
+Message-ID: <1568210227-32135-1-git-send-email-fabien.dessenne@st.com>
+X-Mailer: git-send-email 2.7.4
 MIME-Version: 1.0
-Content-Disposition: inline
-In-Reply-To: <81da473f-54d7-2a00-61ec-9351cdfcaaf3@baylibre.com>
-User-Agent: Mutt/1.12.1 (2019-06-15)
-Cc: tmaimon77@gmail.com, linus.walleij@linaro.org, nsekhar@ti.com,
- guoren@kernel.org, linux-stm32@st-md-mailman.stormreply.com, heiko@sntech.de,
- linux-samsung-soc@vger.kernel.org, linux-rockchip@lists.infradead.org,
- khilman@baylibre.com, ludovic.desroches@microchip.com, linux-imx@nxp.com,
- u.kleine-koenig@pengutronix.de, uclinux-h8-devel@lists.sourceforge.jp,
- marc.zyngier@arm.com, s.hauer@pengutronix.de, linux-unisoc@lists.infradead.org,
- khalasa@piap.pl, tglx@linutronix.de, sbranden@broadcom.com,
- linux-kernel@vger.kernel.org, ralf@linux-mips.org, paul.burton@mips.com,
- kernel@pengutronix.de, Claudiu Beznea <claudiu.beznea@microchip.com>,
- mark.rutland@arm.com, jhogan@kernel.org, palmer@sifive.com, eric@anholt.net,
- thierry.reding@gmail.com, manivannan.sadhasivam@linaro.org,
- ysato@users.sourceforge.jp, zhang.lyra@gmail.com, daniel.lezcano@linaro.org,
- jonathanh@nvidia.com, bgolaszewski@baylibre.com, kgene@kernel.org,
- linux-arm-msm@vger.kernel.org, sudeep.holla@arm.com, f.fainelli@gmail.com,
- john.stultz@linaro.org, linux-rpi-kernel@lists.infradead.org,
- linux-amlogic@lists.infradead.org, linux-arm-kernel@lists.infradead.org,
- baohua@kernel.org, kaloz@openwrt.org, sboyd@kernel.org, wahrenst@gmx.net,
- mcoquelin.stm32@gmail.com, linux-tegra@vger.kernel.org, festevam@gmail.com,
- lorenzo.pieralisi@arm.com, benjaminfair@google.com, shc_work@mail.ru,
- krzk@kernel.org, yuenn@google.com, wens@csie.org,
- bcm-kernel-feedback-list@broadcom.com, orsonzhai@gmail.com,
- linux-snps-arc@lists.infradead.org, rjui@broadcom.com, vz@mleia.com,
- john@phrozen.org, tali.perry1@gmail.com, avifishman70@gmail.com,
- venture@google.com, lftan@altera.com, linux-oxnas@groups.io,
- shawnguo@kernel.org, afaerber@suse.de, baruch@tkos.co.il,
- maxime.ripard@bootlin.com, liviu.dudau@arm.com, linux-mips@vger.kernel.org,
- linux-riscv@lists.infradead.org, openbmc@lists.ozlabs.org,
- linux@armlinux.org.uk, agross@kernel.org, slemieux.tyco@gmail.com,
- devicetree@vger.kernel.org, aou@eecs.berkeley.edu, robh+dt@kernel.org,
- linux-mediatek@lists.infradead.org, ssantosh@kernel.org,
- matthias.bgg@gmail.com, monstr@monstr.eu, baolin.wang@linaro.org,
- vgupta@synopsys.com, nicolas.ferre@microchip.com, linux@prisktech.co.nz,
- nios2-dev@lists.rocketboards.org
-Subject: Re: [Linux-stm32] [PATCH 4/7] dt-bindings: chosen: Add clocksource
- and clockevent selection
+X-Originating-IP: [10.201.23.25]
+X-Proofpoint-Virus-Version: vendor=fsecure engine=2.50.10434:6.0.70,1.0.8
+ definitions=2019-09-11_08:2019-09-11,2019-09-11 signatures=0
+Cc: linux-stm32@st-md-mailman.stormreply.com,
+ Fabien Dessenne <fabien.dessenne@st.com>
+Subject: [Linux-stm32] [PATCH v3] hwspinlock: allow sharing of hwspinlocks
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -79,80 +74,314 @@ Content-Transfer-Encoding: 7bit
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
-On 11/09/2019 09:34:27+0200, Neil Armstrong wrote:
-> Hi,
-> 
-> On 10/09/2019 15:47, Claudiu Beznea wrote:
-> > From: Alexandre Belloni <alexandre.belloni@bootlin.com>
-> > 
-> > Some timer drivers may behave either as clocksource or clockevent
-> > or both. Until now, in case of platforms with multiple hardware
-> > resources of the same type, the drivers were chosing the first
-> > registered hardware resource as clocksource/clockevent and the
-> > next one as clockevent/clocksource. Other were using different
-> > compatibles (one for each functionality, although its about the
-> > same hardware). Add DT bindings to be able to choose the
-> > functionality of a timer.
-> > 
-> > Signed-off-by: Alexandre Belloni <alexandre.belloni@bootlin.com>
-> > Signed-off-by: Claudiu Beznea <claudiu.beznea@microchip.com>
-> > ---
-> >  Documentation/devicetree/bindings/chosen.txt | 20 ++++++++++++++++++++
-> >  1 file changed, 20 insertions(+)
-> > 
-> > diff --git a/Documentation/devicetree/bindings/chosen.txt b/Documentation/devicetree/bindings/chosen.txt
-> > index 45e79172a646..aad3034cdbdf 100644
-> > --- a/Documentation/devicetree/bindings/chosen.txt
-> > +++ b/Documentation/devicetree/bindings/chosen.txt
-> > @@ -135,3 +135,23 @@ e.g.
-> >  		linux,initrd-end = <0x82800000>;
-> >  	};
-> >  };
-> > +
-> > +linux,clocksource and linux,clockevent
-> > +--------------------------------------
-> > +
-> > +Those nodes have a timer property. This property is a phandle to the timer to be
-> > +chosen as the clocksource or clockevent. This is only useful when the platform
-> > +has multiple identical timers and it is not possible to let linux make the
-> > +correct choice.
-> > +
-> > +/ {
-> > +	chosen {
-> > +		linux,clocksource {
-> > +			timer = <&timer0>;
-> > +		};
-> > +
-> > +		linux,clockevent {
-> > +			timer = <&timer1>;
-> > +		};
-> > +	};
-> > +};
-> > 
-> 
-> Why not in aliases ?
-> 
-> aliases {
->     clocksource0 = &timer0;
->     clockevent0 = &timer1;
-> };
-> 
-> since we can have multiple of each, we should not limit ourselves to 1 clkevent
-> and 1 clksource.
-> 
-> In the aliases case, each driver would expose both capabilities, and the core would select
-> what to enable.
-> 
+Allow several clients to request (hwspin_lock_request_specific()) the
+same lock.
+In addition to that, protect a given lock from being locked
+(hwspin_trylock{_...}()) by more that one client at a time.
 
-For extendability, you need nodes for that because at some point, you
-may need to also be able to select the timer frequency. You can't do
-that with an alias.
+Since the RAW and IN_ATOMIC modes do not implement that protection
+(unlike the default, IRQ and IRQSTATE modes that make use of
+spin_lock{_irq, _irqsave}), protect __hwspin_trylock with the atomic
+bitop test_and_set_bit().
+This bitop is atomic (SMP-safe), does not disable neither preemption
+nor interrupts, hence it preserves the RAW and IN_ATOMIC modes
+constraints.
 
+Signed-off-by: Fabien Dessenne <fabien.dessenne@st.com>
+---
+Changes since v2:
+- Drop the DeviceTree-based implementation.
+- Do not let the choice between exclusive and shared usage : locks are
+  always shared.
+- Add a protection (atomic bitop) working in any modes to allow safe
+  sharing between clients.
 
+Changes since v1:
+- Removed useless 'status = "okay"' from stm32mp157c.dtsi
+---
+ Documentation/hwspinlock.txt             |  9 ++-
+ drivers/hwspinlock/hwspinlock_core.c     | 98 +++++++++++++++++++++++---------
+ drivers/hwspinlock/hwspinlock_internal.h |  4 ++
+ 3 files changed, 81 insertions(+), 30 deletions(-)
+
+diff --git a/Documentation/hwspinlock.txt b/Documentation/hwspinlock.txt
+index 6f03713..5f6f660 100644
+--- a/Documentation/hwspinlock.txt
++++ b/Documentation/hwspinlock.txt
+@@ -53,9 +53,8 @@ Should be called from a process context (might sleep).
+ 
+   struct hwspinlock *hwspin_lock_request_specific(unsigned int id);
+ 
+-Assign a specific hwspinlock id and return its address, or NULL
+-if that hwspinlock is already in use. Usually board code will
+-be calling this function in order to reserve specific hwspinlock
++Assign a specific hwspinlock id and return its address. Usually board
++code will be calling this function in order to reserve specific hwspinlock
+ ids for predefined purposes.
+ 
+ Should be called from a process context (might sleep).
+@@ -449,11 +448,15 @@ of which represents a single hardware lock::
+ 	* struct hwspinlock - this struct represents a single hwspinlock instance
+ 	* @bank: the hwspinlock_device structure which owns this lock
+ 	* @lock: initialized and used by hwspinlock core
++	* @is_locked: whether this lock is currently locked
++	* @reqcount: number of users having requested this lock
+ 	* @priv: private data, owned by the underlying platform-specific hwspinlock drv
+ 	*/
+ 	struct hwspinlock {
+ 		struct hwspinlock_device *bank;
+ 		spinlock_t lock;
++		unsigned long is_locked;
++		unsigned int reqcount;
+ 		void *priv;
+ 	};
+ 
+diff --git a/drivers/hwspinlock/hwspinlock_core.c b/drivers/hwspinlock/hwspinlock_core.c
+index 8862445..e9d3de10 100644
+--- a/drivers/hwspinlock/hwspinlock_core.c
++++ b/drivers/hwspinlock/hwspinlock_core.c
+@@ -29,6 +29,7 @@
+ 
+ /* radix tree tags */
+ #define HWSPINLOCK_UNUSED	(0) /* tags an hwspinlock as unused */
++#define HWSPINLOCK_DYN_ASSIGN	(1) /* dynamically assigned hwspinlock */
+ 
+ /*
+  * A radix tree is used to maintain the available hwspinlock instances.
+@@ -96,14 +97,25 @@ int __hwspin_trylock(struct hwspinlock *hwlock, int mode, unsigned long *flags)
+ 	BUG_ON(!flags && mode == HWLOCK_IRQSTATE);
+ 
+ 	/*
++	 * Check if the lock is already taken by another context on the local
++	 * cpu.
++	 * Calling atomic test_and_set_bit_lock() ensures that hwspinlock is
++	 * SMP-safe (so we can take it from additional contexts on the local
++	 * host) in any mode, even those where we do not make use of the local
++	 * spinlock.
++	 */
++
++	if (test_and_set_bit_lock(0, &hwlock->is_locked))
++		return -EBUSY;
++
++	/*
+ 	 * This spin_lock{_irq, _irqsave} serves three purposes:
+ 	 *
+ 	 * 1. Disable preemption, in order to minimize the period of time
+ 	 *    in which the hwspinlock is taken. This is important in order
+ 	 *    to minimize the possible polling on the hardware interconnect
+ 	 *    by a remote user of this lock.
+-	 * 2. Make the hwspinlock SMP-safe (so we can take it from
+-	 *    additional contexts on the local host).
++	 * 2. Make the hwspinlock SMP-safe.
+ 	 * 3. Ensure that in_atomic/might_sleep checks catch potential
+ 	 *    problems with hwspinlock usage (e.g. scheduler checks like
+ 	 *    'scheduling while atomic' etc.)
+@@ -124,9 +136,9 @@ int __hwspin_trylock(struct hwspinlock *hwlock, int mode, unsigned long *flags)
+ 		break;
+ 	}
+ 
+-	/* is lock already taken by another context on the local cpu ? */
++	/* sanity check (this shouldn't happen) */
+ 	if (!ret)
+-		return -EBUSY;
++		goto clear;
+ 
+ 	/* try to take the hwspinlock device */
+ 	ret = hwlock->bank->ops->trylock(hwlock);
+@@ -149,7 +161,7 @@ int __hwspin_trylock(struct hwspinlock *hwlock, int mode, unsigned long *flags)
+ 			break;
+ 		}
+ 
+-		return -EBUSY;
++		goto clear;
+ 	}
+ 
+ 	/*
+@@ -165,6 +177,11 @@ int __hwspin_trylock(struct hwspinlock *hwlock, int mode, unsigned long *flags)
+ 	mb();
+ 
+ 	return 0;
++
++clear:
++	/* Clear is_locked */
++	clear_bit_unlock(0, &hwlock->is_locked);
++	return -EBUSY;
+ }
+ EXPORT_SYMBOL_GPL(__hwspin_trylock);
+ 
+@@ -299,6 +316,9 @@ void __hwspin_unlock(struct hwspinlock *hwlock, int mode, unsigned long *flags)
+ 		spin_unlock(&hwlock->lock);
+ 		break;
+ 	}
++
++	/* Clear is_locked set while locking */
++	clear_bit_unlock(0, &hwlock->is_locked);
+ }
+ EXPORT_SYMBOL_GPL(__hwspin_unlock);
+ 
+@@ -504,7 +524,9 @@ int hwspin_lock_register(struct hwspinlock_device *bank, struct device *dev,
+ 		hwlock = &bank->lock[i];
+ 
+ 		spin_lock_init(&hwlock->lock);
++		clear_bit(0, &hwlock->is_locked);
+ 		hwlock->bank = bank;
++		hwlock->reqcount = 0;
+ 
+ 		ret = hwspin_lock_register_single(hwlock, base_id + i);
+ 		if (ret)
+@@ -664,12 +686,16 @@ static int __hwspin_lock_request(struct hwspinlock *hwlock)
+ 		return ret;
+ 	}
+ 
+-	/* mark hwspinlock as used, should not fail */
+-	tmp = radix_tree_tag_clear(&hwspinlock_tree, hwlock_to_id(hwlock),
+-							HWSPINLOCK_UNUSED);
++	/* update reqcount */
++	if (!hwlock->reqcount++) {
++		/* first request, mark hwspinlock as used, should not fail */
++		tmp = radix_tree_tag_clear(&hwspinlock_tree,
++					   hwlock_to_id(hwlock),
++					   HWSPINLOCK_UNUSED);
+ 
+-	/* self-sanity check that should never fail */
+-	WARN_ON(tmp != hwlock);
++		/* self-sanity check that should never fail */
++		WARN_ON(tmp != hwlock);
++	}
+ 
+ 	return ret;
+ }
+@@ -706,7 +732,7 @@ EXPORT_SYMBOL_GPL(hwspin_lock_get_id);
+  */
+ struct hwspinlock *hwspin_lock_request(void)
+ {
+-	struct hwspinlock *hwlock;
++	struct hwspinlock *hwlock, *tmp;
+ 	int ret;
+ 
+ 	mutex_lock(&hwspinlock_tree_lock);
+@@ -728,6 +754,13 @@ struct hwspinlock *hwspin_lock_request(void)
+ 	if (ret < 0)
+ 		hwlock = NULL;
+ 
++	/* mark this hwspinlock as dynamically assigned */
++	tmp = radix_tree_tag_set(&hwspinlock_tree, hwlock_to_id(hwlock),
++				 HWSPINLOCK_DYN_ASSIGN);
++
++	/* self-sanity check which should never fail */
++	WARN_ON(tmp != hwlock);
++
+ out:
+ 	mutex_unlock(&hwspinlock_tree_lock);
+ 	return hwlock;
+@@ -764,18 +797,19 @@ struct hwspinlock *hwspin_lock_request_specific(unsigned int id)
+ 	/* sanity check (this shouldn't happen) */
+ 	WARN_ON(hwlock_to_id(hwlock) != id);
+ 
+-	/* make sure this hwspinlock is unused */
+-	ret = radix_tree_tag_get(&hwspinlock_tree, id, HWSPINLOCK_UNUSED);
+-	if (ret == 0) {
+-		pr_warn("hwspinlock %u is already in use\n", id);
++	/* mark as used and power up */
++	ret = __hwspin_lock_request(hwlock);
++	if (ret < 0) {
+ 		hwlock = NULL;
+ 		goto out;
+ 	}
+ 
+-	/* mark as used and power up */
+-	ret = __hwspin_lock_request(hwlock);
+-	if (ret < 0)
+-		hwlock = NULL;
++	/*
++	 * warn if this lock is also used by another client which got this lock
++	 * with dynamic assignment using the hwspin_lock_request() API
++	 */
++	if (radix_tree_tag_get(&hwspinlock_tree, id, HWSPINLOCK_DYN_ASSIGN))
++		pr_warn("hwspinlock %u is shared with a 'dynamic' user\n", id);
+ 
+ out:
+ 	mutex_unlock(&hwspinlock_tree_lock);
+@@ -799,7 +833,7 @@ int hwspin_lock_free(struct hwspinlock *hwlock)
+ {
+ 	struct device *dev;
+ 	struct hwspinlock *tmp;
+-	int ret;
++	int ret, id;
+ 
+ 	if (!hwlock) {
+ 		pr_err("invalid hwlock\n");
+@@ -810,30 +844,40 @@ int hwspin_lock_free(struct hwspinlock *hwlock)
+ 	mutex_lock(&hwspinlock_tree_lock);
+ 
+ 	/* make sure the hwspinlock is used */
+-	ret = radix_tree_tag_get(&hwspinlock_tree, hwlock_to_id(hwlock),
+-							HWSPINLOCK_UNUSED);
++	id = hwlock_to_id(hwlock);
++	ret = radix_tree_tag_get(&hwspinlock_tree, id, HWSPINLOCK_UNUSED);
+ 	if (ret == 1) {
+ 		dev_err(dev, "%s: hwlock is already free\n", __func__);
+ 		dump_stack();
+ 		ret = -EINVAL;
+-		goto out;
++		goto out_unlock;
+ 	}
+ 
+ 	/* notify the underlying device that power is not needed */
+ 	ret = pm_runtime_put(dev);
+ 	if (ret < 0)
+-		goto out;
++		goto out_unlock;
++
++	/* update reqcount */
++	if (--hwlock->reqcount)
++		goto out_put;
+ 
+ 	/* mark this hwspinlock as available */
+-	tmp = radix_tree_tag_set(&hwspinlock_tree, hwlock_to_id(hwlock),
+-							HWSPINLOCK_UNUSED);
++	tmp = radix_tree_tag_set(&hwspinlock_tree, id, HWSPINLOCK_UNUSED);
+ 
+ 	/* sanity check (this shouldn't happen) */
+ 	WARN_ON(tmp != hwlock);
+ 
++	/* clear the dynamically assigned tag */
++	tmp = radix_tree_tag_clear(&hwspinlock_tree, id, HWSPINLOCK_DYN_ASSIGN);
++
++	/* self-sanity check which should never fail */
++	WARN_ON(tmp != hwlock);
++
++out_put:
+ 	module_put(dev->driver->owner);
+ 
+-out:
++out_unlock:
+ 	mutex_unlock(&hwspinlock_tree_lock);
+ 	return ret;
+ }
+diff --git a/drivers/hwspinlock/hwspinlock_internal.h b/drivers/hwspinlock/hwspinlock_internal.h
+index 9eb6bd0..a3aae55 100644
+--- a/drivers/hwspinlock/hwspinlock_internal.h
++++ b/drivers/hwspinlock/hwspinlock_internal.h
+@@ -35,11 +35,15 @@ struct hwspinlock_ops {
+  * struct hwspinlock - this struct represents a single hwspinlock instance
+  * @bank: the hwspinlock_device structure which owns this lock
+  * @lock: initialized and used by hwspinlock core
++ * @is_locked: whether this lock is currently locked
++ * @reqcount: number of users having requested this lock
+  * @priv: private data, owned by the underlying platform-specific hwspinlock drv
+  */
+ struct hwspinlock {
+ 	struct hwspinlock_device *bank;
+ 	spinlock_t lock;
++	unsigned long is_locked;
++	unsigned int reqcount;
+ 	void *priv;
+ };
+ 
 -- 
-Alexandre Belloni, Bootlin
-Embedded Linux and Kernel engineering
-https://bootlin.com
+2.7.4
+
 _______________________________________________
 Linux-stm32 mailing list
 Linux-stm32@st-md-mailman.stormreply.com
