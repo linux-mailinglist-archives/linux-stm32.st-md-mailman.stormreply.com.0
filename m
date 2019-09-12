@@ -2,113 +2,125 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id F2941B0CE3
-	for <lists+linux-stm32@lfdr.de>; Thu, 12 Sep 2019 12:29:06 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 1ACDFB10EE
+	for <lists+linux-stm32@lfdr.de>; Thu, 12 Sep 2019 16:19:07 +0200 (CEST)
 Received: from ip-172-31-3-76.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 9FE4CC35E01;
-	Thu, 12 Sep 2019 10:29:06 +0000 (UTC)
-Received: from mx0b-00128a01.pphosted.com (mx0b-00128a01.pphosted.com
- [148.163.139.77])
- (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id BD1F6C35E01;
+	Thu, 12 Sep 2019 14:19:06 +0000 (UTC)
+Received: from mail-lj1-f195.google.com (mail-lj1-f195.google.com
+ [209.85.208.195])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 70457C36B3E
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 6207DC36B3E
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Thu, 12 Sep 2019 10:29:05 +0000 (UTC)
-Received: from pps.filterd (m0167091.ppops.net [127.0.0.1])
- by mx0b-00128a01.pphosted.com (8.16.0.42/8.16.0.42) with SMTP id
- x8CASlIH024068; Thu, 12 Sep 2019 06:28:56 -0400
-Received: from nam03-dm3-obe.outbound.protection.outlook.com
- (mail-dm3nam03lp2057.outbound.protection.outlook.com [104.47.41.57])
- by mx0b-00128a01.pphosted.com with ESMTP id 2uv6a9r64v-1
- (version=TLSv1.2 cipher=ECDHE-RSA-AES256-SHA384 bits=256 verify=NOT);
- Thu, 12 Sep 2019 06:28:56 -0400
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=Y2XWlC1g1TLRG8FkO4MqGYK8W8UBkh+RlaBsYbmN50rfY7wpr8q/vUta4UmEj1Mbz38tUcBsrxYxiK4DcyxfbcgmA7RhQSgXdhhBq4L1WSYuikXFRM+YsnW5kpyOvP0KyS6LVDICHe5wIuuj0MYqLIfBRQpOxyh+iN3d81lt1Nnebgv42QFGBizaMZLayFOD4WKKxkaZM1Ue48UYiMHVzvhXkDwoJdWZVwtfgvwLRZ6dyX70h0uQ1degUYfhvW8sz8CC/4kChqOyXt/rkYYTJSgIluZ0OeeRvbhHYxtMvnBTsE1ziobDNL1A5EQpo995/ZOpGjCCtuiRKJIHBWaL6A==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
- s=arcselector9901;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=RQ0uzHRZGaUQlzUs+HXy+tvbdQgya2t3zqjsiawQh2E=;
- b=bxPpVBf1iq3kzAm8YhmUEIbpvSJqDSYxaBmlpi1i/cR9j/hePd7ZDGtAR4FocV2AooOWea5zAYrS4u2N0SXcmm0vkRdJQU9akzpDxwFBYP7TweqEFalfGpG5QrJD4dZ7ZQt7O3NHAz0es5NnvpiPfsqTKDaoKFJS8PMsfYSId/3Vz3tvbNTiGcfMRS101VGKkA/ygahMj5hN+Yg07oGZGSH3JxFhlr4JDJhKa1Cws4YZdd+tDCSFEwCJQGQQF4yxBdJqixFASoQ4bFkk5WtDx1S3Q+TJzUDbHzQccqiZ51OnjDZpdc1wP3omzQ5AA7HUptNltPer4HJf36jbIk2WZg==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
- 137.71.25.57) smtp.rcpttodomain=vger.kernel.org smtp.mailfrom=analog.com;
- dmarc=bestguesspass action=none header.from=analog.com; dkim=none (message
- not signed); arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=analog.onmicrosoft.com; s=selector2-analog-onmicrosoft-com;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=RQ0uzHRZGaUQlzUs+HXy+tvbdQgya2t3zqjsiawQh2E=;
- b=qxKgbsPJzfrxOONGgtzTuotRJpWoYrlVUe08lyW/vRJ0RaGSmOD01UQVKVdRjrQ6fUR79V2852WxWOye7j8E2zNPA5/rg0Yzrd1OapNNf4eDixDF314A0313vZzmy130X4ZzrPUNHfeScaADDJUzwqkDhFcekAxjmnbv1MTFrok=
-Received: from BN8PR03CA0034.namprd03.prod.outlook.com (2603:10b6:408:94::47)
- by BN3PR03MB2227.namprd03.prod.outlook.com (2a01:111:e400:7bba::12)
- with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.2263.17; Thu, 12 Sep
- 2019 10:28:55 +0000
-Received: from CY1NAM02FT004.eop-nam02.prod.protection.outlook.com
- (2a01:111:f400:7e45::201) by BN8PR03CA0034.outlook.office365.com
- (2603:10b6:408:94::47) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.2199.21 via Frontend
- Transport; Thu, 12 Sep 2019 10:28:55 +0000
-Received-SPF: Pass (protection.outlook.com: domain of analog.com designates
- 137.71.25.57 as permitted sender) receiver=protection.outlook.com;
- client-ip=137.71.25.57; helo=nwd2mta2.analog.com;
-Received: from nwd2mta2.analog.com (137.71.25.57) by
- CY1NAM02FT004.mail.protection.outlook.com (10.152.74.112) with Microsoft SMTP
- Server (version=TLS1_0, cipher=TLS_RSA_WITH_AES_256_CBC_SHA) id 15.20.2241.14
- via Frontend Transport; Thu, 12 Sep 2019 10:28:54 +0000
-Received: from NWD2HUBCAS7.ad.analog.com (nwd2hubcas7.ad.analog.com
- [10.64.69.107])
- by nwd2mta2.analog.com (8.13.8/8.13.8) with ESMTP id x8CASndV012000
- (version=TLSv1/SSLv3 cipher=AES256-SHA bits=256 verify=OK);
- Thu, 12 Sep 2019 03:28:49 -0700
-Received: from saturn.ad.analog.com (10.48.65.123) by
- NWD2HUBCAS7.ad.analog.com (10.64.69.107) with Microsoft SMTP Server id
- 14.3.408.0; Thu, 12 Sep 2019 06:28:53 -0400
-From: Alexandru Ardelean <alexandru.ardelean@analog.com>
-To: <netdev@vger.kernel.org>, <linux-stm32@st-md-mailman.stormreply.com>,
- <linux-arm-kernel@lists.infradead.org>, <linux-kernel@vger.kernel.org>
-Date: Thu, 12 Sep 2019 16:28:50 +0300
-Message-ID: <20190912132850.10585-1-alexandru.ardelean@analog.com>
-X-Mailer: git-send-email 2.20.1
+ Thu, 12 Sep 2019 14:19:04 +0000 (UTC)
+Received: by mail-lj1-f195.google.com with SMTP id q64so13254444ljb.12
+ for <linux-stm32@st-md-mailman.stormreply.com>;
+ Thu, 12 Sep 2019 07:19:04 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linaro.org; s=google;
+ h=mime-version:references:in-reply-to:from:date:message-id:subject:to
+ :cc; bh=EaseRjemZ1nH3H3ai+89HustdIaoQgkZxvxn81voHgw=;
+ b=rsoX6y1YAOzqbx2rs5yY1TJbSmu7WAyddlNG+Ji8jLL6qD8p1RBNugHFYlNQFlKSB8
+ /HGDvzTO9dWJaVyS7zIOH11WvDhCFHhIeG/RblZHgUjHwtbDjYPcH4cXDpSGmmE2nUj0
+ U6VL1XQE80wNOM7ht77ywzV5AM7lk48hIBbv+1hXcArDqYqEtvHAhEc9KRV0y8mTp2Lc
+ ApW2O9cFYxpDbCdQTnVG9tiN5mUIzl0v5TXdlr9D99chkIpZje5iX/oAjdcc95A3KdiX
+ q5ZdpEGXM8dvO1N021lPANQ/2ob6PqB/kzCSCjuyZQ0GqxK9v0IjZNYn2QGE3q7b/0QK
+ 3iXg==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20161025;
+ h=x-gm-message-state:mime-version:references:in-reply-to:from:date
+ :message-id:subject:to:cc;
+ bh=EaseRjemZ1nH3H3ai+89HustdIaoQgkZxvxn81voHgw=;
+ b=GToy2FfgTmvg9oHzH82ODsOW5YXLXuw1zj6P6xBohQnJFsFQA45ocmWxg7HzEACJsI
+ D818jgvrLM98WuE1C1XoL+EOZq7mbwQeBnLByh0FM6ddvZTczhx7chVku4ITqlLPIN04
+ mqz8TK7gfN7jw9xLmkDRSn7aW/GgPwHO4ML9OYLsNm9xvPZPtMhsd/3R2zGlEmqfcdYt
+ 4+IX+4OwhumYIia8PSPsrTbeubjCDXZwTDuzjXXY3qqt6iRM9xOLWYWM7Liay5uexlVZ
+ UyVXmXZEhE0b8HV3jeernp0FENOkXwjg5rci100CamYGu15Esej8eotwhqLNAbkE1cuN
+ dhhg==
+X-Gm-Message-State: APjAAAWTkmeW1UB0BVYbnSwqtgiVSQee6f6w7D/gFzY/xx4GApRLMKxv
+ j+GleddFaXMNtbf+9JWLwdH97jh6gOyHh95ST/R/Ng==
+X-Google-Smtp-Source: APXvYqyop0XBEejhycCA/uXWCe+v8fXqapp+IE1UpB4CQ6vUty8WM9HhBr1lSJ1uA5PXMzJA1vilAybkoKwYmXmFiJ0=
+X-Received: by 2002:a05:651c:1108:: with SMTP id
+ d8mr18997780ljo.180.1568297943530; 
+ Thu, 12 Sep 2019 07:19:03 -0700 (PDT)
 MIME-Version: 1.0
-X-ADIRoutedOnPrem: True
-X-EOPAttributedMessage: 0
-X-MS-Office365-Filtering-HT: Tenant
-X-Forefront-Antispam-Report: CIP:137.71.25.57; IPV:NLI; CTRY:US; EFV:NLI;
- SFV:NSPM;
- SFS:(10009020)(346002)(376002)(39860400002)(396003)(136003)(189003)(199004)(54534003)(336012)(305945005)(44832011)(36756003)(476003)(478600001)(5660300002)(486006)(70206006)(8936002)(26005)(70586007)(50466002)(7636002)(426003)(107886003)(186003)(48376002)(86362001)(2616005)(8676002)(126002)(2201001)(246002)(2870700001)(316002)(4326008)(51416003)(50226002)(7696005)(1076003)(47776003)(54906003)(110136005)(106002)(2906002)(356004)(81973001)(2101003);
- DIR:OUT; SFP:1101; SCL:1; SRVR:BN3PR03MB2227; H:nwd2mta2.analog.com; FPR:;
- SPF:Pass; LANG:en; PTR:nwd2mail11.analog.com; MX:1; A:1; 
-X-MS-PublicTrafficType: Email
-X-MS-Office365-Filtering-Correlation-Id: d139b25e-fb44-4f23-be7a-08d7376c035c
-X-Microsoft-Antispam: BCL:0; PCL:0;
- RULEID:(2390118)(7020095)(4652040)(8989299)(5600166)(711020)(4605104)(4709080)(1401327)(4618075)(4534185)(4627221)(201703031133081)(201702281549075)(8990200)(2017052603328);
- SRVR:BN3PR03MB2227; 
-X-MS-TrafficTypeDiagnostic: BN3PR03MB2227:
-X-Microsoft-Antispam-PRVS: <BN3PR03MB2227AD1C979C15CD48365E62F9B00@BN3PR03MB2227.namprd03.prod.outlook.com>
-X-MS-Oob-TLC-OOBClassifiers: OLM:6108;
-X-Forefront-PRVS: 01583E185C
-X-MS-Exchange-SenderADCheck: 1
-X-Microsoft-Antispam-Message-Info: dR5zoj/n96O+PARMvuXpRTEyu9AunmOyaCMJx9fmpm14Ywqk+4gqUQzrtOaR6bjiD40IXlBkZS3Nka/ZUoRSbqD45v7A0iUtYf5exOYk1f7KgX3j1Y/6E3B+CBDvKyrI8vDFY1dGaQ43k6b2UpxeIc973eqM3UbmjHV9ATOKJBf7IolloE73mfOkba1PryNvIZSpR+y5Q68QXj8Iat94UHuU+iO68m5TJ2uRdS7eWevAg7I6b2I2BwJhh7cEYdh6SX/EkX9TOGcUT/PWR3BxsH2bloH18GRx1ei1e43qxzlr1MyfYSBhbt8ixNyFa4b8fYsoOD2Hrj66AGSBo5dCjkBvFW9ngHkShtxJJdduLv+FSiiAxSW8eOJrx/bCbPr6lY04+qmTL3X3tGrNerobuM8ov2QOcntmuDBzxp5/F7U=
-X-OriginatorOrg: analog.com
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 12 Sep 2019 10:28:54.7368 (UTC)
-X-MS-Exchange-CrossTenant-Network-Message-Id: d139b25e-fb44-4f23-be7a-08d7376c035c
-X-MS-Exchange-CrossTenant-Id: eaa689b4-8f87-40e0-9c6f-7228de4d754a
-X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=eaa689b4-8f87-40e0-9c6f-7228de4d754a; Ip=[137.71.25.57];
- Helo=[nwd2mta2.analog.com]
-X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: BN3PR03MB2227
-X-Proofpoint-Virus-Version: vendor=fsecure engine=2.50.10434:6.0.70,1.0.8
- definitions=2019-09-12_05:2019-09-11,2019-09-12 signatures=0
-X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- spamscore=0 clxscore=1015
- mlxscore=0 lowpriorityscore=0 malwarescore=0 bulkscore=0 phishscore=0
- suspectscore=0 priorityscore=1501 impostorscore=0 mlxlogscore=889
- adultscore=0 classifier=spam adjust=0 reason=mlx scancount=1
- engine=8.12.0-1906280000 definitions=main-1909120111
-Cc: joabreu@synopsys.com, mcoquelin.stm32@gmail.com, peppe.cavallaro@st.com,
- Alexandru Ardelean <alexandru.ardelean@analog.com>, davem@davemloft.net
-Subject: [Linux-stm32] [PATCH v2] net: stmmac: socfpga: re-use the
-	`interface` parameter from platform data
+References: <1568123236-767-1-git-send-email-claudiu.beznea@microchip.com>
+ <1568123236-767-5-git-send-email-claudiu.beznea@microchip.com>
+ <20190910143231.GB14966@e107533-lin.cambridge.arm.com>
+ <ab43b209-78fa-0cab-b8ea-acd4c550e689@microchip.com>
+ <20190910150826.GA18308@e107533-lin.cambridge.arm.com>
+ <20190910151055.GX21254@piout.net>
+ <CACRpkda4mmpbPWa2nD93CvD6HWzcTUDzyyLdQxC2gNB7XiJF3w@mail.gmail.com>
+ <a2aca46a-8eb9-d8a8-de42-9850a8a8f44c@microchip.com>
+In-Reply-To: <a2aca46a-8eb9-d8a8-de42-9850a8a8f44c@microchip.com>
+From: Linus Walleij <linus.walleij@linaro.org>
+Date: Thu, 12 Sep 2019 15:18:49 +0100
+Message-ID: <CACRpkda1T_5D697wphrEGEsbj3zBfTaOOLN0T5zS1xfT949cjA@mail.gmail.com>
+To: Claudiu Beznea <Claudiu.Beznea@microchip.com>
+Cc: Tomer Maimon <tmaimon77@gmail.com>, "Nori, Sekhar" <nsekhar@ti.com>,
+ guoren@kernel.org, linux-stm32@st-md-mailman.stormreply.com,
+ =?UTF-8?Q?Heiko_St=C3=BCbner?= <heiko@sntech.de>,
+ linux-samsung-soc <linux-samsung-soc@vger.kernel.org>,
+ "open list:ARM/Rockchip SoC..." <linux-rockchip@lists.infradead.org>,
+ Kevin Hilman <khilman@baylibre.com>,
+ Ludovic Desroches <Ludovic.Desroches@microchip.com>,
+ NXP Linux Team <linux-imx@nxp.com>,
+ =?UTF-8?Q?Uwe_Kleine=2DK=C3=B6nig?= <u.kleine-koenig@pengutronix.de>,
+ "moderated list:H8/300 ARCHITECTURE" <uclinux-h8-devel@lists.sourceforge.jp>,
+ Marc Zyngier <marc.zyngier@arm.com>, Sascha Hauer <s.hauer@pengutronix.de>,
+ linux-unisoc@lists.infradead.org, Krzysztof Halasa <khalasa@piap.pl>,
+ Thomas Gleixner <tglx@linutronix.de>, Scott Branden <sbranden@broadcom.com>,
+ "linux-kernel@vger.kernel.org" <linux-kernel@vger.kernel.org>,
+ Ralf Baechle <ralf@linux-mips.org>, Paul Burton <paul.burton@mips.com>,
+ Sascha Hauer <kernel@pengutronix.de>, Mark Rutland <mark.rutland@arm.com>,
+ Alexandre Belloni <alexandre.belloni@bootlin.com>,
+ James Hogan <jhogan@kernel.org>, Palmer Dabbelt <palmer@sifive.com>,
+ Eric Anholt <eric@anholt.net>,
+ "thierry.reding@gmail.com" <thierry.reding@gmail.com>,
+ Manivannan Sadhasivam <manivannan.sadhasivam@linaro.org>,
+ Yoshinori Sato <ysato@users.sourceforge.jp>, Lyra Zhang <zhang.lyra@gmail.com>,
+ Daniel Lezcano <daniel.lezcano@linaro.org>, Jon Hunter <jonathanh@nvidia.com>,
+ Bartosz Golaszewski <bgolaszewski@baylibre.com>, Kukjin Kim <kgene@kernel.org>,
+ MSM <linux-arm-msm@vger.kernel.org>, Sudeep Holla <sudeep.holla@arm.com>,
+ Florian Fainelli <f.fainelli@gmail.com>, John Stultz <john.stultz@linaro.org>,
+ linux-rpi-kernel <linux-rpi-kernel@lists.infradead.org>,
+ "open list:ARM/Amlogic Meson..." <linux-amlogic@lists.infradead.org>,
+ Linux ARM <linux-arm-kernel@lists.infradead.org>,
+ Barry Song <baohua@kernel.org>, Imre Kaloz <kaloz@openwrt.org>,
+ Stephen Boyd <sboyd@kernel.org>, Stefan Wahren <wahrenst@gmx.net>,
+ Maxime Coquelin <mcoquelin.stm32@gmail.com>,
+ Neil Armstrong <narmstrong@baylibre.com>, linux-tegra@vger.kernel.org,
+ Fabio Estevam <festevam@gmail.com>,
+ Lorenzo Pieralisi <lorenzo.pieralisi@arm.com>,
+ Benjamin Fair <benjaminfair@google.com>, Alexander Shiyan <shc_work@mail.ru>,
+ Krzysztof Kozlowski <krzk@kernel.org>, Nancy Yuen <yuenn@google.com>,
+ Chen-Yu Tsai <wens@csie.org>,
+ bcm-kernel-feedback-list <bcm-kernel-feedback-list@broadcom.com>,
+ Orson Zhai <orsonzhai@gmail.com>,
+ "open list:SYNOPSYS ARC ARCHITECTURE" <linux-snps-arc@lists.infradead.org>,
+ Ray Jui <rjui@broadcom.com>, Vladimir Zapolskiy <vz@mleia.com>,
+ John Crispin <john@phrozen.org>, tali.perry1@gmail.com,
+ Avi Fishman <avifishman70@gmail.com>, Patrick Venture <venture@google.com>,
+ Ley Foon Tan <lftan@altera.com>, linux-oxnas@groups.io,
+ Shawn Guo <shawnguo@kernel.org>,
+ =?UTF-8?Q?Andreas_F=C3=A4rber?= <afaerber@suse.de>,
+ Baruch Siach <baruch@tkos.co.il>, Maxime Ripard <maxime.ripard@bootlin.com>,
+ Liviu Dudau <liviu.dudau@arm.com>, linux-mips@vger.kernel.org,
+ linux-riscv@lists.infradead.org, OpenBMC Maillist <openbmc@lists.ozlabs.org>,
+ Russell King <linux@armlinux.org.uk>, Andy Gross <agross@kernel.org>,
+ Sylvain Lemieux <slemieux.tyco@gmail.com>,
+ "open list:OPEN FIRMWARE AND FLATTENED DEVICE TREE BINDINGS"
+ <devicetree@vger.kernel.org>, aou@eecs.berkeley.edu,
+ Rob Herring <robh+dt@kernel.org>,
+ "moderated list:ARM/Mediatek SoC support" <linux-mediatek@lists.infradead.org>,
+ Santosh Shilimkar <ssantosh@kernel.org>,
+ Matthias Brugger <matthias.bgg@gmail.com>, Michal Simek <monstr@monstr.eu>,
+ Baolin Wang <baolin.wang@linaro.org>, Vineet Gupta <vgupta@synopsys.com>,
+ Nicolas Ferre <Nicolas.Ferre@microchip.com>,
+ Tony Prisk <linux@prisktech.co.nz>,
+ "moderated list:NIOS2 ARCHITECTURE" <nios2-dev@lists.rocketboards.org>
+Subject: Re: [Linux-stm32] [PATCH 4/7] dt-bindings: chosen: Add clocksource
+	and clockevent selection
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -125,84 +137,21 @@ Content-Transfer-Encoding: 7bit
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
-The socfpga sub-driver defines an `interface` field in the `socfpga_dwmac`
-struct and parses it on init.
+On Wed, Sep 11, 2019 at 8:18 AM <Claudiu.Beznea@microchip.com> wrote:
+> [Me]
+> > In that case why not just pick the first one you find as clocksource
+> > and the second one as clock event?
 
-The shared `stmmac_probe_config_dt()` function also parses this from the
-device-tree and makes it available on the returned `plat_data` (which is
-the same data available via `netdev_priv()`).
+> That was also my proposal for the driver I'm sending this series for (see
+> [1]) but it has been proposed to implement a mechanism similar to this one
+> in this series (see [2] and [3]).
 
-All that's needed now is to dig that information out, via some
-`dev_get_drvdata()` && `netdev_priv()` calls and re-use it.
+OK I am not going to challenge the clock source maintainers on this,
+so if that is what they want then that is what they should get.
+It's fine to convert the Integrator driver too!
 
-Signed-off-by: Alexandru Ardelean <alexandru.ardelean@analog.com>
----
-
-Changelog v1 -> v2:
-* initially, this patch was developed on a 4.14 kernel, and adapted (badly)
-  to `net-next`, so it did not build ; the v2 has been fixed and adapted
-  correctly
-
- .../net/ethernet/stmicro/stmmac/dwmac-socfpga.c   | 15 ++++++++++-----
- 1 file changed, 10 insertions(+), 5 deletions(-)
-
-diff --git a/drivers/net/ethernet/stmicro/stmmac/dwmac-socfpga.c b/drivers/net/ethernet/stmicro/stmmac/dwmac-socfpga.c
-index c141fe783e87..5b6213207c43 100644
---- a/drivers/net/ethernet/stmicro/stmmac/dwmac-socfpga.c
-+++ b/drivers/net/ethernet/stmicro/stmmac/dwmac-socfpga.c
-@@ -46,7 +46,6 @@ struct socfpga_dwmac_ops {
- };
- 
- struct socfpga_dwmac {
--	int	interface;
- 	u32	reg_offset;
- 	u32	reg_shift;
- 	struct	device *dev;
-@@ -110,8 +109,6 @@ static int socfpga_dwmac_parse_data(struct socfpga_dwmac *dwmac, struct device *
- 	struct resource res_tse_pcs;
- 	struct resource res_sgmii_adapter;
- 
--	dwmac->interface = of_get_phy_mode(np);
--
- 	sys_mgr_base_addr =
- 		altr_sysmgr_regmap_lookup_by_phandle(np, "altr,sysmgr-syscon");
- 	if (IS_ERR(sys_mgr_base_addr)) {
-@@ -231,6 +228,14 @@ static int socfpga_dwmac_parse_data(struct socfpga_dwmac *dwmac, struct device *
- 	return ret;
- }
- 
-+static inline int socfpga_get_plat_phymode(struct socfpga_dwmac *dwmac)
-+{
-+	struct net_device *ndev = dev_get_drvdata(dwmac->dev);
-+	struct stmmac_priv *priv = netdev_priv(ndev);
-+
-+	return priv->plat->interface;
-+}
-+
- static int socfpga_set_phy_mode_common(int phymode, u32 *val)
- {
- 	switch (phymode) {
-@@ -255,7 +260,7 @@ static int socfpga_set_phy_mode_common(int phymode, u32 *val)
- static int socfpga_gen5_set_phy_mode(struct socfpga_dwmac *dwmac)
- {
- 	struct regmap *sys_mgr_base_addr = dwmac->sys_mgr_base_addr;
--	int phymode = dwmac->interface;
-+	int phymode = socfpga_get_plat_phymode(dwmac);
- 	u32 reg_offset = dwmac->reg_offset;
- 	u32 reg_shift = dwmac->reg_shift;
- 	u32 ctrl, val, module;
-@@ -314,7 +319,7 @@ static int socfpga_gen5_set_phy_mode(struct socfpga_dwmac *dwmac)
- static int socfpga_gen10_set_phy_mode(struct socfpga_dwmac *dwmac)
- {
- 	struct regmap *sys_mgr_base_addr = dwmac->sys_mgr_base_addr;
--	int phymode = dwmac->interface;
-+	int phymode = socfpga_get_plat_phymode(dwmac);
- 	u32 reg_offset = dwmac->reg_offset;
- 	u32 reg_shift = dwmac->reg_shift;
- 	u32 ctrl, val, module;
--- 
-2.20.1
-
+Yours,
+Linus Walleij
 _______________________________________________
 Linux-stm32 mailing list
 Linux-stm32@st-md-mailman.stormreply.com
