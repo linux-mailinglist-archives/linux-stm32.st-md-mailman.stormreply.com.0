@@ -2,43 +2,39 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id 21D66B2F7E
-	for <lists+linux-stm32@lfdr.de>; Sun, 15 Sep 2019 12:05:35 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 4EEF6B3179
+	for <lists+linux-stm32@lfdr.de>; Sun, 15 Sep 2019 20:51:56 +0200 (CEST)
 Received: from ip-172-31-3-76.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id B7F35C35E01;
-	Sun, 15 Sep 2019 10:05:34 +0000 (UTC)
-Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
- (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
- (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id CFE75C36B3E
- for <linux-stm32@st-md-mailman.stormreply.com>;
- Sun, 15 Sep 2019 10:05:31 +0000 (UTC)
-Received: from archlinux (cpc149474-cmbg20-2-0-cust94.5-4.cable.virginm.net
- [82.4.196.95])
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id F0B3FC35E01;
+	Sun, 15 Sep 2019 18:51:55 +0000 (UTC)
+Received: from shards.monkeyblade.net (shards.monkeyblade.net [23.128.96.9])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by mail.kernel.org (Postfix) with ESMTPSA id 2BEF52067D;
- Sun, 15 Sep 2019 10:05:27 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
- s=default; t=1568541930;
- bh=tcQS+DJt43YanJ9IL8V61k/DXfH3Hbn4V1+MXKVko28=;
- h=Date:From:To:Cc:Subject:In-Reply-To:References:From;
- b=qDIrsBprErMaqBKrEaOdS18lynoo/a3OUwgEWWwP5xSMfCv65+o0sTiaid2k4JNbL
- zueXKPjtu1Cqsp9eJTSObkQDrfC3tENbJOIykPKP1SIkSTJfkLB5YsUoZQDODjfVjA
- 0dMqsAuC9xUbnLyvDg1kg3/E7Nzg7J8RIqzweodE=
-Date: Sun, 15 Sep 2019 11:05:24 +0100
-From: Jonathan Cameron <jic23@kernel.org>
-To: Fabrice Gasnier <fabrice.gasnier@st.com>
-Message-ID: <20190915110524.2ec1b41d@archlinux>
-In-Reply-To: <1568380890-313-1-git-send-email-fabrice.gasnier@st.com>
-References: <1568380890-313-1-git-send-email-fabrice.gasnier@st.com>
-X-Mailer: Claws Mail 3.17.4 (GTK+ 2.24.32; x86_64-pc-linux-gnu)
-MIME-Version: 1.0
-Cc: lars@metafoo.de, linux-iio@vger.kernel.org, pmeerw@pmeerw.net,
- linux-kernel@vger.kernel.org, mcoquelin.stm32@gmail.com, knaack.h@gmx.de,
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 68031C36B3E
+ for <linux-stm32@st-md-mailman.stormreply.com>;
+ Sun, 15 Sep 2019 18:51:54 +0000 (UTC)
+Received: from localhost (93-63-141-166.ip28.fastwebnet.it [93.63.141.166])
+ (using TLSv1 with cipher AES256-SHA (256/256 bits))
+ (Client did not present a certificate)
+ (Authenticated sender: davem-davemloft)
+ by shards.monkeyblade.net (Postfix) with ESMTPSA id 99A15153E82EC;
+ Sun, 15 Sep 2019 11:51:50 -0700 (PDT)
+Date: Sun, 15 Sep 2019 19:51:49 +0100 (WEST)
+Message-Id: <20190915.195149.86866545205816280.davem@davemloft.net>
+To: alexandru.ardelean@analog.com
+From: David Miller <davem@davemloft.net>
+In-Reply-To: <20190912132850.10585-1-alexandru.ardelean@analog.com>
+References: <20190912132850.10585-1-alexandru.ardelean@analog.com>
+X-Mailer: Mew version 6.8 on Emacs 26.2
+Mime-Version: 1.0
+X-Greylist: Sender succeeded SMTP AUTH, not delayed by milter-greylist-4.5.12
+ (shards.monkeyblade.net [149.20.54.216]);
+ Sun, 15 Sep 2019 11:51:52 -0700 (PDT)
+Cc: netdev@vger.kernel.org, linux-kernel@vger.kernel.org, joabreu@synopsys.com,
+ mcoquelin.stm32@gmail.com, peppe.cavallaro@st.com,
  linux-stm32@st-md-mailman.stormreply.com, linux-arm-kernel@lists.infradead.org
-Subject: Re: [Linux-stm32] [PATCH] iio: adc: stm32-adc: fix a race when
- using several adcs with dma and irq
+Subject: Re: [Linux-stm32] [PATCH v2] net: stmmac: socfpga: re-use the
+ `interface` parameter from platform data
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -55,198 +51,17 @@ Content-Transfer-Encoding: 7bit
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
-On Fri, 13 Sep 2019 15:21:30 +0200
-Fabrice Gasnier <fabrice.gasnier@st.com> wrote:
+From: Alexandru Ardelean <alexandru.ardelean@analog.com>
+Date: Thu, 12 Sep 2019 16:28:50 +0300
 
-> End of conversion may be handled by using IRQ or DMA. There may be a
-> race when two conversions complete at the same time on several ADCs.
-> EOC can be read as 'set' for several ADCs, with:
-> - an ADC configured to use IRQs. EOCIE bit is set. The handler is normally
->   called in this case.
-> - an ADC configured to use DMA. EOCIE bit isn't set. EOC triggers the DMA
->   request instead. It's then automatically cleared by DMA read. But the
->   handler gets called due to status bit is temporarily set (IRQ triggered
->   by the other ADC).
-> So both EOC status bit in CSR and EOCIE control bit must be checked
-> before invoking the interrupt handler (e.g. call ISR only for
-> IRQ-enabled ADCs).
-> 
-> Fixes: 2763ea0585c9 ("iio: adc: stm32: add optional dma support")
-> 
-> Signed-off-by: Fabrice Gasnier <fabrice.gasnier@st.com>
-Fix looks fine to me, but I'm not keen on splitting out individual bits from
-register defines.  That's a long term readability nightmare.
+> diff --git a/drivers/net/ethernet/stmicro/stmmac/dwmac-socfpga.c b/drivers/net/ethernet/stmicro/stmmac/dwmac-socfpga.c
+> index c141fe783e87..5b6213207c43 100644
+> --- a/drivers/net/ethernet/stmicro/stmmac/dwmac-socfpga.c
+> +++ b/drivers/net/ethernet/stmicro/stmmac/dwmac-socfpga.c
+ ...
+> +static inline int socfpga_get_plat_phymode(struct socfpga_dwmac *dwmac)
 
-See below,
-
-Jonathan
-
-> ---
->  drivers/iio/adc/stm32-adc-core.c | 43 +++++++++++++++++++++++++++++++++++++---
->  drivers/iio/adc/stm32-adc-core.h | 13 ++++++++++++
->  drivers/iio/adc/stm32-adc.c      |  6 ------
->  3 files changed, 53 insertions(+), 9 deletions(-)
-> 
-> diff --git a/drivers/iio/adc/stm32-adc-core.c b/drivers/iio/adc/stm32-adc-core.c
-> index 9b85fef..7297396 100644
-> --- a/drivers/iio/adc/stm32-adc-core.c
-> +++ b/drivers/iio/adc/stm32-adc-core.c
-> @@ -71,6 +71,8 @@
->   * @eoc1:	adc1 end of conversion flag in @csr
->   * @eoc2:	adc2 end of conversion flag in @csr
->   * @eoc3:	adc3 end of conversion flag in @csr
-> + * @ier:	interrupt enable register offset for each adc
-> + * @eocie_msk:	end of conversion interrupt enable mask in @ier
->   */
->  struct stm32_adc_common_regs {
->  	u32 csr;
-> @@ -78,6 +80,8 @@ struct stm32_adc_common_regs {
->  	u32 eoc1_msk;
->  	u32 eoc2_msk;
->  	u32 eoc3_msk;
-> +	u32 ier;
-> +	u32 eocie_msk;
->  };
->  
->  struct stm32_adc_priv;
-> @@ -303,6 +307,8 @@ static const struct stm32_adc_common_regs stm32f4_adc_common_regs = {
->  	.eoc1_msk = STM32F4_EOC1,
->  	.eoc2_msk = STM32F4_EOC2,
->  	.eoc3_msk = STM32F4_EOC3,
-> +	.ier = STM32F4_ADC_CR1,
-> +	.eocie_msk = STM32F4_EOCIE,
->  };
->  
->  /* STM32H7 common registers definitions */
-> @@ -311,8 +317,24 @@ static const struct stm32_adc_common_regs stm32h7_adc_common_regs = {
->  	.ccr = STM32H7_ADC_CCR,
->  	.eoc1_msk = STM32H7_EOC_MST,
->  	.eoc2_msk = STM32H7_EOC_SLV,
-> +	.ier = STM32H7_ADC_IER,
-> +	.eocie_msk = STM32H7_EOCIE,
->  };
->  
-> +static const unsigned int stm32_adc_offset[STM32_ADC_MAX_ADCS] = {
-> +	0, STM32_ADC_OFFSET, STM32_ADC_OFFSET * 2,
-> +};
-> +
-> +static unsigned int stm32_adc_eoc_enabled(struct stm32_adc_priv *priv,
-> +					  unsigned int adc)
-> +{
-> +	u32 ier, offset = stm32_adc_offset[adc];
-> +
-> +	ier = readl_relaxed(priv->common.base + offset + priv->cfg->regs->ier);
-> +
-> +	return ier & priv->cfg->regs->eocie_msk;
-> +}
-> +
->  /* ADC common interrupt for all instances */
->  static void stm32_adc_irq_handler(struct irq_desc *desc)
->  {
-> @@ -323,13 +345,28 @@ static void stm32_adc_irq_handler(struct irq_desc *desc)
->  	chained_irq_enter(chip, desc);
->  	status = readl_relaxed(priv->common.base + priv->cfg->regs->csr);
->  
-> -	if (status & priv->cfg->regs->eoc1_msk)
-> +	/*
-> +	 * End of conversion may be handled by using IRQ or DMA. There may be a
-> +	 * race here when two conversions complete at the same time on several
-> +	 * ADCs. EOC may be read 'set' for several ADCs, with:
-> +	 * - an ADC configured to use DMA (EOC triggers the DMA request, and
-> +	 *   is then automatically cleared by DR read in hardware)
-> +	 * - an ADC configured to use IRQs (EOCIE bit is set. The handler must
-> +	 *   be called in this case)
-> +	 * So both EOC status bit in CSR and EOCIE control bit must be checked
-> +	 * before invoking the interrupt handler (e.g. call ISR only for
-> +	 * IRQ-enabled ADCs).
-> +	 */
-> +	if (status & priv->cfg->regs->eoc1_msk &&
-> +	    stm32_adc_eoc_enabled(priv, 0))
->  		generic_handle_irq(irq_find_mapping(priv->domain, 0));
->  
-> -	if (status & priv->cfg->regs->eoc2_msk)
-> +	if (status & priv->cfg->regs->eoc2_msk &&
-> +	    stm32_adc_eoc_enabled(priv, 1))
->  		generic_handle_irq(irq_find_mapping(priv->domain, 1));
->  
-> -	if (status & priv->cfg->regs->eoc3_msk)
-> +	if (status & priv->cfg->regs->eoc3_msk &&
-> +	    stm32_adc_eoc_enabled(priv, 2))
->  		generic_handle_irq(irq_find_mapping(priv->domain, 2));
->  
->  	chained_irq_exit(chip, desc);
-> diff --git a/drivers/iio/adc/stm32-adc-core.h b/drivers/iio/adc/stm32-adc-core.h
-> index 8af507b..8dc936b 100644
-> --- a/drivers/iio/adc/stm32-adc-core.h
-> +++ b/drivers/iio/adc/stm32-adc-core.h
-> @@ -25,8 +25,21 @@
->   * --------------------------------------------------------
->   */
->  #define STM32_ADC_MAX_ADCS		3
-> +#define STM32_ADC_OFFSET		0x100
->  #define STM32_ADCX_COMN_OFFSET		0x300
->  
-> +/* STM32F4 - registers for each ADC instance */
-> +#define STM32F4_ADC_CR1			0x04
-> +
-> +/* STM32F4_ADC_CR1 - bit fields */
-> +#define STM32F4_EOCIE			BIT(5)
-> +
-> +/* STM32H7 - registers for each instance */
-> +#define STM32H7_ADC_IER			0x04
-> +
-> +/* STM32H7_ADC_IER - bit fields */
-> +#define STM32H7_EOCIE			BIT(2)
-> +
->  /**
->   * struct stm32_adc_common - stm32 ADC driver common data (for all instances)
->   * @base:		control registers base cpu addr
-> diff --git a/drivers/iio/adc/stm32-adc.c b/drivers/iio/adc/stm32-adc.c
-> index 6a7dd08..3c9f456 100644
-> --- a/drivers/iio/adc/stm32-adc.c
-> +++ b/drivers/iio/adc/stm32-adc.c
-> @@ -30,7 +30,6 @@
->  
->  /* STM32F4 - Registers for each ADC instance */
->  #define STM32F4_ADC_SR			0x00
-> -#define STM32F4_ADC_CR1			0x04
->  #define STM32F4_ADC_CR2			0x08
->  #define STM32F4_ADC_SMPR1		0x0C
->  #define STM32F4_ADC_SMPR2		0x10
-> @@ -54,7 +53,6 @@
->  #define STM32F4_RES_SHIFT		24
->  #define STM32F4_RES_MASK		GENMASK(25, 24)
->  #define STM32F4_SCAN			BIT(8)
-> -#define STM32F4_EOCIE			BIT(5)
-Hmm. This is breaking up the definitions of bits in a single register.
-That is rather nasty from a code readability point of view.  
-
-I am as keen as the next person on only exposing definitions where
-we need to, but in this case we either need to provide an access path
-to it here, or we need to move the whole block to the header.
-
->  
->  /* STM32F4_ADC_CR2 - bit fields */
->  #define STM32F4_SWSTART			BIT(30)
-> @@ -69,7 +67,6 @@
->  
->  /* STM32H7 - Registers for each ADC instance */
->  #define STM32H7_ADC_ISR			0x00
-> -#define STM32H7_ADC_IER			0x04
->  #define STM32H7_ADC_CR			0x08
->  #define STM32H7_ADC_CFGR		0x0C
->  #define STM32H7_ADC_SMPR1		0x14
-> @@ -89,9 +86,6 @@
->  #define STM32H7_EOC			BIT(2)
->  #define STM32H7_ADRDY			BIT(0)
->  
-> -/* STM32H7_ADC_IER - bit fields */
-> -#define STM32H7_EOCIE			STM32H7_EOC
-> -
->  /* STM32H7_ADC_CR - bit fields */
->  #define STM32H7_ADCAL			BIT(31)
->  #define STM32H7_ADCALDIF		BIT(30)
-
+Please do not use the inline keyword in foo.c files, let the compiler device.
 _______________________________________________
 Linux-stm32 mailing list
 Linux-stm32@st-md-mailman.stormreply.com
