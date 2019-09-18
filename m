@@ -2,29 +2,29 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id 9E6E0B6949
-	for <lists+linux-stm32@lfdr.de>; Wed, 18 Sep 2019 19:32:47 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id BA984B696D
+	for <lists+linux-stm32@lfdr.de>; Wed, 18 Sep 2019 19:33:00 +0200 (CEST)
 Received: from ip-172-31-3-76.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 6AE77C35E03;
-	Wed, 18 Sep 2019 17:32:47 +0000 (UTC)
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 87700C35E05;
+	Wed, 18 Sep 2019 17:33:00 +0000 (UTC)
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
  (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 6187AC35E01
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 7875BC35E03
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Wed, 18 Sep 2019 17:32:46 +0000 (UTC)
+ Wed, 18 Sep 2019 17:32:58 +0000 (UTC)
 Received: from localhost.localdomain (unknown [194.230.155.145])
  (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by mail.kernel.org (Postfix) with ESMTPSA id 7847C208C0;
- Wed, 18 Sep 2019 17:32:38 +0000 (UTC)
+ by mail.kernel.org (Postfix) with ESMTPSA id 6F47621925;
+ Wed, 18 Sep 2019 17:32:51 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
- s=default; t=1568827964;
- bh=842m/JSo8zkhqWTjvGIQQMCBzFCNxClDHEXRC5hvQrU=;
+ s=default; t=1568827977;
+ bh=NfJ9sRleyQQ5tZgP4QFSZEUinJ+3DSTjk/BekNqpBzg=;
  h=From:To:Cc:Subject:Date:In-Reply-To:References:From;
- b=imfD8ZeFL3JfbWKLBOl0g4IXKqnOv8ebaSBXNzLB3QMI1t3nujlYdNlQj2AOElGSK
- 0sGzh2M1gdLRgj3EtYl3FCRICCDfqgMC9IAmAXXD6Y8ZDjz66yLkYxctPPVkSNPwwe
- djNwKk2ojpcu/k/biiusrFHlZ5VLQm3LpFj3nQDI=
+ b=DvkvvauWtTZxYAuzUUBqMADQXEYtupsymGMZ9i8bCRI0eD4uxwy9Mrekx+m7lo608
+ xXOoC18wwUbAVnB6tbyj6CivJ990xXRyTxbCl/ehV5A+YCwzqW6gWTAS6TYIk27B/m
+ t5v6muzQDp89MsyDGgmfGZt6jDCemAvG/Z7pkoDA=
 From: Krzysztof Kozlowski <krzk@kernel.org>
 To: Rob Herring <robh+dt@kernel.org>, Mark Rutland <mark.rutland@arm.com>,
  Thierry Reding <thierry.reding@gmail.com>, Matt Mackall <mpm@selenic.com>,
@@ -40,14 +40,14 @@ To: Rob Herring <robh+dt@kernel.org>, Mark Rutland <mark.rutland@arm.com>,
  linux-mediatek@lists.infradead.org, linux-rockchip@lists.infradead.org,
  linux-riscv@lists.infradead.org, linux-stm32@st-md-mailman.stormreply.com,
  linux-crypto@vger.kernel.org, linux-watchdog@vger.kernel.org
-Date: Wed, 18 Sep 2019 19:31:39 +0200
-Message-Id: <20190918173141.4314-6-krzk@kernel.org>
+Date: Wed, 18 Sep 2019 19:31:41 +0200
+Message-Id: <20190918173141.4314-8-krzk@kernel.org>
 X-Mailer: git-send-email 2.17.1
 In-Reply-To: <20190918173141.4314-1-krzk@kernel.org>
 References: <20190918173141.4314-1-krzk@kernel.org>
 Cc: Krzysztof Kozlowski <krzk@kernel.org>
-Subject: [Linux-stm32] [PATCH v2 6/8] dt-bindings: watchdog: Add missing
-	clocks requirement in Samsung SoC watchdog
+Subject: [Linux-stm32] [PATCH v2 8/8] dt-bindings: pwm: Convert Samsung PWM
+	bindings to json-schema
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -65,50 +65,194 @@ Content-Transfer-Encoding: 7bit
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
-The Samsung SoC watchdog driver always required providing a clock
-(either through platform data or from DT).  However when bindings were
-added in commit 9487a9cc7140 ("watchdog: s3c2410: Add support for device
-tree based probe"), they missed the requirement of clock.
+Convert Samsung PWM (S3C, S5P and Exynos SoCs) bindings to DT schema
+format using json-schema.
 
 Signed-off-by: Krzysztof Kozlowski <krzk@kernel.org>
-Reviewed-by: Rob Herring <robh@kernel.org>
 
 ---
 
 Changes since v1:
 1. Indent example with four spaces (more readable),
-2. Add also missing required entries for clocks.
+2. Fix samsung,pwm-outputs after review,
+3. Remove double-quotes from clock names.
 ---
- .../devicetree/bindings/watchdog/samsung-wdt.yaml        | 9 +++++++++
- 1 file changed, 9 insertions(+)
+ .../devicetree/bindings/pwm/pwm-samsung.txt   |  51 ---------
+ .../devicetree/bindings/pwm/pwm-samsung.yaml  | 107 ++++++++++++++++++
+ 2 files changed, 107 insertions(+), 51 deletions(-)
+ delete mode 100644 Documentation/devicetree/bindings/pwm/pwm-samsung.txt
+ create mode 100644 Documentation/devicetree/bindings/pwm/pwm-samsung.yaml
 
-diff --git a/Documentation/devicetree/bindings/watchdog/samsung-wdt.yaml b/Documentation/devicetree/bindings/watchdog/samsung-wdt.yaml
-index 3ea3c9fe8390..311f9dc83fdb 100644
---- a/Documentation/devicetree/bindings/watchdog/samsung-wdt.yaml
-+++ b/Documentation/devicetree/bindings/watchdog/samsung-wdt.yaml
-@@ -26,6 +26,13 @@ properties:
-   reg:
-     maxItems: 1
- 
-+  clocks:
+diff --git a/Documentation/devicetree/bindings/pwm/pwm-samsung.txt b/Documentation/devicetree/bindings/pwm/pwm-samsung.txt
+deleted file mode 100644
+index 5538de9c2007..000000000000
+--- a/Documentation/devicetree/bindings/pwm/pwm-samsung.txt
++++ /dev/null
+@@ -1,51 +0,0 @@
+-* Samsung PWM timers
+-
+-Samsung SoCs contain PWM timer blocks which can be used for system clock source
+-and clock event timers, as well as to drive SoC outputs with PWM signal. Each
+-PWM timer block provides 5 PWM channels (not all of them can drive physical
+-outputs - see SoC and board manual).
+-
+-Be aware that the clocksource driver supports only uniprocessor systems.
+-
+-Required properties:
+-- compatible : should be one of following:
+-    samsung,s3c2410-pwm - for 16-bit timers present on S3C24xx SoCs
+-    samsung,s3c6400-pwm - for 32-bit timers present on S3C64xx SoCs
+-    samsung,s5p6440-pwm - for 32-bit timers present on S5P64x0 SoCs
+-    samsung,s5pc100-pwm - for 32-bit timers present on S5PC100, S5PV210,
+-			  Exynos4210 rev0 SoCs
+-    samsung,exynos4210-pwm - for 32-bit timers present on Exynos4210,
+-                          Exynos4x12, Exynos5250 and Exynos5420 SoCs
+-- reg: base address and size of register area
+-- interrupts: list of timer interrupts (one interrupt per timer, starting at
+-  timer 0)
+-- clock-names: should contain all following required clock names:
+-    - "timers" - PWM base clock used to generate PWM signals,
+-  and any subset of following optional clock names:
+-    - "pwm-tclk0" - first external PWM clock source,
+-    - "pwm-tclk1" - second external PWM clock source.
+-  Note that not all IP variants allow using all external clock sources.
+-  Refer to SoC documentation to learn which clock source configurations
+-  are available.
+-- clocks: should contain clock specifiers of all clocks, which input names
+-  have been specified in clock-names property, in same order.
+-- #pwm-cells: should be 3. See pwm.txt in this directory for a description of
+-  the cells format. The only third cell flag supported by this binding is
+-  PWM_POLARITY_INVERTED.
+-
+-Optional properties:
+-- samsung,pwm-outputs: list of PWM channels used as PWM outputs on particular
+-    platform - an array of up to 5 elements being indices of PWM channels
+-    (from 0 to 4), the order does not matter.
+-
+-Example:
+-	pwm@7f006000 {
+-		compatible = "samsung,s3c6400-pwm";
+-		reg = <0x7f006000 0x1000>;
+-		interrupt-parent = <&vic0>;
+-		interrupts = <23>, <24>, <25>, <27>, <28>;
+-		clocks = <&clock 67>;
+-		clock-names = "timers";
+-		samsung,pwm-outputs = <0>, <1>;
+-		#pwm-cells = <3>;
+-	}
+diff --git a/Documentation/devicetree/bindings/pwm/pwm-samsung.yaml b/Documentation/devicetree/bindings/pwm/pwm-samsung.yaml
+new file mode 100644
+index 000000000000..06d11faabff6
+--- /dev/null
++++ b/Documentation/devicetree/bindings/pwm/pwm-samsung.yaml
+@@ -0,0 +1,107 @@
++# SPDX-License-Identifier: GPL-2.0
++%YAML 1.2
++---
++$id: http://devicetree.org/schemas/pwm/pwm-samsung.yaml#
++$schema: http://devicetree.org/meta-schemas/core.yaml#
++
++title: Samsung SoC PWM timers
++
++maintainers:
++  - Thierry Reding <thierry.reding@gmail.com>
++  - Krzysztof Kozlowski <krzk@kernel.org>
++
++description: |+
++  Samsung SoCs contain PWM timer blocks which can be used for system clock source
++  and clock event timers, as well as to drive SoC outputs with PWM signal. Each
++  PWM timer block provides 5 PWM channels (not all of them can drive physical
++  outputs - see SoC and board manual).
++
++  Be aware that the clocksource driver supports only uniprocessor systems.
++
++allOf:
++  - $ref: pwm.yaml#
++
++properties:
++  compatible:
++    enum:
++      - samsung,s3c2410-pwm             # 16-bit, S3C24xx
++      - samsung,s3c6400-pwm             # 32-bit, S3C64xx
++      - samsung,s5p6440-pwm             # 32-bit, S5P64x0
++      - samsung,s5pc100-pwm             # 32-bit, S5PC100, S5PV210, Exynos4210 rev0 SoCs
++      - samsung,exynos4210-pwm          # 32-bit, Exynos
++
++  reg:
 +    maxItems: 1
 +
-+  clock-names:
-+    items:
-+      - const: watchdog
++  clocks:
++    minItems: 1
++    maxItems: 3
 +
-   interrupts:
-     maxItems: 1
- 
-@@ -40,6 +47,8 @@ properties:
- 
- required:
-   - compatible
++  clock-names:
++    description: |
++      Should contain all following required clock names:
++      - "timers" - PWM base clock used to generate PWM signals,
++      and any subset of following optional clock names:
++      - "pwm-tclk0" - first external PWM clock source,
++      - "pwm-tclk1" - second external PWM clock source.
++      Note that not all IP variants allow using all external clock sources.
++      Refer to SoC documentation to learn which clock source configurations
++      are available.
++    oneOf:
++      - items:
++        - const: timers
++      - items:
++        - const: timers
++        - const: pwm-tclk0
++      - items:
++        - const: timers
++        - const: pwm-tclk1
++      - items:
++        - const: timers
++        - const: pwm-tclk0
++        - const: pwm-tclk1
++
++  interrupts:
++    description:
++      One interrupt per timer, starting at timer 0.
++    minItems: 1
++    maxItems: 5
++
++  "#pwm-cells":
++    description:
++      The only third cell flag supported by this binding
++      is PWM_POLARITY_INVERTED.
++    const: 3
++
++  samsung,pwm-outputs:
++    description:
++      A list of PWM channels used as PWM outputs on particular platform.
++      It is an array of up to 5 elements being indices of PWM channels
++      (from 0 to 4), the order does not matter.
++    allOf:
++      - $ref: /schemas/types.yaml#/definitions/uint32-array
++      - uniqueItems: true
++      - items:
++          minimum: 0
++          maximum: 4
++
++required:
 +  - clocks
 +  - clock-names
-   - interrupts
-   - reg
- 
++  - compatible
++  - interrupts
++  - "#pwm-cells"
++  - reg
++
++examples:
++  - |
++    pwm@7f006000 {
++        compatible = "samsung,s3c6400-pwm";
++        reg = <0x7f006000 0x1000>;
++        interrupt-parent = <&vic0>;
++        interrupts = <23>, <24>, <25>, <27>, <28>;
++        clocks = <&clock 67>;
++        clock-names = "timers";
++        samsung,pwm-outputs = <0>, <1>;
++        #pwm-cells = <3>;
++    };
 -- 
 2.17.1
 
