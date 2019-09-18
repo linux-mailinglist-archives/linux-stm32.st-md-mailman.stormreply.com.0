@@ -2,56 +2,55 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id 0CEC3B5E58
-	for <lists+linux-stm32@lfdr.de>; Wed, 18 Sep 2019 09:53:36 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 1BCF7B5E5C
+	for <lists+linux-stm32@lfdr.de>; Wed, 18 Sep 2019 09:53:40 +0200 (CEST)
 Received: from ip-172-31-3-76.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id CD329C35E02;
-	Wed, 18 Sep 2019 07:53:35 +0000 (UTC)
-Received: from mail-pg1-f194.google.com (mail-pg1-f194.google.com
- [209.85.215.194])
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id D937CC35E04;
+	Wed, 18 Sep 2019 07:53:39 +0000 (UTC)
+Received: from mail-pf1-f195.google.com (mail-pf1-f195.google.com
+ [209.85.210.195])
  (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 6FA4FC36B3F
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 89B52C35E02
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Wed, 18 Sep 2019 07:53:34 +0000 (UTC)
-Received: by mail-pg1-f194.google.com with SMTP id w10so3522070pgj.7
+ Wed, 18 Sep 2019 07:53:38 +0000 (UTC)
+Received: by mail-pf1-f195.google.com with SMTP id a2so3815003pfo.10
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Wed, 18 Sep 2019 00:53:34 -0700 (PDT)
+ Wed, 18 Sep 2019 00:53:38 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20161025;
  h=from:to:cc:subject:date:message-id:in-reply-to:references
  :mime-version:content-transfer-encoding;
- bh=LsvbpETHylsMeIUTajAZCGUDIJ8fG7jkQ6/Zagal4f4=;
- b=IumcRAkxy5pZylIcDk2kk11lt/Kamjn4u4KN9e1isPm+S+UCnm3JlxVbOiZ46oXK4n
- BB/x+oxrFpErhPzc1KQOp/7hsPIzjCj/wZ9g0IE9FwXQwCxkd9IsjMPwGghqdxSVLkI/
- xOlbhDFJw5DSqaELCOyrE5u39asaHlXLvDVIzpsnCaHzCTJMVGIHvCMgqw1wL5t/fomj
- N//ewlufhfCWiM4m/DmfdTnc0pZWJxAl5iHcvmOSjJ4iFd2k8cHhHdJL0B6IwZdRDkkI
- 1uGPxbb3wOTm2bQHBAV494FE66uu9zVh1aSrZpUf3oPKPpSuUQmj6hELuVVdHwEBWPGq
- db8Q==
+ bh=jztD0q/pSM8JUi6mwAcEWzxcgZfTnzpK2xWBV2x6KlU=;
+ b=Um9D2iCr8IeMcdqzFKJCNkI4+H9iquS7B6UFk6cgl4jXkAirxwIuJ95qkKTrUhPsfT
+ gTJcQMEthS4bzi0GfhSAd52gBR5BnadIzveTBTJe5gXEKvFl/zkrZBG1JQAG3wwASiDa
+ INEDf4012fWYH/QZwcG3VHMmcNQaX2TVdkk3ncLyDT9fs5uPELiztes5FG8XMNlvN0fi
+ YM0fnrpbCFQ0TSpfLVRR3SyTJKZH5qDBhLa0bfCyr2euLMqndD+EYffJSPfQ3LI5rTg4
+ VbrNEubms5qPtsWb331YMEQTqHr4o0GWM0hcAlBaJwAVOpVN8q53IHXZBOA7Z1F9Hfxs
+ DeqQ==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=1e100.net; s=20161025;
  h=x-gm-message-state:from:to:cc:subject:date:message-id:in-reply-to
  :references:mime-version:content-transfer-encoding;
- bh=LsvbpETHylsMeIUTajAZCGUDIJ8fG7jkQ6/Zagal4f4=;
- b=S9Bdt6Z/gDObFpC7hwsfQ8seVy/OpEXJJNHmq3cNjkR/cTQrAjkuExbN6HOZSGii4I
- mbQ+VNv0A7jy1YdjTZt0JXkFbnj+m0nWlV+yRQ6xVRk3uDIbbp5dtnIeqxOpxs99AyQY
- 8EhQPDOc2x+BHQ0D+8Rh3xSSAoZaliBLVFHcXoViuuemVJeFeo1rTRrbLw73MAceSj/U
- ENqScIyQkEcrssi/D24uJiGj5RPHi3OgVbojhG6peC+1C8XXiywuXR1UkEUIgSyMik5S
- XOhvcX0jyB2xTUCYfETEdS2Y7sLXuBp20H50Q3WW7/RwGrlCCQ6mFEu/AAJ0AB1i5MIH
- aP/A==
-X-Gm-Message-State: APjAAAWuuWZ6yojbbgNwZ9SbW9v40R01eGd3CLZdcYECPeKHmlPm61Me
- lHRt5ZQTcELA5qFjJfsn7WE=
-X-Google-Smtp-Source: APXvYqz6bKFysyOYIsBhtp2Nnv9ivWYTyp7k2Sqz3xxBjGsrTUv0j48RIsG6BIg+26QoSnC9TG7lyQ==
-X-Received: by 2002:a17:90a:e57:: with SMTP id
- p23mr2314170pja.126.1568793212976; 
- Wed, 18 Sep 2019 00:53:32 -0700 (PDT)
+ bh=jztD0q/pSM8JUi6mwAcEWzxcgZfTnzpK2xWBV2x6KlU=;
+ b=ltu3M3yasAsUqZFOVpoJ4S9QXq55tCL5Ls0vv4B1i01vWmSH0B9zWIN+SxU0UAzGQT
+ 4/Oh6lvcAw2yAELwJu9Tu3HHtZJSNyWPjdCwxEm3vRfAfhx6nuLqHZdkB+3lI3n2/tnS
+ mnbWnqqj0fxumJi4Zy4/xmdvvwJeo1Z4zkowuLCz7579dXT7FnH6360+Np5zoPACN5qO
+ 539i7amnJhxUalPcc/QQKpBIC+tOBAUGlVTK70SPvHR8IcVr8RYfB2IsBjVa9uVGqXCb
+ krIeisAlqGA1dMvf5j0WWXlQRqAUxp5bZTHOUWoeJctd6opH1NcOt+IVKwUHxwVa2rSI
+ yWpw==
+X-Gm-Message-State: APjAAAUaGOHh5ilAoOj4nJb9JwGIkU9WfyaVi2UFucR7KXToAPJxGPNo
+ uD0ccCsUVQzwPpdjePjRwf0=
+X-Google-Smtp-Source: APXvYqxxqPoVDdtGr5+T574vmF9JYrxp2FWnYti4I+/c5S8B3oWrqRqPteeAZ6AyHkDVfV3S2ouo0A==
+X-Received: by 2002:a63:2004:: with SMTP id g4mr2593156pgg.97.1568793217016;
+ Wed, 18 Sep 2019 00:53:37 -0700 (PDT)
 Received: from localhost.localdomain ([2001:268:c147:d9df:f819:e399:825f:f2dc])
- by smtp.gmail.com with ESMTPSA id h8sm5580715pfo.64.2019.09.18.00.53.27
+ by smtp.gmail.com with ESMTPSA id h8sm5580715pfo.64.2019.09.18.00.53.33
  (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Wed, 18 Sep 2019 00:53:32 -0700 (PDT)
+ Wed, 18 Sep 2019 00:53:36 -0700 (PDT)
 From: William Breathitt Gray <vilhelm.gray@gmail.com>
 To: jic23@jic23.retrosnub.co.uk
-Date: Wed, 18 Sep 2019 16:52:45 +0900
-Message-Id: <44531823f947fffb12ceac17861a391a025dd229.1568792697.git.vilhelm.gray@gmail.com>
+Date: Wed, 18 Sep 2019 16:52:46 +0900
+Message-Id: <6925fdda26c57ce29d373f8cb01a572cd7b92c0f.1568792697.git.vilhelm.gray@gmail.com>
 X-Mailer: git-send-email 2.23.0
 In-Reply-To: <cover.1568792697.git.vilhelm.gray@gmail.com>
 References: <cover.1568792697.git.vilhelm.gray@gmail.com>
@@ -60,8 +59,8 @@ Cc: linux-iio@vger.kernel.org, patrick.havelange@essensium.com,
  linux-kernel@vger.kernel.org, William Breathitt Gray <vilhelm.gray@gmail.com>,
  mcoquelin.stm32@gmail.com, fabrice.gasnier@st.com,
  linux-stm32@st-md-mailman.stormreply.com, linux-arm-kernel@lists.infradead.org
-Subject: [Linux-stm32] [PATCH v2 4/7] counter: 104-quad-8: Update
-	count_read/count_write/signal_read callbacks
+Subject: [Linux-stm32] [PATCH v2 5/7] counter: ftm-quaddec: Update
+	count_read and count_write callbacks
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -78,118 +77,54 @@ Content-Transfer-Encoding: 7bit
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
-The count_read and count_write callbacks pass unsigned long now, while
-the signal_read callback passes an enum counter_signal_value.
+The count_read and count_write callbacks pass unsigned long now.
 
+Cc: Patrick Havelange <patrick.havelange@essensium.com>
 Signed-off-by: William Breathitt Gray <vilhelm.gray@gmail.com>
 ---
- drivers/counter/104-quad-8.c | 33 ++++++++++-----------------------
- 1 file changed, 10 insertions(+), 23 deletions(-)
+ drivers/counter/ftm-quaddec.c | 14 ++++----------
+ 1 file changed, 4 insertions(+), 10 deletions(-)
 
-diff --git a/drivers/counter/104-quad-8.c b/drivers/counter/104-quad-8.c
-index 00b113f4b958..17e67a84777d 100644
---- a/drivers/counter/104-quad-8.c
-+++ b/drivers/counter/104-quad-8.c
-@@ -562,11 +562,10 @@ static const struct iio_chan_spec quad8_channels[] = {
- };
+diff --git a/drivers/counter/ftm-quaddec.c b/drivers/counter/ftm-quaddec.c
+index 4046aa9f9234..c2b3fdfd8b77 100644
+--- a/drivers/counter/ftm-quaddec.c
++++ b/drivers/counter/ftm-quaddec.c
+@@ -178,31 +178,25 @@ static const enum counter_count_function ftm_quaddec_count_functions[] = {
  
- static int quad8_signal_read(struct counter_device *counter,
--	struct counter_signal *signal, struct counter_signal_read_value *val)
-+	struct counter_signal *signal, enum counter_signal_value *val)
+ static int ftm_quaddec_count_read(struct counter_device *counter,
+ 				  struct counter_count *count,
+-				  struct counter_count_read_value *val)
++				  unsigned long *val)
  {
- 	const struct quad8_iio *const priv = counter->priv;
- 	unsigned int state;
--	enum counter_signal_level level;
+ 	struct ftm_quaddec *const ftm = counter->priv;
+ 	uint32_t cntval;
  
- 	/* Only Index signal levels can be read */
- 	if (signal->id < 16)
-@@ -575,22 +574,19 @@ static int quad8_signal_read(struct counter_device *counter,
- 	state = inb(priv->base + QUAD8_REG_INDEX_INPUT_LEVELS)
- 		& BIT(signal->id - 16);
+ 	ftm_read(ftm, FTM_CNT, &cntval);
  
--	level = (state) ? COUNTER_SIGNAL_LEVEL_HIGH : COUNTER_SIGNAL_LEVEL_LOW;
--
--	counter_signal_read_value_set(val, COUNTER_SIGNAL_LEVEL, &level);
-+	*val = (state) ? COUNTER_SIGNAL_HIGH : COUNTER_SIGNAL_LOW;
+-	counter_count_read_value_set(val, COUNTER_COUNT_POSITION, &cntval);
++	*val = cntval;
  
  	return 0;
  }
  
- static int quad8_count_read(struct counter_device *counter,
--	struct counter_count *count, struct counter_count_read_value *val)
-+	struct counter_count *count, unsigned long *val)
+ static int ftm_quaddec_count_write(struct counter_device *counter,
+ 				   struct counter_count *count,
+-				   struct counter_count_write_value *val)
++				   const unsigned long val)
  {
- 	const struct quad8_iio *const priv = counter->priv;
- 	const int base_offset = priv->base + 2 * count->id;
- 	unsigned int flags;
- 	unsigned int borrow;
- 	unsigned int carry;
--	unsigned long position;
- 	int i;
- 
- 	flags = inb(base_offset + 1);
-@@ -598,36 +594,27 @@ static int quad8_count_read(struct counter_device *counter,
- 	carry = !!(flags & QUAD8_FLAG_CT);
- 
- 	/* Borrow XOR Carry effectively doubles count range */
--	position = (unsigned long)(borrow ^ carry) << 24;
-+	*val = (unsigned long)(borrow ^ carry) << 24;
- 
- 	/* Reset Byte Pointer; transfer Counter to Output Latch */
- 	outb(QUAD8_CTR_RLD | QUAD8_RLD_RESET_BP | QUAD8_RLD_CNTR_OUT,
- 	     base_offset + 1);
- 
- 	for (i = 0; i < 3; i++)
--		position |= (unsigned long)inb(base_offset) << (8 * i);
--
--	counter_count_read_value_set(val, COUNTER_COUNT_POSITION, &position);
-+		*val |= (unsigned long)inb(base_offset) << (8 * i);
- 
- 	return 0;
- }
- 
- static int quad8_count_write(struct counter_device *counter,
--	struct counter_count *count, struct counter_count_write_value *val)
-+	struct counter_count *count, unsigned long val)
- {
- 	const struct quad8_iio *const priv = counter->priv;
- 	const int base_offset = priv->base + 2 * count->id;
+ 	struct ftm_quaddec *const ftm = counter->priv;
+-	u32 cnt;
 -	int err;
--	unsigned long position;
- 	int i;
  
--	err = counter_count_write_value_get(&position, COUNTER_COUNT_POSITION,
--					    val);
+-	err = counter_count_write_value_get(&cnt, COUNTER_COUNT_POSITION, val);
 -	if (err)
 -		return err;
 -
- 	/* Only 24-bit values are supported */
--	if (position > 0xFFFFFF)
-+	if (val > 0xFFFFFF)
+-	if (cnt != 0) {
++	if (val != 0) {
+ 		dev_warn(&ftm->pdev->dev, "Can only accept '0' as new counter value\n");
  		return -EINVAL;
- 
- 	/* Reset Byte Pointer */
-@@ -635,7 +622,7 @@ static int quad8_count_write(struct counter_device *counter,
- 
- 	/* Counter can only be set via Preset Register */
- 	for (i = 0; i < 3; i++)
--		outb(position >> (8 * i), base_offset);
-+		outb(val >> (8 * i), base_offset);
- 
- 	/* Transfer Preset Register to Counter */
- 	outb(QUAD8_CTR_RLD | QUAD8_RLD_PRESET_CNTR, base_offset + 1);
-@@ -644,9 +631,9 @@ static int quad8_count_write(struct counter_device *counter,
- 	outb(QUAD8_CTR_RLD | QUAD8_RLD_RESET_BP, base_offset + 1);
- 
- 	/* Set Preset Register back to original value */
--	position = priv->preset[count->id];
-+	val = priv->preset[count->id];
- 	for (i = 0; i < 3; i++)
--		outb(position >> (8 * i), base_offset);
-+		outb(val >> (8 * i), base_offset);
- 
- 	/* Reset Borrow, Carry, Compare, and Sign flags */
- 	outb(QUAD8_CTR_RLD | QUAD8_RLD_RESET_FLAGS, base_offset + 1);
+ 	}
 -- 
 2.23.0
 
