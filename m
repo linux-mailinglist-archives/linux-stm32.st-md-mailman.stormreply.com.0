@@ -2,60 +2,65 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id 341B2B6302
-	for <lists+linux-stm32@lfdr.de>; Wed, 18 Sep 2019 14:23:02 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 85D5AB65EF
+	for <lists+linux-stm32@lfdr.de>; Wed, 18 Sep 2019 16:23:29 +0200 (CEST)
 Received: from ip-172-31-3-76.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id F13DCC35E01;
-	Wed, 18 Sep 2019 12:23:01 +0000 (UTC)
-Received: from mx07-00178001.pphosted.com (mx08-00178001.pphosted.com
- [91.207.212.93])
- (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 43214C35E01;
+	Wed, 18 Sep 2019 14:23:29 +0000 (UTC)
+Received: from mail-pg1-f196.google.com (mail-pg1-f196.google.com
+ [209.85.215.196])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id AB8A3C36B3E
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id D0115C36B3E
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Wed, 18 Sep 2019 12:23:00 +0000 (UTC)
-Received: from pps.filterd (m0046661.ppops.net [127.0.0.1])
- by mx08-00178001.pphosted.com (8.16.0.42/8.16.0.42) with SMTP id
- x8ICLfKJ027959; Wed, 18 Sep 2019 14:22:54 +0200
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=st.com;
- h=from : to : cc : subject
- : date : message-id : mime-version : content-type; s=STMicroelectronics;
- bh=LGMEcDX91zZnE3TyD/A9U4RClm8f/2smtj92YAYq+2o=;
- b=0K6bwiVHEwKLgTOJwkIYgMkN+54fiRzj4hvD9GdFbfe344+RAFN0oQmhhL/QWhUtErXh
- wNr/ZTCSXKfjy/PEBovS5zlOzy5P+CoDyrzs75hoOCqTI8yhp/QDTJODYe8vDifQA393
- LQcHMr81M3HHFDJ+M6e26dB9SYaVrudeLYAzwzU+ubT1j9jPRX4vAnnVo9zmt+T9Nnyi
- 4ClYCJ/+CffzDxyiOnggSmBaAgCenoYQkmj/7nN1QwKP9mp5q39aRZIQQc1IVRUqviAI
- iJZc3/Yp5G0l4Sows3HEW38r49o10dUOkwAAvYQ3WSRL01rfr7fivmoWTk7ZmcU7S4ea +w== 
-Received: from beta.dmz-ap.st.com (beta.dmz-ap.st.com [138.198.100.35])
- by mx08-00178001.pphosted.com with ESMTP id 2v37kmc3mq-1
- (version=TLSv1 cipher=ECDHE-RSA-AES256-SHA bits=256 verify=NOT);
- Wed, 18 Sep 2019 14:22:54 +0200
-Received: from euls16034.sgp.st.com (euls16034.sgp.st.com [10.75.44.20])
- by beta.dmz-ap.st.com (STMicroelectronics) with ESMTP id 1289023;
- Wed, 18 Sep 2019 12:22:51 +0000 (GMT)
-Received: from Webmail-eu.st.com (Safex1hubcas23.st.com [10.75.90.46])
- by euls16034.sgp.st.com (STMicroelectronics) with ESMTP id 713392C5B2F;
- Wed, 18 Sep 2019 14:22:50 +0200 (CEST)
-Received: from SAFEX1HUBCAS22.st.com (10.75.90.92) by SAFEX1HUBCAS23.st.com
- (10.75.90.46) with Microsoft SMTP Server (TLS) id 14.3.439.0; Wed, 18 Sep
- 2019 14:22:50 +0200
-Received: from localhost (10.48.1.232) by Webmail-ga.st.com (10.75.90.48) with
- Microsoft SMTP Server (TLS) id 14.3.439.0;
- Wed, 18 Sep 2019 14:22:49 +0200
-From: Fabrice Gasnier <fabrice.gasnier@st.com>
-To: <vilhelm.gray@gmail.com>
-Date: Wed, 18 Sep 2019 14:22:41 +0200
-Message-ID: <1568809361-26157-1-git-send-email-fabrice.gasnier@st.com>
-X-Mailer: git-send-email 2.7.4
+ Wed, 18 Sep 2019 14:23:27 +0000 (UTC)
+Received: by mail-pg1-f196.google.com with SMTP id x15so4210883pgg.8
+ for <linux-stm32@st-md-mailman.stormreply.com>;
+ Wed, 18 Sep 2019 07:23:27 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20161025;
+ h=from:to:cc:subject:date:message-id:mime-version
+ :content-transfer-encoding;
+ bh=hBF1etsivhmKdLkajwW8GHvPk5tP312Rqd082oyW/40=;
+ b=KTcABZbJz2NA0gOeD1Qk+C6NCkIU0co5QvjKv9sapaIiZ/aOcOklr2aph/qPdpteM1
+ f9Crx3hv6rnSCrkcG89lN6CQljYO6GXIcen+1NBAOp3UVFv/GHksaNifgj73/zPtDhj0
+ kS1Ckv3keBIrbasafOfh/gVuWTSMTPlkqgxBlGaZ2PkjjSFRe4/mG9SzFI9tKljz8IoJ
+ n9Z8mOb3e4/09p35VMsBbMRTTU4uZdgxp9ikYxgaHqxsArontVYO2lPSFMHmOR1zzbr4
+ BZBkP/WhVtTospi0W8CPHgAw/PcbuIvbu8x3H4S7lafBwG2FjZ2l3cDjQX0Ow0TRIBQi
+ LR7w==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20161025;
+ h=x-gm-message-state:from:to:cc:subject:date:message-id:mime-version
+ :content-transfer-encoding;
+ bh=hBF1etsivhmKdLkajwW8GHvPk5tP312Rqd082oyW/40=;
+ b=FB7noa7NWdMyHKsY5/Hd06s5KA3dIRSKEeVq7hCHZIAQ4Hq6gIdpDn62kH5089dmS7
+ VSfNxEFcSZy0v734CIgt76clT3Z7OAamU/V3tSXu9fGF4K9iyxB1OwFVyt8py05HO4f5
+ 2a7B0Q4tfcjJCkISBvaX1lt4RKwUOtl2Ohn1uIAbuHYTsm4c4hD9oMtBUjjsZ905Idck
+ SVeUc3KFFiEOH9kWJERuWrE3xs9/Vs6Nfn3houx/Wh7zPZtTfa74blszbB2KMkc1htaB
+ k4KUkfh0ZFSjXdUHa0Ds1dq/Q2Hz/KSlMzZNk3g0r+Gl0TEomXS7v05UPkAV7VoNiduG
+ s9SQ==
+X-Gm-Message-State: APjAAAV6RLC5SSnSzEszXyxGWnO+xUaARVl0ZRjJpnTehOeFSMHjWaD3
+ xMGEpwA1iZy+DnTQ0azrcxo=
+X-Google-Smtp-Source: APXvYqwDluvBGw1cnbd/MWHtPlAIMe4bMLEDRhdzKzQgVavoWQaUPt4wXe+kCj2DcEFZ303Bu4/vAg==
+X-Received: by 2002:a63:d46:: with SMTP id 6mr4329157pgn.364.1568816605894;
+ Wed, 18 Sep 2019 07:23:25 -0700 (PDT)
+Received: from localhost.localdomain ([2001:268:c145:8e3a:1c91:3b66:30:c335])
+ by smtp.gmail.com with ESMTPSA id
+ d5sm10996675pfa.180.2019.09.18.07.23.21
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Wed, 18 Sep 2019 07:23:25 -0700 (PDT)
+From: William Breathitt Gray <vilhelm.gray@gmail.com>
+To: jic23@jic23.retrosnub.co.uk
+Date: Wed, 18 Sep 2019 23:22:44 +0900
+Message-Id: <cover.1568816248.git.vilhelm.gray@gmail.com>
+X-Mailer: git-send-email 2.23.0
 MIME-Version: 1.0
-X-Originating-IP: [10.48.1.232]
-X-Proofpoint-Virus-Version: vendor=fsecure engine=2.50.10434:6.0.70,1.0.8
- definitions=2019-09-18_07:2019-09-17,2019-09-18 signatures=0
-Cc: linux-iio@vger.kernel.org, linux-kernel@vger.kernel.org, jic23@kernel.org,
+Cc: benjamin.gaignard@linaro.org, linux-iio@vger.kernel.org,
+ patrick.havelange@essensium.com, linux-kernel@vger.kernel.org,
+ William Breathitt Gray <vilhelm.gray@gmail.com>, mcoquelin.stm32@gmail.com,
  fabrice.gasnier@st.com, linux-stm32@st-md-mailman.stormreply.com,
  linux-arm-kernel@lists.infradead.org
-Subject: [Linux-stm32] [PATCH] counter: stm32-lptimer-cnt: fix a kernel-doc
-	warning
+Subject: [Linux-stm32] [PATCH v3 0/2] Simplify
+	count_read/count_write/signal_read
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -72,30 +77,86 @@ Content-Transfer-Encoding: 7bit
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
-Fix the following warnings when documentation is built:
-drivers/counter/stm32-lptimer-cnt.c:354: warning: cannot understand
-function prototype: 'enum stm32_lptim_cnt_function'
+Changes in v3:
+ - Squash code changes to single patch to avoid compilation error
 
-Signed-off-by: Fabrice Gasnier <fabrice.gasnier@st.com>
----
- drivers/counter/stm32-lptimer-cnt.c | 2 +-
- 1 file changed, 1 insertion(+), 1 deletion(-)
+The changes in this patchset will not affect the userspace interface.
+Rather, these changes are intended to simplify the kernelspace Counter
+callbacks for counter device driver authors.
 
-diff --git a/drivers/counter/stm32-lptimer-cnt.c b/drivers/counter/stm32-lptimer-cnt.c
-index bbc930a..28b6364 100644
---- a/drivers/counter/stm32-lptimer-cnt.c
-+++ b/drivers/counter/stm32-lptimer-cnt.c
-@@ -347,7 +347,7 @@ static const struct iio_chan_spec stm32_lptim_cnt_channels = {
- };
- 
- /**
-- * stm32_lptim_cnt_function - enumerates stm32 LPTimer counter & encoder modes
-+ * enum stm32_lptim_cnt_function - enumerates LPTimer counter & encoder modes
-  * @STM32_LPTIM_COUNTER_INCREASE: up count on IN1 rising, falling or both edges
-  * @STM32_LPTIM_ENCODER_BOTH_EDGE: count on both edges (IN1 & IN2 quadrature)
-  */
+The following main changes are proposed:
+
+* Retire the opaque counter_count_read_value/counter_count_write_value
+  structures and simply represent count data as an unsigned integer.
+
+* Retire the opaque counter_signal_read_value structure and represent
+  Signal data as a counter_signal_value enum.
+
+These changes should reduce some complexity and code in the use and
+implementation of the count_read, count_write, and signal_read
+callbacks.
+
+The opaque structures for Count data and Signal data were introduced
+originally in anticipation of supporting various representations of
+counter data (e.g. arbitrary-precision tallies, floating-point spherical
+coordinate positions, etc). However, with the counter device drivers
+that have appeared, it's become apparent that utilizing opaque
+structures in kernelspace is not the best approach to take.
+
+I believe it is best to let userspace applications decide how to
+interpret the count data they receive. There are a couple of reasons why
+it would be good to do so:
+
+* Users use their devices in unexpected ways.
+
+  For example, a quadrature encoder counter device is typically used to
+  keep track of the position of a motor, but a user could set the device
+  in a pulse-direction mode and instead use it to count sporadic rising
+  edges from an arbitrary signal line unrelated to positioning. Users
+  should have the freedom to decide what their data represents.
+
+* Most counter devices represent data as unsigned integers anyway.
+
+  For example, whether the device is a tally counter or position
+  counter, the count data is represented to the user as an unsigned
+  integer value. So specifying that one device is representing tallies
+  while the other specifies positions does not provide much utility from
+  an interface perspective.
+
+For these reasons, the count_read and count_write callbacks have been
+redefined to pass count data directly as unsigned long instead of passed
+via opaque structures:
+
+        count_read(struct counter_device *counter,
+                   struct counter_count *count, unsigned long *val);
+        count_write(struct counter_device *counter,
+                    struct counter_count *count, unsigned long val);
+
+Similarly, the signal_read is redefined to pass Signal data directly as
+a counter_signal_value enum instead of via an opaque structure:
+
+        signal_read(struct counter_device *counter,
+                    struct counter_signal *signal,
+                    enum counter_signal_value *val);
+
+The counter_signal_value enum is simply the counter_signal_level enum
+redefined to remove the references to the Signal data "level" data type.
+
+William Breathitt Gray (2):
+  counter: Simplify the count_read and count_write callbacks
+  docs: driver-api: generic-counter: Update Count and Signal data types
+
+ Documentation/driver-api/generic-counter.rst |  22 ++--
+ drivers/counter/104-quad-8.c                 |  33 ++----
+ drivers/counter/counter.c                    | 101 +++----------------
+ drivers/counter/ftm-quaddec.c                |  14 +--
+ drivers/counter/stm32-lptimer-cnt.c          |   5 +-
+ drivers/counter/stm32-timer-cnt.c            |  17 +---
+ include/linux/counter.h                      |  74 ++------------
+ 7 files changed, 53 insertions(+), 213 deletions(-)
+
 -- 
-2.7.4
+2.23.0
 
 _______________________________________________
 Linux-stm32 mailing list
