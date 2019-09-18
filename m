@@ -2,45 +2,52 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id 6A48DB6AB8
-	for <lists+linux-stm32@lfdr.de>; Wed, 18 Sep 2019 20:40:49 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 2493EB6CFD
+	for <lists+linux-stm32@lfdr.de>; Wed, 18 Sep 2019 21:55:11 +0200 (CEST)
 Received: from ip-172-31-3-76.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 8B202C35E01;
-	Wed, 18 Sep 2019 18:40:49 +0000 (UTC)
-Received: from metis.ext.pengutronix.de (metis.ext.pengutronix.de
- [85.220.165.71])
- (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id CE549C35E01;
+	Wed, 18 Sep 2019 19:55:10 +0000 (UTC)
+Received: from mout.kundenserver.de (mout.kundenserver.de [212.227.126.131])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 03680C36B3E
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 7AB46C36B3E
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Wed, 18 Sep 2019 18:40:47 +0000 (UTC)
-Received: from pty.hi.pengutronix.de ([2001:67c:670:100:1d::c5])
- by metis.ext.pengutronix.de with esmtps
- (TLS1.2:ECDHE_RSA_AES_256_GCM_SHA384:256) (Exim 4.92)
- (envelope-from <ukl@pengutronix.de>)
- id 1iAesa-00059E-Ip; Wed, 18 Sep 2019 20:40:40 +0200
-Received: from ukl by pty.hi.pengutronix.de with local (Exim 4.89)
- (envelope-from <ukl@pengutronix.de>)
- id 1iAesZ-0002ge-3I; Wed, 18 Sep 2019 20:40:39 +0200
-Date: Wed, 18 Sep 2019 20:40:39 +0200
-From: Uwe =?iso-8859-1?Q?Kleine-K=F6nig?= <u.kleine-koenig@pengutronix.de>
-To: Fabrice Gasnier <fabrice.gasnier@st.com>
-Message-ID: <20190918184039.27dtd3zguawijsqo@pengutronix.de>
-References: <1568818461-19995-1-git-send-email-fabrice.gasnier@st.com>
+ Wed, 18 Sep 2019 19:55:09 +0000 (UTC)
+Received: from threadripper.lan ([149.172.19.189]) by mrelayeu.kundenserver.de
+ (mreue011 [212.227.15.129]) with ESMTPA (Nemesis) id
+ 1N7iT4-1i5hwp41fW-014hEP; Wed, 18 Sep 2019 21:54:58 +0200
+From: Arnd Bergmann <arnd@arndb.de>
+To: Giuseppe Cavallaro <peppe.cavallaro@st.com>,
+ Alexandre Torgue <alexandre.torgue@st.com>,
+ Jose Abreu <joabreu@synopsys.com>, "David S. Miller" <davem@davemloft.net>,
+ Maxime Coquelin <mcoquelin.stm32@gmail.com>
+Date: Wed, 18 Sep 2019 21:54:34 +0200
+Message-Id: <20190918195454.2056139-1-arnd@arndb.de>
+X-Mailer: git-send-email 2.20.0
 MIME-Version: 1.0
-Content-Disposition: inline
-In-Reply-To: <1568818461-19995-1-git-send-email-fabrice.gasnier@st.com>
-User-Agent: NeoMutt/20170113 (1.7.2)
-X-SA-Exim-Connect-IP: 2001:67c:670:100:1d::c5
-X-SA-Exim-Mail-From: ukl@pengutronix.de
-X-SA-Exim-Scanned: No (on metis.ext.pengutronix.de);
- SAEximRunCond expanded to false
-X-PTX-Original-Recipient: linux-stm32@st-md-mailman.stormreply.com
-Cc: linux-pwm@vger.kernel.org, linux-kernel@vger.kernel.org,
- thierry.reding@gmail.com, linux-stm32@st-md-mailman.stormreply.com,
- linux-arm-kernel@lists.infradead.org
-Subject: Re: [Linux-stm32] [PATCH v2] pwm: stm32-lp: add check in case
- requested period cannot be achieved
+X-Provags-ID: V03:K1:N+l+qvP4iTKMClOZ10+3hqtOBzBcBQK6eoFXevu/u6P8UCjKnvn
+ c+9RDnKQFkt60Yhr/1wdrGXs/h/qCzzQXDCSJhjlsU6+bEk+wiqjs8z/5yU3GcgyEGtC2mO
+ 3SD5GPJx4Fpy/j1i29G7oBOMQ2+OoTir7lMG6/ltVEOii1JDkWm0JQtO4aQGYz1M2Yb6zNv
+ WFkT8hq38bCA3FJMEVH3A==
+X-Spam-Flag: NO
+X-UI-Out-Filterresults: notjunk:1;V03:K0:1HosKkSRfoU=:b7Y0A535j0pAWaby1IDo4m
+ kOy6Bd+X63LxUX6r1gVlDqzAoHO1wmOf7fMp67ntknUvwuoKWDI08ticRc1et/NxH2Pz3Ztc1
+ azFGSYUV9W2A0RmNsI8CrjOIFuCQjsYs5oxyMB3GiEA6r+KyrxozwvqF+aHKVIGXX28XpPOEL
+ TWF1EiXNAYCuJbPSOqPT7ccBt8fmRIHoMYurJLI/gf1nooBvgdwHWRNZZaOcAsgG1e2gFBK9a
+ EfXBj0faIys9EuiWJJkgXT1INDk4x0hQfhnZJnLkmCcKePpkNyXlN7044PeIv8PTX/9NNlsNa
+ 4cTMTe/nUdhNLrlxc8c8GQsSvmMOtwff2oU5ZrKdWndUcRZ5GykriAHfu9BehqQZTYg6B1OQt
+ b9MHoOJQlZ/s7DnSsf92cdC2+CYPCzDtUMBLxWNrU/qC0JF12ujfFYwLvl5kO7PxkytkPWY6f
+ M3ljbyQUADlh0k1885oDO/KTU6iq4qyxcUnKqf4QEX9ZvjYDhTwdcDZf7SP7Ia2JYJ0XWZosp
+ x4TCOrGE0GEThjwnhpICjDW0g4tjH/sxSTe7Vo0R0gqT+UhSR9sWJjQJoFFwqY4SEqe8Jw6HR
+ LTZknHBNdHlgSPQSUUzmswGM+6zPm1aVVKLjnblgSzyhikNVkbnaLoHHS32Uo2QbYYCeTDeEt
+ QEhv2bWATOmmB0Y3EMN11m9Ttmx+pnRMfXgfRJxTGcOZKjSoB6VpR2VOZqfTFXyQaedt026l3
+ ZAqFvnENGhDBaE7vmydfRrLyrFWoeJXfXasA2E//AqyRdXcSZx+VnW6pHNIy/+JELjpYo/hmz
+ fqwMdRRp7V2LR3gthNtA8F66fblYzFc5smxmXTTNykbmXE0H+DPsiyKpcAxKb0Ml99kYiQSyQ
+ iPKy6AN1lEFHH2mS8u2A==
+Cc: linux-arm-kernel@lists.infradead.org, netdev@vger.kernel.org,
+ linux-stm32@st-md-mailman.stormreply.com, Arnd Bergmann <arnd@arndb.de>,
+ linux-kernel@vger.kernel.org
+Subject: [Linux-stm32] [PATCH] stmmac: selftest: avoid large stack usage
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -52,52 +59,105 @@ List-Post: <mailto:linux-stm32@st-md-mailman.stormreply.com>
 List-Help: <mailto:linux-stm32-request@st-md-mailman.stormreply.com?subject=help>
 List-Subscribe: <https://st-md-mailman.stormreply.com/mailman/listinfo/linux-stm32>, 
  <mailto:linux-stm32-request@st-md-mailman.stormreply.com?subject=subscribe>
-Content-Type: text/plain; charset="iso-8859-1"
-Content-Transfer-Encoding: quoted-printable
+Content-Type: text/plain; charset="us-ascii"
+Content-Transfer-Encoding: 7bit
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
-On Wed, Sep 18, 2019 at 04:54:21PM +0200, Fabrice Gasnier wrote:
-> LPTimer can use a 32KHz clock for counting. It depends on clock tree
-> configuration. In such a case, PWM output frequency range is limited.
-> Although unlikely, nothing prevents user from requesting a PWM frequency
-> above counting clock (32KHz for instance):
-> - This causes (prd - 1) =3D 0xffff to be written in ARR register later in
-> the apply() routine.
-> This results in badly configured PWM period (and also duty_cycle).
-> Add a check to report an error is such a case.
-> =
+Putting a struct stmmac_rss object on the stack is a bad idea,
+as it exceeds the warning limit for a stack frame on 32-bit architectures:
 
-> Signed-off-by: Fabrice Gasnier <fabrice.gasnier@st.com>
-Reviewed-by: Uwe Kleine-K=F6nig <u.kleine-koenig@pengutronix.de>
+drivers/net/ethernet/stmicro/stmmac/stmmac_selftests.c:1221:12: error: stack frame size of 1208 bytes in function '__stmmac_test_l3filt' [-Werror,-Wframe-larger-than=]
+drivers/net/ethernet/stmicro/stmmac/stmmac_selftests.c:1338:12: error: stack frame size of 1208 bytes in function '__stmmac_test_l4filt' [-Werror,-Wframe-larger-than=]
 
-If you are interested to improve the driver further, there are a few
-things that I would welcome to see fixed in a tested patch:
+As the object is the trivial empty case, change the called function
+to accept a NULL pointer to mean the same thing and remove the
+large variable in the two callers.
 
- - duty calculation uses requested instead of implemented period.
- - stm32_pwm_lp_apply calls pwm_get_state
- - Calculation of prd could be done without a loop
- - A hint about relevant documentation in the driver's header would be
-   great
- - Documentation about behaviour of the hardware is missing:
-   - Does the hardware complete the currently running period when
-     STM32_LPTIM_CR is cleared?
-   - Does the output stop in the inactive output level when the PWM is
-     stopped?
- - clk_get_rate might be called without the clock being enabled.
- - The driver does:
+Signed-off-by: Arnd Bergmann <arnd@arndb.de>
+---
+ .../net/ethernet/stmicro/stmmac/dwxgmac2_core.c   | 15 +++++++++++----
+ .../ethernet/stmicro/stmmac/stmmac_selftests.c    | 14 ++++----------
+ 2 files changed, 15 insertions(+), 14 deletions(-)
 
- 	ret =3D regmap_write(priv->regmap, STM32_LPTIM_CMP, prd - (1 + dty));
+diff --git a/drivers/net/ethernet/stmicro/stmmac/dwxgmac2_core.c b/drivers/net/ethernet/stmicro/stmmac/dwxgmac2_core.c
+index d5173dd02a71..c2f648062049 100644
+--- a/drivers/net/ethernet/stmicro/stmmac/dwxgmac2_core.c
++++ b/drivers/net/ethernet/stmicro/stmmac/dwxgmac2_core.c
+@@ -523,25 +523,32 @@ static int dwxgmac2_rss_configure(struct mac_device_info *hw,
+ 				  struct stmmac_rss *cfg, u32 num_rxq)
+ {
+ 	void __iomem *ioaddr = hw->pcsr;
+-	u32 *key = (u32 *)cfg->key;
+ 	int i, ret;
+ 	u32 value;
+ 
+ 	value = readl(ioaddr + XGMAC_RSS_CTRL);
+-	if (!cfg->enable) {
++	if (!cfg || !cfg->enable) {
+ 		value &= ~XGMAC_RSSE;
+ 		writel(value, ioaddr + XGMAC_RSS_CTRL);
+ 		return 0;
+ 	}
+ 
+ 	for (i = 0; i < (sizeof(cfg->key) / sizeof(u32)); i++) {
+-		ret = dwxgmac2_rss_write_reg(ioaddr, true, i, *key++);
++		if (cfg)
++			ret = dwxgmac2_rss_write_reg(ioaddr, true, i, cfg->key[i]);
++		else
++			ret = dwxgmac2_rss_write_reg(ioaddr, true, i, 0);
++
+ 		if (ret)
+ 			return ret;
+ 	}
+ 
+ 	for (i = 0; i < ARRAY_SIZE(cfg->table); i++) {
+-		ret = dwxgmac2_rss_write_reg(ioaddr, false, i, cfg->table[i]);
++		if (cfg)
++			ret = dwxgmac2_rss_write_reg(ioaddr, false, i, cfg->table[i]);
++		else
++			ret = dwxgmac2_rss_write_reg(ioaddr, false, i, 0);
++
+ 		if (ret)
+ 			return ret;
+ 	}
+diff --git a/drivers/net/ethernet/stmicro/stmmac/stmmac_selftests.c b/drivers/net/ethernet/stmicro/stmmac/stmmac_selftests.c
+index c56e89e1ae56..9c8d210b2d6a 100644
+--- a/drivers/net/ethernet/stmicro/stmmac/stmmac_selftests.c
++++ b/drivers/net/ethernet/stmicro/stmmac/stmmac_selftests.c
+@@ -1233,12 +1233,9 @@ static int __stmmac_test_l3filt(struct stmmac_priv *priv, u32 dst, u32 src,
+ 		return -EOPNOTSUPP;
+ 	if (!priv->dma_cap.l3l4fnum)
+ 		return -EOPNOTSUPP;
+-	if (priv->rss.enable) {
+-		struct stmmac_rss rss = { .enable = false, };
+-
+-		stmmac_rss_configure(priv, priv->hw, &rss,
++	if (priv->rss.enable)
++		stmmac_rss_configure(priv, priv->hw, NULL,
+ 				     priv->plat->rx_queues_to_use);
+-	}
+ 
+ 	dissector = kzalloc(sizeof(*dissector), GFP_KERNEL);
+ 	if (!dissector) {
+@@ -1357,12 +1354,9 @@ static int __stmmac_test_l4filt(struct stmmac_priv *priv, u32 dst, u32 src,
+ 		return -EOPNOTSUPP;
+ 	if (!priv->dma_cap.l3l4fnum)
+ 		return -EOPNOTSUPP;
+-	if (priv->rss.enable) {
+-		struct stmmac_rss rss = { .enable = false, };
+-
+-		stmmac_rss_configure(priv, priv->hw, &rss,
++	if (priv->rss.enable)
++		stmmac_rss_configure(priv, priv->hw, NULL,
+ 				     priv->plat->rx_queues_to_use);
+-	}
+ 
+ 	dissector = kzalloc(sizeof(*dissector), GFP_KERNEL);
+ 	if (!dissector) {
+-- 
+2.20.0
 
-   That looks wrong. (Consider dty =3D=3D prd.)
-
-Best regards
-Uwe
-
--- =
-
-Pengutronix e.K.                           | Uwe Kleine-K=F6nig            |
-Industrial Linux Solutions                 | http://www.pengutronix.de/  |
 _______________________________________________
 Linux-stm32 mailing list
 Linux-stm32@st-md-mailman.stormreply.com
