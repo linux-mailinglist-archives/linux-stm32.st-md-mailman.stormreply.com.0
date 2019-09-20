@@ -2,62 +2,73 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id 09F62B939F
-	for <lists+linux-stm32@lfdr.de>; Fri, 20 Sep 2019 17:01:16 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id DCC9EB946B
+	for <lists+linux-stm32@lfdr.de>; Fri, 20 Sep 2019 17:51:06 +0200 (CEST)
 Received: from ip-172-31-3-76.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id B5D5BC35E01;
-	Fri, 20 Sep 2019 15:01:15 +0000 (UTC)
-Received: from mx07-00178001.pphosted.com (mx07-00178001.pphosted.com
- [62.209.51.94])
- (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id A0857C35E01;
+	Fri, 20 Sep 2019 15:51:06 +0000 (UTC)
+Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
+ (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 68381C36B3E
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 366A0C36B3E
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Fri, 20 Sep 2019 15:01:13 +0000 (UTC)
-Received: from pps.filterd (m0046668.ppops.net [127.0.0.1])
- by mx07-00178001.pphosted.com (8.16.0.42/8.16.0.42) with SMTP id
- x8KEkiJj029770; Fri, 20 Sep 2019 17:00:53 +0200
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=st.com;
- h=from : to : cc : subject
- : date : message-id : mime-version : content-type; s=STMicroelectronics;
- bh=oN0Ax4lbm8sphTOWdTDGK6SWkUe4Md0Mb1/rUapNH9A=;
- b=uPQqAmfNkYWi1r1JZK+EtXG9FXviggq1tThrcve0oFOTlnxOK3uQ7OIqA50wipTg4SRc
- iYekMVwt+OwDzXOYRVolZVRYsht5EUdyJ2WB/iWoJHq7S5nChZLMYA2xi5zzKGseQ6QT
- J5aIjfllyOQQbpniNQigUSj8UydenJpxkQPdSC97oG9FWCT/YUvfprGNXJYWgKgQB1/h
- 77jdN3o7ZXTmSgptjVhcCyj5rc4vbImFqIt4mWGaPW6QTWUbrLebewGNUbFlTXfSEjp2
- vT570KghSzBxFdDVsZwO1ISy2An9dOzSK36D+m6iofOnl3ZMeewFRJ7cZEaHd/ikJ3ER cA== 
-Received: from beta.dmz-ap.st.com (beta.dmz-ap.st.com [138.198.100.35])
- by mx07-00178001.pphosted.com with ESMTP id 2v3vc4kcsw-1
- (version=TLSv1 cipher=ECDHE-RSA-AES256-SHA bits=256 verify=NOT);
- Fri, 20 Sep 2019 17:00:53 +0200
-Received: from euls16034.sgp.st.com (euls16034.sgp.st.com [10.75.44.20])
- by beta.dmz-ap.st.com (STMicroelectronics) with ESMTP id 8F1584B;
- Fri, 20 Sep 2019 15:00:49 +0000 (GMT)
-Received: from Webmail-eu.st.com (Safex1hubcas24.st.com [10.75.90.94])
- by euls16034.sgp.st.com (STMicroelectronics) with ESMTP id B850A2D3798;
- Fri, 20 Sep 2019 17:00:48 +0200 (CEST)
-Received: from SAFEX1HUBCAS21.st.com (10.75.90.45) by Safex1hubcas24.st.com
- (10.75.90.94) with Microsoft SMTP Server (TLS) id 14.3.439.0; Fri, 20 Sep
- 2019 17:00:48 +0200
-Received: from localhost (10.201.23.25) by Webmail-ga.st.com (10.75.90.48)
- with Microsoft SMTP Server (TLS) id 14.3.439.0; Fri, 20 Sep 2019 17:00:48
- +0200
-From: Fabien Dessenne <fabien.dessenne@st.com>
-To: Thomas Gleixner <tglx@linutronix.de>, Jason Cooper <jason@lakedaemon.net>, 
- Marc Zyngier <marc.zyngier@arm.com>, Maxime Coquelin
- <mcoquelin.stm32@gmail.com>, Alexandre Torgue <alexandre.torgue@st.com>,
- <linux-kernel@vger.kernel.org>, <linux-stm32@st-md-mailman.stormreply.com>,
- <linux-arm-kernel@lists.infradead.org>
-Date: Fri, 20 Sep 2019 17:00:43 +0200
-Message-ID: <1568991643-7549-1-git-send-email-fabien.dessenne@st.com>
-X-Mailer: git-send-email 2.7.4
+ Fri, 20 Sep 2019 15:51:04 +0000 (UTC)
+Received: from mail-qt1-f181.google.com (mail-qt1-f181.google.com
+ [209.85.160.181])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+ (No client certificate requested)
+ by mail.kernel.org (Postfix) with ESMTPSA id 9CA1D2086A
+ for <linux-stm32@st-md-mailman.stormreply.com>;
+ Fri, 20 Sep 2019 15:51:02 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
+ s=default; t=1568994662;
+ bh=Gk8b96/zmrgvgnCdppmwZEWWClB9i1dZv17q7MLhgfc=;
+ h=References:In-Reply-To:From:Date:Subject:To:Cc:From;
+ b=OZM0VO15KguCMz8L73yAu9wwfmIvWTtRKsRWtXbjJFKVXMMLe2p8bfBQAQkCKcL2U
+ ZC9RtUZrL5eJL0Hk2B8lfXus6Mb7THpBP0h7NAF9u+kkBEJeVMK5UCXfPgFFwcMQVI
+ OoR623SUjj3mRa2R4ehGSSj+mTawpcia4HoOgbSk=
+Received: by mail-qt1-f181.google.com with SMTP id x5so9184945qtr.7
+ for <linux-stm32@st-md-mailman.stormreply.com>;
+ Fri, 20 Sep 2019 08:51:02 -0700 (PDT)
+X-Gm-Message-State: APjAAAV96n/9hQTTuAbC5YzZAChpQ1sMJcQgQvw5k7yNLF7ou3/Ogd0/
+ nGWHoESBR2B1LOnU4NLgFzC6o0yfRTcgCQTuJw==
+X-Google-Smtp-Source: APXvYqwMIrqIhbU+PH2zwmKFyZZ7p9gmNZDVfDvJtsMY/FngbKyrGtmiBbkzWBc5h/SVux0vE5Rh9MaGgWH9K6YJIV0=
+X-Received: by 2002:ac8:444f:: with SMTP id m15mr4046894qtn.110.1568994661811; 
+ Fri, 20 Sep 2019 08:51:01 -0700 (PDT)
 MIME-Version: 1.0
-X-Originating-IP: [10.201.23.25]
-X-Proofpoint-Virus-Version: vendor=fsecure engine=2.50.10434:6.0.70,1.0.8
- definitions=2019-09-20_05:2019-09-20,2019-09-20 signatures=0
-Cc: Fabien Dessenne <fabien.dessenne@st.com>
-Subject: [Linux-stm32] [PATCH] irqchip/stm32-exti: Use the
-	hwspin_lock_timeout_in_atomic() API
+References: <20190918173141.4314-1-krzk@kernel.org>
+ <20190918173141.4314-8-krzk@kernel.org>
+In-Reply-To: <20190918173141.4314-8-krzk@kernel.org>
+From: Rob Herring <robh+dt@kernel.org>
+Date: Fri, 20 Sep 2019 10:50:50 -0500
+X-Gmail-Original-Message-ID: <CAL_Jsq+0ikCageBv3TSwx0tp=ZDkrFwpFVt2gJHWsFe2f-K2pA@mail.gmail.com>
+Message-ID: <CAL_Jsq+0ikCageBv3TSwx0tp=ZDkrFwpFVt2gJHWsFe2f-K2pA@mail.gmail.com>
+To: Krzysztof Kozlowski <krzk@kernel.org>
+Cc: Mark Rutland <mark.rutland@arm.com>,
+ Linux PWM List <linux-pwm@vger.kernel.org>,
+ dri-devel <dri-devel@lists.freedesktop.org>,
+ Thierry Reding <thierry.reding@gmail.com>, linux-riscv@lists.infradead.org,
+ linux-stm32@st-md-mailman.stormreply.com,
+ Linux LED Subsystem <linux-leds@vger.kernel.org>,
+ linux-samsung-soc <linux-samsung-soc@vger.kernel.org>,
+ Herbert Xu <herbert@gondor.apana.org.au>,
+ linux-clk <linux-clk@vger.kernel.org>,
+ "open list:ARM/Rockchip SoC..." <linux-rockchip@lists.infradead.org>,
+ "maintainer:BROADCOM BCM7XXX ARM ARCHITECTURE"
+ <bcm-kernel-feedback-list@broadcom.com>, Guenter Roeck <linux@roeck-us.net>,
+ devicetree@vger.kernel.org, LINUX-WATCHDOG <linux-watchdog@vger.kernel.org>,
+ "moderated list:ARM/Mediatek SoC support" <linux-mediatek@lists.infradead.org>,
+ "moderated list:BROADCOM BCM2835 ARM ARCHITECTURE"
+ <linux-rpi-kernel@lists.infradead.org>, Matt Mackall <mpm@selenic.com>,
+ linux-tegra@vger.kernel.org, linux-amlogic@lists.infradead.org,
+ Wim Van Sebroeck <wim@linux-watchdog.org>,
+ "moderated list:ARM/FREESCALE IMX / MXC ARM ARCHITECTURE"
+ <linux-arm-kernel@lists.infradead.org>,
+ "linux-kernel@vger.kernel.org" <linux-kernel@vger.kernel.org>,
+ "open list:HARDWARE RANDOM NUMBER GENERATOR CORE"
+ <linux-crypto@vger.kernel.org>
+Subject: Re: [Linux-stm32] [PATCH v2 8/8] dt-bindings: pwm: Convert Samsung
+	PWM bindings to json-schema
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -74,136 +85,189 @@ Content-Transfer-Encoding: 7bit
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
-Now that the hwspin_lock_timeout_in_atomic() API is available use it.
+On Wed, Sep 18, 2019 at 12:32 PM Krzysztof Kozlowski <krzk@kernel.org> wrote:
+>
+> Convert Samsung PWM (S3C, S5P and Exynos SoCs) bindings to DT schema
+> format using json-schema.
+>
+> Signed-off-by: Krzysztof Kozlowski <krzk@kernel.org>
+>
+> ---
+>
+> Changes since v1:
+> 1. Indent example with four spaces (more readable),
+> 2. Fix samsung,pwm-outputs after review,
+> 3. Remove double-quotes from clock names.
+> ---
+>  .../devicetree/bindings/pwm/pwm-samsung.txt   |  51 ---------
+>  .../devicetree/bindings/pwm/pwm-samsung.yaml  | 107 ++++++++++++++++++
+>  2 files changed, 107 insertions(+), 51 deletions(-)
+>  delete mode 100644 Documentation/devicetree/bindings/pwm/pwm-samsung.txt
+>  create mode 100644 Documentation/devicetree/bindings/pwm/pwm-samsung.yaml
+>
+> diff --git a/Documentation/devicetree/bindings/pwm/pwm-samsung.txt b/Documentation/devicetree/bindings/pwm/pwm-samsung.txt
+> deleted file mode 100644
+> index 5538de9c2007..000000000000
+> --- a/Documentation/devicetree/bindings/pwm/pwm-samsung.txt
+> +++ /dev/null
+> @@ -1,51 +0,0 @@
+> -* Samsung PWM timers
+> -
+> -Samsung SoCs contain PWM timer blocks which can be used for system clock source
+> -and clock event timers, as well as to drive SoC outputs with PWM signal. Each
+> -PWM timer block provides 5 PWM channels (not all of them can drive physical
+> -outputs - see SoC and board manual).
+> -
+> -Be aware that the clocksource driver supports only uniprocessor systems.
+> -
+> -Required properties:
+> -- compatible : should be one of following:
+> -    samsung,s3c2410-pwm - for 16-bit timers present on S3C24xx SoCs
+> -    samsung,s3c6400-pwm - for 32-bit timers present on S3C64xx SoCs
+> -    samsung,s5p6440-pwm - for 32-bit timers present on S5P64x0 SoCs
+> -    samsung,s5pc100-pwm - for 32-bit timers present on S5PC100, S5PV210,
+> -                         Exynos4210 rev0 SoCs
+> -    samsung,exynos4210-pwm - for 32-bit timers present on Exynos4210,
+> -                          Exynos4x12, Exynos5250 and Exynos5420 SoCs
+> -- reg: base address and size of register area
+> -- interrupts: list of timer interrupts (one interrupt per timer, starting at
+> -  timer 0)
+> -- clock-names: should contain all following required clock names:
+> -    - "timers" - PWM base clock used to generate PWM signals,
+> -  and any subset of following optional clock names:
+> -    - "pwm-tclk0" - first external PWM clock source,
+> -    - "pwm-tclk1" - second external PWM clock source.
+> -  Note that not all IP variants allow using all external clock sources.
+> -  Refer to SoC documentation to learn which clock source configurations
+> -  are available.
+> -- clocks: should contain clock specifiers of all clocks, which input names
+> -  have been specified in clock-names property, in same order.
+> -- #pwm-cells: should be 3. See pwm.txt in this directory for a description of
+> -  the cells format. The only third cell flag supported by this binding is
+> -  PWM_POLARITY_INVERTED.
+> -
+> -Optional properties:
+> -- samsung,pwm-outputs: list of PWM channels used as PWM outputs on particular
+> -    platform - an array of up to 5 elements being indices of PWM channels
+> -    (from 0 to 4), the order does not matter.
+> -
+> -Example:
+> -       pwm@7f006000 {
+> -               compatible = "samsung,s3c6400-pwm";
+> -               reg = <0x7f006000 0x1000>;
+> -               interrupt-parent = <&vic0>;
+> -               interrupts = <23>, <24>, <25>, <27>, <28>;
+> -               clocks = <&clock 67>;
+> -               clock-names = "timers";
+> -               samsung,pwm-outputs = <0>, <1>;
+> -               #pwm-cells = <3>;
+> -       }
+> diff --git a/Documentation/devicetree/bindings/pwm/pwm-samsung.yaml b/Documentation/devicetree/bindings/pwm/pwm-samsung.yaml
+> new file mode 100644
+> index 000000000000..06d11faabff6
+> --- /dev/null
+> +++ b/Documentation/devicetree/bindings/pwm/pwm-samsung.yaml
+> @@ -0,0 +1,107 @@
+> +# SPDX-License-Identifier: GPL-2.0
+> +%YAML 1.2
+> +---
+> +$id: http://devicetree.org/schemas/pwm/pwm-samsung.yaml#
+> +$schema: http://devicetree.org/meta-schemas/core.yaml#
+> +
+> +title: Samsung SoC PWM timers
+> +
+> +maintainers:
+> +  - Thierry Reding <thierry.reding@gmail.com>
+> +  - Krzysztof Kozlowski <krzk@kernel.org>
+> +
+> +description: |+
+> +  Samsung SoCs contain PWM timer blocks which can be used for system clock source
+> +  and clock event timers, as well as to drive SoC outputs with PWM signal. Each
+> +  PWM timer block provides 5 PWM channels (not all of them can drive physical
+> +  outputs - see SoC and board manual).
+> +
+> +  Be aware that the clocksource driver supports only uniprocessor systems.
+> +
+> +allOf:
+> +  - $ref: pwm.yaml#
+> +
+> +properties:
+> +  compatible:
+> +    enum:
+> +      - samsung,s3c2410-pwm             # 16-bit, S3C24xx
+> +      - samsung,s3c6400-pwm             # 32-bit, S3C64xx
+> +      - samsung,s5p6440-pwm             # 32-bit, S5P64x0
+> +      - samsung,s5pc100-pwm             # 32-bit, S5PC100, S5PV210, Exynos4210 rev0 SoCs
+> +      - samsung,exynos4210-pwm          # 32-bit, Exynos
+> +
+> +  reg:
+> +    maxItems: 1
+> +
+> +  clocks:
+> +    minItems: 1
+> +    maxItems: 3
+> +
+> +  clock-names:
+> +    description: |
+> +      Should contain all following required clock names:
+> +      - "timers" - PWM base clock used to generate PWM signals,
+> +      and any subset of following optional clock names:
+> +      - "pwm-tclk0" - first external PWM clock source,
+> +      - "pwm-tclk1" - second external PWM clock source.
+> +      Note that not all IP variants allow using all external clock sources.
+> +      Refer to SoC documentation to learn which clock source configurations
+> +      are available.
+> +    oneOf:
+> +      - items:
+> +        - const: timers
+> +      - items:
+> +        - const: timers
+> +        - const: pwm-tclk0
+> +      - items:
+> +        - const: timers
+> +        - const: pwm-tclk1
+> +      - items:
+> +        - const: timers
+> +        - const: pwm-tclk0
+> +        - const: pwm-tclk1
+> +
+> +  interrupts:
+> +    description:
+> +      One interrupt per timer, starting at timer 0.
+> +    minItems: 1
+> +    maxItems: 5
+> +
+> +  "#pwm-cells":
+> +    description:
+> +      The only third cell flag supported by this binding
+> +      is PWM_POLARITY_INVERTED.
+> +    const: 3
+> +
+> +  samsung,pwm-outputs:
+> +    description:
+> +      A list of PWM channels used as PWM outputs on particular platform.
+> +      It is an array of up to 5 elements being indices of PWM channels
+> +      (from 0 to 4), the order does not matter.
+> +    allOf:
+> +      - $ref: /schemas/types.yaml#/definitions/uint32-array
+> +      - uniqueItems: true
+> +      - items:
+> +          minimum: 0
+> +          maximum: 4
+> +
+> +required:
+> +  - clocks
+> +  - clock-names
+> +  - compatible
+> +  - interrupts
+> +  - "#pwm-cells"
+> +  - reg
 
-Signed-off-by: Fabien Dessenne <fabien.dessenne@st.com>
----
- drivers/irqchip/irq-stm32-exti.c | 65 +++++++++++++---------------------------
- 1 file changed, 20 insertions(+), 45 deletions(-)
+additionalProperties: false
 
-diff --git a/drivers/irqchip/irq-stm32-exti.c b/drivers/irqchip/irq-stm32-exti.c
-index e00f2fa..7fc0d1f 100644
---- a/drivers/irqchip/irq-stm32-exti.c
-+++ b/drivers/irqchip/irq-stm32-exti.c
-@@ -25,7 +25,6 @@
- #define IRQS_PER_BANK 32
- 
- #define HWSPNLCK_TIMEOUT	1000 /* usec */
--#define HWSPNLCK_RETRY_DELAY	100  /* usec */
- 
- struct stm32_exti_bank {
- 	u32 imr_ofst;
-@@ -277,55 +276,24 @@ static int stm32_exti_set_type(struct irq_data *d,
- 	return 0;
- }
- 
--static int stm32_exti_hwspin_lock(struct stm32_exti_chip_data *chip_data)
--{
--	int ret, timeout = 0;
--
--	if (!chip_data->host_data->hwlock)
--		return 0;
--
--	/*
--	 * Use the x_raw API since we are under spin_lock protection.
--	 * Do not use the x_timeout API because we are under irq_disable
--	 * mode (see __setup_irq())
--	 */
--	do {
--		ret = hwspin_trylock_raw(chip_data->host_data->hwlock);
--		if (!ret)
--			return 0;
--
--		udelay(HWSPNLCK_RETRY_DELAY);
--		timeout += HWSPNLCK_RETRY_DELAY;
--	} while (timeout < HWSPNLCK_TIMEOUT);
--
--	if (ret == -EBUSY)
--		ret = -ETIMEDOUT;
--
--	if (ret)
--		pr_err("%s can't get hwspinlock (%d)\n", __func__, ret);
--
--	return ret;
--}
--
--static void stm32_exti_hwspin_unlock(struct stm32_exti_chip_data *chip_data)
--{
--	if (chip_data->host_data->hwlock)
--		hwspin_unlock_raw(chip_data->host_data->hwlock);
--}
--
- static int stm32_irq_set_type(struct irq_data *d, unsigned int type)
- {
- 	struct irq_chip_generic *gc = irq_data_get_irq_chip_data(d);
- 	struct stm32_exti_chip_data *chip_data = gc->private;
- 	const struct stm32_exti_bank *stm32_bank = chip_data->reg_bank;
-+	struct hwspinlock *hwlock = chip_data->host_data->hwlock;
- 	u32 rtsr, ftsr;
- 	int err;
- 
- 	irq_gc_lock(gc);
- 
--	err = stm32_exti_hwspin_lock(chip_data);
--	if (err)
--		goto unlock;
-+	if (hwlock) {
-+		err = hwspin_lock_timeout_in_atomic(hwlock, HWSPNLCK_TIMEOUT);
-+		if (err) {
-+			pr_err("%s can't get hwspinlock (%d)\n", __func__, err);
-+			goto unlock;
-+		}
-+	}
- 
- 	rtsr = irq_reg_readl(gc, stm32_bank->rtsr_ofst);
- 	ftsr = irq_reg_readl(gc, stm32_bank->ftsr_ofst);
-@@ -338,7 +306,8 @@ static int stm32_irq_set_type(struct irq_data *d, unsigned int type)
- 	irq_reg_writel(gc, ftsr, stm32_bank->ftsr_ofst);
- 
- unspinlock:
--	stm32_exti_hwspin_unlock(chip_data);
-+	if (hwlock)
-+		hwspin_unlock_in_atomic(hwlock);
- unlock:
- 	irq_gc_unlock(gc);
- 
-@@ -504,15 +473,20 @@ static int stm32_exti_h_set_type(struct irq_data *d, unsigned int type)
- {
- 	struct stm32_exti_chip_data *chip_data = irq_data_get_irq_chip_data(d);
- 	const struct stm32_exti_bank *stm32_bank = chip_data->reg_bank;
-+	struct hwspinlock *hwlock = chip_data->host_data->hwlock;
- 	void __iomem *base = chip_data->host_data->base;
- 	u32 rtsr, ftsr;
- 	int err;
- 
- 	raw_spin_lock(&chip_data->rlock);
- 
--	err = stm32_exti_hwspin_lock(chip_data);
--	if (err)
--		goto unlock;
-+	if (hwlock) {
-+		err = hwspin_lock_timeout_in_atomic(hwlock, HWSPNLCK_TIMEOUT);
-+		if (err) {
-+			pr_err("%s can't get hwspinlock (%d)\n", __func__, err);
-+			goto unlock;
-+		}
-+	}
- 
- 	rtsr = readl_relaxed(base + stm32_bank->rtsr_ofst);
- 	ftsr = readl_relaxed(base + stm32_bank->ftsr_ofst);
-@@ -525,7 +499,8 @@ static int stm32_exti_h_set_type(struct irq_data *d, unsigned int type)
- 	writel_relaxed(ftsr, base + stm32_bank->ftsr_ofst);
- 
- unspinlock:
--	stm32_exti_hwspin_unlock(chip_data);
-+	if (hwlock)
-+		hwspin_unlock_in_atomic(hwlock);
- unlock:
- 	raw_spin_unlock(&chip_data->rlock);
- 
--- 
-2.7.4
+should work here. And in the rng binding too.
 
+Rob
 _______________________________________________
 Linux-stm32 mailing list
 Linux-stm32@st-md-mailman.stormreply.com
