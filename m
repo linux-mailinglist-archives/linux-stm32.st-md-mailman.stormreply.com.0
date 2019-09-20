@@ -2,53 +2,53 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id 4BF59B8A82
-	for <lists+linux-stm32@lfdr.de>; Fri, 20 Sep 2019 07:39:04 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 0FFF1B8A7F
+	for <lists+linux-stm32@lfdr.de>; Fri, 20 Sep 2019 07:39:01 +0200 (CEST)
 Received: from ip-172-31-3-76.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 18A82C35E02;
-	Fri, 20 Sep 2019 05:39:04 +0000 (UTC)
-Received: from mx07-00178001.pphosted.com (mx07-00178001.pphosted.com
- [62.209.51.94])
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id B9E10C35E04;
+	Fri, 20 Sep 2019 05:39:00 +0000 (UTC)
+Received: from mx07-00178001.pphosted.com (mx08-00178001.pphosted.com
+ [91.207.212.93])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id C8FC9C35E07
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 4F8CCC36B3F
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Fri, 20 Sep 2019 05:39:00 +0000 (UTC)
-Received: from pps.filterd (m0046037.ppops.net [127.0.0.1])
- by mx07-00178001.pphosted.com (8.16.0.42/8.16.0.42) with SMTP id
- x8K5aIrq007204; Fri, 20 Sep 2019 07:38:44 +0200
+ Fri, 20 Sep 2019 05:38:59 +0000 (UTC)
+Received: from pps.filterd (m0046660.ppops.net [127.0.0.1])
+ by mx08-00178001.pphosted.com (8.16.0.42/8.16.0.42) with SMTP id
+ x8K5ZtCj010154; Fri, 20 Sep 2019 07:38:43 +0200
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=st.com;
  h=from : to : cc : subject
  : date : message-id : in-reply-to : references : mime-version :
  content-type; s=STMicroelectronics;
- bh=VnwKf11mud+V9UqPPhhSTSIs+BHjWsojy/CZj/RvsVU=;
- b=02KlcMbNxbjCzkFf/cfQt8m7lljQTG7nRXqrRPS0pd1zsWDpxMc3yklqPakKf3v90ciP
- JzRBChLvz4iwlQh5NbK/MZXi+49MfXnZiwibFsFlB1sFF+zDqz1lIVv9wPk3d9Ipd6U0
- mprZfN+69V0yVqcwzyOKEUqMOpO5BV/ZREhsw3/FskpOnWOEqjLBxEObmMdQ/QEv40t5
- J3cm8dZqmXfexS4CWKz37t1ft/+hsjML4Q/RsA8PIjKIM611PzGZ5fvo7CKjT0F626Io
- W+vQag05KxBdeh/M2zsHRVH5TPjaD8vB9M40WjDpp8haKdSbMAGeudMjPMVNdEYnp/Oo 3Q== 
+ bh=x/LNhVtfhccWnby7ce3HapzzopKDh8uTONbGR64CIfI=;
+ b=byWPlN9k23fx4bMu8O6OfpGaDaCZxe32slTjjs5JoP2+1Fsx7/qBylP/Hu+D7wIT8qpj
+ IY/2BS07hhtI9utLZ5PpioCr3yjVHT0RDYYpvHiGOE1pLdm7dU/sntkQsDuThbkWlLG1
+ W3S4aX+D6FPPUgIb006J5cbUK9VSslRk2uzbMkjDL6Mt3G/Is6I9sQOHIFUUyCiSp+Ho
+ CeeewL8VfP/OeBjarwg3IPXl3soCiO3GD/YwR2SrfFOSsptrM+u/nhZYS9DQ8D2NLGfG
+ uzpOLXDGITZZKNuvoMk6NSDiQVBfDPJaTGQu1mETn1aVAYd7DUIVd4nsW2djmiyu8qkG qw== 
 Received: from beta.dmz-ap.st.com (beta.dmz-ap.st.com [138.198.100.35])
- by mx07-00178001.pphosted.com with ESMTP id 2v3va2gk4a-1
+ by mx08-00178001.pphosted.com with ESMTP id 2v3va18qd9-1
  (version=TLSv1 cipher=ECDHE-RSA-AES256-SHA bits=256 verify=NOT);
- Fri, 20 Sep 2019 07:38:44 +0200
+ Fri, 20 Sep 2019 07:38:43 +0200
 Received: from euls16034.sgp.st.com (euls16034.sgp.st.com [10.75.44.20])
- by beta.dmz-ap.st.com (STMicroelectronics) with ESMTP id 3260E4B;
- Fri, 20 Sep 2019 05:38:39 +0000 (GMT)
-Received: from Webmail-eu.st.com (Safex1hubcas22.st.com [10.75.90.92])
- by euls16034.sgp.st.com (STMicroelectronics) with ESMTP id DF55E2209BE;
- Fri, 20 Sep 2019 07:38:38 +0200 (CEST)
-Received: from SAFEX1HUBCAS24.st.com (10.75.90.95) by Safex1hubcas22.st.com
- (10.75.90.92) with Microsoft SMTP Server (TLS) id 14.3.439.0; Fri, 20 Sep
- 2019 07:38:38 +0200
+ by beta.dmz-ap.st.com (STMicroelectronics) with ESMTP id 3379B4C;
+ Fri, 20 Sep 2019 05:38:40 +0000 (GMT)
+Received: from Webmail-eu.st.com (Safex1hubcas21.st.com [10.75.90.44])
+ by euls16034.sgp.st.com (STMicroelectronics) with ESMTP id E09AA2209BE;
+ Fri, 20 Sep 2019 07:38:39 +0200 (CEST)
+Received: from SAFEX1HUBCAS24.st.com (10.75.90.95) by SAFEX1HUBCAS21.st.com
+ (10.75.90.44) with Microsoft SMTP Server (TLS) id 14.3.439.0; Fri, 20 Sep
+ 2019 07:38:39 +0200
 Received: from localhost (10.201.22.222) by webmail-ga.st.com (10.75.90.48)
- with Microsoft SMTP Server (TLS) id 14.3.439.0; Fri, 20 Sep 2019 07:38:38
+ with Microsoft SMTP Server (TLS) id 14.3.439.0; Fri, 20 Sep 2019 07:38:39
  +0200
 From: Christophe Roullier <christophe.roullier@st.com>
 To: <robh@kernel.org>, <davem@davemloft.net>, <joabreu@synopsys.com>,
  <mark.rutland@arm.com>, <mcoquelin.stm32@gmail.com>,
  <alexandre.torgue@st.com>, <peppe.cavallaro@st.com>
-Date: Fri, 20 Sep 2019 07:38:16 +0200
-Message-ID: <20190920053817.13754-5-christophe.roullier@st.com>
+Date: Fri, 20 Sep 2019 07:38:17 +0200
+Message-ID: <20190920053817.13754-6-christophe.roullier@st.com>
 X-Mailer: git-send-email 2.17.1
 In-Reply-To: <20190920053817.13754-1-christophe.roullier@st.com>
 References: <20190920053817.13754-1-christophe.roullier@st.com>
@@ -59,8 +59,8 @@ X-Proofpoint-Virus-Version: vendor=fsecure engine=2.50.10434:6.0.70,1.0.8
 Cc: devicetree@vger.kernel.org, andrew@lunn.ch, netdev@vger.kernel.org,
  linux-kernel@vger.kernel.org, linux-stm32@st-md-mailman.stormreply.com,
  linux-arm-kernel@lists.infradead.org
-Subject: [Linux-stm32] [PATCH 4/5] ARM: dts: stm32: adjust slew rate for
-	Ethernet
+Subject: [Linux-stm32] [PATCH 5/5] ARM: dts: stm32: Enable gating of the MAC
+	TX clock during TX low-power mode on stm32mp157c
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -77,38 +77,25 @@ Content-Transfer-Encoding: 7bit
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
-ETH_MDIO slew-rate should be set to "0" instead of "2"
+When there is no activity on ethernet phy link, the ETH_GTX_CLK is cut
 
 Signed-off-by: Christophe Roullier <christophe.roullier@st.com>
 ---
- arch/arm/boot/dts/stm32mp157-pinctrl.dtsi | 9 +++++++--
- 1 file changed, 7 insertions(+), 2 deletions(-)
+ arch/arm/boot/dts/stm32mp157c.dtsi | 1 +
+ 1 file changed, 1 insertion(+)
 
-diff --git a/arch/arm/boot/dts/stm32mp157-pinctrl.dtsi b/arch/arm/boot/dts/stm32mp157-pinctrl.dtsi
-index df6470133574..7667fe758957 100644
---- a/arch/arm/boot/dts/stm32mp157-pinctrl.dtsi
-+++ b/arch/arm/boot/dts/stm32mp157-pinctrl.dtsi
-@@ -239,13 +239,18 @@
- 						 <STM32_PINMUX('C', 2, AF11)>, /* ETH_RGMII_TXD2 */
- 						 <STM32_PINMUX('E', 2, AF11)>, /* ETH_RGMII_TXD3 */
- 						 <STM32_PINMUX('B', 11, AF11)>, /* ETH_RGMII_TX_CTL */
--						 <STM32_PINMUX('A', 2, AF11)>, /* ETH_MDIO */
- 						 <STM32_PINMUX('C', 1, AF11)>; /* ETH_MDC */
- 					bias-disable;
- 					drive-push-pull;
--					slew-rate = <3>;
-+					slew-rate = <2>;
- 				};
- 				pins2 {
-+					pinmux = <STM32_PINMUX('A', 2, AF11)>; /* ETH_MDIO */
-+					bias-disable;
-+					drive-push-pull;
-+					slew-rate = <0>;
-+				};
-+				pins3 {
- 					pinmux = <STM32_PINMUX('C', 4, AF11)>, /* ETH_RGMII_RXD0 */
- 						 <STM32_PINMUX('C', 5, AF11)>, /* ETH_RGMII_RXD1 */
- 						 <STM32_PINMUX('B', 0, AF11)>, /* ETH_RGMII_RXD2 */
+diff --git a/arch/arm/boot/dts/stm32mp157c.dtsi b/arch/arm/boot/dts/stm32mp157c.dtsi
+index f51d6222a0e8..d78dfc44a1fb 100644
+--- a/arch/arm/boot/dts/stm32mp157c.dtsi
++++ b/arch/arm/boot/dts/stm32mp157c.dtsi
+@@ -1293,6 +1293,7 @@
+ 			st,syscon = <&syscfg 0x4>;
+ 			snps,mixed-burst;
+ 			snps,pbl = <2>;
++			snps,en-tx-lpi-clockgating;
+ 			snps,axi-config = <&stmmac_axi_config_0>;
+ 			snps,tso;
+ 			status = "disabled";
 -- 
 2.17.1
 
