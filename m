@@ -2,43 +2,69 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id CD991B9F45
-	for <lists+linux-stm32@lfdr.de>; Sat, 21 Sep 2019 20:04:05 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id C30BABA04C
+	for <lists+linux-stm32@lfdr.de>; Sun, 22 Sep 2019 04:49:52 +0200 (CEST)
 Received: from ip-172-31-3-76.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 2D003C35E01;
-	Sat, 21 Sep 2019 18:04:05 +0000 (UTC)
-Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
- (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 731F7C35E01;
+	Sun, 22 Sep 2019 02:49:52 +0000 (UTC)
+Received: from mail-pl1-f170.google.com (mail-pl1-f170.google.com
+ [209.85.214.170])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 38C61C36B3E
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 48694C36B3E
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Sat, 21 Sep 2019 18:04:04 +0000 (UTC)
-Received: from archlinux (cpc149474-cmbg20-2-0-cust94.5-4.cable.virginm.net
- [82.4.196.95])
- (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
- (No client certificate requested)
- by mail.kernel.org (Postfix) with ESMTPSA id C3D712080F;
- Sat, 21 Sep 2019 18:04:00 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
- s=default; t=1569089042;
- bh=lcwNAkt0bSGmxQUYfiV3LKK1DJcTTpWRR97v2btnNd0=;
- h=Date:From:To:Cc:Subject:In-Reply-To:References:From;
- b=qieHYtiyiwUf3OoA8NV3cFoZS2ffU0SOjTH3F+mfdQNpP59HjYjanyicgRydfmJPQ
- QSuq2zlniFlEbHAQNROm5uPoTvUNZv3qe6pit2fWQPPJA5ww1e/pql4M3m7msfK3hI
- z2pAopE8jcURhrQxTTff9aGvauqE9hS1Ho1Vf6tc=
-Date: Sat, 21 Sep 2019 19:03:57 +0100
-From: Jonathan Cameron <jic23@kernel.org>
-To: Fabrice Gasnier <fabrice.gasnier@st.com>
-Message-ID: <20190921190357.7dc08c2d@archlinux>
-In-Reply-To: <1568980206-5428-1-git-send-email-fabrice.gasnier@st.com>
-References: <1568980206-5428-1-git-send-email-fabrice.gasnier@st.com>
-X-Mailer: Claws Mail 3.17.4 (GTK+ 2.24.32; x86_64-pc-linux-gnu)
+ Sun, 22 Sep 2019 02:49:51 +0000 (UTC)
+Received: by mail-pl1-f170.google.com with SMTP id 4so4931380pld.10
+ for <linux-stm32@st-md-mailman.stormreply.com>;
+ Sat, 21 Sep 2019 19:49:51 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=netronome-com.20150623.gappssmtp.com; s=20150623;
+ h=date:from:to:cc:subject:message-id:in-reply-to:references
+ :organization:mime-version:content-transfer-encoding;
+ bh=anDfSlcsinrIuqUyxfiFcZfqVNlRcVIERATNLsETqQY=;
+ b=mfZxy2sq/aDKntUmvOesWWFgM501zlmT0QpE+8Y3+duZ2e9RLwsdz3EzbknN01qRdx
+ /DJM6peKzpH1uE3x7/dOQZhRHneaUKMm5+UU6wBBXZopFmaET2zbcMvrcWFEH8Lcy1MV
+ mHsKbJt/O4aAQLG8QlJ5NtzYWa8/QCeSzo9oMiCbVvSsyajYnvQd5hWIV29MDQWxeTMf
+ 6rnN4w9QkstK63hfcmaGs8Ww6Wf4CDRwdH/94iFQ1InHtTPUqSLl55mQ+r8R2G+4rc6m
+ JkiB60FFY2ZFOwyHN7wEgkpBNBIkm7jIrh6HhqdgOUG69IsDm6L4nHXV4BDY+YZsIEfS
+ +w1A==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20161025;
+ h=x-gm-message-state:date:from:to:cc:subject:message-id:in-reply-to
+ :references:organization:mime-version:content-transfer-encoding;
+ bh=anDfSlcsinrIuqUyxfiFcZfqVNlRcVIERATNLsETqQY=;
+ b=X+cA1y/vESIqyQgTuWesMkVVOSwT3a+hS1lQnKAzm3wrQrqFCBJSDK3fe4XmwPaGwd
+ HNhZJJ4enOwkmSBll3WzS+PF1cJKKOzvl5/O+fFy7JrDtlqrATL6dxlydmLKWScOgV5e
+ VfrMkZBKW96TrY0twQXSyaHDYVVPjvdeEn3cgj+vA0tbsvIKeyztBDwcTxCHVKnToyds
+ xN0mp0yR+fSDOgZzpYw4Hpy5wGzXOsT8GQJMbROkK75ETpnHrPw3veK2WqbsJKW0j7Lj
+ VFg0ljEMWEIZz92ATsOCqfPWMyvrZMBYmnJeE/3mmXKoQlCA4GmtOyL/VFtZSIJe5sb5
+ gabw==
+X-Gm-Message-State: APjAAAX72lTf9Sc3FZsrf+XhgLz2ORYBgvVOcY2Szmwf0yfWE0GSPECg
+ EzNSjnESF8fo5bu7NLrszw4gkw==
+X-Google-Smtp-Source: APXvYqw/mTTWbaH79472SmRNTbJG75f7zpe+KuB92ZzGVL55dDHwbFBp4ZPeMaM6FzznylBAqzVZQg==
+X-Received: by 2002:a17:902:d714:: with SMTP id
+ w20mr26240046ply.29.1569120589739; 
+ Sat, 21 Sep 2019 19:49:49 -0700 (PDT)
+Received: from cakuba.netronome.com (c-73-202-202-92.hsd1.ca.comcast.net.
+ [73.202.202.92])
+ by smtp.gmail.com with ESMTPSA id c31sm5709585pgb.24.2019.09.21.19.49.48
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Sat, 21 Sep 2019 19:49:49 -0700 (PDT)
+Date: Sat, 21 Sep 2019 19:49:46 -0700
+From: Jakub Kicinski <jakub.kicinski@netronome.com>
+To: Arnd Bergmann <arnd@arndb.de>
+Message-ID: <20190921194946.710bb0f1@cakuba.netronome.com>
+In-Reply-To: <20190919123416.3070938-1-arnd@arndb.de>
+References: <20190919123416.3070938-1-arnd@arndb.de>
+Organization: Netronome Systems, Ltd.
 MIME-Version: 1.0
-Cc: lars@metafoo.de, linux-iio@vger.kernel.org, pmeerw@pmeerw.net,
- linux-kernel@vger.kernel.org, mcoquelin.stm32@gmail.com, knaack.h@gmx.de,
- linux-stm32@st-md-mailman.stormreply.com, linux-arm-kernel@lists.infradead.org
-Subject: Re: [Linux-stm32] [PATCH] iio: adc: stm32-adc: fix kernel-doc
-	warnings
+Cc: netdev@vger.kernel.org, linux-kernel@vger.kernel.org,
+ linux-stm32@st-md-mailman.stormreply.com, Jose Abreu <joabreu@synopsys.com>,
+ Maxime Coquelin <mcoquelin.stm32@gmail.com>,
+ Giuseppe Cavallaro <peppe.cavallaro@st.com>, "David S.
+ Miller" <davem@davemloft.net>, linux-arm-kernel@lists.infradead.org
+Subject: Re: [Linux-stm32] [PATCH] [v2] net: stmmac: selftest: avoid large
+	stack usage
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -55,190 +81,21 @@ Content-Transfer-Encoding: 7bit
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
-On Fri, 20 Sep 2019 13:50:06 +0200
-Fabrice Gasnier <fabrice.gasnier@st.com> wrote:
-
-> Fix the following warnings when documentation is built:
-> drivers/iio/adc/stm32-adc-core.c:62: warning: cannot understand function
->  prototype: 'struct stm32_adc_common_regs '
-> drivers/iio/adc/stm32-adc-core.c:78: warning: cannot understand function
->  prototype: 'struct stm32_adc_priv_cfg '
-> drivers/iio/adc/stm32-adc-core.c:123: warning: Function parameter or
->  member 'pdev' not described in 'stm32f4_adc_clk_sel'
-> drivers/iio/adc/stm32-adc.c:219: warning: cannot understand function
->  prototype: 'struct stm32_adc_regs '
-> drivers/iio/adc/stm32-adc.c:237: warning: cannot understand function
->  prototype: 'struct stm32_adc_regspec '
-> drivers/iio/adc/stm32-adc.c:264: warning: cannot understand function
->  prototype: 'struct stm32_adc_cfg '
-> drivers/iio/adc/stm32-adc.c:323: warning: Function parameter or member
->  'difsel' not described in 'N'
-> drivers/iio/adc/stm32-adc.c:323: warning: Function parameter or member
->  'pcsel' not described in 'stm32_adc'
-> drivers/iio/adc/stm32-adc.c:371: warning: cannot understand function
->  prototype: 'const struct stm32_adc_regs stm32f4_sq[STM32_ADC_MAX_SQ + 1]
-> drivers/iio/adc/stm32-adc.c:417: warning: cannot understand function
->  prototype: 'const struct stm32_adc_regs stm32f4_smp_bits[] = '
-> drivers/iio/adc/stm32-adc.c:508: warning: cannot understand function
->  prototype: 'const struct stm32_adc_regs stm32h7_smp_bits[] = '
-> drivers/iio/adc/stm32-adc.c:1112: warning: Function parameter or member
->  'indio_dev' not described in 'stm32_adc_get_trig_extsel'
-> drivers/iio/adc/stm32-adc.c:1420: warning: Function parameter or member
->  'indio_dev' not described in 'stm32_adc_debugfs_reg_access'
-> drivers/iio/adc/stm32-adc.c:1420: warning: Function parameter or member
->  'reg' not described in 'stm32_adc_debugfs_reg_access'
-> drivers/iio/adc/stm32-adc.c:1420: warning: Function parameter or member
->  'writeval' not described in 'stm32_adc_debugfs_reg_access'
-> drivers/iio/adc/stm32-adc.c:1420: warning: Function parameter or member
->  'readval' not described in 'stm32_adc_debugfs_reg_access'
+On Thu, 19 Sep 2019 14:33:43 +0200, Arnd Bergmann wrote:
+> Putting a struct stmmac_rss object on the stack is a bad idea,
+> as it exceeds the warning limit for a stack frame on 32-bit architectures:
 > 
-> Signed-off-by: Fabrice Gasnier <fabrice.gasnier@st.com>
-
-As I don't think we build these particular docs by default, I'm not going
-to take this as a fix.  Hence it'll have to wait for the below to be
-upstream of my togreg branch.
-
-Give me a poke if that's true and I seem to have missed it.
-
-Thanks,
-
-Jonathan
-
-> ---
-> Note: this applies on top of "iio: adc: stm32-adc: fix a race when using
-> several adcs with dma and irq"
-> ---
->  drivers/iio/adc/stm32-adc-core.c | 11 ++++++-----
->  drivers/iio/adc/stm32-adc.c      | 21 +++++++++++++--------
->  2 files changed, 19 insertions(+), 13 deletions(-)
+> drivers/net/ethernet/stmicro/stmmac/stmmac_selftests.c:1221:12: error: stack frame size of 1208 bytes in function '__stmmac_test_l3filt' [-Werror,-Wframe-larger-than=]
+> drivers/net/ethernet/stmicro/stmmac/stmmac_selftests.c:1338:12: error: stack frame size of 1208 bytes in function '__stmmac_test_l4filt' [-Werror,-Wframe-larger-than=]
 > 
-> diff --git a/drivers/iio/adc/stm32-adc-core.c b/drivers/iio/adc/stm32-adc-core.c
-> index 93a096a..20c626c 100644
-> --- a/drivers/iio/adc/stm32-adc-core.c
-> +++ b/drivers/iio/adc/stm32-adc-core.c
-> @@ -38,12 +38,12 @@
->  #define HAS_ANASWVDD		BIT(1)
->  
->  /**
-> - * stm32_adc_common_regs - stm32 common registers, compatible dependent data
-> + * struct stm32_adc_common_regs - stm32 common registers
->   * @csr:	common status register offset
->   * @ccr:	common control register offset
-> - * @eoc1:	adc1 end of conversion flag in @csr
-> - * @eoc2:	adc2 end of conversion flag in @csr
-> - * @eoc3:	adc3 end of conversion flag in @csr
-> + * @eoc1_msk:	adc1 end of conversion flag in @csr
-> + * @eoc2_msk:	adc2 end of conversion flag in @csr
-> + * @eoc3_msk:	adc3 end of conversion flag in @csr
->   * @ier:	interrupt enable register offset for each adc
->   * @eocie_msk:	end of conversion interrupt enable mask in @ier
->   */
-> @@ -60,7 +60,7 @@ struct stm32_adc_common_regs {
->  struct stm32_adc_priv;
->  
->  /**
-> - * stm32_adc_priv_cfg - stm32 core compatible configuration data
-> + * struct stm32_adc_priv_cfg - stm32 core compatible configuration data
->   * @regs:	common registers for all instances
->   * @clk_sel:	clock selection routine
->   * @max_clk_rate_hz: maximum analog clock rate (Hz, from datasheet)
-> @@ -117,6 +117,7 @@ static int stm32f4_pclk_div[] = {2, 4, 6, 8};
->  
->  /**
->   * stm32f4_adc_clk_sel() - Select stm32f4 ADC common clock prescaler
-> + * @pdev: platform device
->   * @priv: stm32 ADC core private data
->   * Select clock prescaler used for analog conversions, before using ADC.
->   */
-> diff --git a/drivers/iio/adc/stm32-adc.c b/drivers/iio/adc/stm32-adc.c
-> index 663f8a5..76a247b 100644
-> --- a/drivers/iio/adc/stm32-adc.c
-> +++ b/drivers/iio/adc/stm32-adc.c
-> @@ -102,7 +102,7 @@ struct stm32_adc_calib {
->  };
->  
->  /**
-> - * stm32_adc_regs - stm32 ADC misc registers & bitfield desc
-> + * struct stm32_adc_regs - stm32 ADC misc registers & bitfield desc
->   * @reg:		register offset
->   * @mask:		bitfield mask
->   * @shift:		left shift
-> @@ -114,7 +114,7 @@ struct stm32_adc_regs {
->  };
->  
->  /**
-> - * stm32_adc_regspec - stm32 registers definition, compatible dependent data
-> + * struct stm32_adc_regspec - stm32 registers definition
->   * @dr:			data register offset
->   * @ier_eoc:		interrupt enable register & eocie bitfield
->   * @isr_eoc:		interrupt status register & eoc bitfield
-> @@ -140,7 +140,7 @@ struct stm32_adc_regspec {
->  struct stm32_adc;
->  
->  /**
-> - * stm32_adc_cfg - stm32 compatible configuration data
-> + * struct stm32_adc_cfg - stm32 compatible configuration data
->   * @regs:		registers descriptions
->   * @adc_info:		per instance input channels definitions
->   * @trigs:		external trigger sources
-> @@ -183,8 +183,8 @@ struct stm32_adc_cfg {
->   * @rx_buf:		dma rx buffer cpu address
->   * @rx_dma_buf:		dma rx buffer bus address
->   * @rx_buf_sz:		dma rx buffer size
-> - * @difsel		bitmask to set single-ended/differential channel
-> - * @pcsel		bitmask to preselect channels on some devices
-> + * @difsel:		bitmask to set single-ended/differential channel
-> + * @pcsel:		bitmask to preselect channels on some devices
->   * @smpr_val:		sampling time settings (e.g. smpr1 / smpr2)
->   * @cal:		optional calibration data on some devices
->   * @chan_name:		channel name array
-> @@ -254,7 +254,7 @@ static const struct stm32_adc_info stm32h7_adc_info = {
->  	.num_res = ARRAY_SIZE(stm32h7_adc_resolutions),
->  };
->  
-> -/**
-> +/*
->   * stm32f4_sq - describe regular sequence registers
->   * - L: sequence len (register & bit field)
->   * - SQ1..SQ16: sequence entries (register & bit field)
-> @@ -301,7 +301,7 @@ static struct stm32_adc_trig_info stm32f4_adc_trigs[] = {
->  	{}, /* sentinel */
->  };
->  
-> -/**
-> +/*
->   * stm32f4_smp_bits[] - describe sampling time register index & bit fields
->   * Sorted so it can be indexed by channel number.
->   */
-> @@ -392,7 +392,7 @@ static struct stm32_adc_trig_info stm32h7_adc_trigs[] = {
->  	{},
->  };
->  
-> -/**
-> +/*
->   * stm32h7_smp_bits - describe sampling time register index & bit fields
->   * Sorted so it can be indexed by channel number.
->   */
-> @@ -994,6 +994,7 @@ static int stm32_adc_conf_scan_seq(struct iio_dev *indio_dev,
->  
->  /**
->   * stm32_adc_get_trig_extsel() - Get external trigger selection
-> + * @indio_dev: IIO device structure
->   * @trig: trigger
->   *
->   * Returns trigger extsel value, if trig matches, -EINVAL otherwise.
-> @@ -1297,6 +1298,10 @@ static int stm32_adc_of_xlate(struct iio_dev *indio_dev,
->  
->  /**
->   * stm32_adc_debugfs_reg_access - read or write register value
-> + * @indio_dev: IIO device structure
-> + * @reg: register offset
-> + * @writeval: value to write
-> + * @readval: value to read
->   *
->   * To read a value from an ADC register:
->   *   echo [ADC reg offset] > direct_reg_access
+> As the object is the trivial empty case, change the called function
+> to accept a NULL pointer to mean the same thing and remove the
+> large variable in the two callers.
+> 
+> Fixes: 4647e021193d ("net: stmmac: selftests: Add selftest for L3/L4 Filters")
+> Signed-off-by: Arnd Bergmann <arnd@arndb.de>
 
+Applied, thank you!
 _______________________________________________
 Linux-stm32 mailing list
 Linux-stm32@st-md-mailman.stormreply.com
