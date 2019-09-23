@@ -2,69 +2,49 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id D9BFEBABDD
-	for <lists+linux-stm32@lfdr.de>; Mon, 23 Sep 2019 00:13:04 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id C036FBAE84
+	for <lists+linux-stm32@lfdr.de>; Mon, 23 Sep 2019 09:31:07 +0200 (CEST)
 Received: from ip-172-31-3-76.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 7F947C35E01;
-	Sun, 22 Sep 2019 22:13:04 +0000 (UTC)
-Received: from mail-pf1-f193.google.com (mail-pf1-f193.google.com
- [209.85.210.193])
- (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 1EE93C35E01;
+	Mon, 23 Sep 2019 07:31:07 +0000 (UTC)
+Received: from smtprelay-out1.synopsys.com (smtprelay-out1.synopsys.com
+ [198.182.47.102])
+ (using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 20794C36B3E
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 247ACC36B3E
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Sun, 22 Sep 2019 22:13:02 +0000 (UTC)
-Received: by mail-pf1-f193.google.com with SMTP id y22so7866963pfr.3
- for <linux-stm32@st-md-mailman.stormreply.com>;
- Sun, 22 Sep 2019 15:13:02 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=netronome-com.20150623.gappssmtp.com; s=20150623;
- h=date:from:to:cc:subject:message-id:in-reply-to:references
- :organization:mime-version:content-transfer-encoding;
- bh=PmAznyfs4k+mWd//xBrPme3TcumsUBoHQjEZq6u+NLY=;
- b=Q9CxQCZVN3CeKim3T14DI+dzH5PlCDTA8QmbsW+C8eax7IIA/NB0aFCLOE5uEMlnah
- n9HfkK054QH0pzmBa/MaaPHryLTCxiQvGwyx9m2DBJ3+fWXwG4tZ1JBoHBYs79JyChbx
- r5rFDF448s/NfZ2lrFLEI/35LniKtZVDGfAnyeOltNGUbu+hXauDlNLnNAaQqWncuzo2
- +3937Vc7WBUdbsp3LzrmK2ZIuYecnYyYnVMqeOVgiI0Tg/28mg73wkAS2nR2q0eakRY3
- 9/YK/KVHUUOG6XAHJmFirHgZxtOEbFencrEJwS4yKpWhp/Wx/AxSLIA3VX7LS190gJnR
- PoVw==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20161025;
- h=x-gm-message-state:date:from:to:cc:subject:message-id:in-reply-to
- :references:organization:mime-version:content-transfer-encoding;
- bh=PmAznyfs4k+mWd//xBrPme3TcumsUBoHQjEZq6u+NLY=;
- b=dZr7aBlKvkB1Su84iejyib2VEEdoSt7ejt8m6UyJsTBlWcjsHGtT9eoi+rtdDAikI8
- YF8FkTvtGni1lUJFyVIYaV715qEPOPkzyrcbGnGYPfnRxGZUdW6km0FB2p370+E6I9n8
- rnCa8RTOaQnns1x9vp0GCJWax6zviz8FyZJY67R3xAMNBeoBKEMr8Dw90Gpj5Z2sE2tf
- KBRU9Hv+Z0GMFjEwFjbWcBBJwL5WL4dxSzENnFkrjJtMaV45jpcfifK8sasiNwyPEU66
- mlXMPBAXk+7exgD3jZcGEb7kLrXkVCSMvZR1chyW2wrCFl3lqX7WSUKfPSqxzc28cIMx
- pY9g==
-X-Gm-Message-State: APjAAAUKDwVISGZIltlJ4ph5xZX+BnMHMAsyawtRd2b2DhKn5bSds31h
- eFUhIeXpquo3xYpS/BzDgkKheA==
-X-Google-Smtp-Source: APXvYqzciIn5+C8G7UZYhYgLD06dOmlQZq70XrUrVD2u2KT92kUx/KmLzyi/sFi09I3djSRu2p/rmQ==
-X-Received: by 2002:a17:90a:8087:: with SMTP id
- c7mr17644769pjn.56.1569190380757; 
- Sun, 22 Sep 2019 15:13:00 -0700 (PDT)
-Received: from cakuba.netronome.com (c-73-202-202-92.hsd1.ca.comcast.net.
- [73.202.202.92])
- by smtp.gmail.com with ESMTPSA id r187sm7877357pfc.105.2019.09.22.15.12.59
- (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Sun, 22 Sep 2019 15:13:00 -0700 (PDT)
-Date: Sun, 22 Sep 2019 15:12:57 -0700
-From: Jakub Kicinski <jakub.kicinski@netronome.com>
-To: Christophe Roullier <christophe.roullier@st.com>
-Message-ID: <20190922151257.51173d89@cakuba.netronome.com>
-In-Reply-To: <20190920053817.13754-1-christophe.roullier@st.com>
-References: <20190920053817.13754-1-christophe.roullier@st.com>
-Organization: Netronome Systems, Ltd.
-MIME-Version: 1.0
-Cc: mark.rutland@arm.com, robh@kernel.org, devicetree@vger.kernel.org,
- netdev@vger.kernel.org, linux-kernel@vger.kernel.org,
- linux-stm32@st-md-mailman.stormreply.com, joabreu@synopsys.com, andrew@lunn.ch,
- mcoquelin.stm32@gmail.com, peppe.cavallaro@st.com, davem@davemloft.net,
- linux-arm-kernel@lists.infradead.org
-Subject: Re: [Linux-stm32] [PATCH 0/5] net: ethernet: stmmac: some fixes and
-	optimization
+ Mon, 23 Sep 2019 07:31:05 +0000 (UTC)
+Received: from mailhost.synopsys.com (mdc-mailhost2.synopsys.com
+ [10.225.0.210])
+ (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits))
+ (No client certificate requested)
+ by smtprelay-out1.synopsys.com (Postfix) with ESMTPS id 423F3C0389;
+ Mon, 23 Sep 2019 07:31:02 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=synopsys.com; s=mail;
+ t=1569223863; bh=Xe7pJOKmi9PdaROLmoA5GLu3+ELilg5mJJ8WIbPwsjM=;
+ h=From:To:Cc:Subject:Date:From;
+ b=SLNeZWRKs9a98d13s37oxkygB2cM6X8LCVDsxufZJaTgnV48wee/FlPvgEglew6TJ
+ TIlR3RHbDQH+jlUROGsyU3BdEo5T/ejWA2fmmIzy236/VGQRt/EJm3G5hWI151Pabf
+ 67lKHOybZbEb38u2qP6KnLGdFjzxUih1YNgcthppD82QF3Dk6xWx12ZttWMXfk841L
+ nor99mvPb2CCynvVXMvAzPxfFaNoYqnWiHJGal7pnNSLvElNjQUUZqLAqwEXmbHkKv
+ LhUxbwFpbicOBOyhUmR0sDQlmR/cYqMu8XAVK1jaCJeBgXEHonUQb5JQmXcwKVcyoc
+ RZ8BCftF8VMgw==
+Received: from de02dwia024.internal.synopsys.com
+ (de02dwia024.internal.synopsys.com [10.225.19.81])
+ by mailhost.synopsys.com (Postfix) with ESMTP id BFD84A005F;
+ Mon, 23 Sep 2019 07:30:59 +0000 (UTC)
+From: Jose Abreu <Jose.Abreu@synopsys.com>
+To: netdev@vger.kernel.org
+Date: Mon, 23 Sep 2019 09:30:43 +0200
+Message-Id: <da7e2fb08061b4b89332c0ef014e053f98832894.1569223775.git.Jose.Abreu@synopsys.com>
+X-Mailer: git-send-email 2.7.4
+Cc: Jose Abreu <Jose.Abreu@synopsys.com>, Joao Pinto <Joao.Pinto@synopsys.com>,
+ linux-kernel@vger.kernel.org, linux-stm32@st-md-mailman.stormreply.com,
+ Maxime Coquelin <mcoquelin.stm32@gmail.com>,
+ Giuseppe Cavallaro <peppe.cavallaro@st.com>,
+ "David S. Miller" <davem@davemloft.net>, linux-arm-kernel@lists.infradead.org
+Subject: [Linux-stm32] [PATCH net] net: stmmac: selftests: Flow Control test
+	can also run with ASYM Pause
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -76,29 +56,50 @@ List-Post: <mailto:linux-stm32@st-md-mailman.stormreply.com>
 List-Help: <mailto:linux-stm32-request@st-md-mailman.stormreply.com?subject=help>
 List-Subscribe: <https://st-md-mailman.stormreply.com/mailman/listinfo/linux-stm32>, 
  <mailto:linux-stm32-request@st-md-mailman.stormreply.com?subject=subscribe>
+MIME-Version: 1.0
 Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
-On Fri, 20 Sep 2019 07:38:12 +0200, Christophe Roullier wrote:
-> Some improvements (manage syscfg as optional clock, update slew rate of
-> ETH_MDIO pin, Enable gating of the MAC TX clock during TX low-power mode)
-> Fix warning build message when W=1
+From: Jose Abreu <joabreu@synopsys.com>
 
-There seems to be some new features/cleanups (or improvements as
-you say) here. Could you explain the negative impact not applying 
-these changes will have? Patches 1 and 3 in particular.
+The Flow Control selftest is also available with ASYM Pause. Lets add
+this check to the test and fix eventual false positive failures.
 
-net-next is now closed [1], and will reopen some time after the merge
-window is over. For now we are only expecting fixes for the net tree.
+Fixes: 091810dbded9 ("net: stmmac: Introduce selftests support")
+Signed-off-by: Jose Abreu <Jose.Abreu@synopsys.com>
 
-Could you (a) provide stronger motivation these changes are fixes; or
-(b) separate the fixes from improvements?
+---
+Cc: Giuseppe Cavallaro <peppe.cavallaro@st.com>
+Cc: Alexandre Torgue <alexandre.torgue@st.com>
+Cc: Jose Abreu <joabreu@synopsys.com>
+Cc: "David S. Miller" <davem@davemloft.net>
+Cc: Maxime Coquelin <mcoquelin.stm32@gmail.com>
+Cc: netdev@vger.kernel.org
+Cc: linux-stm32@st-md-mailman.stormreply.com
+Cc: linux-arm-kernel@lists.infradead.org
+Cc: linux-kernel@vger.kernel.org
+---
+ drivers/net/ethernet/stmicro/stmmac/stmmac_selftests.c | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
 
-Thank you!
+diff --git a/drivers/net/ethernet/stmicro/stmmac/stmmac_selftests.c b/drivers/net/ethernet/stmicro/stmmac/stmmac_selftests.c
+index 9c8d210b2d6a..5f66f6161629 100644
+--- a/drivers/net/ethernet/stmicro/stmmac/stmmac_selftests.c
++++ b/drivers/net/ethernet/stmicro/stmmac/stmmac_selftests.c
+@@ -670,7 +670,7 @@ static int stmmac_test_flowctrl(struct stmmac_priv *priv)
+ 	unsigned int pkt_count;
+ 	int i, ret = 0;
+ 
+-	if (!phydev || !phydev->pause)
++	if (!phydev || (!phydev->pause && !phydev->asym_pause))
+ 		return -EOPNOTSUPP;
+ 
+ 	tpriv = kzalloc(sizeof(*tpriv), GFP_KERNEL);
+-- 
+2.7.4
 
-[1] https://www.kernel.org/doc/html/latest/networking/netdev-FAQ.html
 _______________________________________________
 Linux-stm32 mailing list
 Linux-stm32@st-md-mailman.stormreply.com
