@@ -2,69 +2,161 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id 0692BBE0B5
-	for <lists+linux-stm32@lfdr.de>; Wed, 25 Sep 2019 17:00:25 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id DBAFABE33A
+	for <lists+linux-stm32@lfdr.de>; Wed, 25 Sep 2019 19:19:26 +0200 (CEST)
 Received: from ip-172-31-3-76.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id E4F93C35E01;
-	Wed, 25 Sep 2019 15:00:23 +0000 (UTC)
-Received: from mail-wr1-f66.google.com (mail-wr1-f66.google.com
- [209.85.221.66])
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 66802C35E01;
+	Wed, 25 Sep 2019 17:19:26 +0000 (UTC)
+Received: from mail-pg1-f195.google.com (mail-pg1-f195.google.com
+ [209.85.215.195])
  (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 9F337C36B3E
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 786AAC36B3E
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Wed, 25 Sep 2019 15:00:21 +0000 (UTC)
-Received: by mail-wr1-f66.google.com with SMTP id r3so7343176wrj.6
+ Wed, 25 Sep 2019 17:19:24 +0000 (UTC)
+Received: by mail-pg1-f195.google.com with SMTP id a3so163834pgm.13
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Wed, 25 Sep 2019 08:00:21 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=baylibre-com.20150623.gappssmtp.com; s=20150623;
- h=from:to:cc:subject:in-reply-to:references:date:message-id
- :mime-version; bh=yrL9qSy/3grZaifloxyMrl1qoRWf0gLjQ/fLitAs1Sg=;
- b=tWFEpt1lBq/s0U7lRRMcg92G7ibk3Zphd/xQ6319ivkDGRcwuA2VsUEEhRXg6p3Rmo
- UFFLhSxCcBbU50mqQ0W8FKmttRbATzcWCmWzUlzCYmIZf7A17ZZWEAdjUO3Mltty3bJV
- gPuGpquxOoSIhqEJg9Oa8QbSXdbCW277ihBHN4xSJurJgqArzSADU2YFcSm5U73benaB
- CseZ5S9N3BtBYiecF3XIxDjZ2ZSvHqLN7yJQQZNDkFJWfr8qH7co/SD6q7xm1QQdVXbE
- URk33RcMwYrT1AJwrVuvrmUKTijJubzDzzZcglUtnKOBSJhwpSL4ci9KcKrbyZ3YSve1
- djtA==
+ Wed, 25 Sep 2019 10:19:24 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linaro.org; s=google;
+ h=subject:to:cc:references:from:openpgp:autocrypt:message-id:date
+ :user-agent:mime-version:in-reply-to:content-language
+ :content-transfer-encoding;
+ bh=+knljEWncolAjBdvN8pwD54ICm12QL7Qb+IPqgAT4f0=;
+ b=bbxDbhQofwpYighC+vqSmccT+hbYTcl7FQqzQvLjTYNSkLI2GaIBjXeMOLS787jdc1
+ bh7H5rsyC2c9rTjRCsDs9z2u7ZHcWe+ZhNs6Q8t3Cxt4+XpbMyVJUiQkpCMtS5FQfaTa
+ irgsfbATrOrQR2sjGR6FfTS2Mk+/AoSmsG30vmb5JJqY0cGXAvvMm9prF4SJHIknT9hw
+ Wbi1Y3GGSoRlEiFlT7aLu5CiWg2Jk+8W7QWraCsTXWPZJPBl4rJsQHTleI7wUXMcy8bU
+ /mpl9Zz+6lIaaQT9+zE4mciinoCfv584KZFa89yLV8kkAqErjz7lCkGcZUSEvueU7/Gg
+ mrfA==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=1e100.net; s=20161025;
- h=x-gm-message-state:from:to:cc:subject:in-reply-to:references:date
- :message-id:mime-version;
- bh=yrL9qSy/3grZaifloxyMrl1qoRWf0gLjQ/fLitAs1Sg=;
- b=Lh5lhmVcnEf7SpVFWPAIm9UUQ42Ngy7XH7eTW5Vb5UlQ18JX0XvYmeGtKGaDuC3r5A
- noVblBXTiat5EdDYT8iKZkUr/z5bRC4YArWoovoxTRDFnghl+Vnp9AztS3bBWiHY4d0Q
- nR9hG414oikqQzKCORyr0UDmZdoQ3Ad5PvVK3GbneK5650ZsDmfUZgMsmyxRn3zPy656
- n0mQA5vt6cRuwL+lj8/1HaK83T/SZSIuCe8jYAN9DIxODRAR7U5QXqwmnxzorcX+jAbA
- zMZuJNbo/ZbwbJ5ZltL7dwatndEKoDEK9G9nMpnuJap3CgGtpEd48vYkDkdLkLlSnmZH
- k2FQ==
-X-Gm-Message-State: APjAAAVYbRRYbpeB21vmDe/RFwsuUQwUXv2NSkGJnMvl3mkk7WCm8w2z
- muo3oBaP6i3R1z7bAdwR/s1sVA==
-X-Google-Smtp-Source: APXvYqzY26KY3DPvEXCysVewS/BT+v0bJdfTqB6QhZQoHrrjhoEyJyWKY2tBc0+lQU6tMfc61ziGzQ==
-X-Received: by 2002:adf:ff8a:: with SMTP id j10mr10224298wrr.334.1569423620189; 
- Wed, 25 Sep 2019 08:00:20 -0700 (PDT)
-Received: from localhost ([2620:10d:c092:180::1:87a6])
- by smtp.gmail.com with ESMTPSA id o9sm9880475wrh.46.2019.09.25.08.00.18
+ h=x-gm-message-state:subject:to:cc:references:from:openpgp:autocrypt
+ :message-id:date:user-agent:mime-version:in-reply-to
+ :content-language:content-transfer-encoding;
+ bh=+knljEWncolAjBdvN8pwD54ICm12QL7Qb+IPqgAT4f0=;
+ b=pmccSjUv1TuIWmFnzbG5vxguuP1RJNB1zfi9kPF3bimPcqA805aJO6QrXNn4/ENCpx
+ Om/3GAPBlGaOhT5dDnf9AyQkE8yhbV5U285kV+1RBQR6/AVxMsLKbwHqQ1TxvE7C5ufI
+ wrTuHobkKklhT560ZPb/VoCoVNU7GmuApWmDWKdsg/M1zK82hXtEe1TKNT5mwYBF7urY
+ FS+Xi4gDtzo7BAgJ51nxFDGR4TNh99dDUPAl8422QfIAk0RGRkiyOD9ONT8BpOVvQ/h4
+ X7CIt20em8U5lD4FYmOvCznTRVaqoUqaCUkBKF2qI8Rfyhe+FiqkXcIYz/oTLTmblXgN
+ BkYg==
+X-Gm-Message-State: APjAAAVCNcr7/XEgSmBxQtJe4kBpOe2PFqRlOc57tQSAgHL0sTjjadgI
+ NJ+oZSqWbyieREQjmSe8supeUw==
+X-Google-Smtp-Source: APXvYqwzKs1E6F68cWoJeYdEGuSGdo8tpvre4Ow58D5PCRc3vv3TApoe1mEVqajgJalyhMpBF58FbQ==
+X-Received: by 2002:a17:90a:9301:: with SMTP id
+ p1mr7885667pjo.31.1569431962685; 
+ Wed, 25 Sep 2019 10:19:22 -0700 (PDT)
+Received: from [172.20.32.102] ([12.206.46.62])
+ by smtp.googlemail.com with ESMTPSA id r30sm4986457pfl.42.2019.09.25.10.19.17
  (version=TLS1_2 cipher=ECDHE-RSA-AES128-GCM-SHA256 bits=128/128);
- Wed, 25 Sep 2019 08:00:19 -0700 (PDT)
-From: Loys Ollivier <lollivier@baylibre.com>
-To: Jose Abreu <Jose.Abreu@synopsys.com>, Russell King <linux@armlinux.org.uk>,
- Maxime Coquelin <mcoquelin.stm32@gmail.com>
-In-Reply-To: <BN8PR12MB3266A4C33D234165A0F2A978D38F0@BN8PR12MB3266.namprd12.prod.outlook.com>
-References: <1568714556-25024-1-git-send-email-lollivier@baylibre.com>
- <BN8PR12MB3266A4C33D234165A0F2A978D38F0@BN8PR12MB3266.namprd12.prod.outlook.com>
-Date: Wed, 25 Sep 2019 17:00:13 +0200
-Message-ID: <86ftkkzaiq.fsf@baylibre.com>
+ Wed, 25 Sep 2019 10:19:21 -0700 (PDT)
+To: Claudiu Beznea <claudiu.beznea@microchip.com>, robh+dt@kernel.org,
+ mark.rutland@arm.com, linux@armlinux.org.uk, nsekhar@ti.com,
+ bgolaszewski@baylibre.com, monstr@monstr.eu, john@phrozen.org,
+ ralf@linux-mips.org, paul.burton@mips.com, jhogan@kernel.org,
+ lftan@altera.com, tglx@linutronix.de, vgupta@synopsys.com,
+ marc.zyngier@arm.com, patrice.chotard@st.com, mcoquelin.stm32@gmail.com,
+ alexandre.torgue@st.com, eric@anholt.net, wahrenst@gmx.net,
+ f.fainelli@gmail.com, rjui@broadcom.com, sbranden@broadcom.com,
+ bcm-kernel-feedback-list@broadcom.com, linus.walleij@linaro.org,
+ shc_work@mail.ru, kgene@kernel.org, krzk@kernel.org,
+ ysato@users.sourceforge.jp, liviu.dudau@arm.com, sudeep.holla@arm.com,
+ lorenzo.pieralisi@arm.com, shawnguo@kernel.org, s.hauer@pengutronix.de,
+ kernel@pengutronix.de, festevam@gmail.com, linux-imx@nxp.com,
+ baohua@kernel.org, nicolas.ferre@microchip.com,
+ alexandre.belloni@bootlin.com, ludovic.desroches@microchip.com,
+ baruch@tkos.co.il, u.kleine-koenig@pengutronix.de, guoren@kernel.org,
+ kaloz@openwrt.org, khalasa@piap.pl, ssantosh@kernel.org, vz@mleia.com,
+ slemieux.tyco@gmail.com, khilman@baylibre.com, avifishman70@gmail.com,
+ tmaimon77@gmail.com, tali.perry1@gmail.com, venture@google.com,
+ yuenn@google.com, benjaminfair@google.com, afaerber@suse.de,
+ manivannan.sadhasivam@linaro.org, narmstrong@baylibre.com,
+ agross@kernel.org, palmer@sifive.com, aou@eecs.berkeley.edu,
+ heiko@sntech.de, orsonzhai@gmail.com, baolin.wang@linaro.org,
+ zhang.lyra@gmail.com, maxime.ripard@bootlin.com, wens@csie.org,
+ thierry.reding@gmail.com, jonathanh@nvidia.com, linux@prisktech.co.nz,
+ john.stultz@linaro.org, sboyd@kernel.org, matthias.bgg@gmail.com
+References: <1568123236-767-1-git-send-email-claudiu.beznea@microchip.com>
+From: Daniel Lezcano <daniel.lezcano@linaro.org>
+Openpgp: preference=signencrypt
+Autocrypt: addr=daniel.lezcano@linaro.org; prefer-encrypt=mutual; keydata=
+ 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
+Message-ID: <c3a68a08-d134-cd28-c8af-f757628e07f1@linaro.org>
+Date: Wed, 25 Sep 2019 19:19:16 +0200
+User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:60.0) Gecko/20100101
+ Thunderbird/60.8.0
 MIME-Version: 1.0
-Cc: "netdev@vger.kernel.org" <netdev@vger.kernel.org>,
- "linux-kernel@vger.kernel.org" <linux-kernel@vger.kernel.org>,
- "David S. Miller" <davem@davemloft.net>,
- Giuseppe Cavallaro <peppe.cavallaro@st.com>,
- "linux-stm32@st-md-mailman.stormreply.com"
- <linux-stm32@st-md-mailman.stormreply.com>,
- "linux-arm-kernel@lists.infradead.org" <linux-arm-kernel@lists.infradead.org>
-Subject: Re: [Linux-stm32] [PATCH] net: stmmac: Fix ASSERT_RTNL() warning on
-	suspend/resume
+In-Reply-To: <1568123236-767-1-git-send-email-claudiu.beznea@microchip.com>
+Content-Language: en-US
+Cc: uclinux-h8-devel@lists.sourceforge.jp, devicetree@vger.kernel.org,
+ linux-samsung-soc@vger.kernel.org, linux-rockchip@lists.infradead.org,
+ linux-arm-msm@vger.kernel.org, openbmc@lists.ozlabs.org, linux-oxnas@groups.io,
+ linux-kernel@vger.kernel.org, linux-mips@vger.kernel.org,
+ linux-unisoc@lists.infradead.org, linux-mediatek@lists.infradead.org,
+ linux-rpi-kernel@lists.infradead.org, linux-amlogic@lists.infradead.org,
+ linux-tegra@vger.kernel.org, nios2-dev@lists.rocketboards.org,
+ linux-riscv@lists.infradead.org, linux-snps-arc@lists.infradead.org,
+ linux-stm32@st-md-mailman.stormreply.com, linux-arm-kernel@lists.infradead.org
+Subject: Re: [Linux-stm32] [PATCH 0/7] add support for
+	clocksource/clockevent DT selection
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -76,36 +168,22 @@ List-Post: <mailto:linux-stm32@st-md-mailman.stormreply.com>
 List-Help: <mailto:linux-stm32-request@st-md-mailman.stormreply.com?subject=help>
 List-Subscribe: <https://st-md-mailman.stormreply.com/mailman/listinfo/linux-stm32>, 
  <mailto:linux-stm32-request@st-md-mailman.stormreply.com?subject=subscribe>
-Content-Type: text/plain; charset="us-ascii"
-Content-Transfer-Encoding: 7bit
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: base64
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
-On Tue 17 Sep 2019 at 10:12, Jose Abreu <Jose.Abreu@synopsys.com> wrote:
-
-> From: Loys Ollivier <lollivier@baylibre.com>
-> Date: Sep/17/2019, 11:02:36 (UTC+00:00)
->
->> rtnl_lock needs to be taken before calling phylink_start/stop to lock the
->> network stack.
->> Fix ASSERT_RTNL() warnings by protecting such calls with lock/unlock.
->> 
->> Fixes: 74371272f97f ("net: stmmac: Convert to phylink and remove phylib logic")
->> Signed-off-by: Loys Ollivier <lollivier@baylibre.com>
->
-> I already sent a fix for this. Please see in -net:
->
-> https://git.kernel.org/pub/scm/linux/kernel/git/davem/net.git/commit/driv
-> ers/net/ethernet/stmicro/stmmac?id=19e13cb27b998ff49f07e399b5871bfe5ba7e3
-> f0
-
-Ah good catch :)
-
->
-> ---
-> Thanks,
-> Jose Miguel Abreu
-_______________________________________________
-Linux-stm32 mailing list
-Linux-stm32@st-md-mailman.stormreply.com
-https://st-md-mailman.stormreply.com/mailman/listinfo/linux-stm32
+CkhpIENsYXVkaXUsCgpPbiAxMC8wOS8yMDE5IDE1OjQ3LCBDbGF1ZGl1IEJlem5lYSB3cm90ZToK
+PiBIaSwKPiAKPiBUaGlzIHNlcmllcyBhZGRzIHN1cHBvcnQgdG8gcGVybWl0IHRoZSBzZWxlY3Rp
+b24gb2YgY2xvY2tzb3VyY2UvY2xvY2tldmVudAo+IHZpYSBEVC4KClRoYW5rcyBmb3IgdGhlIHBy
+b3Bvc2FsIGFuZCB0YWtpbmcgY2FyZSBvZiBtYWtpbmcgc29tZSBwcm9ncmVzcyBvbiB0aGlzLgoK
+SSBqdXN0IHdhbnRlZCB0byBsZXQgeW91IGtub3cgSSd2ZSBiZWVuIHRyYXZlbGluZyBidXQgdGhl
+IHNlcmllcyBpcyBpbgpteSBwaXBlIGFuZCBJIGRpZCBub3QgZm9yZ2V0IGl0LiBJJ2xsIGNvbW1l
+bnQgaXQgbmV4dCB3ZWVrLgoKIC0tIERhbmllbAoKCi0tIAogPGh0dHA6Ly93d3cubGluYXJvLm9y
+Zy8+IExpbmFyby5vcmcg4pSCIE9wZW4gc291cmNlIHNvZnR3YXJlIGZvciBBUk0gU29DcwoKRm9s
+bG93IExpbmFybzogIDxodHRwOi8vd3d3LmZhY2Vib29rLmNvbS9wYWdlcy9MaW5hcm8+IEZhY2Vi
+b29rIHwKPGh0dHA6Ly90d2l0dGVyLmNvbS8jIS9saW5hcm9vcmc+IFR3aXR0ZXIgfAo8aHR0cDov
+L3d3dy5saW5hcm8ub3JnL2xpbmFyby1ibG9nLz4gQmxvZwoKX19fX19fX19fX19fX19fX19fX19f
+X19fX19fX19fX19fX19fX19fX19fX19fX18KTGludXgtc3RtMzIgbWFpbGluZyBsaXN0CkxpbnV4
+LXN0bTMyQHN0LW1kLW1haWxtYW4uc3Rvcm1yZXBseS5jb20KaHR0cHM6Ly9zdC1tZC1tYWlsbWFu
+LnN0b3JtcmVwbHkuY29tL21haWxtYW4vbGlzdGluZm8vbGludXgtc3RtMzIK
