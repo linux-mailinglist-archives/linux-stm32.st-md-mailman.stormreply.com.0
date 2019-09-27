@@ -2,42 +2,42 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id 6F453C004B
-	for <lists+linux-stm32@lfdr.de>; Fri, 27 Sep 2019 09:49:14 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 502EDC004D
+	for <lists+linux-stm32@lfdr.de>; Fri, 27 Sep 2019 09:49:17 +0200 (CEST)
 Received: from ip-172-31-3-76.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 11E1DC36B1F;
-	Fri, 27 Sep 2019 07:49:14 +0000 (UTC)
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 1F37FC36B0D;
+	Fri, 27 Sep 2019 07:49:17 +0000 (UTC)
 Received: from smtprelay-out1.synopsys.com (smtprelay-out1.synopsys.com
  [198.182.47.102])
  (using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 6E0C5C36B0D
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 794CAC36B0A
  for <linux-stm32@st-md-mailman.stormreply.com>;
  Fri, 27 Sep 2019 07:49:13 +0000 (UTC)
 Received: from mailhost.synopsys.com (mdc-mailhost2.synopsys.com
  [10.225.0.210])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits))
  (No client certificate requested)
- by smtprelay-out1.synopsys.com (Postfix) with ESMTPS id E6B9EC0CED;
+ by smtprelay-out1.synopsys.com (Postfix) with ESMTPS id EFA12C0CEF;
  Fri, 27 Sep 2019 07:49:10 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=synopsys.com; s=mail;
- t=1569570551; bh=F4S+1xHJRXUdoEUQwWWHucAMwa7NK06xIl14jQE+6AA=;
+ t=1569570551; bh=vw4KjFOd0WN5T5S8MRjnu1Dm0OyCo4xGHIGsN5RDZ7w=;
  h=From:To:Cc:Subject:Date:In-Reply-To:References:In-Reply-To:
  References:From;
- b=d+3NVDBmthx5/r2rl9HdMVeCCwn5NLeIznAGgbv6iBidsJ3QpXoEZU0j7V49eiMm8
- KZ/9G9bAv6ncgk7xhQy85h2jVYmz4P9geoaOt0p7ijEsBArMaRE9c5YVAua6La/9la
- VJuYgEFU6pmoI7s/jxNfnXpx65xrO8hDq6hJVHAATBQzc5ZzYjljUHovI2EGk7lbY8
- aVPIfi94cirx/tEwJOg36bLhCg1ecZaQi6JcdSikbAw1k5s4wlcTpvUFEVYBINE3dF
- 7piZqikpZ6vnrnzypZ4Lt/2y8FkdAj/A1kh3K4Zj6Sd3pL77xhhFTk0qzR4IYQns3A
- QfRk5+SIlCnQA==
+ b=fyKUsnK/qAXJC5UaQ3Cmf4bWJOThn2V+hfmLir7754uJcr34j15ghzQYxK4RH0xxD
+ rig63bacp1AwjMT32MmTld8/myXROCi97q8nZvva6fUGBH4BBle/dqIXm+r89Z7sCX
+ bxqBYQ4VWbq0rVLPB1TnKJrvipzIymiM0lMrD/jGRxZkihvV/X0y0kVdbmN2q26Eg3
+ 1rjvh22+px1iiPhwt2yREEoJZs9Fp7+EIPpdGwoIw5Mkjjpmeqyr+HxcxSdy0Et34q
+ 1jtGJAX9Sx2Uh7e1LMsP1JpsSzMHJhkYypgx067XTWsEUyoHKB3zev8pLslm8oCToT
+ JpgfPC9IpxGwg==
 Received: from de02dwia024.internal.synopsys.com
  (de02dwia024.internal.synopsys.com [10.225.19.81])
- by mailhost.synopsys.com (Postfix) with ESMTP id 3E601A0065;
+ by mailhost.synopsys.com (Postfix) with ESMTP id 50C32A0077;
  Fri, 27 Sep 2019 07:49:09 +0000 (UTC)
 From: Jose Abreu <Jose.Abreu@synopsys.com>
 To: netdev@vger.kernel.org
-Date: Fri, 27 Sep 2019 09:48:49 +0200
-Message-Id: <754c7f12d08ccde54f12d32df099aee61956616b.1569569778.git.Jose.Abreu@synopsys.com>
+Date: Fri, 27 Sep 2019 09:48:50 +0200
+Message-Id: <e521e901f3bbe8cd72d8b1492709072f21ee7c84.1569569778.git.Jose.Abreu@synopsys.com>
 X-Mailer: git-send-email 2.7.4
 In-Reply-To: <cover.1569569778.git.Jose.Abreu@synopsys.com>
 References: <cover.1569569778.git.Jose.Abreu@synopsys.com>
@@ -48,8 +48,8 @@ Cc: Jose Abreu <Jose.Abreu@synopsys.com>, Joao Pinto <Joao.Pinto@synopsys.com>,
  Maxime Coquelin <mcoquelin.stm32@gmail.com>,
  Giuseppe Cavallaro <peppe.cavallaro@st.com>,
  "David S. Miller" <davem@davemloft.net>, linux-arm-kernel@lists.infradead.org
-Subject: [Linux-stm32] [PATCH net 1/8] net: stmmac: xgmac: Not all Unicast
-	addresses may be available
+Subject: [Linux-stm32] [PATCH net 2/8] net: stmmac: xgmac: Detect Hash Table
+	size dinamically
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -67,10 +67,12 @@ Content-Transfer-Encoding: 7bit
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
-Some setups may not have all Unicast addresses filters available. Let's
-check this before trying to setup filters.
+Since commit b8ef7020d6e5 ("net: stmmac: add support for hash table size
+128/256 in dwmac4"), we can detect the Hash Table dinamically.
 
-Fixes: 0efedbf11f07 ("net: stmmac: xgmac: Fix XGMAC selftests")
+Let's implement this feature in XGMAC cores and fix possible setups that
+don't support the maximum size for Hash Table.
+
 Signed-off-by: Jose Abreu <Jose.Abreu@synopsys.com>
 
 ---
@@ -84,22 +86,34 @@ Cc: linux-stm32@st-md-mailman.stormreply.com
 Cc: linux-arm-kernel@lists.infradead.org
 Cc: linux-kernel@vger.kernel.org
 ---
- drivers/net/ethernet/stmicro/stmmac/dwxgmac2_core.c | 2 +-
- 1 file changed, 1 insertion(+), 1 deletion(-)
+ drivers/net/ethernet/stmicro/stmmac/dwxgmac2.h     | 1 +
+ drivers/net/ethernet/stmicro/stmmac/dwxgmac2_dma.c | 1 +
+ 2 files changed, 2 insertions(+)
 
-diff --git a/drivers/net/ethernet/stmicro/stmmac/dwxgmac2_core.c b/drivers/net/ethernet/stmicro/stmmac/dwxgmac2_core.c
-index 2b277b2c586b..6d8ac2ef4fc2 100644
---- a/drivers/net/ethernet/stmicro/stmmac/dwxgmac2_core.c
-+++ b/drivers/net/ethernet/stmicro/stmmac/dwxgmac2_core.c
-@@ -472,7 +472,7 @@ static void dwxgmac2_set_filter(struct mac_device_info *hw,
- 	dwxgmac2_set_mchash(ioaddr, mc_filter, mcbitslog2);
- 
- 	/* Handle multiple unicast addresses */
--	if (netdev_uc_count(dev) > XGMAC_ADDR_MAX) {
-+	if (netdev_uc_count(dev) > hw->unicast_filter_entries) {
- 		value |= XGMAC_FILTER_PR;
- 	} else {
- 		struct netdev_hw_addr *ha;
+diff --git a/drivers/net/ethernet/stmicro/stmmac/dwxgmac2.h b/drivers/net/ethernet/stmicro/stmmac/dwxgmac2.h
+index 5923ca62d793..f7eb06f8fb37 100644
+--- a/drivers/net/ethernet/stmicro/stmmac/dwxgmac2.h
++++ b/drivers/net/ethernet/stmicro/stmmac/dwxgmac2.h
+@@ -122,6 +122,7 @@
+ #define XGMAC_HWFEAT_GMIISEL		BIT(1)
+ #define XGMAC_HW_FEATURE1		0x00000120
+ #define XGMAC_HWFEAT_L3L4FNUM		GENMASK(30, 27)
++#define XGMAC_HWFEAT_HASHTBLSZ		GENMASK(25, 24)
+ #define XGMAC_HWFEAT_RSSEN		BIT(20)
+ #define XGMAC_HWFEAT_TSOEN		BIT(18)
+ #define XGMAC_HWFEAT_SPHEN		BIT(17)
+diff --git a/drivers/net/ethernet/stmicro/stmmac/dwxgmac2_dma.c b/drivers/net/ethernet/stmicro/stmmac/dwxgmac2_dma.c
+index 53c4a40d8386..965cbe3e6f51 100644
+--- a/drivers/net/ethernet/stmicro/stmmac/dwxgmac2_dma.c
++++ b/drivers/net/ethernet/stmicro/stmmac/dwxgmac2_dma.c
+@@ -380,6 +380,7 @@ static void dwxgmac2_get_hw_feature(void __iomem *ioaddr,
+ 	/* MAC HW feature 1 */
+ 	hw_cap = readl(ioaddr + XGMAC_HW_FEATURE1);
+ 	dma_cap->l3l4fnum = (hw_cap & XGMAC_HWFEAT_L3L4FNUM) >> 27;
++	dma_cap->hash_tb_sz = (hw_cap & XGMAC_HWFEAT_HASHTBLSZ) >> 24;
+ 	dma_cap->rssen = (hw_cap & XGMAC_HWFEAT_RSSEN) >> 20;
+ 	dma_cap->tsoen = (hw_cap & XGMAC_HWFEAT_TSOEN) >> 18;
+ 	dma_cap->sphen = (hw_cap & XGMAC_HWFEAT_SPHEN) >> 17;
 -- 
 2.7.4
 
