@@ -2,70 +2,67 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id 9AB8AC3646
-	for <lists+linux-stm32@lfdr.de>; Tue,  1 Oct 2019 15:49:20 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 4FD5EC3682
+	for <lists+linux-stm32@lfdr.de>; Tue,  1 Oct 2019 16:00:08 +0200 (CEST)
 Received: from ip-172-31-3-76.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 53375C36B0B;
-	Tue,  1 Oct 2019 13:49:20 +0000 (UTC)
-Received: from mx07-00178001.pphosted.com (mx08-00178001.pphosted.com
- [91.207.212.93])
- (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 0491BC36B0B;
+	Tue,  1 Oct 2019 14:00:08 +0000 (UTC)
+Received: from mail-ot1-f67.google.com (mail-ot1-f67.google.com
+ [209.85.210.67])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 2C999C36B09
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id A3CFEC36B09
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Tue,  1 Oct 2019 13:49:19 +0000 (UTC)
-Received: from pps.filterd (m0046660.ppops.net [127.0.0.1])
- by mx08-00178001.pphosted.com (8.16.0.42/8.16.0.42) with SMTP id
- x91DjjgS031055; Tue, 1 Oct 2019 15:49:07 +0200
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=st.com;
- h=subject : to : cc :
- references : from : message-id : date : mime-version : in-reply-to :
- content-type : content-transfer-encoding; s=STMicroelectronics;
- bh=VTfdc7EtTRCHZkR5Z0IufvapWWMJ4Y5qlpHlU5Eyteg=;
- b=FOODUL1nm0XxmlHPZNPuIZ6lsuKBXdFScx6DXuAH/et+6+kRHI3IT8MREbMP3v10y3Z9
- geiSYaaM8bMxQOldJ7fdI30/Sm8RqJRk9p+MYe/DG5rrtB1bzaiGSl/ofq8zVaDoKkpS
- mGy/PGmYXj/cdgew3D19qs9pWTbE64yF3fLC7mYSoOrN2QeOdT8mR9ATL5SHcMEUCzgH
- XITVRQtkMkO3UP9pUqF7E6ajUcCY/FeR8ofIzTMzg9Wgk4M7DxgJ29D85cFxDP5clzgi
- yWVJK69+sNpI+Fz2aMPm4cg+3UnWJWKJlHixbeCLHyAPciY+IedRQXvIvuWOeoBlGqCc BQ== 
-Received: from beta.dmz-ap.st.com (beta.dmz-ap.st.com [138.198.100.35])
- by mx08-00178001.pphosted.com with ESMTP id 2v9vna9h6w-1
- (version=TLSv1 cipher=ECDHE-RSA-AES256-SHA bits=256 verify=NOT);
- Tue, 01 Oct 2019 15:49:07 +0200
-Received: from euls16034.sgp.st.com (euls16034.sgp.st.com [10.75.44.20])
- by beta.dmz-ap.st.com (STMicroelectronics) with ESMTP id 6F95750;
- Tue,  1 Oct 2019 13:48:55 +0000 (GMT)
-Received: from Webmail-eu.st.com (Safex1hubcas24.st.com [10.75.90.94])
- by euls16034.sgp.st.com (STMicroelectronics) with ESMTP id 8966F2CE746;
- Tue,  1 Oct 2019 15:48:54 +0200 (CEST)
-Received: from SAFEX1HUBCAS22.st.com (10.75.90.92) by Safex1hubcas24.st.com
- (10.75.90.94) with Microsoft SMTP Server (TLS) id 14.3.439.0; Tue, 1 Oct 2019
- 15:48:54 +0200
-Received: from [10.48.0.192] (10.48.0.192) by Webmail-ga.st.com (10.75.90.48)
- with Microsoft SMTP Server (TLS) id 14.3.439.0;
- Tue, 1 Oct 2019 15:48:53 +0200
-To: =?UTF-8?Q?Uwe_Kleine-K=c3=b6nig?= <u.kleine-koenig@pengutronix.de>
-References: <1569857951-20007-1-git-send-email-fabrice.gasnier@st.com>
- <1569857951-20007-3-git-send-email-fabrice.gasnier@st.com>
- <20191001070450.4zogfryzo7a5ssbd@pengutronix.de>
- <3c6e551b-98a2-a418-c4ee-002077e46f31@st.com>
- <20191001095119.ws36f7liwgvbokem@pengutronix.de>
-From: Fabrice Gasnier <fabrice.gasnier@st.com>
-Message-ID: <f0fd1926-9fca-99c5-4a54-99252b865bc6@st.com>
-Date: Tue, 1 Oct 2019 15:48:52 +0200
-User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:60.0) Gecko/20100101
- Thunderbird/60.8.0
+ Tue,  1 Oct 2019 14:00:06 +0000 (UTC)
+Received: by mail-ot1-f67.google.com with SMTP id c10so11596296otd.9
+ for <linux-stm32@st-md-mailman.stormreply.com>;
+ Tue, 01 Oct 2019 07:00:06 -0700 (PDT)
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20161025;
+ h=x-gm-message-state:date:from:to:cc:subject:message-id:references
+ :mime-version:content-disposition:in-reply-to:user-agent;
+ bh=JZBM1FPFDAl5uESgEP9tPsFTn7qdNx8IBtQzRJpA2CU=;
+ b=ciBNEPdevsaomm5CJGw9EGiSUIF8hUxSVIfqHHaZA0eB/yIBmpWp5pdUjW6fWic1+P
+ eNht0+t5DlVioVgipAxKgSKeIilxLunbV4BsDUCP9H5lMe//eZUgKX6f5089UGVGKZrz
+ LI6BpsYYfKh8NstqdROcW6LRa2zB8RqRhsO1fqM1OI4Jn6+mdjEyIkxqiLWbiCrmNR8/
+ kgu3jpyBTbVaxCmaXdT0Oj+nz6QAwcznCvCNLvfd2sR9KUOCE/BJn45EbxjqlUh1LrST
+ D1kz5cEdzGqMD8q+RCHG3l78NZDS53aaHFugJBHuNV9m2zHpnZLePjmtPxyntIZGXndZ
+ NVXg==
+X-Gm-Message-State: APjAAAUFVS+hghYKzJmotSVJCydjm13A9c7+poYuqvKZvCzmkSE3rlng
+ +s59Ld5UfHTuqrsxMhHefQ==
+X-Google-Smtp-Source: APXvYqyny3jSQCJcTq07B8NFgeh+CqrPZ/jllExOJcitfcVJnCPPhlC7KQB0zTngJlFTUtwdcVIBqg==
+X-Received: by 2002:a9d:4041:: with SMTP id o1mr4924805oti.61.1569938405253;
+ Tue, 01 Oct 2019 07:00:05 -0700 (PDT)
+Received: from localhost (24-155-109-49.dyn.grandenetworks.net.
+ [24.155.109.49])
+ by smtp.gmail.com with ESMTPSA id m25sm5045457oie.39.2019.10.01.07.00.04
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Tue, 01 Oct 2019 07:00:04 -0700 (PDT)
+Date: Tue, 1 Oct 2019 09:00:03 -0500
+From: Rob Herring <robh@kernel.org>
+To: Krzysztof Kozlowski <krzk@kernel.org>
+Message-ID: <20191001140003.GA31344@bogus>
+References: <20190918173141.4314-1-krzk@kernel.org>
+ <20190918173141.4314-2-krzk@kernel.org>
 MIME-Version: 1.0
-In-Reply-To: <20191001095119.ws36f7liwgvbokem@pengutronix.de>
-Content-Language: en-US
-X-Originating-IP: [10.48.0.192]
-X-Proofpoint-Virus-Version: vendor=fsecure engine=2.50.10434:6.0.95,1.0.8
- definitions=2019-10-01_07:2019-10-01,2019-10-01 signatures=0
-Cc: mark.rutland@arm.com, devicetree@vger.kernel.org, linux-pwm@vger.kernel.org,
- linux-kernel@vger.kernel.org, robh+dt@kernel.org, thierry.reding@gmail.com,
- mcoquelin.stm32@gmail.com, linux-stm32@st-md-mailman.stormreply.com,
- linux-arm-kernel@lists.infradead.org
-Subject: Re: [Linux-stm32] [PATCH 2/2] pwm: stm32: add power management
-	support
+Content-Disposition: inline
+In-Reply-To: <20190918173141.4314-2-krzk@kernel.org>
+User-Agent: Mutt/1.10.1 (2018-07-13)
+Cc: Mark Rutland <mark.rutland@arm.com>, linux-pwm@vger.kernel.org,
+ dri-devel@lists.freedesktop.org, Thierry Reding <thierry.reding@gmail.com>,
+ linux-riscv@lists.infradead.org, linux-stm32@st-md-mailman.stormreply.com,
+ linux-leds@vger.kernel.org, linux-samsung-soc@vger.kernel.org,
+ Herbert Xu <herbert@gondor.apana.org.au>, linux-clk@vger.kernel.org,
+ linux-rockchip@lists.infradead.org, bcm-kernel-feedback-list@broadcom.com,
+ Guenter Roeck <linux@roeck-us.net>, devicetree@vger.kernel.org,
+ linux-watchdog@vger.kernel.org, linux-mediatek@lists.infradead.org,
+ linux-rpi-kernel@lists.infradead.org, Matt Mackall <mpm@selenic.com>,
+ linux-tegra@vger.kernel.org, linux-amlogic@lists.infradead.org,
+ Wim Van Sebroeck <wim@linux-watchdog.org>,
+ linux-arm-kernel@lists.infradead.org, linux-kernel@vger.kernel.org,
+ linux-crypto@vger.kernel.org
+Subject: Re: [Linux-stm32] [PATCH v2 2/8] dt-bindings: sram: Convert SRAM
+ bindings to json-schema
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -77,161 +74,201 @@ List-Post: <mailto:linux-stm32@st-md-mailman.stormreply.com>
 List-Help: <mailto:linux-stm32-request@st-md-mailman.stormreply.com?subject=help>
 List-Subscribe: <https://st-md-mailman.stormreply.com/mailman/listinfo/linux-stm32>, 
  <mailto:linux-stm32-request@st-md-mailman.stormreply.com?subject=subscribe>
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: base64
+Content-Type: text/plain; charset="us-ascii"
+Content-Transfer-Encoding: 7bit
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
-T24gMTAvMS8xOSAxMTo1MSBBTSwgVXdlIEtsZWluZS1Lw7ZuaWcgd3JvdGU6Cj4gSGVsbG8gRmFi
-cmljZSwKPiAKPiBPbiBUdWUsIE9jdCAwMSwgMjAxOSBhdCAxMDoxODozMUFNICswMjAwLCBGYWJy
-aWNlIEdhc25pZXIgd3JvdGU6Cj4+IE9uIDEwLzEvMTkgOTowNCBBTSwgVXdlIEtsZWluZS1Lw7Zu
-aWcgd3JvdGU6Cj4+PiBPbiBNb24sIFNlcCAzMCwgMjAxOSBhdCAwNTozOToxMVBNICswMjAwLCBG
-YWJyaWNlIEdhc25pZXIgd3JvdGU6Cj4+Pj4gQWRkIHN1c3BlbmQvcmVzdW1lIFBNIHNsZWVwIG9w
-cy4gV2hlbiBnb2luZyB0byBsb3cgcG93ZXIsIGVuZm9yY2UgdGhlIFBXTQo+Pj4+IGNoYW5uZWwg
-aXNuJ3QgYWN0aXZlLiBMZXQgdGhlIFBXTSBjb25zdW1lcnMgZGlzYWJsZSBpdCBkdXJpbmcgdGhl
-aXIgb3duCj4+Pj4gc3VzcGVuZCBzZXF1ZW5jZSwgc2VlIFsxXS4gU28sIHBlcmZvcm0gYSBjaGVj
-ayBoZXJlLCBhbmQgaGFuZGxlIHRoZQo+Pj4+IHBpbmN0cmwgc3RhdGVzLiBBbHNvIHJlc3RvcmUg
-dGhlIGJyZWFrIGlucHV0cyB1cG9uIHJlc3VtZSwgYXMgcmVnaXN0ZXJzCj4+Pj4gY29udGVudCBt
-YXkgYmUgbG9zdCB3aGVuIGdvaW5nIHRvIGxvdyBwb3dlciBtb2RlLgo+Pj4+Cj4+Pj4gWzFdIGh0
-dHBzOi8vbGttbC5vcmcvbGttbC8yMDE5LzIvNS83NzAKPj4+Pgo+Pj4+IFNpZ25lZC1vZmYtYnk6
-IEZhYnJpY2UgR2FzbmllciA8ZmFicmljZS5nYXNuaWVyQHN0LmNvbT4KPj4+PiAtLS0KPj4+PiAg
-ZHJpdmVycy9wd20vcHdtLXN0bTMyLmMgfCA4MiArKysrKysrKysrKysrKysrKysrKysrKysrKysr
-KysrKysrKysrLS0tLS0tLS0tLS0tCj4+Pj4gIDEgZmlsZSBjaGFuZ2VkLCA2MiBpbnNlcnRpb25z
-KCspLCAyMCBkZWxldGlvbnMoLSkKPj4+Pgo+Pj4+IGRpZmYgLS1naXQgYS9kcml2ZXJzL3B3bS9w
-d20tc3RtMzIuYyBiL2RyaXZlcnMvcHdtL3B3bS1zdG0zMi5jCj4+Pj4gaW5kZXggNzQwZTJkZS4u
-OWJjZDczYSAxMDA2NDQKPj4+PiAtLS0gYS9kcml2ZXJzL3B3bS9wd20tc3RtMzIuYwo+Pj4+ICsr
-KyBiL2RyaXZlcnMvcHdtL3B3bS1zdG0zMi5jCj4+Pj4gQEAgLTEyLDYgKzEyLDcgQEAKPj4+PiAg
-I2luY2x1ZGUgPGxpbnV4L21mZC9zdG0zMi10aW1lcnMuaD4KPj4+PiAgI2luY2x1ZGUgPGxpbnV4
-L21vZHVsZS5oPgo+Pj4+ICAjaW5jbHVkZSA8bGludXgvb2YuaD4KPj4+PiArI2luY2x1ZGUgPGxp
-bnV4L3BpbmN0cmwvY29uc3VtZXIuaD4KPj4+PiAgI2luY2x1ZGUgPGxpbnV4L3BsYXRmb3JtX2Rl
-dmljZS5oPgo+Pj4+ICAjaW5jbHVkZSA8bGludXgvcHdtLmg+Cj4+Pj4gIAo+Pj4+IEBAIC0xOSw2
-ICsyMCwxMiBAQAo+Pj4+ICAjZGVmaW5lIENDTVJfQ0hBTk5FTF9NQVNLICAweEZGCj4+Pj4gICNk
-ZWZpbmUgTUFYX0JSRUFLSU5QVVQgMgo+Pj4+ICAKPj4+PiArc3RydWN0IHN0bTMyX2JyZWFraW5w
-dXQgewo+Pj4+ICsJdTMyIGluZGV4Owo+Pj4+ICsJdTMyIGxldmVsOwo+Pj4+ICsJdTMyIGZpbHRl
-cjsKPj4+PiArfTsKPj4+PiArCj4+Pj4gIHN0cnVjdCBzdG0zMl9wd20gewo+Pj4+ICAJc3RydWN0
-IHB3bV9jaGlwIGNoaXA7Cj4+Pj4gIAlzdHJ1Y3QgbXV0ZXggbG9jazsgLyogcHJvdGVjdCBwd20g
-Y29uZmlnL2VuYWJsZSAqLwo+Pj4+IEBAIC0yNiwxNSArMzMsMTEgQEAgc3RydWN0IHN0bTMyX3B3
-bSB7Cj4+Pj4gIAlzdHJ1Y3QgcmVnbWFwICpyZWdtYXA7Cj4+Pj4gIAl1MzIgbWF4X2FycjsKPj4+
-PiAgCWJvb2wgaGF2ZV9jb21wbGVtZW50YXJ5X291dHB1dDsKPj4+PiArCXN0cnVjdCBzdG0zMl9i
-cmVha2lucHV0IGJyZWFraW5wdXRbTUFYX0JSRUFLSU5QVVRdOwo+Pj4+ICsJdW5zaWduZWQgaW50
-IG5icmVha2lucHV0Owo+Pj4+ICAJdTMyIGNhcHR1cmVbNF0gX19fX2NhY2hlbGluZV9hbGlnbmVk
-OyAvKiBETUEnYWJsZSBidWZmZXIgKi8KPj4+PiAgfTsKPj4+PiAgCj4+Pj4gLXN0cnVjdCBzdG0z
-Ml9icmVha2lucHV0IHsKPj4+PiAtCXUzMiBpbmRleDsKPj4+PiAtCXUzMiBsZXZlbDsKPj4+PiAt
-CXUzMiBmaWx0ZXI7Cj4+Pj4gLX07Cj4+Pj4gLQo+Pj4+ICBzdGF0aWMgaW5saW5lIHN0cnVjdCBz
-dG0zMl9wd20gKnRvX3N0bTMyX3B3bV9kZXYoc3RydWN0IHB3bV9jaGlwICpjaGlwKQo+Pj4+ICB7
-Cj4+Pj4gIAlyZXR1cm4gY29udGFpbmVyX29mKGNoaXAsIHN0cnVjdCBzdG0zMl9wd20sIGNoaXAp
-Owo+Pj4+IEBAIC01MTIsMTUgKzUxNSwyNyBAQCBzdGF0aWMgaW50IHN0bTMyX3B3bV9zZXRfYnJl
-YWtpbnB1dChzdHJ1Y3Qgc3RtMzJfcHdtICpwcml2LAo+Pj4+ICAJcmV0dXJuIChiZHRyICYgYmtl
-KSA/IDAgOiAtRUlOVkFMOwo+Pj4+ICB9Cj4+Pj4gIAo+Pj4+IC1zdGF0aWMgaW50IHN0bTMyX3B3
-bV9hcHBseV9icmVha2lucHV0cyhzdHJ1Y3Qgc3RtMzJfcHdtICpwcml2LAo+Pj4+ICtzdGF0aWMg
-aW50IHN0bTMyX3B3bV9hcHBseV9icmVha2lucHV0cyhzdHJ1Y3Qgc3RtMzJfcHdtICpwcml2KQo+
-Pj4+ICt7Cj4+Pj4gKwlpbnQgaSwgcmV0ID0gMDsKPj4+PiArCj4+Pj4gKwlmb3IgKGkgPSAwOyBp
-IDwgcHJpdi0+bmJyZWFraW5wdXQgJiYgIXJldDsgaSsrKSB7Cj4+Pj4gKwkJcmV0ID0gc3RtMzJf
-cHdtX3NldF9icmVha2lucHV0KHByaXYsCj4+Pj4gKwkJCQkJICAgICAgIHByaXYtPmJyZWFraW5w
-dXRbaV0uaW5kZXgsCj4+Pj4gKwkJCQkJICAgICAgIHByaXYtPmJyZWFraW5wdXRbaV0ubGV2ZWws
-Cj4+Pj4gKwkJCQkJICAgICAgIHByaXYtPmJyZWFraW5wdXRbaV0uZmlsdGVyKTsKPj4+PiArCX0K
-Pj4+PiArCj4+Pj4gKwlyZXR1cm4gcmV0Owo+Pj4+ICt9Cj4+Pgo+Pj4gQ2FuIHlvdSBleHBsYWlu
-IHdoYXQgdGhlIGVmZmVjdCBvZiB0aGlzIGZ1bmN0aW9uIGlzPyBUaGlzIGlzIHNvbWV0aGluZwo+
-Pj4gdGhhdCBpcyBsb3N0IGR1cmluZyBzdXNwZW5kPwo+Pgo+PiBZZXMsIHRoYXQncyB3aGF0IEkg
-ZXhwbGFpbiBpbiB0aGUgY29tbWl0IG1lc3NhZ2U6IC4uLnJlZ2lzdGVycyBjb250ZW50Cj4+IG1h
-eSBiZSBsb3N0IHdoZW4gZ29pbmcgdG8gbG93IHBvd2VyIG1vZGUuCj4+IERvIHlvdSB0aGluayBJ
-IG5lZWQgdG8gcmVwaHJhc2UgPwo+IAo+IEFoLCByaWdodCBJIG1pc3NlZCBpdCBpbiB0aGUgY29t
-bWl0IGxvZy4gSXQgbWlnaHQgYmUgd29ydGggYWRkaW5nIHRoYXQKPiB0byBhIGNvZGUgY29tbWVu
-dC4gQWxzbyBoYXZpbmcgdGhlIHB1cnBvc2Ugb2YgdGhpcyBmdW5jdGlvbiBkZXNjcmliZWQKPiB3
-b3VsZCBiZSBncmVhdC4gRG9lcyBpdCBjb25maWd1cmUgc29tZSBlbGVjdHJpY2FsIGNoYXJhY3Rl
-cmlzdGljcz8gT3IKPiBoYXMgaXQgdG8gZG8gd2l0aCBwaW5tdXhpbmc/IFdoeSBpcyBhbiBpbnB1
-dCByZWxldmFudCBmb3IgYSBQV00/CgpIaSBVd2UsCgpJJ2xsIGFkZCBhIGNvbW1lbnQgaW4gdGhl
-IHN1c3BlbmQgcm91dGluZSB0byBtZW50aW9uIHRoZSBuZWVkIHRvIHJlc3RvcmUKYnJlYWtpbnB1
-dCByZWdpc3RlcnMgdGhhdCBtYXkgaGF2ZSBiZWVuIGxvc3QgaW4gbG93IHBvd2VyLgoKUmVnYXJk
-aW5nIHRoZSBwdXJwb3NlIG9mIHRoZSBicmVhayBmZWF0dXJlLCBtYXliZSBJIGNhbiBlbmhhbmNl
-IGNvbW1lbnQKYmVsbG93IChlLmcuIEJlY2F1c2UgInN0LGJyZWFraW5wdXQiIHBhcmFtZXRlciBp
-cyBvcHRpb25hbC4uLikgdG8Kc29tZXRoaW5nIGxpa2U6CgovKgogKiBTb21lIHRpbWVyIGluc3Rh
-bmNlcyBjYW4gaGF2ZSBCUksgaW5wdXQgcGlucyAoZS5nLiBiYXNpY2FsbHkgYSBmYXVsdAogKiBw
-aW4gZnJvbSB0aGUgb3V0cHV0IHBvd2VyIHN0YWdlKS4gVGhlIGJyZWFrIGZlYXR1cmUgYWxsb3cg
-YSBzYWZlIHNodXQKICogZG93biBvZiB0aGUgUFdNIG91dHB1dHMgdG8gYSBwcmVkZWZpbmVkIHN0
-YXRlLgogKiBCZWNhdXNlICJzdCxicmVha2lucHV0IiBwYXJhbWV0ZXIgaXMgb3B0aW9uYWwgZG8g
-bm90IG1ha2UgcHJvYmUKICogZmFpbGVkIGlmIGl0IGRvZXNuJ3QgZXhpc3QuIE5vdGUgdGhlIHBp
-bmN0cmwgaGFuZGxlIG11c3QgYmUgaW5saW5lCiAqIHdpdGggInN0LGJyZWFraW5wdXQiIHByb3Bl
-cnR5LgogKi8KCkZZSSwgdGhlIGZlYXR1cmUgaXMgZGVzY3JpYmVkIGluIEFwcGxpY2F0aW9uIG5v
-dGUgQU40Mjc3LCAiVXNpbmcgU1RNMzIKZGV2aWNlIFBXTSBzaHV0LWRvd24gZmVhdHVyZXMuLi4i
-CgpXb3VsZCBpdCBhbnN3ZXIgeW91ciBjb25jZXJuIGhlcmU/IEJ1dCBJIHRoaW5rIHRoaXMgc2hv
-dWxkIGJlIGRvbmUgaW4gYQpzZXBhcmF0ZSBwYXRjaCAobm90IHJlbGF0ZWQgdG8gUE0gc3VwcG9y
-dCkuCgo+IAo+Pj4gSSB3b25kZXIgd2h5IHRoZSBwYXRjaCBpcyBzbyBiaWcuIFRoZXJlIGFyZSBz
-b21lIHJlYXJyYW5nZW1lbnRzIHRoYXQKPj4+IHNob3VsZCBoYXZlIG5vIGVmZmVjdCBhbmQgSSB0
-aGluayBpdCB3b3VsZCBiZSBiZW5lZmljaWFsIGZvcgo+Pj4gcmV2aWV3YWJpbGl0eSB0byBzcGxp
-dCB0aGlzIHBhdGNoIGluIGEgcGF0Y2ggdGhhdCBvbmx5IGRvZXMgdGhlCj4+PiByZXN0cnVjdHVy
-aW5nIGFuZCB0aGFuIG9uIHRvcCBvZiB0aGF0IGFkZCB0aGUgUE0gc3R1ZmYuCj4+Cj4+IEkgY2Fu
-IHNwbGl0IHRoaXMgdG8gZWFzZSB0aGUgcmV2aWV3Lgo+Pj4KPj4+PiArCj4+Pj4gK3N0YXRpYyBp
-bnQgc3RtMzJfcHdtX3Byb2JlX2JyZWFraW5wdXRzKHN0cnVjdCBzdG0zMl9wd20gKnByaXYsCj4+
-Pj4gIAkJCQkgICAgICAgc3RydWN0IGRldmljZV9ub2RlICpucCkKPj4+PiAgewo+Pj4+IC0Jc3Ry
-dWN0IHN0bTMyX2JyZWFraW5wdXQgYnJlYWtpbnB1dFtNQVhfQlJFQUtJTlBVVF07Cj4+Pj4gLQlp
-bnQgbmIsIHJldCwgaSwgYXJyYXlfc2l6ZTsKPj4+PiArCWludCBuYiwgcmV0LCBhcnJheV9zaXpl
-Owo+Pj4+ICAKPj4+PiAgCW5iID0gb2ZfcHJvcGVydHlfY291bnRfZWxlbXNfb2Zfc2l6ZShucCwg
-InN0LGJyZWFraW5wdXQiLAo+Pj4+ICAJCQkJCSAgICAgc2l6ZW9mKHN0cnVjdCBzdG0zMl9icmVh
-a2lucHV0KSk7Cj4+Pj4gLQo+Pj4+ICAJLyoKPj4+PiAgCSAqIEJlY2F1c2UgInN0LGJyZWFraW5w
-dXQiIHBhcmFtZXRlciBpcyBvcHRpb25hbCBkbyBub3QgbWFrZSBwcm9iZQo+Pj4+ICAJICogZmFp
-bGVkIGlmIGl0IGRvZXNuJ3QgZXhpc3QuCj4+Pj4gQEAgLTUzMSwyMCArNTQ2LDE0IEBAIHN0YXRp
-YyBpbnQgc3RtMzJfcHdtX2FwcGx5X2JyZWFraW5wdXRzKHN0cnVjdCBzdG0zMl9wd20gKnByaXYs
-Cj4+Pj4gIAlpZiAobmIgPiBNQVhfQlJFQUtJTlBVVCkKPj4+PiAgCQlyZXR1cm4gLUVJTlZBTDsK
-Pj4+PiAgCj4+Pj4gKwlwcml2LT5uYnJlYWtpbnB1dCA9IG5iOwo+Pj4+ICAJYXJyYXlfc2l6ZSA9
-IG5iICogc2l6ZW9mKHN0cnVjdCBzdG0zMl9icmVha2lucHV0KSAvIHNpemVvZih1MzIpOwo+Pj4+
-ICAJcmV0ID0gb2ZfcHJvcGVydHlfcmVhZF91MzJfYXJyYXkobnAsICJzdCxicmVha2lucHV0IiwK
-Pj4+PiAtCQkJCQkgKHUzMiAqKWJyZWFraW5wdXQsIGFycmF5X3NpemUpOwo+Pj4+ICsJCQkJCSAo
-dTMyICopcHJpdi0+YnJlYWtpbnB1dCwgYXJyYXlfc2l6ZSk7Cj4+Pj4gIAlpZiAocmV0KQo+Pj4+
-ICAJCXJldHVybiByZXQ7Cj4+Pj4gIAo+Pj4+IC0JZm9yIChpID0gMDsgaSA8IG5iICYmICFyZXQ7
-IGkrKykgewo+Pj4+IC0JCXJldCA9IHN0bTMyX3B3bV9zZXRfYnJlYWtpbnB1dChwcml2LAo+Pj4+
-IC0JCQkJCSAgICAgICBicmVha2lucHV0W2ldLmluZGV4LAo+Pj4+IC0JCQkJCSAgICAgICBicmVh
-a2lucHV0W2ldLmxldmVsLAo+Pj4+IC0JCQkJCSAgICAgICBicmVha2lucHV0W2ldLmZpbHRlcik7
-Cj4+Pj4gLQl9Cj4+Pj4gLQo+Pj4+IC0JcmV0dXJuIHJldDsKPj4+PiArCXJldHVybiBzdG0zMl9w
-d21fYXBwbHlfYnJlYWtpbnB1dHMocHJpdik7Cj4+Pj4gIH0KPj4+PiAgCj4+Pj4gIHN0YXRpYyB2
-b2lkIHN0bTMyX3B3bV9kZXRlY3RfY29tcGxlbWVudGFyeShzdHJ1Y3Qgc3RtMzJfcHdtICpwcml2
-KQo+Pj4+IEBAIC02MTQsNyArNjIzLDcgQEAgc3RhdGljIGludCBzdG0zMl9wd21fcHJvYmUoc3Ry
-dWN0IHBsYXRmb3JtX2RldmljZSAqcGRldikKPj4+PiAgCWlmICghcHJpdi0+cmVnbWFwIHx8ICFw
-cml2LT5jbGspCj4+Pj4gIAkJcmV0dXJuIC1FSU5WQUw7Cj4+Pj4gIAo+Pj4+IC0JcmV0ID0gc3Rt
-MzJfcHdtX2FwcGx5X2JyZWFraW5wdXRzKHByaXYsIG5wKTsKPj4+PiArCXJldCA9IHN0bTMyX3B3
-bV9wcm9iZV9icmVha2lucHV0cyhwcml2LCBucCk7Cj4+Pj4gIAlpZiAocmV0KQo+Pj4+ICAJCXJl
-dHVybiByZXQ7Cj4+Pj4gIAo+Pj4+IEBAIC02NDcsNiArNjU2LDM4IEBAIHN0YXRpYyBpbnQgc3Rt
-MzJfcHdtX3JlbW92ZShzdHJ1Y3QgcGxhdGZvcm1fZGV2aWNlICpwZGV2KQo+Pj4+ICAJcmV0dXJu
-IDA7Cj4+Pj4gIH0KPj4+PiAgCj4+Pj4gK3N0YXRpYyBpbnQgX19tYXliZV91bnVzZWQgc3RtMzJf
-cHdtX3N1c3BlbmQoc3RydWN0IGRldmljZSAqZGV2KQo+Pj4+ICt7Cj4+Pj4gKwlzdHJ1Y3Qgc3Rt
-MzJfcHdtICpwcml2ID0gZGV2X2dldF9kcnZkYXRhKGRldik7Cj4+Pj4gKwlzdHJ1Y3QgcHdtX3N0
-YXRlIHN0YXRlOwo+Pj4+ICsJdW5zaWduZWQgaW50IGk7Cj4+Pj4gKwo+Pj4+ICsJZm9yIChpID0g
-MDsgaSA8IHByaXYtPmNoaXAubnB3bTsgaSsrKSB7Cj4+Pj4gKwkJcHdtX2dldF9zdGF0ZSgmcHJp
-di0+Y2hpcC5wd21zW2ldLCAmc3RhdGUpOwo+Pj4KPj4+IHB3bV9nZXRfc3RhdGUgaXMgYSBmdW5j
-dGlvbiBkZXNpZ25lZCB0byBiZSB1c2VkIGJ5IFBXTSBjb25zdW1lcnMuIEkKPj4+IHdvdWxkIHBy
-ZWZlciB0byBjaGVjayB0aGUgaGFyZHdhcmUgcmVnaXN0ZXJzIGhlcmUgaW5zdGVhZC4KPj4KPj4g
-SXQncyBhbHNvIHVzZWZ1bCBmb3IgUFdNIHByb3ZpZGVyOiBUaGlzIFBXTSBkcml2ZXIgaXMgcGFy
-dCBvZiBhIE1GRCB0aGF0Cj4gCj4gSSBkb24ndCBkb3VidCAidXNlZnVsIi4gQnV0IHN0aWxsIHlv
-dSBzaG91bGQgb25seSBjYWxsIGl0IGlmIHlvdSBjYWxsZWQKPiBwd21fZ2V0IChvciBhIHNpbWls
-YXIgZnVuY3Rpb24pIHRvIGdldCBhIFBXTSBoYW5kbGUuCj4gCj4+IGFsc28gdGFrZSBjYXJlIG9m
-IElJTyB0cmlnZ2VyIChjYW4gYmUgdXNlZCBzaW11bHRhbmVvdXNseSkuIFNpbXBseQo+PiByZWFk
-aW5nIGEgcmVnaXN0ZXIgZG9lc24ndCB0ZWxsIHVzIHRoYXQgdGhlIHRpbWVyIGlzIHVzZWQvY29u
-ZmlndXJlZCBhcwo+PiBhIFBXTSBoZXJlLiBUaGF0J3MgdGhlIHJlYXNvbiB0byB1c2UgdGhpcyBo
-ZWxwZXIgdG8gcmVhZCBwd20tPnN0YXRlLgo+IAo+IEhvdyBjYW4gdGhlIHB3bSBkcml2ZXIgYmUg
-Ym91bmQgYW5kIHRoZSBoYXJkd2FyZSBub3QgYmUgdXNlZCBhIFBXTT8KPiAKPj4gRG8geW91IHdp
-c2ggSSBhZGQgYSBjb21tZW50IHRvIGNsYXJpZnkgdGhpcyBoZXJlID8KPiAKPiBObywgSSB3aXNo
-IHlvdSBpbnNwZWN0IHRoZSBoYXJkd2FyZSB0byBkZXRlcm1pbmUgd2hhdCB5b3UgbmVlZCB0byBr
-bm93IDotKQoKT2ssIGZpbmFsbHkgSSBmb3VuZCBvdXQgdGhlICJhY3RpdmVfY2hhbm5lbHMoKSIg
-cm91dGluZSBkb2VzIHRoZSBqb2IKKGUuZy4gcmVhZCBDQ0VSIHJlZ2lzdGVyKSwgYW5kIGlzIGFs
-cmVhZHkgdXNlZCBmb3IgdGhhdCBwdXJwb3NlIChjaGVjawpmb3IgYWN0aXZlIGNoYW5uZWxzKS4K
-SSdsbCB1c2UgaXQgaW4gdjIuCgpUaGFua3MsCkZhYnJpY2UKCj4gCj4+PiBXaGF0IGlmIHRoZXJl
-IGlzIG5vIGNvbnN1bWVyIGFuZCB0aGUgUFdNIGp1c3QgaGFwcGVucyB0byBiZSBlbmFibGVkIGJ5
-Cj4+PiB0aGUgYm9vdGxvYWRlcj8gT3IgaXMgdGhpcyB0b28gbWlub3IgYW4gaXNzdWUgdG8gYmUg
-d29ydGggY29uc2lkZXJhdGlvbj8KPj4KPj4gVGhhdCdzIHRoZSBwdXJwb3NlIG9mIHJldHVybmlu
-ZyAtRUJVU1k6ICJQV00gc2hvdWxkIG5vdCBzdG9wIGlmIHRoZSBQV00KPj4gdXNlciBkaWRuJ3Qg
-Y2FsbCBwd21fZGlzYWJsZSgpIiAuLi4gInRvIGF2b2lkIHNpdHVhdGlvbiB3aGVyZSB0aGUgUFdN
-IGlzCj4+IGFjdHVhbGx5IHN1c3BlbmRlZCBiZWZvcmUgdGhlIHVzZXIiLiBUaGlzIGhhcyBiZWVu
-IGVuZm9yY2VkIGluIGxhdGVyCj4+IHNlcmllcyB3aXRoIHRoZSBkZXZpY2VfbGlua19hZGQoKS4g
-U2VlIG91ciBwcmV2aW91cyBkaXNjdXNzaW9ucyBoZXJlOgo+PiBodHRwczovL2xrbWwub3JnL2xr
-bWwvMjAxOS8yLzUvNzcwCj4+IFNvLCBJIGd1ZXNzIHRoaXMgd291bGQgcG9pbnQgZXhhY3RseSBh
-IGxhY2sgZm9yIGEgUFdNIHVzZXIgdG8gbWFuYWdlIGl0Cj4+IGFmdGVyIHRoZSBib290IHN0YWdl
-LCBpbiB0aGUga2VybmVsLgo+Pgo+PiBDb3VsZCB5b3UgcGxlYXNlIGNsYXJpZnksIHByb3ZpZGUg
-YW4gZXhhbXBsZSBoZXJlID8KPiAKPiBUaGlzIGlzIHNvbWV0aGluZyBkaWZmZXJlbnQgdGhhbiBJ
-IGFza2VkIGZvci4gTm90IGhhdmluZyBhIGNvbnN1bWVyCj4gaXNuJ3QgYW4gZXJyb3IuIFN0aWxs
-IHRoZSBwd20gbWlnaHQgYmUgcnVubmluZyAoZm9yIGEgZ29vZCByZWFzb24gb3IKPiBub3QpLiAo
-VGhpcyBpcyBtb3JlIGEgcXVlc3Rpb24gdGhhdCBhZmZlY3RzIGhvdyBhIGRyaXZlciBzaG91bGQg
-YmVoYXZlCj4gaW4gZ2VuZXJhbCwgaXQgaXMgbm90IHNwZWNpZmljIHRvIHRoZSBzdG0zMiBkcml2
-ZXIgaGVyZS4pCj4gCj4gQmVzdCByZWdhcmRzCj4gVXdlCj4gCl9fX19fX19fX19fX19fX19fX19f
-X19fX19fX19fX19fX19fX19fX19fX19fX19fCkxpbnV4LXN0bTMyIG1haWxpbmcgbGlzdApMaW51
-eC1zdG0zMkBzdC1tZC1tYWlsbWFuLnN0b3JtcmVwbHkuY29tCmh0dHBzOi8vc3QtbWQtbWFpbG1h
-bi5zdG9ybXJlcGx5LmNvbS9tYWlsbWFuL2xpc3RpbmZvL2xpbnV4LXN0bTMyCg==
+On Wed, Sep 18, 2019 at 07:31:35PM +0200, Krzysztof Kozlowski wrote:
+> Convert generic mmio-sram bindings to DT schema format using
+> json-schema.
+
+I've been slow getting to this because I started on the same thing...
+
+> 
+> Signed-off-by: Krzysztof Kozlowski <krzk@kernel.org>
+> 
+> ---
+> 
+> Changes since v1:
+> 1. Indent example with four spaces (more readable).
+> ---
+>  .../devicetree/bindings/sram/sram.txt         |  80 ----------
+>  .../devicetree/bindings/sram/sram.yaml        | 138 ++++++++++++++++++
+>  2 files changed, 138 insertions(+), 80 deletions(-)
+>  delete mode 100644 Documentation/devicetree/bindings/sram/sram.txt
+>  create mode 100644 Documentation/devicetree/bindings/sram/sram.yaml
+
+> diff --git a/Documentation/devicetree/bindings/sram/sram.yaml b/Documentation/devicetree/bindings/sram/sram.yaml
+> new file mode 100644
+> index 000000000000..8d9d6ce494b2
+> --- /dev/null
+> +++ b/Documentation/devicetree/bindings/sram/sram.yaml
+> @@ -0,0 +1,138 @@
+> +# SPDX-License-Identifier: GPL-2.0
+> +%YAML 1.2
+> +---
+> +$id: http://devicetree.org/schemas/sram/sram.yaml#
+> +$schema: http://devicetree.org/meta-schemas/core.yaml#
+> +
+> +title: Generic on-chip SRAM
+> +
+> +maintainers:
+> +  - FIXME <who@should.it.be>
+
+You can put me.
+
+> +
+> +description: |+
+> +  Simple IO memory regions to be managed by the genalloc API.
+> +
+> +  Each child of the sram node specifies a region of reserved memory. Each
+> +  child node should use a 'reg' property to specify a specific range of
+> +  reserved memory.
+> +
+> +  Following the generic-names recommended practice, node names should
+> +  reflect the purpose of the node. Unit address (@<address>) should be
+> +  appended to the name.
+> +
+> +properties:
+> +  $nodename:
+> +    pattern: "^sram(@.*)?"
+> +
+> +  compatible:
+> +    items:
+> +      - enum:
+> +          - mmio-sram
+> +          - atmel,sama5d2-securam
+
+I was trying to go down the path of putting all the compatibles for 
+various SRAM bindings here, but I ran into some issues. I need to 
+revisit as I've forgotten the exact issue.
+
+This would need to be a 'contains' if this is going to work for others.
+
+> +
+> +  reg:
+> +    maxItems: 1
+> +
+> +  "#address-cells":
+> +    description: Should use the same values as the root node.
+> +
+> +  "#size-cells":
+> +    description: Should use the same values as the root node.
+
+I defined both of these to be 1 as 4GB of SRAM should be enough for a 
+while. We can debate 1 or 2 cells vs. 1, but there's no reason it has to 
+be the same as the root (unless we're failing to do address 
+translation).
+
+> +
+> +  ranges:
+> +    description:
+> +      Should translate from local addresses within the sram to bus addresses.
+> +
+> +  no-memory-wc:
+> +    description:
+> +      The flag indicating, that SRAM memory region has not to be remapped
+> +      as write combining. WC is used by default.
+> +    type: boolean
+> +
+> +  # TODO: additionalProperties: false
+> +
+> +patternProperties:
+> +  "^([a-z]*-)?sram@[a-f0-9]$":
+> +    type: object
+> +    description:
+> +      Each child of the sram node specifies a region of reserved memory.
+> +    properties:
+> +      reg:
+> +        description:
+> +          IO mem address range, relative to the SRAM range.
+
+maxItems: 1
+
+> +
+> +      compatible:
+> +        $ref: /schemas/types.yaml#/definitions/string
+> +        description:
+> +          Should contain a vendor specific string in the form
+> +          <vendor>,[<device>-]<usage>
+> +
+> +      pool:
+> +        description:
+> +          Indicates that the particular reserved SRAM area is addressable
+> +          and in use by another device or devices.
+> +        type: boolean
+> +
+> +      export:
+> +        description:
+> +          Indicates that the reserved SRAM area may be accessed outside
+> +          of the kernel, e.g. by bootloader or userspace.
+> +        type: boolean
+> +
+> +      protect-exec:
+> +        description: |
+> +          Same as 'pool' above but with the additional constraint that code
+> +          will be run from the region and that the memory is maintained as
+> +          read-only, executable during code execution. NOTE: This region must
+> +          be page aligned on start and end in order to properly allow
+> +          manipulation of the page attributes.
+> +        type: boolean
+> +
+> +      label:
+> +        $ref: /schemas/types.yaml#/definitions/string
+
+Already has a type definition.
+
+> +        description:
+> +          The name for the reserved partition, if omitted, the label is taken
+> +          from the node name excluding the unit address.
+> +
+> +      clocks:
+> +        description:
+> +          A list of phandle and clock specifier pair that controls the
+> +          single SRAM clock.
+> +
+> +      # TODO: additionalProperties: false
+> +
+> +    required:
+> +      - reg
+> +
+> +required:
+> +  - compatible
+> +  - reg
+> +  - "#address-cells"
+> +  - "#size-cells"
+> +  - ranges
+> +
+> +examples:
+> +  - |
+> +    sram: sram@5c000000 {
+> +        compatible = "mmio-sram";
+> +        reg = <0x5c000000 0x40000>; /* 256 KiB SRAM at address 0x5c000000 */
+> +
+> +        #address-cells = <1>;
+> +        #size-cells = <1>;
+> +        ranges = <0 0x5c000000 0x40000>;
+> +
+> +        smp-sram@100 {
+> +            compatible = "socvendor,smp-sram";
+> +            reg = <0x100 0x50>;
+> +        };
+> +
+> +        device-sram@1000 {
+> +            reg = <0x1000 0x1000>;
+> +            pool;
+> +        };
+> +
+> +        exported@20000 {
+> +            reg = <0x20000 0x20000>;
+> +            export;
+> +        };
+> +    };
+> -- 
+> 2.17.1
+> 
+_______________________________________________
+Linux-stm32 mailing list
+Linux-stm32@st-md-mailman.stormreply.com
+https://st-md-mailman.stormreply.com/mailman/listinfo/linux-stm32
