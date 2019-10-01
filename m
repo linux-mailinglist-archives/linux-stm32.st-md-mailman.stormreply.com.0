@@ -2,60 +2,49 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id F0477C2F42
-	for <lists+linux-stm32@lfdr.de>; Tue,  1 Oct 2019 10:51:50 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 96CDCC3099
+	for <lists+linux-stm32@lfdr.de>; Tue,  1 Oct 2019 11:51:32 +0200 (CEST)
 Received: from ip-172-31-3-76.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 6C005C36B0B;
-	Tue,  1 Oct 2019 08:51:50 +0000 (UTC)
-Received: from mx07-00178001.pphosted.com (mx08-00178001.pphosted.com
- [91.207.212.93])
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 27A0CC36B0B;
+	Tue,  1 Oct 2019 09:51:32 +0000 (UTC)
+Received: from metis.ext.pengutronix.de (metis.ext.pengutronix.de
+ [85.220.165.71])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 111C6C36B09
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 76512C36B09
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Tue,  1 Oct 2019 08:51:49 +0000 (UTC)
-Received: from pps.filterd (m0046661.ppops.net [127.0.0.1])
- by mx08-00178001.pphosted.com (8.16.0.42/8.16.0.42) with SMTP id
- x918aqa3032721; Tue, 1 Oct 2019 10:51:44 +0200
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=st.com;
- h=from : to : cc : subject
- : date : message-id : mime-version : content-type; s=STMicroelectronics;
- bh=pHr2o+ZAoiEIH4WNUEwd9qYwlYMRQA1EuZfFQPwwXFA=;
- b=ceANKyQriGj7GYQEv1c9rHo45HNQobCG6YZP3AMFOBN4o92ul8CSv0d45ZdJFwOxI4cY
- JV3RL1c5NH45gyU3xjew5P1QGeL9kZa1O0MgDEkLw5TON/KZKyu/xA8ssDScji3uyjGy
- jwP/z7AUu+dDYvkJjxw2y30rg4l9UyQ30b2iG3/S9lVbfkWm6X7r93V9NmgskjhCkwkG
- P3h4drbVxw9czQUNqxQmnBdKX+Wc4pAHIKCd3EvyXY6A1K9C+3CnjWc+IuL1aaWoZAW8
- 6I2Mf+siPsU53Fu4w/dtbXOmaM+W2HtLW5Df1K+UG2ZiYPo8wpRcOCGrPsRBvjHVf6Ag sQ== 
-Received: from beta.dmz-ap.st.com (beta.dmz-ap.st.com [138.198.100.35])
- by mx08-00178001.pphosted.com with ESMTP id 2v9xdgqmf4-1
- (version=TLSv1 cipher=ECDHE-RSA-AES256-SHA bits=256 verify=NOT);
- Tue, 01 Oct 2019 10:51:44 +0200
-Received: from euls16034.sgp.st.com (euls16034.sgp.st.com [10.75.44.20])
- by beta.dmz-ap.st.com (STMicroelectronics) with ESMTP id 6063523;
- Tue,  1 Oct 2019 08:51:40 +0000 (GMT)
-Received: from Webmail-eu.st.com (Safex1hubcas21.st.com [10.75.90.44])
- by euls16034.sgp.st.com (STMicroelectronics) with ESMTP id B97C42B2FF9;
- Tue,  1 Oct 2019 10:51:39 +0200 (CEST)
-Received: from SAFEX1HUBCAS22.st.com (10.75.90.92) by SAFEX1HUBCAS21.st.com
- (10.75.90.44) with Microsoft SMTP Server (TLS) id 14.3.439.0; Tue, 1 Oct 2019
- 10:51:39 +0200
-Received: from localhost (10.48.0.192) by Webmail-ga.st.com (10.75.90.48) with
- Microsoft SMTP Server (TLS) id 14.3.439.0;
- Tue, 1 Oct 2019 10:51:39 +0200
-From: Fabrice Gasnier <fabrice.gasnier@st.com>
-To: <wsa@the-dreams.de>, <pierre-yves.mordret@st.com>
-Date: Tue, 1 Oct 2019 10:51:09 +0200
-Message-ID: <1569919869-3218-1-git-send-email-fabrice.gasnier@st.com>
-X-Mailer: git-send-email 2.7.4
+ Tue,  1 Oct 2019 09:51:29 +0000 (UTC)
+Received: from pty.hi.pengutronix.de ([2001:67c:670:100:1d::c5])
+ by metis.ext.pengutronix.de with esmtps
+ (TLS1.2:ECDHE_RSA_AES_256_GCM_SHA384:256) (Exim 4.92)
+ (envelope-from <ukl@pengutronix.de>)
+ id 1iFEoT-0003zO-DF; Tue, 01 Oct 2019 11:51:21 +0200
+Received: from ukl by pty.hi.pengutronix.de with local (Exim 4.89)
+ (envelope-from <ukl@pengutronix.de>)
+ id 1iFEoR-0003uQ-P8; Tue, 01 Oct 2019 11:51:19 +0200
+Date: Tue, 1 Oct 2019 11:51:19 +0200
+From: Uwe =?iso-8859-1?Q?Kleine-K=F6nig?= <u.kleine-koenig@pengutronix.de>
+To: Fabrice Gasnier <fabrice.gasnier@st.com>
+Message-ID: <20191001095119.ws36f7liwgvbokem@pengutronix.de>
+References: <1569857951-20007-1-git-send-email-fabrice.gasnier@st.com>
+ <1569857951-20007-3-git-send-email-fabrice.gasnier@st.com>
+ <20191001070450.4zogfryzo7a5ssbd@pengutronix.de>
+ <3c6e551b-98a2-a418-c4ee-002077e46f31@st.com>
 MIME-Version: 1.0
-X-Originating-IP: [10.48.0.192]
-X-Proofpoint-Virus-Version: vendor=fsecure engine=2.50.10434:6.0.95,1.0.8
- definitions=2019-10-01_04:2019-10-01,2019-10-01 signatures=0
-Cc: linux-kernel@vger.kernel.org, alain.volmat@st.com,
- linux-i2c@vger.kernel.org, fabrice.gasnier@st.com,
- linux-stm32@st-md-mailman.stormreply.com, linux-arm-kernel@lists.infradead.org
-Subject: [Linux-stm32] [PATCH] i2c: i2c-stm32f7: fix a race in slave mode
-	with arbitration loss irq
+Content-Disposition: inline
+In-Reply-To: <3c6e551b-98a2-a418-c4ee-002077e46f31@st.com>
+User-Agent: NeoMutt/20170113 (1.7.2)
+X-SA-Exim-Connect-IP: 2001:67c:670:100:1d::c5
+X-SA-Exim-Mail-From: ukl@pengutronix.de
+X-SA-Exim-Scanned: No (on metis.ext.pengutronix.de);
+ SAEximRunCond expanded to false
+X-PTX-Original-Recipient: linux-stm32@st-md-mailman.stormreply.com
+Cc: mark.rutland@arm.com, devicetree@vger.kernel.org, linux-pwm@vger.kernel.org,
+ linux-kernel@vger.kernel.org, robh+dt@kernel.org, thierry.reding@gmail.com,
+ mcoquelin.stm32@gmail.com, linux-stm32@st-md-mailman.stormreply.com,
+ linux-arm-kernel@lists.infradead.org
+Subject: Re: [Linux-stm32] [PATCH 2/2] pwm: stm32: add power management
+	support
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -67,74 +56,239 @@ List-Post: <mailto:linux-stm32@st-md-mailman.stormreply.com>
 List-Help: <mailto:linux-stm32-request@st-md-mailman.stormreply.com?subject=help>
 List-Subscribe: <https://st-md-mailman.stormreply.com/mailman/listinfo/linux-stm32>, 
  <mailto:linux-stm32-request@st-md-mailman.stormreply.com?subject=subscribe>
-Content-Type: text/plain; charset="us-ascii"
-Content-Transfer-Encoding: 7bit
+Content-Type: text/plain; charset="iso-8859-1"
+Content-Transfer-Encoding: quoted-printable
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
-When in slave mode, an arbitration loss (ARLO) may be detected before the
-slave had a chance to detect the stop condition (STOPF in ISR).
-This is seen when two master + slave adapters switch their roles. It
-provokes the i2c bus to be stuck, busy as SCL line is stretched.
-- the I2C_SLAVE_STOP event is never generated due to STOPF flag is set but
-  don't generate an irq (race with ARLO irq, STOPIE is masked). STOPF flag
-  remains set until next master xfer (e.g. when STOPIE irq get unmasked).
-  In this case, completion is generated too early: immediately upon new
-  transfer request (then it doesn't send all data).
-- Some data get stuck in TXDR register. As a consequence, the controller
-  stretches the SCL line: the bus gets busy until a future master transfer
-  triggers the bus busy / recovery mechanism (this can take time... and
-  may never happen at all)
+Hello Fabrice,
 
-So choice is to let the STOPF being detected by the slave isr handler,
-to properly handle this stop condition. E.g. don't mask IRQs in error
-handler, when the slave is running.
+On Tue, Oct 01, 2019 at 10:18:31AM +0200, Fabrice Gasnier wrote:
+> On 10/1/19 9:04 AM, Uwe Kleine-K=F6nig wrote:
+> > On Mon, Sep 30, 2019 at 05:39:11PM +0200, Fabrice Gasnier wrote:
+> >> Add suspend/resume PM sleep ops. When going to low power, enforce the =
+PWM
+> >> channel isn't active. Let the PWM consumers disable it during their own
+> >> suspend sequence, see [1]. So, perform a check here, and handle the
+> >> pinctrl states. Also restore the break inputs upon resume, as registers
+> >> content may be lost when going to low power mode.
+> >>
+> >> [1] https://lkml.org/lkml/2019/2/5/770
+> >>
+> >> Signed-off-by: Fabrice Gasnier <fabrice.gasnier@st.com>
+> >> ---
+> >>  drivers/pwm/pwm-stm32.c | 82 +++++++++++++++++++++++++++++++++++++---=
+---------
+> >>  1 file changed, 62 insertions(+), 20 deletions(-)
+> >>
+> >> diff --git a/drivers/pwm/pwm-stm32.c b/drivers/pwm/pwm-stm32.c
+> >> index 740e2de..9bcd73a 100644
+> >> --- a/drivers/pwm/pwm-stm32.c
+> >> +++ b/drivers/pwm/pwm-stm32.c
+> >> @@ -12,6 +12,7 @@
+> >>  #include <linux/mfd/stm32-timers.h>
+> >>  #include <linux/module.h>
+> >>  #include <linux/of.h>
+> >> +#include <linux/pinctrl/consumer.h>
+> >>  #include <linux/platform_device.h>
+> >>  #include <linux/pwm.h>
+> >>  =
 
-Fixes: 60d609f30de2 ("i2c: i2c-stm32f7: Add slave support")
+> >> @@ -19,6 +20,12 @@
+> >>  #define CCMR_CHANNEL_MASK  0xFF
+> >>  #define MAX_BREAKINPUT 2
+> >>  =
 
-Signed-off-by: Fabrice Gasnier <fabrice.gasnier@st.com>
----
- drivers/i2c/busses/i2c-stm32f7.c | 17 ++++++++++-------
- 1 file changed, 10 insertions(+), 7 deletions(-)
+> >> +struct stm32_breakinput {
+> >> +	u32 index;
+> >> +	u32 level;
+> >> +	u32 filter;
+> >> +};
+> >> +
+> >>  struct stm32_pwm {
+> >>  	struct pwm_chip chip;
+> >>  	struct mutex lock; /* protect pwm config/enable */
+> >> @@ -26,15 +33,11 @@ struct stm32_pwm {
+> >>  	struct regmap *regmap;
+> >>  	u32 max_arr;
+> >>  	bool have_complementary_output;
+> >> +	struct stm32_breakinput breakinput[MAX_BREAKINPUT];
+> >> +	unsigned int nbreakinput;
+> >>  	u32 capture[4] ____cacheline_aligned; /* DMA'able buffer */
+> >>  };
+> >>  =
 
-diff --git a/drivers/i2c/busses/i2c-stm32f7.c b/drivers/i2c/busses/i2c-stm32f7.c
-index 266d1c2..3a8ab0c 100644
---- a/drivers/i2c/busses/i2c-stm32f7.c
-+++ b/drivers/i2c/busses/i2c-stm32f7.c
-@@ -1501,7 +1501,7 @@ static irqreturn_t stm32f7_i2c_isr_error(int irq, void *data)
- 	void __iomem *base = i2c_dev->base;
- 	struct device *dev = i2c_dev->dev;
- 	struct stm32_i2c_dma *dma = i2c_dev->dma;
--	u32 mask, status;
-+	u32 status;
- 
- 	status = readl_relaxed(i2c_dev->base + STM32F7_I2C_ISR);
- 
-@@ -1526,12 +1526,15 @@ static irqreturn_t stm32f7_i2c_isr_error(int irq, void *data)
- 		f7_msg->result = -EINVAL;
- 	}
- 
--	/* Disable interrupts */
--	if (stm32f7_i2c_is_slave_registered(i2c_dev))
--		mask = STM32F7_I2C_XFER_IRQ_MASK;
--	else
--		mask = STM32F7_I2C_ALL_IRQ_MASK;
--	stm32f7_i2c_disable_irq(i2c_dev, mask);
-+	if (!i2c_dev->slave_running) {
-+		u32 mask;
-+		/* Disable interrupts */
-+		if (stm32f7_i2c_is_slave_registered(i2c_dev))
-+			mask = STM32F7_I2C_XFER_IRQ_MASK;
-+		else
-+			mask = STM32F7_I2C_ALL_IRQ_MASK;
-+		stm32f7_i2c_disable_irq(i2c_dev, mask);
-+	}
- 
- 	/* Disable dma */
- 	if (i2c_dev->use_dma) {
--- 
-2.7.4
+> >> -struct stm32_breakinput {
+> >> -	u32 index;
+> >> -	u32 level;
+> >> -	u32 filter;
+> >> -};
+> >> -
+> >>  static inline struct stm32_pwm *to_stm32_pwm_dev(struct pwm_chip *chi=
+p)
+> >>  {
+> >>  	return container_of(chip, struct stm32_pwm, chip);
+> >> @@ -512,15 +515,27 @@ static int stm32_pwm_set_breakinput(struct stm32=
+_pwm *priv,
+> >>  	return (bdtr & bke) ? 0 : -EINVAL;
+> >>  }
+> >>  =
 
+> >> -static int stm32_pwm_apply_breakinputs(struct stm32_pwm *priv,
+> >> +static int stm32_pwm_apply_breakinputs(struct stm32_pwm *priv)
+> >> +{
+> >> +	int i, ret =3D 0;
+> >> +
+> >> +	for (i =3D 0; i < priv->nbreakinput && !ret; i++) {
+> >> +		ret =3D stm32_pwm_set_breakinput(priv,
+> >> +					       priv->breakinput[i].index,
+> >> +					       priv->breakinput[i].level,
+> >> +					       priv->breakinput[i].filter);
+> >> +	}
+> >> +
+> >> +	return ret;
+> >> +}
+> > =
+
+> > Can you explain what the effect of this function is? This is something
+> > that is lost during suspend?
+> =
+
+> Yes, that's what I explain in the commit message: ...registers content
+> may be lost when going to low power mode.
+> Do you think I need to rephrase ?
+
+Ah, right I missed it in the commit log. It might be worth adding that
+to a code comment. Also having the purpose of this function described
+would be great. Does it configure some electrical characteristics? Or
+has it to do with pinmuxing? Why is an input relevant for a PWM?
+
+> > I wonder why the patch is so big. There are some rearrangements that
+> > should have no effect and I think it would be beneficial for
+> > reviewability to split this patch in a patch that only does the
+> > restructuring and than on top of that add the PM stuff.
+> =
+
+> I can split this to ease the review.
+> > =
+
+> >> +
+> >> +static int stm32_pwm_probe_breakinputs(struct stm32_pwm *priv,
+> >>  				       struct device_node *np)
+> >>  {
+> >> -	struct stm32_breakinput breakinput[MAX_BREAKINPUT];
+> >> -	int nb, ret, i, array_size;
+> >> +	int nb, ret, array_size;
+> >>  =
+
+> >>  	nb =3D of_property_count_elems_of_size(np, "st,breakinput",
+> >>  					     sizeof(struct stm32_breakinput));
+> >> -
+> >>  	/*
+> >>  	 * Because "st,breakinput" parameter is optional do not make probe
+> >>  	 * failed if it doesn't exist.
+> >> @@ -531,20 +546,14 @@ static int stm32_pwm_apply_breakinputs(struct st=
+m32_pwm *priv,
+> >>  	if (nb > MAX_BREAKINPUT)
+> >>  		return -EINVAL;
+> >>  =
+
+> >> +	priv->nbreakinput =3D nb;
+> >>  	array_size =3D nb * sizeof(struct stm32_breakinput) / sizeof(u32);
+> >>  	ret =3D of_property_read_u32_array(np, "st,breakinput",
+> >> -					 (u32 *)breakinput, array_size);
+> >> +					 (u32 *)priv->breakinput, array_size);
+> >>  	if (ret)
+> >>  		return ret;
+> >>  =
+
+> >> -	for (i =3D 0; i < nb && !ret; i++) {
+> >> -		ret =3D stm32_pwm_set_breakinput(priv,
+> >> -					       breakinput[i].index,
+> >> -					       breakinput[i].level,
+> >> -					       breakinput[i].filter);
+> >> -	}
+> >> -
+> >> -	return ret;
+> >> +	return stm32_pwm_apply_breakinputs(priv);
+> >>  }
+> >>  =
+
+> >>  static void stm32_pwm_detect_complementary(struct stm32_pwm *priv)
+> >> @@ -614,7 +623,7 @@ static int stm32_pwm_probe(struct platform_device =
+*pdev)
+> >>  	if (!priv->regmap || !priv->clk)
+> >>  		return -EINVAL;
+> >>  =
+
+> >> -	ret =3D stm32_pwm_apply_breakinputs(priv, np);
+> >> +	ret =3D stm32_pwm_probe_breakinputs(priv, np);
+> >>  	if (ret)
+> >>  		return ret;
+> >>  =
+
+> >> @@ -647,6 +656,38 @@ static int stm32_pwm_remove(struct platform_devic=
+e *pdev)
+> >>  	return 0;
+> >>  }
+> >>  =
+
+> >> +static int __maybe_unused stm32_pwm_suspend(struct device *dev)
+> >> +{
+> >> +	struct stm32_pwm *priv =3D dev_get_drvdata(dev);
+> >> +	struct pwm_state state;
+> >> +	unsigned int i;
+> >> +
+> >> +	for (i =3D 0; i < priv->chip.npwm; i++) {
+> >> +		pwm_get_state(&priv->chip.pwms[i], &state);
+> > =
+
+> > pwm_get_state is a function designed to be used by PWM consumers. I
+> > would prefer to check the hardware registers here instead.
+> =
+
+> It's also useful for PWM provider: This PWM driver is part of a MFD that
+
+I don't doubt "useful". But still you should only call it if you called
+pwm_get (or a similar function) to get a PWM handle.
+
+> also take care of IIO trigger (can be used simultaneously). Simply
+> reading a register doesn't tell us that the timer is used/configured as
+> a PWM here. That's the reason to use this helper to read pwm->state.
+
+How can the pwm driver be bound and the hardware not be used a PWM?
+
+> Do you wish I add a comment to clarify this here ?
+
+No, I wish you inspect the hardware to determine what you need to know :-)
+
+> > What if there is no consumer and the PWM just happens to be enabled by
+> > the bootloader? Or is this too minor an issue to be worth consideration?
+> =
+
+> That's the purpose of returning -EBUSY: "PWM should not stop if the PWM
+> user didn't call pwm_disable()" ... "to avoid situation where the PWM is
+> actually suspended before the user". This has been enforced in later
+> series with the device_link_add(). See our previous discussions here:
+> https://lkml.org/lkml/2019/2/5/770
+> So, I guess this would point exactly a lack for a PWM user to manage it
+> after the boot stage, in the kernel.
+> =
+
+> Could you please clarify, provide an example here ?
+
+This is something different than I asked for. Not having a consumer
+isn't an error. Still the pwm might be running (for a good reason or
+not). (This is more a question that affects how a driver should behave
+in general, it is not specific to the stm32 driver here.)
+
+Best regards
+Uwe
+
+-- =
+
+Pengutronix e.K.                           | Uwe Kleine-K=F6nig            |
+Industrial Linux Solutions                 | http://www.pengutronix.de/  |
 _______________________________________________
 Linux-stm32 mailing list
 Linux-stm32@st-md-mailman.stormreply.com
