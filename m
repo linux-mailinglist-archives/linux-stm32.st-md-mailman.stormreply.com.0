@@ -2,49 +2,49 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id 96CDCC3099
-	for <lists+linux-stm32@lfdr.de>; Tue,  1 Oct 2019 11:51:32 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 9A627C32C9
+	for <lists+linux-stm32@lfdr.de>; Tue,  1 Oct 2019 13:40:56 +0200 (CEST)
 Received: from ip-172-31-3-76.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 27A0CC36B0B;
-	Tue,  1 Oct 2019 09:51:32 +0000 (UTC)
-Received: from metis.ext.pengutronix.de (metis.ext.pengutronix.de
- [85.220.165.71])
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 58343C36B0B;
+	Tue,  1 Oct 2019 11:40:56 +0000 (UTC)
+Received: from heliosphere.sirena.org.uk (heliosphere.sirena.org.uk
+ [172.104.155.198])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 76512C36B09
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id A10C2C36B09
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Tue,  1 Oct 2019 09:51:29 +0000 (UTC)
-Received: from pty.hi.pengutronix.de ([2001:67c:670:100:1d::c5])
- by metis.ext.pengutronix.de with esmtps
- (TLS1.2:ECDHE_RSA_AES_256_GCM_SHA384:256) (Exim 4.92)
- (envelope-from <ukl@pengutronix.de>)
- id 1iFEoT-0003zO-DF; Tue, 01 Oct 2019 11:51:21 +0200
-Received: from ukl by pty.hi.pengutronix.de with local (Exim 4.89)
- (envelope-from <ukl@pengutronix.de>)
- id 1iFEoR-0003uQ-P8; Tue, 01 Oct 2019 11:51:19 +0200
-Date: Tue, 1 Oct 2019 11:51:19 +0200
-From: Uwe =?iso-8859-1?Q?Kleine-K=F6nig?= <u.kleine-koenig@pengutronix.de>
-To: Fabrice Gasnier <fabrice.gasnier@st.com>
-Message-ID: <20191001095119.ws36f7liwgvbokem@pengutronix.de>
-References: <1569857951-20007-1-git-send-email-fabrice.gasnier@st.com>
- <1569857951-20007-3-git-send-email-fabrice.gasnier@st.com>
- <20191001070450.4zogfryzo7a5ssbd@pengutronix.de>
- <3c6e551b-98a2-a418-c4ee-002077e46f31@st.com>
-MIME-Version: 1.0
-Content-Disposition: inline
-In-Reply-To: <3c6e551b-98a2-a418-c4ee-002077e46f31@st.com>
-User-Agent: NeoMutt/20170113 (1.7.2)
-X-SA-Exim-Connect-IP: 2001:67c:670:100:1d::c5
-X-SA-Exim-Mail-From: ukl@pengutronix.de
-X-SA-Exim-Scanned: No (on metis.ext.pengutronix.de);
- SAEximRunCond expanded to false
-X-PTX-Original-Recipient: linux-stm32@st-md-mailman.stormreply.com
-Cc: mark.rutland@arm.com, devicetree@vger.kernel.org, linux-pwm@vger.kernel.org,
- linux-kernel@vger.kernel.org, robh+dt@kernel.org, thierry.reding@gmail.com,
- mcoquelin.stm32@gmail.com, linux-stm32@st-md-mailman.stormreply.com,
- linux-arm-kernel@lists.infradead.org
-Subject: Re: [Linux-stm32] [PATCH 2/2] pwm: stm32: add power management
-	support
+ Tue,  1 Oct 2019 11:40:54 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
+ d=sirena.org.uk; s=20170815-heliosphere; h=Date:Message-Id:In-Reply-To:
+ Subject:Cc:To:From:Sender:Reply-To:MIME-Version:Content-Type:
+ Content-Transfer-Encoding:Content-ID:Content-Description:Resent-Date:
+ Resent-From:Resent-Sender:Resent-To:Resent-Cc:Resent-Message-ID:References:
+ List-Id:List-Help:List-Unsubscribe:List-Subscribe:List-Post:List-Owner:
+ List-Archive; bh=tYidPqV9evGITvFKkefYkx+MVPV/Xz9CUR8kqXFz+Ew=; b=h2gfqiL6AL84
+ v6pwTjwDOv2ZAoIuZcIr5WwnVFaft1ll5i3RA+foapZDUGA+mjAxOsw0uEF+imR5a1vdpRVCipmGO
+ 44SROcKViRDJOcju0+nsHcUyYWin4kYqXBHMFP0P7G1iLSGBHgJlWfdDQPKsJlg9A4o5h0dvp+REV
+ Ypmn4=;
+Received: from cpc102320-sgyl38-2-0-cust46.18-2.cable.virginm.net
+ ([82.37.168.47] helo=ypsilon.sirena.org.uk)
+ by heliosphere.sirena.org.uk with esmtpsa
+ (TLS1.3:ECDHE_RSA_AES_256_GCM_SHA384:256) (Exim 4.92)
+ (envelope-from <broonie@sirena.co.uk>)
+ id 1iFGWN-0004Ss-NL; Tue, 01 Oct 2019 11:40:47 +0000
+Received: by ypsilon.sirena.org.uk (Postfix, from userid 1000)
+ id 2F9722742A30; Tue,  1 Oct 2019 12:40:47 +0100 (BST)
+From: Mark Brown <broonie@kernel.org>
+To: Colin Ian King <colin.king@canonical.com>
+In-Reply-To: <20190925112621.9312-1-colin.king@canonical.com>
+X-Patchwork-Hint: ignore
+Message-Id: <20191001114047.2F9722742A30@ypsilon.sirena.org.uk>
+Date: Tue,  1 Oct 2019 12:40:47 +0100 (BST)
+Cc: alsa-devel@alsa-project.org, linux-kernel@vger.kernel.org,
+ Takashi Iwai <tiwai@suse.com>, kernel-janitors@vger.kernel.org,
+ Liam Girdwood <lgirdwood@gmail.com>, Jaroslav Kysela <perex@perex.cz>,
+ Mark Brown <broonie@kernel.org>, Maxime Coquelin <mcoquelin.stm32@gmail.com>,
+ linux-stm32@st-md-mailman.stormreply.com, linux-arm-kernel@lists.infradead.org
+Subject: [Linux-stm32] Applied "ASoC: stm32: sai: clean up indentation
+	issue" to the asoc tree
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -56,239 +56,70 @@ List-Post: <mailto:linux-stm32@st-md-mailman.stormreply.com>
 List-Help: <mailto:linux-stm32-request@st-md-mailman.stormreply.com?subject=help>
 List-Subscribe: <https://st-md-mailman.stormreply.com/mailman/listinfo/linux-stm32>, 
  <mailto:linux-stm32-request@st-md-mailman.stormreply.com?subject=subscribe>
-Content-Type: text/plain; charset="iso-8859-1"
-Content-Transfer-Encoding: quoted-printable
+MIME-Version: 1.0
+Content-Type: text/plain; charset="us-ascii"
+Content-Transfer-Encoding: 7bit
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
-Hello Fabrice,
+The patch
 
-On Tue, Oct 01, 2019 at 10:18:31AM +0200, Fabrice Gasnier wrote:
-> On 10/1/19 9:04 AM, Uwe Kleine-K=F6nig wrote:
-> > On Mon, Sep 30, 2019 at 05:39:11PM +0200, Fabrice Gasnier wrote:
-> >> Add suspend/resume PM sleep ops. When going to low power, enforce the =
-PWM
-> >> channel isn't active. Let the PWM consumers disable it during their own
-> >> suspend sequence, see [1]. So, perform a check here, and handle the
-> >> pinctrl states. Also restore the break inputs upon resume, as registers
-> >> content may be lost when going to low power mode.
-> >>
-> >> [1] https://lkml.org/lkml/2019/2/5/770
-> >>
-> >> Signed-off-by: Fabrice Gasnier <fabrice.gasnier@st.com>
-> >> ---
-> >>  drivers/pwm/pwm-stm32.c | 82 +++++++++++++++++++++++++++++++++++++---=
----------
-> >>  1 file changed, 62 insertions(+), 20 deletions(-)
-> >>
-> >> diff --git a/drivers/pwm/pwm-stm32.c b/drivers/pwm/pwm-stm32.c
-> >> index 740e2de..9bcd73a 100644
-> >> --- a/drivers/pwm/pwm-stm32.c
-> >> +++ b/drivers/pwm/pwm-stm32.c
-> >> @@ -12,6 +12,7 @@
-> >>  #include <linux/mfd/stm32-timers.h>
-> >>  #include <linux/module.h>
-> >>  #include <linux/of.h>
-> >> +#include <linux/pinctrl/consumer.h>
-> >>  #include <linux/platform_device.h>
-> >>  #include <linux/pwm.h>
-> >>  =
+   ASoC: stm32: sai: clean up indentation issue
 
-> >> @@ -19,6 +20,12 @@
-> >>  #define CCMR_CHANNEL_MASK  0xFF
-> >>  #define MAX_BREAKINPUT 2
-> >>  =
+has been applied to the asoc tree at
 
-> >> +struct stm32_breakinput {
-> >> +	u32 index;
-> >> +	u32 level;
-> >> +	u32 filter;
-> >> +};
-> >> +
-> >>  struct stm32_pwm {
-> >>  	struct pwm_chip chip;
-> >>  	struct mutex lock; /* protect pwm config/enable */
-> >> @@ -26,15 +33,11 @@ struct stm32_pwm {
-> >>  	struct regmap *regmap;
-> >>  	u32 max_arr;
-> >>  	bool have_complementary_output;
-> >> +	struct stm32_breakinput breakinput[MAX_BREAKINPUT];
-> >> +	unsigned int nbreakinput;
-> >>  	u32 capture[4] ____cacheline_aligned; /* DMA'able buffer */
-> >>  };
-> >>  =
+   https://git.kernel.org/pub/scm/linux/kernel/git/broonie/sound.git for-5.5
 
-> >> -struct stm32_breakinput {
-> >> -	u32 index;
-> >> -	u32 level;
-> >> -	u32 filter;
-> >> -};
-> >> -
-> >>  static inline struct stm32_pwm *to_stm32_pwm_dev(struct pwm_chip *chi=
-p)
-> >>  {
-> >>  	return container_of(chip, struct stm32_pwm, chip);
-> >> @@ -512,15 +515,27 @@ static int stm32_pwm_set_breakinput(struct stm32=
-_pwm *priv,
-> >>  	return (bdtr & bke) ? 0 : -EINVAL;
-> >>  }
-> >>  =
+All being well this means that it will be integrated into the linux-next
+tree (usually sometime in the next 24 hours) and sent to Linus during
+the next merge window (or sooner if it is a bug fix), however if
+problems are discovered then the patch may be dropped or reverted.  
 
-> >> -static int stm32_pwm_apply_breakinputs(struct stm32_pwm *priv,
-> >> +static int stm32_pwm_apply_breakinputs(struct stm32_pwm *priv)
-> >> +{
-> >> +	int i, ret =3D 0;
-> >> +
-> >> +	for (i =3D 0; i < priv->nbreakinput && !ret; i++) {
-> >> +		ret =3D stm32_pwm_set_breakinput(priv,
-> >> +					       priv->breakinput[i].index,
-> >> +					       priv->breakinput[i].level,
-> >> +					       priv->breakinput[i].filter);
-> >> +	}
-> >> +
-> >> +	return ret;
-> >> +}
-> > =
+You may get further e-mails resulting from automated or manual testing
+and review of the tree, please engage with people reporting problems and
+send followup patches addressing any issues that are reported if needed.
 
-> > Can you explain what the effect of this function is? This is something
-> > that is lost during suspend?
-> =
+If any updates are required or you are submitting further changes they
+should be sent as incremental updates against current git, existing
+patches will not be replaced.
 
-> Yes, that's what I explain in the commit message: ...registers content
-> may be lost when going to low power mode.
-> Do you think I need to rephrase ?
+Please add any relevant lists and maintainers to the CCs when replying
+to this mail.
 
-Ah, right I missed it in the commit log. It might be worth adding that
-to a code comment. Also having the purpose of this function described
-would be great. Does it configure some electrical characteristics? Or
-has it to do with pinmuxing? Why is an input relevant for a PWM?
+Thanks,
+Mark
 
-> > I wonder why the patch is so big. There are some rearrangements that
-> > should have no effect and I think it would be beneficial for
-> > reviewability to split this patch in a patch that only does the
-> > restructuring and than on top of that add the PM stuff.
-> =
+From 423013f824ab0590c229a107f21c54ac6596c4e1 Mon Sep 17 00:00:00 2001
+From: Colin Ian King <colin.king@canonical.com>
+Date: Wed, 25 Sep 2019 12:26:21 +0100
+Subject: [PATCH] ASoC: stm32: sai: clean up indentation issue
 
-> I can split this to ease the review.
-> > =
+There is a statement that is indented one level too deeply,
+remove the extraneous tab.
 
-> >> +
-> >> +static int stm32_pwm_probe_breakinputs(struct stm32_pwm *priv,
-> >>  				       struct device_node *np)
-> >>  {
-> >> -	struct stm32_breakinput breakinput[MAX_BREAKINPUT];
-> >> -	int nb, ret, i, array_size;
-> >> +	int nb, ret, array_size;
-> >>  =
+Signed-off-by: Colin Ian King <colin.king@canonical.com>
+Link: https://lore.kernel.org/r/20190925112621.9312-1-colin.king@canonical.com
+Signed-off-by: Mark Brown <broonie@kernel.org>
+---
+ sound/soc/stm/stm32_sai.c | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
 
-> >>  	nb =3D of_property_count_elems_of_size(np, "st,breakinput",
-> >>  					     sizeof(struct stm32_breakinput));
-> >> -
-> >>  	/*
-> >>  	 * Because "st,breakinput" parameter is optional do not make probe
-> >>  	 * failed if it doesn't exist.
-> >> @@ -531,20 +546,14 @@ static int stm32_pwm_apply_breakinputs(struct st=
-m32_pwm *priv,
-> >>  	if (nb > MAX_BREAKINPUT)
-> >>  		return -EINVAL;
-> >>  =
+diff --git a/sound/soc/stm/stm32_sai.c b/sound/soc/stm/stm32_sai.c
+index ef4273361d0d..e20267504b16 100644
+--- a/sound/soc/stm/stm32_sai.c
++++ b/sound/soc/stm/stm32_sai.c
+@@ -100,7 +100,7 @@ static int stm32_sai_sync_conf_provider(struct stm32_sai_data *sai, int synco)
+ 		dev_err(&sai->pdev->dev, "%pOFn%s already set as sync provider\n",
+ 			sai->pdev->dev.of_node,
+ 			prev_synco == STM_SAI_SYNC_OUT_A ? "A" : "B");
+-			stm32_sai_pclk_disable(&sai->pdev->dev);
++		stm32_sai_pclk_disable(&sai->pdev->dev);
+ 		return -EINVAL;
+ 	}
+ 
+-- 
+2.20.1
 
-> >> +	priv->nbreakinput =3D nb;
-> >>  	array_size =3D nb * sizeof(struct stm32_breakinput) / sizeof(u32);
-> >>  	ret =3D of_property_read_u32_array(np, "st,breakinput",
-> >> -					 (u32 *)breakinput, array_size);
-> >> +					 (u32 *)priv->breakinput, array_size);
-> >>  	if (ret)
-> >>  		return ret;
-> >>  =
-
-> >> -	for (i =3D 0; i < nb && !ret; i++) {
-> >> -		ret =3D stm32_pwm_set_breakinput(priv,
-> >> -					       breakinput[i].index,
-> >> -					       breakinput[i].level,
-> >> -					       breakinput[i].filter);
-> >> -	}
-> >> -
-> >> -	return ret;
-> >> +	return stm32_pwm_apply_breakinputs(priv);
-> >>  }
-> >>  =
-
-> >>  static void stm32_pwm_detect_complementary(struct stm32_pwm *priv)
-> >> @@ -614,7 +623,7 @@ static int stm32_pwm_probe(struct platform_device =
-*pdev)
-> >>  	if (!priv->regmap || !priv->clk)
-> >>  		return -EINVAL;
-> >>  =
-
-> >> -	ret =3D stm32_pwm_apply_breakinputs(priv, np);
-> >> +	ret =3D stm32_pwm_probe_breakinputs(priv, np);
-> >>  	if (ret)
-> >>  		return ret;
-> >>  =
-
-> >> @@ -647,6 +656,38 @@ static int stm32_pwm_remove(struct platform_devic=
-e *pdev)
-> >>  	return 0;
-> >>  }
-> >>  =
-
-> >> +static int __maybe_unused stm32_pwm_suspend(struct device *dev)
-> >> +{
-> >> +	struct stm32_pwm *priv =3D dev_get_drvdata(dev);
-> >> +	struct pwm_state state;
-> >> +	unsigned int i;
-> >> +
-> >> +	for (i =3D 0; i < priv->chip.npwm; i++) {
-> >> +		pwm_get_state(&priv->chip.pwms[i], &state);
-> > =
-
-> > pwm_get_state is a function designed to be used by PWM consumers. I
-> > would prefer to check the hardware registers here instead.
-> =
-
-> It's also useful for PWM provider: This PWM driver is part of a MFD that
-
-I don't doubt "useful". But still you should only call it if you called
-pwm_get (or a similar function) to get a PWM handle.
-
-> also take care of IIO trigger (can be used simultaneously). Simply
-> reading a register doesn't tell us that the timer is used/configured as
-> a PWM here. That's the reason to use this helper to read pwm->state.
-
-How can the pwm driver be bound and the hardware not be used a PWM?
-
-> Do you wish I add a comment to clarify this here ?
-
-No, I wish you inspect the hardware to determine what you need to know :-)
-
-> > What if there is no consumer and the PWM just happens to be enabled by
-> > the bootloader? Or is this too minor an issue to be worth consideration?
-> =
-
-> That's the purpose of returning -EBUSY: "PWM should not stop if the PWM
-> user didn't call pwm_disable()" ... "to avoid situation where the PWM is
-> actually suspended before the user". This has been enforced in later
-> series with the device_link_add(). See our previous discussions here:
-> https://lkml.org/lkml/2019/2/5/770
-> So, I guess this would point exactly a lack for a PWM user to manage it
-> after the boot stage, in the kernel.
-> =
-
-> Could you please clarify, provide an example here ?
-
-This is something different than I asked for. Not having a consumer
-isn't an error. Still the pwm might be running (for a good reason or
-not). (This is more a question that affects how a driver should behave
-in general, it is not specific to the stm32 driver here.)
-
-Best regards
-Uwe
-
--- =
-
-Pengutronix e.K.                           | Uwe Kleine-K=F6nig            |
-Industrial Linux Solutions                 | http://www.pengutronix.de/  |
 _______________________________________________
 Linux-stm32 mailing list
 Linux-stm32@st-md-mailman.stormreply.com
