@@ -2,59 +2,48 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id 02C68C8CC2
-	for <lists+linux-stm32@lfdr.de>; Wed,  2 Oct 2019 17:23:13 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 2A207C8E8E
+	for <lists+linux-stm32@lfdr.de>; Wed,  2 Oct 2019 18:41:24 +0200 (CEST)
 Received: from ip-172-31-3-76.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id BA207C36B0B;
-	Wed,  2 Oct 2019 15:23:12 +0000 (UTC)
-Received: from mx07-00178001.pphosted.com (mx08-00178001.pphosted.com
- [91.207.212.93])
- (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id DF678C36B0B;
+	Wed,  2 Oct 2019 16:41:23 +0000 (UTC)
+Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
+ (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id B16B8C36B09
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id A21D3C36B09
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Wed,  2 Oct 2019 15:23:11 +0000 (UTC)
-Received: from pps.filterd (m0046660.ppops.net [127.0.0.1])
- by mx08-00178001.pphosted.com (8.16.0.42/8.16.0.42) with SMTP id
- x92F10kl012939; Wed, 2 Oct 2019 17:23:00 +0200
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=st.com;
- h=from : to : cc : subject
- : date : message-id : mime-version : content-type; s=STMicroelectronics;
- bh=rh33K3LM0pXmPNo2rwzlOrR6sHjN7N9fVAOOZpl14Dk=;
- b=Em0ZDgTYONNevVm/0Rox0Fmyi9N+EYdd6ZGbYY/M7ISSwT4mw2sGX6tauYimRyhSxBHP
- bDYqlqocbMcMqcRRg5fnyo35c9WugHKEOuco9/mlGII7ifFKuMnyBI/BYznxNImzwd05
- QV7QXJRu0a7ad/t0ZdJ/m2Svr5p0DKMhcF04PPNm74WA+qmqD6AUoBwrJNncNG3mhdt3
- 2hixPnfq2MnQqNS5SV53cQuU8jp5vA55hyFUQhQg+TDGiPua+5ULMoFLl9ZOiZSTZYpE
- aT/JNo8vpSCQnNejkazNwbSTvCEIPefkDkIrqJ70sdod9KhDW9v0zDejOMgjDkOyliXa KA== 
-Received: from beta.dmz-ap.st.com (beta.dmz-ap.st.com [138.198.100.35])
- by mx08-00178001.pphosted.com with ESMTP id 2v9vnafq1u-1
- (version=TLSv1 cipher=ECDHE-RSA-AES256-SHA bits=256 verify=NOT);
- Wed, 02 Oct 2019 17:23:00 +0200
-Received: from euls16034.sgp.st.com (euls16034.sgp.st.com [10.75.44.20])
- by beta.dmz-ap.st.com (STMicroelectronics) with ESMTP id A59E724;
- Wed,  2 Oct 2019 15:22:56 +0000 (GMT)
-Received: from Webmail-eu.st.com (Safex1hubcas21.st.com [10.75.90.44])
- by euls16034.sgp.st.com (STMicroelectronics) with ESMTP id C5D3F2D377A;
- Wed,  2 Oct 2019 17:22:55 +0200 (CEST)
-Received: from SAFEX1HUBCAS22.st.com (10.75.90.92) by SAFEX1HUBCAS21.st.com
- (10.75.90.44) with Microsoft SMTP Server (TLS) id 14.3.439.0; Wed, 2 Oct 2019
- 17:22:55 +0200
-Received: from localhost (10.201.20.122) by Webmail-ga.st.com (10.75.90.48)
- with Microsoft SMTP Server (TLS) id 14.3.439.0; Wed, 2 Oct 2019 17:22:55
- +0200
-From: Benjamin Gaignard <benjamin.gaignard@st.com>
-To: <daniel.lezcano@linaro.org>, <tglx@linutronix.de>, <robh+dt@kernel.org>,
- <mark.rutland@arm.com>, <alexandre.torgue@st.com>
-Date: Wed, 2 Oct 2019 17:22:53 +0200
-Message-ID: <20191002152253.16393-1-benjamin.gaignard@st.com>
-X-Mailer: git-send-email 2.15.0
-MIME-Version: 1.0
-X-Originating-IP: [10.201.20.122]
-X-Proofpoint-Virus-Version: vendor=fsecure engine=2.50.10434:6.0.95,1.0.8
- definitions=2019-10-02_07:2019-10-01,2019-10-02 signatures=0
-Cc: devicetree@vger.kernel.org, linux-kernel@vger.kernel.org,
- linux-arm-kernel@lists.infradead.org, linux-stm32@st-md-mailman.stormreply.com
-Subject: [Linux-stm32] [PATCH] dt-bindings: timer: Convert stm32 timer
+ Wed,  2 Oct 2019 16:41:21 +0000 (UTC)
+Received: from localhost.localdomain (unknown [194.230.155.145])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+ (No client certificate requested)
+ by mail.kernel.org (Postfix) with ESMTPSA id 2495F21848;
+ Wed,  2 Oct 2019 16:41:13 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
+ s=default; t=1570034480;
+ bh=sTdcUmQnTJMo/eGaxv0uopEjwcptgep/O3PJEVo0xyI=;
+ h=From:To:Cc:Subject:Date:In-Reply-To:References:From;
+ b=N5PdC8DvoCbOh3O5NRy0lVGuQbT9DgJt2yYsR8eLbXzVRfINqyFK6QQb0KTbPNKUN
+ Gx/4NhZOOnF1nCxGx8Fe7KG0NGum83wbi7+B5G/IZpaGbUBbk+o81b3JK49Dq7szBF
+ jYLh0cfAB8oH11+a9WfvFfi7Xac1pnWR9qN8DHu4=
+From: Krzysztof Kozlowski <krzk@kernel.org>
+To: Rob Herring <robh+dt@kernel.org>, Mark Rutland <mark.rutland@arm.com>,
+ Thierry Reding <thierry.reding@gmail.com>,
+ =?UTF-8?q?Uwe=20Kleine-K=C3=B6nig?= <u.kleine-koenig@pengutronix.de>,
+ linux-clk@vger.kernel.org, devicetree@vger.kernel.org,
+ linux-kernel@vger.kernel.org, dri-devel@lists.freedesktop.org,
+ linux-leds@vger.kernel.org, linux-pwm@vger.kernel.org,
+ linux-arm-kernel@lists.infradead.org, linux-tegra@vger.kernel.org,
+ bcm-kernel-feedback-list@broadcom.com,
+ linux-rpi-kernel@lists.infradead.org, linux-amlogic@lists.infradead.org,
+ linux-mediatek@lists.infradead.org, linux-rockchip@lists.infradead.org,
+ linux-riscv@lists.infradead.org, linux-stm32@st-md-mailman.stormreply.com
+Date: Wed,  2 Oct 2019 18:40:47 +0200
+Message-Id: <20191002164047.14499-2-krzk@kernel.org>
+X-Mailer: git-send-email 2.17.1
+In-Reply-To: <20191002164047.14499-1-krzk@kernel.org>
+References: <20191002164047.14499-1-krzk@kernel.org>
+Cc: Krzysztof Kozlowski <krzk@kernel.org>
+Subject: [Linux-stm32] [PATCH v3 2/2] dt-bindings: pwm: Convert Samsung PWM
 	bindings to json-schema
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
@@ -67,103 +56,207 @@ List-Post: <mailto:linux-stm32@st-md-mailman.stormreply.com>
 List-Help: <mailto:linux-stm32-request@st-md-mailman.stormreply.com?subject=help>
 List-Subscribe: <https://st-md-mailman.stormreply.com/mailman/listinfo/linux-stm32>, 
  <mailto:linux-stm32-request@st-md-mailman.stormreply.com?subject=subscribe>
+MIME-Version: 1.0
 Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
-Convert the STM32 timer binding to DT schema format using json-schema
+Convert Samsung PWM (S3C, S5P and Exynos SoCs) bindings to DT schema
+format using json-schema.
 
-Signed-off-by: Benjamin Gaignard <benjamin.gaignard@st.com>
+Signed-off-by: Krzysztof Kozlowski <krzk@kernel.org>
+
 ---
- .../devicetree/bindings/timer/st,stm32-timer.txt   | 22 -----------
- .../devicetree/bindings/timer/st,stm32-timer.yaml  | 46 ++++++++++++++++++++++
- 2 files changed, 46 insertions(+), 22 deletions(-)
- delete mode 100644 Documentation/devicetree/bindings/timer/st,stm32-timer.txt
- create mode 100644 Documentation/devicetree/bindings/timer/st,stm32-timer.yaml
 
-diff --git a/Documentation/devicetree/bindings/timer/st,stm32-timer.txt b/Documentation/devicetree/bindings/timer/st,stm32-timer.txt
+Changes since v2:
+1. Add additionalProperties: false.
+
+Changes since v1:
+1. Indent example with four spaces (more readable),
+2. Fix samsung,pwm-outputs after review,
+3. Remove double-quotes from clock names.
+---
+ .../devicetree/bindings/pwm/pwm-samsung.txt   |  51 --------
+ .../devicetree/bindings/pwm/pwm-samsung.yaml  | 109 ++++++++++++++++++
+ 2 files changed, 109 insertions(+), 51 deletions(-)
+ delete mode 100644 Documentation/devicetree/bindings/pwm/pwm-samsung.txt
+ create mode 100644 Documentation/devicetree/bindings/pwm/pwm-samsung.yaml
+
+diff --git a/Documentation/devicetree/bindings/pwm/pwm-samsung.txt b/Documentation/devicetree/bindings/pwm/pwm-samsung.txt
 deleted file mode 100644
-index 8ef28e70d6e8..000000000000
---- a/Documentation/devicetree/bindings/timer/st,stm32-timer.txt
+index 5538de9c2007..000000000000
+--- a/Documentation/devicetree/bindings/pwm/pwm-samsung.txt
 +++ /dev/null
-@@ -1,22 +0,0 @@
--. STMicroelectronics STM32 timer
+@@ -1,51 +0,0 @@
+-* Samsung PWM timers
 -
--The STM32 MCUs family has several general-purpose 16 and 32 bits timers.
+-Samsung SoCs contain PWM timer blocks which can be used for system clock source
+-and clock event timers, as well as to drive SoC outputs with PWM signal. Each
+-PWM timer block provides 5 PWM channels (not all of them can drive physical
+-outputs - see SoC and board manual).
+-
+-Be aware that the clocksource driver supports only uniprocessor systems.
 -
 -Required properties:
--- compatible : Should be "st,stm32-timer"
--- reg : Address and length of the register set
--- clocks : Reference on the timer input clock
--- interrupts : Reference to the timer interrupt
+-- compatible : should be one of following:
+-    samsung,s3c2410-pwm - for 16-bit timers present on S3C24xx SoCs
+-    samsung,s3c6400-pwm - for 32-bit timers present on S3C64xx SoCs
+-    samsung,s5p6440-pwm - for 32-bit timers present on S5P64x0 SoCs
+-    samsung,s5pc100-pwm - for 32-bit timers present on S5PC100, S5PV210,
+-			  Exynos4210 rev0 SoCs
+-    samsung,exynos4210-pwm - for 32-bit timers present on Exynos4210,
+-                          Exynos4x12, Exynos5250 and Exynos5420 SoCs
+-- reg: base address and size of register area
+-- interrupts: list of timer interrupts (one interrupt per timer, starting at
+-  timer 0)
+-- clock-names: should contain all following required clock names:
+-    - "timers" - PWM base clock used to generate PWM signals,
+-  and any subset of following optional clock names:
+-    - "pwm-tclk0" - first external PWM clock source,
+-    - "pwm-tclk1" - second external PWM clock source.
+-  Note that not all IP variants allow using all external clock sources.
+-  Refer to SoC documentation to learn which clock source configurations
+-  are available.
+-- clocks: should contain clock specifiers of all clocks, which input names
+-  have been specified in clock-names property, in same order.
+-- #pwm-cells: should be 3. See pwm.txt in this directory for a description of
+-  the cells format. The only third cell flag supported by this binding is
+-  PWM_POLARITY_INVERTED.
 -
 -Optional properties:
--- resets: Reference to a reset controller asserting the timer
+-- samsung,pwm-outputs: list of PWM channels used as PWM outputs on particular
+-    platform - an array of up to 5 elements being indices of PWM channels
+-    (from 0 to 4), the order does not matter.
 -
 -Example:
--
--timer5: timer@40000c00 {
--	compatible = "st,stm32-timer";
--	reg = <0x40000c00 0x400>;
--	interrupts = <50>;
--	resets = <&rrc 259>;
--	clocks = <&clk_pmtr1>;
--};
-diff --git a/Documentation/devicetree/bindings/timer/st,stm32-timer.yaml b/Documentation/devicetree/bindings/timer/st,stm32-timer.yaml
+-	pwm@7f006000 {
+-		compatible = "samsung,s3c6400-pwm";
+-		reg = <0x7f006000 0x1000>;
+-		interrupt-parent = <&vic0>;
+-		interrupts = <23>, <24>, <25>, <27>, <28>;
+-		clocks = <&clock 67>;
+-		clock-names = "timers";
+-		samsung,pwm-outputs = <0>, <1>;
+-		#pwm-cells = <3>;
+-	}
+diff --git a/Documentation/devicetree/bindings/pwm/pwm-samsung.yaml b/Documentation/devicetree/bindings/pwm/pwm-samsung.yaml
 new file mode 100644
-index 000000000000..e128ac9a5391
+index 000000000000..ea7f32905172
 --- /dev/null
-+++ b/Documentation/devicetree/bindings/timer/st,stm32-timer.yaml
-@@ -0,0 +1,46 @@
++++ b/Documentation/devicetree/bindings/pwm/pwm-samsung.yaml
+@@ -0,0 +1,109 @@
 +# SPDX-License-Identifier: GPL-2.0
 +%YAML 1.2
 +---
-+$id: http://devicetree.org/schemas/timer/st,stm32-timer.yaml#
++$id: http://devicetree.org/schemas/pwm/pwm-samsung.yaml#
 +$schema: http://devicetree.org/meta-schemas/core.yaml#
 +
-+title: STMicroelectronics STM32 general-purpose 16 and 32 bits timers bindings
++title: Samsung SoC PWM timers
 +
 +maintainers:
-+  - Benjamin Gaignard <benjamin.gaignard@st.com>
++  - Thierry Reding <thierry.reding@gmail.com>
++  - Krzysztof Kozlowski <krzk@kernel.org>
++
++description: |+
++  Samsung SoCs contain PWM timer blocks which can be used for system clock source
++  and clock event timers, as well as to drive SoC outputs with PWM signal. Each
++  PWM timer block provides 5 PWM channels (not all of them can drive physical
++  outputs - see SoC and board manual).
++
++  Be aware that the clocksource driver supports only uniprocessor systems.
++
++allOf:
++  - $ref: pwm.yaml#
 +
 +properties:
 +  compatible:
-+    const: st,stm32-timer
++    enum:
++      - samsung,s3c2410-pwm             # 16-bit, S3C24xx
++      - samsung,s3c6400-pwm             # 32-bit, S3C64xx
++      - samsung,s5p6440-pwm             # 32-bit, S5P64x0
++      - samsung,s5pc100-pwm             # 32-bit, S5PC100, S5PV210, Exynos4210 rev0 SoCs
++      - samsung,exynos4210-pwm          # 32-bit, Exynos
 +
 +  reg:
 +    maxItems: 1
 +
-+  interrupts:
-+    maxItems: 1
-+
 +  clocks:
-+    items:
-+      - description: Module Clock
++    minItems: 1
++    maxItems: 3
 +
-+  resets:
-+        maxItems: 1
++  clock-names:
++    description: |
++      Should contain all following required clock names:
++      - "timers" - PWM base clock used to generate PWM signals,
++      and any subset of following optional clock names:
++      - "pwm-tclk0" - first external PWM clock source,
++      - "pwm-tclk1" - second external PWM clock source.
++      Note that not all IP variants allow using all external clock sources.
++      Refer to SoC documentation to learn which clock source configurations
++      are available.
++    oneOf:
++      - items:
++        - const: timers
++      - items:
++        - const: timers
++        - const: pwm-tclk0
++      - items:
++        - const: timers
++        - const: pwm-tclk1
++      - items:
++        - const: timers
++        - const: pwm-tclk0
++        - const: pwm-tclk1
++
++  interrupts:
++    description:
++      One interrupt per timer, starting at timer 0.
++    minItems: 1
++    maxItems: 5
++
++  "#pwm-cells":
++    description:
++      The only third cell flag supported by this binding
++      is PWM_POLARITY_INVERTED.
++    const: 3
++
++  samsung,pwm-outputs:
++    description:
++      A list of PWM channels used as PWM outputs on particular platform.
++      It is an array of up to 5 elements being indices of PWM channels
++      (from 0 to 4), the order does not matter.
++    allOf:
++      - $ref: /schemas/types.yaml#/definitions/uint32-array
++      - uniqueItems: true
++      - items:
++          minimum: 0
++          maximum: 4
 +
 +required:
-+  - compatible
-+  - reg
-+  - interrupts
 +  - clocks
++  - clock-names
++  - compatible
++  - interrupts
++  - "#pwm-cells"
++  - reg
++
++additionalProperties: false
 +
 +examples:
 +  - |
-+    #include <dt-bindings/interrupt-controller/arm-gic.h>
-+    #include <dt-bindings/clock/stm32mp1-clks.h>
-+    timer: timer@40000c00 {
-+        compatible = "st,stm32-timer";
-+        reg = <0x40000c00 0x400>;
-+        interrupts = <50>;
-+        clocks = <&clk_pmtr1>;
++    pwm@7f006000 {
++        compatible = "samsung,s3c6400-pwm";
++        reg = <0x7f006000 0x1000>;
++        interrupt-parent = <&vic0>;
++        interrupts = <23>, <24>, <25>, <27>, <28>;
++        clocks = <&clock 67>;
++        clock-names = "timers";
++        samsung,pwm-outputs = <0>, <1>;
++        #pwm-cells = <3>;
 +    };
-+
-+...
 -- 
-2.15.0
+2.17.1
 
 _______________________________________________
 Linux-stm32 mailing list
