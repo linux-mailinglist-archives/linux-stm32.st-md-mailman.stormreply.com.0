@@ -2,39 +2,36 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id 5D9EAC3E48
-	for <lists+linux-stm32@lfdr.de>; Tue,  1 Oct 2019 19:13:19 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id D6641C4826
+	for <lists+linux-stm32@lfdr.de>; Wed,  2 Oct 2019 09:14:02 +0200 (CEST)
 Received: from ip-172-31-3-76.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 1C762C36B0B;
-	Tue,  1 Oct 2019 17:13:19 +0000 (UTC)
-Received: from shards.monkeyblade.net (shards.monkeyblade.net [23.128.96.9])
- (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 7B4B4C36B0B;
+	Wed,  2 Oct 2019 07:14:02 +0000 (UTC)
+Received: from smtp.cellavision.se (smtp.cellavision.se [84.19.140.14])
+ (using TLSv1 with cipher ECDHE-RSA-AES256-SHA (256/256 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 4EA62C36B09
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 390ACC36B09
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Tue,  1 Oct 2019 17:13:18 +0000 (UTC)
-Received: from localhost (unknown [IPv6:2601:601:9f00:1e2::3d5])
- (using TLSv1 with cipher AES256-SHA (256/256 bits))
- (Client did not present a certificate)
- (Authenticated sender: davem-davemloft)
- by shards.monkeyblade.net (Postfix) with ESMTPSA id B04A6154F199A;
- Tue,  1 Oct 2019 10:13:15 -0700 (PDT)
-Date: Tue, 01 Oct 2019 10:13:15 -0700 (PDT)
-Message-Id: <20191001.101315.427209168724594769.davem@davemloft.net>
-To: Jose.Abreu@synopsys.com
-From: David Miller <davem@davemloft.net>
-In-Reply-To: <cover.1569831228.git.Jose.Abreu@synopsys.com>
-References: <cover.1569831228.git.Jose.Abreu@synopsys.com>
-X-Mailer: Mew version 6.8 on Emacs 26.1
-Mime-Version: 1.0
-X-Greylist: Sender succeeded SMTP AUTH, not delayed by milter-greylist-4.5.12
- (shards.monkeyblade.net [149.20.54.216]);
- Tue, 01 Oct 2019 10:13:16 -0700 (PDT)
-Cc: Joao.Pinto@synopsys.com, netdev@vger.kernel.org,
- linux-kernel@vger.kernel.org, mcoquelin.stm32@gmail.com,
- peppe.cavallaro@st.com, linux-stm32@st-md-mailman.stormreply.com,
- linux-arm-kernel@lists.infradead.org
-Subject: Re: [Linux-stm32] [PATCH v2 net 0/9] net: stmmac: Fixes for -net
+ Wed,  2 Oct 2019 07:07:46 +0000 (UTC)
+Received: from DRCELLEX03.cellavision.se (172.16.169.12) by
+ DRCELLEX03.cellavision.se (172.16.169.12) with Microsoft SMTP Server (TLS) id
+ 15.0.1044.25; Wed, 2 Oct 2019 09:07:46 +0200
+Received: from ITG-CEL-24768.cellavision.se (10.230.0.148) by
+ DRCELLEX03.cellavision.se (172.16.169.12) with Microsoft SMTP Server id
+ 15.0.1044.25 via Frontend Transport; Wed, 2 Oct 2019 09:07:46 +0200
+From: Hans Andersson <haan@cellavision.se>
+To: <mcoquelin.stm32@gmail.com>
+Date: Wed, 2 Oct 2019 09:07:21 +0200
+Message-ID: <20191002070721.9916-1-haan@cellavision.se>
+X-Mailer: git-send-email 2.21.0.windows.1
+MIME-Version: 1.0
+X-Mailman-Approved-At: Wed, 02 Oct 2019 07:14:02 +0000
+Cc: netdev@vger.kernel.org, linux-kernel@vger.kernel.org, davem@davemloft.net,
+ joabreu@synopsys.com, peppe.cavallaro@st.com,
+ Hans Andersson <hans.andersson@cellavision.se>,
+ linux-stm32@st-md-mailman.stormreply.com, linux-arm-kernel@lists.infradead.org
+Subject: [Linux-stm32] [PATCH] net: stmmac: Read user ID muliple times if
+	needed.
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -51,15 +48,41 @@ Content-Transfer-Encoding: 7bit
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
-From: Jose Abreu <Jose.Abreu@synopsys.com>
-Date: Mon, 30 Sep 2019 10:19:04 +0200
+From: Hans Andersson <hans.andersson@cellavision.se>
 
-> Misc fixes for -net tree. More info in commit logs.
-> 
-> v2 is just a rebase of v1 against -net and we added a new patch (09/09) to
-> fix RSS feature.
+When we read user ID / Synopsys ID we might still be in reset,
+so read muliple times if needed.
 
-Series applied, thanks.
+Signed-off-by: Hans Andersson <hans.andersson@cellavision.se>
+---
+ drivers/net/ethernet/stmicro/stmmac/hwif.c | 11 ++++++++++-
+ 1 file changed, 10 insertions(+), 1 deletion(-)
+
+diff --git a/drivers/net/ethernet/stmicro/stmmac/hwif.c b/drivers/net/ethernet/stmicro/stmmac/hwif.c
+index 6c61b75..3347164 100644
+--- a/drivers/net/ethernet/stmicro/stmmac/hwif.c
++++ b/drivers/net/ethernet/stmicro/stmmac/hwif.c
+@@ -10,7 +10,16 @@
+ 
+ static u32 stmmac_get_id(struct stmmac_priv *priv, u32 id_reg)
+ {
+-	u32 reg = readl(priv->ioaddr + id_reg);
++	u32 reg;
++	int i;
++
++	/* We might still be in reset when we read, */
++	/* so read multiple times if needed. */
++	for (i = 0; i < 10; i++) {
++		reg = readl(priv->ioaddr + id_reg);
++		if (reg)
++			break;
++	}
+ 
+ 	if (!reg) {
+ 		dev_info(priv->device, "Version ID not available\n");
+-- 
+2.17.1
+
 _______________________________________________
 Linux-stm32 mailing list
 Linux-stm32@st-md-mailman.stormreply.com
