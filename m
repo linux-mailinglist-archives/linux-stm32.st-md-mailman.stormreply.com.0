@@ -2,81 +2,122 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id 83B43C48EA
-	for <lists+linux-stm32@lfdr.de>; Wed,  2 Oct 2019 09:57:07 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 3FAD0C4932
+	for <lists+linux-stm32@lfdr.de>; Wed,  2 Oct 2019 10:10:02 +0200 (CEST)
 Received: from ip-172-31-3-76.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 3CB23C36B0B;
-	Wed,  2 Oct 2019 07:57:07 +0000 (UTC)
-Received: from mx07-00178001.pphosted.com (mx08-00178001.pphosted.com
- [91.207.212.93])
- (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 310C7C36B0B;
+	Wed,  2 Oct 2019 08:10:01 +0000 (UTC)
+Received: from smtprelay-out1.synopsys.com (us03-smtprelay2.synopsys.com
+ [149.117.87.133])
+ (using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id D069EC36B09
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id BA961C36B09
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Wed,  2 Oct 2019 07:57:04 +0000 (UTC)
-Received: from pps.filterd (m0046660.ppops.net [127.0.0.1])
- by mx08-00178001.pphosted.com (8.16.0.42/8.16.0.42) with SMTP id
- x927oscW000750; Wed, 2 Oct 2019 09:56:37 +0200
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=st.com;
- h=from : to : cc : subject
- : date : message-id : references : in-reply-to : content-type : content-id
- : content-transfer-encoding : mime-version; s=STMicroelectronics;
- bh=EBAixOOqXoAYHZaizljPUim/vdoCPa3lNWiXx9YSRHU=;
- b=uEYG1a06avl8rJoHM54pb3ZIVAgl/cTVls5w7H/RwX+UKwOHmzwOXjXLLLE2fEoU3CLl
- AUbO8//6wTUqaRJ3ZUlMgLQyKQ00epnzeYEG/5CbRutUkld/ZyrDfA4ir00ZqgvokDur
- gyhbdcZ3Or6h7dFZ8pN323FlrsUnuo3Zf3YBmYigEqz6yeSSBb7ofpt0dXiwm8BRF2nY
- IxKVTasbb+oVn2Y/+p0rwgxhE+7LFYpkdgnYXKjEbICH1JXUXTN1UT1yJqyo0wHqlSc9
- 8atlLuUUSw5xNPmEBXnflPd8R0K2u148Tw3vEPKel64Ug/ld9c4GwIJkt+y5+xV2FfAK UA== 
-Received: from beta.dmz-ap.st.com (beta.dmz-ap.st.com [138.198.100.35])
- by mx08-00178001.pphosted.com with ESMTP id 2v9vnadmk1-1
- (version=TLSv1 cipher=ECDHE-RSA-AES256-SHA bits=256 verify=NOT);
- Wed, 02 Oct 2019 09:56:36 +0200
-Received: from euls16034.sgp.st.com (euls16034.sgp.st.com [10.75.44.20])
- by beta.dmz-ap.st.com (STMicroelectronics) with ESMTP id 25BE34C;
- Wed,  2 Oct 2019 07:56:30 +0000 (GMT)
-Received: from Webmail-eu.st.com (sfhdag3node1.st.com [10.75.127.7])
- by euls16034.sgp.st.com (STMicroelectronics) with ESMTP id 1980F2AC6FE;
- Wed,  2 Oct 2019 09:56:30 +0200 (CEST)
-Received: from SFHDAG3NODE3.st.com (10.75.127.9) by SFHDAG3NODE1.st.com
- (10.75.127.7) with Microsoft SMTP Server (TLS) id 15.0.1473.3; Wed, 2 Oct
- 2019 09:56:29 +0200
-Received: from SFHDAG3NODE3.st.com ([fe80::3507:b372:7648:476]) by
- SFHDAG3NODE3.st.com ([fe80::3507:b372:7648:476%20]) with mapi id
- 15.00.1347.000; Wed, 2 Oct 2019 09:56:29 +0200
-From: Benjamin GAIGNARD <benjamin.gaignard@st.com>
-To: Jonathan Cameron <jic23@kernel.org>, Yizhuo <yzhai003@ucr.edu>
-Thread-Topic: [PATCH] iio: trigger: stm32-timer: fix the usage of
- uninitialized variables
-Thread-Index: AQHVd8/T1FmtbRWUT0qK58d/WXGWcadFV5CAgAGFFIA=
-Date: Wed, 2 Oct 2019 07:56:29 +0000
-Message-ID: <040e8500-0c32-97b1-8325-f299011033be@st.com>
-References: <20190930204451.28614-1-yzhai003@ucr.edu>
- <20191001094355.65d873a3@archlinux>
-In-Reply-To: <20191001094355.65d873a3@archlinux>
+ Wed,  2 Oct 2019 08:09:59 +0000 (UTC)
+Received: from mailhost.synopsys.com (badc-mailhost2.synopsys.com
+ [10.192.0.18])
+ (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits))
+ (No client certificate requested)
+ by smtprelay-out1.synopsys.com (Postfix) with ESMTPS id 5452FC2FDF;
+ Wed,  2 Oct 2019 08:09:57 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=synopsys.com; s=mail;
+ t=1570003797; bh=vn0G241cd27H583bR7iMZeAnN8UsIjqOFTSq7kbzAyM=;
+ h=From:To:CC:Subject:Date:References:In-Reply-To:From;
+ b=FuSM9rPLb3h+YBjIh2oHYOUd1ivD6KX9ZjDrjtVslXSH0hW68/cw95y1dkbmxTCJE
+ D/ww+Mz9HIPYD0Ppp3nzO8J6OU00jjGm2Qndxf7X80aZyWciZu6DR5s8MZQf7IlUOl
+ dvI4d+rB+xOlQWk/vQSpFR4HIU++rbZI7ts8sWO4c6BlFPGSHJ9o/D6UR8mahjfquN
+ GD+TTfOIByY0NGJ5QlBWMAd8uMyWe8PxdUYeV3GksDWKKEJ6hyMmc1Hnv2eUfhjE8A
+ eXF7vPFdc8oYgsbsVLneGe8urSKuNc9eDdiZ9MWTBsWgrsq4Q4Qmh6mar8knm3hgQg
+ XnWnW/QV9ti0A==
+Received: from US01WEHTC3.internal.synopsys.com
+ (us01wehtc3.internal.synopsys.com [10.15.84.232])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES256-SHA384 (256/256 bits))
+ (No client certificate requested)
+ by mailhost.synopsys.com (Postfix) with ESMTPS id D3EA2A0067;
+ Wed,  2 Oct 2019 08:09:50 +0000 (UTC)
+Received: from US01HYBRID2.internal.synopsys.com (10.15.246.24) by
+ US01WEHTC3.internal.synopsys.com (10.15.84.232) with Microsoft SMTP Server
+ (TLS) id 14.3.408.0; Wed, 2 Oct 2019 01:08:42 -0700
+Received: from NAM02-CY1-obe.outbound.protection.outlook.com (10.13.134.195)
+ by mrs.synopsys.com (10.15.246.24) with Microsoft SMTP Server (TLS) id
+ 14.3.408.0; Wed, 2 Oct 2019 01:08:42 -0700
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
+ b=M/obS/QMtvtt/yhHasQLCqGuKs17MN1q6ilIk5AY3mlP6nAAvsvZY/0OXHfEekh+olGqHB44GiunFx0efFYGlW4Bzm/ltmAfhW0lLi1G3gTgXYbikC24j8H1+d0GjTiMq4Ns/C3QCk8WiIbE0HyjOTzB+WKk6XV68cLP2YqyrDAGsgdgA6aIRnJ4ec59uUL5m9apZ2Ch4k0JzkIp80E5vsmDEMhuftsCCHwYDFyJBEBpiwJZgE+dQeqLH3jvoL2XMRRpGCIIVQBGV534SM/jFou5TIyu2QaznwTy+DqgPPgRO/4og8RrHHeuGstraOL2sApR9XlOiWMtIfv20uEJiA==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
+ s=arcselector9901;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=vn0G241cd27H583bR7iMZeAnN8UsIjqOFTSq7kbzAyM=;
+ b=fbdd3/ZsAGSR01oERHuzgoKGzrdCyirbcUvsUv2KB/CDoT2Qbw/3GtEdgvo8RGNzCezQSKbhUh99z4oceVLQF99LgKNR02jn5W7Wmo9FqrQgM4GeG572kROW4nUx1hJQJIkAHInfF09bo7fSZrPsmWDS5Ii0n5e3Q4VheJc+WfMzzoK+Wm/jfYkeL4LuLO5/O2E8BBSWlkB13f8+qCPatIIouv6bxXAJQPBo4UjDJzeGndPGF/ovCDe5MnqvpX5w/vGZg2eJ4+QH4998b/4C8LxE+ey8dPVJK2pnZB5cHmzvTwSUpYC88y5+7tn9GawwLRgSL10Xy00QNSFStO2ZyA==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=synopsys.com; dmarc=pass action=none header.from=synopsys.com;
+ dkim=pass header.d=synopsys.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=synopsys.onmicrosoft.com; s=selector2-synopsys-onmicrosoft-com;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=vn0G241cd27H583bR7iMZeAnN8UsIjqOFTSq7kbzAyM=;
+ b=kHhkPBaA/fVfDpHgaTyYCOhWV9SEtO+tmGv1RAP3BX6xIYh/KoyvluG6LABygYN43EnCXM1e7jKO15kes0ksNCi/54Ss+Zkmr9Q7+16XBjdjGvD7S4R4DWuSuqM7R3saVfNupMP2DciNkOAoZEskoHCF2lGI9KnANNCFYyG6N14=
+Received: from BN8PR12MB3266.namprd12.prod.outlook.com (20.179.67.145) by
+ BN8PR12MB3507.namprd12.prod.outlook.com (20.179.67.160) with Microsoft SMTP
+ Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.20.2305.20; Wed, 2 Oct 2019 08:08:40 +0000
+Received: from BN8PR12MB3266.namprd12.prod.outlook.com
+ ([fe80::59fc:d942:487d:15b8]) by BN8PR12MB3266.namprd12.prod.outlook.com
+ ([fe80::59fc:d942:487d:15b8%7]) with mapi id 15.20.2305.023; Wed, 2 Oct 2019
+ 08:08:40 +0000
+From: Jose Abreu <Jose.Abreu@synopsys.com>
+To: Hans Andersson <Hans.Andersson@CELLAVISION.SE>,
+ Jose Abreu <Jose.Abreu@synopsys.com>,
+ "mcoquelin.stm32@gmail.com" <mcoquelin.stm32@gmail.com>
+Thread-Topic: [PATCH] net: stmmac: Read user ID muliple times if needed.
+Thread-Index: AQHVePAsjhS3U+43VE+DGhKYpgL3F6dG8LMAgAAMxQCAAAG8IA==
+Date: Wed, 2 Oct 2019 08:08:40 +0000
+Message-ID: <BN8PR12MB3266CE04997F30E3ED74E9AFD39C0@BN8PR12MB3266.namprd12.prod.outlook.com>
+References: <20191002070721.9916-1-haan@cellavision.se>
+ <BN8PR12MB3266ED591171A79825090BE0D39C0@BN8PR12MB3266.namprd12.prod.outlook.com>
+ <e878e0e4036a4d69b05dcee717fd7ac5@DRCELLEX03.cellavision.se>
+In-Reply-To: <e878e0e4036a4d69b05dcee717fd7ac5@DRCELLEX03.cellavision.se>
 Accept-Language: en-US
 Content-Language: en-US
 X-MS-Has-Attach: 
 X-MS-TNEF-Correlator: 
-user-agent: Mozilla/5.0 (X11; Linux x86_64; rv:60.0) Gecko/20100101
- Thunderbird/60.8.0
-x-ms-exchange-messagesentrepresentingtype: 1
-x-ms-exchange-transport-fromentityheader: Hosted
-x-originating-ip: [10.75.127.49]
-Content-ID: <D0446124834DE342AF683861A83EF3A8@st.com>
+authentication-results: spf=none (sender IP is )
+ smtp.mailfrom=joabreu@synopsys.com; 
+x-originating-ip: [83.174.63.141]
+x-ms-publictraffictype: Email
+x-ms-office365-filtering-correlation-id: 73b84679-e7bd-4d27-5d96-08d7470fbc83
+x-ms-traffictypediagnostic: BN8PR12MB3507:
+x-ms-exchange-transport-forked: True
+x-microsoft-antispam-prvs: <BN8PR12MB35073FAC9BA3BF1F17697116D39C0@BN8PR12MB3507.namprd12.prod.outlook.com>
+x-ms-oob-tlc-oobclassifiers: OLM:7691;
+x-forefront-prvs: 0178184651
+x-forefront-antispam-report: SFV:NSPM;
+ SFS:(10019020)(39860400002)(366004)(346002)(396003)(376002)(136003)(189003)(199004)(66476007)(66556008)(3846002)(6116002)(33656002)(66066001)(316002)(99286004)(256004)(7696005)(76176011)(102836004)(6506007)(4326008)(6246003)(11346002)(486006)(446003)(476003)(2501003)(186003)(86362001)(2906002)(55016002)(6436002)(9686003)(229853002)(305945005)(7736002)(74316002)(25786009)(54906003)(71190400001)(71200400001)(110136005)(26005)(8936002)(4744005)(52536014)(14454004)(478600001)(5660300002)(8676002)(66446008)(81156014)(64756008)(81166006)(66946007)(76116006);
+ DIR:OUT; SFP:1102; SCL:1; SRVR:BN8PR12MB3507;
+ H:BN8PR12MB3266.namprd12.prod.outlook.com; FPR:; SPF:None; LANG:en;
+ PTR:InfoNoRecords; MX:1; A:1; 
+received-spf: None (protection.outlook.com: synopsys.com does not designate
+ permitted sender hosts)
+x-ms-exchange-senderadcheck: 1
+x-microsoft-antispam: BCL:0;
+x-microsoft-antispam-message-info: T2isTynuu0ElCFk1SZFEhUwYPqAcOVNCe5ZEkC2sW4HiyVC8v+KXyqAOYDmCFy0VeYe4VEKbiocnGN7ywoEkoxsPv7VUEqsYNAO3ix2rOra4CuJDFzYPvAU96b+r9G1ZnsA33gfz26s/Ux8j7p/YCCqzu4gVrzTdPACoKX0ltRrhMt4wogM8GJCqh/v7q+d34LvM6xTcoM4vXZjNIsfBU754loOvR4vKtiTEQMAKtD4+egstZO6EUPy2y5MWsYRPeGSf7GiKvUz4xXQ16ZV0hbDcR1OIsmGoMivJqiAT3UFmSpLu34LyGZTyXqKVDCwdtUc6b6vhpQIpXF762mwTKCTOwDO85/z6eeRuuUz4Wbez/HyQSHSOKJx1R06+eZG3eAylC9VW+vXhs431c3qIAWe0biQeZCz5eoShvcsRh98=
 MIME-Version: 1.0
-X-Proofpoint-Virus-Version: vendor=fsecure engine=2.50.10434:6.0.95,1.0.8
- definitions=2019-10-02_04:2019-10-01,2019-10-02 signatures=0
-Cc: "csong@cs.ucr.edu" <csong@cs.ucr.edu>, Lars-Peter Clausen <lars@metafoo.de>,
- Peter Meerwald-Stadler <pmeerw@pmeerw.net>,
- "linux-iio@vger.kernel.org" <linux-iio@vger.kernel.org>,
- "zhiyunq@cs.ucr.edu" <zhiyunq@cs.ucr.edu>,
- "linux-kernel@vger.kernel.org" <linux-kernel@vger.kernel.org>, Maxime
- Coquelin <mcoquelin.stm32@gmail.com>, Hartmut Knaack <knaack.h@gmx.de>,
+X-MS-Exchange-CrossTenant-Network-Message-Id: 73b84679-e7bd-4d27-5d96-08d7470fbc83
+X-MS-Exchange-CrossTenant-originalarrivaltime: 02 Oct 2019 08:08:40.8222 (UTC)
+X-MS-Exchange-CrossTenant-fromentityheader: Hosted
+X-MS-Exchange-CrossTenant-id: c33c9f88-1eb7-4099-9700-16013fd9e8aa
+X-MS-Exchange-CrossTenant-mailboxtype: HOSTED
+X-MS-Exchange-CrossTenant-userprincipalname: nZvHI4Dv5YAVsrkkpzYESICwc6zUympdk4Wb1l/QRs238UoSEgTC9DS0qmMSeSb7kcNbMje8empGXWd1nCWgmw==
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: BN8PR12MB3507
+X-OriginatorOrg: synopsys.com
+Cc: "netdev@vger.kernel.org" <netdev@vger.kernel.org>,
+ "linux-kernel@vger.kernel.org" <linux-kernel@vger.kernel.org>,
+ "davem@davemloft.net" <davem@davemloft.net>,
+ "peppe.cavallaro@st.com" <peppe.cavallaro@st.com>,
  "linux-stm32@st-md-mailman.stormreply.com"
  <linux-stm32@st-md-mailman.stormreply.com>,
  "linux-arm-kernel@lists.infradead.org" <linux-arm-kernel@lists.infradead.org>
-Subject: Re: [Linux-stm32] [PATCH] iio: trigger: stm32-timer: fix the usage
- of uninitialized variables
+Subject: Re: [Linux-stm32] [PATCH] net: stmmac: Read user ID muliple times
+	if needed.
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -93,274 +134,19 @@ Content-Transfer-Encoding: 7bit
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
+From: Hans Andersson <Hans.Andersson@CELLAVISION.SE>
+Date: Oct/02/2019, 09:02:02 (UTC+00:00)
 
-On 10/1/19 10:43 AM, Jonathan Cameron wrote:
-> On Mon, 30 Sep 2019 13:44:49 -0700
-> Yizhuo <yzhai003@ucr.edu> wrote:
->
->> Several functions in this file are trying to use regmap_read() to
->> initialize the specific variable, however, if regmap_read() fails,
->> the variable could be uninitialized but used directly, which is
->> potentially unsafe. The return value of regmap_read() should be
->> checked and handled. This patch fixes most of the uninitialized
->> variables, but those in function stm32_tt_read_frequency() are
->> hard to handle and need extra effot.
->>
->> Signed-off-by: Yizhuo <yzhai003@ucr.edu>
-> Hi Yizhuo,
->
-> This is a slightly interesting case.
->
->  From an 'obviously' correct point of view, it makes sense to
-> always handle the errors and avoid the potentially uninitialised
-> cases.
->
->  From the point of view of a 'fix' we need to show if these can
-> actually happen.  These calls are regmap-mmio so the error
-> path is in clock enable / disable if there is a clock provided.
-> Looking at mfd/stm-timers.c there is a clock called "int" provided.
-> Now it's possible that clock enable can never fail, but that is
-> getting too hard to chase down.
->
-> As such, I think this fix is worthwhile, but I'm not going to
-> mark it for stable without a report of it actually being
-> possible to trigger it.
->
-> I'll leave this on the list for a little longer though as I'd definitely
-> like an ack from Benjamin or someone else more familiar with the driver
-> than I am.
->
-> Thanks,
->
-> Jonathan
+> We assert / de-assert the reset line, but the CPU is too fast and the IP is still 
+> in reset when we later try to read user ID / Synopsys ID. Another option would
+> be to add a delay after we reset.
 
-Hi Yizhuo,
+Then I think you should fix the reset driver to only return when the 
+reset is fully done.
 
-The only reason that could lead a regmap_read to failed is an issue on 
-the clock
-but is this case we will be blocked in regmap_read() itself so the error 
-will never
-be displayed.
-For me testing all regmap_read() return values only add code and not 
-bring additional informations
-so I NACK this patch.
-
-Benjamin
-
->> ---
->>   drivers/iio/trigger/stm32-timer-trigger.c | 98 ++++++++++++++++++++---
->>   1 file changed, 85 insertions(+), 13 deletions(-)
->>
->> diff --git a/drivers/iio/trigger/stm32-timer-trigger.c b/drivers/iio/trigger/stm32-timer-trigger.c
->> index a5dfe65cd9b9..f8ea7bcbb739 100644
->> --- a/drivers/iio/trigger/stm32-timer-trigger.c
->> +++ b/drivers/iio/trigger/stm32-timer-trigger.c
->> @@ -107,6 +107,7 @@ static int stm32_timer_start(struct stm32_timer_trigger *priv,
->>   	unsigned long long prd, div;
->>   	int prescaler = 0;
->>   	u32 ccer, cr1;
->> +	int ret;
->>   
->>   	/* Period and prescaler values depends of clock rate */
->>   	div = (unsigned long long)clk_get_rate(priv->clk);
->> @@ -132,11 +133,21 @@ static int stm32_timer_start(struct stm32_timer_trigger *priv,
->>   	}
->>   
->>   	/* Check if nobody else use the timer */
->> -	regmap_read(priv->regmap, TIM_CCER, &ccer);
->> +	ret = regmap_read(priv->regmap, TIM_CCER, &ccer);
->> +	if (ret) {
->> +		dev_err(priv->dev, "fail to read TIM_CCER.\n");
->> +		return ret;
->> +	}
->> +
->>   	if (ccer & TIM_CCER_CCXE)
->>   		return -EBUSY;
->>   
->> -	regmap_read(priv->regmap, TIM_CR1, &cr1);
->> +	ret = regmap_read(priv->regmap, TIM_CR1, &cr1);
->> +	if (ret) {
->> +		dev_err(priv->dev, "fail to read TIM_CR1.\n");
->> +		return ret;
->> +	}
->> +
->>   	if (!(cr1 & TIM_CR1_CEN))
->>   		clk_enable(priv->clk);
->>   
->> @@ -164,12 +175,23 @@ static int stm32_timer_start(struct stm32_timer_trigger *priv,
->>   static void stm32_timer_stop(struct stm32_timer_trigger *priv)
->>   {
->>   	u32 ccer, cr1;
->> +	int ret;
->> +
->> +	ret = regmap_read(priv->regmap, TIM_CCER, &ccer);
->> +	if (ret) {
->> +		dev_err(priv->dev, "Fail to read TIM_CCER.\n");
->> +		return;
->> +	}
->>   
->> -	regmap_read(priv->regmap, TIM_CCER, &ccer);
->>   	if (ccer & TIM_CCER_CCXE)
->>   		return;
->>   
->> -	regmap_read(priv->regmap, TIM_CR1, &cr1);
->> +	ret = regmap_read(priv->regmap, TIM_CR1, &cr1);
->> +	if (ret) {
->> +		dev_err(priv->dev, "Fail to read TIM_CR1.\n");
->> +		return;
->> +	}
->> +
->>   	if (cr1 & TIM_CR1_CEN)
->>   		clk_disable(priv->clk);
->>   
->> @@ -403,20 +425,36 @@ static int stm32_counter_read_raw(struct iio_dev *indio_dev,
->>   {
->>   	struct stm32_timer_trigger *priv = iio_priv(indio_dev);
->>   	u32 dat;
->> +	int ret;
->>   
->>   	switch (mask) {
->>   	case IIO_CHAN_INFO_RAW:
->> -		regmap_read(priv->regmap, TIM_CNT, &dat);
->> +		ret = regmap_read(priv->regmap, TIM_CNT, &dat);
->> +		if (ret) {
->> +			dev_err(priv->dev, "fail to read TIM_CNT.\n");
->> +			return ret;
->> +		}
->> +
->>   		*val = dat;
->>   		return IIO_VAL_INT;
->>   
->>   	case IIO_CHAN_INFO_ENABLE:
->> -		regmap_read(priv->regmap, TIM_CR1, &dat);
->> +		ret = regmap_read(priv->regmap, TIM_CR1, &dat);
->> +		if (ret) {
->> +			dev_err(priv->dev, "fail to read TIM_CR1.\n");
->> +			return ret;
->> +		}
->> +
->>   		*val = (dat & TIM_CR1_CEN) ? 1 : 0;
->>   		return IIO_VAL_INT;
->>   
->>   	case IIO_CHAN_INFO_SCALE:
->> -		regmap_read(priv->regmap, TIM_SMCR, &dat);
->> +		ret = regmap_read(priv->regmap, TIM_SMCR, &dat);
->> +		if (ret) {
->> +			dev_err(priv->dev, "fail to read TIM_SMCR.\n");
->> +			return ret;
->> +		}
->> +
->>   		dat &= TIM_SMCR_SMS;
->>   
->>   		*val = 1;
->> @@ -438,6 +476,7 @@ static int stm32_counter_write_raw(struct iio_dev *indio_dev,
->>   {
->>   	struct stm32_timer_trigger *priv = iio_priv(indio_dev);
->>   	u32 dat;
->> +	int ret;
->>   
->>   	switch (mask) {
->>   	case IIO_CHAN_INFO_RAW:
->> @@ -449,13 +488,23 @@ static int stm32_counter_write_raw(struct iio_dev *indio_dev,
->>   
->>   	case IIO_CHAN_INFO_ENABLE:
->>   		if (val) {
->> -			regmap_read(priv->regmap, TIM_CR1, &dat);
->> +			ret = regmap_read(priv->regmap, TIM_CR1, &dat);
->> +			if (ret) {
->> +				dev_err(priv->dev, "fail to read TIM_CR1.\n");
->> +				return ret;
->> +			}
->> +
->>   			if (!(dat & TIM_CR1_CEN))
->>   				clk_enable(priv->clk);
->>   			regmap_update_bits(priv->regmap, TIM_CR1, TIM_CR1_CEN,
->>   					   TIM_CR1_CEN);
->>   		} else {
->> -			regmap_read(priv->regmap, TIM_CR1, &dat);
->> +			ret = regmap_read(priv->regmap, TIM_CR1, &dat);
->> +			if (ret) {
->> +				dev_err(priv->dev, "fail to read TIM_CR1.\n");
->> +				return ret;
->> +			}
->> +
->>   			regmap_update_bits(priv->regmap, TIM_CR1, TIM_CR1_CEN,
->>   					   0);
->>   			if (dat & TIM_CR1_CEN)
->> @@ -517,8 +566,13 @@ static int stm32_get_trigger_mode(struct iio_dev *indio_dev,
->>   {
->>   	struct stm32_timer_trigger *priv = iio_priv(indio_dev);
->>   	u32 smcr;
->> +	int ret;
->>   
->> -	regmap_read(priv->regmap, TIM_SMCR, &smcr);
->> +	ret = regmap_read(priv->regmap, TIM_SMCR, &smcr);
->> +	if (ret) {
->> +		dev_err(priv->dev, "fail to read TIM_SMCR.\n");
->> +		return ret;
->> +	}
->>   
->>   	return (smcr & TIM_SMCR_SMS) == TIM_SMCR_SMS ? 0 : -EINVAL;
->>   }
->> @@ -557,6 +611,7 @@ static int stm32_set_enable_mode(struct iio_dev *indio_dev,
->>   	struct stm32_timer_trigger *priv = iio_priv(indio_dev);
->>   	int sms = stm32_enable_mode2sms(mode);
->>   	u32 val;
->> +	int ret;
->>   
->>   	if (sms < 0)
->>   		return sms;
->> @@ -565,7 +620,12 @@ static int stm32_set_enable_mode(struct iio_dev *indio_dev,
->>   	 * enable counter clock, so it can use it. Keeps it in sync with CEN.
->>   	 */
->>   	if (sms == 6) {
->> -		regmap_read(priv->regmap, TIM_CR1, &val);
->> +		ret = regmap_read(priv->regmap, TIM_CR1, &val);
->> +		if (ret) {
->> +			dev_err(priv->dev, "fail to read TIM_CR1.\n");
->> +			return ret;
->> +		}
->> +
->>   		if (!(val & TIM_CR1_CEN))
->>   			clk_enable(priv->clk);
->>   	}
->> @@ -594,8 +654,14 @@ static int stm32_get_enable_mode(struct iio_dev *indio_dev,
->>   {
->>   	struct stm32_timer_trigger *priv = iio_priv(indio_dev);
->>   	u32 smcr;
->> +	int ret;
->> +
->> +	ret = regmap_read(priv->regmap, TIM_SMCR, &smcr);
->> +	if (ret) {
->> +		dev_err(priv->dev, "fail to read TIM_SMCR.\n");
->> +		return ret;
->> +	}
->>   
->> -	regmap_read(priv->regmap, TIM_SMCR, &smcr);
->>   	smcr &= TIM_SMCR_SMS;
->>   
->>   	return stm32_sms2enable_mode(smcr);
->> @@ -706,13 +772,19 @@ EXPORT_SYMBOL(is_stm32_timer_trigger);
->>   static void stm32_timer_detect_trgo2(struct stm32_timer_trigger *priv)
->>   {
->>   	u32 val;
->> +	int ret;
->>   
->>   	/*
->>   	 * Master mode selection 2 bits can only be written and read back when
->>   	 * timer supports it.
->>   	 */
->>   	regmap_update_bits(priv->regmap, TIM_CR2, TIM_CR2_MMS2, TIM_CR2_MMS2);
->> -	regmap_read(priv->regmap, TIM_CR2, &val);
->> +	ret = regmap_read(priv->regmap, TIM_CR2, &val);
->> +	if (ret) {
->> +		dev_err(priv->dev, "fail to read TIM_CR2.\n");
->> +		return;
->> +	}
->> +
->>   	regmap_update_bits(priv->regmap, TIM_CR2, TIM_CR2_MMS2, 0);
->>   	priv->has_trgo2 = !!val;
->>   }
+---
+Thanks,
+Jose Miguel Abreu
 _______________________________________________
 Linux-stm32 mailing list
 Linux-stm32@st-md-mailman.stormreply.com
