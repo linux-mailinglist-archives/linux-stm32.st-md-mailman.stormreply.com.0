@@ -2,71 +2,68 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id E574BC9AFC
-	for <lists+linux-stm32@lfdr.de>; Thu,  3 Oct 2019 11:48:05 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id CF143C9B75
+	for <lists+linux-stm32@lfdr.de>; Thu,  3 Oct 2019 12:05:23 +0200 (CEST)
 Received: from ip-172-31-3-76.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 9418BC36B0B;
-	Thu,  3 Oct 2019 09:48:05 +0000 (UTC)
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 7D847C36B0B;
+	Thu,  3 Oct 2019 10:05:23 +0000 (UTC)
 Received: from mx07-00178001.pphosted.com (mx07-00178001.pphosted.com
  [62.209.51.94])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 065B4C36B09
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 4CC39C36B09
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Thu,  3 Oct 2019 09:48:03 +0000 (UTC)
+ Thu,  3 Oct 2019 10:05:22 +0000 (UTC)
 Received: from pps.filterd (m0046037.ppops.net [127.0.0.1])
  by mx07-00178001.pphosted.com (8.16.0.42/8.16.0.42) with SMTP id
- x939fd1O020324; Thu, 3 Oct 2019 11:47:38 +0200
+ x93A1PHE005807; Thu, 3 Oct 2019 12:05:13 +0200
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=st.com;
- h=subject : to : cc :
- references : from : message-id : date : mime-version : in-reply-to :
- content-type : content-transfer-encoding; s=STMicroelectronics;
- bh=kN9FmgYjR/+h00iD+FWqgH8LfZypMJPodsHGme7Pa2U=;
- b=Ueu7492KlMOHrKSycPDSg2LPkrEWdivvPKLY1GOs4xx+yO3t8ExTim5uIUC07QvxoWKG
- 3LT9SsL5b8qjCc49kEbhNfxAemN7lbkU0+pg4pUoFf7nWTFf+GoAnGIau3e1+Ge+26Vk
- hu4UlE5aBurWsPHyTrhGpmbjDgmaswU71tdJYWAUMXsgcSlCJdvbg08xf5gvNL/9qE3l
- BiJjf2O7egamZ3rj080Qm+BuaNoozraPZ1k/ujKLo+pSrybFr2C7QL1kTr+Byd91RW+Z
- VZJnqY6ObQ+ZbHo6SpStvCI9SaDMI4Da12gaEoovClMT/LnwsTUKRNBOBdn71RxBaG7Z fw== 
+ h=subject : to : references
+ : from : message-id : date : mime-version : in-reply-to : content-type :
+ content-transfer-encoding; s=STMicroelectronics;
+ bh=LPPmd2u13qwBFxFZ5Y56WE+4sPe3u6X86PcYngdfDX0=;
+ b=reenwcBxoQPpkmY1pA2l5GXAWD6wX6QABVWRP6AZbzehaCOwGQWNRg3TNPyQ2HBqa4iN
+ 4lP91nRfYDdrRcKISF+27TSklO7eoNKx1F2AweOFMliNsarLcGR9avkoY3GY2FBerfLf
+ odSlvWi7BHuIr0qQinoPj7vHuUAXtR8sVTV+NUAg03e42M4eatQF4C2zjm1uQz21o8OV
+ 0xxagjVns0XSelirU5Xu1Bz60hgpforasWGSkuKNrqW4F8mJ3ZuB/JMC8Ln/xC4bkO54
+ 9ZIIpO8q/RtkAaLJQro0VC90fyce40blu31a5YH+COzk43oRp+U4avifIFEEVpCRD+t8 sA== 
 Received: from beta.dmz-ap.st.com (beta.dmz-ap.st.com [138.198.100.35])
- by mx07-00178001.pphosted.com with ESMTP id 2v9w9w3u0a-1
+ by mx07-00178001.pphosted.com with ESMTP id 2v9w9w3x74-1
  (version=TLSv1 cipher=ECDHE-RSA-AES256-SHA bits=256 verify=NOT);
- Thu, 03 Oct 2019 11:47:38 +0200
+ Thu, 03 Oct 2019 12:05:13 +0200
 Received: from euls16034.sgp.st.com (euls16034.sgp.st.com [10.75.44.20])
- by beta.dmz-ap.st.com (STMicroelectronics) with ESMTP id 99F6953;
- Thu,  3 Oct 2019 09:47:32 +0000 (GMT)
+ by beta.dmz-ap.st.com (STMicroelectronics) with ESMTP id 1E0434E;
+ Thu,  3 Oct 2019 10:05:09 +0000 (GMT)
 Received: from Webmail-eu.st.com (sfhdag3node2.st.com [10.75.127.8])
- by euls16034.sgp.st.com (STMicroelectronics) with ESMTP id 6CD812B492E;
- Thu,  3 Oct 2019 11:47:31 +0200 (CEST)
-Received: from lmecxl0912.lme.st.com (10.75.127.51) by SFHDAG3NODE2.st.com
+ by euls16034.sgp.st.com (STMicroelectronics) with ESMTP id 0EC1D2B5CAC;
+ Thu,  3 Oct 2019 12:05:09 +0200 (CEST)
+Received: from lmecxl0912.lme.st.com (10.75.127.48) by SFHDAG3NODE2.st.com
  (10.75.127.8) with Microsoft SMTP Server (TLS) id 15.0.1347.2; Thu, 3 Oct
- 2019 11:47:30 +0200
-To: Olivier Moysan <olivier.moysan@st.com>
-References: <1567440041-19220-1-git-send-email-olivier.moysan@st.com>
- <CAK8P3a3WvXmMys3mamCZef1-ychtdg+XbV=H-WTs2ZN6Jsrcbg@mail.gmail.com>
+ 2019 12:05:08 +0200
+To: =?UTF-8?Q?Yannick_Fertr=c3=a9?= <yannick.fertre@st.com>, Maxime Coquelin
+ <mcoquelin.stm32@gmail.com>, Rob Herring <robh+dt@kernel.org>, Mark Rutland
+ <mark.rutland@arm.com>, <linux-stm32@st-md-mailman.stormreply.com>,
+ <linux-arm-kernel@lists.infradead.org>, <devicetree@vger.kernel.org>,
+ <linux-kernel@vger.kernel.org>,
+ Benjamin Gaignard <benjamin.gaignard@st.com>,
+ Philippe Cornu <philippe.cornu@st.com>, Fabrice Gasnier
+ <fabrice.gasnier@st.com>
+References: <1564754931-13861-1-git-send-email-yannick.fertre@st.com>
 From: Alexandre Torgue <alexandre.torgue@st.com>
-Message-ID: <c4c9ed0b-210a-43b0-fc7b-d45a24fe682f@st.com>
-Date: Thu, 3 Oct 2019 11:47:30 +0200
+Message-ID: <05cc08f2-36c8-af75-39f3-7b7f4ac4e671@st.com>
+Date: Thu, 3 Oct 2019 12:05:06 +0200
 User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:60.0) Gecko/20100101
  Thunderbird/60.8.0
 MIME-Version: 1.0
-In-Reply-To: <CAK8P3a3WvXmMys3mamCZef1-ychtdg+XbV=H-WTs2ZN6Jsrcbg@mail.gmail.com>
+In-Reply-To: <1564754931-13861-1-git-send-email-yannick.fertre@st.com>
 Content-Language: en-US
-X-Originating-IP: [10.75.127.51]
-X-ClientProxiedBy: SFHDAG2NODE1.st.com (10.75.127.4) To SFHDAG3NODE2.st.com
+X-Originating-IP: [10.75.127.48]
+X-ClientProxiedBy: SFHDAG1NODE2.st.com (10.75.127.2) To SFHDAG3NODE2.st.com
  (10.75.127.8)
 X-Proofpoint-Virus-Version: vendor=fsecure engine=2.50.10434:6.0.95,1.0.8
  definitions=2019-10-03_04:2019-10-01,2019-10-03 signatures=0
-Cc: Arnd Bergmann <arnd@arndb.de>, Tony Lindgren <tony@atomide.com>,
- "linux-kernel@vger.kernel.org" <linux-kernel@vger.kernel.org>,
- Krzysztof Kozlowski <krzk@kernel.org>, Yannick Fertre <yannick.fertre@st.com>,
- Enric Balletbo i Serra <enric.balletbo@collabora.com>,
- Olof Johansson <olof@lixom.net>, Simon Horman <horms+renesas@verge.net.au>,
- Fabrice Gasnier <fabrice.gasnier@st.com>,
- linux-stm32@st-md-mailman.stormreply.com,
- Linux ARM <linux-arm-kernel@lists.infradead.org>,
- Marek Szyprowski <m.szyprowski@samsung.com>
-Subject: Re: [Linux-stm32] [PATCH 0/4] ARM: multi_v7_defconfig: add audio
- support for stm32mp157a-dk1
+Subject: Re: [Linux-stm32] [PATCH] ARM: dts: stm32: move ltdc pinctrl on
+ stm32mp157a dk1 board
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -78,43 +75,31 @@ List-Post: <mailto:linux-stm32@st-md-mailman.stormreply.com>
 List-Help: <mailto:linux-stm32-request@st-md-mailman.stormreply.com?subject=help>
 List-Subscribe: <https://st-md-mailman.stormreply.com/mailman/listinfo/linux-stm32>, 
  <mailto:linux-stm32-request@st-md-mailman.stormreply.com?subject=subscribe>
-Content-Transfer-Encoding: 7bit
-Content-Type: text/plain; charset="us-ascii"; Format="flowed"
+Content-Transfer-Encoding: base64
+Content-Type: text/plain; charset="utf-8"; Format="flowed"
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
-Hi Olivier,
-
-On 9/2/19 6:42 PM, Arnd Bergmann wrote:
-> On Mon, Sep 2, 2019 at 6:01 PM Olivier Moysan <olivier.moysan@st.com> wrote:
->>
->> This patchset adds audio support for stm32mp157a-dk1 board.
->>
->> Olivier Moysan (4):
->>    ARM: multi_v7_defconfig: enable stm32 sai support
->>    ARM: multi_v7_defconfig: enable stm32 i2s support
->>    ARM: multi_v7_defconfig: enable cs42l51 codec support
->>    ARM: multi_v7_defconfig: enable audio graph card support
->  > The changes are ok, and I expect Alexandre will pick them up and forward
-> to the soc tree.
->
-
-Those changes have been applied on stm32-next (squashed in only one commit).
-
-Thanks
-Alex
-
-
-
-> However, I would prefer these to just be a single patch, as there is little
-> use in splitting the intended change up into one line per patch.
-> 
->         Arnd
-> 
-
-
-
-_______________________________________________
-Linux-stm32 mailing list
-Linux-stm32@st-md-mailman.stormreply.com
-https://st-md-mailman.stormreply.com/mailman/listinfo/linux-stm32
+SGkgWWFubmljawoKT24gOC8yLzE5IDQ6MDggUE0sIFlhbm5pY2sgRmVydHLDqSB3cm90ZToKPiBU
+aGUgbHRkYyBwaW5jdHJsIG11c3QgYmUgaW4gdGhlIGRpc3BsYXkgY29udHJvbGxlciBub2RlIGFu
+ZAo+IG5vdCBpbiB0aGUgcGVyaXBoZXJhbCBub2RlIChoZG1pIGJyaWRnZSkuCj4gCj4gU2lnbmVk
+LW9mZi1ieTogWWFubmljayBGZXJ0csOpIDx5YW5uaWNrLmZlcnRyZUBzdC5jb20+Cj4gLS0tCj4g
+ICBhcmNoL2FybS9ib290L2R0cy9zdG0zMm1wMTU3YS1kazEuZHRzIHwgNiArKystLS0KPiAgIDEg
+ZmlsZSBjaGFuZ2VkLCAzIGluc2VydGlvbnMoKyksIDMgZGVsZXRpb25zKC0pCj4gCj4gZGlmZiAt
+LWdpdCBhL2FyY2gvYXJtL2Jvb3QvZHRzL3N0bTMybXAxNTdhLWRrMS5kdHMgYi9hcmNoL2FybS9i
+b290L2R0cy9zdG0zMm1wMTU3YS1kazEuZHRzCj4gaW5kZXggZjNmMGUzNy4uMTI4NWNmYyAxMDA2
+NDQKPiAtLS0gYS9hcmNoL2FybS9ib290L2R0cy9zdG0zMm1wMTU3YS1kazEuZHRzCj4gKysrIGIv
+YXJjaC9hcm0vYm9vdC9kdHMvc3RtMzJtcDE1N2EtZGsxLmR0cwo+IEBAIC05OSw5ICs5OSw2IEBA
+Cj4gICAJCXJlc2V0LWdwaW9zID0gPCZncGlvYSAxMCBHUElPX0FDVElWRV9MT1c+Owo+ICAgCQlp
+bnRlcnJ1cHRzID0gPDEgSVJRX1RZUEVfRURHRV9GQUxMSU5HPjsKPiAgIAkJaW50ZXJydXB0LXBh
+cmVudCA9IDwmZ3Bpb2c+Owo+IC0JCXBpbmN0cmwtbmFtZXMgPSAiZGVmYXVsdCIsICJzbGVlcCI7
+Cj4gLQkJcGluY3RybC0wID0gPCZsdGRjX3BpbnNfYT47Cj4gLQkJcGluY3RybC0xID0gPCZsdGRj
+X3BpbnNfc2xlZXBfYT47Cj4gICAJCXN0YXR1cyA9ICJva2F5IjsKPiAgIAo+ICAgCQlwb3J0cyB7
+Cj4gQEAgLTI3Niw2ICsyNzMsOSBAQAo+ICAgfTsKPiAgIAo+ICAgJmx0ZGMgewo+ICsJcGluY3Ry
+bC1uYW1lcyA9ICJkZWZhdWx0IiwgInNsZWVwIjsKPiArCXBpbmN0cmwtMCA9IDwmbHRkY19waW5z
+X2E+Owo+ICsJcGluY3RybC0xID0gPCZsdGRjX3BpbnNfc2xlZXBfYT47Cj4gICAJc3RhdHVzID0g
+Im9rYXkiOwo+ICAgCj4gICAJcG9ydCB7Cj4gCgpBcHBsaWVkIG9uIHN0bTMyLW5leHQuCgpUaGFu
+a3MuCkFsZXgKX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX18K
+TGludXgtc3RtMzIgbWFpbGluZyBsaXN0CkxpbnV4LXN0bTMyQHN0LW1kLW1haWxtYW4uc3Rvcm1y
+ZXBseS5jb20KaHR0cHM6Ly9zdC1tZC1tYWlsbWFuLnN0b3JtcmVwbHkuY29tL21haWxtYW4vbGlz
+dGluZm8vbGludXgtc3RtMzIK
