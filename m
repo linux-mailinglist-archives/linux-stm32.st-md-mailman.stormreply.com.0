@@ -2,64 +2,81 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id 6A348CB505
-	for <lists+linux-stm32@lfdr.de>; Fri,  4 Oct 2019 09:32:05 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 1F0D7CB70E
+	for <lists+linux-stm32@lfdr.de>; Fri,  4 Oct 2019 11:10:11 +0200 (CEST)
 Received: from ip-172-31-3-76.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 26051C36B0B;
-	Fri,  4 Oct 2019 07:32:05 +0000 (UTC)
-Received: from mail-vk1-f194.google.com (mail-vk1-f194.google.com
- [209.85.221.194])
- (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id CCB91C36B0B;
+	Fri,  4 Oct 2019 09:10:10 +0000 (UTC)
+Received: from mx07-00178001.pphosted.com (mx07-00178001.pphosted.com
+ [62.209.51.94])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 5DDCCC36B09
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id E774BC36B09
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Fri,  4 Oct 2019 07:32:03 +0000 (UTC)
-Received: by mail-vk1-f194.google.com with SMTP id f1so1247995vkh.9
- for <linux-stm32@st-md-mailman.stormreply.com>;
- Fri, 04 Oct 2019 00:32:03 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linaro.org; s=google;
- h=mime-version:references:in-reply-to:from:date:message-id:subject:to
- :cc; bh=mVytQ6A3tTisR1ULpXMOIRybJEGZDUtvdOmD9DnopCg=;
- b=C8JB+TC+kB4mKkTJPAwV30/g8qH+Q2Rbi7ZXggpkXCzqx+82UlZAzrmwcEAQBxCqMu
- Mc2fnKRbSyCJuaW+0cBE8xuwD0J9lZiieiEyNJGUuzoYhCOsunr3pDP7hJ4C+ObJnlAf
- BDpWgUAKkIM0ac6msYQp3b8xxdmu+s+M9kOg4T49xW0XlPUh5vYlZzYV2iTGn5ulA5yX
- zYmGTBBxBwHX3DxZN9CckiDh06FMUDkgovwbcd7PME3A0c1vINmrykqLG7lHX0S1SwmH
- k2m4DIKRTdDOIpm9igT+MD1Gf9XL1WrCXfdP6aAQauKEmrMMV8ErCJh7P+mPLtZQpL5e
- vKOw==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20161025;
- h=x-gm-message-state:mime-version:references:in-reply-to:from:date
- :message-id:subject:to:cc;
- bh=mVytQ6A3tTisR1ULpXMOIRybJEGZDUtvdOmD9DnopCg=;
- b=VCZf/uhNYLxoei6cTuZbfhgBCursRyBCmELSsYryX+mgACgNBBPLpL6pvv3bNMCd2Q
- +S13Ol6lLFQ10cs9gbyz55sEioQj4upiPNdC4vH0LS6zvV1T9nNvZYytAOPJs6JTI3fw
- FMmL0ir6GoteuLvwjfB6+vsGjRrSjjs//uoPAVGS6yoX9abU3CLx70r/hnrJvzut3AjQ
- 4oVguLIUbx6eUNGpD6OVl9h5r5kcJuFU5yJS6+ismW0erLKRevPKppHaWFcT6ymZomhz
- m35HchZrYIO2RNSBye4gT3Q1UKRQgzDjJ2XeSDxCnYJjvzHBfuWEJkbf7AjZtjGrBZRE
- Jh4A==
-X-Gm-Message-State: APjAAAWS4II9/t0mLq+vk9wQj3nGeskxVtv6M3ZU/BL7J90RRLz7QqAU
- zdRxr2URMcbOqLH0GyygD0dYcIV41Yu840irpecmfA==
-X-Google-Smtp-Source: APXvYqyNhph+V8Gq7CcOU6+NtJDoMHEN6TfbQMSX+TjO85GhZ3NmPooNVwlZTydlQBkeiafQprpWuruMc0iiqhtlh1g=
-X-Received: by 2002:ac5:c3c3:: with SMTP id t3mr7144964vkk.59.1570174322012;
- Fri, 04 Oct 2019 00:32:02 -0700 (PDT)
+ Fri,  4 Oct 2019 09:10:08 +0000 (UTC)
+Received: from pps.filterd (m0046668.ppops.net [127.0.0.1])
+ by mx07-00178001.pphosted.com (8.16.0.42/8.16.0.42) with SMTP id
+ x9496h28013482; Fri, 4 Oct 2019 11:09:53 +0200
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=st.com;
+ h=from : to : cc : subject
+ : date : message-id : references : in-reply-to : content-type : content-id
+ : content-transfer-encoding : mime-version; s=STMicroelectronics;
+ bh=7TARpab+GgoE0XBcyvsvh3bkT5vF11t+SCOxhdeo7fQ=;
+ b=R1YBBAy55psjTN8CG/9ymKL/R7b8tlaSp8Wjzn3mltynAMswP9ewRPEupwriuQJK8lQ3
+ aySdSt+GWiwmsCuJuMfUoqKoLbkZrsST4/k3HAAoLrEyB31XIRtTBD61uTmm84p0Eadr
+ KfKXVdmR6tHBoTFMJ5cfgKjAReiEsCIpYcu7XS+qANk+h5uZshQL8pm6heXt19X/bVMd
+ dsfxpgAD8vB4PSxgyCP+9SLaOSfjNR7pPB8a7uDAXM40q+NVea5eB0u+SOGK+Pye5jLy
+ 3Eg3f/4wmzaw3oAGjJL3O4WS/eMZ7rzagGPhlFj1O0mB17zI6TG+oXhKFdFAnLvkIVN/ vw== 
+Received: from beta.dmz-eu.st.com (beta.dmz-eu.st.com [164.129.1.35])
+ by mx07-00178001.pphosted.com with ESMTP id 2vcem3esn1-1
+ (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
+ Fri, 04 Oct 2019 11:09:53 +0200
+Received: from euls16034.sgp.st.com (euls16034.sgp.st.com [10.75.44.20])
+ by beta.dmz-eu.st.com (STMicroelectronics) with ESMTP id 78F3510002A;
+ Fri,  4 Oct 2019 11:09:52 +0200 (CEST)
+Received: from Webmail-eu.st.com (sfhdag5node3.st.com [10.75.127.15])
+ by euls16034.sgp.st.com (STMicroelectronics) with ESMTP id 6A5FD2B00C1;
+ Fri,  4 Oct 2019 11:09:52 +0200 (CEST)
+Received: from SFHDAG3NODE3.st.com (10.75.127.9) by SFHDAG5NODE3.st.com
+ (10.75.127.15) with Microsoft SMTP Server (TLS) id 15.0.1473.3; Fri, 4 Oct
+ 2019 11:09:52 +0200
+Received: from SFHDAG3NODE3.st.com ([fe80::3507:b372:7648:476]) by
+ SFHDAG3NODE3.st.com ([fe80::3507:b372:7648:476%20]) with mapi id
+ 15.00.1347.000; Fri, 4 Oct 2019 11:09:51 +0200
+From: Benjamin GAIGNARD <benjamin.gaignard@st.com>
+To: =?utf-8?B?VXdlIEtsZWluZS1Lw7ZuaWc=?= <u.kleine-koenig@pengutronix.de>,
+ Yizhuo <yzhai003@ucr.edu>
+Thread-Topic: [Linux-stm32] [PATCH] pwm: stm32: Fix the usage of uninitialized
+ variable in stm32_pwm_config()
+Thread-Index: AQHVenxIJtBrJYZdmEWJltaWtr2m56dKEG6A
+Date: Fri, 4 Oct 2019 09:09:51 +0000
+Message-ID: <e6824330-d331-798d-0f0a-1952db028900@st.com>
+References: <20191004044649.2405-1-yzhai003@ucr.edu>
+ <20191004062336.jidzrytx4z5talro@pengutronix.de>
+In-Reply-To: <20191004062336.jidzrytx4z5talro@pengutronix.de>
+Accept-Language: en-US
+Content-Language: en-US
+X-MS-Has-Attach: 
+X-MS-TNEF-Correlator: 
+user-agent: Mozilla/5.0 (X11; Linux x86_64; rv:60.0) Gecko/20100101
+ Thunderbird/60.8.0
+x-ms-exchange-messagesentrepresentingtype: 1
+x-ms-exchange-transport-fromentityheader: Hosted
+x-originating-ip: [10.75.127.48]
+Content-ID: <9356118905A9F942ADA617A804B4486F@st.com>
 MIME-Version: 1.0
-References: <20190905122112.29672-1-ludovic.Barre@st.com>
- <20190905122112.29672-4-ludovic.Barre@st.com>
-In-Reply-To: <20190905122112.29672-4-ludovic.Barre@st.com>
-From: Ulf Hansson <ulf.hansson@linaro.org>
-Date: Fri, 4 Oct 2019 09:31:25 +0200
-Message-ID: <CAPDyKFqbEzYpNty8u_QuSDfLgPoiTMZS2Bx4GbzfX-Y9TqXJTg@mail.gmail.com>
-To: Ludovic Barre <ludovic.Barre@st.com>
-Cc: DTML <devicetree@vger.kernel.org>,
- "linux-mmc@vger.kernel.org" <linux-mmc@vger.kernel.org>,
- Linux Kernel Mailing List <linux-kernel@vger.kernel.org>,
- Rob Herring <robh+dt@kernel.org>,
- Srinivas Kandagatla <srinivas.kandagatla@linaro.org>,
+X-Proofpoint-Virus-Version: vendor=fsecure engine=2.50.10434:6.0.95,1.0.8
+ definitions=2019-10-04_05:2019-10-03,2019-10-04 signatures=0
+Cc: "linux-pwm@vger.kernel.org" <linux-pwm@vger.kernel.org>,
+ "linux-kernel@vger.kernel.org" <linux-kernel@vger.kernel.org>,
+ Thierry Reding <thierry.reding@gmail.com>,
  Maxime Coquelin <mcoquelin.stm32@gmail.com>,
- linux-stm32@st-md-mailman.stormreply.com,
- Linux ARM <linux-arm-kernel@lists.infradead.org>
-Subject: Re: [Linux-stm32] [PATCH V6 3/3] mmc: mmci: sdmmc: add
-	busy_complete callback
+ Fabrice GASNIER <fabrice.gasnier@st.com>,
+ "linux-stm32@st-md-mailman.stormreply.com"
+ <linux-stm32@st-md-mailman.stormreply.com>,
+ "linux-arm-kernel@lists.infradead.org" <linux-arm-kernel@lists.infradead.org>
+Subject: Re: [Linux-stm32] [PATCH] pwm: stm32: Fix the usage of
+ uninitialized variable in stm32_pwm_config()
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -71,155 +88,39 @@ List-Post: <mailto:linux-stm32@st-md-mailman.stormreply.com>
 List-Help: <mailto:linux-stm32-request@st-md-mailman.stormreply.com?subject=help>
 List-Subscribe: <https://st-md-mailman.stormreply.com/mailman/listinfo/linux-stm32>, 
  <mailto:linux-stm32-request@st-md-mailman.stormreply.com?subject=subscribe>
-Content-Type: text/plain; charset="us-ascii"
-Content-Transfer-Encoding: 7bit
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: base64
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
-On Thu, 5 Sep 2019 at 14:22, Ludovic Barre <ludovic.Barre@st.com> wrote:
->
-> From: Ludovic Barre <ludovic.barre@st.com>
->
-> This patch adds a specific busy_complete callback for sdmmc variant.
->
-> sdmmc has 2 status flags:
-> -busyd0: This is a hardware status flag (inverted value of d0 line).
-> it does not generate an interrupt.
-> -busyd0end: This indicates only end of busy following a CMD response.
-> On busy to Not busy changes, an interrupt is generated (if unmask)
-> and BUSYD0END status flag is set. Status flag is cleared by writing
-> corresponding interrupt clear bit in MMCICLEAR.
->
-> The legacy busy completion monitors step by step the busy progression
-> start/in-progress/end. On sdmmc variant, the monitoring of busy steps
-> is difficult and not adapted (the software can miss a step and locks
-> the monitoring), the sdmmc has just need to wait the busyd0end bit
-> without monitoring all the changes.
-
-To me it's a bit of the opposite as you describe it above. The legacy
-variants suffers from a somewhat broken HW that generates also a
-"busystart" IRQ. For the stm32_sdmmc variant, it's more clean/correct
-as only a busyend IRQ is raised.
-
-Maybe you can rephrase the above a bit to make that more clear somehow.
-
->
-> Signed-off-by: Ludovic Barre <ludovic.barre@st.com>
-> ---
->  drivers/mmc/host/mmci.c             |  3 +++
->  drivers/mmc/host/mmci.h             |  1 +
->  drivers/mmc/host/mmci_stm32_sdmmc.c | 38 +++++++++++++++++++++++++++++
->  3 files changed, 42 insertions(+)
->
-> diff --git a/drivers/mmc/host/mmci.c b/drivers/mmc/host/mmci.c
-> index e20164f4354d..a666d826dbbd 100644
-> --- a/drivers/mmc/host/mmci.c
-> +++ b/drivers/mmc/host/mmci.c
-> @@ -260,6 +260,9 @@ static struct variant_data variant_stm32_sdmmc = {
->         .datalength_bits        = 25,
->         .datactrl_blocksz       = 14,
->         .stm32_idmabsize_mask   = GENMASK(12, 5),
-> +       .busy_timeout           = true,
-> +       .busy_detect_flag       = MCI_STM32_BUSYD0,
-> +       .busy_detect_mask       = MCI_STM32_BUSYD0ENDMASK,
->         .init                   = sdmmc_variant_init,
->  };
->
-> diff --git a/drivers/mmc/host/mmci.h b/drivers/mmc/host/mmci.h
-> index 733f9a035b06..841c5281beb5 100644
-> --- a/drivers/mmc/host/mmci.h
-> +++ b/drivers/mmc/host/mmci.h
-> @@ -164,6 +164,7 @@
->  #define MCI_ST_CARDBUSY                (1 << 24)
->  /* Extended status bits for the STM32 variants */
->  #define MCI_STM32_BUSYD0       BIT(20)
-> +#define MCI_STM32_BUSYD0END    BIT(21)
->
->  #define MMCICLEAR              0x038
->  #define MCI_CMDCRCFAILCLR      (1 << 0)
-> diff --git a/drivers/mmc/host/mmci_stm32_sdmmc.c b/drivers/mmc/host/mmci_stm32_sdmmc.c
-> index 8e83ae6920ae..bb5499cc9e81 100644
-> --- a/drivers/mmc/host/mmci_stm32_sdmmc.c
-> +++ b/drivers/mmc/host/mmci_stm32_sdmmc.c
-> @@ -282,6 +282,43 @@ static u32 sdmmc_get_dctrl_cfg(struct mmci_host *host)
->         return datactrl;
->  }
->
-> +bool sdmmc_busy_complete(struct mmci_host *host, u32 status, u32 err_msk)
-> +{
-> +       void __iomem *base = host->base;
-> +       u32 busy_d0, busy_d0end, mask;
-> +
-> +       mask = readl_relaxed(base + MMCIMASK0);
-> +       busy_d0end = readl_relaxed(base + MMCISTATUS) & MCI_STM32_BUSYD0END;
-> +       busy_d0 = readl_relaxed(base + MMCISTATUS) & MCI_STM32_BUSYD0;
-
-I have found some potential optimizations, but I leave it to you to
-decide what to do with my comments.
-
-*) You could avoid to read registers upfront, if that be skipped
-because of checking a known error condition. For example:
-"if (!host->busy_status && !(status & err_msk))" - would tell if it's
-even worth considering to unmask the busyend IRQ.
-
-**) Reading MMCISTATUS twice in row seems a bit silly, why not read it
-once and store its value in a local variable that you operate upon
-instead.
-
-> +
-> +       /* complete if there is an error or busy_d0end */
-> +       if ((status & err_msk) || busy_d0end)
-> +               goto complete;
-
-From here, you may end up writing to MMCIMASK0 and MMCICLEAR, even if
-you didn't unmask the busyend IRQ in first place.
-
-> +
-> +       /*
-> +        * On response the busy signaling is reflected in the BUSYD0 flag.
-> +        * if busy_d0 is in-progress we must activate busyd0end interrupt
-> +        * to wait this completion. Else this request has no busy step.
-> +        */
-> +       if (busy_d0) {
-> +               if (!host->busy_status) {
-> +                       writel_relaxed(mask | host->variant->busy_detect_mask,
-> +                                      base + MMCIMASK0);
-> +                       host->busy_status = status &
-> +                               (MCI_CMDSENT | MCI_CMDRESPEND);
-> +               }
-> +               return false;
-> +       }
-> +
-> +complete:
-> +       writel_relaxed(mask & ~host->variant->busy_detect_mask,
-> +                      base + MMCIMASK0);
-> +       writel_relaxed(host->variant->busy_detect_mask, base + MMCICLEAR);
-> +       host->busy_status = 0;
-> +
-> +       return true;
-> +}
-> +
->  static struct mmci_host_ops sdmmc_variant_ops = {
->         .validate_data = sdmmc_idma_validate_data,
->         .prep_data = sdmmc_idma_prep_data,
-> @@ -292,6 +329,7 @@ static struct mmci_host_ops sdmmc_variant_ops = {
->         .dma_finalize = sdmmc_idma_finalize,
->         .set_clkreg = mmci_sdmmc_set_clkreg,
->         .set_pwrreg = mmci_sdmmc_set_pwrreg,
-> +       .busy_complete = sdmmc_busy_complete,
->  };
->
->  void sdmmc_variant_init(struct mmci_host *host)
-> --
-> 2.17.1
->
-
-Other than the comments above, which are plain suggestions for
-optimizations, the code looks correct to me!
-
-Kind regards
-Uffe
-_______________________________________________
-Linux-stm32 mailing list
-Linux-stm32@st-md-mailman.stormreply.com
-https://st-md-mailman.stormreply.com/mailman/listinfo/linux-stm32
+DQpPbiAxMC80LzE5IDg6MjMgQU0sIFV3ZSBLbGVpbmUtS8O2bmlnIHdyb3RlOg0KPiBIZWxsbywN
+Cj4NCj4gT24gVGh1LCBPY3QgMDMsIDIwMTkgYXQgMDk6NDY6NDlQTSAtMDcwMCwgWWl6aHVvIHdy
+b3RlOg0KPj4gSW5zaWRlIGZ1bmN0aW9uIHN0bTMyX3B3bV9jb25maWcoKSwgdmFyaWFibGUgInBz
+YyIgYW5kICIgYXJyIg0KPj4gY291bGQgYmUgdW5pbml0aWFsaXplZCBpZiByZWdtYXBfcmVhZCgp
+IHJldHVybnMgLUVJTlZBTHMuDQo+PiBIb3dldmVyLCB0aGV5IGFyZSB1c2VkIGxhdGVyIGluIHRo
+ZSBpZiBzdGF0ZW1lbnQgdG8gZGVjaWRlDQo+PiB0aGUgcmV0dXJuIHZhbHVlIHdoaWNoIGlzIHBv
+dGVudGlhbGx5IHVuc2FmZS4NCg0KSGkgWWl6aHVvLA0KDQpsaWtlIGZvciB0aGUgeW91ciBwYXRj
+aCBpbiBJSU8gdHJpZ2dlciByZWdtYXBfcmVhZCBjb3VsZCBvbmx5IGZhaWxlZA0KaWYgdGhlIGhh
+cmR3YXJlIGJsb2NrIGlzIG5vIG1vcmUgY2xvY2tlZCBhbmQgaW4gdGhpcyBjYXNlIHdlIHdvbid0
+IA0KcmV0dXJuIG9mIHJlZ21hcF9yZWFkLg0KVGVzdGluZyByZWdtYXBfcmVhZCgpIHJldHVybiB2
+YWx1ZSBqdXN0IGFkZCBjb2RlIGJ1dCBkb2Vzbid0IHByb3ZpZGUgYSANCnZhbGlkIGluZm9ybWF0
+aW9uLg0KSWYgeW91IHJlYWxseSB3YW50IHRvIGxvZyBhbGwgdGhlIHBvc3NpYmxlIGVycm9ycyBj
+YXNlcyBwbGVhc2UgZG8gaXQgaW4gDQpyZWdtYXAgY29kZSBpdHNlbGYgYW5kDQpub3QgaW4gKmFs
+bCogdGhlIGRyaXZlcnMuDQoNClRoYW5rcywNCg0KQmVuamFtaW4NCg0KPj4NCj4+IFRoZSBzYW1l
+IGNhc2UgaGFwcGVucyBpbiBmdW5jdGlvbiBzdG0zMl9wd21fZGV0ZWN0X2NoYW5uZWxzKCkNCj4+
+IHdpdGggdmFyaWFibGUgImNjZXIiLCBidXQgd2UgY2Fubm90IGp1c3QgcmV0dXJuIC1FSU5WQUwg
+YmVjYXVzZQ0KPj4gdGhlIGVycm9yIGNvZGUgaXMgbm90IGFjY2VwdGFibGUgYnkgdGhlIGNhbGxl
+ci4gQXNsbywgdGhlIHZhcmlhYmxlDQo+IHMvQXNsby9BbHNvLw0KPg0KPj4gImNjZXIiIGluIGZ1
+bmN0aW9uc3RtMzJfcHdtX2RldGVjdF9jb21wbGVtZW50YXJ5KCkgY291bGQgYWxzbyBiZQ0KPiBz
+L2Z1bmN0aW9uc3RtMzJfcHdtX2RldGVjdF8vZnVuY3Rpb24gc3RtMzJfcHdtX2RldGVjdF8vDQo+
+DQo+PiB1bmluaXRpYWxpemVkLCBzaW5jZSBzdG0zMl9wd21fZGV0ZWN0X2NvbXBsZW1lbnRhcnko
+KSByZXR1cm5zIHZvaWQsDQo+PiB0aGUgcGF0Y2ggaXMgbm90IGVhc3kuDQo+IGFjdGl2ZV9jaGFu
+bmVscygpIGlzIGFsc28gYWZmZWN0ZWQuIEFsc28gdGhlcmUgYXJlIGNhbGxzIHRvDQo+IHJlZ21h
+cF91cGRhdGVfYml0cyB3aGljaCBzaG91bGQgaGF2ZSB0aGVpciByZXR1cm4gdmFsdWVzIGNoZWNr
+ZWQuDQo+DQo+IFdoaWxlIGEgcGF0Y2ggdG8gZml4IHRoZXNlIGFsbCBpcyBub3QgdHJpdmlhbCBp
+dCBpcyBjZXJ0YWlubHkgcG9zc2libGUNCj4gYW5kIEkgd291bGQgcHJlZmVyIHRvIGZpeCB0aGUg
+cHJvYmxlbSBjb21wbGV0ZWx5Lg0KPg0KPiBCZXN0IHJlZ2FyZHMNCj4gVXdlDQo+Cl9fX19fX19f
+X19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fCkxpbnV4LXN0bTMyIG1haWxp
+bmcgbGlzdApMaW51eC1zdG0zMkBzdC1tZC1tYWlsbWFuLnN0b3JtcmVwbHkuY29tCmh0dHBzOi8v
+c3QtbWQtbWFpbG1hbi5zdG9ybXJlcGx5LmNvbS9tYWlsbWFuL2xpc3RpbmZvL2xpbnV4LXN0bTMy
+Cg==
