@@ -2,53 +2,61 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id 099DECC3ED
-	for <lists+linux-stm32@lfdr.de>; Fri,  4 Oct 2019 22:08:17 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 22102CC3FC
+	for <lists+linux-stm32@lfdr.de>; Fri,  4 Oct 2019 22:11:44 +0200 (CEST)
 Received: from ip-172-31-3-76.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 984E2C36B0B;
-	Fri,  4 Oct 2019 20:08:16 +0000 (UTC)
-Received: from metis.ext.pengutronix.de (metis.ext.pengutronix.de
- [85.220.165.71])
- (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id D04EFC36B0B;
+	Fri,  4 Oct 2019 20:11:43 +0000 (UTC)
+Received: from mail-io1-f67.google.com (mail-io1-f67.google.com
+ [209.85.166.67])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id E5858C36B09
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id D85B1C36B09
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Fri,  4 Oct 2019 20:08:14 +0000 (UTC)
-Received: from pty.hi.pengutronix.de ([2001:67c:670:100:1d::c5])
- by metis.ext.pengutronix.de with esmtps
- (TLS1.2:ECDHE_RSA_AES_256_GCM_SHA384:256) (Exim 4.92)
- (envelope-from <ukl@pengutronix.de>)
- id 1iGTs1-0001TG-Br; Fri, 04 Oct 2019 22:08:09 +0200
-Received: from ukl by pty.hi.pengutronix.de with local (Exim 4.89)
- (envelope-from <ukl@pengutronix.de>)
- id 1iGTrw-0008EY-Kb; Fri, 04 Oct 2019 22:08:04 +0200
-Date: Fri, 4 Oct 2019 22:08:04 +0200
-From: Uwe =?iso-8859-1?Q?Kleine-K=F6nig?= <u.kleine-koenig@pengutronix.de>
-To: Benjamin GAIGNARD <benjamin.gaignard@st.com>
-Message-ID: <20191004200804.ee6kedadchxoznnd@pengutronix.de>
-References: <20191004044649.2405-1-yzhai003@ucr.edu>
- <20191004062336.jidzrytx4z5talro@pengutronix.de>
- <e6824330-d331-798d-0f0a-1952db028900@st.com>
+ Fri,  4 Oct 2019 20:11:42 +0000 (UTC)
+Received: by mail-io1-f67.google.com with SMTP id u8so16241787iom.5
+ for <linux-stm32@st-md-mailman.stormreply.com>;
+ Fri, 04 Oct 2019 13:11:42 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=lixom-net.20150623.gappssmtp.com; s=20150623;
+ h=mime-version:references:in-reply-to:from:date:message-id:subject:to
+ :cc; bh=Q+gSdG7Prkk7Cp8mQY9HaZirRwIllCjsMp9BMJvUxrk=;
+ b=ZSyrvWFeV/vh62RWW9BJlK1/b3jPCygzz85/0IwOL2MzWF2ErbrXK6d6LLO3DT1w7M
+ tTzG4A+wWRStYJB9lmHyo/ND5e+tPKnLsSWfVGqX2PTyd83EKyJ9gLVo7YD4ZRRLXVvA
+ u+YFOOsDVJF/Tt6K1cit9W+BpFxgaVaMID2R8z9h+WO31LJKARx+2KAU8lezejqryyRU
+ NDa8k78Ue9/HTUCJAweCKptnGwn1UA2cUL3fOz9WsGSJDvMGeOpumca6hj6KLo3Eh2/i
+ FMSd9CQiqYxLLAzuWfoZo8wbKGVbqooDkKvvAoqxJlgVTh9FIFKrd8tNT00tVxE7W4CS
+ rfpQ==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20161025;
+ h=x-gm-message-state:mime-version:references:in-reply-to:from:date
+ :message-id:subject:to:cc;
+ bh=Q+gSdG7Prkk7Cp8mQY9HaZirRwIllCjsMp9BMJvUxrk=;
+ b=p/9Zn6gh2vAWnbA1Zz2QZPBtDuuqTnECP1jdmms8xheKWYmd8NiGH3Y+Rt7KgBFjyC
+ O0P1Imfw/EEo96Tj9Me9BWpNn7nozK2NcDDzH9J4VUNXaZ10jpcVTRinadRKIE145y01
+ 7Kec34nJoHHFsWOvMvVokcZOYiFv0mFvfJVyYtMgZehmuD1tJJAtNZhgyiBaQa/7QAUf
+ C354hHkEncvd8SWSHMaMuvq42ckRXOHxCf05wu26WTfqNdnYoTW0i7j/eAQonLRBTQIl
+ qc+XY6eHYU5vKPjgETwHiKzgsP8W8tnoO56yhl9SfubXLrRG5736Rl5j9WbTJ4NMvymV
+ y0uQ==
+X-Gm-Message-State: APjAAAUJ7scwDJf2qr3IH9H28yU57Q0ttQpuYOifn2yOYIICQEF/xUwr
+ sa/1FWmutBj+ofSPOt6EWLQq+ZM9GsOGvUyY+/4SYQ==
+X-Google-Smtp-Source: APXvYqxlEQ0p5dqdnleWWojSrwkdgmBEUkurQtZ1WZv+uCyU//AQSI8hbw9SjVK2dBtB2MjbTcY6tyfd+ZHXEi17F2s=
+X-Received: by 2002:a5d:81cc:: with SMTP id t12mr8160598iol.207.1570219901601; 
+ Fri, 04 Oct 2019 13:11:41 -0700 (PDT)
 MIME-Version: 1.0
-Content-Disposition: inline
-In-Reply-To: <e6824330-d331-798d-0f0a-1952db028900@st.com>
-User-Agent: NeoMutt/20170113 (1.7.2)
-X-SA-Exim-Connect-IP: 2001:67c:670:100:1d::c5
-X-SA-Exim-Mail-From: ukl@pengutronix.de
-X-SA-Exim-Scanned: No (on metis.ext.pengutronix.de);
- SAEximRunCond expanded to false
-X-PTX-Original-Recipient: linux-stm32@st-md-mailman.stormreply.com
-Cc: "linux-pwm@vger.kernel.org" <linux-pwm@vger.kernel.org>,
- Mark Brown <broonie@kernel.org>,
- "linux-kernel@vger.kernel.org" <linux-kernel@vger.kernel.org>,
- Yizhuo <yzhai003@ucr.edu>, Thierry Reding <thierry.reding@gmail.com>,
- Maxime Coquelin <mcoquelin.stm32@gmail.com>,
- Fabrice GASNIER <fabrice.gasnier@st.com>,
- "linux-stm32@st-md-mailman.stormreply.com"
- <linux-stm32@st-md-mailman.stormreply.com>,
- "linux-arm-kernel@lists.infradead.org" <linux-arm-kernel@lists.infradead.org>
-Subject: Re: [Linux-stm32] [PATCH] pwm: stm32: Fix the usage of
- uninitialized variable in stm32_pwm_config()
+References: <20191004124025.17394-1-patrice.chotard@st.com>
+In-Reply-To: <20191004124025.17394-1-patrice.chotard@st.com>
+From: Olof Johansson <olof@lixom.net>
+Date: Fri, 4 Oct 2019 13:11:30 -0700
+Message-ID: <CAOesGMgF2m_MUqHy9_aabMxMZ4rd1=qL0VGr+avPNn=GgsLJCg@mail.gmail.com>
+To: Patrice CHOTARD <patrice.chotard@st.com>
+Cc: Arnd Bergmann <arnd@arndb.de>,
+ Linux Kernel Mailing List <linux-kernel@vger.kernel.org>,
+ Russell King <linux@armlinux.org.uk>, SoC Team <soc@kernel.org>,
+ linux-stm32@st-md-mailman.stormreply.com,
+ Linux ARM Mailing List <linux-arm-kernel@lists.infradead.org>
+Subject: Re: [Linux-stm32] ARM: multi_v7_defconfig: Fix SPI_STM32_QSPI
+	support
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -60,57 +68,27 @@ List-Post: <mailto:linux-stm32@st-md-mailman.stormreply.com>
 List-Help: <mailto:linux-stm32-request@st-md-mailman.stormreply.com?subject=help>
 List-Subscribe: <https://st-md-mailman.stormreply.com/mailman/listinfo/linux-stm32>, 
  <mailto:linux-stm32-request@st-md-mailman.stormreply.com?subject=subscribe>
-Content-Type: text/plain; charset="iso-8859-1"
-Content-Transfer-Encoding: quoted-printable
+Content-Type: text/plain; charset="us-ascii"
+Content-Transfer-Encoding: 7bit
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
-Hello,
+On Fri, Oct 4, 2019 at 5:40 AM <patrice.chotard@st.com> wrote:
+>
+> From: Patrice Chotard <patrice.chotard@st.com>
+>
+> SPI_STM32_QSPI must be set in buildin as rootfs can be
+> located on QSPI memory device.
+>
+> Signed-off-by: Patrice Chotard <patrice.chotard@st.com>
+> ---
+>  arch/arm/configs/multi_v7_defconfig | 2 +-
+>  1 file changed, 1 insertion(+), 1 deletion(-)
 
-Cc +=3D Mark Brown who maintains regmap
+Applied to arm/fixes. Thanks!
 
-On Fri, Oct 04, 2019 at 09:09:51AM +0000, Benjamin GAIGNARD wrote:
-> =
 
-> On 10/4/19 8:23 AM, Uwe Kleine-K=F6nig wrote:
-> > Hello,
-> >
-> > On Thu, Oct 03, 2019 at 09:46:49PM -0700, Yizhuo wrote:
-> >> Inside function stm32_pwm_config(), variable "psc" and " arr"
-> >> could be uninitialized if regmap_read() returns -EINVALs.
-> >> However, they are used later in the if statement to decide
-> >> the return value which is potentially unsafe.
-> =
-
-> Hi Yizhuo,
-> =
-
-> like for the your patch in IIO trigger regmap_read could only failed
-> if the hardware block is no more clocked and in this case we won't =
-
-> return of regmap_read.
-
-I'm not sure this is aligned with how regmap is supposed to be used. I
-think the driver making use of regmap is not supposed to make any
-assumptions about how and when a read or write access can or cannot fail
-and instead is supposed to check all return values. So IMHO the patch
-goes in the right direction.
-
-> Testing regmap_read() return value just add code but doesn't provide a =
-
-> valid information.
-> If you really want to log all the possible errors cases please do it in =
-
-> regmap code itself and
-> not in *all* the drivers.
-
-Best regards
-Uwe
-
--- =
-
-Pengutronix e.K.                           | Uwe Kleine-K=F6nig            |
-Industrial Linux Solutions                 | http://www.pengutronix.de/  |
+-Olof
 _______________________________________________
 Linux-stm32 mailing list
 Linux-stm32@st-md-mailman.stormreply.com
