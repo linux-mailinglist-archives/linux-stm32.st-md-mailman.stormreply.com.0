@@ -2,60 +2,69 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id 90240CCB76
-	for <lists+linux-stm32@lfdr.de>; Sat,  5 Oct 2019 18:49:52 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 414BCCCB9F
+	for <lists+linux-stm32@lfdr.de>; Sat,  5 Oct 2019 19:20:01 +0200 (CEST)
 Received: from ip-172-31-3-76.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 47752C36B0B;
-	Sat,  5 Oct 2019 16:49:52 +0000 (UTC)
-Received: from mail-lf1-f67.google.com (mail-lf1-f67.google.com
- [209.85.167.67])
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id EC7D8C36B0B;
+	Sat,  5 Oct 2019 17:20:00 +0000 (UTC)
+Received: from mail-yw1-f67.google.com (mail-yw1-f67.google.com
+ [209.85.161.67])
  (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 86B5FC36B09
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id C414FC36B09
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Sat,  5 Oct 2019 16:49:51 +0000 (UTC)
-Received: by mail-lf1-f67.google.com with SMTP id x80so6561625lff.3
+ Sat,  5 Oct 2019 17:19:59 +0000 (UTC)
+Received: by mail-yw1-f67.google.com with SMTP id w140so1880562ywd.0
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Sat, 05 Oct 2019 09:49:51 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linaro.org; s=google;
- h=mime-version:references:in-reply-to:from:date:message-id:subject:to
- :cc; bh=bFYXbByYhGEXfOvEgQ/Yv7O8maPlLwNPKG6/+oAaKb0=;
- b=F5Qjpvpi6G+ab+VeuCiBsb6tm18qqaMtmFRT4reLGjpmUHLQIKEy38RCdhiSjtQoYr
- gxUT6twp6LaP1bTlGnWGv4bQySjuigIwrgHhmPKCbxPGBjd7/LYxeuA+gBsCmRkysK3O
- pH/XMlhMcKe8iXOk/2VDpQk54SIR+ndpxUrBJzAe/NI5B0WdIBaj5ogYjdYehYK3cQ35
- Uz82JVR+RRWh/cH1+2hUTPNVyI31grf74MbU6CHnN01sEYQskDQY5F905me9Q1O4MIuO
- 66UKqnl76X1MvlQ2KDltSwqSE5p2wZNmWRtT45rianVJwNaprLpXKDq9dfy+9WkxiBB0
- rISQ==
+ Sat, 05 Oct 2019 10:19:59 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20161025;
+ h=date:from:to:cc:subject:message-id:references:mime-version
+ :content-disposition:in-reply-to:user-agent;
+ bh=MGAToH7gf0cf1NNYqYOLRrO0bNygR1ZINN+gs4KcfjI=;
+ b=hInKtJ1wQDIAaaHqSxMc1KyxX4ngqQzK06TYsc/fewv9OUTewxjNvhoAA22E2/loFi
+ wasFDBlq9zqGi2r4tcMli2676VkrYeWc1VXonj2huB9BN3/KO62U593XrF3cCPk9zh6/
+ Ro3i0ArBfq+DiD4Hjv4cx+SzU6bYwnUpYuNYZyv3BwS51hHP+2oNYpbFzTziWvHPq8uA
+ rxkpkdoCpCasIyeZOFSod3u9r/N1cd2scssUF3wZUa98SWne/8/bY2otB/XZ9Pu6S6ie
+ GdABnngINi8bA5qSz0P8R+JqRAjS6T41wKr3An9fF/dYeSQaFX8z5Jmv3S99rwN62CoH
+ a1gw==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=1e100.net; s=20161025;
- h=x-gm-message-state:mime-version:references:in-reply-to:from:date
- :message-id:subject:to:cc;
- bh=bFYXbByYhGEXfOvEgQ/Yv7O8maPlLwNPKG6/+oAaKb0=;
- b=k9XFlQMTdVN0VCfexjlpPaYnpD2wncAkT5orMJ17rd8loYUf9laBuvNhXqBFv+kYpD
- zLDqeRWMRk5mOj3Fj0d2UVzhPkm+JV022zW1WWLVng0FNcG9rvZxaPW76ujcF8/gH+iM
- S6la+V7RwvCYkvIN0vt47KpTVgWNuCaDdZQEpmhk5NOIng+DXFHnE3rotk81N9TpVrQv
- ibQNd12PtVxNHNQsOVAXc34k8jpG4YeFi0S5nxMvsijtXIsCYWQof1As++VdM6UbZR/M
- DmxUJt9NV9THru6ftXf+nQHTnNzsqYP0ARrtSFYLk+4vLQGAuktmOfag45Nt67TiQynt
- 2RAA==
-X-Gm-Message-State: APjAAAUJBfPhh7hh8zvqI3ctBCyPasyjvNNeemjWi4yVAZYS7hjWXeFy
- f8ICHAo5uxJ9OlZyGGAp0JscrTirMoNiVOUKeDdcDg==
-X-Google-Smtp-Source: APXvYqzWLIXea2bSktYcXAMWUxPBnRthWgHgKi9V9cmgUV7xXLZpltHmYaRhUSOORfu5uwvTkgz2I3T7Lp7NJCXeluc=
-X-Received: by 2002:ac2:5c11:: with SMTP id r17mr12207816lfp.61.1570294190713; 
- Sat, 05 Oct 2019 09:49:50 -0700 (PDT)
+ h=x-gm-message-state:date:from:to:cc:subject:message-id:references
+ :mime-version:content-disposition:in-reply-to:user-agent;
+ bh=MGAToH7gf0cf1NNYqYOLRrO0bNygR1ZINN+gs4KcfjI=;
+ b=QbH4isgYcwYc/tkg+pe5tHLoRAzeXKujpA7YKxPv1dFLKCRjGaR+CAmBGKmwZQQzl/
+ whHV3aBd5127THyHizmxJM2ieiwGeaC1tRvpbIh+4tOd97dZ1Cm1evogsTkdQXoZdiji
+ oTFHumZQWrolSqmbMqqfSe9FoAZpOPHODAdCti+RNubZnjnxpE8plb6KevD3ufjTEb4Y
+ 0XIcN2Ni4p427VnD5+xWbPxScjB4daGo8o/LCrnwTxVr4/TS9Dmehtg3UgTB1ABkMaV+
+ ZVg/Zrt9N886Z+9ykTGJ2YaogarqUoa4cvM9xmkAdl2cooKe+RiMX9AN+KO3kXNnyz88
+ g5DQ==
+X-Gm-Message-State: APjAAAX/trm7RT+YZet/5QoP6eVGDrwPnrSrG3VTWpwWNoSGzuC+YoHg
+ MEBDUQZxu0dArt+pU3uSHiI=
+X-Google-Smtp-Source: APXvYqwwjA05OEJO+32btwCbv0PRqgBlNIanc9PkgxO2kfSjusl2VL25zMbuvWbNGxLNX46za0Mg4Q==
+X-Received: by 2002:a81:3601:: with SMTP id d1mr15208844ywa.103.1570295998277; 
+ Sat, 05 Oct 2019 10:19:58 -0700 (PDT)
+Received: from icarus (072-189-084-142.res.spectrum.com. [72.189.84.142])
+ by smtp.gmail.com with ESMTPSA id y205sm2445684ywc.6.2019.10.05.10.19.56
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Sat, 05 Oct 2019 10:19:57 -0700 (PDT)
+Date: Sat, 5 Oct 2019 13:19:38 -0400
+From: William Breathitt Gray <vilhelm.gray@gmail.com>
+To: Jonathan Cameron <jic23@kernel.org>
+Message-ID: <20191005171938.GA7199@icarus>
+References: <cover.1568816248.git.vilhelm.gray@gmail.com>
+ <20191005153255.4290ce81@archlinux>
 MIME-Version: 1.0
-References: <20191004122923.22674-1-amelie.delaunay@st.com>
-In-Reply-To: <20191004122923.22674-1-amelie.delaunay@st.com>
-From: Linus Walleij <linus.walleij@linaro.org>
-Date: Sat, 5 Oct 2019 18:49:37 +0200
-Message-ID: <CACRpkda6CyYCt-s-VkaK856Jt3TxQg+HVDz-5Ww9T9KNHHAjaQ@mail.gmail.com>
-To: Amelie Delaunay <amelie.delaunay@st.com>
-Cc: "linux-kernel@vger.kernel.org" <linux-kernel@vger.kernel.org>,
- "open list:GPIO SUBSYSTEM" <linux-gpio@vger.kernel.org>,
- Maxime Coquelin <mcoquelin.stm32@gmail.com>,
- linux-stm32@st-md-mailman.stormreply.com,
- Linux ARM <linux-arm-kernel@lists.infradead.org>
-Subject: Re: [Linux-stm32] [PATCH 1/1] pinctrl: stmfx: add
-	irq_request/release_resources callbacks
+Content-Disposition: inline
+In-Reply-To: <20191005153255.4290ce81@archlinux>
+User-Agent: Mutt/1.12.1 (2019-06-15)
+Cc: benjamin.gaignard@linaro.org, Felipe Balbi <felipe.balbi@linux.intel.com>,
+ linux-iio@vger.kernel.org, patrick.havelange@essensium.com,
+ linux-kernel@vger.kernel.org, mcoquelin.stm32@gmail.com,
+ fabrice.gasnier@st.com, Fabien Lahoudere <fabien.lahoudere@collabora.com>,
+ linux-stm32@st-md-mailman.stormreply.com, linux-arm-kernel@lists.infradead.org,
+ David Lechner <david@lechnology.com>
+Subject: Re: [Linux-stm32] [PATCH v3 0/2] Simplify
+	count_read/count_write/signal_read
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -72,66 +81,115 @@ Content-Transfer-Encoding: 7bit
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
-On Fri, Oct 4, 2019 at 2:29 PM Amelie Delaunay <amelie.delaunay@st.com> wrote:
+On Sat, Oct 05, 2019 at 03:33:08PM +0100, Jonathan Cameron wrote:
+> Hi William,
+> 
+> This all makes sense to me.  Do you want to wait for some more reviews
+> or should I pick them up now through IIO?  We are really early in
+> the cycle so plenty of time, unless there are new drivers coming you
+> want to use these from the start.
+> 
+> Thanks,
+> 
+> Jonathan
 
-> When an STMFX IO is used as interrupt through the interrupt-controller
-> binding, the STMFX driver should configure this IO as input. Default
-> value of STMFX IO direction is input, but if the IO is used as output
-> before the interrupt use, it will not work without these callbacks.
->
-> Signed-off-by: Amelie Delaunay <amelie.delaunay@st.com>
+Getting this in sooner would be better since that will save Fabien from
+having to introduce the COUNTER_COUNT_TALLY type in the cros_ec patch
+submission.
 
-OK I see what you want to achieve.
+The only concern left now is that the TI eQEP driver needs to be updated
+as well for these changes, but it's not in the IIO testing branch yet.
 
-> +static int stmfx_gpio_irq_request_resources(struct irq_data *data)
-> +{
-> +       struct gpio_chip *gpio_chip = irq_data_get_irq_chip_data(data);
-> +       struct stmfx_pinctrl *pctl = gpiochip_get_data(gpio_chip);
-> +       int ret;
-> +
-> +       ret = stmfx_gpio_direction_input(&pctl->gpio_chip, data->hwirq);
-> +       if (ret)
-> +               return ret;
-> +
-> +       ret = gpiochip_lock_as_irq(&pctl->gpio_chip, data->hwirq);
-> +       if (ret) {
-> +               dev_err(pctl->dev, "Unable to lock gpio %lu as IRQ: %d\n",
-> +                       data->hwirq, ret);
-> +               return ret;
-> +       }
-> +
-> +       return 0;
-> +}
+Do you want to merge this patchset first, or wait until TI eQEP makes it
+into the testing branch? Alternatively, I can merge the cros_ec patchset
+and Intel QEP patchset into my personal repository when they are ready,
+then later submit a git pull request to you with these changes if you
+prefer that route.
 
-Just call gpiochip_reqres_irq() instead of calling the lock etc
-explicitly.
+William Breathitt Gray
 
-> +static void stmfx_gpio_irq_release_resources(struct irq_data *data)
-> +{
-> +       struct gpio_chip *gpio_chip = irq_data_get_irq_chip_data(data);
-> +       struct stmfx_pinctrl *pctl = gpiochip_get_data(gpio_chip);
-> +
-> +       gpiochip_unlock_as_irq(&pctl->gpio_chip, data->hwirq);
-> +}
-
-Just call gpiochip_relres_irq()
-
-But all this duplicated a lot of code from the core which is not so nice.
-
-> @@ -678,6 +706,8 @@ static int stmfx_pinctrl_probe(struct platform_device *pdev)
->         pctl->irq_chip.irq_set_type = stmfx_pinctrl_irq_set_type;
->         pctl->irq_chip.irq_bus_lock = stmfx_pinctrl_irq_bus_lock;
->         pctl->irq_chip.irq_bus_sync_unlock = stmfx_pinctrl_irq_bus_sync_unlock;
-> +       pctl->irq_chip.irq_request_resources = stmfx_gpio_irq_request_resources;
-> +       pctl->irq_chip.irq_release_resources = stmfx_gpio_irq_release_resources;
-
-What about just adding
-
-pctl->irq_chip.irq_enable and do stmfx_gpio_direction_input()
-in that callback instead? gpiolib will helpfully wrap it.
-
-Yours,
-Linus Walleij
+> On Wed, 18 Sep 2019 23:22:44 +0900
+> William Breathitt Gray <vilhelm.gray@gmail.com> wrote:
+> 
+> > Changes in v3:
+> >  - Squash code changes to single patch to avoid compilation error
+> > 
+> > The changes in this patchset will not affect the userspace interface.
+> > Rather, these changes are intended to simplify the kernelspace Counter
+> > callbacks for counter device driver authors.
+> > 
+> > The following main changes are proposed:
+> > 
+> > * Retire the opaque counter_count_read_value/counter_count_write_value
+> >   structures and simply represent count data as an unsigned integer.
+> > 
+> > * Retire the opaque counter_signal_read_value structure and represent
+> >   Signal data as a counter_signal_value enum.
+> > 
+> > These changes should reduce some complexity and code in the use and
+> > implementation of the count_read, count_write, and signal_read
+> > callbacks.
+> > 
+> > The opaque structures for Count data and Signal data were introduced
+> > originally in anticipation of supporting various representations of
+> > counter data (e.g. arbitrary-precision tallies, floating-point spherical
+> > coordinate positions, etc). However, with the counter device drivers
+> > that have appeared, it's become apparent that utilizing opaque
+> > structures in kernelspace is not the best approach to take.
+> > 
+> > I believe it is best to let userspace applications decide how to
+> > interpret the count data they receive. There are a couple of reasons why
+> > it would be good to do so:
+> > 
+> > * Users use their devices in unexpected ways.
+> > 
+> >   For example, a quadrature encoder counter device is typically used to
+> >   keep track of the position of a motor, but a user could set the device
+> >   in a pulse-direction mode and instead use it to count sporadic rising
+> >   edges from an arbitrary signal line unrelated to positioning. Users
+> >   should have the freedom to decide what their data represents.
+> > 
+> > * Most counter devices represent data as unsigned integers anyway.
+> > 
+> >   For example, whether the device is a tally counter or position
+> >   counter, the count data is represented to the user as an unsigned
+> >   integer value. So specifying that one device is representing tallies
+> >   while the other specifies positions does not provide much utility from
+> >   an interface perspective.
+> > 
+> > For these reasons, the count_read and count_write callbacks have been
+> > redefined to pass count data directly as unsigned long instead of passed
+> > via opaque structures:
+> > 
+> >         count_read(struct counter_device *counter,
+> >                    struct counter_count *count, unsigned long *val);
+> >         count_write(struct counter_device *counter,
+> >                     struct counter_count *count, unsigned long val);
+> > 
+> > Similarly, the signal_read is redefined to pass Signal data directly as
+> > a counter_signal_value enum instead of via an opaque structure:
+> > 
+> >         signal_read(struct counter_device *counter,
+> >                     struct counter_signal *signal,
+> >                     enum counter_signal_value *val);
+> > 
+> > The counter_signal_value enum is simply the counter_signal_level enum
+> > redefined to remove the references to the Signal data "level" data type.
+> > 
+> > William Breathitt Gray (2):
+> >   counter: Simplify the count_read and count_write callbacks
+> >   docs: driver-api: generic-counter: Update Count and Signal data types
+> > 
+> >  Documentation/driver-api/generic-counter.rst |  22 ++--
+> >  drivers/counter/104-quad-8.c                 |  33 ++----
+> >  drivers/counter/counter.c                    | 101 +++----------------
+> >  drivers/counter/ftm-quaddec.c                |  14 +--
+> >  drivers/counter/stm32-lptimer-cnt.c          |   5 +-
+> >  drivers/counter/stm32-timer-cnt.c            |  17 +---
+> >  include/linux/counter.h                      |  74 ++------------
+> >  7 files changed, 53 insertions(+), 213 deletions(-)
+> > 
+> 
 _______________________________________________
 Linux-stm32 mailing list
 Linux-stm32@st-md-mailman.stormreply.com
