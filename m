@@ -2,66 +2,44 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id 24895CC79A
-	for <lists+linux-stm32@lfdr.de>; Sat,  5 Oct 2019 06:03:33 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id A4A89CCA71
+	for <lists+linux-stm32@lfdr.de>; Sat,  5 Oct 2019 16:28:22 +0200 (CEST)
 Received: from ip-172-31-3-76.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id D7A66C36B0B;
-	Sat,  5 Oct 2019 04:03:32 +0000 (UTC)
-Received: from mail-pf1-f195.google.com (mail-pf1-f195.google.com
- [209.85.210.195])
- (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 4A7A8C36B0B;
+	Sat,  5 Oct 2019 14:28:22 +0000 (UTC)
+Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
+ (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 8891FC36B09
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 9F767C36B09
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Sat,  5 Oct 2019 04:03:31 +0000 (UTC)
-Received: by mail-pf1-f195.google.com with SMTP id q7so5058000pfh.8
- for <linux-stm32@st-md-mailman.stormreply.com>;
- Fri, 04 Oct 2019 21:03:31 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linaro.org; s=google;
- h=date:from:to:cc:subject:message-id:references:mime-version
- :content-disposition:in-reply-to:user-agent;
- bh=ep+T4ZjSmgVgmfOmjNJkzXbXl0FrJoxYAHDsSkcqpX0=;
- b=Ym13/luvCh4HRz9APPjske1u+h0i1SJvJ/OhgaVzdzAtnKWjlspe8o7xEmP+7IbY7f
- sJcI8dgcp/8xe2szkey2GF1l42mvdGVRx2mI8/KL+8QXBgillBcxrPfY+6808U57GFeD
- S6JqnpqljXqfWpOYoBxju6COK3d8eNXCzpyqmu2I58UXR5daXXiBIZGqcxp/+f3eN+QZ
- SJkNy+5P/fpY17vkKSu5RAX8TK9qXn0UdH360eT+NJjnvoVFeeWCK5D9XR9we5BGFxCN
- 83vhwmNyiMbrxr6MLwb/bts1DpkdL9eTRdCA6Eu9mKObTZm/GSOgTo3ylyLrWc7e6Pdy
- 5M9Q==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20161025;
- h=x-gm-message-state:date:from:to:cc:subject:message-id:references
- :mime-version:content-disposition:in-reply-to:user-agent;
- bh=ep+T4ZjSmgVgmfOmjNJkzXbXl0FrJoxYAHDsSkcqpX0=;
- b=d1zHs/5TPU7aiFaRiacfZf97a/GLYoCFVB0R1WnOo3Jh8g7cFfa8AvQAlKxaQxL46Y
- Q2Vmo7h5v8RR/AxmjP+TRGj/kapsFUigIYDMRo7sz6ROlkceU3+aHoOPwKgCIzZAKnQW
- ns+GpatSpnVpd/x5TSz9uKXSISetSVtFaFgjTFTQs5BLCH34oP5EPNs5Pedmczj2ywme
- AxSxhZeBjy6PN7/cxnAczlv67UZF05yovgmnKri7ObXGDXsfrzLQaE2nIO2MpilVk1kB
- UVRVUW2gcvCX34oBw2OxEUUr1IdQtba/9I6vftvVu/uhwrOrIZTk8HRi7m3y7I8v3hFx
- ZXhQ==
-X-Gm-Message-State: APjAAAV5IInYNiq4o7hMFb+GhC8hZo9Q1YMrxymPYQyAJLK/CkBS9MSj
- FxFkz7IkYibGef+nAmjs7jZiVA==
-X-Google-Smtp-Source: APXvYqy6CR1/CTAJi3zeL2dzdM9xntro53i8Tmw4S9q3dLx7SjGWLW2+lCDDvRKQ255GHtt9quen0w==
-X-Received: by 2002:a17:90a:cb18:: with SMTP id
- z24mr20149664pjt.108.1570248209669; 
- Fri, 04 Oct 2019 21:03:29 -0700 (PDT)
-Received: from tuxbook-pro (104-188-17-28.lightspeed.sndgca.sbcglobal.net.
- [104.188.17.28])
- by smtp.gmail.com with ESMTPSA id e14sm7692470pjt.8.2019.10.04.21.03.28
- (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Fri, 04 Oct 2019 21:03:29 -0700 (PDT)
-Date: Fri, 4 Oct 2019 21:03:26 -0700
-From: Bjorn Andersson <bjorn.andersson@linaro.org>
-To: Fabien Dessenne <fabien.dessenne@st.com>
-Message-ID: <20191005040326.GB5189@tuxbook-pro>
-References: <1570190555-12465-1-git-send-email-fabien.dessenne@st.com>
+ Sat,  5 Oct 2019 14:28:21 +0000 (UTC)
+Received: from archlinux (cpc149474-cmbg20-2-0-cust94.5-4.cable.virginm.net
+ [82.4.196.95])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+ (No client certificate requested)
+ by mail.kernel.org (Postfix) with ESMTPSA id 4759520867;
+ Sat,  5 Oct 2019 14:28:18 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
+ s=default; t=1570285700;
+ bh=0HytaZ1Qi8pY6GlOq+DBjycReyqLhaTKhTi+ABILHH0=;
+ h=Date:From:To:Cc:Subject:In-Reply-To:References:From;
+ b=1vFSC5X6EvPe318HJvAuNvuIcag3zPq2fH5UP82biM+c8M0DRehQvabjwK/gJLTgm
+ mup0Lv5VnlXBVgRXlu87Wd+s148f4hdWuwLVz/o51x5Ebrs1yZeZrigSynKzes/znX
+ JmEwbrVbV2XQE3Q1NaxciA/Wk4W/Y72XY4mDzkQk=
+Date: Sat, 5 Oct 2019 15:28:14 +0100
+From: Jonathan Cameron <jic23@kernel.org>
+To: William Breathitt Gray <vilhelm.gray@gmail.com>
+Message-ID: <20191005152805.49eec3b8@archlinux>
+In-Reply-To: <20190925235310.GD14133@icarus>
+References: <1568809323-26079-1-git-send-email-fabrice.gasnier@st.com>
+ <20190925234927.GB14133@icarus> <20190925235310.GD14133@icarus>
+X-Mailer: Claws Mail 3.17.4 (GTK+ 2.24.32; x86_64-pc-linux-gnu)
 MIME-Version: 1.0
-Content-Disposition: inline
-In-Reply-To: <1570190555-12465-1-git-send-email-fabien.dessenne@st.com>
-User-Agent: Mutt/1.12.1 (2019-06-15)
-Cc: Ohad Ben-Cohen <ohad@wizery.com>, linux-remoteproc@vger.kernel.org,
- linux-kernel@vger.kernel.org, Maxime Coquelin <mcoquelin.stm32@gmail.com>,
+Cc: linux-iio@vger.kernel.org, linux-kernel@vger.kernel.org, jic23@kernel.org,
+ Fabrice Gasnier <fabrice.gasnier@st.com>,
  linux-stm32@st-md-mailman.stormreply.com, linux-arm-kernel@lists.infradead.org
-Subject: Re: [Linux-stm32] [PATCH] remoteproc: stm32: fix probe error case
+Subject: Re: [Linux-stm32] [PATCH] counter: stm32-timer-cnt: fix a
+	kernel-doc warning
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -78,68 +56,60 @@ Content-Transfer-Encoding: 7bit
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
-On Fri 04 Oct 05:02 PDT 2019, Fabien Dessenne wrote:
+On Wed, 25 Sep 2019 19:53:10 -0400
+William Breathitt Gray <vilhelm.gray@gmail.com> wrote:
 
-> If the rproc driver is probed before the mailbox driver and if the rproc
-> Device Tree node has some mailbox properties, the rproc driver probe
-> shall be deferred instead of being probed without mailbox support.
+> On Wed, Sep 25, 2019 at 07:49:27PM -0400, William Breathitt Gray wrote:
+> > On Wed, Sep 18, 2019 at 02:22:03PM +0200, Fabrice Gasnier wrote:  
+> > > Fix the following warning when documentation is built:
+> > > drivers/counter/stm32-timer-cnt.c:37: warning: cannot understand function
+> > > prototype: 'enum stm32_count_function'
+> > > 
+> > > Signed-off-by: Fabrice Gasnier <fabrice.gasnier@st.com>
+> > > ---
+> > >  drivers/counter/stm32-timer-cnt.c | 2 +-
+> > >  1 file changed, 1 insertion(+), 1 deletion(-)
+> > > 
+> > > diff --git a/drivers/counter/stm32-timer-cnt.c b/drivers/counter/stm32-timer-cnt.c
+> > > index 644ba18..e425dd1 100644
+> > > --- a/drivers/counter/stm32-timer-cnt.c
+> > > +++ b/drivers/counter/stm32-timer-cnt.c
+> > > @@ -28,7 +28,7 @@ struct stm32_timer_cnt {
+> > >  };
+> > >  
+> > >  /**
+> > > - * stm32_count_function - enumerates stm32 timer counter encoder modes
+> > > + * enum stm32_count_function - enumerates stm32 timer counter encoder modes
+> > >   * @STM32_COUNT_SLAVE_MODE_DISABLED: counts on internal clock when CEN=1
+> > >   * @STM32_COUNT_ENCODER_MODE_1: counts TI1FP1 edges, depending on TI2FP2 level
+> > >   * @STM32_COUNT_ENCODER_MODE_2: counts TI2FP2 edges, depending on TI1FP1 level
+> > > -- 
+> > > 2.7.4  
+> > 
+> > Fixes: 597f55e3f36c ("counter: stm32-lptimer: add counter device")
+> > 
+> > Jonathan, please pick this fix up through IIO.
+> > 
+> > Thanks,
+> > 
+> > William Breathitt Gray  
 > 
-> Signed-off-by: Fabien Dessenne <fabien.dessenne@st.com>
-> ---
->  drivers/remoteproc/stm32_rproc.c | 12 +++++++++---
->  1 file changed, 9 insertions(+), 3 deletions(-)
+> Sorry, that's the wrong Fixes line. Here's the right one:
 > 
-> diff --git a/drivers/remoteproc/stm32_rproc.c b/drivers/remoteproc/stm32_rproc.c
-> index 2cf4b29..410b794 100644
-> --- a/drivers/remoteproc/stm32_rproc.c
-> +++ b/drivers/remoteproc/stm32_rproc.c
-> @@ -310,7 +310,7 @@ static const struct stm32_mbox stm32_rproc_mbox[MBOX_NB_MBX] = {
->  	}
->  };
->  
-> -static void stm32_rproc_request_mbox(struct rproc *rproc)
-> +static int stm32_rproc_request_mbox(struct rproc *rproc)
->  {
->  	struct stm32_rproc *ddata = rproc->priv;
->  	struct device *dev = &rproc->dev;
-> @@ -328,11 +328,15 @@ static void stm32_rproc_request_mbox(struct rproc *rproc)
->  		cl->dev = dev->parent;
->  
->  		ddata->mb[i].chan = mbox_request_channel_byname(cl, name);
-> -		if (IS_ERR(ddata->mb[i].chan)) {
-> +		if (PTR_ERR(ddata->mb[i].chan) == -EPROBE_DEFER) {
-
-You may not use PTR_ERR() without first checking IS_ERR(), apart from
-that your patch looks good.
-
-Regards,
-Bjorn
-
-> +			return -EPROBE_DEFER;
-> +		} else if (IS_ERR(ddata->mb[i].chan)) {
->  			dev_warn(dev, "cannot get %s mbox\n", name);
->  			ddata->mb[i].chan = NULL;
->  		}
->  	}
-> +
-> +	return 0;
->  }
->  
->  static int stm32_rproc_set_hold_boot(struct rproc *rproc, bool hold)
-> @@ -596,7 +600,9 @@ static int stm32_rproc_probe(struct platform_device *pdev)
->  	if (ret)
->  		goto free_rproc;
->  
-> -	stm32_rproc_request_mbox(rproc);
-> +	ret = stm32_rproc_request_mbox(rproc);
-> +	if (ret)
-> +		goto free_rproc;
->  
->  	ret = rproc_add(rproc);
->  	if (ret)
-> -- 
-> 2.7.4
+> Fixes: ad29937e206f ("counter: Add STM32 Timer quadrature encoder")
 > 
+> William Breathitt Gray
+I've picked it up, but please be more formal and also give an
+Acked-by: in future.
+
+Applied to the togreg branch of iio.git and pushed out as testing though
+I doubt automatic testing of kernel-doc is occurring.
+
+Thanks,
+
+Jonathan
+
+
 _______________________________________________
 Linux-stm32 mailing list
 Linux-stm32@st-md-mailman.stormreply.com
