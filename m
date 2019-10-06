@@ -2,23 +2,23 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id 80AC0CD0C8
-	for <lists+linux-stm32@lfdr.de>; Sun,  6 Oct 2019 12:33:44 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 90437CD0CA
+	for <lists+linux-stm32@lfdr.de>; Sun,  6 Oct 2019 12:33:50 +0200 (CEST)
 Received: from ip-172-31-3-76.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 50EC1C36B0B;
-	Sun,  6 Oct 2019 10:33:44 +0000 (UTC)
-Received: from huawei.com (szxga06-in.huawei.com [45.249.212.32])
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 5CDEBC36B0B;
+	Sun,  6 Oct 2019 10:33:50 +0000 (UTC)
+Received: from huawei.com (szxga04-in.huawei.com [45.249.212.190])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 12A93C36B09
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 06536C36B09
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Sun,  6 Oct 2019 10:33:43 +0000 (UTC)
-Received: from DGGEMS401-HUB.china.huawei.com (unknown [172.30.72.58])
- by Forcepoint Email with ESMTP id 0B205CD56ED0AE8C27BA;
- Sun,  6 Oct 2019 18:33:41 +0800 (CST)
-Received: from localhost (10.133.213.239) by DGGEMS401-HUB.china.huawei.com
- (10.3.19.201) with Microsoft SMTP Server id 14.3.439.0; Sun, 6 Oct 2019
- 18:33:32 +0800
+ Sun,  6 Oct 2019 10:33:49 +0000 (UTC)
+Received: from DGGEMS413-HUB.china.huawei.com (unknown [172.30.72.59])
+ by Forcepoint Email with ESMTP id C7DFC4709964F18BACA1;
+ Sun,  6 Oct 2019 18:33:46 +0800 (CST)
+Received: from localhost (10.133.213.239) by DGGEMS413-HUB.china.huawei.com
+ (10.3.19.213) with Microsoft SMTP Server id 14.3.439.0; Sun, 6 Oct 2019
+ 18:33:36 +0800
 From: YueHaibing <yuehaibing@huawei.com>
 To: <a.zummo@towertech.it>, <alexandre.belloni@bootlin.com>, <joel@jms.id.au>, 
  <andrew@aj.id.au>, <nicolas.ferre@microchip.com>,
@@ -32,8 +32,8 @@ To: <a.zummo@towertech.it>, <alexandre.belloni@bootlin.com>, <joel@jms.id.au>,
  <mcoquelin.stm32@gmail.com>, <alexandre.torgue@st.com>, <mripard@kernel.org>, 
  <wens@csie.org>, <thierry.reding@gmail.com>, <jonathanh@nvidia.com>,
  <linux@prisktech.co.nz>, <michal.simek@xilinx.com>
-Date: Sun, 6 Oct 2019 18:29:45 +0800
-Message-ID: <20191006102953.57536-27-yuehaibing@huawei.com>
+Date: Sun, 6 Oct 2019 18:29:46 +0800
+Message-ID: <20191006102953.57536-28-yuehaibing@huawei.com>
 X-Mailer: git-send-email 2.10.2.windows.1
 In-Reply-To: <20191006102953.57536-1-yuehaibing@huawei.com>
 References: <20191006102953.57536-1-yuehaibing@huawei.com>
@@ -45,7 +45,7 @@ Cc: linux-rtc@vger.kernel.org, linux-aspeed@lists.ozlabs.org,
  linux-mediatek@lists.infradead.org, linux-tegra@vger.kernel.org,
  linux-amlogic@lists.infradead.org, linux-stm32@st-md-mailman.stormreply.com,
  linux-arm-kernel@lists.infradead.org
-Subject: [Linux-stm32] [PATCH -next 26/34] rtc: ds1286: use
+Subject: [Linux-stm32] [PATCH -next 27/34] rtc: st-lpc: use
 	devm_platform_ioremap_resource() to simplify code
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
@@ -68,29 +68,30 @@ This is detected by coccinelle.
 
 Signed-off-by: YueHaibing <yuehaibing@huawei.com>
 ---
- drivers/rtc/rtc-ds1286.c | 4 +---
+ drivers/rtc/rtc-st-lpc.c | 4 +---
  1 file changed, 1 insertion(+), 3 deletions(-)
 
-diff --git a/drivers/rtc/rtc-ds1286.c b/drivers/rtc/rtc-ds1286.c
-index a06508b..7acf849 100644
---- a/drivers/rtc/rtc-ds1286.c
-+++ b/drivers/rtc/rtc-ds1286.c
-@@ -323,15 +323,13 @@ static const struct rtc_class_ops ds1286_ops = {
- static int ds1286_probe(struct platform_device *pdev)
+diff --git a/drivers/rtc/rtc-st-lpc.c b/drivers/rtc/rtc-st-lpc.c
+index 49474a3..f1c5471 100644
+--- a/drivers/rtc/rtc-st-lpc.c
++++ b/drivers/rtc/rtc-st-lpc.c
+@@ -186,7 +186,6 @@ static int st_rtc_probe(struct platform_device *pdev)
  {
- 	struct rtc_device *rtc;
+ 	struct device_node *np = pdev->dev.of_node;
+ 	struct st_rtc *rtc;
 -	struct resource *res;
- 	struct ds1286_priv *priv;
+ 	uint32_t mode;
+ 	int ret = 0;
  
- 	priv = devm_kzalloc(&pdev->dev, sizeof(struct ds1286_priv), GFP_KERNEL);
- 	if (!priv)
- 		return -ENOMEM;
+@@ -210,8 +209,7 @@ static int st_rtc_probe(struct platform_device *pdev)
+ 
+ 	spin_lock_init(&rtc->lock);
  
 -	res = platform_get_resource(pdev, IORESOURCE_MEM, 0);
--	priv->rtcregs = devm_ioremap_resource(&pdev->dev, res);
-+	priv->rtcregs = devm_platform_ioremap_resource(pdev, 0);
- 	if (IS_ERR(priv->rtcregs))
- 		return PTR_ERR(priv->rtcregs);
+-	rtc->ioaddr = devm_ioremap_resource(&pdev->dev, res);
++	rtc->ioaddr = devm_platform_ioremap_resource(pdev, 0);
+ 	if (IS_ERR(rtc->ioaddr))
+ 		return PTR_ERR(rtc->ioaddr);
  
 -- 
 2.7.4
