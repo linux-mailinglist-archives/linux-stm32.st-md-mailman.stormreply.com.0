@@ -2,51 +2,48 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id 3515FCD0E7
-	for <lists+linux-stm32@lfdr.de>; Sun,  6 Oct 2019 12:34:14 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 69BAECD189
+	for <lists+linux-stm32@lfdr.de>; Sun,  6 Oct 2019 13:09:11 +0200 (CEST)
 Received: from ip-172-31-3-76.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id E126DC36B0B;
-	Sun,  6 Oct 2019 10:34:13 +0000 (UTC)
-Received: from huawei.com (szxga07-in.huawei.com [45.249.212.35])
- (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 2F614C36B14;
+	Sun,  6 Oct 2019 11:09:11 +0000 (UTC)
+Received: from smtprelay-out1.synopsys.com (us03-smtprelay2.synopsys.com
+ [149.117.87.133])
+ (using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 0E3D6C36B0A
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 25463C36B0C
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Sun,  6 Oct 2019 10:34:12 +0000 (UTC)
-Received: from DGGEMS412-HUB.china.huawei.com (unknown [172.30.72.58])
- by Forcepoint Email with ESMTP id 1EA89D08BB2E59D6385F;
- Sun,  6 Oct 2019 18:34:09 +0800 (CST)
-Received: from localhost (10.133.213.239) by DGGEMS412-HUB.china.huawei.com
- (10.3.19.212) with Microsoft SMTP Server id 14.3.439.0; Sun, 6 Oct 2019
- 18:34:03 +0800
-From: YueHaibing <yuehaibing@huawei.com>
-To: <a.zummo@towertech.it>, <alexandre.belloni@bootlin.com>, <joel@jms.id.au>, 
- <andrew@aj.id.au>, <nicolas.ferre@microchip.com>,
- <ludovic.desroches@microchip.com>, <computersforpeace@gmail.com>,
- <gregory.0xf0@gmail.com>, <f.fainelli@gmail.com>,
- <bcm-kernel-feedback-list@broadcom.com>, <linus.walleij@linaro.org>,
- <baruch@tkos.co.il>, <paul@crapouillou.net>, <vz@mleia.com>,
- <slemieux.tyco@gmail.com>, <khilman@baylibre.com>,
- <eddie.huang@mediatek.com>, <sean.wang@mediatek.com>,
- <matthias.bgg@gmail.com>, <patrice.chotard@st.com>,
- <mcoquelin.stm32@gmail.com>, <alexandre.torgue@st.com>, <mripard@kernel.org>, 
- <wens@csie.org>, <thierry.reding@gmail.com>, <jonathanh@nvidia.com>,
- <linux@prisktech.co.nz>, <michal.simek@xilinx.com>
-Date: Sun, 6 Oct 2019 18:29:53 +0800
-Message-ID: <20191006102953.57536-35-yuehaibing@huawei.com>
-X-Mailer: git-send-email 2.10.2.windows.1
-In-Reply-To: <20191006102953.57536-1-yuehaibing@huawei.com>
-References: <20191006102953.57536-1-yuehaibing@huawei.com>
-MIME-Version: 1.0
-X-Originating-IP: [10.133.213.239]
-X-CFilter-Loop: Reflected
-Cc: linux-rtc@vger.kernel.org, linux-aspeed@lists.ozlabs.org,
- YueHaibing <yuehaibing@huawei.com>, linux-kernel@vger.kernel.org,
- linux-mediatek@lists.infradead.org, linux-tegra@vger.kernel.org,
- linux-amlogic@lists.infradead.org, linux-stm32@st-md-mailman.stormreply.com,
- linux-arm-kernel@lists.infradead.org
-Subject: [Linux-stm32] [PATCH -next 34/34] rtc: zynqmp: use
-	devm_platform_ioremap_resource() to simplify code
+ Sun,  6 Oct 2019 11:09:09 +0000 (UTC)
+Received: from mailhost.synopsys.com (mdc-mailhost2.synopsys.com
+ [10.225.0.210])
+ (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits))
+ (No client certificate requested)
+ by smtprelay-out1.synopsys.com (Postfix) with ESMTPS id E8E11C04C1;
+ Sun,  6 Oct 2019 11:09:05 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=synopsys.com; s=mail;
+ t=1570360147; bh=HsZL/b2XjmKMURLvNgIusI3oggJImdu/rO/oTDqojMA=;
+ h=From:To:Cc:Subject:Date:From;
+ b=kgXlkXsJ9Y/zbnyCy2qhXDHMGe1cWiyj1MR6m9Z88cewH+JMinOoCVF5teP4IBrnJ
+ 2W5TpM8QgD2gVJ6scmaGCA5gE2XPw3PDt6xAQL8BmzJ+HPrAfLxaAZmJIFw6THh+SI
+ 3cTrzCpY4FE/coRplublUhMBGF98ZJJF2yUynQwlA+yIFRbfbM+NLD2QsMpq+IpQaX
+ Da5X8FYkqAMpaLGGt6ZLSeWq1znuE/TaqZ3Hx/1hRV0HCvYay+o7uXb8dNeVw/eCNH
+ CRIdGW5vRzZwd8ThjWu2AbGco8QKyCXOjtXDxDohEGX5NyRxta/1tlelIahuJEoHCa
+ um4Mq1bg8ZcYA==
+Received: from de02dwia024.internal.synopsys.com
+ (de02dwia024.internal.synopsys.com [10.225.19.81])
+ by mailhost.synopsys.com (Postfix) with ESMTP id 90F4AA005C;
+ Sun,  6 Oct 2019 11:09:03 +0000 (UTC)
+From: Jose Abreu <Jose.Abreu@synopsys.com>
+To: netdev@vger.kernel.org
+Date: Sun,  6 Oct 2019 13:08:54 +0200
+Message-Id: <cover.1570359800.git.Jose.Abreu@synopsys.com>
+X-Mailer: git-send-email 2.7.4
+Cc: Jose Abreu <Jose.Abreu@synopsys.com>, Joao Pinto <Joao.Pinto@synopsys.com>,
+ linux-kernel@vger.kernel.org, linux-stm32@st-md-mailman.stormreply.com,
+ Maxime Coquelin <mcoquelin.stm32@gmail.com>,
+ Giuseppe Cavallaro <peppe.cavallaro@st.com>,
+ "David S. Miller" <davem@davemloft.net>, linux-arm-kernel@lists.infradead.org
+Subject: [Linux-stm32] [PATCH net 0/3] net: stmmac: Fixes for -net
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -58,45 +55,37 @@ List-Post: <mailto:linux-stm32@st-md-mailman.stormreply.com>
 List-Help: <mailto:linux-stm32-request@st-md-mailman.stormreply.com?subject=help>
 List-Subscribe: <https://st-md-mailman.stormreply.com/mailman/listinfo/linux-stm32>, 
  <mailto:linux-stm32-request@st-md-mailman.stormreply.com?subject=subscribe>
+MIME-Version: 1.0
 Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
-Use devm_platform_ioremap_resource() to simplify the code a bit.
-This is detected by coccinelle.
+Fixes for -net. More info in commit logs.
 
-Signed-off-by: YueHaibing <yuehaibing@huawei.com>
 ---
- drivers/rtc/rtc-zynqmp.c | 5 +----
- 1 file changed, 1 insertion(+), 4 deletions(-)
+Cc: Giuseppe Cavallaro <peppe.cavallaro@st.com>
+Cc: Alexandre Torgue <alexandre.torgue@st.com>
+Cc: Jose Abreu <joabreu@synopsys.com>
+Cc: "David S. Miller" <davem@davemloft.net>
+Cc: Maxime Coquelin <mcoquelin.stm32@gmail.com>
+Cc: netdev@vger.kernel.org
+Cc: linux-stm32@st-md-mailman.stormreply.com
+Cc: linux-arm-kernel@lists.infradead.org
+Cc: linux-kernel@vger.kernel.org
+---
 
-diff --git a/drivers/rtc/rtc-zynqmp.c b/drivers/rtc/rtc-zynqmp.c
-index 2c76275..55646e0 100644
---- a/drivers/rtc/rtc-zynqmp.c
-+++ b/drivers/rtc/rtc-zynqmp.c
-@@ -195,7 +195,6 @@ static irqreturn_t xlnx_rtc_interrupt(int irq, void *id)
- static int xlnx_rtc_probe(struct platform_device *pdev)
- {
- 	struct xlnx_rtc_dev *xrtcdev;
--	struct resource *res;
- 	int ret;
- 
- 	xrtcdev = devm_kzalloc(&pdev->dev, sizeof(*xrtcdev), GFP_KERNEL);
-@@ -211,9 +210,7 @@ static int xlnx_rtc_probe(struct platform_device *pdev)
- 	xrtcdev->rtc->ops = &xlnx_rtc_ops;
- 	xrtcdev->rtc->range_max = U32_MAX;
- 
--	res = platform_get_resource(pdev, IORESOURCE_MEM, 0);
--
--	xrtcdev->reg_base = devm_ioremap_resource(&pdev->dev, res);
-+	xrtcdev->reg_base = devm_platform_ioremap_resource(pdev, 0);
- 	if (IS_ERR(xrtcdev->reg_base))
- 		return PTR_ERR(xrtcdev->reg_base);
- 
+Jose Abreu (3):
+  net: stmmac: selftests: Check if filtering is available before running
+  net: stmmac: gmac4+: Not all Unicast addresses may be available
+  net: stmmac: selftests: Fix L2 Hash Filter test
+
+ drivers/net/ethernet/stmicro/stmmac/dwmac4_core.c      |  2 +-
+ drivers/net/ethernet/stmicro/stmmac/stmmac_selftests.c | 11 +++++++++--
+ 2 files changed, 10 insertions(+), 3 deletions(-)
+
 -- 
 2.7.4
-
 
 _______________________________________________
 Linux-stm32 mailing list
