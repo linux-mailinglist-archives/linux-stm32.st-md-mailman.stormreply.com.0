@@ -2,23 +2,23 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id 7B74ECD079
-	for <lists+linux-stm32@lfdr.de>; Sun,  6 Oct 2019 12:32:38 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 893D5CD083
+	for <lists+linux-stm32@lfdr.de>; Sun,  6 Oct 2019 12:32:42 +0200 (CEST)
 Received: from ip-172-31-3-76.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 4B7B8C36B0B;
-	Sun,  6 Oct 2019 10:32:38 +0000 (UTC)
-Received: from huawei.com (szxga05-in.huawei.com [45.249.212.191])
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 55FEEC36B0B;
+	Sun,  6 Oct 2019 10:32:42 +0000 (UTC)
+Received: from huawei.com (szxga04-in.huawei.com [45.249.212.190])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 189BCC36B09
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id C84B0C36B09
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Sun,  6 Oct 2019 10:32:37 +0000 (UTC)
-Received: from DGGEMS414-HUB.china.huawei.com (unknown [172.30.72.58])
- by Forcepoint Email with ESMTP id 05F8174B22714585E7A4;
- Sun,  6 Oct 2019 18:32:34 +0800 (CST)
-Received: from localhost (10.133.213.239) by DGGEMS414-HUB.china.huawei.com
- (10.3.19.214) with Microsoft SMTP Server id 14.3.439.0; Sun, 6 Oct 2019
- 18:32:26 +0800
+ Sun,  6 Oct 2019 10:32:40 +0000 (UTC)
+Received: from DGGEMS403-HUB.china.huawei.com (unknown [172.30.72.59])
+ by Forcepoint Email with ESMTP id D26F8B3242B4552248AA;
+ Sun,  6 Oct 2019 18:32:38 +0800 (CST)
+Received: from localhost (10.133.213.239) by DGGEMS403-HUB.china.huawei.com
+ (10.3.19.203) with Microsoft SMTP Server id 14.3.439.0; Sun, 6 Oct 2019
+ 18:32:30 +0800
 From: YueHaibing <yuehaibing@huawei.com>
 To: <a.zummo@towertech.it>, <alexandre.belloni@bootlin.com>, <joel@jms.id.au>, 
  <andrew@aj.id.au>, <nicolas.ferre@microchip.com>,
@@ -32,8 +32,8 @@ To: <a.zummo@towertech.it>, <alexandre.belloni@bootlin.com>, <joel@jms.id.au>,
  <mcoquelin.stm32@gmail.com>, <alexandre.torgue@st.com>, <mripard@kernel.org>, 
  <wens@csie.org>, <thierry.reding@gmail.com>, <jonathanh@nvidia.com>,
  <linux@prisktech.co.nz>, <michal.simek@xilinx.com>
-Date: Sun, 6 Oct 2019 18:29:27 +0800
-Message-ID: <20191006102953.57536-9-yuehaibing@huawei.com>
+Date: Sun, 6 Oct 2019 18:29:28 +0800
+Message-ID: <20191006102953.57536-10-yuehaibing@huawei.com>
 X-Mailer: git-send-email 2.10.2.windows.1
 In-Reply-To: <20191006102953.57536-1-yuehaibing@huawei.com>
 References: <20191006102953.57536-1-yuehaibing@huawei.com>
@@ -45,7 +45,7 @@ Cc: linux-rtc@vger.kernel.org, linux-aspeed@lists.ozlabs.org,
  linux-mediatek@lists.infradead.org, linux-tegra@vger.kernel.org,
  linux-amlogic@lists.infradead.org, linux-stm32@st-md-mailman.stormreply.com,
  linux-arm-kernel@lists.infradead.org
-Subject: [Linux-stm32] [PATCH -next 08/34] rtc: digicolor: use
+Subject: [Linux-stm32] [PATCH -next 09/34] rtc: ds1216: use
 	devm_platform_ioremap_resource() to simplify code
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
@@ -68,30 +68,30 @@ This is detected by coccinelle.
 
 Signed-off-by: YueHaibing <yuehaibing@huawei.com>
 ---
- drivers/rtc/rtc-digicolor.c | 4 +---
+ drivers/rtc/rtc-ds1216.c | 4 +---
  1 file changed, 1 insertion(+), 3 deletions(-)
 
-diff --git a/drivers/rtc/rtc-digicolor.c b/drivers/rtc/rtc-digicolor.c
-index 0aecc3f..200d85b 100644
---- a/drivers/rtc/rtc-digicolor.c
-+++ b/drivers/rtc/rtc-digicolor.c
-@@ -175,7 +175,6 @@ static irqreturn_t dc_rtc_irq(int irq, void *dev_id)
+diff --git a/drivers/rtc/rtc-ds1216.c b/drivers/rtc/rtc-ds1216.c
+index b225bcf..7eeb3f3 100644
+--- a/drivers/rtc/rtc-ds1216.c
++++ b/drivers/rtc/rtc-ds1216.c
+@@ -137,7 +137,6 @@ static const struct rtc_class_ops ds1216_rtc_ops = {
  
- static int __init dc_rtc_probe(struct platform_device *pdev)
+ static int __init ds1216_rtc_probe(struct platform_device *pdev)
  {
 -	struct resource *res;
- 	struct dc_rtc *rtc;
- 	int irq, ret;
+ 	struct ds1216_priv *priv;
+ 	u8 dummy[8];
  
-@@ -183,8 +182,7 @@ static int __init dc_rtc_probe(struct platform_device *pdev)
- 	if (!rtc)
- 		return -ENOMEM;
+@@ -147,8 +146,7 @@ static int __init ds1216_rtc_probe(struct platform_device *pdev)
+ 
+ 	platform_set_drvdata(pdev, priv);
  
 -	res = platform_get_resource(pdev, IORESOURCE_MEM, 0);
--	rtc->regs = devm_ioremap_resource(&pdev->dev, res);
-+	rtc->regs = devm_platform_ioremap_resource(pdev, 0);
- 	if (IS_ERR(rtc->regs))
- 		return PTR_ERR(rtc->regs);
+-	priv->ioaddr = devm_ioremap_resource(&pdev->dev, res);
++	priv->ioaddr = devm_platform_ioremap_resource(pdev, 0);
+ 	if (IS_ERR(priv->ioaddr))
+ 		return PTR_ERR(priv->ioaddr);
  
 -- 
 2.7.4
