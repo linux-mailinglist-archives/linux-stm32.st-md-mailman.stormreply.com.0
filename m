@@ -2,23 +2,23 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id 3ABCFCD06B
-	for <lists+linux-stm32@lfdr.de>; Sun,  6 Oct 2019 12:32:17 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 42B1DCD06C
+	for <lists+linux-stm32@lfdr.de>; Sun,  6 Oct 2019 12:32:21 +0200 (CEST)
 Received: from ip-172-31-3-76.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 07132C36B0B;
-	Sun,  6 Oct 2019 10:32:17 +0000 (UTC)
-Received: from huawei.com (szxga07-in.huawei.com [45.249.212.35])
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 12CF6C36B0B;
+	Sun,  6 Oct 2019 10:32:21 +0000 (UTC)
+Received: from huawei.com (szxga06-in.huawei.com [45.249.212.32])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 4003AC36B09
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 3C8B9C36B09
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Sun,  6 Oct 2019 10:32:16 +0000 (UTC)
-Received: from DGGEMS403-HUB.china.huawei.com (unknown [172.30.72.59])
- by Forcepoint Email with ESMTP id 80E9C68B6D1A82F02FA8;
- Sun,  6 Oct 2019 18:32:13 +0800 (CST)
-Received: from localhost (10.133.213.239) by DGGEMS403-HUB.china.huawei.com
- (10.3.19.203) with Microsoft SMTP Server id 14.3.439.0; Sun, 6 Oct 2019
- 18:32:05 +0800
+ Sun,  6 Oct 2019 10:32:20 +0000 (UTC)
+Received: from DGGEMS412-HUB.china.huawei.com (unknown [172.30.72.58])
+ by Forcepoint Email with ESMTP id 821851ED13638A7FF2C3;
+ Sun,  6 Oct 2019 18:32:17 +0800 (CST)
+Received: from localhost (10.133.213.239) by DGGEMS412-HUB.china.huawei.com
+ (10.3.19.212) with Microsoft SMTP Server id 14.3.439.0; Sun, 6 Oct 2019
+ 18:32:09 +0800
 From: YueHaibing <yuehaibing@huawei.com>
 To: <a.zummo@towertech.it>, <alexandre.belloni@bootlin.com>, <joel@jms.id.au>, 
  <andrew@aj.id.au>, <nicolas.ferre@microchip.com>,
@@ -32,8 +32,8 @@ To: <a.zummo@towertech.it>, <alexandre.belloni@bootlin.com>, <joel@jms.id.au>,
  <mcoquelin.stm32@gmail.com>, <alexandre.torgue@st.com>, <mripard@kernel.org>, 
  <wens@csie.org>, <thierry.reding@gmail.com>, <jonathanh@nvidia.com>,
  <linux@prisktech.co.nz>, <michal.simek@xilinx.com>
-Date: Sun, 6 Oct 2019 18:29:21 +0800
-Message-ID: <20191006102953.57536-3-yuehaibing@huawei.com>
+Date: Sun, 6 Oct 2019 18:29:22 +0800
+Message-ID: <20191006102953.57536-4-yuehaibing@huawei.com>
 X-Mailer: git-send-email 2.10.2.windows.1
 In-Reply-To: <20191006102953.57536-1-yuehaibing@huawei.com>
 References: <20191006102953.57536-1-yuehaibing@huawei.com>
@@ -45,7 +45,7 @@ Cc: linux-rtc@vger.kernel.org, linux-aspeed@lists.ozlabs.org,
  linux-mediatek@lists.infradead.org, linux-tegra@vger.kernel.org,
  linux-amlogic@lists.infradead.org, linux-stm32@st-md-mailman.stormreply.com,
  linux-arm-kernel@lists.infradead.org
-Subject: [Linux-stm32] [PATCH -next 02/34] rtc: rtc-aspeed: use
+Subject: [Linux-stm32] [PATCH -next 03/34] rtc: brcmstb-waketimer: use
 	devm_platform_ioremap_resource() to simplify code
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
@@ -68,28 +68,30 @@ This is detected by coccinelle.
 
 Signed-off-by: YueHaibing <yuehaibing@huawei.com>
 ---
- drivers/rtc/rtc-aspeed.c | 4 +---
+ drivers/rtc/rtc-brcmstb-waketimer.c | 4 +---
  1 file changed, 1 insertion(+), 3 deletions(-)
 
-diff --git a/drivers/rtc/rtc-aspeed.c b/drivers/rtc/rtc-aspeed.c
-index e351d35..eacdd06 100644
---- a/drivers/rtc/rtc-aspeed.c
-+++ b/drivers/rtc/rtc-aspeed.c
-@@ -85,14 +85,12 @@ static const struct rtc_class_ops aspeed_rtc_ops = {
- static int aspeed_rtc_probe(struct platform_device *pdev)
+diff --git a/drivers/rtc/rtc-brcmstb-waketimer.c b/drivers/rtc/rtc-brcmstb-waketimer.c
+index 3e9800f..cb7af87 100644
+--- a/drivers/rtc/rtc-brcmstb-waketimer.c
++++ b/drivers/rtc/rtc-brcmstb-waketimer.c
+@@ -200,7 +200,6 @@ static int brcmstb_waketmr_probe(struct platform_device *pdev)
  {
- 	struct aspeed_rtc *rtc;
+ 	struct device *dev = &pdev->dev;
+ 	struct brcmstb_waketmr *timer;
 -	struct resource *res;
+ 	int ret;
  
- 	rtc = devm_kzalloc(&pdev->dev, sizeof(*rtc), GFP_KERNEL);
- 	if (!rtc)
- 		return -ENOMEM;
+ 	timer = devm_kzalloc(dev, sizeof(*timer), GFP_KERNEL);
+@@ -210,8 +209,7 @@ static int brcmstb_waketmr_probe(struct platform_device *pdev)
+ 	platform_set_drvdata(pdev, timer);
+ 	timer->dev = dev;
  
 -	res = platform_get_resource(pdev, IORESOURCE_MEM, 0);
--	rtc->base = devm_ioremap_resource(&pdev->dev, res);
-+	rtc->base = devm_platform_ioremap_resource(pdev, 0);
- 	if (IS_ERR(rtc->base))
- 		return PTR_ERR(rtc->base);
+-	timer->base = devm_ioremap_resource(dev, res);
++	timer->base = devm_platform_ioremap_resource(pdev, 0);
+ 	if (IS_ERR(timer->base))
+ 		return PTR_ERR(timer->base);
  
 -- 
 2.7.4
