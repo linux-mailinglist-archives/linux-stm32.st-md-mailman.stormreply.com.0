@@ -2,23 +2,23 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id 27A73CD0AF
-	for <lists+linux-stm32@lfdr.de>; Sun,  6 Oct 2019 12:33:26 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 5EDD6CD0B1
+	for <lists+linux-stm32@lfdr.de>; Sun,  6 Oct 2019 12:33:30 +0200 (CEST)
 Received: from ip-172-31-3-76.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id E40A2C36B0E;
-	Sun,  6 Oct 2019 10:33:25 +0000 (UTC)
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 18889C36B0B;
+	Sun,  6 Oct 2019 10:33:30 +0000 (UTC)
 Received: from huawei.com (szxga05-in.huawei.com [45.249.212.191])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 7CC54C36B09
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 64750C36B09
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Sun,  6 Oct 2019 10:33:24 +0000 (UTC)
-Received: from DGGEMS402-HUB.china.huawei.com (unknown [172.30.72.58])
- by Forcepoint Email with ESMTP id 14EEDF1FC8904C5BDC6F;
- Sun,  6 Oct 2019 18:33:22 +0800 (CST)
-Received: from localhost (10.133.213.239) by DGGEMS402-HUB.china.huawei.com
- (10.3.19.202) with Microsoft SMTP Server id 14.3.439.0; Sun, 6 Oct 2019
- 18:33:14 +0800
+ Sun,  6 Oct 2019 10:33:28 +0000 (UTC)
+Received: from DGGEMS405-HUB.china.huawei.com (unknown [172.30.72.59])
+ by Forcepoint Email with ESMTP id 02845A211F9171034FAE;
+ Sun,  6 Oct 2019 18:33:26 +0800 (CST)
+Received: from localhost (10.133.213.239) by DGGEMS405-HUB.china.huawei.com
+ (10.3.19.205) with Microsoft SMTP Server id 14.3.439.0; Sun, 6 Oct 2019
+ 18:33:17 +0800
 From: YueHaibing <yuehaibing@huawei.com>
 To: <a.zummo@towertech.it>, <alexandre.belloni@bootlin.com>, <joel@jms.id.au>, 
  <andrew@aj.id.au>, <nicolas.ferre@microchip.com>,
@@ -32,8 +32,8 @@ To: <a.zummo@towertech.it>, <alexandre.belloni@bootlin.com>, <joel@jms.id.au>,
  <mcoquelin.stm32@gmail.com>, <alexandre.torgue@st.com>, <mripard@kernel.org>, 
  <wens@csie.org>, <thierry.reding@gmail.com>, <jonathanh@nvidia.com>,
  <linux@prisktech.co.nz>, <michal.simek@xilinx.com>
-Date: Sun, 6 Oct 2019 18:29:40 +0800
-Message-ID: <20191006102953.57536-22-yuehaibing@huawei.com>
+Date: Sun, 6 Oct 2019 18:29:41 +0800
+Message-ID: <20191006102953.57536-23-yuehaibing@huawei.com>
 X-Mailer: git-send-email 2.10.2.windows.1
 In-Reply-To: <20191006102953.57536-1-yuehaibing@huawei.com>
 References: <20191006102953.57536-1-yuehaibing@huawei.com>
@@ -45,7 +45,7 @@ Cc: linux-rtc@vger.kernel.org, linux-aspeed@lists.ozlabs.org,
  linux-mediatek@lists.infradead.org, linux-tegra@vger.kernel.org,
  linux-amlogic@lists.infradead.org, linux-stm32@st-md-mailman.stormreply.com,
  linux-arm-kernel@lists.infradead.org
-Subject: [Linux-stm32] [PATCH -next 21/34] rtc: rtd119x: use
+Subject: [Linux-stm32] [PATCH -next 22/34] rtc: s3c: use
 	devm_platform_ioremap_resource() to simplify code
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
@@ -68,30 +68,30 @@ This is detected by coccinelle.
 
 Signed-off-by: YueHaibing <yuehaibing@huawei.com>
 ---
- drivers/rtc/rtc-rtd119x.c | 4 +---
+ drivers/rtc/rtc-s3c.c | 4 +---
  1 file changed, 1 insertion(+), 3 deletions(-)
 
-diff --git a/drivers/rtc/rtc-rtd119x.c b/drivers/rtc/rtc-rtd119x.c
-index b233559..bb98f2d 100644
---- a/drivers/rtc/rtc-rtd119x.c
-+++ b/drivers/rtc/rtc-rtd119x.c
-@@ -167,7 +167,6 @@ static const struct of_device_id rtd119x_rtc_dt_ids[] = {
- static int rtd119x_rtc_probe(struct platform_device *pdev)
+diff --git a/drivers/rtc/rtc-s3c.c b/drivers/rtc/rtc-s3c.c
+index 7801249..e1b50e6 100644
+--- a/drivers/rtc/rtc-s3c.c
++++ b/drivers/rtc/rtc-s3c.c
+@@ -444,7 +444,6 @@ static int s3c_rtc_probe(struct platform_device *pdev)
  {
- 	struct rtd119x_rtc *data;
+ 	struct s3c_rtc *info = NULL;
+ 	struct rtc_time rtc_tm;
 -	struct resource *res;
- 	u32 val;
  	int ret;
  
-@@ -178,8 +177,7 @@ static int rtd119x_rtc_probe(struct platform_device *pdev)
- 	platform_set_drvdata(pdev, data);
- 	data->base_year = 2014;
+ 	info = devm_kzalloc(&pdev->dev, sizeof(*info), GFP_KERNEL);
+@@ -475,8 +474,7 @@ static int s3c_rtc_probe(struct platform_device *pdev)
+ 		info->irq_tick, info->irq_alarm);
  
+ 	/* get the memory region */
 -	res = platform_get_resource(pdev, IORESOURCE_MEM, 0);
--	data->base = devm_ioremap_resource(&pdev->dev, res);
-+	data->base = devm_platform_ioremap_resource(pdev, 0);
- 	if (IS_ERR(data->base))
- 		return PTR_ERR(data->base);
+-	info->base = devm_ioremap_resource(&pdev->dev, res);
++	info->base = devm_platform_ioremap_resource(pdev, 0);
+ 	if (IS_ERR(info->base))
+ 		return PTR_ERR(info->base);
  
 -- 
 2.7.4
