@@ -2,23 +2,23 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id CAA0ACD0A1
-	for <lists+linux-stm32@lfdr.de>; Sun,  6 Oct 2019 12:33:06 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id D9595CD0A7
+	for <lists+linux-stm32@lfdr.de>; Sun,  6 Oct 2019 12:33:08 +0200 (CEST)
 Received: from ip-172-31-3-76.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 9A18FC36B0B;
-	Sun,  6 Oct 2019 10:33:06 +0000 (UTC)
-Received: from huawei.com (szxga04-in.huawei.com [45.249.212.190])
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id A4CFFC36B0B;
+	Sun,  6 Oct 2019 10:33:08 +0000 (UTC)
+Received: from huawei.com (szxga05-in.huawei.com [45.249.212.191])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 13086C36B09
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 15CCDC36B09
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Sun,  6 Oct 2019 10:33:05 +0000 (UTC)
-Received: from DGGEMS411-HUB.china.huawei.com (unknown [172.30.72.60])
- by Forcepoint Email with ESMTP id 6235D1C1BDA982C36938;
- Sun,  6 Oct 2019 18:33:02 +0800 (CST)
-Received: from localhost (10.133.213.239) by DGGEMS411-HUB.china.huawei.com
- (10.3.19.211) with Microsoft SMTP Server id 14.3.439.0; Sun, 6 Oct 2019
- 18:32:52 +0800
+ Sun,  6 Oct 2019 10:33:06 +0000 (UTC)
+Received: from DGGEMS407-HUB.china.huawei.com (unknown [172.30.72.60])
+ by Forcepoint Email with ESMTP id A8A85FC4CBFC0474C99B;
+ Sun,  6 Oct 2019 18:33:03 +0800 (CST)
+Received: from localhost (10.133.213.239) by DGGEMS407-HUB.china.huawei.com
+ (10.3.19.207) with Microsoft SMTP Server id 14.3.439.0; Sun, 6 Oct 2019
+ 18:32:55 +0800
 From: YueHaibing <yuehaibing@huawei.com>
 To: <a.zummo@towertech.it>, <alexandre.belloni@bootlin.com>, <joel@jms.id.au>, 
  <andrew@aj.id.au>, <nicolas.ferre@microchip.com>,
@@ -32,8 +32,8 @@ To: <a.zummo@towertech.it>, <alexandre.belloni@bootlin.com>, <joel@jms.id.au>,
  <mcoquelin.stm32@gmail.com>, <alexandre.torgue@st.com>, <mripard@kernel.org>, 
  <wens@csie.org>, <thierry.reding@gmail.com>, <jonathanh@nvidia.com>,
  <linux@prisktech.co.nz>, <michal.simek@xilinx.com>
-Date: Sun, 6 Oct 2019 18:29:34 +0800
-Message-ID: <20191006102953.57536-16-yuehaibing@huawei.com>
+Date: Sun, 6 Oct 2019 18:29:35 +0800
+Message-ID: <20191006102953.57536-17-yuehaibing@huawei.com>
 X-Mailer: git-send-email 2.10.2.windows.1
 In-Reply-To: <20191006102953.57536-1-yuehaibing@huawei.com>
 References: <20191006102953.57536-1-yuehaibing@huawei.com>
@@ -45,7 +45,7 @@ Cc: linux-rtc@vger.kernel.org, linux-aspeed@lists.ozlabs.org,
  linux-mediatek@lists.infradead.org, linux-tegra@vger.kernel.org,
  linux-amlogic@lists.infradead.org, linux-stm32@st-md-mailman.stormreply.com,
  linux-arm-kernel@lists.infradead.org
-Subject: [Linux-stm32] [PATCH -next 15/34] rtc: lpc32xx: use
+Subject: [Linux-stm32] [PATCH -next 16/34] rtc: meson: use
 	devm_platform_ioremap_resource() to simplify code
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
@@ -68,30 +68,30 @@ This is detected by coccinelle.
 
 Signed-off-by: YueHaibing <yuehaibing@huawei.com>
 ---
- drivers/rtc/rtc-lpc32xx.c | 4 +---
+ drivers/rtc/rtc-meson.c | 4 +---
  1 file changed, 1 insertion(+), 3 deletions(-)
 
-diff --git a/drivers/rtc/rtc-lpc32xx.c b/drivers/rtc/rtc-lpc32xx.c
-index ac39323..b6a0d4a 100644
---- a/drivers/rtc/rtc-lpc32xx.c
-+++ b/drivers/rtc/rtc-lpc32xx.c
-@@ -185,7 +185,6 @@ static const struct rtc_class_ops lpc32xx_rtc_ops = {
- 
- static int lpc32xx_rtc_probe(struct platform_device *pdev)
- {
+diff --git a/drivers/rtc/rtc-meson.c b/drivers/rtc/rtc-meson.c
+index e08b981..9bd8478 100644
+--- a/drivers/rtc/rtc-meson.c
++++ b/drivers/rtc/rtc-meson.c
+@@ -292,7 +292,6 @@ static int meson_rtc_probe(struct platform_device *pdev)
+ 	};
+ 	struct device *dev = &pdev->dev;
+ 	struct meson_rtc *rtc;
 -	struct resource *res;
- 	struct lpc32xx_rtc *rtc;
- 	int err;
- 	u32 tmp;
-@@ -194,8 +193,7 @@ static int lpc32xx_rtc_probe(struct platform_device *pdev)
- 	if (unlikely(!rtc))
- 		return -ENOMEM;
+ 	void __iomem *base;
+ 	int ret;
+ 	u32 tm;
+@@ -312,8 +311,7 @@ static int meson_rtc_probe(struct platform_device *pdev)
+ 	rtc->rtc->ops = &meson_rtc_ops;
+ 	rtc->rtc->range_max = U32_MAX;
  
 -	res = platform_get_resource(pdev, IORESOURCE_MEM, 0);
--	rtc->rtc_base = devm_ioremap_resource(&pdev->dev, res);
-+	rtc->rtc_base = devm_platform_ioremap_resource(pdev, 0);
- 	if (IS_ERR(rtc->rtc_base))
- 		return PTR_ERR(rtc->rtc_base);
+-	base = devm_ioremap_resource(dev, res);
++	base = devm_platform_ioremap_resource(pdev, 0);
+ 	if (IS_ERR(base))
+ 		return PTR_ERR(base);
  
 -- 
 2.7.4
