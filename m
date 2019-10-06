@@ -2,23 +2,23 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id DD118CD0D0
-	for <lists+linux-stm32@lfdr.de>; Sun,  6 Oct 2019 12:33:58 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id EA67FCD0D3
+	for <lists+linux-stm32@lfdr.de>; Sun,  6 Oct 2019 12:33:59 +0200 (CEST)
 Received: from ip-172-31-3-76.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id A958BC36B0B;
-	Sun,  6 Oct 2019 10:33:58 +0000 (UTC)
-Received: from huawei.com (szxga07-in.huawei.com [45.249.212.35])
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id B52D6C36B0D;
+	Sun,  6 Oct 2019 10:33:59 +0000 (UTC)
+Received: from huawei.com (szxga06-in.huawei.com [45.249.212.32])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id C2D6EC36B09
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 3CECEC36B09
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Sun,  6 Oct 2019 10:33:56 +0000 (UTC)
-Received: from DGGEMS407-HUB.china.huawei.com (unknown [172.30.72.58])
- by Forcepoint Email with ESMTP id 5C14DE105D84931F900F;
- Sun,  6 Oct 2019 18:33:54 +0800 (CST)
-Received: from localhost (10.133.213.239) by DGGEMS407-HUB.china.huawei.com
- (10.3.19.207) with Microsoft SMTP Server id 14.3.439.0; Sun, 6 Oct 2019
- 18:33:44 +0800
+ Sun,  6 Oct 2019 10:33:58 +0000 (UTC)
+Received: from DGGEMS409-HUB.china.huawei.com (unknown [172.30.72.60])
+ by Forcepoint Email with ESMTP id 555965A4B74E9BECAAD9;
+ Sun,  6 Oct 2019 18:33:56 +0800 (CST)
+Received: from localhost (10.133.213.239) by DGGEMS409-HUB.china.huawei.com
+ (10.3.19.209) with Microsoft SMTP Server id 14.3.439.0; Sun, 6 Oct 2019
+ 18:33:48 +0800
 From: YueHaibing <yuehaibing@huawei.com>
 To: <a.zummo@towertech.it>, <alexandre.belloni@bootlin.com>, <joel@jms.id.au>, 
  <andrew@aj.id.au>, <nicolas.ferre@microchip.com>,
@@ -32,8 +32,8 @@ To: <a.zummo@towertech.it>, <alexandre.belloni@bootlin.com>, <joel@jms.id.au>,
  <mcoquelin.stm32@gmail.com>, <alexandre.torgue@st.com>, <mripard@kernel.org>, 
  <wens@csie.org>, <thierry.reding@gmail.com>, <jonathanh@nvidia.com>,
  <linux@prisktech.co.nz>, <michal.simek@xilinx.com>
-Date: Sun, 6 Oct 2019 18:29:48 +0800
-Message-ID: <20191006102953.57536-30-yuehaibing@huawei.com>
+Date: Sun, 6 Oct 2019 18:29:49 +0800
+Message-ID: <20191006102953.57536-31-yuehaibing@huawei.com>
 X-Mailer: git-send-email 2.10.2.windows.1
 In-Reply-To: <20191006102953.57536-1-yuehaibing@huawei.com>
 References: <20191006102953.57536-1-yuehaibing@huawei.com>
@@ -45,7 +45,7 @@ Cc: linux-rtc@vger.kernel.org, linux-aspeed@lists.ozlabs.org,
  linux-mediatek@lists.infradead.org, linux-tegra@vger.kernel.org,
  linux-amlogic@lists.infradead.org, linux-stm32@st-md-mailman.stormreply.com,
  linux-arm-kernel@lists.infradead.org
-Subject: [Linux-stm32] [PATCH -next 29/34] rtc: sunxi: use
+Subject: [Linux-stm32] [PATCH -next 30/34] rtc: tegra: use
 	devm_platform_ioremap_resource() to simplify code
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
@@ -68,30 +68,29 @@ This is detected by coccinelle.
 
 Signed-off-by: YueHaibing <yuehaibing@huawei.com>
 ---
- drivers/rtc/rtc-sunxi.c | 4 +---
+ drivers/rtc/rtc-tegra.c | 4 +---
  1 file changed, 1 insertion(+), 3 deletions(-)
 
-diff --git a/drivers/rtc/rtc-sunxi.c b/drivers/rtc/rtc-sunxi.c
-index 9b6f248..f5d7f44 100644
---- a/drivers/rtc/rtc-sunxi.c
-+++ b/drivers/rtc/rtc-sunxi.c
-@@ -422,7 +422,6 @@ MODULE_DEVICE_TABLE(of, sunxi_rtc_dt_ids);
- static int sunxi_rtc_probe(struct platform_device *pdev)
+diff --git a/drivers/rtc/rtc-tegra.c b/drivers/rtc/rtc-tegra.c
+index 69d695b..0159069 100644
+--- a/drivers/rtc/rtc-tegra.c
++++ b/drivers/rtc/rtc-tegra.c
+@@ -277,15 +277,13 @@ MODULE_DEVICE_TABLE(of, tegra_rtc_dt_match);
+ static int tegra_rtc_probe(struct platform_device *pdev)
  {
- 	struct sunxi_rtc_dev *chip;
+ 	struct tegra_rtc_info *info;
 -	struct resource *res;
  	int ret;
  
- 	chip = devm_kzalloc(&pdev->dev, sizeof(*chip), GFP_KERNEL);
-@@ -436,8 +435,7 @@ static int sunxi_rtc_probe(struct platform_device *pdev)
- 	if (IS_ERR(chip->rtc))
- 		return PTR_ERR(chip->rtc);
+ 	info = devm_kzalloc(&pdev->dev, sizeof(*info), GFP_KERNEL);
+ 	if (!info)
+ 		return -ENOMEM;
  
 -	res = platform_get_resource(pdev, IORESOURCE_MEM, 0);
--	chip->base = devm_ioremap_resource(&pdev->dev, res);
-+	chip->base = devm_platform_ioremap_resource(pdev, 0);
- 	if (IS_ERR(chip->base))
- 		return PTR_ERR(chip->base);
+-	info->base = devm_ioremap_resource(&pdev->dev, res);
++	info->base = devm_platform_ioremap_resource(pdev, 0);
+ 	if (IS_ERR(info->base))
+ 		return PTR_ERR(info->base);
  
 -- 
 2.7.4
