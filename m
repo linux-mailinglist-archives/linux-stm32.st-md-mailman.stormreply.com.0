@@ -2,23 +2,23 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id 12407CD0E0
-	for <lists+linux-stm32@lfdr.de>; Sun,  6 Oct 2019 12:34:11 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 3515FCD0E7
+	for <lists+linux-stm32@lfdr.de>; Sun,  6 Oct 2019 12:34:14 +0200 (CEST)
 Received: from ip-172-31-3-76.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id D6542C36B0D;
-	Sun,  6 Oct 2019 10:34:10 +0000 (UTC)
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id E126DC36B0B;
+	Sun,  6 Oct 2019 10:34:13 +0000 (UTC)
 Received: from huawei.com (szxga07-in.huawei.com [45.249.212.35])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 7E932C36B09
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 0E3D6C36B0A
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Sun,  6 Oct 2019 10:34:09 +0000 (UTC)
-Received: from DGGEMS413-HUB.china.huawei.com (unknown [172.30.72.58])
- by Forcepoint Email with ESMTP id 18EA8E99386BAB02B13E;
- Sun,  6 Oct 2019 18:34:07 +0800 (CST)
-Received: from localhost (10.133.213.239) by DGGEMS413-HUB.china.huawei.com
- (10.3.19.213) with Microsoft SMTP Server id 14.3.439.0; Sun, 6 Oct 2019
- 18:33:59 +0800
+ Sun,  6 Oct 2019 10:34:12 +0000 (UTC)
+Received: from DGGEMS412-HUB.china.huawei.com (unknown [172.30.72.58])
+ by Forcepoint Email with ESMTP id 1EA89D08BB2E59D6385F;
+ Sun,  6 Oct 2019 18:34:09 +0800 (CST)
+Received: from localhost (10.133.213.239) by DGGEMS412-HUB.china.huawei.com
+ (10.3.19.212) with Microsoft SMTP Server id 14.3.439.0; Sun, 6 Oct 2019
+ 18:34:03 +0800
 From: YueHaibing <yuehaibing@huawei.com>
 To: <a.zummo@towertech.it>, <alexandre.belloni@bootlin.com>, <joel@jms.id.au>, 
  <andrew@aj.id.au>, <nicolas.ferre@microchip.com>,
@@ -32,8 +32,8 @@ To: <a.zummo@towertech.it>, <alexandre.belloni@bootlin.com>, <joel@jms.id.au>,
  <mcoquelin.stm32@gmail.com>, <alexandre.torgue@st.com>, <mripard@kernel.org>, 
  <wens@csie.org>, <thierry.reding@gmail.com>, <jonathanh@nvidia.com>,
  <linux@prisktech.co.nz>, <michal.simek@xilinx.com>
-Date: Sun, 6 Oct 2019 18:29:52 +0800
-Message-ID: <20191006102953.57536-34-yuehaibing@huawei.com>
+Date: Sun, 6 Oct 2019 18:29:53 +0800
+Message-ID: <20191006102953.57536-35-yuehaibing@huawei.com>
 X-Mailer: git-send-email 2.10.2.windows.1
 In-Reply-To: <20191006102953.57536-1-yuehaibing@huawei.com>
 References: <20191006102953.57536-1-yuehaibing@huawei.com>
@@ -45,7 +45,7 @@ Cc: linux-rtc@vger.kernel.org, linux-aspeed@lists.ozlabs.org,
  linux-mediatek@lists.infradead.org, linux-tegra@vger.kernel.org,
  linux-amlogic@lists.infradead.org, linux-stm32@st-md-mailman.stormreply.com,
  linux-arm-kernel@lists.infradead.org
-Subject: [Linux-stm32] [PATCH -next 33/34] rtc: xgene: use
+Subject: [Linux-stm32] [PATCH -next 34/34] rtc: zynqmp: use
 	devm_platform_ioremap_resource() to simplify code
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
@@ -68,30 +68,31 @@ This is detected by coccinelle.
 
 Signed-off-by: YueHaibing <yuehaibing@huawei.com>
 ---
- drivers/rtc/rtc-xgene.c | 4 +---
- 1 file changed, 1 insertion(+), 3 deletions(-)
+ drivers/rtc/rtc-zynqmp.c | 5 +----
+ 1 file changed, 1 insertion(+), 4 deletions(-)
 
-diff --git a/drivers/rtc/rtc-xgene.c b/drivers/rtc/rtc-xgene.c
-index 9683fbf..603c4e4 100644
---- a/drivers/rtc/rtc-xgene.c
-+++ b/drivers/rtc/rtc-xgene.c
-@@ -137,7 +137,6 @@ static irqreturn_t xgene_rtc_interrupt(int irq, void *id)
- static int xgene_rtc_probe(struct platform_device *pdev)
+diff --git a/drivers/rtc/rtc-zynqmp.c b/drivers/rtc/rtc-zynqmp.c
+index 2c76275..55646e0 100644
+--- a/drivers/rtc/rtc-zynqmp.c
++++ b/drivers/rtc/rtc-zynqmp.c
+@@ -195,7 +195,6 @@ static irqreturn_t xlnx_rtc_interrupt(int irq, void *id)
+ static int xlnx_rtc_probe(struct platform_device *pdev)
  {
- 	struct xgene_rtc_dev *pdata;
+ 	struct xlnx_rtc_dev *xrtcdev;
 -	struct resource *res;
  	int ret;
- 	int irq;
  
-@@ -147,8 +146,7 @@ static int xgene_rtc_probe(struct platform_device *pdev)
- 	platform_set_drvdata(pdev, pdata);
- 	pdata->dev = &pdev->dev;
+ 	xrtcdev = devm_kzalloc(&pdev->dev, sizeof(*xrtcdev), GFP_KERNEL);
+@@ -211,9 +210,7 @@ static int xlnx_rtc_probe(struct platform_device *pdev)
+ 	xrtcdev->rtc->ops = &xlnx_rtc_ops;
+ 	xrtcdev->rtc->range_max = U32_MAX;
  
 -	res = platform_get_resource(pdev, IORESOURCE_MEM, 0);
--	pdata->csr_base = devm_ioremap_resource(&pdev->dev, res);
-+	pdata->csr_base = devm_platform_ioremap_resource(pdev, 0);
- 	if (IS_ERR(pdata->csr_base))
- 		return PTR_ERR(pdata->csr_base);
+-
+-	xrtcdev->reg_base = devm_ioremap_resource(&pdev->dev, res);
++	xrtcdev->reg_base = devm_platform_ioremap_resource(pdev, 0);
+ 	if (IS_ERR(xrtcdev->reg_base))
+ 		return PTR_ERR(xrtcdev->reg_base);
  
 -- 
 2.7.4
