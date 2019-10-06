@@ -2,23 +2,23 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id 73925CD0C0
-	for <lists+linux-stm32@lfdr.de>; Sun,  6 Oct 2019 12:33:36 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 7A8E0CD0C7
+	for <lists+linux-stm32@lfdr.de>; Sun,  6 Oct 2019 12:33:40 +0200 (CEST)
 Received: from ip-172-31-3-76.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 3B4E5C36B0B;
-	Sun,  6 Oct 2019 10:33:36 +0000 (UTC)
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 463C1C36B0B;
+	Sun,  6 Oct 2019 10:33:40 +0000 (UTC)
 Received: from huawei.com (szxga06-in.huawei.com [45.249.212.32])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 36661C36B09
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id AADC9C36B09
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Sun,  6 Oct 2019 10:33:35 +0000 (UTC)
-Received: from DGGEMS411-HUB.china.huawei.com (unknown [172.30.72.60])
- by Forcepoint Email with ESMTP id CD44A5F4786B90C41FC6;
- Sun,  6 Oct 2019 18:33:32 +0800 (CST)
-Received: from localhost (10.133.213.239) by DGGEMS411-HUB.china.huawei.com
- (10.3.19.211) with Microsoft SMTP Server id 14.3.439.0; Sun, 6 Oct 2019
- 18:33:25 +0800
+ Sun,  6 Oct 2019 10:33:39 +0000 (UTC)
+Received: from DGGEMS408-HUB.china.huawei.com (unknown [172.30.72.59])
+ by Forcepoint Email with ESMTP id B23469E9D902B5E687B3;
+ Sun,  6 Oct 2019 18:33:37 +0800 (CST)
+Received: from localhost (10.133.213.239) by DGGEMS408-HUB.china.huawei.com
+ (10.3.19.208) with Microsoft SMTP Server id 14.3.439.0; Sun, 6 Oct 2019
+ 18:33:29 +0800
 From: YueHaibing <yuehaibing@huawei.com>
 To: <a.zummo@towertech.it>, <alexandre.belloni@bootlin.com>, <joel@jms.id.au>, 
  <andrew@aj.id.au>, <nicolas.ferre@microchip.com>,
@@ -32,8 +32,8 @@ To: <a.zummo@towertech.it>, <alexandre.belloni@bootlin.com>, <joel@jms.id.au>,
  <mcoquelin.stm32@gmail.com>, <alexandre.torgue@st.com>, <mripard@kernel.org>, 
  <wens@csie.org>, <thierry.reding@gmail.com>, <jonathanh@nvidia.com>,
  <linux@prisktech.co.nz>, <michal.simek@xilinx.com>
-Date: Sun, 6 Oct 2019 18:29:43 +0800
-Message-ID: <20191006102953.57536-25-yuehaibing@huawei.com>
+Date: Sun, 6 Oct 2019 18:29:44 +0800
+Message-ID: <20191006102953.57536-26-yuehaibing@huawei.com>
 X-Mailer: git-send-email 2.10.2.windows.1
 In-Reply-To: <20191006102953.57536-1-yuehaibing@huawei.com>
 References: <20191006102953.57536-1-yuehaibing@huawei.com>
@@ -45,7 +45,7 @@ Cc: linux-rtc@vger.kernel.org, linux-aspeed@lists.ozlabs.org,
  linux-mediatek@lists.infradead.org, linux-tegra@vger.kernel.org,
  linux-amlogic@lists.infradead.org, linux-stm32@st-md-mailman.stormreply.com,
  linux-arm-kernel@lists.infradead.org
-Subject: [Linux-stm32] [PATCH -next 24/34] rtc: spear: use
+Subject: [Linux-stm32] [PATCH -next 25/34] rtc: stk17ta8: use
 	devm_platform_ioremap_resource() to simplify code
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
@@ -68,31 +68,31 @@ This is detected by coccinelle.
 
 Signed-off-by: YueHaibing <yuehaibing@huawei.com>
 ---
- drivers/rtc/rtc-spear.c | 4 +---
+ drivers/rtc/rtc-stk17ta8.c | 4 +---
  1 file changed, 1 insertion(+), 3 deletions(-)
 
-diff --git a/drivers/rtc/rtc-spear.c b/drivers/rtc/rtc-spear.c
-index 9f23b24..833daeb 100644
---- a/drivers/rtc/rtc-spear.c
-+++ b/drivers/rtc/rtc-spear.c
-@@ -347,7 +347,6 @@ static const struct rtc_class_ops spear_rtc_ops = {
+diff --git a/drivers/rtc/rtc-stk17ta8.c b/drivers/rtc/rtc-stk17ta8.c
+index a833ebc..01a4504 100644
+--- a/drivers/rtc/rtc-stk17ta8.c
++++ b/drivers/rtc/rtc-stk17ta8.c
+@@ -256,7 +256,6 @@ static int stk17ta8_nvram_write(void *priv, unsigned int pos, void *val,
  
- static int spear_rtc_probe(struct platform_device *pdev)
+ static int stk17ta8_rtc_probe(struct platform_device *pdev)
  {
 -	struct resource *res;
- 	struct spear_rtc_config *config;
- 	int status = 0;
- 	int irq;
-@@ -369,8 +368,7 @@ static int spear_rtc_probe(struct platform_device *pdev)
- 		return status;
- 	}
+ 	unsigned int cal;
+ 	unsigned int flags;
+ 	struct rtc_plat_data *pdata;
+@@ -275,8 +274,7 @@ static int stk17ta8_rtc_probe(struct platform_device *pdev)
+ 	if (!pdata)
+ 		return -ENOMEM;
  
 -	res = platform_get_resource(pdev, IORESOURCE_MEM, 0);
--	config->ioaddr = devm_ioremap_resource(&pdev->dev, res);
-+	config->ioaddr = devm_platform_ioremap_resource(pdev, 0);
- 	if (IS_ERR(config->ioaddr))
- 		return PTR_ERR(config->ioaddr);
- 
+-	ioaddr = devm_ioremap_resource(&pdev->dev, res);
++	ioaddr = devm_platform_ioremap_resource(pdev, 0);
+ 	if (IS_ERR(ioaddr))
+ 		return PTR_ERR(ioaddr);
+ 	pdata->ioaddr = ioaddr;
 -- 
 2.7.4
 
