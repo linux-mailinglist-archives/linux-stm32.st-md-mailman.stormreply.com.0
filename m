@@ -2,23 +2,23 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id 00C35CD0DC
-	for <lists+linux-stm32@lfdr.de>; Sun,  6 Oct 2019 12:34:07 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 0BB66CD0DF
+	for <lists+linux-stm32@lfdr.de>; Sun,  6 Oct 2019 12:34:10 +0200 (CEST)
 Received: from ip-172-31-3-76.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id C0639C36B0B;
-	Sun,  6 Oct 2019 10:34:06 +0000 (UTC)
-Received: from huawei.com (szxga06-in.huawei.com [45.249.212.32])
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id CB8FAC36B0C;
+	Sun,  6 Oct 2019 10:34:09 +0000 (UTC)
+Received: from huawei.com (szxga05-in.huawei.com [45.249.212.191])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 0C97EC36B09
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 22474C36B0A
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Sun,  6 Oct 2019 10:34:05 +0000 (UTC)
-Received: from DGGEMS408-HUB.china.huawei.com (unknown [172.30.72.59])
- by Forcepoint Email with ESMTP id 171069924967F1A17DCC;
- Sun,  6 Oct 2019 18:34:03 +0800 (CST)
-Received: from localhost (10.133.213.239) by DGGEMS408-HUB.china.huawei.com
- (10.3.19.208) with Microsoft SMTP Server id 14.3.439.0; Sun, 6 Oct 2019
- 18:33:52 +0800
+ Sun,  6 Oct 2019 10:34:08 +0000 (UTC)
+Received: from DGGEMS403-HUB.china.huawei.com (unknown [172.30.72.60])
+ by Forcepoint Email with ESMTP id 0BF3DE12BDB1CF4DC750;
+ Sun,  6 Oct 2019 18:34:05 +0800 (CST)
+Received: from localhost (10.133.213.239) by DGGEMS403-HUB.china.huawei.com
+ (10.3.19.203) with Microsoft SMTP Server id 14.3.439.0; Sun, 6 Oct 2019
+ 18:33:56 +0800
 From: YueHaibing <yuehaibing@huawei.com>
 To: <a.zummo@towertech.it>, <alexandre.belloni@bootlin.com>, <joel@jms.id.au>, 
  <andrew@aj.id.au>, <nicolas.ferre@microchip.com>,
@@ -32,8 +32,8 @@ To: <a.zummo@towertech.it>, <alexandre.belloni@bootlin.com>, <joel@jms.id.au>,
  <mcoquelin.stm32@gmail.com>, <alexandre.torgue@st.com>, <mripard@kernel.org>, 
  <wens@csie.org>, <thierry.reding@gmail.com>, <jonathanh@nvidia.com>,
  <linux@prisktech.co.nz>, <michal.simek@xilinx.com>
-Date: Sun, 6 Oct 2019 18:29:50 +0800
-Message-ID: <20191006102953.57536-32-yuehaibing@huawei.com>
+Date: Sun, 6 Oct 2019 18:29:51 +0800
+Message-ID: <20191006102953.57536-33-yuehaibing@huawei.com>
 X-Mailer: git-send-email 2.10.2.windows.1
 In-Reply-To: <20191006102953.57536-1-yuehaibing@huawei.com>
 References: <20191006102953.57536-1-yuehaibing@huawei.com>
@@ -45,7 +45,7 @@ Cc: linux-rtc@vger.kernel.org, linux-aspeed@lists.ozlabs.org,
  linux-mediatek@lists.infradead.org, linux-tegra@vger.kernel.org,
  linux-amlogic@lists.infradead.org, linux-stm32@st-md-mailman.stormreply.com,
  linux-arm-kernel@lists.infradead.org
-Subject: [Linux-stm32] [PATCH -next 31/34] rtc: tx4939: use
+Subject: [Linux-stm32] [PATCH -next 32/34] rtc: vt8500: use
 	devm_platform_ioremap_resource() to simplify code
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
@@ -68,30 +68,30 @@ This is detected by coccinelle.
 
 Signed-off-by: YueHaibing <yuehaibing@huawei.com>
 ---
- drivers/rtc/rtc-tx4939.c | 4 +---
+ drivers/rtc/rtc-vt8500.c | 4 +---
  1 file changed, 1 insertion(+), 3 deletions(-)
 
-diff --git a/drivers/rtc/rtc-tx4939.c b/drivers/rtc/rtc-tx4939.c
-index 5a29915..715b829 100644
---- a/drivers/rtc/rtc-tx4939.c
-+++ b/drivers/rtc/rtc-tx4939.c
-@@ -236,7 +236,6 @@ static int __init tx4939_rtc_probe(struct platform_device *pdev)
+diff --git a/drivers/rtc/rtc-vt8500.c b/drivers/rtc/rtc-vt8500.c
+index d5d14cf..11859b9 100644
+--- a/drivers/rtc/rtc-vt8500.c
++++ b/drivers/rtc/rtc-vt8500.c
+@@ -200,7 +200,6 @@ static const struct rtc_class_ops vt8500_rtc_ops = {
+ static int vt8500_rtc_probe(struct platform_device *pdev)
  {
- 	struct rtc_device *rtc;
- 	struct tx4939rtc_plat_data *pdata;
--	struct resource *res;
- 	int irq, ret;
- 	struct nvmem_config nvmem_cfg = {
- 		.name = "tx4939_nvram",
-@@ -253,8 +252,7 @@ static int __init tx4939_rtc_probe(struct platform_device *pdev)
- 		return -ENOMEM;
- 	platform_set_drvdata(pdev, pdata);
+ 	struct vt8500_rtc *vt8500_rtc;
+-	struct resource	*res;
+ 	int ret;
+ 
+ 	vt8500_rtc = devm_kzalloc(&pdev->dev,
+@@ -215,8 +214,7 @@ static int vt8500_rtc_probe(struct platform_device *pdev)
+ 	if (vt8500_rtc->irq_alarm < 0)
+ 		return vt8500_rtc->irq_alarm;
  
 -	res = platform_get_resource(pdev, IORESOURCE_MEM, 0);
--	pdata->rtcreg = devm_ioremap_resource(&pdev->dev, res);
-+	pdata->rtcreg = devm_platform_ioremap_resource(pdev, 0);
- 	if (IS_ERR(pdata->rtcreg))
- 		return PTR_ERR(pdata->rtcreg);
+-	vt8500_rtc->regbase = devm_ioremap_resource(&pdev->dev, res);
++	vt8500_rtc->regbase = devm_platform_ioremap_resource(pdev, 0);
+ 	if (IS_ERR(vt8500_rtc->regbase))
+ 		return PTR_ERR(vt8500_rtc->regbase);
  
 -- 
 2.7.4
