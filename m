@@ -2,46 +2,69 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id C7E7FCDED2
-	for <lists+linux-stm32@lfdr.de>; Mon,  7 Oct 2019 12:10:47 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id C3F24CE117
+	for <lists+linux-stm32@lfdr.de>; Mon,  7 Oct 2019 14:01:36 +0200 (CEST)
 Received: from ip-172-31-3-76.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 8DD02C36B0C;
-	Mon,  7 Oct 2019 10:10:47 +0000 (UTC)
-Received: from relay10.mail.gandi.net (relay10.mail.gandi.net [217.70.178.230])
- (using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 700D0C36B0C;
+	Mon,  7 Oct 2019 12:01:36 +0000 (UTC)
+Received: from mx07-00178001.pphosted.com (mx08-00178001.pphosted.com
+ [91.207.212.93])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 1E618C36B0A
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id B49C8C36B0A
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Mon,  7 Oct 2019 10:10:46 +0000 (UTC)
-Received: from localhost
- (aclermont-ferrand-651-1-259-53.w86-207.abo.wanadoo.fr [86.207.98.53])
- (Authenticated sender: alexandre.belloni@bootlin.com)
- by relay10.mail.gandi.net (Postfix) with ESMTPSA id 57274240012;
- Mon,  7 Oct 2019 10:10:37 +0000 (UTC)
-Date: Mon, 7 Oct 2019 12:10:37 +0200
-From: Alexandre Belloni <alexandre.belloni@bootlin.com>
-To: YueHaibing <yuehaibing@huawei.com>
-Message-ID: <20191007101037.GE4254@piout.net>
-References: <20191006102953.57536-1-yuehaibing@huawei.com>
+ Mon,  7 Oct 2019 12:01:34 +0000 (UTC)
+Received: from pps.filterd (m0046661.ppops.net [127.0.0.1])
+ by mx08-00178001.pphosted.com (8.16.0.42/8.16.0.42) with SMTP id
+ x97C1ReM019171; Mon, 7 Oct 2019 14:01:27 +0200
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=st.com;
+ h=date : from : to : cc :
+ subject : message-id : references : mime-version : content-type :
+ in-reply-to; s=STMicroelectronics;
+ bh=OEpRCuiUUpuXpVGGrL2q81jRJQBKQeGZCtDBBTVYUIA=;
+ b=0Xz1510Od/ISk/HqXDwSoQLNJrii7ylF8vSUb+L1F/bnrtuOiapxTCZJonOoNzkhMrQS
+ SWXIjF8oD/O7iPRykelg7o2WoF/2iNoyVNgEKOiKFQvDCf13a5XW374mwV1jE4IJ4FTH
+ +tuR7pKpO7b6KSHfhzV/fqE4+5oH1HB/P41nrTT/vOn0OEnlFXUGe1U/bQrpx+VfzJhN
+ tAZ39rJnaGcQvbOYjNc0zQRInkLOJktL8j9gOyf3mRM8aop/DWfzBo/p/H3sxhVvJsUD
+ DVOPW/BJ4pAdAanLezCd0MZteix0MDAWIqStC+dKCPnoj0/yVmkPgGLlXWnNFFzD+Boa pw== 
+Received: from beta.dmz-eu.st.com (beta.dmz-eu.st.com [164.129.1.35])
+ by mx08-00178001.pphosted.com with ESMTP id 2vej2p258j-1
+ (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
+ Mon, 07 Oct 2019 14:01:27 +0200
+Received: from euls16034.sgp.st.com (euls16034.sgp.st.com [10.75.44.20])
+ by beta.dmz-eu.st.com (STMicroelectronics) with ESMTP id 11CBF100038;
+ Mon,  7 Oct 2019 14:01:22 +0200 (CEST)
+Received: from Webmail-eu.st.com (sfhdag3node2.st.com [10.75.127.8])
+ by euls16034.sgp.st.com (STMicroelectronics) with ESMTP id 06AC32CE74D;
+ Mon,  7 Oct 2019 14:01:22 +0200 (CEST)
+Received: from gnbcxd0016.gnb.st.com (10.75.127.49) by SFHDAG3NODE2.st.com
+ (10.75.127.8) with Microsoft SMTP Server (TLS) id 15.0.1347.2; Mon, 7 Oct
+ 2019 14:01:21 +0200
+Date: Mon, 7 Oct 2019 14:01:20 +0200
+From: Alain Volmat <alain.volmat@st.com>
+To: Pierre Yves MORDRET <pierre-yves.mordret@st.com>
+Message-ID: <20191007120120.GB12773@gnbcxd0016.gnb.st.com>
+Mail-Followup-To: Pierre Yves MORDRET <pierre-yves.mordret@st.com>,
+ wsa@the-dreams.de, alexandre.torgue@st.com,
+ linux-i2c@vger.kernel.org, linux-stm32@st-md-mailman.stormreply.com,
+ linux-arm-kernel@lists.infradead.org, linux-kernel@vger.kernel.org,
+ fabrice.gasnier@st.com
+References: <1570200954-17919-1-git-send-email-alain.volmat@st.com>
+ <a5093a73-ba62-ae37-10dc-3434c9da40f7@st.com>
 MIME-Version: 1.0
 Content-Disposition: inline
-In-Reply-To: <20191006102953.57536-1-yuehaibing@huawei.com>
-User-Agent: Mutt/1.12.1 (2019-06-15)
-Cc: baruch@tkos.co.il, linux-aspeed@lists.ozlabs.org, linus.walleij@linaro.org,
- paul@crapouillou.net, linux-tegra@vger.kernel.org, thierry.reding@gmail.com,
- michal.simek@xilinx.com, linux-rtc@vger.kernel.org, f.fainelli@gmail.com,
- khilman@baylibre.com, wens@csie.org, jonathanh@nvidia.com,
- ludovic.desroches@microchip.com, bcm-kernel-feedback-list@broadcom.com,
- joel@jms.id.au, slemieux.tyco@gmail.com, sean.wang@mediatek.com,
- mripard@kernel.org, vz@mleia.com, linux-mediatek@lists.infradead.org,
- gregory.0xf0@gmail.com, matthias.bgg@gmail.com,
- linux-amlogic@lists.infradead.org, eddie.huang@mediatek.com,
- linux-arm-kernel@lists.infradead.org, a.zummo@towertech.it, andrew@aj.id.au,
- linux-stm32@st-md-mailman.stormreply.com, nicolas.ferre@microchip.com,
- linux-kernel@vger.kernel.org, linux@prisktech.co.nz, mcoquelin.stm32@gmail.com,
- computersforpeace@gmail.com
-Subject: Re: [Linux-stm32] [PATCH -next 00/34] rtc: use
- devm_platform_ioremap_resource() to simplify code
+In-Reply-To: <a5093a73-ba62-ae37-10dc-3434c9da40f7@st.com>
+X-Disclaimer: ce message est personnel / this message is private
+X-Originating-IP: [10.75.127.49]
+X-ClientProxiedBy: SFHDAG4NODE1.st.com (10.75.127.10) To SFHDAG3NODE2.st.com
+ (10.75.127.8)
+X-Proofpoint-Virus-Version: vendor=fsecure engine=2.50.10434:6.0.95,1.0.8
+ definitions=2019-10-07_02:2019-10-07,2019-10-07 signatures=0
+Cc: wsa@the-dreams.de, linux-kernel@vger.kernel.org, linux-i2c@vger.kernel.org,
+ fabrice.gasnier@st.com, linux-stm32@st-md-mailman.stormreply.com,
+ linux-arm-kernel@lists.infradead.org
+Subject: Re: [Linux-stm32] [PATCH] i2c: i2c-stm32f7: remove warning when
+	compiling with W=1
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -58,96 +81,57 @@ Content-Transfer-Encoding: 7bit
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
-On 06/10/2019 18:29:19+0800, YueHaibing wrote:
-> devm_platform_ioremap_resource() internally have platform_get_resource()
-> and devm_ioremap_resource() in it. So instead of calling them separately
-> use devm_platform_ioremap_resource() directly.
-> 
-> YueHaibing (34):
->   rtc: asm9260: use devm_platform_ioremap_resource() to simplify code
->   rtc: rtc-aspeed: use devm_platform_ioremap_resource() to simplify code
->   rtc: brcmstb-waketimer: use devm_platform_ioremap_resource() to
->     simplify code
->   rtc: at91sam9: use devm_platform_ioremap_resource() to simplify code
->   rtc: cadence: use devm_platform_ioremap_resource() to simplify code
->   rtc: coh901331: use devm_platform_ioremap_resource() to simplify code
->   rtc: davinci: use devm_platform_ioremap_resource() to simplify code
->   rtc: digicolor: use devm_platform_ioremap_resource() to simplify code
->   rtc: ds1216: use devm_platform_ioremap_resource() to simplify code
->   rtc: ds1511: use devm_platform_ioremap_resource() to simplify code
->   rtc: ds1553: use devm_platform_ioremap_resource() to simplify code
->   rtc: ep93xx: use devm_platform_ioremap_resource() to simplify code
->   rtc: jz4740: use devm_platform_ioremap_resource() to simplify code
->   rtc: lpc24xx: use devm_platform_ioremap_resource() to simplify code
->   rtc: lpc32xx: use devm_platform_ioremap_resource() to simplify code
->   rtc: meson: use devm_platform_ioremap_resource() to simplify code
->   rtc: mt7622: use devm_platform_ioremap_resource() to simplify code
->   rtc: mv: use devm_platform_ioremap_resource() to simplify code
->   rtc: omap: use devm_platform_ioremap_resource() to simplify code
->   rtc: pic32: use devm_platform_ioremap_resource() to simplify code
->   rtc: rtd119x: use devm_platform_ioremap_resource() to simplify code
->   rtc: s3c: use devm_platform_ioremap_resource() to simplify code
->   rtc: sa1100: use devm_platform_ioremap_resource() to simplify code
->   rtc: spear: use devm_platform_ioremap_resource() to simplify code
->   rtc: stk17ta8: use devm_platform_ioremap_resource() to simplify code
->   rtc: ds1286: use devm_platform_ioremap_resource() to simplify code
->   rtc: st-lpc: use devm_platform_ioremap_resource() to simplify code
->   rtc: stm32: use devm_platform_ioremap_resource() to simplify code
->   rtc: sunxi: use devm_platform_ioremap_resource() to simplify code
->   rtc: tegra: use devm_platform_ioremap_resource() to simplify code
->   rtc: tx4939: use devm_platform_ioremap_resource() to simplify code
->   rtc: vt8500: use devm_platform_ioremap_resource() to simplify code
->   rtc: xgene: use devm_platform_ioremap_resource() to simplify code
->   rtc: zynqmp: use devm_platform_ioremap_resource() to simplify code
-> 
->  drivers/rtc/rtc-asm9260.c           | 4 +---
->  drivers/rtc/rtc-aspeed.c            | 4 +---
->  drivers/rtc/rtc-at91sam9.c          | 4 +---
->  drivers/rtc/rtc-brcmstb-waketimer.c | 4 +---
->  drivers/rtc/rtc-cadence.c           | 4 +---
->  drivers/rtc/rtc-coh901331.c         | 4 +---
->  drivers/rtc/rtc-davinci.c           | 4 +---
->  drivers/rtc/rtc-digicolor.c         | 4 +---
->  drivers/rtc/rtc-ds1216.c            | 4 +---
->  drivers/rtc/rtc-ds1286.c            | 4 +---
->  drivers/rtc/rtc-ds1511.c            | 4 +---
->  drivers/rtc/rtc-ds1553.c            | 4 +---
->  drivers/rtc/rtc-ep93xx.c            | 4 +---
->  drivers/rtc/rtc-jz4740.c            | 4 +---
->  drivers/rtc/rtc-lpc24xx.c           | 4 +---
->  drivers/rtc/rtc-lpc32xx.c           | 4 +---
->  drivers/rtc/rtc-meson.c             | 4 +---
->  drivers/rtc/rtc-mt7622.c            | 4 +---
->  drivers/rtc/rtc-mv.c                | 4 +---
->  drivers/rtc/rtc-omap.c              | 4 +---
->  drivers/rtc/rtc-pic32.c             | 4 +---
->  drivers/rtc/rtc-rtd119x.c           | 4 +---
->  drivers/rtc/rtc-s3c.c               | 4 +---
->  drivers/rtc/rtc-sa1100.c            | 4 +---
->  drivers/rtc/rtc-spear.c             | 4 +---
->  drivers/rtc/rtc-st-lpc.c            | 4 +---
->  drivers/rtc/rtc-stk17ta8.c          | 4 +---
->  drivers/rtc/rtc-stm32.c             | 4 +---
->  drivers/rtc/rtc-sunxi.c             | 4 +---
->  drivers/rtc/rtc-tegra.c             | 4 +---
->  drivers/rtc/rtc-tx4939.c            | 4 +---
->  drivers/rtc/rtc-vt8500.c            | 4 +---
->  drivers/rtc/rtc-xgene.c             | 4 +---
->  drivers/rtc/rtc-zynqmp.c            | 5 +----
->  34 files changed, 34 insertions(+), 103 deletions(-)
-> 
+Hi Pierre-Yves,
 
-I've quashed and applied.
+thanks for the comments.
 
-> -- 
-> 2.7.4
+On Mon, Oct 07, 2019 at 09:59:22AM +0200, Pierre Yves MORDRET wrote:
+> Hi Alain
 > 
-> 
+> Fixes tag is missing in your patch.
+> [ i.e ==> Fixes: aeb068c57214 ("i2c: i2c-stm32f7: add driver") ]
 
--- 
-Alexandre Belloni, Bootlin
-Embedded Linux and Kernel engineering
-https://bootlin.com
+Okay, will push a v2 for that.
+
+> 
+> Nonetheless patch only consists in removing a comment character ?
+
+Yes, the comment currently starts in a way of a kernel-doc description
+(https://www.kernel.org/doc/html/latest/doc-guide/kernel-doc.html#function-documentation) leading the compiler to produce the warning since there is no
+function prototype after the comment.
+
+Regards,
+Alain
+
+> 
+> Thanks
+> 
+> On 10/4/19 4:55 PM, Alain Volmat wrote:
+> > Remove the following warning:
+> > 
+> > drivers/i2c/busses/i2c-stm32f7.c:315:
+> > warning: cannot understand function prototype:
+> > 'struct stm32f7_i2c_spec i2c_specs[] =
+> > 
+> > Signed-off-by: Alain Volmat <alain.volmat@st.com>
+> > ---
+> >  drivers/i2c/busses/i2c-stm32f7.c | 2 +-
+> >  1 file changed, 1 insertion(+), 1 deletion(-)
+> > 
+> > diff --git a/drivers/i2c/busses/i2c-stm32f7.c b/drivers/i2c/busses/i2c-stm32f7.c
+> > index d36cf08..7aa4a47 100644
+> > --- a/drivers/i2c/busses/i2c-stm32f7.c
+> > +++ b/drivers/i2c/busses/i2c-stm32f7.c
+> > @@ -305,7 +305,7 @@ struct stm32f7_i2c_dev {
+> >  	struct regmap *regmap;
+> >  };
+> >  
+> > -/**
+> > +/*
+> >   * All these values are coming from I2C Specification, Version 6.0, 4th of
+> >   * April 2014.
+> >   *
+> > 
 _______________________________________________
 Linux-stm32 mailing list
 Linux-stm32@st-md-mailman.stormreply.com
