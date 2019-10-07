@@ -2,62 +2,62 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id 1D303CE558
-	for <lists+linux-stm32@lfdr.de>; Mon,  7 Oct 2019 16:34:19 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 153EACE556
+	for <lists+linux-stm32@lfdr.de>; Mon,  7 Oct 2019 16:34:17 +0200 (CEST)
 Received: from ip-172-31-3-76.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id DE2DEC36B12;
-	Mon,  7 Oct 2019 14:34:18 +0000 (UTC)
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id C74A8C36B0C;
+	Mon,  7 Oct 2019 14:34:16 +0000 (UTC)
 Received: from mx07-00178001.pphosted.com (mx07-00178001.pphosted.com
  [62.209.51.94])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 0C2D6C36B0D
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 17E79C36B0A
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Mon,  7 Oct 2019 14:34:17 +0000 (UTC)
+ Mon,  7 Oct 2019 14:34:16 +0000 (UTC)
 Received: from pps.filterd (m0046668.ppops.net [127.0.0.1])
  by mx07-00178001.pphosted.com (8.16.0.42/8.16.0.42) with SMTP id
- x97EVXFK021635; Mon, 7 Oct 2019 16:34:06 +0200
+ x97EVYlU021655; Mon, 7 Oct 2019 16:34:06 +0200
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=st.com;
  h=from : to : cc : subject
  : date : message-id : in-reply-to : references : mime-version :
  content-type; s=STMicroelectronics;
- bh=00YevehFHK1F13kJnntgF+gvC9tm4xH+MBjD/Ezp2L8=;
- b=lozghDNsdOEYmmW7m57zIaKD5bDCowkb7zGcWhFMIqPgNanMzQS94uTELdpD+vAFl0JV
- xAEcAOpC7No9afiJqEsNkANT/8Q4i3LmeDuBkMl7R4hwzZu0bO01myg56iwokdQL0tYN
- 2VUv9HtFczmNUxoE37Wkeu3ZzMg7+zCHXKHo92SOB8OhcgIqMtT6xaYlAO6oqTeMQR/u
- pgDCi9jX+AIqUCqo1/JaG/HLX/DXvBd2ikRZgXSsoJBcYeyG+pFlCWeEntUUDSPFOXME
- JMtf125Efl5+Xx9xA47lzeU9KtKdAF4zczFt7ftI5DOvAvrGlax3Z/1EYQkO5+lBLb84 4Q== 
+ bh=nv1TCeEQ/O9vBQCY+dZl79SaUra+CXgFAkJJgkjP1yE=;
+ b=q0TPlvDo9zcqZmQtHJ2/Fk+ye+QckQfiWXRNbD4aAAjgZKcREHxkWU3fScfZ8uPfIVaX
+ KzTwIJIBkb3GCuvyTH1C5Cwa5XRz7RCfi0aozmUF+Nrawhd0enzU1jmAgljyfcH1dpi5
+ 6pDqeZ3BVwoOPDtfdaJ2N2mp31CtzbMST0pabC93xjikUq3A8azoOlCfmiECbBBAAdl9
+ iys1vrqveq6J4zE2I+uhSJpDZvb+i0Bxi+aoj8VfJKu4Pm5os6CjHe+YB2MOX4KrtLLe
+ 3Nvr+ZE9wu9p21mzw/AlicqC+Ueh5P8a+CSMEFFxyi1Dfc7aPXEPTM/6NgemHia+C18U kw== 
 Received: from beta.dmz-eu.st.com (beta.dmz-eu.st.com [164.129.1.35])
- by mx07-00178001.pphosted.com with ESMTP id 2vegn0jw3u-1
+ by mx07-00178001.pphosted.com with ESMTP id 2vegn0jw3w-1
  (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
  Mon, 07 Oct 2019 16:34:06 +0200
 Received: from euls16034.sgp.st.com (euls16034.sgp.st.com [10.75.44.20])
- by beta.dmz-eu.st.com (STMicroelectronics) with ESMTP id AAD27100034;
- Mon,  7 Oct 2019 16:34:05 +0200 (CEST)
+ by beta.dmz-eu.st.com (STMicroelectronics) with ESMTP id 4BDE1100038;
+ Mon,  7 Oct 2019 16:34:06 +0200 (CEST)
 Received: from Webmail-eu.st.com (sfhdag3node2.st.com [10.75.127.8])
- by euls16034.sgp.st.com (STMicroelectronics) with ESMTP id 989872AC883;
- Mon,  7 Oct 2019 16:34:05 +0200 (CEST)
-Received: from localhost (10.75.127.46) by SFHDAG3NODE2.st.com (10.75.127.8)
+ by euls16034.sgp.st.com (STMicroelectronics) with ESMTP id 409E22AC883;
+ Mon,  7 Oct 2019 16:34:06 +0200 (CEST)
+Received: from localhost (10.75.127.44) by SFHDAG3NODE2.st.com (10.75.127.8)
  with Microsoft SMTP Server (TLS) id 15.0.1347.2; Mon, 7 Oct 2019 16:34:05
  +0200
 From: Alexandre Torgue <alexandre.torgue@st.com>
 To: Maxime Coquelin <mcoquelin.stm32@gmail.com>, <arnd@arndb.de>,
  <robh+dt@kernel.org>, <mark.rutland@arm.com>
-Date: Mon, 7 Oct 2019 16:33:59 +0200
-Message-ID: <20191007143402.13266-2-alexandre.torgue@st.com>
+Date: Mon, 7 Oct 2019 16:34:00 +0200
+Message-ID: <20191007143402.13266-3-alexandre.torgue@st.com>
 X-Mailer: git-send-email 2.17.1
 In-Reply-To: <20191007143402.13266-1-alexandre.torgue@st.com>
 References: <20191007143402.13266-1-alexandre.torgue@st.com>
 MIME-Version: 1.0
-X-Originating-IP: [10.75.127.46]
-X-ClientProxiedBy: SFHDAG3NODE1.st.com (10.75.127.7) To SFHDAG3NODE2.st.com
+X-Originating-IP: [10.75.127.44]
+X-ClientProxiedBy: SFHDAG1NODE3.st.com (10.75.127.3) To SFHDAG3NODE2.st.com
  (10.75.127.8)
 X-Proofpoint-Virus-Version: vendor=fsecure engine=2.50.10434:6.0.95,1.0.8
  definitions=2019-10-07_02:2019-10-07,2019-10-07 signatures=0
 Cc: devicetree@vger.kernel.org, linux-kernel@vger.kernel.org,
  linux-arm-kernel@lists.infradead.org, linux-stm32@st-md-mailman.stormreply.com
-Subject: [Linux-stm32] [PATCH 1/4] ARM: dts: stm32: fix memory nodes to
-	match with DT validation tool
+Subject: [Linux-stm32] [PATCH 2/4] ARM: dts: stm32: fix joystick node on
+	stm32f746 and stm32mp157c eval boards
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -74,130 +74,36 @@ Content-Transfer-Encoding: 7bit
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
-DT validation ("make dtbs_check") has shown that some memory nodes were not
-correctly written. This commit fixes this kind of issue:
-
-"stm32f746-disco.dt.yaml: /: memory: False schema does not allow
-{'device_type': ['memory'], 'reg': [[3221225472, 8388608]]}"
+"#size-cells" entry is not needed for "gpio-keys" driver. Indeed "reg"
+entry is not used. This commit will fix a warnings seen by DT validation
+tool.
 
 Signed-off-by: Alexandre Torgue <alexandre.torgue@st.com>
 
-diff --git a/arch/arm/boot/dts/stm32429i-eval.dts b/arch/arm/boot/dts/stm32429i-eval.dts
-index ba08624c6237..36ac61d0828c 100644
---- a/arch/arm/boot/dts/stm32429i-eval.dts
-+++ b/arch/arm/boot/dts/stm32429i-eval.dts
-@@ -60,7 +60,7 @@
- 		stdout-path = "serial0:115200n8";
- 	};
- 
--	memory {
-+	memory@00000000 {
- 		device_type = "memory";
- 		reg = <0x00000000 0x2000000>;
- 	};
 diff --git a/arch/arm/boot/dts/stm32746g-eval.dts b/arch/arm/boot/dts/stm32746g-eval.dts
-index 2b1664884ae7..d7bb2027cfaa 100644
+index d7bb2027cfaa..fcc804e3c158 100644
 --- a/arch/arm/boot/dts/stm32746g-eval.dts
 +++ b/arch/arm/boot/dts/stm32746g-eval.dts
-@@ -55,7 +55,7 @@
- 		stdout-path = "serial0:115200n8";
- 	};
+@@ -95,7 +95,6 @@
  
--	memory {
-+	memory@c0000000 {
- 		device_type = "memory";
- 		reg = <0xc0000000 0x2000000>;
- 	};
-diff --git a/arch/arm/boot/dts/stm32f429-disco.dts b/arch/arm/boot/dts/stm32f429-disco.dts
-index e19d0fe7dbda..30c0f6717871 100644
---- a/arch/arm/boot/dts/stm32f429-disco.dts
-+++ b/arch/arm/boot/dts/stm32f429-disco.dts
-@@ -59,7 +59,7 @@
- 		stdout-path = "serial0:115200n8";
- 	};
+ 	joystick {
+ 		compatible = "gpio-keys";
+-		#size-cells = <0>;
+ 		pinctrl-0 = <&joystick_pins>;
+ 		pinctrl-names = "default";
+ 		button-0 {
+diff --git a/arch/arm/boot/dts/stm32mp157c-ev1.dts b/arch/arm/boot/dts/stm32mp157c-ev1.dts
+index 89d29b50c3f4..6287db532e7d 100644
+--- a/arch/arm/boot/dts/stm32mp157c-ev1.dts
++++ b/arch/arm/boot/dts/stm32mp157c-ev1.dts
+@@ -32,7 +32,6 @@
  
--	memory {
-+	memory@90000000 {
- 		device_type = "memory";
- 		reg = <0x90000000 0x800000>;
- 	};
-diff --git a/arch/arm/boot/dts/stm32f469-disco.dts b/arch/arm/boot/dts/stm32f469-disco.dts
-index a3ff04940aec..539aa5903fdd 100644
---- a/arch/arm/boot/dts/stm32f469-disco.dts
-+++ b/arch/arm/boot/dts/stm32f469-disco.dts
-@@ -60,7 +60,7 @@
- 		stdout-path = "serial0:115200n8";
- 	};
- 
--	memory {
-+	memory@00000000 {
- 		device_type = "memory";
- 		reg = <0x00000000 0x1000000>;
- 	};
-diff --git a/arch/arm/boot/dts/stm32f746-disco.dts b/arch/arm/boot/dts/stm32f746-disco.dts
-index 0ba9c5b08ab9..569d23cc61e5 100644
---- a/arch/arm/boot/dts/stm32f746-disco.dts
-+++ b/arch/arm/boot/dts/stm32f746-disco.dts
-@@ -55,7 +55,7 @@
- 		stdout-path = "serial0:115200n8";
- 	};
- 
--	memory {
-+	memory@c0000000 {
- 		device_type = "memory";
- 		reg = <0xC0000000 0x800000>;
- 	};
-diff --git a/arch/arm/boot/dts/stm32f769-disco.dts b/arch/arm/boot/dts/stm32f769-disco.dts
-index 6f1d0ac8c31c..1626e00bb2cb 100644
---- a/arch/arm/boot/dts/stm32f769-disco.dts
-+++ b/arch/arm/boot/dts/stm32f769-disco.dts
-@@ -55,7 +55,7 @@
- 		stdout-path = "serial0:115200n8";
- 	};
- 
--	memory {
-+	memory@c0000000 {
- 		device_type = "memory";
- 		reg = <0xC0000000 0x1000000>;
- 	};
-diff --git a/arch/arm/boot/dts/stm32h743i-disco.dts b/arch/arm/boot/dts/stm32h743i-disco.dts
-index 3acd2e9c434e..e446d311c520 100644
---- a/arch/arm/boot/dts/stm32h743i-disco.dts
-+++ b/arch/arm/boot/dts/stm32h743i-disco.dts
-@@ -53,7 +53,7 @@
- 		stdout-path = "serial0:115200n8";
- 	};
- 
--	memory {
-+	memory@d0000000 {
- 		device_type = "memory";
- 		reg = <0xd0000000 0x2000000>;
- 	};
-diff --git a/arch/arm/boot/dts/stm32h743i-eval.dts b/arch/arm/boot/dts/stm32h743i-eval.dts
-index e4d3c58f3d97..8f398178f5e5 100644
---- a/arch/arm/boot/dts/stm32h743i-eval.dts
-+++ b/arch/arm/boot/dts/stm32h743i-eval.dts
-@@ -53,7 +53,7 @@
- 		stdout-path = "serial0:115200n8";
- 	};
- 
--	memory {
-+	memory@d0000000 {
- 		device_type = "memory";
- 		reg = <0xd0000000 0x2000000>;
- 	};
-diff --git a/arch/arm/boot/dts/stm32mp157a-dk1.dts b/arch/arm/boot/dts/stm32mp157a-dk1.dts
-index 0615d1c8a6fc..e2aa45e9ba57 100644
---- a/arch/arm/boot/dts/stm32mp157a-dk1.dts
-+++ b/arch/arm/boot/dts/stm32mp157a-dk1.dts
-@@ -25,6 +25,7 @@
- 	};
- 
- 	memory@c0000000 {
-+		device_type = "memory";
- 		reg = <0xc0000000 0x20000000>;
- 	};
- 
+ 	joystick {
+ 		compatible = "gpio-keys";
+-		#size-cells = <0>;
+ 		pinctrl-0 = <&joystick_pins>;
+ 		pinctrl-names = "default";
+ 		button-0 {
 -- 
 2.17.1
 
