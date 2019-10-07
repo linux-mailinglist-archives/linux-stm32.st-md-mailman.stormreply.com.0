@@ -2,83 +2,93 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id 7D7DACDCE6
-	for <lists+linux-stm32@lfdr.de>; Mon,  7 Oct 2019 10:11:55 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 456F1CDD38
+	for <lists+linux-stm32@lfdr.de>; Mon,  7 Oct 2019 10:27:04 +0200 (CEST)
 Received: from ip-172-31-3-76.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 46DADC36B0C;
-	Mon,  7 Oct 2019 08:11:55 +0000 (UTC)
-Received: from mail-ed1-f44.google.com (mail-ed1-f44.google.com
- [209.85.208.44])
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 0E4A2C36B0C;
+	Mon,  7 Oct 2019 08:27:04 +0000 (UTC)
+Received: from mail-ot1-f67.google.com (mail-ot1-f67.google.com
+ [209.85.210.67])
  (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 51A09C36B0A
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 94253C36B0A
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Mon,  7 Oct 2019 08:11:54 +0000 (UTC)
-Received: by mail-ed1-f44.google.com with SMTP id y91so11495263ede.9
+ Mon,  7 Oct 2019 08:27:02 +0000 (UTC)
+Received: by mail-ot1-f67.google.com with SMTP id z6so10258859otb.2
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Mon, 07 Oct 2019 01:11:54 -0700 (PDT)
+ Mon, 07 Oct 2019 01:27:02 -0700 (PDT)
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=1e100.net; s=20161025;
  h=x-gm-message-state:mime-version:references:in-reply-to:from:date
  :message-id:subject:to:cc;
- bh=Snb3N5jBGTny2lV0Bq/REXN2i4LAg5y7Btj+sL3kJn0=;
- b=C2qNaPwcCdDe3H6NyrJ0yd+BKtYXlo2xO81ar7XQwWQVrVJSXwGk/NiILiAl1Jfsbs
- MbtOOfdkSalnQFtM0V0t81ARxq0kWmT5nbKcP7Fu48TaHzJ30dT/7KIXA8uUfbQCeIDw
- YlwJJoK1tosKC7NNIz2ECqYd3uTv7fgtquk/PseGkTKN1Pvuk9DP9a4oJZ19AlfezHk3
- 0yJf7x3DHEMp+abSAqJO/dvBAWjHAYFpoXNUKTrlY6BN9rms20QKcd2cCOtW1Twu75NN
- kO/4y10xUqUVn/W/CZVTjXUhn/LXAA0qjFjiH6bxZ1GDhbd/KhXWs62leX/P+2eNWGKQ
- 5uZA==
-X-Gm-Message-State: APjAAAXw46qJJdVRsDM3n34jUqKLqus3BfdYg9ii6RcLZlkO1Mwfe2AF
- HWyy9ThESsNTgB//RLok5EuZ69nimTQ=
-X-Google-Smtp-Source: APXvYqxNfs6NdS3XioYatYAGnQIr93dDHLBup2Mrj/JiCydYTjXcdCtJYz4Zl5bUwlS7PdRHCarfgg==
-X-Received: by 2002:a17:906:cf82:: with SMTP id
- um2mr22827326ejb.254.1570435913608; 
- Mon, 07 Oct 2019 01:11:53 -0700 (PDT)
-Received: from mail-wr1-f49.google.com (mail-wr1-f49.google.com.
- [209.85.221.49])
- by smtp.gmail.com with ESMTPSA id i30sm3220446ede.32.2019.10.07.01.11.50
- for <linux-stm32@st-md-mailman.stormreply.com>
- (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Mon, 07 Oct 2019 01:11:53 -0700 (PDT)
-Received: by mail-wr1-f49.google.com with SMTP id j11so8261268wrp.1
- for <linux-stm32@st-md-mailman.stormreply.com>;
- Mon, 07 Oct 2019 01:11:50 -0700 (PDT)
-X-Received: by 2002:adf:fe8b:: with SMTP id l11mr16979718wrr.23.1570435909394; 
- Mon, 07 Oct 2019 01:11:49 -0700 (PDT)
+ bh=VKymJxaLp2SF18G9ExdMOsAdXsmgBDVfrU/If3JZGxo=;
+ b=ZOROTOWgB9ce8wvtzqis8ETuK5Un0HB6Z5vNq7kSon661ODiRAgXuMEOEabmhffvZN
+ UbEHAAHeN979CpWllJxJKffA0vi1FjoruNvpLtE6eJcPydwz7QLylDjT05BXjWbtAbkF
+ gI2NcdbBHaRpSwU6jkkmp9L1clJZr7ns62EIOUYYCFu0B19buqDk3LwSmvVhIgfD6mhB
+ UJfIt4iYMUoMTqL+faq9IE2PWH2n6uIRIUhkVsZKIxNgfyP4kZzUgcQ4+CY7z3FKIBb4
+ QGMTf2D1vdpuo2qjg5nDWahYiQ3DxLtdUo+Furw0Etp/eKRIMfHLpwLpqNbyEivIybWB
+ q/lQ==
+X-Gm-Message-State: APjAAAUSIwNBkA6jX/DdsnhKQzmfJWCIY3VK6645CknE2T3PvTxoA62p
+ 19jrvsQK3sNdkRay5iOpMZaPJSDIite0Z8xMpww=
+X-Google-Smtp-Source: APXvYqxEOkV8nJCSllSqxdkQVypo90wcNgBvYDBNSKRgpoLJCvXTnmOdSLlUAojqzzfR9rCgupdlwodIFF5kpYpgt28=
+X-Received: by 2002:a9d:17e6:: with SMTP id j93mr20339687otj.297.1570436821298; 
+ Mon, 07 Oct 2019 01:27:01 -0700 (PDT)
 MIME-Version: 1.0
-References: <20191006102953.57536-1-yuehaibing@huawei.com>
- <20191006102953.57536-30-yuehaibing@huawei.com>
-In-Reply-To: <20191006102953.57536-30-yuehaibing@huawei.com>
-From: Chen-Yu Tsai <wens@csie.org>
-Date: Mon, 7 Oct 2019 16:11:38 +0800
-X-Gmail-Original-Message-ID: <CAGb2v64hUaddO-29=ZP53HDrrOUKqfa52Qk9Q2dGf_RkfwZfyA@mail.gmail.com>
-Message-ID: <CAGb2v64hUaddO-29=ZP53HDrrOUKqfa52Qk9Q2dGf_RkfwZfyA@mail.gmail.com>
-To: YueHaibing <yuehaibing@huawei.com>
-Cc: Alexandre Belloni <alexandre.belloni@bootlin.com>,
- linux-aspeed@lists.ozlabs.org, Linus Walleij <linus.walleij@linaro.org>,
- Baruch Siach <baruch@tkos.co.il>, paul@crapouillou.net,
- linux-tegra@vger.kernel.org, Thierry Reding <thierry.reding@gmail.com>,
- linux-stm32@st-md-mailman.stormreply.com, linux-rtc@vger.kernel.org,
- Florian Fainelli <f.fainelli@gmail.com>, Kevin Hilman <khilman@baylibre.com>,
- Michal Simek <michal.simek@xilinx.com>, jonathanh@nvidia.com,
- ludovic.desroches@microchip.com,
- "open list:BROADCOM BCM281XX..." <bcm-kernel-feedback-list@broadcom.com>,
- joel@jms.id.au, Sylvain Lemieux <slemieux.tyco@gmail.com>,
- Sean Wang <sean.wang@mediatek.com>, Maxime Ripard <mripard@kernel.org>,
- Vladimir Zapolskiy <vz@mleia.com>,
- "moderated list:ARM/Mediatek SoC..." <linux-mediatek@lists.infradead.org>,
- gregory.0xf0@gmail.com, Matthias Brugger <matthias.bgg@gmail.com>,
- "open list:ARM/Amlogic Meson..." <linux-amlogic@lists.infradead.org>,
- eddie.huang@mediatek.com,
- linux-arm-kernel <linux-arm-kernel@lists.infradead.org>,
- Alessandro Zummo <a.zummo@towertech.it>, andrew@aj.id.au,
- Nicolas Ferre <nicolas.ferre@microchip.com>,
- linux-kernel <linux-kernel@vger.kernel.org>,
- Tony Prisk <linux@prisktech.co.nz>,
- Maxime Coquelin <mcoquelin.stm32@gmail.com>,
- Brian Norris <computersforpeace@gmail.com>
-Subject: Re: [Linux-stm32] [PATCH -next 29/34] rtc: sunxi: use
- devm_platform_ioremap_resource() to simplify code
+References: <20191004145544.5066-1-krzk@kernel.org>
+ <20191004145544.5066-3-krzk@kernel.org>
+In-Reply-To: <20191004145544.5066-3-krzk@kernel.org>
+From: Geert Uytterhoeven <geert@linux-m68k.org>
+Date: Mon, 7 Oct 2019 10:26:49 +0200
+Message-ID: <CAMuHMdW0DSujexoGq4CJAYP40DvMcigk08aEnyQ72haY6jds5Q@mail.gmail.com>
+To: Krzysztof Kozlowski <krzk@kernel.org>
+Cc: Linux Fbdev development list <linux-fbdev@vger.kernel.org>,
+ linux-efi <linux-efi@vger.kernel.org>,
+ Linux-sh list <linux-sh@vger.kernel.org>, linux-iio@vger.kernel.org,
+ linux-pci <linux-pci@vger.kernel.org>,
+ "open list:REMOTE PROCESSOR \(REMOTEPROC\) SUBSYSTEM"
+ <linux-remoteproc@vger.kernel.org>,
+ DRI Development <dri-devel@lists.freedesktop.org>,
+ platform-driver-x86@vger.kernel.org, linux-ide@vger.kernel.org,
+ dm-devel@redhat.com, keyrings@vger.kernel.org,
+ MTD Maling List <linux-mtd@lists.infradead.org>,
+ Linux I2C <linux-i2c@vger.kernel.org>, linux-riscv@lists.infradead.org,
+ linux-stm32@st-md-mailman.stormreply.com, ac100@lists.launchpad.net,
+ linux-rtc@vger.kernel.org, linux-samsung-soc@vger.kernel.org,
+ scsi <linux-scsi@vger.kernel.org>,
+ "open list:ARM/Rockchip SoC..." <linux-rockchip@lists.infradead.org>,
+ linux-rdma <linux-rdma@vger.kernel.org>, esc.storagedev@microsemi.com,
+ linux-security-module@vger.kernel.org, linux-clk <linux-clk@vger.kernel.org>,
+ ACPI Devel Maling List <linux-acpi@vger.kernel.org>,
+ bcm-kernel-feedback-list@broadcom.com,
+ "open list:SERIAL DRIVERS" <linux-serial@vger.kernel.org>,
+ linux-input@vger.kernel.org, xen-devel@lists.xenproject.org,
+ virtualization@lists.linux-foundation.org,
+ Linux Media Mailing List <linux-media@vger.kernel.org>,
+ "moderated list:H8/300 ARCHITECTURE" <uclinux-h8-devel@lists.sourceforge.jp>,
+ driverdevel <devel@driverdev.osuosl.org>,
+ Linux PM list <linux-pm@vger.kernel.org>,
+ linux-arm-msm <linux-arm-msm@vger.kernel.org>, linux-um@lists.infradead.org,
+ linux-block@vger.kernel.org,
+ "open list:GPIO SUBSYSTEM" <linux-gpio@vger.kernel.org>,
+ linux-m68k <linux-m68k@lists.linux-m68k.org>,
+ Openrisc <openrisc@lists.librecores.org>, linux-mediatek@lists.infradead.org,
+ linux-rpi-kernel <linux-rpi-kernel@lists.infradead.org>,
+ linux-tegra <linux-tegra@vger.kernel.org>,
+ openipmi-developer@lists.sourceforge.net,
+ "open list:TI ETHERNET SWITCH DRIVER \(CPSW\)" <linux-omap@vger.kernel.org>,
+ Linux ARM <linux-arm-kernel@lists.infradead.org>, linux-edac@vger.kernel.org,
+ linux-hwmon@vger.kernel.org, linux-raid@vger.kernel.org,
+ Jiri Kosina <trivial@kernel.org>, Linux MM <linux-mm@kvack.org>,
+ netdev <netdev@vger.kernel.org>, Linux MMC List <linux-mmc@vger.kernel.org>,
+ Linux Kernel Mailing List <linux-kernel@vger.kernel.org>,
+ linux-spi <linux-spi@vger.kernel.org>,
+ Linux IOMMU <iommu@lists.linux-foundation.org>,
+ Linux Crypto Mailing List <linux-crypto@vger.kernel.org>,
+ alpha <linux-alpha@vger.kernel.org>, dmaengine@vger.kernel.org,
+ linux-integrity <linux-integrity@vger.kernel.org>,
+ linuxppc-dev <linuxppc-dev@lists.ozlabs.org>
+Subject: Re: [Linux-stm32] [RESEND TRIVIAL 3/3] treewide: arch: Fix Kconfig
+	indentation
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -95,14 +105,30 @@ Content-Transfer-Encoding: 7bit
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
-On Sun, Oct 6, 2019 at 6:39 PM YueHaibing <yuehaibing@huawei.com> wrote:
+On Fri, Oct 4, 2019 at 4:57 PM Krzysztof Kozlowski <krzk@kernel.org> wrote:
+> Adjust indentation from spaces to tab (+optional two spaces) as in
+> coding style with command like:
+>     $ sed -e 's/^        /\t/' -i */Kconfig
 >
-> Use devm_platform_ioremap_resource() to simplify the code a bit.
-> This is detected by coccinelle.
->
-> Signed-off-by: YueHaibing <yuehaibing@huawei.com>
+> Signed-off-by: Krzysztof Kozlowski <krzk@kernel.org>
 
-Acked-by: Chen-Yu Tsai <wens@csie.org>
+>  arch/m68k/Kconfig.bus                  |  2 +-
+>  arch/m68k/Kconfig.debug                | 16 ++++++++--------
+>  arch/m68k/Kconfig.machine              |  8 ++++----
+
+For m68k:
+Acked-by: Geert Uytterhoeven <geert@linux-m68k.org>
+
+Gr{oetje,eeting}s,
+
+                        Geert
+
+-- 
+Geert Uytterhoeven -- There's lots of Linux beyond ia32 -- geert@linux-m68k.org
+
+In personal conversations with technical people, I call myself a hacker. But
+when I'm talking to journalists I just say "programmer" or something like that.
+                                -- Linus Torvalds
 _______________________________________________
 Linux-stm32 mailing list
 Linux-stm32@st-md-mailman.stormreply.com
