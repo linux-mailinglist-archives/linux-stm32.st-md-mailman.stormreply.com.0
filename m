@@ -2,68 +2,120 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id 48DFACE619
-	for <lists+linux-stm32@lfdr.de>; Mon,  7 Oct 2019 16:53:19 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 2D570CE74C
+	for <lists+linux-stm32@lfdr.de>; Mon,  7 Oct 2019 17:23:00 +0200 (CEST)
 Received: from ip-172-31-3-76.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 0A83EC36B0C;
-	Mon,  7 Oct 2019 14:53:19 +0000 (UTC)
-Received: from mx07-00178001.pphosted.com (mx08-00178001.pphosted.com
- [91.207.212.93])
- (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id AB136C36B0C;
+	Mon,  7 Oct 2019 15:22:59 +0000 (UTC)
+Received: from smtprelay-out1.synopsys.com (smtprelay-out1.synopsys.com
+ [198.182.61.142])
+ (using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 866C6C36B0A
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 6DB33C36B0A
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Mon,  7 Oct 2019 14:53:18 +0000 (UTC)
-Received: from pps.filterd (m0046660.ppops.net [127.0.0.1])
- by mx08-00178001.pphosted.com (8.16.0.42/8.16.0.42) with SMTP id
- x97Eke9C003277; Mon, 7 Oct 2019 16:53:11 +0200
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=st.com;
- h=subject : to : cc :
- references : from : message-id : date : mime-version : in-reply-to :
- content-type : content-transfer-encoding; s=STMicroelectronics;
- bh=BHdMjWZVBOApScvksxR8joV5keqKZpJ60rXE2ibEO8g=;
- b=fpejq/z7supoEWxe+slx8u6VsoOpWCsVfD19jaAqZhI0pGQbGv+uJOtfLP7w1ByISxdX
- CYK7sCHsQVt2L31c2fYrKMxsnwZkc5uqOwdxtWgmUwK4BOb+whM+iCemw6GeF4p6MVWk
- IXbLeZ59vIWWv/VQE9UIHvcuEaZF8D9W7TowMUWX7m7dLpCMq1WbpTZPTk/6EyEwci6u
- Y2UjuqSbPnsaON8A9D+I9S8LNdbmRJbtGk4kPlB31EpsXVzBf669j3K+9gHsp4WsF/pI
- 5/5T32y1goOidFIYn5kiV9QGm+44s5OKMQa5D1xGw4nwtE0FwzFpIUw1UpYMsCuzbzjp vQ== 
-Received: from beta.dmz-eu.st.com (beta.dmz-eu.st.com [164.129.1.35])
- by mx08-00178001.pphosted.com with ESMTP id 2vegaguahy-1
- (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
- Mon, 07 Oct 2019 16:53:11 +0200
-Received: from euls16034.sgp.st.com (euls16034.sgp.st.com [10.75.44.20])
- by beta.dmz-eu.st.com (STMicroelectronics) with ESMTP id 83456100034;
- Mon,  7 Oct 2019 16:53:10 +0200 (CEST)
-Received: from Webmail-eu.st.com (sfhdag3node2.st.com [10.75.127.8])
- by euls16034.sgp.st.com (STMicroelectronics) with ESMTP id 76D982ACFE5;
- Mon,  7 Oct 2019 16:53:10 +0200 (CEST)
-Received: from lmecxl0995.lme.st.com (10.75.127.50) by SFHDAG3NODE2.st.com
- (10.75.127.8) with Microsoft SMTP Server (TLS) id 15.0.1347.2; Mon, 7 Oct
- 2019 16:53:09 +0200
-To: Linus Walleij <linus.walleij@linaro.org>
-References: <20191004122923.22674-1-amelie.delaunay@st.com>
- <CACRpkda6CyYCt-s-VkaK856Jt3TxQg+HVDz-5Ww9T9KNHHAjaQ@mail.gmail.com>
-From: Amelie DELAUNAY <amelie.delaunay@st.com>
-Message-ID: <8eb2090a-e50e-2e4f-982b-073ad24e553c@st.com>
-Date: Mon, 7 Oct 2019 16:53:09 +0200
-User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:60.0) Gecko/20100101
- Thunderbird/60.8.0
-MIME-Version: 1.0
-In-Reply-To: <CACRpkda6CyYCt-s-VkaK856Jt3TxQg+HVDz-5Ww9T9KNHHAjaQ@mail.gmail.com>
+ Mon,  7 Oct 2019 15:22:57 +0000 (UTC)
+Received: from mailhost.synopsys.com (badc-mailhost2.synopsys.com
+ [10.192.0.18])
+ (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits))
+ (No client certificate requested)
+ by smtprelay-out1.synopsys.com (Postfix) with ESMTPS id CA0B0C020B;
+ Mon,  7 Oct 2019 15:22:54 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=synopsys.com; s=mail;
+ t=1570461775; bh=zJBaBqkAq1Pv2LsRNBMG+vGbLR7GF3SkroEzJ98OAAk=;
+ h=From:To:CC:Subject:Date:References:In-Reply-To:From;
+ b=KAeeKAyrQ/OavvYiDGzFtMD053upFig2wgkfysvWxjNaNMPzM8Icp/H4mERRBlO8r
+ rE9a0ui5lUqgHkUJEU8MAttuojFxQyNyuL0hj5AxfzPbABrIRqCaVLUK21XKPE3eKJ
+ DntCsewIgmAvtFePNZVZatINXsL9i/XBsXKnxdvLV5cPhDnfAkLCjupJYJlyZHJb4R
+ Mgz80jYPS1DDBEDNyUh7+14TA3rcQRDUd5GVvWJ0JIE9tDaEfgwtwCGq/5xmPOSDJU
+ rK/6GMR7PqDbpcoMiSJmeRKJBB2yUj0hh/ASOFj+BflKQFYCMhHuVM5S++UCswtzEH
+ +pDafgVSg8zWQ==
+Received: from US01WEHTC3.internal.synopsys.com
+ (us01wehtc3.internal.synopsys.com [10.15.84.232])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES256-SHA384 (256/256 bits))
+ (No client certificate requested)
+ by mailhost.synopsys.com (Postfix) with ESMTPS id EB1B0A006F;
+ Mon,  7 Oct 2019 15:22:53 +0000 (UTC)
+Received: from US01HYBRID2.internal.synopsys.com (10.15.246.24) by
+ US01WEHTC3.internal.synopsys.com (10.15.84.232) with Microsoft SMTP Server
+ (TLS) id 14.3.408.0; Mon, 7 Oct 2019 08:22:53 -0700
+Received: from NAM03-DM3-obe.outbound.protection.outlook.com (10.13.134.195)
+ by mrs.synopsys.com (10.15.246.24) with Microsoft SMTP Server (TLS) id
+ 14.3.408.0; Mon, 7 Oct 2019 08:22:53 -0700
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
+ b=nkL/4EytKAfmFNrJbXa/dmYM4kjfnKfTMcCeTFV+FCfnGpZjPTKxSPpQtWP3AFYvHceXOElLCqoPvu7BsmQKWJryC/JoFg2CdH0NlacCpBJ8i6FRaAKjR2hyix+4DcNYdi67DIoUoizHJsl8HvRj8m8qWq97m4n3zkQqA4tEVmisUmP1bd2ZnvGPy15JHUOncRyVn4eCfN5m2qzDxIIe8unMMQ/Qs9JK0bs24mxC6joHZmRNwdE1YIZkUmYArpjzjbuZ2BsfU+9OWEhEl+zV2DKbJ/KY5KTs/xcRLUZThKR4rv8JBAvKrGoCUsKBNXndvxN57oLMcOSWYYuMoOveLQ==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
+ s=arcselector9901;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=EfZskFUUBJ2mYJjg3KVbv5mMkBsE3CDTmVK5AHcvqx8=;
+ b=hF53hieRmk0qIrLZVGf4CivELyjjSmL7kmFBSzUxhw4U405nX9jKMJ/0cWhg6drcvR5ngMCiHiQBIcXfdY1tQ8I+zWLTYSqMBtKZktTnE3b5soQOlCe95t4Jj8sVkXiKkvFIi3xrmrxAdktg+fitXl2XR/f1WLnWG7XUVhBKvNDj25vbFLwZqbgQreyN6HphWf2yR3wu7t8m3pnM0SPFQOIg8nmPl60tQEjDol/QVRE4c32Hy8dm6ZRx5N8s/LFHtGlUMHcxJ9cSlW5ON/HxwBvcXbo3rxPKroXiQSNOinSDgq3Vn6DDGudBuPPJ2ZMBPUZgzZcJeN7Ekm8arF766g==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=synopsys.com; dmarc=pass action=none header.from=synopsys.com;
+ dkim=pass header.d=synopsys.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=synopsys.onmicrosoft.com; s=selector2-synopsys-onmicrosoft-com;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=EfZskFUUBJ2mYJjg3KVbv5mMkBsE3CDTmVK5AHcvqx8=;
+ b=fBtF/NHGkuQmHc/dT/NoArlReAmEmtivro6WuqKV1mIuCsRwNlukRSIhhC1YXhSTlg0IZdmdnEBXmZm6H8l6PgkYv92yytMdiYr6nfniXNKxJHDyv6gPhs80Q+q03RihqY36dz43qvNf/L1mCw2xw9jICrBAmABeY5xz4r/U/2I=
+Received: from BN8PR12MB3266.namprd12.prod.outlook.com (20.179.67.145) by
+ BN8PR12MB3297.namprd12.prod.outlook.com (20.179.65.209) with Microsoft SMTP
+ Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.20.2327.24; Mon, 7 Oct 2019 15:22:50 +0000
+Received: from BN8PR12MB3266.namprd12.prod.outlook.com
+ ([fe80::f431:f811:a1f9:b011]) by BN8PR12MB3266.namprd12.prod.outlook.com
+ ([fe80::f431:f811:a1f9:b011%3]) with mapi id 15.20.2327.025; Mon, 7 Oct 2019
+ 15:22:50 +0000
+From: Jose Abreu <Jose.Abreu@synopsys.com>
+To: David Miller <davem@davemloft.net>,
+ "Jose.Abreu@synopsys.com" <Jose.Abreu@synopsys.com>
+Thread-Topic: [PATCH net-next] net: stmmac: Fix sparse warning
+Thread-Index: AQHVfRFyosdZXcdd1kO+/UasDUBusKdPOOkAgAASA6A=
+Date: Mon, 7 Oct 2019 15:22:50 +0000
+Message-ID: <BN8PR12MB32660C9CE9B4F96517313E6BD39B0@BN8PR12MB3266.namprd12.prod.outlook.com>
+References: <b59904022c2f96aca956aa693040faf0dddeb802.1570454078.git.Jose.Abreu@synopsys.com>
+ <20191007.161426.108032588372697075.davem@davemloft.net>
+In-Reply-To: <20191007.161426.108032588372697075.davem@davemloft.net>
+Accept-Language: en-US
 Content-Language: en-US
-X-Originating-IP: [10.75.127.50]
-X-ClientProxiedBy: SFHDAG4NODE1.st.com (10.75.127.10) To SFHDAG3NODE2.st.com
- (10.75.127.8)
-X-Proofpoint-Virus-Version: vendor=fsecure engine=2.50.10434:6.0.95,1.0.8
- definitions=2019-10-07_02:2019-10-07,2019-10-07 signatures=0
-Cc: "linux-kernel@vger.kernel.org" <linux-kernel@vger.kernel.org>,
- "open list:GPIO SUBSYSTEM" <linux-gpio@vger.kernel.org>,
- Maxime Coquelin <mcoquelin.stm32@gmail.com>,
+X-MS-Has-Attach: 
+X-MS-TNEF-Correlator: 
+authentication-results: spf=none (sender IP is )
+ smtp.mailfrom=joabreu@synopsys.com; 
+x-originating-ip: [83.174.63.141]
+x-ms-publictraffictype: Email
+x-ms-office365-filtering-correlation-id: 420e59dd-5743-4d44-4e95-08d74b3a376f
+x-ms-traffictypediagnostic: BN8PR12MB3297:
+x-ms-exchange-transport-forked: True
+x-microsoft-antispam-prvs: <BN8PR12MB32976CADC7792D711D1531E7D39B0@BN8PR12MB3297.namprd12.prod.outlook.com>
+x-ms-oob-tlc-oobclassifiers: OLM:9508;
+x-forefront-prvs: 01834E39B7
+x-forefront-antispam-report: SFV:NSPM;
+ SFS:(10019020)(136003)(376002)(396003)(39860400002)(366004)(346002)(199004)(189003)(6506007)(256004)(86362001)(14444005)(5660300002)(7696005)(71200400001)(66476007)(52536014)(66556008)(66446008)(66946007)(71190400001)(64756008)(229853002)(8676002)(76116006)(6436002)(6246003)(99286004)(55016002)(9686003)(76176011)(478600001)(14454004)(74316002)(476003)(26005)(66066001)(6636002)(316002)(110136005)(486006)(4326008)(81156014)(7736002)(8936002)(102836004)(11346002)(446003)(305945005)(186003)(54906003)(2906002)(81166006)(25786009)(6116002)(3846002)(33656002)(2501003);
+ DIR:OUT; SFP:1102; SCL:1; SRVR:BN8PR12MB3297;
+ H:BN8PR12MB3266.namprd12.prod.outlook.com; FPR:; SPF:None; LANG:en;
+ PTR:InfoNoRecords; A:1; MX:1; 
+received-spf: None (protection.outlook.com: synopsys.com does not designate
+ permitted sender hosts)
+x-ms-exchange-senderadcheck: 1
+x-microsoft-antispam: BCL:0;
+x-microsoft-antispam-message-info: /uMP3CNUEbRcxbi316KXzfaSGdQ6qkv0e5oFx6JAhhHqv24TQLV583NZhKbKKKdZbKLzSm57H6GhU/m/mIDev/Z05cE1TmL7zHn/4EKo3+uYdh/URT4DqJEsyHl4XxcJK8hnBX+XuNiJT1SRidf/JSQymO0q3Xuew3KnOHpNX9+1YRcgQIGuQS3exL3jXzpPf+/PrIxZ2JcNtGqW1PsjvJAWW0Bq1gHJDXP4UOW2H/NwI1ECoQAnLoIDXhd6QHnN4mCJBYV2yqsDaxE6EllgQmeRAvnzgE9zxCdfklzr4DAZwFtlu8NCfmz+5SOdx3JGlvMw48z+bvyEkCsgtXTsxhHMchvxfxxwe+e17j4SwAoD5BYjyxcBEhzbVdHSR3qcFXPVMEcn/UEcIHnfZHLLSODP/UiRG/Mp44k8aswndbA=
+MIME-Version: 1.0
+X-MS-Exchange-CrossTenant-Network-Message-Id: 420e59dd-5743-4d44-4e95-08d74b3a376f
+X-MS-Exchange-CrossTenant-originalarrivaltime: 07 Oct 2019 15:22:50.5492 (UTC)
+X-MS-Exchange-CrossTenant-fromentityheader: Hosted
+X-MS-Exchange-CrossTenant-id: c33c9f88-1eb7-4099-9700-16013fd9e8aa
+X-MS-Exchange-CrossTenant-mailboxtype: HOSTED
+X-MS-Exchange-CrossTenant-userprincipalname: Ct0h8My16hHxZwzxhz8dL+3Nly8L+00Ll814WGBtAwWzC/IxXRTY8X+7lidj0elTCqN0LdZK9mgJXlGTTvc5aQ==
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: BN8PR12MB3297
+X-OriginatorOrg: synopsys.com
+Cc: "Joao.Pinto@synopsys.com" <Joao.Pinto@synopsys.com>,
+ "netdev@vger.kernel.org" <netdev@vger.kernel.org>,
+ "linux-kernel@vger.kernel.org" <linux-kernel@vger.kernel.org>,
+ "mcoquelin.stm32@gmail.com" <mcoquelin.stm32@gmail.com>,
+ "peppe.cavallaro@st.com" <peppe.cavallaro@st.com>,
  "linux-stm32@st-md-mailman.stormreply.com"
  <linux-stm32@st-md-mailman.stormreply.com>,
- Linux ARM <linux-arm-kernel@lists.infradead.org>
-Subject: Re: [Linux-stm32] [PATCH 1/1] pinctrl: stmfx: add
- irq_request/release_resources callbacks
+ "linux-arm-kernel@lists.infradead.org" <linux-arm-kernel@lists.infradead.org>
+Subject: Re: [Linux-stm32] [PATCH net-next] net: stmmac: Fix sparse warning
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -75,67 +127,62 @@ List-Post: <mailto:linux-stm32@st-md-mailman.stormreply.com>
 List-Help: <mailto:linux-stm32-request@st-md-mailman.stormreply.com?subject=help>
 List-Subscribe: <https://st-md-mailman.stormreply.com/mailman/listinfo/linux-stm32>, 
  <mailto:linux-stm32-request@st-md-mailman.stormreply.com?subject=subscribe>
-Content-Transfer-Encoding: base64
-Content-Type: text/plain; charset="utf-8"; Format="flowed"
+Content-Type: text/plain; charset="us-ascii"
+Content-Transfer-Encoding: 7bit
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
-SGkgTGludXMsCgpPbiAxMC81LzE5IDY6NDkgUE0sIExpbnVzIFdhbGxlaWogd3JvdGU6Cj4gT24g
-RnJpLCBPY3QgNCwgMjAxOSBhdCAyOjI5IFBNIEFtZWxpZSBEZWxhdW5heSA8YW1lbGllLmRlbGF1
-bmF5QHN0LmNvbT4gCj4gd3JvdGU6Cj4gCj4+IFdoZW4gYW4gU1RNRlggSU8gaXMgdXNlZCBhcyBp
-bnRlcnJ1cHQgdGhyb3VnaCB0aGUgaW50ZXJydXB0LWNvbnRyb2xsZXIKPj4gYmluZGluZywgdGhl
-IFNUTUZYIGRyaXZlciBzaG91bGQgY29uZmlndXJlIHRoaXMgSU8gYXMgaW5wdXQuIERlZmF1bHQK
-Pj4gdmFsdWUgb2YgU1RNRlggSU8gZGlyZWN0aW9uIGlzIGlucHV0LCBidXQgaWYgdGhlIElPIGlz
-IHVzZWQgYXMgb3V0cHV0Cj4+IGJlZm9yZSB0aGUgaW50ZXJydXB0IHVzZSwgaXQgd2lsbCBub3Qg
-d29yayB3aXRob3V0IHRoZXNlIGNhbGxiYWNrcy4KPj4KPj4gU2lnbmVkLW9mZi1ieTogQW1lbGll
-IERlbGF1bmF5IDxhbWVsaWUuZGVsYXVuYXlAc3QuY29tPgo+IAo+IE9LIEkgc2VlIHdoYXQgeW91
-IHdhbnQgdG8gYWNoaWV2ZS4KPiAKPj4gK3N0YXRpYyBpbnQgc3RtZnhfZ3Bpb19pcnFfcmVxdWVz
-dF9yZXNvdXJjZXMoc3RydWN0IGlycV9kYXRhICpkYXRhKQo+PiArewo+PiArwqDCoMKgwqDCoMKg
-IHN0cnVjdCBncGlvX2NoaXAgKmdwaW9fY2hpcCA9IGlycV9kYXRhX2dldF9pcnFfY2hpcF9kYXRh
-KGRhdGEpOwo+PiArwqDCoMKgwqDCoMKgIHN0cnVjdCBzdG1meF9waW5jdHJsICpwY3RsID0gZ3Bp
-b2NoaXBfZ2V0X2RhdGEoZ3Bpb19jaGlwKTsKPj4gK8KgwqDCoMKgwqDCoCBpbnQgcmV0Owo+PiAr
-Cj4+ICvCoMKgwqDCoMKgwqAgcmV0ID0gc3RtZnhfZ3Bpb19kaXJlY3Rpb25faW5wdXQoJnBjdGwt
-PmdwaW9fY2hpcCwgZGF0YS0+aHdpcnEpOwo+PiArwqDCoMKgwqDCoMKgIGlmIChyZXQpCj4+ICvC
-oMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgIHJldHVybiByZXQ7Cj4+ICsKPj4gK8KgwqDCoMKg
-wqDCoCByZXQgPSBncGlvY2hpcF9sb2NrX2FzX2lycSgmcGN0bC0+Z3Bpb19jaGlwLCBkYXRhLT5o
-d2lycSk7Cj4+ICvCoMKgwqDCoMKgwqAgaWYgKHJldCkgewo+PiArwqDCoMKgwqDCoMKgwqDCoMKg
-wqDCoMKgwqDCoCBkZXZfZXJyKHBjdGwtPmRldiwgIlVuYWJsZSB0byBsb2NrIGdwaW8gJWx1IGFz
-IElSUTogJWRcbiIsCj4+ICvCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKg
-wqDCoCBkYXRhLT5od2lycSwgcmV0KTsKPj4gK8KgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqAg
-cmV0dXJuIHJldDsKPj4gK8KgwqDCoMKgwqDCoCB9Cj4+ICsKPj4gK8KgwqDCoMKgwqDCoCByZXR1
-cm4gMDsKPj4gK30KPiAKPiBKdXN0IGNhbGwgZ3Bpb2NoaXBfcmVxcmVzX2lycSgpIGluc3RlYWQg
-b2YgY2FsbGluZyB0aGUgbG9jayBldGMKPiBleHBsaWNpdGx5Lgo+IAo+PiArc3RhdGljIHZvaWQg
-c3RtZnhfZ3Bpb19pcnFfcmVsZWFzZV9yZXNvdXJjZXMoc3RydWN0IGlycV9kYXRhICpkYXRhKQo+
-PiArewo+PiArwqDCoMKgwqDCoMKgIHN0cnVjdCBncGlvX2NoaXAgKmdwaW9fY2hpcCA9IGlycV9k
-YXRhX2dldF9pcnFfY2hpcF9kYXRhKGRhdGEpOwo+PiArwqDCoMKgwqDCoMKgIHN0cnVjdCBzdG1m
-eF9waW5jdHJsICpwY3RsID0gZ3Bpb2NoaXBfZ2V0X2RhdGEoZ3Bpb19jaGlwKTsKPj4gKwo+PiAr
-wqDCoMKgwqDCoMKgIGdwaW9jaGlwX3VubG9ja19hc19pcnEoJnBjdGwtPmdwaW9fY2hpcCwgZGF0
-YS0+aHdpcnEpOwo+PiArfQo+IAo+IEp1c3QgY2FsbCBncGlvY2hpcF9yZWxyZXNfaXJxKCkKPiAK
-PiBCdXQgYWxsIHRoaXMgZHVwbGljYXRlZCBhIGxvdCBvZiBjb2RlIGZyb20gdGhlIGNvcmUgd2hp
-Y2ggaXMgbm90IHNvIG5pY2UuCj4gCj4+IEBAIC02NzgsNiArNzA2LDggQEAgc3RhdGljIGludCBz
-dG1meF9waW5jdHJsX3Byb2JlKHN0cnVjdCBwbGF0Zm9ybV9kZXZpY2UgKnBkZXYpCj4+wqDCoMKg
-wqDCoMKgwqDCoCBwY3RsLT5pcnFfY2hpcC5pcnFfc2V0X3R5cGUgPSBzdG1meF9waW5jdHJsX2ly
-cV9zZXRfdHlwZTsKPj7CoMKgwqDCoMKgwqDCoMKgIHBjdGwtPmlycV9jaGlwLmlycV9idXNfbG9j
-ayA9IHN0bWZ4X3BpbmN0cmxfaXJxX2J1c19sb2NrOwo+PsKgwqDCoMKgwqDCoMKgwqAgcGN0bC0+
-aXJxX2NoaXAuaXJxX2J1c19zeW5jX3VubG9jayA9IHN0bWZ4X3BpbmN0cmxfaXJxX2J1c19zeW5j
-X3VubG9jazsKPj4gK8KgwqDCoMKgwqDCoCBwY3RsLT5pcnFfY2hpcC5pcnFfcmVxdWVzdF9yZXNv
-dXJjZXMgPSBzdG1meF9ncGlvX2lycV9yZXF1ZXN0X3Jlc291cmNlczsKPj4gK8KgwqDCoMKgwqDC
-oCBwY3RsLT5pcnFfY2hpcC5pcnFfcmVsZWFzZV9yZXNvdXJjZXMgPSBzdG1meF9ncGlvX2lycV9y
-ZWxlYXNlX3Jlc291cmNlczsKPiAKPiBXaGF0IGFib3V0IGp1c3QgYWRkaW5nCj4gCj4gcGN0bC0+
-aXJxX2NoaXAuaXJxX2VuYWJsZSBhbmQgZG8gc3RtZnhfZ3Bpb19kaXJlY3Rpb25faW5wdXQoKQo+
-IGluIHRoYXQgY2FsbGJhY2sgaW5zdGVhZD8gZ3Bpb2xpYiB3aWxsIGhlbHBmdWxseSB3cmFwIGl0
-LgoKVGhhbmtzIGZvciBwb2ludGluZyB0aGF0IG91dCB0byBtZS4KCkkgY2FuJ3QgdXNlIC5pcnFf
-ZW5hYmxlIGJlY2F1c2Ugb2YgSTJDIHRyYW5zZmVyIHRvIHNldCBncGlvIGRpcmVjdGlvbiAKKHNj
-aGVkdWxpbmcgd2hpbGUgYXRvbWljIEJVRyBvY2N1cnMgaW4gdGhpcyBjYXNlKS4gSW5kZWVkLCAu
-aXJxX2VuYWJsZSAKaXMgY2FsbGVkIHVuZGVyIHJhd19zcGluX2xvY2tfaXJxc2F2ZSBpbiBfX3Nl
-dHVwX2lycSgpIHdoaWxlIAppcnFfcmVxdWVzdF9yZXNvdXJjZXMgaXMgY2FsbGVkIGJlZm9yZS4K
-CkkgY291bGQgYXBwbHkgZ3BpbyBkaXJlY3Rpb24gaW4gc3RtZnhfcGluY3RybF9pcnFfYnVzX3N5
-bmNfdW5sb2NrIApkZXBlbmRpbmcgb24gcGN0bC0+aXJxX2dwaV9zcmNbXSAoY2hlY2tpbmcgd2hp
-Y2ggb25lIGlzIHNldCwgdG8gc2V0IAppbnB1dCBkaXJlY3Rpb24pLCBidXQgdGhpcyB3aWxsIGJl
-IGFwcGxpZWQgZWFjaCB0aW1lIGEgY29uc3VtZXIgcmVxdWVzdHMgCmEgc3RtZnggZ3BpbyBpcnEu
-CgpJTUhPLCBrZWVwaW5nIC5pcnFfcmVxdWVzdC9yZWxlYXNlX3Jlc291cmNlcyBjYWxsYmFja3Mg
-YW5kIHVzaW5nIApncGlvY2hpcF9yZXFyZXNfaXJxKCkvZ3Bpb2NoaXBfcmVscmVzX2lycSgpIHNl
-ZW1zIHRvIGJlIHRoZSBiZXN0IGNvbXByb21pc2UuCgpSZWdhcmRzLApBbWVsaWUKX19fX19fX19f
-X19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX18KTGludXgtc3RtMzIgbWFpbGlu
-ZyBsaXN0CkxpbnV4LXN0bTMyQHN0LW1kLW1haWxtYW4uc3Rvcm1yZXBseS5jb20KaHR0cHM6Ly9z
-dC1tZC1tYWlsbWFuLnN0b3JtcmVwbHkuY29tL21haWxtYW4vbGlzdGluZm8vbGludXgtc3RtMzIK
+From: David Miller <davem@davemloft.net>
+Date: Oct/07/2019, 15:14:26 (UTC+00:00)
+
+> From: Jose Abreu <Jose.Abreu@synopsys.com>
+> Date: Mon,  7 Oct 2019 15:16:08 +0200
+> 
+> > diff --git a/drivers/net/ethernet/stmicro/stmmac/stmmac_main.c b/drivers/net/ethernet/stmicro/stmmac/stmmac_main.c
+> > index 8b76745a7ec4..40b0756f3a14 100644
+> > --- a/drivers/net/ethernet/stmicro/stmmac/stmmac_main.c
+> > +++ b/drivers/net/ethernet/stmicro/stmmac/stmmac_main.c
+> > @@ -4207,6 +4207,7 @@ static u32 stmmac_vid_crc32_le(__le16 vid_le)
+> >  static int stmmac_vlan_update(struct stmmac_priv *priv, bool is_double)
+> >  {
+> >  	u32 crc, hash = 0;
+> > +	__le16 pmatch = 0;
+> >  	int count = 0;
+> >  	u16 vid = 0;
+> >  
+> > @@ -4221,11 +4222,11 @@ static int stmmac_vlan_update(struct stmmac_priv *priv, bool is_double)
+> >  		if (count > 2) /* VID = 0 always passes filter */
+> >  			return -EOPNOTSUPP;
+> >  
+> > -		vid = cpu_to_le16(vid);
+> > +		pmatch = cpu_to_le16(vid);
+> >  		hash = 0;
+> >  	}
+> >  
+> > -	return stmmac_update_vlan_hash(priv, priv->hw, hash, vid, is_double);
+> > +	return stmmac_update_vlan_hash(priv, priv->hw, hash, pmatch, is_double);
+> >  }
+> 
+> I dunno about this.
+> 
+> The original code would use the last "vid" iterated over in the
+> for_each_set_bit() loop if the priv->dma_cap.vlhash test does not
+> pass.
+> 
+> Now, it will use zero in that case.
+> 
+> This does not look like an equivalent transformation.
+
+It is intended behavior. HW specific callbacks: 
+dwmac4_update_vlan_hash() / dwxgmac2_update_vlan_hash(), will either use 
+Hash method or Perfect method so if priv->dma_cap.vlhash is not 
+available then pmatch will be last vid. Otherwise, it will be zero and 
+hash will be populated.
+
+---
+Thanks,
+Jose Miguel Abreu
+_______________________________________________
+Linux-stm32 mailing list
+Linux-stm32@st-md-mailman.stormreply.com
+https://st-md-mailman.stormreply.com/mailman/listinfo/linux-stm32
