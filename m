@@ -2,45 +2,74 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id 5C570CFCB2
-	for <lists+linux-stm32@lfdr.de>; Tue,  8 Oct 2019 16:45:42 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 3DBDBD086C
+	for <lists+linux-stm32@lfdr.de>; Wed,  9 Oct 2019 09:37:39 +0200 (CEST)
 Received: from ip-172-31-3-76.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 1D4EDC36B0C;
-	Tue,  8 Oct 2019 14:45:42 +0000 (UTC)
-Received: from metis.ext.pengutronix.de (metis.ext.pengutronix.de
- [85.220.165.71])
- (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id F3C5EC36B0C;
+	Wed,  9 Oct 2019 07:37:38 +0000 (UTC)
+Received: from mail-io1-f66.google.com (mail-io1-f66.google.com
+ [209.85.166.66])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id B3B0EC36B0A
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id EC73EC36B0A
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Tue,  8 Oct 2019 14:45:40 +0000 (UTC)
-Received: from pty.hi.pengutronix.de ([2001:67c:670:100:1d::c5])
- by metis.ext.pengutronix.de with esmtps
- (TLS1.2:ECDHE_RSA_AES_256_GCM_SHA384:256) (Exim 4.92)
- (envelope-from <ukl@pengutronix.de>)
- id 1iHqk0-0001Zs-Vp; Tue, 08 Oct 2019 16:45:32 +0200
-Received: from ukl by pty.hi.pengutronix.de with local (Exim 4.89)
- (envelope-from <ukl@pengutronix.de>)
- id 1iHqjz-0001yc-As; Tue, 08 Oct 2019 16:45:31 +0200
-Date: Tue, 8 Oct 2019 16:45:31 +0200
-From: Uwe =?iso-8859-1?Q?Kleine-K=F6nig?= <u.kleine-koenig@pengutronix.de>
-To: Fabrice Gasnier <fabrice.gasnier@st.com>
-Message-ID: <20191008144531.pjt525xuz7n5a3hq@pengutronix.de>
-References: <1570534887-26181-1-git-send-email-fabrice.gasnier@st.com>
+ Tue,  8 Oct 2019 23:46:13 +0000 (UTC)
+Received: by mail-io1-f66.google.com with SMTP id z19so965943ior.0
+ for <linux-stm32@st-md-mailman.stormreply.com>;
+ Tue, 08 Oct 2019 16:46:13 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=sifive.com; s=google;
+ h=date:from:to:cc:subject:in-reply-to:message-id:references
+ :user-agent:mime-version;
+ bh=SPl3L4+4Zy9QlJN3K7IuqOc2JedlA0ldY7i+AP0Siqo=;
+ b=I+N5hkvPCF8K1LY460NnH3Bs+ppv36e7pHAAko5cPGtVK7Q1xpMFtMk1sbwX3EL9Ae
+ UX5ufwjfjE2WsQxxVvaJrkkGtrrD1A1swJroeZ6oWYFiFUD/gbGKkY6710T0F0X5S5Xo
+ BF95rAFQKdDZy+9dBrgr05QKn2VguSytZtPaHPhpxauj1vAvK0o8UX1wBJzBZa1yl7EV
+ jLHoqHF7Hse1l/Ohr1dGC6ATYWRzE6EftbRk42hoGB79bBRXmsmPeyS2gmRpO97jk05b
+ X+CS58w6j5DGF3spjHV4AncNibrgaK8A9wTUdRqszmiSN3PwPwqQA/IsTfJ60gtOiuUB
+ 4Xrw==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20161025;
+ h=x-gm-message-state:date:from:to:cc:subject:in-reply-to:message-id
+ :references:user-agent:mime-version;
+ bh=SPl3L4+4Zy9QlJN3K7IuqOc2JedlA0ldY7i+AP0Siqo=;
+ b=HSBWMGg10XtCXtH2S62lnp09lG0aFj0J5w+hz0hUHBbylQuieMbmRkx7mHOWLY1FmC
+ rAR2SsEPSBkE38nAA5W6DXdOZgQRjh/mpanl2Qk9I8nQwZimsnBzH/jV4M3UevvorG5C
+ XO6JW7fokLW14pzgu+ctZiIU6DFZZ9QUCbtQ7oomchfgdEB2u0bmm22L5hD7So5w27a1
+ 0cViO9oAC12iTMaa7qWjD1nNOgWpCrsfXetsKEPzzUSVvrUvm0RpZyyudJ0yr+dwLjrA
+ Jml+MkhswmvE6Qk/SLAuTEq5a8NhiEOqxXRBMFqalyqJfKYIwT8R9FIJzhh+C1juI0CN
+ wNMw==
+X-Gm-Message-State: APjAAAWiIBtZ8YJ9R59OJ6XFK+hqbZA1H/WLhnM824e+ttXK+23JH3Ng
+ wgZjYJKknk8gxsPN03qORhpOBA==
+X-Google-Smtp-Source: APXvYqz97nlCIt/+/P4PPfxa3nO+CVIeqE66+NVgtpZhnKj/IpAG2fhUxvCWOIqX/CoRt6DSjpBBFw==
+X-Received: by 2002:a92:d084:: with SMTP id h4mr287013ilh.223.1570578372595;
+ Tue, 08 Oct 2019 16:46:12 -0700 (PDT)
+Received: from localhost ([64.62.168.194])
+ by smtp.gmail.com with ESMTPSA id m11sm250603ioq.5.2019.10.08.16.46.10
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Tue, 08 Oct 2019 16:46:12 -0700 (PDT)
+Date: Tue, 8 Oct 2019 16:46:06 -0700 (PDT)
+From: Paul Walmsley <paul.walmsley@sifive.com>
+X-X-Sender: paulw@viisi.sifive.com
+To: Krzysztof Kozlowski <krzk@kernel.org>
+In-Reply-To: <20191002164047.14499-1-krzk@kernel.org>
+Message-ID: <alpine.DEB.2.21.9999.1910081643220.11044@viisi.sifive.com>
+References: <20191002164047.14499-1-krzk@kernel.org>
+User-Agent: Alpine 2.21.9999 (DEB 301 2018-08-15)
 MIME-Version: 1.0
-Content-Disposition: inline
-In-Reply-To: <1570534887-26181-1-git-send-email-fabrice.gasnier@st.com>
-User-Agent: NeoMutt/20170113 (1.7.2)
-X-SA-Exim-Connect-IP: 2001:67c:670:100:1d::c5
-X-SA-Exim-Mail-From: ukl@pengutronix.de
-X-SA-Exim-Scanned: No (on metis.ext.pengutronix.de);
- SAEximRunCond expanded to false
-X-PTX-Original-Recipient: linux-stm32@st-md-mailman.stormreply.com
-Cc: linux-pwm@vger.kernel.org, linux-kernel@vger.kernel.org,
- thierry.reding@gmail.com, linux-stm32@st-md-mailman.stormreply.com,
- linux-arm-kernel@lists.infradead.org
-Subject: Re: [Linux-stm32] [PATCH] pwm: stm32: add comment to better
- describe breakinput feature
+X-Mailman-Approved-At: Wed, 09 Oct 2019 07:37:37 +0000
+Cc: Mark Rutland <mark.rutland@arm.com>, devicetree@vger.kernel.org,
+ linux-pwm@vger.kernel.org, linux-mediatek@lists.infradead.org,
+ linux-kernel@vger.kernel.org, dri-devel@lists.freedesktop.org,
+ linux-stm32@st-md-mailman.stormreply.com, linux-rockchip@lists.infradead.org,
+ Rob Herring <robh+dt@kernel.org>, Thierry Reding <thierry.reding@gmail.com>,
+ linux-arm-kernel@lists.infradead.org,
+ =?ISO-8859-15?Q?Uwe_Kleine-K=F6nig?= <u.kleine-koenig@pengutronix.de>,
+ linux-tegra@vger.kernel.org, bcm-kernel-feedback-list@broadcom.com,
+ linux-amlogic@lists.infradead.org, linux-riscv@lists.infradead.org,
+ linux-clk@vger.kernel.org, linux-leds@vger.kernel.org,
+ linux-rpi-kernel@lists.infradead.org
+Subject: Re: [Linux-stm32] [PATCH v3 1/2] dt-bindings: pwm: Convert PWM
+ bindings to json-schema
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -52,60 +81,42 @@ List-Post: <mailto:linux-stm32@st-md-mailman.stormreply.com>
 List-Help: <mailto:linux-stm32-request@st-md-mailman.stormreply.com?subject=help>
 List-Subscribe: <https://st-md-mailman.stormreply.com/mailman/listinfo/linux-stm32>, 
  <mailto:linux-stm32-request@st-md-mailman.stormreply.com?subject=subscribe>
-Content-Type: text/plain; charset="iso-8859-1"
-Content-Transfer-Encoding: quoted-printable
+Content-Type: text/plain; charset="us-ascii"
+Content-Transfer-Encoding: 7bit
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
-On Tue, Oct 08, 2019 at 01:41:27PM +0200, Fabrice Gasnier wrote:
-> Add a comment to better describe the purpose of breakinput feature that
-> can be found on some STM32 timer instances. Briefly comment on the
-> characteristics of this input for PWM, and pinmuxing as suggested in [1].
-> =
+On Wed, 2 Oct 2019, Krzysztof Kozlowski wrote:
 
-> [1] https://lkml.org/lkml/2019/10/1/207
-> =
-
-> Signed-off-by: Fabrice Gasnier <fabrice.gasnier@st.com>
+> Convert generic PWM bindings to DT schema format using json-schema.  The
+> consumer bindings are split to separate file.
+> 
+> Signed-off-by: Krzysztof Kozlowski <krzk@kernel.org>
+> 
 > ---
->  drivers/pwm/pwm-stm32.c | 8 +++++++-
->  1 file changed, 7 insertions(+), 1 deletion(-)
-> =
+> 
 
-> diff --git a/drivers/pwm/pwm-stm32.c b/drivers/pwm/pwm-stm32.c
-> index 359b085..6406ebb 100644
-> --- a/drivers/pwm/pwm-stm32.c
-> +++ b/drivers/pwm/pwm-stm32.c
-> @@ -522,8 +522,14 @@ static int stm32_pwm_apply_breakinputs(struct stm32_=
-pwm *priv,
->  					     sizeof(struct stm32_breakinput));
->  =
+[ ... ]
 
->  	/*
-> +	 * Some timer instances can have BRK input pins (e.g. basically a fault
-> +	 * pin from the output power stage). The break feature allows a safe
-> +	 * shut-down of the PWM outputs to a predefined state. Further details
-> +	 * are available in application note AN4277, "Using STM32 device PWM
-> +	 * shut-down features..."
+> diff --git a/Documentation/devicetree/bindings/pwm/pwm-sifive.txt b/Documentation/devicetree/bindings/pwm/pwm-sifive.txt
+> index 36447e3c9378..3d1dd7b06efc 100644
+> --- a/Documentation/devicetree/bindings/pwm/pwm-sifive.txt
+> +++ b/Documentation/devicetree/bindings/pwm/pwm-sifive.txt
+> @@ -17,7 +17,7 @@ Required properties:
+>    Please refer to sifive-blocks-ip-versioning.txt for details.
+>  - reg: physical base address and length of the controller's registers
+>  - clocks: Should contain a clock identifier for the PWM's parent clock.
+> -- #pwm-cells: Should be 3. See pwm.txt in this directory
+> +- #pwm-cells: Should be 3. See pwm.yaml in this directory
+>    for a description of the cell format.
+>  - interrupts: one interrupt per PWM channel
 
-Without having read the application note I don't understand the purpose.
-Not sure if this should be a show stopper though.
+For the SiFive PWM driver documentation:
 
->  	 * Because "st,breakinput" parameter is optional do not make probe
-> -	 * failed if it doesn't exist.
-> +	 * failed if it doesn't exist. The pinctrl handle must hold the BRK
-> +	 * pin(s) when using "st,breakinput" property.
-
-Is this a comment that has a better place in the binding doc?
-
-Best regards
-Uwe
+Acked-by: Paul Walmsley <paul.walmsley@sifive.com>
 
 
--- =
-
-Pengutronix e.K.                           | Uwe Kleine-K=F6nig            |
-Industrial Linux Solutions                 | http://www.pengutronix.de/  |
+- Paul
 _______________________________________________
 Linux-stm32 mailing list
 Linux-stm32@st-md-mailman.stormreply.com
