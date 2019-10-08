@@ -2,60 +2,56 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id 14782CF8B2
-	for <lists+linux-stm32@lfdr.de>; Tue,  8 Oct 2019 13:42:05 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id B453CCFA55
+	for <lists+linux-stm32@lfdr.de>; Tue,  8 Oct 2019 14:49:13 +0200 (CEST)
 Received: from ip-172-31-3-76.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id C5432C36B0C;
-	Tue,  8 Oct 2019 11:42:04 +0000 (UTC)
-Received: from mx07-00178001.pphosted.com (mx07-00178001.pphosted.com
- [62.209.51.94])
- (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 77B03C36B0C;
+	Tue,  8 Oct 2019 12:49:13 +0000 (UTC)
+Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
+ (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id D8F90C36B0A
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 7F5A2C36B0A
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Tue,  8 Oct 2019 11:42:03 +0000 (UTC)
-Received: from pps.filterd (m0046037.ppops.net [127.0.0.1])
- by mx07-00178001.pphosted.com (8.16.0.42/8.16.0.42) with SMTP id
- x98BesFt005862; Tue, 8 Oct 2019 13:41:50 +0200
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=st.com;
- h=from : to : cc : subject
- : date : message-id : mime-version : content-type; s=STMicroelectronics;
- bh=JZ29o3+ZA5x48x8+yCCPyxRuo1rTg5MroHIYryI/F3c=;
- b=LempFh1Xlla+0GUWqcqrMNqJTOx1DFSj02f0oYlIGwTNiroRG51+Pt80DQ+R8llxMluq
- GRry1sBSVssoH4J4s6U0FzLfcEMwAqAMh08xU+2PdkDlEUt5iPYsgW/fvAgrVlkjpRuo
- 8shy6xDyiign0oIshGl7hQguuuhNHm7O+UIdtEqH4w5VAAZ5FazUCjlPkcMubO01NF3N
- qm60avg/xJmeThj3w2VPhYbWql+x2G2r5MD4ACkkgp0vhkJmrSOshbXd1DHeszEKrccG
- uHdB4htnX4OoWP+f5fsHKPRf2Nv2XIZX1K4jWi8QTRMbYK0OUBf5qyKyMsg0o43/evk7 og== 
-Received: from beta.dmz-eu.st.com (beta.dmz-eu.st.com [164.129.1.35])
- by mx07-00178001.pphosted.com with ESMTP id 2vegxvqwq4-1
- (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
- Tue, 08 Oct 2019 13:41:50 +0200
-Received: from euls16034.sgp.st.com (euls16034.sgp.st.com [10.75.44.20])
- by beta.dmz-eu.st.com (STMicroelectronics) with ESMTP id 831D710002A;
- Tue,  8 Oct 2019 13:41:47 +0200 (CEST)
-Received: from Webmail-eu.st.com (Safex1hubcas21.st.com [10.75.90.44])
- by euls16034.sgp.st.com (STMicroelectronics) with ESMTP id 766142B8A64;
- Tue,  8 Oct 2019 13:41:47 +0200 (CEST)
-Received: from SAFEX1HUBCAS23.st.com (10.75.90.46) by SAFEX1HUBCAS21.st.com
- (10.75.90.44) with Microsoft SMTP Server (TLS) id 14.3.439.0; Tue, 8 Oct 2019
- 13:41:47 +0200
-Received: from localhost (10.48.0.192) by webmail-ga.st.com (10.75.90.48) with
- Microsoft SMTP Server (TLS) id 14.3.439.0;
- Tue, 8 Oct 2019 13:41:46 +0200
-From: Fabrice Gasnier <fabrice.gasnier@st.com>
-To: <thierry.reding@gmail.com>, <u.kleine-koenig@pengutronix.de>
-Date: Tue, 8 Oct 2019 13:41:27 +0200
-Message-ID: <1570534887-26181-1-git-send-email-fabrice.gasnier@st.com>
-X-Mailer: git-send-email 2.7.4
+ Tue,  8 Oct 2019 12:49:12 +0000 (UTC)
+Received: from mail-qt1-f169.google.com (mail-qt1-f169.google.com
+ [209.85.160.169])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+ (No client certificate requested)
+ by mail.kernel.org (Postfix) with ESMTPSA id E2B0321871
+ for <linux-stm32@st-md-mailman.stormreply.com>;
+ Tue,  8 Oct 2019 12:49:10 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
+ s=default; t=1570538951;
+ bh=l4QjoOoC1FPsBF/H8+vyqEeZBRWcMj5euRW3XBxAE98=;
+ h=References:In-Reply-To:From:Date:Subject:To:Cc:From;
+ b=OEdAywYO6BHIh3JUKUWueff1vUkd8txFYMvRvT1WS5dhPMIw1bgC7i+gyvfKi8bk7
+ NiNHdWJdyhegNol3yg8TiMAsc3UIYhZF8C3n13Z7YZAFUroIzk1NWttcAjTQrrFhj8
+ mqKNKguQx+/phncGm9QOOr4PJ3Pd6arxycSm4mRw=
+Received: by mail-qt1-f169.google.com with SMTP id o12so25092879qtf.3
+ for <linux-stm32@st-md-mailman.stormreply.com>;
+ Tue, 08 Oct 2019 05:49:10 -0700 (PDT)
+X-Gm-Message-State: APjAAAULn36S/2KowvItoFYWAlVXsk3+N6QPItTOGybVtd2qJYEFXFa7
+ c7KfiixKUxQRsMpQUMVMF7MqNP6rHagTlEzMdg==
+X-Google-Smtp-Source: APXvYqxSaRgUqqni7RWikQ+zN1xMpYCgoo0IuuKMMlW4a/sVKwGL8eRTo+RXkXFsUSbAZ9vRNEtMOquOyCQzYMzABM4=
+X-Received: by 2002:ac8:444f:: with SMTP id m15mr35881979qtn.110.1570538949942; 
+ Tue, 08 Oct 2019 05:49:09 -0700 (PDT)
 MIME-Version: 1.0
-X-Originating-IP: [10.48.0.192]
-X-Proofpoint-Virus-Version: vendor=fsecure engine=2.50.10434:6.0.95,1.0.8
- definitions=2019-10-08_04:2019-10-08,2019-10-08 signatures=0
-Cc: linux-pwm@vger.kernel.org, linux-kernel@vger.kernel.org,
- fabrice.gasnier@st.com, linux-stm32@st-md-mailman.stormreply.com,
- linux-arm-kernel@lists.infradead.org
-Subject: [Linux-stm32] [PATCH] pwm: stm32: add comment to better describe
-	breakinput feature
+References: <20191002151714.15813-1-benjamin.gaignard@st.com>
+In-Reply-To: <20191002151714.15813-1-benjamin.gaignard@st.com>
+From: Rob Herring <robh+dt@kernel.org>
+Date: Tue, 8 Oct 2019 07:48:58 -0500
+X-Gmail-Original-Message-ID: <CAL_JsqJtHgAZvFbWOEwu7WsG2OHHugfB1RKSrxsaP3Exa5odGg@mail.gmail.com>
+Message-ID: <CAL_JsqJtHgAZvFbWOEwu7WsG2OHHugfB1RKSrxsaP3Exa5odGg@mail.gmail.com>
+To: Benjamin Gaignard <benjamin.gaignard@st.com>
+Cc: Mark Rutland <mark.rutland@arm.com>, devicetree@vger.kernel.org,
+ David Airlie <airlied@linux.ie>, dri-devel <dri-devel@lists.freedesktop.org>,
+ "linux-kernel@vger.kernel.org" <linux-kernel@vger.kernel.org>,
+ Yannick Fertre <yannick.fertre@st.com>, Daniel Vetter <daniel@ffwll.ch>,
+ linux-stm32@st-md-mailman.stormreply.com,
+ "moderated list:ARM/FREESCALE IMX / MXC ARM ARCHITECTURE"
+ <linux-arm-kernel@lists.infradead.org>
+Subject: Re: [Linux-stm32] [PATCH] dt-bindings: display: Convert stm32
+	display bindings to json-schema
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -72,40 +68,279 @@ Content-Transfer-Encoding: 7bit
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
-Add a comment to better describe the purpose of breakinput feature that
-can be found on some STM32 timer instances. Briefly comment on the
-characteristics of this input for PWM, and pinmuxing as suggested in [1].
+On Wed, Oct 2, 2019 at 10:17 AM Benjamin Gaignard
+<benjamin.gaignard@st.com> wrote:
+>
+> Convert the STM32 display binding to DT schema format using json-schema.
+> Split the original bindings in two yaml files:
+> - one for display controller (ltdc)
+> - one for DSI controller
+>
+> Signed-off-by: Benjamin Gaignard <benjamin.gaignard@st.com>
+> ---
+>  .../devicetree/bindings/display/st,stm32-dsi.yaml  | 130 +++++++++++++++++++
+>  .../devicetree/bindings/display/st,stm32-ltdc.txt  | 144 ---------------------
+>  .../devicetree/bindings/display/st,stm32-ltdc.yaml |  82 ++++++++++++
+>  3 files changed, 212 insertions(+), 144 deletions(-)
+>  create mode 100644 Documentation/devicetree/bindings/display/st,stm32-dsi.yaml
+>  delete mode 100644 Documentation/devicetree/bindings/display/st,stm32-ltdc.txt
+>  create mode 100644 Documentation/devicetree/bindings/display/st,stm32-ltdc.yaml
+>
+> diff --git a/Documentation/devicetree/bindings/display/st,stm32-dsi.yaml b/Documentation/devicetree/bindings/display/st,stm32-dsi.yaml
+> new file mode 100644
+> index 000000000000..8143cf6f0ce7
+> --- /dev/null
+> +++ b/Documentation/devicetree/bindings/display/st,stm32-dsi.yaml
+> @@ -0,0 +1,130 @@
+> +# SPDX-License-Identifier: GPL-2.0
 
-[1] https://lkml.org/lkml/2019/10/1/207
+If all the authors are ST, can you relicense to (GPL-2.0-only OR BSD-2-Clause).
 
-Signed-off-by: Fabrice Gasnier <fabrice.gasnier@st.com>
----
- drivers/pwm/pwm-stm32.c | 8 +++++++-
- 1 file changed, 7 insertions(+), 1 deletion(-)
+> +%YAML 1.2
+> +---
+> +$id: http://devicetree.org/schemas/display/st,stm32-dsi.yaml#
+> +$schema: http://devicetree.org/meta-schemas/core.yaml#
+> +
+> +title: STMicroelectronics STM32 DSI host controller
+> +
+> +maintainers:
+> +  - Philippe Cornu <philippe.cornu@st.com>
+> +  - Yannick Fertre <yannick.fertre@st.com>
+> +
+> +properties:
+> +  "#address-cells": true
+> +  "#size-cells": true
+> +
+> +  compatible:
+> +    const: st,stm32-dsi
+> +
+> +  reg:
+> +    maxItems: 1
+> +
+> +  clocks:
+> +    items:
+> +      - description: Module Clock
+> +      - description: DSI bus clock
+> +      - description: Pixel clock
+> +    minItems: 2
+> +    maxItems: 3
+> +
+> +  clock-names:
+> +    items:
+> +      - const: pclk
+> +      - const: ref
+> +      - const: px_clk
+> +    minItems: 2
+> +    maxItems: 3
+> +
+> +  resets:
+> +    maxItems: 1
+> +
+> +  reset-names:
+> +    items:
+> +      - const: apb
+> +
+> +  phy-dsi-supply:
+> +    maxItems: 1
+> +    description:
+> +        Phandle of the regulator that provides the supply voltage.
+> +
+> +  ports:
+> +    type: object
+> +    description:
+> +        A node containing DSI input & output port nodes with endpoint
+> +        definitions as documented in
+> +        Documentation/devicetree/bindings/media/video-interfaces.txt
+> +        Documentation/devicetree/bindings/graph.txt
+> +
+> +  port:
 
-diff --git a/drivers/pwm/pwm-stm32.c b/drivers/pwm/pwm-stm32.c
-index 359b085..6406ebb 100644
---- a/drivers/pwm/pwm-stm32.c
-+++ b/drivers/pwm/pwm-stm32.c
-@@ -522,8 +522,14 @@ static int stm32_pwm_apply_breakinputs(struct stm32_pwm *priv,
- 					     sizeof(struct stm32_breakinput));
- 
- 	/*
-+	 * Some timer instances can have BRK input pins (e.g. basically a fault
-+	 * pin from the output power stage). The break feature allows a safe
-+	 * shut-down of the PWM outputs to a predefined state. Further details
-+	 * are available in application note AN4277, "Using STM32 device PWM
-+	 * shut-down features..."
- 	 * Because "st,breakinput" parameter is optional do not make probe
--	 * failed if it doesn't exist.
-+	 * failed if it doesn't exist. The pinctrl handle must hold the BRK
-+	 * pin(s) when using "st,breakinput" property.
- 	 */
- 	if (nb <= 0)
- 		return 0;
--- 
-2.7.4
+This needs to be under 'properties' under 'ports'. And you need to
+have 'port@0' and 'port@1' instead.
 
+> +    type: object
+> +    description:
+> +      "A port node with endpoint definitions as defined in
+> +      Documentation/devicetree/bindings/media/video-interfaces.txt.
+> +      port@0: DSI input port node, connected to the ltdc rgb output port.
+> +      port@1: DSI output port node, connected to a panel or a bridge input port"
+> +
+> +required:
+> +  - "#address-cells"
+> +  - "#size-cells"
+> +  - compatible
+> +  - reg
+> +  - clocks
+> +  - clock-names
+> +  - resets
+> +  - ports
+
+Add an 'additionalProperties: false' here.
+
+> +
+> +examples:
+> +  - |
+> +    #include <dt-bindings/interrupt-controller/arm-gic.h>
+> +    #include <dt-bindings/clock/stm32mp1-clks.h>
+> +    #include <dt-bindings/reset/stm32mp1-resets.h>
+> +    #include <dt-bindings/gpio/gpio.h>
+> +    dsi: dsi@5a000000 {
+> +        compatible = "st,stm32-dsi";
+> +        reg = <0x5a000000 0x800>;
+> +        clocks = <&rcc DSI_K>, <&clk_hse>, <&rcc DSI_PX>;
+> +        clock-names = "pclk", "ref", "px_clk";
+> +        resets = <&rcc DSI_R>;
+> +        reset-names = "apb";
+> +        phy-dsi-supply = <&reg18>;
+> +
+> +        #address-cells = <1>;
+> +        #size-cells = <0>;
+> +
+> +        ports {
+> +              #address-cells = <1>;
+> +              #size-cells = <0>;
+> +
+> +              port@0 {
+> +                    reg = <0>;
+> +                    dsi_in: endpoint {
+> +                        remote-endpoint = <&ltdc_ep1_out>;
+> +                    };
+> +              };
+> +
+> +              port@1 {
+> +                    reg = <1>;
+> +                    dsi_out: endpoint {
+> +                        remote-endpoint = <&panel_in>;
+> +                    };
+> +              };
+> +        };
+> +
+> +        panel {
+
+Not documented.
+
+> +              compatible = "orisetech,otm8009a";
+> +              reg = <0>;
+> +              reset-gpios = <&gpioe 4 GPIO_ACTIVE_LOW>;
+> +              power-supply = <&v3v3>;
+> +
+> +              port {
+> +                    panel_in: endpoint {
+> +                        remote-endpoint = <&dsi_out>;
+> +                    };
+> +              };
+> +        };
+> +    };
+> +
+> +...
+> +
+> +
+
+[...]
+
+> diff --git a/Documentation/devicetree/bindings/display/st,stm32-ltdc.yaml b/Documentation/devicetree/bindings/display/st,stm32-ltdc.yaml
+> new file mode 100644
+> index 000000000000..5d01c83234a3
+> --- /dev/null
+> +++ b/Documentation/devicetree/bindings/display/st,stm32-ltdc.yaml
+> @@ -0,0 +1,82 @@
+> +# SPDX-License-Identifier: GPL-2.0
+> +%YAML 1.2
+> +---
+> +$id: http://devicetree.org/schemas/display/st,stm32-ltdc.yaml#
+> +$schema: http://devicetree.org/meta-schemas/core.yaml#
+> +
+> +title: STMicroelectronics STM32 lcd-tft display controller
+> +
+> +maintainers:
+> +  - Philippe Cornu <philippe.cornu@st.com>
+> +  - Yannick Fertre <yannick.fertre@st.com>
+> +
+> +properties:
+> +  compatible:
+> +    const: st,stm32-ltdc
+> +
+> +  reg:
+> +    maxItems: 1
+> +
+> +  interrupts:
+> +    minItems: 2
+> +    maxItems: 2
+> +
+> +  clocks:
+> +    items:
+> +      - description: Module Clock
+
+Just 'maxItems: 1' is sufficient with a single entry.
+
+> +
+> +  clock-names:
+> +    items:
+> +      - const: lcd
+> +
+> +  pinctrl-names: true
+> +
+> +  resets:
+> +        maxItems: 1
+
+Inconsistent indenting.
+
+> +
+> +  port:
+> +    type: object
+> +    description:
+> +      "Video port for DPI RGB output.
+> +      ltdc has one video port with up to 2 endpoints:
+> +      - for external dpi rgb panel or bridge, using gpios.
+> +      - for internal dpi input of the MIPI DSI host controller.
+> +      Note: These 2 endpoints cannot be activated simultaneously.
+> +      Please refer to the bindings defined in
+> +      Documentation/devicetree/bindings/media/video-interfaces.txt."
+> +
+> +patternProperties:
+> +  "^pinctrl-[0-9]+$": true
+
+No need for this, it gets added automatically.
+
+> +
+> +required:
+> +  - compatible
+> +  - reg
+> +  - interrupts
+> +  - clocks
+> +  - clock-names
+> +  - resets
+> +  - port
+
+Add an 'additionalProperties: false' here.
+
+> +
+> +examples:
+> +  - |
+> +    #include <dt-bindings/interrupt-controller/arm-gic.h>
+> +    #include <dt-bindings/clock/stm32mp1-clks.h>
+> +    #include <dt-bindings/reset/stm32mp1-resets.h>
+> +    ltdc: display-controller@40016800 {
+> +        compatible = "st,stm32-ltdc";
+> +        reg = <0x5a001000 0x400>;
+> +        interrupts = <GIC_SPI 88 IRQ_TYPE_LEVEL_HIGH>,
+> +                     <GIC_SPI 89 IRQ_TYPE_LEVEL_HIGH>;
+> +        clocks = <&rcc LTDC_PX>;
+> +        clock-names = "lcd";
+> +        resets = <&rcc LTDC_R>;
+> +
+> +        port {
+> +             ltdc_out_dsi: endpoint {
+> +                     remote-endpoint = <&dsi_in>;
+> +             };
+> +        };
+> +    };
+> +
+> +...
+> +
+> --
+> 2.15.0
+>
 _______________________________________________
 Linux-stm32 mailing list
 Linux-stm32@st-md-mailman.stormreply.com
