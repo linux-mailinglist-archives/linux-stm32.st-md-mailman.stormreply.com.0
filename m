@@ -2,64 +2,60 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id 3F1A2CF683
-	for <lists+linux-stm32@lfdr.de>; Tue,  8 Oct 2019 11:56:33 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 14782CF8B2
+	for <lists+linux-stm32@lfdr.de>; Tue,  8 Oct 2019 13:42:05 +0200 (CEST)
 Received: from ip-172-31-3-76.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 0A0F6C36B0F;
-	Tue,  8 Oct 2019 09:56:33 +0000 (UTC)
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id C5432C36B0C;
+	Tue,  8 Oct 2019 11:42:04 +0000 (UTC)
 Received: from mx07-00178001.pphosted.com (mx07-00178001.pphosted.com
  [62.209.51.94])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 70493C36B0A
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id D8F90C36B0A
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Tue,  8 Oct 2019 09:56:32 +0000 (UTC)
-Received: from pps.filterd (m0046668.ppops.net [127.0.0.1])
+ Tue,  8 Oct 2019 11:42:03 +0000 (UTC)
+Received: from pps.filterd (m0046037.ppops.net [127.0.0.1])
  by mx07-00178001.pphosted.com (8.16.0.42/8.16.0.42) with SMTP id
- x989oqB2017657; Tue, 8 Oct 2019 11:56:23 +0200
+ x98BesFt005862; Tue, 8 Oct 2019 13:41:50 +0200
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=st.com;
  h=from : to : cc : subject
- : date : message-id : in-reply-to : references : mime-version :
- content-type; s=STMicroelectronics;
- bh=D1YTtXGlnn9n+wzMgmKua3M6JR/Hf72FY8yVMBQwtWI=;
- b=wWOV9dlnI7b6wCn4MtpVrTkngtTOGrtkV+7uI304jlygQIo0HZnhy2bmoAAC+rDCaAOi
- RnoFi1Z75OPIfdl+J8qwKHXWSMnZHf8SqCECwbDvUITf/bKCNqd+FbnegDoUij9cu4B6
- mf6CJGoLaAA+NqUenNV4QQ/ej5Rd7kkFKW28/ii4HX8tXKcGeBVOiAe1A3UPxT8TjUip
- VwqaGi56ABUH2z47yR/yB+efUHuIo4B/x5iHd5tH9ImE0rBKhbu3pDIywgE/KquKomIk
- 1EYE4wuVA1MK4iOKRGcFxngbXaM6sGAdE8K7L9+SKbm2Ewf5EDLYNtZKM6pjqy7n/IBh Ag== 
+ : date : message-id : mime-version : content-type; s=STMicroelectronics;
+ bh=JZ29o3+ZA5x48x8+yCCPyxRuo1rTg5MroHIYryI/F3c=;
+ b=LempFh1Xlla+0GUWqcqrMNqJTOx1DFSj02f0oYlIGwTNiroRG51+Pt80DQ+R8llxMluq
+ GRry1sBSVssoH4J4s6U0FzLfcEMwAqAMh08xU+2PdkDlEUt5iPYsgW/fvAgrVlkjpRuo
+ 8shy6xDyiign0oIshGl7hQguuuhNHm7O+UIdtEqH4w5VAAZ5FazUCjlPkcMubO01NF3N
+ qm60avg/xJmeThj3w2VPhYbWql+x2G2r5MD4ACkkgp0vhkJmrSOshbXd1DHeszEKrccG
+ uHdB4htnX4OoWP+f5fsHKPRf2Nv2XIZX1K4jWi8QTRMbYK0OUBf5qyKyMsg0o43/evk7 og== 
 Received: from beta.dmz-eu.st.com (beta.dmz-eu.st.com [164.129.1.35])
- by mx07-00178001.pphosted.com with ESMTP id 2vegn0qfsd-1
+ by mx07-00178001.pphosted.com with ESMTP id 2vegxvqwq4-1
  (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
- Tue, 08 Oct 2019 11:56:23 +0200
+ Tue, 08 Oct 2019 13:41:50 +0200
 Received: from euls16034.sgp.st.com (euls16034.sgp.st.com [10.75.44.20])
- by beta.dmz-eu.st.com (STMicroelectronics) with ESMTP id 992D310002A;
- Tue,  8 Oct 2019 11:56:22 +0200 (CEST)
-Received: from Webmail-eu.st.com (Safex1hubcas22.st.com [10.75.90.92])
- by euls16034.sgp.st.com (STMicroelectronics) with ESMTP id 8E79A2B40AF;
- Tue,  8 Oct 2019 11:56:22 +0200 (CEST)
-Received: from SAFEX1HUBCAS23.st.com (10.75.90.46) by Safex1hubcas22.st.com
- (10.75.90.92) with Microsoft SMTP Server (TLS) id 14.3.439.0; Tue, 8 Oct 2019
- 11:56:22 +0200
-Received: from lmecxl0923.lme.st.com (10.48.0.237) by webmail-ga.st.com
- (10.75.90.48) with Microsoft SMTP Server (TLS) id 14.3.439.0; Tue, 8 Oct 2019
- 11:56:21 +0200
-From: Ludovic Barre <ludovic.Barre@st.com>
-To: Ulf Hansson <ulf.hansson@linaro.org>, Rob Herring <robh+dt@kernel.org>
-Date: Tue, 8 Oct 2019 11:56:04 +0200
-Message-ID: <20191008095604.20675-4-ludovic.Barre@st.com>
-X-Mailer: git-send-email 2.17.1
-In-Reply-To: <20191008095604.20675-1-ludovic.Barre@st.com>
-References: <20191008095604.20675-1-ludovic.Barre@st.com>
+ by beta.dmz-eu.st.com (STMicroelectronics) with ESMTP id 831D710002A;
+ Tue,  8 Oct 2019 13:41:47 +0200 (CEST)
+Received: from Webmail-eu.st.com (Safex1hubcas21.st.com [10.75.90.44])
+ by euls16034.sgp.st.com (STMicroelectronics) with ESMTP id 766142B8A64;
+ Tue,  8 Oct 2019 13:41:47 +0200 (CEST)
+Received: from SAFEX1HUBCAS23.st.com (10.75.90.46) by SAFEX1HUBCAS21.st.com
+ (10.75.90.44) with Microsoft SMTP Server (TLS) id 14.3.439.0; Tue, 8 Oct 2019
+ 13:41:47 +0200
+Received: from localhost (10.48.0.192) by webmail-ga.st.com (10.75.90.48) with
+ Microsoft SMTP Server (TLS) id 14.3.439.0;
+ Tue, 8 Oct 2019 13:41:46 +0200
+From: Fabrice Gasnier <fabrice.gasnier@st.com>
+To: <thierry.reding@gmail.com>, <u.kleine-koenig@pengutronix.de>
+Date: Tue, 8 Oct 2019 13:41:27 +0200
+Message-ID: <1570534887-26181-1-git-send-email-fabrice.gasnier@st.com>
+X-Mailer: git-send-email 2.7.4
 MIME-Version: 1.0
-X-Originating-IP: [10.48.0.237]
+X-Originating-IP: [10.48.0.192]
 X-Proofpoint-Virus-Version: vendor=fsecure engine=2.50.10434:6.0.95,1.0.8
- definitions=2019-10-08_03:2019-10-07,2019-10-08 signatures=0
-Cc: devicetree@vger.kernel.org, linux-mmc@vger.kernel.org,
- linux-kernel@vger.kernel.org, srinivas.kandagatla@linaro.org,
- Maxime Coquelin <mcoquelin.stm32@gmail.com>,
- linux-stm32@st-md-mailman.stormreply.com, linux-arm-kernel@lists.infradead.org
-Subject: [Linux-stm32] [PATCH V7 3/3] mmc: mmci: sdmmc: add busy_complete
-	callback
+ definitions=2019-10-08_04:2019-10-08,2019-10-08 signatures=0
+Cc: linux-pwm@vger.kernel.org, linux-kernel@vger.kernel.org,
+ fabrice.gasnier@st.com, linux-stm32@st-md-mailman.stormreply.com,
+ linux-arm-kernel@lists.infradead.org
+Subject: [Linux-stm32] [PATCH] pwm: stm32: add comment to better describe
+	breakinput feature
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -76,119 +72,39 @@ Content-Transfer-Encoding: 7bit
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
-From: Ludovic Barre <ludovic.barre@st.com>
+Add a comment to better describe the purpose of breakinput feature that
+can be found on some STM32 timer instances. Briefly comment on the
+characteristics of this input for PWM, and pinmuxing as suggested in [1].
 
-This patch adds a specific busy_complete callback for sdmmc variant.
+[1] https://lkml.org/lkml/2019/10/1/207
 
-sdmmc has 2 status flags:
--busyd0: This is a hardware status flag (inverted value of d0 line).
-it does not generate an interrupt.
--busyd0end: This indicates only end of busy following a CMD response.
-On busy to Not busy changes, an interrupt is generated (if unmask)
-and BUSYD0END status flag is set. Status flag is cleared by writing
-corresponding interrupt clear bit in MMCICLEAR.
-
-The legacy busy completion has no dedicated interrupt for the end
-of busy, so it's must monitor step by step the busy progression.
-On sdmmc variant, this procedure is not needed, it's just need
-to wait the busyd0end interrupt.
-
-Signed-off-by: Ludovic Barre <ludovic.barre@st.com>
+Signed-off-by: Fabrice Gasnier <fabrice.gasnier@st.com>
 ---
- drivers/mmc/host/mmci.c             |  4 +++
- drivers/mmc/host/mmci.h             |  1 +
- drivers/mmc/host/mmci_stm32_sdmmc.c | 42 +++++++++++++++++++++++++++++
- 3 files changed, 47 insertions(+)
+ drivers/pwm/pwm-stm32.c | 8 +++++++-
+ 1 file changed, 7 insertions(+), 1 deletion(-)
 
-diff --git a/drivers/mmc/host/mmci.c b/drivers/mmc/host/mmci.c
-index 5e53f9b6d82a..40e72c30ea84 100644
---- a/drivers/mmc/host/mmci.c
-+++ b/drivers/mmc/host/mmci.c
-@@ -262,6 +262,10 @@ static struct variant_data variant_stm32_sdmmc = {
- 	.datalength_bits	= 25,
- 	.datactrl_blocksz	= 14,
- 	.stm32_idmabsize_mask	= GENMASK(12, 5),
-+	.busy_timeout		= true,
-+	.busy_detect		= true,
-+	.busy_detect_flag	= MCI_STM32_BUSYD0,
-+	.busy_detect_mask	= MCI_STM32_BUSYD0ENDMASK,
- 	.init			= sdmmc_variant_init,
- };
+diff --git a/drivers/pwm/pwm-stm32.c b/drivers/pwm/pwm-stm32.c
+index 359b085..6406ebb 100644
+--- a/drivers/pwm/pwm-stm32.c
++++ b/drivers/pwm/pwm-stm32.c
+@@ -522,8 +522,14 @@ static int stm32_pwm_apply_breakinputs(struct stm32_pwm *priv,
+ 					     sizeof(struct stm32_breakinput));
  
-diff --git a/drivers/mmc/host/mmci.h b/drivers/mmc/host/mmci.h
-index 2a0b98f98c36..158e1231aa23 100644
---- a/drivers/mmc/host/mmci.h
-+++ b/drivers/mmc/host/mmci.h
-@@ -164,6 +164,7 @@
- #define MCI_ST_CARDBUSY		(1 << 24)
- /* Extended status bits for the STM32 variants */
- #define MCI_STM32_BUSYD0	BIT(20)
-+#define MCI_STM32_BUSYD0END	BIT(21)
- 
- #define MMCICLEAR		0x038
- #define MCI_CMDCRCFAILCLR	(1 << 0)
-diff --git a/drivers/mmc/host/mmci_stm32_sdmmc.c b/drivers/mmc/host/mmci_stm32_sdmmc.c
-index 8e83ae6920ae..1de855d29ad4 100644
---- a/drivers/mmc/host/mmci_stm32_sdmmc.c
-+++ b/drivers/mmc/host/mmci_stm32_sdmmc.c
-@@ -282,6 +282,47 @@ static u32 sdmmc_get_dctrl_cfg(struct mmci_host *host)
- 	return datactrl;
- }
- 
-+static bool sdmmc_busy_complete(struct mmci_host *host, u32 status, u32 err_msk)
-+{
-+	void __iomem *base = host->base;
-+	u32 busy_d0, busy_d0end, mask, sdmmc_status;
-+
-+	mask = readl_relaxed(base + MMCIMASK0);
-+	sdmmc_status = readl_relaxed(base + MMCISTATUS);
-+	busy_d0end = sdmmc_status & MCI_STM32_BUSYD0END;
-+	busy_d0 = sdmmc_status & MCI_STM32_BUSYD0;
-+
-+	/* complete if there is an error or busy_d0end */
-+	if ((status & err_msk) || busy_d0end)
-+		goto complete;
-+
-+	/*
-+	 * On response the busy signaling is reflected in the BUSYD0 flag.
-+	 * if busy_d0 is in-progress we must activate busyd0end interrupt
-+	 * to wait this completion. Else this request has no busy step.
-+	 */
-+	if (busy_d0) {
-+		if (!host->busy_status) {
-+			writel_relaxed(mask | host->variant->busy_detect_mask,
-+				       base + MMCIMASK0);
-+			host->busy_status = status &
-+				(MCI_CMDSENT | MCI_CMDRESPEND);
-+		}
-+		return false;
-+	}
-+
-+complete:
-+	if (host->busy_status) {
-+		writel_relaxed(mask & ~host->variant->busy_detect_mask,
-+			       base + MMCIMASK0);
-+		writel_relaxed(host->variant->busy_detect_mask,
-+			       base + MMCICLEAR);
-+		host->busy_status = 0;
-+	}
-+
-+	return true;
-+}
-+
- static struct mmci_host_ops sdmmc_variant_ops = {
- 	.validate_data = sdmmc_idma_validate_data,
- 	.prep_data = sdmmc_idma_prep_data,
-@@ -292,6 +333,7 @@ static struct mmci_host_ops sdmmc_variant_ops = {
- 	.dma_finalize = sdmmc_idma_finalize,
- 	.set_clkreg = mmci_sdmmc_set_clkreg,
- 	.set_pwrreg = mmci_sdmmc_set_pwrreg,
-+	.busy_complete = sdmmc_busy_complete,
- };
- 
- void sdmmc_variant_init(struct mmci_host *host)
+ 	/*
++	 * Some timer instances can have BRK input pins (e.g. basically a fault
++	 * pin from the output power stage). The break feature allows a safe
++	 * shut-down of the PWM outputs to a predefined state. Further details
++	 * are available in application note AN4277, "Using STM32 device PWM
++	 * shut-down features..."
+ 	 * Because "st,breakinput" parameter is optional do not make probe
+-	 * failed if it doesn't exist.
++	 * failed if it doesn't exist. The pinctrl handle must hold the BRK
++	 * pin(s) when using "st,breakinput" property.
+ 	 */
+ 	if (nb <= 0)
+ 		return 0;
 -- 
-2.17.1
+2.7.4
 
 _______________________________________________
 Linux-stm32 mailing list
