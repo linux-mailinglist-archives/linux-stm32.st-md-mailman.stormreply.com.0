@@ -2,34 +2,33 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id D1C25D084C
-	for <lists+linux-stm32@lfdr.de>; Wed,  9 Oct 2019 09:31:50 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 0A518D0859
+	for <lists+linux-stm32@lfdr.de>; Wed,  9 Oct 2019 09:34:09 +0200 (CEST)
 Received: from ip-172-31-3-76.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 881B1C36B0C;
-	Wed,  9 Oct 2019 07:31:50 +0000 (UTC)
-Received: from mailgw01.mediatek.com (unknown [210.61.82.183])
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 86B17C36B0A
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id B6530C36B0C;
+	Wed,  9 Oct 2019 07:34:08 +0000 (UTC)
+Received: from mailgw02.mediatek.com (unknown [210.61.82.184])
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 9A37DC36B0A
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Wed,  9 Oct 2019 07:31:48 +0000 (UTC)
-X-UUID: fc0c3191f177453c81ef62b7eb8b4885-20191009
-X-UUID: fc0c3191f177453c81ef62b7eb8b4885-20191009
-Received: from mtkmrs01.mediatek.inc [(172.21.131.159)] by
- mailgw01.mediatek.com (envelope-from <biao.huang@mediatek.com>)
+ Wed,  9 Oct 2019 07:34:04 +0000 (UTC)
+X-UUID: 2ef24db3d304487ebc5022ae301ab5b1-20191009
+X-UUID: 2ef24db3d304487ebc5022ae301ab5b1-20191009
+Received: from mtkexhb02.mediatek.inc [(172.21.101.103)] by
+ mailgw02.mediatek.com (envelope-from <biao.huang@mediatek.com>)
  (Cellopoint E-mail Firewall v4.1.10 Build 0809 with TLS)
- with ESMTP id 415846299; Wed, 09 Oct 2019 15:31:43 +0800
+ with ESMTP id 649381377; Wed, 09 Oct 2019 15:33:59 +0800
 Received: from mtkcas07.mediatek.inc (172.21.101.84) by
- mtkmbs01n2.mediatek.inc (172.21.101.79) with Microsoft SMTP Server (TLS) id
- 15.0.1395.4; Wed, 9 Oct 2019 15:31:38 +0800
+ mtkmbs01n1.mediatek.inc (172.21.101.68) with Microsoft SMTP Server (TLS) id
+ 15.0.1395.4; Wed, 9 Oct 2019 15:33:49 +0800
 Received: from localhost.localdomain (10.17.3.153) by mtkcas07.mediatek.inc
  (172.21.101.73) with Microsoft SMTP Server id 15.0.1395.4 via Frontend
- Transport; Wed, 9 Oct 2019 15:31:37 +0800
+ Transport; Wed, 9 Oct 2019 15:33:48 +0800
 From: Biao Huang <biao.huang@mediatek.com>
 To: <davem@davemloft.net>, Jose Abreu <joabreu@synopsys.com>, <andrew@lunn.ch>
-Date: Wed, 9 Oct 2019 15:31:29 +0800
-Message-ID: <20191009073129.5439-1-biao.huang@mediatek.com>
+Date: Wed, 9 Oct 2019 15:33:48 +0800
+Message-ID: <20191009073348.5503-1-biao.huang@mediatek.com>
 X-Mailer: git-send-email 2.18.0
 MIME-Version: 1.0
-X-TM-SNTS-SMTP: B285750855EC341362F90DB9DFAED3B70120BD807D577E25220679B16259FE2E2000:8
 X-MTK: N
 Cc: jianguo.zhang@mediatek.com, boon.leong.ong@intel.com,
  biao.huang@mediatek.com, netdev@vger.kernel.org, linux-kernel@vger.kernel.org,
@@ -38,8 +37,9 @@ Cc: jianguo.zhang@mediatek.com, boon.leong.ong@intel.com,
  Matthias Brugger <matthias.bgg@gmail.com>,
  Giuseppe Cavallaro <peppe.cavallaro@st.com>,
  linux-stm32@st-md-mailman.stormreply.com, linux-arm-kernel@lists.infradead.org
-Subject: [Linux-stm32] [PATCH] net: stmmac: dwmac-mediatek: fix wrong delay
-	value issue when resume back
+Subject: [Linux-stm32] [RESEND,
+	PATCH] net: stmmac: dwmac-mediatek: fix wrong delay value issue
+	when resume back
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -56,12 +56,12 @@ Content-Transfer-Encoding: 7bit
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
-mac_delay value will be divided by 550/170 in mt2712_delay_stage2ps(),
+mac_delay value will be divided by 550/170 in mt2712_delay_ps2stage(),
 which is invoked at the beginning of mt2712_set_delay(), and the value
 should be restored at the end of mt2712_set_delay().
 Or, mac_delay will be divided again when invoking mt2712_set_delay()
 when resume back.
-So, add mt2712_delay_ps2stage() to mt2712_set_delay() to recovery the
+So, add mt2712_delay_stage2ps() to mt2712_set_delay() to recovery the
 original mac_delay value.
 
 Signed-off-by: Biao Huang <biao.huang@mediatek.com>
