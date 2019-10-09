@@ -2,43 +2,64 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id B5801D0A5A
-	for <lists+linux-stm32@lfdr.de>; Wed,  9 Oct 2019 10:57:02 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id B0714D0A9E
+	for <lists+linux-stm32@lfdr.de>; Wed,  9 Oct 2019 11:12:53 +0200 (CEST)
 Received: from ip-172-31-3-76.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 099A1C36B0C;
-	Wed,  9 Oct 2019 08:57:02 +0000 (UTC)
-Received: from mailgw02.mediatek.com (unknown [210.61.82.184])
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 808A7C36B0A
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 762D1C36B0C;
+	Wed,  9 Oct 2019 09:12:53 +0000 (UTC)
+Received: from mail-vs1-f68.google.com (mail-vs1-f68.google.com
+ [209.85.217.68])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+ (No client certificate requested)
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id EC25CC36B0A
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Wed,  9 Oct 2019 08:57:00 +0000 (UTC)
-X-UUID: ae68042141024aaabfa5129b66cc3be6-20191009
-X-UUID: ae68042141024aaabfa5129b66cc3be6-20191009
-Received: from mtkcas06.mediatek.inc [(172.21.101.30)] by mailgw02.mediatek.com
- (envelope-from <biao.huang@mediatek.com>)
- (Cellopoint E-mail Firewall v4.1.10 Build 0809 with TLS)
- with ESMTP id 298233966; Wed, 09 Oct 2019 16:56:56 +0800
-Received: from mtkcas09.mediatek.inc (172.21.101.178) by
- mtkmbs01n1.mediatek.inc (172.21.101.68) with Microsoft SMTP Server (TLS) id
- 15.0.1395.4; Wed, 9 Oct 2019 16:56:52 +0800
-Received: from localhost.localdomain (10.17.3.153) by mtkcas09.mediatek.inc
- (172.21.101.73) with Microsoft SMTP Server id 15.0.1395.4 via Frontend
- Transport; Wed, 9 Oct 2019 16:56:51 +0800
-From: Biao Huang <biao.huang@mediatek.com>
-To: <davem@davemloft.net>, Jose Abreu <joabreu@synopsys.com>, <andrew@lunn.ch>
-Date: Wed, 9 Oct 2019 16:56:49 +0800
-Message-ID: <20191009085649.6736-1-biao.huang@mediatek.com>
-X-Mailer: git-send-email 2.18.0
+ Wed,  9 Oct 2019 09:12:52 +0000 (UTC)
+Received: by mail-vs1-f68.google.com with SMTP id d3so1052229vsr.1
+ for <linux-stm32@st-md-mailman.stormreply.com>;
+ Wed, 09 Oct 2019 02:12:52 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linaro.org; s=google;
+ h=mime-version:references:in-reply-to:from:date:message-id:subject:to
+ :cc; bh=DnaMjWPHRTxP2HwHozaEda4iUBnS+Mgb8NeafSlvJXU=;
+ b=yKNY9SGcN2UsFvhR61yYb/jrlCVKgel12IYbR40rpV44lcbYSBZBivKCyQa3goz2oi
+ wVn3L9kPGJF9gxBuLeJ34zX2+mGkfp28ZbQrzgrGx653cBpNaahPfaGFn/7zIN1RLXzR
+ N9d9Glovn5NceLF76IOJ8fuPAyYZHS4PO6Hp6PUO1I/Y5PtLaqHiOpDeqVejYagbTlau
+ AOiiySye8tVrQ7tMtrxJ4JTu0nNgQRdmTllW/3qJsQa/aV2UQw8hG9CBM6b6JwfIbyaQ
+ MqKF6DODn7ifaUKjsfyiAna4yN7hfctndvK63mGetiRedO0K8Ct7Ym3KXmbe/EroZtSU
+ zejQ==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20161025;
+ h=x-gm-message-state:mime-version:references:in-reply-to:from:date
+ :message-id:subject:to:cc;
+ bh=DnaMjWPHRTxP2HwHozaEda4iUBnS+Mgb8NeafSlvJXU=;
+ b=H3oGz6rWR4CbXPVLqaI9wGoi2XKcQa0aJefv8Gdb5BGweLE9DvzAjKcZD+h6GaQ0wB
+ T/ge5YKER6JIxAsI3OgjvLkq05RUuWhosLpiv+w0u6Kd1soAacqEW+tlS8kPMafuFRtL
+ 9ytgOKafOGHy6LJ52cUfRy7C9ctLRPiCWFlHvY24BNXAcas4lwV0LnWvWzvyclGnmtYH
+ unS8EPtckzqe9jgisYV7aVYMBk8Ng+A9oH7FajTt4ugb0xathJiTwm1NuHQmzFD47MP9
+ DXJoiOV2h1VFlkiYK5XgFn7kN+xWdX/V+iKeypyI5/XzgKh+GsjtQuMmyzm5QQyIr/CN
+ IVtg==
+X-Gm-Message-State: APjAAAXELDftElTkq3DDa5xzqEorTpeAHgLVaOLi2zcET3Y5ou8Q89v4
+ IeWTgA7fWn52bXt0PZxbWUJxG8KnuTCu5Hc36b0KEQ==
+X-Google-Smtp-Source: APXvYqwgsztQiejuumwMxLuyf8Ws3mo/ua2qL5BsBkseZLgZ/7p7G5FLcbikY8xut9BZ+djUlLpEqm30PBOLplnZkwU=
+X-Received: by 2002:a05:6102:5e1:: with SMTP id
+ w1mr1211701vsf.191.1570612371638; 
+ Wed, 09 Oct 2019 02:12:51 -0700 (PDT)
 MIME-Version: 1.0
-X-MTK: N
-Cc: jianguo.zhang@mediatek.com, boon.leong.ong@intel.com,
- biao.huang@mediatek.com, netdev@vger.kernel.org, linux-kernel@vger.kernel.org,
- yt.shen@mediatek.com, linux-mediatek@lists.infradead.org,
+References: <20191008095604.20675-1-ludovic.Barre@st.com>
+In-Reply-To: <20191008095604.20675-1-ludovic.Barre@st.com>
+From: Ulf Hansson <ulf.hansson@linaro.org>
+Date: Wed, 9 Oct 2019 11:12:14 +0200
+Message-ID: <CAPDyKFrKrV3e6WmrgzUA0OV4VGm0BMXr0=orogAhHQM3nRpxqQ@mail.gmail.com>
+To: Ludovic Barre <ludovic.Barre@st.com>
+Cc: DTML <devicetree@vger.kernel.org>,
+ "linux-mmc@vger.kernel.org" <linux-mmc@vger.kernel.org>,
+ Linux Kernel Mailing List <linux-kernel@vger.kernel.org>,
+ Rob Herring <robh+dt@kernel.org>,
+ Srinivas Kandagatla <srinivas.kandagatla@linaro.org>,
  Maxime Coquelin <mcoquelin.stm32@gmail.com>,
- Matthias Brugger <matthias.bgg@gmail.com>,
- Giuseppe Cavallaro <peppe.cavallaro@st.com>,
- linux-stm32@st-md-mailman.stormreply.com, linux-arm-kernel@lists.infradead.org
-Subject: [Linux-stm32] [PATCH] net: stmmac: disable/enable ptp_ref_clk in
-	suspend/resume flow
+ linux-stm32@st-md-mailman.stormreply.com,
+ Linux ARM <linux-arm-kernel@lists.infradead.org>
+Subject: Re: [Linux-stm32] [PATCH V7 0/3] mmc: mmci: add busy detect for
+	stm32 sdmmc variant
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -55,38 +76,33 @@ Content-Transfer-Encoding: 7bit
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
-disable ptp_ref_clk in suspend flow, and enable it in resume flow.
+On Tue, 8 Oct 2019 at 11:56, Ludovic Barre <ludovic.Barre@st.com> wrote:
+>
+> From: Ludovic Barre <ludovic.barre@st.com>
+>
+> This patch series adds busy detect for stm32 sdmmc variant.
+> Some adaptations are required:
+> -On sdmmc the data timer is started on data transfert
+> and busy state, so we must add hardware busy timeout support.
+> -Add busy_complete callback at mmci_host_ops to allow to define
+> a specific busy completion by variant.
+> -Add sdmmc busy_complete callback.
+>
+> V7:
+> -Patch 1/3: rephrasing like proposed (thx ulf)
+> -If busy timeout is undefined => increase to 10s
+> -Keep busy_detect.
+> -Patch 3/3: rephrasing comment header
+> -Avoid twice read of status register
+> -Avoid writing in MMCIMASK0 & MMCICLEAR if not modified
+>
 
-Signed-off-by: Biao Huang <biao.huang@mediatek.com>
----
- drivers/net/ethernet/stmicro/stmmac/stmmac_main.c | 4 ++++
- 1 file changed, 4 insertions(+)
+Applied for next, thanks!
 
-diff --git a/drivers/net/ethernet/stmicro/stmmac/stmmac_main.c b/drivers/net/ethernet/stmicro/stmmac/stmmac_main.c
-index c7c9e5f162e6..b592aeecc3dd 100644
---- a/drivers/net/ethernet/stmicro/stmmac/stmmac_main.c
-+++ b/drivers/net/ethernet/stmicro/stmmac/stmmac_main.c
-@@ -4469,6 +4469,8 @@ int stmmac_suspend(struct device *dev)
- 		stmmac_mac_set(priv, priv->ioaddr, false);
- 		pinctrl_pm_select_sleep_state(priv->device);
- 		/* Disable clock in case of PWM is off */
-+		if (priv->plat->clk_ptp_ref)
-+			clk_disable_unprepare(priv->plat->clk_ptp_ref);
- 		clk_disable(priv->plat->pclk);
- 		clk_disable(priv->plat->stmmac_clk);
- 	}
-@@ -4535,6 +4537,8 @@ int stmmac_resume(struct device *dev)
- 		/* enable the clk previously disabled */
- 		clk_enable(priv->plat->stmmac_clk);
- 		clk_enable(priv->plat->pclk);
-+		if (priv->plat->clk_ptp_ref)
-+			clk_prepare_enable(priv->plat->clk_ptp_ref);
- 		/* reset the phy so that it's ready */
- 		if (priv->mii)
- 			stmmac_mdio_reset(priv->mii);
--- 
-2.18.0
+[...]
 
+Kind regards
+Uffe
 _______________________________________________
 Linux-stm32 mailing list
 Linux-stm32@st-md-mailman.stormreply.com
