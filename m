@@ -2,47 +2,60 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id 925F3D215B
-	for <lists+linux-stm32@lfdr.de>; Thu, 10 Oct 2019 09:07:58 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 3583CD2A40
+	for <lists+linux-stm32@lfdr.de>; Thu, 10 Oct 2019 15:03:11 +0200 (CEST)
 Received: from ip-172-31-3-76.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 529C3C36B0C;
-	Thu, 10 Oct 2019 07:07:58 +0000 (UTC)
-Received: from metis.ext.pengutronix.de (metis.ext.pengutronix.de
- [85.220.165.71])
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id E5400C36B0C;
+	Thu, 10 Oct 2019 13:03:10 +0000 (UTC)
+Received: from mx07-00178001.pphosted.com (mx07-00178001.pphosted.com
+ [62.209.51.94])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 5125FC36B0A
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 989B6C36B0A
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Thu, 10 Oct 2019 07:07:57 +0000 (UTC)
-Received: from pty.hi.pengutronix.de ([2001:67c:670:100:1d::c5])
- by metis.ext.pengutronix.de with esmtps
- (TLS1.2:ECDHE_RSA_AES_256_GCM_SHA384:256) (Exim 4.92)
- (envelope-from <ukl@pengutronix.de>)
- id 1iISY7-0004f8-Fx; Thu, 10 Oct 2019 09:07:47 +0200
-Received: from ukl by pty.hi.pengutronix.de with local (Exim 4.89)
- (envelope-from <ukl@pengutronix.de>)
- id 1iISY1-0003fP-PN; Thu, 10 Oct 2019 09:07:41 +0200
-Date: Thu, 10 Oct 2019 09:07:41 +0200
-From: Uwe =?iso-8859-1?Q?Kleine-K=F6nig?= <u.kleine-koenig@pengutronix.de>
-To: Fabrice Gasnier <fabrice.gasnier@st.com>
-Message-ID: <20191010070741.jhkpqgmfpqp2jteo@pengutronix.de>
-References: <1570534887-26181-1-git-send-email-fabrice.gasnier@st.com>
- <20191008144531.pjt525xuz7n5a3hq@pengutronix.de>
- <5c05893b-e938-4db8-e33a-803b1a498f97@st.com>
+ Thu, 10 Oct 2019 13:03:09 +0000 (UTC)
+Received: from pps.filterd (m0046668.ppops.net [127.0.0.1])
+ by mx07-00178001.pphosted.com (8.16.0.42/8.16.0.42) with SMTP id
+ x9AD1h73005680; Thu, 10 Oct 2019 15:02:53 +0200
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=st.com;
+ h=from : to : subject :
+ date : message-id : mime-version : content-type; s=STMicroelectronics;
+ bh=Lrgg/JupVUGfx1EGZYXupcFmvCwMUXEFDk4NGGs/DEM=;
+ b=Ea4HNDZ8L1C/e6Lzy8QRdZUdC+Hk25JWFCYZUnWqGyjQQIG4woiazEpBlpEu7LnCt1LK
+ zvTBvXtqnFYR1FHlFhK7h3ZM82I661+9R1M+GrEIJ8WLkK7EOtUAvoq19pDTBLmBQ9NJ
+ X+NhV7iPKEeSTbnTwcdn95yClLC5T1T8ojfob2c+EB0hfEjERbOZMTdfhbvwgwRxhWK1
+ zPfGF0cexHrIYmC0SAojbvDZHWOpEdXBLPSRJJc0sjqfh/yeNXDfKTZIK5awaiXtuD+a
+ ANDOANFlDAbodjbG9ZnRhJGfmSEGmFhrjueGr+ESl8T8z0kLeo4/0z2ymq1hlEbRySBn OA== 
+Received: from beta.dmz-eu.st.com (beta.dmz-eu.st.com [164.129.1.35])
+ by mx07-00178001.pphosted.com with ESMTP id 2vegn13t3j-1
+ (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
+ Thu, 10 Oct 2019 15:02:53 +0200
+Received: from euls16034.sgp.st.com (euls16034.sgp.st.com [10.75.44.20])
+ by beta.dmz-eu.st.com (STMicroelectronics) with ESMTP id AB81810002A;
+ Thu, 10 Oct 2019 15:02:51 +0200 (CEST)
+Received: from Webmail-eu.st.com (Safex1hubcas23.st.com [10.75.90.46])
+ by euls16034.sgp.st.com (STMicroelectronics) with ESMTP id 96E2F2AA31D;
+ Thu, 10 Oct 2019 15:02:51 +0200 (CEST)
+Received: from SAFEX1HUBCAS24.st.com (10.75.90.95) by SAFEX1HUBCAS23.st.com
+ (10.75.90.46) with Microsoft SMTP Server (TLS) id 14.3.439.0; Thu, 10 Oct
+ 2019 15:02:51 +0200
+Received: from localhost (10.201.21.218) by webmail-ga.st.com (10.75.90.48)
+ with Microsoft SMTP Server (TLS) id 14.3.439.0; Thu, 10 Oct 2019 15:02:51
+ +0200
+From: Olivier Moysan <olivier.moysan@st.com>
+To: <linux-stm32@st-md-mailman.stormreply.com>, <alexandre.torgue@st.com>,
+ <robh@kernel.org>, <mark.rutland@arm.com>,
+ <devicetree@vger.kernel.org>, <linux-arm-kernel@lists.infradead.org>,
+ <linux-kernel@vger.kernel.org>, <olivier.moysan@st.com>
+Date: Thu, 10 Oct 2019 15:02:47 +0200
+Message-ID: <20191010130247.32027-1-olivier.moysan@st.com>
+X-Mailer: git-send-email 2.17.1
 MIME-Version: 1.0
-Content-Disposition: inline
-In-Reply-To: <5c05893b-e938-4db8-e33a-803b1a498f97@st.com>
-User-Agent: NeoMutt/20170113 (1.7.2)
-X-SA-Exim-Connect-IP: 2001:67c:670:100:1d::c5
-X-SA-Exim-Mail-From: ukl@pengutronix.de
-X-SA-Exim-Scanned: No (on metis.ext.pengutronix.de);
- SAEximRunCond expanded to false
-X-PTX-Original-Recipient: linux-stm32@st-md-mailman.stormreply.com
-Cc: linux-pwm@vger.kernel.org, linux-kernel@vger.kernel.org,
- thierry.reding@gmail.com, linux-stm32@st-md-mailman.stormreply.com,
- linux-arm-kernel@lists.infradead.org
-Subject: Re: [Linux-stm32] [PATCH] pwm: stm32: add comment to better
- describe breakinput feature
+X-Originating-IP: [10.201.21.218]
+X-Proofpoint-Virus-Version: vendor=fsecure engine=2.50.10434:6.0.95,1.0.8
+ definitions=2019-10-10_04:2019-10-10,2019-10-10 signatures=0
+Subject: [Linux-stm32] [PATCH] ARM: dts: stm32: add hdmi audio support to
+	stm32mp157a-dk1 board
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -54,77 +67,81 @@ List-Post: <mailto:linux-stm32@st-md-mailman.stormreply.com>
 List-Help: <mailto:linux-stm32-request@st-md-mailman.stormreply.com?subject=help>
 List-Subscribe: <https://st-md-mailman.stormreply.com/mailman/listinfo/linux-stm32>, 
  <mailto:linux-stm32-request@st-md-mailman.stormreply.com?subject=subscribe>
-Content-Type: text/plain; charset="iso-8859-1"
-Content-Transfer-Encoding: quoted-printable
+Content-Type: text/plain; charset="us-ascii"
+Content-Transfer-Encoding: 7bit
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
-On Wed, Oct 09, 2019 at 11:51:05AM +0200, Fabrice Gasnier wrote:
-> On 10/8/19 4:45 PM, Uwe Kleine-K=F6nig wrote:
-> > On Tue, Oct 08, 2019 at 01:41:27PM +0200, Fabrice Gasnier wrote:
-> >> Add a comment to better describe the purpose of breakinput feature that
-> >> can be found on some STM32 timer instances. Briefly comment on the
-> >> characteristics of this input for PWM, and pinmuxing as suggested in [=
-1].
-> >>
-> >> [1] https://lkml.org/lkml/2019/10/1/207
-> >>
-> >> Signed-off-by: Fabrice Gasnier <fabrice.gasnier@st.com>
-> >> ---
-> >>  drivers/pwm/pwm-stm32.c | 8 +++++++-
-> >>  1 file changed, 7 insertions(+), 1 deletion(-)
-> >>
-> >> diff --git a/drivers/pwm/pwm-stm32.c b/drivers/pwm/pwm-stm32.c
-> >> index 359b085..6406ebb 100644
-> >> --- a/drivers/pwm/pwm-stm32.c
-> >> +++ b/drivers/pwm/pwm-stm32.c
-> >> @@ -522,8 +522,14 @@ static int stm32_pwm_apply_breakinputs(struct stm=
-32_pwm *priv,
-> >>  					     sizeof(struct stm32_breakinput));
-> >>  =
+Add HDMI audio support through Sil9022 HDMI transceiver
+on stm32mp157a-dk1 board.
 
-> >>  	/*
-> >> +	 * Some timer instances can have BRK input pins (e.g. basically a fa=
-ult
-> >> +	 * pin from the output power stage). The break feature allows a safe
-> >> +	 * shut-down of the PWM outputs to a predefined state. Further detai=
-ls
-> >> +	 * are available in application note AN4277, "Using STM32 device PWM
-> >> +	 * shut-down features..."
-> > =
+Signed-off-by: Olivier Moysan <olivier.moysan@st.com>
+---
+ arch/arm/boot/dts/stm32mp157a-dk1.dts | 27 ++++++++++++++++++++++++++-
+ 1 file changed, 26 insertions(+), 1 deletion(-)
 
-> > Without having read the application note I don't understand the purpose.
-> > Not sure if this should be a show stopper though.
-> =
+diff --git a/arch/arm/boot/dts/stm32mp157a-dk1.dts b/arch/arm/boot/dts/stm32mp157a-dk1.dts
+index 5ad4cef9e971..7a20640c00a9 100644
+--- a/arch/arm/boot/dts/stm32mp157a-dk1.dts
++++ b/arch/arm/boot/dts/stm32mp157a-dk1.dts
+@@ -92,7 +92,7 @@
+ 			"Playback" , "MCLK",
+ 			"Capture" , "MCLK",
+ 			"MICL" , "Mic Bias";
+-		dais = <&sai2a_port &sai2b_port>;
++		dais = <&sai2a_port &sai2b_port &i2s2_port>;
+ 		status = "okay";
+ 	};
+ };
+@@ -173,6 +173,7 @@
+ 		reset-gpios = <&gpioa 10 GPIO_ACTIVE_LOW>;
+ 		interrupts = <1 IRQ_TYPE_EDGE_FALLING>;
+ 		interrupt-parent = <&gpiog>;
++		#sound-dai-cells = <0>;
+ 		status = "okay";
+ 
+ 		ports {
+@@ -185,6 +186,13 @@
+ 					remote-endpoint = <&ltdc_ep0_out>;
+ 				};
+ 			};
++
++			port@3 {
++				reg = <3>;
++				sii9022_tx_endpoint: endpoint {
++					remote-endpoint = <&i2s2_endpoint>;
++				};
++			};
+ 		};
+ 	};
+ 
+@@ -370,6 +378,23 @@
+ 	};
+ };
+ 
++&i2s2 {
++	clocks = <&rcc SPI2>, <&rcc SPI2_K>, <&rcc PLL3_Q>, <&rcc PLL3_R>;
++	clock-names = "pclk", "i2sclk", "x8k", "x11k";
++	pinctrl-names = "default", "sleep";
++	pinctrl-0 = <&i2s2_pins_a>;
++	pinctrl-1 = <&i2s2_pins_sleep_a>;
++	status = "okay";
++
++	i2s2_port: port {
++		i2s2_endpoint: endpoint {
++			remote-endpoint = <&sii9022_tx_endpoint>;
++			format = "i2s";
++			mclk-fs = <256>;
++		};
++	};
++};
++
+ &ipcc {
+ 	status = "okay";
+ };
+-- 
+2.17.1
 
-> Hi Uwe,
-> =
-
-> I can rephrase this. Do you think the bellow comment would be more
-> relevant and easy to understand ?
-> =
-
-> /*
->  * The break feature allows a safe shut-down of the PWM outputs.
->  * It's based on the BRK event signal defined in the dt-bindings
->  * by <index level filter> values.
->  * Because "st,breakinput" parameter is optional do not make probe
->  * failed if it doesn't exist.
->  */
-
-I still fail to understand. This is an input that determines the actual
-value of the output pin? What makes a shutdown of outputs safe? What is
-a shutdown anyhow?
-
-Apart from that: s/do not make probe failed/don't fail to probe/.
-
-Best regards
-Uwe
-
--- =
-
-Pengutronix e.K.                           | Uwe Kleine-K=F6nig            |
-Industrial Linux Solutions                 | http://www.pengutronix.de/  |
 _______________________________________________
 Linux-stm32 mailing list
 Linux-stm32@st-md-mailman.stormreply.com
