@@ -2,60 +2,76 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id 3583CD2A40
-	for <lists+linux-stm32@lfdr.de>; Thu, 10 Oct 2019 15:03:11 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id EC59DD2D78
+	for <lists+linux-stm32@lfdr.de>; Thu, 10 Oct 2019 17:16:44 +0200 (CEST)
 Received: from ip-172-31-3-76.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id E5400C36B0C;
-	Thu, 10 Oct 2019 13:03:10 +0000 (UTC)
-Received: from mx07-00178001.pphosted.com (mx07-00178001.pphosted.com
- [62.209.51.94])
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id D9862C36B0C;
+	Thu, 10 Oct 2019 15:16:43 +0000 (UTC)
+Received: from mx07-00178001.pphosted.com (mx08-00178001.pphosted.com
+ [91.207.212.93])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 989B6C36B0A
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 8D101C36B0A
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Thu, 10 Oct 2019 13:03:09 +0000 (UTC)
-Received: from pps.filterd (m0046668.ppops.net [127.0.0.1])
- by mx07-00178001.pphosted.com (8.16.0.42/8.16.0.42) with SMTP id
- x9AD1h73005680; Thu, 10 Oct 2019 15:02:53 +0200
+ Thu, 10 Oct 2019 15:16:41 +0000 (UTC)
+Received: from pps.filterd (m0046661.ppops.net [127.0.0.1])
+ by mx08-00178001.pphosted.com (8.16.0.42/8.16.0.42) with SMTP id
+ x9AFBKhQ025036; Thu, 10 Oct 2019 17:16:20 +0200
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=st.com;
- h=from : to : subject :
- date : message-id : mime-version : content-type; s=STMicroelectronics;
- bh=Lrgg/JupVUGfx1EGZYXupcFmvCwMUXEFDk4NGGs/DEM=;
- b=Ea4HNDZ8L1C/e6Lzy8QRdZUdC+Hk25JWFCYZUnWqGyjQQIG4woiazEpBlpEu7LnCt1LK
- zvTBvXtqnFYR1FHlFhK7h3ZM82I661+9R1M+GrEIJ8WLkK7EOtUAvoq19pDTBLmBQ9NJ
- X+NhV7iPKEeSTbnTwcdn95yClLC5T1T8ojfob2c+EB0hfEjERbOZMTdfhbvwgwRxhWK1
- zPfGF0cexHrIYmC0SAojbvDZHWOpEdXBLPSRJJc0sjqfh/yeNXDfKTZIK5awaiXtuD+a
- ANDOANFlDAbodjbG9ZnRhJGfmSEGmFhrjueGr+ESl8T8z0kLeo4/0z2ymq1hlEbRySBn OA== 
+ h=from : to : cc : subject
+ : date : message-id : references : in-reply-to : content-type :
+ content-transfer-encoding : mime-version; s=STMicroelectronics;
+ bh=WdF442jlxXHtW99D7VXviowbwCBFKKqETJKUfQQ750w=;
+ b=mm2aIehas26Nib8HsLOMFdpsO23R7o8VnUJ+GWdEZjSLZR9ZOFAHky36iI4Br1lxJ3Sk
+ avwn9mmM/xIpqctgJhEm9dhtDoAAVur2AUA24mzmir1bc7GfdSSENlTsoxZSjM1Hwdhc
+ Y9/ElLzy6dDdBMiJdyB5L0mLKFzGbnEPa5jMvbKMsKX5r6+Bfg/UXc6AmbV6JqTQO4AY
+ 8Jklj38blZDBAAgFPOruDqxcjSdUcSJEi4/Uo81ZOOIsbQpsCxarYtqW4GV0lYAl2b/e
+ mDwA9H2Ajdi8ApxoA9I0ppL9aM69bXJCPv2By43adSY7PAYuJiqsDgbVSOi3MgUE7bl7 3g== 
 Received: from beta.dmz-eu.st.com (beta.dmz-eu.st.com [164.129.1.35])
- by mx07-00178001.pphosted.com with ESMTP id 2vegn13t3j-1
+ by mx08-00178001.pphosted.com with ESMTP id 2vej2pmt2t-1
  (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
- Thu, 10 Oct 2019 15:02:53 +0200
+ Thu, 10 Oct 2019 17:16:20 +0200
 Received: from euls16034.sgp.st.com (euls16034.sgp.st.com [10.75.44.20])
- by beta.dmz-eu.st.com (STMicroelectronics) with ESMTP id AB81810002A;
- Thu, 10 Oct 2019 15:02:51 +0200 (CEST)
-Received: from Webmail-eu.st.com (Safex1hubcas23.st.com [10.75.90.46])
- by euls16034.sgp.st.com (STMicroelectronics) with ESMTP id 96E2F2AA31D;
- Thu, 10 Oct 2019 15:02:51 +0200 (CEST)
-Received: from SAFEX1HUBCAS24.st.com (10.75.90.95) by SAFEX1HUBCAS23.st.com
- (10.75.90.46) with Microsoft SMTP Server (TLS) id 14.3.439.0; Thu, 10 Oct
- 2019 15:02:51 +0200
-Received: from localhost (10.201.21.218) by webmail-ga.st.com (10.75.90.48)
- with Microsoft SMTP Server (TLS) id 14.3.439.0; Thu, 10 Oct 2019 15:02:51
- +0200
-From: Olivier Moysan <olivier.moysan@st.com>
-To: <linux-stm32@st-md-mailman.stormreply.com>, <alexandre.torgue@st.com>,
- <robh@kernel.org>, <mark.rutland@arm.com>,
- <devicetree@vger.kernel.org>, <linux-arm-kernel@lists.infradead.org>,
- <linux-kernel@vger.kernel.org>, <olivier.moysan@st.com>
-Date: Thu, 10 Oct 2019 15:02:47 +0200
-Message-ID: <20191010130247.32027-1-olivier.moysan@st.com>
-X-Mailer: git-send-email 2.17.1
+ by beta.dmz-eu.st.com (STMicroelectronics) with ESMTP id 40B5A10002A;
+ Thu, 10 Oct 2019 17:16:19 +0200 (CEST)
+Received: from Webmail-eu.st.com (sfhdag7node2.st.com [10.75.127.20])
+ by euls16034.sgp.st.com (STMicroelectronics) with ESMTP id 9391E2B433F;
+ Thu, 10 Oct 2019 17:16:19 +0200 (CEST)
+Received: from SFHDAG5NODE3.st.com (10.75.127.15) by SFHDAG7NODE2.st.com
+ (10.75.127.20) with Microsoft SMTP Server (TLS) id 15.0.1473.3; Thu, 10 Oct
+ 2019 17:16:19 +0200
+Received: from SFHDAG5NODE3.st.com ([fe80::7c09:5d6b:d2c7:5f47]) by
+ SFHDAG5NODE3.st.com ([fe80::7c09:5d6b:d2c7:5f47%20]) with mapi id
+ 15.00.1473.003; Thu, 10 Oct 2019 17:16:19 +0200
+From: Fabien DESSENNE <fabien.dessenne@st.com>
+To: Rob Herring <robh+dt@kernel.org>, Mark Rutland <mark.rutland@arm.com>,
+ Maxime Coquelin <mcoquelin.stm32@gmail.com>, Alexandre TORGUE
+ <alexandre.torgue@st.com>, Ohad Ben-Cohen <ohad@wizery.com>,
+ Bjorn Andersson <bjorn.andersson@linaro.org>, "devicetree@vger.kernel.org"
+ <devicetree@vger.kernel.org>, "linux-stm32@st-md-mailman.stormreply.com"
+ <linux-stm32@st-md-mailman.stormreply.com>,
+ "linux-arm-kernel@lists.infradead.org"
+ <linux-arm-kernel@lists.infradead.org>, "linux-kernel@vger.kernel.org"
+ <linux-kernel@vger.kernel.org>, "linux-remoteproc@vger.kernel.org"
+ <linux-remoteproc@vger.kernel.org>
+Thread-Topic: [PATCH 0/2] remoteproc: stm32: allow wdg irq to be a wakeup
+ source
+Thread-Index: AQHVXCRbzfqre7GQVUu6MRQERXnqfqdUQtwQ
+Date: Thu, 10 Oct 2019 15:16:19 +0000
+Message-ID: <1bef12295e864dfa90edfa495803167f@SFHDAG5NODE3.st.com>
+References: <1566833923-16718-1-git-send-email-fabien.dessenne@st.com>
+In-Reply-To: <1566833923-16718-1-git-send-email-fabien.dessenne@st.com>
+Accept-Language: fr-FR, en-US
+Content-Language: en-US
+X-MS-Has-Attach: 
+X-MS-TNEF-Correlator: 
+x-ms-exchange-transport-fromentityheader: Hosted
+x-originating-ip: [10.75.127.51]
 MIME-Version: 1.0
-X-Originating-IP: [10.201.21.218]
 X-Proofpoint-Virus-Version: vendor=fsecure engine=2.50.10434:6.0.95,1.0.8
- definitions=2019-10-10_04:2019-10-10,2019-10-10 signatures=0
-Subject: [Linux-stm32] [PATCH] ARM: dts: stm32: add hdmi audio support to
-	stm32mp157a-dk1 board
+ definitions=2019-10-10_05:2019-10-10,2019-10-10 signatures=0
+Subject: Re: [Linux-stm32] [PATCH 0/2] remoteproc: stm32: allow wdg irq to
+ be a wakeup source
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -67,80 +83,53 @@ List-Post: <mailto:linux-stm32@st-md-mailman.stormreply.com>
 List-Help: <mailto:linux-stm32-request@st-md-mailman.stormreply.com?subject=help>
 List-Subscribe: <https://st-md-mailman.stormreply.com/mailman/listinfo/linux-stm32>, 
  <mailto:linux-stm32-request@st-md-mailman.stormreply.com?subject=subscribe>
-Content-Type: text/plain; charset="us-ascii"
-Content-Transfer-Encoding: 7bit
+Content-Type: text/plain; charset="iso-8859-1"
+Content-Transfer-Encoding: quoted-printable
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
-Add HDMI audio support through Sil9022 HDMI transceiver
-on stm32mp157a-dk1 board.
+Hi
 
-Signed-off-by: Olivier Moysan <olivier.moysan@st.com>
----
- arch/arm/boot/dts/stm32mp157a-dk1.dts | 27 ++++++++++++++++++++++++++-
- 1 file changed, 26 insertions(+), 1 deletion(-)
+I Got Rob's Reviewed-by for the bindings. Any further comments for the driv=
+er part?
 
-diff --git a/arch/arm/boot/dts/stm32mp157a-dk1.dts b/arch/arm/boot/dts/stm32mp157a-dk1.dts
-index 5ad4cef9e971..7a20640c00a9 100644
---- a/arch/arm/boot/dts/stm32mp157a-dk1.dts
-+++ b/arch/arm/boot/dts/stm32mp157a-dk1.dts
-@@ -92,7 +92,7 @@
- 			"Playback" , "MCLK",
- 			"Capture" , "MCLK",
- 			"MICL" , "Mic Bias";
--		dais = <&sai2a_port &sai2b_port>;
-+		dais = <&sai2a_port &sai2b_port &i2s2_port>;
- 		status = "okay";
- 	};
- };
-@@ -173,6 +173,7 @@
- 		reset-gpios = <&gpioa 10 GPIO_ACTIVE_LOW>;
- 		interrupts = <1 IRQ_TYPE_EDGE_FALLING>;
- 		interrupt-parent = <&gpiog>;
-+		#sound-dai-cells = <0>;
- 		status = "okay";
- 
- 		ports {
-@@ -185,6 +186,13 @@
- 					remote-endpoint = <&ltdc_ep0_out>;
- 				};
- 			};
-+
-+			port@3 {
-+				reg = <3>;
-+				sii9022_tx_endpoint: endpoint {
-+					remote-endpoint = <&i2s2_endpoint>;
-+				};
-+			};
- 		};
- 	};
- 
-@@ -370,6 +378,23 @@
- 	};
- };
- 
-+&i2s2 {
-+	clocks = <&rcc SPI2>, <&rcc SPI2_K>, <&rcc PLL3_Q>, <&rcc PLL3_R>;
-+	clock-names = "pclk", "i2sclk", "x8k", "x11k";
-+	pinctrl-names = "default", "sleep";
-+	pinctrl-0 = <&i2s2_pins_a>;
-+	pinctrl-1 = <&i2s2_pins_sleep_a>;
-+	status = "okay";
-+
-+	i2s2_port: port {
-+		i2s2_endpoint: endpoint {
-+			remote-endpoint = <&sii9022_tx_endpoint>;
-+			format = "i2s";
-+			mclk-fs = <256>;
-+		};
-+	};
-+};
-+
- &ipcc {
- 	status = "okay";
- };
--- 
-2.17.1
+Fabien
+
+> -----Original Message-----
+> From: Fabien DESSENNE <fabien.dessenne@st.com>
+> Sent: lundi 26 ao=FBt 2019 17:39
+> To: Rob Herring <robh+dt@kernel.org>; Mark Rutland <mark.rutland@arm.com>;
+> Maxime Coquelin <mcoquelin.stm32@gmail.com>; Alexandre TORGUE
+> <alexandre.torgue@st.com>; Ohad Ben-Cohen <ohad@wizery.com>; Bjorn
+> Andersson <bjorn.andersson@linaro.org>; devicetree@vger.kernel.org; linux-
+> stm32@st-md-mailman.stormreply.com; linux-arm-kernel@lists.infradead.org;
+> linux-kernel@vger.kernel.org; linux-remoteproc@vger.kernel.org
+> Cc: Fabien DESSENNE <fabien.dessenne@st.com>; Loic PALLARDY
+> <loic.pallardy@st.com>; Arnaud POULIQUEN <arnaud.pouliquen@st.com>
+> Subject: [PATCH 0/2] remoteproc: stm32: allow wdg irq to be a wakeup sour=
+ce
+> =
+
+> The watchdog IRQ which notifies the remote processor crash is used by the
+> remoteproc framework to perform a recovery procedure.
+> Since this IRQ may be fired when the Linux system is suspended, this IRQ =
+may
+> be configured to wake up the system.
+> =
+
+> Fabien Dessenne (2):
+>   dt-bindings: remoteproc: stm32: add wakeup-source
+>   remoteproc: stm32: wakeup the system by wdg irq
+> =
+
+>  .../devicetree/bindings/remoteproc/stm32-rproc.txt |  3 ++
+>  drivers/remoteproc/stm32_rproc.c                   | 47 ++++++++++++++++=
+++++++
+>  2 files changed, 50 insertions(+)
+> =
+
+> --
+> 2.7.4
 
 _______________________________________________
 Linux-stm32 mailing list
