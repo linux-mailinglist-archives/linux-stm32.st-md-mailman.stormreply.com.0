@@ -2,57 +2,59 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id EB948D3FD4
-	for <lists+linux-stm32@lfdr.de>; Fri, 11 Oct 2019 14:44:15 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 50E59D4069
+	for <lists+linux-stm32@lfdr.de>; Fri, 11 Oct 2019 15:07:17 +0200 (CEST)
 Received: from ip-172-31-3-76.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 6AC4FC36B0C;
-	Fri, 11 Oct 2019 12:44:15 +0000 (UTC)
-Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
- (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 47135C36B0C;
+	Fri, 11 Oct 2019 13:07:16 +0000 (UTC)
+Received: from mx07-00178001.pphosted.com (mx07-00178001.pphosted.com
+ [62.209.51.94])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 7DC98C36B0A
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 8F861C36B0A
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Fri, 11 Oct 2019 12:44:13 +0000 (UTC)
-Received: from mail-qt1-f182.google.com (mail-qt1-f182.google.com
- [209.85.160.182])
- (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
- (No client certificate requested)
- by mail.kernel.org (Postfix) with ESMTPSA id E4DB121D82
- for <linux-stm32@st-md-mailman.stormreply.com>;
- Fri, 11 Oct 2019 12:44:11 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
- s=default; t=1570797852;
- bh=MEKOQdvYjwnV7XxSeqjDPTn7gFVU7mMSkuBj2ymboMo=;
- h=References:In-Reply-To:From:Date:Subject:To:Cc:From;
- b=ZswXe9+0nzY9X3l/t3kfrKcFduNQAtzvf6wLYtAd4LyML+5zr0+WLbeYI5A/SBhRL
- g22T2gP80BXIk1gRH5n8sVSZamE6EyqH+DWoYmrK+ympuyzeXFLGusCA23jlsQd1WR
- 312EcVaYJoaK3EZXUvcfBjJZqGu8hrCG+epWsNz8=
-Received: by mail-qt1-f182.google.com with SMTP id n7so13623851qtb.6
- for <linux-stm32@st-md-mailman.stormreply.com>;
- Fri, 11 Oct 2019 05:44:11 -0700 (PDT)
-X-Gm-Message-State: APjAAAXdd6WRpFxS+1AO74C/8fBbIkGHchswjH2/fWQsY0B2Ommx/pND
- XFH7sxt0ro0J2DVOc2Qvwm6ULV2SjNAnYMSpPQ==
-X-Google-Smtp-Source: APXvYqwVc+cipqk2hiwueeEGXDM/JKUDZPO53c7H1w6zenvtLkPW0FEI+rIctoU/ClWSPxDeQqBjwzaQSHKcUKdJyZ8=
-X-Received: by 2002:a0c:e606:: with SMTP id z6mr15185686qvm.135.1570797850997; 
- Fri, 11 Oct 2019 05:44:10 -0700 (PDT)
+ Fri, 11 Oct 2019 13:07:14 +0000 (UTC)
+Received: from pps.filterd (m0046037.ppops.net [127.0.0.1])
+ by mx07-00178001.pphosted.com (8.16.0.42/8.16.0.42) with SMTP id
+ x9BD6lwL021879; Fri, 11 Oct 2019 15:07:02 +0200
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=st.com;
+ h=from : to : cc : subject
+ : date : message-id : mime-version : content-type; s=STMicroelectronics;
+ bh=klfGUH5dxwRvx6PXzWgeW52/ZQWuSqdDdFx4SGnAlS4=;
+ b=RZB1+1VtH8UvSPqj7nDzvpZlumAZiVIzoig/VFcxT54qxXkZWDZON8vjwBaTLhl5PlGJ
+ WDWaMKcgESwxdVae5WLci4JjHy5lB8wUTumrgkEHc1xRJ3PWE+r4tmjPxckHkIUuhYf9
+ 5TK0GxjGBS912OgSj9qSUli+xSB2IyM5KMpRghBRfIkNw5XRDJBuBciZzdjbe3TNUspc
+ GUKxKsMMGusLEhzzc8obDfM6Gz7l0Qr3pA612YQ24qYXwo9JFTxJwc4ktPl53anyEyLw
+ BouNE3Oxaiq/wF87KVUr3WZOonHy5YInEJVYit9LFLJe7C+tepsJtPs07FwqgjPxgTaI WQ== 
+Received: from beta.dmz-eu.st.com (beta.dmz-eu.st.com [164.129.1.35])
+ by mx07-00178001.pphosted.com with ESMTP id 2vegxw9x0p-1
+ (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
+ Fri, 11 Oct 2019 15:07:02 +0200
+Received: from euls16034.sgp.st.com (euls16034.sgp.st.com [10.75.44.20])
+ by beta.dmz-eu.st.com (STMicroelectronics) with ESMTP id 8B3D7100034;
+ Fri, 11 Oct 2019 15:07:01 +0200 (CEST)
+Received: from Webmail-eu.st.com (Safex1hubcas21.st.com [10.75.90.44])
+ by euls16034.sgp.st.com (STMicroelectronics) with ESMTP id 781192BE25F;
+ Fri, 11 Oct 2019 15:07:01 +0200 (CEST)
+Received: from SAFEX1HUBCAS24.st.com (10.75.90.95) by SAFEX1HUBCAS21.st.com
+ (10.75.90.44) with Microsoft SMTP Server (TLS) id 14.3.439.0; Fri, 11 Oct
+ 2019 15:07:01 +0200
+Received: from localhost (10.201.20.122) by webmail-ga.st.com (10.75.90.48)
+ with Microsoft SMTP Server (TLS) id 14.3.439.0; Fri, 11 Oct 2019 15:07:00
+ +0200
+From: Benjamin Gaignard <benjamin.gaignard@st.com>
+To: <alexandre.torgue@st.com>, <robh+dt@kernel.org>, <mark.rutland@arm.com>
+Date: Fri, 11 Oct 2019 15:06:58 +0200
+Message-ID: <20191011130658.23670-1-benjamin.gaignard@st.com>
+X-Mailer: git-send-email 2.15.0
 MIME-Version: 1.0
-References: <20191002151410.15306-1-benjamin.gaignard@st.com>
-In-Reply-To: <20191002151410.15306-1-benjamin.gaignard@st.com>
-From: Rob Herring <robh+dt@kernel.org>
-Date: Fri, 11 Oct 2019 07:43:59 -0500
-X-Gmail-Original-Message-ID: <CAL_JsqK0hBSzn4YfhGmFyv8a5bCDtBvW0_bdhJwk0g_N7iVFtQ@mail.gmail.com>
-Message-ID: <CAL_JsqK0hBSzn4YfhGmFyv8a5bCDtBvW0_bdhJwk0g_N7iVFtQ@mail.gmail.com>
-To: Benjamin Gaignard <benjamin.gaignard@st.com>
-Cc: devicetree@vger.kernel.org,
- "linux-kernel@vger.kernel.org" <linux-kernel@vger.kernel.org>,
- Yannick Fertre <yannick.fertre@st.com>,
- Mauro Carvalho Chehab <mchehab@kernel.org>,
- linux-stm32@st-md-mailman.stormreply.com,
- "moderated list:ARM/FREESCALE IMX / MXC ARM ARCHITECTURE"
- <linux-arm-kernel@lists.infradead.org>,
- Linux Media Mailing List <linux-media@vger.kernel.org>
-Subject: Re: [Linux-stm32] [PATCH] dt-bindings: media: Convert stm32 cec
-	bindings to json-schema
+X-Originating-IP: [10.201.20.122]
+X-Proofpoint-Virus-Version: vendor=fsecure engine=2.50.10434:6.0.95,1.0.8
+ definitions=2019-10-11_08:2019-10-10,2019-10-11 signatures=0
+Cc: devicetree@vger.kernel.org, linux-stm32@st-md-mailman.stormreply.com,
+ linux-arm-kernel@lists.infradead.org, linux-kernel@vger.kernel.org
+Subject: [Linux-stm32] [PATCH] ARM: dts: stm32f469: remove useless interrupt
+	from dsi node
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -69,119 +71,29 @@ Content-Transfer-Encoding: 7bit
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
-On Wed, Oct 2, 2019 at 10:14 AM Benjamin Gaignard
-<benjamin.gaignard@st.com> wrote:
->
-> Convert the STM32 cec binding to DT schema format using json-schema
+DSI driver doesn't use interrupt, remove it from the node since it
+breaks yaml check.
 
-Similar comments here too.
+Signed-off-by: Benjamin Gaignard <benjamin.gaignard@st.com>
+---
+ arch/arm/boot/dts/stm32f469.dtsi | 1 -
+ 1 file changed, 1 deletion(-)
 
->
-> Signed-off-by: Benjamin Gaignard <benjamin.gaignard@st.com>
-> ---
->  .../devicetree/bindings/media/st,stm32-cec.txt     | 19 --------
->  .../devicetree/bindings/media/st,stm32-cec.yaml    | 57 ++++++++++++++++++++++
->  2 files changed, 57 insertions(+), 19 deletions(-)
->  delete mode 100644 Documentation/devicetree/bindings/media/st,stm32-cec.txt
->  create mode 100644 Documentation/devicetree/bindings/media/st,stm32-cec.yaml
->
-> diff --git a/Documentation/devicetree/bindings/media/st,stm32-cec.txt b/Documentation/devicetree/bindings/media/st,stm32-cec.txt
-> deleted file mode 100644
-> index 6be2381c180d..000000000000
-> --- a/Documentation/devicetree/bindings/media/st,stm32-cec.txt
-> +++ /dev/null
-> @@ -1,19 +0,0 @@
-> -STMicroelectronics STM32 CEC driver
-> -
-> -Required properties:
-> - - compatible : value should be "st,stm32-cec"
-> - - reg : Physical base address of the IP registers and length of memory
-> -        mapped region.
-> - - clocks : from common clock binding: handle to CEC clocks
-> - - clock-names : from common clock binding: must be "cec" and "hdmi-cec".
-> - - interrupts : CEC interrupt number to the CPU.
-> -
-> -Example for stm32f746:
-> -
-> -cec: cec@40006c00 {
-> -       compatible = "st,stm32-cec";
-> -       reg = <0x40006C00 0x400>;
-> -       interrupts = <94>;
-> -       clocks = <&rcc 0 STM32F7_APB1_CLOCK(CEC)>, <&rcc 1 CLK_HDMI_CEC>;
-> -       clock-names = "cec", "hdmi-cec";
-> -};
-> diff --git a/Documentation/devicetree/bindings/media/st,stm32-cec.yaml b/Documentation/devicetree/bindings/media/st,stm32-cec.yaml
-> new file mode 100644
-> index 000000000000..c99144107185
-> --- /dev/null
-> +++ b/Documentation/devicetree/bindings/media/st,stm32-cec.yaml
-> @@ -0,0 +1,57 @@
-> +# SPDX-License-Identifier: GPL-2.0
-> +%YAML 1.2
-> +---
-> +$id: http://devicetree.org/schemas/media/st,stm32-cec.yaml#
-> +$schema: http://devicetree.org/meta-schemas/core.yaml#
-> +
-> +title: STMicroelectronics STM32 CEC bindings
-> +
-> +maintainers:
-> +  - Benjamin Gaignard <benjamin.gaignard@st.com>
-> +  - Yannick Fertre <yannick.fertre@st.com>
-> +
-> +properties:
-> +  compatible:
-> +    const: st,stm32-cec
-> +
-> +  reg:
-> +    maxItems: 1
-> +
-> +  interrupts:
-> +    maxItems: 1
-> +
-> +  clocks:
-> +    items:
-> +      - description: Module Clock
-> +      - description: Bus Clock
-> +
-> +  clock-names:
-> +    items:
-> +      - const: cec
-> +      - const: hdmi-cec
-> +
-> +  pinctrl-names: true
-> +
-> +patternProperties:
-> +  "^pinctrl-[0-9]+$": true
+diff --git a/arch/arm/boot/dts/stm32f469.dtsi b/arch/arm/boot/dts/stm32f469.dtsi
+index 5ae5213f68cb..be002e8a78ac 100644
+--- a/arch/arm/boot/dts/stm32f469.dtsi
++++ b/arch/arm/boot/dts/stm32f469.dtsi
+@@ -8,7 +8,6 @@
+ 		dsi: dsi@40016c00 {
+ 			compatible = "st,stm32-dsi";
+ 			reg = <0x40016c00 0x800>;
+-			interrupts = <92>;
+ 			resets = <&rcc STM32F4_APB2_RESET(DSI)>;
+ 			reset-names = "apb";
+ 			clocks = <&rcc 1 CLK_F469_DSI>, <&clk_hse>;
+-- 
+2.15.0
 
-You don't need to list the pinctrl properties.
-
-> +
-> +required:
-> +  - compatible
-> +  - reg
-> +  - interrupts
-> +  - clocks
-> +  - clock-names
-
-additionalProperties: false
-
-> +
-> +examples:
-> +  - |
-> +    #include <dt-bindings/interrupt-controller/arm-gic.h>
-> +    #include <dt-bindings/clock/stm32mp1-clks.h>
-> +    cec: cec@40006c00 {
-> +        compatible = "st,stm32-cec";
-> +        reg = <0x40006c00 0x400>;
-> +        interrupts = <GIC_SPI 94 IRQ_TYPE_LEVEL_HIGH>;
-> +        clocks = <&rcc CEC_K>, <&clk_lse>;
-> +        clock-names = "cec", "hdmi-cec";
-> +    };
-> +
-> +...
-> --
-> 2.15.0
->
 _______________________________________________
 Linux-stm32 mailing list
 Linux-stm32@st-md-mailman.stormreply.com
