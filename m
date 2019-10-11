@@ -2,58 +2,57 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id 74126D3FC7
-	for <lists+linux-stm32@lfdr.de>; Fri, 11 Oct 2019 14:41:26 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id EB948D3FD4
+	for <lists+linux-stm32@lfdr.de>; Fri, 11 Oct 2019 14:44:15 +0200 (CEST)
 Received: from ip-172-31-3-76.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 397ADC36B0C;
-	Fri, 11 Oct 2019 12:41:26 +0000 (UTC)
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 6AC4FC36B0C;
+	Fri, 11 Oct 2019 12:44:15 +0000 (UTC)
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
  (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 71C68C36B0A
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 7DC98C36B0A
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Fri, 11 Oct 2019 12:41:24 +0000 (UTC)
-Received: from mail-qk1-f173.google.com (mail-qk1-f173.google.com
- [209.85.222.173])
+ Fri, 11 Oct 2019 12:44:13 +0000 (UTC)
+Received: from mail-qt1-f182.google.com (mail-qt1-f182.google.com
+ [209.85.160.182])
  (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by mail.kernel.org (Postfix) with ESMTPSA id D32B221D80
+ by mail.kernel.org (Postfix) with ESMTPSA id E4DB121D82
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Fri, 11 Oct 2019 12:41:22 +0000 (UTC)
+ Fri, 11 Oct 2019 12:44:11 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
- s=default; t=1570797683;
- bh=0ntoZW7nIQaS0RptBTqn8yRQKbcwYPW6mrTC+nExxQQ=;
+ s=default; t=1570797852;
+ bh=MEKOQdvYjwnV7XxSeqjDPTn7gFVU7mMSkuBj2ymboMo=;
  h=References:In-Reply-To:From:Date:Subject:To:Cc:From;
- b=dR100AmRHlPwX27kUrp1Lauf3ohIZVPT1aokTFmN/cMb52PIZCHr7cnR8lnpbjLqj
- dicgfF0TpW4nEd2mwFBiZJjqOSCarxIGU+A6CE1Bvzn5Lxu1fFt6mtmei+4dyZVSSl
- CSrZCRsYHokj3EuztdAzqWaGGTOBWJxfSIjVmNCk=
-Received: by mail-qk1-f173.google.com with SMTP id w2so8734494qkf.2
+ b=ZswXe9+0nzY9X3l/t3kfrKcFduNQAtzvf6wLYtAd4LyML+5zr0+WLbeYI5A/SBhRL
+ g22T2gP80BXIk1gRH5n8sVSZamE6EyqH+DWoYmrK+ympuyzeXFLGusCA23jlsQd1WR
+ 312EcVaYJoaK3EZXUvcfBjJZqGu8hrCG+epWsNz8=
+Received: by mail-qt1-f182.google.com with SMTP id n7so13623851qtb.6
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Fri, 11 Oct 2019 05:41:22 -0700 (PDT)
-X-Gm-Message-State: APjAAAVC72J3d8lJvAc+k50iU5DSGvZhy1gP3zQyILciG1i2B1SFS7CK
- RDnrlXcgFIpnkmSkgElR2x4+YQ9osVB3AdJHUQ==
-X-Google-Smtp-Source: APXvYqxSOLHC3OhXJjaOJaRAYwJ7GF4/t7229zQiP9PqqmGtuF/Yddz3rOt3p/MLumF2OTaUmi8AujpP8UblZE39o8w=
-X-Received: by 2002:a05:620a:12f1:: with SMTP id
- f17mr15407013qkl.152.1570797681944; 
- Fri, 11 Oct 2019 05:41:21 -0700 (PDT)
+ Fri, 11 Oct 2019 05:44:11 -0700 (PDT)
+X-Gm-Message-State: APjAAAXdd6WRpFxS+1AO74C/8fBbIkGHchswjH2/fWQsY0B2Ommx/pND
+ XFH7sxt0ro0J2DVOc2Qvwm6ULV2SjNAnYMSpPQ==
+X-Google-Smtp-Source: APXvYqwVc+cipqk2hiwueeEGXDM/JKUDZPO53c7H1w6zenvtLkPW0FEI+rIctoU/ClWSPxDeQqBjwzaQSHKcUKdJyZ8=
+X-Received: by 2002:a0c:e606:: with SMTP id z6mr15185686qvm.135.1570797850997; 
+ Fri, 11 Oct 2019 05:44:10 -0700 (PDT)
 MIME-Version: 1.0
-References: <20191002151907.15986-1-benjamin.gaignard@st.com>
-In-Reply-To: <20191002151907.15986-1-benjamin.gaignard@st.com>
+References: <20191002151410.15306-1-benjamin.gaignard@st.com>
+In-Reply-To: <20191002151410.15306-1-benjamin.gaignard@st.com>
 From: Rob Herring <robh+dt@kernel.org>
-Date: Fri, 11 Oct 2019 07:41:10 -0500
-X-Gmail-Original-Message-ID: <CAL_Jsq+p6rYun-zOwK49=QSfuJGMpiXj5UfASdXhjmOX1cudWQ@mail.gmail.com>
-Message-ID: <CAL_Jsq+p6rYun-zOwK49=QSfuJGMpiXj5UfASdXhjmOX1cudWQ@mail.gmail.com>
+Date: Fri, 11 Oct 2019 07:43:59 -0500
+X-Gmail-Original-Message-ID: <CAL_JsqK0hBSzn4YfhGmFyv8a5bCDtBvW0_bdhJwk0g_N7iVFtQ@mail.gmail.com>
+Message-ID: <CAL_JsqK0hBSzn4YfhGmFyv8a5bCDtBvW0_bdhJwk0g_N7iVFtQ@mail.gmail.com>
 To: Benjamin Gaignard <benjamin.gaignard@st.com>
-Cc: Ohad Ben-Cohen <ohad@wizery.com>, devicetree@vger.kernel.org,
- "open list:REMOTE PROCESSOR \(REMOTEPROC\) SUBSYSTEM"
- <linux-remoteproc@vger.kernel.org>,
+Cc: devicetree@vger.kernel.org,
  "linux-kernel@vger.kernel.org" <linux-kernel@vger.kernel.org>,
- Bjorn Andersson <bjorn.andersson@linaro.org>,
+ Yannick Fertre <yannick.fertre@st.com>,
+ Mauro Carvalho Chehab <mchehab@kernel.org>,
  linux-stm32@st-md-mailman.stormreply.com,
  "moderated list:ARM/FREESCALE IMX / MXC ARM ARCHITECTURE"
- <linux-arm-kernel@lists.infradead.org>
-Subject: Re: [Linux-stm32] [PATCH] dt-bindings: hwlock: Convert stm32
-	hwspinlock bindings to json-schema
+ <linux-arm-kernel@lists.infradead.org>,
+ Linux Media Mailing List <linux-media@vger.kernel.org>
+Subject: Re: [Linux-stm32] [PATCH] dt-bindings: media: Convert stm32 cec
+	bindings to json-schema
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -70,112 +69,113 @@ Content-Transfer-Encoding: 7bit
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
-On Wed, Oct 2, 2019 at 10:19 AM Benjamin Gaignard
+On Wed, Oct 2, 2019 at 10:14 AM Benjamin Gaignard
 <benjamin.gaignard@st.com> wrote:
 >
-> Convert the STM32 hwspinlock binding to DT schema format using json-schema
+> Convert the STM32 cec binding to DT schema format using json-schema
+
+Similar comments here too.
+
 >
 > Signed-off-by: Benjamin Gaignard <benjamin.gaignard@st.com>
 > ---
->  .../bindings/hwlock/st,stm32-hwspinlock.txt        | 23 -----------
->  .../bindings/hwlock/st,stm32-hwspinlock.yaml       | 48 ++++++++++++++++++++++
->  2 files changed, 48 insertions(+), 23 deletions(-)
->  delete mode 100644 Documentation/devicetree/bindings/hwlock/st,stm32-hwspinlock.txt
->  create mode 100644 Documentation/devicetree/bindings/hwlock/st,stm32-hwspinlock.yaml
+>  .../devicetree/bindings/media/st,stm32-cec.txt     | 19 --------
+>  .../devicetree/bindings/media/st,stm32-cec.yaml    | 57 ++++++++++++++++++++++
+>  2 files changed, 57 insertions(+), 19 deletions(-)
+>  delete mode 100644 Documentation/devicetree/bindings/media/st,stm32-cec.txt
+>  create mode 100644 Documentation/devicetree/bindings/media/st,stm32-cec.yaml
 >
-> diff --git a/Documentation/devicetree/bindings/hwlock/st,stm32-hwspinlock.txt b/Documentation/devicetree/bindings/hwlock/st,stm32-hwspinlock.txt
+> diff --git a/Documentation/devicetree/bindings/media/st,stm32-cec.txt b/Documentation/devicetree/bindings/media/st,stm32-cec.txt
 > deleted file mode 100644
-> index adf4f000ea3d..000000000000
-> --- a/Documentation/devicetree/bindings/hwlock/st,stm32-hwspinlock.txt
+> index 6be2381c180d..000000000000
+> --- a/Documentation/devicetree/bindings/media/st,stm32-cec.txt
 > +++ /dev/null
-> @@ -1,23 +0,0 @@
-> -STM32 Hardware Spinlock Device Binding
-> --------------------------------------
+> @@ -1,19 +0,0 @@
+> -STMicroelectronics STM32 CEC driver
 > -
-> -Required properties :
-> -- compatible : should be "st,stm32-hwspinlock".
-> -- reg : the register address of hwspinlock.
-> -- #hwlock-cells : hwlock users only use the hwlock id to represent a specific
-> -       hwlock, so the number of cells should be <1> here.
-> -- clock-names : Must contain "hsem".
-> -- clocks : Must contain a phandle entry for the clock in clock-names, see the
-> -       common clock bindings.
+> -Required properties:
+> - - compatible : value should be "st,stm32-cec"
+> - - reg : Physical base address of the IP registers and length of memory
+> -        mapped region.
+> - - clocks : from common clock binding: handle to CEC clocks
+> - - clock-names : from common clock binding: must be "cec" and "hdmi-cec".
+> - - interrupts : CEC interrupt number to the CPU.
 > -
-> -Please look at the generic hwlock binding for usage information for consumers,
-> -"Documentation/devicetree/bindings/hwlock/hwlock.txt"
+> -Example for stm32f746:
 > -
-> -Example of hwlock provider:
-> -       hwspinlock@4c000000 {
-> -               compatible = "st,stm32-hwspinlock";
-> -               #hwlock-cells = <1>;
-> -               reg = <0x4c000000 0x400>;
-> -               clocks = <&rcc HSEM>;
-> -               clock-names = "hsem";
-> -       };
-> diff --git a/Documentation/devicetree/bindings/hwlock/st,stm32-hwspinlock.yaml b/Documentation/devicetree/bindings/hwlock/st,stm32-hwspinlock.yaml
+> -cec: cec@40006c00 {
+> -       compatible = "st,stm32-cec";
+> -       reg = <0x40006C00 0x400>;
+> -       interrupts = <94>;
+> -       clocks = <&rcc 0 STM32F7_APB1_CLOCK(CEC)>, <&rcc 1 CLK_HDMI_CEC>;
+> -       clock-names = "cec", "hdmi-cec";
+> -};
+> diff --git a/Documentation/devicetree/bindings/media/st,stm32-cec.yaml b/Documentation/devicetree/bindings/media/st,stm32-cec.yaml
 > new file mode 100644
-> index 000000000000..64e169702515
+> index 000000000000..c99144107185
 > --- /dev/null
-> +++ b/Documentation/devicetree/bindings/hwlock/st,stm32-hwspinlock.yaml
-> @@ -0,0 +1,48 @@
+> +++ b/Documentation/devicetree/bindings/media/st,stm32-cec.yaml
+> @@ -0,0 +1,57 @@
 > +# SPDX-License-Identifier: GPL-2.0
 > +%YAML 1.2
 > +---
-> +$id: http://devicetree.org/schemas/hwlock/st,stm32-hwspinlock.yaml#
+> +$id: http://devicetree.org/schemas/media/st,stm32-cec.yaml#
 > +$schema: http://devicetree.org/meta-schemas/core.yaml#
 > +
-> +title: STMicroelectronics STM32 Hardware Spinlock bindings
+> +title: STMicroelectronics STM32 CEC bindings
 > +
 > +maintainers:
 > +  - Benjamin Gaignard <benjamin.gaignard@st.com>
-> +  - Fabien Dessenne <fabien.dessenne@st.com>
+> +  - Yannick Fertre <yannick.fertre@st.com>
 > +
 > +properties:
-> +  "#hwlock-cells": true
-
-const: 1
-
-> +
 > +  compatible:
-> +    const: st,stm32-hwspinlock
+> +    const: st,stm32-cec
 > +
 > +  reg:
+> +    maxItems: 1
+> +
+> +  interrupts:
 > +    maxItems: 1
 > +
 > +  clocks:
 > +    items:
 > +      - description: Module Clock
-
-Don't need a description for a single item.
-
-maxItems: 1
-
+> +      - description: Bus Clock
 > +
 > +  clock-names:
 > +    items:
-> +      - const: hsem
+> +      - const: cec
+> +      - const: hdmi-cec
+> +
+> +  pinctrl-names: true
+> +
+> +patternProperties:
+> +  "^pinctrl-[0-9]+$": true
+
+You don't need to list the pinctrl properties.
+
 > +
 > +required:
-> +  - "#hwlock-cells"
 > +  - compatible
 > +  - reg
+> +  - interrupts
 > +  - clocks
 > +  - clock-names
-
-Add a:
 
 additionalProperties: false
 
 > +
 > +examples:
 > +  - |
+> +    #include <dt-bindings/interrupt-controller/arm-gic.h>
 > +    #include <dt-bindings/clock/stm32mp1-clks.h>
-> +    hwspinlock@4c000000 {
-> +        compatible = "st,stm32-hwspinlock";
-> +        #hwlock-cells = <1>;
-> +        reg = <0x4c000000 0x400>;
-> +        clocks = <&rcc HSEM>;
-> +        clock-names = "hsem";
+> +    cec: cec@40006c00 {
+> +        compatible = "st,stm32-cec";
+> +        reg = <0x40006c00 0x400>;
+> +        interrupts = <GIC_SPI 94 IRQ_TYPE_LEVEL_HIGH>;
+> +        clocks = <&rcc CEC_K>, <&clk_lse>;
+> +        clock-names = "cec", "hdmi-cec";
 > +    };
 > +
 > +...
