@@ -2,65 +2,61 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id 054C3D40B1
-	for <lists+linux-stm32@lfdr.de>; Fri, 11 Oct 2019 15:12:51 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 3FC5FD40CA
+	for <lists+linux-stm32@lfdr.de>; Fri, 11 Oct 2019 15:15:40 +0200 (CEST)
 Received: from ip-172-31-3-76.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id C3F61C36B0C;
-	Fri, 11 Oct 2019 13:12:50 +0000 (UTC)
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 05DF8C36B0C;
+	Fri, 11 Oct 2019 13:15:40 +0000 (UTC)
 Received: from mx07-00178001.pphosted.com (mx07-00178001.pphosted.com
  [62.209.51.94])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id A43E8C36B0A
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 2D5CFC36B0A
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Fri, 11 Oct 2019 13:12:49 +0000 (UTC)
+ Fri, 11 Oct 2019 13:15:39 +0000 (UTC)
 Received: from pps.filterd (m0046037.ppops.net [127.0.0.1])
  by mx07-00178001.pphosted.com (8.16.0.42/8.16.0.42) with SMTP id
- x9BD6kEj021870; Fri, 11 Oct 2019 15:12:39 +0200
+ x9BD6lxu021879; Fri, 11 Oct 2019 15:15:30 +0200
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=st.com;
  h=from : to : cc : subject
- : date : message-id : in-reply-to : references : mime-version :
- content-type; s=STMicroelectronics;
- bh=yHfi3HY0Dx0zI0TYh25CPOFtlp/IAVFsBZ0iGOQeTBA=;
- b=dPoarHUsPogZegM+gcEP3rgmifnOLuQNkLwQFyF0GhXD1EK/FUSr/9PNlxBp5WKXXC+l
- l+xu53QxA57RQ6JlFQo64U2K4stDLSy19zQuBB+ucDIj8/2fe/aoi0hWufpY/Rlh28Vs
- wzTbN8ANVUvwhWncH5yfIhkbuxIvhjk5gRiDFn5O1vuPm+kMRksA5bRcEAniz2MonyL/
- eZuglXWoKkMwTXLX4AL+3QisXR9UbciTQwKHkZh0lg2qESFRs2NMd6o5naehCtIdsK94
- CEkXQpfdFiVGufhPU5e8onN9kOFZVInpC9ZnkZCwO+BnJcBlB6eNDoHJPbBerwAF5+Sv pw== 
+ : date : message-id : mime-version : content-type; s=STMicroelectronics;
+ bh=2OJ63JRDHcE35+LH+1/BTSgThb8JET2V1q7cuqnG+F0=;
+ b=uIUnsRMlUIA++sDY+nCBcDNNH3YlJtiiOVOt88abPsuDz0wB4V8cMuAvWxiNr8gvmhxi
+ 9JbYbEt9W5/ZPNOT5MwG5dr9hDJkuTKzTpt5epXeDRv8YKRFeKYGgZ4EqcvsYdPQTWKA
+ d9rIqaKqB49S0Vd4TVRJgdYwnK5t6OssiS0n5SCbScCRiOVcA+pjbv7GL8tHnbh+fdlA
+ fm902q1QSvLjSFtbW6QB4WSxefLFgvsr+9O5sj+iAMp2zSquHsnmStl4CZiOPxALkr5H
+ bZ+UgYGGNN7bVY+JlUxN52NlvhotyLvTAKd5pEEiFb2PUqHMNIvVqKv9a17svKRncnpr +w== 
 Received: from beta.dmz-eu.st.com (beta.dmz-eu.st.com [164.129.1.35])
- by mx07-00178001.pphosted.com with ESMTP id 2vegxw9xuf-1
+ by mx07-00178001.pphosted.com with ESMTP id 2vegxw9yag-1
  (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
- Fri, 11 Oct 2019 15:12:39 +0200
+ Fri, 11 Oct 2019 15:15:30 +0200
 Received: from euls16034.sgp.st.com (euls16034.sgp.st.com [10.75.44.20])
- by beta.dmz-eu.st.com (STMicroelectronics) with ESMTP id 83D2610002A;
- Fri, 11 Oct 2019 15:12:39 +0200 (CEST)
+ by beta.dmz-eu.st.com (STMicroelectronics) with ESMTP id CA71310002A;
+ Fri, 11 Oct 2019 15:15:29 +0200 (CEST)
 Received: from Webmail-eu.st.com (Safex1hubcas21.st.com [10.75.90.44])
- by euls16034.sgp.st.com (STMicroelectronics) with ESMTP id 75D112BEC5F;
- Fri, 11 Oct 2019 15:12:39 +0200 (CEST)
-Received: from SAFEX1HUBCAS24.st.com (10.75.90.95) by SAFEX1HUBCAS21.st.com
+ by euls16034.sgp.st.com (STMicroelectronics) with ESMTP id B5F6B2BEC72;
+ Fri, 11 Oct 2019 15:15:29 +0200 (CEST)
+Received: from SAFEX1HUBCAS23.st.com (10.75.90.46) by SAFEX1HUBCAS21.st.com
  (10.75.90.44) with Microsoft SMTP Server (TLS) id 14.3.439.0; Fri, 11 Oct
- 2019 15:12:39 +0200
-Received: from localhost (10.201.20.122) by webmail-ga.st.com (10.75.90.48)
- with Microsoft SMTP Server (TLS) id 14.3.439.0; Fri, 11 Oct 2019 15:12:38
- +0200
-From: Benjamin Gaignard <benjamin.gaignard@st.com>
-To: <mchehab@kernel.org>, <robh+dt@kernel.org>, <mark.rutland@arm.com>,
- <alexandre.torgue@st.com>, <hverkuil-cisco@xs4all.nl>,
- <hugues.fruchet@st.com>
-Date: Fri, 11 Oct 2019 15:12:34 +0200
-Message-ID: <20191011131234.24290-2-benjamin.gaignard@st.com>
-X-Mailer: git-send-email 2.15.0
-In-Reply-To: <20191011131234.24290-1-benjamin.gaignard@st.com>
-References: <20191011131234.24290-1-benjamin.gaignard@st.com>
+ 2019 15:15:29 +0200
+Received: from lmecxl0923.lme.st.com (10.48.0.237) by webmail-ga.st.com
+ (10.75.90.48) with Microsoft SMTP Server (TLS) id 14.3.439.0; Fri, 11 Oct
+ 2019 15:15:29 +0200
+From: Ludovic Barre <ludovic.Barre@st.com>
+To: Ulf Hansson <ulf.hansson@linaro.org>, Rob Herring <robh+dt@kernel.org>
+Date: Fri, 11 Oct 2019 15:15:00 +0200
+Message-ID: <20191011131502.29579-1-ludovic.Barre@st.com>
+X-Mailer: git-send-email 2.17.1
 MIME-Version: 1.0
-X-Originating-IP: [10.201.20.122]
+X-Originating-IP: [10.48.0.237]
 X-Proofpoint-Virus-Version: vendor=fsecure engine=2.50.10434:6.0.95,1.0.8
  definitions=2019-10-11_08:2019-10-10,2019-10-11 signatures=0
-Cc: devicetree@vger.kernel.org, linux-kernel@vger.kernel.org,
- linux-stm32@st-md-mailman.stormreply.com, linux-arm-kernel@lists.infradead.org,
- linux-media@vger.kernel.org
-Subject: [Linux-stm32] [PATCH v2] dt-bindings: media: Convert stm32 dcmi
-	bindings to json-schema
+Cc: devicetree@vger.kernel.org, linux-mmc@vger.kernel.org,
+ linux-kernel@vger.kernel.org, srinivas.kandagatla@linaro.org,
+ Maxime Coquelin <mcoquelin.stm32@gmail.com>,
+ linux-stm32@st-md-mailman.stormreply.com, linux-arm-kernel@lists.infradead.org
+Subject: [Linux-stm32] [PATCH 0/2] mmc: add unstuck function if host is in
+	deadlock state
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -77,168 +73,28 @@ Content-Transfer-Encoding: 7bit
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
-Convert the STM32 dcmi binding to DT schema format using json-schema
+From: Ludovic Barre <ludovic.barre@st.com>
 
-Signed-off-by: Benjamin Gaignard <benjamin.gaignard@st.com>
----
-changes in v2:
-- use BSD-2-Clause license
-- remove useless dma descriptions
-- fix clock property
-- add additionalProperties: false
-- fix reset indentation
+As discussed in this thread: https://patchwork.kernel.org/patch/10786421/
+After a request, the host could be in deadlock state, and waiting
+for a specific action to unstuck the hardware block before
+resending a new command. This series adds mmc_hw_unstuck
+callback (structure mmc_host_ops) before resending a new command
+(call in mmc_blk_mq_rw_recovery, mmc_wait_for_req_done).
 
- .../devicetree/bindings/media/st,stm32-dcmi.txt    | 45 -----------
- .../devicetree/bindings/media/st,stm32-dcmi.yaml   | 86 ++++++++++++++++++++++
- 2 files changed, 86 insertions(+), 45 deletions(-)
- delete mode 100644 Documentation/devicetree/bindings/media/st,stm32-dcmi.txt
- create mode 100644 Documentation/devicetree/bindings/media/st,stm32-dcmi.yaml
+Ludovic Barre (2):
+  mmc: add unstuck function if host is in deadlock state
+  mmc: mmci: add unstuck feature
 
-diff --git a/Documentation/devicetree/bindings/media/st,stm32-dcmi.txt b/Documentation/devicetree/bindings/media/st,stm32-dcmi.txt
-deleted file mode 100644
-index 3122ded82eb4..000000000000
---- a/Documentation/devicetree/bindings/media/st,stm32-dcmi.txt
-+++ /dev/null
-@@ -1,45 +0,0 @@
--STMicroelectronics STM32 Digital Camera Memory Interface (DCMI)
--
--Required properties:
--- compatible: "st,stm32-dcmi"
--- reg: physical base address and length of the registers set for the device
--- interrupts: should contain IRQ line for the DCMI
--- resets: reference to a reset controller,
--          see Documentation/devicetree/bindings/reset/st,stm32-rcc.txt
--- clocks: list of clock specifiers, corresponding to entries in
--          the clock-names property
--- clock-names: must contain "mclk", which is the DCMI peripherial clock
--- pinctrl: the pincontrol settings to configure muxing properly
--           for pins that connect to DCMI device.
--           See Documentation/devicetree/bindings/pinctrl/st,stm32-pinctrl.yaml.
--- dmas: phandle to DMA controller node,
--        see Documentation/devicetree/bindings/dma/stm32-dma.txt
--- dma-names: must contain "tx", which is the transmit channel from DCMI to DMA
--
--DCMI supports a single port node with parallel bus. It should contain one
--'port' child node with child 'endpoint' node. Please refer to the bindings
--defined in Documentation/devicetree/bindings/media/video-interfaces.txt.
--
--Example:
--
--	dcmi: dcmi@50050000 {
--		compatible = "st,stm32-dcmi";
--		reg = <0x50050000 0x400>;
--		interrupts = <78>;
--		resets = <&rcc STM32F4_AHB2_RESET(DCMI)>;
--		clocks = <&rcc 0 STM32F4_AHB2_CLOCK(DCMI)>;
--		clock-names = "mclk";
--		pinctrl-names = "default";
--		pinctrl-0 = <&dcmi_pins>;
--		dmas = <&dma2 1 1 0x414 0x3>;
--		dma-names = "tx";
--		port {
--			dcmi_0: endpoint {
--				remote-endpoint = <...>;
--				bus-width = <8>;
--				hsync-active = <0>;
--				vsync-active = <0>;
--				pclk-sample = <1>;
--			};
--		};
--	};
-diff --git a/Documentation/devicetree/bindings/media/st,stm32-dcmi.yaml b/Documentation/devicetree/bindings/media/st,stm32-dcmi.yaml
-new file mode 100644
-index 000000000000..272827342ee2
---- /dev/null
-+++ b/Documentation/devicetree/bindings/media/st,stm32-dcmi.yaml
-@@ -0,0 +1,86 @@
-+# SPDX-License-Identifier: BSD-2-Clause
-+%YAML 1.2
-+---
-+$id: http://devicetree.org/schemas/media/st,stm32-dcmi.yaml#
-+$schema: http://devicetree.org/meta-schemas/core.yaml#
-+
-+title: STMicroelectronics STM32 Digital Camera Memory Interface (DCMI) binding
-+
-+maintainers:
-+  - Hugues Fruchet <hugues.fruchet@st.com>
-+
-+properties:
-+  compatible:
-+    const: st,stm32-dcmi
-+
-+  reg:
-+    maxItems: 1
-+
-+  interrupts:
-+    maxItems: 1
-+
-+  clocks:
-+    maxItems: 1
-+
-+  clock-names:
-+    items:
-+      - const: mclk
-+
-+  dmas:
-+    maxItems: 1
-+
-+  dma-names:
-+    items:
-+      - const: tx
-+
-+  resets:
-+    maxItems: 1
-+
-+  port:
-+    type: object
-+    description:
-+      DCMI supports a single port node with parallel bus. It should contain
-+      one 'port' child node with child 'endpoint' node. Please refer to the
-+      bindings defined in
-+      Documentation/devicetree/bindings/media/video-interfaces.txt.
-+
-+required:
-+  - compatible
-+  - reg
-+  - interrupts
-+  - clocks
-+  - clock-names
-+  - resets
-+  - dmas
-+  - dma-names
-+  - port
-+
-+additionalProperties: false
-+
-+examples:
-+  - |
-+    #include <dt-bindings/interrupt-controller/arm-gic.h>
-+    #include <dt-bindings/clock/stm32mp1-clks.h>
-+    #include <dt-bindings/reset/stm32mp1-resets.h>
-+    dcmi: dcmi@4c006000 {
-+        compatible = "st,stm32-dcmi";
-+        reg = <0x4c006000 0x400>;
-+        interrupts = <GIC_SPI 78 IRQ_TYPE_LEVEL_HIGH>;
-+        resets = <&rcc CAMITF_R>;
-+        clocks = <&rcc DCMI>;
-+        clock-names = "mclk";
-+        dmas = <&dmamux1 75 0x400 0x0d>;
-+        dma-names = "tx";
-+
-+        port {
-+             dcmi_0: endpoint {
-+                   remote-endpoint = <&ov5640_0>;
-+                   bus-width = <8>;
-+                   hsync-active = <0>;
-+                   vsync-active = <0>;
-+                   pclk-sample = <1>;
-+             };
-+        };
-+    };
-+
-+...
+ drivers/mmc/core/block.c | 11 +++++++++++
+ drivers/mmc/core/core.c  | 35 +++++++++++++++++++++++++++++++++--
+ drivers/mmc/host/mmci.c  | 23 +++++++++++++++++++++--
+ include/linux/mmc/core.h |  1 +
+ include/linux/mmc/host.h |  7 +++++++
+ 5 files changed, 73 insertions(+), 4 deletions(-)
+
 -- 
-2.15.0
+2.17.1
 
 _______________________________________________
 Linux-stm32 mailing list
