@@ -2,48 +2,63 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id 32741D3ADA
-	for <lists+linux-stm32@lfdr.de>; Fri, 11 Oct 2019 10:21:20 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id B11B1D3B8B
+	for <lists+linux-stm32@lfdr.de>; Fri, 11 Oct 2019 10:48:41 +0200 (CEST)
 Received: from ip-172-31-3-76.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id E9CE2C36B0C;
-	Fri, 11 Oct 2019 08:21:19 +0000 (UTC)
-Received: from mailgw01.mediatek.com (unknown [1.203.163.78])
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id B7E18C36B0A
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 72F69C36B0C;
+	Fri, 11 Oct 2019 08:48:41 +0000 (UTC)
+Received: from mx07-00178001.pphosted.com (mx08-00178001.pphosted.com
+ [91.207.212.93])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+ (No client certificate requested)
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 2FA8EC36B0A
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Fri, 11 Oct 2019 08:21:17 +0000 (UTC)
-X-UUID: 683957e80d3f4b828ae9e3cf2535bbf0-20191011
-X-UUID: 683957e80d3f4b828ae9e3cf2535bbf0-20191011
-Received: from mtkcas32.mediatek.inc [(172.27.4.253)] by mailgw01.mediatek.com
- (envelope-from <biao.huang@mediatek.com>)
- (mailgw01.mediatek.com ESMTP with TLS)
- with ESMTP id 1514359459; Fri, 11 Oct 2019 16:21:11 +0800
-Received: from MTKCAS32.mediatek.inc (172.27.4.184) by MTKMBS31DR.mediatek.inc
- (172.27.6.102) with Microsoft SMTP Server (TLS) id 15.0.1395.4;
- Fri, 11 Oct 2019 16:21:07 +0800
-Received: from [10.17.3.153] (172.27.4.253) by MTKCAS32.mediatek.inc
- (172.27.4.170) with Microsoft SMTP Server id 15.0.1395.4 via Frontend
- Transport; Fri, 11 Oct 2019 16:21:07 +0800
-Message-ID: <1570782069.5044.12.camel@mhfsdcap03>
-From: biao huang <biao.huang@mediatek.com>
-To: Jakub Kicinski <jakub.kicinski@netronome.com>
-Date: Fri, 11 Oct 2019 16:21:09 +0800
-In-Reply-To: <20191010160103.63c3c0ed@cakuba.netronome.com>
-References: <20191009085649.6736-1-biao.huang@mediatek.com>
- <20191010160103.63c3c0ed@cakuba.netronome.com>
-X-Mailer: Evolution 3.10.4-0ubuntu2 
+ Fri, 11 Oct 2019 08:48:39 +0000 (UTC)
+Received: from pps.filterd (m0046660.ppops.net [127.0.0.1])
+ by mx08-00178001.pphosted.com (8.16.0.42/8.16.0.42) with SMTP id
+ x9B8jVnm018619; Fri, 11 Oct 2019 10:48:20 +0200
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=st.com;
+ h=from : to : subject :
+ date : message-id : mime-version : content-type; s=STMicroelectronics;
+ bh=dn57trJDwkZf1zTqrirKMCOuNO/LkBA2sd55GnG6NrU=;
+ b=PKMm3t0OsAVAyHFmAAlnAP0bWm6GHiWzxQmRPaq1eXJD1wgLj5zdV8OvDjkWAtvgOdYR
+ 8ii3smM+kk5ljgpYs+HOATNvoJG1BIBTlvlNi5mpmQjjy+hfac7Q8+qFBWsipIUzfiHj
+ O0ALWBKDhiIs4PSeevSExUmfbcjbPTMd5lPnaRXzk8LUox7HIeg4Ld0GtTL/O9sWaZhb
+ UL0yG/OJC35RRR8oSNysU+ktBDANlgq1OsXl4f7LdpTdr0esEJfaJtfJI1RY7S67PXY1
+ s6wuaRxaW+wNtVD/l8xUtM5vlCPjHopuYdMhPFBHRgcJB9yizr6MDxRfp/d7ERK2ZhpC EA== 
+Received: from beta.dmz-eu.st.com (beta.dmz-eu.st.com [164.129.1.35])
+ by mx08-00178001.pphosted.com with ESMTP id 2vegahhecn-1
+ (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
+ Fri, 11 Oct 2019 10:48:20 +0200
+Received: from euls16034.sgp.st.com (euls16034.sgp.st.com [10.75.44.20])
+ by beta.dmz-eu.st.com (STMicroelectronics) with ESMTP id A6F1710002A;
+ Fri, 11 Oct 2019 10:48:19 +0200 (CEST)
+Received: from Webmail-eu.st.com (Safex1hubcas22.st.com [10.75.90.92])
+ by euls16034.sgp.st.com (STMicroelectronics) with ESMTP id 19BF12AF4B7;
+ Fri, 11 Oct 2019 10:48:19 +0200 (CEST)
+Received: from SAFEX1HUBCAS24.st.com (10.75.90.95) by Safex1hubcas22.st.com
+ (10.75.90.92) with Microsoft SMTP Server (TLS) id 14.3.439.0; Fri, 11 Oct
+ 2019 10:48:19 +0200
+Received: from localhost (10.201.21.218) by webmail-ga.st.com (10.75.90.48)
+ with Microsoft SMTP Server (TLS) id 14.3.439.0; Fri, 11 Oct 2019 10:48:18
+ +0200
+From: Olivier Moysan <olivier.moysan@st.com>
+To: <lgirdwood@gmail.com>, <broonie@kernel.org>, <perex@perex.cz>,
+ <tiwai@suse.com>, <mcoquelin.stm32@gmail.com>,
+ <alexandre.torgue@st.com>, <alsa-devel@alsa-project.org>,
+ <linux-arm-kernel@lists.infradead.org>,
+ <linux-stm32@st-md-mailman.stormreply.com>,
+ <linux-kernel@vger.kernel.org>, <olivier.moysan@st.com>,
+ <arnaud.pouliquen@st.com>
+Date: Fri, 11 Oct 2019 10:48:16 +0200
+Message-ID: <20191011084816.14279-1-olivier.moysan@st.com>
+X-Mailer: git-send-email 2.17.1
 MIME-Version: 1.0
-X-TM-SNTS-SMTP: 830FACAF2A292503757689C34417C3AFCD74A88CD9AC4330D44496E1DBE6BC492000:8
-X-MTK: N
-Cc: andrew@lunn.ch, jianguo.zhang@mediatek.com, boon.leong.ong@intel.com,
- netdev@vger.kernel.org, linux-kernel@vger.kernel.org,
- linux-stm32@st-md-mailman.stormreply.com, yt.shen@mediatek.com,
- Jose Abreu <joabreu@synopsys.com>, linux-mediatek@lists.infradead.org,
- yong.wu@mediatek.com, Maxime Coquelin <mcoquelin.stm32@gmail.com>,
- Matthias Brugger <matthias.bgg@gmail.com>,
- Giuseppe Cavallaro <peppe.cavallaro@st.com>, davem@davemloft.net,
- linux-arm-kernel@lists.infradead.org
-Subject: Re: [Linux-stm32] [PATCH] net: stmmac: disable/enable ptp_ref_clk
- in suspend/resume flow
+X-Originating-IP: [10.201.21.218]
+X-Proofpoint-Virus-Version: vendor=fsecure engine=2.50.10434:6.0.95,1.0.8
+ definitions=2019-10-11_06:2019-10-10,2019-10-11 signatures=0
+Subject: [Linux-stm32] [PATCH] ASoC: stm32: spdifrx: retry synchronization
+	in sync state
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -60,64 +75,66 @@ Content-Transfer-Encoding: 7bit
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
-Appreciate your comments!
+When STM32 SPDIFRX is in sync state, allow multiple
+synchro attempts, instead of exiting on first unsuccessful
+trial. This is useful when spdif signal is not immediately
+available on input. This also allows Pulseaudio to check
+iec capture device availability when no signal is present.
 
-On Thu, 2019-10-10 at 16:01 -0700, Jakub Kicinski wrote:
-> On Wed, 9 Oct 2019 16:56:49 +0800, Biao Huang wrote:
-> > disable ptp_ref_clk in suspend flow, and enable it in resume flow.
-> > 
-> > Signed-off-by: Biao Huang <biao.huang@mediatek.com>
-> > ---
-> >  drivers/net/ethernet/stmicro/stmmac/stmmac_main.c | 4 ++++
-> >  1 file changed, 4 insertions(+)
-> > 
-> > diff --git a/drivers/net/ethernet/stmicro/stmmac/stmmac_main.c b/drivers/net/ethernet/stmicro/stmmac/stmmac_main.c
-> > index c7c9e5f162e6..b592aeecc3dd 100644
-> > --- a/drivers/net/ethernet/stmicro/stmmac/stmmac_main.c
-> > +++ b/drivers/net/ethernet/stmicro/stmmac/stmmac_main.c
-> > @@ -4469,6 +4469,8 @@ int stmmac_suspend(struct device *dev)
-> >  		stmmac_mac_set(priv, priv->ioaddr, false);
-> >  		pinctrl_pm_select_sleep_state(priv->device);
-> >  		/* Disable clock in case of PWM is off */
-> > +		if (priv->plat->clk_ptp_ref)
-> > +			clk_disable_unprepare(priv->plat->clk_ptp_ref);
-> 
-> I don't know much embedded, but it seems like this should perhaps just
-> be clk_disable() without the unprepare? stmmac_hw_teardown() is called
-> when driver is removed so it needs to unprepare as well.
-> 
-> Please feel free to explain to me why this needs to be
-> clk_disable_unprepare(), as I said - not an expert.
-> 
-As our clock owner's advice, there are prepare/unprepare clk_ops for
-pll, but no enable/disable clk_ops for it, and pll will be off only when
-the prepare reference count decrease to 0.
+Signed-off-by: Olivier Moysan <olivier.moysan@st.com>
+---
+ sound/soc/stm/stm32_spdifrx.c | 18 ++++++++++++++++--
+ 1 file changed, 16 insertions(+), 2 deletions(-)
 
-so for the sake of power saving, we'd better call clk_disable_unprepare
-to turn the parent pll off.
-
-> Also - if this is a bug fix and you'd like to have it backported to
-> older releases you need to add a Fixes tag.
-> 
-Thanks for the reminder, I'll add the fixes tag in the next version.
-> Thanks!
-> 
-> >  		clk_disable(priv->plat->pclk);
-> >  		clk_disable(priv->plat->stmmac_clk);
-maybe it should be clk_disable_unprepare(priv->plat->pclk);
-		   clk_disable_unprepare(priv->plat->stmmac_clk);
-> >  	}
-> > @@ -4535,6 +4537,8 @@ int stmmac_resume(struct device *dev)
-> >  		/* enable the clk previously disabled */
-> >  		clk_enable(priv->plat->stmmac_clk);
-> >  		clk_enable(priv->plat->pclk);
-> > +		if (priv->plat->clk_ptp_ref)
-> > +			clk_prepare_enable(priv->plat->clk_ptp_ref);
-> >  		/* reset the phy so that it's ready */
-> >  		if (priv->mii)
-> >  			stmmac_mdio_reset(priv->mii);
-> 
-
+diff --git a/sound/soc/stm/stm32_spdifrx.c b/sound/soc/stm/stm32_spdifrx.c
+index cd4b235fce57..3fd28ee01675 100644
+--- a/sound/soc/stm/stm32_spdifrx.c
++++ b/sound/soc/stm/stm32_spdifrx.c
+@@ -351,6 +351,8 @@ static int stm32_spdifrx_start_sync(struct stm32_spdifrx_data *spdifrx)
+ 		     SPDIFRX_CR_CUMSK | SPDIFRX_CR_PTMSK | SPDIFRX_CR_RXSTEO;
+ 		cr_mask = cr;
+ 
++		cr |= SPDIFRX_CR_NBTRSET(SPDIFRX_NBTR_63);
++		cr_mask |= SPDIFRX_CR_NBTR_MASK;
+ 		cr |= SPDIFRX_CR_SPDIFENSET(SPDIFRX_SPDIFEN_SYNC);
+ 		cr_mask |= SPDIFRX_CR_SPDIFEN_MASK;
+ 		ret = regmap_update_bits(spdifrx->regmap, STM32_SPDIFRX_CR,
+@@ -666,7 +668,7 @@ static irqreturn_t stm32_spdifrx_isr(int irq, void *devid)
+ 	struct snd_pcm_substream *substream = spdifrx->substream;
+ 	struct platform_device *pdev = spdifrx->pdev;
+ 	unsigned int cr, mask, sr, imr;
+-	unsigned int flags;
++	unsigned int flags, sync_state;
+ 	int err = 0, err_xrun = 0;
+ 
+ 	regmap_read(spdifrx->regmap, STM32_SPDIFRX_SR, &sr);
+@@ -726,11 +728,23 @@ static irqreturn_t stm32_spdifrx_isr(int irq, void *devid)
+ 	}
+ 
+ 	if (err) {
+-		/* SPDIFRX in STATE_STOP. Disable SPDIFRX to clear errors */
++		regmap_read(spdifrx->regmap, STM32_SPDIFRX_CR, &cr);
++		sync_state = FIELD_GET(SPDIFRX_CR_SPDIFEN_MASK, cr) &&
++			     SPDIFRX_SPDIFEN_SYNC;
++
++		/* SPDIFRX is in STATE_STOP. Disable SPDIFRX to clear errors */
+ 		cr = SPDIFRX_CR_SPDIFENSET(SPDIFRX_SPDIFEN_DISABLE);
+ 		regmap_update_bits(spdifrx->regmap, STM32_SPDIFRX_CR,
+ 				   SPDIFRX_CR_SPDIFEN_MASK, cr);
+ 
++		/* If SPDIFRX was in STATE_SYNC, retry synchro */
++		if (sync_state) {
++			cr = SPDIFRX_CR_SPDIFENSET(SPDIFRX_SPDIFEN_SYNC);
++			regmap_update_bits(spdifrx->regmap, STM32_SPDIFRX_CR,
++					   SPDIFRX_CR_SPDIFEN_MASK, cr);
++			return IRQ_HANDLED;
++		}
++
+ 		if (substream)
+ 			snd_pcm_stop(substream, SNDRV_PCM_STATE_DISCONNECTED);
+ 
+-- 
+2.17.1
 
 _______________________________________________
 Linux-stm32 mailing list
