@@ -2,57 +2,57 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id 62C04D6825
-	for <lists+linux-stm32@lfdr.de>; Mon, 14 Oct 2019 19:16:49 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 6584ED6831
+	for <lists+linux-stm32@lfdr.de>; Mon, 14 Oct 2019 19:17:31 +0200 (CEST)
 Received: from ip-172-31-3-76.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 1F353C36B0B;
-	Mon, 14 Oct 2019 17:16:49 +0000 (UTC)
-Received: from mail-oi1-f193.google.com (mail-oi1-f193.google.com
- [209.85.167.193])
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 33B0FC36B0B;
+	Mon, 14 Oct 2019 17:17:31 +0000 (UTC)
+Received: from mail-oi1-f196.google.com (mail-oi1-f196.google.com
+ [209.85.167.196])
  (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 525B9C36B09
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id AAC2FC36B09
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Mon, 14 Oct 2019 17:16:47 +0000 (UTC)
-Received: by mail-oi1-f193.google.com with SMTP id k20so14380526oih.3
+ Mon, 14 Oct 2019 17:17:28 +0000 (UTC)
+Received: by mail-oi1-f196.google.com with SMTP id k9so14383123oib.7
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Mon, 14 Oct 2019 10:16:47 -0700 (PDT)
+ Mon, 14 Oct 2019 10:17:28 -0700 (PDT)
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=1e100.net; s=20161025;
  h=x-gm-message-state:date:from:to:cc:subject:message-id:references
  :mime-version:content-disposition:in-reply-to:user-agent;
- bh=a8hIcdl2e+um++/nUAcgtky3A53BnPYT6tM1T8gzirE=;
- b=GlIJtJj2qpa2TfY76GuWEqGiSW3PXOPhEdyKrBr0IRY5EDLUyk1IwcFUnGQuSo4XrX
- uJU6F0X28YAIPcbw3jjmQptlCz3fwG6oitYmNtGXeUuNxj6QzHyKdY09sluCnTCxx/Wf
- ZaB6nB4uL6L4JveVrGKI6G/1HMvuymcfRWg6MyBdOGeewYzdY7wONTGqf+mzZxCIFGiF
- PZ8L51OsqdaGLGmnCpE6t0RYW180KH8BsZfXEo+/kt8pr44fLXlS1YZLadKuz+GfHvFl
- A+pl0/m+67CEPS2fsLWAClJN1NCSWAAn8k6Z/4WKBMEXMj+mEkhn+u1wtdTLlDDan7M6
- FyNg==
-X-Gm-Message-State: APjAAAUYQi52De5DaQfZzjIAzejAii9xe1E2ByZAuyKjNfG1Dp6cVhrx
- 8F89Dzb2DYwgt7jeXj146g==
-X-Google-Smtp-Source: APXvYqzQz9wZdnGUi/ME0QUo9eS9TqcibXX1bHdajNQOR2xvzskepx0v/CFKXkThQgariekycHrvyQ==
-X-Received: by 2002:aca:b841:: with SMTP id i62mr24164992oif.123.1571073405919; 
- Mon, 14 Oct 2019 10:16:45 -0700 (PDT)
+ bh=+b0QR5MF7DVCOWcWE3GZU/teF1mt8LRV+r1yfAkDfws=;
+ b=bQaN9/npPZZu9kpt7g0rZVku1t9pdyCdxBBwszRYR6ojNR4LrEvK5nNYWdck8u4LQf
+ X0bwOEQXVwKC+tNKv+l0L13Af287SEMMkaXEt2Q7sds72Wlw8Gz+pQkFG1BnJF//QYe3
+ 7HOD+Hor9g8QLvxt5IYNaKNsub5laUCd5y5uP2A1g+/YsfLFYBAe04rZz3w19DGIyxT9
+ w6MXiDjGo4RVyeWvIvHxqilh+AKloF0C6dYUaaFLx58RBxQd0tszzmbQqNv+uE4oYkMz
+ grGqXvXQuvOtamCCzwKKWas1JX170TKBPoJefIe7DSDIV0KbEavPugVc/bocBUylfGVR
+ IilQ==
+X-Gm-Message-State: APjAAAUQS9hq8jLQBsHu8Fak5SkQf2ScyY1WeDayXuEwwMQJbUAQmpNf
+ BXWTYJ8m6ktOSisD93hR1A==
+X-Google-Smtp-Source: APXvYqwYipBsJ3yRLmNQwqolPY8YtV2dTSLL7DuXyoSS8Rs5Z+4QzavFZ+eAv1k7qSeBpao+RCMibA==
+X-Received: by 2002:aca:d44e:: with SMTP id l75mr25527685oig.44.1571073447359; 
+ Mon, 14 Oct 2019 10:17:27 -0700 (PDT)
 Received: from localhost (24-155-109-49.dyn.grandenetworks.net.
  [24.155.109.49])
- by smtp.gmail.com with ESMTPSA id z185sm5729184oia.50.2019.10.14.10.16.45
+ by smtp.gmail.com with ESMTPSA id n127sm5749817oia.0.2019.10.14.10.17.26
  (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Mon, 14 Oct 2019 10:16:45 -0700 (PDT)
-Date: Mon, 14 Oct 2019 12:16:44 -0500
+ Mon, 14 Oct 2019 10:17:26 -0700 (PDT)
+Date: Mon, 14 Oct 2019 12:17:26 -0500
 From: Rob Herring <robh@kernel.org>
 To: Benjamin Gaignard <benjamin.gaignard@st.com>
-Message-ID: <20191014171644.GA4140@bogus>
-References: <20191014091756.23763-1-benjamin.gaignard@st.com>
+Message-ID: <20191014171726.GA5625@bogus>
+References: <20191014092021.24020-1-benjamin.gaignard@st.com>
 MIME-Version: 1.0
 Content-Disposition: inline
-In-Reply-To: <20191014091756.23763-1-benjamin.gaignard@st.com>
+In-Reply-To: <20191014092021.24020-1-benjamin.gaignard@st.com>
 User-Agent: Mutt/1.10.1 (2018-07-13)
-Cc: ohad@wizery.com, mark.rutland@arm.com, devicetree@vger.kernel.org,
- linux-remoteproc@vger.kernel.org, linux-kernel@vger.kernel.org,
- bjorn.andersson@linaro.org, robh+dt@kernel.org,
- linux-stm32@st-md-mailman.stormreply.com, linux-arm-kernel@lists.infradead.org
-Subject: Re: [Linux-stm32] [PATCH v3] dt-bindings: hwlock: Convert stm32
- hwspinlock bindings to json-schema
+Cc: mark.rutland@arm.com, devicetree@vger.kernel.org,
+ linux-kernel@vger.kernel.org, yannick.fertre@st.com, robh+dt@kernel.org,
+ mchehab@kernel.org, linux-stm32@st-md-mailman.stormreply.com,
+ linux-arm-kernel@lists.infradead.org, linux-media@vger.kernel.org
+Subject: Re: [Linux-stm32] [PATCH v3] dt-bindings: media: Convert stm32 cec
+ bindings to json-schema
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -69,24 +69,24 @@ Content-Transfer-Encoding: 7bit
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
-On Mon, 14 Oct 2019 11:17:56 +0200, Benjamin Gaignard wrote:
-> Convert the STM32 hwspinlock binding to DT schema format using json-schema
+On Mon, 14 Oct 2019 11:20:20 +0200, Benjamin Gaignard wrote:
+> Convert the STM32 cec binding to DT schema format using json-schema
 > 
 > Signed-off-by: Benjamin Gaignard <benjamin.gaignard@st.com>
 > ---
-> change in v3:
-> - use (GPL-2.0-only OR BSD-2-Clause)
+> changes in v3:
+> - use (GPL-2.0-only OR BSD-2-Clause) license
 > 
-> change in v2:
+> changes in v2:
 > - use BSD-2-Clause license
-> - use const for #hwlock-cells
 > - add additionalProperties: false
+> - remove pinctrl-names and pinctrl-[0-9]
 > 
->  .../bindings/hwlock/st,stm32-hwspinlock.txt        | 23 ----------
->  .../bindings/hwlock/st,stm32-hwspinlock.yaml       | 50 ++++++++++++++++++++++
->  2 files changed, 50 insertions(+), 23 deletions(-)
->  delete mode 100644 Documentation/devicetree/bindings/hwlock/st,stm32-hwspinlock.txt
->  create mode 100644 Documentation/devicetree/bindings/hwlock/st,stm32-hwspinlock.yaml
+>  .../devicetree/bindings/media/st,stm32-cec.txt     | 19 --------
+>  .../devicetree/bindings/media/st,stm32-cec.yaml    | 54 ++++++++++++++++++++++
+>  2 files changed, 54 insertions(+), 19 deletions(-)
+>  delete mode 100644 Documentation/devicetree/bindings/media/st,stm32-cec.txt
+>  create mode 100644 Documentation/devicetree/bindings/media/st,stm32-cec.yaml
 > 
 
 Applied, thanks.
