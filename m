@@ -2,82 +2,48 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id 0028AD5EE8
-	for <lists+linux-stm32@lfdr.de>; Mon, 14 Oct 2019 11:31:24 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 640D3D61F6
+	for <lists+linux-stm32@lfdr.de>; Mon, 14 Oct 2019 14:05:09 +0200 (CEST)
 Received: from ip-172-31-3-76.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id B0113C36B0B;
-	Mon, 14 Oct 2019 09:31:24 +0000 (UTC)
-Received: from mx07-00178001.pphosted.com (mx08-00178001.pphosted.com
- [91.207.212.93])
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 2332FC36B0B;
+	Mon, 14 Oct 2019 12:05:09 +0000 (UTC)
+Received: from heliosphere.sirena.org.uk (heliosphere.sirena.org.uk
+ [172.104.155.198])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 1BF91C36B09
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 238F0C36B09
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Mon, 14 Oct 2019 09:31:23 +0000 (UTC)
-Received: from pps.filterd (m0046661.ppops.net [127.0.0.1])
- by mx08-00178001.pphosted.com (8.16.0.42/8.16.0.42) with SMTP id
- x9E9QkD5030661; Mon, 14 Oct 2019 11:31:15 +0200
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=st.com;
- h=from : to : cc : subject
- : date : message-id : references : in-reply-to : content-type : content-id
- : content-transfer-encoding : mime-version; s=STMicroelectronics;
- bh=KI1W9NnqSI6ale1L9ea5OODgAwjKQWjZ2mSmupenYFs=;
- b=XUnYLDHqs6RpmH/SaSir74pNBMhZiklWKYfV8pXbXRDhfmv0B89q72orDt2WqBEmsAsf
- OuMSsYSBIHwP3PY+zaMmTYjruOxrrRGe8VOZ1TzqJhI9auIvcAiO6nHbYPLwHnKwaGAk
- uamXlBazIuo7K2Dc7XvQl8P6EbepxbOqEgLgRlBhI6xL5Mx4LNm9OUZn9fKb+prpEpGr
- yfNgNNBu4LsIxU1ZRFBhvENmeHwrl058Hlr3toEhsd/zGSMhKxFVyUwRIOcQl/ALjytV
- C1IjelQtf443xK8ZquTbtbDl/IzB9PhH/eedg00OA2jPeWRUFXXyv+aTYFAOwAQmhTCM eQ== 
-Received: from beta.dmz-eu.st.com (beta.dmz-eu.st.com [164.129.1.35])
- by mx08-00178001.pphosted.com with ESMTP id 2vk5qj1e37-1
- (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
- Mon, 14 Oct 2019 11:31:15 +0200
-Received: from euls16034.sgp.st.com (euls16034.sgp.st.com [10.75.44.20])
- by beta.dmz-eu.st.com (STMicroelectronics) with ESMTP id D3D6B100039;
- Mon, 14 Oct 2019 11:31:14 +0200 (CEST)
-Received: from Webmail-eu.st.com (sfhdag3node3.st.com [10.75.127.9])
- by euls16034.sgp.st.com (STMicroelectronics) with ESMTP id B9B7C2BBC67;
- Mon, 14 Oct 2019 11:31:14 +0200 (CEST)
-Received: from SFHDAG3NODE3.st.com (10.75.127.9) by SFHDAG3NODE3.st.com
- (10.75.127.9) with Microsoft SMTP Server (TLS) id 15.0.1347.2; Mon, 14 Oct
- 2019 11:31:14 +0200
-Received: from SFHDAG3NODE3.st.com ([fe80::3507:b372:7648:476]) by
- SFHDAG3NODE3.st.com ([fe80::3507:b372:7648:476%20]) with mapi id
- 15.00.1347.000; Mon, 14 Oct 2019 11:31:14 +0200
-From: Benjamin GAIGNARD <benjamin.gaignard@st.com>
-To: Marc Zyngier <maz@kernel.org>
-Thread-Topic: [PATCH] ARM: dts: stm32: Enable high resolution timer
-Thread-Index: AQHVdRBWUjMsQJUFmUWpOD9xBCdtcac/P/aAgAAUtICAAAFTgIAAARMAgAAD+ACAGn2NgA==
-Date: Mon, 14 Oct 2019 09:31:14 +0000
-Message-ID: <61dda183-cd53-153b-8ed1-e2ecb8f96e03@st.com>
-References: <20190927084819.645-1-benjamin.gaignard@st.com>
- <da48ce9633441cd0186518fa7ce1d528@www.loen.fr>
- <341949c8-7864-5d65-2797-988022724a4c@st.com>
- <ff11797da8f049b354797689754fde52@www.loen.fr>
- <69af57d1-13a9-9e35-78f2-4a0d17bdaf6d@st.com>
- <e376301a8e9ec02dfd7713748abed83e@www.loen.fr>
-In-Reply-To: <e376301a8e9ec02dfd7713748abed83e@www.loen.fr>
-Accept-Language: en-US
-Content-Language: en-US
-X-MS-Has-Attach: 
-X-MS-TNEF-Correlator: 
-user-agent: Mozilla/5.0 (X11; Linux x86_64; rv:60.0) Gecko/20100101
- Thunderbird/60.9.0
-x-ms-exchange-messagesentrepresentingtype: 1
-x-ms-exchange-transport-fromentityheader: Hosted
-x-originating-ip: [10.75.127.46]
-Content-ID: <6FE1FB0E6257394EB81AD2DCD2303F11@st.com>
-MIME-Version: 1.0
-X-Proofpoint-Virus-Version: vendor=fsecure engine=2.50.10434:6.0.95,1.0.8
- definitions=2019-10-14_06:2019-10-10,2019-10-14 signatures=0
-Cc: "mark.rutland@arm.com" <mark.rutland@arm.com>,
- "devicetree@vger.kernel.org" <devicetree@vger.kernel.org>,
- "linux-kernel@vger.kernel.org" <linux-kernel@vger.kernel.org>,
- "robh+dt@kernel.org" <robh+dt@kernel.org>,
- "linux-stm32@st-md-mailman.stormreply.com"
- <linux-stm32@st-md-mailman.stormreply.com>,
- "linux-arm-kernel@lists.infradead.org" <linux-arm-kernel@lists.infradead.org>
-Subject: Re: [Linux-stm32] [PATCH] ARM: dts: stm32: Enable high resolution
-	timer
+ Mon, 14 Oct 2019 12:05:08 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
+ d=sirena.org.uk; s=20170815-heliosphere; h=Date:Message-Id:In-Reply-To:
+ Subject:Cc:To:From:Sender:Reply-To:MIME-Version:Content-Type:
+ Content-Transfer-Encoding:Content-ID:Content-Description:Resent-Date:
+ Resent-From:Resent-Sender:Resent-To:Resent-Cc:Resent-Message-ID:References:
+ List-Id:List-Help:List-Unsubscribe:List-Subscribe:List-Post:List-Owner:
+ List-Archive; bh=ZEvx4rHQS/ChhCZb0lOjQFPU66r3utXfBR2h6nSX49o=; b=hy0uOOWFeDFK
+ 1sjkIDRwNDFgGrVSpw/8V93GKT59q6Xb9FQgw3HmDUZAzJskk40j0j5L1gvpCYXWDSm+vTGKypof0
+ lGkz2Wqv5cimCBiMKF8280h4QfQn16Bvp0P0ssUulEBVScTlPehMSbkm5ftvYuzxi5eIMV0ZRptpo
+ Ahdf0=;
+Received: from cpc102320-sgyl38-2-0-cust46.18-2.cable.virginm.net
+ ([82.37.168.47] helo=ypsilon.sirena.org.uk)
+ by heliosphere.sirena.org.uk with esmtpsa
+ (TLS1.3:ECDHE_RSA_AES_256_GCM_SHA384:256) (Exim 4.92)
+ (envelope-from <broonie@sirena.co.uk>)
+ id 1iJz5u-0007WY-Tx; Mon, 14 Oct 2019 12:04:59 +0000
+Received: by ypsilon.sirena.org.uk (Postfix, from userid 1000)
+ id 64B702742162; Mon, 14 Oct 2019 13:04:58 +0100 (BST)
+From: Mark Brown <broonie@kernel.org>
+To: Olivier Moysan <olivier.moysan@st.com>
+In-Reply-To: <20191011084816.14279-1-olivier.moysan@st.com>
+X-Patchwork-Hint: ignore
+Message-Id: <20191014120458.64B702742162@ypsilon.sirena.org.uk>
+Date: Mon, 14 Oct 2019 13:04:58 +0100 (BST)
+Cc: alsa-devel@alsa-project.org, tiwai@suse.com, lgirdwood@gmail.com,
+ linux-kernel@vger.kernel.org, Mark Brown <broonie@kernel.org>,
+ mcoquelin.stm32@gmail.com, perex@perex.cz,
+ linux-stm32@st-md-mailman.stormreply.com, linux-arm-kernel@lists.infradead.org
+Subject: [Linux-stm32] Applied "ASoC: stm32: spdifrx: retry synchronization
+	in sync state" to the asoc tree
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -89,61 +55,108 @@ List-Post: <mailto:linux-stm32@st-md-mailman.stormreply.com>
 List-Help: <mailto:linux-stm32-request@st-md-mailman.stormreply.com?subject=help>
 List-Subscribe: <https://st-md-mailman.stormreply.com/mailman/listinfo/linux-stm32>, 
  <mailto:linux-stm32-request@st-md-mailman.stormreply.com?subject=subscribe>
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: base64
+MIME-Version: 1.0
+Content-Type: text/plain; charset="us-ascii"
+Content-Transfer-Encoding: 7bit
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
-DQpPbiA5LzI3LzE5IDI6NTkgUE0sIE1hcmMgWnluZ2llciB3cm90ZToNCj4gT24gMjAxOS0wOS0y
-NyAxMzo0NCwgQmVuamFtaW4gR0FJR05BUkQgd3JvdGU6DQo+PiBPbiA5LzI3LzE5IDI6NDEgUE0s
-IE1hcmMgWnluZ2llciB3cm90ZToNCj4+PiBPbiAyMDE5LTA5LTI3IDEzOjM2LCBCZW5qYW1pbiBH
-QUlHTkFSRCB3cm90ZToNCj4+Pj4gT24gOS8yNy8xOSAxOjIyIFBNLCBNYXJjIFp5bmdpZXIgd3Jv
-dGU6DQo+Pj4+PiBPbiAyMDE5LTA5LTI3IDA5OjQ4LCBCZW5qYW1pbiBHYWlnbmFyZCB3cm90ZToN
-Cj4+Pj4+PiBBZGRpbmcgYWx3YXlzLW9uIG1ha2VzIGFybSBhcmNoX3RpbWVyIGNsYWltIHRvIGJl
-IGFuIGhpZ2ggcmVzb2x1dGlvbg0KPj4+Pj4+IHRpbWVyLg0KPj4+Pj4+IFRoYXQgaXMgcG9zc2li
-bGUgYmVjYXVzZSBwb3dlciBtb2RlIHdvbid0IHN0b3AgY2xvY2tpbmcgdGhlIHRpbWVyLg0KPj4+
-Pj4NCj4+Pj4+IFRoZSAiYWx3YXlzLW9uIiBpcyBub3QgYWJvdXQgdGhlIGNsb2NrLiBJdCBpcyBh
-Ym91dCB0aGUgY29tcGFyYXRvci4NCj4+Pj4+IFRoZSBjbG9jayBpdHNlbGYgaXMgKmd1YXJhbnRl
-ZWQqIHRvIGFsd2F5cyB0aWNrLiBJZiBpdCBkaWRuJ3QsDQo+Pj4+PiB0aGF0J2QgYmUNCj4+Pj4+
-IGFuIGludGVncmF0aW9uIGJ1ZywgYW5kIGEgcHJldHR5IGJhZCBvbmUuDQo+Pj4+Pg0KPj4+Pj4g
-V2hhdCB5b3UncmUgY2xhaW1pbmcgaGVyZSBpcyB0aGF0IHlvdXIgQ1BVIG5ldmVyIGVudGVycyBh
-IGxvdy1wb3dlcg0KPj4+Pj4gbW9kZT8NCj4+Pj4+IEV2ZXI/IEkgZmluZCB0aGlzIHZlcnkgaGFy
-ZCB0byBiZWxpZXZlLg0KPj4+Pj4NCj4+Pj4+IEZ1cnRoZXJtb3JlLCBjbGFpbWluZyB0aGF0IGFs
-d2F5cy1vbiBpcyB0aGUgd2F5IHRvIGZvcmNlIHRoZSANCj4+Pj4+IGFyY2gtdGltZXINCj4+Pj4+
-IHRvIGJlIGFuIGhydGltZXIgaXMgZmFjdHVhbGx5IHdyb25nLiBUaGlzIGlzIHdoYXQgaGFwcGVu
-cyAqaWYqIA0KPj4+Pj4gdGhpcyBpcw0KPj4+Pj4gdGhlIG9ubHkgdGltZXIgaW4gdGhlIHN5c3Rl
-bS4gVGhlIG9ubHkgY2FzZSB0aGlzIGlzIHRydWUgaXMgZm9yIA0KPj4+Pj4gdmlydHVhbA0KPj4+
-Pj4gbWFjaGluZXMuIEFueXRoaW5nIGVsc2UgaGFzIGEgZ2xvYmFsIHRpbWVyIHNvbWV3aGVyZSB0
-aGF0IHdpbGwgYWxsb3cNCj4+Pj4+IHRoZSBhcmNoIHRpbWVycyB0byBiZSB1c2VkIGFzIGFuIGhy
-dGltZXIuDQo+Pj4+Pg0KPj4+Pj4gSSdtIHByZXR0eSBzdXJlIHlvdSB0b28gaGF2ZSBhIGdsb2Jh
-bCB0aW1lciBzb21ld2hlcmUgaW4geW91ciBzeXN0ZW0uDQo+Pj4+PiBFbmFibGUgaXQsIGFuZCBl
-bmpveSBocnRpbWVycyB3aXRob3V0IGhhdmluZyB0byBsaWUgYWJvdXQgdGhlDQo+Pj4+PiBwcm9w
-ZXJ0aWVzDQo+Pj4+PiBvZiB5b3VyIHN5c3RlbSEgOy0pDQo+Pj4+DQo+Pj4+IEhpIE1hcmMsDQo+
-Pj4+DQo+Pj4+IFRoaXMgU29DIGRvZXNuJ3QgaGF2ZSBhbnkgb3RoZXIgZ2xvYmFsIHRpbWVyLiBV
-c2UgYXJjaF90aW1lIGlzIHRoZSANCj4+Pj4gb25seQ0KPj4+PiB3ZSBoYXZlIHRvIHByb3ZpZGUg
-aHJ0aW1lciBvbiB0aGlzIHN5c3RlbS4NCj4+Pg0KPj4+IEFuZCB5b3UgZG9uJ3QgaGF2ZSBhbnkg
-Zm9ybSBvZiBwb3dlciBtYW5hZ2VtZW50IGVpdGhlcj8gV2hhdCBoYXBwZW5zIA0KPj4+IHdoZW4N
-Cj4+PiB5b3VyIENQVSBnb2VzIGludG8gaWRsZT8gSWYgeW91ciBzeXN0ZW0gZG9lcyBhbnkgZm9y
-bSBvZiBwb3dlciANCj4+PiBtYW5hZ2VtZW50DQo+Pj4gKmFuZCogZG9lc24ndCBoYXZlIGEgc2Vw
-YXJhdGUgdGltZXIsIGl0IGlzIHJlbWFya2FibHkgYnJva2VuLg0KPj4NCj4+IEV2ZW4gaW4gbG93
-LXBvd2VyIG1vZGVzIHRoaXMgdGltZXIgaXMgYWx3YXlzIHBvd2VyZWQgYW5kIGNsb2NrZWQgc28g
-aXQNCj4+IGlzIHdvcmtpbmcgZmluZS4NCj4NCj4gWW91J3JlIG1pc3NpbmcgdGhlIHBvaW50IGFn
-YWluLiBJdCBpcyBub3QgYWJvdXQgdGhlIGNsb2NrLCBidXQgdGhlIA0KPiBjb21wYXJhdG9yDQo+
-IHRoYXQgaXMgaW50ZXJuYWwgdG8gdGhlIENQVSwgYW5kIG5vdCBmdW5jdGlvbmFsIHdoZW4gdGhl
-IENQVSBpcyBpbiBpdHMgDQo+IGxvd2VzdA0KPiBwb3dlciBtb2RlLiBTZWUgYWxzbyB0aGUgdmVy
-YmlhZ2UgaW4gWzFdICg0NC4zIFNUR0VOIGZ1bmN0aW9uYWwgDQo+IGRlc2NyaXB0aW9uKSwNCj4g
-d2hpY2ggaW5kaWNhdGVzIHRoYXQgdGhlIGNsb2NrIHNvdXJjZSBhY3R1YWxseSBkaWVzIGluIGxv
-dy1wb3dlciBtb2RlIA0KPiAoZ29pbmcNCj4gYWdhaW5zdCB0aGUgYXJjaGl0ZWN0dXJlIHdoaWNo
-IG1hbmRhdGVzIGl0IHRvIGJlIGFsd2F5cy1vbikuDQo+DQo+IEFsc28sIGNvbWluZyBiYWNrIHRv
-IHlvdXIgZWFybGllciBhc3NlcnRpb24gKCJUaGlzIFNvQyBkb2Vzbid0IGhhdmUgDQo+IGFueSBv
-dGhlcg0KPiBnbG9iYWwgdGltZXIiKTogVGhlIGRvY3VtZW50YXRpb24gYXQgWzFdIHNob3dzIGF0
-IGxlYXN0IDE3IHRpbWVycyB0aGF0IA0KPiBjb3VsZA0KPiBiZSB1c2VkIGFuZCBhdm9pZCB0aGlz
-IGRpcnR5IGhhY2suDQo+DQo+IFNvIGZvciB3aGF0IGl0IGlzIHdvcnRoLCBOQUsgdG8gdGhpcyBw
-YXRjaC4NCg0KDQpIaSBNYXJjLA0KDQpJIGhhdmUgbGlzdGVuIHlvdXIgcmVtYXJrcyBhbmQgcHJv
-cG9zZSBhbm90aGVyIHdheSB0byBzb2x2ZSB0aGlzIGlzc3VlOg0KDQpodHRwczovL2xrbWwub3Jn
-L2xrbWwvMjAxOS8xMC85LzY5MA0KDQpUaGFua3MsDQoNCkJlbmphbWluDQoNCg0KPg0KPiDCoMKg
-wqDCoMKgwqDCoCBNLg0KPg0KPiBbMV0gaHR0cHM6Ly93d3cuc3QuY29tL3Jlc291cmNlL2VuL3Jl
-ZmVyZW5jZV9tYW51YWwvZG0wMDM2NjM1NS5wZGYKX19fX19fX19fX19fX19fX19fX19fX19fX19f
-X19fX19fX19fX19fX19fX19fX18KTGludXgtc3RtMzIgbWFpbGluZyBsaXN0CkxpbnV4LXN0bTMy
-QHN0LW1kLW1haWxtYW4uc3Rvcm1yZXBseS5jb20KaHR0cHM6Ly9zdC1tZC1tYWlsbWFuLnN0b3Jt
-cmVwbHkuY29tL21haWxtYW4vbGlzdGluZm8vbGludXgtc3RtMzIK
+The patch
+
+   ASoC: stm32: spdifrx: retry synchronization in sync state
+
+has been applied to the asoc tree at
+
+   https://git.kernel.org/pub/scm/linux/kernel/git/broonie/sound.git for-5.5
+
+All being well this means that it will be integrated into the linux-next
+tree (usually sometime in the next 24 hours) and sent to Linus during
+the next merge window (or sooner if it is a bug fix), however if
+problems are discovered then the patch may be dropped or reverted.  
+
+You may get further e-mails resulting from automated or manual testing
+and review of the tree, please engage with people reporting problems and
+send followup patches addressing any issues that are reported if needed.
+
+If any updates are required or you are submitting further changes they
+should be sent as incremental updates against current git, existing
+patches will not be replaced.
+
+Please add any relevant lists and maintainers to the CCs when replying
+to this mail.
+
+Thanks,
+Mark
+
+From 0c93c291321f2ba8dc4cd3d4df74801caaa297db Mon Sep 17 00:00:00 2001
+From: Olivier Moysan <olivier.moysan@st.com>
+Date: Fri, 11 Oct 2019 10:48:16 +0200
+Subject: [PATCH] ASoC: stm32: spdifrx: retry synchronization in sync state
+
+When STM32 SPDIFRX is in sync state, allow multiple
+synchro attempts, instead of exiting on first unsuccessful
+trial. This is useful when spdif signal is not immediately
+available on input. This also allows Pulseaudio to check
+iec capture device availability when no signal is present.
+
+Signed-off-by: Olivier Moysan <olivier.moysan@st.com>
+Link: https://lore.kernel.org/r/20191011084816.14279-1-olivier.moysan@st.com
+Signed-off-by: Mark Brown <broonie@kernel.org>
+---
+ sound/soc/stm/stm32_spdifrx.c | 18 ++++++++++++++++--
+ 1 file changed, 16 insertions(+), 2 deletions(-)
+
+diff --git a/sound/soc/stm/stm32_spdifrx.c b/sound/soc/stm/stm32_spdifrx.c
+index cd4b235fce57..3fd28ee01675 100644
+--- a/sound/soc/stm/stm32_spdifrx.c
++++ b/sound/soc/stm/stm32_spdifrx.c
+@@ -351,6 +351,8 @@ static int stm32_spdifrx_start_sync(struct stm32_spdifrx_data *spdifrx)
+ 		     SPDIFRX_CR_CUMSK | SPDIFRX_CR_PTMSK | SPDIFRX_CR_RXSTEO;
+ 		cr_mask = cr;
+ 
++		cr |= SPDIFRX_CR_NBTRSET(SPDIFRX_NBTR_63);
++		cr_mask |= SPDIFRX_CR_NBTR_MASK;
+ 		cr |= SPDIFRX_CR_SPDIFENSET(SPDIFRX_SPDIFEN_SYNC);
+ 		cr_mask |= SPDIFRX_CR_SPDIFEN_MASK;
+ 		ret = regmap_update_bits(spdifrx->regmap, STM32_SPDIFRX_CR,
+@@ -666,7 +668,7 @@ static irqreturn_t stm32_spdifrx_isr(int irq, void *devid)
+ 	struct snd_pcm_substream *substream = spdifrx->substream;
+ 	struct platform_device *pdev = spdifrx->pdev;
+ 	unsigned int cr, mask, sr, imr;
+-	unsigned int flags;
++	unsigned int flags, sync_state;
+ 	int err = 0, err_xrun = 0;
+ 
+ 	regmap_read(spdifrx->regmap, STM32_SPDIFRX_SR, &sr);
+@@ -726,11 +728,23 @@ static irqreturn_t stm32_spdifrx_isr(int irq, void *devid)
+ 	}
+ 
+ 	if (err) {
+-		/* SPDIFRX in STATE_STOP. Disable SPDIFRX to clear errors */
++		regmap_read(spdifrx->regmap, STM32_SPDIFRX_CR, &cr);
++		sync_state = FIELD_GET(SPDIFRX_CR_SPDIFEN_MASK, cr) &&
++			     SPDIFRX_SPDIFEN_SYNC;
++
++		/* SPDIFRX is in STATE_STOP. Disable SPDIFRX to clear errors */
+ 		cr = SPDIFRX_CR_SPDIFENSET(SPDIFRX_SPDIFEN_DISABLE);
+ 		regmap_update_bits(spdifrx->regmap, STM32_SPDIFRX_CR,
+ 				   SPDIFRX_CR_SPDIFEN_MASK, cr);
+ 
++		/* If SPDIFRX was in STATE_SYNC, retry synchro */
++		if (sync_state) {
++			cr = SPDIFRX_CR_SPDIFENSET(SPDIFRX_SPDIFEN_SYNC);
++			regmap_update_bits(spdifrx->regmap, STM32_SPDIFRX_CR,
++					   SPDIFRX_CR_SPDIFEN_MASK, cr);
++			return IRQ_HANDLED;
++		}
++
+ 		if (substream)
+ 			snd_pcm_stop(substream, SNDRV_PCM_STATE_DISCONNECTED);
+ 
+-- 
+2.20.1
+
+_______________________________________________
+Linux-stm32 mailing list
+Linux-stm32@st-md-mailman.stormreply.com
+https://st-md-mailman.stormreply.com/mailman/listinfo/linux-stm32
