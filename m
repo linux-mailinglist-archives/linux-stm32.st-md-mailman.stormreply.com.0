@@ -2,57 +2,48 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id BEA58D6842
-	for <lists+linux-stm32@lfdr.de>; Mon, 14 Oct 2019 19:19:33 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 60ADCD6981
+	for <lists+linux-stm32@lfdr.de>; Mon, 14 Oct 2019 20:34:34 +0200 (CEST)
 Received: from ip-172-31-3-76.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 88557C36B0B;
-	Mon, 14 Oct 2019 17:19:33 +0000 (UTC)
-Received: from mail-ot1-f66.google.com (mail-ot1-f66.google.com
- [209.85.210.66])
- (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id DA1A1C36B0B;
+	Mon, 14 Oct 2019 18:34:33 +0000 (UTC)
+Received: from Galois.linutronix.de (Galois.linutronix.de [193.142.43.55])
+ (using TLSv1.2 with cipher DHE-RSA-AES128-SHA (128/128 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 7D240C36B09
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id ACFDCC36B09
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Mon, 14 Oct 2019 17:19:31 +0000 (UTC)
-Received: by mail-ot1-f66.google.com with SMTP id y39so14447787ota.7
- for <linux-stm32@st-md-mailman.stormreply.com>;
- Mon, 14 Oct 2019 10:19:31 -0700 (PDT)
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20161025;
- h=x-gm-message-state:date:from:to:cc:subject:message-id:references
- :mime-version:content-disposition:in-reply-to:user-agent;
- bh=+uUeApNQ/RRi9uJOAghMByheAKVmX2xvxdgsFJpIgzI=;
- b=l0eZJESkadaTwmklIMmzKnR4Bl9Ze5V7WCZy+lwrnZcIg3lE1gGT8KcdZtLug5/Dt/
- NhtBHl1pfhVKi4TW7jesO9bWgdvJiCHHsWHQ04hjCVw/wpkMQbEgxqLw+fjHvAWxL8aK
- JMvMvjMYE9soJKYPxtk9EgQy76J/aHqEKsArMAIF/ML5eqIF9iPNezNkGdK02uT45JjI
- LMUVqD4NT6/XzW1kQCDIpjhRgQwrBDh3LPU33cg3SffwlO6KHR2aoJmXpKdqL8FAaZOx
- s4eaB9ykRYj3Rem3Sq6o+nnUOBFYfJT7kLYcNc3uu0QLY3i23C/h5/YouA9OrNdua/G5
- tBPw==
-X-Gm-Message-State: APjAAAWnBx24kxMocxhPRJ2vVvnu5VGc33AFaHRU8ImfGAEXvsqJJlsT
- HFcfdfSeueDknodygrLOnwLfsM8=
-X-Google-Smtp-Source: APXvYqwwc3TAele/wXkLIzld34hhRrtg4CXjhYEk7aGrc/Ao9TLXsgP0bWPSDHfDCTXjh05CVuGCDw==
-X-Received: by 2002:a05:6830:1103:: with SMTP id
- w3mr25682147otq.312.1571073570114; 
- Mon, 14 Oct 2019 10:19:30 -0700 (PDT)
-Received: from localhost (24-155-109-49.dyn.grandenetworks.net.
- [24.155.109.49])
- by smtp.gmail.com with ESMTPSA id v24sm5478615ote.23.2019.10.14.10.19.28
- (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Mon, 14 Oct 2019 10:19:28 -0700 (PDT)
-Date: Mon, 14 Oct 2019 12:19:27 -0500
-From: Rob Herring <robh@kernel.org>
-To: Benjamin Gaignard <benjamin.gaignard@st.com>
-Message-ID: <20191014171927.GA9665@bogus>
-References: <20191014092316.24337-1-benjamin.gaignard@st.com>
+ Mon, 14 Oct 2019 18:34:32 +0000 (UTC)
+Received: from p5b06da22.dip0.t-ipconnect.de ([91.6.218.34] helo=nanos)
+ by Galois.linutronix.de with esmtpsa (TLS1.2:DHE_RSA_AES_256_CBC_SHA256:256)
+ (Exim 4.80) (envelope-from <tglx@linutronix.de>)
+ id 1iK5Ao-0005Xr-Rk; Mon, 14 Oct 2019 20:34:26 +0200
+Date: Mon, 14 Oct 2019 20:34:15 +0200 (CEST)
+From: Thomas Gleixner <tglx@linutronix.de>
+To: Benjamin GAIGNARD <benjamin.gaignard@st.com>
+In-Reply-To: <c3565734-05e3-0a9d-1101-92c4be476ae6@st.com>
+Message-ID: <alpine.DEB.2.21.1910142032590.1880@nanos.tec.linutronix.de>
+References: <20191009160246.17898-1-benjamin.gaignard@st.com>
+ <alpine.DEB.2.21.1910141441350.2531@nanos.tec.linutronix.de>
+ <a4b4b785-c471-a3c2-2c41-01bd9865e479@st.com>
+ <alpine.DEB.2.21.1910141535500.2531@nanos.tec.linutronix.de>
+ <16f7e8e9-eefe-5973-a08a-3e1823d20034@st.com>
+ <alpine.DEB.2.21.1910141620100.2531@nanos.tec.linutronix.de>
+ <c3565734-05e3-0a9d-1101-92c4be476ae6@st.com>
+User-Agent: Alpine 2.21 (DEB 202 2017-01-01)
 MIME-Version: 1.0
-Content-Disposition: inline
-In-Reply-To: <20191014092316.24337-1-benjamin.gaignard@st.com>
-User-Agent: Mutt/1.10.1 (2018-07-13)
-Cc: devicetree@vger.kernel.org, daniel.lezcano@linaro.org,
- linux-kernel@vger.kernel.org, robh+dt@kernel.org, tglx@linutronix.de,
- linux-stm32@st-md-mailman.stormreply.com, linux-arm-kernel@lists.infradead.org
-Subject: Re: [Linux-stm32] [PATCH v3] dt-bindings: timer: Convert stm32
- timer bindings to json-schema
+X-Linutronix-Spam-Score: -1.0
+X-Linutronix-Spam-Level: -
+X-Linutronix-Spam-Status: No , -1.0 points, 5.0 required, ALL_TRUSTED=-1,
+ SHORTCIRCUIT=-0.0001
+Cc: "marc.zyngier@arm.com" <marc.zyngier@arm.com>,
+ "fweisbec@gmail.com" <fweisbec@gmail.com>,
+ "daniel.lezcano@linaro.org" <daniel.lezcano@linaro.org>,
+ "linux-kernel@vger.kernel.org" <linux-kernel@vger.kernel.org>,
+ "mingo@kernel.org" <mingo@kernel.org>,
+ "linux-stm32@st-md-mailman.stormreply.com"
+ <linux-stm32@st-md-mailman.stormreply.com>
+Subject: Re: [Linux-stm32] [PATCH] tick: check if broadcast device could
+ really be stopped
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -69,26 +60,25 @@ Content-Transfer-Encoding: 7bit
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
-On Mon, 14 Oct 2019 11:23:16 +0200, Benjamin Gaignard wrote:
-> Convert the STM32 timer binding to DT schema format using json-schema
+On Mon, 14 Oct 2019, Benjamin GAIGNARD wrote:
+> On 10/14/19 4:28 PM, Thomas Gleixner wrote:
+> > Unless you have a solution which works under all circumstances (and the
+> > current patch definitely does not) then you have to deal with the
+> > requirement of the broadcast timer (either physical or software based).
 > 
-> Signed-off-by: Benjamin Gaignard <benjamin.gaignard@st.com>
-> ---
-> changes in v3:
-> - use (GPL-2.0-only OR BSD-2-Clause) license
-> - fix identation
-> - add additionalProperties: false
-> 
->  .../devicetree/bindings/timer/st,stm32-timer.txt   | 22 ----------
->  .../devicetree/bindings/timer/st,stm32-timer.yaml  | 47 ++++++++++++++++++++++
->  2 files changed, 47 insertions(+), 22 deletions(-)
->  delete mode 100644 Documentation/devicetree/bindings/timer/st,stm32-timer.txt
->  create mode 100644 Documentation/devicetree/bindings/timer/st,stm32-timer.yaml
-> 
+> If I follow you I need, for my system, a software based broadcast timer 
+> (tick-broadcast-hrtimer ?).
 
-Applied, thanks.
+Yes, if you don't have a physical one.
+ 
+> If that is correct I 'just' need to add a call to
+> tick_setup_hrtimer_broadcast() in arch/arm/kernel/time.c
 
-Rob
+Correct.
+
+Thanks,
+
+	tglx
 _______________________________________________
 Linux-stm32 mailing list
 Linux-stm32@st-md-mailman.stormreply.com
