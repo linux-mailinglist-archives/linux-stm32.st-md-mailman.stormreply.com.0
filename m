@@ -2,51 +2,52 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id C5584D7D66
-	for <lists+linux-stm32@lfdr.de>; Tue, 15 Oct 2019 19:21:51 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id E9851D7D72
+	for <lists+linux-stm32@lfdr.de>; Tue, 15 Oct 2019 19:22:19 +0200 (CEST)
 Received: from ip-172-31-3-76.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 88F34C36B0B;
-	Tue, 15 Oct 2019 17:21:51 +0000 (UTC)
-Received: from mail-oi1-f194.google.com (mail-oi1-f194.google.com
- [209.85.167.194])
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 9A26FC36B0B;
+	Tue, 15 Oct 2019 17:22:19 +0000 (UTC)
+Received: from mail-ot1-f68.google.com (mail-ot1-f68.google.com
+ [209.85.210.68])
  (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 40DC1C36B09
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id A06EBC36B09
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Tue, 15 Oct 2019 17:21:50 +0000 (UTC)
-Received: by mail-oi1-f194.google.com with SMTP id i16so17536550oie.4
+ Tue, 15 Oct 2019 17:22:17 +0000 (UTC)
+Received: by mail-ot1-f68.google.com with SMTP id g13so17620175otp.8
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Tue, 15 Oct 2019 10:21:50 -0700 (PDT)
+ Tue, 15 Oct 2019 10:22:17 -0700 (PDT)
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=1e100.net; s=20161025;
  h=x-gm-message-state:date:from:to:cc:subject:message-id:references
  :mime-version:content-disposition:in-reply-to:user-agent;
- bh=wMQYKbyhFA0J53uXBrOY3g9qc7SUK0PL+5SCKX00VUU=;
- b=jvMkqb2JJsRC5VQYXmZqc8fHDjoCO9mhH+LpPoalOxH++2qUlvb02LHooEJ13VKJsX
- jte61ib9l/FSN+DAEc6laun5bG4VeWdBumskyZLwzTGIHr9XSEAt5CIUXmNjyeJWT66v
- 7tH0TfLPrLcpPhK4V7ZTPf/jhp7wJHzoAVATcf+1BgRRVjHFnAeDuXFh7RTeWRf85CNs
- RdRUNI4ZYLFitYA6t3fyV99rQgbQALFWIj2DfXxmbNdtJgN/IkO3/3GsvXkM3Oy/GKhO
- 8D8mwpw4botpYAUyCjeZP7WZldAd4/TYePKGdxsa165SQqnk3R0orNz2WJBPAOahR0yJ
- TUhA==
-X-Gm-Message-State: APjAAAW8EOBgiU+0wYzWZ40aaznKVDnTFswWSn0kOqtHv1k6xsXWDXaX
- XL9YR2ILROw3Wue6Tr/4Ew==
-X-Google-Smtp-Source: APXvYqzqnTfEgidDenSlUfa7aOPOWYsLH7H0GHitbZ8rXyoGFRnAK2iUj2pxxTyIJqKthdjAV1LKQQ==
-X-Received: by 2002:aca:dec4:: with SMTP id v187mr30817920oig.46.1571160108888; 
- Tue, 15 Oct 2019 10:21:48 -0700 (PDT)
+ bh=jbHpx7XPETlJ9vzemeHjD6QE7tFzcrH2Jm0Y5GaVUsE=;
+ b=Rn1EzdXZ15HIwmuxqRyE4OYNj0el6AHAAsDhQDwC0m7aAnNzVjmoQlUxWpFduNjeDY
+ uqGeLlydgZIRoHJf7BALRetZflIIUd+/wYSND+bLuOMjm88SpIfqxzcasisLUjdnvjQO
+ CnUTyLFC7LmtNI/G+8epEO5oN1sy7w7i/mtxjrH082irGoeuBh8BjF2WPtBn570BKny6
+ RCiaCu7EKMgyTV/Yy6FHsmF4l7/vurp1z5TGxZx0Mt7aIoRQLXVHe4BAeVfh0ck/LDvN
+ 3baiaMYXBVhx54vHePZL5iD/ijsFBqN6cft1DppWwsM/M4ZFHwaLKM7sce1K9hGjozLR
+ gViA==
+X-Gm-Message-State: APjAAAU43/yffFsDBGd5l2etJOMVthzLB0tnPzhRBSm1xcvJqHZSRKZp
+ kg3uFr74ZqP+dTWLTW+QAg==
+X-Google-Smtp-Source: APXvYqwPKZrxBjDVG/uILAEhdydbS48WivhzBHRDzrcYQxF0oufQKLAlBVKJ72NlODmOQyjYCQPneg==
+X-Received: by 2002:a05:6830:1188:: with SMTP id
+ u8mr26388246otq.190.1571160136331; 
+ Tue, 15 Oct 2019 10:22:16 -0700 (PDT)
 Received: from localhost (24-155-109-49.dyn.grandenetworks.net.
  [24.155.109.49])
- by smtp.gmail.com with ESMTPSA id d95sm7245526otb.25.2019.10.15.10.21.47
+ by smtp.gmail.com with ESMTPSA id s1sm6446834otd.49.2019.10.15.10.22.15
  (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Tue, 15 Oct 2019 10:21:47 -0700 (PDT)
-Date: Tue, 15 Oct 2019 12:21:47 -0500
+ Tue, 15 Oct 2019 10:22:15 -0700 (PDT)
+Date: Tue, 15 Oct 2019 12:22:15 -0500
 From: Rob Herring <robh@kernel.org>
 To: Alexandre Torgue <alexandre.torgue@st.com>
-Message-ID: <20191015172147.GA29624@bogus>
+Message-ID: <20191015172215.GA30472@bogus>
 References: <20191007134410.10337-1-alexandre.torgue@st.com>
- <20191007134410.10337-2-alexandre.torgue@st.com>
+ <20191007134410.10337-3-alexandre.torgue@st.com>
 MIME-Version: 1.0
 Content-Disposition: inline
-In-Reply-To: <20191007134410.10337-2-alexandre.torgue@st.com>
+In-Reply-To: <20191007134410.10337-3-alexandre.torgue@st.com>
 User-Agent: Mutt/1.10.1 (2018-07-13)
 Cc: Mark Rutland <mark.rutland@arm.com>, devicetree@vger.kernel.org,
  Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
@@ -55,8 +56,8 @@ Cc: Mark Rutland <mark.rutland@arm.com>, devicetree@vger.kernel.org,
  Rob Herring <robh+dt@kernel.org>, Maxime Coquelin <mcoquelin.stm32@gmail.com>,
  Manivannan Sadhasivam <manivannan.sadhasivam@linaro.org>,
  linux-stm32@st-md-mailman.stormreply.com, linux-arm-kernel@lists.infradead.org
-Subject: Re: [Linux-stm32] [PATCH 1/3] dt-bindings: arm: stm32: Add missing
-	STM32 boards
+Subject: Re: [Linux-stm32] [PATCH 2/3] dt-bindings: pinctrl: stm32: Fix 'st,
+ syscfg' description field
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -73,13 +74,10 @@ Content-Transfer-Encoding: 7bit
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
-On Mon, 7 Oct 2019 15:44:08 +0200, Alexandre Torgue wrote:
-> This commit documents missing STM32 boards:
-> 
-> -STM32MCU: F429 disco/eval, F469-disco, F746 disco/eval, F769 disco,
-> H743 disco/eval.
-> 
-> -STM32MPU: MP157 dk1/dk2/ed1/ev1.
+On Mon, 7 Oct 2019 15:44:09 +0200, Alexandre Torgue wrote:
+> As there is only one item "st,syscfg" this commit moves phandle description
+> fields under "description" tag. It'll fix a validation issue seen  during
+> stm32 DT check.
 > 
 > Signed-off-by: Alexandre Torgue <alexandre.torgue@st.com>
 > 
