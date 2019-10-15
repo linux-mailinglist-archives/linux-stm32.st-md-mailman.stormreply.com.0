@@ -2,47 +2,59 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id 5AFE4D6DA4
-	for <lists+linux-stm32@lfdr.de>; Tue, 15 Oct 2019 05:24:57 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 96130D714B
+	for <lists+linux-stm32@lfdr.de>; Tue, 15 Oct 2019 10:42:16 +0200 (CEST)
 Received: from ip-172-31-3-76.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id D7F84C36B0E;
-	Tue, 15 Oct 2019 03:24:56 +0000 (UTC)
-Received: from mailgw02.mediatek.com (unknown [210.61.82.184])
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 7A5E8C36B0A
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 5825FC36B0B;
+	Tue, 15 Oct 2019 08:42:16 +0000 (UTC)
+Received: from mx07-00178001.pphosted.com (mx07-00178001.pphosted.com
+ [62.209.51.94])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+ (No client certificate requested)
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 0C935C36B09
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Tue, 15 Oct 2019 03:24:54 +0000 (UTC)
-X-UUID: 39119155c1ad4596a6fad38f441e9b48-20191015
-X-UUID: 39119155c1ad4596a6fad38f441e9b48-20191015
-Received: from mtkcas09.mediatek.inc [(172.21.101.178)] by
- mailgw02.mediatek.com (envelope-from <biao.huang@mediatek.com>)
- (Cellopoint E-mail Firewall v4.1.10 Build 0809 with TLS)
- with ESMTP id 1543568058; Tue, 15 Oct 2019 11:24:50 +0800
-Received: from mtkcas07.mediatek.inc (172.21.101.84) by
- mtkmbs01n1.mediatek.inc (172.21.101.68) with Microsoft SMTP Server (TLS) id
- 15.0.1395.4; Tue, 15 Oct 2019 11:24:46 +0800
-Received: from localhost.localdomain (10.17.3.153) by mtkcas07.mediatek.inc
- (172.21.101.73) with Microsoft SMTP Server id 15.0.1395.4 via Frontend
- Transport; Tue, 15 Oct 2019 11:24:46 +0800
-From: Biao Huang <biao.huang@mediatek.com>
-To: <davem@davemloft.net>, Jose Abreu <joabreu@synopsys.com>, <andrew@lunn.ch>
-Date: Tue, 15 Oct 2019 11:24:44 +0800
-Message-ID: <20191015032444.15145-2-biao.huang@mediatek.com>
-X-Mailer: git-send-email 2.18.0
-In-Reply-To: <20191015032444.15145-1-biao.huang@mediatek.com>
-References: <20191015032444.15145-1-biao.huang@mediatek.com>
+ Tue, 15 Oct 2019 08:42:14 +0000 (UTC)
+Received: from pps.filterd (m0046668.ppops.net [127.0.0.1])
+ by mx07-00178001.pphosted.com (8.16.0.42/8.16.0.42) with SMTP id
+ x9F8fLfY022078; Tue, 15 Oct 2019 10:41:48 +0200
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=st.com;
+ h=from : to : cc : subject
+ : date : message-id : mime-version : content-type; s=STMicroelectronics;
+ bh=VcswSaQgjwVPJKQoYkqU+reFn99J6VbQH4Gn2WoEbg4=;
+ b=wOJ7FvhBt0tKm13YE/KziypjLfgScNJumVeh9zev23ZAbAQjnszYIi6qKLuZypqCx+14
+ Y+8eY8/UY1WbhXEpfgOGbmDdMu0LvhkGlp/LGYCKg0wrgYsihDxx1+vxMhyrWOGGRAvI
+ KcLEs6XaogPQCe4XZDFeYo7Vrr0yCOdKGAPhp1c8zi2xz5lu6EyuHEWuKcfNYFqQIJoQ
+ xHPrKi1v5FrWdEE03xZpxiiaUmshtMvbHS2XOL2OYNxXGTTe2vxUXde7JFwIu4HeyaZ9
+ 3F8Hjo6ZenpA2iSOAnja6zpvbq5Iemdu0OtsNEPUd+9PWkRT0Kjbj93i8DDz9wwkiPHx NQ== 
+Received: from beta.dmz-eu.st.com (beta.dmz-eu.st.com [164.129.1.35])
+ by mx07-00178001.pphosted.com with ESMTP id 2vk4a1728e-1
+ (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
+ Tue, 15 Oct 2019 10:41:48 +0200
+Received: from euls16034.sgp.st.com (euls16034.sgp.st.com [10.75.44.20])
+ by beta.dmz-eu.st.com (STMicroelectronics) with ESMTP id B6D4D100039;
+ Tue, 15 Oct 2019 10:41:42 +0200 (CEST)
+Received: from Webmail-eu.st.com (Safex1hubcas21.st.com [10.75.90.44])
+ by euls16034.sgp.st.com (STMicroelectronics) with ESMTP id 9118D2B758D;
+ Tue, 15 Oct 2019 10:41:42 +0200 (CEST)
+Received: from SAFEX1HUBCAS22.st.com (10.75.90.93) by SAFEX1HUBCAS21.st.com
+ (10.75.90.44) with Microsoft SMTP Server (TLS) id 14.3.439.0; Tue, 15 Oct
+ 2019 10:41:42 +0200
+Received: from localhost (10.201.20.122) by Webmail-ga.st.com (10.75.90.48)
+ with Microsoft SMTP Server (TLS) id 14.3.439.0; Tue, 15 Oct 2019 10:41:41
+ +0200
+From: Benjamin Gaignard <benjamin.gaignard@st.com>
+To: <linux@armlinux.org.uk>, <tglx@linutronix.de>, <gregkh@linuxfoundation.org>
+Date: Tue, 15 Oct 2019 10:41:39 +0200
+Message-ID: <20191015084139.8510-1-benjamin.gaignard@st.com>
+X-Mailer: git-send-email 2.15.0
 MIME-Version: 1.0
-X-MTK: N
-Cc: jianguo.zhang@mediatek.com, jakub.kicinski@netronome.com,
- boon.leong.ong@intel.com, biao.huang@mediatek.com, netdev@vger.kernel.org,
- linux-kernel@vger.kernel.org, yt.shen@mediatek.com,
- linux-mediatek@lists.infradead.org,
- Maxime Coquelin <mcoquelin.stm32@gmail.com>,
- Matthias Brugger <matthias.bgg@gmail.com>,
- Giuseppe Cavallaro <peppe.cavallaro@st.com>,
- linux-stm32@st-md-mailman.stormreply.com, linux-arm-kernel@lists.infradead.org
-Subject: [Linux-stm32] [v2,
-	PATCH] net: stmmac: disable/enable ptp_ref_clk in suspend/resume
-	flow
+X-Originating-IP: [10.201.20.122]
+X-Proofpoint-Virus-Version: vendor=fsecure engine=2.50.10434:6.0.95,1.0.8
+ definitions=2019-10-15_04:2019-10-15,2019-10-15 signatures=0
+Cc: linux-kernel@vger.kernel.org, linux-arm-kernel@lists.infradead.org,
+ linux-stm32@st-md-mailman.stormreply.com
+Subject: [Linux-stm32] [PATCH] arm: kernel: initialize broadcast hrtimer
+	based clock event device
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -59,46 +71,61 @@ Content-Transfer-Encoding: 7bit
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
-disable ptp_ref_clk in suspend flow, and enable it in resume flow.
+On platforms implementing CPU power management, the CPUidle subsystem
+can allow CPUs to enter idle states where local timers logic is lost on power
+down. To keep the software timers functional the kernel relies on an
+always-on broadcast timer to be present in the platform to relay the
+interrupt signalling the timer expiries.
 
-Fixes: f573c0b9c4e0 ("stmmac: move stmmac_clk, pclk, clk_ptp_ref and stmmac_rst to platform structure")
-Signed-off-by: Biao Huang <biao.huang@mediatek.com>
+For platforms implementing CPU core gating that do not implement an always-on
+HW timer or implement it in a broken way, this patch adds code to initialize
+the kernel hrtimer based clock event device upon boot (which can be chosen as
+tick broadcast device by the kernel).
+It relies on a dynamically chosen CPU to be always powered-up. This CPU then
+relays the timer interrupt to CPUs in deep-idle states through its HW local
+timer device.
+
+Having a CPU always-on has implications on power management platform
+capabilities and makes CPUidle suboptimal, since at least a CPU is kept
+always in a shallow idle state by the kernel to relay timer interrupts,
+but at least leaves the kernel with a functional system with some working
+power management capabilities.
+
+The hrtimer based clock event device is unconditionally registered, but
+has the lowest possible rating such that any broadcast-capable HW clock
+event device present will be chosen in preference as the tick broadcast
+device.
+
+Signed-off-by: Benjamin Gaignard <benjamin.gaignard@st.com>
 ---
- drivers/net/ethernet/stmicro/stmmac/stmmac_main.c | 12 ++++++++----
- 1 file changed, 8 insertions(+), 4 deletions(-)
+Note:
+- The same reasons lead to same patch than for arm64 so I have copy the
+  commit message from: 9358d755bd5c ("arm64: kernel: initialize broadcast
+  hrtimer based clock event device")
+ arch/arm/kernel/time.c | 2 ++
+ 1 file changed, 2 insertions(+)
 
-diff --git a/drivers/net/ethernet/stmicro/stmmac/stmmac_main.c b/drivers/net/ethernet/stmicro/stmmac/stmmac_main.c
-index d3232738fb25..d7c12b86b94f 100644
---- a/drivers/net/ethernet/stmicro/stmmac/stmmac_main.c
-+++ b/drivers/net/ethernet/stmicro/stmmac/stmmac_main.c
-@@ -4737,8 +4737,10 @@ int stmmac_suspend(struct device *dev)
- 		stmmac_mac_set(priv, priv->ioaddr, false);
- 		pinctrl_pm_select_sleep_state(priv->device);
- 		/* Disable clock in case of PWM is off */
--		clk_disable(priv->plat->pclk);
--		clk_disable(priv->plat->stmmac_clk);
-+		if (priv->plat->clk_ptp_ref)
-+			clk_disable_unprepare(priv->plat->clk_ptp_ref);
-+		clk_disable_unprepare(priv->plat->pclk);
-+		clk_disable_unprepare(priv->plat->stmmac_clk);
+diff --git a/arch/arm/kernel/time.c b/arch/arm/kernel/time.c
+index b996b2cf0703..dddc7ebf4db4 100644
+--- a/arch/arm/kernel/time.c
++++ b/arch/arm/kernel/time.c
+@@ -9,6 +9,7 @@
+  *  reading the RTC at bootup, etc...
+  */
+ #include <linux/clk-provider.h>
++#include <linux/clockchips.h>
+ #include <linux/clocksource.h>
+ #include <linux/errno.h>
+ #include <linux/export.h>
+@@ -107,5 +108,6 @@ void __init time_init(void)
+ 		of_clk_init(NULL);
+ #endif
+ 		timer_probe();
++		tick_setup_hrtimer_broadcast();
  	}
- 	mutex_unlock(&priv->lock);
- 
-@@ -4801,8 +4803,10 @@ int stmmac_resume(struct device *dev)
- 	} else {
- 		pinctrl_pm_select_default_state(priv->device);
- 		/* enable the clk previously disabled */
--		clk_enable(priv->plat->stmmac_clk);
--		clk_enable(priv->plat->pclk);
-+		clk_prepare_enable(priv->plat->stmmac_clk);
-+		clk_prepare_enable(priv->plat->pclk);
-+		if (priv->plat->clk_ptp_ref)
-+			clk_prepare_enable(priv->plat->clk_ptp_ref);
- 		/* reset the phy so that it's ready */
- 		if (priv->mii)
- 			stmmac_mdio_reset(priv->mii);
+ }
 -- 
-2.18.0
+2.15.0
 
 _______________________________________________
 Linux-stm32 mailing list
