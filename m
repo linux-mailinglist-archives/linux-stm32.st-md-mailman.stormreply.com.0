@@ -2,48 +2,46 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id 60ADCD6981
-	for <lists+linux-stm32@lfdr.de>; Mon, 14 Oct 2019 20:34:34 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 5DC37D6DA5
+	for <lists+linux-stm32@lfdr.de>; Tue, 15 Oct 2019 05:24:57 +0200 (CEST)
 Received: from ip-172-31-3-76.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id DA1A1C36B0B;
-	Mon, 14 Oct 2019 18:34:33 +0000 (UTC)
-Received: from Galois.linutronix.de (Galois.linutronix.de [193.142.43.55])
- (using TLSv1.2 with cipher DHE-RSA-AES128-SHA (128/128 bits))
- (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id ACFDCC36B09
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id CB6A4C36B0B;
+	Tue, 15 Oct 2019 03:24:56 +0000 (UTC)
+Received: from mailgw02.mediatek.com (unknown [210.61.82.184])
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 78A24C36B09
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Mon, 14 Oct 2019 18:34:32 +0000 (UTC)
-Received: from p5b06da22.dip0.t-ipconnect.de ([91.6.218.34] helo=nanos)
- by Galois.linutronix.de with esmtpsa (TLS1.2:DHE_RSA_AES_256_CBC_SHA256:256)
- (Exim 4.80) (envelope-from <tglx@linutronix.de>)
- id 1iK5Ao-0005Xr-Rk; Mon, 14 Oct 2019 20:34:26 +0200
-Date: Mon, 14 Oct 2019 20:34:15 +0200 (CEST)
-From: Thomas Gleixner <tglx@linutronix.de>
-To: Benjamin GAIGNARD <benjamin.gaignard@st.com>
-In-Reply-To: <c3565734-05e3-0a9d-1101-92c4be476ae6@st.com>
-Message-ID: <alpine.DEB.2.21.1910142032590.1880@nanos.tec.linutronix.de>
-References: <20191009160246.17898-1-benjamin.gaignard@st.com>
- <alpine.DEB.2.21.1910141441350.2531@nanos.tec.linutronix.de>
- <a4b4b785-c471-a3c2-2c41-01bd9865e479@st.com>
- <alpine.DEB.2.21.1910141535500.2531@nanos.tec.linutronix.de>
- <16f7e8e9-eefe-5973-a08a-3e1823d20034@st.com>
- <alpine.DEB.2.21.1910141620100.2531@nanos.tec.linutronix.de>
- <c3565734-05e3-0a9d-1101-92c4be476ae6@st.com>
-User-Agent: Alpine 2.21 (DEB 202 2017-01-01)
+ Tue, 15 Oct 2019 03:24:54 +0000 (UTC)
+X-UUID: 393ef18c0579491aa4be4347007febbf-20191015
+X-UUID: 393ef18c0579491aa4be4347007febbf-20191015
+Received: from mtkcas07.mediatek.inc [(172.21.101.84)] by mailgw02.mediatek.com
+ (envelope-from <biao.huang@mediatek.com>)
+ (Cellopoint E-mail Firewall v4.1.10 Build 0809 with TLS)
+ with ESMTP id 1144212828; Tue, 15 Oct 2019 11:24:50 +0800
+Received: from mtkcas07.mediatek.inc (172.21.101.84) by
+ mtkmbs01n2.mediatek.inc (172.21.101.79) with Microsoft SMTP Server (TLS) id
+ 15.0.1395.4; Tue, 15 Oct 2019 11:24:45 +0800
+Received: from localhost.localdomain (10.17.3.153) by mtkcas07.mediatek.inc
+ (172.21.101.73) with Microsoft SMTP Server id 15.0.1395.4 via Frontend
+ Transport; Tue, 15 Oct 2019 11:24:45 +0800
+From: Biao Huang <biao.huang@mediatek.com>
+To: <davem@davemloft.net>, Jose Abreu <joabreu@synopsys.com>, <andrew@lunn.ch>
+Date: Tue, 15 Oct 2019 11:24:43 +0800
+Message-ID: <20191015032444.15145-1-biao.huang@mediatek.com>
+X-Mailer: git-send-email 2.18.0
 MIME-Version: 1.0
-X-Linutronix-Spam-Score: -1.0
-X-Linutronix-Spam-Level: -
-X-Linutronix-Spam-Status: No , -1.0 points, 5.0 required, ALL_TRUSTED=-1,
- SHORTCIRCUIT=-0.0001
-Cc: "marc.zyngier@arm.com" <marc.zyngier@arm.com>,
- "fweisbec@gmail.com" <fweisbec@gmail.com>,
- "daniel.lezcano@linaro.org" <daniel.lezcano@linaro.org>,
- "linux-kernel@vger.kernel.org" <linux-kernel@vger.kernel.org>,
- "mingo@kernel.org" <mingo@kernel.org>,
- "linux-stm32@st-md-mailman.stormreply.com"
- <linux-stm32@st-md-mailman.stormreply.com>
-Subject: Re: [Linux-stm32] [PATCH] tick: check if broadcast device could
- really be stopped
+X-TM-SNTS-SMTP: CC6E8CD566D83072A794819F506A48A0A2C08C4DFDCF94BFA6A02093CC44E1072000:8
+X-MTK: N
+Cc: jianguo.zhang@mediatek.com, jakub.kicinski@netronome.com,
+ boon.leong.ong@intel.com, biao.huang@mediatek.com, netdev@vger.kernel.org,
+ linux-kernel@vger.kernel.org, yt.shen@mediatek.com,
+ linux-mediatek@lists.infradead.org,
+ Maxime Coquelin <mcoquelin.stm32@gmail.com>,
+ Matthias Brugger <matthias.bgg@gmail.com>,
+ Giuseppe Cavallaro <peppe.cavallaro@st.com>,
+ linux-stm32@st-md-mailman.stormreply.com, linux-arm-kernel@lists.infradead.org
+Subject: [Linux-stm32] [v2,
+	PATCH 0/1] net: stmmac: disable/enable ptp_ref_clk in
+	suspend/resume flow
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -60,25 +58,21 @@ Content-Transfer-Encoding: 7bit
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
-On Mon, 14 Oct 2019, Benjamin GAIGNARD wrote:
-> On 10/14/19 4:28 PM, Thomas Gleixner wrote:
-> > Unless you have a solution which works under all circumstances (and the
-> > current patch definitely does not) then you have to deal with the
-> > requirement of the broadcast timer (either physical or software based).
-> 
-> If I follow you I need, for my system, a software based broadcast timer 
-> (tick-broadcast-hrtimer ?).
+changes in v2:
+        1. add Fixes in commit message
+        2. replace clk_disable/clk_enable with clk_disable_unprepare/clk_prepare_enable
+        to ensure the source pll can be closed/open in suspend/resume for power saving.
 
-Yes, if you don't have a physical one.
- 
-> If that is correct I 'just' need to add a call to
-> tick_setup_hrtimer_broadcast() in arch/arm/kernel/time.c
+Biao Huang (1):
+  net: stmmac: disable/enable ptp_ref_clk in suspend/resume flow
 
-Correct.
+ drivers/net/ethernet/stmicro/stmmac/stmmac_main.c | 12 ++++++++----
+ 1 file changed, 8 insertions(+), 4 deletions(-)
 
-Thanks,
+--
+2.18.0
 
-	tglx
+
 _______________________________________________
 Linux-stm32 mailing list
 Linux-stm32@st-md-mailman.stormreply.com
