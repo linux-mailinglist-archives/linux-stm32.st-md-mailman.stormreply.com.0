@@ -2,37 +2,57 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id 6D60ED7B3F
-	for <lists+linux-stm32@lfdr.de>; Tue, 15 Oct 2019 18:23:32 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 1D2C5D7CF1
+	for <lists+linux-stm32@lfdr.de>; Tue, 15 Oct 2019 19:09:22 +0200 (CEST)
 Received: from ip-172-31-3-76.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 318A1C36B0B;
-	Tue, 15 Oct 2019 16:23:32 +0000 (UTC)
-Received: from imap1.codethink.co.uk (imap1.codethink.co.uk [176.9.8.82])
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id CBE28C36B0B;
+	Tue, 15 Oct 2019 17:09:21 +0000 (UTC)
+Received: from mail-ot1-f66.google.com (mail-ot1-f66.google.com
+ [209.85.210.66])
  (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 2DBDEC36B09
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 69C00C36B09
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Tue, 15 Oct 2019 16:23:31 +0000 (UTC)
-Received: from [167.98.27.226] (helo=rainbowdash.codethink.co.uk)
- by imap1.codethink.co.uk with esmtpsa (Exim 4.84_2 #1 (Debian))
- id 1iKPbW-0008HM-QE; Tue, 15 Oct 2019 17:23:22 +0100
-Received: from ben by rainbowdash.codethink.co.uk with local (Exim 4.92.2)
- (envelope-from <ben@rainbowdash.codethink.co.uk>)
- id 1iKPbW-0003a6-FT; Tue, 15 Oct 2019 17:23:22 +0100
-From: "Ben Dooks (Codethink)" <ben.dooks@codethink.co.uk>
-To: linux-kernel@lists.codethink.co.uk
-Date: Tue, 15 Oct 2019 17:23:21 +0100
-Message-Id: <20191015162321.13723-1-ben.dooks@codethink.co.uk>
-X-Mailer: git-send-email 2.23.0
+ Tue, 15 Oct 2019 17:09:20 +0000 (UTC)
+Received: by mail-ot1-f66.google.com with SMTP id 67so17597238oto.3
+ for <linux-stm32@st-md-mailman.stormreply.com>;
+ Tue, 15 Oct 2019 10:09:20 -0700 (PDT)
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20161025;
+ h=x-gm-message-state:date:from:to:cc:subject:message-id:references
+ :mime-version:content-disposition:in-reply-to:user-agent;
+ bh=JHMlVw4tvcimgqLNE6cW+4izJ5ZEdiASsMVMnyNWIFE=;
+ b=PpMxvgFBzuLmPGZ6pKBVGrjGBQslkXry45cm/5zb2vEesG9F+bqe5mtmZzrlzwZipQ
+ mrWrr/FIyxyybvtUG2gGxv2Hpv19gX0MrHON2Gep9RYk5oTxdcv1vG8umsfY0A1t9MP+
+ Ji+HoKM/h38ABq1QJtUsfNnAGZCVvwVxCmsMiwDB09N9l9Kr1aTpQYPIUppXSyLhE3ts
+ klnaEKQ//rS8ECdf9EhGqULpuWt1fbF+OZ01FiJ93g2tEvxefW9aLbCaJv3AP3h0f4Od
+ DKazDDkJ3qrRo4WjoNkcL4JrGdEJhO07W5KvMJ/BjRGv0oXY2Gwu/SgHdwWokoAYWAXZ
+ MLNg==
+X-Gm-Message-State: APjAAAXVOHvDoOJ2UVmDVuOSJ2w0+G059CMEZKjwlkOvFzprarpPiyVR
+ 7XB8/ZSbUhW/q/371vrwxQ==
+X-Google-Smtp-Source: APXvYqy2X9I15W25gmPVuvvFHsnO6LRLZtuacdrohlwkKPnx10p92ZlfGBeUKRra5d48a54FxaB9Kg==
+X-Received: by 2002:a9d:70c3:: with SMTP id w3mr22943854otj.246.1571159359034; 
+ Tue, 15 Oct 2019 10:09:19 -0700 (PDT)
+Received: from localhost (24-155-109-49.dyn.grandenetworks.net.
+ [24.155.109.49])
+ by smtp.gmail.com with ESMTPSA id o184sm6585474oia.28.2019.10.15.10.09.18
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Tue, 15 Oct 2019 10:09:18 -0700 (PDT)
+Date: Tue, 15 Oct 2019 12:09:17 -0500
+From: Rob Herring <robh@kernel.org>
+To: Benjamin Gaignard <benjamin.gaignard@st.com>
+Message-ID: <20191015170917.GA8078@bogus>
+References: <20191015123151.14828-1-benjamin.gaignard@st.com>
 MIME-Version: 1.0
-Cc: Jose Abreu <joabreu@synopsys.com>, netdev@vger.kernel.org,
- linux-kernel@vger.kernel.org, linux-stm32@st-md-mailman.stormreply.com,
- "Ben Dooks \(Codethink\)" <ben.dooks@codethink.co.uk>,
- Maxime Coquelin <mcoquelin.stm32@gmail.com>,
- Giuseppe Cavallaro <peppe.cavallaro@st.com>,
- "David S. Miller" <davem@davemloft.net>, linux-arm-kernel@lists.infradead.org
-Subject: [Linux-stm32] [PATCH] net: stmmac: fix argument to
-	stmmac_pcs_ctrl_ane()
+Content-Disposition: inline
+In-Reply-To: <20191015123151.14828-1-benjamin.gaignard@st.com>
+User-Agent: Mutt/1.10.1 (2018-07-13)
+Cc: mark.rutland@arm.com, devicetree@vger.kernel.org, airlied@linux.ie,
+ dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org,
+ yannick.fertre@st.com, robh+dt@kernel.org, daniel@ffwll.ch,
+ linux-stm32@st-md-mailman.stormreply.com, linux-arm-kernel@lists.infradead.org
+Subject: Re: [Linux-stm32] [PATCH v4] dt-bindings: display: Convert stm32
+ display bindings to json-schema
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -49,47 +69,43 @@ Content-Transfer-Encoding: 7bit
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
-The stmmac_pcs_ctrl_ane() expects a register address as
-argument 1, but for some reason the mac_device_info is
-being passed.
+On Tue, 15 Oct 2019 14:31:51 +0200, Benjamin Gaignard wrote:
+> Convert the STM32 display binding to DT schema format using json-schema.
+> Split the original bindings in two yaml files:
+> - one for display controller (ltdc)
+> - one for DSI controller
+> 
+> Signed-off-by: Benjamin Gaignard <benjamin.gaignard@st.com>
+> ---
+> changes in v4:
+> - describe interruptions items
+> - remove unit address from port property
+> - remove dma-ranges (DT patches send too)
+> 
+> changes in v3:
+> - use (GPL-2.0-only OR BSD-2-Clause) license
+> 
+> changes in v2:
+> - use BSD-2-Clause license
+> - add panel property
+> - fix identation
+> - remove pinctrl-names: true
+> - remove pinctrl-[0-9]+: true
+> - rework ports block to include port@0 and port@1
+> - use const for #adress-cells and #size-cells
+> - add additionalProperties: false
+>  .../devicetree/bindings/display/st,stm32-dsi.yaml  | 151 +++++++++++++++++++++
+>  .../devicetree/bindings/display/st,stm32-ltdc.txt  | 144 --------------------
+>  .../devicetree/bindings/display/st,stm32-ltdc.yaml |  81 +++++++++++
+>  3 files changed, 232 insertions(+), 144 deletions(-)
+>  create mode 100644 Documentation/devicetree/bindings/display/st,stm32-dsi.yaml
+>  delete mode 100644 Documentation/devicetree/bindings/display/st,stm32-ltdc.txt
+>  create mode 100644 Documentation/devicetree/bindings/display/st,stm32-ltdc.yaml
+> 
 
-Fix the warning (and possible bug) from sparse:
+Applied, thanks.
 
-drivers/net/ethernet/stmicro/stmmac/stmmac_main.c:2613:17: warning: incorrect type in argument 1 (different address spaces)
-drivers/net/ethernet/stmicro/stmmac/stmmac_main.c:2613:17:    expected void [noderef] <asn:2> *ioaddr
-drivers/net/ethernet/stmicro/stmmac/stmmac_main.c:2613:17:    got struct mac_device_info *hw
-
-Signed-off-by: Ben Dooks <ben.dooks@codethink.co.uk>
----
-Cc: Giuseppe Cavallaro <peppe.cavallaro@st.com>
-Cc: Alexandre Torgue <alexandre.torgue@st.com>
-Cc: Jose Abreu <joabreu@synopsys.com>
-Cc: "David S. Miller" <davem@davemloft.net>
-Cc: Maxime Coquelin <mcoquelin.stm32@gmail.com>
-Cc: netdev@vger.kernel.org
-Cc: linux-stm32@st-md-mailman.stormreply.com
-Cc: linux-arm-kernel@lists.infradead.org
-Cc: linux-kernel@vger.kernel.org
----
- drivers/net/ethernet/stmicro/stmmac/stmmac_main.c | 2 +-
- 1 file changed, 1 insertion(+), 1 deletion(-)
-
-diff --git a/drivers/net/ethernet/stmicro/stmmac/stmmac_main.c b/drivers/net/ethernet/stmicro/stmmac/stmmac_main.c
-index c76a1336a451..3947c95121c6 100644
---- a/drivers/net/ethernet/stmicro/stmmac/stmmac_main.c
-+++ b/drivers/net/ethernet/stmicro/stmmac/stmmac_main.c
-@@ -2610,7 +2610,7 @@ static int stmmac_hw_setup(struct net_device *dev, bool init_ptp)
- 	}
- 
- 	if (priv->hw->pcs)
--		stmmac_pcs_ctrl_ane(priv, priv->hw, 1, priv->hw->ps, 0);
-+		stmmac_pcs_ctrl_ane(priv, priv->ioaddr, 1, priv->hw->ps, 0);
- 
- 	/* set TX and RX rings length */
- 	stmmac_set_rings_length(priv);
--- 
-2.23.0
-
+Rob
 _______________________________________________
 Linux-stm32 mailing list
 Linux-stm32@st-md-mailman.stormreply.com
