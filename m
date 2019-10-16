@@ -2,68 +2,63 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id E30CED8D53
-	for <lists+linux-stm32@lfdr.de>; Wed, 16 Oct 2019 12:09:12 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 3998CD8F06
+	for <lists+linux-stm32@lfdr.de>; Wed, 16 Oct 2019 13:12:40 +0200 (CEST)
 Received: from ip-172-31-3-76.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 93999C36B0B;
-	Wed, 16 Oct 2019 10:09:12 +0000 (UTC)
-Received: from mx07-00178001.pphosted.com (mx07-00178001.pphosted.com
- [62.209.51.94])
- (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id EB679C36B0B;
+	Wed, 16 Oct 2019 11:12:39 +0000 (UTC)
+Received: from mail-lj1-f195.google.com (mail-lj1-f195.google.com
+ [209.85.208.195])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id A040CC36B09
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 1A412C36B09
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Wed, 16 Oct 2019 10:09:10 +0000 (UTC)
-Received: from pps.filterd (m0046037.ppops.net [127.0.0.1])
- by mx07-00178001.pphosted.com (8.16.0.42/8.16.0.42) with SMTP id
- x9G9vJSb022321; Wed, 16 Oct 2019 12:08:57 +0200
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=st.com;
- h=subject : to : cc :
- references : from : message-id : date : mime-version : in-reply-to :
- content-type : content-transfer-encoding; s=STMicroelectronics;
- bh=DRK6nnWxIpQcRpa27goNNKQ6VsydMmtRJ5E896Ce4Mg=;
- b=bgO95zmf6k2aVs9w1Xi40fm7M97azWEHfHLRVkbo0ZJC5b8wbkMYjy3JqcGa/3hDtU0V
- a05oW0Z2xC+WtxdaqXmFvJSIC5d8mRebsgQ2gbwHQCcHBrjAlDqrdLtQG869tjSoHhtP
- bB9U3dxRq3HkKMd4MSk5tFrPp0gemXEoUjf8Chyhjstyx9zuSluokafzcfjR6hcdMNUH
- ZTTJ/EKLLxFqT+Wx4Y/tB9Go12HCV/e7mZuqVVqTs6yBEmPhYXEb0NDZ/5mVM9AcTrOZ
- yBiTzslx4ssweZHkXlP4z3lwYc8XBKg+K4PgT3xZQFZtj0PaIz3KNoZS0hOVI8iOVFPq GA== 
-Received: from beta.dmz-eu.st.com (beta.dmz-eu.st.com [164.129.1.35])
- by mx07-00178001.pphosted.com with ESMTP id 2vk4kx5eyf-1
- (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
- Wed, 16 Oct 2019 12:08:57 +0200
-Received: from euls16034.sgp.st.com (euls16034.sgp.st.com [10.75.44.20])
- by beta.dmz-eu.st.com (STMicroelectronics) with ESMTP id 07B0410002A;
- Wed, 16 Oct 2019 12:08:56 +0200 (CEST)
-Received: from Webmail-eu.st.com (Safex1hubcas21.st.com [10.75.90.44])
- by euls16034.sgp.st.com (STMicroelectronics) with ESMTP id C67EE205D2C;
- Wed, 16 Oct 2019 12:08:56 +0200 (CEST)
-Received: from SAFEX1HUBCAS23.st.com (10.75.90.46) by SAFEX1HUBCAS21.st.com
- (10.75.90.44) with Microsoft SMTP Server (TLS) id 14.3.439.0; Wed, 16 Oct
- 2019 12:08:56 +0200
-Received: from [10.48.0.192] (10.48.0.192) by webmail-ga.st.com (10.75.90.48)
- with Microsoft SMTP Server (TLS) id 14.3.439.0;
- Wed, 16 Oct 2019 12:08:56 +0200
-To: Thierry Reding <thierry.reding@gmail.com>
-References: <1570193633-6600-1-git-send-email-fabrice.gasnier@st.com>
- <1570193633-6600-4-git-send-email-fabrice.gasnier@st.com>
- <20191016070635.GC1296874@ulmo>
-From: Fabrice Gasnier <fabrice.gasnier@st.com>
-Message-ID: <15371530-a932-08b7-dd78-a7e20d213203@st.com>
-Date: Wed, 16 Oct 2019 12:08:54 +0200
-User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:60.0) Gecko/20100101
- Thunderbird/60.9.0
+ Wed, 16 Oct 2019 11:12:39 +0000 (UTC)
+Received: by mail-lj1-f195.google.com with SMTP id m7so23568607lji.2
+ for <linux-stm32@st-md-mailman.stormreply.com>;
+ Wed, 16 Oct 2019 04:12:39 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linaro.org; s=google;
+ h=mime-version:references:in-reply-to:from:date:message-id:subject:to
+ :cc; bh=v71FlkQ6J0UpJP7xXEoyiSKAD0pF3wX4jouOoO7MnLU=;
+ b=p2VwOvllbg/0/Neh5/P7m4vAWBzv1dXkn+WNCkRcqrMNWDx9pfbHIa1twG4R8nWXjf
+ X0M7OXDXTJjEo6uAH35h6Pb+KV8ArvF5+d3HYtX/xO1AsS0HaJJlRtU8llEBmLpfkGwX
+ qoYLlT9L7uvJ/T+E+qUzOdI6FY45brr2Bv6PTnSoZJ71z9Vvwf01D5P/l9RmTXc+IC2N
+ lbO6S9Db5rrGVTg5iZLHpv5cQ7fUNfoslwR10po8ClfKUicmkFsBs9TTsTHq9Kkd+uc3
+ NlHHMouM3yK4d/F+R4Mow1+AUxpLJFyFS0nNGhD2SjvgZwuSNWd09Ebc9nuNkfqJfYao
+ beIQ==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20161025;
+ h=x-gm-message-state:mime-version:references:in-reply-to:from:date
+ :message-id:subject:to:cc;
+ bh=v71FlkQ6J0UpJP7xXEoyiSKAD0pF3wX4jouOoO7MnLU=;
+ b=MXjeh8YW+bJqOJ9FvKxJZ0fJNAuGTV2ZuFTJLTpB99tQx9YGW9z8kiJl3APMxA6NTM
+ p8U86yioBc3SoH0bf6bGgPbYiGAbQJR669ErugHvRYeAnVthuDgmCeem2Uc8+qWyt8cr
+ Nb6NxVZRmOPWaEJu/tebkgShCkheEzBZdoO7ZPCJf7ctRbUJjR+IBTiLVGFEyf/1zu9b
+ SIhGtyney04uljHCAVZ8K+BBvis0lX77WfB80AIkBbWna9BNToV1G3OcfxLSsrnfgb8k
+ /AvPHetXkQUgBlFZ8uH08uKDd/476udHwh0t0IK7/E2MgqYobDRvrsVeaDi9Aer6vxu0
+ 8NJw==
+X-Gm-Message-State: APjAAAVvRLWL4k0d1taeK8rgy+QyQwiup80LYgISaBhDe1QxE+BVaniY
+ A5DLVxUzSKchksfxPC2bXJ2nZedJpKEEesrmzHIxoA==
+X-Google-Smtp-Source: APXvYqy4lzrmB+aQANagIA9pI4peUp9E83YYX2I1eb8nCIhO/KTMZcmTe+F/iRjlb9lEwc7ZwWZU9GViug9WdVdMM3s=
+X-Received: by 2002:a2e:481a:: with SMTP id v26mr18093137lja.41.1571224358312; 
+ Wed, 16 Oct 2019 04:12:38 -0700 (PDT)
 MIME-Version: 1.0
-In-Reply-To: <20191016070635.GC1296874@ulmo>
-Content-Language: en-US
-X-Originating-IP: [10.48.0.192]
-X-Proofpoint-Virus-Version: vendor=fsecure engine=2.50.10434:6.0.95,1.0.8
- definitions=2019-10-16_03:2019-10-15,2019-10-16 signatures=0
-Cc: mark.rutland@arm.com, devicetree@vger.kernel.org, linux-pwm@vger.kernel.org,
- linux-kernel@vger.kernel.org, robh+dt@kernel.org, mcoquelin.stm32@gmail.com,
- u.kleine-koenig@pengutronix.de, linux-stm32@st-md-mailman.stormreply.com,
- linux-arm-kernel@lists.infradead.org
-Subject: Re: [Linux-stm32] [PATCH v2 3/3] pwm: stm32: add power management
-	support
+References: <20191004122923.22674-1-amelie.delaunay@st.com>
+ <CACRpkda6CyYCt-s-VkaK856Jt3TxQg+HVDz-5Ww9T9KNHHAjaQ@mail.gmail.com>
+ <8eb2090a-e50e-2e4f-982b-073ad24e553c@st.com>
+In-Reply-To: <8eb2090a-e50e-2e4f-982b-073ad24e553c@st.com>
+From: Linus Walleij <linus.walleij@linaro.org>
+Date: Wed, 16 Oct 2019 13:12:25 +0200
+Message-ID: <CACRpkda1H+fUidZG3wccM-YCyk_Ya9gRb8s-JV35qWvEBOKWPQ@mail.gmail.com>
+To: Amelie DELAUNAY <amelie.delaunay@st.com>
+Cc: "linux-kernel@vger.kernel.org" <linux-kernel@vger.kernel.org>,
+ "open list:GPIO SUBSYSTEM" <linux-gpio@vger.kernel.org>,
+ Maxime Coquelin <mcoquelin.stm32@gmail.com>,
+ "linux-stm32@st-md-mailman.stormreply.com"
+ <linux-stm32@st-md-mailman.stormreply.com>,
+ Linux ARM <linux-arm-kernel@lists.infradead.org>
+Subject: Re: [Linux-stm32] [PATCH 1/1] pinctrl: stmfx: add
+	irq_request/release_resources callbacks
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -80,119 +75,42 @@ Content-Transfer-Encoding: 7bit
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
-On 10/16/19 9:06 AM, Thierry Reding wrote:
-> On Fri, Oct 04, 2019 at 02:53:53PM +0200, Fabrice Gasnier wrote:
->> Add suspend/resume PM sleep ops. When going to low power, enforce the PWM
->> channel isn't active. Let the PWM consumers disable it during their own
->> suspend sequence, see [1]. So, perform a check here, and handle the
->> pinctrl states. Also restore the break inputs upon resume, as registers
->> content may be lost when going to low power mode.
->>
->> [1] https://lkml.org/lkml/2019/2/5/770
->>
->> Signed-off-by: Fabrice Gasnier <fabrice.gasnier@st.com>
->> ---
->> Changes in v2:
->> Follow Uwe suggestions/remarks:
->> - Add a precursor patch to ease reviewing
->> - Use registers read instead of pwm_get_state
->> - Add a comment to mention registers content may be lost in low power mode
->> ---
->>  drivers/pwm/pwm-stm32.c | 38 ++++++++++++++++++++++++++++++++++++++
->>  1 file changed, 38 insertions(+)
-> 
-> Applied, thanks. I made two minor changes, though, see below.
-> 
->>
->> diff --git a/drivers/pwm/pwm-stm32.c b/drivers/pwm/pwm-stm32.c
->> index cf8658c..546b661 100644
->> --- a/drivers/pwm/pwm-stm32.c
->> +++ b/drivers/pwm/pwm-stm32.c
->> @@ -12,6 +12,7 @@
->>  #include <linux/mfd/stm32-timers.h>
->>  #include <linux/module.h>
->>  #include <linux/of.h>
->> +#include <linux/pinctrl/consumer.h>
->>  #include <linux/platform_device.h>
->>  #include <linux/pwm.h>
->>  
->> @@ -655,6 +656,42 @@ static int stm32_pwm_remove(struct platform_device *pdev)
->>  	return 0;
->>  }
->>  
->> +static int __maybe_unused stm32_pwm_suspend(struct device *dev)
->> +{
->> +	struct stm32_pwm *priv = dev_get_drvdata(dev);
->> +	unsigned int ch;
-> 
-> I renamed this to just "i", which is more idiomatic for loop variables.
-> The function is small enough not to need to differentiate between loop
-> variables.
-> 
->> +	u32 ccer, mask;
->> +
->> +	/* Look for active channels */
->> +	ccer = active_channels(priv);
->> +
->> +	for (ch = 0; ch < priv->chip.npwm; ch++) {
->> +		mask = TIM_CCER_CC1E << (ch * 4);
->> +		if (ccer & mask) {
->> +			dev_err(dev, "The consumer didn't stop us (%s)\n",
->> +				priv->chip.pwms[ch].label);
-> 
-> Changed this to:
-> 
-> 	"PWM %u still in use by consumer %s\n", i, priv->chip.pwms[i].label
-> 
-> I think that might help clarify which PWM is still enabled in case the
-> consumers don't set a label.
+On Mon, Oct 7, 2019 at 4:53 PM Amelie DELAUNAY <amelie.delaunay@st.com> wrote:
+> On 10/5/19 6:49 PM, Linus Walleij wrote:
+> > On Fri, Oct 4, 2019 at 2:29 PM Amelie Delaunay <amelie.delaunay@st.com>
 
-Hi Thierry,
+> >> +       pctl->irq_chip.irq_request_resources = stmfx_gpio_irq_request_resources;
+> >> +       pctl->irq_chip.irq_release_resources = stmfx_gpio_irq_release_resources;
+> >
+> > What about just adding
+> >
+> > pctl->irq_chip.irq_enable and do stmfx_gpio_direction_input()
+> > in that callback instead? gpiolib will helpfully wrap it.
+>
+> Thanks for pointing that out to me.
+>
+> I can't use .irq_enable because of I2C transfer to set gpio direction
+> (scheduling while atomic BUG occurs in this case). Indeed, .irq_enable
+> is called under raw_spin_lock_irqsave in __setup_irq() while
+> irq_request_resources is called before.
+>
+> I could apply gpio direction in stmfx_pinctrl_irq_bus_sync_unlock
+> depending on pctl->irq_gpi_src[] (checking which one is set, to set
+> input direction), but this will be applied each time a consumer requests
+> a stmfx gpio irq.
 
-Many thanks for all the improvements on this series!
+Oh I get it, hm. I thought it would be covered by the sync_unlock()
+but I guess not then.
 
-Best Regards,
-Fabrice
+> IMHO, keeping .irq_request/release_resources callbacks and using
+> gpiochip_reqres_irq()/gpiochip_relres_irq() seems to be the best compromise.
 
-> 
-> Thierry
-> 
->> +			return -EBUSY;
->> +		}
->> +	}
->> +
->> +	return pinctrl_pm_select_sleep_state(dev);
->> +}
->> +
->> +static int __maybe_unused stm32_pwm_resume(struct device *dev)
->> +{
->> +	struct stm32_pwm *priv = dev_get_drvdata(dev);
->> +	int ret;
->> +
->> +	ret = pinctrl_pm_select_default_state(dev);
->> +	if (ret)
->> +		return ret;
->> +
->> +	/* restore breakinput registers that may have been lost in low power */
->> +	return stm32_pwm_apply_breakinputs(priv);
->> +}
->> +
->> +static SIMPLE_DEV_PM_OPS(stm32_pwm_pm_ops, stm32_pwm_suspend, stm32_pwm_resume);
->> +
->>  static const struct of_device_id stm32_pwm_of_match[] = {
->>  	{ .compatible = "st,stm32-pwm",	},
->>  	{ /* end node */ },
->> @@ -667,6 +704,7 @@ static struct platform_driver stm32_pwm_driver = {
->>  	.driver	= {
->>  		.name = "stm32-pwm",
->>  		.of_match_table = stm32_pwm_of_match,
->> +		.pm = &stm32_pwm_pm_ops,
->>  	},
->>  };
->>  module_platform_driver(stm32_pwm_driver);
->> -- 
->> 2.7.4
->>
+OK let's go with that for now, please put in some comments as
+to why this gets done there so we know when reading the
+code.
+
+Yours,
+Linus Walleij
 _______________________________________________
 Linux-stm32 mailing list
 Linux-stm32@st-md-mailman.stormreply.com
