@@ -2,62 +2,39 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id 1B2E3D7D8A
-	for <lists+linux-stm32@lfdr.de>; Tue, 15 Oct 2019 19:24:05 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 4DB03D870B
+	for <lists+linux-stm32@lfdr.de>; Wed, 16 Oct 2019 05:57:13 +0200 (CEST)
 Received: from ip-172-31-3-76.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id D8638C36B0B;
-	Tue, 15 Oct 2019 17:24:04 +0000 (UTC)
-Received: from mail-ot1-f66.google.com (mail-ot1-f66.google.com
- [209.85.210.66])
- (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 058F4C36B0B;
+	Wed, 16 Oct 2019 03:57:13 +0000 (UTC)
+Received: from shards.monkeyblade.net (shards.monkeyblade.net [23.128.96.9])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id A1F1EC36B09
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id DFA7CC36B09
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Tue, 15 Oct 2019 17:24:03 +0000 (UTC)
-Received: by mail-ot1-f66.google.com with SMTP id 60so17648146otu.0
- for <linux-stm32@st-md-mailman.stormreply.com>;
- Tue, 15 Oct 2019 10:24:03 -0700 (PDT)
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20161025;
- h=x-gm-message-state:date:from:to:cc:subject:message-id:references
- :mime-version:content-disposition:in-reply-to:user-agent;
- bh=AMnuJgHGU6R0IzytORO8cFlW8ykU5YUSocCPPL5eBC4=;
- b=Dkazv8d5xR1526YbPDcOZFsD5TFNLabjEZUlIJETA2fu2UkLgvErnPajoaN3Zh8bQv
- kMkYsk0AaFlk5FBdTlAQEic9Bs7lWTRSbzwAjG1sBPMtqQL4AZAnuZsIGJaHtTp1FRc+
- EFKkxPep31lp0F+G4C+kSwxx3Gh0wvdwp5Hd6Zzsu1Bxcow4k2DpB5d4e354FW1ZyKoU
- lGfi8SeMpqG9eaRU/ge3a3dH+tZLKkgpx4HgRIXoS6ttT3pVPyPzBFp6//ElAxGZRzqh
- GAyLpxw42pmVSkEwMm2EK/e5FIZwYB+QIw7K8oU5es1JrMis/jPerSPJ98UfMnhWRie7
- fCbA==
-X-Gm-Message-State: APjAAAVjhf7s2Btee9VHzUvpR0l9NRGb3R6yGy8AoUavQ3bPvjllHKOC
- IpgXJKfzahKSRYiK/pIPTg==
-X-Google-Smtp-Source: APXvYqxeAQyn2woHyJsNz/1A9Qqotnbqgu/lYixgaEz9AtYG4uiKdx1AbMY3H/CJDkTrB7+S/N/KHQ==
-X-Received: by 2002:a05:6830:22ce:: with SMTP id
- q14mr3987927otc.115.1571160242078; 
- Tue, 15 Oct 2019 10:24:02 -0700 (PDT)
-Received: from localhost (24-155-109-49.dyn.grandenetworks.net.
- [24.155.109.49])
- by smtp.gmail.com with ESMTPSA id d194sm6658461oib.47.2019.10.15.10.24.01
- (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Tue, 15 Oct 2019 10:24:01 -0700 (PDT)
-Date: Tue, 15 Oct 2019 12:24:00 -0500
-From: Rob Herring <robh@kernel.org>
-To: Alexandre Torgue <alexandre.torgue@st.com>
-Message-ID: <20191015172400.GA724@bogus>
-References: <20191007134410.10337-1-alexandre.torgue@st.com>
- <20191007134410.10337-4-alexandre.torgue@st.com>
-MIME-Version: 1.0
-Content-Disposition: inline
-In-Reply-To: <20191007134410.10337-4-alexandre.torgue@st.com>
-User-Agent: Mutt/1.10.1 (2018-07-13)
-Cc: Mark Rutland <mark.rutland@arm.com>, devicetree@vger.kernel.org,
- Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
- Linus Walleij <linus.walleij@linaro.org>, linux-usb@vger.kernel.org,
- linux-kernel@vger.kernel.org, linux-gpio@vger.kernel.org,
- Rob Herring <robh+dt@kernel.org>, Maxime Coquelin <mcoquelin.stm32@gmail.com>,
- Manivannan Sadhasivam <manivannan.sadhasivam@linaro.org>,
- linux-stm32@st-md-mailman.stormreply.com, linux-arm-kernel@lists.infradead.org
-Subject: Re: [Linux-stm32] [PATCH 3/3] dt-bindings: usb: generic-ehci: Add
-	"companion" entry
+ Wed, 16 Oct 2019 03:57:11 +0000 (UTC)
+Received: from localhost (unknown [IPv6:2601:601:9f00:1e2::d71])
+ (using TLSv1 with cipher AES256-SHA (256/256 bits))
+ (Client did not present a certificate)
+ (Authenticated sender: davem-davemloft)
+ by shards.monkeyblade.net (Postfix) with ESMTPSA id B66F6108B8674;
+ Tue, 15 Oct 2019 20:57:09 -0700 (PDT)
+Date: Tue, 15 Oct 2019 20:57:09 -0700 (PDT)
+Message-Id: <20191015.205709.544930489994384528.davem@davemloft.net>
+To: ben.dooks@codethink.co.uk
+From: David Miller <davem@davemloft.net>
+In-Reply-To: <20191015161748.31576-1-ben.dooks@codethink.co.uk>
+References: <20191015161748.31576-1-ben.dooks@codethink.co.uk>
+X-Mailer: Mew version 6.8 on Emacs 26.1
+Mime-Version: 1.0
+X-Greylist: Sender succeeded SMTP AUTH, not delayed by milter-greylist-4.5.12
+ (shards.monkeyblade.net [149.20.54.216]);
+ Tue, 15 Oct 2019 20:57:10 -0700 (PDT)
+Cc: linux-kernel@lists.codethink.co.uk, netdev@vger.kernel.org,
+ linux-kernel@vger.kernel.org, joabreu@synopsys.com, mcoquelin.stm32@gmail.com,
+ peppe.cavallaro@st.com, linux-stm32@st-md-mailman.stormreply.com,
+ linux-arm-kernel@lists.infradead.org
+Subject: Re: [Linux-stm32] [PATCH] net: stmmac: make tc_flow_parsers static
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -74,16 +51,17 @@ Content-Transfer-Encoding: 7bit
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
-On Mon, 7 Oct 2019 15:44:10 +0200, Alexandre Torgue wrote:
-> "companion" entry is present in "generic.txt" usb binding file. This commit
-> adds it also in generic-ehci yaml binding.
-> 
-> Signed-off-by: Alexandre Torgue <alexandre.torgue@st.com>
-> 
+From: "Ben Dooks (Codethink)" <ben.dooks@codethink.co.uk>
+Date: Tue, 15 Oct 2019 17:17:48 +0100
 
-Applied, thanks.
+> The tc_flow_parsers is not used outside of the driver, so
+> make it static to avoid the following sparse warning:
+> 
+> drivers/net/ethernet/stmicro/stmmac/stmmac_tc.c:516:3: warning: symbol 'tc_flow_parsers' was not declared. Should it be static?
+> 
+> Signed-off-by: Ben Dooks <ben.dooks@codethink.co.uk>
 
-Rob
+Applied.
 _______________________________________________
 Linux-stm32 mailing list
 Linux-stm32@st-md-mailman.stormreply.com
