@@ -2,41 +2,35 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id A0838DA82D
-	for <lists+linux-stm32@lfdr.de>; Thu, 17 Oct 2019 11:21:11 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id DDEC2DA837
+	for <lists+linux-stm32@lfdr.de>; Thu, 17 Oct 2019 11:24:14 +0200 (CEST)
 Received: from ip-172-31-3-76.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 6BD53C36B0C;
-	Thu, 17 Oct 2019 09:21:11 +0000 (UTC)
-Received: from huawei.com (szxga01-in.huawei.com [45.249.212.187])
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id A2357C36B0B;
+	Thu, 17 Oct 2019 09:24:14 +0000 (UTC)
+Received: from huawei.com (szxga05-in.huawei.com [45.249.212.191])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 4D446C36B09
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 22B1AC36B09
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Thu, 17 Oct 2019 09:21:09 +0000 (UTC)
-Received: from DGGEMM406-HUB.china.huawei.com (unknown [172.30.72.55])
- by Forcepoint Email with ESMTP id 3EA592D8AD9CA59F8AAD;
- Thu, 17 Oct 2019 17:21:07 +0800 (CST)
-Received: from DGGEMM423-HUB.china.huawei.com (10.1.198.40) by
- DGGEMM406-HUB.china.huawei.com (10.3.20.214) with Microsoft SMTP Server (TLS)
- id 14.3.439.0; Thu, 17 Oct 2019 17:21:06 +0800
-Received: from DGGEMM527-MBX.china.huawei.com ([169.254.6.34]) by
- dggemm423-hub.china.huawei.com ([10.1.198.40]) with mapi id 14.03.0439.000;
- Thu, 17 Oct 2019 17:21:01 +0800
-From: huangdaode <huangdaode@hisilicon.com>
-To: Marc Zyngier <maz@kernel.org>
-Thread-Topic: [PATCH] use devm_platform_ioremap_resource() for irqchip drivers
-Thread-Index: AdWEzDCnTEOo/fABek625E0pBMISbQ==
-X-CallingTelephoneNumber: IPM.Note
-X-VoiceMessageDuration: 1
-X-FaxNumberOfPages: 0
-Date: Thu, 17 Oct 2019 09:21:00 +0000
-Message-ID: <E20AE017F0DBA04DA661272787510F9813D297BF@DGGEMM527-MBX.china.huawei.com>
-Accept-Language: zh-CN, en-US
-Content-Language: zh-CN
-X-MS-Has-Attach: 
-X-MS-TNEF-Correlator: 
-x-originating-ip: [10.61.13.197]
+ Thu, 17 Oct 2019 09:24:13 +0000 (UTC)
+Received: from DGGEMS404-HUB.china.huawei.com (unknown [172.30.72.59])
+ by Forcepoint Email with ESMTP id 2190D78F2197008800FB;
+ Thu, 17 Oct 2019 17:24:10 +0800 (CST)
+Received: from [127.0.0.1] (10.133.213.239) by DGGEMS404-HUB.china.huawei.com
+ (10.3.19.204) with Microsoft SMTP Server id 14.3.439.0;
+ Thu, 17 Oct 2019 17:24:03 +0800
+To: huangdaode <huangdaode@hisilicon.com>, Marc Zyngier <maz@kernel.org>
+References: <1571296423-208359-1-git-send-email-huangdaode@hisilicon.com>
+ <9bbcce19c777583815c92ce3c2ff2586@www.loen.fr>
+ <E20AE017F0DBA04DA661272787510F9813D297B0@DGGEMM527-MBX.china.huawei.com>
+From: Yuehaibing <yuehaibing@huawei.com>
+Message-ID: <3a98da01-4f69-2624-e49f-5e2316c433e0@huawei.com>
+Date: Thu, 17 Oct 2019 17:24:01 +0800
+User-Agent: Mozilla/5.0 (Windows NT 6.1; WOW64; rv:45.0) Gecko/20100101
+ Thunderbird/45.2.0
 MIME-Version: 1.0
+In-Reply-To: <E20AE017F0DBA04DA661272787510F9813D297B0@DGGEMM527-MBX.china.huawei.com>
+X-Originating-IP: [10.133.213.239]
 X-CFilter-Loop: Reflected
 Cc: "nm@ti.com" <nm@ti.com>, "andrew@lunn.ch" <andrew@lunn.ch>,
  "jason@lakedaemon.net" <jason@lakedaemon.net>,
@@ -50,8 +44,9 @@ Cc: "nm@ti.com" <nm@ti.com>, "andrew@lunn.ch" <andrew@lunn.ch>,
  <linux-stm32@st-md-mailman.stormreply.com>,
  "linux-arm-kernel@lists.infradead.org" <linux-arm-kernel@lists.infradead.org>,
  "sebastian.hesselbarth@gmail.com" <sebastian.hesselbarth@gmail.com>
-Subject: [Linux-stm32] =?gb2312?b?s7e72DogW1BBVENIXSB1c2UgZGV2bV9wbGF0Zm9y?=
- =?gb2312?b?bV9pb3JlbWFwX3Jlc291cmNlKCkgZm9yIGlycWNoaXAgZHJpdmVycw==?=
+Subject: Re: [Linux-stm32]
+ =?utf-8?b?562U5aSNOiBbUEFUQ0hdIHVzZSBkZXZtX3BsYXRm?=
+ =?utf-8?q?orm=5Fioremap=5Fresource=28=29_for_irqchip_drivers?=
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -63,13 +58,64 @@ List-Post: <mailto:linux-stm32@st-md-mailman.stormreply.com>
 List-Help: <mailto:linux-stm32-request@st-md-mailman.stormreply.com?subject=help>
 List-Subscribe: <https://st-md-mailman.stormreply.com/mailman/listinfo/linux-stm32>, 
  <mailto:linux-stm32-request@st-md-mailman.stormreply.com?subject=subscribe>
-Content-Type: text/plain; charset="gb2312"
+Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: base64
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
-aHVhbmdkYW9kZSC9q7O3u9jTyrz+obBbUEFUQ0hdIHVzZSBkZXZtX3BsYXRmb3JtX2lvcmVtYXBf
-cmVzb3VyY2UoKSBmb3IgaXJxY2hpcCBkcml2ZXJzobGhowpfX19fX19fX19fX19fX19fX19fX19f
-X19fX19fX19fX19fX19fX19fX19fX19fXwpMaW51eC1zdG0zMiBtYWlsaW5nIGxpc3QKTGludXgt
-c3RtMzJAc3QtbWQtbWFpbG1hbi5zdG9ybXJlcGx5LmNvbQpodHRwczovL3N0LW1kLW1haWxtYW4u
-c3Rvcm1yZXBseS5jb20vbWFpbG1hbi9saXN0aW5mby9saW51eC1zdG0zMgo=
+T24gMjAxOS8xMC8xNyAxNzoyMCwgaHVhbmdkYW9kZSB3cm90ZToKPiBIaSBNYXJjCj4gSSBhbSBq
+dXN0IGRvaW5nIHRoZSBjb2NjaWNoZWNrIHVzaW5nIHRoZSBjb21tYW5kICJtYWtlIGNvY2NpY2hl
+Y2sgTT1kcml2ZXJzL2lycWNoaXAvIiwgYW5kIGl0IHJlcG9ydCAKPiAkIG1ha2UgY29jY2ljaGVj
+ayBNPWRyaXZlcnMvaXJxY2hpcC8KPiAuLi4uLi4uCj4gZHJpdmVycy9pcnFjaGlwLy9pcnEtbXZl
+YnUtaWN1LmM6MzYxOjEtMTA6IFdBUk5JTkc6IFVzZSBkZXZtX3BsYXRmb3JtX2lvcmVtYXBfcmVz
+b3VyY2UgZm9yIGljdSAtPiBiYXNlCj4gZHJpdmVycy9pcnFjaGlwLy9pcnEtdHM0ODAwLmM6MTA1
+OjEtMTE6IFdBUk5JTkc6IFVzZSBkZXZtX3BsYXRmb3JtX2lvcmVtYXBfcmVzb3VyY2UgZm9yIGRh
+dGEgLT4gYmFzZQo+IGRyaXZlcnMvaXJxY2hpcC8vaXJxLW12ZWJ1LXBpYy5jOjEzNDoxLTEwOiBX
+QVJOSU5HOiBVc2UgZGV2bV9wbGF0Zm9ybV9pb3JlbWFwX3Jlc291cmNlIGZvciBwaWMgLT4gYmFz
+ZQo+IGRyaXZlcnMvaXJxY2hpcC8vaXJxLXRpLXNjaS1pbnRhLmM6NTcxOjEtMTE6IFdBUk5JTkc6
+IFVzZSBkZXZtX3BsYXRmb3JtX2lvcmVtYXBfcmVzb3VyY2UgZm9yIGludGEgLT4gYmFzZQo+IGRy
+aXZlcnMvaXJxY2hpcC8vaXJxLXN0bTMyLWV4dGkuYzo4NTM6MS0xNjogV0FSTklORzogVXNlIGRl
+dm1fcGxhdGZvcm1faW9yZW1hcF9yZXNvdXJjZSBmb3IgaG9zdF9kYXRhIC0+IGJhc2UKPiAKPiBz
+byBqdXN0IGZpeCB0aGUgV0FSTklORy4gCj4gCj4gQW5kIGFmdGVyICBhcHBseSB0aGUgcGF0Y2gs
+IEkgZG8gdGhlIGNvbXBpbGUsIGl0J3MgT0ssIGJ1dCBJIGxhY2sgb2YgaGFyZHdhcmUgdG8gdGVz
+dCBpdC4gCj4gVGhhdCdzIHRoZSBjYXNlLiAKPiAKPiBNQlIuCj4gVGhhbmtzCj4gCj4gLS0tLS3p
+gq7ku7bljp/ku7YtLS0tLQo+IOWPkeS7tuS6ujogTWFyYyBaeW5naWVyIFttYWlsdG86bWF6QGtl
+cm5lbC5vcmddIAo+IOWPkemAgeaXtumXtDogMjAxOeW5tDEw5pyIMTfml6UgMTY6MjQKPiDmlLbk
+u7bkuro6IGh1YW5nZGFvZGUgPGh1YW5nZGFvZGVAaGlzaWxpY29uLmNvbT4KPiDmioTpgIE6IGph
+c29uQGxha2VkYWVtb24ubmV0OyBhbmRyZXdAbHVubi5jaDsgZ3JlZ29yeS5jbGVtZW50QGJvb3Rs
+aW4uY29tOyBzZWJhc3RpYW4uaGVzc2VsYmFydGhAZ21haWwuY29tOyB0Z2x4QGxpbnV0cm9uaXgu
+ZGU7IG1jb3F1ZWxpbi5zdG0zMkBnbWFpbC5jb207IGFsZXhhbmRyZS50b3JndWVAc3QuY29tOyBu
+bUB0aS5jb207IHQta3Jpc3RvQHRpLmNvbTsgc3NhbnRvc2hAa2VybmVsLm9yZzsgbGludXgtYXJt
+LWtlcm5lbEBsaXN0cy5pbmZyYWRlYWQub3JnOyBsaW51eC1rZXJuZWxAdmdlci5rZXJuZWwub3Jn
+OyBsaW51eC1zdG0zMkBzdC1tZC1tYWlsbWFuLnN0b3JtcmVwbHkuY29tCj4g5Li76aKYOiBSZTog
+W1BBVENIXSB1c2UgZGV2bV9wbGF0Zm9ybV9pb3JlbWFwX3Jlc291cmNlKCkgZm9yIGlycWNoaXAg
+ZHJpdmVycwo+IAo+IE9uIDIwMTktMTAtMTcgMDg6MTMsIERhb2RlIEh1YW5nIHdyb3RlOgo+PiBG
+cm9tOiBEYW9kZSBIdWFuZyA8aHVhbmdkYW9kZUBoaXNsaWNvbi5jb20+Cj4+Cj4+IFVzZSB0aGUg
+bmV3IGhlbHBlciB0aGF0IHdyYXBzIHRoZSBjYWxscyB0byBwbGF0Zm9ybV9nZXRfcmVzb3VyY2Uo
+KSBhbmQgCj4+IGRldm1faW9yZW1hcF9yZXNvdXJjZSgpIHRvZ2V0aGVyCj4+Cj4+IFNpZ25lZC1v
+ZmYtYnk6IERhb2RlIEh1YW5nIDxodWFuZ2Rhb2RlQGhpc2xpY29uLmNvbT4KPj4gLS0tCj4+ICBk
+cml2ZXJzL2lycWNoaXAvaXJxLW12ZWJ1LWljdS5jICAgfCAzICstLQo+PiAgZHJpdmVycy9pcnFj
+aGlwL2lycS1tdmVidS1waWMuYyAgIHwgMyArLS0KPj4gIGRyaXZlcnMvaXJxY2hpcC9pcnEtc3Rt
+MzItZXh0aS5jICB8IDMgKy0tICAKPj4gZHJpdmVycy9pcnFjaGlwL2lycS10aS1zY2ktaW50YS5j
+IHwgMyArLS0KPj4gIGRyaXZlcnMvaXJxY2hpcC9pcnEtdHM0ODAwLmMgICAgICB8IDMgKy0tCj4+
+ICA1IGZpbGVzIGNoYW5nZWQsIDUgaW5zZXJ0aW9ucygrKSwgMTAgZGVsZXRpb25zKC0pCj4+Cj4+
+IGRpZmYgLS1naXQgYS9kcml2ZXJzL2lycWNoaXAvaXJxLW12ZWJ1LWljdS5jIAo+PiBiL2RyaXZl
+cnMvaXJxY2hpcC9pcnEtbXZlYnUtaWN1LmMgaW5kZXggNTQ3MDQ1ZC4uZGRmOWIwZCAxMDA2NDQK
+Pj4gLS0tIGEvZHJpdmVycy9pcnFjaGlwL2lycS1tdmVidS1pY3UuYwo+PiArKysgYi9kcml2ZXJz
+L2lycWNoaXAvaXJxLW12ZWJ1LWljdS5jCj4+IEBAIC0zNTcsOCArMzU3LDcgQEAgc3RhdGljIGlu
+dCBtdmVidV9pY3VfcHJvYmUoc3RydWN0IHBsYXRmb3JtX2RldmljZQo+PiAqcGRldikKPj4KPj4g
+IAlpY3UtPmRldiA9ICZwZGV2LT5kZXY7Cj4+Cj4+IC0JcmVzID0gcGxhdGZvcm1fZ2V0X3Jlc291
+cmNlKHBkZXYsIElPUkVTT1VSQ0VfTUVNLCAwKTsKPj4gLQlpY3UtPmJhc2UgPSBkZXZtX2lvcmVt
+YXBfcmVzb3VyY2UoJnBkZXYtPmRldiwgcmVzKTsKPj4gKwlpY3UtPmJhc2UgPSBkZXZtX3BsYXRm
+b3JtX2lvcmVtYXBfcmVzb3VyY2UocGRldiwgcmVzKTsKCkl0IHNob3VsZCBiZSA6CgorCWljdS0+
+YmFzZSA9IGRldm1fcGxhdGZvcm1faW9yZW1hcF9yZXNvdXJjZShwZGV2LCAwKTsKCj4gCj4gdm9p
+ZCBfX2lvbWVtICpkZXZtX3BsYXRmb3JtX2lvcmVtYXBfcmVzb3VyY2Uoc3RydWN0IHBsYXRmb3Jt
+X2RldmljZSAqcGRldiwKPiAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAg
+ICAgICAgdW5zaWduZWQgaW50IGluZGV4KQo+IAo+IFdoYXQgY291bGQgcG9zc2libHkgZ28gd3Jv
+bmc/IEknZCBzdWdnZXN0IHlvdSBzdGFydCBjb21waWxpbmcgKGFuZCBwb3NzaWJseQo+IHRlc3Rp
+bmcpIHRoZSBjb2RlIHlvdSBjaGFuZ2UgYmVmb3JlIHNlbmRpbmcgcGF0Y2hlcy4uLgo+IAo+ICAg
+ICAgICAgIE0uCj4gLS0KPiBKYXp6IGlzIG5vdCBkZWFkLiBJdCBqdXN0IHNtZWxscyBmdW5ueS4u
+Lgo+IAoKX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX18KTGlu
+dXgtc3RtMzIgbWFpbGluZyBsaXN0CkxpbnV4LXN0bTMyQHN0LW1kLW1haWxtYW4uc3Rvcm1yZXBs
+eS5jb20KaHR0cHM6Ly9zdC1tZC1tYWlsbWFuLnN0b3JtcmVwbHkuY29tL21haWxtYW4vbGlzdGlu
+Zm8vbGludXgtc3RtMzIK
