@@ -2,49 +2,38 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id C964CDA728
-	for <lists+linux-stm32@lfdr.de>; Thu, 17 Oct 2019 10:23:54 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 20987DA764
+	for <lists+linux-stm32@lfdr.de>; Thu, 17 Oct 2019 10:28:24 +0200 (CEST)
 Received: from ip-172-31-3-76.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 8552DC36B0B;
-	Thu, 17 Oct 2019 08:23:54 +0000 (UTC)
-Received: from inca-roads.misterjones.org (inca-roads.misterjones.org
- [213.251.177.50])
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id D04F1C36B0B;
+	Thu, 17 Oct 2019 08:28:23 +0000 (UTC)
+Received: from huawei.com (szxga06-in.huawei.com [45.249.212.32])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id ACB13C36B09
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 33BB6C36B09
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Thu, 17 Oct 2019 08:23:51 +0000 (UTC)
-Received: from www-data by cheepnis.misterjones.org with local (Exim 4.80)
- (envelope-from <maz@kernel.org>)
- id 1iL14J-0002NX-Lg; Thu, 17 Oct 2019 10:23:35 +0200
-To: Daode Huang <huangdaode@hisilicon.com>
-X-PHP-Originating-Script: 0:main.inc
+ Thu, 17 Oct 2019 08:28:23 +0000 (UTC)
+Received: from DGGEMS401-HUB.china.huawei.com (unknown [172.30.72.59])
+ by Forcepoint Email with ESMTP id 08DF78AE15FCECDED770;
+ Thu, 17 Oct 2019 16:28:20 +0800 (CST)
+Received: from localhost.localdomain (10.67.212.75) by
+ DGGEMS401-HUB.china.huawei.com (10.3.19.201) with Microsoft SMTP Server id
+ 14.3.439.0; Thu, 17 Oct 2019 16:28:18 +0800
+From: Daode Huang <huangdaode@hisilicon.com>
+To: <jason@lakedaemon.net>, <andrew@lunn.ch>, <gregory.clement@bootlin.com>,
+ <sebastian.hesselbarth@gmail.com>, <tglx@linutronix.de>, <maz@kernel.org>,
+ <mcoquelin.stm32@gmail.com>, <alexandre.torgue@st.com>, <nm@ti.com>,
+ <t-kristo@ti.com>, <ssantosh@kernel.org>
+Date: Thu, 17 Oct 2019 16:25:29 +0800
+Message-ID: <1571300729-38822-1-git-send-email-huangdaode@hisilicon.com>
+X-Mailer: git-send-email 2.8.1
 MIME-Version: 1.0
-Date: Thu, 17 Oct 2019 09:23:34 +0100
-From: Marc Zyngier <maz@kernel.org>
-In-Reply-To: <1571296423-208359-1-git-send-email-huangdaode@hisilicon.com>
-References: <1571296423-208359-1-git-send-email-huangdaode@hisilicon.com>
-Message-ID: <9bbcce19c777583815c92ce3c2ff2586@www.loen.fr>
-X-Sender: maz@kernel.org
-User-Agent: Roundcube Webmail/0.7.2
-X-SA-Exim-Connect-IP: <locally generated>
-X-SA-Exim-Rcpt-To: huangdaode@hisilicon.com, jason@lakedaemon.net,
- andrew@lunn.ch, gregory.clement@bootlin.com, sebastian.hesselbarth@gmail.com,
- tglx@linutronix.de, mcoquelin.stm32@gmail.com, alexandre.torgue@st.com,
- nm@ti.com, t-kristo@ti.com, ssantosh@kernel.org,
- linux-arm-kernel@lists.infradead.org, linux-kernel@vger.kernel.org,
+X-Originating-IP: [10.67.212.75]
+X-CFilter-Loop: Reflected
+Cc: linux-kernel@vger.kernel.org, linux-arm-kernel@lists.infradead.org,
  linux-stm32@st-md-mailman.stormreply.com
-X-SA-Exim-Mail-From: maz@kernel.org
-X-SA-Exim-Scanned: No (on cheepnis.misterjones.org);
- SAEximRunCond expanded to false
-Cc: nm@ti.com, andrew@lunn.ch, jason@lakedaemon.net,
- gregory.clement@bootlin.com, linux-kernel@vger.kernel.org, t-kristo@ti.com,
- mcoquelin.stm32@gmail.com, ssantosh@kernel.org, tglx@linutronix.de,
- linux-stm32@st-md-mailman.stormreply.com, linux-arm-kernel@lists.infradead.org,
- sebastian.hesselbarth@gmail.com
-Subject: Re: [Linux-stm32]
-	=?utf-8?q?=5BPATCH=5D_use_devm=5Fplatform=5Fioremap?=
-	=?utf-8?q?=5Fresource=28=29_for_irqchip_drivers?=
+Subject: [Linux-stm32] [PATCH] irqchip: remove redundant semicolon after
+	while
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -56,51 +45,62 @@ List-Post: <mailto:linux-stm32@st-md-mailman.stormreply.com>
 List-Help: <mailto:linux-stm32-request@st-md-mailman.stormreply.com?subject=help>
 List-Subscribe: <https://st-md-mailman.stormreply.com/mailman/listinfo/linux-stm32>, 
  <mailto:linux-stm32-request@st-md-mailman.stormreply.com?subject=subscribe>
+Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
-Content-Type: text/plain; charset="us-ascii"; Format="flowed"
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
-On 2019-10-17 08:13, Daode Huang wrote:
-> From: Daode Huang <huangdaode@hislicon.com>
->
-> Use the new helper that wraps the calls to platform_get_resource()
-> and devm_ioremap_resource() together
->
-> Signed-off-by: Daode Huang <huangdaode@hislicon.com>
-> ---
->  drivers/irqchip/irq-mvebu-icu.c   | 3 +--
->  drivers/irqchip/irq-mvebu-pic.c   | 3 +--
->  drivers/irqchip/irq-stm32-exti.c  | 3 +--
->  drivers/irqchip/irq-ti-sci-inta.c | 3 +--
->  drivers/irqchip/irq-ts4800.c      | 3 +--
->  5 files changed, 5 insertions(+), 10 deletions(-)
->
-> diff --git a/drivers/irqchip/irq-mvebu-icu.c
-> b/drivers/irqchip/irq-mvebu-icu.c
-> index 547045d..ddf9b0d 100644
-> --- a/drivers/irqchip/irq-mvebu-icu.c
-> +++ b/drivers/irqchip/irq-mvebu-icu.c
-> @@ -357,8 +357,7 @@ static int mvebu_icu_probe(struct platform_device 
-> *pdev)
->
->  	icu->dev = &pdev->dev;
->
-> -	res = platform_get_resource(pdev, IORESOURCE_MEM, 0);
-> -	icu->base = devm_ioremap_resource(&pdev->dev, res);
-> +	icu->base = devm_platform_ioremap_resource(pdev, res);
+check drivers/irqchip with "make coccicheck M=drivers/irqchip/",
+it will report unneeded semicolon like below, just remove them.
 
-void __iomem *devm_platform_ioremap_resource(struct platform_device 
-*pdev,
-                                              unsigned int index)
+drivers/irqchip/irq-zevio.c:54:2-3: Unneeded semicolon
+drivers/irqchip/irq-gic-v3.c:177:2-3: Unneeded semicolon
+drivers/irqchip/irq-gic-v3.c:234:2-3: Unneeded semicolon
 
-What could possibly go wrong? I'd suggest you start compiling (and 
-possibly
-testing) the code you change before sending patches...
+Signed-off-by: Daode Huang <huangdaode@hisilicon.com>
+---
+ drivers/irqchip/irq-gic-v3.c | 4 ++--
+ drivers/irqchip/irq-zevio.c  | 2 +-
+ 2 files changed, 3 insertions(+), 3 deletions(-)
 
-         M.
+diff --git a/drivers/irqchip/irq-gic-v3.c b/drivers/irqchip/irq-gic-v3.c
+index 422664a..58518e5 100644
+--- a/drivers/irqchip/irq-gic-v3.c
++++ b/drivers/irqchip/irq-gic-v3.c
+@@ -174,7 +174,7 @@ static void gic_do_wait_for_rwp(void __iomem *base)
+ 		}
+ 		cpu_relax();
+ 		udelay(1);
+-	};
++	}
+ }
+ 
+ /* Wait for completion of a distributor change */
+@@ -231,7 +231,7 @@ static void gic_enable_redist(bool enable)
+ 			break;
+ 		cpu_relax();
+ 		udelay(1);
+-	};
++	}
+ 	if (!count)
+ 		pr_err_ratelimited("redistributor failed to %s...\n",
+ 				   enable ? "wakeup" : "sleep");
+diff --git a/drivers/irqchip/irq-zevio.c b/drivers/irqchip/irq-zevio.c
+index 5a7efeb..84163f1 100644
+--- a/drivers/irqchip/irq-zevio.c
++++ b/drivers/irqchip/irq-zevio.c
+@@ -51,7 +51,7 @@ static void __exception_irq_entry zevio_handle_irq(struct pt_regs *regs)
+ 	while (readl(zevio_irq_io + IO_STATUS)) {
+ 		irqnr = readl(zevio_irq_io + IO_CURRENT);
+ 		handle_domain_irq(zevio_irq_domain, irqnr, regs);
+-	};
++	}
+ }
+ 
+ static void __init zevio_init_irq_base(void __iomem *base)
 -- 
-Jazz is not dead. It just smells funny...
+2.8.1
+
 _______________________________________________
 Linux-stm32 mailing list
 Linux-stm32@st-md-mailman.stormreply.com
