@@ -2,72 +2,170 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id CF3FCDE4DB
-	for <lists+linux-stm32@lfdr.de>; Mon, 21 Oct 2019 08:54:07 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 7E397DE73E
+	for <lists+linux-stm32@lfdr.de>; Mon, 21 Oct 2019 10:58:21 +0200 (CEST)
 Received: from ip-172-31-3-76.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 7DF32C36B0B;
-	Mon, 21 Oct 2019 06:54:07 +0000 (UTC)
-Received: from mail-pg1-f193.google.com (mail-pg1-f193.google.com
- [209.85.215.193])
- (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 27D98C36B0B;
+	Mon, 21 Oct 2019 08:58:21 +0000 (UTC)
+Received: from esa1.microchip.iphmx.com (esa1.microchip.iphmx.com
+ [68.232.147.91])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 7D786C36B09
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 69B6DC36B09
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Fri, 18 Oct 2019 16:01:31 +0000 (UTC)
-Received: by mail-pg1-f193.google.com with SMTP id p30so3631087pgl.2
- for <linux-stm32@st-md-mailman.stormreply.com>;
- Fri, 18 Oct 2019 09:01:31 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20161025;
- h=subject:to:cc:references:from:message-id:date:user-agent
- :mime-version:in-reply-to:content-language:content-transfer-encoding;
- bh=gThyljWtDBKOhSiy6iEb52Z+/qQRS5Kp4hVB8LMGJq4=;
- b=A7/Tv/gOM+6HhintRWJJOEvZ/AdKsn7I2l/DAJ7OUeCkHrTr3E9HDo7LAZGy5a9vh7
- 4WwtE1fCXfmc8BQ0axVIpFBHOC+31NPSn6fNdcXBuskW0pwH0z8qEHttIaNCsD9a/WT9
- CSWwteONKad90EyYOWLAZsMTcCSEs49m/y1SMk+tx74WXQrgJhCNZ3HfmXk/OtduEm5a
- qQ3itoPk54BDfX0j6mcM0EBih+R0ZJ3jfvuPOEs1X0w1p/oQbWS5sycEcXEEJZ0NVqCw
- KIW4YlYVRMoRzxXn6IQGQ6fKpjLslhSDGqrPTmsd2Npm9i4tTIfCLf1MpL79wCKrTDuf
- fISw==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20161025;
- h=x-gm-message-state:subject:to:cc:references:from:message-id:date
- :user-agent:mime-version:in-reply-to:content-language
- :content-transfer-encoding;
- bh=gThyljWtDBKOhSiy6iEb52Z+/qQRS5Kp4hVB8LMGJq4=;
- b=Np7Vj1moMgYgiJfmEgcAPN2nHykQ/fUEIBEoCqiZh+o7q9GDCpdpGrQHCAb1m2NJxE
- bgOkhlK/PXQqh7X+K6gfjhEMYsE1D9+TGY+eB4eZHu1yPw5ftP9w4/ET5yi6n+6DFzdG
- /KR931SJN9A91q+RbtNxLTiAxbYNOgus0V1hUlpgfWCj3fNtDBaYGfmUobkkGe3+i2B9
- mStwscEdUxxVNA1kgbPfyEtsWe40/bEj7wL+9IcaybNTDm4uJ90gQ1BBix0rlGYoJp43
- jaiDyvGQxaVpYIYsQmGA+YSl1VsdxRkFENLewnvLymhFBATDZxkhN4nWqr2Tc2szj2jx
- f/AQ==
-X-Gm-Message-State: APjAAAXfAHyQ4RX/nPtLG57J7aFy2616VhkbjIbrTCPptG2MsNI1QVJz
- Dl/Fzc13qRg1RwmFpmmkWhU=
-X-Google-Smtp-Source: APXvYqxdw4v17EuDhxFWcokH7nzzl0sqYrWyTpIrsUMe5Zs8hAQW6pbS2VQO0dMBPOdl7QCf5KPWZw==
-X-Received: by 2002:a17:90a:e98d:: with SMTP id
- v13mr12063806pjy.64.1571414489913; 
- Fri, 18 Oct 2019 09:01:29 -0700 (PDT)
-Received: from [192.168.86.235] (c-73-241-150-70.hsd1.ca.comcast.net.
- [73.241.150.70])
- by smtp.gmail.com with ESMTPSA id x12sm6458744pfm.130.2019.10.18.09.01.27
- (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Fri, 18 Oct 2019 09:01:28 -0700 (PDT)
-To: Shaokun Zhang <zhangshaokun@hisilicon.com>, netdev@vger.kernel.org,
- linux-stm32@st-md-mailman.stormreply.com,
- linux-arm-kernel@lists.infradead.org, linux-kernel@vger.kernel.org
-References: <1571309950-43543-1-git-send-email-zhangshaokun@hisilicon.com>
-From: Eric Dumazet <eric.dumazet@gmail.com>
-Message-ID: <0b6b3394-f9f0-2804-0665-fe914ad2cdea@gmail.com>
-Date: Fri, 18 Oct 2019 09:01:26 -0700
-User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:60.0) Gecko/20100101
- Thunderbird/60.9.0
-MIME-Version: 1.0
-In-Reply-To: <1571309950-43543-1-git-send-email-zhangshaokun@hisilicon.com>
+ Mon, 21 Oct 2019 08:58:19 +0000 (UTC)
+Received-SPF: Pass (esa1.microchip.iphmx.com: domain of
+ Claudiu.Beznea@microchip.com designates 198.175.253.82 as
+ permitted sender) identity=mailfrom;
+ client-ip=198.175.253.82; receiver=esa1.microchip.iphmx.com;
+ envelope-from="Claudiu.Beznea@microchip.com";
+ x-sender="Claudiu.Beznea@microchip.com";
+ x-conformance=spf_only; x-record-type="v=spf1";
+ x-record-text="v=spf1 mx a:ushub1.microchip.com
+ a:smtpout.microchip.com a:mx1.microchip.iphmx.com
+ a:mx2.microchip.iphmx.com include:servers.mcsv.net
+ include:mktomail.com include:spf.protection.outlook.com ~all"
+Received-SPF: None (esa1.microchip.iphmx.com: no sender
+ authenticity information available from domain of
+ postmaster@email.microchip.com) identity=helo;
+ client-ip=198.175.253.82; receiver=esa1.microchip.iphmx.com;
+ envelope-from="Claudiu.Beznea@microchip.com";
+ x-sender="postmaster@email.microchip.com"; x-conformance=spf_only
+Authentication-Results: esa1.microchip.iphmx.com;
+ spf=Pass smtp.mailfrom=Claudiu.Beznea@microchip.com;
+ spf=None smtp.helo=postmaster@email.microchip.com;
+ dkim=pass (signature verified) header.i=@microchiptechnology.onmicrosoft.com;
+ dmarc=pass (p=none dis=none) d=microchip.com
+IronPort-SDR: WEj1RSGINlH0YP7nNoiViAPn5fKFEykpOmUAsfeXVHQ0ptRTq9IpWZydSiG1TTXVqc+rNAMCa/
+ 9g8VAxylPb52ieSRnXN023ATEiHh15sJrP9LRA/gLvEfORXrjE8Ff4VovtElpoPzXALRS2RyKR
+ UTafdxNN4tSsDQl7Ysd8k345wN1/xMrGFno4nYmeH6fMCcZlPmhuetz3JpZ4FubkklDDCD3lVe
+ zYQdyHnncGWMnn7IPVTn7h96BeUeQdnMwgkzIWrgvfPEvPUdaJJ7hA0PLu/s3eaa9nqXhHUS7P
+ E08=
+X-IronPort-AV: E=Sophos;i="5.67,323,1566889200"; d="scan'208";a="54996746"
+Received: from smtpout.microchip.com (HELO email.microchip.com)
+ ([198.175.253.82])
+ by esa1.microchip.iphmx.com with ESMTP/TLS/AES256-SHA256;
+ 21 Oct 2019 01:58:14 -0700
+Received: from chn-vm-ex04.mchp-main.com (10.10.85.152) by
+ chn-vm-ex04.mchp-main.com (10.10.85.152) with Microsoft SMTP Server
+ (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
+ 15.1.1713.5; Mon, 21 Oct 2019 01:58:12 -0700
+Received: from NAM04-CO1-obe.outbound.protection.outlook.com (10.10.215.89) by
+ email.microchip.com (10.10.87.151) with Microsoft SMTP Server
+ (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.1713.5
+ via Frontend Transport; Mon, 21 Oct 2019 01:58:12 -0700
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
+ b=UVxpEboKD5DSydpkrO0hbX/rigOqbuO5TP6ccH+2DzAFCGEaO5ljvmIbi9Fu1Jo53ItQGCCUz5JSZV0Ib8u+NlWkjfyUTQRz9t+msHA2hqkhmlrnoU/llKTMp+J9SJ+ZgRJjGykn8azB+YrdH+4kTKKyfGfzUechUffjngE7m6GKtCAcr4UuKMYxCNF2kOHu7a+yK9ZPpXo3uI/J0xAw0YaYa/T60PdL8t9AK3IQ3NI5Ax3EKBENOAl+VH1MlCj1x+40F+v54pSuUilkCE8DCECziiuPx3wMEkoB8qTE4Loe1fakmb5ZZ8eRWzgHYA6sEzgnVL60z8dhtwcWREy3Fg==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
+ s=arcselector9901;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=Wpk8sLUcO1HMbgN1/NAq9gdAZbl2KgQ3dc/W6Au6XM0=;
+ b=LKmKWGJmAsZaXX3+cpB4qWFxtZdyXFdbJIeIlMIJl2zf+7l+TJ+C+bznjNHBWur1PnqY45GpcCpwBopzStdU7c7QJH9dEa83PsmlFcC/M4oaqnE5FyAq8fixilRSKb3BT9NL/NTbf+G2JHP7j2hFIpdXvpW8cfPNDmwe8ZrQMUlCp0Hl8RJ+LT6967I00ajrJbDHX0hwscoSTwIKPVikxcVrUfCDL833NXmHBlfYkX1SG8Wc/TCfV2bJ3Yqk8DncLuNNi7+N/VtWLtVkM7uxlcJeskQnrMPq1p1nRX2xR+yCws9cpSY1TZVOTQQH5NYsiRDxQcV1M08RBe51lpMbdg==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=microchip.com; dmarc=pass action=none
+ header.from=microchip.com; dkim=pass header.d=microchip.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=microchiptechnology.onmicrosoft.com;
+ s=selector2-microchiptechnology-onmicrosoft-com;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=Wpk8sLUcO1HMbgN1/NAq9gdAZbl2KgQ3dc/W6Au6XM0=;
+ b=pxr9UaNpSC7Br5tgOLkO3zHprkIgLGONPrpbtdj2C45CdFZnAwPkknwXUKT0HqMmb+e3UMmEqtFsLITRZH0xhOJsj8EO8rgfFo4QfBQlL7+Vj7eg4qD7WLXp0CE7N/zFiOa3VmQiyRqkS5e3hANOIFZlhDOIHBhKiQw1IvecwNA=
+Received: from DM6PR11MB3225.namprd11.prod.outlook.com (20.176.120.85) by
+ DM6PR11MB4234.namprd11.prod.outlook.com (52.132.249.203) with Microsoft SMTP
+ Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.20.2347.17; Mon, 21 Oct 2019 08:58:11 +0000
+Received: from DM6PR11MB3225.namprd11.prod.outlook.com
+ ([fe80::3874:9f3c:5325:d22]) by DM6PR11MB3225.namprd11.prod.outlook.com
+ ([fe80::3874:9f3c:5325:d22%6]) with mapi id 15.20.2347.029; Mon, 21 Oct 2019
+ 08:58:11 +0000
+From: <Claudiu.Beznea@microchip.com>
+To: <daniel.lezcano@linaro.org>, <robh+dt@kernel.org>, <mark.rutland@arm.com>, 
+ <linux@armlinux.org.uk>, <nsekhar@ti.com>, <bgolaszewski@baylibre.com>,
+ <monstr@monstr.eu>, <john@phrozen.org>, <ralf@linux-mips.org>,
+ <paul.burton@mips.com>, <jhogan@kernel.org>, <lftan@altera.com>,
+ <tglx@linutronix.de>, <vgupta@synopsys.com>, <marc.zyngier@arm.com>,
+ <patrice.chotard@st.com>, <mcoquelin.stm32@gmail.com>,
+ <alexandre.torgue@st.com>, <eric@anholt.net>, <wahrenst@gmx.net>,
+ <f.fainelli@gmail.com>, <rjui@broadcom.com>, <sbranden@broadcom.com>,
+ <bcm-kernel-feedback-list@broadcom.com>, <linus.walleij@linaro.org>,
+ <shc_work@mail.ru>, <kgene@kernel.org>, <krzk@kernel.org>,
+ <ysato@users.sourceforge.jp>, <liviu.dudau@arm.com>, <sudeep.holla@arm.com>,
+ <lorenzo.pieralisi@arm.com>, <shawnguo@kernel.org>, <s.hauer@pengutronix.de>, 
+ <kernel@pengutronix.de>, <festevam@gmail.com>, <linux-imx@nxp.com>,
+ <baohua@kernel.org>, <Nicolas.Ferre@microchip.com>,
+ <alexandre.belloni@bootlin.com>, <Ludovic.Desroches@microchip.com>,
+ <baruch@tkos.co.il>, <u.kleine-koenig@pengutronix.de>, <guoren@kernel.org>,
+ <kaloz@openwrt.org>, <khalasa@piap.pl>, <ssantosh@kernel.org>,
+ <vz@mleia.com>, <slemieux.tyco@gmail.com>, <khilman@baylibre.com>,
+ <avifishman70@gmail.com>, <tmaimon77@gmail.com>, <tali.perry1@gmail.com>,
+ <venture@google.com>, <yuenn@google.com>, <benjaminfair@google.com>,
+ <afaerber@suse.de>, <manivannan.sadhasivam@linaro.org>,
+ <narmstrong@baylibre.com>, <agross@kernel.org>, <palmer@sifive.com>,
+ <aou@eecs.berkeley.edu>, <heiko@sntech.de>, <orsonzhai@gmail.com>,
+ <baolin.wang@linaro.org>, <zhang.lyra@gmail.com>,
+ <maxime.ripard@bootlin.com>, <wens@csie.org>, <thierry.reding@gmail.com>,
+ <jonathanh@nvidia.com>, <linux@prisktech.co.nz>, <john.stultz@linaro.org>,
+ <sboyd@kernel.org>, <matthias.bgg@gmail.com>
+Thread-Topic: [PATCH 0/7] add support for clocksource/clockevent DT selection
+Thread-Index: AQHVc8VbrLXkUp4vH02J/Sk0g3X+4A==
+Date: Mon, 21 Oct 2019 08:58:10 +0000
+Message-ID: <215a1cd3-b1a8-5171-d70c-8d8081038e7f@microchip.com>
+References: <1568123236-767-1-git-send-email-claudiu.beznea@microchip.com>
+ <c3a68a08-d134-cd28-c8af-f757628e07f1@linaro.org>
+ <72edc5fd-df05-cba5-5aa7-39da1709415b@microchip.com>
+ <620a19d5-73b8-709d-9eec-49274ac23e51@microchip.com>
+ <187d7020-fbe9-7984-2358-8a70faef019f@microchip.com>
+ <14df6e5d-19ef-4ebc-fd11-9953bc3fc44e@linaro.org>
+ <7071b6fa-f7ed-c879-4a43-44100dbe6121@microchip.com>
+ <8e9f709f-2ded-c666-26e0-9235d6107c34@linaro.org>
+In-Reply-To: <8e9f709f-2ded-c666-26e0-9235d6107c34@linaro.org>
+Accept-Language: en-US
 Content-Language: en-US
-X-Mailman-Approved-At: Mon, 21 Oct 2019 06:54:05 +0000
-Cc: yuqi jin <jinyuqi@huawei.com>, Jose Abreu <joabreu@synopsys.com>,
- Maxime Coquelin <mcoquelin.stm32@gmail.com>,
- Giuseppe Cavallaro <peppe.cavallaro@st.com>,
- "David S. Miller" <davem@davemloft.net>
-Subject: Re: [Linux-stm32] [PATCH] net: stmmac: Fix the problem of tso_xmit
+X-MS-Has-Attach: 
+X-MS-TNEF-Correlator: 
+x-clientproxiedby: LO2P265CA0421.GBRP265.PROD.OUTLOOK.COM
+ (2603:10a6:600:a0::25) To DM6PR11MB3225.namprd11.prod.outlook.com
+ (2603:10b6:5:59::21)
+x-ms-exchange-messagesentrepresentingtype: 1
+x-tagtoolbar-keys: D20191021115748754
+x-originating-ip: [94.177.32.156]
+x-ms-publictraffictype: Email
+x-ms-office365-filtering-correlation-id: 3810ac50-35e2-4d42-7e6a-08d75604cc1f
+x-ms-traffictypediagnostic: DM6PR11MB4234:
+x-ms-exchange-transport-forked: True
+x-microsoft-antispam-prvs: <DM6PR11MB42347F81DD4DE1159ECD573287690@DM6PR11MB4234.namprd11.prod.outlook.com>
+x-ms-oob-tlc-oobclassifiers: OLM:8273;
+x-forefront-prvs: 0197AFBD92
+x-forefront-antispam-report: SFV:NSPM;
+ SFS:(10009020)(366004)(396003)(39860400002)(136003)(376002)(346002)(189003)(199004)(1191002)(36756003)(316002)(478600001)(5660300002)(14444005)(256004)(8676002)(2501003)(31686004)(6486002)(31696002)(229853002)(66066001)(102836004)(81156014)(6512007)(81166006)(6436002)(3846002)(52116002)(4326008)(99286004)(7406005)(2906002)(7336002)(6116002)(7366002)(2201001)(7416002)(110136005)(66446008)(66556008)(66946007)(66476007)(76176011)(6246003)(54906003)(86362001)(8936002)(71190400001)(71200400001)(25786009)(14454004)(11346002)(2616005)(446003)(476003)(386003)(6506007)(53546011)(7736002)(486006)(186003)(26005)(64756008)(2171002)(305945005)(921003)(1121003);
+ DIR:OUT; SFP:1101; SCL:1; SRVR:DM6PR11MB4234;
+ H:DM6PR11MB3225.namprd11.prod.outlook.com; FPR:; SPF:None; LANG:en;
+ PTR:InfoNoRecords; MX:1; A:1; 
+received-spf: None (protection.outlook.com: microchip.com does not designate
+ permitted sender hosts)
+x-ms-exchange-senderadcheck: 1
+x-microsoft-antispam: BCL:0;
+x-microsoft-antispam-message-info: BrURRVHxFOouoiEdT0XbRFhNbwLrjgICSsKdC1OVvjMDSPo2aviQut/pZmL6HMZKpmcEV97WzzAl7rTGFjlLCOoePFDwzRYPak3rKuYeuLRsIRO3gW7ayTGeDDucDl9w/XQG+vAup3pdj1PQJVZunDjh+4/+TGPP1DhTC625LXkUP0XrUptDb5rCpri00nNsoRpPSGdIW8UzSrhqXeuyLBkTLoQISGV1uyRV+PdI+rOyUI6WmRgMRXO95grqzacoGYQqRGoX0iDlhpbXvbHva803pt9flPrVjd+V6dLrjm6+EAa4L23DAe1MqTf/qDrY0EZh8GCP7PDr96MqIH38pXDhJAuFssZzo1l3wxv9mk8flNfDWzNGn3D8ylRo4lbZA8QDzObqbkeIU/74rIXVUclo14lTM2XsZITYDK8IbroE/uSqDKFwTk6tbmCdUad5
+Content-ID: <60F94980C60DF447B0B88B0D90F5A4BE@namprd11.prod.outlook.com>
+MIME-Version: 1.0
+X-MS-Exchange-CrossTenant-Network-Message-Id: 3810ac50-35e2-4d42-7e6a-08d75604cc1f
+X-MS-Exchange-CrossTenant-originalarrivaltime: 21 Oct 2019 08:58:10.4876 (UTC)
+X-MS-Exchange-CrossTenant-fromentityheader: Hosted
+X-MS-Exchange-CrossTenant-id: 3f4057f3-b418-4d4e-ba84-d55b4e897d88
+X-MS-Exchange-CrossTenant-mailboxtype: HOSTED
+X-MS-Exchange-CrossTenant-userprincipalname: XTVZQGsCKvIe/8hNUSvF0owHehWJYzdiVDOMD3guyXcrA6p8GMydRkwxoWKIu99kzwLS+96zH72X1Ru6hK3krIEC608LEOoTiq4/TfVr4Bs=
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: DM6PR11MB4234
+Cc: uclinux-h8-devel@lists.sourceforge.jp, devicetree@vger.kernel.org,
+ linux-samsung-soc@vger.kernel.org, linux-rockchip@lists.infradead.org,
+ linux-arm-msm@vger.kernel.org, openbmc@lists.ozlabs.org, linux-oxnas@groups.io,
+ linux-kernel@vger.kernel.org, linux-mips@vger.kernel.org,
+ linux-unisoc@lists.infradead.org, linux-mediatek@lists.infradead.org,
+ linux-rpi-kernel@lists.infradead.org, linux-amlogic@lists.infradead.org,
+ linux-tegra@vger.kernel.org, nios2-dev@lists.rocketboards.org,
+ linux-riscv@lists.infradead.org, linux-snps-arc@lists.infradead.org,
+ linux-stm32@st-md-mailman.stormreply.com, linux-arm-kernel@lists.infradead.org
+Subject: Re: [Linux-stm32] [PATCH 0/7] add support for
+	clocksource/clockevent DT selection
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -84,27 +182,71 @@ Content-Transfer-Encoding: 7bit
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
+Hi Daniel,
 
-
-On 10/17/19 3:59 AM, Shaokun Zhang wrote:
-> From: yuqi jin <jinyuqi@huawei.com>
+On 18.10.2019 23:24, Daniel Lezcano wrote:
+> Hi Claudiu,
 > 
-> When the address width of DMA is greater than 32, the packet header occupies
-> a BD descriptor. The starting address of the data should be added to the
-> header length.
+> On 15/10/2019 11:23, Claudiu.Beznea@microchip.com wrote:
 > 
-> Cc: Giuseppe Cavallaro <peppe.cavallaro@st.com>
-> Cc: Alexandre Torgue <alexandre.torgue@st.com>
-> Cc: Jose Abreu <joabreu@synopsys.com>
-> Cc: "David S. Miller" <davem@davemloft.net>
-> Cc: Maxime Coquelin <mcoquelin.stm32@gmail.com>
-> Signed-off-by: yuqi jin <jinyuqi@huawei.com>
-> Signed-off-by: Shaokun Zhang <zhangshaokun@hisilicon.com>
-> ---
+> [ ... ]
+> 
+>> The timer clock source could be divided by MR.PRES + 1.
+>>
+>> So, I used the clock-frequency DT binding to let user choose the timer's
+>> frequency. Based on the value provided via this DT binding the best clock
+>> source and prescaler is chosen via mchp_pit64b_pres_prepare() function.
+> 
+> I'm willing to take the driver but I doubt the purpose of the
+> clock-frequency is to let the user choose the frequency.
+> 
 
-Please add a Fixes: tag,
-thanks.
+I found this approach in the following already integrated drivers:
+drivers/clocksource/armv7m_systick.c
+drivers/clocksource/bcm2835_timer.c
+drivers/clocksource/bcm_kona_timer.c
+drivers/clocksource/mips-gic-timer.c
+drivers/clocksource/mps2-timer.c
+drivers/clocksource/timer-qcom.c
+drivers/clocksource/arm_arch_timer.c
 
+Looking through the documentation of these, most of them document this DT
+property as the frequency of the clock that drivers the timer, but none of
+them seems to have some IP internal dividers so that the timer to tick at
+different frequency than the clock that feeds the IP. From the
+documentation of the above drivers;
+drivers/clocksource/armv7m_systick.c
+	- clock-frequency : The rate in HZ in input of the ARM SysTick
+
+drivers/clocksource/bcm2835_timer.c
+	- clock-frequency : The frequency of the clock that drives the counter, in
+Hz.
+drivers/clocksource/bcm_kona_timer.c
+	- clock-frequency: frequency that the clock operates
+
+drivers/clocksource/mips-gic-timer.c
+	clock-frequency : Clock frequency at which the GIC timers operate.
+drivers/clocksource/mps2-timer.c
+	- clock-frequency : The rate in HZ in input of the ARM MPS2 timer
+
+drivers/clocksource/timer-qcom.c
+	- clock-frequency : The frequency of the debug timer and the general
+purpose
+                    timer(s) in Hz in that order.
+
+
+This is why I also chose this DT bindings.
+
+If you want I can stick to a fixed frequency hard coded in the driver.
+Please let me know if this would be OK for you.
+
+Thank you,
+Claudiu Beznea
+
+> 
+> [ ... ]
+> 
+> 
 _______________________________________________
 Linux-stm32 mailing list
 Linux-stm32@st-md-mailman.stormreply.com
