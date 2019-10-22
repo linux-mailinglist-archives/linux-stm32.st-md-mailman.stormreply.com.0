@@ -2,74 +2,51 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id 392C1E032C
-	for <lists+linux-stm32@lfdr.de>; Tue, 22 Oct 2019 13:40:51 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 8830AE0374
+	for <lists+linux-stm32@lfdr.de>; Tue, 22 Oct 2019 13:53:21 +0200 (CEST)
 Received: from ip-172-31-3-76.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 8F121C36B0B;
-	Tue, 22 Oct 2019 11:40:50 +0000 (UTC)
-Received: from mail-oi1-f194.google.com (mail-oi1-f194.google.com
- [209.85.167.194])
- (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 46401C36B0B;
+	Tue, 22 Oct 2019 11:53:21 +0000 (UTC)
+Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
+ (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 20074C36B09
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 6E95AC36B09
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Tue, 22 Oct 2019 11:40:49 +0000 (UTC)
-Received: by mail-oi1-f194.google.com with SMTP id w144so13870769oia.6
- for <linux-stm32@st-md-mailman.stormreply.com>;
- Tue, 22 Oct 2019 04:40:49 -0700 (PDT)
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20161025;
- h=x-gm-message-state:mime-version:references:in-reply-to:from:date
- :message-id:subject:to:cc;
- bh=MTkUrxhJaaygKpYFG6XKyORLB/6UsrnNnAcZ2HEl3vA=;
- b=LNVlnyHIiPKoXcJVgZEpBSMoWCkHsjjrANAN83ohQBYGU9GSkytss+2OV+45hV2il9
- mniPXzst8X99+YEJo4djCBI2fpzpp6XLG5cjrzHoicNwFyxqODqGyqyf6QJ5Y5MjvXDg
- Fh7xgMavVEKnhR80U/tFyhqD4eryFdavU9lE9+JHu7gZjW5JUE3kHmVAhT6Bbp6hPvlZ
- j/E34rxdRc7QEg1sTiN6Up5gKsLyZ+E0bOns3/Bfdf9RyEsJnmw/pAyepewETluiH+E+
- DDA6yNnJJMM5KLCOBSft9/+UzRDWAzRUiqeF+WSLwycnkmrpSP5e0EUK4SjOu0HvEz0B
- IB0A==
-X-Gm-Message-State: APjAAAUE2TVGUIHmvd4FgAGYS/UpovzX2ztCB7/WBowRMOILRv521ESC
- ZgEh84h5fNdtsrXj55EJpJ3I2L60Vbf2QrG0xKA=
-X-Google-Smtp-Source: APXvYqzhQ8cZ06PtyQQYS8VBvz7ZAfya04dDgTKpedBCyvYLKvYUP4z21wflkhBwZ+Lx/Betkfre5JCQCLddcCfBX8w=
-X-Received: by 2002:aca:882:: with SMTP id 124mr2542881oii.54.1571744447771;
- Tue, 22 Oct 2019 04:40:47 -0700 (PDT)
+ Tue, 22 Oct 2019 11:53:19 +0000 (UTC)
+Received: from archlinux (cpc149474-cmbg20-2-0-cust94.5-4.cable.virginm.net
+ [82.4.196.95])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+ (No client certificate requested)
+ by mail.kernel.org (Postfix) with ESMTPSA id B980A21783;
+ Tue, 22 Oct 2019 11:53:15 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
+ s=default; t=1571745197;
+ bh=mFRL1cOPVqH8M3jRF0HmpTCPqEWt43++I19E5TTgXoI=;
+ h=Date:From:To:Cc:Subject:In-Reply-To:References:From;
+ b=mAWvrBfIzsX978Bzhdz58X/RJTv4gaboqshUmS6jwmj6zeg755OZ1YhtbD+8hQbVZ
+ ZNIUd5psvHtZ5ukNKWPaAZTL+5E8oPMJnkx5FjKs/sDTT77PGDgqrvtMFvIihct+Xb
+ 5t9LLmHOLRS/r5RFu8rrVNphbzdHeXAvJouX2KNM=
+Date: Tue, 22 Oct 2019 12:53:12 +0100
+From: Jonathan Cameron <jic23@kernel.org>
+To: Lars-Peter Clausen <lars@metafoo.de>
+Message-ID: <20191022125312.68aa514a@archlinux>
+In-Reply-To: <9ddc41c4-3d84-cc94-5494-a5ef06697ce8@metafoo.de>
+References: <20191011151314.5365-1-olivier.moysan@st.com>
+ <20191012095747.3acd95e6@archlinux>
+ <db362ddf-390e-0847-1269-f3cd0c757d2a@st.com>
+ <9ddc41c4-3d84-cc94-5494-a5ef06697ce8@metafoo.de>
+X-Mailer: Claws Mail 3.17.4 (GTK+ 2.24.32; x86_64-pc-linux-gnu)
 MIME-Version: 1.0
-References: <20191021214550.1461-1-robh@kernel.org>
- <20191021214550.1461-5-robh@kernel.org>
- <20191022113001.GG4756@pendragon.ideasonboard.com>
-In-Reply-To: <20191022113001.GG4756@pendragon.ideasonboard.com>
-From: Geert Uytterhoeven <geert@linux-m68k.org>
-Date: Tue, 22 Oct 2019 13:40:36 +0200
-Message-ID: <CAMuHMdXCq9urRDCSmLueVpsv9-FxJ6pxQf-9Ua=vT-TrRs++fQ@mail.gmail.com>
-To: Laurent Pinchart <laurent.pinchart@ideasonboard.com>
-Cc: Daniel Vetter <daniel@ffwll.ch>,
- =?UTF-8?Q?Heiko_St=C3=BCbner?= <heiko@sntech.de>,
- Neil Armstrong <narmstrong@baylibre.com>, David Airlie <airlied@linux.ie>,
- Liviu Dudau <liviu.dudau@arm.com>,
- DRI Development <dri-devel@lists.freedesktop.org>,
- Benjamin Gaignard <benjamin.gaignard@linaro.org>,
- linux-stm32@st-md-mailman.stormreply.com, Rob Herring <robh@kernel.org>,
- Kevin Hilman <khilman@baylibre.com>, Chen-Yu Tsai <wens@csie.org>,
- Xinliang Liu <z.liuxinliang@hisilicon.com>,
- "open list:ARM/Rockchip SoC..." <linux-rockchip@lists.infradead.org>,
- Xinwei Kong <kong.kongxinwei@hisilicon.com>,
- Kieran Bingham <kieran.bingham+renesas@ideasonboard.com>,
- "James \(Qian\) Wang" <james.qian.wang@arm.com>, CK Hu <ck.hu@mediatek.com>,
- Chen Feng <puck.chen@hisilicon.com>,
- Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
- Linux-Renesas <linux-renesas-soc@vger.kernel.org>,
- Maxime Ripard <mripard@kernel.org>, linux-mediatek@lists.infradead.org,
- Vincent Abriou <vincent.abriou@st.com>,
- Matthias Brugger <matthias.bgg@gmail.com>,
- "open list:ARM/Amlogic Meson..." <linux-amlogic@lists.infradead.org>,
- Sean Paul <sean@poorly.run>, Linux ARM <linux-arm-kernel@lists.infradead.org>,
- Maxime Coquelin <mcoquelin.stm32@gmail.com>, Sandy Huang <hjc@rock-chips.com>,
- Yannick Fertre <yannick.fertre@st.com>,
- =?UTF-8?Q?Noralf_Tr=C3=B8nnes?= <noralf@tronnes.org>,
- Philipp Zabel <p.zabel@pengutronix.de>, Rongrong Zou <zourongrong@gmail.com>,
- Brian Starkey <brian.starkey@arm.com>
-Subject: Re: [Linux-stm32] [PATCH 4/6] drm/cma-helper: Support
-	DRM_MODE_DUMB_KERNEL_MAP flag
+Cc: "linux-iio@vger.kernel.org" <linux-iio@vger.kernel.org>,
+ "pmeerw@pmeerw.net" <pmeerw@pmeerw.net>,
+ "linux-kernel@vger.kernel.org" <linux-kernel@vger.kernel.org>,
+ "mcoquelin.stm32@gmail.com" <mcoquelin.stm32@gmail.com>,
+ "knaack.h@gmx.de" <knaack.h@gmx.de>, Fabrice GASNIER <fabrice.gasnier@st.com>,
+ "linux-stm32@st-md-mailman.stormreply.com"
+ <linux-stm32@st-md-mailman.stormreply.com>,
+ "linux-arm-kernel@lists.infradead.org" <linux-arm-kernel@lists.infradead.org>
+Subject: Re: [Linux-stm32] [PATCH][RFC] iio: core: add a class hierarchy on
+ iio device lock
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -86,37 +63,103 @@ Content-Transfer-Encoding: 7bit
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
-Hi Laurent,
+On Tue, 15 Oct 2019 23:11:43 +0200
+Lars-Peter Clausen <lars@metafoo.de> wrote:
 
-On Tue, Oct 22, 2019 at 1:30 PM Laurent Pinchart
-<laurent.pinchart@ideasonboard.com> wrote:
-> On Mon, Oct 21, 2019 at 04:45:48PM -0500, Rob Herring wrote:
+> On 10/14/19 5:59 PM, Olivier MOYSAN wrote:
+> > Hello Jonathan,
+> > 
+> > Thanks for your comment.
+> > 
+> > On 10/12/19 10:57 AM, Jonathan Cameron wrote:  
+> >> On Fri, 11 Oct 2019 17:13:14 +0200
+> >> Olivier Moysan <olivier.moysan@st.com> wrote:
+> >>  
+> >>> The aim of this patch is to correct a recursive locking warning,
+> >>> detected when setting CONFIG_PROVE_LOCKING flag (as shown in message below).
+> >>> This message was initially triggered by the following call sequence
+> >>> in stm32-dfsdm-adc.c driver, when using IIO hardware consumer interface.
+> >>>
+> >>> in stm32_dfsdm_read_raw()
+> >>> 	iio_device_claim_direct_mode
+> >>> 		mutex_lock(&indio_dev->mlock);			-> lock on dfsdm device
+> >>> 	iio_hw_consumer_enable
+> >>> 		iio_update_buffers
+> >>> 			mutex_lock(&indio_dev->mlock);		-> lock on hw consumer device  
+> >> Hmm.  I'm not sure I follow the logic.  That lock is
+> >> for one thing and one thing only, preventing access
+> >> to the iio device that are unsafe when it is running
+> >> in a buffered mode.  We shouldn't be in a position where
+> >> we both say don't do this if we are in buffered mode, + enter
+> >> buffered mode whilst doing this, or we need special functions
+> >> for entering buffering mode if in this state.  We are in
+> >> some sense combining internal driver logic with overall
+> >> IIO states.  IIO shouldn't care that the device is using
+> >> the same methods under the hood for buffered and non
+> >> buffered operations.
+> >>
+> >> I can't really recall how this driver works.   Is it actually
+> >> possible to have multiple hw_consumers at the same time?
+> >>
+> >> So do we end up with multiple buffers registered and have
+> >> to demux out to the read_raw + the actual buffered path?
+> >> Given we have a bit of code saying grab one sample, I'm
+> >> going to guess we don't...
+> >>
+> >> If so, the vast majority of the buffer setup code in IIO
+> >> is irrelevant here and we just need to call a few of
+> >> the callbacks from this driver directly... (I think
+> >> though I haven't chased through every corner.
+> >>
+> >> I'd rather avoid introducing this nesting for a corner
+> >> case that makes no 'semantic' sense in IIO as it leaves us
+> >> in two separate states at the same time that the driver
+> >> is trying to make mutually exclusive.  We can't both
+> >> not be in buffered mode, and in buffered mode.
+> >>
+> >> Thanks and good luck with this nasty corner!
+> >>
+> >> Jonathan
+> >>  
+> > Here I consider the following use case:
+> > A single conversion is performed. The dfsdm (filter) is chained with a 
+> > front-end, which can be an ADC or a sensor. So we have two IIO devices, 
+> > the dfsdm and its front-end handled through the hw consumer interface.
+> > 
+> > You are right. There is something wrong here, in buffered/non-buffered 
+> > mode mixing.
+> > iio_hw_consumer_enable() call is used to enable the front-end device. 
+> > But this interface is intended for buffered mode.
+> > So this is not coherent with the expected single conversion mode, 
+> > indeed. Another interface is required to manage the front-end device. I 
+> > have a poor knowledge of iio framework, but it seems to me that there is 
+> > no interface to manage this.
+> > 
+> > My understanding regarding mlock, is that it is used to protect the 
+> > state of the iio device.
+> > I we want to do a conversion from the chained devices, I think we need 
+> > to activate the first device
+> > and keep it performing conversion, as long as the second device has done 
+> > its conversion.
+> > We need to protect both devices, and we should have to do it in a nested 
+> > way.
+> > So, I guess that anyway, nested mutexes would be required in this case.
+> >  
+> 
+> Others like regmap have solved this by having a lockclass per instance.
+> Although that is not ideal either since it will slow down lockdep.
+> 
+> See
+> https://git.kernel.org/pub/scm/linux/kernel/git/torvalds/linux.git/tree/include/linux/regmap.h#n629
 
-> > --- a/drivers/gpu/drm/rockchip/rockchip_drm_gem.c
-> > +++ b/drivers/gpu/drm/rockchip/rockchip_drm_gem.c
-> > @@ -419,6 +419,7 @@ int rockchip_gem_dumb_create(struct drm_file *file_priv,
-> >        * align to 64 bytes since Mali requires it.
-> >        */
-> >       args->pitch = ALIGN(min_pitch, 64);
-> > +     args->flags = DRM_MODE_DUMB_KERNEL_MAP;
-> >       args->size = args->pitch * args->height;
->
-> My OCD gets triggered by flags appearing in the middle here while it is
-> at the end in other drivers :-)
+It'll take me a while to get back to this as my understanding is
+currently very limited.  Poke me if I've not replied in a few weeks.
 
-... while "flags" appears before "pitch" and "size" in the actual struct
-definition... Aaarghl ;-)
+Thanks,
 
-Gr{oetje,eeting}s,
+Jonathan
 
-                        Geert
 
--- 
-Geert Uytterhoeven -- There's lots of Linux beyond ia32 -- geert@linux-m68k.org
-
-In personal conversations with technical people, I call myself a hacker. But
-when I'm talking to journalists I just say "programmer" or something like that.
-                                -- Linus Torvalds
 _______________________________________________
 Linux-stm32 mailing list
 Linux-stm32@st-md-mailman.stormreply.com
