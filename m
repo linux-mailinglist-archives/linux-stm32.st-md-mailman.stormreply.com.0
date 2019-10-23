@@ -2,69 +2,77 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id D82E6E1CBC
-	for <lists+linux-stm32@lfdr.de>; Wed, 23 Oct 2019 15:36:09 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 72423E1CE0
+	for <lists+linux-stm32@lfdr.de>; Wed, 23 Oct 2019 15:39:52 +0200 (CEST)
 Received: from ip-172-31-3-76.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 93F77C36B0B;
-	Wed, 23 Oct 2019 13:36:09 +0000 (UTC)
-Received: from mout.kundenserver.de (mout.kundenserver.de [212.227.17.24])
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id D581EC36B0B;
+	Wed, 23 Oct 2019 13:39:51 +0000 (UTC)
+Received: from mout.kundenserver.de (mout.kundenserver.de [212.227.17.10])
  (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id C0BADC36B09
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id CDBDEC36B09
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Wed, 23 Oct 2019 13:36:07 +0000 (UTC)
-Received: from mail-qt1-f182.google.com ([209.85.160.182]) by
- mrelayeu.kundenserver.de (mreue106 [212.227.15.145]) with ESMTPSA (Nemesis)
- id 1MdNHa-1hoD6V0XKa-00ZRvS for <linux-stm32@st-md-mailman.stormreply.com>;
- Wed, 23 Oct 2019 15:36:07 +0200
-Received: by mail-qt1-f182.google.com with SMTP id u22so32225817qtq.13
+ Wed, 23 Oct 2019 13:39:50 +0000 (UTC)
+Received: from mail-qt1-f181.google.com ([209.85.160.181]) by
+ mrelayeu.kundenserver.de (mreue107 [212.227.15.145]) with ESMTPSA (Nemesis)
+ id 1MmU1H-1hfipr0hKT-00iT2a for <linux-stm32@st-md-mailman.stormreply.com>;
+ Wed, 23 Oct 2019 15:39:50 +0200
+Received: by mail-qt1-f181.google.com with SMTP id e14so12534587qto.1
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Wed, 23 Oct 2019 06:36:06 -0700 (PDT)
-X-Gm-Message-State: APjAAAXwyNG6LFgoUiZlordspnoOitfIbuC+HiGZzY0q6tsXGLv7OSQb
- oeTYZD+xe7wJfazl6biPdv2X+nBdEfBIfQEQY2A=
-X-Google-Smtp-Source: APXvYqwqW5j67aigUtbaQwMvvZPaRM75Zx1vwHK4rpCvIcwvfeEYCvDuZFw2giioKFckU9rb9ypL7pHNYyg0dml8Ps0=
-X-Received: by 2002:aed:3c67:: with SMTP id u36mr9047061qte.142.1571837765100; 
- Wed, 23 Oct 2019 06:36:05 -0700 (PDT)
+ Wed, 23 Oct 2019 06:39:49 -0700 (PDT)
+X-Gm-Message-State: APjAAAVMUKLZWVo8t/vDPiWpm6Xrxjd91o25smZCLzk9KtGpbjiBbTcw
+ /JexqY/g2RopASf0FAzaYcQYFICtARUb8VzTssU=
+X-Google-Smtp-Source: APXvYqyt7m8OnGbGOfKvN6UapNf8Y0PixnD+b/5MFVO15QeK4AzpoE5xCHBxjuJT4OWklHgs4L5FWsrmt4sucJ53v+g=
+X-Received: by 2002:ac8:18eb:: with SMTP id o40mr9289234qtk.304.1571837989082; 
+ Wed, 23 Oct 2019 06:39:49 -0700 (PDT)
 MIME-Version: 1.0
 References: <20191010202802.1132272-1-arnd@arndb.de>
- <20191010203043.1241612-1-arnd@arndb.de>
- <20191010203043.1241612-28-arnd@arndb.de> <20191023131321.GH11048@pi3>
-In-Reply-To: <20191023131321.GH11048@pi3>
+ <20191023131049.GG11048@pi3>
+In-Reply-To: <20191023131049.GG11048@pi3>
 From: Arnd Bergmann <arnd@arndb.de>
-Date: Wed, 23 Oct 2019 15:35:49 +0200
-X-Gmail-Original-Message-ID: <CAK8P3a03JtFrCYFUQAFnSENghrXSCDBQXB-QfiDG3yTxXxdpaw@mail.gmail.com>
-Message-ID: <CAK8P3a03JtFrCYFUQAFnSENghrXSCDBQXB-QfiDG3yTxXxdpaw@mail.gmail.com>
+Date: Wed, 23 Oct 2019 15:39:32 +0200
+X-Gmail-Original-Message-ID: <CAK8P3a1v2-+geD+JbNP-t418ZjntQNSte4rt8c7N6sJdpb3+DQ@mail.gmail.com>
+Message-ID: <CAK8P3a1v2-+geD+JbNP-t418ZjntQNSte4rt8c7N6sJdpb3+DQ@mail.gmail.com>
 To: Krzysztof Kozlowski <krzk@kernel.org>
-X-Provags-ID: V03:K1:HYFRww7xk7+MZU9p8u3Ewcoad3SQm4y4+J4ZP+tsY4thXoZ25OU
- o501DtJmf/K5JViah3XH/wbW0m4Al8vqX1eTKdcnkE0f52lOpTk8O90Xc+PzhkUKLrNXwOH
- 9gQ7+IEi+xEhk9oz6YS15c6j+4tWPEJZyZrMf8r+XtSRIQaxcpaB1AQrfTQQGydZDGDUiwY
- aX2NTZHax3N3ZMc/ELnqg==
+X-Provags-ID: V03:K1:IoZMUKU/fh09A9Xe2pSOzyhv32zWUNoR3pH+LW48TxZUiCx4wnr
+ SQvJXpbluAPZcN2owvWt1DQCVeI8BqZaI+zXDUtzuoUUJP/mA2ylKl8HSZYSjzqUml4vjtI
+ TPg6FdHn1t6J5rNQTuJbUAMY+zAZ41N5lQCXjBUL/yBDCi0LjwkFNWdzC2qNW/HWE20wEMP
+ uwhbKa8DIZH/NinaDxkKA==
 X-Spam-Flag: NO
-X-UI-Out-Filterresults: notjunk:1;V03:K0:ptZJ268Js8A=:joeAb2MXhK88kprZP1E6Sg
- QpSK3yRjQhCFhgfVF6BQR8EotyvGuhF29CgnJ+LlHUs2XuYCSc+4P1FK626YmWOoewlbWV6JD
- J6GSz+g8xEyLj+MZUbZmFEQ5ugv9aDET0KQKAZOlgPYujFeNRAgKmv+2DhPxnNvCk3MtyMlmd
- YOOjZjRCip74YTomVwDKrVTExUTgGBoEIB7rhrtO/YukZpKD55mP8Bb7siW+wCtiowIiOQJHx
- koyxkRQvFcw+/s0/6XjdFHi4CuRLYGslZw1N3mVUuOLOMJ0oKzvF/MSWsEUtdm+l38VCwJQCq
- KGRlav/7UJdaZMek8uS6OtR4y/a7ekP5S5wep3iFCLVcZgrSrDaDBmW90lUoIPFuhcsbOLxQj
- vU8glSoUfpFX6F4ByrAh0mMcXbG7bP5K3y6VWCAox7ujYLUiNy16fvQP1/5aMF4d5qEgWKxg8
- XwRihDDtDmCB7JFR08H98qL8s27zApb5QTpwLquF06CVAoobZ2iYXOUnieyx6LdSWAqfdtUlu
- uJscPZrCPwHDfp4y4+uOJUaA0GjlO5rUQtVuN+D6y5ysiJuEfS8aYS1M7DiOjjscQh7rTWaXW
- f/sF64XDmMYBHx45FMDT2eIpOTEBa8gaE9qQgfk0/kJzJxR48B5d4LmtUFfFLiDRlVEfovKwl
- YqRGwWMsoQccFO0WvtQIvwYmX/olB1WV9KpBpwXGvMZFy8iE5evW3G0wfBFKoZzJuEpfQUJ4Q
- 2/e1cjCvo+moQI3NH8Bdb+pmvFr85mgwV1P80mwR5sR6Otg6IIHrEVu6ul6M0JEsjKjgkN4uY
- gIURewthI+/vZncZ+ru97j7u0vDfGThqYCUsUfZZzhpXdw8pDkx8DWJm6BcjtKq1lNNWa2xqf
- gzBZCWGYoZG2yqHLOLyQ==
+X-UI-Out-Filterresults: notjunk:1;V03:K0:y8M7threZBg=:SgZ284H4XznP/aru4LUX01
+ wBoqYe2N3M21der2o0apZxFHvrUOBH/JFyczkl7C1RzQ5yX64+t8oQWckHEros+Dk3H+6fJs1
+ 3HnJNaRbenqkSOOXcvKHZbThPiaaIrEmwyBmT+kaDhwD6l1KzYXf5oAMRKR2UZJY7RYzjtAz3
+ Y8HG1KLwHBOSnMbPsuLlho5jXLGoFj7GwmO+T47o+9EG94muPhMwbx7cGBojiGPK/lDqxvHfo
+ 1ZLX4JnQvuHZf1s0Hzbrq5VNoFK16WS0DDxg8dvVsL1CVyopwt+ZjEXwis/H5JnGDDQzmgmvd
+ URlO7NY4EAAzK8ds0PxXZTsAw2+BE7tZ3nl5Hb4gK1dp/FY5A7MJKtlkaLWtXX/zhRiiP8JoO
+ 8R4zH5prk5gvt+sQ2lcu+xIRy5TAkeeGP0V4ylPHhiC2qpbCI1/1Gycj+1cDNi01PkQS3NRJ5
+ HTYekePEVBereiLUpuj7tC324R9g+2mSi5b5/Mtws35fNnSqlKN9eJpnqPkan442F2izauApf
+ KC15NBd4ByeBXitPmK6LgvwBR5x4F9j1eyO9vcQu0znHGsdn45EOKro/XxU041So39kCdttRz
+ mZqTSzTr0NqUd66ilm1/CR9YC8vk+j1O5DyTLDNnSzNy/1EUFSd5hvvh/QvXWUBqLrDamsPjl
+ KH3SiOasgMudZWmcxX+E97qIHMzqgmVV3jij8liZ1hmqs+7Ccje9bjGzj506YdIXmy+L+xc13
+ TSUr0NL6dpedjWlLna1U18WXyTlqMJpLyjz6GD7oQewUkO3poRPElr9LFwpJnOXFKXPgeS9nF
+ BNmjjQhKaIyTJd3OrS7lJIwbxuCmU7EBy53UWICW31XWnO9OqGSiqy4/j5aBV6KUXYIWpIzt7
+ rL5zHmpnHCZbEekEBChQ==
 Cc: Linux Fbdev development list <linux-fbdev@vger.kernel.org>,
+ ALSA Development Mailing List <alsa-devel@alsa-project.org>,
+ dri-devel <dri-devel@lists.freedesktop.org>,
+ Sylwester Nawrocki <s.nawrocki@samsung.com>,
+ linux-stm32@st-md-mailman.stormreply.com, linux-leds@vger.kernel.org,
  "moderated list:ARM/SAMSUNG EXYNOS ARM ARCHITECTURES"
- <linux-samsung-soc@vger.kernel.org>,
- Bartlomiej Zolnierkiewicz <b.zolnierkie@samsung.com>,
- Linus Walleij <linus.walleij@linaro.org>,
+ <linux-samsung-soc@vger.kernel.org>, linux-clk <linux-clk@vger.kernel.org>,
+ Lihua Yao <ylhuajnu@outlook.com>, Kukjin Kim <kgene@kernel.org>,
+ linux-serial@vger.kernel.org,
+ "open list:HID CORE LAYER" <linux-input@vger.kernel.org>,
+ =?UTF-8?Q?Pawe=C5=82_Chmiel?= <pawel.mikolaj.chmiel@gmail.com>,
+ Linux PWM List <linux-pwm@vger.kernel.org>,
+ Sergio Prado <sergio.prado@e-labworks.com>,
+ Linux PM list <linux-pm@vger.kernel.org>, Lihua Yao <ylhuajnu@163.com>,
+ Linux ARM <linux-arm-kernel@lists.infradead.org>, linux-hwmon@vger.kernel.org,
+ patches@opensource.cirrus.com, USB list <linux-usb@vger.kernel.org>,
+ linux-mmc <linux-mmc@vger.kernel.org>,
  "linux-kernel@vger.kernel.org" <linux-kernel@vger.kernel.org>,
- dri-devel <dri-devel@lists.freedesktop.org>, Kukjin Kim <kgene@kernel.org>,
- linux-stm32@st-md-mailman.stormreply.com,
- Linux ARM <linux-arm-kernel@lists.infradead.org>
-Subject: Re: [Linux-stm32] [PATCH 28/36] fbdev: s3c2410fb: remove mach
-	header dependency
+ linux-spi <linux-spi@vger.kernel.org>
+Subject: Re: [Linux-stm32] [PATCH 00/36] ARM: samsung platform cleanup
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -76,29 +84,28 @@ List-Post: <mailto:linux-stm32@st-md-mailman.stormreply.com>
 List-Help: <mailto:linux-stm32-request@st-md-mailman.stormreply.com?subject=help>
 List-Subscribe: <https://st-md-mailman.stormreply.com/mailman/listinfo/linux-stm32>, 
  <mailto:linux-stm32-request@st-md-mailman.stormreply.com?subject=subscribe>
-Content-Type: text/plain; charset="us-ascii"
-Content-Transfer-Encoding: 7bit
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: base64
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
-On Wed, Oct 23, 2019 at 3:13 PM Krzysztof Kozlowski <krzk@kernel.org> wrote:
-> On Thu, Oct 10, 2019 at 10:30:12PM +0200, Arnd Bergmann wrote:
-
-> > @@ -321,6 +320,7 @@ static struct s3c2410fb_mach_info jive_lcd_config = {
-> >        * data. */
-> >
-> >       .gpcup          = (0xf << 1) | (0x3f << 10),
-> > +     .gpcup_reg =    S3C2410_GPCUP,
->
-> Nits: indentation before/after '=' looks wrong. Tab should be
-> before '=', one space after.
-
-Ok, fixed now for the four boards that had inconsistent indentation --
-jive, mini2440, smdk2440, and rx1950. Unfortunately each board
-seemed to have its own way of doing this.
-
-      Arnd
-_______________________________________________
-Linux-stm32 mailing list
-Linux-stm32@st-md-mailman.stormreply.com
-https://st-md-mailman.stormreply.com/mailman/listinfo/linux-stm32
+T24gV2VkLCBPY3QgMjMsIDIwMTkgYXQgMzoxMSBQTSBLcnp5c3p0b2YgS296bG93c2tpIDxrcnpr
+QGtlcm5lbC5vcmc+IHdyb3RlOgo+IE9uIFRodSwgT2N0IDEwLCAyMDE5IGF0IDEwOjI4OjAyUE0g
+KzAyMDAsIEFybmQgQmVyZ21hbm4gd3JvdGU6Cj4gPiBUaGUgY29udGVudHMgYXJlIGF2YWlsYWJs
+ZSBmb3IgdGVzdGluZyBpbgo+ID4KPiA+IGdpdDovL2tlcm5lbC5vcmc6L3B1Yi9zY20vbGludXgv
+a2VybmVsL2dpdC9hcm5kL3BsYXlncm91bmQuZ2l0IHMzYy1tdWx0aXBsYXRmb3JtCj4KPiBXaGVu
+IHNlbmRpbmcgdjIsIGNhbiB5b3UgQ2M6Cj4KPiBQYXdlxYIgQ2htaWVsIDxwYXdlbC5taWtvbGFq
+LmNobWllbEBnbWFpbC5jb20+Cj4gTGlodWEgWWFvIDx5bGh1YWpudUBvdXRsb29rLmNvbT4KPiAo
+b3IgTGlodWEgWWFvIDx5bGh1YWpudUAxNjMuY29tPiBpZiBvdXRsb29rLmNvbSBib3VuY2VzKQo+
+IFNlcmdpbyBQcmFkbyA8c2VyZ2lvLnByYWRvQGUtbGFid29ya3MuY29tPgo+IFN5bHdlc3RlciBO
+YXdyb2NraSA8cy5uYXdyb2NraUBzYW1zdW5nLmNvbT4KPgo+IFRoZXNlIGFyZSBmb2xrcyB3aGlj
+aCB0byBteSBrbm93bGVkZ2UgaGFkIHdvcmtpbmcgUzNDIGFuZCBTNVAgYm9hcmRzCj4gc28gbWF5
+YmUgdGhleSBjb3VsZCBwcm92aWRlIHRlc3RpbmcuCgpPaywgd2lsbCBkby4gSSd2ZSB1cGxvYWRl
+ZCB0aGUgbW9kaWZpZWQgdmVyc2lvbiBiYXNlZCBvbiB5b3VyIGNvbW1lbnRzIHRvCnRoZSBhYm92
+ZSBVUkwgZm9yIG5vdy4KCkknbGwgcHJvYmFibHkgZ2l2ZSBpdCBhIGxpdHRsZSBtb3JlIHRpbWUg
+YmVmb3JlIHJlc2VuZGluZywgYnV0IHRoZXkKY291bGQgYWxyZWFkeQpzdGFydCB0ZXN0aW5nIHRo
+YXQgdmVyc2lvbi4KClRoYW5rcyBhIGxvdCBmb3IgdGhlIHJldmlldyEKCiAgICAgIEFybmQKX19f
+X19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX18KTGludXgtc3RtMzIg
+bWFpbGluZyBsaXN0CkxpbnV4LXN0bTMyQHN0LW1kLW1haWxtYW4uc3Rvcm1yZXBseS5jb20KaHR0
+cHM6Ly9zdC1tZC1tYWlsbWFuLnN0b3JtcmVwbHkuY29tL21haWxtYW4vbGlzdGluZm8vbGludXgt
+c3RtMzIK
