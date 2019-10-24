@@ -2,108 +2,59 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id 9CB66E2014
-	for <lists+linux-stm32@lfdr.de>; Wed, 23 Oct 2019 18:01:00 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 3F782E3306
+	for <lists+linux-stm32@lfdr.de>; Thu, 24 Oct 2019 14:52:14 +0200 (CEST)
 Received: from ip-172-31-3-76.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 4B40AC36B0B;
-	Wed, 23 Oct 2019 16:01:00 +0000 (UTC)
-Received: from NAM01-SN1-obe.outbound.protection.outlook.com
- (mail-oln040092002108.outbound.protection.outlook.com [40.92.2.108])
- (using TLSv1.2 with cipher ECDHE-RSA-AES256-SHA384 (256/256 bits))
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 64BDDC36B0B;
+	Thu, 24 Oct 2019 12:52:13 +0000 (UTC)
+Received: from mx07-00178001.pphosted.com (mx08-00178001.pphosted.com
+ [91.207.212.93])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 8210AC36B09
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 8E596C36B09
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Wed, 23 Oct 2019 15:18:00 +0000 (UTC)
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=iP5INpgLS/8CAeRco00h+EC/YB4kmU1eHr0LIBDeI8ldifE6aPcx657Rkyls7mJDvySP+8WX8+QellP8CwLGAmGPxHALWrY4205Hk5N67XPUHQAv3Ft/4pskMlQxIcMgPlpDnoI7rRs7Gl9psPgf/dMs+8v6Fzbqz7JtxWJ8qCmOIYbqbe1dT8ldTTOWfd30ipZ3CNYWH+p2k4nWg5G58OsFHBOLtNKM8v21EYZaZeYjQqNbkwH+10N/ryUra1FFunZkl2T22DvE6/jFHwOgilP05J//uI97LiimGljuhMBOtpycjJ23SnS/Kb2M/wsWsX8yQD2n0w13VgsrPGf5sw==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
- s=arcselector9901;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=zlQlHMmghlHDsiKKJ2e3gMtEIDokU5zgkrn5hFZoMN0=;
- b=J1VcGEXlGHdvJkshP23UTm6V2TnFbvUK7WZSXwlQtaxXkuARjRTp0y3qO66jBYrH12xmnqYbHt422ivZMtHPzFqlEKSs8L+BSAdmsQEg6QjKOrt40X0rdEVDUOEq1GTUdnN8W+CJGof9XZwK26B2KXfTf+37/fcVyhJMvyqzwsadX/kygFRThyEU3y352VE9jJs/ueIavV7wVnBKJ2oalTfIVG9IzMMD7LNILwCl1Tcf5GlVHYZr05mXlVDM0la7xL9YXdfO8ohNR1YcmWNK6gDHi0dLBCOUAvVXgGyCpR+8S1J3gJXhS3ZZ6kFDo9ZHL+1kNRBjNLbOt+HOdHKRjw==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=none; dmarc=none;
- dkim=none; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=outlook.com;
- s=selector1;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=zlQlHMmghlHDsiKKJ2e3gMtEIDokU5zgkrn5hFZoMN0=;
- b=oqCY38qAN1H10whsXRaoReQ0iHSJp43ksm9+UwNwbpBXBi9WzoW0Nyh+pXpTk5Zy6GoijrjniZD39yvWFv/ml8xrLAOK3ucx6Xo3vOKYi8SDdwsbj5maikmaiEMQuQQI7ki/tGJK9Hr39qUeBwPc2Pnny0ssBKwHzX72AiKFO7o01QNlOjTkgawc5LsVoHu3W5EXkowU2tiQUTC2ojiT6gP6DCfTqzStNJxukmZionqtD+2y+GkuUWdgKP2ZXf76/0kNBeIaLTysxnllcEHbGZMLKSsnNVexVxLIlLt/yKCbcEbKH87dlT8lTuB8K62xEn2jc+aJho6GVZofv/uohA==
-Received: from BY2NAM01FT032.eop-nam01.prod.protection.outlook.com
- (10.152.68.56) by BY2NAM01HT058.eop-nam01.prod.protection.outlook.com
- (10.152.69.141) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_CBC_SHA384) id 15.20.2347.16; Wed, 23 Oct
- 2019 15:17:57 +0000
-Received: from BY5PR12MB3699.namprd12.prod.outlook.com (10.152.68.52) by
- BY2NAM01FT032.mail.protection.outlook.com (10.152.69.209) with Microsoft SMTP
- Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.20.2347.16 via Frontend Transport; Wed, 23 Oct 2019 15:17:57 +0000
-Received: from BY5PR12MB3699.namprd12.prod.outlook.com
- ([fe80::d1f8:8629:7310:e845]) by BY5PR12MB3699.namprd12.prod.outlook.com
- ([fe80::d1f8:8629:7310:e845%4]) with mapi id 15.20.2367.025; Wed, 23 Oct 2019
- 15:17:57 +0000
-From: Lihua Yao <ylhuajnu@outlook.com>
-To: Arnd Bergmann <arnd@arndb.de>, Krzysztof Kozlowski <krzk@kernel.org>
-Thread-Topic: [PATCH 00/36] ARM: samsung platform cleanup
-Thread-Index: AQHViaNOwtgFIwFiP02oYWU3zucI06doO1MAgAAbYIA=
-Date: Wed, 23 Oct 2019 15:17:57 +0000
-Message-ID: <BY5PR12MB3699C846E761F257D0FB1373C46B0@BY5PR12MB3699.namprd12.prod.outlook.com>
-References: <20191010202802.1132272-1-arnd@arndb.de>
- <20191023131049.GG11048@pi3>
- <CAK8P3a1v2-+geD+JbNP-t418ZjntQNSte4rt8c7N6sJdpb3+DQ@mail.gmail.com>
-In-Reply-To: <CAK8P3a1v2-+geD+JbNP-t418ZjntQNSte4rt8c7N6sJdpb3+DQ@mail.gmail.com>
-Accept-Language: en-GB, zh-CN, en-US
-Content-Language: en-US
-X-MS-Has-Attach: 
-X-MS-TNEF-Correlator: 
-x-clientproxiedby: HK2PR02CA0181.apcprd02.prod.outlook.com
- (2603:1096:201:21::17) To BY5PR12MB3699.namprd12.prod.outlook.com
- (2603:10b6:a03:195::16)
-x-incomingtopheadermarker: OriginalChecksum:529384D5AD68C306DF64A868DA26EEA0698BB72E32CBD6FA2DDBDBD00DCF79F6;
- UpperCasedChecksum:E47105BD3F66D6E35B3665A0B168C4E695D84CA981A4137EAC92B67D33179E2A;
- SizeAsReceived:8870; Count:50
-x-ms-exchange-messagesentrepresentingtype: 1
-x-tmn: [FB4ZodDWkjklu+6rjx/UXq/8gBhMyUPd]
-x-microsoft-original-message-id: <346ede3a-182c-d83e-8eef-58816e04f928@outlook.com>
-x-ms-publictraffictype: Email
-x-incomingheadercount: 50
-x-eopattributedmessage: 0
-x-ms-traffictypediagnostic: BY2NAM01HT058:
-x-microsoft-antispam: BCL:0;
-x-microsoft-antispam-message-info: pbWrxofQMKSHrBj86AWl/NUo98gQEdUNXvtvwjvPbinwQAriOtoSBOIbPWSS1od6QsundSbV1jD5pglDPnK9/ls2hHOvQCCrUCwkE9/VNhOdu7wSyzZWSY8Avz/Gm04m7ubxePG+/M5da2O/OH61jgAf2PXe6q7CAOm1Mmh9xKp6iovz7cW8bm1aU1an5AaB
-x-ms-exchange-transport-forked: True
-Content-ID: <DCE39A5A7726614091BE95843816F1DC@namprd12.prod.outlook.com>
+ Thu, 24 Oct 2019 12:52:12 +0000 (UTC)
+Received: from pps.filterd (m0046660.ppops.net [127.0.0.1])
+ by mx08-00178001.pphosted.com (8.16.0.42/8.16.0.42) with SMTP id
+ x9OCpL3a031995; Thu, 24 Oct 2019 14:52:03 +0200
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=st.com;
+ h=from : to : cc : subject
+ : date : message-id : mime-version : content-type; s=STMicroelectronics;
+ bh=NTyg2cKVDskIQP5k+lTXj0XW5CLq2Yn3o933I6C84NA=;
+ b=EE6ULXMaQF8YbBV5UrS6beaGs5rVC1yLwC8wbX7WYWmp9CYme0oO/s+Dmh1pici70vGJ
+ Sc4L5iztdNtA0KpVciDpHynRxkRbseq5UJ6rx6kWFgXbFdiYpTcnqOnpxWsgRCvOpIE3
+ BMrviEj+qesKjJwzdNOVv+1QjEPhKgf/OiPIjNz6iH0ZM1XAQSJ4zBPC/hTnqXZDrarN
+ hNhluXCrYT0rZnPTEWHCHqxzDpRBwqyLcusmgYL6XPJ2uP1qiniTYJzdbOKzeFeJHuZA
+ PEXHk51YMInySfvsEdk3IMDQMyWss1y5Bdftu9uhisPg6O0EN5x7m78ivuV+dB3BYgiE dg== 
+Received: from beta.dmz-eu.st.com (beta.dmz-eu.st.com [164.129.1.35])
+ by mx08-00178001.pphosted.com with ESMTP id 2vt9s51qwu-1
+ (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
+ Thu, 24 Oct 2019 14:52:03 +0200
+Received: from euls16034.sgp.st.com (euls16034.sgp.st.com [10.75.44.20])
+ by beta.dmz-eu.st.com (STMicroelectronics) with ESMTP id D001710002A;
+ Thu, 24 Oct 2019 14:52:01 +0200 (CEST)
+Received: from Webmail-eu.st.com (sfhdag3node2.st.com [10.75.127.8])
+ by euls16034.sgp.st.com (STMicroelectronics) with ESMTP id 68D382BAB98;
+ Thu, 24 Oct 2019 14:52:01 +0200 (CEST)
+Received: from localhost (10.75.127.48) by SFHDAG3NODE2.st.com (10.75.127.8)
+ with Microsoft SMTP Server (TLS) id 15.0.1347.2; Thu, 24 Oct 2019 14:52:01
+ +0200
+From: Alain Volmat <alain.volmat@st.com>
+To: <wsa@the-dreams.de>, <pierre-yves.mordret@st.com>
+Date: Thu, 24 Oct 2019 14:52:00 +0200
+Message-ID: <1571921521-8502-1-git-send-email-alain.volmat@st.com>
+X-Mailer: git-send-email 2.7.4
 MIME-Version: 1.0
-X-OriginatorOrg: outlook.com
-X-MS-Exchange-CrossTenant-RMS-PersistedConsumerOrg: 00000000-0000-0000-0000-000000000000
-X-MS-Exchange-CrossTenant-Network-Message-Id: 00d8ea68-88ea-4531-2790-08d757cc2f30
-X-MS-Exchange-CrossTenant-rms-persistedconsumerorg: 00000000-0000-0000-0000-000000000000
-X-MS-Exchange-CrossTenant-originalarrivaltime: 23 Oct 2019 15:17:57.5792 (UTC)
-X-MS-Exchange-CrossTenant-fromentityheader: Internet
-X-MS-Exchange-CrossTenant-id: 84df9e7f-e9f6-40af-b435-aaaaaaaaaaaa
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: BY2NAM01HT058
-X-Mailman-Approved-At: Wed, 23 Oct 2019 16:00:59 +0000
-Cc: Linux Fbdev development list <linux-fbdev@vger.kernel.org>,
- ALSA Development Mailing List <alsa-devel@alsa-project.org>,
- dri-devel <dri-devel@lists.freedesktop.org>,
- Sylwester Nawrocki <s.nawrocki@samsung.com>,
- "linux-stm32@st-md-mailman.stormreply.com"
- <linux-stm32@st-md-mailman.stormreply.com>,
- "linux-leds@vger.kernel.org" <linux-leds@vger.kernel.org>, "moderated
- list:ARM/SAMSUNG EXYNOS ARM ARCHITECTURES" <linux-samsung-soc@vger.kernel.org>,
- linux-clk <linux-clk@vger.kernel.org>, Kukjin Kim <kgene@kernel.org>,
- "linux-serial@vger.kernel.org" <linux-serial@vger.kernel.org>, "open list:HID
- CORE LAYER" <linux-input@vger.kernel.org>,
- =?utf-8?B?UGF3ZcWCIENobWllbA==?= <pawel.mikolaj.chmiel@gmail.com>,
- Linux PWM List <linux-pwm@vger.kernel.org>,
- Sergio Prado <sergio.prado@e-labworks.com>,
- Linux PM list <linux-pm@vger.kernel.org>, Lihua Yao <ylhuajnu@163.com>,
- Linux ARM <linux-arm-kernel@lists.infradead.org>,
- "linux-hwmon@vger.kernel.org" <linux-hwmon@vger.kernel.org>,
- "patches@opensource.cirrus.com" <patches@opensource.cirrus.com>,
- USB list <linux-usb@vger.kernel.org>, linux-mmc <linux-mmc@vger.kernel.org>,
- "linux-kernel@vger.kernel.org" <linux-kernel@vger.kernel.org>,
- linux-spi <linux-spi@vger.kernel.org>
-Subject: Re: [Linux-stm32] [PATCH 00/36] ARM: samsung platform cleanup
+X-Originating-IP: [10.75.127.48]
+X-ClientProxiedBy: SFHDAG8NODE1.st.com (10.75.127.22) To SFHDAG3NODE2.st.com
+ (10.75.127.8)
+X-Proofpoint-Virus-Version: vendor=fsecure engine=2.50.10434:6.0.95,1.0.8
+ definitions=2019-10-24_08:2019-10-23,2019-10-24 signatures=0
+Cc: linux-kernel@vger.kernel.org, alain.volmat@st.com,
+ linux-i2c@vger.kernel.org, fabrice.gasnier@st.com,
+ linux-stm32@st-md-mailman.stormreply.com, linux-arm-kernel@lists.infradead.org
+Subject: [Linux-stm32] [PATCH] i2c: i2c-stm32f7: report dma error during
+	probe
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -115,33 +66,92 @@ List-Post: <mailto:linux-stm32@st-md-mailman.stormreply.com>
 List-Help: <mailto:linux-stm32-request@st-md-mailman.stormreply.com?subject=help>
 List-Subscribe: <https://st-md-mailman.stormreply.com/mailman/listinfo/linux-stm32>, 
  <mailto:linux-stm32-request@st-md-mailman.stormreply.com?subject=subscribe>
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: base64
+Content-Type: text/plain; charset="us-ascii"
+Content-Transfer-Encoding: 7bit
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
-SGkgQXJuZCwgS3J6eXN6dG9mLA0KDQpPbiAyMy8xMC8yMDE5IDk6MzkgUE0sIEFybmQgQmVyZ21h
-bm4gd3JvdGU6DQo+IE9uIFdlZCwgT2N0IDIzLCAyMDE5IGF0IDM6MTEgUE0gS3J6eXN6dG9mIEtv
-emxvd3NraSA8a3J6a0BrZXJuZWwub3JnPiB3cm90ZToNCj4+IE9uIFRodSwgT2N0IDEwLCAyMDE5
-IGF0IDEwOjI4OjAyUE0gKzAyMDAsIEFybmQgQmVyZ21hbm4gd3JvdGU6DQo+Pj4gVGhlIGNvbnRl
-bnRzIGFyZSBhdmFpbGFibGUgZm9yIHRlc3RpbmcgaW4NCj4+Pg0KPj4+IGdpdDovL2tlcm5lbC5v
-cmc6L3B1Yi9zY20vbGludXgva2VybmVsL2dpdC9hcm5kL3BsYXlncm91bmQuZ2l0IHMzYy1tdWx0
-aXBsYXRmb3JtDQo+PiBXaGVuIHNlbmRpbmcgdjIsIGNhbiB5b3UgQ2M6DQo+Pg0KPj4gUGF3ZcWC
-IENobWllbCA8cGF3ZWwubWlrb2xhai5jaG1pZWxAZ21haWwuY29tPg0KPj4gTGlodWEgWWFvIDx5
-bGh1YWpudUBvdXRsb29rLmNvbT4NCj4+IChvciBMaWh1YSBZYW8gPHlsaHVham51QDE2My5jb20+
-IGlmIG91dGxvb2suY29tIGJvdW5jZXMpDQoNCllvdSBjb3VsZCByZWFjaCBtZSBieSBlLW1haWwg
-dG8gTGlodWEgWWFvIDxsaWh1YS55YW9AZ214LmNvbT4uDQoNCk5laXRoZXIgMTYzLmNvbSBub3Ig
-b3V0bG9vay5jb20gZS1tYWlsIHNlcnZlciBjb29wZXJhdGVzIHdlbGwgd2l0aA0KDQp2Z2VyLmtl
-cm5lbC5vcmcgbWFpbCBsaXN0Lg0KDQo+PiBTZXJnaW8gUHJhZG8gPHNlcmdpby5wcmFkb0BlLWxh
-YndvcmtzLmNvbT4NCj4+IFN5bHdlc3RlciBOYXdyb2NraSA8cy5uYXdyb2NraUBzYW1zdW5nLmNv
-bT4NCj4+DQo+PiBUaGVzZSBhcmUgZm9sa3Mgd2hpY2ggdG8gbXkga25vd2xlZGdlIGhhZCB3b3Jr
-aW5nIFMzQyBhbmQgUzVQIGJvYXJkcw0KPj4gc28gbWF5YmUgdGhleSBjb3VsZCBwcm92aWRlIHRl
-c3RpbmcuDQo+IE9rLCB3aWxsIGRvLiBJJ3ZlIHVwbG9hZGVkIHRoZSBtb2RpZmllZCB2ZXJzaW9u
-IGJhc2VkIG9uIHlvdXIgY29tbWVudHMgdG8NCj4gdGhlIGFib3ZlIFVSTCBmb3Igbm93Lg0KPg0K
-PiBJJ2xsIHByb2JhYmx5IGdpdmUgaXQgYSBsaXR0bGUgbW9yZSB0aW1lIGJlZm9yZSByZXNlbmRp
-bmcsIGJ1dCB0aGV5DQo+IGNvdWxkIGFscmVhZHkNCj4gc3RhcnQgdGVzdGluZyB0aGF0IHZlcnNp
-b24uDQoNCk5pY2XvvIHCoCBTYWRseSBJIGFtIG9uIHZvY2F0aW9uIGFuZCB3aWxsIHRlc3QgaXQg
-dW50aWwgTm92IDE1Lg0KDQpCZXN0IFJlZ2FyZHMNCg0KTGlodWENCg0KX19fX19fX19fX19fX19f
-X19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX18KTGludXgtc3RtMzIgbWFpbGluZyBsaXN0
-CkxpbnV4LXN0bTMyQHN0LW1kLW1haWxtYW4uc3Rvcm1yZXBseS5jb20KaHR0cHM6Ly9zdC1tZC1t
-YWlsbWFuLnN0b3JtcmVwbHkuY29tL21haWxtYW4vbGlzdGluZm8vbGludXgtc3RtMzIK
+Distinguish between the case where dma information is not provided
+within the DT and the case of an error during the dma init.
+Exit the probe with error in case of an error during dma init.
+
+Fixes: bb8822cbbc53 ("i2c: i2c-stm32: Add generic DMA API")
+
+Signed-off-by: Alain Volmat <alain.volmat@st.com>
+---
+ drivers/i2c/busses/i2c-stm32.c   | 16 ++++++++--------
+ drivers/i2c/busses/i2c-stm32f7.c |  9 +++++++++
+ 2 files changed, 17 insertions(+), 8 deletions(-)
+
+diff --git a/drivers/i2c/busses/i2c-stm32.c b/drivers/i2c/busses/i2c-stm32.c
+index 07d5dfce68d4..1da347e6a358 100644
+--- a/drivers/i2c/busses/i2c-stm32.c
++++ b/drivers/i2c/busses/i2c-stm32.c
+@@ -20,13 +20,13 @@ struct stm32_i2c_dma *stm32_i2c_dma_request(struct device *dev,
+ 
+ 	dma = devm_kzalloc(dev, sizeof(*dma), GFP_KERNEL);
+ 	if (!dma)
+-		return NULL;
++		return ERR_PTR(-ENOMEM);
+ 
+ 	/* Request and configure I2C TX dma channel */
+-	dma->chan_tx = dma_request_slave_channel(dev, "tx");
+-	if (!dma->chan_tx) {
++	dma->chan_tx = dma_request_chan(dev, "tx");
++	if (IS_ERR(dma->chan_tx)) {
+ 		dev_dbg(dev, "can't request DMA tx channel\n");
+-		ret = -EINVAL;
++		ret = PTR_ERR(dma->chan_tx);
+ 		goto fail_al;
+ 	}
+ 
+@@ -42,10 +42,10 @@ struct stm32_i2c_dma *stm32_i2c_dma_request(struct device *dev,
+ 	}
+ 
+ 	/* Request and configure I2C RX dma channel */
+-	dma->chan_rx = dma_request_slave_channel(dev, "rx");
+-	if (!dma->chan_rx) {
++	dma->chan_rx = dma_request_chan(dev, "rx");
++	if (IS_ERR(dma->chan_rx)) {
+ 		dev_err(dev, "can't request DMA rx channel\n");
+-		ret = -EINVAL;
++		ret = PTR_ERR(dma->chan_rx);
+ 		goto fail_tx;
+ 	}
+ 
+@@ -75,7 +75,7 @@ struct stm32_i2c_dma *stm32_i2c_dma_request(struct device *dev,
+ 	devm_kfree(dev, dma);
+ 	dev_info(dev, "can't use DMA\n");
+ 
+-	return NULL;
++	return ERR_PTR(ret);
+ }
+ 
+ void stm32_i2c_dma_free(struct stm32_i2c_dma *dma)
+diff --git a/drivers/i2c/busses/i2c-stm32f7.c b/drivers/i2c/busses/i2c-stm32f7.c
+index d36cf08461f7..cc8ba8f49ae6 100644
+--- a/drivers/i2c/busses/i2c-stm32f7.c
++++ b/drivers/i2c/busses/i2c-stm32f7.c
+@@ -1950,6 +1950,15 @@ static int stm32f7_i2c_probe(struct platform_device *pdev)
+ 	i2c_dev->dma = stm32_i2c_dma_request(i2c_dev->dev, phy_addr,
+ 					     STM32F7_I2C_TXDR,
+ 					     STM32F7_I2C_RXDR);
++	if (PTR_ERR(i2c_dev->dma) == -ENODEV)
++		i2c_dev->dma = NULL;
++	else if (IS_ERR(i2c_dev->dma)) {
++		ret = PTR_ERR(i2c_dev->dma);
++		if (ret != -EPROBE_DEFER)
++			dev_err(&pdev->dev,
++				"Failed to request dma error %i\n", ret);
++		goto clk_free;
++	}
+ 
+ 	platform_set_drvdata(pdev, i2c_dev);
+ 
+-- 
+2.7.4
+
+_______________________________________________
+Linux-stm32 mailing list
+Linux-stm32@st-md-mailman.stormreply.com
+https://st-md-mailman.stormreply.com/mailman/listinfo/linux-stm32
