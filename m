@@ -2,59 +2,57 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id 3F782E3306
-	for <lists+linux-stm32@lfdr.de>; Thu, 24 Oct 2019 14:52:14 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id A1F2EE36DB
+	for <lists+linux-stm32@lfdr.de>; Thu, 24 Oct 2019 17:41:30 +0200 (CEST)
 Received: from ip-172-31-3-76.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 64BDDC36B0B;
-	Thu, 24 Oct 2019 12:52:13 +0000 (UTC)
-Received: from mx07-00178001.pphosted.com (mx08-00178001.pphosted.com
- [91.207.212.93])
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 59E90C36B0B;
+	Thu, 24 Oct 2019 15:41:30 +0000 (UTC)
+Received: from mx07-00178001.pphosted.com (mx07-00178001.pphosted.com
+ [62.209.51.94])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 8E596C36B09
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 67176C36B09
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Thu, 24 Oct 2019 12:52:12 +0000 (UTC)
-Received: from pps.filterd (m0046660.ppops.net [127.0.0.1])
- by mx08-00178001.pphosted.com (8.16.0.42/8.16.0.42) with SMTP id
- x9OCpL3a031995; Thu, 24 Oct 2019 14:52:03 +0200
+ Thu, 24 Oct 2019 15:41:29 +0000 (UTC)
+Received: from pps.filterd (m0046037.ppops.net [127.0.0.1])
+ by mx07-00178001.pphosted.com (8.16.0.42/8.16.0.42) with SMTP id
+ x9OFeiOc016236; Thu, 24 Oct 2019 17:41:25 +0200
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=st.com;
  h=from : to : cc : subject
  : date : message-id : mime-version : content-type; s=STMicroelectronics;
- bh=NTyg2cKVDskIQP5k+lTXj0XW5CLq2Yn3o933I6C84NA=;
- b=EE6ULXMaQF8YbBV5UrS6beaGs5rVC1yLwC8wbX7WYWmp9CYme0oO/s+Dmh1pici70vGJ
- Sc4L5iztdNtA0KpVciDpHynRxkRbseq5UJ6rx6kWFgXbFdiYpTcnqOnpxWsgRCvOpIE3
- BMrviEj+qesKjJwzdNOVv+1QjEPhKgf/OiPIjNz6iH0ZM1XAQSJ4zBPC/hTnqXZDrarN
- hNhluXCrYT0rZnPTEWHCHqxzDpRBwqyLcusmgYL6XPJ2uP1qiniTYJzdbOKzeFeJHuZA
- PEXHk51YMInySfvsEdk3IMDQMyWss1y5Bdftu9uhisPg6O0EN5x7m78ivuV+dB3BYgiE dg== 
+ bh=LV706jSi2f+46Tg4TfZ6VFseIWlovRjlpB2QmvImJLM=;
+ b=Lvr6UMzPZIbaUCdsuXyTfwXFrY9t3F2VK2AkIkERTLYyOwsPzXtIf4Aa3yFAUcVqaEMI
+ DuQHh9FaNMTMLbvKd0MAMXA7LgyvBZexsQ75zcv7eWNF8V5ttSevNh5X+oq34RzKtxpJ
+ ytA4YhXmydgdIzo+ikwYb/wuhgZF0c6JCxJIaP4QMPWQWRfOWduET4d1ciKMGhn26+As
+ BxIqlqS3OFq9mdsWMSoPi7RDEBZFQdu+AZA2IB205jUdxIT/8gLeFQFWwMT3F8GqF2XP
+ lgSwocuJioc0Lfn9mlmFJhw7eH+as/+0HyjqU6wQ9LKE0XLGYn//gsqggJnuosuLtwVM gQ== 
 Received: from beta.dmz-eu.st.com (beta.dmz-eu.st.com [164.129.1.35])
- by mx08-00178001.pphosted.com with ESMTP id 2vt9s51qwu-1
+ by mx07-00178001.pphosted.com with ESMTP id 2vt9s1tp5c-1
  (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
- Thu, 24 Oct 2019 14:52:03 +0200
+ Thu, 24 Oct 2019 17:41:25 +0200
 Received: from euls16034.sgp.st.com (euls16034.sgp.st.com [10.75.44.20])
- by beta.dmz-eu.st.com (STMicroelectronics) with ESMTP id D001710002A;
- Thu, 24 Oct 2019 14:52:01 +0200 (CEST)
-Received: from Webmail-eu.st.com (sfhdag3node2.st.com [10.75.127.8])
- by euls16034.sgp.st.com (STMicroelectronics) with ESMTP id 68D382BAB98;
- Thu, 24 Oct 2019 14:52:01 +0200 (CEST)
-Received: from localhost (10.75.127.48) by SFHDAG3NODE2.st.com (10.75.127.8)
- with Microsoft SMTP Server (TLS) id 15.0.1347.2; Thu, 24 Oct 2019 14:52:01
- +0200
-From: Alain Volmat <alain.volmat@st.com>
-To: <wsa@the-dreams.de>, <pierre-yves.mordret@st.com>
-Date: Thu, 24 Oct 2019 14:52:00 +0200
-Message-ID: <1571921521-8502-1-git-send-email-alain.volmat@st.com>
-X-Mailer: git-send-email 2.7.4
+ by beta.dmz-eu.st.com (STMicroelectronics) with ESMTP id 177D0100038;
+ Thu, 24 Oct 2019 17:41:25 +0200 (CEST)
+Received: from Webmail-eu.st.com (sfhdag6node2.st.com [10.75.127.17])
+ by euls16034.sgp.st.com (STMicroelectronics) with ESMTP id 0BDFA2C6E5F;
+ Thu, 24 Oct 2019 17:41:25 +0200 (CEST)
+Received: from localhost (10.75.127.49) by SFHDAG6NODE2.st.com (10.75.127.17)
+ with Microsoft SMTP Server (TLS) id 15.0.1347.2;
+ Thu, 24 Oct 2019 17:41:24 +0200
+From: Pascal Paillet <p.paillet@st.com>
+To: <lgirdwood@gmail.com>, <broonie@kernel.org>, <linux-kernel@vger.kernel.org>
+Date: Thu, 24 Oct 2019 17:41:20 +0200
+Message-ID: <20191024154121.8503-1-p.paillet@st.com>
+X-Mailer: git-send-email 2.17.1
 MIME-Version: 1.0
-X-Originating-IP: [10.75.127.48]
-X-ClientProxiedBy: SFHDAG8NODE1.st.com (10.75.127.22) To SFHDAG3NODE2.st.com
- (10.75.127.8)
+X-Originating-IP: [10.75.127.49]
+X-ClientProxiedBy: SFHDAG1NODE2.st.com (10.75.127.2) To SFHDAG6NODE2.st.com
+ (10.75.127.17)
 X-Proofpoint-Virus-Version: vendor=fsecure engine=2.50.10434:6.0.95,1.0.8
- definitions=2019-10-24_08:2019-10-23,2019-10-24 signatures=0
-Cc: linux-kernel@vger.kernel.org, alain.volmat@st.com,
- linux-i2c@vger.kernel.org, fabrice.gasnier@st.com,
- linux-stm32@st-md-mailman.stormreply.com, linux-arm-kernel@lists.infradead.org
-Subject: [Linux-stm32] [PATCH] i2c: i2c-stm32f7: report dma error during
-	probe
+ definitions=2019-10-24_09:2019-10-23,2019-10-24 signatures=0
+Cc: p.paillet@st.com, linux-stm32@st-md-mailman.stormreply.com
+Subject: [Linux-stm32] [PATCH 0/1] Enable stm32_pwr regulator driver for
+	stm32mp157
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -71,85 +69,16 @@ Content-Transfer-Encoding: 7bit
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
-Distinguish between the case where dma information is not provided
-within the DT and the case of an error during the dma init.
-Exit the probe with error in case of an error during dma init.
+Enable the STM32 PWR regulator driver for stm32mp157 machine.
 
-Fixes: bb8822cbbc53 ("i2c: i2c-stm32: Add generic DMA API")
+Pascal Paillet (1):
+  regulator: stm32_pwr: Enable driver for stm32mp157
 
-Signed-off-by: Alain Volmat <alain.volmat@st.com>
----
- drivers/i2c/busses/i2c-stm32.c   | 16 ++++++++--------
- drivers/i2c/busses/i2c-stm32f7.c |  9 +++++++++
- 2 files changed, 17 insertions(+), 8 deletions(-)
+ drivers/regulator/Kconfig | 1 +
+ 1 file changed, 1 insertion(+)
 
-diff --git a/drivers/i2c/busses/i2c-stm32.c b/drivers/i2c/busses/i2c-stm32.c
-index 07d5dfce68d4..1da347e6a358 100644
---- a/drivers/i2c/busses/i2c-stm32.c
-+++ b/drivers/i2c/busses/i2c-stm32.c
-@@ -20,13 +20,13 @@ struct stm32_i2c_dma *stm32_i2c_dma_request(struct device *dev,
- 
- 	dma = devm_kzalloc(dev, sizeof(*dma), GFP_KERNEL);
- 	if (!dma)
--		return NULL;
-+		return ERR_PTR(-ENOMEM);
- 
- 	/* Request and configure I2C TX dma channel */
--	dma->chan_tx = dma_request_slave_channel(dev, "tx");
--	if (!dma->chan_tx) {
-+	dma->chan_tx = dma_request_chan(dev, "tx");
-+	if (IS_ERR(dma->chan_tx)) {
- 		dev_dbg(dev, "can't request DMA tx channel\n");
--		ret = -EINVAL;
-+		ret = PTR_ERR(dma->chan_tx);
- 		goto fail_al;
- 	}
- 
-@@ -42,10 +42,10 @@ struct stm32_i2c_dma *stm32_i2c_dma_request(struct device *dev,
- 	}
- 
- 	/* Request and configure I2C RX dma channel */
--	dma->chan_rx = dma_request_slave_channel(dev, "rx");
--	if (!dma->chan_rx) {
-+	dma->chan_rx = dma_request_chan(dev, "rx");
-+	if (IS_ERR(dma->chan_rx)) {
- 		dev_err(dev, "can't request DMA rx channel\n");
--		ret = -EINVAL;
-+		ret = PTR_ERR(dma->chan_rx);
- 		goto fail_tx;
- 	}
- 
-@@ -75,7 +75,7 @@ struct stm32_i2c_dma *stm32_i2c_dma_request(struct device *dev,
- 	devm_kfree(dev, dma);
- 	dev_info(dev, "can't use DMA\n");
- 
--	return NULL;
-+	return ERR_PTR(ret);
- }
- 
- void stm32_i2c_dma_free(struct stm32_i2c_dma *dma)
-diff --git a/drivers/i2c/busses/i2c-stm32f7.c b/drivers/i2c/busses/i2c-stm32f7.c
-index d36cf08461f7..cc8ba8f49ae6 100644
---- a/drivers/i2c/busses/i2c-stm32f7.c
-+++ b/drivers/i2c/busses/i2c-stm32f7.c
-@@ -1950,6 +1950,15 @@ static int stm32f7_i2c_probe(struct platform_device *pdev)
- 	i2c_dev->dma = stm32_i2c_dma_request(i2c_dev->dev, phy_addr,
- 					     STM32F7_I2C_TXDR,
- 					     STM32F7_I2C_RXDR);
-+	if (PTR_ERR(i2c_dev->dma) == -ENODEV)
-+		i2c_dev->dma = NULL;
-+	else if (IS_ERR(i2c_dev->dma)) {
-+		ret = PTR_ERR(i2c_dev->dma);
-+		if (ret != -EPROBE_DEFER)
-+			dev_err(&pdev->dev,
-+				"Failed to request dma error %i\n", ret);
-+		goto clk_free;
-+	}
- 
- 	platform_set_drvdata(pdev, i2c_dev);
- 
 -- 
-2.7.4
+2.17.1
 
 _______________________________________________
 Linux-stm32 mailing list
