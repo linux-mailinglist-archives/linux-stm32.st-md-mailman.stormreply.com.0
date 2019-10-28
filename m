@@ -2,65 +2,79 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id 8A318E75D1
-	for <lists+linux-stm32@lfdr.de>; Mon, 28 Oct 2019 17:12:24 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id C30E1E78A0
+	for <lists+linux-stm32@lfdr.de>; Mon, 28 Oct 2019 19:39:53 +0100 (CET)
 Received: from ip-172-31-3-76.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 32EA8C36B0B;
-	Mon, 28 Oct 2019 16:12:24 +0000 (UTC)
-Received: from mx07-00178001.pphosted.com (mx07-00178001.pphosted.com
- [62.209.51.94])
- (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 83991C36B0B;
+	Mon, 28 Oct 2019 18:39:53 +0000 (UTC)
+Received: from mail-pf1-f193.google.com (mail-pf1-f193.google.com
+ [209.85.210.193])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id C436EC36B09
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 154DAC36B09
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Mon, 28 Oct 2019 16:12:22 +0000 (UTC)
-Received: from pps.filterd (m0046037.ppops.net [127.0.0.1])
- by mx07-00178001.pphosted.com (8.16.0.42/8.16.0.42) with SMTP id
- x9SFu2aq023368; Mon, 28 Oct 2019 17:11:57 +0100
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=st.com;
- h=from : to : cc : subject
- : date : message-id : in-reply-to : references : mime-version :
- content-type; s=STMicroelectronics;
- bh=CM9gDRKKxbqasjyuOfTE0X/UG/yfSLvoQfkO2xJSMkU=;
- b=eipmSO+CXc1j0cU38m0HAn+OGIpV1ILX9Fy2IvNLSEBTrYS/gV0WHkrWkm/LIFr1fG1Z
- M8bU2jkArGGi4gcvN97WQyirUUmS90WM2lHtAU62eRCzZxajl0JKf3CBXGUe9mkaaLQi
- 1bb9ZREKkAcY0ptcyuj8vGAVvY7WlvjbUz0AQmK2jvrD1UiIE7KTrPVSdl6GUJd299Vj
- sCQ87vZ+YjvZYV+j6JG4vexoM+Ys4TC8nwgTIUF4kR8iQNzfa3RhB89axWhgXvY0U53S
- GS0Z4k1A1XsN/KTsSUK6UAjzaAaqfLevykid0cJaRATAoH4//DIF9AmFyXUg2GDUN7xP 8g== 
-Received: from beta.dmz-eu.st.com (beta.dmz-eu.st.com [164.129.1.35])
- by mx07-00178001.pphosted.com with ESMTP id 2vvbww33yj-1
- (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
- Mon, 28 Oct 2019 17:11:57 +0100
-Received: from euls16034.sgp.st.com (euls16034.sgp.st.com [10.75.44.20])
- by beta.dmz-eu.st.com (STMicroelectronics) with ESMTP id 1F3D3100034;
- Mon, 28 Oct 2019 17:11:57 +0100 (CET)
-Received: from Webmail-eu.st.com (Safex1hubcas24.st.com [10.75.90.94])
- by euls16034.sgp.st.com (STMicroelectronics) with ESMTP id 0EE9F2B1E73;
- Mon, 28 Oct 2019 17:11:57 +0100 (CET)
-Received: from SAFEX1HUBCAS22.st.com (10.75.90.93) by Safex1hubcas24.st.com
- (10.75.90.94) with Microsoft SMTP Server (TLS) id 14.3.439.0; Mon, 28 Oct
- 2019 17:11:56 +0100
-Received: from localhost (10.48.0.192) by Webmail-ga.st.com (10.75.90.48) with
- Microsoft SMTP Server (TLS) id 14.3.439.0;
- Mon, 28 Oct 2019 17:11:56 +0100
-From: Fabrice Gasnier <fabrice.gasnier@st.com>
-To: <jic23@kernel.org>, <robh+dt@kernel.org>
-Date: Mon, 28 Oct 2019 17:11:48 +0100
-Message-ID: <1572279108-25916-3-git-send-email-fabrice.gasnier@st.com>
-X-Mailer: git-send-email 2.7.4
-In-Reply-To: <1572279108-25916-1-git-send-email-fabrice.gasnier@st.com>
-References: <1572279108-25916-1-git-send-email-fabrice.gasnier@st.com>
+ Mon, 28 Oct 2019 18:39:51 +0000 (UTC)
+Received: by mail-pf1-f193.google.com with SMTP id v4so7469418pff.6
+ for <linux-stm32@st-md-mailman.stormreply.com>;
+ Mon, 28 Oct 2019 11:39:51 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=netronome-com.20150623.gappssmtp.com; s=20150623;
+ h=date:from:to:cc:subject:message-id:in-reply-to:references
+ :organization:mime-version:content-transfer-encoding;
+ bh=EPGX6h0pVC2AQtOu5m7E/AGIWcsdvwzFhVXR+bw0YPI=;
+ b=WtWd6Dgb2y0Z+g6LWuXRgzS1P9sJCnOwh1VvFizsdI+7W3suTxXpcGNb81ZZ+5LMk2
+ x8qrkDaMxlhIejJeLtF1R1fcB71CjSa7I813VsrGbFKWPcDYKhnKomSvWpjwAXhgqjQe
+ EPsJIkvRrs414WdtjSTW9N6YS74cbmaiX78kXAdFDDxp5WEeTYc8ZhtcqJesxrDmbTGW
+ jzz/BzKidHWunlJupB7VqzjIZEJ3SYTLI/kdLpMMubi65up5s3Py1VqROsCw2FdEwD+8
+ riKg7SF2u2UUuhxWQdLqv545ih+6//TeYevrsoMEEpDg3laO/jfIo8SED/eqGuVe2UEi
+ EaJg==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20161025;
+ h=x-gm-message-state:date:from:to:cc:subject:message-id:in-reply-to
+ :references:organization:mime-version:content-transfer-encoding;
+ bh=EPGX6h0pVC2AQtOu5m7E/AGIWcsdvwzFhVXR+bw0YPI=;
+ b=q028CQQY8th3fPaCHkRBj2w4sYbYj6h2e2IF0sSgUKOS5PKqRQ50fY3bpW0Slbk5K4
+ QXyMMKEkd7zDHtnkSgvpsOowHfln9yFHxPCCYDGxQ7nUHNUfiDcsq6ptd5bW5wAvfHIE
+ kRHsQiMq79UVSLyOjsh41SK/5B2qDwxpFCj71PvtGxxHLN1hVoYEziXptvo5Ic/AkGtS
+ 1XuJVvDQ0qUBdp26AzVwHGSGLQK/skWs/QG0Wz8RoV04CItD8HjQ8swbLO+L+YznSUJj
+ ngPrBS3RZ/vOVgS0aI7Xa7NuFWMZhYyNRUlkAOs62/hfRh1YA0ZF5WuXBo8MdoU7+2bx
+ oOAg==
+X-Gm-Message-State: APjAAAXaEih7RtC8gCo56vllHaQLSN1VWw1erDdrGhbSfYY4pcR6uUdf
+ ylLn4SrBcWWNUWHF6UFoqvSC9Q==
+X-Google-Smtp-Source: APXvYqxmfepHhI74vqfOzXZ2oM4YuZcr3aFLhwrDPxJZ6ggCv/6HfLvAYpIaC1rg8h+fqYAl/REmIA==
+X-Received: by 2002:a17:90a:d793:: with SMTP id
+ z19mr927832pju.17.1572287990242; 
+ Mon, 28 Oct 2019 11:39:50 -0700 (PDT)
+Received: from cakuba.hsd1.ca.comcast.net ([66.60.152.14])
+ by smtp.gmail.com with ESMTPSA id h8sm559228pjp.1.2019.10.28.11.39.49
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Mon, 28 Oct 2019 11:39:49 -0700 (PDT)
+Date: Mon, 28 Oct 2019 11:39:46 -0700
+From: Jakub Kicinski <jakub.kicinski@netronome.com>
+To: Christophe ROULLIER <christophe.roullier@st.com>
+Message-ID: <20191028113946.64dc0835@cakuba.hsd1.ca.comcast.net>
+In-Reply-To: <085bdbc4-4845-a3ae-d8f3-bf4f2d753226@st.com>
+References: <20190920053817.13754-1-christophe.roullier@st.com>
+ <20190922151257.51173d89@cakuba.netronome.com>
+ <1d5dfc73-73e1-fe47-d1f6-9c24f9e5e532@st.com>
+ <085bdbc4-4845-a3ae-d8f3-bf4f2d753226@st.com>
+Organization: Netronome Systems, Ltd.
 MIME-Version: 1.0
-X-Originating-IP: [10.48.0.192]
-X-Proofpoint-Virus-Version: vendor=fsecure engine=2.50.10434:6.0.95,1.0.8
- definitions=2019-10-28_06:2019-10-28,2019-10-28 signatures=0
-Cc: mark.rutland@arm.com, mcoquelin.stm32@gmail.com, lars@metafoo.de,
- devicetree@vger.kernel.org, linux-iio@vger.kernel.org,
- linux-kernel@vger.kernel.org, pmeerw@pmeerw.net, knaack.h@gmx.de,
- fabrice.gasnier@st.com, linux-stm32@st-md-mailman.stormreply.com,
- linux-arm-kernel@lists.infradead.org
-Subject: [Linux-stm32] [PATCH 2/2] iio: adc: stm32: allow to tune analog
-	clock
+Cc: "mark.rutland@arm.com" <mark.rutland@arm.com>,
+	"robh@kernel.org" <robh@kernel.org>,
+	"  <netdev@vger.kernel.org>, "@stm-ict-prod-mailman-01.stormreply.prv,
+	andrew@lunn.ch,
+	"  <devicetree@vger.kernel.org>, " linux-arm-kernel@lists.infradead."org," <andrew@lunn.ch>,
+	"joabreu@synopsys.com" <joabreu@synopsys.com>,
+	"mcoquelin.stm32@gmail.com" <mcoquelin.stm32@gmail.com>,
+	"  <linux-kernel@vger.kernel.org>, "@stm-ict-prod-mailman-01.stormreply.prv,
+	devicetree@vger.kernel.org, Peppe CAVALLARO <peppe.cavallaro@st.com>,
+	"       <linux-arm-kernel@lists.infradead.org>, "@stm-ict-prod-mailman-01.stormreply.prv,
+	netdev@vger.kernel.org, "davem@davemloft.net" <davem@davemloft.net>,
+	"linux-stm32@st-md-mailman.stormreply.com\"          <linux-stm32@st-md-mailman.stormreply.com>, "@stm-ict-prod-mailman-01.stormreply.prv,
+	linux-kernel@vger.kernel.org
+Subject: Re: [Linux-stm32] [PATCH 0/5] net: ethernet: stmmac: some fixes and
+	optimization
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -77,87 +91,18 @@ Content-Transfer-Encoding: 7bit
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
-Add new optional dt property to tune analog clock prescaler.
-Driver looks for optional "st,max-clk-rate-hz", then computes
-best approximation below that rate, using ADC internal prescaler.
+On Fri, 25 Oct 2019 09:17:52 +0000, Christophe ROULLIER wrote:
+> Hi all,
+> 
+> Just a "gentleman ping" about this series
 
-Signed-off-by: Fabrice Gasnier <fabrice.gasnier@st.com>
----
- drivers/iio/adc/stm32-adc-core.c | 16 +++++++++++++---
- 1 file changed, 13 insertions(+), 3 deletions(-)
+Please add Alexandre's acks and repost the series. Since net-next is
+now open it can be applied.
 
-diff --git a/drivers/iio/adc/stm32-adc-core.c b/drivers/iio/adc/stm32-adc-core.c
-index 20c626c..6537f4f 100644
---- a/drivers/iio/adc/stm32-adc-core.c
-+++ b/drivers/iio/adc/stm32-adc-core.c
-@@ -79,6 +79,7 @@ struct stm32_adc_priv_cfg {
-  * @domain:		irq domain reference
-  * @aclk:		clock reference for the analog circuitry
-  * @bclk:		bus clock common for all ADCs, depends on part used
-+ * @max_clk_rate:	desired maximum clock rate
-  * @booster:		booster supply reference
-  * @vdd:		vdd supply reference
-  * @vdda:		vdda analog supply reference
-@@ -95,6 +96,7 @@ struct stm32_adc_priv {
- 	struct irq_domain		*domain;
- 	struct clk			*aclk;
- 	struct clk			*bclk;
-+	u32				max_clk_rate;
- 	struct regulator		*booster;
- 	struct regulator		*vdd;
- 	struct regulator		*vdda;
-@@ -141,7 +143,7 @@ static int stm32f4_adc_clk_sel(struct platform_device *pdev,
- 	}
- 
- 	for (i = 0; i < ARRAY_SIZE(stm32f4_pclk_div); i++) {
--		if ((rate / stm32f4_pclk_div[i]) <= priv->cfg->max_clk_rate_hz)
-+		if ((rate / stm32f4_pclk_div[i]) <= priv->max_clk_rate)
- 			break;
- 	}
- 	if (i >= ARRAY_SIZE(stm32f4_pclk_div)) {
-@@ -230,7 +232,7 @@ static int stm32h7_adc_clk_sel(struct platform_device *pdev,
- 			if (ckmode)
- 				continue;
- 
--			if ((rate / div) <= priv->cfg->max_clk_rate_hz)
-+			if ((rate / div) <= priv->max_clk_rate)
- 				goto out;
- 		}
- 	}
-@@ -250,7 +252,7 @@ static int stm32h7_adc_clk_sel(struct platform_device *pdev,
- 		if (!ckmode)
- 			continue;
- 
--		if ((rate / div) <= priv->cfg->max_clk_rate_hz)
-+		if ((rate / div) <= priv->max_clk_rate)
- 			goto out;
- 	}
- 
-@@ -655,6 +657,7 @@ static int stm32_adc_probe(struct platform_device *pdev)
- 	struct device *dev = &pdev->dev;
- 	struct device_node *np = pdev->dev.of_node;
- 	struct resource *res;
-+	u32 max_rate;
- 	int ret;
- 
- 	if (!pdev->dev.of_node)
-@@ -731,6 +734,13 @@ static int stm32_adc_probe(struct platform_device *pdev)
- 	priv->common.vref_mv = ret / 1000;
- 	dev_dbg(&pdev->dev, "vref+=%dmV\n", priv->common.vref_mv);
- 
-+	ret = of_property_read_u32(pdev->dev.of_node, "st,max-clk-rate-hz",
-+				   &max_rate);
-+	if (!ret)
-+		priv->max_clk_rate = min(max_rate, priv->cfg->max_clk_rate_hz);
-+	else
-+		priv->max_clk_rate = priv->cfg->max_clk_rate_hz;
-+
- 	ret = priv->cfg->clk_sel(pdev, priv);
- 	if (ret < 0)
- 		goto err_hw_stop;
--- 
-2.7.4
-
+Due to the volume of changes that go into the networking tree, Dave
+doesn't keep track of patches "for later". Patches which couldn't be
+applied for process reasons, or due to conflicts, or missing
+dependencies have to be reposted once the obstacles are removed.
 _______________________________________________
 Linux-stm32 mailing list
 Linux-stm32@st-md-mailman.stormreply.com
