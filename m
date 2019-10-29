@@ -2,54 +2,54 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id 26314E8E25
-	for <lists+linux-stm32@lfdr.de>; Tue, 29 Oct 2019 18:34:22 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 54DC9E8E38
+	for <lists+linux-stm32@lfdr.de>; Tue, 29 Oct 2019 18:36:33 +0100 (CET)
 Received: from ip-172-31-3-76.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id E8187C36B0B;
-	Tue, 29 Oct 2019 17:34:21 +0000 (UTC)
-Received: from mail-wm1-f67.google.com (mail-wm1-f67.google.com
- [209.85.128.67])
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 1D31AC36B0B;
+	Tue, 29 Oct 2019 17:36:33 +0000 (UTC)
+Received: from mail-wr1-f66.google.com (mail-wr1-f66.google.com
+ [209.85.221.66])
  (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id F01BAC36B09
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id C77C3C36B09
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Tue, 29 Oct 2019 17:34:19 +0000 (UTC)
-Received: by mail-wm1-f67.google.com with SMTP id w9so3306669wmm.5
+ Tue, 29 Oct 2019 17:36:30 +0000 (UTC)
+Received: by mail-wr1-f66.google.com with SMTP id q13so14567302wrs.12
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Tue, 29 Oct 2019 10:34:19 -0700 (PDT)
+ Tue, 29 Oct 2019 10:36:30 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linaro.org; s=google;
  h=subject:to:references:from:openpgp:autocrypt:message-id:date
  :user-agent:mime-version:in-reply-to:content-language
  :content-transfer-encoding;
- bh=GX1gOKzKV+EnrAFpaJFs5ZBMdSDwazW4wnKz52ri1Hc=;
- b=a2LUVbdYPHdwR9i68R2xV9KK+bE+EO6PaojUC7PDpapvANJuOWlBHDGx6czpiNh7fK
- fx3sHksQhTVBKzhee0/XKldV4xJjvQmY+AoVC3K4vFaHk81m5YF1vrgvhgKcYCnoOWtI
- oXDzX+EiWUKKUlwes4UTQQ34T21sqC7NaRtwsay7AtApqwYutlEiDBbmcFqHSUTeXir2
- M0lfUg3oG5k1AmuLndyB4mOwAqIAPWhuSlmFNeq62A00J8e8qpVv3zGsc+6UCS6Pi8uO
- zlHGt9NwVswB/kWBDMw8uCP25L+MSHCV2aWZA6QHtqY506fQsB8p4Zjah6y/69BXLRWu
- x+OA==
+ bh=Nni/liqzdhkVu64Xrr57xeVzvsQgWp9LNCb4tgbLMKc=;
+ b=vuwYwZIn1L7kvgkpckncO5Fj5cKcM7xG9WcDDS97ux4CeoMOzxVQWQpJmVTyWzXCzG
+ DOGEKEDDfcn+EKIpp2kOdNAeFI3OunxkbeEjgN2VCbMk45GH9rO9vFqo5oijIVBQ6WIq
+ 886pan8LKMC3WpAaXGMJ3jvlUOrxf6j21p9usPCV4UVwxNj8vsYokkfMwfwKwfjjFBQE
+ fr6RHeUB2l+qjoQWn2vDggtb1mrXTL1hBDCjtSso9aCgraArwopX2qd2lUqh+c3JpTEM
+ UG6J8U+nyB9vhOvRakqjoAxdhiR+fL9mvtNn9ekJ4ZiJtZQwvCN4xMPhiGpLKTQU1YfA
+ TswQ==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=1e100.net; s=20161025;
  h=x-gm-message-state:subject:to:references:from:openpgp:autocrypt
  :message-id:date:user-agent:mime-version:in-reply-to
  :content-language:content-transfer-encoding;
- bh=GX1gOKzKV+EnrAFpaJFs5ZBMdSDwazW4wnKz52ri1Hc=;
- b=N2nhptMqsoxgPIIUNosyY00R3q7wDunmgg9JDIGSOBZ9yS2tVk1/zH2kVWi9S1U5ES
- yEblSW/EluuCwLhCmHBMe5R3wwwTx1xOl2gQd2HWV8DpcX9AQGP2fKKInaqSA9gJs80h
- ZuYuC68k1fpLsPcdeIia7rXX/5LCe7P16/n2YwgZFC+B2W92wDvn8zUCiPFj4ievFh8F
- b/5cM3MHg4NbIlblr4gyvktC5W7w6SahzUA2vzPy8VOE4bfl/2uyMTPxFZgd3YP7tIBI
- WYyJ8uicUMgCs+YKBJ3ZcXo6frmwHQ/eYpZIQl4TihLHxTVs3GAeDhwyyAfyViAehqWa
- adgQ==
-X-Gm-Message-State: APjAAAXQwfb6K8S3h+84+ORWeAVlukwq7k3qFvgWJDqcJfNAt/rtcJXI
- 2CB59xGBThpcYqzPGVRZU3TL/w==
-X-Google-Smtp-Source: APXvYqyau6el3ecqUtNnw+Ju+EM5hxWdbFWLBOzOnMu2T7sDKFazP1lzEtB2pcwonEVlxiWChMcUnA==
-X-Received: by 2002:a1c:38c3:: with SMTP id f186mr5338801wma.58.1572370459385; 
- Tue, 29 Oct 2019 10:34:19 -0700 (PDT)
+ bh=Nni/liqzdhkVu64Xrr57xeVzvsQgWp9LNCb4tgbLMKc=;
+ b=MFWS514jtjMBLtVsUwMDm9JhEqL/fEsR9ibjy1/AgKl+IS+RaVlG1bO8TscALFpnkR
+ kNSbzc4yix7TfX3AIAQEyix1CdaxFsopqfdQsRU4zUD/T9UETOtGSYZ5j/ShIS1bKaCB
+ HuiAI2AmFwY4elvqPh4f0/1mCB21j9k5xwy0YgSNDS+FHHc/SOdDw7r1xgXzDXQgMSYB
+ PkXE99fRrQ5VjddYB75ow+lsoCdJxU7jiW2osnU9FFNur4aKZ+lSr94lBO9K2NSMRnGZ
+ DbGIS89kXtb01V7AU6+zLQkwJjFI6RkUiEFHIjXybspQBx5O51rSEMoerP88gXhOJEqw
+ qp2Q==
+X-Gm-Message-State: APjAAAWVzAsjRT4Ao/l4NKb5VCDQrdU+aUosa1r9R2hOWeqhWANtEqnP
+ ni+hhCnTy7sG78vkzM6Nzk+eYQ==
+X-Google-Smtp-Source: APXvYqzkHaMKmClLbsQXI1rFV5iv4EsMZvg9up3Y4GP7WbK7GcZ2h2CqwsGeY0jfD61MpkQHCENYHw==
+X-Received: by 2002:adf:f0cc:: with SMTP id x12mr10457126wro.326.1572370590048; 
+ Tue, 29 Oct 2019 10:36:30 -0700 (PDT)
 Received: from ?IPv6:2a01:e34:ed2f:f020:7037:cc11:eb05:9c6a?
  ([2a01:e34:ed2f:f020:7037:cc11:eb05:9c6a])
- by smtp.googlemail.com with ESMTPSA id e24sm4270948wme.26.2019.10.29.10.34.17
+ by smtp.googlemail.com with ESMTPSA id b196sm4433204wmd.24.2019.10.29.10.36.28
  (version=TLS1_2 cipher=ECDHE-RSA-AES128-GCM-SHA256 bits=128/128);
- Tue, 29 Oct 2019 10:34:18 -0700 (PDT)
+ Tue, 29 Oct 2019 10:36:29 -0700 (PDT)
 To: Pascal Paillet <p.paillet@st.com>, mcoquelin.stm32@gmail.com,
  alexandre.torgue@st.com, robh+dt@kernel.org, mark.rutland@arm.com,
  rui.zhang@intel.com, edubezval@gmail.com, amit.kucheria@verdurent.com,
@@ -58,7 +58,7 @@ To: Pascal Paillet <p.paillet@st.com>, mcoquelin.stm32@gmail.com,
  linux-arm-kernel@lists.infradead.org, devicetree@vger.kernel.org,
  linux-kernel@vger.kernel.org, linux-pm@vger.kernel.org
 References: <20191029164537.1561-1-p.paillet@st.com>
- <20191029164537.1561-2-p.paillet@st.com>
+ <20191029164537.1561-5-p.paillet@st.com>
 From: Daniel Lezcano <daniel.lezcano@linaro.org>
 Openpgp: preference=signencrypt
 Autocrypt: addr=daniel.lezcano@linaro.org; prefer-encrypt=mutual; keydata=
@@ -149,15 +149,15 @@ Autocrypt: addr=daniel.lezcano@linaro.org; prefer-encrypt=mutual; keydata=
  y0s5uI05ZSXhqFs9iLlh3zNU1i6J1cdzA8BReoa3cKz4UiGKEffT857iMvT/ZmgSdYY57EgV
  UWm57SN2ok2Ii8AXlanH5SJPkbwJZhiB7kO0cjebmoA/1SA+5yTc3zEKKFuxcpfiXxt0d/OJ
  om6jCJ5/uKB5Cz9bJj0WdlvS2Xb11Jrs90MoVa74H5me4jOw7m9Yyg3qExOFOXUPFL6N
-Message-ID: <36759c01-7f1b-ef50-621d-7e239f7554b0@linaro.org>
-Date: Tue, 29 Oct 2019 18:34:17 +0100
+Message-ID: <a690f5a6-b9ba-a190-598e-0f05e54c8511@linaro.org>
+Date: Tue, 29 Oct 2019 18:36:28 +0100
 User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:60.0) Gecko/20100101
  Thunderbird/60.8.0
 MIME-Version: 1.0
-In-Reply-To: <20191029164537.1561-2-p.paillet@st.com>
+In-Reply-To: <20191029164537.1561-5-p.paillet@st.com>
 Content-Language: en-US
-Subject: Re: [Linux-stm32] [PATCH 1/4] thermal: stm32: implement set_trips
-	callback
+Subject: Re: [Linux-stm32] [PATCH 4/4] ARM: dts: stm32: remove thermal
+ passive trip point on stm32mp157c
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -174,19 +174,25 @@ Content-Transfer-Encoding: base64
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
-T24gMjkvMTAvMjAxOSAxNzo0NSwgUGFzY2FsIFBhaWxsZXQgd3JvdGU6Cj4gSW1wbGVtZW50IHNl
-dF90cmlwcygpIHNvIHRoYXQgdGhlIHRyaXAgcG9pbnRzIGFyZSBtYW5hZ2VkIGJ5IHRoZSB0aGVy
-bWFsCj4gZnJhbWV3b3JrLiBUaGUgdXNlciBpcyBmcmVlIHRvIGRlZmluZSBhbnkgdHJpcCBwb2lu
-dHMgaGUgbmVlZHMuCj4gU2ltcGxpZnkgaW50ZXJydXB0IGhhbmRsaW5nLgoKVGhlIHBhdGNoIGlz
-IHRvdWNoaW5nIHRvbyBtYW55IHRoaW5ncyBhdCB0aGUgc2FtZSB0aW1lIGFuZCB0aGUgY2hhbmdl
-CmRlc2NyaXB0aW9uIGRvZXMgbm90IGhlbHAgdG8gdW5kZXJzdGFuZCB0aGUgY2hhbmdlcy4KCj4g
-U2lnbmVkLW9mZi1ieTogUGFzY2FsIFBhaWxsZXQgPHAucGFpbGxldEBzdC5jb20+Cj4gQ2hhbmdl
-LUlkOiBJMjkyOWQ0ZmE1YjRjNWRjYTQ1Y2VjN2NiM2I5M2ZmZmMyNzczOTRkMgoKUmVtb3ZlIENo
-YW5nZS1JZAoKWyAuLi4gXQoKCi0tIAogPGh0dHA6Ly93d3cubGluYXJvLm9yZy8+IExpbmFyby5v
-cmcg4pSCIE9wZW4gc291cmNlIHNvZnR3YXJlIGZvciBBUk0gU29DcwoKRm9sbG93IExpbmFybzog
-IDxodHRwOi8vd3d3LmZhY2Vib29rLmNvbS9wYWdlcy9MaW5hcm8+IEZhY2Vib29rIHwKPGh0dHA6
-Ly90d2l0dGVyLmNvbS8jIS9saW5hcm9vcmc+IFR3aXR0ZXIgfAo8aHR0cDovL3d3dy5saW5hcm8u
-b3JnL2xpbmFyby1ibG9nLz4gQmxvZwoKX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19f
-X19fX19fX19fX19fX18KTGludXgtc3RtMzIgbWFpbGluZyBsaXN0CkxpbnV4LXN0bTMyQHN0LW1k
-LW1haWxtYW4uc3Rvcm1yZXBseS5jb20KaHR0cHM6Ly9zdC1tZC1tYWlsbWFuLnN0b3JtcmVwbHku
-Y29tL21haWxtYW4vbGlzdGluZm8vbGludXgtc3RtMzIK
+T24gMjkvMTAvMjAxOSAxNzo0NSwgUGFzY2FsIFBhaWxsZXQgd3JvdGU6Cj4gUmVtb3ZlIHRoZXJt
+YWwgcGFzc2l2ZSB0cmlwIHBvaW50LgoKV2h5PwoKPiBTaWduZWQtb2ZmLWJ5OiBQYXNjYWwgUGFp
+bGxldCA8cC5wYWlsbGV0QHN0LmNvbT4KPiBDaGFuZ2UtSWQ6IEk0OTQzMTNjZjQ2N2VlYTQ5MTIz
+NmU3M2JkMmZiZTE4MDMzNDU1ODZmCgpSZW1vdmUgQ2hhbmdlLUlkCgo+IC0tLQo+ICBhcmNoL2Fy
+bS9ib290L2R0cy9zdG0zMm1wMTU3Yy5kdHNpIHwgNiAtLS0tLS0KPiAgMSBmaWxlIGNoYW5nZWQs
+IDYgZGVsZXRpb25zKC0pCj4gCj4gZGlmZiAtLWdpdCBhL2FyY2gvYXJtL2Jvb3QvZHRzL3N0bTMy
+bXAxNTdjLmR0c2kgYi9hcmNoL2FybS9ib290L2R0cy9zdG0zMm1wMTU3Yy5kdHNpCj4gaW5kZXgg
+OWIxMTY1NGEwYTM5Li43OTliMmFlZGQyYzkgMTAwNjQ0Cj4gLS0tIGEvYXJjaC9hcm0vYm9vdC9k
+dHMvc3RtMzJtcDE1N2MuZHRzaQo+ICsrKyBiL2FyY2gvYXJtL2Jvb3QvZHRzL3N0bTMybXAxNTdj
+LmR0c2kKPiBAQCAtOTEsMTIgKzkxLDYgQEAKPiAgCQkJdGhlcm1hbC1zZW5zb3JzID0gPCZkdHM+
+Owo+ICAKPiAgCQkJdHJpcHMgewo+IC0JCQkJY3B1X2FsZXJ0MTogY3B1LWFsZXJ0MSB7Cj4gLQkJ
+CQkJdGVtcGVyYXR1cmUgPSA8ODUwMDA+Owo+IC0JCQkJCWh5c3RlcmVzaXMgPSA8MD47Cj4gLQkJ
+CQkJdHlwZSA9ICJwYXNzaXZlIjsKPiAtCQkJCX07Cj4gLQo+ICAJCQkJY3B1LWNyaXQgewo+ICAJ
+CQkJCXRlbXBlcmF0dXJlID0gPDEyMDAwMD47Cj4gIAkJCQkJaHlzdGVyZXNpcyA9IDwwPjsKPiAK
+CgotLSAKIDxodHRwOi8vd3d3LmxpbmFyby5vcmcvPiBMaW5hcm8ub3JnIOKUgiBPcGVuIHNvdXJj
+ZSBzb2Z0d2FyZSBmb3IgQVJNIFNvQ3MKCkZvbGxvdyBMaW5hcm86ICA8aHR0cDovL3d3dy5mYWNl
+Ym9vay5jb20vcGFnZXMvTGluYXJvPiBGYWNlYm9vayB8CjxodHRwOi8vdHdpdHRlci5jb20vIyEv
+bGluYXJvb3JnPiBUd2l0dGVyIHwKPGh0dHA6Ly93d3cubGluYXJvLm9yZy9saW5hcm8tYmxvZy8+
+IEJsb2cKCl9fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fCkxp
+bnV4LXN0bTMyIG1haWxpbmcgbGlzdApMaW51eC1zdG0zMkBzdC1tZC1tYWlsbWFuLnN0b3JtcmVw
+bHkuY29tCmh0dHBzOi8vc3QtbWQtbWFpbG1hbi5zdG9ybXJlcGx5LmNvbS9tYWlsbWFuL2xpc3Rp
+bmZvL2xpbnV4LXN0bTMyCg==
