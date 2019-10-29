@@ -2,59 +2,63 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id 4A7C4E8CE2
-	for <lists+linux-stm32@lfdr.de>; Tue, 29 Oct 2019 17:41:07 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 96AE6E8D1D
+	for <lists+linux-stm32@lfdr.de>; Tue, 29 Oct 2019 17:46:07 +0100 (CET)
 Received: from ip-172-31-3-76.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 09C66C36B0B;
-	Tue, 29 Oct 2019 16:41:07 +0000 (UTC)
-Received: from mail-ot1-f67.google.com (mail-ot1-f67.google.com
- [209.85.210.67])
- (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 5D99AC36B0E;
+	Tue, 29 Oct 2019 16:46:07 +0000 (UTC)
+Received: from mx07-00178001.pphosted.com (mx07-00178001.pphosted.com
+ [62.209.51.94])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 6C41CC36B09
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 854ACC36B10
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Tue, 29 Oct 2019 16:41:05 +0000 (UTC)
-Received: by mail-ot1-f67.google.com with SMTP id 94so10304676oty.8
- for <linux-stm32@st-md-mailman.stormreply.com>;
- Tue, 29 Oct 2019 09:41:05 -0700 (PDT)
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20161025;
- h=x-gm-message-state:date:from:to:cc:subject:message-id:references
- :mime-version:content-disposition:in-reply-to:user-agent;
- bh=fvzDF1EQL0iAT5WRqqbNsT/xaQYYfBwjY6dwN6fN4vE=;
- b=kmaqF2ht2Yw/KMfI9NADuS/mTGZhlUU4qV9pAjpeO4L35wdc2P9/AkRMb6akWzyuof
- XAf668ppYW4dt8j4nJMswLflb9ExpqocxgZUNasX5aI7P44jTH/1TYqaRbbj2ebgFhXp
- eaSKl03SVnNN1bQIY/xTuYcAaJDc3whQxOtWJnYIFVoNGdQRCtzckFndDmDlfXVaysJ4
- Me6QuLVMTK3TBy5nMDxkYircwyUumHLO89Z/y6MNmiXOQ6iSbwYwoa+lFNUCjCIkIHqe
- v/+3iSTno15E8RYSjXWgi6nzGg1uxLuZ+xSnIFi+/zZGWh5yv9uLGmSqfp58fHVXHmfh
- dteA==
-X-Gm-Message-State: APjAAAUsKAMuD2UUxYTltxhPxXs7pxJr6lSBAGNCjK9mfD3+wLt13JZF
- SUpjMNjaHLsTyw4qYFOUKA==
-X-Google-Smtp-Source: APXvYqxafeKH9kgtJXf3IqeJ45bIUjhlxFGWRtIy/IXgLiC7LvPuf9j+o4ls+HkmFicowKX00KL1Yg==
-X-Received: by 2002:a05:6830:1d4c:: with SMTP id
- p12mr3473042oth.139.1572367263971; 
- Tue, 29 Oct 2019 09:41:03 -0700 (PDT)
-Received: from localhost (24-155-109-49.dyn.grandenetworks.net.
- [24.155.109.49])
- by smtp.gmail.com with ESMTPSA id t12sm4826024otq.61.2019.10.29.09.41.03
- (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Tue, 29 Oct 2019 09:41:03 -0700 (PDT)
-Date: Tue, 29 Oct 2019 11:41:02 -0500
-From: Rob Herring <robh@kernel.org>
-To: Krzysztof Kozlowski <krzk@kernel.org>
-Message-ID: <20191029164102.GA21205@bogus>
-References: <20191021151847.13891-1-krzk@kernel.org>
+ Tue, 29 Oct 2019 16:46:05 +0000 (UTC)
+Received: from pps.filterd (m0046668.ppops.net [127.0.0.1])
+ by mx07-00178001.pphosted.com (8.16.0.42/8.16.0.42) with SMTP id
+ x9TGguol026450; Tue, 29 Oct 2019 17:45:44 +0100
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=st.com;
+ h=from : to : cc : subject
+ : date : message-id : mime-version : content-type; s=STMicroelectronics;
+ bh=BgTIc7CMxAbrqUUG2tERc+pTVwcpfz1nuVzhlxORpJk=;
+ b=j2JMjVGL5xSftDsXy0cxeHOnlpIfK5me+nfi5ql/seksyPlQaMJ2pVyEobkoakyg3JQK
+ cdGUlaSMkN+yaDQZhN8uGmy3GxRRc3OD/bjzXlf/r49DmyBObNgUD7siP0E2gKGGGm/m
+ OYdXwBDxIpXqUSKRx4hLOZlWDc2SDVwSFmmrJR588bohyZBcfInVNZPSrDLv5iGABpLX
+ hjNzdTS4DbNxt36Rot1E92vqdjkQCinacG9EefGGeetFlEGr+ebHEM5c2ZNY0gfW+/Jg
+ ZCp8cm39FzH8HOx6AGAMYXRsH1Jy6xaH1F5526jB9vusx21AyNTErtedXE31g1EX4ARZ ZA== 
+Received: from beta.dmz-eu.st.com (beta.dmz-eu.st.com [164.129.1.35])
+ by mx07-00178001.pphosted.com with ESMTP id 2vvbm0gwd3-1
+ (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
+ Tue, 29 Oct 2019 17:45:44 +0100
+Received: from euls16034.sgp.st.com (euls16034.sgp.st.com [10.75.44.20])
+ by beta.dmz-eu.st.com (STMicroelectronics) with ESMTP id 4192110002A;
+ Tue, 29 Oct 2019 17:45:43 +0100 (CET)
+Received: from Webmail-eu.st.com (sfhdag6node2.st.com [10.75.127.17])
+ by euls16034.sgp.st.com (STMicroelectronics) with ESMTP id 227462A748A;
+ Tue, 29 Oct 2019 17:45:43 +0100 (CET)
+Received: from localhost (10.75.127.49) by SFHDAG6NODE2.st.com (10.75.127.17)
+ with Microsoft SMTP Server (TLS) id 15.0.1347.2;
+ Tue, 29 Oct 2019 17:45:42 +0100
+From: Pascal Paillet <p.paillet@st.com>
+To: <mcoquelin.stm32@gmail.com>, <alexandre.torgue@st.com>,
+ <robh+dt@kernel.org>, <mark.rutland@arm.com>, <rui.zhang@intel.com>,
+ <edubezval@gmail.com>, <daniel.lezcano@linaro.org>,
+ <amit.kucheria@verdurent.com>, <david.hernandezsanchez@st.com>,
+ <wsa+renesas@sang-engineering.com>,
+ <linux-stm32@st-md-mailman.stormreply.com>,
+ <linux-arm-kernel@lists.infradead.org>, <devicetree@vger.kernel.org>,
+ <linux-kernel@vger.kernel.org>, <linux-pm@vger.kernel.org>
+Date: Tue, 29 Oct 2019 17:45:33 +0100
+Message-ID: <20191029164537.1561-1-p.paillet@st.com>
+X-Mailer: git-send-email 2.17.1
 MIME-Version: 1.0
-Content-Disposition: inline
-In-Reply-To: <20191021151847.13891-1-krzk@kernel.org>
-User-Agent: Mutt/1.10.1 (2018-07-13)
-Cc: Mark Rutland <mark.rutland@arm.com>, devicetree@vger.kernel.org,
- linux-kernel@vger.kernel.org, dri-devel@lists.freedesktop.org,
- Krzysztof Kozlowski <krzk@kernel.org>,
- Maxime Coquelin <mcoquelin.stm32@gmail.com>,
- linux-stm32@st-md-mailman.stormreply.com, linux-arm-kernel@lists.infradead.org
-Subject: Re: [Linux-stm32] [PATCH] dt-bindings: display: st,
-	stm32-dsi: Fix white spaces
+X-Originating-IP: [10.75.127.49]
+X-ClientProxiedBy: SFHDAG7NODE2.st.com (10.75.127.20) To SFHDAG6NODE2.st.com
+ (10.75.127.17)
+X-Proofpoint-Virus-Version: vendor=fsecure engine=2.50.10434:6.0.95,1.0.8
+ definitions=2019-10-29_05:2019-10-28,2019-10-29 signatures=0
+Cc: p.paillet@st.com
+Subject: [Linux-stm32] [PATCH 0/4] thermal: stm32: driver improvements
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -71,19 +75,27 @@ Content-Transfer-Encoding: 7bit
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
-On Mon, 21 Oct 2019 17:18:47 +0200, Krzysztof Kozlowski wrote:
-> Remove unneeded indentation in blank line and space at end of line.
-> 
-> Signed-off-by: Krzysztof Kozlowski <krzk@kernel.org>
-> ---
->  Documentation/devicetree/bindings/display/st,stm32-dsi.yaml  | 2 +-
->  Documentation/devicetree/bindings/display/st,stm32-ltdc.yaml | 2 +-
->  2 files changed, 2 insertions(+), 2 deletions(-)
-> 
+The goal of this patchset is to improve stm32 thermal driver:
+* add support for multiple trip points. Currently the driver supports only
+2 trip points.
+* rework interrupt management to avoid receiving hundreds of
+interrupts when the temperature is close to a low threshold.
+* fix a mistake regarding the role of an engineering value.
+* suppress passive trip point on stm32mp157c because it is useless.
 
-Applied, thanks.
+Pascal Paillet (4):
+  thermal: stm32: implement set_trips callback
+  thermal: stm32: fix IRQ flood on low threshold
+  thermal: stm32: fix engineering calibration value
+  ARM: dts: stm32: remove thermal passive trip point on stm32mp157c
 
-Rob
+ arch/arm/boot/dts/stm32mp157c.dtsi |   6 -
+ drivers/thermal/st/stm_thermal.c   | 441 +++++++++--------------------
+ 2 files changed, 138 insertions(+), 309 deletions(-)
+
+-- 
+2.17.1
+
 _______________________________________________
 Linux-stm32 mailing list
 Linux-stm32@st-md-mailman.stormreply.com
