@@ -2,54 +2,46 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id E045EE9EF5
-	for <lists+linux-stm32@lfdr.de>; Wed, 30 Oct 2019 16:29:07 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 5526EEA1C0
+	for <lists+linux-stm32@lfdr.de>; Wed, 30 Oct 2019 17:28:33 +0100 (CET)
 Received: from ip-172-31-3-76.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id A5E13C36B12;
-	Wed, 30 Oct 2019 15:29:07 +0000 (UTC)
-Received: from smtprelay-out1.synopsys.com (smtprelay-out1.synopsys.com
- [198.182.47.102])
- (using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 19D19C36B0B;
+	Wed, 30 Oct 2019 16:28:33 +0000 (UTC)
+Received: from vps0.lunn.ch (vps0.lunn.ch [185.16.172.187])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id D9629C36B0A
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 59F16C36B09
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Wed, 30 Oct 2019 15:29:06 +0000 (UTC)
-Received: from mailhost.synopsys.com (mdc-mailhost1.synopsys.com
- [10.225.0.209])
- (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits))
- (No client certificate requested)
- by smtprelay-out1.synopsys.com (Postfix) with ESMTPS id 33041C0DE5;
- Wed, 30 Oct 2019 15:29:00 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=synopsys.com; s=mail;
- t=1572449345; bh=scoltA+WigVvTzqdJe03QvtfADm3p97oUkWlWeL7UFM=;
- h=From:To:Cc:Subject:Date:In-Reply-To:References:In-Reply-To:
- References:From;
- b=C0JfV5wftejE2Zrc7hs298DB1il00674wv+0PaRxFtNkoGvpmkNNtTFYJ56xnidN1
- ASC+0Bp+rlLpTP8I5d7QuzkcAsG8LsLqVr0WY9fooMt95yhVFfTGQKasuHDyYjAFpd
- wwfn7bGENArpW0UOcDBE43gaHU0+tMDashY/KkBJDGcAmRF5rNJJbxCsmPPUvxX8fa
- BJNIN7zlxrFGqowRw3UQkFZrHvZVMTqV8jGG+EGOSMYOpdzXOt63EQebBLYhhnOjpU
- oT/PRO+FlNRz0SXTEuChQ4TlDTskk1uulbWMQ/eeu6HOAT5NzFA1YPWAUx1EC5D1l4
- 7MiGLNceonL9w==
-Received: from de02dwia024.internal.synopsys.com
- (de02dwia024.internal.synopsys.com [10.225.19.81])
- by mailhost.synopsys.com (Postfix) with ESMTP id DD1DCA0064;
- Wed, 30 Oct 2019 15:28:58 +0000 (UTC)
-From: Jose Abreu <Jose.Abreu@synopsys.com>
-To: netdev@vger.kernel.org
-Date: Wed, 30 Oct 2019 16:28:50 +0100
-Message-Id: <e376abc1b9511f9196977b7b4bb2f871dcbd44fe.1572449009.git.Jose.Abreu@synopsys.com>
-X-Mailer: git-send-email 2.7.4
-In-Reply-To: <cover.1572449009.git.Jose.Abreu@synopsys.com>
+ Wed, 30 Oct 2019 16:28:32 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=lunn.ch;
+ s=20171124; h=In-Reply-To:Content-Type:MIME-Version:References:Message-ID:
+ Subject:Cc:To:From:Date:Sender:Reply-To:Content-Transfer-Encoding:Content-ID:
+ Content-Description:Resent-Date:Resent-From:Resent-Sender:Resent-To:Resent-Cc
+ :Resent-Message-ID:List-Id:List-Help:List-Unsubscribe:List-Subscribe:
+ List-Post:List-Owner:List-Archive;
+ bh=SZUx4NVeGGOnxDClBHA9DgqzCOffD4hhcgm5wwv6WUs=; b=gtK4LzENJNZ3IfWDlksuD6F6Mk
+ +X7v8aAddo+Y3EA2Wk14qoXStLAhyN7omwt1LGMfId8PsMuvDF6vgFXxhVaFq4/anphnNaJlQJB01
+ /A8XrrdjOyaF3fZg3cGRF73XE25jsx06xJbg9e2o5hhopEgdBvPla7jPVCTBv0nkxouI=;
+Received: from andrew by vps0.lunn.ch with local (Exim 4.92.2)
+ (envelope-from <andrew@lunn.ch>)
+ id 1iPqph-0003cy-GH; Wed, 30 Oct 2019 17:28:29 +0100
+Date: Wed, 30 Oct 2019 17:28:29 +0100
+From: Andrew Lunn <andrew@lunn.ch>
+To: Jose Abreu <Jose.Abreu@synopsys.com>
+Message-ID: <20191030162829.GC10555@lunn.ch>
 References: <cover.1572449009.git.Jose.Abreu@synopsys.com>
-In-Reply-To: <cover.1572449009.git.Jose.Abreu@synopsys.com>
-References: <cover.1572449009.git.Jose.Abreu@synopsys.com>
-Cc: Jose Abreu <Jose.Abreu@synopsys.com>, Joao Pinto <Joao.Pinto@synopsys.com>,
- linux-kernel@vger.kernel.org, linux-stm32@st-md-mailman.stormreply.com,
+ <444208cef341686bcf35f8361f409467f539c73b.1572449009.git.Jose.Abreu@synopsys.com>
+MIME-Version: 1.0
+Content-Disposition: inline
+In-Reply-To: <444208cef341686bcf35f8361f409467f539c73b.1572449009.git.Jose.Abreu@synopsys.com>
+User-Agent: Mutt/1.10.1 (2018-07-13)
+Cc: Joao Pinto <Joao.Pinto@synopsys.com>, netdev@vger.kernel.org,
+ linux-kernel@vger.kernel.org, "David S. Miller" <davem@davemloft.net>,
  Maxime Coquelin <mcoquelin.stm32@gmail.com>,
  Giuseppe Cavallaro <peppe.cavallaro@st.com>,
- "David S. Miller" <davem@davemloft.net>, linux-arm-kernel@lists.infradead.org
-Subject: [Linux-stm32] [PATCH net-next 3/3] net: stmmac: tc: Remove the
-	speed dependency
+ linux-stm32@st-md-mailman.stormreply.com, linux-arm-kernel@lists.infradead.org
+Subject: Re: [Linux-stm32] [PATCH net-next 2/3] net: stmmac: xgmac: Add C45
+ PHY support in the MDIO callbacks
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -61,47 +53,60 @@ List-Post: <mailto:linux-stm32@st-md-mailman.stormreply.com>
 List-Help: <mailto:linux-stm32-request@st-md-mailman.stormreply.com?subject=help>
 List-Subscribe: <https://st-md-mailman.stormreply.com/mailman/listinfo/linux-stm32>, 
  <mailto:linux-stm32-request@st-md-mailman.stormreply.com?subject=subscribe>
-MIME-Version: 1.0
 Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
-XGMAC3 supports full CBS features with speeds that can go up to 10G so
-we can now remove the maximum speed check of CBS.
+On Wed, Oct 30, 2019 at 04:28:49PM +0100, Jose Abreu wrote:
+> Add the support for C45 PHYs in the MDIO callbacks for XGMAC. This was
+> tested using Synopsys DesignWare XPCS.
+> 
+> Signed-off-by: Jose Abreu <Jose.Abreu@synopsys.com>
+> 
+> ---
+> Cc: Giuseppe Cavallaro <peppe.cavallaro@st.com>
+> Cc: Alexandre Torgue <alexandre.torgue@st.com>
+> Cc: Jose Abreu <joabreu@synopsys.com>
+> Cc: "David S. Miller" <davem@davemloft.net>
+> Cc: Maxime Coquelin <mcoquelin.stm32@gmail.com>
+> Cc: netdev@vger.kernel.org
+> Cc: linux-stm32@st-md-mailman.stormreply.com
+> Cc: linux-arm-kernel@lists.infradead.org
+> Cc: linux-kernel@vger.kernel.org
+> ---
+>  drivers/net/ethernet/stmicro/stmmac/stmmac_mdio.c | 47 +++++++++++++++++++++--
+>  1 file changed, 43 insertions(+), 4 deletions(-)
+> 
+> diff --git a/drivers/net/ethernet/stmicro/stmmac/stmmac_mdio.c b/drivers/net/ethernet/stmicro/stmmac/stmmac_mdio.c
+> index 40c42637ad75..143bffd28acf 100644
+> --- a/drivers/net/ethernet/stmicro/stmmac/stmmac_mdio.c
+> +++ b/drivers/net/ethernet/stmicro/stmmac/stmmac_mdio.c
+> @@ -41,6 +41,29 @@
+>  #define MII_XGMAC_BUSY			BIT(22)
+>  #define MII_XGMAC_MAX_C22ADDR		3
+>  #define MII_XGMAC_C22P_MASK		GENMASK(MII_XGMAC_MAX_C22ADDR, 0)
+> +#define MII_XGMAC_PA_SHIFT		16
+> +#define MII_XGMAC_DA_SHIFT		21
+> +
+> +static int stmmac_xgmac2_c45_format(struct stmmac_priv *priv, int phyaddr,
+> +				    int phyreg, u32 *hw_addr)
+> +{
+> +	unsigned int mii_data = priv->hw->mii.data;
+> +	u32 tmp;
+> +
+> +	/* Wait until any existing MII operation is complete */
+> +	if (readl_poll_timeout(priv->ioaddr + mii_data, tmp,
+> +			       !(tmp & MII_XGMAC_BUSY), 100, 10000))
+> +		return -EBUSY;
 
-Signed-off-by: Jose Abreu <Jose.Abreu@synopsys.com>
+Hi Jose
 
----
-Cc: Giuseppe Cavallaro <peppe.cavallaro@st.com>
-Cc: Alexandre Torgue <alexandre.torgue@st.com>
-Cc: Jose Abreu <joabreu@synopsys.com>
-Cc: "David S. Miller" <davem@davemloft.net>
-Cc: Maxime Coquelin <mcoquelin.stm32@gmail.com>
-Cc: netdev@vger.kernel.org
-Cc: linux-stm32@st-md-mailman.stormreply.com
-Cc: linux-arm-kernel@lists.infradead.org
-Cc: linux-kernel@vger.kernel.org
----
- drivers/net/ethernet/stmicro/stmmac/stmmac_tc.c | 2 --
- 1 file changed, 2 deletions(-)
+The stmmac_xgmac2_c22_format function does the same. Maybe the call
+can be pulled out into stmmac_xgmac2_mdio_write() and
+stmmac_xgmac2_mdio_read()?
 
-diff --git a/drivers/net/ethernet/stmicro/stmmac/stmmac_tc.c b/drivers/net/ethernet/stmicro/stmmac/stmmac_tc.c
-index f9a9a9d82233..7d972e0fd2b0 100644
---- a/drivers/net/ethernet/stmicro/stmmac/stmmac_tc.c
-+++ b/drivers/net/ethernet/stmicro/stmmac/stmmac_tc.c
-@@ -321,8 +321,6 @@ static int tc_setup_cbs(struct stmmac_priv *priv,
- 		return -EINVAL;
- 	if (!priv->dma_cap.av)
- 		return -EOPNOTSUPP;
--	if (priv->speed != SPEED_100 && priv->speed != SPEED_1000)
--		return -EOPNOTSUPP;
- 
- 	mode_to_use = priv->plat->tx_queues_cfg[queue].mode_to_use;
- 	if (mode_to_use == MTL_QUEUE_DCB && qopt->enable) {
--- 
-2.7.4
-
+	Andrew
 _______________________________________________
 Linux-stm32 mailing list
 Linux-stm32@st-md-mailman.stormreply.com
