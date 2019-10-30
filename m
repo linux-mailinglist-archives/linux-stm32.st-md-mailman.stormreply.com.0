@@ -2,65 +2,49 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id 25C99E9CCC
-	for <lists+linux-stm32@lfdr.de>; Wed, 30 Oct 2019 14:57:21 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id D6B7DE9EF4
+	for <lists+linux-stm32@lfdr.de>; Wed, 30 Oct 2019 16:29:07 +0100 (CET)
 Received: from ip-172-31-3-76.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id E27C3C36B11;
-	Wed, 30 Oct 2019 13:57:20 +0000 (UTC)
-Received: from mx07-00178001.pphosted.com (mx07-00178001.pphosted.com
- [62.209.51.94])
- (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 9B2DEC36B0F;
+	Wed, 30 Oct 2019 15:29:07 +0000 (UTC)
+Received: from smtprelay-out1.synopsys.com (dc8-smtprelay2.synopsys.com
+ [198.182.47.102])
+ (using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id A3765C36B0B
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 720D7C36B0C
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Wed, 30 Oct 2019 13:57:19 +0000 (UTC)
-Received: from pps.filterd (m0046037.ppops.net [127.0.0.1])
- by mx07-00178001.pphosted.com (8.16.0.42/8.16.0.42) with SMTP id
- x9UDq1Di024880; Wed, 30 Oct 2019 14:57:09 +0100
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=st.com;
- h=from : to : cc : subject
- : date : message-id : in-reply-to : references : mime-version :
- content-type; s=STMicroelectronics;
- bh=TkMBAGGVxB8LtRc6WSOm83VyZX2JZbGYxIZL7Q3esw0=;
- b=a9sYAwZBms03qim9df1B9fuuU/44h1OHpPyenbVv5szNGJh18XoIEfneQ3YYRtjJyMni
- jgrw29yNs+ohPGyWlmJjBr5FCUyTc4VWpmg3WRmnGFTMh3CkWSGVtrApc9JKgBKPamSg
- 0Yq6Jk+70UhxtD2nGTMsEGaMA5hvpkEbajkLE7QrfRSDz1BbjcFBP1JLx4uKY2Wq9zrf
- wFGNv1n/G265tn3sFtHePNDhsap57H8uKw2kGCbSNjryty3JQe0qvDryKGIkdoM+oqBN
- PfI61BGRhR7LYC3yABLiV5ITwPu16AWNNGfxwtcMpoMCQJzJ9GCzix4TCtAaNa5VxJMB Fg== 
-Received: from beta.dmz-eu.st.com (beta.dmz-eu.st.com [164.129.1.35])
- by mx07-00178001.pphosted.com with ESMTP id 2vxwhe41w7-1
- (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
- Wed, 30 Oct 2019 14:57:09 +0100
-Received: from euls16034.sgp.st.com (euls16034.sgp.st.com [10.75.44.20])
- by beta.dmz-eu.st.com (STMicroelectronics) with ESMTP id 53874100034;
- Wed, 30 Oct 2019 14:57:08 +0100 (CET)
-Received: from Webmail-eu.st.com (Safex1hubcas21.st.com [10.75.90.44])
- by euls16034.sgp.st.com (STMicroelectronics) with ESMTP id 477472C07FB;
- Wed, 30 Oct 2019 14:57:08 +0100 (CET)
-Received: from SAFEX1HUBCAS24.st.com (10.75.90.95) by SAFEX1HUBCAS21.st.com
- (10.75.90.44) with Microsoft SMTP Server (TLS) id 14.3.439.0; Wed, 30 Oct
- 2019 14:57:08 +0100
-Received: from localhost (10.201.23.25) by webmail-ga.st.com (10.75.90.48)
- with Microsoft SMTP Server (TLS) id 14.3.439.0; Wed, 30 Oct 2019 14:57:07
- +0100
-From: Fabien Dessenne <fabien.dessenne@st.com>
-To: Rob Herring <robh+dt@kernel.org>, Mark Rutland <mark.rutland@arm.com>,
- Jassi Brar <jassisinghbrar@gmail.com>, Maxime Coquelin
- <mcoquelin.stm32@gmail.com>, Alexandre Torgue <alexandre.torgue@st.com>,
- <linux-kernel@vger.kernel.org>, <linux-stm32@st-md-mailman.stormreply.com>,
- <linux-arm-kernel@lists.infradead.org>, <devicetree@vger.kernel.org>
-Date: Wed, 30 Oct 2019 14:57:01 +0100
-Message-ID: <1572443821-28112-3-git-send-email-fabien.dessenne@st.com>
+ Wed, 30 Oct 2019 15:29:04 +0000 (UTC)
+Received: from mailhost.synopsys.com (mdc-mailhost1.synopsys.com
+ [10.225.0.209])
+ (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits))
+ (No client certificate requested)
+ by smtprelay-out1.synopsys.com (Postfix) with ESMTPS id 32231C0DE4;
+ Wed, 30 Oct 2019 15:29:00 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=synopsys.com; s=mail;
+ t=1572449343; bh=66e/bYyhcGrAFctAHp4076TE/JEaWIo4me4coBNTLE4=;
+ h=From:To:Cc:Subject:Date:From;
+ b=UisusYJw9jOvIsXZkfJxzPB8s+FfMXeBNTap3qWNDjaLtsNIAJo3ZDActVJ3vMkg/
+ so418MsACo0KkbTR3ZntPXQF9s1g8LrZ+tWzFSWxmJqJ1qJ26AM5hqtgJR20LaQAKW
+ dVekW/7G5jUlyAVeIi+xEGsty4fYBzi3Zs423KPVO4bugjqj45dSH8V5YhAI52lAN6
+ EtN1OntgLkWJBn3zOop8FBT0QkGuYsNvoi1JwweQoBlp1p+F8ZWfKtfXK2NIXNVEgO
+ sYJDAMgmfZ+QSEi15Iu9kV0C2woDau+Pt94hGEpdFPB3jxiUQLYSzL+TyL2YthpRN7
+ ZOXfxvQLH8tOg==
+Received: from de02dwia024.internal.synopsys.com
+ (de02dwia024.internal.synopsys.com [10.225.19.81])
+ by mailhost.synopsys.com (Postfix) with ESMTP id 51946A0057;
+ Wed, 30 Oct 2019 15:28:56 +0000 (UTC)
+From: Jose Abreu <Jose.Abreu@synopsys.com>
+To: netdev@vger.kernel.org
+Date: Wed, 30 Oct 2019 16:28:47 +0100
+Message-Id: <cover.1572449009.git.Jose.Abreu@synopsys.com>
 X-Mailer: git-send-email 2.7.4
-In-Reply-To: <1572443821-28112-1-git-send-email-fabien.dessenne@st.com>
-References: <1572443821-28112-1-git-send-email-fabien.dessenne@st.com>
-MIME-Version: 1.0
-X-Originating-IP: [10.201.23.25]
-X-Proofpoint-Virus-Version: vendor=fsecure engine=2.50.10434:6.0.95,1.0.8
- definitions=2019-10-30_06:2019-10-30,2019-10-30 signatures=0
-Cc: Fabien Dessenne <fabien.dessenne@st.com>
-Subject: [Linux-stm32] [PATCH v2 2/2] mailbox: stm32-ipcc: Update wakeup
-	management
+Cc: Jose Abreu <Jose.Abreu@synopsys.com>, Joao Pinto <Joao.Pinto@synopsys.com>,
+ linux-kernel@vger.kernel.org, linux-stm32@st-md-mailman.stormreply.com,
+ Maxime Coquelin <mcoquelin.stm32@gmail.com>,
+ Giuseppe Cavallaro <peppe.cavallaro@st.com>,
+ "David S. Miller" <davem@davemloft.net>, linux-arm-kernel@lists.infradead.org
+Subject: [Linux-stm32] [PATCH net-next 0/3] net: stmmac: Improvements for
+	-next
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -72,115 +56,49 @@ List-Post: <mailto:linux-stm32@st-md-mailman.stormreply.com>
 List-Help: <mailto:linux-stm32-request@st-md-mailman.stormreply.com?subject=help>
 List-Subscribe: <https://st-md-mailman.stormreply.com/mailman/listinfo/linux-stm32>, 
  <mailto:linux-stm32-request@st-md-mailman.stormreply.com?subject=subscribe>
+MIME-Version: 1.0
 Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
-The wakeup specific IRQ management is no more needed to wake up the
-stm32 platform. A relationship has been established between the EXTI and
-the RX IRQ, just need to declare the EXTI interrupt instead of the
-IPCC RX IRQ.
+Misc improvements for stmmac.
 
-Signed-off-by: Alexandre Torgue <alexandre.torgue@st.com>
-Signed-off-by: Fabien Dessenne <fabien.dessenne@st.com>
+Patch 1/3, adds the support for Split Header feature in GMAC4+ cores. This
+was already available for XGMAC and now with this change it is supported in
+all relevant cores.
+
+Patch 2/3, adds the support for C45 MDIO callbacks in XGMAC cores.
+
+Patch 3/3, removes the speed dependency in TC CBS callbacks because XGMAC3
+supports CBS feature at speeds up to 10Gbps
+
 ---
- drivers/mailbox/stm32-ipcc.c | 36 +++++++-----------------------------
- 1 file changed, 7 insertions(+), 29 deletions(-)
+Cc: Giuseppe Cavallaro <peppe.cavallaro@st.com>
+Cc: Alexandre Torgue <alexandre.torgue@st.com>
+Cc: Jose Abreu <joabreu@synopsys.com>
+Cc: "David S. Miller" <davem@davemloft.net>
+Cc: Maxime Coquelin <mcoquelin.stm32@gmail.com>
+Cc: netdev@vger.kernel.org
+Cc: linux-stm32@st-md-mailman.stormreply.com
+Cc: linux-arm-kernel@lists.infradead.org
+Cc: linux-kernel@vger.kernel.org
+---
 
-diff --git a/drivers/mailbox/stm32-ipcc.c b/drivers/mailbox/stm32-ipcc.c
-index 5c2d1e1..ef96688 100644
---- a/drivers/mailbox/stm32-ipcc.c
-+++ b/drivers/mailbox/stm32-ipcc.c
-@@ -52,7 +52,6 @@ struct stm32_ipcc {
- 	struct clk *clk;
- 	spinlock_t lock; /* protect access to IPCC registers */
- 	int irqs[IPCC_IRQ_NUM];
--	int wkp;
- 	u32 proc_id;
- 	u32 n_chans;
- 	u32 xcr;
-@@ -282,16 +281,9 @@ static int stm32_ipcc_probe(struct platform_device *pdev)
- 
- 	/* wakeup */
- 	if (of_property_read_bool(np, "wakeup-source")) {
--		ipcc->wkp = platform_get_irq_byname(pdev, "wakeup");
--		if (ipcc->wkp < 0) {
--			if (ipcc->wkp != -EPROBE_DEFER)
--				dev_err(dev, "could not get wakeup IRQ\n");
--			ret = ipcc->wkp;
--			goto err_clk;
--		}
--
- 		device_set_wakeup_capable(dev, true);
--		ret = dev_pm_set_dedicated_wake_irq(dev, ipcc->wkp);
-+
-+		ret = dev_pm_set_wake_irq(dev, ipcc->irqs[IPCC_IRQ_RX]);
- 		if (ret) {
- 			dev_err(dev, "Failed to set wake up irq\n");
- 			goto err_init_wkp;
-@@ -334,10 +326,10 @@ static int stm32_ipcc_probe(struct platform_device *pdev)
- 	return 0;
- 
- err_irq_wkp:
--	if (ipcc->wkp)
-+	if (of_property_read_bool(np, "wakeup-source"))
- 		dev_pm_clear_wake_irq(dev);
- err_init_wkp:
--	device_init_wakeup(dev, false);
-+	device_set_wakeup_capable(dev, false);
- err_clk:
- 	clk_disable_unprepare(ipcc->clk);
- 	return ret;
-@@ -345,27 +337,17 @@ static int stm32_ipcc_probe(struct platform_device *pdev)
- 
- static int stm32_ipcc_remove(struct platform_device *pdev)
- {
--	struct stm32_ipcc *ipcc = platform_get_drvdata(pdev);
-+	struct device *dev = &pdev->dev;
- 
--	if (ipcc->wkp)
-+	if (of_property_read_bool(dev->of_node, "wakeup-source"))
- 		dev_pm_clear_wake_irq(&pdev->dev);
- 
--	device_init_wakeup(&pdev->dev, false);
-+	device_set_wakeup_capable(dev, false);
- 
- 	return 0;
- }
- 
- #ifdef CONFIG_PM_SLEEP
--static void stm32_ipcc_set_irq_wake(struct device *dev, bool enable)
--{
--	struct stm32_ipcc *ipcc = dev_get_drvdata(dev);
--	unsigned int i;
--
--	if (device_may_wakeup(dev))
--		for (i = 0; i < IPCC_IRQ_NUM; i++)
--			irq_set_irq_wake(ipcc->irqs[i], enable);
--}
--
- static int stm32_ipcc_suspend(struct device *dev)
- {
- 	struct stm32_ipcc *ipcc = dev_get_drvdata(dev);
-@@ -373,8 +355,6 @@ static int stm32_ipcc_suspend(struct device *dev)
- 	ipcc->xmr = readl_relaxed(ipcc->reg_proc + IPCC_XMR);
- 	ipcc->xcr = readl_relaxed(ipcc->reg_proc + IPCC_XCR);
- 
--	stm32_ipcc_set_irq_wake(dev, true);
--
- 	return 0;
- }
- 
-@@ -382,8 +362,6 @@ static int stm32_ipcc_resume(struct device *dev)
- {
- 	struct stm32_ipcc *ipcc = dev_get_drvdata(dev);
- 
--	stm32_ipcc_set_irq_wake(dev, false);
--
- 	writel_relaxed(ipcc->xmr, ipcc->reg_proc + IPCC_XMR);
- 	writel_relaxed(ipcc->xcr, ipcc->reg_proc + IPCC_XCR);
- 
+Jose Abreu (3):
+  net: stmmac: gmac4+: Add Split Header support
+  net: stmmac: xgmac: Add C45 PHY support in the MDIO callbacks
+  net: stmmac: tc: Remove the speed dependency
+
+ drivers/net/ethernet/stmicro/stmmac/dwmac4.h       |  7 ++++
+ drivers/net/ethernet/stmicro/stmmac/dwmac4_descs.c | 21 ++++++++--
+ drivers/net/ethernet/stmicro/stmmac/dwmac4_descs.h |  1 +
+ drivers/net/ethernet/stmicro/stmmac/dwmac4_dma.c   | 19 +++++++++
+ drivers/net/ethernet/stmicro/stmmac/dwmac4_dma.h   |  1 +
+ drivers/net/ethernet/stmicro/stmmac/stmmac_mdio.c  | 47 ++++++++++++++++++++--
+ drivers/net/ethernet/stmicro/stmmac/stmmac_tc.c    |  2 -
+ 7 files changed, 89 insertions(+), 9 deletions(-)
+
 -- 
 2.7.4
 
