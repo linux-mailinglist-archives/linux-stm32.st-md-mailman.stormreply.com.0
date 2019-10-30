@@ -2,46 +2,42 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id 5526EEA1C0
-	for <lists+linux-stm32@lfdr.de>; Wed, 30 Oct 2019 17:28:33 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 7F906EA5BE
+	for <lists+linux-stm32@lfdr.de>; Wed, 30 Oct 2019 22:52:40 +0100 (CET)
 Received: from ip-172-31-3-76.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 19D19C36B0B;
-	Wed, 30 Oct 2019 16:28:33 +0000 (UTC)
-Received: from vps0.lunn.ch (vps0.lunn.ch [185.16.172.187])
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 1DFFEC36B0B;
+	Wed, 30 Oct 2019 21:52:40 +0000 (UTC)
+Received: from shards.monkeyblade.net (shards.monkeyblade.net [23.128.96.9])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 59F16C36B09
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 6E398C36B09
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Wed, 30 Oct 2019 16:28:32 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=lunn.ch;
- s=20171124; h=In-Reply-To:Content-Type:MIME-Version:References:Message-ID:
- Subject:Cc:To:From:Date:Sender:Reply-To:Content-Transfer-Encoding:Content-ID:
- Content-Description:Resent-Date:Resent-From:Resent-Sender:Resent-To:Resent-Cc
- :Resent-Message-ID:List-Id:List-Help:List-Unsubscribe:List-Subscribe:
- List-Post:List-Owner:List-Archive;
- bh=SZUx4NVeGGOnxDClBHA9DgqzCOffD4hhcgm5wwv6WUs=; b=gtK4LzENJNZ3IfWDlksuD6F6Mk
- +X7v8aAddo+Y3EA2Wk14qoXStLAhyN7omwt1LGMfId8PsMuvDF6vgFXxhVaFq4/anphnNaJlQJB01
- /A8XrrdjOyaF3fZg3cGRF73XE25jsx06xJbg9e2o5hhopEgdBvPla7jPVCTBv0nkxouI=;
-Received: from andrew by vps0.lunn.ch with local (Exim 4.92.2)
- (envelope-from <andrew@lunn.ch>)
- id 1iPqph-0003cy-GH; Wed, 30 Oct 2019 17:28:29 +0100
-Date: Wed, 30 Oct 2019 17:28:29 +0100
-From: Andrew Lunn <andrew@lunn.ch>
-To: Jose Abreu <Jose.Abreu@synopsys.com>
-Message-ID: <20191030162829.GC10555@lunn.ch>
-References: <cover.1572449009.git.Jose.Abreu@synopsys.com>
- <444208cef341686bcf35f8361f409467f539c73b.1572449009.git.Jose.Abreu@synopsys.com>
-MIME-Version: 1.0
-Content-Disposition: inline
-In-Reply-To: <444208cef341686bcf35f8361f409467f539c73b.1572449009.git.Jose.Abreu@synopsys.com>
-User-Agent: Mutt/1.10.1 (2018-07-13)
-Cc: Joao Pinto <Joao.Pinto@synopsys.com>, netdev@vger.kernel.org,
- linux-kernel@vger.kernel.org, "David S. Miller" <davem@davemloft.net>,
- Maxime Coquelin <mcoquelin.stm32@gmail.com>,
- Giuseppe Cavallaro <peppe.cavallaro@st.com>,
- linux-stm32@st-md-mailman.stormreply.com, linux-arm-kernel@lists.infradead.org
-Subject: Re: [Linux-stm32] [PATCH net-next 2/3] net: stmmac: xgmac: Add C45
- PHY support in the MDIO callbacks
+ Wed, 30 Oct 2019 21:52:37 +0000 (UTC)
+Received: from localhost (unknown [IPv6:2601:601:9f00:1e2::d71])
+ (using TLSv1 with cipher AES256-SHA (256/256 bits))
+ (Client did not present a certificate)
+ (Authenticated sender: davem-davemloft)
+ by shards.monkeyblade.net (Postfix) with ESMTPSA id 5DB1114CFAAEA;
+ Wed, 30 Oct 2019 14:52:35 -0700 (PDT)
+Date: Wed, 30 Oct 2019 14:52:34 -0700 (PDT)
+Message-Id: <20191030.145234.1629187794527849559.davem@davemloft.net>
+To: Jose.Abreu@synopsys.com
+From: David Miller <davem@davemloft.net>
+In-Reply-To: <36d9af9080068c4e38cf50e80b6f2a5eafc9ed99.1572355609.git.Jose.Abreu@synopsys.com>
+References: <cover.1572355609.git.Jose.Abreu@synopsys.com>
+ <cover.1572355609.git.Jose.Abreu@synopsys.com>
+ <36d9af9080068c4e38cf50e80b6f2a5eafc9ed99.1572355609.git.Jose.Abreu@synopsys.com>
+X-Mailer: Mew version 6.8 on Emacs 26.1
+Mime-Version: 1.0
+X-Greylist: Sender succeeded SMTP AUTH, not delayed by milter-greylist-4.5.12
+ (shards.monkeyblade.net [149.20.54.216]);
+ Wed, 30 Oct 2019 14:52:35 -0700 (PDT)
+Cc: Joao.Pinto@synopsys.com, netdev@vger.kernel.org,
+ linux-kernel@vger.kernel.org, mcoquelin.stm32@gmail.com,
+ peppe.cavallaro@st.com, linux-stm32@st-md-mailman.stormreply.com,
+ linux-arm-kernel@lists.infradead.org
+Subject: Re: [Linux-stm32] [PATCH net 4/9] net: stmmac: selftests: Must
+ remove UC/MC addresses to prevent false positives
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -58,55 +54,41 @@ Content-Transfer-Encoding: 7bit
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
-On Wed, Oct 30, 2019 at 04:28:49PM +0100, Jose Abreu wrote:
-> Add the support for C45 PHYs in the MDIO callbacks for XGMAC. This was
-> tested using Synopsys DesignWare XPCS.
-> 
-> Signed-off-by: Jose Abreu <Jose.Abreu@synopsys.com>
-> 
-> ---
-> Cc: Giuseppe Cavallaro <peppe.cavallaro@st.com>
-> Cc: Alexandre Torgue <alexandre.torgue@st.com>
-> Cc: Jose Abreu <joabreu@synopsys.com>
-> Cc: "David S. Miller" <davem@davemloft.net>
-> Cc: Maxime Coquelin <mcoquelin.stm32@gmail.com>
-> Cc: netdev@vger.kernel.org
-> Cc: linux-stm32@st-md-mailman.stormreply.com
-> Cc: linux-arm-kernel@lists.infradead.org
-> Cc: linux-kernel@vger.kernel.org
-> ---
->  drivers/net/ethernet/stmicro/stmmac/stmmac_mdio.c | 47 +++++++++++++++++++++--
->  1 file changed, 43 insertions(+), 4 deletions(-)
-> 
-> diff --git a/drivers/net/ethernet/stmicro/stmmac/stmmac_mdio.c b/drivers/net/ethernet/stmicro/stmmac/stmmac_mdio.c
-> index 40c42637ad75..143bffd28acf 100644
-> --- a/drivers/net/ethernet/stmicro/stmmac/stmmac_mdio.c
-> +++ b/drivers/net/ethernet/stmicro/stmmac/stmmac_mdio.c
-> @@ -41,6 +41,29 @@
->  #define MII_XGMAC_BUSY			BIT(22)
->  #define MII_XGMAC_MAX_C22ADDR		3
->  #define MII_XGMAC_C22P_MASK		GENMASK(MII_XGMAC_MAX_C22ADDR, 0)
-> +#define MII_XGMAC_PA_SHIFT		16
-> +#define MII_XGMAC_DA_SHIFT		21
+From: Jose Abreu <Jose.Abreu@synopsys.com>
+Date: Tue, 29 Oct 2019 15:14:48 +0100
+
+> @@ -499,9 +501,18 @@ static int stmmac_test_hfilt(struct stmmac_priv *priv)
+>  	if (netdev_mc_count(priv->dev) >= priv->hw->multicast_filter_bins)
+>  		return -EOPNOTSUPP;
+
+This test above...
+
+> +	dummy_dev = alloc_etherdev(0);
+> +	if (!dummy_dev)
+> +		return -ENOMEM;
 > +
-> +static int stmmac_xgmac2_c45_format(struct stmmac_priv *priv, int phyaddr,
-> +				    int phyreg, u32 *hw_addr)
-> +{
-> +	unsigned int mii_data = priv->hw->mii.data;
-> +	u32 tmp;
-> +
-> +	/* Wait until any existing MII operation is complete */
-> +	if (readl_poll_timeout(priv->ioaddr + mii_data, tmp,
-> +			       !(tmp & MII_XGMAC_BUSY), 100, 10000))
-> +		return -EBUSY;
+> +	/* Remove all MC addresses */
+> +	netdev_for_each_mc_addr(ha, priv->dev)
+> +		dev_mc_add(dummy_dev, ha->addr);
+> +	dev_mc_flush(priv->dev);
 
-Hi Jose
+No longer makes any sense now that you're removing all of the MC
+addresses.
 
-The stmmac_xgmac2_c22_format function does the same. Maybe the call
-can be pulled out into stmmac_xgmac2_mdio_write() and
-stmmac_xgmac2_mdio_read()?
+Also I know it seems that it should be guaranteed that re-adding all of
+the previously configured MC addresses should succeed.  But I am always
+wary when I see error codes ignored like this.
 
-	Andrew
+This test makes destructure changes to the device's configuration,
+perhaps in a non-restorable fashion if errors occur re-adding the MC
+list entries.
+
+Running a test should never even remotely introduce a change in the
+device state like that.
+
+I really don't like this, to be honest.  I'd hate to be the user who
+had this somehow trigger on them and then have to diagnose it. :-/
+
 _______________________________________________
 Linux-stm32 mailing list
 Linux-stm32@st-md-mailman.stormreply.com
