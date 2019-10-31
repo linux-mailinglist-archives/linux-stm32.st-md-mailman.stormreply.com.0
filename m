@@ -2,48 +2,53 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id 6431BEAE21
-	for <lists+linux-stm32@lfdr.de>; Thu, 31 Oct 2019 12:01:08 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 5A45DEAE1B
+	for <lists+linux-stm32@lfdr.de>; Thu, 31 Oct 2019 12:01:07 +0100 (CET)
 Received: from ip-172-31-3-76.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 2CC47C36B2D;
-	Thu, 31 Oct 2019 11:01:08 +0000 (UTC)
-Received: from smtprelay-out1.synopsys.com (smtprelay-out1.synopsys.com
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id D7B65C36B17;
+	Thu, 31 Oct 2019 11:01:06 +0000 (UTC)
+Received: from smtprelay-out1.synopsys.com (us03-smtprelay2.synopsys.com
  [149.117.87.133])
  (using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 53E45C36B12
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 0C85DC36B0D
  for <linux-stm32@st-md-mailman.stormreply.com>;
  Thu, 31 Oct 2019 11:01:04 +0000 (UTC)
 Received: from mailhost.synopsys.com (mdc-mailhost1.synopsys.com
  [10.225.0.209])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits))
  (No client certificate requested)
- by smtprelay-out1.synopsys.com (Postfix) with ESMTPS id 69311C08AB;
+ by smtprelay-out1.synopsys.com (Postfix) with ESMTPS id 5E1DCC08A9;
  Thu, 31 Oct 2019 11:01:01 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=synopsys.com; s=mail;
- t=1572519662; bh=V8PYaIxRBCd5CjKybZ8TOnz5iajxJsSRMUjscFeKcrU=;
- h=From:To:Cc:Subject:Date:From;
- b=PO3w6IibOhFkxjwWRg11eNllWPLX+y9tkr4SttSB67beRc+cRHHjP6iRn6DM+GjEO
- LqZ231z1+9KaOUORitebZ9DIzR9SKVRDBBR0jtNUFGi5h63+M5rBy98/POd8TLLtS3
- NTVaCYeYvZuUJZepDmruo50QV171HfQdTa6YWwyHlANv5Je5F83Qg+DGBOUPdLTxfw
- 2mnMF3WBPXQME0RqhoBXP6i8Z2KhhfC5om++R9GdXgxPvfNZgZGSsQWRDzKbxaFKdc
- og88xysv/VLcUuQawRm44GeREezN3dabsxpOuumGmDa6p5EcZ9xC4scKrVM9O+bhqB
- EFSvwK9nOcVJg==
+ t=1572519662; bh=zbdUkdCwazmoCsthT9nKk/TAMzcgQzGGNjyeeOr0eTU=;
+ h=From:To:Cc:Subject:Date:In-Reply-To:References:In-Reply-To:
+ References:From;
+ b=lJaxQbkzW4twT3uym2EW9DfKtW7HjUhHQxN+X21Eh3m0xQ+rHrPXwVdMW8kuL0TUX
+ hF3qUiv596iw1gjliRHVXtM69Dg49sGysy39nqft9IiM/VPKlFykn2Po7voU8PkyTq
+ Hwwwg1fZ5YShC/9697lgW10bpT4uUFANr2ZF4EydeY6FkFr9YOeqyS9r+9nsloFj+O
+ nemSKx2nOrhHUwmVHghhC2S4tobhdJktOxqtsULIYO0moFikf8ZllS5MSJyr8/kI8o
+ 1ORliq4zRZA9X4bfgdc0A12FOjNU0r6zXxlLH4NxuoEGRSl6b0K/nzlIarcG7XERXq
+ PSD+qUqhR8iMg==
 Received: from de02dwia024.internal.synopsys.com
  (de02dwia024.internal.synopsys.com [10.225.19.81])
- by mailhost.synopsys.com (Postfix) with ESMTP id 2F6B6A0057;
+ by mailhost.synopsys.com (Postfix) with ESMTP id DADF4A0061;
  Thu, 31 Oct 2019 11:00:59 +0000 (UTC)
 From: Jose Abreu <Jose.Abreu@synopsys.com>
 To: netdev@vger.kernel.org
-Date: Thu, 31 Oct 2019 12:00:38 +0100
-Message-Id: <cover.1572519070.git.Jose.Abreu@synopsys.com>
+Date: Thu, 31 Oct 2019 12:00:39 +0100
+Message-Id: <e2f11aad32bb264a31074877b5a568f1dd1383ee.1572519070.git.Jose.Abreu@synopsys.com>
 X-Mailer: git-send-email 2.7.4
+In-Reply-To: <cover.1572519070.git.Jose.Abreu@synopsys.com>
+References: <cover.1572519070.git.Jose.Abreu@synopsys.com>
+In-Reply-To: <cover.1572519070.git.Jose.Abreu@synopsys.com>
+References: <cover.1572519070.git.Jose.Abreu@synopsys.com>
 Cc: Jose Abreu <Jose.Abreu@synopsys.com>, Joao Pinto <Joao.Pinto@synopsys.com>,
  linux-kernel@vger.kernel.org, linux-stm32@st-md-mailman.stormreply.com,
  Maxime Coquelin <mcoquelin.stm32@gmail.com>,
  Giuseppe Cavallaro <peppe.cavallaro@st.com>,
  "David S. Miller" <davem@davemloft.net>, linux-arm-kernel@lists.infradead.org
-Subject: [Linux-stm32] [PATCH net v2 00/10] net: stmmac: Fixes for -net
+Subject: [Linux-stm32] [PATCH net v2 01/10] net: stmmac: Fix sparse warning
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -61,30 +66,11 @@ Content-Transfer-Encoding: 7bit
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
-Misc fixes for stmmac.
+The VID is converted to le16 so the variable must be __le16 type.
 
-Patch 1/10, corrects a sparse warning reported by kbuild.
-
-Patch 2/10 and 3/10, use the correct variable type for bitrev32() calls.
-
-Patch 4/10, fixes the random failures the we were seing when running selftests.
-This commit was re-worded because the old commit log no longer applied so we
-didn't add the history log to the commit. So far, no selftests failures were
-seen with the new re-worked commit.
-
-Patch 5/10, prevents a crash that can occur when receiving AVB packets and with
-SPH feature enabled on XGMAC.
-
-Patch 6/10, fixes the correct settings for CBS on XGMAC.
-
-Patch 7/10, corrects the interpretation of AVB feature on XGMAC.
-
-Patch 8/10, disables Flow Control for AVB enabled queues on XGMAC.
-
-Patch 9/10, disables MMC interrupts on XGMAC, preventing a storm of interrupts.
-
-Patch 10/10, was added in this version and it fixes the incorrect number of
-packets that were being passed to NAPI.
+Reported-by: kbuild test robot <lkp@intel.com>
+Fixes: c7ab0b8088d7 ("net: stmmac: Fallback to VLAN Perfect filtering if HASH is not available")
+Signed-off-by: Jose Abreu <Jose.Abreu@synopsys.com>
 
 ---
 Cc: Giuseppe Cavallaro <peppe.cavallaro@st.com>
@@ -97,30 +83,77 @@ Cc: linux-stm32@st-md-mailman.stormreply.com
 Cc: linux-arm-kernel@lists.infradead.org
 Cc: linux-kernel@vger.kernel.org
 ---
+ drivers/net/ethernet/stmicro/stmmac/dwmac4_core.c   | 2 +-
+ drivers/net/ethernet/stmicro/stmmac/dwxgmac2_core.c | 2 +-
+ drivers/net/ethernet/stmicro/stmmac/hwif.h          | 2 +-
+ drivers/net/ethernet/stmicro/stmmac/stmmac_main.c   | 5 +++--
+ 4 files changed, 6 insertions(+), 5 deletions(-)
 
-Jose Abreu (10):
-  net: stmmac: Fix sparse warning
-  net: stmmac: gmac4: bitrev32 returns u32
-  net: stmmac: xgmac: bitrev32 returns u32
-  net: stmmac: selftests: Prevent false positives in filter tests
-  net: stmmac: xgmac: Only get SPH header len if available
-  net: stmmac: xgmac: Fix TSA selection
-  net: stmmac: xgmac: Fix AV Feature detection
-  net: stmmac: xgmac: Disable Flow Control when 1 or more queues are in
-    AV
-  net: stmmac: xgmac: Disable MMC interrupts by default
-  net: stmmac: Fix the packet count in stmmac_rx()
-
- drivers/net/ethernet/stmicro/stmmac/dwmac4_core.c  |   4 +-
- .../net/ethernet/stmicro/stmmac/dwxgmac2_core.c    |   5 +-
- .../net/ethernet/stmicro/stmmac/dwxgmac2_descs.c   |   3 +-
- drivers/net/ethernet/stmicro/stmmac/dwxgmac2_dma.c |   4 +-
- drivers/net/ethernet/stmicro/stmmac/hwif.h         |   2 +-
- drivers/net/ethernet/stmicro/stmmac/mmc_core.c     |   6 +-
- drivers/net/ethernet/stmicro/stmmac/stmmac_main.c  |  10 +-
- .../net/ethernet/stmicro/stmmac/stmmac_selftests.c | 134 +++++++++++++++------
- 8 files changed, 115 insertions(+), 53 deletions(-)
-
+diff --git a/drivers/net/ethernet/stmicro/stmmac/dwmac4_core.c b/drivers/net/ethernet/stmicro/stmmac/dwmac4_core.c
+index bec929daf703..365e607f07cd 100644
+--- a/drivers/net/ethernet/stmicro/stmmac/dwmac4_core.c
++++ b/drivers/net/ethernet/stmicro/stmmac/dwmac4_core.c
+@@ -733,7 +733,7 @@ static void dwmac4_set_mac_loopback(void __iomem *ioaddr, bool enable)
+ }
+ 
+ static void dwmac4_update_vlan_hash(struct mac_device_info *hw, u32 hash,
+-				    u16 perfect_match, bool is_double)
++				    __le16 perfect_match, bool is_double)
+ {
+ 	void __iomem *ioaddr = hw->pcsr;
+ 
+diff --git a/drivers/net/ethernet/stmicro/stmmac/dwxgmac2_core.c b/drivers/net/ethernet/stmicro/stmmac/dwxgmac2_core.c
+index 5cda360d5d07..e24382d00e62 100644
+--- a/drivers/net/ethernet/stmicro/stmmac/dwxgmac2_core.c
++++ b/drivers/net/ethernet/stmicro/stmmac/dwxgmac2_core.c
+@@ -555,7 +555,7 @@ static int dwxgmac2_rss_configure(struct mac_device_info *hw,
+ }
+ 
+ static void dwxgmac2_update_vlan_hash(struct mac_device_info *hw, u32 hash,
+-				      u16 perfect_match, bool is_double)
++				      __le16 perfect_match, bool is_double)
+ {
+ 	void __iomem *ioaddr = hw->pcsr;
+ 
+diff --git a/drivers/net/ethernet/stmicro/stmmac/hwif.h b/drivers/net/ethernet/stmicro/stmmac/hwif.h
+index 1303d1e9a18f..509daeefdb79 100644
+--- a/drivers/net/ethernet/stmicro/stmmac/hwif.h
++++ b/drivers/net/ethernet/stmicro/stmmac/hwif.h
+@@ -357,7 +357,7 @@ struct stmmac_ops {
+ 			     struct stmmac_rss *cfg, u32 num_rxq);
+ 	/* VLAN */
+ 	void (*update_vlan_hash)(struct mac_device_info *hw, u32 hash,
+-				 u16 perfect_match, bool is_double);
++				 __le16 perfect_match, bool is_double);
+ 	void (*enable_vlan)(struct mac_device_info *hw, u32 type);
+ 	/* TX Timestamp */
+ 	int (*get_mac_tx_timestamp)(struct mac_device_info *hw, u64 *ts);
+diff --git a/drivers/net/ethernet/stmicro/stmmac/stmmac_main.c b/drivers/net/ethernet/stmicro/stmmac/stmmac_main.c
+index 28705dbe5801..063b0ecd244b 100644
+--- a/drivers/net/ethernet/stmicro/stmmac/stmmac_main.c
++++ b/drivers/net/ethernet/stmicro/stmmac/stmmac_main.c
+@@ -4207,6 +4207,7 @@ static u32 stmmac_vid_crc32_le(__le16 vid_le)
+ static int stmmac_vlan_update(struct stmmac_priv *priv, bool is_double)
+ {
+ 	u32 crc, hash = 0;
++	__le16 pmatch = 0;
+ 	int count = 0;
+ 	u16 vid = 0;
+ 
+@@ -4221,11 +4222,11 @@ static int stmmac_vlan_update(struct stmmac_priv *priv, bool is_double)
+ 		if (count > 2) /* VID = 0 always passes filter */
+ 			return -EOPNOTSUPP;
+ 
+-		vid = cpu_to_le16(vid);
++		pmatch = cpu_to_le16(vid);
+ 		hash = 0;
+ 	}
+ 
+-	return stmmac_update_vlan_hash(priv, priv->hw, hash, vid, is_double);
++	return stmmac_update_vlan_hash(priv, priv->hw, hash, pmatch, is_double);
+ }
+ 
+ static int stmmac_vlan_rx_add_vid(struct net_device *ndev, __be16 proto, u16 vid)
 -- 
 2.7.4
 
