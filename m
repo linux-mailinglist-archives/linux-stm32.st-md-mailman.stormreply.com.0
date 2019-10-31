@@ -2,54 +2,63 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id B1CC4EAE1E
-	for <lists+linux-stm32@lfdr.de>; Thu, 31 Oct 2019 12:01:07 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 1EB3EEB03C
+	for <lists+linux-stm32@lfdr.de>; Thu, 31 Oct 2019 13:31:17 +0100 (CET)
 Received: from ip-172-31-3-76.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 034C0C36B24;
-	Thu, 31 Oct 2019 11:01:07 +0000 (UTC)
-Received: from smtprelay-out1.synopsys.com (us03-smtprelay2.synopsys.com
- [149.117.87.133])
- (using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 82E77C36B14;
+	Thu, 31 Oct 2019 12:31:16 +0000 (UTC)
+Received: from mx07-00178001.pphosted.com (mx08-00178001.pphosted.com
+ [91.207.212.93])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 3CC9FC36B11
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id D11B4C36B09
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Thu, 31 Oct 2019 11:01:04 +0000 (UTC)
-Received: from mailhost.synopsys.com (mdc-mailhost1.synopsys.com
- [10.225.0.209])
- (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits))
- (No client certificate requested)
- by smtprelay-out1.synopsys.com (Postfix) with ESMTPS id A9D25C08B4;
- Thu, 31 Oct 2019 11:01:01 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=synopsys.com; s=mail;
- t=1572519662; bh=wQtrPv+GIGZu+Tp6DHyLxgJSIlQY5yW+McFB8EMBWDw=;
- h=From:To:Cc:Subject:Date:In-Reply-To:References:In-Reply-To:
- References:From;
- b=K/aKKSqtUKMUPsRWVnHHIm2YegPgnrOvZJEXFBuVYB3VfFvDtR5DmRkE/4sHx8dYn
- 8UCcbjSiKuPTW28gEwgPMHiEZSLHYu0BkDpYE/wUBUZ4Yr2rET0tlekHTlmKDFML7P
- fs5Y9EN+E240v3Jh6QwpMNk06hiBycl1qC6Dl++9vV4lpxxMRDRrKLlfL93nLyTC27
- 9WbGslZnYlzYLplmyuPhU3Qe7cNIsEVpV2pjuJ2fEKyqqxEfzFBecdnMOHJJyCtOH8
- uQnLn4xVptxRBgKTF1qXPaehvXxQx6+EMszS5opgyfDjZ+Dlr3FKS4Q8qY9Sv521ZL
- 0GtzrIWbODuEA==
-Received: from de02dwia024.internal.synopsys.com
- (de02dwia024.internal.synopsys.com [10.225.19.81])
- by mailhost.synopsys.com (Postfix) with ESMTP id 6D854A0087;
- Thu, 31 Oct 2019 11:01:00 +0000 (UTC)
-From: Jose Abreu <Jose.Abreu@synopsys.com>
-To: netdev@vger.kernel.org
-Date: Thu, 31 Oct 2019 12:00:48 +0100
-Message-Id: <fca9407d676529289866358f5f57656138ef039e.1572519070.git.Jose.Abreu@synopsys.com>
-X-Mailer: git-send-email 2.7.4
-In-Reply-To: <cover.1572519070.git.Jose.Abreu@synopsys.com>
-References: <cover.1572519070.git.Jose.Abreu@synopsys.com>
-In-Reply-To: <cover.1572519070.git.Jose.Abreu@synopsys.com>
-References: <cover.1572519070.git.Jose.Abreu@synopsys.com>
-Cc: Jose Abreu <Jose.Abreu@synopsys.com>, Joao Pinto <Joao.Pinto@synopsys.com>,
- linux-kernel@vger.kernel.org, linux-stm32@st-md-mailman.stormreply.com,
- Maxime Coquelin <mcoquelin.stm32@gmail.com>,
- Giuseppe Cavallaro <peppe.cavallaro@st.com>,
- "David S. Miller" <davem@davemloft.net>, linux-arm-kernel@lists.infradead.org
-Subject: [Linux-stm32] [PATCH net v2 10/10] net: stmmac: Fix the packet
-	count in stmmac_rx()
+ Thu, 31 Oct 2019 12:31:14 +0000 (UTC)
+Received: from pps.filterd (m0046660.ppops.net [127.0.0.1])
+ by mx08-00178001.pphosted.com (8.16.0.42/8.16.0.42) with SMTP id
+ x9VCQaIl028820; Thu, 31 Oct 2019 13:30:50 +0100
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=st.com;
+ h=from : to : cc : subject
+ : date : message-id : mime-version : content-type; s=STMicroelectronics;
+ bh=L36yhhdynvYVY+TShwfA0Bhl1r4mffURb+EBrQF9gKk=;
+ b=hZwNCeV0xEvhrGeulpsouJPO18vN4wZjzkNBh2T0NPOiJrfZJSXxflA/SpZVj8QjZTrp
+ 6ll8NBUTTZtsi6cCL2RFUN4M/tMFU9hBxf8Sg76ZsvbB/cf5QJHnTZ84EJD/1reV24Au
+ kToKzeMtDgAfdV5iMrvyV/hXCmx8kTfkOA1G6trbZ75TeLNtTXTBTenqIk0oPuNC1GXb
+ SkZTjuSDvD9vCFuc0zoXr4SnxiyAi3Vvz9jIbMLOvOfJw6A+9hepDA7tTKxnkBxrLOi4
+ X0zTv7LHQk8uWTPL3x/1nRlRVI4FnGG6DIhJ+En2Ba9BD4opWcvdFQ6c0DgjIaTEgdcw wg== 
+Received: from beta.dmz-eu.st.com (beta.dmz-eu.st.com [164.129.1.35])
+ by mx08-00178001.pphosted.com with ESMTP id 2vxwhusser-1
+ (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
+ Thu, 31 Oct 2019 13:30:50 +0100
+Received: from euls16034.sgp.st.com (euls16034.sgp.st.com [10.75.44.20])
+ by beta.dmz-eu.st.com (STMicroelectronics) with ESMTP id 7F52D10002A;
+ Thu, 31 Oct 2019 13:30:49 +0100 (CET)
+Received: from Webmail-eu.st.com (Safex1hubcas23.st.com [10.75.90.46])
+ by euls16034.sgp.st.com (STMicroelectronics) with ESMTP id 5EFBD2B7837;
+ Thu, 31 Oct 2019 13:30:49 +0100 (CET)
+Received: from SAFEX1HUBCAS22.st.com (10.75.90.93) by SAFEX1HUBCAS23.st.com
+ (10.75.90.46) with Microsoft SMTP Server (TLS) id 14.3.439.0; Thu, 31 Oct
+ 2019 13:30:49 +0100
+Received: from localhost (10.201.20.122) by Webmail-ga.st.com (10.75.90.48)
+ with Microsoft SMTP Server (TLS) id 14.3.439.0; Thu, 31 Oct 2019 13:30:48
+ +0100
+From: Benjamin Gaignard <benjamin.gaignard@st.com>
+To: <robh+dt@kernel.org>, <mark.rutland@arm.com>, <alexandre.torgue@st.com>,
+ <fabrice.gasnier@st.com>, <jic23@kernel.org>, <knaack.h@gmx.de>,
+ <lars@metafoo.de>, <pmeerw@pmeerw.net>, <lee.jones@linaro.org>,
+ <thierry.reding@gmail.com>, <u.kleine-koenig@pengutronix.de>,
+ <benjamin.gaignard@st.com>
+Date: Thu, 31 Oct 2019 13:30:36 +0100
+Message-ID: <20191031123040.26316-1-benjamin.gaignard@st.com>
+X-Mailer: git-send-email 2.15.0
+MIME-Version: 1.0
+X-Originating-IP: [10.201.20.122]
+X-Proofpoint-Virus-Version: vendor=fsecure engine=2.50.10434:6.0.95,1.0.8
+ definitions=2019-10-31_05:2019-10-30,2019-10-31 signatures=0
+Cc: devicetree@vger.kernel.org, linux-pwm@vger.kernel.org,
+ linux-iio@vger.kernel.org, linux-kernel@vger.kernel.org,
+ linux-stm32@st-md-mailman.stormreply.com, linux-arm-kernel@lists.infradead.org
+Subject: [Linux-stm32] [PATCH 0/4] Convert STM32 Timer mdf bindings to yaml
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -61,73 +70,43 @@ List-Post: <mailto:linux-stm32@st-md-mailman.stormreply.com>
 List-Help: <mailto:linux-stm32-request@st-md-mailman.stormreply.com?subject=help>
 List-Subscribe: <https://st-md-mailman.stormreply.com/mailman/listinfo/linux-stm32>, 
  <mailto:linux-stm32-request@st-md-mailman.stormreply.com?subject=subscribe>
-MIME-Version: 1.0
 Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
-Currently, stmmac_rx() is counting the number of descriptors but it
-should count the number of packets as specified by the NAPI limit.
+This series converts STM32 Timer mfd bindings to json-schema.
+The original binding split between all the subnode remains the same
+that why subnode bindings are converted first and then included in
+the mfd binding.
 
-Fix this.
+Benjamin Gaignard (4):
+  dt-bindings: counter: Convert stm32 counter bindings to json-schema
+  dt-bindings: iio: timer: Convert stm32 IIO trigger bindings to
+    json-schema
+  dt-bindings: pwm: Convert stm32 pwm bindings to json-schema
+  dt-bindings: mfd: Convert stm32 timers bindings to json-schema
 
-Fixes: ec222003bd94 ("net: stmmac: Prepare to add Split Header support")
-Signed-off-by: Jose Abreu <Jose.Abreu@synopsys.com>
+ .../bindings/counter/st,stm32-timer-cnt.yaml       | 38 +++++++++
+ .../bindings/counter/stm32-timer-cnt.txt           | 31 --------
+ .../bindings/iio/timer/st,stm32-timer-trigger.yaml | 44 +++++++++++
+ .../bindings/iio/timer/stm32-timer-trigger.txt     | 25 ------
+ .../devicetree/bindings/mfd/st,stm32-timers.yaml   | 91 ++++++++++++++++++++++
+ .../devicetree/bindings/mfd/stm32-timers.txt       | 73 -----------------
+ .../devicetree/bindings/pwm/pwm-stm32.txt          | 38 ---------
+ .../devicetree/bindings/pwm/st,stm32-pwm.yaml      | 51 ++++++++++++
+ 8 files changed, 224 insertions(+), 167 deletions(-)
+ create mode 100644 Documentation/devicetree/bindings/counter/st,stm32-timer-cnt.yaml
+ delete mode 100644 Documentation/devicetree/bindings/counter/stm32-timer-cnt.txt
+ create mode 100644 Documentation/devicetree/bindings/iio/timer/st,stm32-timer-trigger.yaml
+ delete mode 100644 Documentation/devicetree/bindings/iio/timer/stm32-timer-trigger.txt
+ create mode 100644 Documentation/devicetree/bindings/mfd/st,stm32-timers.yaml
+ delete mode 100644 Documentation/devicetree/bindings/mfd/stm32-timers.txt
+ delete mode 100644 Documentation/devicetree/bindings/pwm/pwm-stm32.txt
+ create mode 100644 Documentation/devicetree/bindings/pwm/st,stm32-pwm.yaml
 
----
-Cc: Giuseppe Cavallaro <peppe.cavallaro@st.com>
-Cc: Alexandre Torgue <alexandre.torgue@st.com>
-Cc: Jose Abreu <joabreu@synopsys.com>
-Cc: "David S. Miller" <davem@davemloft.net>
-Cc: Maxime Coquelin <mcoquelin.stm32@gmail.com>
-Cc: netdev@vger.kernel.org
-Cc: linux-stm32@st-md-mailman.stormreply.com
-Cc: linux-arm-kernel@lists.infradead.org
-Cc: linux-kernel@vger.kernel.org
----
- drivers/net/ethernet/stmicro/stmmac/stmmac_main.c | 5 +++--
- 1 file changed, 3 insertions(+), 2 deletions(-)
-
-diff --git a/drivers/net/ethernet/stmicro/stmmac/stmmac_main.c b/drivers/net/ethernet/stmicro/stmmac/stmmac_main.c
-index 063b0ecd244b..d3886d2b16d4 100644
---- a/drivers/net/ethernet/stmicro/stmmac/stmmac_main.c
-+++ b/drivers/net/ethernet/stmicro/stmmac/stmmac_main.c
-@@ -3505,8 +3505,6 @@ static int stmmac_rx(struct stmmac_priv *priv, int limit, u32 queue)
- 		if (unlikely(status & dma_own))
- 			break;
- 
--		count++;
--
- 		rx_q->cur_rx = STMMAC_GET_ENTRY(rx_q->cur_rx, DMA_RX_SIZE);
- 		next_entry = rx_q->cur_rx;
- 
-@@ -3533,6 +3531,7 @@ static int stmmac_rx(struct stmmac_priv *priv, int limit, u32 queue)
- 			goto read_again;
- 		if (unlikely(error)) {
- 			dev_kfree_skb(skb);
-+			count++;
- 			continue;
- 		}
- 
-@@ -3572,6 +3571,7 @@ static int stmmac_rx(struct stmmac_priv *priv, int limit, u32 queue)
- 			skb = napi_alloc_skb(&ch->rx_napi, len);
- 			if (!skb) {
- 				priv->dev->stats.rx_dropped++;
-+				count++;
- 				continue;
- 			}
- 
-@@ -3637,6 +3637,7 @@ static int stmmac_rx(struct stmmac_priv *priv, int limit, u32 queue)
- 
- 		priv->dev->stats.rx_packets++;
- 		priv->dev->stats.rx_bytes += len;
-+		count++;
- 	}
- 
- 	if (status & rx_not_ls) {
 -- 
-2.7.4
+2.15.0
 
 _______________________________________________
 Linux-stm32 mailing list
