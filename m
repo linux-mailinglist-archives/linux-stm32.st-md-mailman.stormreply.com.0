@@ -2,54 +2,54 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id 22C3BEE217
+	by mail.lfdr.de (Postfix) with ESMTPS id 26AA4EE218
 	for <lists+linux-stm32@lfdr.de>; Mon,  4 Nov 2019 15:23:16 +0100 (CET)
 Received: from ip-172-31-3-76.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id D63DFC36B0B;
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id E4892C36B0E;
 	Mon,  4 Nov 2019 14:23:15 +0000 (UTC)
-Received: from mail-wr1-f68.google.com (mail-wr1-f68.google.com
- [209.85.221.68])
+Received: from mail-wm1-f66.google.com (mail-wm1-f66.google.com
+ [209.85.128.66])
  (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id BCC72C36B09
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 794C4C36B09
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Mon,  4 Nov 2019 14:23:14 +0000 (UTC)
-Received: by mail-wr1-f68.google.com with SMTP id p4so17279582wrm.8
+ Mon,  4 Nov 2019 14:23:15 +0000 (UTC)
+Received: by mail-wm1-f66.google.com with SMTP id c22so16272360wmd.1
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Mon, 04 Nov 2019 06:23:14 -0800 (PST)
+ Mon, 04 Nov 2019 06:23:15 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linaro.org; s=google;
  h=from:to:cc:subject:date:message-id:in-reply-to:references;
- bh=8PT3lzS5kgHvAaeJFeb5r3uf3YM7EgRuHSrYbt0bMFk=;
- b=SNkPRKZdYBvp+Jra5t5LVndKlS22wZNjS01AGgztYnVuSJdig02jSagBkDkPSGJ3VQ
- ieOLceDMwHWW6D8zYvxX80WnD/5CvAxzIXlxzrEZhA3ro4g6pGdTlJd6OJKGKGgLKQp9
- VOPN3p4Czyv3Hva2rnNNsdqX516gIliU3ABxR6gHWjc/PI/NqupKLqBmAcQN+tjFzUiH
- 4ogMDxNFwHSAMDUCnYGafFEsnSlBIoabg41lMHjv/bI1McdsYdrooFSsshoqqOIpAoIk
- q2isgyU4wGAERUP78PrK1GwIbL8mBzYAUabQKZKzf8RrbbK4ccq2ZZq0X2sjj64zkwzk
- aF0Q==
+ bh=DlHGsHCYz6i9keGsLrYM+8DrDokVvhA17QRfhwApon4=;
+ b=pformDiSnMnhGM0gWYP61EL4IsZN5i5fQ20RPhOIcGPtbvADApmq3GGz3ONVTEshHm
+ wUje680PA6qM1Er/+RfRn3rLoXyJ3NpKVfmdZ8nVsuKHtCIStEltZD9vqc8Gru0cEJLj
+ BBXQmTmeGmCPA0FSuvLswr1oygRQXRacmKn6mMNa7Wj5mCsqwfQ7W3jvUbNWOjsPrE5C
+ +s9Tr0F8RqgF+zp6uKjx9lunA6aY0/AHe3l7bor+KvIjirdp5ndgS/qnucYbOCKyo4IN
+ EoV8o3HmWJqw6Ffth7CtcZB8UJLk0rlpMe4fCx0380dohUIF1SUGT2Ksbfsdn3hdIR+b
+ f/RA==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=1e100.net; s=20161025;
  h=x-gm-message-state:from:to:cc:subject:date:message-id:in-reply-to
  :references;
- bh=8PT3lzS5kgHvAaeJFeb5r3uf3YM7EgRuHSrYbt0bMFk=;
- b=eBtN+8jQOfnXENceglPAMQkOEbJ8Fw6H57185/mj9RzeNIPVGe1AdYihQ7jiBdKqQ7
- YqC+OQ5akkjMdvmJNOtio0hEQuoaglrmXmoFddYjjXxnQ9s+t2bllfEYZj9/0zmTTut0
- /49mCBfHEigyLbK1EmtC+al5024PrJ1ngiiBseyoTld4m5X6VHuZ5dgMI6JWmODdffts
- HNLxupIrdyYy+4yCUoAcqgyn8eMK91b5n0PX/g3tc/fPGhA+LBDP02ANPk1yykm/wCYj
- d9rf8tmMX6fsThnAaue+SHfdgUbZMDgDEC3u1mH05jzrFTummxlFQ2JI5avhorIJUW2v
- 7wlg==
-X-Gm-Message-State: APjAAAXYB767BU0RSL56mS2Cw41BmlwBmrjAI20k8Ad8NAAdZe4u6rfk
- UQyOeL189hDQxULQZzr42zdnJQ==
-X-Google-Smtp-Source: APXvYqw9heJyuT88QXFmWV6rLfXGXLrq0AsYBrPzlbFXhj2lixT9fLCy+Fb21pC6Q75L5eIpuzEfnw==
-X-Received: by 2002:adf:e8ca:: with SMTP id k10mr10060725wrn.377.1572877393588; 
- Mon, 04 Nov 2019 06:23:13 -0800 (PST)
+ bh=DlHGsHCYz6i9keGsLrYM+8DrDokVvhA17QRfhwApon4=;
+ b=HLUdYQ44OAZuKEYVoGK/EH1OJPuHQ+nYt+i8fWL1EHBbSduyv998A3cUWwCKcaWnlO
+ 5RexbioLbo+OVdgAEjiQBzo0ndBfjnxNlSGtObSfHit1VsIVE2AXPPbD28C9ENWGLey3
+ 7Ln+jwMEfo2XkZGvDUYVqYH9btUapoF4hx6zruNTSWy7v2n4rGL5M0XWyvllWrPbFLnD
+ VejvT1Qnj+qG1XgYToy7bYt+82hLnwH7onKwbmpeW+3F3a7XFUna3HcTHrz1+zuX9Vdy
+ /VVyG1kxmQyg1COrBcaq/TXWMkHldTIILgvOD2ITdfGA7Cbb5N7v40gCs4DDwODrFfLC
+ uNwA==
+X-Gm-Message-State: APjAAAX12CYgEHeaHHJ8p/xqbqHic+AN3oQNVazynNmop+Joxdbj4Lm6
+ J/f0ZRzdII0J66Q0NQ+2R1nLUw==
+X-Google-Smtp-Source: APXvYqw5dRFCT4rWakrmWngzJkmEsTf4OzwjQFejtITeq3kHdmXf626rugiPj/J78gqdopl+XXEyQw==
+X-Received: by 2002:a7b:cc89:: with SMTP id p9mr21507045wma.99.1572877394844; 
+ Mon, 04 Nov 2019 06:23:14 -0800 (PST)
 Received: from mai.imgcgcw.net ([2a01:e34:ed2f:f020:58da:b044:f184:d281])
- by smtp.gmail.com with ESMTPSA id l18sm21692446wrn.48.2019.11.04.06.23.12
+ by smtp.gmail.com with ESMTPSA id l18sm21692446wrn.48.2019.11.04.06.23.13
  (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Mon, 04 Nov 2019 06:23:12 -0800 (PST)
+ Mon, 04 Nov 2019 06:23:14 -0800 (PST)
 From: Daniel Lezcano <daniel.lezcano@linaro.org>
 To: tglx@linutronix.de
-Date: Mon,  4 Nov 2019 15:22:55 +0100
-Message-Id: <20191104142257.30029-3-daniel.lezcano@linaro.org>
+Date: Mon,  4 Nov 2019 15:22:56 +0100
+Message-Id: <20191104142257.30029-4-daniel.lezcano@linaro.org>
 X-Mailer: git-send-email 2.17.1
 In-Reply-To: <20191104142257.30029-1-daniel.lezcano@linaro.org>
 References: <6fd4d800-b1f8-d757-458e-23742d20884c@linaro.org>
@@ -59,8 +59,8 @@ Cc: Geert Uytterhoeven <geert+renesas@glider.be>, linux-kernel@vger.kernel.org,
  "moderated list:ARM/STM32 ARCHITECTURE"
  <linux-stm32@st-md-mailman.stormreply.com>,
  "moderated list:ARM/STM32 ARCHITECTURE" <linux-arm-kernel@lists.infradead.org>
-Subject: [Linux-stm32] [PATCH 3/5] clocksource/drivers/renesas-ostm: Convert
-	to timer_of
+Subject: [Linux-stm32] [PATCH 4/5] clocksource/drivers/renesas-ostm: Use
+	unique device name instead of ostm
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -80,343 +80,65 @@ Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
 From: Geert Uytterhoeven <geert+renesas@glider.be>
 
-Convert the Renesas OSTM driver to use the timer_of framework.
-This reduces the driver object size by 367 bytes (with gcc 7.4.0).
+Currently all OSTM devices are called "ostm", also in kernel messages.
+
+As there can be multiple instances in an SoC, this can confuse the user.
+Hence construct a unique name from the DT node name, like is done for
+platform devices.
+
+On RSK+RZA1, the boot log changes like:
+
+    -clocksource: ostm: mask: 0xffffffff max_cycles: 0xffffffff, max_idle_ns: 57352151442 ns
+    +clocksource: timer@fcfec000: mask: 0xffffffff max_cycles: 0xffffffff, max_idle_ns: 57352151442 ns
+     sched_clock: 32 bits at 33MHz, resolution 30ns, wraps every 64440619504ns
+    -ostm: used for clocksource
+    -ostm: used for clock events
+    +/soc/timer@fcfec000: used for clocksource
+    +/soc/timer@fcfec400: used for clock events
+     ...
+    -clocksource: Switched to clocksource ostm
+    +clocksource: Switched to clocksource timer@fcfec000
 
 Signed-off-by: Geert Uytterhoeven <geert+renesas@glider.be>
 Signed-off-by: Daniel Lezcano <daniel.lezcano@linaro.org>
-Link: https://lore.kernel.org/r/20191016144747.29538-4-geert+renesas@glider.be
+Link: https://lore.kernel.org/r/20191016144747.29538-5-geert+renesas@glider.be
 ---
- drivers/clocksource/Kconfig        |   1 +
- drivers/clocksource/renesas-ostm.c | 189 +++++++++++------------------
- 2 files changed, 73 insertions(+), 117 deletions(-)
+ drivers/clocksource/renesas-ostm.c | 10 +++++-----
+ 1 file changed, 5 insertions(+), 5 deletions(-)
 
-diff --git a/drivers/clocksource/Kconfig b/drivers/clocksource/Kconfig
-index f35a53ce8988..5fdd76cb1768 100644
---- a/drivers/clocksource/Kconfig
-+++ b/drivers/clocksource/Kconfig
-@@ -528,6 +528,7 @@ config SH_TIMER_MTU2
- config RENESAS_OSTM
- 	bool "Renesas OSTM timer driver" if COMPILE_TEST
- 	select CLKSRC_MMIO
-+	select TIMER_OF
- 	help
- 	  Enables the support for the Renesas OSTM.
- 
 diff --git a/drivers/clocksource/renesas-ostm.c b/drivers/clocksource/renesas-ostm.c
-index 37c39b901bb1..46012d905604 100644
+index 46012d905604..3d06ba66008c 100644
 --- a/drivers/clocksource/renesas-ostm.c
 +++ b/drivers/clocksource/renesas-ostm.c
-@@ -6,14 +6,14 @@
-  * Copyright (C) 2017 Chris Brandt
-  */
+@@ -64,9 +64,9 @@ static int __init ostm_init_clksrc(struct timer_of *to)
+ 	writeb(CTL_FREERUN, timer_of_base(to) + OSTM_CTL);
+ 	writeb(TS, timer_of_base(to) + OSTM_TS);
  
--#include <linux/of_address.h>
--#include <linux/of_irq.h>
- #include <linux/clk.h>
- #include <linux/clockchips.h>
- #include <linux/interrupt.h>
- #include <linux/sched_clock.h>
- #include <linux/slab.h>
- 
-+#include "timer-of.h"
-+
- /*
-  * The OSTM contains independent channels.
-  * The first OSTM channel probed will be set up as a free running
-@@ -24,12 +24,6 @@
-  * driven clock event.
-  */
- 
--struct ostm_device {
--	void __iomem *base;
--	unsigned long ticks_per_jiffy;
--	struct clock_event_device ced;
--};
--
- static void __iomem *system_clock;	/* For sched_clock() */
- 
- /* OSTM REGISTERS */
-@@ -47,41 +41,32 @@ static void __iomem *system_clock;	/* For sched_clock() */
- #define	CTL_ONESHOT		0x02
- #define	CTL_FREERUN		0x02
- 
--static struct ostm_device *ced_to_ostm(struct clock_event_device *ced)
--{
--	return container_of(ced, struct ostm_device, ced);
--}
--
--static void ostm_timer_stop(struct ostm_device *ostm)
-+static void ostm_timer_stop(struct timer_of *to)
- {
--	if (readb(ostm->base + OSTM_TE) & TE) {
--		writeb(TT, ostm->base + OSTM_TT);
-+	if (readb(timer_of_base(to) + OSTM_TE) & TE) {
-+		writeb(TT, timer_of_base(to) + OSTM_TT);
- 
- 		/*
- 		 * Read back the register simply to confirm the write operation
- 		 * has completed since I/O writes can sometimes get queued by
- 		 * the bus architecture.
- 		 */
--		while (readb(ostm->base + OSTM_TE) & TE)
-+		while (readb(timer_of_base(to) + OSTM_TE) & TE)
- 			;
- 	}
- }
- 
--static int __init ostm_init_clksrc(struct ostm_device *ostm, unsigned long rate)
-+static int __init ostm_init_clksrc(struct timer_of *to)
- {
--	/*
--	 * irq not used (clock sources don't use interrupts)
--	 */
--
--	ostm_timer_stop(ostm);
-+	ostm_timer_stop(to);
- 
--	writel(0, ostm->base + OSTM_CMP);
--	writeb(CTL_FREERUN, ostm->base + OSTM_CTL);
--	writeb(TS, ostm->base + OSTM_TS);
-+	writel(0, timer_of_base(to) + OSTM_CMP);
-+	writeb(CTL_FREERUN, timer_of_base(to) + OSTM_CTL);
-+	writeb(TS, timer_of_base(to) + OSTM_TS);
- 
--	return clocksource_mmio_init(ostm->base + OSTM_CNT,
--			"ostm", rate,
--			300, 32, clocksource_mmio_readl_up);
-+	return clocksource_mmio_init(timer_of_base(to) + OSTM_CNT, "ostm",
-+				     timer_of_rate(to), 300, 32,
-+				     clocksource_mmio_readl_up);
+-	return clocksource_mmio_init(timer_of_base(to) + OSTM_CNT, "ostm",
+-				     timer_of_rate(to), 300, 32,
+-				     clocksource_mmio_readl_up);
++	return clocksource_mmio_init(timer_of_base(to) + OSTM_CNT,
++				     to->np->full_name, timer_of_rate(to), 300,
++				     32, clocksource_mmio_readl_up);
  }
  
  static u64 notrace ostm_read_sched_clock(void)
-@@ -89,87 +74,75 @@ static u64 notrace ostm_read_sched_clock(void)
- 	return readl(system_clock);
- }
+@@ -190,13 +190,13 @@ static int __init ostm_init(struct device_node *np)
+ 			goto err_cleanup;
  
--static void __init ostm_init_sched_clock(struct ostm_device *ostm,
--			unsigned long rate)
-+static void __init ostm_init_sched_clock(struct timer_of *to)
- {
--	system_clock = ostm->base + OSTM_CNT;
--	sched_clock_register(ostm_read_sched_clock, 32, rate);
-+	system_clock = timer_of_base(to) + OSTM_CNT;
-+	sched_clock_register(ostm_read_sched_clock, 32, timer_of_rate(to));
- }
- 
- static int ostm_clock_event_next(unsigned long delta,
--				     struct clock_event_device *ced)
-+				 struct clock_event_device *ced)
- {
--	struct ostm_device *ostm = ced_to_ostm(ced);
-+	struct timer_of *to = to_timer_of(ced);
- 
--	ostm_timer_stop(ostm);
-+	ostm_timer_stop(to);
- 
--	writel(delta, ostm->base + OSTM_CMP);
--	writeb(CTL_ONESHOT, ostm->base + OSTM_CTL);
--	writeb(TS, ostm->base + OSTM_TS);
-+	writel(delta, timer_of_base(to) + OSTM_CMP);
-+	writeb(CTL_ONESHOT, timer_of_base(to) + OSTM_CTL);
-+	writeb(TS, timer_of_base(to) + OSTM_TS);
- 
- 	return 0;
- }
- 
- static int ostm_shutdown(struct clock_event_device *ced)
- {
--	struct ostm_device *ostm = ced_to_ostm(ced);
-+	struct timer_of *to = to_timer_of(ced);
- 
--	ostm_timer_stop(ostm);
-+	ostm_timer_stop(to);
- 
- 	return 0;
- }
- static int ostm_set_periodic(struct clock_event_device *ced)
- {
--	struct ostm_device *ostm = ced_to_ostm(ced);
-+	struct timer_of *to = to_timer_of(ced);
- 
- 	if (clockevent_state_oneshot(ced) || clockevent_state_periodic(ced))
--		ostm_timer_stop(ostm);
-+		ostm_timer_stop(to);
- 
--	writel(ostm->ticks_per_jiffy - 1, ostm->base + OSTM_CMP);
--	writeb(CTL_PERIODIC, ostm->base + OSTM_CTL);
--	writeb(TS, ostm->base + OSTM_TS);
-+	writel(timer_of_period(to) - 1, timer_of_base(to) + OSTM_CMP);
-+	writeb(CTL_PERIODIC, timer_of_base(to) + OSTM_CTL);
-+	writeb(TS, timer_of_base(to) + OSTM_TS);
- 
- 	return 0;
- }
- 
- static int ostm_set_oneshot(struct clock_event_device *ced)
- {
--	struct ostm_device *ostm = ced_to_ostm(ced);
-+	struct timer_of *to = to_timer_of(ced);
- 
--	ostm_timer_stop(ostm);
-+	ostm_timer_stop(to);
- 
- 	return 0;
- }
- 
- static irqreturn_t ostm_timer_interrupt(int irq, void *dev_id)
- {
--	struct ostm_device *ostm = dev_id;
-+	struct clock_event_device *ced = dev_id;
- 
--	if (clockevent_state_oneshot(&ostm->ced))
--		ostm_timer_stop(ostm);
-+	if (clockevent_state_oneshot(ced))
-+		ostm_timer_stop(to_timer_of(ced));
- 
- 	/* notify clockevent layer */
--	if (ostm->ced.event_handler)
--		ostm->ced.event_handler(&ostm->ced);
-+	if (ced->event_handler)
-+		ced->event_handler(ced);
- 
- 	return IRQ_HANDLED;
- }
- 
--static int __init ostm_init_clkevt(struct ostm_device *ostm, int irq,
--			unsigned long rate)
-+static int __init ostm_init_clkevt(struct timer_of *to)
- {
--	struct clock_event_device *ced = &ostm->ced;
--	int ret = -ENXIO;
--
--	ret = request_irq(irq, ostm_timer_interrupt,
--			  IRQF_TIMER | IRQF_IRQPOLL,
--			  "ostm", ostm);
--	if (ret) {
--		pr_err("ostm: failed to request irq\n");
--		return ret;
--	}
-+	struct clock_event_device *ced = &to->clkevt;
- 
--	ced->name = "ostm";
- 	ced->features = CLOCK_EVT_FEAT_ONESHOT | CLOCK_EVT_FEAT_PERIODIC;
- 	ced->set_state_shutdown = ostm_shutdown;
- 	ced->set_state_periodic = ostm_set_periodic;
-@@ -178,79 +151,61 @@ static int __init ostm_init_clkevt(struct ostm_device *ostm, int irq,
- 	ced->shift = 32;
- 	ced->rating = 300;
- 	ced->cpumask = cpumask_of(0);
--	clockevents_config_and_register(ced, rate, 0xf, 0xffffffff);
-+	clockevents_config_and_register(ced, timer_of_rate(to), 0xf,
-+					0xffffffff);
- 
- 	return 0;
- }
- 
- static int __init ostm_init(struct device_node *np)
- {
--	struct ostm_device *ostm;
--	int ret = -EFAULT;
--	struct clk *ostm_clk = NULL;
--	int irq;
--	unsigned long rate;
--
--	ostm = kzalloc(sizeof(*ostm), GFP_KERNEL);
--	if (!ostm)
--		return -ENOMEM;
--
--	ostm->base = of_iomap(np, 0);
--	if (!ostm->base) {
--		pr_err("ostm: failed to remap I/O memory\n");
--		goto err;
--	}
--
--	irq = irq_of_parse_and_map(np, 0);
--	if (irq < 0) {
--		pr_err("ostm: Failed to get irq\n");
--		goto err;
--	}
-+	struct timer_of *to;
-+	int ret;
- 
--	ostm_clk = of_clk_get(np, 0);
--	if (IS_ERR(ostm_clk)) {
--		pr_err("ostm: Failed to get clock\n");
--		ostm_clk = NULL;
--		goto err;
--	}
-+	to = kzalloc(sizeof(*to), GFP_KERNEL);
-+	if (!to)
-+		return -ENOMEM;
- 
--	ret = clk_prepare_enable(ostm_clk);
--	if (ret) {
--		pr_err("ostm: Failed to enable clock\n");
--		goto err;
-+	to->flags = TIMER_OF_BASE | TIMER_OF_CLOCK;
-+	if (system_clock) {
-+		/*
-+		 * clock sources don't use interrupts, clock events do
-+		 */
-+		to->flags |= TIMER_OF_IRQ;
-+		to->of_irq.flags = IRQF_TIMER | IRQF_IRQPOLL;
-+		to->of_irq.handler = ostm_timer_interrupt;
- 	}
- 
--	rate = clk_get_rate(ostm_clk);
--	ostm->ticks_per_jiffy = DIV_ROUND_CLOSEST(rate, HZ);
-+	ret = timer_of_init(np, to);
-+	if (ret)
-+		goto err_free;
- 
- 	/*
- 	 * First probed device will be used as system clocksource. Any
- 	 * additional devices will be used as clock events.
- 	 */
- 	if (!system_clock) {
--		ret = ostm_init_clksrc(ostm, rate);
--
--		if (!ret) {
--			ostm_init_sched_clock(ostm, rate);
--			pr_info("ostm: used for clocksource\n");
--		}
-+		ret = ostm_init_clksrc(to);
-+		if (ret)
-+			goto err_cleanup;
- 
-+		ostm_init_sched_clock(to);
-+		pr_info("ostm: used for clocksource\n");
+ 		ostm_init_sched_clock(to);
+-		pr_info("ostm: used for clocksource\n");
++		pr_info("%pOF: used for clocksource\n", np);
  	} else {
--		ret = ostm_init_clkevt(ostm, irq, rate);
-+		ret = ostm_init_clkevt(to);
-+		if (ret)
-+			goto err_cleanup;
+ 		ret = ostm_init_clkevt(to);
+ 		if (ret)
+ 			goto err_cleanup;
  
--		if (!ret)
--			pr_info("ostm: used for clock events\n");
--	}
--
--err:
--	if (ret) {
--		clk_disable_unprepare(ostm_clk);
--		iounmap(ostm->base);
--		kfree(ostm);
--		return ret;
-+		pr_info("ostm: used for clock events\n");
+-		pr_info("ostm: used for clock events\n");
++		pr_info("%pOF: used for clock events\n", np);
  	}
  
  	return 0;
-+
-+err_cleanup:
-+	timer_of_cleanup(to);
-+err_free:
-+	kfree(to);
-+	return ret;
- }
- 
- TIMER_OF_DECLARE(ostm, "renesas,ostm", ostm_init);
 -- 
 2.17.1
 
