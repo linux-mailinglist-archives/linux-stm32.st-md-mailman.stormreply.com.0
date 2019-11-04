@@ -2,63 +2,65 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id 67F28EE166
-	for <lists+linux-stm32@lfdr.de>; Mon,  4 Nov 2019 14:38:00 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 22C3BEE217
+	for <lists+linux-stm32@lfdr.de>; Mon,  4 Nov 2019 15:23:16 +0100 (CET)
 Received: from ip-172-31-3-76.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 2E305C36B0B;
-	Mon,  4 Nov 2019 13:38:00 +0000 (UTC)
-Received: from mx07-00178001.pphosted.com (mx07-00178001.pphosted.com
- [62.209.51.94])
- (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id D63DFC36B0B;
+	Mon,  4 Nov 2019 14:23:15 +0000 (UTC)
+Received: from mail-wr1-f68.google.com (mail-wr1-f68.google.com
+ [209.85.221.68])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id C51C6C36B09
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id BCC72C36B09
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Mon,  4 Nov 2019 13:37:59 +0000 (UTC)
-Received: from pps.filterd (m0046037.ppops.net [127.0.0.1])
- by mx07-00178001.pphosted.com (8.16.0.42/8.16.0.42) with SMTP id
- xA4DWFkJ026453; Mon, 4 Nov 2019 14:37:06 +0100
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=st.com;
- h=from : to : cc : subject
- : date : message-id : mime-version : content-type; s=STMicroelectronics;
- bh=0V0+n6EoG5ZZ+IdpLsOxLEtGg4+FYYg6VUMRseHZqHA=;
- b=MRlR2bfvQfp6TmzTJF+TAOFdz7iv72iApjX1BtIml+gWAdhk6XTdhD5zMwAGlWJn7hiX
- 72UnCam408Cz3k86Sv/6Df6UmeXtjiQTeCRxKGJMKJ0rAzRPuIFznZ0ivwESy9yDBJUD
- 6WHkjeIAnKqOqsl2s79PQbqLg+RiaU2K9BglSVceDVFx7HykUvbMsjVgTpgNtL4REiSc
- LeGoYL3b7+3oeUNsdWMVjNhPBDxOlAaJyibOnJo0Yg67CVkpH7C8j+9f/wHfBRmPn/7q
- 1NycHLFlHspA50/WNl2EZ+FGz2bCxW4Dd+L3nMHohxAZip2sbdKxUu+PEI3F769J0Rma hA== 
-Received: from beta.dmz-eu.st.com (beta.dmz-eu.st.com [164.129.1.35])
- by mx07-00178001.pphosted.com with ESMTP id 2w10f19mg4-1
- (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
- Mon, 04 Nov 2019 14:37:06 +0100
-Received: from euls16034.sgp.st.com (euls16034.sgp.st.com [10.75.44.20])
- by beta.dmz-eu.st.com (STMicroelectronics) with ESMTP id 496CB100042;
- Mon,  4 Nov 2019 14:37:06 +0100 (CET)
-Received: from Webmail-eu.st.com (Safex1hubcas22.st.com [10.75.90.92])
- by euls16034.sgp.st.com (STMicroelectronics) with ESMTP id 1C5C12FF5DB;
- Mon,  4 Nov 2019 14:37:06 +0100 (CET)
-Received: from SAFEX1HUBCAS24.st.com (10.75.90.95) by Safex1hubcas22.st.com
- (10.75.90.92) with Microsoft SMTP Server (TLS) id 14.3.439.0; Mon, 4 Nov 2019
- 14:37:06 +0100
-Received: from localhost (10.201.21.218) by webmail-ga.st.com (10.75.90.48)
- with Microsoft SMTP Server (TLS) id 14.3.439.0; Mon, 4 Nov 2019 14:37:05
- +0100
-From: Olivier Moysan <olivier.moysan@st.com>
-To: <lgirdwood@gmail.com>, <broonie@kernel.org>, <perex@perex.cz>,
- <tiwai@suse.com>, <mcoquelin.stm32@gmail.com>,
- <alexandre.torgue@st.com>, <alsa-devel@alsa-project.org>,
- <linux-arm-kernel@lists.infradead.org>,
- <linux-stm32@st-md-mailman.stormreply.com>,
- <linux-kernel@vger.kernel.org>, <olivier.moysan@st.com>,
- <arnaud.pouliquen@st.com>
-Date: Mon, 4 Nov 2019 14:36:54 +0100
-Message-ID: <20191104133654.28750-1-olivier.moysan@st.com>
+ Mon,  4 Nov 2019 14:23:14 +0000 (UTC)
+Received: by mail-wr1-f68.google.com with SMTP id p4so17279582wrm.8
+ for <linux-stm32@st-md-mailman.stormreply.com>;
+ Mon, 04 Nov 2019 06:23:14 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linaro.org; s=google;
+ h=from:to:cc:subject:date:message-id:in-reply-to:references;
+ bh=8PT3lzS5kgHvAaeJFeb5r3uf3YM7EgRuHSrYbt0bMFk=;
+ b=SNkPRKZdYBvp+Jra5t5LVndKlS22wZNjS01AGgztYnVuSJdig02jSagBkDkPSGJ3VQ
+ ieOLceDMwHWW6D8zYvxX80WnD/5CvAxzIXlxzrEZhA3ro4g6pGdTlJd6OJKGKGgLKQp9
+ VOPN3p4Czyv3Hva2rnNNsdqX516gIliU3ABxR6gHWjc/PI/NqupKLqBmAcQN+tjFzUiH
+ 4ogMDxNFwHSAMDUCnYGafFEsnSlBIoabg41lMHjv/bI1McdsYdrooFSsshoqqOIpAoIk
+ q2isgyU4wGAERUP78PrK1GwIbL8mBzYAUabQKZKzf8RrbbK4ccq2ZZq0X2sjj64zkwzk
+ aF0Q==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20161025;
+ h=x-gm-message-state:from:to:cc:subject:date:message-id:in-reply-to
+ :references;
+ bh=8PT3lzS5kgHvAaeJFeb5r3uf3YM7EgRuHSrYbt0bMFk=;
+ b=eBtN+8jQOfnXENceglPAMQkOEbJ8Fw6H57185/mj9RzeNIPVGe1AdYihQ7jiBdKqQ7
+ YqC+OQ5akkjMdvmJNOtio0hEQuoaglrmXmoFddYjjXxnQ9s+t2bllfEYZj9/0zmTTut0
+ /49mCBfHEigyLbK1EmtC+al5024PrJ1ngiiBseyoTld4m5X6VHuZ5dgMI6JWmODdffts
+ HNLxupIrdyYy+4yCUoAcqgyn8eMK91b5n0PX/g3tc/fPGhA+LBDP02ANPk1yykm/wCYj
+ d9rf8tmMX6fsThnAaue+SHfdgUbZMDgDEC3u1mH05jzrFTummxlFQ2JI5avhorIJUW2v
+ 7wlg==
+X-Gm-Message-State: APjAAAXYB767BU0RSL56mS2Cw41BmlwBmrjAI20k8Ad8NAAdZe4u6rfk
+ UQyOeL189hDQxULQZzr42zdnJQ==
+X-Google-Smtp-Source: APXvYqw9heJyuT88QXFmWV6rLfXGXLrq0AsYBrPzlbFXhj2lixT9fLCy+Fb21pC6Q75L5eIpuzEfnw==
+X-Received: by 2002:adf:e8ca:: with SMTP id k10mr10060725wrn.377.1572877393588; 
+ Mon, 04 Nov 2019 06:23:13 -0800 (PST)
+Received: from mai.imgcgcw.net ([2a01:e34:ed2f:f020:58da:b044:f184:d281])
+ by smtp.gmail.com with ESMTPSA id l18sm21692446wrn.48.2019.11.04.06.23.12
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Mon, 04 Nov 2019 06:23:12 -0800 (PST)
+From: Daniel Lezcano <daniel.lezcano@linaro.org>
+To: tglx@linutronix.de
+Date: Mon,  4 Nov 2019 15:22:55 +0100
+Message-Id: <20191104142257.30029-3-daniel.lezcano@linaro.org>
 X-Mailer: git-send-email 2.17.1
-MIME-Version: 1.0
-X-Originating-IP: [10.201.21.218]
-X-Proofpoint-Virus-Version: vendor=fsecure engine=2.50.10434:6.0.95,1.0.8
- definitions=2019-11-04_08:2019-11-04,2019-11-04 signatures=0
-Subject: [Linux-stm32] [PATCH] ASoC: stm32: sai: add restriction on mmap
-	support
+In-Reply-To: <20191104142257.30029-1-daniel.lezcano@linaro.org>
+References: <6fd4d800-b1f8-d757-458e-23742d20884c@linaro.org>
+ <20191104142257.30029-1-daniel.lezcano@linaro.org>
+Cc: Geert Uytterhoeven <geert+renesas@glider.be>, linux-kernel@vger.kernel.org,
+ Maxime Coquelin <mcoquelin.stm32@gmail.com>,
+ "moderated list:ARM/STM32 ARCHITECTURE"
+ <linux-stm32@st-md-mailman.stormreply.com>,
+ "moderated list:ARM/STM32 ARCHITECTURE" <linux-arm-kernel@lists.infradead.org>
+Subject: [Linux-stm32] [PATCH 3/5] clocksource/drivers/renesas-ostm: Convert
+	to timer_of
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -70,50 +72,351 @@ List-Post: <mailto:linux-stm32@st-md-mailman.stormreply.com>
 List-Help: <mailto:linux-stm32-request@st-md-mailman.stormreply.com?subject=help>
 List-Subscribe: <https://st-md-mailman.stormreply.com/mailman/listinfo/linux-stm32>, 
  <mailto:linux-stm32-request@st-md-mailman.stormreply.com?subject=subscribe>
+MIME-Version: 1.0
 Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
-Do not support mmap in S/PDIF mode. In S/PDIF mode
-the buffer has to be copied, to allow the channel status
-bits insertion.
+From: Geert Uytterhoeven <geert+renesas@glider.be>
 
-Signed-off-by: Olivier Moysan <olivier.moysan@st.com>
+Convert the Renesas OSTM driver to use the timer_of framework.
+This reduces the driver object size by 367 bytes (with gcc 7.4.0).
+
+Signed-off-by: Geert Uytterhoeven <geert+renesas@glider.be>
+Signed-off-by: Daniel Lezcano <daniel.lezcano@linaro.org>
+Link: https://lore.kernel.org/r/20191016144747.29538-4-geert+renesas@glider.be
 ---
- sound/soc/stm/stm32_sai_sub.c | 12 +++++++++++-
- 1 file changed, 11 insertions(+), 1 deletion(-)
+ drivers/clocksource/Kconfig        |   1 +
+ drivers/clocksource/renesas-ostm.c | 189 +++++++++++------------------
+ 2 files changed, 73 insertions(+), 117 deletions(-)
 
-diff --git a/sound/soc/stm/stm32_sai_sub.c b/sound/soc/stm/stm32_sai_sub.c
-index a4060813bc74..48e629ac2d88 100644
---- a/sound/soc/stm/stm32_sai_sub.c
-+++ b/sound/soc/stm/stm32_sai_sub.c
-@@ -1218,6 +1218,16 @@ static int stm32_sai_pcm_process_spdif(struct snd_pcm_substream *substream,
+diff --git a/drivers/clocksource/Kconfig b/drivers/clocksource/Kconfig
+index f35a53ce8988..5fdd76cb1768 100644
+--- a/drivers/clocksource/Kconfig
++++ b/drivers/clocksource/Kconfig
+@@ -528,6 +528,7 @@ config SH_TIMER_MTU2
+ config RENESAS_OSTM
+ 	bool "Renesas OSTM timer driver" if COMPILE_TEST
+ 	select CLKSRC_MMIO
++	select TIMER_OF
+ 	help
+ 	  Enables the support for the Renesas OSTM.
+ 
+diff --git a/drivers/clocksource/renesas-ostm.c b/drivers/clocksource/renesas-ostm.c
+index 37c39b901bb1..46012d905604 100644
+--- a/drivers/clocksource/renesas-ostm.c
++++ b/drivers/clocksource/renesas-ostm.c
+@@ -6,14 +6,14 @@
+  * Copyright (C) 2017 Chris Brandt
+  */
+ 
+-#include <linux/of_address.h>
+-#include <linux/of_irq.h>
+ #include <linux/clk.h>
+ #include <linux/clockchips.h>
+ #include <linux/interrupt.h>
+ #include <linux/sched_clock.h>
+ #include <linux/slab.h>
+ 
++#include "timer-of.h"
++
+ /*
+  * The OSTM contains independent channels.
+  * The first OSTM channel probed will be set up as a free running
+@@ -24,12 +24,6 @@
+  * driven clock event.
+  */
+ 
+-struct ostm_device {
+-	void __iomem *base;
+-	unsigned long ticks_per_jiffy;
+-	struct clock_event_device ced;
+-};
+-
+ static void __iomem *system_clock;	/* For sched_clock() */
+ 
+ /* OSTM REGISTERS */
+@@ -47,41 +41,32 @@ static void __iomem *system_clock;	/* For sched_clock() */
+ #define	CTL_ONESHOT		0x02
+ #define	CTL_FREERUN		0x02
+ 
+-static struct ostm_device *ced_to_ostm(struct clock_event_device *ced)
+-{
+-	return container_of(ced, struct ostm_device, ced);
+-}
+-
+-static void ostm_timer_stop(struct ostm_device *ostm)
++static void ostm_timer_stop(struct timer_of *to)
+ {
+-	if (readb(ostm->base + OSTM_TE) & TE) {
+-		writeb(TT, ostm->base + OSTM_TT);
++	if (readb(timer_of_base(to) + OSTM_TE) & TE) {
++		writeb(TT, timer_of_base(to) + OSTM_TT);
+ 
+ 		/*
+ 		 * Read back the register simply to confirm the write operation
+ 		 * has completed since I/O writes can sometimes get queued by
+ 		 * the bus architecture.
+ 		 */
+-		while (readb(ostm->base + OSTM_TE) & TE)
++		while (readb(timer_of_base(to) + OSTM_TE) & TE)
+ 			;
+ 	}
+ }
+ 
+-static int __init ostm_init_clksrc(struct ostm_device *ostm, unsigned long rate)
++static int __init ostm_init_clksrc(struct timer_of *to)
+ {
+-	/*
+-	 * irq not used (clock sources don't use interrupts)
+-	 */
+-
+-	ostm_timer_stop(ostm);
++	ostm_timer_stop(to);
+ 
+-	writel(0, ostm->base + OSTM_CMP);
+-	writeb(CTL_FREERUN, ostm->base + OSTM_CTL);
+-	writeb(TS, ostm->base + OSTM_TS);
++	writel(0, timer_of_base(to) + OSTM_CMP);
++	writeb(CTL_FREERUN, timer_of_base(to) + OSTM_CTL);
++	writeb(TS, timer_of_base(to) + OSTM_TS);
+ 
+-	return clocksource_mmio_init(ostm->base + OSTM_CNT,
+-			"ostm", rate,
+-			300, 32, clocksource_mmio_readl_up);
++	return clocksource_mmio_init(timer_of_base(to) + OSTM_CNT, "ostm",
++				     timer_of_rate(to), 300, 32,
++				     clocksource_mmio_readl_up);
+ }
+ 
+ static u64 notrace ostm_read_sched_clock(void)
+@@ -89,87 +74,75 @@ static u64 notrace ostm_read_sched_clock(void)
+ 	return readl(system_clock);
+ }
+ 
+-static void __init ostm_init_sched_clock(struct ostm_device *ostm,
+-			unsigned long rate)
++static void __init ostm_init_sched_clock(struct timer_of *to)
+ {
+-	system_clock = ostm->base + OSTM_CNT;
+-	sched_clock_register(ostm_read_sched_clock, 32, rate);
++	system_clock = timer_of_base(to) + OSTM_CNT;
++	sched_clock_register(ostm_read_sched_clock, 32, timer_of_rate(to));
+ }
+ 
+ static int ostm_clock_event_next(unsigned long delta,
+-				     struct clock_event_device *ced)
++				 struct clock_event_device *ced)
+ {
+-	struct ostm_device *ostm = ced_to_ostm(ced);
++	struct timer_of *to = to_timer_of(ced);
+ 
+-	ostm_timer_stop(ostm);
++	ostm_timer_stop(to);
+ 
+-	writel(delta, ostm->base + OSTM_CMP);
+-	writeb(CTL_ONESHOT, ostm->base + OSTM_CTL);
+-	writeb(TS, ostm->base + OSTM_TS);
++	writel(delta, timer_of_base(to) + OSTM_CMP);
++	writeb(CTL_ONESHOT, timer_of_base(to) + OSTM_CTL);
++	writeb(TS, timer_of_base(to) + OSTM_TS);
+ 
  	return 0;
  }
  
-+/* No support of mmap in S/PDIF mode */
-+static const struct snd_pcm_hardware stm32_sai_pcm_hw_spdif = {
-+	.info = SNDRV_PCM_INFO_INTERLEAVED,
-+	.buffer_bytes_max = 8 * PAGE_SIZE,
-+	.period_bytes_min = 1024,
-+	.period_bytes_max = PAGE_SIZE,
-+	.periods_min = 2,
-+	.periods_max = 8,
-+};
-+
- static const struct snd_pcm_hardware stm32_sai_pcm_hw = {
- 	.info = SNDRV_PCM_INFO_INTERLEAVED | SNDRV_PCM_INFO_MMAP,
- 	.buffer_bytes_max = 8 * PAGE_SIZE,
-@@ -1270,7 +1280,7 @@ static const struct snd_dmaengine_pcm_config stm32_sai_pcm_config = {
- };
+ static int ostm_shutdown(struct clock_event_device *ced)
+ {
+-	struct ostm_device *ostm = ced_to_ostm(ced);
++	struct timer_of *to = to_timer_of(ced);
  
- static const struct snd_dmaengine_pcm_config stm32_sai_pcm_config_spdif = {
--	.pcm_hardware = &stm32_sai_pcm_hw,
-+	.pcm_hardware = &stm32_sai_pcm_hw_spdif,
- 	.prepare_slave_config = snd_dmaengine_pcm_prepare_slave_config,
- 	.process = stm32_sai_pcm_process_spdif,
- };
+-	ostm_timer_stop(ostm);
++	ostm_timer_stop(to);
+ 
+ 	return 0;
+ }
+ static int ostm_set_periodic(struct clock_event_device *ced)
+ {
+-	struct ostm_device *ostm = ced_to_ostm(ced);
++	struct timer_of *to = to_timer_of(ced);
+ 
+ 	if (clockevent_state_oneshot(ced) || clockevent_state_periodic(ced))
+-		ostm_timer_stop(ostm);
++		ostm_timer_stop(to);
+ 
+-	writel(ostm->ticks_per_jiffy - 1, ostm->base + OSTM_CMP);
+-	writeb(CTL_PERIODIC, ostm->base + OSTM_CTL);
+-	writeb(TS, ostm->base + OSTM_TS);
++	writel(timer_of_period(to) - 1, timer_of_base(to) + OSTM_CMP);
++	writeb(CTL_PERIODIC, timer_of_base(to) + OSTM_CTL);
++	writeb(TS, timer_of_base(to) + OSTM_TS);
+ 
+ 	return 0;
+ }
+ 
+ static int ostm_set_oneshot(struct clock_event_device *ced)
+ {
+-	struct ostm_device *ostm = ced_to_ostm(ced);
++	struct timer_of *to = to_timer_of(ced);
+ 
+-	ostm_timer_stop(ostm);
++	ostm_timer_stop(to);
+ 
+ 	return 0;
+ }
+ 
+ static irqreturn_t ostm_timer_interrupt(int irq, void *dev_id)
+ {
+-	struct ostm_device *ostm = dev_id;
++	struct clock_event_device *ced = dev_id;
+ 
+-	if (clockevent_state_oneshot(&ostm->ced))
+-		ostm_timer_stop(ostm);
++	if (clockevent_state_oneshot(ced))
++		ostm_timer_stop(to_timer_of(ced));
+ 
+ 	/* notify clockevent layer */
+-	if (ostm->ced.event_handler)
+-		ostm->ced.event_handler(&ostm->ced);
++	if (ced->event_handler)
++		ced->event_handler(ced);
+ 
+ 	return IRQ_HANDLED;
+ }
+ 
+-static int __init ostm_init_clkevt(struct ostm_device *ostm, int irq,
+-			unsigned long rate)
++static int __init ostm_init_clkevt(struct timer_of *to)
+ {
+-	struct clock_event_device *ced = &ostm->ced;
+-	int ret = -ENXIO;
+-
+-	ret = request_irq(irq, ostm_timer_interrupt,
+-			  IRQF_TIMER | IRQF_IRQPOLL,
+-			  "ostm", ostm);
+-	if (ret) {
+-		pr_err("ostm: failed to request irq\n");
+-		return ret;
+-	}
++	struct clock_event_device *ced = &to->clkevt;
+ 
+-	ced->name = "ostm";
+ 	ced->features = CLOCK_EVT_FEAT_ONESHOT | CLOCK_EVT_FEAT_PERIODIC;
+ 	ced->set_state_shutdown = ostm_shutdown;
+ 	ced->set_state_periodic = ostm_set_periodic;
+@@ -178,79 +151,61 @@ static int __init ostm_init_clkevt(struct ostm_device *ostm, int irq,
+ 	ced->shift = 32;
+ 	ced->rating = 300;
+ 	ced->cpumask = cpumask_of(0);
+-	clockevents_config_and_register(ced, rate, 0xf, 0xffffffff);
++	clockevents_config_and_register(ced, timer_of_rate(to), 0xf,
++					0xffffffff);
+ 
+ 	return 0;
+ }
+ 
+ static int __init ostm_init(struct device_node *np)
+ {
+-	struct ostm_device *ostm;
+-	int ret = -EFAULT;
+-	struct clk *ostm_clk = NULL;
+-	int irq;
+-	unsigned long rate;
+-
+-	ostm = kzalloc(sizeof(*ostm), GFP_KERNEL);
+-	if (!ostm)
+-		return -ENOMEM;
+-
+-	ostm->base = of_iomap(np, 0);
+-	if (!ostm->base) {
+-		pr_err("ostm: failed to remap I/O memory\n");
+-		goto err;
+-	}
+-
+-	irq = irq_of_parse_and_map(np, 0);
+-	if (irq < 0) {
+-		pr_err("ostm: Failed to get irq\n");
+-		goto err;
+-	}
++	struct timer_of *to;
++	int ret;
+ 
+-	ostm_clk = of_clk_get(np, 0);
+-	if (IS_ERR(ostm_clk)) {
+-		pr_err("ostm: Failed to get clock\n");
+-		ostm_clk = NULL;
+-		goto err;
+-	}
++	to = kzalloc(sizeof(*to), GFP_KERNEL);
++	if (!to)
++		return -ENOMEM;
+ 
+-	ret = clk_prepare_enable(ostm_clk);
+-	if (ret) {
+-		pr_err("ostm: Failed to enable clock\n");
+-		goto err;
++	to->flags = TIMER_OF_BASE | TIMER_OF_CLOCK;
++	if (system_clock) {
++		/*
++		 * clock sources don't use interrupts, clock events do
++		 */
++		to->flags |= TIMER_OF_IRQ;
++		to->of_irq.flags = IRQF_TIMER | IRQF_IRQPOLL;
++		to->of_irq.handler = ostm_timer_interrupt;
+ 	}
+ 
+-	rate = clk_get_rate(ostm_clk);
+-	ostm->ticks_per_jiffy = DIV_ROUND_CLOSEST(rate, HZ);
++	ret = timer_of_init(np, to);
++	if (ret)
++		goto err_free;
+ 
+ 	/*
+ 	 * First probed device will be used as system clocksource. Any
+ 	 * additional devices will be used as clock events.
+ 	 */
+ 	if (!system_clock) {
+-		ret = ostm_init_clksrc(ostm, rate);
+-
+-		if (!ret) {
+-			ostm_init_sched_clock(ostm, rate);
+-			pr_info("ostm: used for clocksource\n");
+-		}
++		ret = ostm_init_clksrc(to);
++		if (ret)
++			goto err_cleanup;
+ 
++		ostm_init_sched_clock(to);
++		pr_info("ostm: used for clocksource\n");
+ 	} else {
+-		ret = ostm_init_clkevt(ostm, irq, rate);
++		ret = ostm_init_clkevt(to);
++		if (ret)
++			goto err_cleanup;
+ 
+-		if (!ret)
+-			pr_info("ostm: used for clock events\n");
+-	}
+-
+-err:
+-	if (ret) {
+-		clk_disable_unprepare(ostm_clk);
+-		iounmap(ostm->base);
+-		kfree(ostm);
+-		return ret;
++		pr_info("ostm: used for clock events\n");
+ 	}
+ 
+ 	return 0;
++
++err_cleanup:
++	timer_of_cleanup(to);
++err_free:
++	kfree(to);
++	return ret;
+ }
+ 
+ TIMER_OF_DECLARE(ostm, "renesas,ostm", ostm_init);
 -- 
 2.17.1
 
