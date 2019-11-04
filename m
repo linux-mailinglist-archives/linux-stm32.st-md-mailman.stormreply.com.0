@@ -2,62 +2,59 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id EAD48EE28C
-	for <lists+linux-stm32@lfdr.de>; Mon,  4 Nov 2019 15:32:08 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 217B1EE2AF
+	for <lists+linux-stm32@lfdr.de>; Mon,  4 Nov 2019 15:37:23 +0100 (CET)
 Received: from ip-172-31-3-76.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 8282AC36B0B;
-	Mon,  4 Nov 2019 14:32:07 +0000 (UTC)
-Received: from mx07-00178001.pphosted.com (mx07-00178001.pphosted.com
- [62.209.51.94])
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id D63C2C36B0B;
+	Mon,  4 Nov 2019 14:37:22 +0000 (UTC)
+Received: from mx07-00178001.pphosted.com (mx08-00178001.pphosted.com
+ [91.207.212.93])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 12022C36B09
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 8DB44C36B09
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Mon,  4 Nov 2019 14:32:06 +0000 (UTC)
-Received: from pps.filterd (m0046668.ppops.net [127.0.0.1])
- by mx07-00178001.pphosted.com (8.16.0.42/8.16.0.42) with SMTP id
- xA4ER8QN006158; Mon, 4 Nov 2019 15:31:51 +0100
+ Mon,  4 Nov 2019 14:37:21 +0000 (UTC)
+Received: from pps.filterd (m0046661.ppops.net [127.0.0.1])
+ by mx08-00178001.pphosted.com (8.16.0.42/8.16.0.42) with SMTP id
+ xA4ERGoq004129; Mon, 4 Nov 2019 15:37:15 +0100
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=st.com;
  h=from : to : cc : subject
  : date : message-id : mime-version : content-type; s=STMicroelectronics;
- bh=CMrndWG+ZiADLifRh/ny34DDuov8Fnz6puAWI7fXAts=;
- b=d62Wn1Tn8/n1Q+HCfMMOW1vPAEGj8o1xlvb4fjMyFue9RYFMh4zaBqkSSHgCOvih+rXS
- FN3sIzNOZVUjSDkTC5NFCiXPx5tm4FmBsuVMG6KIqXb0H5Wm+OZ0Mshalnjb+oTRj5WI
- x5l6Tq8GpnK/rkUlAuY7Q2x5Pq96SqzJhvfx5KIwGazhzn59g0qDv2iAhBJa1+gq7r3a
- BkuC6k/hB5v9IYxRD2kwWaDkg63LLeV551lPij11CSE0uvGeUG126bUJMIodwdEj7GQq
- D0tBCrZ7BuYZNg4t2TamaEHCbUDx8sf+HQHD1sqh1votSZzfkl+/W70YHtp3MuY1XFLQ Ng== 
+ bh=+pqW3tmknQkUaVLMwtyyZmv86PtC0OIFE0YGfYD6OSY=;
+ b=sUE9SHEQzHgrRVmmtmeCgVACIzEsKwviy+pGX1tYxHdIdTWtA505OzSqxbqm+NE2FVJy
+ w32klntmh+IhTYqBlYbkYdj5Oy1DhTzuuyeMv0Zp6a5kNML+8nfufVrpm/s0ZqD0e2Fz
+ okqEJBjBMCMwGFnlNvQgzRemdTTleLRGSfR9G3G1kmQId15m/yixlpDFFxTLYwdfXiSg
+ 1TV93vMCj34PFqkAOmPxuIjhfYa6UMUZCVRH3SlZXhzoNiW070Bh6Wp6VK0pU5WzWbA8
+ Nv9ybJvhu9rGEva5qQRE9Afk4ftpKC7vKiH/X8LQnn4syX4DgW7WwWEfZQEMa5aWM2/g ig== 
 Received: from beta.dmz-eu.st.com (beta.dmz-eu.st.com [164.129.1.35])
- by mx07-00178001.pphosted.com with ESMTP id 2w1054hx1p-1
+ by mx08-00178001.pphosted.com with ESMTP id 2w11jn25wy-1
  (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
- Mon, 04 Nov 2019 15:31:51 +0100
+ Mon, 04 Nov 2019 15:37:15 +0100
 Received: from euls16034.sgp.st.com (euls16034.sgp.st.com [10.75.44.20])
- by beta.dmz-eu.st.com (STMicroelectronics) with ESMTP id 7161E100034;
- Mon,  4 Nov 2019 15:31:50 +0100 (CET)
-Received: from Webmail-eu.st.com (Safex1hubcas23.st.com [10.75.90.46])
- by euls16034.sgp.st.com (STMicroelectronics) with ESMTP id 603772D3776;
- Mon,  4 Nov 2019 15:31:50 +0100 (CET)
-Received: from SAFEX1HUBCAS21.st.com (10.75.90.45) by SAFEX1HUBCAS23.st.com
- (10.75.90.46) with Microsoft SMTP Server (TLS) id 14.3.439.0; Mon, 4 Nov 2019
- 15:31:50 +0100
-Received: from localhost (10.201.22.222) by Webmail-ga.st.com (10.75.90.48)
- with Microsoft SMTP Server (TLS) id 14.3.439.0; Mon, 4 Nov 2019 15:31:49
+ by beta.dmz-eu.st.com (STMicroelectronics) with ESMTP id DB43F10002A;
+ Mon,  4 Nov 2019 15:37:14 +0100 (CET)
+Received: from Webmail-eu.st.com (sfhdag3node2.st.com [10.75.127.8])
+ by euls16034.sgp.st.com (STMicroelectronics) with ESMTP id C433E220FCD;
+ Mon,  4 Nov 2019 15:37:14 +0100 (CET)
+Received: from localhost (10.75.127.45) by SFHDAG3NODE2.st.com (10.75.127.8)
+ with Microsoft SMTP Server (TLS) id 15.0.1347.2; Mon, 4 Nov 2019 15:37:14
  +0100
-From: Christophe Roullier <christophe.roullier@st.com>
-To: <robh@kernel.org>, <davem@davemloft.net>, <joabreu@synopsys.com>,
- <mark.rutland@arm.com>, <mcoquelin.stm32@gmail.com>,
- <alexandre.torgue@st.com>, <peppe.cavallaro@st.com>
-Date: Mon, 4 Nov 2019 15:31:45 +0100
-Message-ID: <20191104143145.7053-1-christophe.roullier@st.com>
+From: Alexandre Torgue <alexandre.torgue@st.com>
+To: Kishon Vijay Abraham I <kishon@ti.com>, Greg Kroah-Hartman
+ <gregkh@linuxfoundation.org>
+Date: Mon, 4 Nov 2019 15:37:13 +0100
+Message-ID: <20191104143713.11137-1-alexandre.torgue@st.com>
 X-Mailer: git-send-email 2.17.1
 MIME-Version: 1.0
-X-Originating-IP: [10.201.22.222]
+X-Originating-IP: [10.75.127.45]
+X-ClientProxiedBy: SFHDAG3NODE3.st.com (10.75.127.9) To SFHDAG3NODE2.st.com
+ (10.75.127.8)
 X-Proofpoint-Virus-Version: vendor=fsecure engine=2.50.10434:6.0.95,1.0.8
  definitions=2019-11-04_08:2019-11-04,2019-11-04 signatures=0
-Cc: devicetree@vger.kernel.org, andrew@lunn.ch, netdev@vger.kernel.org,
- linux-kernel@vger.kernel.org, linux-stm32@st-md-mailman.stormreply.com,
- linux-arm-kernel@lists.infradead.org
-Subject: [Linux-stm32] [PATCH 1/1] ARM: dts: stm32: Fix CAN RAM mapping on
-	stm32mp157c
+Cc: Yoshihiro Shimoda <yoshihiro.shimoda.uh@renesas.com>,
+ linux-usb@vger.kernel.org, linux-stm32@st-md-mailman.stormreply.com,
+ linux-kernel@vger.kernel.org
+Subject: [Linux-stm32] [PATCH] phy: core: Add consumer device link support
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -74,38 +71,192 @@ Content-Transfer-Encoding: 7bit
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
-Split the 10Kbytes CAN message RAM to be able to use simultaneously
-FDCAN1 and FDCAN2 instances.
-First 5Kbytes are allocated to FDCAN1 and last 5Kbytes are used for
-FDCAN2. To do so, set the offset to 0x1400 in mram-cfg for FDCAN2.
+In order to enforce suspend/resume ordering, this commit creates link
+between phy consumers and phy devices. This link avoids to suspend phy
+before phy consumers.
 
-Fixes: d44d6e021301 ("ARM: dts: stm32: change CAN RAM mapping on stm32mp157c")
-Signed-off-by: Christophe Roullier <christophe.roullier@st.com>
+Signed-off-by: Alexandre Torgue <alexandre.torgue@st.com>
+
 ---
- arch/arm/boot/dts/stm32mp157c.dtsi | 4 ++--
- 1 file changed, 2 insertions(+), 2 deletions(-)
 
-diff --git a/arch/arm/boot/dts/stm32mp157c.dtsi b/arch/arm/boot/dts/stm32mp157c.dtsi
-index 9b11654a0a39..f98e0370c0bc 100644
---- a/arch/arm/boot/dts/stm32mp157c.dtsi
-+++ b/arch/arm/boot/dts/stm32mp157c.dtsi
-@@ -932,7 +932,7 @@
- 			interrupt-names = "int0", "int1";
- 			clocks = <&rcc CK_HSE>, <&rcc FDCAN_K>;
- 			clock-names = "hclk", "cclk";
--			bosch,mram-cfg = <0x1400 0 0 32 0 0 2 2>;
-+			bosch,mram-cfg = <0x0 0 0 32 0 0 2 2>;
- 			status = "disabled";
- 		};
+Hi,
+
+To manage device_link in phy-core I had to "balance" get and put APIs a bit
+more. Fot this reason, you'll find updates in Renesas usbhs rcar and rza drivers
+as phy API changes.
+
+Regards
+Alex
+
+diff --git a/drivers/phy/phy-core.c b/drivers/phy/phy-core.c
+index b04f4fe85ac2..8dfb4868c8c3 100644
+--- a/drivers/phy/phy-core.c
++++ b/drivers/phy/phy-core.c
+@@ -29,7 +29,7 @@ static void devm_phy_release(struct device *dev, void *res)
+ {
+ 	struct phy *phy = *(struct phy **)res;
  
-@@ -945,7 +945,7 @@
- 			interrupt-names = "int0", "int1";
- 			clocks = <&rcc CK_HSE>, <&rcc FDCAN_K>;
- 			clock-names = "hclk", "cclk";
--			bosch,mram-cfg = <0x0 0 0 32 0 0 2 2>;
-+			bosch,mram-cfg = <0x1400 0 0 32 0 0 2 2>;
- 			status = "disabled";
- 		};
+-	phy_put(phy);
++	phy_put(dev, phy);
+ }
+ 
+ static void devm_phy_provider_release(struct device *dev, void *res)
+@@ -566,12 +566,12 @@ struct phy *of_phy_get(struct device_node *np, const char *con_id)
+ EXPORT_SYMBOL_GPL(of_phy_get);
+ 
+ /**
+- * phy_put() - release the PHY
+- * @phy: the phy returned by phy_get()
++ * of_phy_put() - release the PHY
++ * @phy: the phy returned by of_phy_get()
+  *
+- * Releases a refcount the caller received from phy_get().
++ * Releases a refcount the caller received from of_phy_get().
+  */
+-void phy_put(struct phy *phy)
++void of_phy_put(struct phy *phy)
+ {
+ 	if (!phy || IS_ERR(phy))
+ 		return;
+@@ -584,6 +584,20 @@ void phy_put(struct phy *phy)
+ 	module_put(phy->ops->owner);
+ 	put_device(&phy->dev);
+ }
++EXPORT_SYMBOL_GPL(of_phy_put);
++
++/**
++ * phy_put() - release the PHY
++ * @dev: device that wants to release this phy
++ * @phy: the phy returned by phy_get()
++ *
++ * Releases a refcount the caller received from phy_get().
++ */
++void phy_put(struct device *dev, struct phy *phy)
++{
++	device_link_remove(dev, &phy->dev);
++	of_phy_put(phy);
++}
+ EXPORT_SYMBOL_GPL(phy_put);
+ 
+ /**
+@@ -651,6 +665,7 @@ struct phy *phy_get(struct device *dev, const char *string)
+ {
+ 	int index = 0;
+ 	struct phy *phy;
++	struct device_link *link;
+ 
+ 	if (string == NULL) {
+ 		dev_WARN(dev, "missing string\n");
+@@ -672,6 +687,13 @@ struct phy *phy_get(struct device *dev, const char *string)
+ 
+ 	get_device(&phy->dev);
+ 
++	link = device_link_add(dev, &phy->dev, DL_FLAG_STATELESS);
++	if (!link) {
++		dev_err(dev, "failed to create device link to %s\n",
++			dev_name(phy->dev.parent));
++		return ERR_PTR(-EINVAL);
++	}
++
+ 	return phy;
+ }
+ EXPORT_SYMBOL_GPL(phy_get);
+@@ -765,6 +787,7 @@ struct phy *devm_of_phy_get(struct device *dev, struct device_node *np,
+ 			    const char *con_id)
+ {
+ 	struct phy **ptr, *phy;
++	struct device_link *link;
+ 
+ 	ptr = devres_alloc(devm_phy_release, sizeof(*ptr), GFP_KERNEL);
+ 	if (!ptr)
+@@ -778,6 +801,13 @@ struct phy *devm_of_phy_get(struct device *dev, struct device_node *np,
+ 		devres_free(ptr);
+ 	}
+ 
++	link = device_link_add(dev, &phy->dev, DL_FLAG_STATELESS);
++	if (!link) {
++		dev_err(dev, "failed to create device link to %s\n",
++			dev_name(phy->dev.parent));
++		return ERR_PTR(-EINVAL);
++	}
++
+ 	return phy;
+ }
+ EXPORT_SYMBOL_GPL(devm_of_phy_get);
+@@ -798,6 +828,7 @@ struct phy *devm_of_phy_get_by_index(struct device *dev, struct device_node *np,
+ 				     int index)
+ {
+ 	struct phy **ptr, *phy;
++	struct device_link *link;
+ 
+ 	ptr = devres_alloc(devm_phy_release, sizeof(*ptr), GFP_KERNEL);
+ 	if (!ptr)
+@@ -819,6 +850,13 @@ struct phy *devm_of_phy_get_by_index(struct device *dev, struct device_node *np,
+ 	*ptr = phy;
+ 	devres_add(dev, ptr);
+ 
++	link = device_link_add(dev, &phy->dev, DL_FLAG_STATELESS);
++	if (!link) {
++		dev_err(dev, "failed to create device link to %s\n",
++			dev_name(phy->dev.parent));
++		return ERR_PTR(-EINVAL);
++	}
++
+ 	return phy;
+ }
+ EXPORT_SYMBOL_GPL(devm_of_phy_get_by_index);
+diff --git a/drivers/usb/renesas_usbhs/rcar2.c b/drivers/usb/renesas_usbhs/rcar2.c
+index 440d213e1749..791908f8cf73 100644
+--- a/drivers/usb/renesas_usbhs/rcar2.c
++++ b/drivers/usb/renesas_usbhs/rcar2.c
+@@ -34,7 +34,7 @@ static int usbhs_rcar2_hardware_exit(struct platform_device *pdev)
+ 	struct usbhs_priv *priv = usbhs_pdev_to_priv(pdev);
+ 
+ 	if (priv->phy) {
+-		phy_put(priv->phy);
++		phy_put(&pdev->dev, priv->phy);
+ 		priv->phy = NULL;
+ 	}
+ 
+diff --git a/drivers/usb/renesas_usbhs/rza2.c b/drivers/usb/renesas_usbhs/rza2.c
+index 021749594389..3eed3334a17f 100644
+--- a/drivers/usb/renesas_usbhs/rza2.c
++++ b/drivers/usb/renesas_usbhs/rza2.c
+@@ -29,7 +29,7 @@ static int usbhs_rza2_hardware_exit(struct platform_device *pdev)
+ {
+ 	struct usbhs_priv *priv = usbhs_pdev_to_priv(pdev);
+ 
+-	phy_put(priv->phy);
++	phy_put(&pdev->dev, priv->phy);
+ 	priv->phy = NULL;
+ 
+ 	return 0;
+diff --git a/include/linux/phy/phy.h b/include/linux/phy/phy.h
+index 56d3a100006a..19eddd64c8f6 100644
+--- a/include/linux/phy/phy.h
++++ b/include/linux/phy/phy.h
+@@ -234,7 +234,8 @@ struct phy *devm_of_phy_get(struct device *dev, struct device_node *np,
+ 			    const char *con_id);
+ struct phy *devm_of_phy_get_by_index(struct device *dev, struct device_node *np,
+ 				     int index);
+-void phy_put(struct phy *phy);
++void of_phy_put(struct phy *phy);
++void phy_put(struct device *dev, struct phy *phy);
+ void devm_phy_put(struct device *dev, struct phy *phy);
+ struct phy *of_phy_get(struct device_node *np, const char *con_id);
+ struct phy *of_phy_simple_xlate(struct device *dev,
+@@ -419,7 +420,11 @@ static inline struct phy *devm_of_phy_get_by_index(struct device *dev,
+ 	return ERR_PTR(-ENOSYS);
+ }
+ 
+-static inline void phy_put(struct phy *phy)
++static inline void of_phy_put(struct phy *phy)
++{
++}
++
++static inline void phy_put(struct device *dev, struct phy *phy)
+ {
+ }
  
 -- 
 2.17.1
