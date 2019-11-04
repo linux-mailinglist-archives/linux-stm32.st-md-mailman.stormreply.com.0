@@ -2,65 +2,62 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id 26AA4EE218
-	for <lists+linux-stm32@lfdr.de>; Mon,  4 Nov 2019 15:23:16 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id EAD48EE28C
+	for <lists+linux-stm32@lfdr.de>; Mon,  4 Nov 2019 15:32:08 +0100 (CET)
 Received: from ip-172-31-3-76.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id E4892C36B0E;
-	Mon,  4 Nov 2019 14:23:15 +0000 (UTC)
-Received: from mail-wm1-f66.google.com (mail-wm1-f66.google.com
- [209.85.128.66])
- (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 8282AC36B0B;
+	Mon,  4 Nov 2019 14:32:07 +0000 (UTC)
+Received: from mx07-00178001.pphosted.com (mx07-00178001.pphosted.com
+ [62.209.51.94])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 794C4C36B09
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 12022C36B09
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Mon,  4 Nov 2019 14:23:15 +0000 (UTC)
-Received: by mail-wm1-f66.google.com with SMTP id c22so16272360wmd.1
- for <linux-stm32@st-md-mailman.stormreply.com>;
- Mon, 04 Nov 2019 06:23:15 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linaro.org; s=google;
- h=from:to:cc:subject:date:message-id:in-reply-to:references;
- bh=DlHGsHCYz6i9keGsLrYM+8DrDokVvhA17QRfhwApon4=;
- b=pformDiSnMnhGM0gWYP61EL4IsZN5i5fQ20RPhOIcGPtbvADApmq3GGz3ONVTEshHm
- wUje680PA6qM1Er/+RfRn3rLoXyJ3NpKVfmdZ8nVsuKHtCIStEltZD9vqc8Gru0cEJLj
- BBXQmTmeGmCPA0FSuvLswr1oygRQXRacmKn6mMNa7Wj5mCsqwfQ7W3jvUbNWOjsPrE5C
- +s9Tr0F8RqgF+zp6uKjx9lunA6aY0/AHe3l7bor+KvIjirdp5ndgS/qnucYbOCKyo4IN
- EoV8o3HmWJqw6Ffth7CtcZB8UJLk0rlpMe4fCx0380dohUIF1SUGT2Ksbfsdn3hdIR+b
- f/RA==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20161025;
- h=x-gm-message-state:from:to:cc:subject:date:message-id:in-reply-to
- :references;
- bh=DlHGsHCYz6i9keGsLrYM+8DrDokVvhA17QRfhwApon4=;
- b=HLUdYQ44OAZuKEYVoGK/EH1OJPuHQ+nYt+i8fWL1EHBbSduyv998A3cUWwCKcaWnlO
- 5RexbioLbo+OVdgAEjiQBzo0ndBfjnxNlSGtObSfHit1VsIVE2AXPPbD28C9ENWGLey3
- 7Ln+jwMEfo2XkZGvDUYVqYH9btUapoF4hx6zruNTSWy7v2n4rGL5M0XWyvllWrPbFLnD
- VejvT1Qnj+qG1XgYToy7bYt+82hLnwH7onKwbmpeW+3F3a7XFUna3HcTHrz1+zuX9Vdy
- /VVyG1kxmQyg1COrBcaq/TXWMkHldTIILgvOD2ITdfGA7Cbb5N7v40gCs4DDwODrFfLC
- uNwA==
-X-Gm-Message-State: APjAAAX12CYgEHeaHHJ8p/xqbqHic+AN3oQNVazynNmop+Joxdbj4Lm6
- J/f0ZRzdII0J66Q0NQ+2R1nLUw==
-X-Google-Smtp-Source: APXvYqw5dRFCT4rWakrmWngzJkmEsTf4OzwjQFejtITeq3kHdmXf626rugiPj/J78gqdopl+XXEyQw==
-X-Received: by 2002:a7b:cc89:: with SMTP id p9mr21507045wma.99.1572877394844; 
- Mon, 04 Nov 2019 06:23:14 -0800 (PST)
-Received: from mai.imgcgcw.net ([2a01:e34:ed2f:f020:58da:b044:f184:d281])
- by smtp.gmail.com with ESMTPSA id l18sm21692446wrn.48.2019.11.04.06.23.13
- (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Mon, 04 Nov 2019 06:23:14 -0800 (PST)
-From: Daniel Lezcano <daniel.lezcano@linaro.org>
-To: tglx@linutronix.de
-Date: Mon,  4 Nov 2019 15:22:56 +0100
-Message-Id: <20191104142257.30029-4-daniel.lezcano@linaro.org>
+ Mon,  4 Nov 2019 14:32:06 +0000 (UTC)
+Received: from pps.filterd (m0046668.ppops.net [127.0.0.1])
+ by mx07-00178001.pphosted.com (8.16.0.42/8.16.0.42) with SMTP id
+ xA4ER8QN006158; Mon, 4 Nov 2019 15:31:51 +0100
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=st.com;
+ h=from : to : cc : subject
+ : date : message-id : mime-version : content-type; s=STMicroelectronics;
+ bh=CMrndWG+ZiADLifRh/ny34DDuov8Fnz6puAWI7fXAts=;
+ b=d62Wn1Tn8/n1Q+HCfMMOW1vPAEGj8o1xlvb4fjMyFue9RYFMh4zaBqkSSHgCOvih+rXS
+ FN3sIzNOZVUjSDkTC5NFCiXPx5tm4FmBsuVMG6KIqXb0H5Wm+OZ0Mshalnjb+oTRj5WI
+ x5l6Tq8GpnK/rkUlAuY7Q2x5Pq96SqzJhvfx5KIwGazhzn59g0qDv2iAhBJa1+gq7r3a
+ BkuC6k/hB5v9IYxRD2kwWaDkg63LLeV551lPij11CSE0uvGeUG126bUJMIodwdEj7GQq
+ D0tBCrZ7BuYZNg4t2TamaEHCbUDx8sf+HQHD1sqh1votSZzfkl+/W70YHtp3MuY1XFLQ Ng== 
+Received: from beta.dmz-eu.st.com (beta.dmz-eu.st.com [164.129.1.35])
+ by mx07-00178001.pphosted.com with ESMTP id 2w1054hx1p-1
+ (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
+ Mon, 04 Nov 2019 15:31:51 +0100
+Received: from euls16034.sgp.st.com (euls16034.sgp.st.com [10.75.44.20])
+ by beta.dmz-eu.st.com (STMicroelectronics) with ESMTP id 7161E100034;
+ Mon,  4 Nov 2019 15:31:50 +0100 (CET)
+Received: from Webmail-eu.st.com (Safex1hubcas23.st.com [10.75.90.46])
+ by euls16034.sgp.st.com (STMicroelectronics) with ESMTP id 603772D3776;
+ Mon,  4 Nov 2019 15:31:50 +0100 (CET)
+Received: from SAFEX1HUBCAS21.st.com (10.75.90.45) by SAFEX1HUBCAS23.st.com
+ (10.75.90.46) with Microsoft SMTP Server (TLS) id 14.3.439.0; Mon, 4 Nov 2019
+ 15:31:50 +0100
+Received: from localhost (10.201.22.222) by Webmail-ga.st.com (10.75.90.48)
+ with Microsoft SMTP Server (TLS) id 14.3.439.0; Mon, 4 Nov 2019 15:31:49
+ +0100
+From: Christophe Roullier <christophe.roullier@st.com>
+To: <robh@kernel.org>, <davem@davemloft.net>, <joabreu@synopsys.com>,
+ <mark.rutland@arm.com>, <mcoquelin.stm32@gmail.com>,
+ <alexandre.torgue@st.com>, <peppe.cavallaro@st.com>
+Date: Mon, 4 Nov 2019 15:31:45 +0100
+Message-ID: <20191104143145.7053-1-christophe.roullier@st.com>
 X-Mailer: git-send-email 2.17.1
-In-Reply-To: <20191104142257.30029-1-daniel.lezcano@linaro.org>
-References: <6fd4d800-b1f8-d757-458e-23742d20884c@linaro.org>
- <20191104142257.30029-1-daniel.lezcano@linaro.org>
-Cc: Geert Uytterhoeven <geert+renesas@glider.be>, linux-kernel@vger.kernel.org,
- Maxime Coquelin <mcoquelin.stm32@gmail.com>,
- "moderated list:ARM/STM32 ARCHITECTURE"
- <linux-stm32@st-md-mailman.stormreply.com>,
- "moderated list:ARM/STM32 ARCHITECTURE" <linux-arm-kernel@lists.infradead.org>
-Subject: [Linux-stm32] [PATCH 4/5] clocksource/drivers/renesas-ostm: Use
-	unique device name instead of ostm
+MIME-Version: 1.0
+X-Originating-IP: [10.201.22.222]
+X-Proofpoint-Virus-Version: vendor=fsecure engine=2.50.10434:6.0.95,1.0.8
+ definitions=2019-11-04_08:2019-11-04,2019-11-04 signatures=0
+Cc: devicetree@vger.kernel.org, andrew@lunn.ch, netdev@vger.kernel.org,
+ linux-kernel@vger.kernel.org, linux-stm32@st-md-mailman.stormreply.com,
+ linux-arm-kernel@lists.infradead.org
+Subject: [Linux-stm32] [PATCH 1/1] ARM: dts: stm32: Fix CAN RAM mapping on
+	stm32mp157c
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -72,73 +69,44 @@ List-Post: <mailto:linux-stm32@st-md-mailman.stormreply.com>
 List-Help: <mailto:linux-stm32-request@st-md-mailman.stormreply.com?subject=help>
 List-Subscribe: <https://st-md-mailman.stormreply.com/mailman/listinfo/linux-stm32>, 
  <mailto:linux-stm32-request@st-md-mailman.stormreply.com?subject=subscribe>
-MIME-Version: 1.0
 Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
-From: Geert Uytterhoeven <geert+renesas@glider.be>
+Split the 10Kbytes CAN message RAM to be able to use simultaneously
+FDCAN1 and FDCAN2 instances.
+First 5Kbytes are allocated to FDCAN1 and last 5Kbytes are used for
+FDCAN2. To do so, set the offset to 0x1400 in mram-cfg for FDCAN2.
 
-Currently all OSTM devices are called "ostm", also in kernel messages.
-
-As there can be multiple instances in an SoC, this can confuse the user.
-Hence construct a unique name from the DT node name, like is done for
-platform devices.
-
-On RSK+RZA1, the boot log changes like:
-
-    -clocksource: ostm: mask: 0xffffffff max_cycles: 0xffffffff, max_idle_ns: 57352151442 ns
-    +clocksource: timer@fcfec000: mask: 0xffffffff max_cycles: 0xffffffff, max_idle_ns: 57352151442 ns
-     sched_clock: 32 bits at 33MHz, resolution 30ns, wraps every 64440619504ns
-    -ostm: used for clocksource
-    -ostm: used for clock events
-    +/soc/timer@fcfec000: used for clocksource
-    +/soc/timer@fcfec400: used for clock events
-     ...
-    -clocksource: Switched to clocksource ostm
-    +clocksource: Switched to clocksource timer@fcfec000
-
-Signed-off-by: Geert Uytterhoeven <geert+renesas@glider.be>
-Signed-off-by: Daniel Lezcano <daniel.lezcano@linaro.org>
-Link: https://lore.kernel.org/r/20191016144747.29538-5-geert+renesas@glider.be
+Fixes: d44d6e021301 ("ARM: dts: stm32: change CAN RAM mapping on stm32mp157c")
+Signed-off-by: Christophe Roullier <christophe.roullier@st.com>
 ---
- drivers/clocksource/renesas-ostm.c | 10 +++++-----
- 1 file changed, 5 insertions(+), 5 deletions(-)
+ arch/arm/boot/dts/stm32mp157c.dtsi | 4 ++--
+ 1 file changed, 2 insertions(+), 2 deletions(-)
 
-diff --git a/drivers/clocksource/renesas-ostm.c b/drivers/clocksource/renesas-ostm.c
-index 46012d905604..3d06ba66008c 100644
---- a/drivers/clocksource/renesas-ostm.c
-+++ b/drivers/clocksource/renesas-ostm.c
-@@ -64,9 +64,9 @@ static int __init ostm_init_clksrc(struct timer_of *to)
- 	writeb(CTL_FREERUN, timer_of_base(to) + OSTM_CTL);
- 	writeb(TS, timer_of_base(to) + OSTM_TS);
+diff --git a/arch/arm/boot/dts/stm32mp157c.dtsi b/arch/arm/boot/dts/stm32mp157c.dtsi
+index 9b11654a0a39..f98e0370c0bc 100644
+--- a/arch/arm/boot/dts/stm32mp157c.dtsi
++++ b/arch/arm/boot/dts/stm32mp157c.dtsi
+@@ -932,7 +932,7 @@
+ 			interrupt-names = "int0", "int1";
+ 			clocks = <&rcc CK_HSE>, <&rcc FDCAN_K>;
+ 			clock-names = "hclk", "cclk";
+-			bosch,mram-cfg = <0x1400 0 0 32 0 0 2 2>;
++			bosch,mram-cfg = <0x0 0 0 32 0 0 2 2>;
+ 			status = "disabled";
+ 		};
  
--	return clocksource_mmio_init(timer_of_base(to) + OSTM_CNT, "ostm",
--				     timer_of_rate(to), 300, 32,
--				     clocksource_mmio_readl_up);
-+	return clocksource_mmio_init(timer_of_base(to) + OSTM_CNT,
-+				     to->np->full_name, timer_of_rate(to), 300,
-+				     32, clocksource_mmio_readl_up);
- }
+@@ -945,7 +945,7 @@
+ 			interrupt-names = "int0", "int1";
+ 			clocks = <&rcc CK_HSE>, <&rcc FDCAN_K>;
+ 			clock-names = "hclk", "cclk";
+-			bosch,mram-cfg = <0x0 0 0 32 0 0 2 2>;
++			bosch,mram-cfg = <0x1400 0 0 32 0 0 2 2>;
+ 			status = "disabled";
+ 		};
  
- static u64 notrace ostm_read_sched_clock(void)
-@@ -190,13 +190,13 @@ static int __init ostm_init(struct device_node *np)
- 			goto err_cleanup;
- 
- 		ostm_init_sched_clock(to);
--		pr_info("ostm: used for clocksource\n");
-+		pr_info("%pOF: used for clocksource\n", np);
- 	} else {
- 		ret = ostm_init_clkevt(to);
- 		if (ret)
- 			goto err_cleanup;
- 
--		pr_info("ostm: used for clock events\n");
-+		pr_info("%pOF: used for clock events\n", np);
- 	}
- 
- 	return 0;
 -- 
 2.17.1
 
