@@ -2,44 +2,46 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id 5E4A5EFFD7
-	for <lists+linux-stm32@lfdr.de>; Tue,  5 Nov 2019 15:33:10 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 927A6F008C
+	for <lists+linux-stm32@lfdr.de>; Tue,  5 Nov 2019 16:00:16 +0100 (CET)
 Received: from ip-172-31-3-76.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 296E7C36B0B;
-	Tue,  5 Nov 2019 14:33:10 +0000 (UTC)
-Received: from mga11.intel.com (mga11.intel.com [192.55.52.93])
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 57E55C36B0B;
+	Tue,  5 Nov 2019 15:00:16 +0000 (UTC)
+Received: from metis.ext.pengutronix.de (metis.ext.pengutronix.de
+ [85.220.165.71])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id E4543C36B09
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 0BF7EC36B09
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Tue,  5 Nov 2019 14:33:07 +0000 (UTC)
-X-Amp-Result: UNKNOWN
-X-Amp-Original-Verdict: FILE UNKNOWN
-X-Amp-File-Uploaded: False
-Received: from orsmga001.jf.intel.com ([10.7.209.18])
- by fmsmga102.fm.intel.com with ESMTP/TLS/DHE-RSA-AES256-GCM-SHA384;
- 05 Nov 2019 06:33:05 -0800
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="5.68,271,1569308400"; d="scan'208";a="285323461"
-Received: from smile.fi.intel.com (HELO smile) ([10.237.68.40])
- by orsmga001.jf.intel.com with ESMTP; 05 Nov 2019 06:32:52 -0800
-Received: from andy by smile with local (Exim 4.93-RC1)
- (envelope-from <andriy.shevchenko@linux.intel.com>)
- id 1iRzt3-00044T-EF; Tue, 05 Nov 2019 16:32:49 +0200
-Date: Tue, 5 Nov 2019 16:32:49 +0200
-From: "andriy.shevchenko@linux.intel.com" <andriy.shevchenko@linux.intel.com>
+ Tue,  5 Nov 2019 15:00:12 +0000 (UTC)
+Received: from pty.hi.pengutronix.de ([2001:67c:670:100:1d::c5])
+ by metis.ext.pengutronix.de with esmtps
+ (TLS1.2:ECDHE_RSA_AES_256_GCM_SHA384:256) (Exim 4.92)
+ (envelope-from <ukl@pengutronix.de>)
+ id 1iS0JI-0000cQ-N9; Tue, 05 Nov 2019 15:59:56 +0100
+Received: from ukl by pty.hi.pengutronix.de with local (Exim 4.89)
+ (envelope-from <ukl@pengutronix.de>)
+ id 1iS0J8-0001ZK-4d; Tue, 05 Nov 2019 15:59:46 +0100
+Date: Tue, 5 Nov 2019 15:59:46 +0100
+From: Uwe =?iso-8859-1?Q?Kleine-K=F6nig?= <u.kleine-koenig@pengutronix.de>
 To: "Vaittinen, Matti" <Matti.Vaittinen@fi.rohmeurope.com>
-Message-ID: <20191105143249.GT32742@smile.fi.intel.com>
+Message-ID: <20191105145946.2ye6ujvqzn2d6fqd@pengutronix.de>
 References: <cover.1572875541.git.matti.vaittinen@fi.rohmeurope.com>
  <20191105122042.GO32742@smile.fi.intel.com>
  <4e6fa62d7022c7b1426477a150a93c899725f5b0.camel@fi.rohmeurope.com>
- <20191105131125.GP32742@smile.fi.intel.com>
- <fdcfc69b39990dd382804db45422ed692881ea15.camel@fi.rohmeurope.com>
+ <20191105131038.duol3rwwkbuvgvwv@pengutronix.de>
+ <938a5ec7b41ae9ce7b0de83764d6b774cfdaa781.camel@fi.rohmeurope.com>
+ <20191105133604.d2xcasxw7pwzwvh7@pengutronix.de>
+ <a967c764d135ab0f96f6b1df62ac91426c935b44.camel@fi.rohmeurope.com>
 MIME-Version: 1.0
 Content-Disposition: inline
-In-Reply-To: <fdcfc69b39990dd382804db45422ed692881ea15.camel@fi.rohmeurope.com>
-Organization: Intel Finland Oy - BIC 0357606-4 - Westendinkatu 7, 02160 Espoo
-User-Agent: Mutt/1.10.1 (2018-07-13)
+In-Reply-To: <a967c764d135ab0f96f6b1df62ac91426c935b44.camel@fi.rohmeurope.com>
+User-Agent: NeoMutt/20170113 (1.7.2)
+X-SA-Exim-Connect-IP: 2001:67c:670:100:1d::c5
+X-SA-Exim-Mail-From: ukl@pengutronix.de
+X-SA-Exim-Scanned: No (on metis.ext.pengutronix.de);
+ SAEximRunCond expanded to false
+X-PTX-Original-Recipient: linux-stm32@st-md-mailman.stormreply.com
 Cc: "semi.malinen@ge.com" <semi.malinen@ge.com>,
  "alsa-devel@alsa-project.org" <alsa-devel@alsa-project.org>,
  "linux-aspeed@lists.ozlabs.org" <linux-aspeed@lists.ozlabs.org>,
@@ -49,7 +51,7 @@ Cc: "semi.malinen@ge.com" <semi.malinen@ge.com>,
  <sathyanarayanan.kuppuswamy@linux.intel.com>,
  "ptyser@xes-inc.com" <ptyser@xes-inc.com>,
  "thierry.reding@gmail.com" <thierry.reding@gmail.com>,
- "jonathanh@nvidia.com" <jonathanh@nvidia.com>,
+ "marek.behun@nic.cz" <marek.behun@nic.cz>,
  "festevam@gmail.com" <festevam@gmail.com>,
  "linux-stm32@st-md-mailman.stormreply.com"
  <linux-stm32@st-md-mailman.stormreply.com>,
@@ -57,27 +59,27 @@ Cc: "semi.malinen@ge.com" <semi.malinen@ge.com>,
  "f.fainelli@gmail.com" <f.fainelli@gmail.com>,
  "khilman@kernel.org" <khilman@kernel.org>,
  "michal.simek@xilinx.com" <michal.simek@xilinx.com>,
- "marek.behun@nic.cz" <marek.behun@nic.cz>,
+ "jonathanh@nvidia.com" <jonathanh@nvidia.com>,
  "bgolaszewski@baylibre.com" <bgolaszewski@baylibre.com>,
  "ludovic.desroches@microchip.com" <ludovic.desroches@microchip.com>,
  "bamv2005@gmail.com" <bamv2005@gmail.com>, "joel@jms.id.au" <joel@jms.id.au>,
- "u.kleine-koenig@pengutronix.de" <u.kleine-koenig@pengutronix.de>,
+ "nandor.han@ge.com" <nandor.han@ge.com>,
  "bcm-kernel-feedback-list@broadcom.com"
  <bcm-kernel-feedback-list@broadcom.com>,
  "linux-imx@nxp.com" <linux-imx@nxp.com>,
  "linux-pwm@vger.kernel.org" <linux-pwm@vger.kernel.org>,
  "grygorii.strashko@ti.com" <grygorii.strashko@ti.com>,
  "ckeepax@opensource.cirrus.com" <ckeepax@opensource.cirrus.com>,
+ "linux-omap@vger.kernel.org" <linux-omap@vger.kernel.org>,
  "mazziesaccount@gmail.com" <mazziesaccount@gmail.com>,
  "rjui@broadcom.com" <rjui@broadcom.com>,
  "s.hauer@pengutronix.de" <s.hauer@pengutronix.de>,
- "nandor.han@ge.com" <nandor.han@ge.com>,
  "vilhelm.gray@gmail.com" <vilhelm.gray@gmail.com>,
  "linux-gpio@vger.kernel.org" <linux-gpio@vger.kernel.org>,
  "rf@opensource.cirrus.com" <rf@opensource.cirrus.com>,
  "ssantosh@kernel.org" <ssantosh@kernel.org>,
  "linux-tegra@vger.kernel.org" <linux-tegra@vger.kernel.org>,
- "linux-omap@vger.kernel.org" <linux-omap@vger.kernel.org>,
+ "andriy.shevchenko@linux.intel.com" <andriy.shevchenko@linux.intel.com>,
  "kernel@pengutronix.de" <kernel@pengutronix.de>,
  "linux-arm-kernel@lists.infradead.org" <linux-arm-kernel@lists.infradead.org>,
  "sbranden@broadcom.com" <sbranden@broadcom.com>,
@@ -101,30 +103,35 @@ List-Post: <mailto:linux-stm32@st-md-mailman.stormreply.com>
 List-Help: <mailto:linux-stm32-request@st-md-mailman.stormreply.com?subject=help>
 List-Subscribe: <https://st-md-mailman.stormreply.com/mailman/listinfo/linux-stm32>, 
  <mailto:linux-stm32-request@st-md-mailman.stormreply.com?subject=subscribe>
-Content-Type: text/plain; charset="us-ascii"
-Content-Transfer-Encoding: 7bit
+Content-Type: text/plain; charset="iso-8859-1"
+Content-Transfer-Encoding: quoted-printable
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
-On Tue, Nov 05, 2019 at 01:54:27PM +0000, Vaittinen, Matti wrote:
-> On Tue, 2019-11-05 at 15:11 +0200, andriy.shevchenko@linux.intel.com
-> wrote:
+Hello Matti,
 
-> Unfortunately I don't right now have the time to waste arguing over it
-> ;)
+On Tue, Nov 05, 2019 at 02:00:02PM +0000, Vaittinen, Matti wrote:
+> On Tue, 2019-11-05 at 14:36 +0100, Uwe Kleine-K=F6nig wrote:
+> Thanks Uwe! That was kind! I'm on Fedora but I guess I can find the
+> multiarch binutils :) I'll try that tomorrow when I'm back at the
+> office. Let's see what kind of results I can get from it.
+> =
 
-Neither do I.
+> Unfortunately bunch of the GPIOs depend on x86 - so I need to see what
+> I can compile in with decent effort. For my compile test I just hacked
+> the Makefile to force all in and added some dummy macros to fix few
+> missing functions :| But I guess I can get some results.
 
-P.S. I have already wasted enough on this discussion, as I said before I'm fine
-with the change as long as maintainers of the subsystem are fine.
+Enable CONFIG_COMPILE_TEST and then you should be able to compile most
+drivers also on the wrong architecture.
 
-That's my last message on the topic till then.
+Best regards
+Uwe
 
--- 
-With Best Regards,
-Andy Shevchenko
+-- =
 
-
+Pengutronix e.K.                           | Uwe Kleine-K=F6nig            |
+Industrial Linux Solutions                 | http://www.pengutronix.de/  |
 _______________________________________________
 Linux-stm32 mailing list
 Linux-stm32@st-md-mailman.stormreply.com
