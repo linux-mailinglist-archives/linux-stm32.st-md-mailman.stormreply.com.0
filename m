@@ -2,68 +2,81 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id 4B6F0EFA6F
-	for <lists+linux-stm32@lfdr.de>; Tue,  5 Nov 2019 11:07:30 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id E3465EFAA4
+	for <lists+linux-stm32@lfdr.de>; Tue,  5 Nov 2019 11:15:31 +0100 (CET)
 Received: from ip-172-31-3-76.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id E01A2C36B0B;
-	Tue,  5 Nov 2019 10:07:29 +0000 (UTC)
-Received: from mail-qk1-f193.google.com (mail-qk1-f193.google.com
- [209.85.222.193])
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 94AFCC36B0B;
+	Tue,  5 Nov 2019 10:15:31 +0000 (UTC)
+Received: from mail-lf1-f68.google.com (mail-lf1-f68.google.com
+ [209.85.167.68])
  (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 26533C36B09
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 4C261C36B09
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Tue,  5 Nov 2019 10:07:29 +0000 (UTC)
-Received: by mail-qk1-f193.google.com with SMTP id e187so7852597qkf.4
+ Tue,  5 Nov 2019 10:09:26 +0000 (UTC)
+Received: by mail-lf1-f68.google.com with SMTP id v4so14647183lfd.11
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Tue, 05 Nov 2019 02:07:29 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linaro.org; s=google;
- h=mime-version:references:in-reply-to:from:date:message-id:subject:to
- :cc:content-transfer-encoding;
- bh=CNinsozng4H5Ktf3rvHjg3jRh9c0NmbS8rmNz478Pe8=;
- b=VEO755CMkWYZ+HZKjDSD2H8hkfHFILjBODJuUT7dyLJ2VacVXn30QPaKiB2aJr3dFj
- UUfvdFj6N0LnOAXPpkBIo09s0N5k2JqZAjoxblyCjvylpwFmN2gB0t7J2CGgbJNVhTmU
- Xcr/1pKIJxSCw64FjFq0CtKjgFgTUfNVSSd9U2EvGxP5Nf0q3JVy0Cb5eF45Tr0S+WOE
- 0zKyddIay8ulBTDwkAa9yHfkd+eUs/9amxlaNsSWxZ5fur+Ya/bxWYGvrXrX0FWTo8vt
- H4Dh97ZxjUuuKm7+8LrgGpf1cTXIb42yHnSZIPyQugGcQMUmFsLEOAZC5E/3rGykiu40
- 5mcA==
+ Tue, 05 Nov 2019 02:09:26 -0800 (PST)
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=1e100.net; s=20161025;
- h=x-gm-message-state:mime-version:references:in-reply-to:from:date
- :message-id:subject:to:cc:content-transfer-encoding;
- bh=CNinsozng4H5Ktf3rvHjg3jRh9c0NmbS8rmNz478Pe8=;
- b=EqoK7sVG41F3fC5ieu+BQeYWdTt60ocbC4nXe9ym6O+rv/N3GyDVji9SddAcoxR6IF
- kPVFBGEc+BO/XIUlQ5aAwRJ6htqK6m4pbGFqAAWNtdW4qXpvTuyOo2xt93c8Ly0cdOAP
- 2ePBhD2E79PsL+qEU51yT1xMScOsnB8hcvdNlrGnGZZFQF4hWe+llGtr0ZvwS5C8ssPK
- fz+A6MmAypqEeHuX0mwHePnCfOH0wxHTNVHv2NXi2qeScp7vJkNDxcXY45OWQvZSUQTw
- rsh2xtIr7jX+E+ooXXJipkoJuOXyuA8QRpg/RFFE1IkkgiweaDbIpF8kbthqoHpfitRT
- 3w3w==
-X-Gm-Message-State: APjAAAXf46fVASuyH9veZ027RoZJq1/wCM8ZGY8CT6jT7XGKpXUxlFwP
- 3IVme0FyYyq15PKIMw4/M4Yi2xgJd+N0YpbvA9wi7A==
-X-Google-Smtp-Source: APXvYqw9bNDchC8BBBpEdelYeypgmRQMVHiuZm+RJGKYBw6ulBdYAA7iNafLNDZB2gz23179UM0YXlSw8t9Sm2JcFdA=
-X-Received: by 2002:ae9:eb07:: with SMTP id b7mr7705763qkg.104.1572948447803; 
- Tue, 05 Nov 2019 02:07:27 -0800 (PST)
+ h=x-gm-message-state:date:from:to:cc:subject:message-id:mime-version
+ :content-disposition:user-agent;
+ bh=zk3Bb9MrnjOf99XNcjG+7oLOCBcvmwvMNgAHxWKOa5c=;
+ b=Bbye7eqofTYl5hRRs6ZPKcnoxdoTs8B/HxSHbdJjp2OiAfJ4J/6Df0/qAu3EXD2G2a
+ 8Ou3CmETofUeRqFdw1TQwzt1B72pZGtejuLi0enath2aAzzJ8Sox40XL6ZEkTJGZ9e78
+ H0ACpdI3Zs5MDT1x72znUi76LCzXsWWVui0CvllOnM0MKko8rO9cW6VNeqcd3hgUondZ
+ hbuFI1B/aY0rS5BiX1D+eMlro4BvsJJ5JSX1OWF9RmIfvoEopWA3iHWnMunyc4n2JQ5y
+ fiYD2xS5zB5u03libw1gtoYGwTRgB8zEqhL9NwKryI4O6n+guHKislwWF8rBa9TclbvK
+ nXEQ==
+X-Gm-Message-State: APjAAAUFvkUF/ViQ1Xcp4h9wJ8J5ZzNh3u0lNb0gNvzIK/waa2fmbvMR
+ 5Xktd6J3V957bmTxwjue5Ss=
+X-Google-Smtp-Source: APXvYqyBwgy1vqbuJGpl9AzCkQnGaEwRpvBUoN2XJ8vBJuigeUtT9eRmIbLOdes7+Mmv8dp9zewfFw==
+X-Received: by 2002:a19:6f0e:: with SMTP id k14mr20278721lfc.34.1572948565410; 
+ Tue, 05 Nov 2019 02:09:25 -0800 (PST)
+Received: from localhost.localdomain ([213.255.186.46])
+ by smtp.gmail.com with ESMTPSA id c14sm8834917ljd.3.2019.11.05.02.09.22
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Tue, 05 Nov 2019 02:09:24 -0800 (PST)
+Date: Tue, 5 Nov 2019 12:09:10 +0200
+From: Matti Vaittinen <matti.vaittinen@fi.rohmeurope.com>
+To: matti.vaittinen@fi.rohmeurope.com, mazziesaccount@gmail.com
+Message-ID: <cover.1572875541.git.matti.vaittinen@fi.rohmeurope.com>
 MIME-Version: 1.0
-References: <20191031123040.26316-1-benjamin.gaignard@st.com>
- <20191031123040.26316-3-benjamin.gaignard@st.com>
- <20191103110841.3ad3ecfb@archlinux>
-In-Reply-To: <20191103110841.3ad3ecfb@archlinux>
-From: Benjamin Gaignard <benjamin.gaignard@linaro.org>
-Date: Tue, 5 Nov 2019 11:07:16 +0100
-Message-ID: <CA+M3ks5sZ6wwV-V+HCLC8OLdeLqrxK0Ga-pXTsdktQErbMOk4g@mail.gmail.com>
-To: Jonathan Cameron <jic23@kernel.org>
-Cc: Mark Rutland <mark.rutland@arm.com>, devicetree@vger.kernel.org,
- Lars-Peter Clausen <lars@metafoo.de>,
- Linux PWM List <linux-pwm@vger.kernel.org>, linux-iio@vger.kernel.org,
- Hartmut Knaack <knaack.h@gmx.de>,
- Linux Kernel Mailing List <linux-kernel@vger.kernel.org>,
- Rob Herring <robh+dt@kernel.org>, Thierry Reding <thierry.reding@gmail.com>,
- Peter Meerwald-Stadler <pmeerw@pmeerw.net>, u.kleine-koenig@pengutronix.de,
- Fabrice Gasnier <fabrice.gasnier@st.com>, Lee Jones <lee.jones@linaro.org>,
+Content-Disposition: inline
+User-Agent: Mutt/1.12.1 (2019-06-15)
+X-Mailman-Approved-At: Tue, 05 Nov 2019 10:15:30 +0000
+Cc: Semi Malinen <semi.malinen@ge.com>,
+ Kuppuswamy Sathyanarayanan <sathyanarayanan.kuppuswamy@linux.intel.com>,
+ linux-aspeed@lists.ozlabs.org, David Daney <david.daney@cavium.com>,
+ Linus Walleij <linus.walleij@linaro.org>, alsa-devel@alsa-project.org,
+ Peter Tyser <ptyser@xes-inc.com>, Thierry Reding <thierry.reding@gmail.com>,
+ Jonathan Hunter <jonathanh@nvidia.com>, Fabio Estevam <festevam@gmail.com>,
  linux-stm32@st-md-mailman.stormreply.com,
- Linux ARM <linux-arm-kernel@lists.infradead.org>
-Subject: Re: [Linux-stm32] [PATCH 2/4] dt-bindings: iio: timer: Convert
- stm32 IIO trigger bindings to json-schema
+ Marek Vasut <marek.vasut+renesas@gmail.com>,
+ Florian Fainelli <f.fainelli@gmail.com>, Kevin Hilman <khilman@kernel.org>,
+ Michal Simek <michal.simek@xilinx.com>, Marek Behun <marek.behun@nic.cz>,
+ Bartosz Golaszewski <bgolaszewski@baylibre.com>,
+ Ludovic Desroches <ludovic.desroches@microchip.com>,
+ bcm-kernel-feedback-list@broadcom.com, Joel Stanley <joel@jms.id.au>,
+ Uwe =?iso-8859-1?Q?Kleine-K=F6nig?= <u.kleine-koenig@pengutronix.de>,
+ Bamvor Jian Zhang <bamv2005@gmail.com>, NXP Linux Team <linux-imx@nxp.com>,
+ linux-pwm@vger.kernel.org, Grygorii Strashko <grygorii.strashko@ti.com>,
+ Charles Keepax <ckeepax@opensource.cirrus.com>,
+ Maxime Coquelin <mcoquelin.stm32@gmail.com>, linux-omap@vger.kernel.org,
+ Ray Jui <rjui@broadcom.com>, Sascha Hauer <s.hauer@pengutronix.de>,
+ Nandor Han <nandor.han@ge.com>,
+ William Breathitt Gray <vilhelm.gray@gmail.com>, linux-gpio@vger.kernel.org,
+ Richard Fitzgerald <rf@opensource.cirrus.com>,
+ Santosh Shilimkar <ssantosh@kernel.org>, linux-tegra@vger.kernel.org,
+ Andy Shevchenko <andriy.shevchenko@linux.intel.com>,
+ linux-arm-kernel@lists.infradead.org, Scott Branden <sbranden@broadcom.com>,
+ Masahiro Yamada <yamada.masahiro@socionext.com>,
+ Andrew Jeffery <andrew@aj.id.au>, "Enrico Weigelt,
+ metux IT consult" <info@metux.net>, linux-kernel@vger.kernel.org,
+ linux-renesas-soc@vger.kernel.org, Thorsten Scherer <t.scherer@eckelmann.de>,
+ Pengutronix Kernel Team <kernel@pengutronix.de>, patches@opensource.cirrus.com,
+ Shawn Guo <shawnguo@kernel.org>
+Subject: [Linux-stm32] [PATCH 00/62] Add definition for GPIO direction
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -75,85 +88,197 @@ List-Post: <mailto:linux-stm32@st-md-mailman.stormreply.com>
 List-Help: <mailto:linux-stm32-request@st-md-mailman.stormreply.com?subject=help>
 List-Subscribe: <https://st-md-mailman.stormreply.com/mailman/listinfo/linux-stm32>, 
  <mailto:linux-stm32-request@st-md-mailman.stormreply.com?subject=subscribe>
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: base64
+Content-Type: text/plain; charset="us-ascii"
+Content-Transfer-Encoding: 7bit
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
-TGUgZGltLiAzIG5vdi4gMjAxOSDDoCAxMjowOCwgSm9uYXRoYW4gQ2FtZXJvbiA8amljMjNAa2Vy
-bmVsLm9yZz4gYSDDqWNyaXQgOgo+Cj4gT24gVGh1LCAzMSBPY3QgMjAxOSAxMzozMDozOCArMDEw
-MAo+IEJlbmphbWluIEdhaWduYXJkIDxiZW5qYW1pbi5nYWlnbmFyZEBzdC5jb20+IHdyb3RlOgo+
-Cj4gPiBDb252ZXJ0IHRoZSBTVE0zMiBJSU8gdHJpZ2dlciBiaW5kaW5nIHRvIERUIHNjaGVtYSBm
-b3JtYXQgdXNpbmcganNvbi1zY2hlbWEKPiA+Cj4gPiBTaWduZWQtb2ZmLWJ5OiBCZW5qYW1pbiBH
-YWlnbmFyZCA8YmVuamFtaW4uZ2FpZ25hcmRAc3QuY29tPgo+IEknbSBmYXIgZnJvbSBncmVhdCBv
-biB0aGVzZSBhcyBzdGlsbCBoYXZlbid0IHRha2VuIHRoZSB0aW1lIEkgc2hvdWxkIHRvIGxlYXJu
-Cj4gdGhlIHlhbWwgc3ludGF4IHByb3Blcmx5LiAgQSBmZXcgY29tbWVudHMgaW5saW5lIGhvd2V2
-ZXIgYmFzZWQgbW9zdGx5IG9uIHRoaXMKPiBkb2Vzbid0IHF1aXRlIGxvb2sgbGlrZSBvdGhlciBv
-bmVzIEkndmUgc2VlbiByZWNlbnRseS4KPgo+IFRoYW5rcywKPgo+IEpvbmF0aGFuCj4KPiA+IC0t
-LQo+ID4gIC4uLi9iaW5kaW5ncy9paW8vdGltZXIvc3Qsc3RtMzItdGltZXItdHJpZ2dlci55YW1s
-IHwgNDQgKysrKysrKysrKysrKysrKysrKysrKwo+ID4gIC4uLi9iaW5kaW5ncy9paW8vdGltZXIv
-c3RtMzItdGltZXItdHJpZ2dlci50eHQgICAgIHwgMjUgLS0tLS0tLS0tLS0tCj4gPiAgMiBmaWxl
-cyBjaGFuZ2VkLCA0NCBpbnNlcnRpb25zKCspLCAyNSBkZWxldGlvbnMoLSkKPiA+ICBjcmVhdGUg
-bW9kZSAxMDA2NDQgRG9jdW1lbnRhdGlvbi9kZXZpY2V0cmVlL2JpbmRpbmdzL2lpby90aW1lci9z
-dCxzdG0zMi10aW1lci10cmlnZ2VyLnlhbWwKPiA+ICBkZWxldGUgbW9kZSAxMDA2NDQgRG9jdW1l
-bnRhdGlvbi9kZXZpY2V0cmVlL2JpbmRpbmdzL2lpby90aW1lci9zdG0zMi10aW1lci10cmlnZ2Vy
-LnR4dAo+ID4KPiA+IGRpZmYgLS1naXQgYS9Eb2N1bWVudGF0aW9uL2RldmljZXRyZWUvYmluZGlu
-Z3MvaWlvL3RpbWVyL3N0LHN0bTMyLXRpbWVyLXRyaWdnZXIueWFtbCBiL0RvY3VtZW50YXRpb24v
-ZGV2aWNldHJlZS9iaW5kaW5ncy9paW8vdGltZXIvc3Qsc3RtMzItdGltZXItdHJpZ2dlci55YW1s
-Cj4gPiBuZXcgZmlsZSBtb2RlIDEwMDY0NAo+ID4gaW5kZXggMDAwMDAwMDAwMDAwLi4xYzhjOGI1
-NWU4Y2QKPiA+IC0tLSAvZGV2L251bGwKPiA+ICsrKyBiL0RvY3VtZW50YXRpb24vZGV2aWNldHJl
-ZS9iaW5kaW5ncy9paW8vdGltZXIvc3Qsc3RtMzItdGltZXItdHJpZ2dlci55YW1sCj4gPiBAQCAt
-MCwwICsxLDQ0IEBACj4gPiArIyBTUERYLUxpY2Vuc2UtSWRlbnRpZmllcjogKEdQTC0yLjAtb25s
-eSBPUiBCU0QtMi1DbGF1c2UpCj4gPiArJVlBTUwgMS4yCj4gPiArLS0tCj4gPiArJGlkOiBodHRw
-Oi8vZGV2aWNldHJlZS5vcmcvc2NoZW1hcy9paW8vdGltZXIvc3Qsc3RtMzItdGltZXItdHJpZ2dl
-ci55YW1sIwo+ID4gKyRzY2hlbWE6IGh0dHA6Ly9kZXZpY2V0cmVlLm9yZy9tZXRhLXNjaGVtYXMv
-Y29yZS55YW1sIwo+ID4gKwo+ID4gK3RpdGxlOiBTVE1pY3JvZWxlY3Ryb25pY3MgU1RNMzIgVGlt
-ZXJzIElJTyB0aW1lciBiaW5kaW5ncwo+ID4gKwo+ID4gK21haW50YWluZXJzOgo+ID4gKyAgLSBC
-ZW5qYW1pbiBHYWlnbmFyZCA8YmVuamFtaW4uZ2FpZ25hcmRAc3QuY29tPgo+ID4gKyAgLSBGYWJy
-aWNlIEdhc25pZXIgPGZhYnJpY2UuZ2FzbmllckBzdC5jb20+Cj4gPiArCj4gPiArcHJvcGVydGll
-czoKPiA+ICsgICRub2RlbWFuZToKPgo+IG5vZGVuYW1lPwoKVGhhdCB3aWxsIGJlIGluIHYyCgo+
-Cj4gPiArICAgIHBhdHRlcm46ICJedGltZXJAWzAtOV0rJCIKPiA+ICsgICAgdHlwZTogb2JqZWN0
-Cj4gPiArCj4gPiArICAgIGRlc2NyaXB0aW9uOgo+ID4gKyAgICAgIG11c3QgYmUgYSBzdWItbm9k
-ZSBvZiBhbiBTVE0zMiBUaW1lciBkZXZpY2UgdHJlZSBub2RlCj4gPiArCj4gPiArICAgIHByb3Bl
-cnRpZXM6Cj4gPiArICAgICAgY29tcGF0aWJsZToKPiA+ICsgICAgICAgIG9uZU9mOgo+Cj4gZW51
-bSBpcyBJIHRoaW5rIHByZWZlcnJlZCBmb3IgdGhlc2UuCgphcyB5b3UgbGlrZSBpdCB3aWxsIGJl
-IGluIHYyCgo+Cj4gPiArICAgICAgICAgIC0gY29uc3Q6IHN0LHN0bTMyLXRpbWVyLXRyaWdnZXIK
-PiA+ICsgICAgICAgICAgLSBjb25zdDogc3Qsc3RtMzJoNy10aW1lci10cmlnZ2VyCj4gPiArCj4g
-PiArICAgICAgcmVnOiB0cnVlCj4KPiBOb3JtYWxseSBzb21lIGluZm8gZm9yIHdoYXQgdGhlIHJl
-ZyB2YWx1ZSBpcy4uCkkgY2FuJ3QgcHV0ICJkZXNjcmlwdGlvbiIgb24gdGhpcyBmaWVsZCBiZWNh
-dXNlIHRoZSBzeW50YXggZG9lc24ndCBhbGxvdyBpdC4KSSB3aWxsIGFkZCBhIGNvbW1lbnQgaW4g
-djIgdG8gZXhwbGFpbiB3aGF0IHJlZyBpcy4KClRoYW5rcyBmb3IgeW91ciByZXZpZXcuCkJlbmph
-bWluCj4KPiA+ICsKPiA+ICsgICAgcmVxdWlyZWQ6Cj4gPiArICAgICAgLSBjb21wYXRpYmxlCj4g
-PiArICAgICAgLSByZWcKPiA+ICsKPiA+ICtleGFtcGxlczoKPiA+ICsgIC0gfAo+ID4gKyAgICB0
-aW1lcnMyOiB0aW1lckA0MDAwMDAwMCB7Cj4gPiArICAgICAgI2FkZHJlc3MtY2VsbHMgPSA8MT47
-Cj4gPiArICAgICAgI3NpemUtY2VsbHMgPSA8MD47Cj4gPiArICAgICAgdGltZXJAMCB7Cj4gPiAr
-ICAgICAgICBjb21wYXRpYmxlID0gInN0LHN0bTMyLXRpbWVyLXRyaWdnZXIiOwo+ID4gKyAgICAg
-ICAgcmVnID0gPDA+Owo+ID4gKyAgICAgIH07Cj4gPiArICAgIH07Cj4gPiArCj4gPiArLi4uCj4g
-PiBkaWZmIC0tZ2l0IGEvRG9jdW1lbnRhdGlvbi9kZXZpY2V0cmVlL2JpbmRpbmdzL2lpby90aW1l
-ci9zdG0zMi10aW1lci10cmlnZ2VyLnR4dCBiL0RvY3VtZW50YXRpb24vZGV2aWNldHJlZS9iaW5k
-aW5ncy9paW8vdGltZXIvc3RtMzItdGltZXItdHJpZ2dlci50eHQKPiA+IGRlbGV0ZWQgZmlsZSBt
-b2RlIDEwMDY0NAo+ID4gaW5kZXggYjhlOGM3NjlkNDM0Li4wMDAwMDAwMDAwMDAKPiA+IC0tLSBh
-L0RvY3VtZW50YXRpb24vZGV2aWNldHJlZS9iaW5kaW5ncy9paW8vdGltZXIvc3RtMzItdGltZXIt
-dHJpZ2dlci50eHQKPiA+ICsrKyAvZGV2L251bGwKPiA+IEBAIC0xLDI1ICswLDAgQEAKPiA+IC1T
-VE1pY3JvZWxlY3Ryb25pY3MgU1RNMzIgVGltZXJzIElJTyB0aW1lciBiaW5kaW5ncwo+ID4gLQo+
-ID4gLU11c3QgYmUgYSBzdWItbm9kZSBvZiBhbiBTVE0zMiBUaW1lcnMgZGV2aWNlIHRyZWUgbm9k
-ZS4KPiA+IC1TZWUgLi4vbWZkL3N0bTMyLXRpbWVycy50eHQgZm9yIGRldGFpbHMgYWJvdXQgdGhl
-IHBhcmVudCBub2RlLgo+ID4gLQo+ID4gLVJlcXVpcmVkIHBhcmFtZXRlcnM6Cj4gPiAtLSBjb21w
-YXRpYmxlOiAgICAgICAgTXVzdCBiZSBvbmUgb2Y6Cj4gPiAtICAgICAgICAgICAgICJzdCxzdG0z
-Mi10aW1lci10cmlnZ2VyIgo+ID4gLSAgICAgICAgICAgICAic3Qsc3RtMzJoNy10aW1lci10cmln
-Z2VyIgo+ID4gLS0gcmVnOiAgICAgICAgICAgICAgIElkZW50aWZ5IHRyaWdnZXIgaGFyZHdhcmUg
-YmxvY2suCj4gPiAtCj4gPiAtRXhhbXBsZToKPiA+IC0gICAgIHRpbWVyc0A0MDAxMDAwMCB7Cj4g
-PiAtICAgICAgICAgICAgICNhZGRyZXNzLWNlbGxzID0gPDE+Owo+ID4gLSAgICAgICAgICAgICAj
-c2l6ZS1jZWxscyA9IDwwPjsKPiA+IC0gICAgICAgICAgICAgY29tcGF0aWJsZSA9ICJzdCxzdG0z
-Mi10aW1lcnMiOwo+ID4gLSAgICAgICAgICAgICByZWcgPSA8MHg0MDAxMDAwMCAweDQwMD47Cj4g
-PiAtICAgICAgICAgICAgIGNsb2NrcyA9IDwmcmNjIDAgMTYwPjsKPiA+IC0gICAgICAgICAgICAg
-Y2xvY2stbmFtZXMgPSAiaW50IjsKPiA+IC0KPiA+IC0gICAgICAgICAgICAgdGltZXJAMCB7Cj4g
-PiAtICAgICAgICAgICAgICAgICAgICAgY29tcGF0aWJsZSA9ICJzdCxzdG0zMi10aW1lci10cmln
-Z2VyIjsKPiA+IC0gICAgICAgICAgICAgICAgICAgICByZWcgPSA8MD47Cj4gPiAtICAgICAgICAg
-ICAgIH07Cj4gPiAtICAgICB9Owo+Cj4KPiBfX19fX19fX19fX19fX19fX19fX19fX19fX19fX19f
-X19fX19fX19fX19fX19fXwo+IGxpbnV4LWFybS1rZXJuZWwgbWFpbGluZyBsaXN0Cj4gbGludXgt
-YXJtLWtlcm5lbEBsaXN0cy5pbmZyYWRlYWQub3JnCj4gaHR0cDovL2xpc3RzLmluZnJhZGVhZC5v
-cmcvbWFpbG1hbi9saXN0aW5mby9saW51eC1hcm0ta2VybmVsCl9fX19fX19fX19fX19fX19fX19f
-X19fX19fX19fX19fX19fX19fX19fX19fX19fCkxpbnV4LXN0bTMyIG1haWxpbmcgbGlzdApMaW51
-eC1zdG0zMkBzdC1tZC1tYWlsbWFuLnN0b3JtcmVwbHkuY29tCmh0dHBzOi8vc3QtbWQtbWFpbG1h
-bi5zdG9ybXJlcGx5LmNvbS9tYWlsbWFuL2xpc3RpbmZvL2xpbnV4LXN0bTMyCg==
+The patch series adds definitions for GPIO line directions.
+
+For occasional GPIO contributor like me it is always a pain to remember
+whether 1 or 0 was used for GPIO direction INPUT/OUTPUT. Judging the
+fact that I removed few comments like:
+
+/* Return 0 if output, 1 if input */
+/* This means "out" */
+return 1; /* input */
+return 0; /* output */
+
+it seems at least some others may find it hard to remember too. Adding
+defines for these values helps us who really have good - but short
+duration - memory :]
+
+Please also see the last patch. It adds warning prints to be emitted
+from gpiolib if other than defined values are used. This patch can be
+dropped out if there is a reason for that to still be allowed.
+
+This idea comes from RFC series for ROHM BD71828 PMIC and was initially
+discussed with Linus Walleij here:
+https://lore.kernel.org/lkml/c06725c3dd34118a324907137758d8b85b3d4043.camel@fi.rohmeurope.com/
+but as this has no dependencies to BD71828 work (which probably takes a
+while) I decided to make it independent series.
+
+Patches are compile-tested only. I have no HW to really test them. Thus I'd
+appreciate carefull review. This work is mainly about converting zeros
+and ones to the new defines but it wouldn't be first time I get it wrong
+in one of the patches :)
+
+Patch 1:
+ - adds the defines
+Patches 2 - 61:
+ - convert drivers to use new defines
+Patch 62:
+ - Add warning print if values other than the defines is used for direction.
+
+Patches are created on top of Linux v5.4-rc6.
+
+--
+
+Matti Vaittinen (62):
+  gpio: Add definition for GPIO direction
+  gpio: gpio-104-dio-48e: Use new GPIO_LINE_DIRECTION
+  gpio: add gpio-104-idi-48: Use new GPIO_LINE_DIRECTION
+  gpio: gpio-104-idio-16: Use new GPIO_LINE_DIRECTION
+  gpio: gpio-74xx-mmio: Use new GPIO_LINE_DIRECTION
+  gpio: gpio-amd-fch: Use new GPIO_LINE_DIRECTION
+  gpio: gpio-aspeed: Use new GPIO_LINE_DIRECTION
+  gpio: gpio-bcm-kona: Use new GPIO_LINE_DIRECTION
+  gpio: gpio-bd70528: Use new GPIO_LINE_DIRECTION
+  gpio: gpio-bd9571mwv: Use new GPIO_LINE_DIRECTION
+  gpio: gpio-dln2: Use new GPIO_LINE_DIRECTION
+  gpio: gpio-exar: Use new GPIO_LINE_DIRECTION
+  gpio: gpio-f7188x: Use new GPIO_LINE_DIRECTION
+  gpio: gpio-gpio-mm: Use new GPIO_LINE_DIRECTION
+  gpio: gpio-htc-egpio: Use new GPIO_LINE_DIRECTION
+  gpio: gpio-ich: Use new GPIO_LINE_DIRECTION
+  gpio: gpio-kempld: Use new GPIO_LINE_DIRECTION
+  gpio: gpio-lp873x: Use new GPIO_LINE_DIRECTION
+  gpio: gpio-lp87565: Use new GPIO_LINE_DIRECTION
+  gpio: gpio-madera: Use new GPIO_LINE_DIRECTION
+  gpio: gpio-max3191x: Use new GPIO_LINE_DIRECTION
+  gpio: gpio-mmio: Use new GPIO_LINE_DIRECTION
+  gpio: gpio-merrifield: Use new GPIO_LINE_DIRECTION
+  gpio: gpio-mockup: Use new GPIO_LINE_DIRECTION
+  gpio: gpio-moxtet: Use new GPIO_LINE_DIRECTION
+  gpio: gpio-mvebu: Use new GPIO_LINE_DIRECTION
+  gpio: gpio-mxs: Use new GPIO_LINE_DIRECTION
+  gpio: gpio-omap: Use new GPIO_LINE_DIRECTION
+  gpio: gpio-pca953x: Use new GPIO_LINE_DIRECTION
+  gpio: gpio-pcie-idio-24: Use new GPIO_LINE_DIRECTION
+  gpio: gpio-pci-idio-16: Use new GPIO_LINE_DIRECTION
+  gpio: gpio-pisosr: Use new GPIO_LINE_DIRECTION
+  gpio: gpio-pl061: Use new GPIO_LINE_DIRECTION
+  gpio: gpio-raspberrypi-exp: Use new GPIO_LINE_DIRECTION
+  gpio: gpio-rcar: Use new GPIO_LINE_DIRECTION
+  gpio: gpio-reg: Use new GPIO_LINE_DIRECTION
+  gpio: gpio-sama5d2-piobu: Use new GPIO_LINE_DIRECTION
+  gpio: gpio-sch311x: Use new GPIO_LINE_DIRECTION
+  gpio: gpio-sch: Use new GPIO_LINE_DIRECTION
+  gpio: gpio-siox: Use new GPIO_LINE_DIRECTION
+  gpio: gpio-stmpe: Use new GPIO_LINE_DIRECTION
+  gpio: gpio-tc3589x: Use new GPIO_LINE_DIRECTION
+  gpio: gpio-tegra186: Use new GPIO_LINE_DIRECTION
+  gpio: gpio-tegra: Use new GPIO_LINE_DIRECTION
+  gpio: gpio-thunderx: Use new GPIO_LINE_DIRECTION
+  gpio: gpio-tpic2810: Use new GPIO_LINE_DIRECTION
+  gpio: gpio-tps65086: Use new GPIO_LINE_DIRECTION
+  gpio: gpio-tps65912: Use new GPIO_LINE_DIRECTION
+  gpio: gpio-tps68470: Use new GPIO_LINE_DIRECTION
+  gpio: gpio-tqmx86: Use new GPIO_LINE_DIRECTION
+  gpio: gpio-ts4900: Use new GPIO_LINE_DIRECTION
+  gpio: gpio-twl4030: Use new GPIO_LINE_DIRECTION
+  gpio: gpio-twl6040: Use new GPIO_LINE_DIRECTION
+  gpio: gpio-uniphier: Use new GPIO_LINE_DIRECTION
+  gpio: gpio-wcove: Use new GPIO_LINE_DIRECTION
+  gpio: gpio-ws16c48: Use new GPIO_LINE_DIRECTION
+  gpio: gpio-xgene: Use new GPIO_LINE_DIRECTION
+  gpio: gpio-xra1403: Use new GPIO_LINE_DIRECTION
+  gpio: gpio-xtensa: Use new GPIO_LINE_DIRECTION
+  gpio: gpio-zynq: Use new GPIO_LINE_DIRECTION
+  gpio: gpio-sa1100: Use new GPIO_LINE_DIRECTION
+  gpiolib: Nag for INPUT direction values other than
+    GPIO_LINE_DIRECTION_IN
+
+ drivers/gpio/gpio-104-dio-48e.c     |  5 ++++-
+ drivers/gpio/gpio-104-idi-48.c      |  2 +-
+ drivers/gpio/gpio-104-idio-16.c     |  4 ++--
+ drivers/gpio/gpio-74xx-mmio.c       |  5 ++++-
+ drivers/gpio/gpio-amd-fch.c         |  2 +-
+ drivers/gpio/gpio-aspeed.c          |  7 +++----
+ drivers/gpio/gpio-bcm-kona.c        |  6 +++---
+ drivers/gpio/gpio-bd70528.c         |  8 +++++---
+ drivers/gpio/gpio-bd9571mwv.c       |  4 +++-
+ drivers/gpio/gpio-dln2.c            |  6 +++---
+ drivers/gpio/gpio-exar.c            |  5 ++++-
+ drivers/gpio/gpio-f7188x.c          |  5 ++++-
+ drivers/gpio/gpio-gpio-mm.c         |  5 ++++-
+ drivers/gpio/gpio-htc-egpio.c       |  5 ++++-
+ drivers/gpio/gpio-ich.c             |  5 ++++-
+ drivers/gpio/gpio-kempld.c          |  5 ++++-
+ drivers/gpio/gpio-lp873x.c          |  2 +-
+ drivers/gpio/gpio-lp87565.c         |  5 ++++-
+ drivers/gpio/gpio-madera.c          |  5 ++++-
+ drivers/gpio/gpio-max3191x.c        |  2 +-
+ drivers/gpio/gpio-merrifield.c      |  5 ++++-
+ drivers/gpio/gpio-mmio.c            | 21 +++++++++++++++------
+ drivers/gpio/gpio-mockup.c          | 11 +++--------
+ drivers/gpio/gpio-moxtet.c          |  4 ++--
+ drivers/gpio/gpio-mvebu.c           |  5 ++++-
+ drivers/gpio/gpio-mxs.c             |  5 ++++-
+ drivers/gpio/gpio-omap.c            |  6 ++++--
+ drivers/gpio/gpio-pca953x.c         |  5 ++++-
+ drivers/gpio/gpio-pci-idio-16.c     |  4 ++--
+ drivers/gpio/gpio-pcie-idio-24.c    |  9 ++++++---
+ drivers/gpio/gpio-pisosr.c          |  2 +-
+ drivers/gpio/gpio-pl061.c           |  5 ++++-
+ drivers/gpio/gpio-raspberrypi-exp.c |  5 ++++-
+ drivers/gpio/gpio-rcar.c            |  5 ++++-
+ drivers/gpio/gpio-reg.c             |  3 ++-
+ drivers/gpio/gpio-sa1100.c          |  5 ++++-
+ drivers/gpio/gpio-sama5d2-piobu.c   |  7 ++++---
+ drivers/gpio/gpio-sch.c             |  5 ++++-
+ drivers/gpio/gpio-sch311x.c         |  5 ++++-
+ drivers/gpio/gpio-siox.c            |  4 ++--
+ drivers/gpio/gpio-stmpe.c           |  5 ++++-
+ drivers/gpio/gpio-tc3589x.c         |  5 ++++-
+ drivers/gpio/gpio-tegra.c           |  5 ++++-
+ drivers/gpio/gpio-tegra186.c        |  4 ++--
+ drivers/gpio/gpio-thunderx.c        |  5 ++++-
+ drivers/gpio/gpio-tpic2810.c        |  2 +-
+ drivers/gpio/gpio-tps65086.c        |  2 +-
+ drivers/gpio/gpio-tps65912.c        |  4 ++--
+ drivers/gpio/gpio-tps68470.c        |  6 +++---
+ drivers/gpio/gpio-tqmx86.c          |  5 ++++-
+ drivers/gpio/gpio-ts4900.c          |  5 ++++-
+ drivers/gpio/gpio-twl4030.c         | 10 +++++-----
+ drivers/gpio/gpio-twl6040.c         |  3 +--
+ drivers/gpio/gpio-uniphier.c        |  5 ++++-
+ drivers/gpio/gpio-wcove.c           |  7 +++++--
+ drivers/gpio/gpio-ws16c48.c         |  5 ++++-
+ drivers/gpio/gpio-xgene.c           |  5 ++++-
+ drivers/gpio/gpio-xra1403.c         |  5 ++++-
+ drivers/gpio/gpio-xtensa.c          |  4 ++--
+ drivers/gpio/gpio-zynq.c            |  7 +++++--
+ drivers/gpio/gpiolib.c              | 16 ++++++++++++++--
+ include/linux/gpio/driver.h         |  3 +++
+ 62 files changed, 228 insertions(+), 104 deletions(-)
+
+-- 
+2.21.0
+
+
+-- 
+Matti Vaittinen, Linux device drivers
+ROHM Semiconductors, Finland SWDC
+Kiviharjunlenkki 1E
+90220 OULU
+FINLAND
+
+~~~ "I don't think so," said Rene Descartes. Just then he vanished ~~~
+Simon says - in Latin please.
+~~~ "non cogito me" dixit Rene Descarte, deinde evanescavit ~~~
+Thanks to Simon Glass for the translation =] 
+_______________________________________________
+Linux-stm32 mailing list
+Linux-stm32@st-md-mailman.stormreply.com
+https://st-md-mailman.stormreply.com/mailman/listinfo/linux-stm32
