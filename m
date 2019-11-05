@@ -2,62 +2,64 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id DB7B2EFF0E
-	for <lists+linux-stm32@lfdr.de>; Tue,  5 Nov 2019 14:54:35 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 42881EFF24
+	for <lists+linux-stm32@lfdr.de>; Tue,  5 Nov 2019 15:00:10 +0100 (CET)
 Received: from ip-172-31-3-76.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 99D5FC36B0B;
-	Tue,  5 Nov 2019 13:54:35 +0000 (UTC)
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 084EBC36B0B;
+	Tue,  5 Nov 2019 14:00:10 +0000 (UTC)
 Received: from mailgate1.rohmeurope.com (mailgate1.rohmeurope.com
  [178.15.145.194])
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 641DFC36B09
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 05788C36B09
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Tue,  5 Nov 2019 13:54:34 +0000 (UTC)
-X-AuditID: c0a8fbf4-199ff70000001fa6-ac-5dc17f19b60c
-Received: from smtp.reu.rohmeu.com (will-cas001.reu.rohmeu.com
- [192.168.251.177])
+ Tue,  5 Nov 2019 14:00:08 +0000 (UTC)
+X-AuditID: c0a8fbf4-199ff70000001fa6-f6-5dc18068d8e7
+Received: from smtp.reu.rohmeu.com (will-cas002.reu.rohmeu.com
+ [192.168.251.178])
  by mailgate1.rohmeurope.com (Symantec Messaging Gateway) with SMTP id
- 7A.86.08102.91F71CD5; Tue,  5 Nov 2019 14:54:33 +0100 (CET)
+ CB.96.08102.86081CD5; Tue,  5 Nov 2019 15:00:08 +0100 (CET)
 Received: from WILL-MAIL002.REu.RohmEu.com ([fe80::e0c3:e88c:5f22:d174]) by
- WILL-CAS001.REu.RohmEu.com ([fe80::d57e:33d0:7a5d:f0a6%16]) with mapi id
- 14.03.0439.000; Tue, 5 Nov 2019 14:54:27 +0100
+ WILL-CAS002.REu.RohmEu.com ([fe80::fc24:4cbc:e287:8659%12]) with mapi id
+ 14.03.0439.000; Tue, 5 Nov 2019 15:00:02 +0100
 From: "Vaittinen, Matti" <Matti.Vaittinen@fi.rohmeurope.com>
-To: "andriy.shevchenko@linux.intel.com" <andriy.shevchenko@linux.intel.com>
+To: "u.kleine-koenig@pengutronix.de" <u.kleine-koenig@pengutronix.de>
 Thread-Topic: [PATCH 00/62] Add definition for GPIO direction
-Thread-Index: AQHVk8EYmzhgkSAfS0Ot5MRDeZesqad8bpwAgAAJlQCAAASWgIAADAaA
-Date: Tue, 5 Nov 2019 13:54:27 +0000
-Message-ID: <fdcfc69b39990dd382804db45422ed692881ea15.camel@fi.rohmeurope.com>
+Thread-Index: AQHVk8EYmzhgkSAfS0Ot5MRDeZesqad8bpwAgAAJlQCAAAReAIAABYEAgAABmgCAAAa5gA==
+Date: Tue, 5 Nov 2019 14:00:02 +0000
+Message-ID: <a967c764d135ab0f96f6b1df62ac91426c935b44.camel@fi.rohmeurope.com>
 References: <cover.1572875541.git.matti.vaittinen@fi.rohmeurope.com>
  <20191105122042.GO32742@smile.fi.intel.com>
  <4e6fa62d7022c7b1426477a150a93c899725f5b0.camel@fi.rohmeurope.com>
- <20191105131125.GP32742@smile.fi.intel.com>
-In-Reply-To: <20191105131125.GP32742@smile.fi.intel.com>
+ <20191105131038.duol3rwwkbuvgvwv@pengutronix.de>
+ <938a5ec7b41ae9ce7b0de83764d6b774cfdaa781.camel@fi.rohmeurope.com>
+ <20191105133604.d2xcasxw7pwzwvh7@pengutronix.de>
+In-Reply-To: <20191105133604.d2xcasxw7pwzwvh7@pengutronix.de>
 Accept-Language: en-US, de-DE
 Content-Language: de-DE
 X-MS-Has-Attach: 
 X-MS-TNEF-Correlator: 
 x-originating-ip: [213.255.186.46]
-Content-ID: <6F950CBC594F95498FB52FF5A6B6196B@de.rohmeurope.com>
+Content-ID: <6A3BE4366B287B4BADDE281B8B369397@de.rohmeurope.com>
 MIME-Version: 1.0
-X-Brightmail-Tracker: H4sIAAAAAAAAA01TfUwbZRjPe3e9HrCaWwf2hW0xNsbFLcCmJjyajeAfMyfTqZnRBYN4yI0S
- SyFtQVg04AZOSupYrFBOPrSByYdV12p0HbBRYcLYQBwgyPgK4PjIAC1TPlb1bnWDv+53z+/r
- fZPnZUj1h0wEk2YwC0YDr9fSwdSluvVzkeF5rYl7/xqMgnNTXQj6er0EeK4zYD1RRkDxUhkJ
- Tms7BcuVVyjoK3QhuGj9kYS1hTYlTPS/CPU2Cobev0DAeo+fhALRQUHDJ+cpmHZPEmC78wUB
- rskBBZxs7CbBXX0HgWWtnoTrngoaPq05TcHISAOC72YXCLAMTCmgaFmkYcb5qwI6am4jmKiv
- oKCitoOCKr9TAQuzR6HFfZUA3+JFBbTevEVBr72HhOlyNw3+710UnKrvk2SNUwh+Xh0iYOZb
- DdxwuxVg//ICglVPFQXDZz5GYF2spaF51IfiHuf6T3mU3De+EzS3OFio5MSxazRnX3dQnOdS
- BFfs85LceXFEyfX+cZnkXA1FNHdjoInmqjpf5tw1eVyP/XPElSzdksYrteilHQkh+5N5c/aR
- tFRDdOybIbqVs6PKzMtP51TYvEQ+KnjKgoIYzD6Jy4b9pAUFM2q2H+GuJicd+PkJ4dLxfIUF
- MQzN7seWIaVsCGUP4bWFQSRjkp0Ow3398TLeJkm6TtahgOYAbhxz07I1lH0WLzYxMqTYR3C7
- dZcMVexhfM12NFA0g/DSB6dJ2RnEAq7+bfZuCmJ34qL8BSLQpMGu3/9WBI7M4pqmHjKAw/Ds
- 5D//z7W4eXWCkvNJ9jH8tSc6YI3D1T1FZAA/jG3FE3cvomK34s7yKaoEPShuahA33OImt7jJ
- LW5yf4YUDQin82n6VN4s7IsyCllRxgxduvR5KyPdhQKbvfwD+tf7nBcRDPKicIbQhqni01oT
- 1Q8kZ6Tk6niTLsmYpRdMXoQZUhuq6rU3J6pVKXzuccGYcY/azlBajWrXxJlENSt3vS0ImYLx
- HruDYbRYlX1cCt1qFFKFnGNpevMGTTBBcnhwRKhJMKQIRj7LrEuSlyPJJG2HTG2Rervelewq
- UyafLk0D1itoD1MyW+kgmbbKWgeppgwZBiFCo2qSpaws1WUZ7hfNIQ2DtNtU5vckdov0vO/n
- zEkVhFTx/GSLXGHmN6iIfJRLvNBup/Pe6XaUhoxbCw88c2j5dox2sZuIW2/YPZ81/kqO0rd9
- WLOn8nBfP7yRIJR+tNPvFEc7KnLDE2wx5e2x+r0P+QuER9tf7207ZsuOPFjkPPvnzauvxte1
- KJMjX7OPZnY+EV0YHfYLPzVpHmHmDs4nfRW7cmQpRtTPjzlqw7WUScfv200aTfx/DlaFoZsE
- AAA=
+X-Brightmail-Tracker: H4sIAAAAAAAAA02Tf1AUZRjHfXff21uQ1fUAeSWbyRtnGplJo3HoqaGGpmlamaZsbBprYmiJ
+ jWOCO7g7GKHBUGSUu1A0yvOEEwiKA5nkLqc8QOVCUfwBxK+IH0agAo2ggikg2i6Xwj/7fuf5
+ Pp/n+/zxLEtr9rOhbKLeLBn1YpKW8cdnK+dcL+iyG2Ne7Ly8BmpHLiHobPdS4OlgIX/3YQqs
+ tw/TUJN/DsN0cQuGzlwXgjP5v9EwO9GkhqGu98BZiKF3Vx0Fc63zNOyxl2Go+vYUhuvuYQoK
+ H/5IgWu4WwU51VdpcB97iMAy66Shw1PEwNHyAxgGBqoQnByboMDSPaKCvGk7A6M1PSq4UH4P
+ wZCzCENRxQUMjvkaFUyMbYfT7ssUTE2eUUHjzVsY2m2tNFw/4mZg/hcXhr3OTrmtegRB20wv
+ BaM/h0C/260C2/E6BDMeB4a+g98gyJ+sYKBhcApFvSR07fWohRNTuxlh8o9ctWC/doURbHNl
+ WPCcDRWsU15aOGUfUAvtd87TgqsqjxH6u+sZwXHxfcFd/pXQaitFQsHtW3L5QQXauvbj5ZFx
+ ojl9W2KCftPrny7XzTviUhzaHWPWR1Q2Or7OgvxYwm8m+/pHsAX5sxq+C5HpygNYMTR8MyKF
+ uRoLYlmGjySWXrUig/i3yJ47EUoHzf8TTH4YiFV0oNxxKacSKTqIf41UX3MzPv0h6bbfW9CY
+ X09cubULPRz/Lqme7aN9sTcp8nvXPlox/GS45VzhwgqIf5bkZU9QvrAQ4rpxX+XbmSfl9a20
+ TweTseFH/9e1pGFmCCt70vwG8pNnkw+NIoe+s2GfXkcKrUNq3w6ryMUjI7gArbYvSbAv0vYl
+ tH0JbV9ClyBVFSLJYmJSgmiWwjcapbSNRoMuWX4+MyS7kO+yp39Fj71bvIhikRetYSltMBed
+ 2BijWRFniM/QiSZdrDEtSTJ5EWFpbRDXbmuI0XDxYkamZDQ8sZ5hsTaEe37oYIyGV7K+kKQU
+ yfjEXcuyWsKlZ8pDVxmlBGnH54lJ5kWbYv2U4f6hQSZJHy8ZxTSzLlY5jliTfB2KFSDnwk4Z
+ 50wpYrJc9aEtKJwtGCsuo9mOHof8bSquKKM1WG/QS6EhXKQC8AqgS9M/jRtHISzSBnLdihsg
+ /+RPp43LQZQc9M7waSXILC5aodmITSUf5KweHuzfJqwMLPn3r4hoW+TXSQEfpWYN2oLaVKNh
+ pQ+yjnHNumzV1bvOyNm3N7/xiivs+7LzqT0VK0te/bt0GfrS8OZd7VRf+pUqKni/+9AnO63J
+ NzZwpgZ1xorp5+IyT1jrI8azok/WSVsea5qP1vXc/9O/qbbI8/KuNvOyxigtNunE8DDaaBL/
+ A4udmjChBAAA
 Cc: "semi.malinen@ge.com" <semi.malinen@ge.com>,
  "alsa-devel@alsa-project.org" <alsa-devel@alsa-project.org>,
  "linux-aspeed@lists.ozlabs.org" <linux-aspeed@lists.ozlabs.org>,
@@ -67,7 +69,7 @@ Cc: "semi.malinen@ge.com" <semi.malinen@ge.com>,
  <sathyanarayanan.kuppuswamy@linux.intel.com>,
  "ptyser@xes-inc.com" <ptyser@xes-inc.com>,
  "thierry.reding@gmail.com" <thierry.reding@gmail.com>,
- "jonathanh@nvidia.com" <jonathanh@nvidia.com>,
+ "marek.behun@nic.cz" <marek.behun@nic.cz>,
  "festevam@gmail.com" <festevam@gmail.com>,
  "linux-stm32@st-md-mailman.stormreply.com"
  <linux-stm32@st-md-mailman.stormreply.com>,
@@ -75,27 +77,27 @@ Cc: "semi.malinen@ge.com" <semi.malinen@ge.com>,
  "f.fainelli@gmail.com" <f.fainelli@gmail.com>,
  "khilman@kernel.org" <khilman@kernel.org>,
  "michal.simek@xilinx.com" <michal.simek@xilinx.com>,
- "marek.behun@nic.cz" <marek.behun@nic.cz>,
+ "jonathanh@nvidia.com" <jonathanh@nvidia.com>,
  "bgolaszewski@baylibre.com" <bgolaszewski@baylibre.com>,
  "ludovic.desroches@microchip.com" <ludovic.desroches@microchip.com>,
  "bamv2005@gmail.com" <bamv2005@gmail.com>, "joel@jms.id.au" <joel@jms.id.au>,
- "u.kleine-koenig@pengutronix.de" <u.kleine-koenig@pengutronix.de>,
+ "nandor.han@ge.com" <nandor.han@ge.com>,
  "bcm-kernel-feedback-list@broadcom.com"
  <bcm-kernel-feedback-list@broadcom.com>,
  "linux-imx@nxp.com" <linux-imx@nxp.com>,
  "linux-pwm@vger.kernel.org" <linux-pwm@vger.kernel.org>,
  "grygorii.strashko@ti.com" <grygorii.strashko@ti.com>,
  "ckeepax@opensource.cirrus.com" <ckeepax@opensource.cirrus.com>,
+ "linux-omap@vger.kernel.org" <linux-omap@vger.kernel.org>,
  "mazziesaccount@gmail.com" <mazziesaccount@gmail.com>,
  "rjui@broadcom.com" <rjui@broadcom.com>,
  "s.hauer@pengutronix.de" <s.hauer@pengutronix.de>,
- "nandor.han@ge.com" <nandor.han@ge.com>,
  "vilhelm.gray@gmail.com" <vilhelm.gray@gmail.com>,
  "linux-gpio@vger.kernel.org" <linux-gpio@vger.kernel.org>,
  "rf@opensource.cirrus.com" <rf@opensource.cirrus.com>,
  "ssantosh@kernel.org" <ssantosh@kernel.org>,
  "linux-tegra@vger.kernel.org" <linux-tegra@vger.kernel.org>,
- "linux-omap@vger.kernel.org" <linux-omap@vger.kernel.org>,
+ "andriy.shevchenko@linux.intel.com" <andriy.shevchenko@linux.intel.com>,
  "kernel@pengutronix.de" <kernel@pengutronix.de>,
  "linux-arm-kernel@lists.infradead.org" <linux-arm-kernel@lists.infradead.org>,
  "sbranden@broadcom.com" <sbranden@broadcom.com>,
@@ -119,163 +121,68 @@ List-Post: <mailto:linux-stm32@st-md-mailman.stormreply.com>
 List-Help: <mailto:linux-stm32-request@st-md-mailman.stormreply.com?subject=help>
 List-Subscribe: <https://st-md-mailman.stormreply.com/mailman/listinfo/linux-stm32>, 
  <mailto:linux-stm32-request@st-md-mailman.stormreply.com?subject=subscribe>
-Content-Type: text/plain; charset="us-ascii"
-Content-Transfer-Encoding: 7bit
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: base64
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
-
-On Tue, 2019-11-05 at 15:11 +0200, andriy.shevchenko@linux.intel.com
-wrote:
-> On Tue, Nov 05, 2019 at 12:54:55PM +0000, Vaittinen, Matti wrote:
-> > On Tue, 2019-11-05 at 14:20 +0200, Andy Shevchenko wrote:
-> > > On Tue, Nov 05, 2019 at 12:09:10PM +0200, Matti Vaittinen wrote:
-> > > > The patch series adds definitions for GPIO line directions.
-> > > > 
-> > > > For occasional GPIO contributor like me it is always a pain to
-> > > > remember
-> > > > whether 1 or 0 was used for GPIO direction INPUT/OUTPUT.
-> > > > Judging
-> > > > the
-> > > > fact that I removed few comments like:
-> > > > 
-> > > > /* Return 0 if output, 1 if input */
-> > > > /* This means "out" */
-> > > > return 1; /* input */
-> > > > return 0; /* output */
-> > > > 
-> > > > it seems at least some others may find it hard to remember too.
-> > > > Adding
-> > > > defines for these values helps us who really have good - but
-> > > > short
-> > > > duration - memory :]
-> > > > 
-> > > > Please also see the last patch. It adds warning prints to be
-> > > > emitted
-> > > > from gpiolib if other than defined values are used. This patch
-> > > > can
-> > > > be
-> > > > dropped out if there is a reason for that to still be allowed.
-> > > > 
-> > > > This idea comes from RFC series for ROHM BD71828 PMIC and was
-> > > > initially
-> > > > discussed with Linus Walleij here:
-> > > > https://lore.kernel.org/lkml/c06725c3dd34118a324907137758d8b85b3d4043.camel@fi.rohmeurope.com/
-> > > > but as this has no dependencies to BD71828 work (which probably
-> > > > takes a
-> > > > while) I decided to make it independent series.
-> > > > 
-> > > > Patches are compile-tested only. I have no HW to really test
-> > > > them.
-> > > > Thus I'd
-> > > > appreciate carefull review. This work is mainly about
-> > > > converting
-> > > > zeros
-> > > > and ones to the new defines but it wouldn't be first time I get
-> > > > it
-> > > > wrong
-> > > > in one of the patches :)
-> > > 
-> > > For all patches I have been Cc'ed to, NAK.
-> > > 
-> > > I don't see the advantages now since all known hardware uses the
-> > > single bit to
-> > > describe direction (even for Intel where we have separate gating
-> > > for
-> > > in and out
-> > > buffers the direction we basically rely on the bit that enables
-> > > out
-> > > buffer).
-> > > 
-> > > So, that said the direction is always 1 bit and basically 0/1
-> > > value. 
-> > 
-> > Yes. At least for now. And this patch didn't change that although
-> > it
-> > makes it possible to do so if required.
-> > 
-> > > Which one
-> > > is in and which one is out just a matter of an agreement we did.
-> > 
-> > This one is exactly the problem patch series was created for. Which
-> > one
-> > is IN and which is OUT is indeed a matter of an agreement - but
-> > this
-> > agreement should be clearly visible, well defined and same for all.
-> > 
-> > It's *annoying* to try finding out whether it was 1 or 0 one should
-> > return from get_direction callback for OUTPUT. This is probably the
-> > reason we have comments like
-> > 
-> > return 1; /* input */
-> > 
-> > there.
-> > 
-> > As this is global agreement for all GPIO framework users - not
-> > something that can be agreed per driver basis - we should have GPIO
-> > framework wide definitions for this. We can just add definitions
-> > for
-> > new drivers to benefit - but I think adding them also for existing
-> > drivers improves readability significantly (see below).
-> > 
-> > > I would also like to see bloat-o-meter statistics before and
-> > > after
-> > > your patch.
-> > > My guts tell me that the result will be not in the favour of
-> > > yours
-> > > solution.
-> > 
-> > Can you please tell me what type of stats you hope to see? 
-> 
-> bloat-o-meter. It's a script that compares two object files to see
-> which
-> functions got fatter, and which are slimmer. You may find it in the
-> kernel tree
-> sources (scripts/ folder).
-
-Right. Uwe explained that to me.
-
-> > I can try
-> > generating what you are after. The cover letter contained typical
-> > +/-
-> > change stats from git and summary:
-> > 
-> > 62 files changed, 228 insertions(+), 104 deletions(-)
-> > 
-> > It sure shows that amount of lines was increased (roughly 2 lines
-> > more
-> > / changed file)
-> 
-> Which is making unneeded churn.
-
-Not unneeded. A few of us see the value of naming the 1 and 0.
-
-> > - but I guess that was expected as I don't like
-> > ternary.
-> 
-> And I like them, so, what to do?
-
-Well, if you maintain those files and like ternary, then they can be
-ternary. I don't really care as long as I don't need to be the one
-maintaining them. Not really a battle I want to invest in. I can even
-go and drop the patches for files you are maintaining if you see that's
-the way to go. It's easier for me.
-
-As I said, I don't plan to change the meaning of 1 and 0 - although I
-thought that allowing it might help in the future. Main goal was to
-name the 1 and 0. Naming can be done even if all users were not
-converted to use the names - as long as values behind names are not
-changed. Changing the values is a burden that can be carried by others
-when it is needed - we can now just make it easier or harder.
-
-So as to what to do - please just give me the final decision so that I
-know if I should just drop the intel patches or use the ternary.
-Unfortunately I don't right now have the time to waste arguing over it
-;)
-
-Br,
-	Matti
-_______________________________________________
-Linux-stm32 mailing list
-Linux-stm32@st-md-mailman.stormreply.com
-https://st-md-mailman.stormreply.com/mailman/listinfo/linux-stm32
+DQpPbiBUdWUsIDIwMTktMTEtMDUgYXQgMTQ6MzYgKzAxMDAsIFV3ZSBLbGVpbmUtS8O2bmlnIHdy
+b3RlOg0KPiBPbiBUdWUsIE5vdiAwNSwgMjAxOSBhdCAwMTozMDoyMFBNICswMDAwLCBWYWl0dGlu
+ZW4sIE1hdHRpIHdyb3RlOg0KPiA+IE9uIFR1ZSwgMjAxOS0xMS0wNSBhdCAxNDoxMCArMDEwMCwg
+VXdlIEtsZWluZS1Lw7ZuaWcgd3JvdGU6DQo+ID4gPiBIZWxsbywNCj4gPiA+IA0KPiA+ID4gT24g
+VHVlLCBOb3YgMDUsIDIwMTkgYXQgMTI6NTQ6NTVQTSArMDAwMCwgVmFpdHRpbmVuLCBNYXR0aSB3
+cm90ZToNCj4gPiA+ID4gT24gVHVlLCAyMDE5LTExLTA1IGF0IDE0OjIwICswMjAwLCBBbmR5IFNo
+ZXZjaGVua28gd3JvdGU6DQo+ID4gPiA+ID4gSSB3b3VsZCBhbHNvIGxpa2UgdG8gc2VlIGJsb2F0
+LW8tbWV0ZXIgc3RhdGlzdGljcyBiZWZvcmUgYW5kDQo+ID4gPiA+ID4gYWZ0ZXINCj4gPiA+ID4g
+PiB5b3VyIHBhdGNoLg0KPiA+ID4gPiA+IE15IGd1dHMgdGVsbCBtZSB0aGF0IHRoZSByZXN1bHQg
+d2lsbCBiZSBub3QgaW4gdGhlIGZhdm91ciBvZg0KPiA+ID4gPiA+IHlvdXJzDQo+ID4gPiA+ID4g
+c29sdXRpb24uDQo+ID4gPiA+IA0KPiA+ID4gPiBDYW4geW91IHBsZWFzZSB0ZWxsIG1lIHdoYXQg
+dHlwZSBvZiBzdGF0cyB5b3UgaG9wZSB0byBzZWU/IEkNCj4gPiA+ID4gY2FuDQo+ID4gPiA+IHRy
+eQ0KPiA+ID4gPiBnZW5lcmF0aW5nIHdoYXQgeW91IGFyZSBhZnRlci4gVGhlIGNvdmVyIGxldHRl
+ciBjb250YWluZWQNCj4gPiA+ID4gdHlwaWNhbA0KPiA+ID4gPiArLy0NCj4gPiA+ID4gY2hhbmdl
+IHN0YXRzIGZyb20gZ2l0IGFuZCBzdW1tYXJ5Og0KPiA+ID4gPiANCj4gPiA+ID4gNjIgZmlsZXMg
+Y2hhbmdlZCwgMjI4IGluc2VydGlvbnMoKyksIDEwNCBkZWxldGlvbnMoLSkNCj4gPiA+IA0KPiA+
+ID4gSSBndWVzcyBoZSB3YW50cyB0byBzZWUNCj4gPiA+IA0KPiA+ID4gCXNjcmlwdHMvYmxvYXQt
+by1tZXRlciB2bWxpbnV6Lm9sZCB2bWxpbnV6DQo+ID4gPiANCj4gPiA+IC4gSSB3b3VsZCBleHBl
+Y3QgYSAwIHRoZXJlLiBJIGRpZG4ndCBsb29rIGluIGRldGFpbCwgYnV0IGluDQo+ID4gPiBnZW5l
+cmFsIEkNCj4gPiA+IGxpa2UgdGhlIGlkZWEgdG8gZ2l2ZSAwIGFuZCAxIGEgc3ltYm9saWMgbmFt
+ZS4NCj4gPiANCj4gPiBUaGFua3MgVXdlLiBUaGlzIGZhciBJIGhhdmUgb25seSBjcm9zcy1jb21w
+aWxlZCB0aGUgc2VyaWVzIGZvciBhcm0NCj4gPiB3aGljaCBJIHVzZSBmb3IgZGV2ZWxvcGluZyB0
+aGUgUk9ITSBQTUlDcy4gc2NyaXB0cy9ibG9hdC1vLW1ldGVyIC8NCj4gPiB0b29scyBpdCB1c2Vz
+IGRvZXMgbm90IHNlZW0gdG8gcmVjb2duaXplIHRoZSBpbWFnZSBmb3JtYXQgKG5vdCBhDQo+ID4g
+YmlnDQo+ID4gc3VycHJpemUgYXMgbXkgaG9zdCBpcyB4ODZfNjQpLg0KPiANCj4gSXQgd29ya3Mg
+Zm9yIG1lLCBJIGd1ZXNzIHRoYXQncyBiZWNhdXNlIG15IGJpbnV0aWxzIHN1cHBvcnQgc2V2ZXJh
+bA0KPiBhcmNoaXRlY3R1cmVzOg0KPiANCj4gCSQgbm0gLS1oZWxwDQo+IAkuLi4NCj4gCW5tOiBz
+dXBwb3J0ZWQgdGFyZ2V0czogZWxmNjQteDg2LTY0IGVsZjMyLWkzODYgZWxmMzItaWFtY3UNCj4g
+ZWxmMzIteDg2LTY0DQo+IAlwZWktaTM4NiBwZWkteDg2LTY0IGVsZjY0LWwxb20gZWxmNjQtazFv
+bSBlbGY2NC1saXR0bGUgZWxmNjQtDQo+IGJpZw0KPiAJZWxmMzItbGl0dGxlIGVsZjMyLWJpZyBl
+bGY2NC1saXR0bGVhYXJjaDY0IGVsZjY0LWJpZ2FhcmNoNjQNCj4gCWVsZjMyLWxpdHRsZWFhcmNo
+NjQgZWxmMzItYmlnYWFyY2g2NCBlbGYzMi1saXR0bGVhcm0gZWxmMzItDQo+IGJpZ2FybQ0KPiAJ
+ZWxmNjQtYWxwaGEgZWNvZmYtbGl0dGxlYWxwaGEgZWxmMzItbGl0dGxlYXJtLWZkcGljIGVsZjMy
+LQ0KPiBiaWdhcm0tZmRwaWMNCj4gCWVsZjMyLWhwcGEtbGludXggZWxmMzItaHBwYSBlbGY2NC1p
+YTY0LWxpdHRsZSBlbGY2NC1pYTY0LWJpZw0KPiBwZWktaWE2NA0KPiAJZWxmMzItbTMyci1saW51
+eCBlbGYzMi1tMzJybGUtbGludXggZWxmMzItbTY4ayBlbGYzMi0NCj4gdHJhZGJpZ21pcHMNCj4g
+CWVsZjMyLXRyYWRsaXR0bGVtaXBzIGVjb2ZmLWJpZ21pcHMgZWNvZmYtbGl0dGxlbWlwcyBlbGYz
+Mi0NCj4gbnRyYWRiaWdtaXBzDQo+IAllbGY2NC10cmFkYmlnbWlwcyBlbGYzMi1udHJhZGxpdHRs
+ZW1pcHMgZWxmNjQtdHJhZGxpdHRsZW1pcHMNCj4gCWVsZjMyLXBvd2VycGMgYWl4Y29mZi1yczYw
+MDAgZWxmMzItcG93ZXJwY2xlIHBwY2Jvb3QgZWxmNjQtDQo+IHBvd2VycGMNCj4gCWVsZjY0LXBv
+d2VycGNsZSBhaXhjb2ZmNjQtcnM2MDAwIGFpeDVjb2ZmNjQtcnM2MDAwIGVsZjY0LQ0KPiBsaXR0
+bGVyaXNjdg0KPiAJZWxmMzItbGl0dGxlcmlzY3YgZWxmMzItczM5MCBlbGY2NC1zMzkwIGVsZjMy
+LXNoLWxpbnV4IGVsZjMyLQ0KPiBzaGJpZy1saW51eA0KPiAJZWxmMzItc2gtZmRwaWMgZWxmMzIt
+c2hiaWctZmRwaWMgZWxmMzItc3BhcmMgZWxmNjQtc3BhcmMgcGUtDQo+IHg4Ni02NA0KPiAJcGUt
+Ymlnb2JqLXg4Ni02NCBwZS1pMzg2IHBsdWdpbiBzcmVjIHN5bWJvbHNyZWMgdmVyaWxvZyB0ZWto
+ZXgNCj4gYmluYXJ5DQo+IAlpaGV4DQo+IA0KPiAoYWRkZWQgbGluZSBicmVha3MgZm9yIGVhc2ll
+ciByZWFkaW5nKS4gSSBnb3QgdGhpcyBieSBpbnN0YWxsaW5nDQo+IGJpbnV0aWxzLW11bHRpYXJj
+aCAob24gRGViaWFuKS4NCg0KVGhhbmtzIFV3ZSEgVGhhdCB3YXMga2luZCEgSSdtIG9uIEZlZG9y
+YSBidXQgSSBndWVzcyBJIGNhbiBmaW5kIHRoZQ0KbXVsdGlhcmNoIGJpbnV0aWxzIDopIEknbGwg
+dHJ5IHRoYXQgdG9tb3Jyb3cgd2hlbiBJJ20gYmFjayBhdCB0aGUNCm9mZmljZS4gTGV0J3Mgc2Vl
+IHdoYXQga2luZCBvZiByZXN1bHRzIEkgY2FuIGdldCBmcm9tIGl0Lg0KDQpVbmZvcnR1bmF0ZWx5
+IGJ1bmNoIG9mIHRoZSBHUElPcyBkZXBlbmQgb24geDg2IC0gc28gSSBuZWVkIHRvIHNlZSB3aGF0
+DQpJIGNhbiBjb21waWxlIGluIHdpdGggZGVjZW50IGVmZm9ydC4gRm9yIG15IGNvbXBpbGUgdGVz
+dCBJIGp1c3QgaGFja2VkDQp0aGUgTWFrZWZpbGUgdG8gZm9yY2UgYWxsIGluIGFuZCBhZGRlZCBz
+b21lIGR1bW15IG1hY3JvcyB0byBmaXggZmV3DQptaXNzaW5nIGZ1bmN0aW9ucyA6fCBCdXQgSSBn
+dWVzcyBJIGNhbiBnZXQgc29tZSByZXN1bHRzLg0KDQo+IA0KPiBCZXN0IHJlZ2FyZHMNCj4gVXdl
+DQo+IA0KDQpfX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fXwpM
+aW51eC1zdG0zMiBtYWlsaW5nIGxpc3QKTGludXgtc3RtMzJAc3QtbWQtbWFpbG1hbi5zdG9ybXJl
+cGx5LmNvbQpodHRwczovL3N0LW1kLW1haWxtYW4uc3Rvcm1yZXBseS5jb20vbWFpbG1hbi9saXN0
+aW5mby9saW51eC1zdG0zMgo=
