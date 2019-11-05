@@ -2,68 +2,97 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id DCE0AF00F6
-	for <lists+linux-stm32@lfdr.de>; Tue,  5 Nov 2019 16:14:31 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id A3AFEF0108
+	for <lists+linux-stm32@lfdr.de>; Tue,  5 Nov 2019 16:18:03 +0100 (CET)
 Received: from ip-172-31-3-76.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 9A075C36B0B;
-	Tue,  5 Nov 2019 15:14:31 +0000 (UTC)
-Received: from mx07-00178001.pphosted.com (mx07-00178001.pphosted.com
- [62.209.51.94])
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 6ADB6C36B0B;
+	Tue,  5 Nov 2019 15:18:03 +0000 (UTC)
+Received: from mga11.intel.com (mga11.intel.com [192.55.52.93])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id A5629C36B09
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 811E4C36B09
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Tue,  5 Nov 2019 15:14:28 +0000 (UTC)
-Received: from pps.filterd (m0046668.ppops.net [127.0.0.1])
- by mx07-00178001.pphosted.com (8.16.0.42/8.16.0.42) with SMTP id
- xA5F2XXW016060; Tue, 5 Nov 2019 16:14:21 +0100
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=st.com;
- h=subject : to : cc :
- references : from : message-id : date : mime-version : in-reply-to :
- content-type : content-transfer-encoding; s=STMicroelectronics;
- bh=sGcJotaSzAOF4wGBo2lc42IY7N+BpinNhWjk4Wx5zlY=;
- b=NeNQEYXPLvC3WCliUp9foYV7DboksxXg5AylZVZxb3SgTkByJKTqjh4al8hpgwgwC+kw
- KDq8KB+bY+m/l/sPplfQ1h3g2R4FboTw2eX3sStxXNQmYMx+wUSbd+e+qkOFnTbuvB16
- oh2QlH5a05G3/CRmytr5aW7l1TZx8MyIXOG84pD9gAzqPuJlKPipM3xI+E4phHECsjdV
- dGuU7sYCxIuxgh0SuDcunzdaQ6QdFBSIQ/ht29GmniLT0SCWXAatRqmm3duk5wX6ODZJ
- yY+NDtcAk+1n62SgZTGjDI0rmzcKvhblqXCWvBlPCLGo2W6PRYs7pdQs4H3Qi6W0rrE0 7A== 
-Received: from beta.dmz-eu.st.com (beta.dmz-eu.st.com [164.129.1.35])
- by mx07-00178001.pphosted.com with ESMTP id 2w1054r40k-1
- (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
- Tue, 05 Nov 2019 16:14:21 +0100
-Received: from euls16034.sgp.st.com (euls16034.sgp.st.com [10.75.44.20])
- by beta.dmz-eu.st.com (STMicroelectronics) with ESMTP id 9294C10002A;
- Tue,  5 Nov 2019 16:14:19 +0100 (CET)
-Received: from Webmail-eu.st.com (sfhdag3node2.st.com [10.75.127.8])
- by euls16034.sgp.st.com (STMicroelectronics) with ESMTP id 82FD92D3768;
- Tue,  5 Nov 2019 16:14:19 +0100 (CET)
-Received: from lmecxl0995.lme.st.com (10.75.127.44) by SFHDAG3NODE2.st.com
- (10.75.127.8) with Microsoft SMTP Server (TLS) id 15.0.1347.2; Tue, 5 Nov
- 2019 16:14:18 +0100
-To: Linus Walleij <linus.walleij@linaro.org>
-References: <20191104100908.10880-1-amelie.delaunay@st.com>
- <CACRpkdb1c-NHXDQXYS78VTcGPnJApmxjzZbF_cM8SUknhDiQ4Q@mail.gmail.com>
-From: Amelie DELAUNAY <amelie.delaunay@st.com>
-Message-ID: <64f8096f-cec6-fef1-5a4e-ddca3bf8c73d@st.com>
-Date: Tue, 5 Nov 2019 16:14:18 +0100
-User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:60.0) Gecko/20100101
- Thunderbird/60.9.0
+ Tue,  5 Nov 2019 15:17:59 +0000 (UTC)
+X-Amp-Result: UNKNOWN
+X-Amp-Original-Verdict: FILE UNKNOWN
+X-Amp-File-Uploaded: False
+Received: from orsmga007.jf.intel.com ([10.7.209.58])
+ by fmsmga102.fm.intel.com with ESMTP/TLS/DHE-RSA-AES256-GCM-SHA384;
+ 05 Nov 2019 07:17:57 -0800
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="5.68,271,1569308400"; d="scan'208";a="192129424"
+Received: from smile.fi.intel.com (HELO smile) ([10.237.68.40])
+ by orsmga007.jf.intel.com with ESMTP; 05 Nov 2019 07:17:45 -0800
+Received: from andy by smile with local (Exim 4.93-RC1)
+ (envelope-from <andriy.shevchenko@linux.intel.com>)
+ id 1iS0aU-0004gk-NK; Tue, 05 Nov 2019 17:17:42 +0200
+Date: Tue, 5 Nov 2019 17:17:42 +0200
+From: "andriy.shevchenko@linux.intel.com" <andriy.shevchenko@linux.intel.com>
+To: Uwe =?iso-8859-1?Q?Kleine-K=F6nig?= <u.kleine-koenig@pengutronix.de>
+Message-ID: <20191105151742.GU32742@smile.fi.intel.com>
+References: <cover.1572875541.git.matti.vaittinen@fi.rohmeurope.com>
+ <20191105122042.GO32742@smile.fi.intel.com>
+ <4e6fa62d7022c7b1426477a150a93c899725f5b0.camel@fi.rohmeurope.com>
+ <20191105131038.duol3rwwkbuvgvwv@pengutronix.de>
+ <938a5ec7b41ae9ce7b0de83764d6b774cfdaa781.camel@fi.rohmeurope.com>
+ <20191105133604.d2xcasxw7pwzwvh7@pengutronix.de>
+ <a967c764d135ab0f96f6b1df62ac91426c935b44.camel@fi.rohmeurope.com>
+ <20191105145946.2ye6ujvqzn2d6fqd@pengutronix.de>
 MIME-Version: 1.0
-In-Reply-To: <CACRpkdb1c-NHXDQXYS78VTcGPnJApmxjzZbF_cM8SUknhDiQ4Q@mail.gmail.com>
-Content-Language: en-US
-X-Originating-IP: [10.75.127.44]
-X-ClientProxiedBy: SFHDAG7NODE3.st.com (10.75.127.21) To SFHDAG3NODE2.st.com
- (10.75.127.8)
-X-Proofpoint-Virus-Version: vendor=fsecure engine=2.50.10434:6.0.95,1.0.8
- definitions=2019-11-05_05:2019-11-05,2019-11-05 signatures=0
-Cc: "linux-kernel@vger.kernel.org" <linux-kernel@vger.kernel.org>,
- "open list:GPIO SUBSYSTEM" <linux-gpio@vger.kernel.org>,
- Maxime Coquelin <mcoquelin.stm32@gmail.com>,
+Content-Disposition: inline
+In-Reply-To: <20191105145946.2ye6ujvqzn2d6fqd@pengutronix.de>
+Organization: Intel Finland Oy - BIC 0357606-4 - Westendinkatu 7, 02160 Espoo
+User-Agent: Mutt/1.10.1 (2018-07-13)
+Cc: "semi.malinen@ge.com" <semi.malinen@ge.com>,
+ "alsa-devel@alsa-project.org" <alsa-devel@alsa-project.org>,
+ "linux-aspeed@lists.ozlabs.org" <linux-aspeed@lists.ozlabs.org>,
+ "david.daney@cavium.com" <david.daney@cavium.com>,
+ "linus.walleij@linaro.org" <linus.walleij@linaro.org>,
+ "sathyanarayanan.kuppuswamy@linux.intel.com"
+ <sathyanarayanan.kuppuswamy@linux.intel.com>,
+ "ptyser@xes-inc.com" <ptyser@xes-inc.com>,
+ "thierry.reding@gmail.com" <thierry.reding@gmail.com>,
+ "marek.behun@nic.cz" <marek.behun@nic.cz>,
+ "festevam@gmail.com" <festevam@gmail.com>,
  "linux-stm32@st-md-mailman.stormreply.com"
  <linux-stm32@st-md-mailman.stormreply.com>,
- Linux ARM <linux-arm-kernel@lists.infradead.org>
-Subject: Re: [Linux-stm32] [PATCH 1/1] pinctrl: stmfx: fix valid_mask init
-	sequence
+ "marek.vasut+renesas@gmail.com" <marek.vasut+renesas@gmail.com>,
+ "f.fainelli@gmail.com" <f.fainelli@gmail.com>,
+ "khilman@kernel.org" <khilman@kernel.org>,
+ "michal.simek@xilinx.com" <michal.simek@xilinx.com>,
+ "jonathanh@nvidia.com" <jonathanh@nvidia.com>,
+ "bgolaszewski@baylibre.com" <bgolaszewski@baylibre.com>,
+ "ludovic.desroches@microchip.com" <ludovic.desroches@microchip.com>,
+ "bamv2005@gmail.com" <bamv2005@gmail.com>, "joel@jms.id.au" <joel@jms.id.au>,
+ "nandor.han@ge.com" <nandor.han@ge.com>,
+ "bcm-kernel-feedback-list@broadcom.com"
+ <bcm-kernel-feedback-list@broadcom.com>,
+ "linux-imx@nxp.com" <linux-imx@nxp.com>,
+ "linux-pwm@vger.kernel.org" <linux-pwm@vger.kernel.org>,
+ "grygorii.strashko@ti.com" <grygorii.strashko@ti.com>,
+ "ckeepax@opensource.cirrus.com" <ckeepax@opensource.cirrus.com>,
+ "mazziesaccount@gmail.com" <mazziesaccount@gmail.com>,
+ "rjui@broadcom.com" <rjui@broadcom.com>,
+ "s.hauer@pengutronix.de" <s.hauer@pengutronix.de>,
+ "vilhelm.gray@gmail.com" <vilhelm.gray@gmail.com>,
+ "linux-gpio@vger.kernel.org" <linux-gpio@vger.kernel.org>,
+ "rf@opensource.cirrus.com" <rf@opensource.cirrus.com>,
+ "ssantosh@kernel.org" <ssantosh@kernel.org>,
+ "linux-tegra@vger.kernel.org" <linux-tegra@vger.kernel.org>,
+ "linux-omap@vger.kernel.org" <linux-omap@vger.kernel.org>,
+ "kernel@pengutronix.de" <kernel@pengutronix.de>,
+ "linux-arm-kernel@lists.infradead.org" <linux-arm-kernel@lists.infradead.org>,
+ "sbranden@broadcom.com" <sbranden@broadcom.com>,
+ "yamada.masahiro@socionext.com" <yamada.masahiro@socionext.com>,
+ "andrew@aj.id.au" <andrew@aj.id.au>, "info@metux.net" <info@metux.net>,
+ "Vaittinen, Matti" <Matti.Vaittinen@fi.rohmeurope.com>,
+ "linux-kernel@vger.kernel.org" <linux-kernel@vger.kernel.org>,
+ "linux-renesas-soc@vger.kernel.org" <linux-renesas-soc@vger.kernel.org>,
+ "t.scherer@eckelmann.de" <t.scherer@eckelmann.de>,
+ "mcoquelin.stm32@gmail.com" <mcoquelin.stm32@gmail.com>,
+ "patches@opensource.cirrus.com" <patches@opensource.cirrus.com>,
+ "shawnguo@kernel.org" <shawnguo@kernel.org>
+Subject: Re: [Linux-stm32] [PATCH 00/62] Add definition for GPIO direction
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -75,62 +104,38 @@ List-Post: <mailto:linux-stm32@st-md-mailman.stormreply.com>
 List-Help: <mailto:linux-stm32-request@st-md-mailman.stormreply.com?subject=help>
 List-Subscribe: <https://st-md-mailman.stormreply.com/mailman/listinfo/linux-stm32>, 
  <mailto:linux-stm32-request@st-md-mailman.stormreply.com?subject=subscribe>
-Content-Transfer-Encoding: base64
-Content-Type: text/plain; charset="utf-8"; Format="flowed"
+Content-Type: text/plain; charset="iso-8859-1"
+Content-Transfer-Encoding: quoted-printable
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
-CgpPbiAxMS81LzE5IDM6MzIgUE0sIExpbnVzIFdhbGxlaWogd3JvdGU6Cj4gT24gTW9uLCBOb3Yg
-NCwgMjAxOSBhdCAxMTowOSBBTSBBbWVsaWUgRGVsYXVuYXkgPGFtZWxpZS5kZWxhdW5heUBzdC5j
-b20+IAo+IHdyb3RlOgo+IAo+PiBXaXRoIHN0bWZ4X3BpbmN0cmxfZ3Bpb19pbml0X3ZhbGlkX21h
-c2sgY2FsbGJhY2ssIGdwaW9fdmFsaWRfbWFzayB3YXMgdXNlZAo+PiB0byBpbml0aWFsaXplIGdw
-aW9jaGlwIHZhbGlkX21hc2sgZm9yIGdwaW9saWIuIEJ1dCBncGlvX3ZhbGlkX21hc2sgd2FzIG5v
-dAo+PiB5ZXQgaW5pdGlhbGl6ZWQuIGdwaW9fdmFsaWRfbWFzayByZXF1aXJlZCBncGlvLXJhbmdl
-cyB0byBiZSByZWdpc3RlcmVkLAo+PiB0aGlzIGlzIHRoZSBjYXNlIGFmdGVyIGdwaW9jaGlwX2Fk
-ZF9kYXRhIGNhbGwuIEJ1dCBpbml0X3ZhbGlkX21hc2sKPj4gY2FsbGJhY2sgaXMgYWxzbyBjYWxs
-ZWQgdW5kZXIgZ3Bpb2NoaXBfYWRkX2RhdGEuIGdwaW9fdmFsaWRfbWFzawo+PiBpbml0aWFsaXph
-dGlvbiBjYW5ub3QgYmUgbW92ZWQgYmVmb3JlIGdwaW9jaGlwX2FkZF9kYXRhIGJlY2F1c2UKPj4g
-Z3Bpby1yYW5nZXMgYXJlIG5vdCByZWdpc3RlcmVkLgo+IAo+IFNvcnJ5IGJ1dCB0aGlzIGRvZXNu
-J3QgYWRkIHVwLCBsb29rIGF0IHRoaXMgY2FsbCBncmFwaDoKPiAKPiBncGlvY2hpcF9hZGRfZGF0
-YSgpCj4gIMKgIGdwaW9jaGlwX2FkZF9kYXRhX3dpdGhfa2V5KCkKPiAgwqDCoMKgIGdwaW9jaGlw
-X2FsbG9jX3ZhbGlkX21hc2soKQo+ICDCoMKgwqAgb2ZfZ3Bpb2NoaXBfYWRkKCkKPiAgwqDCoMKg
-IG9mX2dwaW9jaGlwX2FkZF9waW5fcmFuZ2UoKQo+ICDCoMKgwqAgZ3Bpb2NoaXBfaW5pdF92YWxp
-ZF9tYXNrKCkKPiAKPiBTbyB0aGUgLmluaXRpX3ZhbGlkX21hc2soKSBpcyBjbGVhcmx5IGNhbGxl
-ZCAqYWZ0ZXIqCj4gb2ZfZ3Bpb2NoaXBfYWRkX3Bpbl9yYW5nZSgpIHNvIHRoaXMgY2Fubm90IGJl
-IHRoZSByZWFsIHJlYXNvbiwKPiBwcm92aWRlZCB0aGF0IHRoZSByYW5nZXMgY29tZSBmcm9tIHRo
-ZSBkZXZpY2UgdHJlZS4gQUZBSUNUIHRoYXQKPiBpcyB0aGUgY2FzZSB3aXRoIHRoZSBzdG1meC4K
-PiAKPiBDYW4geW91IGNoZWNrIGFuZCBzZWUgaWYgdGhlIHByb2JsZW0gaXMgc29tZXRoaW5nIGVs
-c2U/Cj4KCnN0bWZ4X3BpbmN0cmxfZ3Bpb19pbml0X3ZhbGlkX21hc2sgdXNlcyBwY3RsLT5ncGlv
-X3ZhbGlkX21hc2sgdG8gCmluaXRpYWxpemUgZ3Bpb2NoaXAgdmFsaWRfbWFzay4KCnBjdGwtPmdw
-aW9fdmFsaWRfbWFzayBpcyBpbml0aWFsaXplZCBpbiAKc3RtZnhfcGluY3RybF9ncGlvX2Z1bmN0
-aW9uX2VuYWJsZSBkZXBlbmRpbmcgb24gZ3BpbyByYW5nZXMuCgpzdG1meF9waW5jdHJsX2dwaW9f
-ZnVuY3Rpb25fZW5hYmxlIGlzIGNhbGxlZCBhZnRlciBncGlvY2hpcF9hZGRfZGF0YSAKYmVjYXVz
-ZSBpdCByZXF1aXJlcyBncGlvIHJhbmdlcyB0byBiZSByZWdpc3RlcmVkLgoKU28sIGluIHN0bWZ4
-IGRyaXZlciB0aGUgY2FsbCBncmFwaCBpcwoKc3RtZnhfcGluY3RybF9wcm9iZQogICBncGlvY2hp
-cF9hZGRfZGF0YSgpCiAgICAgZ3Bpb2NoaXBfYWRkX2RhdGFfd2l0aF9rZXkoKQogICAgICAgZ3Bp
-b2NoaXBfYWxsb2NfdmFsaWRfbWFzaygpCiAgICAgICBvZl9ncGlvY2hpcF9hZGQoKQogICAgICAg
-b2ZfZ3Bpb2NoaXBfYWRkX3Bpbl9yYW5nZSgpCiAgICAgICBncGlvY2hpcF9pbml0X3ZhbGlkX21h
-c2soKQogICAgICAgICBzdG1meF9waW5jdHJsX2dwaW9faW5pdF92YWxpZF9tYXNrIChidXQgcGN0
-bC0+Z3Bpb192YWxpZF9tYXNrIAppcyBub3QgeWV0IGluaXRpYWxpemVkIHNvIGdwaW9jaGlwIHZh
-bGlkX21hc2sgaXMgd3JvbmcpCiAgIHN0bWZ4X3BpbmN0cmxfZ3Bpb19mdW5jdGlvbl9lbmFibGUg
-KHBjdGwtPmdwaW9fdmFsaWRfbWFzayBpcyBnb2luZyB0byAKYmUgaW5pdGlhbGl6ZWQgdGhhbmtz
-IHRvIGdwaW8gcmFuZ2VzKQoKV2hlbiBjb25zdW1lciB0cmllcyB0byB0YWtlIGEgcGluIChpdCBp
-cyB0aGUgY2FzZSBmb3IgdGhlIGpveXN0aWNrIG9uIApzdG0zMm1wMTU3Yy1ldjEpLCBpdCBnZXRz
-IHRoZSBmb2xsb3dpbmcgaXNzdWU6ClsgICAgMy4zNDczOTFdIGlycTogOnNvYzppMmNANDAwMTMw
-MDA6c3RtZnhANDI6c3RtZngtcGluLWNvbnRyb2xsZXIgCmRpZG4ndCBsaWtlIGh3aXJxLTB4MCB0
-byBWSVJROTIgbWFwcGluZyAocmM9LTYpClsgICAgMy4zNTY0MThdIGlycTogOnNvYzppMmNANDAw
-MTMwMDA6c3RtZnhANDI6c3RtZngtcGluLWNvbnRyb2xsZXIgCmRpZG4ndCBsaWtlIGh3aXJxLTB4
-MSB0byBWSVJROTIgbWFwcGluZyAocmM9LTYpClsgICAgMy4zNjY1MTJdIGlycTogOnNvYzppMmNA
-NDAwMTMwMDA6c3RtZnhANDI6c3RtZngtcGluLWNvbnRyb2xsZXIgCmRpZG4ndCBsaWtlIGh3aXJx
-LTB4MiB0byBWSVJROTIgbWFwcGluZyAocmM9LTYpClsgICAgMy4zNzY2NzFdIGlycTogOnNvYzpp
-MmNANDAwMTMwMDA6c3RtZnhANDI6c3RtZngtcGluLWNvbnRyb2xsZXIgCmRpZG4ndCBsaWtlIGh3
-aXJxLTB4MyB0byBWSVJROTIgbWFwcGluZyAocmM9LTYpClsgICAgMy4zODcxNjldIGlycTogOnNv
-YzppMmNANDAwMTMwMDA6c3RtZnhANDI6c3RtZngtcGluLWNvbnRyb2xsZXIgCmRpZG4ndCBsaWtl
-IGh3aXJxLTB4NCB0byBWSVJROTIgbWFwcGluZyAocmM9LTYpClsgICAgMy4zOTcwNjVdIGdwaW8t
-a2V5cyBqb3lzdGljazogRm91bmQgYnV0dG9uIHdpdGhvdXQgZ3BpbyBvciBpcnEKWyAgICAzLjQw
-MzA0MV0gZ3Bpby1rZXlzOiBwcm9iZSBvZiBqb3lzdGljayBmYWlsZWQgd2l0aCBlcnJvciAtMjIK
-CkkgY2FuIHJld29yZCB0aGUgY29tbWl0IG1lc3NhZ2UgdG8gbWFrZSBpdCBjbGVhcmVyLgoKUmVn
-YXJkcywKQW1lbGllCl9fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19f
-X19fCkxpbnV4LXN0bTMyIG1haWxpbmcgbGlzdApMaW51eC1zdG0zMkBzdC1tZC1tYWlsbWFuLnN0
-b3JtcmVwbHkuY29tCmh0dHBzOi8vc3QtbWQtbWFpbG1hbi5zdG9ybXJlcGx5LmNvbS9tYWlsbWFu
-L2xpc3RpbmZvL2xpbnV4LXN0bTMyCg==
+On Tue, Nov 05, 2019 at 03:59:46PM +0100, Uwe Kleine-K=F6nig wrote:
+> On Tue, Nov 05, 2019 at 02:00:02PM +0000, Vaittinen, Matti wrote:
+> > On Tue, 2019-11-05 at 14:36 +0100, Uwe Kleine-K=F6nig wrote:
+> > Thanks Uwe! That was kind! I'm on Fedora but I guess I can find the
+> > multiarch binutils :) I'll try that tomorrow when I'm back at the
+> > office. Let's see what kind of results I can get from it.
+> > =
+
+> > Unfortunately bunch of the GPIOs depend on x86 - so I need to see what
+> > I can compile in with decent effort. For my compile test I just hacked
+> > the Makefile to force all in and added some dummy macros to fix few
+> > missing functions :| But I guess I can get some results.
+> =
+
+> Enable CONFIG_COMPILE_TEST and then you should be able to compile most
+> drivers also on the wrong architecture.
+
+*Wrong* is a wrong word here. I guess you misspelled *another* / *not nativ=
+e*.
+
+-- =
+
+With Best Regards,
+Andy Shevchenko
+
+
+_______________________________________________
+Linux-stm32 mailing list
+Linux-stm32@st-md-mailman.stormreply.com
+https://st-md-mailman.stormreply.com/mailman/listinfo/linux-stm32
