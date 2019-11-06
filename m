@@ -2,42 +2,42 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id 791FCF195A
+	by mail.lfdr.de (Postfix) with ESMTPS id 93A56F195C
 	for <lists+linux-stm32@lfdr.de>; Wed,  6 Nov 2019 16:03:16 +0100 (CET)
 Received: from ip-172-31-3-76.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 3243EC36B21;
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 58F12C36B27;
 	Wed,  6 Nov 2019 15:03:16 +0000 (UTC)
-Received: from smtprelay-out1.synopsys.com (dc8-smtprelay2.synopsys.com
+Received: from smtprelay-out1.synopsys.com (smtprelay-out1.synopsys.com
  [198.182.47.102])
  (using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 2BC1FC36B10
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 43576C36B11
  for <linux-stm32@st-md-mailman.stormreply.com>;
  Wed,  6 Nov 2019 15:03:14 +0000 (UTC)
 Received: from mailhost.synopsys.com (mdc-mailhost2.synopsys.com
  [10.225.0.210])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits))
  (No client certificate requested)
- by smtprelay-out1.synopsys.com (Postfix) with ESMTPS id 2E7CAC0F52;
+ by smtprelay-out1.synopsys.com (Postfix) with ESMTPS id 3CF36C0F53;
  Wed,  6 Nov 2019 15:03:12 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=synopsys.com; s=mail;
- t=1573052592; bh=D0GsWGpmp4rSag1Ntw7umeYHLG+m0Prqvd4CjMTCUoQ=;
+ t=1573052592; bh=8Mgy8SE+u7zp7nfFF49sdswEnUy9PwnZGeHPTqEIxvs=;
  h=From:To:Cc:Subject:Date:In-Reply-To:References:In-Reply-To:
  References:From;
- b=YMxbEJC8a6gRN46LLDwM6iEK4FeFL8dVlkhwmDVINPtljAGlYCBr3X1Y5yx4zW9lW
- 7HZy76Ln9WF9ocW9HWUgzttCpo1bGcKsKkqaDcnUKAUYoIKoSDG+DZ9s63G7RXaMmk
- l8sdNhz1pGwi0lt5bnkfvKNiL70lLRMYr6MPaZJXc8CLZrGFH1/Mro9WYCwh13cKLX
- Peu0dsRbZjEVDJc0gRryAHOagA6KriQnW1f68HcHCsA8dtpUNF8ne+42iAVR4r1z3F
- Fa0SZ/BojSC+VxEp1iyNaxTVHgyJ0ZvT3ahVl43hIJW5NoiEhm3i1UajarlVcNxqPc
- 4vDODBR0CtT9w==
+ b=QUFsaUN8n6uJW35Bjts1fuCuAV7CwwSDDXMVSR/wfROz4qCGrLjgwJwyW3NBYzqTm
+ 4Y52+zxsSeebPHI6duugX6SENImDA+xrkCuD53HXMNQMrAXD9NlS4iQUN2LXbmp3hG
+ nkfUo+OaPPldukiLn10lkSxdJDFEctjD/I524uxcST9SdnNxfwf4FYxe+XVfxr8S7g
+ W1aggZr6SPa68+kwtQThFQeIK+Y0/9+ByJmuvSBgqyNkvlS7jGryNBigAV9XGIrClE
+ RXU7Hr7RqscxVQ/YC8yKXaESrRhOynXHuNcXmClQQ8TmP8jQixtv8pjgtzwI/aMwYI
+ I1lP3BEFgguaA==
 Received: from de02dwia024.internal.synopsys.com
  (de02dwia024.internal.synopsys.com [10.225.19.81])
- by mailhost.synopsys.com (Postfix) with ESMTP id E6A24A0081;
+ by mailhost.synopsys.com (Postfix) with ESMTP id EF2AAA0085;
  Wed,  6 Nov 2019 15:03:10 +0000 (UTC)
 From: Jose Abreu <Jose.Abreu@synopsys.com>
 To: netdev@vger.kernel.org
-Date: Wed,  6 Nov 2019 16:03:03 +0100
-Message-Id: <82bec6022a4e2650f9eeb8682bac2b705e3eae9a.1573052379.git.Jose.Abreu@synopsys.com>
+Date: Wed,  6 Nov 2019 16:03:04 +0100
+Message-Id: <c9c9e9d025b2164632b24ce560ac52981f77d57e.1573052379.git.Jose.Abreu@synopsys.com>
 X-Mailer: git-send-email 2.7.4
 In-Reply-To: <cover.1573052378.git.Jose.Abreu@synopsys.com>
 References: <cover.1573052378.git.Jose.Abreu@synopsys.com>
@@ -48,8 +48,8 @@ Cc: Jose Abreu <Jose.Abreu@synopsys.com>, Joao Pinto <Joao.Pinto@synopsys.com>,
  Maxime Coquelin <mcoquelin.stm32@gmail.com>,
  Giuseppe Cavallaro <peppe.cavallaro@st.com>,
  "David S. Miller" <davem@davemloft.net>, linux-arm-kernel@lists.infradead.org
-Subject: [Linux-stm32] [PATCH net 09/11] net: stmmac: Fix the packet count
-	in stmmac_rx()
+Subject: [Linux-stm32] [PATCH net 10/11] net: stmmac: Fix TSO descriptor
+	with Enhanced Addressing
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -67,12 +67,11 @@ Content-Transfer-Encoding: 7bit
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
-Currently, stmmac_rx() is counting the number of descriptors but it
-should count the number of packets as specified by the NAPI limit.
+When using addressing > 32 bits the TSO first descriptor only has the
+header so we can't set the payload field for this descriptor. Let's
+reset the variable so that buffer 2 value is zero.
 
-Fix this.
-
-Fixes: ec222003bd94 ("net: stmmac: Prepare to add Split Header support")
+Fixes: a993db88d17d ("net: stmmac: Enable support for > 32 Bits addressing in XGMAC")
 Signed-off-by: Jose Abreu <Jose.Abreu@synopsys.com>
 
 ---
@@ -86,46 +85,21 @@ Cc: linux-stm32@st-md-mailman.stormreply.com
 Cc: linux-arm-kernel@lists.infradead.org
 Cc: linux-kernel@vger.kernel.org
 ---
- drivers/net/ethernet/stmicro/stmmac/stmmac_main.c | 5 +++--
- 1 file changed, 3 insertions(+), 2 deletions(-)
+ drivers/net/ethernet/stmicro/stmmac/stmmac_main.c | 1 +
+ 1 file changed, 1 insertion(+)
 
 diff --git a/drivers/net/ethernet/stmicro/stmmac/stmmac_main.c b/drivers/net/ethernet/stmicro/stmmac/stmmac_main.c
-index 4e9c848c67cc..1ab1eea1556a 100644
+index 1ab1eea1556a..b0a16d7c6e3d 100644
 --- a/drivers/net/ethernet/stmicro/stmmac/stmmac_main.c
 +++ b/drivers/net/ethernet/stmicro/stmmac/stmmac_main.c
-@@ -3506,8 +3506,6 @@ static int stmmac_rx(struct stmmac_priv *priv, int limit, u32 queue)
- 		if (unlikely(status & dma_own))
- 			break;
- 
--		count++;
--
- 		rx_q->cur_rx = STMMAC_GET_ENTRY(rx_q->cur_rx, DMA_RX_SIZE);
- 		next_entry = rx_q->cur_rx;
- 
-@@ -3534,6 +3532,7 @@ static int stmmac_rx(struct stmmac_priv *priv, int limit, u32 queue)
- 			goto read_again;
- 		if (unlikely(error)) {
- 			dev_kfree_skb(skb);
-+			count++;
- 			continue;
- 		}
- 
-@@ -3573,6 +3572,7 @@ static int stmmac_rx(struct stmmac_priv *priv, int limit, u32 queue)
- 			skb = napi_alloc_skb(&ch->rx_napi, len);
- 			if (!skb) {
- 				priv->dev->stats.rx_dropped++;
-+				count++;
- 				continue;
- 			}
- 
-@@ -3638,6 +3638,7 @@ static int stmmac_rx(struct stmmac_priv *priv, int limit, u32 queue)
- 
- 		priv->dev->stats.rx_packets++;
- 		priv->dev->stats.rx_bytes += len;
-+		count++;
+@@ -2996,6 +2996,7 @@ static netdev_tx_t stmmac_tso_xmit(struct sk_buff *skb, struct net_device *dev)
+ 		stmmac_set_desc_addr(priv, first, des);
+ 		tmp_pay_len = pay_len;
+ 		des += proto_hdr_len;
++		pay_len = 0;
  	}
  
- 	if (status & rx_not_ls) {
+ 	stmmac_tso_allocator(priv, des, tmp_pay_len, (nfrags == 0), queue);
 -- 
 2.7.4
 
