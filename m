@@ -2,71 +2,50 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id 581ABF1F6C
-	for <lists+linux-stm32@lfdr.de>; Wed,  6 Nov 2019 21:00:58 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 91D95F22AC
+	for <lists+linux-stm32@lfdr.de>; Thu,  7 Nov 2019 00:33:21 +0100 (CET)
 Received: from ip-172-31-3-76.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 14845C36B0B;
-	Wed,  6 Nov 2019 20:00:58 +0000 (UTC)
-Received: from mx07-00178001.pphosted.com (mx07-00178001.pphosted.com
- [62.209.51.94])
- (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 40DB6C36B0B;
+	Wed,  6 Nov 2019 23:33:21 +0000 (UTC)
+Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
+ (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 61BB2C36B09
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 3D035C36B09
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Wed,  6 Nov 2019 20:00:55 +0000 (UTC)
-Received: from pps.filterd (m0046037.ppops.net [127.0.0.1])
- by mx07-00178001.pphosted.com (8.16.0.42/8.16.0.42) with SMTP id
- xA6Jvkil015972; Wed, 6 Nov 2019 20:58:09 +0100
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=st.com;
- h=from : to : cc : subject
- : date : message-id : references : in-reply-to : content-type : content-id
- : content-transfer-encoding : mime-version; s=STMicroelectronics;
- bh=UUgh3Lo+qJDaOFvLiwrfPtl8yZf8yXbRZxfUc/25B9k=;
- b=hV6Qq7ATFv/8SsV9FqDv6wBDql0Y1AzlHZtF/pE7cBOUhEnHCNjNPQ7/rC1dW/nPwKUB
- a0OzrCjvqCSA4SOt4sy3nHKKVtvfPjHPVpZrqJLS4NlojDMcHuVIZ/FWXr/HRZTgrks/
- BlbLa6VY7mFYiredqke+l/zYKVBlHsdW09g1cQgTDiuxMx09Xgyyo+Vfj/qo30XzR5m2
- P14QcPUq5kQ2voYcxgPhN+sVMJyIG2rB6T+zIwFjszb1By9+GtEK4jXjKuXk3WdRqEJ/
- UpaKfnZbH5gT01tK+1VHarybQjZgLMwlpOcdGHGHEq4XqJposqZxXqr7c4J4X5zBYyqs Jg== 
-Received: from beta.dmz-eu.st.com (beta.dmz-eu.st.com [164.129.1.35])
- by mx07-00178001.pphosted.com with ESMTP id 2w41vdrs0f-1
- (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
- Wed, 06 Nov 2019 20:58:09 +0100
-Received: from euls16034.sgp.st.com (euls16034.sgp.st.com [10.75.44.20])
- by beta.dmz-eu.st.com (STMicroelectronics) with ESMTP id 3794C10002A;
- Wed,  6 Nov 2019 20:58:09 +0100 (CET)
-Received: from Webmail-eu.st.com (sfhdag5node2.st.com [10.75.127.14])
- by euls16034.sgp.st.com (STMicroelectronics) with ESMTP id 1BA882BEC50;
- Wed,  6 Nov 2019 20:58:09 +0100 (CET)
-Received: from SFHDAG3NODE3.st.com (10.75.127.9) by SFHDAG5NODE2.st.com
- (10.75.127.14) with Microsoft SMTP Server (TLS) id 15.0.1473.3; Wed, 6 Nov
- 2019 20:58:08 +0100
-Received: from SFHDAG3NODE3.st.com ([fe80::3507:b372:7648:476]) by
- SFHDAG3NODE3.st.com ([fe80::3507:b372:7648:476%20]) with mapi id
- 15.00.1347.000; Wed, 6 Nov 2019 20:58:08 +0100
-From: Benjamin GAIGNARD <benjamin.gaignard@st.com>
-To: Rob Herring <robh@kernel.org>
-Thread-Topic: [PATCH 1/4] dt-bindings: counter: Convert stm32 counter bindings
- to json-schema
-Thread-Index: AQHVj+cHKYpjTBsaoUanlMQvDBdoeKd9f6aAgAABnACAAQcxAA==
-Date: Wed, 6 Nov 2019 19:58:08 +0000
-Message-ID: <29d97cd1-4dc2-24a1-182f-d1bf6956ee5b@st.com>
-References: <20191031123040.26316-1-benjamin.gaignard@st.com>
- <20191031123040.26316-2-benjamin.gaignard@st.com>
- <20191106041023.GB5294@bogus> <20191106041608.GA24747@bogus>
-In-Reply-To: <20191106041608.GA24747@bogus>
-Accept-Language: en-US
-Content-Language: en-US
-X-MS-Has-Attach: 
-X-MS-TNEF-Correlator: 
-user-agent: Mozilla/5.0 (X11; Linux x86_64; rv:60.0) Gecko/20100101
- Thunderbird/60.9.0
-x-ms-exchange-messagesentrepresentingtype: 1
-x-ms-exchange-transport-fromentityheader: Hosted
-x-originating-ip: [10.75.127.44]
-Content-ID: <9AC39F460CE5B44394ED8C7013DF655A@st.com>
+ Wed,  6 Nov 2019 23:33:20 +0000 (UTC)
+Received: from mail-qv1-f54.google.com (mail-qv1-f54.google.com
+ [209.85.219.54])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+ (No client certificate requested)
+ by mail.kernel.org (Postfix) with ESMTPSA id 76F6021D7F
+ for <linux-stm32@st-md-mailman.stormreply.com>;
+ Wed,  6 Nov 2019 23:33:18 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
+ s=default; t=1573083198;
+ bh=kXuPSKl+d3N16AWU48reQZ1zuDSoKWcH8SnXbdsyG1Y=;
+ h=References:In-Reply-To:From:Date:Subject:To:Cc:From;
+ b=jtHyhFkWE3pKHvdd83jG7hT7NyR376eTuEr9ERzYU/cLPUMq8jfmu4Pc3AwMwAOfA
+ Ta5bhoJh9cqN3cZVa6vzhyOfspGH5C9cbvPH9vfe7rCAYdmt5ayL69+QublnfxuRyj
+ LKVoZnM3aCaTH+YQzn0GMYdakODsvG+TlLgH+QUU=
+Received: by mail-qv1-f54.google.com with SMTP id w11so72257qvu.13
+ for <linux-stm32@st-md-mailman.stormreply.com>;
+ Wed, 06 Nov 2019 15:33:18 -0800 (PST)
+X-Gm-Message-State: APjAAAVLyaNTk++TAYlJnh0kgtw7bx9EnF2E3x0crrPVK4QlsFB+lujK
+ P6nbrBeRZFORiInvJqf63EJfFk3v1p57OBeSiA==
+X-Google-Smtp-Source: APXvYqyC3A2flD/nPROb9ThjRdJKDCsiLA48Ab5fS1yM/Zg798U/Sn7jNMdhWcJ4s8JZjQWG/fXn9qcpyqj9go+/rgA=
+X-Received: by 2002:a0c:ca06:: with SMTP id c6mr490409qvk.136.1573083197450;
+ Wed, 06 Nov 2019 15:33:17 -0800 (PST)
 MIME-Version: 1.0
-X-Proofpoint-Virus-Version: vendor=fsecure engine=2.50.10434:6.0.95,18.0.572
- definitions=2019-11-06_07:2019-11-06,2019-11-06 signatures=0
+References: <20191031123040.26316-1-benjamin.gaignard@st.com>
+ <20191031123040.26316-5-benjamin.gaignard@st.com>
+ <20191106041518.GC5294@bogus>
+ <41c43d09-9371-8b23-a3dd-e43f5df5c5bc@st.com>
+In-Reply-To: <41c43d09-9371-8b23-a3dd-e43f5df5c5bc@st.com>
+From: Rob Herring <robh@kernel.org>
+Date: Wed, 6 Nov 2019 17:33:05 -0600
+X-Gmail-Original-Message-ID: <CAL_Jsq+eFew_8ULDOwL5GXUDxLRB9e+b+ZsMdWLKUO8i9Lk7AQ@mail.gmail.com>
+Message-ID: <CAL_Jsq+eFew_8ULDOwL5GXUDxLRB9e+b+ZsMdWLKUO8i9Lk7AQ@mail.gmail.com>
+To: Benjamin GAIGNARD <benjamin.gaignard@st.com>
 Cc: "mark.rutland@arm.com" <mark.rutland@arm.com>,
  "devicetree@vger.kernel.org" <devicetree@vger.kernel.org>,
  "lars@metafoo.de" <lars@metafoo.de>,
@@ -82,8 +61,8 @@ Cc: "mark.rutland@arm.com" <mark.rutland@arm.com>,
  "linux-stm32@st-md-mailman.stormreply.com"
  <linux-stm32@st-md-mailman.stormreply.com>,
  "jic23@kernel.org" <jic23@kernel.org>
-Subject: Re: [Linux-stm32] [PATCH 1/4] dt-bindings: counter: Convert stm32
- counter bindings to json-schema
+Subject: Re: [Linux-stm32] [PATCH 4/4] dt-bindings: mfd: Convert stm32
+	timers bindings to json-schema
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -100,23 +79,112 @@ Content-Transfer-Encoding: 7bit
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
-
-On 11/6/19 5:16 AM, Rob Herring wrote:
-> On Tue, Nov 05, 2019 at 10:10:23PM -0600, Rob Herring wrote:
->> On Thu, Oct 31, 2019 at 01:30:37PM +0100, Benjamin Gaignard wrote:
->>> Convert the STM32 counter binding to DT schema format using json-schema
->> Probably this should all be 1 file instead.
-> Also, checkpatch reports trailing whitespace in several of your patches.
-
-I will write all in one file and fix trailing whitespace in v2
-
-Thanks for your review
-
-Benjamin
-
-> .
+On Wed, Nov 6, 2019 at 1:57 PM Benjamin GAIGNARD
+<benjamin.gaignard@st.com> wrote:
 >
-> Rob
+>
+> On 11/6/19 5:15 AM, Rob Herring wrote:
+> > On Thu, Oct 31, 2019 at 01:30:40PM +0100, Benjamin Gaignard wrote:
+> >> Convert the STM32 timers binding to DT schema format using json-schema
+> >>
+> >> Signed-off-by: Benjamin Gaignard <benjamin.gaignard@st.com>
+> >> ---
+> >>   .../devicetree/bindings/mfd/st,stm32-timers.yaml   | 91 ++++++++++++++++++++++
+> >>   .../devicetree/bindings/mfd/stm32-timers.txt       | 73 -----------------
+> >>   2 files changed, 91 insertions(+), 73 deletions(-)
+> >>   create mode 100644 Documentation/devicetree/bindings/mfd/st,stm32-timers.yaml
+> >>   delete mode 100644 Documentation/devicetree/bindings/mfd/stm32-timers.txt
+> >>
+> >> diff --git a/Documentation/devicetree/bindings/mfd/st,stm32-timers.yaml b/Documentation/devicetree/bindings/mfd/st,stm32-timers.yaml
+> >> new file mode 100644
+> >> index 000000000000..3f0a65fb2bc0
+> >> --- /dev/null
+> >> +++ b/Documentation/devicetree/bindings/mfd/st,stm32-timers.yaml
+> >> @@ -0,0 +1,91 @@
+> >> +# SPDX-License-Identifier: (GPL-2.0-only OR BSD-2-Clause)
+> >> +%YAML 1.2
+> >> +---
+> >> +$id: http://devicetree.org/schemas/mfd/st,stm32-timers.yaml#
+> >> +$schema: http://devicetree.org/meta-schemas/core.yaml#
+> >> +
+> >> +title: STMicroelectronics STM32 Timers bindings
+> >> +
+> >> +description: |
+> >> +  This hardware block provides 3 types of timer along with PWM functionality: \
+> > Don't need the \
+> ok
+> >
+> >> +    - advanced-control timers consist of a 16-bit auto-reload counter driven by a programmable \
+> >> +      prescaler, break input feature, PWM outputs and complementary PWM ouputs channels. \
+> >> +    - general-purpose timers consist of a 16-bit or 32-bit auto-reload counter driven by a \
+> >> +      programmable prescaler and PWM outputs.\
+> >> +    - basic timers consist of a 16-bit auto-reload counter driven by a programmable prescaler.
+> >> +
+> >> +maintainers:
+> >> +  - Benjamin Gaignard <benjamin.gaignard@st.com>
+> >> +  - Fabrice Gasnier <fabrice.gasnier@st.com>
+> >> +
+> >> +allOf:
+> >> +  - $ref: "../pwm/st,stm32-pwm.yaml#"
+> >> +  - $ref: "../iio/timer/st,stm32-timer-trigger.yaml#"
+> >> +  - $ref: "../counter/st,stm32-timer-cnt.yaml#"
+> > This works, but I prefer the child node names be listed under properties
+> > here with a ref:
+> >
+> > counter:
+> >    $ref: "../counter/st,stm32-timer-cnt.yaml#"
+> If I wrote everything in one file I guess what won't be needed anymore
+> >
+> >> +
+> >> +properties:
+> >> +  compatible:
+> >> +    const: st,stm32-timers
+> >> +
+> >> +  reg:
+> >> +    maxItems: 1
+> >> +
+> >> +  clocks:
+> >> +    maxItems: 1
+> >> +
+> >> +  clock-names:
+> >> +    items:
+> >> +      - const: int
+> >> +
+> >> +  reset:
+> >> +    maxItems: 1
+> >> +
+> >> +  dmas: true
+> > How many?
+>
+> from 0 up to 8, but I don't know the syntax for that. minItems = 0 isn't
+> accepted.
+>
+> Any hints for me ?
+
+0 is not accepted because the property is never 0 items. 0 is not
+present. So just:
+
+minItems: 1
+maxItems: 8
+
+
+> >> +
+> >> +  dma-names: true
+> > What are the names?
+>
+> it could be ch1 ... ch8, "trig" or "up" in any order.
+
+Why does it need to be in any order? Normally we don't want to have that.
+
+>
+> Again I haven't be able to find a syntax that allow to list the names
+> and use them in any orders.
+
+dma-names:
+  items:
+    enum: [ ch1, ch2, ..., trig, up ]
+
+Rob
 _______________________________________________
 Linux-stm32 mailing list
 Linux-stm32@st-md-mailman.stormreply.com
