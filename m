@@ -2,48 +2,59 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id 78F87F0573
-	for <lists+linux-stm32@lfdr.de>; Tue,  5 Nov 2019 19:55:24 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 18525F0D0E
+	for <lists+linux-stm32@lfdr.de>; Wed,  6 Nov 2019 04:29:22 +0100 (CET)
 Received: from ip-172-31-3-76.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 2FDF0C36B0B;
-	Tue,  5 Nov 2019 18:55:24 +0000 (UTC)
-Received: from heliosphere.sirena.org.uk (heliosphere.sirena.org.uk
- [172.104.155.198])
- (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id C8E42C36B0B;
+	Wed,  6 Nov 2019 03:29:21 +0000 (UTC)
+Received: from mail-oi1-f193.google.com (mail-oi1-f193.google.com
+ [209.85.167.193])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 3C5DBC36B09
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 65BD2C36B09
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Tue,  5 Nov 2019 18:55:22 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
- d=sirena.org.uk; s=20170815-heliosphere; h=Date:Message-Id:In-Reply-To:
- Subject:Cc:To:From:Sender:Reply-To:MIME-Version:Content-Type:
- Content-Transfer-Encoding:Content-ID:Content-Description:Resent-Date:
- Resent-From:Resent-Sender:Resent-To:Resent-Cc:Resent-Message-ID:References:
- List-Id:List-Help:List-Unsubscribe:List-Subscribe:List-Post:List-Owner:
- List-Archive; bh=dcXKl/0UqJ+dCjeE5w/EDI2rZhDXMA0VO2ph2g/2lKo=; b=YkXoDtn0mNp3
- jFthqMO+OvdjD02O8vSt6QOaYPW6A2o/HfrkS1KnXTTHqzmAJmr6M16eewkN96qkeu3oNTOX3O1ed
- hqBjH5+GIdql2zgffYYMjNS78o0IXbse7cvkL9co0/585HrS3ftkHrcJIsy1nelXT1wmAcZh3rnxx
- zf7Xw=;
-Received: from cpc102320-sgyl38-2-0-cust46.18-2.cable.virginm.net
- ([82.37.168.47] helo=ypsilon.sirena.org.uk)
- by heliosphere.sirena.org.uk with esmtpsa
- (TLS1.3:ECDHE_RSA_AES_256_GCM_SHA384:256) (Exim 4.92)
- (envelope-from <broonie@sirena.co.uk>)
- id 1iS3z0-0007Pi-Ja; Tue, 05 Nov 2019 18:55:14 +0000
-Received: by ypsilon.sirena.org.uk (Postfix, from userid 1000)
- id 91F312743284; Tue,  5 Nov 2019 18:55:12 +0000 (GMT)
-From: Mark Brown <broonie@kernel.org>
-To: Olivier Moysan <olivier.moysan@st.com>
-In-Reply-To: <20191104133654.28750-1-olivier.moysan@st.com>
-X-Patchwork-Hint: ignore
-Message-Id: <20191105185512.91F312743284@ypsilon.sirena.org.uk>
-Date: Tue,  5 Nov 2019 18:55:12 +0000 (GMT)
-Cc: alsa-devel@alsa-project.org, tiwai@suse.com, lgirdwood@gmail.com,
- linux-kernel@vger.kernel.org, Mark Brown <broonie@kernel.org>,
- mcoquelin.stm32@gmail.com, perex@perex.cz,
- linux-stm32@st-md-mailman.stormreply.com, linux-arm-kernel@lists.infradead.org
-Subject: [Linux-stm32] Applied "ASoC: stm32: sai: add restriction on mmap
-	support" to the asoc tree
+ Wed,  6 Nov 2019 03:29:20 +0000 (UTC)
+Received: by mail-oi1-f193.google.com with SMTP id 22so1576280oip.7
+ for <linux-stm32@st-md-mailman.stormreply.com>;
+ Tue, 05 Nov 2019 19:29:20 -0800 (PST)
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20161025;
+ h=x-gm-message-state:date:from:to:cc:subject:message-id:references
+ :mime-version:content-disposition:in-reply-to:user-agent;
+ bh=YqC9TqSkya1o/KJL8zpucATnY1j4nIoBdkUAmUprxs0=;
+ b=WZIF+P7CcaMZ/kDZyT26dXMxeyDURssLlFijria05jbuLy97Kppl2YinF7J8pIHNbw
+ k4UkDdqNBlQBc55HEz8whEgp5AGzsU3Dd3s0KXaqdi1Z0p5Jfe4u6VJlzSqsBWvOxXJF
+ X62/58cuDnZxc0AotQtnvdsFOuJfx0i3QQtY/jAcInkIY7bwqGlemqi79Rn1Jp2cZ2V9
+ cS7Vxu1JcwddPx9dnnIZzA3kNuUFB3cVbLymP5KZthKKwJfvDwIJaaPDsejJsenueBTy
+ 8ZJ8ESQkmJYT+LjwUhEAjTKjFRpAA2HuzCXL8K5seb1DKiEV29ZdNw20Hw2WXmux4wQt
+ KLRw==
+X-Gm-Message-State: APjAAAXlSRvELiqFxJBr0UxsxcNx9MkJyqA72CObyTwRJ3OHf4YicFq2
+ QhCe6sKHALYs26/uNKM3iA==
+X-Google-Smtp-Source: APXvYqx/nF0CpBAElSmOBIYblIaOc2Wf6Sp7yrh2qYVI6M6XfnHyx1svrejcYxe9WS6YADmSZrE0LQ==
+X-Received: by 2002:aca:49c7:: with SMTP id w190mr285191oia.117.1573010959021; 
+ Tue, 05 Nov 2019 19:29:19 -0800 (PST)
+Received: from localhost (24-155-109-49.dyn.grandenetworks.net.
+ [24.155.109.49])
+ by smtp.gmail.com with ESMTPSA id 88sm3097164otp.59.2019.11.05.19.29.18
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Tue, 05 Nov 2019 19:29:18 -0800 (PST)
+Date: Tue, 5 Nov 2019 21:29:17 -0600
+From: Rob Herring <robh@kernel.org>
+To: Fabrice Gasnier <fabrice.gasnier@st.com>
+Message-ID: <20191106032917.GA25856@bogus>
+References: <1572279108-25916-1-git-send-email-fabrice.gasnier@st.com>
+ <1572279108-25916-2-git-send-email-fabrice.gasnier@st.com>
+MIME-Version: 1.0
+Content-Disposition: inline
+In-Reply-To: <1572279108-25916-2-git-send-email-fabrice.gasnier@st.com>
+User-Agent: Mutt/1.10.1 (2018-07-13)
+Cc: mark.rutland@arm.com, devicetree@vger.kernel.org, lars@metafoo.de,
+ linux-iio@vger.kernel.org, pmeerw@pmeerw.net, linux-kernel@vger.kernel.org,
+ robh+dt@kernel.org, linux-arm-kernel@lists.infradead.org,
+ mcoquelin.stm32@gmail.com, knaack.h@gmx.de, fabrice.gasnier@st.com,
+ linux-stm32@st-md-mailman.stormreply.com, jic23@kernel.org
+Subject: Re: [Linux-stm32] [PATCH 1/2] dt-bindings: iio: stm32-adc: add max
+ clock rate property
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -55,88 +66,21 @@ List-Post: <mailto:linux-stm32@st-md-mailman.stormreply.com>
 List-Help: <mailto:linux-stm32-request@st-md-mailman.stormreply.com?subject=help>
 List-Subscribe: <https://st-md-mailman.stormreply.com/mailman/listinfo/linux-stm32>, 
  <mailto:linux-stm32-request@st-md-mailman.stormreply.com?subject=subscribe>
-MIME-Version: 1.0
 Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
-The patch
+On Mon, 28 Oct 2019 17:11:47 +0100, Fabrice Gasnier wrote:
+> Add optional dt property to tune maximum desired analog clock rate.
+> 
+> Signed-off-by: Fabrice Gasnier <fabrice.gasnier@st.com>
+> ---
+>  Documentation/devicetree/bindings/iio/adc/st,stm32-adc.txt | 2 ++
+>  1 file changed, 2 insertions(+)
+> 
 
-   ASoC: stm32: sai: add restriction on mmap support
-
-has been applied to the asoc tree at
-
-   https://git.kernel.org/pub/scm/linux/kernel/git/broonie/sound.git for-5.4
-
-All being well this means that it will be integrated into the linux-next
-tree (usually sometime in the next 24 hours) and sent to Linus during
-the next merge window (or sooner if it is a bug fix), however if
-problems are discovered then the patch may be dropped or reverted.  
-
-You may get further e-mails resulting from automated or manual testing
-and review of the tree, please engage with people reporting problems and
-send followup patches addressing any issues that are reported if needed.
-
-If any updates are required or you are submitting further changes they
-should be sent as incremental updates against current git, existing
-patches will not be replaced.
-
-Please add any relevant lists and maintainers to the CCs when replying
-to this mail.
-
-Thanks,
-Mark
-
-From eaf072e512d54c95b0977eda06cbca3151ace1e5 Mon Sep 17 00:00:00 2001
-From: Olivier Moysan <olivier.moysan@st.com>
-Date: Mon, 4 Nov 2019 14:36:54 +0100
-Subject: [PATCH] ASoC: stm32: sai: add restriction on mmap support
-
-Do not support mmap in S/PDIF mode. In S/PDIF mode
-the buffer has to be copied, to allow the channel status
-bits insertion.
-
-Signed-off-by: Olivier Moysan <olivier.moysan@st.com>
-Link: https://lore.kernel.org/r/20191104133654.28750-1-olivier.moysan@st.com
-Signed-off-by: Mark Brown <broonie@kernel.org>
----
- sound/soc/stm/stm32_sai_sub.c | 12 +++++++++++-
- 1 file changed, 11 insertions(+), 1 deletion(-)
-
-diff --git a/sound/soc/stm/stm32_sai_sub.c b/sound/soc/stm/stm32_sai_sub.c
-index a4060813bc74..48e629ac2d88 100644
---- a/sound/soc/stm/stm32_sai_sub.c
-+++ b/sound/soc/stm/stm32_sai_sub.c
-@@ -1218,6 +1218,16 @@ static int stm32_sai_pcm_process_spdif(struct snd_pcm_substream *substream,
- 	return 0;
- }
- 
-+/* No support of mmap in S/PDIF mode */
-+static const struct snd_pcm_hardware stm32_sai_pcm_hw_spdif = {
-+	.info = SNDRV_PCM_INFO_INTERLEAVED,
-+	.buffer_bytes_max = 8 * PAGE_SIZE,
-+	.period_bytes_min = 1024,
-+	.period_bytes_max = PAGE_SIZE,
-+	.periods_min = 2,
-+	.periods_max = 8,
-+};
-+
- static const struct snd_pcm_hardware stm32_sai_pcm_hw = {
- 	.info = SNDRV_PCM_INFO_INTERLEAVED | SNDRV_PCM_INFO_MMAP,
- 	.buffer_bytes_max = 8 * PAGE_SIZE,
-@@ -1270,7 +1280,7 @@ static const struct snd_dmaengine_pcm_config stm32_sai_pcm_config = {
- };
- 
- static const struct snd_dmaengine_pcm_config stm32_sai_pcm_config_spdif = {
--	.pcm_hardware = &stm32_sai_pcm_hw,
-+	.pcm_hardware = &stm32_sai_pcm_hw_spdif,
- 	.prepare_slave_config = snd_dmaengine_pcm_prepare_slave_config,
- 	.process = stm32_sai_pcm_process_spdif,
- };
--- 
-2.20.1
-
+Reviewed-by: Rob Herring <robh@kernel.org>
 _______________________________________________
 Linux-stm32 mailing list
 Linux-stm32@st-md-mailman.stormreply.com
