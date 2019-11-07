@@ -2,65 +2,61 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id 34AD3F29A1
-	for <lists+linux-stm32@lfdr.de>; Thu,  7 Nov 2019 09:48:41 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id CDD01F2A24
+	for <lists+linux-stm32@lfdr.de>; Thu,  7 Nov 2019 10:07:24 +0100 (CET)
 Received: from ip-172-31-3-76.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id EF2B0C36B17;
-	Thu,  7 Nov 2019 08:48:40 +0000 (UTC)
-Received: from mx07-00178001.pphosted.com (mx07-00178001.pphosted.com
- [62.209.51.94])
- (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 7FD5FC36B0B;
+	Thu,  7 Nov 2019 09:07:24 +0000 (UTC)
+Received: from mail-lj1-f196.google.com (mail-lj1-f196.google.com
+ [209.85.208.196])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 4F4D2C36B09
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id E5280C36B09
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Thu,  7 Nov 2019 08:48:38 +0000 (UTC)
-Received: from pps.filterd (m0046037.ppops.net [127.0.0.1])
- by mx07-00178001.pphosted.com (8.16.0.42/8.16.0.42) with SMTP id
- xA78l3w6010842; Thu, 7 Nov 2019 09:48:21 +0100
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=st.com;
- h=from : to : cc : subject
- : date : message-id : in-reply-to : references : mime-version :
- content-type; s=STMicroelectronics;
- bh=PasrWJUoa3UFwSs+GtbCxK+KUm1QgPk+g2vbUrQXP80=;
- b=kd6E3oTVgridwBB9jwAR3sTCaMNyVoRrVPxGut+v2corY2YUGVUk30JZlYx5d5A2Q5S0
- 208aDh/t3n7oJavcZG9n3O8QaklwJ13E3HxCUeyQDqy6ARZhE77tfXg+shSL8D38LpxQ
- hi1gz6rGDkpO1UVRAfLDQY+5qUlCjbt9u2Mx53N2e/US1MZLN6Dpzvyd1DXKtbFR6br3
- +DUck8c77IU2hxC+9OtUsn/DkRpwGxRTrgjvcRta83BA6yuZA2c2vDUxF9tTzSyNmBmP
- 2ECZZrPGkKKs/Vz5G3g2Qc8u7lpijilpeC4GSOEIpghrqbAd959ekUXN1SLbQtXPwciA Kw== 
-Received: from beta.dmz-eu.st.com (beta.dmz-eu.st.com [164.129.1.35])
- by mx07-00178001.pphosted.com with ESMTP id 2w41vduy85-1
- (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
- Thu, 07 Nov 2019 09:48:21 +0100
-Received: from euls16034.sgp.st.com (euls16034.sgp.st.com [10.75.44.20])
- by beta.dmz-eu.st.com (STMicroelectronics) with ESMTP id 3F992100071;
- Thu,  7 Nov 2019 09:48:07 +0100 (CET)
-Received: from Webmail-eu.st.com (Safex1hubcas24.st.com [10.75.90.94])
- by euls16034.sgp.st.com (STMicroelectronics) with ESMTP id 31B332AA977;
- Thu,  7 Nov 2019 09:48:07 +0100 (CET)
-Received: from SAFEX1HUBCAS21.st.com (10.75.90.45) by Safex1hubcas24.st.com
- (10.75.90.94) with Microsoft SMTP Server (TLS) id 14.3.439.0; Thu, 7 Nov 2019
- 09:48:07 +0100
-Received: from localhost (10.201.22.222) by Webmail-ga.st.com (10.75.90.48)
- with Microsoft SMTP Server (TLS) id 14.3.439.0; Thu, 7 Nov 2019 09:48:06
- +0100
-From: Christophe Roullier <christophe.roullier@st.com>
-To: <robh@kernel.org>, <davem@davemloft.net>, <joabreu@synopsys.com>,
- <mark.rutland@arm.com>, <mcoquelin.stm32@gmail.com>,
- <alexandre.torgue@st.com>, <peppe.cavallaro@st.com>
-Date: Thu, 7 Nov 2019 09:47:57 +0100
-Message-ID: <20191107084757.17910-5-christophe.roullier@st.com>
-X-Mailer: git-send-email 2.17.1
-In-Reply-To: <20191107084757.17910-1-christophe.roullier@st.com>
-References: <20191107084757.17910-1-christophe.roullier@st.com>
+ Thu,  7 Nov 2019 09:07:22 +0000 (UTC)
+Received: by mail-lj1-f196.google.com with SMTP id n5so1358826ljc.9
+ for <linux-stm32@st-md-mailman.stormreply.com>;
+ Thu, 07 Nov 2019 01:07:22 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linaro.org; s=google;
+ h=mime-version:references:in-reply-to:from:date:message-id:subject:to
+ :cc; bh=4r2I4GWCi4/JcKwrvsl/b6YhN/4C3j/fmn4xKNtK0ZQ=;
+ b=ux2FovIcG1zE1vslYMh2o/uYdWYD97faEpyQnorZ9gkQPiRWvlS2RTooMZAxvF3su+
+ OqoHPDmvTUAi47XsDElIJWqgC3LO7i9KEuHpeu7FdNJRgfNfkzqPuAqSyPGzHXjMB3B6
+ q9wjlHMeQgdsM7gIdR9S7L9ABnXjRR3GhZaPvwnscJwgO+QS/Eipa1O756bS8o8tMYgR
+ uPt/rdMsJw77oSkg6k4BQQLd2cS3JqRU6ZzLbEl1CJ0K0AT0BeYhuoBj1UyAfOdehm9A
+ YKs0s1JZ16Km5J4MR2gu5hILMegt1bUWBpQOx3xf72iFOTqNaIeQ7vGXgdOpXJ5gKTRF
+ /4Kg==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20161025;
+ h=x-gm-message-state:mime-version:references:in-reply-to:from:date
+ :message-id:subject:to:cc;
+ bh=4r2I4GWCi4/JcKwrvsl/b6YhN/4C3j/fmn4xKNtK0ZQ=;
+ b=SCVq/2jBrKeJJFBELvv5I/sWcItBilTFF2c35Bv6EJ0HLqJ0uiLGAR/6usFgg46rgD
+ txagJh4HVutZejnEa2le7vZrQRKZocx5q/tndl7StNZauIjQLltJJzzT8iJg6h+Hm1wr
+ 33u35MimEEln5Lnaeb6ywNeuiFUKT5ukC3bF5bjIXZxg46BZbWOUt9yWOGjn6HYNbOG5
+ Omn0pSYMjfqZP2FSw/uHZs7rR8GVnFHihInXT7EaUrxmuTYFEd8RzMGiQIbT+xsnYhPY
+ VZVyu0o37AqTUg89HKXKG9fF/vtyOxKKsbshfS8G2G7I+qg322WuWZJ6Ret0Tugx/LwQ
+ +SZQ==
+X-Gm-Message-State: APjAAAV0k79O4MqhxPWruZBJULyYXkjq1zxoJjrDTuYarxo0nqHE4+HJ
+ Y1MNd1BZP3GWLjI59r61JO3Nte0yJon48JkVMuBxFg==
+X-Google-Smtp-Source: APXvYqwocIIrCbyry8zer+NUwVaV5Dx7e3lBotAXLq/eYxTJbRgLBTjLohnii7mCSBObKiM3W3u/8TT7mvEO2yLrxeg=
+X-Received: by 2002:a05:651c:1202:: with SMTP id
+ i2mr1583378lja.218.1573117642202; 
+ Thu, 07 Nov 2019 01:07:22 -0800 (PST)
 MIME-Version: 1.0
-X-Originating-IP: [10.201.22.222]
-X-Proofpoint-Virus-Version: vendor=fsecure engine=2.50.10434:6.0.95,18.0.572
- definitions=2019-11-07_02:2019-11-07,2019-11-07 signatures=0
-Cc: devicetree@vger.kernel.org, andrew@lunn.ch, netdev@vger.kernel.org,
- linux-kernel@vger.kernel.org, linux-stm32@st-md-mailman.stormreply.com,
- linux-arm-kernel@lists.infradead.org
-Subject: [Linux-stm32] [PATCH V4 net-next 4/4] ARM: dts: stm32: Enable
-	gating of the MAC TX clock during TX low-power mode on stm32mp157c
+References: <20191104100908.10880-1-amelie.delaunay@st.com>
+In-Reply-To: <20191104100908.10880-1-amelie.delaunay@st.com>
+From: Linus Walleij <linus.walleij@linaro.org>
+Date: Thu, 7 Nov 2019 10:07:10 +0100
+Message-ID: <CACRpkdbFyTV_8aJko8r1+2vXohHfwoJy8ujTofUC0ruG1PeviA@mail.gmail.com>
+To: Amelie Delaunay <amelie.delaunay@st.com>
+Cc: "linux-kernel@vger.kernel.org" <linux-kernel@vger.kernel.org>,
+ "open list:GPIO SUBSYSTEM" <linux-gpio@vger.kernel.org>,
+ Maxime Coquelin <mcoquelin.stm32@gmail.com>,
+ linux-stm32@st-md-mailman.stormreply.com,
+ Linux ARM <linux-arm-kernel@lists.infradead.org>
+Subject: Re: [Linux-stm32] [PATCH 1/1] pinctrl: stmfx: fix valid_mask init
+	sequence
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -77,28 +73,25 @@ Content-Transfer-Encoding: 7bit
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
-When there is no activity on ethernet phy link, the ETH_GTX_CLK is cut
+On Mon, Nov 4, 2019 at 11:09 AM Amelie Delaunay <amelie.delaunay@st.com> wrote:
 
-Signed-off-by: Christophe Roullier <christophe.roullier@st.com>
----
- arch/arm/boot/dts/stm32mp157c.dtsi | 1 +
- 1 file changed, 1 insertion(+)
+> With stmfx_pinctrl_gpio_init_valid_mask callback, gpio_valid_mask was used
+> to initialize gpiochip valid_mask for gpiolib. But gpio_valid_mask was not
+> yet initialized. gpio_valid_mask required gpio-ranges to be registered,
+> this is the case after gpiochip_add_data call. But init_valid_mask
+> callback is also called under gpiochip_add_data. gpio_valid_mask
+> initialization cannot be moved before gpiochip_add_data because
+> gpio-ranges are not registered.
+> So, it is not possible to use init_valid_mask callback.
+> To avoid this issue, get rid of valid_mask and rely on ranges.
+>
+> Fixes: da9b142ab2c5 ("pinctrl: stmfx: Use the callback to populate valid_mask")
+> Signed-off-by: Amelie Delaunay <amelie.delaunay@st.com>
 
-diff --git a/arch/arm/boot/dts/stm32mp157c.dtsi b/arch/arm/boot/dts/stm32mp157c.dtsi
-index f13c2348d130..8df2986dd452 100644
---- a/arch/arm/boot/dts/stm32mp157c.dtsi
-+++ b/arch/arm/boot/dts/stm32mp157c.dtsi
-@@ -1334,6 +1334,7 @@
- 			st,syscon = <&syscfg 0x4>;
- 			snps,mixed-burst;
- 			snps,pbl = <2>;
-+			snps,en-tx-lpi-clockgating;
- 			snps,axi-config = <&stmmac_axi_config_0>;
- 			snps,tso;
- 			status = "disabled";
--- 
-2.17.1
+Patch applied for fixes.
 
+Yours,
+Linus Walleij
 _______________________________________________
 Linux-stm32 mailing list
 Linux-stm32@st-md-mailman.stormreply.com
