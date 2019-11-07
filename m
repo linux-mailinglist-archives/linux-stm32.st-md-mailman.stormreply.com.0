@@ -2,70 +2,46 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id AB4DAF2A80
-	for <lists+linux-stm32@lfdr.de>; Thu,  7 Nov 2019 10:24:49 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id B2EA8F2ECB
+	for <lists+linux-stm32@lfdr.de>; Thu,  7 Nov 2019 14:04:11 +0100 (CET)
 Received: from ip-172-31-3-76.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id D9C7BC36B0B;
-	Thu,  7 Nov 2019 09:24:48 +0000 (UTC)
-Received: from mx07-00178001.pphosted.com (mx07-00178001.pphosted.com
- [62.209.51.94])
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 10B45C36B0B;
+	Thu,  7 Nov 2019 13:04:11 +0000 (UTC)
+Received: from vps0.lunn.ch (vps0.lunn.ch [185.16.172.187])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id B7877C36B09
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id B9D90C36B09
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Thu,  7 Nov 2019 09:24:47 +0000 (UTC)
-Received: from pps.filterd (m0046037.ppops.net [127.0.0.1])
- by mx07-00178001.pphosted.com (8.16.0.42/8.16.0.42) with SMTP id
- xA79NYM7019497; Thu, 7 Nov 2019 10:24:40 +0100
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=st.com;
- h=subject : to : cc :
- references : from : message-id : date : mime-version : in-reply-to :
- content-type : content-transfer-encoding; s=STMicroelectronics;
- bh=Nb/QEqnZoMmiwFk8QYy7UhscfVZLIh+x/Bdk+co3TD0=;
- b=aSsHwf9oISipVlgti+RbcmRO5jKKaVfy49CVVZoh3lJ599KYvpEp1+0LDMRsYtbIkDW4
- cDLRKlVjqnwEKGWPA/Uj5LpjfQWPVwvudUTL9t3P18nJqsT8WwmiBc5VuVTgf7dhxpPS
- /Yuggi9lsFG0F320F4tzp37XQqg5l+p9HxF2fO/+WakNrKRCVgRkQOHpDHQDnlSzuwh/
- vXDs/CeZ3b/eiPMIpM1L4X7mHBzLNpLOYe9Lk5arNCbZ80rswAV3/oqM6NYw262lhotZ
- b309lMdc893X8B1Pct01HFVzc1Cttd//mffb9rDBBnETYXiZspQri9yq4eVPw5aN7vZG RQ== 
-Received: from beta.dmz-eu.st.com (beta.dmz-eu.st.com [164.129.1.35])
- by mx07-00178001.pphosted.com with ESMTP id 2w41vdv6hc-1
- (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
- Thu, 07 Nov 2019 10:24:40 +0100
-Received: from euls16034.sgp.st.com (euls16034.sgp.st.com [10.75.44.20])
- by beta.dmz-eu.st.com (STMicroelectronics) with ESMTP id 794A5100039;
- Thu,  7 Nov 2019 10:24:40 +0100 (CET)
-Received: from Webmail-eu.st.com (sfhdag3node2.st.com [10.75.127.8])
- by euls16034.sgp.st.com (STMicroelectronics) with ESMTP id 6AEF32AD32A;
- Thu,  7 Nov 2019 10:24:40 +0100 (CET)
-Received: from lmecxl0995.lme.st.com (10.75.127.46) by SFHDAG3NODE2.st.com
- (10.75.127.8) with Microsoft SMTP Server (TLS) id 15.0.1347.2; Thu, 7 Nov
- 2019 10:24:39 +0100
-To: Linus Walleij <linus.walleij@linaro.org>
-References: <20191104100908.10880-1-amelie.delaunay@st.com>
- <CACRpkdb1c-NHXDQXYS78VTcGPnJApmxjzZbF_cM8SUknhDiQ4Q@mail.gmail.com>
- <64f8096f-cec6-fef1-5a4e-ddca3bf8c73d@st.com>
- <CACRpkdbK=aB84hW0FtuMBtzqi3ftKBxedXEpqmnJhbN_vJWx2Q@mail.gmail.com>
-From: Amelie DELAUNAY <amelie.delaunay@st.com>
-Message-ID: <390e6f5b-e7a1-d7ae-34bf-5574e7239d5c@st.com>
-Date: Thu, 7 Nov 2019 10:24:39 +0100
-User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:60.0) Gecko/20100101
- Thunderbird/60.9.0
+ Thu,  7 Nov 2019 13:04:08 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=lunn.ch;
+ s=20171124; h=In-Reply-To:Content-Type:MIME-Version:References:Message-ID:
+ Subject:Cc:To:From:Date:Sender:Reply-To:Content-Transfer-Encoding:Content-ID:
+ Content-Description:Resent-Date:Resent-From:Resent-Sender:Resent-To:Resent-Cc
+ :Resent-Message-ID:List-Id:List-Help:List-Unsubscribe:List-Subscribe:
+ List-Post:List-Owner:List-Archive;
+ bh=gbf7zk8dhXAY3xkboojvSWk46awthw6w/BOzWbnO/Wo=; b=2jIJhSPm9hSY114D0x3CpEFxYt
+ pkQ+J8TMddqP97vJmKKNT7oAtgjSCra7S5KxUW2wt6AsBP4eQxE22AU1YY18GLHstCgA/G9yi7NHL
+ 04iiHB32RJ3MLXct7cCmwCstOYWxC0OZ92s1QPxOy6PxajN4tqQ9tqoe9TPmsaXxbCPg=;
+Received: from andrew by vps0.lunn.ch with local (Exim 4.92.2)
+ (envelope-from <andrew@lunn.ch>)
+ id 1iShSB-00065k-O8; Thu, 07 Nov 2019 14:03:59 +0100
+Date: Thu, 7 Nov 2019 14:03:59 +0100
+From: Andrew Lunn <andrew@lunn.ch>
+To: Christophe Roullier <christophe.roullier@st.com>
+Message-ID: <20191107130359.GD22978@lunn.ch>
+References: <20191107084757.17910-1-christophe.roullier@st.com>
+ <20191107084757.17910-2-christophe.roullier@st.com>
 MIME-Version: 1.0
-In-Reply-To: <CACRpkdbK=aB84hW0FtuMBtzqi3ftKBxedXEpqmnJhbN_vJWx2Q@mail.gmail.com>
-Content-Language: en-US
-X-Originating-IP: [10.75.127.46]
-X-ClientProxiedBy: SFHDAG1NODE1.st.com (10.75.127.1) To SFHDAG3NODE2.st.com
- (10.75.127.8)
-X-Proofpoint-Virus-Version: vendor=fsecure engine=2.50.10434:6.0.95,18.0.572
- definitions=2019-11-07_02:2019-11-07,2019-11-07 signatures=0
-Cc: "linux-kernel@vger.kernel.org" <linux-kernel@vger.kernel.org>,
- "open list:GPIO SUBSYSTEM" <linux-gpio@vger.kernel.org>,
- Maxime Coquelin <mcoquelin.stm32@gmail.com>,
- "linux-stm32@st-md-mailman.stormreply.com"
- <linux-stm32@st-md-mailman.stormreply.com>,
- Linux ARM <linux-arm-kernel@lists.infradead.org>
-Subject: Re: [Linux-stm32] [PATCH 1/1] pinctrl: stmfx: fix valid_mask init
-	sequence
+Content-Disposition: inline
+In-Reply-To: <20191107084757.17910-2-christophe.roullier@st.com>
+User-Agent: Mutt/1.10.1 (2018-07-13)
+Cc: mark.rutland@arm.com, robh@kernel.org, devicetree@vger.kernel.org,
+ netdev@vger.kernel.org, linux-kernel@vger.kernel.org,
+ linux-stm32@st-md-mailman.stormreply.com, joabreu@synopsys.com,
+ mcoquelin.stm32@gmail.com, peppe.cavallaro@st.com, davem@davemloft.net,
+ linux-arm-kernel@lists.infradead.org
+Subject: Re: [Linux-stm32] [PATCH V4 net-next 1/4] net: ethernet: stmmac:
+ Add support for syscfg clock
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -77,101 +53,21 @@ List-Post: <mailto:linux-stm32@st-md-mailman.stormreply.com>
 List-Help: <mailto:linux-stm32-request@st-md-mailman.stormreply.com?subject=help>
 List-Subscribe: <https://st-md-mailman.stormreply.com/mailman/listinfo/linux-stm32>, 
  <mailto:linux-stm32-request@st-md-mailman.stormreply.com?subject=subscribe>
+Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
-Content-Type: text/plain; charset="us-ascii"; Format="flowed"
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
-On 11/7/19 10:09 AM, Linus Walleij wrote:
-> On Tue, Nov 5, 2019 at 4:14 PM Amelie DELAUNAY <amelie.delaunay@st.com> wrote:
->> On 11/5/19 3:32 PM, Linus Walleij wrote:
->>> On Mon, Nov 4, 2019 at 11:09 AM Amelie Delaunay <amelie.delaunay@st.com>
->>> wrote:
->>>
->>>> With stmfx_pinctrl_gpio_init_valid_mask callback, gpio_valid_mask was used
->>>> to initialize gpiochip valid_mask for gpiolib. But gpio_valid_mask was not
->>>> yet initialized. gpio_valid_mask required gpio-ranges to be registered,
->>>> this is the case after gpiochip_add_data call. But init_valid_mask
->>>> callback is also called under gpiochip_add_data. gpio_valid_mask
->>>> initialization cannot be moved before gpiochip_add_data because
->>>> gpio-ranges are not registered.
->>>
->>> Sorry but this doesn't add up, look at this call graph:
->>>
->>> gpiochip_add_data()
->>>     gpiochip_add_data_with_key()
->>>       gpiochip_alloc_valid_mask()
->>>       of_gpiochip_add()
->>>       of_gpiochip_add_pin_range()
->>>       gpiochip_init_valid_mask()
->>>
->>> So the .initi_valid_mask() is clearly called *after*
->>> of_gpiochip_add_pin_range() so this cannot be the real reason,
->>> provided that the ranges come from the device tree. AFAICT that
->>> is the case with the stmfx.
->>>
->>> Can you check and see if the problem is something else?
->>>
->>
->> stmfx_pinctrl_gpio_init_valid_mask uses pctl->gpio_valid_mask to
->> initialize gpiochip valid_mask.
->>
->> pctl->gpio_valid_mask is initialized in
->> stmfx_pinctrl_gpio_function_enable depending on gpio ranges.
->>
->> stmfx_pinctrl_gpio_function_enable is called after gpiochip_add_data
->> because it requires gpio ranges to be registered.
->>
->> So, in stmfx driver the call graph is
->>
->> stmfx_pinctrl_probe
->>     gpiochip_add_data()
->>       gpiochip_add_data_with_key()
->>         gpiochip_alloc_valid_mask()
->>         of_gpiochip_add()
->>         of_gpiochip_add_pin_range()
->>         gpiochip_init_valid_mask()
->>           stmfx_pinctrl_gpio_init_valid_mask (but pctl->gpio_valid_mask
->> is not yet initialized so gpiochip valid_mask is wrong)
->>     stmfx_pinctrl_gpio_function_enable (pctl->gpio_valid_mask is going to
->> be initialized thanks to gpio ranges)
->>
->> When consumer tries to take a pin (it is the case for the joystick on
->> stm32mp157c-ev1), it gets the following issue:
->> [    3.347391] irq: :soc:i2c@40013000:stmfx@42:stmfx-pin-controller
->> didn't like hwirq-0x0 to VIRQ92 mapping (rc=-6)
->> [    3.356418] irq: :soc:i2c@40013000:stmfx@42:stmfx-pin-controller
->> didn't like hwirq-0x1 to VIRQ92 mapping (rc=-6)
->> [    3.366512] irq: :soc:i2c@40013000:stmfx@42:stmfx-pin-controller
->> didn't like hwirq-0x2 to VIRQ92 mapping (rc=-6)
->> [    3.376671] irq: :soc:i2c@40013000:stmfx@42:stmfx-pin-controller
->> didn't like hwirq-0x3 to VIRQ92 mapping (rc=-6)
->> [    3.387169] irq: :soc:i2c@40013000:stmfx@42:stmfx-pin-controller
->> didn't like hwirq-0x4 to VIRQ92 mapping (rc=-6)
->> [    3.397065] gpio-keys joystick: Found button without gpio or irq
->> [    3.403041] gpio-keys: probe of joystick failed with error -22
->>
->> I can reword the commit message to make it clearer.
+On Thu, Nov 07, 2019 at 09:47:54AM +0100, Christophe Roullier wrote:
+> Add optional support for syscfg clock in dwmac-stm32.c
+> Now Syscfg clock is activated automatically when syscfg
+> registers are used
 > 
-> No need I understand it now, thanks for explaining!
-> 
-> We need to populate the valid mask some other way if you
-> want to safeguard this, I don't know if the existing
-> gpio-reserved-ranges would work? But it feels a bit unsafe
-> if you actually determine this some other way.
-> 
+> Signed-off-by: Christophe Roullier <christophe.roullier@st.com>
 
-Before this patch, I made a "draft" version using the 
-gpio-reserved-ranges property but then I had to use 
-gpiochip_line_is_valid in pinconf_get/_set/_dbg_show in addition of 
-pinctrl_find_gpio_range_from_pin... With an update of the bindings for 
-optional property gpio-reserved-ranges.
-I was not really fond of this solution, it sounded redundant.
+Reviewed-by: Andrew Lunn <andrew@lunn.ch>
 
-Thanks for applying the patch.
-
-Regards,
-Amelie
+    Andrew
 _______________________________________________
 Linux-stm32 mailing list
 Linux-stm32@st-md-mailman.stormreply.com
