@@ -2,104 +2,62 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id 9FC69F2900
-	for <lists+linux-stm32@lfdr.de>; Thu,  7 Nov 2019 09:22:49 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 3D318F299D
+	for <lists+linux-stm32@lfdr.de>; Thu,  7 Nov 2019 09:48:40 +0100 (CET)
 Received: from ip-172-31-3-76.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 6580BC36B0B;
-	Thu,  7 Nov 2019 08:22:49 +0000 (UTC)
-Received: from mail-lf1-f67.google.com (mail-lf1-f67.google.com
- [209.85.167.67])
- (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id DBD24C36B0B;
+	Thu,  7 Nov 2019 08:48:39 +0000 (UTC)
+Received: from mx07-00178001.pphosted.com (mx07-00178001.pphosted.com
+ [62.209.51.94])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 92D7EC36B09
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 50FC1C36B0A
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Thu,  7 Nov 2019 08:22:47 +0000 (UTC)
-Received: by mail-lf1-f67.google.com with SMTP id j5so874205lfh.10
- for <linux-stm32@st-md-mailman.stormreply.com>;
- Thu, 07 Nov 2019 00:22:47 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linaro.org; s=google;
- h=mime-version:references:in-reply-to:from:date:message-id:subject:to
- :cc; bh=W1kMVjXy8TfTB/av4qsnw1G4ZHclSRdrlLtTCyTAB3g=;
- b=aihVYo6vGJcSeMzZA2gHQagzuZuVYL80Tl8HsV3o3LI/DBg/S5MVPTitfm7pDFAG6E
- KU7Z1uXIrrxA5+r3lGKAenb9vmOH8pAHta+z2HuVGSB9kZOdz5AgkNdvAbRde2xOvpoT
- UzS8yGbMFd4DKYtsb3RNUpUElWYw56B6yCUzHCngiVaTKGxNs8EmIs8SqB757Vwf7VCX
- fwVEWkW6ZJ96L32Zj0dhvc0ujr2loUfyfL3PJK2DRlar2WzaN4hH3/gqSQ4Ye2vE2W10
- yDUxaSTMoU4hyrN/yWNS9R4ldaKnokRAtrRVSfZzc1jrl3LQMW5QsT76aHAI4spwff8o
- FNFw==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20161025;
- h=x-gm-message-state:mime-version:references:in-reply-to:from:date
- :message-id:subject:to:cc;
- bh=W1kMVjXy8TfTB/av4qsnw1G4ZHclSRdrlLtTCyTAB3g=;
- b=d6qCrn3a5wRvNUZRTIBdUPsD4qjvMPEtT5Yas6V08PO8/sSnLk9JWvx05Sfx7lBFmM
- j6hqxvnKsqlL+SOpEZ5Bj4BblSa/O3qKc0DBHixPrr4gqQrYbvynXdrLJNnnoSzZcR33
- +2XIJhizb7jHv7dFq+zEzyyPJr+dr69XB/nPYmrA9s9xsidVaEBBvfp52wHut1mDB46v
- fTKqmOZJ8f0JiztOvVsFrMdM6WLV7iu4FFloM3NnqRuB9CAuq4304Xh0pu4/Tj/hm6DM
- 1pIOMmNeY39fB8/Z6BtNy34oQN7+8qXnqEX33FTbFxcKNuSg5nwFHyMP7Klwt1SlKM8w
- qj2A==
-X-Gm-Message-State: APjAAAWFqT8CwI++3YTXcylhJMAJV5XVR2oBWmCfvjJqmfHRSwNstoX/
- O9kjgUjJAWLbSaIMVoSM2sad6MwHbiMoXFWKUuoS/A==
-X-Google-Smtp-Source: APXvYqy/AiAWlfAU/KnMLcnvlDO6zbO8H2HQsF3Z0XznPUZPaxE+dGbrTI9u/vdRHxraIochQ2FKHYEfNic+fopaYJs=
-X-Received: by 2002:a19:ca13:: with SMTP id a19mr1415050lfg.133.1573114966856; 
- Thu, 07 Nov 2019 00:22:46 -0800 (PST)
+ Thu,  7 Nov 2019 08:48:38 +0000 (UTC)
+Received: from pps.filterd (m0046037.ppops.net [127.0.0.1])
+ by mx07-00178001.pphosted.com (8.16.0.42/8.16.0.42) with SMTP id
+ xA78l9gt010906; Thu, 7 Nov 2019 09:48:23 +0100
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=st.com;
+ h=from : to : cc : subject
+ : date : message-id : mime-version : content-type; s=STMicroelectronics;
+ bh=rtKW3l2rzJlicglZujNA3kuhYJNSKzKPNkK0J/trcXQ=;
+ b=ptRC1w6yXp9Kh+uB4pCdTkpwgtoCSz05d6BQyVzV3Gy/1Or25bGveqrNHfqVu0mxGw3s
+ fbbHm2//txc87JhlKYpPTKNFqkl7NWycpce7JR29mo6Vat1WI48vpQPbuHvtSPi25b+C
+ Uti1c83gQ4SDbLJbnfZGqvrgWE5tQZRaj2Rdp4q8uXl0JLFaKfEbQ1lomBeH1Q68qLt0
+ a/vipIrJcGOwB/OaEzPsWnWM85ACY235ekANrTcNopRWNGbsqYczHTnVnvhiARRSd9ef
+ KsedtbbYQ13VF6o5CfyrSI5JjPfECTWTpFf2S2gbhTqoHnvmNd4NBm5JaqWhoYscpEHw JQ== 
+Received: from beta.dmz-eu.st.com (beta.dmz-eu.st.com [164.129.1.35])
+ by mx07-00178001.pphosted.com with ESMTP id 2w41vduy7w-1
+ (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
+ Thu, 07 Nov 2019 09:48:23 +0100
+Received: from euls16034.sgp.st.com (euls16034.sgp.st.com [10.75.44.20])
+ by beta.dmz-eu.st.com (STMicroelectronics) with ESMTP id B08ED100068;
+ Thu,  7 Nov 2019 09:48:02 +0100 (CET)
+Received: from Webmail-eu.st.com (Safex1hubcas24.st.com [10.75.90.94])
+ by euls16034.sgp.st.com (STMicroelectronics) with ESMTP id 7D0632AB105;
+ Thu,  7 Nov 2019 09:48:02 +0100 (CET)
+Received: from SAFEX1HUBCAS21.st.com (10.75.90.45) by Safex1hubcas24.st.com
+ (10.75.90.94) with Microsoft SMTP Server (TLS) id 14.3.439.0; Thu, 7 Nov 2019
+ 09:48:02 +0100
+Received: from localhost (10.201.22.222) by Webmail-ga.st.com (10.75.90.48)
+ with Microsoft SMTP Server (TLS) id 14.3.439.0; Thu, 7 Nov 2019 09:48:01
+ +0100
+From: Christophe Roullier <christophe.roullier@st.com>
+To: <robh@kernel.org>, <davem@davemloft.net>, <joabreu@synopsys.com>,
+ <mark.rutland@arm.com>, <mcoquelin.stm32@gmail.com>,
+ <alexandre.torgue@st.com>, <peppe.cavallaro@st.com>
+Date: Thu, 7 Nov 2019 09:47:53 +0100
+Message-ID: <20191107084757.17910-1-christophe.roullier@st.com>
+X-Mailer: git-send-email 2.17.1
 MIME-Version: 1.0
-References: <cover.1573029228.git.matti.vaittinen@fi.rohmeurope.com>
- <20191106120846.5bunrqj3uz4khih5@earth.universe>
- <ddcd02cc6c709837a28cae2cbfa672c506927659.camel@fi.rohmeurope.com>
-In-Reply-To: <ddcd02cc6c709837a28cae2cbfa672c506927659.camel@fi.rohmeurope.com>
-From: Linus Walleij <linus.walleij@linaro.org>
-Date: Thu, 7 Nov 2019 09:22:35 +0100
-Message-ID: <CACRpkdbaRsv+cKz7yxKxvs+99GRK50-d_kpKcdVn3NVV9Qr6Ng@mail.gmail.com>
-To: "Vaittinen, Matti" <Matti.Vaittinen@fi.rohmeurope.com>
-Cc: "alsa-devel@alsa-project.org" <alsa-devel@alsa-project.org>,
- "linux-aspeed@lists.ozlabs.org" <linux-aspeed@lists.ozlabs.org>,
- "david.daney@cavium.com" <david.daney@cavium.com>,
- "sathyanarayanan.kuppuswamy@linux.intel.com"
- <sathyanarayanan.kuppuswamy@linux.intel.com>,
- "sre@kernel.org" <sre@kernel.org>, "ptyser@xes-inc.com" <ptyser@xes-inc.com>,
- "thierry.reding@gmail.com" <thierry.reding@gmail.com>,
- "marek.behun@nic.cz" <marek.behun@nic.cz>,
- "festevam@gmail.com" <festevam@gmail.com>,
- "linux-stm32@st-md-mailman.stormreply.com"
- <linux-stm32@st-md-mailman.stormreply.com>,
- "marek.vasut+renesas@gmail.com" <marek.vasut+renesas@gmail.com>,
- "f.fainelli@gmail.com" <f.fainelli@gmail.com>,
- "khilman@kernel.org" <khilman@kernel.org>,
- "michal.simek@xilinx.com" <michal.simek@xilinx.com>,
- "jonathanh@nvidia.com" <jonathanh@nvidia.com>,
- "bgolaszewski@baylibre.com" <bgolaszewski@baylibre.com>,
- "linux-omap@vger.kernel.org" <linux-omap@vger.kernel.org>,
- "bamv2005@gmail.com" <bamv2005@gmail.com>, "joel@jms.id.au" <joel@jms.id.au>,
- "u.kleine-koenig@pengutronix.de" <u.kleine-koenig@pengutronix.de>,
- "bcm-kernel-feedback-list@broadcom.com"
- <bcm-kernel-feedback-list@broadcom.com>,
- "linux-imx@nxp.com" <linux-imx@nxp.com>,
- "linux-pwm@vger.kernel.org" <linux-pwm@vger.kernel.org>,
- "grygorii.strashko@ti.com" <grygorii.strashko@ti.com>,
- "ckeepax@opensource.cirrus.com" <ckeepax@opensource.cirrus.com>,
- "mazziesaccount@gmail.com" <mazziesaccount@gmail.com>,
- "rjui@broadcom.com" <rjui@broadcom.com>,
- "s.hauer@pengutronix.de" <s.hauer@pengutronix.de>,
- "vilhelm.gray@gmail.com" <vilhelm.gray@gmail.com>,
- "linux-gpio@vger.kernel.org" <linux-gpio@vger.kernel.org>,
- "rf@opensource.cirrus.com" <rf@opensource.cirrus.com>,
- "ssantosh@kernel.org" <ssantosh@kernel.org>,
- "linux-tegra@vger.kernel.org" <linux-tegra@vger.kernel.org>,
- "andriy.shevchenko@linux.intel.com" <andriy.shevchenko@linux.intel.com>,
- "kernel@pengutronix.de" <kernel@pengutronix.de>,
- "linux-arm-kernel@lists.infradead.org" <linux-arm-kernel@lists.infradead.org>,
- "sbranden@broadcom.com" <sbranden@broadcom.com>,
- "yamada.masahiro@socionext.com" <yamada.masahiro@socionext.com>,
- "andrew@aj.id.au" <andrew@aj.id.au>,
- "shawnguo@kernel.org" <shawnguo@kernel.org>,
- "linux-kernel@vger.kernel.org" <linux-kernel@vger.kernel.org>,
- "linux-renesas-soc@vger.kernel.org" <linux-renesas-soc@vger.kernel.org>,
- "t.scherer@eckelmann.de" <t.scherer@eckelmann.de>,
- "ludovic.desroches@microchip.com" <ludovic.desroches@microchip.com>,
- "mcoquelin.stm32@gmail.com" <mcoquelin.stm32@gmail.com>,
- "patches@opensource.cirrus.com" <patches@opensource.cirrus.com>,
- "info@metux.net" <info@metux.net>
-Subject: Re: [Linux-stm32] [PATCH v2 0/2] Add definition for GPIO direction
+X-Originating-IP: [10.201.22.222]
+X-Proofpoint-Virus-Version: vendor=fsecure engine=2.50.10434:6.0.95,18.0.572
+ definitions=2019-11-07_02:2019-11-07,2019-11-07 signatures=0
+Cc: devicetree@vger.kernel.org, andrew@lunn.ch, netdev@vger.kernel.org,
+ linux-kernel@vger.kernel.org, linux-stm32@st-md-mailman.stormreply.com,
+ linux-arm-kernel@lists.infradead.org
+Subject: [Linux-stm32] [PATCH V4 net-next 0/4] net: ethernet: stmmac:
+	cleanup clock and optimization
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -116,34 +74,28 @@ Content-Transfer-Encoding: 7bit
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
-On Wed, Nov 6, 2019 at 1:25 PM Vaittinen, Matti
-<Matti.Vaittinen@fi.rohmeurope.com> wrote:
-> On Wed, 2019-11-06 at 13:08 +0100, Sebastian Reichel wrote:
-> > On Wed, Nov 06, 2019 at 10:51:06AM +0200, Matti Vaittinen wrote:
-> > > The patch series adds definitions for GPIO line directions.
-> > >
-> > > For occasional GPIO contributor like me it is always a pain to
-> > > remember
-> > > whether 1 or 0 was used for GPIO direction INPUT/OUTPUT.
-> >
-> > Maybe also update the GPIO drivers in pinctrl?
-(...)
-> Ouch. I didn't check from pinctrl but I see those should be converted
-> as well. I'm a bit short on time right now so if anyone else is
-> interested I won't mind :)
->
-> Luckily the value for IN and OUT is not changed - only the defines were
-> added - so all of the drivers do not need to be done at once. If no one
-> else will take the pinctrl part then I can probably do pinctrl patches
-> for v5.6 cycle.
+Some improvements: 
+ - manage syscfg as optional clock, 
+ - update slew rate of ETH_MDIO pin, 
+ - Enable gating of the MAC TX clock during TX low-power mode
 
-No hurry with that. This is a good start, we don't have to fix
-the whole world at once.
+V4: Update with Andrew Lunn remark
 
-Let's look at this for v5.6.
+Christophe Roullier (4):
+  net: ethernet: stmmac: Add support for syscfg clock
+  ARM: dts: stm32: remove syscfg clock on stm32mp157c ethernet
+  ARM: dts: stm32: adjust slew rate for Ethernet
+  ARM: dts: stm32: Enable gating of the MAC TX clock during TX low-power
+    mode on stm32mp157c
 
-Yours,
-Linus Walleij
+ arch/arm/boot/dts/stm32mp157-pinctrl.dtsi     |  9 ++++++--
+ arch/arm/boot/dts/stm32mp157c.dtsi            |  7 +++---
+ .../net/ethernet/stmicro/stmmac/dwmac-stm32.c | 23 +++++++------------
+ 3 files changed, 18 insertions(+), 21 deletions(-)
+
+-- 
+2.17.1
+
 _______________________________________________
 Linux-stm32 mailing list
 Linux-stm32@st-md-mailman.stormreply.com
