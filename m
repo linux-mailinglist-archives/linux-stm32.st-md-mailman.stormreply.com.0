@@ -2,54 +2,31 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id 5A520F76B2
-	for <lists+linux-stm32@lfdr.de>; Mon, 11 Nov 2019 15:43:09 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id D967AF805B
+	for <lists+linux-stm32@lfdr.de>; Mon, 11 Nov 2019 20:42:06 +0100 (CET)
 Received: from ip-172-31-3-76.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 242E6C36B0B;
-	Mon, 11 Nov 2019 14:43:09 +0000 (UTC)
-Received: from smtprelay-out1.synopsys.com (smtprelay-out1.synopsys.com
- [149.117.87.133])
- (using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
- (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 32D65C36B1F
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 90C36C36B0B;
+	Mon, 11 Nov 2019 19:42:06 +0000 (UTC)
+Received: from pokefinder.org (sauhun.de [88.99.104.3])
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id D4F7DC36B09
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Mon, 11 Nov 2019 14:43:05 +0000 (UTC)
-Received: from mailhost.synopsys.com (mdc-mailhost1.synopsys.com
- [10.225.0.209])
- (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits))
- (No client certificate requested)
- by smtprelay-out1.synopsys.com (Postfix) with ESMTPS id 8422FC08BA;
- Mon, 11 Nov 2019 14:42:58 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=synopsys.com; s=mail;
- t=1573483383; bh=EoTBZOC0Je6korS7Ma+EpCD7GT0gwifStY63b9qn/QM=;
- h=From:To:Cc:Subject:Date:In-Reply-To:References:In-Reply-To:
- References:From;
- b=hbn0NJ+mb/rTGEomSAZ4/TiBwfPh7NpN2ndEFXioU0VRtifnVv8mwXrzxpss9syqz
- WLXHnVtHFcyNNOjIVG7AlWNOxaxt/F89Zls9BDrBRDh28+iTQoyshwXY4mReHFODlK
- RCXQ/t+/EL8Dal16GUPwVvtiOoI1JxZwaRcbkhWtUKUIwVe3xsLxzCvF4ZxKon8gBL
- mWkJRDObUtMdvSxAaucvEdN5/15WxIEtkcy5WyJiU3gAWw3mb+MiULcriweMFPHpVW
- 7uK7Q3kZpV0jGxJhIr5sP8M+CugVf4UdVTGN82pW/IMWwOKcdbwrJud+A4YRGkIuCX
- gn1rDEw3/ckEw==
-Received: from de02dwia024.internal.synopsys.com
- (de02dwia024.internal.synopsys.com [10.225.19.81])
- by mailhost.synopsys.com (Postfix) with ESMTP id 3E315A025B;
- Mon, 11 Nov 2019 14:42:57 +0000 (UTC)
-From: Jose Abreu <Jose.Abreu@synopsys.com>
-To: netdev@vger.kernel.org
-Date: Mon, 11 Nov 2019 15:42:39 +0100
-Message-Id: <7a62a0532edaec95312308d7a4ced7eae331bc6d.1573482992.git.Jose.Abreu@synopsys.com>
-X-Mailer: git-send-email 2.7.4
-In-Reply-To: <cover.1573482991.git.Jose.Abreu@synopsys.com>
-References: <cover.1573482991.git.Jose.Abreu@synopsys.com>
-In-Reply-To: <cover.1573482991.git.Jose.Abreu@synopsys.com>
-References: <cover.1573482991.git.Jose.Abreu@synopsys.com>
-Cc: Jose Abreu <Jose.Abreu@synopsys.com>, Joao Pinto <Joao.Pinto@synopsys.com>,
- linux-kernel@vger.kernel.org, linux-stm32@st-md-mailman.stormreply.com,
- Maxime Coquelin <mcoquelin.stm32@gmail.com>,
- Giuseppe Cavallaro <peppe.cavallaro@st.com>,
- "David S. Miller" <davem@davemloft.net>, linux-arm-kernel@lists.infradead.org
-Subject: [Linux-stm32] [PATCH net-next 6/6] net: stmmac: Implement UDP
-	Segmentation Offload
+ Mon, 11 Nov 2019 19:42:03 +0000 (UTC)
+Received: from localhost (x4db75ae4.dyn.telefonica.de [77.183.90.228])
+ by pokefinder.org (Postfix) with ESMTPSA id 985922C0428;
+ Mon, 11 Nov 2019 20:42:02 +0100 (CET)
+Date: Mon, 11 Nov 2019 20:42:02 +0100
+From: Wolfram Sang <wsa@the-dreams.de>
+To: Alain Volmat <alain.volmat@st.com>
+Message-ID: <20191111194202.GD1608@kunai>
+References: <1572012264-31996-1-git-send-email-alain.volmat@st.com>
+MIME-Version: 1.0
+In-Reply-To: <1572012264-31996-1-git-send-email-alain.volmat@st.com>
+User-Agent: Mutt/1.10.1 (2018-07-13)
+Cc: linux-kernel@vger.kernel.org, pierre-yves.mordret@st.com,
+ linux-i2c@vger.kernel.org, fabrice.gasnier@st.com,
+ linux-stm32@st-md-mailman.stormreply.com, linux-arm-kernel@lists.infradead.org
+Subject: Re: [Linux-stm32] [PATCH] i2c: i2c-stm32f7: fix & reorder remove &
+ probe error handling
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -61,138 +38,67 @@ List-Post: <mailto:linux-stm32@st-md-mailman.stormreply.com>
 List-Help: <mailto:linux-stm32-request@st-md-mailman.stormreply.com?subject=help>
 List-Subscribe: <https://st-md-mailman.stormreply.com/mailman/listinfo/linux-stm32>, 
  <mailto:linux-stm32-request@st-md-mailman.stormreply.com?subject=subscribe>
-MIME-Version: 1.0
-Content-Type: text/plain; charset="us-ascii"
-Content-Transfer-Encoding: 7bit
+Content-Type: multipart/mixed; boundary="===============3981300626292975280=="
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
-Implement the UDP Segmentation Offload feature in stmmac. This is only
-available in GMAC4+ cores.
 
-Signed-off-by: Jose Abreu <Jose.Abreu@synopsys.com>
+--===============3981300626292975280==
+Content-Type: multipart/signed; micalg=pgp-sha512;
+	protocol="application/pgp-signature"; boundary="VV4b6MQE+OnNyhkM"
+Content-Disposition: inline
 
----
-Cc: Giuseppe Cavallaro <peppe.cavallaro@st.com>
-Cc: Alexandre Torgue <alexandre.torgue@st.com>
-Cc: Jose Abreu <joabreu@synopsys.com>
-Cc: "David S. Miller" <davem@davemloft.net>
-Cc: Maxime Coquelin <mcoquelin.stm32@gmail.com>
-Cc: netdev@vger.kernel.org
-Cc: linux-stm32@st-md-mailman.stormreply.com
-Cc: linux-arm-kernel@lists.infradead.org
-Cc: linux-kernel@vger.kernel.org
----
- drivers/net/ethernet/stmicro/stmmac/stmmac_main.c | 32 ++++++++++++++++-------
- 1 file changed, 23 insertions(+), 9 deletions(-)
 
-diff --git a/drivers/net/ethernet/stmicro/stmmac/stmmac_main.c b/drivers/net/ethernet/stmicro/stmmac/stmmac_main.c
-index a2fac7772666..39b4efd521f9 100644
---- a/drivers/net/ethernet/stmicro/stmmac/stmmac_main.c
-+++ b/drivers/net/ethernet/stmicro/stmmac/stmmac_main.c
-@@ -36,6 +36,7 @@
- #endif /* CONFIG_DEBUG_FS */
- #include <linux/net_tstamp.h>
- #include <linux/phylink.h>
-+#include <linux/udp.h>
- #include <net/pkt_cls.h>
- #include "stmmac_ptp.h"
- #include "stmmac.h"
-@@ -2916,9 +2917,9 @@ static netdev_tx_t stmmac_tso_xmit(struct sk_buff *skb, struct net_device *dev)
- 	u32 queue = skb_get_queue_mapping(skb);
- 	struct stmmac_tx_queue *tx_q;
- 	unsigned int first_entry;
-+	u8 proto_hdr_len, hdr;
- 	int tmp_pay_len = 0;
- 	u32 pay_len, mss;
--	u8 proto_hdr_len;
- 	dma_addr_t des;
- 	bool has_vlan;
- 	int i;
-@@ -2926,7 +2927,13 @@ static netdev_tx_t stmmac_tso_xmit(struct sk_buff *skb, struct net_device *dev)
- 	tx_q = &priv->tx_queue[queue];
- 
- 	/* Compute header lengths */
--	proto_hdr_len = skb_transport_offset(skb) + tcp_hdrlen(skb);
-+	if (skb_shinfo(skb)->gso_type & SKB_GSO_UDP_L4) {
-+		proto_hdr_len = skb_transport_offset(skb) + sizeof(struct udphdr);
-+		hdr = sizeof(struct udphdr);
-+	} else {
-+		proto_hdr_len = skb_transport_offset(skb) + tcp_hdrlen(skb);
-+		hdr = tcp_hdrlen(skb);
-+	}
- 
- 	/* Desc availability based on threshold should be enough safe */
- 	if (unlikely(stmmac_tx_avail(priv, queue) <
-@@ -2956,8 +2963,8 @@ static netdev_tx_t stmmac_tso_xmit(struct sk_buff *skb, struct net_device *dev)
- 	}
- 
- 	if (netif_msg_tx_queued(priv)) {
--		pr_info("%s: tcphdrlen %d, hdr_len %d, pay_len %d, mss %d\n",
--			__func__, tcp_hdrlen(skb), proto_hdr_len, pay_len, mss);
-+		pr_info("%s: hdrlen %d, hdr_len %d, pay_len %d, mss %d\n",
-+			__func__, hdr, proto_hdr_len, pay_len, mss);
- 		pr_info("\tskb->len %d, skb->data_len %d\n", skb->len,
- 			skb->data_len);
- 	}
-@@ -3071,7 +3078,7 @@ static netdev_tx_t stmmac_tso_xmit(struct sk_buff *skb, struct net_device *dev)
- 			proto_hdr_len,
- 			pay_len,
- 			1, tx_q->tx_skbuff_dma[first_entry].last_segment,
--			tcp_hdrlen(skb) / 4, (skb->len - proto_hdr_len));
-+			hdr / 4, (skb->len - proto_hdr_len));
- 
- 	/* If context desc is used to change MSS */
- 	if (mss_desc) {
-@@ -3130,6 +3137,7 @@ static netdev_tx_t stmmac_xmit(struct sk_buff *skb, struct net_device *dev)
- 	int i, csum_insertion = 0, is_jumbo = 0;
- 	u32 queue = skb_get_queue_mapping(skb);
- 	int nfrags = skb_shinfo(skb)->nr_frags;
-+	int gso = skb_shinfo(skb)->gso_type;
- 	struct dma_desc *desc, *first;
- 	struct stmmac_tx_queue *tx_q;
- 	unsigned int first_entry;
-@@ -3145,7 +3153,9 @@ static netdev_tx_t stmmac_xmit(struct sk_buff *skb, struct net_device *dev)
- 
- 	/* Manage oversized TCP frames for GMAC4 device */
- 	if (skb_is_gso(skb) && priv->tso) {
--		if (skb_shinfo(skb)->gso_type & (SKB_GSO_TCPV4 | SKB_GSO_TCPV6))
-+		if (gso & (SKB_GSO_TCPV4 | SKB_GSO_TCPV6))
-+			return stmmac_tso_xmit(skb, dev);
-+		if (priv->plat->has_gmac4 && (gso & SKB_GSO_UDP_L4))
- 			return stmmac_tso_xmit(skb, dev);
- 	}
- 
-@@ -4036,11 +4046,13 @@ static int stmmac_setup_tc(struct net_device *ndev, enum tc_setup_type type,
- static u16 stmmac_select_queue(struct net_device *dev, struct sk_buff *skb,
- 			       struct net_device *sb_dev)
- {
--	if (skb_shinfo(skb)->gso_type & (SKB_GSO_TCPV4 | SKB_GSO_TCPV6)) {
-+	int gso = skb_shinfo(skb)->gso_type;
-+
-+	if (gso & (SKB_GSO_TCPV4 | SKB_GSO_TCPV6 | SKB_GSO_UDP_L4)) {
- 		/*
--		 * There is no way to determine the number of TSO
-+		 * There is no way to determine the number of TSO/USO
- 		 * capable Queues. Let's use always the Queue 0
--		 * because if TSO is supported then at least this
-+		 * because if TSO/USO is supported then at least this
- 		 * one will be capable.
- 		 */
- 		return 0;
-@@ -4555,6 +4567,8 @@ int stmmac_dvr_probe(struct device *device,
- 
- 	if ((priv->plat->tso_en) && (priv->dma_cap.tsoen)) {
- 		ndev->hw_features |= NETIF_F_TSO | NETIF_F_TSO6;
-+		if (priv->plat->has_gmac4)
-+			ndev->hw_features |= NETIF_F_GSO_UDP_L4;
- 		priv->tso = true;
- 		dev_info(priv->device, "TSO feature enabled\n");
- 	}
--- 
-2.7.4
+--VV4b6MQE+OnNyhkM
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+Content-Transfer-Encoding: quoted-printable
+
+On Fri, Oct 25, 2019 at 04:04:24PM +0200, Alain Volmat wrote:
+> Add missing dma channels free calls in case of error during probe
+> and reorder the remove function so that dma channels are freed after
+> the i2c adapter is deleted.
+> Overall, reorder the remove function so that probe error handling order
+> and remove function order are same.
+>=20
+> Fixes: 7ecc8cfde553 ("i2c: i2c-stm32f7: Add DMA support")
+>=20
+> Signed-off-by: Alain Volmat <alain.volmat@st.com>
+
+Applied to for-next, thanks!
+
+
+--VV4b6MQE+OnNyhkM
+Content-Type: application/pgp-signature; name="signature.asc"
+
+-----BEGIN PGP SIGNATURE-----
+
+iQIzBAABCgAdFiEEOZGx6rniZ1Gk92RdFA3kzBSgKbYFAl3JuYkACgkQFA3kzBSg
+KbYcnRAAq1jv0t+cBFdjV0cAyRRX0WL1Iv9MAU84u/vxXm3x5WV277AuXXWzofmd
+XqKJsLIq6lSoh20bC+LHePMkmQ+T8oX6C8c4wjmqzls5Uq2St0evOX39JoQa+yFu
+Q+/S1xdhPIjOzqJbwtEw/iVZ3KaHzEsTJEBpQEhH786eiv1vfkUiAKFrJ7KLSEMs
+BUsNPYE/b+EasW9rylAPjoVp6ALXxPU8ScXQq4H8mh7Ifvlp01kx8Vi4ukI0niXQ
+W+VtoiCxEjRTIx9EaeVZAzcbVouvePqp8hB7GP5+ys5s8bXaTnJcSc86Uu5tY9Ax
+0oZ1s1irGqpDz67hb5inyDvC0d0cvhaqNcqW5Ez6tCA4A0sKYETGfRWXMmFIbNTd
+8j8M2Ecq+twpTpwoMwtYMLwkFJvVhizOM7MSYctisgGkhZcLzNVq2CzJ1bEIVk3I
+qSQT4JfDWiVCpt/aUSrxdrzAarpbKIbfKmBtNlXKkOu2g4QTioty1LxntndndIpC
+HHgk7ZuoqnDk2IQdzv7MJiBDVEmAZICPCZ/dESjNnZuQ/W45Iuc28CZiYpDW+mmh
+64zfpSo/jAp9ZVoU0Imp+zKCtuqldEEAScptvP3e06kMuNsZRuShAl1DAudYfFIf
+Y8NeKiE3ex/XEW5c5jLlt7o9oc0ipoOd0CPALRJjXnjyl4DICFE=
+=exY/
+-----END PGP SIGNATURE-----
+
+--VV4b6MQE+OnNyhkM--
+
+--===============3981300626292975280==
+Content-Type: text/plain; charset="us-ascii"
+MIME-Version: 1.0
+Content-Transfer-Encoding: 7bit
+Content-Disposition: inline
 
 _______________________________________________
 Linux-stm32 mailing list
 Linux-stm32@st-md-mailman.stormreply.com
 https://st-md-mailman.stormreply.com/mailman/listinfo/linux-stm32
+
+--===============3981300626292975280==--
