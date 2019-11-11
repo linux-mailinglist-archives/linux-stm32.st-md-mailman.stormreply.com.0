@@ -2,53 +2,49 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id F1F72F6A88
-	for <lists+linux-stm32@lfdr.de>; Sun, 10 Nov 2019 18:17:28 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 262B5F76AD
+	for <lists+linux-stm32@lfdr.de>; Mon, 11 Nov 2019 15:43:05 +0100 (CET)
 Received: from ip-172-31-3-76.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 9785BC36B0B;
-	Sun, 10 Nov 2019 17:17:28 +0000 (UTC)
-Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
- (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id E5319C36B11;
+	Mon, 11 Nov 2019 14:43:04 +0000 (UTC)
+Received: from smtprelay-out1.synopsys.com (smtprelay-out1.synopsys.com
+ [149.117.87.133])
+ (using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 814F0C36B09
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id CAE62C36B0C
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Sun, 10 Nov 2019 17:17:27 +0000 (UTC)
-Received: from archlinux (cpc149474-cmbg20-2-0-cust94.5-4.cable.virginm.net
- [82.4.196.95])
- (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+ Mon, 11 Nov 2019 14:43:00 +0000 (UTC)
+Received: from mailhost.synopsys.com (mdc-mailhost1.synopsys.com
+ [10.225.0.209])
+ (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits))
  (No client certificate requested)
- by mail.kernel.org (Postfix) with ESMTPSA id 0E96020842;
- Sun, 10 Nov 2019 17:17:22 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
- s=default; t=1573406245;
- bh=c9/obG27kLjxVrck91TSEBYcgOPDjhXpia73C0f67Aw=;
- h=Date:From:To:Cc:Subject:In-Reply-To:References:From;
- b=tnl3COz0gGT7yNoXNxEg6jnk6j5sqC7l0nzaPOSukoqYJ7fHTqYe9PI4ypB8+AZG8
- KR9nB+0t0K2T4LQriicXGZLlVo+hbmmRcs4FVQS2HRLuxahyN/7SiVCsBT8hdJft2t
- VJ+I1toBgCpPOOYiOB659dqPSieAclem5NL9NBUA=
-Date: Sun, 10 Nov 2019 17:17:19 +0000
-From: Jonathan Cameron <jic23@kernel.org>
-To: Lars-Peter Clausen <lars@metafoo.de>
-Message-ID: <20191110171702.61fcb79e@archlinux>
-In-Reply-To: <20191022125312.68aa514a@archlinux>
-References: <20191011151314.5365-1-olivier.moysan@st.com>
- <20191012095747.3acd95e6@archlinux>
- <db362ddf-390e-0847-1269-f3cd0c757d2a@st.com>
- <9ddc41c4-3d84-cc94-5494-a5ef06697ce8@metafoo.de>
- <20191022125312.68aa514a@archlinux>
-X-Mailer: Claws Mail 3.17.4 (GTK+ 2.24.32; x86_64-pc-linux-gnu)
-MIME-Version: 1.0
-Cc: "          <linux-arm-kernel@lists.infradead.org>, "@stm-ict-prod-mailman-01.stormreply.prv,
-	linux-kernel@vger.kernel.org,
-	"linux-iio@vger.kernel.org" <linux-iio@vger.kernel.org>,
-	"pmeerw@pmeerw.net" <pmeerw@pmeerw.net>,
-	"mcoquelin.stm32@gmail.com" <mcoquelin.stm32@gmail.com>,
-	"knaack.h@gmx.de" <knaack.h@gmx.de>,
-	"linux-stm32@st-md-mailman.stormreply.com\"          <linux-stm32@st-md-mailman.stormreply.com>,  " linux-arm-kernel@lists.infradead."org," Fabrice GASNIER <fabrice.gasnier@st.com>,
-	<linux-kernel@vger.kernel.org>,
-	Benjamin GAIGNARD <benjamin.gaignard@st.com>
-Subject: Re: [Linux-stm32] [PATCH][RFC] iio: core: add a class hierarchy on
- iio device lock
+ by smtprelay-out1.synopsys.com (Postfix) with ESMTPS id 6123CC08B7;
+ Mon, 11 Nov 2019 14:42:58 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=synopsys.com; s=mail;
+ t=1573483379; bh=xvb79Aahx3jHaPdlZ0qpbSpWPSpjW4NAZIBnGit7MJA=;
+ h=From:To:Cc:Subject:Date:From;
+ b=mG7s8u/tskFiKSC2onN0QpZIETTM+suYlB3kuRs5z62CfC+EBLVrJpy691KgkU4ZH
+ dqPNNGQLN06Jtvax8ZZPn9GeYsGEO17CuntaAdQmN7uBDg3iWILoptfhAh9kr8JL8S
+ ekJ680+kU+Jf1MV26oK/somYcDE/MhNlDvJd+18PwN2cGxv3tYhsXt4FdoTokH9PCo
+ pyJd6pNm3tbGqGk2OcMH1A5h5j6bcM/uzXfO01MHB8rZl1HEG2j82BwuPZIPlrtAtU
+ 8QmjqhnS8crQKjDWYT39sUXXwMwqPqrRgC1ACP+mXEGQLmSwM7ModWHwaZiidNeEbH
+ qYpcXxe6rxqRA==
+Received: from de02dwia024.internal.synopsys.com
+ (de02dwia024.internal.synopsys.com [10.225.19.81])
+ by mailhost.synopsys.com (Postfix) with ESMTP id C4B41A01EF;
+ Mon, 11 Nov 2019 14:42:50 +0000 (UTC)
+From: Jose Abreu <Jose.Abreu@synopsys.com>
+To: netdev@vger.kernel.org
+Date: Mon, 11 Nov 2019 15:42:33 +0100
+Message-Id: <cover.1573482991.git.Jose.Abreu@synopsys.com>
+X-Mailer: git-send-email 2.7.4
+Cc: Jose Abreu <Jose.Abreu@synopsys.com>, Joao Pinto <Joao.Pinto@synopsys.com>,
+ linux-kernel@vger.kernel.org, linux-stm32@st-md-mailman.stormreply.com,
+ Maxime Coquelin <mcoquelin.stm32@gmail.com>,
+ Giuseppe Cavallaro <peppe.cavallaro@st.com>,
+ "David S. Miller" <davem@davemloft.net>, linux-arm-kernel@lists.infradead.org
+Subject: [Linux-stm32] [PATCH net-next 0/6] net: stmmac: Improvements for
+	-next
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -60,116 +56,65 @@ List-Post: <mailto:linux-stm32@st-md-mailman.stormreply.com>
 List-Help: <mailto:linux-stm32-request@st-md-mailman.stormreply.com?subject=help>
 List-Subscribe: <https://st-md-mailman.stormreply.com/mailman/listinfo/linux-stm32>, 
  <mailto:linux-stm32-request@st-md-mailman.stormreply.com?subject=subscribe>
+MIME-Version: 1.0
 Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
-On Tue, 22 Oct 2019 12:53:12 +0100
-Jonathan Cameron <jic23@kernel.org> wrote:
+Misc improvements for stmmac.
 
-> On Tue, 15 Oct 2019 23:11:43 +0200
-> Lars-Peter Clausen <lars@metafoo.de> wrote:
-> 
-> > On 10/14/19 5:59 PM, Olivier MOYSAN wrote:  
-> > > Hello Jonathan,
-> > > 
-> > > Thanks for your comment.
-> > > 
-> > > On 10/12/19 10:57 AM, Jonathan Cameron wrote:    
-> > >> On Fri, 11 Oct 2019 17:13:14 +0200
-> > >> Olivier Moysan <olivier.moysan@st.com> wrote:
-> > >>    
-> > >>> The aim of this patch is to correct a recursive locking warning,
-> > >>> detected when setting CONFIG_PROVE_LOCKING flag (as shown in message below).
-> > >>> This message was initially triggered by the following call sequence
-> > >>> in stm32-dfsdm-adc.c driver, when using IIO hardware consumer interface.
-> > >>>
-> > >>> in stm32_dfsdm_read_raw()
-> > >>> 	iio_device_claim_direct_mode
-> > >>> 		mutex_lock(&indio_dev->mlock);			-> lock on dfsdm device
-> > >>> 	iio_hw_consumer_enable
-> > >>> 		iio_update_buffers
-> > >>> 			mutex_lock(&indio_dev->mlock);		-> lock on hw consumer device    
-> > >> Hmm.  I'm not sure I follow the logic.  That lock is
-> > >> for one thing and one thing only, preventing access
-> > >> to the iio device that are unsafe when it is running
-> > >> in a buffered mode.  We shouldn't be in a position where
-> > >> we both say don't do this if we are in buffered mode, + enter
-> > >> buffered mode whilst doing this, or we need special functions
-> > >> for entering buffering mode if in this state.  We are in
-> > >> some sense combining internal driver logic with overall
-> > >> IIO states.  IIO shouldn't care that the device is using
-> > >> the same methods under the hood for buffered and non
-> > >> buffered operations.
-> > >>
-> > >> I can't really recall how this driver works.   Is it actually
-> > >> possible to have multiple hw_consumers at the same time?
-> > >>
-> > >> So do we end up with multiple buffers registered and have
-> > >> to demux out to the read_raw + the actual buffered path?
-> > >> Given we have a bit of code saying grab one sample, I'm
-> > >> going to guess we don't...
-> > >>
-> > >> If so, the vast majority of the buffer setup code in IIO
-> > >> is irrelevant here and we just need to call a few of
-> > >> the callbacks from this driver directly... (I think
-> > >> though I haven't chased through every corner.
-> > >>
-> > >> I'd rather avoid introducing this nesting for a corner
-> > >> case that makes no 'semantic' sense in IIO as it leaves us
-> > >> in two separate states at the same time that the driver
-> > >> is trying to make mutually exclusive.  We can't both
-> > >> not be in buffered mode, and in buffered mode.
-> > >>
-> > >> Thanks and good luck with this nasty corner!
-> > >>
-> > >> Jonathan
-> > >>    
-> > > Here I consider the following use case:
-> > > A single conversion is performed. The dfsdm (filter) is chained with a 
-> > > front-end, which can be an ADC or a sensor. So we have two IIO devices, 
-> > > the dfsdm and its front-end handled through the hw consumer interface.
-> > > 
-> > > You are right. There is something wrong here, in buffered/non-buffered 
-> > > mode mixing.
-> > > iio_hw_consumer_enable() call is used to enable the front-end device. 
-> > > But this interface is intended for buffered mode.
-> > > So this is not coherent with the expected single conversion mode, 
-> > > indeed. Another interface is required to manage the front-end device. I 
-> > > have a poor knowledge of iio framework, but it seems to me that there is 
-> > > no interface to manage this.
-> > > 
-> > > My understanding regarding mlock, is that it is used to protect the 
-> > > state of the iio device.
-> > > I we want to do a conversion from the chained devices, I think we need 
-> > > to activate the first device
-> > > and keep it performing conversion, as long as the second device has done 
-> > > its conversion.
-> > > We need to protect both devices, and we should have to do it in a nested 
-> > > way.
-> > > So, I guess that anyway, nested mutexes would be required in this case.
-> > >    
-> > 
-> > Others like regmap have solved this by having a lockclass per instance.
-> > Although that is not ideal either since it will slow down lockdep.
-> > 
-> > See
-> > https://git.kernel.org/pub/scm/linux/kernel/git/torvalds/linux.git/tree/include/linux/regmap.h#n629  
-> 
-> It'll take me a while to get back to this as my understanding is
-> currently very limited.  Poke me if I've not replied in a few weeks.
-Sorry, still not had the spare time to take a proper look at this.
-I'll try and grab some time during the week.
+Patch 1/6, fixes a sparse warning that was introduced in recent commit in
+-next.
 
-Jonathan
+Patch 2/6, adds the Split Header support which is also available in XGMAC
+cores and now in GMAC4+ with this patch.
 
-> 
-> Thanks,
-> 
-> Jonathan
-> 
-> 
+Patch 3/6, adds the C45 support for MDIO transactions when using XGMAC cores.
+
+Patch 4/6, removes the speed dependency on CBS callbacks so that it can be used
+in XGMAC cores.
+
+Patch 5/6, reworks the over-engineered stmmac_rx() function so that its easier
+to read.
+
+Patch 6/6, implements the UDP Segmentation Offload feature in GMAC4+ cores.
+
+---
+Cc: Giuseppe Cavallaro <peppe.cavallaro@st.com>
+Cc: Alexandre Torgue <alexandre.torgue@st.com>
+Cc: Jose Abreu <joabreu@synopsys.com>
+Cc: "David S. Miller" <davem@davemloft.net>
+Cc: Maxime Coquelin <mcoquelin.stm32@gmail.com>
+Cc: netdev@vger.kernel.org
+Cc: linux-stm32@st-md-mailman.stormreply.com
+Cc: linux-arm-kernel@lists.infradead.org
+Cc: linux-kernel@vger.kernel.org
+---
+
+Jose Abreu (6):
+  net: stmmac: Fix sparse warning
+  net: stmmac: gmac4+: Add Split Header support
+  net: stmmac: xgmac: Add C45 PHY support in the MDIO callbacks
+  net: stmmac: tc: Remove the speed dependency
+  net: stmmac: Rework stmmac_rx()
+  net: stmmac: Implement UDP Segmentation Offload
+
+ drivers/net/ethernet/stmicro/stmmac/dwmac4.h       |   7 +
+ drivers/net/ethernet/stmicro/stmmac/dwmac4_core.c  |   2 +-
+ drivers/net/ethernet/stmicro/stmmac/dwmac4_descs.c |  21 ++-
+ drivers/net/ethernet/stmicro/stmmac/dwmac4_descs.h |   1 +
+ drivers/net/ethernet/stmicro/stmmac/dwmac4_dma.c   |  19 +++
+ drivers/net/ethernet/stmicro/stmmac/dwmac4_dma.h   |   1 +
+ .../net/ethernet/stmicro/stmmac/dwxgmac2_core.c    |   2 +-
+ drivers/net/ethernet/stmicro/stmmac/hwif.h         |   2 +-
+ drivers/net/ethernet/stmicro/stmmac/stmmac_main.c  | 183 ++++++++++++++-------
+ drivers/net/ethernet/stmicro/stmmac/stmmac_mdio.c  |  58 +++++--
+ drivers/net/ethernet/stmicro/stmmac/stmmac_tc.c    |   2 -
+ 11 files changed, 217 insertions(+), 81 deletions(-)
+
+-- 
+2.7.4
 
 _______________________________________________
 Linux-stm32 mailing list
