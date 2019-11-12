@@ -2,57 +2,59 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id 21D75F8A67
-	for <lists+linux-stm32@lfdr.de>; Tue, 12 Nov 2019 09:20:04 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id CDB09F8A61
+	for <lists+linux-stm32@lfdr.de>; Tue, 12 Nov 2019 09:19:57 +0100 (CET)
 Received: from ip-172-31-3-76.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id D8C5EC36B11;
-	Tue, 12 Nov 2019 08:20:03 +0000 (UTC)
-Received: from us-smtp-1.mimecast.com (us-smtp-delivery-1.mimecast.com
- [205.139.110.120])
- (using TLSv1.2 with cipher ECDHE-RSA-AES256-SHA384 (256/256 bits))
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 5FD01C36B0B;
+	Tue, 12 Nov 2019 08:19:56 +0000 (UTC)
+Received: from mx07-00178001.pphosted.com (mx08-00178001.pphosted.com
+ [91.207.212.93])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id D576AC36B09
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id B8F06C36B09
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Tue, 12 Nov 2019 07:13:47 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
- s=mimecast20190719; t=1573542826;
- h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
- to:to:cc:cc:mime-version:mime-version:content-type:content-type:
- content-transfer-encoding:content-transfer-encoding:
- in-reply-to:in-reply-to:references:references;
- bh=+/PslG0x/GuyfOYX/QGY2CmojWWuenPENm2HBUOpPKE=;
- b=RhED8S8/rM3G6cJ52uSeWF8f4lnqaYu0xYFDQZ7VsnroyMHevVw/sctGmtEX00nP6mwpuy
- pYY3CXdXOTUrbeNegrBHPr66ymBq04erQbybal6bsAqd/ONOYAeV6r5f9lf/i5CdK/3SZ0
- 44+pL9wpDxyOUtxef1bL4YGAQHex/oo=
-Received: from mimecast-mx01.redhat.com (mimecast-mx01.redhat.com
- [209.132.183.4]) (Using TLS) by relay.mimecast.com with ESMTP id
- us-mta-96-H7j87F9JNhiJLtRPckSSlg-1; Tue, 12 Nov 2019 02:13:43 -0500
-Received: from smtp.corp.redhat.com (int-mx03.intmail.prod.int.phx2.redhat.com
- [10.5.11.13])
- (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
- (No client certificate requested)
- by mimecast-mx01.redhat.com (Postfix) with ESMTPS id 5D764800EB3;
- Tue, 12 Nov 2019 07:13:41 +0000 (UTC)
-Received: from localhost (ovpn-112-54.rdu2.redhat.com [10.10.112.54])
- by smtp.corp.redhat.com (Postfix) with ESMTP id C188060872;
- Tue, 12 Nov 2019 07:13:38 +0000 (UTC)
-Date: Mon, 11 Nov 2019 23:13:37 -0800 (PST)
-Message-Id: <20191111.231337.234535765361161267.davem@redhat.com>
-To: Jose.Abreu@synopsys.com
-From: David Miller <davem@redhat.com>
-In-Reply-To: <cover.1573482991.git.Jose.Abreu@synopsys.com>
-References: <cover.1573482991.git.Jose.Abreu@synopsys.com>
-Mime-Version: 1.0
-X-Scanned-By: MIMEDefang 2.79 on 10.5.11.13
-X-MC-Unique: H7j87F9JNhiJLtRPckSSlg-1
-X-Mimecast-Spam-Score: 0
-X-Mailman-Approved-At: Tue, 12 Nov 2019 08:20:01 +0000
-Cc: Joao.Pinto@synopsys.com, netdev@vger.kernel.org,
- linux-kernel@vger.kernel.org, mcoquelin.stm32@gmail.com,
- peppe.cavallaro@st.com, linux-stm32@st-md-mailman.stormreply.com,
- linux-arm-kernel@lists.infradead.org
-Subject: Re: [Linux-stm32] [PATCH net-next 0/6] net: stmmac: Improvements
-	for -next
+ Tue, 12 Nov 2019 08:19:54 +0000 (UTC)
+Received: from pps.filterd (m0046661.ppops.net [127.0.0.1])
+ by mx08-00178001.pphosted.com (8.16.0.42/8.16.0.42) with SMTP id
+ xAC8HbWf001225; Tue, 12 Nov 2019 09:19:45 +0100
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=st.com;
+ h=from : to : cc : subject
+ : date : message-id : mime-version : content-type; s=STMicroelectronics;
+ bh=v4gTBAxsgJ7NKkWijREg7mahBipp4rc6jcfGG/NsFI0=;
+ b=CIiJnElyeqyya4SwztKSMIIb+ShthqGBFDvSx+z2/v7kGyurVxpqNeRJm3KC22Hgmek4
+ UvA7WexYTj78WTwf9+aIHPtWbneFzDGWSAdUiuSUDsZAWB/c1eRyHCZDW5gmHQDyiVQF
+ V90jQl5QYrr5hYCRXvIv8pS0zpdGO/NFJQ4JJrAmjZGZko5WtsKHcM0QtyvNdAbxbT5g
+ aQLPU7ymC+pFU7gKPjIgoiay9TNuXNi5vVWSKnmCCUriGuX9ctpICERweNSDM1txx8cf
+ pWMrZsVL9uhaKGKXD20GGnJF0mBlv8aONdLIa0ETu4b3MaLliSncGSNqTkKsgZNCrpD1 HA== 
+Received: from beta.dmz-eu.st.com (beta.dmz-eu.st.com [164.129.1.35])
+ by mx08-00178001.pphosted.com with ESMTP id 2w7pstrp5v-1
+ (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
+ Tue, 12 Nov 2019 09:19:45 +0100
+Received: from euls16034.sgp.st.com (euls16034.sgp.st.com [10.75.44.20])
+ by beta.dmz-eu.st.com (STMicroelectronics) with ESMTP id 4688510002A;
+ Tue, 12 Nov 2019 09:19:45 +0100 (CET)
+Received: from Webmail-eu.st.com (sfhdag3node2.st.com [10.75.127.8])
+ by euls16034.sgp.st.com (STMicroelectronics) with ESMTP id 2C20C2AA4E5;
+ Tue, 12 Nov 2019 09:19:45 +0100 (CET)
+Received: from localhost (10.75.127.45) by SFHDAG3NODE2.st.com (10.75.127.8)
+ with Microsoft SMTP Server (TLS) id 15.0.1347.2; Tue, 12 Nov 2019 09:19:44
+ +0100
+From: Alain Volmat <alain.volmat@st.com>
+To: <wsa@the-dreams.de>, <pierre-yves.mordret@st.com>
+Date: Tue, 12 Nov 2019 09:19:44 +0100
+Message-ID: <1573546784-28182-1-git-send-email-alain.volmat@st.com>
+X-Mailer: git-send-email 2.7.4
+MIME-Version: 1.0
+X-Originating-IP: [10.75.127.45]
+X-ClientProxiedBy: SFHDAG5NODE3.st.com (10.75.127.15) To SFHDAG3NODE2.st.com
+ (10.75.127.8)
+X-Proofpoint-Virus-Version: vendor=fsecure engine=2.50.10434:6.0.95,18.0.572
+ definitions=2019-11-12_02:2019-11-11,2019-11-12 signatures=0
+Cc: linux-kernel@vger.kernel.org, alain.volmat@st.com,
+ linux-i2c@vger.kernel.org, fabrice.gasnier@st.com,
+ linux-stm32@st-md-mailman.stormreply.com, linux-arm-kernel@lists.infradead.org
+Subject: [Linux-stm32] [PATCH] i2c: i2c-stm32f7: fix 10-bits check in slave
+	free id search loop
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -69,13 +71,34 @@ Content-Transfer-Encoding: 7bit
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
-From: Jose Abreu <Jose.Abreu@synopsys.com>
-Date: Mon, 11 Nov 2019 15:42:33 +0100
+Fix a typo in the free slave id search loop. Instead of I2C_CLIENT_PEC,
+it should have been I2C_CLIENT_TEN. The slave id 1 can only handle 7-bit
+addresses and thus is not eligible in case of 10-bit addresses.
+As a matter of fact none of the slave id support I2C_CLIENT_PEC, overall
+check is performed at the beginning of the stm32f7_i2c_reg_slave function.
 
-> Misc improvements for stmmac.
- ...
+Fixes: 60d609f30de2 ("i2c: i2c-stm32f7: Add slave support")
 
-Series applied.
+Signed-off-by: Alain Volmat <alain.volmat@st.com>
+---
+ drivers/i2c/busses/i2c-stm32f7.c | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
+
+diff --git a/drivers/i2c/busses/i2c-stm32f7.c b/drivers/i2c/busses/i2c-stm32f7.c
+index b9a082f64d58..b2634afe066d 100644
+--- a/drivers/i2c/busses/i2c-stm32f7.c
++++ b/drivers/i2c/busses/i2c-stm32f7.c
+@@ -1268,7 +1268,7 @@ static int stm32f7_i2c_get_free_slave_id(struct stm32f7_i2c_dev *i2c_dev,
+ 	 * slave[1] supports 7-bit slave address only
+ 	 */
+ 	for (i = STM32F7_I2C_MAX_SLAVE - 1; i >= 0; i--) {
+-		if (i == 1 && (slave->flags & I2C_CLIENT_PEC))
++		if (i == 1 && (slave->flags & I2C_CLIENT_TEN))
+ 			continue;
+ 		if (!i2c_dev->slave[i]) {
+ 			*id = i;
+-- 
+2.7.4
 
 _______________________________________________
 Linux-stm32 mailing list
