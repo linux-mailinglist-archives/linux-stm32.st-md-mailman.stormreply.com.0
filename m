@@ -2,35 +2,57 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id 15DABF8A66
+	by mail.lfdr.de (Postfix) with ESMTPS id 21D75F8A67
 	for <lists+linux-stm32@lfdr.de>; Tue, 12 Nov 2019 09:20:04 +0100 (CET)
 Received: from ip-172-31-3-76.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id C6DD3C36B0E;
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id D8C5EC36B11;
 	Tue, 12 Nov 2019 08:20:03 +0000 (UTC)
-Received: from mailgate14.idline.fr (mailgate14.idline.fr [109.239.118.17])
+Received: from us-smtp-1.mimecast.com (us-smtp-delivery-1.mimecast.com
+ [205.139.110.120])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES256-SHA384 (256/256 bits))
+ (No client certificate requested)
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id D576AC36B09
+ for <linux-stm32@st-md-mailman.stormreply.com>;
+ Tue, 12 Nov 2019 07:13:47 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
+ s=mimecast20190719; t=1573542826;
+ h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+ to:to:cc:cc:mime-version:mime-version:content-type:content-type:
+ content-transfer-encoding:content-transfer-encoding:
+ in-reply-to:in-reply-to:references:references;
+ bh=+/PslG0x/GuyfOYX/QGY2CmojWWuenPENm2HBUOpPKE=;
+ b=RhED8S8/rM3G6cJ52uSeWF8f4lnqaYu0xYFDQZ7VsnroyMHevVw/sctGmtEX00nP6mwpuy
+ pYY3CXdXOTUrbeNegrBHPr66ymBq04erQbybal6bsAqd/ONOYAeV6r5f9lf/i5CdK/3SZ0
+ 44+pL9wpDxyOUtxef1bL4YGAQHex/oo=
+Received: from mimecast-mx01.redhat.com (mimecast-mx01.redhat.com
+ [209.132.183.4]) (Using TLS) by relay.mimecast.com with ESMTP id
+ us-mta-96-H7j87F9JNhiJLtRPckSSlg-1; Tue, 12 Nov 2019 02:13:43 -0500
+Received: from smtp.corp.redhat.com (int-mx03.intmail.prod.int.phx2.redhat.com
+ [10.5.11.13])
  (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 581BAC36B09
- for <linux-stm32@st-md-mailman.stormreply.com>;
- Sun, 10 Nov 2019 21:29:05 +0000 (UTC)
-Received: from smtpauth.ivelem.net (smtpauth.ivelem.net [109.239.113.30])
- by mailgate14.idline.fr (Postfix) with ESMTP id A5505247EF;
- Sun, 10 Nov 2019 22:29:04 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.9.2 mailgate14.idline.fr A5505247EF
-Received: from User (unknown [103.197.107.203])
- by smtpauth.ivelem.net (Postfix) with ESMTPA id 405AA15D7D;
- Sun, 10 Nov 2019 23:14:04 +0100 (CET)
-From: "Maggie Wang"<asap@ivelem.net>
-Date: Mon, 11 Nov 2019 04:29:03 +0700
-MIME-Version: 1.0
-X-Priority: 3
-X-MSMail-Priority: Normal
-X-Mailer: Microsoft Outlook Express 6.00.2600.0000
-X-MimeOLE: Produced By Microsoft MimeOLE V6.00.2600.0000
-Message-Id: <20191110221404.405AA15D7D@smtpauth.ivelem.net>
-To: undisclosed-recipients:;
+ by mimecast-mx01.redhat.com (Postfix) with ESMTPS id 5D764800EB3;
+ Tue, 12 Nov 2019 07:13:41 +0000 (UTC)
+Received: from localhost (ovpn-112-54.rdu2.redhat.com [10.10.112.54])
+ by smtp.corp.redhat.com (Postfix) with ESMTP id C188060872;
+ Tue, 12 Nov 2019 07:13:38 +0000 (UTC)
+Date: Mon, 11 Nov 2019 23:13:37 -0800 (PST)
+Message-Id: <20191111.231337.234535765361161267.davem@redhat.com>
+To: Jose.Abreu@synopsys.com
+From: David Miller <davem@redhat.com>
+In-Reply-To: <cover.1573482991.git.Jose.Abreu@synopsys.com>
+References: <cover.1573482991.git.Jose.Abreu@synopsys.com>
+Mime-Version: 1.0
+X-Scanned-By: MIMEDefang 2.79 on 10.5.11.13
+X-MC-Unique: H7j87F9JNhiJLtRPckSSlg-1
+X-Mimecast-Spam-Score: 0
 X-Mailman-Approved-At: Tue, 12 Nov 2019 08:20:01 +0000
-Subject: [Linux-stm32] Important Message
+Cc: Joao.Pinto@synopsys.com, netdev@vger.kernel.org,
+ linux-kernel@vger.kernel.org, mcoquelin.stm32@gmail.com,
+ peppe.cavallaro@st.com, linux-stm32@st-md-mailman.stormreply.com,
+ linux-arm-kernel@lists.infradead.org
+Subject: Re: [Linux-stm32] [PATCH net-next 0/6] net: stmmac: Improvements
+	for -next
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -42,18 +64,19 @@ List-Post: <mailto:linux-stm32@st-md-mailman.stormreply.com>
 List-Help: <mailto:linux-stm32-request@st-md-mailman.stormreply.com?subject=help>
 List-Subscribe: <https://st-md-mailman.stormreply.com/mailman/listinfo/linux-stm32>, 
  <mailto:linux-stm32-request@st-md-mailman.stormreply.com?subject=subscribe>
-Reply-To: maggiem888wang@yandex.com
 Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
-Hi,
+From: Jose Abreu <Jose.Abreu@synopsys.com>
+Date: Mon, 11 Nov 2019 15:42:33 +0100
 
-I have a business proposal to share with you. Contact me back for more details.
+> Misc improvements for stmmac.
+ ...
 
-Thanks.
-Maggie M. Wang
+Series applied.
+
 _______________________________________________
 Linux-stm32 mailing list
 Linux-stm32@st-md-mailman.stormreply.com
