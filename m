@@ -2,64 +2,57 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id 7DCB7FB4A0
-	for <lists+linux-stm32@lfdr.de>; Wed, 13 Nov 2019 17:06:36 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 15542FB4C5
+	for <lists+linux-stm32@lfdr.de>; Wed, 13 Nov 2019 17:15:43 +0100 (CET)
 Received: from ip-172-31-3-76.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id B6579C36B0B;
-	Wed, 13 Nov 2019 16:06:35 +0000 (UTC)
-Received: from mail-ua1-f66.google.com (mail-ua1-f66.google.com
- [209.85.222.66])
- (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id C3A51C36B0B;
+	Wed, 13 Nov 2019 16:15:42 +0000 (UTC)
+Received: from mx07-00178001.pphosted.com (mx07-00178001.pphosted.com
+ [62.209.51.94])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 95BCBC36B09
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 26B3CC36B09
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Wed, 13 Nov 2019 16:06:33 +0000 (UTC)
-Received: by mail-ua1-f66.google.com with SMTP id s14so834584uad.2
- for <linux-stm32@st-md-mailman.stormreply.com>;
- Wed, 13 Nov 2019 08:06:33 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20161025;
- h=mime-version:references:in-reply-to:from:date:message-id:subject:to
- :cc; bh=1ayLEgLCWpr2v/YpRT1vekWIlyB7F5pG92dGazdBvwI=;
- b=G0C2zq6m15OVUAh+WFhsjZYXXzcdOByoFghlCOloPCUxpwsOe48d6TWKiBYF1Jt+3P
- pCkyi8gtQTCFIBPO9DwTV6c0WxkptrtOWz4iYPnK/cnKPm7I5zvj+dxET+BVtJ1DQpne
- xvFFiYgEs8mmbZJfAKBvvDnvS95WxPpEuPkR3s9WkN17IYO9Pb5tGG3tSajwy1byyD4N
- F16i2K46Gs2g/bj6Gi2+PLQDxaHl6IMmz66pxEDl3gH6mDW5O41D81GUalCuv66KK2kl
- pzplG0H99Acg6QnE2CyrhUpnwJAaLbkNCMS71/7karx00Scg1v8aAwzEcypXqj1ia3qp
- NQ+Q==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20161025;
- h=x-gm-message-state:mime-version:references:in-reply-to:from:date
- :message-id:subject:to:cc;
- bh=1ayLEgLCWpr2v/YpRT1vekWIlyB7F5pG92dGazdBvwI=;
- b=G1TvFGYyUmVYfCDpZDR1uPzbuXH/IP2q0148VOqIDVo9RI8vXWCw1VJ7u/nX9LBTEo
- +4QTBS8VVn1wF2KSMmiorstJ+aR/HMvSTICeLiyjb9xmU6QB2qMtK+tVBSbeeR/IKN+F
- 321SyfkuuWicGoMa8ePKFz65FzrRSwFdYhWQ3zfhYTjb3xSmu8nwi1cXMSgFbhUhSVnb
- u1WfJSShYXKXp6nDeq3a5u61nCOJtcPuDPYgSrg0s49nqMD8Gi/XFyZID5NCDnm98RmM
- 5eDdJPpuwaSP9AzL9vsE0wLhurUhXeHMMsMxFi/sRkYZO8mK+egC/GCmD16AZXP3YzUv
- 2T9A==
-X-Gm-Message-State: APjAAAXu3RaSaxJ+zcMkOFnlTZkWI7RtU3K/5OCGy3piF9s9RQByqImp
- UWeVEtF64tMqUQKr9yHGFOOupK0mbUR4kcvngJc=
-X-Google-Smtp-Source: APXvYqyzUYrhlIoEugbzPslmvADNMfF2xvcbUO3zTaYeh1c05O5Pyx2U0QDgD4P1JCUm3NiogsNTTpD6/UoykImOIHY=
-X-Received: by 2002:ab0:14e8:: with SMTP id f37mr2288342uae.64.1573661192697; 
- Wed, 13 Nov 2019 08:06:32 -0800 (PST)
+ Wed, 13 Nov 2019 16:15:41 +0000 (UTC)
+Received: from pps.filterd (m0046668.ppops.net [127.0.0.1])
+ by mx07-00178001.pphosted.com (8.16.0.42/8.16.0.42) with SMTP id
+ xADFv0TN018303; Wed, 13 Nov 2019 17:15:35 +0100
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=st.com;
+ h=from : to : cc : subject
+ : date : message-id : mime-version : content-type; s=STMicroelectronics;
+ bh=5TjD38QBbB9//539GuMz/PLBV0iVGNkVN9JR03CqXQ0=;
+ b=he75MF+09RUdlBB7NerTymiJ6V62+N8f6Ta9s8jqkBtOca1bzd6Z29AGIBZ/I3WXrRyC
+ vK5kAjjgntsAoaN1/wNoCRI7hv7JA1IAxWprlTr1v25dQuO7cNbYpOXgc8al4Clz6vhq
+ 1GTd6zpO/2jEAWlQ27iSkhXMWGenHrUE0B+6enQYwNdjgow4sixX3GJEQjaex/h+RYwc
+ J7qp+lVRhkCW1LhDzbM4+XmgmIaUX2k1dUpbn951taXHUI8Bs1wg6rEZj0B+KHc4Q7SM
+ Dgp9Bgl09YiXyiqc63lzOf6rFV3bQ+pF5QPFrP39Z00tXZGR8dSIqUjOb8NThYWY4qf4 Vw== 
+Received: from beta.dmz-eu.st.com (beta.dmz-eu.st.com [164.129.1.35])
+ by mx07-00178001.pphosted.com with ESMTP id 2w7psjs5n4-1
+ (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
+ Wed, 13 Nov 2019 17:15:35 +0100
+Received: from euls16034.sgp.st.com (euls16034.sgp.st.com [10.75.44.20])
+ by beta.dmz-eu.st.com (STMicroelectronics) with ESMTP id 8F1EC10002A;
+ Wed, 13 Nov 2019 17:15:30 +0100 (CET)
+Received: from Webmail-eu.st.com (sfhdag6node2.st.com [10.75.127.17])
+ by euls16034.sgp.st.com (STMicroelectronics) with ESMTP id 83C532CFC6B;
+ Wed, 13 Nov 2019 17:15:30 +0100 (CET)
+Received: from localhost (10.75.127.47) by SFHDAG6NODE2.st.com (10.75.127.17)
+ with Microsoft SMTP Server (TLS) id 15.0.1347.2;
+ Wed, 13 Nov 2019 17:15:29 +0100
+From: Pascal Paillet <p.paillet@st.com>
+To: <lgirdwood@gmail.com>, <broonie@kernel.org>, <linux-kernel@vger.kernel.org>
+Date: Wed, 13 Nov 2019 17:15:29 +0100
+Message-ID: <20191113161529.27739-1-p.paillet@st.com>
+X-Mailer: git-send-email 2.17.1
 MIME-Version: 1.0
-References: <20191106163031.808061-1-adrian.ratiu@collabora.com>
- <20191106163031.808061-5-adrian.ratiu@collabora.com>
-In-Reply-To: <20191106163031.808061-5-adrian.ratiu@collabora.com>
-From: Emil Velikov <emil.l.velikov@gmail.com>
-Date: Wed, 13 Nov 2019 16:06:05 +0000
-Message-ID: <CACvgo506P+qNUg8vbpxY0_E7AAwJMHseM=Jwb3c2K8zo-v-2qQ@mail.gmail.com>
-To: Adrian Ratiu <adrian.ratiu@collabora.com>
-Cc: Neil Armstrong <narmstrong@baylibre.com>,
- Martyn Welch <martyn.welch@collabora.com>,
- Sjoerd Simons <sjoerd.simons@collabora.com>,
- "Linux-Kernel@Vger. Kernel. Org" <linux-kernel@vger.kernel.org>,
- ML dri-devel <dri-devel@lists.freedesktop.org>,
- linux-rockchip <linux-rockchip@lists.infradead.org>, kernel@collabora.com,
- linux-stm32@st-md-mailman.stormreply.com,
- LAKML <linux-arm-kernel@lists.infradead.org>
-Subject: Re: [Linux-stm32] [PATCH v2 4/4] dt-bindings: display: add IMX MIPI
- DSI host controller doc
+X-Originating-IP: [10.75.127.47]
+X-ClientProxiedBy: SFHDAG5NODE1.st.com (10.75.127.13) To SFHDAG6NODE2.st.com
+ (10.75.127.17)
+X-Proofpoint-Virus-Version: vendor=fsecure engine=2.50.10434:6.0.95,18.0.572
+ definitions=2019-11-13_04:2019-11-13,2019-11-13 signatures=0
+Cc: p.paillet@st.com, linux-stm32@st-md-mailman.stormreply.com
+Subject: [Linux-stm32] [PATCH] regulator: stpmic1: Set a default ramp delay
+	value
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -76,28 +69,62 @@ Content-Transfer-Encoding: 7bit
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
-On Wed, 6 Nov 2019 at 16:31, Adrian Ratiu <adrian.ratiu@collabora.com> wrote:
->
-> Reviewed-by: Neil Armstrong <narmstrong@baylibre.com>
-> Reviewed-by: Emil Velikov <emil.l.velikov@gmail.com>
-Please drop this one. I'm not that experienced in DT to provide
-meaningful review.
+Set a default ramp delay value to the regulators with the worst
+case value.
 
-Actually, I've just noticed that respective maintainers/lists are not
-CC'd on the series.
-Please use the get_maintainer.pl script got get the correct info.
+Signed-off-by: pascal paillet <p.paillet@st.com>
+---
+ drivers/regulator/stpmic1_regulator.c | 6 ++++++
+ 1 file changed, 6 insertions(+)
 
-Personally, I read through the output, adding only relevant people as
-CC in the commit message itself.
+diff --git a/drivers/regulator/stpmic1_regulator.c b/drivers/regulator/stpmic1_regulator.c
+index f09061473613..f3d7d007ecbb 100644
+--- a/drivers/regulator/stpmic1_regulator.c
++++ b/drivers/regulator/stpmic1_regulator.c
+@@ -54,6 +54,8 @@ enum {
+ 
+ /* Enable time worst case is 5000mV/(2250uV/uS) */
+ #define PMIC_ENABLE_TIME_US 2200
++/* Ramp delay worst case is (2250uV/uS) */
++#define PMIC_RAMP_DELAY 2200
+ 
+ static const struct regulator_linear_range buck1_ranges[] = {
+ 	REGULATOR_LINEAR_RANGE(725000, 0, 4, 0),
+@@ -208,6 +210,7 @@ static const struct regulator_ops stpmic1_switch_regul_ops = {
+ 	.enable_val = 1, \
+ 	.disable_val = 0, \
+ 	.enable_time = PMIC_ENABLE_TIME_US, \
++	.ramp_delay = PMIC_RAMP_DELAY, \
+ 	.supply_name = #base, \
+ }
+ 
+@@ -227,6 +230,7 @@ static const struct regulator_ops stpmic1_switch_regul_ops = {
+ 	.enable_val = 1, \
+ 	.disable_val = 0, \
+ 	.enable_time = PMIC_ENABLE_TIME_US, \
++	.ramp_delay = PMIC_RAMP_DELAY, \
+ 	.bypass_reg = LDO3_ACTIVE_CR, \
+ 	.bypass_mask = LDO_BYPASS_MASK, \
+ 	.bypass_val_on = LDO_BYPASS_MASK, \
+@@ -248,6 +252,7 @@ static const struct regulator_ops stpmic1_switch_regul_ops = {
+ 	.enable_val = 1, \
+ 	.disable_val = 0, \
+ 	.enable_time = PMIC_ENABLE_TIME_US, \
++	.ramp_delay = PMIC_RAMP_DELAY, \
+ 	.supply_name = #base, \
+ }
+ 
+@@ -267,6 +272,7 @@ static const struct regulator_ops stpmic1_switch_regul_ops = {
+ 	.enable_val = 1, \
+ 	.disable_val = 0, \
+ 	.enable_time = PMIC_ENABLE_TIME_US, \
++	.ramp_delay = PMIC_RAMP_DELAY, \
+ 	.of_map_mode = stpmic1_map_mode, \
+ 	.pull_down_reg = ids##_PULL_DOWN_REG, \
+ 	.pull_down_mask = ids##_PULL_DOWN_MASK, \
+-- 
+2.17.1
 
-In particular, I don't think adding the "maintainer: DRM DRIVER" or
-the "ARM/FREESCALE IMX / MXC ARM ARCHITECTURE" are required. On the
-other hand "DRM DRIVERS FOR FREESCALE IMX" and "OPEN FIRMWARE AND
-FLATTENED DEVICE TREE BINDINGS" seems pretty accurate for what you're
-doing here.
-
-HTH
-Emil
 _______________________________________________
 Linux-stm32 mailing list
 Linux-stm32@st-md-mailman.stormreply.com
