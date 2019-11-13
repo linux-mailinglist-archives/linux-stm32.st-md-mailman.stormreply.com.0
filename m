@@ -2,60 +2,60 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id 1E7A3FB64C
-	for <lists+linux-stm32@lfdr.de>; Wed, 13 Nov 2019 18:23:05 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 535A4FB661
+	for <lists+linux-stm32@lfdr.de>; Wed, 13 Nov 2019 18:25:43 +0100 (CET)
 Received: from ip-172-31-3-76.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id D3E1DC36B0B;
-	Wed, 13 Nov 2019 17:23:04 +0000 (UTC)
-Received: from mx07-00178001.pphosted.com (mx08-00178001.pphosted.com
- [91.207.212.93])
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 160EEC36B0B;
+	Wed, 13 Nov 2019 17:25:43 +0000 (UTC)
+Received: from mx07-00178001.pphosted.com (mx07-00178001.pphosted.com
+ [62.209.51.94])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 97B37C36B09
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 0A651C36B09
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Wed, 13 Nov 2019 17:23:02 +0000 (UTC)
-Received: from pps.filterd (m0046660.ppops.net [127.0.0.1])
- by mx08-00178001.pphosted.com (8.16.0.42/8.16.0.42) with SMTP id
- xADHMYWW009672; Wed, 13 Nov 2019 18:23:02 +0100
+ Wed, 13 Nov 2019 17:25:41 +0000 (UTC)
+Received: from pps.filterd (m0046037.ppops.net [127.0.0.1])
+ by mx07-00178001.pphosted.com (8.16.0.42/8.16.0.42) with SMTP id
+ xADHMA1i002755; Wed, 13 Nov 2019 18:25:29 +0100
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=st.com;
  h=from : to : cc : subject
  : date : message-id : mime-version : content-type; s=STMicroelectronics;
- bh=gQYoTQG5x5Nt7hF2x9JYIrwYK1lAubn5br5bBBG7WEM=;
- b=DjXXtou5sX7vL2U4kNuUxEIvQdE5CAeW6Go7mcHo0L3OV9AfSy4I/DFe13XICIZZNRhP
- Gwjj5x+HmwqZ1WN6o907yxlZ8bba8wf2R5ycb1RVX/ebIsZo+NigoAK/e0uv84aXC1+/
- c1lJEmOdp1pbAsDncbi03om+A3cGEKrMC1fSwgJjno+UVgOx0t93ibHT1SMG0kH+Rm0s
- 0/tTqJ/wjp0WYmzljTZbl2MUfAPcfge+3ZaEYcC8XwCCUpt1GpgYm3/AVj/Ob1sKMUXh
- L4vcb96lwHVjldTWsTjtE6gd3lj6/FIQIlWOSrtGYrs8EgP4hxlCVJY1eQ2Jnb0TpU1u gg== 
+ bh=8jtImWavCrw85wxjiK84rn3kDNWNi5jgBLEtUg33Spo=;
+ b=XHQBKkOM82F7cd0cUFcxuRXBJxe+owe/lgMT1KfYbk40byD1Xl9Bm0qZadrWGqwOgDQS
+ 7TQ4GGkDrSYy8+i/G8Y89p10QQpznyl3pOIEEAN/tdZK0Wi85+5wen3kHRJLzcGoso5N
+ zMXTS4+oRUMxdo7Tq14aGPlD0161SdB7rA96dSpflsiL/2OVbViOYkRY9Y2ASucsjbeT
+ sDLx3rh4EAzI7W9UnulU5vSeHeSre0V5WXwiovLORWc6ct116U3jmFDt6+pHcvFVS/Yr
+ nbClOJFbIgF+w7CqLMTO+2llSeZEnGjbsacGAO9Y3iHA3sSEnfnt1zOApjPtXbjkZWXV 2A== 
 Received: from beta.dmz-eu.st.com (beta.dmz-eu.st.com [164.129.1.35])
- by mx08-00178001.pphosted.com with ESMTP id 2w7psf9hha-1
+ by mx07-00178001.pphosted.com with ESMTP id 2w7psb9g09-1
  (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
- Wed, 13 Nov 2019 18:23:02 +0100
+ Wed, 13 Nov 2019 18:25:29 +0100
 Received: from euls16034.sgp.st.com (euls16034.sgp.st.com [10.75.44.20])
- by beta.dmz-eu.st.com (STMicroelectronics) with ESMTP id 62C6610002A;
- Wed, 13 Nov 2019 18:23:01 +0100 (CET)
-Received: from Webmail-eu.st.com (sfhdag3node1.st.com [10.75.127.7])
- by euls16034.sgp.st.com (STMicroelectronics) with ESMTP id 5446B2BA7CB;
- Wed, 13 Nov 2019 18:23:01 +0100 (CET)
-Received: from localhost (10.75.127.46) by SFHDAG3NODE1.st.com (10.75.127.7)
- with Microsoft SMTP Server (TLS) id 15.0.1473.3; Wed, 13 Nov 2019 18:23:00
- +0100
-From: Arnaud Pouliquen <arnaud.pouliquen@st.com>
-To: Ohad Ben-Cohen <ohad@wizery.com>, Bjorn Andersson
- <bjorn.andersson@linaro.org>,
- <linux-kernel@vger.kernel.org>, <linux-remoteproc@vger.kernel.org>,
- <linux-arm-msm@vger.kernel.org>
-Date: Wed, 13 Nov 2019 18:22:49 +0100
-Message-ID: <20191113172249.32412-1-arnaud.pouliquen@st.com>
+ by beta.dmz-eu.st.com (STMicroelectronics) with ESMTP id 7393910002A;
+ Wed, 13 Nov 2019 18:25:28 +0100 (CET)
+Received: from Webmail-eu.st.com (sfhdag6node1.st.com [10.75.127.16])
+ by euls16034.sgp.st.com (STMicroelectronics) with ESMTP id 613B12BA7D0;
+ Wed, 13 Nov 2019 18:25:28 +0100 (CET)
+Received: from lmecxl0923.lme.st.com (10.75.127.47) by SFHDAG6NODE1.st.com
+ (10.75.127.16) with Microsoft SMTP Server (TLS) id 15.0.1473.3; Wed, 13 Nov
+ 2019 18:25:27 +0100
+From: Ludovic Barre <ludovic.Barre@st.com>
+To: Ulf Hansson <ulf.hansson@linaro.org>, Rob Herring <robh+dt@kernel.org>
+Date: Wed, 13 Nov 2019 18:25:14 +0100
+Message-ID: <20191113172514.19052-1-ludovic.Barre@st.com>
 X-Mailer: git-send-email 2.17.1
 MIME-Version: 1.0
-X-Originating-IP: [10.75.127.46]
-X-ClientProxiedBy: SFHDAG5NODE1.st.com (10.75.127.13) To SFHDAG3NODE1.st.com
- (10.75.127.7)
+X-Originating-IP: [10.75.127.47]
+X-ClientProxiedBy: SFHDAG4NODE2.st.com (10.75.127.11) To SFHDAG6NODE1.st.com
+ (10.75.127.16)
 X-Proofpoint-Virus-Version: vendor=fsecure engine=2.50.10434:6.0.95,18.0.572
  definitions=2019-11-13_04:2019-11-13,2019-11-13 signatures=0
-Cc: Suman Anna <s-anna@ti.com>, linux-stm32@st-md-mailman.stormreply.com,
- Fabien DESSENNE <fabien.dessenne@st.com>
-Subject: [Linux-stm32] [PATCH v2] rpmsg: core: add API to get MTU
+Cc: devicetree@vger.kernel.org, linux-mmc@vger.kernel.org,
+ linux-kernel@vger.kernel.org, srinivas.kandagatla@linaro.org,
+ Maxime Coquelin <mcoquelin.stm32@gmail.com>,
+ linux-stm32@st-md-mailman.stormreply.com, linux-arm-kernel@lists.infradead.org
+Subject: [Linux-stm32] [PATCH 1/1] mmc: mmci: add threaded irq to abort DPSM
+	of non-functional state
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -72,140 +72,123 @@ Content-Transfer-Encoding: 7bit
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
-Return the rpmsg buffer MTU for sending message, so rpmsg users
-can split a long message in several sub rpmsg buffers.
+From: Ludovic Barre <ludovic.barre@st.com>
 
-Signed-off-by: Arnaud Pouliquen <arnaud.pouliquen@st.com>
+If datatimeout occurs on R1B request, the Data Path State Machine stays
+in busy and is non-functional. Only a reset aborts the DPSM.
+
+Like a reset must be outside of critical section, this patch adds
+threaded irq function to release state machine. In this case,
+the mmc_request_done is called at the end of threaded irq and
+skipped into irq handler.
+
+Signed-off-by: Ludovic Barre <ludovic.barre@st.com>
 ---
- V1 to V2
+ drivers/mmc/host/mmci.c | 44 ++++++++++++++++++++++++++++++++++++-----
+ drivers/mmc/host/mmci.h |  1 +
+ 2 files changed, 40 insertions(+), 5 deletions(-)
 
-  V1 patch:https://lore.kernel.org/patchwork/patch/1124684/
-  - Change patch title,
-  - as not solution today to support MTU on GLINK make ops optional,
-    RPMsg client API returns -ENOTSUPP in this case,
-  - suppress smd and glink patches.
----
- drivers/rpmsg/rpmsg_core.c       | 21 +++++++++++++++++++++
- drivers/rpmsg/rpmsg_internal.h   |  2 ++
- drivers/rpmsg/virtio_rpmsg_bus.c | 10 ++++++++++
- include/linux/rpmsg.h            | 10 ++++++++++
- 4 files changed, 43 insertions(+)
-
-diff --git a/drivers/rpmsg/rpmsg_core.c b/drivers/rpmsg/rpmsg_core.c
-index e330ec4dfc33..a6ef54c4779a 100644
---- a/drivers/rpmsg/rpmsg_core.c
-+++ b/drivers/rpmsg/rpmsg_core.c
-@@ -283,6 +283,27 @@ int rpmsg_trysend_offchannel(struct rpmsg_endpoint *ept, u32 src, u32 dst,
- }
- EXPORT_SYMBOL(rpmsg_trysend_offchannel);
- 
-+/**
-+ * rpmsg_get_mtu() - get maximum transmission buffer size for sending message.
-+ * @ept: the rpmsg endpoint
-+ *
-+ * This function returns maximum buffer size available for a single message.
-+ *
-+ * Return: the maximum transmission size on success and an appropriate error
-+ * value on failure.
-+ */
-+
-+ssize_t rpmsg_get_mtu(struct rpmsg_endpoint *ept)
-+{
-+	if (WARN_ON(!ept))
-+		return -EINVAL;
-+	if (!ept->ops->get_mtu)
-+		return -ENOTSUPP;
-+
-+	return ept->ops->get_mtu(ept);
-+}
-+EXPORT_SYMBOL(rpmsg_get_mtu);
-+
- /*
-  * match an rpmsg channel with a channel info struct.
-  * this is used to make sure we're not creating rpmsg devices for channels
-diff --git a/drivers/rpmsg/rpmsg_internal.h b/drivers/rpmsg/rpmsg_internal.h
-index 3fc83cd50e98..0e56e046f5c6 100644
---- a/drivers/rpmsg/rpmsg_internal.h
-+++ b/drivers/rpmsg/rpmsg_internal.h
-@@ -47,6 +47,7 @@ struct rpmsg_device_ops {
-  * @trysendto:		see @rpmsg_trysendto(), optional
-  * @trysend_offchannel:	see @rpmsg_trysend_offchannel(), optional
-  * @poll:		see @rpmsg_poll(), optional
-+ * @get_mtu:		see @get_mpu(), optional
-  *
-  * Indirection table for the operations that a rpmsg backend should implement.
-  * In addition to @destroy_ept, the backend must at least implement @send and
-@@ -66,6 +67,7 @@ struct rpmsg_endpoint_ops {
- 			     void *data, int len);
- 	__poll_t (*poll)(struct rpmsg_endpoint *ept, struct file *filp,
- 			     poll_table *wait);
-+	ssize_t (*get_mtu)(struct rpmsg_endpoint *ept);
- };
- 
- int rpmsg_register_device(struct rpmsg_device *rpdev);
-diff --git a/drivers/rpmsg/virtio_rpmsg_bus.c b/drivers/rpmsg/virtio_rpmsg_bus.c
-index 376ebbf880d6..6e48fdf24555 100644
---- a/drivers/rpmsg/virtio_rpmsg_bus.c
-+++ b/drivers/rpmsg/virtio_rpmsg_bus.c
-@@ -175,6 +175,7 @@ static int virtio_rpmsg_trysendto(struct rpmsg_endpoint *ept, void *data,
- 				  int len, u32 dst);
- static int virtio_rpmsg_trysend_offchannel(struct rpmsg_endpoint *ept, u32 src,
- 					   u32 dst, void *data, int len);
-+static ssize_t virtio_rpmsg_get_mtu(struct rpmsg_endpoint *ept);
- 
- static const struct rpmsg_endpoint_ops virtio_endpoint_ops = {
- 	.destroy_ept = virtio_rpmsg_destroy_ept,
-@@ -184,6 +185,7 @@ static const struct rpmsg_endpoint_ops virtio_endpoint_ops = {
- 	.trysend = virtio_rpmsg_trysend,
- 	.trysendto = virtio_rpmsg_trysendto,
- 	.trysend_offchannel = virtio_rpmsg_trysend_offchannel,
-+	.get_mtu = virtio_rpmsg_get_mtu,
- };
- 
- /**
-@@ -699,6 +701,14 @@ static int virtio_rpmsg_trysend_offchannel(struct rpmsg_endpoint *ept, u32 src,
- 	return rpmsg_send_offchannel_raw(rpdev, src, dst, data, len, false);
- }
- 
-+static ssize_t virtio_rpmsg_get_mtu(struct rpmsg_endpoint *ept)
-+{
-+	struct rpmsg_device *rpdev = ept->rpdev;
-+	struct virtio_rpmsg_channel *vch = to_virtio_rpmsg_channel(rpdev);
-+
-+	return vch->vrp->buf_size - sizeof(struct rpmsg_hdr);
-+}
-+
- static int rpmsg_recv_single(struct virtproc_info *vrp, struct device *dev,
- 			     struct rpmsg_hdr *msg, unsigned int len)
+diff --git a/drivers/mmc/host/mmci.c b/drivers/mmc/host/mmci.c
+index 40e72c30ea84..ec6e249c87ca 100644
+--- a/drivers/mmc/host/mmci.c
++++ b/drivers/mmc/host/mmci.c
+@@ -556,6 +556,9 @@ static void mmci_dma_error(struct mmci_host *host)
+ static void
+ mmci_request_end(struct mmci_host *host, struct mmc_request *mrq)
  {
-diff --git a/include/linux/rpmsg.h b/include/linux/rpmsg.h
-index 9fe156d1c018..88d7892ca93d 100644
---- a/include/linux/rpmsg.h
-+++ b/include/linux/rpmsg.h
-@@ -135,6 +135,8 @@ int rpmsg_trysend_offchannel(struct rpmsg_endpoint *ept, u32 src, u32 dst,
- __poll_t rpmsg_poll(struct rpmsg_endpoint *ept, struct file *filp,
- 			poll_table *wait);
- 
-+ssize_t rpmsg_get_mtu(struct rpmsg_endpoint *ept);
++	if (host->irq_action == IRQ_WAKE_THREAD)
++		return;
 +
- #else
+ 	writel(0, host->base + MMCICOMMAND);
  
- static inline int register_rpmsg_device(struct rpmsg_device *dev)
-@@ -242,6 +244,14 @@ static inline __poll_t rpmsg_poll(struct rpmsg_endpoint *ept,
- 	return 0;
- }
+ 	BUG_ON(host->data);
+@@ -1321,6 +1324,7 @@ mmci_cmd_irq(struct mmci_host *host, struct mmc_command *cmd,
+ 	} else if (host->variant->busy_timeout && busy_resp &&
+ 		   status & MCI_DATATIMEOUT) {
+ 		cmd->error = -ETIMEDOUT;
++		host->irq_action = IRQ_WAKE_THREAD;
+ 	} else {
+ 		cmd->resp[0] = readl(base + MMCIRESPONSE0);
+ 		cmd->resp[1] = readl(base + MMCIRESPONSE1);
+@@ -1532,9 +1536,9 @@ static irqreturn_t mmci_irq(int irq, void *dev_id)
+ {
+ 	struct mmci_host *host = dev_id;
+ 	u32 status;
+-	int ret = 0;
  
-+static inline ssize_t rpmsg_get_mtu(struct rpmsg_endpoint *ept)
-+{
-+	/* This shouldn't be possible */
-+	WARN_ON(1);
-+
-+	return -ENXIO;
+ 	spin_lock(&host->lock);
++	host->irq_action = IRQ_HANDLED;
+ 
+ 	do {
+ 		status = readl(host->base + MMCISTATUS);
+@@ -1574,12 +1578,41 @@ static irqreturn_t mmci_irq(int irq, void *dev_id)
+ 		if (host->variant->busy_detect_flag)
+ 			status &= ~host->variant->busy_detect_flag;
+ 
+-		ret = 1;
+ 	} while (status);
+ 
+ 	spin_unlock(&host->lock);
+ 
+-	return IRQ_RETVAL(ret);
++	return host->irq_action;
 +}
 +
- #endif /* IS_ENABLED(CONFIG_RPMSG) */
++/*
++ * mmci_irq_threaded is call if the mmci host need to release state machines
++ * before to terminate the request.
++ * If datatimeout occurs on R1B request, the Data Path State Machine stays
++ * in busy and is non-functional. Only a reset can to abort the DPSM.
++ */
++static irqreturn_t mmci_irq_threaded(int irq, void *dev_id)
++{
++	struct mmci_host *host = dev_id;
++	unsigned long flags;
++
++	if (host->rst) {
++		reset_control_assert(host->rst);
++		udelay(2);
++		reset_control_deassert(host->rst);
++	}
++
++	spin_lock_irqsave(&host->lock, flags);
++	writel(host->clk_reg, host->base + MMCICLOCK);
++	writel(host->pwr_reg, host->base + MMCIPOWER);
++	writel(MCI_IRQENABLE | host->variant->start_err,
++	       host->base + MMCIMASK0);
++
++	host->irq_action = IRQ_HANDLED;
++	mmci_request_end(host, host->mrq);
++	spin_unlock_irqrestore(&host->lock, flags);
++
++	return host->irq_action;
+ }
  
- /* use a macro to avoid include chaining to get THIS_MODULE */
+ static void mmci_request(struct mmc_host *mmc, struct mmc_request *mrq)
+@@ -2071,8 +2104,9 @@ static int mmci_probe(struct amba_device *dev,
+ 			goto clk_disable;
+ 	}
+ 
+-	ret = devm_request_irq(&dev->dev, dev->irq[0], mmci_irq, IRQF_SHARED,
+-			DRIVER_NAME " (cmd)", host);
++	ret = devm_request_threaded_irq(&dev->dev, dev->irq[0], mmci_irq,
++					mmci_irq_threaded, IRQF_SHARED,
++					DRIVER_NAME " (cmd)", host);
+ 	if (ret)
+ 		goto clk_disable;
+ 
+diff --git a/drivers/mmc/host/mmci.h b/drivers/mmc/host/mmci.h
+index 158e1231aa23..5e63c0596364 100644
+--- a/drivers/mmc/host/mmci.h
++++ b/drivers/mmc/host/mmci.h
+@@ -412,6 +412,7 @@ struct mmci_host {
+ 
+ 	struct timer_list	timer;
+ 	unsigned int		oldstat;
++	u32			irq_action;
+ 
+ 	/* pio stuff */
+ 	struct sg_mapping_iter	sg_miter;
 -- 
 2.17.1
 
