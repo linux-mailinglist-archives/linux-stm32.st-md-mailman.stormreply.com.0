@@ -2,57 +2,64 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id 6DD64FAE72
-	for <lists+linux-stm32@lfdr.de>; Wed, 13 Nov 2019 11:27:44 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id BDDE9FB2FF
+	for <lists+linux-stm32@lfdr.de>; Wed, 13 Nov 2019 15:58:26 +0100 (CET)
 Received: from ip-172-31-3-76.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 1B422C36B0B;
-	Wed, 13 Nov 2019 10:27:44 +0000 (UTC)
-Received: from mx07-00178001.pphosted.com (mx08-00178001.pphosted.com
- [91.207.212.93])
- (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 62568C36B0B;
+	Wed, 13 Nov 2019 14:58:26 +0000 (UTC)
+Received: from mail-vs1-f65.google.com (mail-vs1-f65.google.com
+ [209.85.217.65])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id AB542C36B09
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 4DBCEC36B09
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Wed, 13 Nov 2019 10:27:42 +0000 (UTC)
-Received: from pps.filterd (m0046660.ppops.net [127.0.0.1])
- by mx08-00178001.pphosted.com (8.16.0.42/8.16.0.42) with SMTP id
- xADALxjA021509; Wed, 13 Nov 2019 11:27:39 +0100
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=st.com;
- h=from : to : cc : subject
- : date : message-id : mime-version : content-type; s=STMicroelectronics;
- bh=tPNeF+gUJ+p9FLYAaHm+hEv7Xx4wJqHeqgH5XViL1ro=;
- b=iYel5SRoBGMshMr6OiqvlGHPStiBrjVszL1KYY85seAkF4FkTXtxlF0xbsbKOl8E8kiE
- 3h67NHTX9l1ov19E8qZpmFENFqNnkiq6sVX04ITvIfXUxGLS2Xj3b9rv8+Da9P5KDeTG
- z5JrSM0KXm/5G4e7QCyqrp3JomAAhnaoDwg4YveTpV++MS0BrhOLiHsNrug9lQgZlWRq
- epZbiTKltXew8JfSmRE0zYpaDixZwkkfFUdkIUbwjJpZ+7jsXgAWPZs/E189rTkjycPe
- lkflhg6Y719d+VYRfyDaCc0szsLSDuquYjHwe+H5Wcn+i0jdex4Pk0p8McQPNCY78Nv7 6g== 
-Received: from beta.dmz-eu.st.com (beta.dmz-eu.st.com [164.129.1.35])
- by mx08-00178001.pphosted.com with ESMTP id 2w7psf7jbv-1
- (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
- Wed, 13 Nov 2019 11:27:39 +0100
-Received: from euls16034.sgp.st.com (euls16034.sgp.st.com [10.75.44.20])
- by beta.dmz-eu.st.com (STMicroelectronics) with ESMTP id 9FF0C100039;
- Wed, 13 Nov 2019 11:27:38 +0100 (CET)
-Received: from Webmail-eu.st.com (sfhdag6node2.st.com [10.75.127.17])
- by euls16034.sgp.st.com (STMicroelectronics) with ESMTP id 955102B52FE;
- Wed, 13 Nov 2019 11:27:38 +0100 (CET)
-Received: from localhost (10.75.127.47) by SFHDAG6NODE2.st.com (10.75.127.17)
- with Microsoft SMTP Server (TLS) id 15.0.1347.2;
- Wed, 13 Nov 2019 11:27:38 +0100
-From: Pascal Paillet <p.paillet@st.com>
-To: <lgirdwood@gmail.com>, <broonie@kernel.org>, <linux-kernel@vger.kernel.org>
-Date: Wed, 13 Nov 2019 11:27:37 +0100
-Message-ID: <20191113102737.27831-1-p.paillet@st.com>
-X-Mailer: git-send-email 2.17.1
+ Wed, 13 Nov 2019 14:58:24 +0000 (UTC)
+Received: by mail-vs1-f65.google.com with SMTP id y23so1539155vso.1
+ for <linux-stm32@st-md-mailman.stormreply.com>;
+ Wed, 13 Nov 2019 06:58:24 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20161025;
+ h=mime-version:references:in-reply-to:from:date:message-id:subject:to
+ :cc; bh=P0gOVwnr8RZ3Od+Q+Wt9xsj7qG4zJHYItky1OrLz/7Q=;
+ b=DntvAiimaxy5eO8WmD5HKsaq8paiLEDN0gZRqng+Xx9VyAUgIR4AjdrfvQMMtiSy+c
+ kzIT1vF4PL6dW0q4lybAHUTIe/fZzxIfPJN9RiZYhS7TtFC33OI9cLMC+p8J1NFNgr+S
+ WZjtZx1j7LqChx64foynsNatq1nK0axjAIv7cDN2Qi3ahX7gnhLFxIaefxu8Zl2L1/Bu
+ cm/hKxxW2E7gV0/llr8hOWDu2HTnj3y3VD+Z0wLlyeGdgupdyArE1NA7g2xNoI7Z1i25
+ aKclClidbXBgBWKKlVODU4ZNnkr4+R2uaHhlOkkhZqSP8r1MhySo2WiOit311x1n+NJV
+ r9KA==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20161025;
+ h=x-gm-message-state:mime-version:references:in-reply-to:from:date
+ :message-id:subject:to:cc;
+ bh=P0gOVwnr8RZ3Od+Q+Wt9xsj7qG4zJHYItky1OrLz/7Q=;
+ b=qBmXbqjiXN7gSL2Bf8qGSWQkAR1tbo8uD5PTN0y6QkIjW3bLxINPKkSUBYXBn+HJ+N
+ NBZ39W+lWuwIL0NVrkTLBsl5UMOwNfECPu8u/pnPHK5teSZiEpmcv51Qrq/vFrLiumYM
+ uDhaeiM86c/Klxme+YeU9iFhouFIdJC4orC/5dcvn6xXmoXDzN9rOYEgI+HFeVJFz0a7
+ vMw4cV484ifvRz6zIAsOgoNyaJ4y5krDEQrHzZB5Mx0CeVhNvQSnc7s3CrXpD1xAPPzR
+ lDeTe9AK+16YEVKMyB/frT/OwZZGVO6O+LntJK9mvE/U20zAIL16Z9jhDCQSzfifsqk5
+ ih1A==
+X-Gm-Message-State: APjAAAUk5DQG3sMIMF1nP1bLI4zcp4S5WDQQNFtLH9295fYCIhR9W/wo
+ 2hiOqS6BkolVkQ3LHh5EsoURZAKIAqgEAyNIL9E=
+X-Google-Smtp-Source: APXvYqxOKdMQmyVzBi5/m0j44R6MDEw4mJPbYG+meE9Q68qt41BmgvfQGKrtpZllT36/0ae1bMdzT/KICvdwYOGzTAE=
+X-Received: by 2002:a05:6102:20d1:: with SMTP id
+ i17mr2197246vsr.186.1573657102968; 
+ Wed, 13 Nov 2019 06:58:22 -0800 (PST)
 MIME-Version: 1.0
-X-Originating-IP: [10.75.127.47]
-X-ClientProxiedBy: SFHDAG3NODE1.st.com (10.75.127.7) To SFHDAG6NODE2.st.com
- (10.75.127.17)
-X-Proofpoint-Virus-Version: vendor=fsecure engine=2.50.10434:6.0.95,18.0.572
- definitions=2019-11-13_02:2019-11-13,2019-11-13 signatures=0
-Cc: p.paillet@st.com, linux-stm32@st-md-mailman.stormreply.com
-Subject: [Linux-stm32] [RFC] regulator: core: Let boot-on regulators be
-	powered off
+References: <20191106163031.808061-1-adrian.ratiu@collabora.com>
+ <20191106163031.808061-2-adrian.ratiu@collabora.com>
+In-Reply-To: <20191106163031.808061-2-adrian.ratiu@collabora.com>
+From: Emil Velikov <emil.l.velikov@gmail.com>
+Date: Wed, 13 Nov 2019 14:57:55 +0000
+Message-ID: <CACvgo51sNzSHCcix89giYEq=iGJa_-nYbgpOKY-MxPRGCM_cRQ@mail.gmail.com>
+To: Adrian Ratiu <adrian.ratiu@collabora.com>
+Cc: Neil Armstrong <narmstrong@baylibre.com>,
+ "Linux-Kernel@Vger. Kernel. Org" <linux-kernel@vger.kernel.org>,
+ ML dri-devel <dri-devel@lists.freedesktop.org>,
+ linux-rockchip <linux-rockchip@lists.infradead.org>,
+ Boris Brezillon <boris.brezillon@collabora.com>, kernel@collabora.com,
+ linux-stm32@st-md-mailman.stormreply.com,
+ LAKML <linux-arm-kernel@lists.infradead.org>
+Subject: Re: [Linux-stm32] [PATCH v2 1/4] drm: bridge: dw_mipi_dsi: access
+	registers via a regmap
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -69,37 +76,37 @@ Content-Transfer-Encoding: 7bit
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
-Boot-on regulators are always kept on because their use_count value
-is now incremented at boot time and never cleaned.
+On Wed, 6 Nov 2019 at 16:30, Adrian Ratiu <adrian.ratiu@collabora.com> wrote:
+>
+> Convert the common bridge code and the two rockchip & stm drivers
+> which currently use it to the regmap API in anticipation for further
+> changes to make it more generic and add older DSI host controller
+> support as found on i.mx6 based devices.
+>
+> The regmap becomes an internal state of the bridge. No functional
+> changes other than requiring the platform drivers to use the
+> pre-configured regmap supplied by the bridge after its probe() call
+> instead of ioremp'ing the registers themselves.
+>
+> In subsequent commits the bridge will become able to detect the
+> DSI host core version and init the regmap with different register
+> layouts. The platform drivers will continue to use the regmap without
+> modifications or worrying about the specific layout in use (in other
+> words the layout is abstracted away via the regmap).
+>
+> Suggested-by: Boris Brezillon <boris.brezillon@collabora.com>
+> Reviewed-by: Neil Armstrong <narmstrong@baylibre.com>
+> Reviewed-by: Emil Velikov <emil.l.velikov@gmail.com>
 
-Only increment count value for alway-on regulators.
-regulator_late_cleanup() is now able to power off boot-on regulators
-when unused.
+I should have been clearer earlier - I didn't quite review the patch.
+Is is now though.
+Reviewed-by: Emil Velikov <emil.velikov@collabora.com>
 
-Fixes: 05f224ca6693 ("regulator: core: Clean enabling always-on regulators + their supplies")
-Signed-off-by: Pascal Paillet <p.paillet@st.com>
----
- drivers/regulator/core.c | 4 +++-
- 1 file changed, 3 insertions(+), 1 deletion(-)
+Admittedly a couple of nitpicks (DRIVER_NAME, zero initialize of val)
+could have been left out.
+It's not a big deal, there's no need to polish those.
 
-diff --git a/drivers/regulator/core.c b/drivers/regulator/core.c
-index 970905124382..f01862844da6 100644
---- a/drivers/regulator/core.c
-+++ b/drivers/regulator/core.c
-@@ -1403,7 +1403,9 @@ static int set_machine_constraints(struct regulator_dev *rdev,
- 			rdev_err(rdev, "failed to enable\n");
- 			return ret;
- 		}
--		rdev->use_count++;
-+
-+		if (rdev->constraints->always_on)
-+			rdev->use_count++;
- 	}
- 
- 	print_constraints(rdev);
--- 
-2.17.1
-
+-Emil
 _______________________________________________
 Linux-stm32 mailing list
 Linux-stm32@st-md-mailman.stormreply.com
