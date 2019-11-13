@@ -2,64 +2,49 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id BDDE9FB2FF
-	for <lists+linux-stm32@lfdr.de>; Wed, 13 Nov 2019 15:58:26 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 3A6E4FB347
+	for <lists+linux-stm32@lfdr.de>; Wed, 13 Nov 2019 16:12:25 +0100 (CET)
 Received: from ip-172-31-3-76.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 62568C36B0B;
-	Wed, 13 Nov 2019 14:58:26 +0000 (UTC)
-Received: from mail-vs1-f65.google.com (mail-vs1-f65.google.com
- [209.85.217.65])
- (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id DA910C36B21;
+	Wed, 13 Nov 2019 15:12:24 +0000 (UTC)
+Received: from smtprelay-out1.synopsys.com (smtprelay-out1.synopsys.com
+ [198.182.47.102])
+ (using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 4DBCEC36B09
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 2CBABC36B0E
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Wed, 13 Nov 2019 14:58:24 +0000 (UTC)
-Received: by mail-vs1-f65.google.com with SMTP id y23so1539155vso.1
- for <linux-stm32@st-md-mailman.stormreply.com>;
- Wed, 13 Nov 2019 06:58:24 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20161025;
- h=mime-version:references:in-reply-to:from:date:message-id:subject:to
- :cc; bh=P0gOVwnr8RZ3Od+Q+Wt9xsj7qG4zJHYItky1OrLz/7Q=;
- b=DntvAiimaxy5eO8WmD5HKsaq8paiLEDN0gZRqng+Xx9VyAUgIR4AjdrfvQMMtiSy+c
- kzIT1vF4PL6dW0q4lybAHUTIe/fZzxIfPJN9RiZYhS7TtFC33OI9cLMC+p8J1NFNgr+S
- WZjtZx1j7LqChx64foynsNatq1nK0axjAIv7cDN2Qi3ahX7gnhLFxIaefxu8Zl2L1/Bu
- cm/hKxxW2E7gV0/llr8hOWDu2HTnj3y3VD+Z0wLlyeGdgupdyArE1NA7g2xNoI7Z1i25
- aKclClidbXBgBWKKlVODU4ZNnkr4+R2uaHhlOkkhZqSP8r1MhySo2WiOit311x1n+NJV
- r9KA==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20161025;
- h=x-gm-message-state:mime-version:references:in-reply-to:from:date
- :message-id:subject:to:cc;
- bh=P0gOVwnr8RZ3Od+Q+Wt9xsj7qG4zJHYItky1OrLz/7Q=;
- b=qBmXbqjiXN7gSL2Bf8qGSWQkAR1tbo8uD5PTN0y6QkIjW3bLxINPKkSUBYXBn+HJ+N
- NBZ39W+lWuwIL0NVrkTLBsl5UMOwNfECPu8u/pnPHK5teSZiEpmcv51Qrq/vFrLiumYM
- uDhaeiM86c/Klxme+YeU9iFhouFIdJC4orC/5dcvn6xXmoXDzN9rOYEgI+HFeVJFz0a7
- vMw4cV484ifvRz6zIAsOgoNyaJ4y5krDEQrHzZB5Mx0CeVhNvQSnc7s3CrXpD1xAPPzR
- lDeTe9AK+16YEVKMyB/frT/OwZZGVO6O+LntJK9mvE/U20zAIL16Z9jhDCQSzfifsqk5
- ih1A==
-X-Gm-Message-State: APjAAAUk5DQG3sMIMF1nP1bLI4zcp4S5WDQQNFtLH9295fYCIhR9W/wo
- 2hiOqS6BkolVkQ3LHh5EsoURZAKIAqgEAyNIL9E=
-X-Google-Smtp-Source: APXvYqxOKdMQmyVzBi5/m0j44R6MDEw4mJPbYG+meE9Q68qt41BmgvfQGKrtpZllT36/0ae1bMdzT/KICvdwYOGzTAE=
-X-Received: by 2002:a05:6102:20d1:: with SMTP id
- i17mr2197246vsr.186.1573657102968; 
- Wed, 13 Nov 2019 06:58:22 -0800 (PST)
-MIME-Version: 1.0
-References: <20191106163031.808061-1-adrian.ratiu@collabora.com>
- <20191106163031.808061-2-adrian.ratiu@collabora.com>
-In-Reply-To: <20191106163031.808061-2-adrian.ratiu@collabora.com>
-From: Emil Velikov <emil.l.velikov@gmail.com>
-Date: Wed, 13 Nov 2019 14:57:55 +0000
-Message-ID: <CACvgo51sNzSHCcix89giYEq=iGJa_-nYbgpOKY-MxPRGCM_cRQ@mail.gmail.com>
-To: Adrian Ratiu <adrian.ratiu@collabora.com>
-Cc: Neil Armstrong <narmstrong@baylibre.com>,
- "Linux-Kernel@Vger. Kernel. Org" <linux-kernel@vger.kernel.org>,
- ML dri-devel <dri-devel@lists.freedesktop.org>,
- linux-rockchip <linux-rockchip@lists.infradead.org>,
- Boris Brezillon <boris.brezillon@collabora.com>, kernel@collabora.com,
- linux-stm32@st-md-mailman.stormreply.com,
- LAKML <linux-arm-kernel@lists.infradead.org>
-Subject: Re: [Linux-stm32] [PATCH v2 1/4] drm: bridge: dw_mipi_dsi: access
-	registers via a regmap
+ Wed, 13 Nov 2019 15:12:23 +0000 (UTC)
+Received: from mailhost.synopsys.com (mdc-mailhost2.synopsys.com
+ [10.225.0.210])
+ (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits))
+ (No client certificate requested)
+ by smtprelay-out1.synopsys.com (Postfix) with ESMTPS id 15049C0E8F;
+ Wed, 13 Nov 2019 15:12:20 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=synopsys.com; s=mail;
+ t=1573657941; bh=BR2u1Q88cqsbGfAOXXojwkBp8kfiWQs0auglmg6xKq0=;
+ h=From:To:Cc:Subject:Date:From;
+ b=SZ7fERxeeCqN95S198ncRqPWVSI2Xh37hy9kqJHakuBUp801CGk81EOvtnSicH+9J
+ LaNdjb9uHs5uuxtiXL/J74Mc7HaT6CyN1HovlU8LEtQfDpIWa9JlVGSS3qODUo1vbz
+ lUS/WnTFdlgykScXmS6KOvpttIaKpggAPP2JVms1PwXxHydYfv9tZTy6FX9O2T+QDn
+ rtTNZPMrgxlxw8/9yVa8x0EJ/qa5rrR1XLregBBKhTqMr6MW23LBNmOVB2ccHk6Lzb
+ jPQ2iY6hjelAkB7kvM9TRb/LAdMOzi6f3mIWos7Bi9yvTYAEkivu9r+GXMDzItN4ly
+ NYtk10bzSmoBw==
+Received: from de02dwia024.internal.synopsys.com
+ (de02dwia024.internal.synopsys.com [10.225.19.81])
+ by mailhost.synopsys.com (Postfix) with ESMTP id BBDF6A0078;
+ Wed, 13 Nov 2019 15:12:18 +0000 (UTC)
+From: Jose Abreu <Jose.Abreu@synopsys.com>
+To: netdev@vger.kernel.org
+Date: Wed, 13 Nov 2019 16:12:01 +0100
+Message-Id: <cover.1573657592.git.Jose.Abreu@synopsys.com>
+X-Mailer: git-send-email 2.7.4
+Cc: Jose Abreu <Jose.Abreu@synopsys.com>, Joao Pinto <Joao.Pinto@synopsys.com>,
+ linux-kernel@vger.kernel.org, linux-stm32@st-md-mailman.stormreply.com,
+ Maxime Coquelin <mcoquelin.stm32@gmail.com>,
+ Giuseppe Cavallaro <peppe.cavallaro@st.com>,
+ "David S. Miller" <davem@davemloft.net>, linux-arm-kernel@lists.infradead.org
+Subject: [Linux-stm32] [PATCH net-next 0/7] net: stmmac: CPU Performance
+	Improvements
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -71,42 +56,132 @@ List-Post: <mailto:linux-stm32@st-md-mailman.stormreply.com>
 List-Help: <mailto:linux-stm32-request@st-md-mailman.stormreply.com?subject=help>
 List-Subscribe: <https://st-md-mailman.stormreply.com/mailman/listinfo/linux-stm32>, 
  <mailto:linux-stm32-request@st-md-mailman.stormreply.com?subject=subscribe>
+MIME-Version: 1.0
 Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
-On Wed, 6 Nov 2019 at 16:30, Adrian Ratiu <adrian.ratiu@collabora.com> wrote:
->
-> Convert the common bridge code and the two rockchip & stm drivers
-> which currently use it to the regmap API in anticipation for further
-> changes to make it more generic and add older DSI host controller
-> support as found on i.mx6 based devices.
->
-> The regmap becomes an internal state of the bridge. No functional
-> changes other than requiring the platform drivers to use the
-> pre-configured regmap supplied by the bridge after its probe() call
-> instead of ioremp'ing the registers themselves.
->
-> In subsequent commits the bridge will become able to detect the
-> DSI host core version and init the regmap with different register
-> layouts. The platform drivers will continue to use the regmap without
-> modifications or worrying about the specific layout in use (in other
-> words the layout is abstracted away via the regmap).
->
-> Suggested-by: Boris Brezillon <boris.brezillon@collabora.com>
-> Reviewed-by: Neil Armstrong <narmstrong@baylibre.com>
-> Reviewed-by: Emil Velikov <emil.l.velikov@gmail.com>
+CPU Performance improvements for stmmac. Please check bellow for results
+before and after the series.
 
-I should have been clearer earlier - I didn't quite review the patch.
-Is is now though.
-Reviewed-by: Emil Velikov <emil.velikov@collabora.com>
+Patch 1/7, allows RX Interrupt on Completion to be disabled and only use the
+RX HW Watchdog.
 
-Admittedly a couple of nitpicks (DRIVER_NAME, zero initialize of val)
-could have been left out.
-It's not a big deal, there's no need to polish those.
+Patch 2/7, setups the default RX coalesce settings instead of using the
+minimum value.
 
--Emil
+Patch 3/7, enables the Transmit Buffer Unavailable interrupt on GMAC4+ cores
+so that we don't miss any packet that could have been coalesced.
+
+Patch 4/7 and 5/7, removes the uneeded computations for RX Flow Control
+activation/de-activation, on some cases.
+
+Patch 6/7, tunes-up the default coalesce settings.
+
+Patch 7/7, corrects the interpretation of TX Coalesce.
+
+
+NetPerf UDP Results:
+--------------------
+
+Socket  Message  Elapsed      Messages                   CPU      Service
+Size    Size     Time         Okay Errors   Throughput   Util     Demand
+bytes   bytes    secs            #      #   10^6bits/sec % SS     us/KB
+--- XGMAC@2.5G: Before
+212992    1400   10.00     2100620      0     2351.7     36.69    5.112
+212992           10.00     2100539            2351.6     26.18    3.648
+--- XGMAC@2.5G: After
+212992    1400   10.00     2116860      0     2370.4     27.61    3.816 
+212992           10.00     2111552            2364.5     17.41    2.407
+
+--- GMAC5@1G: Before
+212992    1400   10.00      786000      0      880.2     34.71    12.923
+212992           10.00      786000             880.2     23.42    8.719
+--- GMAC5@1G: After
+212992    1400   10.00      847702      0      949.3     15.07    5.201 
+212992           10.00      847702             949.3     12.91    4.456
+
+
+Perf TCP Results on RX Path:
+----------------------------
+--- XGMAC@2.5G: Before
+22.51%  swapper          [stmmac]           [k] dwxgmac2_dma_interrupt
+10.82%  swapper          [stmmac]           [k] dwxgmac2_host_mtl_irq_status
+ 5.21%  swapper          [stmmac]           [k] dwxgmac2_host_irq_status
+ 4.67%  swapper          [stmmac]           [k] dwxgmac3_safety_feat_irq_status
+ 3.63%  swapper          [kernel.kallsyms]  [k] stack_trace_consume_entry
+ 2.74%  iperf3           [kernel.kallsyms]  [k] copy_user_enhanced_fast_string
+ 2.52%  swapper          [kernel.kallsyms]  [k] update_stack_state
+ 1.94%  ksoftirqd/0      [stmmac]           [k] dwxgmac2_dma_interrupt
+ 1.45%  iperf3           [kernel.kallsyms]  [k] queued_spin_lock_slowpath
+ 1.26%  swapper          [kernel.kallsyms]  [k] create_object
+--- XGMAC@2.5G: After
+12.00%  swapper          [stmmac]           [k] dwxgmac2_dma_interrupt
+ 5.96%  swapper          [kernel.kallsyms]  [k] stack_trace_consume_entry
+ 5.65%  swapper          [stmmac]           [k] dwxgmac2_host_mtl_irq_status
+ 4.36%  swapper          [kernel.kallsyms]  [k] update_stack_state
+ 3.91%  iperf3           [kernel.kallsyms]  [k] copy_user_enhanced_fast_string
+ 2.82%  swapper          [stmmac]           [k] dwxgmac2_host_irq_status
+ 2.62%  swapper          [stmmac]           [k] dwxgmac3_safety_feat_irq_status
+ 2.25%  swapper          [kernel.kallsyms]  [k] create_object
+ 2.03%  swapper          [stmmac]           [k] stmmac_napi_poll_rx
+ 1.97%  swapper          [kernel.kallsyms]  [k] unwind_next_frame.part.4
+
+--- GMAC5@1G: Before
+31.29%  swapper          [stmmac]           [k] dwmac4_dma_interrupt
+14.57%  swapper          [stmmac]           [k] dwmac4_irq_mtl_status
+10.66%  swapper          [stmmac]           [k] dwmac4_irq_status
+ 1.97%  swapper          [kernel.kallsyms]  [k] stack_trace_consume_entry
+ 1.73%  iperf3           [kernel.kallsyms]  [k] copy_user_enhanced_fast_string
+ 1.59%  swapper          [kernel.kallsyms]  [k] update_stack_state
+ 1.15%  iperf3           [kernel.kallsyms]  [k] do_syscall_64
+ 1.01%  ksoftirqd/0      [stmmac]           [k] dwmac4_dma_interrupt
+ 0.89%  swapper          [kernel.kallsyms]  [k] __default_send_IPI_dest_field
+ 0.75%  swapper          [stmmac]           [k] stmmac_napi_poll_rx
+--- GMAC5@1G: After
+ 9.27%  swapper          [stmmac]           [k] dwmac4_dma_interrupt
+ 6.35%  swapper          [kernel.kallsyms]  [k] stack_trace_consume_entry
+ 4.94%  swapper          [kernel.kallsyms]  [k] update_stack_state
+ 4.70%  swapper          [stmmac]           [k] dwmac4_irq_mtl_status
+ 3.58%  swapper          [stmmac]           [k] dwmac4_irq_status
+ 3.42%  iperf3           [kernel.kallsyms]  [k] copy_user_enhanced_fast_string
+ 2.18%  swapper          [kernel.kallsyms]  [k] unwind_next_frame.part.4
+ 2.17%  swapper          [stmmac]           [k] stmmac_napi_poll_rx
+ 2.15%  swapper          [kernel.kallsyms]  [k] create_object
+ 1.26%  swapper          [kernel.kallsyms]  [k] unwind_get_return_address
+
+---
+Cc: Giuseppe Cavallaro <peppe.cavallaro@st.com>
+Cc: Alexandre Torgue <alexandre.torgue@st.com>
+Cc: Jose Abreu <joabreu@synopsys.com>
+Cc: "David S. Miller" <davem@davemloft.net>
+Cc: Maxime Coquelin <mcoquelin.stm32@gmail.com>
+Cc: netdev@vger.kernel.org
+Cc: linux-stm32@st-md-mailman.stormreply.com
+Cc: linux-arm-kernel@lists.infradead.org
+Cc: linux-kernel@vger.kernel.org
+---
+
+Jose Abreu (7):
+  net: stmmac: Do not set RX IC bit if RX Coalesce is zero
+  net: stmmac: Setup a default RX Coalesce value instead of the minimum
+  net: stmmac: gmac4+: Enable the TBU Interrupt
+  net: stmmac: gmac4+: Remove uneeded computation for RFA/RFD
+  net: stmmac: xgmac: Remove uneeded computation for RFA/RFD
+  net: stmmac: Tune-up default coalesce settings
+  net: stmmac: TX Coalesce should be per-packet
+
+ drivers/net/ethernet/stmicro/stmmac/common.h       |  5 +++--
+ drivers/net/ethernet/stmicro/stmmac/dwmac4_dma.c   | 14 ++------------
+ drivers/net/ethernet/stmicro/stmmac/dwmac4_dma.h   |  2 ++
+ drivers/net/ethernet/stmicro/stmmac/dwxgmac2_dma.c | 14 ++------------
+ drivers/net/ethernet/stmicro/stmmac/stmmac_main.c  | 14 ++++++++------
+ 5 files changed, 17 insertions(+), 32 deletions(-)
+
+-- 
+2.7.4
+
 _______________________________________________
 Linux-stm32 mailing list
 Linux-stm32@st-md-mailman.stormreply.com
