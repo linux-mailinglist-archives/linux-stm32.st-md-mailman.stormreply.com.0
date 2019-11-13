@@ -2,42 +2,42 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id EB6C6FB345
-	for <lists+linux-stm32@lfdr.de>; Wed, 13 Nov 2019 16:12:24 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 3AA9CFB348
+	for <lists+linux-stm32@lfdr.de>; Wed, 13 Nov 2019 16:12:25 +0100 (CET)
 Received: from ip-172-31-3-76.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id A5A5DC36B14;
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id CD134C36B1E;
 	Wed, 13 Nov 2019 15:12:24 +0000 (UTC)
-Received: from smtprelay-out1.synopsys.com (smtprelay-out1.synopsys.com
+Received: from smtprelay-out1.synopsys.com (dc8-smtprelay2.synopsys.com
  [198.182.47.102])
  (using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 1AE33C36B0B
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 3738BC36B0F
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Wed, 13 Nov 2019 15:12:22 +0000 (UTC)
+ Wed, 13 Nov 2019 15:12:23 +0000 (UTC)
 Received: from mailhost.synopsys.com (mdc-mailhost2.synopsys.com
  [10.225.0.210])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits))
  (No client certificate requested)
- by smtprelay-out1.synopsys.com (Postfix) with ESMTPS id 14940C0E8E;
+ by smtprelay-out1.synopsys.com (Postfix) with ESMTPS id 1800CC0E93;
  Wed, 13 Nov 2019 15:12:20 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=synopsys.com; s=mail;
- t=1573657941; bh=OLfO2cSvqUwRYq7olBQ/mmQCkf/PJmu4vZLyw90R8iM=;
+ t=1573657941; bh=6mDOD0LZwNVU4TcplrWHtHQ3iiQNzYDGcKk37WCw+xw=;
  h=From:To:Cc:Subject:Date:In-Reply-To:References:In-Reply-To:
  References:From;
- b=U04QP/b8q4807WPbPB6XcuBN4j0386WFyi/TWHif0MlN1B+UTPAFcaeyP+J627dzB
- RTkhQwrSsbWoZY2T9uc41x3ABMzOGDw8ZByJOAw09kPMDPJIQ7+K1H+bPVl7GVMylO
- 11enBj8MouEA+7MGR4uiLB3fJ7NHvBTa/rX/5KP3S+/dQqhc9l7ADz56C199vHTLmi
- JobUsa6aML3jTRGJPgm6fVmzgCzKrwGwg7iDdQf7jPsL8PrpeQfnVE3RROMfHZW0cd
- aPkn9L57xhIwF0obytxe4wOHnQ7Z9jVhZbmnSRv94SBLYIS/gIxqUqHKIsIGssJ6I/
- DLIBYLttMyZfw==
+ b=Dve6IU/d/BmYWsNWIJPMMLF195bmaqnn9Fns472BTMLSp3r2lvALY5pMUg/s+HS+U
+ 2QnxShdD1gUBlamUAUTsQydcFt5SECAEYllbme3F+ZfIhNFQEi4YvRavsmoDLM58Ic
+ 2ZJBZ5J8N/GO0xPKejXZ75b9MTVHkBqAkBn79MRceRUACDw1Km11yTYw/N7cxSRoIV
+ cqNuGbJVBj1PkfbprTZAXE8CVb9m0l9Elq4Yf6QsVJpK+JW+T9dINLkoYzJK3XDYjv
+ MCX//KbbT4NK0nMgkd4H/erzCBSiqxJfMUU8HZcQv1rHhSo96dt4aq4KDz9QchRmOV
+ 7WpEaAHW+4qCw==
 Received: from de02dwia024.internal.synopsys.com
  (de02dwia024.internal.synopsys.com [10.225.19.81])
- by mailhost.synopsys.com (Postfix) with ESMTP id 87BFBA0087;
+ by mailhost.synopsys.com (Postfix) with ESMTP id AEF18A008E;
  Wed, 13 Nov 2019 15:12:19 +0000 (UTC)
 From: Jose Abreu <Jose.Abreu@synopsys.com>
 To: netdev@vger.kernel.org
-Date: Wed, 13 Nov 2019 16:12:04 +0100
-Message-Id: <dbe803beb524da8ac751e8019c798915c0f7eb2f.1573657592.git.Jose.Abreu@synopsys.com>
+Date: Wed, 13 Nov 2019 16:12:05 +0100
+Message-Id: <5a9448921e64623d809224a3b42d136906b84dfb.1573657592.git.Jose.Abreu@synopsys.com>
 X-Mailer: git-send-email 2.7.4
 In-Reply-To: <cover.1573657592.git.Jose.Abreu@synopsys.com>
 References: <cover.1573657592.git.Jose.Abreu@synopsys.com>
@@ -48,8 +48,8 @@ Cc: Jose Abreu <Jose.Abreu@synopsys.com>, Joao Pinto <Joao.Pinto@synopsys.com>,
  Maxime Coquelin <mcoquelin.stm32@gmail.com>,
  Giuseppe Cavallaro <peppe.cavallaro@st.com>,
  "David S. Miller" <davem@davemloft.net>, linux-arm-kernel@lists.infradead.org
-Subject: [Linux-stm32] [PATCH net-next 3/7] net: stmmac: gmac4+: Enable the
-	TBU Interrupt
+Subject: [Linux-stm32] [PATCH net-next 4/7] net: stmmac: gmac4+: Remove
+	uneeded computation for RFA/RFD
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -67,8 +67,10 @@ Content-Transfer-Encoding: 7bit
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
-Enables Transmit Buffer Unavailable interrupt so that any coalesced
-packet is not missed on transmission.
+RFA and RFD should not be dependent on FIFO size. In fact, the more FIFO
+space we have, the later we can activate Flow Control. Let's use
+hard-coded values for RFA and RFD for all FIFO sizes with the exception
+of 4k, which is a special case.
 
 Signed-off-by: Jose Abreu <Jose.Abreu@synopsys.com>
 
@@ -83,29 +85,35 @@ Cc: linux-stm32@st-md-mailman.stormreply.com
 Cc: linux-arm-kernel@lists.infradead.org
 Cc: linux-kernel@vger.kernel.org
 ---
- drivers/net/ethernet/stmicro/stmmac/dwmac4_dma.h | 2 ++
- 1 file changed, 2 insertions(+)
+ drivers/net/ethernet/stmicro/stmmac/dwmac4_dma.c | 14 ++------------
+ 1 file changed, 2 insertions(+), 12 deletions(-)
 
-diff --git a/drivers/net/ethernet/stmicro/stmmac/dwmac4_dma.h b/drivers/net/ethernet/stmicro/stmmac/dwmac4_dma.h
-index 589931795847..1be1df5f65de 100644
---- a/drivers/net/ethernet/stmicro/stmmac/dwmac4_dma.h
-+++ b/drivers/net/ethernet/stmicro/stmmac/dwmac4_dma.h
-@@ -161,6 +161,7 @@
+diff --git a/drivers/net/ethernet/stmicro/stmmac/dwmac4_dma.c b/drivers/net/ethernet/stmicro/stmmac/dwmac4_dma.c
+index 36a0af8bf89f..c15409030710 100644
+--- a/drivers/net/ethernet/stmicro/stmmac/dwmac4_dma.c
++++ b/drivers/net/ethernet/stmicro/stmmac/dwmac4_dma.c
+@@ -252,19 +252,9 @@ static void dwmac4_dma_rx_chan_op_mode(void __iomem *ioaddr, int mode,
+ 			rfa = 0x01; /* Full-1.5K */
+ 			break;
  
- #define DMA_CHAN_INTR_NORMAL		(DMA_CHAN_INTR_ENA_NIE | \
- 					 DMA_CHAN_INTR_ENA_RIE | \
-+					 DMA_CHAN_INTR_ENA_TBUE | \
- 					 DMA_CHAN_INTR_ENA_TIE)
+-		case 8192:
+-			rfd = 0x06; /* Full-4K */
+-			rfa = 0x0a; /* Full-6K */
+-			break;
+-
+-		case 16384:
+-			rfd = 0x06; /* Full-4K */
+-			rfa = 0x12; /* Full-10K */
+-			break;
+-
+ 		default:
+-			rfd = 0x06; /* Full-4K */
+-			rfa = 0x1e; /* Full-16K */
++			rfd = 0x07; /* Full-4.5K */
++			rfa = 0x04; /* Full-3K */
+ 			break;
+ 		}
  
- #define DMA_CHAN_INTR_ABNORMAL		(DMA_CHAN_INTR_ENA_AIE | \
-@@ -171,6 +172,7 @@
- 
- #define DMA_CHAN_INTR_NORMAL_4_10	(DMA_CHAN_INTR_ENA_NIE_4_10 | \
- 					 DMA_CHAN_INTR_ENA_RIE | \
-+					 DMA_CHAN_INTR_ENA_TBUE | \
- 					 DMA_CHAN_INTR_ENA_TIE)
- 
- #define DMA_CHAN_INTR_ABNORMAL_4_10	(DMA_CHAN_INTR_ENA_AIE_4_10 | \
 -- 
 2.7.4
 
