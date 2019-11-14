@@ -2,119 +2,48 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id C0D13FC4E8
-	for <lists+linux-stm32@lfdr.de>; Thu, 14 Nov 2019 11:59:36 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id B60BDFC57F
+	for <lists+linux-stm32@lfdr.de>; Thu, 14 Nov 2019 12:42:59 +0100 (CET)
 Received: from ip-172-31-3-76.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 7B565C36B0B;
-	Thu, 14 Nov 2019 10:59:36 +0000 (UTC)
-Received: from smtprelay-out1.synopsys.com (smtprelay-out1.synopsys.com
- [198.182.47.102])
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 7406CC36B14;
+	Thu, 14 Nov 2019 11:42:59 +0000 (UTC)
+Received: from smtprelay-out1.synopsys.com (us03-smtprelay2.synopsys.com
+ [149.117.87.133])
  (using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 109E7C36B09
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 945AEC36B0D
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Thu, 14 Nov 2019 10:59:34 +0000 (UTC)
-Received: from mailhost.synopsys.com (badc-mailhost2.synopsys.com
- [10.192.0.18])
+ Thu, 14 Nov 2019 11:42:57 +0000 (UTC)
+Received: from mailhost.synopsys.com (mdc-mailhost2.synopsys.com
+ [10.225.0.210])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits))
  (No client certificate requested)
- by smtprelay-out1.synopsys.com (Postfix) with ESMTPS id 30019C0BBC;
- Thu, 14 Nov 2019 10:59:32 +0000 (UTC)
+ by smtprelay-out1.synopsys.com (Postfix) with ESMTPS id B31B3C04BD;
+ Thu, 14 Nov 2019 11:42:54 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=synopsys.com; s=mail;
- t=1573729172; bh=n7govGcjmjTEBRJfYy1NmymioS7SeEzf4CKM7IHTwBs=;
- h=From:To:CC:Subject:Date:References:In-Reply-To:From;
- b=OVS/RTG9HdqovV/qkKTQaubXgqSAXvSNNFAvOCsNAPxtqGuV7fBICeP+VXB8NmoSQ
- DdV7youKb90etwSeSf6NrX3Oh2om0VWc53Dd2YAAFRgVFh1W/Kxx8OVDKNRfGIqV9g
- WaVOhvJddKMyQHhGhF7q3oplJ0PXwbgYQg6KqfGxQtdSrv72Z7u0tD9VwNu3FmBM9w
- rYEXL9oYYsVWQEn0svGlL+b/gJgb6kh7c/iNVGAESy6hlOqY8whSsowigHicORQBUL
- DE4DvwLeJw+S2Pz/t5e+aoMz6qUCYeYvpbSCq/LlcdrVktewfxCPBPxH8CLY1tgW/a
- FQ/YuY69MCFlA==
-Received: from US01WEHTC3.internal.synopsys.com
- (us01wehtc3.internal.synopsys.com [10.15.84.232])
- (using TLSv1.2 with cipher ECDHE-RSA-AES256-SHA384 (256/256 bits))
- (No client certificate requested)
- by mailhost.synopsys.com (Postfix) with ESMTPS id 6C2E7A006A;
- Thu, 14 Nov 2019 10:59:26 +0000 (UTC)
-Received: from US01HYBRID2.internal.synopsys.com (10.15.246.24) by
- US01WEHTC3.internal.synopsys.com (10.15.84.232) with Microsoft SMTP Server
- (TLS) id 14.3.408.0; Thu, 14 Nov 2019 02:59:17 -0800
-Received: from NAM02-BL2-obe.outbound.protection.outlook.com (10.13.134.195)
- by mrs.synopsys.com (10.15.246.24) with Microsoft SMTP Server (TLS) id
- 14.3.408.0; Thu, 14 Nov 2019 02:59:16 -0800
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=PeKwKHsXIbglbWMQij7bqKD+LfRUdveLirU0t6aNkvZJ/lS4jdj/x/R9oKPuV20zBLK60zLzghbr+bBtqBe2zQdm8fF7uTtkf1jlfOfnzVVNmToYWjA6xjkaTzc4pmnH2K1GB1cfQC21VCiDro53c+Z+Dn7Mz/28LICM9c2EZ+1fNnG2RKCJmMfQTBfDMJ5TAQCsGA+JXF35Z6tfFI2wS8rw+7yIVhTQ5jieq4RpGdiOqOZi4GwlyEd7TPTnh0IpwyCnYd6bnWR7dfaQCplZ3fwsXbzd5OE0upbqk4k5qdtHxmlUefmENGKFY94utFB2djLaW2v2s722Rzuyl4RxPw==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
- s=arcselector9901;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=n7govGcjmjTEBRJfYy1NmymioS7SeEzf4CKM7IHTwBs=;
- b=DTK8kx4jjs6GsfDY3Nt8Itpks5O+TQ6JDN7++IgC2qehi43OAC1b49ovOLqqK9rtm1Uh0+bhrIhuecf+hOddbF036QoblMdSmJlKHjaCmb0FQX/U1JsZx+z+Tnd1j/COxaIjlIEeXc8YaxgaGh5pA9KIe7BpG9Py+R1Ra9/t2tYQJJ4HQn0OOkNe7T74mlXNOpzs//mHCP7ctBcpej29SLi0/tWnlFtoDSG/1mkvrbBmulbEZqKCXHr6XST38xz/MhnclPvFeDnknZXsO+BfydNvNR1EXtM1lEBTy81eRSsv0Fueyywtepj/g+QitXPwC+raXhENghtPt27ChbF8SQ==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=synopsys.com; dmarc=pass action=none header.from=synopsys.com;
- dkim=pass header.d=synopsys.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=synopsys.onmicrosoft.com; s=selector2-synopsys-onmicrosoft-com;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=n7govGcjmjTEBRJfYy1NmymioS7SeEzf4CKM7IHTwBs=;
- b=P+jZ3NYRh2ktnVUvSD4jvxTwUwYsC/iawcMZRQ1686Vv5X7MncqBMmXw0eWzCH8b9KRSkYKhs3IqHGINDOBeIwB16xEJTkS7VOPyiif+USzBT1Ni0AXaOmFpDGTulHYQKLvTbQHpFKRrX2tdb6y9xt/KRk4PyTftlDGyAPWCRME=
-Received: from BN8PR12MB3266.namprd12.prod.outlook.com (20.179.67.145) by
- BN8PR12MB3586.namprd12.prod.outlook.com (20.178.211.211) with Microsoft SMTP
- Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.20.2451.23; Thu, 14 Nov 2019 10:59:15 +0000
-Received: from BN8PR12MB3266.namprd12.prod.outlook.com
- ([fe80::f060:9d3a:d971:e9a8]) by BN8PR12MB3266.namprd12.prod.outlook.com
- ([fe80::f060:9d3a:d971:e9a8%5]) with mapi id 15.20.2451.027; Thu, 14 Nov 2019
- 10:59:15 +0000
+ t=1573731776; bh=nFD3/7UDrmqDt39ByWh4NOJjLYV6uhpPSSb6thFP9SA=;
+ h=From:To:Cc:Subject:Date:From;
+ b=j3Txz1eiCEVZwtqPAZxICcTby6H+8uhU9/0QV34/RKf6En7Hc7upJEbNCKjl7CQO3
+ X70QEx9M2MDkVH4KQyFmP+GTsF7ydu3zzad1TlINcDozXlay1s1+xSQnCr41zuvvGt
+ R+6fAnoIcfwres4sjNOhFe4LpTryLi/HgXIYY/fJSDAiN8aef/WilcAeI9VphHUJnX
+ dhBB6chc352cI1HewUuz4b1m42tfWeyeBWOBmgBmwgW3MW6tX31e1nxOGrcUI6cl/b
+ Kd0mQTnKp/jSQsI8SUb2IbigM4tMtaR0E1oJq/hqGSMfh3VsFphh8sLwH+vQegx47W
+ x1QiKeJ19FHsQ==
+Received: from de02dwia024.internal.synopsys.com
+ (de02dwia024.internal.synopsys.com [10.225.19.81])
+ by mailhost.synopsys.com (Postfix) with ESMTP id BF405A0078;
+ Thu, 14 Nov 2019 11:42:52 +0000 (UTC)
 From: Jose Abreu <Jose.Abreu@synopsys.com>
-To: Jose Abreu <Jose.Abreu@synopsys.com>,
- "netdev@vger.kernel.org" <netdev@vger.kernel.org>
-Thread-Topic: [PATCH net-next 0/7] net: stmmac: CPU Performance Improvements
-Thread-Index: AQHVmjTVIKy+sjQkskOwmbUoUvU2VqeKgIVQ
-Date: Thu, 14 Nov 2019 10:59:14 +0000
-Message-ID: <BN8PR12MB326648DB784332302BD0D7A3D3710@BN8PR12MB3266.namprd12.prod.outlook.com>
-References: <cover.1573657592.git.Jose.Abreu@synopsys.com>
-In-Reply-To: <cover.1573657592.git.Jose.Abreu@synopsys.com>
-Accept-Language: en-US
-Content-Language: en-US
-X-MS-Has-Attach: 
-X-MS-TNEF-Correlator: 
-authentication-results: spf=none (sender IP is )
- smtp.mailfrom=joabreu@synopsys.com; 
-x-originating-ip: [83.174.63.141]
-x-ms-publictraffictype: Email
-x-ms-office365-filtering-correlation-id: 947b40b9-05a8-42f8-1f7a-08d768f1b046
-x-ms-traffictypediagnostic: BN8PR12MB3586:
-x-ms-exchange-transport-forked: True
-x-microsoft-antispam-prvs: <BN8PR12MB358694E78E5FD7B6892C5F88D3710@BN8PR12MB3586.namprd12.prod.outlook.com>
-x-ms-oob-tlc-oobclassifiers: OLM:8273;
-x-forefront-prvs: 02213C82F8
-x-forefront-antispam-report: SFV:NSPM;
- SFS:(10019020)(396003)(136003)(376002)(346002)(39860400002)(366004)(189003)(199004)(7696005)(54906003)(6506007)(110136005)(5660300002)(4744005)(55016002)(86362001)(2501003)(186003)(316002)(6246003)(102836004)(52536014)(26005)(76176011)(33656002)(11346002)(486006)(4326008)(446003)(305945005)(7736002)(81166006)(74316002)(25786009)(8936002)(9686003)(99286004)(71200400001)(71190400001)(8676002)(76116006)(2906002)(66066001)(3846002)(81156014)(6116002)(476003)(14454004)(66446008)(66946007)(6436002)(66556008)(64756008)(66476007)(478600001)(256004)(229853002);
- DIR:OUT; SFP:1102; SCL:1; SRVR:BN8PR12MB3586;
- H:BN8PR12MB3266.namprd12.prod.outlook.com; FPR:; SPF:None; LANG:en;
- PTR:InfoNoRecords; MX:1; A:1; 
-received-spf: None (protection.outlook.com: synopsys.com does not designate
- permitted sender hosts)
-x-ms-exchange-senderadcheck: 1
-x-microsoft-antispam: BCL:0;
-x-microsoft-antispam-message-info: T08PXLgGj0Jg2w7dwysUVJ/p5CHnoe21vAx47gndIAtiM+xlAFUi/wBuGihqjui7CDRIgtevyPq3n9eSGuNQ7iBoD3yAKQ+njma9iOfERAYKP1EbxxaI//SCQSaIed6RGvRqAoeHmRLfHk2kS4DcmgYS/+x/bTIxO4UL+eNAwquDybAlWIYB/QBuygNqDXF9vJh9SjvpCyZ8ZYjo4oXR6RatBzS5KI0ActM+DOOBWanrKq9wx30NzNXmrITpaBq0dWdF5GM94oPVDPNdFB/kNYM4p57VPGlnPVOqX0zynrgOWyxg3d3M/Y41sf42M1Hs81CmZL/D2vjb9E7JnUZ9UZ5omIIsE4VsKPM5Q+2GwDgEkrJ6xSGsij0GVbBM+daNqHEYNsDYbS7bt8cEFOtPNrS8cXdgg+jX4mUbd4Evzdss0TW3xVDs8V0xwfDba+u2
-MIME-Version: 1.0
-X-MS-Exchange-CrossTenant-Network-Message-Id: 947b40b9-05a8-42f8-1f7a-08d768f1b046
-X-MS-Exchange-CrossTenant-originalarrivaltime: 14 Nov 2019 10:59:14.8937 (UTC)
-X-MS-Exchange-CrossTenant-fromentityheader: Hosted
-X-MS-Exchange-CrossTenant-id: c33c9f88-1eb7-4099-9700-16013fd9e8aa
-X-MS-Exchange-CrossTenant-mailboxtype: HOSTED
-X-MS-Exchange-CrossTenant-userprincipalname: tdOGzvdB9iAQvkm6qhd5zZWL9kkzobNt6r8ULKaLGAxhUh3r/aUSI8HfN/4RvSbRZGThmP2B03rbO2/cEO8c4g==
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: BN8PR12MB3586
-X-OriginatorOrg: synopsys.com
-Cc: Joao Pinto <Joao.Pinto@synopsys.com>,
- "linux-kernel@vger.kernel.org" <linux-kernel@vger.kernel.org>,
- "David  S. Miller" <davem@davemloft.net>,
+To: netdev@vger.kernel.org
+Date: Thu, 14 Nov 2019 12:42:44 +0100
+Message-Id: <cover.1573731453.git.Jose.Abreu@synopsys.com>
+X-Mailer: git-send-email 2.7.4
+Cc: Jose Abreu <Jose.Abreu@synopsys.com>, Joao Pinto <Joao.Pinto@synopsys.com>,
+ linux-kernel@vger.kernel.org, linux-stm32@st-md-mailman.stormreply.com,
  Maxime Coquelin <mcoquelin.stm32@gmail.com>,
  Giuseppe Cavallaro <peppe.cavallaro@st.com>,
- "linux-stm32@st-md-mailman.stormreply.com"
- <linux-stm32@st-md-mailman.stormreply.com>,
- "linux-arm-kernel@lists.infradead.org" <linux-arm-kernel@lists.infradead.org>
-Subject: Re: [Linux-stm32] [PATCH net-next 0/7] net: stmmac: CPU Performance
+ "David S. Miller" <davem@davemloft.net>, linux-arm-kernel@lists.infradead.org
+Subject: [Linux-stm32] [PATCH v2 net-next 0/7] net: stmmac: CPU Performance
 	Improvements
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
@@ -127,23 +56,130 @@ List-Post: <mailto:linux-stm32@st-md-mailman.stormreply.com>
 List-Help: <mailto:linux-stm32-request@st-md-mailman.stormreply.com?subject=help>
 List-Subscribe: <https://st-md-mailman.stormreply.com/mailman/listinfo/linux-stm32>, 
  <mailto:linux-stm32-request@st-md-mailman.stormreply.com?subject=subscribe>
+MIME-Version: 1.0
 Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
-From: Jose Abreu <Jose.Abreu@synopsys.com>
-Date: Nov/13/2019, 15:12:01 (UTC+00:00)
+CPU Performance improvements for stmmac. Please check bellow for results
+before and after the series.
 
-> CPU Performance improvements for stmmac. Please check bellow for results
-> before and after the series.
+Patch 1/7, allows RX Interrupt on Completion to be disabled and only use the
+RX HW Watchdog.
 
-Please do not apply this. I found an issue with patch 1/7 and I have 
-some more changes that reduce even more the CPU usage.
+Patch 2/7, setups the default RX coalesce settings instead of using the
+minimum value.
+
+Patch 3/7 and 4/7, removes the uneeded computations for RX Flow Control
+activation/de-activation, on some cases.
+
+Patch 5/7, tunes-up the default coalesce settings.
+
+Patch 6/7, re-works the TX coalesce timer activation logic.
+
+Patch 7/7, removes the now uneeded TBU interrupt.
+
+NetPerf UDP Results:
+--------------------
+
+Socket  Message  Elapsed      Messages                   CPU      Service
+Size    Size     Time         Okay Errors   Throughput   Util     Demand
+bytes   bytes    secs            #      #   10^6bits/sec % SS     us/KB
+--- XGMAC@2.5G: Before
+212992    1400   10.00     2100620      0     2351.7     36.69    5.112
+212992           10.00     2100539            2351.6     26.18    3.648
+--- XGMAC@2.5G: After
+212992    1400   10.00     2108972      0     2361.5     21.73    3.015 
+212992           10.00     2097038            2348.1     19.21    2.666
+
+--- GMAC5@1G: Before
+212992    1400   10.00      786000      0      880.2     34.71    12.923
+212992           10.00      786000             880.2     23.42    8.719
+--- GMAC5@1G: After
+212992    1400   10.00      842648      0      943.7     14.12    4.903 
+212992           10.00      842648             943.7     12.73    4.418
+
+
+Perf TCP Results on RX Path:
+----------------------------
+--- XGMAC@2.5G: Before
+22.51%  swapper          [stmmac]           [k] dwxgmac2_dma_interrupt
+10.82%  swapper          [stmmac]           [k] dwxgmac2_host_mtl_irq_status
+ 5.21%  swapper          [stmmac]           [k] dwxgmac2_host_irq_status
+ 4.67%  swapper          [stmmac]           [k] dwxgmac3_safety_feat_irq_status
+ 3.63%  swapper          [kernel.kallsyms]  [k] stack_trace_consume_entry
+ 2.74%  iperf3           [kernel.kallsyms]  [k] copy_user_enhanced_fast_string
+ 2.52%  swapper          [kernel.kallsyms]  [k] update_stack_state
+ 1.94%  ksoftirqd/0      [stmmac]           [k] dwxgmac2_dma_interrupt
+ 1.45%  iperf3           [kernel.kallsyms]  [k] queued_spin_lock_slowpath
+ 1.26%  swapper          [kernel.kallsyms]  [k] create_object
+--- XGMAC@2.5G: After
+ 7.43%  swapper          [kernel.kallsyms]   [k] stack_trace_consume_entry
+ 5.86%  swapper          [stmmac]            [k] dwxgmac2_dma_interrupt
+ 5.68%  swapper          [kernel.kallsyms]   [k] update_stack_state
+ 4.71%  iperf3           [kernel.kallsyms]   [k] copy_user_enhanced_fast_string
+ 2.88%  swapper          [kernel.kallsyms]   [k] create_object
+ 2.69%  swapper          [stmmac]            [k] dwxgmac2_host_mtl_irq_status
+ 2.61%  swapper          [stmmac]            [k] stmmac_napi_poll_rx
+ 2.52%  swapper          [kernel.kallsyms]   [k] unwind_next_frame.part.4
+ 1.48%  swapper          [kernel.kallsyms]   [k] unwind_get_return_address
+ 1.38%  swapper          [kernel.kallsyms]   [k] arch_stack_walk
+
+--- GMAC5@1G: Before
+31.29%  swapper          [stmmac]           [k] dwmac4_dma_interrupt
+14.57%  swapper          [stmmac]           [k] dwmac4_irq_mtl_status
+10.66%  swapper          [stmmac]           [k] dwmac4_irq_status
+ 1.97%  swapper          [kernel.kallsyms]  [k] stack_trace_consume_entry
+ 1.73%  iperf3           [kernel.kallsyms]  [k] copy_user_enhanced_fast_string
+ 1.59%  swapper          [kernel.kallsyms]  [k] update_stack_state
+ 1.15%  iperf3           [kernel.kallsyms]  [k] do_syscall_64
+ 1.01%  ksoftirqd/0      [stmmac]           [k] dwmac4_dma_interrupt
+ 0.89%  swapper          [kernel.kallsyms]  [k] __default_send_IPI_dest_field
+ 0.75%  swapper          [stmmac]           [k] stmmac_napi_poll_rx
+--- GMAC5@1G: After
+ 6.70%  swapper          [kernel.kallsyms]   [k] stack_trace_consume_entry
+ 5.79%  swapper          [stmmac]            [k] dwmac4_dma_interrupt
+ 5.29%  swapper          [kernel.kallsyms]   [k] update_stack_state
+ 3.52%  iperf3           [kernel.kallsyms]   [k] copy_user_enhanced_fast_string
+ 2.83%  swapper          [stmmac]            [k] dwmac4_irq_mtl_status
+ 2.62%  swapper          [kernel.kallsyms]   [k] create_object
+ 2.46%  swapper          [stmmac]            [k] stmmac_napi_poll_rx
+ 2.32%  swapper          [kernel.kallsyms]   [k] unwind_next_frame.part.4
+ 2.19%  swapper          [stmmac]            [k] dwmac4_irq_status
+ 1.39%  swapper          [kernel.kallsyms]   [k] unwind_get_return_address
 
 ---
-Thanks,
-Jose Miguel Abreu
+Cc: Giuseppe Cavallaro <peppe.cavallaro@st.com>
+Cc: Alexandre Torgue <alexandre.torgue@st.com>
+Cc: Jose Abreu <joabreu@synopsys.com>
+Cc: "David S. Miller" <davem@davemloft.net>
+Cc: Maxime Coquelin <mcoquelin.stm32@gmail.com>
+Cc: netdev@vger.kernel.org
+Cc: linux-stm32@st-md-mailman.stormreply.com
+Cc: linux-arm-kernel@lists.infradead.org
+Cc: linux-kernel@vger.kernel.org
+---
+
+Jose Abreu (7):
+  net: stmmac: Do not set RX IC bit if RX Coalesce is zero
+  net: stmmac: Setup a default RX Coalesce value instead of the minimum
+  net: stmmac: gmac4+: Remove uneeded computation for RFA/RFD
+  net: stmmac: xgmac: Remove uneeded computation for RFA/RFD
+  net: stmmac: Tune-up default coalesce settings
+  net: stmmac: Rework TX Coalesce logic
+  net: stmmac: xgmac: Do not enable TBU interrupt
+
+ drivers/net/ethernet/stmicro/stmmac/common.h       |  5 +-
+ drivers/net/ethernet/stmicro/stmmac/dwmac4_dma.c   | 14 +---
+ drivers/net/ethernet/stmicro/stmmac/dwxgmac2.h     |  2 +-
+ drivers/net/ethernet/stmicro/stmmac/dwxgmac2_dma.c | 14 +---
+ drivers/net/ethernet/stmicro/stmmac/stmmac_main.c  | 74 +++++++++++++++-------
+ 5 files changed, 59 insertions(+), 50 deletions(-)
+
+-- 
+2.7.4
+
 _______________________________________________
 Linux-stm32 mailing list
 Linux-stm32@st-md-mailman.stormreply.com
