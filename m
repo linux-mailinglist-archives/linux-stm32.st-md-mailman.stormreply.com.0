@@ -2,59 +2,41 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id E725AFCD87
-	for <lists+linux-stm32@lfdr.de>; Thu, 14 Nov 2019 19:28:13 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id BF39FFD05F
+	for <lists+linux-stm32@lfdr.de>; Thu, 14 Nov 2019 22:34:15 +0100 (CET)
 Received: from ip-172-31-3-76.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id B088DC36B0B;
-	Thu, 14 Nov 2019 18:28:13 +0000 (UTC)
-Received: from mail-ot1-f65.google.com (mail-ot1-f65.google.com
- [209.85.210.65])
- (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 5065EC36B0B;
+	Thu, 14 Nov 2019 21:34:15 +0000 (UTC)
+Received: from shards.monkeyblade.net (shards.monkeyblade.net [23.128.96.9])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 345D2C36B09
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 35B18C36B09
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Thu, 14 Nov 2019 18:28:12 +0000 (UTC)
-Received: by mail-ot1-f65.google.com with SMTP id f10so5731307oto.3
- for <linux-stm32@st-md-mailman.stormreply.com>;
- Thu, 14 Nov 2019 10:28:12 -0800 (PST)
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20161025;
- h=x-gm-message-state:date:from:to:cc:subject:message-id:references
- :mime-version:content-disposition:in-reply-to:user-agent;
- bh=c57kRuz/wdX2ojYongufIJZjkHTf4M0B8KckeBCmq7w=;
- b=m50yduKaxziqp+fALXlEFg36cGzCDOTeloMvjzPVy4s+LwzJ7Xx1F6WkD6BkyCBDGJ
- Fn2cRoehvwmzHuqBrqtrx8X1/P0Drb0Zibiix2DgiR7HpGWqnTuN2fyuSE5NIZwldDU7
- WvSDvKe4/dLh22gGl5XEuKJUWagsaeXSCvVkT+RHXmhCbqgj87zZz/9ZoSQGOTcokKUj
- mXNL7L6LItNyLAz+R+MmSkgRzHIzPCbnNRkGnARZziy0DeSJUomsFQVUVRJJt7boRVCA
- LqzaVeROHufEwuv+D22CAd+bjnGZ88IYpFrow8GTqX5zyQdLVVmdpV79rgRLgdnPIunE
- fvYw==
-X-Gm-Message-State: APjAAAVod6LYaZp3vmrJ0L2LvDKTdyZjhWoWDCYl+HcQ6JkyV2fVpsNy
- oZxXqCdq4QMyhZ4Rra+LlJdEwuk=
-X-Google-Smtp-Source: APXvYqydePYwxykYh+8rFhhUMjHqM+gGBXZEGQ9HgBhBBB8gZBssUBQF6b95aeyrt6SvCfQneJ6Vng==
-X-Received: by 2002:a05:6830:11cf:: with SMTP id
- v15mr8083572otq.36.1573756089672; 
- Thu, 14 Nov 2019 10:28:09 -0800 (PST)
-Received: from localhost (24-155-109-49.dyn.grandenetworks.net.
- [24.155.109.49])
- by smtp.gmail.com with ESMTPSA id l20sm1948314oii.26.2019.11.14.10.28.08
- (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Thu, 14 Nov 2019 10:28:09 -0800 (PST)
-Date: Thu, 14 Nov 2019 12:28:08 -0600
-From: Rob Herring <robh@kernel.org>
-To: Benjamin Gaignard <benjamin.gaignard@st.com>
-Message-ID: <20191114182808.GA29513@bogus>
-References: <20191108125244.23001-1-benjamin.gaignard@st.com>
- <20191108125244.23001-2-benjamin.gaignard@st.com>
-MIME-Version: 1.0
-Content-Disposition: inline
-In-Reply-To: <20191108125244.23001-2-benjamin.gaignard@st.com>
-User-Agent: Mutt/1.10.1 (2018-07-13)
-Cc: mark.rutland@arm.com, devicetree@vger.kernel.org,
- linux-kernel@vger.kernel.org, linux-stm32@st-md-mailman.stormreply.com,
- robh+dt@kernel.org, linux-crypto@vger.kernel.org, davem@davemloft.net,
- linux-arm-kernel@lists.infradead.org, herbert@gondor.apana.org.au
-Subject: Re: [Linux-stm32] [PATCH] dt-bindings: crypto: Convert stm32 CRYP
- bindings to json-schema
+ Thu, 14 Nov 2019 21:34:13 +0000 (UTC)
+Received: from localhost (unknown [IPv6:2601:601:9f00:1e2::3d5])
+ (using TLSv1 with cipher AES256-SHA (256/256 bits))
+ (Client did not present a certificate)
+ (Authenticated sender: davem-davemloft)
+ by shards.monkeyblade.net (Postfix) with ESMTPSA id C3E3D14A6F3BD;
+ Thu, 14 Nov 2019 13:34:10 -0800 (PST)
+Date: Thu, 14 Nov 2019 13:34:08 -0800 (PST)
+Message-Id: <20191114.133408.708754856568136468.davem@davemloft.net>
+To: Jose.Abreu@synopsys.com
+From: David Miller <davem@davemloft.net>
+In-Reply-To: <BN8PR12MB326648DB784332302BD0D7A3D3710@BN8PR12MB3266.namprd12.prod.outlook.com>
+References: <cover.1573657592.git.Jose.Abreu@synopsys.com>
+ <BN8PR12MB326648DB784332302BD0D7A3D3710@BN8PR12MB3266.namprd12.prod.outlook.com>
+X-Mailer: Mew version 6.8 on Emacs 26.1
+Mime-Version: 1.0
+X-Greylist: Sender succeeded SMTP AUTH, not delayed by milter-greylist-4.5.12
+ (shards.monkeyblade.net [149.20.54.216]);
+ Thu, 14 Nov 2019 13:34:11 -0800 (PST)
+Cc: Joao.Pinto@synopsys.com, netdev@vger.kernel.org,
+ linux-kernel@vger.kernel.org, mcoquelin.stm32@gmail.com,
+ peppe.cavallaro@st.com, linux-stm32@st-md-mailman.stormreply.com,
+ linux-arm-kernel@lists.infradead.org
+Subject: Re: [Linux-stm32] [PATCH net-next 0/7] net: stmmac: CPU Performance
+	Improvements
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -71,21 +53,19 @@ Content-Transfer-Encoding: 7bit
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
-On Fri, 8 Nov 2019 13:52:43 +0100, Benjamin Gaignard wrote:
-> Convert the STM32 CRYP binding to DT schema format using json-schema
-> 
-> Signed-off-by: Benjamin Gaignard <benjamin.gaignard@st.com>
-> ---
->  .../devicetree/bindings/crypto/st,stm32-cryp.txt   | 19 --------
->  .../devicetree/bindings/crypto/st,stm32-cryp.yaml  | 51 ++++++++++++++++++++++
->  2 files changed, 51 insertions(+), 19 deletions(-)
->  delete mode 100644 Documentation/devicetree/bindings/crypto/st,stm32-cryp.txt
->  create mode 100644 Documentation/devicetree/bindings/crypto/st,stm32-cryp.yaml
-> 
+From: Jose Abreu <Jose.Abreu@synopsys.com>
+Date: Thu, 14 Nov 2019 10:59:14 +0000
 
-Applied, thanks.
+> From: Jose Abreu <Jose.Abreu@synopsys.com>
+> Date: Nov/13/2019, 15:12:01 (UTC+00:00)
+> 
+>> CPU Performance improvements for stmmac. Please check bellow for results
+>> before and after the series.
+> 
+> Please do not apply this. I found an issue with patch 1/7 and I have 
+> some more changes that reduce even more the CPU usage.
 
-Rob
+Ok.
 _______________________________________________
 Linux-stm32 mailing list
 Linux-stm32@st-md-mailman.stormreply.com
