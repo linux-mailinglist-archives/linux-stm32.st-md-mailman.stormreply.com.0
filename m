@@ -2,70 +2,68 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id 1288DFE0BB
-	for <lists+linux-stm32@lfdr.de>; Fri, 15 Nov 2019 16:00:01 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 04B8CFE3EB
+	for <lists+linux-stm32@lfdr.de>; Fri, 15 Nov 2019 18:28:58 +0100 (CET)
 Received: from ip-172-31-3-76.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id D0D0BC36B0B;
-	Fri, 15 Nov 2019 15:00:00 +0000 (UTC)
-Received: from mx07-00178001.pphosted.com (mx08-00178001.pphosted.com
- [91.207.212.93])
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 9B1DFC36B0B;
+	Fri, 15 Nov 2019 17:28:57 +0000 (UTC)
+Received: from mx07-00178001.pphosted.com (mx07-00178001.pphosted.com
+ [62.209.51.94])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 7C2EBC36B09
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 3572AC36B09
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Fri, 15 Nov 2019 14:59:59 +0000 (UTC)
-Received: from pps.filterd (m0046660.ppops.net [127.0.0.1])
- by mx08-00178001.pphosted.com (8.16.0.42/8.16.0.42) with SMTP id
- xAFEv8bs026219; Fri, 15 Nov 2019 15:59:49 +0100
+ Fri, 15 Nov 2019 17:28:56 +0000 (UTC)
+Received: from pps.filterd (m0046037.ppops.net [127.0.0.1])
+ by mx07-00178001.pphosted.com (8.16.0.42/8.16.0.42) with SMTP id
+ xAFHR2Bb022462; Fri, 15 Nov 2019 18:28:35 +0100
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=st.com;
  h=subject : to : cc :
  references : from : message-id : date : mime-version : in-reply-to :
  content-type : content-transfer-encoding; s=STMicroelectronics;
- bh=FTENcbU0iOl2dVpbEg+JvzJowB9OWl4cNDXi2mw6WWo=;
- b=nAUkjJLXKxbDA8uIfdGOiOIF0d7KgGGJTa6azZxY44JITDPC2BQk54SL8iCLFlUgjmuH
- Sg9YA18N55HrzFzkdmVpp6sw2PeRqTCeGIepmzx8FSMHTvdx3TdDRh4S7Sby0TOTYfu0
- wX2POVYXPb6yF8rETrfBcyvQ7C83Pmv+T9oTqr4P8Vvo4F6t8O9VKWXQyucpGqGosSSM
- YlKttm9HmdBRTcFfysHIJpD5RtvL8eJXXcBUUDA6x0sNHHV2biXPBkOLttViOVfvPxC8
- 2wvpgmRY6J+GvXNPrdC2zpqzl4kAT4zzxCu0MH848WqO/qFN/o2AjpajdO4RKDg2Vql5 2w== 
+ bh=Vv7O4F/V6ixbd+frkI+QsLdh11OHFWF8Mp0fyUbyBg0=;
+ b=h2X6yxD6m5aDfzGWZpbtttJkSWPTPGMF/bYfW1y0BmuIFWW34L3iPPFXb9ZFRSYLRWzr
+ SrFcLyKeGJtk7cUIg2JXzYuyMB9rWka9B/kq7nalJz1cil53mGaNeF11kRyuQT/Cx2oW
+ bUhzLtmkXnt35aTBNMWBKT4sGgqcU4k1K8ZZLgJir0l+oHyzbi7R9PZwpswOAWHUN2cq
+ axV1enA8CNNgA2sz5r9QwYffuPULi6FFgyJaQCPT6GbOciPA+aVv1g0YWqeUN2Yxz/dH
+ /r+IamdHqcYoPgFMl2yuxwuKAqSrFJgKH0CtFsnrVKGjxLkAnr457pvO2Y1ZvVvXXL3G sQ== 
 Received: from beta.dmz-eu.st.com (beta.dmz-eu.st.com [164.129.1.35])
- by mx08-00178001.pphosted.com with ESMTP id 2w7psfmxbv-1
+ by mx07-00178001.pphosted.com with ESMTP id 2w7psbng5v-1
  (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
- Fri, 15 Nov 2019 15:59:49 +0100
+ Fri, 15 Nov 2019 18:28:35 +0100
 Received: from euls16034.sgp.st.com (euls16034.sgp.st.com [10.75.44.20])
- by beta.dmz-eu.st.com (STMicroelectronics) with ESMTP id 22C56100034;
- Fri, 15 Nov 2019 15:59:49 +0100 (CET)
-Received: from Webmail-eu.st.com (sfhdag6node1.st.com [10.75.127.16])
- by euls16034.sgp.st.com (STMicroelectronics) with ESMTP id 0F6C82C01FD;
- Fri, 15 Nov 2019 15:59:49 +0100 (CET)
-Received: from lmecxl0923.lme.st.com (10.75.127.50) by SFHDAG6NODE1.st.com
- (10.75.127.16) with Microsoft SMTP Server (TLS) id 15.0.1473.3; Fri, 15 Nov
- 2019 15:59:47 +0100
-To: Ulf Hansson <ulf.hansson@linaro.org>
-References: <20191113172514.19052-1-ludovic.Barre@st.com>
- <CAPDyKFooSJUn6UCE6QkFmJOCovm00ehz_nAPbiNQM3AcJT_bJQ@mail.gmail.com>
-From: Ludovic BARRE <ludovic.barre@st.com>
-Message-ID: <c8311933-d129-4618-b81b-aa627b7b6de0@st.com>
-Date: Fri, 15 Nov 2019 15:59:47 +0100
-User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:68.0) Gecko/20100101
- Thunderbird/68.1.0
+ by beta.dmz-eu.st.com (STMicroelectronics) with ESMTP id 50B4E10002A;
+ Fri, 15 Nov 2019 18:28:33 +0100 (CET)
+Received: from Webmail-eu.st.com (sfhdag3node2.st.com [10.75.127.8])
+ by euls16034.sgp.st.com (STMicroelectronics) with ESMTP id 1AF022D3777;
+ Fri, 15 Nov 2019 18:28:33 +0100 (CET)
+Received: from lmecxl0912.lme.st.com (10.75.127.50) by SFHDAG3NODE2.st.com
+ (10.75.127.8) with Microsoft SMTP Server (TLS) id 15.0.1347.2; Fri, 15 Nov
+ 2019 18:28:32 +0100
+To: Rob Herring <robh+dt@kernel.org>
+References: <20191114164104.22782-1-alexandre.torgue@st.com>
+ <CAL_JsqKJZwJ0MyRp37Y-F0ujPdVEKARd8qcUCN1xmawpkiffLg@mail.gmail.com>
+From: Alexandre Torgue <alexandre.torgue@st.com>
+Message-ID: <7415fff5-030c-a65b-a405-a1197e166432@st.com>
+Date: Fri, 15 Nov 2019 18:28:32 +0100
+User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:60.0) Gecko/20100101
+ Thunderbird/60.9.0
 MIME-Version: 1.0
-In-Reply-To: <CAPDyKFooSJUn6UCE6QkFmJOCovm00ehz_nAPbiNQM3AcJT_bJQ@mail.gmail.com>
-Content-Language: fr
+In-Reply-To: <CAL_JsqKJZwJ0MyRp37Y-F0ujPdVEKARd8qcUCN1xmawpkiffLg@mail.gmail.com>
+Content-Language: en-US
 X-Originating-IP: [10.75.127.50]
-X-ClientProxiedBy: SFHDAG3NODE2.st.com (10.75.127.8) To SFHDAG6NODE1.st.com
- (10.75.127.16)
+X-ClientProxiedBy: SFHDAG5NODE2.st.com (10.75.127.14) To SFHDAG3NODE2.st.com
+ (10.75.127.8)
 X-Proofpoint-Virus-Version: vendor=fsecure engine=2.50.10434:6.0.95,18.0.572
- definitions=2019-11-15_04:2019-11-15,2019-11-15 signatures=0
-Cc: DTML <devicetree@vger.kernel.org>,
- "linux-mmc@vger.kernel.org" <linux-mmc@vger.kernel.org>,
- Linux Kernel Mailing List <linux-kernel@vger.kernel.org>,
- Rob Herring <robh+dt@kernel.org>,
- Srinivas Kandagatla <srinivas.kandagatla@linaro.org>,
- Maxime Coquelin <mcoquelin.stm32@gmail.com>,
- linux-stm32@st-md-mailman.stormreply.com,
- Linux ARM <linux-arm-kernel@lists.infradead.org>
-Subject: Re: [Linux-stm32] [PATCH 1/1] mmc: mmci: add threaded irq to abort
- DPSM of non-functional state
+ definitions=2019-11-15_05:2019-11-15,2019-11-15 signatures=0
+Cc: Mark Rutland <mark.rutland@arm.com>, devicetree@vger.kernel.org,
+ Jason Cooper <jason@lakedaemon.net>, Marc Zyngier <maz@kernel.org>,
+ "linux-kernel@vger.kernel.org" <linux-kernel@vger.kernel.org>,
+ Thomas Gleixner <tglx@linutronix.de>, linux-stm32@st-md-mailman.stormreply.com,
+ "moderated list:ARM/FREESCALE IMX / MXC ARM
+ ARCHITECTURE" <linux-arm-kernel@lists.infradead.org>
+Subject: Re: [Linux-stm32] [PATCH] dt-bindings: interrupt-controller:
+ Convert stm32-exti to json-schema
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -77,121 +75,190 @@ List-Post: <mailto:linux-stm32@st-md-mailman.stormreply.com>
 List-Help: <mailto:linux-stm32-request@st-md-mailman.stormreply.com?subject=help>
 List-Subscribe: <https://st-md-mailman.stormreply.com/mailman/listinfo/linux-stm32>, 
  <mailto:linux-stm32-request@st-md-mailman.stormreply.com?subject=subscribe>
-Content-Transfer-Encoding: base64
-Content-Type: text/plain; charset="utf-8"; Format="flowed"
+Content-Transfer-Encoding: 7bit
+Content-Type: text/plain; charset="us-ascii"; Format="flowed"
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
-aGkgVWxmCgpMZSAxMS8xNC8xOSDDoCA0OjA5IFBNLCBVbGYgSGFuc3NvbiBhIMOpY3JpdMKgOgo+
-IE9uIFdlZCwgMTMgTm92IDIwMTkgYXQgMTg6MjUsIEx1ZG92aWMgQmFycmUgPGx1ZG92aWMuQmFy
-cmVAc3QuY29tPiB3cm90ZToKPj4KPj4gRnJvbTogTHVkb3ZpYyBCYXJyZSA8bHVkb3ZpYy5iYXJy
-ZUBzdC5jb20+Cj4+Cj4+IElmIGRhdGF0aW1lb3V0IG9jY3VycyBvbiBSMUIgcmVxdWVzdCwgdGhl
-IERhdGEgUGF0aCBTdGF0ZSBNYWNoaW5lIHN0YXlzCj4+IGluIGJ1c3kgYW5kIGlzIG5vbi1mdW5j
-dGlvbmFsLiBPbmx5IGEgcmVzZXQgYWJvcnRzIHRoZSBEUFNNLgo+IAo+IFBsZWFzZSBjbGFyaWZ5
-L2V4dGVuZCB0aGlzIGluZm9ybWF0aW9uIHRvIHRlbGwgdGhhdCB0aGlzIGlzIGZvciB0aGUKPiB2
-YXJpYW50LCB0aGF0IGtlZXBzIERQU00gZW5hYmxlZCBhbmQgdXNlcyB0aGUgZGF0YSB0aW1lciB3
-aGlsZSBzZW5kaW5nCj4gYSBDTUQxMi4gT3Igc29tZXRoaW5nIGFsb25nIHRob3NlIGxpbmVzLgo+
-Cgp5ZXMsIG9mIGNvdXJzZS4KCj4+Cj4+IExpa2UgYSByZXNldCBtdXN0IGJlIG91dHNpZGUgb2Yg
-Y3JpdGljYWwgc2VjdGlvbiwgdGhpcyBwYXRjaCBhZGRzCj4gCj4gL3MvY3JpdGljYWwgc2VjdGlv
-bi9hdG9taWMgY29udGV4dAoKT0ssIHRoYW5rcwoKPiAKPj4gdGhyZWFkZWQgaXJxIGZ1bmN0aW9u
-IHRvIHJlbGVhc2Ugc3RhdGUgbWFjaGluZS4gSW4gdGhpcyBjYXNlLAo+PiB0aGUgbW1jX3JlcXVl
-c3RfZG9uZSBpcyBjYWxsZWQgYXQgdGhlIGVuZCBvZiB0aHJlYWRlZCBpcnEgYW5kCj4+IHNraXBw
-ZWQgaW50byBpcnEgaGFuZGxlci4KPj4KPj4gU2lnbmVkLW9mZi1ieTogTHVkb3ZpYyBCYXJyZSA8
-bHVkb3ZpYy5iYXJyZUBzdC5jb20+Cj4+IC0tLQo+PiAgIGRyaXZlcnMvbW1jL2hvc3QvbW1jaS5j
-IHwgNDQgKysrKysrKysrKysrKysrKysrKysrKysrKysrKysrKysrKysrLS0tLS0KPj4gICBkcml2
-ZXJzL21tYy9ob3N0L21tY2kuaCB8ICAxICsKPj4gICAyIGZpbGVzIGNoYW5nZWQsIDQwIGluc2Vy
-dGlvbnMoKyksIDUgZGVsZXRpb25zKC0pCj4+Cj4+IGRpZmYgLS1naXQgYS9kcml2ZXJzL21tYy9o
-b3N0L21tY2kuYyBiL2RyaXZlcnMvbW1jL2hvc3QvbW1jaS5jCj4+IGluZGV4IDQwZTcyYzMwZWE4
-NC4uZWM2ZTI0OWM4N2NhIDEwMDY0NAo+PiAtLS0gYS9kcml2ZXJzL21tYy9ob3N0L21tY2kuYwo+
-PiArKysgYi9kcml2ZXJzL21tYy9ob3N0L21tY2kuYwo+PiBAQCAtNTU2LDYgKzU1Niw5IEBAIHN0
-YXRpYyB2b2lkIG1tY2lfZG1hX2Vycm9yKHN0cnVjdCBtbWNpX2hvc3QgKmhvc3QpCj4+ICAgc3Rh
-dGljIHZvaWQKPj4gICBtbWNpX3JlcXVlc3RfZW5kKHN0cnVjdCBtbWNpX2hvc3QgKmhvc3QsIHN0
-cnVjdCBtbWNfcmVxdWVzdCAqbXJxKQo+PiAgIHsKPj4gKyAgICAgICBpZiAoaG9zdC0+aXJxX2Fj
-dGlvbiA9PSBJUlFfV0FLRV9USFJFQUQpCj4+ICsgICAgICAgICAgICAgICByZXR1cm47Cj4+ICsK
-Pj4gICAgICAgICAgd3JpdGVsKDAsIGhvc3QtPmJhc2UgKyBNTUNJQ09NTUFORCk7Cj4+Cj4+ICAg
-ICAgICAgIEJVR19PTihob3N0LT5kYXRhKTsKPj4gQEAgLTEzMjEsNiArMTMyNCw3IEBAIG1tY2lf
-Y21kX2lycShzdHJ1Y3QgbW1jaV9ob3N0ICpob3N0LCBzdHJ1Y3QgbW1jX2NvbW1hbmQgKmNtZCwK
-Pj4gICAgICAgICAgfSBlbHNlIGlmIChob3N0LT52YXJpYW50LT5idXN5X3RpbWVvdXQgJiYgYnVz
-eV9yZXNwICYmCj4+ICAgICAgICAgICAgICAgICAgICAgc3RhdHVzICYgTUNJX0RBVEFUSU1FT1VU
-KSB7Cj4+ICAgICAgICAgICAgICAgICAgY21kLT5lcnJvciA9IC1FVElNRURPVVQ7Cj4+ICsgICAg
-ICAgICAgICAgICBob3N0LT5pcnFfYWN0aW9uID0gSVJRX1dBS0VfVEhSRUFEOwo+PiAgICAgICAg
-ICB9IGVsc2Ugewo+PiAgICAgICAgICAgICAgICAgIGNtZC0+cmVzcFswXSA9IHJlYWRsKGJhc2Ug
-KyBNTUNJUkVTUE9OU0UwKTsKPj4gICAgICAgICAgICAgICAgICBjbWQtPnJlc3BbMV0gPSByZWFk
-bChiYXNlICsgTU1DSVJFU1BPTlNFMSk7Cj4+IEBAIC0xNTMyLDkgKzE1MzYsOSBAQCBzdGF0aWMg
-aXJxcmV0dXJuX3QgbW1jaV9pcnEoaW50IGlycSwgdm9pZCAqZGV2X2lkKQo+PiAgIHsKPj4gICAg
-ICAgICAgc3RydWN0IG1tY2lfaG9zdCAqaG9zdCA9IGRldl9pZDsKPj4gICAgICAgICAgdTMyIHN0
-YXR1czsKPj4gLSAgICAgICBpbnQgcmV0ID0gMDsKPj4KPj4gICAgICAgICAgc3Bpbl9sb2NrKCZo
-b3N0LT5sb2NrKTsKPj4gKyAgICAgICBob3N0LT5pcnFfYWN0aW9uID0gSVJRX0hBTkRMRUQ7Cj4+
-Cj4+ICAgICAgICAgIGRvIHsKPj4gICAgICAgICAgICAgICAgICBzdGF0dXMgPSByZWFkbChob3N0
-LT5iYXNlICsgTU1DSVNUQVRVUyk7Cj4+IEBAIC0xNTc0LDEyICsxNTc4LDQxIEBAIHN0YXRpYyBp
-cnFyZXR1cm5fdCBtbWNpX2lycShpbnQgaXJxLCB2b2lkICpkZXZfaWQpCj4+ICAgICAgICAgICAg
-ICAgICAgaWYgKGhvc3QtPnZhcmlhbnQtPmJ1c3lfZGV0ZWN0X2ZsYWcpCj4+ICAgICAgICAgICAg
-ICAgICAgICAgICAgICBzdGF0dXMgJj0gfmhvc3QtPnZhcmlhbnQtPmJ1c3lfZGV0ZWN0X2ZsYWc7
-Cj4+Cj4+IC0gICAgICAgICAgICAgICByZXQgPSAxOwo+PiAgICAgICAgICB9IHdoaWxlIChzdGF0
-dXMpOwo+Pgo+PiAgICAgICAgICBzcGluX3VubG9jaygmaG9zdC0+bG9jayk7Cj4+Cj4+IC0gICAg
-ICAgcmV0dXJuIElSUV9SRVRWQUwocmV0KTsKPj4gKyAgICAgICByZXR1cm4gaG9zdC0+aXJxX2Fj
-dGlvbjsKPj4gK30KPj4gKwo+PiArLyoKPj4gKyAqIG1tY2lfaXJxX3RocmVhZGVkIGlzIGNhbGwg
-aWYgdGhlIG1tY2kgaG9zdCBuZWVkIHRvIHJlbGVhc2Ugc3RhdGUgbWFjaGluZXMKPj4gKyAqIGJl
-Zm9yZSB0byB0ZXJtaW5hdGUgdGhlIHJlcXVlc3QuCj4+ICsgKiBJZiBkYXRhdGltZW91dCBvY2N1
-cnMgb24gUjFCIHJlcXVlc3QsIHRoZSBEYXRhIFBhdGggU3RhdGUgTWFjaGluZSBzdGF5cwo+PiAr
-ICogaW4gYnVzeSBhbmQgaXMgbm9uLWZ1bmN0aW9uYWwuIE9ubHkgYSByZXNldCBjYW4gdG8gYWJv
-cnQgdGhlIERQU00uCj4+ICsgKi8KPj4gK3N0YXRpYyBpcnFyZXR1cm5fdCBtbWNpX2lycV90aHJl
-YWRlZChpbnQgaXJxLCB2b2lkICpkZXZfaWQpCj4+ICt7Cj4+ICsgICAgICAgc3RydWN0IG1tY2lf
-aG9zdCAqaG9zdCA9IGRldl9pZDsKPj4gKyAgICAgICB1bnNpZ25lZCBsb25nIGZsYWdzOwo+PiAr
-Cj4+ICsgICAgICAgaWYgKGhvc3QtPnJzdCkgewo+PiArICAgICAgICAgICAgICAgcmVzZXRfY29u
-dHJvbF9hc3NlcnQoaG9zdC0+cnN0KTsKPj4gKyAgICAgICAgICAgICAgIHVkZWxheSgyKTsKPj4g
-KyAgICAgICAgICAgICAgIHJlc2V0X2NvbnRyb2xfZGVhc3NlcnQoaG9zdC0+cnN0KTsKPj4gKyAg
-ICAgICB9Cj4+ICsKPj4gKyAgICAgICBzcGluX2xvY2tfaXJxc2F2ZSgmaG9zdC0+bG9jaywgZmxh
-Z3MpOwo+PiArICAgICAgIHdyaXRlbChob3N0LT5jbGtfcmVnLCBob3N0LT5iYXNlICsgTU1DSUNM
-T0NLKTsKPj4gKyAgICAgICB3cml0ZWwoaG9zdC0+cHdyX3JlZywgaG9zdC0+YmFzZSArIE1NQ0lQ
-T1dFUik7Cj4+ICsgICAgICAgd3JpdGVsKE1DSV9JUlFFTkFCTEUgfCBob3N0LT52YXJpYW50LT5z
-dGFydF9lcnIsCj4+ICsgICAgICAgICAgICAgIGhvc3QtPmJhc2UgKyBNTUNJTUFTSzApOwo+PiAr
-Cj4+ICsgICAgICAgaG9zdC0+aXJxX2FjdGlvbiA9IElSUV9IQU5ETEVEOwo+PiArICAgICAgIG1t
-Y2lfcmVxdWVzdF9lbmQoaG9zdCwgaG9zdC0+bXJxKTsKPj4gKyAgICAgICBzcGluX3VubG9ja19p
-cnFyZXN0b3JlKCZob3N0LT5sb2NrLCBmbGFncyk7Cj4+ICsKPj4gKyAgICAgICByZXR1cm4gaG9z
-dC0+aXJxX2FjdGlvbjsKPj4gICB9Cj4+Cj4+ICAgc3RhdGljIHZvaWQgbW1jaV9yZXF1ZXN0KHN0
-cnVjdCBtbWNfaG9zdCAqbW1jLCBzdHJ1Y3QgbW1jX3JlcXVlc3QgKm1ycSkKPj4gQEAgLTIwNzEs
-OCArMjEwNCw5IEBAIHN0YXRpYyBpbnQgbW1jaV9wcm9iZShzdHJ1Y3QgYW1iYV9kZXZpY2UgKmRl
-diwKPj4gICAgICAgICAgICAgICAgICAgICAgICAgIGdvdG8gY2xrX2Rpc2FibGU7Cj4+ICAgICAg
-ICAgIH0KPj4KPj4gLSAgICAgICByZXQgPSBkZXZtX3JlcXVlc3RfaXJxKCZkZXYtPmRldiwgZGV2
-LT5pcnFbMF0sIG1tY2lfaXJxLCBJUlFGX1NIQVJFRCwKPj4gLSAgICAgICAgICAgICAgICAgICAg
-ICAgRFJJVkVSX05BTUUgIiAoY21kKSIsIGhvc3QpOwo+PiArICAgICAgIHJldCA9IGRldm1fcmVx
-dWVzdF90aHJlYWRlZF9pcnEoJmRldi0+ZGV2LCBkZXYtPmlycVswXSwgbW1jaV9pcnEsCj4+ICsg
-ICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICBtbWNpX2lycV90aHJlYWRlZCwg
-SVJRRl9TSEFSRUQsCj4+ICsgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICBE
-UklWRVJfTkFNRSAiIChjbWQpIiwgaG9zdCk7Cj4gCj4gSW4gZ2VuZXJhbCBpdCdzIGEgZ29vZCBp
-ZGVhIHRvIG1vdmUgZHJpdmVycyBpbnRvIHVzaW5nIGEgdGhyZWFkZWQgSVJRIGhhbmRsZXIuCj4g
-Cj4gSG93ZXZlciwgdGhlIHJlYXNvbiB0aGlzIGhhc24ndCBiZWVuIGRvbmUgZm9yIG1tY2kgYmVm
-b3JlLCBpcyBiZWNhdXNlCj4gdGhlcmUgYXJlIHNvbWUgbGVnYWN5IHZhcmlhbnRzLCB0aGF0IGRv
-ZXNuJ3Qgc3VwcG9ydCBIVyBmbG93IGNvbnRyb2wuCgpXaXRoIHRoaXMgcGF0Y2gsIHRoZSBtbWNp
-X2lycV90aHJlYWRlZCBpcyBjYWxsZWQgb25seSB3aGVuCmEgZGF0YXRpbWVvdXQgb2NjdXJzIG9u
-IFIxQiByZXF1ZXN0IGVsc2UgdGhlIG1tY2lfaXJxIHJldHVybiBJUlFfSEFORExFRAphbmQgdGhl
-IHRocmVhZGVkIGlycSBpcyBub3QgY2FsbGVkLgpTbyBub3JtYWxseSwgdGhlcmUgaXMgbm8gaW1w
-YWN0IGZvciBsZWdhY3kgdmFyaWFudHMuCgo+IAo+IFVubGVzcyBJIGFtIG1pc3Rha2VuLCB0aGF0
-IG1lYW5zIHdoZW4gdGhlIGZpZm8gZ2V0cyBmdWxsIGR1cmluZyBkYXRhCj4gdHJhbnNmZXJzIC0g
-aXQncyB0b28gbGF0ZSB0byBhY3QuIEluIG90aGVyIHdvcmRzLCBydW5uaW5nIHRoZSBoYW5kbGVy
-Cj4gaW4gaGFyZCBJUlEgY29udGV4dCwgc2hvdWxkIGluY3JlYXNlIHRoZSBwcm9iYWJpbGl0eSBv
-ZiBub3QgbWlzc2luZwo+IHRoZSBkZWFkbGluZS4KPiAKPiBJZiBhIHRocmVhZGVkIElSUSBoYW5k
-bGVyIGFsc28gaXMgc3VmZmljaWVudCBmb3IgdGhlc2UgbGVnYWN5Cj4gdmFyaWFudHMsIG9ubHkg
-dGVzdHMgY2FuIHRlbGwuCj4gCj4gQW4gb3B0aW9uLCB3b3VsZCBiZSB0byB1c2UgYSB0aHJlYWRl
-ZCBoYW5kbGVyIGZvciB0aG9zZSB2YXJpYW50cyB0aGF0Cj4gc3VwcG9ydHMgSFcgZmxvdyBjb250
-cm9sLiBOb3Qgc3VyZSBob3cgbWVzc3kgdGhlIGNvZGUgd291bGQgYmUgd2l0aAo+IHRoaXMgb3B0
-aW9uLCBwZXJoYXBzIHlvdSBjYW4gZ2l2ZSB0aGlzIGEgdHJ5PwpGb3IgYWxsIHRoZXNlIHJlYXNv
-bnMgeW91IG1lbnRpb25lZCBhYm92ZSwgSSdtIG5vdCBzdXJlIGl0J3Mgc2FmZSB0byAKZXh0ZW5k
-IHRoZSB0aHJlYWQgbWFuYWdlciB0byBhbnl0aGluZyBvdGhlciB0aGFuICJhYm9ydGluZyB0aGUg
-RFBTTSIgb24KUjFCIGRhdGF0aWVtb3V0ID8gd2hhdCBkbyB5b3UgdGhpbmsgYWJvdXQgdGhhdD8K
-CkkgcHJlZmVyIGp1c3QgdXNlZCB0aGUgaXJxIHRocmVhZGVkIGZvciBzcGVjaWZpYyBlcnJvcnMg
-Y2FzZSB3aGljaCBuZWVkCmJlIG91dHNpZGUgb2YgYXRvbWljIGNvbnRleHQuCgo+IAo+IAo+PiAg
-ICAgICAgICBpZiAocmV0KQo+PiAgICAgICAgICAgICAgICAgIGdvdG8gY2xrX2Rpc2FibGU7Cj4+
-Cj4+IGRpZmYgLS1naXQgYS9kcml2ZXJzL21tYy9ob3N0L21tY2kuaCBiL2RyaXZlcnMvbW1jL2hv
-c3QvbW1jaS5oCj4+IGluZGV4IDE1OGUxMjMxYWEyMy4uNWU2M2MwNTk2MzY0IDEwMDY0NAo+PiAt
-LS0gYS9kcml2ZXJzL21tYy9ob3N0L21tY2kuaAo+PiArKysgYi9kcml2ZXJzL21tYy9ob3N0L21t
-Y2kuaAo+PiBAQCAtNDEyLDYgKzQxMiw3IEBAIHN0cnVjdCBtbWNpX2hvc3Qgewo+Pgo+PiAgICAg
-ICAgICBzdHJ1Y3QgdGltZXJfbGlzdCAgICAgICB0aW1lcjsKPj4gICAgICAgICAgdW5zaWduZWQg
-aW50ICAgICAgICAgICAgb2xkc3RhdDsKPj4gKyAgICAgICB1MzIgICAgICAgICAgICAgICAgICAg
-ICBpcnFfYWN0aW9uOwo+Pgo+PiAgICAgICAgICAvKiBwaW8gc3R1ZmYgKi8KPj4gICAgICAgICAg
-c3RydWN0IHNnX21hcHBpbmdfaXRlciAgc2dfbWl0ZXI7Cj4+IC0tCj4+IDIuMTcuMQo+Pgo+IAo+
-IEtpbmQgcmVnYXJkcwo+IFVmZmUKPiAKX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19f
-X19fX19fX19fX19fX18KTGludXgtc3RtMzIgbWFpbGluZyBsaXN0CkxpbnV4LXN0bTMyQHN0LW1k
-LW1haWxtYW4uc3Rvcm1yZXBseS5jb20KaHR0cHM6Ly9zdC1tZC1tYWlsbWFuLnN0b3JtcmVwbHku
-Y29tL21haWxtYW4vbGlzdGluZm8vbGludXgtc3RtMzIK
+
+
+On 11/14/19 6:18 PM, Rob Herring wrote:
+> On Thu, Nov 14, 2019 at 10:41 AM Alexandre Torgue
+> <alexandre.torgue@st.com> wrote:
+>>
+>> Convert the STM32 external interrupt controller (EXTI) binding to DT
+>> schema format using json-schema.
+>>
+>> Signed-off-by: Alexandre Torgue <alexandre.torgue@st.com>
+>> ---
+>>
+>> Hi Rob,
+>>
+>> I planned to use "additionalProperties: false" for this schema but as I add a
+>> property under condition, I got an error (property added under contion seems
+>> to be detected as an "additional" property and then error is raised).
+>>
+>> Is there a way to fix that ?
+> 
+> See below.
+> 
+>>
+>> regards
+>> Alex
+>>
+>> diff --git a/Documentation/devicetree/bindings/interrupt-controller/st,stm32-exti.txt b/Documentation/devicetree/bindings/interrupt-controller/st,stm32-exti.txt
+>> deleted file mode 100644
+>> index cd01b2292ec6..000000000000
+>> --- a/Documentation/devicetree/bindings/interrupt-controller/st,stm32-exti.txt
+>> +++ /dev/null
+>> @@ -1,29 +0,0 @@
+>> -STM32 External Interrupt Controller
+>> -
+>> -Required properties:
+>> -
+>> -- compatible: Should be:
+>> -    "st,stm32-exti"
+>> -    "st,stm32h7-exti"
+>> -    "st,stm32mp1-exti"
+>> -- reg: Specifies base physical address and size of the registers
+>> -- interrupt-controller: Indentifies the node as an interrupt controller
+>> -- #interrupt-cells: Specifies the number of cells to encode an interrupt
+>> -  specifier, shall be 2
+>> -- interrupts: interrupts references to primary interrupt controller
+>> -  (only needed for exti controller with multiple exti under
+>> -  same parent interrupt: st,stm32-exti and st,stm32h7-exti)
+>> -
+>> -Optional properties:
+>> -
+>> -- hwlocks: reference to a phandle of a hardware spinlock provider node.
+>> -
+>> -Example:
+>> -
+>> -exti: interrupt-controller@40013c00 {
+>> -       compatible = "st,stm32-exti";
+>> -       interrupt-controller;
+>> -       #interrupt-cells = <2>;
+>> -       reg = <0x40013C00 0x400>;
+>> -       interrupts = <1>, <2>, <3>, <6>, <7>, <8>, <9>, <10>, <23>, <40>, <41>, <42>, <62>, <76>;
+>> -};
+>> diff --git a/Documentation/devicetree/bindings/interrupt-controller/st,stm32-exti.yaml b/Documentation/devicetree/bindings/interrupt-controller/st,stm32-exti.yaml
+>> new file mode 100644
+>> index 000000000000..39be37e1e532
+>> --- /dev/null
+>> +++ b/Documentation/devicetree/bindings/interrupt-controller/st,stm32-exti.yaml
+>> @@ -0,0 +1,82 @@
+>> +# SPDX-License-Identifier: GPL-2.0
+> 
+> If ST has copyright on the old binding, can you add BSD here.
+> 
+
+I will.
+
+>> +%YAML 1.2
+>> +---
+>> +$id: http://devicetree.org/schemas/interrupt-controller/st,stm32-exti.yaml#
+>> +$schema: http://devicetree.org/meta-schemas/core.yaml#
+>> +
+>> +title: STM32 External Interrupt Controller Device Tree Bindings
+>> +
+>> +maintainers:
+>> +  - Alexandre Torgue <alexandre.torgue@st.com>
+>> +  - Ludovic Barre <ludovic.barre@st.com>
+>> +
+>> +properties:
+>> +  compatible:
+>> +    oneOf:
+>> +      - items:
+>> +        - enum:
+>> +          - st,stm32-exti
+>> +          - st,stm32h7-exti
+>> +      - items:
+>> +        - enum:
+>> +          - st,stm32mp1-exti
+>> +        - const: syscon
+>> +
+>> +  "#interrupt-cells":
+>> +    const: 2
+>> +
+>> +  reg:
+>> +    maxItems: 1
+>> +
+>> +  interrupt-controller: true
+>> +
+>> +  hwlocks:
+>> +    maxItems: 1
+>> +    description:
+>> +      Reference to a phandle of a hardware spinlock provider node.
+>> +
+>> +required:
+>> +  - "#interrupt-cells"
+>> +  - compatible
+>> +  - reg
+>> +  - interrupt-controller
+>> +
+>> +allOf:
+>> +  - $ref: /schemas/interrupt-controller.yaml#
+>> +  - if:
+>> +      properties:
+>> +        compatible:
+>> +          contains:
+>> +            enum:
+>> +              - st,stm32-exti
+>> +              - st,stm32h7-exti
+>> +    then:
+>> +      properties:
+>> +        interrupts:
+>> +          allOf:
+>> +            - $ref: /schemas/types.yaml#/definitions/uint32-array
+> 
+> Standard property, doesn't need a type. You just need 'maxItems' or an
+> 'items' list if the index is not meaningful. This appears to be the
+> former case.
+
+ok
+
+> 
+>> +          description:
+>> +            Interrupts references to primary interrupt controller
+>> +      required:
+>> +        - interrupts
+> 
+> You can move the definition to the main section as you only need
+> 'required' here. That should fix your additionalProperties issue.
+> 
+Doing that it fails as I don't have interrupts define for mp1 
+compatible. Maybe I missed something ?
+
+> In hindsight, the mp1 case probably should have used interrupt-map.
+
+For MP1 driver is written differently and mapping is done inside the driver.
+
+> 
+>> +
+>> +examples:
+>> +  - |
+>> +    //Example 1
+>> +    exti1: interrupt-controller@5000d000 {
+>> +        compatible = "st,stm32mp1-exti", "syscon";
+>> +        interrupt-controller;
+>> +        #interrupt-cells = <2>;
+>> +        reg = <0x5000d000 0x400>;
+>> +    };
+>> +
+>> +    //Example 2
+>> +    exti2: interrupt-controller@40013c00 {
+>> +        compatible = "st,stm32-exti";
+>> +        interrupt-controller;
+>> +        #interrupt-cells = <2>;
+>> +        reg = <0x40013C00 0x400>;
+>> +        interrupts = <1>, <2>, <3>, <6>, <7>, <8>, <9>, <10>, <23>, <40>, <41>, <42>, <62>, <76>;
+>> +    };
+>> +
+>> +...
+>> --
+>> 2.17.1
+>>
+_______________________________________________
+Linux-stm32 mailing list
+Linux-stm32@st-md-mailman.stormreply.com
+https://st-md-mailman.stormreply.com/mailman/listinfo/linux-stm32
