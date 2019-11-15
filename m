@@ -2,63 +2,60 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id 3FA4FFDE95
-	for <lists+linux-stm32@lfdr.de>; Fri, 15 Nov 2019 14:10:31 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 08518FDFF6
+	for <lists+linux-stm32@lfdr.de>; Fri, 15 Nov 2019 15:23:32 +0100 (CET)
 Received: from ip-172-31-3-76.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id EA0CCC36B0B;
-	Fri, 15 Nov 2019 13:10:30 +0000 (UTC)
-Received: from mx07-00178001.pphosted.com (mx07-00178001.pphosted.com
- [62.209.51.94])
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id B892AC36B0B;
+	Fri, 15 Nov 2019 14:23:31 +0000 (UTC)
+Received: from mx07-00178001.pphosted.com (mx08-00178001.pphosted.com
+ [91.207.212.93])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 16353C36B09
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id B28E8C36B09
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Fri, 15 Nov 2019 13:10:30 +0000 (UTC)
-Received: from pps.filterd (m0046037.ppops.net [127.0.0.1])
- by mx07-00178001.pphosted.com (8.16.0.42/8.16.0.42) with SMTP id
- xAFD2Pcu022731; Fri, 15 Nov 2019 14:10:20 +0100
+ Fri, 15 Nov 2019 14:23:29 +0000 (UTC)
+Received: from pps.filterd (m0046660.ppops.net [127.0.0.1])
+ by mx08-00178001.pphosted.com (8.16.0.42/8.16.0.42) with SMTP id
+ xAFEHMxo008650; Fri, 15 Nov 2019 15:23:21 +0100
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=st.com;
- h=subject : to : cc :
- references : from : message-id : date : mime-version : in-reply-to :
- content-type : content-transfer-encoding; s=STMicroelectronics;
- bh=9rmwto7fOBN39SiXRHKuxkPMdmv3HZGhG7BMLDLWBXs=;
- b=it38MDpuYDLhG6jamaFeoXmLhqluiQEOXdJsj4ujecEVyW1onH6GHGQ0bekhkvwenlC4
- 07uZCgXKkx0GLS3DG1SG02fFxmzQtNHs9MuK4Pz5TXoWmcKAbNlOHN2BCJldDEnqfjYb
- uXeHsmFKaavG/nAr+2Y49GmfOCN/KXhigkGF+vFFfxlKV30IEGZpMmkEORjZgaCbBnBK
- 7T+hNMNL/xLdxrYWhIiwegLkhRGLrADw5ZA0YRiMyk6vGHQCXaMwJpJbndNQoM4uRsik
- CGA/8J750EcqctHJBrNmWyQdDKL1skR0tht2fjjbDjpTADlGZIlPuTmLczGgdHAu7GfY 3g== 
+ h=from : to : cc : subject
+ : date : message-id : mime-version : content-type; s=STMicroelectronics;
+ bh=T9/nzrbSzNCSSlIAj0mf6EvFLY/5Hd6RIjHy97kGKZM=;
+ b=kd1P0HB6DnaONOLWJlRhCm9vzD9lGiDZBguHaM1gRDGLAd3nuzS25QA+iKR2WcEu9xRw
+ AZXBRUyw/t/AkAGb2AchogBvd/NZ1NzTi+yzDEKkNeb50x6Hs3m0toFpkD5jqlmD+lbG
+ ID7emAPLHY2JlbrCLVNJR92uGvaGTeIC01sPD2lFdUPuQXbmkzHiK/tytl+kPE+/zaZH
+ HDuguw88w31NzzdNN/jy2KxzFq7GWX1m13F7NbONEL0tNmxKKU42Y4XACaX5IT+rWSNn
+ flBWHsobQfn2KPH78RDpD9DTeNzPAYRrZS40OdfNokfZaOI7axTNmwIyhCj6ETv6kdi6 hQ== 
 Received: from beta.dmz-eu.st.com (beta.dmz-eu.st.com [164.129.1.35])
- by mx07-00178001.pphosted.com with ESMTP id 2w7psbm8hg-1
+ by mx08-00178001.pphosted.com with ESMTP id 2w7psfmrn4-1
  (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
- Fri, 15 Nov 2019 14:10:20 +0100
+ Fri, 15 Nov 2019 15:23:21 +0100
 Received: from euls16034.sgp.st.com (euls16034.sgp.st.com [10.75.44.20])
- by beta.dmz-eu.st.com (STMicroelectronics) with ESMTP id ED50910002A;
- Fri, 15 Nov 2019 14:10:19 +0100 (CET)
-Received: from Webmail-eu.st.com (sfhdag3node2.st.com [10.75.127.8])
- by euls16034.sgp.st.com (STMicroelectronics) with ESMTP id D6A6F2BC106;
- Fri, 15 Nov 2019 14:10:19 +0100 (CET)
-Received: from lmecxl0912.lme.st.com (10.75.127.49) by SFHDAG3NODE2.st.com
- (10.75.127.8) with Microsoft SMTP Server (TLS) id 15.0.1347.2; Fri, 15 Nov
- 2019 14:10:19 +0100
-To: Fabrice Gasnier <fabrice.gasnier@st.com>
-References: <1573231059-395-1-git-send-email-fabrice.gasnier@st.com>
-From: Alexandre Torgue <alexandre.torgue@st.com>
-Message-ID: <54a1b172-df71-0fec-cd40-e974dc70af34@st.com>
-Date: Fri, 15 Nov 2019 14:10:18 +0100
-User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:60.0) Gecko/20100101
- Thunderbird/60.9.0
+ by beta.dmz-eu.st.com (STMicroelectronics) with ESMTP id C3EBC10002A;
+ Fri, 15 Nov 2019 15:23:20 +0100 (CET)
+Received: from Webmail-eu.st.com (sfhdag3node3.st.com [10.75.127.9])
+ by euls16034.sgp.st.com (STMicroelectronics) with ESMTP id AB8182BEC75;
+ Fri, 15 Nov 2019 15:23:20 +0100 (CET)
+Received: from localhost (10.75.127.46) by SFHDAG3NODE3.st.com (10.75.127.9)
+ with Microsoft SMTP Server (TLS) id 15.0.1347.2; Fri, 15 Nov 2019 15:23:19
+ +0100
+From: Benjamin Gaignard <benjamin.gaignard@st.com>
+To: <broonie@kernel.org>, <robh+dt@kernel.org>, <mark.rutland@arm.com>,
+ <alexandre.torgue@st.com>
+Date: Fri, 15 Nov 2019 15:23:18 +0100
+Message-ID: <20191115142318.2909-1-benjamin.gaignard@st.com>
+X-Mailer: git-send-email 2.15.0
 MIME-Version: 1.0
-In-Reply-To: <1573231059-395-1-git-send-email-fabrice.gasnier@st.com>
-Content-Language: en-US
-X-Originating-IP: [10.75.127.49]
-X-ClientProxiedBy: SFHDAG3NODE2.st.com (10.75.127.8) To SFHDAG3NODE2.st.com
- (10.75.127.8)
+X-Originating-IP: [10.75.127.46]
+X-ClientProxiedBy: SFHDAG1NODE1.st.com (10.75.127.1) To SFHDAG3NODE3.st.com
+ (10.75.127.9)
 X-Proofpoint-Virus-Version: vendor=fsecure engine=2.50.10434:6.0.95,18.0.572
- definitions=2019-11-15_03:2019-11-15,2019-11-15 signatures=0
-Cc: mark.rutland@arm.com, devicetree@vger.kernel.org,
- linux-kernel@vger.kernel.org, robh+dt@kernel.org, mcoquelin.stm32@gmail.com,
- linux-stm32@st-md-mailman.stormreply.com, linux-arm-kernel@lists.infradead.org
-Subject: Re: [Linux-stm32] [PATCH 0/2] Add support for ADC on stm32mp157c-ed1
+ definitions=2019-11-15_04:2019-11-15,2019-11-15 signatures=0
+Cc: devicetree@vger.kernel.org, linux-kernel@vger.kernel.org,
+ linux-spi@vger.kernel.org, linux-stm32@st-md-mailman.stormreply.com,
+ linux-arm-kernel@lists.infradead.org
+Subject: [Linux-stm32] [PATCH] dt-bindings: crypto: Convert stm32 QSPI
+	bindings to json-schema
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -70,31 +67,174 @@ List-Post: <mailto:linux-stm32@st-md-mailman.stormreply.com>
 List-Help: <mailto:linux-stm32-request@st-md-mailman.stormreply.com?subject=help>
 List-Subscribe: <https://st-md-mailman.stormreply.com/mailman/listinfo/linux-stm32>, 
  <mailto:linux-stm32-request@st-md-mailman.stormreply.com?subject=subscribe>
+Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
-Content-Type: text/plain; charset="us-ascii"; Format="flowed"
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
-Hi Fabrice
+Convert the STM32 QSPI binding to DT schema format using json-schema
 
-On 11/8/19 5:37 PM, Fabrice Gasnier wrote:
-> This series adds support for digital-to-analog converter on
-> stm32mp157c-ed1 board:
-> - define pins that can be used for ADC
-> - configure ADC channels to use these
-> 
-> Fabrice Gasnier (2):
->    ARM: dts: stm32: add ADC pins used for stm32mp157c-ed1
->    ARM: dts: stm32: add ADC support to stm32mp157c-ed1
-> 
->   arch/arm/boot/dts/stm32mp157-pinctrl.dtsi |  6 ++++++
->   arch/arm/boot/dts/stm32mp157c-ed1.dts     | 16 ++++++++++++++++
->   2 files changed, 22 insertions(+)
-> 
-Series applied on stm32-next.
+Signed-off-by: Benjamin Gaignard <benjamin.gaignard@st.com>
+---
+ .../devicetree/bindings/spi/spi-stm32-qspi.txt     | 47 -----------
+ .../devicetree/bindings/spi/st,stm32-qspi.yaml     | 91 ++++++++++++++++++++++
+ 2 files changed, 91 insertions(+), 47 deletions(-)
+ delete mode 100644 Documentation/devicetree/bindings/spi/spi-stm32-qspi.txt
+ create mode 100644 Documentation/devicetree/bindings/spi/st,stm32-qspi.yaml
 
-Regards
-Alex
+diff --git a/Documentation/devicetree/bindings/spi/spi-stm32-qspi.txt b/Documentation/devicetree/bindings/spi/spi-stm32-qspi.txt
+deleted file mode 100644
+index bfc038b9478d..000000000000
+--- a/Documentation/devicetree/bindings/spi/spi-stm32-qspi.txt
++++ /dev/null
+@@ -1,47 +0,0 @@
+-* STMicroelectronics Quad Serial Peripheral Interface(QSPI)
+-
+-Required properties:
+-- compatible: should be "st,stm32f469-qspi"
+-- reg: the first contains the register location and length.
+-       the second contains the memory mapping address and length
+-- reg-names: should contain the reg names "qspi" "qspi_mm"
+-- interrupts: should contain the interrupt for the device
+-- clocks: the phandle of the clock needed by the QSPI controller
+-- A pinctrl must be defined to set pins in mode of operation for QSPI transfer
+-
+-Optional properties:
+-- resets: must contain the phandle to the reset controller.
+-
+-A spi flash (NOR/NAND) must be a child of spi node and could have some
+-properties. Also see jedec,spi-nor.txt.
+-
+-Required properties:
+-- reg: chip-Select number (QSPI controller may connect 2 flashes)
+-- spi-max-frequency: max frequency of spi bus
+-
+-Optional properties:
+-- spi-rx-bus-width: see ./spi-bus.txt for the description
+-- dmas: DMA specifiers for tx and rx dma. See the DMA client binding,
+-Documentation/devicetree/bindings/dma/dma.txt.
+-- dma-names: DMA request names should include "tx" and "rx" if present.
+-
+-Example:
+-
+-qspi: spi@a0001000 {
+-	compatible = "st,stm32f469-qspi";
+-	reg = <0xa0001000 0x1000>, <0x90000000 0x10000000>;
+-	reg-names = "qspi", "qspi_mm";
+-	interrupts = <91>;
+-	resets = <&rcc STM32F4_AHB3_RESET(QSPI)>;
+-	clocks = <&rcc 0 STM32F4_AHB3_CLOCK(QSPI)>;
+-	pinctrl-names = "default";
+-	pinctrl-0 = <&pinctrl_qspi0>;
+-
+-	flash@0 {
+-		compatible = "jedec,spi-nor";
+-		reg = <0>;
+-		spi-rx-bus-width = <4>;
+-		spi-max-frequency = <108000000>;
+-		...
+-	};
+-};
+diff --git a/Documentation/devicetree/bindings/spi/st,stm32-qspi.yaml b/Documentation/devicetree/bindings/spi/st,stm32-qspi.yaml
+new file mode 100644
+index 000000000000..955405d39966
+--- /dev/null
++++ b/Documentation/devicetree/bindings/spi/st,stm32-qspi.yaml
+@@ -0,0 +1,91 @@
++# SPDX-License-Identifier: (GPL-2.0-only OR BSD-2-Clause)
++%YAML 1.2
++---
++$id: http://devicetree.org/schemas/spi/st,stm32-qspi.yaml#
++$schema: http://devicetree.org/meta-schemas/core.yaml#
++
++title: STMicroelectronics STM32 Quad Serial Peripheral Interface (QSPI) bindings
++
++maintainers:
++  - Christophe Kerello <christophe.kerello@st.com>
++  - Patrice Chotard <patrice.chotard@st.com>
++
++allOf:
++  - $ref: "spi-controller.yaml#"
++
++properties:
++  compatible:
++    const: st,stm32f469-qspi
++
++  reg:
++    items:
++      - description: registers
++      - description: memory mapping
++    minItems: 2
++    maxItems: 2
++
++  reg-names:
++    items:
++     - const: qspi
++     - const: qspi_mm
++    minItems: 2
++    maxItems: 2
++
++  clocks:
++    maxItems: 1
++
++  interrupts:
++    maxItems: 1
++
++  resets:
++    maxItems: 1
++
++  dmas:
++    items:
++      - description: tx DMA channel
++      - description: rx DMA channel
++    minItems: 2
++    maxItems: 2
++
++  dma-names:
++    items:
++      - const: tx
++      - const: rx
++    minItems: 2
++    maxItems: 2
++
++required:
++  - compatible
++  - reg
++  - reg-names
++  - clocks
++  - interrupts
++
++examples:
++  - |
++    #include <dt-bindings/interrupt-controller/arm-gic.h>
++    #include <dt-bindings/clock/stm32mp1-clks.h>
++    #include <dt-bindings/reset/stm32mp1-resets.h>
++    spi@58003000 {
++      compatible = "st,stm32f469-qspi";
++      reg = <0x58003000 0x1000>, <0x70000000 0x10000000>;
++      reg-names = "qspi", "qspi_mm";
++      interrupts = <GIC_SPI 92 IRQ_TYPE_LEVEL_HIGH>;
++      dmas = <&mdma1 22 0x10 0x100002 0x0 0x0>,
++             <&mdma1 22 0x10 0x100008 0x0 0x0>;
++      dma-names = "tx", "rx";
++      clocks = <&rcc QSPI_K>;
++      resets = <&rcc QSPI_R>;
++
++      #address-cells = <1>;
++      #size-cells = <0>;
++
++      flash@0 {
++        compatible = "jedec,spi-nor";
++        reg = <0>;
++        spi-rx-bus-width = <4>;
++        spi-max-frequency = <108000000>;
++      };
++    };
++
++...
+-- 
+2.15.0
+
 _______________________________________________
 Linux-stm32 mailing list
 Linux-stm32@st-md-mailman.stormreply.com
