@@ -2,55 +2,61 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id 9E2E0FD758
-	for <lists+linux-stm32@lfdr.de>; Fri, 15 Nov 2019 08:50:14 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id D8171FDA4F
+	for <lists+linux-stm32@lfdr.de>; Fri, 15 Nov 2019 11:03:25 +0100 (CET)
 Received: from ip-172-31-3-76.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id E0E46C36B0B;
-	Fri, 15 Nov 2019 07:50:13 +0000 (UTC)
-Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
- (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 64303C36B0B;
+	Fri, 15 Nov 2019 10:03:25 +0000 (UTC)
+Received: from mx07-00178001.pphosted.com (mx08-00178001.pphosted.com
+ [91.207.212.93])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id D7CFCC36B09
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id AE46CC36B09
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Fri, 15 Nov 2019 07:50:12 +0000 (UTC)
-Received: from localhost (lfbn-1-10718-76.w90-89.abo.wanadoo.fr [90.89.68.76])
- (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256
- bits)) (No client certificate requested)
- by mail.kernel.org (Postfix) with ESMTPSA id B63B92072A;
- Fri, 15 Nov 2019 07:50:10 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
- s=default; t=1573804211;
- bh=N5y9/j9jBDmNZvdMr4J2c/QD6EJfi4NYUK5ANzDGnqc=;
- h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
- b=Oifm6v9/MIrfdTFrfE3u0TStPDjx8gWCUbH7cfP+DrK/7cEn6jOrKLR+x6nvdWHsq
- bD6U5rkgwVBc0onFAOv6BjEpg+rV2swpf2Oyve36luFTe7cWhG+arflCpgXBY0v8lo
- zCZ18z8QZlN2ddgL74/mlHnIIbciyditdaqB1hMg=
-Date: Fri, 15 Nov 2019 08:50:08 +0100
-From: Maxime Ripard <mripard@kernel.org>
-To: Christophe ROULLIER <christophe.roullier@st.com>
-Message-ID: <20191115075008.GY4345@gilmour.lan>
-References: <20191108103526.22254-1-christophe.roullier@st.com>
- <20191108103526.22254-2-christophe.roullier@st.com>
- <20191108104231.GE4345@gilmour.lan>
- <f934df21-ac57-50ad-3e7b-b3b337daabe1@st.com>
-MIME-Version: 1.0
-In-Reply-To: <f934df21-ac57-50ad-3e7b-b3b337daabe1@st.com>
-User-Agent: Mutt/1.12.1 (2019-06-15)
-Cc: "mark.rutland@arm.com" <mark.rutland@arm.com>,
- "devicetree@vger.kernel.org" <devicetree@vger.kernel.org>,
- "narmstrong@baylibre.com" <narmstrong@baylibre.com>,
- "martin.blumenstingl@googlemail.com" <martin.blumenstingl@googlemail.com>,
- "netdev@vger.kernel.org" <netdev@vger.kernel.org>,
- "linux-kernel@vger.kernel.org" <linux-kernel@vger.kernel.org>,
- "linux-stm32@st-md-mailman.stormreply.com"
+ Fri, 15 Nov 2019 10:03:24 +0000 (UTC)
+Received: from pps.filterd (m0046661.ppops.net [127.0.0.1])
+ by mx08-00178001.pphosted.com (8.16.0.42/8.16.0.42) with SMTP id
+ xAFA2jj5028719; Fri, 15 Nov 2019 11:03:16 +0100
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=st.com;
+ h=from : to : cc : subject
+ : date : message-id : mime-version : content-type; s=STMicroelectronics;
+ bh=7gCFVo1c3feoHsazY70FKsMn5zRITBygco7FGXQsWm0=;
+ b=zEKBpL150QmvwnsFu7TMaV8SIS07qJ3LT1foyO0sA4n/tyHJlD16P8/cFAgzPq3hu9fk
+ 7jdJ5kkF7X99XG4QQrLDCS5YN6lKJx2jpsIcLdQD1aRByDZotv1DangvGCbHL1M3NpCj
+ 1B2ICn1Xa8JGZxXjHmNRj83XmRIkTQM3DpFfFURcdOPsY0intlCxt8hDB1YmMWeYvCY9
+ cpgsmdj+TrIQJLNe1KLKkQzEwCzdoKGxaU9GLArCQq+ytbLX6wm/85BXy8bvEVyn6XaK
+ raLpNasCa2H6Dsjrsz0cDOSmp6l3krFiQRBdEe1Oqo3P+9s55te9K5P26A4XDbD8Bf6I ug== 
+Received: from beta.dmz-eu.st.com (beta.dmz-eu.st.com [164.129.1.35])
+ by mx08-00178001.pphosted.com with ESMTP id 2w7psubc95-1
+ (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
+ Fri, 15 Nov 2019 11:03:16 +0100
+Received: from euls16034.sgp.st.com (euls16034.sgp.st.com [10.75.44.20])
+ by beta.dmz-eu.st.com (STMicroelectronics) with ESMTP id 7E740100038;
+ Fri, 15 Nov 2019 11:03:14 +0100 (CET)
+Received: from Webmail-eu.st.com (sfhdag5node3.st.com [10.75.127.15])
+ by euls16034.sgp.st.com (STMicroelectronics) with ESMTP id 6D5EA2B1887;
+ Fri, 15 Nov 2019 11:03:14 +0100 (CET)
+Received: from localhost (10.75.127.45) by SFHDAG5NODE3.st.com (10.75.127.15)
+ with Microsoft SMTP Server (TLS) id 15.0.1473.3;
+ Fri, 15 Nov 2019 11:03:13 +0100
+From: Fabien Dessenne <fabien.dessenne@st.com>
+To: Maxime Coquelin <mcoquelin.stm32@gmail.com>, Alexandre Torgue
+ <alexandre.torgue@st.com>, Ohad Ben-Cohen <ohad@wizery.com>,
+ Bjorn Andersson <bjorn.andersson@linaro.org>,
  <linux-stm32@st-md-mailman.stormreply.com>,
- "robh+dt@kernel.org" <robh+dt@kernel.org>,
- "mcoquelin.stm32@gmail.com" <mcoquelin.stm32@gmail.com>,
- "alexandru.ardelean@analog.com" <alexandru.ardelean@analog.com>,
- "davem@davemloft.net" <davem@davemloft.net>,
- "linux-arm-kernel@lists.infradead.org" <linux-arm-kernel@lists.infradead.org>
-Subject: Re: [Linux-stm32] [PATCH 1/2] dt-bindings: net: dwmac: increase
- 'maxItems' for 'clocks', 'clock-names' properties
+ <linux-arm-kernel@lists.infradead.org>, <linux-kernel@vger.kernel.org>,
+ <linux-remoteproc@vger.kernel.org>
+Date: Fri, 15 Nov 2019 11:03:08 +0100
+Message-ID: <1573812188-19842-1-git-send-email-fabien.dessenne@st.com>
+X-Mailer: git-send-email 2.7.4
+MIME-Version: 1.0
+X-Originating-IP: [10.75.127.45]
+X-ClientProxiedBy: SFHDAG2NODE2.st.com (10.75.127.5) To SFHDAG5NODE3.st.com
+ (10.75.127.15)
+X-Proofpoint-Virus-Version: vendor=fsecure engine=2.50.10434:6.0.95,18.0.572
+ definitions=2019-11-15_02:2019-11-15,2019-11-15 signatures=0
+Cc: Fabien Dessenne <fabien.dessenne@st.com>
+Subject: [Linux-stm32] [PATCH v4] remoteproc: stm32: fix probe error case
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -62,124 +68,78 @@ List-Post: <mailto:linux-stm32@st-md-mailman.stormreply.com>
 List-Help: <mailto:linux-stm32-request@st-md-mailman.stormreply.com?subject=help>
 List-Subscribe: <https://st-md-mailman.stormreply.com/mailman/listinfo/linux-stm32>, 
  <mailto:linux-stm32-request@st-md-mailman.stormreply.com?subject=subscribe>
-Content-Type: multipart/mixed; boundary="===============5979868536112357404=="
+Content-Type: text/plain; charset="us-ascii"
+Content-Transfer-Encoding: 7bit
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
+If the rproc driver is probed before the mailbox driver and if the rproc
+Device Tree node has some mailbox properties, the rproc driver probe
+shall be deferred instead of being probed without mailbox support.
 
---===============5979868536112357404==
-Content-Type: multipart/signed; micalg=pgp-sha256;
-	protocol="application/pgp-signature"; boundary="5ZoQamfY1dF16JN0"
-Content-Disposition: inline
+Signed-off-by: Fabien Dessenne <fabien.dessenne@st.com>
+---
+Changes since v3: on error, free mailboxes from stm32_rproc_request_mbox()
+Changes since v2: free other requested mailboxes after one request fails
+Changes since v1: test IS_ERR() before checking PTR_ERR()
+---
+ drivers/remoteproc/stm32_rproc.c | 17 +++++++++++++++--
+ 1 file changed, 15 insertions(+), 2 deletions(-)
 
-
---5ZoQamfY1dF16JN0
-Content-Type: text/plain; charset=iso-8859-1
-Content-Disposition: inline
-Content-Transfer-Encoding: quoted-printable
-
-On Fri, Nov 08, 2019 at 01:02:14PM +0000, Christophe ROULLIER wrote:
-> On 11/8/19 11:42 AM, Maxime Ripard wrote:
-> > Hi,
-> >
-> > On Fri, Nov 08, 2019 at 11:35:25AM +0100, Christophe Roullier wrote:
-> >> This change is needed for some soc based on snps,dwmac, which have
-> >> more than 3 clocks.
-> >>
-> >> Signed-off-by: Christophe Roullier <christophe.roullier@st.com>
-> >> ---
-> >>   Documentation/devicetree/bindings/net/snps,dwmac.yaml | 8 +++++++-
-> >>   1 file changed, 7 insertions(+), 1 deletion(-)
-> >>
-> >> diff --git a/Documentation/devicetree/bindings/net/snps,dwmac.yaml b/D=
-ocumentation/devicetree/bindings/net/snps,dwmac.yaml
-> >> index 4845e29411e4..376a531062c2 100644
-> >> --- a/Documentation/devicetree/bindings/net/snps,dwmac.yaml
-> >> +++ b/Documentation/devicetree/bindings/net/snps,dwmac.yaml
-> >> @@ -27,6 +27,7 @@ select:
-> >>             - snps,dwmac-3.710
-> >>             - snps,dwmac-4.00
-> >>             - snps,dwmac-4.10a
-> >> +          - snps,dwmac-4.20a
-> >>             - snps,dwxgmac
-> >>             - snps,dwxgmac-2.10
-> >>
-> >> @@ -62,6 +63,7 @@ properties:
-> >>           - snps,dwmac-3.710
-> >>           - snps,dwmac-4.00
-> >>           - snps,dwmac-4.10a
-> >> +        - snps,dwmac-4.20a
-> >>           - snps,dwxgmac
-> >>           - snps,dwxgmac-2.10
-> >>
-> >> @@ -87,7 +89,8 @@ properties:
-> >>
-> >>     clocks:
-> >>       minItems: 1
-> >> -    maxItems: 3
-> >> +    maxItems: 5
-> >> +    additionalItems: true
-> > Those additional clocks should be documented
-> >
-> > Maxime
->
-> Hi Maxime,
->
-> The problem it is specific to our soc, so is it possible to
->
-> propose "optional clock" for 2 extras clocks in snps,dwmac.yaml
->
-> and "official" description in soc yaml file (stm32-dwmac.yaml) ?
->
->  =A0 clocks:
->  =A0=A0=A0 minItems: 1
->  =A0=A0=A0 maxItems: 5
->  =A0=A0=A0 additionalItems: true
->  =A0=A0=A0 items:
->  =A0=A0=A0=A0=A0 - description: GMAC main clock
->  =A0=A0=A0=A0=A0 - description: Peripheral registers interface clock
->  =A0=A0=A0=A0=A0 - description:
->  =A0=A0=A0=A0=A0=A0=A0=A0=A0 PTP reference clock. This clock is used for =
-programming the
->  =A0=A0=A0=A0=A0=A0=A0=A0=A0 Timestamp Addend Register. If not passed the=
-n the system
->  =A0=A0=A0=A0=A0=A0=A0=A0=A0 clock will be used and this is fine on some =
-platforms.
->
-> +=A0=A0=A0=A0=A0 - description: optional clock
->
-> +=A0=A0=A0=A0=A0 - description: optional clock
-
-I guess we'd really need to figure out what those clocks are doing,
-they are probably helpful (and used, under a different name) by
-others.
-
-Hopefully the questions Rob asked will clear that out
-
-Maxime
-
---5ZoQamfY1dF16JN0
-Content-Type: application/pgp-signature; name="signature.asc"
-
------BEGIN PGP SIGNATURE-----
-
-iHUEABYIAB0WIQRcEzekXsqa64kGDp7j7w1vZxhRxQUCXc5YsAAKCRDj7w1vZxhR
-xfOIAQDuF3beQ9RfPAYD67pkf3/F/dORXIo+wvQohXSAQvcs3QD/UFc1TjzfsZGJ
-pYg8YtyMyILwneRXRbb0MDJ8mG1A2Q0=
-=DopP
------END PGP SIGNATURE-----
-
---5ZoQamfY1dF16JN0--
-
---===============5979868536112357404==
-Content-Type: text/plain; charset="us-ascii"
-MIME-Version: 1.0
-Content-Transfer-Encoding: 7bit
-Content-Disposition: inline
+diff --git a/drivers/remoteproc/stm32_rproc.c b/drivers/remoteproc/stm32_rproc.c
+index 2cf4b29..bcebb78 100644
+--- a/drivers/remoteproc/stm32_rproc.c
++++ b/drivers/remoteproc/stm32_rproc.c
+@@ -310,11 +310,12 @@ static const struct stm32_mbox stm32_rproc_mbox[MBOX_NB_MBX] = {
+ 	}
+ };
+ 
+-static void stm32_rproc_request_mbox(struct rproc *rproc)
++static int stm32_rproc_request_mbox(struct rproc *rproc)
+ {
+ 	struct stm32_rproc *ddata = rproc->priv;
+ 	struct device *dev = &rproc->dev;
+ 	unsigned int i;
++	int j;
+ 	const unsigned char *name;
+ 	struct mbox_client *cl;
+ 
+@@ -329,10 +330,20 @@ static void stm32_rproc_request_mbox(struct rproc *rproc)
+ 
+ 		ddata->mb[i].chan = mbox_request_channel_byname(cl, name);
+ 		if (IS_ERR(ddata->mb[i].chan)) {
++			if (PTR_ERR(ddata->mb[i].chan) == -EPROBE_DEFER)
++				goto err_probe;
+ 			dev_warn(dev, "cannot get %s mbox\n", name);
+ 			ddata->mb[i].chan = NULL;
+ 		}
+ 	}
++
++	return 0;
++
++err_probe:
++	for (j = i - 1; j >= 0; j--)
++		if (ddata->mb[j].chan)
++			mbox_free_channel(ddata->mb[j].chan);
++	return -EPROBE_DEFER;
+ }
+ 
+ static int stm32_rproc_set_hold_boot(struct rproc *rproc, bool hold)
+@@ -596,7 +607,9 @@ static int stm32_rproc_probe(struct platform_device *pdev)
+ 	if (ret)
+ 		goto free_rproc;
+ 
+-	stm32_rproc_request_mbox(rproc);
++	ret = stm32_rproc_request_mbox(rproc);
++	if (ret)
++		goto free_rproc;
+ 
+ 	ret = rproc_add(rproc);
+ 	if (ret)
+-- 
+2.7.4
 
 _______________________________________________
 Linux-stm32 mailing list
 Linux-stm32@st-md-mailman.stormreply.com
 https://st-md-mailman.stormreply.com/mailman/listinfo/linux-stm32
-
---===============5979868536112357404==--
