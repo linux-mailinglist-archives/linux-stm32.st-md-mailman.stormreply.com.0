@@ -2,61 +2,31 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id 4B8BD10022B
-	for <lists+linux-stm32@lfdr.de>; Mon, 18 Nov 2019 11:15:10 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id B2F7410081A
+	for <lists+linux-stm32@lfdr.de>; Mon, 18 Nov 2019 16:25:08 +0100 (CET)
 Received: from ip-172-31-3-76.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id E8F90C36B0B;
-	Mon, 18 Nov 2019 10:15:09 +0000 (UTC)
-Received: from mx07-00178001.pphosted.com (mx08-00178001.pphosted.com
- [91.207.212.93])
- (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
- (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id CFC6DC36B09
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 5C0F0C36B0B;
+	Mon, 18 Nov 2019 15:25:08 +0000 (UTC)
+Received: from bhuna.collabora.co.uk (bhuna.collabora.co.uk [46.235.227.227])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256
+ bits)) (No client certificate requested)
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 23F3EC36B09
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Mon, 18 Nov 2019 10:15:08 +0000 (UTC)
-Received: from pps.filterd (m0046661.ppops.net [127.0.0.1])
- by mx08-00178001.pphosted.com (8.16.0.42/8.16.0.42) with SMTP id
- xAIACf3i029389; Mon, 18 Nov 2019 11:14:59 +0100
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=st.com;
- h=from : to : cc : subject
- : date : message-id : mime-version : content-type; s=STMicroelectronics;
- bh=JjcDf7Se1JV93hHJ3IUg1llt1Gmr33d0sDqj28vMS+A=;
- b=lF6z598XQNP7D8PkuPEODSravAKBbTY5z2krXCYaG1nAkzuD7XOHWiB6kGwhY8ugWEIB
- mUrvAVLD9wR6VS3Kt0TktGKPqZhXemfEr4NKZ+T3xHkzWBTyBFUlcDPtr3TUc+Iid95i
- EBJr+zyAB5Kj6pkUxpsdogLB05uyzg2fayipistl9Hj1frG7BHnbSVhvTUsLyD38fJbl
- N7cQjoESxU56rfllI81FFDiwy2LtiQu3UMyovLitgQM8PSAuWe4R5++CKVKiTSviPv69
- yFDeYk+mz36HS0JTXzBx1ksOQ7ws0hLa0kQT2Sgv9sIqQudfDCosL2W5tTSLfq/GfKai kQ== 
-Received: from beta.dmz-eu.st.com (beta.dmz-eu.st.com [164.129.1.35])
- by mx08-00178001.pphosted.com with ESMTP id 2wa9uv0sjw-1
- (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
- Mon, 18 Nov 2019 11:14:59 +0100
-Received: from euls16034.sgp.st.com (euls16034.sgp.st.com [10.75.44.20])
- by beta.dmz-eu.st.com (STMicroelectronics) with ESMTP id 846F3100051;
- Mon, 18 Nov 2019 11:14:48 +0100 (CET)
-Received: from Webmail-eu.st.com (sfhdag3node1.st.com [10.75.127.7])
- by euls16034.sgp.st.com (STMicroelectronics) with ESMTP id 7056B2BE245;
- Mon, 18 Nov 2019 11:14:48 +0100 (CET)
-Received: from localhost (10.75.127.46) by SFHDAG3NODE1.st.com (10.75.127.7)
- with Microsoft SMTP Server (TLS) id 15.0.1473.3; Mon, 18 Nov 2019 11:14:48
- +0100
-From: Arnaud Pouliquen <arnaud.pouliquen@st.com>
-To: Rob Herring <robh@kernel.org>, Mark Rutland <mark.rutland@arm.com>,
- Alexandre Torgue <alexandre.torgue@st.com>, Jassi Brar
- <jassisinghbrar@gmail.com>
-Date: Mon, 18 Nov 2019 11:14:20 +0100
-Message-ID: <20191118101420.23610-1-arnaud.pouliquen@st.com>
-X-Mailer: git-send-email 2.17.1
+ Mon, 18 Nov 2019 15:25:07 +0000 (UTC)
+Received: from [127.0.0.1] (localhost [127.0.0.1])
+ (Authenticated sender: aratiu) with ESMTPSA id 7B69B28DFE1
+From: Adrian Ratiu <adrian.ratiu@collabora.com>
+To: linux-arm-kernel@lists.infradead.org,
+ linux-stm32@st-md-mailman.stormreply.com,
+ linux-rockchip@lists.infradead.org, devicetree@vger.kernel.org
+Date: Mon, 18 Nov 2019 17:25:14 +0200
+Message-Id: <20191118152518.3374263-1-adrian.ratiu@collabora.com>
+X-Mailer: git-send-email 2.24.0
 MIME-Version: 1.0
-X-Originating-IP: [10.75.127.46]
-X-ClientProxiedBy: SFHDAG6NODE2.st.com (10.75.127.17) To SFHDAG3NODE1.st.com
- (10.75.127.7)
-X-Proofpoint-Virus-Version: vendor=fsecure engine=2.50.10434:6.0.95,18.0.572
- definitions=2019-11-18_01:2019-11-15,2019-11-17 signatures=0
-Cc: devicetree@vger.kernel.org, linux-kernel@vger.kernel.org,
- Fabien Dessenne <fabien.dessenne@st.com>,
- linux-stm32@st-md-mailman.stormreply.com, linux-arm-kernel@lists.infradead.org
-Subject: [Linux-stm32] [PATCH v2] dt-bindings: mailbox: convert stm32-ipcc
-	to json-schema
+Cc: kernel@collabora.com, linux-kernel@vger.kernel.org,
+ dri-devel@lists.freedesktop.org, linux-imx@nxp.com
+Subject: [Linux-stm32] [PATCH v3 0/4] Genericize DW MIPI DSI bridge and add
+	i.MX 6 driver
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -73,169 +43,60 @@ Content-Transfer-Encoding: 7bit
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
-Convert the STM32 IPCC bindings to DT schema format using
-json-schema
+Having a generic Synopsis DesignWare MIPI-DSI host controller bridge
+driver is a very good idea, however the current implementation has
+hardcoded quite a lot of the register layouts used by the two supported
+SoC vendors, STM and Rockchip, which use IP cores v1.30 and v1.31.
 
-Signed-off-by: Arnaud Pouliquen <arnaud.pouliquen@st.com>
----
- .../bindings/mailbox/st,stm32-ipcc.yaml       | 91 +++++++++++++++++++
- .../bindings/mailbox/stm32-ipcc.txt           | 47 ----------
- 2 files changed, 91 insertions(+), 47 deletions(-)
- create mode 100644 Documentation/devicetree/bindings/mailbox/st,stm32-ipcc.yaml
- delete mode 100644 Documentation/devicetree/bindings/mailbox/stm32-ipcc.txt
+This makes it hard to support other SoC vendors like the FSL/NXP i.MX 6
+which use older v1.01 cores or future versions because, based on history,
+layout changes should also be expected in new DSI versions / SoCs.
 
-diff --git a/Documentation/devicetree/bindings/mailbox/st,stm32-ipcc.yaml b/Documentation/devicetree/bindings/mailbox/st,stm32-ipcc.yaml
-new file mode 100644
-index 000000000000..90157d4deac1
---- /dev/null
-+++ b/Documentation/devicetree/bindings/mailbox/st,stm32-ipcc.yaml
-@@ -0,0 +1,91 @@
-+# SPDX-License-Identifier: (GPL-2.0 OR BSD-2-Clause)
-+%YAML 1.2
-+---
-+$id: "http://devicetree.org/schemas/mailbox/st,stm32-ipcc.yaml#"
-+$schema: "http://devicetree.org/meta-schemas/core.yaml#"
-+
-+title: STMicroelectronics STM32 IPC controller bindings
-+
-+description:
-+  The IPCC block provides a non blocking signaling mechanism to post and
-+  retrieve messages in an atomic way between two processors.
-+  It provides the signaling for N bidirectionnal channels. The number of
-+  channels (N) can be read from a dedicated register.
-+
-+maintainers:
-+  - Fabien Dessenne <fabien.dessenne@st.com>
-+  - Arnaud Pouliquen <arnaud.pouliquen@st.com>
-+
-+properties:
-+  compatible:
-+    const: st,stm32mp1-ipcc
-+
-+  reg:
-+    maxItems: 1
-+
-+  clocks:
-+     maxItems: 1
-+
-+  interrupts:
-+    items:
-+      - description: rx channel occupied
-+      - description: tx channel free
-+      - description: wakeup source
-+    minItems: 2
-+    maxItems: 3
-+
-+  interrupt-names:
-+    items:
-+      enums: [ rx, tx, wakeup ]
-+    minItems: 2
-+    maxItems: 3
-+
-+  wakeup-source:
-+    $ref: /schemas/types.yaml#/definitions/flag
-+    description:
-+      Enables wake up of host system on wakeup IRQ assertion.
-+
-+  "#mbox-cells":
-+    const: 1
-+
-+  st,proc-id:
-+    description: Processor id using the mailbox (0 or 1)
-+    allOf:
-+      - minimum: 0
-+      - maximum: 1
-+      - default: 0
-+
-+required:
-+  - compatible
-+  - reg
-+  - st,proc-id
-+  - clocks
-+  - interrupt-names
-+  - "#mbox-cells"
-+
-+oneOf:
-+  - required:
-+      - interrupts
-+  - required:
-+      - interrupts-extended
-+
-+additionalProperties: false
-+
-+examples:
-+  - |
-+    #include <dt-bindings/interrupt-controller/arm-gic.h>
-+    #include <dt-bindings/clock/stm32mp1-clks.h>
-+    ipcc: mailbox@4c001000 {
-+      compatible = "st,stm32mp1-ipcc";
-+      #mbox-cells = <1>;
-+      reg = <0x4c001000 0x400>;
-+      st,proc-id = <0>;
-+      interrupts-extended = <&intc GIC_SPI 100 IRQ_TYPE_NONE>,
-+      		      <&intc GIC_SPI 101 IRQ_TYPE_NONE>,
-+      		      <&aiec 62 1>;
-+      interrupt-names = "rx", "tx", "wakeup";
-+      clocks = <&rcc_clk IPCC>;
-+      wakeup-source;
-+    };
-+
-+...
-diff --git a/Documentation/devicetree/bindings/mailbox/stm32-ipcc.txt b/Documentation/devicetree/bindings/mailbox/stm32-ipcc.txt
-deleted file mode 100644
-index 1d2b7fee7b85..000000000000
---- a/Documentation/devicetree/bindings/mailbox/stm32-ipcc.txt
-+++ /dev/null
-@@ -1,47 +0,0 @@
--* STMicroelectronics STM32 IPCC (Inter-Processor Communication Controller)
--
--The IPCC block provides a non blocking signaling mechanism to post and
--retrieve messages in an atomic way between two processors.
--It provides the signaling for N bidirectionnal channels. The number of channels
--(N) can be read from a dedicated register.
--
--Required properties:
--- compatible:   Must be "st,stm32mp1-ipcc"
--- reg:          Register address range (base address and length)
--- st,proc-id:   Processor id using the mailbox (0 or 1)
--- clocks:       Input clock
--- interrupt-names: List of names for the interrupts described by the interrupt
--                   property. Must contain the following entries:
--                   - "rx"
--                   - "tx"
--                   - "wakeup"
--- interrupts:   Interrupt specifiers for "rx channel occupied", "tx channel
--                free" and "system wakeup".
--- #mbox-cells:  Number of cells required for the mailbox specifier. Must be 1.
--                The data contained in the mbox specifier of the "mboxes"
--                property in the client node is the mailbox channel index.
--
--Optional properties:
--- wakeup-source: Flag to indicate whether this device can wake up the system
--
--
--
--Example:
--	ipcc: mailbox@4c001000 {
--		compatible = "st,stm32mp1-ipcc";
--		#mbox-cells = <1>;
--		reg = <0x4c001000 0x400>;
--		st,proc-id = <0>;
--		interrupts-extended = <&intc GIC_SPI 100 IRQ_TYPE_NONE>,
--				      <&intc GIC_SPI 101 IRQ_TYPE_NONE>,
--				      <&aiec 62 1>;
--		interrupt-names = "rx", "tx", "wakeup";
--		clocks = <&rcc_clk IPCC>;
--		wakeup-source;
--	}
--
--Client:
--	mbox_test {
--		...
--		mboxes = <&ipcc 0>, <&ipcc 1>;
--	};
+This patch series converts the bridge and platform drivers to access
+registers via generic regmap APIs and allows each platform driver to
+configure its register layout via struct reg_fields, then adds support
+for the host controller found on i.MX 6.
+
+I only have i.MX hardware with MIPI-DSI panel and relevant documentation
+available for testing so I'll really appreciate it if someone could test
+the series on Rockchip and STM... eyeballing register fields could only
+get me so far, so sorry in advance for any breakage!
+
+Many thanks to Boris Brezillon <boris.brezillon@collabora.com> for
+suggesting the regmap solution and to Liu Ying <Ying.Liu@freescale.com>
+for doing the initial i.MX platform driver implementation.
+
+This series applies on top of latest linux-next tree, next-20191118.
+
+v2 -> v3:
+  * Added const declarations to dw-mipi-dsi.c structs (Emil)
+  * Fixed Reviewed-by tags and cc'd some more relevant ML (Emil)
+
+v1 -> v2:
+  * Moved register definitions & regmap initialization into bridge
+  module. Platform drivers get the regmap via plat_data after calling
+  the bridge probe (Emil).
+
+Adrian Ratiu (4):
+  drm: bridge: dw_mipi_dsi: access registers via a regmap
+  drm: bridge: dw_mipi_dsi: abstract register access using reg_fields
+  drm: imx: Add i.MX 6 MIPI DSI host driver
+  dt-bindings: display: add IMX MIPI DSI host controller doc
+
+ .../bindings/display/imx/mipi-dsi.txt         |  56 ++
+ drivers/gpu/drm/bridge/synopsys/dw-mipi-dsi.c | 699 +++++++++++++-----
+ drivers/gpu/drm/imx/Kconfig                   |   7 +
+ drivers/gpu/drm/imx/Makefile                  |   1 +
+ drivers/gpu/drm/imx/dw_mipi_dsi-imx.c         | 378 ++++++++++
+ .../gpu/drm/rockchip/dw-mipi-dsi-rockchip.c   |  17 +-
+ drivers/gpu/drm/stm/dw_mipi_dsi-stm.c         |  34 +-
+ include/drm/bridge/dw_mipi_dsi.h              |   2 +-
+ 8 files changed, 987 insertions(+), 207 deletions(-)
+ create mode 100644 Documentation/devicetree/bindings/display/imx/mipi-dsi.txt
+ create mode 100644 drivers/gpu/drm/imx/dw_mipi_dsi-imx.c
+
 -- 
-2.17.1
+2.24.0
 
 _______________________________________________
 Linux-stm32 mailing list
