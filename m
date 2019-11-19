@@ -2,61 +2,66 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id DD98810268F
-	for <lists+linux-stm32@lfdr.de>; Tue, 19 Nov 2019 15:24:28 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id C9939102BA3
+	for <lists+linux-stm32@lfdr.de>; Tue, 19 Nov 2019 19:21:21 +0100 (CET)
 Received: from ip-172-31-3-76.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 8D2BAC36B0B;
-	Tue, 19 Nov 2019 14:24:28 +0000 (UTC)
-Received: from mx07-00178001.pphosted.com (mx08-00178001.pphosted.com
- [91.207.212.93])
- (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 70CA8C36B0B;
+	Tue, 19 Nov 2019 18:21:21 +0000 (UTC)
+Received: from mail-lf1-f65.google.com (mail-lf1-f65.google.com
+ [209.85.167.65])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id F3289C36B09
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 0B9D5C36B09
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Tue, 19 Nov 2019 14:24:27 +0000 (UTC)
-Received: from pps.filterd (m0046661.ppops.net [127.0.0.1])
- by mx08-00178001.pphosted.com (8.16.0.42/8.16.0.42) with SMTP id
- xAJEMHM6007055; Tue, 19 Nov 2019 15:24:13 +0100
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=st.com;
- h=from : to : cc : subject
- : date : message-id : mime-version : content-type; s=STMicroelectronics;
- bh=zvuRrIFNgXZ/WwIdpooqCzijAKo8EF5lWj9hvIEe5nY=;
- b=Pg1Joul8Rk0Svt1ltvVg7+Iyujtb6ZhXXvzuMcOGAkCrOTIZ6iRcCFKt++wC+EIreWyX
- HsJh7AxPtUjIvh0zNMjni1aBUKyef5aX4Pmo/dme7jByi/2RBMHtFCam5VFwzz60XOPw
- 197J6wIv80/QU+DT3XYRvJzmiYL/q0DF6jetn+INXQbhSnOJwo/L75ZxlJRCQSubFvqx
- yycuX66jGf98dFJCFm8IARwr3sewXMsgNLpceNqGZhDCa7U2pkYZRCK6YSRIA2s1OZLl
- hDVhfYhoxdlIXBY7qd6N7Adjorgv8rRUOAiKYK00B9gGDqI4Unk8DNKOAFiqFruX4NeT 1A== 
-Received: from beta.dmz-eu.st.com (beta.dmz-eu.st.com [164.129.1.35])
- by mx08-00178001.pphosted.com with ESMTP id 2wa9uv83nk-1
- (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
- Tue, 19 Nov 2019 15:24:13 +0100
-Received: from euls16034.sgp.st.com (euls16034.sgp.st.com [10.75.44.20])
- by beta.dmz-eu.st.com (STMicroelectronics) with ESMTP id 9B78F10002A;
- Tue, 19 Nov 2019 15:24:12 +0100 (CET)
-Received: from Webmail-eu.st.com (sfhdag3node1.st.com [10.75.127.7])
- by euls16034.sgp.st.com (STMicroelectronics) with ESMTP id 89BA42BE250;
- Tue, 19 Nov 2019 15:24:12 +0100 (CET)
-Received: from localhost (10.75.127.45) by SFHDAG3NODE1.st.com (10.75.127.7)
- with Microsoft SMTP Server (TLS) id 15.0.1473.3; Tue, 19 Nov 2019 15:24:12
- +0100
-From: Arnaud Pouliquen <arnaud.pouliquen@st.com>
-To: Rob Herring <robh@kernel.org>, Mark Rutland <mark.rutland@arm.com>,
- Alexandre Torgue <alexandre.torgue@st.com>, Jassi Brar
- <jassisinghbrar@gmail.com>
-Date: Tue, 19 Nov 2019 15:23:22 +0100
-Message-ID: <20191119142322.23292-1-arnaud.pouliquen@st.com>
-X-Mailer: git-send-email 2.17.1
+ Tue, 19 Nov 2019 18:21:19 +0000 (UTC)
+Received: by mail-lf1-f65.google.com with SMTP id q28so17898643lfa.5
+ for <linux-stm32@st-md-mailman.stormreply.com>;
+ Tue, 19 Nov 2019 10:21:19 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20161025;
+ h=mime-version:references:in-reply-to:from:date:message-id:subject:to
+ :cc; bh=0dUXKYCswQ0fk3ChDtCHMcNLvLahQKNVxckNHbLK62U=;
+ b=e5lESrFN8MyoYepnYPws1P7yf4C1dXiYfMOkmezNqIXAiZCpH6SxlKI9ix3SlSORNf
+ /5JsXZyp1E+IjqGqwMhUYHulRiSh9QJkMf1GIFQllRE77579xVcB4EDXytX2AWhcMFvQ
+ 1ksK6LpTugAMceaAYTPHCvwtSWDKN7rqeIueDTbWQtIHR4HQydG5oXkfTtYGFdaIoyjU
+ CylOl88XU0mV6aCUOh7u/8Q+Yga6rgxzX3jS4Uzen0MivFUrqkq6uYhpdWXn0ASFSQew
+ 25whUzIeI6GQW/U3sk+CCl9AnoSAUrolJLK0fI3TEVzTWkTXjIjQqrrTPxWQjG7LKd5E
+ juzg==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20161025;
+ h=x-gm-message-state:mime-version:references:in-reply-to:from:date
+ :message-id:subject:to:cc;
+ bh=0dUXKYCswQ0fk3ChDtCHMcNLvLahQKNVxckNHbLK62U=;
+ b=GCvYWSbXSTH/r431bbxgvUW8ldfSvZsVtCv+MOr8wmsA4Eqe3DoECCp0avFueR9i7/
+ u9ziL2ZvAqEruSXvlYcNL8b3X75rI9vUTUOOtXTlKlmAvms3z1VMS7ZEXvWFJ2wzvlDI
+ F8/UzXRuf/Be5jud75E59fHODIzJRMJiX/aBQ5JwvfSo6xdrdr4KfAn7Rqexlnv2nuIi
+ UKTYNU2BIa/5dzy+ut61SKsx33SgHehItqXWGdr1F3xC/j/YphNg0aje/ss1JcXEshh0
+ tNpX5t9YN+ZpdWRthX1mU4zIztmAo77gJCc+FBSvjlRxL+gXGfcro3MdDnk3zpstZRP1
+ 6jpQ==
+X-Gm-Message-State: APjAAAXx11ZyftMmSv+Nh7pQ2IDzCUs1IhOn0tUNDT2tAu5ZQ5Jnd+iS
+ rJoHErMcFwal4RiIAp1QkvX15Xw12msawTPMD+4=
+X-Google-Smtp-Source: APXvYqzVzn1n+QdLBDwkgCKvCRCAJA5gUf/1Cpb09fd0k1gg5uwHXZcpoFJbgiH7FOKqOuf17TVa1Ixb5NlB5WAK620=
+X-Received: by 2002:a19:4318:: with SMTP id q24mr5172404lfa.12.1574187679050; 
+ Tue, 19 Nov 2019 10:21:19 -0800 (PST)
 MIME-Version: 1.0
-X-Originating-IP: [10.75.127.45]
-X-ClientProxiedBy: SFHDAG7NODE1.st.com (10.75.127.19) To SFHDAG3NODE1.st.com
- (10.75.127.7)
-X-Proofpoint-Virus-Version: vendor=fsecure engine=2.50.10434:6.0.95,18.0.572
- definitions=2019-11-19_04:2019-11-15,2019-11-19 signatures=0
-Cc: devicetree@vger.kernel.org, linux-kernel@vger.kernel.org,
- Fabien Dessenne <fabien.dessenne@st.com>,
- linux-stm32@st-md-mailman.stormreply.com, linux-arm-kernel@lists.infradead.org
-Subject: [Linux-stm32] [PATCH] dt-bindings: remoteproc: convert stm32-rproc
-	to json-schema
+References: <20191118152518.3374263-1-adrian.ratiu@collabora.com>
+ <20191118152518.3374263-4-adrian.ratiu@collabora.com>
+In-Reply-To: <20191118152518.3374263-4-adrian.ratiu@collabora.com>
+From: Fabio Estevam <festevam@gmail.com>
+Date: Tue, 19 Nov 2019 15:21:14 -0300
+Message-ID: <CAOMZO5C5gpW6KF9d-79wd=-7ZGAbXQLAXw3kLi+_5DBW_DYrTw@mail.gmail.com>
+To: Adrian Ratiu <adrian.ratiu@collabora.com>
+Cc: "open list:OPEN FIRMWARE AND FLATTENED DEVICE TREE BINDINGS"
+ <devicetree@vger.kernel.org>, Martyn Welch <martyn.welch@collabora.com>,
+ Sjoerd Simons <sjoerd.simons@collabora.com>,
+ linux-kernel <linux-kernel@vger.kernel.org>,
+ DRI mailing list <dri-devel@lists.freedesktop.org>,
+ linux-rockchip@lists.infradead.org, NXP Linux Team <linux-imx@nxp.com>,
+ kernel@collabora.com, linux-stm32@st-md-mailman.stormreply.com,
+ "moderated list:ARM/FREESCALE IMX / MXC ARM ARCHITECTURE"
+ <linux-arm-kernel@lists.infradead.org>,
+ Emil Velikov <emil.velikov@collabora.com>
+Subject: Re: [Linux-stm32] [PATCH v3 3/4] drm: imx: Add i.MX 6 MIPI DSI host
+	driver
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -73,223 +78,27 @@ Content-Transfer-Encoding: 7bit
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
-Convert the STM32 remoteproc bindings to DT schema format using
-json-schema
+Hi Adrian,
 
-Signed-off-by: Arnaud Pouliquen <arnaud.pouliquen@st.com>
----
- .../bindings/remoteproc/st,stm32-rproc.yaml   | 128 ++++++++++++++++++
- .../bindings/remoteproc/stm32-rproc.txt       |  63 ---------
- 2 files changed, 128 insertions(+), 63 deletions(-)
- create mode 100644 Documentation/devicetree/bindings/remoteproc/st,stm32-rproc.yaml
- delete mode 100644 Documentation/devicetree/bindings/remoteproc/stm32-rproc.txt
+On Mon, Nov 18, 2019 at 12:25 PM Adrian Ratiu
+<adrian.ratiu@collabora.com> wrote:
 
-diff --git a/Documentation/devicetree/bindings/remoteproc/st,stm32-rproc.yaml b/Documentation/devicetree/bindings/remoteproc/st,stm32-rproc.yaml
-new file mode 100644
-index 000000000000..f7a2c18a2789
---- /dev/null
-+++ b/Documentation/devicetree/bindings/remoteproc/st,stm32-rproc.yaml
-@@ -0,0 +1,128 @@
-+# SPDX-License-Identifier: (GPL-2.0 OR BSD-2-Clause)
-+%YAML 1.2
-+---
-+$id: "http://devicetree.org/schemas/remoteproc/st,stm32-rproc.yaml#"
-+$schema: "http://devicetree.org/meta-schemas/core.yaml#"
-+
-+title: STMicroelectronics STM32 remote processor controller bindings
-+
-+description:
-+  This document defines the binding for the remoteproc component that loads and
-+  boots firmwares on the ST32MP family chipset.
-+
-+maintainers:
-+  - Fabien Dessenne <fabien.dessenne@st.com>
-+  - Arnaud Pouliquen <arnaud.pouliquen@st.com>
-+
-+properties:
-+  compatible:
-+    const: st,stm32mp1-m4
-+
-+  reg:
-+    description:
-+      Address ranges of the RETRAM and MCU SRAM memories used by the remote
-+      processor.
-+    maxItems: 3
-+
-+  resets:
-+     maxItems: 1
-+
-+  st,syscfg-holdboot:
-+    allOf:
-+      - $ref: "/schemas/types.yaml#/definitions/phandle-array"
-+    description: remote processor reset hold boot
-+      - Phandle of syscon block.
-+      - The offset of the hold boot setting register.
-+      - The field mask of the hold boot.
-+    maxItems: 1
-+
-+  st,syscfg-tz:
-+    allOf:
-+      - $ref: "/schemas/types.yaml#/definitions/phandle-array"
-+    description:
-+      Reference to the system configuration which holds the RCC trust zone mode
-+      - Phandle of syscon block.
-+      - The offset of the RCC trust zone mode register.
-+      - The field mask of the RCC trust zone mode.
-+    maxItems: 1
-+
-+  interrupts:
-+    description: Should contain the WWDG1 watchdog reset interrupt
-+    maxItems: 1
-+
-+  mboxes:
-+    description:
-+      This property is required only if the rpmsg/virtio functionality is used.
-+    items:
-+      - description: |
-+          A channel (a) used to communicate through virtqueues with the
-+          remote proc.
-+          Bi-directional channel:
-+            - from local to remote = send message
-+            - from remote to local = send message ack
-+      - description: |
-+          A channel (b) working the opposite direction of channel (a)
-+      - description: |
-+          A channel (c) used by the local proc to notify the remote proc that it
-+          is about to be shut down.
-+          Unidirectional channel:
-+            - from local to remote, where ACK from the remote means that it is
-+              ready for shutdown
-+    maxItems: 3
-+
-+  mbox-names:
-+    items:
-+      enums: [ rx, tx, wakeup ]
-+    minItems: 1
-+    maxItems: 3
-+
-+  memory-region:
-+    description:
-+      List of phandles to the reserved memory regions associated with the
-+      remoteproc device. This is variable and describes the memories shared with
-+      the remote processor (e.g. remoteproc firmware and carveouts, rpmsg
-+      vrings, ...).
-+      (see ../reserved-memory/reserved-memory.txt)
-+
-+  st,syscfg-pdds:
-+    allOf:
-+      - $ref: "/schemas/types.yaml#/definitions/phandle-array"
-+    description: |
-+      Reference to the system configuration which holds the remote
-+        1st cell: phandle to syscon block
-+        2nd cell: register offset containing the deep sleep setting
-+        3rd cell: register bitmask for the deep sleep bit
-+    maxItems: 1
-+
-+  st,auto-boot:
-+    $ref: /schemas/types.yaml#/definitions/flag
-+    description:
-+      If defined, when remoteproc is probed, it loads the default firmware and
-+      starts the remote processor.
-+
-+required:
-+  - compatible
-+  - reg
-+  - resets
-+  - st,syscfg-holdboot
-+  - st,syscfg-tz
-+
-+allOf:
-+  - $ref: /schemas/mbox/mbox-consumer.yaml#
-+
-+additionalProperties: false
-+
-+examples:
-+  - |
-+    #include <dt-bindings/reset/stm32mp1-resets.h>
-+    m4_rproc: m4@10000000 {
-+      compatible = "st,stm32mp1-m4";
-+      reg = <0x10000000 0x40000>,
-+            <0x30000000 0x40000>,
-+            <0x38000000 0x10000>;
-+      resets = <&rcc MCU_R>;
-+      st,syscfg-holdboot = <&rcc 0x10C 0x1>;
-+      st,syscfg-tz = <&rcc 0x000 0x1>;
-+    };
-+
-+...
-diff --git a/Documentation/devicetree/bindings/remoteproc/stm32-rproc.txt b/Documentation/devicetree/bindings/remoteproc/stm32-rproc.txt
-deleted file mode 100644
-index 5fa915a4b736..000000000000
---- a/Documentation/devicetree/bindings/remoteproc/stm32-rproc.txt
-+++ /dev/null
-@@ -1,63 +0,0 @@
--STMicroelectronics STM32 Remoteproc
-------------------------------------
--This document defines the binding for the remoteproc component that loads and
--boots firmwares on the ST32MP family chipset.
--
--Required properties:
--- compatible:	Must be "st,stm32mp1-m4"
--- reg:		Address ranges of the RETRAM and MCU SRAM memories used by the
--		remote processor.
--- resets:	Reference to a reset controller asserting the remote processor.
--- st,syscfg-holdboot: Reference to the system configuration which holds the
--		remote processor reset hold boot
--	1st cell: phandle of syscon block
--	2nd cell: register offset containing the hold boot setting
--	3rd cell: register bitmask for the hold boot field
--- st,syscfg-tz: Reference to the system configuration which holds the RCC trust
--		zone mode
--	1st cell: phandle to syscon block
--	2nd cell: register offset containing the RCC trust zone mode setting
--	3rd cell: register bitmask for the RCC trust zone mode bit
--
--Optional properties:
--- interrupts:	Should contain the watchdog interrupt
--- mboxes:	This property is required only if the rpmsg/virtio functionality
--		is used. List of phandle and mailbox channel specifiers:
--		- a channel (a) used to communicate through virtqueues with the
--		  remote proc.
--		  Bi-directional channel:
--		      - from local to remote = send message
--		      - from remote to local = send message ack
--		- a channel (b) working the opposite direction of channel (a)
--		- a channel (c) used by the local proc to notify the remote proc
--		  that it is about to be shut down.
--		  Unidirectional channel:
--		      - from local to remote, where ACK from the remote means
--		        that it is ready for shutdown
--- mbox-names:	This property is required if the mboxes property is used.
--		- must be "vq0" for channel (a)
--		- must be "vq1" for channel (b)
--		- must be "shutdown" for channel (c)
--- memory-region: List of phandles to the reserved memory regions associated with
--		the remoteproc device. This is variable and describes the
--		memories shared with the remote processor (eg: remoteproc
--		firmware and carveouts, rpmsg vrings, ...).
--		(see ../reserved-memory/reserved-memory.txt)
--- st,syscfg-pdds: Reference to the system configuration which holds the remote
--		processor deep sleep setting
--	1st cell: phandle to syscon block
--	2nd cell: register offset containing the deep sleep setting
--	3rd cell: register bitmask for the deep sleep bit
--- st,auto-boot:	If defined, when remoteproc is probed, it loads the default
--		firmware and starts the remote processor.
--
--Example:
--	m4_rproc: m4@10000000 {
--		compatible = "st,stm32mp1-m4";
--		reg = <0x10000000 0x40000>,
--		      <0x30000000 0x40000>,
--		      <0x38000000 0x10000>;
--		resets = <&rcc MCU_R>;
--		st,syscfg-holdboot = <&rcc 0x10C 0x1>;
--		st,syscfg-tz = <&rcc 0x000 0x1>;
--	};
--- 
-2.17.1
+Some nitpicks:
 
+> +
+> +config DRM_IMX_MIPI_DSI
+> +       tristate "Freescale i.MX DRM MIPI DSI"
+
+This text seems too generic as there are i.MX SoCs that use different
+MIPI DSI IP.
+
+Maybe "Freescale i.MX6 DRM MIPI DSI" instead?
+
+> +module_platform_driver(imx_mipi_dsi_driver);
+> +
+> +MODULE_DESCRIPTION("i.MX MIPI DSI host controller driver");
+
+i.MX6 MIPI DSI, please.
 _______________________________________________
 Linux-stm32 mailing list
 Linux-stm32@st-md-mailman.stormreply.com
