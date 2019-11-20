@@ -2,63 +2,44 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id C7472102D5F
-	for <lists+linux-stm32@lfdr.de>; Tue, 19 Nov 2019 21:18:21 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 63BB41031BF
+	for <lists+linux-stm32@lfdr.de>; Wed, 20 Nov 2019 03:46:10 +0100 (CET)
 Received: from ip-172-31-3-76.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 7DD5EC36B0B;
-	Tue, 19 Nov 2019 20:18:21 +0000 (UTC)
-Received: from mail-ot1-f67.google.com (mail-ot1-f67.google.com
- [209.85.210.67])
- (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 17A01C36B0B;
+	Wed, 20 Nov 2019 02:46:10 +0000 (UTC)
+Received: from shards.monkeyblade.net (shards.monkeyblade.net [23.128.96.9])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 9BE41C36B09
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 33695C36B09
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Tue, 19 Nov 2019 20:18:20 +0000 (UTC)
-Received: by mail-ot1-f67.google.com with SMTP id r24so19079676otk.12
- for <linux-stm32@st-md-mailman.stormreply.com>;
- Tue, 19 Nov 2019 12:18:20 -0800 (PST)
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20161025;
- h=x-gm-message-state:date:from:to:cc:subject:message-id:references
- :mime-version:content-disposition:in-reply-to:user-agent;
- bh=onoq+Z2JcZ0wm7xV09BtvAAc615BtbBWD3mKE843QYY=;
- b=Q33gXBOwrTULy7aujXXAq7R5sk08258WwedPTc4nbZYw2Ba+wDIX+xHmnIHapaNodl
- 9oNV8Bkx2m2T1qa+HNVYETqAaV3UINvPUsuxDyTxmDM/SgpvnVVopL2YrNBK60XCOaLv
- WgpJCO9c3c2RIfbwfPcsgHc8a1lxil4c9dZdD8XOGEv8rx+Z2tXH4oxbvuAqUsgBCCKF
- PTPv01DdBXGEQT/Ixto4lnKtFO+hSgmIKiXzY3VEwqi1xilfFWMtgJygBn5FUWNPtcNn
- 5u+VEBxmjt0JNv57aq6alwzI4Nk62IFzcYb5p9yA4baQ3K5hHXulgnV0pyGyzjQhzdQu
- IEFA==
-X-Gm-Message-State: APjAAAVtBZM07PZQfDl/hCykJpNmroQWaYwOEaiGXA5thSyo5k2hsqdk
- g5tKqQuW+Kw+Jv/Jm+OfHw==
-X-Google-Smtp-Source: APXvYqzk50DUwK44cVAQKNTxSjvx/DhWiu+LrLwLviaKJdBnE6+0GzA6D87C87M4wXVUnS//c5dHvg==
-X-Received: by 2002:a05:6830:15a:: with SMTP id
- j26mr5085138otp.342.1574194699323; 
- Tue, 19 Nov 2019 12:18:19 -0800 (PST)
-Received: from localhost (24-155-109-49.dyn.grandenetworks.net.
- [24.155.109.49])
- by smtp.gmail.com with ESMTPSA id u1sm7574771otk.33.2019.11.19.12.18.18
- (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Tue, 19 Nov 2019 12:18:18 -0800 (PST)
-Date: Tue, 19 Nov 2019 14:18:17 -0600
-From: Rob Herring <robh@kernel.org>
-To: Krzysztof Kozlowski <krzk@kernel.org>
-Message-ID: <20191119201817.GA17082@bogus>
-References: <20191021160207.18026-1-krzk@kernel.org>
-MIME-Version: 1.0
-Content-Disposition: inline
-In-Reply-To: <20191021160207.18026-1-krzk@kernel.org>
-User-Agent: Mutt/1.10.1 (2018-07-13)
-Cc: Mark Rutland <mark.rutland@arm.com>, devicetree@vger.kernel.org,
- linux-pwm@vger.kernel.org, linux-mediatek@lists.infradead.org,
- linux-kernel@vger.kernel.org, dri-devel@lists.freedesktop.org,
- linux-rockchip@lists.infradead.org, Thierry Reding <thierry.reding@gmail.com>,
- bcm-kernel-feedback-list@broadcom.com, linux-rpi-kernel@lists.infradead.org,
- Uwe =?iso-8859-1?Q?Kleine-K=F6nig?= <u.kleine-koenig@pengutronix.de>,
- linux-tegra@vger.kernel.org, linux-amlogic@lists.infradead.org,
- linux-riscv@lists.infradead.org, linux-stm32@st-md-mailman.stormreply.com,
- linux-arm-kernel@lists.infradead.org
-Subject: Re: [Linux-stm32] [PATCH v4 1/2] dt-bindings: pwm: Convert PWM
- bindings to json-schema
+ Wed, 20 Nov 2019 02:46:08 +0000 (UTC)
+Received: from localhost (unknown [IPv6:2601:601:9f00:1e2::3d5])
+ (using TLSv1 with cipher AES256-SHA (256/256 bits))
+ (Client did not present a certificate)
+ (Authenticated sender: davem-davemloft)
+ by shards.monkeyblade.net (Postfix) with ESMTPSA id 28721146CFECE;
+ Tue, 19 Nov 2019 18:46:05 -0800 (PST)
+Date: Tue, 19 Nov 2019 18:46:04 -0800 (PST)
+Message-Id: <20191119.184604.2256080146904190716.davem@davemloft.net>
+To: rmk+kernel@armlinux.org.uk
+From: David Miller <davem@davemloft.net>
+In-Reply-To: <E1iX2jg-0005Us-6U@rmk-PC.armlinux.org.uk>
+References: <E1iX2jg-0005Us-6U@rmk-PC.armlinux.org.uk>
+X-Mailer: Mew version 6.8 on Emacs 26.1
+Mime-Version: 1.0
+X-Greylist: Sender succeeded SMTP AUTH, not delayed by milter-greylist-4.5.12
+ (shards.monkeyblade.net [149.20.54.216]);
+ Tue, 19 Nov 2019 18:46:05 -0800 (PST)
+Cc: andrew@lunn.ch, nbd@openwrt.org, f.fainelli@gmail.com,
+ michal.simek@xilinx.com, netdev@vger.kernel.org, sean.wang@mediatek.com,
+ linux-stm32@st-md-mailman.stormreply.com, nicolas.ferre@microchip.com,
+ Mark-MC.Lee@mediatek.com, joabreu@synopsys.com,
+ linux-mediatek@lists.infradead.org, linux-arm-kernel@lists.infradead.org,
+ thomas.petazzoni@bootlin.com, john@phrozen.org, matthias.bgg@gmail.com,
+ peppe.cavallaro@st.com, radhey.shyam.pandey@xilinx.com,
+ vivien.didelot@gmail.com, mcoquelin.stm32@gmail.com, hkallweit1@gmail.com
+Subject: Re: [Linux-stm32] [RFC PATCH net-next] net: phylink: rename
+ mac_link_state() op to mac_pcs_get_state()
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -75,19 +56,32 @@ Content-Transfer-Encoding: 7bit
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
-On Mon, Oct 21, 2019 at 06:02:06PM +0200, Krzysztof Kozlowski wrote:
-> Convert generic PWM controller bindings to DT schema format using
-> json-schema.  The consumer bindings are provided by dt-schema.
+From: Russell King <rmk+kernel@armlinux.org.uk>
+Date: Tue, 19 Nov 2019 12:36:00 +0000
+
+> Rename the mac_link_state() method to mac_pcs_get_state() to make it
+> clear that it should be returning the MACs PCS current state, which
+> is used for inband negotiation rather than just reading back what the
+> MAC has been configured for. Update the documentation to explicitly
+> mention that this is for inband.
 > 
-> Signed-off-by: Krzysztof Kozlowski <krzk@kernel.org>
-> Acked-by: Stephen Boyd <sboyd@kernel.org>
-> Acked-by: Paul Walmsley <paul.walmsley@sifive.com>
+> We drop the return value as well; most of phylink doesn't check the
+> return value and it is not clear what it should do on error - instead
+> arrange for state->link to be false.
+> 
+> Signed-off-by: Russell King <rmk+kernel@armlinux.org.uk>
+> ---
+> This is something I'd like to do to make it clearer what phylink expects
+> of this function, and that it shouldn't just read-back how the MAC was
+> configured.  However, it will require some testing and review as it
+> changes quite a lot, and there's some things, particularly in DSA, that
+> don't seem quite right from a phylink point of view, such as messing
+> with state->interface in this function.
 
-Looks like I missed this one somehow.
+I don't have the expertiece to look into the DSA components of these
+changes and your concerns.
 
-I've applied the series now.
-
-Rob
+Andrew, Florian, etc.?
 _______________________________________________
 Linux-stm32 mailing list
 Linux-stm32@st-md-mailman.stormreply.com
