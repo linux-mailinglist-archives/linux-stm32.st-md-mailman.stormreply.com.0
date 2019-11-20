@@ -2,57 +2,57 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id B002A1042BA
-	for <lists+linux-stm32@lfdr.de>; Wed, 20 Nov 2019 19:00:06 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id B2C631042C2
+	for <lists+linux-stm32@lfdr.de>; Wed, 20 Nov 2019 19:01:09 +0100 (CET)
 Received: from ip-172-31-3-76.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 66DBDC36B0B;
-	Wed, 20 Nov 2019 18:00:06 +0000 (UTC)
-Received: from mail-oi1-f195.google.com (mail-oi1-f195.google.com
- [209.85.167.195])
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 7D37AC36B0B;
+	Wed, 20 Nov 2019 18:01:09 +0000 (UTC)
+Received: from mail-ot1-f68.google.com (mail-ot1-f68.google.com
+ [209.85.210.68])
  (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 2AA6EC36B09
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 9909DC36B09
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Wed, 20 Nov 2019 18:00:03 +0000 (UTC)
-Received: by mail-oi1-f195.google.com with SMTP id v138so588004oif.6
+ Wed, 20 Nov 2019 18:01:08 +0000 (UTC)
+Received: by mail-ot1-f68.google.com with SMTP id c14so407630oth.2
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Wed, 20 Nov 2019 10:00:03 -0800 (PST)
+ Wed, 20 Nov 2019 10:01:08 -0800 (PST)
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=1e100.net; s=20161025;
  h=x-gm-message-state:date:from:to:cc:subject:message-id:references
  :mime-version:content-disposition:in-reply-to:user-agent;
- bh=x8ePvXP6yBjIswFN0sdVge4OwEb8RGh4Ff5OcAFkAGM=;
- b=kb+m6se+fBNwHbZFUKRLWT5WC+JfFiwWjqltVRcbt1S2EVulv/bkCLUvvAmXYROf+N
- gTtQMiQrn/NeO6D/iWoTOzlqrxQEKKxRvVu7gcnq/GSUWBDI3RXJ52RpoARXG/pUY4PF
- IebJj3SW6vOgUYflNk0HbKb5uQZnN51IF1gl9GrgM9hZcUrX6AVkhSky6D8sw+alSFSW
- 1wwAqaN1EVbJ/qp6RQXfVNRs0PPKdUiZgS/xrvDafDS84pK95gOFhTvFpcY78BnnK+oY
- 8baZvd8BSYgHmW87f/ido7daCrFKo6c4UbK4F+m5rjVNhHHZHA1rxfFtv3qNBUjJEqR8
- M3Sw==
-X-Gm-Message-State: APjAAAVBBsan/LwnQH3O0oPl3VJ+NRDXYs74HossRg3sff/3Zf7cpyI3
- MzeGRKHVtdgh/OlvbHC8ug==
-X-Google-Smtp-Source: APXvYqzDJfTkwXh/5EwhxyVPxH0tUWubEzVqDD9sGhy5+DHuWlRO4ADPw/t8mbBv7JzFCN3xOHULzg==
-X-Received: by 2002:a54:4407:: with SMTP id k7mr4009997oiw.129.1574272802323; 
- Wed, 20 Nov 2019 10:00:02 -0800 (PST)
+ bh=UtnezaPuJR3DtOQdYq4UX6HRJep5yiFrHSjeRzh0lw8=;
+ b=R7EW0gLnURS2hEVDr7STXroIVVu6ndHsGN/9RPw82poBK5jUtpN5ANwhzcFvCVkIJV
+ DRCfTIEmjb9MvG2giayEy6jVljUMJLW1tlX/qkI2pI7tMxY0jLnq5zSEtEMPrIXLeKUb
+ oCOp8A+qt1pFrmE2u9QiZjjq7AmfeDQZRGld43BlioLB8KDZgC2u/BLPY72mY1I/AMOm
+ 3pKsQ6cNWfSXZGPIc29X7LQft2kM8bS2j2xGTsXA0BRB454+zz3FO7V54wl/15e37myK
+ hpze2tOl4CYSN8mBmKXQbQBo1unoNtn6QDVqkRM5TZEaP2I87adRCUo3CsXlPg9N38D2
+ caLA==
+X-Gm-Message-State: APjAAAW/N4BRCzIa1/zfAvOYyj2qDNDNke3UwdvxSxCKIU/d8vim9lvp
+ ay830jaJ4DWb27sN5co+0Q==
+X-Google-Smtp-Source: APXvYqynzcOYtJD1o3rqHfApKvPoyf3FBMEtPkZFYjA48wZ6n/YuiuIZDoHhntnj4J8//Fy+4USHdA==
+X-Received: by 2002:a9d:70d0:: with SMTP id w16mr3098883otj.239.1574272867110; 
+ Wed, 20 Nov 2019 10:01:07 -0800 (PST)
 Received: from localhost (24-155-109-49.dyn.grandenetworks.net.
  [24.155.109.49])
- by smtp.gmail.com with ESMTPSA id m20sm5915810otr.47.2019.11.20.10.00.01
+ by smtp.gmail.com with ESMTPSA id w25sm8731323otj.45.2019.11.20.10.01.06
  (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Wed, 20 Nov 2019 10:00:01 -0800 (PST)
-Date: Wed, 20 Nov 2019 12:00:01 -0600
+ Wed, 20 Nov 2019 10:01:06 -0800 (PST)
+Date: Wed, 20 Nov 2019 12:01:05 -0600
 From: Rob Herring <robh@kernel.org>
 To: Benjamin Gaignard <benjamin.gaignard@st.com>
-Message-ID: <20191120180001.GA9839@bogus>
-References: <20191115100854.17938-1-benjamin.gaignard@st.com>
+Message-ID: <20191120180105.GA11465@bogus>
+References: <20191115102427.31224-1-benjamin.gaignard@st.com>
 MIME-Version: 1.0
 Content-Disposition: inline
-In-Reply-To: <20191115100854.17938-1-benjamin.gaignard@st.com>
+In-Reply-To: <20191115102427.31224-1-benjamin.gaignard@st.com>
 User-Agent: Mutt/1.10.1 (2018-07-13)
 Cc: mark.rutland@arm.com, devicetree@vger.kernel.org,
- linux-kernel@vger.kernel.org, robh+dt@kernel.org, linux-crypto@vger.kernel.org,
- mpm@selenic.com, linux-stm32@st-md-mailman.stormreply.com,
+ linux-kernel@vger.kernel.org, linux-stm32@st-md-mailman.stormreply.com,
+ robh+dt@kernel.org, linux-crypto@vger.kernel.org, davem@davemloft.net,
  linux-arm-kernel@lists.infradead.org, herbert@gondor.apana.org.au
-Subject: Re: [Linux-stm32] [PATCH] dt-bindings: rng: Convert stm32 RNG
- bindings to json-schema
+Subject: Re: [Linux-stm32] [PATCH v2] dt-bindings: crypto: Convert stm32
+ HASH bindings to json-schema
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -69,17 +69,19 @@ Content-Transfer-Encoding: 7bit
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
-On Fri, 15 Nov 2019 11:08:54 +0100, Benjamin Gaignard wrote:
-> Convert the STM32 RNG binding to DT schema format using json-schema
-> Remove interrupt from the json-schema because it is not used by the driver.
+On Fri, 15 Nov 2019 11:24:27 +0100, Benjamin Gaignard wrote:
+> Convert the STM32 HASH binding to DT schema format using json-schema
 > 
 > Signed-off-by: Benjamin Gaignard <benjamin.gaignard@st.com>
 > ---
->  .../devicetree/bindings/rng/st,stm32-rng.txt       | 25 -----------
->  .../devicetree/bindings/rng/st,stm32-rng.yaml      | 48 ++++++++++++++++++++++
->  2 files changed, 48 insertions(+), 25 deletions(-)
->  delete mode 100644 Documentation/devicetree/bindings/rng/st,stm32-rng.txt
->  create mode 100644 Documentation/devicetree/bindings/rng/st,stm32-rng.yaml
+> version 2:
+> - add type ref, min, max and default values for dma-maxburst property
+> 
+>  .../devicetree/bindings/crypto/st,stm32-hash.txt   | 30 ----------
+>  .../devicetree/bindings/crypto/st,stm32-hash.yaml  | 69 ++++++++++++++++++++++
+>  2 files changed, 69 insertions(+), 30 deletions(-)
+>  delete mode 100644 Documentation/devicetree/bindings/crypto/st,stm32-hash.txt
+>  create mode 100644 Documentation/devicetree/bindings/crypto/st,stm32-hash.yaml
 > 
 
 Applied, thanks.
