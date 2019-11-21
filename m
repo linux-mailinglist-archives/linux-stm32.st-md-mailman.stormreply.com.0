@@ -2,61 +2,86 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id 69DED1052A1
-	for <lists+linux-stm32@lfdr.de>; Thu, 21 Nov 2019 14:06:50 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 73E041052DC
+	for <lists+linux-stm32@lfdr.de>; Thu, 21 Nov 2019 14:25:34 +0100 (CET)
 Received: from ip-172-31-3-76.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 1E611C36B0B;
-	Thu, 21 Nov 2019 13:06:50 +0000 (UTC)
-Received: from mx07-00178001.pphosted.com (mx07-00178001.pphosted.com
- [62.209.51.94])
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 3689EC36B0B;
+	Thu, 21 Nov 2019 13:25:34 +0000 (UTC)
+Received: from mx07-00178001.pphosted.com (mx08-00178001.pphosted.com
+ [91.207.212.93])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 52D41C36B09
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 77C15C36B09
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Thu, 21 Nov 2019 13:06:48 +0000 (UTC)
-Received: from pps.filterd (m0046037.ppops.net [127.0.0.1])
- by mx07-00178001.pphosted.com (8.16.0.42/8.16.0.42) with SMTP id
- xALD2sic023372; Thu, 21 Nov 2019 14:06:22 +0100
+ Thu, 21 Nov 2019 13:25:32 +0000 (UTC)
+Received: from pps.filterd (m0046661.ppops.net [127.0.0.1])
+ by mx08-00178001.pphosted.com (8.16.0.42/8.16.0.42) with SMTP id
+ xALDCOaQ028876; Thu, 21 Nov 2019 14:25:23 +0100
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=st.com;
- h=from : to : cc : subject
- : date : message-id : mime-version : content-type; s=STMicroelectronics;
- bh=CZLchOtGzzjkcSU/Amhs8d3lsV5kVJY44jLWirDhTC0=;
- b=f81Mnilf5iGhL2LVdhHNWiAXVKxuTj+fahFGZ0UGGF98dtC6xBdnPZ5VHJbLDz3yn+cy
- RHyJ5BxJDsIBVzaIDnidRfHI4HBF4O9MKtavjH5uZeR/00DETFhqL5hnFdiKH77Z8DAq
- Kl3O/VN9wZ9dZuIplkr47jsngG7jqv1/m+pquWGXP8KZ2TvTU7cskgJFLQZwx4Pr4QIq
- zovQii3tRWUBj1lH/drLHLk1HsKaQLIrnJCnBNoNS1oL3FqD77F0w272F8R6K4YqtLPv
- 876iSdjvLmYqMI/bfUWaFrZfh0kIXXk/pYSD7eRILyKuLF7n4/NT1hbfb8ujne9feRT4 9g== 
+ h=date : from : to : cc :
+ subject : message-id : references : mime-version : content-type :
+ in-reply-to; s=STMicroelectronics;
+ bh=DoNIRUtg9Ai4n2wMU0B5Cw16DDKiy+ePYSe96gK6rPY=;
+ b=RVAjiu9Uxqm29T4dYh+nBH63LRGUtc330x+RVjIaXpO+btCeXY7e0lPWroiClduZOjcK
+ lULTbeK7GSHRY12YB3h4xDXC5wl2jqXe6UA7gMwnL8sypw9Ai/GLhfAL9qHU+XfYO8IF
+ pHCnJcXfuLkvq1xbgy2cQUzjX5JGPY3Jo6LZk/fph2yhjAuQPWWg1Gg2nR9Cil33ZiWG
+ G5D/zbmTL8Vy3LraAXlw67u37IYKLq9ERcQDL/vMNuSl04ZRuw+Zp9OIMKaJ3kfNSR/P
+ NtRkKMd5NtwXctIQ852aDc6S5Af+MBKf+TqdcR8pC4Zc4PjBl01BzH7HaE3JtOpAuDW8 Rw== 
 Received: from beta.dmz-eu.st.com (beta.dmz-eu.st.com [164.129.1.35])
- by mx07-00178001.pphosted.com with ESMTP id 2wa9uskdhk-1
+ by mx08-00178001.pphosted.com with ESMTP id 2wa9uvkuyb-1
  (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
- Thu, 21 Nov 2019 14:06:22 +0100
+ Thu, 21 Nov 2019 14:25:23 +0100
 Received: from euls16034.sgp.st.com (euls16034.sgp.st.com [10.75.44.20])
- by beta.dmz-eu.st.com (STMicroelectronics) with ESMTP id 48B83100039;
- Thu, 21 Nov 2019 14:06:17 +0100 (CET)
-Received: from Webmail-eu.st.com (sfhdag3node3.st.com [10.75.127.9])
- by euls16034.sgp.st.com (STMicroelectronics) with ESMTP id 2E59C2BEC5B;
- Thu, 21 Nov 2019 14:06:17 +0100 (CET)
-Received: from localhost (10.75.127.49) by SFHDAG3NODE3.st.com (10.75.127.9)
- with Microsoft SMTP Server (TLS) id 15.0.1347.2; Thu, 21 Nov 2019 14:06:16
- +0100
-From: Benjamin Gaignard <benjamin.gaignard@st.com>
-To: <dwmw2@infradead.org>, <computersforpeace@gmail.com>,
- <marek.vasut@gmail.com>, <miquel.raynal@bootlin.com>, <richard@nod.at>,
- <vigneshr@ti.com>, <robh+dt@kernel.org>, <mark.rutland@arm.com>,
- <alexandre.torgue@st.com>, <linux-stm32@st-md-mailman.stormreply.com>,
- <linux-arm-kernel@lists.infradead.org>, <linux-kernel@vger.kernel.org>
-Date: Thu, 21 Nov 2019 14:06:15 +0100
-Message-ID: <20191121130615.13007-1-benjamin.gaignard@st.com>
-X-Mailer: git-send-email 2.15.0
+ by beta.dmz-eu.st.com (STMicroelectronics) with ESMTP id 5164A100039;
+ Thu, 21 Nov 2019 14:25:22 +0100 (CET)
+Received: from Webmail-eu.st.com (sfhdag3node2.st.com [10.75.127.8])
+ by euls16034.sgp.st.com (STMicroelectronics) with ESMTP id 3300C2BF9BF;
+ Thu, 21 Nov 2019 14:25:22 +0100 (CET)
+Received: from gnbcxd0016.gnb.st.com (10.75.127.44) by SFHDAG3NODE2.st.com
+ (10.75.127.8) with Microsoft SMTP Server (TLS) id 15.0.1347.2; Thu, 21 Nov
+ 2019 14:25:21 +0100
+Date: Thu, 21 Nov 2019 14:25:16 +0100
+From: Alain Volmat <alain.volmat@st.com>
+To: Rob Herring <robh+dt@kernel.org>
+Message-ID: <20191121132516.GA28157@gnbcxd0016.gnb.st.com>
+Mail-Followup-To: Rob Herring <robh+dt@kernel.org>,
+ Wolfram Sang <wsa@the-dreams.de>,
+ Mark Rutland <mark.rutland@arm.com>,
+ Pierre Yves MORDRET <pierre-yves.mordret@st.com>,
+ Maxime Coquelin <mcoquelin.stm32@gmail.com>,
+ Alexandre TORGUE <alexandre.torgue@st.com>,
+ Linux I2C <linux-i2c@vger.kernel.org>,
+ "devicetree@vger.kernel.org" <devicetree@vger.kernel.org>,
+ "linux-stm32@st-md-mailman.stormreply.com"
+ <linux-stm32@st-md-mailman.stormreply.com>, 
+ "moderated list:ARM/FREESCALE IMX / MXC ARM ARCHITECTURE"
+ <linux-arm-kernel@lists.infradead.org>, 
+ "linux-kernel@vger.kernel.org" <linux-kernel@vger.kernel.org>,
+ Fabrice GASNIER <fabrice.gasnier@st.com>
+References: <1574257423-26754-1-git-send-email-alain.volmat@st.com>
+ <CAL_Jsq+3GzLW7_hi56VFHT-V_LMv5g_K=x9ExGx0Xf6Hn_HR3Q@mail.gmail.com>
 MIME-Version: 1.0
-X-Originating-IP: [10.75.127.49]
-X-ClientProxiedBy: SFHDAG4NODE3.st.com (10.75.127.12) To SFHDAG3NODE3.st.com
- (10.75.127.9)
+Content-Disposition: inline
+In-Reply-To: <CAL_Jsq+3GzLW7_hi56VFHT-V_LMv5g_K=x9ExGx0Xf6Hn_HR3Q@mail.gmail.com>
+X-Disclaimer: ce message est personnel / this message is private
+X-Originating-IP: [10.75.127.44]
+X-ClientProxiedBy: SFHDAG7NODE3.st.com (10.75.127.21) To SFHDAG3NODE2.st.com
+ (10.75.127.8)
 X-Proofpoint-Virus-Version: vendor=fsecure engine=2.50.10434:6.0.95,18.0.572
  definitions=2019-11-21_02:2019-11-21,2019-11-21 signatures=0
-Cc: devicetree@vger.kernel.org, linux-mtd@lists.infradead.org
-Subject: [Linux-stm32] [PATCH] dt-bindings: mtd: Convert stm32 fmc2-nand
-	bindings to json-schema
+Cc: Mark Rutland <mark.rutland@arm.com>,
+ "devicetree@vger.kernel.org" <devicetree@vger.kernel.org>,
+ Wolfram Sang <wsa@the-dreams.de>,
+ "linux-kernel@vger.kernel.org" <linux-kernel@vger.kernel.org>,
+ Pierre Yves MORDRET <pierre-yves.mordret@st.com>,
+ Linux I2C <linux-i2c@vger.kernel.org>,
+ Maxime Coquelin <mcoquelin.stm32@gmail.com>,
+ Fabrice GASNIER <fabrice.gasnier@st.com>,
+ "linux-stm32@st-md-mailman.stormreply.com"
+ <linux-stm32@st-md-mailman.stormreply.com>, "moderated list:ARM/FREESCALE IMX
+ / MXC ARM ARCHITECTURE" <linux-arm-kernel@lists.infradead.org>
+Subject: Re: [Linux-stm32] [PATCH] dt-bindings: i2c: stm32: Migrate
+ i2c-stm32 documentation to yaml
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -73,191 +98,292 @@ Content-Transfer-Encoding: 7bit
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
-Convert the STM32 fmc2-nand binding to DT schema format using json-schema
+On Wed, Nov 20, 2019 at 05:53:37PM +0000, Rob Herring wrote:
+> On Wed, Nov 20, 2019 at 7:43 AM Alain Volmat <alain.volmat@st.com> wrote:
+> >
+> > The document was migrated to Yaml format and renamed st,stm32-i2c.yaml
+> >
+> > Signed-off-by: Alain Volmat <alain.volmat@st.com>
+> > ---
+> >  .../devicetree/bindings/i2c/i2c-stm32.txt          |  65 ---------
+> >  .../devicetree/bindings/i2c/st,stm32-i2c.yaml      | 157 +++++++++++++++++++++
+> >  2 files changed, 157 insertions(+), 65 deletions(-)
+> >  delete mode 100644 Documentation/devicetree/bindings/i2c/i2c-stm32.txt
+> >  create mode 100644 Documentation/devicetree/bindings/i2c/st,stm32-i2c.yaml
+> >
+> > diff --git a/Documentation/devicetree/bindings/i2c/i2c-stm32.txt b/Documentation/devicetree/bindings/i2c/i2c-stm32.txt
+> > deleted file mode 100644
+> > index ce3df2fff6c8..000000000000
+> > --- a/Documentation/devicetree/bindings/i2c/i2c-stm32.txt
+> > +++ /dev/null
+> > @@ -1,65 +0,0 @@
+> > -* I2C controller embedded in STMicroelectronics STM32 I2C platform
+> > -
+> > -Required properties:
+> > -- compatible: Must be one of the following
+> > -  - "st,stm32f4-i2c"
+> > -  - "st,stm32f7-i2c"
+> > -- reg: Offset and length of the register set for the device
+> > -- interrupts: Must contain the interrupt id for I2C event and then the
+> > -  interrupt id for I2C error.
+> > -- resets: Must contain the phandle to the reset controller.
+> > -- clocks: Must contain the input clock of the I2C instance.
+> > -- A pinctrl state named "default" must be defined to set pins in mode of
+> > -  operation for I2C transfer
+> > -- #address-cells = <1>;
+> > -- #size-cells = <0>;
+> > -
+> > -Optional properties:
+> > -- clock-frequency: Desired I2C bus clock frequency in Hz. If not specified,
+> > -  the default 100 kHz frequency will be used.
+> > -  For STM32F4 SoC Standard-mode and Fast-mode are supported, possible values are
+> > -  100000 and 400000.
+> > -  For STM32F7, STM32H7 and STM32MP1 SoCs, Standard-mode, Fast-mode and Fast-mode
+> > -  Plus are supported, possible values are 100000, 400000 and 1000000.
+> > -- dmas: List of phandles to rx and tx DMA channels. Refer to stm32-dma.txt.
+> > -- dma-names: List of dma names. Valid names are: "rx" and "tx".
+> > -- i2c-scl-rising-time-ns: I2C SCL Rising time for the board (default: 25)
+> > -  For STM32F7, STM32H7 and STM32MP1 only.
+> > -- i2c-scl-falling-time-ns: I2C SCL Falling time for the board (default: 10)
+> > -  For STM32F7, STM32H7 and STM32MP1 only.
+> > -  I2C Timings are derived from these 2 values
+> > -- st,syscfg-fmp: Use to set Fast Mode Plus bit within SYSCFG when Fast Mode
+> > -  Plus speed is selected by slave.
+> > -       1st cell: phandle to syscfg
+> > -       2nd cell: register offset within SYSCFG
+> > -       3rd cell: register bitmask for FMP bit
+> > -  For STM32F7, STM32H7 and STM32MP1 only.
+> > -
+> > -Example:
+> > -
+> > -       i2c@40005400 {
+> > -               compatible = "st,stm32f4-i2c";
+> > -               #address-cells = <1>;
+> > -               #size-cells = <0>;
+> > -               reg = <0x40005400 0x400>;
+> > -               interrupts = <31>,
+> > -                            <32>;
+> > -               resets = <&rcc 277>;
+> > -               clocks = <&rcc 0 149>;
+> > -               pinctrl-0 = <&i2c1_sda_pin>, <&i2c1_scl_pin>;
+> > -               pinctrl-names = "default";
+> > -       };
+> > -
+> > -       i2c@40005400 {
+> > -               compatible = "st,stm32f7-i2c";
+> > -               #address-cells = <1>;
+> > -               #size-cells = <0>;
+> > -               reg = <0x40005400 0x400>;
+> > -               interrupts = <31>,
+> > -                            <32>;
+> > -               resets = <&rcc STM32F7_APB1_RESET(I2C1)>;
+> > -               clocks = <&rcc 1 CLK_I2C1>;
+> > -               pinctrl-0 = <&i2c1_sda_pin>, <&i2c1_scl_pin>;
+> > -               pinctrl-names = "default";
+> > -               st,syscfg-fmp = <&syscfg 0x4 0x1>;
+> > -       };
+> > diff --git a/Documentation/devicetree/bindings/i2c/st,stm32-i2c.yaml b/Documentation/devicetree/bindings/i2c/st,stm32-i2c.yaml
+> > new file mode 100644
+> > index 000000000000..0f51a6ed0e9b
+> > --- /dev/null
+> > +++ b/Documentation/devicetree/bindings/i2c/st,stm32-i2c.yaml
+> > @@ -0,0 +1,157 @@
+> > +# SPDX-License-Identifier: (GPL-2.0-only OR BSD-2-Clause)
+> > +%YAML 1.2
+> > +---
+> > +$id: http://devicetree.org/schemas/i2c/st,stm32-i2c.yaml#
+> > +$schema: http://devicetree.org/meta-schemas/core.yaml#
+> > +
+> > +title: I2C controller embedded in STMicroelectronics STM32 I2C platform
+> > +
+> > +maintainers:
+> > +  - Pierre-Yves MORDRET <pierre-yves.mordret@st.com>
+> > +
+> > +allOf:
+> > +  - $ref: /schemas/i2c/i2c-controller.yaml#
+> > +  - if:
+> > +      properties:
+> > +        compatible:
+> > +          contains:
+> > +            enum:
+> > +              - st,stm32f7-i2c
+> > +    then:
+> > +      properties:
+> > +        i2c-scl-rising-time-ns:
+> > +          description: I2C SCL Rising time for the board
+> > +          $ref: /schemas/types.yaml#/definitions/uint32
+> > +          default: 25
+> > +
+> > +        i2c-scl-falling-time-ns:
+> > +          description: I2C SCL Falling time for the board
+> > +          $ref: /schemas/types.yaml#/definitions/uint32
+> 
+> These 2 should be added to i2c-controller.yaml and just the default
+> defined here.
 
-Signed-off-by: Benjamin Gaignard <benjamin.gaignard@st.com>
-CC: Christophe Kerello <christophe.kerello@st.com>
----
- .../bindings/mtd/st,stm32-fmc2-nand.yaml           | 98 ++++++++++++++++++++++
- .../devicetree/bindings/mtd/stm32-fmc2-nand.txt    | 61 --------------
- 2 files changed, 98 insertions(+), 61 deletions(-)
- create mode 100644 Documentation/devicetree/bindings/mtd/st,stm32-fmc2-nand.yaml
- delete mode 100644 Documentation/devicetree/bindings/mtd/stm32-fmc2-nand.txt
+Pull-request on the dt-schema git sent in order to add those two properties
+into the i2c-controller.yaml
 
-diff --git a/Documentation/devicetree/bindings/mtd/st,stm32-fmc2-nand.yaml b/Documentation/devicetree/bindings/mtd/st,stm32-fmc2-nand.yaml
-new file mode 100644
-index 000000000000..b059267f6d20
---- /dev/null
-+++ b/Documentation/devicetree/bindings/mtd/st,stm32-fmc2-nand.yaml
-@@ -0,0 +1,98 @@
-+# SPDX-License-Identifier: (GPL-2.0-only OR BSD-2-Clause)
-+%YAML 1.2
-+---
-+$id: http://devicetree.org/schemas/mtd/st,stm32-fmc2-nand.yaml#
-+$schema: http://devicetree.org/meta-schemas/core.yaml#
-+
-+title: STMicroelectronics Flexible Memory Controller 2 (FMC2) Bindings
-+
-+maintainers:
-+  - Christophe Kerello <christophe.kerello@st.com>
-+
-+allOf:
-+  - $ref: "nand-controller.yaml#"
-+
-+properties:
-+  compatible:
-+    const: st,stm32mp15-fmc2
-+
-+  reg:
-+    items:
-+      - description: Registers
-+      - description: Chip select 0 data
-+      - description: Chip select 0 command
-+      - description: Chip select 0 address space
-+      - description: Chip select 1 data
-+      - description: Chip select 1 command
-+      - description: Chip select 1 address space
-+
-+  interrupts:
-+    maxItems: 1
-+
-+  clocks:
-+    maxItems: 1
-+
-+  resets:
-+    maxItems: 1
-+
-+  dmas:
-+    items:
-+      - description: tx DMA channel
-+      - description: rx DMA channel
-+      - description: ecc DMA channel
-+
-+  dma-names:
-+    items:
-+      - const: tx
-+      - const: rx
-+      - const: ecc
-+
-+patternProperties:
-+  "^nand@[a-f0-9]$":
-+    type: object
-+    properties:
-+      nand-ecc-step-size:
-+        const: 512
-+
-+      nand-ecc-strength:
-+        enum: [1, 4 ,8 ]
-+
-+required:
-+  - compatible
-+  - reg
-+  - interrupts
-+  - clocks
-+
-+examples:
-+  - |
-+    #include <dt-bindings/interrupt-controller/arm-gic.h>
-+    #include <dt-bindings/clock/stm32mp1-clks.h>
-+    #include <dt-bindings/reset/stm32mp1-resets.h>
-+    nand-controller@58002000 {
-+      compatible = "st,stm32mp15-fmc2";
-+      reg = <0x58002000 0x1000>,
-+            <0x80000000 0x1000>,
-+            <0x88010000 0x1000>,
-+            <0x88020000 0x1000>,
-+            <0x81000000 0x1000>,
-+            <0x89010000 0x1000>,
-+            <0x89020000 0x1000>;
-+            interrupts = <GIC_SPI 48 IRQ_TYPE_LEVEL_HIGH>;
-+            dmas = <&mdma1 20 0x10 0x12000a02 0x0 0x0>,
-+                   <&mdma1 20 0x10 0x12000a08 0x0 0x0>,
-+                   <&mdma1 21 0x10 0x12000a0a 0x0 0x0>;
-+            dma-names = "tx", "rx", "ecc";
-+            clocks = <&rcc FMC_K>;
-+            resets = <&rcc FMC_R>;
-+      #address-cells = <1>;
-+      #size-cells = <0>;
-+
-+      nand@0 {
-+        reg = <0>;
-+        nand-on-flash-bbt;
-+        #address-cells = <1>;
-+        #size-cells = <1>;
-+      };
-+    };
-+
-+...
-diff --git a/Documentation/devicetree/bindings/mtd/stm32-fmc2-nand.txt b/Documentation/devicetree/bindings/mtd/stm32-fmc2-nand.txt
-deleted file mode 100644
-index e55895e8dae4..000000000000
---- a/Documentation/devicetree/bindings/mtd/stm32-fmc2-nand.txt
-+++ /dev/null
-@@ -1,61 +0,0 @@
--STMicroelectronics Flexible Memory Controller 2 (FMC2)
--NAND Interface
--
--Required properties:
--- compatible: Should be one of:
--              * st,stm32mp15-fmc2
--- reg: NAND flash controller memory areas.
--       First region contains the register location.
--       Regions 2 to 4 respectively contain the data, command,
--       and address space for CS0.
--       Regions 5 to 7 contain the same areas for CS1.
--- interrupts: The interrupt number
--- pinctrl-0: Standard Pinctrl phandle (see: pinctrl/pinctrl-bindings.txt)
--- clocks: The clock needed by the NAND flash controller
--
--Optional properties:
--- resets: Reference to a reset controller asserting the FMC controller
--- dmas: DMA specifiers (see: dma/stm32-mdma.txt)
--- dma-names: Must be "tx", "rx" and "ecc"
--
--* NAND device bindings:
--
--Required properties:
--- reg: describes the CS lines assigned to the NAND device.
--
--Optional properties:
--- nand-on-flash-bbt: see nand-controller.yaml
--- nand-ecc-strength: see nand-controller.yaml
--- nand-ecc-step-size: see nand-controller.yaml
--
--The following ECC strength and step size are currently supported:
-- - nand-ecc-strength = <1>, nand-ecc-step-size = <512> (Hamming)
-- - nand-ecc-strength = <4>, nand-ecc-step-size = <512> (BCH4)
-- - nand-ecc-strength = <8>, nand-ecc-step-size = <512> (BCH8) (default)
--
--Example:
--
--	fmc: nand-controller@58002000 {
--		compatible = "st,stm32mp15-fmc2";
--		reg = <0x58002000 0x1000>,
--		      <0x80000000 0x1000>,
--		      <0x88010000 0x1000>,
--		      <0x88020000 0x1000>,
--		      <0x81000000 0x1000>,
--		      <0x89010000 0x1000>,
--		      <0x89020000 0x1000>;
--		interrupts = <GIC_SPI 48 IRQ_TYPE_LEVEL_HIGH>;
--		clocks = <&rcc FMC_K>;
--		resets = <&rcc FMC_R>;
--		pinctrl-names = "default";
--		pinctrl-0 = <&fmc_pins_a>;
--		#address-cells = <1>;
--		#size-cells = <0>;
--
--		nand@0 {
--			reg = <0>;
--			nand-on-flash-bbt;
--			#address-cells = <1>;
--			#size-cells = <1>;
--		};
--	};
--- 
-2.15.0
+Patch v2 to come regarding other points.
 
+> 
+> > +          default: 10
+> > +
+> > +  - if:
+> > +      properties:
+> > +        compatible:
+> > +          contains:
+> > +            enum:
+> > +              - st,stm32f4-i2c
+> > +    then:
+> > +      properties:
+> > +        clock-frequency:
+> > +          description: Desired I2C bus clock frequency in Hz. If not specified,
+> > +                       the default 100 kHz frequency will be used.
+> > +                       For STM32F4 SoC Standard-mode and Fast-mode are
+> > +                       supported, possible values are 100000 and 400000.
+> > +          default: 100000
+> > +          enum: [100000, 400000]
+> > +    else:
+> > +      properties:
+> > +        clock-frequency:
+> > +          description: Desired I2C bus clock frequency in Hz. If not specified,
+> > +                       the default 100 kHz frequency will be used.
+> > +                       For STM32F7, STM32H7 and STM32MP1 SoCs, Standard-mode,
+> > +                       Fast-mode and Fast-mode Plus are supported, possible
+> > +                       values are 100000, 400000 and 1000000.
+> > +          default: 100000
+> > +          enum: [100000, 400000, 1000000]
+> 
+> Move this to main 'properties'. Then the one in the 'then' clause just
+> needs the enum.
+> 
+> > +
+> > +        st,syscfg-fmp:
+> > +          $ref: "/schemas/types.yaml#/definitions/phandle-array"
+> 
+> Won't work. You have to do:
+> 
+> allOf:
+>   - $ref: ...
+> 
+> > +          description: Use to set Fast Mode Plus bit within SYSCFG when
+> > +                       Fast Mode Plus speed is selected by slave. Should be
+> > +                       phandle/offset/mask
+> > +          items:
+> > +            - description: phandle to syscfg
+> > +            - description: register offset within syscfg
+> > +            - description: register bitmask for FMP bit
+> 
+> Wouldn't this make more sense in the first if rather than the 'else' clause?
+> 
+> > +
+> > +properties:
+> > +  compatible:
+> > +    enum:
+> > +      - st,stm32f4-i2c
+> > +      - st,stm32f7-i2c
+> > +
+> > +  reg:
+> > +    maxItems: 1
+> > +
+> > +  interrupts:
+> > +    maxItems: 2
+> 
+> Implied by items length.
+> 
+> > +    items:
+> > +      - description: interrupt ID for I2C event
+> > +      - description: interrupt ID for I2C error
+> > +
+> > +  resets:
+> > +    maxItems: 1
+> > +
+> > +  clocks:
+> > +    maxItems: 1
+> > +
+> > +  dmas:
+> > +    items:
+> > +      - description: RX DMA Channel phandle
+> > +      - description: TX DMA Channel phandle
+> > +    minItems: 2
+> > +    maxItems: 2
+> 
+> Implied by items length.
+> 
+> > +
+> > +  dma-names:
+> > +    items:
+> > +      - const: rx
+> > +      - const: tx
+> > +    minItems: 2
+> > +    maxItems: 2
+> 
+> Implied by items length.
+> 
+> > +
+> > +required:
+> > +  - compatible
+> 
+> > +  - '#address-cells'
+> > +  - '#size-cells'
+> 
+> Can drop. i2c-controller.yaml makes them required.
+> 
+> > +  - reg
+> > +  - interrupts
+> > +  - resets
+> > +  - clocks
+> > +
+> > +examples:
+> > +  - |
+> > +    #include <dt-bindings/mfd/stm32f7-rcc.h>
+> > +    #include <dt-bindings/clock/stm32fx-clock.h>
+> > +    //Example 1 (with st,stm32f4-i2c compatible)
+> > +      i2c@40005400 {
+> > +          compatible = "st,stm32f4-i2c";
+> > +          #address-cells = <1>;
+> > +          #size-cells = <0>;
+> > +          reg = <0x40005400 0x400>;
+> > +          interrupts = <31>,
+> > +                       <32>;
+> > +          resets = <&rcc 277>;
+> > +          clocks = <&rcc 0 149>;
+> > +      };
+> > +
+> > +    //Example 2 (with st,stm32f7-i2c compatible)
+> > +      i2c@40005800 {
+> > +          compatible = "st,stm32f7-i2c";
+> > +          #address-cells = <1>;
+> > +          #size-cells = <0>;
+> > +          reg = <0x40005800 0x400>;
+> > +          interrupts = <31>,
+> > +                       <32>;
+> > +          resets = <&rcc STM32F7_APB1_RESET(I2C1)>;
+> > +          clocks = <&rcc 1 CLK_I2C1>;
+> > +      };
+> > +
+> > +    //Example 3 (with st,stm32f7-i2c compatible on stm32mp)
+> > +    #include <dt-bindings/interrupt-controller/arm-gic.h>
+> > +    #include <dt-bindings/clock/stm32mp1-clks.h>
+> > +    #include <dt-bindings/reset/stm32mp1-resets.h>
+> > +      i2c@40013000 {
+> > +          compatible = "st,stm32f7-i2c";
+> > +          #address-cells = <1>;
+> > +          #size-cells = <0>;
+> > +          reg = <0x40013000 0x400>;
+> > +          interrupts = <GIC_SPI 33 IRQ_TYPE_LEVEL_HIGH>,
+> > +                       <GIC_SPI 34 IRQ_TYPE_LEVEL_HIGH>;
+> > +          clocks = <&rcc I2C2_K>;
+> > +          resets = <&rcc I2C2_R>;
+> > +          i2c-scl-rising-time-ns = <185>;
+> > +          i2c-scl-falling-time-ns = <20>;
+> > +          st,syscfg-fmp = <&syscfg 0x4 0x2>;
+> > +      };
+> > +...
+> > --
+> > 2.7.4
+> >
 _______________________________________________
 Linux-stm32 mailing list
 Linux-stm32@st-md-mailman.stormreply.com
