@@ -2,69 +2,58 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id 54CFD104FB1
-	for <lists+linux-stm32@lfdr.de>; Thu, 21 Nov 2019 10:53:42 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id F03051050EB
+	for <lists+linux-stm32@lfdr.de>; Thu, 21 Nov 2019 11:58:51 +0100 (CET)
 Received: from ip-172-31-3-76.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 1EF4CC36B0B;
-	Thu, 21 Nov 2019 09:53:42 +0000 (UTC)
-Received: from mail-pf1-f195.google.com (mail-pf1-f195.google.com
- [209.85.210.195])
- (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id AF750C36B0B;
+	Thu, 21 Nov 2019 10:58:51 +0000 (UTC)
+Received: from mx07-00178001.pphosted.com (mx07-00178001.pphosted.com
+ [62.209.51.94])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 81D43C36B09
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 06F92C36B09
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Thu, 21 Nov 2019 09:53:39 +0000 (UTC)
-Received: by mail-pf1-f195.google.com with SMTP id 193so1382605pfc.13
- for <linux-stm32@st-md-mailman.stormreply.com>;
- Thu, 21 Nov 2019 01:53:39 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20161025;
- h=sender:subject:to:cc:references:from:message-id:date:user-agent
- :mime-version:in-reply-to:content-language:content-transfer-encoding;
- bh=24Z96VAL0Kc1Ory+ij+teunstFq8Wsss9gha+iAZp1A=;
- b=SxVFKQkA5BaDYF5mJppd2hlZ80wgUKapnXzXhrBilpXnOlr/xCwU7vE//ig32zOceT
- XtkpMORvWROG5o5fl2D0BxBXRGBggHSUcpa95yRaTuABLqdLLXrzbyKJaQ56WlmFBceL
- xMPA2xpH+pkOrZSCtgbJISkyeOH56yfseOr377m00McqQbJObdmbdGgXfByGUef1uekX
- dGxqugCdAm2UnNFD7svyX4IVhZ40X7dISw1a+6mYfDxmD55B1fcPuW1OmCzbZDTpphNo
- Xq6lm2EXq6CMlY4Zp4SNk/A0YnWCV2Q6/dn3UCeQG0veNqkGUAsErHvJGaqxws4Y6xYW
- /bYg==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20161025;
- h=x-gm-message-state:sender:subject:to:cc:references:from:message-id
- :date:user-agent:mime-version:in-reply-to:content-language
- :content-transfer-encoding;
- bh=24Z96VAL0Kc1Ory+ij+teunstFq8Wsss9gha+iAZp1A=;
- b=S7muBBqoEDX6zcidsQvDHm4N2r4xzas6luNjSmdb8a+m8fSXm5ucRjU2cFjeo3Pv5h
- PK8I9yA5CXZTQGHQrehZRaZzH5yfo15hW80GfJm4BKh0bjlkq0s4OpRZm3jNDeN3S3c6
- SshnpnxZ+NPR/jYUR4jYFT7khdrcRuH7u83wD8/nx5DNMXBjHCW2VdBlnqSapIpXRkcy
- We1soJuMY59T9fW5045AISZfhM6NN11f+fPq1KdN+HNcA5E8598mZBqcd1Sct1ncyhiY
- VCP502mGQ+Zc1w/DAdPA+oGoOp5rR4OWezFYCVMol4GV+6Mqn8WR6Aw3ajvtl6PTIP3e
- iRpQ==
-X-Gm-Message-State: APjAAAXLBkgWZNdRul8K7H3mBjSvkMAMGHnXZfI2GSENUS1+DkdFX2U+
- ohh1jUS8t3ME9kg/C7m9TlA=
-X-Google-Smtp-Source: APXvYqyQQtJCGLeNZ9QIHYtWJHPoYAV8WyiiJMmXgLDMcQgxIw+iZZPKs0Mi17aWOTVD3zHS2LO3Lg==
-X-Received: by 2002:a62:174b:: with SMTP id 72mr8853102pfx.179.1574330017805; 
- Thu, 21 Nov 2019 01:53:37 -0800 (PST)
-Received: from server.roeck-us.net ([2600:1700:e321:62f0:329c:23ff:fee3:9d7c])
- by smtp.gmail.com with ESMTPSA id
- e17sm2655360pfh.121.2019.11.21.01.53.36
- (version=TLS1_2 cipher=ECDHE-RSA-AES128-GCM-SHA256 bits=128/128);
- Thu, 21 Nov 2019 01:53:36 -0800 (PST)
-To: Christophe Roullier <christophe.roullier@st.com>, wim@linux-watchdog.org, 
- mcoquelin.stm32@gmail.com, alexandre.torgue@st.com
-References: <20191121082813.29267-1-christophe.roullier@st.com>
- <20191121082813.29267-2-christophe.roullier@st.com>
-From: Guenter Roeck <linux@roeck-us.net>
-Message-ID: <ce10681c-8fa3-0fa6-3509-376a2f37aec9@roeck-us.net>
-Date: Thu, 21 Nov 2019 01:53:35 -0800
-User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:60.0) Gecko/20100101
- Thunderbird/60.9.0
+ Thu, 21 Nov 2019 10:58:49 +0000 (UTC)
+Received: from pps.filterd (m0046037.ppops.net [127.0.0.1])
+ by mx07-00178001.pphosted.com (8.16.0.42/8.16.0.42) with SMTP id
+ xALAv0D0003536; Thu, 21 Nov 2019 11:58:42 +0100
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=st.com;
+ h=from : to : cc : subject
+ : date : message-id : mime-version : content-type; s=STMicroelectronics;
+ bh=+ryPb9ETJPdsYWVGk+7MMd7fF4WRlNWEqIU9BO/5o/E=;
+ b=c5n+Tu9CAwZRtKQzeN+Gk8BIJqhT8+m8ggCyptm0ywzgiRLJSE8JSbYgaf1Q74YvNe1S
+ iMiCAiNSbaz3lmcSc7eZg7p//tEkJuDgffXpQK99A7AzmXj1NpBdeF19kOI/v+42rGPl
+ bEavf9hTpDw/AAtrkegWrKwv+oProMFBNjv7Cc24wM/8DuOc2mv11/btkS5JYsrmFz9N
+ PVqwFnPezKkLlkIvUnhvAu29qnHPVEgK2R3xSroOwu7SGUS67BONKotm7AMjZxas/4xp
+ tp0CnzLLlB5iguJknqTti1mf3A7HAB2X9a5RYhaW9Q5TtcE0knB4TjmWARN19XfJQPa6 zA== 
+Received: from beta.dmz-eu.st.com (beta.dmz-eu.st.com [164.129.1.35])
+ by mx07-00178001.pphosted.com with ESMTP id 2wa9usjv1h-1
+ (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
+ Thu, 21 Nov 2019 11:58:42 +0100
+Received: from euls16034.sgp.st.com (euls16034.sgp.st.com [10.75.44.20])
+ by beta.dmz-eu.st.com (STMicroelectronics) with ESMTP id 34550100034;
+ Thu, 21 Nov 2019 11:58:42 +0100 (CET)
+Received: from Webmail-eu.st.com (sfhdag5node3.st.com [10.75.127.15])
+ by euls16034.sgp.st.com (STMicroelectronics) with ESMTP id 2690D2B90B8;
+ Thu, 21 Nov 2019 11:58:42 +0100 (CET)
+Received: from localhost (10.75.127.46) by SFHDAG5NODE3.st.com (10.75.127.15)
+ with Microsoft SMTP Server (TLS) id 15.0.1473.3;
+ Thu, 21 Nov 2019 11:58:41 +0100
+From: Fabrice Gasnier <fabrice.gasnier@st.com>
+To: <thierry.reding@gmail.com>, <u.kleine-koenig@pengutronix.de>
+Date: Thu, 21 Nov 2019 11:58:00 +0100
+Message-ID: <1574333880-29339-1-git-send-email-fabrice.gasnier@st.com>
+X-Mailer: git-send-email 2.7.4
 MIME-Version: 1.0
-In-Reply-To: <20191121082813.29267-2-christophe.roullier@st.com>
-Content-Language: en-US
-Cc: linux-stm32@st-md-mailman.stormreply.com, linux-watchdog@vger.kernel.org,
- linux-arm-kernel@lists.infradead.org, linux-kernel@vger.kernel.org
-Subject: Re: [Linux-stm32] [PATCH 1/1] drivers: watchdog: stm32_iwdg: set
- WDOG_HW_RUNNING at probe
+X-Originating-IP: [10.75.127.46]
+X-ClientProxiedBy: SFHDAG7NODE3.st.com (10.75.127.21) To SFHDAG5NODE3.st.com
+ (10.75.127.15)
+X-Proofpoint-Virus-Version: vendor=fsecure engine=2.50.10434:6.0.95,18.0.572
+ definitions=2019-11-21_02:2019-11-21,2019-11-21 signatures=0
+Cc: linux-pwm@vger.kernel.org, linux-kernel@vger.kernel.org,
+ fabrice.gasnier@st.com, linux-stm32@st-md-mailman.stormreply.com,
+ linux-arm-kernel@lists.infradead.org
+Subject: [Linux-stm32] [PATCH] pwm: stm32: remove automatic output enable
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -76,147 +65,37 @@ List-Post: <mailto:linux-stm32@st-md-mailman.stormreply.com>
 List-Help: <mailto:linux-stm32-request@st-md-mailman.stormreply.com?subject=help>
 List-Subscribe: <https://st-md-mailman.stormreply.com/mailman/listinfo/linux-stm32>, 
  <mailto:linux-stm32-request@st-md-mailman.stormreply.com?subject=subscribe>
+Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
-Content-Type: text/plain; charset="us-ascii"; Format="flowed"
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
-On 11/21/19 12:28 AM, Christophe Roullier wrote:
-> If the watchdog hardware is already enabled during the boot process,
-> when the Linux watchdog driver loads, it should reset the watchdog and
-> tell the watchdog framework. As a result, ping can be generated from
-> the watchdog framework (if CONFIG_WATCHDOG_HANDLE_BOOT_ENABLED is set),
-> until the userspace watchdog daemon takes over control
-> 
+Don't use AOE (automatic output enable) by default.
+In case of break events, pwm is automatically re-enabled on next pwm
+cycle otherwise.
 
-This is not what the code is doing. It sets the WDOG_HW_RUNNING flag
-unconditionally, no matter if the watchdog is already running or not.
-It also changes the semantic of the rest of the code, as well as
-functionality. The code in start_timeout no longer waits, and the ping
-code explicitly (re-)enables the watchdog.
+Signed-off-by: Fabrice Gasnier <fabrice.gasnier@st.com>
+---
+ drivers/pwm/pwm-stm32.c | 4 +---
+ 1 file changed, 1 insertion(+), 3 deletions(-)
 
-If you want an option to start the watchdog at probe time unconditionally,
-please add a module parameter to do it. Otherwise you'll need to check if
-it is indeed enabled before setting WDOG_HW_RUNNING, and in that case it
-should not be necessary to re-enable it. It should also not be necessary
-to split the start function.
-
-Thanks,
-Guenter
-
-> Fixes:4332d113c66a ("watchdog: Add STM32 IWDG driver")
-> Signed-off-by: Christophe Roullier <christophe.roullier@st.com>
-> ---
->   drivers/watchdog/stm32_iwdg.c | 57 ++++++++++++++++++++++++-----------
->   1 file changed, 40 insertions(+), 17 deletions(-)
-> 
-> diff --git a/drivers/watchdog/stm32_iwdg.c b/drivers/watchdog/stm32_iwdg.c
-> index a3a329011a06..2b3be3b1c15b 100644
-> --- a/drivers/watchdog/stm32_iwdg.c
-> +++ b/drivers/watchdog/stm32_iwdg.c
-> @@ -87,8 +87,23 @@ static inline void reg_write(void __iomem *base, u32 reg, u32 val)
->   static int stm32_iwdg_start(struct watchdog_device *wdd)
->   {
->   	struct stm32_iwdg *wdt = watchdog_get_drvdata(wdd);
-> -	u32 tout, presc, iwdg_rlr, iwdg_pr, iwdg_sr;
-> -	int ret;
-> +
-> +	dev_dbg(wdd->parent, "%s\n", __func__);
-> +
-> +	/*  Start the watchdog */
-> +	reg_write(wdt->regs, IWDG_KR, KR_KEY_ENABLE);
-> +
-> +	/* reload watchdog */
-> +	reg_write(wdt->regs, IWDG_KR, KR_KEY_RELOAD);
-> +
-> +	set_bit(WDOG_HW_RUNNING, &wdd->status);
-> +	return 0;
-> +}
-> +
-> +static int stm32_iwdg_setprescaler(struct watchdog_device *wdd)
-> +{
-> +	struct stm32_iwdg *wdt = watchdog_get_drvdata(wdd);
-> +	u32 tout, presc, iwdg_rlr, iwdg_pr;
->   
->   	dev_dbg(wdd->parent, "%s\n", __func__);
->   
-> @@ -108,19 +123,6 @@ static int stm32_iwdg_start(struct watchdog_device *wdd)
->   	/* set prescaler & reload registers */
->   	reg_write(wdt->regs, IWDG_PR, iwdg_pr);
->   	reg_write(wdt->regs, IWDG_RLR, iwdg_rlr);
-> -	reg_write(wdt->regs, IWDG_KR, KR_KEY_ENABLE);
-> -
-> -	/* wait for the registers to be updated (max 100ms) */
-> -	ret = readl_relaxed_poll_timeout(wdt->regs + IWDG_SR, iwdg_sr,
-> -					 !(iwdg_sr & (SR_PVU | SR_RVU)),
-> -					 SLEEP_US, TIMEOUT_US);
-> -	if (ret) {
-> -		dev_err(wdd->parent, "Fail to set prescaler, reload regs\n");
-> -		return ret;
-> -	}
-> -
-> -	/* reload watchdog */
-> -	reg_write(wdt->regs, IWDG_KR, KR_KEY_RELOAD);
->   
->   	return 0;
->   }
-> @@ -131,6 +133,9 @@ static int stm32_iwdg_ping(struct watchdog_device *wdd)
->   
->   	dev_dbg(wdd->parent, "%s\n", __func__);
->   
-> +	/*  Start the watchdog */
-> +	reg_write(wdt->regs, IWDG_KR, KR_KEY_ENABLE);
-> +
->   	/* reload watchdog */
->   	reg_write(wdt->regs, IWDG_KR, KR_KEY_RELOAD);
->   
-> @@ -140,12 +145,21 @@ static int stm32_iwdg_ping(struct watchdog_device *wdd)
->   static int stm32_iwdg_set_timeout(struct watchdog_device *wdd,
->   				  unsigned int timeout)
->   {
-> +	int ret;
-> +
->   	dev_dbg(wdd->parent, "%s timeout: %d sec\n", __func__, timeout);
->   
->   	wdd->timeout = timeout;
->   
-> -	if (watchdog_active(wdd))
-> -		return stm32_iwdg_start(wdd);
-> +	if (watchdog_active(wdd)) {
-> +		ret = stm32_iwdg_setprescaler(wdd);
-> +		if (ret) {
-> +			dev_err(wdd->parent, "failed to set prescaler\n");
-> +			return ret;
-> +		} else {
-> +			return stm32_iwdg_start(wdd);
-> +		}
-> +	}
->   
->   	return 0;
->   }
-> @@ -262,12 +276,21 @@ static int stm32_iwdg_probe(struct platform_device *pdev)
->   	watchdog_set_nowayout(wdd, WATCHDOG_NOWAYOUT);
->   	watchdog_init_timeout(wdd, 0, dev);
->   
-> +	/* Make sure the watchdog is serviced */
-> +	set_bit(WDOG_HW_RUNNING, &wdd->status);
-> +
->   	ret = devm_watchdog_register_device(dev, wdd);
->   	if (ret)
->   		return ret;
->   
->   	platform_set_drvdata(pdev, wdt);
->   
-> +	ret = stm32_iwdg_setprescaler(wdd);
-> +	if (ret) {
-> +		dev_err(dev, "failed to set prescaler\n");
-> +		return ret;
-> +	}
-> +
->   	return 0;
->   }
->   
-> 
+diff --git a/drivers/pwm/pwm-stm32.c b/drivers/pwm/pwm-stm32.c
+index 359b085..3079818 100644
+--- a/drivers/pwm/pwm-stm32.c
++++ b/drivers/pwm/pwm-stm32.c
+@@ -374,9 +374,7 @@ static int stm32_pwm_config(struct stm32_pwm *priv, int ch,
+ 	else
+ 		regmap_update_bits(priv->regmap, TIM_CCMR2, mask, ccmr);
+ 
+-	regmap_update_bits(priv->regmap, TIM_BDTR,
+-			   TIM_BDTR_MOE | TIM_BDTR_AOE,
+-			   TIM_BDTR_MOE | TIM_BDTR_AOE);
++	regmap_update_bits(priv->regmap, TIM_BDTR, TIM_BDTR_MOE, TIM_BDTR_MOE);
+ 
+ 	return 0;
+ }
+-- 
+2.7.4
 
 _______________________________________________
 Linux-stm32 mailing list
