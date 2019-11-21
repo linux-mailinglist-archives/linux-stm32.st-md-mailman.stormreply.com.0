@@ -2,78 +2,72 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id B4B1A105374
-	for <lists+linux-stm32@lfdr.de>; Thu, 21 Nov 2019 14:45:55 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id C85C4105446
+	for <lists+linux-stm32@lfdr.de>; Thu, 21 Nov 2019 15:21:31 +0100 (CET)
 Received: from ip-172-31-3-76.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 79705C36B0B;
-	Thu, 21 Nov 2019 13:45:55 +0000 (UTC)
-Received: from mx07-00178001.pphosted.com (mx07-00178001.pphosted.com
- [62.209.51.94])
- (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 818A1C36B0B;
+	Thu, 21 Nov 2019 14:21:31 +0000 (UTC)
+Received: from mail-pj1-f68.google.com (mail-pj1-f68.google.com
+ [209.85.216.68])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 397A0C36B09
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id D3FC8C36B09
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Thu, 21 Nov 2019 13:45:53 +0000 (UTC)
-Received: from pps.filterd (m0046668.ppops.net [127.0.0.1])
- by mx07-00178001.pphosted.com (8.16.0.42/8.16.0.42) with SMTP id
- xALDXGeL030461; Thu, 21 Nov 2019 14:45:24 +0100
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=st.com;
- h=from : to : cc : subject
- : date : message-id : references : in-reply-to : content-type : content-id
- : content-transfer-encoding : mime-version; s=STMicroelectronics;
- bh=Mm2zh02uhoiw1aOvwth48MJJ0pCk1PHprbmrmwggVkc=;
- b=sQj3GCHRfN+DP0UGyBm0AGX6zP9pc6/5Air7fdnv5Zr+W015YNGxuD2Xme5ZxD9kYAo3
- U4QnU/hIE1kaXCOJXt3oi2Z1ZjnSuA8Od6uX7w6cnACT+2mJ3m3MyJFXxmJwZuACCiFZ
- ETVAq4NGk+b66m4ei1j6n0x0KHd6XpWU54WEICQqqbTSwHNX7S1aJbu0vfixztsduSO8
- QUfxdkGS2k3F894rWI48aTgv7h6nK9ALwammABBj7qVVcdd+/L6FJSjRiZZw9KS/nd+g
- pv7zqsBxdyODBoQ1O1LA0MRBpg+Pp8ThlTOAb8F9btI6pRxoCzznAAmtED3A+yfee55C TQ== 
-Received: from beta.dmz-eu.st.com (beta.dmz-eu.st.com [164.129.1.35])
- by mx07-00178001.pphosted.com with ESMTP id 2wa9ujbkb4-1
- (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
- Thu, 21 Nov 2019 14:45:24 +0100
-Received: from euls16034.sgp.st.com (euls16034.sgp.st.com [10.75.44.20])
- by beta.dmz-eu.st.com (STMicroelectronics) with ESMTP id CC51B10002A;
- Thu, 21 Nov 2019 14:45:21 +0100 (CET)
-Received: from Webmail-eu.st.com (sfhdag3node1.st.com [10.75.127.7])
- by euls16034.sgp.st.com (STMicroelectronics) with ESMTP id BB2542C085C;
- Thu, 21 Nov 2019 14:45:21 +0100 (CET)
-Received: from SFHDAG5NODE3.st.com (10.75.127.15) by SFHDAG3NODE1.st.com
- (10.75.127.7) with Microsoft SMTP Server (TLS) id 15.0.1473.3; Thu, 21 Nov
- 2019 14:45:21 +0100
-Received: from SFHDAG5NODE3.st.com ([fe80::7c09:5d6b:d2c7:5f47]) by
- SFHDAG5NODE3.st.com ([fe80::7c09:5d6b:d2c7:5f47%20]) with mapi id
- 15.00.1473.003; Thu, 21 Nov 2019 14:45:21 +0100
-From: Christophe ROULLIER <christophe.roullier@st.com>
-To: Guenter Roeck <linux@roeck-us.net>, "wim@linux-watchdog.org"
- <wim@linux-watchdog.org>, "mcoquelin.stm32@gmail.com"
- <mcoquelin.stm32@gmail.com>, Alexandre TORGUE <alexandre.torgue@st.com>
-Thread-Topic: [PATCH 1/1] drivers: watchdog: stm32_iwdg: set WDOG_HW_RUNNING
- at probe
-Thread-Index: AQHVoFGOXOrRJMFkVkmWAcwXxdj4CaeVkmWA
-Date: Thu, 21 Nov 2019 13:45:21 +0000
-Message-ID: <550566ff-31bd-1f40-63d1-67b013f8be75@st.com>
+ Thu, 21 Nov 2019 14:21:29 +0000 (UTC)
+Received: by mail-pj1-f68.google.com with SMTP id cq11so1539579pjb.3
+ for <linux-stm32@st-md-mailman.stormreply.com>;
+ Thu, 21 Nov 2019 06:21:29 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20161025;
+ h=sender:date:from:to:cc:subject:message-id:references:mime-version
+ :content-disposition:content-transfer-encoding:in-reply-to
+ :user-agent; bh=advO9e9Vq8oX5pUg5eqAZ8hMHDIBv+K1uEoGcfdp6Pg=;
+ b=Q/BiBo5hxPoRt7be6VMJbLczAnhSIy2lPWLssuK4UBRdiypufvszol2d35aiqoLm5B
+ SnKaYGix1iSdFR4Z0iQBRcoWRRlWgS/LX1T6OfxQc3J0zhILkVpifvNiTb+y+rfbDm0w
+ ftICNsoRSXB+p/53aKCBsZkAQSeFLuZGwKG7uzTDMnpCiIguML0XbtgPDbEfn2KTgui9
+ mJJTt8oyI2BtuJmRycEYuvd+Hz+5Dxb4VKgYRsIZip1h8tBA1E3la98IQ4r4pfkT961c
+ kPFz98ibRpZdmkkrQD717+Xw7H+1b3wOmfc3GyB3eIe907cuW8Umfblwh4MtaukzCmZe
+ r4dA==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20161025;
+ h=x-gm-message-state:sender:date:from:to:cc:subject:message-id
+ :references:mime-version:content-disposition
+ :content-transfer-encoding:in-reply-to:user-agent;
+ bh=advO9e9Vq8oX5pUg5eqAZ8hMHDIBv+K1uEoGcfdp6Pg=;
+ b=iVGtIXBtiAIL3JOvRv6ZSIoiTHTCkf5vZFyu93P8nx2msC2hDXo/o+jXVyCuI52V0L
+ d7j/y3a8o8oKVnqVqqXgQq+QG3D6Sk/kC69vSHj+HstD+Zs6bhX4lNvNa47XUEx78Np2
+ QWG/3NldkaHqFKHum97XMfOKRepWI+9MKgHRkcsys8ywUhVxmByuGvJEzOGpx5f9JFEl
+ 8IZ0ybWwhcTji9FXqrI2e1P6NY0edpe+c82HbjFjIPMBlhqapJdePAJc57W7wWO5Z1Tn
+ Z023VSWuPRMV4PE4J420BKT08VyErScyIAbXJnn0KOTuqpyFFoL8QoqL5X9ZvMrIMlA1
+ ct8Q==
+X-Gm-Message-State: APjAAAVq7+famL9ADjIbizkv5TdxvHQmADrLLuEiSseB4Ma7LKTWKVsZ
+ 8Qf1tuz+yaHfr1MnEqs5x38=
+X-Google-Smtp-Source: APXvYqxJTWh2kG8FI80v+Upz1ZQtluio58NfbwFL3EB19Ri9bUOi5lj878945BYaiTM4NAZUFidO8g==
+X-Received: by 2002:a17:902:9043:: with SMTP id
+ w3mr9308463plz.30.1574346088100; 
+ Thu, 21 Nov 2019 06:21:28 -0800 (PST)
+Received: from localhost ([2600:1700:e321:62f0:329c:23ff:fee3:9d7c])
+ by smtp.gmail.com with ESMTPSA id m34sm3321136pgb.26.2019.11.21.06.21.26
+ (version=TLS1_2 cipher=ECDHE-RSA-CHACHA20-POLY1305 bits=256/256);
+ Thu, 21 Nov 2019 06:21:27 -0800 (PST)
+Date: Thu, 21 Nov 2019 06:21:26 -0800
+From: Guenter Roeck <linux@roeck-us.net>
+To: Christophe ROULLIER <christophe.roullier@st.com>
+Message-ID: <20191121142126.GB13249@roeck-us.net>
 References: <20191121082813.29267-1-christophe.roullier@st.com>
  <20191121082813.29267-2-christophe.roullier@st.com>
  <ce10681c-8fa3-0fa6-3509-376a2f37aec9@roeck-us.net>
-In-Reply-To: <ce10681c-8fa3-0fa6-3509-376a2f37aec9@roeck-us.net>
-Accept-Language: fr-FR, en-US
-Content-Language: en-US
-X-MS-Has-Attach: 
-X-MS-TNEF-Correlator: 
-user-agent: Mozilla/5.0 (X11; Linux x86_64; rv:60.0) Gecko/20100101
- Thunderbird/60.9.0
-x-ms-exchange-messagesentrepresentingtype: 1
-x-ms-exchange-transport-fromentityheader: Hosted
-x-originating-ip: [10.75.127.46]
-Content-ID: <921B89BA38567E499A7F44A4CCAEAFFD@st.com>
+ <550566ff-31bd-1f40-63d1-67b013f8be75@st.com>
 MIME-Version: 1.0
-X-Proofpoint-Virus-Version: vendor=fsecure engine=2.50.10434:6.0.95,18.0.572
- definitions=2019-11-21_03:2019-11-21,2019-11-21 signatures=0
-Cc: "linux-stm32@st-md-mailman.stormreply.com"
+Content-Disposition: inline
+In-Reply-To: <550566ff-31bd-1f40-63d1-67b013f8be75@st.com>
+User-Agent: Mutt/1.9.4 (2018-02-28)
+Cc: "linux-kernel@vger.kernel.org" <linux-kernel@vger.kernel.org>,
+ "mcoquelin.stm32@gmail.com" <mcoquelin.stm32@gmail.com>,
+ "wim@linux-watchdog.org" <wim@linux-watchdog.org>,
+ "linux-stm32@st-md-mailman.stormreply.com"
  <linux-stm32@st-md-mailman.stormreply.com>,
- "linux-watchdog@vger.kernel.org" <linux-watchdog@vger.kernel.org>,
  "linux-arm-kernel@lists.infradead.org" <linux-arm-kernel@lists.infradead.org>,
- "linux-kernel@vger.kernel.org" <linux-kernel@vger.kernel.org>
+ "linux-watchdog@vger.kernel.org" <linux-watchdog@vger.kernel.org>
 Subject: Re: [Linux-stm32] [PATCH 1/1] drivers: watchdog: stm32_iwdg: set
  WDOG_HW_RUNNING at probe
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
@@ -87,111 +81,206 @@ List-Post: <mailto:linux-stm32@st-md-mailman.stormreply.com>
 List-Help: <mailto:linux-stm32-request@st-md-mailman.stormreply.com?subject=help>
 List-Subscribe: <https://st-md-mailman.stormreply.com/mailman/listinfo/linux-stm32>, 
  <mailto:linux-stm32-request@st-md-mailman.stormreply.com?subject=subscribe>
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: base64
+Content-Type: text/plain; charset="iso-8859-1"
+Content-Transfer-Encoding: quoted-printable
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
-SGkgR3VlbnRlciwNCg0KT24gMTEvMjEvMTkgMTA6NTMgQU0sIEd1ZW50ZXIgUm9lY2sgd3JvdGU6
-DQo+IE9uIDExLzIxLzE5IDEyOjI4IEFNLCBDaHJpc3RvcGhlIFJvdWxsaWVyIHdyb3RlOg0KPj4g
-SWYgdGhlIHdhdGNoZG9nIGhhcmR3YXJlIGlzIGFscmVhZHkgZW5hYmxlZCBkdXJpbmcgdGhlIGJv
-b3QgcHJvY2VzcywNCj4+IHdoZW4gdGhlIExpbnV4IHdhdGNoZG9nIGRyaXZlciBsb2FkcywgaXQg
-c2hvdWxkIHJlc2V0IHRoZSB3YXRjaGRvZyBhbmQNCj4+IHRlbGwgdGhlIHdhdGNoZG9nIGZyYW1l
-d29yay4gQXMgYSByZXN1bHQsIHBpbmcgY2FuIGJlIGdlbmVyYXRlZCBmcm9tDQo+PiB0aGUgd2F0
-Y2hkb2cgZnJhbWV3b3JrIChpZiBDT05GSUdfV0FUQ0hET0dfSEFORExFX0JPT1RfRU5BQkxFRCBp
-cyBzZXQpLA0KPj4gdW50aWwgdGhlIHVzZXJzcGFjZSB3YXRjaGRvZyBkYWVtb24gdGFrZXMgb3Zl
-ciBjb250cm9sDQo+Pg0KPg0KPiBUaGlzIGlzIG5vdCB3aGF0IHRoZSBjb2RlIGlzIGRvaW5nLiBJ
-dCBzZXRzIHRoZSBXRE9HX0hXX1JVTk5JTkcgZmxhZw0KPiB1bmNvbmRpdGlvbmFsbHksIG5vIG1h
-dHRlciBpZiB0aGUgd2F0Y2hkb2cgaXMgYWxyZWFkeSBydW5uaW5nIG9yIG5vdC4NCj4gSXQgYWxz
-byBjaGFuZ2VzIHRoZSBzZW1hbnRpYyBvZiB0aGUgcmVzdCBvZiB0aGUgY29kZSwgYXMgd2VsbCBh
-cw0KPiBmdW5jdGlvbmFsaXR5LiBUaGUgY29kZSBpbiBzdGFydF90aW1lb3V0IG5vIGxvbmdlciB3
-YWl0cywgYW5kIHRoZSBwaW5nDQo+IGNvZGUgZXhwbGljaXRseSAocmUtKWVuYWJsZXMgdGhlIHdh
-dGNoZG9nLg0KPg0KPiBJZiB5b3Ugd2FudCBhbiBvcHRpb24gdG8gc3RhcnQgdGhlIHdhdGNoZG9n
-IGF0IHByb2JlIHRpbWUgDQo+IHVuY29uZGl0aW9uYWxseSwNCj4gcGxlYXNlIGFkZCBhIG1vZHVs
-ZSBwYXJhbWV0ZXIgdG8gZG8gaXQuIE90aGVyd2lzZSB5b3UnbGwgbmVlZCB0byBjaGVjayBpZg0K
-PiBpdCBpcyBpbmRlZWQgZW5hYmxlZCBiZWZvcmUgc2V0dGluZyBXRE9HX0hXX1JVTk5JTkcsIGFu
-ZCBpbiB0aGF0IGNhc2UgaXQNCj4gc2hvdWxkIG5vdCBiZSBuZWNlc3NhcnkgdG8gcmUtZW5hYmxl
-IGl0LiBJdCBzaG91bGQgYWxzbyBub3QgYmUgbmVjZXNzYXJ5DQo+IHRvIHNwbGl0IHRoZSBzdGFy
-dCBmdW5jdGlvbi4NCg0KV2l0aCBvdXIgSVdERyBJUCwgdGhlcmUgaXMgbm8gd2F5IHRvIHJlYWQg
-dmFsdWVzIGZyb20gaGFyZHdhcmUgKGlmIGl0IGlzIA0KcnVubmluZyBvciBub3QpDQoNCldlIGFy
-ZSBpbiBzYW1lIGNhc2Ugb2YgaW50ZWwtbWlkX3dkdC5jIGRyaXZlciwgd2UgaGF2ZSBVYm9vdCB3
-aGljaCBjYW4NCg0KbGVhdmVzIHRoZSB3YXRjaGRvZyBydW5uaW5nLiBTbyB3ZSBuZWVkIHRvIGZv
-cmNlIHRoZSBraWNraW5nIG9mIG91ciANCndhdGNoZG9nLg0KDQpUaGFua3MNCg0KQ2hyaXN0b3Bo
-ZQ0KDQo+DQo+IFRoYW5rcywNCj4gR3VlbnRlcg0KPg0KPj4gRml4ZXM6NDMzMmQxMTNjNjZhICgi
-d2F0Y2hkb2c6IEFkZCBTVE0zMiBJV0RHIGRyaXZlciIpDQo+PiBTaWduZWQtb2ZmLWJ5OiBDaHJp
-c3RvcGhlIFJvdWxsaWVyIDxjaHJpc3RvcGhlLnJvdWxsaWVyQHN0LmNvbT4NCj4+IC0tLQ0KPj4g
-wqAgZHJpdmVycy93YXRjaGRvZy9zdG0zMl9pd2RnLmMgfCA1NyArKysrKysrKysrKysrKysrKysr
-KysrKystLS0tLS0tLS0tLQ0KPj4gwqAgMSBmaWxlIGNoYW5nZWQsIDQwIGluc2VydGlvbnMoKyks
-IDE3IGRlbGV0aW9ucygtKQ0KPj4NCj4+IGRpZmYgLS1naXQgYS9kcml2ZXJzL3dhdGNoZG9nL3N0
-bTMyX2l3ZGcuYyANCj4+IGIvZHJpdmVycy93YXRjaGRvZy9zdG0zMl9pd2RnLmMNCj4+IGluZGV4
-IGEzYTMyOTAxMWEwNi4uMmIzYmUzYjFjMTViIDEwMDY0NA0KPj4gLS0tIGEvZHJpdmVycy93YXRj
-aGRvZy9zdG0zMl9pd2RnLmMNCj4+ICsrKyBiL2RyaXZlcnMvd2F0Y2hkb2cvc3RtMzJfaXdkZy5j
-DQo+PiBAQCAtODcsOCArODcsMjMgQEAgc3RhdGljIGlubGluZSB2b2lkIHJlZ193cml0ZSh2b2lk
-IF9faW9tZW0gKmJhc2UsIA0KPj4gdTMyIHJlZywgdTMyIHZhbCkNCj4+IMKgIHN0YXRpYyBpbnQg
-c3RtMzJfaXdkZ19zdGFydChzdHJ1Y3Qgd2F0Y2hkb2dfZGV2aWNlICp3ZGQpDQo+PiDCoCB7DQo+
-PiDCoMKgwqDCoMKgIHN0cnVjdCBzdG0zMl9pd2RnICp3ZHQgPSB3YXRjaGRvZ19nZXRfZHJ2ZGF0
-YSh3ZGQpOw0KPj4gLcKgwqDCoCB1MzIgdG91dCwgcHJlc2MsIGl3ZGdfcmxyLCBpd2RnX3ByLCBp
-d2RnX3NyOw0KPj4gLcKgwqDCoCBpbnQgcmV0Ow0KPj4gKw0KPj4gK8KgwqDCoCBkZXZfZGJnKHdk
-ZC0+cGFyZW50LCAiJXNcbiIsIF9fZnVuY19fKTsNCj4+ICsNCj4+ICvCoMKgwqAgLyrCoCBTdGFy
-dCB0aGUgd2F0Y2hkb2cgKi8NCj4+ICvCoMKgwqAgcmVnX3dyaXRlKHdkdC0+cmVncywgSVdER19L
-UiwgS1JfS0VZX0VOQUJMRSk7DQo+PiArDQo+PiArwqDCoMKgIC8qIHJlbG9hZCB3YXRjaGRvZyAq
-Lw0KPj4gK8KgwqDCoCByZWdfd3JpdGUod2R0LT5yZWdzLCBJV0RHX0tSLCBLUl9LRVlfUkVMT0FE
-KTsNCj4+ICsNCj4+ICvCoMKgwqAgc2V0X2JpdChXRE9HX0hXX1JVTk5JTkcsICZ3ZGQtPnN0YXR1
-cyk7DQo+PiArwqDCoMKgIHJldHVybiAwOw0KPj4gK30NCj4+ICsNCj4+ICtzdGF0aWMgaW50IHN0
-bTMyX2l3ZGdfc2V0cHJlc2NhbGVyKHN0cnVjdCB3YXRjaGRvZ19kZXZpY2UgKndkZCkNCj4+ICt7
-DQo+PiArwqDCoMKgIHN0cnVjdCBzdG0zMl9pd2RnICp3ZHQgPSB3YXRjaGRvZ19nZXRfZHJ2ZGF0
-YSh3ZGQpOw0KPj4gK8KgwqDCoCB1MzIgdG91dCwgcHJlc2MsIGl3ZGdfcmxyLCBpd2RnX3ByOw0K
-Pj4gwqAgwqDCoMKgwqDCoCBkZXZfZGJnKHdkZC0+cGFyZW50LCAiJXNcbiIsIF9fZnVuY19fKTsN
-Cj4+IMKgIEBAIC0xMDgsMTkgKzEyMyw2IEBAIHN0YXRpYyBpbnQgc3RtMzJfaXdkZ19zdGFydChz
-dHJ1Y3QgDQo+PiB3YXRjaGRvZ19kZXZpY2UgKndkZCkNCj4+IMKgwqDCoMKgwqAgLyogc2V0IHBy
-ZXNjYWxlciAmIHJlbG9hZCByZWdpc3RlcnMgKi8NCj4+IMKgwqDCoMKgwqAgcmVnX3dyaXRlKHdk
-dC0+cmVncywgSVdER19QUiwgaXdkZ19wcik7DQo+PiDCoMKgwqDCoMKgIHJlZ193cml0ZSh3ZHQt
-PnJlZ3MsIElXREdfUkxSLCBpd2RnX3Jscik7DQo+PiAtwqDCoMKgIHJlZ193cml0ZSh3ZHQtPnJl
-Z3MsIElXREdfS1IsIEtSX0tFWV9FTkFCTEUpOw0KPj4gLQ0KPj4gLcKgwqDCoCAvKiB3YWl0IGZv
-ciB0aGUgcmVnaXN0ZXJzIHRvIGJlIHVwZGF0ZWQgKG1heCAxMDBtcykgKi8NCj4+IC3CoMKgwqAg
-cmV0ID0gcmVhZGxfcmVsYXhlZF9wb2xsX3RpbWVvdXQod2R0LT5yZWdzICsgSVdER19TUiwgaXdk
-Z19zciwNCj4+IC3CoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgICEoaXdk
-Z19zciAmIChTUl9QVlUgfCBTUl9SVlUpKSwNCj4+IC3CoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDC
-oMKgwqDCoMKgwqDCoMKgIFNMRUVQX1VTLCBUSU1FT1VUX1VTKTsNCj4+IC3CoMKgwqAgaWYgKHJl
-dCkgew0KPj4gLcKgwqDCoMKgwqDCoMKgIGRldl9lcnIod2RkLT5wYXJlbnQsICJGYWlsIHRvIHNl
-dCBwcmVzY2FsZXIsIHJlbG9hZCByZWdzXG4iKTsNCj4+IC3CoMKgwqDCoMKgwqDCoCByZXR1cm4g
-cmV0Ow0KPj4gLcKgwqDCoCB9DQo+PiAtDQo+PiAtwqDCoMKgIC8qIHJlbG9hZCB3YXRjaGRvZyAq
-Lw0KPj4gLcKgwqDCoCByZWdfd3JpdGUod2R0LT5yZWdzLCBJV0RHX0tSLCBLUl9LRVlfUkVMT0FE
-KTsNCj4+IMKgIMKgwqDCoMKgwqAgcmV0dXJuIDA7DQo+PiDCoCB9DQo+PiBAQCAtMTMxLDYgKzEz
-Myw5IEBAIHN0YXRpYyBpbnQgc3RtMzJfaXdkZ19waW5nKHN0cnVjdCB3YXRjaGRvZ19kZXZpY2Ug
-DQo+PiAqd2RkKQ0KPj4gwqAgwqDCoMKgwqDCoCBkZXZfZGJnKHdkZC0+cGFyZW50LCAiJXNcbiIs
-IF9fZnVuY19fKTsNCj4+IMKgICvCoMKgwqAgLyrCoCBTdGFydCB0aGUgd2F0Y2hkb2cgKi8NCj4+
-ICvCoMKgwqAgcmVnX3dyaXRlKHdkdC0+cmVncywgSVdER19LUiwgS1JfS0VZX0VOQUJMRSk7DQo+
-PiArDQo+PiDCoMKgwqDCoMKgIC8qIHJlbG9hZCB3YXRjaGRvZyAqLw0KPj4gwqDCoMKgwqDCoCBy
-ZWdfd3JpdGUod2R0LT5yZWdzLCBJV0RHX0tSLCBLUl9LRVlfUkVMT0FEKTsNCj4+IMKgIEBAIC0x
-NDAsMTIgKzE0NSwyMSBAQCBzdGF0aWMgaW50IHN0bTMyX2l3ZGdfcGluZyhzdHJ1Y3QgDQo+PiB3
-YXRjaGRvZ19kZXZpY2UgKndkZCkNCj4+IMKgIHN0YXRpYyBpbnQgc3RtMzJfaXdkZ19zZXRfdGlt
-ZW91dChzdHJ1Y3Qgd2F0Y2hkb2dfZGV2aWNlICp3ZGQsDQo+PiDCoMKgwqDCoMKgwqDCoMKgwqDC
-oMKgwqDCoMKgwqDCoMKgwqDCoCB1bnNpZ25lZCBpbnQgdGltZW91dCkNCj4+IMKgIHsNCj4+ICvC
-oMKgwqAgaW50IHJldDsNCj4+ICsNCj4+IMKgwqDCoMKgwqAgZGV2X2RiZyh3ZGQtPnBhcmVudCwg
-IiVzIHRpbWVvdXQ6ICVkIHNlY1xuIiwgX19mdW5jX18sIHRpbWVvdXQpOw0KPj4gwqAgwqDCoMKg
-wqDCoCB3ZGQtPnRpbWVvdXQgPSB0aW1lb3V0Ow0KPj4gwqAgLcKgwqDCoCBpZiAod2F0Y2hkb2df
-YWN0aXZlKHdkZCkpDQo+PiAtwqDCoMKgwqDCoMKgwqAgcmV0dXJuIHN0bTMyX2l3ZGdfc3RhcnQo
-d2RkKTsNCj4+ICvCoMKgwqAgaWYgKHdhdGNoZG9nX2FjdGl2ZSh3ZGQpKSB7DQo+PiArwqDCoMKg
-wqDCoMKgwqAgcmV0ID0gc3RtMzJfaXdkZ19zZXRwcmVzY2FsZXIod2RkKTsNCj4+ICvCoMKgwqDC
-oMKgwqDCoCBpZiAocmV0KSB7DQo+PiArwqDCoMKgwqDCoMKgwqDCoMKgwqDCoCBkZXZfZXJyKHdk
-ZC0+cGFyZW50LCAiZmFpbGVkIHRvIHNldCBwcmVzY2FsZXJcbiIpOw0KPj4gK8KgwqDCoMKgwqDC
-oMKgwqDCoMKgwqAgcmV0dXJuIHJldDsNCj4+ICvCoMKgwqDCoMKgwqDCoCB9IGVsc2Ugew0KPj4g
-K8KgwqDCoMKgwqDCoMKgwqDCoMKgwqAgcmV0dXJuIHN0bTMyX2l3ZGdfc3RhcnQod2RkKTsNCj4+
-ICvCoMKgwqDCoMKgwqDCoCB9DQo+PiArwqDCoMKgIH0NCj4+IMKgIMKgwqDCoMKgwqAgcmV0dXJu
-IDA7DQo+PiDCoCB9DQo+PiBAQCAtMjYyLDEyICsyNzYsMjEgQEAgc3RhdGljIGludCBzdG0zMl9p
-d2RnX3Byb2JlKHN0cnVjdCANCj4+IHBsYXRmb3JtX2RldmljZSAqcGRldikNCj4+IMKgwqDCoMKg
-wqAgd2F0Y2hkb2dfc2V0X25vd2F5b3V0KHdkZCwgV0FUQ0hET0dfTk9XQVlPVVQpOw0KPj4gwqDC
-oMKgwqDCoCB3YXRjaGRvZ19pbml0X3RpbWVvdXQod2RkLCAwLCBkZXYpOw0KPj4gwqAgK8KgwqDC
-oCAvKiBNYWtlIHN1cmUgdGhlIHdhdGNoZG9nIGlzIHNlcnZpY2VkICovDQo+PiArwqDCoMKgIHNl
-dF9iaXQoV0RPR19IV19SVU5OSU5HLCAmd2RkLT5zdGF0dXMpOw0KPj4gKw0KPj4gwqDCoMKgwqDC
-oCByZXQgPSBkZXZtX3dhdGNoZG9nX3JlZ2lzdGVyX2RldmljZShkZXYsIHdkZCk7DQo+PiDCoMKg
-wqDCoMKgIGlmIChyZXQpDQo+PiDCoMKgwqDCoMKgwqDCoMKgwqAgcmV0dXJuIHJldDsNCj4+IMKg
-IMKgwqDCoMKgwqAgcGxhdGZvcm1fc2V0X2RydmRhdGEocGRldiwgd2R0KTsNCj4+IMKgICvCoMKg
-wqAgcmV0ID0gc3RtMzJfaXdkZ19zZXRwcmVzY2FsZXIod2RkKTsNCj4+ICvCoMKgwqAgaWYgKHJl
-dCkgew0KPj4gK8KgwqDCoMKgwqDCoMKgIGRldl9lcnIoZGV2LCAiZmFpbGVkIHRvIHNldCBwcmVz
-Y2FsZXJcbiIpOw0KPj4gK8KgwqDCoMKgwqDCoMKgIHJldHVybiByZXQ7DQo+PiArwqDCoMKgIH0N
-Cj4+ICsNCj4+IMKgwqDCoMKgwqAgcmV0dXJuIDA7DQo+PiDCoCB9DQo+Pg0KPgpfX19fX19fX19f
-X19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fXwpMaW51eC1zdG0zMiBtYWlsaW5n
-IGxpc3QKTGludXgtc3RtMzJAc3QtbWQtbWFpbG1hbi5zdG9ybXJlcGx5LmNvbQpodHRwczovL3N0
-LW1kLW1haWxtYW4uc3Rvcm1yZXBseS5jb20vbWFpbG1hbi9saXN0aW5mby9saW51eC1zdG0zMgo=
+On Thu, Nov 21, 2019 at 01:45:21PM +0000, Christophe ROULLIER wrote:
+> Hi Guenter,
+> =
+
+> On 11/21/19 10:53 AM, Guenter Roeck wrote:
+> > On 11/21/19 12:28 AM, Christophe Roullier wrote:
+> >> If the watchdog hardware is already enabled during the boot process,
+> >> when the Linux watchdog driver loads, it should reset the watchdog and
+> >> tell the watchdog framework. As a result, ping can be generated from
+> >> the watchdog framework (if CONFIG_WATCHDOG_HANDLE_BOOT_ENABLED is set),
+> >> until the userspace watchdog daemon takes over control
+> >>
+> >
+> > This is not what the code is doing. It sets the WDOG_HW_RUNNING flag
+> > unconditionally, no matter if the watchdog is already running or not.
+> > It also changes the semantic of the rest of the code, as well as
+> > functionality. The code in start_timeout no longer waits, and the ping
+> > code explicitly (re-)enables the watchdog.
+> >
+> > If you want an option to start the watchdog at probe time =
+
+> > unconditionally,
+> > please add a module parameter to do it. Otherwise you'll need to check =
+if
+> > it is indeed enabled before setting WDOG_HW_RUNNING, and in that case it
+> > should not be necessary to re-enable it. It should also not be necessary
+> > to split the start function.
+> =
+
+> With our IWDG IP, there is no way to read values from hardware (if it is =
+
+> running or not)
+> =
+
+> We are in same case of intel-mid_wdt.c driver, we have Uboot which can
+> =
+
+> leaves the watchdog running. So we need to force the kicking of our =
+
+> watchdog.
+> =
+
+
+"can" or "leaves" ? =
+
+
+Anyway, if that is the case, please follow the guidance from intel-mid_wdt.=
+c,
+and explain it accordingly. Alternatively, please explain why something like
+
+	ret =3D wdt_start(wdt_dev);
+        if (ret)
+                return ret;
+
+	/* Make sure the watchdog is serviced */
+        set_bit(WDOG_HW_RUNNING, &wdt_dev->status);
+
+would not work in your case, and why all that added complexity
+is needed.
+
+Thanks,
+Guenter
+
+> Thanks
+> =
+
+> Christophe
+> =
+
+> >
+> > Thanks,
+> > Guenter
+> >
+> >> Fixes:4332d113c66a ("watchdog: Add STM32 IWDG driver")
+> >> Signed-off-by: Christophe Roullier <christophe.roullier@st.com>
+> >> ---
+> >> =A0 drivers/watchdog/stm32_iwdg.c | 57 ++++++++++++++++++++++++-------=
+----
+> >> =A0 1 file changed, 40 insertions(+), 17 deletions(-)
+> >>
+> >> diff --git a/drivers/watchdog/stm32_iwdg.c =
+
+> >> b/drivers/watchdog/stm32_iwdg.c
+> >> index a3a329011a06..2b3be3b1c15b 100644
+> >> --- a/drivers/watchdog/stm32_iwdg.c
+> >> +++ b/drivers/watchdog/stm32_iwdg.c
+> >> @@ -87,8 +87,23 @@ static inline void reg_write(void __iomem *base, =
+
+> >> u32 reg, u32 val)
+> >> =A0 static int stm32_iwdg_start(struct watchdog_device *wdd)
+> >> =A0 {
+> >> =A0=A0=A0=A0=A0 struct stm32_iwdg *wdt =3D watchdog_get_drvdata(wdd);
+> >> -=A0=A0=A0 u32 tout, presc, iwdg_rlr, iwdg_pr, iwdg_sr;
+> >> -=A0=A0=A0 int ret;
+> >> +
+> >> +=A0=A0=A0 dev_dbg(wdd->parent, "%s\n", __func__);
+> >> +
+> >> +=A0=A0=A0 /*=A0 Start the watchdog */
+> >> +=A0=A0=A0 reg_write(wdt->regs, IWDG_KR, KR_KEY_ENABLE);
+> >> +
+> >> +=A0=A0=A0 /* reload watchdog */
+> >> +=A0=A0=A0 reg_write(wdt->regs, IWDG_KR, KR_KEY_RELOAD);
+> >> +
+> >> +=A0=A0=A0 set_bit(WDOG_HW_RUNNING, &wdd->status);
+> >> +=A0=A0=A0 return 0;
+> >> +}
+> >> +
+> >> +static int stm32_iwdg_setprescaler(struct watchdog_device *wdd)
+> >> +{
+> >> +=A0=A0=A0 struct stm32_iwdg *wdt =3D watchdog_get_drvdata(wdd);
+> >> +=A0=A0=A0 u32 tout, presc, iwdg_rlr, iwdg_pr;
+> >> =A0 =A0=A0=A0=A0=A0 dev_dbg(wdd->parent, "%s\n", __func__);
+> >> =A0 @@ -108,19 +123,6 @@ static int stm32_iwdg_start(struct =
+
+> >> watchdog_device *wdd)
+> >> =A0=A0=A0=A0=A0 /* set prescaler & reload registers */
+> >> =A0=A0=A0=A0=A0 reg_write(wdt->regs, IWDG_PR, iwdg_pr);
+> >> =A0=A0=A0=A0=A0 reg_write(wdt->regs, IWDG_RLR, iwdg_rlr);
+> >> -=A0=A0=A0 reg_write(wdt->regs, IWDG_KR, KR_KEY_ENABLE);
+> >> -
+> >> -=A0=A0=A0 /* wait for the registers to be updated (max 100ms) */
+> >> -=A0=A0=A0 ret =3D readl_relaxed_poll_timeout(wdt->regs + IWDG_SR, iwd=
+g_sr,
+> >> -=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0 !(iwdg_s=
+r & (SR_PVU | SR_RVU)),
+> >> -=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0 SLEEP_US=
+, TIMEOUT_US);
+> >> -=A0=A0=A0 if (ret) {
+> >> -=A0=A0=A0=A0=A0=A0=A0 dev_err(wdd->parent, "Fail to set prescaler, re=
+load regs\n");
+> >> -=A0=A0=A0=A0=A0=A0=A0 return ret;
+> >> -=A0=A0=A0 }
+> >> -
+> >> -=A0=A0=A0 /* reload watchdog */
+> >> -=A0=A0=A0 reg_write(wdt->regs, IWDG_KR, KR_KEY_RELOAD);
+> >> =A0 =A0=A0=A0=A0=A0 return 0;
+> >> =A0 }
+> >> @@ -131,6 +133,9 @@ static int stm32_iwdg_ping(struct watchdog_device =
+
+> >> *wdd)
+> >> =A0 =A0=A0=A0=A0=A0 dev_dbg(wdd->parent, "%s\n", __func__);
+> >> =A0 +=A0=A0=A0 /*=A0 Start the watchdog */
+> >> +=A0=A0=A0 reg_write(wdt->regs, IWDG_KR, KR_KEY_ENABLE);
+> >> +
+> >> =A0=A0=A0=A0=A0 /* reload watchdog */
+> >> =A0=A0=A0=A0=A0 reg_write(wdt->regs, IWDG_KR, KR_KEY_RELOAD);
+> >> =A0 @@ -140,12 +145,21 @@ static int stm32_iwdg_ping(struct =
+
+> >> watchdog_device *wdd)
+> >> =A0 static int stm32_iwdg_set_timeout(struct watchdog_device *wdd,
+> >> =A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0 unsigned int=
+ timeout)
+> >> =A0 {
+> >> +=A0=A0=A0 int ret;
+> >> +
+> >> =A0=A0=A0=A0=A0 dev_dbg(wdd->parent, "%s timeout: %d sec\n", __func__,=
+ timeout);
+> >> =A0 =A0=A0=A0=A0=A0 wdd->timeout =3D timeout;
+> >> =A0 -=A0=A0=A0 if (watchdog_active(wdd))
+> >> -=A0=A0=A0=A0=A0=A0=A0 return stm32_iwdg_start(wdd);
+> >> +=A0=A0=A0 if (watchdog_active(wdd)) {
+> >> +=A0=A0=A0=A0=A0=A0=A0 ret =3D stm32_iwdg_setprescaler(wdd);
+> >> +=A0=A0=A0=A0=A0=A0=A0 if (ret) {
+> >> +=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0 dev_err(wdd->parent, "failed to set=
+ prescaler\n");
+> >> +=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0 return ret;
+> >> +=A0=A0=A0=A0=A0=A0=A0 } else {
+> >> +=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0 return stm32_iwdg_start(wdd);
+> >> +=A0=A0=A0=A0=A0=A0=A0 }
+> >> +=A0=A0=A0 }
+> >> =A0 =A0=A0=A0=A0=A0 return 0;
+> >> =A0 }
+> >> @@ -262,12 +276,21 @@ static int stm32_iwdg_probe(struct =
+
+> >> platform_device *pdev)
+> >> =A0=A0=A0=A0=A0 watchdog_set_nowayout(wdd, WATCHDOG_NOWAYOUT);
+> >> =A0=A0=A0=A0=A0 watchdog_init_timeout(wdd, 0, dev);
+> >> =A0 +=A0=A0=A0 /* Make sure the watchdog is serviced */
+> >> +=A0=A0=A0 set_bit(WDOG_HW_RUNNING, &wdd->status);
+> >> +
+> >> =A0=A0=A0=A0=A0 ret =3D devm_watchdog_register_device(dev, wdd);
+> >> =A0=A0=A0=A0=A0 if (ret)
+> >> =A0=A0=A0=A0=A0=A0=A0=A0=A0 return ret;
+> >> =A0 =A0=A0=A0=A0=A0 platform_set_drvdata(pdev, wdt);
+> >> =A0 +=A0=A0=A0 ret =3D stm32_iwdg_setprescaler(wdd);
+> >> +=A0=A0=A0 if (ret) {
+> >> +=A0=A0=A0=A0=A0=A0=A0 dev_err(dev, "failed to set prescaler\n");
+> >> +=A0=A0=A0=A0=A0=A0=A0 return ret;
+> >> +=A0=A0=A0 }
+> >> +
+> >> =A0=A0=A0=A0=A0 return 0;
+> >> =A0 }
+> >>
+> >
+_______________________________________________
+Linux-stm32 mailing list
+Linux-stm32@st-md-mailman.stormreply.com
+https://st-md-mailman.stormreply.com/mailman/listinfo/linux-stm32
