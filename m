@@ -2,57 +2,44 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id 4CE67105A7E
-	for <lists+linux-stm32@lfdr.de>; Thu, 21 Nov 2019 20:39:35 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 0076E105EF0
+	for <lists+linux-stm32@lfdr.de>; Fri, 22 Nov 2019 04:14:25 +0100 (CET)
 Received: from ip-172-31-3-76.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 0BF9FC36B0B;
-	Thu, 21 Nov 2019 19:39:35 +0000 (UTC)
-Received: from mail-oi1-f194.google.com (mail-oi1-f194.google.com
- [209.85.167.194])
- (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id AE5F0C36B0B;
+	Fri, 22 Nov 2019 03:14:24 +0000 (UTC)
+Received: from shards.monkeyblade.net (shards.monkeyblade.net [23.128.96.9])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id A1367C36B09
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 73F73C36B09
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Thu, 21 Nov 2019 19:39:32 +0000 (UTC)
-Received: by mail-oi1-f194.google.com with SMTP id 14so4262170oir.12
- for <linux-stm32@st-md-mailman.stormreply.com>;
- Thu, 21 Nov 2019 11:39:32 -0800 (PST)
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20161025;
- h=x-gm-message-state:date:from:to:cc:subject:message-id:references
- :mime-version:content-disposition:in-reply-to:user-agent;
- bh=c4KjpD+ns0ACXFE5v6l81aoQVHuHJsxlS4JefMC5EMY=;
- b=r0mtYAOYENcbJlWjeVa+arIBCd90pOLsPMIq7srWexnE8CxeqRdaoYIJ/3e5idSmcn
- KXqxkOGYRkCfPvkxepQJQUzLLHlswVbpIMihWaleOSsajmgBqqHFj7nUULUuNIdShgVM
- 7GFMOQExFRE2V7Hw8mJl+4Wm+rK3T+sxapUwBbRoCao/yRo6EnKmeLH2JsFsVoKlNUIJ
- PjaCp4a4ArPbsoCFTntylVlDC2TCe66uTL7L9a3Rxi5RWHPvA8/QV2ufrhUNQ8mcCFab
- I4solyWYIc8zbprQ3Rn6g/DS+fM4lkN1D+rq5bXZyaHgoU+OEvsJVhzMCvY+LZMS4czs
- DFEQ==
-X-Gm-Message-State: APjAAAX18qfkJSH8ctfNiBy//842kExwKhDSWJ71xJ4bX6DQ3QZwIofB
- JLpQk4ztb8B4+DzQvIhalLcXcvw=
-X-Google-Smtp-Source: APXvYqw+O/5gVYMGrcCumNOlMYDrrdD4XmwLhJA1mxJFW4xVlHhGW1dwTOU1ghWvK2UUGvx0UeKwSA==
-X-Received: by 2002:aca:1715:: with SMTP id j21mr8631035oii.6.1574365171174;
- Thu, 21 Nov 2019 11:39:31 -0800 (PST)
-Received: from localhost (24-155-109-49.dyn.grandenetworks.net.
- [24.155.109.49])
- by smtp.gmail.com with ESMTPSA id u204sm1229289oig.35.2019.11.21.11.39.29
- (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Thu, 21 Nov 2019 11:39:30 -0800 (PST)
-Date: Thu, 21 Nov 2019 13:39:29 -0600
-From: Rob Herring <robh@kernel.org>
-To: Alain Volmat <alain.volmat@st.com>
-Message-ID: <20191121193929.GA6676@bogus>
-References: <1574342866-8348-1-git-send-email-alain.volmat@st.com>
-MIME-Version: 1.0
-Content-Disposition: inline
-In-Reply-To: <1574342866-8348-1-git-send-email-alain.volmat@st.com>
-User-Agent: Mutt/1.10.1 (2018-07-13)
-Cc: mark.rutland@arm.com, devicetree@vger.kernel.org, wsa@the-dreams.de,
- linux-kernel@vger.kernel.org, pierre-yves.mordret@st.com, robh+dt@kernel.org,
- linux-i2c@vger.kernel.org, mcoquelin.stm32@gmail.com, fabrice.gasnier@st.com,
- linux-stm32@st-md-mailman.stormreply.com, linux-arm-kernel@lists.infradead.org
-Subject: Re: [Linux-stm32] [PATCH v2] dt-bindings: i2c: stm32: Migrate
- i2c-stm32 documentation to yaml
+ Fri, 22 Nov 2019 03:14:22 +0000 (UTC)
+Received: from localhost (c-73-35-209-67.hsd1.wa.comcast.net [73.35.209.67])
+ (using TLSv1 with cipher AES256-SHA (256/256 bits))
+ (Client did not present a certificate)
+ (Authenticated sender: davem-davemloft)
+ by shards.monkeyblade.net (Postfix) with ESMTPSA id 4376C15102FA7;
+ Thu, 21 Nov 2019 19:14:19 -0800 (PST)
+Date: Thu, 21 Nov 2019 19:14:17 -0800 (PST)
+Message-Id: <20191121.191417.1339124115325210078.davem@davemloft.net>
+To: rmk+kernel@armlinux.org.uk
+From: David Miller <davem@davemloft.net>
+In-Reply-To: <E1iXaSM-0004t1-9L@rmk-PC.armlinux.org.uk>
+References: <E1iXaSM-0004t1-9L@rmk-PC.armlinux.org.uk>
+X-Mailer: Mew version 6.8 on Emacs 26.2
+Mime-Version: 1.0
+X-Greylist: Sender succeeded SMTP AUTH, not delayed by milter-greylist-4.5.12
+ (shards.monkeyblade.net [149.20.54.216]);
+ Thu, 21 Nov 2019 19:14:20 -0800 (PST)
+Cc: andrew@lunn.ch, nbd@openwrt.org, f.fainelli@gmail.com,
+ netdev@vger.kernel.org, sean.wang@mediatek.com,
+ linux-stm32@st-md-mailman.stormreply.com, nicolas.ferre@microchip.com,
+ vivien.didelot@gmail.com, michal.simek@xilinx.com, joabreu@synopsys.com,
+ linux-mediatek@lists.infradead.org, linux-arm-kernel@lists.infradead.org,
+ thomas.petazzoni@bootlin.com, john@phrozen.org, matthias.bgg@gmail.com,
+ peppe.cavallaro@st.com, radhey.shyam.pandey@xilinx.com,
+ Mark-MC.Lee@mediatek.com, mcoquelin.stm32@gmail.com, hkallweit1@gmail.com
+Subject: Re: [Linux-stm32] [CFT PATCH net-next v2] net: phylink: rename
+ mac_link_state() op to mac_pcs_get_state()
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -69,28 +56,32 @@ Content-Transfer-Encoding: 7bit
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
-On Thu, 21 Nov 2019 14:27:46 +0100, Alain Volmat wrote:
-> The document was migrated to Yaml format and renamed st,stm32-i2c.yaml
-> 
-> Signed-off-by: Alain Volmat <alain.volmat@st.com>
-> ---
-> v2: remove i2c-scl.*time description, ref (moved into i2c-controller.yaml
->     push the st,syscfg-fmt into the if compatible st,stm32f7 part
->     fix the st,syscfg-fmt ref syntax and set minItems/maxItems to 3
->     make the clock-frequency part common and only keep enum in the st,stm32f4 case
->     remove unnecesary minItems/maxItems
->     remove address-cells/size-cells from required fields
-> ---
->  .../devicetree/bindings/i2c/i2c-stm32.txt          |  65 ----------
->  .../devicetree/bindings/i2c/st,stm32-i2c.yaml      | 141 +++++++++++++++++++++
->  2 files changed, 141 insertions(+), 65 deletions(-)
->  delete mode 100644 Documentation/devicetree/bindings/i2c/i2c-stm32.txt
->  create mode 100644 Documentation/devicetree/bindings/i2c/st,stm32-i2c.yaml
-> 
+From: Russell King <rmk+kernel@armlinux.org.uk>
+Date: Thu, 21 Nov 2019 00:36:22 +0000
 
-Applied, thanks.
+> Rename the mac_link_state() method to mac_pcs_get_state() to make it
+> clear that it should be returning the MACs PCS current state, which
+> is used for inband negotiation rather than just reading back what the
+> MAC has been configured for. Update the documentation to explicitly
+> mention that this is for inband.
+> 
+> We drop the return value as well; most of phylink doesn't check the
+> return value and it is not clear what it should do on error - instead
+> arrange for state->link to be false.
+> 
+> Signed-off-by: Russell King <rmk+kernel@armlinux.org.uk>
+> ---
+> This is something I'd like to do to make it clearer what phylink
+> expects of this function, and that it shouldn't just read-back how
+> the MAC was configured.
+> 
+> This version drops the deeper changes, concentrating just on the
+> phylink API rather than delving deeper into drivers, as I haven't
+> received any feedback on that patch.
+> 
+> It would be nice to see all these drivers tested with this change.
 
-Rob
+I'm tempted to just apply this, any objections?
 _______________________________________________
 Linux-stm32 mailing list
 Linux-stm32@st-md-mailman.stormreply.com
