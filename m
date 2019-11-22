@@ -2,38 +2,38 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id 17011106796
+	by mail.lfdr.de (Postfix) with ESMTPS id 129CB106794
 	for <lists+linux-stm32@lfdr.de>; Fri, 22 Nov 2019 09:13:27 +0100 (CET)
 Received: from ip-172-31-3-76.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 68F1BC36B0B;
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 7CC75C36B0F;
 	Fri, 22 Nov 2019 08:13:26 +0000 (UTC)
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
  (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 6FA4EC36B09
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id ADDF0C36B09
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Fri, 22 Nov 2019 05:30:18 +0000 (UTC)
+ Fri, 22 Nov 2019 05:49:27 +0000 (UTC)
 Received: from sasha-vm.mshome.net (c-73-47-72-35.hsd1.nh.comcast.net
  [73.47.72.35])
  (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by mail.kernel.org (Postfix) with ESMTPSA id 09CBE20707;
- Fri, 22 Nov 2019 05:30:15 +0000 (UTC)
+ by mail.kernel.org (Postfix) with ESMTPSA id 43DC82070A;
+ Fri, 22 Nov 2019 05:49:25 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
- s=default; t=1574400617;
+ s=default; t=1574401766;
  bh=HwrdliP4e2KnHoiiMFsQZ6eO7u3d7tT5XWKqlt9m2F4=;
  h=From:To:Cc:Subject:Date:In-Reply-To:References:From;
- b=tzyaqecjlMYhZ35X5nZz/M/SBwQZqNlrP1hvsxhPF6YhqQwdN3uUVJ9wXYREZnbqZ
- 9PyiJ3+dloxISMolhQUURVeYa3HeT70nTnQlUYlXHV0kxHJXfAFqm8iYQPVOIWONEv
- w+08QScxbnvkukSDIAud/EoRp8yiX/+Te6i3q7f8=
+ b=x9NgTKehk3TpbcX32KKf/Ip69oGyp6Jvz9Cy8BfHM0+Ok8qDnRMCRg2ZS+M54agVz
+ GjBO+fXY0jcJ2aWkEXGaEAnW5+0isCbj8fg8I+F+d4U5l69NQNiuzMpkr3yMoimTk0
+ 7tva1vutYeYKX2vdP6sFNpxH19BjkqtwWSXpjkuE=
 From: Sasha Levin <sashal@kernel.org>
 To: linux-kernel@vger.kernel.org,
 	stable@vger.kernel.org
-Date: Fri, 22 Nov 2019 00:26:39 -0500
-Message-Id: <20191122053001.752-10-sashal@kernel.org>
+Date: Fri, 22 Nov 2019 00:45:49 -0500
+Message-Id: <20191122054911.1750-10-sashal@kernel.org>
 X-Mailer: git-send-email 2.20.1
-In-Reply-To: <20191122053001.752-1-sashal@kernel.org>
-References: <20191122053001.752-1-sashal@kernel.org>
+In-Reply-To: <20191122054911.1750-1-sashal@kernel.org>
+References: <20191122054911.1750-1-sashal@kernel.org>
 MIME-Version: 1.0
 X-stable: review
 X-Patchwork-Hint: Ignore
