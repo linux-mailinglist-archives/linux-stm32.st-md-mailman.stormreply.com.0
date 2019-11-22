@@ -2,44 +2,58 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id 56C0D1069F3
-	for <lists+linux-stm32@lfdr.de>; Fri, 22 Nov 2019 11:28:53 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id C5C7A106AEF
+	for <lists+linux-stm32@lfdr.de>; Fri, 22 Nov 2019 11:39:58 +0100 (CET)
 Received: from ip-172-31-3-76.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 19AD6C36B0B;
-	Fri, 22 Nov 2019 10:28:53 +0000 (UTC)
-Received: from metis.ext.pengutronix.de (metis.ext.pengutronix.de
- [85.220.165.71])
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id BF273C36B0B;
+	Fri, 22 Nov 2019 10:39:57 +0000 (UTC)
+Received: from mx07-00178001.pphosted.com (mx08-00178001.pphosted.com
+ [91.207.212.93])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id E291AC36B09
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id B7F5CC36B09
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Fri, 22 Nov 2019 10:28:51 +0000 (UTC)
-Received: from gallifrey.ext.pengutronix.de
- ([2001:67c:670:201:5054:ff:fe8d:eefb] helo=[IPv6:::1])
- by metis.ext.pengutronix.de with esmtp (Exim 4.92)
- (envelope-from <a.fatoum@pengutronix.de>)
- id 1iY6BF-0002Iy-Qd; Fri, 22 Nov 2019 11:28:49 +0100
-From: Ahmad Fatoum <a.fatoum@pengutronix.de>
-To: Christophe Roullier <christophe.roullier@st.com>, wim@linux-watchdog.org, 
- linux@roeck-us.net, mcoquelin.stm32@gmail.com, alexandre.torgue@st.com
-References: <20191122082442.21695-1-christophe.roullier@st.com>
-Message-ID: <ea80ec65-8621-453c-4d5b-af38d8afeb70@pengutronix.de>
-Date: Fri, 22 Nov 2019 11:28:47 +0100
-User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:60.0) Gecko/20100101
- Thunderbird/60.9.0
+ Fri, 22 Nov 2019 10:39:56 +0000 (UTC)
+Received: from pps.filterd (m0046661.ppops.net [127.0.0.1])
+ by mx08-00178001.pphosted.com (8.16.0.42/8.16.0.42) with SMTP id
+ xAMAddRd023808; Fri, 22 Nov 2019 11:39:44 +0100
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=st.com;
+ h=from : to : cc : subject
+ : date : message-id : mime-version : content-type; s=STMicroelectronics;
+ bh=Yb4uCeALV8Ui44IqHMV+f+MNdt/2wAzvgT9C57Q3BZw=;
+ b=gYNaqs3+QC6W3lndyyz8UqbqmpEyOIZp1U1iZ28HGNjAXmZW/dWrvDAesNWYWg3CXIuZ
+ W4rOFR9Qy/VZ3QQzNzN7VIfuYbDvN8rQmoHY92ynRaDGrF/WH5HmACEoGiloOgENoLR7
+ CtqIUfkKscVnBACUQbXZZYRrnj1tqX8W39Iv106aYETYA6bL10VcDxK+JhSNxEkeqC+q
+ Itashsf+Py7ul0X53zWXSXIXrmRkatC7mqLXOJhV4uVDmMdVXdIQNyRoJvrhxIcdOsge
+ tRoiUnfzUqyGihNiGj2xT/yMsxz+fpxiJm5x10a1RxqTxjWkv2U9Io82eNNKUyLbbtcP 9A== 
+Received: from beta.dmz-eu.st.com (beta.dmz-eu.st.com [164.129.1.35])
+ by mx08-00178001.pphosted.com with ESMTP id 2wa9uvrqa0-1
+ (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
+ Fri, 22 Nov 2019 11:39:44 +0100
+Received: from euls16034.sgp.st.com (euls16034.sgp.st.com [10.75.44.20])
+ by beta.dmz-eu.st.com (STMicroelectronics) with ESMTP id 41F31100034;
+ Fri, 22 Nov 2019 11:39:43 +0100 (CET)
+Received: from Webmail-eu.st.com (sfhdag3node2.st.com [10.75.127.8])
+ by euls16034.sgp.st.com (STMicroelectronics) with ESMTP id 133DA2B56A1;
+ Fri, 22 Nov 2019 11:39:43 +0100 (CET)
+Received: from localhost (10.75.127.51) by SFHDAG3NODE2.st.com (10.75.127.8)
+ with Microsoft SMTP Server (TLS) id 15.0.1347.2; Fri, 22 Nov 2019 11:39:42
+ +0100
+From: Alexandre Torgue <alexandre.torgue@st.com>
+To: Rob Herring <robh+dt@kernel.org>, Mark Rutland <mark.rutland@arm.com>
+Date: Fri, 22 Nov 2019 11:39:42 +0100
+Message-ID: <20191122103942.23572-1-alexandre.torgue@st.com>
+X-Mailer: git-send-email 2.17.1
 MIME-Version: 1.0
-In-Reply-To: <20191122082442.21695-1-christophe.roullier@st.com>
-Content-Language: en-US
-X-SA-Exim-Connect-IP: 2001:67c:670:201:5054:ff:fe8d:eefb
-X-SA-Exim-Mail-From: a.fatoum@pengutronix.de
-X-SA-Exim-Scanned: No (on metis.ext.pengutronix.de);
- SAEximRunCond expanded to false
-X-PTX-Original-Recipient: linux-stm32@st-md-mailman.stormreply.com
-Cc: kernel@pengutronix.de, linux-watchdog@vger.kernel.org,
- linux-kernel@vger.kernel.org, linux-arm-kernel@lists.infradead.org,
- linux-stm32@st-md-mailman.stormreply.com
-Subject: Re: [Linux-stm32] [PATCH v2 1/1] drivers: watchdog: stm32_iwdg: set
- WDOG_HW_RUNNING at probe
+X-Originating-IP: [10.75.127.51]
+X-ClientProxiedBy: SFHDAG4NODE1.st.com (10.75.127.10) To SFHDAG3NODE2.st.com
+ (10.75.127.8)
+X-Proofpoint-Virus-Version: vendor=fsecure engine=2.50.10434:6.0.95,18.0.572
+ definitions=2019-11-22_02:2019-11-21,2019-11-22 signatures=0
+Cc: devicetree@vger.kernel.org, linux-stm32@st-md-mailman.stormreply.com,
+ linux-kernel@vger.kernel.org, linux-arm-kernel@lists.infradead.org
+Subject: [Linux-stm32] [PATCH] dt-bindings: arm: stm32: Convert stm32-syscon
+	to json-schema
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -56,28 +70,82 @@ Content-Transfer-Encoding: 7bit
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
-Hello Christophe,
+Convert the STM32 syscon binding to DT schema format using json-schema.
 
-On 11/22/19 9:24 AM, Christophe Roullier wrote:
-> +	/*
-> +	 * In case of CONFIG_WATCHDOG_HANDLE_BOOT_ENABLED is set
-> +	 * (Means U-Boot/bootloaders leaves the watchdog running)
-> +	 * When we get here we should make a decision to prevent
-> +	 * any side effects before user space daemon will take care of it.
-> +	 * The best option, taking into consideration that there is no
-> +	 * way to read values back from hardware, is to enforce watchdog
-> +	 * being run with deterministic values.
+Signed-off-by: Alexandre Torgue <alexandre.torgue@st.com>
 
-What about the "ONF: Watchdog enable status bit" in the IWDG_SR register?
-
-Cheers
-Ahmad
-
+diff --git a/Documentation/devicetree/bindings/arm/stm32/st,stm32-syscon.yaml b/Documentation/devicetree/bindings/arm/stm32/st,stm32-syscon.yaml
+new file mode 100644
+index 000000000000..0dedf94c8578
+--- /dev/null
++++ b/Documentation/devicetree/bindings/arm/stm32/st,stm32-syscon.yaml
+@@ -0,0 +1,41 @@
++# SPDX-License-Identifier: (GPL-2.0 OR BSD-2-Clause)
++%YAML 1.2
++---
++$id: "http://devicetree.org/schemas/arm/stm32/st,stm32-syscon.yaml#"
++$schema: "http://devicetree.org/meta-schemas/core.yaml#"
++
++title: STMicroelectronics STM32 Platforms System Controller bindings
++
++maintainers:
++  - Alexandre Torgue <alexandre.torgue@st.com>
++  - Christophe Roullier <christophe.roullier@st.com>
++
++properties:
++  compatible:
++    oneOf:
++      - items:
++        - enum:
++          - st,stm32mp157-syscfg
++        - const: syscon
++
++  reg:
++    maxItems: 1
++
++  clocks:
++    maxItems: 1
++
++required:
++  - compatible
++  - reg
++  - clocks
++
++examples:
++  - |
++    #include <dt-bindings/clock/stm32mp1-clks.h>
++    syscfg: syscon@50020000 {
++        compatible = "st,stm32mp157-syscfg", "syscon";
++        reg = <0x50020000 0x400>;
++        clocks = <&rcc SYSCFG>;
++    };
++
++...
+diff --git a/Documentation/devicetree/bindings/arm/stm32/stm32-syscon.txt b/Documentation/devicetree/bindings/arm/stm32/stm32-syscon.txt
+deleted file mode 100644
+index c92d411fd023..000000000000
+--- a/Documentation/devicetree/bindings/arm/stm32/stm32-syscon.txt
++++ /dev/null
+@@ -1,16 +0,0 @@
+-STMicroelectronics STM32 Platforms System Controller
+-
+-Properties:
+-   - compatible : should contain two values. First value must be :
+-                 - " st,stm32mp157-syscfg " - for stm32mp157 based SoCs,
+-                 second value must be always "syscon".
+-   - reg : offset and length of the register set.
+-   - clocks: phandle to the syscfg clock
+-
+- Example:
+-         syscfg: syscon@50020000 {
+-                 compatible = "st,stm32mp157-syscfg", "syscon";
+-                 reg = <0x50020000 0x400>;
+-                 clocks = <&rcc SYSCFG>;
+-         };
+-
 -- 
-Pengutronix e.K.                           |                             |
-Steuerwalder Str. 21                       | https://www.pengutronix.de/ |
-31137 Hildesheim, Germany                  | Phone: +49-5121-206917-0    |
-Amtsgericht Hildesheim, HRA 2686           | Fax:   +49-5121-206917-5555 |
+2.17.1
+
 _______________________________________________
 Linux-stm32 mailing list
 Linux-stm32@st-md-mailman.stormreply.com
