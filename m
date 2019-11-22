@@ -2,65 +2,33 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id 43D5610771C
-	for <lists+linux-stm32@lfdr.de>; Fri, 22 Nov 2019 19:15:19 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 5D94410790D
+	for <lists+linux-stm32@lfdr.de>; Fri, 22 Nov 2019 20:55:47 +0100 (CET)
 Received: from ip-172-31-3-76.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 2AE32C36B0B;
-	Fri, 22 Nov 2019 18:15:18 +0000 (UTC)
-Received: from mail-ot1-f67.google.com (mail-ot1-f67.google.com
- [209.85.210.67])
- (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
- (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id F1B13C36B09
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 00AC3C36B0B;
+	Fri, 22 Nov 2019 19:55:46 +0000 (UTC)
+Received: from foss.arm.com (foss.arm.com [217.140.110.172])
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 3CCF1C36B09
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Fri, 22 Nov 2019 18:15:16 +0000 (UTC)
-Received: by mail-ot1-f67.google.com with SMTP id f10so6985659oto.3
- for <linux-stm32@st-md-mailman.stormreply.com>;
- Fri, 22 Nov 2019 10:15:16 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20161025;
- h=sender:date:from:to:cc:subject:message-id:references:mime-version
- :content-disposition:in-reply-to:user-agent;
- bh=ETqvKsN8Ki2d6xHH8hTbXwpsKjbO3HfYiexCJg5rHps=;
- b=Vz3gQ6O1BkWhfRXtLHeOZ1T4j0hc4HluEkr2GeygkgSlXNXYYls21eZu5tBmUxU+b0
- vujx+tMFlVWeq6L7c40pdigm6tdfzY+MBy430YjI91yH9k0WvHBwSELP2kByBZVikZIG
- 40FJeXLCZrR2RuSbOsQxawVgBZ8YTfm36yX6kbjcsZyB0rtBH5OcPXNQrQ2mVaIxg0jI
- LLGoxqrDBzEvEVJ9Dn0joSrhUGIxdqivs5KIbC2/hIf5aeNpxRmeLJbE1uojbgcMDVn4
- eIDnamhHvrUYwjVCQmhijVLTXA7429vX9v4ZKh7JuBc6nORGyuKZZmZLF8UXPIurGpzX
- vHcA==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20161025;
- h=x-gm-message-state:sender:date:from:to:cc:subject:message-id
- :references:mime-version:content-disposition:in-reply-to:user-agent;
- bh=ETqvKsN8Ki2d6xHH8hTbXwpsKjbO3HfYiexCJg5rHps=;
- b=eqK6hi0Syh3kVfpxVa7XXUFWijyU6wOPprvAi5qpa62brO7Q4KcaRujA8dmeRB/zOh
- ez4WveAwvhI70DWTCG+61vkD8Q3Y+8BAq9MT1utczWRWeHJEO4BcblLtOpRXE1H6XGxS
- LPl3VexoUmsaS0760MrrEVJIXWmEh6S4BXJTWUMIHs2a1vMS+GGyP0IAIwi2wDeq3cCo
- TWQ6nVJegRIPja7/HT0QrEc0HMnj6rNIPX81tDkgn9lsNb4PFNXoHPbSRbiZslFfMQdF
- 8Zne36h0s8ghns1QOplP/EEsZSDycEBYj/XcAdu5blTjlVbRvMvjTbUdxBP2mk0l0CoZ
- 5bPA==
-X-Gm-Message-State: APjAAAUAaxrgUUXeCdOQpKanEWb+/EuPOCc+S7SBk9isKyuISSvTbC0l
- 61Ypk9voOdnHn4iK4edo+bY=
-X-Google-Smtp-Source: APXvYqwBL0X8maNi1+glH+XvII4//7Sep1yviT3f2IJKTzhTVDnXRxb6iMDaSdRlzAFvgdA3hxqlRg==
-X-Received: by 2002:a9d:3b0:: with SMTP id f45mr4071239otf.92.1574446515684;
- Fri, 22 Nov 2019 10:15:15 -0800 (PST)
-Received: from localhost ([2600:1700:e321:62f0:329c:23ff:fee3:9d7c])
- by smtp.gmail.com with ESMTPSA id e23sm2391977otk.73.2019.11.22.10.15.14
- (version=TLS1_2 cipher=ECDHE-RSA-CHACHA20-POLY1305 bits=256/256);
- Fri, 22 Nov 2019 10:15:15 -0800 (PST)
-Date: Fri, 22 Nov 2019 10:15:13 -0800
-From: Guenter Roeck <linux@roeck-us.net>
-To: Christophe Roullier <christophe.roullier@st.com>
-Message-ID: <20191122181513.GF13514@roeck-us.net>
-References: <20191122132246.8473-1-christophe.roullier@st.com>
-MIME-Version: 1.0
-Content-Disposition: inline
-In-Reply-To: <20191122132246.8473-1-christophe.roullier@st.com>
-User-Agent: Mutt/1.9.4 (2018-02-28)
-Cc: linux-kernel@vger.kernel.org, mcoquelin.stm32@gmail.com,
- wim@linux-watchdog.org, linux-stm32@st-md-mailman.stormreply.com,
- linux-arm-kernel@lists.infradead.org, linux-watchdog@vger.kernel.org
-Subject: Re: [Linux-stm32] [PATCH v3 1/1] drivers: watchdog: stm32_iwdg: set
- WDOG_HW_RUNNING at probe
+ Fri, 22 Nov 2019 19:55:44 +0000 (UTC)
+Received: from usa-sjc-imap-foss1.foss.arm.com (unknown [10.121.207.14])
+ by usa-sjc-mx-foss1.foss.arm.com (Postfix) with ESMTP id 9CE56113E;
+ Fri, 22 Nov 2019 11:55:43 -0800 (PST)
+Received: from localhost (unknown [10.37.6.21])
+ by usa-sjc-imap-foss1.foss.arm.com (Postfix) with ESMTPSA id 1A5BF3F6C4;
+ Fri, 22 Nov 2019 11:55:42 -0800 (PST)
+Date: Fri, 22 Nov 2019 19:55:41 +0000
+From: Mark Brown <broonie@kernel.org>
+To: Benjamin Gaignard <benjamin.gaignard@st.com>
+In-Reply-To: <20191120194444.10540-1-benjamin.gaignard@st.com>
+Message-Id: <applied-20191120194444.10540-1-benjamin.gaignard@st.com>
+X-Patchwork-Hint: ignore
+Cc: mark.rutland@arm.com, devicetree@vger.kernel.org,
+ linux-kernel@vger.kernel.org, robh+dt@kernel.org, linux-spi@vger.kernel.org,
+ Mark Brown <broonie@kernel.org>, linux-stm32@st-md-mailman.stormreply.com,
+ linux-arm-kernel@lists.infradead.org
+Subject: [Linux-stm32] Applied "dt-bindings: spi: Convert stm32 QSPI
+	bindings to json-schema" to the spi tree
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -72,77 +40,202 @@ List-Post: <mailto:linux-stm32@st-md-mailman.stormreply.com>
 List-Help: <mailto:linux-stm32-request@st-md-mailman.stormreply.com?subject=help>
 List-Subscribe: <https://st-md-mailman.stormreply.com/mailman/listinfo/linux-stm32>, 
  <mailto:linux-stm32-request@st-md-mailman.stormreply.com?subject=subscribe>
+MIME-Version: 1.0
 Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
-On Fri, Nov 22, 2019 at 02:22:46PM +0100, Christophe Roullier wrote:
-> If the watchdog hardware is already enabled during the boot process,
-> when the Linux watchdog driver loads, it should start/reset the watchdog
-> and tell the watchdog framework. As a result, ping can be generated from
-> the watchdog framework (if CONFIG_WATCHDOG_HANDLE_BOOT_ENABLED is set),
-> until the userspace watchdog daemon takes over control
-> 
-> Fixes:4332d113c66a ("watchdog: Add STM32 IWDG driver")
-> 
-> Signed-off-by: Christophe Roullier <christophe.roullier@st.com>
+The patch
 
-Reviewed-by: Guenter Roeck <linux@roeck-us.net>
+   dt-bindings: spi: Convert stm32 QSPI bindings to json-schema
 
-> ---
-> Changes since v2:
-> According to Guenter
-> removed intermediate variable
-> 
-> I've tested some config and it is working as expected:
-> Watchdog enable in Uboot + HANDLE_BOOT_ENABLE is not set + daemon watchdog in userland ON ==> No reset IWDG2
-> Watchdog enable in Uboot + HANDLE_BOOT_ENABLE is not set ==> Reset IWDG2
-> Watchdog enable in Uboot + HANDLE_BOOT_ENABLE=y ==> No reset IWDG2
-> Watchdog enable in Uboot + HANDLE_BOOT_ENABLE=y + daemon watchdog in userland ON puis OFF ==> Reset IWDG2
-> Watchdog disable in Uboot + HANDLE_BOOT_ENABLE is not set ==> No reset IWDG2
-> Watchdog disable in Uboot + HANDLE_BOOT_ENABLE=y ==> No reset IWDG2
-> Watchdog disable in Uboot + HANDLE_BOOT_ENABLE=y + daemon watchdog in userland ON ==> No reset IWDG2
-> Watchdog disable in Uboot + HANDLE_BOOT_ENABLE=y + daemon watchdog in userland ON puis OFF ==> Reset IWDG2
-> 
-> Thanks,
-> Christophe
-> 
->  drivers/watchdog/stm32_iwdg.c | 18 ++++++++++++++++++
->  1 file changed, 18 insertions(+)
-> 
-> diff --git a/drivers/watchdog/stm32_iwdg.c b/drivers/watchdog/stm32_iwdg.c
-> index a3a329011a06..25188d6bbe15 100644
-> --- a/drivers/watchdog/stm32_iwdg.c
-> +++ b/drivers/watchdog/stm32_iwdg.c
-> @@ -262,6 +262,24 @@ static int stm32_iwdg_probe(struct platform_device *pdev)
->  	watchdog_set_nowayout(wdd, WATCHDOG_NOWAYOUT);
->  	watchdog_init_timeout(wdd, 0, dev);
->  
-> +	/*
-> +	 * In case of CONFIG_WATCHDOG_HANDLE_BOOT_ENABLED is set
-> +	 * (Means U-Boot/bootloaders leaves the watchdog running)
-> +	 * When we get here we should make a decision to prevent
-> +	 * any side effects before user space daemon will take care of it.
-> +	 * The best option, taking into consideration that there is no
-> +	 * way to read values back from hardware, is to enforce watchdog
-> +	 * being run with deterministic values.
-> +	 */
-> +	if (IS_ENABLED(CONFIG_WATCHDOG_HANDLE_BOOT_ENABLED)) {
-> +		ret = stm32_iwdg_start(wdd);
-> +		if (ret)
-> +			return ret;
-> +
-> +		/* Make sure the watchdog is serviced */
-> +		set_bit(WDOG_HW_RUNNING, &wdd->status);
-> +	}
-> +
->  	ret = devm_watchdog_register_device(dev, wdd);
->  	if (ret)
->  		return ret;
-> -- 
-> 2.17.1
-> 
+has been applied to the spi tree at
+
+   https://git.kernel.org/pub/scm/linux/kernel/git/broonie/spi.git for-5.5
+
+All being well this means that it will be integrated into the linux-next
+tree (usually sometime in the next 24 hours) and sent to Linus during
+the next merge window (or sooner if it is a bug fix), however if
+problems are discovered then the patch may be dropped or reverted.  
+
+You may get further e-mails resulting from automated or manual testing
+and review of the tree, please engage with people reporting problems and
+send followup patches addressing any issues that are reported if needed.
+
+If any updates are required or you are submitting further changes they
+should be sent as incremental updates against current git, existing
+patches will not be replaced.
+
+Please add any relevant lists and maintainers to the CCs when replying
+to this mail.
+
+Thanks,
+Mark
+
+From ffa119f7c42d29be2dd759bb18cc4d1f45804c6b Mon Sep 17 00:00:00 2001
+From: Benjamin Gaignard <benjamin.gaignard@st.com>
+Date: Wed, 20 Nov 2019 20:44:44 +0100
+Subject: [PATCH] dt-bindings: spi: Convert stm32 QSPI bindings to json-schema
+
+Convert the STM32 QSPI binding to DT schema format using json-schema
+
+Signed-off-by: Benjamin Gaignard <benjamin.gaignard@st.com>
+Reviewed-by: Rob Herring <robh@kernel.org>
+Link: https://lore.kernel.org/r/20191120194444.10540-1-benjamin.gaignard@st.com
+Signed-off-by: Mark Brown <broonie@kernel.org>
+---
+ .../bindings/spi/spi-stm32-qspi.txt           | 47 -----------
+ .../bindings/spi/st,stm32-qspi.yaml           | 83 +++++++++++++++++++
+ 2 files changed, 83 insertions(+), 47 deletions(-)
+ delete mode 100644 Documentation/devicetree/bindings/spi/spi-stm32-qspi.txt
+ create mode 100644 Documentation/devicetree/bindings/spi/st,stm32-qspi.yaml
+
+diff --git a/Documentation/devicetree/bindings/spi/spi-stm32-qspi.txt b/Documentation/devicetree/bindings/spi/spi-stm32-qspi.txt
+deleted file mode 100644
+index bfc038b9478d..000000000000
+--- a/Documentation/devicetree/bindings/spi/spi-stm32-qspi.txt
++++ /dev/null
+@@ -1,47 +0,0 @@
+-* STMicroelectronics Quad Serial Peripheral Interface(QSPI)
+-
+-Required properties:
+-- compatible: should be "st,stm32f469-qspi"
+-- reg: the first contains the register location and length.
+-       the second contains the memory mapping address and length
+-- reg-names: should contain the reg names "qspi" "qspi_mm"
+-- interrupts: should contain the interrupt for the device
+-- clocks: the phandle of the clock needed by the QSPI controller
+-- A pinctrl must be defined to set pins in mode of operation for QSPI transfer
+-
+-Optional properties:
+-- resets: must contain the phandle to the reset controller.
+-
+-A spi flash (NOR/NAND) must be a child of spi node and could have some
+-properties. Also see jedec,spi-nor.txt.
+-
+-Required properties:
+-- reg: chip-Select number (QSPI controller may connect 2 flashes)
+-- spi-max-frequency: max frequency of spi bus
+-
+-Optional properties:
+-- spi-rx-bus-width: see ./spi-bus.txt for the description
+-- dmas: DMA specifiers for tx and rx dma. See the DMA client binding,
+-Documentation/devicetree/bindings/dma/dma.txt.
+-- dma-names: DMA request names should include "tx" and "rx" if present.
+-
+-Example:
+-
+-qspi: spi@a0001000 {
+-	compatible = "st,stm32f469-qspi";
+-	reg = <0xa0001000 0x1000>, <0x90000000 0x10000000>;
+-	reg-names = "qspi", "qspi_mm";
+-	interrupts = <91>;
+-	resets = <&rcc STM32F4_AHB3_RESET(QSPI)>;
+-	clocks = <&rcc 0 STM32F4_AHB3_CLOCK(QSPI)>;
+-	pinctrl-names = "default";
+-	pinctrl-0 = <&pinctrl_qspi0>;
+-
+-	flash@0 {
+-		compatible = "jedec,spi-nor";
+-		reg = <0>;
+-		spi-rx-bus-width = <4>;
+-		spi-max-frequency = <108000000>;
+-		...
+-	};
+-};
+diff --git a/Documentation/devicetree/bindings/spi/st,stm32-qspi.yaml b/Documentation/devicetree/bindings/spi/st,stm32-qspi.yaml
+new file mode 100644
+index 000000000000..3665a5fe6b7f
+--- /dev/null
++++ b/Documentation/devicetree/bindings/spi/st,stm32-qspi.yaml
+@@ -0,0 +1,83 @@
++# SPDX-License-Identifier: (GPL-2.0-only OR BSD-2-Clause)
++%YAML 1.2
++---
++$id: http://devicetree.org/schemas/spi/st,stm32-qspi.yaml#
++$schema: http://devicetree.org/meta-schemas/core.yaml#
++
++title: STMicroelectronics STM32 Quad Serial Peripheral Interface (QSPI) bindings
++
++maintainers:
++  - Christophe Kerello <christophe.kerello@st.com>
++  - Patrice Chotard <patrice.chotard@st.com>
++
++allOf:
++  - $ref: "spi-controller.yaml#"
++
++properties:
++  compatible:
++    const: st,stm32f469-qspi
++
++  reg:
++    items:
++      - description: registers
++      - description: memory mapping
++
++  reg-names:
++    items:
++     - const: qspi
++     - const: qspi_mm
++
++  clocks:
++    maxItems: 1
++
++  interrupts:
++    maxItems: 1
++
++  resets:
++    maxItems: 1
++
++  dmas:
++    items:
++      - description: tx DMA channel
++      - description: rx DMA channel
++
++  dma-names:
++    items:
++      - const: tx
++      - const: rx
++
++required:
++  - compatible
++  - reg
++  - reg-names
++  - clocks
++  - interrupts
++
++examples:
++  - |
++    #include <dt-bindings/interrupt-controller/arm-gic.h>
++    #include <dt-bindings/clock/stm32mp1-clks.h>
++    #include <dt-bindings/reset/stm32mp1-resets.h>
++    spi@58003000 {
++      compatible = "st,stm32f469-qspi";
++      reg = <0x58003000 0x1000>, <0x70000000 0x10000000>;
++      reg-names = "qspi", "qspi_mm";
++      interrupts = <GIC_SPI 92 IRQ_TYPE_LEVEL_HIGH>;
++      dmas = <&mdma1 22 0x10 0x100002 0x0 0x0>,
++             <&mdma1 22 0x10 0x100008 0x0 0x0>;
++      dma-names = "tx", "rx";
++      clocks = <&rcc QSPI_K>;
++      resets = <&rcc QSPI_R>;
++
++      #address-cells = <1>;
++      #size-cells = <0>;
++
++      flash@0 {
++        compatible = "jedec,spi-nor";
++        reg = <0>;
++        spi-rx-bus-width = <4>;
++        spi-max-frequency = <108000000>;
++      };
++    };
++
++...
+-- 
+2.20.1
+
 _______________________________________________
 Linux-stm32 mailing list
 Linux-stm32@st-md-mailman.stormreply.com
