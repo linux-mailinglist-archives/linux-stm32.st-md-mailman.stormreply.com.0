@@ -2,36 +2,57 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id 2861C109112
-	for <lists+linux-stm32@lfdr.de>; Mon, 25 Nov 2019 16:37:50 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 6B47C1091BB
+	for <lists+linux-stm32@lfdr.de>; Mon, 25 Nov 2019 17:22:04 +0100 (CET)
 Received: from ip-172-31-3-76.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id CCAD8C36B0B;
-	Mon, 25 Nov 2019 15:37:49 +0000 (UTC)
-Received: from relay8-d.mail.gandi.net (relay8-d.mail.gandi.net
- [217.70.183.201])
- (using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 1BA3EC36B0B;
+	Mon, 25 Nov 2019 16:22:04 +0000 (UTC)
+Received: from mail-vk1-f196.google.com (mail-vk1-f196.google.com
+ [209.85.221.196])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 76253C36B09
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id BC493C36B09
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Mon, 25 Nov 2019 15:37:48 +0000 (UTC)
-X-Originating-IP: 90.76.211.102
-Received: from xps13 (lfbn-1-2154-102.w90-76.abo.wanadoo.fr [90.76.211.102])
- (Authenticated sender: miquel.raynal@bootlin.com)
- by relay8-d.mail.gandi.net (Postfix) with ESMTPSA id 74B281BF207;
- Mon, 25 Nov 2019 15:37:46 +0000 (UTC)
-Date: Mon, 25 Nov 2019 16:37:45 +0100
-From: Miquel Raynal <miquel.raynal@bootlin.com>
-To: Christophe Kerello <christophe.kerello@st.com>
-Message-ID: <20191125163745.26095b68@xps13>
-In-Reply-To: <20191125160503.1243f817@xps13>
-References: <1574442222-19759-1-git-send-email-christophe.kerello@st.com>
- <20191125160503.1243f817@xps13>
-Organization: Bootlin
-X-Mailer: Claws Mail 3.17.4 (GTK+ 2.24.32; x86_64-pc-linux-gnu)
+ Mon, 25 Nov 2019 16:06:18 +0000 (UTC)
+Received: by mail-vk1-f196.google.com with SMTP id u189so2341165vkf.11
+ for <linux-stm32@st-md-mailman.stormreply.com>;
+ Mon, 25 Nov 2019 08:06:18 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20161025;
+ h=mime-version:references:in-reply-to:from:date:message-id:subject:to
+ :cc; bh=Avttk0P5txS2q04zBlAty7rtXiGTPj5hhaK38ammByQ=;
+ b=e4Es4BNR8tv0qRFadBAbvVXURnUbZZXWCMCs/wpwjIdMh4Jy89Fb9xnhqIRsvSh68a
+ XJsKQJopD1tCEgGI9pChnGtQ7DahHVJ9gq9TKnNNNBulwFYjG+CblUqYW/vtQFu8vJxl
+ w1v1hYKDkFVHLQgwvtj6is/1xKjCpjQYMwvgLrchL+5ApRlQiLDVacv0DmtKybbB8N50
+ CRksIpAlofCr3r2qSaxGOBs8aeFN60Ook6Z7X/RkgjLJ1NolLOSSXCFHCnk9LpFB0T42
+ IwuG9sVc4vmuofxHdOc58LsoGlJYDg+KXcNHmcNmwLbz5Jq0N8EXxOIEHDU1Ew05iA6S
+ Tb8w==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20161025;
+ h=x-gm-message-state:mime-version:references:in-reply-to:from:date
+ :message-id:subject:to:cc;
+ bh=Avttk0P5txS2q04zBlAty7rtXiGTPj5hhaK38ammByQ=;
+ b=Sd59D+gkPtVUTkbh6ugIaduUOOn8z5QDJUu/TD3dcZFNBgIOoVXmU4WHKRUxABpRSc
+ sqSGIr5l9gn8odX9T0bZnEwgOeRNNJeyk7Z2KUF42CwU37qEbtntY+Qt0H00Xg755Nqw
+ wGd/DNZ0fsIlxPVEdqe0vq99g8ENAZiLfCIh6al2b33NEKRhTlnf926MmdVObjhY9X1C
+ mLdLIKpBBr0/67Ppoy3Ky+7qsIorFcRjD27VtxgVNv/NCjCz8RHn8qCmo3VzmYOeAOYF
+ LrLJAR4REghFEmylwHkrnOlCj9QVsSRJiXLhGfN8TDYSvH3q8VaaiikLXpfUOIAAe33p
+ qCew==
+X-Gm-Message-State: APjAAAVy5h8+sVeXbgvG+ZhiMWoXsmIdBAEfE8y1C1RzxeiTiOMoLuDE
+ hhwMmNShuRXAtkCa5DLdf3lHmcOi0FumOAUT+EU=
+X-Google-Smtp-Source: APXvYqxNasVkK7MWNtHslDqEaSeS5Uo2U4dtls0PYrqWky4egoEbLjLpsDhsWSjOifL4RHlo/J6b+Vdm7rhS/WEKCJ4=
+X-Received: by 2002:ac5:ce8c:: with SMTP id 12mr17656856vke.34.1574697977355; 
+ Mon, 25 Nov 2019 08:06:17 -0800 (PST)
 MIME-Version: 1.0
-Cc: vigneshr@ti.com, Boris Brezillon <bbrezillon@kernel.org>, richard@nod.at,
- linux-kernel@vger.kernel.org, linux-mtd@lists.infradead.org,
- linux-stm32@st-md-mailman.stormreply.com
+References: <1574442222-19759-1-git-send-email-christophe.kerello@st.com>
+In-Reply-To: <1574442222-19759-1-git-send-email-christophe.kerello@st.com>
+From: Steve deRosier <derosier@gmail.com>
+Date: Mon, 25 Nov 2019 08:05:40 -0800
+Message-ID: <CALLGbRJ00TeZKPfhkqj_mwu9zhMzc_+A8mh4uwaPnFBUatrwTw@mail.gmail.com>
+To: Christophe Kerello <christophe.kerello@st.com>
+X-Mailman-Approved-At: Mon, 25 Nov 2019 16:22:02 +0000
+Cc: vigneshr@ti.com, Richard Weinberger <richard@nod.at>,
+ LKML <linux-kernel@vger.kernel.org>, linux-mtd <linux-mtd@lists.infradead.org>,
+ miquel.raynal@bootlin.com, linux-stm32@st-md-mailman.stormreply.com
 Subject: Re: [Linux-stm32] mtd: Use mtd device name instead of mtd->name
  when registering nvmem device
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
@@ -45,139 +66,46 @@ List-Post: <mailto:linux-stm32@st-md-mailman.stormreply.com>
 List-Help: <mailto:linux-stm32-request@st-md-mailman.stormreply.com?subject=help>
 List-Subscribe: <https://st-md-mailman.stormreply.com/mailman/listinfo/linux-stm32>, 
  <mailto:linux-stm32-request@st-md-mailman.stormreply.com?subject=subscribe>
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: base64
+Content-Type: text/plain; charset="us-ascii"
+Content-Transfer-Encoding: 7bit
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
-TWlxdWVsIFJheW5hbCA8bWlxdWVsLnJheW5hbEBib290bGluLmNvbT4gd3JvdGUgb24gTW9uLCAy
-NSBOb3YgMjAxOQoxNjowNTowMyArMDEwMDoKCj4gSGkgQ2hyaXN0b3BoZSwKPiAKPiBDaHJpc3Rv
-cGhlIEtlcmVsbG8gPGNocmlzdG9waGUua2VyZWxsb0BzdC5jb20+IHdyb3RlIG9uIEZyaSwgMjIg
-Tm92Cj4gMjAxOSAxODowMzo0MiArMDEwMDoKPiAKPiA+IE1URCBjdXJyZW50bHkgYWxsb3dzIHRv
-IGhhdmUgc2FtZSBwYXJ0aXRpb24gbmFtZSBvbiBkaWZmZXJlbnQgZGV2aWNlcy4KPiA+IFNpbmNl
-IG52bWVuIGRldmljZSByZWdpc3RyYXRpb24gaGFzIGJlZW4gYWRkZWQsIGl0IGlzIG5vdCBtb3Jl
-IHBvc3NpYmxlCj4gPiB0byBoYXZlIHNhbWUgcGFydGl0aW9uIG5hbWUgb24gZGlmZmVyZW50IGRl
-dmljZXMuIFdlIGdldCBmb2xsb3dpbmcKPiA+IGxvZ3M6Cj4gPiBzeXNmczogY2Fubm90IGNyZWF0
-ZSBkdXBsaWNhdGUgZmlsZW5hbWUgWFhYCj4gPiBGYWlsZWQgdG8gcmVnaXN0ZXIgTlZNRU0gZGV2
-aWNlCj4gPiAKPiA+IFRvIGF2b2lkIHN1Y2ggaXNzdWUsIHRoZSBwcm9wb3NlZCBwYXRjaCB1c2Vz
-IHRoZSBtdGQgZGV2aWNlIG5hbWUgaW5zdGVhZCBvZgo+ID4gdGhlIHBhcnRpdGlvbiBuYW1lLgo+
-ID4gCj4gPiBGaXhlczogYzRkZmEyNWFiMzA3ICgibXRkOiBhZGQgc3VwcG9ydCBmb3IgcmVhZGlu
-ZyBNVEQgZGV2aWNlcyB2aWEgdGhlIG52bWVtIEFQSSIpCj4gPiBTaWduZWQtb2ZmLWJ5OiBDaHJp
-c3RvcGhlIEtlcmVsbG8gPGNocmlzdG9waGUua2VyZWxsb0BzdC5jb20+Cj4gPiAtLS0KPiA+IEhp
-LAo+ID4gCj4gPiBXaXRoIGxhdGVzdCBtdGQtbmV4dCBicmFuY2gsIHdlIGdldCBmb2xsb3dpbmcg
-bG9ncyBvbiBvdXIgU1RNMzJNUDEgZXZhbCBib2FyZC4KPiA+IAo+ID4gWyAgICAxLjk3OTA4OV0g
-bmFuZDogZGV2aWNlIGZvdW5kLCBNYW51ZmFjdHVyZXIgSUQ6IDB4MmMsIENoaXAgSUQ6IDB4ZDMK
-PiA+IFsgICAgMS45ODQwNTVdIG5hbmQ6IE1pY3JvbiBNVDI5RjhHMDhBQkFDQUg0Cj4gPiBbICAg
-IDEuOTg4MDAwXSBuYW5kOiAxMDI0IE1pQiwgU0xDLCBlcmFzZSBzaXplOiAyNTYgS2lCLCBwYWdl
-IHNpemU6IDQwOTYsIE9PQiBzaXplOiAyMjQKPiA+IFsgICAgMS45OTYzNzhdIEJhZCBibG9jayB0
-YWJsZSBmb3VuZCBhdCBwYWdlIDI2MjA4MCwgdmVyc2lvbiAweDAxCj4gPiBbICAgIDIuMDAxOTQ1
-XSBCYWQgYmxvY2sgdGFibGUgZm91bmQgYXQgcGFnZSAyNjIwMTYsIHZlcnNpb24gMHgwMQo+ID4g
-WyAgICAyLjAwODAwMl0gNCBmaXhlZC1wYXJ0aXRpb25zIHBhcnRpdGlvbnMgZm91bmQgb24gTVRE
-IGRldmljZSA1ODAwMjAwMC5uYW5kLWNvbnRyb2xsZXIKPiA+IFsgICAgMi4wMTUzOThdIENyZWF0
-aW5nIDQgTVREIHBhcnRpdGlvbnMgb24gIjU4MDAyMDAwLm5hbmQtY29udHJvbGxlciI6Cj4gPiBb
-ICAgIDIuMDIxNzUxXSAweDAwMDAwMDAwMDAwMC0weDAwMDAwMDIwMDAwMCA6ICJmc2JsIgo+ID4g
-WyAgICAyLjAyODUwNl0gMHgwMDAwMDAyMDAwMDAtMHgwMDAwMDA0MDAwMDAgOiAic3NibDEiCj4g
-PiBbICAgIDIuMDMzNzQxXSAweDAwMDAwMDQwMDAwMC0weDAwMDAwMDYwMDAwMCA6ICJzc2JsMiIK
-PiA+IFsgICAgMi4wMzg5MjRdIDB4MDAwMDAwNjAwMDAwLTB4MDAwMDQwMDAwMDAwIDogIlVCSSIK
-PiA+IFsgICAgMi4wNTEzMzZdIHNwaS1ub3Igc3BpMC4wOiBteDY2bDUxMjM1bCAoNjU1MzYgS2J5
-dGVzKQo+ID4gWyAgICAyLjA1NTEyM10gNCBmaXhlZC1wYXJ0aXRpb25zIHBhcnRpdGlvbnMgZm91
-bmQgb24gTVREIGRldmljZSBzcGkwLjAKPiA+IFsgICAgMi4wNjEzNzhdIENyZWF0aW5nIDQgTVRE
-IHBhcnRpdGlvbnMgb24gInNwaTAuMCI6Cj4gPiBbICAgIDIuMDY2MjQzXSAweDAwMDAwMDAwMDAw
-MC0weDAwMDAwMDA0MDAwMCA6ICJmc2JsIgo+ID4gWyAgICAyLjA3MTQyOV0gc3lzZnM6IGNhbm5v
-dCBjcmVhdGUgZHVwbGljYXRlIGZpbGVuYW1lICcvYnVzL252bWVtL2RldmljZXMvZnNibCcKPiA+
-IFsgICAgMi4wNzgxNTddIENQVTogMCBQSUQ6IDEgQ29tbTogc3dhcHBlci8wIE5vdCB0YWludGVk
-IDUuNC4wLXJjNC0wMDAzMS1nNTg5ZTFiNiAjMTc2Cj4gPiBbICAgIDIuMDg1NzgxXSBIYXJkd2Fy
-ZSBuYW1lOiBTVE0zMiAoRGV2aWNlIFRyZWUgU3VwcG9ydCkKPiA+IFsgICAgMi4wOTA5NTddIFs8
-YzAzMTI4MzA+XSAodW53aW5kX2JhY2t0cmFjZSkgZnJvbSBbPGMwMzBjYmU0Pl0gKHNob3dfc3Rh
-Y2srMHgxMC8weDE0KQo+ID4gWyAgICAyLjA5ODY5M10gWzxjMDMwY2JlND5dIChzaG93X3N0YWNr
-KSBmcm9tIFs8YzBlOGQzNDA+XSAoZHVtcF9zdGFjaysweGI0LzB4YzgpCj4gPiBbICAgIDIuMTA1
-OTI5XSBbPGMwZThkMzQwPl0gKGR1bXBfc3RhY2spIGZyb20gWzxjMDUwZmNkYz5dIChzeXNmc193
-YXJuX2R1cCsweDU4LzB4NjQpCj4gPiBbICAgIDIuMTEzNTA5XSBbPGMwNTBmY2RjPl0gKHN5c2Zz
-X3dhcm5fZHVwKSBmcm9tIFs8YzA1MTAwMTA+XSAoc3lzZnNfZG9fY3JlYXRlX2xpbmtfc2QrMHhl
-NC8weGU4KQo+ID4gWyAgICAyLjEyMjIyNF0gWzxjMDUxMDAxMD5dIChzeXNmc19kb19jcmVhdGVf
-bGlua19zZCkgZnJvbSBbPGMwOTU2ZjYwPl0gKGJ1c19hZGRfZGV2aWNlKzB4ODAvMHhmYykKPiA+
-IFsgICAgMi4xMzA5MzhdIFs8YzA5NTZmNjA+XSAoYnVzX2FkZF9kZXZpY2UpIGZyb20gWzxjMDk1
-M2Y1ND5dIChkZXZpY2VfYWRkKzB4MzVjLzB4NjA4KQo+ID4gWyAgICAyLjEzODY5N10gWzxjMDk1
-M2Y1ND5dIChkZXZpY2VfYWRkKSBmcm9tIFs8YzBkMTJlMGM+XSAobnZtZW1fcmVnaXN0ZXIucGFy
-dC4yKzB4MTgwLzB4NjI0KQo+ID4gWyAgICAyLjE0NzA2NV0gWzxjMGQxMmUwYz5dIChudm1lbV9y
-ZWdpc3Rlci5wYXJ0LjIpIGZyb20gWzxjMDllYTVjOD5dIChhZGRfbXRkX2RldmljZSsweDJkOC8w
-eDRiOCkKPiA+IFsgICAgMi4xNTU3NzZdIFs8YzA5ZWE1Yzg+XSAoYWRkX210ZF9kZXZpY2UpIGZy
-b20gWzxjMDllZGJkND5dIChhZGRfbXRkX3BhcnRpdGlvbnMrMHg4NC8weDE2YykKPiA+IFsgICAg
-Mi4xNjQxNDBdIFs8YzA5ZWRiZDQ+XSAoYWRkX210ZF9wYXJ0aXRpb25zKSBmcm9tIFs8YzA5ZWQ5
-YWM+XSAocGFyc2VfbXRkX3BhcnRpdGlvbnMrMHgyMjAvMHgzYzQpCj4gPiBbICAgIDIuMTczMTE4
-XSBbPGMwOWVkOWFjPl0gKHBhcnNlX210ZF9wYXJ0aXRpb25zKSBmcm9tIFs8YzA5ZWE4ZDQ+XSAo
-bXRkX2RldmljZV9wYXJzZV9yZWdpc3RlcisweDQwLzB4MTY0KQo+ID4gWyAgICAyLjE4MjYyMl0g
-WzxjMDllYThkND5dIChtdGRfZGV2aWNlX3BhcnNlX3JlZ2lzdGVyKSBmcm9tIFs8YzBhMjJkZmM+
-XSAoc3BpX25vcl9wcm9iZSsweGQwLzB4MTkwKQo+ID4gWyAgICAyLjE5MTUxM10gWzxjMGEyMmRm
-Yz5dIChzcGlfbm9yX3Byb2JlKSBmcm9tIFs8YzBhMzcwYTA+XSAoc3BpX2Rydl9wcm9iZSsweDgw
-LzB4YTQpCj4gPiBbICAgIDIuMTk5MjY4XSBbPGMwYTM3MGEwPl0gKHNwaV9kcnZfcHJvYmUpIGZy
-b20gWzxjMDk1N2Y4Yz5dIChyZWFsbHlfcHJvYmUrMHgyMzQvMHgzNGMpCj4gPiBbICAgIDIuMjA3
-MTExXSBbPGMwOTU3ZjhjPl0gKHJlYWxseV9wcm9iZSkgZnJvbSBbPGMwOTU4MjFjPl0gKGRyaXZl
-cl9wcm9iZV9kZXZpY2UrMHg2MC8weDE3NCkKPiA+IFsgICAgMi4yMTUzOTFdIFs8YzA5NTgyMWM+
-XSAoZHJpdmVyX3Byb2JlX2RldmljZSkgZnJvbSBbPGMwOTU2Mzc4Pl0gKGJ1c19mb3JfZWFjaF9k
-cnYrMHg1OC8weGI4KQo+ID4gWyAgICAyLjIyMzkzMl0gWzxjMDk1NjM3OD5dIChidXNfZm9yX2Vh
-Y2hfZHJ2KSBmcm9tIFs8YzA5NTdjZTQ+XSAoX19kZXZpY2VfYXR0YWNoKzB4ZDAvMHgxM2MpCj4g
-PiBbICAgIDIuMjMyMjEyXSBbPGMwOTU3Y2U0Pl0gKF9fZGV2aWNlX2F0dGFjaCkgZnJvbSBbPGMw
-OTU3MDYwPl0gKGJ1c19wcm9iZV9kZXZpY2UrMHg4NC8weDhjKQo+ID4gWyAgICAyLjI0MDQwNF0g
-WzxjMDk1NzA2MD5dIChidXNfcHJvYmVfZGV2aWNlKSBmcm9tIFs8YzA5NTNmYjQ+XSAoZGV2aWNl
-X2FkZCsweDNiYy8weDYwOCkKPiA+IFsgICAgMi4yNDgzMzRdIFs8YzA5NTNmYjQ+XSAoZGV2aWNl
-X2FkZCkgZnJvbSBbPGMwYTM3N2I0Pl0gKHNwaV9hZGRfZGV2aWNlKzB4OWMvMHgxNGMpCj4gPiBb
-ICAgIDIuMjU2MDAzXSBbPGMwYTM3N2I0Pl0gKHNwaV9hZGRfZGV2aWNlKSBmcm9tIFs8YzBhMzdi
-OTg+XSAob2ZfcmVnaXN0ZXJfc3BpX2RldmljZSsweDIzNC8weDM3MCkKPiA+IFsgICAgMi4yNjQ4
-MDddIFs8YzBhMzdiOTg+XSAob2ZfcmVnaXN0ZXJfc3BpX2RldmljZSkgZnJvbSBbPGMwYTM4NGVj
-Pl0gKHNwaV9yZWdpc3Rlcl9jb250cm9sbGVyKzB4NTc4LzB4NzM0KQo+ID4gWyAgICAyLjI3NDM5
-NF0gWzxjMGEzODRlYz5dIChzcGlfcmVnaXN0ZXJfY29udHJvbGxlcikgZnJvbSBbPGMwYTM4NmRj
-Pl0gKGRldm1fc3BpX3JlZ2lzdGVyX2NvbnRyb2xsZXIrMHgzNC8weDZjKQo+ID4gWyAgICAyLjI4
-NDMzMV0gWzxjMGEzODZkYz5dIChkZXZtX3NwaV9yZWdpc3Rlcl9jb250cm9sbGVyKSBmcm9tIFs8
-YzBhNGQwYjg+XSAoc3RtMzJfcXNwaV9wcm9iZSsweDMzOC8weDNiYykKPiA+IFsgICAgMi4yOTM4
-MzFdIFs8YzBhNGQwYjg+XSAoc3RtMzJfcXNwaV9wcm9iZSkgZnJvbSBbPGMwOTU5ZWUwPl0gKHBs
-YXRmb3JtX2Rydl9wcm9iZSsweDQ4LzB4OTgpCj4gPiBbICAgIDIuMzAyMjg1XSBbPGMwOTU5ZWUw
-Pl0gKHBsYXRmb3JtX2Rydl9wcm9iZSkgZnJvbSBbPGMwOTU3ZjhjPl0gKHJlYWxseV9wcm9iZSsw
-eDIzNC8weDM0YykKPiA+IFsgICAgMi4zMTA1NjZdIFs8YzA5NTdmOGM+XSAocmVhbGx5X3Byb2Jl
-KSBmcm9tIFs8YzA5NTgyMWM+XSAoZHJpdmVyX3Byb2JlX2RldmljZSsweDYwLzB4MTc0KQo+ID4g
-WyAgICAyLjMxODg0N10gWzxjMDk1ODIxYz5dIChkcml2ZXJfcHJvYmVfZGV2aWNlKSBmcm9tIFs8
-YzA5NTg0ZDg+XSAoZGV2aWNlX2RyaXZlcl9hdHRhY2grMHg1OC8weDYwKQo+ID4gWyAgICAyLjMy
-NzczNV0gWzxjMDk1ODRkOD5dIChkZXZpY2VfZHJpdmVyX2F0dGFjaCkgZnJvbSBbPGMwOTU4NTYw
-Pl0gKF9fZHJpdmVyX2F0dGFjaCsweDgwLzB4YmMpCj4gPiBbICAgIDIuMzM2Mjc2XSBbPGMwOTU4
-NTYwPl0gKF9fZHJpdmVyX2F0dGFjaCkgZnJvbSBbPGMwOTU2MmNjPl0gKGJ1c19mb3JfZWFjaF9k
-ZXYrMHg3NC8weGI0KQo+ID4gWyAgICAyLjM0NDQ2OV0gWzxjMDk1NjJjYz5dIChidXNfZm9yX2Vh
-Y2hfZGV2KSBmcm9tIFs8YzA5NTcyYzQ+XSAoYnVzX2FkZF9kcml2ZXIrMHgxNjQvMHgxZTgpCj4g
-PiBbICAgIDIuMzUyNzQ5XSBbPGMwOTU3MmM0Pl0gKGJ1c19hZGRfZHJpdmVyKSBmcm9tIFs8YzA5
-NThmZDg+XSAoZHJpdmVyX3JlZ2lzdGVyKzB4NzQvMHgxMDgpCj4gPiBbICAgIDIuMzYwODU0XSBb
-PGMwOTU4ZmQ4Pl0gKGRyaXZlcl9yZWdpc3RlcikgZnJvbSBbPGMwMzAyZWM4Pl0gKGRvX29uZV9p
-bml0Y2FsbCsweDU0LzB4MjJjKQo+ID4gWyAgICAyLjM2OTA0N10gWzxjMDMwMmVjOD5dIChkb19v
-bmVfaW5pdGNhbGwpIGZyb20gWzxjMTUwMTAyND5dIChrZXJuZWxfaW5pdF9mcmVlYWJsZSsweDE1
-MC8weDFlYykKPiA+IFsgICAgMi4zNzc3NjJdIFs8YzE1MDEwMjQ+XSAoa2VybmVsX2luaXRfZnJl
-ZWFibGUpIGZyb20gWzxjMGVhNWU3ND5dIChrZXJuZWxfaW5pdCsweDgvMHgxMTQpCj4gPiBbICAg
-IDIuMzg1OTUxXSBbPGMwZWE1ZTc0Pl0gKGtlcm5lbF9pbml0KSBmcm9tIFs8YzAzMDEwZTg+XSAo
-cmV0X2Zyb21fZm9yaysweDE0LzB4MmMpCj4gPiBbICAgIDIuMzkzNTI1XSBFeGNlcHRpb24gc3Rh
-Y2soMHhlNjhjMWZiMCB0byAweGU2OGMxZmY4KQo+ID4gWyAgICAyLjM5ODU4M10gMWZhMDogICAg
-ICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgMDAwMDAwMDAgMDAwMDAwMDAgMDAwMDAw
-MDAgMDAwMDAwMDAKPiA+IFsgICAgMi40MDY3NzddIDFmYzA6IDAwMDAwMDAwIDAwMDAwMDAwIDAw
-MDAwMDAwIDAwMDAwMDAwIDAwMDAwMDAwIDAwMDAwMDAwIDAwMDAwMDAwIDAwMDAwMDAwCj4gPiBb
-ICAgIDIuNDE0OTY3XSAxZmUwOiAwMDAwMDAwMCAwMDAwMDAwMCAwMDAwMDAwMCAwMDAwMDAwMCAw
-MDAwMDAxMyAwMDAwMDAwMAo+ID4gWyAgICAyLjQyMTg3OV0gbXRkIG10ZDQ6IEZhaWxlZCB0byBy
-ZWdpc3RlciBOVk1FTSBkZXZpY2UKPiA+IAo+ID4gQmVmb3JlIG52bWVuIGRldmljZSByZWdpc3Ry
-YXRpb24gd2FzIGFkZGVkLCBpdCB3YXMgcG9zc2libGUgdG8gaGF2ZSBzYW1lIHBhcnRpdGlvbiBu
-YW1lIG9uIGRpZmZlcmVudCBkZXZpY2VzLgo+ID4gSW5zdGVhZCBvZiB1c2luZyB0aGUgcGFydGl0
-aW9uIG5hbWUsIHRoaXMgcGF0Y2ggcHJvcG9zZXMgdG8gdXNlIHRoZSBNVEQgZGV2aWNlIG5hbWUg
-KG10ZFgpLgo+ID4gCj4gPiBSZWdhcmRzLAo+ID4gQ2hyaXN0b3BoZSBLZXJlbGxvLgo+ID4gCj4g
-PiAgZHJpdmVycy9tdGQvbXRkY29yZS5jIHwgMiArLQo+ID4gIDEgZmlsZSBjaGFuZ2VkLCAxIGlu
-c2VydGlvbigrKSwgMSBkZWxldGlvbigtKQo+ID4gCj4gPiBkaWZmIC0tZ2l0IGEvZHJpdmVycy9t
-dGQvbXRkY29yZS5jIGIvZHJpdmVycy9tdGQvbXRkY29yZS5jCj4gPiBpbmRleCA1ZmFjNDM1Li41
-NTliNjkzIDEwMDY0NAo+ID4gLS0tIGEvZHJpdmVycy9tdGQvbXRkY29yZS5jCj4gPiArKysgYi9k
-cml2ZXJzL210ZC9tdGRjb3JlLmMKPiA+IEBAIC01NTEsNyArNTUxLDcgQEAgc3RhdGljIGludCBt
-dGRfbnZtZW1fYWRkKHN0cnVjdCBtdGRfaW5mbyAqbXRkKQo+ID4gIAo+ID4gIAljb25maWcuaWQg
-PSAtMTsKPiA+ICAJY29uZmlnLmRldiA9ICZtdGQtPmRldjsKPiA+IC0JY29uZmlnLm5hbWUgPSBt
-dGQtPm5hbWU7Cj4gPiArCWNvbmZpZy5uYW1lID0gZGV2X25hbWUoJm10ZC0+ZGV2KTsgIAo+IAo+
-IFdoYXQgYWJvdXQgY3JlYXRpbmcgYW4gbXRkLT5mdWxsbmFtZSBmaWVsZCB3aGljaCB3b3VsZCBi
-ZSwgZm9yCj4gcGFydGl0aW9uczogbXRkWDo8cGFydGl0aW9uLW5hbWU+IGFuZCB3b3VsZCBiZSB1
-bmlxdWU/CgpUaGUgYWN0dWFsIG10ZC0+bmFtZSAoZHJpdmVyIG5hbWUgb3IgbGFiZWwgaWYgZ2l2
-ZW4pIGluc3RlYWQgb2YgdGhlIG10ZApudW1iZXIgd291bGQgYmUgYmV0dGVyLiBUaGF0IHdvdWxk
-IGdpdmUgdGhpbmdzIGxpa2UgIm5hbmQwOm15cGFydCIuCgo+IAo+ID4gIAljb25maWcub3duZXIg
-PSBUSElTX01PRFVMRTsKPiA+ICAJY29uZmlnLnJlZ19yZWFkID0gbXRkX252bWVtX3JlZ19yZWFk
-Owo+ID4gIAljb25maWcuc2l6ZSA9IG10ZC0+c2l6ZTsgIAo+IAo+IFRoYW5rcywKPiBNaXF1w6hs
-CgpUaGFua3MsCk1pcXXDqGwKX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19f
-X19fX19fX18KTGludXgtc3RtMzIgbWFpbGluZyBsaXN0CkxpbnV4LXN0bTMyQHN0LW1kLW1haWxt
-YW4uc3Rvcm1yZXBseS5jb20KaHR0cHM6Ly9zdC1tZC1tYWlsbWFuLnN0b3JtcmVwbHkuY29tL21h
-aWxtYW4vbGlzdGluZm8vbGludXgtc3RtMzIK
+On Fri, Nov 22, 2019 at 9:04 AM Christophe Kerello
+<christophe.kerello@st.com> wrote:
+>
+> MTD currently allows to have same partition name on different devices.
+> Since nvmen device registration has been added, it is not more possible
+> to have same partition name on different devices. We get following
+> logs:
+> sysfs: cannot create duplicate filename XXX
+> Failed to register NVMEM device
+>
+> To avoid such issue, the proposed patch uses the mtd device name instead of
+> the partition name.
+...
+> diff --git a/drivers/mtd/mtdcore.c b/drivers/mtd/mtdcore.c
+> index 5fac435..559b693 100644
+> --- a/drivers/mtd/mtdcore.c
+> +++ b/drivers/mtd/mtdcore.c
+> @@ -551,7 +551,7 @@ static int mtd_nvmem_add(struct mtd_info *mtd)
+>
+>         config.id = -1;
+>         config.dev = &mtd->dev;
+> -       config.name = mtd->name;
+> +       config.name = dev_name(&mtd->dev);
+>         config.owner = THIS_MODULE;
+>         config.reg_read = mtd_nvmem_reg_read;
+>         config.size = mtd->size;
+
+This would be a breaking change for anyone that depended on
+`config.name = mtd->name` behavior. Obviously, if they were using
+multiple devs with the same partition name as you were, they'd have
+already been broken, but I suspect if a lot of people were doing that
+we'd have heard about that before now.
+
+- Steve
+_______________________________________________
+Linux-stm32 mailing list
+Linux-stm32@st-md-mailman.stormreply.com
+https://st-md-mailman.stormreply.com/mailman/listinfo/linux-stm32
