@@ -2,52 +2,53 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id 4B9D910B3AC
-	for <lists+linux-stm32@lfdr.de>; Wed, 27 Nov 2019 17:42:47 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 73EB510B3B6
+	for <lists+linux-stm32@lfdr.de>; Wed, 27 Nov 2019 17:44:37 +0100 (CET)
 Received: from ip-172-31-3-76.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 0DFC7C36B0B;
-	Wed, 27 Nov 2019 16:42:47 +0000 (UTC)
-Received: from mail-pf1-f195.google.com (mail-pf1-f195.google.com
- [209.85.210.195])
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 371C0C36B0B;
+	Wed, 27 Nov 2019 16:44:37 +0000 (UTC)
+Received: from mail-pl1-f193.google.com (mail-pl1-f193.google.com
+ [209.85.214.193])
  (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 00AD0C36B09
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id F1DBBC36B09
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Wed, 27 Nov 2019 16:42:45 +0000 (UTC)
-Received: by mail-pf1-f195.google.com with SMTP id z4so11280417pfn.12
+ Wed, 27 Nov 2019 16:44:34 +0000 (UTC)
+Received: by mail-pl1-f193.google.com with SMTP id ay6so10042419plb.0
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Wed, 27 Nov 2019 08:42:45 -0800 (PST)
+ Wed, 27 Nov 2019 08:44:34 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20161025;
  h=date:from:to:cc:subject:message-id:references:mime-version
  :content-disposition:in-reply-to:user-agent;
- bh=Xl4Glegm6mdECeLqfmquxCwZlwbSQB4i6Znnj9ZE+DI=;
- b=aaLImqaXXEFyDQoHrPEMGh8ndhdl9gZJuOmHyu+pZZDTZWbfo8bKC+whjrSQVWhuxU
- NYt+PbFK7OG+rEYQVDWtB8A0KHHEIDstj61l0+aHTIFEZ3ibUY4OeJYXrC+28XbcaqqY
- atqmBXE+O4sp1cYypiKae5R6bxlRt8myyVVJ1So1UTPM+Bv2pXNfGlal4+Fo2eYANxA/
- b9F0B4VdjmNO6gO5aXgVhVpAa8kcNBSkcwJzRmb4430VOcNRZAgSNLtP/9Oiq7y1w4ne
- sjDEqe9L1scDSQetQaLeZAncSNqzJT0GL8oFf05RRmWtALJqS5XFvK2+YIZ0W4zrVlL+
- F/pA==
+ bh=whErUc4BDiJMZ5xY3J/KJ/8CM+fMkJiEkPObAvIrJNY=;
+ b=IrlA9jBoYhmnJLv3XX1CbNuYLMmcJ20omNiqylLbqKNY7YXmt5Qg/tzaiDbcvEWRJK
+ LAHOhWLyA/laKOk7HCohToz0fPm5rZ5anSEPArvahmgydJXYD3d4FJ3loZNxqXeNWl1y
+ wtepn0Z6Bpw2qvYFLZfU3TKSbDcDJBi7F+805QOAsDJrFTbBkgAr6IDkKcb1mgHK26xx
+ 7dH6YKmNo7AA3SOht4pAksRArEDouCbxLv/ZbHdVujMaso/1Il1sUuXGTjNla8xixG95
+ AkBCdedD7tjrwJxwv7h4Mjl+WBKvopx/3Dnfvhf99W9n9FKhOJFvkpkzsqY7dQT1aWUN
+ tKow==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=1e100.net; s=20161025;
  h=x-gm-message-state:date:from:to:cc:subject:message-id:references
  :mime-version:content-disposition:in-reply-to:user-agent;
- bh=Xl4Glegm6mdECeLqfmquxCwZlwbSQB4i6Znnj9ZE+DI=;
- b=MKyhAOhuvpZcbd2G643iXHekX4d2PYwFYI2qKmMP0IoH0NtzOef7TdDr6iVWw4rdTr
- J5TxZ2vmTExm8fH804esYHHInrLKQoCaUbyRIKLHKdZzQXSJVnjZ5KSnf58GN8NzK6L8
- zAEt9Kst9gZE/AF69eWHkwvdgEm4XeA+d+fCzSujSmWAs9Ybz9A7HUeTUGzXB7D7iT6K
- +J2d7UJKAppqha8bs1OOIxjLBMCNdnXEqQV/Q6g6ekb4smHFWpTPYDjCjZ0tNitotZRU
- NVUSX7/GWKSbL3KpdlecSfVOVx8zjCp+x6IX220YinO0PkU8d7qKr1ZLffrs0KVqV3OX
- Nzqg==
-X-Gm-Message-State: APjAAAWkeAXEqhEkYQidIi9iBedhwyZDJp0jqk+XHza7q2fTCYtgRsl6
- qBgFCPqcpwVN3qDHdEneJvo=
-X-Google-Smtp-Source: APXvYqwlDU2Ab8PAuwqLDAc5/btU/U8B8e0EchIgGnZlTuxZOq1jBwxBcCm7mSvfv1ntAHxZjKgsbg==
-X-Received: by 2002:a65:590f:: with SMTP id f15mr5870948pgu.381.1574872964385; 
- Wed, 27 Nov 2019 08:42:44 -0800 (PST)
+ bh=whErUc4BDiJMZ5xY3J/KJ/8CM+fMkJiEkPObAvIrJNY=;
+ b=RtPWo0CtEVumguI7bSN0magMFOnaX0P09OIK0baYRED7xMTKBJIuSzmmHOaFZ9pXRQ
+ HMGfvzO2oSYqgV1TPDDv+eIiw2cFqpIGOcsCppCsCLnWSJbzm+vJlToMeNZVai5cqM65
+ B9uKcCGRcj/aRLljRenKe/16AOG4QGX1X3WZnSgrKmW+xmiss93kqCHsKToQRUvaqCuX
+ gRVHwAAflWSiH/m013dGy+p3cj+szcwh7OPxtngDcvSXTZ5ma4VNJmGqmqGKkdAnCK8O
+ POJTHRFNWgX3/TCHTzl6YEgFhWT8TkIjtHiVP104qcr/Hye0ugnQEMqrKKJJreS+5Vj4
+ qmzg==
+X-Gm-Message-State: APjAAAVTq30oi1ZS7/w5f3Jv649GCevwsKUYyuUuRNb3UvNuB4imfH6b
+ W/2iMuI8IRZXDe/PWt+1o5M=
+X-Google-Smtp-Source: APXvYqxU5CUXFdGJB2Ooeq9rK1fyfcqrLOz+Hg0d0n70pp541B+B9o7dx7Stb4JEkXaH6oaMWoeZug==
+X-Received: by 2002:a17:902:bb84:: with SMTP id
+ m4mr4987230pls.255.1574873073243; 
+ Wed, 27 Nov 2019 08:44:33 -0800 (PST)
 Received: from nishad ([106.51.232.103])
- by smtp.gmail.com with ESMTPSA id v3sm16827100pfn.129.2019.11.27.08.42.37
+ by smtp.gmail.com with ESMTPSA id z11sm18371211pfg.117.2019.11.27.08.44.26
  (version=TLS1_2 cipher=ECDHE-RSA-CHACHA20-POLY1305 bits=256/256);
- Wed, 27 Nov 2019 08:42:43 -0800 (PST)
-Date: Wed, 27 Nov 2019 22:12:33 +0530
+ Wed, 27 Nov 2019 08:44:32 -0800 (PST)
+Date: Wed, 27 Nov 2019 22:14:22 +0530
 From: Nishad Kamdar <nishadkamdar@gmail.com>
 To: Andreas =?utf-8?Q?F=C3=A4rber?= <afaerber@suse.de>,
  Manivannan Sadhasivam <manivannan.sadhasivam@linaro.org>,
@@ -60,7 +61,7 @@ To: Andreas =?utf-8?Q?F=C3=A4rber?= <afaerber@suse.de>,
  Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
  Joe Perches <joe@perches.com>,
  Uwe =?utf-8?Q?Kleine-K=C3=B6nig?= <u.kleine-koenig@pengutronix.de>
-Message-ID: <2994fb2f3375790e832396cdbb0a279dc8c8839f.1574871463.git.nishadkamdar@gmail.com>
+Message-ID: <bcb86aa22d8d8499502bbd8c54a364be24886a86.1574871463.git.nishadkamdar@gmail.com>
 References: <cover.1574871463.git.nishadkamdar@gmail.com>
 MIME-Version: 1.0
 Content-Disposition: inline
@@ -70,7 +71,7 @@ Cc: linux-kernel@vger.kernel.org, linux-renesas-soc@vger.kernel.org,
  linux-gpio@vger.kernel.org, linux-mediatek@lists.infradead.org,
  linux-amlogic@lists.infradead.org, linux-stm32@st-md-mailman.stormreply.com,
  linux-arm-kernel@lists.infradead.org
-Subject: [Linux-stm32] [PATCH 2/5] pinctrl: mediatek: Use the correct style
+Subject: [Linux-stm32] [PATCH 3/5] pinctrl: meson-axg: Use the correct style
  for SPDX License Identifier
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
@@ -89,10 +90,8 @@ Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
 This patch corrects the SPDX License Identifier style in
-header file related mediatek mt2712 pinctrl driver.
-For C header files Documentation/process/license-rules.rst
-mandates C-like comments (opposed to C source files where
-C++ style should be used).
+header file related Meson axg SoC pinctrl driver.
+It assigns explicit block comment for the SPDX License Identifier.
 
 Changes made by using a script provided by Joe Perches here:
 https://lkml.org/lkml/2019/2/7/46.
@@ -100,19 +99,26 @@ https://lkml.org/lkml/2019/2/7/46.
 Suggested-by: Joe Perches <joe@perches.com>
 Signed-off-by: Nishad Kamdar <nishadkamdar@gmail.com>
 ---
- drivers/pinctrl/mediatek/pinctrl-mtk-mt2712.h | 2 +-
+ drivers/pinctrl/meson/pinctrl-meson-axg-pmx.h | 2 +-
  1 file changed, 1 insertion(+), 1 deletion(-)
 
-diff --git a/drivers/pinctrl/mediatek/pinctrl-mtk-mt2712.h b/drivers/pinctrl/mediatek/pinctrl-mtk-mt2712.h
-index ba2356a8ab89..845c408b5fdb 100644
---- a/drivers/pinctrl/mediatek/pinctrl-mtk-mt2712.h
-+++ b/drivers/pinctrl/mediatek/pinctrl-mtk-mt2712.h
-@@ -1,4 +1,4 @@
--// SPDX-License-Identifier: GPL-2.0
-+/* SPDX-License-Identifier: GPL-2.0 */
+diff --git a/drivers/pinctrl/meson/pinctrl-meson-axg-pmx.h b/drivers/pinctrl/meson/pinctrl-meson-axg-pmx.h
+index 8ff88bf2e849..aa79d7ecee00 100644
+--- a/drivers/pinctrl/meson/pinctrl-meson-axg-pmx.h
++++ b/drivers/pinctrl/meson/pinctrl-meson-axg-pmx.h
+@@ -1,3 +1,4 @@
++/* SPDX-License-Identifier: (GPL-2.0+ or MIT) */
  /*
-  * Copyright (C) 2018 MediaTek Inc.
-  * Author: Zhiyong Tao <zhiyong.tao@mediatek.com>
+  * Copyright (c) 2017 Baylibre SAS.
+  * Author:  Jerome Brunet  <jbrunet@baylibre.com>
+@@ -5,7 +6,6 @@
+  * Copyright (c) 2017 Amlogic, Inc. All rights reserved.
+  * Author: Xingyu Chen <xingyu.chen@amlogic.com>
+  *
+- * SPDX-License-Identifier: (GPL-2.0+ or MIT)
+  */
+ 
+ struct meson_pmx_bank {
 -- 
 2.17.1
 
