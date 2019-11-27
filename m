@@ -2,60 +2,64 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id EDE1E10B43B
-	for <lists+linux-stm32@lfdr.de>; Wed, 27 Nov 2019 18:17:35 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 29B3010B7E4
+	for <lists+linux-stm32@lfdr.de>; Wed, 27 Nov 2019 21:38:02 +0100 (CET)
 Received: from ip-172-31-3-76.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id AE53AC36B0B;
-	Wed, 27 Nov 2019 17:17:35 +0000 (UTC)
-Received: from mx07-00178001.pphosted.com (mx07-00178001.pphosted.com
- [62.209.51.94])
- (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id D12A8C36B0B;
+	Wed, 27 Nov 2019 20:38:01 +0000 (UTC)
+Received: from mail-ot1-f66.google.com (mail-ot1-f66.google.com
+ [209.85.210.66])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id B4B13C36B09
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id D192AC36B09
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Wed, 27 Nov 2019 17:17:33 +0000 (UTC)
-Received: from pps.filterd (m0046668.ppops.net [127.0.0.1])
- by mx07-00178001.pphosted.com (8.16.0.42/8.16.0.42) with SMTP id
- xARH2pcu012552; Wed, 27 Nov 2019 18:17:01 +0100
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=st.com;
- h=from : to : cc : subject
- : date : message-id : mime-version : content-type; s=STMicroelectronics;
- bh=fNAp9C+/NbGS9PcvQ8oHpxudnwZNMo8lEEBUEvBZe2E=;
- b=xjp/i3+yYCaibmCaE3zAQsnM0xazAt9F/0hKy0lUglyNBxw3m0F3zZgY330s6sxKdlPZ
- UH52Qy4f6nxnqaGwOU/onjfIV3PAxkLpmMqotO5B9KdlNcVIJ/DSOgMrr43St+uoNqFS
- l8cKD1/sVxyIyeYU/QiIOwE15c8LlwBFI/hjaVp7T/SHW+dwllqeO6IRYebUI8T2b58n
- 0934JBSNyWWdV9+lzDphdITrzh+aWX9EgkrSxoYTuqLYbVOZ53ZB8i8WHMNH08oB7oqj
- hU50iYK+1l1LAGi7WKOkGr5+F5s4G92cLLYe52CCd0IFdkMj03ZSG7nvCTTyUXWLvCdw Ow== 
-Received: from beta.dmz-eu.st.com (beta.dmz-eu.st.com [164.129.1.35])
- by mx07-00178001.pphosted.com with ESMTP id 2whcxkmw4x-1
- (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
- Wed, 27 Nov 2019 18:17:01 +0100
-Received: from euls16034.sgp.st.com (euls16034.sgp.st.com [10.75.44.20])
- by beta.dmz-eu.st.com (STMicroelectronics) with ESMTP id 3245710002A;
- Wed, 27 Nov 2019 18:17:01 +0100 (CET)
-Received: from Webmail-eu.st.com (sfhdag6node2.st.com [10.75.127.17])
- by euls16034.sgp.st.com (STMicroelectronics) with ESMTP id 6E3F42C4FDF;
- Wed, 27 Nov 2019 18:17:00 +0100 (CET)
-Received: from localhost (10.75.127.46) by SFHDAG6NODE2.st.com (10.75.127.17)
- with Microsoft SMTP Server (TLS) id 15.0.1347.2;
- Wed, 27 Nov 2019 18:16:59 +0100
-From: Olivier Moysan <olivier.moysan@st.com>
-To: <jic23@kernel.org>, <robh+dt@kernel.org>, <olivier.moysan@st.com>
-Date: Wed, 27 Nov 2019 18:16:42 +0100
-Message-ID: <20191127171642.6014-1-olivier.moysan@st.com>
-X-Mailer: git-send-email 2.17.1
+ Wed, 27 Nov 2019 20:38:00 +0000 (UTC)
+Received: by mail-ot1-f66.google.com with SMTP id z25so20296171oti.5
+ for <linux-stm32@st-md-mailman.stormreply.com>;
+ Wed, 27 Nov 2019 12:38:00 -0800 (PST)
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20161025;
+ h=x-gm-message-state:mime-version:references:in-reply-to:from:date
+ :message-id:subject:to:cc;
+ bh=14vyCpwlco5dNMekZ671HzsQ/qD/jZMl32Sz5ULoC/U=;
+ b=Cm4hMmDp0N9hKiKHmBxsQoECXJNdVYRnX2XUBPIxZG5xyrTWZ0EOBhyE93n9zmmCmT
+ e7SNqP8+ml5XH34cgmUwMtdxqgC335OVaMCxNT8d253p1toFoHVxe+ctrxxvl2yDr0WV
+ F1+ENB+9PJRj7OZCO5Far2zkVlXrJuFIhs2scAve47jAZk/EGT9RlYux+rgNNa+NFXXZ
+ ITNEeJdmZbcQo9xYZImAcRa2DutB2o4To6DkxzYB0a0vgtKWPEZGtqsUirfCZkIMuJCN
+ 7lXkjkZNiIJ+KIzToSy7XIvJ9go18Zpg5HxLXer98wILxGYsxjSukLLNF71Cp6oRc3aG
+ Ielw==
+X-Gm-Message-State: APjAAAVEjV1pSZdWT5ccb35Xv9mAw+zjMYRExRRIvvb8hGsQgy5qv6dr
+ VctRt7p/XduR2114E43GcI41p4znL83iO9TXtho=
+X-Google-Smtp-Source: APXvYqyekyFnyyTzxDAaVF4lh76x3pVg0AJcETDtG/R5UDB8kyib7ugeAakdgVvr7ZJMAAkTJwIUv0P5kqimosEUmPw=
+X-Received: by 2002:a9d:2073:: with SMTP id n106mr5117337ota.145.1574887078997; 
+ Wed, 27 Nov 2019 12:37:58 -0800 (PST)
 MIME-Version: 1.0
-X-Originating-IP: [10.75.127.46]
-X-ClientProxiedBy: SFHDAG5NODE3.st.com (10.75.127.15) To SFHDAG6NODE2.st.com
- (10.75.127.17)
-X-Proofpoint-Virus-Version: vendor=fsecure engine=2.50.10434:6.0.95,18.0.572
- definitions=2019-11-27_04:2019-11-27,2019-11-27 signatures=0
-Cc: mark.rutland@arm.com, devicetree@vger.kernel.org, lars@metafoo.de,
- pmeerw@pmeerw.net, linux-iio@vger.kernel.org, linux-kernel@vger.kernel.org,
- mcoquelin.stm32@gmail.com, knaack.h@gmx.de, fabrice.gasnier@st.com,
- linux-stm32@st-md-mailman.stormreply.com, linux-arm-kernel@lists.infradead.org
-Subject: [Linux-stm32] [PATCH] dt-bindings: iio: adc: convert sd modulator
-	to json-schema
+References: <cover.1574871463.git.nishadkamdar@gmail.com>
+ <5a7ed2e4b58ba7ff2f0638a2435a3a1e1c62c9f6.1574871463.git.nishadkamdar@gmail.com>
+In-Reply-To: <5a7ed2e4b58ba7ff2f0638a2435a3a1e1c62c9f6.1574871463.git.nishadkamdar@gmail.com>
+From: Geert Uytterhoeven <geert@linux-m68k.org>
+Date: Wed, 27 Nov 2019 21:37:47 +0100
+Message-ID: <CAMuHMdUqfRioTBV27AKx9zv9YuSqEod6x+A4aguf=h20TDXr6w@mail.gmail.com>
+To: Nishad Kamdar <nishadkamdar@gmail.com>
+Cc: Geert Uytterhoeven <geert+renesas@glider.be>,
+ Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
+ Kevin Hilman <khilman@baylibre.com>, Linus Walleij <linus.walleij@linaro.org>,
+ Sean Wang <sean.wang@kernel.org>,
+ Linux Kernel Mailing List <linux-kernel@vger.kernel.org>,
+ linux-stm32@st-md-mailman.stormreply.com,
+ Linux-Renesas <linux-renesas-soc@vger.kernel.org>,
+ Joe Perches <joe@perches.com>,
+ "open list:GPIO SUBSYSTEM" <linux-gpio@vger.kernel.org>,
+ linux-mediatek@lists.infradead.org,
+ Maxime Coquelin <mcoquelin.stm32@gmail.com>,
+ Manivannan Sadhasivam <manivannan.sadhasivam@linaro.org>,
+ Matthias Brugger <matthias.bgg@gmail.com>,
+ =?UTF-8?Q?Uwe_Kleine=2DK=C3=B6nig?= <u.kleine-koenig@pengutronix.de>,
+ "open list:ARM/Amlogic Meson..." <linux-amlogic@lists.infradead.org>,
+ =?UTF-8?Q?Andreas_F=C3=A4rber?= <afaerber@suse.de>,
+ Linux ARM <linux-arm-kernel@lists.infradead.org>
+Subject: Re: [Linux-stm32] [PATCH 4/5] pinctrl: sh-pfc: Use the correct
+ style for SPDX License Identifier
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -72,80 +76,62 @@ Content-Transfer-Encoding: 7bit
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
-Convert the sigma delta modulator bindings
-to DT schema format using json-schema.
+Hi Nishad,
 
-Signed-off-by: Olivier Moysan <olivier.moysan@st.com>
----
- .../iio/adc/sigma-delta-modulator.txt         | 13 -------
- .../iio/adc/sigma-delta-modulator.yaml        | 35 +++++++++++++++++++
- 2 files changed, 35 insertions(+), 13 deletions(-)
- delete mode 100644 Documentation/devicetree/bindings/iio/adc/sigma-delta-modulator.txt
- create mode 100644 Documentation/devicetree/bindings/iio/adc/sigma-delta-modulator.yaml
+On Wed, Nov 27, 2019 at 5:46 PM Nishad Kamdar <nishadkamdar@gmail.com> wrote:
+> This patch corrects the SPDX License Identifier style in
+> header files related to Reneses Soc pinctrl driver.
+> It assigns explicit block comment for the SPDX License Identifier.
 
-diff --git a/Documentation/devicetree/bindings/iio/adc/sigma-delta-modulator.txt b/Documentation/devicetree/bindings/iio/adc/sigma-delta-modulator.txt
-deleted file mode 100644
-index 59b92cd32552..000000000000
---- a/Documentation/devicetree/bindings/iio/adc/sigma-delta-modulator.txt
-+++ /dev/null
-@@ -1,13 +0,0 @@
--Device-Tree bindings for sigma delta modulator
--
--Required properties:
--- compatible: should be "ads1201", "sd-modulator". "sd-modulator" can be use
--	as a generic SD modulator if modulator not specified in compatible list.
--- #io-channel-cells = <0>: See the IIO bindings section "IIO consumers".
--
--Example node:
--
--	ads1202: adc {
--		compatible = "sd-modulator";
--		#io-channel-cells = <0>;
--	};
-diff --git a/Documentation/devicetree/bindings/iio/adc/sigma-delta-modulator.yaml b/Documentation/devicetree/bindings/iio/adc/sigma-delta-modulator.yaml
-new file mode 100644
-index 000000000000..8967c6f06d9d
---- /dev/null
-+++ b/Documentation/devicetree/bindings/iio/adc/sigma-delta-modulator.yaml
-@@ -0,0 +1,35 @@
-+# SPDX-License-Identifier: (GPL-2.0-only OR BSD-2-Clause)
-+%YAML 1.2
-+---
-+$id: http://devicetree.org/schemas/iio/adc/sigma-delta-modulator.yaml#
-+$schema: http://devicetree.org/meta-schemas/core.yaml#
-+
-+title: Device-Tree bindings for sigma delta modulator
-+
-+maintainers:
-+  - Arnaud Pouliquen <arnaud.pouliquen@st.com>
-+
-+properties:
-+  compatible:
-+    description: |
-+      "sd-modulator" can be used as a generic SD modulator,
-+      if the modulator is not specified in the compatible list.
-+    enum:
-+      - sd-modulator
-+      - ads1201
-+
-+  '#io-channel-cells':
-+    const: 0
-+
-+required:
-+  - compatible
-+  - '#io-channel-cells'
-+
-+examples:
-+  - |
-+    ads1202: adc@0 {
-+      compatible = "sd-modulator";
-+      #io-channel-cells = <0>;
-+    };
-+
-+...
+Is it incorrect to not have an explicit block comment?
+Other recommendations have been to integrate the SPDX comment line
+into an existing comment header, if it exists....
+
+> Changes made by using a script provided by Joe Perches here:
+> https://lkml.org/lkml/2019/2/7/46.
+>
+> Suggested-by: Joe Perches <joe@perches.com>
+> Signed-off-by: Nishad Kamdar <nishadkamdar@gmail.com>
+> ---
+>  drivers/pinctrl/sh-pfc/core.h   | 4 ++--
+>  drivers/pinctrl/sh-pfc/sh_pfc.h | 4 ++--
+>  2 files changed, 4 insertions(+), 4 deletions(-)
+>
+> diff --git a/drivers/pinctrl/sh-pfc/core.h b/drivers/pinctrl/sh-pfc/core.h
+> index b5b1d163e98a..5ad0ab8f9e14 100644
+> --- a/drivers/pinctrl/sh-pfc/core.h
+> +++ b/drivers/pinctrl/sh-pfc/core.h
+> @@ -1,5 +1,5 @@
+> -/* SPDX-License-Identifier: GPL-2.0
+> - *
+> +/* SPDX-License-Identifier: GPL-2.0 */
+> +/*
+>   * SuperH Pin Function Controller support.
+>   *
+>   * Copyright (C) 2012  Renesas Solutions Corp.
+> diff --git a/drivers/pinctrl/sh-pfc/sh_pfc.h b/drivers/pinctrl/sh-pfc/sh_pfc.h
+> index 640d2a4cb838..fff9cbb7a0f8 100644
+> --- a/drivers/pinctrl/sh-pfc/sh_pfc.h
+> +++ b/drivers/pinctrl/sh-pfc/sh_pfc.h
+> @@ -1,5 +1,5 @@
+> -/* SPDX-License-Identifier: GPL-2.0
+> - *
+> +/* SPDX-License-Identifier: GPL-2.0 */
+> +/*
+>   * SuperH Pin Function Controller Support
+>   *
+>   * Copyright (c) 2008 Magnus Damm
+
+Gr{oetje,eeting}s,
+
+                        Geert
+
 -- 
-2.17.1
+Geert Uytterhoeven -- There's lots of Linux beyond ia32 -- geert@linux-m68k.org
 
+In personal conversations with technical people, I call myself a hacker. But
+when I'm talking to journalists I just say "programmer" or something like that.
+                                -- Linus Torvalds
 _______________________________________________
 Linux-stm32 mailing list
 Linux-stm32@st-md-mailman.stormreply.com
