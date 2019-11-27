@@ -2,63 +2,50 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id 18D1A10BDF3
-	for <lists+linux-stm32@lfdr.de>; Wed, 27 Nov 2019 22:33:11 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 7C96910C4AF
+	for <lists+linux-stm32@lfdr.de>; Thu, 28 Nov 2019 09:05:57 +0100 (CET)
 Received: from ip-172-31-3-76.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id CB234C36B0B;
-	Wed, 27 Nov 2019 21:33:10 +0000 (UTC)
-Received: from smtprelay.hostedemail.com (smtprelay0157.hostedemail.com
- [216.40.44.157])
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 3FE9BC36B0B;
+	Thu, 28 Nov 2019 08:05:57 +0000 (UTC)
+Received: from mx1.suse.de (mx2.suse.de [195.135.220.15])
  (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 8EE2FC36B09
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 7274CC36B09
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Wed, 27 Nov 2019 21:33:09 +0000 (UTC)
-Received: from filter.hostedemail.com (clb03-v110.bra.tucows.net
- [216.40.38.60])
- by smtprelay04.hostedemail.com (Postfix) with ESMTP id 49DF1180020E4;
- Wed, 27 Nov 2019 21:33:08 +0000 (UTC)
-X-Session-Marker: 6A6F6540706572636865732E636F6D
-X-Spam-Summary: 50, 0, 0, , d41d8cd98f00b204, joe@perches.com,
- :::::::::::::::::::::::::::::::::::::::,
- RULES_HIT:41:355:379:599:800:960:967:973:982:988:989:1260:1277:1311:1313:1314:1345:1359:1437:1515:1516:1518:1534:1539:1593:1594:1711:1730:1747:1777:1792:2393:2525:2553:2560:2563:2682:2685:2828:2859:2895:2933:2937:2939:2942:2945:2947:2951:2954:3022:3138:3139:3140:3141:3142:3352:3622:3865:3867:3868:3871:3872:3874:3934:3936:3938:3941:3944:3947:3950:3953:3956:3959:4321:5007:6117:6119:6742:7901:9025:10004:10400:11232:11658:11914:12043:12050:12297:12740:12895:13069:13161:13229:13255:13311:13357:13439:13894:14181:14659:14721:21080:21627:21788:30054:30060:30090:30091,
- 0, RBL:none, CacheIP:none, Bayesian:0.5, 0.5, 0.5, Netcheck:none,
- DomainCache:0, MSF:not bulk, SPF:, MSBL:0, DNSBL:none, Custom_rules:0:0:0,
- LFtime:1, LUA_SUMMARY:none
-X-HE-Tag: cows61_381bf37cb8f3e
-X-Filterd-Recvd-Size: 2684
-Received: from XPS-9350.home (unknown [47.151.135.224])
- (Authenticated sender: joe@perches.com)
- by omf19.hostedemail.com (Postfix) with ESMTPA;
- Wed, 27 Nov 2019 21:33:05 +0000 (UTC)
-Message-ID: <b2cbe247a33dd9f6c747fce180f964b88d5dc70a.camel@perches.com>
-From: Joe Perches <joe@perches.com>
-To: Geert Uytterhoeven <geert@linux-m68k.org>
-Date: Wed, 27 Nov 2019 13:32:39 -0800
-In-Reply-To: <CAMuHMdUSSHvQ74c156tuhWShp05TQuSmXa-kY3HNbYj0VL_d4g@mail.gmail.com>
+ Wed, 27 Nov 2019 20:55:41 +0000 (UTC)
+X-Virus-Scanned: by amavisd-new at test-mx.suse.de
+Received: from relay2.suse.de (unknown [195.135.220.254])
+ by mx1.suse.de (Postfix) with ESMTP id 8DE6AAC12;
+ Wed, 27 Nov 2019 20:55:40 +0000 (UTC)
+To: Geert Uytterhoeven <geert@linux-m68k.org>,
+ Nishad Kamdar <nishadkamdar@gmail.com>
 References: <cover.1574871463.git.nishadkamdar@gmail.com>
  <5a7ed2e4b58ba7ff2f0638a2435a3a1e1c62c9f6.1574871463.git.nishadkamdar@gmail.com>
  <CAMuHMdUqfRioTBV27AKx9zv9YuSqEod6x+A4aguf=h20TDXr6w@mail.gmail.com>
- <9bacc7d9-6bd9-0b7c-18cd-d614796397dd@suse.de>
- <ae40eb808f420f5de4a140b8757dfbc426a8cf90.camel@perches.com>
- <CAMuHMdUSSHvQ74c156tuhWShp05TQuSmXa-kY3HNbYj0VL_d4g@mail.gmail.com>
-User-Agent: Evolution 3.34.1-2 
+From: =?UTF-8?Q?Andreas_F=c3=a4rber?= <afaerber@suse.de>
+Organization: SUSE Software Solutions Germany GmbH
+Message-ID: <9bacc7d9-6bd9-0b7c-18cd-d614796397dd@suse.de>
+Date: Wed, 27 Nov 2019 21:55:39 +0100
+User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:68.0) Gecko/20100101
+ Thunderbird/68.2.1
 MIME-Version: 1.0
+In-Reply-To: <CAMuHMdUqfRioTBV27AKx9zv9YuSqEod6x+A4aguf=h20TDXr6w@mail.gmail.com>
+Content-Language: en-US
+X-Mailman-Approved-At: Thu, 28 Nov 2019 08:05:55 +0000
 Cc: Geert Uytterhoeven <geert+renesas@glider.be>,
- Nishad Kamdar <nishadkamdar@gmail.com>,
  Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
  Kevin Hilman <khilman@baylibre.com>, Linus Walleij <linus.walleij@linaro.org>,
  Sean Wang <sean.wang@kernel.org>,
  Linux Kernel Mailing List <linux-kernel@vger.kernel.org>,
- linux-stm32@st-md-mailman.stormreply.com,
  Linux-Renesas <linux-renesas-soc@vger.kernel.org>,
- linux-gpio <linux-gpio@vger.kernel.org>, linux-mediatek@lists.infradead.org,
+ Joe Perches <joe@perches.com>, linux-gpio <linux-gpio@vger.kernel.org>,
+ linux-mediatek@lists.infradead.org,
  Maxime Coquelin <mcoquelin.stm32@gmail.com>,
  Manivannan Sadhasivam <manivannan.sadhasivam@linaro.org>,
  Matthias Brugger <matthias.bgg@gmail.com>,
- Uwe =?ISO-8859-1?Q?Kleine-K=F6nig?= <u.kleine-koenig@pengutronix.de>,
+ =?UTF-8?Q?Uwe_Kleine-K=c3=b6nig?= <u.kleine-koenig@pengutronix.de>,
  linux-amlogic <linux-amlogic@lists.infradead.org>,
- Andreas =?ISO-8859-1?Q?F=E4rber?= <afaerber@suse.de>,
+ linux-stm32@st-md-mailman.stormreply.com,
  Linux ARM <linux-arm-kernel@lists.infradead.org>
 Subject: Re: [Linux-stm32] [PATCH 4/5] pinctrl: sh-pfc: Use the correct
  style for SPDX License Identifier
@@ -73,35 +60,28 @@ List-Post: <mailto:linux-stm32@st-md-mailman.stormreply.com>
 List-Help: <mailto:linux-stm32-request@st-md-mailman.stormreply.com?subject=help>
 List-Subscribe: <https://st-md-mailman.stormreply.com/mailman/listinfo/linux-stm32>, 
  <mailto:linux-stm32-request@st-md-mailman.stormreply.com?subject=subscribe>
-Content-Type: text/plain; charset="iso-8859-1"
-Content-Transfer-Encoding: quoted-printable
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: base64
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
-On Wed, 2019-11-27 at 22:12 +0100, Geert Uytterhoeven wrote:
-> On Wed, Nov 27, 2019 at 9:59 PM Joe Perches <joe@perches.com> wrote:
-> > On Wed, 2019-11-27 at 21:55 +0100, Andreas F=E4rber wrote:
-> > > However, if we're touching these lines anyway, shouldn't we be updati=
-ng
-> > > the SPDX Identifier to GPL-2.0-only while at it?
-> > =
-
-> > Probably better to do that with a treewide script one day.
-> =
-
-> Yeah... But it's already more than one year after
-> =
-
-> > https://lkml.org/lkml/2018/8/16/487
-> =
-
-> and Documentation/process/license-rules.rst (which is the authoritive
-> rule?) still hasn't been updated...
-
-The patch still applies today...
-
-
-_______________________________________________
-Linux-stm32 mailing list
-Linux-stm32@st-md-mailman.stormreply.com
-https://st-md-mailman.stormreply.com/mailman/listinfo/linux-stm32
+SGkgR2VlcnQsCgpBbSAyNy4xMS4xOSB1bSAyMTozNyBzY2hyaWViIEdlZXJ0IFV5dHRlcmhvZXZl
+bjoKPiBPbiBXZWQsIE5vdiAyNywgMjAxOSBhdCA1OjQ2IFBNIE5pc2hhZCBLYW1kYXIgPG5pc2hh
+ZGthbWRhckBnbWFpbC5jb20+IHdyb3RlOgo+PiBUaGlzIHBhdGNoIGNvcnJlY3RzIHRoZSBTUERY
+IExpY2Vuc2UgSWRlbnRpZmllciBzdHlsZSBpbgo+PiBoZWFkZXIgZmlsZXMgcmVsYXRlZCB0byBS
+ZW5lc2VzIFNvYyBwaW5jdHJsIGRyaXZlci4KPj4gSXQgYXNzaWducyBleHBsaWNpdCBibG9jayBj
+b21tZW50IGZvciB0aGUgU1BEWCBMaWNlbnNlIElkZW50aWZpZXIuCj4gCj4gSXMgaXQgaW5jb3Jy
+ZWN0IHRvIG5vdCBoYXZlIGFuIGV4cGxpY2l0IGJsb2NrIGNvbW1lbnQ/CgpZZXMsIEdyZWcgc2Fp
+ZCBzbyB0byBtZS4gSGUgc3VnZ2VzdGVkIEkgcHJvdmlkZSBhIHBhdGNoIGFnYWluc3QgdGhlCmRv
+Y3VtZW50YXRpb24gaWYgdGhlIGRvY3MgYXJlIG5vdCBjbGVhciBlbm91Z2gsIGJ1dCBJIGRpZG4n
+dCBnZXQgYXJvdW5kCnRvIGl0IChhbmQgaXQncyBub3QgbXkgcnVsZSBpbiB0aGUgZmlyc3QgcGxh
+Y2UsIHNvIEknZCBhcHByZWNpYXRlIHRoZQpwZXJzb24gbWFraW5nIHRoYXQgcnVsZSB0byB0YWtl
+IGNhcmUgb2YgZG9jdW1lbnRpbmcgaXQpLgoKSG93ZXZlciwgaWYgd2UncmUgdG91Y2hpbmcgdGhl
+c2UgbGluZXMgYW55d2F5LCBzaG91bGRuJ3Qgd2UgYmUgdXBkYXRpbmcKdGhlIFNQRFggSWRlbnRp
+ZmllciB0byBHUEwtMi4wLW9ubHkgd2hpbGUgYXQgaXQ/CgpDaGVlcnMsCkFuZHJlYXMKCi0tIApT
+VVNFIFNvZnR3YXJlIFNvbHV0aW9ucyBHZXJtYW55IEdtYkgKTWF4ZmVsZHN0ci4gNSwgOTA0MDkg
+TsO8cm5iZXJnLCBHZXJtYW55CkdGOiBGZWxpeCBJbWVuZMO2cmZmZXIKSFJCIDM2ODA5IChBRyBO
+w7xybmJlcmcpCl9fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19f
+CkxpbnV4LXN0bTMyIG1haWxpbmcgbGlzdApMaW51eC1zdG0zMkBzdC1tZC1tYWlsbWFuLnN0b3Jt
+cmVwbHkuY29tCmh0dHBzOi8vc3QtbWQtbWFpbG1hbi5zdG9ybXJlcGx5LmNvbS9tYWlsbWFuL2xp
+c3RpbmZvL2xpbnV4LXN0bTMyCg==
