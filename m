@@ -2,69 +2,59 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id EA39010D774
-	for <lists+linux-stm32@lfdr.de>; Fri, 29 Nov 2019 15:52:08 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 4805410D952
+	for <lists+linux-stm32@lfdr.de>; Fri, 29 Nov 2019 19:06:23 +0100 (CET)
 Received: from ip-172-31-3-76.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id A0150C36B0B;
-	Fri, 29 Nov 2019 14:52:08 +0000 (UTC)
-Received: from mx07-00178001.pphosted.com (mx07-00178001.pphosted.com
- [62.209.51.94])
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 13371C36B14;
+	Fri, 29 Nov 2019 18:06:23 +0000 (UTC)
+Received: from mx07-00178001.pphosted.com (mx08-00178001.pphosted.com
+ [91.207.212.93])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id E3105C36B09
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 9CBFEC36B09
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Fri, 29 Nov 2019 14:52:07 +0000 (UTC)
-Received: from pps.filterd (m0046037.ppops.net [127.0.0.1])
- by mx07-00178001.pphosted.com (8.16.0.42/8.16.0.42) with SMTP id
- xATEl2rW015649; Fri, 29 Nov 2019 15:51:51 +0100
+ Fri, 29 Nov 2019 18:06:20 +0000 (UTC)
+Received: from pps.filterd (m0046660.ppops.net [127.0.0.1])
+ by mx08-00178001.pphosted.com (8.16.0.42/8.16.0.42) with SMTP id
+ xATHxatc023646; Fri, 29 Nov 2019 19:06:06 +0100
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=st.com;
- h=subject : to : cc :
- references : from : message-id : date : mime-version : in-reply-to :
- content-type : content-transfer-encoding; s=STMicroelectronics;
- bh=g8lD3rtdXNrCg147P/vL/OTbncUOSvc26kNNxIEODlU=;
- b=kcjurm5sWToNx0YxGPewWYGHrO6fGpUyf6fVE3BiBVSse71WSxfWao+4zlxicrc4hVXw
- 4/2x6utimcqGQPR0/QULgoj2VHX4b2+inZ5O1MGFNWOsUvYjH9kEmtQxk4pFra33P31n
- gMZtS+MnVpo9AvHicIdyxUrN8lopXOiCZuqsNzjTV1XAV/RG2lGF9Oy22/Bb1AQHxAUa
- KnFryJpdfh7UaI9YmZW/54NYzzBO5sHroCSyXnZ5AXPY0JHcb6MlB5zVCgEOaaUYTLMq
- tR4Ytc2/IL1LnhMwgp+s3kjw0a3GpCiKeByP5nxenR/LmY7zY8ynZBC0mDU8csL/g/P6 TA== 
+ h=from : to : cc : subject
+ : date : message-id : mime-version : content-type; s=STMicroelectronics;
+ bh=hMddIkaPL2KUpivYYgNbUzef0pFCb7AakiEoifdSJ68=;
+ b=DcgwRA3z9YoMvhw2gqZNj0Y7mAaH374pcKv/oaJZyR3Y+0NWyIXDU1vZvoUJsiSf9MKc
+ n7pYWYhvdWnvzjlRAEqvBXQm6eejxQtiuIEicDZIHbbHq5fwpIyIKC3ad32Mpk+t5vjU
+ 6N3YR2vQY0oa4bVXMKOK0MHu2N5i/8KKg/w9L3VTgkuBf5Fl8rizKXsUk9arSWoo6Ms5
+ U6sf1jy49IvKecHrsEX6iA2Oejugoog7LzKiFD2QIptknvtjeYYX9uG7FNa7WhE0Ug3w
+ o56dswfbI/Its2M5j2rrCqB1OtQVhXkdlIiSwXV2R3LgDCufUQfErC7ogTbSontFkAdO 5g== 
 Received: from beta.dmz-eu.st.com (beta.dmz-eu.st.com [164.129.1.35])
- by mx07-00178001.pphosted.com with ESMTP id 2whcxjg1nr-1
+ by mx08-00178001.pphosted.com with ESMTP id 2whcxss0my-1
  (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
- Fri, 29 Nov 2019 15:51:51 +0100
+ Fri, 29 Nov 2019 19:06:06 +0100
 Received: from euls16034.sgp.st.com (euls16034.sgp.st.com [10.75.44.20])
- by beta.dmz-eu.st.com (STMicroelectronics) with ESMTP id 778B310002A;
- Fri, 29 Nov 2019 15:51:49 +0100 (CET)
+ by beta.dmz-eu.st.com (STMicroelectronics) with ESMTP id 8BB7610002A;
+ Fri, 29 Nov 2019 19:06:04 +0100 (CET)
 Received: from Webmail-eu.st.com (sfhdag3node2.st.com [10.75.127.8])
- by euls16034.sgp.st.com (STMicroelectronics) with ESMTP id 4622B2B9FAF;
- Fri, 29 Nov 2019 15:51:49 +0100 (CET)
-Received: from lmecxl0912.lme.st.com (10.75.127.49) by SFHDAG3NODE2.st.com
- (10.75.127.8) with Microsoft SMTP Server (TLS) id 15.0.1347.2; Fri, 29 Nov
- 2019 15:51:48 +0100
-To: Arnd Bergmann <arnd@arndb.de>
-References: <20191120144109.25321-1-alexandre.torgue@st.com>
- <20191120144109.25321-6-alexandre.torgue@st.com>
- <CAK8P3a2Bg9KwfEqEE3_NUHxVv=svFGuj--Tnq-w-xFg63cfqAA@mail.gmail.com>
+ by euls16034.sgp.st.com (STMicroelectronics) with ESMTP id 749D3222D1F;
+ Fri, 29 Nov 2019 19:06:04 +0100 (CET)
+Received: from localhost (10.75.127.51) by SFHDAG3NODE2.st.com (10.75.127.8)
+ with Microsoft SMTP Server (TLS) id 15.0.1347.2; Fri, 29 Nov 2019 19:06:04
+ +0100
 From: Alexandre Torgue <alexandre.torgue@st.com>
-Message-ID: <92be0a67-c0ed-23bd-08f3-73f71d8bfc3f@st.com>
-Date: Fri, 29 Nov 2019 15:51:48 +0100
-User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:60.0) Gecko/20100101
- Thunderbird/60.9.0
+To: Maxime Coquelin <mcoquelin.stm32@gmail.com>, <arnd@arndb.de>,
+ <robh+dt@kernel.org>, <mark.rutland@arm.com>
+Date: Fri, 29 Nov 2019 19:05:56 +0100
+Message-ID: <20191129180602.28470-1-alexandre.torgue@st.com>
+X-Mailer: git-send-email 2.17.1
 MIME-Version: 1.0
-In-Reply-To: <CAK8P3a2Bg9KwfEqEE3_NUHxVv=svFGuj--Tnq-w-xFg63cfqAA@mail.gmail.com>
-Content-Language: en-US
-X-Originating-IP: [10.75.127.49]
-X-ClientProxiedBy: SFHDAG8NODE1.st.com (10.75.127.22) To SFHDAG3NODE2.st.com
+X-Originating-IP: [10.75.127.51]
+X-ClientProxiedBy: SFHDAG4NODE1.st.com (10.75.127.10) To SFHDAG3NODE2.st.com
  (10.75.127.8)
 X-Proofpoint-Virus-Version: vendor=fsecure engine=2.50.10434:6.0.95,18.0.572
- definitions=2019-11-29_04:2019-11-29,2019-11-29 signatures=0
-Cc: Mark Rutland <mark.rutland@arm.com>, DTML <devicetree@vger.kernel.org>,
- "linux-kernel@vger.kernel.org" <linux-kernel@vger.kernel.org>,
- Rob Herring <robh+dt@kernel.org>, Maxime Coquelin <mcoquelin.stm32@gmail.com>,
+ definitions=2019-11-29_06:2019-11-29,2019-11-29 signatures=0
+Cc: devicetree@vger.kernel.org, linux-kernel@vger.kernel.org,
  Manivannan Sadhasivam <manivannan.sadhasivam@linaro.org>,
- linux-stm32@st-md-mailman.stormreply.com,
- Linux ARM <linux-arm-kernel@lists.infradead.org>
-Subject: Re: [Linux-stm32] [PATCH 5/6] ARM: dts: stm32: Adapt STM32MP157 DK
- boards to stm32 DT diversity
+ linux-stm32@st-md-mailman.stormreply.com, linux-arm-kernel@lists.infradead.org
+Subject: [Linux-stm32] [PATCH v2 0/6] STM32 DT: Updates for SOC diversity
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -76,53 +66,102 @@ List-Post: <mailto:linux-stm32@st-md-mailman.stormreply.com>
 List-Help: <mailto:linux-stm32-request@st-md-mailman.stormreply.com?subject=help>
 List-Subscribe: <https://st-md-mailman.stormreply.com/mailman/listinfo/linux-stm32>, 
  <mailto:linux-stm32-request@st-md-mailman.stormreply.com?subject=subscribe>
+Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
-Content-Type: text/plain; charset="us-ascii"; Format="flowed"
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
+Changes since v1:
+ -According to Arnd comment, move chosen and aliases nodes to dts board file.
 
 
-On 11/29/19 3:20 PM, Arnd Bergmann wrote:
-> On Wed, Nov 20, 2019 at 3:41 PM Alexandre Torgue
-> <alexandre.torgue@st.com> wrote:
->>
->> To handle STM32MP15 SOCs diversity, some updates have to been done.
->> This commit mainly adapt dk1 board to include the correct package and the
->> correct SOC version. A new file has been created to factorize common parts.
->>
->> Signed-off-by: Alexandre Torgue <alexandre.torgue@st.com>
->>
->> diff --git a/arch/arm/boot/dts/stm32mp157a-dk1.dts b/arch/arm/boot/dts/stm32mp157a-dk1.dts
->> index 3f869bd67082..1292ac3b6890 100644
->> --- a/arch/arm/boot/dts/stm32mp157a-dk1.dts
->> +++ b/arch/arm/boot/dts/stm32mp157a-dk1.dts
->>          model = "STMicroelectronics STM32MP157A-DK1 Discovery Board";
->>          compatible = "st,stm32mp157a-dk1", "st,stm32mp157";
->> -
->> -       aliases {
->> -               ethernet0 = &ethernet0;
->> -               serial0 = &uart4;
->> -       };
->> -
->> -       chosen {
->> -               stdout-path = "serial0:115200n8";
->> -       };
->> -
-> 
-> As a rule, I would leave aliases and chosen nodes in the .dts file and not
-> move them into a shared .dtsi, since they tend to be board specific.
-> 
-> (even if that may not be the case in this particular file)
+This series updates stm32mp device tree files in order to handle the STM32MP15
+part numbers diversity. STM32MP15 part numbers are built in this way:
 
-I agree, I'll move them in V2.
+-STM32MP15X: X = [1, 3, 7] for IPs diversity:
+ -STM32MP151 = basic part
+ -STM32MP153 = STM32MP151  + a second CPU A7 + MCAN(x2)
+ -STM32MP157 = STM32MP153 + DSI + GPU
 
-Thanks
+-STMM32MP15xY: Y = [a, c] for security diversity:
+ -STM32MP15xA: basic part.
+ -STM32MP15xC: adds crypto IP.
+
+-STM32MP15xxZZ: ZZ = [aa, ab, ac, ad] for packages (IO) diversity:
+ -STM32MP15xxAA: TFBGA448 18x18
+ -STM32MP15xxAB: LFBGA354 16x16
+ -STM32MP15xxAC: TFBGA361 12x12
+ -STM32MP15xxAD: TFBGA257 10x10
+
+New device tree files are created and some existing are renamed to match with
+this split.
+
+In this way it is easy to assemble (by inclusion) those files to match with the
+SOC partnumber used on board, and then it's simpler for users to create their
+own device tree board file using the correct SOC.
+
+For more details:
+
+See STM32MP151 [1], STM32MP153 [2], STM32MP157 [3] reference manuals:
+ [1] https://www.st.com/resource/en/reference_manual/dm00366349.pdf
+ [2] https://www.st.com/resource/en/reference_manual/dm00366355.pdf
+ [3] https://www.st.com/resource/en/reference_manual/dm00327659.pdf
+
+Product family:
+ https://www.st.com/en/microcontrollers-microprocessors/stm32-arm-cortex-mpus.html#products
+
+regards
 Alex
 
-> 
->        Arnd
-> 
+Alexandre Torgue (6):
+  ARM: dts: stm32: Adapt stm32mp157 pinctrl to manage STM32MP15xx SOCs
+    family
+  ARM: dts: stm32: Update stm32mp157 pinctrl files
+  ARM: dts: stm32: Introduce new STM32MP15 SOCs: STM32MP151 and
+    STM32MP153
+  ARM: dts: stm32: Manage security diversity for STM32M15x SOCs
+  ARM: dts: stm32: Adapt STM32MP157 DK boards to stm32 DT diversity
+  ARM: dts: stm32: Adapt STM32MP157C ED1 board to STM32 DT diversity
+
+ arch/arm/boot/dts/stm32mp15-pinctrl.dtsi      | 1087 +++++++++++++++
+ .../dts/{stm32mp157c.dtsi => stm32mp151.dtsi} |  218 ++-
+ arch/arm/boot/dts/stm32mp153.dtsi             |   45 +
+ arch/arm/boot/dts/stm32mp157-pinctrl.dtsi     | 1240 -----------------
+ arch/arm/boot/dts/stm32mp157.dtsi             |   31 +
+ arch/arm/boot/dts/stm32mp157a-avenger96.dts   |    5 +-
+ arch/arm/boot/dts/stm32mp157a-dk1.dts         |  595 +-------
+ arch/arm/boot/dts/stm32mp157c-dk2.dts         |   15 +-
+ arch/arm/boot/dts/stm32mp157c-ed1.dts         |    6 +-
+ arch/arm/boot/dts/stm32mp157xaa-pinctrl.dtsi  |   90 --
+ arch/arm/boot/dts/stm32mp157xab-pinctrl.dtsi  |   62 -
+ arch/arm/boot/dts/stm32mp157xac-pinctrl.dtsi  |   78 --
+ arch/arm/boot/dts/stm32mp157xad-pinctrl.dtsi  |   62 -
+ arch/arm/boot/dts/stm32mp15xc.dtsi            |   18 +
+ arch/arm/boot/dts/stm32mp15xx-dkx.dtsi        |  597 ++++++++
+ arch/arm/boot/dts/stm32mp15xxaa-pinctrl.dtsi  |   85 ++
+ arch/arm/boot/dts/stm32mp15xxab-pinctrl.dtsi  |   57 +
+ arch/arm/boot/dts/stm32mp15xxac-pinctrl.dtsi  |   73 +
+ arch/arm/boot/dts/stm32mp15xxad-pinctrl.dtsi  |   57 +
+ 19 files changed, 2232 insertions(+), 2189 deletions(-)
+ create mode 100644 arch/arm/boot/dts/stm32mp15-pinctrl.dtsi
+ rename arch/arm/boot/dts/{stm32mp157c.dtsi => stm32mp151.dtsi} (91%)
+ create mode 100644 arch/arm/boot/dts/stm32mp153.dtsi
+ delete mode 100644 arch/arm/boot/dts/stm32mp157-pinctrl.dtsi
+ create mode 100644 arch/arm/boot/dts/stm32mp157.dtsi
+ delete mode 100644 arch/arm/boot/dts/stm32mp157xaa-pinctrl.dtsi
+ delete mode 100644 arch/arm/boot/dts/stm32mp157xab-pinctrl.dtsi
+ delete mode 100644 arch/arm/boot/dts/stm32mp157xac-pinctrl.dtsi
+ delete mode 100644 arch/arm/boot/dts/stm32mp157xad-pinctrl.dtsi
+ create mode 100644 arch/arm/boot/dts/stm32mp15xc.dtsi
+ create mode 100644 arch/arm/boot/dts/stm32mp15xx-dkx.dtsi
+ create mode 100644 arch/arm/boot/dts/stm32mp15xxaa-pinctrl.dtsi
+ create mode 100644 arch/arm/boot/dts/stm32mp15xxab-pinctrl.dtsi
+ create mode 100644 arch/arm/boot/dts/stm32mp15xxac-pinctrl.dtsi
+ create mode 100644 arch/arm/boot/dts/stm32mp15xxad-pinctrl.dtsi
+
+-- 
+2.17.1
+
 _______________________________________________
 Linux-stm32 mailing list
 Linux-stm32@st-md-mailman.stormreply.com
