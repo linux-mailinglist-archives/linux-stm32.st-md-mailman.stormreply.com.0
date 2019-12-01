@@ -2,45 +2,44 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id 68FFC10E196
-	for <lists+linux-stm32@lfdr.de>; Sun,  1 Dec 2019 12:31:31 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id B66C710E389
+	for <lists+linux-stm32@lfdr.de>; Sun,  1 Dec 2019 22:08:36 +0100 (CET)
 Received: from ip-172-31-3-76.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 08BE8C36B0B;
-	Sun,  1 Dec 2019 11:31:31 +0000 (UTC)
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 61CF1C36B0B;
+	Sun,  1 Dec 2019 21:08:36 +0000 (UTC)
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
  (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 6051CC36B09
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id A2CF7C36B09
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Sun,  1 Dec 2019 11:31:29 +0000 (UTC)
+ Sun,  1 Dec 2019 21:08:34 +0000 (UTC)
 Received: from archlinux (cpc149474-cmbg20-2-0-cust94.5-4.cable.virginm.net
  [82.4.196.95])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by mail.kernel.org (Postfix) with ESMTPSA id 333ED20725;
- Sun,  1 Dec 2019 11:31:26 +0000 (UTC)
+ by mail.kernel.org (Postfix) with ESMTPSA id CE00B20865;
+ Sun,  1 Dec 2019 21:08:30 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
- s=default; t=1575199888;
- bh=56XBnKJVmTYnYtton6KvBJ3ixR4lLH8rYw6S6VGdLYM=;
+ s=default; t=1575234513;
+ bh=xUtbib0mj42a6stnoW1G9F2urnfc6rxP/uq2AAN28Wk=;
  h=Date:From:To:Cc:Subject:In-Reply-To:References:From;
- b=SaiWAtPN/430lBSXZTbyDue198W2vmXMtdwb+WelVpClcD99pKyBqp/3Na4jqOaLf
- hNsVj366r/7ZIXNtrz06COEIcZKZWjiuKK+OuMjugS8t2q+Y9vUIaCTodotpX/Hzu6
- dKCpoM6GvWwTLtKvKR4LA6WHVIndE/wLUuO6J0jA=
-Date: Sun, 1 Dec 2019 11:31:23 +0000
+ b=UHXg0uT4VqwMSqggJJt3pmJuZnrzaA7EGyOv6K5l0HlOPHqmeIRPRVMRf94hgUnh9
+ nJYqbQrIIndqa9VdPXS3pHODnowcsYcqrSMPyBlkVKaNlcldpLQomUpMI0XN86htKv
+ IIWL4GSZRzRvv+/rPpen5/VQxUk0cqGMPRj564K0=
+Date: Sun, 1 Dec 2019 21:08:27 +0000
 From: Jonathan Cameron <jic23@kernel.org>
 To: Fabrice Gasnier <fabrice.gasnier@st.com>
-Message-ID: <20191201113123.1951460c@archlinux>
-In-Reply-To: <999ccf66-1184-7b9e-309c-8130ad643c82@st.com>
-References: <1574435294-19510-1-git-send-email-fabrice.gasnier@st.com>
- <20191123113623.3e58b2d1@archlinux>
- <999ccf66-1184-7b9e-309c-8130ad643c82@st.com>
+Message-ID: <20191201210827.41e1612c@archlinux>
+In-Reply-To: <1574873325-9916-1-git-send-email-fabrice.gasnier@st.com>
+References: <1574873325-9916-1-git-send-email-fabrice.gasnier@st.com>
 X-Mailer: Claws Mail 3.17.4 (GTK+ 2.24.32; x86_64-pc-linux-gnu)
 MIME-Version: 1.0
-Cc: lars@metafoo.de, linux-iio@vger.kernel.org, pmeerw@pmeerw.net,
- linux-kernel@vger.kernel.org, mcoquelin.stm32@gmail.com, knaack.h@gmx.de,
+Cc: mark.rutland@arm.com, devicetree@vger.kernel.org, lars@metafoo.de,
+ linux-iio@vger.kernel.org, pmeerw@pmeerw.net, linux-kernel@vger.kernel.org,
+ robh+dt@kernel.org, mcoquelin.stm32@gmail.com, knaack.h@gmx.de,
  linux-stm32@st-md-mailman.stormreply.com, linux-arm-kernel@lists.infradead.org
-Subject: Re: [Linux-stm32] [PATCH] iio: adc: stm32-adc: Add check on overrun
-	interrupt
+Subject: Re: [Linux-stm32] [PATCH] dt-bindings: iio: adc: stm32-adc: convert
+ bindings to json-schema
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -57,297 +56,473 @@ Content-Transfer-Encoding: 7bit
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
-On Mon, 25 Nov 2019 09:42:01 +0100
+On Wed, 27 Nov 2019 17:48:45 +0100
 Fabrice Gasnier <fabrice.gasnier@st.com> wrote:
 
-> On 11/23/19 12:36 PM, Jonathan Cameron wrote:
-> > On Fri, 22 Nov 2019 16:08:14 +0100
-> > Fabrice Gasnier <fabrice.gasnier@st.com> wrote:
-> >   
-> >> Enable overrun interrupt on STM32 ADC. In case data register hasn't been
-> >> read (by CPU or DMA), overrun condition is detected when there's new
-> >> conversion data available. Stop grabbing data and log an error message.
-> >> Use a threaded irq to avoid printing the error message from hard irq
-> >> context.
-> >>
-> >> Signed-off-by: Fabrice Gasnier <fabrice.gasnier@st.com>  
-> > 
-> > Absolutely makes sense to notify the user this occurred and to stop
-> > the current process.  It may be useful to give a hint on how
-> > to restart capture?  
+> Convert the STM32 ADC binding to DT schema format using json-schema
 > 
-> Hi Jonathan,
-> 
-> Restarting the capture can simply be done by disabling/re-enabling, e.g.
-> from userland:
-> cd /sys/bus/iio/devices/iio:deviceX
-> echo 0 > buffer/enable
-> echo 1 > buffer/enable
-> 
-> Do you think such a hint should be added somewhere? (in the commit
-> message or in a comment...) ?
-
-Perhaps it should put something in the kernel log if
-the overflow occurs?
-
-Otherwise comment in code is always better than the commit log as chances
-of a random user finding the commit very low indeed ;)
+> Signed-off-by: Fabrice Gasnier <fabrice.gasnier@st.com>
+This one is complex enough that I'm going to leave it to the experts :)
+Definitely one for the DT maintainers.
 
 Jonathan
 
-> 
-> > 
-> > Is this a condition that can occur under 'normal conditions' such
-> > as something else grabbing the CPU for too long?  
-> 
-> Indeed, this may happen for instance when DMA isn't used (e.g. no DMA
-> channel as been assigned to the ADC, so using CPU/interrupts), and CPU
-> is busy for too long... I don't expect this may happen otherwise.
-> 
-> > 
-> > I'd just like to understand if we are dealing with a 'fault'
-> > case of just one where things go wrong under weird conditions.  
-> 
-> Of course something weird, wrong, faulty... happening on the DMA side
-> for example, may cause overrun. But it's quite unlikely.
-> 
-> > 
-> > Patch itself looks fine.  
-> 
-> Please let me know if I need to improve description.
-> 
-> Thanks for reviewing,
-> Fabrice
-> 
-> > 
-> > Thanks,
-> > 
-> > Jonathan
-> > 
-> >   
-> >> ---
-> >>  drivers/iio/adc/stm32-adc-core.c | 14 +++++------
-> >>  drivers/iio/adc/stm32-adc-core.h |  9 +++++++
-> >>  drivers/iio/adc/stm32-adc.c      | 53 ++++++++++++++++++++++++++++++++++++++--
-> >>  3 files changed, 67 insertions(+), 9 deletions(-)
-> >>
-> >> diff --git a/drivers/iio/adc/stm32-adc-core.c b/drivers/iio/adc/stm32-adc-core.c
-> >> index 6537f4f..97655d7 100644
-> >> --- a/drivers/iio/adc/stm32-adc-core.c
-> >> +++ b/drivers/iio/adc/stm32-adc-core.c
-> >> @@ -280,21 +280,21 @@ static int stm32h7_adc_clk_sel(struct platform_device *pdev,
-> >>  static const struct stm32_adc_common_regs stm32f4_adc_common_regs = {
-> >>  	.csr = STM32F4_ADC_CSR,
-> >>  	.ccr = STM32F4_ADC_CCR,
-> >> -	.eoc1_msk = STM32F4_EOC1,
-> >> -	.eoc2_msk = STM32F4_EOC2,
-> >> -	.eoc3_msk = STM32F4_EOC3,
-> >> +	.eoc1_msk = STM32F4_EOC1 | STM32F4_OVR1,
-> >> +	.eoc2_msk = STM32F4_EOC2 | STM32F4_OVR2,
-> >> +	.eoc3_msk = STM32F4_EOC3 | STM32F4_OVR3,
-> >>  	.ier = STM32F4_ADC_CR1,
-> >> -	.eocie_msk = STM32F4_EOCIE,
-> >> +	.eocie_msk = STM32F4_EOCIE | STM32F4_OVRIE,
-> >>  };
-> >>  
-> >>  /* STM32H7 common registers definitions */
-> >>  static const struct stm32_adc_common_regs stm32h7_adc_common_regs = {
-> >>  	.csr = STM32H7_ADC_CSR,
-> >>  	.ccr = STM32H7_ADC_CCR,
-> >> -	.eoc1_msk = STM32H7_EOC_MST,
-> >> -	.eoc2_msk = STM32H7_EOC_SLV,
-> >> +	.eoc1_msk = STM32H7_EOC_MST | STM32H7_OVR_MST,
-> >> +	.eoc2_msk = STM32H7_EOC_SLV | STM32H7_OVR_SLV,
-> >>  	.ier = STM32H7_ADC_IER,
-> >> -	.eocie_msk = STM32H7_EOCIE,
-> >> +	.eocie_msk = STM32H7_EOCIE | STM32H7_OVRIE,
-> >>  };
-> >>  
-> >>  static const unsigned int stm32_adc_offset[STM32_ADC_MAX_ADCS] = {
-> >> diff --git a/drivers/iio/adc/stm32-adc-core.h b/drivers/iio/adc/stm32-adc-core.h
-> >> index 2579d51..2322809 100644
-> >> --- a/drivers/iio/adc/stm32-adc-core.h
-> >> +++ b/drivers/iio/adc/stm32-adc-core.h
-> >> @@ -51,10 +51,12 @@
-> >>  #define STM32F4_ADC_CCR			(STM32_ADCX_COMN_OFFSET + 0x04)
-> >>  
-> >>  /* STM32F4_ADC_SR - bit fields */
-> >> +#define STM32F4_OVR			BIT(5)
-> >>  #define STM32F4_STRT			BIT(4)
-> >>  #define STM32F4_EOC			BIT(1)
-> >>  
-> >>  /* STM32F4_ADC_CR1 - bit fields */
-> >> +#define STM32F4_OVRIE			BIT(26)
-> >>  #define STM32F4_RES_SHIFT		24
-> >>  #define STM32F4_RES_MASK		GENMASK(25, 24)
-> >>  #define STM32F4_SCAN			BIT(8)
-> >> @@ -72,8 +74,11 @@
-> >>  #define STM32F4_ADON			BIT(0)
-> >>  
-> >>  /* STM32F4_ADC_CSR - bit fields */
-> >> +#define STM32F4_OVR3			BIT(21)
-> >>  #define STM32F4_EOC3			BIT(17)
-> >> +#define STM32F4_OVR2			BIT(13)
-> >>  #define STM32F4_EOC2			BIT(9)
-> >> +#define STM32F4_OVR1			BIT(5)
-> >>  #define STM32F4_EOC1			BIT(1)
-> >>  
-> >>  /* STM32F4_ADC_CCR - bit fields */
-> >> @@ -103,10 +108,12 @@
-> >>  
-> >>  /* STM32H7_ADC_ISR - bit fields */
-> >>  #define STM32MP1_VREGREADY		BIT(12)
-> >> +#define STM32H7_OVR			BIT(4)
-> >>  #define STM32H7_EOC			BIT(2)
-> >>  #define STM32H7_ADRDY			BIT(0)
-> >>  
-> >>  /* STM32H7_ADC_IER - bit fields */
-> >> +#define STM32H7_OVRIE			STM32H7_OVR
-> >>  #define STM32H7_EOCIE			STM32H7_EOC
-> >>  
-> >>  /* STM32H7_ADC_CR - bit fields */
-> >> @@ -155,7 +162,9 @@ enum stm32h7_adc_dmngt {
-> >>  #define STM32H7_LINCALFACT_MASK		GENMASK(29, 0)
-> >>  
-> >>  /* STM32H7_ADC_CSR - bit fields */
-> >> +#define STM32H7_OVR_SLV			BIT(20)
-> >>  #define STM32H7_EOC_SLV			BIT(18)
-> >> +#define STM32H7_OVR_MST			BIT(4)
-> >>  #define STM32H7_EOC_MST			BIT(2)
-> >>  
-> >>  /* STM32H7_ADC_CCR - bit fields */
-> >> diff --git a/drivers/iio/adc/stm32-adc.c b/drivers/iio/adc/stm32-adc.c
-> >> index 3b291d7..9361f92 100644
-> >> --- a/drivers/iio/adc/stm32-adc.c
-> >> +++ b/drivers/iio/adc/stm32-adc.c
-> >> @@ -117,7 +117,9 @@ struct stm32_adc_regs {
-> >>   * struct stm32_adc_regspec - stm32 registers definition
-> >>   * @dr:			data register offset
-> >>   * @ier_eoc:		interrupt enable register & eocie bitfield
-> >> + * @ier_ovr:		interrupt enable register & overrun bitfield
-> >>   * @isr_eoc:		interrupt status register & eoc bitfield
-> >> + * @isr_ovr:		interrupt status register & overrun bitfield
-> >>   * @sqr:		reference to sequence registers array
-> >>   * @exten:		trigger control register & bitfield
-> >>   * @extsel:		trigger selection register & bitfield
-> >> @@ -128,7 +130,9 @@ struct stm32_adc_regs {
-> >>  struct stm32_adc_regspec {
-> >>  	const u32 dr;
-> >>  	const struct stm32_adc_regs ier_eoc;
-> >> +	const struct stm32_adc_regs ier_ovr;
-> >>  	const struct stm32_adc_regs isr_eoc;
-> >> +	const struct stm32_adc_regs isr_ovr;
-> >>  	const struct stm32_adc_regs *sqr;
-> >>  	const struct stm32_adc_regs exten;
-> >>  	const struct stm32_adc_regs extsel;
-> >> @@ -337,7 +341,9 @@ static const unsigned int stm32f4_adc_smp_cycles[STM32_ADC_MAX_SMP + 1] = {
-> >>  static const struct stm32_adc_regspec stm32f4_adc_regspec = {
-> >>  	.dr = STM32F4_ADC_DR,
-> >>  	.ier_eoc = { STM32F4_ADC_CR1, STM32F4_EOCIE },
-> >> +	.ier_ovr = { STM32F4_ADC_CR1, STM32F4_OVRIE },
-> >>  	.isr_eoc = { STM32F4_ADC_SR, STM32F4_EOC },
-> >> +	.isr_ovr = { STM32F4_ADC_SR, STM32F4_OVR },
-> >>  	.sqr = stm32f4_sq,
-> >>  	.exten = { STM32F4_ADC_CR2, STM32F4_EXTEN_MASK, STM32F4_EXTEN_SHIFT },
-> >>  	.extsel = { STM32F4_ADC_CR2, STM32F4_EXTSEL_MASK,
-> >> @@ -429,7 +435,9 @@ static const unsigned int stm32h7_adc_smp_cycles[STM32_ADC_MAX_SMP + 1] = {
-> >>  static const struct stm32_adc_regspec stm32h7_adc_regspec = {
-> >>  	.dr = STM32H7_ADC_DR,
-> >>  	.ier_eoc = { STM32H7_ADC_IER, STM32H7_EOCIE },
-> >> +	.ier_ovr = { STM32H7_ADC_IER, STM32H7_OVRIE },
-> >>  	.isr_eoc = { STM32H7_ADC_ISR, STM32H7_EOC },
-> >> +	.isr_ovr = { STM32H7_ADC_ISR, STM32H7_OVR },
-> >>  	.sqr = stm32h7_sq,
-> >>  	.exten = { STM32H7_ADC_CFGR, STM32H7_EXTEN_MASK, STM32H7_EXTEN_SHIFT },
-> >>  	.extsel = { STM32H7_ADC_CFGR, STM32H7_EXTSEL_MASK,
-> >> @@ -506,6 +514,18 @@ static void stm32_adc_conv_irq_disable(struct stm32_adc *adc)
-> >>  			   adc->cfg->regs->ier_eoc.mask);
-> >>  }
-> >>  
-> >> +static void stm32_adc_ovr_irq_enable(struct stm32_adc *adc)
-> >> +{
-> >> +	stm32_adc_set_bits(adc, adc->cfg->regs->ier_ovr.reg,
-> >> +			   adc->cfg->regs->ier_ovr.mask);
-> >> +}
-> >> +
-> >> +static void stm32_adc_ovr_irq_disable(struct stm32_adc *adc)
-> >> +{
-> >> +	stm32_adc_clr_bits(adc, adc->cfg->regs->ier_ovr.reg,
-> >> +			   adc->cfg->regs->ier_ovr.mask);
-> >> +}
-> >> +
-> >>  static void stm32_adc_set_res(struct stm32_adc *adc)
-> >>  {
-> >>  	const struct stm32_adc_regs *res = &adc->cfg->regs->res;
-> >> @@ -1205,6 +1225,19 @@ static int stm32_adc_read_raw(struct iio_dev *indio_dev,
-> >>  	}
-> >>  }
-> >>  
-> >> +static irqreturn_t stm32_adc_threaded_isr(int irq, void *data)
-> >> +{
-> >> +	struct stm32_adc *adc = data;
-> >> +	struct iio_dev *indio_dev = iio_priv_to_dev(adc);
-> >> +	const struct stm32_adc_regspec *regs = adc->cfg->regs;
-> >> +	u32 status = stm32_adc_readl(adc, regs->isr_eoc.reg);
-> >> +
-> >> +	if (status & regs->isr_ovr.mask)
-> >> +		dev_err(&indio_dev->dev, "Overrun interrupt, stopping.\n");
-> >> +
-> >> +	return IRQ_HANDLED;
-> >> +}
-> >> +
-> >>  static irqreturn_t stm32_adc_isr(int irq, void *data)
-> >>  {
-> >>  	struct stm32_adc *adc = data;
-> >> @@ -1212,6 +1245,17 @@ static irqreturn_t stm32_adc_isr(int irq, void *data)
-> >>  	const struct stm32_adc_regspec *regs = adc->cfg->regs;
-> >>  	u32 status = stm32_adc_readl(adc, regs->isr_eoc.reg);
-> >>  
-> >> +	if (status & regs->isr_ovr.mask) {
-> >> +		/*
-> >> +		 * Overrun occurred on regular conversions: data for wrong
-> >> +		 * channel may be read. Unconditionally disable interrupts
-> >> +		 * to stop processing data and print error message.
-> >> +		 */
-> >> +		stm32_adc_ovr_irq_disable(adc);
-> >> +		stm32_adc_conv_irq_disable(adc);
-> >> +		return IRQ_WAKE_THREAD;
-> >> +	}
-> >> +
-> >>  	if (status & regs->isr_eoc.mask) {
-> >>  		/* Reading DR also clears EOC status flag */
-> >>  		adc->buffer[adc->bufi] = stm32_adc_readw(adc, regs->dr);
-> >> @@ -1441,6 +1485,8 @@ static int __stm32_adc_buffer_postenable(struct iio_dev *indio_dev)
-> >>  	/* Reset adc buffer index */
-> >>  	adc->bufi = 0;
-> >>  
-> >> +	stm32_adc_ovr_irq_enable(adc);
-> >> +
-> >>  	if (!adc->dma_chan)
-> >>  		stm32_adc_conv_irq_enable(adc);
-> >>  
-> >> @@ -1481,6 +1527,8 @@ static void __stm32_adc_buffer_predisable(struct iio_dev *indio_dev)
-> >>  	if (!adc->dma_chan)
-> >>  		stm32_adc_conv_irq_disable(adc);
-> >>  
-> >> +	stm32_adc_ovr_irq_disable(adc);
-> >> +
-> >>  	if (adc->dma_chan)
-> >>  		dmaengine_terminate_sync(adc->dma_chan);
-> >>  
-> >> @@ -1818,8 +1866,9 @@ static int stm32_adc_probe(struct platform_device *pdev)
-> >>  	if (adc->irq < 0)
-> >>  		return adc->irq;
-> >>  
-> >> -	ret = devm_request_irq(&pdev->dev, adc->irq, stm32_adc_isr,
-> >> -			       0, pdev->name, adc);
-> >> +	ret = devm_request_threaded_irq(&pdev->dev, adc->irq, stm32_adc_isr,
-> >> +					stm32_adc_threaded_isr,
-> >> +					0, pdev->name, adc);
-> >>  	if (ret) {
-> >>  		dev_err(&pdev->dev, "failed to request IRQ\n");
-> >>  		return ret;  
-> >   
+> ---
+> Note: this applies on top of IIO tree currently (iio-for-5.5c).
+> diff --git a/Documentation/devicetree/bindings/iio/adc/st,stm32-adc.yaml b/Documentation/devicetree/bindings/iio/adc/st,stm32-adc.yaml
+> new file mode 100644
+> index 00000000..2ebc2e6
+> --- /dev/null
+> +++ b/Documentation/devicetree/bindings/iio/adc/st,stm32-adc.yaml
+> @@ -0,0 +1,448 @@
+> +# SPDX-License-Identifier: (GPL-2.0 OR BSD-2-Clause)
+> +%YAML 1.2
+> +---
+> +$id: "http://devicetree.org/schemas/bindings/iio/adc/st,stm32-adc.yaml#"
+> +$schema: "http://devicetree.org/meta-schemas/core.yaml#"
+> +
+> +title: STMicroelectronics STM32 ADC bindings
+> +
+> +description: |
+> +  STM32 ADC is a successive approximation analog-to-digital converter.
+> +  It has several multiplexed input channels. Conversions can be performed
+> +  in single, continuous, scan or discontinuous mode. Result of the ADC is
+> +  stored in a left-aligned or right-aligned 32-bit data register.
+> +  Conversions can be launched in software or using hardware triggers.
+> +
+> +  The analog watchdog feature allows the application to detect if the input
+> +  voltage goes beyond the user-defined, higher or lower thresholds.
+> +
+> +  Each STM32 ADC block can have up to 3 ADC instances.
+> +
+> +maintainers:
+> +  - Fabrice Gasnier <fabrice.gasnier@st.com>
+> +
+> +properties:
+> +  compatible:
+> +    enum:
+> +      - st,stm32f4-adc-core
+> +      - st,stm32h7-adc-core
+> +      - st,stm32mp1-adc-core
+> +
+> +  reg:
+> +    description: Offset and length of the ADC block register set
+> +    maxItems: 1
+> +
+> +  interrupts:
+> +    description: |
+> +      One or more interrupts for ADC block, depending on part used:
+> +        - stm32f4 and stm32h7 share a common ADC interrupt line.
+> +        - stm32mp1 has two separate interrupt lines, one for each ADC within
+> +          ADC block.
+> +
+> +  clocks:
+> +    description: |
+> +      Core can use up to two clocks, depending on part used:
+> +        - "adc" clock: for the analog circuitry, common to all ADCs.
+> +          It's required on stm32f4.
+> +          It's optional on stm32h7 and stm32mp1.
+> +        - "bus" clock: for registers access, common to all ADCs.
+> +          It's not present on stm32f4.
+> +          It's required on stm32h7 and stm32mp1.
+> +
+> +  clock-names: true
+> +
+> +  st,max-clk-rate-hz:
+> +    description: |
+> +      Allow to specify desired max clock rate used by analog circuitry.
+> +    allOf:
+> +      - $ref: /schemas/types.yaml#/definitions/uint32
+> +
+> +  vdda-supply:
+> +    description: Phandle to the vdda input analog voltage.
+> +
+> +  vref-supply:
+> +    description: Phandle to the vref input analog reference voltage.
+> +
+> +  booster-supply:
+> +    description: |
+> +      Phandle to the embedded booster regulator that can be used to supply ADC
+> +      analog input switches on stm32h7 and stm32mp1.
+> +
+> +  vdd-supply:
+> +    description: |
+> +      Phandle to the vdd input voltage. It can be used to supply ADC analog
+> +      input switches on stm32mp1.
+> +
+> +  st,syscfg:
+> +    description: |
+> +      Phandle to system configuration controller. It can be used to control the
+> +      analog circuitry on stm32mp1.
+> +    allOf:
+> +      - $ref: "/schemas/types.yaml#/definitions/phandle-array"
+> +
+> +  interrupt-controller: true
+> +
+> +  '#interrupt-cells':
+> +    const: 1
+> +
+> +  '#address-cells':
+> +    const: 1
+> +
+> +  '#size-cells':
+> +    const: 0
+> +
+> +allOf:
+> +  - if:
+> +      properties:
+> +        compatible:
+> +          contains:
+> +            const: st,stm32f4-adc-core
+> +
+> +    then:
+> +      properties:
+> +        clocks:
+> +          maxItems: 1
+> +
+> +        clock-names:
+> +          items:
+> +            const: adc
+> +          maxItems: 1
+> +
+> +        interrupts:
+> +          items:
+> +            - description: interrupt line common for all ADCs
+> +
+> +        booster-supply: false
+> +
+> +        vdd-supply: false
+> +
+> +        st,syscfg: false
+> +
+> +  - if:
+> +      properties:
+> +        compatible:
+> +          contains:
+> +            const: st,stm32h7-adc-core
+> +
+> +    then:
+> +      properties:
+> +        clocks:
+> +          minItems: 1
+> +          maxItems: 2
+> +
+> +        clock-names:
+> +          items:
+> +            - const: bus
+> +            - const: adc
+> +          minItems: 1
+> +          maxItems: 2
+> +
+> +        interrupts:
+> +          items:
+> +            - description: interrupt line common for all ADCs
+> +
+> +        vdd-supply: false
+> +
+> +        st,syscfg: false
+> +
+> +  - if:
+> +      properties:
+> +        compatible:
+> +          contains:
+> +            const: st,stm32mp1-adc-core
+> +
+> +    then:
+> +      properties:
+> +        clocks:
+> +          minItems: 1
+> +          maxItems: 2
+> +
+> +        clock-names:
+> +          items:
+> +            - const: bus
+> +            - const: adc
+> +          minItems: 1
+> +          maxItems: 2
+> +
+> +        interrupts:
+> +          items:
+> +            - description: interrupt line for ADC1
+> +            - description: interrupt line for ADC2
+> +
+> +additionalProperties: false
+> +
+> +required:
+> +  - compatible
+> +  - reg
+> +  - interrupts
+> +  - clocks
+> +  - clock-names
+> +  - vdda-supply
+> +  - vref-supply
+> +  - interrupt-controller
+> +  - '#interrupt-cells'
+> +  - '#address-cells'
+> +  - '#size-cells'
+> +
+> +patternProperties:
+> +  "^adc@[0-9]+$":
+> +    type: object
+> +    description: |
+> +      An ADC block node should contain at least one subnode, representing an
+> +      ADC instance available on the machine.
+> +
+> +    properties:
+> +      compatible:
+> +        enum:
+> +          - st,stm32f4-adc
+> +          - st,stm32h7-adc
+> +          - st,stm32mp1-adc
+> +
+> +      reg:
+> +        description: |
+> +          Offset of ADC instance in ADC block. Valid values are:
+> +            - 0x0:   ADC1
+> +            - 0x100: ADC2
+> +            - 0x200: ADC3 (stm32f4 only)
+> +        maxItems: 1
+> +
+> +      '#io-channel-cells':
+> +        const: 1
+> +
+> +      interrupts:
+> +        description: |
+> +          IRQ Line for the ADC instance. Valid values are:
+> +            - 0 for adc@0
+> +            - 1 for adc@100
+> +            - 2 for adc@200 (stm32f4 only)
+> +        maxItems: 1
+> +
+> +      clocks:
+> +        description: |
+> +          Input clock private to this ADC instance. It's required only on
+> +          stm32f4, that has per instance clock input for registers access.
+> +        maxItems: 1
+> +
+> +      dmas:
+> +        description: RX DMA Channel
+> +        maxItems: 1
+> +
+> +      dma-names:
+> +        const: rx
+> +
+> +      assigned-resolution-bits:
+> +        description: |
+> +          Resolution (bits) to use for conversions:
+> +            - can be 6, 8, 10 or 12 on stm32f4
+> +            - can be 8, 10, 12, 14 or 16 on stm32h7 and stm32mp1
+> +        allOf:
+> +          - $ref: /schemas/types.yaml#/definitions/uint32
+> +
+> +      st,adc-channels:
+> +        description: |
+> +          List of single-ended channels muxed for this ADC. It can have up to:
+> +            - 16 channels, numbered from 0 to 15 (for in0..in15) on stm32f4
+> +            - 20 channels, numbered from 0 to 19 (for in0..in19) on stm32h7 and
+> +              stm32mp1.
+> +        allOf:
+> +          - $ref: /schemas/types.yaml#/definitions/uint32-array
+> +
+> +      st,adc-diff-channels:
+> +        description: |
+> +          List of differential channels muxed for this ADC. Some channels can
+> +          be configured as differential instead of single-ended on stm32h7 and
+> +          on stm32mp1. Positive and negative inputs pairs are listed:
+> +          <vinp vinn>, <vinp vinn>,... vinp and vinn are numbered from 0 to 19.
+> +
+> +          Note: At least one of "st,adc-channels" or "st,adc-diff-channels" is
+> +          required. Both properties can be used together. Some channels can be
+> +          used as single-ended and some other ones as differential (mixed). But
+> +          channels can't be configured both as single-ended and differential.
+> +        allOf:
+> +          - $ref: /schemas/types.yaml#/definitions/uint32-matrix
+> +          - items:
+> +              items:
+> +                - description: |
+> +                    "vinp" indicates positive input number
+> +                  minimum: 0
+> +                  maximum: 19
+> +                - description: |
+> +                    "vinn" indicates negative input number
+> +                  minimum: 0
+> +                  maximum: 19
+> +
+> +      st,min-sample-time-nsecs:
+> +        description: |
+> +          Minimum sampling time in nanoseconds. Depending on hardware (board)
+> +          e.g. high/low analog input source impedance, fine tune of ADC
+> +          sampling time may be recommended. This can be either one value or an
+> +          array that matches "st,adc-channels" and/or "st,adc-diff-channels"
+> +          list, to set sample time resp. for all channels, or independently for
+> +          each channel.
+> +        allOf:
+> +          - $ref: /schemas/types.yaml#/definitions/uint32-array
+> +
+> +    allOf:
+> +      - if:
+> +          properties:
+> +            compatible:
+> +              contains:
+> +                const: st,stm32f4-adc
+> +
+> +        then:
+> +          properties:
+> +            reg:
+> +              enum:
+> +                - 0x0
+> +                - 0x100
+> +                - 0x200
+> +
+> +            interrupts:
+> +              minimum: 0
+> +              maximum: 2
+> +
+> +            assigned-resolution-bits:
+> +              allOf:
+> +                - enum: [6, 8, 10, 12]
+> +                - default: 12
+> +
+> +            st,adc-channels:
+> +              allOf:
+> +                - maxItems: 16
+> +                  items:
+> +                    minimum: 0
+> +                    maximum: 15
+> +
+> +            st,adc-diff-channels: false
+> +
+> +            st,min-sample-time-nsecs:
+> +              allOf:
+> +                - maxItems: 16
+> +                  items:
+> +                    minimum: 80
+> +
+> +          required:
+> +            - clocks
+> +
+> +      - if:
+> +          properties:
+> +            compatible:
+> +              contains:
+> +                enum:
+> +                  - st,stm32h7-adc
+> +                  - st,stm32mp1-adc
+> +
+> +        then:
+> +          properties:
+> +            reg:
+> +              enum:
+> +                - 0x0
+> +                - 0x100
+> +
+> +            interrupts:
+> +              minimum: 0
+> +              maximum: 1
+> +
+> +            assigned-resolution-bits:
+> +              allOf:
+> +                - enum: [8, 10, 12, 14, 16]
+> +                - default: 16
+> +
+> +            st,adc-channels:
+> +              allOf:
+> +                - maxItems: 20
+> +                  items:
+> +                    minimum: 0
+> +                    maximum: 19
+> +
+> +            st,min-sample-time-nsecs:
+> +              allOf:
+> +                - maxItems: 20
+> +                  items:
+> +                    minimum: 40
+> +
+> +    additionalProperties: false
+> +
+> +    anyOf:
+> +      - required:
+> +          - st,adc-channels
+> +      - required:
+> +          - st,adc-diff-channels
+> +
+> +    required:
+> +      - compatible
+> +      - reg
+> +      - interrupts
+> +      - '#io-channel-cells'
+> +
+> +examples:
+> +  - |
+> +    // Example 1: with stm32f429
+> +      adc123: adc@40012000 {
+> +        compatible = "st,stm32f4-adc-core";
+> +        reg = <0x40012000 0x400>;
+> +        interrupts = <18>;
+> +        clocks = <&rcc 0 168>;
+> +        clock-names = "adc";
+> +        st,max-clk-rate-hz = <36000000>;
+> +        vdda-supply = <&vdda>;
+> +        vref-supply = <&vref>;
+> +        interrupt-controller;
+> +        #interrupt-cells = <1>;
+> +        #address-cells = <1>;
+> +        #size-cells = <0>;
+> +        adc@0 {
+> +          compatible = "st,stm32f4-adc";
+> +          #io-channel-cells = <1>;
+> +          reg = <0x0>;
+> +          clocks = <&rcc 0 168>;
+> +          interrupt-parent = <&adc123>;
+> +          interrupts = <0>;
+> +          st,adc-channels = <8>;
+> +          dmas = <&dma2 0 0 0x400 0x0>;
+> +          dma-names = "rx";
+> +          assigned-resolution-bits = <8>;
+> +        };
+> +        // ...
+> +        // other adc child nodes follow...
+> +      };
+> +
+> +  - |
+> +    // Example 2: with stm32mp157c to setup ADC1 with:
+> +    // - channel 1 as single-ended
+> +    // - channels 2 & 3 as differential (with resp. 6 & 7 negative inputs)
+> +      #include <dt-bindings/interrupt-controller/arm-gic.h>
+> +      #include <dt-bindings/clock/stm32mp1-clks.h>
+> +      adc12: adc@48003000 {
+> +        compatible = "st,stm32mp1-adc-core";
+> +        reg = <0x48003000 0x400>;
+> +        interrupts = <GIC_SPI 18 IRQ_TYPE_LEVEL_HIGH>,
+> +                     <GIC_SPI 90 IRQ_TYPE_LEVEL_HIGH>;
+> +        clocks = <&rcc ADC12>, <&rcc ADC12_K>;
+> +        clock-names = "bus", "adc";
+> +        booster-supply = <&booster>;
+> +        vdd-supply = <&vdd>;
+> +        vdda-supply = <&vdda>;
+> +        vref-supply = <&vref>;
+> +        st,syscfg = <&syscfg>;
+> +        interrupt-controller;
+> +        #interrupt-cells = <1>;
+> +        #address-cells = <1>;
+> +        #size-cells = <0>;
+> +        adc@0 {
+> +          compatible = "st,stm32mp1-adc";
+> +          #io-channel-cells = <1>;
+> +          reg = <0x0>;
+> +          interrupt-parent = <&adc12>;
+> +          interrupts = <0>;
+> +          st,adc-channels = <1>;
+> +          st,adc-diff-channels = <2 6>, <3 7>;
+> +          st,min-sample-time-nsecs = <5000>;
+> +          dmas = <&dmamux1 9 0x400 0x05>;
+> +          dma-names = "rx";
+> +        };
+> +        // ...
+> +        // other adc child node follow...
+> +      };
+> +
+> +...
 
 _______________________________________________
 Linux-stm32 mailing list
