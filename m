@@ -2,36 +2,37 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id C94121122A4
-	for <lists+linux-stm32@lfdr.de>; Wed,  4 Dec 2019 06:52:44 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 8A202112D6A
+	for <lists+linux-stm32@lfdr.de>; Wed,  4 Dec 2019 15:26:22 +0100 (CET)
 Received: from ip-172-31-3-76.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id B920FC36B0B;
-	Wed,  4 Dec 2019 05:52:43 +0000 (UTC)
-Received: from smtp.smtpout.orange.fr (smtp04.smtpout.orange.fr
- [80.12.242.126])
- (using TLSv1 with cipher DHE-RSA-AES128-SHA (128/128 bits))
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 72334C36B0B;
+	Wed,  4 Dec 2019 14:26:21 +0000 (UTC)
+Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
+ (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id E0429C36B09
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 35D56C36B09
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Wed,  4 Dec 2019 05:52:41 +0000 (UTC)
-Received: from localhost.localdomain ([90.126.97.183]) by mwinf5d51 with ME
- id Zhsd210043xPcdm03hsday; Wed, 04 Dec 2019 06:52:41 +0100
-X-ME-Helo: localhost.localdomain
-X-ME-Auth: Y2hyaXN0b3BoZS5qYWlsbGV0QHdhbmFkb28uZnI=
-X-ME-Date: Wed, 04 Dec 2019 06:52:41 +0100
-X-ME-IP: 90.126.97.183
-From: Christophe JAILLET <christophe.jaillet@wanadoo.fr>
-To: kvalo@codeaurora.org, mcoquelin.stm32@gmail.com, alexandre.torgue@st.com,
- davem@davemloft.net
-Date: Wed,  4 Dec 2019 06:52:35 +0100
-Message-Id: <20191204055235.11989-1-christophe.jaillet@wanadoo.fr>
-X-Mailer: git-send-email 2.20.1
+ Wed,  4 Dec 2019 14:21:19 +0000 (UTC)
+Received: from gandalf.local.home (cpe-66-24-58-225.stny.res.rr.com
+ [66.24.58.225])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+ (No client certificate requested)
+ by mail.kernel.org (Postfix) with ESMTPSA id 3CE58206DF;
+ Wed,  4 Dec 2019 14:21:17 +0000 (UTC)
+Date: Wed, 4 Dec 2019 09:21:15 -0500
+From: Steven Rostedt <rostedt@goodmis.org>
+To: Antonio Borneo <antonio.borneo@st.com>
+Message-ID: <20191204092115.30ef75c9@gandalf.local.home>
+In-Reply-To: <20191127154428.191095-1-antonio.borneo@st.com>
+References: <20191127154428.191095-1-antonio.borneo@st.com>
+X-Mailer: Claws Mail 3.17.3 (GTK+ 2.24.32; x86_64-pc-linux-gnu)
 MIME-Version: 1.0
-Cc: kernel-janitors@vger.kernel.org, netdev@vger.kernel.org,
- linux-wireless@vger.kernel.org, linux-kernel@vger.kernel.org,
- ath10k@lists.infradead.org, Christophe JAILLET <christophe.jaillet@wanadoo.fr>,
- linux-stm32@st-md-mailman.stormreply.com, linux-arm-kernel@lists.infradead.org
-Subject: [Linux-stm32] [PATCH] ath10k: Fix some typo in some warning messages
+X-Mailman-Approved-At: Wed, 04 Dec 2019 14:26:20 +0000
+Cc: Joel Fernandes <joelaf@google.com>, Joel Fernandes <joel@joelfernandes.org>,
+ Ingo Molnar <mingo@redhat.com>, linux-kernel@vger.kernel.org,
+ linux-stm32@st-md-mailman.stormreply.com
+Subject: Re: [Linux-stm32] [PATCH] tracing: Fix printing ptrs in preempt/irq
+ enable/disable events
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -48,53 +49,68 @@ Content-Transfer-Encoding: 7bit
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
-Fix some typo:
-  s/to to/to/
-  s/even/event/
 
-Signed-off-by: Christophe JAILLET <christophe.jaillet@wanadoo.fr>
----
- drivers/net/wireless/ath/ath10k/mac.c      | 2 +-
- drivers/net/wireless/ath/ath10k/testmode.c | 4 ++--
- 2 files changed, 3 insertions(+), 3 deletions(-)
+Joel,
 
-diff --git a/drivers/net/wireless/ath/ath10k/mac.c b/drivers/net/wireless/ath/ath10k/mac.c
-index e8bdb2ba9b18..5faa43cd7fef 100644
---- a/drivers/net/wireless/ath/ath10k/mac.c
-+++ b/drivers/net/wireless/ath/ath10k/mac.c
-@@ -1098,7 +1098,7 @@ static int ath10k_monitor_vdev_stop(struct ath10k *ar)
- 
- 	ret = ath10k_wmi_vdev_stop(ar, ar->monitor_vdev_id);
- 	if (ret)
--		ath10k_warn(ar, "failed to to request monitor vdev %i stop: %d\n",
-+		ath10k_warn(ar, "failed to request monitor vdev %i stop: %d\n",
- 			    ar->monitor_vdev_id, ret);
- 
- 	ret = ath10k_vdev_setup_sync(ar);
-diff --git a/drivers/net/wireless/ath/ath10k/testmode.c b/drivers/net/wireless/ath/ath10k/testmode.c
-index 1bffe3fbea3f..7a9b9bbcdbfc 100644
---- a/drivers/net/wireless/ath/ath10k/testmode.c
-+++ b/drivers/net/wireless/ath/ath10k/testmode.c
-@@ -65,7 +65,7 @@ bool ath10k_tm_event_wmi(struct ath10k *ar, u32 cmd_id, struct sk_buff *skb)
- 	ret = nla_put_u32(nl_skb, ATH10K_TM_ATTR_CMD, ATH10K_TM_CMD_WMI);
- 	if (ret) {
- 		ath10k_warn(ar,
--			    "failed to to put testmode wmi event cmd attribute: %d\n",
-+			    "failed to put testmode wmi event cmd attribute: %d\n",
- 			    ret);
- 		kfree_skb(nl_skb);
- 		goto out;
-@@ -74,7 +74,7 @@ bool ath10k_tm_event_wmi(struct ath10k *ar, u32 cmd_id, struct sk_buff *skb)
- 	ret = nla_put_u32(nl_skb, ATH10K_TM_ATTR_WMI_CMDID, cmd_id);
- 	if (ret) {
- 		ath10k_warn(ar,
--			    "failed to to put testmode wmi even cmd_id: %d\n",
-+			    "failed to put testmode wmi event cmd_id: %d\n",
- 			    ret);
- 		kfree_skb(nl_skb);
- 		goto out;
--- 
-2.20.1
+Any comments on this patch?
+
+-- Steve
+
+On Wed, 27 Nov 2019 16:44:28 +0100
+Antonio Borneo <antonio.borneo@st.com> wrote:
+
+> This tracing event class is the only instance in kernel that logs
+> in the trace buffer the instruction pointer as offset to _stext,
+> instead of logging the full pointer.
+> This looks like a nice optimization for 64 bits platforms, where a
+> 32 bit offset can take less space than a full 64 bits pointer. But
+> the symbol _stext is incorrectly resolved as zero in the expansion
+> of TP_printk(), which then prints only the hex offset instead of
+> the name of the caller function. Plus, on arm arch the kernel
+> modules are loaded at address lower than _stext, causing the u32
+> offset arithmetics to overflow and wrap at 32 bits.
+> I did not identified a 64 bit arch where the modules are loaded at
+> offset from _stext that exceed u32 range, but I also did not
+> identified any constraint to feel safe with a u32 offset.
+> 
+> Log directly the instruction pointer instead of the offset to
+> _stext.
+> 
+> Signed-off-by: Antonio Borneo <antonio.borneo@st.com>
+> Fixes: d59158162e03 ("tracing: Add support for preempt and irq enable/disable events")
+> ---
+>  include/trace/events/preemptirq.h | 12 ++++++------
+>  1 file changed, 6 insertions(+), 6 deletions(-)
+> 
+> diff --git a/include/trace/events/preemptirq.h b/include/trace/events/preemptirq.h
+> index 95fba0471e5b..d548a6aafa18 100644
+> --- a/include/trace/events/preemptirq.h
+> +++ b/include/trace/events/preemptirq.h
+> @@ -18,18 +18,18 @@ DECLARE_EVENT_CLASS(preemptirq_template,
+>  	TP_ARGS(ip, parent_ip),
+>  
+>  	TP_STRUCT__entry(
+> -		__field(u32, caller_offs)
+> -		__field(u32, parent_offs)
+> +		__field(unsigned long, caller_ip)
+> +		__field(unsigned long, parent_ip)
+>  	),
+>  
+>  	TP_fast_assign(
+> -		__entry->caller_offs = (u32)(ip - (unsigned long)_stext);
+> -		__entry->parent_offs = (u32)(parent_ip - (unsigned long)_stext);
+> +		__entry->caller_ip = ip;
+> +		__entry->parent_ip = parent_ip;
+>  	),
+>  
+>  	TP_printk("caller=%pS parent=%pS",
+> -		  (void *)((unsigned long)(_stext) + __entry->caller_offs),
+> -		  (void *)((unsigned long)(_stext) + __entry->parent_offs))
+> +		  (void *)__entry->caller_ip,
+> +		  (void *)__entry->parent_ip)
+>  );
+>  
+>  #ifdef CONFIG_TRACE_IRQFLAGS
 
 _______________________________________________
 Linux-stm32 mailing list
