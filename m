@@ -2,60 +2,65 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id D74C7112E83
-	for <lists+linux-stm32@lfdr.de>; Wed,  4 Dec 2019 16:32:48 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id D1F38112E88
+	for <lists+linux-stm32@lfdr.de>; Wed,  4 Dec 2019 16:33:21 +0100 (CET)
 Received: from ip-172-31-3-76.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 88130C36B0B;
-	Wed,  4 Dec 2019 15:32:48 +0000 (UTC)
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 9BAA3C36B0B;
+	Wed,  4 Dec 2019 15:33:21 +0000 (UTC)
 Received: from mx07-00178001.pphosted.com (mx08-00178001.pphosted.com
  [91.207.212.93])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 48F11C36B09
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 7704EC36B09
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Wed,  4 Dec 2019 15:32:47 +0000 (UTC)
+ Wed,  4 Dec 2019 15:33:20 +0000 (UTC)
 Received: from pps.filterd (m0046660.ppops.net [127.0.0.1])
  by mx08-00178001.pphosted.com (8.16.0.42/8.16.0.42) with SMTP id
- xB4FRKQ9030262; Wed, 4 Dec 2019 16:32:39 +0100
+ xB4FRIox030249; Wed, 4 Dec 2019 16:33:16 +0100
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=st.com;
- h=from : to : cc : subject
- : date : message-id : mime-version : content-type; s=STMicroelectronics;
- bh=+9lWQkEjqwkPOyurtTV3ZM+qwwYATmvlvAbyD5XGBKo=;
- b=h+3Z8EjpO5BwBlzIcXyd9b3IfjghkL8YihNVQ3PAd57zsp6lABUkHl5ShNcow8Ajh+M/
- 4lBqQm7pP4/ByMNK13fpA1sj3i0FMV8OtCFDuL0eGKbZ1a4/7hL1Q9FcxUtwf/TP5FGa
- OoYjdB/oB6/c+dKg8xbeMZitig+OZJNj5H1AkO3AV57GJEb5udRS4Z70rjjO86DqdrWc
- muZLyv1UfTNAcO0u66SHFRcsHAlc1OXbrpM9iQzBtqQIWSmABiN3/e1ONT2egGDWQchs
- W1Rrv79sptz5V3MAPkbJkctYcMrG3OgmgvRlrc0cGOFJO4VDV4Ntpx5GCNfVrCTQMWpB PQ== 
+ h=subject : to : cc :
+ references : from : message-id : date : mime-version : in-reply-to :
+ content-type : content-transfer-encoding; s=STMicroelectronics;
+ bh=DQtKxYxpLyCymX7c2WtC2FRksiu3f9j9VGwC5BSuu8A=;
+ b=Zh1oWN4l+Y/LuquBQRAkqFTVFgbfJqnt/KkoNnNwpSSY31SW00R/E3Cd7dSMTVNE8JfH
+ GcTMPEozk3nmTiFCvi6ZcFes5Jg4SZ1DAOcAS1uowSPp3x4sw6cIP3hhXXdh4F7CPgPx
+ PC9JnO+L2QVi4gVj0fBxcUskN4h+q71unavEw4G1XbDKxz0Sn3uKo0scAnFvs41K71UF
+ WkdNVS1nP9DOfSl8BQdqjmWdbGvvMLQ3//33MR18mpbAkeBflMwdmmuWJ1+wyVGJe8f6
+ OYiOOjRaOLufNPj5g8n4KFK453tFvqLUffJzFMJVzxo0lcr8dNnN2g7O7EMtjhA+26N6 Pg== 
 Received: from beta.dmz-eu.st.com (beta.dmz-eu.st.com [164.129.1.35])
- by mx08-00178001.pphosted.com with ESMTP id 2wkeea65fj-1
+ by mx08-00178001.pphosted.com with ESMTP id 2wkeea65jp-1
  (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
- Wed, 04 Dec 2019 16:32:39 +0100
+ Wed, 04 Dec 2019 16:33:15 +0100
 Received: from euls16034.sgp.st.com (euls16034.sgp.st.com [10.75.44.20])
- by beta.dmz-eu.st.com (STMicroelectronics) with ESMTP id E68B010002A;
- Wed,  4 Dec 2019 16:32:38 +0100 (CET)
-Received: from Webmail-eu.st.com (sfhdag3node3.st.com [10.75.127.9])
- by euls16034.sgp.st.com (STMicroelectronics) with ESMTP id CFEA02C38CF;
- Wed,  4 Dec 2019 16:32:38 +0100 (CET)
-Received: from localhost (10.75.127.45) by SFHDAG3NODE3.st.com (10.75.127.9)
- with Microsoft SMTP Server (TLS) id 15.0.1347.2; Wed, 4 Dec 2019 16:32:38
- +0100
-From: Benjamin Gaignard <benjamin.gaignard@st.com>
-To: <broonie@kernel.org>, <robh+dt@kernel.org>, <mark.rutland@arm.com>,
- <alexandre.torgue@st.com>
-Date: Wed, 4 Dec 2019 16:32:33 +0100
-Message-ID: <20191204153233.791-1-benjamin.gaignard@st.com>
-X-Mailer: git-send-email 2.15.0
+ by beta.dmz-eu.st.com (STMicroelectronics) with ESMTP id 062F410002A;
+ Wed,  4 Dec 2019 16:33:14 +0100 (CET)
+Received: from Webmail-eu.st.com (sfhdag3node2.st.com [10.75.127.8])
+ by euls16034.sgp.st.com (STMicroelectronics) with ESMTP id E0E4D2C38D0;
+ Wed,  4 Dec 2019 16:33:14 +0100 (CET)
+Received: from lmecxl0912.lme.st.com (10.75.127.45) by SFHDAG3NODE2.st.com
+ (10.75.127.8) with Microsoft SMTP Server (TLS) id 15.0.1347.2; Wed, 4 Dec
+ 2019 16:33:14 +0100
+To: Kishon Vijay Abraham I <kishon@ti.com>, Greg Kroah-Hartman
+ <gregkh@linuxfoundation.org>
+References: <20191104143713.11137-1-alexandre.torgue@st.com>
+From: Alexandre Torgue <alexandre.torgue@st.com>
+Message-ID: <faff6224-11b6-b055-1a80-fda0ff7c1724@st.com>
+Date: Wed, 4 Dec 2019 16:33:14 +0100
+User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:60.0) Gecko/20100101
+ Thunderbird/60.9.0
 MIME-Version: 1.0
+In-Reply-To: <20191104143713.11137-1-alexandre.torgue@st.com>
+Content-Language: en-US
 X-Originating-IP: [10.75.127.45]
-X-ClientProxiedBy: SFHDAG5NODE3.st.com (10.75.127.15) To SFHDAG3NODE3.st.com
- (10.75.127.9)
+X-ClientProxiedBy: SFHDAG3NODE1.st.com (10.75.127.7) To SFHDAG3NODE2.st.com
+ (10.75.127.8)
 X-Proofpoint-Virus-Version: vendor=fsecure engine=2.50.10434:6.0.95,18.0.572
  definitions=2019-12-04_03:2019-12-04,2019-12-04 signatures=0
-Cc: devicetree@vger.kernel.org, linux-kernel@vger.kernel.org,
- linux-spi@vger.kernel.org, Fabrice Gasnier <fabrice.gasnier@st.com>,
- linux-stm32@st-md-mailman.stormreply.com, linux-arm-kernel@lists.infradead.org
-Subject: [Linux-stm32] [PATCH] dt-bindings: spi: Convert stm32 spi bindings
-	to json-schema
+Cc: Yoshihiro Shimoda <yoshihiro.shimoda.uh@renesas.com>,
+ linux-usb@vger.kernel.org, linux-kernel@vger.kernel.org,
+ linux-stm32@st-md-mailman.stormreply.com
+Subject: Re: [Linux-stm32] [PATCH] phy: core: Add consumer device link
+	support
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -67,206 +72,207 @@ List-Post: <mailto:linux-stm32@st-md-mailman.stormreply.com>
 List-Help: <mailto:linux-stm32-request@st-md-mailman.stormreply.com?subject=help>
 List-Subscribe: <https://st-md-mailman.stormreply.com/mailman/listinfo/linux-stm32>, 
  <mailto:linux-stm32-request@st-md-mailman.stormreply.com?subject=subscribe>
-Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
+Content-Type: text/plain; charset="us-ascii"; Format="flowed"
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
-Convert the STM32 spi binding to DT schema format using json-schema
+Hi,
 
-Signed-off-by: Benjamin Gaignard <benjamin.gaignard@st.com>
-CC: Erwan Leray <erwan.leray@st.com>
-CC: Fabrice Gasnier <fabrice.gasnier@st.com>
-CC: Amelie Delaunay <amelie.delaunay@st.com>
----
- .../devicetree/bindings/spi/spi-stm32.txt          |  62 ------------
- .../devicetree/bindings/spi/st,stm32-spi.yaml      | 105 +++++++++++++++++++++
- 2 files changed, 105 insertions(+), 62 deletions(-)
- delete mode 100644 Documentation/devicetree/bindings/spi/spi-stm32.txt
- create mode 100644 Documentation/devicetree/bindings/spi/st,stm32-spi.yaml
+Gentle ping, in case you missed this.
 
-diff --git a/Documentation/devicetree/bindings/spi/spi-stm32.txt b/Documentation/devicetree/bindings/spi/spi-stm32.txt
-deleted file mode 100644
-index d82755c63eaf..000000000000
---- a/Documentation/devicetree/bindings/spi/spi-stm32.txt
-+++ /dev/null
-@@ -1,62 +0,0 @@
--STMicroelectronics STM32 SPI Controller
--
--The STM32 SPI controller is used to communicate with external devices using
--the Serial Peripheral Interface. It supports full-duplex, half-duplex and
--simplex synchronous serial communication with external devices. It supports
--from 4 to 32-bit data size. Although it can be configured as master or slave,
--only master is supported by the driver.
--
--Required properties:
--- compatible: Should be one of:
--  "st,stm32h7-spi"
--  "st,stm32f4-spi"
--- reg: Offset and length of the device's register set.
--- interrupts: Must contain the interrupt id.
--- clocks: Must contain an entry for spiclk (which feeds the internal clock
--	  generator).
--- #address-cells:  Number of cells required to define a chip select address.
--- #size-cells: Should be zero.
--
--Optional properties:
--- resets: Must contain the phandle to the reset controller.
--- A pinctrl state named "default" may be defined to set pins in mode of
--  operation for SPI transfer.
--- dmas: DMA specifiers for tx and rx dma. DMA fifo mode must be used. See the
--  STM32 DMA bindings, Documentation/devicetree/bindings/dma/stm32-dma.txt.
--- dma-names: DMA request names should include "tx" and "rx" if present.
--- cs-gpios: list of GPIO chip selects. See the SPI bus bindings,
--  Documentation/devicetree/bindings/spi/spi-bus.txt
--
--
--Child nodes represent devices on the SPI bus
--  See ../spi/spi-bus.txt
--
--Optional properties:
--- st,spi-midi-ns: Only for STM32H7, (Master Inter-Data Idleness) minimum time
--		  delay in nanoseconds inserted between two consecutive data
--		  frames.
--
--
--Example:
--	spi2: spi@40003800 {
--		#address-cells = <1>;
--		#size-cells = <0>;
--		compatible = "st,stm32h7-spi";
--		reg = <0x40003800 0x400>;
--		interrupts = <36>;
--		clocks = <&rcc SPI2_CK>;
--		resets = <&rcc 1166>;
--		dmas = <&dmamux1 0 39 0x400 0x01>,
--		       <&dmamux1 1 40 0x400 0x01>;
--		dma-names = "rx", "tx";
--		pinctrl-0 = <&spi2_pins_b>;
--		pinctrl-names = "default";
--		cs-gpios = <&gpioa 11 0>;
--
--		aardvark@0 {
--			compatible = "totalphase,aardvark";
--			reg = <0>;
--			spi-max-frequency = <4000000>;
--			st,spi-midi-ns = <4000>;
--		};
--	};
-diff --git a/Documentation/devicetree/bindings/spi/st,stm32-spi.yaml b/Documentation/devicetree/bindings/spi/st,stm32-spi.yaml
-new file mode 100644
-index 000000000000..57ef3a0f57e0
---- /dev/null
-+++ b/Documentation/devicetree/bindings/spi/st,stm32-spi.yaml
-@@ -0,0 +1,105 @@
-+# SPDX-License-Identifier: (GPL-2.0-only OR BSD-2-Clause)
-+%YAML 1.2
-+---
-+$id: http://devicetree.org/schemas/spi/st,stm32-spi.yaml#
-+$schema: http://devicetree.org/meta-schemas/core.yaml#
-+
-+title: STMicroelectronics STM32 SPI Controller bindings
-+
-+description: |
-+  The STM32 SPI controller is used to communicate with external devices using
-+  the Serial Peripheral Interface. It supports full-duplex, half-duplex and
-+  simplex synchronous serial communication with external devices. It supports
-+  from 4 to 32-bit data size.
-+
-+maintainers:
-+  - Erwan Leray <erwan.leray@st.com>
-+  - Fabrice Gasnier <fabrice.gasnier@st.com>
-+
-+allOf:
-+  - $ref: "spi-controller.yaml#"
-+  - if:
-+      properties:
-+        comptatible:
-+          constains:
-+            st,stm32f4-spi
-+    then:
-+      properties:
-+        st,spi-midi-ns: false
-+
-+properties:
-+  compatible:
-+    enum:
-+      - st,stm32f4-spi
-+      - st,stm32h7-spi
-+
-+  reg:
-+    maxItems: 1
-+
-+  clocks:
-+    maxItems: 1
-+
-+  interrupts:
-+    maxItems: 1
-+
-+  resets:
-+    maxItems: 1
-+
-+  dmas:
-+    description: |
-+      DMA specifiers for tx and rx dma. DMA fifo mode must be used. See
-+      the STM32 DMA bindings Documentation/devicetree/bindings/dma/stm32-dma.txt.
-+    items:
-+      - description: rx DMA channel
-+      - description: tx DMA channel
-+
-+  dma-names:
-+    items:
-+      - const: rx
-+      - const: tx
-+
-+patternProperties:
-+  "^[a-zA-Z][a-zA-Z0-9,+\\-._]{0,63}@[0-9a-f]+$":
-+    type: object
-+    # SPI slave nodes must be children of the SPI master node and can
-+    # contain the following properties.
-+    properties:
-+      st,spi-midi-ns:
-+        $ref: /schemas/types.yaml#/definitions/uint32
-+        description: |
-+          Only for STM32H7, (Master Inter-Data Idleness) minimum time
-+          delay in nanoseconds inserted between two consecutive data frames.
-+
-+required:
-+  - compatible
-+  - reg
-+  - clocks
-+  - interrupts
-+
-+examples:
-+  - |
-+    #include <dt-bindings/interrupt-controller/arm-gic.h>
-+    #include <dt-bindings/clock/stm32mp1-clks.h>
-+    #include <dt-bindings/reset/stm32mp1-resets.h>
-+    spi@4000b000 {
-+      #address-cells = <1>;
-+      #size-cells = <0>;
-+      compatible = "st,stm32h7-spi";
-+      reg = <0x4000b000 0x400>;
-+      interrupts = <GIC_SPI 36 IRQ_TYPE_LEVEL_HIGH>;
-+      clocks = <&rcc SPI2_K>;
-+      resets = <&rcc SPI2_R>;
-+      dmas = <&dmamux1 0 39 0x400 0x05>,
-+             <&dmamux1 1 40 0x400 0x05>;
-+      dma-names = "rx", "tx";
-+      cs-gpios = <&gpioa 11 0>;
-+
-+      aardvark@0 {
-+        compatible = "totalphase,aardvark";
-+        reg = <0>;
-+        spi-max-frequency = <4000000>;
-+        st,spi-midi-ns = <4000>;
-+      };
-+    };
-+
-+...
--- 
-2.15.0
+Regards
+Alex
 
+On 11/4/19 3:37 PM, Alexandre Torgue wrote:
+> In order to enforce suspend/resume ordering, this commit creates link
+> between phy consumers and phy devices. This link avoids to suspend phy
+> before phy consumers.
+> 
+> Signed-off-by: Alexandre Torgue <alexandre.torgue@st.com>
+> 
+> ---
+> 
+> Hi,
+> 
+> To manage device_link in phy-core I had to "balance" get and put APIs a bit
+> more. Fot this reason, you'll find updates in Renesas usbhs rcar and rza drivers
+> as phy API changes.
+> 
+> Regards
+> Alex
+> 
+> diff --git a/drivers/phy/phy-core.c b/drivers/phy/phy-core.c
+> index b04f4fe85ac2..8dfb4868c8c3 100644
+> --- a/drivers/phy/phy-core.c
+> +++ b/drivers/phy/phy-core.c
+> @@ -29,7 +29,7 @@ static void devm_phy_release(struct device *dev, void *res)
+>   {
+>   	struct phy *phy = *(struct phy **)res;
+>   
+> -	phy_put(phy);
+> +	phy_put(dev, phy);
+>   }
+>   
+>   static void devm_phy_provider_release(struct device *dev, void *res)
+> @@ -566,12 +566,12 @@ struct phy *of_phy_get(struct device_node *np, const char *con_id)
+>   EXPORT_SYMBOL_GPL(of_phy_get);
+>   
+>   /**
+> - * phy_put() - release the PHY
+> - * @phy: the phy returned by phy_get()
+> + * of_phy_put() - release the PHY
+> + * @phy: the phy returned by of_phy_get()
+>    *
+> - * Releases a refcount the caller received from phy_get().
+> + * Releases a refcount the caller received from of_phy_get().
+>    */
+> -void phy_put(struct phy *phy)
+> +void of_phy_put(struct phy *phy)
+>   {
+>   	if (!phy || IS_ERR(phy))
+>   		return;
+> @@ -584,6 +584,20 @@ void phy_put(struct phy *phy)
+>   	module_put(phy->ops->owner);
+>   	put_device(&phy->dev);
+>   }
+> +EXPORT_SYMBOL_GPL(of_phy_put);
+> +
+> +/**
+> + * phy_put() - release the PHY
+> + * @dev: device that wants to release this phy
+> + * @phy: the phy returned by phy_get()
+> + *
+> + * Releases a refcount the caller received from phy_get().
+> + */
+> +void phy_put(struct device *dev, struct phy *phy)
+> +{
+> +	device_link_remove(dev, &phy->dev);
+> +	of_phy_put(phy);
+> +}
+>   EXPORT_SYMBOL_GPL(phy_put);
+>   
+>   /**
+> @@ -651,6 +665,7 @@ struct phy *phy_get(struct device *dev, const char *string)
+>   {
+>   	int index = 0;
+>   	struct phy *phy;
+> +	struct device_link *link;
+>   
+>   	if (string == NULL) {
+>   		dev_WARN(dev, "missing string\n");
+> @@ -672,6 +687,13 @@ struct phy *phy_get(struct device *dev, const char *string)
+>   
+>   	get_device(&phy->dev);
+>   
+> +	link = device_link_add(dev, &phy->dev, DL_FLAG_STATELESS);
+> +	if (!link) {
+> +		dev_err(dev, "failed to create device link to %s\n",
+> +			dev_name(phy->dev.parent));
+> +		return ERR_PTR(-EINVAL);
+> +	}
+> +
+>   	return phy;
+>   }
+>   EXPORT_SYMBOL_GPL(phy_get);
+> @@ -765,6 +787,7 @@ struct phy *devm_of_phy_get(struct device *dev, struct device_node *np,
+>   			    const char *con_id)
+>   {
+>   	struct phy **ptr, *phy;
+> +	struct device_link *link;
+>   
+>   	ptr = devres_alloc(devm_phy_release, sizeof(*ptr), GFP_KERNEL);
+>   	if (!ptr)
+> @@ -778,6 +801,13 @@ struct phy *devm_of_phy_get(struct device *dev, struct device_node *np,
+>   		devres_free(ptr);
+>   	}
+>   
+> +	link = device_link_add(dev, &phy->dev, DL_FLAG_STATELESS);
+> +	if (!link) {
+> +		dev_err(dev, "failed to create device link to %s\n",
+> +			dev_name(phy->dev.parent));
+> +		return ERR_PTR(-EINVAL);
+> +	}
+> +
+>   	return phy;
+>   }
+>   EXPORT_SYMBOL_GPL(devm_of_phy_get);
+> @@ -798,6 +828,7 @@ struct phy *devm_of_phy_get_by_index(struct device *dev, struct device_node *np,
+>   				     int index)
+>   {
+>   	struct phy **ptr, *phy;
+> +	struct device_link *link;
+>   
+>   	ptr = devres_alloc(devm_phy_release, sizeof(*ptr), GFP_KERNEL);
+>   	if (!ptr)
+> @@ -819,6 +850,13 @@ struct phy *devm_of_phy_get_by_index(struct device *dev, struct device_node *np,
+>   	*ptr = phy;
+>   	devres_add(dev, ptr);
+>   
+> +	link = device_link_add(dev, &phy->dev, DL_FLAG_STATELESS);
+> +	if (!link) {
+> +		dev_err(dev, "failed to create device link to %s\n",
+> +			dev_name(phy->dev.parent));
+> +		return ERR_PTR(-EINVAL);
+> +	}
+> +
+>   	return phy;
+>   }
+>   EXPORT_SYMBOL_GPL(devm_of_phy_get_by_index);
+> diff --git a/drivers/usb/renesas_usbhs/rcar2.c b/drivers/usb/renesas_usbhs/rcar2.c
+> index 440d213e1749..791908f8cf73 100644
+> --- a/drivers/usb/renesas_usbhs/rcar2.c
+> +++ b/drivers/usb/renesas_usbhs/rcar2.c
+> @@ -34,7 +34,7 @@ static int usbhs_rcar2_hardware_exit(struct platform_device *pdev)
+>   	struct usbhs_priv *priv = usbhs_pdev_to_priv(pdev);
+>   
+>   	if (priv->phy) {
+> -		phy_put(priv->phy);
+> +		phy_put(&pdev->dev, priv->phy);
+>   		priv->phy = NULL;
+>   	}
+>   
+> diff --git a/drivers/usb/renesas_usbhs/rza2.c b/drivers/usb/renesas_usbhs/rza2.c
+> index 021749594389..3eed3334a17f 100644
+> --- a/drivers/usb/renesas_usbhs/rza2.c
+> +++ b/drivers/usb/renesas_usbhs/rza2.c
+> @@ -29,7 +29,7 @@ static int usbhs_rza2_hardware_exit(struct platform_device *pdev)
+>   {
+>   	struct usbhs_priv *priv = usbhs_pdev_to_priv(pdev);
+>   
+> -	phy_put(priv->phy);
+> +	phy_put(&pdev->dev, priv->phy);
+>   	priv->phy = NULL;
+>   
+>   	return 0;
+> diff --git a/include/linux/phy/phy.h b/include/linux/phy/phy.h
+> index 56d3a100006a..19eddd64c8f6 100644
+> --- a/include/linux/phy/phy.h
+> +++ b/include/linux/phy/phy.h
+> @@ -234,7 +234,8 @@ struct phy *devm_of_phy_get(struct device *dev, struct device_node *np,
+>   			    const char *con_id);
+>   struct phy *devm_of_phy_get_by_index(struct device *dev, struct device_node *np,
+>   				     int index);
+> -void phy_put(struct phy *phy);
+> +void of_phy_put(struct phy *phy);
+> +void phy_put(struct device *dev, struct phy *phy);
+>   void devm_phy_put(struct device *dev, struct phy *phy);
+>   struct phy *of_phy_get(struct device_node *np, const char *con_id);
+>   struct phy *of_phy_simple_xlate(struct device *dev,
+> @@ -419,7 +420,11 @@ static inline struct phy *devm_of_phy_get_by_index(struct device *dev,
+>   	return ERR_PTR(-ENOSYS);
+>   }
+>   
+> -static inline void phy_put(struct phy *phy)
+> +static inline void of_phy_put(struct phy *phy)
+> +{
+> +}
+> +
+> +static inline void phy_put(struct device *dev, struct phy *phy)
+>   {
+>   }
+>   
+> 
 _______________________________________________
 Linux-stm32 mailing list
 Linux-stm32@st-md-mailman.stormreply.com
