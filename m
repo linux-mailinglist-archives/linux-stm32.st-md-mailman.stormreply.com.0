@@ -2,61 +2,63 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id 0F189112EFF
-	for <lists+linux-stm32@lfdr.de>; Wed,  4 Dec 2019 16:53:51 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id DCB87112F8E
+	for <lists+linux-stm32@lfdr.de>; Wed,  4 Dec 2019 17:06:22 +0100 (CET)
 Received: from ip-172-31-3-76.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id C450FC36B0E;
-	Wed,  4 Dec 2019 15:53:50 +0000 (UTC)
-Received: from mx07-00178001.pphosted.com (mx07-00178001.pphosted.com
- [62.209.51.94])
- (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 9E7D4C36B0B;
+	Wed,  4 Dec 2019 16:06:22 +0000 (UTC)
+Received: from mail-pg1-f194.google.com (mail-pg1-f194.google.com
+ [209.85.215.194])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 4A270C36B0A
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id D573EC36B09
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Wed,  4 Dec 2019 15:53:50 +0000 (UTC)
-Received: from pps.filterd (m0046037.ppops.net [127.0.0.1])
- by mx07-00178001.pphosted.com (8.16.0.42/8.16.0.42) with SMTP id
- xB4Fq3HQ009177; Wed, 4 Dec 2019 16:53:43 +0100
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=st.com;
- h=from : to : cc : subject
- : date : message-id : in-reply-to : references : mime-version :
- content-type; s=STMicroelectronics;
- bh=z9I4jPl8HjaZ0yib1NGkHMebDD7rdFp1Yx8caA9mL2s=;
- b=vWFQ5tp5SjERfKg5VmepTHf8WgmNTsYFEraKs7tBghBcVEH10M9DMtwK859lImxVI4aJ
- JZ9ry+ManGJd8nOpmuPcePlsyAduKF6ttde9uZxdUAqsdJYZe2CuqXP7KmrnjQY/QwPe
- bbEc2dMFmPy1b07QNr831Ook21k939UpTaP4uhLy2dC386zN23dYoUUjzYPbMerp9qwZ
- WFD0en0XzLCgbL8YeS6LVgiP5QhRzoCqklhmmA6PO3LybL/3vZD6x5ORi63vIM+R6V1w
- Yt0Z6xncY9nXD2dXSkG+2f3MPtAzRBShW5slGf4yee2QHSAQaDtob2OE4/IpzogwhvIH ow== 
-Received: from beta.dmz-eu.st.com (beta.dmz-eu.st.com [164.129.1.35])
- by mx07-00178001.pphosted.com with ESMTP id 2wkf2xwxf5-1
- (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
- Wed, 04 Dec 2019 16:53:43 +0100
-Received: from euls16034.sgp.st.com (euls16034.sgp.st.com [10.75.44.20])
- by beta.dmz-eu.st.com (STMicroelectronics) with ESMTP id F3226100034;
- Wed,  4 Dec 2019 16:53:42 +0100 (CET)
-Received: from Webmail-eu.st.com (sfhdag3node3.st.com [10.75.127.9])
- by euls16034.sgp.st.com (STMicroelectronics) with ESMTP id E655E2C7E89;
- Wed,  4 Dec 2019 16:53:42 +0100 (CET)
-Received: from localhost (10.75.127.45) by SFHDAG3NODE3.st.com (10.75.127.9)
- with Microsoft SMTP Server (TLS) id 15.0.1347.2; Wed, 4 Dec 2019 16:53:42
- +0100
-From: Benjamin Gaignard <benjamin.gaignard@st.com>
-To: <alexandre.torgue@st.com>, <robh+dt@kernel.org>, <mark.rutland@arm.com>
-Date: Wed, 4 Dec 2019 16:53:33 +0100
-Message-ID: <20191204155333.25401-2-benjamin.gaignard@st.com>
-X-Mailer: git-send-email 2.15.0
-In-Reply-To: <20191204155333.25401-1-benjamin.gaignard@st.com>
-References: <20191204155333.25401-1-benjamin.gaignard@st.com>
+ Wed,  4 Dec 2019 16:04:10 +0000 (UTC)
+Received: by mail-pg1-f194.google.com with SMTP id b1so75030pgq.10
+ for <linux-stm32@st-md-mailman.stormreply.com>;
+ Wed, 04 Dec 2019 08:04:10 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=joelfernandes.org; s=google;
+ h=date:from:to:cc:subject:message-id:references:mime-version
+ :content-disposition:in-reply-to:user-agent;
+ bh=eByo4q9faNp6zGI9FakktXazM1EDxbjClMkzxr8m7r0=;
+ b=BV0w8QAZZ5xXily8kG1uCAy00f3Fo9uhHJ6ajdFZpadL45LzYbAWAFq9Zmqnts4hCo
+ IgZU7ZQjc4RvQqz7ENmpIgYdYDaszImbpYkyNK+CjCELQeCY/J7WzCrJ1EX8+YcFsBvz
+ Ta/bfolTf0p/NzXzMT+8JaLPdoLKYluBojmjg=
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20161025;
+ h=x-gm-message-state:date:from:to:cc:subject:message-id:references
+ :mime-version:content-disposition:in-reply-to:user-agent;
+ bh=eByo4q9faNp6zGI9FakktXazM1EDxbjClMkzxr8m7r0=;
+ b=Bc03uVTaSmyc+g/4tImpLZoSFpvfA3kdiIY5m8XQQrBAKEWAgzYJDA7+vP4njvwDoq
+ gCAWs8i8fPJ0oD9/e9fw3Jj1GDpcdycEkwA3fcksYVF9Ty3uIx0dzcLUjiDqHjTAFUjV
+ jjXGpyjw3xB78Novc5sF0cKksd5E4Pq7jkfr9DIttmA9i/EPcOfDvzLbY2pGP8phr0vO
+ hcwJbsMtgNZ7fu+WJKniEpZgc3VUuBWJdJyLElva6cF1SnRkg2O+xWbbOG91DZ3kY2tw
+ 91RmydOnW7ayCA+P6BuEdNpfq1gxq77e9uZbKuzpEwwZNImdd5ypnxh7IqZGU2Z6yYVK
+ 0qpw==
+X-Gm-Message-State: APjAAAW891BkA6j7ld+MbWRRldAxIGuQrLzL6BVjNQpiIGKA6WgKn8N1
+ k8IF0+1cjz+0sMKeq/pOOtU2aA==
+X-Google-Smtp-Source: APXvYqwYZ6RInRzgXvlj/cFCMRejFpnNht5sE2GGDmMGO+ouJL7B/qBhkYEoAxyP90L6dPIAl4JAyg==
+X-Received: by 2002:a63:c103:: with SMTP id w3mr4273542pgf.275.1575475449097; 
+ Wed, 04 Dec 2019 08:04:09 -0800 (PST)
+Received: from localhost ([2620:15c:6:12:9c46:e0da:efbf:69cc])
+ by smtp.gmail.com with ESMTPSA id g10sm8073496pgh.35.2019.12.04.08.04.07
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Wed, 04 Dec 2019 08:04:08 -0800 (PST)
+Date: Wed, 4 Dec 2019 11:04:07 -0500
+From: Joel Fernandes <joel@joelfernandes.org>
+To: Antonio Borneo <antonio.borneo@st.com>
+Message-ID: <20191204160407.GB17404@google.com>
+References: <20191127154428.191095-1-antonio.borneo@st.com>
 MIME-Version: 1.0
-X-Originating-IP: [10.75.127.45]
-X-ClientProxiedBy: SFHDAG1NODE1.st.com (10.75.127.1) To SFHDAG3NODE3.st.com
- (10.75.127.9)
-X-Proofpoint-Virus-Version: vendor=fsecure engine=2.50.10434:6.0.95,18.0.572
- definitions=2019-12-04_03:2019-12-04,2019-12-04 signatures=0
-Cc: devicetree@vger.kernel.org, linux-stm32@st-md-mailman.stormreply.com,
- linux-arm-kernel@lists.infradead.org, linux-kernel@vger.kernel.org
-Subject: [Linux-stm32] [PATCH v2] ARM: dts: stm32: remove "@" and "_" from
-	stm32f7 pinmux groups
+Content-Disposition: inline
+In-Reply-To: <20191127154428.191095-1-antonio.borneo@st.com>
+User-Agent: Mutt/1.10.1 (2018-07-13)
+X-Mailman-Approved-At: Wed, 04 Dec 2019 16:06:21 +0000
+Cc: Ingo Molnar <mingo@redhat.com>, linux-kernel@vger.kernel.org,
+ Steven Rostedt <rostedt@goodmis.org>, linux-stm32@st-md-mailman.stormreply.com
+Subject: Re: [Linux-stm32] [PATCH] tracing: Fix printing ptrs in preempt/irq
+ enable/disable events
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -73,123 +75,81 @@ Content-Transfer-Encoding: 7bit
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
-Replace all "@" and "_" by "-" in pinmux groups for stm32f7 family.
-This avoid errors when using yaml to check the bindings.
+On Wed, Nov 27, 2019 at 04:44:28PM +0100, Antonio Borneo wrote:
+> This tracing event class is the only instance in kernel that logs
+> in the trace buffer the instruction pointer as offset to _stext,
+> instead of logging the full pointer.
+> This looks like a nice optimization for 64 bits platforms, where a
+> 32 bit offset can take less space than a full 64 bits pointer. But
+> the symbol _stext is incorrectly resolved as zero in the expansion
 
-Signed-off-by: Benjamin Gaignard <benjamin.gaignard@st.com>
----
-changes in version 2:
-- replace @ and _ by -
+I didn't get this. If _stext is 0 on any platform, then your patch doesn't
+really do anything because the offset will be equal to the ip.
 
- arch/arm/boot/dts/stm32f7-pinctrl.dtsi | 22 +++++++++++-----------
- 1 file changed, 11 insertions(+), 11 deletions(-)
+Could you provide an example with real numbers showing the overflow?
 
-diff --git a/arch/arm/boot/dts/stm32f7-pinctrl.dtsi b/arch/arm/boot/dts/stm32f7-pinctrl.dtsi
-index 9314128df185..fe4cfda72a47 100644
---- a/arch/arm/boot/dts/stm32f7-pinctrl.dtsi
-+++ b/arch/arm/boot/dts/stm32f7-pinctrl.dtsi
-@@ -127,7 +127,7 @@
- 				st,bank-name = "GPIOK";
- 			};
- 
--			cec_pins_a: cec@0 {
-+			cec_pins_a: cec-0 {
- 				pins {
- 					pinmux = <STM32_PINMUX('A', 15, AF4)>; /* HDMI CEC */
- 					slew-rate = <0>;
-@@ -136,7 +136,7 @@
- 				};
- 			};
- 
--			usart1_pins_a: usart1@0 {
-+			usart1_pins_a: usart1-0 {
- 				pins1 {
- 					pinmux = <STM32_PINMUX('A', 9, AF7)>; /* USART1_TX */
- 					bias-disable;
-@@ -149,7 +149,7 @@
- 				};
- 			};
- 
--			usart1_pins_b: usart1@1 {
-+			usart1_pins_b: usart1-1 {
- 				pins1 {
- 					pinmux = <STM32_PINMUX('A', 9, AF7)>; /* USART1_TX */
- 					bias-disable;
-@@ -162,7 +162,7 @@
- 				};
- 			};
- 
--			i2c1_pins_b: i2c1@0 {
-+			i2c1_pins_b: i2c1-0 {
- 				pins {
- 					pinmux = <STM32_PINMUX('B', 9, AF4)>, /* I2C1 SDA */
- 						 <STM32_PINMUX('B', 8, AF4)>; /* I2C1 SCL */
-@@ -172,7 +172,7 @@
- 				};
- 			};
- 
--			usbotg_hs_pins_a: usbotg-hs@0 {
-+			usbotg_hs_pins_a: usbotg-hs-0 {
- 				pins {
- 					pinmux = <STM32_PINMUX('H', 4, AF10)>, /* OTG_HS_ULPI_NXT */
- 						 <STM32_PINMUX('I', 11, AF10)>, /* OTG_HS_ULPI_DIR */
-@@ -192,7 +192,7 @@
- 				};
- 			};
- 
--			usbotg_hs_pins_b: usbotg-hs@1 {
-+			usbotg_hs_pins_b: usbotg-hs-1 {
- 				pins {
- 					pinmux = <STM32_PINMUX('H', 4, AF10)>, /* OTG_HS_ULPI_NXT */
- 						 <STM32_PINMUX('C', 2, AF10)>, /* OTG_HS_ULPI_DIR */
-@@ -212,7 +212,7 @@
- 				};
- 			};
- 
--			usbotg_fs_pins_a: usbotg-fs@0 {
-+			usbotg_fs_pins_a: usbotg-fs-0 {
- 				pins {
- 					pinmux = <STM32_PINMUX('A', 10, AF10)>, /* OTG_FS_ID */
- 						 <STM32_PINMUX('A', 11, AF10)>, /* OTG_FS_DM */
-@@ -223,7 +223,7 @@
- 				};
- 			};
- 
--			sdio_pins_a: sdio_pins_a@0 {
-+			sdio_pins_a: sdio-pins-a-0 {
- 				pins {
- 					pinmux = <STM32_PINMUX('C', 8, AF12)>, /* SDMMC1 D0 */
- 						 <STM32_PINMUX('C', 9, AF12)>, /* SDMMC1 D1 */
-@@ -236,7 +236,7 @@
- 				};
- 			};
- 
--			sdio_pins_od_a: sdio_pins_od_a@0 {
-+			sdio_pins_od_a: sdio-pins-od-a-0 {
- 				pins1 {
- 					pinmux = <STM32_PINMUX('C', 8, AF12)>, /* SDMMC1 D0 */
- 						 <STM32_PINMUX('C', 9, AF12)>, /* SDMMC1 D1 */
-@@ -254,7 +254,7 @@
- 				};
- 			};
- 
--			sdio_pins_b: sdio_pins_b@0 {
-+			sdio_pins_b: sdio-pins-b-0 {
- 				pins {
- 					pinmux = <STM32_PINMUX('G', 9, AF11)>, /* SDMMC2 D0 */
- 						 <STM32_PINMUX('G', 10, AF11)>, /* SDMMC2 D1 */
-@@ -267,7 +267,7 @@
- 				};
- 			};
- 
--			sdio_pins_od_b: sdio_pins_od_b@0 {
-+			sdio_pins_od_b: sdio-pins-od-b-0 {
- 				pins1 {
- 					pinmux = <STM32_PINMUX('G', 9, AF11)>, /* SDMMC2 D0 */
- 						 <STM32_PINMUX('G', 10, AF11)>, /* SDMMC2 D1 */
--- 
-2.15.0
+> of TP_printk(), which then prints only the hex offset instead of
+> the name of the caller function. Plus, on arm arch the kernel
+> modules are loaded at address lower than _stext, causing the u32
+> offset arithmetics to overflow and wrap at 32 bits.
 
+If we use signed 32-bit, will that solve the module issue?
+
+> I did not identified a 64 bit arch where the modules are loaded at
+> offset from _stext that exceed u32 range, but I also did not
+> identified any constraint to feel safe with a u32 offset.
+> 
+> Log directly the instruction pointer instead of the offset to
+> _stext.
+
+I am not comfortable with this patch at the moment, mainly because it will
+increase the size of this rather high frequency event. But I'm not saying
+there isn't an issue on 32-bit. Let's discuss more.
+
+thanks,
+
+ - Joel
+
+
+> 
+> Signed-off-by: Antonio Borneo <antonio.borneo@st.com>
+> Fixes: d59158162e03 ("tracing: Add support for preempt and irq enable/disable events")
+> ---
+>  include/trace/events/preemptirq.h | 12 ++++++------
+>  1 file changed, 6 insertions(+), 6 deletions(-)
+> 
+> diff --git a/include/trace/events/preemptirq.h b/include/trace/events/preemptirq.h
+> index 95fba0471e5b..d548a6aafa18 100644
+> --- a/include/trace/events/preemptirq.h
+> +++ b/include/trace/events/preemptirq.h
+> @@ -18,18 +18,18 @@ DECLARE_EVENT_CLASS(preemptirq_template,
+>  	TP_ARGS(ip, parent_ip),
+>  
+>  	TP_STRUCT__entry(
+> -		__field(u32, caller_offs)
+> -		__field(u32, parent_offs)
+> +		__field(unsigned long, caller_ip)
+> +		__field(unsigned long, parent_ip)
+>  	),
+>  
+>  	TP_fast_assign(
+> -		__entry->caller_offs = (u32)(ip - (unsigned long)_stext);
+> -		__entry->parent_offs = (u32)(parent_ip - (unsigned long)_stext);
+> +		__entry->caller_ip = ip;
+> +		__entry->parent_ip = parent_ip;
+>  	),
+>  
+>  	TP_printk("caller=%pS parent=%pS",
+> -		  (void *)((unsigned long)(_stext) + __entry->caller_offs),
+> -		  (void *)((unsigned long)(_stext) + __entry->parent_offs))
+> +		  (void *)__entry->caller_ip,
+> +		  (void *)__entry->parent_ip)
+>  );
+>  
+>  #ifdef CONFIG_TRACE_IRQFLAGS
+> -- 
+> 2.24.0
+> 
 _______________________________________________
 Linux-stm32 mailing list
 Linux-stm32@st-md-mailman.stormreply.com
