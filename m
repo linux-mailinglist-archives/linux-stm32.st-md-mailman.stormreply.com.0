@@ -2,59 +2,57 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id 22618113766
-	for <lists+linux-stm32@lfdr.de>; Wed,  4 Dec 2019 23:01:39 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 54B8F113784
+	for <lists+linux-stm32@lfdr.de>; Wed,  4 Dec 2019 23:21:48 +0100 (CET)
 Received: from ip-172-31-3-76.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id E0C09C36B0B;
-	Wed,  4 Dec 2019 22:01:38 +0000 (UTC)
-Received: from mail-ot1-f65.google.com (mail-ot1-f65.google.com
- [209.85.210.65])
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 08CFDC36B0B;
+	Wed,  4 Dec 2019 22:21:48 +0000 (UTC)
+Received: from mail-oi1-f195.google.com (mail-oi1-f195.google.com
+ [209.85.167.195])
  (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 77A7EC36B09
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 89B69C36B09
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Wed,  4 Dec 2019 22:01:37 +0000 (UTC)
-Received: by mail-ot1-f65.google.com with SMTP id 59so679963otp.12
+ Wed,  4 Dec 2019 22:21:47 +0000 (UTC)
+Received: by mail-oi1-f195.google.com with SMTP id k196so833887oib.2
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Wed, 04 Dec 2019 14:01:37 -0800 (PST)
+ Wed, 04 Dec 2019 14:21:47 -0800 (PST)
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=1e100.net; s=20161025;
  h=x-gm-message-state:date:from:to:cc:subject:message-id:references
  :mime-version:content-disposition:in-reply-to:user-agent;
- bh=qKR6o4UGPy9iqIfUp6iJ8SJ9UqWScNbqbObfmkhLaUM=;
- b=DMSIyYnK06y68kkk5SpMY6sjzKfQE/2nCUoYnkyPpEWnjmwEfZPSR/ZwzhYHrssl7q
- 2/UgK0gkWqoZZ++NFNN7L9XLo2IOnGhb6SK4BVITYW081Naz1c2bo4UT1JC3lx7/8MfP
- iwmjMV/eRcFc2g/xPaMMVr4DMvAFgOPUjo6lf1quFdlMTH3djsEFkqildCDXJzQpAnal
- 36qxI9ibvJCkYsi3H//JBYyDOsoRgicsNCzAg8Rjq312f6lSQM7jdGntseAubMnHk+49
- KWtEIHsfFvKjnn/uos4AOClhty78cVy5xE5KN+sijqaf7K6kI6CEJC+L7KE4G6aQo7TX
- b5ew==
-X-Gm-Message-State: APjAAAVg/UCgnpZpFUDUKBvmaZRqJLorU3vXnIHEFlmJFnw8tF+Jxupr
- do5plpVWETYsNTOwWqgJvw==
-X-Google-Smtp-Source: APXvYqwrPt2PI9ParnlGucs0G+mALP2GoBO6N+l83sOY7Tbcy0oTsamiEFYR6brfLpKlt++s6q558g==
-X-Received: by 2002:a05:6830:1211:: with SMTP id
- r17mr4309425otp.157.1575496896226; 
- Wed, 04 Dec 2019 14:01:36 -0800 (PST)
+ bh=0YMXPK0MWLWyfIyxG2mVwtUXfMBfXzC4dJTyDwiUSCI=;
+ b=hplDXZ1nz5P3GFDFVeb5FkTldI8PBMT6dVmD7BxVhU2LrtPddxprCpFvX+2pHFZ35g
+ 4y0pQ7yCLNk0/wnqTbK6B9buFEmKuce8IieyEFf1oPM4MCDq/CaH65cEBR7xmzTRr/Cc
+ Hzxviz5JeaI9zA/3ZZ4CtjAlIBz+0ZI7i7qt1pFKFJyao0mwZErt3sXpHZLtmi/xltJl
+ /S0GNkeuPf3FEMMsBvPWOCkuLUpoBtUG8qWw2Ce+wiOKOfS2/VNgKDUlEBXSMdDtBInu
+ 9titSeYp9PNqbm6caKatzHi002EqWOhKUzCPJrN+UTfzQGoT8OqMaXwImg0o94MhsU4K
+ kkRA==
+X-Gm-Message-State: APjAAAW4oO2YjjUcdqURNRSggIlFtCVKWMULQva81NLrkEmnTwrfReRZ
+ JMVsKY6jw1NLU1CcaKdfIw==
+X-Google-Smtp-Source: APXvYqxd6OOdNmobqARjtlfaN0LLudPr5TKfnJ4uyLbrkH6cblTCYO0/yUZjNuu/J1TAHun4I2prDQ==
+X-Received: by 2002:aca:d5d3:: with SMTP id m202mr4421120oig.161.1575498106026; 
+ Wed, 04 Dec 2019 14:21:46 -0800 (PST)
 Received: from localhost (24-155-109-49.dyn.grandenetworks.net.
  [24.155.109.49])
- by smtp.gmail.com with ESMTPSA id i15sm2625353otl.69.2019.12.04.14.01.35
+ by smtp.gmail.com with ESMTPSA id y24sm2784605oix.31.2019.12.04.14.21.45
  (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Wed, 04 Dec 2019 14:01:35 -0800 (PST)
-Date: Wed, 4 Dec 2019 16:01:34 -0600
+ Wed, 04 Dec 2019 14:21:45 -0800 (PST)
+Date: Wed, 4 Dec 2019 16:21:44 -0600
 From: Rob Herring <robh@kernel.org>
-To: Benjamin Gaignard <benjamin.gaignard@st.com>
-Message-ID: <20191204220134.GA25911@bogus>
-References: <20191122104536.20283-1-benjamin.gaignard@st.com>
- <20191122104536.20283-2-benjamin.gaignard@st.com>
+To: Arnaud Pouliquen <arnaud.pouliquen@st.com>
+Message-ID: <20191204222144.GA25718@bogus>
+References: <20191122125402.14730-1-arnaud.pouliquen@st.com>
 MIME-Version: 1.0
 Content-Disposition: inline
-In-Reply-To: <20191122104536.20283-2-benjamin.gaignard@st.com>
+In-Reply-To: <20191122125402.14730-1-arnaud.pouliquen@st.com>
 User-Agent: Mutt/1.10.1 (2018-07-13)
-Cc: mark.rutland@arm.com, devicetree@vger.kernel.org,
- linux-kernel@vger.kernel.org, robh+dt@kernel.org, lgirdwood@gmail.com,
- broonie@kernel.org, Fabrice Gasnier <fabrice.gasnier@st.com>,
+Cc: Mark Rutland <mark.rutland@arm.com>,
+ Stephen Rothwell <sfr@canb.auug.org.au>, devicetree@vger.kernel.org,
+ linux-kernel@vger.kernel.org, Fabien Dessenne <fabien.dessenne@st.com>,
  linux-stm32@st-md-mailman.stormreply.com, linux-arm-kernel@lists.infradead.org
-Subject: Re: [Linux-stm32] [PATCH] dt-bindings: regulator: Convert stm32
- vrefbuf bindings to json-schema
+Subject: Re: [Linux-stm32] [PATCH] dt-bindings: remoteproc: stm32: add
+ wakeup-source property
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -71,20 +69,22 @@ Content-Transfer-Encoding: 7bit
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
-On Fri, 22 Nov 2019 11:45:36 +0100, Benjamin Gaignard wrote:
-> Convert the STM32 regulator vrefbuf binding to DT schema format using json-schema
+On Fri, 22 Nov 2019 13:54:02 +0100, Arnaud Pouliquen wrote:
+> If the optional wdg interrupt is defined, then this property
+> may be defined.
 > 
-> Signed-off-by: Benjamin Gaignard <benjamin.gaignard@st.com>
-> CC: Fabrice Gasnier <fabrice.gasnier@st.com>
+> Signed-off-by: Arnaud Pouliquen <arnaud.pouliquen@st.com>
 > ---
->  .../bindings/regulator/st,stm32-vrefbuf.txt        | 20 ---------
->  .../bindings/regulator/st,stm32-vrefbuf.yaml       | 52 ++++++++++++++++++++++
->  2 files changed, 52 insertions(+), 20 deletions(-)
->  delete mode 100644 Documentation/devicetree/bindings/regulator/st,stm32-vrefbuf.txt
->  create mode 100644 Documentation/devicetree/bindings/regulator/st,stm32-vrefbuf.yaml
+> This commit is related to the merge conflict issue reported by
+> Stephen Rothwell: https://lkml.org/lkml/2019/11/21/1168
+> ---
+>  .../devicetree/bindings/remoteproc/st,stm32-rproc.yaml          | 2 ++
+>  1 file changed, 2 insertions(+)
 > 
 
-Reviewed-by: Rob Herring <robh@kernel.org>
+Applied, thanks.
+
+Rob
 _______________________________________________
 Linux-stm32 mailing list
 Linux-stm32@st-md-mailman.stormreply.com
