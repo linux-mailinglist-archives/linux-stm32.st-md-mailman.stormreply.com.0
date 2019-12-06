@@ -2,36 +2,61 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id 87BC711504F
-	for <lists+linux-stm32@lfdr.de>; Fri,  6 Dec 2019 13:23:29 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id D6AC61154FC
+	for <lists+linux-stm32@lfdr.de>; Fri,  6 Dec 2019 17:19:31 +0100 (CET)
 Received: from ip-172-31-3-76.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 2CF13C36B0B;
-	Fri,  6 Dec 2019 12:23:29 +0000 (UTC)
-Received: from lgeamrelo11.lge.com (lgeamrelo12.lge.com [156.147.23.52])
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 4B45EC36B09
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 76A83C36B0B;
+	Fri,  6 Dec 2019 16:19:31 +0000 (UTC)
+Received: from mx07-00178001.pphosted.com (mx08-00178001.pphosted.com
+ [91.207.212.93])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+ (No client certificate requested)
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 6D0B1C36B09
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Fri,  6 Dec 2019 11:40:43 +0000 (UTC)
-Received: from unknown (HELO lgemrelse6q.lge.com) (156.147.1.121)
- by 156.147.23.52 with ESMTP; 6 Dec 2019 20:40:41 +0900
-X-Original-SENDERIP: 156.147.1.121
-X-Original-MAILFROM: neidhard.kim@lge.com
-Received: from unknown (HELO localhost.localdomain) (10.178.32.48)
- by 156.147.1.121 with ESMTP; 6 Dec 2019 20:40:41 +0900
-X-Original-SENDERIP: 10.178.32.48
-X-Original-MAILFROM: neidhard.kim@lge.com
-From: Jongsung Kim <neidhard.kim@lge.com>
-To: netdev@vger.kernel.org
-Date: Fri,  6 Dec 2019 20:40:00 +0900
-Message-Id: <20191206114000.27283-1-neidhard.kim@lge.com>
-X-Mailer: git-send-email 2.20.1
+ Fri,  6 Dec 2019 16:19:30 +0000 (UTC)
+Received: from pps.filterd (m0046660.ppops.net [127.0.0.1])
+ by mx08-00178001.pphosted.com (8.16.0.42/8.16.0.42) with SMTP id
+ xB6GCP34016908; Fri, 6 Dec 2019 17:19:02 +0100
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=st.com;
+ h=from : to : cc : subject
+ : date : message-id : mime-version : content-type; s=STMicroelectronics;
+ bh=rZSGBMpkrnJSY9HSSje5RnjwiMmTrLzfbNia3p+FrVo=;
+ b=tJWLjNGfZuY4t3VIxu76l9isS9UOxpDyOeB037IV99bW3MvAmrENqljidkb3D1lvMdBK
+ 62fDXcxVemjOM181UBKW0kf8LfoZdXIcgFV9hftDKTClXi47KqIu8ZwMcQZBCnHwvb2P
+ iyCgZ/Ls4/pTHfMu4y7I/rhFfOi4AmQLt9HsuwCF+fErgUjSOCQwU3NEsp0fiVdI9r9i
+ 4AbQLSoPuxXY74/pc1S1EQdkfo7IIoO2vNOSb2RV795YURimrMjLNQwl3dZY6mAnu6+T
+ eEBxrq+6Ep9IyYjdytx9eHJ4Dd+SvRHbddczWokHB+3I+Lmpd6t/ckOYZP2XhsVRD9hh uA== 
+Received: from beta.dmz-eu.st.com (beta.dmz-eu.st.com [164.129.1.35])
+ by mx08-00178001.pphosted.com with ESMTP id 2wkeeahj4w-1
+ (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
+ Fri, 06 Dec 2019 17:19:02 +0100
+Received: from euls16034.sgp.st.com (euls16034.sgp.st.com [10.75.44.20])
+ by beta.dmz-eu.st.com (STMicroelectronics) with ESMTP id DE9CB100034;
+ Fri,  6 Dec 2019 17:18:46 +0100 (CET)
+Received: from Webmail-eu.st.com (sfhdag5node3.st.com [10.75.127.15])
+ by euls16034.sgp.st.com (STMicroelectronics) with ESMTP id CE6B52B5469;
+ Fri,  6 Dec 2019 17:18:46 +0100 (CET)
+Received: from localhost (10.75.127.47) by SFHDAG5NODE3.st.com (10.75.127.15)
+ with Microsoft SMTP Server (TLS) id 15.0.1473.3;
+ Fri, 6 Dec 2019 17:18:46 +0100
+From: Fabrice Gasnier <fabrice.gasnier@st.com>
+To: <jic23@kernel.org>, <robh+dt@kernel.org>
+Date: Fri, 6 Dec 2019 17:17:08 +0100
+Message-ID: <1575649028-10909-1-git-send-email-fabrice.gasnier@st.com>
+X-Mailer: git-send-email 2.7.4
 MIME-Version: 1.0
-X-Mailman-Approved-At: Fri, 06 Dec 2019 12:23:28 +0000
-Cc: Jongsung Kim <neidhard.kim@lge.com>, linux-kernel@vger.kernel.org,
- linux-stm32@st-md-mailman.stormreply.com, joabreu@synopsys.com,
- mcoquelin.stm32@gmail.com, peppe.cavallaro@st.com, davem@davemloft.net,
+X-Originating-IP: [10.75.127.47]
+X-ClientProxiedBy: SFHDAG5NODE3.st.com (10.75.127.15) To SFHDAG5NODE3.st.com
+ (10.75.127.15)
+X-Proofpoint-Virus-Version: vendor=fsecure engine=2.50.10434:6.0.95,18.0.572
+ definitions=2019-12-06_05:2019-12-05,2019-12-06 signatures=0
+Cc: mark.rutland@arm.com, mcoquelin.stm32@gmail.com, lars@metafoo.de,
+ devicetree@vger.kernel.org, linux-iio@vger.kernel.org,
+ linux-kernel@vger.kernel.org, pmeerw@pmeerw.net, knaack.h@gmx.de,
+ fabrice.gasnier@st.com, linux-stm32@st-md-mailman.stormreply.com,
  linux-arm-kernel@lists.infradead.org
-Subject: [Linux-stm32] [PATCH] net: stmmac: reset Tx desc base address
-	before restarting Tx
+Subject: [Linux-stm32] [PATCH v2] dt-bindings: iio: adc: stm32-adc: convert
+	bindings to json-schema
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -48,38 +73,642 @@ Content-Transfer-Encoding: 7bit
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
-Refer to the databook of DesignWare Cores Ethernet MAC Universal:
+Convert the STM32 ADC binding to DT schema format using json-schema
 
-6.2.1.5 Register 4 (Transmit Descriptor List Address Register
-
-If this register is not changed when the ST bit is set to 0, then
-the DMA takes the descriptor address where it was stopped earlier.
-
-The stmmac_tx_err() does zero indices to Tx descriptors, but does
-not reset HW current Tx descriptor address. To fix inconsistency,
-the base address of the Tx descriptors should be rewritten before
-restarting Tx.
-
-Signed-off-by: Jongsung Kim <neidhard.kim@lge.com>
+Signed-off-by: Fabrice Gasnier <fabrice.gasnier@st.com>
 ---
- drivers/net/ethernet/stmicro/stmmac/stmmac_main.c | 2 ++
- 1 file changed, 2 insertions(+)
+Note: this applies on top of IIO tree currently (iio-for-5.5c).
 
-diff --git a/drivers/net/ethernet/stmicro/stmmac/stmmac_main.c b/drivers/net/ethernet/stmicro/stmmac/stmmac_main.c
-index 644cb5d1fd4f..bbc65bd332a8 100644
---- a/drivers/net/ethernet/stmicro/stmmac/stmmac_main.c
-+++ b/drivers/net/ethernet/stmicro/stmmac/stmmac_main.c
-@@ -2009,6 +2009,8 @@ static void stmmac_tx_err(struct stmmac_priv *priv, u32 chan)
- 	tx_q->cur_tx = 0;
- 	tx_q->mss = 0;
- 	netdev_tx_reset_queue(netdev_get_tx_queue(priv->dev, chan));
-+	stmmac_init_tx_chan(priv, priv->ioaddr, priv->plat->dma_cfg,
-+			    tx_q->dma_tx_phy, chan);
- 	stmmac_start_tx_dma(priv, chan);
- 
- 	priv->dev->stats.tx_errors++;
+Changes in V2:
+- Take almost all of Rob suggestions (removed reg generic description,
+  added minItems, maxItems, st,max-clk-rate-hz range, drop some pipes,
+  simplify clock-names, remove unneeded allOfs)
+- For now, keep all in one file despite there are lots of if/thens in the
+  bindings
+---
+ .../devicetree/bindings/iio/adc/st,stm32-adc.txt   | 149 -------
+ .../devicetree/bindings/iio/adc/st,stm32-adc.yaml  | 454 +++++++++++++++++++++
+ 2 files changed, 454 insertions(+), 149 deletions(-)
+ delete mode 100644 Documentation/devicetree/bindings/iio/adc/st,stm32-adc.txt
+ create mode 100644 Documentation/devicetree/bindings/iio/adc/st,stm32-adc.yaml
+
+diff --git a/Documentation/devicetree/bindings/iio/adc/st,stm32-adc.txt b/Documentation/devicetree/bindings/iio/adc/st,stm32-adc.txt
+deleted file mode 100644
+index 8de9331..00000000
+--- a/Documentation/devicetree/bindings/iio/adc/st,stm32-adc.txt
++++ /dev/null
+@@ -1,149 +0,0 @@
+-STMicroelectronics STM32 ADC device driver
+-
+-STM32 ADC is a successive approximation analog-to-digital converter.
+-It has several multiplexed input channels. Conversions can be performed
+-in single, continuous, scan or discontinuous mode. Result of the ADC is
+-stored in a left-aligned or right-aligned 32-bit data register.
+-Conversions can be launched in software or using hardware triggers.
+-
+-The analog watchdog feature allows the application to detect if the input
+-voltage goes beyond the user-defined, higher or lower thresholds.
+-
+-Each STM32 ADC block can have up to 3 ADC instances.
+-
+-Each instance supports two contexts to manage conversions, each one has its
+-own configurable sequence and trigger:
+-- regular conversion can be done in sequence, running in background
+-- injected conversions have higher priority, and so have the ability to
+-  interrupt regular conversion sequence (either triggered in SW or HW).
+-  Regular sequence is resumed, in case it has been interrupted.
+-
+-Contents of a stm32 adc root node:
+------------------------------------
+-Required properties:
+-- compatible: Should be one of:
+-  "st,stm32f4-adc-core"
+-  "st,stm32h7-adc-core"
+-  "st,stm32mp1-adc-core"
+-- reg: Offset and length of the ADC block register set.
+-- interrupts: One or more interrupts for ADC block. Some parts like stm32f4
+-  and stm32h7 share a common ADC interrupt line. stm32mp1 has two separate
+-  interrupt lines, one for each ADC within ADC block.
+-- clocks: Core can use up to two clocks, depending on part used:
+-  - "adc" clock: for the analog circuitry, common to all ADCs.
+-    It's required on stm32f4.
+-    It's optional on stm32h7.
+-  - "bus" clock: for registers access, common to all ADCs.
+-    It's not present on stm32f4.
+-    It's required on stm32h7.
+-- clock-names: Must be "adc" and/or "bus" depending on part used.
+-- interrupt-controller: Identifies the controller node as interrupt-parent
+-- vdda-supply: Phandle to the vdda input analog voltage.
+-- vref-supply: Phandle to the vref input analog reference voltage.
+-- #interrupt-cells = <1>;
+-- #address-cells = <1>;
+-- #size-cells = <0>;
+-
+-Optional properties:
+-- A pinctrl state named "default" for each ADC channel may be defined to set
+-  inX ADC pins in mode of operation for analog input on external pin.
+-- booster-supply: Phandle to the embedded booster regulator that can be used
+-  to supply ADC analog input switches on stm32h7 and stm32mp1.
+-- vdd-supply: Phandle to the vdd input voltage. It can be used to supply ADC
+-  analog input switches on stm32mp1.
+-- st,syscfg: Phandle to system configuration controller. It can be used to
+-  control the analog circuitry on stm32mp1.
+-- st,max-clk-rate-hz: Allow to specify desired max clock rate used by analog
+-  circuitry.
+-
+-Contents of a stm32 adc child node:
+------------------------------------
+-An ADC block node should contain at least one subnode, representing an
+-ADC instance available on the machine.
+-
+-Required properties:
+-- compatible: Should be one of:
+-  "st,stm32f4-adc"
+-  "st,stm32h7-adc"
+-  "st,stm32mp1-adc"
+-- reg: Offset of ADC instance in ADC block (e.g. may be 0x0, 0x100, 0x200).
+-- clocks: Input clock private to this ADC instance. It's required only on
+-  stm32f4, that has per instance clock input for registers access.
+-- interrupts: IRQ Line for the ADC (e.g. may be 0 for adc@0, 1 for adc@100 or
+-  2 for adc@200).
+-- st,adc-channels: List of single-ended channels muxed for this ADC.
+-  It can have up to 16 channels on stm32f4 or 20 channels on stm32h7, numbered
+-  from 0 to 15 or 19 (resp. for in0..in15 or in0..in19).
+-- st,adc-diff-channels: List of differential channels muxed for this ADC.
+-  Depending on part used, some channels can be configured as differential
+-  instead of single-ended (e.g. stm32h7). List here positive and negative
+-  inputs pairs as <vinp vinn>, <vinp vinn>,... vinp and vinn are numbered
+-  from 0 to 19 on stm32h7)
+-  Note: At least one of "st,adc-channels" or "st,adc-diff-channels" is required.
+-  Both properties can be used together. Some channels can be used as
+-  single-ended and some other ones as differential (mixed). But channels
+-  can't be configured both as single-ended and differential (invalid).
+-- #io-channel-cells = <1>: See the IIO bindings section "IIO consumers" in
+-  Documentation/devicetree/bindings/iio/iio-bindings.txt
+-
+-Optional properties:
+-- dmas: Phandle to dma channel for this ADC instance.
+-  See ../../dma/dma.txt for details.
+-- dma-names: Must be "rx" when dmas property is being used.
+-- assigned-resolution-bits: Resolution (bits) to use for conversions. Must
+-  match device available resolutions:
+-  * can be 6, 8, 10 or 12 on stm32f4
+-  * can be 8, 10, 12, 14 or 16 on stm32h7
+-  Default is maximum resolution if unset.
+-- st,min-sample-time-nsecs: Minimum sampling time in nanoseconds.
+-  Depending on hardware (board) e.g. high/low analog input source impedance,
+-  fine tune of ADC sampling time may be recommended.
+-  This can be either one value or an array that matches 'st,adc-channels' list,
+-  to set sample time resp. for all channels, or independently for each channel.
+-
+-Example:
+-	adc: adc@40012000 {
+-		compatible = "st,stm32f4-adc-core";
+-		reg = <0x40012000 0x400>;
+-		interrupts = <18>;
+-		clocks = <&rcc 0 168>;
+-		clock-names = "adc";
+-		vref-supply = <&reg_vref>;
+-		interrupt-controller;
+-		pinctrl-names = "default";
+-		pinctrl-0 = <&adc3_in8_pin>;
+-
+-		#interrupt-cells = <1>;
+-		#address-cells = <1>;
+-		#size-cells = <0>;
+-
+-		adc@0 {
+-			compatible = "st,stm32f4-adc";
+-			#io-channel-cells = <1>;
+-			reg = <0x0>;
+-			clocks = <&rcc 0 168>;
+-			interrupt-parent = <&adc>;
+-			interrupts = <0>;
+-			st,adc-channels = <8>;
+-			dmas = <&dma2 0 0 0x400 0x0>;
+-			dma-names = "rx";
+-			assigned-resolution-bits = <8>;
+-		};
+-		...
+-		other adc child nodes follow...
+-	};
+-
+-Example to setup:
+-- channel 1 as single-ended
+-- channels 2 & 3 as differential (with resp. 6 & 7 negative inputs)
+-
+-	adc: adc@40022000 {
+-		compatible = "st,stm32h7-adc-core";
+-		...
+-		adc1: adc@0 {
+-			compatible = "st,stm32h7-adc";
+-			...
+-			st,adc-channels = <1>;
+-			st,adc-diff-channels = <2 6>, <3 7>;
+-		};
+-	};
+diff --git a/Documentation/devicetree/bindings/iio/adc/st,stm32-adc.yaml b/Documentation/devicetree/bindings/iio/adc/st,stm32-adc.yaml
+new file mode 100644
+index 00000000..60a0212
+--- /dev/null
++++ b/Documentation/devicetree/bindings/iio/adc/st,stm32-adc.yaml
+@@ -0,0 +1,454 @@
++# SPDX-License-Identifier: (GPL-2.0 OR BSD-2-Clause)
++%YAML 1.2
++---
++$id: "http://devicetree.org/schemas/bindings/iio/adc/st,stm32-adc.yaml#"
++$schema: "http://devicetree.org/meta-schemas/core.yaml#"
++
++title: STMicroelectronics STM32 ADC bindings
++
++description: |
++  STM32 ADC is a successive approximation analog-to-digital converter.
++  It has several multiplexed input channels. Conversions can be performed
++  in single, continuous, scan or discontinuous mode. Result of the ADC is
++  stored in a left-aligned or right-aligned 32-bit data register.
++  Conversions can be launched in software or using hardware triggers.
++
++  The analog watchdog feature allows the application to detect if the input
++  voltage goes beyond the user-defined, higher or lower thresholds.
++
++  Each STM32 ADC block can have up to 3 ADC instances.
++
++maintainers:
++  - Fabrice Gasnier <fabrice.gasnier@st.com>
++
++properties:
++  compatible:
++    enum:
++      - st,stm32f4-adc-core
++      - st,stm32h7-adc-core
++      - st,stm32mp1-adc-core
++
++  reg:
++    maxItems: 1
++
++  interrupts:
++    description: |
++      One or more interrupts for ADC block, depending on part used:
++        - stm32f4 and stm32h7 share a common ADC interrupt line.
++        - stm32mp1 has two separate interrupt lines, one for each ADC within
++          ADC block.
++    minItems: 1
++    maxItems: 2
++
++  clocks:
++    description: |
++      Core can use up to two clocks, depending on part used:
++        - "adc" clock: for the analog circuitry, common to all ADCs.
++          It's required on stm32f4.
++          It's optional on stm32h7 and stm32mp1.
++        - "bus" clock: for registers access, common to all ADCs.
++          It's not present on stm32f4.
++          It's required on stm32h7 and stm32mp1.
++
++  clock-names: true
++
++  st,max-clk-rate-hz:
++    description:
++      Allow to specify desired max clock rate used by analog circuitry.
++
++  vdda-supply:
++    description: Phandle to the vdda input analog voltage.
++
++  vref-supply:
++    description: Phandle to the vref input analog reference voltage.
++
++  booster-supply:
++    description:
++      Phandle to the embedded booster regulator that can be used to supply ADC
++      analog input switches on stm32h7 and stm32mp1.
++
++  vdd-supply:
++    description:
++      Phandle to the vdd input voltage. It can be used to supply ADC analog
++      input switches on stm32mp1.
++
++  st,syscfg:
++    description:
++      Phandle to system configuration controller. It can be used to control the
++      analog circuitry on stm32mp1.
++    allOf:
++      - $ref: "/schemas/types.yaml#/definitions/phandle-array"
++
++  interrupt-controller: true
++
++  '#interrupt-cells':
++    const: 1
++
++  '#address-cells':
++    const: 1
++
++  '#size-cells':
++    const: 0
++
++allOf:
++  - if:
++      properties:
++        compatible:
++          contains:
++            const: st,stm32f4-adc-core
++
++    then:
++      properties:
++        clocks:
++          maxItems: 1
++
++        clock-names:
++          const: adc
++
++        interrupts:
++          items:
++            - description: interrupt line common for all ADCs
++
++        st,max-clk-rate-hz:
++          minimum: 600000
++          maximum: 36000000
++          default: 36000000
++
++        booster-supply: false
++
++        vdd-supply: false
++
++        st,syscfg: false
++
++  - if:
++      properties:
++        compatible:
++          contains:
++            const: st,stm32h7-adc-core
++
++    then:
++      properties:
++        clocks:
++          minItems: 1
++          maxItems: 2
++
++        clock-names:
++          items:
++            - const: bus
++            - const: adc
++          minItems: 1
++          maxItems: 2
++
++        interrupts:
++          items:
++            - description: interrupt line common for all ADCs
++
++        st,max-clk-rate-hz:
++          minimum: 120000
++          maximum: 36000000
++          default: 36000000
++
++        vdd-supply: false
++
++        st,syscfg: false
++
++  - if:
++      properties:
++        compatible:
++          contains:
++            const: st,stm32mp1-adc-core
++
++    then:
++      properties:
++        clocks:
++          minItems: 1
++          maxItems: 2
++
++        clock-names:
++          items:
++            - const: bus
++            - const: adc
++          minItems: 1
++          maxItems: 2
++
++        interrupts:
++          items:
++            - description: interrupt line for ADC1
++            - description: interrupt line for ADC2
++
++        st,max-clk-rate-hz:
++          minimum: 120000
++          maximum: 36000000
++          default: 36000000
++
++additionalProperties: false
++
++required:
++  - compatible
++  - reg
++  - interrupts
++  - clocks
++  - clock-names
++  - vdda-supply
++  - vref-supply
++  - interrupt-controller
++  - '#interrupt-cells'
++  - '#address-cells'
++  - '#size-cells'
++
++patternProperties:
++  "^adc@[0-9]+$":
++    type: object
++    description:
++      An ADC block node should contain at least one subnode, representing an
++      ADC instance available on the machine.
++
++    properties:
++      compatible:
++        enum:
++          - st,stm32f4-adc
++          - st,stm32h7-adc
++          - st,stm32mp1-adc
++
++      reg:
++        description: |
++          Offset of ADC instance in ADC block. Valid values are:
++            - 0x0:   ADC1
++            - 0x100: ADC2
++            - 0x200: ADC3 (stm32f4 only)
++        maxItems: 1
++
++      '#io-channel-cells':
++        const: 1
++
++      interrupts:
++        description: |
++          IRQ Line for the ADC instance. Valid values are:
++            - 0 for adc@0
++            - 1 for adc@100
++            - 2 for adc@200 (stm32f4 only)
++        maxItems: 1
++
++      clocks:
++        description:
++          Input clock private to this ADC instance. It's required only on
++          stm32f4, that has per instance clock input for registers access.
++        maxItems: 1
++
++      dmas:
++        description: RX DMA Channel
++        maxItems: 1
++
++      dma-names:
++        const: rx
++
++      assigned-resolution-bits:
++        description: |
++          Resolution (bits) to use for conversions:
++            - can be 6, 8, 10 or 12 on stm32f4
++            - can be 8, 10, 12, 14 or 16 on stm32h7 and stm32mp1
++        allOf:
++          - $ref: /schemas/types.yaml#/definitions/uint32
++
++      st,adc-channels:
++        description: |
++          List of single-ended channels muxed for this ADC. It can have up to:
++            - 16 channels, numbered from 0 to 15 (for in0..in15) on stm32f4
++            - 20 channels, numbered from 0 to 19 (for in0..in19) on stm32h7 and
++              stm32mp1.
++        allOf:
++          - $ref: /schemas/types.yaml#/definitions/uint32-array
++
++      st,adc-diff-channels:
++        description: |
++          List of differential channels muxed for this ADC. Some channels can
++          be configured as differential instead of single-ended on stm32h7 and
++          on stm32mp1. Positive and negative inputs pairs are listed:
++          <vinp vinn>, <vinp vinn>,... vinp and vinn are numbered from 0 to 19.
++
++          Note: At least one of "st,adc-channels" or "st,adc-diff-channels" is
++          required. Both properties can be used together. Some channels can be
++          used as single-ended and some other ones as differential (mixed). But
++          channels can't be configured both as single-ended and differential.
++        allOf:
++          - $ref: /schemas/types.yaml#/definitions/uint32-matrix
++          - items:
++              items:
++                - description: |
++                    "vinp" indicates positive input number
++                  minimum: 0
++                  maximum: 19
++                - description: |
++                    "vinn" indicates negative input number
++                  minimum: 0
++                  maximum: 19
++
++      st,min-sample-time-nsecs:
++        description:
++          Minimum sampling time in nanoseconds. Depending on hardware (board)
++          e.g. high/low analog input source impedance, fine tune of ADC
++          sampling time may be recommended. This can be either one value or an
++          array that matches "st,adc-channels" and/or "st,adc-diff-channels"
++          list, to set sample time resp. for all channels, or independently for
++          each channel.
++        allOf:
++          - $ref: /schemas/types.yaml#/definitions/uint32-array
++
++    allOf:
++      - if:
++          properties:
++            compatible:
++              contains:
++                const: st,stm32f4-adc
++
++        then:
++          properties:
++            reg:
++              enum:
++                - 0x0
++                - 0x100
++                - 0x200
++
++            interrupts:
++              minimum: 0
++              maximum: 2
++
++            assigned-resolution-bits:
++              enum: [6, 8, 10, 12]
++              default: 12
++
++            st,adc-channels:
++              minItems: 1
++              maxItems: 16
++              minimum: 0
++              maximum: 15
++
++            st,adc-diff-channels: false
++
++            st,min-sample-time-nsecs:
++              minItems: 1
++              maxItems: 16
++              minimum: 80
++
++          required:
++            - clocks
++
++      - if:
++          properties:
++            compatible:
++              contains:
++                enum:
++                  - st,stm32h7-adc
++                  - st,stm32mp1-adc
++
++        then:
++          properties:
++            reg:
++              enum:
++                - 0x0
++                - 0x100
++
++            interrupts:
++              minimum: 0
++              maximum: 1
++
++            assigned-resolution-bits:
++              enum: [8, 10, 12, 14, 16]
++              default: 16
++
++            st,adc-channels:
++              minItems: 1
++              maxItems: 20
++              minimum: 0
++              maximum: 19
++
++            st,min-sample-time-nsecs:
++              minItems: 1
++              maxItems: 20
++              minimum: 40
++
++    additionalProperties: false
++
++    anyOf:
++      - required:
++          - st,adc-channels
++      - required:
++          - st,adc-diff-channels
++
++    required:
++      - compatible
++      - reg
++      - interrupts
++      - '#io-channel-cells'
++
++examples:
++  - |
++    // Example 1: with stm32f429
++      adc123: adc@40012000 {
++        compatible = "st,stm32f4-adc-core";
++        reg = <0x40012000 0x400>;
++        interrupts = <18>;
++        clocks = <&rcc 0 168>;
++        clock-names = "adc";
++        st,max-clk-rate-hz = <36000000>;
++        vdda-supply = <&vdda>;
++        vref-supply = <&vref>;
++        interrupt-controller;
++        #interrupt-cells = <1>;
++        #address-cells = <1>;
++        #size-cells = <0>;
++        adc@0 {
++          compatible = "st,stm32f4-adc";
++          #io-channel-cells = <1>;
++          reg = <0x0>;
++          clocks = <&rcc 0 168>;
++          interrupt-parent = <&adc123>;
++          interrupts = <0>;
++          st,adc-channels = <8>;
++          dmas = <&dma2 0 0 0x400 0x0>;
++          dma-names = "rx";
++          assigned-resolution-bits = <8>;
++        };
++        // ...
++        // other adc child nodes follow...
++      };
++
++  - |
++    // Example 2: with stm32mp157c to setup ADC1 with:
++    // - channel 1 as single-ended
++    // - channels 2 & 3 as differential (with resp. 6 & 7 negative inputs)
++      #include <dt-bindings/interrupt-controller/arm-gic.h>
++      #include <dt-bindings/clock/stm32mp1-clks.h>
++      adc12: adc@48003000 {
++        compatible = "st,stm32mp1-adc-core";
++        reg = <0x48003000 0x400>;
++        interrupts = <GIC_SPI 18 IRQ_TYPE_LEVEL_HIGH>,
++                     <GIC_SPI 90 IRQ_TYPE_LEVEL_HIGH>;
++        clocks = <&rcc ADC12>, <&rcc ADC12_K>;
++        clock-names = "bus", "adc";
++        booster-supply = <&booster>;
++        vdd-supply = <&vdd>;
++        vdda-supply = <&vdda>;
++        vref-supply = <&vref>;
++        st,syscfg = <&syscfg>;
++        interrupt-controller;
++        #interrupt-cells = <1>;
++        #address-cells = <1>;
++        #size-cells = <0>;
++        adc@0 {
++          compatible = "st,stm32mp1-adc";
++          #io-channel-cells = <1>;
++          reg = <0x0>;
++          interrupt-parent = <&adc12>;
++          interrupts = <0>;
++          st,adc-channels = <1>;
++          st,adc-diff-channels = <2 6>, <3 7>;
++          st,min-sample-time-nsecs = <5000>;
++          dmas = <&dmamux1 9 0x400 0x05>;
++          dma-names = "rx";
++        };
++        // ...
++        // other adc child node follow...
++      };
++
++...
 -- 
-2.20.1
+2.7.4
 
 _______________________________________________
 Linux-stm32 mailing list
