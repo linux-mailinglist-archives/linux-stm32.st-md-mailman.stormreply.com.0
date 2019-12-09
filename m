@@ -2,43 +2,64 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id 3105F115BDE
-	for <lists+linux-stm32@lfdr.de>; Sat,  7 Dec 2019 11:37:35 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 9AC79116DE4
+	for <lists+linux-stm32@lfdr.de>; Mon,  9 Dec 2019 14:28:09 +0100 (CET)
 Received: from ip-172-31-3-76.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id DAF9FC36B0B;
-	Sat,  7 Dec 2019 10:37:34 +0000 (UTC)
-Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
- (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
- (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 2D805C36B09
- for <linux-stm32@st-md-mailman.stormreply.com>;
- Sat,  7 Dec 2019 10:37:32 +0000 (UTC)
-Received: from archlinux (cpc149474-cmbg20-2-0-cust94.5-4.cable.virginm.net
- [82.4.196.95])
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id D6F2FC36B0B;
+	Mon,  9 Dec 2019 13:28:08 +0000 (UTC)
+Received: from mx07-00178001.pphosted.com (mx07-00178001.pphosted.com
+ [62.209.51.94])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by mail.kernel.org (Postfix) with ESMTPSA id 6C34F2053B;
- Sat,  7 Dec 2019 10:37:29 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
- s=default; t=1575715051;
- bh=03tkZ4Qslko3/IrvTMxw42gSR7I/sOU150wfj2BXJ20=;
- h=Date:From:To:Cc:Subject:In-Reply-To:References:From;
- b=mfVMPLDitdPuCa0bB4HhDQEkEzDvFKUcbtWoyMxJiZKc6OMSUlaaby9h+PTgZE3cm
- c/MjBocSvb8ft6Oo/cwzF63LoobU3XpH/07owt3AUQO3U16P8FZ1uTmw8+zDk7Jgm5
- GNV6FIrBlS19xnPyyBADUWdFTysb/NnEMueAbr8E=
-Date: Sat, 7 Dec 2019 10:37:26 +0000
-From: Jonathan Cameron <jic23@kernel.org>
-To: Fabrice Gasnier <fabrice.gasnier@st.com>
-Message-ID: <20191207103726.6d431237@archlinux>
-In-Reply-To: <1575277339-30237-1-git-send-email-fabrice.gasnier@st.com>
-References: <1575277339-30237-1-git-send-email-fabrice.gasnier@st.com>
-X-Mailer: Claws Mail 3.17.4 (GTK+ 2.24.32; x86_64-pc-linux-gnu)
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id BE1DBC36B09
+ for <linux-stm32@st-md-mailman.stormreply.com>;
+ Mon,  9 Dec 2019 13:28:06 +0000 (UTC)
+Received: from pps.filterd (m0046668.ppops.net [127.0.0.1])
+ by mx07-00178001.pphosted.com (8.16.0.42/8.16.0.42) with SMTP id
+ xB9DMlGN001435; Mon, 9 Dec 2019 14:27:52 +0100
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=st.com;
+ h=subject : to : cc :
+ references : from : message-id : date : mime-version : in-reply-to :
+ content-type : content-transfer-encoding; s=STMicroelectronics;
+ bh=NVKNl5E6IBxUSE44yxIPoFGlZelk47WJ1xBO81dx2eU=;
+ b=oNmyn/L8vznP6zlKKzCk/y/+LmPN+vCMglZHYIHxMWTT1QQTtqxRgDuBUKQcTd3hFru5
+ 9EnAcgicZgq3P0amVVFVFupTZAx8VOSu2L8y0AMucAq6prBzgHyOuCnWlWpVcp2Go8CV
+ duZDsxnY+aJk1qFHRdaTSwQ0UESbBXXJ+f+qhmpda97pvoR9aK6rMCVI2ENsM1NjEsPk
+ S79atIb1VbSZeaUywU9/lSGISlAwXPLPsOcEoOzGBb/Evey7wvMLBJrTThZD6JjbueP3
+ XKF6cDUdvRG/YmXDVQsEM1FsTqJxtI73hpQEx8i+8NavnB0qfThVm0NzmPdgc8xru+fx Qg== 
+Received: from beta.dmz-eu.st.com (beta.dmz-eu.st.com [164.129.1.35])
+ by mx07-00178001.pphosted.com with ESMTP id 2wradh7m2y-1
+ (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
+ Mon, 09 Dec 2019 14:27:52 +0100
+Received: from euls16034.sgp.st.com (euls16034.sgp.st.com [10.75.44.20])
+ by beta.dmz-eu.st.com (STMicroelectronics) with ESMTP id AD53010002A;
+ Mon,  9 Dec 2019 14:27:51 +0100 (CET)
+Received: from Webmail-eu.st.com (sfhdag3node2.st.com [10.75.127.8])
+ by euls16034.sgp.st.com (STMicroelectronics) with ESMTP id 9A4F72D3767;
+ Mon,  9 Dec 2019 14:27:51 +0100 (CET)
+Received: from lmecxl0912.lme.st.com (10.75.127.49) by SFHDAG3NODE2.st.com
+ (10.75.127.8) with Microsoft SMTP Server (TLS) id 15.0.1347.2; Mon, 9 Dec
+ 2019 14:27:51 +0100
+To: Benjamin Gaignard <benjamin.gaignard@st.com>, <robh+dt@kernel.org>,
+ <mark.rutland@arm.com>
+References: <20191204155333.25401-1-benjamin.gaignard@st.com>
+From: Alexandre Torgue <alexandre.torgue@st.com>
+Message-ID: <a4316178-0c56-c37c-5ec1-df78af7511f8@st.com>
+Date: Mon, 9 Dec 2019 14:27:50 +0100
+User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:60.0) Gecko/20100101
+ Thunderbird/60.9.0
 MIME-Version: 1.0
-Cc: lars@metafoo.de, linux-iio@vger.kernel.org, pmeerw@pmeerw.net,
- linux-kernel@vger.kernel.org, mcoquelin.stm32@gmail.com, knaack.h@gmx.de,
- linux-stm32@st-md-mailman.stormreply.com, linux-arm-kernel@lists.infradead.org
-Subject: Re: [Linux-stm32] [PATCH v2] iio: adc: stm32-adc: Add check on
-	overrun interrupt
+In-Reply-To: <20191204155333.25401-1-benjamin.gaignard@st.com>
+Content-Language: en-US
+X-Originating-IP: [10.75.127.49]
+X-ClientProxiedBy: SFHDAG4NODE1.st.com (10.75.127.10) To SFHDAG3NODE2.st.com
+ (10.75.127.8)
+X-Proofpoint-Virus-Version: vendor=fsecure engine=2.50.10434:6.0.95,18.0.572
+ definitions=2019-12-09_04:2019-12-09,2019-12-09 signatures=0
+Cc: devicetree@vger.kernel.org, linux-stm32@st-md-mailman.stormreply.com,
+ linux-arm-kernel@lists.infradead.org, linux-kernel@vger.kernel.org
+Subject: Re: [Linux-stm32] [PATCH v2] ARM: dts: stm32: remove "@" and "_"
+ from stm32f4 pinmux groups
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -50,263 +71,35 @@ List-Post: <mailto:linux-stm32@st-md-mailman.stormreply.com>
 List-Help: <mailto:linux-stm32-request@st-md-mailman.stormreply.com?subject=help>
 List-Subscribe: <https://st-md-mailman.stormreply.com/mailman/listinfo/linux-stm32>, 
  <mailto:linux-stm32-request@st-md-mailman.stormreply.com?subject=subscribe>
-Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
+Content-Type: text/plain; charset="us-ascii"; Format="flowed"
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
-On Mon, 2 Dec 2019 10:02:19 +0100
-Fabrice Gasnier <fabrice.gasnier@st.com> wrote:
+Hi Benjamin,
 
-> Enable overrun interrupt on STM32 ADC. In case data register hasn't been
-> read (by CPU or DMA), overrun condition is detected when there's new
-> conversion data available. Stop grabbing data and log an error message.
-> Use a threaded irq to avoid printing the error message from hard irq
-> context.
+On 12/4/19 4:53 PM, Benjamin Gaignard wrote:
+> Replace all "@" and "_" by "-" in pinmux groups for stm32f4 family.
+> This avoid errors when using yaml to check the bindings.
 > 
-> Signed-off-by: Fabrice Gasnier <fabrice.gasnier@st.com>
-Given you have explicitly mentioned this as a fix I haven't assumed it
-was particularly urgent.
-
-Hence applied to the togreg branch of iio.git and pushed out as testing.
-If we want to request this being added to stable, we should do that after
-it is in mainline after the next merge window.
-
-If you need it faster, let me know and add a fixes tag.
-
-Thanks,
-
-Jonathan
-
+> Signed-off-by: Benjamin Gaignard <benjamin.gaignard@st.com>
 > ---
-> Changes in v2:
-> - Add a comment in the code, to give a hint on how to restart the capture,
->   as suggested by Jonathan. Also update the error message to mention a
->   restart is needed.
-> ---
->  drivers/iio/adc/stm32-adc-core.c | 14 +++++-----
->  drivers/iio/adc/stm32-adc-core.h |  9 +++++++
->  drivers/iio/adc/stm32-adc.c      | 55 ++++++++++++++++++++++++++++++++++++++--
->  3 files changed, 69 insertions(+), 9 deletions(-)
+> changes in version 2:
+> - replace @ and _ by -
 > 
-> diff --git a/drivers/iio/adc/stm32-adc-core.c b/drivers/iio/adc/stm32-adc-core.c
-> index 6537f4f..97655d7 100644
-> --- a/drivers/iio/adc/stm32-adc-core.c
-> +++ b/drivers/iio/adc/stm32-adc-core.c
-> @@ -280,21 +280,21 @@ static int stm32h7_adc_clk_sel(struct platform_device *pdev,
->  static const struct stm32_adc_common_regs stm32f4_adc_common_regs = {
->  	.csr = STM32F4_ADC_CSR,
->  	.ccr = STM32F4_ADC_CCR,
-> -	.eoc1_msk = STM32F4_EOC1,
-> -	.eoc2_msk = STM32F4_EOC2,
-> -	.eoc3_msk = STM32F4_EOC3,
-> +	.eoc1_msk = STM32F4_EOC1 | STM32F4_OVR1,
-> +	.eoc2_msk = STM32F4_EOC2 | STM32F4_OVR2,
-> +	.eoc3_msk = STM32F4_EOC3 | STM32F4_OVR3,
->  	.ier = STM32F4_ADC_CR1,
-> -	.eocie_msk = STM32F4_EOCIE,
-> +	.eocie_msk = STM32F4_EOCIE | STM32F4_OVRIE,
->  };
->  
->  /* STM32H7 common registers definitions */
->  static const struct stm32_adc_common_regs stm32h7_adc_common_regs = {
->  	.csr = STM32H7_ADC_CSR,
->  	.ccr = STM32H7_ADC_CCR,
-> -	.eoc1_msk = STM32H7_EOC_MST,
-> -	.eoc2_msk = STM32H7_EOC_SLV,
-> +	.eoc1_msk = STM32H7_EOC_MST | STM32H7_OVR_MST,
-> +	.eoc2_msk = STM32H7_EOC_SLV | STM32H7_OVR_SLV,
->  	.ier = STM32H7_ADC_IER,
-> -	.eocie_msk = STM32H7_EOCIE,
-> +	.eocie_msk = STM32H7_EOCIE | STM32H7_OVRIE,
->  };
->  
->  static const unsigned int stm32_adc_offset[STM32_ADC_MAX_ADCS] = {
-> diff --git a/drivers/iio/adc/stm32-adc-core.h b/drivers/iio/adc/stm32-adc-core.h
-> index 2579d51..2322809 100644
-> --- a/drivers/iio/adc/stm32-adc-core.h
-> +++ b/drivers/iio/adc/stm32-adc-core.h
-> @@ -51,10 +51,12 @@
->  #define STM32F4_ADC_CCR			(STM32_ADCX_COMN_OFFSET + 0x04)
->  
->  /* STM32F4_ADC_SR - bit fields */
-> +#define STM32F4_OVR			BIT(5)
->  #define STM32F4_STRT			BIT(4)
->  #define STM32F4_EOC			BIT(1)
->  
->  /* STM32F4_ADC_CR1 - bit fields */
-> +#define STM32F4_OVRIE			BIT(26)
->  #define STM32F4_RES_SHIFT		24
->  #define STM32F4_RES_MASK		GENMASK(25, 24)
->  #define STM32F4_SCAN			BIT(8)
-> @@ -72,8 +74,11 @@
->  #define STM32F4_ADON			BIT(0)
->  
->  /* STM32F4_ADC_CSR - bit fields */
-> +#define STM32F4_OVR3			BIT(21)
->  #define STM32F4_EOC3			BIT(17)
-> +#define STM32F4_OVR2			BIT(13)
->  #define STM32F4_EOC2			BIT(9)
-> +#define STM32F4_OVR1			BIT(5)
->  #define STM32F4_EOC1			BIT(1)
->  
->  /* STM32F4_ADC_CCR - bit fields */
-> @@ -103,10 +108,12 @@
->  
->  /* STM32H7_ADC_ISR - bit fields */
->  #define STM32MP1_VREGREADY		BIT(12)
-> +#define STM32H7_OVR			BIT(4)
->  #define STM32H7_EOC			BIT(2)
->  #define STM32H7_ADRDY			BIT(0)
->  
->  /* STM32H7_ADC_IER - bit fields */
-> +#define STM32H7_OVRIE			STM32H7_OVR
->  #define STM32H7_EOCIE			STM32H7_EOC
->  
->  /* STM32H7_ADC_CR - bit fields */
-> @@ -155,7 +162,9 @@ enum stm32h7_adc_dmngt {
->  #define STM32H7_LINCALFACT_MASK		GENMASK(29, 0)
->  
->  /* STM32H7_ADC_CSR - bit fields */
-> +#define STM32H7_OVR_SLV			BIT(20)
->  #define STM32H7_EOC_SLV			BIT(18)
-> +#define STM32H7_OVR_MST			BIT(4)
->  #define STM32H7_EOC_MST			BIT(2)
->  
->  /* STM32H7_ADC_CCR - bit fields */
-> diff --git a/drivers/iio/adc/stm32-adc.c b/drivers/iio/adc/stm32-adc.c
-> index 3b291d7..5f05bf9 100644
-> --- a/drivers/iio/adc/stm32-adc.c
-> +++ b/drivers/iio/adc/stm32-adc.c
-> @@ -117,7 +117,9 @@ struct stm32_adc_regs {
->   * struct stm32_adc_regspec - stm32 registers definition
->   * @dr:			data register offset
->   * @ier_eoc:		interrupt enable register & eocie bitfield
-> + * @ier_ovr:		interrupt enable register & overrun bitfield
->   * @isr_eoc:		interrupt status register & eoc bitfield
-> + * @isr_ovr:		interrupt status register & overrun bitfield
->   * @sqr:		reference to sequence registers array
->   * @exten:		trigger control register & bitfield
->   * @extsel:		trigger selection register & bitfield
-> @@ -128,7 +130,9 @@ struct stm32_adc_regs {
->  struct stm32_adc_regspec {
->  	const u32 dr;
->  	const struct stm32_adc_regs ier_eoc;
-> +	const struct stm32_adc_regs ier_ovr;
->  	const struct stm32_adc_regs isr_eoc;
-> +	const struct stm32_adc_regs isr_ovr;
->  	const struct stm32_adc_regs *sqr;
->  	const struct stm32_adc_regs exten;
->  	const struct stm32_adc_regs extsel;
-> @@ -337,7 +341,9 @@ static const unsigned int stm32f4_adc_smp_cycles[STM32_ADC_MAX_SMP + 1] = {
->  static const struct stm32_adc_regspec stm32f4_adc_regspec = {
->  	.dr = STM32F4_ADC_DR,
->  	.ier_eoc = { STM32F4_ADC_CR1, STM32F4_EOCIE },
-> +	.ier_ovr = { STM32F4_ADC_CR1, STM32F4_OVRIE },
->  	.isr_eoc = { STM32F4_ADC_SR, STM32F4_EOC },
-> +	.isr_ovr = { STM32F4_ADC_SR, STM32F4_OVR },
->  	.sqr = stm32f4_sq,
->  	.exten = { STM32F4_ADC_CR2, STM32F4_EXTEN_MASK, STM32F4_EXTEN_SHIFT },
->  	.extsel = { STM32F4_ADC_CR2, STM32F4_EXTSEL_MASK,
-> @@ -429,7 +435,9 @@ static const unsigned int stm32h7_adc_smp_cycles[STM32_ADC_MAX_SMP + 1] = {
->  static const struct stm32_adc_regspec stm32h7_adc_regspec = {
->  	.dr = STM32H7_ADC_DR,
->  	.ier_eoc = { STM32H7_ADC_IER, STM32H7_EOCIE },
-> +	.ier_ovr = { STM32H7_ADC_IER, STM32H7_OVRIE },
->  	.isr_eoc = { STM32H7_ADC_ISR, STM32H7_EOC },
-> +	.isr_ovr = { STM32H7_ADC_ISR, STM32H7_OVR },
->  	.sqr = stm32h7_sq,
->  	.exten = { STM32H7_ADC_CFGR, STM32H7_EXTEN_MASK, STM32H7_EXTEN_SHIFT },
->  	.extsel = { STM32H7_ADC_CFGR, STM32H7_EXTSEL_MASK,
-> @@ -506,6 +514,18 @@ static void stm32_adc_conv_irq_disable(struct stm32_adc *adc)
->  			   adc->cfg->regs->ier_eoc.mask);
->  }
->  
-> +static void stm32_adc_ovr_irq_enable(struct stm32_adc *adc)
-> +{
-> +	stm32_adc_set_bits(adc, adc->cfg->regs->ier_ovr.reg,
-> +			   adc->cfg->regs->ier_ovr.mask);
-> +}
-> +
-> +static void stm32_adc_ovr_irq_disable(struct stm32_adc *adc)
-> +{
-> +	stm32_adc_clr_bits(adc, adc->cfg->regs->ier_ovr.reg,
-> +			   adc->cfg->regs->ier_ovr.mask);
-> +}
-> +
->  static void stm32_adc_set_res(struct stm32_adc *adc)
->  {
->  	const struct stm32_adc_regs *res = &adc->cfg->regs->res;
-> @@ -1205,6 +1225,19 @@ static int stm32_adc_read_raw(struct iio_dev *indio_dev,
->  	}
->  }
->  
-> +static irqreturn_t stm32_adc_threaded_isr(int irq, void *data)
-> +{
-> +	struct stm32_adc *adc = data;
-> +	struct iio_dev *indio_dev = iio_priv_to_dev(adc);
-> +	const struct stm32_adc_regspec *regs = adc->cfg->regs;
-> +	u32 status = stm32_adc_readl(adc, regs->isr_eoc.reg);
-> +
-> +	if (status & regs->isr_ovr.mask)
-> +		dev_err(&indio_dev->dev, "Overrun, stopping: restart needed\n");
-> +
-> +	return IRQ_HANDLED;
-> +}
-> +
->  static irqreturn_t stm32_adc_isr(int irq, void *data)
->  {
->  	struct stm32_adc *adc = data;
-> @@ -1212,6 +1245,19 @@ static irqreturn_t stm32_adc_isr(int irq, void *data)
->  	const struct stm32_adc_regspec *regs = adc->cfg->regs;
->  	u32 status = stm32_adc_readl(adc, regs->isr_eoc.reg);
->  
-> +	if (status & regs->isr_ovr.mask) {
-> +		/*
-> +		 * Overrun occurred on regular conversions: data for wrong
-> +		 * channel may be read. Unconditionally disable interrupts
-> +		 * to stop processing data and print error message.
-> +		 * Restarting the capture can be done by disabling, then
-> +		 * re-enabling it (e.g. write 0, then 1 to buffer/enable).
-> +		 */
-> +		stm32_adc_ovr_irq_disable(adc);
-> +		stm32_adc_conv_irq_disable(adc);
-> +		return IRQ_WAKE_THREAD;
-> +	}
-> +
->  	if (status & regs->isr_eoc.mask) {
->  		/* Reading DR also clears EOC status flag */
->  		adc->buffer[adc->bufi] = stm32_adc_readw(adc, regs->dr);
-> @@ -1441,6 +1487,8 @@ static int __stm32_adc_buffer_postenable(struct iio_dev *indio_dev)
->  	/* Reset adc buffer index */
->  	adc->bufi = 0;
->  
-> +	stm32_adc_ovr_irq_enable(adc);
-> +
->  	if (!adc->dma_chan)
->  		stm32_adc_conv_irq_enable(adc);
->  
-> @@ -1481,6 +1529,8 @@ static void __stm32_adc_buffer_predisable(struct iio_dev *indio_dev)
->  	if (!adc->dma_chan)
->  		stm32_adc_conv_irq_disable(adc);
->  
-> +	stm32_adc_ovr_irq_disable(adc);
-> +
->  	if (adc->dma_chan)
->  		dmaengine_terminate_sync(adc->dma_chan);
->  
-> @@ -1818,8 +1868,9 @@ static int stm32_adc_probe(struct platform_device *pdev)
->  	if (adc->irq < 0)
->  		return adc->irq;
->  
-> -	ret = devm_request_irq(&pdev->dev, adc->irq, stm32_adc_isr,
-> -			       0, pdev->name, adc);
-> +	ret = devm_request_threaded_irq(&pdev->dev, adc->irq, stm32_adc_isr,
-> +					stm32_adc_threaded_isr,
-> +					0, pdev->name, adc);
->  	if (ret) {
->  		dev_err(&pdev->dev, "failed to request IRQ\n");
->  		return ret;
+>   arch/arm/boot/dts/stm32f4-pinctrl.dtsi | 28 ++++++++++++++--------------
+>   1 file changed, 14 insertions(+), 14 deletions(-)
+> 
+> diff --git a/arch/arm/boot/dts/stm32f4-pinctrl.dtsi b/arch/arm/boot/dts/stm32f4-pinctrl.dtsi
+> index 35202896c093..392fa143ce07 100644
+> --- a/arch/arm/boot/dts/stm32f4-pinctrl.dtsi
+> +++ b/arch/arm/boot/dts/stm32f4-pinctrl.dtsi
+
+
+Applied on stm32-next.
+
+Thanks.
+Alex
 
 _______________________________________________
 Linux-stm32 mailing list
