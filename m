@@ -2,67 +2,33 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id 5B7A7116F58
-	for <lists+linux-stm32@lfdr.de>; Mon,  9 Dec 2019 15:44:10 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 1083D117503
+	for <lists+linux-stm32@lfdr.de>; Mon,  9 Dec 2019 19:59:22 +0100 (CET)
 Received: from ip-172-31-3-76.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 16454C36B0B;
-	Mon,  9 Dec 2019 14:44:10 +0000 (UTC)
-Received: from mx07-00178001.pphosted.com (mx07-00178001.pphosted.com
- [62.209.51.94])
- (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
- (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 98A7CC36B09
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id BA48DC36B0B;
+	Mon,  9 Dec 2019 18:59:21 +0000 (UTC)
+Received: from foss.arm.com (foss.arm.com [217.140.110.172])
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 4E379C36B09
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Mon,  9 Dec 2019 14:44:08 +0000 (UTC)
-Received: from pps.filterd (m0046668.ppops.net [127.0.0.1])
- by mx07-00178001.pphosted.com (8.16.0.42/8.16.0.42) with SMTP id
- xB9Egjpg017551; Mon, 9 Dec 2019 15:43:52 +0100
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=st.com;
- h=subject : to : cc :
- references : from : message-id : date : mime-version : in-reply-to :
- content-type : content-transfer-encoding; s=STMicroelectronics;
- bh=vKx6OPdSeYJTuRGa0bHCD2tYSeg+UtY9A3haTmI2eKA=;
- b=c6ntOlc126VLKeqyu4GAC4nsRoo7L/y/wpleFu9k1K+1s90MlQADGV2W+omSCJCO3CvN
- EyJtnea6Ee3WS9nY/7HUgXOMnAg1Q+E2DGu5F7gHrOtsvZ9pbKRa3nD5kYUmbOR5pt2x
- ah1hkDXaCytdccqyyaH++WgfekYbeVLs76peteDiSzhFC/LaCP31IocckHdvEOA/Xx+X
- Aa4o3Nhws5Np5oqMvE85guQd3c5PJmv/Jwvm91G2SGNdt+7tbr0awKQOFHZkDxxT2G+A
- T6soWnVEfm7PhN1YgDLqZuruHnHt+7AcTziV0LU+HJ8+ZRhQE465zo4K4C/C5hBq7fKu vQ== 
-Received: from beta.dmz-eu.st.com (beta.dmz-eu.st.com [164.129.1.35])
- by mx07-00178001.pphosted.com with ESMTP id 2wradh7xe1-1
- (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
- Mon, 09 Dec 2019 15:43:52 +0100
-Received: from euls16034.sgp.st.com (euls16034.sgp.st.com [10.75.44.20])
- by beta.dmz-eu.st.com (STMicroelectronics) with ESMTP id 6C39910002A;
- Mon,  9 Dec 2019 15:43:51 +0100 (CET)
-Received: from Webmail-eu.st.com (sfhdag3node2.st.com [10.75.127.8])
- by euls16034.sgp.st.com (STMicroelectronics) with ESMTP id 3CA812D3765;
- Mon,  9 Dec 2019 15:43:51 +0100 (CET)
-Received: from lmecxl0912.lme.st.com (10.75.127.51) by SFHDAG3NODE2.st.com
- (10.75.127.8) with Microsoft SMTP Server (TLS) id 15.0.1347.2; Mon, 9 Dec
- 2019 15:43:50 +0100
-To: Amelie Delaunay <amelie.delaunay@st.com>, Maxime Coquelin
- <mcoquelin.stm32@gmail.com>, Rob Herring <robh+dt@kernel.org>, Mark Rutland
- <mark.rutland@arm.com>,
- Russell King <linux@armlinux.org.uk>, Olof Johansson <olof@lixom.net>,
- Arnd Bergmann <arnd@arndb.de>
-References: <20191121161259.25799-1-amelie.delaunay@st.com>
-From: Alexandre Torgue <alexandre.torgue@st.com>
-Message-ID: <181a4a40-f54c-3559-aaa9-9443fb2153ac@st.com>
-Date: Mon, 9 Dec 2019 15:43:50 +0100
-User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:60.0) Gecko/20100101
- Thunderbird/60.9.0
-MIME-Version: 1.0
-In-Reply-To: <20191121161259.25799-1-amelie.delaunay@st.com>
-Content-Language: en-US
-X-Originating-IP: [10.75.127.51]
-X-ClientProxiedBy: SFHDAG1NODE2.st.com (10.75.127.2) To SFHDAG3NODE2.st.com
- (10.75.127.8)
-X-Proofpoint-Virus-Version: vendor=fsecure engine=2.50.10434:6.0.95,18.0.572
- definitions=2019-12-09_04:2019-12-09,2019-12-09 signatures=0
-Cc: devicetree@vger.kernel.org, linux-stm32@st-md-mailman.stormreply.com,
- linux-arm-kernel@lists.infradead.org, linux-kernel@vger.kernel.org
-Subject: Re: [Linux-stm32] [PATCH 5/5] ARM: dts: stm32: add phy-names to
- usbotg_hs on stm32mp157c-ev1
+ Mon,  9 Dec 2019 18:59:19 +0000 (UTC)
+Received: from usa-sjc-imap-foss1.foss.arm.com (unknown [10.121.207.14])
+ by usa-sjc-mx-foss1.foss.arm.com (Postfix) with ESMTP id 706BA11D4;
+ Mon,  9 Dec 2019 10:59:18 -0800 (PST)
+Received: from localhost (unknown [10.37.6.21])
+ by usa-sjc-imap-foss1.foss.arm.com (Postfix) with ESMTPSA id E354C3F6CF;
+ Mon,  9 Dec 2019 10:59:17 -0800 (PST)
+Date: Mon, 09 Dec 2019 18:59:16 +0000
+From: Mark Brown <broonie@kernel.org>
+To: Olivier Moysan <olivier.moysan@st.com>
+In-Reply-To: <20191203141627.29471-1-olivier.moysan@st.com>
+Message-Id: <applied-20191203141627.29471-1-olivier.moysan@st.com>
+X-Patchwork-Hint: ignore
+Cc: alsa-devel@alsa-project.org, tiwai@suse.com, lgirdwood@gmail.com,
+ linux-kernel@vger.kernel.org, Mark Brown <broonie@kernel.org>,
+ mcoquelin.stm32@gmail.com, apatard@mandriva.com, perex@perex.cz,
+ linux-stm32@st-md-mailman.stormreply.com, linux-arm-kernel@lists.infradead.org
+Subject: [Linux-stm32] Applied "ASoC: cs42l51: add dac mux widget in codec
+	routes" to the asoc tree
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -74,26 +40,94 @@ List-Post: <mailto:linux-stm32@st-md-mailman.stormreply.com>
 List-Help: <mailto:linux-stm32-request@st-md-mailman.stormreply.com?subject=help>
 List-Subscribe: <https://st-md-mailman.stormreply.com/mailman/listinfo/linux-stm32>, 
  <mailto:linux-stm32-request@st-md-mailman.stormreply.com?subject=subscribe>
-Content-Transfer-Encoding: base64
-Content-Type: text/plain; charset="utf-8"; Format="flowed"
+MIME-Version: 1.0
+Content-Type: text/plain; charset="us-ascii"
+Content-Transfer-Encoding: 7bit
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
-SGkgQW3DqWxpZSwKCk9uIDExLzIxLzE5IDU6MTIgUE0sIEFtZWxpZSBEZWxhdW5heSB3cm90ZToK
-PiBwaHktbmFtZXMgaXMgcmVxdWlyZWQgYnkgdXNib3RnX2hzIGRyaXZlciB0byBnZXQgdGhlIHBo
-eSwgb3RoZXJ3aXNlLCBpdAo+IGNvbnNpZGVycyB0aGF0IHRoZXJlIGlzIG5vIHBoeXMgcHJvcGVy
-dHkuCj4gCj4gU2lnbmVkLW9mZi1ieTogQW1lbGllIERlbGF1bmF5IDxhbWVsaWUuZGVsYXVuYXlA
-c3QuY29tPgo+IC0tLQo+ICAgYXJjaC9hcm0vYm9vdC9kdHMvc3RtMzJtcDE1N2MtZXYxLmR0cyB8
-IDEgKwo+ICAgMSBmaWxlIGNoYW5nZWQsIDEgaW5zZXJ0aW9uKCspCj4gCj4gZGlmZiAtLWdpdCBh
-L2FyY2gvYXJtL2Jvb3QvZHRzL3N0bTMybXAxNTdjLWV2MS5kdHMgYi9hcmNoL2FybS9ib290L2R0
-cy9zdG0zMm1wMTU3Yy1ldjEuZHRzCj4gaW5kZXggMjAxMGY2MjkyYTc3Li4yMjhlMzVlMTY4ODQg
-MTAwNjQ0Cj4gLS0tIGEvYXJjaC9hcm0vYm9vdC9kdHMvc3RtMzJtcDE1N2MtZXYxLmR0cwo+ICsr
-KyBiL2FyY2gvYXJtL2Jvb3QvZHRzL3N0bTMybXAxNTdjLWV2MS5kdHMKPiBAQCAtMzU1LDYgKzM1
-NSw3IEBACj4gICAmdXNib3RnX2hzIHsKPiAgIAlkcl9tb2RlID0gInBlcmlwaGVyYWwiOwo+ICAg
-CXBoeXMgPSA8JnVzYnBoeWNfcG9ydDEgMD47Cj4gKwlwaHktbmFtZXMgPSAidXNiMi1waHkiOwo+
-ICAgCXN0YXR1cyA9ICJva2F5IjsKPiAgIH07Cj4gICAKPiAKCgpTZXJpZXMgYXBwbGllZCBvbiBz
-dG0zMi1uZXh0LgoKTm90ZTogZHVlIHRvIG5ldyBTVE0zMiBkaXZlcnNpdHkgSSByZW5hbWVkIHNv
-bWUgcGF0Y2hlcy4KClJlZ2FyZHMKQWxleApfX19fX19fX19fX19fX19fX19fX19fX19fX19fX19f
-X19fX19fX19fX19fX19fXwpMaW51eC1zdG0zMiBtYWlsaW5nIGxpc3QKTGludXgtc3RtMzJAc3Qt
-bWQtbWFpbG1hbi5zdG9ybXJlcGx5LmNvbQpodHRwczovL3N0LW1kLW1haWxtYW4uc3Rvcm1yZXBs
-eS5jb20vbWFpbG1hbi9saXN0aW5mby9saW51eC1zdG0zMgo=
+The patch
+
+   ASoC: cs42l51: add dac mux widget in codec routes
+
+has been applied to the asoc tree at
+
+   https://git.kernel.org/pub/scm/linux/kernel/git/broonie/sound.git for-5.6
+
+All being well this means that it will be integrated into the linux-next
+tree (usually sometime in the next 24 hours) and sent to Linus during
+the next merge window (or sooner if it is a bug fix), however if
+problems are discovered then the patch may be dropped or reverted.  
+
+You may get further e-mails resulting from automated or manual testing
+and review of the tree, please engage with people reporting problems and
+send followup patches addressing any issues that are reported if needed.
+
+If any updates are required or you are submitting further changes they
+should be sent as incremental updates against current git, existing
+patches will not be replaced.
+
+Please add any relevant lists and maintainers to the CCs when replying
+to this mail.
+
+Thanks,
+Mark
+
+From abe3b6727b653307c27870a2d4ecbf9de4e914a5 Mon Sep 17 00:00:00 2001
+From: Olivier Moysan <olivier.moysan@st.com>
+Date: Tue, 3 Dec 2019 15:16:27 +0100
+Subject: [PATCH] ASoC: cs42l51: add dac mux widget in codec routes
+
+Add "DAC mux" DAPM widget in CS42l51 audio codec routes,
+to support DAC mux control and to remove error trace
+"DAC Mux has no paths" at widget creation.
+Note: ADC path of DAC mux is not routed in this patch.
+
+Signed-off-by: Olivier Moysan <olivier.moysan@st.com>
+Link: https://lore.kernel.org/r/20191203141627.29471-1-olivier.moysan@st.com
+Signed-off-by: Mark Brown <broonie@kernel.org>
+---
+ sound/soc/codecs/cs42l51.c | 16 ++++++++++------
+ 1 file changed, 10 insertions(+), 6 deletions(-)
+
+diff --git a/sound/soc/codecs/cs42l51.c b/sound/soc/codecs/cs42l51.c
+index 55408c8fcb4e..e47758e4fb36 100644
+--- a/sound/soc/codecs/cs42l51.c
++++ b/sound/soc/codecs/cs42l51.c
+@@ -214,12 +214,10 @@ static const struct snd_soc_dapm_widget cs42l51_dapm_widgets[] = {
+ 	SND_SOC_DAPM_ADC_E("Right ADC", "Right HiFi Capture",
+ 		CS42L51_POWER_CTL1, 2, 1,
+ 		cs42l51_pdn_event, SND_SOC_DAPM_PRE_POST_PMD),
+-	SND_SOC_DAPM_DAC_E("Left DAC", "Left HiFi Playback",
+-		CS42L51_POWER_CTL1, 5, 1,
+-		cs42l51_pdn_event, SND_SOC_DAPM_PRE_POST_PMD),
+-	SND_SOC_DAPM_DAC_E("Right DAC", "Right HiFi Playback",
+-		CS42L51_POWER_CTL1, 6, 1,
+-		cs42l51_pdn_event, SND_SOC_DAPM_PRE_POST_PMD),
++	SND_SOC_DAPM_DAC_E("Left DAC", NULL, CS42L51_POWER_CTL1, 5, 1,
++			   cs42l51_pdn_event, SND_SOC_DAPM_PRE_POST_PMD),
++	SND_SOC_DAPM_DAC_E("Right DAC", NULL, CS42L51_POWER_CTL1, 6, 1,
++			   cs42l51_pdn_event, SND_SOC_DAPM_PRE_POST_PMD),
+ 
+ 	/* analog/mic */
+ 	SND_SOC_DAPM_INPUT("AIN1L"),
+@@ -255,6 +253,12 @@ static const struct snd_soc_dapm_route cs42l51_routes[] = {
+ 	{"HPL", NULL, "Left DAC"},
+ 	{"HPR", NULL, "Right DAC"},
+ 
++	{"Right DAC", NULL, "DAC Mux"},
++	{"Left DAC", NULL, "DAC Mux"},
++
++	{"DAC Mux", "Direct PCM", "Playback"},
++	{"DAC Mux", "DSP PCM", "Playback"},
++
+ 	{"Left ADC", NULL, "Left PGA"},
+ 	{"Right ADC", NULL, "Right PGA"},
+ 
+-- 
+2.20.1
+
+_______________________________________________
+Linux-stm32 mailing list
+Linux-stm32@st-md-mailman.stormreply.com
+https://st-md-mailman.stormreply.com/mailman/listinfo/linux-stm32
