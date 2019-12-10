@@ -2,38 +2,66 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id 5FB961186B1
-	for <lists+linux-stm32@lfdr.de>; Tue, 10 Dec 2019 12:42:42 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 591131187F4
+	for <lists+linux-stm32@lfdr.de>; Tue, 10 Dec 2019 13:20:57 +0100 (CET)
 Received: from ip-172-31-3-76.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 2B161C36B0B;
-	Tue, 10 Dec 2019 11:42:42 +0000 (UTC)
-Received: from bhuna.collabora.co.uk (bhuna.collabora.co.uk [46.235.227.227])
- (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256
- bits)) (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 4816FC36B09
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 34C5AC36B0B;
+	Tue, 10 Dec 2019 12:20:56 +0000 (UTC)
+Received: from mail-ua1-f67.google.com (mail-ua1-f67.google.com
+ [209.85.222.67])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+ (No client certificate requested)
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 3A97BC36B09
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Tue, 10 Dec 2019 11:42:40 +0000 (UTC)
-Received: from [127.0.0.1] (localhost [127.0.0.1])
- (Authenticated sender: aratiu) with ESMTPSA id 92096291A06
-From: Adrian Ratiu <adrian.ratiu@collabora.com>
-To: Philippe CORNU <philippe.cornu@st.com>, "devicetree@vger.kernel.org"
- <devicetree@vger.kernel.org>, "linux-arm-kernel@lists.infradead.org"
- <linux-arm-kernel@lists.infradead.org>,
- "linux-stm32@st-md-mailman.stormreply.com"
- <linux-stm32@st-md-mailman.stormreply.com>,
- "linux-rockchip@lists.infradead.org" <linux-rockchip@lists.infradead.org>
-In-Reply-To: <a356df00-e321-ab8c-61e9-f179cb1f8e12@st.com>
-References: <20191202193359.703709-1-adrian.ratiu@collabora.com>
- <a356df00-e321-ab8c-61e9-f179cb1f8e12@st.com>
-Date: Tue, 10 Dec 2019 13:43:03 +0200
-Message-ID: <87y2vk1k54.fsf@collabora.com>
+ Tue, 10 Dec 2019 12:20:55 +0000 (UTC)
+Received: by mail-ua1-f67.google.com with SMTP id f7so7108860uaa.8
+ for <linux-stm32@st-md-mailman.stormreply.com>;
+ Tue, 10 Dec 2019 04:20:55 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linaro.org; s=google;
+ h=mime-version:references:in-reply-to:from:date:message-id:subject:to
+ :cc; bh=+GXCkz0A083CnW2Auy3zOSjwo1M0I1o2oKHeSL9F3ck=;
+ b=KyH5SEa3abXaiGToIC3ZdQDJPjQz7ehlNHa1ewyHS05ElloLcTSWUH0+HHxGSpmv35
+ 0zlWrNuW20o6rR7byo5kwkQGHdbqOsjtqAk71j96a9o1pdQ8ZalAOazL9CCburkIWQg3
+ QHXevI2feYkETt3mDJ6WQBTmj6EZ2zjN/PiP6GJdTkujIbnhuW6Vce6LMqVPlCwGIfJt
+ E8byyo1vnZ1FiSNFISAIBbopXvRnZtV3tsqzNmLNKEya3TQpuE8vYslVfw1+wssR+kLR
+ KxGH+irE1aFPt39ROF9djLlen7lWYJ9nXFdNXFLZ3P2/XbWfdiiOcvpQVQe4QFLEAp4n
+ WPaw==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20161025;
+ h=x-gm-message-state:mime-version:references:in-reply-to:from:date
+ :message-id:subject:to:cc;
+ bh=+GXCkz0A083CnW2Auy3zOSjwo1M0I1o2oKHeSL9F3ck=;
+ b=ay/TvqY6JguWfI1DsOMKtxEOtc57t+Un9oYzrs9ek/NBIQHK1DV0qe2kT5NMENsmsI
+ Ejq8Qeme0nG1tDa8dxJ7H0v+BCdDL+poPH4wpBGPl9enwK/6pZoRtoCWzOTg7NFSA1Ch
+ ROLX5m2LeSNHRFTMRhDdvq1majMwhThJ2r4htp8cJ+JtyR139PFIGrrOeXuqeT3cuhjk
+ TrxdXCVkNg1eao9K8r1RlJZHZ04BvFitbQP0qiZi/ouy8DtfSsQP4YnOGDyd9TGamFox
+ Ky9P/SGC2WPfQU+7tzeH4xN7JckrL2HQ29YENcnjosBG/onXEqYkVXkuZ3fLpLBR4rhr
+ /jyA==
+X-Gm-Message-State: APjAAAW28cPD7ONq/9t3TkXJ42IGU7GEbRo8j5b1gYwwNdia+sLmtEa5
+ c2RnkvMwflflyads9WZTCPWHIfnaXDY7ZZL8oonKLA==
+X-Google-Smtp-Source: APXvYqyXodp8MezisX2Ogin4ZbF5PMroS3cE2mukEBRUXULiSnp8AsW1NNU4k9XYdJLiuEsKDM0ea9YUPKV0ekMZ3NQ=
+X-Received: by 2002:ab0:4ea6:: with SMTP id l38mr29080701uah.129.1575980453850; 
+ Tue, 10 Dec 2019 04:20:53 -0800 (PST)
 MIME-Version: 1.0
-Cc: "kernel@collabora.com" <kernel@collabora.com>,
- "linux-kernel@vger.kernel.org" <linux-kernel@vger.kernel.org>,
- "dri-devel@lists.freedesktop.org" <dri-devel@lists.freedesktop.org>,
- "linux-imx@nxp.com" <linux-imx@nxp.com>
-Subject: Re: [Linux-stm32] [PATCH v4 0/4] Genericize DW MIPI DSI bridge and
- add i.MX 6 driver
+References: <20191113172514.19052-1-ludovic.Barre@st.com>
+ <CAPDyKFooSJUn6UCE6QkFmJOCovm00ehz_nAPbiNQM3AcJT_bJQ@mail.gmail.com>
+ <c8311933-d129-4618-b81b-aa627b7b6de0@st.com>
+ <e80f76d3-0414-4f65-c2eb-4b09aaba3840@st.com>
+In-Reply-To: <e80f76d3-0414-4f65-c2eb-4b09aaba3840@st.com>
+From: Ulf Hansson <ulf.hansson@linaro.org>
+Date: Tue, 10 Dec 2019 13:20:17 +0100
+Message-ID: <CAPDyKFpkkqb3nr1wm7hjMqJCxH7QHArxSm_oWV=M55ga9+0FKw@mail.gmail.com>
+To: Ludovic BARRE <ludovic.barre@st.com>
+Cc: DTML <devicetree@vger.kernel.org>,
+ "linux-mmc@vger.kernel.org" <linux-mmc@vger.kernel.org>,
+ Linux Kernel Mailing List <linux-kernel@vger.kernel.org>,
+ Rob Herring <robh+dt@kernel.org>,
+ Srinivas Kandagatla <srinivas.kandagatla@linaro.org>,
+ Maxime Coquelin <mcoquelin.stm32@gmail.com>,
+ linux-stm32@st-md-mailman.stormreply.com,
+ Linux ARM <linux-arm-kernel@lists.infradead.org>
+Subject: Re: [Linux-stm32] [PATCH 1/1] mmc: mmci: add threaded irq to abort
+ DPSM of non-functional state
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -45,90 +73,46 @@ List-Post: <mailto:linux-stm32@st-md-mailman.stormreply.com>
 List-Help: <mailto:linux-stm32-request@st-md-mailman.stormreply.com?subject=help>
 List-Subscribe: <https://st-md-mailman.stormreply.com/mailman/listinfo/linux-stm32>, 
  <mailto:linux-stm32-request@st-md-mailman.stormreply.com?subject=subscribe>
+Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
-Content-Type: text/plain; charset="us-ascii"; Format="flowed"
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
-On Fri, 06 Dec 2019, Philippe CORNU <philippe.cornu@st.com> wrote:
-> Hi Adrian, 
-> 
-> And sorry for this late reply.  Your patches look good and we 
-> ("stm guys") understand that v1.01 is very  different to 
-> v1.30/31. 
-> 
-> We are doing our best to review & test your patches and we will 
-> go back  to you asap.  Many thanks, Philippe :-) 
+Hi Ludovic,
 
-Hi Philippe,
+On Thu, 28 Nov 2019 at 15:06, Ludovic BARRE <ludovic.barre@st.com> wrote:
+>
+> hi Ulf
+>
+> just a gentleman ping about this thread.
+>
+> small summarize:
+> This patch return an IRQ_WAKE_THREAD only when the variant is
+> busy_timeout capable and a datatimeout occurs on R1B request.
+>
+> So the threaded irq is called only to treat this specific error.
+> Normally, there is no impact on HW flow control or for legacy variants.
 
-Thank you for taking the time to test this, I really appreciate 
-it.
-
-Adrian
+Yes, this should work.
 
 >
+> In your previous message, you seem to suggest using threaded irq to
+> manage HW flow control (pio mode). But Like you mention below, the mmci
+> legacy could timing sensitive.
 >
-> On 12/2/19 8:33 PM, Adrian Ratiu wrote:
->> Having a generic Synopsis DesignWare MIPI-DSI host controller bridge
->> driver is a very good idea, however the current implementation has
->> hardcoded quite a lot of the register layouts used by the two supported
->> SoC vendors, STM and Rockchip, which use IP cores v1.30 and v1.31.
->> 
->> This makes it hard to support other SoC vendors like the FSL/NXP i.MX 6
->> which use older v1.01 cores or future versions because, based on history,
->> layout changes should also be expected in new DSI versions / SoCs.
->> 
->> This patch series converts the bridge and platform drivers to access
->> registers via generic regmap APIs and allows each platform driver to
->> configure its register layout via struct reg_fields, then adds support
->> for the host controller found on i.MX 6.
->> 
->> I only have i.MX hardware with MIPI-DSI panel and relevant documentation
->> available for testing so I'll really appreciate it if someone could test
->> the series on Rockchip and STM... eyeballing register fields could only
->> get me so far, so sorry in advance for any breakage!
->> 
->> Many thanks to Boris Brezillon <boris.brezillon@collabora.com> for
->> suggesting the regmap solution and to Liu Ying <Ying.Liu@freescale.com>
->> for doing the initial i.MX platform driver implementation.
->> 
->> This series applies on top of latest linux-next tree, next-20191202.
->> 
->> v3 -> v4:
->>    * Added commmit message to dt-binding patch (Neil)
->>    * Converted the dt-binding to yaml dt-schema format (Neil)
->>    * Small DT node + driver fixes (Rob)
->>    * Renamed platform driver to reflect it's only for i.MX v6 (Fabio)
->>    * Added small panel example to the host controller DT binding
->> 
->> v2 -> v3:
->>    * Added const declarations to dw-mipi-dsi.c structs (Emil)
->>    * Fixed Reviewed-by tags and cc'd some more relevant ML (Emil)
->> 
->> v1 -> v2:
->>    * Moved register definitions & regmap initialization into bridge
->>    module. Platform drivers get the regmap via plat_data after calling
->>    the bridge probe (Emil).
->> 
->> Adrian Ratiu (4):
->>    drm: bridge: dw_mipi_dsi: access registers via a regmap
->>    drm: bridge: dw_mipi_dsi: abstract register access using reg_fields
->>    drm: imx: Add i.MX 6 MIPI DSI host driver
->>    dt-bindings: display: add i.MX6 MIPI DSI host controller doc
->> 
->>   .../display/imx/fsl,mipi-dsi-imx6.yaml        | 136 ++++
->>   drivers/gpu/drm/bridge/synopsys/dw-mipi-dsi.c | 699 +++++++++++++-----
->>   drivers/gpu/drm/imx/Kconfig                   |   7 +
->>   drivers/gpu/drm/imx/Makefile                  |   1 +
->>   drivers/gpu/drm/imx/dw_mipi_dsi-imx6.c        | 378 ++++++++++
->>   .../gpu/drm/rockchip/dw-mipi-dsi-rockchip.c   |  17 +-
->>   drivers/gpu/drm/stm/dw_mipi_dsi-stm.c         |  34 +-
->>   include/drm/bridge/dw_mipi_dsi.h              |   2 +-
->>   8 files changed, 1067 insertions(+), 207 deletions(-)
->>   create mode 100644 Documentation/devicetree/bindings/display/imx/fsl,mipi-dsi-imx6.yaml
->>   create mode 100644 drivers/gpu/drm/imx/dw_mipi_dsi-imx6.c
->> 
+> For the moment, I prefer to use the threaded irq just to manage this
+> error. If needed, the irq threade could be extended later.
+>
+> What do you think about that?
+
+Yes, that's fine!
+
+I have another minor comment on the code, though, but posting that separately.
+
+[...]
+
+Kind regards
+Uffe
 _______________________________________________
 Linux-stm32 mailing list
 Linux-stm32@st-md-mailman.stormreply.com
