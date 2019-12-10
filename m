@@ -2,56 +2,53 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id 591131187F4
-	for <lists+linux-stm32@lfdr.de>; Tue, 10 Dec 2019 13:20:57 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 1F792118809
+	for <lists+linux-stm32@lfdr.de>; Tue, 10 Dec 2019 13:31:20 +0100 (CET)
 Received: from ip-172-31-3-76.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 34C5AC36B0B;
-	Tue, 10 Dec 2019 12:20:56 +0000 (UTC)
-Received: from mail-ua1-f67.google.com (mail-ua1-f67.google.com
- [209.85.222.67])
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id C2C23C36B0B;
+	Tue, 10 Dec 2019 12:31:19 +0000 (UTC)
+Received: from mail-ua1-f66.google.com (mail-ua1-f66.google.com
+ [209.85.222.66])
  (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 3A97BC36B09
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 7A173C36B09
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Tue, 10 Dec 2019 12:20:55 +0000 (UTC)
-Received: by mail-ua1-f67.google.com with SMTP id f7so7108860uaa.8
+ Tue, 10 Dec 2019 12:31:18 +0000 (UTC)
+Received: by mail-ua1-f66.google.com with SMTP id 59so7107852uap.12
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Tue, 10 Dec 2019 04:20:55 -0800 (PST)
+ Tue, 10 Dec 2019 04:31:18 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linaro.org; s=google;
  h=mime-version:references:in-reply-to:from:date:message-id:subject:to
- :cc; bh=+GXCkz0A083CnW2Auy3zOSjwo1M0I1o2oKHeSL9F3ck=;
- b=KyH5SEa3abXaiGToIC3ZdQDJPjQz7ehlNHa1ewyHS05ElloLcTSWUH0+HHxGSpmv35
- 0zlWrNuW20o6rR7byo5kwkQGHdbqOsjtqAk71j96a9o1pdQ8ZalAOazL9CCburkIWQg3
- QHXevI2feYkETt3mDJ6WQBTmj6EZ2zjN/PiP6GJdTkujIbnhuW6Vce6LMqVPlCwGIfJt
- E8byyo1vnZ1FiSNFISAIBbopXvRnZtV3tsqzNmLNKEya3TQpuE8vYslVfw1+wssR+kLR
- KxGH+irE1aFPt39ROF9djLlen7lWYJ9nXFdNXFLZ3P2/XbWfdiiOcvpQVQe4QFLEAp4n
- WPaw==
+ :cc; bh=Cu4xcLC6fx43ALyB2PH7P6iHLVvlsMlK6QGD81ONfJA=;
+ b=QayVJLfzwhxAFLgXNRzLMZdJ0IvLzxp4+fLYkgsafsn6S05wJNPxe1W2fAZYyUBGR8
+ BcCeWqYv6slEWraMiYfCcPv4pF0tfY9IyHA+7AWdiyjqH31IZzLc5y/xNthjj+0mqejq
+ /gjucQhq10JYIm5v0/LMFDew4Ilc+OXTn08xJPNEu664cWU63FxtQ7yCvrJrZZa8xDGP
+ W9EiAP+c5SMOv4CIfQw/j0wZDvKbWs+qtoigdrFb6GjKOwnzrUG6gxYkrj4TJEB4DeJS
+ YgnZ+BySLGuychJ02elTMZf7LBTg/2mNw+VpOcdbROX8BTpOTFbTDzDl1jY4Q1isKofp
+ L0Ww==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=1e100.net; s=20161025;
  h=x-gm-message-state:mime-version:references:in-reply-to:from:date
  :message-id:subject:to:cc;
- bh=+GXCkz0A083CnW2Auy3zOSjwo1M0I1o2oKHeSL9F3ck=;
- b=ay/TvqY6JguWfI1DsOMKtxEOtc57t+Un9oYzrs9ek/NBIQHK1DV0qe2kT5NMENsmsI
- Ejq8Qeme0nG1tDa8dxJ7H0v+BCdDL+poPH4wpBGPl9enwK/6pZoRtoCWzOTg7NFSA1Ch
- ROLX5m2LeSNHRFTMRhDdvq1majMwhThJ2r4htp8cJ+JtyR139PFIGrrOeXuqeT3cuhjk
- TrxdXCVkNg1eao9K8r1RlJZHZ04BvFitbQP0qiZi/ouy8DtfSsQP4YnOGDyd9TGamFox
- Ky9P/SGC2WPfQU+7tzeH4xN7JckrL2HQ29YENcnjosBG/onXEqYkVXkuZ3fLpLBR4rhr
- /jyA==
-X-Gm-Message-State: APjAAAW28cPD7ONq/9t3TkXJ42IGU7GEbRo8j5b1gYwwNdia+sLmtEa5
- c2RnkvMwflflyads9WZTCPWHIfnaXDY7ZZL8oonKLA==
-X-Google-Smtp-Source: APXvYqyXodp8MezisX2Ogin4ZbF5PMroS3cE2mukEBRUXULiSnp8AsW1NNU4k9XYdJLiuEsKDM0ea9YUPKV0ekMZ3NQ=
-X-Received: by 2002:ab0:4ea6:: with SMTP id l38mr29080701uah.129.1575980453850; 
- Tue, 10 Dec 2019 04:20:53 -0800 (PST)
+ bh=Cu4xcLC6fx43ALyB2PH7P6iHLVvlsMlK6QGD81ONfJA=;
+ b=drvjnbxwjQv7IROi13dghxFYWay4w7XQyVxJL6s5h1dLC5mj0unELh0wqPKiHehLWb
+ HHORQ4h8MKY0jvyv7IDdOt3ywcrYiq0vfKPbGJ4DObe8LtS47PHV+SvSG0bre3/Pokv4
+ fjBG8Ijis2AJ5HrOjXtJ4GL7FWxwy+oawmQaqZaokCf0tOGmwfiwJrKeJmq04xbQ7Wse
+ CYq9ts+ZKmerGlwLZsAPb4zOg8Z+jwgmaaovVn20dP0TVKV9DMhAWWKTi6ixanyiD8mU
+ 1ly25QVYW3kHkfn5op9Wwra0tDrkSYPo3KUS5u34RLFaCeDyB3yBYPuh7kjukPHsUoqv
+ kmpw==
+X-Gm-Message-State: APjAAAXbJzUdJwDaJPnv7XjFnWx8lEunKgjRCkydStpius0nu9s8ceSx
+ Sc7YR6GkvvMIBS3enC5Fm7CsvfdRuHNnXVcDYZom5A==
+X-Google-Smtp-Source: APXvYqyrTM1DC8Fmp+/CAB2noSeEwqc06KeL4uYpQ1xlDaNR2EbcD+cNIjYR1xbMle/tNoYu8/S+qEj9nJ91/lu54KE=
+X-Received: by 2002:ab0:2759:: with SMTP id c25mr3460125uap.104.1575981077116; 
+ Tue, 10 Dec 2019 04:31:17 -0800 (PST)
 MIME-Version: 1.0
 References: <20191113172514.19052-1-ludovic.Barre@st.com>
- <CAPDyKFooSJUn6UCE6QkFmJOCovm00ehz_nAPbiNQM3AcJT_bJQ@mail.gmail.com>
- <c8311933-d129-4618-b81b-aa627b7b6de0@st.com>
- <e80f76d3-0414-4f65-c2eb-4b09aaba3840@st.com>
-In-Reply-To: <e80f76d3-0414-4f65-c2eb-4b09aaba3840@st.com>
+In-Reply-To: <20191113172514.19052-1-ludovic.Barre@st.com>
 From: Ulf Hansson <ulf.hansson@linaro.org>
-Date: Tue, 10 Dec 2019 13:20:17 +0100
-Message-ID: <CAPDyKFpkkqb3nr1wm7hjMqJCxH7QHArxSm_oWV=M55ga9+0FKw@mail.gmail.com>
-To: Ludovic BARRE <ludovic.barre@st.com>
+Date: Tue, 10 Dec 2019 13:30:41 +0100
+Message-ID: <CAPDyKFrZxOCkw9U05UZPRSGz2CqmhOq944z8MEVox8Y_UEYC4A@mail.gmail.com>
+To: Ludovic Barre <ludovic.Barre@st.com>
 Cc: DTML <devicetree@vger.kernel.org>,
  "linux-mmc@vger.kernel.org" <linux-mmc@vger.kernel.org>,
  Linux Kernel Mailing List <linux-kernel@vger.kernel.org>,
@@ -78,38 +75,141 @@ Content-Transfer-Encoding: 7bit
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
-Hi Ludovic,
+On Wed, 13 Nov 2019 at 18:25, Ludovic Barre <ludovic.Barre@st.com> wrote:
+>
+> From: Ludovic Barre <ludovic.barre@st.com>
+>
+> If datatimeout occurs on R1B request, the Data Path State Machine stays
+> in busy and is non-functional. Only a reset aborts the DPSM.
+>
+> Like a reset must be outside of critical section, this patch adds
+> threaded irq function to release state machine. In this case,
+> the mmc_request_done is called at the end of threaded irq and
+> skipped into irq handler.
+>
+> Signed-off-by: Ludovic Barre <ludovic.barre@st.com>
+> ---
+>  drivers/mmc/host/mmci.c | 44 ++++++++++++++++++++++++++++++++++++-----
+>  drivers/mmc/host/mmci.h |  1 +
+>  2 files changed, 40 insertions(+), 5 deletions(-)
+>
+> diff --git a/drivers/mmc/host/mmci.c b/drivers/mmc/host/mmci.c
+> index 40e72c30ea84..ec6e249c87ca 100644
+> --- a/drivers/mmc/host/mmci.c
+> +++ b/drivers/mmc/host/mmci.c
+> @@ -556,6 +556,9 @@ static void mmci_dma_error(struct mmci_host *host)
+>  static void
+>  mmci_request_end(struct mmci_host *host, struct mmc_request *mrq)
+>  {
+> +       if (host->irq_action == IRQ_WAKE_THREAD)
+> +               return;
+> +
 
-On Thu, 28 Nov 2019 at 15:06, Ludovic BARRE <ludovic.barre@st.com> wrote:
->
-> hi Ulf
->
-> just a gentleman ping about this thread.
->
-> small summarize:
-> This patch return an IRQ_WAKE_THREAD only when the variant is
-> busy_timeout capable and a datatimeout occurs on R1B request.
->
-> So the threaded irq is called only to treat this specific error.
-> Normally, there is no impact on HW flow control or for legacy variants.
+It seems a bit unnecessary to check this every time mmci_request_end()
+is called.
 
-Yes, this should work.
+How about avoiding to call mmci_request_end() for the one specific
+condition instead? See more below.
 
+>         writel(0, host->base + MMCICOMMAND);
 >
-> In your previous message, you seem to suggest using threaded irq to
-> manage HW flow control (pio mode). But Like you mention below, the mmci
-> legacy could timing sensitive.
+>         BUG_ON(host->data);
+> @@ -1321,6 +1324,7 @@ mmci_cmd_irq(struct mmci_host *host, struct mmc_command *cmd,
+>         } else if (host->variant->busy_timeout && busy_resp &&
+>                    status & MCI_DATATIMEOUT) {
+>                 cmd->error = -ETIMEDOUT;
+> +               host->irq_action = IRQ_WAKE_THREAD;
+
+You could check this flag a few lines below and if it's set to
+IRQ_WAKE_THREAD, avoid to call mmci_request_end().
+
+>         } else {
+>                 cmd->resp[0] = readl(base + MMCIRESPONSE0);
+>                 cmd->resp[1] = readl(base + MMCIRESPONSE1);
+> @@ -1532,9 +1536,9 @@ static irqreturn_t mmci_irq(int irq, void *dev_id)
+>  {
+>         struct mmci_host *host = dev_id;
+>         u32 status;
+> -       int ret = 0;
 >
-> For the moment, I prefer to use the threaded irq just to manage this
-> error. If needed, the irq threade could be extended later.
+>         spin_lock(&host->lock);
+> +       host->irq_action = IRQ_HANDLED;
 >
-> What do you think about that?
+>         do {
+>                 status = readl(host->base + MMCISTATUS);
+> @@ -1574,12 +1578,41 @@ static irqreturn_t mmci_irq(int irq, void *dev_id)
+>                 if (host->variant->busy_detect_flag)
+>                         status &= ~host->variant->busy_detect_flag;
+>
+> -               ret = 1;
+>         } while (status);
+>
+>         spin_unlock(&host->lock);
+>
+> -       return IRQ_RETVAL(ret);
+> +       return host->irq_action;
+> +}
+> +
+> +/*
+> + * mmci_irq_threaded is call if the mmci host need to release state machines
+> + * before to terminate the request.
+> + * If datatimeout occurs on R1B request, the Data Path State Machine stays
+> + * in busy and is non-functional. Only a reset can to abort the DPSM.
+> + */
+> +static irqreturn_t mmci_irq_threaded(int irq, void *dev_id)
+> +{
+> +       struct mmci_host *host = dev_id;
+> +       unsigned long flags;
+> +
+> +       if (host->rst) {
+> +               reset_control_assert(host->rst);
+> +               udelay(2);
+> +               reset_control_deassert(host->rst);
+> +       }
+> +
+> +       spin_lock_irqsave(&host->lock, flags);
+> +       writel(host->clk_reg, host->base + MMCICLOCK);
+> +       writel(host->pwr_reg, host->base + MMCIPOWER);
+> +       writel(MCI_IRQENABLE | host->variant->start_err,
+> +              host->base + MMCIMASK0);
+> +
+> +       host->irq_action = IRQ_HANDLED;
+> +       mmci_request_end(host, host->mrq);
+> +       spin_unlock_irqrestore(&host->lock, flags);
+> +
+> +       return host->irq_action;
+>  }
+>
+>  static void mmci_request(struct mmc_host *mmc, struct mmc_request *mrq)
+> @@ -2071,8 +2104,9 @@ static int mmci_probe(struct amba_device *dev,
+>                         goto clk_disable;
+>         }
+>
+> -       ret = devm_request_irq(&dev->dev, dev->irq[0], mmci_irq, IRQF_SHARED,
+> -                       DRIVER_NAME " (cmd)", host);
+> +       ret = devm_request_threaded_irq(&dev->dev, dev->irq[0], mmci_irq,
+> +                                       mmci_irq_threaded, IRQF_SHARED,
+> +                                       DRIVER_NAME " (cmd)", host);
+>         if (ret)
+>                 goto clk_disable;
+>
+> diff --git a/drivers/mmc/host/mmci.h b/drivers/mmc/host/mmci.h
+> index 158e1231aa23..5e63c0596364 100644
+> --- a/drivers/mmc/host/mmci.h
+> +++ b/drivers/mmc/host/mmci.h
+> @@ -412,6 +412,7 @@ struct mmci_host {
+>
+>         struct timer_list       timer;
+>         unsigned int            oldstat;
+> +       u32                     irq_action;
+>
+>         /* pio stuff */
+>         struct sg_mapping_iter  sg_miter;
+> --
+> 2.17.1
+>
 
-Yes, that's fine!
-
-I have another minor comment on the code, though, but posting that separately.
-
-[...]
+Otherwise this looks good, besides my other earlier comments, of course.
 
 Kind regards
 Uffe
