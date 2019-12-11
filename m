@@ -2,39 +2,47 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id F34A511A757
-	for <lists+linux-stm32@lfdr.de>; Wed, 11 Dec 2019 10:36:59 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id A9CBA11AAB1
+	for <lists+linux-stm32@lfdr.de>; Wed, 11 Dec 2019 13:24:18 +0100 (CET)
 Received: from ip-172-31-3-76.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 9D3AFC36B0B;
-	Wed, 11 Dec 2019 09:36:59 +0000 (UTC)
-Received: from deadmen.hmeau.com (helcar.hmeau.com [216.24.177.18])
- (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
- (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 1A72FC36B09
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 3EA20C36B0B;
+	Wed, 11 Dec 2019 12:24:18 +0000 (UTC)
+Received: from cstnet.cn (smtp21.cstnet.cn [159.226.251.21])
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 42F07C36B09
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Wed, 11 Dec 2019 09:36:56 +0000 (UTC)
-Received: from gondobar.mordor.me.apana.org.au ([192.168.128.4] helo=gondobar)
- by deadmen.hmeau.com with esmtps (Exim 4.89 #2 (Debian))
- id 1ieyQ8-0008Ql-42; Wed, 11 Dec 2019 17:36:36 +0800
-Received: from herbert by gondobar with local (Exim 4.89)
- (envelope-from <herbert@gondor.apana.org.au>)
- id 1ieyQ3-0003HT-Iz; Wed, 11 Dec 2019 17:36:31 +0800
-Date: Wed, 11 Dec 2019 17:36:31 +0800
-From: Herbert Xu <herbert@gondor.apana.org.au>
-To: Krzysztof Kozlowski <krzk@kernel.org>
-Message-ID: <20191211093631.sf2es6tnao6ypk52@gondor.apana.org.au>
-References: <1574306448-31868-1-git-send-email-krzk@kernel.org>
-MIME-Version: 1.0
-Content-Disposition: inline
-In-Reply-To: <1574306448-31868-1-git-send-email-krzk@kernel.org>
-User-Agent: NeoMutt/20170113 (1.7.2)
-Cc: Aymen Sghaier <aymen.sghaier@nxp.com>,
- Horia =?utf-8?Q?Geant=C4=83?= <horia.geanta@nxp.com>,
- linux-stm32@st-md-mailman.stormreply.com, linux-kernel@vger.kernel.org,
- "David S. Miller" <davem@davemloft.net>, linux-crypto@vger.kernel.org,
- Maxime Coquelin <mcoquelin.stm32@gmail.com>,
- Atul Gupta <atul.gupta@chelsio.com>, linux-arm-kernel@lists.infradead.org
-Subject: Re: [Linux-stm32] [PATCH v2] crypto: Fix Kconfig indentation
+ Wed, 11 Dec 2019 10:31:29 +0000 (UTC)
+Received: from localhost.localdomain (unknown [159.226.5.100])
+ by APP-01 (Coremail) with SMTP id qwCowACnrrp+xfBdniUxAw--.217S3;
+ Wed, 11 Dec 2019 18:31:27 +0800 (CST)
+From: Xu Wang <vulab@iscas.ac.cn>
+To: peppe.cavallaro@st.com
+Date: Wed, 11 Dec 2019 10:31:24 +0000
+Message-Id: <1576060284-12371-1-git-send-email-vulab@iscas.ac.cn>
+X-Mailer: git-send-email 2.7.4
+X-CM-TRANSID: qwCowACnrrp+xfBdniUxAw--.217S3
+X-Coremail-Antispam: 1UD129KBjvdXoW7GFyrAFWDCw1UWF4DZr45Awb_yoWDAwcE93
+ W29FnxGF1UJF90kw47Kr43ur92vFyDuF1rJF1DXFW3A34kXas8JFZ8uryUA3WxC342vF9r
+ Gwn3KF17A3sxGjkaLaAFLSUrUUUUUb8apTn2vfkv8UJUUUU8Yxn0WfASr-VFAUDa7-sFnT
+ 9fnUUIcSsGvfJTRUUUbw8YjsxI4VW3JwAYFVCjjxCrM7AC8VAFwI0_Gr0_Xr1l1xkIjI8I
+ 6I8E6xAIw20EY4v20xvaj40_Wr0E3s1l1IIY67AEw4v_Jr0_Jr4l8cAvFVAK0II2c7xJM2
+ 8CjxkF64kEwVA0rcxSw2x7M28EF7xvwVC0I7IYx2IY67AKxVW5JVW7JwA2z4x0Y4vE2Ix0
+ cI8IcVCY1x0267AKxVW8JVWxJwA2z4x0Y4vEx4A2jsIE14v26F4UJVW0owA2z4x0Y4vEx4
+ A2jsIEc7CjxVAFwI0_Cr1j6rxdM2AIxVAIcxkEcVAq07x20xvEncxIr21l5I8CrVACY4xI
+ 64kE6c02F40Ex7xfMcIj6xIIjxv20xvE14v26r1j6r18McIj6I8E87Iv67AKxVWUJVW8Jw
+ Am72CE4IkC6x0Yz7v_Jr0_Gr1lF7xvr2IYc2Ij64vIr41l42xK82IYc2Ij64vIr41l4I8I
+ 3I0E4IkC6x0Yz7v_Jr0_Gr1lx2IqxVAqx4xG67AKxVWUJVWUGwC20s026x8GjcxK67AKxV
+ WUGVWUWwC2zVAF1VAY17CE14v26r1q6r43MIIYrxkI7VAKI48JMIIF0xvE2Ix0cI8IcVAF
+ wI0_Jr0_JF4lIxAIcVC0I7IYx2IY6xkF7I0E14v26r1j6r4UMIIF0xvE42xK8VAvwI8IcI
+ k0rVWrZr1j6s0DMIIF0xvEx4A2jsIE14v26r1j6r4UMIIF0xvEx4A2jsIEc7CjxVAFwI0_
+ Gr0_Gr1UYxBIdaVFxhVjvjDU0xZFpf9x07je1v3UUUUU=
+X-Originating-IP: [159.226.5.100]
+X-CM-SenderInfo: pyxotu46lvutnvoduhdfq/1tbiBAoBA102SyGETgAAsH
+X-Mailman-Approved-At: Wed, 11 Dec 2019 12:24:17 +0000
+Cc: netdev@vger.kernel.org, linux-kernel@vger.kernel.org, davem@davemloft.net,
+ joabreu@synopsys.com, mcoquelin.stm32@gmail.com,
+ linux-stm32@st-md-mailman.stormreply.com, linux-arm-kernel@lists.infradead.org
+Subject: [Linux-stm32] [PATCH] stmmac: platform: Remove unnecessary
+	conditions
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -46,28 +54,37 @@ List-Post: <mailto:linux-stm32@st-md-mailman.stormreply.com>
 List-Help: <mailto:linux-stm32-request@st-md-mailman.stormreply.com?subject=help>
 List-Subscribe: <https://st-md-mailman.stormreply.com/mailman/listinfo/linux-stm32>, 
  <mailto:linux-stm32-request@st-md-mailman.stormreply.com?subject=subscribe>
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: base64
+MIME-Version: 1.0
+Content-Type: text/plain; charset="us-ascii"
+Content-Transfer-Encoding: 7bit
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
-T24gVGh1LCBOb3YgMjEsIDIwMTkgYXQgMDQ6MjA6NDhBTSArMDEwMCwgS3J6eXN6dG9mIEtvemxv
-d3NraSB3cm90ZToKPiBBZGp1c3QgaW5kZW50YXRpb24gZnJvbSBzcGFjZXMgdG8gdGFiICgrb3B0
-aW9uYWwgdHdvIHNwYWNlcykgYXMgaW4KPiBjb2Rpbmcgc3R5bGUgd2l0aCBjb21tYW5kIGxpa2U6
-Cj4gCSQgc2VkIC1lICdzL14gICAgICAgIC9cdC8nIC1pICovS2NvbmZpZwo+IAo+IFNpZ25lZC1v
-ZmYtYnk6IEtyenlzenRvZiBLb3psb3dza2kgPGtyemtAa2VybmVsLm9yZz4KPiBSZXZpZXdlZC1i
-eTogSG9yaWEgR2VhbnTEgyA8aG9yaWEuZ2VhbnRhQG54cC5jb20+Cj4gCj4gLS0tCj4gCj4gQ2hh
-bmdlcyBzaW5jZSB2MToKPiAxLiBGaXggYWxzbyA3LXNwYWNlIGFuZCB0YWIrMSBzcGFjZSBpbmRl
-bnRhdGlvbiBpc3N1ZXMuCj4gLS0tCj4gIGRyaXZlcnMvY3J5cHRvL0tjb25maWcgICAgICAgICB8
-IDIyICsrKysrKysrKysrLS0tLS0tLS0tLS0KPiAgZHJpdmVycy9jcnlwdG8vY2FhbS9LY29uZmln
-ICAgIHwgMTQgKysrKysrKy0tLS0tLS0KPiAgZHJpdmVycy9jcnlwdG8vY2hlbHNpby9LY29uZmln
-IHwgMzAgKysrKysrKysrKysrKysrLS0tLS0tLS0tLS0tLS0tCj4gIGRyaXZlcnMvY3J5cHRvL3N0
-bTMyL0tjb25maWcgICB8ICA2ICsrKy0tLQo+ICBkcml2ZXJzL2NyeXB0by91eDUwMC9LY29uZmln
-ICAgfCAxNiArKysrKysrKy0tLS0tLS0tCj4gIDUgZmlsZXMgY2hhbmdlZCwgNDQgaW5zZXJ0aW9u
-cygrKSwgNDQgZGVsZXRpb25zKC0pCgpQYXRjaCBhcHBsaWVkLiAgVGhhbmtzLgotLSAKRW1haWw6
-IEhlcmJlcnQgWHUgPGhlcmJlcnRAZ29uZG9yLmFwYW5hLm9yZy5hdT4KSG9tZSBQYWdlOiBodHRw
-Oi8vZ29uZG9yLmFwYW5hLm9yZy5hdS9+aGVyYmVydC8KUEdQIEtleTogaHR0cDovL2dvbmRvci5h
-cGFuYS5vcmcuYXUvfmhlcmJlcnQvcHVia2V5LnR4dApfX19fX19fX19fX19fX19fX19fX19fX19f
-X19fX19fX19fX19fX19fX19fX19fXwpMaW51eC1zdG0zMiBtYWlsaW5nIGxpc3QKTGludXgtc3Rt
-MzJAc3QtbWQtbWFpbG1hbi5zdG9ybXJlcGx5LmNvbQpodHRwczovL3N0LW1kLW1haWxtYW4uc3Rv
-cm1yZXBseS5jb20vbWFpbG1hbi9saXN0aW5mby9saW51eC1zdG0zMgo=
+Remove conditions where if and else branch are identical.
+This issue is detected by coccinelle.
+
+Signed-off-by: Xu Wang <vulab@iscas.ac.cn>
+---
+ drivers/net/ethernet/stmicro/stmmac/stmmac_platform.c | 2 --
+ 1 file changed, 2 deletions(-)
+
+diff --git a/drivers/net/ethernet/stmicro/stmmac/stmmac_platform.c b/drivers/net/ethernet/stmicro/stmmac/stmmac_platform.c
+index bedaff0..1d26691 100644
+--- a/drivers/net/ethernet/stmicro/stmmac/stmmac_platform.c
++++ b/drivers/net/ethernet/stmicro/stmmac/stmmac_platform.c
+@@ -229,8 +229,6 @@ static int stmmac_mtl_setup(struct platform_device *pdev,
+ 		plat->tx_sched_algorithm = MTL_TX_ALGORITHM_WFQ;
+ 	else if (of_property_read_bool(tx_node, "snps,tx-sched-dwrr"))
+ 		plat->tx_sched_algorithm = MTL_TX_ALGORITHM_DWRR;
+-	else if (of_property_read_bool(tx_node, "snps,tx-sched-sp"))
+-		plat->tx_sched_algorithm = MTL_TX_ALGORITHM_SP;
+ 	else
+ 		plat->tx_sched_algorithm = MTL_TX_ALGORITHM_SP;
+ 
+-- 
+2.7.4
+
+_______________________________________________
+Linux-stm32 mailing list
+Linux-stm32@st-md-mailman.stormreply.com
+https://st-md-mailman.stormreply.com/mailman/listinfo/linux-stm32
