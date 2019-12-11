@@ -2,54 +2,39 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id 26CF6119118
-	for <lists+linux-stm32@lfdr.de>; Tue, 10 Dec 2019 20:55:04 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id F34A511A757
+	for <lists+linux-stm32@lfdr.de>; Wed, 11 Dec 2019 10:36:59 +0100 (CET)
 Received: from ip-172-31-3-76.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id D48FDC36B0E;
-	Tue, 10 Dec 2019 19:55:03 +0000 (UTC)
-Received: from smtprelay-out1.synopsys.com (us03-smtprelay2.synopsys.com
- [149.117.87.133])
- (using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 9D3AFC36B0B;
+	Wed, 11 Dec 2019 09:36:59 +0000 (UTC)
+Received: from deadmen.hmeau.com (helcar.hmeau.com [216.24.177.18])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id D6B65C36B0D
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 1A72FC36B09
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Tue, 10 Dec 2019 19:55:01 +0000 (UTC)
-Received: from mailhost.synopsys.com (mdc-mailhost2.synopsys.com
- [10.225.0.210])
- (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits))
- (No client certificate requested)
- by smtprelay-out1.synopsys.com (Postfix) with ESMTPS id A6479C0BAE;
- Tue, 10 Dec 2019 19:54:59 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=synopsys.com; s=mail;
- t=1576007700; bh=hNPVGvX287G7j1Ei3yz/c7/UqEe5MnMoip2YipLhq5U=;
- h=From:To:Cc:Subject:Date:In-Reply-To:References:In-Reply-To:
- References:From;
- b=U9hq47q1iMdEyMX+3VnklyHCIXlIgvWug9GktDJSFvNJNsC+qQ0wR2CqAfhF81A2/
- kjMvMSZ3hOasUNBQWU7rCM5FVag4ZonIFq8gB6A+0yostVFV/0DymsnRDptvaQhpOe
- ea/zXLgrAvTg3nizaJQv+LzIz8Qk4xkN/+nM7aG1aG5ooE4iPWLkA1nfyUinOkk+tO
- 151YiC1ft2NygPLCtjc0sjGKw/+MH7S0DHtsqiM5qojzv1POlbyv3XohxXbSEOWrPx
- iX3GYjdTIKt2z3+wTnOOJ/gXCH7SVfwfZOVRm66+WXnfq4zcE3vAvO2OPC/BV6DPV8
- GC4ANFcVGBaxQ==
-Received: from de02dwia024.internal.synopsys.com
- (de02dwia024.internal.synopsys.com [10.225.19.81])
- by mailhost.synopsys.com (Postfix) with ESMTP id 518D4A00A4;
- Tue, 10 Dec 2019 19:54:58 +0000 (UTC)
-From: Jose Abreu <Jose.Abreu@synopsys.com>
-To: netdev@vger.kernel.org
-Date: Tue, 10 Dec 2019 20:54:44 +0100
-Message-Id: <23c0ff1feddcc690ee66adebefdc3b10031afe1b.1576007149.git.Jose.Abreu@synopsys.com>
-X-Mailer: git-send-email 2.7.4
-In-Reply-To: <cover.1576007149.git.Jose.Abreu@synopsys.com>
-References: <cover.1576007149.git.Jose.Abreu@synopsys.com>
-In-Reply-To: <cover.1576007149.git.Jose.Abreu@synopsys.com>
-References: <cover.1576007149.git.Jose.Abreu@synopsys.com>
-Cc: Jose Abreu <Jose.Abreu@synopsys.com>, Joao Pinto <Joao.Pinto@synopsys.com>,
- linux-kernel@vger.kernel.org, linux-stm32@st-md-mailman.stormreply.com,
+ Wed, 11 Dec 2019 09:36:56 +0000 (UTC)
+Received: from gondobar.mordor.me.apana.org.au ([192.168.128.4] helo=gondobar)
+ by deadmen.hmeau.com with esmtps (Exim 4.89 #2 (Debian))
+ id 1ieyQ8-0008Ql-42; Wed, 11 Dec 2019 17:36:36 +0800
+Received: from herbert by gondobar with local (Exim 4.89)
+ (envelope-from <herbert@gondor.apana.org.au>)
+ id 1ieyQ3-0003HT-Iz; Wed, 11 Dec 2019 17:36:31 +0800
+Date: Wed, 11 Dec 2019 17:36:31 +0800
+From: Herbert Xu <herbert@gondor.apana.org.au>
+To: Krzysztof Kozlowski <krzk@kernel.org>
+Message-ID: <20191211093631.sf2es6tnao6ypk52@gondor.apana.org.au>
+References: <1574306448-31868-1-git-send-email-krzk@kernel.org>
+MIME-Version: 1.0
+Content-Disposition: inline
+In-Reply-To: <1574306448-31868-1-git-send-email-krzk@kernel.org>
+User-Agent: NeoMutt/20170113 (1.7.2)
+Cc: Aymen Sghaier <aymen.sghaier@nxp.com>,
+ Horia =?utf-8?Q?Geant=C4=83?= <horia.geanta@nxp.com>,
+ linux-stm32@st-md-mailman.stormreply.com, linux-kernel@vger.kernel.org,
+ "David S. Miller" <davem@davemloft.net>, linux-crypto@vger.kernel.org,
  Maxime Coquelin <mcoquelin.stm32@gmail.com>,
- Giuseppe Cavallaro <peppe.cavallaro@st.com>,
- "David S. Miller" <davem@davemloft.net>, linux-arm-kernel@lists.infradead.org
-Subject: [Linux-stm32] [PATCH net-next 4/4] net: stmmac: Always use TX
-	coalesce timer value when rescheduling
+ Atul Gupta <atul.gupta@chelsio.com>, linux-arm-kernel@lists.infradead.org
+Subject: Re: [Linux-stm32] [PATCH v2] crypto: Fix Kconfig indentation
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -61,49 +46,28 @@ List-Post: <mailto:linux-stm32@st-md-mailman.stormreply.com>
 List-Help: <mailto:linux-stm32-request@st-md-mailman.stormreply.com?subject=help>
 List-Subscribe: <https://st-md-mailman.stormreply.com/mailman/listinfo/linux-stm32>, 
  <mailto:linux-stm32-request@st-md-mailman.stormreply.com?subject=subscribe>
-MIME-Version: 1.0
-Content-Type: text/plain; charset="us-ascii"
-Content-Transfer-Encoding: 7bit
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: base64
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
-When we have pending packets we re-arm the TX timer with a magic value.
-Change this from the hardcoded value to the pre-defined TX coalesce
-timer value.
-
-Signed-off-by: Jose Abreu <Jose.Abreu@synopsys.com>
-
----
-Cc: Giuseppe Cavallaro <peppe.cavallaro@st.com>
-Cc: Alexandre Torgue <alexandre.torgue@st.com>
-Cc: Jose Abreu <joabreu@synopsys.com>
-Cc: "David S. Miller" <davem@davemloft.net>
-Cc: Maxime Coquelin <mcoquelin.stm32@gmail.com>
-Cc: netdev@vger.kernel.org
-Cc: linux-stm32@st-md-mailman.stormreply.com
-Cc: linux-arm-kernel@lists.infradead.org
-Cc: linux-kernel@vger.kernel.org
----
- drivers/net/ethernet/stmicro/stmmac/stmmac_main.c | 2 +-
- 1 file changed, 1 insertion(+), 1 deletion(-)
-
-diff --git a/drivers/net/ethernet/stmicro/stmmac/stmmac_main.c b/drivers/net/ethernet/stmicro/stmmac/stmmac_main.c
-index f61780ae30ac..726a17d9cc35 100644
---- a/drivers/net/ethernet/stmicro/stmmac/stmmac_main.c
-+++ b/drivers/net/ethernet/stmicro/stmmac/stmmac_main.c
-@@ -1975,7 +1975,7 @@ static int stmmac_tx_clean(struct stmmac_priv *priv, int budget, u32 queue)
- 
- 	/* We still have pending packets, let's call for a new scheduling */
- 	if (tx_q->dirty_tx != tx_q->cur_tx)
--		mod_timer(&tx_q->txtimer, STMMAC_COAL_TIMER(10));
-+		mod_timer(&tx_q->txtimer, STMMAC_COAL_TIMER(priv->tx_coal_timer));
- 
- 	__netif_tx_unlock_bh(netdev_get_tx_queue(priv->dev, queue));
- 
--- 
-2.7.4
-
-_______________________________________________
-Linux-stm32 mailing list
-Linux-stm32@st-md-mailman.stormreply.com
-https://st-md-mailman.stormreply.com/mailman/listinfo/linux-stm32
+T24gVGh1LCBOb3YgMjEsIDIwMTkgYXQgMDQ6MjA6NDhBTSArMDEwMCwgS3J6eXN6dG9mIEtvemxv
+d3NraSB3cm90ZToKPiBBZGp1c3QgaW5kZW50YXRpb24gZnJvbSBzcGFjZXMgdG8gdGFiICgrb3B0
+aW9uYWwgdHdvIHNwYWNlcykgYXMgaW4KPiBjb2Rpbmcgc3R5bGUgd2l0aCBjb21tYW5kIGxpa2U6
+Cj4gCSQgc2VkIC1lICdzL14gICAgICAgIC9cdC8nIC1pICovS2NvbmZpZwo+IAo+IFNpZ25lZC1v
+ZmYtYnk6IEtyenlzenRvZiBLb3psb3dza2kgPGtyemtAa2VybmVsLm9yZz4KPiBSZXZpZXdlZC1i
+eTogSG9yaWEgR2VhbnTEgyA8aG9yaWEuZ2VhbnRhQG54cC5jb20+Cj4gCj4gLS0tCj4gCj4gQ2hh
+bmdlcyBzaW5jZSB2MToKPiAxLiBGaXggYWxzbyA3LXNwYWNlIGFuZCB0YWIrMSBzcGFjZSBpbmRl
+bnRhdGlvbiBpc3N1ZXMuCj4gLS0tCj4gIGRyaXZlcnMvY3J5cHRvL0tjb25maWcgICAgICAgICB8
+IDIyICsrKysrKysrKysrLS0tLS0tLS0tLS0KPiAgZHJpdmVycy9jcnlwdG8vY2FhbS9LY29uZmln
+ICAgIHwgMTQgKysrKysrKy0tLS0tLS0KPiAgZHJpdmVycy9jcnlwdG8vY2hlbHNpby9LY29uZmln
+IHwgMzAgKysrKysrKysrKysrKysrLS0tLS0tLS0tLS0tLS0tCj4gIGRyaXZlcnMvY3J5cHRvL3N0
+bTMyL0tjb25maWcgICB8ICA2ICsrKy0tLQo+ICBkcml2ZXJzL2NyeXB0by91eDUwMC9LY29uZmln
+ICAgfCAxNiArKysrKysrKy0tLS0tLS0tCj4gIDUgZmlsZXMgY2hhbmdlZCwgNDQgaW5zZXJ0aW9u
+cygrKSwgNDQgZGVsZXRpb25zKC0pCgpQYXRjaCBhcHBsaWVkLiAgVGhhbmtzLgotLSAKRW1haWw6
+IEhlcmJlcnQgWHUgPGhlcmJlcnRAZ29uZG9yLmFwYW5hLm9yZy5hdT4KSG9tZSBQYWdlOiBodHRw
+Oi8vZ29uZG9yLmFwYW5hLm9yZy5hdS9+aGVyYmVydC8KUEdQIEtleTogaHR0cDovL2dvbmRvci5h
+cGFuYS5vcmcuYXUvfmhlcmJlcnQvcHVia2V5LnR4dApfX19fX19fX19fX19fX19fX19fX19fX19f
+X19fX19fX19fX19fX19fX19fX19fXwpMaW51eC1zdG0zMiBtYWlsaW5nIGxpc3QKTGludXgtc3Rt
+MzJAc3QtbWQtbWFpbG1hbi5zdG9ybXJlcGx5LmNvbQpodHRwczovL3N0LW1kLW1haWxtYW4uc3Rv
+cm1yZXBseS5jb20vbWFpbG1hbi9saXN0aW5mby9saW51eC1zdG0zMgo=
