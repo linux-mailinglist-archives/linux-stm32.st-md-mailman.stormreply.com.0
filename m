@@ -2,60 +2,49 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id 30F3F11AC34
-	for <lists+linux-stm32@lfdr.de>; Wed, 11 Dec 2019 14:40:21 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 05A4F11C360
+	for <lists+linux-stm32@lfdr.de>; Thu, 12 Dec 2019 03:42:11 +0100 (CET)
 Received: from ip-172-31-3-76.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 8236CC36B0B;
-	Wed, 11 Dec 2019 13:40:20 +0000 (UTC)
-Received: from mx07-00178001.pphosted.com (mx08-00178001.pphosted.com
- [91.207.212.93])
- (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
- (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 70B05C36B09
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id ACBF4C36B0B;
+	Thu, 12 Dec 2019 02:42:10 +0000 (UTC)
+Received: from mailgw01.mediatek.com (unknown [210.61.82.183])
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 5977DC36B09
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Wed, 11 Dec 2019 13:40:18 +0000 (UTC)
-Received: from pps.filterd (m0046660.ppops.net [127.0.0.1])
- by mx08-00178001.pphosted.com (8.16.0.42/8.16.0.42) with SMTP id
- xBBDb2YD005490; Wed, 11 Dec 2019 14:40:10 +0100
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=st.com;
- h=from : to : cc : subject
- : date : message-id : mime-version : content-type; s=STMicroelectronics;
- bh=yAqm9sZp35cLmzHCOHCPDTCRBjuP7SiwSxl28sXlrQg=;
- b=UMp7LFUIJcMpL/ztTzkeuNKPIoW5d2MdO7D/MLpo+4fZDT9Cmc1SpOSuw/HEaQMgQKJo
- EK+l8gh7NZ4ruBUdTHv11v+53EQwTcTh10rqgrckblxKuuNoQh8P0BaRMyVjb9drkOUj
- 6OAx/XUm9yn8OQkniTn9nqFn7A3ljOC04dz5GZtlxxG9nJvTtgb8u1JcYS0xgm+sm7HN
- 9q6AN822uTyn3MkRPFVHWWINqeq4T9JmDeZeuYeZ7sbng+4n50HqbhZlmi5Q2MvAD/LV
- W7VhrIXpwcVGfzIxguHIrjZpiiFyZOAkMEVxJJYn+O800N1tH5NgZn0DX8wcUljM+H0a pQ== 
-Received: from beta.dmz-eu.st.com (beta.dmz-eu.st.com [164.129.1.35])
- by mx08-00178001.pphosted.com with ESMTP id 2wrbrfjcgn-1
- (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
- Wed, 11 Dec 2019 14:40:10 +0100
-Received: from euls16034.sgp.st.com (euls16034.sgp.st.com [10.75.44.20])
- by beta.dmz-eu.st.com (STMicroelectronics) with ESMTP id 3F3E5100038;
- Wed, 11 Dec 2019 14:40:08 +0100 (CET)
-Received: from Webmail-eu.st.com (sfhdag6node1.st.com [10.75.127.16])
- by euls16034.sgp.st.com (STMicroelectronics) with ESMTP id 2C32A2B5440;
- Wed, 11 Dec 2019 14:40:08 +0100 (CET)
-Received: from lmecxl0923.lme.st.com (10.75.127.47) by SFHDAG6NODE1.st.com
- (10.75.127.16) with Microsoft SMTP Server (TLS) id 15.0.1473.3; Wed, 11 Dec
- 2019 14:40:07 +0100
-From: Ludovic Barre <ludovic.Barre@st.com>
-To: Ulf Hansson <ulf.hansson@linaro.org>, Rob Herring <robh+dt@kernel.org>
-Date: Wed, 11 Dec 2019 14:39:34 +0100
-Message-ID: <20191211133934.16932-1-ludovic.Barre@st.com>
-X-Mailer: git-send-email 2.17.1
+ Thu, 12 Dec 2019 02:42:08 +0000 (UTC)
+X-UUID: 518e8e4ceec045a9853907919b5d8b2f-20191212
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=mediatek.com;
+ s=dk; 
+ h=Content-Transfer-Encoding:Content-Type:MIME-Version:Message-ID:Date:Subject:CC:To:From;
+ bh=cG1YyDPw+qG1448MfGYrVaHuFejY1iS6sWsg1RBugiM=; 
+ b=KPsseFeJnx+VlY9vPDfCtreUBoEbgbYGNryNOu7MYUq1lU/rGPv3fOOLB5gPt3ZJk6hsEexkeWgSZ9bSJm5HTMvlVx+kmkRRaV4Cj2vmeeVHNXWX8zlylxpBVZ5eObaZRzNBa3+u9hUxDJnI3HOHiwUIInnElXvGtQ6BSYLRw+w=;
+X-UUID: 518e8e4ceec045a9853907919b5d8b2f-20191212
+Received: from mtkcas08.mediatek.inc [(172.21.101.126)] by
+ mailgw01.mediatek.com (envelope-from <biao.huang@mediatek.com>)
+ (Cellopoint E-mail Firewall v4.1.10 Build 0809 with TLS)
+ with ESMTP id 963971734; Thu, 12 Dec 2019 10:42:03 +0800
+Received: from mtkcas09.mediatek.inc (172.21.101.178) by
+ mtkmbs08n1.mediatek.inc (172.21.101.55) with Microsoft SMTP Server (TLS) id
+ 15.0.1395.4; Thu, 12 Dec 2019 10:42:33 +0800
+Received: from localhost.localdomain (10.17.3.153) by mtkcas09.mediatek.inc
+ (172.21.101.73) with Microsoft SMTP Server id 15.0.1395.4 via Frontend
+ Transport; Thu, 12 Dec 2019 10:41:52 +0800
+From: Biao Huang <biao.huang@mediatek.com>
+To: <davem@davemloft.net>, Rob Herring <robh+dt@kernel.org>
+Date: Thu, 12 Dec 2019 10:41:43 +0800
+Message-ID: <20191212024145.21752-1-biao.huang@mediatek.com>
+X-Mailer: git-send-email 2.18.0
 MIME-Version: 1.0
-X-Originating-IP: [10.75.127.47]
-X-ClientProxiedBy: SFHDAG3NODE1.st.com (10.75.127.7) To SFHDAG6NODE1.st.com
- (10.75.127.16)
-X-Proofpoint-Virus-Version: vendor=fsecure engine=2.50.10434:6.0.95,18.0.572
- definitions=2019-12-11_03:2019-12-11,2019-12-11 signatures=0
-Cc: devicetree@vger.kernel.org, linux-mmc@vger.kernel.org,
- linux-kernel@vger.kernel.org, srinivas.kandagatla@linaro.org,
+X-MTK: N
+Cc: Mark Rutland <mark.rutland@arm.com>, devicetree@vger.kernel.org,
+ Biao Huang <biao.huang@mediatek.com>, netdev@vger.kernel.org,
+ linux-kernel@vger.kernel.org, yt.shen@mediatek.com,
+ Jose Abreu <joabreu@synopsys.com>, linux-mediatek@lists.infradead.org,
  Maxime Coquelin <mcoquelin.stm32@gmail.com>,
+ Matthias Brugger <matthias.bgg@gmail.com>,
+ Giuseppe Cavallaro <peppe.cavallaro@st.com>,
  linux-stm32@st-md-mailman.stormreply.com, linux-arm-kernel@lists.infradead.org
-Subject: [Linux-stm32] [PATCH V2] mmc: mmci: add threaded irq to abort DPSM
-	of non-functional state
+Subject: [Linux-stm32] [PATCH 0/2] net-next: stmmac: dwmac-mediatek: add
+	more support for RMII
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -72,132 +61,18 @@ Content-Transfer-Encoding: 7bit
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
-From: Ludovic Barre <ludovic.barre@st.com>
+This series is for support RMII when MT2712 SoC provides the reference clock.
 
-If datatimeout occurs on R1B request, the Data Path State Machine stays
-in busy and is non-functional. Only a reset aborts the DPSM.
+Biao Huang (2):
+  net-next: stmmac: mediatek: add more suuport for RMII
+  net-next: dt-binding: dwmac-mediatek: add more description for RMII
 
-Like a reset must be outside of critical section, this patch adds
-threaded irq function to release state machine. In this case,
-the mmc_request_done is called at the end of threaded irq and
-skipped into irq handler.
+ .../bindings/net/mediatek-dwmac.txt           | 17 +++-
+ .../ethernet/stmicro/stmmac/dwmac-mediatek.c  | 85 +++++++++++++------
+ 2 files changed, 74 insertions(+), 28 deletions(-)
 
-Signed-off-by: Ludovic Barre <ludovic.barre@st.com>
----
-change V2:
- -check IRQ_WAKE_THREAD only in mmci_cmd_irq error part,
-  to avoid this test in mmci_request_end.
-
----
- drivers/mmc/host/mmci.c | 46 +++++++++++++++++++++++++++++++++++------
- drivers/mmc/host/mmci.h |  1 +
- 2 files changed, 41 insertions(+), 6 deletions(-)
-
-diff --git a/drivers/mmc/host/mmci.c b/drivers/mmc/host/mmci.c
-index 40e72c30ea84..2b91757e3e84 100644
---- a/drivers/mmc/host/mmci.c
-+++ b/drivers/mmc/host/mmci.c
-@@ -1321,6 +1321,7 @@ mmci_cmd_irq(struct mmci_host *host, struct mmc_command *cmd,
- 	} else if (host->variant->busy_timeout && busy_resp &&
- 		   status & MCI_DATATIMEOUT) {
- 		cmd->error = -ETIMEDOUT;
-+		host->irq_action = IRQ_WAKE_THREAD;
- 	} else {
- 		cmd->resp[0] = readl(base + MMCIRESPONSE0);
- 		cmd->resp[1] = readl(base + MMCIRESPONSE1);
-@@ -1339,7 +1340,10 @@ mmci_cmd_irq(struct mmci_host *host, struct mmc_command *cmd,
- 				return;
- 			}
- 		}
--		mmci_request_end(host, host->mrq);
-+
-+		if (host->irq_action != IRQ_WAKE_THREAD)
-+			mmci_request_end(host, host->mrq);
-+
- 	} else if (sbc) {
- 		mmci_start_command(host, host->mrq->cmd, 0);
- 	} else if (!host->variant->datactrl_first &&
-@@ -1532,9 +1536,9 @@ static irqreturn_t mmci_irq(int irq, void *dev_id)
- {
- 	struct mmci_host *host = dev_id;
- 	u32 status;
--	int ret = 0;
- 
- 	spin_lock(&host->lock);
-+	host->irq_action = IRQ_HANDLED;
- 
- 	do {
- 		status = readl(host->base + MMCISTATUS);
-@@ -1574,12 +1578,41 @@ static irqreturn_t mmci_irq(int irq, void *dev_id)
- 		if (host->variant->busy_detect_flag)
- 			status &= ~host->variant->busy_detect_flag;
- 
--		ret = 1;
- 	} while (status);
- 
- 	spin_unlock(&host->lock);
- 
--	return IRQ_RETVAL(ret);
-+	return host->irq_action;
-+}
-+
-+/*
-+ * mmci_irq_threaded is call if the mmci host need to release state machines
-+ * before to terminate the request.
-+ * If datatimeout occurs on R1B request, the Data Path State Machine stays
-+ * in busy and is non-functional. Only a reset can to abort the DPSM.
-+ */
-+static irqreturn_t mmci_irq_threaded(int irq, void *dev_id)
-+{
-+	struct mmci_host *host = dev_id;
-+	unsigned long flags;
-+
-+	if (host->rst) {
-+		reset_control_assert(host->rst);
-+		udelay(2);
-+		reset_control_deassert(host->rst);
-+	}
-+
-+	spin_lock_irqsave(&host->lock, flags);
-+	writel(host->clk_reg, host->base + MMCICLOCK);
-+	writel(host->pwr_reg, host->base + MMCIPOWER);
-+	writel(MCI_IRQENABLE | host->variant->start_err,
-+	       host->base + MMCIMASK0);
-+
-+	host->irq_action = IRQ_HANDLED;
-+	mmci_request_end(host, host->mrq);
-+	spin_unlock_irqrestore(&host->lock, flags);
-+
-+	return host->irq_action;
- }
- 
- static void mmci_request(struct mmc_host *mmc, struct mmc_request *mrq)
-@@ -2071,8 +2104,9 @@ static int mmci_probe(struct amba_device *dev,
- 			goto clk_disable;
- 	}
- 
--	ret = devm_request_irq(&dev->dev, dev->irq[0], mmci_irq, IRQF_SHARED,
--			DRIVER_NAME " (cmd)", host);
-+	ret = devm_request_threaded_irq(&dev->dev, dev->irq[0], mmci_irq,
-+					mmci_irq_threaded, IRQF_SHARED,
-+					DRIVER_NAME " (cmd)", host);
- 	if (ret)
- 		goto clk_disable;
- 
-diff --git a/drivers/mmc/host/mmci.h b/drivers/mmc/host/mmci.h
-index 158e1231aa23..5e63c0596364 100644
---- a/drivers/mmc/host/mmci.h
-+++ b/drivers/mmc/host/mmci.h
-@@ -412,6 +412,7 @@ struct mmci_host {
- 
- 	struct timer_list	timer;
- 	unsigned int		oldstat;
-+	u32			irq_action;
- 
- 	/* pio stuff */
- 	struct sg_mapping_iter	sg_miter;
--- 
-2.17.1
+--
+2.24.0
 
 _______________________________________________
 Linux-stm32 mailing list
