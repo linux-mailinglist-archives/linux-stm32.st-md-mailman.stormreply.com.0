@@ -2,92 +2,57 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id 3C69011E87C
-	for <lists+linux-stm32@lfdr.de>; Fri, 13 Dec 2019 17:42:06 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id E84E311ED00
+	for <lists+linux-stm32@lfdr.de>; Fri, 13 Dec 2019 22:39:21 +0100 (CET)
 Received: from ip-172-31-3-76.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id CB3E5C36B0B;
-	Fri, 13 Dec 2019 16:42:05 +0000 (UTC)
-Received: from mail-wr1-f66.google.com (mail-wr1-f66.google.com
- [209.85.221.66])
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 9C9B2C36B0B;
+	Fri, 13 Dec 2019 21:39:21 +0000 (UTC)
+Received: from mail-oi1-f193.google.com (mail-oi1-f193.google.com
+ [209.85.167.193])
  (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 63143C36B09
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 956CDC36B09
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Fri, 13 Dec 2019 16:42:02 +0000 (UTC)
-Received: by mail-wr1-f66.google.com with SMTP id c14so99531wrn.7
+ Fri, 13 Dec 2019 21:39:19 +0000 (UTC)
+Received: by mail-oi1-f193.google.com with SMTP id i1so1953476oie.8
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Fri, 13 Dec 2019 08:42:02 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=arista.com; s=googlenew;
- h=subject:to:cc:references:from:message-id:date:user-agent
- :mime-version:in-reply-to:content-language:content-transfer-encoding;
- bh=+Xy8RflunQ2h7lBPgvCLBQe6kC/5oXa7qNJM46i4OvE=;
- b=RDZC2ZiusGEyrtg6BPZpt/3zIXUDvTioxjK9hCuEm49HHbr3H/dAOfWKhTeLkK3Bp5
- mwslCzN5062kRXM1mLfDGyALHEWNTkHjICeOQc11+9KBDd7f19DKdFfeznFmkiP2iu/b
- X4xf0Xn0uq1+4PP0nKj0gPeSALXRk8hr+7z6OQI2nr4636450ZFHJs8VP3HyfFaJsTVP
- HzWknwSfbUCuDOtglpkghgYl1PzBXP2sQbaCvGZ+HwEkO2egA9fVrLSahpKuX/LZCycb
- kC6vC6YhGlL6xoAsu0f2oh+y3zZZpvkht74vL/pO8ENbamlFgdAMQPwCftTj41QI1w5d
- MyeA==
+ Fri, 13 Dec 2019 13:39:19 -0800 (PST)
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=1e100.net; s=20161025;
- h=x-gm-message-state:subject:to:cc:references:from:message-id:date
- :user-agent:mime-version:in-reply-to:content-language
- :content-transfer-encoding;
- bh=+Xy8RflunQ2h7lBPgvCLBQe6kC/5oXa7qNJM46i4OvE=;
- b=qLRW+dU/6PvlyJ4SelCoXpxUKLvkeMcYafm0sbdtZnWl7O0Kj6YHDQ+Gi/yATzyiWJ
- j65udezcLeJPRIXjnOKY5qk7Ecvmzq7ykJ0UaFyzsRspp44eyf2LG6q8DHsvimfM4D2j
- 4p/FEwMttJ1hEd4IMoIn//ueU/YfwcNkEOicBf3pIiU75/Nrulbu1TSEfcZpqzA5c/2T
- PDNN66jXbendZMVVp/kIpI3FnPiJ6TKayxmZr9ZfyxbdNwS/XVm10hvOHDSIhdiIMINi
- U8WAkvFoWGfgNkwrRsVdq9kXc5dZEnbJxbIz/J/F13MC+DVldeb94IA6yMNOG2Uzh7/m
- qwhA==
-X-Gm-Message-State: APjAAAUcUrn9XVI9K0qb6XCJfuybAQlf10n1xR2hXjICSG2WwaBn66Nl
- 0C7Wwr6ITxc+eOsWYmxGJTcLVQ==
-X-Google-Smtp-Source: APXvYqzIaw4yXEvzLQQBJqUcuUQde/4MOljSnSzj5+B7FHPM/cAqWL9ZIzlETdg8BqlmTOhn/Pq8vg==
-X-Received: by 2002:a5d:4fd0:: with SMTP id h16mr13243381wrw.255.1576255321811; 
- Fri, 13 Dec 2019 08:42:01 -0800 (PST)
-Received: from [10.83.36.153] ([217.173.96.166])
- by smtp.gmail.com with ESMTPSA id g69sm11707225wmg.13.2019.12.13.08.41.59
- (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Fri, 13 Dec 2019 08:42:01 -0800 (PST)
-To: Christophe Leroy <christophe.leroy@c-s.fr>, linux-kernel@vger.kernel.org
-References: <20191213000657.931618-1-dima@arista.com>
- <524d9848-28a5-7e65-699b-600c49606487@c-s.fr>
-From: Dmitry Safonov <dima@arista.com>
-Message-ID: <0e642e4e-7349-3d92-3e54-cbfd8d417fea@arista.com>
-Date: Fri, 13 Dec 2019 16:41:53 +0000
-User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:68.0) Gecko/20100101
- Thunderbird/68.3.0
+ h=x-gm-message-state:date:from:to:cc:subject:message-id:references
+ :mime-version:content-disposition:in-reply-to:user-agent;
+ bh=SCYACv29dkJEimAeryd7NAUvfts7axPZD4KOPwPhHhU=;
+ b=ouJng0iqQhHLLx2dx0Rw2KyCgzrk1ZFDziHhtay6oEuM5G76YPIA885dQTxZqzGdvN
+ zs4INrCyfpW4xCNhoktm8FnkRVw8tkJtGQZDKeoK0pcHjJ3twkQKRK77Gcaak/AwMy/v
+ 8aOZDMcrpk1qHhhzqS02ImVwyBxdJhD59UczFndE39kWJiuFb8mnMCE/2Wn+5RMJKc7y
+ FgQlr6KXyLo0sTMpKszNW/RX7DVDSgHK7AxiTJq5iM8oUChNZLtLjkAiXi+sNbykx+rl
+ V20vLiB44x9jzt5A9/Raluw87Pn88shzFf/Vuws8UptKnhqle9LCoOLjzSzHZ6F7Mkh+
+ wJLA==
+X-Gm-Message-State: APjAAAV9zstuWcQ/q7N6zEpZlYHVLObqhkKwo5pZzXJpZYya8lCgoKXx
+ P0/8UyenHf/na4IRK6W5jg==
+X-Google-Smtp-Source: APXvYqx8lp9CVw+D5kPH+eRXIzKkrTm4GjWilZZXwORT3uNCoTfc2EDpKa5QD1/v0PHo3VOao+xSTg==
+X-Received: by 2002:aca:d706:: with SMTP id o6mr8416194oig.19.1576273158143;
+ Fri, 13 Dec 2019 13:39:18 -0800 (PST)
+Received: from localhost (24-155-109-49.dyn.grandenetworks.net.
+ [24.155.109.49])
+ by smtp.gmail.com with ESMTPSA id b3sm3687774oie.25.2019.12.13.13.39.17
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Fri, 13 Dec 2019 13:39:17 -0800 (PST)
+Date: Fri, 13 Dec 2019 15:39:16 -0600
+From: Rob Herring <robh@kernel.org>
+To: Arnaud Pouliquen <arnaud.pouliquen@st.com>
+Message-ID: <20191213213916.GA1292@bogus>
+References: <20191128154603.6911-1-arnaud.pouliquen@st.com>
 MIME-Version: 1.0
-In-Reply-To: <524d9848-28a5-7e65-699b-600c49606487@c-s.fr>
-Content-Language: en-US
-Cc: Alexandre Belloni <alexandre.belloni@bootlin.com>,
- linux-aspeed@lists.ozlabs.org, Dmitry Safonov <0x7f454c46@gmail.com>,
+Content-Disposition: inline
+In-Reply-To: <20191128154603.6911-1-arnaud.pouliquen@st.com>
+User-Agent: Mutt/1.10.1 (2018-07-13)
+Cc: Mark Rutland <mark.rutland@arm.com>, devicetree@vger.kernel.org,
+ linux-kernel@vger.kernel.org, Fabien Dessenne <fabien.dessenne@st.com>,
  Bjorn Andersson <bjorn.andersson@linaro.org>,
- Paul Mackerras <paulus@samba.org>, "Maciej W. Rozycki" <macro@linux-mips.org>,
- sparclinux@vger.kernel.org, Fabio Estevam <festevam@gmail.com>,
- linux-stm32@st-md-mailman.stormreply.com,
- Vasiliy Khoruzhick <vasilykh@arista.com>, Alexander Shiyan <shc_work@mail.ru>,
- Kevin Hilman <khilman@baylibre.com>, Russell King <linux@armlinux.org.uk>,
- Ludovic Desroches <ludovic.desroches@microchip.com>,
- Andy Gross <agross@kernel.org>, bcm-kernel-feedback-list@broadcom.com,
- Joel Stanley <joel@jms.id.au>, linux-serial@vger.kernel.org,
- Jiri Slaby <jslaby@suse.com>, Orson Zhai <orsonzhai@gmail.com>,
- Iurii Zaikin <yzaikin@google.com>, NXP Linux Team <linux-imx@nxp.com>,
- Michal Simek <michal.simek@xilinx.com>, Kees Cook <keescook@chromium.org>,
- linux-arm-msm@vger.kernel.org, Sascha Hauer <s.hauer@pengutronix.de>,
- =?UTF-8?Q?Uwe_Kleine-K=c3=b6nig?= <u.kleine-koenig@pengutronix.de>,
- Johan Hovold <johan@kernel.org>, Baolin Wang <baolin.wang7@gmail.com>,
- Florian Fainelli <f.fainelli@gmail.com>, linux-amlogic@lists.infradead.org,
- Pengutronix Kernel Team <kernel@pengutronix.de>,
- linux-arm-kernel@lists.infradead.org, Timur Tabi <timur@kernel.org>,
- Andrew Jeffery <andrew@aj.id.au>,
- Greg Kroah-Hartman <gregkh@linuxfoundation.org>, linuxppc-dev@lists.ozlabs.org,
- Tony Prisk <linux@prisktech.co.nz>, Richard Genoud <richard.genoud@gmail.com>,
- Luis Chamberlain <mcgrof@kernel.org>, Vineet Gupta <vgupta@synopsys.com>,
- Maxime Coquelin <mcoquelin.stm32@gmail.com>,
- Chunyan Zhang <zhang.lyra@gmail.com>, linux-fsdevel@vger.kernel.org,
- Shawn Guo <shawnguo@kernel.org>, "David S. Miller" <davem@davemloft.net>
-Subject: Re: [Linux-stm32] [PATCH 00/58] serial/sysrq: Cleanup ifdeffery
+ linux-stm32@st-md-mailman.stormreply.com, linux-arm-kernel@lists.infradead.org
+Subject: Re: [Linux-stm32] [PATCH] dt-bindings: stm32: convert mlahb to
+	json-schema
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -99,30 +64,160 @@ List-Post: <mailto:linux-stm32@st-md-mailman.stormreply.com>
 List-Help: <mailto:linux-stm32-request@st-md-mailman.stormreply.com?subject=help>
 List-Subscribe: <https://st-md-mailman.stormreply.com/mailman/listinfo/linux-stm32>, 
  <mailto:linux-stm32-request@st-md-mailman.stormreply.com?subject=subscribe>
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: base64
+Content-Type: text/plain; charset="us-ascii"
+Content-Transfer-Encoding: 7bit
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
-SGkgQ2hyaXN0b3BoZSwKCk9uIDEyLzEzLzE5IDU6NDcgQU0sIENocmlzdG9waGUgTGVyb3kgd3Jv
-dGU6Cj4gTGUgMTMvMTIvMjAxOSDDoCAwMTowNSwgRG1pdHJ5IFNhZm9ub3YgYSDDqWNyaXTCoDoK
-Wy4uXQo+IAo+IHBvd2VycGMgcGF0Y2h3b3JrIGRpZG4ndCBnZXQgdGhlIGZ1bGwgc2VyaWVzLCBz
-ZWUKPiBodHRwczovL3BhdGNod29yay5vemxhYnMub3JnL3Byb2plY3QvbGludXhwcGMtZGV2L2xp
-c3QvP3Nlcmllcz0xNDgxOTgKClllcywgSSB3YXMgdW5kZXIgaW1wcmVzc2lvbiB0aGF0IGFyY2hp
-dGVjdHVyZSBtYWlsLWxpc3RzIHdhbnQgcmVsYXRlZApwYXRjaGVzLiBCdXQgbm93IEkgc2VlIHRo
-YXQgZnJvbSB0aGUgcGF0Y2h3b3JrIHBvaW50IG9mIHZpZXcgaXQncyBiZXR0ZXIKdG8gaGF2ZSB0
-aGUgd2hvbGUgc2VyaWVzIGluIGluYm94LgoKPiBDYW4ndCBmaW5kIHRoZW0gb24gbGludXgtc2Vy
-aWFsIHBhdGNod29yayBlaXRoZXIKPiAoaHR0cHM6Ly9wYXRjaGVzLmxpbmFyby5vcmcvcHJvamVj
-dC9saW51eC1zZXJpYWwvbGlzdC8pCgpJJ20gbm90IHN1cmUgLSBtYXliZSB0aGUgZnJlcXVlbmN5
-IG9mIGNoZWNraW5nIGlzIGxvdz8KSSBzZWUgYWxsIHBhdGNoZXMgaW4gbGludXgtc2VyaWFsIG1s
-OgpodHRwczovL21hcmMuaW5mby8/bD1saW51eC1zZXJpYWwmcj0xJmI9MjAxOTEyJnc9MgoKPiBJ
-dCBpcyBpbXBvc3NpYmxlIHRvIHJldmlldy90ZXN0IHBvd2VycGMgYml0cyB3aXRob3V0IHRoZSBm
-aXJzdCBwYXRjaGVzCj4gb2YgdGhlIHNlcmllcywgd2hlcmUgY2FuIHRoZSBlbnRpcmUgc2VyaWVz
-IGJlIGZvdW5kID8KClNvcnJ5IGZvciB0aGUgaW5jb252ZW5pZW5jZS4KSSBjYW4gcmVzZW5kIHdp
-dGhvdXQgQ2MnaW5nIGFsbCBwZW9wbGUganVzdCB0byBwcGMgbWFpbC1saXN0IGlmIHRoYXQKd29y
-a3MgZm9yIHlvdS4gT3IgeW91IGNhbiBjbG9uZSBpdCBkaXJlY3RseSBmcm9tIG15IGdpdGh1YjoK
-aHR0cHM6Ly9naXRodWIuY29tLzB4N2Y0NTRjNDYvbGludXgvdHJlZS9zeXNycS1zZXJpYWwtc2Vx
-LXYxCgpUaGFua3MsCiAgICAgICAgICBEbWl0cnkKX19fX19fX19fX19fX19fX19fX19fX19fX19f
-X19fX19fX19fX19fX19fX19fX18KTGludXgtc3RtMzIgbWFpbGluZyBsaXN0CkxpbnV4LXN0bTMy
-QHN0LW1kLW1haWxtYW4uc3Rvcm1yZXBseS5jb20KaHR0cHM6Ly9zdC1tZC1tYWlsbWFuLnN0b3Jt
-cmVwbHkuY29tL21haWxtYW4vbGlzdGluZm8vbGludXgtc3RtMzIK
+On Thu, Nov 28, 2019 at 04:46:03PM +0100, Arnaud Pouliquen wrote:
+> Convert the ML-AHB bus bindings to DT schema format using json-schema
+> 
+> Signed-off-by: Arnaud Pouliquen <arnaud.pouliquen@st.com>
+> ---
+> Notice that this patch requests an update of the simple-bus schema to add
+> the support of the "dma-ranges" property.
+> A Pull request has been sent in parallel to the dt-schema github repo:
+> https://github.com/devicetree-org/dt-schema/pull/30
+> 
+> To remind the topic around the use of "dma-ranges" please
+> refer to following discussion: https://lkml.org/lkml/2019/4/3/1261
+> ---
+>  .../devicetree/bindings/arm/stm32/mlahb.txt   | 37 ----------
+>  .../bindings/arm/stm32/st,mlahb.yaml          | 69 +++++++++++++++++++
+>  2 files changed, 69 insertions(+), 37 deletions(-)
+>  delete mode 100644 Documentation/devicetree/bindings/arm/stm32/mlahb.txt
+>  create mode 100644 Documentation/devicetree/bindings/arm/stm32/st,mlahb.yaml
+> 
+> diff --git a/Documentation/devicetree/bindings/arm/stm32/mlahb.txt b/Documentation/devicetree/bindings/arm/stm32/mlahb.txt
+> deleted file mode 100644
+> index 25307aa1eb9b..000000000000
+> --- a/Documentation/devicetree/bindings/arm/stm32/mlahb.txt
+> +++ /dev/null
+> @@ -1,37 +0,0 @@
+> -ML-AHB interconnect bindings
+> -
+> -These bindings describe the STM32 SoCs ML-AHB interconnect bus which connects
+> -a Cortex-M subsystem with dedicated memories.
+> -The MCU SRAM and RETRAM memory parts can be accessed through different addresses
+> -(see "RAM aliases" in [1]) using different buses (see [2]) : balancing the
+> -Cortex-M firmware accesses among those ports allows to tune the system
+> -performance.
+> -
+> -[1]: https://www.st.com/resource/en/reference_manual/dm00327659.pdf
+> -[2]: https://wiki.st.com/stm32mpu/wiki/STM32MP15_RAM_mapping
+> -
+> -Required properties:
+> -- compatible: should be "simple-bus"
+> -- dma-ranges: describes memory addresses translation between the local CPU and
+> -	   the remote Cortex-M processor. Each memory region, is declared with
+> -	   3 parameters:
+> -		 - param 1: device base address (Cortex-M processor address)
+> -		 - param 2: physical base address (local CPU address)
+> -		 - param 3: size of the memory region.
+> -
+> -The Cortex-M remote processor accessed via the mlahb interconnect is described
+> -by a child node.
+> -
+> -Example:
+> -mlahb {
+> -	compatible = "simple-bus";
+> -	#address-cells = <1>;
+> -	#size-cells = <1>;
+> -	dma-ranges = <0x00000000 0x38000000 0x10000>,
+> -		     <0x10000000 0x10000000 0x60000>,
+> -		     <0x30000000 0x30000000 0x60000>;
+> -
+> -	m4_rproc: m4@10000000 {
+> -		...
+> -	};
+> -};
+> diff --git a/Documentation/devicetree/bindings/arm/stm32/st,mlahb.yaml b/Documentation/devicetree/bindings/arm/stm32/st,mlahb.yaml
+> new file mode 100644
+> index 000000000000..8ad3f7c7f9ab
+> --- /dev/null
+> +++ b/Documentation/devicetree/bindings/arm/stm32/st,mlahb.yaml
+> @@ -0,0 +1,69 @@
+> +# SPDX-License-Identifier: (GPL-2.0 OR BSD-2-Clause)
+> +%YAML 1.2
+> +---
+> +$id: "http://devicetree.org/schemas/arm/stm32/st,mlahb.yaml#"
+> +$schema: "http://devicetree.org/meta-schemas/core.yaml#"
+> +
+> +title: STMicroelectronics STM32 ML-AHB interconnect bindings
+> +
+> +maintainers:
+> +  - Fabien Dessenne <fabien.dessenne@st.com>
+> +  - Arnaud Pouliquen <arnaud.pouliquen@st.com>
+> +
+> +description: |
+> +  These bindings describe the STM32 SoCs ML-AHB interconnect bus which connects
+> +  a Cortex-M subsystem with dedicated memories. The MCU SRAM and RETRAM memory
+> +  parts can be accessed through different addresses (see "RAM aliases" in [1])
+> +  using different buses (see [2]): balancing the Cortex-M firmware accesses
+> +  among those ports allows to tune the system performance.
+> +  [1]: https://www.st.com/resource/en/reference_manual/dm00327659.pdf
+> +  [2]: https://wiki.st.com/stm32mpu/wiki/STM32MP15_RAM_mapping
+> +
+> +allOf:
+> + - $ref: /schemas/simple-bus.yaml#
+> +
+> +properties:
+> +  compatible:
+> +    contains:
+> +      enum:
+> +        - st,mlahb
+> +
+> +  dma-ranges:
+> +    description: |
+> +      Describe memory addresses translation between the local CPU and the
+> +      remote Cortex-M processor. Each memory region, is declared with
+> +      3 parameters:
+> +      - param 1: device base address (Cortex-M processor address)
+> +      - param 2: physical base address (local CPU address)
+> +      - param 3: size of the memory region.
+> +    maxItems: 3
+> +
+> +  '#address-cells':
+> +    const: 1
+> +
+> +  '#size-cells':
+> +    const: 1
+> +
+> +required:
+> +  - compatible
+> +  - '#address-cells'
+> +  - '#size-cells'
+> +  - dma-ranges
+> +
+> +examples:
+> +  - |
+> +    mlahb: ahb {
+> +      compatible = "st,mlahb", "simple-bus";
+> +      #address-cells = <1>;
+> +      #size-cells = <1>;
+> +      reg = <0x10000000 0x40000>;
+> +      dma-ranges = <0x00000000 0x38000000 0x10000>,
+> +                   <0x10000000 0x10000000 0x60000>,
+> +                   <0x30000000 0x30000000 0x60000>;
+> +
+
+Fails to build:
+
+builds/robherring/linux-dt-review/Documentation/devicetree/bindings/arm/stm32/st,mlahb.example.dt.yaml: 
+ahb: 'ranges' is a required property
+
+Run 'make dt_binding_check'
+
+> +      m4_rproc: m4@10000000 {
+> +       reg = <0x10000000 0x40000>;
+> +      };
+> +    };
+> +
+> +...
+> -- 
+> 2.17.1
+> 
+_______________________________________________
+Linux-stm32 mailing list
+Linux-stm32@st-md-mailman.stormreply.com
+https://st-md-mailman.stormreply.com/mailman/listinfo/linux-stm32
