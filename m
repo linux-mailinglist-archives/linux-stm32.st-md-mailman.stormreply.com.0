@@ -2,60 +2,55 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id 7926E11D0E4
-	for <lists+linux-stm32@lfdr.de>; Thu, 12 Dec 2019 16:23:16 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 04DB611DBBD
+	for <lists+linux-stm32@lfdr.de>; Fri, 13 Dec 2019 02:36:37 +0100 (CET)
 Received: from ip-172-31-3-76.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 39A04C36B2A;
-	Thu, 12 Dec 2019 15:23:16 +0000 (UTC)
-Received: from lelv0142.ext.ti.com (lelv0142.ext.ti.com [198.47.23.249])
- (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
- (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id CB90CC36B0B
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id AC0E6C36B0B;
+	Fri, 13 Dec 2019 01:36:36 +0000 (UTC)
+Received: from mailgw01.mediatek.com (unknown [210.61.82.183])
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 6664AC36B09
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Thu, 12 Dec 2019 13:56:26 +0000 (UTC)
-Received: from fllv0034.itg.ti.com ([10.64.40.246])
- by lelv0142.ext.ti.com (8.15.2/8.15.2) with ESMTP id xBCDuJC3130575;
- Thu, 12 Dec 2019 07:56:19 -0600
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=ti.com;
- s=ti-com-17Q1; t=1576158979;
- bh=sT2GTlfLRw0eUXbETF9GVVQ6WAg3uD6MtSWiMfyqi+M=;
- h=From:To:CC:Subject:Date:In-Reply-To:References;
- b=RsOFgEThAZihJpqCZMapImij1AG0ZEd06hlyMRl5+UDp6U3N7xHaJORSvQZSyZayi
- vZH5625luHJSMUF9zXBaNVuWFpANZE6VQH0Wk4oJKqDWerLRmUQ2ShLOlWfYnFM/7m
- 7/lAV2rm7YGPF653rxtp+GRYimudAe4wCXKsNIrE=
-Received: from DLEE103.ent.ti.com (dlee103.ent.ti.com [157.170.170.33])
- by fllv0034.itg.ti.com (8.15.2/8.15.2) with ESMTPS id xBCDuJM0045145
- (version=TLSv1.2 cipher=AES256-GCM-SHA384 bits=256 verify=FAIL);
- Thu, 12 Dec 2019 07:56:19 -0600
-Received: from DLEE108.ent.ti.com (157.170.170.38) by DLEE103.ent.ti.com
- (157.170.170.33) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_128_CBC_SHA256_P256) id 15.1.1847.3; Thu, 12
- Dec 2019 07:56:19 -0600
-Received: from lelv0326.itg.ti.com (10.180.67.84) by DLEE108.ent.ti.com
- (157.170.170.38) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_128_CBC_SHA256_P256) id 15.1.1847.3 via
- Frontend Transport; Thu, 12 Dec 2019 07:56:19 -0600
-Received: from feketebors.ti.com (ileax41-snat.itg.ti.com [10.172.224.153])
- by lelv0326.itg.ti.com (8.15.2/8.15.2) with ESMTP id xBCDtdqZ048444;
- Thu, 12 Dec 2019 07:56:15 -0600
-From: Peter Ujfalusi <peter.ujfalusi@ti.com>
-To: <broonie@kernel.org>, <nsaenzjulienne@suse.de>, <f.fainelli@gmail.com>,
- <rjui@broadcom.com>, <sbranden@broadcom.com>, <shawnguo@kernel.org>,
- <s.hauer@pengutronix.de>, <baohua@kernel.org>,
- <mcoquelin.stm32@gmail.com>, <alexandre.torgue@st.com>
-Date: Thu, 12 Dec 2019 15:55:50 +0200
-Message-ID: <20191212135550.4634-10-peter.ujfalusi@ti.com>
-X-Mailer: git-send-email 2.24.0
-In-Reply-To: <20191212135550.4634-1-peter.ujfalusi@ti.com>
-References: <20191212135550.4634-1-peter.ujfalusi@ti.com>
+ Fri, 13 Dec 2019 01:36:33 +0000 (UTC)
+X-UUID: 09f3026d61f843b2824f2b21d635f632-20191213
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=mediatek.com;
+ s=dk; 
+ h=MIME-Version:Content-Type:References:In-Reply-To:Date:CC:To:From:Subject:Message-ID;
+ bh=irxN71CTET/P3kJY958UjeOZH8eEfwMUiRmqYCKY2gw=; 
+ b=r7Bph7keagX+jtG95sdyScKkpzaQ3dxvgYzq1AgwPt+sxQLMj/kM/Y+RLZfWCBOeJUNTDo6ZlHfzKHjTLF2tKvD+9C10F47aB7BFjVPN7KgMTYoJOreL7xMzgxtAjtYAwuP5MaYYgHbfQUUkohTlraFqlIJqmtOW9aOd96cRJhQ=;
+X-UUID: 09f3026d61f843b2824f2b21d635f632-20191213
+Received: from mtkcas09.mediatek.inc [(172.21.101.178)] by
+ mailgw01.mediatek.com (envelope-from <biao.huang@mediatek.com>)
+ (Cellopoint E-mail Firewall v4.1.10 Build 0809 with TLS)
+ with ESMTP id 914148645; Fri, 13 Dec 2019 09:36:29 +0800
+Received: from MTKCAS36.mediatek.inc (172.27.4.186) by mtkmbs08n2.mediatek.inc
+ (172.21.101.56) with Microsoft SMTP Server (TLS) id 15.0.1395.4;
+ Fri, 13 Dec 2019 09:35:23 +0800
+Received: from [10.17.3.153] (172.27.4.253) by MTKCAS36.mediatek.inc
+ (172.27.4.170) with Microsoft SMTP Server id 15.0.1395.4 via Frontend
+ Transport; Fri, 13 Dec 2019 09:36:22 +0800
+Message-ID: <1576200981.29387.13.camel@mhfsdcap03>
+From: biao huang <biao.huang@mediatek.com>
+To: Andrew Lunn <andrew@lunn.ch>
+Date: Fri, 13 Dec 2019 09:36:21 +0800
+In-Reply-To: <20191212132520.GB9959@lunn.ch>
+References: <20191212024145.21752-1-biao.huang@mediatek.com>
+ <20191212024145.21752-2-biao.huang@mediatek.com>
+ <20191212132520.GB9959@lunn.ch>
+X-Mailer: Evolution 3.10.4-0ubuntu2 
 MIME-Version: 1.0
-X-EXCLAIMER-MD-CONFIG: e1e8a2fd-e40a-4ac6-ac9b-f7e9cc9ee180
-X-Mailman-Approved-At: Thu, 12 Dec 2019 15:23:13 +0000
-Cc: linux-kernel@vger.kernel.org, linux-spi@vger.kernel.org, vkoul@kernel.org,
- linux-rpi-kernel@lists.infradead.org, linux-stm32@st-md-mailman.stormreply.com,
+X-TM-SNTS-SMTP: E14E06B3453909DAE8F20323594DD534147E1C32F7C2D376F67FCA2FE9C7AAF12000:8
+X-MTK: N
+Cc: Mark Rutland <mark.rutland@arm.com>, Jose Abreu <joabreu@synopsys.com>,
+ devicetree@vger.kernel.org, netdev@vger.kernel.org,
+ linux-kernel@vger.kernel.org, linux-stm32@st-md-mailman.stormreply.com,
+ yt.shen@mediatek.com, Rob Herring <robh+dt@kernel.org>,
+ linux-mediatek@lists.infradead.org,
+ Maxime Coquelin <mcoquelin.stm32@gmail.com>,
+ Matthias Brugger <matthias.bgg@gmail.com>,
+ Giuseppe Cavallaro <peppe.cavallaro@st.com>, davem@davemloft.net,
  linux-arm-kernel@lists.infradead.org
-Subject: [Linux-stm32] [PATCH 9/9] spi: stm32: Use dma_request_chan()
-	instead dma_request_slave_channel()
+Subject: Re: [Linux-stm32] [PATCH 1/2] net-next: stmmac: mediatek: add more
+ suuport for RMII
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -67,100 +62,139 @@ List-Post: <mailto:linux-stm32@st-md-mailman.stormreply.com>
 List-Help: <mailto:linux-stm32-request@st-md-mailman.stormreply.com?subject=help>
 List-Subscribe: <https://st-md-mailman.stormreply.com/mailman/listinfo/linux-stm32>, 
  <mailto:linux-stm32-request@st-md-mailman.stormreply.com?subject=subscribe>
-Content-Type: text/plain; charset="us-ascii"
-Content-Transfer-Encoding: 7bit
+Content-Type: multipart/mixed; boundary="===============1162960527386067781=="
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
-dma_request_slave_channel() is a wrapper on top of dma_request_chan()
-eating up the error code.
+--===============1162960527386067781==
+Content-Type: multipart/alternative; boundary="=-vYMoNj79R5mH3nWhdV2r"
 
-By using dma_request_chan() directly the driver can support deferred
-probing against DMA.
+--=-vYMoNj79R5mH3nWhdV2r
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: base64
 
-Signed-off-by: Peter Ujfalusi <peter.ujfalusi@ti.com>
----
- drivers/spi/spi-stm32.c | 32 ++++++++++++++++++++++----------
- 1 file changed, 22 insertions(+), 10 deletions(-)
+SGkgQW5kcmV3LA0KDQoJVGhhbmtzIGZvciB5b3VyIGNvbW1lbnRzfg0KDQpPbiBUaHUsIDIwMTkt
+MTItMTIgYXQgMTQ6MjUgKzAxMDAsIEFuZHJldyBMdW5uIHdyb3RlOg0KDQo+IE9uIFRodSwgRGVj
+IDEyLCAyMDE5IGF0IDEwOjQxOjQ0QU0gKzA4MDAsIEJpYW8gSHVhbmcgd3JvdGU6DQo+ID4gTVQy
+NzEyIFNvQyBjYW4gcHJvdmlkZSB0aGUgcm1paSByZWZlcmVuY2UgY2xvY2ssIGFuZCB0aGUgY2xv
+Y2sNCj4gPiB3aWxsIG91dHB1dCBmcm9tIFRYQyBwaW4gb25seSwgd2hpY2ggbWVhbnMgcmVmX2Ns
+ayBwaW4gb2YgZXh0ZXJuYWwNCj4gPiBQSFkgc2hvdWxkIGNvbm5lY3QgdG8gVFhDIHBpbiBpbiB0
+aGlzIGNhc2UuDQo+ID4gQWRkIGNvcnJlc3BvbmRpbmcgY2xvY2sgYW5kIHRpbWluZyBzZXR0aW5n
+cy4NCj4gDQo+IEhpIEJpYW8NCj4gDQo+IFN1YmplY3QgbGluZSBoYXMgYSB0eXBvLg0KDQp3aWxs
+IGZpeCBpbiBuZXh0IHZlcnNpb24uDQoNCj4gDQo+ID4gQEAgLTI3OCw2ICsyOTYsNyBAQCBzdGF0
+aWMgaW50IG1lZGlhdGVrX2R3bWFjX2NvbmZpZ19kdChzdHJ1Y3QgbWVkaWF0ZWtfZHdtYWNfcGxh
+dF9kYXRhICpwbGF0KQ0KPiA+ICAJbWFjX2RlbGF5LT50eF9pbnYgPSBvZl9wcm9wZXJ0eV9yZWFk
+X2Jvb2wocGxhdC0+bnAsICJtZWRpYXRlayx0eGMtaW52ZXJzZSIpOw0KPiA+ICAJbWFjX2RlbGF5
+LT5yeF9pbnYgPSBvZl9wcm9wZXJ0eV9yZWFkX2Jvb2wocGxhdC0+bnAsICJtZWRpYXRlayxyeGMt
+aW52ZXJzZSIpOw0KPiA+ICAJcGxhdC0+cm1paV9yeGMgPSBvZl9wcm9wZXJ0eV9yZWFkX2Jvb2wo
+cGxhdC0+bnAsICJtZWRpYXRlayxybWlpLXJ4YyIpOw0KPiA+ICsJcGxhdC0+cm1paV9jbGtfZnJv
+bV9tYWMgPSBvZl9wcm9wZXJ0eV9yZWFkX2Jvb2wocGxhdC0+bnAsICJtZWRpYXRlayxybWlpLWNs
+ay1mcm9tLW1hYyIpOw0KPiA+ICANCj4gPiAgCXJldHVybiAwOw0KPiA+ICB9DQo+ID4gQEAgLTI4
+Nyw2ICszMDYsMTYgQEAgc3RhdGljIGludCBtZWRpYXRla19kd21hY19jbGtfaW5pdChzdHJ1Y3Qg
+bWVkaWF0ZWtfZHdtYWNfcGxhdF9kYXRhICpwbGF0KQ0KPiA+ICAJY29uc3Qgc3RydWN0IG1lZGlh
+dGVrX2R3bWFjX3ZhcmlhbnQgKnZhcmlhbnQgPSBwbGF0LT52YXJpYW50Ow0KPiA+ICAJaW50IGks
+IG51bSA9IHZhcmlhbnQtPm51bV9jbGtzOw0KPiA+ICANCj4gPiArCXBsYXQtPm1hY19ybWlpX2Ns
+ayA9IE5VTEw7DQo+ID4gKwlpZiAocGxhdC0+cGh5X21vZGUgPT0gUEhZX0lOVEVSRkFDRV9NT0RF
+X1JNSUkgJiYNCj4gPiArCSAgICBwbGF0LT5ybWlpX2Nsa19mcm9tX21hYykgew0KPiA+ICsJCXBs
+YXQtPm1hY19ybWlpX2NsayA9IGRldm1fY2xrX2dldChwbGF0LT5kZXYsICJybWlpX2ludGVybmFs
+Iik7DQo+ID4gKwkJaWYgKElTX0VSUihwbGF0LT5tYWNfcm1paV9jbGspKSB7DQo+ID4gKwkJCWRl
+dl9lcnIocGxhdC0+ZGV2LCAiRmFpbGVkIHRvIGdldCByZWZlcmVuY2UgY2xrIGZyb20gTUFDXG4i
+KTsNCj4gPiArCQkJcmV0dXJuIFBUUl9FUlIocGxhdC0+bWFjX3JtaWlfY2xrKTsNCj4gPiArCQl9
+DQo+ID4gKwl9DQo+IA0KPiBQbGVhc2UgZG9uJ3QgdXNlIGEgYmluYXJ5IHByb3BlcnR5LiBUaGlz
+IGlzIGEgY2xvY2ssIHNvIGRlc2NyaWJlIGl0IGluDQo+IERUIGFzIGEgY2xvY2suIEFkZCBpdCB0
+byB0aGUgZXhpc3RpbmcgbGlzdCBvZiBjbG9ja3MuDQoNClRoZSBjbG9jayBsYWJlbGVkIGFzICJy
+bWlpX2ludGVybmFsIiBpcyBuZWVkZWQgb25seSBpbiBSTUlJKHdoZW4gTUFDDQpwcm92aWRlcyBy
+ZWZlcmVuY2UgY2xvY2spLCBhbmQgdXNlbGVzcyBmb3IgUkdNSUkvTUlJL1JNSUkod2hlbiBwaHkN
+CnByb3ZpZGVzIHJlZmVyZW5jZSBjbG9jaykuDQoNClNvLCBhZGQgYSBib29sZWFuIGZsYWcgdG8g
+aW5kaWNhdGUgd2hlcmUgdGhlIFJNSUkgcmVmZXJlbmNlIGNsb2NrIGlzDQpmcm9tLCBNQUMgb3Ig
+UEhZLCBpZiBNQUMsIGVuYWJsZSB0aGUgInJtaWlfaW50ZXJuYWwiLCBvciBkaXNhYmxlIGl0Lg0K
+YW5kIHRoaXMgY2xvY2sgYWxyZWFkeSBkb2N1bWVudGVkIGluIGR0LWJpbmRpbmcgaW4gUEFUQ0gg
+Mi8yLg0KDQpGb3IgcG93ZXIgc2F2aW5nLCBpdCBzaG91bGQgbm90IGJlIGVuYWJsZWQgaW4gZGVm
+YXVsdCwgc28gY2FuJ3QgYWRkIGl0DQp0byB0aGUgZXhpc3RpbmcgbGlzdCBvZiBjbG9ja3MgZGly
+ZWN0bHkuDQoNCkFueSBhZHZpY2UgZm9yIHRoaXMgc3BlY2lhbCBjYXNlPw0KDQpUaGFua3MuDQoN
+Cj4gDQo+ICAgIEFuZHJldw0KDQpCaWFvDQo=
 
-diff --git a/drivers/spi/spi-stm32.c b/drivers/spi/spi-stm32.c
-index 7d75632c4151..e041f9c4ec47 100644
---- a/drivers/spi/spi-stm32.c
-+++ b/drivers/spi/spi-stm32.c
-@@ -1879,17 +1879,29 @@ static int stm32_spi_probe(struct platform_device *pdev)
- 	master->transfer_one = stm32_spi_transfer_one;
- 	master->unprepare_message = stm32_spi_unprepare_msg;
- 
--	spi->dma_tx = dma_request_slave_channel(spi->dev, "tx");
--	if (!spi->dma_tx)
-+	spi->dma_tx = dma_request_chan(spi->dev, "tx");
-+	if (IS_ERR(spi->dma_tx)) {
-+		ret = PTR_ERR(spi->dma_tx);
-+		spi->dma_tx = NULL;
-+		if (ret == -EPROBE_DEFER)
-+			goto err_clk_disable;
-+
- 		dev_warn(&pdev->dev, "failed to request tx dma channel\n");
--	else
-+	} else {
- 		master->dma_tx = spi->dma_tx;
-+	}
-+
-+	spi->dma_rx = dma_request_chan(spi->dev, "rx");
-+	if (IS_ERR(spi->dma_rx)) {
-+		ret = PTR_ERR(spi->dma_rx);
-+		spi->dma_rx = NULL;
-+		if (ret == -EPROBE_DEFER)
-+			goto err_dma_release;
- 
--	spi->dma_rx = dma_request_slave_channel(spi->dev, "rx");
--	if (!spi->dma_rx)
- 		dev_warn(&pdev->dev, "failed to request rx dma channel\n");
--	else
-+	} else {
- 		master->dma_rx = spi->dma_rx;
-+	}
- 
- 	if (spi->dma_tx || spi->dma_rx)
- 		master->can_dma = stm32_spi_can_dma;
-@@ -1901,26 +1913,26 @@ static int stm32_spi_probe(struct platform_device *pdev)
- 	if (ret) {
- 		dev_err(&pdev->dev, "spi master registration failed: %d\n",
- 			ret);
--		goto err_dma_release;
-+		goto err_pm_disable;
- 	}
- 
- 	if (!master->cs_gpiods) {
- 		dev_err(&pdev->dev, "no CS gpios available\n");
- 		ret = -EINVAL;
--		goto err_dma_release;
-+		goto err_pm_disable;
- 	}
- 
- 	dev_info(&pdev->dev, "driver initialized\n");
- 
- 	return 0;
- 
-+err_pm_disable:
-+	pm_runtime_disable(&pdev->dev);
- err_dma_release:
- 	if (spi->dma_tx)
- 		dma_release_channel(spi->dma_tx);
- 	if (spi->dma_rx)
- 		dma_release_channel(spi->dma_rx);
--
--	pm_runtime_disable(&pdev->dev);
- err_clk_disable:
- 	clk_disable_unprepare(spi->clk);
- err_master_put:
--- 
-Peter
+--=-vYMoNj79R5mH3nWhdV2r
+Content-Type: text/html; charset="utf-8"
+Content-Transfer-Encoding: base64
 
-Texas Instruments Finland Oy, Porkkalankatu 22, 00180 Helsinki.
-Y-tunnus/Business ID: 0615521-4. Kotipaikka/Domicile: Helsinki
+PCFET0NUWVBFIEhUTUwgUFVCTElDICItLy9XM0MvL0RURCBIVE1MIDQuMCBUUkFOU0lUSU9OQUwv
+L0VOIj4NCjxIVE1MPg0KPEhFQUQ+DQogIDxNRVRBIEhUVFAtRVFVSVY9IkNvbnRlbnQtVHlwZSIg
+Q09OVEVOVD0idGV4dC9odG1sOyBDSEFSU0VUPVVURi04Ij4NCiAgPE1FVEEgTkFNRT0iR0VORVJB
+VE9SIiBDT05URU5UPSJHdGtIVE1MLzQuNi42Ij4NCjwvSEVBRD4NCjxCT0RZPg0KSGkgQW5kcmV3
+LDxCUj4NCjxCUj4NCglUaGFua3MgZm9yIHlvdXIgY29tbWVudHN+PEJSPg0KPEJSPg0KT24gVGh1
+LCAyMDE5LTEyLTEyIGF0IDE0OjI1ICswMTAwLCBBbmRyZXcgTHVubiB3cm90ZToNCjxCTE9DS1FV
+T1RFIFRZUEU9Q0lURT4NCjxQUkU+DQpPbiBUaHUsIERlYyAxMiwgMjAxOSBhdCAxMDo0MTo0NEFN
+ICswODAwLCBCaWFvIEh1YW5nIHdyb3RlOg0KPEZPTlQgQ09MT1I9IiM3MzczNzMiPiZndDsgTVQy
+NzEyIFNvQyBjYW4gcHJvdmlkZSB0aGUgcm1paSByZWZlcmVuY2UgY2xvY2ssIGFuZCB0aGUgY2xv
+Y2s8L0ZPTlQ+DQo8Rk9OVCBDT0xPUj0iIzczNzM3MyI+Jmd0OyB3aWxsIG91dHB1dCBmcm9tIFRY
+QyBwaW4gb25seSwgd2hpY2ggbWVhbnMgcmVmX2NsayBwaW4gb2YgZXh0ZXJuYWw8L0ZPTlQ+DQo8
+Rk9OVCBDT0xPUj0iIzczNzM3MyI+Jmd0OyBQSFkgc2hvdWxkIGNvbm5lY3QgdG8gVFhDIHBpbiBp
+biB0aGlzIGNhc2UuPC9GT05UPg0KPEZPTlQgQ09MT1I9IiM3MzczNzMiPiZndDsgQWRkIGNvcnJl
+c3BvbmRpbmcgY2xvY2sgYW5kIHRpbWluZyBzZXR0aW5ncy48L0ZPTlQ+DQoNCkhpIEJpYW8NCg0K
+U3ViamVjdCBsaW5lIGhhcyBhIHR5cG8uDQo8L1BSRT4NCjwvQkxPQ0tRVU9URT4NCndpbGwgZml4
+IGluIG5leHQgdmVyc2lvbi4NCjxCTE9DS1FVT1RFIFRZUEU9Q0lURT4NCjxQUkU+DQoNCjxGT05U
+IENPTE9SPSIjNzM3MzczIj4mZ3Q7IEBAIC0yNzgsNiArMjk2LDcgQEAgc3RhdGljIGludCBtZWRp
+YXRla19kd21hY19jb25maWdfZHQoc3RydWN0IG1lZGlhdGVrX2R3bWFjX3BsYXRfZGF0YSAqcGxh
+dCk8L0ZPTlQ+DQo8Rk9OVCBDT0xPUj0iIzczNzM3MyI+Jmd0OyAgCW1hY19kZWxheS0mZ3Q7dHhf
+aW52ID0gb2ZfcHJvcGVydHlfcmVhZF9ib29sKHBsYXQtJmd0O25wLCAmcXVvdDttZWRpYXRlayx0
+eGMtaW52ZXJzZSZxdW90Oyk7PC9GT05UPg0KPEZPTlQgQ09MT1I9IiM3MzczNzMiPiZndDsgIAlt
+YWNfZGVsYXktJmd0O3J4X2ludiA9IG9mX3Byb3BlcnR5X3JlYWRfYm9vbChwbGF0LSZndDtucCwg
+JnF1b3Q7bWVkaWF0ZWsscnhjLWludmVyc2UmcXVvdDspOzwvRk9OVD4NCjxGT05UIENPTE9SPSIj
+NzM3MzczIj4mZ3Q7ICAJcGxhdC0mZ3Q7cm1paV9yeGMgPSBvZl9wcm9wZXJ0eV9yZWFkX2Jvb2wo
+cGxhdC0mZ3Q7bnAsICZxdW90O21lZGlhdGVrLHJtaWktcnhjJnF1b3Q7KTs8L0ZPTlQ+DQo8Rk9O
+VCBDT0xPUj0iIzczNzM3MyI+Jmd0OyArCXBsYXQtJmd0O3JtaWlfY2xrX2Zyb21fbWFjID0gb2Zf
+cHJvcGVydHlfcmVhZF9ib29sKHBsYXQtJmd0O25wLCAmcXVvdDttZWRpYXRlayxybWlpLWNsay1m
+cm9tLW1hYyZxdW90Oyk7PC9GT05UPg0KPEZPTlQgQ09MT1I9IiM3MzczNzMiPiZndDsgIDwvRk9O
+VD4NCjxGT05UIENPTE9SPSIjNzM3MzczIj4mZ3Q7ICAJcmV0dXJuIDA7PC9GT05UPg0KPEZPTlQg
+Q09MT1I9IiM3MzczNzMiPiZndDsgIH08L0ZPTlQ+DQo8Rk9OVCBDT0xPUj0iIzczNzM3MyI+Jmd0
+OyBAQCAtMjg3LDYgKzMwNiwxNiBAQCBzdGF0aWMgaW50IG1lZGlhdGVrX2R3bWFjX2Nsa19pbml0
+KHN0cnVjdCBtZWRpYXRla19kd21hY19wbGF0X2RhdGEgKnBsYXQpPC9GT05UPg0KPEZPTlQgQ09M
+T1I9IiM3MzczNzMiPiZndDsgIAljb25zdCBzdHJ1Y3QgbWVkaWF0ZWtfZHdtYWNfdmFyaWFudCAq
+dmFyaWFudCA9IHBsYXQtJmd0O3ZhcmlhbnQ7PC9GT05UPg0KPEZPTlQgQ09MT1I9IiM3MzczNzMi
+PiZndDsgIAlpbnQgaSwgbnVtID0gdmFyaWFudC0mZ3Q7bnVtX2Nsa3M7PC9GT05UPg0KPEZPTlQg
+Q09MT1I9IiM3MzczNzMiPiZndDsgIDwvRk9OVD4NCjxGT05UIENPTE9SPSIjNzM3MzczIj4mZ3Q7
+ICsJcGxhdC0mZ3Q7bWFjX3JtaWlfY2xrID0gTlVMTDs8L0ZPTlQ+DQo8Rk9OVCBDT0xPUj0iIzcz
+NzM3MyI+Jmd0OyArCWlmIChwbGF0LSZndDtwaHlfbW9kZSA9PSBQSFlfSU5URVJGQUNFX01PREVf
+Uk1JSSAmYW1wOyZhbXA7PC9GT05UPg0KPEZPTlQgQ09MT1I9IiM3MzczNzMiPiZndDsgKwkgICAg
+cGxhdC0mZ3Q7cm1paV9jbGtfZnJvbV9tYWMpIHs8L0ZPTlQ+DQo8Rk9OVCBDT0xPUj0iIzczNzM3
+MyI+Jmd0OyArCQlwbGF0LSZndDttYWNfcm1paV9jbGsgPSBkZXZtX2Nsa19nZXQocGxhdC0mZ3Q7
+ZGV2LCAmcXVvdDtybWlpX2ludGVybmFsJnF1b3Q7KTs8L0ZPTlQ+DQo8Rk9OVCBDT0xPUj0iIzcz
+NzM3MyI+Jmd0OyArCQlpZiAoSVNfRVJSKHBsYXQtJmd0O21hY19ybWlpX2NsaykpIHs8L0ZPTlQ+
+DQo8Rk9OVCBDT0xPUj0iIzczNzM3MyI+Jmd0OyArCQkJZGV2X2VycihwbGF0LSZndDtkZXYsICZx
+dW90O0ZhaWxlZCB0byBnZXQgcmVmZXJlbmNlIGNsayBmcm9tIE1BQ1xuJnF1b3Q7KTs8L0ZPTlQ+
+DQo8Rk9OVCBDT0xPUj0iIzczNzM3MyI+Jmd0OyArCQkJcmV0dXJuIFBUUl9FUlIocGxhdC0mZ3Q7
+bWFjX3JtaWlfY2xrKTs8L0ZPTlQ+DQo8Rk9OVCBDT0xPUj0iIzczNzM3MyI+Jmd0OyArCQl9PC9G
+T05UPg0KPEZPTlQgQ09MT1I9IiM3MzczNzMiPiZndDsgKwl9PC9GT05UPg0KDQpQbGVhc2UgZG9u
+J3QgdXNlIGEgYmluYXJ5IHByb3BlcnR5LiBUaGlzIGlzIGEgY2xvY2ssIHNvIGRlc2NyaWJlIGl0
+IGluDQpEVCBhcyBhIGNsb2NrLiBBZGQgaXQgdG8gdGhlIGV4aXN0aW5nIGxpc3Qgb2YgY2xvY2tz
+Lg0KPC9QUkU+DQo8L0JMT0NLUVVPVEU+DQpUaGUgY2xvY2sgbGFiZWxlZCBhcyAmcXVvdDtybWlp
+X2ludGVybmFsJnF1b3Q7IGlzIG5lZWRlZCBvbmx5IGluIFJNSUkod2hlbiBNQUMgcHJvdmlkZXMg
+cmVmZXJlbmNlIGNsb2NrKSwgYW5kIHVzZWxlc3MgZm9yIFJHTUlJL01JSS9STUlJKHdoZW4gcGh5
+IHByb3ZpZGVzIHJlZmVyZW5jZSBjbG9jaykuPEJSPg0KPEJSPg0KU28sIGFkZCBhIGJvb2xlYW4g
+ZmxhZyB0byBpbmRpY2F0ZSB3aGVyZSB0aGUgUk1JSSByZWZlcmVuY2UgY2xvY2sgaXMgZnJvbSwg
+TUFDIG9yIFBIWSwgaWYgTUFDLCBlbmFibGUgdGhlICZxdW90O3JtaWlfaW50ZXJuYWwmcXVvdDss
+IG9yIGRpc2FibGUgaXQuPEJSPg0KYW5kIHRoaXMgY2xvY2sgYWxyZWFkeSBkb2N1bWVudGVkIGlu
+IGR0LWJpbmRpbmcgaW4gUEFUQ0ggMi8yLjxCUj4NCjxCUj4NCkZvciBwb3dlciBzYXZpbmcsIGl0
+IHNob3VsZCBub3QgYmUgZW5hYmxlZCBpbiBkZWZhdWx0LCBzbyBjYW4ndCBhZGQgaXQgdG8gdGhl
+IGV4aXN0aW5nIGxpc3Qgb2YgY2xvY2tzIGRpcmVjdGx5LjxCUj4NCjxCUj4NCkFueSBhZHZpY2Ug
+Zm9yIHRoaXMgc3BlY2lhbCBjYXNlPzxCUj4NCjxCUj4NClRoYW5rcy4NCjxCTE9DS1FVT1RFIFRZ
+UEU9Q0lURT4NCjxQUkU+DQoNCiAgIEFuZHJldw0KPC9QUkU+DQo8L0JMT0NLUVVPVEU+DQpCaWFv
+DQo8L0JPRFk+DQo8L0hUTUw+DQo=
+
+--=-vYMoNj79R5mH3nWhdV2r--
+
+
+--===============1162960527386067781==
+Content-Type: text/plain; charset="us-ascii"
+MIME-Version: 1.0
+Content-Transfer-Encoding: 7bit
+Content-Disposition: inline
 
 _______________________________________________
 Linux-stm32 mailing list
 Linux-stm32@st-md-mailman.stormreply.com
 https://st-md-mailman.stormreply.com/mailman/listinfo/linux-stm32
+
+--===============1162960527386067781==--
+
