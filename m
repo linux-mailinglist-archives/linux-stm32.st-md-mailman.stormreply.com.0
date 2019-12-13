@@ -2,85 +2,90 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id 841EF11DDE9
-	for <lists+linux-stm32@lfdr.de>; Fri, 13 Dec 2019 06:48:17 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 5344711DF1E
+	for <lists+linux-stm32@lfdr.de>; Fri, 13 Dec 2019 09:09:28 +0100 (CET)
 Received: from ip-172-31-3-76.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 358C1C36B0B;
-	Fri, 13 Dec 2019 05:48:17 +0000 (UTC)
-Received: from pegase1.c-s.fr (pegase1.c-s.fr [93.17.236.30])
- (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id EF53AC36B0B;
+	Fri, 13 Dec 2019 08:09:27 +0000 (UTC)
+Received: from mail-pg1-f193.google.com (mail-pg1-f193.google.com
+ [209.85.215.193])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 2ECA7C36B09
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 6BCD5C36B09
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Fri, 13 Dec 2019 05:48:15 +0000 (UTC)
-Received: from localhost (mailhub1-ext [192.168.12.233])
- by localhost (Postfix) with ESMTP id 47Z07x485Xz9vBmP;
- Fri, 13 Dec 2019 06:48:13 +0100 (CET)
-Authentication-Results: localhost; dkim=pass
- reason="1024-bit key; insecure key"
- header.d=c-s.fr header.i=@c-s.fr header.b=tJUDM91F; dkim-adsp=pass;
- dkim-atps=neutral
-X-Virus-Scanned: Debian amavisd-new at c-s.fr
-Received: from pegase1.c-s.fr ([192.168.12.234])
- by localhost (pegase1.c-s.fr [192.168.12.234]) (amavisd-new, port 10024)
- with ESMTP id oCzNs4uejCNs; Fri, 13 Dec 2019 06:48:13 +0100 (CET)
-Received: from messagerie.si.c-s.fr (messagerie.si.c-s.fr [192.168.25.192])
- by pegase1.c-s.fr (Postfix) with ESMTP id 47Z07x2Rs1z9vBmM;
- Fri, 13 Dec 2019 06:48:13 +0100 (CET)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=c-s.fr; s=mail;
- t=1576216093; bh=BQ4d7QEkMTRg8NOsdUyvc3JEDM4PmMIcEcEHrzBdpQ0=;
- h=Subject:To:Cc:References:From:Date:In-Reply-To:From;
- b=tJUDM91FyihxCBUCfFONne7ugnZ8iFFeKeUQhj+N7T959PqG9XA7xm4Hfu7DJwAh+
- hP58T8c8CUvb3JGkH19+z140v8xtKBh8ia6dxZOab4uPVWMB9dPLkdIpGghqUpSp4U
- 9hKoG1jcwVd/ZPi639cOGIPW5ekef16kOiozYIvw=
-Received: from localhost (localhost [127.0.0.1])
- by messagerie.si.c-s.fr (Postfix) with ESMTP id 2D4898B767;
- Fri, 13 Dec 2019 06:48:13 +0100 (CET)
-X-Virus-Scanned: amavisd-new at c-s.fr
-Received: from messagerie.si.c-s.fr ([127.0.0.1])
- by localhost (messagerie.si.c-s.fr [127.0.0.1]) (amavisd-new, port 10023)
- with ESMTP id g7Rfokag1FcC; Fri, 13 Dec 2019 06:48:13 +0100 (CET)
-Received: from [192.168.4.90] (unknown [192.168.4.90])
- by messagerie.si.c-s.fr (Postfix) with ESMTP id C95628B893;
- Fri, 13 Dec 2019 06:47:58 +0100 (CET)
-To: Dmitry Safonov <dima@arista.com>, linux-kernel@vger.kernel.org
-References: <20191213000657.931618-1-dima@arista.com>
-From: Christophe Leroy <christophe.leroy@c-s.fr>
-Message-ID: <524d9848-28a5-7e65-699b-600c49606487@c-s.fr>
-Date: Fri, 13 Dec 2019 06:47:58 +0100
-User-Agent: Mozilla/5.0 (Windows NT 6.1; WOW64; rv:60.0) Gecko/20100101
- Thunderbird/60.9.1
+ Fri, 13 Dec 2019 00:07:16 +0000 (UTC)
+Received: by mail-pg1-f193.google.com with SMTP id z124so506711pgb.13
+ for <linux-stm32@st-md-mailman.stormreply.com>;
+ Thu, 12 Dec 2019 16:07:16 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=arista.com; s=googlenew;
+ h=from:to:cc:subject:date:message-id:mime-version
+ :content-transfer-encoding;
+ bh=iu0ZHHpoa2S/s6q/AtXMlnqWAKo36xS0Mhh784bJZYw=;
+ b=QiGJQwcgFjSO13uljrEjqqU+gpfX3BearZe4cm0Fxz712OWJLfhV+4r3S4IUDdWe3q
+ jUzW78JOYK/SejZUC83GaY+As3EQc2QE6jEMaRVazPojdNRbpnNI1BDGsdQSBZUNTLIf
+ l42Fn7f++Ak+1t/Eso6neZ1309/jr9t/hERGHDFs3hJ4VPixZQ7WRmV7HwqQCtGGK8/M
+ ZKoNcqnpS08Pt/533IO03qs9PMh6saC3HiQpwVwJ8CEJ/8KH7x+2mU1loULtGwAV7VT1
+ 4+B9pU9gbNIVphVxkpEsZjw3pEtNKf160OHo1klwj3oEy7rWBaxYyHGHQoEMvkKrGnMy
+ piQA==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20161025;
+ h=x-gm-message-state:from:to:cc:subject:date:message-id:mime-version
+ :content-transfer-encoding;
+ bh=iu0ZHHpoa2S/s6q/AtXMlnqWAKo36xS0Mhh784bJZYw=;
+ b=Hy+SPwqTIOrifNoD2KXcWS05w8FNj6gClcGKFUq/L3NeJUzRJpK6e1tTpStaLxT9G5
+ XGI4W1B6Gm70e/tdy0ev2B/kuv86+ESp4U8NbDJtwx0W6YTEE3g6dj/Q9VtBLOGZ4t2J
+ 7/WnYxfOEYGSxB8XkcZXudrBvjDZAoCDQokdy2FWU85i/fW+LnMi+qWcJxA/crHokoYH
+ vv7F863V+vfZUAh/vINswRJXPBeGHVAfHC/5i147g/DKk6/xUXnWz5jAJL2ZU9wiIHfT
+ do/PHmATYbBAz3ecbZ/1eBYUb6iD+rKuebzPKOU7k5t/Y0zfm5H/KWsIrst9Zmi1Oxyn
+ fAwA==
+X-Gm-Message-State: APjAAAX5zPpfRRPp4x9xxoZq+muteLddwJmtCAjHKQxltTeRDcjQkdZD
+ qUdzbq6FT4ksnuWnsPembHPIzw==
+X-Google-Smtp-Source: APXvYqzCsSFyDW1VNoPiCFbPpjDPM2JXmKeMPce+jSVN1BtS0JF+BuC7yZV1+AcEYKFQ0q0Fv4jYJA==
+X-Received: by 2002:a62:e50d:: with SMTP id n13mr5086768pff.201.1576195634578; 
+ Thu, 12 Dec 2019 16:07:14 -0800 (PST)
+Received: from Mindolluin.ire.aristanetworks.com ([217.173.96.166])
+ by smtp.gmail.com with ESMTPSA id j38sm8317647pgj.27.2019.12.12.16.07.05
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Thu, 12 Dec 2019 16:07:13 -0800 (PST)
+From: Dmitry Safonov <dima@arista.com>
+To: linux-kernel@vger.kernel.org
+Date: Fri, 13 Dec 2019 00:05:59 +0000
+Message-Id: <20191213000657.931618-1-dima@arista.com>
+X-Mailer: git-send-email 2.24.0
 MIME-Version: 1.0
-In-Reply-To: <20191213000657.931618-1-dima@arista.com>
-Content-Language: fr
+X-Mailman-Approved-At: Fri, 13 Dec 2019 08:09:26 +0000
 Cc: Alexandre Belloni <alexandre.belloni@bootlin.com>,
- linux-aspeed@lists.ozlabs.org, Dmitry Safonov <0x7f454c46@gmail.com>,
+ linux-aspeed@lists.ozlabs.org,
+ Benjamin Herrenschmidt <benh@kernel.crashing.org>,
+ Dmitry Safonov <0x7f454c46@gmail.com>,
  Bjorn Andersson <bjorn.andersson@linaro.org>,
  Paul Mackerras <paulus@samba.org>, "Maciej W. Rozycki" <macro@linux-mips.org>,
- sparclinux@vger.kernel.org, Fabio Estevam <festevam@gmail.com>,
- linux-stm32@st-md-mailman.stormreply.com,
- Vasiliy Khoruzhick <vasilykh@arista.com>, Alexander Shiyan <shc_work@mail.ru>,
- Kevin Hilman <khilman@baylibre.com>, Russell King <linux@armlinux.org.uk>,
+ sparclinux@vger.kernel.org, Shawn Guo <shawnguo@kernel.org>,
+ Fabio Estevam <festevam@gmail.com>, linux-stm32@st-md-mailman.stormreply.com,
+ Kees Cook <keescook@chromium.org>, Vasiliy Khoruzhick <vasilykh@arista.com>,
+ Alexander Shiyan <shc_work@mail.ru>, Dmitry Safonov <dima@arista.com>,
+ Michael Ellerman <mpe@ellerman.id.au>, Russell King <linux@armlinux.org.uk>,
  Ludovic Desroches <ludovic.desroches@microchip.com>,
  Andy Gross <agross@kernel.org>, bcm-kernel-feedback-list@broadcom.com,
  Joel Stanley <joel@jms.id.au>, linux-serial@vger.kernel.org,
  Jiri Slaby <jslaby@suse.com>, Orson Zhai <orsonzhai@gmail.com>,
- Iurii Zaikin <yzaikin@google.com>, NXP Linux Team <linux-imx@nxp.com>,
- Michal Simek <michal.simek@xilinx.com>, Kees Cook <keescook@chromium.org>,
+ Iurii Zaikin <yzaikin@google.com>, Kevin Hilman <khilman@baylibre.com>,
+ NXP Linux Team <linux-imx@nxp.com>, Michal Simek <michal.simek@xilinx.com>,
  linux-arm-msm@vger.kernel.org, Sascha Hauer <s.hauer@pengutronix.de>,
- =?UTF-8?Q?Uwe_Kleine-K=c3=b6nig?= <u.kleine-koenig@pengutronix.de>,
- Johan Hovold <johan@kernel.org>, Baolin Wang <baolin.wang7@gmail.com>,
- Florian Fainelli <f.fainelli@gmail.com>, linux-amlogic@lists.infradead.org,
- Pengutronix Kernel Team <kernel@pengutronix.de>,
- linux-arm-kernel@lists.infradead.org, Timur Tabi <timur@kernel.org>,
+ =?UTF-8?q?Uwe=20Kleine-K=C3=B6nig?= <u.kleine-koenig@pengutronix.de>,
+ Johan Hovold <johan@kernel.org>, linux-fsdevel@vger.kernel.org,
+ Florian Fainelli <f.fainelli@gmail.com>, Chunyan Zhang <zhang.lyra@gmail.com>,
+ linux-amlogic@lists.infradead.org, linux-arm-kernel@lists.infradead.org,
+ Maxime Coquelin <mcoquelin.stm32@gmail.com>, Timur Tabi <timur@kernel.org>,
  Andrew Jeffery <andrew@aj.id.au>,
- Greg Kroah-Hartman <gregkh@linuxfoundation.org>, linuxppc-dev@lists.ozlabs.org,
+ Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
  Tony Prisk <linux@prisktech.co.nz>, Richard Genoud <richard.genoud@gmail.com>,
- Luis Chamberlain <mcgrof@kernel.org>, Vineet Gupta <vgupta@synopsys.com>,
- Maxime Coquelin <mcoquelin.stm32@gmail.com>,
- Chunyan Zhang <zhang.lyra@gmail.com>, linux-fsdevel@vger.kernel.org,
- Shawn Guo <shawnguo@kernel.org>, "David S. Miller" <davem@davemloft.net>
-Subject: Re: [Linux-stm32] [PATCH 00/58] serial/sysrq: Cleanup ifdeffery
+ Luis Chamberlain <mcgrof@kernel.org>,
+ Pengutronix Kernel Team <kernel@pengutronix.de>,
+ Vineet Gupta <vgupta@synopsys.com>, Baolin Wang <baolin.wang7@gmail.com>,
+ linuxppc-dev@lists.ozlabs.org, "David S. Miller" <davem@davemloft.net>
+Subject: [Linux-stm32] [PATCH 00/58] serial/sysrq: Cleanup ifdeffery
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -92,144 +97,152 @@ List-Post: <mailto:linux-stm32@st-md-mailman.stormreply.com>
 List-Help: <mailto:linux-stm32-request@st-md-mailman.stormreply.com?subject=help>
 List-Subscribe: <https://st-md-mailman.stormreply.com/mailman/listinfo/linux-stm32>, 
  <mailto:linux-stm32-request@st-md-mailman.stormreply.com?subject=subscribe>
-Content-Transfer-Encoding: base64
-Content-Type: text/plain; charset="utf-8"; Format="flowed"
+Content-Type: text/plain; charset="us-ascii"
+Content-Transfer-Encoding: 7bit
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
-CgpMZSAxMy8xMi8yMDE5IMOgIDAxOjA1LCBEbWl0cnkgU2Fmb25vdiBhIMOpY3JpdMKgOgo+IFRo
-ZSBvcmlnaW5hbCBwdXJwb3NlIG9mIHRoZSBwYXRjaGVzIHNldCB3YXMgdG8gYWRkIGEgd2F5IHRv
-IGVuYWJsZQo+IHN5c3JxIG9uIGEgdWFydCB3aGVyZSBjdXJyZW50bHkgaXQgY2FuIGJlIGNvbnN0
-YW50bHkgZWl0aGVyIG9uIG9yIG9mZgo+IChDT05GSUdfTUFHSUNfU1lTUlFfU0VSSUFMKSwgc2Vl
-IHRoZSBsYXN0IHBhdGNoOgo+ICAgICJzZXJpYWwvc3lzcnE6IEFkZCBNQUdJQ19TWVNSUV9TRVJJ
-QUxfU0VRVUVOQ0UiCj4gCj4gQnV0IHRvIGRvIHRoYXQsIEkgaGFkIHRvIGFkZCB1YXJ0X3RyeV90
-b2dnbGVfc3lzcnEoKSBhbmQgSSBkaWRuJ3Qgd2FudAo+IHRvIGJsb2F0IHNlcmlhbF9jb3JlLmgg
-ZXZlbiBtb3JlLiBTbywgSSBkaWQgY2xlYW51cCBieSByZW1vdmluZwo+IFNVUFBPUlRfU1lTUlEg
-cmVzdWx0aW5nIGluIGEgbmljZSBkaWZmLXN0YXQgYW5kIGxlc3NlciBpZmRlZmZlcnkuCj4gCj4g
-TW9zdCBwYXRjaGVzIGFyZSBvbmUtbGluZXJzLCBJIGRlY2lkZWQgdG8ga2VlcCB0aGVtIHNlcGFy
-YXRlZCBwZXItZHJpdmVyCj4gdG8gbGV0IHJldmlld2VycyBlYXNpZXIgZm9sbG93IHRoZSBwdXJw
-b3NlLgo+IAo+IENjOiBHcmVnIEtyb2FoLUhhcnRtYW4gPGdyZWdraEBsaW51eGZvdW5kYXRpb24u
-b3JnPgo+IENjOiBKaXJpIFNsYWJ5IDxqc2xhYnlAc3VzZS5jb20+Cj4gQ2M6IFZhc2lsaXkgS2hv
-cnV6aGljayA8dmFzaWx5a2hAYXJpc3RhLmNvbT4KPiBDYzogbGludXgtc2VyaWFsQHZnZXIua2Vy
-bmVsLm9yZwo+IAo+IERtaXRyeSBTYWZvbm92ICg1OCk6Cj4gICAgc3lzcnE6IFJlbW92ZSBzeXNy
-cV9oYW5kbGVyX3JlZ2lzdGVyZWQKPiAgICBzZXJpYWw6IE1vdmUgc3lzcnEgbWVtYmVycyBhYm92
-ZQo+ICAgIHNlcmlhbF9jb3JlOiBVbi1pZmRlZiBzeXNycSBTVVBQT1JUX1NZU1JRCj4gICAgdHR5
-L3NlcmlhbDogTWlncmF0ZSBhc3BlZWRfdnVhcnQgdG8gdXNlIGhhc19zeXNycQo+ICAgIHR0eS9z
-ZXJpYWw6IE1pZ3JhdGUgODI1MF9mc2wgdG8gdXNlIGhhc19zeXNycQo+ICAgIHR0eS9zZXJpYWw6
-IE1pZ3JhdGUgYmNtNjN4eF91YXJ0IHRvIHVzZSBoYXNfc3lzcnEKPiAgICB0dHkvc2VyaWFsOiBN
-aWdyYXRlIDgyNTBfb21hcCB0byB1c2UgaGFzX3N5c3JxCj4gICAgdHR5L3NlcmlhbDogTWlncmF0
-ZSA4MjUwX3BvcnQgdG8gdXNlIGhhc19zeXNycQo+ICAgIHR0eS9zZXJpYWw6IE1pZ3JhdGUgYW1i
-YS1wbDAxKiB0byB1c2UgaGFzX3N5c3JxCj4gICAgdHR5L3NlcmlhbDogTWlncmF0ZSBhcGJ1YXJ0
-IHRvIHVzZSBoYXNfc3lzcnEKPiAgICB0dHkvc2VyaWFsOiBNaWdyYXRlIGFyY191YXJ0IHRvIHVz
-ZSBoYXNfc3lzcnEKPiAgICB0dHkvc2VyaWFsOiBNaWdyYXRlIGF0bWVsX3NlcmlhbCB0byB1c2Ug
-aGFzX3N5c3JxCj4gICAgdHR5L3NlcmlhbDogTWlncmF0ZSBjbHBzNzExeCB0byB1c2UgaGFzX3N5
-c3JxCj4gICAgdHR5L3NlcmlhbDogTWlncmF0ZSBjcG1fdWFydCB0byB1c2UgaGFzX3N5c3JxCj4g
-ICAgdHR5L3NlcmlhbDogTWlncmF0ZSBkeiB0byB1c2UgaGFzX3N5c3JxCj4gICAgdHR5L3Nlcmlh
-bDogTWlncmF0ZSBlZm0zMi11YXJ0IHRvIHVzZSBoYXNfc3lzcnEKPiAgICB0dHkvc2VyaWFsOiBN
-aWdyYXRlIGZzbF9saW5mbGV4dWFydCB0byB1c2UgaGFzX3N5c3JxCj4gICAgdHR5L3NlcmlhbDog
-TWlncmF0ZSBmc2xfbHB1YXJ0IHRvIHVzZSBoYXNfc3lzcnEKPiAgICB0dHkvc2VyaWFsOiBNaWdy
-YXRlIGlteCB0byB1c2UgaGFzX3N5c3JxCj4gICAgdHR5L3NlcmlhbDogTWlncmF0ZSBpcDIyemls
-b2cgdG8gdXNlIGhhc19zeXNycQo+ICAgIHR0eS9zZXJpYWw6IE1pZ3JhdGUgbWVzb25fdWFydCB0
-byB1c2UgaGFzX3N5c3JxCj4gICAgdHR5L3NlcmlhbDogTWlncmF0ZSBtaWxiZWF1dF91c2lvIHRv
-IHVzZSBoYXNfc3lzcnEKPiAgICB0dHkvc2VyaWFsOiBNaWdyYXRlIG1wYzUyeHhfdWFydCB0byB1
-c2UgaGFzX3N5c3JxCj4gICAgdHR5L3NlcmlhbDogRG9uJ3QgemVybyBwb3J0LT5zeXNycQo+ICAg
-IHR0eS9zZXJpYWw6IE1pZ3JhdGUgbXNtX3NlcmlhbCB0byB1c2UgaGFzX3N5c3JxCj4gICAgdHR5
-L3NlcmlhbDogTWlncmF0ZSBtdXggdG8gdXNlIGhhc19zeXNycQo+ICAgIHR0eS9zZXJpYWw6IE1p
-Z3JhdGUgbXhzLWF1YXJ0IHRvIHVzZSBoYXNfc3lzcnEKPiAgICB0dHkvc2VyaWFsOiBNaWdyYXRl
-IG9tYXAtc2VyaWFsIHRvIHVzZSBoYXNfc3lzcnEKPiAgICB0dHkvc2VyaWFsOiBNaWdyYXRlIHBj
-aF91YXJ0IHRvIHVzZSBoYXNfc3lzcnEKPiAgICB0dHkvc2VyaWFsOiBEb24ndCBjaGVjayBwb3J0
-LT5zeXNycQo+ICAgIHR0eS9zZXJpYWw6IE1pZ3JhdGUgcG1hY196aWxvZyB0byB1c2UgaGFzX3N5
-c3JxCj4gICAgdHR5L3NlcmlhbDogTWlncmF0ZSBwbng4eHh4X3VhcnQgdG8gdXNlIGhhc19zeXNy
-cQo+ICAgIHNlcmlhbC9mODE1MzQ6IERvbid0IGNoZWNrIHBvcnQtPnN5c3JxCj4gICAgdHR5L3Nl
-cmlhbDogTWlncmF0ZSBweGEgdG8gdXNlIGhhc19zeXNycQo+ICAgIHR0eS9zZXJpYWw6IE1pZ3Jh
-dGUgcWNvbV9nZW5pX3NlcmlhbCB0byB1c2UgaGFzX3N5c3JxCj4gICAgdHR5L3NlcmlhbDogTWln
-cmF0ZSBzYTExMDAgdG8gdXNlIGhhc19zeXNycQo+ICAgIHR0eS9zZXJpYWw6IE1pZ3JhdGUgc2Ft
-c3VuZ190dHkgdG8gdXNlIGhhc19zeXNycQo+ICAgIHR0eS9zZXJpYWw6IE1pZ3JhdGUgc2IxMjUw
-LWR1YXJ0IHRvIHVzZSBoYXNfc3lzcnEKPiAgICB0dHkvc2VyaWFsOiBNaWdyYXRlIHNjY254cCB0
-byB1c2UgaGFzX3N5c3JxCj4gICAgdHR5L3NlcmlhbDogTWlncmF0ZSBzZXJpYWxfdHh4OSB0byB1
-c2UgaGFzX3N5c3JxCj4gICAgdHR5L3NlcmlhbDogTWlncmF0ZSBzaC1zY2kgdG8gdXNlIGhhc19z
-eXNycQo+ICAgIHR0eS9zZXJpYWw6IE1pZ3JhdGUgc3ByZF9zZXJpYWwgdG8gdXNlIGhhc19zeXNy
-cQo+ICAgIHR0eS9zZXJpYWw6IE1pZ3JhdGUgc3QtYXNjIHRvIHVzZSBoYXNfc3lzcnEKPiAgICB0
-dHkvc2VyaWFsOiBNaWdyYXRlIHN0bTMyLXVzYXJ0IHRvIHVzZSBoYXNfc3lzcnEKPiAgICB0dHkv
-c2VyaWFsOiBNaWdyYXRlIHN1bmh2IHRvIHVzZSBoYXNfc3lzcnEKPiAgICB0dHkvc2VyaWFsOiBN
-aWdyYXRlIHN1bnNhYiB0byB1c2UgaGFzX3N5c3JxCj4gICAgdHR5L3NlcmlhbDogTWlncmF0ZSBz
-dW5zdSB0byB1c2UgaGFzX3N5c3JxCj4gICAgdHR5L3NlcmlhbDogTWlncmF0ZSBzdW56aWxvZyB0
-byB1c2UgaGFzX3N5c3JxCj4gICAgc2VyaWFsL3VjY191YXJ0OiBSZW1vdmUgaWZkZWYgU1VQUE9S
-VF9TWVNSUQo+ICAgIHR0eS9zZXJpYWw6IE1pZ3JhdGUgdnI0MXh4X3NpdSB0byB1c2UgaGFzX3N5
-c3JxCj4gICAgdHR5L3NlcmlhbDogTWlncmF0ZSB2dDg1MDBfc2VyaWFsIHRvIHVzZSBoYXNfc3lz
-cnEKPiAgICB0dHkvc2VyaWFsOiBNaWdyYXRlIHhpbGlueF91YXJ0cHMgdG8gdXNlIGhhc19zeXNy
-cQo+ICAgIHR0eS9zZXJpYWw6IE1pZ3JhdGUgenMgdG8gdXNlIGhhc19zeXNycQo+ICAgIHNlcmlh
-bF9jb3JlOiBSZW1vdmUgU1VQUE9SVF9TWVNSUSBpZmRlZmZlcnkKPiAgICB1c2Ivc2VyaWFsOiBE
-b24ndCBoYW5kbGUgYnJlYWsgd2hlbiBDT05GSUdfTUFHSUNfU1lTUlEgaXMgZGlzYWJsZWQKPiAg
-ICBzZXJpYWxfY29yZTogTW92ZSBzeXNycSBmdW5jdGlvbnMgZnJvbSBoZWFkZXIgZmlsZQo+ICAg
-IHN5c2N0bC9zeXNycTogUmVtb3ZlIF9fc3lzcnFfZW5hYmxlZCBjb3B5Cj4gICAgc2VyaWFsL3N5
-c3JxOiBBZGQgTUFHSUNfU1lTUlFfU0VSSUFMX1NFUVVFTkNFCgpwb3dlcnBjIHBhdGNod29yayBk
-aWRuJ3QgZ2V0IHRoZSBmdWxsIHNlcmllcywgc2VlIApodHRwczovL3BhdGNod29yay5vemxhYnMu
-b3JnL3Byb2plY3QvbGludXhwcGMtZGV2L2xpc3QvP3Nlcmllcz0xNDgxOTgKCkNhbid0IGZpbmQg
-dGhlbSBvbiBsaW51eC1zZXJpYWwgcGF0Y2h3b3JrIGVpdGhlciAKKGh0dHBzOi8vcGF0Y2hlcy5s
-aW5hcm8ub3JnL3Byb2plY3QvbGludXgtc2VyaWFsL2xpc3QvKQoKSXQgaXMgaW1wb3NzaWJsZSB0
-byByZXZpZXcvdGVzdCBwb3dlcnBjIGJpdHMgd2l0aG91dCB0aGUgZmlyc3QgcGF0Y2hlcyAKb2Yg
-dGhlIHNlcmllcywgd2hlcmUgY2FuIHRoZSBlbnRpcmUgc2VyaWVzIGJlIGZvdW5kID8KCkNocmlz
-dG9waGUKCj4gCj4gICBhcmNoL3Bvd2VycGMva2VybmVsL2xlZ2FjeV9zZXJpYWwuYyAgICAgICAg
-IHwgICA0ICstCj4gICBkcml2ZXJzL3R0eS9zZXJpYWwvODI1MC84MjUwX2FzcGVlZF92dWFydC5j
-IHwgICA1ICstCj4gICBkcml2ZXJzL3R0eS9zZXJpYWwvODI1MC84MjUwX2ZzbC5jICAgICAgICAg
-IHwgICA0IC0KPiAgIGRyaXZlcnMvdHR5L3NlcmlhbC84MjUwLzgyNTBfb2YuYyAgICAgICAgICAg
-fCAgIDQgKy0KPiAgIGRyaXZlcnMvdHR5L3NlcmlhbC84MjUwLzgyNTBfb21hcC5jICAgICAgICAg
-fCAgIDUgKy0KPiAgIGRyaXZlcnMvdHR5L3NlcmlhbC84MjUwLzgyNTBfcG9ydC5jICAgICAgICAg
-fCAgIDUgKy0KPiAgIGRyaXZlcnMvdHR5L3NlcmlhbC9hbWJhLXBsMDEwLmMgICAgICAgICAgICAg
-fCAgIDUgKy0KPiAgIGRyaXZlcnMvdHR5L3NlcmlhbC9hbWJhLXBsMDExLmMgICAgICAgICAgICAg
-fCAgIDYgKy0KPiAgIGRyaXZlcnMvdHR5L3NlcmlhbC9hcGJ1YXJ0LmMgICAgICAgICAgICAgICAg
-fCAgIDUgKy0KPiAgIGRyaXZlcnMvdHR5L3NlcmlhbC9hcmNfdWFydC5jICAgICAgICAgICAgICAg
-fCAgIDUgKy0KPiAgIGRyaXZlcnMvdHR5L3NlcmlhbC9hdG1lbF9zZXJpYWwuYyAgICAgICAgICAg
-fCAgIDkgKy0KPiAgIGRyaXZlcnMvdHR5L3NlcmlhbC9iY202M3h4X3VhcnQuYyAgICAgICAgICAg
-fCAgIDUgKy0KPiAgIGRyaXZlcnMvdHR5L3NlcmlhbC9jbHBzNzExeC5jICAgICAgICAgICAgICAg
-fCAgIDUgKy0KPiAgIGRyaXZlcnMvdHR5L3NlcmlhbC9jcG1fdWFydC9jcG1fdWFydF9jb3JlLmMg
-fCAgIDkgKy0KPiAgIGRyaXZlcnMvdHR5L3NlcmlhbC9kei5jICAgICAgICAgICAgICAgICAgICAg
-fCAgIDUgKy0KPiAgIGRyaXZlcnMvdHR5L3NlcmlhbC9lZm0zMi11YXJ0LmMgICAgICAgICAgICAg
-fCAgIDUgKy0KPiAgIGRyaXZlcnMvdHR5L3NlcmlhbC9mc2xfbGluZmxleHVhcnQuYyAgICAgICAg
-fCAgIDggKy0KPiAgIGRyaXZlcnMvdHR5L3NlcmlhbC9mc2xfbHB1YXJ0LmMgICAgICAgICAgICAg
-fCAgIDkgKy0KPiAgIGRyaXZlcnMvdHR5L3NlcmlhbC9pbXguYyAgICAgICAgICAgICAgICAgICAg
-fCAgIDcgKy0KPiAgIGRyaXZlcnMvdHR5L3NlcmlhbC9pcDIyemlsb2cuYyAgICAgICAgICAgICAg
-fCAgIDcgKy0KPiAgIGRyaXZlcnMvdHR5L3NlcmlhbC9tZXNvbl91YXJ0LmMgICAgICAgICAgICAg
-fCAgIDUgKy0KPiAgIGRyaXZlcnMvdHR5L3NlcmlhbC9taWxiZWF1dF91c2lvLmMgICAgICAgICAg
-fCAgIDUgKy0KPiAgIGRyaXZlcnMvdHR5L3NlcmlhbC9tcGM1Mnh4X3VhcnQuYyAgICAgICAgICAg
-fCAgMTEgKy0KPiAgIGRyaXZlcnMvdHR5L3NlcmlhbC9tc21fc2VyaWFsLmMgICAgICAgICAgICAg
-fCAgIDUgKy0KPiAgIGRyaXZlcnMvdHR5L3NlcmlhbC9tdXguYyAgICAgICAgICAgICAgICAgICAg
-fCAgIDUgKy0KPiAgIGRyaXZlcnMvdHR5L3NlcmlhbC9teHMtYXVhcnQuYyAgICAgICAgICAgICAg
-fCAgIDUgKy0KPiAgIGRyaXZlcnMvdHR5L3NlcmlhbC9vbWFwLXNlcmlhbC5jICAgICAgICAgICAg
-fCAgIDUgKy0KPiAgIGRyaXZlcnMvdHR5L3NlcmlhbC9wY2hfdWFydC5jICAgICAgICAgICAgICAg
-fCAgMTIgKy0KPiAgIGRyaXZlcnMvdHR5L3NlcmlhbC9wbWFjX3ppbG9nLmMgICAgICAgICAgICAg
-fCAgIDUgKy0KPiAgIGRyaXZlcnMvdHR5L3NlcmlhbC9wbng4eHh4X3VhcnQuYyAgICAgICAgICAg
-fCAgIDcgKy0KPiAgIGRyaXZlcnMvdHR5L3NlcmlhbC9weGEuYyAgICAgICAgICAgICAgICAgICAg
-fCAgIDUgKy0KPiAgIGRyaXZlcnMvdHR5L3NlcmlhbC9xY29tX2dlbmlfc2VyaWFsLmMgICAgICAg
-fCAgIDUgKy0KPiAgIGRyaXZlcnMvdHR5L3NlcmlhbC9zYTExMDAuYyAgICAgICAgICAgICAgICAg
-fCAgIDcgKy0KPiAgIGRyaXZlcnMvdHR5L3NlcmlhbC9zYW1zdW5nX3R0eS5jICAgICAgICAgICAg
-fCAgIDUgKy0KPiAgIGRyaXZlcnMvdHR5L3NlcmlhbC9zYjEyNTAtZHVhcnQuYyAgICAgICAgICAg
-fCAgIDUgKy0KPiAgIGRyaXZlcnMvdHR5L3NlcmlhbC9zY2NueHAuYyAgICAgICAgICAgICAgICAg
-fCAgIDUgKy0KPiAgIGRyaXZlcnMvdHR5L3NlcmlhbC9zZXJpYWxfY29yZS5jICAgICAgICAgICAg
-fCAxMjMgKysrKysrKysrKysrKysrKysrKysKPiAgIGRyaXZlcnMvdHR5L3NlcmlhbC9zZXJpYWxf
-dHh4OS5jICAgICAgICAgICAgfCAgIDUgKy0KPiAgIGRyaXZlcnMvdHR5L3NlcmlhbC9zaC1zY2ku
-YyAgICAgICAgICAgICAgICAgfCAgMTAgKy0KPiAgIGRyaXZlcnMvdHR5L3NlcmlhbC9zcHJkX3Nl
-cmlhbC5jICAgICAgICAgICAgfCAgIDUgKy0KPiAgIGRyaXZlcnMvdHR5L3NlcmlhbC9zdC1hc2Mu
-YyAgICAgICAgICAgICAgICAgfCAgIDUgKy0KPiAgIGRyaXZlcnMvdHR5L3NlcmlhbC9zdG0zMi11
-c2FydC5jICAgICAgICAgICAgfCAgIDUgKy0KPiAgIGRyaXZlcnMvdHR5L3NlcmlhbC9zdW5odi5j
-ICAgICAgICAgICAgICAgICAgfCAgIDUgKy0KPiAgIGRyaXZlcnMvdHR5L3NlcmlhbC9zdW5zYWIu
-YyAgICAgICAgICAgICAgICAgfCAgIDUgKy0KPiAgIGRyaXZlcnMvdHR5L3NlcmlhbC9zdW5zdS5j
-ICAgICAgICAgICAgICAgICAgfCAgIDUgKy0KPiAgIGRyaXZlcnMvdHR5L3NlcmlhbC9zdW56aWxv
-Zy5jICAgICAgICAgICAgICAgfCAgIDYgKy0KPiAgIGRyaXZlcnMvdHR5L3NlcmlhbC91Y2NfdWFy
-dC5jICAgICAgICAgICAgICAgfCAgIDIgLQo+ICAgZHJpdmVycy90dHkvc2VyaWFsL3ZyNDF4eF9z
-aXUuYyAgICAgICAgICAgICB8ICAgNSArLQo+ICAgZHJpdmVycy90dHkvc2VyaWFsL3Z0ODUwMF9z
-ZXJpYWwuYyAgICAgICAgICB8ICAgNSArLQo+ICAgZHJpdmVycy90dHkvc2VyaWFsL3hpbGlueF91
-YXJ0cHMuYyAgICAgICAgICB8ICAgNSArLQo+ICAgZHJpdmVycy90dHkvc2VyaWFsL3pzLmMgICAg
-ICAgICAgICAgICAgICAgICB8ICAgNSArLQo+ICAgZHJpdmVycy90dHkvc3lzcnEuYyAgICAgICAg
-ICAgICAgICAgICAgICAgICB8ICAxNiArLS0KPiAgIGRyaXZlcnMvdXNiL3NlcmlhbC9mODE1MzQu
-YyAgICAgICAgICAgICAgICAgfCAgIDYgKy0KPiAgIGRyaXZlcnMvdXNiL3NlcmlhbC9nZW5lcmlj
-LmMgICAgICAgICAgICAgICAgfCAgMTAgKy0KPiAgIGluY2x1ZGUvbGludXgvc2VyaWFsX2NvcmUu
-aCAgICAgICAgICAgICAgICAgfCAgOTIgKystLS0tLS0tLS0tLS0tCj4gICBpbmNsdWRlL2xpbnV4
-L3N5c3JxLmggICAgICAgICAgICAgICAgICAgICAgIHwgICAxICsKPiAgIGtlcm5lbC9zeXNjdGwu
-YyAgICAgICAgICAgICAgICAgICAgICAgICAgICAgfCAgNDEgKysrKy0tLQo+ICAgbGliL0tjb25m
-aWcuZGVidWcgICAgICAgICAgICAgICAgICAgICAgICAgICB8ICAgOCArKwo+ICAgNTggZmlsZXMg
-Y2hhbmdlZCwgMjM4IGluc2VydGlvbnMoKyksIDM0NiBkZWxldGlvbnMoLSkKPiAKX19fX19fX19f
-X19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX18KTGludXgtc3RtMzIgbWFpbGlu
-ZyBsaXN0CkxpbnV4LXN0bTMyQHN0LW1kLW1haWxtYW4uc3Rvcm1yZXBseS5jb20KaHR0cHM6Ly9z
-dC1tZC1tYWlsbWFuLnN0b3JtcmVwbHkuY29tL21haWxtYW4vbGlzdGluZm8vbGludXgtc3RtMzIK
+The original purpose of the patches set was to add a way to enable
+sysrq on a uart where currently it can be constantly either on or off
+(CONFIG_MAGIC_SYSRQ_SERIAL), see the last patch:
+  "serial/sysrq: Add MAGIC_SYSRQ_SERIAL_SEQUENCE"
+
+But to do that, I had to add uart_try_toggle_sysrq() and I didn't want
+to bloat serial_core.h even more. So, I did cleanup by removing
+SUPPORT_SYSRQ resulting in a nice diff-stat and lesser ifdeffery.
+
+Most patches are one-liners, I decided to keep them separated per-driver
+to let reviewers easier follow the purpose.
+
+Cc: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
+Cc: Jiri Slaby <jslaby@suse.com>
+Cc: Vasiliy Khoruzhick <vasilykh@arista.com>
+Cc: linux-serial@vger.kernel.org
+
+Dmitry Safonov (58):
+  sysrq: Remove sysrq_handler_registered
+  serial: Move sysrq members above
+  serial_core: Un-ifdef sysrq SUPPORT_SYSRQ
+  tty/serial: Migrate aspeed_vuart to use has_sysrq
+  tty/serial: Migrate 8250_fsl to use has_sysrq
+  tty/serial: Migrate bcm63xx_uart to use has_sysrq
+  tty/serial: Migrate 8250_omap to use has_sysrq
+  tty/serial: Migrate 8250_port to use has_sysrq
+  tty/serial: Migrate amba-pl01* to use has_sysrq
+  tty/serial: Migrate apbuart to use has_sysrq
+  tty/serial: Migrate arc_uart to use has_sysrq
+  tty/serial: Migrate atmel_serial to use has_sysrq
+  tty/serial: Migrate clps711x to use has_sysrq
+  tty/serial: Migrate cpm_uart to use has_sysrq
+  tty/serial: Migrate dz to use has_sysrq
+  tty/serial: Migrate efm32-uart to use has_sysrq
+  tty/serial: Migrate fsl_linflexuart to use has_sysrq
+  tty/serial: Migrate fsl_lpuart to use has_sysrq
+  tty/serial: Migrate imx to use has_sysrq
+  tty/serial: Migrate ip22zilog to use has_sysrq
+  tty/serial: Migrate meson_uart to use has_sysrq
+  tty/serial: Migrate milbeaut_usio to use has_sysrq
+  tty/serial: Migrate mpc52xx_uart to use has_sysrq
+  tty/serial: Don't zero port->sysrq
+  tty/serial: Migrate msm_serial to use has_sysrq
+  tty/serial: Migrate mux to use has_sysrq
+  tty/serial: Migrate mxs-auart to use has_sysrq
+  tty/serial: Migrate omap-serial to use has_sysrq
+  tty/serial: Migrate pch_uart to use has_sysrq
+  tty/serial: Don't check port->sysrq
+  tty/serial: Migrate pmac_zilog to use has_sysrq
+  tty/serial: Migrate pnx8xxx_uart to use has_sysrq
+  serial/f81534: Don't check port->sysrq
+  tty/serial: Migrate pxa to use has_sysrq
+  tty/serial: Migrate qcom_geni_serial to use has_sysrq
+  tty/serial: Migrate sa1100 to use has_sysrq
+  tty/serial: Migrate samsung_tty to use has_sysrq
+  tty/serial: Migrate sb1250-duart to use has_sysrq
+  tty/serial: Migrate sccnxp to use has_sysrq
+  tty/serial: Migrate serial_txx9 to use has_sysrq
+  tty/serial: Migrate sh-sci to use has_sysrq
+  tty/serial: Migrate sprd_serial to use has_sysrq
+  tty/serial: Migrate st-asc to use has_sysrq
+  tty/serial: Migrate stm32-usart to use has_sysrq
+  tty/serial: Migrate sunhv to use has_sysrq
+  tty/serial: Migrate sunsab to use has_sysrq
+  tty/serial: Migrate sunsu to use has_sysrq
+  tty/serial: Migrate sunzilog to use has_sysrq
+  serial/ucc_uart: Remove ifdef SUPPORT_SYSRQ
+  tty/serial: Migrate vr41xx_siu to use has_sysrq
+  tty/serial: Migrate vt8500_serial to use has_sysrq
+  tty/serial: Migrate xilinx_uartps to use has_sysrq
+  tty/serial: Migrate zs to use has_sysrq
+  serial_core: Remove SUPPORT_SYSRQ ifdeffery
+  usb/serial: Don't handle break when CONFIG_MAGIC_SYSRQ is disabled
+  serial_core: Move sysrq functions from header file
+  sysctl/sysrq: Remove __sysrq_enabled copy
+  serial/sysrq: Add MAGIC_SYSRQ_SERIAL_SEQUENCE
+
+ arch/powerpc/kernel/legacy_serial.c         |   4 +-
+ drivers/tty/serial/8250/8250_aspeed_vuart.c |   5 +-
+ drivers/tty/serial/8250/8250_fsl.c          |   4 -
+ drivers/tty/serial/8250/8250_of.c           |   4 +-
+ drivers/tty/serial/8250/8250_omap.c         |   5 +-
+ drivers/tty/serial/8250/8250_port.c         |   5 +-
+ drivers/tty/serial/amba-pl010.c             |   5 +-
+ drivers/tty/serial/amba-pl011.c             |   6 +-
+ drivers/tty/serial/apbuart.c                |   5 +-
+ drivers/tty/serial/arc_uart.c               |   5 +-
+ drivers/tty/serial/atmel_serial.c           |   9 +-
+ drivers/tty/serial/bcm63xx_uart.c           |   5 +-
+ drivers/tty/serial/clps711x.c               |   5 +-
+ drivers/tty/serial/cpm_uart/cpm_uart_core.c |   9 +-
+ drivers/tty/serial/dz.c                     |   5 +-
+ drivers/tty/serial/efm32-uart.c             |   5 +-
+ drivers/tty/serial/fsl_linflexuart.c        |   8 +-
+ drivers/tty/serial/fsl_lpuart.c             |   9 +-
+ drivers/tty/serial/imx.c                    |   7 +-
+ drivers/tty/serial/ip22zilog.c              |   7 +-
+ drivers/tty/serial/meson_uart.c             |   5 +-
+ drivers/tty/serial/milbeaut_usio.c          |   5 +-
+ drivers/tty/serial/mpc52xx_uart.c           |  11 +-
+ drivers/tty/serial/msm_serial.c             |   5 +-
+ drivers/tty/serial/mux.c                    |   5 +-
+ drivers/tty/serial/mxs-auart.c              |   5 +-
+ drivers/tty/serial/omap-serial.c            |   5 +-
+ drivers/tty/serial/pch_uart.c               |  12 +-
+ drivers/tty/serial/pmac_zilog.c             |   5 +-
+ drivers/tty/serial/pnx8xxx_uart.c           |   7 +-
+ drivers/tty/serial/pxa.c                    |   5 +-
+ drivers/tty/serial/qcom_geni_serial.c       |   5 +-
+ drivers/tty/serial/sa1100.c                 |   7 +-
+ drivers/tty/serial/samsung_tty.c            |   5 +-
+ drivers/tty/serial/sb1250-duart.c           |   5 +-
+ drivers/tty/serial/sccnxp.c                 |   5 +-
+ drivers/tty/serial/serial_core.c            | 123 ++++++++++++++++++++
+ drivers/tty/serial/serial_txx9.c            |   5 +-
+ drivers/tty/serial/sh-sci.c                 |  10 +-
+ drivers/tty/serial/sprd_serial.c            |   5 +-
+ drivers/tty/serial/st-asc.c                 |   5 +-
+ drivers/tty/serial/stm32-usart.c            |   5 +-
+ drivers/tty/serial/sunhv.c                  |   5 +-
+ drivers/tty/serial/sunsab.c                 |   5 +-
+ drivers/tty/serial/sunsu.c                  |   5 +-
+ drivers/tty/serial/sunzilog.c               |   6 +-
+ drivers/tty/serial/ucc_uart.c               |   2 -
+ drivers/tty/serial/vr41xx_siu.c             |   5 +-
+ drivers/tty/serial/vt8500_serial.c          |   5 +-
+ drivers/tty/serial/xilinx_uartps.c          |   5 +-
+ drivers/tty/serial/zs.c                     |   5 +-
+ drivers/tty/sysrq.c                         |  16 +--
+ drivers/usb/serial/f81534.c                 |   6 +-
+ drivers/usb/serial/generic.c                |  10 +-
+ include/linux/serial_core.h                 |  92 ++-------------
+ include/linux/sysrq.h                       |   1 +
+ kernel/sysctl.c                             |  41 ++++---
+ lib/Kconfig.debug                           |   8 ++
+ 58 files changed, 238 insertions(+), 346 deletions(-)
+
+-- 
+2.24.0
+
+_______________________________________________
+Linux-stm32 mailing list
+Linux-stm32@st-md-mailman.stormreply.com
+https://st-md-mailman.stormreply.com/mailman/listinfo/linux-stm32
