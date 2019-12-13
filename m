@@ -2,70 +2,59 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id 5383411DF1F
-	for <lists+linux-stm32@lfdr.de>; Fri, 13 Dec 2019 09:09:28 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 97FFB11E14F
+	for <lists+linux-stm32@lfdr.de>; Fri, 13 Dec 2019 10:58:08 +0100 (CET)
 Received: from ip-172-31-3-76.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 1231AC36B0E;
-	Fri, 13 Dec 2019 08:09:28 +0000 (UTC)
-Received: from mail-pj1-f65.google.com (mail-pj1-f65.google.com
- [209.85.216.65])
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 4C4D2C36B0B;
+	Fri, 13 Dec 2019 09:58:08 +0000 (UTC)
+Received: from mail-lj1-f196.google.com (mail-lj1-f196.google.com
+ [209.85.208.196])
  (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 63067C36B09
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 01D0DC36B09
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Fri, 13 Dec 2019 00:09:26 +0000 (UTC)
-Received: by mail-pj1-f65.google.com with SMTP id r67so356381pjb.0
+ Fri, 13 Dec 2019 09:58:05 +0000 (UTC)
+Received: by mail-lj1-f196.google.com with SMTP id k8so1966315ljh.5
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Thu, 12 Dec 2019 16:09:26 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=arista.com; s=googlenew;
- h=from:to:cc:subject:date:message-id:in-reply-to:references
- :mime-version:content-transfer-encoding;
- bh=k2sVyEICGfKf72nEjPqSRaSmfvJt+VQfuvvM6oc7m9s=;
- b=MwyEdNtFfmjQZoB27Q0dIhnKa/eRsscBYXgN6mThQHZ0xuN2ZLNKi6ckLFpOQcPk+I
- NEzKUZY20I58iWtE45s2LmQvI8w3hNRVu//WpT5ZtNqDzUOxrG64HmkEASgMeCHQTYsF
- BERyiqKnSCv+Ntjq+29FADDKOnA7VRMDTnxpTxarc8+nLThS9SCFZDQDKEgOxRraWxtc
- mDUv5ABTRatRqAX5ufBfjct3CXHzkTHAAHIy1M6tlMHU59duHo5mn7JSUfcm8cmLplf2
- wmacPO5wGfnv2SXChdmY0aR2WF1f1/LIscRo2PIXHQtebaWsP6SCeTlACqAjfLxoowH2
- 7pmg==
+ Fri, 13 Dec 2019 01:58:05 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linaro.org; s=google;
+ h=mime-version:references:in-reply-to:from:date:message-id:subject:to
+ :cc; bh=gQvjoAIq1lwY1cihw0edTlVsvS4hblrvKhZLt2o7yRo=;
+ b=U/gCvQa0C8fp3iVKJhx0vBUt0PKFuNFM6SSSB6ihOGiYf8DrW7iq+1YekeCTTxXOVW
+ wA9kO32dpsd0uQM8TAz8UtneQN+P/STd9y7C3oklU8IKWKq4HLmauGD6BnpmZ7iDuZng
+ SQo0ak1qNqQdQLAdjdJpaRZMNsmlbROrTck2PxWSMWA1pEXtJHWUll0tFoE44sU342Nf
+ +iVXD4rDz2GqEaL+j34YCkxDq6MgJkT5saOWL12O+djrWRrzFUS/8TEWdE85vTOOgq0/
+ p+FTg/6IfT6Yw6EICXB0kxMXmQY+b4urp1jV9t48Nuj+ruxYKT1BlDjg1hghnJZ+lVvZ
+ t1hQ==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=1e100.net; s=20161025;
- h=x-gm-message-state:from:to:cc:subject:date:message-id:in-reply-to
- :references:mime-version:content-transfer-encoding;
- bh=k2sVyEICGfKf72nEjPqSRaSmfvJt+VQfuvvM6oc7m9s=;
- b=uBV7SolzOZhGmnz+RLUUqvrzMIeSukFe8Uu2zzGEEkhhKA0iXO9vLqL9ulGOnsjSp4
- t+1T3SMLPLsnO27TtXr7oYtgzt1kRap2VaYSvaW1Gvm+XbX6MrtIB4kjlJx6pfmmiEbh
- SEVOYY7I2B00HMh5e7ZvvCcsCGwWexsBLYpXU4NwLsqoK3te4M1XDio7sZH21I+K0jMy
- yvcvmmiLosV/ksQ5ZhHV8KLKlzYcT7nI+s8MgK3Qk1io1Efs1fbANH6OyzM1hPYtVDS+
- AujilIpT3XJfS5JSIAYdz2D3ClFxl+Q1skcljprWQSZnSXXktdsrJidhoE3CleXbS7G1
- +H3w==
-X-Gm-Message-State: APjAAAXI3bQexwvEacQW5/H0XEZcbSElUjmmaXTMK38+1QeimcwwGNLl
- tbcVDsBuGzeInwplpT0TgKOnDg==
-X-Google-Smtp-Source: APXvYqyKleyWMddswHphitVEN0hVZKzYGZZEyMMWwvlQN495NyB0mhwoFp63U+7Ic280YNH9xNzNyQ==
-X-Received: by 2002:a17:90a:e291:: with SMTP id
- d17mr13557645pjz.116.1576195764822; 
- Thu, 12 Dec 2019 16:09:24 -0800 (PST)
-Received: from Mindolluin.ire.aristanetworks.com ([217.173.96.166])
- by smtp.gmail.com with ESMTPSA id j38sm8317647pgj.27.2019.12.12.16.09.21
- (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Thu, 12 Dec 2019 16:09:23 -0800 (PST)
-From: Dmitry Safonov <dima@arista.com>
-To: linux-kernel@vger.kernel.org
-Date: Fri, 13 Dec 2019 00:06:43 +0000
-Message-Id: <20191213000657.931618-45-dima@arista.com>
-X-Mailer: git-send-email 2.24.0
-In-Reply-To: <20191213000657.931618-1-dima@arista.com>
-References: <20191213000657.931618-1-dima@arista.com>
+ h=x-gm-message-state:mime-version:references:in-reply-to:from:date
+ :message-id:subject:to:cc;
+ bh=gQvjoAIq1lwY1cihw0edTlVsvS4hblrvKhZLt2o7yRo=;
+ b=Fg7hMEulhVqvX1x3QIhBxIoTWTf1ogNhaA4Gk/1YYfS7Es2PtpNBcIRaacpAqsOL0L
+ kTxdgkGPjGIyH24cYr7CjoMLBGRmf0iFxP3ncLFSThZmDRU7tnTSpjuKapNImEwA98G/
+ 82GqltkZuCxoLHHyn52+YQCkUMr6l4gd4PZJ6n+BUSuvwH/XFLiThMuUmLI4wG2iZ1sy
+ 64IaeaKiyxgSKJuZM7j1JIhEsn2DPX5KFqRRYR2Ex6O6aDcw+Xt8KMYnbTGzxn9Xainf
+ Ug63LZvlOi+6HycPB2Is6PegyVyAjkXVMiRMHk6+uvXnS9MC1eD95nCkYzgyMgCCpajn
+ MSjA==
+X-Gm-Message-State: APjAAAXjh4zErx90hcptcuBAUbjQBUDyA/zPTI95s/REDvQyMnW56YBD
+ XKossWWU8NR81a/YT2XY4EvKyzI7/rRWrhuUfUuj9g==
+X-Google-Smtp-Source: APXvYqzu8HOUUFv2+ceRlEgeqgx8XNvHnW+7dom4XrnAzRcH0CCbokozbEW15A+wcVH7XZt92FtVTGxMTi9B00CIqHI=
+X-Received: by 2002:a2e:9ec4:: with SMTP id h4mr9102521ljk.77.1576231085018;
+ Fri, 13 Dec 2019 01:58:05 -0800 (PST)
 MIME-Version: 1.0
-X-Mailman-Approved-At: Fri, 13 Dec 2019 08:09:26 +0000
-Cc: Maxime Coquelin <mcoquelin.stm32@gmail.com>,
- Vasiliy Khoruzhick <vasilykh@arista.com>, Dmitry Safonov <dima@arista.com>,
- Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
- Dmitry Safonov <0x7f454c46@gmail.com>, linux-serial@vger.kernel.org,
- Jiri Slaby <jslaby@suse.com>, linux-stm32@st-md-mailman.stormreply.com,
- linux-arm-kernel@lists.infradead.org
-Subject: [Linux-stm32] [PATCH 44/58] tty/serial: Migrate stm32-usart to use
-	has_sysrq
+References: <20191204144106.10876-1-alexandre.torgue@st.com>
+In-Reply-To: <20191204144106.10876-1-alexandre.torgue@st.com>
+From: Linus Walleij <linus.walleij@linaro.org>
+Date: Fri, 13 Dec 2019 10:57:53 +0100
+Message-ID: <CACRpkdb30kFbpxb52GALXJM67tFvJ8tR83NR+44PMOKJzJjruQ@mail.gmail.com>
+To: Alexandre Torgue <alexandre.torgue@st.com>
+Cc: Stefan Wahren <stefan.wahren@i2se.com>,
+ "open list:GPIO SUBSYSTEM" <linux-gpio@vger.kernel.org>,
+ "linux-kernel@vger.kernel.org" <linux-kernel@vger.kernel.org>,
+ linux-stm32@st-md-mailman.stormreply.com
+Subject: Re: [Linux-stm32] [PATCH] pinctrl: pinmux: fix a possible null
+	pointer in pinmux_can_be_used_for_gpio
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -82,50 +71,20 @@ Content-Transfer-Encoding: 7bit
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
-The SUPPORT_SYSRQ ifdeffery is not nice as:
-- May create misunderstanding about sizeof(struct uart_port) between
-  different objects
-- Prevents moving functions from serial_core.h
-- Reduces readability (well, it's ifdeffery - it's hard to follow)
+On Wed, Dec 4, 2019 at 3:41 PM Alexandre Torgue <alexandre.torgue@st.com> wrote:
 
-In order to remove SUPPORT_SYSRQ, has_sysrq variable has been added.
-Initialise it in driver's probe and remove ifdeffery.
+> This commit adds a check on ops pointer to avoid a kernel panic when
+> ops->strict is used. Indeed, on some pinctrl driver (at least for
+> pinctrl-stmfx) the pinmux ops is not implemented. Let's assume than gpio
+> can be used in this case.
+>
+> Fixes: 472a61e777fe ("pinctrl/gpio: Take MUX usage into account")
+> Signed-off-by: Alexandre Torgue <alexandre.torgue@st.com>
 
-Cc: Alexandre Torgue <alexandre.torgue@st.com>
-Cc: Maxime Coquelin <mcoquelin.stm32@gmail.com>
-Cc: linux-arm-kernel@lists.infradead.org
-Cc: linux-stm32@st-md-mailman.stormreply.com
-Signed-off-by: Dmitry Safonov <dima@arista.com>
----
- drivers/tty/serial/stm32-usart.c | 5 +----
- 1 file changed, 1 insertion(+), 4 deletions(-)
+Patch applied for fixes.
 
-diff --git a/drivers/tty/serial/stm32-usart.c b/drivers/tty/serial/stm32-usart.c
-index 2f72514d63ed..5e93e8d40f59 100644
---- a/drivers/tty/serial/stm32-usart.c
-+++ b/drivers/tty/serial/stm32-usart.c
-@@ -8,10 +8,6 @@
-  * Inspired by st-asc.c from STMicroelectronics (c)
-  */
- 
--#if defined(CONFIG_SERIAL_STM32_CONSOLE) && defined(CONFIG_MAGIC_SYSRQ)
--#define SUPPORT_SYSRQ
--#endif
--
- #include <linux/clk.h>
- #include <linux/console.h>
- #include <linux/delay.h>
-@@ -926,6 +922,7 @@ static int stm32_init_port(struct stm32_port *stm32port,
- 	port->ops	= &stm32_uart_ops;
- 	port->dev	= &pdev->dev;
- 	port->fifosize	= stm32port->info->cfg.fifosize;
-+	port->has_sysrq = IS_ENABLED(CONFIG_SERIAL_STM32_CONSOLE);
- 
- 	ret = platform_get_irq(pdev, 0);
- 	if (ret <= 0)
--- 
-2.24.0
-
+Yours,
+Linus Walleij
 _______________________________________________
 Linux-stm32 mailing list
 Linux-stm32@st-md-mailman.stormreply.com
