@@ -2,60 +2,67 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id 391C911F110
-	for <lists+linux-stm32@lfdr.de>; Sat, 14 Dec 2019 10:00:55 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 1D25B11F3C9
+	for <lists+linux-stm32@lfdr.de>; Sat, 14 Dec 2019 21:10:57 +0100 (CET)
 Received: from ip-172-31-3-76.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id D488FC36B0B;
-	Sat, 14 Dec 2019 09:00:54 +0000 (UTC)
-Received: from mx07-00178001.pphosted.com (mx07-00178001.pphosted.com
- [62.209.51.94])
- (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id C5B4AC36B0B;
+	Sat, 14 Dec 2019 20:10:56 +0000 (UTC)
+Received: from mail-pf1-f194.google.com (mail-pf1-f194.google.com
+ [209.85.210.194])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id EEE64C36B09
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id E40A9C36B09
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Sat, 14 Dec 2019 09:00:51 +0000 (UTC)
-Received: from pps.filterd (m0046037.ppops.net [127.0.0.1])
- by mx07-00178001.pphosted.com (8.16.0.42/8.16.0.42) with SMTP id
- xBE8xS0O017919; Sat, 14 Dec 2019 10:00:33 +0100
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=st.com;
- h=from : to : cc : subject
- : date : message-id : mime-version : content-type; s=STMicroelectronics;
- bh=OhQ87nOVCyVrMrNbzdrdurBS96FAwDKcffAQqC4Jm7c=;
- b=mJ3rPadH3jVPOJEfGsPkmLO6fBNSBKZU3qF6jsJiYZnO3p55BWE9FeGNpg8jymggC370
- UVMqxrHUdcet3GqiJsp9uFrMUR0jF73pcQD5E3lJSKHU7A/xYaasSxqsNePNce80GoL5
- TCdDFur+XoKWXNKGlXwXmGbXBM62GQOjUZJKkA7kfDJD3ZcMEyASjs5Nil7tOSLCj+qA
- saamzNpscNpPOiyyqBBHZ0jAONxsiWEXqHLUmlGcW71oK9RDvKU/AQs59vs6Th4lR3mZ
- Er19mAoeQGmIBcvP3CWCk/tkSUlPMjwyrBS4BN5xPjalW4UgIATWUs1bisos9asYTnC0 Og== 
-Received: from beta.dmz-eu.st.com (beta.dmz-eu.st.com [164.129.1.35])
- by mx07-00178001.pphosted.com with ESMTP id 2wvpd114rq-1
- (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
- Sat, 14 Dec 2019 10:00:33 +0100
-Received: from euls16034.sgp.st.com (euls16034.sgp.st.com [10.75.44.20])
- by beta.dmz-eu.st.com (STMicroelectronics) with ESMTP id 4F28F10002A;
- Sat, 14 Dec 2019 10:00:28 +0100 (CET)
-Received: from Webmail-eu.st.com (sfhdag3node3.st.com [10.75.127.9])
- by euls16034.sgp.st.com (STMicroelectronics) with ESMTP id 359E9220C68;
- Sat, 14 Dec 2019 10:00:28 +0100 (CET)
-Received: from localhost (10.75.127.49) by SFHDAG3NODE3.st.com (10.75.127.9)
- with Microsoft SMTP Server (TLS) id 15.0.1347.2; Sat, 14 Dec 2019 10:00:27
- +0100
-From: Benjamin Gaignard <benjamin.gaignard@st.com>
-To: <a.zummo@towertech.it>, <alexandre.belloni@bootlin.com>,
- <robh+dt@kernel.org>, <mark.rutland@arm.com>, <alexandre.torgue@st.com>
-Date: Sat, 14 Dec 2019 10:00:25 +0100
-Message-ID: <20191214090025.10648-1-benjamin.gaignard@st.com>
-X-Mailer: git-send-email 2.15.0
+ Sat, 14 Dec 2019 20:10:54 +0000 (UTC)
+Received: by mail-pf1-f194.google.com with SMTP id 2so3353364pfx.6
+ for <linux-stm32@st-md-mailman.stormreply.com>;
+ Sat, 14 Dec 2019 12:10:54 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=netronome-com.20150623.gappssmtp.com; s=20150623;
+ h=date:from:to:cc:subject:message-id:in-reply-to:references
+ :organization:mime-version:content-transfer-encoding;
+ bh=wuX1wX7F3A4+ViJ/F0TGocQYp+UHpk0d54KJOh0KWqY=;
+ b=moI3aNp2gAT6fiipm7VKPiy+ExbuP/KxOwHz1IvtGmHQpyBlujqY4lGo6og4s01Gws
+ COU2gYcZ6Jap8JvjadlrRSn8S/33mTnO9RURXanWwir+y0Tsuo4HoczUlYHUr/8Jm597
+ AGPgZE52gf9NtvdT2YMBmDPipmfP1Pe6DwgwIB8O41VmdOvsyEC/ELaxLf10l9/xtCDl
+ yOZ9c0QPLMm8Fx+e4XfJIn/SbHihOD6YoBI/D6OVtv93VWXeb+gHNKGuOO7Lhbi5IwiO
+ Ir7xCXz2QuYtYIu8IPu2YpqubPJgvxIHPJeE9p2ae1QoTxoLSbSMxfjAvSpmNqJRe3gd
+ oCLw==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20161025;
+ h=x-gm-message-state:date:from:to:cc:subject:message-id:in-reply-to
+ :references:organization:mime-version:content-transfer-encoding;
+ bh=wuX1wX7F3A4+ViJ/F0TGocQYp+UHpk0d54KJOh0KWqY=;
+ b=jIfk3naVb0iEQRzDi3KqlWsjtR6tRMsPbSx/X/KNdJUejlmXuTGxHXIDWxoAwWzh4F
+ L73r/7kay6ngedcFUnzBxxiYwCnI+YVARZ/TsvDO7CfbK1O2TFSvKqBSB1LKGGJYYgM2
+ ZfTB347x1Vc4vCeK7X23kyPgWpxa9+wFwWTw8RkJ5QXV0Xjb6GvLGziW2CE2j09Vl90z
+ Y+XMgB6p5nAYYxn9P8LnMKhOaEU1q5ic9/9FeKxpl11rKGN63f0b+dMHlzLEcAHb+7Cq
+ D1mQsuTSMe5Jokedr3Q0w0A0pk1W09Z086Nh4phEhumgUQPhMLaH0SCmxQDGs8OvimPT
+ gtXQ==
+X-Gm-Message-State: APjAAAULkm4ChvSp6AEgF/SH23A350NnR0qcOeZ4NVfaEkRaAvCn6YwF
+ eNo3dJfieWqRyrd4fE6Z+Uncvg==
+X-Google-Smtp-Source: APXvYqyZIZpkQnsmmMbQQozox77o8oKzuyqEEgz/qPk80xmbgKB8F2SyKW2zohfp580A6GNPcxBONw==
+X-Received: by 2002:aa7:9205:: with SMTP id 5mr7043338pfo.213.1576354253427;
+ Sat, 14 Dec 2019 12:10:53 -0800 (PST)
+Received: from cakuba.netronome.com (c-73-202-202-92.hsd1.ca.comcast.net.
+ [73.202.202.92])
+ by smtp.gmail.com with ESMTPSA id y22sm16280523pfn.122.2019.12.14.12.10.52
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Sat, 14 Dec 2019 12:10:53 -0800 (PST)
+Date: Sat, 14 Dec 2019 12:10:49 -0800
+From: Jakub Kicinski <jakub.kicinski@netronome.com>
+To: Xu Wang <vulab@iscas.ac.cn>
+Message-ID: <20191214121049.266b656f@cakuba.netronome.com>
+In-Reply-To: <1576060284-12371-1-git-send-email-vulab@iscas.ac.cn>
+References: <1576060284-12371-1-git-send-email-vulab@iscas.ac.cn>
+Organization: Netronome Systems, Ltd.
 MIME-Version: 1.0
-X-Originating-IP: [10.75.127.49]
-X-ClientProxiedBy: SFHDAG2NODE3.st.com (10.75.127.6) To SFHDAG3NODE3.st.com
- (10.75.127.9)
-X-Proofpoint-Virus-Version: vendor=fsecure engine=2.50.10434:6.0.95,18.0.572
- definitions=2019-12-14_01:2019-12-13,2019-12-14 signatures=0
-Cc: linux-rtc@vger.kernel.org, devicetree@vger.kernel.org,
- linux-kernel@vger.kernel.org, linux-stm32@st-md-mailman.stormreply.com,
+Cc: netdev@vger.kernel.org, linux-kernel@vger.kernel.org,
+ linux-stm32@st-md-mailman.stormreply.com, joabreu@synopsys.com,
+ mcoquelin.stm32@gmail.com, peppe.cavallaro@st.com, davem@davemloft.net,
  linux-arm-kernel@lists.infradead.org
-Subject: [Linux-stm32] [PATCH v2] dt-bindings: rtc: Convert stm32 rtc
-	bindings to json-schema
+Subject: Re: [Linux-stm32] [PATCH] stmmac: platform: Remove unnecessary
+	conditions
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -72,235 +79,33 @@ Content-Transfer-Encoding: 7bit
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
-Convert the STM32 RTC binding to DT schema format using json-schema
+On Wed, 11 Dec 2019 10:31:24 +0000, Xu Wang wrote:
+> Remove conditions where if and else branch are identical.
+> This issue is detected by coccinelle.
+> 
+> Signed-off-by: Xu Wang <vulab@iscas.ac.cn>
+> ---
+>  drivers/net/ethernet/stmicro/stmmac/stmmac_platform.c | 2 --
+>  1 file changed, 2 deletions(-)
+> 
+> diff --git a/drivers/net/ethernet/stmicro/stmmac/stmmac_platform.c b/drivers/net/ethernet/stmicro/stmmac/stmmac_platform.c
+> index bedaff0..1d26691 100644
+> --- a/drivers/net/ethernet/stmicro/stmmac/stmmac_platform.c
+> +++ b/drivers/net/ethernet/stmicro/stmmac/stmmac_platform.c
+> @@ -229,8 +229,6 @@ static int stmmac_mtl_setup(struct platform_device *pdev,
+>  		plat->tx_sched_algorithm = MTL_TX_ALGORITHM_WFQ;
+>  	else if (of_property_read_bool(tx_node, "snps,tx-sched-dwrr"))
+>  		plat->tx_sched_algorithm = MTL_TX_ALGORITHM_DWRR;
+> -	else if (of_property_read_bool(tx_node, "snps,tx-sched-sp"))
+> -		plat->tx_sched_algorithm = MTL_TX_ALGORITHM_SP;
+>  	else
+>  		plat->tx_sched_algorithm = MTL_TX_ALGORITHM_SP;
+>  
 
-Signed-off-by: Benjamin Gaignard <benjamin.gaignard@st.com>
----
-changes in version 2:
-- remove useless type definitions
-- move properties definitions in the core of the yaml
-
- .../devicetree/bindings/rtc/st,stm32-rtc.txt       |  61 ---------
- .../devicetree/bindings/rtc/st,stm32-rtc.yaml      | 139 +++++++++++++++++++++
- 2 files changed, 139 insertions(+), 61 deletions(-)
- delete mode 100644 Documentation/devicetree/bindings/rtc/st,stm32-rtc.txt
- create mode 100644 Documentation/devicetree/bindings/rtc/st,stm32-rtc.yaml
-
-diff --git a/Documentation/devicetree/bindings/rtc/st,stm32-rtc.txt b/Documentation/devicetree/bindings/rtc/st,stm32-rtc.txt
-deleted file mode 100644
-index 130ca5b98253..000000000000
---- a/Documentation/devicetree/bindings/rtc/st,stm32-rtc.txt
-+++ /dev/null
-@@ -1,61 +0,0 @@
--STM32 Real Time Clock
--
--Required properties:
--- compatible: can be one of the following:
--  - "st,stm32-rtc" for devices compatible with stm32(f4/f7).
--  - "st,stm32h7-rtc" for devices compatible with stm32h7.
--  - "st,stm32mp1-rtc" for devices compatible with stm32mp1.
--- reg: address range of rtc register set.
--- clocks: can use up to two clocks, depending on part used:
--  - "rtc_ck": RTC clock source.
--  - "pclk": RTC APB interface clock.
--    It is not present on stm32(f4/f7).
--    It is required on stm32(h7/mp1).
--- clock-names: must be "rtc_ck" and "pclk".
--    It is required on stm32(h7/mp1).
--- interrupts: rtc alarm interrupt. On stm32mp1, a second interrupt is required
--  for rtc alarm wakeup interrupt.
--- st,syscfg: phandle/offset/mask triplet. The phandle to pwrcfg used to
--  access control register at offset, and change the dbp (Disable Backup
--  Protection) bit represented by the mask, mandatory to disable/enable backup
--  domain (RTC registers) write protection.
--    It is required on stm32(f4/f7/h7).
--
--Optional properties (to override default rtc_ck parent clock on stm32(f4/f7/h7):
--- assigned-clocks: reference to the rtc_ck clock entry.
--- assigned-clock-parents: phandle of the new parent clock of rtc_ck.
--
--Example:
--
--	rtc: rtc@40002800 {
--		compatible = "st,stm32-rtc";
--		reg = <0x40002800 0x400>;
--		clocks = <&rcc 1 CLK_RTC>;
--		assigned-clocks = <&rcc 1 CLK_RTC>;
--		assigned-clock-parents = <&rcc 1 CLK_LSE>;
--		interrupt-parent = <&exti>;
--		interrupts = <17 1>;
--		st,syscfg = <&pwrcfg 0x00 0x100>;
--	};
--
--	rtc: rtc@58004000 {
--		compatible = "st,stm32h7-rtc";
--		reg = <0x58004000 0x400>;
--		clocks = <&rcc RTCAPB_CK>, <&rcc RTC_CK>;
--		clock-names = "pclk", "rtc_ck";
--		assigned-clocks = <&rcc RTC_CK>;
--		assigned-clock-parents = <&rcc LSE_CK>;
--		interrupt-parent = <&exti>;
--		interrupts = <17 1>;
--		interrupt-names = "alarm";
--		st,syscfg = <&pwrcfg 0x00 0x100>;
--	};
--
--	rtc: rtc@5c004000 {
--		compatible = "st,stm32mp1-rtc";
--		reg = <0x5c004000 0x400>;
--		clocks = <&rcc RTCAPB>, <&rcc RTC>;
--		clock-names = "pclk", "rtc_ck";
--		interrupts-extended = <&intc GIC_SPI 3 IRQ_TYPE_NONE>,
--				      <&exti 19 1>;
--	};
-diff --git a/Documentation/devicetree/bindings/rtc/st,stm32-rtc.yaml b/Documentation/devicetree/bindings/rtc/st,stm32-rtc.yaml
-new file mode 100644
-index 000000000000..0a54296d7218
---- /dev/null
-+++ b/Documentation/devicetree/bindings/rtc/st,stm32-rtc.yaml
-@@ -0,0 +1,139 @@
-+# SPDX-License-Identifier: (GPL-2.0-only OR BSD-2-Clause)
-+%YAML 1.2
-+---
-+$id: http://devicetree.org/schemas/rtc/st,stm32-rtc.yaml#
-+$schema: http://devicetree.org/meta-schemas/core.yaml#
-+
-+title: STMicroelectronics STM32 Real Time Clock Bindings
-+
-+maintainers:
-+  - Gabriel Fernandez <gabriel.fernandez@st.com>
-+
-+properties:
-+  compatible:
-+    enum:
-+      - st,stm32-rtc
-+      - st,stm32h7-rtc
-+      - st,stm32mp1-rtc
-+
-+  reg:
-+    maxItems: 1
-+
-+  clocks:
-+    minItems: 1
-+    maxItems: 2
-+
-+  clock-names:
-+    items:
-+      - const: pclk
-+      - const: rtc_ck
-+
-+  interrupts:
-+    maxItems: 1
-+
-+  st,syscfg:
-+    allOf:
-+      - $ref: "/schemas/types.yaml#/definitions/phandle-array"
-+      - items:
-+          minItems: 3
-+          maxItems: 3
-+    description: |
-+       Phandle/offset/mask triplet. The phandle to pwrcfg used to
-+       access control register at offset, and change the dbp (Disable Backup
-+       Protection) bit represented by the mask, mandatory to disable/enable backup
-+       domain (RTC registers) write protection.
-+
-+  assigned-clocks:
-+    description: |
-+      override default rtc_ck parent clock reference to the rtc_ck clock entry
-+    maxItems: 1
-+
-+  assigned-clock-parents:
-+    description: |
-+      override default rtc_ck parent clock phandle of the new parent clock of rtc_ck
-+    maxItems: 1
-+
-+allOf:
-+  - if:
-+      properties:
-+        compatible:
-+          contains:
-+            const: st,stm32-rtc
-+
-+    then:
-+      properties:
-+        clocks:
-+          minItems: 1
-+          maxItems: 1
-+
-+        clock-names: false
-+
-+      required:
-+        - st,syscfg
-+
-+  - if:
-+      properties:
-+        compatible:
-+          contains:
-+            const: st,stm32h7-rtc
-+
-+    then:
-+       properties:
-+         clocks:
-+           minItems: 2
-+           maxItems: 2
-+
-+       required:
-+         - clock-names
-+         - st,syscfg
-+
-+  - if:
-+      properties:
-+        compatible:
-+          contains:
-+            const: st,stm32mp1-rtc
-+
-+    then:
-+       properties:
-+         clocks:
-+           minItems: 2
-+           maxItems: 2
-+
-+         assigned-clocks: false
-+         assigned-clock-parents: false
-+
-+       required:
-+         - clock-names
-+
-+required:
-+  - compatible
-+  - reg
-+  - clocks
-+  - interrupts
-+
-+examples:
-+  - |
-+    #include <dt-bindings/mfd/stm32f4-rcc.h>
-+    #include <dt-bindings/clock/stm32fx-clock.h>
-+    rtc@40002800 {
-+      compatible = "st,stm32-rtc";
-+      reg = <0x40002800 0x400>;
-+      clocks = <&rcc 1 CLK_RTC>;
-+      assigned-clocks = <&rcc 1 CLK_RTC>;
-+      assigned-clock-parents = <&rcc 1 CLK_LSE>;
-+      interrupt-parent = <&exti>;
-+      interrupts = <17 1>;
-+      st,syscfg = <&pwrcfg 0x00 0x100>;
-+    };
-+
-+    #include <dt-bindings/interrupt-controller/arm-gic.h>
-+    #include <dt-bindings/clock/stm32mp1-clks.h>
-+    rtc@5c004000 {
-+      compatible = "st,stm32mp1-rtc";
-+      reg = <0x5c004000 0x400>;
-+      clocks = <&rcc RTCAPB>, <&rcc RTC>;
-+      clock-names = "pclk", "rtc_ck";
-+      interrupts = <GIC_SPI 3 IRQ_TYPE_LEVEL_HIGH>;
-+    };
-+
-+...
--- 
-2.15.0
-
+Thanks for the patch but in this case it looks like this code is
+intentionally written this way to enumerate all options. Maintainers -
+please speak up if you prefer to have the patch applied, otherwise 
+I'm dropping it.
 _______________________________________________
 Linux-stm32 mailing list
 Linux-stm32@st-md-mailman.stormreply.com
