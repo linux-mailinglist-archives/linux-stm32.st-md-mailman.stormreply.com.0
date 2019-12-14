@@ -2,67 +2,69 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id 1D25B11F3C9
-	for <lists+linux-stm32@lfdr.de>; Sat, 14 Dec 2019 21:10:57 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 32F1B11F3F5
+	for <lists+linux-stm32@lfdr.de>; Sat, 14 Dec 2019 21:28:44 +0100 (CET)
 Received: from ip-172-31-3-76.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id C5B4AC36B0B;
-	Sat, 14 Dec 2019 20:10:56 +0000 (UTC)
-Received: from mail-pf1-f194.google.com (mail-pf1-f194.google.com
- [209.85.210.194])
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id D86AEC36B0B;
+	Sat, 14 Dec 2019 20:28:43 +0000 (UTC)
+Received: from mail-pf1-f193.google.com (mail-pf1-f193.google.com
+ [209.85.210.193])
  (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id E40A9C36B09
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 2B6ACC36B09
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Sat, 14 Dec 2019 20:10:54 +0000 (UTC)
-Received: by mail-pf1-f194.google.com with SMTP id 2so3353364pfx.6
+ Sat, 14 Dec 2019 20:28:42 +0000 (UTC)
+Received: by mail-pf1-f193.google.com with SMTP id h14so1469533pfe.10
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Sat, 14 Dec 2019 12:10:54 -0800 (PST)
+ Sat, 14 Dec 2019 12:28:42 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=netronome-com.20150623.gappssmtp.com; s=20150623;
  h=date:from:to:cc:subject:message-id:in-reply-to:references
  :organization:mime-version:content-transfer-encoding;
- bh=wuX1wX7F3A4+ViJ/F0TGocQYp+UHpk0d54KJOh0KWqY=;
- b=moI3aNp2gAT6fiipm7VKPiy+ExbuP/KxOwHz1IvtGmHQpyBlujqY4lGo6og4s01Gws
- COU2gYcZ6Jap8JvjadlrRSn8S/33mTnO9RURXanWwir+y0Tsuo4HoczUlYHUr/8Jm597
- AGPgZE52gf9NtvdT2YMBmDPipmfP1Pe6DwgwIB8O41VmdOvsyEC/ELaxLf10l9/xtCDl
- yOZ9c0QPLMm8Fx+e4XfJIn/SbHihOD6YoBI/D6OVtv93VWXeb+gHNKGuOO7Lhbi5IwiO
- Ir7xCXz2QuYtYIu8IPu2YpqubPJgvxIHPJeE9p2ae1QoTxoLSbSMxfjAvSpmNqJRe3gd
- oCLw==
+ bh=XaEVbBb580dizOkGCrPl3aky5kExYp09pR6s9oLfxlg=;
+ b=gV1zMRDtDbnkngwtuQVwVmMdqJd0MOI0fNpU6Ahcqv24gDsTZqN7er/XEdhNFOIG2s
+ Xefw1oqnnTQsDc4ng5Cy8vViWduwKTiEG5+r2soBzQ+XgrMccITVnWoUgRcZEvMN0qhF
+ SyHwqKAw1126RdW6AkgKomQJestodaeQcGWLNA8Bo1YfcUDcUzm+IjAPhyyqM5sSU/UT
+ pJvQh3SP0tVr3+ISCV7EJ15wzggPTmxXP2qAuC9n5g29422zcnRupqNxkgq3N913afDE
+ yXlkrVCfPIQ3jUx6d5ySjT1pE0hJJRqikGo7Tf4wmiA88gVODXzbye5eaUYDTV1LIx6W
+ hQJQ==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=1e100.net; s=20161025;
  h=x-gm-message-state:date:from:to:cc:subject:message-id:in-reply-to
  :references:organization:mime-version:content-transfer-encoding;
- bh=wuX1wX7F3A4+ViJ/F0TGocQYp+UHpk0d54KJOh0KWqY=;
- b=jIfk3naVb0iEQRzDi3KqlWsjtR6tRMsPbSx/X/KNdJUejlmXuTGxHXIDWxoAwWzh4F
- L73r/7kay6ngedcFUnzBxxiYwCnI+YVARZ/TsvDO7CfbK1O2TFSvKqBSB1LKGGJYYgM2
- ZfTB347x1Vc4vCeK7X23kyPgWpxa9+wFwWTw8RkJ5QXV0Xjb6GvLGziW2CE2j09Vl90z
- Y+XMgB6p5nAYYxn9P8LnMKhOaEU1q5ic9/9FeKxpl11rKGN63f0b+dMHlzLEcAHb+7Cq
- D1mQsuTSMe5Jokedr3Q0w0A0pk1W09Z086Nh4phEhumgUQPhMLaH0SCmxQDGs8OvimPT
- gtXQ==
-X-Gm-Message-State: APjAAAULkm4ChvSp6AEgF/SH23A350NnR0qcOeZ4NVfaEkRaAvCn6YwF
- eNo3dJfieWqRyrd4fE6Z+Uncvg==
-X-Google-Smtp-Source: APXvYqyZIZpkQnsmmMbQQozox77o8oKzuyqEEgz/qPk80xmbgKB8F2SyKW2zohfp580A6GNPcxBONw==
-X-Received: by 2002:aa7:9205:: with SMTP id 5mr7043338pfo.213.1576354253427;
- Sat, 14 Dec 2019 12:10:53 -0800 (PST)
+ bh=XaEVbBb580dizOkGCrPl3aky5kExYp09pR6s9oLfxlg=;
+ b=AaI3/bSWP6QN4YsIQSRvxaXFJSqXYVSN0qu1z96ygXNS2OgSM3OojQlG7SU0LtfguL
+ CMamVJPeKmd8hAqoQ6DE4gSAqId6RNmRAzwnzrDu/TVFqUL6ggAbgiye2LW+PGqzX+vy
+ Sr53R9hdhnDqkUq/vMydY/KdSTjbe4sdlhzTQOK8NrBGRCgKtT8AgKU6IxAJuXI+tXwK
+ j/kfE9oPqmJTtPl8f93if/GBQABlyh02ga6x3UW5ljzF3z4xxUfdbGZ07Yna5f+tSw5d
+ +yeZoKE8QGHDh4zk7lgqfTx7NPaIZiYtP8sswBf5ayHcPzWZ1UMdt5fah+XkYDSaOLNR
+ igaw==
+X-Gm-Message-State: APjAAAViPUIfRRF6Jaw3okCaPSzE2tit/D6TbhWPrqrypKdRgy1+3yDw
+ aMDooGKiBQJ8tA0EpTIaD2/jzg==
+X-Google-Smtp-Source: APXvYqz7r5mvCKhiJymgkgcgt9xu5gMGoR9VG64DTQi7xuM3hxBSuiZTj0eQuUJtNFn0EbRE+cxYuw==
+X-Received: by 2002:a62:6342:: with SMTP id x63mr7050443pfb.103.1576355320580; 
+ Sat, 14 Dec 2019 12:28:40 -0800 (PST)
 Received: from cakuba.netronome.com (c-73-202-202-92.hsd1.ca.comcast.net.
  [73.202.202.92])
- by smtp.gmail.com with ESMTPSA id y22sm16280523pfn.122.2019.12.14.12.10.52
+ by smtp.gmail.com with ESMTPSA id t63sm16959694pfb.70.2019.12.14.12.28.39
  (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Sat, 14 Dec 2019 12:10:53 -0800 (PST)
-Date: Sat, 14 Dec 2019 12:10:49 -0800
+ Sat, 14 Dec 2019 12:28:40 -0800 (PST)
+Date: Sat, 14 Dec 2019 12:28:37 -0800
 From: Jakub Kicinski <jakub.kicinski@netronome.com>
-To: Xu Wang <vulab@iscas.ac.cn>
-Message-ID: <20191214121049.266b656f@cakuba.netronome.com>
-In-Reply-To: <1576060284-12371-1-git-send-email-vulab@iscas.ac.cn>
-References: <1576060284-12371-1-git-send-email-vulab@iscas.ac.cn>
+To: Jose Abreu <Jose.Abreu@synopsys.com>
+Message-ID: <20191214122837.4960adfd@cakuba.netronome.com>
+In-Reply-To: <23c0ff1feddcc690ee66adebefdc3b10031afe1b.1576007149.git.Jose.Abreu@synopsys.com>
+References: <cover.1576007149.git.Jose.Abreu@synopsys.com>
+ <23c0ff1feddcc690ee66adebefdc3b10031afe1b.1576007149.git.Jose.Abreu@synopsys.com>
 Organization: Netronome Systems, Ltd.
 MIME-Version: 1.0
-Cc: netdev@vger.kernel.org, linux-kernel@vger.kernel.org,
- linux-stm32@st-md-mailman.stormreply.com, joabreu@synopsys.com,
- mcoquelin.stm32@gmail.com, peppe.cavallaro@st.com, davem@davemloft.net,
- linux-arm-kernel@lists.infradead.org
-Subject: Re: [Linux-stm32] [PATCH] stmmac: platform: Remove unnecessary
-	conditions
+Cc: Joao Pinto <Joao.Pinto@synopsys.com>, netdev@vger.kernel.org,
+ linux-kernel@vger.kernel.org, linux-stm32@st-md-mailman.stormreply.com,
+ Maxime Coquelin <mcoquelin.stm32@gmail.com>,
+ Giuseppe Cavallaro <peppe.cavallaro@st.com>,
+ "David S. Miller" <davem@davemloft.net>, linux-arm-kernel@lists.infradead.org
+Subject: Re: [Linux-stm32] [PATCH net-next 4/4] net: stmmac: Always use TX
+ coalesce timer value when rescheduling
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -79,33 +81,53 @@ Content-Transfer-Encoding: 7bit
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
-On Wed, 11 Dec 2019 10:31:24 +0000, Xu Wang wrote:
-> Remove conditions where if and else branch are identical.
-> This issue is detected by coccinelle.
-> 
-> Signed-off-by: Xu Wang <vulab@iscas.ac.cn>
+On Tue, 10 Dec 2019 20:54:44 +0100, Jose Abreu wrote:
+> When we have pending packets we re-arm the TX timer with a magic value.
+> Change this from the hardcoded value to the pre-defined TX coalesce
+> timer value.
+
+s/pre-defined/user controlled/ ?
+
+> Signed-off-by: Jose Abreu <Jose.Abreu@synopsys.com>
 > ---
->  drivers/net/ethernet/stmicro/stmmac/stmmac_platform.c | 2 --
->  1 file changed, 2 deletions(-)
+> Cc: Giuseppe Cavallaro <peppe.cavallaro@st.com>
+> Cc: Alexandre Torgue <alexandre.torgue@st.com>
+> Cc: Jose Abreu <joabreu@synopsys.com>
+> Cc: "David S. Miller" <davem@davemloft.net>
+> Cc: Maxime Coquelin <mcoquelin.stm32@gmail.com>
+> Cc: netdev@vger.kernel.org
+> Cc: linux-stm32@st-md-mailman.stormreply.com
+> Cc: linux-arm-kernel@lists.infradead.org
+> Cc: linux-kernel@vger.kernel.org
+> ---
+>  drivers/net/ethernet/stmicro/stmmac/stmmac_main.c | 2 +-
+>  1 file changed, 1 insertion(+), 1 deletion(-)
 > 
-> diff --git a/drivers/net/ethernet/stmicro/stmmac/stmmac_platform.c b/drivers/net/ethernet/stmicro/stmmac/stmmac_platform.c
-> index bedaff0..1d26691 100644
-> --- a/drivers/net/ethernet/stmicro/stmmac/stmmac_platform.c
-> +++ b/drivers/net/ethernet/stmicro/stmmac/stmmac_platform.c
-> @@ -229,8 +229,6 @@ static int stmmac_mtl_setup(struct platform_device *pdev,
->  		plat->tx_sched_algorithm = MTL_TX_ALGORITHM_WFQ;
->  	else if (of_property_read_bool(tx_node, "snps,tx-sched-dwrr"))
->  		plat->tx_sched_algorithm = MTL_TX_ALGORITHM_DWRR;
-> -	else if (of_property_read_bool(tx_node, "snps,tx-sched-sp"))
-> -		plat->tx_sched_algorithm = MTL_TX_ALGORITHM_SP;
->  	else
->  		plat->tx_sched_algorithm = MTL_TX_ALGORITHM_SP;
+> diff --git a/drivers/net/ethernet/stmicro/stmmac/stmmac_main.c b/drivers/net/ethernet/stmicro/stmmac/stmmac_main.c
+> index f61780ae30ac..726a17d9cc35 100644
+> --- a/drivers/net/ethernet/stmicro/stmmac/stmmac_main.c
+> +++ b/drivers/net/ethernet/stmicro/stmmac/stmmac_main.c
+> @@ -1975,7 +1975,7 @@ static int stmmac_tx_clean(struct stmmac_priv *priv, int budget, u32 queue)
+>  
+>  	/* We still have pending packets, let's call for a new scheduling */
+>  	if (tx_q->dirty_tx != tx_q->cur_tx)
+> -		mod_timer(&tx_q->txtimer, STMMAC_COAL_TIMER(10));
+> +		mod_timer(&tx_q->txtimer, STMMAC_COAL_TIMER(priv->tx_coal_timer));
+
+I think intent of this code is to re-check the ring soon. The same
+value of 10 is used in stmmac_tx_timer() for quick re-check.
+
+tx_coal_timer defaults to 1000, so it's quite a jump from 10 to 1000.
+
+I think the commit message leaves too much unsaid.
+
+Also if you want to change to the ethtool timeout value, could you move 
+stmmac_tx_timer_arm() and reuse that helper?
+
+>  
+>  	__netif_tx_unlock_bh(netdev_get_tx_queue(priv->dev, queue));
 >  
 
-Thanks for the patch but in this case it looks like this code is
-intentionally written this way to enumerate all options. Maintainers -
-please speak up if you prefer to have the patch applied, otherwise 
-I'm dropping it.
 _______________________________________________
 Linux-stm32 mailing list
 Linux-stm32@st-md-mailman.stormreply.com
