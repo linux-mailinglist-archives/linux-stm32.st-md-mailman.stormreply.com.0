@@ -2,26 +2,26 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id 02D771204BB
-	for <lists+linux-stm32@lfdr.de>; Mon, 16 Dec 2019 13:06:13 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 143301204BC
+	for <lists+linux-stm32@lfdr.de>; Mon, 16 Dec 2019 13:06:16 +0100 (CET)
 Received: from ip-172-31-3-76.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id BCD3FC36B0D;
-	Mon, 16 Dec 2019 12:06:12 +0000 (UTC)
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id D01DBC36B0B;
+	Mon, 16 Dec 2019 12:06:15 +0000 (UTC)
 Received: from foss.arm.com (foss.arm.com [217.140.110.172])
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 118EBC36B09
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 9D4BBC36B0A
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Mon, 16 Dec 2019 12:06:12 +0000 (UTC)
+ Mon, 16 Dec 2019 12:06:14 +0000 (UTC)
 Received: from usa-sjc-imap-foss1.foss.arm.com (unknown [10.121.207.14])
- by usa-sjc-mx-foss1.foss.arm.com (Postfix) with ESMTP id 913D9106F;
- Mon, 16 Dec 2019 04:06:11 -0800 (PST)
+ by usa-sjc-mx-foss1.foss.arm.com (Postfix) with ESMTP id 245E11FB;
+ Mon, 16 Dec 2019 04:06:14 -0800 (PST)
 Received: from localhost (unknown [10.37.6.21])
- by usa-sjc-imap-foss1.foss.arm.com (Postfix) with ESMTPSA id DEA113F719;
- Mon, 16 Dec 2019 04:06:10 -0800 (PST)
-Date: Mon, 16 Dec 2019 12:06:09 +0000
+ by usa-sjc-imap-foss1.foss.arm.com (Postfix) with ESMTPSA id 712433F719;
+ Mon, 16 Dec 2019 04:06:13 -0800 (PST)
+Date: Mon, 16 Dec 2019 12:06:12 +0000
 From: Mark Brown <broonie@kernel.org>
 To: Peter Ujfalusi <peter.ujfalusi@ti.com>
-In-Reply-To: <20191212135550.4634-6-peter.ujfalusi@ti.com>
-Message-Id: <applied-20191212135550.4634-6-peter.ujfalusi@ti.com>
+In-Reply-To: <20191212135550.4634-5-peter.ujfalusi@ti.com>
+Message-Id: <applied-20191212135550.4634-5-peter.ujfalusi@ti.com>
 X-Patchwork-Hint: ignore
 Cc: baohua@kernel.org, f.fainelli@gmail.com, sbranden@broadcom.com,
  rjui@broadcom.com, s.hauer@pengutronix.de, linux-kernel@vger.kernel.org,
@@ -29,8 +29,8 @@ Cc: baohua@kernel.org, f.fainelli@gmail.com, sbranden@broadcom.com,
  Mark Brown <broonie@kernel.org>, linux-rpi-kernel@lists.infradead.org,
  mcoquelin.stm32@gmail.com, shawnguo@kernel.org,
  linux-stm32@st-md-mailman.stormreply.com, linux-arm-kernel@lists.infradead.org
-Subject: [Linux-stm32] Applied "spi: mxs: Use dma_request_chan() instead
-	dma_request_slave_channel()" to the spi tree
+Subject: [Linux-stm32] Applied "spi: img-spfi: Use dma_request_chan()
+	instead dma_request_slave_channel()" to the spi tree
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -50,7 +50,7 @@ Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
 The patch
 
-   spi: mxs: Use dma_request_chan() instead dma_request_slave_channel()
+   spi: img-spfi: Use dma_request_chan() instead dma_request_slave_channel()
 
 has been applied to the spi tree at
 
@@ -75,10 +75,10 @@ to this mail.
 Thanks,
 Mark
 
-From 7ccffd41b2d4d180dcdcc03c54c446621e34bca5 Mon Sep 17 00:00:00 2001
+From 6bfbf4d0aa0c5ebfd4442e1200b21565703e90ed Mon Sep 17 00:00:00 2001
 From: Peter Ujfalusi <peter.ujfalusi@ti.com>
-Date: Thu, 12 Dec 2019 15:55:46 +0200
-Subject: [PATCH] spi: mxs: Use dma_request_chan() instead
+Date: Thu, 12 Dec 2019 15:55:45 +0200
+Subject: [PATCH] spi: img-spfi: Use dma_request_chan() instead
  dma_request_slave_channel()
 
 dma_request_slave_channel() is a wrapper on top of dma_request_chan()
@@ -88,30 +88,41 @@ By using dma_request_chan() directly the driver can support deferred
 probing against DMA.
 
 Signed-off-by: Peter Ujfalusi <peter.ujfalusi@ti.com>
-Link: https://lore.kernel.org/r/20191212135550.4634-6-peter.ujfalusi@ti.com
+Link: https://lore.kernel.org/r/20191212135550.4634-5-peter.ujfalusi@ti.com
 Signed-off-by: Mark Brown <broonie@kernel.org>
 ---
- drivers/spi/spi-mxs.c | 6 +++---
- 1 file changed, 3 insertions(+), 3 deletions(-)
+ drivers/spi/spi-img-spfi.c | 18 ++++++++++++++++--
+ 1 file changed, 16 insertions(+), 2 deletions(-)
 
-diff --git a/drivers/spi/spi-mxs.c b/drivers/spi/spi-mxs.c
-index 996c1c8a9c71..dce85ee07cd0 100644
---- a/drivers/spi/spi-mxs.c
-+++ b/drivers/spi/spi-mxs.c
-@@ -590,10 +590,10 @@ static int mxs_spi_probe(struct platform_device *pdev)
- 	if (ret)
- 		goto out_master_free;
+diff --git a/drivers/spi/spi-img-spfi.c b/drivers/spi/spi-img-spfi.c
+index f4a8f470aecc..8543f5ed1099 100644
+--- a/drivers/spi/spi-img-spfi.c
++++ b/drivers/spi/spi-img-spfi.c
+@@ -666,8 +666,22 @@ static int img_spfi_probe(struct platform_device *pdev)
+ 	master->unprepare_message = img_spfi_unprepare;
+ 	master->handle_err = img_spfi_handle_err;
  
--	ssp->dmach = dma_request_slave_channel(&pdev->dev, "rx-tx");
--	if (!ssp->dmach) {
-+	ssp->dmach = dma_request_chan(&pdev->dev, "rx-tx");
-+	if (IS_ERR(ssp->dmach)) {
- 		dev_err(ssp->dev, "Failed to request DMA\n");
--		ret = -ENODEV;
-+		ret = PTR_ERR(ssp->dmach);
- 		goto out_master_free;
- 	}
- 
+-	spfi->tx_ch = dma_request_slave_channel(spfi->dev, "tx");
+-	spfi->rx_ch = dma_request_slave_channel(spfi->dev, "rx");
++	spfi->tx_ch = dma_request_chan(spfi->dev, "tx");
++	if (IS_ERR(spfi->tx_ch)) {
++		ret = PTR_ERR(spfi->tx_ch);
++		spfi->tx_ch = NULL;
++		if (ret == -EPROBE_DEFER)
++			goto disable_pm;
++	}
++
++	spfi->rx_ch = dma_request_chan(spfi->dev, "rx");
++	if (IS_ERR(spfi->rx_ch)) {
++		ret = PTR_ERR(spfi->rx_ch);
++		spfi->rx_ch = NULL;
++		if (ret == -EPROBE_DEFER)
++			goto disable_pm;
++	}
++
+ 	if (!spfi->tx_ch || !spfi->rx_ch) {
+ 		if (spfi->tx_ch)
+ 			dma_release_channel(spfi->tx_ch);
 -- 
 2.20.1
 
