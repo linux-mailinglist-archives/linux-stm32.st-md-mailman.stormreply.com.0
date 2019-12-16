@@ -2,26 +2,26 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id E7DAB1204BA
-	for <lists+linux-stm32@lfdr.de>; Mon, 16 Dec 2019 13:06:11 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 02D771204BB
+	for <lists+linux-stm32@lfdr.de>; Mon, 16 Dec 2019 13:06:13 +0100 (CET)
 Received: from ip-172-31-3-76.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id B3C00C36B0C;
-	Mon, 16 Dec 2019 12:06:11 +0000 (UTC)
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id BCD3FC36B0D;
+	Mon, 16 Dec 2019 12:06:12 +0000 (UTC)
 Received: from foss.arm.com (foss.arm.com [217.140.110.172])
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 9EF1BC36B0C
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 118EBC36B09
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Mon, 16 Dec 2019 12:06:09 +0000 (UTC)
+ Mon, 16 Dec 2019 12:06:12 +0000 (UTC)
 Received: from usa-sjc-imap-foss1.foss.arm.com (unknown [10.121.207.14])
- by usa-sjc-mx-foss1.foss.arm.com (Postfix) with ESMTP id 1D1641FB;
- Mon, 16 Dec 2019 04:06:09 -0800 (PST)
+ by usa-sjc-mx-foss1.foss.arm.com (Postfix) with ESMTP id 913D9106F;
+ Mon, 16 Dec 2019 04:06:11 -0800 (PST)
 Received: from localhost (unknown [10.37.6.21])
- by usa-sjc-imap-foss1.foss.arm.com (Postfix) with ESMTPSA id 38A773F719;
- Mon, 16 Dec 2019 04:06:08 -0800 (PST)
-Date: Mon, 16 Dec 2019 12:06:06 +0000
+ by usa-sjc-imap-foss1.foss.arm.com (Postfix) with ESMTPSA id DEA113F719;
+ Mon, 16 Dec 2019 04:06:10 -0800 (PST)
+Date: Mon, 16 Dec 2019 12:06:09 +0000
 From: Mark Brown <broonie@kernel.org>
 To: Peter Ujfalusi <peter.ujfalusi@ti.com>
-In-Reply-To: <20191212135550.4634-7-peter.ujfalusi@ti.com>
-Message-Id: <applied-20191212135550.4634-7-peter.ujfalusi@ti.com>
+In-Reply-To: <20191212135550.4634-6-peter.ujfalusi@ti.com>
+Message-Id: <applied-20191212135550.4634-6-peter.ujfalusi@ti.com>
 X-Patchwork-Hint: ignore
 Cc: baohua@kernel.org, f.fainelli@gmail.com, sbranden@broadcom.com,
  rjui@broadcom.com, s.hauer@pengutronix.de, linux-kernel@vger.kernel.org,
@@ -29,7 +29,7 @@ Cc: baohua@kernel.org, f.fainelli@gmail.com, sbranden@broadcom.com,
  Mark Brown <broonie@kernel.org>, linux-rpi-kernel@lists.infradead.org,
  mcoquelin.stm32@gmail.com, shawnguo@kernel.org,
  linux-stm32@st-md-mailman.stormreply.com, linux-arm-kernel@lists.infradead.org
-Subject: [Linux-stm32] Applied "spi: sirf: Use dma_request_chan() instead
+Subject: [Linux-stm32] Applied "spi: mxs: Use dma_request_chan() instead
 	dma_request_slave_channel()" to the spi tree
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
@@ -50,7 +50,7 @@ Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
 The patch
 
-   spi: sirf: Use dma_request_chan() instead dma_request_slave_channel()
+   spi: mxs: Use dma_request_chan() instead dma_request_slave_channel()
 
 has been applied to the spi tree at
 
@@ -75,10 +75,10 @@ to this mail.
 Thanks,
 Mark
 
-From 401abb764abb6e42f539528e02127457eb0c5b32 Mon Sep 17 00:00:00 2001
+From 7ccffd41b2d4d180dcdcc03c54c446621e34bca5 Mon Sep 17 00:00:00 2001
 From: Peter Ujfalusi <peter.ujfalusi@ti.com>
-Date: Thu, 12 Dec 2019 15:55:47 +0200
-Subject: [PATCH] spi: sirf: Use dma_request_chan() instead
+Date: Thu, 12 Dec 2019 15:55:46 +0200
+Subject: [PATCH] spi: mxs: Use dma_request_chan() instead
  dma_request_slave_channel()
 
 dma_request_slave_channel() is a wrapper on top of dma_request_chan()
@@ -88,37 +88,28 @@ By using dma_request_chan() directly the driver can support deferred
 probing against DMA.
 
 Signed-off-by: Peter Ujfalusi <peter.ujfalusi@ti.com>
-Link: https://lore.kernel.org/r/20191212135550.4634-7-peter.ujfalusi@ti.com
+Link: https://lore.kernel.org/r/20191212135550.4634-6-peter.ujfalusi@ti.com
 Signed-off-by: Mark Brown <broonie@kernel.org>
 ---
- drivers/spi/spi-sirf.c | 12 ++++++------
- 1 file changed, 6 insertions(+), 6 deletions(-)
+ drivers/spi/spi-mxs.c | 6 +++---
+ 1 file changed, 3 insertions(+), 3 deletions(-)
 
-diff --git a/drivers/spi/spi-sirf.c b/drivers/spi/spi-sirf.c
-index e1e639191557..8419e6722e17 100644
---- a/drivers/spi/spi-sirf.c
-+++ b/drivers/spi/spi-sirf.c
-@@ -1126,16 +1126,16 @@ static int spi_sirfsoc_probe(struct platform_device *pdev)
- 	sspi->bitbang.master->dev.of_node = pdev->dev.of_node;
+diff --git a/drivers/spi/spi-mxs.c b/drivers/spi/spi-mxs.c
+index 996c1c8a9c71..dce85ee07cd0 100644
+--- a/drivers/spi/spi-mxs.c
++++ b/drivers/spi/spi-mxs.c
+@@ -590,10 +590,10 @@ static int mxs_spi_probe(struct platform_device *pdev)
+ 	if (ret)
+ 		goto out_master_free;
  
- 	/* request DMA channels */
--	sspi->rx_chan = dma_request_slave_channel(&pdev->dev, "rx");
--	if (!sspi->rx_chan) {
-+	sspi->rx_chan = dma_request_chan(&pdev->dev, "rx");
-+	if (IS_ERR(sspi->rx_chan)) {
- 		dev_err(&pdev->dev, "can not allocate rx dma channel\n");
+-	ssp->dmach = dma_request_slave_channel(&pdev->dev, "rx-tx");
+-	if (!ssp->dmach) {
++	ssp->dmach = dma_request_chan(&pdev->dev, "rx-tx");
++	if (IS_ERR(ssp->dmach)) {
+ 		dev_err(ssp->dev, "Failed to request DMA\n");
 -		ret = -ENODEV;
-+		ret = PTR_ERR(sspi->rx_chan);
- 		goto free_master;
- 	}
--	sspi->tx_chan = dma_request_slave_channel(&pdev->dev, "tx");
--	if (!sspi->tx_chan) {
-+	sspi->tx_chan = dma_request_chan(&pdev->dev, "tx");
-+	if (IS_ERR(sspi->tx_chan)) {
- 		dev_err(&pdev->dev, "can not allocate tx dma channel\n");
--		ret = -ENODEV;
-+		ret = PTR_ERR(sspi->tx_chan);
- 		goto free_rx_dma;
++		ret = PTR_ERR(ssp->dmach);
+ 		goto out_master_free;
  	}
  
 -- 
