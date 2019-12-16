@@ -2,26 +2,26 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id ECF3C1204B9
-	for <lists+linux-stm32@lfdr.de>; Mon, 16 Dec 2019 13:06:09 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id E7DAB1204BA
+	for <lists+linux-stm32@lfdr.de>; Mon, 16 Dec 2019 13:06:11 +0100 (CET)
 Received: from ip-172-31-3-76.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id A8B9AC36B0F;
-	Mon, 16 Dec 2019 12:06:09 +0000 (UTC)
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id B3C00C36B0C;
+	Mon, 16 Dec 2019 12:06:11 +0000 (UTC)
 Received: from foss.arm.com (foss.arm.com [217.140.110.172])
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id A70F3C36B0B
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 9EF1BC36B0C
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Mon, 16 Dec 2019 12:06:06 +0000 (UTC)
+ Mon, 16 Dec 2019 12:06:09 +0000 (UTC)
 Received: from usa-sjc-imap-foss1.foss.arm.com (unknown [10.121.207.14])
- by usa-sjc-mx-foss1.foss.arm.com (Postfix) with ESMTP id 29F8C1FB;
- Mon, 16 Dec 2019 04:06:06 -0800 (PST)
+ by usa-sjc-mx-foss1.foss.arm.com (Postfix) with ESMTP id 1D1641FB;
+ Mon, 16 Dec 2019 04:06:09 -0800 (PST)
 Received: from localhost (unknown [10.37.6.21])
- by usa-sjc-imap-foss1.foss.arm.com (Postfix) with ESMTPSA id 759EA3F719;
- Mon, 16 Dec 2019 04:06:05 -0800 (PST)
-Date: Mon, 16 Dec 2019 12:06:04 +0000
+ by usa-sjc-imap-foss1.foss.arm.com (Postfix) with ESMTPSA id 38A773F719;
+ Mon, 16 Dec 2019 04:06:08 -0800 (PST)
+Date: Mon, 16 Dec 2019 12:06:06 +0000
 From: Mark Brown <broonie@kernel.org>
 To: Peter Ujfalusi <peter.ujfalusi@ti.com>
-In-Reply-To: <20191212135550.4634-8-peter.ujfalusi@ti.com>
-Message-Id: <applied-20191212135550.4634-8-peter.ujfalusi@ti.com>
+In-Reply-To: <20191212135550.4634-7-peter.ujfalusi@ti.com>
+Message-Id: <applied-20191212135550.4634-7-peter.ujfalusi@ti.com>
 X-Patchwork-Hint: ignore
 Cc: baohua@kernel.org, f.fainelli@gmail.com, sbranden@broadcom.com,
  rjui@broadcom.com, s.hauer@pengutronix.de, linux-kernel@vger.kernel.org,
@@ -29,8 +29,8 @@ Cc: baohua@kernel.org, f.fainelli@gmail.com, sbranden@broadcom.com,
  Mark Brown <broonie@kernel.org>, linux-rpi-kernel@lists.infradead.org,
  mcoquelin.stm32@gmail.com, shawnguo@kernel.org,
  linux-stm32@st-md-mailman.stormreply.com, linux-arm-kernel@lists.infradead.org
-Subject: [Linux-stm32] Applied "spi: spi-fsl-dspi: Use dma_request_chan()
-	instead dma_request_slave_channel()" to the spi tree
+Subject: [Linux-stm32] Applied "spi: sirf: Use dma_request_chan() instead
+	dma_request_slave_channel()" to the spi tree
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -50,7 +50,7 @@ Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
 The patch
 
-   spi: spi-fsl-dspi: Use dma_request_chan() instead dma_request_slave_channel()
+   spi: sirf: Use dma_request_chan() instead dma_request_slave_channel()
 
 has been applied to the spi tree at
 
@@ -75,10 +75,10 @@ to this mail.
 Thanks,
 Mark
 
-From b5756b777472eceaa84bc180f458f8eaec65da9a Mon Sep 17 00:00:00 2001
+From 401abb764abb6e42f539528e02127457eb0c5b32 Mon Sep 17 00:00:00 2001
 From: Peter Ujfalusi <peter.ujfalusi@ti.com>
-Date: Thu, 12 Dec 2019 15:55:48 +0200
-Subject: [PATCH] spi: spi-fsl-dspi: Use dma_request_chan() instead
+Date: Thu, 12 Dec 2019 15:55:47 +0200
+Subject: [PATCH] spi: sirf: Use dma_request_chan() instead
  dma_request_slave_channel()
 
 dma_request_slave_channel() is a wrapper on top of dma_request_chan()
@@ -88,38 +88,37 @@ By using dma_request_chan() directly the driver can support deferred
 probing against DMA.
 
 Signed-off-by: Peter Ujfalusi <peter.ujfalusi@ti.com>
-Link: https://lore.kernel.org/r/20191212135550.4634-8-peter.ujfalusi@ti.com
+Link: https://lore.kernel.org/r/20191212135550.4634-7-peter.ujfalusi@ti.com
 Signed-off-by: Mark Brown <broonie@kernel.org>
 ---
- drivers/spi/spi-fsl-dspi.c | 12 ++++++------
+ drivers/spi/spi-sirf.c | 12 ++++++------
  1 file changed, 6 insertions(+), 6 deletions(-)
 
-diff --git a/drivers/spi/spi-fsl-dspi.c b/drivers/spi/spi-fsl-dspi.c
-index 442cff71a0d2..52ccd8397c35 100644
---- a/drivers/spi/spi-fsl-dspi.c
-+++ b/drivers/spi/spi-fsl-dspi.c
-@@ -395,17 +395,17 @@ static int dspi_request_dma(struct fsl_dspi *dspi, phys_addr_t phy_addr)
- 	if (!dma)
- 		return -ENOMEM;
+diff --git a/drivers/spi/spi-sirf.c b/drivers/spi/spi-sirf.c
+index e1e639191557..8419e6722e17 100644
+--- a/drivers/spi/spi-sirf.c
++++ b/drivers/spi/spi-sirf.c
+@@ -1126,16 +1126,16 @@ static int spi_sirfsoc_probe(struct platform_device *pdev)
+ 	sspi->bitbang.master->dev.of_node = pdev->dev.of_node;
  
--	dma->chan_rx = dma_request_slave_channel(dev, "rx");
--	if (!dma->chan_rx) {
-+	dma->chan_rx = dma_request_chan(dev, "rx");
-+	if (IS_ERR(dma->chan_rx)) {
- 		dev_err(dev, "rx dma channel not available\n");
+ 	/* request DMA channels */
+-	sspi->rx_chan = dma_request_slave_channel(&pdev->dev, "rx");
+-	if (!sspi->rx_chan) {
++	sspi->rx_chan = dma_request_chan(&pdev->dev, "rx");
++	if (IS_ERR(sspi->rx_chan)) {
+ 		dev_err(&pdev->dev, "can not allocate rx dma channel\n");
 -		ret = -ENODEV;
-+		ret = PTR_ERR(dma->chan_rx);
- 		return ret;
++		ret = PTR_ERR(sspi->rx_chan);
+ 		goto free_master;
  	}
- 
--	dma->chan_tx = dma_request_slave_channel(dev, "tx");
--	if (!dma->chan_tx) {
-+	dma->chan_tx = dma_request_chan(dev, "tx");
-+	if (IS_ERR(dma->chan_tx)) {
- 		dev_err(dev, "tx dma channel not available\n");
+-	sspi->tx_chan = dma_request_slave_channel(&pdev->dev, "tx");
+-	if (!sspi->tx_chan) {
++	sspi->tx_chan = dma_request_chan(&pdev->dev, "tx");
++	if (IS_ERR(sspi->tx_chan)) {
+ 		dev_err(&pdev->dev, "can not allocate tx dma channel\n");
 -		ret = -ENODEV;
-+		ret = PTR_ERR(dma->chan_tx);
- 		goto err_tx_channel;
++		ret = PTR_ERR(sspi->tx_chan);
+ 		goto free_rx_dma;
  	}
  
 -- 
