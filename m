@@ -2,70 +2,51 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id BB9E111F400
-	for <lists+linux-stm32@lfdr.de>; Sat, 14 Dec 2019 21:36:29 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 84E2611FE17
+	for <lists+linux-stm32@lfdr.de>; Mon, 16 Dec 2019 06:40:14 +0100 (CET)
 Received: from ip-172-31-3-76.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 63E13C36B0B;
-	Sat, 14 Dec 2019 20:36:29 +0000 (UTC)
-Received: from mail-pg1-f196.google.com (mail-pg1-f196.google.com
- [209.85.215.196])
- (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
- (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 033CFC36B09
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 25795C36B0C;
+	Mon, 16 Dec 2019 05:40:14 +0000 (UTC)
+Received: from mailgw01.mediatek.com (unknown [210.61.82.183])
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 22257C36B09
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Sat, 14 Dec 2019 20:36:27 +0000 (UTC)
-Received: by mail-pg1-f196.google.com with SMTP id r11so1324960pgf.1
- for <linux-stm32@st-md-mailman.stormreply.com>;
- Sat, 14 Dec 2019 12:36:27 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=netronome-com.20150623.gappssmtp.com; s=20150623;
- h=date:from:to:cc:subject:message-id:in-reply-to:references
- :organization:mime-version:content-transfer-encoding;
- bh=u5S8AzA/two94BW1QHz+RPP0930vQSWwKoy/1jrejMo=;
- b=lfGP0h/6gjRV3qM4YEFh2+9XY/Vn700YCuonoJZrLzUvgymJ4AwkVEjYqcRp6LBlMl
- ptZSe9eEWDPT9Af6pcwB5Rd12R0ps6Rdsue/xR4W7IWtPvk87m9rzCSv7zx66OWmUnnP
- z+6PZGJ0sQnUihfo3rijoi1qU6NsYEuNgZjWfihTdu/VKqe0oOLBGKVjw5GSBliKtM7i
- B8kAQFe6vXRShN9qPbBkACTWzJEgjbfxxzPqtB2Ahdyhg/bj+mvtc3xoousWt49dfeu3
- p30tsbDnEzZFNYY1geeh9It/aYV+mifXhi2O+iNCguBlN7RD1Z9hBxkKccDNUmUpOquF
- YeoQ==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20161025;
- h=x-gm-message-state:date:from:to:cc:subject:message-id:in-reply-to
- :references:organization:mime-version:content-transfer-encoding;
- bh=u5S8AzA/two94BW1QHz+RPP0930vQSWwKoy/1jrejMo=;
- b=LtmWUmiG7Jybp9YlsTso+OeQZ87BqXp5CEHnmNkfyG/4jWBYycwN3lR4LniUGTE+5p
- wLBRZU5c9rDsorwbmzUyODSQD+Q63w/4oa8uqDtBXD+zCvNndFhJhDUqRPtyXhluyK7Z
- rtqWicx3+u2usbrOHffoXSuOP0h4SgEqnnzM/LkJbyLNEabn0mZlZMw0havyQHOvc/0r
- 5mR9fJHA/U6+tlIEbMF34b9FQFfT2Nz4KlYq9X8hhHZJzDMTIKaqIIxvsD6AyVHN/gSv
- XhNBwkMP6a99JHytvkMIkJ9mzSNysZUA3V1XFSPNKC0qr6PTmcqXEY+YeC66MSdSWHWr
- JL/g==
-X-Gm-Message-State: APjAAAUB6CKOhRKXR68vqpaVB0SVfkCCoNfNbKEbAv5PeWhJPfkMNHU/
- 3c2AGEeFIjgiL6G9q69Sngu7rA==
-X-Google-Smtp-Source: APXvYqyy2Uw5pYrnt7cqN32mxFB1vF+Q9fs1ZY/FlZ7maVgLk5Wicty7+Ay07UDDowWoZgWaopJlaA==
-X-Received: by 2002:a62:ee06:: with SMTP id e6mr7100945pfi.45.1576355786428;
- Sat, 14 Dec 2019 12:36:26 -0800 (PST)
-Received: from cakuba.netronome.com (c-73-202-202-92.hsd1.ca.comcast.net.
- [73.202.202.92])
- by smtp.gmail.com with ESMTPSA id j28sm15493997pgb.36.2019.12.14.12.36.25
- (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Sat, 14 Dec 2019 12:36:26 -0800 (PST)
-Date: Sat, 14 Dec 2019 12:36:23 -0800
-From: Jakub Kicinski <jakub.kicinski@netronome.com>
-To: Jose Abreu <Jose.Abreu@synopsys.com>
-Message-ID: <20191214123623.1aeb4966@cakuba.netronome.com>
-In-Reply-To: <04c000a3e0356e8bfb63e07490d8de8e081a2afe.1576007149.git.Jose.Abreu@synopsys.com>
-References: <cover.1576007149.git.Jose.Abreu@synopsys.com>
- <04c000a3e0356e8bfb63e07490d8de8e081a2afe.1576007149.git.Jose.Abreu@synopsys.com>
-Organization: Netronome Systems, Ltd.
+ Mon, 16 Dec 2019 05:40:11 +0000 (UTC)
+X-UUID: c3d5781ffd744501a25a5760812467eb-20191216
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=mediatek.com;
+ s=dk; 
+ h=Content-Transfer-Encoding:Content-Type:MIME-Version:Message-ID:Date:Subject:CC:To:From;
+ bh=bU3pTXiHaPfq2d8vyXK1ujCYPstVOHhLasLwvoHqrcE=; 
+ b=dkjyBgHX9GK+nfB9qN6gnzbjraaH9bQQgURwOUqdKMuVPklV8DipuYxS/VK9WkWbtrYZRm8SC2ZtcuqQOiBLTC/C6+3W1c2Vl97H5yDaoKQPCu8w8rzofK9xBzTQrHnGoxd43wRBEO5HLNvIBw0MpKlReBlYPTTIJyDsiLAP6Rw=;
+X-UUID: c3d5781ffd744501a25a5760812467eb-20191216
+Received: from mtkcas08.mediatek.inc [(172.21.101.126)] by
+ mailgw01.mediatek.com (envelope-from <biao.huang@mediatek.com>)
+ (Cellopoint E-mail Firewall v4.1.10 Build 0809 with TLS)
+ with ESMTP id 770036410; Mon, 16 Dec 2019 13:40:07 +0800
+Received: from MTKCAS06.mediatek.inc (172.21.101.30) by
+ mtkmbs08n1.mediatek.inc (172.21.101.55) with Microsoft SMTP Server (TLS) id
+ 15.0.1395.4; Mon, 16 Dec 2019 13:40:28 +0800
+Received: from localhost.localdomain (10.17.3.153) by MTKCAS06.mediatek.inc
+ (172.21.101.73) with Microsoft SMTP Server id 15.0.1395.4 via Frontend
+ Transport; Mon, 16 Dec 2019 13:39:20 +0800
+From: Biao Huang <biao.huang@mediatek.com>
+To: <davem@davemloft.net>, Rob Herring <robh+dt@kernel.org>, Andrew Lunn
+ <andrew@lunn.ch>
+Date: Mon, 16 Dec 2019 13:39:56 +0800
+Message-ID: <20191216053958.26130-1-biao.huang@mediatek.com>
+X-Mailer: git-send-email 2.18.0
 MIME-Version: 1.0
-Cc: Joao Pinto <Joao.Pinto@synopsys.com>, netdev@vger.kernel.org,
- linux-kernel@vger.kernel.org, Maxime Ripard <mripard@kernel.org>,
- linux-stm32@st-md-mailman.stormreply.com, Chen-Yu Tsai <wens@csie.org>,
+X-MTK: N
+Cc: Mark Rutland <mark.rutland@arm.com>, devicetree@vger.kernel.org,
+ Biao Huang <biao.huang@mediatek.com>, netdev@vger.kernel.org,
+ linux-kernel@vger.kernel.org, yt.shen@mediatek.com,
+ Jose Abreu <joabreu@synopsys.com>, linux-mediatek@lists.infradead.org,
  Maxime Coquelin <mcoquelin.stm32@gmail.com>,
+ Matthias Brugger <matthias.bgg@gmail.com>,
  Giuseppe Cavallaro <peppe.cavallaro@st.com>,
- "David S. Miller" <davem@davemloft.net>, linux-arm-kernel@lists.infradead.org
-Subject: Re: [Linux-stm32] [PATCH net-next 3/4] net: stmmac: Let TX and RX
- interrupts be independently enabled/disabled
+ linux-stm32@st-md-mailman.stormreply.com, linux-arm-kernel@lists.infradead.org
+Subject: [Linux-stm32] [v2,
+	PATCH 0/2] net-next: stmmac: dwmac-mediatek: add more support for
+	RMII
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -82,66 +63,28 @@ Content-Transfer-Encoding: 7bit
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
-On Tue, 10 Dec 2019 20:54:43 +0100, Jose Abreu wrote:
-> @@ -2278,10 +2286,14 @@ static void stmmac_tx_timer(struct timer_list *t)
->  	 * If NAPI is already running we can miss some events. Let's rearm
->  	 * the timer and try again.
->  	 */
-> -	if (likely(napi_schedule_prep(&ch->tx_napi)))
-> +	if (likely(napi_schedule_prep(&ch->tx_napi))) {
-> +		unsigned long flags;
-> +
-> +		spin_lock_irqsave(&ch->lock, flags);
-> +		stmmac_disable_dma_irq(priv, priv->ioaddr, ch->index, 0, 1);
-> +		spin_unlock_irqrestore(&ch->lock, flags);
->  		__napi_schedule(&ch->tx_napi);
-> -	else
-> -		mod_timer(&tx_q->txtimer, STMMAC_COAL_TIMER(10));
+changes in v2:
+ PATCH 1/2 net-next: stmmac: mediatek: add more support for RMII
+        As Andrew's comments, add the "rmii_internal" clock to the list of clocks.
 
-You should also remove the comment above the if statement if it's
-really okay to no longer re-arm the timer. No?
+ PATCH 2/2 net-next: dt-binding: dwmac-mediatek: add more description for RMII
+        document the "rmii_internal" clock in dt-bindings
+        rewrite the sample dts in dt-bindings.
 
-> +	}
->  }
->  
->  /**
+v1:
+This series is for support RMII when MT2712 SoC provides the reference clock.
 
-> @@ -3759,24 +3777,18 @@ static int stmmac_napi_poll_tx(struct napi_struct *napi, int budget)
->  	struct stmmac_channel *ch =
->  		container_of(napi, struct stmmac_channel, tx_napi);
->  	struct stmmac_priv *priv = ch->priv_data;
-> -	struct stmmac_tx_queue *tx_q;
->  	u32 chan = ch->index;
->  	int work_done;
->  
->  	priv->xstats.napi_poll++;
->  
-> -	work_done = stmmac_tx_clean(priv, DMA_TX_SIZE, chan);
-> -	work_done = min(work_done, budget);
-> -
-> -	if (work_done < budget)
-> -		napi_complete_done(napi, work_done);
-> +	work_done = stmmac_tx_clean(priv, budget, chan);
-> +	if (work_done < budget && napi_complete_done(napi, work_done)) {
+Biao Huang (2):
+  net-next: stmmac: mediatek: add more support for RMII
+  net-next: dt-binding: dwmac-mediatek: add more description for RMII
 
-Not really related to this patch, but this looks a little suspicious. 
-I think the TX completions should all be processed regardless of the
-budget. The budget is for RX.
+ .../bindings/net/mediatek-dwmac.txt           | 33 ++++---
+ .../ethernet/stmicro/stmmac/dwmac-mediatek.c  | 89 +++++++++++++------
+ 2 files changed, 83 insertions(+), 39 deletions(-)
 
-> +		unsigned long flags;
->  
-> -	/* Force transmission restart */
-> -	tx_q = &priv->tx_queue[chan];
-> -	if (tx_q->cur_tx != tx_q->dirty_tx) {
-> -		stmmac_enable_dma_transmission(priv, priv->ioaddr);
-> -		stmmac_set_tx_tail_ptr(priv, priv->ioaddr, tx_q->tx_tail_addr,
-> -				       chan);
-> +		spin_lock_irqsave(&ch->lock, flags);
-> +		stmmac_enable_dma_irq(priv, priv->ioaddr, chan, 0, 1);
-> +		spin_unlock_irqrestore(&ch->lock, flags);
->  	}
->  
->  	return work_done;
+--
+2.24.0
+
 _______________________________________________
 Linux-stm32 mailing list
 Linux-stm32@st-md-mailman.stormreply.com
