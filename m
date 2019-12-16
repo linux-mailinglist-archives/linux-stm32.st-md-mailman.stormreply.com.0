@@ -2,57 +2,124 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id 9028D120080
-	for <lists+linux-stm32@lfdr.de>; Mon, 16 Dec 2019 10:03:09 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id E2C161200CD
+	for <lists+linux-stm32@lfdr.de>; Mon, 16 Dec 2019 10:18:58 +0100 (CET)
 Received: from ip-172-31-3-76.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 44B74C36B0B;
-	Mon, 16 Dec 2019 09:03:09 +0000 (UTC)
-Received: from mx07-00178001.pphosted.com (mx08-00178001.pphosted.com
- [91.207.212.93])
- (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 9D3D0C36B0B;
+	Mon, 16 Dec 2019 09:18:58 +0000 (UTC)
+Received: from smtprelay-out1.synopsys.com (sv2-smtprelay2.synopsys.com
+ [149.117.73.133])
+ (using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 01709C36B09
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 02A44C36B09
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Mon, 16 Dec 2019 09:03:06 +0000 (UTC)
-Received: from pps.filterd (m0046660.ppops.net [127.0.0.1])
- by mx08-00178001.pphosted.com (8.16.0.42/8.16.0.42) with SMTP id
- xBG907Md015521; Mon, 16 Dec 2019 10:02:23 +0100
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=st.com;
- h=from : to : cc : subject
- : date : message-id : mime-version : content-type; s=STMicroelectronics;
- bh=UdMl4jxtKK5tEbnHy5CiO3//LkXhcmJ0JMTyto/hDvo=;
- b=fIF4BGPT1D+5/YfiWTebDA+CJvlQ+aDI5rNyt751gl8etpfOUNh2Y/S5M8n9yj0n0kD/
- vJI+B8gJzCQDiSpF5uXhd7tEe5rVGRd4OxIJg6bF/WtOlrQ54ERVgUZzeQi54Hwdmp5M
- A2gueFhbAUPxrAWwVQVR3nlZLLZx9cc2alddDAM2x+hIwpa3mbBAvNWHXguIZFi8GuWG
- +RJxfz6Ede/tvDGxQkruUO0t+WO2EKO0sNfOiChv6syGzAfLPIw6xJmw4YxMA5o7bhAo
- v4dYvbyx2Bmt/tg1LCBaPOq70ZmnT3X9P3d4GdxYrdm/wiuOmPEx/S/psSqTB2E+k8kA sA== 
-Received: from beta.dmz-eu.st.com (beta.dmz-eu.st.com [164.129.1.35])
- by mx08-00178001.pphosted.com with ESMTP id 2wvnre8gg4-1
- (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
- Mon, 16 Dec 2019 10:02:22 +0100
-Received: from euls16034.sgp.st.com (euls16034.sgp.st.com [10.75.44.20])
- by beta.dmz-eu.st.com (STMicroelectronics) with ESMTP id 8D25D100051;
- Mon, 16 Dec 2019 10:02:17 +0100 (CET)
-Received: from Webmail-eu.st.com (sfhdag6node2.st.com [10.75.127.17])
- by euls16034.sgp.st.com (STMicroelectronics) with ESMTP id 7583A2B6A14;
- Mon, 16 Dec 2019 10:02:17 +0100 (CET)
-Received: from localhost (10.75.127.44) by SFHDAG6NODE2.st.com (10.75.127.17)
- with Microsoft SMTP Server (TLS) id 15.0.1347.2;
- Mon, 16 Dec 2019 10:02:16 +0100
-From: Christophe Kerello <christophe.kerello@st.com>
-To: <miquel.raynal@bootlin.com>, <richard@nod.at>, <vigneshr@ti.com>
-Date: Mon, 16 Dec 2019 10:01:55 +0100
-Message-ID: <1576486915-7517-1-git-send-email-christophe.kerello@st.com>
-X-Mailer: git-send-email 1.9.1
+ Mon, 16 Dec 2019 09:18:55 +0000 (UTC)
+Received: from mailhost.synopsys.com (badc-mailhost1.synopsys.com
+ [10.192.0.17])
+ (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits))
+ (No client certificate requested)
+ by smtprelay-out1.synopsys.com (Postfix) with ESMTPS id 86FFF42650;
+ Mon, 16 Dec 2019 09:18:53 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=synopsys.com; s=mail;
+ t=1576487934; bh=TuUBvcwYnuYNXYYCOMVn2LlqQyoLV9WD3AmcOfygKks=;
+ h=From:To:CC:Subject:Date:References:In-Reply-To:From;
+ b=V9+iyQwQAOugzLlIKzmwgZRUk+lUoIBvPA1tFCYUJolPY6eSth5BhQUMNdKqMG+kQ
+ lWh9mtKTzWpsmg5eNieOo2RJqNDp18+hWOqVoA6XFxxw3hznCSPZX3O+pY40uTwrys
+ g3x/oBnTb5/KNJQONO+venasY2Pdl3M9jLfzISUZTCPTbWcZLBe/oamoXGoLpgvB1U
+ QyYesycoewAyMi64vPG07YBTsSBqT/HGqlasRMyX/Qiub7KPkhoow79NX9YEA+rsEl
+ RD+WYhDgW260IiMjTFhe/+pSKuhZ7G832i1HWZEC8jisSIWRnBFdmwLAKJ4eN3vDPr
+ szEtT4757+F8Q==
+Received: from US01WEHTC3.internal.synopsys.com
+ (us01wehtc3.internal.synopsys.com [10.15.84.232])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES256-SHA384 (256/256 bits))
+ (No client certificate requested)
+ by mailhost.synopsys.com (Postfix) with ESMTPS id 5F3B1A0085;
+ Mon, 16 Dec 2019 09:18:52 +0000 (UTC)
+Received: from us01hybrid1.internal.synopsys.com (10.200.27.51) by
+ US01WEHTC3.internal.synopsys.com (10.15.84.232) with Microsoft SMTP Server
+ (TLS) id 14.3.408.0; Mon, 16 Dec 2019 01:18:52 -0800
+Received: from NAM02-CY1-obe.outbound.protection.outlook.com (10.202.3.67) by
+ mrs.synopsys.com (10.200.27.51) with Microsoft SMTP Server (TLS) id
+ 14.3.408.0; Mon, 16 Dec 2019 01:18:51 -0800
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
+ b=mgPWS41eJ3D1bFWhqlWFBevxA8ktRIDqlQAYqMibL9E/glChgP7YLueMMV50VrINKjRYDzxP8cPrhkk43X1Mf0VfNHZmw7/3yM7wQ6tc+VrVWmSmhluER57IOatQ7hAN5YBaM/pS/hP4pUcJTjdAZ8HnxpYVPGdRWeBpZzN/+5HjDu6kmRAZBHVwQmDTvMdODE649jWz0s66hCE50z0tNNxqfbKjk9psmWUpQ0Ou0ilZl8cHhCGERm8g8WUf8Mm9B3/gdAFQpXIn51qwXcRv73ZlVwJHCTQYjaLcxQLDXroc7V5eQRctihmXKT3dMPx11W4uVACwQVlMiWvuOQBjAw==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
+ s=arcselector9901;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=oC3dJqay3iflZmkvGKU8yuy9Yrqc7PvExl3sum/ScyE=;
+ b=ja8FyP+NTCO1KFOTGwPG+lioWQ5kGZL4MPvwTYzbWICFt6AbXLrfT6oIf2dwRcAuFgs9upOxntIf6ogIFxDJtObar8LZGG0h7OoEZJfxkwtKOt+2Q811OolUaeA3WRAVHM5AqCB8DzYaoL8s3z6jK5L1CWkFGsYKnp1xk/fsFCZBlY5U2OyOLQ44op93N179X3qz4ameRTYqHfDF4uNyuwJAZx4/m8LsgBd4Wj0nptOJolM3HeibZ0Xk/PUIOb7s3cucwHv2S29w1bcYf2hKuboUPSe8rsYwrbuyZiwkTj51aoRcNB0UgOmN6RPpGJmc4UkGZrX0Nw0SRWhchcM8Tg==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=synopsys.com; dmarc=pass action=none header.from=synopsys.com;
+ dkim=pass header.d=synopsys.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=synopsys.onmicrosoft.com; s=selector2-synopsys-onmicrosoft-com;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=oC3dJqay3iflZmkvGKU8yuy9Yrqc7PvExl3sum/ScyE=;
+ b=BdhGb3QTiHU/mpzCaIKqBSm0M9G9io7+qgvf4VfmFzyr20Q5Te/WUruyLcHHOL9hiiA2EAO7o8TAay5UT5q5CTYiPSqXlSv+Hz72MHHIOOj5NGwWWg1hDmGxUiDA5b9UaakIQeiJFn9JxCwqyGRFWMd2wwYSXpom/hz406qvkZI=
+Received: from BN8PR12MB3266.namprd12.prod.outlook.com (20.179.67.145) by
+ BN8PR12MB2994.namprd12.prod.outlook.com (20.178.210.145) with Microsoft SMTP
+ Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.20.2538.18; Mon, 16 Dec 2019 09:18:50 +0000
+Received: from BN8PR12MB3266.namprd12.prod.outlook.com
+ ([fe80::3d20:3a36:3b64:4510]) by BN8PR12MB3266.namprd12.prod.outlook.com
+ ([fe80::3d20:3a36:3b64:4510%7]) with mapi id 15.20.2538.019; Mon, 16 Dec 2019
+ 09:18:50 +0000
+From: Jose Abreu <Jose.Abreu@synopsys.com>
+To: Jakub Kicinski <jakub.kicinski@netronome.com>
+Thread-Topic: [PATCH net-next 3/4] net: stmmac: Let TX and RX interrupts be
+ independently enabled/disabled
+Thread-Index: AQHVr5PIxrei2rB6dEKHZgwzBhKcYqe6HSSAgAJnE7A=
+Date: Mon, 16 Dec 2019 09:18:50 +0000
+Message-ID: <BN8PR12MB3266288303A6CA6C3CAA5E6CD3510@BN8PR12MB3266.namprd12.prod.outlook.com>
+References: <cover.1576007149.git.Jose.Abreu@synopsys.com>
+ <04c000a3e0356e8bfb63e07490d8de8e081a2afe.1576007149.git.Jose.Abreu@synopsys.com>
+ <20191214123623.1aeb4966@cakuba.netronome.com>
+In-Reply-To: <20191214123623.1aeb4966@cakuba.netronome.com>
+Accept-Language: en-US
+Content-Language: en-US
+X-MS-Has-Attach: 
+X-MS-TNEF-Correlator: 
+authentication-results: spf=none (sender IP is )
+ smtp.mailfrom=joabreu@synopsys.com; 
+x-originating-ip: [83.174.63.141]
+x-ms-publictraffictype: Email
+x-ms-office365-filtering-correlation-id: d0c33801-ca34-4fff-9c1a-08d78208f695
+x-ms-traffictypediagnostic: BN8PR12MB2994:
+x-ms-exchange-transport-forked: True
+x-microsoft-antispam-prvs: <BN8PR12MB29945FDF293216826AA45EA3D3510@BN8PR12MB2994.namprd12.prod.outlook.com>
+x-ms-oob-tlc-oobclassifiers: OLM:9508;
+x-forefront-prvs: 02530BD3AA
+x-forefront-antispam-report: SFV:NSPM;
+ SFS:(10019020)(376002)(346002)(39860400002)(366004)(396003)(136003)(189003)(199004)(7416002)(186003)(316002)(66946007)(54906003)(6916009)(5660300002)(33656002)(66556008)(66446008)(66476007)(478600001)(76116006)(64756008)(7696005)(6506007)(26005)(2906002)(71200400001)(9686003)(4326008)(55016002)(8936002)(81166006)(52536014)(86362001)(81156014)(8676002);
+ DIR:OUT; SFP:1102; SCL:1; SRVR:BN8PR12MB2994;
+ H:BN8PR12MB3266.namprd12.prod.outlook.com; FPR:; SPF:None; LANG:en;
+ PTR:InfoNoRecords; MX:1; A:1; 
+received-spf: None (protection.outlook.com: synopsys.com does not designate
+ permitted sender hosts)
+x-ms-exchange-senderadcheck: 1
+x-microsoft-antispam: BCL:0;
+x-microsoft-antispam-message-info: jCrwCxBOCvWLkIEZAtLoBvcQw/9EOU9GzEynQnO+JcMiD24FbtNSCKzNU7vuDV+8DSi3oP2wU3c9JC9ViHYdRY4srgEnmZYfqZF/xt15W+Ko500tvsVDIJPd5RWIT/CrZ1HtX2FEccAR8JePuGfla2puPTlHabFqprLRzYhsJzXX8d3Ugwlqi+TW97qUyiuvucdhg2I6WbjOKy69KfHtyvk2i3f8aVK4BhvCCj+hLJlakcF7Dc0OLgV2u+KRYrnoy3QGoRshDWEx1jCWC4SqIUQp5wo2XRPEay49bP6G0G+l9ogt8X48q9RD4S7fEKlNbD/TqAJfUEvhk56Cmvq9r6bsy1X4bEv+CaOgzIBXHAtKnZQVeGoOI9pOoKMRaThkr2nZLq8/Y3j4abLzauTl4PuN1vWSe21/EYro+3LnOe6DhFX0vys1wWTnAnYPu+Of
 MIME-Version: 1.0
-X-Originating-IP: [10.75.127.44]
-X-ClientProxiedBy: SFHDAG3NODE3.st.com (10.75.127.9) To SFHDAG6NODE2.st.com
- (10.75.127.17)
-X-Proofpoint-Virus-Version: vendor=fsecure engine=2.50.10434:6.0.95,18.0.572
- definitions=2019-12-16_02:2019-12-16,2019-12-16 signatures=0
-Cc: linux-mtd@lists.infradead.org, linux-kernel@vger.kernel.org,
- linux-stm32@st-md-mailman.stormreply.com
-Subject: [Linux-stm32] mtd: rawnand: stm32_fmc2: avoid to lock the CPU bus
+X-MS-Exchange-CrossTenant-Network-Message-Id: d0c33801-ca34-4fff-9c1a-08d78208f695
+X-MS-Exchange-CrossTenant-originalarrivaltime: 16 Dec 2019 09:18:50.1745 (UTC)
+X-MS-Exchange-CrossTenant-fromentityheader: Hosted
+X-MS-Exchange-CrossTenant-id: c33c9f88-1eb7-4099-9700-16013fd9e8aa
+X-MS-Exchange-CrossTenant-mailboxtype: HOSTED
+X-MS-Exchange-CrossTenant-userprincipalname: HyBSdc2fWqfuP1vsWi+qdphg3EOdN234Qg69/QBA5u7XpIeKbs23csbMWMcUMFpbTTYNNVlkdmzkVEthtFidWg==
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: BN8PR12MB2994
+X-OriginatorOrg: synopsys.com
+Cc: Joao Pinto <Joao.Pinto@synopsys.com>,
+ "netdev@vger.kernel.org" <netdev@vger.kernel.org>,
+ "linux-kernel@vger.kernel.org" <linux-kernel@vger.kernel.org>,
+ Maxime Ripard <mripard@kernel.org>,
+ "linux-stm32@st-md-mailman.stormreply.com"
+ <linux-stm32@st-md-mailman.stormreply.com>, Chen-Yu Tsai <wens@csie.org>,
+ Maxime Coquelin <mcoquelin.stm32@gmail.com>,
+ Giuseppe Cavallaro <peppe.cavallaro@st.com>,
+ "David S. Miller" <davem@davemloft.net>,
+ "linux-arm-kernel@lists.infradead.org" <linux-arm-kernel@lists.infradead.org>
+Subject: Re: [Linux-stm32] [PATCH net-next 3/4] net: stmmac: Let TX and RX
+ interrupts be independently enabled/disabled
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -69,100 +136,64 @@ Content-Transfer-Encoding: 7bit
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
-We are currently using nand_soft_waitrdy to poll the status of the NAND
-flash. FMC2 enables the wait feature bit (this feature is mandatory for
-the sequencer mode). By enabling this feature, we can't poll the status
-of the NAND flash, the read status command is stucked in FMC2 pipeline
-until R/B# signal is high, and locks the CPU bus.
-To avoid to lock the CPU bus, we poll FMC2 ISR register. This register
-reports the status of the R/B# signal.
+From: Jakub Kicinski <jakub.kicinski@netronome.com>
+Date: Dec/14/2019, 20:36:23 (UTC+00:00)
 
-Fixes: 2cd457f328c1 ("mtd: rawnand: stm32_fmc2: add STM32 FMC2 NAND flash controller driver")
-Signed-off-by: Christophe Kerello <christophe.kerello@st.com>
+> On Tue, 10 Dec 2019 20:54:43 +0100, Jose Abreu wrote:
+> > @@ -2278,10 +2286,14 @@ static void stmmac_tx_timer(struct timer_list *t)
+> >  	 * If NAPI is already running we can miss some events. Let's rearm
+> >  	 * the timer and try again.
+> >  	 */
+> > -	if (likely(napi_schedule_prep(&ch->tx_napi)))
+> > +	if (likely(napi_schedule_prep(&ch->tx_napi))) {
+> > +		unsigned long flags;
+> > +
+> > +		spin_lock_irqsave(&ch->lock, flags);
+> > +		stmmac_disable_dma_irq(priv, priv->ioaddr, ch->index, 0, 1);
+> > +		spin_unlock_irqrestore(&ch->lock, flags);
+> >  		__napi_schedule(&ch->tx_napi);
+> > -	else
+> > -		mod_timer(&tx_q->txtimer, STMMAC_COAL_TIMER(10));
+> 
+> You should also remove the comment above the if statement if it's
+> really okay to no longer re-arm the timer. No?
+
+Yeah, agreed!
+
+> 
+> > +	}
+> >  }
+> >  
+> >  /**
+> 
+> > @@ -3759,24 +3777,18 @@ static int stmmac_napi_poll_tx(struct napi_struct *napi, int budget)
+> >  	struct stmmac_channel *ch =
+> >  		container_of(napi, struct stmmac_channel, tx_napi);
+> >  	struct stmmac_priv *priv = ch->priv_data;
+> > -	struct stmmac_tx_queue *tx_q;
+> >  	u32 chan = ch->index;
+> >  	int work_done;
+> >  
+> >  	priv->xstats.napi_poll++;
+> >  
+> > -	work_done = stmmac_tx_clean(priv, DMA_TX_SIZE, chan);
+> > -	work_done = min(work_done, budget);
+> > -
+> > -	if (work_done < budget)
+> > -		napi_complete_done(napi, work_done);
+> > +	work_done = stmmac_tx_clean(priv, budget, chan);
+> > +	if (work_done < budget && napi_complete_done(napi, work_done)) {
+> 
+> Not really related to this patch, but this looks a little suspicious. 
+> I think the TX completions should all be processed regardless of the
+> budget. The budget is for RX.
+
+Well but this is a TX NAPI ... Shouldn't it be limited to prevent CPU 
+starvation ?
+
 ---
- drivers/mtd/nand/raw/stm32_fmc2_nand.c | 38 ++++++++++++++++++++++++++++++++--
- 1 file changed, 36 insertions(+), 2 deletions(-)
-
-diff --git a/drivers/mtd/nand/raw/stm32_fmc2_nand.c b/drivers/mtd/nand/raw/stm32_fmc2_nand.c
-index 9e63800..3ba73f1 100644
---- a/drivers/mtd/nand/raw/stm32_fmc2_nand.c
-+++ b/drivers/mtd/nand/raw/stm32_fmc2_nand.c
-@@ -37,6 +37,7 @@
- /* Max ECC buffer length */
- #define FMC2_MAX_ECC_BUF_LEN		(FMC2_BCHDSRS_LEN * FMC2_MAX_SG)
- 
-+#define FMC2_TIMEOUT_US			1000
- #define FMC2_TIMEOUT_MS			1000
- 
- /* Timings */
-@@ -53,6 +54,8 @@
- #define FMC2_PMEM			0x88
- #define FMC2_PATT			0x8c
- #define FMC2_HECCR			0x94
-+#define FMC2_ISR			0x184
-+#define FMC2_ICR			0x188
- #define FMC2_CSQCR			0x200
- #define FMC2_CSQCFGR1			0x204
- #define FMC2_CSQCFGR2			0x208
-@@ -118,6 +121,12 @@
- #define FMC2_PATT_ATTHIZ(x)		(((x) & 0xff) << 24)
- #define FMC2_PATT_DEFAULT		0x0a0a0a0a
- 
-+/* Register: FMC2_ISR */
-+#define FMC2_ISR_IHLF			BIT(1)
-+
-+/* Register: FMC2_ICR */
-+#define FMC2_ICR_CIHLF			BIT(1)
-+
- /* Register: FMC2_CSQCR */
- #define FMC2_CSQCR_CSQSTART		BIT(0)
- 
-@@ -1322,6 +1331,31 @@ static void stm32_fmc2_write_data(struct nand_chip *chip, const void *buf,
- 		stm32_fmc2_set_buswidth_16(fmc2, true);
- }
- 
-+static int stm32_fmc2_waitrdy(struct nand_chip *chip, unsigned long timeout_ms)
-+{
-+	struct stm32_fmc2_nfc *fmc2 = to_stm32_nfc(chip->controller);
-+	const struct nand_sdr_timings *timings;
-+	u32 isr, sr;
-+
-+	/* Check if there is no pending requests to the NAND flash */
-+	if (readl_relaxed_poll_timeout_atomic(fmc2->io_base + FMC2_SR, sr,
-+					      sr & FMC2_SR_NWRF, 1,
-+					      FMC2_TIMEOUT_US))
-+		dev_warn(fmc2->dev, "Waitrdy timeout\n");
-+
-+	/* Wait tWB before R/B# signal is low */
-+	timings = nand_get_sdr_timings(&chip->data_interface);
-+	ndelay(PSEC_TO_NSEC(timings->tWB_max));
-+
-+	/* R/B# signal is low, clear high level flag */
-+	writel_relaxed(FMC2_ICR_CIHLF, fmc2->io_base + FMC2_ICR);
-+
-+	/* Wait R/B# signal is high */
-+	return readl_relaxed_poll_timeout_atomic(fmc2->io_base + FMC2_ISR,
-+						 isr, isr & FMC2_ISR_IHLF,
-+						 5, 1000 * timeout_ms);
-+}
-+
- static int stm32_fmc2_exec_op(struct nand_chip *chip,
- 			      const struct nand_operation *op,
- 			      bool check_only)
-@@ -1366,8 +1400,8 @@ static int stm32_fmc2_exec_op(struct nand_chip *chip,
- 			break;
- 
- 		case NAND_OP_WAITRDY_INSTR:
--			ret = nand_soft_waitrdy(chip,
--						instr->ctx.waitrdy.timeout_ms);
-+			ret = stm32_fmc2_waitrdy(chip,
-+						 instr->ctx.waitrdy.timeout_ms);
- 			break;
- 		}
- 	}
--- 
-1.9.1
-
+Thanks,
+Jose Miguel Abreu
 _______________________________________________
 Linux-stm32 mailing list
 Linux-stm32@st-md-mailman.stormreply.com
