@@ -2,50 +2,55 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id AA3C0122C22
+	by mail.lfdr.de (Postfix) with ESMTPS id 82CA5122C20
 	for <lists+linux-stm32@lfdr.de>; Tue, 17 Dec 2019 13:46:24 +0100 (CET)
 Received: from ip-172-31-3-76.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 63181C36B18;
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 47B3BC36B12;
 	Tue, 17 Dec 2019 12:46:24 +0000 (UTC)
 Received: from smtprelay-out1.synopsys.com (smtprelay-out1.synopsys.com
  [149.117.87.133])
  (using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id AD599C36B0D
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 7FED7C36B0C
  for <linux-stm32@st-md-mailman.stormreply.com>;
  Tue, 17 Dec 2019 12:46:21 +0000 (UTC)
 Received: from mailhost.synopsys.com (mdc-mailhost2.synopsys.com
  [10.225.0.210])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits))
  (No client certificate requested)
- by smtprelay-out1.synopsys.com (Postfix) with ESMTPS id 5AF8BC00AE;
+ by smtprelay-out1.synopsys.com (Postfix) with ESMTPS id 63AFDC00D6;
  Tue, 17 Dec 2019 12:46:19 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=synopsys.com; s=mail;
- t=1576586780; bh=JfzLeaD7F4WW4TsqwGILNTOHGkhNnPEwK2ItB4zHXlk=;
- h=From:To:Cc:Subject:Date:From;
- b=dKVErmsvICyvIYUNQzYHD0yQcMGdDCyqaa/xKB06F2qxDLCwqvCO2hff1lxqcDlBk
- 5UOH+nu0exSiCkL5g6ChAtZZrjI29qjtL7QEcppuF2R5XsFfkNw5eS4QJOa011/rVY
- SKYDfGOq6PD27OIzPt+mt6ojSDsBtqUQosPL4/iZYqieX7LrMbwLHr1bCSvREV3jAW
- bPoI6CberKXSmELcrXhmoiVLltos0AxZlqZmtBu+tPhJa7+uLxCz0jjm8XUq/uCW4i
- 5HH+VhCtSkjIK6c59p5S3hsfuC57GNcS7WRH5v1vyHsdkUbeOKgC3+eoFif0u8bCbo
- SUqXaKGGfTB/Q==
+ t=1576586780; bh=llvgGrumShiuBeIdyIGzEeURrXNPj/+om1MXWeErZwE=;
+ h=From:To:Cc:Subject:Date:In-Reply-To:References:In-Reply-To:
+ References:From;
+ b=IBDFwlBp+P2Vu88u9KjVsJFM6WbcROqtTh6Om02X4HCxSeIwKfE5Fv/BKPM6QAl98
+ Ncsj7FBWCItcyzB5SBW5MK1omI4TONvFT+pUcQnU3sv/OrO/cYduEaywg7ANGG8zBk
+ wCGxgaseWiray55Hx4sEYHXGVTU66DEQDPrZMFpD2PjlDmI4aWUtDBNAgRIWL7Y4sB
+ vwJ6yXJtZ0fhMc713MMKb0E9eIONlrxVJgH//TlOBxBpkDaEQA8POepP3fRN50gKrt
+ eekvVzd5flKiiUskZN4z7FsAQr7kXR1ke2hmLk/j18HWtOe+iORkZJfzR1/wnuIcAw
+ v7wfAiTkyE/Dg==
 Received: from de02dwia024.internal.synopsys.com
  (de02dwia024.internal.synopsys.com [10.225.19.81])
- by mailhost.synopsys.com (Postfix) with ESMTP id 6D72FA0075;
- Tue, 17 Dec 2019 12:46:16 +0000 (UTC)
+ by mailhost.synopsys.com (Postfix) with ESMTP id B065CA0087;
+ Tue, 17 Dec 2019 12:46:17 +0000 (UTC)
 From: Jose Abreu <Jose.Abreu@synopsys.com>
 To: netdev@vger.kernel.org
-Date: Tue, 17 Dec 2019 13:46:04 +0100
-Message-Id: <cover.1576586602.git.Jose.Abreu@synopsys.com>
+Date: Tue, 17 Dec 2019 13:46:05 +0100
+Message-Id: <827bd9655694b9278734f7fc33f9ec8dd837a0e0.1576586602.git.Jose.Abreu@synopsys.com>
 X-Mailer: git-send-email 2.7.4
+In-Reply-To: <cover.1576586602.git.Jose.Abreu@synopsys.com>
+References: <cover.1576586602.git.Jose.Abreu@synopsys.com>
+In-Reply-To: <cover.1576586602.git.Jose.Abreu@synopsys.com>
+References: <cover.1576586602.git.Jose.Abreu@synopsys.com>
 Cc: Jose Abreu <Jose.Abreu@synopsys.com>, Joao Pinto <Joao.Pinto@synopsys.com>,
  Jakub Kicinski <jakub.kicinski@netronome.com>, linux-kernel@vger.kernel.org,
- Maxime Ripard <mripard@kernel.org>, linux-stm32@st-md-mailman.stormreply.com,
- Chen-Yu Tsai <wens@csie.org>, Maxime Coquelin <mcoquelin.stm32@gmail.com>,
+ linux-stm32@st-md-mailman.stormreply.com,
+ Maxime Coquelin <mcoquelin.stm32@gmail.com>,
  Giuseppe Cavallaro <peppe.cavallaro@st.com>,
  "David S. Miller" <davem@davemloft.net>, linux-arm-kernel@lists.infradead.org
-Subject: [Linux-stm32] [PATCH net-next v2 0/7] net: stmmac: Improvements for
-	-next
+Subject: [Linux-stm32] [PATCH net-next v2 1/7] net: stmmac: Print more
+	information in DebugFS DMA Capabilities file
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -63,65 +68,69 @@ Content-Transfer-Encoding: 7bit
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
-Improvements for stmmac.
+DMA Capabilites have grown but the DebugFS that shows this info has not
+been updated. Lets add the missing information.
 
-1) Adds more information regarding HW Caps in the DebugFS file.
-
-2) Prevents incostant bandwidth because of missed interrupts.
-
-3) Allows interrupts to be independently enabled or disabled so that we don't
-have to schedule both TX and RX NAPIs.
-
-4) Stops using a magic number in coalesce timer re-arm.
-
-5) and 6) Implements the EST feature for GMAC5+ and XGMAC3+ cores which leads
-to 7) that integrates EST feature with TAPRIO API.
+Signed-off-by: Jose Abreu <Jose.Abreu@synopsys.com>
 
 ---
 Cc: Giuseppe Cavallaro <peppe.cavallaro@st.com>
 Cc: Alexandre Torgue <alexandre.torgue@st.com>
 Cc: Jose Abreu <joabreu@synopsys.com>
 Cc: "David S. Miller" <davem@davemloft.net>
-Cc: Maxime Ripard <mripard@kernel.org>
-Cc: Chen-Yu Tsai <wens@csie.org>
 Cc: Maxime Coquelin <mcoquelin.stm32@gmail.com>
 Cc: netdev@vger.kernel.org
-Cc: linux-arm-kernel@lists.infradead.org
 Cc: linux-stm32@st-md-mailman.stormreply.com
+Cc: linux-arm-kernel@lists.infradead.org
 Cc: linux-kernel@vger.kernel.org
 ---
+ drivers/net/ethernet/stmicro/stmmac/stmmac_main.c | 31 ++++++++++++++++++++++-
+ 1 file changed, 30 insertions(+), 1 deletion(-)
 
-Jose Abreu (7):
-  net: stmmac: Print more information in DebugFS DMA Capabilities file
-  net: stmmac: Always arm TX Timer at end of transmission start
-  net: stmmac: Let TX and RX interrupts be independently
-    enabled/disabled
-  net: stmmac: Always use TX coalesce timer value when rescheduling
-  net: stmmac: Add basic EST support for GMAC5+
-  net: stmmac: Add basic EST support for XGMAC
-  net: stmmac: Integrate EST with TAPRIO scheduler API
-
- drivers/net/ethernet/stmicro/stmmac/common.h       |   4 +
- drivers/net/ethernet/stmicro/stmmac/dwmac-sun8i.c  |  24 ++++-
- drivers/net/ethernet/stmicro/stmmac/dwmac4.h       |   9 ++
- drivers/net/ethernet/stmicro/stmmac/dwmac4_core.c  |   2 +
- drivers/net/ethernet/stmicro/stmmac/dwmac4_dma.c   |   3 +
- drivers/net/ethernet/stmicro/stmmac/dwmac4_dma.h   |  11 ++-
- drivers/net/ethernet/stmicro/stmmac/dwmac4_lib.c   |  47 +++++++--
- drivers/net/ethernet/stmicro/stmmac/dwmac5.c       |  95 ++++++++++++++++++
- drivers/net/ethernet/stmicro/stmmac/dwmac5.h       |  19 ++++
- drivers/net/ethernet/stmicro/stmmac/dwmac_dma.h    |   6 +-
- drivers/net/ethernet/stmicro/stmmac/dwmac_lib.c    |  22 ++++-
- drivers/net/ethernet/stmicro/stmmac/dwxgmac2.h     |  21 ++++
- .../net/ethernet/stmicro/stmmac/dwxgmac2_core.c    |  52 ++++++++++
- drivers/net/ethernet/stmicro/stmmac/dwxgmac2_dma.c |  27 +++++-
- drivers/net/ethernet/stmicro/stmmac/hwif.h         |  16 ++-
- drivers/net/ethernet/stmicro/stmmac/stmmac.h       |   1 +
- drivers/net/ethernet/stmicro/stmmac/stmmac_main.c  |  96 ++++++++++++------
- drivers/net/ethernet/stmicro/stmmac/stmmac_tc.c    | 108 +++++++++++++++++++++
- include/linux/stmmac.h                             |  11 +++
- 19 files changed, 519 insertions(+), 55 deletions(-)
-
+diff --git a/drivers/net/ethernet/stmicro/stmmac/stmmac_main.c b/drivers/net/ethernet/stmicro/stmmac/stmmac_main.c
+index da80866d0371..3299f5bb02e2 100644
+--- a/drivers/net/ethernet/stmicro/stmmac/stmmac_main.c
++++ b/drivers/net/ethernet/stmicro/stmmac/stmmac_main.c
+@@ -4238,9 +4238,38 @@ static int stmmac_dma_cap_show(struct seq_file *seq, void *v)
+ 		   priv->dma_cap.number_rx_channel);
+ 	seq_printf(seq, "\tNumber of Additional TX channel: %d\n",
+ 		   priv->dma_cap.number_tx_channel);
++	seq_printf(seq, "\tNumber of Additional RX queues: %d\n",
++		   priv->dma_cap.number_rx_queues);
++	seq_printf(seq, "\tNumber of Additional TX queues: %d\n",
++		   priv->dma_cap.number_tx_queues);
+ 	seq_printf(seq, "\tEnhanced descriptors: %s\n",
+ 		   (priv->dma_cap.enh_desc) ? "Y" : "N");
+-
++	seq_printf(seq, "\tTX Fifo Size: %d\n", priv->dma_cap.tx_fifo_size);
++	seq_printf(seq, "\tRX Fifo Size: %d\n", priv->dma_cap.rx_fifo_size);
++	seq_printf(seq, "\tHash Table Size: %d\n", priv->dma_cap.hash_tb_sz);
++	seq_printf(seq, "\tTSO: %s\n", priv->dma_cap.tsoen ? "Y" : "N");
++	seq_printf(seq, "\tNumber of PPS Outputs: %d\n",
++		   priv->dma_cap.pps_out_num);
++	seq_printf(seq, "\tSafety Features: %s\n",
++		   priv->dma_cap.asp ? "Y" : "N");
++	seq_printf(seq, "\tFlexible RX Parser: %s\n",
++		   priv->dma_cap.frpsel ? "Y" : "N");
++	seq_printf(seq, "\tEnhanced Addressing: %d\n",
++		   priv->dma_cap.addr64);
++	seq_printf(seq, "\tReceive Side Scaling: %s\n",
++		   priv->dma_cap.rssen ? "Y" : "N");
++	seq_printf(seq, "\tVLAN Hash Filtering: %s\n",
++		   priv->dma_cap.vlhash ? "Y" : "N");
++	seq_printf(seq, "\tSplit Header: %s\n",
++		   priv->dma_cap.sphen ? "Y" : "N");
++	seq_printf(seq, "\tVLAN TX Insertion: %s\n",
++		   priv->dma_cap.vlins ? "Y" : "N");
++	seq_printf(seq, "\tDouble VLAN: %s\n",
++		   priv->dma_cap.dvlan ? "Y" : "N");
++	seq_printf(seq, "\tNumber of L3/L4 Filters: %d\n",
++		   priv->dma_cap.l3l4fnum);
++	seq_printf(seq, "\tARP Offloading: %s\n",
++		   priv->dma_cap.arpoffsel ? "Y" : "N");
+ 	return 0;
+ }
+ DEFINE_SHOW_ATTRIBUTE(stmmac_dma_cap);
 -- 
 2.7.4
 
