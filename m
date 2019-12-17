@@ -2,42 +2,59 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id 956F51238D5
-	for <lists+linux-stm32@lfdr.de>; Tue, 17 Dec 2019 22:49:02 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id C73AA123AEE
+	for <lists+linux-stm32@lfdr.de>; Wed, 18 Dec 2019 00:35:25 +0100 (CET)
 Received: from ip-172-31-3-76.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 45961C36B0C;
-	Tue, 17 Dec 2019 21:49:02 +0000 (UTC)
-Received: from shards.monkeyblade.net (shards.monkeyblade.net [23.128.96.9])
- (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 7D2C2C36B0C;
+	Tue, 17 Dec 2019 23:35:25 +0000 (UTC)
+Received: from mail-oi1-f195.google.com (mail-oi1-f195.google.com
+ [209.85.167.195])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id E0417C36B0A
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id E4625C36B0A
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Tue, 17 Dec 2019 21:48:59 +0000 (UTC)
-Received: from localhost (unknown [IPv6:2601:601:9f00:1c3::3d5])
- (using TLSv1 with cipher AES256-SHA (256/256 bits))
- (Client did not present a certificate)
- (Authenticated sender: davem-davemloft)
- by shards.monkeyblade.net (Postfix) with ESMTPSA id 42C0114649686;
- Tue, 17 Dec 2019 13:48:56 -0800 (PST)
-Date: Tue, 17 Dec 2019 13:48:55 -0800 (PST)
-Message-Id: <20191217.134855.76154724010022162.davem@davemloft.net>
-To: biao.huang@mediatek.com
-From: David Miller <davem@davemloft.net>
-In-Reply-To: <20191216053958.26130-1-biao.huang@mediatek.com>
-References: <20191216053958.26130-1-biao.huang@mediatek.com>
-X-Mailer: Mew version 6.8 on Emacs 26.1
-Mime-Version: 1.0
-X-Greylist: Sender succeeded SMTP AUTH, not delayed by milter-greylist-4.5.12
- (shards.monkeyblade.net [149.20.54.216]);
- Tue, 17 Dec 2019 13:48:56 -0800 (PST)
-Cc: mark.rutland@arm.com, andrew@lunn.ch, devicetree@vger.kernel.org,
- netdev@vger.kernel.org, linux-kernel@vger.kernel.org, joabreu@synopsys.com,
- yt.shen@mediatek.com, robh+dt@kernel.org, linux-mediatek@lists.infradead.org,
- mcoquelin.stm32@gmail.com, matthias.bgg@gmail.com, peppe.cavallaro@st.com,
+ Tue, 17 Dec 2019 23:35:23 +0000 (UTC)
+Received: by mail-oi1-f195.google.com with SMTP id d62so78317oia.11
+ for <linux-stm32@st-md-mailman.stormreply.com>;
+ Tue, 17 Dec 2019 15:35:23 -0800 (PST)
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20161025;
+ h=x-gm-message-state:date:from:to:cc:subject:message-id:references
+ :mime-version:content-disposition:in-reply-to:user-agent;
+ bh=BI73ZBRjjqR0+V9ow7XsG6Zpq8G1O7yVR3mkt4nqq1I=;
+ b=Ddp/fzW/MzjxkphNjRWudP5ySJ1kWticDrmA6QAYYYQ9sTRwuWkB2cN6kfs3Ghr/eB
+ vqQCbVydWRO0S85OyaZMpkWJK+NzFbtMunM+G09l7UUvBaekpr/CxZHwM9nqbbzYutOb
+ qTaQD1Xbo8dYrHepBNBAVqAr4Z9a9E17JNfpnCoafD6WkZNEvfPW4FtrIaXoyRuJac4J
+ gD+Oo5WIIkmmRjijCTbY3yn7/s5QwUrAl6nRqwAHF/wd+jTDOh0gW7cZWNw6YaMXG7yk
+ nD2a88M1qXdo2owk0JYh9Jrbpe6CoWmAesrhjNMh/NkThhWMW17rsp5LIcJ93j9bM6wd
+ hdWg==
+X-Gm-Message-State: APjAAAX3WnbBPls9Bm4o48G26oVViGgMuOY56HLuxzWti7TOyTy7v+H3
+ o9jtaSVJNVuaQ5O/5QkXww==
+X-Google-Smtp-Source: APXvYqyRMza5p9FcM6gHlmpJkzd8vwIoG+HS9nMq49ZnmHNRYgI1aLev14QmXW//C7ZTMozv5ATcsw==
+X-Received: by 2002:a05:6808:3ca:: with SMTP id
+ o10mr3165499oie.14.1576625722498; 
+ Tue, 17 Dec 2019 15:35:22 -0800 (PST)
+Received: from localhost (24-155-109-49.dyn.grandenetworks.net.
+ [24.155.109.49])
+ by smtp.gmail.com with ESMTPSA id o16sm17262oic.7.2019.12.17.15.35.21
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Tue, 17 Dec 2019 15:35:21 -0800 (PST)
+Date: Tue, 17 Dec 2019 17:35:20 -0600
+From: Rob Herring <robh@kernel.org>
+To: Pascal Paillet <p.paillet@st.com>
+Message-ID: <20191217233520.GA31425@bogus>
+References: <20191205161359.20755-1-p.paillet@st.com>
+MIME-Version: 1.0
+Content-Disposition: inline
+In-Reply-To: <20191205161359.20755-1-p.paillet@st.com>
+User-Agent: Mutt/1.10.1 (2018-07-13)
+Cc: Mark Rutland <mark.rutland@arm.com>, devicetree@vger.kernel.org,
+ Liam Girdwood <lgirdwood@gmail.com>, Rob Herring <robh+dt@kernel.org>,
+ linux-kernel@vger.kernel.org, p.paillet@st.com,
+ Mark Brown <broonie@kernel.org>, Maxime Coquelin <mcoquelin.stm32@gmail.com>,
  linux-stm32@st-md-mailman.stormreply.com, linux-arm-kernel@lists.infradead.org
-Subject: Re: [Linux-stm32] [v2,
- PATCH 0/2] net-next: stmmac: dwmac-mediatek: add more support for
- RMII
+Subject: Re: [Linux-stm32] [PATCH v3] regulator: Convert stm32-pwr regulator
+	to json-schema
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -54,21 +71,23 @@ Content-Transfer-Encoding: 7bit
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
-From: Biao Huang <biao.huang@mediatek.com>
-Date: Mon, 16 Dec 2019 13:39:56 +0800
-
-> changes in v2:
->  PATCH 1/2 net-next: stmmac: mediatek: add more support for RMII
->         As Andrew's comments, add the "rmii_internal" clock to the list of clocks.
+On Thu, 5 Dec 2019 17:13:59 +0100, Pascal Paillet wrote:
+> Convert the stm32-pwr regulator binding to DT schema format using
+> json-schema.
 > 
->  PATCH 2/2 net-next: dt-binding: dwmac-mediatek: add more description for RMII
->         document the "rmii_internal" clock in dt-bindings
->         rewrite the sample dts in dt-bindings.
+> Signed-off-by: Pascal Paillet <p.paillet@st.com>
+> ---
+> Changes since v2:
+> remove /schemas/types.yaml#/definitions/phandle-array for supply
 > 
-> v1:
-> This series is for support RMII when MT2712 SoC provides the reference clock.
+>  .../regulator/st,stm32mp1-pwr-reg.txt         | 43 -------------
+>  .../regulator/st,stm32mp1-pwr-reg.yaml        | 64 +++++++++++++++++++
+>  2 files changed, 64 insertions(+), 43 deletions(-)
+>  delete mode 100644 Documentation/devicetree/bindings/regulator/st,stm32mp1-pwr-reg.txt
+>  create mode 100644 Documentation/devicetree/bindings/regulator/st,stm32mp1-pwr-reg.yaml
+> 
 
-Series applied, thank you.
+Reviewed-by: Rob Herring <robh@kernel.org>
 _______________________________________________
 Linux-stm32 mailing list
 Linux-stm32@st-md-mailman.stormreply.com
