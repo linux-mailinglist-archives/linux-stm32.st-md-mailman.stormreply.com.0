@@ -2,51 +2,52 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id 7785A1225DE
-	for <lists+linux-stm32@lfdr.de>; Tue, 17 Dec 2019 08:51:47 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 7B2D41225E0
+	for <lists+linux-stm32@lfdr.de>; Tue, 17 Dec 2019 08:52:14 +0100 (CET)
 Received: from ip-172-31-3-76.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 3500DC36B0B;
-	Tue, 17 Dec 2019 07:51:47 +0000 (UTC)
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 4669CC36B0B;
+	Tue, 17 Dec 2019 07:52:14 +0000 (UTC)
 Received: from fllv0016.ext.ti.com (fllv0016.ext.ti.com [198.47.19.142])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id EEAF5C36B09
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id EF06CC36B09
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Tue, 17 Dec 2019 07:51:45 +0000 (UTC)
-Received: from fllv0035.itg.ti.com ([10.64.41.0])
- by fllv0016.ext.ti.com (8.15.2/8.15.2) with ESMTP id xBH7pfCO082727;
- Tue, 17 Dec 2019 01:51:41 -0600
+ Tue, 17 Dec 2019 07:52:12 +0000 (UTC)
+Received: from fllv0034.itg.ti.com ([10.64.40.246])
+ by fllv0016.ext.ti.com (8.15.2/8.15.2) with ESMTP id xBH7q8a8082887;
+ Tue, 17 Dec 2019 01:52:08 -0600
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=ti.com;
- s=ti-com-17Q1; t=1576569101;
- bh=vr+rDIyiyiSRUk7SbDjg1Nmfg457lbFChtazZnMn724=;
+ s=ti-com-17Q1; t=1576569128;
+ bh=JVOtlzp4SCMmIRdgV0Dwkwtw1zBJBOLFQP857cg/zhQ=;
  h=From:To:CC:Subject:Date;
- b=vvQV/uffjYX24QZ1ZdNe5KqcieAeJyGacD8mkWzu+PJdslRFkZEuykTjTyvTGH8eq
- joS6boyNTaHmUA6xzkNOhtX2CM7bza0+p8mHDUf0EnaE89RMhelOzb9JSKrEH4OcfU
- bzJfgLQ7syPo5vaLrj8QrncI8EqvrgRJWZ1u2M+k=
-Received: from DLEE100.ent.ti.com (dlee100.ent.ti.com [157.170.170.30])
- by fllv0035.itg.ti.com (8.15.2/8.15.2) with ESMTP id xBH7pfWm028490;
- Tue, 17 Dec 2019 01:51:41 -0600
-Received: from DLEE104.ent.ti.com (157.170.170.34) by DLEE100.ent.ti.com
- (157.170.170.30) with Microsoft SMTP Server (version=TLS1_2,
+ b=DQagl2Z9mA1II7/LrIfOiy+kvnFSvq3LR3YTlC9lD84Uor6OTYU0zqJ5QNAkjXRS5
+ IqFGPMfHchR75vQ7BqWh0VTz+v6B76K3TtXcE1DJupzGuHCBVn16BaYcag7sw8h2k5
+ rGBNOjHJ1PoW29Y8SrgJfYWZE47i88SCielTyrJY=
+Received: from DFLE103.ent.ti.com (dfle103.ent.ti.com [10.64.6.24])
+ by fllv0034.itg.ti.com (8.15.2/8.15.2) with ESMTPS id xBH7q8jP049798
+ (version=TLSv1.2 cipher=AES256-GCM-SHA384 bits=256 verify=FAIL);
+ Tue, 17 Dec 2019 01:52:08 -0600
+Received: from DFLE108.ent.ti.com (10.64.6.29) by DFLE103.ent.ti.com
+ (10.64.6.24) with Microsoft SMTP Server (version=TLS1_2,
  cipher=TLS_ECDHE_RSA_WITH_AES_128_CBC_SHA256_P256) id 15.1.1847.3; Tue, 17
- Dec 2019 01:51:40 -0600
-Received: from fllv0039.itg.ti.com (10.64.41.19) by DLEE104.ent.ti.com
- (157.170.170.34) with Microsoft SMTP Server (version=TLS1_2,
+ Dec 2019 01:52:08 -0600
+Received: from fllv0040.itg.ti.com (10.64.41.20) by DFLE108.ent.ti.com
+ (10.64.6.29) with Microsoft SMTP Server (version=TLS1_2,
  cipher=TLS_ECDHE_RSA_WITH_AES_128_CBC_SHA256_P256) id 15.1.1847.3 via
- Frontend Transport; Tue, 17 Dec 2019 01:51:40 -0600
+ Frontend Transport; Tue, 17 Dec 2019 01:52:08 -0600
 Received: from feketebors.ti.com (ileax41-snat.itg.ti.com [10.172.224.153])
- by fllv0039.itg.ti.com (8.15.2/8.15.2) with ESMTP id xBH7pb6M088250;
- Tue, 17 Dec 2019 01:51:38 -0600
+ by fllv0040.itg.ti.com (8.15.2/8.15.2) with ESMTP id xBH7q5MV115230;
+ Tue, 17 Dec 2019 01:52:06 -0600
 From: Peter Ujfalusi <peter.ujfalusi@ti.com>
 To: <jic23@kernel.org>, <mcoquelin.stm32@gmail.com>, <alexandre.torgue@st.com>
-Date: Tue, 17 Dec 2019 09:51:53 +0200
-Message-ID: <20191217075153.23766-1-peter.ujfalusi@ti.com>
+Date: Tue, 17 Dec 2019 09:52:21 +0200
+Message-ID: <20191217075221.23895-1-peter.ujfalusi@ti.com>
 X-Mailer: git-send-email 2.24.0
 MIME-Version: 1.0
 X-EXCLAIMER-MD-CONFIG: e1e8a2fd-e40a-4ac6-ac9b-f7e9cc9ee180
 Cc: linux-iio@vger.kernel.org, vkoul@kernel.org, linux-kernel@vger.kernel.org,
  linux-arm-kernel@lists.infradead.org, linux-stm32@st-md-mailman.stormreply.com
-Subject: [Linux-stm32] [PATCH] iio: adc: stm32-adc: Use dma_request_chan()
+Subject: [Linux-stm32] [PATCH] iio: adc: stm32-dfsdm: Use dma_request_chan()
 	instead dma_request_slave_channel()
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
@@ -72,31 +73,26 @@ probing against DMA.
 
 Signed-off-by: Peter Ujfalusi <peter.ujfalusi@ti.com>
 ---
- drivers/iio/adc/stm32-adc.c | 10 ++++++++--
- 1 file changed, 8 insertions(+), 2 deletions(-)
+ drivers/iio/adc/stm32-dfsdm-adc.c | 6 +++---
+ 1 file changed, 3 insertions(+), 3 deletions(-)
 
-diff --git a/drivers/iio/adc/stm32-adc.c b/drivers/iio/adc/stm32-adc.c
-index 3b291d72701c..5dab23f1fdee 100644
---- a/drivers/iio/adc/stm32-adc.c
-+++ b/drivers/iio/adc/stm32-adc.c
-@@ -1746,9 +1746,15 @@ static int stm32_adc_dma_request(struct iio_dev *indio_dev)
- 	struct dma_slave_config config;
- 	int ret;
+diff --git a/drivers/iio/adc/stm32-dfsdm-adc.c b/drivers/iio/adc/stm32-dfsdm-adc.c
+index e493242c266e..3aac1a21f9d0 100644
+--- a/drivers/iio/adc/stm32-dfsdm-adc.c
++++ b/drivers/iio/adc/stm32-dfsdm-adc.c
+@@ -1383,9 +1383,9 @@ static int stm32_dfsdm_dma_request(struct iio_dev *indio_dev)
+ {
+ 	struct stm32_dfsdm_adc *adc = iio_priv(indio_dev);
  
 -	adc->dma_chan = dma_request_slave_channel(&indio_dev->dev, "rx");
 -	if (!adc->dma_chan)
+-		return -EINVAL;
 +	adc->dma_chan = dma_request_chan(&indio_dev->dev, "rx");
-+	if (IS_ERR(adc->dma_chan)) {
-+		if (PTR_ERR(adc->dma_chan) == -EPROBE_DEFER)
-+			return -EPROBE_DEFER;
-+
-+		/* Ignore errors to fall back to IRQ mode */
-+		adc->dma_chan = NULL;
- 		return 0;
-+	}
++	if (IS_ERR(adc->dma_chan))
++		return PTR_ERR(adc->dma_chan);
  
  	adc->rx_buf = dma_alloc_coherent(adc->dma_chan->device->dev,
- 					 STM32_DMA_BUFFER_SIZE,
+ 					 DFSDM_DMA_BUFFER_SIZE,
 -- 
 Peter
 
