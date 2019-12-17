@@ -2,58 +2,54 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id 1C642121C26
-	for <lists+linux-stm32@lfdr.de>; Mon, 16 Dec 2019 22:49:56 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 653E7122586
+	for <lists+linux-stm32@lfdr.de>; Tue, 17 Dec 2019 08:35:09 +0100 (CET)
 Received: from ip-172-31-3-76.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id BFA4FC36B0B;
-	Mon, 16 Dec 2019 21:49:55 +0000 (UTC)
-Received: from mail-ot1-f67.google.com (mail-ot1-f67.google.com
- [209.85.210.67])
- (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 1EF36C36B0B;
+	Tue, 17 Dec 2019 07:35:09 +0000 (UTC)
+Received: from fllv0016.ext.ti.com (fllv0016.ext.ti.com [198.47.19.142])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 3672AC36B09
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id CE00AC36B09
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Mon, 16 Dec 2019 21:49:54 +0000 (UTC)
-Received: by mail-ot1-f67.google.com with SMTP id 66so10905311otd.9
- for <linux-stm32@st-md-mailman.stormreply.com>;
- Mon, 16 Dec 2019 13:49:54 -0800 (PST)
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20161025;
- h=x-gm-message-state:date:from:to:cc:subject:message-id:references
- :mime-version:content-disposition:in-reply-to:user-agent;
- bh=HptzT5nDCrwY5+Ndy5nDuVXNd62G0fSk6plJscs64+s=;
- b=OvXWxlSFsv7cOfrk0rFuPpsiuifLKcUylkPSsjU4rifdz3bSpwepMkarLhuYGY7v4t
- 7qXCmosV1kn937QHRPncU8lFaq6PHDSeZfkcQLEk/xkRNcoPOZDk3jibQDTblFBTe5Pp
- yFs8xL/wbE+/i4oHozoBgwf7KHXUr4JavY2Wh34mRHx6wnPYzMiYmREwV7X+/7x4z4Aj
- 4Ja+bxh7+IrvukGL2nP/uCjozUuDfOz+7m4J+MQj6YGp3/el/LtJ/as2s2Yym6XxTnKN
- E2KzX4xw5+WFgOX4Ec6fWh9Jmj6p/vC6lrjdtjgKmhGbYGVYWghKadf17WpiV6ju8Na4
- xrVw==
-X-Gm-Message-State: APjAAAUsQvQlVxCiiamuquAgVyNlStp8A6LbK9eKA/9IsM4hvSz5VGHa
- aEHiGhJQZG5m3KfTFl/e/w==
-X-Google-Smtp-Source: APXvYqxgkaB403WtaFAWNwC6m5B7AcOnZaowDtuEndM91PV4Kl26ED2Pp1qFpLftHvbaAM9KlR57Hw==
-X-Received: by 2002:a05:6830:14d3:: with SMTP id
- t19mr35544056otq.278.1576532992820; 
- Mon, 16 Dec 2019 13:49:52 -0800 (PST)
-Received: from localhost (24-155-109-49.dyn.grandenetworks.net.
- [24.155.109.49])
- by smtp.gmail.com with ESMTPSA id q22sm7146652otm.2.2019.12.16.13.49.51
- (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Mon, 16 Dec 2019 13:49:51 -0800 (PST)
-Date: Mon, 16 Dec 2019 15:49:51 -0600
-From: Rob Herring <robh@kernel.org>
-To: Benjamin Gaignard <benjamin.gaignard@st.com>
-Message-ID: <20191216214951.GA9328@bogus>
-References: <20191204153233.791-1-benjamin.gaignard@st.com>
+ Tue, 17 Dec 2019 07:35:07 +0000 (UTC)
+Received: from fllv0035.itg.ti.com ([10.64.41.0])
+ by fllv0016.ext.ti.com (8.15.2/8.15.2) with ESMTP id xBH7YsuK075971;
+ Tue, 17 Dec 2019 01:34:54 -0600
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=ti.com;
+ s=ti-com-17Q1; t=1576568094;
+ bh=0FwLBx8XfykMdjHah7/EtEeo+R5IsHmwRrAh/bmn7U4=;
+ h=From:To:CC:Subject:Date;
+ b=UUA+YQjalhxvPMh5NdESQCFfzVRQt2XhwqSL3G3PxYYsp3oW28ySWeHVVVoE/lGba
+ 3bd/pHENNNi++tbecyc6j1GI45euxvXFSitWivdhI+x8nPRzhte0iRF0btn3SAdeQ1
+ S2rWKAewPtsdaowSrgNsac+nJie8ugQeaU8rUIjI=
+Received: from DFLE105.ent.ti.com (dfle105.ent.ti.com [10.64.6.26])
+ by fllv0035.itg.ti.com (8.15.2/8.15.2) with ESMTP id xBH7YrYM001109;
+ Tue, 17 Dec 2019 01:34:54 -0600
+Received: from DFLE104.ent.ti.com (10.64.6.25) by DFLE105.ent.ti.com
+ (10.64.6.26) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_128_CBC_SHA256_P256) id 15.1.1847.3; Tue, 17
+ Dec 2019 01:34:53 -0600
+Received: from fllv0039.itg.ti.com (10.64.41.19) by DFLE104.ent.ti.com
+ (10.64.6.25) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_128_CBC_SHA256_P256) id 15.1.1847.3 via
+ Frontend Transport; Tue, 17 Dec 2019 01:34:53 -0600
+Received: from feketebors.ti.com (ileax41-snat.itg.ti.com [10.172.224.153])
+ by fllv0039.itg.ti.com (8.15.2/8.15.2) with ESMTP id xBH7YoW6058420;
+ Tue, 17 Dec 2019 01:34:51 -0600
+From: Peter Ujfalusi <peter.ujfalusi@ti.com>
+To: <herbert@gondor.apana.org.au>, <davem@davemloft.net>,
+ <mcoquelin.stm32@gmail.com>, <alexandre.torgue@st.com>
+Date: Tue, 17 Dec 2019 09:35:06 +0200
+Message-ID: <20191217073506.20861-1-peter.ujfalusi@ti.com>
+X-Mailer: git-send-email 2.24.0
 MIME-Version: 1.0
-Content-Disposition: inline
-In-Reply-To: <20191204153233.791-1-benjamin.gaignard@st.com>
-User-Agent: Mutt/1.10.1 (2018-07-13)
-Cc: mark.rutland@arm.com, devicetree@vger.kernel.org,
- linux-kernel@vger.kernel.org, linux-spi@vger.kernel.org, broonie@kernel.org,
- Fabrice Gasnier <fabrice.gasnier@st.com>,
- linux-stm32@st-md-mailman.stormreply.com, linux-arm-kernel@lists.infradead.org
-Subject: Re: [Linux-stm32] [PATCH] dt-bindings: spi: Convert stm32 spi
- bindings to json-schema
+X-EXCLAIMER-MD-CONFIG: e1e8a2fd-e40a-4ac6-ac9b-f7e9cc9ee180
+Cc: vkoul@kernel.org, linux-stm32@st-md-mailman.stormreply.com,
+ linux-crypto@vger.kernel.org, linux-arm-kernel@lists.infradead.org,
+ linux-kernel@vger.kernel.org
+Subject: [Linux-stm32] [PATCH] crypto: stm32/hash - Use dma_request_chan()
+	instead dma_request_slave_channel()
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -70,212 +66,41 @@ Content-Transfer-Encoding: 7bit
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
-On Wed, Dec 04, 2019 at 04:32:33PM +0100, Benjamin Gaignard wrote:
-> Convert the STM32 spi binding to DT schema format using json-schema
-> 
-> Signed-off-by: Benjamin Gaignard <benjamin.gaignard@st.com>
-> CC: Erwan Leray <erwan.leray@st.com>
-> CC: Fabrice Gasnier <fabrice.gasnier@st.com>
-> CC: Amelie Delaunay <amelie.delaunay@st.com>
-> ---
->  .../devicetree/bindings/spi/spi-stm32.txt          |  62 ------------
->  .../devicetree/bindings/spi/st,stm32-spi.yaml      | 105 +++++++++++++++++++++
->  2 files changed, 105 insertions(+), 62 deletions(-)
->  delete mode 100644 Documentation/devicetree/bindings/spi/spi-stm32.txt
->  create mode 100644 Documentation/devicetree/bindings/spi/st,stm32-spi.yaml
-> 
-> diff --git a/Documentation/devicetree/bindings/spi/spi-stm32.txt b/Documentation/devicetree/bindings/spi/spi-stm32.txt
-> deleted file mode 100644
-> index d82755c63eaf..000000000000
-> --- a/Documentation/devicetree/bindings/spi/spi-stm32.txt
-> +++ /dev/null
-> @@ -1,62 +0,0 @@
-> -STMicroelectronics STM32 SPI Controller
-> -
-> -The STM32 SPI controller is used to communicate with external devices using
-> -the Serial Peripheral Interface. It supports full-duplex, half-duplex and
-> -simplex synchronous serial communication with external devices. It supports
-> -from 4 to 32-bit data size. Although it can be configured as master or slave,
-> -only master is supported by the driver.
-> -
-> -Required properties:
-> -- compatible: Should be one of:
-> -  "st,stm32h7-spi"
-> -  "st,stm32f4-spi"
-> -- reg: Offset and length of the device's register set.
-> -- interrupts: Must contain the interrupt id.
-> -- clocks: Must contain an entry for spiclk (which feeds the internal clock
-> -	  generator).
-> -- #address-cells:  Number of cells required to define a chip select address.
-> -- #size-cells: Should be zero.
-> -
-> -Optional properties:
-> -- resets: Must contain the phandle to the reset controller.
-> -- A pinctrl state named "default" may be defined to set pins in mode of
-> -  operation for SPI transfer.
-> -- dmas: DMA specifiers for tx and rx dma. DMA fifo mode must be used. See the
-> -  STM32 DMA bindings, Documentation/devicetree/bindings/dma/stm32-dma.txt.
-> -- dma-names: DMA request names should include "tx" and "rx" if present.
-> -- cs-gpios: list of GPIO chip selects. See the SPI bus bindings,
-> -  Documentation/devicetree/bindings/spi/spi-bus.txt
-> -
-> -
-> -Child nodes represent devices on the SPI bus
-> -  See ../spi/spi-bus.txt
-> -
-> -Optional properties:
-> -- st,spi-midi-ns: Only for STM32H7, (Master Inter-Data Idleness) minimum time
-> -		  delay in nanoseconds inserted between two consecutive data
-> -		  frames.
-> -
-> -
-> -Example:
-> -	spi2: spi@40003800 {
-> -		#address-cells = <1>;
-> -		#size-cells = <0>;
-> -		compatible = "st,stm32h7-spi";
-> -		reg = <0x40003800 0x400>;
-> -		interrupts = <36>;
-> -		clocks = <&rcc SPI2_CK>;
-> -		resets = <&rcc 1166>;
-> -		dmas = <&dmamux1 0 39 0x400 0x01>,
-> -		       <&dmamux1 1 40 0x400 0x01>;
-> -		dma-names = "rx", "tx";
-> -		pinctrl-0 = <&spi2_pins_b>;
-> -		pinctrl-names = "default";
-> -		cs-gpios = <&gpioa 11 0>;
-> -
-> -		aardvark@0 {
-> -			compatible = "totalphase,aardvark";
-> -			reg = <0>;
-> -			spi-max-frequency = <4000000>;
-> -			st,spi-midi-ns = <4000>;
-> -		};
-> -	};
-> diff --git a/Documentation/devicetree/bindings/spi/st,stm32-spi.yaml b/Documentation/devicetree/bindings/spi/st,stm32-spi.yaml
-> new file mode 100644
-> index 000000000000..57ef3a0f57e0
-> --- /dev/null
-> +++ b/Documentation/devicetree/bindings/spi/st,stm32-spi.yaml
-> @@ -0,0 +1,105 @@
-> +# SPDX-License-Identifier: (GPL-2.0-only OR BSD-2-Clause)
-> +%YAML 1.2
-> +---
-> +$id: http://devicetree.org/schemas/spi/st,stm32-spi.yaml#
-> +$schema: http://devicetree.org/meta-schemas/core.yaml#
-> +
-> +title: STMicroelectronics STM32 SPI Controller bindings
-> +
-> +description: |
-> +  The STM32 SPI controller is used to communicate with external devices using
-> +  the Serial Peripheral Interface. It supports full-duplex, half-duplex and
-> +  simplex synchronous serial communication with external devices. It supports
-> +  from 4 to 32-bit data size.
-> +
-> +maintainers:
-> +  - Erwan Leray <erwan.leray@st.com>
-> +  - Fabrice Gasnier <fabrice.gasnier@st.com>
-> +
-> +allOf:
-> +  - $ref: "spi-controller.yaml#"
-> +  - if:
-> +      properties:
-> +        comptatible:
-> +          constains:
+dma_request_slave_channel() is a wrapper on top of dma_request_chan()
+eating up the error code.
 
-One of the features of json-schema is ignoring unknown keywords like 
-'constains'. I've tried to mitigate this with the meta-schema, but seems 
-this one didn't get caught. But checkpatch.pl caught it.
+By using dma_request_chan() directly the driver can support deferred
+probing against DMA.
 
+Signed-off-by: Peter Ujfalusi <peter.ujfalusi@ti.com>
+---
+ drivers/crypto/stm32/stm32-hash.c | 6 +++---
+ 1 file changed, 3 insertions(+), 3 deletions(-)
 
-> +            st,stm32f4-spi
-> +    then:
-> +      properties:
-> +        st,spi-midi-ns: false
-> +
-> +properties:
-> +  compatible:
-> +    enum:
-> +      - st,stm32f4-spi
-> +      - st,stm32h7-spi
-> +
-> +  reg:
-> +    maxItems: 1
-> +
-> +  clocks:
-> +    maxItems: 1
-> +
-> +  interrupts:
-> +    maxItems: 1
-> +
-> +  resets:
-> +    maxItems: 1
-> +
-> +  dmas:
-> +    description: |
-> +      DMA specifiers for tx and rx dma. DMA fifo mode must be used. See
-> +      the STM32 DMA bindings Documentation/devicetree/bindings/dma/stm32-dma.txt.
-> +    items:
-> +      - description: rx DMA channel
-> +      - description: tx DMA channel
-> +
-> +  dma-names:
-> +    items:
-> +      - const: rx
-> +      - const: tx
-> +
-> +patternProperties:
-> +  "^[a-zA-Z][a-zA-Z0-9,+\\-._]{0,63}@[0-9a-f]+$":
-> +    type: object
-> +    # SPI slave nodes must be children of the SPI master node and can
-> +    # contain the following properties.
-> +    properties:
-> +      st,spi-midi-ns:
-> +        $ref: /schemas/types.yaml#/definitions/uint32
+diff --git a/drivers/crypto/stm32/stm32-hash.c b/drivers/crypto/stm32/stm32-hash.c
+index cfc8e0e37bee..167b80eec437 100644
+--- a/drivers/crypto/stm32/stm32-hash.c
++++ b/drivers/crypto/stm32/stm32-hash.c
+@@ -518,10 +518,10 @@ static int stm32_hash_dma_init(struct stm32_hash_dev *hdev)
+ 	dma_conf.dst_maxburst = hdev->dma_maxburst;
+ 	dma_conf.device_fc = false;
+ 
+-	hdev->dma_lch = dma_request_slave_channel(hdev->dev, "in");
+-	if (!hdev->dma_lch) {
++	hdev->dma_lch = dma_request_chan(hdev->dev, "in");
++	if (IS_ERR(hdev->dma_lch)) {
+ 		dev_err(hdev->dev, "Couldn't acquire a slave DMA channel.\n");
+-		return -EBUSY;
++		return PTR_ERR(hdev->dma_lch);
+ 	}
+ 
+ 	err = dmaengine_slave_config(hdev->dma_lch, &dma_conf);
+-- 
+Peter
 
-Don't need a type since it has a standard unit. I'd assume there's 
-at least some max less than 2^32 you could define.
+Texas Instruments Finland Oy, Porkkalankatu 22, 00180 Helsinki.
+Y-tunnus/Business ID: 0615521-4. Kotipaikka/Domicile: Helsinki
 
-> +        description: |
-> +          Only for STM32H7, (Master Inter-Data Idleness) minimum time
-> +          delay in nanoseconds inserted between two consecutive data frames.
-> +
-> +required:
-> +  - compatible
-> +  - reg
-> +  - clocks
-> +  - interrupts
-> +
-> +examples:
-> +  - |
-> +    #include <dt-bindings/interrupt-controller/arm-gic.h>
-> +    #include <dt-bindings/clock/stm32mp1-clks.h>
-> +    #include <dt-bindings/reset/stm32mp1-resets.h>
-> +    spi@4000b000 {
-> +      #address-cells = <1>;
-> +      #size-cells = <0>;
-> +      compatible = "st,stm32h7-spi";
-> +      reg = <0x4000b000 0x400>;
-> +      interrupts = <GIC_SPI 36 IRQ_TYPE_LEVEL_HIGH>;
-> +      clocks = <&rcc SPI2_K>;
-> +      resets = <&rcc SPI2_R>;
-> +      dmas = <&dmamux1 0 39 0x400 0x05>,
-> +             <&dmamux1 1 40 0x400 0x05>;
-> +      dma-names = "rx", "tx";
-> +      cs-gpios = <&gpioa 11 0>;
-> +
-> +      aardvark@0 {
-> +        compatible = "totalphase,aardvark";
-> +        reg = <0>;
-> +        spi-max-frequency = <4000000>;
-> +        st,spi-midi-ns = <4000>;
-> +      };
-> +    };
-> +
-> +...
-> -- 
-> 2.15.0
-> 
 _______________________________________________
 Linux-stm32 mailing list
 Linux-stm32@st-md-mailman.stormreply.com
