@@ -2,61 +2,60 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id 32C6D122699
-	for <lists+linux-stm32@lfdr.de>; Tue, 17 Dec 2019 09:24:45 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 41DA312274D
+	for <lists+linux-stm32@lfdr.de>; Tue, 17 Dec 2019 10:07:40 +0100 (CET)
 Received: from ip-172-31-3-76.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id DFDF4C36B0B;
-	Tue, 17 Dec 2019 08:24:44 +0000 (UTC)
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id E8404C36B0B;
+	Tue, 17 Dec 2019 09:07:39 +0000 (UTC)
 Received: from mx07-00178001.pphosted.com (mx07-00178001.pphosted.com
  [62.209.51.94])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 64714C36B09
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id D9782C36B09
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Tue, 17 Dec 2019 08:24:43 +0000 (UTC)
+ Tue, 17 Dec 2019 09:07:37 +0000 (UTC)
 Received: from pps.filterd (m0046668.ppops.net [127.0.0.1])
  by mx07-00178001.pphosted.com (8.16.0.42/8.16.0.42) with SMTP id
- xBH8O37e026676; Tue, 17 Dec 2019 09:24:33 +0100
+ xBH94A7E005597; Tue, 17 Dec 2019 10:07:26 +0100
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=st.com;
  h=from : to : cc : subject
  : date : message-id : mime-version : content-type; s=STMicroelectronics;
- bh=u4ZnCG3JwwEgOMIhN/AX7q3BNavU/cal6soqQfW8/vk=;
- b=poEflfU7WipianGUh4qcW0Ougu12H/fKNIAbdgx6mzbidUxEywqXwbXGJH1x2f9Js2Eu
- aS3mr7YNZhjqRaYKcWz3zByLF5ZW9T5n5WfwF05rMM00tn76jJSYgNc94YDIBJI9PpfM
- qspKnXNy+mTn0cFlkrHOiCAt4HyOncaz65lNRDDplnjWn1gt0phUJxfB7WvOY47QcFOn
- xhfdPX9LMbghIuloAbAPvqjgzfq4rx46yZWhfOLxsoX+wCa7vk330OoJy7866+QfrIsT
- 5BaCvq+DxNxyX1q/nF6fTq51+W2sUwiWVNENg31KC41AJY9dYeXiVvocmUpnvYvbptC4 9g== 
+ bh=41mvUSOwuAhruiHu99TAoHez/M+143fLkG4jSCqmno8=;
+ b=DYjCY3iMb3XomGOBSJb3DIIBH1iAFGaxNgrnV5mAt3JVS0oLVdFwgBXgxlQ/YePFsseD
+ JHdgin5HBp8CiJDGHEqMma/lDCd5y69flPFJ2rhTJLq7Qm54C0+CWvUwD554kVPfyMrw
+ akg0fxXi6OzjHaCLbJ5wFNpDIikq8E/tXEK7lRfQcKHZ49o1AXQcqWtbNFI5uT3kNUnS
+ JIBLNd/RQBY280Ea8q0V2KhdRPKTkq0T51uhE3nFbbEo7qhePCtvx6gOR7yI/3fIdqxS
+ 30rRXmk2OjnhMDroOEGYXVpy7/rh3VaYf70sSeW0Ru9bdrYZzXnWEFVdWUjA8bhtX9Co IQ== 
 Received: from beta.dmz-eu.st.com (beta.dmz-eu.st.com [164.129.1.35])
- by mx07-00178001.pphosted.com with ESMTP id 2wvp36wpx0-1
+ by mx07-00178001.pphosted.com with ESMTP id 2wvp36wwta-1
  (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
- Tue, 17 Dec 2019 09:24:32 +0100
+ Tue, 17 Dec 2019 10:07:26 +0100
 Received: from euls16034.sgp.st.com (euls16034.sgp.st.com [10.75.44.20])
- by beta.dmz-eu.st.com (STMicroelectronics) with ESMTP id 79431100034;
- Tue, 17 Dec 2019 09:24:32 +0100 (CET)
-Received: from Webmail-eu.st.com (sfhdag3node1.st.com [10.75.127.7])
- by euls16034.sgp.st.com (STMicroelectronics) with ESMTP id 4B57322085F;
- Tue, 17 Dec 2019 09:24:32 +0100 (CET)
-Received: from localhost (10.75.127.45) by SFHDAG3NODE1.st.com (10.75.127.7)
- with Microsoft SMTP Server (TLS) id 15.0.1473.3; Tue, 17 Dec 2019 09:24:31
+ by beta.dmz-eu.st.com (STMicroelectronics) with ESMTP id BDE1A10003D;
+ Tue, 17 Dec 2019 10:07:18 +0100 (CET)
+Received: from Webmail-eu.st.com (sfhdag3node3.st.com [10.75.127.9])
+ by euls16034.sgp.st.com (STMicroelectronics) with ESMTP id 8B8D42A5785;
+ Tue, 17 Dec 2019 10:07:18 +0100 (CET)
+Received: from localhost (10.75.127.49) by SFHDAG3NODE3.st.com (10.75.127.9)
+ with Microsoft SMTP Server (TLS) id 15.0.1347.2; Tue, 17 Dec 2019 10:07:17
  +0100
-From: Arnaud Pouliquen <arnaud.pouliquen@st.com>
-To: Rob Herring <robh@kernel.org>, Mark Rutland <mark.rutland@arm.com>,
- Alexandre Torgue <alexandre.torgue@st.com>, Bjorn Andersson
- <bjorn.andersson@linaro.org>
-Date: Tue, 17 Dec 2019 09:24:15 +0100
-Message-ID: <20191217082415.14844-1-arnaud.pouliquen@st.com>
-X-Mailer: git-send-email 2.17.1
+From: Benjamin Gaignard <benjamin.gaignard@st.com>
+To: <broonie@kernel.org>, <robh+dt@kernel.org>, <mark.rutland@arm.com>,
+ <alexandre.torgue@st.com>
+Date: Tue, 17 Dec 2019 10:07:15 +0100
+Message-ID: <20191217090715.13334-1-benjamin.gaignard@st.com>
+X-Mailer: git-send-email 2.15.0
 MIME-Version: 1.0
-X-Originating-IP: [10.75.127.45]
-X-ClientProxiedBy: SFHDAG2NODE2.st.com (10.75.127.5) To SFHDAG3NODE1.st.com
- (10.75.127.7)
+X-Originating-IP: [10.75.127.49]
+X-ClientProxiedBy: SFHDAG7NODE2.st.com (10.75.127.20) To SFHDAG3NODE3.st.com
+ (10.75.127.9)
 X-Proofpoint-Virus-Version: vendor=fsecure engine=2.50.10434:6.0.95,18.0.572
  definitions=2019-12-17_01:2019-12-16,2019-12-16 signatures=0
 Cc: devicetree@vger.kernel.org, linux-kernel@vger.kernel.org,
- Fabien Dessenne <fabien.dessenne@st.com>,
+ linux-spi@vger.kernel.org, Fabrice Gasnier <fabrice.gasnier@st.com>,
  linux-stm32@st-md-mailman.stormreply.com, linux-arm-kernel@lists.infradead.org
-Subject: [Linux-stm32] [PATCH v2] dt-bindings: stm32: convert mlahb to
-	json-schema
+Subject: [Linux-stm32] [PATCH v2] dt-bindings: spi: Convert stm32 spi
+	bindings to json-schema
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -73,139 +72,207 @@ Content-Transfer-Encoding: 7bit
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
-Convert the ML-AHB bus bindings to DT schema format using json-schema
+Convert the STM32 spi binding to DT schema format using json-schema
 
-Signed-off-by: Arnaud Pouliquen <arnaud.pouliquen@st.com>
+Signed-off-by: Benjamin Gaignard <benjamin.gaignard@st.com>
+CC: Erwan Leray <erwan.leray@st.com>
+CC: Fabrice Gasnier <fabrice.gasnier@st.com>
+CC: Amelie Delaunay <amelie.delaunay@st.com>
 ---
-V2: Add "ranges" property as mandatory
----
- .../devicetree/bindings/arm/stm32/mlahb.txt   | 37 ----------
- .../bindings/arm/stm32/st,mlahb.yaml          | 70 +++++++++++++++++++
- 2 files changed, 70 insertions(+), 37 deletions(-)
- delete mode 100644 Documentation/devicetree/bindings/arm/stm32/mlahb.txt
- create mode 100644 Documentation/devicetree/bindings/arm/stm32/st,mlahb.yaml
+changes in version 2:
+- fix typo in if block (compatible + contains)
+  The boths typos weren't detected by checkpatch.
+- remove type for st,spi-midi-ns property but not add upper limit
+  because the driver compute a delay (expressed in SPI clock cycles periods)
+  from this value (expressed in nanoseconds) and all that depends of the SPI
+  bus clock.
+ .../devicetree/bindings/spi/spi-stm32.txt          |  62 ------------
+ .../devicetree/bindings/spi/st,stm32-spi.yaml      | 105 +++++++++++++++++++++
+ 2 files changed, 105 insertions(+), 62 deletions(-)
+ delete mode 100644 Documentation/devicetree/bindings/spi/spi-stm32.txt
+ create mode 100644 Documentation/devicetree/bindings/spi/st,stm32-spi.yaml
 
-diff --git a/Documentation/devicetree/bindings/arm/stm32/mlahb.txt b/Documentation/devicetree/bindings/arm/stm32/mlahb.txt
+diff --git a/Documentation/devicetree/bindings/spi/spi-stm32.txt b/Documentation/devicetree/bindings/spi/spi-stm32.txt
 deleted file mode 100644
-index 25307aa1eb9b..000000000000
---- a/Documentation/devicetree/bindings/arm/stm32/mlahb.txt
+index d82755c63eaf..000000000000
+--- a/Documentation/devicetree/bindings/spi/spi-stm32.txt
 +++ /dev/null
-@@ -1,37 +0,0 @@
--ML-AHB interconnect bindings
+@@ -1,62 +0,0 @@
+-STMicroelectronics STM32 SPI Controller
 -
--These bindings describe the STM32 SoCs ML-AHB interconnect bus which connects
--a Cortex-M subsystem with dedicated memories.
--The MCU SRAM and RETRAM memory parts can be accessed through different addresses
--(see "RAM aliases" in [1]) using different buses (see [2]) : balancing the
--Cortex-M firmware accesses among those ports allows to tune the system
--performance.
--
--[1]: https://www.st.com/resource/en/reference_manual/dm00327659.pdf
--[2]: https://wiki.st.com/stm32mpu/wiki/STM32MP15_RAM_mapping
+-The STM32 SPI controller is used to communicate with external devices using
+-the Serial Peripheral Interface. It supports full-duplex, half-duplex and
+-simplex synchronous serial communication with external devices. It supports
+-from 4 to 32-bit data size. Although it can be configured as master or slave,
+-only master is supported by the driver.
 -
 -Required properties:
--- compatible: should be "simple-bus"
--- dma-ranges: describes memory addresses translation between the local CPU and
--	   the remote Cortex-M processor. Each memory region, is declared with
--	   3 parameters:
--		 - param 1: device base address (Cortex-M processor address)
--		 - param 2: physical base address (local CPU address)
--		 - param 3: size of the memory region.
+-- compatible: Should be one of:
+-  "st,stm32h7-spi"
+-  "st,stm32f4-spi"
+-- reg: Offset and length of the device's register set.
+-- interrupts: Must contain the interrupt id.
+-- clocks: Must contain an entry for spiclk (which feeds the internal clock
+-	  generator).
+-- #address-cells:  Number of cells required to define a chip select address.
+-- #size-cells: Should be zero.
 -
--The Cortex-M remote processor accessed via the mlahb interconnect is described
--by a child node.
+-Optional properties:
+-- resets: Must contain the phandle to the reset controller.
+-- A pinctrl state named "default" may be defined to set pins in mode of
+-  operation for SPI transfer.
+-- dmas: DMA specifiers for tx and rx dma. DMA fifo mode must be used. See the
+-  STM32 DMA bindings, Documentation/devicetree/bindings/dma/stm32-dma.txt.
+-- dma-names: DMA request names should include "tx" and "rx" if present.
+-- cs-gpios: list of GPIO chip selects. See the SPI bus bindings,
+-  Documentation/devicetree/bindings/spi/spi-bus.txt
+-
+-
+-Child nodes represent devices on the SPI bus
+-  See ../spi/spi-bus.txt
+-
+-Optional properties:
+-- st,spi-midi-ns: Only for STM32H7, (Master Inter-Data Idleness) minimum time
+-		  delay in nanoseconds inserted between two consecutive data
+-		  frames.
+-
 -
 -Example:
--mlahb {
--	compatible = "simple-bus";
--	#address-cells = <1>;
--	#size-cells = <1>;
--	dma-ranges = <0x00000000 0x38000000 0x10000>,
--		     <0x10000000 0x10000000 0x60000>,
--		     <0x30000000 0x30000000 0x60000>;
+-	spi2: spi@40003800 {
+-		#address-cells = <1>;
+-		#size-cells = <0>;
+-		compatible = "st,stm32h7-spi";
+-		reg = <0x40003800 0x400>;
+-		interrupts = <36>;
+-		clocks = <&rcc SPI2_CK>;
+-		resets = <&rcc 1166>;
+-		dmas = <&dmamux1 0 39 0x400 0x01>,
+-		       <&dmamux1 1 40 0x400 0x01>;
+-		dma-names = "rx", "tx";
+-		pinctrl-0 = <&spi2_pins_b>;
+-		pinctrl-names = "default";
+-		cs-gpios = <&gpioa 11 0>;
 -
--	m4_rproc: m4@10000000 {
--		...
+-		aardvark@0 {
+-			compatible = "totalphase,aardvark";
+-			reg = <0>;
+-			spi-max-frequency = <4000000>;
+-			st,spi-midi-ns = <4000>;
+-		};
 -	};
--};
-diff --git a/Documentation/devicetree/bindings/arm/stm32/st,mlahb.yaml b/Documentation/devicetree/bindings/arm/stm32/st,mlahb.yaml
+diff --git a/Documentation/devicetree/bindings/spi/st,stm32-spi.yaml b/Documentation/devicetree/bindings/spi/st,stm32-spi.yaml
 new file mode 100644
-index 000000000000..68917bb7c7e8
+index 000000000000..f0d979664f07
 --- /dev/null
-+++ b/Documentation/devicetree/bindings/arm/stm32/st,mlahb.yaml
-@@ -0,0 +1,70 @@
-+# SPDX-License-Identifier: (GPL-2.0 OR BSD-2-Clause)
++++ b/Documentation/devicetree/bindings/spi/st,stm32-spi.yaml
+@@ -0,0 +1,105 @@
++# SPDX-License-Identifier: (GPL-2.0-only OR BSD-2-Clause)
 +%YAML 1.2
 +---
-+$id: "http://devicetree.org/schemas/arm/stm32/st,mlahb.yaml#"
-+$schema: "http://devicetree.org/meta-schemas/core.yaml#"
++$id: http://devicetree.org/schemas/spi/st,stm32-spi.yaml#
++$schema: http://devicetree.org/meta-schemas/core.yaml#
 +
-+title: STMicroelectronics STM32 ML-AHB interconnect bindings
-+
-+maintainers:
-+  - Fabien Dessenne <fabien.dessenne@st.com>
-+  - Arnaud Pouliquen <arnaud.pouliquen@st.com>
++title: STMicroelectronics STM32 SPI Controller bindings
 +
 +description: |
-+  These bindings describe the STM32 SoCs ML-AHB interconnect bus which connects
-+  a Cortex-M subsystem with dedicated memories. The MCU SRAM and RETRAM memory
-+  parts can be accessed through different addresses (see "RAM aliases" in [1])
-+  using different buses (see [2]): balancing the Cortex-M firmware accesses
-+  among those ports allows to tune the system performance.
-+  [1]: https://www.st.com/resource/en/reference_manual/dm00327659.pdf
-+  [2]: https://wiki.st.com/stm32mpu/wiki/STM32MP15_RAM_mapping
++  The STM32 SPI controller is used to communicate with external devices using
++  the Serial Peripheral Interface. It supports full-duplex, half-duplex and
++  simplex synchronous serial communication with external devices. It supports
++  from 4 to 32-bit data size.
++
++maintainers:
++  - Erwan Leray <erwan.leray@st.com>
++  - Fabrice Gasnier <fabrice.gasnier@st.com>
 +
 +allOf:
-+ - $ref: /schemas/simple-bus.yaml#
++  - $ref: "spi-controller.yaml#"
++  - if:
++      properties:
++        compatible:
++          contains:
++            const: st,stm32f4-spi
++
++    then:
++      properties:
++        st,spi-midi-ns: false
 +
 +properties:
 +  compatible:
-+    contains:
-+      enum:
-+        - st,mlahb
++    enum:
++      - st,stm32f4-spi
++      - st,stm32h7-spi
 +
-+  dma-ranges:
++  reg:
++    maxItems: 1
++
++  clocks:
++    maxItems: 1
++
++  interrupts:
++    maxItems: 1
++
++  resets:
++    maxItems: 1
++
++  dmas:
 +    description: |
-+      Describe memory addresses translation between the local CPU and the
-+      remote Cortex-M processor. Each memory region, is declared with
-+      3 parameters:
-+      - param 1: device base address (Cortex-M processor address)
-+      - param 2: physical base address (local CPU address)
-+      - param 3: size of the memory region.
-+    maxItems: 3
++      DMA specifiers for tx and rx dma. DMA fifo mode must be used. See
++      the STM32 DMA bindings Documentation/devicetree/bindings/dma/stm32-dma.txt.
++    items:
++      - description: rx DMA channel
++      - description: tx DMA channel
 +
-+  '#address-cells':
-+    const: 1
++  dma-names:
++    items:
++      - const: rx
++      - const: tx
 +
-+  '#size-cells':
-+    const: 1
++patternProperties:
++  "^[a-zA-Z][a-zA-Z0-9,+\\-._]{0,63}@[0-9a-f]+$":
++    type: object
++    # SPI slave nodes must be children of the SPI master node and can
++    # contain the following properties.
++    properties:
++      st,spi-midi-ns:
++        description: |
++          Only for STM32H7, (Master Inter-Data Idleness) minimum time
++          delay in nanoseconds inserted between two consecutive data frames.
 +
 +required:
 +  - compatible
-+  - '#address-cells'
-+  - '#size-cells'
-+  - dma-ranges
++  - reg
++  - clocks
++  - interrupts
 +
 +examples:
 +  - |
-+    mlahb: ahb {
-+      compatible = "st,mlahb", "simple-bus";
++    #include <dt-bindings/interrupt-controller/arm-gic.h>
++    #include <dt-bindings/clock/stm32mp1-clks.h>
++    #include <dt-bindings/reset/stm32mp1-resets.h>
++    spi@4000b000 {
 +      #address-cells = <1>;
-+      #size-cells = <1>;
-+      reg = <0x10000000 0x40000>;
-+      ranges;
-+      dma-ranges = <0x00000000 0x38000000 0x10000>,
-+                   <0x10000000 0x10000000 0x60000>,
-+                   <0x30000000 0x30000000 0x60000>;
++      #size-cells = <0>;
++      compatible = "st,stm32h7-spi";
++      reg = <0x4000b000 0x400>;
++      interrupts = <GIC_SPI 36 IRQ_TYPE_LEVEL_HIGH>;
++      clocks = <&rcc SPI2_K>;
++      resets = <&rcc SPI2_R>;
++      dmas = <&dmamux1 0 39 0x400 0x05>,
++             <&dmamux1 1 40 0x400 0x05>;
++      dma-names = "rx", "tx";
++      cs-gpios = <&gpioa 11 0>;
 +
-+      m4_rproc: m4@10000000 {
-+       reg = <0x10000000 0x40000>;
++      aardvark@0 {
++        compatible = "totalphase,aardvark";
++        reg = <0>;
++        spi-max-frequency = <4000000>;
++        st,spi-midi-ns = <4000>;
 +      };
 +    };
 +
 +...
 -- 
-2.17.1
+2.15.0
 
 _______________________________________________
 Linux-stm32 mailing list
