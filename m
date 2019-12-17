@@ -2,42 +2,42 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id 717CD122A65
+	by mail.lfdr.de (Postfix) with ESMTPS id 252E2122A5F
 	for <lists+linux-stm32@lfdr.de>; Tue, 17 Dec 2019 12:42:57 +0100 (CET)
 Received: from ip-172-31-3-76.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 38C18C36B24;
-	Tue, 17 Dec 2019 11:42:57 +0000 (UTC)
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id D347AC36B0E;
+	Tue, 17 Dec 2019 11:42:56 +0000 (UTC)
 Received: from smtprelay-out1.synopsys.com (us03-smtprelay2.synopsys.com
  [149.117.87.133])
  (using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id B9B31C36B10
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id BC07FC36B0B
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Tue, 17 Dec 2019 11:42:55 +0000 (UTC)
+ Tue, 17 Dec 2019 11:42:54 +0000 (UTC)
 Received: from mailhost.synopsys.com (mdc-mailhost2.synopsys.com
  [10.225.0.210])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits))
  (No client certificate requested)
- by smtprelay-out1.synopsys.com (Postfix) with ESMTPS id 3794BC00A9;
+ by smtprelay-out1.synopsys.com (Postfix) with ESMTPS id 43846C00BD;
  Tue, 17 Dec 2019 11:42:52 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=synopsys.com; s=mail;
- t=1576582974; bh=kXQSi8uEaR0nnXI5gYaHpPekaUtZSzYB55wAuRZ7ltQ=;
+ t=1576582973; bh=QGBt5iajXK05KEIAGjP4Yq1Ag2fr6PeaLdY7M7bfxDQ=;
  h=From:To:Cc:Subject:Date:In-Reply-To:References:In-Reply-To:
  References:From;
- b=XUSvulP17QwQkw8B3QSj57ve7cn8kcRbJcx9xUTXFdr+BSI/zOYTMckaw2R2HMjAm
- WdUitAnfXfcCWp4DC2mWmbpMeF6dYDjk2OOunMp2Zp+Dc9PD2Wphj+msZYGg2EO2nP
- MqYrCe4srBXHAuqVY63iSWQp+bOuRPNR2qnunU3IMJU5XX6nxEnL+soIJwThcVK7Gx
- zdoYJC6OAA0332VNph8JrsU7BL/HnIOkufqysia0IG2w6rEL8nuuWCMg+yYXttYem5
- 9H7IzxqRACENaAeUwzeh6PgiUU6RayypGLAwjOENW5GcFi3o744IlBeE8/gMeNhJpY
- LvK72zgGYi20A==
+ b=dj55FjSsdexIenirs/O1vTgE47xvA9GStoqSsSopnT1dLf2iwW3cgQ5oZbljXjqS+
+ XjlKyp/HN5CtzJK7K0LUoEiZ+aSgTTaJL3s81qtaL8w1IZVjvMMN1PG/wjFavzCu7i
+ K7ncwYUthtrHN5SOB//ynUA+6vCt+hLvxqjVosg1TPeI04MK46loiMwUz+RLQr7bYo
+ ZugYfnH89cF+pvIgGTKjVj32LLphgqqdUnY+MWjSM1ePg9k8BbSqMNx0JMO8Idnibw
+ im9VLFTRCf3g9J39YdFeYOSzqZlKPJuEKmquNUaZCBVAI7fnXIwBNfWH1YxOjwcxiT
+ kmdLLakGw0KZg==
 Received: from de02dwia024.internal.synopsys.com
  (de02dwia024.internal.synopsys.com [10.225.19.81])
- by mailhost.synopsys.com (Postfix) with ESMTP id BF557A0089;
+ by mailhost.synopsys.com (Postfix) with ESMTP id C7A3CA008D;
  Tue, 17 Dec 2019 11:42:50 +0000 (UTC)
 From: Jose Abreu <Jose.Abreu@synopsys.com>
 To: netdev@vger.kernel.org
-Date: Tue, 17 Dec 2019 12:42:31 +0100
-Message-Id: <a59664347f6bc48b8819c228a9e1095a8b92ed1e.1576581853.git.Jose.Abreu@synopsys.com>
+Date: Tue, 17 Dec 2019 12:42:32 +0100
+Message-Id: <a060ccfbcb6a57f73af0d797fb6c829a4c37c5fb.1576581853.git.Jose.Abreu@synopsys.com>
 X-Mailer: git-send-email 2.7.4
 In-Reply-To: <cover.1576581853.git.Jose.Abreu@synopsys.com>
 References: <cover.1576581853.git.Jose.Abreu@synopsys.com>
@@ -49,8 +49,8 @@ Cc: Jose Abreu <Jose.Abreu@synopsys.com>, Joao Pinto <Joao.Pinto@synopsys.com>,
  Maxime Coquelin <mcoquelin.stm32@gmail.com>,
  Giuseppe Cavallaro <peppe.cavallaro@st.com>,
  "David S. Miller" <davem@davemloft.net>, linux-arm-kernel@lists.infradead.org
-Subject: [Linux-stm32] [PATCH net v2 1/8] net: stmmac: selftests: Needs to
-	check the number of Multicast regs
+Subject: [Linux-stm32] [PATCH net v2 2/8] net: stmmac: Determine earlier the
+	size of RX buffer
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -68,15 +68,11 @@ Content-Transfer-Encoding: 7bit
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
-When running the MC and UC filter tests we setup a multicast address
-that its expected to be blocked. If the number of available multicast
-registers is zero, driver will always pass the multicast packets which
-will fail the test.
+Split Header feature needs to know the size of RX buffer but current
+code is determining it too late. Fix this by moving the RX buffer
+computation to earlier stage
 
-Check if available multicast addresses is enough before running the
-tests.
-
-Fixes: 091810dbded9 ("net: stmmac: Introduce selftests support")
+Fixes: 67afd6d1cfdf ("net: stmmac: Add Split Header support and enable it in XGMAC cores")
 Signed-off-by: Jose Abreu <Jose.Abreu@synopsys.com>
 
 ---
@@ -90,31 +86,68 @@ Cc: linux-stm32@st-md-mailman.stormreply.com
 Cc: linux-arm-kernel@lists.infradead.org
 Cc: linux-kernel@vger.kernel.org
 ---
- drivers/net/ethernet/stmicro/stmmac/stmmac_selftests.c | 4 ++++
- 1 file changed, 4 insertions(+)
+ drivers/net/ethernet/stmicro/stmmac/stmmac_main.c | 24 +++++++++++------------
+ 1 file changed, 11 insertions(+), 13 deletions(-)
 
-diff --git a/drivers/net/ethernet/stmicro/stmmac/stmmac_selftests.c b/drivers/net/ethernet/stmicro/stmmac/stmmac_selftests.c
-index f3d8b9336b8e..13227909287c 100644
---- a/drivers/net/ethernet/stmicro/stmmac/stmmac_selftests.c
-+++ b/drivers/net/ethernet/stmicro/stmmac/stmmac_selftests.c
-@@ -624,6 +624,8 @@ static int stmmac_test_mcfilt(struct stmmac_priv *priv)
- 		return -EOPNOTSUPP;
- 	if (netdev_uc_count(priv->dev) >= priv->hw->unicast_filter_entries)
- 		return -EOPNOTSUPP;
-+	if (netdev_mc_count(priv->dev) >= priv->hw->multicast_filter_bins)
-+		return -EOPNOTSUPP;
+diff --git a/drivers/net/ethernet/stmicro/stmmac/stmmac_main.c b/drivers/net/ethernet/stmicro/stmmac/stmmac_main.c
+index bbc65bd332a8..dfecced43f29 100644
+--- a/drivers/net/ethernet/stmicro/stmmac/stmmac_main.c
++++ b/drivers/net/ethernet/stmicro/stmmac/stmmac_main.c
+@@ -1293,19 +1293,9 @@ static int init_dma_rx_desc_rings(struct net_device *dev, gfp_t flags)
+ 	struct stmmac_priv *priv = netdev_priv(dev);
+ 	u32 rx_count = priv->plat->rx_queues_to_use;
+ 	int ret = -ENOMEM;
+-	int bfsize = 0;
+ 	int queue;
+ 	int i;
  
- 	while (--tries) {
- 		/* We only need to check the mc_addr for collisions */
-@@ -666,6 +668,8 @@ static int stmmac_test_ucfilt(struct stmmac_priv *priv)
+-	bfsize = stmmac_set_16kib_bfsize(priv, dev->mtu);
+-	if (bfsize < 0)
+-		bfsize = 0;
+-
+-	if (bfsize < BUF_SIZE_16KiB)
+-		bfsize = stmmac_set_bfsize(dev->mtu, priv->dma_buf_sz);
+-
+-	priv->dma_buf_sz = bfsize;
+-
+ 	/* RX INITIALIZATION */
+ 	netif_dbg(priv, probe, priv->dev,
+ 		  "SKB addresses:\nskb\t\tskb data\tdma data\n");
+@@ -1347,8 +1337,6 @@ static int init_dma_rx_desc_rings(struct net_device *dev, gfp_t flags)
+ 		}
+ 	}
  
- 	if (stmmac_filter_check(priv))
- 		return -EOPNOTSUPP;
-+	if (netdev_uc_count(priv->dev) >= priv->hw->unicast_filter_entries)
-+		return -EOPNOTSUPP;
- 	if (netdev_mc_count(priv->dev) >= priv->hw->multicast_filter_bins)
- 		return -EOPNOTSUPP;
+-	buf_sz = bfsize;
+-
+ 	return 0;
  
+ err_init_rx_buffers:
+@@ -2658,6 +2646,7 @@ static void stmmac_hw_teardown(struct net_device *dev)
+ static int stmmac_open(struct net_device *dev)
+ {
+ 	struct stmmac_priv *priv = netdev_priv(dev);
++	int bfsize = 0;
+ 	u32 chan;
+ 	int ret;
+ 
+@@ -2677,7 +2666,16 @@ static int stmmac_open(struct net_device *dev)
+ 	memset(&priv->xstats, 0, sizeof(struct stmmac_extra_stats));
+ 	priv->xstats.threshold = tc;
+ 
+-	priv->dma_buf_sz = STMMAC_ALIGN(buf_sz);
++	bfsize = stmmac_set_16kib_bfsize(priv, dev->mtu);
++	if (bfsize < 0)
++		bfsize = 0;
++
++	if (bfsize < BUF_SIZE_16KiB)
++		bfsize = stmmac_set_bfsize(dev->mtu, priv->dma_buf_sz);
++
++	priv->dma_buf_sz = STMMAC_ALIGN(bfsize);
++	buf_sz = bfsize;
++
+ 	priv->rx_copybreak = STMMAC_RX_COPYBREAK;
+ 
+ 	ret = alloc_dma_desc_resources(priv);
 -- 
 2.7.4
 
