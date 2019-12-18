@@ -2,63 +2,60 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id 6570C1248EF
-	for <lists+linux-stm32@lfdr.de>; Wed, 18 Dec 2019 15:02:01 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 75BCB12494B
+	for <lists+linux-stm32@lfdr.de>; Wed, 18 Dec 2019 15:19:05 +0100 (CET)
 Received: from ip-172-31-3-76.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 24DB1C36B0C;
-	Wed, 18 Dec 2019 14:02:01 +0000 (UTC)
-Received: from mail-vk1-f194.google.com (mail-vk1-f194.google.com
- [209.85.221.194])
- (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 291A1C36B0C;
+	Wed, 18 Dec 2019 14:19:05 +0000 (UTC)
+Received: from mx07-00178001.pphosted.com (mx07-00178001.pphosted.com
+ [62.209.51.94])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id D128CC36B0A
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id D32C7C36B0A
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Wed, 18 Dec 2019 14:01:57 +0000 (UTC)
-Received: by mail-vk1-f194.google.com with SMTP id g7so639778vkl.12
- for <linux-stm32@st-md-mailman.stormreply.com>;
- Wed, 18 Dec 2019 06:01:57 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linaro.org; s=google;
- h=mime-version:references:in-reply-to:from:date:message-id:subject:to
- :cc; bh=iDDXhiVTyjttx83CIWs0F1XonSq49Z4FwKDL4AKSMZ0=;
- b=BQV2PwjmbtuoWSC6pu036LkQ2z7jmrFW6qlzts/aZDJynU93TGkLUhBp1tK0JsTFaT
- S2b+dwMSp+ypQMOMXdOs9LFVYT7fgaSnIF6v4Fdpd6rCw36hFZjNVJQq/ePUT36d7n1n
- D1ffm2D1fhMhbjnIctBnD8i0BiNqyl8E/ruo7fbsOjIVAw+HRNjyOX3tha/u9SsSNIk6
- IB11YGyhc9yROsqDogYMqWIf3e3tv6zde8cexBNY7mOtar629cjEidMYs9B3ROwqzBLd
- /nM+061/J2VcBtRQ7dKOpHAiXKfXghjHS7RiWirp6/pETZAB1yRLXPv0Fhv0nw2+IMsu
- UnwA==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20161025;
- h=x-gm-message-state:mime-version:references:in-reply-to:from:date
- :message-id:subject:to:cc;
- bh=iDDXhiVTyjttx83CIWs0F1XonSq49Z4FwKDL4AKSMZ0=;
- b=RIuupwzH0cdodDkScrt8XV5yEtHRSWM6Xd2OcQmQQEWpHW0y3qvRzjPHludL23Snj8
- 2VZHi5GoBQpSr67S1qUen67RCCVTg9QBCCe4V6QBCC5Vj08XqJiuTRorWhXC1dDnWqVZ
- +du8d43jxg3rMr2N3AkXb7CqOxNY3wiillbLoDKbJksnviDwZOiU4PKU2+gtiu27T3ed
- 1j05ZIj34sjwphYXR+kSl3UA/+PWuToM673XDjzJPR2UWI5S6yhftJFxnA8AKcHhFseB
- Kvuy6ud+UVhDn+iEngo0EAqGD9dTaYReSGMYgMfW7masqnEDrU6pggCOLzsg8WfqKYXZ
- ExpA==
-X-Gm-Message-State: APjAAAVo6P4j4zJ3m5ku1CV/KYQI2ARmbHleMoFGJ0raV2Fh9Ilkv6t9
- +llvw0UKHVPXzVk6n09rJsMI03qtp3TodwiZl824iw==
-X-Google-Smtp-Source: APXvYqwKppPVSkF/tgQZTFhbMXTfr2S4Ix4tS00kAV6zskzWPozXs1ppIIQpeKIDB7d8k+f5RedW4PwJL7fcueb9+8I=
-X-Received: by 2002:a1f:4541:: with SMTP id s62mr1807754vka.59.1576677716241; 
- Wed, 18 Dec 2019 06:01:56 -0800 (PST)
+ Wed, 18 Dec 2019 14:19:01 +0000 (UTC)
+Received: from pps.filterd (m0046668.ppops.net [127.0.0.1])
+ by mx07-00178001.pphosted.com (8.16.0.42/8.16.0.42) with SMTP id
+ xBIEIF4E006567; Wed, 18 Dec 2019 15:18:16 +0100
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=st.com;
+ h=from : to : cc : subject
+ : date : message-id : mime-version : content-type; s=STMicroelectronics;
+ bh=VkB1F9j4Bc2882ixkvjF3/YhIbvozsdCU4TfcGwrFI4=;
+ b=kNlkEtLSNW+jito3GFcNjm/sDFWH6hj6tulB7EUTOT7R8nKigUr9I+aNUmO/JTcM2m61
+ SXbi0X1pLqkdcpeasKFt2DgBAZhbLMgk/NDtyV+Y1ryqgiKamQ2MxAHceYSUNeQ8URRU
+ 7UX2HX914cxki2JimUHPgSMZOcy3ajS+CIk6IT0t7rjvGQ3q1kIZJXrPqiXaV3hNpSJb
+ h2Kiwt1GrxydNRuU2WAzOd4aR6dFoGmyWqW+MBg22xzZZSjyT0OaJzrrPSa4uNeavmUG
+ vXboDxvkn9yM2Hh1QCr2DzIWXdI8r3NSxX6+QC1SNLm6H2uVr0KWpD4MLVxDpfiXcuLy qw== 
+Received: from beta.dmz-eu.st.com (beta.dmz-eu.st.com [164.129.1.35])
+ by mx07-00178001.pphosted.com with ESMTP id 2wvp374uak-1
+ (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
+ Wed, 18 Dec 2019 15:18:16 +0100
+Received: from euls16034.sgp.st.com (euls16034.sgp.st.com [10.75.44.20])
+ by beta.dmz-eu.st.com (STMicroelectronics) with ESMTP id 7F88D10003A;
+ Wed, 18 Dec 2019 15:18:10 +0100 (CET)
+Received: from Webmail-eu.st.com (sfhdag3node1.st.com [10.75.127.7])
+ by euls16034.sgp.st.com (STMicroelectronics) with ESMTP id 508D72BEAD4;
+ Wed, 18 Dec 2019 15:18:10 +0100 (CET)
+Received: from localhost (10.75.127.44) by SFHDAG3NODE1.st.com (10.75.127.7)
+ with Microsoft SMTP Server (TLS) id 15.0.1473.3; Wed, 18 Dec 2019 15:18:09
+ +0100
+From: Arnaud Pouliquen <arnaud.pouliquen@st.com>
+To: <alsa-devel@alsa-project.org>, Mark Brown <broonie@kernel.org>, Liam
+ Girdwood <lgirdwood@gmail.com>, Jaroslav Kysela <perex@perex.cz>, Takashi
+ Iwai <tiwai@suse.com>, Jia-Ju Bai <baijiaju1990@gmail.com>
+Date: Wed, 18 Dec 2019 15:16:46 +0100
+Message-ID: <20191218141646.23256-1-arnaud.pouliquen@st.com>
+X-Mailer: git-send-email 2.17.1
 MIME-Version: 1.0
-References: <20191211133934.16932-1-ludovic.Barre@st.com>
-In-Reply-To: <20191211133934.16932-1-ludovic.Barre@st.com>
-From: Ulf Hansson <ulf.hansson@linaro.org>
-Date: Wed, 18 Dec 2019 15:01:20 +0100
-Message-ID: <CAPDyKFpoqEXO1JvjF=0hX97PiwP=2c1eWORsacb8QvZM=1Tvjw@mail.gmail.com>
-To: Ludovic Barre <ludovic.Barre@st.com>
-Cc: DTML <devicetree@vger.kernel.org>,
- "linux-mmc@vger.kernel.org" <linux-mmc@vger.kernel.org>,
- Linux Kernel Mailing List <linux-kernel@vger.kernel.org>,
- Rob Herring <robh+dt@kernel.org>,
- Srinivas Kandagatla <srinivas.kandagatla@linaro.org>,
- Maxime Coquelin <mcoquelin.stm32@gmail.com>,
- linux-stm32@st-md-mailman.stormreply.com,
- Linux ARM <linux-arm-kernel@lists.infradead.org>
-Subject: Re: [Linux-stm32] [PATCH V2] mmc: mmci: add threaded irq to abort
- DPSM of non-functional state
+X-Originating-IP: [10.75.127.44]
+X-ClientProxiedBy: SFHDAG7NODE1.st.com (10.75.127.19) To SFHDAG3NODE1.st.com
+ (10.75.127.7)
+X-Proofpoint-Virus-Version: vendor=fsecure engine=2.50.10434:6.0.95,18.0.572
+ definitions=2019-12-18_04:2019-12-17,2019-12-18 signatures=0
+Cc: linux-stm32@st-md-mailman.stormreply.com,
+ linux-arm-kernel@lists.infradead.org, linux-kernel@vger.kernel.org
+Subject: [Linux-stm32] [INTERNAL REVIEW] asoc: sti: fix possible
+	sleep-in-atomic
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -75,148 +72,65 @@ Content-Transfer-Encoding: 7bit
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
-On Wed, 11 Dec 2019 at 14:40, Ludovic Barre <ludovic.Barre@st.com> wrote:
->
-> From: Ludovic Barre <ludovic.barre@st.com>
->
-> If datatimeout occurs on R1B request, the Data Path State Machine stays
-> in busy and is non-functional. Only a reset aborts the DPSM.
->
-> Like a reset must be outside of critical section, this patch adds
-> threaded irq function to release state machine. In this case,
-> the mmc_request_done is called at the end of threaded irq and
-> skipped into irq handler.
->
-> Signed-off-by: Ludovic Barre <ludovic.barre@st.com>
+Change mutex and spinlock management to avoid sleep
+in atomic issue.
 
-Applied for next, thanks!
+Signed-off-by: Arnaud Pouliquen <arnaud.pouliquen@st.com>
+---
+ sound/soc/sti/uniperif_player.c | 7 ++++---
+ 1 file changed, 4 insertions(+), 3 deletions(-)
 
-I took the liberty of doing some minor updates (changelog/comment),
-please have a look and let me know if there is something you want me
-to change.
+diff --git a/sound/soc/sti/uniperif_player.c b/sound/soc/sti/uniperif_player.c
+index 48ea915b24ba..2ed92c990b97 100644
+--- a/sound/soc/sti/uniperif_player.c
++++ b/sound/soc/sti/uniperif_player.c
+@@ -226,7 +226,6 @@ static void uni_player_set_channel_status(struct uniperif *player,
+ 	 * sampling frequency. If no sample rate is already specified, then
+ 	 * set one.
+ 	 */
+-	mutex_lock(&player->ctrl_lock);
+ 	if (runtime) {
+ 		switch (runtime->rate) {
+ 		case 22050:
+@@ -303,7 +302,6 @@ static void uni_player_set_channel_status(struct uniperif *player,
+ 		player->stream_settings.iec958.status[3 + (n * 4)] << 24;
+ 		SET_UNIPERIF_CHANNEL_STA_REGN(player, n, status);
+ 	}
+-	mutex_unlock(&player->ctrl_lock);
+ 
+ 	/* Update the channel status */
+ 	if (player->ver < SND_ST_UNIPERIF_VERSION_UNI_PLR_TOP_1_0)
+@@ -365,8 +363,10 @@ static int uni_player_prepare_iec958(struct uniperif *player,
+ 
+ 	SET_UNIPERIF_CTRL_ZERO_STUFF_HW(player);
+ 
++	mutex_lock(&player->ctrl_lock);
+ 	/* Update the channel status */
+ 	uni_player_set_channel_status(player, runtime);
++	mutex_unlock(&player->ctrl_lock);
+ 
+ 	/* Clear the user validity user bits */
+ 	SET_UNIPERIF_USER_VALIDITY_VALIDITY_LR(player, 0);
+@@ -598,7 +598,6 @@ static int uni_player_ctl_iec958_put(struct snd_kcontrol *kcontrol,
+ 	iec958->status[1] = ucontrol->value.iec958.status[1];
+ 	iec958->status[2] = ucontrol->value.iec958.status[2];
+ 	iec958->status[3] = ucontrol->value.iec958.status[3];
+-	mutex_unlock(&player->ctrl_lock);
+ 
+ 	spin_lock_irqsave(&player->irq_lock, flags);
+ 	if (player->substream && player->substream->runtime)
+@@ -608,6 +607,8 @@ static int uni_player_ctl_iec958_put(struct snd_kcontrol *kcontrol,
+ 		uni_player_set_channel_status(player, NULL);
+ 
+ 	spin_unlock_irqrestore(&player->irq_lock, flags);
++	mutex_unlock(&player->ctrl_lock);
++
+ 	return 0;
+ }
+ 
+-- 
+2.17.1
 
-And again, apologize for the delays!
-
-Kind regards
-Uffe
-
-
-> ---
-> change V2:
->  -check IRQ_WAKE_THREAD only in mmci_cmd_irq error part,
->   to avoid this test in mmci_request_end.
->
-> ---
->  drivers/mmc/host/mmci.c | 46 +++++++++++++++++++++++++++++++++++------
->  drivers/mmc/host/mmci.h |  1 +
->  2 files changed, 41 insertions(+), 6 deletions(-)
->
-> diff --git a/drivers/mmc/host/mmci.c b/drivers/mmc/host/mmci.c
-> index 40e72c30ea84..2b91757e3e84 100644
-> --- a/drivers/mmc/host/mmci.c
-> +++ b/drivers/mmc/host/mmci.c
-> @@ -1321,6 +1321,7 @@ mmci_cmd_irq(struct mmci_host *host, struct mmc_command *cmd,
->         } else if (host->variant->busy_timeout && busy_resp &&
->                    status & MCI_DATATIMEOUT) {
->                 cmd->error = -ETIMEDOUT;
-> +               host->irq_action = IRQ_WAKE_THREAD;
->         } else {
->                 cmd->resp[0] = readl(base + MMCIRESPONSE0);
->                 cmd->resp[1] = readl(base + MMCIRESPONSE1);
-> @@ -1339,7 +1340,10 @@ mmci_cmd_irq(struct mmci_host *host, struct mmc_command *cmd,
->                                 return;
->                         }
->                 }
-> -               mmci_request_end(host, host->mrq);
-> +
-> +               if (host->irq_action != IRQ_WAKE_THREAD)
-> +                       mmci_request_end(host, host->mrq);
-> +
->         } else if (sbc) {
->                 mmci_start_command(host, host->mrq->cmd, 0);
->         } else if (!host->variant->datactrl_first &&
-> @@ -1532,9 +1536,9 @@ static irqreturn_t mmci_irq(int irq, void *dev_id)
->  {
->         struct mmci_host *host = dev_id;
->         u32 status;
-> -       int ret = 0;
->
->         spin_lock(&host->lock);
-> +       host->irq_action = IRQ_HANDLED;
->
->         do {
->                 status = readl(host->base + MMCISTATUS);
-> @@ -1574,12 +1578,41 @@ static irqreturn_t mmci_irq(int irq, void *dev_id)
->                 if (host->variant->busy_detect_flag)
->                         status &= ~host->variant->busy_detect_flag;
->
-> -               ret = 1;
->         } while (status);
->
->         spin_unlock(&host->lock);
->
-> -       return IRQ_RETVAL(ret);
-> +       return host->irq_action;
-> +}
-> +
-> +/*
-> + * mmci_irq_threaded is call if the mmci host need to release state machines
-> + * before to terminate the request.
-> + * If datatimeout occurs on R1B request, the Data Path State Machine stays
-> + * in busy and is non-functional. Only a reset can to abort the DPSM.
-> + */
-> +static irqreturn_t mmci_irq_threaded(int irq, void *dev_id)
-> +{
-> +       struct mmci_host *host = dev_id;
-> +       unsigned long flags;
-> +
-> +       if (host->rst) {
-> +               reset_control_assert(host->rst);
-> +               udelay(2);
-> +               reset_control_deassert(host->rst);
-> +       }
-> +
-> +       spin_lock_irqsave(&host->lock, flags);
-> +       writel(host->clk_reg, host->base + MMCICLOCK);
-> +       writel(host->pwr_reg, host->base + MMCIPOWER);
-> +       writel(MCI_IRQENABLE | host->variant->start_err,
-> +              host->base + MMCIMASK0);
-> +
-> +       host->irq_action = IRQ_HANDLED;
-> +       mmci_request_end(host, host->mrq);
-> +       spin_unlock_irqrestore(&host->lock, flags);
-> +
-> +       return host->irq_action;
->  }
->
->  static void mmci_request(struct mmc_host *mmc, struct mmc_request *mrq)
-> @@ -2071,8 +2104,9 @@ static int mmci_probe(struct amba_device *dev,
->                         goto clk_disable;
->         }
->
-> -       ret = devm_request_irq(&dev->dev, dev->irq[0], mmci_irq, IRQF_SHARED,
-> -                       DRIVER_NAME " (cmd)", host);
-> +       ret = devm_request_threaded_irq(&dev->dev, dev->irq[0], mmci_irq,
-> +                                       mmci_irq_threaded, IRQF_SHARED,
-> +                                       DRIVER_NAME " (cmd)", host);
->         if (ret)
->                 goto clk_disable;
->
-> diff --git a/drivers/mmc/host/mmci.h b/drivers/mmc/host/mmci.h
-> index 158e1231aa23..5e63c0596364 100644
-> --- a/drivers/mmc/host/mmci.h
-> +++ b/drivers/mmc/host/mmci.h
-> @@ -412,6 +412,7 @@ struct mmci_host {
->
->         struct timer_list       timer;
->         unsigned int            oldstat;
-> +       u32                     irq_action;
->
->         /* pio stuff */
->         struct sg_mapping_iter  sg_miter;
-> --
-> 2.17.1
->
 _______________________________________________
 Linux-stm32 mailing list
 Linux-stm32@st-md-mailman.stormreply.com
