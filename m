@@ -2,60 +2,49 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id 9BFFB12424A
-	for <lists+linux-stm32@lfdr.de>; Wed, 18 Dec 2019 09:57:37 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 616A2124426
+	for <lists+linux-stm32@lfdr.de>; Wed, 18 Dec 2019 11:17:57 +0100 (CET)
 Received: from ip-172-31-3-76.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 50ED3C36B0C;
-	Wed, 18 Dec 2019 08:57:37 +0000 (UTC)
-Received: from mx07-00178001.pphosted.com (mx07-00178001.pphosted.com
- [62.209.51.94])
- (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 1BCEDC36B12;
+	Wed, 18 Dec 2019 10:17:57 +0000 (UTC)
+Received: from smtprelay-out1.synopsys.com (us03-smtprelay2.synopsys.com
+ [149.117.87.133])
+ (using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 71220C36B0A
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 588DFC36B0B
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Wed, 18 Dec 2019 08:57:36 +0000 (UTC)
-Received: from pps.filterd (m0046037.ppops.net [127.0.0.1])
- by mx07-00178001.pphosted.com (8.16.0.42/8.16.0.42) with SMTP id
- xBI8sRD0008071; Wed, 18 Dec 2019 09:57:25 +0100
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=st.com;
- h=from : to : cc : subject
- : date : message-id : mime-version : content-type; s=STMicroelectronics;
- bh=xY69+K3CDt8WIn1tRsSBo05iiqi+wQiVGkvAfv6jSUA=;
- b=xCM86XwVU/qOBfZeW2/Wv3PbksC+Ts74s/aZM6VvyknPr4fHVNQoRuG3nO1VFTEO2vG7
- sjZjDMLG5JbW0EKUImtlgs0uN6o7TSUUnkbbZd/b6kDODcqUAdu3N4gL9+zM8CgpSfwQ
- J0K0f3DBANleVqZcEAHKVVaK7uZ9zmRSS1sl/IgzzLf7GEJf6ENDhQI8jSOCZOEwsYJ2
- 1y4LKjyZtCdzbv5OSqq0jknVaWV3/MQoknxXMj47HcGFuNsy2ILp3WDm6CX0VwRGrlWZ
- Mmgd3XwbNBM9j9F8mEukjU68/nxWYSqi1xzry19qyYooREdo2NT5RJ6774APcOi2/a1D Ng== 
-Received: from beta.dmz-eu.st.com (beta.dmz-eu.st.com [164.129.1.35])
- by mx07-00178001.pphosted.com with ESMTP id 2wvpd1kam2-1
- (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
- Wed, 18 Dec 2019 09:57:25 +0100
-Received: from euls16034.sgp.st.com (euls16034.sgp.st.com [10.75.44.20])
- by beta.dmz-eu.st.com (STMicroelectronics) with ESMTP id 0CF3D10003B;
- Wed, 18 Dec 2019 09:57:19 +0100 (CET)
-Received: from Webmail-eu.st.com (sfhdag3node1.st.com [10.75.127.7])
- by euls16034.sgp.st.com (STMicroelectronics) with ESMTP id 3B2E9220826;
- Wed, 18 Dec 2019 09:57:19 +0100 (CET)
-Received: from localhost (10.75.127.45) by SFHDAG3NODE1.st.com (10.75.127.7)
- with Microsoft SMTP Server (TLS) id 15.0.1473.3; Wed, 18 Dec 2019 09:57:18
- +0100
-From: Arnaud Pouliquen <arnaud.pouliquen@st.com>
-To: Rob Herring <robh@kernel.org>, Mark Rutland <mark.rutland@arm.com>,
- Alexandre Torgue <alexandre.torgue@st.com>
-Date: Wed, 18 Dec 2019 09:57:10 +0100
-Message-ID: <20191218085710.2142-1-arnaud.pouliquen@st.com>
-X-Mailer: git-send-email 2.17.1
-MIME-Version: 1.0
-X-Originating-IP: [10.75.127.45]
-X-ClientProxiedBy: SFHDAG3NODE3.st.com (10.75.127.9) To SFHDAG3NODE1.st.com
- (10.75.127.7)
-X-Proofpoint-Virus-Version: vendor=fsecure engine=2.50.10434:6.0.95,18.0.572
- definitions=2019-12-18_02:2019-12-17,2019-12-18 signatures=0
-Cc: devicetree@vger.kernel.org, linux-kernel@vger.kernel.org,
- Fabien Dessenne <fabien.dessenne@st.com>,
- linux-stm32@st-md-mailman.stormreply.com, linux-arm-kernel@lists.infradead.org
-Subject: [Linux-stm32] [PATCH] ARM: dts: stm32: update mlahb node according
-	to the bindings
+ Wed, 18 Dec 2019 10:17:55 +0000 (UTC)
+Received: from mailhost.synopsys.com (mdc-mailhost2.synopsys.com
+ [10.225.0.210])
+ (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits))
+ (No client certificate requested)
+ by smtprelay-out1.synopsys.com (Postfix) with ESMTPS id 1E8F9C0104;
+ Wed, 18 Dec 2019 10:17:52 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=synopsys.com; s=mail;
+ t=1576664273; bh=tK4WjKNsmZWt7T7XYmc4LxY6m+JF69CegqR/VxH5Bbw=;
+ h=From:To:Cc:Subject:Date:From;
+ b=NX5DsbG30dPMEQ56qJbLJPbYSWe28OoZWa4zXLs4H0pnl43FEo9hcuA9U678kZ96/
+ Ra7rCM2hEcabN1L6RDc74ev04GxvM7j0LUZ55LmSu5JmkhCbuC9W0I7vmRQgnhciMo
+ udr4igkFfeJS1c+T+h6Q8Tte+9AGKj2Z//rn2Ti5xceRmKRe+II3tglADR5jE2b/oA
+ SdDL1XL0LZb3gFUAcHQMWkI9x0KQ3insIFHXmYmfZ4Flb5+uOlOAAM7l3p/WAtW2fJ
+ fJbqVplkBTnQE4Y6NwUF5xaJDIq2ooggjeR6IPHY2FrbR3fmkUOW7zCP2EFvQ6n7l7
+ mCuH0fB45MHNQ==
+Received: from de02dwia024.internal.synopsys.com
+ (de02dwia024.internal.synopsys.com [10.225.19.81])
+ by mailhost.synopsys.com (Postfix) with ESMTP id 40DA8A0066;
+ Wed, 18 Dec 2019 10:17:50 +0000 (UTC)
+From: Jose Abreu <Jose.Abreu@synopsys.com>
+To: netdev@vger.kernel.org
+Date: Wed, 18 Dec 2019 11:17:34 +0100
+Message-Id: <cover.1576664155.git.Jose.Abreu@synopsys.com>
+X-Mailer: git-send-email 2.7.4
+Cc: Jose Abreu <Jose.Abreu@synopsys.com>, Joao Pinto <Joao.Pinto@synopsys.com>,
+ Jakub Kicinski <jakub.kicinski@netronome.com>, linux-kernel@vger.kernel.org,
+ linux-stm32@st-md-mailman.stormreply.com,
+ Maxime Coquelin <mcoquelin.stm32@gmail.com>,
+ Giuseppe Cavallaro <peppe.cavallaro@st.com>,
+ "David S. Miller" <davem@davemloft.net>, linux-arm-kernel@lists.infradead.org
+Subject: [Linux-stm32] [PATCH net v3 0/9] net: stmmac: Fixes for -net
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -67,38 +56,66 @@ List-Post: <mailto:linux-stm32@st-md-mailman.stormreply.com>
 List-Help: <mailto:linux-stm32-request@st-md-mailman.stormreply.com?subject=help>
 List-Subscribe: <https://st-md-mailman.stormreply.com/mailman/listinfo/linux-stm32>, 
  <mailto:linux-stm32-request@st-md-mailman.stormreply.com?subject=subscribe>
+MIME-Version: 1.0
 Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
-Update of the mlahb node according to to DT bindings using json-schema
+Fixes for stmmac.
 
-Signed-off-by: Arnaud Pouliquen <arnaud.pouliquen@st.com>
+1) Fixes the filtering selftests (again) for cases when the number of multicast
+filters are not enough.
+
+2) Fixes SPH feature for MTU > default.
+
+3) Fixes the behavior of accepting invalid MTU values.
+
+4) Fixes FCS stripping for multi-descriptor packets.
+
+5) Fixes the change of RX buffer size in XGMAC.
+
+6) Fixes RX buffer size alignment.
+
+7) Fixes the 16KB buffer alignment.
+
+8) Fixes the enabling of 16KB buffer size feature.
+
+9) Always arm the TX coalesce timer so that missed interrupts do not cause
+a TX queue timeout.
+
 ---
- arch/arm/boot/dts/stm32mp157c.dtsi | 5 +++--
- 1 file changed, 3 insertions(+), 2 deletions(-)
+Cc: Giuseppe Cavallaro <peppe.cavallaro@st.com>
+Cc: Alexandre Torgue <alexandre.torgue@st.com>
+Cc: Jose Abreu <joabreu@synopsys.com>
+Cc: "David S. Miller" <davem@davemloft.net>
+Cc: Maxime Coquelin <mcoquelin.stm32@gmail.com>
+Cc: netdev@vger.kernel.org
+Cc: linux-stm32@st-md-mailman.stormreply.com
+Cc: linux-arm-kernel@lists.infradead.org
+Cc: linux-kernel@vger.kernel.org
+---
 
-diff --git a/arch/arm/boot/dts/stm32mp157c.dtsi b/arch/arm/boot/dts/stm32mp157c.dtsi
-index ed8b258256d7..be04eab7f139 100644
---- a/arch/arm/boot/dts/stm32mp157c.dtsi
-+++ b/arch/arm/boot/dts/stm32mp157c.dtsi
-@@ -1513,10 +1513,11 @@
- 		};
- 	};
- 
--	mlahb {
--		compatible = "simple-bus";
-+	mlahb: ahb {
-+		compatible = "st,mlahb", "simple-bus";
- 		#address-cells = <1>;
- 		#size-cells = <1>;
-+		ranges;
- 		dma-ranges = <0x00000000 0x38000000 0x10000>,
- 			     <0x10000000 0x10000000 0x60000>,
- 			     <0x30000000 0x30000000 0x60000>;
+Jose Abreu (9):
+  net: stmmac: selftests: Needs to check the number of Multicast regs
+  net: stmmac: Determine earlier the size of RX buffer
+  net: stmmac: Do not accept invalid MTU values
+  net: stmmac: Only the last buffer has the FCS field
+  net: stmmac: xgmac: Clear previous RX buffer size
+  net: stmmac: RX buffer size must be 16 byte aligned
+  net: stmmac: 16KB buffer must be 16 byte aligned
+  net: stmmac: Enable 16KB buffer size
+  net: stmmac: Always arm TX Timer at end of transmission start
+
+ drivers/net/ethernet/stmicro/stmmac/common.h       |  5 +-
+ drivers/net/ethernet/stmicro/stmmac/dwxgmac2.h     |  2 +
+ drivers/net/ethernet/stmicro/stmmac/dwxgmac2_dma.c |  3 +-
+ drivers/net/ethernet/stmicro/stmmac/stmmac_main.c  | 53 +++++++++++++---------
+ .../net/ethernet/stmicro/stmmac/stmmac_selftests.c |  4 ++
+ 5 files changed, 42 insertions(+), 25 deletions(-)
+
 -- 
-2.17.1
+2.7.4
 
 _______________________________________________
 Linux-stm32 mailing list
