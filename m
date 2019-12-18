@@ -2,39 +2,34 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id F20C21252A1
-	for <lists+linux-stm32@lfdr.de>; Wed, 18 Dec 2019 21:06:13 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 043EF1252A9
+	for <lists+linux-stm32@lfdr.de>; Wed, 18 Dec 2019 21:06:45 +0100 (CET)
 Received: from ip-172-31-3-76.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id AE8F3C36B0C;
-	Wed, 18 Dec 2019 20:06:13 +0000 (UTC)
-Received: from shards.monkeyblade.net (shards.monkeyblade.net [23.128.96.9])
- (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
- (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 8AD26C36B0A
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id C1CC9C36B0C;
+	Wed, 18 Dec 2019 20:06:44 +0000 (UTC)
+Received: from foss.arm.com (foss.arm.com [217.140.110.172])
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 9997DC36B0A
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Wed, 18 Dec 2019 20:06:11 +0000 (UTC)
-Received: from localhost (unknown [IPv6:2601:601:9f00:1c3::3d5])
- (using TLSv1 with cipher AES256-SHA (256/256 bits))
- (Client did not present a certificate)
- (Authenticated sender: davem-davemloft)
- by shards.monkeyblade.net (Postfix) with ESMTPSA id AE094153CA138;
- Wed, 18 Dec 2019 12:06:08 -0800 (PST)
-Date: Wed, 18 Dec 2019 12:06:08 -0800 (PST)
-Message-Id: <20191218.120608.957923763169948073.davem@davemloft.net>
-To: Jose.Abreu@synopsys.com
-From: David Miller <davem@davemloft.net>
-In-Reply-To: <cover.1576664155.git.Jose.Abreu@synopsys.com>
-References: <cover.1576664155.git.Jose.Abreu@synopsys.com>
-X-Mailer: Mew version 6.8 on Emacs 26.1
-Mime-Version: 1.0
-X-Greylist: Sender succeeded SMTP AUTH, not delayed by milter-greylist-4.5.12
- (shards.monkeyblade.net [149.20.54.216]);
- Wed, 18 Dec 2019 12:06:09 -0800 (PST)
-Cc: Joao.Pinto@synopsys.com, jakub.kicinski@netronome.com,
- netdev@vger.kernel.org, linux-kernel@vger.kernel.org,
- mcoquelin.stm32@gmail.com, peppe.cavallaro@st.com,
- linux-stm32@st-md-mailman.stormreply.com, linux-arm-kernel@lists.infradead.org
-Subject: Re: [Linux-stm32] [PATCH net v3 0/9] net: stmmac: Fixes for -net
+ Wed, 18 Dec 2019 20:06:43 +0000 (UTC)
+Received: from usa-sjc-imap-foss1.foss.arm.com (unknown [10.121.207.14])
+ by usa-sjc-mx-foss1.foss.arm.com (Postfix) with ESMTP id E419D1FB;
+ Wed, 18 Dec 2019 12:06:42 -0800 (PST)
+Received: from localhost (unknown [10.37.6.21])
+ by usa-sjc-imap-foss1.foss.arm.com (Postfix) with ESMTPSA id 5FE5D3F67D;
+ Wed, 18 Dec 2019 12:06:42 -0800 (PST)
+Date: Wed, 18 Dec 2019 20:06:40 +0000
+From: Mark Brown <broonie@kernel.org>
+To: Benjamin Gaignard <benjamin.gaignard@st.com>
+In-Reply-To: <20191217090715.13334-1-benjamin.gaignard@st.com>
+Message-Id: <applied-20191217090715.13334-1-benjamin.gaignard@st.com>
+X-Patchwork-Hint: ignore
+Cc: mark.rutland@arm.com, devicetree@vger.kernel.org,
+ linux-kernel@vger.kernel.org, robh+dt@kernel.org, linux-spi@vger.kernel.org,
+ Mark Brown <broonie@kernel.org>, linux-arm-kernel@lists.infradead.org,
+ Fabrice Gasnier <fabrice.gasnier@st.com>,
+ linux-stm32@st-md-mailman.stormreply.com
+Subject: [Linux-stm32] Applied "dt-bindings: spi: Convert stm32 spi bindings
+	to json-schema" to the spi tree
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -46,29 +41,242 @@ List-Post: <mailto:linux-stm32@st-md-mailman.stormreply.com>
 List-Help: <mailto:linux-stm32-request@st-md-mailman.stormreply.com?subject=help>
 List-Subscribe: <https://st-md-mailman.stormreply.com/mailman/listinfo/linux-stm32>, 
  <mailto:linux-stm32-request@st-md-mailman.stormreply.com?subject=subscribe>
+MIME-Version: 1.0
 Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
-From: Jose Abreu <Jose.Abreu@synopsys.com>
-Date: Wed, 18 Dec 2019 11:17:34 +0100
+The patch
 
-> Fixes for stmmac.
+   dt-bindings: spi: Convert stm32 spi bindings to json-schema
 
-Series applied.
+has been applied to the spi tree at
 
-But realistically I doubt you'll ever find a configuration where
-SMP_CACHE_BYTES is less than 16 (seriously, it is so non-sensible to
-build a cpu like that).  So you could have done something like:
+   https://git.kernel.org/pub/scm/linux/kernel/git/broonie/spi.git for-5.6
 
-#if SMP_CACHE_BYTES < 16
-#error SMP_CACHE_BYTES too small
-#endif
+All being well this means that it will be integrated into the linux-next
+tree (usually sometime in the next 24 hours) and sent to Linus during
+the next merge window (or sooner if it is a bug fix), however if
+problems are discovered then the patch may be dropped or reverted.  
 
-and then add the funky double alignment code if that ever triggered.
+You may get further e-mails resulting from automated or manual testing
+and review of the tree, please engage with people reporting problems and
+send followup patches addressing any issues that are reported if needed.
 
-But again it never will.
+If any updates are required or you are submitting further changes they
+should be sent as incremental updates against current git, existing
+patches will not be replaced.
+
+Please add any relevant lists and maintainers to the CCs when replying
+to this mail.
+
+Thanks,
+Mark
+
+From ef32b63bf13e531479a3b1ef6eb2daaf4fcf787a Mon Sep 17 00:00:00 2001
+From: Benjamin Gaignard <benjamin.gaignard@st.com>
+Date: Tue, 17 Dec 2019 10:07:15 +0100
+Subject: [PATCH] dt-bindings: spi: Convert stm32 spi bindings to json-schema
+
+Convert the STM32 spi binding to DT schema format using json-schema
+
+Signed-off-by: Benjamin Gaignard <benjamin.gaignard@st.com>
+CC: Erwan Leray <erwan.leray@st.com>
+CC: Fabrice Gasnier <fabrice.gasnier@st.com>
+CC: Amelie Delaunay <amelie.delaunay@st.com>
+Reviewed-by: Rob Herring <robh@kernel.org>
+Link: https://lore.kernel.org/r/20191217090715.13334-1-benjamin.gaignard@st.com
+Signed-off-by: Mark Brown <broonie@kernel.org>
+---
+ .../devicetree/bindings/spi/spi-stm32.txt     |  62 -----------
+ .../devicetree/bindings/spi/st,stm32-spi.yaml | 105 ++++++++++++++++++
+ 2 files changed, 105 insertions(+), 62 deletions(-)
+ delete mode 100644 Documentation/devicetree/bindings/spi/spi-stm32.txt
+ create mode 100644 Documentation/devicetree/bindings/spi/st,stm32-spi.yaml
+
+diff --git a/Documentation/devicetree/bindings/spi/spi-stm32.txt b/Documentation/devicetree/bindings/spi/spi-stm32.txt
+deleted file mode 100644
+index d82755c63eaf..000000000000
+--- a/Documentation/devicetree/bindings/spi/spi-stm32.txt
++++ /dev/null
+@@ -1,62 +0,0 @@
+-STMicroelectronics STM32 SPI Controller
+-
+-The STM32 SPI controller is used to communicate with external devices using
+-the Serial Peripheral Interface. It supports full-duplex, half-duplex and
+-simplex synchronous serial communication with external devices. It supports
+-from 4 to 32-bit data size. Although it can be configured as master or slave,
+-only master is supported by the driver.
+-
+-Required properties:
+-- compatible: Should be one of:
+-  "st,stm32h7-spi"
+-  "st,stm32f4-spi"
+-- reg: Offset and length of the device's register set.
+-- interrupts: Must contain the interrupt id.
+-- clocks: Must contain an entry for spiclk (which feeds the internal clock
+-	  generator).
+-- #address-cells:  Number of cells required to define a chip select address.
+-- #size-cells: Should be zero.
+-
+-Optional properties:
+-- resets: Must contain the phandle to the reset controller.
+-- A pinctrl state named "default" may be defined to set pins in mode of
+-  operation for SPI transfer.
+-- dmas: DMA specifiers for tx and rx dma. DMA fifo mode must be used. See the
+-  STM32 DMA bindings, Documentation/devicetree/bindings/dma/stm32-dma.txt.
+-- dma-names: DMA request names should include "tx" and "rx" if present.
+-- cs-gpios: list of GPIO chip selects. See the SPI bus bindings,
+-  Documentation/devicetree/bindings/spi/spi-bus.txt
+-
+-
+-Child nodes represent devices on the SPI bus
+-  See ../spi/spi-bus.txt
+-
+-Optional properties:
+-- st,spi-midi-ns: Only for STM32H7, (Master Inter-Data Idleness) minimum time
+-		  delay in nanoseconds inserted between two consecutive data
+-		  frames.
+-
+-
+-Example:
+-	spi2: spi@40003800 {
+-		#address-cells = <1>;
+-		#size-cells = <0>;
+-		compatible = "st,stm32h7-spi";
+-		reg = <0x40003800 0x400>;
+-		interrupts = <36>;
+-		clocks = <&rcc SPI2_CK>;
+-		resets = <&rcc 1166>;
+-		dmas = <&dmamux1 0 39 0x400 0x01>,
+-		       <&dmamux1 1 40 0x400 0x01>;
+-		dma-names = "rx", "tx";
+-		pinctrl-0 = <&spi2_pins_b>;
+-		pinctrl-names = "default";
+-		cs-gpios = <&gpioa 11 0>;
+-
+-		aardvark@0 {
+-			compatible = "totalphase,aardvark";
+-			reg = <0>;
+-			spi-max-frequency = <4000000>;
+-			st,spi-midi-ns = <4000>;
+-		};
+-	};
+diff --git a/Documentation/devicetree/bindings/spi/st,stm32-spi.yaml b/Documentation/devicetree/bindings/spi/st,stm32-spi.yaml
+new file mode 100644
+index 000000000000..f0d979664f07
+--- /dev/null
++++ b/Documentation/devicetree/bindings/spi/st,stm32-spi.yaml
+@@ -0,0 +1,105 @@
++# SPDX-License-Identifier: (GPL-2.0-only OR BSD-2-Clause)
++%YAML 1.2
++---
++$id: http://devicetree.org/schemas/spi/st,stm32-spi.yaml#
++$schema: http://devicetree.org/meta-schemas/core.yaml#
++
++title: STMicroelectronics STM32 SPI Controller bindings
++
++description: |
++  The STM32 SPI controller is used to communicate with external devices using
++  the Serial Peripheral Interface. It supports full-duplex, half-duplex and
++  simplex synchronous serial communication with external devices. It supports
++  from 4 to 32-bit data size.
++
++maintainers:
++  - Erwan Leray <erwan.leray@st.com>
++  - Fabrice Gasnier <fabrice.gasnier@st.com>
++
++allOf:
++  - $ref: "spi-controller.yaml#"
++  - if:
++      properties:
++        compatible:
++          contains:
++            const: st,stm32f4-spi
++
++    then:
++      properties:
++        st,spi-midi-ns: false
++
++properties:
++  compatible:
++    enum:
++      - st,stm32f4-spi
++      - st,stm32h7-spi
++
++  reg:
++    maxItems: 1
++
++  clocks:
++    maxItems: 1
++
++  interrupts:
++    maxItems: 1
++
++  resets:
++    maxItems: 1
++
++  dmas:
++    description: |
++      DMA specifiers for tx and rx dma. DMA fifo mode must be used. See
++      the STM32 DMA bindings Documentation/devicetree/bindings/dma/stm32-dma.txt.
++    items:
++      - description: rx DMA channel
++      - description: tx DMA channel
++
++  dma-names:
++    items:
++      - const: rx
++      - const: tx
++
++patternProperties:
++  "^[a-zA-Z][a-zA-Z0-9,+\\-._]{0,63}@[0-9a-f]+$":
++    type: object
++    # SPI slave nodes must be children of the SPI master node and can
++    # contain the following properties.
++    properties:
++      st,spi-midi-ns:
++        description: |
++          Only for STM32H7, (Master Inter-Data Idleness) minimum time
++          delay in nanoseconds inserted between two consecutive data frames.
++
++required:
++  - compatible
++  - reg
++  - clocks
++  - interrupts
++
++examples:
++  - |
++    #include <dt-bindings/interrupt-controller/arm-gic.h>
++    #include <dt-bindings/clock/stm32mp1-clks.h>
++    #include <dt-bindings/reset/stm32mp1-resets.h>
++    spi@4000b000 {
++      #address-cells = <1>;
++      #size-cells = <0>;
++      compatible = "st,stm32h7-spi";
++      reg = <0x4000b000 0x400>;
++      interrupts = <GIC_SPI 36 IRQ_TYPE_LEVEL_HIGH>;
++      clocks = <&rcc SPI2_K>;
++      resets = <&rcc SPI2_R>;
++      dmas = <&dmamux1 0 39 0x400 0x05>,
++             <&dmamux1 1 40 0x400 0x05>;
++      dma-names = "rx", "tx";
++      cs-gpios = <&gpioa 11 0>;
++
++      aardvark@0 {
++        compatible = "totalphase,aardvark";
++        reg = <0>;
++        spi-max-frequency = <4000000>;
++        st,spi-midi-ns = <4000>;
++      };
++    };
++
++...
+-- 
+2.20.1
+
 _______________________________________________
 Linux-stm32 mailing list
 Linux-stm32@st-md-mailman.stormreply.com
