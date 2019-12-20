@@ -2,64 +2,56 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id 159AB127789
-	for <lists+linux-stm32@lfdr.de>; Fri, 20 Dec 2019 09:54:17 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id CBF24127A51
+	for <lists+linux-stm32@lfdr.de>; Fri, 20 Dec 2019 12:56:43 +0100 (CET)
 Received: from ip-172-31-3-76.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id B71DEC36B0C;
-	Fri, 20 Dec 2019 08:54:16 +0000 (UTC)
-Received: from mx07-00178001.pphosted.com (mx08-00178001.pphosted.com
- [91.207.212.93])
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 7D700C36B0C;
+	Fri, 20 Dec 2019 11:56:43 +0000 (UTC)
+Received: from fllv0015.ext.ti.com (fllv0015.ext.ti.com [198.47.19.141])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 30223C36B0A
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id DE2E1C36B0A
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Fri, 20 Dec 2019 08:54:15 +0000 (UTC)
-Received: from pps.filterd (m0046661.ppops.net [127.0.0.1])
- by mx08-00178001.pphosted.com (8.16.0.42/8.16.0.42) with SMTP id
- xBK8qWWY020203; Fri, 20 Dec 2019 09:54:03 +0100
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=st.com;
- h=subject : to : cc :
- references : from : message-id : date : mime-version : in-reply-to :
- content-type : content-transfer-encoding; s=STMicroelectronics;
- bh=PcfeG+pEnfqZoplyh2mJwZoDJP91nvCA5+R9QZfb4uA=;
- b=N1KquULSGmOYmnS1gNcYj7SIWIGei/ZPj5GLEQISsGjGE7+qTS7qDIoNKDMDr0wtsB65
- XSBhmPVGWOkYTjcinSparSn/id3AjzTBcEB0jTn44rYhQX28YuplXJv23FUNQIFmReLH
- m3p5OMdeeXGXMJrt+xOfCBFxVE7oGCyiCh4C8akv3Kqs4TxGdN3MQm0HznNyGBr1eL2A
- dcWe/WQSRw0GvClEa+rAYSVngVfhC/br/PW/h/YUH1U0ObXcqibKC4Nko9uLpGGIavX0
- rJAqk0GU90LTltDoki9mBywai1nMvuJCb9q2a9BZ1+v6XAmlKbIA6U37qmDGhtO9S27t IQ== 
-Received: from beta.dmz-eu.st.com (beta.dmz-eu.st.com [164.129.1.35])
- by mx08-00178001.pphosted.com with ESMTP id 2wvqgq5x7j-1
- (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
- Fri, 20 Dec 2019 09:54:03 +0100
-Received: from euls16034.sgp.st.com (euls16034.sgp.st.com [10.75.44.20])
- by beta.dmz-eu.st.com (STMicroelectronics) with ESMTP id 1B709100034;
- Fri, 20 Dec 2019 09:54:03 +0100 (CET)
-Received: from Webmail-eu.st.com (sfhdag5node3.st.com [10.75.127.15])
- by euls16034.sgp.st.com (STMicroelectronics) with ESMTP id 09494220841;
- Fri, 20 Dec 2019 09:54:03 +0100 (CET)
-Received: from [10.201.23.55] (10.75.127.46) by SFHDAG5NODE3.st.com
- (10.75.127.15) with Microsoft SMTP Server (TLS) id 15.0.1473.3; Fri, 20 Dec
- 2019 09:54:02 +0100
-To: Peter Ujfalusi <peter.ujfalusi@ti.com>, <lee.jones@linaro.org>,
- <mcoquelin.stm32@gmail.com>, <alexandre.torgue@st.com>
-References: <20191217105240.25648-1-peter.ujfalusi@ti.com>
-From: Fabrice Gasnier <fabrice.gasnier@st.com>
-Message-ID: <a9184949-94e0-97fb-5fa8-77693e71e99a@st.com>
-Date: Fri, 20 Dec 2019 09:54:01 +0100
-User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:60.0) Gecko/20100101
- Thunderbird/60.9.0
+ Fri, 20 Dec 2019 11:17:30 +0000 (UTC)
+Received: from lelv0266.itg.ti.com ([10.180.67.225])
+ by fllv0015.ext.ti.com (8.15.2/8.15.2) with ESMTP id xBKBHMm2040048;
+ Fri, 20 Dec 2019 05:17:22 -0600
+Received: from DLEE103.ent.ti.com (dlee103.ent.ti.com [157.170.170.33])
+ by lelv0266.itg.ti.com (8.15.2/8.15.2) with ESMTPS id xBKBHM2G066160
+ (version=TLSv1.2 cipher=AES256-GCM-SHA384 bits=256 verify=FAIL);
+ Fri, 20 Dec 2019 05:17:22 -0600
+Received: from DLEE112.ent.ti.com (157.170.170.23) by DLEE103.ent.ti.com
+ (157.170.170.33) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_128_CBC_SHA256_P256) id 15.1.1847.3; Fri, 20
+ Dec 2019 05:17:21 -0600
+Received: from fllv0040.itg.ti.com (10.64.41.20) by DLEE112.ent.ti.com
+ (157.170.170.23) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_128_CBC_SHA256_P256) id 15.1.1847.3 via
+ Frontend Transport; Fri, 20 Dec 2019 05:17:22 -0600
+Received: from a0393678ub (ileax41-snat.itg.ti.com [10.172.224.153])
+ by fllv0040.itg.ti.com (8.15.2/8.15.2) with ESMTP id xBKBHKZn108789;
+ Fri, 20 Dec 2019 05:17:21 -0600
+Received: from kishon by a0393678ub with local (Exim 4.90_1)
+ (envelope-from <kishon@a0393678ub>)
+ id 1iiGJE-00010y-8E; Fri, 20 Dec 2019 16:49:04 +0530
+Date: Fri, 20 Dec 2019 16:49:04 +0530
+From: Kishon Vijay Abraham I <kishon@a0393678ub.st-md-mailman.stormreply.com>
+To: Alexandre Torgue <alexandre.torgue@st.com>
+Message-ID: <20191220111904.GE2286@a0393678ub>
+References: <20191104143713.11137-1-alexandre.torgue@st.com>
 MIME-Version: 1.0
-In-Reply-To: <20191217105240.25648-1-peter.ujfalusi@ti.com>
-Content-Language: en-US
-X-Originating-IP: [10.75.127.46]
-X-ClientProxiedBy: SFHDAG8NODE2.st.com (10.75.127.23) To SFHDAG5NODE3.st.com
- (10.75.127.15)
-X-Proofpoint-Virus-Version: vendor=fsecure engine=2.50.10434:6.0.95,18.0.572
- definitions=2019-12-19_08:2019-12-17,2019-12-19 signatures=0
-Cc: vkoul@kernel.org, linux-stm32@st-md-mailman.stormreply.com,
- linux-arm-kernel@lists.infradead.org, linux-kernel@vger.kernel.org
-Subject: Re: [Linux-stm32] [PATCH] mfd: stm32-timers: Use dma_request_chan()
- instead dma_request_slave_channel()
+Content-Disposition: inline
+In-Reply-To: <20191104143713.11137-1-alexandre.torgue@st.com>
+User-Agent: Mutt/1.9.4 (2018-02-28)
+X-EXCLAIMER-MD-CONFIG: e1e8a2fd-e40a-4ac6-ac9b-f7e9cc9ee180
+X-Mailman-Approved-At: Fri, 20 Dec 2019 11:56:41 +0000
+Cc: Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
+ Yoshihiro Shimoda <yoshihiro.shimoda.uh@renesas.com>,
+ linux-usb@vger.kernel.org, linux-kernel@vger.kernel.org,
+ Kishon Vijay Abraham I <kishon@ti.com>,
+ linux-stm32@st-md-mailman.stormreply.com
+Subject: Re: [Linux-stm32] [PATCH] phy: core: Add consumer device link
+	support
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -76,101 +68,200 @@ Content-Transfer-Encoding: 7bit
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
-On 12/17/19 11:52 AM, Peter Ujfalusi wrote:
-> dma_request_slave_channel() is a wrapper on top of dma_request_chan()
-> eating up the error code.
+On Mon, Nov 04, 2019 at 03:37:13PM +0100, Alexandre Torgue wrote:
+> In order to enforce suspend/resume ordering, this commit creates link
+> between phy consumers and phy devices. This link avoids to suspend phy
+> before phy consumers.
 > 
-> By using dma_request_chan() directly the driver can support deferred
-> probing against DMA.
-> 
-> Signed-off-by: Peter Ujfalusi <peter.ujfalusi@ti.com>
+> Signed-off-by: Alexandre Torgue <alexandre.torgue@st.com>
+>
+merged now, Thanks!
+
+-Kishon
+
 > ---
->  drivers/mfd/stm32-timers.c | 31 ++++++++++++++++++++++---------
->  1 file changed, 22 insertions(+), 9 deletions(-)
 > 
-> diff --git a/drivers/mfd/stm32-timers.c b/drivers/mfd/stm32-timers.c
-> index efcd4b980c94..34747e8a4a40 100644
-> --- a/drivers/mfd/stm32-timers.c
-> +++ b/drivers/mfd/stm32-timers.c
-> @@ -167,10 +167,11 @@ static void stm32_timers_get_arr_size(struct stm32_timers *ddata)
->  	regmap_write(ddata->regmap, TIM_ARR, 0x0);
->  }
->  
-> -static void stm32_timers_dma_probe(struct device *dev,
-> +static int stm32_timers_dma_probe(struct device *dev,
->  				   struct stm32_timers *ddata)
+> Hi,
+> 
+> To manage device_link in phy-core I had to "balance" get and put APIs a bit
+> more. Fot this reason, you'll find updates in Renesas usbhs rcar and rza drivers
+> as phy API changes.
+> 
+> Regards
+> Alex
+> 
+> diff --git a/drivers/phy/phy-core.c b/drivers/phy/phy-core.c
+> index b04f4fe85ac2..8dfb4868c8c3 100644
+> --- a/drivers/phy/phy-core.c
+> +++ b/drivers/phy/phy-core.c
+> @@ -29,7 +29,7 @@ static void devm_phy_release(struct device *dev, void *res)
 >  {
->  	int i;
-> +	int ret = 0;
->  	char name[4];
+>  	struct phy *phy = *(struct phy **)res;
 >  
->  	init_completion(&ddata->dma.completion);
-> @@ -179,14 +180,22 @@ static void stm32_timers_dma_probe(struct device *dev,
->  	/* Optional DMA support: get valid DMA channel(s) or NULL */
->  	for (i = STM32_TIMERS_DMA_CH1; i <= STM32_TIMERS_DMA_CH4; i++) {
->  		snprintf(name, ARRAY_SIZE(name), "ch%1d", i + 1);
-> -		ddata->dma.chans[i] = dma_request_slave_channel(dev, name);
-> +		ddata->dma.chans[i] = dma_request_chan(dev, name);
->  	}
-> -	ddata->dma.chans[STM32_TIMERS_DMA_UP] =
-> -		dma_request_slave_channel(dev, "up");
-> -	ddata->dma.chans[STM32_TIMERS_DMA_TRIG] =
-> -		dma_request_slave_channel(dev, "trig");
-> -	ddata->dma.chans[STM32_TIMERS_DMA_COM] =
-> -		dma_request_slave_channel(dev, "com");
-> +	ddata->dma.chans[STM32_TIMERS_DMA_UP] = dma_request_chan(dev, "up");
-> +	ddata->dma.chans[STM32_TIMERS_DMA_TRIG] = dma_request_chan(dev, "trig");
-> +	ddata->dma.chans[STM32_TIMERS_DMA_COM] = dma_request_chan(dev, "com");
-> +
-> +	for (i = STM32_TIMERS_DMA_CH1; i < STM32_TIMERS_MAX_DMAS; i++) {
-> +		if (IS_ERR(ddata->dma.chans[i])) {
-> +			if (PTR_ERR(ddata->dma.chans[i]) == -EPROBE_DEFER)> +				ret = -EPROBE_DEFER;
-
-Hi Peter,
-
-Thanks for the patch,
-
-As the DMA is optional, I'd rather prefer to check explicitly there's no
-device, and return any other error case, basically:
-
-			if (PTR_ERR(ddata->dma.chans[i]) != -ENODEV)
-				return PTR_ERR(ddata->dma.chans[i]);
-
-> +
-> +			ddata->dma.chans[i] = NULL;
-> +		}
-> +	}
-> +
-> +	return ret;
-
-With that, return 0 here.
-
+> -	phy_put(phy);
+> +	phy_put(dev, phy);
 >  }
 >  
->  static void stm32_timers_dma_remove(struct device *dev,
-> @@ -230,7 +239,11 @@ static int stm32_timers_probe(struct platform_device *pdev)
+>  static void devm_phy_provider_release(struct device *dev, void *res)
+> @@ -566,12 +566,12 @@ struct phy *of_phy_get(struct device_node *np, const char *con_id)
+>  EXPORT_SYMBOL_GPL(of_phy_get);
 >  
->  	stm32_timers_get_arr_size(ddata);
+>  /**
+> - * phy_put() - release the PHY
+> - * @phy: the phy returned by phy_get()
+> + * of_phy_put() - release the PHY
+> + * @phy: the phy returned by of_phy_get()
+>   *
+> - * Releases a refcount the caller received from phy_get().
+> + * Releases a refcount the caller received from of_phy_get().
+>   */
+> -void phy_put(struct phy *phy)
+> +void of_phy_put(struct phy *phy)
+>  {
+>  	if (!phy || IS_ERR(phy))
+>  		return;
+> @@ -584,6 +584,20 @@ void phy_put(struct phy *phy)
+>  	module_put(phy->ops->owner);
+>  	put_device(&phy->dev);
+>  }
+> +EXPORT_SYMBOL_GPL(of_phy_put);
+> +
+> +/**
+> + * phy_put() - release the PHY
+> + * @dev: device that wants to release this phy
+> + * @phy: the phy returned by phy_get()
+> + *
+> + * Releases a refcount the caller received from phy_get().
+> + */
+> +void phy_put(struct device *dev, struct phy *phy)
+> +{
+> +	device_link_remove(dev, &phy->dev);
+> +	of_phy_put(phy);
+> +}
+>  EXPORT_SYMBOL_GPL(phy_put);
 >  
-> -	stm32_timers_dma_probe(dev, ddata);
-> +	ret = stm32_timers_dma_probe(dev, ddata);
-> +	if (ret) {
-> +		stm32_timers_dma_remove(dev, ddata);
-
-With that, stm32_timers_dma_remove() likely need to be updated:
-
--		if (ddata->dma.chans[i])
-+		if (!IS_ERR_OR_NULL(ddata->dma.chans[i]))
-			dma_release_channel(ddata->dma.chans[i]);
-
-Best regards,
-Fabrice
-
-> +		return ret;
+>  /**
+> @@ -651,6 +665,7 @@ struct phy *phy_get(struct device *dev, const char *string)
+>  {
+>  	int index = 0;
+>  	struct phy *phy;
+> +	struct device_link *link;
+>  
+>  	if (string == NULL) {
+>  		dev_WARN(dev, "missing string\n");
+> @@ -672,6 +687,13 @@ struct phy *phy_get(struct device *dev, const char *string)
+>  
+>  	get_device(&phy->dev);
+>  
+> +	link = device_link_add(dev, &phy->dev, DL_FLAG_STATELESS);
+> +	if (!link) {
+> +		dev_err(dev, "failed to create device link to %s\n",
+> +			dev_name(phy->dev.parent));
+> +		return ERR_PTR(-EINVAL);
 > +	}
+> +
+>  	return phy;
+>  }
+>  EXPORT_SYMBOL_GPL(phy_get);
+> @@ -765,6 +787,7 @@ struct phy *devm_of_phy_get(struct device *dev, struct device_node *np,
+>  			    const char *con_id)
+>  {
+>  	struct phy **ptr, *phy;
+> +	struct device_link *link;
 >  
->  	platform_set_drvdata(pdev, ddata);
+>  	ptr = devres_alloc(devm_phy_release, sizeof(*ptr), GFP_KERNEL);
+>  	if (!ptr)
+> @@ -778,6 +801,13 @@ struct phy *devm_of_phy_get(struct device *dev, struct device_node *np,
+>  		devres_free(ptr);
+>  	}
 >  
+> +	link = device_link_add(dev, &phy->dev, DL_FLAG_STATELESS);
+> +	if (!link) {
+> +		dev_err(dev, "failed to create device link to %s\n",
+> +			dev_name(phy->dev.parent));
+> +		return ERR_PTR(-EINVAL);
+> +	}
+> +
+>  	return phy;
+>  }
+>  EXPORT_SYMBOL_GPL(devm_of_phy_get);
+> @@ -798,6 +828,7 @@ struct phy *devm_of_phy_get_by_index(struct device *dev, struct device_node *np,
+>  				     int index)
+>  {
+>  	struct phy **ptr, *phy;
+> +	struct device_link *link;
+>  
+>  	ptr = devres_alloc(devm_phy_release, sizeof(*ptr), GFP_KERNEL);
+>  	if (!ptr)
+> @@ -819,6 +850,13 @@ struct phy *devm_of_phy_get_by_index(struct device *dev, struct device_node *np,
+>  	*ptr = phy;
+>  	devres_add(dev, ptr);
+>  
+> +	link = device_link_add(dev, &phy->dev, DL_FLAG_STATELESS);
+> +	if (!link) {
+> +		dev_err(dev, "failed to create device link to %s\n",
+> +			dev_name(phy->dev.parent));
+> +		return ERR_PTR(-EINVAL);
+> +	}
+> +
+>  	return phy;
+>  }
+>  EXPORT_SYMBOL_GPL(devm_of_phy_get_by_index);
+> diff --git a/drivers/usb/renesas_usbhs/rcar2.c b/drivers/usb/renesas_usbhs/rcar2.c
+> index 440d213e1749..791908f8cf73 100644
+> --- a/drivers/usb/renesas_usbhs/rcar2.c
+> +++ b/drivers/usb/renesas_usbhs/rcar2.c
+> @@ -34,7 +34,7 @@ static int usbhs_rcar2_hardware_exit(struct platform_device *pdev)
+>  	struct usbhs_priv *priv = usbhs_pdev_to_priv(pdev);
+>  
+>  	if (priv->phy) {
+> -		phy_put(priv->phy);
+> +		phy_put(&pdev->dev, priv->phy);
+>  		priv->phy = NULL;
+>  	}
+>  
+> diff --git a/drivers/usb/renesas_usbhs/rza2.c b/drivers/usb/renesas_usbhs/rza2.c
+> index 021749594389..3eed3334a17f 100644
+> --- a/drivers/usb/renesas_usbhs/rza2.c
+> +++ b/drivers/usb/renesas_usbhs/rza2.c
+> @@ -29,7 +29,7 @@ static int usbhs_rza2_hardware_exit(struct platform_device *pdev)
+>  {
+>  	struct usbhs_priv *priv = usbhs_pdev_to_priv(pdev);
+>  
+> -	phy_put(priv->phy);
+> +	phy_put(&pdev->dev, priv->phy);
+>  	priv->phy = NULL;
+>  
+>  	return 0;
+> diff --git a/include/linux/phy/phy.h b/include/linux/phy/phy.h
+> index 56d3a100006a..19eddd64c8f6 100644
+> --- a/include/linux/phy/phy.h
+> +++ b/include/linux/phy/phy.h
+> @@ -234,7 +234,8 @@ struct phy *devm_of_phy_get(struct device *dev, struct device_node *np,
+>  			    const char *con_id);
+>  struct phy *devm_of_phy_get_by_index(struct device *dev, struct device_node *np,
+>  				     int index);
+> -void phy_put(struct phy *phy);
+> +void of_phy_put(struct phy *phy);
+> +void phy_put(struct device *dev, struct phy *phy);
+>  void devm_phy_put(struct device *dev, struct phy *phy);
+>  struct phy *of_phy_get(struct device_node *np, const char *con_id);
+>  struct phy *of_phy_simple_xlate(struct device *dev,
+> @@ -419,7 +420,11 @@ static inline struct phy *devm_of_phy_get_by_index(struct device *dev,
+>  	return ERR_PTR(-ENOSYS);
+>  }
+>  
+> -static inline void phy_put(struct phy *phy)
+> +static inline void of_phy_put(struct phy *phy)
+> +{
+> +}
+> +
+> +static inline void phy_put(struct device *dev, struct phy *phy)
+>  {
+>  }
+>  
+> -- 
+> 2.17.1
 > 
 _______________________________________________
 Linux-stm32 mailing list
