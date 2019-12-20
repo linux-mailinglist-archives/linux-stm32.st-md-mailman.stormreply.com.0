@@ -2,34 +2,58 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id B4A18127B83
-	for <lists+linux-stm32@lfdr.de>; Fri, 20 Dec 2019 14:09:24 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 9EFC7128543
+	for <lists+linux-stm32@lfdr.de>; Fri, 20 Dec 2019 23:54:52 +0100 (CET)
 Received: from ip-172-31-3-76.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 30DFEC36B0C;
-	Fri, 20 Dec 2019 13:09:24 +0000 (UTC)
-Received: from foss.arm.com (foss.arm.com [217.140.110.172])
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id F3DFEC36B0A
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 4B00DC36B0C;
+	Fri, 20 Dec 2019 22:54:52 +0000 (UTC)
+Received: from mail-io1-f67.google.com (mail-io1-f67.google.com
+ [209.85.166.67])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+ (No client certificate requested)
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id A9521C36B0A
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Fri, 20 Dec 2019 13:09:22 +0000 (UTC)
-Received: from usa-sjc-imap-foss1.foss.arm.com (unknown [10.121.207.14])
- by usa-sjc-mx-foss1.foss.arm.com (Postfix) with ESMTP id 445FB30E;
- Fri, 20 Dec 2019 05:09:22 -0800 (PST)
-Received: from localhost (unknown [10.37.6.21])
- by usa-sjc-imap-foss1.foss.arm.com (Postfix) with ESMTPSA id B70A73F719;
- Fri, 20 Dec 2019 05:09:21 -0800 (PST)
-Date: Fri, 20 Dec 2019 13:09:20 +0000
-From: Mark Brown <broonie@kernel.org>
-To: Pascal Paillet <p.paillet@st.com>
-In-Reply-To: <20191205161359.20755-1-p.paillet@st.com>
-Message-Id: <applied-20191205161359.20755-1-p.paillet@st.com>
-X-Patchwork-Hint: ignore
-Cc: Mark Rutland <mark.rutland@arm.com>, devicetree@vger.kernel.org,
- linux-kernel@vger.kernel.org, Rob Herring <robh+dt@kernel.org>,
- Liam Girdwood <lgirdwood@gmail.com>, p.paillet@st.com,
- Mark Brown <broonie@kernel.org>, Maxime Coquelin <mcoquelin.stm32@gmail.com>,
- linux-stm32@st-md-mailman.stormreply.com, linux-arm-kernel@lists.infradead.org
-Subject: [Linux-stm32] Applied "regulator: Convert stm32-pwr regulator to
-	json-schema" to the regulator tree
+ Fri, 20 Dec 2019 22:54:50 +0000 (UTC)
+Received: by mail-io1-f67.google.com with SMTP id t26so10967395ioi.13
+ for <linux-stm32@st-md-mailman.stormreply.com>;
+ Fri, 20 Dec 2019 14:54:50 -0800 (PST)
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20161025;
+ h=x-gm-message-state:date:from:to:cc:subject:message-id:references
+ :mime-version:content-disposition:in-reply-to:user-agent;
+ bh=N6aXh/oY7lMy+cARmMvGPpZJvUooMcIfU6lzBw92zjc=;
+ b=YB3bEcYPuen6m3hHtlWrSR2fu9iebpIcPbLZ5FUSb3OdZtRfl8b6Jsb9NDvENhUNFM
+ 9GnvswDWlHj21fP6T+K/Z0Lf1jTqSuOh5I6VpErmsDjw19cK2uyV8e73Qhp6yc5s0+aQ
+ OaPeSL5+Gr/eYXOyxPJcJsqAoX1l4A+4btP0WGSQ40CHIik6ghzWrTSGRC3Mdr3iRx71
+ A6y3K95l9qfbM2/qJdZU1ucNuShLydpb7pnmQGusXuYQwnbWuE1MYw3iy0qu6ngfSg5G
+ 8A9v89vTGHivzk95cHfJQrK6si+lVmqt7dDbb3GRgLhWK+JcqXvXC2iYt/HM14vGp52Z
+ 2wtQ==
+X-Gm-Message-State: APjAAAU48XchMtM8H7n23G70OjbbCNnvcmP6A4Ad6qxgdUT+Gj+iDLSq
+ QqouLH430xyhu2q5b+Lejw==
+X-Google-Smtp-Source: APXvYqxRHv3mavUCCTrXPMpUhFxucuGGurQ6Fm6MRXBtA0U0dF6vAMO9RsEqh8V50CJdUZic7aVDsg==
+X-Received: by 2002:a02:8817:: with SMTP id r23mr14536778jai.120.1576882489464; 
+ Fri, 20 Dec 2019 14:54:49 -0800 (PST)
+Received: from localhost ([64.188.179.251])
+ by smtp.gmail.com with ESMTPSA id z15sm5471450ill.20.2019.12.20.14.54.48
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Fri, 20 Dec 2019 14:54:48 -0800 (PST)
+Date: Fri, 20 Dec 2019 15:54:48 -0700
+From: Rob Herring <robh@kernel.org>
+To: Benjamin Gaignard <benjamin.gaignard@st.com>
+Message-ID: <20191220225448.GA5275@bogus>
+References: <20191219144117.21527-1-benjamin.gaignard@st.com>
+ <20191219144117.21527-2-benjamin.gaignard@st.com>
+MIME-Version: 1.0
+Content-Disposition: inline
+In-Reply-To: <20191219144117.21527-2-benjamin.gaignard@st.com>
+User-Agent: Mutt/1.10.1 (2018-07-13)
+Cc: mark.rutland@arm.com, devicetree@vger.kernel.org,
+ linux-kernel@vger.kernel.org, robh+dt@kernel.org,
+ srinivas.kandagatla@linaro.org, mcoquelin.stm32@gmail.com,
+ fabrice.gasnier@st.com, linux-stm32@st-md-mailman.stormreply.com,
+ linux-arm-kernel@lists.infradead.org
+Subject: Re: [Linux-stm32] [PATCH 1/3] dt-bindings: nvmem: Convert STM32
+ ROMEM to json-schema
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -41,180 +65,26 @@ List-Post: <mailto:linux-stm32@st-md-mailman.stormreply.com>
 List-Help: <mailto:linux-stm32-request@st-md-mailman.stormreply.com?subject=help>
 List-Subscribe: <https://st-md-mailman.stormreply.com/mailman/listinfo/linux-stm32>, 
  <mailto:linux-stm32-request@st-md-mailman.stormreply.com?subject=subscribe>
-MIME-Version: 1.0
 Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
-The patch
+On Thu, 19 Dec 2019 15:41:15 +0100, Benjamin Gaignard wrote:
+> Convert the STM32 ROMEM binding to DT schema format using json-schema
+> 
+> Signed-off-by: Benjamin Gaignard <benjamin.gaignard@st.com>
+> ---
+>  .../devicetree/bindings/nvmem/st,stm32-romem.txt   | 31 ---------------
+>  .../devicetree/bindings/nvmem/st,stm32-romem.yaml  | 46 ++++++++++++++++++++++
+>  2 files changed, 46 insertions(+), 31 deletions(-)
+>  delete mode 100644 Documentation/devicetree/bindings/nvmem/st,stm32-romem.txt
+>  create mode 100644 Documentation/devicetree/bindings/nvmem/st,stm32-romem.yaml
+> 
 
-   regulator: Convert stm32-pwr regulator to json-schema
+Applied, thanks.
 
-has been applied to the regulator tree at
-
-   https://git.kernel.org/pub/scm/linux/kernel/git/broonie/regulator.git for-5.6
-
-All being well this means that it will be integrated into the linux-next
-tree (usually sometime in the next 24 hours) and sent to Linus during
-the next merge window (or sooner if it is a bug fix), however if
-problems are discovered then the patch may be dropped or reverted.  
-
-You may get further e-mails resulting from automated or manual testing
-and review of the tree, please engage with people reporting problems and
-send followup patches addressing any issues that are reported if needed.
-
-If any updates are required or you are submitting further changes they
-should be sent as incremental updates against current git, existing
-patches will not be replaced.
-
-Please add any relevant lists and maintainers to the CCs when replying
-to this mail.
-
-Thanks,
-Mark
-
-From 130ac214294bcb5efc93229c7d10144c4992e90a Mon Sep 17 00:00:00 2001
-From: Pascal Paillet <p.paillet@st.com>
-Date: Thu, 5 Dec 2019 17:13:59 +0100
-Subject: [PATCH] regulator: Convert stm32-pwr regulator to json-schema
-
-Convert the stm32-pwr regulator binding to DT schema format using
-json-schema.
-
-Signed-off-by: Pascal Paillet <p.paillet@st.com>
-Reviewed-by: Rob Herring <robh@kernel.org>
-Link: https://lore.kernel.org/r/20191205161359.20755-1-p.paillet@st.com
-Signed-off-by: Mark Brown <broonie@kernel.org>
----
- .../regulator/st,stm32mp1-pwr-reg.txt         | 43 -------------
- .../regulator/st,stm32mp1-pwr-reg.yaml        | 64 +++++++++++++++++++
- 2 files changed, 64 insertions(+), 43 deletions(-)
- delete mode 100644 Documentation/devicetree/bindings/regulator/st,stm32mp1-pwr-reg.txt
- create mode 100644 Documentation/devicetree/bindings/regulator/st,stm32mp1-pwr-reg.yaml
-
-diff --git a/Documentation/devicetree/bindings/regulator/st,stm32mp1-pwr-reg.txt b/Documentation/devicetree/bindings/regulator/st,stm32mp1-pwr-reg.txt
-deleted file mode 100644
-index e372dd3f0c8a..000000000000
---- a/Documentation/devicetree/bindings/regulator/st,stm32mp1-pwr-reg.txt
-+++ /dev/null
-@@ -1,43 +0,0 @@
--STM32MP1 PWR Regulators
-------------------------
--
--Available Regulators in STM32MP1 PWR block are:
--  - reg11 for regulator 1V1
--  - reg18 for regulator 1V8
--  - usb33 for the swtich USB3V3
--
--Required properties:
--- compatible: Must be "st,stm32mp1,pwr-reg"
--- list of child nodes that specify the regulator reg11, reg18 or usb33
--  initialization data for defined regulators. The definition for each of
--  these nodes is defined using the standard binding for regulators found at
--  Documentation/devicetree/bindings/regulator/regulator.txt.
--- vdd-supply: phandle to the parent supply/regulator node for vdd input
--- vdd_3v3_usbfs-supply: phandle to the parent supply/regulator node for usb33
--
--Example:
--
--pwr_regulators: pwr@50001000 {
--	compatible = "st,stm32mp1,pwr-reg";
--	reg = <0x50001000 0x10>;
--	vdd-supply = <&vdd>;
--	vdd_3v3_usbfs-supply = <&vdd_usb>;
--
--	reg11: reg11 {
--		regulator-name = "reg11";
--		regulator-min-microvolt = <1100000>;
--		regulator-max-microvolt = <1100000>;
--	};
--
--	reg18: reg18 {
--		regulator-name = "reg18";
--		regulator-min-microvolt = <1800000>;
--		regulator-max-microvolt = <1800000>;
--	};
--
--	usb33: usb33 {
--		regulator-name = "usb33";
--		regulator-min-microvolt = <3300000>;
--		regulator-max-microvolt = <3300000>;
--	};
--};
-diff --git a/Documentation/devicetree/bindings/regulator/st,stm32mp1-pwr-reg.yaml b/Documentation/devicetree/bindings/regulator/st,stm32mp1-pwr-reg.yaml
-new file mode 100644
-index 000000000000..8d8f38fe85dc
---- /dev/null
-+++ b/Documentation/devicetree/bindings/regulator/st,stm32mp1-pwr-reg.yaml
-@@ -0,0 +1,64 @@
-+# SPDX-License-Identifier: (GPL-2.0-only OR BSD-2-Clause)
-+%YAML 1.2
-+---
-+$id: http://devicetree.org/schemas/regulator/st,stm32mp1-pwr-reg.yaml#
-+$schema: http://devicetree.org/meta-schemas/core.yaml#
-+
-+title: STM32MP1 PWR voltage regulators
-+
-+maintainers:
-+  - Pascal Paillet <p.paillet@st.com>
-+
-+properties:
-+  compatible:
-+    const: st,stm32mp1,pwr-reg
-+
-+  reg:
-+    maxItems: 1
-+
-+  vdd-supply:
-+    description: Input supply phandle(s) for vdd input
-+
-+  vdd_3v3_usbfs-supply:
-+    description: Input supply phandle(s) for vdd_3v3_usbfs input
-+
-+patternProperties:
-+  "^(reg11|reg18|usb33)$":
-+    type: object
-+
-+    allOf:
-+      - $ref: "regulator.yaml#"
-+
-+required:
-+  - compatible
-+  - reg
-+
-+additionalProperties: false
-+
-+examples:
-+  - |
-+    pwr@50001000 {
-+      compatible = "st,stm32mp1,pwr-reg";
-+      reg = <0x50001000 0x10>;
-+      vdd-supply = <&vdd>;
-+      vdd_3v3_usbfs-supply = <&vdd_usb>;
-+
-+      reg11 {
-+        regulator-name = "reg11";
-+        regulator-min-microvolt = <1100000>;
-+        regulator-max-microvolt = <1100000>;
-+      };
-+
-+      reg18 {
-+        regulator-name = "reg18";
-+        regulator-min-microvolt = <1800000>;
-+        regulator-max-microvolt = <1800000>;
-+      };
-+
-+      usb33 {
-+        regulator-name = "usb33";
-+        regulator-min-microvolt = <3300000>;
-+        regulator-max-microvolt = <3300000>;
-+      };
-+    };
-+...
--- 
-2.20.1
-
+Rob
 _______________________________________________
 Linux-stm32 mailing list
 Linux-stm32@st-md-mailman.stormreply.com
