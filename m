@@ -2,65 +2,34 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id 82055127B17
-	for <lists+linux-stm32@lfdr.de>; Fri, 20 Dec 2019 13:34:12 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id B4A18127B83
+	for <lists+linux-stm32@lfdr.de>; Fri, 20 Dec 2019 14:09:24 +0100 (CET)
 Received: from ip-172-31-3-76.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 31DA9C36B0C;
-	Fri, 20 Dec 2019 12:34:12 +0000 (UTC)
-Received: from mail-qv1-f66.google.com (mail-qv1-f66.google.com
- [209.85.219.66])
- (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
- (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 7A2F0C36B0A
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 30DFEC36B0C;
+	Fri, 20 Dec 2019 13:09:24 +0000 (UTC)
+Received: from foss.arm.com (foss.arm.com [217.140.110.172])
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id F3DFEC36B0A
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Fri, 20 Dec 2019 12:34:11 +0000 (UTC)
-Received: by mail-qv1-f66.google.com with SMTP id z3so3555346qvn.0
- for <linux-stm32@st-md-mailman.stormreply.com>;
- Fri, 20 Dec 2019 04:34:11 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linaro.org; s=google;
- h=mime-version:references:in-reply-to:from:date:message-id:subject:to
- :cc:content-transfer-encoding;
- bh=OM+8DC58J3a1Ql31mcDf8DJoUej0i6n4zpuo/9t+noM=;
- b=Teeb0IyvGBgEsXC2FUlY9Jj8vaOWfLiTgSTFn2BvkRD5ZneA6TfW521uY8dyShqNmq
- kOrZnE+CrofE8hYE9gtEigmbo/3NSu3GYRTZNnzSoUB9+/tSxfmdSEHJxy3dI/yV3r+w
- vxzYMowRH3yiGAp0vJIs36MzTdgudugCMcS6nHxqNdW1vUuBSFmqQPHDx4cSYSwBiKUL
- qD+p6esS0BXk8YMffgOC9OfbCjl/Jxzhy3qS8oI9xO14xBxICze1vSxaMMqSiNQrdVBo
- GW3Y7L6dPSEg+7bQrFzoPg11otBGNXUy7zqWY991NzHmvUPAPRmmXS/JV4BqMFBM6ueF
- 8itg==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20161025;
- h=x-gm-message-state:mime-version:references:in-reply-to:from:date
- :message-id:subject:to:cc:content-transfer-encoding;
- bh=OM+8DC58J3a1Ql31mcDf8DJoUej0i6n4zpuo/9t+noM=;
- b=Xhasv3QHcILeSD41t7V88gqCJynoexovnzs9sY7Rpu2nRZLanfRyPRx+b7q1Se0fvG
- oZhRVUA0fnHOaRInZsgf1puDVc1gjTHZdDz3f54Dpz59DNd9B4WvU4XU4OQ6SPh7VAzW
- xHMHan+O0qo6mDMcakDca/tfou8Y7uFQRjtHm/eKuavex2YgkAFVes+t5YLGe0doA7xE
- QA8gWM6zYqSl2ocuQIdLqOiig6mzlYd6n5DvWz3Feod2iHDvWegJVTgzRfZupaWm3YiA
- 1PU1iNruPJRCwID2yLgDmbTvYx8GEfPfuLPcJXKYHXk/94kGH+pnqLvgRSpvyU26mXGw
- CM8w==
-X-Gm-Message-State: APjAAAUS+IaNA/74mWvQebMSNZzZ9xdTq3svT7IpUzJdAGVsPjhhxELF
- rncM5bcUeN+8T60MfHFY2/3YHJTGPDD5G/xtzeTQrA==
-X-Google-Smtp-Source: APXvYqyKI5y4pA6tV7V4WabZMrtDehFiaFukF68PpW0zRcn+eFsKt3hAK4ZqwXgE6QO/xNOP1AtOUW3XIb6X2q62uSg=
-X-Received: by 2002:a0c:ead1:: with SMTP id y17mr11501073qvp.210.1576845250032; 
- Fri, 20 Dec 2019 04:34:10 -0800 (PST)
-MIME-Version: 1.0
-References: <1574850218-13257-1-git-send-email-yannick.fertre@st.com>
- <90e15f5b-0b65-1de7-229d-c8e0470071b5@st.com>
-In-Reply-To: <90e15f5b-0b65-1de7-229d-c8e0470071b5@st.com>
-From: Benjamin Gaignard <benjamin.gaignard@linaro.org>
-Date: Fri, 20 Dec 2019 13:33:59 +0100
-Message-ID: <CA+M3ks663uFr-fpTXoKXd--yKi6q4o525H-eYM9ZsO4dpFS6yg@mail.gmail.com>
-To: Philippe CORNU <philippe.cornu@st.com>
-Cc: David Airlie <airlied@linux.ie>,
- "linux-kernel@vger.kernel.org" <linux-kernel@vger.kernel.org>,
- "dri-devel@lists.freedesktop.org" <dri-devel@lists.freedesktop.org>,
- Yannick FERTRE <yannick.fertre@st.com>,
- Maxime Coquelin <mcoquelin.stm32@gmail.com>, Daniel Vetter <daniel@ffwll.ch>,
- "linux-stm32@st-md-mailman.stormreply.com"
- <linux-stm32@st-md-mailman.stormreply.com>,
- "linux-arm-kernel@lists.infradead.org" <linux-arm-kernel@lists.infradead.org>
-Subject: Re: [Linux-stm32] [PATCH] drm/stm: ltdc: move pinctrl to encoder
-	mode set
+ Fri, 20 Dec 2019 13:09:22 +0000 (UTC)
+Received: from usa-sjc-imap-foss1.foss.arm.com (unknown [10.121.207.14])
+ by usa-sjc-mx-foss1.foss.arm.com (Postfix) with ESMTP id 445FB30E;
+ Fri, 20 Dec 2019 05:09:22 -0800 (PST)
+Received: from localhost (unknown [10.37.6.21])
+ by usa-sjc-imap-foss1.foss.arm.com (Postfix) with ESMTPSA id B70A73F719;
+ Fri, 20 Dec 2019 05:09:21 -0800 (PST)
+Date: Fri, 20 Dec 2019 13:09:20 +0000
+From: Mark Brown <broonie@kernel.org>
+To: Pascal Paillet <p.paillet@st.com>
+In-Reply-To: <20191205161359.20755-1-p.paillet@st.com>
+Message-Id: <applied-20191205161359.20755-1-p.paillet@st.com>
+X-Patchwork-Hint: ignore
+Cc: Mark Rutland <mark.rutland@arm.com>, devicetree@vger.kernel.org,
+ linux-kernel@vger.kernel.org, Rob Herring <robh+dt@kernel.org>,
+ Liam Girdwood <lgirdwood@gmail.com>, p.paillet@st.com,
+ Mark Brown <broonie@kernel.org>, Maxime Coquelin <mcoquelin.stm32@gmail.com>,
+ linux-stm32@st-md-mailman.stormreply.com, linux-arm-kernel@lists.infradead.org
+Subject: [Linux-stm32] Applied "regulator: Convert stm32-pwr regulator to
+	json-schema" to the regulator tree
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -72,71 +41,181 @@ List-Post: <mailto:linux-stm32@st-md-mailman.stormreply.com>
 List-Help: <mailto:linux-stm32-request@st-md-mailman.stormreply.com?subject=help>
 List-Subscribe: <https://st-md-mailman.stormreply.com/mailman/listinfo/linux-stm32>, 
  <mailto:linux-stm32-request@st-md-mailman.stormreply.com?subject=subscribe>
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: base64
+MIME-Version: 1.0
+Content-Type: text/plain; charset="us-ascii"
+Content-Transfer-Encoding: 7bit
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
-TGUgbHVuLiAyIGTDqWMuIDIwMTkgw6AgMTg6MTksIFBoaWxpcHBlIENPUk5VIDxwaGlsaXBwZS5j
-b3JudUBzdC5jb20+IGEgw6ljcml0IDoKPgo+IERlYXIgWWFubmljaywKPiBUaGFuayB5b3UgZm9y
-IHlvdXIgcGF0Y2gsCj4KPiBBY2tlZC1ieTogUGhpbGlwcGUgQ29ybnUgPHBoaWxpcHBlLmNvcm51
-QHN0LmNvbT4KPgoKQXBwbGllZCBvbiBkcm0tbWlzYy1uZXh0LAoKVGhhbmtzLApCZW5qYW1pbgoK
-PiBQaGlsaXBwZSA6LSkKPgo+IE9uIDExLzI3LzE5IDExOjIzIEFNLCBZYW5uaWNrIEZlcnRyZSB3
-cm90ZToKPiA+IEZyb206IFlhbm5pY2sgRmVydHLDqSA8eWFubmljay5mZXJ0cmVAc3QuY29tPgo+
-ID4KPiA+IFRoZSBwaW4gY29udHJvbCBtdXN0IGJlIHNldCB0byBkZWZhdWx0IGFzIHNvb24gYXMg
-cG9zc2libGUgdG8KPiA+IGVzdGFibGlzaCBhIGdvb2QgdmlkZW8gbGluayBiZXR3ZWVuIHR2ICYg
-YnJpZGdlIGhkbWkKPiA+IChlbmNvZGVyIG1vZGUgc2V0IGlzIGNhbGwgYmVmb3JlIGVuY29kZXIg
-ZW5hYmxlKS4KPiA+Cj4gPiBTaWduZWQtb2ZmLWJ5OiBZYW5uaWNrIEZlcnRyZSA8eWFubmljay5m
-ZXJ0cmVAc3QuY29tPgo+ID4gLS0tCj4gPiAgIGRyaXZlcnMvZ3B1L2RybS9zdG0vbHRkYy5jIHwg
-MjQgKysrKysrKysrKysrKysrKysrLS0tLS0tCj4gPiAgIDEgZmlsZSBjaGFuZ2VkLCAxOCBpbnNl
-cnRpb25zKCspLCA2IGRlbGV0aW9ucygtKQo+ID4KPiA+IGRpZmYgLS1naXQgYS9kcml2ZXJzL2dw
-dS9kcm0vc3RtL2x0ZGMuYyBiL2RyaXZlcnMvZ3B1L2RybS9zdG0vbHRkYy5jCj4gPiBpbmRleCA0
-OWVmNDA2Li5kYmE4ZTdmIDEwMDY0NAo+ID4gLS0tIGEvZHJpdmVycy9ncHUvZHJtL3N0bS9sdGRj
-LmMKPiA+ICsrKyBiL2RyaXZlcnMvZ3B1L2RybS9zdG0vbHRkYy5jCj4gPiBAQCAtNDM1LDkgKzQz
-NSw2IEBAIHN0YXRpYyB2b2lkIGx0ZGNfY3J0Y19hdG9taWNfZW5hYmxlKHN0cnVjdCBkcm1fY3J0
-YyAqY3J0YywKPiA+ICAgICAgIC8qIENvbW1pdCBzaGFkb3cgcmVnaXN0ZXJzID0gdXBkYXRlIHBs
-YW5lcyBhdCBuZXh0IHZibGFuayAqLwo+ID4gICAgICAgcmVnX3NldChsZGV2LT5yZWdzLCBMVERD
-X1NSQ1IsIFNSQ1JfVkJSKTsKPiA+Cj4gPiAtICAgICAvKiBFbmFibGUgTFREQyAqLwo+ID4gLSAg
-ICAgcmVnX3NldChsZGV2LT5yZWdzLCBMVERDX0dDUiwgR0NSX0xURENFTik7Cj4gPiAtCj4gPiAg
-ICAgICBkcm1fY3J0Y192Ymxhbmtfb24oY3J0Yyk7Cj4gPiAgIH0KPiA+Cj4gPiBAQCAtNDUxLDkg
-KzQ0OCw2IEBAIHN0YXRpYyB2b2lkIGx0ZGNfY3J0Y19hdG9taWNfZGlzYWJsZShzdHJ1Y3QgZHJt
-X2NydGMgKmNydGMsCj4gPgo+ID4gICAgICAgZHJtX2NydGNfdmJsYW5rX29mZihjcnRjKTsKPiA+
-Cj4gPiAtICAgICAvKiBkaXNhYmxlIExUREMgKi8KPiA+IC0gICAgIHJlZ19jbGVhcihsZGV2LT5y
-ZWdzLCBMVERDX0dDUiwgR0NSX0xURENFTik7Cj4gPiAtCj4gPiAgICAgICAvKiBkaXNhYmxlIElS
-USAqLwo+ID4gICAgICAgcmVnX2NsZWFyKGxkZXYtPnJlZ3MsIExURENfSUVSLCBJRVJfUlJJRSB8
-IElFUl9GVUlFIHwgSUVSX1RFUlJJRSk7Cj4gPgo+ID4gQEAgLTEwNDIsOSArMTAzNiwxMyBAQCBz
-dGF0aWMgY29uc3Qgc3RydWN0IGRybV9lbmNvZGVyX2Z1bmNzIGx0ZGNfZW5jb2Rlcl9mdW5jcyA9
-IHsKPiA+ICAgc3RhdGljIHZvaWQgbHRkY19lbmNvZGVyX2Rpc2FibGUoc3RydWN0IGRybV9lbmNv
-ZGVyICplbmNvZGVyKQo+ID4gICB7Cj4gPiAgICAgICBzdHJ1Y3QgZHJtX2RldmljZSAqZGRldiA9
-IGVuY29kZXItPmRldjsKPiA+ICsgICAgIHN0cnVjdCBsdGRjX2RldmljZSAqbGRldiA9IGRkZXYt
-PmRldl9wcml2YXRlOwo+ID4KPiA+ICAgICAgIERSTV9ERUJVR19EUklWRVIoIlxuIik7Cj4gPgo+
-ID4gKyAgICAgLyogRGlzYWJsZSBMVERDICovCj4gPiArICAgICByZWdfY2xlYXIobGRldi0+cmVn
-cywgTFREQ19HQ1IsIEdDUl9MVERDRU4pOwo+ID4gKwo+ID4gICAgICAgLyogU2V0IHRvIHNsZWVw
-IHN0YXRlIHRoZSBwaW5jdHJsIHdoYXRldmVyIHR5cGUgb2YgZW5jb2RlciAqLwo+ID4gICAgICAg
-cGluY3RybF9wbV9zZWxlY3Rfc2xlZXBfc3RhdGUoZGRldi0+ZGV2KTsKPiA+ICAgfQo+ID4gQEAg
-LTEwNTIsNiArMTA1MCwxOSBAQCBzdGF0aWMgdm9pZCBsdGRjX2VuY29kZXJfZGlzYWJsZShzdHJ1
-Y3QgZHJtX2VuY29kZXIgKmVuY29kZXIpCj4gPiAgIHN0YXRpYyB2b2lkIGx0ZGNfZW5jb2Rlcl9l
-bmFibGUoc3RydWN0IGRybV9lbmNvZGVyICplbmNvZGVyKQo+ID4gICB7Cj4gPiAgICAgICBzdHJ1
-Y3QgZHJtX2RldmljZSAqZGRldiA9IGVuY29kZXItPmRldjsKPiA+ICsgICAgIHN0cnVjdCBsdGRj
-X2RldmljZSAqbGRldiA9IGRkZXYtPmRldl9wcml2YXRlOwo+ID4gKwo+ID4gKyAgICAgRFJNX0RF
-QlVHX0RSSVZFUigiXG4iKTsKPiA+ICsKPiA+ICsgICAgIC8qIEVuYWJsZSBMVERDICovCj4gPiAr
-ICAgICByZWdfc2V0KGxkZXYtPnJlZ3MsIExURENfR0NSLCBHQ1JfTFREQ0VOKTsKPiA+ICt9Cj4g
-PiArCj4gPiArc3RhdGljIHZvaWQgbHRkY19lbmNvZGVyX21vZGVfc2V0KHN0cnVjdCBkcm1fZW5j
-b2RlciAqZW5jb2RlciwKPiA+ICsgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgc3RydWN0
-IGRybV9kaXNwbGF5X21vZGUgKm1vZGUsCj4gPiArICAgICAgICAgICAgICAgICAgICAgICAgICAg
-ICAgIHN0cnVjdCBkcm1fZGlzcGxheV9tb2RlICphZGp1c3RlZF9tb2RlKQo+ID4gK3sKPiA+ICsg
-ICAgIHN0cnVjdCBkcm1fZGV2aWNlICpkZGV2ID0gZW5jb2Rlci0+ZGV2Owo+ID4KPiA+ICAgICAg
-IERSTV9ERUJVR19EUklWRVIoIlxuIik7Cj4gPgo+ID4gQEAgLTEwNjcsNiArMTA3OCw3IEBAIHN0
-YXRpYyB2b2lkIGx0ZGNfZW5jb2Rlcl9lbmFibGUoc3RydWN0IGRybV9lbmNvZGVyICplbmNvZGVy
-KQo+ID4gICBzdGF0aWMgY29uc3Qgc3RydWN0IGRybV9lbmNvZGVyX2hlbHBlcl9mdW5jcyBsdGRj
-X2VuY29kZXJfaGVscGVyX2Z1bmNzID0gewo+ID4gICAgICAgLmRpc2FibGUgPSBsdGRjX2VuY29k
-ZXJfZGlzYWJsZSwKPiA+ICAgICAgIC5lbmFibGUgPSBsdGRjX2VuY29kZXJfZW5hYmxlLAo+ID4g
-KyAgICAgLm1vZGVfc2V0ID0gbHRkY19lbmNvZGVyX21vZGVfc2V0LAo+ID4gICB9Owo+ID4KPiA+
-ICAgc3RhdGljIGludCBsdGRjX2VuY29kZXJfaW5pdChzdHJ1Y3QgZHJtX2RldmljZSAqZGRldiwg
-c3RydWN0IGRybV9icmlkZ2UgKmJyaWRnZSkKPiA+Cj4gX19fX19fX19fX19fX19fX19fX19fX19f
-X19fX19fX19fX19fX19fX19fX19fX18KPiBkcmktZGV2ZWwgbWFpbGluZyBsaXN0Cj4gZHJpLWRl
-dmVsQGxpc3RzLmZyZWVkZXNrdG9wLm9yZwo+IGh0dHBzOi8vbGlzdHMuZnJlZWRlc2t0b3Aub3Jn
-L21haWxtYW4vbGlzdGluZm8vZHJpLWRldmVsCl9fX19fX19fX19fX19fX19fX19fX19fX19fX19f
-X19fX19fX19fX19fX19fX19fCkxpbnV4LXN0bTMyIG1haWxpbmcgbGlzdApMaW51eC1zdG0zMkBz
-dC1tZC1tYWlsbWFuLnN0b3JtcmVwbHkuY29tCmh0dHBzOi8vc3QtbWQtbWFpbG1hbi5zdG9ybXJl
-cGx5LmNvbS9tYWlsbWFuL2xpc3RpbmZvL2xpbnV4LXN0bTMyCg==
+The patch
+
+   regulator: Convert stm32-pwr regulator to json-schema
+
+has been applied to the regulator tree at
+
+   https://git.kernel.org/pub/scm/linux/kernel/git/broonie/regulator.git for-5.6
+
+All being well this means that it will be integrated into the linux-next
+tree (usually sometime in the next 24 hours) and sent to Linus during
+the next merge window (or sooner if it is a bug fix), however if
+problems are discovered then the patch may be dropped or reverted.  
+
+You may get further e-mails resulting from automated or manual testing
+and review of the tree, please engage with people reporting problems and
+send followup patches addressing any issues that are reported if needed.
+
+If any updates are required or you are submitting further changes they
+should be sent as incremental updates against current git, existing
+patches will not be replaced.
+
+Please add any relevant lists and maintainers to the CCs when replying
+to this mail.
+
+Thanks,
+Mark
+
+From 130ac214294bcb5efc93229c7d10144c4992e90a Mon Sep 17 00:00:00 2001
+From: Pascal Paillet <p.paillet@st.com>
+Date: Thu, 5 Dec 2019 17:13:59 +0100
+Subject: [PATCH] regulator: Convert stm32-pwr regulator to json-schema
+
+Convert the stm32-pwr regulator binding to DT schema format using
+json-schema.
+
+Signed-off-by: Pascal Paillet <p.paillet@st.com>
+Reviewed-by: Rob Herring <robh@kernel.org>
+Link: https://lore.kernel.org/r/20191205161359.20755-1-p.paillet@st.com
+Signed-off-by: Mark Brown <broonie@kernel.org>
+---
+ .../regulator/st,stm32mp1-pwr-reg.txt         | 43 -------------
+ .../regulator/st,stm32mp1-pwr-reg.yaml        | 64 +++++++++++++++++++
+ 2 files changed, 64 insertions(+), 43 deletions(-)
+ delete mode 100644 Documentation/devicetree/bindings/regulator/st,stm32mp1-pwr-reg.txt
+ create mode 100644 Documentation/devicetree/bindings/regulator/st,stm32mp1-pwr-reg.yaml
+
+diff --git a/Documentation/devicetree/bindings/regulator/st,stm32mp1-pwr-reg.txt b/Documentation/devicetree/bindings/regulator/st,stm32mp1-pwr-reg.txt
+deleted file mode 100644
+index e372dd3f0c8a..000000000000
+--- a/Documentation/devicetree/bindings/regulator/st,stm32mp1-pwr-reg.txt
++++ /dev/null
+@@ -1,43 +0,0 @@
+-STM32MP1 PWR Regulators
+------------------------
+-
+-Available Regulators in STM32MP1 PWR block are:
+-  - reg11 for regulator 1V1
+-  - reg18 for regulator 1V8
+-  - usb33 for the swtich USB3V3
+-
+-Required properties:
+-- compatible: Must be "st,stm32mp1,pwr-reg"
+-- list of child nodes that specify the regulator reg11, reg18 or usb33
+-  initialization data for defined regulators. The definition for each of
+-  these nodes is defined using the standard binding for regulators found at
+-  Documentation/devicetree/bindings/regulator/regulator.txt.
+-- vdd-supply: phandle to the parent supply/regulator node for vdd input
+-- vdd_3v3_usbfs-supply: phandle to the parent supply/regulator node for usb33
+-
+-Example:
+-
+-pwr_regulators: pwr@50001000 {
+-	compatible = "st,stm32mp1,pwr-reg";
+-	reg = <0x50001000 0x10>;
+-	vdd-supply = <&vdd>;
+-	vdd_3v3_usbfs-supply = <&vdd_usb>;
+-
+-	reg11: reg11 {
+-		regulator-name = "reg11";
+-		regulator-min-microvolt = <1100000>;
+-		regulator-max-microvolt = <1100000>;
+-	};
+-
+-	reg18: reg18 {
+-		regulator-name = "reg18";
+-		regulator-min-microvolt = <1800000>;
+-		regulator-max-microvolt = <1800000>;
+-	};
+-
+-	usb33: usb33 {
+-		regulator-name = "usb33";
+-		regulator-min-microvolt = <3300000>;
+-		regulator-max-microvolt = <3300000>;
+-	};
+-};
+diff --git a/Documentation/devicetree/bindings/regulator/st,stm32mp1-pwr-reg.yaml b/Documentation/devicetree/bindings/regulator/st,stm32mp1-pwr-reg.yaml
+new file mode 100644
+index 000000000000..8d8f38fe85dc
+--- /dev/null
++++ b/Documentation/devicetree/bindings/regulator/st,stm32mp1-pwr-reg.yaml
+@@ -0,0 +1,64 @@
++# SPDX-License-Identifier: (GPL-2.0-only OR BSD-2-Clause)
++%YAML 1.2
++---
++$id: http://devicetree.org/schemas/regulator/st,stm32mp1-pwr-reg.yaml#
++$schema: http://devicetree.org/meta-schemas/core.yaml#
++
++title: STM32MP1 PWR voltage regulators
++
++maintainers:
++  - Pascal Paillet <p.paillet@st.com>
++
++properties:
++  compatible:
++    const: st,stm32mp1,pwr-reg
++
++  reg:
++    maxItems: 1
++
++  vdd-supply:
++    description: Input supply phandle(s) for vdd input
++
++  vdd_3v3_usbfs-supply:
++    description: Input supply phandle(s) for vdd_3v3_usbfs input
++
++patternProperties:
++  "^(reg11|reg18|usb33)$":
++    type: object
++
++    allOf:
++      - $ref: "regulator.yaml#"
++
++required:
++  - compatible
++  - reg
++
++additionalProperties: false
++
++examples:
++  - |
++    pwr@50001000 {
++      compatible = "st,stm32mp1,pwr-reg";
++      reg = <0x50001000 0x10>;
++      vdd-supply = <&vdd>;
++      vdd_3v3_usbfs-supply = <&vdd_usb>;
++
++      reg11 {
++        regulator-name = "reg11";
++        regulator-min-microvolt = <1100000>;
++        regulator-max-microvolt = <1100000>;
++      };
++
++      reg18 {
++        regulator-name = "reg18";
++        regulator-min-microvolt = <1800000>;
++        regulator-max-microvolt = <1800000>;
++      };
++
++      usb33 {
++        regulator-name = "usb33";
++        regulator-min-microvolt = <3300000>;
++        regulator-max-microvolt = <3300000>;
++      };
++    };
++...
+-- 
+2.20.1
+
+_______________________________________________
+Linux-stm32 mailing list
+Linux-stm32@st-md-mailman.stormreply.com
+https://st-md-mailman.stormreply.com/mailman/listinfo/linux-stm32
