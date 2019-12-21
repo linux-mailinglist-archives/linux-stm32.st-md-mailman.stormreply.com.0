@@ -2,63 +2,61 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id A3A23128BDB
-	for <lists+linux-stm32@lfdr.de>; Sun, 22 Dec 2019 00:27:52 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id DCCA0128BF8
+	for <lists+linux-stm32@lfdr.de>; Sun, 22 Dec 2019 00:47:46 +0100 (CET)
 Received: from ip-172-31-3-76.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 42C66C36B0C;
-	Sat, 21 Dec 2019 23:27:52 +0000 (UTC)
-Received: from mail-pg1-f194.google.com (mail-pg1-f194.google.com
- [209.85.215.194])
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 758D3C36B0C;
+	Sat, 21 Dec 2019 23:47:46 +0000 (UTC)
+Received: from mail-pl1-f194.google.com (mail-pl1-f194.google.com
+ [209.85.214.194])
  (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id DEC6AC36B0A
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 31177C36B0A
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Sat, 21 Dec 2019 23:27:50 +0000 (UTC)
-Received: by mail-pg1-f194.google.com with SMTP id x8so6856912pgk.8
+ Sat, 21 Dec 2019 23:47:44 +0000 (UTC)
+Received: by mail-pl1-f194.google.com with SMTP id s21so2931130plr.7
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Sat, 21 Dec 2019 15:27:50 -0800 (PST)
+ Sat, 21 Dec 2019 15:47:44 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=joelfernandes.org; s=google;
  h=date:from:to:cc:subject:message-id:references:mime-version
  :content-disposition:in-reply-to:user-agent;
- bh=HEmZZukzj2SW5GPtr7DXQtejZIIVJMFpYqi+rGbIeHc=;
- b=qCRXjEvK3FW59zErd5qNjoropEEmHyOByBkC6gLLJEKM/tbqmfCDxExpAjsYDuo2cK
- ZDrYTc1+CvI1vWS0dH5wqQhEgDnkhJUMKyko6t7w9wpbHItBNelMLeA6DsxKfdNz0NWe
- 9IMtO6GpcvUgZgLyR15gOz068sDit9g+Degp4=
+ bh=fXy9xPSzwrsW14AMvNrH3dau8w//YzJTAr3l1Saqoig=;
+ b=BtXPVluI1WJZfcKt5Lud61D40VYwvpo6G9Kp/Zsin1sj39dw2Dx681RY9uOB4Vqs28
+ JWjDIAY4lEvhH95dllicpVB7VvOZflG+nvB9i8ly9SVnTnh8T8+NDo+HmIZwRePTp1jS
+ jmtmCvrpP5x12TX5TYu5W4Vk+6pEm5t36iekU=
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=1e100.net; s=20161025;
  h=x-gm-message-state:date:from:to:cc:subject:message-id:references
  :mime-version:content-disposition:in-reply-to:user-agent;
- bh=HEmZZukzj2SW5GPtr7DXQtejZIIVJMFpYqi+rGbIeHc=;
- b=Eoz71AIwpZpXZrEL35b7qmSnsGpWbIekAruJi05fXPMcP2mdWdDHVYaCfYZQBCL5Xb
- nAb5IzPeNRz5sPmFnj6Tj53KRZ+NT0PnnrllYgIj7+ldOTQ9qqH3ReTJBpR0CIxEVCoj
- RwEN+wouINrdnA0wocOuzfv+qMFBvMqoQwjcolmofcGZ45mZoitFROsET8009bPIGr0T
- C648n1BzIAKJpns4zPraEZ4qYElrBPT+bDV6WQlPWYsj/h59PwkFKcM5d/efD/K60J+R
- XxgVm6ebfpSyw9R/422KdzBY6TxNhiXpH1+Di/BxYD1CKCP7MCcqHCGboZ9+sqojTrl4
- NNwg==
-X-Gm-Message-State: APjAAAUNmgkajg0vwr4pzuC0c1dQkv/IOUwhG7kBYKz5CEhrKYGe6dgM
- B9U0NADyZivrWNfv0aVtk/Wfew==
-X-Google-Smtp-Source: APXvYqyiARfhrneCiqBALllYbrSMObMCjhtUs5Mb/fxbzNbiXtGb6M35R413rPViHbkZqTaCg+3Jbw==
-X-Received: by 2002:a62:8f0d:: with SMTP id n13mr11417163pfd.38.1576970869113; 
- Sat, 21 Dec 2019 15:27:49 -0800 (PST)
+ bh=fXy9xPSzwrsW14AMvNrH3dau8w//YzJTAr3l1Saqoig=;
+ b=XEtKsSVwE15G9faEBm57hU77H7wjCmQhZd7g/tbGf4zyaip1Jg9Kp1HjplLWOUDX9Z
+ djO9K9M/wJkJ0TAvSDIHnYdX6f6qCBWWHMYOvuep5R3nly/VNE7waJNhn0Gzl8Yxm+y/
+ dnTQRmajAYY7MQ7Gt7dj9kLxjBHCW8M93IVJnNFp7wvrCmUltRnXkshBgR5N+BPJ5iFd
+ R83BKotF/5Qbr1a5kMkb3olgrVBlK9l7SFNFJfG0Tt1TC+7i7uJIpvdt7YAhuVPy4bpq
+ gknlfwwbp0hLxKX/2s2gKiKLMsJbws7AcUxXBBHb/RKZnzQkiTuefvILvA9J9qQaij7q
+ fXFQ==
+X-Gm-Message-State: APjAAAWLccypvy9sWiYJYz2u078gEkPmcYs9yp1Y3W1nBbfE08v9+/oN
+ w9uLhLuNf8dirnnhKUmEMxdA/w==
+X-Google-Smtp-Source: APXvYqzqzkp+eh1lKWYNwRToIgvfbaM/icchIpqxyrT/W118lizYV6091XMmfU8VB14/yYGANC8/Ew==
+X-Received: by 2002:a17:902:8bc9:: with SMTP id
+ r9mr22866985plo.48.1576972062452; 
+ Sat, 21 Dec 2019 15:47:42 -0800 (PST)
 Received: from localhost ([2620:15c:6:12:9c46:e0da:efbf:69cc])
- by smtp.gmail.com with ESMTPSA id q7sm15456513pjd.3.2019.12.21.15.27.48
+ by smtp.gmail.com with ESMTPSA id 133sm18161268pfy.14.2019.12.21.15.47.41
  (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Sat, 21 Dec 2019 15:27:48 -0800 (PST)
-Date: Sat, 21 Dec 2019 18:27:46 -0500
+ Sat, 21 Dec 2019 15:47:42 -0800 (PST)
+Date: Sat, 21 Dec 2019 18:47:41 -0500
 From: Joel Fernandes <joel@joelfernandes.org>
-To: Valentin Schneider <valentin.schneider@arm.com>
-Message-ID: <20191221232746.GB67625@google.com>
+To: Steven Rostedt <rostedt@goodmis.org>
+Message-ID: <20191221234741.GA116648@google.com>
 References: <20191127154428.191095-1-antonio.borneo@st.com>
- <20191204160407.GB17404@google.com>
- <6b5b74cede87a61d5f04f2a95bc4389830467fe9.camel@st.com>
- <68b3b7db-d278-6cd2-f2b6-cbba05df6db4@arm.com>
+ <20191204092115.30ef75c9@gandalf.local.home>
 MIME-Version: 1.0
 Content-Disposition: inline
-In-Reply-To: <68b3b7db-d278-6cd2-f2b6-cbba05df6db4@arm.com>
+In-Reply-To: <20191204092115.30ef75c9@gandalf.local.home>
 User-Agent: Mutt/1.10.1 (2018-07-13)
-Cc: linux-kernel@vger.kernel.org, Steven Rostedt <rostedt@goodmis.org>,
- Ingo Molnar <mingo@redhat.com>, ambroise.vincent@arm.com,
+Cc: Ingo Molnar <mingo@redhat.com>, linux-kernel@vger.kernel.org,
  linux-stm32@st-md-mailman.stormreply.com
 Subject: Re: [Linux-stm32] [PATCH] tracing: Fix printing ptrs in preempt/irq
  enable/disable events
@@ -78,64 +76,91 @@ Content-Transfer-Encoding: 7bit
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
-On Thu, Dec 19, 2019 at 06:45:25PM +0000, Valentin Schneider wrote:
-> On 07/12/2019 00:00, Antonio Borneo wrote:
-> > At login:
-> > trace-cmd record -e preemptirq:irq_enable sleep 1
-> > trace-cmd report trace.dat | head
-> > and I incorrectly get only the offsets to _stext:
-> > cpus=1
-> >            sleep-197   [000]   280.378022: irq_enable:           caller=0x1afaS parent=0xc00091S
-> >            sleep-197   [000]   280.378026: irq_enable:           caller=0x54d34S parent=0x78e00000S
-> >            sleep-197   [000]   280.378029: irq_enable:           caller=0x1afaS parent=0xc00a84S
-> >            sleep-197   [000]   280.378032: irq_enable:           caller=0x263dS parent=0x78e00000S
-> > ...
-> > 
-> > With this patch I get the expected/right result:
-> > cpus=1
-> >            sleep-210   [000]   525.177583: irq_enable:           caller=trace_hardirqs_on_thunk parent=entry_SYSCALL_64_after_hwframe
-> >            sleep-210   [000]   525.177587: irq_enable:           caller=__do_page_fault parent=(nil)S
-> >            sleep-210   [000]   525.177590: irq_enable:           caller=trace_hardirqs_on_thunk parent=swapgs_restore_regs_and_return_to_usermode
-> >            sleep-210   [000]   525.177593: irq_enable:           caller=do_syscall_64 parent=(nil)S
-> > ...
+On Wed, Dec 04, 2019 at 09:21:15AM -0500, Steven Rostedt wrote:
 > 
-> FWIW Ambroise (in Cc) and I were staring at some irq enable/disable traces,
-> and encountered exactly this on a Pixel3 running a mainline kernel. With
-> Antonio's patch we got the expected result, so you can have:
+> Joel,
 > 
-> Tested-by: Valentin Schneider <valentin.schneider@arm.com>
+> Any comments on this patch?
 
-In BCC, we use the binary trace record of this tracepoint and don't interpret
-the text output.  There we lookup _stext value (I believe from kallsyms) and
-then apply the offset to that and do another look up for the final symbol.
+Steve, it looks like this issue happens with trace-cmd not knowing what
+_stext is. If I do cat trace_pipe , then I don't see the issue as _stext is
+looked up correctly but the reporter of the bug is using trace-cmd. Is there
+a way to solve this within trace-cmd? Not knowing much about trace-cmd
+internals, I will have to defer to you on this though..
 
-Would it be possible for Ambroise to work more on this patch so that the
-trace record size is not doubled?
+Other than this, I need to make the offset to _stext as s32 instead of u32
+type so that the problem of the symbol location being before _stext does not
+cause overflow.
 
-> >> I am not comfortable with this patch at the moment, mainly because it will
-> >> increase the size of this rather high frequency event. But I'm not saying
-> >> there isn't an issue on 32-bit. Let's discuss more.
-> >>
-> > 
-> > Sure, the pressure on the trace buffer will increase on a 64 bit system, but in general it also has more memory than an embedded 32 bit system.
-> > The key point is, instead, can we feel safe with a 32 bit offset in a 64 bit system? Is there any guarantee a module is loaded within 32 bits offset from _stext?
-> > 
-> 
-> You're better placed than I to know if and when this is the case, but I
-> wouldn't use this in a production environment. To me this is more of a
-> debugging tool (and a really good one at that), so I am less concerned
-> about the memory overhead.
-
-The issue is with poor trace buffer utilization, you could overflow the trace
-buffer more easily, and lose trace data. The reason I came up with the stext
-delta approach was precisely to address this and it worked when I was using
-this tracepoint. Let me find some time this evening to work more on
-Ambroise's patch.
+Lastly, I am not super convinced that we need to store the full pointer just
+to handle a case where the offset of the symbol might be more than +-2G from
+_stext. Once we see such issue, then we can handle it. But right now the size
+of the trace buffer is utilized better by just storing the offset IMHO.
 
 thanks,
 
  - Joel
 
+
+> 
+> -- Steve
+> 
+> On Wed, 27 Nov 2019 16:44:28 +0100
+> Antonio Borneo <antonio.borneo@st.com> wrote:
+> 
+> > This tracing event class is the only instance in kernel that logs
+> > in the trace buffer the instruction pointer as offset to _stext,
+> > instead of logging the full pointer.
+> > This looks like a nice optimization for 64 bits platforms, where a
+> > 32 bit offset can take less space than a full 64 bits pointer. But
+> > the symbol _stext is incorrectly resolved as zero in the expansion
+> > of TP_printk(), which then prints only the hex offset instead of
+> > the name of the caller function. Plus, on arm arch the kernel
+> > modules are loaded at address lower than _stext, causing the u32
+> > offset arithmetics to overflow and wrap at 32 bits.
+> > I did not identified a 64 bit arch where the modules are loaded at
+> > offset from _stext that exceed u32 range, but I also did not
+> > identified any constraint to feel safe with a u32 offset.
+> > 
+> > Log directly the instruction pointer instead of the offset to
+> > _stext.
+> > 
+> > Signed-off-by: Antonio Borneo <antonio.borneo@st.com>
+> > Fixes: d59158162e03 ("tracing: Add support for preempt and irq enable/disable events")
+> > ---
+> >  include/trace/events/preemptirq.h | 12 ++++++------
+> >  1 file changed, 6 insertions(+), 6 deletions(-)
+> > 
+> > diff --git a/include/trace/events/preemptirq.h b/include/trace/events/preemptirq.h
+> > index 95fba0471e5b..d548a6aafa18 100644
+> > --- a/include/trace/events/preemptirq.h
+> > +++ b/include/trace/events/preemptirq.h
+> > @@ -18,18 +18,18 @@ DECLARE_EVENT_CLASS(preemptirq_template,
+> >  	TP_ARGS(ip, parent_ip),
+> >  
+> >  	TP_STRUCT__entry(
+> > -		__field(u32, caller_offs)
+> > -		__field(u32, parent_offs)
+> > +		__field(unsigned long, caller_ip)
+> > +		__field(unsigned long, parent_ip)
+> >  	),
+> >  
+> >  	TP_fast_assign(
+> > -		__entry->caller_offs = (u32)(ip - (unsigned long)_stext);
+> > -		__entry->parent_offs = (u32)(parent_ip - (unsigned long)_stext);
+> > +		__entry->caller_ip = ip;
+> > +		__entry->parent_ip = parent_ip;
+> >  	),
+> >  
+> >  	TP_printk("caller=%pS parent=%pS",
+> > -		  (void *)((unsigned long)(_stext) + __entry->caller_offs),
+> > -		  (void *)((unsigned long)(_stext) + __entry->parent_offs))
+> > +		  (void *)__entry->caller_ip,
+> > +		  (void *)__entry->parent_ip)
+> >  );
+> >  
+> >  #ifdef CONFIG_TRACE_IRQFLAGS
+> 
 _______________________________________________
 Linux-stm32 mailing list
 Linux-stm32@st-md-mailman.stormreply.com
