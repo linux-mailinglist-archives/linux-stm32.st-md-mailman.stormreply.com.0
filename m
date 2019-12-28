@@ -2,50 +2,50 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id 5B36012BE45
-	for <lists+linux-stm32@lfdr.de>; Sat, 28 Dec 2019 19:35:48 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 6B5EF12BE46
+	for <lists+linux-stm32@lfdr.de>; Sat, 28 Dec 2019 19:35:50 +0100 (CET)
 Received: from ip-172-31-3-76.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 273EEC36B0F;
-	Sat, 28 Dec 2019 18:35:48 +0000 (UTC)
-Received: from mail-pg1-f196.google.com (mail-pg1-f196.google.com
- [209.85.215.196])
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 32F6EC36B0C;
+	Sat, 28 Dec 2019 18:35:50 +0000 (UTC)
+Received: from mail-pg1-f194.google.com (mail-pg1-f194.google.com
+ [209.85.215.194])
  (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 359B0C36B0A
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 07889C36B0D
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Sat, 28 Dec 2019 18:35:46 +0000 (UTC)
-Received: by mail-pg1-f196.google.com with SMTP id x7so16040529pgl.11
+ Sat, 28 Dec 2019 18:35:48 +0000 (UTC)
+Received: by mail-pg1-f194.google.com with SMTP id q127so16057482pga.4
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Sat, 28 Dec 2019 10:35:46 -0800 (PST)
+ Sat, 28 Dec 2019 10:35:47 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20161025;
  h=from:to:cc:subject:date:message-id:in-reply-to:references;
- bh=hqSfykticrVROnPZePmOru2pp1VCz0LFD/v0VexrqBA=;
- b=TN5UMyKtGRFA9r24t/ZYgRXLOw/LCoKmhLVbbsgo4/9YAbF01PPDODx3Tg5TIqMice
- 9+t2T8Cz0hK+BqG+Xyey3W3XOXnNK/H9hEE7XXjFeftyMBA2os7fKbrgmOF3Uf5qv4wY
- Kad1ZksLn7TWdjNFT78COriJqMCYMQlUSNkosa2FmFDxWXLUSMcitCKdiboBnxd0zQWr
- hi88HS+npw/ogvjqq/+jY0hby/cENDfini7neUTe9xDcEijGSkGIfMgDPXTucJ+luVYd
- g5QYLr1IVKvSeLPoTvbnpyRgJMJu43ss8Kly5/kDA+r+v1DElUws4jNDk1dao/QCykbv
- jxiA==
+ bh=u+WdsyKuKa5bxoF7O7EsreiiwOikxQI6yqVLLirGymc=;
+ b=MOQRbWcFusjgAy4ALA0dRNwculnnf95IqWhwN+bI2m3VphYLVZFzUqdeNUJcfF7thl
+ 8Oo9SDyajObSomXnWDn4kLV7+lz97x8nR/7HN4y5d/JmKKCsuEl1aQrwGrxxU9hi3YAG
+ tjBb4iRdN/pj3HarVM+/KzxZkLjXXEHQI+yH/sRvbCys5nO4SWzv7rqdNHrZiyIl2vxo
+ TImjGbjwLoYHAfaIsoFlFP4cRJGFO/7eHgxPe1zcjmgBTBwhWCibX4aYc2ek2vXwbxIE
+ TciifP5yqkjOxQ6NYC3r438SclSN9iySvH5xd3vVkdWVNV3WTs5Ssh2mceJPkuJNepf3
+ +KUA==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=1e100.net; s=20161025;
  h=x-gm-message-state:from:to:cc:subject:date:message-id:in-reply-to
  :references;
- bh=hqSfykticrVROnPZePmOru2pp1VCz0LFD/v0VexrqBA=;
- b=aj6euT/OCS38a0EpI1RIdubi4KQg5qo9YenTc+kZsMLxoRnk2axFvk8pPSP/OPiT7W
- GovnKnk2bL0KFF0fijEakInrhAc9HseBKS2iIoAPKcpt1rKhS0qF0f0u2xhNfZ0n7jhC
- yAKAk46ZhWoheXOLnyaPqplulpd6RVzthPzz5KdKBWxyPMbKQH7DfXbraYOeztH7ibNf
- 7yB0HYbUq6Qbpe0+XoNb2/QvYSh7NCRudFxo5PYnPX5C3gNcsIlVYkqhfFxL2qOdYe5R
- WhX+nnDOJ7xUwFPpk9eF4TzKNAxBgU49bK5tq3ewpT1QLMlkvzsg7Jb4vBZJ6L6IJmS5
- VY5A==
-X-Gm-Message-State: APjAAAXAMYvoy6GnFJFNK3brMAelo0P1wmudV/DcHOuxzdRahHOB1TSv
- qycil/y9L881ZrqrqQSJ7NI=
-X-Google-Smtp-Source: APXvYqxhLmtho2czElmGfzLozaAqFNdvpPt2BmXqglNEJ0AN6V99RjBsDbUR/heJgBjeBiaCFQdPeA==
-X-Received: by 2002:a65:621a:: with SMTP id d26mr59969401pgv.151.1577558144795; 
- Sat, 28 Dec 2019 10:35:44 -0800 (PST)
+ bh=u+WdsyKuKa5bxoF7O7EsreiiwOikxQI6yqVLLirGymc=;
+ b=ce0roE1/P6s685Xnn1sCtQgSVbYDs7tyXWS3Ja6VCTQNzVWv5VBAyoFR/hKwHUWy8e
+ 7p6M7s9X64JKEezwn9XYp7ZjSIM+S1zaIBo7k6vwbQMoXORN/2gaEXTO9uQX8ZnuNfLi
+ WWAiVnYmUPNG3CjZUPPAduBNdS0KQejTESqEDafjLPjiRmMJ9St2lsUcJ4ZBRKthMXx0
+ oeVkxd4ignE21qjgvGyQxZiE0m+ZAh/cPruRV4clNuie3U4XCfaoM0IedTutbMSLBdwR
+ xE5VltQUOzvt+PlxETKZBcyre/ypQQv35CMYdufoTh7MIlaFrk531DuK8/BANDX8G88y
+ Uy9g==
+X-Gm-Message-State: APjAAAXNPfCF5jcLWbhm6wuGGPHeE/Vc2jYggdFJmtevH2RjJyRvkkGq
+ ndv9CKNSSoOOc+SadJRdBLs=
+X-Google-Smtp-Source: APXvYqz2FR0K8hzJVrRbKbBnQhFSr/aRNMbMRVtI8SoK2qjVYEADTjjwXnt98+L2VAfYvOqI5TwzYQ==
+X-Received: by 2002:a63:111e:: with SMTP id g30mr63255423pgl.251.1577558146603; 
+ Sat, 28 Dec 2019 10:35:46 -0800 (PST)
 Received: from localhost ([2001:19f0:6001:12c8:5400:2ff:fe72:6403])
- by smtp.gmail.com with ESMTPSA id k190sm42068720pga.73.2019.12.28.10.35.44
+ by smtp.gmail.com with ESMTPSA id 7sm35621652pfx.52.2019.12.28.10.35.46
  (version=TLS1_2 cipher=ECDHE-RSA-CHACHA20-POLY1305 bits=256/256);
- Sat, 28 Dec 2019 10:35:44 -0800 (PST)
+ Sat, 28 Dec 2019 10:35:46 -0800 (PST)
 From: Yangtao Li <tiny.windzz@gmail.com>
 To: jassisinghbrar@gmail.com, nsaenzjulienne@suse.de, f.fainelli@gmail.com,
  rjui@broadcom.com, sbranden@broadcom.com,
@@ -57,13 +57,13 @@ To: jassisinghbrar@gmail.com, nsaenzjulienne@suse.de, f.fainelli@gmail.com,
  linux-arm-kernel@lists.infradead.org, nios2-dev@lists.rocketboards.org,
  linux-mediatek@lists.infradead.org, linux-arm-msm@vger.kernel.org,
  linux-stm32@st-md-mailman.stormreply.com, linux-tegra@vger.kernel.org
-Date: Sat, 28 Dec 2019 18:35:29 +0000
-Message-Id: <20191228183538.26189-4-tiny.windzz@gmail.com>
+Date: Sat, 28 Dec 2019 18:35:30 +0000
+Message-Id: <20191228183538.26189-5-tiny.windzz@gmail.com>
 X-Mailer: git-send-email 2.17.1
 In-Reply-To: <20191228183538.26189-1-tiny.windzz@gmail.com>
 References: <20191228183538.26189-1-tiny.windzz@gmail.com>
 Cc: Yangtao Li <tiny.windzz@gmail.com>
-Subject: [Linux-stm32] [PATCH 04/13] mailbox: mediatek: cmdq: convert to
+Subject: [Linux-stm32] [PATCH 05/13] mailbox: bcm2835: convert to
 	devm_platform_ioremap_resource
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
@@ -86,31 +86,31 @@ Use devm_platform_ioremap_resource() to simplify code.
 
 Signed-off-by: Yangtao Li <tiny.windzz@gmail.com>
 ---
- drivers/mailbox/mtk-cmdq-mailbox.c | 4 +---
+ drivers/mailbox/bcm2835-mailbox.c | 4 +---
  1 file changed, 1 insertion(+), 3 deletions(-)
 
-diff --git a/drivers/mailbox/mtk-cmdq-mailbox.c b/drivers/mailbox/mtk-cmdq-mailbox.c
-index 9a6ce9f5a7db..7f9e34b021c8 100644
---- a/drivers/mailbox/mtk-cmdq-mailbox.c
-+++ b/drivers/mailbox/mtk-cmdq-mailbox.c
-@@ -458,7 +458,6 @@ static struct mbox_chan *cmdq_xlate(struct mbox_controller *mbox,
- static int cmdq_probe(struct platform_device *pdev)
+diff --git a/drivers/mailbox/bcm2835-mailbox.c b/drivers/mailbox/bcm2835-mailbox.c
+index 39761d190545..79f93c9c7682 100644
+--- a/drivers/mailbox/bcm2835-mailbox.c
++++ b/drivers/mailbox/bcm2835-mailbox.c
+@@ -137,7 +137,6 @@ static int bcm2835_mbox_probe(struct platform_device *pdev)
  {
  	struct device *dev = &pdev->dev;
--	struct resource *res;
- 	struct cmdq *cmdq;
- 	int err, i;
+ 	int ret = 0;
+-	struct resource *iomem;
+ 	struct bcm2835_mbox *mbox;
  
-@@ -466,8 +465,7 @@ static int cmdq_probe(struct platform_device *pdev)
- 	if (!cmdq)
- 		return -ENOMEM;
+ 	mbox = devm_kzalloc(dev, sizeof(*mbox), GFP_KERNEL);
+@@ -153,8 +152,7 @@ static int bcm2835_mbox_probe(struct platform_device *pdev)
+ 		return -ENODEV;
+ 	}
  
--	res = platform_get_resource(pdev, IORESOURCE_MEM, 0);
--	cmdq->base = devm_ioremap_resource(dev, res);
-+	cmdq->base = devm_platform_ioremap_resource(pdev, 0);
- 	if (IS_ERR(cmdq->base)) {
- 		dev_err(dev, "failed to ioremap gce\n");
- 		return PTR_ERR(cmdq->base);
+-	iomem = platform_get_resource(pdev, IORESOURCE_MEM, 0);
+-	mbox->regs = devm_ioremap_resource(&pdev->dev, iomem);
++	mbox->regs = devm_platform_ioremap_resource(pdev, 0);
+ 	if (IS_ERR(mbox->regs)) {
+ 		ret = PTR_ERR(mbox->regs);
+ 		dev_err(&pdev->dev, "Failed to remap mailbox regs: %d\n", ret);
 -- 
 2.17.1
 
