@@ -2,46 +2,67 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id 92F1712B9E7
-	for <lists+linux-stm32@lfdr.de>; Fri, 27 Dec 2019 19:15:18 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 8807D12BE42
+	for <lists+linux-stm32@lfdr.de>; Sat, 28 Dec 2019 19:35:44 +0100 (CET)
 Received: from ip-172-31-3-76.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 490BBC36B0B;
-	Fri, 27 Dec 2019 18:15:18 +0000 (UTC)
-Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
- (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
- (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 85C10C36B09
- for <linux-stm32@st-md-mailman.stormreply.com>;
- Fri, 27 Dec 2019 18:15:16 +0000 (UTC)
-Received: from sasha-vm.mshome.net (c-73-47-72-35.hsd1.nh.comcast.net
- [73.47.72.35])
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 25D1EC36B0C;
+	Sat, 28 Dec 2019 18:35:44 +0000 (UTC)
+Received: from mail-pl1-f194.google.com (mail-pl1-f194.google.com
+ [209.85.214.194])
  (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by mail.kernel.org (Postfix) with ESMTPSA id 3898C222C3;
- Fri, 27 Dec 2019 18:15:14 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
- s=default; t=1577470515;
- bh=cxid6C6F9WrArkdBSO7ewILRRUwrf6B52AkZM6I+OZc=;
- h=From:To:Cc:Subject:Date:In-Reply-To:References:From;
- b=2qG01NYOn0Y37GwO8gHApB7RtMv2izzTlXK3jcOEL7HOTytQAO0MDtCGQDxRa2O4d
- x52toZX6Aff+HdI5lRhiC3srnikgk25R7MwJCENPS88goK+Pnwud9cTEmt0GaqPm3E
- e7UMkpF8KRIh1dQb4nWe+oEFyHJEbyApqoqxyeG4=
-From: Sasha Levin <sashal@kernel.org>
-To: linux-kernel@vger.kernel.org,
-	stable@vger.kernel.org
-Date: Fri, 27 Dec 2019 13:14:29 -0500
-Message-Id: <20191227181435.7644-32-sashal@kernel.org>
-X-Mailer: git-send-email 2.20.1
-In-Reply-To: <20191227181435.7644-1-sashal@kernel.org>
-References: <20191227181435.7644-1-sashal@kernel.org>
-MIME-Version: 1.0
-X-stable: review
-X-Patchwork-Hint: Ignore
-Cc: Jose Abreu <Jose.Abreu@synopsys.com>, Sasha Levin <sashal@kernel.org>,
- netdev@vger.kernel.org, "David S . Miller" <davem@davemloft.net>,
- linux-stm32@st-md-mailman.stormreply.com, linux-arm-kernel@lists.infradead.org
-Subject: [Linux-stm32] [PATCH AUTOSEL 4.9 32/38] net: stmmac: RX buffer size
-	must be 16 byte aligned
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 2AFC7C36B09
+ for <linux-stm32@st-md-mailman.stormreply.com>;
+ Sat, 28 Dec 2019 18:35:42 +0000 (UTC)
+Received: by mail-pl1-f194.google.com with SMTP id c13so13039386pls.0
+ for <linux-stm32@st-md-mailman.stormreply.com>;
+ Sat, 28 Dec 2019 10:35:41 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20161025;
+ h=from:to:cc:subject:date:message-id;
+ bh=HA6ap3YBH12tN/wspc69xBp95EQn1Xx2HPN8PjoD5hA=;
+ b=bMNVXsQnfKQRZaTsu5Z4AlXDdYOeCeNqaFJy6GuQn3oLSfJwG9BLmRwdcgIQlFlbNy
+ EP9p+FhRGyY5d/kNaZZ/FQh+S8zTAaVojQm0ho0mKz/n7SyWATXKht31JKeKnjFN32Cl
+ 20d24NLqMfuGPZsWRCGsu8wMeGu885WX5Et9aJxLatjZlj2i2S1qOIbVLOnvxuSk50t3
+ znbIrDGBqKfswBC49tmawJBrxKn+XK0NLWKMu+TT/PmB5Nr0nwBo3MeS0bPy5REXS51M
+ b6k28+Easl0LQeyRJGDG6CTosoeO1HNpHTHKvl8xHyllA3Pu9GHV6gjRRhPvqFP+CHu+
+ BjhQ==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20161025;
+ h=x-gm-message-state:from:to:cc:subject:date:message-id;
+ bh=HA6ap3YBH12tN/wspc69xBp95EQn1Xx2HPN8PjoD5hA=;
+ b=nLsnKYCLKcbUqE69MOg4pC0EWukNmhwhLnO8GRE0AHIcubGh3i9T/6Pob0dy42jWvG
+ XQ/7YYJKsT1unPhn2HjKBy+mwircfFw6z1QKW5apJCoqiJ700D1hGIROD75LMbASzCTW
+ nULAshU+cQwyhSXVTW7+8xU7HwioQSpiQULTC15g1jFUGcgE710kwKRf1H2Z3QVpvtOu
+ thVcQx6vlXeJGwWI2yoTNoPazPSJr3ReMUdt+R838v6/LwvTI4TcYAASC1eM2RmJwxID
+ iHAG9zi33Qi0iJS5+zi+cCiK0R4q2qMzfVNQu1Uhzusx3tRhg9Y1c3uJYC/NZo/udb35
+ VtTQ==
+X-Gm-Message-State: APjAAAWZWSq5ipjZ5m89F8SMtvtVhesOc80wZVxZosiDKMY84/j/9DvB
+ t7Jx+yrdg/aAf1OLnbW4sQg=
+X-Google-Smtp-Source: APXvYqx4E8Eu7c2uGoKiMs4QJKyvTXmA+WIuNXF86bL2KzPp6818QAcgzM+bVVUzJc2A+S93588ywA==
+X-Received: by 2002:a17:902:7288:: with SMTP id
+ d8mr56643250pll.341.1577558140530; 
+ Sat, 28 Dec 2019 10:35:40 -0800 (PST)
+Received: from localhost ([2001:19f0:6001:12c8:5400:2ff:fe72:6403])
+ by smtp.gmail.com with ESMTPSA id k21sm31679513pfa.63.2019.12.28.10.35.39
+ (version=TLS1_2 cipher=ECDHE-RSA-CHACHA20-POLY1305 bits=256/256);
+ Sat, 28 Dec 2019 10:35:39 -0800 (PST)
+From: Yangtao Li <tiny.windzz@gmail.com>
+To: jassisinghbrar@gmail.com, nsaenzjulienne@suse.de, f.fainelli@gmail.com,
+ rjui@broadcom.com, sbranden@broadcom.com,
+ bcm-kernel-feedback-list@broadcom.com, lftan@altera.com,
+ matthias.bgg@gmail.com, agross@kernel.org, bjorn.andersson@linaro.org,
+ mcoquelin.stm32@gmail.com, alexandre.torgue@st.com,
+ thierry.reding@gmail.com, jonathanh@nvidia.com,
+ linux-kernel@vger.kernel.org, linux-rpi-kernel@lists.infradead.org,
+ linux-arm-kernel@lists.infradead.org, nios2-dev@lists.rocketboards.org,
+ linux-mediatek@lists.infradead.org, linux-arm-msm@vger.kernel.org,
+ linux-stm32@st-md-mailman.stormreply.com, linux-tegra@vger.kernel.org
+Date: Sat, 28 Dec 2019 18:35:26 +0000
+Message-Id: <20191228183538.26189-1-tiny.windzz@gmail.com>
+X-Mailer: git-send-email 2.17.1
+Cc: Yangtao Li <tiny.windzz@gmail.com>
+Subject: [Linux-stm32] [PATCH 01/13] mailbox: altera: convert to
+	devm_platform_ioremap_resource
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -53,44 +74,44 @@ List-Post: <mailto:linux-stm32@st-md-mailman.stormreply.com>
 List-Help: <mailto:linux-stm32-request@st-md-mailman.stormreply.com?subject=help>
 List-Subscribe: <https://st-md-mailman.stormreply.com/mailman/listinfo/linux-stm32>, 
  <mailto:linux-stm32-request@st-md-mailman.stormreply.com?subject=subscribe>
+MIME-Version: 1.0
 Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
-From: Jose Abreu <Jose.Abreu@synopsys.com>
+Use devm_platform_ioremap_resource() to simplify code.
 
-[ Upstream commit 8d558f0294fe92e04af192e221d0d0f6a180ee7b ]
-
-We need to align the RX buffer size to at least 16 byte so that IP
-doesn't mis-behave. This is required by HW.
-
-Changes from v2:
-- Align UP and not DOWN (David)
-
-Fixes: 7ac6653a085b ("stmmac: Move the STMicroelectronics driver")
-Signed-off-by: Jose Abreu <Jose.Abreu@synopsys.com>
-Signed-off-by: David S. Miller <davem@davemloft.net>
-Signed-off-by: Sasha Levin <sashal@kernel.org>
+Signed-off-by: Yangtao Li <tiny.windzz@gmail.com>
 ---
- drivers/net/ethernet/stmicro/stmmac/stmmac_main.c | 2 +-
- 1 file changed, 1 insertion(+), 1 deletion(-)
+ drivers/mailbox/mailbox-altera.c | 5 +----
+ 1 file changed, 1 insertion(+), 4 deletions(-)
 
-diff --git a/drivers/net/ethernet/stmicro/stmmac/stmmac_main.c b/drivers/net/ethernet/stmicro/stmmac/stmmac_main.c
-index 5ac48a594951..a2b7c685cbf1 100644
---- a/drivers/net/ethernet/stmicro/stmmac/stmmac_main.c
-+++ b/drivers/net/ethernet/stmicro/stmmac/stmmac_main.c
-@@ -55,7 +55,7 @@
- #include <linux/of_mdio.h>
- #include "dwmac1000.h"
+diff --git a/drivers/mailbox/mailbox-altera.c b/drivers/mailbox/mailbox-altera.c
+index 75282666fb06..afb320e9d69c 100644
+--- a/drivers/mailbox/mailbox-altera.c
++++ b/drivers/mailbox/mailbox-altera.c
+@@ -285,7 +285,6 @@ static const struct mbox_chan_ops altera_mbox_ops = {
+ static int altera_mbox_probe(struct platform_device *pdev)
+ {
+ 	struct altera_mbox *mbox;
+-	struct resource	*regs;
+ 	struct mbox_chan *chans;
+ 	int ret;
  
--#define	STMMAC_ALIGN(x)		__ALIGN_KERNEL(x, SMP_CACHE_BYTES)
-+#define	STMMAC_ALIGN(x)		ALIGN(ALIGN(x, SMP_CACHE_BYTES), 16)
- #define	TSO_MAX_BUFF_SIZE	(SZ_16K - 1)
+@@ -299,9 +298,7 @@ static int altera_mbox_probe(struct platform_device *pdev)
+ 	if (!chans)
+ 		return -ENOMEM;
  
- /* Module parameters */
+-	regs = platform_get_resource(pdev, IORESOURCE_MEM, 0);
+-
+-	mbox->mbox_base = devm_ioremap_resource(&pdev->dev, regs);
++	mbox->mbox_base = devm_platform_ioremap_resource(pdev, 0);
+ 	if (IS_ERR(mbox->mbox_base))
+ 		return PTR_ERR(mbox->mbox_base);
+ 
 -- 
-2.20.1
+2.17.1
 
 _______________________________________________
 Linux-stm32 mailing list
