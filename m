@@ -2,50 +2,51 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id 8B02412BE43
-	for <lists+linux-stm32@lfdr.de>; Sat, 28 Dec 2019 19:35:44 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 2E60C12BE44
+	for <lists+linux-stm32@lfdr.de>; Sat, 28 Dec 2019 19:35:48 +0100 (CET)
 Received: from ip-172-31-3-76.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 33A4BC36B0F;
-	Sat, 28 Dec 2019 18:35:44 +0000 (UTC)
-Received: from mail-pf1-f195.google.com (mail-pf1-f195.google.com
- [209.85.210.195])
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id EC28CC36B0B;
+	Sat, 28 Dec 2019 18:35:47 +0000 (UTC)
+Received: from mail-pl1-f196.google.com (mail-pl1-f196.google.com
+ [209.85.214.196])
  (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 34292C36B0A
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 24A0BC36B0B
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Sat, 28 Dec 2019 18:35:43 +0000 (UTC)
-Received: by mail-pf1-f195.google.com with SMTP id 2so16308994pfg.12
+ Sat, 28 Dec 2019 18:35:44 +0000 (UTC)
+Received: by mail-pl1-f196.google.com with SMTP id f20so13037850plj.5
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Sat, 28 Dec 2019 10:35:43 -0800 (PST)
+ Sat, 28 Dec 2019 10:35:44 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20161025;
  h=from:to:cc:subject:date:message-id:in-reply-to:references;
- bh=ck7TpFNaYsTfHjkSWvol6O0HxhZOnUYsxWnfPAIODG0=;
- b=SEK8+t673PBtRzm98GmczaWYIBSNYcOrsEXBKK6zpG07VibtJQX62dTHYPFL4w+jn8
- J20u/cIUNnFSow7+ZChaXz0UVQuYAZd8oCZy7nnV/qto1fHLZWL/W5re1lp/81kjaOOB
- 0XTi/yHyByCZ8cUJeKUMhCHhH5hUe7VYE/9t2Lum5P7P4pY5ew4fu2nA0QzW4bY/jFRE
- g9cF4BVNx3T84j2SNec0geRbXtvFbo+UyEeTSJ54I8iOJF2CSVxIYb2HDbqnWdvaP1H6
- ZTaEXNeqmvV4XlhIL/ZrmGrACVgGlzp8uUPkzAv+dPL/pbV6GLtTuPbwRs8FyhFH8yDq
- pVrw==
+ bh=fo5K0TPliEV99faGCrDAtoXjqd/u/f/pgI4tXILZggE=;
+ b=bwDm/LYmefFJ+yrVjqwVqleBC+dVr4zFymT/XmDlSRZmDs39PHAJyYv6Rv/syLbg3+
+ k70t6WZ4z+KBbkrD/38bHo0vozwx9mUI3ZZIU1WjRz++gkUPTiBVpANkWy8hRJUtQooc
+ 5AsLJzpS+cDTcgox6s63deyucKFJQl20XFFo2aWRMMKTn3Ey4qiZ73EQ8X4HF+u/Szoq
+ AxTNjN4C0e7WRtsEJTwEXB59yZ3b/EFo+PVSwD2JJNujM3Jo65fFFlkCFCkkCWxz+MKe
+ vTUL7DOlgV/vSe9n4Z8/QrDaA/8AGjRG/35ydwEpQOWUjA6MPMm6rLT40g4dCeGdRt78
+ l5ww==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=1e100.net; s=20161025;
  h=x-gm-message-state:from:to:cc:subject:date:message-id:in-reply-to
  :references;
- bh=ck7TpFNaYsTfHjkSWvol6O0HxhZOnUYsxWnfPAIODG0=;
- b=RdE9y9ojB1niqJqW06jNY7z182afjLWM6thJVuxknOeonwjdASYk5KdbU8zvWhq1n8
- I+H+5Rd7nNItbuOsxxySc9yBDFNbv5agyqTk2N5W7A6aG96Bn60EEz3eFEWQIQ4sX8dI
- uReJ4kHS+7tbUJSgRPExs+8cvq2p0oGEJsQ2aW59VVzs9nm0NtdbAmY3JLL0NHGx1GdY
- iCgRi8pyw3KPWaesVBCODCzkBkFk95lk7CZSJY35TPu9vTPEGYjAj0DxZQ4zVI0ZamiC
- fnWQT4tFygEDlfyH8sL1+fANnyxa1TRmnWGLqg4TjQiwOgzAVXUiDpVHtofeECS6wCCE
- rqkQ==
-X-Gm-Message-State: APjAAAXf4+dNL0tYQwzxCYVbQk8CwaVAFFqEhNmiW39/QICMvimdPF8V
- AlOtjocY30xHLaLTS0+qBqA=
-X-Google-Smtp-Source: APXvYqx5/QP/GNVoyrkVJfv4Aq0NGpfhph/LLs+Iu2oE/kr2AvgV3Rb9EKdPNpuSs0gUI6foQXJ/1A==
-X-Received: by 2002:a63:338e:: with SMTP id z136mr62252030pgz.60.1577558141763; 
- Sat, 28 Dec 2019 10:35:41 -0800 (PST)
+ bh=fo5K0TPliEV99faGCrDAtoXjqd/u/f/pgI4tXILZggE=;
+ b=M1s+uVwN+BSBTGJeApfJrj6uz7EAyIfKbOFuIKMRVjjQZbbDUab1DJiNy5+J+Dvt2V
+ 1AZsqD5UcgQlCBJxKbgEkNAwGG8WVh1L5XMYf1FqcpAvqMce9LbTe16N4vnXlHGIsXUr
+ e95wOJ759PuYSqaRJvkqDsm41r+3cThk5/3t5HSF2dGxOjYtoZ/iCmAGbvg70nPLkCb0
+ FBblHqP5IsBAO8Averz3aHxAWGqcXGhNPf+nLgqsRj0fTBqfq5Cy32nr+ekFcZ0+V204
+ XjG7hzcLFVyfoi36PQCDsL8ZBiPd+jPcDb6J9E2h6KSbLkMOmvzdeiGGph6WxFQ24VaR
+ 3uTQ==
+X-Gm-Message-State: APjAAAUkT7eXmfXDUt0riFgus8xxN6zxIw+koBY02Z8mqd/1kYYFW51X
+ Zzu7bi0oQgJKUGiG0CnzKdw=
+X-Google-Smtp-Source: APXvYqwUmRdS/j5Ko1syf2WgkT7LxHN76wS8zqcKdPBh656bSiwfHZJ5FFjisEcSZu9ospl02un4HA==
+X-Received: by 2002:a17:90a:a881:: with SMTP id
+ h1mr34064320pjq.50.1577558142809; 
+ Sat, 28 Dec 2019 10:35:42 -0800 (PST)
 Received: from localhost ([2001:19f0:6001:12c8:5400:2ff:fe72:6403])
- by smtp.gmail.com with ESMTPSA id o31sm42035078pgb.56.2019.12.28.10.35.41
+ by smtp.gmail.com with ESMTPSA id u18sm42980854pgn.9.2019.12.28.10.35.42
  (version=TLS1_2 cipher=ECDHE-RSA-CHACHA20-POLY1305 bits=256/256);
- Sat, 28 Dec 2019 10:35:41 -0800 (PST)
+ Sat, 28 Dec 2019 10:35:42 -0800 (PST)
 From: Yangtao Li <tiny.windzz@gmail.com>
 To: jassisinghbrar@gmail.com, nsaenzjulienne@suse.de, f.fainelli@gmail.com,
  rjui@broadcom.com, sbranden@broadcom.com,
@@ -57,13 +58,14 @@ To: jassisinghbrar@gmail.com, nsaenzjulienne@suse.de, f.fainelli@gmail.com,
  linux-arm-kernel@lists.infradead.org, nios2-dev@lists.rocketboards.org,
  linux-mediatek@lists.infradead.org, linux-arm-msm@vger.kernel.org,
  linux-stm32@st-md-mailman.stormreply.com, linux-tegra@vger.kernel.org
-Date: Sat, 28 Dec 2019 18:35:27 +0000
-Message-Id: <20191228183538.26189-2-tiny.windzz@gmail.com>
+Date: Sat, 28 Dec 2019 18:35:28 +0000
+Message-Id: <20191228183538.26189-3-tiny.windzz@gmail.com>
 X-Mailer: git-send-email 2.17.1
 In-Reply-To: <20191228183538.26189-1-tiny.windzz@gmail.com>
 References: <20191228183538.26189-1-tiny.windzz@gmail.com>
 Cc: Yangtao Li <tiny.windzz@gmail.com>
-Subject: [Linux-stm32] [PATCH 02/13] mailbox: xgene-slimpro: do some cleanup
+Subject: [Linux-stm32] [PATCH 03/13] mailbox: qcom-apcs: convert to
+	devm_platform_ioremap_resource
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -82,39 +84,33 @@ Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
 Use devm_platform_ioremap_resource() to simplify code.
-'i' and 'rc' are variables of the same type and there is no
-need to use two lines.
 
 Signed-off-by: Yangtao Li <tiny.windzz@gmail.com>
 ---
- drivers/mailbox/mailbox-xgene-slimpro.c | 7 ++-----
- 1 file changed, 2 insertions(+), 5 deletions(-)
+ drivers/mailbox/qcom-apcs-ipc-mailbox.c | 4 +---
+ 1 file changed, 1 insertion(+), 3 deletions(-)
 
-diff --git a/drivers/mailbox/mailbox-xgene-slimpro.c b/drivers/mailbox/mailbox-xgene-slimpro.c
-index de260799f1b9..908c0eb99b5a 100644
---- a/drivers/mailbox/mailbox-xgene-slimpro.c
-+++ b/drivers/mailbox/mailbox-xgene-slimpro.c
-@@ -170,10 +170,8 @@ static const struct mbox_chan_ops slimpro_mbox_ops = {
- static int slimpro_mbox_probe(struct platform_device *pdev)
+diff --git a/drivers/mailbox/qcom-apcs-ipc-mailbox.c b/drivers/mailbox/qcom-apcs-ipc-mailbox.c
+index eeebafd546e5..0faf69137780 100644
+--- a/drivers/mailbox/qcom-apcs-ipc-mailbox.c
++++ b/drivers/mailbox/qcom-apcs-ipc-mailbox.c
+@@ -49,7 +49,6 @@ static int qcom_apcs_ipc_probe(struct platform_device *pdev)
  {
- 	struct slimpro_mbox *ctx;
--	struct resource *regs;
- 	void __iomem *mb_base;
--	int rc;
--	int i;
-+	int rc, i;
+ 	struct qcom_apcs_ipc *apcs;
+ 	struct regmap *regmap;
+-	struct resource *res;
+ 	unsigned long offset;
+ 	void __iomem *base;
+ 	unsigned long i;
+@@ -64,8 +63,7 @@ static int qcom_apcs_ipc_probe(struct platform_device *pdev)
+ 	if (!apcs)
+ 		return -ENOMEM;
  
- 	ctx = devm_kzalloc(&pdev->dev, sizeof(struct slimpro_mbox), GFP_KERNEL);
- 	if (!ctx)
-@@ -181,8 +179,7 @@ static int slimpro_mbox_probe(struct platform_device *pdev)
- 
- 	platform_set_drvdata(pdev, ctx);
- 
--	regs = platform_get_resource(pdev, IORESOURCE_MEM, 0);
--	mb_base = devm_ioremap_resource(&pdev->dev, regs);
-+	mb_base = devm_platform_ioremap_resource(pdev, 0);
- 	if (IS_ERR(mb_base))
- 		return PTR_ERR(mb_base);
+-	res = platform_get_resource(pdev, IORESOURCE_MEM, 0);
+-	base = devm_ioremap_resource(&pdev->dev, res);
++	base = devm_platform_ioremap_resource(pdev, 0);
+ 	if (IS_ERR(base))
+ 		return PTR_ERR(base);
  
 -- 
 2.17.1
