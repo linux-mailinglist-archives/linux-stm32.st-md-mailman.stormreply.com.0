@@ -2,73 +2,74 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id 1A80512BFEC
-	for <lists+linux-stm32@lfdr.de>; Sun, 29 Dec 2019 02:59:12 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 912C612CB87
+	for <lists+linux-stm32@lfdr.de>; Mon, 30 Dec 2019 02:05:10 +0100 (CET)
 Received: from ip-172-31-3-76.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id B7B35C36B0B;
-	Sun, 29 Dec 2019 01:59:11 +0000 (UTC)
-Received: from mail-pj1-f68.google.com (mail-pj1-f68.google.com
- [209.85.216.68])
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 5AE8DC36B0B;
+	Mon, 30 Dec 2019 01:05:08 +0000 (UTC)
+Received: from mail-ot1-f65.google.com (mail-ot1-f65.google.com
+ [209.85.210.65])
  (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 37F97C36B09
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id DD84DC36B09
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Sun, 29 Dec 2019 01:59:10 +0000 (UTC)
-Received: by mail-pj1-f68.google.com with SMTP id m13so6677899pjb.2
+ Mon, 30 Dec 2019 01:05:06 +0000 (UTC)
+Received: by mail-ot1-f65.google.com with SMTP id d7so39875122otf.5
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Sat, 28 Dec 2019 17:59:10 -0800 (PST)
+ Sun, 29 Dec 2019 17:05:06 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linaro.org; s=google;
  h=date:from:to:cc:subject:message-id:references:mime-version
  :content-disposition:in-reply-to:user-agent;
- bh=B0YqCZdtASo8W3+DNsZKxEkKUnEoAfpsuE3h6bg+BKA=;
- b=SUBvHzkDy3ObczV/2Tibqb/J+Bch+J+BkQLTRD7VEq1pgSLY5siprwnL8ItHD8F9X0
- CLYNPAl6cuX+YtWyUz4Jv6O3q5S6xdwYdxId7gchqdvDjxrpI174YpeyGAVnq5OCLnYu
- mjnk8FJDiqHP2OyS9LeyMpUTtRHfWnHiSWEIuaxjubiE/JKwwlviZBeCb1t/7K0h+fYh
- 0vjWt+KfOtPAEGUy76eHmG3OAfy6XCIgbDlBxBVQINB4iZl4afyF3PioZAzKOKODRE1X
- oQLqq8b0HCjpBZ3AJYpqPIprChvuIUnjenWvUp0O9V64bXJNy2P1yqNwOkoX6pEoUsOG
- rZuw==
+ bh=1uou/b60cIOsMB3DzOtWATQEv5uMUtNiIAyfu0e/7RU=;
+ b=aiKcmfv+dEWo2le/tjhTAw8tcKlQ0CqkPBBHpVEJh7FgnksKRQ3+hLp0toLsq9RsYK
+ CztWSrHHddNxP+qLAFQQEwsU2JX7my6RqveTx38RdovRZGe7CM1LBq5T/j4W8IdUmfSJ
+ SdF2Bq+gg7r/0zAA0tHGRrmtabNkGkuCDOwU1H/rQ0LSZFVE+7qcNXHq1qyj1FjOJsES
+ 8HJTTK0LDo7QfVpfOSk5MnnY3Kcezzg6Q0a4tTfkQUQ/8geqnKdwgL4382LucumngyXB
+ wfRe/fTehXCvD8htrQa36Fh5ZsMFYQ3P6ul9f9caoovpRKGiukaiVC3R67RiYPuTkr+f
+ 7Iag==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=1e100.net; s=20161025;
  h=x-gm-message-state:date:from:to:cc:subject:message-id:references
  :mime-version:content-disposition:in-reply-to:user-agent;
- bh=B0YqCZdtASo8W3+DNsZKxEkKUnEoAfpsuE3h6bg+BKA=;
- b=h6TZuABmGtrCfDfmLQIaC1px/VAT4RCf1TX2Gi6MsaaU37REPH+EMTN6wef9D4Hwdg
- bDCJhh7AP236Rd1296Wg/I4x9Q5lglnhY2ukui99OGLD7gVFq2NNjs9SsTKx04iU+Jfn
- 5JS5zhgVr53w2unLdwI11xpvOEtZQvnlrI/c0uv6ccBPvq68oDW9cxx1NTHEA0hrjJwa
- oCwHgqancS3pGb5Dke6gnbPnYhv8ScqlHytfmXPqc1e0xm6/UjfEkiYWQgzMRaXUNaqJ
- nBMvEbEmOZuMaCbTWT5lUkG5YhNDz4gxuEmGrJzxt7986LTDjW1ZS4MWTqv/VLdaFKwX
- 57Kw==
-X-Gm-Message-State: APjAAAWXKvpqhsHwhaFEeD6QN967IZmlgK85U0w4OyU5Za7W2KP6fGH/
- ZwdMkmaYmIEkmFbOxAscnMrFXg==
-X-Google-Smtp-Source: APXvYqwFD0Z6M2ULKf78TvessQAN+owraVNT/WM/LcoBIbydcpRlk+A9rbJjuwmOeeAvLemOFIwgmw==
-X-Received: by 2002:a17:90b:d94:: with SMTP id
- bg20mr34993201pjb.99.1577584748559; 
- Sat, 28 Dec 2019 17:59:08 -0800 (PST)
-Received: from builder (104-188-17-28.lightspeed.sndgca.sbcglobal.net.
- [104.188.17.28])
- by smtp.gmail.com with ESMTPSA id p185sm46804599pfg.61.2019.12.28.17.59.05
- (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Sat, 28 Dec 2019 17:59:07 -0800 (PST)
-Date: Sat, 28 Dec 2019 17:59:04 -0800
-From: Bjorn Andersson <bjorn.andersson@linaro.org>
+ bh=1uou/b60cIOsMB3DzOtWATQEv5uMUtNiIAyfu0e/7RU=;
+ b=WaURqjH7X2lPEylP8BRXXjcj5ebXRbjNPliu58fXXwR7M8w4Qi+MSWvXQTk/6kOQze
+ k7NMJ3iJvBY5RImbN8vsGgZ9mswidREEGCuEkGXEEqcADyZtnrw+R/maG8PDrvqI/MLw
+ l2BZpj3Ef9UHgXsxGgjMFySKWzobeWD7M02YJKvFl4o22sfrnNB8EKfVpGY1lv2YoMNK
+ CX9nsF6MQ5bGBV+VvfoTEKsqu1+0qsgyIvtPY7Lw/yaz1859MAHIaMrv4fs+YWUwJ/Fd
+ 5u8pBKu4oo0k1fQKQdSEs13IkIWgdvrQPdspuwgi5bhtKJP0AipL2huVwRw7VwtpeN49
+ hKwQ==
+X-Gm-Message-State: APjAAAVT+DPDipIOpmXLxPKT4QLrNnkEcJLBMPfdxvVWB51K6pvQnrb8
+ 0brPv2e7tM9f/8gOuVzAR6dyPQ==
+X-Google-Smtp-Source: APXvYqxjgsyQVJ4CLBiKYs6InxnmHCMDH1KJmdUI1mQYT+Cx0caVrZ1wXctdMcb1AJLR38bGRw+0+A==
+X-Received: by 2002:a05:6830:304c:: with SMTP id
+ p12mr41031309otr.214.1577667905418; 
+ Sun, 29 Dec 2019 17:05:05 -0800 (PST)
+Received: from leoy-ThinkPad-X240s (li1058-79.members.linode.com.
+ [45.33.121.79])
+ by smtp.gmail.com with ESMTPSA id j10sm10043384otr.64.2019.12.29.17.04.58
+ (version=TLS1_2 cipher=ECDHE-RSA-CHACHA20-POLY1305 bits=256/256);
+ Sun, 29 Dec 2019 17:05:04 -0800 (PST)
+Date: Mon, 30 Dec 2019 09:04:55 +0800
+From: Leo Yan <leo.yan@linaro.org>
 To: Yangtao Li <tiny.windzz@gmail.com>
-Message-ID: <20191229015904.GG3755841@builder>
+Message-ID: <20191230010455.GC4552@leoy-ThinkPad-X240s>
 References: <20191228183538.26189-1-tiny.windzz@gmail.com>
- <20191228183538.26189-3-tiny.windzz@gmail.com>
+ <20191228183538.26189-6-tiny.windzz@gmail.com>
 MIME-Version: 1.0
 Content-Disposition: inline
-In-Reply-To: <20191228183538.26189-3-tiny.windzz@gmail.com>
-User-Agent: Mutt/1.12.2 (2019-09-21)
-Cc: thierry.reding@gmail.com, f.fainelli@gmail.com, sbranden@broadcom.com,
- rjui@broadcom.com, linux-arm-msm@vger.kernel.org, jassisinghbrar@gmail.com,
- linux-mediatek@lists.infradead.org, linux-kernel@vger.kernel.org,
- jonathanh@nvidia.com, linux-tegra@vger.kernel.org, agross@kernel.org,
- bcm-kernel-feedback-list@broadcom.com, linux-rpi-kernel@lists.infradead.org,
- mcoquelin.stm32@gmail.com, nios2-dev@lists.rocketboards.org,
- matthias.bgg@gmail.com, lftan@altera.com,
- linux-stm32@st-md-mailman.stormreply.com, nsaenzjulienne@suse.de,
- linux-arm-kernel@lists.infradead.org
-Subject: Re: [Linux-stm32] [PATCH 03/13] mailbox: qcom-apcs: convert to
+In-Reply-To: <20191228183538.26189-6-tiny.windzz@gmail.com>
+User-Agent: Mutt/1.9.4 (2018-02-28)
+Cc: bjorn.andersson@linaro.org, matthias.bgg@gmail.com,
+ thierry.reding@gmail.com, linux-stm32@st-md-mailman.stormreply.com,
+ f.fainelli@gmail.com, jassisinghbrar@gmail.com, jonathanh@nvidia.com,
+ agross@kernel.org, bcm-kernel-feedback-list@broadcom.com,
+ linux-arm-msm@vger.kernel.org, rjui@broadcom.com,
+ linux-mediatek@lists.infradead.org, linux-rpi-kernel@lists.infradead.org,
+ lftan@altera.com, linux-tegra@vger.kernel.org,
+ linux-arm-kernel@lists.infradead.org, sbranden@broadcom.com,
+ linux-kernel@vger.kernel.org, mcoquelin.stm32@gmail.com,
+ nios2-dev@lists.rocketboards.org, nsaenzjulienne@suse.de
+Subject: Re: [Linux-stm32] [PATCH 06/13] mailbox: hi3660: convert to
  devm_platform_ioremap_resource
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
@@ -86,39 +87,38 @@ Content-Transfer-Encoding: 7bit
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
-On Sat 28 Dec 10:35 PST 2019, Yangtao Li wrote:
-
+On Sat, Dec 28, 2019 at 06:35:31PM +0000, Yangtao Li wrote:
 > Use devm_platform_ioremap_resource() to simplify code.
 > 
 > Signed-off-by: Yangtao Li <tiny.windzz@gmail.com>
 
-Reviewed-by: Bjorn Andersson <bjorn.andersson@linaro.org>
+Reviewed-by: Leo Yan <leo.yan@linaro.org>
 
 > ---
->  drivers/mailbox/qcom-apcs-ipc-mailbox.c | 4 +---
+>  drivers/mailbox/hi3660-mailbox.c | 4 +---
 >  1 file changed, 1 insertion(+), 3 deletions(-)
 > 
-> diff --git a/drivers/mailbox/qcom-apcs-ipc-mailbox.c b/drivers/mailbox/qcom-apcs-ipc-mailbox.c
-> index eeebafd546e5..0faf69137780 100644
-> --- a/drivers/mailbox/qcom-apcs-ipc-mailbox.c
-> +++ b/drivers/mailbox/qcom-apcs-ipc-mailbox.c
-> @@ -49,7 +49,6 @@ static int qcom_apcs_ipc_probe(struct platform_device *pdev)
->  {
->  	struct qcom_apcs_ipc *apcs;
->  	struct regmap *regmap;
+> diff --git a/drivers/mailbox/hi3660-mailbox.c b/drivers/mailbox/hi3660-mailbox.c
+> index 53f4bc2488c5..97e2c4ed807d 100644
+> --- a/drivers/mailbox/hi3660-mailbox.c
+> +++ b/drivers/mailbox/hi3660-mailbox.c
+> @@ -240,7 +240,6 @@ static int hi3660_mbox_probe(struct platform_device *pdev)
+>  	struct device *dev = &pdev->dev;
+>  	struct hi3660_mbox *mbox;
+>  	struct mbox_chan *chan;
 > -	struct resource *res;
->  	unsigned long offset;
->  	void __iomem *base;
->  	unsigned long i;
-> @@ -64,8 +63,7 @@ static int qcom_apcs_ipc_probe(struct platform_device *pdev)
->  	if (!apcs)
+>  	unsigned long ch;
+>  	int err;
+>  
+> @@ -248,8 +247,7 @@ static int hi3660_mbox_probe(struct platform_device *pdev)
+>  	if (!mbox)
 >  		return -ENOMEM;
 >  
 > -	res = platform_get_resource(pdev, IORESOURCE_MEM, 0);
-> -	base = devm_ioremap_resource(&pdev->dev, res);
-> +	base = devm_platform_ioremap_resource(pdev, 0);
->  	if (IS_ERR(base))
->  		return PTR_ERR(base);
+> -	mbox->base = devm_ioremap_resource(dev, res);
+> +	mbox->base = devm_platform_ioremap_resource(pdev, 0);
+>  	if (IS_ERR(mbox->base))
+>  		return PTR_ERR(mbox->base);
 >  
 > -- 
 > 2.17.1
