@@ -2,45 +2,64 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id A552B12D5C5
-	for <lists+linux-stm32@lfdr.de>; Tue, 31 Dec 2019 03:22:45 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 234A512D7CC
+	for <lists+linux-stm32@lfdr.de>; Tue, 31 Dec 2019 11:12:34 +0100 (CET)
 Received: from ip-172-31-3-76.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 57F88C36B0B;
-	Tue, 31 Dec 2019 02:22:45 +0000 (UTC)
-Received: from bombadil.infradead.org (bombadil.infradead.org
- [198.137.202.133])
- (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id BCE1DC36B0B;
+	Tue, 31 Dec 2019 10:12:33 +0000 (UTC)
+Received: from mail-lj1-f195.google.com (mail-lj1-f195.google.com
+ [209.85.208.195])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 5D32FC36B09
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 7C11CC36B09
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Tue, 31 Dec 2019 02:22:42 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
- d=infradead.org; s=bombadil.20170209; h=Content-Transfer-Encoding:
- Content-Type:In-Reply-To:MIME-Version:Date:Message-ID:From:References:Cc:To:
- Subject:Sender:Reply-To:Content-ID:Content-Description:Resent-Date:
- Resent-From:Resent-Sender:Resent-To:Resent-Cc:Resent-Message-ID:List-Id:
- List-Help:List-Unsubscribe:List-Subscribe:List-Post:List-Owner:List-Archive;
- bh=58v/ii0gXmhprKWGTsyF0arcFN3stGWSym0mBK9JFjs=; b=hxr4BDI6FxfK5HLfr82SeUKc1
- FrWVE4KJov7sXIoQgeGU0QRUUdULRJE/lfe+g5B5o1i5mkZn4pTt+SRDRW/gMRGyIBj0YmXVAbWyN
- tna05XxbJzTlSMgInkLWWeKhS1N9kV3hg2nagHYivpr27coS3OOAljbxfOnuWndHU1yN+ira1rBoG
- cexVQ3rJYoIOd9pHmXyWk+TjFBoL1nRJbS1yQLZ4cv5b37SI2Sx7cCJtuxqePfLnh6mUBrayuwiL0
- UyfzV0v5wPSmdgR8U2vqoEZNBD1N5NXglw4dTC+KObm+OsMAg0iscur/KXlPVgyyvhAIsHnuoXc/h
- xyt0HpK+w==;
-Received: from [2601:1c0:6280:3f0::34d9]
- by bombadil.infradead.org with esmtpsa (Exim 4.92.3 #3 (Red Hat Linux))
- id 1im7B6-00075R-5O; Tue, 31 Dec 2019 02:22:36 +0000
-To: Jiping Ma <Jiping.Ma2@windriver.com>, peppe.cavallaro@st.com,
+ Tue, 31 Dec 2019 10:12:32 +0000 (UTC)
+Received: by mail-lj1-f195.google.com with SMTP id o13so24493459ljg.4
+ for <linux-stm32@st-md-mailman.stormreply.com>;
+ Tue, 31 Dec 2019 02:12:32 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=cogentembedded-com.20150623.gappssmtp.com; s=20150623;
+ h=subject:to:cc:references:from:message-id:date:user-agent
+ :mime-version:in-reply-to:content-language:content-transfer-encoding;
+ bh=sYidT8cA6/M5ZOcRmE0d5onegqqpe9/lv8i6pNEaUps=;
+ b=X2ayaav5pA7MM+KDIIY6EVL62/ilIJWRbII6hQrPv8J6spDZIOjE4LnOX7dGL/7wwl
+ dle64UH91jWQiLP9rol7pBRG4MYWWZJY3SlOw/K1Cw7VxlFi5Z3haVOyOHLT1Q2KIQCw
+ xwWS/iiiTl4dbgjuyRkXiEJI4uE5H4+faG+qAXS0Rc2ZYlNZP2owOnFsG1+tog7CLDVl
+ kPw27rrAQNE5NSzM1zTx/DtbqUhh2kN5Sy8oW01lIAI0XzfnoshuuKZB/WJgxBZCPgOn
+ QjdfN0IrLOHhAfNW5M38q2vnbPu0Cu6hn0CK5yHL/y4wDbZKE2ZpoMp6oKJbVkFXAK++
+ A8uw==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20161025;
+ h=x-gm-message-state:subject:to:cc:references:from:message-id:date
+ :user-agent:mime-version:in-reply-to:content-language
+ :content-transfer-encoding;
+ bh=sYidT8cA6/M5ZOcRmE0d5onegqqpe9/lv8i6pNEaUps=;
+ b=Jqets4eUUjF2PeRSt5LjUlabIBNlimCBPjpTvOWpDMjs2ZPuEixu3W1f7KXZx8zOeg
+ qYefL7XsnMq6PgmsLiy2QeoD3JXMtp1fO359X9Qao0TGu0fEzVUJ64o1cTzrwiuY4HvZ
+ bngK2uSSU0BcY55zldsopfJGvFvUfcFdMjVO9EuBLEXbTA2IBFExC8CN3oCljK+tHnnc
+ L933LrCjVHa69gm2BP3Exj0vyvms4Z3YY47SOCB2ZbUR1VgoWF6cVNZGaOBh41Vo+5/j
+ 2E5qNaa8LF3HR8qTrVdhBFpdSlzQ+3Hak0M3tTYCKDNrf2nAHZQPvQYift/yd3KGBZrx
+ u/mw==
+X-Gm-Message-State: APjAAAXaTxhcfEzQ7mvrwbbjl/tvatRGvpK6ndlxkfJImekj7Ny+24Mr
+ 88QkTbd2ZtC+bwWbMCOcY+nGjg==
+X-Google-Smtp-Source: APXvYqz3o9BNQOLYRcJKaBB89OeIbOZreMSdC+Y1SprnU0gutIUg4V9KRPDOu+KX+7jC75FdTe8Kfg==
+X-Received: by 2002:a2e:8797:: with SMTP id n23mr40379304lji.176.1577787151735; 
+ Tue, 31 Dec 2019 02:12:31 -0800 (PST)
+Received: from ?IPv6:2a00:1fa0:646:8dc9:cad:7023:48c4:5145?
+ ([2a00:1fa0:646:8dc9:cad:7023:48c4:5145])
+ by smtp.gmail.com with ESMTPSA id z7sm23586452lfa.81.2019.12.31.02.12.30
+ (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+ Tue, 31 Dec 2019 02:12:31 -0800 (PST)
+To: Jiping Ma <jiping.ma2@windriver.com>, peppe.cavallaro@st.com,
  alexandre.torgue@st.com
 References: <20191231020302.71792-1-jiping.ma2@windriver.com>
- <5b10a5ff-8428-48c7-a60d-69dd62009716@infradead.org>
- <719d8dd3-0119-0c93-b299-d2b3d66b1e06@windriver.com>
-From: Randy Dunlap <rdunlap@infradead.org>
-Message-ID: <adc6d2bc-a92c-703f-2e27-d905c6322c17@infradead.org>
-Date: Mon, 30 Dec 2019 18:22:35 -0800
-User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:68.0) Gecko/20100101
- Thunderbird/68.2.1
+From: Sergei Shtylyov <sergei.shtylyov@cogentembedded.com>
+Message-ID: <57dcdaa1-feff-1134-919e-57b37e306431@cogentembedded.com>
+Date: Tue, 31 Dec 2019 13:12:29 +0300
+User-Agent: Mozilla/5.0 (Windows NT 6.3; WOW64; rv:68.0) Gecko/20100101
+ Thunderbird/68.3.1
 MIME-Version: 1.0
-In-Reply-To: <719d8dd3-0119-0c93-b299-d2b3d66b1e06@windriver.com>
+In-Reply-To: <20191231020302.71792-1-jiping.ma2@windriver.com>
 Content-Language: en-US
 Cc: netdev@vger.kernel.org, linux-kernel@vger.kernel.org, joabreu@synopsys.com,
  mcoquelin.stm32@gmail.com, linux-stm32@st-md-mailman.stormreply.com,
@@ -58,42 +77,66 @@ List-Post: <mailto:linux-stm32@st-md-mailman.stormreply.com>
 List-Help: <mailto:linux-stm32-request@st-md-mailman.stormreply.com?subject=help>
 List-Subscribe: <https://st-md-mailman.stormreply.com/mailman/listinfo/linux-stm32>, 
  <mailto:linux-stm32-request@st-md-mailman.stormreply.com?subject=subscribe>
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: base64
+Content-Transfer-Encoding: 7bit
+Content-Type: text/plain; charset="us-ascii"; Format="flowed"
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
-T24gMTIvMzAvMTkgNjoxNiBQTSwgSmlwaW5nIE1hIHdyb3RlOgo+IAo+IAo+IE9uIDEyLzMxLzIw
-MTkgMTA6MTEgQU0sIFJhbmR5IER1bmxhcCB3cm90ZToKPj4gSGksCj4+Cj4+IE9uIDEyLzMwLzE5
-IDY6MDMgUE0sIEppcGluZyBNYSB3cm90ZToKPj4+IEFkZCBvbmUgbm90aWZpZXIgZm9yIHVkZXYg
-Y2hhbmdlcyBuZXQgZGV2aWNlIG5hbWUuCj4+Pgo+Pj4gU2lnbmVkLW9mZi1ieTogSmlwaW5nIE1h
-IDxqaXBpbmcubWEyQHdpbmRyaXZlci5jb20+Cj4+PiAtLS0KPj4+IMKgIC4uLi9uZXQvZXRoZXJu
-ZXQvc3RtaWNyby9zdG1tYWMvc3RtbWFjX21haW4uYyB8IDM4ICsrKysrKysrKysrKysrKysrKy0K
-Pj4+IMKgIDEgZmlsZSBjaGFuZ2VkLCAzNyBpbnNlcnRpb25zKCspLCAxIGRlbGV0aW9uKC0pCj4+
-Pgo+Pj4gZGlmZiAtLWdpdCBhL2RyaXZlcnMvbmV0L2V0aGVybmV0L3N0bWljcm8vc3RtbWFjL3N0
-bW1hY19tYWluLmMgYi9kcml2ZXJzL25ldC9ldGhlcm5ldC9zdG1pY3JvL3N0bW1hYy9zdG1tYWNf
-bWFpbi5jCj4+PiBpbmRleCBiMTRmNDZhNTcxNTQuLmMxYzg3N2JiNDQyMSAxMDA2NDQKPj4+IC0t
-LSBhL2RyaXZlcnMvbmV0L2V0aGVybmV0L3N0bWljcm8vc3RtbWFjL3N0bW1hY19tYWluLmMKPj4+
-ICsrKyBiL2RyaXZlcnMvbmV0L2V0aGVybmV0L3N0bWljcm8vc3RtbWFjL3N0bW1hY19tYWluLmMK
-Pj4+IEBAIC00MDM4LDYgKzQwMzgsNDAgQEAgc3RhdGljIGludCBzdG1tYWNfZG1hX2NhcF9zaG93
-KHN0cnVjdCBzZXFfZmlsZSAqc2VxLCB2b2lkICp2KQo+Pj4gwqAgfQo+Pj4gwqAgREVGSU5FX1NI
-T1dfQVRUUklCVVRFKHN0bW1hY19kbWFfY2FwKTsKPj4+IMKgICsvKioKPj4gSnVzdCB1c2UgLyog
-aGVyZSBzaW5jZSB0aGlzIGlzIG5vdCBhIGtlcm5lbC1kb2MgY29tbWVudC4KPj4gLyoqIGlzIHJl
-c2VydmVkIGZvciBrZXJuZWwtZG9jIGNvbW1lbnRzL25vdGF0aW9uLgo+IEkgdXNlIGNoZWNrcGF0
-Y2gucGwgdG8gY2hlY2sgbXkgcGF0Y2gsIGl0IHNob3cgb25lIHdhcm5pbmcsIHRoZW4gSSBjaGFu
-Z2UgKiB0byAqKi7CoMKgIEkgd2lsbCBjaGFuZ2UgaXQgYmFjayB0byAqLgoKSXQgc2hvdWxkIGJl
-IG1vcmUgbGlrZToKCi8qIFVzZSBuZXR3b3JrIGRldmljZSBldmVudHMgdG8gY3JlYXRlL3JlbW92
-ZS9yZW5hbWUKICogZGVidWdmcyBmaWxlIGVudHJpZXMuCiAqLwoKPiBXQVJOSU5HOiBuZXR3b3Jr
-aW5nIGJsb2NrIGNvbW1lbnRzIGRvbid0IHVzZSBhbiBlbXB0eSAvKiBsaW5lLCB1c2UgLyogQ29t
-bWVudC4uLgo+ICMyMzogRklMRTogZHJpdmVycy9uZXQvZXRoZXJuZXQvc3RtaWNyby9zdG1tYWMv
-c3RtbWFjX21haW4uYzo0MDQyOgo+ICsvKgo+ICsgKiBVc2UgbmV0d29yayBkZXZpY2UgZXZlbnRz
-IHRvIGNyZWF0ZS9yZW1vdmUvcmVuYW1lCj4+Cj4+PiArICogVXNlIG5ldHdvcmsgZGV2aWNlIGV2
-ZW50cyB0byBjcmVhdGUvcmVtb3ZlL3JlbmFtZQo+Pj4gKyAqIGRlYnVnZnMgZmlsZSBlbnRyaWVz
-Cj4+PiArICovCj4+PiArc3RhdGljIGludCBzdG1tYWNfZGV2aWNlX2V2ZW50KHN0cnVjdCBub3Rp
-Zmllcl9ibG9jayAqdW51c2VkLAo+Pj4gK8KgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKg
-wqDCoCB1bnNpZ25lZCBsb25nIGV2ZW50LCB2b2lkICpwdHIpCj4+PiArewo+PgoKCi0tIAp+UmFu
-ZHkKUmVwb3J0ZWQtYnk6IFJhbmR5IER1bmxhcCA8cmR1bmxhcEBpbmZyYWRlYWQub3JnPgpfX19f
-X19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fXwpMaW51eC1zdG0zMiBt
-YWlsaW5nIGxpc3QKTGludXgtc3RtMzJAc3QtbWQtbWFpbG1hbi5zdG9ybXJlcGx5LmNvbQpodHRw
-czovL3N0LW1kLW1haWxtYW4uc3Rvcm1yZXBseS5jb20vbWFpbG1hbi9saXN0aW5mby9saW51eC1z
-dG0zMgo=
+Hello!
+
+On 31.12.2019 5:03, Jiping Ma wrote:
+
+> Add one notifier for udev changes net device name.
+> 
+> Signed-off-by: Jiping Ma <jiping.ma2@windriver.com>
+> ---
+>   .../net/ethernet/stmicro/stmmac/stmmac_main.c | 38 ++++++++++++++++++-
+>   1 file changed, 37 insertions(+), 1 deletion(-)
+> 
+> diff --git a/drivers/net/ethernet/stmicro/stmmac/stmmac_main.c b/drivers/net/ethernet/stmicro/stmmac/stmmac_main.c
+> index b14f46a57154..c1c877bb4421 100644
+> --- a/drivers/net/ethernet/stmicro/stmmac/stmmac_main.c
+> +++ b/drivers/net/ethernet/stmicro/stmmac/stmmac_main.c
+> @@ -4038,6 +4038,40 @@ static int stmmac_dma_cap_show(struct seq_file *seq, void *v)
+>   }
+>   DEFINE_SHOW_ATTRIBUTE(stmmac_dma_cap);
+>   
+> +/**
+> + * Use network device events to create/remove/rename
+> + * debugfs file entries
+> + */
+> +static int stmmac_device_event(struct notifier_block *unused,
+> +			       unsigned long event, void *ptr)
+> +{
+> +	struct net_device *dev = netdev_notifier_info_to_dev(ptr);
+> +	struct stmmac_priv *priv = netdev_priv(dev);
+> +
+> +	switch (event) {
+> +	case NETDEV_CHANGENAME:
+> +		if (priv->dbgfs_dir)
+> +			priv->dbgfs_dir = debugfs_rename(stmmac_fs_dir,
+> +							 priv->dbgfs_dir,
+> +							 stmmac_fs_dir,
+> +							 dev->name);
+> +		break;
+> +
+> +	case NETDEV_GOING_DOWN:
+> +		break;
+> +
+> +	case NETDEV_UP:
+> +		break;
+
+    Why not merge the above 2 cases? Or just remove them('event' is not *enum*)?
+
+> +	}
+> +
+> +done:
+> +	return NOTIFY_DONE;
+> +}
+[...]
+
+MBR, Sergei
+_______________________________________________
+Linux-stm32 mailing list
+Linux-stm32@st-md-mailman.stormreply.com
+https://st-md-mailman.stormreply.com/mailman/listinfo/linux-stm32
