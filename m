@@ -2,108 +2,128 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id 83D4812F8D0
-	for <lists+linux-stm32@lfdr.de>; Fri,  3 Jan 2020 14:36:20 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 5D27112FBB5
+	for <lists+linux-stm32@lfdr.de>; Fri,  3 Jan 2020 18:46:18 +0100 (CET)
 Received: from ip-172-31-3-76.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id CF899C36B0B;
-	Fri,  3 Jan 2020 13:36:17 +0000 (UTC)
-Received: from mailout2.samsung.com (mailout2.samsung.com [203.254.224.25])
- (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id F0208C36B0B;
+	Fri,  3 Jan 2020 17:46:17 +0000 (UTC)
+Received: from mail-pl1-f196.google.com (mail-pl1-f196.google.com
+ [209.85.214.196])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 54A76C36B09
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id CB790C36B09
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Fri,  3 Jan 2020 13:31:05 +0000 (UTC)
-Received: from epcas5p3.samsung.com (unknown [182.195.41.41])
- by mailout2.samsung.com (KnoxPortal) with ESMTP id
- 20200103133101epoutp02d6d3ddc6fb8057649a6558df343bca56~mY6Czhid02422324223epoutp02H
+ Fri,  3 Jan 2020 17:46:16 +0000 (UTC)
+Received: by mail-pl1-f196.google.com with SMTP id bd4so19291397plb.8
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Fri,  3 Jan 2020 13:31:01 +0000 (GMT)
-DKIM-Filter: OpenDKIM Filter v2.11.0 mailout2.samsung.com
- 20200103133101epoutp02d6d3ddc6fb8057649a6558df343bca56~mY6Czhid02422324223epoutp02H
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=samsung.com;
- s=mail20170921; t=1578058261;
- bh=CzotQGxCyi/4dtz9P6CgUOC3NUvi0KvaTzWTnRskAYg=;
- h=From:To:Cc:In-Reply-To:Subject:Date:References:From;
- b=uT8xCfxszMH/RX/DN0Sh+TmBRI7lhzvgUeF3cvWzIItJS2a6/mwG8jwmq5orhYWD2
- rdhy8Z0v7m1iCoWhYU9Kdof8x7VxgMQCVPmxMI409AkEyn99lN8KAbkUCozpHETh8r
- w71vpCT2nfcoJN0D+l+Tea/DKT99LhcNUphG/7nw=
-Received: from epsmges5p2new.samsung.com (unknown [182.195.42.74]) by
- epcas5p2.samsung.com (KnoxPortal) with ESMTP id
- 20200103133100epcas5p265f43c43a0ea458a2ac2d01fbe5f156f~mY6COk7nD0816308163epcas5p26;
- Fri,  3 Jan 2020 13:31:00 +0000 (GMT)
-Received: from epcas5p2.samsung.com ( [182.195.41.40]) by
- epsmges5p2new.samsung.com (Symantec Messaging Gateway) with SMTP id
- F5.46.20197.4124F0E5; Fri,  3 Jan 2020 22:31:00 +0900 (KST)
-Received: from epsmtrp1.samsung.com (unknown [182.195.40.13]) by
- epcas5p4.samsung.com (KnoxPortal) with ESMTPA id
- 20200103133100epcas5p49bc475820cb614412fb1044c61d6c6fe~mY6B54Ix62781027810epcas5p4_;
- Fri,  3 Jan 2020 13:31:00 +0000 (GMT)
-Received: from epsmgms1p2new.samsung.com (unknown [182.195.42.42]) by
- epsmtrp1.samsung.com (KnoxPortal) with ESMTP id
- 20200103133100epsmtrp176dc4f79dacb1dcb472defec5142f6de~mY6B4qCjI1859918599epsmtrp1N;
- Fri,  3 Jan 2020 13:31:00 +0000 (GMT)
-X-AuditID: b6c32a4a-781ff70000014ee5-09-5e0f42144144
-Received: from epsmtip2.samsung.com ( [182.195.34.31]) by
- epsmgms1p2new.samsung.com (Symantec Messaging Gateway) with SMTP id
- C4.8A.06569.4124F0E5; Fri,  3 Jan 2020 22:31:00 +0900 (KST)
-Received: from sriramdash03 (unknown [107.111.85.29]) by
- epsmtip2.samsung.com (KnoxPortal) with ESMTPA id
- 20200103133056epsmtip21282c02fda30a33d35e1e18607224912~mY5_rLsKO0217902179epsmtip2k;
- Fri,  3 Jan 2020 13:30:56 +0000 (GMT)
-From: "Sriram Dash" <sriram.dash@samsung.com>
-To: "'kernelci.org bot'" <bot@kernelci.org>, <tomeu.vizoso@collabora.com>,
- <khilman@baylibre.com>, "'David S. Miller'" <davem@davemloft.net>,
- <mgalka@collabora.com>, <guillaume.tucker@collabora.com>,
- <broonie@kernel.org>, "'Jayati Sahu'" <jayati.sahu@samsung.com>,
- "'Padmanabhan Rajanbabu'" <p.rajanbabu@samsung.com>,
- <enric.balletbo@collabora.com>, <narmstrong@baylibre.com>
-In-Reply-To: <5e0314da.1c69fb81.a7d63.29c1@mx.google.com>
-Date: Fri, 3 Jan 2020 19:00:55 +0530
-Message-ID: <03ca01d5c23a$09921d00$1cb65700$@samsung.com>
-MIME-Version: 1.0
-X-Mailer: Microsoft Outlook 16.0
-Content-Language: en-in
-Thread-Index: AQHVkLQqlgs7zItKQK6JQygQi6mu7gG5ib8fp8uBzjA=
-X-Brightmail-Tracker: H4sIAAAAAAAAA02SaUwTURSF8zpLh8rgWCpcITFaJVEUEIPxucQVkwlq1Jj4Qw1SdQLIagfc
- 4oKKqI0WoxKlQaVKaiQiUssiKktxQQmoCChhMdW6UBeKK7jTDkT+fe/ec955J3kMocyk/ZjY
- xBRBm6iJV9MKsqRm4oQg1YLhkVO63gfgInsdwo2tVRTOstlpnPMwncSX26wIv/90gcC3H+TJ
- cOcvJ4X7Dlpk2PyyhcJPynNorGuxU/js7wIKZ3SekmOrfg2+m+uD7xStxOeLv8jx33fFCBse
- lVFYX9BIzxvJdz87IOfLOvIQb7nUKuOvGzrkvDn/MM3f7PLkr+Xt4fWWfMRXV4Tyr3pvEbyl
- 8jPiP5tHL/dcrZi9UYiP3SJoQ+ZEKWLq6/LlyZaZ24oKK8g0VByiQx4McGHQ2aJDOqRglNwN
- BMUfL8ilwycE5nYz6VIpuW8I9FfZQcfrL7UDjlsIch1naEnkQFB5ws00FwT1z/bRLpGK20uA
- zvRI7loQXAkBH4zrXOzBzYATXU63wZuLBFv3GXcayY2HbFuFW8/2a0prz9ESj4D72XZSumcS
- mIzvCOlFY6DvlYmS5r5wp++Ie67iZsKPp+fddYDby0Da2xYkGcKhwVFLSewNjnsWucR+0JWZ
- McBx8ET/ZiAgBU47jKTEc6GqKaefmf6wiVBYHiLlesHRn3aZawwcC4cylJI6ABxt1wZu9Ieq
- gjqZxDxU1n+VHUNjDUOaGYY0MwxpY/gflovIfDRKSBYTogVxWvLURGFrsKhJEFMTo4M3JCWY
- kfubBkaUIVPDEiviGKT2ZKPGDY9UUpot4vYEKwKGUKvYrSvYSCW7UbN9h6BNWqdNjRdEK/Jn
- SLUve5xqXqvkojUpQpwgJAvawa2M8fBLQ2Nipz8IKBpmC3sxRxaI+dzv4aWF8MHre02KuPNS
- hGlD49iakv1+x4UdhX9iFrcvvPKnur1x/HpFBPPzojM9qSHLdjIUrWx7Prs5blGPcfd8o3mZ
- Mrt7d9bm0lB2WbiPM1M133k3r+mez6pZK4J7R8zo9lerJvds0gQ93ryrfKlPeoWaFGM0oYGE
- VtT8AyBZk4WiAwAA
-X-Brightmail-Tracker: H4sIAAAAAAAAA+NgFvrCIsWRmVeSWpSXmKPExsWy7bCSvK6IE3+cwcd//BYbn5xmtLh08wCr
- xdSHT9gs5pxvYbFYc/sQo8WbT4uZLY6cWsJkce/PB1aLn+1bmCw2Pb7GanF51xw2i65rT1gt
- 5v1dy2rRdm86u8WhvmiLYwvELI5uDLZYtPULu8X/11sZLWZd2MFq0bf2EpuDqMf7G63sHjvu
- LmH02LLyJpPHzll32T02repk89jzksdj85J6j74tqxg9Du4z9Hj6Yy+zx5b9nxk9Pm+SC+CJ
- 4rJJSc3JLEst0rdL4Mr4ueohU8EKy4oD0/4xNTAu1Oti5OSQEDCRePblBGMXIxeHkMBuRonH
- R3axdTFyACWkJX7e1YWoEZZY+e85O0TNC0aJDY1PWEASbAK6EmdvNLGBJEQEupklfr/+zwSS
- YBbYxyxx4XQKREcXo8SKBY1gCU4BS4nJLz+wgdjCAjESp65cYAexWQRUJGY+3Adm8wLVbD8x
- nw3CFpQ4ORNiG7OAtsTTm0/h7GULXzNDnKcg8fPpMlaIuLjE0Z89YHERASuJX9cXsU9gFJ6F
- ZNQsJKNmIRk1C0n7AkaWVYySqQXFuem5xYYFRnmp5XrFibnFpXnpesn5uZsYwWlBS2sH44kT
- 8YcYBTgYlXh4E5T544RYE8uKK3MPMUpwMCuJ8JYH8sYJ8aYkVlalFuXHF5XmpBYfYpTmYFES
- 55XPPxYpJJCeWJKanZpakFoEk2Xi4JRqYJQKrdlW2VPy8VfUlqdntpw6WFdopxV30G3y1tsC
- xxvlLigvZbxv83UPC8fRNzbr5pZt9C6Z9mPRvrrv5fp5rS59Dj5/Xq1tLJ++7KnXCceer9Nz
- r+yV7k4yYH/jvY3jaFilbuS/c+Llux5uODz/zq44i5LjTOGPWeUiFCp9Pr77c/n6yleLvSco
- sRRnJBpqMRcVJwIAGq7YXAcDAAA=
-X-CMS-MailID: 20200103133100epcas5p49bc475820cb614412fb1044c61d6c6fe
-X-Msg-Generator: CA
-CMS-TYPE: 105P
-X-CMS-RootMailID: 20191225075056epcas4p2ab51fc6ff1642705a61f906189bb29f0
+ Fri, 03 Jan 2020 09:46:16 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20161025;
+ h=subject:to:cc:references:from:autocrypt:message-id:date:user-agent
+ :mime-version:in-reply-to:content-language:content-transfer-encoding;
+ bh=zT72xreIxe6i6mK/tG3rIOhTx/8pgQ1JvzEt0GmjgrU=;
+ b=ceq6sdHkbaX6JcTa+J4Mw4W/RDww8TLRkWJ2SR/o8XURq3zJGHOFvIucx2yv+YJIW5
+ DqAATm8goVkLvFPUhC05l5dPEaRaIcNxgSkON6EbVx4OQ0t6qqedfKdkUHnONaOnq9Ip
+ Nv2fOa8Im42qvzCcXo7JdAPHqsujmnYKxE9iRujgymqU6vqBgowTRUVt76hrMDH4Ovqz
+ qP9LE3rWT5xKbH2Xh2nfarXzK3i+UQg6DB22gHoLl7cK9ij2q/3nkON7YE5bLMxEiM9l
+ 1R+zbFQ4yAo+E/1Vnt/6/ASsInKTyOb3yFASAzCNbIQF1o4TbPFxWMno1NtFwD6aA+qj
+ 0+IQ==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20161025;
+ h=x-gm-message-state:subject:to:cc:references:from:autocrypt
+ :message-id:date:user-agent:mime-version:in-reply-to
+ :content-language:content-transfer-encoding;
+ bh=zT72xreIxe6i6mK/tG3rIOhTx/8pgQ1JvzEt0GmjgrU=;
+ b=O7VYurOvWfJ9a0cLDzh+lV11+u/R2i4NHmobq9n48n13Gm8SYkMMvvRp6a2h/QTbAS
+ sqqp8w9J1Xq9C1DV6IzKV81jBWkNo455+FIFtKhxLxoy0gEpvXscefuaUOnIZkA/Ipg7
+ 5h31bDqNjVjFZfphJCEbQu026WtIstC5h7QH6Lzodhp1CWI4NVQI0iACTGoAKcXYfWya
+ vmN523jo7A+sl04wVtbcEreIGruOlshBUV1AU2dbp1AREmRLPSJlKEuckq2UeVKVAIwj
+ gqt2TpkTOUSxSlBJj9h28j/FWb2D9n/9MEZP3Wf6Jr6fZbcSMfMAwbNL/xLXTlcgyyiv
+ Joyw==
+X-Gm-Message-State: APjAAAXYx5vap1VwOqwV3HBba+EstF1ySqhn0gGgFBRvAzbEK+zeBOfO
+ C3NSGIgalw565VuArBJ3zHk=
+X-Google-Smtp-Source: APXvYqzqK0WkNNukgCIbsCM0jqwpp2MckKJ3i/oMmyQ3hDkZ8PnccnENvC3hsNZOCY32Qdkm8pHR/w==
+X-Received: by 2002:a17:902:8d95:: with SMTP id
+ v21mr92483239plo.61.1578073575017; 
+ Fri, 03 Jan 2020 09:46:15 -0800 (PST)
+Received: from [10.67.50.49] ([192.19.223.252])
+ by smtp.googlemail.com with ESMTPSA id
+ p16sm52267570pfq.184.2020.01.03.09.46.13
+ (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+ Fri, 03 Jan 2020 09:46:14 -0800 (PST)
+To: Sriram Dash <sriram.dash@samsung.com>,
+ "'kernelci.org bot'" <bot@kernelci.org>, tomeu.vizoso@collabora.com,
+ khilman@baylibre.com, "'David S. Miller'" <davem@davemloft.net>,
+ mgalka@collabora.com, guillaume.tucker@collabora.com, broonie@kernel.org,
+ 'Jayati Sahu' <jayati.sahu@samsung.com>,
+ 'Padmanabhan Rajanbabu' <p.rajanbabu@samsung.com>,
+ enric.balletbo@collabora.com, narmstrong@baylibre.com
 References: <CGME20191225075056epcas4p2ab51fc6ff1642705a61f906189bb29f0@epcas4p2.samsung.com>
  <5e0314da.1c69fb81.a7d63.29c1@mx.google.com>
-X-Mailman-Approved-At: Fri, 03 Jan 2020 13:36:16 +0000
-Cc: 'Jose	Abreu' <Jose.Abreu@synopsys.com>, rcsekar@samsung.com,
+ <03ca01d5c23a$09921d00$1cb65700$@samsung.com>
+From: Florian Fainelli <f.fainelli@gmail.com>
+Autocrypt: addr=f.fainelli@gmail.com; prefer-encrypt=mutual; keydata=
+ xsDiBEjPuBIRBACW9MxSJU9fvEOCTnRNqG/13rAGsj+vJqontvoDSNxRgmafP8d3nesnqPyR
+ xGlkaOSDuu09rxuW+69Y2f1TzjFuGpBk4ysWOR85O2Nx8AJ6fYGCoeTbovrNlGT1M9obSFGQ
+ X3IzRnWoqlfudjTO5TKoqkbOgpYqIo5n1QbEjCCwCwCg3DOH/4ug2AUUlcIT9/l3pGvoRJ0E
+ AICDzi3l7pmC5IWn2n1mvP5247urtHFs/uusE827DDj3K8Upn2vYiOFMBhGsxAk6YKV6IP0d
+ ZdWX6fqkJJlu9cSDvWtO1hXeHIfQIE/xcqvlRH783KrihLcsmnBqOiS6rJDO2x1eAgC8meAX
+ SAgsrBhcgGl2Rl5gh/jkeA5ykwbxA/9u1eEuL70Qzt5APJmqVXR+kWvrqdBVPoUNy/tQ8mYc
+ nzJJ63ng3tHhnwHXZOu8hL4nqwlYHRa9eeglXYhBqja4ZvIvCEqSmEukfivk+DlIgVoOAJbh
+ qIWgvr3SIEuR6ayY3f5j0f2ejUMYlYYnKdiHXFlF9uXm1ELrb0YX4GMHz80nRmxvcmlhbiBG
+ YWluZWxsaSA8Zi5mYWluZWxsaUBnbWFpbC5jb20+wmYEExECACYCGyMGCwkIBwMCBBUCCAME
+ FgIDAQIeAQIXgAUCVF/S8QUJHlwd3wAKCRBhV5kVtWN2DvCVAJ4u4/bPF4P3jxb4qEY8I2gS
+ 6hG0gACffNWlqJ2T4wSSn+3o7CCZNd7SLSDOwU0EVxvH8AEQAOqv6agYuT4x3DgFIJNv9i0e
+ S443rCudGwmg+CbjXGA4RUe1bNdPHYgbbIaN8PFkXfb4jqg64SyU66FXJJJO+DmPK/t7dRNA
+ 3eMB1h0GbAHlLzsAzD0DKk1ARbjIusnc02aRQNsAUfceqH5fAMfs2hgXBa0ZUJ4bLly5zNbr
+ r0t/fqZsyI2rGQT9h1D5OYn4oF3KXpSpo+orJD93PEDeseho1EpmMfsVH7PxjVUlNVzmZ+tc
+ IDw24CDSXf0xxnaojoicQi7kzKpUrJodfhNXUnX2JAm/d0f9GR7zClpQMezJ2hYAX7BvBajb
+ Wbtzwi34s8lWGI121VjtQNt64mSqsK0iQAE6OYk0uuQbmMaxbBTT63+04rTPBO+gRAWZNDmQ
+ b2cTLjrOmdaiPGClSlKx1RhatzW7j1gnUbpfUl91Xzrp6/Rr9BgAZydBE/iu57KWsdMaqu84
+ JzO9UBGomh9eyBWBkrBt+Fe1qN78kM7JO6i3/QI56NA4SflV+N4PPgI8TjDVaxgrfUTV0gVa
+ cr9gDE5VgnSeSiOleChM1jOByZu0JTShOkT6AcSVW0kCz3fUrd4e5sS3J3uJezSvXjYDZ53k
+ +0GS/Hy//7PSvDbNVretLkDWL24Sgxu/v8i3JiYIxe+F5Br8QpkwNa1tm7FK4jOd95xvYADl
+ BUI1EZMCPI7zABEBAAHCwagEGBECAAkFAlcbx/ACGwICKQkQYVeZFbVjdg7BXSAEGQECAAYF
+ Alcbx/AACgkQh9CWnEQHBwSJBw//Z5n6IO19mVzMy/ZLU/vu8flv0Aa0kwk5qvDyvuvfiDTd
+ WQzq2PLs+obX0y1ffntluhvP+8yLzg7h5O6/skOfOV26ZYD9FeV3PIgR3QYF26p2Ocwa3B/k
+ P6ENkk2pRL2hh6jaA1Bsi0P34iqC2UzzLq+exctXPa07ioknTIJ09BT31lQ36Udg7NIKalnj
+ 5UbkRjqApZ+Rp0RAP9jFtq1n/gjvZGyEfuuo/G+EVCaiCt3Vp/cWxDYf2qsX6JxkwmUNswuL
+ C3duQ0AOMNYrT6Pn+Vf0kMboZ5UJEzgnSe2/5m8v6TUc9ZbC5I517niyC4+4DY8E2m2V2LS9
+ es9uKpA0yNcd4PfEf8bp29/30MEfBWOf80b1yaubrP5y7yLzplcGRZMF3PgBfi0iGo6kM/V2
+ 13iD/wQ45QTV0WTXaHVbklOdRDXDHIpT69hFJ6hAKnnM7AhqZ70Qi31UHkma9i/TeLLzYYXz
+ zhLHGIYaR04dFT8sSKTwTSqvm8rmDzMpN54/NeDSoSJitDuIE8givW/oGQFb0HGAF70qLgp0
+ 2XiUazRyRU4E4LuhNHGsUxoHOc80B3l+u3jM6xqJht2ZyMZndbAG4LyVA2g9hq2JbpX8BlsF
+ skzW1kbzIoIVXT5EhelxYEGqLFsZFdDhCy8tjePOWK069lKuuFSssaZ3C4edHtkZ8gCfWWtA
+ 8dMsqeOIg9Trx7ZBCDOZGNAAnjYQmSb2eYOAti3PX3Ex7vI8ZhJCzsNNBEjPuBIQEAC/6NPW
+ 6EfQ91ZNU7e/oKWK91kOoYGFTjfdOatp3RKANidHUMSTUcN7J2mxww80AQHKjr3Yu2InXwVX
+ SotMMR4UrkQX7jqabqXV5G+88bj0Lkr3gi6qmVkUPgnNkIBe0gaoM523ujYKLreal2OQ3GoJ
+ PS6hTRoSUM1BhwLCLIWqdX9AdT6FMlDXhCJ1ffA/F3f3nTN5oTvZ0aVF0SvQb7eIhGVFxrlb
+ WS0+dpyulr9hGdU4kzoqmZX9T/r8WCwcfXipmmz3Zt8o2pYWPMq9Utby9IEgPwultaP06MHY
+ nhda1jfzGB5ZKco/XEaXNvNYADtAD91dRtNGMwRHWMotIGiWwhEJ6vFc9bw1xcR88oYBs+7p
+ gbFSpmMGYAPA66wdDKGj9+cLhkd0SXGht9AJyaRA5AWB85yNmqcXXLkzzh2chIpSEawRsw8B
+ rQIZXc5QaAcBN2dzGN9UzqQArtWaTTjMrGesYhN+aVpMHNCmJuISQORhX5lkjeg54oplt6Zn
+ QyIsOCH3MfG95ha0TgWwyFtdxOdY/UY2zv5wGivZ3WeS0TtQf/BcGre2y85rAohFziWOzTaS
+ BKZKDaBFHwnGcJi61Pnjkz82hena8OmsnsBIucsz4N0wE+hVd6AbDYN8ZcFNIDyt7+oGD1+c
+ PfqLz2df6qjXzq27BBUboklbGUObNwADBQ//V45Z51Q4fRl/6/+oY5q+FPbRLDPlUF2lV6mb
+ hymkpqIzi1Aj/2FUKOyImGjbLAkuBQj3uMqy+BSSXyQLG3sg8pDDe8AJwXDpG2fQTyTzQm6l
+ OnaMCzosvALk2EOPJryMkOCI52+hk67cSFA0HjgTbkAv4Mssd52y/5VZR28a+LW+mJIZDurI
+ Y14UIe50G99xYxjuD1lNdTa/Yv6qFfEAqNdjEBKNuOEUQOlTLndOsvxOOPa1mRUk8Bqm9BUt
+ LHk3GDb8bfDwdos1/h2QPEi+eI+O/bm8YX7qE7uZ13bRWBY+S4+cd+Cyj8ezKYAJo9B+0g4a
+ RVhdhc3AtW44lvZo1h2iml9twMLfewKkGV3oG35CcF9mOd7n6vDad3teeNpYd/5qYhkopQrG
+ k2oRBqxyvpSLrJepsyaIpfrt5NNaH7yTCtGXcxlGf2jzGdei6H4xQPjDcVq2Ra5GJohnb/ix
+ uOc0pWciL80ohtpSspLlWoPiIowiKJu/D/Y0bQdatUOZcGadkywCZc/dg5hcAYNYchc8AwA4
+ 2dp6w8SlIsm1yIGafWlNnfvqbRBglSTnxFuKqVggiz2zk+1wa/oP+B96lm7N4/3Aw6uy7lWC
+ HvsHIcv4lxCWkFXkwsuWqzEKK6kxVpRDoEQPDj+Oy/ZJ5fYuMbkdHrlegwoQ64LrqdmiVVPC
+ TwQYEQIADwIbDAUCVF/S8QUJHlwd3wAKCRBhV5kVtWN2Do+FAJ956xSz2XpDHql+Wg/2qv3b
+ G10n8gCguORqNGMsVRxrlLs7/himep7MrCc=
+Message-ID: <1c3531f8-7ae2-209d-b6ed-1c89bd9f2bb6@gmail.com>
+Date: Fri, 3 Jan 2020 09:46:10 -0800
+User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:68.0) Gecko/20100101
+ Thunderbird/68.2.2
+MIME-Version: 1.0
+In-Reply-To: <03ca01d5c23a$09921d00$1cb65700$@samsung.com>
+Content-Language: en-US
+Cc: 'Jose Abreu' <Jose.Abreu@synopsys.com>, rcsekar@samsung.com,
  netdev@vger.kernel.org, linux-kernel@vger.kernel.org,
- "'David S. Miller'" <davem@davemloft.net>,
  'Maxime Coquelin' <mcoquelin.stm32@gmail.com>, pankaj.dubey@samsung.com,
  'Giuseppe Cavallaro' <peppe.cavallaro@st.com>,
  linux-stm32@st-md-mailman.stormreply.com, linux-arm-kernel@lists.infradead.org
@@ -125,162 +145,176 @@ Content-Transfer-Encoding: 7bit
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
-> From: kernelci.org bot <bot@kernelci.org>
-> Subject: broonie-regmap/for-next bisection: boot on ox820-cloudengines-
-> pogoplug-series-3
+On 1/3/20 5:30 AM, Sriram Dash wrote:
+>> From: kernelci.org bot <bot@kernelci.org>
+>> Subject: broonie-regmap/for-next bisection: boot on ox820-cloudengines-
+>> pogoplug-series-3
+>>
+>> * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * *
+>> * This automated bisection report was sent to you on the basis  *
+>> * that you may be involved with the breaking commit it has      *
+>> * found.  No manual investigation has been done to verify it,   *
+>> * and the root cause of the problem may be somewhere else.      *
+>> *                                                               *
+>> * If you do send a fix, please include this trailer:            *
+>> *   Reported-by: "kernelci.org bot" <bot@kernelci.org>          *
+>> *                                                               *
+>> * Hope this helps!                                              *
+>> * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * *
+>>
+>> broonie-regmap/for-next bisection: boot on ox820-cloudengines-pogoplug-
+>> series-3
+>>
+>> Summary:
+>>   Start:      46cf053efec6 Linux 5.5-rc3
+>>   Details:    https://protect2.fireeye.com/url?k=36fb52ed-6b2b5a21-36fad9a2-
+>> 000babff3793-
+>> f64e7c227e0a8b34&u=https://kernelci.org/boot/id/5e02ce65451524462f9731
+>> 4f
+>>   Plain log:  https://protect2.fireeye.com/url?k=58f5fc3b-0525f4f7-58f47774-
+>> 000babff3793-f96a18481add0d7f&u=https://storage.kernelci.org//broonie-
+>> regmap/for-next/v5.5-rc3/arm/oxnas_v6_defconfig/gcc-8/lab-
+>> baylibre/boot-ox820-cloudengines-pogoplug-series-3.txt
+>>   HTML log:   https://protect2.fireeye.com/url?k=eaed2629-b73d2ee5-
+>> eaecad66-000babff3793-
+>> 84ba1e41025b4f73&u=https://storage.kernelci.org//broonie-regmap/for-
+>> next/v5.5-rc3/arm/oxnas_v6_defconfig/gcc-8/lab-baylibre/boot-ox820-
+>> cloudengines-pogoplug-series-3.html
+>>   Result:     d3e014ec7d5e net: stmmac: platform: Fix MDIO init for platforms
+>> without PHY
+>>
+>> Checks:
+>>   revert:     PASS
+>>   verify:     PASS
+>>
+>> Parameters:
+>>   Tree:       broonie-regmap
+>>   URL:
+>> https://git.kernel.org/pub/scm/linux/kernel/git/broonie/regmap.git
+>>   Branch:     for-next
+>>   Target:     ox820-cloudengines-pogoplug-series-3
+>>   CPU arch:   arm
+>>   Lab:        lab-baylibre
+>>   Compiler:   gcc-8
+>>   Config:     oxnas_v6_defconfig
+>>   Test suite: boot
+>>
+>> Breaking commit found:
+>>
+>> -------------------------------------------------------------------------------
+>> commit d3e014ec7d5ebe9644b5486bc530b91e62bbf624
+>> Author: Padmanabhan Rajanbabu <p.rajanbabu@samsung.com>
+>> Date:   Thu Dec 19 15:47:01 2019 +0530
+>>
+>>     net: stmmac: platform: Fix MDIO init for platforms without PHY
+>>
+>>     The current implementation of "stmmac_dt_phy" function initializes
+>>     the MDIO platform bus data, even in the absence of PHY. This fix
+>>     will skip MDIO initialization if there is no PHY present.
+>>
+>>     Fixes: 7437127 ("net: stmmac: Convert to phylink and remove phylib logic")
+>>     Acked-by: Jayati Sahu <jayati.sahu@samsung.com>
+>>     Signed-off-by: Sriram Dash <sriram.dash@samsung.com>
+>>     Signed-off-by: Padmanabhan Rajanbabu <p.rajanbabu@samsung.com>
+>>     Signed-off-by: David S. Miller <davem@davemloft.net>
+>>
+>> diff --git a/drivers/net/ethernet/stmicro/stmmac/stmmac_platform.c
+>> b/drivers/net/ethernet/stmicro/stmmac/stmmac_platform.c
+>> index bedaff0c13bd..cc8d7e7bf9ac 100644
+>> --- a/drivers/net/ethernet/stmicro/stmmac/stmmac_platform.c
+>> +++ b/drivers/net/ethernet/stmicro/stmmac/stmmac_platform.c
+>> @@ -320,7 +320,7 @@ static int stmmac_mtl_setup(struct platform_device
+>> *pdev,  static int stmmac_dt_phy(struct plat_stmmacenet_data *plat,
+>>  			 struct device_node *np, struct device *dev)  {
+>> -	bool mdio = true;
+>> +	bool mdio = false;
+>>  	static const struct of_device_id need_mdio_ids[] = {
+>>  		{ .compatible = "snps,dwc-qos-ethernet-4.10" },
+>>  		{},
+>> -------------------------------------------------------------------------------
+>>
+>>
+>> Git bisection log:
+>>
+>> -------------------------------------------------------------------------------
+>> git bisect start
+>> # good: [e42617b825f8073569da76dc4510bfa019b1c35a] Linux 5.5-rc1 git
+>> bisect good e42617b825f8073569da76dc4510bfa019b1c35a
+>> # bad: [46cf053efec6a3a5f343fead837777efe8252a46] Linux 5.5-rc3 git bisect
+>> bad 46cf053efec6a3a5f343fead837777efe8252a46
+>> # good: [2187f215ebaac73ddbd814696d7c7fa34f0c3de0] Merge tag 'for-5.5-
+>> rc2-tag' of git://git.kernel.org/pub/scm/linux/kernel/git/kdave/linux
+>> git bisect good 2187f215ebaac73ddbd814696d7c7fa34f0c3de0
+>> # good: [0dd1e3773ae8afc4bfdce782bdeffc10f9cae6ec] pipe: fix empty pipe
+>> check in pipe_write() git bisect good
+>> 0dd1e3773ae8afc4bfdce782bdeffc10f9cae6ec
+>> # good: [040cda8a15210f19da7e29232c897ca6ca6cc950] Merge tag 'wireless-
+>> drivers-2019-12-17' of
+>> git://git.kernel.org/pub/scm/linux/kernel/git/kvalo/wireless-drivers
+>> git bisect good 040cda8a15210f19da7e29232c897ca6ca6cc950
+>> # bad: [4bfeadfc0712bbc8a6556eef6d47cbae1099dea3] Merge branch 'sfc-
+>> fix-bugs-introduced-by-XDP-patches'
+>> git bisect bad 4bfeadfc0712bbc8a6556eef6d47cbae1099dea3
+>> # good: [0fd260056ef84ede8f444c66a3820811691fe884] Merge
+>> git://git.kernel.org/pub/scm/linux/kernel/git/bpf/bpf
+>> git bisect good 0fd260056ef84ede8f444c66a3820811691fe884
+>> # good: [90b3b339364c76baa2436445401ea9ade040c216] net: hisilicon: Fix a
+>> BUG trigered by wrong bytes_compl git bisect good
+>> 90b3b339364c76baa2436445401ea9ade040c216
+>> # bad: [4c8dc00503db24deaf0b89dddfa84b7cba7cd4ce] qede: Disable
+>> hardware gro when xdp prog is installed git bisect bad
+>> 4c8dc00503db24deaf0b89dddfa84b7cba7cd4ce
+>> # bad: [28a3b8408f70b646e78880a7eb0a97c22ace98d1] net/smc: unregister
+>> ib devices in reboot_event git bisect bad
+>> 28a3b8408f70b646e78880a7eb0a97c22ace98d1
+>> # bad: [d3e014ec7d5ebe9644b5486bc530b91e62bbf624] net: stmmac:
+>> platform: Fix MDIO init for platforms without PHY git bisect bad
+>> d3e014ec7d5ebe9644b5486bc530b91e62bbf624
+>> # good: [af1c0e4e00f3cc76cb136ebf2e2c04e8b6446285] llc2: Fix return
+>> statement of llc_stat_ev_rx_null_dsap_xid_c (and _test_c) git bisect good
+>> af1c0e4e00f3cc76cb136ebf2e2c04e8b6446285
+>> # first bad commit: [d3e014ec7d5ebe9644b5486bc530b91e62bbf624] net:
+>> stmmac: platform: Fix MDIO init for platforms without PHY
+>> -------------------------------------------------------------------------------
 > 
-> * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * *
-> * This automated bisection report was sent to you on the basis  *
-> * that you may be involved with the breaking commit it has      *
-> * found.  No manual investigation has been done to verify it,   *
-> * and the root cause of the problem may be somewhere else.      *
-> *                                                               *
-> * If you do send a fix, please include this trailer:            *
-> *   Reported-by: "kernelci.org bot" <bot@kernelci.org>          *
-> *                                                               *
-> * Hope this helps!                                              *
-> * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * *
 > 
-> broonie-regmap/for-next bisection: boot on ox820-cloudengines-pogoplug-
-> series-3
-> 
-> Summary:
->   Start:      46cf053efec6 Linux 5.5-rc3
->   Details:    https://protect2.fireeye.com/url?k=36fb52ed-6b2b5a21-36fad9a2-
-> 000babff3793-
-> f64e7c227e0a8b34&u=https://kernelci.org/boot/id/5e02ce65451524462f9731
-> 4f
->   Plain log:  https://protect2.fireeye.com/url?k=58f5fc3b-0525f4f7-58f47774-
-> 000babff3793-f96a18481add0d7f&u=https://storage.kernelci.org//broonie-
-> regmap/for-next/v5.5-rc3/arm/oxnas_v6_defconfig/gcc-8/lab-
-> baylibre/boot-ox820-cloudengines-pogoplug-series-3.txt
->   HTML log:   https://protect2.fireeye.com/url?k=eaed2629-b73d2ee5-
-> eaecad66-000babff3793-
-> 84ba1e41025b4f73&u=https://storage.kernelci.org//broonie-regmap/for-
-> next/v5.5-rc3/arm/oxnas_v6_defconfig/gcc-8/lab-baylibre/boot-ox820-
-> cloudengines-pogoplug-series-3.html
->   Result:     d3e014ec7d5e net: stmmac: platform: Fix MDIO init for platforms
-> without PHY
-> 
-> Checks:
->   revert:     PASS
->   verify:     PASS
-> 
-> Parameters:
->   Tree:       broonie-regmap
->   URL:
-> https://git.kernel.org/pub/scm/linux/kernel/git/broonie/regmap.git
->   Branch:     for-next
->   Target:     ox820-cloudengines-pogoplug-series-3
->   CPU arch:   arm
->   Lab:        lab-baylibre
->   Compiler:   gcc-8
->   Config:     oxnas_v6_defconfig
->   Test suite: boot
-> 
-> Breaking commit found:
-> 
-> -------------------------------------------------------------------------------
-> commit d3e014ec7d5ebe9644b5486bc530b91e62bbf624
-> Author: Padmanabhan Rajanbabu <p.rajanbabu@samsung.com>
-> Date:   Thu Dec 19 15:47:01 2019 +0530
-> 
->     net: stmmac: platform: Fix MDIO init for platforms without PHY
-> 
->     The current implementation of "stmmac_dt_phy" function initializes
->     the MDIO platform bus data, even in the absence of PHY. This fix
->     will skip MDIO initialization if there is no PHY present.
-> 
->     Fixes: 7437127 ("net: stmmac: Convert to phylink and remove phylib logic")
->     Acked-by: Jayati Sahu <jayati.sahu@samsung.com>
->     Signed-off-by: Sriram Dash <sriram.dash@samsung.com>
->     Signed-off-by: Padmanabhan Rajanbabu <p.rajanbabu@samsung.com>
->     Signed-off-by: David S. Miller <davem@davemloft.net>
-> 
-> diff --git a/drivers/net/ethernet/stmicro/stmmac/stmmac_platform.c
-> b/drivers/net/ethernet/stmicro/stmmac/stmmac_platform.c
-> index bedaff0c13bd..cc8d7e7bf9ac 100644
-> --- a/drivers/net/ethernet/stmicro/stmmac/stmmac_platform.c
-> +++ b/drivers/net/ethernet/stmicro/stmmac/stmmac_platform.c
-> @@ -320,7 +320,7 @@ static int stmmac_mtl_setup(struct platform_device
-> *pdev,  static int stmmac_dt_phy(struct plat_stmmacenet_data *plat,
->  			 struct device_node *np, struct device *dev)  {
-> -	bool mdio = true;
-> +	bool mdio = false;
->  	static const struct of_device_id need_mdio_ids[] = {
->  		{ .compatible = "snps,dwc-qos-ethernet-4.10" },
->  		{},
-> -------------------------------------------------------------------------------
-> 
-> 
-> Git bisection log:
-> 
-> -------------------------------------------------------------------------------
-> git bisect start
-> # good: [e42617b825f8073569da76dc4510bfa019b1c35a] Linux 5.5-rc1 git
-> bisect good e42617b825f8073569da76dc4510bfa019b1c35a
-> # bad: [46cf053efec6a3a5f343fead837777efe8252a46] Linux 5.5-rc3 git bisect
-> bad 46cf053efec6a3a5f343fead837777efe8252a46
-> # good: [2187f215ebaac73ddbd814696d7c7fa34f0c3de0] Merge tag 'for-5.5-
-> rc2-tag' of git://git.kernel.org/pub/scm/linux/kernel/git/kdave/linux
-> git bisect good 2187f215ebaac73ddbd814696d7c7fa34f0c3de0
-> # good: [0dd1e3773ae8afc4bfdce782bdeffc10f9cae6ec] pipe: fix empty pipe
-> check in pipe_write() git bisect good
-> 0dd1e3773ae8afc4bfdce782bdeffc10f9cae6ec
-> # good: [040cda8a15210f19da7e29232c897ca6ca6cc950] Merge tag 'wireless-
-> drivers-2019-12-17' of
-> git://git.kernel.org/pub/scm/linux/kernel/git/kvalo/wireless-drivers
-> git bisect good 040cda8a15210f19da7e29232c897ca6ca6cc950
-> # bad: [4bfeadfc0712bbc8a6556eef6d47cbae1099dea3] Merge branch 'sfc-
-> fix-bugs-introduced-by-XDP-patches'
-> git bisect bad 4bfeadfc0712bbc8a6556eef6d47cbae1099dea3
-> # good: [0fd260056ef84ede8f444c66a3820811691fe884] Merge
-> git://git.kernel.org/pub/scm/linux/kernel/git/bpf/bpf
-> git bisect good 0fd260056ef84ede8f444c66a3820811691fe884
-> # good: [90b3b339364c76baa2436445401ea9ade040c216] net: hisilicon: Fix a
-> BUG trigered by wrong bytes_compl git bisect good
-> 90b3b339364c76baa2436445401ea9ade040c216
-> # bad: [4c8dc00503db24deaf0b89dddfa84b7cba7cd4ce] qede: Disable
-> hardware gro when xdp prog is installed git bisect bad
-> 4c8dc00503db24deaf0b89dddfa84b7cba7cd4ce
-> # bad: [28a3b8408f70b646e78880a7eb0a97c22ace98d1] net/smc: unregister
-> ib devices in reboot_event git bisect bad
-> 28a3b8408f70b646e78880a7eb0a97c22ace98d1
-> # bad: [d3e014ec7d5ebe9644b5486bc530b91e62bbf624] net: stmmac:
-> platform: Fix MDIO init for platforms without PHY git bisect bad
-> d3e014ec7d5ebe9644b5486bc530b91e62bbf624
-> # good: [af1c0e4e00f3cc76cb136ebf2e2c04e8b6446285] llc2: Fix return
-> statement of llc_stat_ev_rx_null_dsap_xid_c (and _test_c) git bisect good
-> af1c0e4e00f3cc76cb136ebf2e2c04e8b6446285
-> # first bad commit: [d3e014ec7d5ebe9644b5486bc530b91e62bbf624] net:
-> stmmac: platform: Fix MDIO init for platforms without PHY
-> -------------------------------------------------------------------------------
+> The mdio bus will be allocated in case of a phy transceiver is on board, but if
+> fixed-link is configured, it will be NULL and of_mdiobus_register will
+> not take effect.
+
+There appears to be another possible flaw in the code here:
+
+                for_each_child_of_node(np, plat->mdio_node) {
+                        if (of_device_is_compatible(plat->mdio_node,
+                                                    "snps,dwmac-mdio"))
+                                break;
+                }
+
+the loop should use for_each_available_child_of_node() such that if a
+platform has a Device Tree definition where the MDIO bus node was
+provided but it was not disabled by default (a mistake, it should be
+disabled by default), and a "fixed-link" property ended up being used at
+the board level, we should not end-up with an invalid plat->mdio_node
+reference. Then the code could possibly eliminate the use of 'mdio' as a
+boolean and rely exclusively on plat->mdio_node. What do you think?
+
+And an alternative to your fix would be to scan even further the MDIO
+bus node for available child nodes, if there are none, do not perform
+the MDIO initialization at all since we have no MDIO devices beneath.
 
 
-The mdio bus will be allocated in case of a phy transceiver is on board, but if
-fixed-link is configured, it will be NULL and of_mdiobus_register will
-not take effect.
-The commit d3e014ec7d5e fixes the code for fixed-link configuration.
-However, some platforms like oxnas820 which have phy
-transceivers (rgmii), fail. This is because the platforms expect the allocation
-of mdio_bus_data during stmmac_dt_phy. 
+> The commit d3e014ec7d5e fixes the code for fixed-link configuration.
+> However, some platforms like oxnas820 which have phy
+> transceivers (rgmii), fail. This is because the platforms expect the allocation
+> of mdio_bus_data during stmmac_dt_phy. 
+> 
+> Proper solution to this is adding the mdio node in the device tree of the
+> platform which can be fetched by stmmac_dt_phy.
 
-Proper solution to this is adding the mdio node in the device tree of the
-platform which can be fetched by stmmac_dt_phy.
-
-A rough addition to the Ethernet node can be as follows:
-
-
-        pinctrl-names = "default";
-        pinctrl-0 = <&pinctrl_etha_mdio>;
-+       mdio {
-+               compatible = "snps,dwmac-mdio";
-+               #address-cells = <1>;
-+               #size-cells = <0>;
-+       };
- };
-
-
+That sounds reasonable, but we should also not break existing platforms
+with existing Device Trees out there, as much as possible.
+-- 
+Florian
 _______________________________________________
 Linux-stm32 mailing list
 Linux-stm32@st-md-mailman.stormreply.com
