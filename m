@@ -2,131 +2,65 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id 63BE9130FC4
-	for <lists+linux-stm32@lfdr.de>; Mon,  6 Jan 2020 10:54:02 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 32380131086
+	for <lists+linux-stm32@lfdr.de>; Mon,  6 Jan 2020 11:25:27 +0100 (CET)
 Received: from ip-172-31-3-76.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id D998EC36B0B;
-	Mon,  6 Jan 2020 09:54:01 +0000 (UTC)
-Received: from esa3.microchip.iphmx.com (esa3.microchip.iphmx.com
- [68.232.153.233])
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id D03A1C36B0B;
+	Mon,  6 Jan 2020 10:25:26 +0000 (UTC)
+Received: from mx07-00178001.pphosted.com (mx07-00178001.pphosted.com
+ [62.209.51.94])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 240BDC36B09
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id C9F3FC36B09
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Mon,  6 Jan 2020 09:53:58 +0000 (UTC)
-Received-SPF: Pass (esa3.microchip.iphmx.com: domain of
- Claudiu.Beznea@microchip.com designates 198.175.253.82 as
- permitted sender) identity=mailfrom;
- client-ip=198.175.253.82; receiver=esa3.microchip.iphmx.com;
- envelope-from="Claudiu.Beznea@microchip.com";
- x-sender="Claudiu.Beznea@microchip.com";
- x-conformance=spf_only; x-record-type="v=spf1";
- x-record-text="v=spf1 mx a:ushub1.microchip.com
- a:smtpout.microchip.com -exists:%{i}.spf.microchip.iphmx.com
- include:servers.mcsv.net include:mktomail.com
- include:spf.protection.outlook.com ~all"
-Received-SPF: None (esa3.microchip.iphmx.com: no sender
- authenticity information available from domain of
- postmaster@email.microchip.com) identity=helo;
- client-ip=198.175.253.82; receiver=esa3.microchip.iphmx.com;
- envelope-from="Claudiu.Beznea@microchip.com";
- x-sender="postmaster@email.microchip.com"; x-conformance=spf_only
-Authentication-Results: esa3.microchip.iphmx.com;
- spf=Pass smtp.mailfrom=Claudiu.Beznea@microchip.com;
- spf=None smtp.helo=postmaster@email.microchip.com;
- dkim=pass (signature verified) header.i=@microchiptechnology.onmicrosoft.com;
- dmarc=pass (p=none dis=none) d=microchip.com
-IronPort-SDR: zRYaw4MeO4BFWFLdqJXvUY4C8JTd6rsGJCwIJ8YlLTugfq0JmWZaPogmdcwBHuWUZ++ko7DEGD
- BJJGNFA57Sl79e73vBQSMa6SCMiY4i9i91fTHYXugjtElNw5uB78HquFSr8yexIUHXrkYEksaY
- YvegeIvKQ+aitDPClbUEfrYNlhUCrbKtKUrmTH155eMDQljBsWiXKOrNC3/Ri4FJfVnyTjtadA
- KYRORygrteaJ/5RBN6OIwm3rcfgKZiqIdTgpy7okIqMBSSt1X2VAIhDb3/zWQobDcwsmUwkdp+
- GYk=
-X-IronPort-AV: E=Sophos;i="5.69,402,1571727600"; d="scan'208";a="62304574"
-Received: from smtpout.microchip.com (HELO email.microchip.com)
- ([198.175.253.82])
- by esa3.microchip.iphmx.com with ESMTP/TLS/AES256-SHA256;
- 06 Jan 2020 02:53:56 -0700
-Received: from chn-vm-ex03.mchp-main.com (10.10.85.151) by
- chn-vm-ex04.mchp-main.com (10.10.85.152) with Microsoft SMTP Server
- (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
- 15.1.1713.5; Mon, 6 Jan 2020 02:53:55 -0700
-Received: from NAM12-BN8-obe.outbound.protection.outlook.com (10.10.215.89) by
- email.microchip.com (10.10.87.152) with Microsoft SMTP Server
- (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.1713.5
- via Frontend Transport; Mon, 6 Jan 2020 02:53:55 -0700
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=M6+sOCUNgE+sv79pOH7kUbSG9qURMPA1dAm5fxhtIfOdllB7j8oOQUXuq4UVPDH3K6kyZ84lRz2s5YVfeQPPQR8QIQAY9l+Ux86ST8Ct7iVL2dLyLxKY1quJKVFTo6ttkmzgQqo8Rp6PMu7N3ufe+8TD6KoaKS5ZreGOxG9UjmMgx6DzVWKJyCzr77teNi69BbgzQ4/mno0VE+/lJinyVtU2IdF43ljxiOADQjJhBzRQnhSD3iQW5miSz5gXILRA4kehDRaXYzW72mH6WNSGuFpEk6wB3le/4EYQgiByvjr54XzOdeu/T8wDVRlgVZTKMjyzx/Ru0Pn2YoQfdbhfZg==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
- s=arcselector9901;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=+gm1Br1CHUtUOfgm+A45dSW91JgI1NL3xTYIa8s1JGo=;
- b=a0U49dyvkiMBMRgGGE00g5gvxs8k7jlVrAdhhlRinlVULsPnQTDXEguRKZkL1KONA7HTvyN9sn/J83CUm84GhGAwQqDWutNz3BkFQ/KixS3MWq7dN5sOZe3OFL4HllS4IkrpAF9PWZ0fDZ43P7KjqsAIF8g1wGNA3DOpWnesICVwV05CRTk9bHmguTgrVdu6T5Wu9l/k3NzEjYfH7GZvQblk1lME19wIAxCxMcnN8ggPNXUB4NBD/WciEaOfVoDvvwCgGZmv7kfVy6TkePwvynMC6j+dFeESgb9rPag5Wzi+Oi1QXVdcPdC5CCOkOPxGCy1biZatXK9+TOydK+Qfrw==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=microchip.com; dmarc=pass action=none
- header.from=microchip.com; dkim=pass header.d=microchip.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=microchiptechnology.onmicrosoft.com;
- s=selector2-microchiptechnology-onmicrosoft-com;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=+gm1Br1CHUtUOfgm+A45dSW91JgI1NL3xTYIa8s1JGo=;
- b=ObK9NWuOUA2Ra5xdx/mS3cPhEFFH1X0iYxOt9W+7P5FUopxHqJOk0L7ZjvI1nKqNtyOBL8UGJvMnC+AwMskDCxkQ+RH7pvnpXckbg+aKZomFbpBhTEyJ7weDynWu1hszOHfmSZZ5TjRssoZBKQDThbIM5FWS/nyb61QnU6pZjyU=
-Received: from DM6PR11MB3225.namprd11.prod.outlook.com (20.176.120.224) by
- DM6PR11MB3868.namprd11.prod.outlook.com (10.255.61.13) with Microsoft SMTP
- Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.20.2602.10; Mon, 6 Jan 2020 09:53:53 +0000
-Received: from DM6PR11MB3225.namprd11.prod.outlook.com
- ([fe80::106f:424f:ac54:1dbb]) by DM6PR11MB3225.namprd11.prod.outlook.com
- ([fe80::106f:424f:ac54:1dbb%7]) with mapi id 15.20.2602.015; Mon, 6 Jan 2020
- 09:53:53 +0000
-From: <Claudiu.Beznea@microchip.com>
-To: <krzk@kernel.org>, <thierry.reding@gmail.com>,
- <u.kleine-koenig@pengutronix.de>, <linux-pwm@vger.kernel.org>,
- <linux-kernel@vger.kernel.org>, <linux-arm-kernel@lists.infradead.org>,
- <bcm-kernel-feedback-list@broadcom.com>,
- <linux-rpi-kernel@lists.infradead.org>, <linux-amlogic@lists.infradead.org>,
- <linux-mediatek@lists.infradead.org>, <linux-rockchip@lists.infradead.org>,
- <linux-riscv@lists.infradead.org>,
- <linux-stm32@st-md-mailman.stormreply.com>, <linux-tegra@vger.kernel.org>
-Thread-Topic: [PATCH 2/2] pwm: Enable compile testing for some of drivers
-Thread-Index: AQHVxHc0gN2UoP7Gc0Ocsx6/BxJUcA==
-Date: Mon, 6 Jan 2020 09:53:53 +0000
-Message-ID: <145f61f5-941b-d0f4-7abd-33ce7f005fca@microchip.com>
-References: <20191230172113.17222-1-krzk@kernel.org>
- <20191230172113.17222-2-krzk@kernel.org>
-In-Reply-To: <20191230172113.17222-2-krzk@kernel.org>
-Accept-Language: en-US
-Content-Language: en-US
-X-MS-Has-Attach: 
-X-MS-TNEF-Correlator: 
-x-originating-ip: [94.177.32.156]
-x-ms-publictraffictype: Email
-x-ms-office365-filtering-correlation-id: cd98d837-f71d-4669-e076-08d7928e56fe
-x-ms-traffictypediagnostic: DM6PR11MB3868:
-x-microsoft-antispam-prvs: <DM6PR11MB386839E19F8AE22C56AED43D873C0@DM6PR11MB3868.namprd11.prod.outlook.com>
-x-ms-oob-tlc-oobclassifiers: OLM:5516;
-x-forefront-prvs: 0274272F87
-x-forefront-antispam-report: SFV:NSPM;
- SFS:(10009020)(396003)(346002)(376002)(39860400002)(136003)(366004)(189003)(199004)(66476007)(478600001)(66556008)(64756008)(8676002)(2616005)(66446008)(31686004)(6506007)(66946007)(53546011)(91956017)(76116006)(26005)(186003)(71200400001)(7416002)(110136005)(316002)(6486002)(8936002)(2906002)(558084003)(86362001)(5660300002)(6512007)(31696002)(36756003)(81156014)(81166006)(921003)(1121003);
- DIR:OUT; SFP:1101; SCL:1; SRVR:DM6PR11MB3868;
- H:DM6PR11MB3225.namprd11.prod.outlook.com; FPR:; SPF:None; LANG:en;
- PTR:InfoNoRecords; MX:1; A:1; 
-received-spf: None (protection.outlook.com: microchip.com does not designate
- permitted sender hosts)
-x-ms-exchange-senderadcheck: 1
-x-microsoft-antispam: BCL:0;
-x-microsoft-antispam-message-info: wOMKXiNGziR8dv9gol0oOsf6AU3jg0EgTcvPeER6oGWQ/VHSV6mZ4G35IavOvUWvfJowh6rCgEhlk8dQaHqqGFPgluMQ/mqNOqzZVUbtBXvd+M8DHE4Ih/QhaACanEKd2yY2+hKwmKfmIpxc1EDyNlGPemaiqh/eovfKhRtnMxavwU1Rh5GcI/Bfjng/YCxdkty/e8RkHg/iDVeRjL+c/LvR4hzUbhvVz3lKSJuB5ISxB3wNgEJGnvL8HRHkVq0weTLXARW5wg0/ogGuGqlsHjEi26ZJ9uuAZdKfXOph3zN5gzzRsREIrYqQtIndwiq3oYxJ7K+SEPHCJN1cZszNc3RUqF6sq9ENqwWlsZVSQaJswTwMjrUgUQEtDbwvv2LYq+67tv/sGjVbjPS4m9b4PUGsbsVMg053jU9TpUZuCpkkSbnD/5hZPBztOan2HJK8UmTIUVrmLulShBaKbP3pI4lxjuCXzYZMVtW9YYwU/x5yVUIMoaO/gPvVe18u5JSW
-x-ms-exchange-transport-forked: True
-Content-ID: <C6A04D4974AB244693C3B9F0D1537D34@namprd11.prod.outlook.com>
+ Mon,  6 Jan 2020 10:25:25 +0000 (UTC)
+Received: from pps.filterd (m0046037.ppops.net [127.0.0.1])
+ by mx07-00178001.pphosted.com (8.16.0.42/8.16.0.42) with SMTP id
+ 006AHKbC028995; Mon, 6 Jan 2020 11:25:15 +0100
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=st.com;
+ h=subject : to : cc :
+ references : from : message-id : date : mime-version : in-reply-to :
+ content-type : content-transfer-encoding; s=STMicroelectronics;
+ bh=csKu8+UMH7YN+nRTevbWnuk0toNCOh+W9ovVroJG4Gs=;
+ b=FC3Br8HlV5BIIQm0VeJ7roajgAUqSoCVTK35cV4/OxzRJ8jBa3EImWslq3jusdv/IP0q
+ 0wQQW5tUfoEu6NU/kjF63OabrvuDcdz3Ej5qRIO+hfNCC6Eg5G3z1M5mxo3qxmCRsElD
+ irbTBS3HtyRpvonV+JnmDisXOWCbdnpQEE2oTk9AUYCvhldCI//iqPh8RfXTgsoWR+oq
+ GwBqTXj9ErFNmrVqEehsAu98A7yto+aGeU71hYdgWEWcvr7MYr53viCmf6gbO3d/3J9D
+ itdevHZiOMndqK++SW/QI1XKm1loG8SGq0iJyxAf6xLTa1LcieR8JLo5/4mkYVwKcxZy Zw== 
+Received: from beta.dmz-eu.st.com (beta.dmz-eu.st.com [164.129.1.35])
+ by mx07-00178001.pphosted.com with ESMTP id 2xakuqfaab-1
+ (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
+ Mon, 06 Jan 2020 11:25:15 +0100
+Received: from euls16034.sgp.st.com (euls16034.sgp.st.com [10.75.44.20])
+ by beta.dmz-eu.st.com (STMicroelectronics) with ESMTP id 36A9210002A;
+ Mon,  6 Jan 2020 11:25:14 +0100 (CET)
+Received: from Webmail-eu.st.com (sfhdag5node3.st.com [10.75.127.15])
+ by euls16034.sgp.st.com (STMicroelectronics) with ESMTP id 27F172B088F;
+ Mon,  6 Jan 2020 11:25:14 +0100 (CET)
+Received: from [10.48.0.71] (10.75.127.44) by SFHDAG5NODE3.st.com
+ (10.75.127.15) with Microsoft SMTP Server (TLS) id 15.0.1473.3; Mon, 6 Jan
+ 2020 11:25:12 +0100
+To: Jonathan Cameron <jic23@kernel.org>, Peter Ujfalusi <peter.ujfalusi@ti.com>
+References: <20191217075153.23766-1-peter.ujfalusi@ti.com>
+ <20191223154230.7fb2a988@archlinux>
+From: Fabrice Gasnier <fabrice.gasnier@st.com>
+Message-ID: <9f190583-824c-01a6-7da3-43065fde49c7@st.com>
+Date: Mon, 6 Jan 2020 11:25:11 +0100
+User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:60.0) Gecko/20100101
+ Thunderbird/60.9.0
 MIME-Version: 1.0
-X-MS-Exchange-CrossTenant-Network-Message-Id: cd98d837-f71d-4669-e076-08d7928e56fe
-X-MS-Exchange-CrossTenant-originalarrivaltime: 06 Jan 2020 09:53:53.6461 (UTC)
-X-MS-Exchange-CrossTenant-fromentityheader: Hosted
-X-MS-Exchange-CrossTenant-id: 3f4057f3-b418-4d4e-ba84-d55b4e897d88
-X-MS-Exchange-CrossTenant-mailboxtype: HOSTED
-X-MS-Exchange-CrossTenant-userprincipalname: 3t7GXAiHVzcYWfgg7rs7BGYg4AhBXFOdWKJswiYpNOQZcRLxnjLB8thujRLTCNbSdB/NeinF2BmkaKx5I9MFDTEFmIV3xzqyWRswi5WXJcE=
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: DM6PR11MB3868
-Subject: Re: [Linux-stm32] [PATCH 2/2] pwm: Enable compile testing for some
-	of drivers
+In-Reply-To: <20191223154230.7fb2a988@archlinux>
+Content-Language: en-US
+X-Originating-IP: [10.75.127.44]
+X-ClientProxiedBy: SFHDAG1NODE1.st.com (10.75.127.1) To SFHDAG5NODE3.st.com
+ (10.75.127.15)
+X-Proofpoint-Virus-Version: vendor=fsecure engine=2.50.10434:6.0.95,18.0.572
+ definitions=2020-01-06_03:2020-01-06,2020-01-06 signatures=0
+Cc: linux-iio@vger.kernel.org, linux-kernel@vger.kernel.org, vkoul@kernel.org,
+ mcoquelin.stm32@gmail.com, linux-stm32@st-md-mailman.stormreply.com,
+ linux-arm-kernel@lists.infradead.org
+Subject: Re: [Linux-stm32] [PATCH] iio: adc: stm32-adc: Use
+ dma_request_chan() instead dma_request_slave_channel()
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -143,18 +77,88 @@ Content-Transfer-Encoding: 7bit
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
-
-
-On 30.12.2019 19:21, Krzysztof Kozlowski wrote:
-> Some of the PWM drivers can be compile tested to increase build
-> coverage.
+On 12/23/19 4:42 PM, Jonathan Cameron wrote:
+> On Tue, 17 Dec 2019 09:51:53 +0200
+> Peter Ujfalusi <peter.ujfalusi@ti.com> wrote:
 > 
-> The Meson PWM driver requires COMMON_CLK dependency.
+>> dma_request_slave_channel() is a wrapper on top of dma_request_chan()
+>> eating up the error code.
+>>
+>> By using dma_request_chan() directly the driver can support deferred
+>> probing against DMA.
+>>
+>> Signed-off-by: Peter Ujfalusi <peter.ujfalusi@ti.com>
+> Hi Peter,
 > 
-> Signed-off-by: Krzysztof Kozlowski <krzk@kernel.org>
+> Change looks sensible to me, but I'd like to leave a little longer
+> for others to look at this.
+> 
+> Give me a poke if I seem to have lost it by the end of the first
+> week in Jan.
+> 
+> Thanks,
+> 
+> Jonathan
+> 
+>> ---
+>>  drivers/iio/adc/stm32-adc.c | 10 ++++++++--
+>>  1 file changed, 8 insertions(+), 2 deletions(-)
+>>
+>> diff --git a/drivers/iio/adc/stm32-adc.c b/drivers/iio/adc/stm32-adc.c
+>> index 3b291d72701c..5dab23f1fdee 100644
+>> --- a/drivers/iio/adc/stm32-adc.c
+>> +++ b/drivers/iio/adc/stm32-adc.c
+>> @@ -1746,9 +1746,15 @@ static int stm32_adc_dma_request(struct iio_dev *indio_dev)
+>>  	struct dma_slave_config config;
+>>  	int ret;
+>>  
+>> -	adc->dma_chan = dma_request_slave_channel(&indio_dev->dev, "rx");
+>> -	if (!adc->dma_chan)
+>> +	adc->dma_chan = dma_request_chan(&indio_dev->dev, "rx");
+>> +	if (IS_ERR(adc->dma_chan)) {
+>> +		if (PTR_ERR(adc->dma_chan) == -EPROBE_DEFER)
+>> +			return -EPROBE_DEFER;
 
-for PWM_ATMEL:
-Acked-by: Claudiu Beznea <claudiu.beznea@microchip.com>
+Hi Peter,
+
+Thanks for the patch and sorry for the late reply.
+
+I'd rather prefer to check explicitly for -ENODEV (as the DMA is
+optional) to use the IRQ mode and treat all other codes (including
+EPROBE_DEFER) as errors.
+
+Rationale is: This can hide other errors e.g. like all DMA channels are
+busy/reserved for other usage. So the user may wrongly think it's
+probing the driver, with DMA. This may be a corner case, but still...
+DMA channels are assigned via device tree. I'd rather prefer to avoid
+depending of runtime (probe ordering) in such a case.
+
+Can you update the patch considering this ?
+
+Please find here an alternate proposal:
+
+	adc->dma_chan = dma_request_chan(&indio_dev->dev, "rx");
+	if (IS_ERR(adc->dma_chan)) {
+		if (PTR_ERR(adc->dma_chan) != -ENODEV)
+			return PTR_ERR(adc->dma_chan);
+
+		/* DMA is optional: fall back to IRQ mode */
+		adc->dma_chan = NULL;
+		return 0;
+	}
+
+Best regards,
+Fabrice
+
+>> +
+>> +		/* Ignore errors to fall back to IRQ mode */
+>> +		adc->dma_chan = NULL;
+>>  		return 0;
+>> +	}
+>>  
+>>  	adc->rx_buf = dma_alloc_coherent(adc->dma_chan->device->dev,
+>>  					 STM32_DMA_BUFFER_SIZE,
+> 
 _______________________________________________
 Linux-stm32 mailing list
 Linux-stm32@st-md-mailman.stormreply.com
