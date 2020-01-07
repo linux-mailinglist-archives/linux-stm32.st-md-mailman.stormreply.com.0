@@ -2,69 +2,52 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id 379841325D4
-	for <lists+linux-stm32@lfdr.de>; Tue,  7 Jan 2020 13:15:18 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 6E86A132640
+	for <lists+linux-stm32@lfdr.de>; Tue,  7 Jan 2020 13:35:50 +0100 (CET)
 Received: from ip-172-31-3-76.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 0145DC36B0B;
-	Tue,  7 Jan 2020 12:15:18 +0000 (UTC)
-Received: from mail-ed1-f67.google.com (mail-ed1-f67.google.com
- [209.85.208.67])
- (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 2C7A5C36B0B;
+	Tue,  7 Jan 2020 12:35:50 +0000 (UTC)
+Received: from smtprelay-out1.synopsys.com (sv2-smtprelay2.synopsys.com
+ [149.117.73.133])
+ (using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 9EE91C36B09
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 303F8C36B09
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Tue,  7 Jan 2020 12:15:15 +0000 (UTC)
-Received: by mail-ed1-f67.google.com with SMTP id c26so50152409eds.8
- for <linux-stm32@st-md-mailman.stormreply.com>;
- Tue, 07 Jan 2020 04:15:15 -0800 (PST)
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20161025;
- h=x-gm-message-state:date:from:to:cc:subject:message-id:references
- :mime-version:content-disposition:content-transfer-encoding
- :in-reply-to;
- bh=dkoKwK15oscs3r0V8scapeKxlP48dhvoGFKEGuBFTog=;
- b=i+Lb1ywoUudeLdDezbVfEsRCdr1VeI0ipWrWFqgLN4Gl1qulTOSsgKPNhxoQ/r99h9
- 0569b7W62fUexP33w+FJI2JXJa9ll26wVSGCNP47MajoWHATb49it6OXQVPknyeeBHLG
- HHmuzP+yKgF0vY+4l88eZK7bZZiQk+APx6XibN7CLJjwBiig2XjonlhTTUIttfijeEYH
- 8Ovqwjt6y7zuP9+jMmeUN1F1bzIuk7SIbMj2ydimTkE+uYOl1Fxs2/m41Fa/za0+VQeS
- 8PrBOMKaZfctJCvh9eXUp7O0hmsbFiR9HwGGA1AyNwmlogknUuIitfpbKPXkIyNzboKa
- gnjQ==
-X-Gm-Message-State: APjAAAWkhUDGrLTDS7XJfShJytajtvO7uUhruujMuPJkQNCr1f1MhmAM
- sfnNJsQUI6joX9n2siC2ams=
-X-Google-Smtp-Source: APXvYqwW9wXBZpzOMfTBS/kbOe4ZNckfdL5+6WOz5BazFgA1mugpFZqXKx0VrM2wxvGj7bgEnT9msA==
-X-Received: by 2002:a17:906:eda9:: with SMTP id
- sa9mr109435185ejb.297.1578399315230; 
- Tue, 07 Jan 2020 04:15:15 -0800 (PST)
-Received: from pi3 ([194.230.155.149])
- by smtp.googlemail.com with ESMTPSA id f9sm7382215edr.66.2020.01.07.04.15.13
- (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Tue, 07 Jan 2020 04:15:14 -0800 (PST)
-Date: Tue, 7 Jan 2020 13:15:12 +0100
-From: Krzysztof Kozlowski <krzk@kernel.org>
-To: Uwe =?utf-8?Q?Kleine-K=C3=B6nig?= <u.kleine-koenig@pengutronix.de>
-Message-ID: <20200107121512.GA319@pi3>
-References: <20191230172113.17222-1-krzk@kernel.org>
- <20191230172113.17222-2-krzk@kernel.org>
- <20200107072645.ko247bwhh3ibdu73@pengutronix.de>
- <20200107082539.GA31827@pi3>
- <20200107104234.wq74fska3szrg4ii@pengutronix.de>
- <20200107110359.GA32423@pi3>
- <20200107113354.ggq6zarewq5ip354@pengutronix.de>
- <20200107115429.GA32632@pi3>
- <20200107120926.cgrxk6b4rchf6i42@pengutronix.de>
-MIME-Version: 1.0
-Content-Disposition: inline
-In-Reply-To: <20200107120926.cgrxk6b4rchf6i42@pengutronix.de>
-Cc: linux-pwm@vger.kernel.org, Arnd Bergmann <arnd@arndb.de>,
- Richard Weinberger <richard@nod.at>, linux-kernel@vger.kernel.org,
- linux-rockchip@lists.infradead.org, Thierry Reding <thierry.reding@gmail.com>,
- linux-mediatek@lists.infradead.org, linux-rpi-kernel@lists.infradead.org,
- kernel@pengutronix.de, linux-amlogic@lists.infradead.org,
- linux-tegra@vger.kernel.org, bcm-kernel-feedback-list@broadcom.com,
- linux-riscv@lists.infradead.org, linux-stm32@st-md-mailman.stormreply.com,
- linux-arm-kernel@lists.infradead.org
-Subject: Re: [Linux-stm32] [PATCH 2/2] pwm: Enable compile testing for some
-	of drivers
+ Tue,  7 Jan 2020 12:35:49 +0000 (UTC)
+Received: from mailhost.synopsys.com (mdc-mailhost2.synopsys.com
+ [10.225.0.210])
+ (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits))
+ (No client certificate requested)
+ by smtprelay-out1.synopsys.com (Postfix) with ESMTPS id 6ECAB40658;
+ Tue,  7 Jan 2020 12:35:46 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=synopsys.com; s=mail;
+ t=1578400547; bh=qQZag1I8R5PX/PjsmWAZ3BDd3y8GbUX/piPPUPjODLw=;
+ h=From:To:Cc:Subject:Date:From;
+ b=eSWXXQ1XEyBAb94L/Tyjk35aD4jA749VPpIOlN92dbUc4+RbuSq/toh3E46/7Fgtt
+ afCiwBfzvkyRYsS22krlg1wcwCgDUx7DCwefSq9+D1bLuZd7aIrQ0HFilFAAgFGyHx
+ lZvwyRduqpK3GEZK8asUKf/SOosLZCZoRDBcWsEsKxfdpCoT921L/JOMMSl/Gpqgsv
+ ZzCleRLHHNbjVCJ44qqD9j/YaLywNlTuARm8knGOSJSdcZ76v8xU3IWCgqasxs1mJL
+ siY693svDVMEnytCYF2b3dB8XqyhQpweF3LFdIUPVf0wt6rY0zlIN4fuk2o5DaplL7
+ bbDKWilKBiVbA==
+Received: from de02dwia024.internal.synopsys.com
+ (de02dwia024.internal.synopsys.com [10.225.19.81])
+ by mailhost.synopsys.com (Postfix) with ESMTP id B3CDBA005C;
+ Tue,  7 Jan 2020 12:35:43 +0000 (UTC)
+From: Jose Abreu <Jose.Abreu@synopsys.com>
+To: netdev@vger.kernel.org
+Date: Tue,  7 Jan 2020 13:35:42 +0100
+Message-Id: <5764e60da6d3af7e76c30f63b07f1a12b4787918.1578400471.git.Jose.Abreu@synopsys.com>
+X-Mailer: git-send-email 2.7.4
+Cc: Jose Abreu <Jose.Abreu@synopsys.com>, Joao Pinto <Joao.Pinto@synopsys.com>,
+ "kernelci . org bot" <bot@kernelci.org>, Sriram Dash <sriram.dash@samsung.com>,
+ linux-kernel@vger.kernel.org, linux-stm32@st-md-mailman.stormreply.com,
+ Florian Fainelli <f.fainelli@gmail.com>,
+ Maxime Coquelin <mcoquelin.stm32@gmail.com>,
+ Giuseppe Cavallaro <peppe.cavallaro@st.com>,
+ "David S. Miller" <davem@davemloft.net>, linux-arm-kernel@lists.infradead.org,
+ Heiko Stuebner <heiko@sntech.de>
+Subject: [Linux-stm32] [PATCH net] net: stmmac: Fixed link does not need
+	MDIO Bus
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -76,23 +59,54 @@ List-Post: <mailto:linux-stm32@st-md-mailman.stormreply.com>
 List-Help: <mailto:linux-stm32-request@st-md-mailman.stormreply.com?subject=help>
 List-Subscribe: <https://st-md-mailman.stormreply.com/mailman/listinfo/linux-stm32>, 
  <mailto:linux-stm32-request@st-md-mailman.stormreply.com?subject=subscribe>
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: base64
+MIME-Version: 1.0
+Content-Type: text/plain; charset="us-ascii"
+Content-Transfer-Encoding: 7bit
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
-T24gVHVlLCBKYW4gMDcsIDIwMjAgYXQgMDE6MDk6MjZQTSArMDEwMCwgVXdlIEtsZWluZS1Lw7Zu
-aWcgd3JvdGU6Cj4gPiA+IChPaCwgSEFTX0RNQSBpcyBkZWZpbmVkIHVzaW5nICJkZXBlbmRzIG9u
-ICFOT19ETUEiICsgImRlZmF1bHQgeSIuCj4gPiA+IE5PX0RNQSBoYXMgdGhyZWUgZGlmZmVyZW50
-IGRlZmluaXRpb25zLiBUd28gb2YgdGhlbSAoaW4KPiA+ID4gZHJpdmVycy9jcnlwdG8vY2NyZWUv
-Y2NfaHdfcXVldWVfZGVmcy5oIGFuZCBhcmNoL2FybS9pbmNsdWRlL2FzbS9kbWEuaCkKPiA+ID4g
-dW5yZWxhdGVkLikKPiA+IAo+ID4gWWVzLCBIQVNfRE1BIGlzIHRoZSBzZWNvbmQgbWlzc2luZyBw
-aWVjZSBmb3IgVU0uCj4gCj4gU28gc29tZXRoaW5nIGxpa2U6Cj4gCj4gCSMgVXNlcm1vZGUgbGlu
-dXggZG9lc24ndCBwcm92aWRlIEhBU19ETUEgYW5kIEhBU19JT01FTS4gIFRvIG5vdCBoYXZlIHRv
-Cj4gCSMgY2x1dHRlciBtb3N0IGRlcGVuZGVuY2llcyB3aXRoIHRoZXNlIGp1c3QgZXhjbHVkZSBV
-TUwgZnJvbSBjb21waWxlCj4gCSMgdGVzdGluZy4KPiAKPiBhcyBjb21tZW50IGZvciBDT01QSUxF
-X1RFU1QncyBkZXBlbmQgbGluZSBzaG91bGQgYmUgZmluZSwgcmlnaHQ/Cj4gCgpJIHRoaW5rIHll
-cy4KCkJlc3QgcmVnYXJkcywKS3J6eXN6dG9mCl9fX19fX19fX19fX19fX19fX19fX19fX19fX19f
-X19fX19fX19fX19fX19fX19fCkxpbnV4LXN0bTMyIG1haWxpbmcgbGlzdApMaW51eC1zdG0zMkBz
-dC1tZC1tYWlsbWFuLnN0b3JtcmVwbHkuY29tCmh0dHBzOi8vc3QtbWQtbWFpbG1hbi5zdG9ybXJl
-cGx5LmNvbS9tYWlsbWFuL2xpc3RpbmZvL2xpbnV4LXN0bTMyCg==
+When using fixed link we don't need the MDIO bus support.
+
+Reported-by: Heiko Stuebner <heiko@sntech.de>
+Reported-by: kernelci.org bot <bot@kernelci.org>
+Fixes: d3e014ec7d5e ("net: stmmac: platform: Fix MDIO init for platforms without PHY")
+Signed-off-by: Jose Abreu <Jose.Abreu@synopsys.com>
+
+---
+Cc: Giuseppe Cavallaro <peppe.cavallaro@st.com>
+Cc: Alexandre Torgue <alexandre.torgue@st.com>
+Cc: Jose Abreu <joabreu@synopsys.com>
+Cc: "David S. Miller" <davem@davemloft.net>
+Cc: Maxime Coquelin <mcoquelin.stm32@gmail.com>
+Cc: netdev@vger.kernel.org
+Cc: linux-stm32@st-md-mailman.stormreply.com
+Cc: linux-arm-kernel@lists.infradead.org
+Cc: linux-kernel@vger.kernel.org
+Cc: Heiko Stuebner <heiko@sntech.de>
+Cc: kernelci.org bot <bot@kernelci.org>
+Cc: Florian Fainelli <f.fainelli@gmail.com>
+Cc: Sriram Dash <sriram.dash@samsung.com>
+---
+ drivers/net/ethernet/stmicro/stmmac/stmmac_platform.c | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
+
+diff --git a/drivers/net/ethernet/stmicro/stmmac/stmmac_platform.c b/drivers/net/ethernet/stmicro/stmmac/stmmac_platform.c
+index cc8d7e7bf9ac..4775f49d7f3b 100644
+--- a/drivers/net/ethernet/stmicro/stmmac/stmmac_platform.c
++++ b/drivers/net/ethernet/stmicro/stmmac/stmmac_platform.c
+@@ -320,7 +320,7 @@ static int stmmac_mtl_setup(struct platform_device *pdev,
+ static int stmmac_dt_phy(struct plat_stmmacenet_data *plat,
+ 			 struct device_node *np, struct device *dev)
+ {
+-	bool mdio = false;
++	bool mdio = !of_phy_is_fixed_link(np);
+ 	static const struct of_device_id need_mdio_ids[] = {
+ 		{ .compatible = "snps,dwc-qos-ethernet-4.10" },
+ 		{},
+-- 
+2.7.4
+
+_______________________________________________
+Linux-stm32 mailing list
+Linux-stm32@st-md-mailman.stormreply.com
+https://st-md-mailman.stormreply.com/mailman/listinfo/linux-stm32
