@@ -2,107 +2,87 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id 6F1331326B7
-	for <lists+linux-stm32@lfdr.de>; Tue,  7 Jan 2020 13:52:05 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id DF56113275D
+	for <lists+linux-stm32@lfdr.de>; Tue,  7 Jan 2020 14:15:32 +0100 (CET)
 Received: from ip-172-31-3-76.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 32260C36B0B;
-	Tue,  7 Jan 2020 12:52:05 +0000 (UTC)
-Received: from mailout1.samsung.com (mailout1.samsung.com [203.254.224.24])
- (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 9DAA6C36B0B;
+	Tue,  7 Jan 2020 13:15:32 +0000 (UTC)
+Received: from mx07-00178001.pphosted.com (mx08-00178001.pphosted.com
+ [91.207.212.93])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 94807C36B09
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 6CE75C36B09
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Tue,  7 Jan 2020 12:52:02 +0000 (UTC)
-Received: from epcas5p4.samsung.com (unknown [182.195.41.42])
- by mailout1.samsung.com (KnoxPortal) with ESMTP id
- 20200107125158epoutp018ecd80724f7beb2d3891fad3beb64f30~nm9GJhUKk2719827198epoutp01x
- for <linux-stm32@st-md-mailman.stormreply.com>;
- Tue,  7 Jan 2020 12:51:58 +0000 (GMT)
-DKIM-Filter: OpenDKIM Filter v2.11.0 mailout1.samsung.com
- 20200107125158epoutp018ecd80724f7beb2d3891fad3beb64f30~nm9GJhUKk2719827198epoutp01x
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=samsung.com;
- s=mail20170921; t=1578401518;
- bh=z3QqzQeWELWtbdYfxbjfYm18/UmAbiaEUXAhmAM2oBo=;
- h=From:To:Cc:In-Reply-To:Subject:Date:References:From;
- b=CEkLvv/X55mJb2k1eu6x8gvr48b+4nths8qKaq2VswJDF/+c4OWsMSxHZx4y1OUCn
- oJGAAKkTusqqZFy3UomjrLdwthk1yNY1ZykXOLrDKYLeux/CuJNkFy5Z6Z+FqEuvvN
- Mo+NTraqRTkZBipdG5RIv74mdPcz23VdLr6kVDwY=
-Received: from epsmges5p1new.samsung.com (unknown [182.195.42.73]) by
- epcas5p4.samsung.com (KnoxPortal) with ESMTP id
- 20200107125158epcas5p48bb7fc12493c86c760b299c8d4713026~nm9FmzniC2920629206epcas5p4F;
- Tue,  7 Jan 2020 12:51:58 +0000 (GMT)
-Received: from epcas5p1.samsung.com ( [182.195.41.39]) by
- epsmges5p1new.samsung.com (Symantec Messaging Gateway) with SMTP id
- A0.AA.19726.EEE741E5; Tue,  7 Jan 2020 21:51:58 +0900 (KST)
-Received: from epsmtrp2.samsung.com (unknown [182.195.40.14]) by
- epcas5p3.samsung.com (KnoxPortal) with ESMTPA id
- 20200107125156epcas5p32d73c07df46c7ef9737bc1c2f2834823~nm9Eda_M22813728137epcas5p3q;
- Tue,  7 Jan 2020 12:51:56 +0000 (GMT)
-Received: from epsmgms1p1new.samsung.com (unknown [182.195.42.41]) by
- epsmtrp2.samsung.com (KnoxPortal) with ESMTP id
- 20200107125156epsmtrp21cc851de8abadd6f9b0cba8944cf5713~nm9EcyYy21083110831epsmtrp2i;
- Tue,  7 Jan 2020 12:51:56 +0000 (GMT)
-X-AuditID: b6c32a49-7c1ff70000014d0e-91-5e147eee958f
-Received: from epsmtip2.samsung.com ( [182.195.34.31]) by
- epsmgms1p1new.samsung.com (Symantec Messaging Gateway) with SMTP id
- 23.7F.10238.CEE741E5; Tue,  7 Jan 2020 21:51:56 +0900 (KST)
-Received: from sriramdash03 (unknown [107.111.85.29]) by
- epsmtip2.samsung.com (KnoxPortal) with ESMTPA id
- 20200107125154epsmtip28f9f64ea37fb59c4ce9d5b7f134b24f9~nm9BzaH2g2079120791epsmtip2Q;
- Tue,  7 Jan 2020 12:51:53 +0000 (GMT)
-From: "Sriram Dash" <sriram.dash@samsung.com>
-To: "'Jose Abreu'" <Jose.Abreu@synopsys.com>, <netdev@vger.kernel.org>
-In-Reply-To: <5764e60da6d3af7e76c30f63b07f1a12b4787918.1578400471.git.Jose.Abreu@synopsys.com>
-Date: Tue, 7 Jan 2020 18:21:52 +0530
-Message-ID: <014201d5c559$3e6204b0$bb260e10$@samsung.com>
+ Tue,  7 Jan 2020 13:15:31 +0000 (UTC)
+Received: from pps.filterd (m0046660.ppops.net [127.0.0.1])
+ by mx08-00178001.pphosted.com (8.16.0.42/8.16.0.42) with SMTP id
+ 007DDfmE027011; Tue, 7 Jan 2020 14:15:18 +0100
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=st.com;
+ h=from : to : cc : subject
+ : date : message-id : references : in-reply-to : content-type : content-id
+ : content-transfer-encoding : mime-version; s=STMicroelectronics;
+ bh=li6ezDvrHh0BrI2TE1aJR9vEsp/p3KUXcBDfIP/q9gY=;
+ b=XFUvFkJPgoC8agOMstZgvClqhGtvbMov/+SHsowk73GSMOfvpCnaeJBFHBDG58koE1PF
+ v3i7nPxHlaL4sf73exmzgZPRNE6x/Aj3EGatmOeyIJKuwYEj2XWZYpWDIip/KmQFSp5x
+ EUUVIbImc0CvRd0vA58HXZLuA8I7K3J/redcYYIIpDHlbYTUfTMdTmkHptjEr9poXl4r
+ nXjti9IOx7VgQRHNej02huOVXeiBSEbTwcen7ui0kIyn7ozQVz4+KEa1kV4tQ+U+oSOA
+ 1H9SG4sMttH+ioXFs99ykwN6KIB0+FI2eXkK4DP6QOsvSdOdOiK7Ijy+bgbL1OTV5qSu iw== 
+Received: from beta.dmz-eu.st.com (beta.dmz-eu.st.com [164.129.1.35])
+ by mx08-00178001.pphosted.com with ESMTP id 2xakkapf45-1
+ (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
+ Tue, 07 Jan 2020 14:15:18 +0100
+Received: from euls16034.sgp.st.com (euls16034.sgp.st.com [10.75.44.20])
+ by beta.dmz-eu.st.com (STMicroelectronics) with ESMTP id 49005100038;
+ Tue,  7 Jan 2020 14:15:14 +0100 (CET)
+Received: from Webmail-eu.st.com (sfhdag4node1.st.com [10.75.127.10])
+ by euls16034.sgp.st.com (STMicroelectronics) with ESMTP id EE60B2B4534;
+ Tue,  7 Jan 2020 14:15:13 +0100 (CET)
+Received: from SFHDAG6NODE3.st.com (10.75.127.18) by SFHDAG4NODE1.st.com
+ (10.75.127.10) with Microsoft SMTP Server (TLS) id 15.0.1473.3; Tue, 7 Jan
+ 2020 14:15:13 +0100
+Received: from SFHDAG6NODE3.st.com ([fe80::d04:5337:ab17:b6f6]) by
+ SFHDAG6NODE3.st.com ([fe80::d04:5337:ab17:b6f6%20]) with mapi id
+ 15.00.1473.003; Tue, 7 Jan 2020 14:15:13 +0100
+From: Patrice CHOTARD <patrice.chotard@st.com>
+To: Sriram Dash <sriram.dash@samsung.com>,
+ =?utf-8?B?J0hlaWtvIFN0w7xibmVyJw==?= <heiko@sntech.de>, 'Florian Fainelli'
+ <f.fainelli@gmail.com>, 'David Miller' <davem@davemloft.net>
+Thread-Topic: [Linux-stm32] [PATCH] net: stmmac: platform: Fix MDIO init for
+ platforms without PHY
+Thread-Index: AQHVxRwlt8RIEIlxKkCYUiQBp2D2SqffHgAA
+Date: Tue, 7 Jan 2020 13:15:13 +0000
+Message-ID: <6c657b5e-b4fb-551c-080a-18f04ac2dba3@st.com>
+References: <CGME20191219102407epcas5p103b26e6fb191f7135d870a3449115c89@epcas5p1.samsung.com>
+ <1700835.tBzmY8zkgn@diego> <c25fbdb3-0e60-6e54-d58a-b05e8b805a58@gmail.com>
+ <1599392.7x4dJXGyiB@diego> <011901d5c51c$1f93be30$5ebb3a90$@samsung.com>
+In-Reply-To: <011901d5c51c$1f93be30$5ebb3a90$@samsung.com>
+Accept-Language: fr-FR, en-US
+Content-Language: en-US
+X-MS-Has-Attach: 
+X-MS-TNEF-Correlator: 
+user-agent: Mozilla/5.0 (X11; Linux x86_64; rv:68.0) Gecko/20100101
+ Thunderbird/68.2.1
+x-ms-exchange-messagesentrepresentingtype: 1
+x-ms-exchange-transport-fromentityheader: Hosted
+x-originating-ip: [10.75.127.49]
+Content-ID: <B825CB237B931948921570B6797794EC@st.com>
 MIME-Version: 1.0
-X-Mailer: Microsoft Outlook 16.0
-Content-Language: en-in
-Thread-Index: AQFZUtiDrXKRSclDK/XtxWw9Crh9QgFfdnd3qM0QNJA=
-X-Brightmail-Tracker: H4sIAAAAAAAAA02SeyxVcRzA97vnnHuPx9XpEl9U6iIjj2y0w1Q2rU6trf6o9VZ3nBAuuwfF
- H2VR2Z2aolW361XNymbyLlHekojolkcxrsk1pizznNx7WP77fF+/z/e7/UhM0kvYkGHyGFYh
- l0VIhcZ4eb2zk9vkNYvAXVolRhdpWxH9paeGoNWfk3F6frJBRC8PjRP07FAjRv9cnCLo4mEN
- QXdVqoW0UqMl6KylAoJuyrGkl8fLkL+YKX3ZI2DeqH6ImKoxU6bk+XWmQpOFMbXvPJmR2WqM
- KX0/jZjp4q3HjM4Y+wWzEWFxrMJj70Xj0NzaHGH0b7Or87eJRNRpqkRGJFBe0DCSRCiRMSmh
- 3iJIfKpGfPAHQffQ4Gowg2Dw4SyxNlL0YBHXs4SqRpA3JeebdAiS23IE+oKQcoO27zeEerag
- DkB/34DBgVGjGLR8m8T0BSMqENqmMwxsTh2EzKpxgwGnHKD3SYohL6Z8oPPTM5znjdDyWGtg
- jLKDigk1xm+0DeZG8gg+bwWNc6kYL/aFRs2CQQxUuQgmhpMQP7AfFhYbVtkcdM2lIp5tYHqy
- WshzOHTdHV0VxMAjXS7O8z6o6VavMLkic4bCSg/eawZ3FrQCfRooMaTckvDdjqDrK1l93RZq
- CloFPDOQMTUoSkPbVesuU627TLXuGtV/WQ7C85E1G81FhrCcd7SnnL3izskiuVh5iHtQVGQx
- Mvw4l0Ovkar9SB2iSCQ1FadtNg+UELI4Lj6yDgGJSS3ELq4WgRJxsCw+gVVEXVDERrBcHbIl
- camV+D7x9ZyECpHFsOEsG80q1qoC0sgmEe1uHjOrtz5vT57wdg1XntqS+eHwJvVYfoB1vEuq
- g1PsyFHPINvxlNGOdvuPlSYQ3uFjW7OzbMZE9+ps74A0+XLahl9LhenpPe2lhS+SduQued/c
- o/E7uISy+1p9L0WZePladuZbBzj2+6dwp5vmTooSskV29+bzq+2Ou3M9bundf6U4FyrzdMEU
- nOwfVautm20DAAA=
-X-Brightmail-Tracker: H4sIAAAAAAAAA+NgFtrDIsWRmVeSWpSXmKPExsWy7bCSvO6bOpE4g1WbdC02PjnNaHHp5gFW
- iznnW1gsfr07wm7x/9FrVosfj44yW9z784HVYtPja6wWl3fNYbPouvaE1WLe37WsFscWiFn8
- f72V0YHXY8vKm0weO2fdZffY85LHY/OSeo/t1+YxexzcZ+jx9MdeZo8t+z8zenzeJBfAGcVl
- k5Kak1mWWqRvl8CVsfDgAraCj3wVv9pZGxgv8nQxcnJICJhIbJz6h6WLkYtDSGA3o8TGxTdY
- uxg5gBLSEj/v6kLUCEus/PecHaLmBaPE5YvfWEESbAK6EmdvNLGB2CICHhI7Dq0EK2IWeM8s
- 8W/1NSaIjvWMErO3XwCr4hSIkzj7eQoziC0s4C4xd89rsEksAioSt2Z3gMV5BSwlLp5ZzAJh
- C0qcnPmEBeQiZgE9ibaNjCBhZgF5ie1v5zBDXKcg8fPpMlaIuLjE0Z89zBAHWUkcvfabdQKj
- 8Cwkk2YhTJqFZNIsJN0LGFlWMUqmFhTnpucWGxYY5qWW6xUn5haX5qXrJefnbmIEx6mW5g7G
- y0viDzEKcDAq8fBaSAnHCbEmlhVX5h5ilOBgVhLh1dIRiRPiTUmsrEotyo8vKs1JLT7EKM3B
- oiTO+zTvWKSQQHpiSWp2ampBahFMlomDU6qBUZptiaNjNZfsuzUh5iFR3sscVZkOOyUWnJ0V
- dUJr9ZNLTe/l5oic2xFuJGD5ZckHTsvulh+lk31q9t32Pr7o+cPbS25Nmld5p3rxKeElTA07
- lY15Z3w8LLHl0j3DU0tybh6dqm178vFH1k8dD6o6mtR65z/ZnuBRv9R/xmMjST7XZtHtvZl2
- 0UosxRmJhlrMRcWJAO6yr/7PAgAA
-X-CMS-MailID: 20200107125156epcas5p32d73c07df46c7ef9737bc1c2f2834823
-X-Msg-Generator: CA
-CMS-TYPE: 105P
-X-CMS-RootMailID: 20200107123550epcas5p2d1914646e71e0ff0095b4a14eb5e1551
-References: <CGME20200107123550epcas5p2d1914646e71e0ff0095b4a14eb5e1551@epcas5p2.samsung.com>
- <5764e60da6d3af7e76c30f63b07f1a12b4787918.1578400471.git.Jose.Abreu@synopsys.com>
-Cc: 'Joao Pinto' <Joao.Pinto@synopsys.com>,
- "'kernelci . org bot'" <bot@kernelci.org>, linux-kernel@vger.kernel.org,
- "'David S. Miller'" <davem@davemloft.net>,
- 'Florian	Fainelli' <f.fainelli@gmail.com>,
- 'Maxime	Coquelin' <mcoquelin.stm32@gmail.com>,
- 'Giuseppe Cavallaro' <peppe.cavallaro@st.com>,
- linux-stm32@st-md-mailman.stormreply.com, linux-arm-kernel@lists.infradead.org,
- 'Heiko	Stuebner' <heiko@sntech.de>
-Subject: Re: [Linux-stm32] [PATCH net] net: stmmac: Fixed link does not need
-	MDIO Bus
+X-Proofpoint-Virus-Version: vendor=fsecure engine=2.50.10434:6.0.95,18.0.572
+ definitions=2020-01-07_03:2020-01-06,2020-01-07 signatures=0
+Cc: "Jose.Abreu@synopsys.com" <Jose.Abreu@synopsys.com>,
+ "jayati.sahu@samsung.com" <jayati.sahu@samsung.com>,
+ "rcsekar@samsung.com" <rcsekar@samsung.com>,
+ "pankaj.dubey@samsung.com" <pankaj.dubey@samsung.com>,
+ "linux-kernel@vger.kernel.org" <linux-kernel@vger.kernel.org>,
+ "p.rajanbabu@samsung.com" <p.rajanbabu@samsung.com>,
+ "stable@vger.kernel.org" <stable@vger.kernel.org>,
+ "netdev@vger.kernel.org" <netdev@vger.kernel.org>,
+ Peppe CAVALLARO <peppe.cavallaro@st.com>,
+ "linux-stm32@st-md-mailman.stormreply.com"
+ <linux-stm32@st-md-mailman.stormreply.com>,
+ "linux-arm-kernel@lists.infradead.org" <linux-arm-kernel@lists.infradead.org>
+Subject: Re: [Linux-stm32] [PATCH] net: stmmac: platform: Fix MDIO init for
+ platforms without PHY
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -114,61 +94,109 @@ List-Post: <mailto:linux-stm32@st-md-mailman.stormreply.com>
 List-Help: <mailto:linux-stm32-request@st-md-mailman.stormreply.com?subject=help>
 List-Subscribe: <https://st-md-mailman.stormreply.com/mailman/listinfo/linux-stm32>, 
  <mailto:linux-stm32-request@st-md-mailman.stormreply.com?subject=subscribe>
-Content-Type: text/plain; charset="us-ascii"
-Content-Transfer-Encoding: 7bit
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: base64
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
-> From: Jose Abreu <Jose.Abreu@synopsys.com>
-> Subject: [PATCH net] net: stmmac: Fixed link does not need MDIO Bus
-> 
-> When using fixed link we don't need the MDIO bus support.
-> 
-> Reported-by: Heiko Stuebner <heiko@sntech.de>
-> Reported-by: kernelci.org bot <bot@kernelci.org>
-> Fixes: d3e014ec7d5e ("net: stmmac: platform: Fix MDIO init for platforms
-> without PHY")
-> Signed-off-by: Jose Abreu <Jose.Abreu@synopsys.com>
-
-Acked-by: Sriram Dash <Sriram.dash@samsung.com>
-
-> 
-> ---
-> Cc: Giuseppe Cavallaro <peppe.cavallaro@st.com>
-> Cc: Alexandre Torgue <alexandre.torgue@st.com>
-> Cc: Jose Abreu <joabreu@synopsys.com>
-> Cc: "David S. Miller" <davem@davemloft.net>
-> Cc: Maxime Coquelin <mcoquelin.stm32@gmail.com>
-> Cc: netdev@vger.kernel.org
-> Cc: linux-stm32@st-md-mailman.stormreply.com
-> Cc: linux-arm-kernel@lists.infradead.org
-> Cc: linux-kernel@vger.kernel.org
-> Cc: Heiko Stuebner <heiko@sntech.de>
-> Cc: kernelci.org bot <bot@kernelci.org>
-> Cc: Florian Fainelli <f.fainelli@gmail.com>
-> Cc: Sriram Dash <sriram.dash@samsung.com>
-> ---
->  drivers/net/ethernet/stmicro/stmmac/stmmac_platform.c | 2 +-
->  1 file changed, 1 insertion(+), 1 deletion(-)
-> 
-> diff --git a/drivers/net/ethernet/stmicro/stmmac/stmmac_platform.c
-> b/drivers/net/ethernet/stmicro/stmmac/stmmac_platform.c
-> index cc8d7e7bf9ac..4775f49d7f3b 100644
-> --- a/drivers/net/ethernet/stmicro/stmmac/stmmac_platform.c
-> +++ b/drivers/net/ethernet/stmicro/stmmac/stmmac_platform.c
-> @@ -320,7 +320,7 @@ static int stmmac_mtl_setup(struct platform_device
-> *pdev,  static int stmmac_dt_phy(struct plat_stmmacenet_data *plat,
->  			 struct device_node *np, struct device *dev)  {
-> -	bool mdio = false;
-> +	bool mdio = !of_phy_is_fixed_link(np);
->  	static const struct of_device_id need_mdio_ids[] = {
->  		{ .compatible = "snps,dwc-qos-ethernet-4.10" },
->  		{},
-> --
-> 2.7.4
-
-
-_______________________________________________
-Linux-stm32 mailing list
-Linux-stm32@st-md-mailman.stormreply.com
-https://st-md-mailman.stormreply.com/mailman/listinfo/linux-stm32
+SGkgQWxsDQoNCk9uIDEvNy8yMCA2OjM0IEFNLCBTcmlyYW0gRGFzaCB3cm90ZToNCj4+IEZyb206
+IEhlaWtvIFN0w7xibmVyIDxoZWlrb0BzbnRlY2guZGU+DQo+PiBTdWJqZWN0OiBSZTogW1BBVENI
+XSBuZXQ6IHN0bW1hYzogcGxhdGZvcm06IEZpeCBNRElPIGluaXQgZm9yIHBsYXRmb3Jtcw0KPiB3
+aXRob3V0DQo+PiBQSFkNCj4+DQo+PiBIaSBGbG9yaWFuLA0KPj4NCj4+IEFtIFNvbm50YWcsIDUu
+IEphbnVhciAyMDIwLCAyMzoyMjowMCBDRVQgc2NocmllYiBGbG9yaWFuIEZhaW5lbGxpOg0KPj4+
+IE9uIDEvNS8yMDIwIDEyOjQzIFBNLCBIZWlrbyBTdMO8Ym5lciB3cm90ZToNCj4+Pj4gQW0gU2Ft
+c3RhZywgMjEuIERlemVtYmVyIDIwMTksIDA2OjI5OjE4IENFVCBzY2hyaWViIERhdmlkIE1pbGxl
+cjoNCj4+Pj4+IEZyb206IFBhZG1hbmFiaGFuIFJhamFuYmFidSA8cC5yYWphbmJhYnVAc2Ftc3Vu
+Zy5jb20+DQo+Pj4+PiBEYXRlOiBUaHUsIDE5IERlYyAyMDE5IDE1OjQ3OjAxICswNTMwDQo+Pj4+
+Pg0KPj4+Pj4+IFRoZSBjdXJyZW50IGltcGxlbWVudGF0aW9uIG9mICJzdG1tYWNfZHRfcGh5IiBm
+dW5jdGlvbiBpbml0aWFsaXplcw0KPj4+Pj4+IHRoZSBNRElPIHBsYXRmb3JtIGJ1cyBkYXRhLCBl
+dmVuIGluIHRoZSBhYnNlbmNlIG9mIFBIWS4gVGhpcyBmaXgNCj4+Pj4+PiB3aWxsIHNraXAgTURJ
+TyBpbml0aWFsaXphdGlvbiBpZiB0aGVyZSBpcyBubyBQSFkgcHJlc2VudC4NCj4+Pj4+Pg0KPj4+
+Pj4+IEZpeGVzOiA3NDM3MTI3ICgibmV0OiBzdG1tYWM6IENvbnZlcnQgdG8gcGh5bGluayBhbmQg
+cmVtb3ZlIHBoeWxpYg0KPj4+Pj4+IGxvZ2ljIikNCj4+Pj4+PiBBY2tlZC1ieTogSmF5YXRpIFNh
+aHUgPGpheWF0aS5zYWh1QHNhbXN1bmcuY29tPg0KPj4+Pj4+IFNpZ25lZC1vZmYtYnk6IFNyaXJh
+bSBEYXNoIDxzcmlyYW0uZGFzaEBzYW1zdW5nLmNvbT4NCj4+Pj4+PiBTaWduZWQtb2ZmLWJ5OiBQ
+YWRtYW5hYmhhbiBSYWphbmJhYnUgPHAucmFqYW5iYWJ1QHNhbXN1bmcuY29tPg0KPj4+Pj4gQXBw
+bGllZCBhbmQgcXVldWVkIHVwIGZvciAtc3RhYmxlLCB0aGFua3MuDQo+Pj4+IHdpdGggdGhpcyBw
+YXRjaCBhcHBsaWVkIEkgbm93IHJ1biBpbnRvIGlzc3VlcyBvbiBtdWx0aXBsZSByb2NrY2hpcA0K
+Pj4+PiBwbGF0Zm9ybXMgdXNpbmcgYSBnbWFjIGludGVyZmFjZS4NCj4+PiBEbyB5b3UgaGF2ZSBh
+IGxpc3Qgb2YgRFRTIGZpbGVzIHRoYXQgYXJlIGFmZmVjdGVkIGJ5IGFueSBjaGFuY2U/IEZvcg0K
+Pj4+IHRoZSAzMi1iaXQgcGxhdGZvcm1zIHRoYXQgSSBsb29rZWQgaXQsIGl0IHNlZW1zIGxpa2U6
+DQo+Pj4NCj4gSGkgRmxvcmlhbiwgDQo+IFdlIGhhdmUgbGlzdGVkIGRvd24gdGhlIHBsYXRmb3Jt
+cyB3aGljaCB3aWxsIGJyZWFrIGZvciBhcyB0aGV5IGRvbid0IGhhdmUNCj4gdGhlIG1kaW8gLyBz
+bnBzLGR3bWFjLW1kaW8gbm9kZS4NCj4gQXJtMzIgc3BlYXIqICwgQXJtMzIgb3g4MjAqLCBhcm0z
+MiBydjExMDgsIGFyYyBhYmlsaXMqICwgYXJjIGF4czEweCosIGFyYw0KPiB2ZGtfYXhzMTB4Kiwg
+bWlwcyBwaXN0YWNoaW8sIGFybTY0IHJvY2tjaGlwL3B4MzAqIFRoZXJlIG1pZ2h0IGJlIG1vcmUN
+Cj4gcGxhdGZvcm1zLg0KDQpTVGlINDEwLUIyMjYwIGlzIGFmZmVjdGVkIGJ5IHRoaXMgcGF0Y2gs
+IGkgcHJvcG9zZWQgYSBmaXggZm9yIHRoaXMgYm9hcmQgOg0KDQpodHRwczovL3BhdGNod29yay5r
+ZXJuZWwub3JnL3Byb2plY3QvbGludXgtYXJtLWtlcm5lbC9saXN0Lz9zZXJpZXM9MjI0NjM5DQoN
+CkRhdmlkLCB3aWxsIHlvdSBhcHBsaWVkIHRoaXMgRFQgc2VyaWVzIGluIHlvdXIgdHJlZSA/DQoN
+ClRoYW5rcw0KDQpQYXRyaWNlDQoNCg0KPg0KPj4+IGFyY2gvYXJtL2Jvb3QvZHRzL3JrMzIyOC1l
+dmIuZHRzIGlzIE9LIGJlY2F1c2UgaXQgaGFzIGEgTURJTyBidXMgbm9kZQ0KPj4+IGFyY2gvYXJt
+L2Jvb3QvZHRzL3JrMzIyOS14bXM2LmR0cyBpcyBhbHNvIE9LDQo+Pj4NCj4+PiBhcmNoL2FybS9i
+b290L2R0cy9yazMyMjktZXZiLmR0cyBpcyBwcm9iYWJseSBicm9rZW4sIHRoZXJlIGlzIG5vDQo+
+Pj4gcGh5LWhhbmRsZSBwcm9wZXJ0eSBvciBNRElPIGJ1cyBub2RlLCBzbyBpdCBtdXN0IGJlIHJl
+bHlpbmcgb24NCj4+PiBhdXRvLXNjYW5uaW5nIG9mIHRoZSBidXMgc29tZWhvdyB0aGF0IHRoaXMg
+cGF0Y2ggYnJva2UuDQo+Pj4NCj4+PiBBbmQgbGlrZXdpc2UgZm9yIG1vc3QgNjQtYml0IHBsYXRm
+b3JtcyBleGNlcHQgYTEgYW5kIG5hbm9waTQuDQo+PiBJIHByaW1hcmlseSBub3RpY2VkIHRoYXQg
+b24gdGhlIHB4MzAtZXZiLmR0cyBhbmQgdGhlIGludGVybmFsIGJvYXJkIEknbQ0KPiB3b3JraW5n
+DQo+PiBvbiByaWdodCBub3cuIEJvdGggZG9uJ3QgaGF2ZSB0aGF0IG1kaW8gYnVzIG5vZGUgcmln
+aHQgbm93Lg0KPj4NCj4+DQo+Pj4+IFdoZW4gcHJvYmluZyB0aGUgZHJpdmVyIGFuZCB0cnlpbmcg
+dG8gZXN0YWJsaXNoIGEgY29ubmVjdGlvbiBmb3IgYQ0KPj4+PiBuZnNyb290IGl0IGFsd2F5cyBy
+dW5zIGludG8gYSBudWxsIHBvaW50ZXIgaW4gbWRpb2J1c19nZXRfcGh5KCk6DQo+Pj4+DQo+Pj4+
+IFsgICAyNi44Nzg4MzldIHJrX2dtYWMtZHdtYWMgZmYzNjAwMDAuZXRoZXJuZXQ6IElSUSBldGhf
+d2FrZV9pcnEgbm90DQo+PiBmb3VuZA0KPj4+PiBbICAgMjYuODg2MzIyXSBya19nbWFjLWR3bWFj
+IGZmMzYwMDAwLmV0aGVybmV0OiBJUlEgZXRoX2xwaSBub3QgZm91bmQNCj4+Pj4gWyAgIDI2Ljg5
+NDUwNV0gcmtfZ21hYy1kd21hYyBmZjM2MDAwMC5ldGhlcm5ldDogUFRQIHVzZXMgbWFpbiBjbG9j
+aw0KPj4+PiBbICAgMjYuOTA4MjA5XSBya19nbWFjLWR3bWFjIGZmMzYwMDAwLmV0aGVybmV0OiBj
+bG9jayBpbnB1dCBvciBvdXRwdXQ/DQo+PiAob3V0cHV0KS4NCj4gLi4uIHNuaXAgLi4uDQo+DQo+
+Pj4+DQo+Pj4+IFRoaXMgaXMgdG9ydmFsZHMgZ2l0IGhlYWQgYW5kIGl0IHdhcyBzdGlsbCB3b3Jr
+aW5nIGF0IC1yYzEgYW5kIGFsbA0KPj4+PiBrZXJuZWxzIGJlZm9yZSB0aGF0LiBXaGVuIEkganVz
+dCByZXZlcnQgdGhpcyBjb21taXQsIHRoaW5ncyBhbHNvDQo+Pj4+IHN0YXJ0IHdvcmtpbmcgYWdh
+aW4sIHNvIEkgZ3Vlc3Mgc29tZXRoaW5nIG11c3QgYmUgd3JvbmcgaGVyZT8NCj4+PiBZZXMsIHRo
+aXMgd2FzIGFsc28gaWRlbnRpZmllZCB0byBiZSBwcm9ibGVtYXRpYyBieSB0aGUga2VybmVsY2kg
+Ym9vdA0KPj4+IGZhcm1zIG9uIGFub3RoZXIgcGxhdGZvcm0sIHNlZSBbMV0uDQo+Pj4NCj4+PiBb
+MV06DQo+Pj4gaHR0cHM6Ly9sb3JlLmtlcm5lbC5vcmcvbGludXgtYXJtLWtlcm5lbC81ZTAzMTRk
+YS4xYzY5ZmI4MS5hN2Q2My4yOWMxQA0KPj4+IG14Lmdvb2dsZS5jb20vDQo+Pj4NCj4+PiBEbyB5
+b3UgbWluZCB0cnlpbmcgdGhpcyBwYXRjaCBhbmQgbGV0dGluZyBtZSBrbm93IGlmIGl0IHdvcmtz
+IGZvciB5b3UuDQo+Pj4gU3JpcmFtLCBwbGVhc2UgYWxzbyB0cnkgaXQgb24geW91ciBwbGF0Zm9y
+bXMgYW5kIGxldCBtZSBrbm93IGlmIHNvbHZlcw0KPj4+IHRoZSBwcm9ibGVtIHlvdSB3ZXJlIGFm
+dGVyLiBUaGFua3MNCj4+IFdvcmtzIG9uIGJvdGggYm9hcmRzIEkgaGFkIHRoYXQgd2VyZSBhZmZl
+Y3RlZCwgc28NCj4+IFRlc3RlZC1ieTogSGVpa28gU3R1ZWJuZXIgPGhlaWtvQHNudGVjaC5kZT4N
+Cj4gTmFja2VkLWJ5IDogU3JpcmFtIERhc2ggPFNyaXJhbS5kYXNoQHNhbXN1bmcuY29tPg0KPg0K
+Pj4NCj4+IFRoYW5rcw0KPj4gSGVpa28NCj4+DQo+Pj4gZGlmZiAtLWdpdCBhL2RyaXZlcnMvbmV0
+L2V0aGVybmV0L3N0bWljcm8vc3RtbWFjL3N0bW1hY19wbGF0Zm9ybS5jDQo+Pj4gYi9kcml2ZXJz
+L25ldC9ldGhlcm5ldC9zdG1pY3JvL3N0bW1hYy9zdG1tYWNfcGxhdGZvcm0uYw0KPj4+IGluZGV4
+IGNjOGQ3ZTdiZjlhYy4uZTE5MmI4ZTA4MDllIDEwMDY0NA0KPj4+IC0tLSBhL2RyaXZlcnMvbmV0
+L2V0aGVybmV0L3N0bWljcm8vc3RtbWFjL3N0bW1hY19wbGF0Zm9ybS5jDQo+Pj4gKysrIGIvZHJp
+dmVycy9uZXQvZXRoZXJuZXQvc3RtaWNyby9zdG1tYWMvc3RtbWFjX3BsYXRmb3JtLmMNCj4+PiBA
+QCAtMzIwLDcgKzMyMCw3IEBAIHN0YXRpYyBpbnQgc3RtbWFjX210bF9zZXR1cChzdHJ1Y3QgcGxh
+dGZvcm1fZGV2aWNlDQo+Pj4gKnBkZXYsICBzdGF0aWMgaW50IHN0bW1hY19kdF9waHkoc3RydWN0
+IHBsYXRfc3RtbWFjZW5ldF9kYXRhICpwbGF0LA0KPj4+ICAgICAgICAgICAgICAgICAgICAgICAg
+ICBzdHJ1Y3QgZGV2aWNlX25vZGUgKm5wLCBzdHJ1Y3QgZGV2aWNlICpkZXYpDQo+Pj4gew0KPj4+
+IC0gICAgICAgYm9vbCBtZGlvID0gZmFsc2U7DQo+Pj4gKyAgICAgICBib29sIG1kaW8gPSB0cnVl
+Ow0KPj4+ICAgICAgICAgc3RhdGljIGNvbnN0IHN0cnVjdCBvZl9kZXZpY2VfaWQgbmVlZF9tZGlv
+X2lkc1tdID0gew0KPj4+ICAgICAgICAgICAgICAgICB7IC5jb21wYXRpYmxlID0gInNucHMsZHdj
+LXFvcy1ldGhlcm5ldC00LjEwIiB9LA0KPj4+ICAgICAgICAgICAgICAgICB7fSwNCj4+PiBAQCAt
+MzQxLDggKzM0MSw5IEBAIHN0YXRpYyBpbnQgc3RtbWFjX2R0X3BoeShzdHJ1Y3QNCj4+PiBwbGF0
+X3N0bW1hY2VuZXRfZGF0YSAqcGxhdCwNCj4+PiAgICAgICAgIH0NCj4+Pg0KPj4+ICAgICAgICAg
+aWYgKHBsYXQtPm1kaW9fbm9kZSkgew0KPiBGb3IgdGhlIHBsYXRmb3JtcyB3aGljaCBuZWl0aGVy
+IGhhdmUgbWRpbyBub3Igc25wcyxkd21hYy1tZGlvIHByb3BlcnR5IGluDQo+IGR0LCB0aGV5IHdp
+bGwgbm90IGVudGVyIHRoZSBibG9jay4NCj4gcGxhdC0+bWRpb19ub2RlIHdpbGwgYWx3YXlzIGJl
+IGZhbHNlIGZvciB0aGVtLiBXaGljaCwgZXNzZW50aWFsbHksIHByZXNlcnZlcw0KPiB0aGUgbWRp
+byB2YXJpYWJsZSBCb29sZWFuIHZhbHVlIGRlZmluZWQgYXQgdGhlIHN0YXJ0IG9mIHRoZSBmdW5j
+dGlvbi4NCj4NCj4+PiAtICAgICAgICAgICAgICAgZGV2X2RiZyhkZXYsICJGb3VuZCBNRElPIHN1
+Ym5vZGVcbiIpOw0KPj4+IC0gICAgICAgICAgICAgICBtZGlvID0gdHJ1ZTsNCj4+PiArICAgICAg
+ICAgICAgICAgbWRpbyA9IG9mX2RldmljZV9pc19hdmFpbGFibGUocGxhdC0+bWRpb19ub2RlKTsN
+Cj4+PiArICAgICAgICAgICAgICAgZGV2X2RiZyhkZXYsICJGb3VuZCBNRElPIHN1Ym5vZGUsIHN0
+YXR1czogJXNhYmxlZFxuIiwNCj4+PiArICAgICAgICAgICAgICAgICAgICAgICBtZGlvID8gImVu
+IiA6ICJkaXMiKTsNCj4+PiAgICAgICAgIH0NCj4+Pg0KPj4+ICAgICAgICAgaWYgKG1kaW8pIHsN
+Cj4+Pg0KPj4NCj4+DQo+IFRoZXJlIGlzIGEgcHJvcG9zYWwgZm9yIHRoaXMgcHJvYmxlbSBzb2x1
+dGlvbi4gWW91IGNhbiByZWZlciBpdCBhdCA6DQo+IGh0dHBzOi8vbGttbC5vcmcvbGttbC8yMDIw
+LzEvNy8xNA0KPg0KPg0KPg0KPiBfX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19f
+X19fX19fX19fXw0KPiBMaW51eC1zdG0zMiBtYWlsaW5nIGxpc3QNCj4gTGludXgtc3RtMzJAc3Qt
+bWQtbWFpbG1hbi5zdG9ybXJlcGx5LmNvbQ0KPiBodHRwczovL3N0LW1kLW1haWxtYW4uc3Rvcm1y
+ZXBseS5jb20vbWFpbG1hbi9saXN0aW5mby9saW51eC1zdG0zMgpfX19fX19fX19fX19fX19fX19f
+X19fX19fX19fX19fX19fX19fX19fX19fX19fXwpMaW51eC1zdG0zMiBtYWlsaW5nIGxpc3QKTGlu
+dXgtc3RtMzJAc3QtbWQtbWFpbG1hbi5zdG9ybXJlcGx5LmNvbQpodHRwczovL3N0LW1kLW1haWxt
+YW4uc3Rvcm1yZXBseS5jb20vbWFpbG1hbi9saXN0aW5mby9saW51eC1zdG0zMgo=
