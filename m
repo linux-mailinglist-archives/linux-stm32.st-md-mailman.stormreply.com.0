@@ -2,53 +2,53 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id F362213250D
-	for <lists+linux-stm32@lfdr.de>; Tue,  7 Jan 2020 12:41:08 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id E40EE13251B
+	for <lists+linux-stm32@lfdr.de>; Tue,  7 Jan 2020 12:45:13 +0100 (CET)
 Received: from ip-172-31-3-76.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id B8B80C36B0B;
-	Tue,  7 Jan 2020 11:41:08 +0000 (UTC)
-Received: from lelv0142.ext.ti.com (lelv0142.ext.ti.com [198.47.23.249])
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id A456EC36B0B;
+	Tue,  7 Jan 2020 11:45:13 +0000 (UTC)
+Received: from lelv0143.ext.ti.com (lelv0143.ext.ti.com [198.47.23.248])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id D0995C36B09
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id D78ACC36B09
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Tue,  7 Jan 2020 11:41:06 +0000 (UTC)
+ Tue,  7 Jan 2020 11:45:10 +0000 (UTC)
 Received: from lelv0266.itg.ti.com ([10.180.67.225])
- by lelv0142.ext.ti.com (8.15.2/8.15.2) with ESMTP id 007Bewax036746;
- Tue, 7 Jan 2020 05:40:58 -0600
+ by lelv0143.ext.ti.com (8.15.2/8.15.2) with ESMTP id 007Bj55h105265;
+ Tue, 7 Jan 2020 05:45:05 -0600
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=ti.com;
- s=ti-com-17Q1; t=1578397259;
- bh=vvuEVTEP60g6vGoTy1dsIAc9SabmC4vbRrxUslsrNww=;
+ s=ti-com-17Q1; t=1578397505;
+ bh=opRM3BxdJrwcWwYPbvHXI+kHoBYD6A8pkYN5zqXedA8=;
  h=From:To:CC:Subject:Date;
- b=guxvEz9vUw8vj/Gx/w6wIJ1uyPwbst3TUUsTcrA2wXfUCjAzcpQFnc2VVLzSwby3B
- BP2ukvNINWR7mteVXMTMzQxu87lRF8gqdHlfDcvRxuEFa/aSAj8Dc3+dVBkIx8872p
- h/s6c7YH5Mvk4kQAT8ab0npOMxWDTRuABXkcuIsE=
-Received: from DLEE100.ent.ti.com (dlee100.ent.ti.com [157.170.170.30])
- by lelv0266.itg.ti.com (8.15.2/8.15.2) with ESMTPS id 007BewDR032017
+ b=XWA0M3smZhELM2OjQvdUE1JdjwBZ4QVCtv7vQATPRzSyQ0VbZ6/n40c9wBjLOEram
+ 8m+HfoR9f2iI/AFlp6X2jG0SLk/vRrs/HzQ2Ef7h+HV1nbRkE4ULZRPtLoZxg4THLE
+ +M4e9JOZ1VOe3oRk1C6nyw0g70uFQpKo+RhDAMAs=
+Received: from DLEE107.ent.ti.com (dlee107.ent.ti.com [157.170.170.37])
+ by lelv0266.itg.ti.com (8.15.2/8.15.2) with ESMTPS id 007Bj51m037384
  (version=TLSv1.2 cipher=AES256-GCM-SHA384 bits=256 verify=FAIL);
- Tue, 7 Jan 2020 05:40:58 -0600
-Received: from DLEE103.ent.ti.com (157.170.170.33) by DLEE100.ent.ti.com
- (157.170.170.30) with Microsoft SMTP Server (version=TLS1_2,
+ Tue, 7 Jan 2020 05:45:05 -0600
+Received: from DLEE108.ent.ti.com (157.170.170.38) by DLEE107.ent.ti.com
+ (157.170.170.37) with Microsoft SMTP Server (version=TLS1_2,
  cipher=TLS_ECDHE_RSA_WITH_AES_128_CBC_SHA256_P256) id 15.1.1847.3; Tue, 7 Jan
- 2020 05:40:57 -0600
-Received: from fllv0039.itg.ti.com (10.64.41.19) by DLEE103.ent.ti.com
- (157.170.170.33) with Microsoft SMTP Server (version=TLS1_2,
+ 2020 05:45:04 -0600
+Received: from lelv0327.itg.ti.com (10.180.67.183) by DLEE108.ent.ti.com
+ (157.170.170.38) with Microsoft SMTP Server (version=TLS1_2,
  cipher=TLS_ECDHE_RSA_WITH_AES_128_CBC_SHA256_P256) id 15.1.1847.3 via
- Frontend Transport; Tue, 7 Jan 2020 05:40:57 -0600
+ Frontend Transport; Tue, 7 Jan 2020 05:45:04 -0600
 Received: from feketebors.ti.com (ileax41-snat.itg.ti.com [10.172.224.153])
- by fllv0039.itg.ti.com (8.15.2/8.15.2) with ESMTP id 007BeskD048601;
- Tue, 7 Jan 2020 05:40:55 -0600
+ by lelv0327.itg.ti.com (8.15.2/8.15.2) with ESMTP id 007Bj1Zv073150;
+ Tue, 7 Jan 2020 05:45:02 -0600
 From: Peter Ujfalusi <peter.ujfalusi@ti.com>
 To: <jic23@kernel.org>, <mcoquelin.stm32@gmail.com>, <alexandre.torgue@st.com>,
  <fabrice.gasnier@st.com>
-Date: Tue, 7 Jan 2020 13:41:25 +0200
-Message-ID: <20200107114125.6095-1-peter.ujfalusi@ti.com>
+Date: Tue, 7 Jan 2020 13:45:32 +0200
+Message-ID: <20200107114532.6697-1-peter.ujfalusi@ti.com>
 X-Mailer: git-send-email 2.24.1
 MIME-Version: 1.0
 X-EXCLAIMER-MD-CONFIG: e1e8a2fd-e40a-4ac6-ac9b-f7e9cc9ee180
 Cc: linux-iio@vger.kernel.org, vkoul@kernel.org, linux-kernel@vger.kernel.org,
  linux-arm-kernel@lists.infradead.org, linux-stm32@st-md-mailman.stormreply.com
-Subject: [Linux-stm32] [PATCH v2] iio: adc: stm32-adc: Use
+Subject: [Linux-stm32] [PATCH v2] iio: adc: stm32-dfsdm: Use
 	dma_request_chan() instead dma_request_slave_channel()
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
@@ -77,27 +77,42 @@ Signed-off-by: Peter Ujfalusi <peter.ujfalusi@ti.com>
 Hi,
 
 Changes since v1:
-- Fall back to IRQ mode only in case of ENODEV
+- Fall back to IRQ mode for ADC only in case of ENODEV
 
 Regards,
 Peter
 
- drivers/iio/adc/stm32-adc.c | 16 ++++++++++++++--
- 1 file changed, 14 insertions(+), 2 deletions(-)
+ drivers/iio/adc/stm32-dfsdm-adc.c | 21 +++++++++++++++++----
+ 1 file changed, 17 insertions(+), 4 deletions(-)
 
-diff --git a/drivers/iio/adc/stm32-adc.c b/drivers/iio/adc/stm32-adc.c
-index 3b291d72701c..df5f5d61f9f9 100644
---- a/drivers/iio/adc/stm32-adc.c
-+++ b/drivers/iio/adc/stm32-adc.c
-@@ -1746,9 +1746,21 @@ static int stm32_adc_dma_request(struct iio_dev *indio_dev)
- 	struct dma_slave_config config;
- 	int ret;
+diff --git a/drivers/iio/adc/stm32-dfsdm-adc.c b/drivers/iio/adc/stm32-dfsdm-adc.c
+index e493242c266e..74a2211bdff4 100644
+--- a/drivers/iio/adc/stm32-dfsdm-adc.c
++++ b/drivers/iio/adc/stm32-dfsdm-adc.c
+@@ -1383,9 +1383,13 @@ static int stm32_dfsdm_dma_request(struct iio_dev *indio_dev)
+ {
+ 	struct stm32_dfsdm_adc *adc = iio_priv(indio_dev);
  
 -	adc->dma_chan = dma_request_slave_channel(&indio_dev->dev, "rx");
 -	if (!adc->dma_chan)
+-		return -EINVAL;
 +	adc->dma_chan = dma_request_chan(&indio_dev->dev, "rx");
 +	if (IS_ERR(adc->dma_chan)) {
-+		ret = PTR_ERR(adc->dma_chan);
++		int ret = PTR_ERR(adc->dma_chan);
++
++		adc->dma_chan = NULL;
++		return ret;
++	}
+ 
+ 	adc->rx_buf = dma_alloc_coherent(adc->dma_chan->device->dev,
+ 					 DFSDM_DMA_BUFFER_SIZE,
+@@ -1509,7 +1513,16 @@ static int stm32_dfsdm_adc_init(struct iio_dev *indio_dev)
+ 	init_completion(&adc->completion);
+ 
+ 	/* Optionally request DMA */
+-	if (stm32_dfsdm_dma_request(indio_dev)) {
++	ret = stm32_dfsdm_dma_request(indio_dev);
++	if (ret) {
 +		if (ret != -ENODEV) {
 +			if (ret != -EPROBE_DEFER)
 +				dev_err(&indio_dev->dev,
@@ -106,13 +121,9 @@ index 3b291d72701c..df5f5d61f9f9 100644
 +			return ret;
 +		}
 +
-+		/* Ignore errors to fall back to IRQ mode */
-+		adc->dma_chan = NULL;
+ 		dev_dbg(&indio_dev->dev, "No DMA support\n");
  		return 0;
-+	}
- 
- 	adc->rx_buf = dma_alloc_coherent(adc->dma_chan->device->dev,
- 					 STM32_DMA_BUFFER_SIZE,
+ 	}
 -- 
 Peter
 
