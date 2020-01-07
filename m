@@ -2,61 +2,60 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id B9265132790
-	for <lists+linux-stm32@lfdr.de>; Tue,  7 Jan 2020 14:29:16 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id CF3C4132799
+	for <lists+linux-stm32@lfdr.de>; Tue,  7 Jan 2020 14:30:28 +0100 (CET)
 Received: from ip-172-31-3-76.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 7622FC36B0B;
-	Tue,  7 Jan 2020 13:29:16 +0000 (UTC)
-Received: from mx07-00178001.pphosted.com (mx07-00178001.pphosted.com
- [62.209.51.94])
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 920E2C36B0B;
+	Tue,  7 Jan 2020 13:30:28 +0000 (UTC)
+Received: from mx07-00178001.pphosted.com (mx08-00178001.pphosted.com
+ [91.207.212.93])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 90053C36B09
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 21E51C36B09
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Tue,  7 Jan 2020 13:29:14 +0000 (UTC)
-Received: from pps.filterd (m0046668.ppops.net [127.0.0.1])
- by mx07-00178001.pphosted.com (8.16.0.42/8.16.0.42) with SMTP id
- 007DRZvi010643; Tue, 7 Jan 2020 14:29:03 +0100
+ Tue,  7 Jan 2020 13:30:27 +0000 (UTC)
+Received: from pps.filterd (m0046660.ppops.net [127.0.0.1])
+ by mx08-00178001.pphosted.com (8.16.0.42/8.16.0.42) with SMTP id
+ 007DRfU8012025; Tue, 7 Jan 2020 14:30:15 +0100
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=st.com;
  h=from : to : cc : subject
  : date : message-id : references : in-reply-to : content-type : content-id
  : content-transfer-encoding : mime-version; s=STMicroelectronics;
- bh=bdES9/KmhaIgbrZZaNjVlZmUAXk1GmM6Qs66jgKffgE=;
- b=YGu2V1ufJVPVo0vDeB04EvYd/rnrblBjyvecLOEY04aOvT9q3se8p+ayUal33RR0VxPC
- Xvj3LxoGj+UW5cxmhkp6VwBn2GJ0hChlcu93zQ8OZrf0BjJ35WspKUlVoQ4FSYHgXtsf
- 8eAz8IStpf45f8/fRs52JgJVLh+qCbJBFcG/MyMFHUmkluPvTr+dLx4LYSb8xLU+JFkd
- znSsUs1VXfIqd6j3/6sW5r3fa14PKACaG7LJ8v5bOiJXVrU0FmYVpk0GHFbUvUSNJInD
- ie8oQAYz3mIoYYVT+8AWYONrvlXrXDSwTU8d7iLFNpUFgLdJrIt+6SGUxMNKCFNvjcDw mw== 
+ bh=sh/Hcpph+fyyvxbpOaXrOQFv55vXYoYyE8APS/2sZ98=;
+ b=GVil49yGoH38YfsdtnaXdGUVOgL/KG1fV1KDTXLOpJSUA8rdAGkMyTTffl7Gn90qeJ/p
+ 1Tk+FcstZedynXbKxcaTXhWNVjlTFVdP0DH1FZesoi1xoNzWiGHOc3cq7J+fkhp9s6Gc
+ gLqYbKUBiUrDrMxlcEPfcrzgBnFvEjFVTHTLilz8YCftht+6bcykuE/w5zuvrUrdUAUv
+ /pT6DELsyvnIASwb67EC0Dbxdxx8iDZFL4jGnNs+pk2+zLPFil9O2nAygXucU+t/ETAn
+ /ywFQO/mIshDn97BO/e/FNhhGqB933jpUTgn5mWZFV1q9/MRfsANSfMiKC8lYMHdogZg 9Q== 
 Received: from beta.dmz-eu.st.com (beta.dmz-eu.st.com [164.129.1.35])
- by mx07-00178001.pphosted.com with ESMTP id 2xakm5eepr-1
+ by mx08-00178001.pphosted.com with ESMTP id 2xakkaphbs-1
  (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
- Tue, 07 Jan 2020 14:29:02 +0100
+ Tue, 07 Jan 2020 14:30:15 +0100
 Received: from euls16034.sgp.st.com (euls16034.sgp.st.com [10.75.44.20])
- by beta.dmz-eu.st.com (STMicroelectronics) with ESMTP id 6004D10003B;
- Tue,  7 Jan 2020 14:28:58 +0100 (CET)
-Received: from Webmail-eu.st.com (sfhdag4node2.st.com [10.75.127.11])
- by euls16034.sgp.st.com (STMicroelectronics) with ESMTP id 45CF02B4543;
- Tue,  7 Jan 2020 14:28:58 +0100 (CET)
-Received: from SFHDAG6NODE3.st.com (10.75.127.18) by SFHDAG4NODE2.st.com
- (10.75.127.11) with Microsoft SMTP Server (TLS) id 15.0.1473.3; Tue, 7 Jan
- 2020 14:28:57 +0100
+ by beta.dmz-eu.st.com (STMicroelectronics) with ESMTP id 221B510002A;
+ Tue,  7 Jan 2020 14:30:14 +0100 (CET)
+Received: from Webmail-eu.st.com (sfhdag4node1.st.com [10.75.127.10])
+ by euls16034.sgp.st.com (STMicroelectronics) with ESMTP id C66C92B7721;
+ Tue,  7 Jan 2020 14:30:14 +0100 (CET)
+Received: from SFHDAG6NODE3.st.com (10.75.127.18) by SFHDAG4NODE1.st.com
+ (10.75.127.10) with Microsoft SMTP Server (TLS) id 15.0.1473.3; Tue, 7 Jan
+ 2020 14:30:14 +0100
 Received: from SFHDAG6NODE3.st.com ([fe80::d04:5337:ab17:b6f6]) by
  SFHDAG6NODE3.st.com ([fe80::d04:5337:ab17:b6f6%20]) with mapi id
- 15.00.1473.003; Tue, 7 Jan 2020 14:28:57 +0100
+ 15.00.1473.003; Tue, 7 Jan 2020 14:30:14 +0100
 From: Patrice CHOTARD <patrice.chotard@st.com>
-To: Sriram Dash <sriram.dash@samsung.com>,
- =?utf-8?B?J0hlaWtvIFN0w7xibmVyJw==?= <heiko@sntech.de>, 'Florian Fainelli'
- <f.fainelli@gmail.com>, 'David Miller' <davem@davemloft.net>
-Thread-Topic: [Linux-stm32] [PATCH] net: stmmac: platform: Fix MDIO init for
- platforms without PHY
-Thread-Index: AQHVxRwlt8RIEIlxKkCYUiQBp2D2SqffHgAAgAAD14A=
-Date: Tue, 7 Jan 2020 13:28:57 +0000
-Message-ID: <c1af466d-0870-364f-1bff-0ac015811e60@st.com>
-References: <CGME20191219102407epcas5p103b26e6fb191f7135d870a3449115c89@epcas5p1.samsung.com>
- <1700835.tBzmY8zkgn@diego> <c25fbdb3-0e60-6e54-d58a-b05e8b805a58@gmail.com>
- <1599392.7x4dJXGyiB@diego> <011901d5c51c$1f93be30$5ebb3a90$@samsung.com>
- <6c657b5e-b4fb-551c-080a-18f04ac2dba3@st.com>
-In-Reply-To: <6c657b5e-b4fb-551c-080a-18f04ac2dba3@st.com>
+To: Sriram Dash <sriram.dash@samsung.com>, 'Jose Abreu'
+ <Jose.Abreu@synopsys.com>,
+ "netdev@vger.kernel.org" <netdev@vger.kernel.org>
+Thread-Topic: [Linux-stm32] [PATCH net] net: stmmac: Fixed link does not need
+ MDIO Bus
+Thread-Index: AQHVxV6XXqj37Urfek+F1jboTMK33g==
+Date: Tue, 7 Jan 2020 13:30:14 +0000
+Message-ID: <4330eb5a-1dfa-783c-69c9-35692db65341@st.com>
+References: <CGME20200107123550epcas5p2d1914646e71e0ff0095b4a14eb5e1551@epcas5p2.samsung.com>
+ <5764e60da6d3af7e76c30f63b07f1a12b4787918.1578400471.git.Jose.Abreu@synopsys.com>
+ <014201d5c559$3e6204b0$bb260e10$@samsung.com>
+In-Reply-To: <014201d5c559$3e6204b0$bb260e10$@samsung.com>
 Accept-Language: fr-FR, en-US
 Content-Language: en-US
 X-MS-Has-Attach: 
@@ -66,24 +65,22 @@ user-agent: Mozilla/5.0 (X11; Linux x86_64; rv:68.0) Gecko/20100101
 x-ms-exchange-messagesentrepresentingtype: 1
 x-ms-exchange-transport-fromentityheader: Hosted
 x-originating-ip: [10.75.127.50]
-Content-ID: <5D8B826B9567CB41B0951BA6303C7702@st.com>
+Content-ID: <1785DA2E48A9B045A6DD91BAA51E0F40@st.com>
 MIME-Version: 1.0
 X-Proofpoint-Virus-Version: vendor=fsecure engine=2.50.10434:6.0.95,18.0.572
  definitions=2020-01-07_03:2020-01-06,2020-01-07 signatures=0
-Cc: "Jose.Abreu@synopsys.com" <Jose.Abreu@synopsys.com>,
- "jayati.sahu@samsung.com" <jayati.sahu@samsung.com>,
- "rcsekar@samsung.com" <rcsekar@samsung.com>,
- "pankaj.dubey@samsung.com" <pankaj.dubey@samsung.com>,
+Cc: 'Florian Fainelli' <f.fainelli@gmail.com>,
+ 'Heiko Stuebner' <heiko@sntech.de>, "'kernelci . org bot'" <bot@kernelci.org>,
  "linux-kernel@vger.kernel.org" <linux-kernel@vger.kernel.org>,
- "p.rajanbabu@samsung.com" <p.rajanbabu@samsung.com>,
- "stable@vger.kernel.org" <stable@vger.kernel.org>,
- "netdev@vger.kernel.org" <netdev@vger.kernel.org>,
- Peppe CAVALLARO <peppe.cavallaro@st.com>,
  "linux-stm32@st-md-mailman.stormreply.com"
  <linux-stm32@st-md-mailman.stormreply.com>,
+ 'Joao Pinto' <Joao.Pinto@synopsys.com>,
+ 'Maxime Coquelin' <mcoquelin.stm32@gmail.com>,
+ Peppe CAVALLARO <peppe.cavallaro@st.com>,
+ "'David S. Miller'" <davem@davemloft.net>,
  "linux-arm-kernel@lists.infradead.org" <linux-arm-kernel@lists.infradead.org>
-Subject: Re: [Linux-stm32] [PATCH] net: stmmac: platform: Fix MDIO init for
- platforms without PHY
+Subject: Re: [Linux-stm32] [PATCH net] net: stmmac: Fixed link does not need
+ MDIO Bus
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -95,117 +92,71 @@ List-Post: <mailto:linux-stm32@st-md-mailman.stormreply.com>
 List-Help: <mailto:linux-stm32-request@st-md-mailman.stormreply.com?subject=help>
 List-Subscribe: <https://st-md-mailman.stormreply.com/mailman/listinfo/linux-stm32>, 
  <mailto:linux-stm32-request@st-md-mailman.stormreply.com?subject=subscribe>
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: base64
+Content-Type: text/plain; charset="us-ascii"
+Content-Transfer-Encoding: 7bit
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
-DQpPbiAxLzcvMjAgMjoxNSBQTSwgUGF0cmljZSBDSE9UQVJEIHdyb3RlOg0KPiBIaSBBbGwNCj4N
-Cj4gT24gMS83LzIwIDY6MzQgQU0sIFNyaXJhbSBEYXNoIHdyb3RlOg0KPj4+IEZyb206IEhlaWtv
-IFN0w7xibmVyIDxoZWlrb0BzbnRlY2guZGU+DQo+Pj4gU3ViamVjdDogUmU6IFtQQVRDSF0gbmV0
-OiBzdG1tYWM6IHBsYXRmb3JtOiBGaXggTURJTyBpbml0IGZvciBwbGF0Zm9ybXMNCj4+IHdpdGhv
-dXQNCj4+PiBQSFkNCj4+Pg0KPj4+IEhpIEZsb3JpYW4sDQo+Pj4NCj4+PiBBbSBTb25udGFnLCA1
-LiBKYW51YXIgMjAyMCwgMjM6MjI6MDAgQ0VUIHNjaHJpZWIgRmxvcmlhbiBGYWluZWxsaToNCj4+
-Pj4gT24gMS81LzIwMjAgMTI6NDMgUE0sIEhlaWtvIFN0w7xibmVyIHdyb3RlOg0KPj4+Pj4gQW0g
-U2Ftc3RhZywgMjEuIERlemVtYmVyIDIwMTksIDA2OjI5OjE4IENFVCBzY2hyaWViIERhdmlkIE1p
-bGxlcjoNCj4+Pj4+PiBGcm9tOiBQYWRtYW5hYmhhbiBSYWphbmJhYnUgPHAucmFqYW5iYWJ1QHNh
-bXN1bmcuY29tPg0KPj4+Pj4+IERhdGU6IFRodSwgMTkgRGVjIDIwMTkgMTU6NDc6MDEgKzA1MzAN
-Cj4+Pj4+Pg0KPj4+Pj4+PiBUaGUgY3VycmVudCBpbXBsZW1lbnRhdGlvbiBvZiAic3RtbWFjX2R0
-X3BoeSIgZnVuY3Rpb24gaW5pdGlhbGl6ZXMNCj4+Pj4+Pj4gdGhlIE1ESU8gcGxhdGZvcm0gYnVz
-IGRhdGEsIGV2ZW4gaW4gdGhlIGFic2VuY2Ugb2YgUEhZLiBUaGlzIGZpeA0KPj4+Pj4+PiB3aWxs
-IHNraXAgTURJTyBpbml0aWFsaXphdGlvbiBpZiB0aGVyZSBpcyBubyBQSFkgcHJlc2VudC4NCj4+
-Pj4+Pj4NCj4+Pj4+Pj4gRml4ZXM6IDc0MzcxMjcgKCJuZXQ6IHN0bW1hYzogQ29udmVydCB0byBw
-aHlsaW5rIGFuZCByZW1vdmUgcGh5bGliDQo+Pj4+Pj4+IGxvZ2ljIikNCj4+Pj4+Pj4gQWNrZWQt
-Ynk6IEpheWF0aSBTYWh1IDxqYXlhdGkuc2FodUBzYW1zdW5nLmNvbT4NCj4+Pj4+Pj4gU2lnbmVk
-LW9mZi1ieTogU3JpcmFtIERhc2ggPHNyaXJhbS5kYXNoQHNhbXN1bmcuY29tPg0KPj4+Pj4+PiBT
-aWduZWQtb2ZmLWJ5OiBQYWRtYW5hYmhhbiBSYWphbmJhYnUgPHAucmFqYW5iYWJ1QHNhbXN1bmcu
-Y29tPg0KPj4+Pj4+IEFwcGxpZWQgYW5kIHF1ZXVlZCB1cCBmb3IgLXN0YWJsZSwgdGhhbmtzLg0K
-Pj4+Pj4gd2l0aCB0aGlzIHBhdGNoIGFwcGxpZWQgSSBub3cgcnVuIGludG8gaXNzdWVzIG9uIG11
-bHRpcGxlIHJvY2tjaGlwDQo+Pj4+PiBwbGF0Zm9ybXMgdXNpbmcgYSBnbWFjIGludGVyZmFjZS4N
-Cj4+Pj4gRG8geW91IGhhdmUgYSBsaXN0IG9mIERUUyBmaWxlcyB0aGF0IGFyZSBhZmZlY3RlZCBi
-eSBhbnkgY2hhbmNlPyBGb3INCj4+Pj4gdGhlIDMyLWJpdCBwbGF0Zm9ybXMgdGhhdCBJIGxvb2tl
-ZCBpdCwgaXQgc2VlbXMgbGlrZToNCj4+Pj4NCj4+IEhpIEZsb3JpYW4sIA0KPj4gV2UgaGF2ZSBs
-aXN0ZWQgZG93biB0aGUgcGxhdGZvcm1zIHdoaWNoIHdpbGwgYnJlYWsgZm9yIGFzIHRoZXkgZG9u
-J3QgaGF2ZQ0KPj4gdGhlIG1kaW8gLyBzbnBzLGR3bWFjLW1kaW8gbm9kZS4NCj4+IEFybTMyIHNw
-ZWFyKiAsIEFybTMyIG94ODIwKiwgYXJtMzIgcnYxMTA4LCBhcmMgYWJpbGlzKiAsIGFyYyBheHMx
-MHgqLCBhcmMNCj4+IHZka19heHMxMHgqLCBtaXBzIHBpc3RhY2hpbywgYXJtNjQgcm9ja2NoaXAv
-cHgzMCogVGhlcmUgbWlnaHQgYmUgbW9yZQ0KPj4gcGxhdGZvcm1zLg0KPiBTVGlINDEwLUIyMjYw
-IGlzIGFmZmVjdGVkIGJ5IHRoaXMgcGF0Y2gsIGkgcHJvcG9zZWQgYSBmaXggZm9yIHRoaXMgYm9h
-cmQgOg0KPg0KPiBodHRwczovL3BhdGNod29yay5rZXJuZWwub3JnL3Byb2plY3QvbGludXgtYXJt
-LWtlcm5lbC9saXN0Lz9zZXJpZXM9MjI0NjM5DQo+DQo+IERhdmlkLCB3aWxsIHlvdSBhcHBsaWVk
-IHRoaXMgRFQgc2VyaWVzIGluIHlvdXIgdHJlZSA/DQoNCkkganVzdCBub3RpY2VkIHRoYXQgYSBm
-aXggaGFzIGJlZW4gcHJvcG9zZWRbMV0gYW5kIGZpeGVzIHRoZSBpc3N1ZSBvbiBTVGlINDEwLUIy
-MjYwDQoNCndpdGhvdXQgdGhlIERUIHNlcmllcyBpIGp1c3QgcHJvcG9zZWQgYWJvdmUuDQoNClNv
-IGRvbid0IHRha2UgY2FyZSBvZiBteSBwcmV2aW91cyBlbWFpbC4NCg0KVGhhbmtzDQoNClBhdHJp
-Y2UNCg0KWzFdIGh0dHBzOi8vbGttbC5vcmcvbGttbC8yMDIwLzEvNy80MDUNCg0KPg0KPiBUaGFu
-a3MNCj4NCj4gUGF0cmljZQ0KPg0KPg0KPj4+PiBhcmNoL2FybS9ib290L2R0cy9yazMyMjgtZXZi
-LmR0cyBpcyBPSyBiZWNhdXNlIGl0IGhhcyBhIE1ESU8gYnVzIG5vZGUNCj4+Pj4gYXJjaC9hcm0v
-Ym9vdC9kdHMvcmszMjI5LXhtczYuZHRzIGlzIGFsc28gT0sNCj4+Pj4NCj4+Pj4gYXJjaC9hcm0v
-Ym9vdC9kdHMvcmszMjI5LWV2Yi5kdHMgaXMgcHJvYmFibHkgYnJva2VuLCB0aGVyZSBpcyBubw0K
-Pj4+PiBwaHktaGFuZGxlIHByb3BlcnR5IG9yIE1ESU8gYnVzIG5vZGUsIHNvIGl0IG11c3QgYmUg
-cmVseWluZyBvbg0KPj4+PiBhdXRvLXNjYW5uaW5nIG9mIHRoZSBidXMgc29tZWhvdyB0aGF0IHRo
-aXMgcGF0Y2ggYnJva2UuDQo+Pj4+DQo+Pj4+IEFuZCBsaWtld2lzZSBmb3IgbW9zdCA2NC1iaXQg
-cGxhdGZvcm1zIGV4Y2VwdCBhMSBhbmQgbmFub3BpNC4NCj4+PiBJIHByaW1hcmlseSBub3RpY2Vk
-IHRoYXQgb24gdGhlIHB4MzAtZXZiLmR0cyBhbmQgdGhlIGludGVybmFsIGJvYXJkIEknbQ0KPj4g
-d29ya2luZw0KPj4+IG9uIHJpZ2h0IG5vdy4gQm90aCBkb24ndCBoYXZlIHRoYXQgbWRpbyBidXMg
-bm9kZSByaWdodCBub3cuDQo+Pj4NCj4+Pg0KPj4+Pj4gV2hlbiBwcm9iaW5nIHRoZSBkcml2ZXIg
-YW5kIHRyeWluZyB0byBlc3RhYmxpc2ggYSBjb25uZWN0aW9uIGZvciBhDQo+Pj4+PiBuZnNyb290
-IGl0IGFsd2F5cyBydW5zIGludG8gYSBudWxsIHBvaW50ZXIgaW4gbWRpb2J1c19nZXRfcGh5KCk6
-DQo+Pj4+Pg0KPj4+Pj4gWyAgIDI2Ljg3ODgzOV0gcmtfZ21hYy1kd21hYyBmZjM2MDAwMC5ldGhl
-cm5ldDogSVJRIGV0aF93YWtlX2lycSBub3QNCj4+PiBmb3VuZA0KPj4+Pj4gWyAgIDI2Ljg4NjMy
-Ml0gcmtfZ21hYy1kd21hYyBmZjM2MDAwMC5ldGhlcm5ldDogSVJRIGV0aF9scGkgbm90IGZvdW5k
-DQo+Pj4+PiBbICAgMjYuODk0NTA1XSBya19nbWFjLWR3bWFjIGZmMzYwMDAwLmV0aGVybmV0OiBQ
-VFAgdXNlcyBtYWluIGNsb2NrDQo+Pj4+PiBbICAgMjYuOTA4MjA5XSBya19nbWFjLWR3bWFjIGZm
-MzYwMDAwLmV0aGVybmV0OiBjbG9jayBpbnB1dCBvciBvdXRwdXQ/DQo+Pj4gKG91dHB1dCkuDQo+
-PiAuLi4gc25pcCAuLi4NCj4+DQo+Pj4+PiBUaGlzIGlzIHRvcnZhbGRzIGdpdCBoZWFkIGFuZCBp
-dCB3YXMgc3RpbGwgd29ya2luZyBhdCAtcmMxIGFuZCBhbGwNCj4+Pj4+IGtlcm5lbHMgYmVmb3Jl
-IHRoYXQuIFdoZW4gSSBqdXN0IHJldmVydCB0aGlzIGNvbW1pdCwgdGhpbmdzIGFsc28NCj4+Pj4+
-IHN0YXJ0IHdvcmtpbmcgYWdhaW4sIHNvIEkgZ3Vlc3Mgc29tZXRoaW5nIG11c3QgYmUgd3Jvbmcg
-aGVyZT8NCj4+Pj4gWWVzLCB0aGlzIHdhcyBhbHNvIGlkZW50aWZpZWQgdG8gYmUgcHJvYmxlbWF0
-aWMgYnkgdGhlIGtlcm5lbGNpIGJvb3QNCj4+Pj4gZmFybXMgb24gYW5vdGhlciBwbGF0Zm9ybSwg
-c2VlIFsxXS4NCj4+Pj4NCj4+Pj4gWzFdOg0KPj4+PiBodHRwczovL2xvcmUua2VybmVsLm9yZy9s
-aW51eC1hcm0ta2VybmVsLzVlMDMxNGRhLjFjNjlmYjgxLmE3ZDYzLjI5YzFADQo+Pj4+IG14Lmdv
-b2dsZS5jb20vDQo+Pj4+DQo+Pj4+IERvIHlvdSBtaW5kIHRyeWluZyB0aGlzIHBhdGNoIGFuZCBs
-ZXR0aW5nIG1lIGtub3cgaWYgaXQgd29ya3MgZm9yIHlvdS4NCj4+Pj4gU3JpcmFtLCBwbGVhc2Ug
-YWxzbyB0cnkgaXQgb24geW91ciBwbGF0Zm9ybXMgYW5kIGxldCBtZSBrbm93IGlmIHNvbHZlcw0K
-Pj4+PiB0aGUgcHJvYmxlbSB5b3Ugd2VyZSBhZnRlci4gVGhhbmtzDQo+Pj4gV29ya3Mgb24gYm90
-aCBib2FyZHMgSSBoYWQgdGhhdCB3ZXJlIGFmZmVjdGVkLCBzbw0KPj4+IFRlc3RlZC1ieTogSGVp
-a28gU3R1ZWJuZXIgPGhlaWtvQHNudGVjaC5kZT4NCj4+IE5hY2tlZC1ieSA6IFNyaXJhbSBEYXNo
-IDxTcmlyYW0uZGFzaEBzYW1zdW5nLmNvbT4NCj4+DQo+Pj4gVGhhbmtzDQo+Pj4gSGVpa28NCj4+
-Pg0KPj4+PiBkaWZmIC0tZ2l0IGEvZHJpdmVycy9uZXQvZXRoZXJuZXQvc3RtaWNyby9zdG1tYWMv
-c3RtbWFjX3BsYXRmb3JtLmMNCj4+Pj4gYi9kcml2ZXJzL25ldC9ldGhlcm5ldC9zdG1pY3JvL3N0
-bW1hYy9zdG1tYWNfcGxhdGZvcm0uYw0KPj4+PiBpbmRleCBjYzhkN2U3YmY5YWMuLmUxOTJiOGUw
-ODA5ZSAxMDA2NDQNCj4+Pj4gLS0tIGEvZHJpdmVycy9uZXQvZXRoZXJuZXQvc3RtaWNyby9zdG1t
-YWMvc3RtbWFjX3BsYXRmb3JtLmMNCj4+Pj4gKysrIGIvZHJpdmVycy9uZXQvZXRoZXJuZXQvc3Rt
-aWNyby9zdG1tYWMvc3RtbWFjX3BsYXRmb3JtLmMNCj4+Pj4gQEAgLTMyMCw3ICszMjAsNyBAQCBz
-dGF0aWMgaW50IHN0bW1hY19tdGxfc2V0dXAoc3RydWN0IHBsYXRmb3JtX2RldmljZQ0KPj4+PiAq
-cGRldiwgIHN0YXRpYyBpbnQgc3RtbWFjX2R0X3BoeShzdHJ1Y3QgcGxhdF9zdG1tYWNlbmV0X2Rh
-dGEgKnBsYXQsDQo+Pj4+ICAgICAgICAgICAgICAgICAgICAgICAgICBzdHJ1Y3QgZGV2aWNlX25v
-ZGUgKm5wLCBzdHJ1Y3QgZGV2aWNlICpkZXYpDQo+Pj4+IHsNCj4+Pj4gLSAgICAgICBib29sIG1k
-aW8gPSBmYWxzZTsNCj4+Pj4gKyAgICAgICBib29sIG1kaW8gPSB0cnVlOw0KPj4+PiAgICAgICAg
-IHN0YXRpYyBjb25zdCBzdHJ1Y3Qgb2ZfZGV2aWNlX2lkIG5lZWRfbWRpb19pZHNbXSA9IHsNCj4+
-Pj4gICAgICAgICAgICAgICAgIHsgLmNvbXBhdGlibGUgPSAic25wcyxkd2MtcW9zLWV0aGVybmV0
-LTQuMTAiIH0sDQo+Pj4+ICAgICAgICAgICAgICAgICB7fSwNCj4+Pj4gQEAgLTM0MSw4ICszNDEs
-OSBAQCBzdGF0aWMgaW50IHN0bW1hY19kdF9waHkoc3RydWN0DQo+Pj4+IHBsYXRfc3RtbWFjZW5l
-dF9kYXRhICpwbGF0LA0KPj4+PiAgICAgICAgIH0NCj4+Pj4NCj4+Pj4gICAgICAgICBpZiAocGxh
-dC0+bWRpb19ub2RlKSB7DQo+PiBGb3IgdGhlIHBsYXRmb3JtcyB3aGljaCBuZWl0aGVyIGhhdmUg
-bWRpbyBub3Igc25wcyxkd21hYy1tZGlvIHByb3BlcnR5IGluDQo+PiBkdCwgdGhleSB3aWxsIG5v
-dCBlbnRlciB0aGUgYmxvY2suDQo+PiBwbGF0LT5tZGlvX25vZGUgd2lsbCBhbHdheXMgYmUgZmFs
-c2UgZm9yIHRoZW0uIFdoaWNoLCBlc3NlbnRpYWxseSwgcHJlc2VydmVzDQo+PiB0aGUgbWRpbyB2
-YXJpYWJsZSBCb29sZWFuIHZhbHVlIGRlZmluZWQgYXQgdGhlIHN0YXJ0IG9mIHRoZSBmdW5jdGlv
-bi4NCj4+DQo+Pj4+IC0gICAgICAgICAgICAgICBkZXZfZGJnKGRldiwgIkZvdW5kIE1ESU8gc3Vi
-bm9kZVxuIik7DQo+Pj4+IC0gICAgICAgICAgICAgICBtZGlvID0gdHJ1ZTsNCj4+Pj4gKyAgICAg
-ICAgICAgICAgIG1kaW8gPSBvZl9kZXZpY2VfaXNfYXZhaWxhYmxlKHBsYXQtPm1kaW9fbm9kZSk7
-DQo+Pj4+ICsgICAgICAgICAgICAgICBkZXZfZGJnKGRldiwgIkZvdW5kIE1ESU8gc3Vibm9kZSwg
-c3RhdHVzOiAlc2FibGVkXG4iLA0KPj4+PiArICAgICAgICAgICAgICAgICAgICAgICBtZGlvID8g
-ImVuIiA6ICJkaXMiKTsNCj4+Pj4gICAgICAgICB9DQo+Pj4+DQo+Pj4+ICAgICAgICAgaWYgKG1k
-aW8pIHsNCj4+Pj4NCj4+Pg0KPj4gVGhlcmUgaXMgYSBwcm9wb3NhbCBmb3IgdGhpcyBwcm9ibGVt
-IHNvbHV0aW9uLiBZb3UgY2FuIHJlZmVyIGl0IGF0IDoNCj4+IGh0dHBzOi8vbGttbC5vcmcvbGtt
-bC8yMDIwLzEvNy8xNA0KPj4NCj4+DQo+Pg0KPj4gX19fX19fX19fX19fX19fX19fX19fX19fX19f
-X19fX19fX19fX19fX19fX19fX18NCj4+IExpbnV4LXN0bTMyIG1haWxpbmcgbGlzdA0KPj4gTGlu
-dXgtc3RtMzJAc3QtbWQtbWFpbG1hbi5zdG9ybXJlcGx5LmNvbQ0KPj4gaHR0cHM6Ly9zdC1tZC1t
-YWlsbWFuLnN0b3JtcmVwbHkuY29tL21haWxtYW4vbGlzdGluZm8vbGludXgtc3RtMzIKX19fX19f
-X19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX18KTGludXgtc3RtMzIgbWFp
-bGluZyBsaXN0CkxpbnV4LXN0bTMyQHN0LW1kLW1haWxtYW4uc3Rvcm1yZXBseS5jb20KaHR0cHM6
-Ly9zdC1tZC1tYWlsbWFuLnN0b3JtcmVwbHkuY29tL21haWxtYW4vbGlzdGluZm8vbGludXgtc3Rt
-MzIK
+Hi All
+
+On 1/7/20 1:51 PM, Sriram Dash wrote:
+>> From: Jose Abreu <Jose.Abreu@synopsys.com>
+>> Subject: [PATCH net] net: stmmac: Fixed link does not need MDIO Bus
+>>
+>> When using fixed link we don't need the MDIO bus support.
+>>
+>> Reported-by: Heiko Stuebner <heiko@sntech.de>
+>> Reported-by: kernelci.org bot <bot@kernelci.org>
+>> Fixes: d3e014ec7d5e ("net: stmmac: platform: Fix MDIO init for platforms
+>> without PHY")
+>> Signed-off-by: Jose Abreu <Jose.Abreu@synopsys.com>
+> Acked-by: Sriram Dash <Sriram.dash@samsung.com>
+
+Tested on STiH410-B2260 board
+
+Tested-by: Patrice Chotard <patrice.chotard@st.com>
+
+Thanks
+
+>> ---
+>> Cc: Giuseppe Cavallaro <peppe.cavallaro@st.com>
+>> Cc: Alexandre Torgue <alexandre.torgue@st.com>
+>> Cc: Jose Abreu <joabreu@synopsys.com>
+>> Cc: "David S. Miller" <davem@davemloft.net>
+>> Cc: Maxime Coquelin <mcoquelin.stm32@gmail.com>
+>> Cc: netdev@vger.kernel.org
+>> Cc: linux-stm32@st-md-mailman.stormreply.com
+>> Cc: linux-arm-kernel@lists.infradead.org
+>> Cc: linux-kernel@vger.kernel.org
+>> Cc: Heiko Stuebner <heiko@sntech.de>
+>> Cc: kernelci.org bot <bot@kernelci.org>
+>> Cc: Florian Fainelli <f.fainelli@gmail.com>
+>> Cc: Sriram Dash <sriram.dash@samsung.com>
+>> ---
+>>  drivers/net/ethernet/stmicro/stmmac/stmmac_platform.c | 2 +-
+>>  1 file changed, 1 insertion(+), 1 deletion(-)
+>>
+>> diff --git a/drivers/net/ethernet/stmicro/stmmac/stmmac_platform.c
+>> b/drivers/net/ethernet/stmicro/stmmac/stmmac_platform.c
+>> index cc8d7e7bf9ac..4775f49d7f3b 100644
+>> --- a/drivers/net/ethernet/stmicro/stmmac/stmmac_platform.c
+>> +++ b/drivers/net/ethernet/stmicro/stmmac/stmmac_platform.c
+>> @@ -320,7 +320,7 @@ static int stmmac_mtl_setup(struct platform_device
+>> *pdev,  static int stmmac_dt_phy(struct plat_stmmacenet_data *plat,
+>>  			 struct device_node *np, struct device *dev)  {
+>> -	bool mdio = false;
+>> +	bool mdio = !of_phy_is_fixed_link(np);
+>>  	static const struct of_device_id need_mdio_ids[] = {
+>>  		{ .compatible = "snps,dwc-qos-ethernet-4.10" },
+>>  		{},
+>> --
+>> 2.7.4
+>
+> _______________________________________________
+> Linux-stm32 mailing list
+> Linux-stm32@st-md-mailman.stormreply.com
+> https://st-md-mailman.stormreply.com/mailman/listinfo/linux-stm32
+_______________________________________________
+Linux-stm32 mailing list
+Linux-stm32@st-md-mailman.stormreply.com
+https://st-md-mailman.stormreply.com/mailman/listinfo/linux-stm32
