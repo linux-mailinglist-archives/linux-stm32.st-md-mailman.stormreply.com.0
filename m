@@ -2,65 +2,80 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id F1E1B132233
-	for <lists+linux-stm32@lfdr.de>; Tue,  7 Jan 2020 10:23:25 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 573C71322CD
+	for <lists+linux-stm32@lfdr.de>; Tue,  7 Jan 2020 10:46:52 +0100 (CET)
 Received: from ip-172-31-3-76.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id B1403C36B0B;
-	Tue,  7 Jan 2020 09:23:25 +0000 (UTC)
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 15BC9C36B0B;
+	Tue,  7 Jan 2020 09:46:52 +0000 (UTC)
 Received: from mx07-00178001.pphosted.com (mx07-00178001.pphosted.com
  [62.209.51.94])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id E09D1C36B09
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id A15D2C36B09
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Tue,  7 Jan 2020 09:23:24 +0000 (UTC)
-Received: from pps.filterd (m0046037.ppops.net [127.0.0.1])
+ Tue,  7 Jan 2020 09:46:50 +0000 (UTC)
+Received: from pps.filterd (m0046668.ppops.net [127.0.0.1])
  by mx07-00178001.pphosted.com (8.16.0.42/8.16.0.42) with SMTP id
- 0079HUtg001703; Tue, 7 Jan 2020 10:22:53 +0100
+ 0079hXZE002027; Tue, 7 Jan 2020 10:46:41 +0100
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=st.com;
- h=message-id : subject :
- from : to : cc : date : in-reply-to : references : content-type :
- mime-version : content-transfer-encoding; s=STMicroelectronics;
- bh=xFQQE6kgeKNO6UlYOlui/VsGLZg0eOZacGJld0hOGcs=;
- b=xbWxsZpm4thxEojwsKJ0Eqn9TdnF1G3Kigv0zNNlo7HHz17GSXo3BTHc877V37dlRcnU
- g2K6pHj4YsYGzzPn1MVfJmMDUrH6p4sKD30bC/XhPX41O5CEKyqa8jrVbGwb1thYClK/
- U24hfn/QlhSZGYwkuUyTMBHI8dfIclL4FrW+b3Rh39r5HYTbSmFhmBYK9qOaGytuyu9X
- VB8iRS0/TenxLsIn1gQj1y6VxjejRzgA4xUGEuzDRNg6knd+NtTy4nIdO71gd2kXfgGO
- pZy9ca4Kxd8MAfskWEn4QImFVCTRqqxGWrrHYwMES83YW9baXvt1DUdrvPFMgyXhVIeE fw== 
+ h=from : to : cc : subject
+ : date : message-id : references : in-reply-to : content-type : content-id
+ : content-transfer-encoding : mime-version; s=STMicroelectronics;
+ bh=PbJCZFncQBZH/BlAK8ELONqW5LqwKaEvIZc7w5b0OYI=;
+ b=RCbEkKpltn980AU8jCPraagLch9+XkO2So8RCosC4vLxjWoswqVX78LebnrISoiwapKm
+ JuZlqJt+r+uy7BJtymA2T/56uij5CmU6ncVS9S/AYkKDPl2jNyhfVpNZ9bTfLHRHzQAW
+ lUFlxbq8pQ/dpU4/9thGZxZPcOS68rSnmiE84fhiEIQjrSahRsjx/3UuTOr0GXrRuDnp
+ bTT+gCrwIaQWjK+Iby3JMHagMY24XdafhZ5eVOcMVpaBRGWXTKagH1N1zBdnwHScu535
+ Z28CSxglPzWQqcYFDBXwn8GcStcvYEb4QnMNo61rGubr5/LfAr5SmLb3BUhrWSjGuphW JQ== 
 Received: from beta.dmz-eu.st.com (beta.dmz-eu.st.com [164.129.1.35])
- by mx07-00178001.pphosted.com with ESMTP id 2xakuqn095-1
+ by mx07-00178001.pphosted.com with ESMTP id 2xakm5d5km-1
  (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
- Tue, 07 Jan 2020 10:22:53 +0100
+ Tue, 07 Jan 2020 10:46:41 +0100
 Received: from euls16034.sgp.st.com (euls16034.sgp.st.com [10.75.44.20])
- by beta.dmz-eu.st.com (STMicroelectronics) with ESMTP id 5D81F100039;
- Tue,  7 Jan 2020 10:22:47 +0100 (CET)
-Received: from Webmail-eu.st.com (sfhdag5node3.st.com [10.75.127.15])
- by euls16034.sgp.st.com (STMicroelectronics) with ESMTP id E63122A790F;
- Tue,  7 Jan 2020 10:22:46 +0100 (CET)
-Received: from lshz10676 (10.75.127.45) by SFHDAG5NODE3.st.com (10.75.127.15)
- with Microsoft SMTP Server (TLS) id 15.0.1473.3;
- Tue, 7 Jan 2020 10:22:41 +0100
-Message-ID: <dc9a1a6a32b0e028837a315834c4723ed44dbac5.camel@st.com>
-From: Antonio Borneo <antonio.borneo@st.com>
-To: Steven Rostedt <rostedt@goodmis.org>, Joel Fernandes
- <joel@joelfernandes.org>
-Date: Tue, 7 Jan 2020 10:21:55 +0100
-In-Reply-To: <20191223151301.20be63f7@gandalf.local.home>
-References: <20191127154428.191095-1-antonio.borneo@st.com>
- <20191204092115.30ef75c9@gandalf.local.home>
- <20191221234741.GA116648@google.com>
- <20191223151301.20be63f7@gandalf.local.home>
-User-Agent: Evolution 3.34.2 
+ by beta.dmz-eu.st.com (STMicroelectronics) with ESMTP id 414D0100034;
+ Tue,  7 Jan 2020 10:46:41 +0100 (CET)
+Received: from Webmail-eu.st.com (sfhdag3node2.st.com [10.75.127.8])
+ by euls16034.sgp.st.com (STMicroelectronics) with ESMTP id 2EE722A8204;
+ Tue,  7 Jan 2020 10:46:41 +0100 (CET)
+Received: from SFHDAG5NODE2.st.com (10.75.127.14) by SFHDAG3NODE2.st.com
+ (10.75.127.8) with Microsoft SMTP Server (TLS) id 15.0.1347.2; Tue, 7 Jan
+ 2020 10:46:40 +0100
+Received: from SFHDAG5NODE2.st.com ([fe80::1cb5:6767:370b:9af0]) by
+ SFHDAG5NODE2.st.com ([fe80::1cb5:6767:370b:9af0%20]) with mapi id
+ 15.00.1473.003; Tue, 7 Jan 2020 10:46:40 +0100
+From: Hugues FRUCHET <hugues.fruchet@st.com>
+To: Peter Ujfalusi <peter.ujfalusi@ti.com>, "mchehab@kernel.org"
+ <mchehab@kernel.org>, "mcoquelin.stm32@gmail.com"
+ <mcoquelin.stm32@gmail.com>, Alexandre TORGUE <alexandre.torgue@st.com>
+Thread-Topic: [PATCH] media: stm32-dcmi: Use dma_request_chan() instead
+ dma_request_slave_channel()
+Thread-Index: AQHVtMaOm1nAskP+t06Lg3ivGfEhOKe/qEeAgB9cIQA=
+Date: Tue, 7 Jan 2020 09:46:40 +0000
+Message-ID: <8229c7ed-b513-6bf8-5684-60d87a92d41f@st.com>
+References: <20191217104135.23554-1-peter.ujfalusi@ti.com>
+ <84946ffd-8e90-7b6a-6667-a10e27d31655@st.com>
+In-Reply-To: <84946ffd-8e90-7b6a-6667-a10e27d31655@st.com>
+Accept-Language: en-US
+Content-Language: en-US
+X-MS-Has-Attach: 
+X-MS-TNEF-Correlator: 
+user-agent: Mozilla/5.0 (X11; Linux x86_64; rv:60.0) Gecko/20100101
+ Thunderbird/60.9.0
+x-ms-exchange-messagesentrepresentingtype: 1
+x-ms-exchange-transport-fromentityheader: Hosted
+x-originating-ip: [10.75.127.47]
+Content-ID: <7CF506707FC8704EA5378A1A551351F2@st.com>
 MIME-Version: 1.0
-X-Originating-IP: [10.75.127.45]
-X-ClientProxiedBy: SFHDAG5NODE3.st.com (10.75.127.15) To SFHDAG5NODE3.st.com
- (10.75.127.15)
 X-Proofpoint-Virus-Version: vendor=fsecure engine=2.50.10434:6.0.95,18.0.572
  definitions=2020-01-07_02:2020-01-06,2020-01-07 signatures=0
-Cc: Ingo Molnar <mingo@redhat.com>, linux-kernel@vger.kernel.org,
- linux-stm32@st-md-mailman.stormreply.com
-Subject: Re: [Linux-stm32] [PATCH] tracing: Fix printing ptrs in preempt/irq
- enable/disable events
+Cc: "vkoul@kernel.org" <vkoul@kernel.org>,
+ "linux-stm32@st-md-mailman.stormreply.com"
+ <linux-stm32@st-md-mailman.stormreply.com>,
+ "linux-kernel@vger.kernel.org" <linux-kernel@vger.kernel.org>,
+ "linux-arm-kernel@lists.infradead.org" <linux-arm-kernel@lists.infradead.org>,
+ "linux-media@vger.kernel.org" <linux-media@vger.kernel.org>
+Subject: Re: [Linux-stm32] [PATCH] media: stm32-dcmi: Use dma_request_chan()
+ instead dma_request_slave_channel()
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -72,54 +87,47 @@ List-Post: <mailto:linux-stm32@st-md-mailman.stormreply.com>
 List-Help: <mailto:linux-stm32-request@st-md-mailman.stormreply.com?subject=help>
 List-Subscribe: <https://st-md-mailman.stormreply.com/mailman/listinfo/linux-stm32>, 
  <mailto:linux-stm32-request@st-md-mailman.stormreply.com?subject=subscribe>
-Content-Type: text/plain; charset="us-ascii"
-Content-Transfer-Encoding: 7bit
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: base64
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
-On Mon, 2019-12-23 at 15:13 -0500, Steven Rostedt wrote:
-> On Sat, 21 Dec 2019 18:47:41 -0500
-> Joel Fernandes <joel@joelfernandes.org> wrote:
-> 
-> > On Wed, Dec 04, 2019 at 09:21:15AM -0500, Steven Rostedt wrote:
-> > > Joel,
-> > > 
-> > > Any comments on this patch?  
-> > 
-> > Steve, it looks like this issue happens with trace-cmd not knowing what
-> > _stext is. If I do cat trace_pipe , then I don't see the issue as _stext is
-> > looked up correctly but the reporter of the bug is using trace-cmd. Is there
-> > a way to solve this within trace-cmd? Not knowing much about trace-cmd
-> > internals, I will have to defer to you on this though..
-> > 
-> > Other than this, I need to make the offset to _stext as s32 instead of u32
-> > type so that the problem of the symbol location being before _stext does not
-> > cause overflow.
-> > 
-> > Lastly, I am not super convinced that we need to store the full pointer just
-> > to handle a case where the offset of the symbol might be more than +-2G from
-> > _stext. Once we see such issue, then we can handle it. But right now the size
-> > of the trace buffer is utilized better by just storing the offset IMHO.
-> > 
-> 
-> Does this fix it for you?
-> 
-> -- Steve
-> 
-
-Steve,
-
-this patch fixes the issue for me, thanks!
-Tested-by: Antonio Borneo <antonio.borneo@st.com>
-
-There are other cases where the trace buffer is under stress, e.g. during function tracing.
-Would it be useful to only store the offset in such cases too?
-
-Regards,
-Antonio
-
-
-_______________________________________________
-Linux-stm32 mailing list
-Linux-stm32@st-md-mailman.stormreply.com
-https://st-md-mailman.stormreply.com/mailman/listinfo/linux-stm32
+SGkgUGV0ZXIsDQoNCklmIG5vdCB0b28gbGF0ZSwgY291bGQgeW91IGNoYW5nZSB0cmFjZSB0byBv
+bmx5IHRyaWcgZXJyb3IgdHJhY2Ugd2hlbg0KZXJyb3IgaXMgbm90ICJwcm9iZSBkZWZlcmVkIiA/
+IFNlZSBiZWxvdzoNCg0KLQljaGFuID0gZG1hX3JlcXVlc3Rfc2xhdmVfY2hhbm5lbCgmcGRldi0+
+ZGV2LCAidHgiKTsNCi0JaWYgKCFjaGFuKSB7DQotCQlkZXZfaW5mbygmcGRldi0+ZGV2LCAiVW5h
+YmxlIHRvIHJlcXVlc3QgRE1BIGNoYW5uZWwsIGRlZmVyIHByb2JpbmdcbiIpOw0KLQkJcmV0dXJu
+IC1FUFJPQkVfREVGRVI7DQorCWNoYW4gPSBkbWFfcmVxdWVzdF9jaGFuKCZwZGV2LT5kZXYsICJ0
+eCIpOw0KKwlpZiAoSVNfRVJSKGNoYW4pKSB7DQorCQlpZiAoUFRSX0VSUihjaGFuKSAhPSAtRVBS
+T0JFX0RFRkVSKQ0KKwkJCWRldl9lcnIoJnBkZXYtPmRldiwgIlVuYWJsZSB0byByZXF1ZXN0IERN
+QSBjaGFubmVsXG4iKTsNCisJCXJldHVybiBQVFJfRVJSKGNoYW4pOw0KDQoNCkJlc3QgcmVnYXJk
+cywNCkh1Z3Vlcy4NCg0KT24gMTIvMTgvMTkgMTE6NTIgQU0sIEh1Z3VlcyBGUlVDSEVUIHdyb3Rl
+Og0KPiBUaGFua3MgZm9yIHBhdGNoaW5nIFBldGVyLA0KPiANCj4gTm8gcmVncmVzc2lvbiBvYnNl
+cnZlZCBvbiBteSBzaWRlLg0KPiANCj4gQWNrZWQtYnk6IEh1Z3VlcyBGcnVjaGV0IDxodWd1ZXMu
+ZnJ1Y2hldEBzdC5jb20+DQo+IA0KPiBCZXN0IHJlZ2FyZHMsDQo+IEh1Z3Vlcy4NCj4gDQo+IE9u
+IDEyLzE3LzE5IDExOjQxIEFNLCBQZXRlciBVamZhbHVzaSB3cm90ZToNCj4+IGRtYV9yZXF1ZXN0
+X3NsYXZlX2NoYW5uZWwoKSBpcyBhIHdyYXBwZXIgb24gdG9wIG9mIGRtYV9yZXF1ZXN0X2NoYW4o
+KQ0KPj4gZWF0aW5nIHVwIHRoZSBlcnJvciBjb2RlLg0KPj4NCj4+IEJ5IHVzaW5nIGRtYV9yZXF1
+ZXN0X2NoYW4oKSBkaXJlY3RseSB0aGUgZHJpdmVyIGNhbiBzdXBwb3J0IGRlZmVycmVkDQo+PiBw
+cm9iaW5nIGFnYWluc3QgRE1BLg0KPj4NCj4+IFNpZ25lZC1vZmYtYnk6IFBldGVyIFVqZmFsdXNp
+IDxwZXRlci51amZhbHVzaUB0aS5jb20+DQo+PiAtLS0NCj4+IMKgIGRyaXZlcnMvbWVkaWEvcGxh
+dGZvcm0vc3RtMzIvc3RtMzItZGNtaS5jIHwgNiArKystLS0NCj4+IMKgIDEgZmlsZSBjaGFuZ2Vk
+LCAzIGluc2VydGlvbnMoKyksIDMgZGVsZXRpb25zKC0pDQo+Pg0KPj4gZGlmZiAtLWdpdCBhL2Ry
+aXZlcnMvbWVkaWEvcGxhdGZvcm0vc3RtMzIvc3RtMzItZGNtaS5jIA0KPj4gYi9kcml2ZXJzL21l
+ZGlhL3BsYXRmb3JtL3N0bTMyL3N0bTMyLWRjbWkuYw0KPj4gaW5kZXggOTM5MmUzNDA5ZmJhLi41
+NTM1MTg3MmIwYzcgMTAwNjQ0DQo+PiAtLS0gYS9kcml2ZXJzL21lZGlhL3BsYXRmb3JtL3N0bTMy
+L3N0bTMyLWRjbWkuYw0KPj4gKysrIGIvZHJpdmVycy9tZWRpYS9wbGF0Zm9ybS9zdG0zMi9zdG0z
+Mi1kY21pLmMNCj4+IEBAIC0xOTEwLDEwICsxOTEwLDEwIEBAIHN0YXRpYyBpbnQgZGNtaV9wcm9i
+ZShzdHJ1Y3QgcGxhdGZvcm1fZGV2aWNlIA0KPj4gKnBkZXYpDQo+PiDCoMKgwqDCoMKgwqDCoMKg
+wqAgcmV0dXJuIFBUUl9FUlIobWNsayk7DQo+PiDCoMKgwqDCoMKgIH0NCj4+IC3CoMKgwqAgY2hh
+biA9IGRtYV9yZXF1ZXN0X3NsYXZlX2NoYW5uZWwoJnBkZXYtPmRldiwgInR4Iik7DQo+PiAtwqDC
+oMKgIGlmICghY2hhbikgew0KPj4gK8KgwqDCoCBjaGFuID0gZG1hX3JlcXVlc3RfY2hhbigmcGRl
+di0+ZGV2LCAidHgiKTsNCj4+ICvCoMKgwqAgaWYgKElTX0VSUihjaGFuKSkgew0KPj4gwqDCoMKg
+wqDCoMKgwqDCoMKgIGRldl9pbmZvKCZwZGV2LT5kZXYsICJVbmFibGUgdG8gcmVxdWVzdCBETUEg
+Y2hhbm5lbCwgZGVmZXIgDQo+PiBwcm9iaW5nXG4iKTsNCj4+IC3CoMKgwqDCoMKgwqDCoCByZXR1
+cm4gLUVQUk9CRV9ERUZFUjsNCj4+ICvCoMKgwqDCoMKgwqDCoCByZXR1cm4gUFRSX0VSUihjaGFu
+KTsNCj4+IMKgwqDCoMKgwqAgfQ0KPj4gwqDCoMKgwqDCoCBzcGluX2xvY2tfaW5pdCgmZGNtaS0+
+aXJxbG9jayk7DQo+PgpfX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19f
+X19fXwpMaW51eC1zdG0zMiBtYWlsaW5nIGxpc3QKTGludXgtc3RtMzJAc3QtbWQtbWFpbG1hbi5z
+dG9ybXJlcGx5LmNvbQpodHRwczovL3N0LW1kLW1haWxtYW4uc3Rvcm1yZXBseS5jb20vbWFpbG1h
+bi9saXN0aW5mby9saW51eC1zdG0zMgo=
