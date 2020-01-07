@@ -2,54 +2,61 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id E40EE13251B
-	for <lists+linux-stm32@lfdr.de>; Tue,  7 Jan 2020 12:45:13 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 5CD0C132533
+	for <lists+linux-stm32@lfdr.de>; Tue,  7 Jan 2020 12:51:40 +0100 (CET)
 Received: from ip-172-31-3-76.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id A456EC36B0B;
-	Tue,  7 Jan 2020 11:45:13 +0000 (UTC)
-Received: from lelv0143.ext.ti.com (lelv0143.ext.ti.com [198.47.23.248])
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 1CFB5C36B0B;
+	Tue,  7 Jan 2020 11:51:40 +0000 (UTC)
+Received: from hqnvemgate24.nvidia.com (hqnvemgate24.nvidia.com
+ [216.228.121.143])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id D78ACC36B09
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 665ABC36B09
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Tue,  7 Jan 2020 11:45:10 +0000 (UTC)
-Received: from lelv0266.itg.ti.com ([10.180.67.225])
- by lelv0143.ext.ti.com (8.15.2/8.15.2) with ESMTP id 007Bj55h105265;
- Tue, 7 Jan 2020 05:45:05 -0600
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=ti.com;
- s=ti-com-17Q1; t=1578397505;
- bh=opRM3BxdJrwcWwYPbvHXI+kHoBYD6A8pkYN5zqXedA8=;
- h=From:To:CC:Subject:Date;
- b=XWA0M3smZhELM2OjQvdUE1JdjwBZ4QVCtv7vQATPRzSyQ0VbZ6/n40c9wBjLOEram
- 8m+HfoR9f2iI/AFlp6X2jG0SLk/vRrs/HzQ2Ef7h+HV1nbRkE4ULZRPtLoZxg4THLE
- +M4e9JOZ1VOe3oRk1C6nyw0g70uFQpKo+RhDAMAs=
-Received: from DLEE107.ent.ti.com (dlee107.ent.ti.com [157.170.170.37])
- by lelv0266.itg.ti.com (8.15.2/8.15.2) with ESMTPS id 007Bj51m037384
- (version=TLSv1.2 cipher=AES256-GCM-SHA384 bits=256 verify=FAIL);
- Tue, 7 Jan 2020 05:45:05 -0600
-Received: from DLEE108.ent.ti.com (157.170.170.38) by DLEE107.ent.ti.com
- (157.170.170.37) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_128_CBC_SHA256_P256) id 15.1.1847.3; Tue, 7 Jan
- 2020 05:45:04 -0600
-Received: from lelv0327.itg.ti.com (10.180.67.183) by DLEE108.ent.ti.com
- (157.170.170.38) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_128_CBC_SHA256_P256) id 15.1.1847.3 via
- Frontend Transport; Tue, 7 Jan 2020 05:45:04 -0600
-Received: from feketebors.ti.com (ileax41-snat.itg.ti.com [10.172.224.153])
- by lelv0327.itg.ti.com (8.15.2/8.15.2) with ESMTP id 007Bj1Zv073150;
- Tue, 7 Jan 2020 05:45:02 -0600
-From: Peter Ujfalusi <peter.ujfalusi@ti.com>
-To: <jic23@kernel.org>, <mcoquelin.stm32@gmail.com>, <alexandre.torgue@st.com>,
- <fabrice.gasnier@st.com>
-Date: Tue, 7 Jan 2020 13:45:32 +0200
-Message-ID: <20200107114532.6697-1-peter.ujfalusi@ti.com>
-X-Mailer: git-send-email 2.24.1
+ Tue,  7 Jan 2020 11:51:38 +0000 (UTC)
+Received: from hqpgpgate101.nvidia.com (Not Verified[216.228.121.13]) by
+ hqnvemgate24.nvidia.com (using TLS: TLSv1.2, DES-CBC3-SHA)
+ id <B5e1470970000>; Tue, 07 Jan 2020 03:50:47 -0800
+Received: from hqmail.nvidia.com ([172.20.161.6])
+ by hqpgpgate101.nvidia.com (PGP Universal service);
+ Tue, 07 Jan 2020 03:51:35 -0800
+X-PGP-Universal: processed;
+ by hqpgpgate101.nvidia.com on Tue, 07 Jan 2020 03:51:35 -0800
+Received: from [10.26.11.139] (10.124.1.5) by HQMAIL107.nvidia.com
+ (172.20.187.13) with Microsoft SMTP Server (TLS) id 15.0.1473.3; Tue, 7 Jan
+ 2020 11:51:33 +0000
+From: Jon Hunter <jonathanh@nvidia.com>
+To: Alexandre Torgue <alexandre.torgue@st.com>, Kishon Vijay Abraham I
+ <kishon@ti.com>, Greg Kroah-Hartman <gregkh@linuxfoundation.org>
+References: <20191104143713.11137-1-alexandre.torgue@st.com>
+Message-ID: <146b2971-d51a-164c-aea8-9b6b4ff5f420@nvidia.com>
+Date: Tue, 7 Jan 2020 11:51:31 +0000
+User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:68.0) Gecko/20100101
+ Thunderbird/68.2.2
 MIME-Version: 1.0
-X-EXCLAIMER-MD-CONFIG: e1e8a2fd-e40a-4ac6-ac9b-f7e9cc9ee180
-Cc: linux-iio@vger.kernel.org, vkoul@kernel.org, linux-kernel@vger.kernel.org,
- linux-arm-kernel@lists.infradead.org, linux-stm32@st-md-mailman.stormreply.com
-Subject: [Linux-stm32] [PATCH v2] iio: adc: stm32-dfsdm: Use
-	dma_request_chan() instead dma_request_slave_channel()
+In-Reply-To: <20191104143713.11137-1-alexandre.torgue@st.com>
+X-Originating-IP: [10.124.1.5]
+X-ClientProxiedBy: HQMAIL101.nvidia.com (172.20.187.10) To
+ HQMAIL107.nvidia.com (172.20.187.13)
+Content-Language: en-US
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=nvidia.com; s=n1;
+ t=1578397847; bh=w732UG42NDGrozK5jikFXG1HubiPs32gMkkg0N1evz4=;
+ h=X-PGP-Universal:From:Subject:To:CC:References:Message-ID:Date:
+ User-Agent:MIME-Version:In-Reply-To:X-Originating-IP:
+ X-ClientProxiedBy:Content-Type:Content-Language:
+ Content-Transfer-Encoding;
+ b=lOLqqmhSpXpca397Ft27DSG4j7J38rn8PWXyZy/3uzRilSBIhqTcX7buXfnn0K9OJ
+ v2wicIhp/PddrhvKc3jprCeIO2qOw/mijcv6aNOY54Q2j9rZqsv5zSHADC/rrlhRSn
+ HOUqeIjJfytHCcOHolztY4JQZUaKk5dgq0YOhf/rV1umDGb+GHlcXSCpZf07ifKlx4
+ YOP8XppX14oTp2nTCrKHKsGz9/kqc4snNPAYgp+XOFvaTlAZnugF+tDh8VbR6j1G1J
+ smJSoAwfK3JNih3qOBgIMQePSGHZkBz0iqVtzf6y8vvDsnKCL5HEo+dyzDPD+Q2xPe
+ EwQUPwsPf6Y/Q==
+Cc: linux-tegra <linux-tegra@vger.kernel.org>,
+ Yoshihiro Shimoda <yoshihiro.shimoda.uh@renesas.com>,
+ linux-usb@vger.kernel.org, linux-kernel@vger.kernel.org,
+ linux-stm32@st-md-mailman.stormreply.com
+Subject: Re: [Linux-stm32] [PATCH] phy: core: Add consumer device link
+	support
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -66,70 +73,104 @@ Content-Transfer-Encoding: 7bit
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
-dma_request_slave_channel() is a wrapper on top of dma_request_chan()
-eating up the error code.
 
-By using dma_request_chan() directly the driver can support deferred
-probing against DMA.
+On 04/11/2019 14:37, Alexandre Torgue wrote:
+> In order to enforce suspend/resume ordering, this commit creates link
+> between phy consumers and phy devices. This link avoids to suspend phy
+> before phy consumers.
+> 
+> Signed-off-by: Alexandre Torgue <alexandre.torgue@st.com>
 
-Signed-off-by: Peter Ujfalusi <peter.ujfalusi@ti.com>
----
-Hi,
+With next-20200106 we are seeing a boot regression on Tegra124 Jetson
+TK1 board. Bisect is pointing to this commit and reverting this on top
+of -next fixes the problem.
 
-Changes since v1:
-- Fall back to IRQ mode for ADC only in case of ENODEV
+The bootlog is showing the following crash on boot ...
 
-Regards,
-Peter
+[    1.730024] 8<--- cut here ---
+[    1.733079] Unable to handle kernel paging request at virtual address fffffe7f
+[    1.740318] pgd = (ptrval)
+[    1.743021] [fffffe7f] *pgd=affff841, *pte=00000000, *ppte=00000000
+[    1.749304] Internal error: Oops: 27 [#1] SMP ARM
+[    1.754001] Modules linked in:
+[    1.757057] CPU: 3 PID: 1 Comm: swapper/0 Not tainted 5.5.0-rc4-next-20200106-g9eb1b48ca4ce #1
+[    1.765654] Hardware name: NVIDIA Tegra SoC (Flattened Device Tree)
+[    1.771919] PC is at device_link_add+0x68/0x4d4
+[    1.776444] LR is at device_link_add+0x68/0x4d4
+[    1.780967] pc : [<c09832e4>]    lr : [<c09832e4>]    psr: 60000013
+[    1.787223] sp : ee0e1d60  ip : 60000013  fp : 00000005
+[    1.792439] r10: 00000000  r9 : 00000000  r8 : eefedd88
+[    1.797657] r7 : ee269c10  r6 : fffffdfb  r5 : 00000001  r4 : 00000001
+[    1.804173] r3 : ee0d8000  r2 : 00000000  r1 : 00000000  r0 : c1858f88
+[    1.810691] Flags: nZCv  IRQs on  FIQs on  Mode SVC_32  ISA ARM  Segment none
+[    1.817815] Control: 10c5387d  Table: 8020406a  DAC: 00000051
+[    1.823552] Process swapper/0 (pid: 1, stack limit = 0x(ptrval))
+[    1.829549] Stack: (0xee0e1d60 to 0xee0e2000)
+[    1.833904] 1d60: eefedd88 00000040 c07087a0 fffffdfb ee269c10 ee737640 00000000 eefedd88
+[    1.842073] 1d80: 00000000 00000000 00000005 c0707d34 00000000 ee3c8a00 ee7375c0 ee269c10
+[    1.850242] 1da0: eefedd88 c0a0bd2c c1704e48 ee269c10 ee269c00 ee3c8a00 00000000 c0a0c4a8
+[    1.858409] 1dc0: ee269c10 c1704e48 c186603c 00000000 c186603c 00000000 00000000 bc98ab22
+[    1.866577] 1de0: ffffffff ee269c10 00000000 c186603c ee269c00 c186603c 00000000 00000000
+[    1.874744] 1e00: c1656690 c0a0ffe0 00000000 bc98ab22 ee269c10 ee269c10 00000000 c186603c
+[    1.882913] 1e20: 00000000 c186603c 00000000 c09887e0 c18ff9dc ee269c10 c18ff9e0 c0986860
+[    1.891082] 1e40: ee269c10 c186603c c186603c c1704e48 00000000 c15003f0 c15c3854 c0986af0
+[    1.899249] 1e60: c15c3854 c0d128b4 c10e48ec ee269c10 00000000 c186603c c1704e48 00000000
+[    1.907416] 1e80: c15003f0 c15c3854 c1656690 c0986da0 00000000 c186603c ee269c10 c0986e28
+[    1.915583] 1ea0: 00000000 c186603c c0986da8 c0984ba0 c15003f0 ee20c058 ee242334 bc98ab22
+[    1.923752] 1ec0: c18588c8 c186603c ee737200 c18588c8 00000000 c0985b94 c133ef10 ffffe000
+[    1.931919] 1ee0: c186603c c186603c c18aaf80 ffffe000 c158b72c c09878ac c1704e48 c18aaf80
+[    1.940088] 1f00: ffffe000 c0302f80 00000168 c0367d84 c143e5b4 c1371000 00000000 00000006
+[    1.948255] 1f20: 00000006 c125b1b4 00000000 c1704e48 c126f324 c125b228 00000000 efffec88
+[    1.956424] 1f40: 00000000 bc98ab22 00000000 c18b6bc0 c18b6bc0 bc98ab22 c18b6bc0 c18b6bc0
+[    1.964591] 1f60: 00000007 c15c3834 00000169 c1500f28 00000006 00000006 00000000 c15003f0
+[    1.972758] 1f80: 00000000 00000000 c0ef1cdc 00000000 00000000 00000000 00000000 00000000
+[    1.980924] 1fa0: 00000000 c0ef1ce4 00000000 c03010e8 00000000 00000000 00000000 00000000
+[    1.989092] 1fc0: 00000000 00000000 00000000 00000000 00000000 00000000 00000000 00000000
+[    1.997260] 1fe0: 00000000 00000000 00000000 00000000 00000013 00000000 00000000 00000000
+[    2.005440] [<c09832e4>] (device_link_add) from [<c0707d34>] (devm_of_phy_get+0x6c/0xb0)
+[    2.013528] [<c0707d34>] (devm_of_phy_get) from [<c0a0bd2c>] (ahci_platform_get_phy+0x28/0xd0)
+[    2.022134] [<c0a0bd2c>] (ahci_platform_get_phy) from [<c0a0c4a8>] (ahci_platform_get_resources+0x384/0x468)
+[    2.031952] [<c0a0c4a8>] (ahci_platform_get_resources) from [<c0a0ffe0>] (tegra_ahci_probe+0x14/0x650)
+[    2.041254] [<c0a0ffe0>] (tegra_ahci_probe) from [<c09887e0>] (platform_drv_probe+0x48/0x98)
+[    2.049686] [<c09887e0>] (platform_drv_probe) from [<c0986860>] (really_probe+0x234/0x34c)
+[    2.057944] [<c0986860>] (really_probe) from [<c0986af0>] (driver_probe_device+0x60/0x168)
+[    2.066202] [<c0986af0>] (driver_probe_device) from [<c0986da0>] (device_driver_attach+0x58/0x60)
+[    2.075064] [<c0986da0>] (device_driver_attach) from [<c0986e28>] (__driver_attach+0x80/0xbc)
+[    2.083582] [<c0986e28>] (__driver_attach) from [<c0984ba0>] (bus_for_each_dev+0x74/0xb4)
+[    2.091751] [<c0984ba0>] (bus_for_each_dev) from [<c0985b94>] (bus_add_driver+0x164/0x1e8)
+[    2.100008] [<c0985b94>] (bus_add_driver) from [<c09878ac>] (driver_register+0x7c/0x114)
+[    2.108094] [<c09878ac>] (driver_register) from [<c0302f80>] (do_one_initcall+0x54/0x22c)
+[    2.116271] [<c0302f80>] (do_one_initcall) from [<c1500f28>] (kernel_init_freeable+0x14c/0x1b0)
+[    2.124967] [<c1500f28>] (kernel_init_freeable) from [<c0ef1ce4>] (kernel_init+0x8/0x10c)
+[    2.133139] [<c0ef1ce4>] (kernel_init) from [<c03010e8>] (ret_from_fork+0x14/0x2c)
+[    2.140697] Exception stack(0xee0e1fb0 to 0xee0e1ff8)
+[    2.145743] 1fa0:                                     00000000 00000000 00000000 00000000
+[    2.153910] 1fc0: 00000000 00000000 00000000 00000000 00000000 00000000 00000000 00000000
+[    2.162076] 1fe0: 00000000 00000000 00000000 00000000 00000013 00000000
+[    2.168686] Code: e59f0470 03844040 eb15cb16 eb004c8a (e5d63084) 
+[    2.174824] ---[ end trace fddbf111e88ec722 ]---
 
- drivers/iio/adc/stm32-dfsdm-adc.c | 21 +++++++++++++++++----
- 1 file changed, 17 insertions(+), 4 deletions(-)
 
-diff --git a/drivers/iio/adc/stm32-dfsdm-adc.c b/drivers/iio/adc/stm32-dfsdm-adc.c
-index e493242c266e..74a2211bdff4 100644
---- a/drivers/iio/adc/stm32-dfsdm-adc.c
-+++ b/drivers/iio/adc/stm32-dfsdm-adc.c
-@@ -1383,9 +1383,13 @@ static int stm32_dfsdm_dma_request(struct iio_dev *indio_dev)
- {
- 	struct stm32_dfsdm_adc *adc = iio_priv(indio_dev);
+I believe that there is a bug in this patch and the following fixed it for me ...
+
+diff --git a/drivers/phy/phy-core.c b/drivers/phy/phy-core.c
+index 8dfb4868c8c3..2eb28cc2d2dc 100644
+--- a/drivers/phy/phy-core.c
++++ b/drivers/phy/phy-core.c
+@@ -799,6 +799,7 @@ struct phy *devm_of_phy_get(struct device *dev, struct device_node *np,
+                devres_add(dev, ptr);
+        } else {
+                devres_free(ptr);
++               return phy;
+        }
  
--	adc->dma_chan = dma_request_slave_channel(&indio_dev->dev, "rx");
--	if (!adc->dma_chan)
--		return -EINVAL;
-+	adc->dma_chan = dma_request_chan(&indio_dev->dev, "rx");
-+	if (IS_ERR(adc->dma_chan)) {
-+		int ret = PTR_ERR(adc->dma_chan);
-+
-+		adc->dma_chan = NULL;
-+		return ret;
-+	}
- 
- 	adc->rx_buf = dma_alloc_coherent(adc->dma_chan->device->dev,
- 					 DFSDM_DMA_BUFFER_SIZE,
-@@ -1509,7 +1513,16 @@ static int stm32_dfsdm_adc_init(struct iio_dev *indio_dev)
- 	init_completion(&adc->completion);
- 
- 	/* Optionally request DMA */
--	if (stm32_dfsdm_dma_request(indio_dev)) {
-+	ret = stm32_dfsdm_dma_request(indio_dev);
-+	if (ret) {
-+		if (ret != -ENODEV) {
-+			if (ret != -EPROBE_DEFER)
-+				dev_err(&indio_dev->dev,
-+					"DMA channel request failed with %d\n",
-+					ret);
-+			return ret;
-+		}
-+
- 		dev_dbg(&indio_dev->dev, "No DMA support\n");
- 		return 0;
- 	}
+        link = device_link_add(dev, &phy->dev, DL_FLAG_STATELESS);
+
+Cheers
+Jon
+
 -- 
-Peter
-
-Texas Instruments Finland Oy, Porkkalankatu 22, 00180 Helsinki.
-Y-tunnus/Business ID: 0615521-4. Kotipaikka/Domicile: Helsinki
-
+nvpublic
 _______________________________________________
 Linux-stm32 mailing list
 Linux-stm32@st-md-mailman.stormreply.com
