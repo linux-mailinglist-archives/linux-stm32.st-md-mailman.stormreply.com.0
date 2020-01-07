@@ -2,53 +2,130 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id 9B06D1323F4
-	for <lists+linux-stm32@lfdr.de>; Tue,  7 Jan 2020 11:42:47 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id CF16F132411
+	for <lists+linux-stm32@lfdr.de>; Tue,  7 Jan 2020 11:46:38 +0100 (CET)
 Received: from ip-172-31-3-76.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 50FF9C36B0B;
-	Tue,  7 Jan 2020 10:42:47 +0000 (UTC)
-Received: from metis.ext.pengutronix.de (metis.ext.pengutronix.de
- [85.220.165.71])
- (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 90E5CC36B0B;
+	Tue,  7 Jan 2020 10:46:38 +0000 (UTC)
+Received: from mail-wr1-f66.google.com (mail-wr1-f66.google.com
+ [209.85.221.66])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 95DACC36B09
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 00271C36B09
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Tue,  7 Jan 2020 10:42:46 +0000 (UTC)
-Received: from ptx.hi.pengutronix.de ([2001:67c:670:100:1d::c0])
- by metis.ext.pengutronix.de with esmtps
- (TLS1.2:ECDHE_RSA_AES_256_GCM_SHA384:256) (Exim 4.92)
- (envelope-from <ukl@pengutronix.de>)
- id 1iomJn-0005TW-KM; Tue, 07 Jan 2020 11:42:35 +0100
-Received: from ukl by ptx.hi.pengutronix.de with local (Exim 4.89)
- (envelope-from <ukl@pengutronix.de>)
- id 1iomJm-0004iE-4c; Tue, 07 Jan 2020 11:42:34 +0100
-Date: Tue, 7 Jan 2020 11:42:34 +0100
-From: Uwe =?iso-8859-1?Q?Kleine-K=F6nig?= <u.kleine-koenig@pengutronix.de>
-To: Krzysztof Kozlowski <krzk@kernel.org>
-Message-ID: <20200107104234.wq74fska3szrg4ii@pengutronix.de>
-References: <20191230172113.17222-1-krzk@kernel.org>
- <20191230172113.17222-2-krzk@kernel.org>
- <20200107072645.ko247bwhh3ibdu73@pengutronix.de>
- <20200107082539.GA31827@pi3>
+ Tue,  7 Jan 2020 10:46:36 +0000 (UTC)
+Received: by mail-wr1-f66.google.com with SMTP id d16so53353889wre.10
+ for <linux-stm32@st-md-mailman.stormreply.com>;
+ Tue, 07 Jan 2020 02:46:36 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=baylibre-com.20150623.gappssmtp.com; s=20150623;
+ h=subject:to:cc:references:from:autocrypt:organization:message-id
+ :date:user-agent:mime-version:in-reply-to:content-language
+ :content-transfer-encoding;
+ bh=7rTH7Mcvy9VwocrAIm3b118vtxupV3Wfvxxlykhwfhw=;
+ b=XrfY/ltUBec+Jj/oE1JL7YfnYj4n/J8vFbVYL5l1ta6HNoHTpo2D+5wFT2waJ87+UK
+ 3nKSRefjWLgsZ5uWXpDiMY+ZnT6QLbbbZSeKYuyNPEogXK3SErwoqSzg7BBuw5On38yw
+ gJr4TM7AhokfRQeU6lnLk/XbqMYXAOPzgjN2IKj9taW9e0wmvv18AeOM+Rr536Cfy+Fg
+ zqW/R7vhMUE3VZnn33/iITSm7V46IMLarYsBQQMYeir9Z3dUM6mYUAtMN2EE2HsyIxpH
+ mk5CX0Wexkdt1vTLaYKfzTckANhmGgq82FWL7epmVRPdGZoixVUr2NmSC9qXb1npBOL+
+ W3fg==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20161025;
+ h=x-gm-message-state:subject:to:cc:references:from:autocrypt
+ :organization:message-id:date:user-agent:mime-version:in-reply-to
+ :content-language:content-transfer-encoding;
+ bh=7rTH7Mcvy9VwocrAIm3b118vtxupV3Wfvxxlykhwfhw=;
+ b=XpGxAn36Tak0F8j4yRJDN/QloHoBh3hOIOk7hq76uu42DboC/lw6LvTIaOKljUeaHN
+ /w9CBZbEDpN3coV64Sch+ew/jaRZlAWhfvtLW41kG1VCum+Fb4BGU3J1ae2EnMaiyGXp
+ 5D/0DGdcKvwmAjAxk4QZ1iOUHw5ls78URkb4lehPc+YdVgAMIDHyFHzLpbYMl/Qyd9/S
+ W7l6xaonAdOalDPYMfvm5aoGEwm4NVVQctQ6HaDnmymLQp4SdpyX9+bVhEnDkXrbzj2D
+ E1V0mH16/3idKzy74Zq2QBKmypYL6bWLyvFftaxF0f2Tzk3wqou4Rn5u50KMjr5i5bzj
+ +rMg==
+X-Gm-Message-State: APjAAAVCFKVAtz2CifgJY4ROVm16mKZi3T+egakgpB5nmqAdPQGzfwdq
+ PfCsoZ/6CV08vtP3AphIDW1sLA==
+X-Google-Smtp-Source: APXvYqxuWN4aaBHGSaP5ESCWj+T7ZddZ68fPIgFqkf78nsOoU+Bwt5cZdFIT76i2bV/yP0mXYG78yA==
+X-Received: by 2002:adf:fd43:: with SMTP id h3mr70405322wrs.169.1578393996370; 
+ Tue, 07 Jan 2020 02:46:36 -0800 (PST)
+Received: from [10.1.2.12] (laubervilliers-658-1-213-31.w90-63.abo.wanadoo.fr.
+ [90.63.244.31])
+ by smtp.gmail.com with ESMTPSA id t81sm26921154wmg.6.2020.01.07.02.46.35
+ (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+ Tue, 07 Jan 2020 02:46:35 -0800 (PST)
+To: Sriram Dash <sriram.dash@samsung.com>,
+ 'Florian Fainelli' <f.fainelli@gmail.com>, netdev@vger.kernel.org
+References: <CGME20200107050854epcas1p3c1a66e67f14802322063f6c9747f1986@epcas1p3.samsung.com>
+ <20200107050846.16838-1-f.fainelli@gmail.com>
+ <011a01d5c51d$d7482290$85d867b0$@samsung.com>
+From: Neil Armstrong <narmstrong@baylibre.com>
+Autocrypt: addr=narmstrong@baylibre.com; prefer-encrypt=mutual; keydata=
+ xsBNBE1ZBs8BCAD78xVLsXPwV/2qQx2FaO/7mhWL0Qodw8UcQJnkrWmgTFRobtTWxuRx8WWP
+ GTjuhvbleoQ5Cxjr+v+1ARGCH46MxFP5DwauzPekwJUD5QKZlaw/bURTLmS2id5wWi3lqVH4
+ BVF2WzvGyyeV1o4RTCYDnZ9VLLylJ9bneEaIs/7cjCEbipGGFlfIML3sfqnIvMAxIMZrvcl9
+ qPV2k+KQ7q+aXavU5W+yLNn7QtXUB530Zlk/d2ETgzQ5FLYYnUDAaRl+8JUTjc0CNOTpCeik
+ 80TZcE6f8M76Xa6yU8VcNko94Ck7iB4vj70q76P/J7kt98hklrr85/3NU3oti3nrIHmHABEB
+ AAHNKE5laWwgQXJtc3Ryb25nIDxuYXJtc3Ryb25nQGJheWxpYnJlLmNvbT7CwHsEEwEKACUC
+ GyMGCwkIBwMCBhUIAgkKCwQWAgMBAh4BAheABQJXDO2CAhkBAAoJEBaat7Gkz/iubGIH/iyk
+ RqvgB62oKOFlgOTYCMkYpm2aAOZZLf6VKHKc7DoVwuUkjHfIRXdslbrxi4pk5VKU6ZP9AKsN
+ NtMZntB8WrBTtkAZfZbTF7850uwd3eU5cN/7N1Q6g0JQihE7w4GlIkEpQ8vwSg5W7hkx3yQ6
+ 2YzrUZh/b7QThXbNZ7xOeSEms014QXazx8+txR7jrGF3dYxBsCkotO/8DNtZ1R+aUvRfpKg5
+ ZgABTC0LmAQnuUUf2PHcKFAHZo5KrdO+tyfL+LgTUXIXkK+tenkLsAJ0cagz1EZ5gntuheLD
+ YJuzS4zN+1Asmb9kVKxhjSQOcIh6g2tw7vaYJgL/OzJtZi6JlIXOwU0EVid/pAEQAND7AFhr
+ 5faf/EhDP9FSgYd/zgmb7JOpFPje3uw7jz9wFb28Cf0Y3CcncdElYoBNbRlesKvjQRL8mozV
+ 9RN+IUMHdUx1akR/A4BPXNdL7StfzKWOCxZHVS+rIQ/fE3Qz/jRmT6t2ZkpplLxVBpdu95qJ
+ YwSZjuwFXdC+A7MHtQXYi3UfCgKiflj4+/ITcKC6EF32KrmIRqamQwiRsDcUUKlAUjkCLcHL
+ CQvNsDdm2cxdHxC32AVm3Je8VCsH7/qEPMQ+cEZk47HOR3+Ihfn1LEG5LfwsyWE8/JxsU2a1
+ q44LQM2lcK/0AKAL20XDd7ERH/FCBKkNVzi+svYJpyvCZCnWT0TRb72mT+XxLWNwfHTeGALE
+ +1As4jIS72IglvbtONxc2OIid3tR5rX3k2V0iud0P7Hnz/JTdfvSpVj55ZurOl2XAXUpGbq5
+ XRk5CESFuLQV8oqCxgWAEgFyEapI4GwJsvfl/2Er8kLoucYO1Id4mz6N33+omPhaoXfHyLSy
+ dxD+CzNJqN2GdavGtobdvv/2V0wukqj86iKF8toLG2/Fia3DxMaGUxqI7GMOuiGZjXPt/et/
+ qeOySghdQ7Sdpu6fWc8CJXV2mOV6DrSzc6ZVB4SmvdoruBHWWOR6YnMz01ShFE49pPucyU1h
+ Av4jC62El3pdCrDOnWNFMYbbon3vABEBAAHCwn4EGAECAAkFAlYnf6QCGwICKQkQFpq3saTP
+ +K7BXSAEGQECAAYFAlYnf6QACgkQd9zb2sjISdGToxAAkOjSfGxp0ulgHboUAtmxaU3viucV
+ e2Hl1BVDtKSKmbIVZmEUvx9D06IijFaEzqtKD34LXD6fjl4HIyDZvwfeaZCbJbO10j3k7FJE
+ QrBtpdVqkJxme/nYlGOVzcOiKIepNkwvnHVnuVDVPcXyj2wqtsU7VZDDX41z3X4xTQwY3SO1
+ 9nRO+f+i4RmtJcITgregMa2PcB0LvrjJlWroI+KAKCzoTHzSTpCXMJ1U/dEqyc87bFBdc+DI
+ k8mWkPxsccdbs4t+hH0NoE3Kal9xtAl56RCtO/KgBLAQ5M8oToJVatxAjO1SnRYVN1EaAwrR
+ xkHdd97qw6nbg9BMcAoa2NMc0/9MeiaQfbgW6b0reIz/haHhXZ6oYSCl15Knkr4t1o3I2Bqr
+ Mw623gdiTzotgtId8VfLB2Vsatj35OqIn5lVbi2ua6I0gkI6S7xJhqeyrfhDNgzTHdQVHB9/
+ 7jnM0ERXNy1Ket6aDWZWCvM59dTyu37g3VvYzGis8XzrX1oLBU/tTXqo1IFqqIAmvh7lI0Se
+ gCrXz7UanxCwUbQBFjzGn6pooEHJYRLuVGLdBuoApl/I4dLqCZij2AGa4CFzrn9W0cwm3HCO
+ lR43gFyz0dSkMwNUd195FrvfAz7Bjmmi19DnORKnQmlvGe/9xEEfr5zjey1N9+mt3//geDP6
+ clwKBkq0JggA+RTEAELzkgPYKJ3NutoStUAKZGiLOFMpHY6KpItbbHjF2ZKIU1whaRYkHpB2
+ uLQXOzZ0d7x60PUdhqG3VmFnzXSztA4vsnDKk7x2xw0pMSTKhMafpxaPQJf494/jGnwBHyi3
+ h3QGG1RjfhQ/OMTX/HKtAUB2ct3Q8/jBfF0hS5GzT6dYtj0Ci7+8LUsB2VoayhNXMnaBfh+Q
+ pAhaFfRZWTjUFIV4MpDdFDame7PB50s73gF/pfQbjw5Wxtes/0FnqydfId95s+eej+17ldGp
+ lMv1ok7K0H/WJSdr7UwDAHEYU++p4RRTJP6DHWXcByVlpNQ4SSAiivmWiwOt490+Ac7ATQRN
+ WQbPAQgAvIoM384ZRFocFXPCOBir5m2J+96R2tI2XxMgMfyDXGJwFilBNs+fpttJlt2995A8
+ 0JwPj8SFdm6FBcxygmxBBCc7i/BVQuY8aC0Z/w9Vzt3Eo561r6pSHr5JGHe8hwBQUcNPd/9l
+ 2ynP57YTSE9XaGJK8gIuTXWo7pzIkTXfN40Wh5jeCCspj4jNsWiYhljjIbrEj300g8RUT2U0
+ FcEoiV7AjJWWQ5pi8lZJX6nmB0lc69Jw03V6mblgeZ/1oTZmOepkagwy2zLDXxihf0GowUif
+ GphBDeP8elWBNK+ajl5rmpAMNRoKxpN/xR4NzBg62AjyIvigdywa1RehSTfccQARAQABwsBf
+ BBgBAgAJBQJNWQbPAhsMAAoJEBaat7Gkz/iuteIH+wZuRDqK0ysAh+czshtG6JJlLW6eXJJR
+ Vi7dIPpgFic2LcbkSlvB8E25Pcfz/+tW+04Urg4PxxFiTFdFCZO+prfd4Mge7/OvUcwoSub7
+ ZIPo8726ZF5/xXzajahoIu9/hZ4iywWPAHRvprXaim5E/vKjcTeBMJIqZtS4u/UK3EpAX59R
+ XVxVpM8zJPbk535ELUr6I5HQXnihQm8l6rt9TNuf8p2WEDxc8bPAZHLjNyw9a/CdeB97m2Tr
+ zR8QplXA5kogS4kLe/7/JmlDMO8Zgm9vKLHSUeesLOrjdZ59EcjldNNBszRZQgEhwaarfz46
+ BSwxi7g3Mu7u5kUByanqHyA=
+Organization: Baylibre
+Message-ID: <8a1ca3ad-23c8-ded6-6b7a-533b3ddc307a@baylibre.com>
+Date: Tue, 7 Jan 2020 11:46:34 +0100
+User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:68.0) Gecko/20100101
+ Thunderbird/68.2.2
 MIME-Version: 1.0
-Content-Disposition: inline
-In-Reply-To: <20200107082539.GA31827@pi3>
-User-Agent: NeoMutt/20170113 (1.7.2)
-X-SA-Exim-Connect-IP: 2001:67c:670:100:1d::c0
-X-SA-Exim-Mail-From: ukl@pengutronix.de
-X-SA-Exim-Scanned: No (on metis.ext.pengutronix.de);
- SAEximRunCond expanded to false
-X-PTX-Original-Recipient: linux-stm32@st-md-mailman.stormreply.com
-Cc: linux-pwm@vger.kernel.org, Arnd Bergmann <arnd@arndb.de>,
- Richard Weinberger <richard@nod.at>, linux-mediatek@lists.infradead.org,
- linux-kernel@vger.kernel.org, linux-rockchip@lists.infradead.org,
- Thierry Reding <thierry.reding@gmail.com>,
- bcm-kernel-feedback-list@broadcom.com, linux-rpi-kernel@lists.infradead.org,
- kernel@pengutronix.de, linux-tegra@vger.kernel.org,
- linux-amlogic@lists.infradead.org, linux-riscv@lists.infradead.org,
- linux-stm32@st-md-mailman.stormreply.com, linux-arm-kernel@lists.infradead.org
-Subject: Re: [Linux-stm32] [PATCH 2/2] pwm: Enable compile testing for some
-	of drivers
+In-Reply-To: <011a01d5c51d$d7482290$85d867b0$@samsung.com>
+Content-Language: en-US
+Cc: 'Jose Abreu' <Jose.Abreu@synopsys.com>,
+ 'Jayati Sahu' <jayati.sahu@samsung.com>, tomeu.vizoso@collabora.com,
+ rcsekar@samsung.com, khilman@baylibre.com, linux-kernel@vger.kernel.org,
+ 'Padmanabhan Rajanbabu' <p.rajanbabu@samsung.com>,
+ "'David S. Miller'" <davem@davemloft.net>, guillaume.tucker@collabora.com,
+ broonie@kernel.org, pankaj.dubey@samsung.com,
+ 'Maxime Coquelin' <mcoquelin.stm32@gmail.com>, mgalka@collabora.com,
+ enric.balletbo@collabora.com, 'Giuseppe Cavallaro' <peppe.cavallaro@st.com>,
+ linux-stm32@st-md-mailman.stormreply.com, linux-arm-kernel@lists.infradead.org,
+ heiko@sntech.de
+Subject: Re: [Linux-stm32] [PATCH net] Revert "net: stmmac: platform: Fix
+ MDIO init for platforms without PHY"
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -60,100 +137,95 @@ List-Post: <mailto:linux-stm32@st-md-mailman.stormreply.com>
 List-Help: <mailto:linux-stm32-request@st-md-mailman.stormreply.com?subject=help>
 List-Subscribe: <https://st-md-mailman.stormreply.com/mailman/listinfo/linux-stm32>, 
  <mailto:linux-stm32-request@st-md-mailman.stormreply.com?subject=subscribe>
-Content-Type: text/plain; charset="iso-8859-1"
-Content-Transfer-Encoding: quoted-printable
+Content-Type: text/plain; charset="us-ascii"
+Content-Transfer-Encoding: 7bit
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
-Hello Krzysztof,
+On 07/01/2020 06:46, Sriram Dash wrote:
+>> From: Florian Fainelli <f.fainelli@gmail.com>
+>> Subject: [PATCH net] Revert "net: stmmac: platform: Fix MDIO init for
+> platforms
+>> without PHY"
+>>
+>> This reverts commit d3e014ec7d5ebe9644b5486bc530b91e62bbf624 ("net:
+>> stmmac: platform: Fix MDIO init for platforms without PHY") because it
+> breaks
+>> existing systems with stmmac which do not have a MDIO bus sub-node nor a
+>> 'phy-handle' property declared in their Device Tree. On those systems, the
+>> stmmac MDIO bus is expected to be created and then scanned by
+>> of_mdiobus_register() to create PHY devices.
+>>
+>> While these systems should arguably make use of a more accurate Device
+> Tree
+>> reprensentation with the use of the MDIO bus sub-node an appropriate 'phy-
+>> handle', we cannot break them, therefore restore the behavior prior to the
+> said
+>> commit.
+>>
+>> Fixes: d3e014ec7d5e ("net: stmmac: platform: Fix MDIO init for platforms
+>> without PHY")
+>> Reported-by: Heiko Stuebner <heiko@sntech.de>
+>> Reported-by: kernelci.org bot <bot@kernelci.org>
+>> Signed-off-by: Florian Fainelli <f.fainelli@gmail.com>
+> Nacked-by: Sriram Dash <Sriram.dash@samsung.com>
+> 
+>> ---
+>> Heiko,
+>>
+>> I did not add the Tested-by because the patch is a little bit different
+> from what
+>> you tested, even if you most likely were not hitting the other part that I
+> was
+>> changing. Thanks!
+>>
+>>  drivers/net/ethernet/stmicro/stmmac/stmmac_platform.c | 2 +-
+>>  1 file changed, 1 insertion(+), 1 deletion(-)
+>>
+>> diff --git a/drivers/net/ethernet/stmicro/stmmac/stmmac_platform.c
+>> b/drivers/net/ethernet/stmicro/stmmac/stmmac_platform.c
+>> index cc8d7e7bf9ac..bedaff0c13bd 100644
+>> --- a/drivers/net/ethernet/stmicro/stmmac/stmmac_platform.c
+>> +++ b/drivers/net/ethernet/stmicro/stmmac/stmmac_platform.c
+>> @@ -320,7 +320,7 @@ static int stmmac_mtl_setup(struct platform_device
+>> *pdev,  static int stmmac_dt_phy(struct plat_stmmacenet_data *plat,
+>>  			 struct device_node *np, struct device *dev)  {
+>> -	bool mdio = false;
+>> +	bool mdio = true;
+> 
+> 
+> This is breaking for the platforms with fixed-link.
+> stih418-b2199.dts and 169445.dts to name a few.
+> 
+> For the newer platforms, they should provide the mdio/ snps,dwmac-mdio
+> property in the device tree as we are checking the mdio/ snps,dwmac-mdio
+> property in the stmmac_platform driver for the mdio bus memory allocation.
+> For existing platforms, I agree we should not break them, but we should make
+> the code correct. And make the existing platforms adapt to the proper code.
+> There is a proposed solution. 
+> https://lkml.org/lkml/2020/1/7/14
 
-On Tue, Jan 07, 2020 at 09:25:39AM +0100, Krzysztof Kozlowski wrote:
-> On Tue, Jan 07, 2020 at 08:26:45AM +0100, Uwe Kleine-K=F6nig wrote:
-> > On Mon, Dec 30, 2019 at 06:21:13PM +0100, Krzysztof Kozlowski wrote:
-> > > Some of the PWM drivers can be compile tested to increase build
-> > > coverage.
-> > > =
+Can you post it as a patch then and add me in CC since it also breaks Oxnas as reported as Kci ?
 
-> > > The Meson PWM driver requires COMMON_CLK dependency.
-> > =
+Neil
 
-> > I'm surprised that there are not more that need this. Is HAVE_CLK not
-> > enough?
-> =
+> 
+> What do you think?
+> 
+>>  	static const struct of_device_id need_mdio_ids[] = {
+>>  		{ .compatible = "snps,dwc-qos-ethernet-4.10" },
+>>  		{},
+>> --
+>> 2.19.1
+> 
+> 
+> 
+> _______________________________________________
+> linux-arm-kernel mailing list
+> linux-arm-kernel@lists.infradead.org
+> http://lists.infradead.org/mailman/listinfo/linux-arm-kernel
+> 
 
-> Nope. E.g. for alpha architecture, HAVE_CLK is not set and without
-> COMMON_CLK:
-> =
-
-> drivers/pwm/pwm-meson.o: In function `meson_pwm_init_channels':
-> (.text+0x244): undefined reference to `devm_clk_register'
-
-I see. devm_clk_register() only exists in include/linux/clk-provider.h.
-
-> I guess other solution would be to add stubs for few clk functions...
-> =
-
-> > Also HAS_IOMEM is a typical requirement, but I tested with an ARCH=3Dum
-> > config (which does't have HAS_IOMEM) and they all compile fine.
-> =
-
-> Because of !HAS_IOMEM, since some time ARCH=3Dum does not support
-> COMPILE_TEST. Therefore HAS_IOMEM dependency is not needed for compile
-> testing (and for regular build it is selected by ARCH).
-
-Hehe, I didn't notice because for testing I just dropped the "depends on
-..." lines in Kconfig instead of adding "|| COMPILE_TEST" :-) Still they
-compile fine on UML.
-
-Ah, since bc083a64b6c0 ("init/Kconfig: make COMPILE_TEST depend on
-!UML") =3D=3D v4.8-rc1~52^2~83 COMPILE_TEST cannot be enabled on UML, but
-later 1bcbfbfdeb00 ("um: add dummy ioremap and iounmap functions")
-=3D=3D v4.13-rc1~8^2~6 UM got a dummy implementation. So maybe we could
-revert bc083a64b6c0 today? (And if not, a comment about why near the
-"depends on !UML" in init/Kconfig would be great.)
-
-Orthogonal to that, I wonder if depending on HAS_IOMEM is right even
-though the compile testers won't notice it missing. Or should HAS_IOMEM
-be dropped?
-
-> > > @@ -318,7 +319,7 @@ config PWM_MEDIATEK
-> > >  =
-
-> > >  config PWM_MXS
-> > >  	tristate "Freescale MXS PWM support"
-> > > -	depends on ARCH_MXS && OF
-> > > +	depends on (ARCH_MXS && OF) || COMPILE_TEST
-> > >  	select STMP_DEVICE
-> > >  	help
-> > >  	  Generic PWM framework driver for Freescale MXS.
-> > > @@ -328,7 +329,8 @@ config PWM_MXS
-> > >  =
-
-> > >  config PWM_OMAP_DMTIMER
-> > >  	tristate "OMAP Dual-Mode Timer PWM support"
-> > > -	depends on OF && ARCH_OMAP && OMAP_DM_TIMER
-> > > +	depends on (ARCH_OMAP && OMAP_DM_TIMER) || COMPILE_TEST
-> > > +	depends on OF
-> > =
-
-> > I'm surprised that OF isn't required for PWM_MXS but is is for
-> > PWM_OMAP_DMTIMER. pwm-mxs compiles without CONFIG_OF, didn't test
-> > pwm-omap-dmtimer.
-> =
-
-> Since some time !OF has all necessary stubs so OF is actually needed
-> only for binding, not compiling.
-
-That doesn't explain why you handle PWM_MXS and PWM_OMAP_DMTIMER
-differently though.
-
-Best regards
-Uwe
-
--- =
-
-Pengutronix e.K.                           | Uwe Kleine-K=F6nig            |
-Industrial Linux Solutions                 | https://www.pengutronix.de/ |
 _______________________________________________
 Linux-stm32 mailing list
 Linux-stm32@st-md-mailman.stormreply.com
