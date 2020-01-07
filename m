@@ -2,54 +2,54 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id 10982131F90
-	for <lists+linux-stm32@lfdr.de>; Tue,  7 Jan 2020 06:50:56 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 1BF87131F8F
+	for <lists+linux-stm32@lfdr.de>; Tue,  7 Jan 2020 06:50:53 +0100 (CET)
 Received: from ip-172-31-3-76.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id CCCBBC36B0B;
-	Tue,  7 Jan 2020 05:50:55 +0000 (UTC)
-Received: from mail-pl1-f194.google.com (mail-pl1-f194.google.com
- [209.85.214.194])
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id BF45FC36B0C;
+	Tue,  7 Jan 2020 05:50:52 +0000 (UTC)
+Received: from mail-pj1-f65.google.com (mail-pj1-f65.google.com
+ [209.85.216.65])
  (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 71F11C36B09
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id C06F0C36B09
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Tue,  7 Jan 2020 05:50:52 +0000 (UTC)
-Received: by mail-pl1-f194.google.com with SMTP id b22so22744287pls.12
+ Tue,  7 Jan 2020 05:50:50 +0000 (UTC)
+Received: by mail-pj1-f65.google.com with SMTP id n96so8531353pjc.3
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Mon, 06 Jan 2020 21:50:52 -0800 (PST)
+ Mon, 06 Jan 2020 21:50:50 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20161025;
  h=subject:to:cc:references:from:autocrypt:message-id:date:user-agent
  :mime-version:in-reply-to:content-language:content-transfer-encoding;
  bh=upFgnCPUP6bUNf0w4clZ6s4PfWYYFquwuIgCR0kvv0I=;
- b=TEavNkJX+k/qA/roydejXmwwkeuJyf1H/Tf0GIc2hrC8eOo8QHKUAjvNbWKsX7Ep5O
- heIrJTpMRK+kTuV+eGHm1lPDmDLydZcaC+GEpRPXDgUA1nge3fOmqc47PLcXecDYMnXL
- kY+hOUohlNLbhy7vbptPpQQGwNGUy3kkStrLCX2/r0VaQzD91Y6QrcfxZgo8K6D8DTiH
- jHhwfcgUK4xZ0l4Vw2ObBAG9sKNw6StMi0yp28OgLQT6W+SnMZIaiGPnvzkw9BSUVmjS
- 6QEu51Dgj65UoLgNjgKuRclZavvUxSr2mWHB9qFeBesf2VD0LjeYaAu94hFS4Ls0q1Ef
- RO9A==
+ b=RRgpM4IZ7Ugi4x7YbgRZeN0WtO7LqwkD4dg6w5KkY/r8hNPZGdjI46i0C8m+jPdvuS
+ yncrE4QiBQuCRIiO/Usg8lAVFBg0o6J5lv8o8G+SP82CYeezie5r94ra5JE7UczeG3ix
+ aiXnyFhAJ2/NUAeHGfiaFxv0/070gsHra0Sbua2jsKxQyYxLRvjqNnHmnWqB7pEhwBAC
+ 6q1ywn7QjYjDMkeFbbkMdjYgpIWEXmCqbFaa5+LQvAlYrwWj0EIZcwN+2XJ23gzPJcOu
+ qBRnmFnwqc7EGLh0ong3a2xuFnKqEWI3Dh5QoV0IagD1faJXXAYHBl8S5Tb4fKQIZNMy
+ 5Q6A==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=1e100.net; s=20161025;
  h=x-gm-message-state:subject:to:cc:references:from:autocrypt
  :message-id:date:user-agent:mime-version:in-reply-to
  :content-language:content-transfer-encoding;
  bh=upFgnCPUP6bUNf0w4clZ6s4PfWYYFquwuIgCR0kvv0I=;
- b=CSEAWqCK7tuekMd5TNBL9SYKhRK172FEThE2h0+fktIaL1AZiMRZUbFfC7IvA+z5h9
- fOI+UgQdNSQq3pOZKUwLmw0fUwGM2+XlyDSI1VpHbNqqkqtG3wWMesMoSxqa2yi5dYMg
- iJb2R5oxZa5H9fTVeBgnXIbr8Wwl/eHRR3asBGqh8KQl3lh19S9TudJ2KCvWLJgB7Ubt
- p6Hxsl6TRns67lksgkEabnHj3BTtMsf0cnV1ldu3Jz1pqlEqP15mC/oWUgsWNb7MApCJ
- AhZ4lkYbI4hHD19WvTpBT8UexWPctc6/Qz8bnKsaXgV4FDHSbxg+3Kwcd++gByp1nZCc
- BYdQ==
-X-Gm-Message-State: APjAAAX2BFGluhaprlDTC6OTxjY4XywqAKAT4syKuzx0A/auy+FioVOq
- xIYtY00co2kBBWU149jhgCE=
-X-Google-Smtp-Source: APXvYqypnbXjmjzfFiLtZwGRE8uynkBQpr3ZCa2ju53uEjXtfBkVe8I+mcbjmxrxP9s/2wiptwhCHw==
-X-Received: by 2002:a17:902:b908:: with SMTP id
- bf8mr81302846plb.293.1578376250668; 
- Mon, 06 Jan 2020 21:50:50 -0800 (PST)
+ b=EPg2ew3f9xfHhbW9n7aa4LYy4OZ/DSY51EQ44o/Yy1YXwi3uZCaOtAV75ei45mIsLF
+ VXsjzqjpJB2RQSxPt4faT/uYB4dvbXSe5s7/g+dhdawFhNRbgNF8bjjz9a8GfW3Q51O+
+ nSvwKggOIClmvrpRm89MrQAejyCsHvbtUshuJlyHIbpWwUp1635lRf6O8Zo8BVeG4vER
+ r8uiL4sETL4fPpyJ1YHcnyBrDGS6HOt6wrZXkp6k4NxeVpfQRzbtt9f5ZeecUzQium5V
+ DSoMXHN7CdZRwfSxLn2n7OPnJ24gMqqZfTKNhRQpKwcI+DW4E0g4PCbfUT8hQeJEsmfG
+ v4iw==
+X-Gm-Message-State: APjAAAWncAR6IGQ5TLPXAx4nfKUHt93QctUP+nuJ7ta2gchcC0OhezFP
+ Mh0FZALSWtcYIa5K+VfArPc=
+X-Google-Smtp-Source: APXvYqzMjEBLGmJ5W55zjacQs7lGU1d7RAurGeHTe+UGPbEspBa7NgnLaj1BmlmXGXuj49IiezMW0g==
+X-Received: by 2002:a17:90a:cb96:: with SMTP id
+ a22mr47019768pju.96.1578376249131; 
+ Mon, 06 Jan 2020 21:50:49 -0800 (PST)
 Received: from [192.168.1.3] (ip68-111-84-250.oc.oc.cox.net. [68.111.84.250])
  by smtp.gmail.com with ESMTPSA id
- 64sm77921171pfd.48.2020.01.06.21.50.47
+ g19sm80983651pfh.134.2020.01.06.21.50.47
  (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Mon, 06 Jan 2020 21:50:49 -0800 (PST)
+ Mon, 06 Jan 2020 21:50:48 -0800 (PST)
 To: Sriram Dash <sriram.dash@samsung.com>,
  "'David S. Miller'" <davem@davemloft.net>,
  "'kernelci.org bot'" <bot@kernelci.org>, tomeu.vizoso@collabora.com,
@@ -118,7 +118,7 @@ Autocrypt: addr=f.fainelli@gmail.com; keydata=
  caxTGgc5zzQHeX67eMzrGomG3ZnIxmd1sAbgvJUDaD2GrYlulfwGWwWyTNbWRvMighVdPkSF
  6XFgQaosWxkV0OELLy2N485YrTr2Uq64VKyxpncLh50e2RnyAJ9qfUATKC9NgZjRvBztfqy4
  a9BQwACgnzGuH1BVeT2J0Ra+ZYgkx7DaPR0=
-Message-ID: <a925da0f-4840-1d30-8acd-b1f069da920a@gmail.com>
+Message-ID: <54a292b8-3cac-0caf-08c7-841c469fb68f@gmail.com>
 Date: Mon, 6 Jan 2020 21:50:47 -0800
 User-Agent: Mozilla/5.0 (Windows NT 10.0; WOW64; rv:68.0) Gecko/20100101
  Thunderbird/68.3.1
