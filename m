@@ -2,80 +2,50 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id 573C71322CD
-	for <lists+linux-stm32@lfdr.de>; Tue,  7 Jan 2020 10:46:52 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 2BEB11323D4
+	for <lists+linux-stm32@lfdr.de>; Tue,  7 Jan 2020 11:39:11 +0100 (CET)
 Received: from ip-172-31-3-76.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 15BC9C36B0B;
-	Tue,  7 Jan 2020 09:46:52 +0000 (UTC)
-Received: from mx07-00178001.pphosted.com (mx07-00178001.pphosted.com
- [62.209.51.94])
- (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id E3EACC36B0B;
+	Tue,  7 Jan 2020 10:39:10 +0000 (UTC)
+Received: from smtprelay-out1.synopsys.com (sv2-smtprelay2.synopsys.com
+ [149.117.73.133])
+ (using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id A15D2C36B09
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 6A7C3C36B09
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Tue,  7 Jan 2020 09:46:50 +0000 (UTC)
-Received: from pps.filterd (m0046668.ppops.net [127.0.0.1])
- by mx07-00178001.pphosted.com (8.16.0.42/8.16.0.42) with SMTP id
- 0079hXZE002027; Tue, 7 Jan 2020 10:46:41 +0100
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=st.com;
- h=from : to : cc : subject
- : date : message-id : references : in-reply-to : content-type : content-id
- : content-transfer-encoding : mime-version; s=STMicroelectronics;
- bh=PbJCZFncQBZH/BlAK8ELONqW5LqwKaEvIZc7w5b0OYI=;
- b=RCbEkKpltn980AU8jCPraagLch9+XkO2So8RCosC4vLxjWoswqVX78LebnrISoiwapKm
- JuZlqJt+r+uy7BJtymA2T/56uij5CmU6ncVS9S/AYkKDPl2jNyhfVpNZ9bTfLHRHzQAW
- lUFlxbq8pQ/dpU4/9thGZxZPcOS68rSnmiE84fhiEIQjrSahRsjx/3UuTOr0GXrRuDnp
- bTT+gCrwIaQWjK+Iby3JMHagMY24XdafhZ5eVOcMVpaBRGWXTKagH1N1zBdnwHScu535
- Z28CSxglPzWQqcYFDBXwn8GcStcvYEb4QnMNo61rGubr5/LfAr5SmLb3BUhrWSjGuphW JQ== 
-Received: from beta.dmz-eu.st.com (beta.dmz-eu.st.com [164.129.1.35])
- by mx07-00178001.pphosted.com with ESMTP id 2xakm5d5km-1
- (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
- Tue, 07 Jan 2020 10:46:41 +0100
-Received: from euls16034.sgp.st.com (euls16034.sgp.st.com [10.75.44.20])
- by beta.dmz-eu.st.com (STMicroelectronics) with ESMTP id 414D0100034;
- Tue,  7 Jan 2020 10:46:41 +0100 (CET)
-Received: from Webmail-eu.st.com (sfhdag3node2.st.com [10.75.127.8])
- by euls16034.sgp.st.com (STMicroelectronics) with ESMTP id 2EE722A8204;
- Tue,  7 Jan 2020 10:46:41 +0100 (CET)
-Received: from SFHDAG5NODE2.st.com (10.75.127.14) by SFHDAG3NODE2.st.com
- (10.75.127.8) with Microsoft SMTP Server (TLS) id 15.0.1347.2; Tue, 7 Jan
- 2020 10:46:40 +0100
-Received: from SFHDAG5NODE2.st.com ([fe80::1cb5:6767:370b:9af0]) by
- SFHDAG5NODE2.st.com ([fe80::1cb5:6767:370b:9af0%20]) with mapi id
- 15.00.1473.003; Tue, 7 Jan 2020 10:46:40 +0100
-From: Hugues FRUCHET <hugues.fruchet@st.com>
-To: Peter Ujfalusi <peter.ujfalusi@ti.com>, "mchehab@kernel.org"
- <mchehab@kernel.org>, "mcoquelin.stm32@gmail.com"
- <mcoquelin.stm32@gmail.com>, Alexandre TORGUE <alexandre.torgue@st.com>
-Thread-Topic: [PATCH] media: stm32-dcmi: Use dma_request_chan() instead
- dma_request_slave_channel()
-Thread-Index: AQHVtMaOm1nAskP+t06Lg3ivGfEhOKe/qEeAgB9cIQA=
-Date: Tue, 7 Jan 2020 09:46:40 +0000
-Message-ID: <8229c7ed-b513-6bf8-5684-60d87a92d41f@st.com>
-References: <20191217104135.23554-1-peter.ujfalusi@ti.com>
- <84946ffd-8e90-7b6a-6667-a10e27d31655@st.com>
-In-Reply-To: <84946ffd-8e90-7b6a-6667-a10e27d31655@st.com>
-Accept-Language: en-US
-Content-Language: en-US
-X-MS-Has-Attach: 
-X-MS-TNEF-Correlator: 
-user-agent: Mozilla/5.0 (X11; Linux x86_64; rv:60.0) Gecko/20100101
- Thunderbird/60.9.0
-x-ms-exchange-messagesentrepresentingtype: 1
-x-ms-exchange-transport-fromentityheader: Hosted
-x-originating-ip: [10.75.127.47]
-Content-ID: <7CF506707FC8704EA5378A1A551351F2@st.com>
-MIME-Version: 1.0
-X-Proofpoint-Virus-Version: vendor=fsecure engine=2.50.10434:6.0.95,18.0.572
- definitions=2020-01-07_02:2020-01-06,2020-01-07 signatures=0
-Cc: "vkoul@kernel.org" <vkoul@kernel.org>,
- "linux-stm32@st-md-mailman.stormreply.com"
- <linux-stm32@st-md-mailman.stormreply.com>,
- "linux-kernel@vger.kernel.org" <linux-kernel@vger.kernel.org>,
- "linux-arm-kernel@lists.infradead.org" <linux-arm-kernel@lists.infradead.org>,
- "linux-media@vger.kernel.org" <linux-media@vger.kernel.org>
-Subject: Re: [Linux-stm32] [PATCH] media: stm32-dcmi: Use dma_request_chan()
- instead dma_request_slave_channel()
+ Tue,  7 Jan 2020 10:39:09 +0000 (UTC)
+Received: from mailhost.synopsys.com (mdc-mailhost2.synopsys.com
+ [10.225.0.210])
+ (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits))
+ (No client certificate requested)
+ by smtprelay-out1.synopsys.com (Postfix) with ESMTPS id C605340654;
+ Tue,  7 Jan 2020 10:39:07 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=synopsys.com; s=mail;
+ t=1578393548; bh=A+ywmO99yzrq2CMIo8Wi3yih5b1nyenwQVJiw0NnKdI=;
+ h=From:To:Cc:Subject:Date:From;
+ b=VTZpdd+yfmuEzd2EtgkFSoef26hNiUXD5Hn7RxAeBdvKLvkj2TDOk1q6kiFNLn50v
+ k80aJHAVq7JLCx8HbrOqIu/NhU0xsHGrXC1fre/YysZ5RWHeyvPhnj/q2FBUAdFuGs
+ 5aWdajqRvOE1R3YYw8ExZZ3aZmQQbp9AN4R0/ZaLsAF0ug6AZIdFxowEg0y+35eFzt
+ TXXcd9yVI29B2BlWklOU+XCfYuHNqs7+Wv5oXEa7MFQ7oxnvud06fzf7ySviEWhnzD
+ J5q0oNWi5U9sCruaxLuhDXkE5Ke11ZC5nvXZRmjNAvpz5ek7YIEGW2c1QzhlavRjrM
+ minxQRGhqcOcA==
+Received: from de02dwia024.internal.synopsys.com
+ (de02dwia024.internal.synopsys.com [10.225.19.81])
+ by mailhost.synopsys.com (Postfix) with ESMTP id A6B26A005C;
+ Tue,  7 Jan 2020 10:39:05 +0000 (UTC)
+From: Jose Abreu <Jose.Abreu@synopsys.com>
+To: netdev@vger.kernel.org
+Date: Tue,  7 Jan 2020 11:37:17 +0100
+Message-Id: <cover.1578392890.git.Jose.Abreu@synopsys.com>
+X-Mailer: git-send-email 2.7.4
+Cc: Jose Abreu <Jose.Abreu@synopsys.com>, Joao Pinto <Joao.Pinto@synopsys.com>,
+ Jonathan Corbet <corbet@lwn.net>, linux-doc@vger.kernel.org,
+ linux-kernel@vger.kernel.org, linux-stm32@st-md-mailman.stormreply.com,
+ Maxime Coquelin <mcoquelin.stm32@gmail.com>,
+ Giuseppe Cavallaro <peppe.cavallaro@st.com>,
+ "David S. Miller" <davem@davemloft.net>, linux-arm-kernel@lists.infradead.org
+Subject: [Linux-stm32] [PATCH net-next 0/3] Documentation: stmmac
+	documentation improvements
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -87,47 +57,53 @@ List-Post: <mailto:linux-stm32@st-md-mailman.stormreply.com>
 List-Help: <mailto:linux-stm32-request@st-md-mailman.stormreply.com?subject=help>
 List-Subscribe: <https://st-md-mailman.stormreply.com/mailman/listinfo/linux-stm32>, 
  <mailto:linux-stm32-request@st-md-mailman.stormreply.com?subject=subscribe>
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: base64
+MIME-Version: 1.0
+Content-Type: text/plain; charset="us-ascii"
+Content-Transfer-Encoding: 7bit
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
-SGkgUGV0ZXIsDQoNCklmIG5vdCB0b28gbGF0ZSwgY291bGQgeW91IGNoYW5nZSB0cmFjZSB0byBv
-bmx5IHRyaWcgZXJyb3IgdHJhY2Ugd2hlbg0KZXJyb3IgaXMgbm90ICJwcm9iZSBkZWZlcmVkIiA/
-IFNlZSBiZWxvdzoNCg0KLQljaGFuID0gZG1hX3JlcXVlc3Rfc2xhdmVfY2hhbm5lbCgmcGRldi0+
-ZGV2LCAidHgiKTsNCi0JaWYgKCFjaGFuKSB7DQotCQlkZXZfaW5mbygmcGRldi0+ZGV2LCAiVW5h
-YmxlIHRvIHJlcXVlc3QgRE1BIGNoYW5uZWwsIGRlZmVyIHByb2JpbmdcbiIpOw0KLQkJcmV0dXJu
-IC1FUFJPQkVfREVGRVI7DQorCWNoYW4gPSBkbWFfcmVxdWVzdF9jaGFuKCZwZGV2LT5kZXYsICJ0
-eCIpOw0KKwlpZiAoSVNfRVJSKGNoYW4pKSB7DQorCQlpZiAoUFRSX0VSUihjaGFuKSAhPSAtRVBS
-T0JFX0RFRkVSKQ0KKwkJCWRldl9lcnIoJnBkZXYtPmRldiwgIlVuYWJsZSB0byByZXF1ZXN0IERN
-QSBjaGFubmVsXG4iKTsNCisJCXJldHVybiBQVFJfRVJSKGNoYW4pOw0KDQoNCkJlc3QgcmVnYXJk
-cywNCkh1Z3Vlcy4NCg0KT24gMTIvMTgvMTkgMTE6NTIgQU0sIEh1Z3VlcyBGUlVDSEVUIHdyb3Rl
-Og0KPiBUaGFua3MgZm9yIHBhdGNoaW5nIFBldGVyLA0KPiANCj4gTm8gcmVncmVzc2lvbiBvYnNl
-cnZlZCBvbiBteSBzaWRlLg0KPiANCj4gQWNrZWQtYnk6IEh1Z3VlcyBGcnVjaGV0IDxodWd1ZXMu
-ZnJ1Y2hldEBzdC5jb20+DQo+IA0KPiBCZXN0IHJlZ2FyZHMsDQo+IEh1Z3Vlcy4NCj4gDQo+IE9u
-IDEyLzE3LzE5IDExOjQxIEFNLCBQZXRlciBVamZhbHVzaSB3cm90ZToNCj4+IGRtYV9yZXF1ZXN0
-X3NsYXZlX2NoYW5uZWwoKSBpcyBhIHdyYXBwZXIgb24gdG9wIG9mIGRtYV9yZXF1ZXN0X2NoYW4o
-KQ0KPj4gZWF0aW5nIHVwIHRoZSBlcnJvciBjb2RlLg0KPj4NCj4+IEJ5IHVzaW5nIGRtYV9yZXF1
-ZXN0X2NoYW4oKSBkaXJlY3RseSB0aGUgZHJpdmVyIGNhbiBzdXBwb3J0IGRlZmVycmVkDQo+PiBw
-cm9iaW5nIGFnYWluc3QgRE1BLg0KPj4NCj4+IFNpZ25lZC1vZmYtYnk6IFBldGVyIFVqZmFsdXNp
-IDxwZXRlci51amZhbHVzaUB0aS5jb20+DQo+PiAtLS0NCj4+IMKgIGRyaXZlcnMvbWVkaWEvcGxh
-dGZvcm0vc3RtMzIvc3RtMzItZGNtaS5jIHwgNiArKystLS0NCj4+IMKgIDEgZmlsZSBjaGFuZ2Vk
-LCAzIGluc2VydGlvbnMoKyksIDMgZGVsZXRpb25zKC0pDQo+Pg0KPj4gZGlmZiAtLWdpdCBhL2Ry
-aXZlcnMvbWVkaWEvcGxhdGZvcm0vc3RtMzIvc3RtMzItZGNtaS5jIA0KPj4gYi9kcml2ZXJzL21l
-ZGlhL3BsYXRmb3JtL3N0bTMyL3N0bTMyLWRjbWkuYw0KPj4gaW5kZXggOTM5MmUzNDA5ZmJhLi41
-NTM1MTg3MmIwYzcgMTAwNjQ0DQo+PiAtLS0gYS9kcml2ZXJzL21lZGlhL3BsYXRmb3JtL3N0bTMy
-L3N0bTMyLWRjbWkuYw0KPj4gKysrIGIvZHJpdmVycy9tZWRpYS9wbGF0Zm9ybS9zdG0zMi9zdG0z
-Mi1kY21pLmMNCj4+IEBAIC0xOTEwLDEwICsxOTEwLDEwIEBAIHN0YXRpYyBpbnQgZGNtaV9wcm9i
-ZShzdHJ1Y3QgcGxhdGZvcm1fZGV2aWNlIA0KPj4gKnBkZXYpDQo+PiDCoMKgwqDCoMKgwqDCoMKg
-wqAgcmV0dXJuIFBUUl9FUlIobWNsayk7DQo+PiDCoMKgwqDCoMKgIH0NCj4+IC3CoMKgwqAgY2hh
-biA9IGRtYV9yZXF1ZXN0X3NsYXZlX2NoYW5uZWwoJnBkZXYtPmRldiwgInR4Iik7DQo+PiAtwqDC
-oMKgIGlmICghY2hhbikgew0KPj4gK8KgwqDCoCBjaGFuID0gZG1hX3JlcXVlc3RfY2hhbigmcGRl
-di0+ZGV2LCAidHgiKTsNCj4+ICvCoMKgwqAgaWYgKElTX0VSUihjaGFuKSkgew0KPj4gwqDCoMKg
-wqDCoMKgwqDCoMKgIGRldl9pbmZvKCZwZGV2LT5kZXYsICJVbmFibGUgdG8gcmVxdWVzdCBETUEg
-Y2hhbm5lbCwgZGVmZXIgDQo+PiBwcm9iaW5nXG4iKTsNCj4+IC3CoMKgwqDCoMKgwqDCoCByZXR1
-cm4gLUVQUk9CRV9ERUZFUjsNCj4+ICvCoMKgwqDCoMKgwqDCoCByZXR1cm4gUFRSX0VSUihjaGFu
-KTsNCj4+IMKgwqDCoMKgwqAgfQ0KPj4gwqDCoMKgwqDCoCBzcGluX2xvY2tfaW5pdCgmZGNtaS0+
-aXJxbG9jayk7DQo+PgpfX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19f
-X19fXwpMaW51eC1zdG0zMiBtYWlsaW5nIGxpc3QKTGludXgtc3RtMzJAc3QtbWQtbWFpbG1hbi5z
-dG9ybXJlcGx5LmNvbQpodHRwczovL3N0LW1kLW1haWxtYW4uc3Rvcm1yZXBseS5jb20vbWFpbG1h
-bi9saXN0aW5mby9saW51eC1zdG0zMgo=
+[ Not sure if this should go for net-next or Documentation tree. ]
+
+Converts stmmac documentation to RST format.
+
+1) Adds missing entry of stmmac documentation to MAINTAINERS.
+
+2) Converts stmmac documentation to RST format and adds some new info.
+
+3) Adds the new RST file to the list of files.
+
+---
+Cc: Giuseppe Cavallaro <peppe.cavallaro@st.com>
+Cc: Alexandre Torgue <alexandre.torgue@st.com>
+Cc: Jose Abreu <joabreu@synopsys.com>
+Cc: "David S. Miller" <davem@davemloft.net>
+Cc: Jonathan Corbet <corbet@lwn.net>
+Cc: Maxime Coquelin <mcoquelin.stm32@gmail.com>
+Cc: netdev@vger.kernel.org
+Cc: linux-doc@vger.kernel.org
+Cc: linux-stm32@st-md-mailman.stormreply.com
+Cc: linux-arm-kernel@lists.infradead.org
+Cc: linux-kernel@vger.kernel.org
+---
+
+Jose Abreu (3):
+  MAINTAINERS: Add stmmac Ethernet driver documentation entry
+  Documentation: networking: Convert stmmac documentation to RST format
+  Documentation: networking: Add stmmac to device drivers list
+
+ Documentation/networking/device_drivers/index.rst  |   1 +
+ .../networking/device_drivers/stmicro/stmmac.rst   | 697 +++++++++++++++++++++
+ .../networking/device_drivers/stmicro/stmmac.txt   | 401 ------------
+ MAINTAINERS                                        |   1 +
+ 4 files changed, 699 insertions(+), 401 deletions(-)
+ create mode 100644 Documentation/networking/device_drivers/stmicro/stmmac.rst
+ delete mode 100644 Documentation/networking/device_drivers/stmicro/stmmac.txt
+
+-- 
+2.7.4
+
+_______________________________________________
+Linux-stm32 mailing list
+Linux-stm32@st-md-mailman.stormreply.com
+https://st-md-mailman.stormreply.com/mailman/listinfo/linux-stm32
