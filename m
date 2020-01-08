@@ -2,60 +2,62 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id 05EBE13394E
-	for <lists+linux-stm32@lfdr.de>; Wed,  8 Jan 2020 03:56:34 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 60087133C3D
+	for <lists+linux-stm32@lfdr.de>; Wed,  8 Jan 2020 08:26:28 +0100 (CET)
 Received: from ip-172-31-3-76.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id B1338C36B0B;
-	Wed,  8 Jan 2020 02:56:33 +0000 (UTC)
-Received: from mail-pg1-f195.google.com (mail-pg1-f195.google.com
- [209.85.215.195])
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id DF49FC36B0B;
+	Wed,  8 Jan 2020 07:26:27 +0000 (UTC)
+Received: from mail-pg1-f196.google.com (mail-pg1-f196.google.com
+ [209.85.215.196])
  (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 74FEAC36B09
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id DCC9CC36B09
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Wed,  8 Jan 2020 02:56:31 +0000 (UTC)
-Received: by mail-pg1-f195.google.com with SMTP id x8so812328pgk.8
+ Wed,  8 Jan 2020 07:26:24 +0000 (UTC)
+Received: by mail-pg1-f196.google.com with SMTP id s64so1117168pgb.9
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Tue, 07 Jan 2020 18:56:31 -0800 (PST)
+ Tue, 07 Jan 2020 23:26:24 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20161025;
  h=from:to:cc:subject:date:message-id;
- bh=QyroB5LXjxb8iNcU2ElAPCjALtlsDRJIi4SawaB0E7c=;
- b=E3n6Gk5MirvuWn2qz2nIHVm+5Hxjz4Nq4wAdMyekVm9lA2tuXwuqxrIjy+bHKC6aRy
- 29YP9weDLGP7P9gpfg+rJTz8bKsZdziuhhe78aqk5P0FQYw1x1Cxt19eIwU3FiJ6Y/k7
- NwXUcOVepPCx6qcmZeR+tgGPaRqDgKb8TnZr5eOO6Qw/aIROygskXs0fAuif0zs0puaX
- h/4PakQlPNNXEue27pSySzbAqBiXhfLYjmtKEBgQj+uimEl4Q+aHoJ78jWSQW04VJ+Z7
- glvcWowQ6cbxVX7rUq4/7W7IeFANAJQqoleuAoftLI05xvciZ6epm3pCB+V5Xm/OFS0B
- 6TWQ==
+ bh=BGo10uJ7yfot4T+e9WxjVmggP6J1wCJOQgtZDEvps6k=;
+ b=DZYTvdIW+43poxmXAWsnbKEMXfMgAYTNSNSjzrKvHcbxYUNT70lgy3dQKoQG768UuR
+ y/4QnZ41Z2U3eHE/WyeZxE7goX74Z6fTViI2rtkRlsG1+kLZX9o56Nr8Hf5pbVnmR+Lq
+ xO2XIfYh4WJYvL9FM8OKz27dOyW+woGROnWGCj+7ePioeXlCFJbDT3OrkIQzSWTxbwBK
+ C7gNn+O/JZlSIUHDuES4e78GNWe0O+MJRMUqv2PTJJQJE3V0644vAgqpYYvGB1Uo8liZ
+ etu8LY3BomXKXaUE1mhQnk/KJqmRstxgYvxUOI4+rjn8OSNRK6jpeax5YJoH6y8k6T0b
+ PYog==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=1e100.net; s=20161025;
  h=x-gm-message-state:from:to:cc:subject:date:message-id;
- bh=QyroB5LXjxb8iNcU2ElAPCjALtlsDRJIi4SawaB0E7c=;
- b=qIrEOG/xzGU56cyrPEBkV/CfM5FY1xdysYFxOckU7QJUAZDnZ7hMP1aDdLFFoV4bLd
- TVNbdlC3Q2mU4c/d91EaKmFOES7PbWKgTbOyrmnoSvAzHvFB7jLgeOmuEZKZ82my34lC
- irqnu3zMxkfcRHqpdC2bWTnbP/Y0SvgkCe0edGyn5caM1qcCETgvHp8Zb5A0t5wSZgM/
- tFUSWHATFkxyabVXcIKyDSJZvKMBEOFmmTXOQTdpSQqclFUVcVKe+woDef8TIGFVuGpQ
- h97aDcBwCiXlT0OuIbTsPltsXJJMSJLjjtF8gwdn5M7bRsqKUhpIoqPTjvHYMNHVyij3
- J5iw==
-X-Gm-Message-State: APjAAAUejzguK+OwUmkmHGkZ8iCHp/EQwzY/k1YrgvT+jemnTYAQzOu7
- h8vioE9aJH0bphUA93iRvM8=
-X-Google-Smtp-Source: APXvYqx2B0gxIFJca1dgjrpJf7auzNgufbWz8vdqEcAFaSebP15mW1okQWAH7ySFcWH1sK9e1o+WwA==
-X-Received: by 2002:a65:538b:: with SMTP id x11mr2823226pgq.395.1578452189886; 
- Tue, 07 Jan 2020 18:56:29 -0800 (PST)
+ bh=BGo10uJ7yfot4T+e9WxjVmggP6J1wCJOQgtZDEvps6k=;
+ b=BhmlASrzRylv8IwL4eqp5Cy80JcmAYiFrhqcaVWWK/qnfD8WqoIv3fmAU+MCRRIzJG
+ VpW5MXLCr9RxuFws36ZwPC53uUvMrzhXLWH+e6V2TOn1YejXAzyU+qmnJ0w6ceRCHqaM
+ QBiLDW4qPhJGFdtpVX1LsFEBxawgN3q9YSUqaInSVDe3eS8L5BAMCJrdN7j1PLla4NNk
+ 45WRX6ToWi5ljdglot0jZzv2JzMMqYPJ8ZWiEV5btoIV9+NS33L0sHjkuOPtfYD7lD38
+ TL2tonRyIyTiz990aYsmZx7XdimBsz3j/292p4+KAnD6QnNHtmXHJ/uimQWIWjTw7xym
+ eQgQ==
+X-Gm-Message-State: APjAAAXo9LF2nG2PVVYGHvPsZLIzx22KpuQ7cT3EvKAhDWIRDJwfCqkJ
+ MosAPVX5FE8TQCU/85E3mus=
+X-Google-Smtp-Source: APXvYqxghKJ14QjOwmxrl6htFh2WX6svt01e28xiCtneF71s3aUeytu3/ouF1j764HyGERYD9M/y4g==
+X-Received: by 2002:a65:4587:: with SMTP id o7mr3730787pgq.303.1578468383088; 
+ Tue, 07 Jan 2020 23:26:23 -0800 (PST)
 Received: from localhost (199.168.140.36.16clouds.com. [199.168.140.36])
- by smtp.gmail.com with ESMTPSA id 144sm1021480pfc.124.2020.01.07.18.56.28
+ by smtp.gmail.com with ESMTPSA id o31sm2231827pgb.56.2020.01.07.23.26.22
  (version=TLS1_2 cipher=ECDHE-RSA-CHACHA20-POLY1305 bits=256/256);
- Tue, 07 Jan 2020 18:56:29 -0800 (PST)
+ Tue, 07 Jan 2020 23:26:22 -0800 (PST)
 From: Dejin Zheng <zhengdejin5@gmail.com>
 To: peppe.cavallaro@st.com, alexandre.torgue@st.com, joabreu@synopsys.com,
- davem@davemloft.net, mcoquelin.stm32@gmail.com
-Date: Wed,  8 Jan 2020 10:56:24 +0800
-Message-Id: <20200108025624.13968-1-zhengdejin5@gmail.com>
+ davem@davemloft.net, mcoquelin.stm32@gmail.com,
+ martin.blumenstingl@googlemail.com, treding@nvidia.com, andrew@lunn.ch,
+ weifeng.voon@intel.com, tglx@linutronix.de
+Date: Wed,  8 Jan 2020 15:25:48 +0800
+Message-Id: <20200108072550.28613-1-zhengdejin5@gmail.com>
 X-Mailer: git-send-email 2.17.1
 Cc: netdev@vger.kernel.org, Dejin Zheng <zhengdejin5@gmail.com>,
  linux-stm32@st-md-mailman.stormreply.com, linux-arm-kernel@lists.infradead.org,
  linux-kernel@vger.kernel.org
-Subject: [Linux-stm32] [PATCH] net: stmmac: pci: remove the duplicate code
-	of phy_mask
+Subject: [Linux-stm32] [PATCH v2 0/2] net: stmmac: remove useless code of
+	phy_mask
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -73,46 +75,21 @@ Content-Transfer-Encoding: 7bit
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
-The value of phy_mask will be passed to phy_mask of struct mii_bus
-before register mdiobus, the mii_bus was obtained by mdiobus_alloc()
-and set mii_bus->phy_mask as zero by default. so It doesn't need to
-set phy_mask as zero again in this driver.
+These patches just for cleanup codes in stmmac driver.
 
-Signed-off-by: Dejin Zheng <zhengdejin5@gmail.com>
----
- drivers/net/ethernet/stmicro/stmmac/stmmac_pci.c | 5 -----
- 1 file changed, 5 deletions(-)
+Changes since v1:
+	1, add a new commit for remove the useless member phy_mask.
+	2, adjust some commit comments for the original commit.
 
-diff --git a/drivers/net/ethernet/stmicro/stmmac/stmmac_pci.c b/drivers/net/ethernet/stmicro/stmmac/stmmac_pci.c
-index 8237dbc3e991..40f171d310d7 100644
---- a/drivers/net/ethernet/stmicro/stmmac/stmmac_pci.c
-+++ b/drivers/net/ethernet/stmicro/stmmac/stmmac_pci.c
-@@ -65,7 +65,6 @@ static void common_default_data(struct plat_stmmacenet_data *plat)
- 	plat->force_sf_dma_mode = 1;
- 
- 	plat->mdio_bus_data->needs_reset = true;
--	plat->mdio_bus_data->phy_mask = 0;
- 
- 	/* Set default value for multicast hash bins */
- 	plat->multicast_filter_bins = HASH_TABLE_SIZE;
-@@ -154,8 +153,6 @@ static int intel_mgbe_common_data(struct pci_dev *pdev,
- 	plat->tx_queues_cfg[6].weight = 0x0F;
- 	plat->tx_queues_cfg[7].weight = 0x10;
- 
--	plat->mdio_bus_data->phy_mask = 0;
--
- 	plat->dma_cfg->pbl = 32;
- 	plat->dma_cfg->pblx8 = true;
- 	plat->dma_cfg->fixed_burst = 0;
-@@ -386,8 +383,6 @@ static int snps_gmac5_default_data(struct pci_dev *pdev,
- 	plat->tso_en = 1;
- 	plat->pmt = 1;
- 
--	plat->mdio_bus_data->phy_mask = 0;
--
- 	/* Set default value for multicast hash bins */
- 	plat->multicast_filter_bins = HASH_TABLE_SIZE;
- 
+Dejin Zheng (2):
+  net: stmmac: pci: remove the duplicate code of set phy_mask
+  net: stmmac: remove the useless member phy_mask
+
+ drivers/net/ethernet/stmicro/stmmac/stmmac_mdio.c | 1 -
+ drivers/net/ethernet/stmicro/stmmac/stmmac_pci.c  | 5 -----
+ include/linux/stmmac.h                            | 1 -
+ 3 files changed, 7 deletions(-)
+
 -- 
 2.17.1
 
