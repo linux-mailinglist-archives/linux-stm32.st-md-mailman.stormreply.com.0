@@ -2,66 +2,66 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id 2CFFC133C3F
-	for <lists+linux-stm32@lfdr.de>; Wed,  8 Jan 2020 08:26:41 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 3B14F133C40
+	for <lists+linux-stm32@lfdr.de>; Wed,  8 Jan 2020 08:26:47 +0100 (CET)
 Received: from ip-172-31-3-76.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id ECD8BC36B0B;
-	Wed,  8 Jan 2020 07:26:40 +0000 (UTC)
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 0421EC36B0B;
+	Wed,  8 Jan 2020 07:26:47 +0000 (UTC)
 Received: from mail-pl1-f193.google.com (mail-pl1-f193.google.com
  [209.85.214.193])
  (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id A3106C36B09
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 91DE3C36B09
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Wed,  8 Jan 2020 07:26:39 +0000 (UTC)
-Received: by mail-pl1-f193.google.com with SMTP id az3so749165plb.11
+ Wed,  8 Jan 2020 07:26:44 +0000 (UTC)
+Received: by mail-pl1-f193.google.com with SMTP id az3so749254plb.11
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Tue, 07 Jan 2020 23:26:39 -0800 (PST)
+ Tue, 07 Jan 2020 23:26:44 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20161025;
  h=from:to:cc:subject:date:message-id:in-reply-to:references;
- bh=YgvywnLyYzODjdUN5pjBnIAoT8QXrKrof9jZ9KWS50M=;
- b=uJidx6V2kVrDoRpmQOqy4JLM9x5893Q3qDlXO6/DMPh9J1EyCqLWtKvbpB3Z6msKqg
- 5DL89PlYEk6z3WSMFSLvW5H3UEoFOSYT94WkBEBxqGu1uuP+/Ty+LUD+3cMHtg0TockK
- CFznXxPOuKWpd4a+0bT3DaI68Apws19E/q7N8NT5fnXok79vlaZk/ABWhqY1sn5X/g+t
- vePRaCC9Nm0H89xhY1jlQujIMlrjsq1CMC/YnAYV10m4KlIuyZORz7ltiPih5NUngisk
- E4JU2H0JUuCoutaTj1grPfT2ebbLC0e6pltRWdoKwOPOBtiUWlai7vt63S6Ut5QJYS1v
- BHIQ==
+ bh=7VftiggN6dkZ3Wld3EMtRQ7oFxfSHkKpxj6onZ/SbJc=;
+ b=Glfycd+SSp+dBJBi3Ypl6EParnW4iGMSf+JYdW6Pd3J68JqoN/r8bol0HWwKdYSZ15
+ zc74LTakqvZhLaMNTzaGrk4zGl+4xLp1Qbo+Aca8Yz9MYe0qqOYqb3ZC/1GsUIt/id0e
+ uY9yR8PG2CcCbVXnpVfKqQ0kd6CTtdZ485/ggaCNAIGfJDI5yo6Rnr2mdRsfHb9TGi6+
+ LbcR9mwVMnpWIiu8rX3oPPdUxIwe3Htdn4XXDrMYQEbZMB+O2cyDOlT4WZBk3eXVaSHY
+ RdgxoHjAveUdhnyjGWm78KpGL2OyLi/zIcEyhCrDvy/SgGpdF+kYdM6OI/5jPh7Q5aD3
+ YT6A==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=1e100.net; s=20161025;
  h=x-gm-message-state:from:to:cc:subject:date:message-id:in-reply-to
  :references;
- bh=YgvywnLyYzODjdUN5pjBnIAoT8QXrKrof9jZ9KWS50M=;
- b=CvbT4r/YiI+SgRLx4G3Hzf/qaqjp4EQwfDLW6krBB8If2FYaDdo6+b1b7S/cF+HION
- RpdjESXR7w04phblU5wuGIguIfSaBfkkU1BmaQh5FckJNBf2v/8BdlyAWdgS2UDXLIkK
- mKEDbKMTRKpfXqNyw6hSNJ2SliQdq55FU6xyLgB1rTRjTcpUjpAoRd/9PlpfAmPqD/D7
- fOUFPKSj/UsY7wQYUehv5OODxbES2KvX+FMVUhQi0PcagG4LA/5N42tjS1Sq+7b6mJ4F
- YWFTJTXMWNHNdzRi+40SB/2AVeZ3fG8feHP22zuJjVLO80Kn2ptcEbw8okp5/D+/uZeb
- fWMA==
-X-Gm-Message-State: APjAAAU6Wf+qPOnU4LyCuGPu2sVgjRGhKK/7kZaKSjcbqxbdefE/iA0S
- FWZsAO9trYm4Q6F3C0JXJzo=
-X-Google-Smtp-Source: APXvYqwH9CfosT7s9ifO/AANNX8jvBDu0cCJazDa/8NyLgjjws4FKAWfUxN4dlltGJliD+L0TTNA6Q==
-X-Received: by 2002:a17:902:8c90:: with SMTP id
- t16mr3926013plo.186.1578468397944; 
- Tue, 07 Jan 2020 23:26:37 -0800 (PST)
+ bh=7VftiggN6dkZ3Wld3EMtRQ7oFxfSHkKpxj6onZ/SbJc=;
+ b=IH/Nm+41FubXYU1NPSO0X/fU1GC1SSwV9v9jvdD3vVPdz1QkE6xlADXk6TmrXwg4wC
+ xZ2XTDG5Dk/Micyg4Igpqjw1KAd+BADyZvIBijwE9uP6dBfP8GR9Dqv3cmIJ0h7W0v1i
+ FefTxfmd0PQpGyNg9GD5Jy4W7ycoxwSKZD1Qc55+tFsaZWtvES4R+MdbFNifT5nky6Xq
+ 0xvhdBiUQ4expWHijJrDhayD+tXtbbm2RFrRNtU1tbBUVi3J0NXVzwFV40JqPEXaD9gE
+ 6q7PQXj9gGLBvr8xCBf0fQN5AseYhspr+yYeNdjh9SsflX3xr54Lc+84baG2wQdrJvXG
+ DcAQ==
+X-Gm-Message-State: APjAAAWIgrz+0K0nGX738tyKOFHaX2Hg1ELfYw4DrB0PLBXU4mXtiRjG
+ mjOOHBzZM6bVjvyNGjOQ8DE=
+X-Google-Smtp-Source: APXvYqxbFTnUZ6d8VqD/d4wmwctKRYDWxkXacHotBt/0Gx6M6rHuYA5t3zbUJvR7A0x/TKP1/atRdg==
+X-Received: by 2002:a17:90a:c706:: with SMTP id
+ o6mr2758419pjt.82.1578468403228; 
+ Tue, 07 Jan 2020 23:26:43 -0800 (PST)
 Received: from localhost (199.168.140.36.16clouds.com. [199.168.140.36])
- by smtp.gmail.com with ESMTPSA id o98sm1865266pjb.15.2020.01.07.23.26.36
+ by smtp.gmail.com with ESMTPSA id n4sm2149624pgg.88.2020.01.07.23.26.42
  (version=TLS1_2 cipher=ECDHE-RSA-CHACHA20-POLY1305 bits=256/256);
- Tue, 07 Jan 2020 23:26:37 -0800 (PST)
+ Tue, 07 Jan 2020 23:26:42 -0800 (PST)
 From: Dejin Zheng <zhengdejin5@gmail.com>
 To: peppe.cavallaro@st.com, alexandre.torgue@st.com, joabreu@synopsys.com,
  davem@davemloft.net, mcoquelin.stm32@gmail.com,
  martin.blumenstingl@googlemail.com, treding@nvidia.com, andrew@lunn.ch,
  weifeng.voon@intel.com, tglx@linutronix.de
-Date: Wed,  8 Jan 2020 15:25:49 +0800
-Message-Id: <20200108072550.28613-2-zhengdejin5@gmail.com>
+Date: Wed,  8 Jan 2020 15:25:50 +0800
+Message-Id: <20200108072550.28613-3-zhengdejin5@gmail.com>
 X-Mailer: git-send-email 2.17.1
 In-Reply-To: <20200108072550.28613-1-zhengdejin5@gmail.com>
 References: <20200108072550.28613-1-zhengdejin5@gmail.com>
 Cc: netdev@vger.kernel.org, Dejin Zheng <zhengdejin5@gmail.com>,
  linux-stm32@st-md-mailman.stormreply.com, linux-arm-kernel@lists.infradead.org,
  linux-kernel@vger.kernel.org
-Subject: [Linux-stm32] [PATCH v2 1/2] net: stmmac: pci: remove the duplicate
-	code of set phy_mask
+Subject: [Linux-stm32] [PATCH v2 2/2] net: stmmac: remove the useless member
+	phy_mask
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -79,48 +79,48 @@ Content-Transfer-Encoding: 7bit
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
-All members of mdio_bus_data are cleared to 0 when it was obtained
-by devm_kzalloc(). so It doesn't need to set phy_mask as 0 again.
+The value of phy_mask in struct stmmac_mdio_bus_data will be passed
+to phy_mask of struct mii_bus before register mdiobus, the mii_bus
+was obtained by mdiobus_alloc() and set mii_bus->phy_mask as zero
+by default. the stmmac_mdio_bus_data->phy_mask also set zero when
+got stmmac_mdio_bus_data by devm_kzalloc(), so doesn't need to pass
+the value and remove the useless member phy_mask in the struct
+stmmac_mdio_bus_data.
 
 Signed-off-by: Dejin Zheng <zhengdejin5@gmail.com>
 ---
 
 Changes since v1:
-    adjust some commit comments.
+    add this new commit.
 
- drivers/net/ethernet/stmicro/stmmac/stmmac_pci.c | 5 -----
- 1 file changed, 5 deletions(-)
+ drivers/net/ethernet/stmicro/stmmac/stmmac_mdio.c | 1 -
+ include/linux/stmmac.h                            | 1 -
+ 2 files changed, 2 deletions(-)
 
-diff --git a/drivers/net/ethernet/stmicro/stmmac/stmmac_pci.c b/drivers/net/ethernet/stmicro/stmmac/stmmac_pci.c
-index 8237dbc3e991..40f171d310d7 100644
---- a/drivers/net/ethernet/stmicro/stmmac/stmmac_pci.c
-+++ b/drivers/net/ethernet/stmicro/stmmac/stmmac_pci.c
-@@ -65,7 +65,6 @@ static void common_default_data(struct plat_stmmacenet_data *plat)
- 	plat->force_sf_dma_mode = 1;
+diff --git a/drivers/net/ethernet/stmicro/stmmac/stmmac_mdio.c b/drivers/net/ethernet/stmicro/stmmac/stmmac_mdio.c
+index cfe5d8b73142..662b1cde51ae 100644
+--- a/drivers/net/ethernet/stmicro/stmmac/stmmac_mdio.c
++++ b/drivers/net/ethernet/stmicro/stmmac/stmmac_mdio.c
+@@ -388,7 +388,6 @@ int stmmac_mdio_register(struct net_device *ndev)
+ 	snprintf(new_bus->id, MII_BUS_ID_SIZE, "%s-%x",
+ 		 new_bus->name, priv->plat->bus_id);
+ 	new_bus->priv = ndev;
+-	new_bus->phy_mask = mdio_bus_data->phy_mask;
+ 	new_bus->parent = priv->device;
  
- 	plat->mdio_bus_data->needs_reset = true;
--	plat->mdio_bus_data->phy_mask = 0;
+ 	err = of_mdiobus_register(new_bus, mdio_node);
+diff --git a/include/linux/stmmac.h b/include/linux/stmmac.h
+index d4bcd9387136..e9aaa9bfb304 100644
+--- a/include/linux/stmmac.h
++++ b/include/linux/stmmac.h
+@@ -79,7 +79,6 @@
+ /* Platfrom data for platform device structure's platform_data field */
  
- 	/* Set default value for multicast hash bins */
- 	plat->multicast_filter_bins = HASH_TABLE_SIZE;
-@@ -154,8 +153,6 @@ static int intel_mgbe_common_data(struct pci_dev *pdev,
- 	plat->tx_queues_cfg[6].weight = 0x0F;
- 	plat->tx_queues_cfg[7].weight = 0x10;
- 
--	plat->mdio_bus_data->phy_mask = 0;
--
- 	plat->dma_cfg->pbl = 32;
- 	plat->dma_cfg->pblx8 = true;
- 	plat->dma_cfg->fixed_burst = 0;
-@@ -386,8 +383,6 @@ static int snps_gmac5_default_data(struct pci_dev *pdev,
- 	plat->tso_en = 1;
- 	plat->pmt = 1;
- 
--	plat->mdio_bus_data->phy_mask = 0;
--
- 	/* Set default value for multicast hash bins */
- 	plat->multicast_filter_bins = HASH_TABLE_SIZE;
- 
+ struct stmmac_mdio_bus_data {
+-	unsigned int phy_mask;
+ 	int *irqs;
+ 	int probed_phy_irq;
+ 	bool needs_reset;
 -- 
 2.17.1
 
