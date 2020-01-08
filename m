@@ -2,59 +2,53 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id 06293133C90
-	for <lists+linux-stm32@lfdr.de>; Wed,  8 Jan 2020 09:03:56 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 664F1133C9F
+	for <lists+linux-stm32@lfdr.de>; Wed,  8 Jan 2020 09:07:41 +0100 (CET)
 Received: from ip-172-31-3-76.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id C2844C36B0B;
-	Wed,  8 Jan 2020 08:03:55 +0000 (UTC)
-Received: from fllv0016.ext.ti.com (fllv0016.ext.ti.com [198.47.19.142])
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 16A38C36B0B;
+	Wed,  8 Jan 2020 08:07:41 +0000 (UTC)
+Received: from fllv0015.ext.ti.com (fllv0015.ext.ti.com [198.47.19.141])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id CA350C36B09
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 2A74AC36B09
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Wed,  8 Jan 2020 08:03:54 +0000 (UTC)
-Received: from fllv0034.itg.ti.com ([10.64.40.246])
- by fllv0016.ext.ti.com (8.15.2/8.15.2) with ESMTP id 00883lPd117939;
- Wed, 8 Jan 2020 02:03:47 -0600
+ Wed,  8 Jan 2020 08:07:39 +0000 (UTC)
+Received: from fllv0035.itg.ti.com ([10.64.41.0])
+ by fllv0015.ext.ti.com (8.15.2/8.15.2) with ESMTP id 00887X51031711;
+ Wed, 8 Jan 2020 02:07:33 -0600
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=ti.com;
- s=ti-com-17Q1; t=1578470627;
- bh=e7cuocncCbuxjywazcX7HKTb/Mw4T5KMNhkOUHettWc=;
- h=Subject:To:CC:References:From:Date:In-Reply-To;
- b=nu7E+puxSqcLXcZZxc2CNxBQS58QZpLRQGpsElGO+SspowlPonvmYOddgUHYoVo+y
- Bq3ABNJIPEyu6k5jzK+YJL+MC5bk2neg4ERCXDu1OqdndapvLKha4RF2IKj4gY4W8J
- +vVEQRS7VIdllGZsU13DRAuLCMmQj7hHHp1Ocskw=
-Received: from DLEE109.ent.ti.com (dlee109.ent.ti.com [157.170.170.41])
- by fllv0034.itg.ti.com (8.15.2/8.15.2) with ESMTPS id 00883lBA104600
- (version=TLSv1.2 cipher=AES256-GCM-SHA384 bits=256 verify=FAIL);
- Wed, 8 Jan 2020 02:03:47 -0600
-Received: from DLEE104.ent.ti.com (157.170.170.34) by DLEE109.ent.ti.com
- (157.170.170.41) with Microsoft SMTP Server (version=TLS1_2,
+ s=ti-com-17Q1; t=1578470854;
+ bh=0LePNPhQjsmvdB/jZvsH1FkQ9eB2wIq3NeRdkh9stOI=;
+ h=From:To:CC:Subject:Date;
+ b=x68cq71G1ZrJDnEb6xr6XEElxXdouhAOMrrfbhF4udA+QkkBpxSv2IEdh/b5sjQpv
+ coZyuJeDPGrfLlfSnRNA3gD8Xs6tlHtCTZ5IXtX+aZvJK7aDFxmnj3xFlAtslKKejw
+ GAFA9uHtuAhSKkA11/VI0Y5YJ3KFKu+z0UEWW9ss=
+Received: from DFLE106.ent.ti.com (dfle106.ent.ti.com [10.64.6.27])
+ by fllv0035.itg.ti.com (8.15.2/8.15.2) with ESMTP id 00887XRG002530;
+ Wed, 8 Jan 2020 02:07:33 -0600
+Received: from DFLE100.ent.ti.com (10.64.6.21) by DFLE106.ent.ti.com
+ (10.64.6.27) with Microsoft SMTP Server (version=TLS1_2,
  cipher=TLS_ECDHE_RSA_WITH_AES_128_CBC_SHA256_P256) id 15.1.1847.3; Wed, 8 Jan
- 2020 02:03:46 -0600
-Received: from lelv0327.itg.ti.com (10.180.67.183) by DLEE104.ent.ti.com
- (157.170.170.34) with Microsoft SMTP Server (version=TLS1_2,
+ 2020 02:07:33 -0600
+Received: from fllv0039.itg.ti.com (10.64.41.19) by DFLE100.ent.ti.com
+ (10.64.6.21) with Microsoft SMTP Server (version=TLS1_2,
  cipher=TLS_ECDHE_RSA_WITH_AES_128_CBC_SHA256_P256) id 15.1.1847.3 via
- Frontend Transport; Wed, 8 Jan 2020 02:03:46 -0600
-Received: from [192.168.2.6] (ileax41-snat.itg.ti.com [10.172.224.153])
- by lelv0327.itg.ti.com (8.15.2/8.15.2) with ESMTP id 00883i5s040553;
- Wed, 8 Jan 2020 02:03:44 -0600
-To: Fabrice Gasnier <fabrice.gasnier@st.com>, <jic23@kernel.org>,
- <mcoquelin.stm32@gmail.com>, <alexandre.torgue@st.com>
-References: <20200107114125.6095-1-peter.ujfalusi@ti.com>
- <5146b085-d92d-7230-9a05-87926711dafa@st.com>
+ Frontend Transport; Wed, 8 Jan 2020 02:07:33 -0600
+Received: from feketebors.ti.com (ileax41-snat.itg.ti.com [10.172.224.153])
+ by fllv0039.itg.ti.com (8.15.2/8.15.2) with ESMTP id 00887UcT009067;
+ Wed, 8 Jan 2020 02:07:31 -0600
 From: Peter Ujfalusi <peter.ujfalusi@ti.com>
-Message-ID: <8e706545-958d-1c34-9d6d-addd4cb6af25@ti.com>
-Date: Wed, 8 Jan 2020 10:04:14 +0200
-User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:60.0) Gecko/20100101
- Thunderbird/60.9.0
+To: <jic23@kernel.org>, <mcoquelin.stm32@gmail.com>, <alexandre.torgue@st.com>,
+ <fabrice.gasnier@st.com>
+Date: Wed, 8 Jan 2020 10:08:01 +0200
+Message-ID: <20200108080801.14144-1-peter.ujfalusi@ti.com>
+X-Mailer: git-send-email 2.24.1
 MIME-Version: 1.0
-In-Reply-To: <5146b085-d92d-7230-9a05-87926711dafa@st.com>
-Content-Language: en-US
 X-EXCLAIMER-MD-CONFIG: e1e8a2fd-e40a-4ac6-ac9b-f7e9cc9ee180
-Cc: linux-iio@vger.kernel.org, linux-kernel@vger.kernel.org, vkoul@kernel.org,
- linux-stm32@st-md-mailman.stormreply.com, linux-arm-kernel@lists.infradead.org
-Subject: Re: [Linux-stm32] [PATCH v2] iio: adc: stm32-adc: Use
- dma_request_chan() instead dma_request_slave_channel()
+Cc: linux-iio@vger.kernel.org, vkoul@kernel.org, linux-kernel@vger.kernel.org,
+ linux-arm-kernel@lists.infradead.org, linux-stm32@st-md-mailman.stormreply.com
+Subject: [Linux-stm32] [PATCH v3] iio: adc: stm32-adc: Use
+	dma_request_chan() instead dma_request_slave_channel()
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -66,50 +60,69 @@ List-Post: <mailto:linux-stm32@st-md-mailman.stormreply.com>
 List-Help: <mailto:linux-stm32-request@st-md-mailman.stormreply.com?subject=help>
 List-Subscribe: <https://st-md-mailman.stormreply.com/mailman/listinfo/linux-stm32>, 
  <mailto:linux-stm32-request@st-md-mailman.stormreply.com?subject=subscribe>
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: base64
+Content-Type: text/plain; charset="us-ascii"
+Content-Transfer-Encoding: 7bit
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
-SGkgRmFicmljZSwKCk9uIDA3LzAxLzIwMjAgMTkuMTUsIEZhYnJpY2UgR2FzbmllciB3cm90ZToK
-PiBPbiAxLzcvMjAgMTI6NDEgUE0sIFBldGVyIFVqZmFsdXNpIHdyb3RlOgo+PiBkbWFfcmVxdWVz
-dF9zbGF2ZV9jaGFubmVsKCkgaXMgYSB3cmFwcGVyIG9uIHRvcCBvZiBkbWFfcmVxdWVzdF9jaGFu
-KCkKPj4gZWF0aW5nIHVwIHRoZSBlcnJvciBjb2RlLgo+Pgo+PiBCeSB1c2luZyBkbWFfcmVxdWVz
-dF9jaGFuKCkgZGlyZWN0bHkgdGhlIGRyaXZlciBjYW4gc3VwcG9ydCBkZWZlcnJlZAo+PiBwcm9i
-aW5nIGFnYWluc3QgRE1BLgo+Pgo+PiBTaWduZWQtb2ZmLWJ5OiBQZXRlciBVamZhbHVzaSA8cGV0
-ZXIudWpmYWx1c2lAdGkuY29tPgo+PiAtLS0KPj4gSGksCj4+Cj4+IENoYW5nZXMgc2luY2UgdjE6
-Cj4+IC0gRmFsbCBiYWNrIHRvIElSUSBtb2RlIG9ubHkgaW4gY2FzZSBvZiBFTk9ERVYKPj4KPj4g
-UmVnYXJkcywKPj4gUGV0ZXIKPiAKPiBIaSBQZXRlciwKPiAKPiBUaGFua3MgZm9yIHRoZSBwYXRj
-aCwKPiAKPiBJbiBjYXNlIHlvdSBzZW5kIGFub3RoZXIgdmVyc2lvbi4uLiBJJ3ZlIGp1c3QgYSBt
-aW5vciBzdWdnZXN0aW9uCj4gcmVnYXJkaW5nIHRoZSBjb21tZW50IChzZWUgYWZ0ZXIpLiBBcGFy
-dCBmcm9tIHRoYXQsIHlvdSBjYW4gYWRkIG15OgoKVGhhbmtzLCBJJ2xsIHRha2UgeW91ciBzdWdn
-ZXN0ZWQgdXBkYXRlIGFuZCBzZW5kIHYzLgoKPiBBY2tlZC1ieTogRmFicmljZSBHYXNuaWVyIDxm
-YWJyaWNlLmdhc25pZXJAc3QuY29tPgo+IAo+IEJlc3QgUmVnYXJkcywKPiBGYWJyaWNlCj4gCj4+
-Cj4+ICBkcml2ZXJzL2lpby9hZGMvc3RtMzItYWRjLmMgfCAxNiArKysrKysrKysrKysrKy0tCj4+
-ICAxIGZpbGUgY2hhbmdlZCwgMTQgaW5zZXJ0aW9ucygrKSwgMiBkZWxldGlvbnMoLSkKPj4KPj4g
-ZGlmZiAtLWdpdCBhL2RyaXZlcnMvaWlvL2FkYy9zdG0zMi1hZGMuYyBiL2RyaXZlcnMvaWlvL2Fk
-Yy9zdG0zMi1hZGMuYwo+PiBpbmRleCAzYjI5MWQ3MjcwMWMuLmRmNWY1ZDYxZjlmOSAxMDA2NDQK
-Pj4gLS0tIGEvZHJpdmVycy9paW8vYWRjL3N0bTMyLWFkYy5jCj4+ICsrKyBiL2RyaXZlcnMvaWlv
-L2FkYy9zdG0zMi1hZGMuYwo+PiBAQCAtMTc0Niw5ICsxNzQ2LDIxIEBAIHN0YXRpYyBpbnQgc3Rt
-MzJfYWRjX2RtYV9yZXF1ZXN0KHN0cnVjdCBpaW9fZGV2ICppbmRpb19kZXYpCj4+ICAJc3RydWN0
-IGRtYV9zbGF2ZV9jb25maWcgY29uZmlnOwo+PiAgCWludCByZXQ7Cj4+ICAKPj4gLQlhZGMtPmRt
-YV9jaGFuID0gZG1hX3JlcXVlc3Rfc2xhdmVfY2hhbm5lbCgmaW5kaW9fZGV2LT5kZXYsICJyeCIp
-Owo+PiAtCWlmICghYWRjLT5kbWFfY2hhbikKPj4gKwlhZGMtPmRtYV9jaGFuID0gZG1hX3JlcXVl
-c3RfY2hhbigmaW5kaW9fZGV2LT5kZXYsICJyeCIpOwo+PiArCWlmIChJU19FUlIoYWRjLT5kbWFf
-Y2hhbikpIHsKPj4gKwkJcmV0ID0gUFRSX0VSUihhZGMtPmRtYV9jaGFuKTsKPj4gKwkJaWYgKHJl
-dCAhPSAtRU5PREVWKSB7Cj4+ICsJCQlpZiAocmV0ICE9IC1FUFJPQkVfREVGRVIpCj4+ICsJCQkJ
-ZGV2X2VycigmaW5kaW9fZGV2LT5kZXYsCj4+ICsJCQkJCSJETUEgY2hhbm5lbCByZXF1ZXN0IGZh
-aWxlZCB3aXRoICVkXG4iLAo+PiArCQkJCQlyZXQpOwo+PiArCQkJcmV0dXJuIHJldDsKPj4gKwkJ
-fQo+PiArCj4+ICsJCS8qIElnbm9yZSBlcnJvcnMgdG8gZmFsbCBiYWNrIHRvIElSUSBtb2RlICov
-Cj4gCQkgICAgICAgICAgICAgICBeCj4gCQkgICAgICAgICAgZXJyb3IKPiBhbHRlcm5hdGUgc3Vn
-Z2VzdGlvbjoKPiAJCS8qIERNQSBpcyBvcHRpb25hbDogZmFsbCBiYWNrIHRvIElSUSBtb2RlICov
-CgpNYWtlcyBtb3JlIHNlbnNlIGluIHRoZSBjb250ZXh0LgoKPiAKPj4gKwkJYWRjLT5kbWFfY2hh
-biA9IE5VTEw7Cj4+ICAJCXJldHVybiAwOwo+PiArCX0KPj4gIAo+PiAgCWFkYy0+cnhfYnVmID0g
-ZG1hX2FsbG9jX2NvaGVyZW50KGFkYy0+ZG1hX2NoYW4tPmRldmljZS0+ZGV2LAo+PiAgCQkJCQkg
-U1RNMzJfRE1BX0JVRkZFUl9TSVpFLAo+PgoKLSBQw6l0ZXIKClRleGFzIEluc3RydW1lbnRzIEZp
-bmxhbmQgT3ksIFBvcmtrYWxhbmthdHUgMjIsIDAwMTgwIEhlbHNpbmtpLgpZLXR1bm51cy9CdXNp
-bmVzcyBJRDogMDYxNTUyMS00LiBLb3RpcGFpa2thL0RvbWljaWxlOiBIZWxzaW5raQpfX19fX19f
-X19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fXwpMaW51eC1zdG0zMiBtYWls
-aW5nIGxpc3QKTGludXgtc3RtMzJAc3QtbWQtbWFpbG1hbi5zdG9ybXJlcGx5LmNvbQpodHRwczov
-L3N0LW1kLW1haWxtYW4uc3Rvcm1yZXBseS5jb20vbWFpbG1hbi9saXN0aW5mby9saW51eC1zdG0z
-Mgo=
+dma_request_slave_channel() is a wrapper on top of dma_request_chan()
+eating up the error code.
+
+By using dma_request_chan() directly the driver can support deferred
+probing against DMA.
+
+Signed-off-by: Peter Ujfalusi <peter.ujfalusi@ti.com>
+Acked-by: Fabrice Gasnier <fabrice.gasnier@st.com>
+---
+Hi,
+
+Changes since v2:
+- Replace the comment as suggested by Fabrice
+
+Changes since v1:
+- Fall back to IRQ mode only in case of ENODEV
+
+Regards,
+Peter
+
+ drivers/iio/adc/stm32-adc.c | 16 ++++++++++++++--
+ 1 file changed, 14 insertions(+), 2 deletions(-)
+
+diff --git a/drivers/iio/adc/stm32-adc.c b/drivers/iio/adc/stm32-adc.c
+index 3b291d72701c..a8d2414ee2eb 100644
+--- a/drivers/iio/adc/stm32-adc.c
++++ b/drivers/iio/adc/stm32-adc.c
+@@ -1746,9 +1746,21 @@ static int stm32_adc_dma_request(struct iio_dev *indio_dev)
+ 	struct dma_slave_config config;
+ 	int ret;
+ 
+-	adc->dma_chan = dma_request_slave_channel(&indio_dev->dev, "rx");
+-	if (!adc->dma_chan)
++	adc->dma_chan = dma_request_chan(&indio_dev->dev, "rx");
++	if (IS_ERR(adc->dma_chan)) {
++		ret = PTR_ERR(adc->dma_chan);
++		if (ret != -ENODEV) {
++			if (ret != -EPROBE_DEFER)
++				dev_err(&indio_dev->dev,
++					"DMA channel request failed with %d\n",
++					ret);
++			return ret;
++		}
++
++		/* DMA is optional: fall back to IRQ mode */
++		adc->dma_chan = NULL;
+ 		return 0;
++	}
+ 
+ 	adc->rx_buf = dma_alloc_coherent(adc->dma_chan->device->dev,
+ 					 STM32_DMA_BUFFER_SIZE,
+-- 
+Peter
+
+Texas Instruments Finland Oy, Porkkalankatu 22, 00180 Helsinki.
+Y-tunnus/Business ID: 0615521-4. Kotipaikka/Domicile: Helsinki
+
+_______________________________________________
+Linux-stm32 mailing list
+Linux-stm32@st-md-mailman.stormreply.com
+https://st-md-mailman.stormreply.com/mailman/listinfo/linux-stm32
