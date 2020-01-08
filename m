@@ -2,69 +2,126 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id E008E13432A
-	for <lists+linux-stm32@lfdr.de>; Wed,  8 Jan 2020 14:00:56 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 1D8F81343C3
+	for <lists+linux-stm32@lfdr.de>; Wed,  8 Jan 2020 14:25:36 +0100 (CET)
 Received: from ip-172-31-3-76.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 85195C36B0B;
-	Wed,  8 Jan 2020 13:00:56 +0000 (UTC)
-Received: from mail-wr1-f65.google.com (mail-wr1-f65.google.com
- [209.85.221.65])
- (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id D38B5C36B0B;
+	Wed,  8 Jan 2020 13:25:35 +0000 (UTC)
+Received: from smtprelay-out1.synopsys.com (sv2-smtprelay2.synopsys.com
+ [149.117.73.133])
+ (using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 0E69AC36B09
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 4A46CC36B09
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Wed,  8 Jan 2020 13:00:54 +0000 (UTC)
-Received: by mail-wr1-f65.google.com with SMTP id q10so3236865wrm.11
- for <linux-stm32@st-md-mailman.stormreply.com>;
- Wed, 08 Jan 2020 05:00:54 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20161025;
- h=date:from:to:cc:subject:message-id:references:mime-version
- :content-disposition:in-reply-to:user-agent;
- bh=8s6MBY17dmKuqB1spd1Y2svCKY1mGBybzjzWrguhdKw=;
- b=gE1Ze7d22HE5Q5vnTBA9TJ3sklMoxYoqc4qi5fHipRECxI0AbbTe7yOGYletjJPSmG
- +ni93Xnu1tzfiZFnXRrNN7/9U4sSHQNRhWB3u0H5/5LgIBx8y6JZ2dvG6K9UzFfeIs+t
- ucmWMwc34F1bCjWif80BBpDX+NigheLltnGLMjReolPZ5SDW/DH4dUm+wUq5r/jUmJ7s
- e2m0AP/4myXBS3YYO7G6r3U33CARN3WLrhMxJEK0ZB3mfe/XXCblny9ZEPEACVa0kLmj
- 3U+hwLGgcCpRcrE4b/ohDwhGIOeoYtr9t3UJp9qpLX3nPDKIaslKdYClYnIKHOhib/Rq
- UFDw==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20161025;
- h=x-gm-message-state:date:from:to:cc:subject:message-id:references
- :mime-version:content-disposition:in-reply-to:user-agent;
- bh=8s6MBY17dmKuqB1spd1Y2svCKY1mGBybzjzWrguhdKw=;
- b=MRvFoZMxzJNrAVXu+LhdW8Z/nhk2EJRAymJBZLW9JdUQVUG35oSAqwUiAB245GUBwK
- pDBymyTlE8psmhzJ0Rf7IFBC5CaJGE5H59GpuICgCGkBNFcuKUqTlLNKsUtTm2KEfY5z
- sybk8U69b/MPpwjAqt2qwdxidT7VNqXndQEc2U8P7GcKnqw90cUUxwRTM9/+0elRv5Ih
- cDBn0pioPkkY1n5IxntUOqUrA/SGIYkiWzqY1IuiD1iaeX4p7AF3SErFPc+ZnwND0cE4
- bVcNr1bveJuD+6bo/wGRO2yfNirYpKd/drTXVOKpudFNlleXyaCEZf7J64ywd+BM3vx4
- h6gg==
-X-Gm-Message-State: APjAAAXKEnNqLJtQD+NtY23P+yrwn9Oh1K5v5Wcbxowimqsz5wnnwmEH
- SbuUOdQIx039QzyywIyVWrA=
-X-Google-Smtp-Source: APXvYqyiUk9DjLJLQC9p0jB9yqPCOOzRwx8SecHw6EXXSg6lP6Y/JDhW00O/AZmFm6lHLnBCa9UkDg==
-X-Received: by 2002:a05:6000:cf:: with SMTP id
- q15mr4321652wrx.393.1578488454567; 
- Wed, 08 Jan 2020 05:00:54 -0800 (PST)
-Received: from localhost (p2E5BEF3F.dip0.t-ipconnect.de. [46.91.239.63])
- by smtp.gmail.com with ESMTPSA id x7sm3931711wrq.41.2020.01.08.05.00.52
- (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Wed, 08 Jan 2020 05:00:53 -0800 (PST)
-Date: Wed, 8 Jan 2020 14:00:52 +0100
-From: Thierry Reding <thierry.reding@gmail.com>
-To: Krzysztof Kozlowski <krzk@kernel.org>
-Message-ID: <20200108130052.GF1993114@ulmo>
-References: <20191230172113.17222-1-krzk@kernel.org>
+ Wed,  8 Jan 2020 13:25:34 +0000 (UTC)
+Received: from mailhost.synopsys.com (badc-mailhost2.synopsys.com
+ [10.192.0.18])
+ (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits))
+ (No client certificate requested)
+ by smtprelay-out1.synopsys.com (Postfix) with ESMTPS id 881A8404CE;
+ Wed,  8 Jan 2020 13:25:25 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=synopsys.com; s=mail;
+ t=1578489932; bh=uii8S55lkyXF530tXve56vi1H/yL7N+3SwH2y7gLmn8=;
+ h=From:To:CC:Subject:Date:References:In-Reply-To:From;
+ b=ZWi06K3DqNIYSvfPZ9NWNB+UykrHiwB9I61yostoUglY7F/QR7LUYrB/sctnoLgx+
+ a/xeBjUKC86tPFabxdQJNvoDp09GO+9hd+rZqCYiC2aUloxQId0amQzKmGhC/K840A
+ C/oNIjlzjfR8KqK6MPsSs6ZjLsOP3NHelAvSI85qmsxeQyM7OXADWu3IEsrJFjnmSs
+ o6Xa8FMSyQtDtGfVNLViXmp50AvueBj8jqr/DV0MWYG5kxSAe6LFJmlvx4+QuTk3ei
+ fPvPtftnuCU61nCAo1j0k5ycchkGo/sqG9IjLiyCpkkYuQVSfFjtQD/KNWyISVD9G7
+ 2FcHxghTatZ0w==
+Received: from US01WEHTC3.internal.synopsys.com
+ (us01wehtc3.internal.synopsys.com [10.15.84.232])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES256-SHA384 (256/256 bits))
+ (No client certificate requested)
+ by mailhost.synopsys.com (Postfix) with ESMTPS id 18F99A0069;
+ Wed,  8 Jan 2020 13:25:24 +0000 (UTC)
+Received: from us01hybrid1.internal.synopsys.com (10.200.27.51) by
+ US01WEHTC3.internal.synopsys.com (10.15.84.232) with Microsoft SMTP Server
+ (TLS) id 14.3.408.0; Wed, 8 Jan 2020 05:25:23 -0800
+Received: from NAM02-CY1-obe.outbound.protection.outlook.com (10.202.3.67) by
+ mrs.synopsys.com (10.200.27.51) with Microsoft SMTP Server (TLS) id
+ 14.3.408.0; Wed, 8 Jan 2020 05:25:22 -0800
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
+ b=ikLIopKqcRJ8g7Ks2/IkgUlv+mUyNpZqj5V0mwtq+kJjpc1eq9oK3ro0WgAVzCpIz3hS9wClr4JVCrMUvZ43z4KsG996rRp2CrAeKnKyJgWAR1FIEQkoE8td+AURmgTmBylfYBdZHoVHYG6cI9BlEEXesWn/zJh+14hqR/hEE8IX+bKXJfAoZ3bVOPIjRz55gXNm5eeW9rRMtUlSoVLriL6TKLxAR4WGqemMoymNaa7TXo9cMiK+Gl1azSs1lkFntzcW8Q40uL25f5gYbcr9gqf5JwFEi3mm/mDXobmrZD+iALK1S+Nj2js4bogwB1XbudjyZI1PUO0/240IsqGCKQ==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
+ s=arcselector9901;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=hleNpS0fHQ1LqzJ/Ih7ary9XjeItZY6tcm8lcdghJxE=;
+ b=JJvOpX4HWMpv0XXZawck+8yfpAFG2ESewMQJPno4inMWAbaZTa0ds8Awtc4l3O7um9ci9tuCHJy8CpvJGRPLADRS50HJUAl/KOqsfnohgKea4tFOgw4F7oWxfULCeCAWafkacLxWJSconyQJCcG/IXHi5Cn5eZqgJmTykj3vnO32DM/DQOeVgwkPrihawgOw8PIvWEx/R+w94k9MorILNjhj89YKBxq9rYYeBY21K5T15qCPwbspR9DY61PHUu1C1I2gzvLCLsXb6/VUTkvln6Gl5Z72dYQpW2rR4pUUir7b8f8Rz1YgZt4zdm+lbmAyuVcpVFGf2i5A7bN3vVQyIA==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=synopsys.com; dmarc=pass action=none header.from=synopsys.com;
+ dkim=pass header.d=synopsys.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=synopsys.onmicrosoft.com; s=selector2-synopsys-onmicrosoft-com;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=hleNpS0fHQ1LqzJ/Ih7ary9XjeItZY6tcm8lcdghJxE=;
+ b=Ti/rx/0G5wMvr29PKzWmSjrtrvXOqVtRns5/sooiC78u6ksFGQ7wn4Gc4hN3INcDLYLIb/t6ctYSzM4Vk1pek212SazwTEzfAsUOwI5mgBDG9uVDU0Tuh419cPHhjqRM4WxtJf9EdCcCF1uQCRO7bSMO2xWwrIt1SjMzr5L13Po=
+Received: from BN8PR12MB3266.namprd12.prod.outlook.com (20.179.67.145) by
+ BN8PR12MB3075.namprd12.prod.outlook.com (20.178.209.203) with Microsoft SMTP
+ Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.20.2623.9; Wed, 8 Jan 2020 13:25:21 +0000
+Received: from BN8PR12MB3266.namprd12.prod.outlook.com
+ ([fe80::c62:b247:6963:9da2]) by BN8PR12MB3266.namprd12.prod.outlook.com
+ ([fe80::c62:b247:6963:9da2%6]) with mapi id 15.20.2602.017; Wed, 8 Jan 2020
+ 13:25:21 +0000
+From: Jose Abreu <Jose.Abreu@synopsys.com>
+To: Dejin Zheng <zhengdejin5@gmail.com>
+Thread-Topic: [PATCH v2 0/2] net: stmmac: remove useless code of phy_mask
+Thread-Index: AQHVxfUGgqwdWhtbcEaMF7LHLdtnx6fgZjWAgAA67QCAACDesA==
+Date: Wed, 8 Jan 2020 13:25:21 +0000
+Message-ID: <BN8PR12MB3266601BC7BA0F414BD60E19D33E0@BN8PR12MB3266.namprd12.prod.outlook.com>
+References: <20200108072550.28613-1-zhengdejin5@gmail.com>
+ <BN8PR12MB326627D0E1F17AE7515B78E4D33E0@BN8PR12MB3266.namprd12.prod.outlook.com>
+ <20200108112652.GA5316@nuc8i5>
+In-Reply-To: <20200108112652.GA5316@nuc8i5>
+Accept-Language: en-US
+Content-Language: en-US
+X-MS-Has-Attach: 
+X-MS-TNEF-Correlator: 
+authentication-results: spf=none (sender IP is )
+ smtp.mailfrom=joabreu@synopsys.com; 
+x-originating-ip: [83.174.63.141]
+x-ms-publictraffictype: Email
+x-ms-office365-filtering-correlation-id: 647f51b0-59ea-4571-b86b-08d7943e366b
+x-ms-traffictypediagnostic: BN8PR12MB3075:
+x-microsoft-antispam-prvs: <BN8PR12MB30757FBCDA46D53EA5FB8A81D33E0@BN8PR12MB3075.namprd12.prod.outlook.com>
+x-ms-oob-tlc-oobclassifiers: OLM:1013;
+x-forefront-prvs: 02760F0D1C
+x-forefront-antispam-report: SFV:NSPM;
+ SFS:(10019020)(346002)(39860400002)(396003)(136003)(366004)(376002)(189003)(199004)(2906002)(81166006)(316002)(81156014)(7416002)(52536014)(86362001)(5660300002)(4744005)(55016002)(8936002)(9686003)(8676002)(54906003)(66556008)(66476007)(64756008)(66446008)(76116006)(66946007)(4326008)(186003)(26005)(478600001)(6506007)(6916009)(33656002)(7696005)(71200400001);
+ DIR:OUT; SFP:1102; SCL:1; SRVR:BN8PR12MB3075;
+ H:BN8PR12MB3266.namprd12.prod.outlook.com; FPR:; SPF:None; LANG:en;
+ PTR:InfoNoRecords; MX:1; A:1; 
+received-spf: None (protection.outlook.com: synopsys.com does not designate
+ permitted sender hosts)
+x-ms-exchange-senderadcheck: 1
+x-microsoft-antispam: BCL:0;
+x-microsoft-antispam-message-info: GfwNb5DxBXQiEMbkSHfptl+bmDx4mmEPmft75Z0/Lk9uvs2VYIV6mURElhCMMGfHVHqeTP0gAyArinqmnb+WOwMUaxSIZ0dJ9V0yhL8jKwaTQJb3SQPKO/0KTE8AAXIN6PlE8E6rfUjOdYL1/fQqTH6V7tX265A2AtuudTQ594bcCLbkinv2p5+eKjA6KbJmEB7Qp7+q6th2fxtkkpYW7rlsviKDPRGZTnjw49rTuf0s3eRJHS1tw8efuyiB7Oo/ONjMHuCojFc87S8Rxp402+b0FTfeJKermJqRI2sBs+AwEzVuPbDoQqNEnn6LBMUNbQKUUEM4Yo8GtXya/fio3ij+FQoyBRit4qdH72LDMD+qxqmVKYvcJUGoDqvqz2cWTxsNeMREYSLk5ycfkuC8SzXMExUDXlS0TCkWsSYyJwkcpvUXYG11jUkfxX+tajil
+x-ms-exchange-transport-forked: True
 MIME-Version: 1.0
-In-Reply-To: <20191230172113.17222-1-krzk@kernel.org>
-User-Agent: Mutt/1.13.1 (2019-12-14)
-Cc: linux-pwm@vger.kernel.org, linux-mediatek@lists.infradead.org,
- linux-kernel@vger.kernel.org, linux-rockchip@lists.infradead.org,
- bcm-kernel-feedback-list@broadcom.com, linux-rpi-kernel@lists.infradead.org,
- Uwe =?utf-8?Q?Kleine-K=C3=B6nig?= <u.kleine-koenig@pengutronix.de>,
- linux-tegra@vger.kernel.org, linux-amlogic@lists.infradead.org,
- linux-riscv@lists.infradead.org, linux-stm32@st-md-mailman.stormreply.com,
- linux-arm-kernel@lists.infradead.org
-Subject: Re: [Linux-stm32] [PATCH 1/2] pwm: Fix minor Kconfig whitespace
-	issues
+X-MS-Exchange-CrossTenant-Network-Message-Id: 647f51b0-59ea-4571-b86b-08d7943e366b
+X-MS-Exchange-CrossTenant-originalarrivaltime: 08 Jan 2020 13:25:21.6827 (UTC)
+X-MS-Exchange-CrossTenant-fromentityheader: Hosted
+X-MS-Exchange-CrossTenant-id: c33c9f88-1eb7-4099-9700-16013fd9e8aa
+X-MS-Exchange-CrossTenant-mailboxtype: HOSTED
+X-MS-Exchange-CrossTenant-userprincipalname: YzcUUzTc9nsSJRMyiKdOzzSl6NAYODc6NUkheSXreqRpv76DcbmPH2kBT1O/k2Jd1u11XIQ6CiUSCUmbkeLgAw==
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: BN8PR12MB3075
+X-OriginatorOrg: synopsys.com
+Cc: "andrew@lunn.ch" <andrew@lunn.ch>,
+ "weifeng.voon@intel.com" <weifeng.voon@intel.com>,
+ "martin.blumenstingl@googlemail.com" <martin.blumenstingl@googlemail.com>,
+ "netdev@vger.kernel.org" <netdev@vger.kernel.org>,
+ "linux-kernel@vger.kernel.org" <linux-kernel@vger.kernel.org>,
+ "linux-stm32@st-md-mailman.stormreply.com"
+ <linux-stm32@st-md-mailman.stormreply.com>,
+ "mcoquelin.stm32@gmail.com" <mcoquelin.stm32@gmail.com>,
+ "peppe.cavallaro@st.com" <peppe.cavallaro@st.com>,
+ "tglx@linutronix.de" <tglx@linutronix.de>,
+ "treding@nvidia.com" <treding@nvidia.com>,
+ "davem@davemloft.net" <davem@davemloft.net>,
+ "linux-arm-kernel@lists.infradead.org" <linux-arm-kernel@lists.infradead.org>
+Subject: Re: [Linux-stm32] [PATCH v2 0/2] net: stmmac: remove useless code
+	of phy_mask
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -76,65 +133,37 @@ List-Post: <mailto:linux-stm32@st-md-mailman.stormreply.com>
 List-Help: <mailto:linux-stm32-request@st-md-mailman.stormreply.com?subject=help>
 List-Subscribe: <https://st-md-mailman.stormreply.com/mailman/listinfo/linux-stm32>, 
  <mailto:linux-stm32-request@st-md-mailman.stormreply.com?subject=subscribe>
-Content-Type: multipart/mixed; boundary="===============7047905164779855321=="
+Content-Type: text/plain; charset="us-ascii"
+Content-Transfer-Encoding: 7bit
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
+From: Dejin Zheng <zhengdejin5@gmail.com>
+Date: Jan/08/2020, 11:26:52 (UTC+00:00)
 
---===============7047905164779855321==
-Content-Type: multipart/signed; micalg=pgp-sha256;
-	protocol="application/pgp-signature"; boundary="+jhVVhN62yS6hEJ8"
-Content-Disposition: inline
+> On Wed, Jan 08, 2020 at 07:57:14AM +0000, Jose Abreu wrote:
+> > From: Dejin Zheng <zhengdejin5@gmail.com>
+> > Date: Jan/08/2020, 07:25:48 (UTC+00:00)
+> > 
+> > > Changes since v1:
+> > > 	1, add a new commit for remove the useless member phy_mask.
+> > 
+> > No, this is not useless. It's an API for developers that need only 
+> > certain PHYs to be detected. Please do not remove this.
+> >
+> Hi Jose:
+> 
+> Okay, If you think it is a feature that needs to be retained, I will
+> abandon it. since I am a newbie, after that, Do I need to update the
+> other commit in this patchset for patch v3? Thanks!
 
+Your first commit (1/2) looks okay so you can submit that stand-alone in 
+my opinion.
 
---+jhVVhN62yS6hEJ8
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-Content-Transfer-Encoding: quoted-printable
-
-On Mon, Dec 30, 2019 at 06:21:12PM +0100, Krzysztof Kozlowski wrote:
-> Remove double whitespace after "config" keyword.
->=20
-> Signed-off-by: Krzysztof Kozlowski <krzk@kernel.org>
-> ---
->  drivers/pwm/Kconfig | 4 ++--
->  1 file changed, 2 insertions(+), 2 deletions(-)
-
-Applied, thanks.
-
-Thierry
-
---+jhVVhN62yS6hEJ8
-Content-Type: application/pgp-signature; name="signature.asc"
-
------BEGIN PGP SIGNATURE-----
-
-iQIzBAABCAAdFiEEiOrDCAFJzPfAjcif3SOs138+s6EFAl4V0oQACgkQ3SOs138+
-s6GW+RAAqt7l9DVUT1XZy2TgE7UeLRkeCbnVtYRqr1q4kqqjW1uRyRc2gbd6Q15a
-Orl53tUGiuE+Fr/t+UpQSLOmsc93zRIqkhbyMdfyTXJRGhzU5UCx2BuBDkelvmZ/
-ZcTgvi8IkXRVh7SJx6E2i956iFXifCQQKd/pbS3oPZbUCeRPJuhCTgmfD7NAKvCR
-YsaDo4MWHuuulx05CCLeZ+g915YEGXCV5nKr5RdY9/uf1ifS1waeUZK8+C+uwAy6
-17J7Ee4+27mydyVzsutgTLAWfnNf3wcwDzbYaR61G4dKZXHWZBlzjq1hAlyfLrfI
-Ue9fAv71KPfLULXpotqvoVkzKeTzW5SSnbtsi22wLJfmu5RI2ZCS2gXdRN0Z5f8y
-9M59CBmSSOvoQ7b/nBbOCxxlUqZTXGjnlJCXqrqGmomCMQvKZIJBNBILlFoQDDtZ
-wCVV+XXEHq3j4qvgsjgkAHLGyxkjmryg6fOFe9mqCGwk1huV5NYbI4aP1xiSCmTt
-00wLZMd67PnKuPv1GAgvRW+BLif97N1U7g2OP5ewhYXPj7cd1DVQHsgwbKnKkz1H
-UWG3gn+7n3KcstFfKsgS3X8fhKQ2+HalnX9hBfeORhPef5cCtIURILtOU/sS/pvZ
-f30UWoLal+Aylqbsc01nUJmxg27i/m0q4+v7waQmAJlE0L+1c6o=
-=p5N4
------END PGP SIGNATURE-----
-
---+jhVVhN62yS6hEJ8--
-
---===============7047905164779855321==
-Content-Type: text/plain; charset="us-ascii"
-MIME-Version: 1.0
-Content-Transfer-Encoding: 7bit
-Content-Disposition: inline
-
+---
+Thanks,
+Jose Miguel Abreu
 _______________________________________________
 Linux-stm32 mailing list
 Linux-stm32@st-md-mailman.stormreply.com
 https://st-md-mailman.stormreply.com/mailman/listinfo/linux-stm32
-
---===============7047905164779855321==--
