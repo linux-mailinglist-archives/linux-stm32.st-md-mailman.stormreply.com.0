@@ -2,66 +2,59 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id 33F37135614
-	for <lists+linux-stm32@lfdr.de>; Thu,  9 Jan 2020 10:47:27 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id C508D1356E2
+	for <lists+linux-stm32@lfdr.de>; Thu,  9 Jan 2020 11:31:43 +0100 (CET)
 Received: from ip-172-31-3-76.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id F1E38C36B0B;
-	Thu,  9 Jan 2020 09:47:26 +0000 (UTC)
-Received: from mx07-00178001.pphosted.com (mx08-00178001.pphosted.com
- [91.207.212.93])
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 8A451C36B0B;
+	Thu,  9 Jan 2020 10:31:43 +0000 (UTC)
+Received: from fllv0016.ext.ti.com (fllv0016.ext.ti.com [198.47.19.142])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 9294FC36B09
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id EE4B0C36B09
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Thu,  9 Jan 2020 09:47:25 +0000 (UTC)
-Received: from pps.filterd (m0046660.ppops.net [127.0.0.1])
- by mx08-00178001.pphosted.com (8.16.0.42/8.16.0.42) with SMTP id
- 0099bw3M010765; Thu, 9 Jan 2020 10:47:17 +0100
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=st.com;
- h=subject : to : cc :
- references : from : message-id : date : mime-version : in-reply-to :
- content-type : content-transfer-encoding; s=STMicroelectronics;
- bh=/srlc8j4yMgSJXREcaFnjnBeD6pKrkieKNXc+bew/uo=;
- b=HaRkAnCbc5l084A2XWXcD5uIsugiHHJo8D/Yzu21Jc/zbGVexB2QKczlGvjFovDUb78V
- 0zxWDypWd1pzNGG5+lTYTxBc6LkyF5hhdvWN6ZOYsLJJMpxGg2tAft2LiWB/n1bRCqG2
- +wNp5yvieGlZ3IxuxpTRWiG7dARMlj5HnJIinj4LK2RwgS6f1b4RlSSmgRHvKJRQ/TRg
- +nvyQ4Ns+jzilthgf84M8jl3/Ts4OV/3JobOM08Ju6c26XoZWR1OPO2QxedkQ3vEqTEr
- 8VXJZmVMoYEYRK8DAZJTcW2XbQPJJ7Q1aSsFsFAw3fmLcgk+ELP7e7e571esktT6K3Ng tg== 
-Received: from beta.dmz-eu.st.com (beta.dmz-eu.st.com [164.129.1.35])
- by mx08-00178001.pphosted.com with ESMTP id 2xakkb0yuh-1
- (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
- Thu, 09 Jan 2020 10:47:17 +0100
-Received: from euls16034.sgp.st.com (euls16034.sgp.st.com [10.75.44.20])
- by beta.dmz-eu.st.com (STMicroelectronics) with ESMTP id E76E3100038;
- Thu,  9 Jan 2020 10:47:12 +0100 (CET)
-Received: from Webmail-eu.st.com (sfhdag3node2.st.com [10.75.127.8])
- by euls16034.sgp.st.com (STMicroelectronics) with ESMTP id DA8AE2A7915;
- Thu,  9 Jan 2020 10:47:12 +0100 (CET)
-Received: from lmecxl0912.lme.st.com (10.75.127.46) by SFHDAG3NODE2.st.com
- (10.75.127.8) with Microsoft SMTP Server (TLS) id 15.0.1347.2; Thu, 9 Jan
- 2020 10:47:12 +0100
-To: Benjamin Gaignard <benjamin.gaignard@st.com>, <mcoquelin.stm32@gmail.com>, 
- <robh+dt@kernel.org>, <mark.rutland@arm.com>
-References: <20200108132647.26131-1-benjamin.gaignard@st.com>
- <20200108132647.26131-2-benjamin.gaignard@st.com>
-From: Alexandre Torgue <alexandre.torgue@st.com>
-Message-ID: <d4d67add-9dd2-4589-42b1-226f63d1ed29@st.com>
-Date: Thu, 9 Jan 2020 10:47:11 +0100
-User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:68.0) Gecko/20100101
- Thunderbird/68.2.2
+ Thu,  9 Jan 2020 10:31:41 +0000 (UTC)
+Received: from fllv0034.itg.ti.com ([10.64.40.246])
+ by fllv0016.ext.ti.com (8.15.2/8.15.2) with ESMTP id 009AVYNC091024;
+ Thu, 9 Jan 2020 04:31:34 -0600
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=ti.com;
+ s=ti-com-17Q1; t=1578565894;
+ bh=vRdA7ZpngQM+5zB53J/t9D79iFD6d3CN4ckUSA2NKZU=;
+ h=Subject:To:CC:References:From:Date:In-Reply-To;
+ b=kqfAtqYyVFSJwV7sAQM96ZsH51Cc8Qfcgjh49mQJZW+5wcv9MqpoyEgdaP2YFpDcb
+ +2PxadaY9hVlfjIC/8oPqSWQkfi/UFY2Ko2xjxTcHFUwar0CUx/N7aNr3jborunuex
+ KcLERc0GHTymkwpkF6fTlikayArqWYj+LJOBXOeg=
+Received: from DFLE100.ent.ti.com (dfle100.ent.ti.com [10.64.6.21])
+ by fllv0034.itg.ti.com (8.15.2/8.15.2) with ESMTPS id 009AVYmK079645
+ (version=TLSv1.2 cipher=AES256-GCM-SHA384 bits=256 verify=FAIL);
+ Thu, 9 Jan 2020 04:31:34 -0600
+Received: from DFLE105.ent.ti.com (10.64.6.26) by DFLE100.ent.ti.com
+ (10.64.6.21) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_128_CBC_SHA256_P256) id 15.1.1847.3; Thu, 9 Jan
+ 2020 04:31:32 -0600
+Received: from fllv0040.itg.ti.com (10.64.41.20) by DFLE105.ent.ti.com
+ (10.64.6.26) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_128_CBC_SHA256_P256) id 15.1.1847.3 via
+ Frontend Transport; Thu, 9 Jan 2020 04:31:32 -0600
+Received: from [192.168.2.6] (ileax41-snat.itg.ti.com [10.172.224.153])
+ by fllv0040.itg.ti.com (8.15.2/8.15.2) with ESMTP id 009AVU9e033718;
+ Thu, 9 Jan 2020 04:31:30 -0600
+To: Fabrice Gasnier <fabrice.gasnier@st.com>, <jic23@kernel.org>,
+ <mcoquelin.stm32@gmail.com>, <alexandre.torgue@st.com>
+References: <20200107114532.6697-1-peter.ujfalusi@ti.com>
+ <eade6657-8470-0d70-b3c1-fcdddf891c6c@st.com>
+From: Peter Ujfalusi <peter.ujfalusi@ti.com>
+Message-ID: <4c0b7e3e-cd98-860a-e931-c216f1bc6e7a@ti.com>
+Date: Thu, 9 Jan 2020 12:32:02 +0200
+User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:60.0) Gecko/20100101
+ Thunderbird/60.9.0
 MIME-Version: 1.0
-In-Reply-To: <20200108132647.26131-2-benjamin.gaignard@st.com>
+In-Reply-To: <eade6657-8470-0d70-b3c1-fcdddf891c6c@st.com>
 Content-Language: en-US
-X-Originating-IP: [10.75.127.46]
-X-ClientProxiedBy: SFHDAG4NODE2.st.com (10.75.127.11) To SFHDAG3NODE2.st.com
- (10.75.127.8)
-X-Proofpoint-Virus-Version: vendor=fsecure engine=2.50.10434:6.0.138, 18.0.572
- definitions=2020-01-09_02:2020-01-08,
- 2020-01-09 signatures=0
-Cc: devicetree@vger.kernel.org, linux-stm32@st-md-mailman.stormreply.com,
- linux-arm-kernel@lists.infradead.org, linux-kernel@vger.kernel.org
-Subject: Re: [Linux-stm32] [PATCH] ARM: dts: stm32: Add power-supply for DSI
- panel on stm32f469-disco
+X-EXCLAIMER-MD-CONFIG: e1e8a2fd-e40a-4ac6-ac9b-f7e9cc9ee180
+Cc: linux-iio@vger.kernel.org, linux-kernel@vger.kernel.org, vkoul@kernel.org,
+ linux-stm32@st-md-mailman.stormreply.com, linux-arm-kernel@lists.infradead.org
+Subject: Re: [Linux-stm32] [PATCH v2] iio: adc: stm32-dfsdm: Use
+ dma_request_chan() instead dma_request_slave_channel()
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -73,56 +66,58 @@ List-Post: <mailto:linux-stm32@st-md-mailman.stormreply.com>
 List-Help: <mailto:linux-stm32-request@st-md-mailman.stormreply.com?subject=help>
 List-Subscribe: <https://st-md-mailman.stormreply.com/mailman/listinfo/linux-stm32>, 
  <mailto:linux-stm32-request@st-md-mailman.stormreply.com?subject=subscribe>
-Content-Transfer-Encoding: 7bit
-Content-Type: text/plain; charset="us-ascii"; Format="flowed"
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: base64
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
-Hi
-
-On 1/8/20 2:26 PM, Benjamin Gaignard wrote:
-> Add a fixed regulator and use it as power supply for DSI panel.
-> 
-> Fixes: 18c8866266 ("ARM: dts: stm32: Add display support on stm32f469-disco")
-> 
-> Signed-off-by: Benjamin Gaignard <benjamin.gaignard@st.com>
-> ---
->   arch/arm/boot/dts/stm32f469-disco.dts | 8 ++++++++
->   1 file changed, 8 insertions(+)
-> 
-> diff --git a/arch/arm/boot/dts/stm32f469-disco.dts b/arch/arm/boot/dts/stm32f469-disco.dts
-> index f3ce477b7bae..4801565e19d7 100644
-> --- a/arch/arm/boot/dts/stm32f469-disco.dts
-> +++ b/arch/arm/boot/dts/stm32f469-disco.dts
-> @@ -76,6 +76,13 @@
->   		regulator-max-microvolt = <3300000>;
->   	};
->   
-> +	vdd_dsi: vdd-dsi {
-> +		compatible = "regulator-fixed";
-> +		regulator-name = "vdd_dsi";
-> +		regulator-min-microvolt = <3300000>;
-> +		regulator-max-microvolt = <3300000>;
-> +	};
-> +
->   	soc {
->   		dma-ranges = <0xc0000000 0x0 0x10000000>;
->   	};
-> @@ -155,6 +162,7 @@
->   		compatible = "orisetech,otm8009a";
->   		reg = <0>; /* dsi virtual channel (0..3) */
->   		reset-gpios = <&gpioh 7 GPIO_ACTIVE_LOW>;
-> +		power-supply = <&vdd_dsi>;
->   		status = "okay";
->   
->   		port {
-> 
-
-Applied on stm32-next.
-
-Thanks
-Alex
-_______________________________________________
-Linux-stm32 mailing list
-Linux-stm32@st-md-mailman.stormreply.com
-https://st-md-mailman.stormreply.com/mailman/listinfo/linux-stm32
+CgpPbiAwOS8wMS8yMDIwIDExLjEzLCBGYWJyaWNlIEdhc25pZXIgd3JvdGU6Cj4gT24gMS83LzIw
+IDEyOjQ1IFBNLCBQZXRlciBVamZhbHVzaSB3cm90ZToKPj4gZG1hX3JlcXVlc3Rfc2xhdmVfY2hh
+bm5lbCgpIGlzIGEgd3JhcHBlciBvbiB0b3Agb2YgZG1hX3JlcXVlc3RfY2hhbigpCj4+IGVhdGlu
+ZyB1cCB0aGUgZXJyb3IgY29kZS4KPj4KPj4gQnkgdXNpbmcgZG1hX3JlcXVlc3RfY2hhbigpIGRp
+cmVjdGx5IHRoZSBkcml2ZXIgY2FuIHN1cHBvcnQgZGVmZXJyZWQKPj4gcHJvYmluZyBhZ2FpbnN0
+IERNQS4KPj4KPj4gU2lnbmVkLW9mZi1ieTogUGV0ZXIgVWpmYWx1c2kgPHBldGVyLnVqZmFsdXNp
+QHRpLmNvbT4KPj4gLS0tCj4+IEhpLAo+Pgo+PiBDaGFuZ2VzIHNpbmNlIHYxOgo+PiAtIEZhbGwg
+YmFjayB0byBJUlEgbW9kZSBmb3IgQURDIG9ubHkgaW4gY2FzZSBvZiBFTk9ERVYKPiAKPiBIaSBQ
+ZXRlciwKPiAKPiBUaGFua3MgZm9yIHRoZSBwYXRjaCwKPiAKPiBQbGVhc2UgZmluZCBhIG1pbm9y
+IGNvbW1lbnQgaGVyZSBhZnRlci4gQXBhcnQgZnJvbSB0aGF0LCB5b3UgY2FuIGFkZCBteToKPiAK
+PiBBY2tlZC1ieTogRmFicmljZSBHYXNuaWVyIDxmYWJyaWNlLmdhc25pZXJAc3QuY29tPgo+IAo+
+IAo+Pgo+PiBSZWdhcmRzLAo+PiBQZXRlcgo+Pgo+PiAgZHJpdmVycy9paW8vYWRjL3N0bTMyLWRm
+c2RtLWFkYy5jIHwgMjEgKysrKysrKysrKysrKysrKystLS0tCj4+ICAxIGZpbGUgY2hhbmdlZCwg
+MTcgaW5zZXJ0aW9ucygrKSwgNCBkZWxldGlvbnMoLSkKPj4KPj4gZGlmZiAtLWdpdCBhL2RyaXZl
+cnMvaWlvL2FkYy9zdG0zMi1kZnNkbS1hZGMuYyBiL2RyaXZlcnMvaWlvL2FkYy9zdG0zMi1kZnNk
+bS1hZGMuYwo+PiBpbmRleCBlNDkzMjQyYzI2NmUuLjc0YTIyMTFiZGZmNCAxMDA2NDQKPj4gLS0t
+IGEvZHJpdmVycy9paW8vYWRjL3N0bTMyLWRmc2RtLWFkYy5jCj4+ICsrKyBiL2RyaXZlcnMvaWlv
+L2FkYy9zdG0zMi1kZnNkbS1hZGMuYwo+PiBAQCAtMTM4Myw5ICsxMzgzLDEzIEBAIHN0YXRpYyBp
+bnQgc3RtMzJfZGZzZG1fZG1hX3JlcXVlc3Qoc3RydWN0IGlpb19kZXYgKmluZGlvX2RldikKPj4g
+IHsKPj4gIAlzdHJ1Y3Qgc3RtMzJfZGZzZG1fYWRjICphZGMgPSBpaW9fcHJpdihpbmRpb19kZXYp
+Owo+PiAgCj4+IC0JYWRjLT5kbWFfY2hhbiA9IGRtYV9yZXF1ZXN0X3NsYXZlX2NoYW5uZWwoJmlu
+ZGlvX2Rldi0+ZGV2LCAicngiKTsKPj4gLQlpZiAoIWFkYy0+ZG1hX2NoYW4pCj4+IC0JCXJldHVy
+biAtRUlOVkFMOwo+PiArCWFkYy0+ZG1hX2NoYW4gPSBkbWFfcmVxdWVzdF9jaGFuKCZpbmRpb19k
+ZXYtPmRldiwgInJ4Iik7Cj4+ICsJaWYgKElTX0VSUihhZGMtPmRtYV9jaGFuKSkgewo+PiArCQlp
+bnQgcmV0ID0gUFRSX0VSUihhZGMtPmRtYV9jaGFuKTsKPj4gKwo+PiArCQlhZGMtPmRtYV9jaGFu
+ID0gTlVMTDsKPj4gKwkJcmV0dXJuIHJldDsKPiAKPiBZb3UgbWF5ICJyZXR1cm4gUFRSX0VSUihh
+ZGMtPmRtYV9jaGFuKTsiIGRpcmVjdGx5IGhlcmUuCgpJIGRvbid0IG1ha2UgZGVjaXNpb24gaGVy
+ZSBvbiBiZWhhbGYgb2YgdGhlIGFkYyBwYXRoIG9uIHRvIGdvIGZvcndhcmQgdy8Kb3Igdy9vIERN
+QSBzdXBwb3J0IGFuZCBpZiB3ZSBnbyBhaGVhZCB0aGUgc3RtMzJfZGZzZG1fZG1hX3JlbGVhc2Uo
+KQpuZWVkcyB0aGUgZG1hX2NoYW4gdG8gYmUgTlVMTCBpbiBjYXNlIHdlIGRvbid0IHVzZSBETUEu
+CgpJdCBpcyBtdWNoIGNsZWFuZXIgdG8gc2V0IGRtYV9jaGFuIHRvIE5VTEwgaGVyZSB0aGFuIGRv
+aW5nIGl0IGluIG90aGVyCnBhdGhzLgoKPiAKPiBCZXN0IFJlZ2FyZHMsCj4gRmFicmljZQo+IAo+
+PiArCX0KPj4gIAo+PiAgCWFkYy0+cnhfYnVmID0gZG1hX2FsbG9jX2NvaGVyZW50KGFkYy0+ZG1h
+X2NoYW4tPmRldmljZS0+ZGV2LAo+PiAgCQkJCQkgREZTRE1fRE1BX0JVRkZFUl9TSVpFLAo+PiBA
+QCAtMTUwOSw3ICsxNTEzLDE2IEBAIHN0YXRpYyBpbnQgc3RtMzJfZGZzZG1fYWRjX2luaXQoc3Ry
+dWN0IGlpb19kZXYgKmluZGlvX2RldikKPj4gIAlpbml0X2NvbXBsZXRpb24oJmFkYy0+Y29tcGxl
+dGlvbik7Cj4+ICAKPj4gIAkvKiBPcHRpb25hbGx5IHJlcXVlc3QgRE1BICovCj4+IC0JaWYgKHN0
+bTMyX2Rmc2RtX2RtYV9yZXF1ZXN0KGluZGlvX2RldikpIHsKPj4gKwlyZXQgPSBzdG0zMl9kZnNk
+bV9kbWFfcmVxdWVzdChpbmRpb19kZXYpOwo+PiArCWlmIChyZXQpIHsKPj4gKwkJaWYgKHJldCAh
+PSAtRU5PREVWKSB7Cj4+ICsJCQlpZiAocmV0ICE9IC1FUFJPQkVfREVGRVIpCj4+ICsJCQkJZGV2
+X2VycigmaW5kaW9fZGV2LT5kZXYsCj4+ICsJCQkJCSJETUEgY2hhbm5lbCByZXF1ZXN0IGZhaWxl
+ZCB3aXRoICVkXG4iLAo+PiArCQkJCQlyZXQpOwo+PiArCQkJcmV0dXJuIHJldDsKPj4gKwkJfQo+
+PiArCj4+ICAJCWRldl9kYmcoJmluZGlvX2Rldi0+ZGV2LCAiTm8gRE1BIHN1cHBvcnRcbiIpOwo+
+PiAgCQlyZXR1cm4gMDsKPj4gIAl9Cj4+CgotIFDDqXRlcgoKVGV4YXMgSW5zdHJ1bWVudHMgRmlu
+bGFuZCBPeSwgUG9ya2thbGFua2F0dSAyMiwgMDAxODAgSGVsc2lua2kuClktdHVubnVzL0J1c2lu
+ZXNzIElEOiAwNjE1NTIxLTQuIEtvdGlwYWlra2EvRG9taWNpbGU6IEhlbHNpbmtpCl9fX19fX19f
+X19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fCkxpbnV4LXN0bTMyIG1haWxp
+bmcgbGlzdApMaW51eC1zdG0zMkBzdC1tZC1tYWlsbWFuLnN0b3JtcmVwbHkuY29tCmh0dHBzOi8v
+c3QtbWQtbWFpbG1hbi5zdG9ybXJlcGx5LmNvbS9tYWlsbWFuL2xpc3RpbmZvL2xpbnV4LXN0bTMy
+Cg==
