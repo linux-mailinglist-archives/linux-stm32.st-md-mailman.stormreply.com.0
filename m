@@ -2,33 +2,67 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id EEFA6136276
-	for <lists+linux-stm32@lfdr.de>; Thu,  9 Jan 2020 22:29:25 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 4CD491362A0
+	for <lists+linux-stm32@lfdr.de>; Thu,  9 Jan 2020 22:34:37 +0100 (CET)
 Received: from ip-172-31-3-76.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id A689BC36B0B;
-	Thu,  9 Jan 2020 21:29:25 +0000 (UTC)
-Received: from foss.arm.com (foss.arm.com [217.140.110.172])
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 4E5F5C36B09
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 05E21C36B0B;
+	Thu,  9 Jan 2020 21:34:37 +0000 (UTC)
+Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
+ (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
+ (No client certificate requested)
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 59E3FC36B09
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Thu,  9 Jan 2020 21:29:24 +0000 (UTC)
-Received: from usa-sjc-imap-foss1.foss.arm.com (unknown [10.121.207.14])
- by usa-sjc-mx-foss1.foss.arm.com (Postfix) with ESMTP id 63D701007;
- Thu,  9 Jan 2020 13:29:23 -0800 (PST)
-Received: from localhost (unknown [10.37.6.21])
- by usa-sjc-imap-foss1.foss.arm.com (Postfix) with ESMTPSA id BC26A3F534;
- Thu,  9 Jan 2020 13:29:22 -0800 (PST)
-Date: Thu, 09 Jan 2020 21:29:21 +0000
-From: Mark Brown <broonie@kernel.org>
-To: Olivier Moysan <olivier.moysan@st.com>
-In-Reply-To: <20200109083254.478-1-olivier.moysan@st.com>
-Message-Id: <applied-20200109083254.478-1-olivier.moysan@st.com>
-X-Patchwork-Hint: ignore
-Cc: alsa-devel@alsa-project.org, tiwai@suse.com, linux-kernel@vger.kernel.org,
- lgirdwood@gmail.com, Mark Brown <broonie@kernel.org>,
- mcoquelin.stm32@gmail.com, perex@perex.cz,
- linux-stm32@st-md-mailman.stormreply.com, linux-arm-kernel@lists.infradead.org
-Subject: [Linux-stm32] Applied "ASoC: stm32: sai: fix possible circular
-	locking" to the asoc tree
+ Thu,  9 Jan 2020 21:34:36 +0000 (UTC)
+Received: from mail-qv1-f53.google.com (mail-qv1-f53.google.com
+ [209.85.219.53])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+ (No client certificate requested)
+ by mail.kernel.org (Postfix) with ESMTPSA id B603C2084D
+ for <linux-stm32@st-md-mailman.stormreply.com>;
+ Thu,  9 Jan 2020 21:34:34 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
+ s=default; t=1578605674;
+ bh=yn8sZNTzca5AhB7S6VZtExiIG/wWNPNaKx+okU9FHHo=;
+ h=References:In-Reply-To:From:Date:Subject:To:Cc:From;
+ b=l1s44wy6UQynSATYWDgO5lND21qsYB27at/WiYGXThb9dukwcZWPlnPwqmyf1t1T3
+ E3YqBNzDLgwtmj9PFMKzD2g6ret177fA/5yfx6jk12MyVu5e9bIrdpD7lJJgJxtmRj
+ gxj0vOhLoR4+pnt933b303hp2OWtYntBh3Xl3BSU=
+Received: by mail-qv1-f53.google.com with SMTP id p2so3625915qvo.10
+ for <linux-stm32@st-md-mailman.stormreply.com>;
+ Thu, 09 Jan 2020 13:34:34 -0800 (PST)
+X-Gm-Message-State: APjAAAVFVbgmN3th/QjYshQwlSEbK3Cfv53q2BqGbkZ81Ez8e/lrdrbN
+ YXuXw4QXj6katLOCNEGk8RIzbvyI4lM3IRvCLA==
+X-Google-Smtp-Source: APXvYqx43aMDqlaNqB0yVv64A+3XvbHK2prKiNN1FroBxw1xay/yrMm6w+12fNYNnHKqtqhTf/NG9bpdwJoHep0cNuk=
+X-Received: by 2002:a0c:f6cd:: with SMTP id d13mr10492240qvo.20.1578605673756; 
+ Thu, 09 Jan 2020 13:34:33 -0800 (PST)
+MIME-Version: 1.0
+References: <20191108103526.22254-1-christophe.roullier@st.com>
+ <20191108103526.22254-2-christophe.roullier@st.com>
+ <20191108104231.GE4345@gilmour.lan>
+ <f934df21-ac57-50ad-3e7b-b3b337daabe1@st.com>
+ <20191115075008.GY4345@gilmour.lan>
+ <009e8c0e-6a72-7e14-699e-8a897199ae16@st.com>
+In-Reply-To: <009e8c0e-6a72-7e14-699e-8a897199ae16@st.com>
+From: Rob Herring <robh+dt@kernel.org>
+Date: Thu, 9 Jan 2020 15:34:20 -0600
+X-Gmail-Original-Message-ID: <CAL_JsqLQoo0RMtdKgYbWP=wUiO6z2QM7tVzGJv_iMekFKQUDiQ@mail.gmail.com>
+Message-ID: <CAL_JsqLQoo0RMtdKgYbWP=wUiO6z2QM7tVzGJv_iMekFKQUDiQ@mail.gmail.com>
+To: Christophe ROULLIER <christophe.roullier@st.com>
+Cc: "mark.rutland@arm.com" <mark.rutland@arm.com>,
+ "devicetree@vger.kernel.org" <devicetree@vger.kernel.org>,
+ "narmstrong@baylibre.com" <narmstrong@baylibre.com>,
+ "martin.blumenstingl@googlemail.com" <martin.blumenstingl@googlemail.com>,
+ "netdev@vger.kernel.org" <netdev@vger.kernel.org>,
+ "linux-kernel@vger.kernel.org" <linux-kernel@vger.kernel.org>,
+ Maxime Ripard <mripard@kernel.org>,
+ "linux-stm32@st-md-mailman.stormreply.com"
+ <linux-stm32@st-md-mailman.stormreply.com>,
+ "mcoquelin.stm32@gmail.com" <mcoquelin.stm32@gmail.com>,
+ "alexandru.ardelean@analog.com" <alexandru.ardelean@analog.com>,
+ "davem@davemloft.net" <davem@davemloft.net>,
+ "linux-arm-kernel@lists.infradead.org" <linux-arm-kernel@lists.infradead.org>
+Subject: Re: [Linux-stm32] [PATCH 1/2] dt-bindings: net: dwmac: increase
+ 'maxItems' for 'clocks', 'clock-names' properties
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -40,493 +74,94 @@ List-Post: <mailto:linux-stm32@st-md-mailman.stormreply.com>
 List-Help: <mailto:linux-stm32-request@st-md-mailman.stormreply.com?subject=help>
 List-Subscribe: <https://st-md-mailman.stormreply.com/mailman/listinfo/linux-stm32>, 
  <mailto:linux-stm32-request@st-md-mailman.stormreply.com?subject=subscribe>
-MIME-Version: 1.0
 Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
-The patch
+On Thu, Jan 9, 2020 at 3:07 AM Christophe ROULLIER
+<christophe.roullier@st.com> wrote:
+>
+> On 15/11/2019 08:50, Maxime Ripard wrote:
+> > On Fri, Nov 08, 2019 at 01:02:14PM +0000, Christophe ROULLIER wrote:
+> >> On 11/8/19 11:42 AM, Maxime Ripard wrote:
+> >>> Hi,
+> >>>
+> >>> On Fri, Nov 08, 2019 at 11:35:25AM +0100, Christophe Roullier wrote:
+> >>>> This change is needed for some soc based on snps,dwmac, which have
+> >>>> more than 3 clocks.
+> >>>>
+> >>>> Signed-off-by: Christophe Roullier <christophe.roullier@st.com>
+> >>>> ---
+> >>>>    Documentation/devicetree/bindings/net/snps,dwmac.yaml | 8 +++++++-
+> >>>>    1 file changed, 7 insertions(+), 1 deletion(-)
+> >>>>
+> >>>> diff --git a/Documentation/devicetree/bindings/net/snps,dwmac.yaml b/Documentation/devicetree/bindings/net/snps,dwmac.yaml
+> >>>> index 4845e29411e4..376a531062c2 100644
+> >>>> --- a/Documentation/devicetree/bindings/net/snps,dwmac.yaml
+> >>>> +++ b/Documentation/devicetree/bindings/net/snps,dwmac.yaml
+> >>>> @@ -27,6 +27,7 @@ select:
+> >>>>              - snps,dwmac-3.710
+> >>>>              - snps,dwmac-4.00
+> >>>>              - snps,dwmac-4.10a
+> >>>> +          - snps,dwmac-4.20a
+> >>>>              - snps,dwxgmac
+> >>>>              - snps,dwxgmac-2.10
+> >>>>
+> >>>> @@ -62,6 +63,7 @@ properties:
+> >>>>            - snps,dwmac-3.710
+> >>>>            - snps,dwmac-4.00
+> >>>>            - snps,dwmac-4.10a
+> >>>> +        - snps,dwmac-4.20a
+> >>>>            - snps,dwxgmac
+> >>>>            - snps,dwxgmac-2.10
+> >>>>
+> >>>> @@ -87,7 +89,8 @@ properties:
+> >>>>
+> >>>>      clocks:
+> >>>>        minItems: 1
+> >>>> -    maxItems: 3
+> >>>> +    maxItems: 5
+> >>>> +    additionalItems: true
+> >>> Those additional clocks should be documented
+> >>>
+> >>> Maxime
+> >> Hi Maxime,
+> >>
+> >> The problem it is specific to our soc, so is it possible to
+> >>
+> >> propose "optional clock" for 2 extras clocks in snps,dwmac.yaml
+> >>
+> >> and "official" description in soc yaml file (stm32-dwmac.yaml) ?
+> >>
+> >>     clocks:
+> >>       minItems: 1
+> >>       maxItems: 5
+> >>       additionalItems: true
+> >>       items:
+> >>         - description: GMAC main clock
+> >>         - description: Peripheral registers interface clock
+> >>         - description:
+> >>             PTP reference clock. This clock is used for programming the
+> >>             Timestamp Addend Register. If not passed then the system
+> >>             clock will be used and this is fine on some platforms.
+> >>
+> >> +      - description: optional clock
+> >>
+> >> +      - description: optional clock
+> > I guess we'd really need to figure out what those clocks are doing,
+> > they are probably helpful (and used, under a different name) by
+> > others.
+> >
+> > Hopefully the questions Rob asked will clear that out
+>
+> Rob, do you have any ideas, suggestions ?
 
-   ASoC: stm32: sai: fix possible circular locking
+Answer my questions from patch 2:
 
-has been applied to the asoc tree at
-
-   https://git.kernel.org/pub/scm/linux/kernel/git/broonie/sound.git for-5.5
-
-All being well this means that it will be integrated into the linux-next
-tree (usually sometime in the next 24 hours) and sent to Linus during
-the next merge window (or sooner if it is a bug fix), however if
-problems are discovered then the patch may be dropped or reverted.  
-
-You may get further e-mails resulting from automated or manual testing
-and review of the tree, please engage with people reporting problems and
-send followup patches addressing any issues that are reported if needed.
-
-If any updates are required or you are submitting further changes they
-should be sent as incremental updates against current git, existing
-patches will not be replaced.
-
-Please add any relevant lists and maintainers to the CCs when replying
-to this mail.
-
-Thanks,
-Mark
-
-From a14bf98c045bf119b7e779f186528e38c6428830 Mon Sep 17 00:00:00 2001
-From: Olivier Moysan <olivier.moysan@st.com>
-Date: Thu, 9 Jan 2020 09:32:54 +0100
-Subject: [PATCH] ASoC: stm32: sai: fix possible circular locking
-
-In current driver, locks can be taken as follows:
-- Register access: take a lock on regmap config and then on clock.
-- Master clock provider: take a lock on clock and then on regmap config.
-This can lead to the circular locking summarized below.
-
-Remove peripheral clock management through regmap framework, and manage
-peripheral clock in driver instead. On register access, lock on clock
-is taken first, which allows to avoid possible locking issue.
-
-[ 6696.561513] ======================================================
-[ 6696.567670] WARNING: possible circular locking dependency detected
-[ 6696.573842] 4.19.49 #866 Not tainted
-[ 6696.577397] ------------------------------------------------------
-[ 6696.583566] pulseaudio/6439 is trying to acquire lock:
-[ 6696.588697] 87b0a25b (enable_lock){..-.}, at: clk_enable_lock+0x64/0x128
-[ 6696.595377]
-[ 6696.595377] but task is already holding lock:
-[ 6696.601197] d858f825 (stm32_sai_sub:1342:(sai->regmap_config)->lock){....}
-...
-[ 6696.812513]  Possible unsafe locking scenario:
-[ 6696.812513]
-[ 6696.818418]        CPU0                    CPU1
-[ 6696.822935]        ----                    ----
-[ 6696.827451]   lock(stm32_sai_sub:1342:(sai->regmap_config)->lock);
-[ 6696.833618]                                lock(enable_lock);
-[ 6696.839350]                                lock(stm32_sai_sub:1342:
-                                              (sai->regmap_config)->lock);
-[ 6696.848035]   lock(enable_lock);
-
-Fixes: 03e78a242a15 ("ASoC: stm32: sai: add h7 support")
-
-Signed-off-by: Olivier Moysan <olivier.moysan@st.com>
-Link: https://lore.kernel.org/r/20200109083254.478-1-olivier.moysan@st.com
-Signed-off-by: Mark Brown <broonie@kernel.org>
----
- sound/soc/stm/stm32_sai_sub.c | 194 ++++++++++++++++++++++++----------
- 1 file changed, 140 insertions(+), 54 deletions(-)
-
-diff --git a/sound/soc/stm/stm32_sai_sub.c b/sound/soc/stm/stm32_sai_sub.c
-index 48e629ac2d88..30bcd5d3a32a 100644
---- a/sound/soc/stm/stm32_sai_sub.c
-+++ b/sound/soc/stm/stm32_sai_sub.c
-@@ -184,6 +184,56 @@ static bool stm32_sai_sub_writeable_reg(struct device *dev, unsigned int reg)
- 	}
- }
- 
-+static int stm32_sai_sub_reg_up(struct stm32_sai_sub_data *sai,
-+				unsigned int reg, unsigned int mask,
-+				unsigned int val)
-+{
-+	int ret;
-+
-+	ret = clk_enable(sai->pdata->pclk);
-+	if (ret < 0)
-+		return ret;
-+
-+	ret = regmap_update_bits(sai->regmap, reg, mask, val);
-+
-+	clk_disable(sai->pdata->pclk);
-+
-+	return ret;
-+}
-+
-+static int stm32_sai_sub_reg_wr(struct stm32_sai_sub_data *sai,
-+				unsigned int reg, unsigned int mask,
-+				unsigned int val)
-+{
-+	int ret;
-+
-+	ret = clk_enable(sai->pdata->pclk);
-+	if (ret < 0)
-+		return ret;
-+
-+	ret = regmap_write_bits(sai->regmap, reg, mask, val);
-+
-+	clk_disable(sai->pdata->pclk);
-+
-+	return ret;
-+}
-+
-+static int stm32_sai_sub_reg_rd(struct stm32_sai_sub_data *sai,
-+				unsigned int reg, unsigned int *val)
-+{
-+	int ret;
-+
-+	ret = clk_enable(sai->pdata->pclk);
-+	if (ret < 0)
-+		return ret;
-+
-+	ret = regmap_read(sai->regmap, reg, val);
-+
-+	clk_disable(sai->pdata->pclk);
-+
-+	return ret;
-+}
-+
- static const struct regmap_config stm32_sai_sub_regmap_config_f4 = {
- 	.reg_bits = 32,
- 	.reg_stride = 4,
-@@ -295,7 +345,7 @@ static int stm32_sai_set_clk_div(struct stm32_sai_sub_data *sai,
- 
- 	mask = SAI_XCR1_MCKDIV_MASK(SAI_XCR1_MCKDIV_WIDTH(version));
- 	cr1 = SAI_XCR1_MCKDIV_SET(div);
--	ret = regmap_update_bits(sai->regmap, STM_SAI_CR1_REGX, mask, cr1);
-+	ret = stm32_sai_sub_reg_up(sai, STM_SAI_CR1_REGX, mask, cr1);
- 	if (ret < 0)
- 		dev_err(&sai->pdev->dev, "Failed to update CR1 register\n");
- 
-@@ -372,8 +422,8 @@ static int stm32_sai_mclk_enable(struct clk_hw *hw)
- 
- 	dev_dbg(&sai->pdev->dev, "Enable master clock\n");
- 
--	return regmap_update_bits(sai->regmap, STM_SAI_CR1_REGX,
--				  SAI_XCR1_MCKEN, SAI_XCR1_MCKEN);
-+	return stm32_sai_sub_reg_up(sai, STM_SAI_CR1_REGX,
-+				    SAI_XCR1_MCKEN, SAI_XCR1_MCKEN);
- }
- 
- static void stm32_sai_mclk_disable(struct clk_hw *hw)
-@@ -383,7 +433,7 @@ static void stm32_sai_mclk_disable(struct clk_hw *hw)
- 
- 	dev_dbg(&sai->pdev->dev, "Disable master clock\n");
- 
--	regmap_update_bits(sai->regmap, STM_SAI_CR1_REGX, SAI_XCR1_MCKEN, 0);
-+	stm32_sai_sub_reg_up(sai, STM_SAI_CR1_REGX, SAI_XCR1_MCKEN, 0);
- }
- 
- static const struct clk_ops mclk_ops = {
-@@ -446,15 +496,15 @@ static irqreturn_t stm32_sai_isr(int irq, void *devid)
- 	unsigned int sr, imr, flags;
- 	snd_pcm_state_t status = SNDRV_PCM_STATE_RUNNING;
- 
--	regmap_read(sai->regmap, STM_SAI_IMR_REGX, &imr);
--	regmap_read(sai->regmap, STM_SAI_SR_REGX, &sr);
-+	stm32_sai_sub_reg_rd(sai, STM_SAI_IMR_REGX, &imr);
-+	stm32_sai_sub_reg_rd(sai, STM_SAI_SR_REGX, &sr);
- 
- 	flags = sr & imr;
- 	if (!flags)
- 		return IRQ_NONE;
- 
--	regmap_write_bits(sai->regmap, STM_SAI_CLRFR_REGX, SAI_XCLRFR_MASK,
--			  SAI_XCLRFR_MASK);
-+	stm32_sai_sub_reg_wr(sai, STM_SAI_CLRFR_REGX, SAI_XCLRFR_MASK,
-+			     SAI_XCLRFR_MASK);
- 
- 	if (!sai->substream) {
- 		dev_err(&pdev->dev, "Device stopped. Spurious IRQ 0x%x\n", sr);
-@@ -503,8 +553,8 @@ static int stm32_sai_set_sysclk(struct snd_soc_dai *cpu_dai,
- 	int ret;
- 
- 	if (dir == SND_SOC_CLOCK_OUT && sai->sai_mclk) {
--		ret = regmap_update_bits(sai->regmap, STM_SAI_CR1_REGX,
--					 SAI_XCR1_NODIV,
-+		ret = stm32_sai_sub_reg_up(sai, STM_SAI_CR1_REGX,
-+					   SAI_XCR1_NODIV,
- 					 freq ? 0 : SAI_XCR1_NODIV);
- 		if (ret < 0)
- 			return ret;
-@@ -583,7 +633,7 @@ static int stm32_sai_set_dai_tdm_slot(struct snd_soc_dai *cpu_dai, u32 tx_mask,
- 
- 	slotr_mask |= SAI_XSLOTR_SLOTEN_MASK;
- 
--	regmap_update_bits(sai->regmap, STM_SAI_SLOTR_REGX, slotr_mask, slotr);
-+	stm32_sai_sub_reg_up(sai, STM_SAI_SLOTR_REGX, slotr_mask, slotr);
- 
- 	sai->slot_width = slot_width;
- 	sai->slots = slots;
-@@ -665,7 +715,7 @@ static int stm32_sai_set_dai_fmt(struct snd_soc_dai *cpu_dai, unsigned int fmt)
- 	cr1_mask |= SAI_XCR1_CKSTR;
- 	frcr_mask |= SAI_XFRCR_FSPOL;
- 
--	regmap_update_bits(sai->regmap, STM_SAI_FRCR_REGX, frcr_mask, frcr);
-+	stm32_sai_sub_reg_up(sai, STM_SAI_FRCR_REGX, frcr_mask, frcr);
- 
- 	/* DAI clock master masks */
- 	switch (fmt & SND_SOC_DAIFMT_MASTER_MASK) {
-@@ -693,7 +743,7 @@ static int stm32_sai_set_dai_fmt(struct snd_soc_dai *cpu_dai, unsigned int fmt)
- 	cr1_mask |= SAI_XCR1_SLAVE;
- 
- conf_update:
--	ret = regmap_update_bits(sai->regmap, STM_SAI_CR1_REGX, cr1_mask, cr1);
-+	ret = stm32_sai_sub_reg_up(sai, STM_SAI_CR1_REGX, cr1_mask, cr1);
- 	if (ret < 0) {
- 		dev_err(cpu_dai->dev, "Failed to update CR1 register\n");
- 		return ret;
-@@ -730,12 +780,12 @@ static int stm32_sai_startup(struct snd_pcm_substream *substream,
- 	}
- 
- 	/* Enable ITs */
--	regmap_write_bits(sai->regmap, STM_SAI_CLRFR_REGX,
--			  SAI_XCLRFR_MASK, SAI_XCLRFR_MASK);
-+	stm32_sai_sub_reg_wr(sai, STM_SAI_CLRFR_REGX,
-+			     SAI_XCLRFR_MASK, SAI_XCLRFR_MASK);
- 
- 	imr = SAI_XIMR_OVRUDRIE;
- 	if (STM_SAI_IS_CAPTURE(sai)) {
--		regmap_read(sai->regmap, STM_SAI_CR2_REGX, &cr2);
-+		stm32_sai_sub_reg_rd(sai, STM_SAI_CR2_REGX, &cr2);
- 		if (cr2 & SAI_XCR2_MUTECNT_MASK)
- 			imr |= SAI_XIMR_MUTEDETIE;
- 	}
-@@ -745,8 +795,8 @@ static int stm32_sai_startup(struct snd_pcm_substream *substream,
- 	else
- 		imr |= SAI_XIMR_AFSDETIE | SAI_XIMR_LFSDETIE;
- 
--	regmap_update_bits(sai->regmap, STM_SAI_IMR_REGX,
--			   SAI_XIMR_MASK, imr);
-+	stm32_sai_sub_reg_up(sai, STM_SAI_IMR_REGX,
-+			     SAI_XIMR_MASK, imr);
- 
- 	return 0;
- }
-@@ -763,10 +813,10 @@ static int stm32_sai_set_config(struct snd_soc_dai *cpu_dai,
- 	 * SAI fifo threshold is set to half fifo, to keep enough space
- 	 * for DMA incoming bursts.
- 	 */
--	regmap_write_bits(sai->regmap, STM_SAI_CR2_REGX,
--			  SAI_XCR2_FFLUSH | SAI_XCR2_FTH_MASK,
--			  SAI_XCR2_FFLUSH |
--			  SAI_XCR2_FTH_SET(STM_SAI_FIFO_TH_HALF));
-+	stm32_sai_sub_reg_wr(sai, STM_SAI_CR2_REGX,
-+			     SAI_XCR2_FFLUSH | SAI_XCR2_FTH_MASK,
-+			     SAI_XCR2_FFLUSH |
-+			     SAI_XCR2_FTH_SET(STM_SAI_FIFO_TH_HALF));
- 
- 	/* DS bits in CR1 not set for SPDIF (size forced to 24 bits).*/
- 	if (STM_SAI_PROTOCOL_IS_SPDIF(sai)) {
-@@ -795,7 +845,7 @@ static int stm32_sai_set_config(struct snd_soc_dai *cpu_dai,
- 	if ((sai->slots == 2) && (params_channels(params) == 1))
- 		cr1 |= SAI_XCR1_MONO;
- 
--	ret = regmap_update_bits(sai->regmap, STM_SAI_CR1_REGX, cr1_mask, cr1);
-+	ret = stm32_sai_sub_reg_up(sai, STM_SAI_CR1_REGX, cr1_mask, cr1);
- 	if (ret < 0) {
- 		dev_err(cpu_dai->dev, "Failed to update CR1 register\n");
- 		return ret;
-@@ -809,7 +859,7 @@ static int stm32_sai_set_slots(struct snd_soc_dai *cpu_dai)
- 	struct stm32_sai_sub_data *sai = snd_soc_dai_get_drvdata(cpu_dai);
- 	int slotr, slot_sz;
- 
--	regmap_read(sai->regmap, STM_SAI_SLOTR_REGX, &slotr);
-+	stm32_sai_sub_reg_rd(sai, STM_SAI_SLOTR_REGX, &slotr);
- 
- 	/*
- 	 * If SLOTSZ is set to auto in SLOTR, align slot width on data size
-@@ -831,16 +881,16 @@ static int stm32_sai_set_slots(struct snd_soc_dai *cpu_dai)
- 		sai->slots = 2;
- 
- 	/* The number of slots in the audio frame is equal to NBSLOT[3:0] + 1*/
--	regmap_update_bits(sai->regmap, STM_SAI_SLOTR_REGX,
--			   SAI_XSLOTR_NBSLOT_MASK,
--			   SAI_XSLOTR_NBSLOT_SET((sai->slots - 1)));
-+	stm32_sai_sub_reg_up(sai, STM_SAI_SLOTR_REGX,
-+			     SAI_XSLOTR_NBSLOT_MASK,
-+			     SAI_XSLOTR_NBSLOT_SET((sai->slots - 1)));
- 
- 	/* Set default slots mask if not already set from DT */
- 	if (!(slotr & SAI_XSLOTR_SLOTEN_MASK)) {
- 		sai->slot_mask = (1 << sai->slots) - 1;
--		regmap_update_bits(sai->regmap,
--				   STM_SAI_SLOTR_REGX, SAI_XSLOTR_SLOTEN_MASK,
--				   SAI_XSLOTR_SLOTEN_SET(sai->slot_mask));
-+		stm32_sai_sub_reg_up(sai,
-+				     STM_SAI_SLOTR_REGX, SAI_XSLOTR_SLOTEN_MASK,
-+				     SAI_XSLOTR_SLOTEN_SET(sai->slot_mask));
- 	}
- 
- 	dev_dbg(cpu_dai->dev, "Slots %d, slot width %d\n",
-@@ -870,14 +920,14 @@ static void stm32_sai_set_frame(struct snd_soc_dai *cpu_dai)
- 	dev_dbg(cpu_dai->dev, "Frame length %d, frame active %d\n",
- 		sai->fs_length, fs_active);
- 
--	regmap_update_bits(sai->regmap, STM_SAI_FRCR_REGX, frcr_mask, frcr);
-+	stm32_sai_sub_reg_up(sai, STM_SAI_FRCR_REGX, frcr_mask, frcr);
- 
- 	if ((sai->fmt & SND_SOC_DAIFMT_FORMAT_MASK) == SND_SOC_DAIFMT_LSB) {
- 		offset = sai->slot_width - sai->data_size;
- 
--		regmap_update_bits(sai->regmap, STM_SAI_SLOTR_REGX,
--				   SAI_XSLOTR_FBOFF_MASK,
--				   SAI_XSLOTR_FBOFF_SET(offset));
-+		stm32_sai_sub_reg_up(sai, STM_SAI_SLOTR_REGX,
-+				     SAI_XSLOTR_FBOFF_MASK,
-+				     SAI_XSLOTR_FBOFF_SET(offset));
- 	}
- }
- 
-@@ -994,9 +1044,9 @@ static int stm32_sai_configure_clock(struct snd_soc_dai *cpu_dai,
- 					return -EINVAL;
- 				}
- 
--				regmap_update_bits(sai->regmap,
--						   STM_SAI_CR1_REGX,
--						   SAI_XCR1_OSR, cr1);
-+				stm32_sai_sub_reg_up(sai,
-+						     STM_SAI_CR1_REGX,
-+						     SAI_XCR1_OSR, cr1);
- 
- 				div = stm32_sai_get_clk_div(sai, sai_clk_rate,
- 							    sai->mclk_rate);
-@@ -1058,12 +1108,12 @@ static int stm32_sai_trigger(struct snd_pcm_substream *substream, int cmd,
- 	case SNDRV_PCM_TRIGGER_PAUSE_RELEASE:
- 		dev_dbg(cpu_dai->dev, "Enable DMA and SAI\n");
- 
--		regmap_update_bits(sai->regmap, STM_SAI_CR1_REGX,
--				   SAI_XCR1_DMAEN, SAI_XCR1_DMAEN);
-+		stm32_sai_sub_reg_up(sai, STM_SAI_CR1_REGX,
-+				     SAI_XCR1_DMAEN, SAI_XCR1_DMAEN);
- 
- 		/* Enable SAI */
--		ret = regmap_update_bits(sai->regmap, STM_SAI_CR1_REGX,
--					 SAI_XCR1_SAIEN, SAI_XCR1_SAIEN);
-+		ret = stm32_sai_sub_reg_up(sai, STM_SAI_CR1_REGX,
-+					   SAI_XCR1_SAIEN, SAI_XCR1_SAIEN);
- 		if (ret < 0)
- 			dev_err(cpu_dai->dev, "Failed to update CR1 register\n");
- 		break;
-@@ -1072,16 +1122,16 @@ static int stm32_sai_trigger(struct snd_pcm_substream *substream, int cmd,
- 	case SNDRV_PCM_TRIGGER_STOP:
- 		dev_dbg(cpu_dai->dev, "Disable DMA and SAI\n");
- 
--		regmap_update_bits(sai->regmap, STM_SAI_IMR_REGX,
--				   SAI_XIMR_MASK, 0);
-+		stm32_sai_sub_reg_up(sai, STM_SAI_IMR_REGX,
-+				     SAI_XIMR_MASK, 0);
- 
--		regmap_update_bits(sai->regmap, STM_SAI_CR1_REGX,
--				   SAI_XCR1_SAIEN,
--				   (unsigned int)~SAI_XCR1_SAIEN);
-+		stm32_sai_sub_reg_up(sai, STM_SAI_CR1_REGX,
-+				     SAI_XCR1_SAIEN,
-+				     (unsigned int)~SAI_XCR1_SAIEN);
- 
--		ret = regmap_update_bits(sai->regmap, STM_SAI_CR1_REGX,
--					 SAI_XCR1_DMAEN,
--					 (unsigned int)~SAI_XCR1_DMAEN);
-+		ret = stm32_sai_sub_reg_up(sai, STM_SAI_CR1_REGX,
-+					   SAI_XCR1_DMAEN,
-+					   (unsigned int)~SAI_XCR1_DMAEN);
- 		if (ret < 0)
- 			dev_err(cpu_dai->dev, "Failed to update CR1 register\n");
- 
-@@ -1101,7 +1151,7 @@ static void stm32_sai_shutdown(struct snd_pcm_substream *substream,
- 	struct stm32_sai_sub_data *sai = snd_soc_dai_get_drvdata(cpu_dai);
- 	unsigned long flags;
- 
--	regmap_update_bits(sai->regmap, STM_SAI_IMR_REGX, SAI_XIMR_MASK, 0);
-+	stm32_sai_sub_reg_up(sai, STM_SAI_IMR_REGX, SAI_XIMR_MASK, 0);
- 
- 	clk_disable_unprepare(sai->sai_ck);
- 
-@@ -1169,7 +1219,7 @@ static int stm32_sai_dai_probe(struct snd_soc_dai *cpu_dai)
- 	cr1_mask |= SAI_XCR1_SYNCEN_MASK;
- 	cr1 |= SAI_XCR1_SYNCEN_SET(sai->sync);
- 
--	return regmap_update_bits(sai->regmap, STM_SAI_CR1_REGX, cr1_mask, cr1);
-+	return stm32_sai_sub_reg_up(sai, STM_SAI_CR1_REGX, cr1_mask, cr1);
- }
- 
- static const struct snd_soc_dai_ops stm32_sai_pcm_dai_ops = {
-@@ -1322,8 +1372,13 @@ static int stm32_sai_sub_parse_of(struct platform_device *pdev,
- 	if (STM_SAI_HAS_PDM(sai) && STM_SAI_IS_SUB_A(sai))
- 		sai->regmap_config = &stm32_sai_sub_regmap_config_h7;
- 
--	sai->regmap = devm_regmap_init_mmio_clk(&pdev->dev, "sai_ck",
--						base, sai->regmap_config);
-+	/*
-+	 * Do not manage peripheral clock through regmap framework as this
-+	 * can lead to circular locking issue with sai master clock provider.
-+	 * Manage peripheral clock directly in driver instead.
-+	 */
-+	sai->regmap = devm_regmap_init_mmio(&pdev->dev, base,
-+					    sai->regmap_config);
- 	if (IS_ERR(sai->regmap)) {
- 		dev_err(&pdev->dev, "Failed to initialize MMIO\n");
- 		return PTR_ERR(sai->regmap);
-@@ -1420,6 +1475,10 @@ static int stm32_sai_sub_parse_of(struct platform_device *pdev,
- 		return PTR_ERR(sai->sai_ck);
- 	}
- 
-+	ret = clk_prepare(sai->pdata->pclk);
-+	if (ret < 0)
-+		return ret;
-+
- 	if (STM_SAI_IS_F4(sai->pdata))
- 		return 0;
- 
-@@ -1501,22 +1560,48 @@ static int stm32_sai_sub_probe(struct platform_device *pdev)
- 	return 0;
- }
- 
-+static int stm32_sai_sub_remove(struct platform_device *pdev)
-+{
-+	struct stm32_sai_sub_data *sai = dev_get_drvdata(&pdev->dev);
-+
-+	clk_unprepare(sai->pdata->pclk);
-+
-+	return 0;
-+}
-+
- #ifdef CONFIG_PM_SLEEP
- static int stm32_sai_sub_suspend(struct device *dev)
- {
- 	struct stm32_sai_sub_data *sai = dev_get_drvdata(dev);
-+	int ret;
-+
-+	ret = clk_enable(sai->pdata->pclk);
-+	if (ret < 0)
-+		return ret;
- 
- 	regcache_cache_only(sai->regmap, true);
- 	regcache_mark_dirty(sai->regmap);
-+
-+	clk_disable(sai->pdata->pclk);
-+
- 	return 0;
- }
- 
- static int stm32_sai_sub_resume(struct device *dev)
- {
- 	struct stm32_sai_sub_data *sai = dev_get_drvdata(dev);
-+	int ret;
-+
-+	ret = clk_enable(sai->pdata->pclk);
-+	if (ret < 0)
-+		return ret;
- 
- 	regcache_cache_only(sai->regmap, false);
--	return regcache_sync(sai->regmap);
-+	ret = regcache_sync(sai->regmap);
-+
-+	clk_disable(sai->pdata->pclk);
-+
-+	return ret;
- }
- #endif /* CONFIG_PM_SLEEP */
- 
-@@ -1531,6 +1616,7 @@ static struct platform_driver stm32_sai_sub_driver = {
- 		.pm = &stm32_sai_sub_pm_ops,
- 	},
- 	.probe = stm32_sai_sub_probe,
-+	.remove = stm32_sai_sub_remove,
- };
- 
- module_platform_driver(stm32_sai_sub_driver);
--- 
-2.20.1
-
+> What does 'power mode' mean? IIRC, some DW MACs have a clock for WoL
+> called LPI or something. Are you sure this is ST specific and not DW
+> config or version specific?
 _______________________________________________
 Linux-stm32 mailing list
 Linux-stm32@st-md-mailman.stormreply.com
