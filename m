@@ -2,69 +2,60 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id 74BC4135992
-	for <lists+linux-stm32@lfdr.de>; Thu,  9 Jan 2020 13:56:26 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 2DBF5135BCD
+	for <lists+linux-stm32@lfdr.de>; Thu,  9 Jan 2020 15:54:09 +0100 (CET)
 Received: from ip-172-31-3-76.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 20EE1C36B0B;
-	Thu,  9 Jan 2020 12:56:26 +0000 (UTC)
-Received: from mx07-00178001.pphosted.com (mx08-00178001.pphosted.com
- [91.207.212.93])
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id EB9C3C36B10;
+	Thu,  9 Jan 2020 14:54:08 +0000 (UTC)
+Received: from mx07-00178001.pphosted.com (mx07-00178001.pphosted.com
+ [62.209.51.94])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 9F12AC36B09
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 44C9FC36B09
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Thu,  9 Jan 2020 12:56:24 +0000 (UTC)
-Received: from pps.filterd (m0046661.ppops.net [127.0.0.1])
- by mx08-00178001.pphosted.com (8.16.0.42/8.16.0.42) with SMTP id
- 009Cr4dT031277; Thu, 9 Jan 2020 13:56:16 +0100
+ Thu,  9 Jan 2020 14:54:06 +0000 (UTC)
+Received: from pps.filterd (m0046037.ppops.net [127.0.0.1])
+ by mx07-00178001.pphosted.com (8.16.0.42/8.16.0.42) with SMTP id
+ 009ErjOJ030398; Thu, 9 Jan 2020 15:53:45 +0100
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=st.com;
- h=subject : to : cc :
- references : from : message-id : date : mime-version : in-reply-to :
- content-type : content-transfer-encoding; s=STMicroelectronics;
- bh=2y1+dv3nA3YET9zOXNr+lo/MYiTPIWq79tj8sKOA3F8=;
- b=sbIXe/5jUi27CnIYRMXm6JcfW3/WQkj8DcllHwy+LR+c3b8zV3LVq3LiYZrVJyMPFCj3
- DUhW51atwpcQmQWIaS+64nhhztJehmjuMFsZVDmQKKabEhVq2yVh7N3RU+9G6zLhMwZu
- rv4fUOrpzUSr56B6r4tNuUg5xlttT2mxC38v827WTNAnM8nfVDZRO24jdAB4A61OpPTZ
- RVCd7WhUzPtTlbttM1PbyAD2/KP8xZkfZDkFJKEUj41MzsWi+oKNHcUdaCViYCtFpher
- YHp2ojOTg+176+I/GtlRckbcTBNKG7M+Z83EFG6Uqfv/O+N7fDlDsNg8vdSujmCuexo+ Fw== 
+ h=from : to : cc : subject
+ : date : message-id : mime-version : content-type; s=STMicroelectronics;
+ bh=Vma0FoXKhWdu98Z5moyIXlRymnoKl2wYw6wrKgMOTkc=;
+ b=y51l/cNEUrwxmezhr9XKY0zhgOB2qV4ihNmz2u0K9G0fNPI52jfNlyIpDAqCbw/V91Xk
+ CUnimfDVcf7KJMKlC69IqeF25QzDDuxngkzoy5Hcib0KrIT+fipJ6rp/9hSYF3f+xWOg
+ 6GhU5XCs1rvuhHOdpurYh61mYc1TZq0bgfH3OvRoAq87p8TgFx+/eOMFzwvYZywN88L1
+ D4k/RTxRvZ5oGdMHtO0nbu8IvVaURCxUDutrcztaAJ380kzVIvNTa87miFWeulBLpUJo
+ hFaASPPxQxjeHXW0mHDlmfGgfO19Zyw8t93i6ROyITOBBp3jfDHKngLsw8ib17AK9WMp iQ== 
 Received: from beta.dmz-eu.st.com (beta.dmz-eu.st.com [164.129.1.35])
- by mx08-00178001.pphosted.com with ESMTP id 2xdw8b2dya-1
+ by mx07-00178001.pphosted.com with ESMTP id 2xakur2966-1
  (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
- Thu, 09 Jan 2020 13:56:16 +0100
+ Thu, 09 Jan 2020 15:53:45 +0100
 Received: from euls16034.sgp.st.com (euls16034.sgp.st.com [10.75.44.20])
- by beta.dmz-eu.st.com (STMicroelectronics) with ESMTP id DB47A10002A;
- Thu,  9 Jan 2020 13:56:15 +0100 (CET)
-Received: from Webmail-eu.st.com (sfhdag5node3.st.com [10.75.127.15])
- by euls16034.sgp.st.com (STMicroelectronics) with ESMTP id CA77F2B3836;
- Thu,  9 Jan 2020 13:56:15 +0100 (CET)
-Received: from [10.48.0.71] (10.75.127.44) by SFHDAG5NODE3.st.com
- (10.75.127.15) with Microsoft SMTP Server (TLS) id 15.0.1473.3; Thu, 9 Jan
- 2020 13:56:15 +0100
-To: Peter Ujfalusi <peter.ujfalusi@ti.com>, <jic23@kernel.org>,
- <mcoquelin.stm32@gmail.com>, <alexandre.torgue@st.com>
-References: <20200107114532.6697-1-peter.ujfalusi@ti.com>
- <eade6657-8470-0d70-b3c1-fcdddf891c6c@st.com>
- <4c0b7e3e-cd98-860a-e931-c216f1bc6e7a@ti.com>
- <698d9dec-4486-f70a-b8e0-dfd6b4bb907f@st.com>
- <45195b31-70fa-39c9-e109-eeb33d6a2663@ti.com>
-From: Fabrice Gasnier <fabrice.gasnier@st.com>
-Message-ID: <5328b668-2522-5d8d-83bb-f99bfe3086ed@st.com>
-Date: Thu, 9 Jan 2020 13:56:14 +0100
-User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:60.0) Gecko/20100101
- Thunderbird/60.9.0
+ by beta.dmz-eu.st.com (STMicroelectronics) with ESMTP id 194F0100034;
+ Thu,  9 Jan 2020 15:53:39 +0100 (CET)
+Received: from Webmail-eu.st.com (sfhdag3node3.st.com [10.75.127.9])
+ by euls16034.sgp.st.com (STMicroelectronics) with ESMTP id 00B7A2BD410;
+ Thu,  9 Jan 2020 15:53:38 +0100 (CET)
+Received: from localhost (10.75.127.49) by SFHDAG3NODE3.st.com (10.75.127.9)
+ with Microsoft SMTP Server (TLS) id 15.0.1347.2; Thu, 9 Jan 2020 15:53:38
+ +0100
+From: Benjamin Gaignard <benjamin.gaignard@st.com>
+To: <daniel.lezcano@linaro.org>, <tglx@linutronix.de>, <robh+dt@kernel.org>,
+ <mark.rutland@arm.com>, <mcoquelin.stm32@gmail.com>,
+ <alexandre.torgue@st.com>, <linux@armlinux.org.uk>, <p.paillet@st.com>
+Date: Thu, 9 Jan 2020 15:53:30 +0100
+Message-ID: <20200109145333.12260-1-benjamin.gaignard@st.com>
+X-Mailer: git-send-email 2.15.0
 MIME-Version: 1.0
-In-Reply-To: <45195b31-70fa-39c9-e109-eeb33d6a2663@ti.com>
-Content-Language: en-US
-X-Originating-IP: [10.75.127.44]
-X-ClientProxiedBy: SFHDAG4NODE2.st.com (10.75.127.11) To SFHDAG5NODE3.st.com
- (10.75.127.15)
+X-Originating-IP: [10.75.127.49]
+X-ClientProxiedBy: SFHDAG3NODE2.st.com (10.75.127.8) To SFHDAG3NODE3.st.com
+ (10.75.127.9)
 X-Proofpoint-Virus-Version: vendor=fsecure engine=2.50.10434:6.0.138, 18.0.572
  definitions=2020-01-09_02:2020-01-09,
  2020-01-09 signatures=0
-Cc: linux-iio@vger.kernel.org, linux-kernel@vger.kernel.org, vkoul@kernel.org,
- linux-stm32@st-md-mailman.stormreply.com, linux-arm-kernel@lists.infradead.org
-Subject: Re: [Linux-stm32] [PATCH v2] iio: adc: stm32-dfsdm: Use
- dma_request_chan() instead dma_request_slave_channel()
+Cc: devicetree@vger.kernel.org, linux-stm32@st-md-mailman.stormreply.com,
+ linux-arm-kernel@lists.infradead.org
+Subject: [Linux-stm32] [PATCH 0/3] clockevent: add low power STM32 timer
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -76,76 +67,33 @@ List-Post: <mailto:linux-stm32@st-md-mailman.stormreply.com>
 List-Help: <mailto:linux-stm32-request@st-md-mailman.stormreply.com?subject=help>
 List-Subscribe: <https://st-md-mailman.stormreply.com/mailman/listinfo/linux-stm32>, 
  <mailto:linux-stm32-request@st-md-mailman.stormreply.com?subject=subscribe>
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: base64
+Content-Type: text/plain; charset="us-ascii"
+Content-Transfer-Encoding: 7bit
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
-T24gMS85LzIwIDEyOjQwIFBNLCBQZXRlciBVamZhbHVzaSB3cm90ZToKPiAKPiAKPiBPbiAwOS8w
-MS8yMDIwIDEzLjI5LCBGYWJyaWNlIEdhc25pZXIgd3JvdGU6Cj4+IE9uIDEvOS8yMCAxMTozMiBB
-TSwgUGV0ZXIgVWpmYWx1c2kgd3JvdGU6Cj4+Pgo+Pj4KPj4+IE9uIDA5LzAxLzIwMjAgMTEuMTMs
-IEZhYnJpY2UgR2FzbmllciB3cm90ZToKPj4+PiBPbiAxLzcvMjAgMTI6NDUgUE0sIFBldGVyIFVq
-ZmFsdXNpIHdyb3RlOgo+Pj4+PiBkbWFfcmVxdWVzdF9zbGF2ZV9jaGFubmVsKCkgaXMgYSB3cmFw
-cGVyIG9uIHRvcCBvZiBkbWFfcmVxdWVzdF9jaGFuKCkKPj4+Pj4gZWF0aW5nIHVwIHRoZSBlcnJv
-ciBjb2RlLgo+Pj4+Pgo+Pj4+PiBCeSB1c2luZyBkbWFfcmVxdWVzdF9jaGFuKCkgZGlyZWN0bHkg
-dGhlIGRyaXZlciBjYW4gc3VwcG9ydCBkZWZlcnJlZAo+Pj4+PiBwcm9iaW5nIGFnYWluc3QgRE1B
-Lgo+Pj4+Pgo+Pj4+PiBTaWduZWQtb2ZmLWJ5OiBQZXRlciBVamZhbHVzaSA8cGV0ZXIudWpmYWx1
-c2lAdGkuY29tPgo+Pj4+PiAtLS0KPj4+Pj4gSGksCj4+Pj4+Cj4+Pj4+IENoYW5nZXMgc2luY2Ug
-djE6Cj4+Pj4+IC0gRmFsbCBiYWNrIHRvIElSUSBtb2RlIGZvciBBREMgb25seSBpbiBjYXNlIG9m
-IEVOT0RFVgo+Pj4+Cj4+Pj4gSGkgUGV0ZXIsCj4+Pj4KPj4+PiBUaGFua3MgZm9yIHRoZSBwYXRj
-aCwKPj4+Pgo+Pj4+IFBsZWFzZSBmaW5kIGEgbWlub3IgY29tbWVudCBoZXJlIGFmdGVyLiBBcGFy
-dCBmcm9tIHRoYXQsIHlvdSBjYW4gYWRkIG15Ogo+Pj4+Cj4+Pj4gQWNrZWQtYnk6IEZhYnJpY2Ug
-R2FzbmllciA8ZmFicmljZS5nYXNuaWVyQHN0LmNvbT4KPj4+Pgo+Pj4+Cj4+Pj4+Cj4+Pj4+IFJl
-Z2FyZHMsCj4+Pj4+IFBldGVyCj4+Pj4+Cj4+Pj4+ICBkcml2ZXJzL2lpby9hZGMvc3RtMzItZGZz
-ZG0tYWRjLmMgfCAyMSArKysrKysrKysrKysrKysrKy0tLS0KPj4+Pj4gIDEgZmlsZSBjaGFuZ2Vk
-LCAxNyBpbnNlcnRpb25zKCspLCA0IGRlbGV0aW9ucygtKQo+Pj4+Pgo+Pj4+PiBkaWZmIC0tZ2l0
-IGEvZHJpdmVycy9paW8vYWRjL3N0bTMyLWRmc2RtLWFkYy5jIGIvZHJpdmVycy9paW8vYWRjL3N0
-bTMyLWRmc2RtLWFkYy5jCj4+Pj4+IGluZGV4IGU0OTMyNDJjMjY2ZS4uNzRhMjIxMWJkZmY0IDEw
-MDY0NAo+Pj4+PiAtLS0gYS9kcml2ZXJzL2lpby9hZGMvc3RtMzItZGZzZG0tYWRjLmMKPj4+Pj4g
-KysrIGIvZHJpdmVycy9paW8vYWRjL3N0bTMyLWRmc2RtLWFkYy5jCj4+Pj4+IEBAIC0xMzgzLDkg
-KzEzODMsMTMgQEAgc3RhdGljIGludCBzdG0zMl9kZnNkbV9kbWFfcmVxdWVzdChzdHJ1Y3QgaWlv
-X2RldiAqaW5kaW9fZGV2KQo+Pj4+PiAgewo+Pj4+PiAgCXN0cnVjdCBzdG0zMl9kZnNkbV9hZGMg
-KmFkYyA9IGlpb19wcml2KGluZGlvX2Rldik7Cj4+Pj4+ICAKPj4+Pj4gLQlhZGMtPmRtYV9jaGFu
-ID0gZG1hX3JlcXVlc3Rfc2xhdmVfY2hhbm5lbCgmaW5kaW9fZGV2LT5kZXYsICJyeCIpOwo+Pj4+
-PiAtCWlmICghYWRjLT5kbWFfY2hhbikKPj4+Pj4gLQkJcmV0dXJuIC1FSU5WQUw7Cj4+Pj4+ICsJ
-YWRjLT5kbWFfY2hhbiA9IGRtYV9yZXF1ZXN0X2NoYW4oJmluZGlvX2Rldi0+ZGV2LCAicngiKTsK
-Pj4+Pj4gKwlpZiAoSVNfRVJSKGFkYy0+ZG1hX2NoYW4pKSB7Cj4+Pj4+ICsJCWludCByZXQgPSBQ
-VFJfRVJSKGFkYy0+ZG1hX2NoYW4pOwo+Pj4+PiArCj4+Pj4+ICsJCWFkYy0+ZG1hX2NoYW4gPSBO
-VUxMOwo+Pj4+PiArCQlyZXR1cm4gcmV0Owo+Pj4+Cj4+Pj4gWW91IG1heSAicmV0dXJuIFBUUl9F
-UlIoYWRjLT5kbWFfY2hhbik7IiBkaXJlY3RseSBoZXJlLgo+Pj4KPj4+IEkgZG9uJ3QgbWFrZSBk
-ZWNpc2lvbiBoZXJlIG9uIGJlaGFsZiBvZiB0aGUgYWRjIHBhdGggb24gdG8gZ28gZm9yd2FyZCB3
-Lwo+Pj4gb3Igdy9vIERNQSBzdXBwb3J0IGFuZCBpZiB3ZSBnbyBhaGVhZCB0aGUgc3RtMzJfZGZz
-ZG1fZG1hX3JlbGVhc2UoKQo+Pj4gbmVlZHMgdGhlIGRtYV9jaGFuIHRvIGJlIE5VTEwgaW4gY2Fz
-ZSB3ZSBkb24ndCB1c2UgRE1BLgo+Pj4KPj4+IEl0IGlzIG11Y2ggY2xlYW5lciB0byBzZXQgZG1h
-X2NoYW4gdG8gTlVMTCBoZXJlIHRoYW4gZG9pbmcgaXQgaW4gb3RoZXIKPj4+IHBhdGhzLgo+Pgo+
-PiBIaSBQZXRlciwKPiAKPiBIaSBGYWJyaWNlLAo+IAo+PiBTb3JyeSBJIHdhc24ndCBjbGVhciBl
-bm91Z2guIEkgYWdyZWUgd2l0aCB5b3UuIEkgd2FzIHN1Z2dlc3Rpbmcgb25seSwKPj4gdGFsa2lu
-ZyBhYm91dCB0aGUgJ3JldCcgdmFyaWFibGUuIEl0IG1heSBiZSByZW1vdmVkIHRvIHNwYXJlIGEg
-ZmV3IGxpbmVzCj4+IDotKS4KPj4gCWlmIChJU19FUlIoYWRjLT5kbWFfY2hhbikpIHsKPj4gCQlh
-ZGMtPmRtYV9jaGFuID0gTlVMTDsKPj4gCQlyZXR1cm4gUFRSX0VSUihhZGMtPmRtYV9jaGFuKTsK
-Pj4gCX0KPj4gSSdtIG9rYXkgYm90aCB3YXlzLgo+IAo+IFBUUl9FUlIoTlVMTCk7IHdpbGwgcmV0
-dXJuIDAKPiBJIG5lZWQgdG8gcmV0cmlldmUgdGhlIGFjdHVhbCBlcnJvciBjb2RlIGJlZm9yZSBO
-VUxMaW5nIGRtYV9jaGFuLgoKT2ggeWVzLCBzbyBwbGVhc2UgZm9yZ2V0IHRoaXMuClRoYW5rcywK
-RmFicmljZQoKPiAKPj4KPj4+Cj4+Pj4KPj4+PiBCZXN0IFJlZ2FyZHMsCj4+Pj4gRmFicmljZQo+
-Pj4+Cj4+Pj4+ICsJfQo+Pj4+PiAgCj4+Pj4+ICAJYWRjLT5yeF9idWYgPSBkbWFfYWxsb2NfY29o
-ZXJlbnQoYWRjLT5kbWFfY2hhbi0+ZGV2aWNlLT5kZXYsCj4+Pj4+ICAJCQkJCSBERlNETV9ETUFf
-QlVGRkVSX1NJWkUsCj4+Pj4+IEBAIC0xNTA5LDcgKzE1MTMsMTYgQEAgc3RhdGljIGludCBzdG0z
-Ml9kZnNkbV9hZGNfaW5pdChzdHJ1Y3QgaWlvX2RldiAqaW5kaW9fZGV2KQo+Pj4+PiAgCWluaXRf
-Y29tcGxldGlvbigmYWRjLT5jb21wbGV0aW9uKTsKPj4+Pj4gIAo+Pj4+PiAgCS8qIE9wdGlvbmFs
-bHkgcmVxdWVzdCBETUEgKi8KPj4+Pj4gLQlpZiAoc3RtMzJfZGZzZG1fZG1hX3JlcXVlc3QoaW5k
-aW9fZGV2KSkgewo+Pj4+PiArCXJldCA9IHN0bTMyX2Rmc2RtX2RtYV9yZXF1ZXN0KGluZGlvX2Rl
-dik7Cj4+Pj4+ICsJaWYgKHJldCkgewo+Pj4+PiArCQlpZiAocmV0ICE9IC1FTk9ERVYpIHsKPj4+
-Pj4gKwkJCWlmIChyZXQgIT0gLUVQUk9CRV9ERUZFUikKPj4+Pj4gKwkJCQlkZXZfZXJyKCZpbmRp
-b19kZXYtPmRldiwKPj4+Pj4gKwkJCQkJIkRNQSBjaGFubmVsIHJlcXVlc3QgZmFpbGVkIHdpdGgg
-JWRcbiIsCj4+Pj4+ICsJCQkJCXJldCk7Cj4+Pj4+ICsJCQlyZXR1cm4gcmV0Owo+Pj4+PiArCQl9
-Cj4+Pj4+ICsKPj4+Pj4gIAkJZGV2X2RiZygmaW5kaW9fZGV2LT5kZXYsICJObyBETUEgc3VwcG9y
-dFxuIik7Cj4+Pj4+ICAJCXJldHVybiAwOwo+Pj4+PiAgCX0KPj4+Pj4KPj4+Cj4+PiAtIFDDqXRl
-cgo+Pj4KPj4+IFRleGFzIEluc3RydW1lbnRzIEZpbmxhbmQgT3ksIFBvcmtrYWxhbmthdHUgMjIs
-IDAwMTgwIEhlbHNpbmtpLgo+Pj4gWS10dW5udXMvQnVzaW5lc3MgSUQ6IDA2MTU1MjEtNC4gS290
-aXBhaWtrYS9Eb21pY2lsZTogSGVsc2lua2kKPj4+Cj4gCj4gLSBQw6l0ZXIKPiAKPiBUZXhhcyBJ
-bnN0cnVtZW50cyBGaW5sYW5kIE95LCBQb3Jra2FsYW5rYXR1IDIyLCAwMDE4MCBIZWxzaW5raS4K
-PiBZLXR1bm51cy9CdXNpbmVzcyBJRDogMDYxNTUyMS00LiBLb3RpcGFpa2thL0RvbWljaWxlOiBI
-ZWxzaW5raQo+IApfX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19f
-XwpMaW51eC1zdG0zMiBtYWlsaW5nIGxpc3QKTGludXgtc3RtMzJAc3QtbWQtbWFpbG1hbi5zdG9y
-bXJlcGx5LmNvbQpodHRwczovL3N0LW1kLW1haWxtYW4uc3Rvcm1yZXBseS5jb20vbWFpbG1hbi9s
-aXN0aW5mby9saW51eC1zdG0zMgo=
+This series add low power timer as boadcast clockevent device.
+Low power timer could runs even when CPUs are in idle mode and 
+could wakeup them.
+
+Benjamin Gaignard (3):
+  dt-bindings: timer: Add STM32 Low Power Timer bindings
+  clocksource: Add Low Power STM32 timers driver
+  ARM: stm32: select STM32 low power timer clock event driver
+
+ .../bindings/timer/st,stm32-lp-timer.yaml          |  44 +++++
+ arch/arm/mach-stm32/Kconfig                        |   1 +
+ drivers/clocksource/Kconfig                        |   5 +
+ drivers/clocksource/Makefile                       |   1 +
+ drivers/clocksource/timer-stm32-lp.c               | 186 +++++++++++++++++++++
+ 5 files changed, 237 insertions(+)
+ create mode 100644 Documentation/devicetree/bindings/timer/st,stm32-lp-timer.yaml
+ create mode 100644 drivers/clocksource/timer-stm32-lp.c
+
+-- 
+2.15.0
+
+_______________________________________________
+Linux-stm32 mailing list
+Linux-stm32@st-md-mailman.stormreply.com
+https://st-md-mailman.stormreply.com/mailman/listinfo/linux-stm32
