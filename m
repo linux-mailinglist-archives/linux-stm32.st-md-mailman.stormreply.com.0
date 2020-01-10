@@ -2,33 +2,60 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id 7D95E136E2F
-	for <lists+linux-stm32@lfdr.de>; Fri, 10 Jan 2020 14:38:06 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 34F73136E86
+	for <lists+linux-stm32@lfdr.de>; Fri, 10 Jan 2020 14:49:09 +0100 (CET)
 Received: from ip-172-31-3-76.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 2E95CC36B0B;
-	Fri, 10 Jan 2020 13:38:06 +0000 (UTC)
-Received: from foss.arm.com (foss.arm.com [217.140.110.172])
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id D2F43C36B09
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id DC779C36B0C;
+	Fri, 10 Jan 2020 13:49:08 +0000 (UTC)
+Received: from mx07-00178001.pphosted.com (mx07-00178001.pphosted.com
+ [62.209.51.94])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+ (No client certificate requested)
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id C84CBC36B09
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Fri, 10 Jan 2020 13:38:03 +0000 (UTC)
-Received: from usa-sjc-imap-foss1.foss.arm.com (unknown [10.121.207.14])
- by usa-sjc-mx-foss1.foss.arm.com (Postfix) with ESMTP id EB29C1063;
- Fri, 10 Jan 2020 05:38:02 -0800 (PST)
-Received: from localhost (unknown [10.37.6.21])
- by usa-sjc-imap-foss1.foss.arm.com (Postfix) with ESMTPSA id 6BCB93F534;
- Fri, 10 Jan 2020 05:38:02 -0800 (PST)
-Date: Fri, 10 Jan 2020 13:38:01 +0000
-From: Mark Brown <broonie@kernel.org>
-To: Olivier Moysan <olivier.moysan@st.com>
-In-Reply-To: <20200110131131.3191-1-olivier.moysan@st.com>
-Message-Id: <applied-20200110131131.3191-1-olivier.moysan@st.com>
-X-Patchwork-Hint: ignore
-Cc: alsa-devel@alsa-project.org, tiwai@suse.com, linux-kernel@vger.kernel.org,
- lgirdwood@gmail.com, Mark Brown <broonie@kernel.org>,
- mcoquelin.stm32@gmail.com, perex@perex.cz,
+ Fri, 10 Jan 2020 13:49:06 +0000 (UTC)
+Received: from pps.filterd (m0046037.ppops.net [127.0.0.1])
+ by mx07-00178001.pphosted.com (8.16.0.42/8.16.0.42) with SMTP id
+ 00ADlvUT031939; Fri, 10 Jan 2020 14:48:57 +0100
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=st.com;
+ h=from : to : cc : subject
+ : date : message-id : mime-version : content-type; s=STMicroelectronics;
+ bh=zLvBdV8AvZgbP8WkIebIBG/cvEHM5DSXs1Wl2vg4MqU=;
+ b=y/QdE59gExw45tdziCH74wFRu+2KDn4J9MOVkfswTMKwWYC+YpiqaGkeel7xrc9ShTbg
+ SqbJq3oqD69ZhyxLnLJ1lKuYwddUYPJxnebal/jJPcTr4TlmS9ifrJPRO00VSrJppAUg
+ VjXompE+cid1rUC/dJgwL5iCB+UfvbK57zWt4QzjvLiaH0Nb+skscxPkVWLOgJObtEES
+ HJd+alHc8uekj4MBtlzLCKMtaXUnA8PJ/B1CEZuFsSfhYoUTcbF7znleMrQ4teZ0vVBb
+ MOW0HQ8InFYFL2MRNDge1GPV6nvRGpYkUT7TEHRhXY2mK2M5o/dbtXB2VMcvwjTPnbOq BQ== 
+Received: from beta.dmz-eu.st.com (beta.dmz-eu.st.com [164.129.1.35])
+ by mx07-00178001.pphosted.com with ESMTP id 2xakur7dt7-1
+ (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
+ Fri, 10 Jan 2020 14:48:57 +0100
+Received: from euls16034.sgp.st.com (euls16034.sgp.st.com [10.75.44.20])
+ by beta.dmz-eu.st.com (STMicroelectronics) with ESMTP id D7DE2100034;
+ Fri, 10 Jan 2020 14:48:56 +0100 (CET)
+Received: from Webmail-eu.st.com (sfhdag6node1.st.com [10.75.127.16])
+ by euls16034.sgp.st.com (STMicroelectronics) with ESMTP id C46BC2BC7C9;
+ Fri, 10 Jan 2020 14:48:56 +0100 (CET)
+Received: from localhost (10.75.127.45) by SFHDAG6NODE1.st.com (10.75.127.16)
+ with Microsoft SMTP Server (TLS) id 15.0.1473.3;
+ Fri, 10 Jan 2020 14:48:56 +0100
+From: Ludovic Barre <ludovic.barre@st.com>
+To: Ulf Hansson <ulf.hansson@linaro.org>, Rob Herring <robh+dt@kernel.org>
+Date: Fri, 10 Jan 2020 14:48:14 +0100
+Message-ID: <20200110134823.14882-1-ludovic.barre@st.com>
+X-Mailer: git-send-email 2.17.1
+MIME-Version: 1.0
+X-Originating-IP: [10.75.127.45]
+X-ClientProxiedBy: SFHDAG7NODE3.st.com (10.75.127.21) To SFHDAG6NODE1.st.com
+ (10.75.127.16)
+X-Proofpoint-Virus-Version: vendor=fsecure engine=2.50.10434:6.0.138, 18.0.572
+ definitions=2020-01-10_01:2020-01-10,
+ 2020-01-09 signatures=0
+Cc: devicetree@vger.kernel.org, linux-mmc@vger.kernel.org,
+ linux-kernel@vger.kernel.org, srinivas.kandagatla@linaro.org,
+ Maxime Coquelin <mcoquelin.stm32@gmail.com>,
  linux-stm32@st-md-mailman.stormreply.com, linux-arm-kernel@lists.infradead.org
-Subject: [Linux-stm32] Applied "ASoC: stm32: dfsdm: fix 16 bits record" to
-	the asoc tree
+Subject: [Linux-stm32] [PATCH 0/9] mmc: mmci: sdmmc: add sdr104 support
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -40,101 +67,36 @@ List-Post: <mailto:linux-stm32@st-md-mailman.stormreply.com>
 List-Help: <mailto:linux-stm32-request@st-md-mailman.stormreply.com?subject=help>
 List-Subscribe: <https://st-md-mailman.stormreply.com/mailman/listinfo/linux-stm32>, 
  <mailto:linux-stm32-request@st-md-mailman.stormreply.com?subject=subscribe>
-MIME-Version: 1.0
 Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
-The patch
+To support the sdr104 mode, sdmmc variant needs:
+-Hardware delay block support for sdmmc variant
+ with tuning procedure
+-Voltage switch callbacks
+-sdmmc revision 2.0
 
-   ASoC: stm32: dfsdm: fix 16 bits record
+Ludovic Barre (9):
+  mmc: mmci: sdmmc: replace sg_dma_xxx macros
+  mmc: mmci: sdmmc: rename sdmmc_priv struct to sdmmc_idma
+  mmc: mmci: add a reference at mmc_host_ops in mmci struct
+  mmc: mmci: add private pointer for variant
+  dt-bindings: mmc: mmci: add delay block base register for sdmmc
+  mmc: mmci: sdmmc: add execute tuning with delay block
+  mmc: mmci: add volt_switch callbacks
+  mmc: mmci: sdmmc: add voltage switch functions
+  mmc: mmci: add sdmmc variant revision 2.0
 
-has been applied to the asoc tree at
+ .../devicetree/bindings/mmc/mmci.txt          |   2 +
+ drivers/mmc/host/mmci.c                       |  39 ++++
+ drivers/mmc/host/mmci.h                       |   8 +
+ drivers/mmc/host/mmci_stm32_sdmmc.c           | 199 +++++++++++++++++-
+ 4 files changed, 241 insertions(+), 7 deletions(-)
 
-   https://git.kernel.org/pub/scm/linux/kernel/git/broonie/sound.git for-5.5
-
-All being well this means that it will be integrated into the linux-next
-tree (usually sometime in the next 24 hours) and sent to Linus during
-the next merge window (or sooner if it is a bug fix), however if
-problems are discovered then the patch may be dropped or reverted.  
-
-You may get further e-mails resulting from automated or manual testing
-and review of the tree, please engage with people reporting problems and
-send followup patches addressing any issues that are reported if needed.
-
-If any updates are required or you are submitting further changes they
-should be sent as incremental updates against current git, existing
-patches will not be replaced.
-
-Please add any relevant lists and maintainers to the CCs when replying
-to this mail.
-
-Thanks,
-Mark
-
-From 8e55ea19125b65cffe42747359af99d545e85f2f Mon Sep 17 00:00:00 2001
-From: Olivier Moysan <olivier.moysan@st.com>
-Date: Fri, 10 Jan 2020 14:11:31 +0100
-Subject: [PATCH] ASoC: stm32: dfsdm: fix 16 bits record
-
-In stm32_afsdm_pcm_cb function, the transfer size is provided in bytes.
-However, samples are copied as 16 bits words from iio buffer.
-Divide by two the transfer size, to copy the right number of samples.
-
-Fixes: 1e7f6e1c69f0 ("ASoC: stm32: dfsdm: add 16 bits audio record support")
-
-Signed-off-by: Olivier Moysan <olivier.moysan@st.com>
-Link: https://lore.kernel.org/r/20200110131131.3191-1-olivier.moysan@st.com
-Signed-off-by: Mark Brown <broonie@kernel.org>
----
- sound/soc/stm/stm32_adfsdm.c | 12 ++++++------
- 1 file changed, 6 insertions(+), 6 deletions(-)
-
-diff --git a/sound/soc/stm/stm32_adfsdm.c b/sound/soc/stm/stm32_adfsdm.c
-index 81c407da15c5..08696a4adb69 100644
---- a/sound/soc/stm/stm32_adfsdm.c
-+++ b/sound/soc/stm/stm32_adfsdm.c
-@@ -153,13 +153,13 @@ static const struct snd_soc_component_driver stm32_adfsdm_dai_component = {
- 	.name = "stm32_dfsdm_audio",
- };
- 
--static void memcpy_32to16(void *dest, const void *src, size_t n)
-+static void stm32_memcpy_32to16(void *dest, const void *src, size_t n)
- {
- 	unsigned int i = 0;
- 	u16 *d = (u16 *)dest, *s = (u16 *)src;
- 
- 	s++;
--	for (i = n; i > 0; i--) {
-+	for (i = n >> 1; i > 0; i--) {
- 		*d++ = *s++;
- 		s++;
- 	}
-@@ -186,8 +186,8 @@ static int stm32_afsdm_pcm_cb(const void *data, size_t size, void *private)
- 
- 	if ((priv->pos + src_size) > buff_size) {
- 		if (format == SNDRV_PCM_FORMAT_S16_LE)
--			memcpy_32to16(&pcm_buff[priv->pos], src_buff,
--				      buff_size - priv->pos);
-+			stm32_memcpy_32to16(&pcm_buff[priv->pos], src_buff,
-+					    buff_size - priv->pos);
- 		else
- 			memcpy(&pcm_buff[priv->pos], src_buff,
- 			       buff_size - priv->pos);
-@@ -196,8 +196,8 @@ static int stm32_afsdm_pcm_cb(const void *data, size_t size, void *private)
- 	}
- 
- 	if (format == SNDRV_PCM_FORMAT_S16_LE)
--		memcpy_32to16(&pcm_buff[priv->pos],
--			      &src_buff[src_size - cur_size], cur_size);
-+		stm32_memcpy_32to16(&pcm_buff[priv->pos],
-+				    &src_buff[src_size - cur_size], cur_size);
- 	else
- 		memcpy(&pcm_buff[priv->pos], &src_buff[src_size - cur_size],
- 		       cur_size);
 -- 
-2.20.1
+2.17.1
 
 _______________________________________________
 Linux-stm32 mailing list
