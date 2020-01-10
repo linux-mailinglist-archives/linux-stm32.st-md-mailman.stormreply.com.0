@@ -2,40 +2,39 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id 54FF313770A
-	for <lists+linux-stm32@lfdr.de>; Fri, 10 Jan 2020 20:30:30 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 5A4D8137744
+	for <lists+linux-stm32@lfdr.de>; Fri, 10 Jan 2020 20:32:28 +0100 (CET)
 Received: from ip-172-31-3-76.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id EB317C36B0B;
-	Fri, 10 Jan 2020 19:30:29 +0000 (UTC)
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 1C2FEC36B0B;
+	Fri, 10 Jan 2020 19:32:28 +0000 (UTC)
 Received: from shards.monkeyblade.net (shards.monkeyblade.net [23.128.96.9])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 71D8FC36B09
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id D18C6C36B09
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Fri, 10 Jan 2020 19:30:27 +0000 (UTC)
+ Fri, 10 Jan 2020 19:32:26 +0000 (UTC)
 Received: from localhost (unknown [IPv6:2601:601:9f00:1c3::3d5])
  (using TLSv1 with cipher AES256-SHA (256/256 bits))
  (Client did not present a certificate)
  (Authenticated sender: davem-davemloft)
- by shards.monkeyblade.net (Postfix) with ESMTPSA id BDB801577F51F;
- Fri, 10 Jan 2020 11:30:24 -0800 (PST)
-Date: Fri, 10 Jan 2020 11:30:24 -0800 (PST)
-Message-Id: <20200110.113024.2292445373481219663.davem@davemloft.net>
+ by shards.monkeyblade.net (Postfix) with ESMTPSA id 7E9CA1577F52F;
+ Fri, 10 Jan 2020 11:32:24 -0800 (PST)
+Date: Fri, 10 Jan 2020 11:32:23 -0800 (PST)
+Message-Id: <20200110.113223.993180749814320634.davem@davemloft.net>
 To: Jose.Abreu@synopsys.com
 From: David Miller <davem@davemloft.net>
-In-Reply-To: <cover.1578669088.git.Jose.Abreu@synopsys.com>
-References: <cover.1578669088.git.Jose.Abreu@synopsys.com>
+In-Reply-To: <cover.1578669661.git.Jose.Abreu@synopsys.com>
+References: <cover.1578669661.git.Jose.Abreu@synopsys.com>
 X-Mailer: Mew version 6.8 on Emacs 26.1
 Mime-Version: 1.0
 X-Greylist: Sender succeeded SMTP AUTH, not delayed by milter-greylist-4.5.12
  (shards.monkeyblade.net [149.20.54.216]);
- Fri, 10 Jan 2020 11:30:25 -0800 (PST)
+ Fri, 10 Jan 2020 11:32:24 -0800 (PST)
 Cc: Joao.Pinto@synopsys.com, netdev@vger.kernel.org,
  linux-kernel@vger.kernel.org, mcoquelin.stm32@gmail.com,
  peppe.cavallaro@st.com, linux-stm32@st-md-mailman.stormreply.com,
  linux-arm-kernel@lists.infradead.org
-Subject: Re: [Linux-stm32] [PATCH net-next 0/2] net: stmmac: Frame
-	Preemption fixes
+Subject: Re: [Linux-stm32] [PATCH net 0/2] net: stmmac: Filtering fixes
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -53,15 +52,17 @@ Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
 From: Jose Abreu <Jose.Abreu@synopsys.com>
-Date: Fri, 10 Jan 2020 16:13:33 +0100
+Date: Fri, 10 Jan 2020 16:23:51 +0100
 
-> Two single fixes for the -next tree for recently introduced Frame Preemption
-> feature.
+> Two single fixes for the L3 and L4 filtering in stmmac.
 > 
-> 1) and 2) fixes the disabling of Frame Preemption that was not being correctly
-> handled because of a missing return.
+> 1) Updates the internal status of RSS when disabling it in order to keep
+> internal driver status consistent.
+> 
+> 2) Do not lets user add a filter if RSS is enabled because the filter will
+> not work correctly as RSS bypasses this mechanism.
 
-Series applied, thanks.
+Series applied and queued up for v5.4 -stable, thanks.
 _______________________________________________
 Linux-stm32 mailing list
 Linux-stm32@st-md-mailman.stormreply.com
