@@ -2,39 +2,49 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id 5A4D8137744
-	for <lists+linux-stm32@lfdr.de>; Fri, 10 Jan 2020 20:32:28 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 47C7B1380FD
+	for <lists+linux-stm32@lfdr.de>; Sat, 11 Jan 2020 11:58:13 +0100 (CET)
 Received: from ip-172-31-3-76.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 1C2FEC36B0B;
-	Fri, 10 Jan 2020 19:32:28 +0000 (UTC)
-Received: from shards.monkeyblade.net (shards.monkeyblade.net [23.128.96.9])
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id B9FEEC36B0B;
+	Sat, 11 Jan 2020 10:58:12 +0000 (UTC)
+Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
+ (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
+ (No client certificate requested)
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 84F79C36B09
+ for <linux-stm32@st-md-mailman.stormreply.com>;
+ Sat, 11 Jan 2020 10:58:10 +0000 (UTC)
+Received: from archlinux (cpc149474-cmbg20-2-0-cust94.5-4.cable.virginm.net
+ [82.4.196.95])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id D18C6C36B09
- for <linux-stm32@st-md-mailman.stormreply.com>;
- Fri, 10 Jan 2020 19:32:26 +0000 (UTC)
-Received: from localhost (unknown [IPv6:2601:601:9f00:1c3::3d5])
- (using TLSv1 with cipher AES256-SHA (256/256 bits))
- (Client did not present a certificate)
- (Authenticated sender: davem-davemloft)
- by shards.monkeyblade.net (Postfix) with ESMTPSA id 7E9CA1577F52F;
- Fri, 10 Jan 2020 11:32:24 -0800 (PST)
-Date: Fri, 10 Jan 2020 11:32:23 -0800 (PST)
-Message-Id: <20200110.113223.993180749814320634.davem@davemloft.net>
-To: Jose.Abreu@synopsys.com
-From: David Miller <davem@davemloft.net>
-In-Reply-To: <cover.1578669661.git.Jose.Abreu@synopsys.com>
-References: <cover.1578669661.git.Jose.Abreu@synopsys.com>
-X-Mailer: Mew version 6.8 on Emacs 26.1
-Mime-Version: 1.0
-X-Greylist: Sender succeeded SMTP AUTH, not delayed by milter-greylist-4.5.12
- (shards.monkeyblade.net [149.20.54.216]);
- Fri, 10 Jan 2020 11:32:24 -0800 (PST)
-Cc: Joao.Pinto@synopsys.com, netdev@vger.kernel.org,
- linux-kernel@vger.kernel.org, mcoquelin.stm32@gmail.com,
- peppe.cavallaro@st.com, linux-stm32@st-md-mailman.stormreply.com,
+ by mail.kernel.org (Postfix) with ESMTPSA id 7CE3E20842;
+ Sat, 11 Jan 2020 10:58:07 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
+ s=default; t=1578740289;
+ bh=AwApWeOi444mVnZM57YOAlb1KxKLXOu+enQzYXJLs3c=;
+ h=Date:From:To:Cc:Subject:In-Reply-To:References:From;
+ b=ajtiJFtZaY8yahk0nsLiTWQJgpN6LM0GDSTpMFiiud1w1MrXzGbPiiMMfJ/NgnYKb
+ 585pueMd/y6sTNKs/7w2+gxVVRLXRnwPXjG6W413+cSbW5ccLqh6jqmjR8jqXVfsFY
+ +CoFTBhFojA2bcqEwijnBi8vi740N73mH8X/qcFU=
+Date: Sat, 11 Jan 2020 10:58:04 +0000
+From: Jonathan Cameron <jic23@kernel.org>
+To: Fabrice Gasnier <fabrice.gasnier@st.com>
+Message-ID: <20200111105804.7aebd43e@archlinux>
+In-Reply-To: <5328b668-2522-5d8d-83bb-f99bfe3086ed@st.com>
+References: <20200107114532.6697-1-peter.ujfalusi@ti.com>
+ <eade6657-8470-0d70-b3c1-fcdddf891c6c@st.com>
+ <4c0b7e3e-cd98-860a-e931-c216f1bc6e7a@ti.com>
+ <698d9dec-4486-f70a-b8e0-dfd6b4bb907f@st.com>
+ <45195b31-70fa-39c9-e109-eeb33d6a2663@ti.com>
+ <5328b668-2522-5d8d-83bb-f99bfe3086ed@st.com>
+X-Mailer: Claws Mail 3.17.4 (GTK+ 2.24.32; x86_64-pc-linux-gnu)
+MIME-Version: 1.0
+Cc: linux-iio@vger.kernel.org, linux-kernel@vger.kernel.org,
+ Peter Ujfalusi <peter.ujfalusi@ti.com>, vkoul@kernel.org,
+ mcoquelin.stm32@gmail.com, linux-stm32@st-md-mailman.stormreply.com,
  linux-arm-kernel@lists.infradead.org
-Subject: Re: [Linux-stm32] [PATCH net 0/2] net: stmmac: Filtering fixes
+Subject: Re: [Linux-stm32] [PATCH v2] iio: adc: stm32-dfsdm: Use
+ dma_request_chan() instead dma_request_slave_channel()
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -46,24 +56,87 @@ List-Post: <mailto:linux-stm32@st-md-mailman.stormreply.com>
 List-Help: <mailto:linux-stm32-request@st-md-mailman.stormreply.com?subject=help>
 List-Subscribe: <https://st-md-mailman.stormreply.com/mailman/listinfo/linux-stm32>, 
  <mailto:linux-stm32-request@st-md-mailman.stormreply.com?subject=subscribe>
-Content-Type: text/plain; charset="us-ascii"
-Content-Transfer-Encoding: 7bit
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: base64
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
-From: Jose Abreu <Jose.Abreu@synopsys.com>
-Date: Fri, 10 Jan 2020 16:23:51 +0100
-
-> Two single fixes for the L3 and L4 filtering in stmmac.
-> 
-> 1) Updates the internal status of RSS when disabling it in order to keep
-> internal driver status consistent.
-> 
-> 2) Do not lets user add a filter if RSS is enabled because the filter will
-> not work correctly as RSS bypasses this mechanism.
-
-Series applied and queued up for v5.4 -stable, thanks.
-_______________________________________________
-Linux-stm32 mailing list
-Linux-stm32@st-md-mailman.stormreply.com
-https://st-md-mailman.stormreply.com/mailman/listinfo/linux-stm32
+T24gVGh1LCA5IEphbiAyMDIwIDEzOjU2OjE0ICswMTAwCkZhYnJpY2UgR2FzbmllciA8ZmFicmlj
+ZS5nYXNuaWVyQHN0LmNvbT4gd3JvdGU6Cgo+IE9uIDEvOS8yMCAxMjo0MCBQTSwgUGV0ZXIgVWpm
+YWx1c2kgd3JvdGU6Cj4gPiAKPiA+IAo+ID4gT24gMDkvMDEvMjAyMCAxMy4yOSwgRmFicmljZSBH
+YXNuaWVyIHdyb3RlOiAgCj4gPj4gT24gMS85LzIwIDExOjMyIEFNLCBQZXRlciBVamZhbHVzaSB3
+cm90ZTogIAo+ID4+Pgo+ID4+Pgo+ID4+PiBPbiAwOS8wMS8yMDIwIDExLjEzLCBGYWJyaWNlIEdh
+c25pZXIgd3JvdGU6ICAKPiA+Pj4+IE9uIDEvNy8yMCAxMjo0NSBQTSwgUGV0ZXIgVWpmYWx1c2kg
+d3JvdGU6ICAKPiA+Pj4+PiBkbWFfcmVxdWVzdF9zbGF2ZV9jaGFubmVsKCkgaXMgYSB3cmFwcGVy
+IG9uIHRvcCBvZiBkbWFfcmVxdWVzdF9jaGFuKCkKPiA+Pj4+PiBlYXRpbmcgdXAgdGhlIGVycm9y
+IGNvZGUuCj4gPj4+Pj4KPiA+Pj4+PiBCeSB1c2luZyBkbWFfcmVxdWVzdF9jaGFuKCkgZGlyZWN0
+bHkgdGhlIGRyaXZlciBjYW4gc3VwcG9ydCBkZWZlcnJlZAo+ID4+Pj4+IHByb2JpbmcgYWdhaW5z
+dCBETUEuCj4gPj4+Pj4KPiA+Pj4+PiBTaWduZWQtb2ZmLWJ5OiBQZXRlciBVamZhbHVzaSA8cGV0
+ZXIudWpmYWx1c2lAdGkuY29tPgo+ID4+Pj4+IC0tLQo+ID4+Pj4+IEhpLAo+ID4+Pj4+Cj4gPj4+
+Pj4gQ2hhbmdlcyBzaW5jZSB2MToKPiA+Pj4+PiAtIEZhbGwgYmFjayB0byBJUlEgbW9kZSBmb3Ig
+QURDIG9ubHkgaW4gY2FzZSBvZiBFTk9ERVYgIAo+ID4+Pj4KPiA+Pj4+IEhpIFBldGVyLAo+ID4+
+Pj4KPiA+Pj4+IFRoYW5rcyBmb3IgdGhlIHBhdGNoLAo+ID4+Pj4KPiA+Pj4+IFBsZWFzZSBmaW5k
+IGEgbWlub3IgY29tbWVudCBoZXJlIGFmdGVyLiBBcGFydCBmcm9tIHRoYXQsIHlvdSBjYW4gYWRk
+IG15Ogo+ID4+Pj4KPiA+Pj4+IEFja2VkLWJ5OiBGYWJyaWNlIEdhc25pZXIgPGZhYnJpY2UuZ2Fz
+bmllckBzdC5jb20+Cj4gPj4+Pgo+ID4+Pj4gIAo+ID4+Pj4+Cj4gPj4+Pj4gUmVnYXJkcywKPiA+
+Pj4+PiBQZXRlcgo+ID4+Pj4+Cj4gPj4+Pj4gIGRyaXZlcnMvaWlvL2FkYy9zdG0zMi1kZnNkbS1h
+ZGMuYyB8IDIxICsrKysrKysrKysrKysrKysrLS0tLQo+ID4+Pj4+ICAxIGZpbGUgY2hhbmdlZCwg
+MTcgaW5zZXJ0aW9ucygrKSwgNCBkZWxldGlvbnMoLSkKPiA+Pj4+Pgo+ID4+Pj4+IGRpZmYgLS1n
+aXQgYS9kcml2ZXJzL2lpby9hZGMvc3RtMzItZGZzZG0tYWRjLmMgYi9kcml2ZXJzL2lpby9hZGMv
+c3RtMzItZGZzZG0tYWRjLmMKPiA+Pj4+PiBpbmRleCBlNDkzMjQyYzI2NmUuLjc0YTIyMTFiZGZm
+NCAxMDA2NDQKPiA+Pj4+PiAtLS0gYS9kcml2ZXJzL2lpby9hZGMvc3RtMzItZGZzZG0tYWRjLmMK
+PiA+Pj4+PiArKysgYi9kcml2ZXJzL2lpby9hZGMvc3RtMzItZGZzZG0tYWRjLmMKPiA+Pj4+PiBA
+QCAtMTM4Myw5ICsxMzgzLDEzIEBAIHN0YXRpYyBpbnQgc3RtMzJfZGZzZG1fZG1hX3JlcXVlc3Qo
+c3RydWN0IGlpb19kZXYgKmluZGlvX2RldikKPiA+Pj4+PiAgewo+ID4+Pj4+ICAJc3RydWN0IHN0
+bTMyX2Rmc2RtX2FkYyAqYWRjID0gaWlvX3ByaXYoaW5kaW9fZGV2KTsKPiA+Pj4+PiAgCj4gPj4+
+Pj4gLQlhZGMtPmRtYV9jaGFuID0gZG1hX3JlcXVlc3Rfc2xhdmVfY2hhbm5lbCgmaW5kaW9fZGV2
+LT5kZXYsICJyeCIpOwo+ID4+Pj4+IC0JaWYgKCFhZGMtPmRtYV9jaGFuKQo+ID4+Pj4+IC0JCXJl
+dHVybiAtRUlOVkFMOwo+ID4+Pj4+ICsJYWRjLT5kbWFfY2hhbiA9IGRtYV9yZXF1ZXN0X2NoYW4o
+JmluZGlvX2Rldi0+ZGV2LCAicngiKTsKPiA+Pj4+PiArCWlmIChJU19FUlIoYWRjLT5kbWFfY2hh
+bikpIHsKPiA+Pj4+PiArCQlpbnQgcmV0ID0gUFRSX0VSUihhZGMtPmRtYV9jaGFuKTsKPiA+Pj4+
+PiArCj4gPj4+Pj4gKwkJYWRjLT5kbWFfY2hhbiA9IE5VTEw7Cj4gPj4+Pj4gKwkJcmV0dXJuIHJl
+dDsgIAo+ID4+Pj4KPiA+Pj4+IFlvdSBtYXkgInJldHVybiBQVFJfRVJSKGFkYy0+ZG1hX2NoYW4p
+OyIgZGlyZWN0bHkgaGVyZS4gIAo+ID4+Pgo+ID4+PiBJIGRvbid0IG1ha2UgZGVjaXNpb24gaGVy
+ZSBvbiBiZWhhbGYgb2YgdGhlIGFkYyBwYXRoIG9uIHRvIGdvIGZvcndhcmQgdy8KPiA+Pj4gb3Ig
+dy9vIERNQSBzdXBwb3J0IGFuZCBpZiB3ZSBnbyBhaGVhZCB0aGUgc3RtMzJfZGZzZG1fZG1hX3Jl
+bGVhc2UoKQo+ID4+PiBuZWVkcyB0aGUgZG1hX2NoYW4gdG8gYmUgTlVMTCBpbiBjYXNlIHdlIGRv
+bid0IHVzZSBETUEuCj4gPj4+Cj4gPj4+IEl0IGlzIG11Y2ggY2xlYW5lciB0byBzZXQgZG1hX2No
+YW4gdG8gTlVMTCBoZXJlIHRoYW4gZG9pbmcgaXQgaW4gb3RoZXIKPiA+Pj4gcGF0aHMuICAKPiA+
+Pgo+ID4+IEhpIFBldGVyLCAgCj4gPiAKPiA+IEhpIEZhYnJpY2UsCj4gPiAgIAo+ID4+IFNvcnJ5
+IEkgd2Fzbid0IGNsZWFyIGVub3VnaC4gSSBhZ3JlZSB3aXRoIHlvdS4gSSB3YXMgc3VnZ2VzdGlu
+ZyBvbmx5LAo+ID4+IHRhbGtpbmcgYWJvdXQgdGhlICdyZXQnIHZhcmlhYmxlLiBJdCBtYXkgYmUg
+cmVtb3ZlZCB0byBzcGFyZSBhIGZldyBsaW5lcwo+ID4+IDotKS4KPiA+PiAJaWYgKElTX0VSUihh
+ZGMtPmRtYV9jaGFuKSkgewo+ID4+IAkJYWRjLT5kbWFfY2hhbiA9IE5VTEw7Cj4gPj4gCQlyZXR1
+cm4gUFRSX0VSUihhZGMtPmRtYV9jaGFuKTsKPiA+PiAJfQo+ID4+IEknbSBva2F5IGJvdGggd2F5
+cy4gIAo+ID4gCj4gPiBQVFJfRVJSKE5VTEwpOyB3aWxsIHJldHVybiAwCj4gPiBJIG5lZWQgdG8g
+cmV0cmlldmUgdGhlIGFjdHVhbCBlcnJvciBjb2RlIGJlZm9yZSBOVUxMaW5nIGRtYV9jaGFuLiAg
+Cj4gCj4gT2ggeWVzLCBzbyBwbGVhc2UgZm9yZ2V0IHRoaXMuCj4gVGhhbmtzLAo+IEZhYnJpY2UK
+CkFwcGxpZWQgdG8gdGhlIHRvZ3JlZyBicmFuY2ggb2YgaWlvLmdpdCBhbmQgcHVzaGVkIG91dCBh
+cyB0ZXN0aW5nLgpOb3RlIEknbGwgbmVlZCB0byByZWJhc2Ugb25jZSBHcmVnIHB1c2hlcyBvdXQg
+c3RhZ2luZy9zdGFnaW5nLW5leHQKd2l0aCB0aGUgY2hhbmdlcyBjdXJyZW50bHkgaW4gc3RhZ2lu
+Zy9zdGFnaW5nLXRlc3RpbmcuICBTaG91bGRuJ3QKaGF2ZSBhbiBlZmZlY3Qgb24gdGhpcyB0aG91
+Z2ghCgpUaGFua3MsCgpKb25hdGhhbgoKPiAKPiA+ICAgCj4gPj4gIAo+ID4+PiAgCj4gPj4+Pgo+
+ID4+Pj4gQmVzdCBSZWdhcmRzLAo+ID4+Pj4gRmFicmljZQo+ID4+Pj4gIAo+ID4+Pj4+ICsJfQo+
+ID4+Pj4+ICAKPiA+Pj4+PiAgCWFkYy0+cnhfYnVmID0gZG1hX2FsbG9jX2NvaGVyZW50KGFkYy0+
+ZG1hX2NoYW4tPmRldmljZS0+ZGV2LAo+ID4+Pj4+ICAJCQkJCSBERlNETV9ETUFfQlVGRkVSX1NJ
+WkUsCj4gPj4+Pj4gQEAgLTE1MDksNyArMTUxMywxNiBAQCBzdGF0aWMgaW50IHN0bTMyX2Rmc2Rt
+X2FkY19pbml0KHN0cnVjdCBpaW9fZGV2ICppbmRpb19kZXYpCj4gPj4+Pj4gIAlpbml0X2NvbXBs
+ZXRpb24oJmFkYy0+Y29tcGxldGlvbik7Cj4gPj4+Pj4gIAo+ID4+Pj4+ICAJLyogT3B0aW9uYWxs
+eSByZXF1ZXN0IERNQSAqLwo+ID4+Pj4+IC0JaWYgKHN0bTMyX2Rmc2RtX2RtYV9yZXF1ZXN0KGlu
+ZGlvX2RldikpIHsKPiA+Pj4+PiArCXJldCA9IHN0bTMyX2Rmc2RtX2RtYV9yZXF1ZXN0KGluZGlv
+X2Rldik7Cj4gPj4+Pj4gKwlpZiAocmV0KSB7Cj4gPj4+Pj4gKwkJaWYgKHJldCAhPSAtRU5PREVW
+KSB7Cj4gPj4+Pj4gKwkJCWlmIChyZXQgIT0gLUVQUk9CRV9ERUZFUikKPiA+Pj4+PiArCQkJCWRl
+dl9lcnIoJmluZGlvX2Rldi0+ZGV2LAo+ID4+Pj4+ICsJCQkJCSJETUEgY2hhbm5lbCByZXF1ZXN0
+IGZhaWxlZCB3aXRoICVkXG4iLAo+ID4+Pj4+ICsJCQkJCXJldCk7Cj4gPj4+Pj4gKwkJCXJldHVy
+biByZXQ7Cj4gPj4+Pj4gKwkJfQo+ID4+Pj4+ICsKPiA+Pj4+PiAgCQlkZXZfZGJnKCZpbmRpb19k
+ZXYtPmRldiwgIk5vIERNQSBzdXBwb3J0XG4iKTsKPiA+Pj4+PiAgCQlyZXR1cm4gMDsKPiA+Pj4+
+PiAgCX0KPiA+Pj4+PiAgCj4gPj4+Cj4gPj4+IC0gUMOpdGVyCj4gPj4+Cj4gPj4+IFRleGFzIElu
+c3RydW1lbnRzIEZpbmxhbmQgT3ksIFBvcmtrYWxhbmthdHUgMjIsIDAwMTgwIEhlbHNpbmtpLgo+
+ID4+PiBZLXR1bm51cy9CdXNpbmVzcyBJRDogMDYxNTUyMS00LiBLb3RpcGFpa2thL0RvbWljaWxl
+OiBIZWxzaW5raQo+ID4+PiAgCj4gPiAKPiA+IC0gUMOpdGVyCj4gPiAKPiA+IFRleGFzIEluc3Ry
+dW1lbnRzIEZpbmxhbmQgT3ksIFBvcmtrYWxhbmthdHUgMjIsIDAwMTgwIEhlbHNpbmtpLgo+ID4g
+WS10dW5udXMvQnVzaW5lc3MgSUQ6IDA2MTU1MjEtNC4gS290aXBhaWtrYS9Eb21pY2lsZTogSGVs
+c2lua2kKPiA+ICAgCgpfX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19f
+X19fXwpMaW51eC1zdG0zMiBtYWlsaW5nIGxpc3QKTGludXgtc3RtMzJAc3QtbWQtbWFpbG1hbi5z
+dG9ybXJlcGx5LmNvbQpodHRwczovL3N0LW1kLW1haWxtYW4uc3Rvcm1yZXBseS5jb20vbWFpbG1h
+bi9saXN0aW5mby9saW51eC1zdG0zMgo=
