@@ -2,54 +2,60 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id 4E657138CD4
-	for <lists+linux-stm32@lfdr.de>; Mon, 13 Jan 2020 09:30:02 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 490FD138E85
+	for <lists+linux-stm32@lfdr.de>; Mon, 13 Jan 2020 11:05:11 +0100 (CET)
 Received: from ip-172-31-3-76.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 0C765C36B1F;
-	Mon, 13 Jan 2020 08:30:02 +0000 (UTC)
-Received: from smtprelay-out1.synopsys.com (smtprelay-out1.synopsys.com
- [149.117.73.133])
- (using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id F27CBC36B0B;
+	Mon, 13 Jan 2020 10:05:10 +0000 (UTC)
+Received: from mx07-00178001.pphosted.com (mx07-00178001.pphosted.com
+ [62.209.51.94])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id DE067C36B0C
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 6484EC36B09
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Mon, 13 Jan 2020 08:29:57 +0000 (UTC)
-Received: from mailhost.synopsys.com (mdc-mailhost2.synopsys.com
- [10.225.0.210])
- (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits))
- (No client certificate requested)
- by smtprelay-out1.synopsys.com (Postfix) with ESMTPS id A952A40693;
- Mon, 13 Jan 2020 08:29:55 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=synopsys.com; s=mail;
- t=1578904196; bh=lnen1K/tDz2A9H4GTK3qRrNyC5Q/weucAfwOJ6GT9sA=;
- h=From:To:Cc:Subject:Date:In-Reply-To:References:In-Reply-To:
- References:From;
- b=clEq1r8oek9sMcx4y4GWw2nvzm4pDA2xKI0dHcH+lLkFdR9Vu2ybfQoCMYSEUSO49
- JG5lgntRkBaE8i5MD2AEDdg/81tLzYnS5juswROc6Kd5/F0cS1DQ5w9G3KtHQXfEHh
- C8nFxn18lNnJOIsEoIJjqv1Xj8aZBVev55/tANuBKVRJGfMQIM08WON48RRRBjyaKz
- KCXV8xq+55z5MDKjjyIT2Edf/Flbb+cFFFuXe23low/7XvITk14Nb8VTmrNd19ItjA
- 9Ieth5V1aiR0fsm5R4W3xsm/B4yKjxaF7Xxzd19voqrk9InnPXg7026Nrr6eQJhLPJ
- 4I3PoP8fi21Gg==
-Received: from de02dwia024.internal.synopsys.com
- (de02dwia024.internal.synopsys.com [10.225.19.81])
- by mailhost.synopsys.com (Postfix) with ESMTP id 77B36A007B;
- Mon, 13 Jan 2020 08:29:54 +0000 (UTC)
-From: Jose Abreu <Jose.Abreu@synopsys.com>
-To: netdev@vger.kernel.org
-Date: Mon, 13 Jan 2020 09:29:40 +0100
-Message-Id: <1deed0e2bdfa071cebbdd0eaa20d7e397cea4e41.1578903874.git.Jose.Abreu@synopsys.com>
-X-Mailer: git-send-email 2.7.4
-In-Reply-To: <cover.1578903874.git.Jose.Abreu@synopsys.com>
-References: <cover.1578903874.git.Jose.Abreu@synopsys.com>
-In-Reply-To: <cover.1578903874.git.Jose.Abreu@synopsys.com>
-References: <cover.1578903874.git.Jose.Abreu@synopsys.com>
-Cc: Jose Abreu <Jose.Abreu@synopsys.com>, Joao Pinto <Joao.Pinto@synopsys.com>,
- linux-kernel@vger.kernel.org, linux-stm32@st-md-mailman.stormreply.com,
- Maxime Coquelin <mcoquelin.stm32@gmail.com>,
- Giuseppe Cavallaro <peppe.cavallaro@st.com>,
- "David S. Miller" <davem@davemloft.net>, linux-arm-kernel@lists.infradead.org
-Subject: [Linux-stm32] [PATCH net-next 6/6] net: stmmac: Add missing
-	information in DebugFS capabilities file
+ Mon, 13 Jan 2020 10:05:10 +0000 (UTC)
+Received: from pps.filterd (m0046668.ppops.net [127.0.0.1])
+ by mx07-00178001.pphosted.com (8.16.0.42/8.16.0.42) with SMTP id
+ 00DA4Y0d020212; Mon, 13 Jan 2020 11:04:54 +0100
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=st.com;
+ h=from : to : cc : subject
+ : date : message-id : mime-version : content-type; s=STMicroelectronics;
+ bh=uAmD+cLKEDeaQ5sIIegoK01hcED8wf+eyuSy31R7770=;
+ b=ENANPwQAAJvqiLBkWg+qrgjJhKC2mHUcF5Ukx3zedKUd/OtoDeORtma6EtqoqAIz72AS
+ R4tVkLPoyfVvKezPUqXxD1ImPSytdHDBXWXOzr5wEt3rUzgStBJSEOekhHaoJWFgDGWN
+ bpniChCPxN9Tkm5+ulZiIGQ7ypTaNKRvmL5oQPtqpVoANXJSkVQPz9DYJLsRu+LHBqF8
+ 6uMrV6LQNxxRqjY56zyuuFOPZagB13tqiG65LqAVbLsaznFZqRs8a5vGpOHz4UOPfYz1
+ /o/LzrJb8Z7naNVVq8P0asDDc9aSKfgXUxBBuj3mHxMXlbLn8anDCES+AO2sxji4jHft 6A== 
+Received: from beta.dmz-eu.st.com (beta.dmz-eu.st.com [164.129.1.35])
+ by mx07-00178001.pphosted.com with ESMTP id 2xf77aqk5s-1
+ (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
+ Mon, 13 Jan 2020 11:04:54 +0100
+Received: from euls16034.sgp.st.com (euls16034.sgp.st.com [10.75.44.20])
+ by beta.dmz-eu.st.com (STMicroelectronics) with ESMTP id C000510003B;
+ Mon, 13 Jan 2020 11:04:53 +0100 (CET)
+Received: from Webmail-eu.st.com (sfhdag3node1.st.com [10.75.127.7])
+ by euls16034.sgp.st.com (STMicroelectronics) with ESMTP id 943DB2A896E;
+ Mon, 13 Jan 2020 11:04:53 +0100 (CET)
+Received: from localhost (10.75.127.44) by SFHDAG3NODE1.st.com (10.75.127.7)
+ with Microsoft SMTP Server (TLS) id 15.0.1473.3; Mon, 13 Jan 2020 11:04:53
+ +0100
+From: Arnaud Pouliquen <arnaud.pouliquen@st.com>
+To: <alsa-devel@alsa-project.org>, Mark Brown <broonie@kernel.org>, Liam
+ Girdwood <lgirdwood@gmail.com>, Jaroslav Kysela <perex@perex.cz>, Takashi
+ Iwai <tiwai@suse.com>
+Date: Mon, 13 Jan 2020 11:04:00 +0100
+Message-ID: <20200113100400.30472-1-arnaud.pouliquen@st.com>
+X-Mailer: git-send-email 2.17.1
+MIME-Version: 1.0
+X-Originating-IP: [10.75.127.44]
+X-ClientProxiedBy: SFHDAG7NODE3.st.com (10.75.127.21) To SFHDAG3NODE1.st.com
+ (10.75.127.7)
+X-Proofpoint-Virus-Version: vendor=fsecure engine=2.50.10434:6.0.138, 18.0.572
+ definitions=2020-01-13_02:2020-01-13,
+ 2020-01-13 signatures=0
+Cc: linux-stm32@st-md-mailman.stormreply.com,
+ linux-arm-kernel@lists.infradead.org, linux-kernel@vger.kernel.org
+Subject: [Linux-stm32] [PATCH v2] asoc: sti: fix possible sleep-in-atomic
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -61,61 +67,71 @@ List-Post: <mailto:linux-stm32@st-md-mailman.stormreply.com>
 List-Help: <mailto:linux-stm32-request@st-md-mailman.stormreply.com?subject=help>
 List-Subscribe: <https://st-md-mailman.stormreply.com/mailman/listinfo/linux-stm32>, 
  <mailto:linux-stm32-request@st-md-mailman.stormreply.com?subject=subscribe>
-MIME-Version: 1.0
 Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
-Adds more information regarding HW Capabilities in the corresponding
-DebugFS file.
+Change mutex and spinlock management to avoid sleep
+in atomic issue.
 
-Signed-off-by: Jose Abreu <Jose.Abreu@synopsys.com>
-
+Signed-off-by: Arnaud Pouliquen <arnaud.pouliquen@st.com>
 ---
-Cc: Giuseppe Cavallaro <peppe.cavallaro@st.com>
-Cc: Alexandre Torgue <alexandre.torgue@st.com>
-Cc: Jose Abreu <joabreu@synopsys.com>
-Cc: "David S. Miller" <davem@davemloft.net>
-Cc: Maxime Coquelin <mcoquelin.stm32@gmail.com>
-Cc: netdev@vger.kernel.org
-Cc: linux-stm32@st-md-mailman.stormreply.com
-Cc: linux-arm-kernel@lists.infradead.org
-Cc: linux-kernel@vger.kernel.org
----
- drivers/net/ethernet/stmicro/stmmac/stmmac_main.c | 10 ++++++++++
- 1 file changed, 10 insertions(+)
+V1 to V2 suppress unexpected [INTERNAL REVIEW] tag in subject
 
-diff --git a/drivers/net/ethernet/stmicro/stmmac/stmmac_main.c b/drivers/net/ethernet/stmicro/stmmac/stmmac_main.c
-index fcc1ffe0b11e..7c2645ee81b1 100644
---- a/drivers/net/ethernet/stmicro/stmmac/stmmac_main.c
-+++ b/drivers/net/ethernet/stmicro/stmmac/stmmac_main.c
-@@ -4341,6 +4341,10 @@ static int stmmac_dma_cap_show(struct seq_file *seq, void *v)
- 		   priv->dma_cap.number_rx_queues);
- 	seq_printf(seq, "\tNumber of Additional TX queues: %d\n",
- 		   priv->dma_cap.number_tx_queues);
-+	seq_printf(seq, "\tCurrent number of TX queues: %d\n",
-+		   priv->plat->tx_queues_to_use);
-+	seq_printf(seq, "\tCurrent number of RX queues: %d\n",
-+		   priv->plat->rx_queues_to_use);
- 	seq_printf(seq, "\tEnhanced descriptors: %s\n",
- 		   (priv->dma_cap.enh_desc) ? "Y" : "N");
- 	seq_printf(seq, "\tTX Fifo Size: %d\n", priv->dma_cap.tx_fifo_size);
-@@ -4369,6 +4373,12 @@ static int stmmac_dma_cap_show(struct seq_file *seq, void *v)
- 		   priv->dma_cap.l3l4fnum);
- 	seq_printf(seq, "\tARP Offloading: %s\n",
- 		   priv->dma_cap.arpoffsel ? "Y" : "N");
-+	seq_printf(seq, "\tEnhancements to Scheduled Traffic (EST): %s\n",
-+		   priv->dma_cap.estsel ? "Y" : "N");
-+	seq_printf(seq, "\tFrame Preemption (FPE): %s\n",
-+		   priv->dma_cap.fpesel ? "Y" : "N");
-+	seq_printf(seq, "\tTime-Based Scheduling (TBS): %s\n",
-+		   priv->dma_cap.tbssel ? "Y" : "N");
+ sound/soc/sti/uniperif_player.c | 7 ++++---
+ 1 file changed, 4 insertions(+), 3 deletions(-)
+
+diff --git a/sound/soc/sti/uniperif_player.c b/sound/soc/sti/uniperif_player.c
+index 48ea915b24ba..2ed92c990b97 100644
+--- a/sound/soc/sti/uniperif_player.c
++++ b/sound/soc/sti/uniperif_player.c
+@@ -226,7 +226,6 @@ static void uni_player_set_channel_status(struct uniperif *player,
+ 	 * sampling frequency. If no sample rate is already specified, then
+ 	 * set one.
+ 	 */
+-	mutex_lock(&player->ctrl_lock);
+ 	if (runtime) {
+ 		switch (runtime->rate) {
+ 		case 22050:
+@@ -303,7 +302,6 @@ static void uni_player_set_channel_status(struct uniperif *player,
+ 		player->stream_settings.iec958.status[3 + (n * 4)] << 24;
+ 		SET_UNIPERIF_CHANNEL_STA_REGN(player, n, status);
+ 	}
+-	mutex_unlock(&player->ctrl_lock);
+ 
+ 	/* Update the channel status */
+ 	if (player->ver < SND_ST_UNIPERIF_VERSION_UNI_PLR_TOP_1_0)
+@@ -365,8 +363,10 @@ static int uni_player_prepare_iec958(struct uniperif *player,
+ 
+ 	SET_UNIPERIF_CTRL_ZERO_STUFF_HW(player);
+ 
++	mutex_lock(&player->ctrl_lock);
+ 	/* Update the channel status */
+ 	uni_player_set_channel_status(player, runtime);
++	mutex_unlock(&player->ctrl_lock);
+ 
+ 	/* Clear the user validity user bits */
+ 	SET_UNIPERIF_USER_VALIDITY_VALIDITY_LR(player, 0);
+@@ -598,7 +598,6 @@ static int uni_player_ctl_iec958_put(struct snd_kcontrol *kcontrol,
+ 	iec958->status[1] = ucontrol->value.iec958.status[1];
+ 	iec958->status[2] = ucontrol->value.iec958.status[2];
+ 	iec958->status[3] = ucontrol->value.iec958.status[3];
+-	mutex_unlock(&player->ctrl_lock);
+ 
+ 	spin_lock_irqsave(&player->irq_lock, flags);
+ 	if (player->substream && player->substream->runtime)
+@@ -608,6 +607,8 @@ static int uni_player_ctl_iec958_put(struct snd_kcontrol *kcontrol,
+ 		uni_player_set_channel_status(player, NULL);
+ 
+ 	spin_unlock_irqrestore(&player->irq_lock, flags);
++	mutex_unlock(&player->ctrl_lock);
++
  	return 0;
  }
- DEFINE_SHOW_ATTRIBUTE(stmmac_dma_cap);
+ 
 -- 
-2.7.4
+2.17.1
 
 _______________________________________________
 Linux-stm32 mailing list
