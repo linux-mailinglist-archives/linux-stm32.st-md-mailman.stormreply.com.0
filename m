@@ -2,50 +2,69 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id 976AD139291
+	by mail.lfdr.de (Postfix) with ESMTPS id A254F139292
 	for <lists+linux-stm32@lfdr.de>; Mon, 13 Jan 2020 14:55:56 +0100 (CET)
 Received: from ip-172-31-3-76.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 5658FC36B0B;
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 63BA9C36B0E;
 	Mon, 13 Jan 2020 13:55:56 +0000 (UTC)
-Received: from mx3.wp.pl (mx3.wp.pl [212.77.101.9])
- (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-wm1-f68.google.com (mail-wm1-f68.google.com
+ [209.85.128.68])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 8AF0EC36B09
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 89BCBC36B09
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Mon, 13 Jan 2020 13:17:27 +0000 (UTC)
-Received: (wp-smtpd smtp.wp.pl 467 invoked from network);
- 13 Jan 2020 14:17:26 +0100
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=wp.pl; s=1024a;
- t=1578921446; bh=fiL5feLAQg1wnn446GC+3zMpF7346AQGDCS3XeChSTA=;
- h=From:To:Cc:Subject;
- b=qzBDUTyY3N87LSG2hKt7ZSXgIJ4yQdIF3Os+2js59ftWgJBrd/cPmAI/+Hdwlnkg6
- Fyed6NcUYyiy55TmsPGH5Wenjb7lct8Nj6qQX3SY6YaR/ETLhN91iUyNG/C0oGr5Hi
- kCBZomcIlnMvzE7EYGBk9nRfqXBXXMu5T905jGjM=
-Received: from c-73-93-4-247.hsd1.ca.comcast.net (HELO cakuba)
- (kubakici@wp.pl@[73.93.4.247]) (envelope-sender <kubakici@wp.pl>)
- by smtp.wp.pl (WP-SMTPD) with ECDHE-RSA-AES256-GCM-SHA384 encrypted SMTP
- for <boon.leong.ong@intel.com>; 13 Jan 2020 14:17:26 +0100
-Date: Mon, 13 Jan 2020 05:17:12 -0800
-From: Jakub Kicinski <kubakici@wp.pl>
-To: Ong Boon Leong <boon.leong.ong@intel.com>
-Message-ID: <20200113051712.73442991@cakuba>
-In-Reply-To: <1578967276-55956-4-git-send-email-boon.leong.ong@intel.com>
-References: <1578967276-55956-1-git-send-email-boon.leong.ong@intel.com>
- <1578967276-55956-4-git-send-email-boon.leong.ong@intel.com>
+ Mon, 13 Jan 2020 13:19:26 +0000 (UTC)
+Received: by mail-wm1-f68.google.com with SMTP id 20so9592986wmj.4
+ for <linux-stm32@st-md-mailman.stormreply.com>;
+ Mon, 13 Jan 2020 05:19:26 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20161025;
+ h=from:to:cc:subject:date:message-id:in-reply-to:references
+ :mime-version:content-transfer-encoding;
+ bh=oPpAx4psrCRpvGxa+BiR5YMo0bdqOSs/oqk3OpqA2oE=;
+ b=nWfPhbzI4KL3RW27J8sCj9bO4EGHIMFwVLTgYFDFOZ+ANyQXA2pSwjrFy7psj7W+ZP
+ MdbRRjRbTVNa6CoYI1BBlpzinR2bYmiLozKhWnRabab4FT4Vx3/5uf9wX9S+Mh7gQ49Y
+ UbKNk8qoaO0amqRtlEv712jO3q3egODBlzftQohOvXzHHA9w+447cDVyeZYK7s37SiOI
+ EysUDLsiaCsJAeLVOYLgWZN0PRMMjrIpMHhRGoP+GiMlKdbzZXfhqxZRoqNj4Kxyq7ch
+ zHzgEoZGyoo52b8uWmEYSsdiQyIw74mbx7/RNV2rlK1EuAjtm+9Ew7qzdTV/5taVURqC
+ cEQg==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20161025;
+ h=x-gm-message-state:from:to:cc:subject:date:message-id:in-reply-to
+ :references:mime-version:content-transfer-encoding;
+ bh=oPpAx4psrCRpvGxa+BiR5YMo0bdqOSs/oqk3OpqA2oE=;
+ b=omFyM8TE5NFD8ERmKwT3ig7cOqHMFvkS2pock8kgfonmG1/BIohGzINOiRKb/jwqf0
+ 7wIrlSBrIjDfd+j15sN12XkWbYwheXXQzt0bf3su5TyATtMue7LL99exYeyAOtwNrVlL
+ Mswzl6JD4VQ5fYwS4GhqoXfRAsYzmIAi4ulYtYf3nzhvu7XYc1t36CSQBTV26c46Lr9W
+ DVthKxlpIe5/aBhJaCZrAQnb0o9V/tAMz+VOkNzOAAp7gzzQ+B7/GNMEc7gwz2iyjZuR
+ cVKfgXTcwCV53ekYoFMUz2+jfDlQsiV8LMsd3KBfpCugnUAMNmoOrlv6XRVfukW3RWFM
+ 2yYQ==
+X-Gm-Message-State: APjAAAX3Jstur6n+IUkcE4UoR9WJtm0KFO8pdMVqm0UacfIOknOngSTK
+ dPqKHlE8ipuRMg5pIHVQVSc=
+X-Google-Smtp-Source: APXvYqxn3ntfwmrL/v96gX5s5FIm1RyRW1Potx8vLiHtfqQr7a+LGA0J651zcltIe5UzdBDMZMOa/g==
+X-Received: by 2002:a1c:a982:: with SMTP id
+ s124mr19609972wme.132.1578921566115; 
+ Mon, 13 Jan 2020 05:19:26 -0800 (PST)
+Received: from L340.local ([2a02:85f:511:c300:1684:322e:585c:32af])
+ by smtp.gmail.com with ESMTPSA id s1sm14200368wmc.23.2020.01.13.05.19.24
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Mon, 13 Jan 2020 05:19:25 -0800 (PST)
+From: "Leonidas P. Papadakos" <papadakospan@gmail.com>
+To: patrice.chotard@st.com
+Date: Mon, 13 Jan 2020 15:19:20 +0200
+Message-Id: <20200113131920.13273-1-papadakospan@gmail.com>
+X-Mailer: git-send-email 2.24.1
+In-Reply-To: <c1af466d-0870-364f-1bff-0ac015811e60@st.com>
+References: <c1af466d-0870-364f-1bff-0ac015811e60@st.com>
 MIME-Version: 1.0
-X-WP-MailID: 9114ca6d95137af99c81d33196a332a9
-X-WP-AV: skaner antywirusowy Poczty Wirtualnej Polski
-X-WP-SPAM: NO 0000000 [YVNE]                               
 X-Mailman-Approved-At: Mon, 13 Jan 2020 13:55:55 +0000
-Cc: Jose Abreu <Jose.Abreu@synopsys.com>, Voon Weifeng <weifeng.voon@intel.com>,
- netdev@vger.kernel.org, linux-kernel@vger.kernel.org,
- linux-stm32@st-md-mailman.stormreply.com,
- Maxime Coquelin <mcoquelin.stm32@gmail.com>,
- Tan Tee Min <tee.min.tan@intel.com>,
- Giuseppe Cavallaro <peppe.cavallaro@st.com>,
- "David S . Miller" <davem@davemloft.net>, linux-arm-kernel@lists.infradead.org
-Subject: Re: [Linux-stm32] [PATCH net 3/7] net: stmmac: fix missing
- netdev->features in stmmac_set_features
+Cc: Jose.Abreu@synopsys.com, jayati.sahu@samsung.com, f.fainelli@gmail.com,
+ heiko@sntech.de, rcsekar@samsung.com, netdev@vger.kernel.org,
+ sriram.dash@samsung.com, linux-kernel@vger.kernel.org, p.rajanbabu@samsung.com,
+ linux-stm32@st-md-mailman.stormreply.com, stable@vger.kernel.org,
+ pankaj.dubey@samsung.com, peppe.cavallaro@st.com, davem@davemloft.net,
+ linux-arm-kernel@lists.infradead.org
+Subject: Re: [Linux-stm32] [PATCH] net: stmmac: platform: Fix MDIO init for
+	platforms without PHY
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -62,38 +81,14 @@ Content-Transfer-Encoding: 7bit
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
-On Tue, 14 Jan 2020 10:01:12 +0800, Ong Boon Leong wrote:
+This change affects my Renegade board (rockchip/rk3328-roc-cc.dtb),
+(and probably the very similar Rock64) preventing me from using any kernel after
+5.4.6 in a meaningful way.
 
-Please fix the date on your system.
+I get the stacktrace mentioned before at boot.
 
-Please always provide a patch description. For bug fixes description of
-how the bug manifest to the users is important to have.
-
-> Fixes: d2afb5bdffde ("stmmac: fix the rx csum feature")
-> 
-
-Please remove the empty lines between the Fixes tag and the other tags
-on all patches.
-
-> Signed-off-by: Ong Boon Leong <boon.leong.ong@intel.com>
-> ---
->  drivers/net/ethernet/stmicro/stmmac/stmmac_main.c | 2 ++
->  1 file changed, 2 insertions(+)
-> 
-> diff --git a/drivers/net/ethernet/stmicro/stmmac/stmmac_main.c b/drivers/net/ethernet/stmicro/stmmac/stmmac_main.c
-> index cd55d16..dc739cd 100644
-> --- a/drivers/net/ethernet/stmicro/stmmac/stmmac_main.c
-> +++ b/drivers/net/ethernet/stmicro/stmmac/stmmac_main.c
-> @@ -3911,6 +3911,8 @@ static int stmmac_set_features(struct net_device *netdev,
->  	for (chan = 0; chan < priv->plat->rx_queues_to_use; chan++)
->  		stmmac_enable_sph(priv, priv->ioaddr, sph_en, chan);
->  
-> +	netdev->features = features;
-> +
->  	return 0;
->  }
->  
-
+Predictably, a command like 'ip address show' will hang since it probes 
+networking but 'sudo' also freezes...
 _______________________________________________
 Linux-stm32 mailing list
 Linux-stm32@st-md-mailman.stormreply.com
