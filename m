@@ -2,66 +2,50 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id 0045D139797
-	for <lists+linux-stm32@lfdr.de>; Mon, 13 Jan 2020 18:24:59 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 7956A139C00
+	for <lists+linux-stm32@lfdr.de>; Mon, 13 Jan 2020 22:58:26 +0100 (CET)
 Received: from ip-172-31-3-76.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id B381EC36B0D;
-	Mon, 13 Jan 2020 17:24:59 +0000 (UTC)
-Received: from mail-pf1-f196.google.com (mail-pf1-f196.google.com
- [209.85.210.196])
- (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 2F9CBC36B0D;
+	Mon, 13 Jan 2020 21:58:26 +0000 (UTC)
+Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
+ (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id D794FC36B0B
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 267BDC36B0B
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Mon, 13 Jan 2020 17:24:58 +0000 (UTC)
-Received: by mail-pf1-f196.google.com with SMTP id q10so5175539pfs.6
- for <linux-stm32@st-md-mailman.stormreply.com>;
- Mon, 13 Jan 2020 09:24:58 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linaro.org; s=google;
- h=date:from:to:cc:subject:message-id:references:mime-version
- :content-disposition:in-reply-to:user-agent;
- bh=U2PWwEEnO5+ksSRfTkvVAkgMJvekPPQPvk+J1MXkAKA=;
- b=fIDSBdAgWDIiMm+DJrGSk8SNVlkqqoJ/XOYER2KVMmFc85XBWE4fErM4MFi85PEx2h
- 2Igm5N9Sw8crh8PmobTPG1r0fpWIz9heb2tmNk/Svm2Hxp7Nb47ZngRKZ0JeD+DCJpYe
- WIFC61PxN+EIo3zyUbdFykkit80459ecCP/nPUpBTdSqPxMwyduO8/ncgNndqrYsbPC1
- NoLgWSqo7mDBTDKENNorvGv4h6vVDgJzKAoIMXvIQgn83zmsnj5pMW78uCuKA/TW3tI6
- vhcDzEa+PHR4GKZ+CfD6TDAsfauhcAox/mVJ9fH0mfHAYHRllagoSZJb+h8uqcj5WtVS
- 7f6w==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20161025;
- h=x-gm-message-state:date:from:to:cc:subject:message-id:references
- :mime-version:content-disposition:in-reply-to:user-agent;
- bh=U2PWwEEnO5+ksSRfTkvVAkgMJvekPPQPvk+J1MXkAKA=;
- b=KWVUsPia2XXATag7aZRdNWaB6t9Eb8t7zo3TRTMEZG/+pREmSlwOpgxzfV8Hnpt9b3
- V5Kvy2ANL7i/sF3ow9eHyl/2Ts3qi5RZDxQzIF8wdzrFBezU6v8GdghtrpKRZK7Ijj2D
- mHq2EPXoZbyxs5VOO+RNfnubkLGIondPaIBvRut2exHYim1IpGfThsbSDm0TglZVxKRL
- B651C/b4Opi0p/D1xWX67Awf6ozb77dLPae+CSZEVwnk2aP16icdZnQJMjZ/p8ybL+PX
- mr7SL2lVBh6iNuzar2zXUmjx7ScRReFkNHSNBXUUuJa76J5uLL14oK4B6d+5NTcG/NCH
- OKSQ==
-X-Gm-Message-State: APjAAAWOUGUNaj23F+MxZZjcKB6LKwJiwRZTScNQePDFbhh9Ae2mLYFf
- JfjSHuEoISWvEbG4p89DK6KQQQ==
-X-Google-Smtp-Source: APXvYqw80f6wRiRP9Dwvx/NTeGY9Bf9oleVCbpo6cpd3kqWBdbqpjm+tTzcPB06sPHd1+r+7vplIzg==
-X-Received: by 2002:aa7:8b17:: with SMTP id f23mr20824919pfd.197.1578936297041; 
- Mon, 13 Jan 2020 09:24:57 -0800 (PST)
-Received: from yoga (104-188-17-28.lightspeed.sndgca.sbcglobal.net.
- [104.188.17.28])
- by smtp.gmail.com with ESMTPSA id d26sm13917312pgv.66.2020.01.13.09.24.55
- (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Mon, 13 Jan 2020 09:24:56 -0800 (PST)
-Date: Mon, 13 Jan 2020 09:24:53 -0800
-From: Bjorn Andersson <bjorn.andersson@linaro.org>
-To: Arnaud Pouliquen <arnaud.pouliquen@st.com>
-Message-ID: <20200113172453.GQ738324@yoga>
-References: <20191113172249.32412-1-arnaud.pouliquen@st.com>
+ Mon, 13 Jan 2020 21:58:23 +0000 (UTC)
+Received: from archlinux (cpc149474-cmbg20-2-0-cust94.5-4.cable.virginm.net
+ [82.4.196.95])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+ (No client certificate requested)
+ by mail.kernel.org (Postfix) with ESMTPSA id A2CE921569;
+ Mon, 13 Jan 2020 21:58:19 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
+ s=default; t=1578952701;
+ bh=dMiza/iFXEPvYxpswfqKt8lrTVj6PkpTWxCzuISkOes=;
+ h=Date:From:To:Cc:Subject:In-Reply-To:References:From;
+ b=AIPV9ksy5zQIiyHAZyc6EUHspEbXIRjdyjILtjsn1YOGmbdnDfMxXxu9dMGqQ9l45
+ L6b8PKp3loQkEysjwa2DkPFbyJ2fN31SVRulXCynXkhsZriKKrtMRuVrnFIUVmTI0y
+ 1lJcQEeZNqXqeCzhYTAgUf1h7NNdcyBgUDnMk5oE=
+Date: Mon, 13 Jan 2020 21:58:16 +0000
+From: Jonathan Cameron <jic23@kernel.org>
+To: Olivier MOYSAN <olivier.moysan@st.com>
+Message-ID: <20200113215816.753310aa@archlinux>
+In-Reply-To: <1a4261a5-1835-a248-9094-c4e7236e7254@st.com>
+References: <20191127130729.18511-1-olivier.moysan@st.com>
+ <1a4261a5-1835-a248-9094-c4e7236e7254@st.com>
+X-Mailer: Claws Mail 3.17.4 (GTK+ 2.24.32; x86_64-pc-linux-gnu)
 MIME-Version: 1.0
-Content-Disposition: inline
-In-Reply-To: <20191113172249.32412-1-arnaud.pouliquen@st.com>
-User-Agent: Mutt/1.12.2 (2019-09-21)
-Cc: Ohad Ben-Cohen <ohad@wizery.com>, linux-arm-msm@vger.kernel.org,
- linux-remoteproc@vger.kernel.org, linux-kernel@vger.kernel.org,
- Fabien DESSENNE <fabien.dessenne@st.com>, Suman Anna <s-anna@ti.com>,
- linux-stm32@st-md-mailman.stormreply.com
-Subject: Re: [Linux-stm32] [PATCH v2] rpmsg: core: add API to get MTU
+Cc: "lars@metafoo.de" <lars@metafoo.de>,
+ "linux-iio@vger.kernel.org" <linux-iio@vger.kernel.org>,
+ "pmeerw@pmeerw.net" <pmeerw@pmeerw.net>,
+ "linux-kernel@vger.kernel.org" <linux-kernel@vger.kernel.org>,
+ "mcoquelin.stm32@gmail.com" <mcoquelin.stm32@gmail.com>,
+ "knaack.h@gmx.de" <knaack.h@gmx.de>, Fabrice GASNIER <fabrice.gasnier@st.com>,
+ "linux-stm32@st-md-mailman.stormreply.com"
+ <linux-stm32@st-md-mailman.stormreply.com>,
+ "linux-arm-kernel@lists.infradead.org" <linux-arm-kernel@lists.infradead.org>
+Subject: Re: [Linux-stm32] [PATCH v2] iio: adc: stm32-dfsdm: fix single
+	conversion
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -78,72 +62,56 @@ Content-Transfer-Encoding: 7bit
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
-On Wed 13 Nov 09:22 PST 2019, Arnaud Pouliquen wrote:
+On Fri, 10 Jan 2020 10:05:47 +0000
+Olivier MOYSAN <olivier.moysan@st.com> wrote:
 
-> Return the rpmsg buffer MTU for sending message, so rpmsg users
-> can split a long message in several sub rpmsg buffers.
+> Hi Jonathan, all,
 > 
+> Kind reminder on this patch.
 
-I won't merge this new api without a client, and I'm still concerned
-about the details.
+Gah. Sorry .I marked it to reply then forgot to actually come back and do so.
 
-> Signed-off-by: Arnaud Pouliquen <arnaud.pouliquen@st.com>
-> ---
->  V1 to V2
+Thanks for the reminder.  Given timing I'll apply this to the togreg branch
+of iio.git and get it lined up for the merge window.  Marked it for stable
+so it should quickly get applied to stable as appropriate after that.
+
+Sorry for the delay.
+
+Thanks,
+
+Jonathan
+
+> Regards
+> Olivier
 > 
->   V1 patch:https://lore.kernel.org/patchwork/patch/1124684/
->   - Change patch title,
->   - as not solution today to support MTU on GLINK make ops optional,
->     RPMsg client API returns -ENOTSUPP in this case,
->   - suppress smd and glink patches.
+> On 11/27/19 2:07 PM, Olivier Moysan wrote:
+> > Apply data formatting to single conversion,
+> > as this is already done in continuous and trigger modes.
+> >
+> > Fixes: 102afde62937 ("iio: adc: stm32-dfsdm: manage data resolution in trigger mode")
+> >
+> > Signed-off-by: Olivier Moysan <olivier.moysan@st.com>
+> > ---
+> > changes in version 2:
+> > - correct title
+> > ---
+> >   drivers/iio/adc/stm32-dfsdm-adc.c | 2 ++
+> >   1 file changed, 2 insertions(+)
+> >
+> > diff --git a/drivers/iio/adc/stm32-dfsdm-adc.c b/drivers/iio/adc/stm32-dfsdm-adc.c
+> > index e493242c266e..0339ecdd06bd 100644
+> > --- a/drivers/iio/adc/stm32-dfsdm-adc.c
+> > +++ b/drivers/iio/adc/stm32-dfsdm-adc.c
+> > @@ -1204,6 +1204,8 @@ static int stm32_dfsdm_single_conv(struct iio_dev *indio_dev,
+> >   
+> >   	stm32_dfsdm_stop_conv(adc);
+> >   
+> > +	stm32_dfsdm_process_data(adc, res);
+> > +
+> >   stop_dfsdm:
+> >   	stm32_dfsdm_stop_dfsdm(adc->dfsdm);
+> >     
 
-That's ok.
-
-> ---
->  drivers/rpmsg/rpmsg_core.c       | 21 +++++++++++++++++++++
->  drivers/rpmsg/rpmsg_internal.h   |  2 ++
->  drivers/rpmsg/virtio_rpmsg_bus.c | 10 ++++++++++
->  include/linux/rpmsg.h            | 10 ++++++++++
->  4 files changed, 43 insertions(+)
-> 
-> diff --git a/drivers/rpmsg/rpmsg_core.c b/drivers/rpmsg/rpmsg_core.c
-> index e330ec4dfc33..a6ef54c4779a 100644
-> --- a/drivers/rpmsg/rpmsg_core.c
-> +++ b/drivers/rpmsg/rpmsg_core.c
-> @@ -283,6 +283,27 @@ int rpmsg_trysend_offchannel(struct rpmsg_endpoint *ept, u32 src, u32 dst,
->  }
->  EXPORT_SYMBOL(rpmsg_trysend_offchannel);
->  
-> +/**
-> + * rpmsg_get_mtu() - get maximum transmission buffer size for sending message.
-> + * @ept: the rpmsg endpoint
-> + *
-> + * This function returns maximum buffer size available for a single message.
-> + *
-> + * Return: the maximum transmission size on success and an appropriate error
-> + * value on failure.
-
-Is the expectation that a call to rpmsg_send() with this size will
-eventually succeed?
-
-> + */
-[..]
-> +static ssize_t virtio_rpmsg_get_mtu(struct rpmsg_endpoint *ept)
-> +{
-> +	struct rpmsg_device *rpdev = ept->rpdev;
-> +	struct virtio_rpmsg_channel *vch = to_virtio_rpmsg_channel(rpdev);
-> +
-> +	return vch->vrp->buf_size - sizeof(struct rpmsg_hdr);
-
-I'm still under the impression that the rpmsg protocol doesn't have to
-operate on fixed size messages. Would this then return vrp->num_bufs *
-vrp->buf_size / 2 - sizeof(rpmsg_hdr)?
-
-> +}
-> +
-
-Regards,
-Bjorn
 _______________________________________________
 Linux-stm32 mailing list
 Linux-stm32@st-md-mailman.stormreply.com
