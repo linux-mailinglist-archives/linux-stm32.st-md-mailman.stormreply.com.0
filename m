@@ -2,67 +2,129 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id 359231391FD
-	for <lists+linux-stm32@lfdr.de>; Mon, 13 Jan 2020 14:19:05 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 85B5A13920E
+	for <lists+linux-stm32@lfdr.de>; Mon, 13 Jan 2020 14:21:49 +0100 (CET)
 Received: from ip-172-31-3-76.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id EBAFAC36B0B;
-	Mon, 13 Jan 2020 13:19:04 +0000 (UTC)
-Received: from mx07-00178001.pphosted.com (mx07-00178001.pphosted.com
- [62.209.51.94])
- (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 416EDC36B0B;
+	Mon, 13 Jan 2020 13:21:49 +0000 (UTC)
+Received: from smtprelay-out1.synopsys.com (smtprelay-out1.synopsys.com
+ [149.117.73.133])
+ (using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 1CA2BC36B09
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 71E90C36B09
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Mon, 13 Jan 2020 13:19:02 +0000 (UTC)
-Received: from pps.filterd (m0046037.ppops.net [127.0.0.1])
- by mx07-00178001.pphosted.com (8.16.0.42/8.16.0.42) with SMTP id
- 00DDIk2S005753; Mon, 13 Jan 2020 14:19:01 +0100
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=st.com;
- h=subject : to : cc :
- references : from : message-id : date : mime-version : in-reply-to :
- content-type : content-transfer-encoding; s=STMicroelectronics;
- bh=oPK7RJv8Alq+9NFGG3foYedXt8YHcpMXXJCh78nJsuk=;
- b=HLP1C8rxCmPZPVdHFOQs3QVzMF5oUXC9G3nXrTtVHDLC57RamZHHSrNXxMJqDmDRfzCv
- tHazSeeFrSENmpW15H9mpFTcJ6+cmjyWXrwCleVO0JsjWnCGlWTvyBwMiiL5lBkmaoCM
- vIRsO52EOJU9/Dge0RPDWEYnBLbUYrfWz8IMeMhc9YoCXsKi3nUNcQ7VGtrRBsVycWUU
- vgntZUbWDlfWFc8oRsONFBgcgyjdn7gUQAKzVJd4Zp+8HLFsvxaZwsUMh/V2C8NHUT/0
- QtFmIf5rBB2XRwZog9vqfqWCgPPSw6v4MWix5ErWUs3xcjHa1+ipKWG1VJaPIZC4eU36 FA== 
-Received: from beta.dmz-eu.st.com (beta.dmz-eu.st.com [164.129.1.35])
- by mx07-00178001.pphosted.com with ESMTP id 2xf7fngaen-1
- (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
- Mon, 13 Jan 2020 14:19:01 +0100
-Received: from euls16034.sgp.st.com (euls16034.sgp.st.com [10.75.44.20])
- by beta.dmz-eu.st.com (STMicroelectronics) with ESMTP id 2B07E10002A;
- Mon, 13 Jan 2020 14:19:01 +0100 (CET)
-Received: from Webmail-eu.st.com (sfhdag3node1.st.com [10.75.127.7])
- by euls16034.sgp.st.com (STMicroelectronics) with ESMTP id 131C52B775F;
- Mon, 13 Jan 2020 14:19:01 +0100 (CET)
-Received: from lmecxl0889.lme.st.com (10.75.127.47) by SFHDAG3NODE1.st.com
- (10.75.127.7) with Microsoft SMTP Server (TLS) id 15.0.1473.3; Mon, 13 Jan
- 2020 14:19:00 +0100
-To: Ohad Ben-Cohen <ohad@wizery.com>, Bjorn Andersson
- <bjorn.andersson@linaro.org>,
- <linux-kernel@vger.kernel.org>, <linux-remoteproc@vger.kernel.org>,
- <linux-arm-msm@vger.kernel.org>, Suman Anna <s-anna@ti.com>
-References: <20191113172249.32412-1-arnaud.pouliquen@st.com>
-From: Arnaud POULIQUEN <arnaud.pouliquen@st.com>
-Message-ID: <f0419672-f1a5-b909-2dff-c611f852919b@st.com>
-Date: Mon, 13 Jan 2020 14:19:00 +0100
-User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:68.0) Gecko/20100101
- Thunderbird/68.2.2
-MIME-Version: 1.0
-In-Reply-To: <20191113172249.32412-1-arnaud.pouliquen@st.com>
+ Mon, 13 Jan 2020 13:21:48 +0000 (UTC)
+Received: from mailhost.synopsys.com (badc-mailhost2.synopsys.com
+ [10.192.0.18])
+ (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits))
+ (No client certificate requested)
+ by smtprelay-out1.synopsys.com (Postfix) with ESMTPS id 973EF4017F;
+ Mon, 13 Jan 2020 13:21:45 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=synopsys.com; s=mail;
+ t=1578921706; bh=uuEIoKzZgL+QRBwSc86eSUYVDzgU3yPNPFY2nmwHbZ8=;
+ h=From:To:CC:Subject:Date:References:In-Reply-To:From;
+ b=crE9676obTDiGgeWVahPEUJUHRV1Ll7ihzcUiQJl4e3oA5+acIaWSw549Dt9isTyx
+ BUXCFzL1IhEDiI76bBwTxOh5dE4l+DOKln90V30L9IlGGbjL7p3b/ursM2lq6RmpRV
+ S0sDsj6G2VU99dMyhbuqBzD0xzvmbtQP3qIt1fU3WBQVS0c3E8eWzvhjRf+DkfQkfX
+ GHyt4NSZJEY5N/i2lhDwf0S5n8r9Hu7jahmc0RYWNXOaSW2RFpo2ev51xvnGARDklu
+ kDNAmfSv2de4O9jET21VYzAz+MNPjKbiQKr+HCAUWf6gzdPyAhoTP5ZBFVr038CJni
+ RzcTbGks3pR7Q==
+Received: from US01WEHTC3.internal.synopsys.com
+ (us01wehtc3.internal.synopsys.com [10.15.84.232])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES256-SHA384 (256/256 bits))
+ (No client certificate requested)
+ by mailhost.synopsys.com (Postfix) with ESMTPS id CFA5BA007A;
+ Mon, 13 Jan 2020 13:21:41 +0000 (UTC)
+Received: from us01hybrid1.internal.synopsys.com (10.200.27.51) by
+ US01WEHTC3.internal.synopsys.com (10.15.84.232) with Microsoft SMTP Server
+ (TLS) id 14.3.408.0; Mon, 13 Jan 2020 05:21:36 -0800
+Received: from NAM10-DM6-obe.outbound.protection.outlook.com (10.202.3.67) by
+ mrs.synopsys.com (10.200.27.51) with Microsoft SMTP Server (TLS) id
+ 14.3.408.0; Mon, 13 Jan 2020 05:21:35 -0800
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
+ b=AhXTUbDMzfWJXF2Lf+h+C5Hxf48HrdDzKUiHsiDdibxL152OO5cv/TAA5d261sysuWpvbDAf0I7wChwtLV/KQ4ff7wtn5b3Oqmmpb86nfjUaxorBlIkFlW0ACKps0jX2eh4taGcfaGwHnmcI6XCUQ5aLzwmKjr/23Zxk1slFVsCtqwTF6aUcLBUhpBdpEaiuND5RYeZXGn+80kW8huEI8rPqYG+66u5bPapzXXOuXmZY+ehC5KcUtBXoo5GwV03lnEHTDXEDCqx41rD3GJGyPLlOEb6x/GrkNuoVGLTO89tt+78uDxOZ1GbSaM1i++lTrDDQXcf0jRv+G4Tjz/bwHA==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
+ s=arcselector9901;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=uuEIoKzZgL+QRBwSc86eSUYVDzgU3yPNPFY2nmwHbZ8=;
+ b=cD+kkLp5zmrS5j8hL0oAOY4KA/Qw8Zc0ZshXBIb0ELOfp3WoNNYh1ZGdwg7z9BHAMhn7r26MIaNHhlKpt6KVKiPy9Z9Yzs0hn6ZUuAAMwdN+2Z5UCIhjGo0bTLP33hxJ1OBgNx5ZPAH1oSMTTqklyUZz+id/qXa3RZXFIvvtbvgRgLXK5PsbfqfPUekcIYdjhO1iRWdnjAW3HMUITO3RTxbPe7yPwF4gpXcZoQaeB3cD0KqW7CUoxmRHsUn8XIOnK4rUpDw+mmp0LRrIwnI16/93TjCjnrEVVOUfNZ2VK4EGn5A1dxMozxeAL4NY68maSllXAsdsGA0UpHqe9jAUkw==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=synopsys.com; dmarc=pass action=none header.from=synopsys.com;
+ dkim=pass header.d=synopsys.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=synopsys.onmicrosoft.com; s=selector2-synopsys-onmicrosoft-com;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=uuEIoKzZgL+QRBwSc86eSUYVDzgU3yPNPFY2nmwHbZ8=;
+ b=YOvZq+Bl91B+OjetxD0/ZUYwUoqgFwc0bOpn0gxh5rImJg6fighsh6Dod+cIlWoktkiJUdDNbccshoGroiYaKBgs2N7WUvYOibd69FNbZWoZfDz0sb6OTdMAndcPLZAZnZaSuOnmsahPNqLb0upZJlOgO+bzzqHNcQX68M0OOBo=
+Received: from BN8PR12MB3266.namprd12.prod.outlook.com (20.179.67.145) by
+ BN8PR12MB3300.namprd12.prod.outlook.com (20.179.66.160) with Microsoft SMTP
+ Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.20.2623.9; Mon, 13 Jan 2020 13:21:34 +0000
+Received: from BN8PR12MB3266.namprd12.prod.outlook.com
+ ([fe80::c62:b247:6963:9da2]) by BN8PR12MB3266.namprd12.prod.outlook.com
+ ([fe80::c62:b247:6963:9da2%6]) with mapi id 15.20.2623.015; Mon, 13 Jan 2020
+ 13:21:34 +0000
+From: Jose Abreu <Jose.Abreu@synopsys.com>
+To: "Leonidas P. Papadakos" <papadakospan@gmail.com>, "patrice.chotard@st.com"
+ <patrice.chotard@st.com>
+Thread-Topic: [Linux-stm32] [PATCH] net: stmmac: platform: Fix MDIO init for
+ platforms without PHY
+Thread-Index: AQHVtlaLUHdZtR9zLkianwxirOcjq6fEEoEAgBiSRgCAABukAIAADA6AgAH/EgCAAIDFgIAAA9aAgAlrTQCAAABlIA==
+Date: Mon, 13 Jan 2020 13:21:34 +0000
+Message-ID: <BN8PR12MB326611C6FDE8399F554ADA65D3350@BN8PR12MB3266.namprd12.prod.outlook.com>
+References: <c1af466d-0870-364f-1bff-0ac015811e60@st.com>
+ <20200113131920.13273-1-papadakospan@gmail.com>
+In-Reply-To: <20200113131920.13273-1-papadakospan@gmail.com>
+Accept-Language: en-US
 Content-Language: en-US
-X-Originating-IP: [10.75.127.47]
-X-ClientProxiedBy: SFHDAG1NODE1.st.com (10.75.127.1) To SFHDAG3NODE1.st.com
- (10.75.127.7)
-X-Proofpoint-Virus-Version: vendor=fsecure engine=2.50.10434:6.0.138, 18.0.572
- definitions=2020-01-13_03:2020-01-13,
- 2020-01-13 signatures=0
-Cc: Mathieu Poirier <mathieu.poirier@linaro.org>,
- linux-stm32@st-md-mailman.stormreply.com,
- Fabien DESSENNE <fabien.dessenne@st.com>
-Subject: Re: [Linux-stm32] [PATCH v2] rpmsg: core: add API to get MTU
+X-MS-Has-Attach: 
+X-MS-TNEF-Correlator: 
+authentication-results: spf=none (sender IP is )
+ smtp.mailfrom=joabreu@synopsys.com; 
+x-originating-ip: [83.174.63.141]
+x-ms-publictraffictype: Email
+x-ms-office365-filtering-correlation-id: 92621df0-7a4a-4f03-5764-08d7982b8307
+x-ms-traffictypediagnostic: BN8PR12MB3300:
+x-microsoft-antispam-prvs: <BN8PR12MB3300075D8C4AC7CC6FF9E61FD3350@BN8PR12MB3300.namprd12.prod.outlook.com>
+x-ms-oob-tlc-oobclassifiers: OLM:747;
+x-forefront-prvs: 028166BF91
+x-forefront-antispam-report: SFV:NSPM;
+ SFS:(10019020)(376002)(346002)(39860400002)(396003)(136003)(366004)(199004)(189003)(26005)(4744005)(54906003)(86362001)(2906002)(478600001)(55016002)(7416002)(52536014)(316002)(7696005)(966005)(33656002)(6506007)(110136005)(186003)(5660300002)(76116006)(4326008)(81156014)(81166006)(66946007)(8676002)(64756008)(66446008)(66476007)(66556008)(9686003)(8936002)(71200400001);
+ DIR:OUT; SFP:1102; SCL:1; SRVR:BN8PR12MB3300;
+ H:BN8PR12MB3266.namprd12.prod.outlook.com; FPR:; SPF:None; LANG:en;
+ PTR:InfoNoRecords; A:1; MX:1; 
+received-spf: None (protection.outlook.com: synopsys.com does not designate
+ permitted sender hosts)
+x-ms-exchange-senderadcheck: 1
+x-microsoft-antispam: BCL:0;
+x-microsoft-antispam-message-info: DlD8gdQhbixOihlNzTtlSkgC0Z1/ZZb+BbzmmW/mBgi7lS0UvuDfVltPV3GS8f5DAVjAd9laLR5E+PSP1pIHu7u4kidxbZLmx3itK2jgOQSUTtTrIZqnKEOYu6Dbiw4JdllVOsQtfy/4zL+VWzwcs/uShKVPCa4nMH8iLiNRdiSS4PhIJD/wiIEPHsp4owypBAUFFsX0HSz5vDotvtEtaK+ggdJBBv3Tt04eF8Iq82V7fWR/EyolJSMHnxxshwA2wLofmBeQ4Q3hVqP6aTgihrP74Pwpj4y9mvJNsc0vW4OGmqZoAdZ1HdjurGIuzB1bqhtuf393UyL67VBOVOytX6/Ta18q5QyI6xj8LnLZQz9vF0Z8Il2Noy6PAQPOE+2ahpWxsOoDUiJ/Cnn5oI9Am0JEMYZKu8oRB7ZVz9YXsTKTBbru+n2sVqT0M/cIjE4tP/ppPu3UEyFw0g85Lj5ni6IEUQuYfgwP9G9Fx7jhKsAgnvy4bC5J/5ChUxa9sO476eyZOWs0e2O9IJ7YwUXmTQ==
+x-ms-exchange-transport-forked: True
+MIME-Version: 1.0
+X-MS-Exchange-CrossTenant-Network-Message-Id: 92621df0-7a4a-4f03-5764-08d7982b8307
+X-MS-Exchange-CrossTenant-originalarrivaltime: 13 Jan 2020 13:21:34.4557 (UTC)
+X-MS-Exchange-CrossTenant-fromentityheader: Hosted
+X-MS-Exchange-CrossTenant-id: c33c9f88-1eb7-4099-9700-16013fd9e8aa
+X-MS-Exchange-CrossTenant-mailboxtype: HOSTED
+X-MS-Exchange-CrossTenant-userprincipalname: dIv4mIHj8LNjuGGEB6QVJoSB2mSn6TFnLVPlmokPzslTKQ3Uhwpuy3C5AYcDH5DX8VMpLuNjVedND5Jk0khY0A==
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: BN8PR12MB3300
+X-OriginatorOrg: synopsys.com
+Cc: "jayati.sahu@samsung.com" <jayati.sahu@samsung.com>,
+ "f.fainelli@gmail.com" <f.fainelli@gmail.com>,
+ "heiko@sntech.de" <heiko@sntech.de>,
+ "rcsekar@samsung.com" <rcsekar@samsung.com>,
+ "netdev@vger.kernel.org" <netdev@vger.kernel.org>,
+ "sriram.dash@samsung.com" <sriram.dash@samsung.com>,
+ "linux-kernel@vger.kernel.org" <linux-kernel@vger.kernel.org>,
+ "p.rajanbabu@samsung.com" <p.rajanbabu@samsung.com>,
+ "linux-stm32@st-md-mailman.stormreply.com"
+ <linux-stm32@st-md-mailman.stormreply.com>,
+ "stable@vger.kernel.org" <stable@vger.kernel.org>,
+ "pankaj.dubey@samsung.com" <pankaj.dubey@samsung.com>,
+ "peppe.cavallaro@st.com" <peppe.cavallaro@st.com>,
+ "davem@davemloft.net" <davem@davemloft.net>,
+ "linux-arm-kernel@lists.infradead.org" <linux-arm-kernel@lists.infradead.org>
+Subject: Re: [Linux-stm32] [PATCH] net: stmmac: platform: Fix MDIO init for
+ platforms without PHY
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -79,150 +141,19 @@ Content-Transfer-Encoding: 7bit
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
-Hi Bjorn, Suman,
+From: Leonidas P. Papadakos <papadakospan@gmail.com>
+Date: Jan/13/2020, 13:19:20 (UTC+00:00)
 
-Gentleman reminder :)
+> This change affects my Renegade board (rockchip/rk3328-roc-cc.dtb),
+> (and probably the very similar Rock64) preventing me from using any kernel after
+> 5.4.6 in a meaningful way.
 
-Thank in advance,
+Fixed in:
+- https://git.kernel.org/pub/scm/linux/kernel/git/netdev/net.git/commit/?id=da29f2d84bd10234df570b7f07cbd0166e738230
 
-Arnaud
-
-On 11/13/19 6:22 PM, Arnaud Pouliquen wrote:
-> Return the rpmsg buffer MTU for sending message, so rpmsg users
-> can split a long message in several sub rpmsg buffers.
-> 
-> Signed-off-by: Arnaud Pouliquen <arnaud.pouliquen@st.com>
-> ---
->  V1 to V2
-> 
->   V1 patch:https://lore.kernel.org/patchwork/patch/1124684/
->   - Change patch title,
->   - as not solution today to support MTU on GLINK make ops optional,
->     RPMsg client API returns -ENOTSUPP in this case,
->   - suppress smd and glink patches.
-> ---
->  drivers/rpmsg/rpmsg_core.c       | 21 +++++++++++++++++++++
->  drivers/rpmsg/rpmsg_internal.h   |  2 ++
->  drivers/rpmsg/virtio_rpmsg_bus.c | 10 ++++++++++
->  include/linux/rpmsg.h            | 10 ++++++++++
->  4 files changed, 43 insertions(+)
-> 
-> diff --git a/drivers/rpmsg/rpmsg_core.c b/drivers/rpmsg/rpmsg_core.c
-> index e330ec4dfc33..a6ef54c4779a 100644
-> --- a/drivers/rpmsg/rpmsg_core.c
-> +++ b/drivers/rpmsg/rpmsg_core.c
-> @@ -283,6 +283,27 @@ int rpmsg_trysend_offchannel(struct rpmsg_endpoint *ept, u32 src, u32 dst,
->  }
->  EXPORT_SYMBOL(rpmsg_trysend_offchannel);
->  
-> +/**
-> + * rpmsg_get_mtu() - get maximum transmission buffer size for sending message.
-> + * @ept: the rpmsg endpoint
-> + *
-> + * This function returns maximum buffer size available for a single message.
-> + *
-> + * Return: the maximum transmission size on success and an appropriate error
-> + * value on failure.
-> + */
-> +
-> +ssize_t rpmsg_get_mtu(struct rpmsg_endpoint *ept)
-> +{
-> +	if (WARN_ON(!ept))
-> +		return -EINVAL;
-> +	if (!ept->ops->get_mtu)
-> +		return -ENOTSUPP;
-> +
-> +	return ept->ops->get_mtu(ept);
-> +}
-> +EXPORT_SYMBOL(rpmsg_get_mtu);
-> +
->  /*
->   * match an rpmsg channel with a channel info struct.
->   * this is used to make sure we're not creating rpmsg devices for channels
-> diff --git a/drivers/rpmsg/rpmsg_internal.h b/drivers/rpmsg/rpmsg_internal.h
-> index 3fc83cd50e98..0e56e046f5c6 100644
-> --- a/drivers/rpmsg/rpmsg_internal.h
-> +++ b/drivers/rpmsg/rpmsg_internal.h
-> @@ -47,6 +47,7 @@ struct rpmsg_device_ops {
->   * @trysendto:		see @rpmsg_trysendto(), optional
->   * @trysend_offchannel:	see @rpmsg_trysend_offchannel(), optional
->   * @poll:		see @rpmsg_poll(), optional
-> + * @get_mtu:		see @get_mpu(), optional
->   *
->   * Indirection table for the operations that a rpmsg backend should implement.
->   * In addition to @destroy_ept, the backend must at least implement @send and
-> @@ -66,6 +67,7 @@ struct rpmsg_endpoint_ops {
->  			     void *data, int len);
->  	__poll_t (*poll)(struct rpmsg_endpoint *ept, struct file *filp,
->  			     poll_table *wait);
-> +	ssize_t (*get_mtu)(struct rpmsg_endpoint *ept);
->  };
->  
->  int rpmsg_register_device(struct rpmsg_device *rpdev);
-> diff --git a/drivers/rpmsg/virtio_rpmsg_bus.c b/drivers/rpmsg/virtio_rpmsg_bus.c
-> index 376ebbf880d6..6e48fdf24555 100644
-> --- a/drivers/rpmsg/virtio_rpmsg_bus.c
-> +++ b/drivers/rpmsg/virtio_rpmsg_bus.c
-> @@ -175,6 +175,7 @@ static int virtio_rpmsg_trysendto(struct rpmsg_endpoint *ept, void *data,
->  				  int len, u32 dst);
->  static int virtio_rpmsg_trysend_offchannel(struct rpmsg_endpoint *ept, u32 src,
->  					   u32 dst, void *data, int len);
-> +static ssize_t virtio_rpmsg_get_mtu(struct rpmsg_endpoint *ept);
->  
->  static const struct rpmsg_endpoint_ops virtio_endpoint_ops = {
->  	.destroy_ept = virtio_rpmsg_destroy_ept,
-> @@ -184,6 +185,7 @@ static const struct rpmsg_endpoint_ops virtio_endpoint_ops = {
->  	.trysend = virtio_rpmsg_trysend,
->  	.trysendto = virtio_rpmsg_trysendto,
->  	.trysend_offchannel = virtio_rpmsg_trysend_offchannel,
-> +	.get_mtu = virtio_rpmsg_get_mtu,
->  };
->  
->  /**
-> @@ -699,6 +701,14 @@ static int virtio_rpmsg_trysend_offchannel(struct rpmsg_endpoint *ept, u32 src,
->  	return rpmsg_send_offchannel_raw(rpdev, src, dst, data, len, false);
->  }
->  
-> +static ssize_t virtio_rpmsg_get_mtu(struct rpmsg_endpoint *ept)
-> +{
-> +	struct rpmsg_device *rpdev = ept->rpdev;
-> +	struct virtio_rpmsg_channel *vch = to_virtio_rpmsg_channel(rpdev);
-> +
-> +	return vch->vrp->buf_size - sizeof(struct rpmsg_hdr);
-> +}
-> +
->  static int rpmsg_recv_single(struct virtproc_info *vrp, struct device *dev,
->  			     struct rpmsg_hdr *msg, unsigned int len)
->  {
-> diff --git a/include/linux/rpmsg.h b/include/linux/rpmsg.h
-> index 9fe156d1c018..88d7892ca93d 100644
-> --- a/include/linux/rpmsg.h
-> +++ b/include/linux/rpmsg.h
-> @@ -135,6 +135,8 @@ int rpmsg_trysend_offchannel(struct rpmsg_endpoint *ept, u32 src, u32 dst,
->  __poll_t rpmsg_poll(struct rpmsg_endpoint *ept, struct file *filp,
->  			poll_table *wait);
->  
-> +ssize_t rpmsg_get_mtu(struct rpmsg_endpoint *ept);
-> +
->  #else
->  
->  static inline int register_rpmsg_device(struct rpmsg_device *dev)
-> @@ -242,6 +244,14 @@ static inline __poll_t rpmsg_poll(struct rpmsg_endpoint *ept,
->  	return 0;
->  }
->  
-> +static inline ssize_t rpmsg_get_mtu(struct rpmsg_endpoint *ept)
-> +{
-> +	/* This shouldn't be possible */
-> +	WARN_ON(1);
-> +
-> +	return -ENXIO;
-> +}
-> +
->  #endif /* IS_ENABLED(CONFIG_RPMSG) */
->  
->  /* use a macro to avoid include chaining to get THIS_MODULE */
-> 
+---
+Thanks,
+Jose Miguel Abreu
 _______________________________________________
 Linux-stm32 mailing list
 Linux-stm32@st-md-mailman.stormreply.com
