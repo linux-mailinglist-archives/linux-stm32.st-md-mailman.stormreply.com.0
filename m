@@ -2,69 +2,45 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id A254F139292
-	for <lists+linux-stm32@lfdr.de>; Mon, 13 Jan 2020 14:55:56 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id A876B139414
+	for <lists+linux-stm32@lfdr.de>; Mon, 13 Jan 2020 15:58:17 +0100 (CET)
 Received: from ip-172-31-3-76.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 63BA9C36B0E;
-	Mon, 13 Jan 2020 13:55:56 +0000 (UTC)
-Received: from mail-wm1-f68.google.com (mail-wm1-f68.google.com
- [209.85.128.68])
- (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 63270C36B0C;
+	Mon, 13 Jan 2020 14:58:17 +0000 (UTC)
+Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
+ (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 89BCBC36B09
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 1D008C36B09
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Mon, 13 Jan 2020 13:19:26 +0000 (UTC)
-Received: by mail-wm1-f68.google.com with SMTP id 20so9592986wmj.4
- for <linux-stm32@st-md-mailman.stormreply.com>;
- Mon, 13 Jan 2020 05:19:26 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20161025;
- h=from:to:cc:subject:date:message-id:in-reply-to:references
- :mime-version:content-transfer-encoding;
- bh=oPpAx4psrCRpvGxa+BiR5YMo0bdqOSs/oqk3OpqA2oE=;
- b=nWfPhbzI4KL3RW27J8sCj9bO4EGHIMFwVLTgYFDFOZ+ANyQXA2pSwjrFy7psj7W+ZP
- MdbRRjRbTVNa6CoYI1BBlpzinR2bYmiLozKhWnRabab4FT4Vx3/5uf9wX9S+Mh7gQ49Y
- UbKNk8qoaO0amqRtlEv712jO3q3egODBlzftQohOvXzHHA9w+447cDVyeZYK7s37SiOI
- EysUDLsiaCsJAeLVOYLgWZN0PRMMjrIpMHhRGoP+GiMlKdbzZXfhqxZRoqNj4Kxyq7ch
- zHzgEoZGyoo52b8uWmEYSsdiQyIw74mbx7/RNV2rlK1EuAjtm+9Ew7qzdTV/5taVURqC
- cEQg==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20161025;
- h=x-gm-message-state:from:to:cc:subject:date:message-id:in-reply-to
- :references:mime-version:content-transfer-encoding;
- bh=oPpAx4psrCRpvGxa+BiR5YMo0bdqOSs/oqk3OpqA2oE=;
- b=omFyM8TE5NFD8ERmKwT3ig7cOqHMFvkS2pock8kgfonmG1/BIohGzINOiRKb/jwqf0
- 7wIrlSBrIjDfd+j15sN12XkWbYwheXXQzt0bf3su5TyATtMue7LL99exYeyAOtwNrVlL
- Mswzl6JD4VQ5fYwS4GhqoXfRAsYzmIAi4ulYtYf3nzhvu7XYc1t36CSQBTV26c46Lr9W
- DVthKxlpIe5/aBhJaCZrAQnb0o9V/tAMz+VOkNzOAAp7gzzQ+B7/GNMEc7gwz2iyjZuR
- cVKfgXTcwCV53ekYoFMUz2+jfDlQsiV8LMsd3KBfpCugnUAMNmoOrlv6XRVfukW3RWFM
- 2yYQ==
-X-Gm-Message-State: APjAAAX3Jstur6n+IUkcE4UoR9WJtm0KFO8pdMVqm0UacfIOknOngSTK
- dPqKHlE8ipuRMg5pIHVQVSc=
-X-Google-Smtp-Source: APXvYqxn3ntfwmrL/v96gX5s5FIm1RyRW1Potx8vLiHtfqQr7a+LGA0J651zcltIe5UzdBDMZMOa/g==
-X-Received: by 2002:a1c:a982:: with SMTP id
- s124mr19609972wme.132.1578921566115; 
- Mon, 13 Jan 2020 05:19:26 -0800 (PST)
-Received: from L340.local ([2a02:85f:511:c300:1684:322e:585c:32af])
- by smtp.gmail.com with ESMTPSA id s1sm14200368wmc.23.2020.01.13.05.19.24
- (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Mon, 13 Jan 2020 05:19:25 -0800 (PST)
-From: "Leonidas P. Papadakos" <papadakospan@gmail.com>
-To: patrice.chotard@st.com
-Date: Mon, 13 Jan 2020 15:19:20 +0200
-Message-Id: <20200113131920.13273-1-papadakospan@gmail.com>
-X-Mailer: git-send-email 2.24.1
-In-Reply-To: <c1af466d-0870-364f-1bff-0ac015811e60@st.com>
-References: <c1af466d-0870-364f-1bff-0ac015811e60@st.com>
+ Mon, 13 Jan 2020 14:54:09 +0000 (UTC)
+Received: from cakuba (c-73-93-4-247.hsd1.ca.comcast.net [73.93.4.247])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+ (No client certificate requested)
+ by mail.kernel.org (Postfix) with ESMTPSA id 72A4C20661;
+ Mon, 13 Jan 2020 14:54:07 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
+ s=default; t=1578927247;
+ bh=+tBhl1sLCJP/p0MoLb8K4ZlbC7vCLCmh0VyIotWkp3U=;
+ h=Date:From:To:Cc:Subject:In-Reply-To:References:From;
+ b=WRIzdv/Dl2lNzNKusUFmrd+8Xdbd63fCKtbgASuIZNtRMvEQOcDutfNEM0lmCBuZu
+ lg0LvogSkI8beX9SKvJYbiPjfdMjyGy+9eL7me5jL6j6JdWSWFq4hzI7+rF/q5nlF8
+ StJLauWncJk2m+xvT+qcvjseBPj6q6hAooY/qju8=
+Date: Mon, 13 Jan 2020 06:54:06 -0800
+From: Jakub Kicinski <kuba@kernel.org>
+To: Jose Abreu <Jose.Abreu@synopsys.com>
+Message-ID: <20200113065406.54bb324b@cakuba>
+In-Reply-To: <d72e539523e063a391391d447ece658524bb8d57.1578920366.git.Jose.Abreu@synopsys.com>
+References: <cover.1578920366.git.Jose.Abreu@synopsys.com>
+ <d72e539523e063a391391d447ece658524bb8d57.1578920366.git.Jose.Abreu@synopsys.com>
 MIME-Version: 1.0
-X-Mailman-Approved-At: Mon, 13 Jan 2020 13:55:55 +0000
-Cc: Jose.Abreu@synopsys.com, jayati.sahu@samsung.com, f.fainelli@gmail.com,
- heiko@sntech.de, rcsekar@samsung.com, netdev@vger.kernel.org,
- sriram.dash@samsung.com, linux-kernel@vger.kernel.org, p.rajanbabu@samsung.com,
- linux-stm32@st-md-mailman.stormreply.com, stable@vger.kernel.org,
- pankaj.dubey@samsung.com, peppe.cavallaro@st.com, davem@davemloft.net,
- linux-arm-kernel@lists.infradead.org
-Subject: Re: [Linux-stm32] [PATCH] net: stmmac: platform: Fix MDIO init for
-	platforms without PHY
+X-Mailman-Approved-At: Mon, 13 Jan 2020 14:58:15 +0000
+Cc: Joao Pinto <Joao.Pinto@synopsys.com>, netdev@vger.kernel.org,
+ linux-kernel@vger.kernel.org, linux-stm32@st-md-mailman.stormreply.com,
+ Maxime Coquelin <mcoquelin.stm32@gmail.com>,
+ Giuseppe Cavallaro <peppe.cavallaro@st.com>,
+ "David S. Miller" <davem@davemloft.net>, linux-arm-kernel@lists.infradead.org
+Subject: Re: [Linux-stm32] [PATCH net-next v2 1/8] net: stmmac: Initial
+	support for TBS
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -81,14 +57,54 @@ Content-Transfer-Encoding: 7bit
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
-This change affects my Renegade board (rockchip/rk3328-roc-cc.dtb),
-(and probably the very similar Rock64) preventing me from using any kernel after
-5.4.6 in a meaningful way.
+On Mon, 13 Jan 2020 14:02:36 +0100, Jose Abreu wrote:
+> Adds the initial hooks for TBS support. This needs a 32 byte descriptor
+> in order for it to work with current HW. Adds all the logic for Enhanced
+> Descriptors in main core but no HW related logic for now.
+> 
+> Signed-off-by: Jose Abreu <Jose.Abreu@synopsys.com>
 
-I get the stacktrace mentioned before at boot.
+> diff --git a/drivers/net/ethernet/stmicro/stmmac/stmmac.h b/drivers/net/ethernet/stmicro/stmmac/stmmac.h
+> index f98c5eefb382..dceaeb72a414 100644
+> --- a/drivers/net/ethernet/stmicro/stmmac/stmmac.h
+> +++ b/drivers/net/ethernet/stmicro/stmmac/stmmac.h
+> @@ -42,10 +42,13 @@ struct stmmac_tx_info {
+>  /* Frequently used values are kept adjacent for cache effect */
+>  struct stmmac_tx_queue {
+>  	u32 tx_count_frames;
+> +	int tbs_avail;
+> +	int tbs_en;
 
-Predictably, a command like 'ip address show' will hang since it probes 
-networking but 'sudo' also freezes...
+These could be bool or a bitfield?
+
+>  	struct timer_list txtimer;
+>  	u32 queue_index;
+>  	struct stmmac_priv *priv_data;
+>  	struct dma_extended_desc *dma_etx ____cacheline_aligned_in_smp;
+> +	struct dma_edesc *dma_entx ____cacheline_aligned_in_smp;
+
+Won't this create a cache line-sized hole? Is the structure member
+supposed to be aligned or the data its pointing to?
+
+>  	struct dma_desc *dma_tx;
+>  	struct sk_buff **tx_skbuff;
+>  	struct stmmac_tx_info *tx_skbuff_dma;
+
+> diff --git a/include/linux/stmmac.h b/include/linux/stmmac.h
+> index 0531afa9b21e..19190c609282 100644
+> --- a/include/linux/stmmac.h
+> +++ b/include/linux/stmmac.h
+> @@ -139,6 +139,7 @@ struct stmmac_txq_cfg {
+>  	u32 low_credit;
+>  	bool use_prio;
+>  	u32 prio;
+> +	int tbs_en;
+
+also bool?
+
+>  };
+>  
+>  struct plat_stmmacenet_data {
 _______________________________________________
 Linux-stm32 mailing list
 Linux-stm32@st-md-mailman.stormreply.com
