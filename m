@@ -2,60 +2,48 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id 1989C138758
-	for <lists+linux-stm32@lfdr.de>; Sun, 12 Jan 2020 18:28:36 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 3B66F138CD3
+	for <lists+linux-stm32@lfdr.de>; Mon, 13 Jan 2020 09:30:02 +0100 (CET)
 Received: from ip-172-31-3-76.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id A7D8AC36B0B;
-	Sun, 12 Jan 2020 17:28:35 +0000 (UTC)
-Received: from mail-pg1-f193.google.com (mail-pg1-f193.google.com
- [209.85.215.193])
- (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id EC9EAC36B18;
+	Mon, 13 Jan 2020 08:30:01 +0000 (UTC)
+Received: from smtprelay-out1.synopsys.com (smtprelay-out1.synopsys.com
+ [149.117.73.133])
+ (using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 9E96BC36B09
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id E13BDC36B0E
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Sun, 12 Jan 2020 17:28:32 +0000 (UTC)
-Received: by mail-pg1-f193.google.com with SMTP id k197so3544694pga.10
- for <linux-stm32@st-md-mailman.stormreply.com>;
- Sun, 12 Jan 2020 09:28:32 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20161025;
- h=from:to:cc:subject:date:message-id;
- bh=mWAcq9bb+JndPzUhrr5Pb2HRZwmhGDpzE1gJ4Awh0iE=;
- b=VaPlFfdOq+DlRixUbvY7uOaKV8x9tGYxMk/mMIztPXQ90iS7bPhb2v8tDfQ1G8ONNE
- EVCuFCVVFxt3Ic6pf6M+20qRjGABhGbYQDOSNKApv4NWmyc9Beb6njFrMqb0Bvv8fN1E
- lSYrIMWksLS9w8Bqb0JECSgxyuE8nL+DujYGRZ3pWPR77ZdTBFmAI1+yNKg960Ad6E7P
- +WZzexY1l34yY7/VuU1OUXaxh01vY15l+N5P1J+shALFh/kjVsOSzkUYffhAjnWPIBX1
- V6XdTGoL87JnCf+haztWChVF9/PwNVgEXSJGU6cp3q+XE5O+GY177IHscpCGy7E5+/LP
- gy4A==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20161025;
- h=x-gm-message-state:from:to:cc:subject:date:message-id;
- bh=mWAcq9bb+JndPzUhrr5Pb2HRZwmhGDpzE1gJ4Awh0iE=;
- b=V9s1GN1k5A21ng7ufw2/SGfeYx5aGeZjgGSAGEpYC9+UMqUiv/bT8LFpoHoe+/xGCz
- Hpvm64uHo5YWr49Fa97teOgNcCog+OQwO4pcLFE5bO2WG8XL16vk6IW7lDEk7mp5C4Eh
- WohJkdP/1s8C+eTQzGOV32VpNriRAuy1QLHWZdIPmUPcnJodFbzMCI7Q1WgxJEUPo/QY
- XqS/dKKPWjpeV4w8XW07hQNQCAwtzEam6nMipLzYUMYkYAQvV4Xs5Ef5czoXUDUsNbF0
- MhaOfyyibT77XfzHyE+rVqaGyAeirnVA35XP2KxhRd0iauWh6bW5xCyD1ZkLyn/cZe8C
- KGMQ==
-X-Gm-Message-State: APjAAAWiED9RnKIDbx3MlKQidyr4cDW0hLXnDRmADQE+3psatlzXgJcL
- 1H1k09RFwRJouYQDZffKSUg=
-X-Google-Smtp-Source: APXvYqzqWp3rd2E4Gh5ieMTKf/wQ6uq1DjhlX73ZEhRTeq9FbLjUfguGvxj3jMgwUU37ZVdRyuGCUg==
-X-Received: by 2002:a63:a555:: with SMTP id r21mr16539281pgu.158.1578850111207; 
- Sun, 12 Jan 2020 09:28:31 -0800 (PST)
-Received: from localhost ([2001:19f0:6001:12c8:5400:2ff:fe72:6403])
- by smtp.gmail.com with ESMTPSA id w187sm11114777pfw.62.2020.01.12.09.28.30
- (version=TLS1_2 cipher=ECDHE-RSA-CHACHA20-POLY1305 bits=256/256);
- Sun, 12 Jan 2020 09:28:30 -0800 (PST)
-From: Yangtao Li <tiny.windzz@gmail.com>
-To: kishon@ti.com, mcoquelin.stm32@gmail.com, alexandre.torgue@st.com,
- p.zabel@pengutronix.de, yamada.masahiro@socionext.com,
- gregkh@linuxfoundation.org
-Date: Sun, 12 Jan 2020 17:28:28 +0000
-Message-Id: <20200112172828.23252-1-tiny.windzz@gmail.com>
-X-Mailer: git-send-email 2.17.1
-Cc: Yangtao Li <tiny.windzz@gmail.com>, linux-kernel@vger.kernel.org,
- linux-arm-kernel@lists.infradead.org, linux-stm32@st-md-mailman.stormreply.com
-Subject: [Linux-stm32] [PATCH] phy: stm32: fix using plain integer as NULL
-	pointer in stm32_usbphyc_probe
+ Mon, 13 Jan 2020 08:29:57 +0000 (UTC)
+Received: from mailhost.synopsys.com (mdc-mailhost2.synopsys.com
+ [10.225.0.210])
+ (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits))
+ (No client certificate requested)
+ by smtprelay-out1.synopsys.com (Postfix) with ESMTPS id 925CC40688;
+ Mon, 13 Jan 2020 08:29:55 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=synopsys.com; s=mail;
+ t=1578904196; bh=9KZBCoBScps294ahSGzzYLQE+3wpdcKilU3Fh+QcUD0=;
+ h=From:To:Cc:Subject:Date:From;
+ b=DAZMo4c69MlMllYQsngPi1DCHBNLU1Jy6ZYeom1eS0wElvBml443ufSMAWaQOcn1m
+ YYmbBlEvt4MRPEp87GCXBuQkjcFdEW+g10GgQvx2QxTzaTy3DERIjISCKZWMFdvbPn
+ HZBbP3eFr4mdouCzuFJpV7oyeQvfSCesYy5aj/Tsy95njBIw2Oad64W+A92lCRtG5O
+ apRmE+d/E/m+eGFVxvX038SYEaM04vvnZrVuj4ab75kE++CQK2IVdV97sTgnvDBufb
+ 8hBS2FpD8hFsvBiQ5S9C20XUDYCade3ehnub68uv4G3qkfU7ziw+J01KPUmvrL6Bie
+ pRaW651lscthg==
+Received: from de02dwia024.internal.synopsys.com
+ (de02dwia024.internal.synopsys.com [10.225.19.81])
+ by mailhost.synopsys.com (Postfix) with ESMTP id 5F7B4A0061;
+ Mon, 13 Jan 2020 08:29:48 +0000 (UTC)
+From: Jose Abreu <Jose.Abreu@synopsys.com>
+To: netdev@vger.kernel.org
+Date: Mon, 13 Jan 2020 09:29:34 +0100
+Message-Id: <cover.1578903874.git.Jose.Abreu@synopsys.com>
+X-Mailer: git-send-email 2.7.4
+Cc: Jose Abreu <Jose.Abreu@synopsys.com>, Joao Pinto <Joao.Pinto@synopsys.com>,
+ linux-kernel@vger.kernel.org, linux-stm32@st-md-mailman.stormreply.com,
+ Maxime Coquelin <mcoquelin.stm32@gmail.com>,
+ Giuseppe Cavallaro <peppe.cavallaro@st.com>,
+ "David S. Miller" <davem@davemloft.net>, linux-arm-kernel@lists.infradead.org
+Subject: [Linux-stm32] [PATCH net-next 0/6] net: stmmac: ETF support
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -73,28 +61,61 @@ Content-Transfer-Encoding: 7bit
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
-The parameter of devm_reset_control_get should be a pointer, so fix it.
+This series adds the support for ETF scheduler in stmmac.
 
-Signed-off-by: Yangtao Li <tiny.windzz@gmail.com>
+1) Starts adding the support by implementing Enhanced Descriptors in stmmac
+main core. This is needed for ETF feature in XGMAC and QoS cores.
+
+2) Integrates the ETF logic into stmmac TC core.
+
+3) and 4) adds the HW specific support for ETF in XGMAC and QoS cores. The
+IP feature is called TBS (Time Based Scheduling).
+
+5) Enables ETF in GMAC5 IPK PCI entry for all Queues except Queue 0.
+
+6) Adds the new TBS feature and even more information into the debugFS
+HW features file.
+
 ---
- drivers/phy/st/phy-stm32-usbphyc.c | 2 +-
- 1 file changed, 1 insertion(+), 1 deletion(-)
+Cc: Giuseppe Cavallaro <peppe.cavallaro@st.com>
+Cc: Alexandre Torgue <alexandre.torgue@st.com>
+Cc: Jose Abreu <joabreu@synopsys.com>
+Cc: "David S. Miller" <davem@davemloft.net>
+Cc: Maxime Coquelin <mcoquelin.stm32@gmail.com>
+Cc: netdev@vger.kernel.org
+Cc: linux-stm32@st-md-mailman.stormreply.com
+Cc: linux-arm-kernel@lists.infradead.org
+Cc: linux-kernel@vger.kernel.org
+---
 
-diff --git a/drivers/phy/st/phy-stm32-usbphyc.c b/drivers/phy/st/phy-stm32-usbphyc.c
-index 56bdea4b0bd9..8cf24c330f5e 100644
---- a/drivers/phy/st/phy-stm32-usbphyc.c
-+++ b/drivers/phy/st/phy-stm32-usbphyc.c
-@@ -340,7 +340,7 @@ static int stm32_usbphyc_probe(struct platform_device *pdev)
- 		return ret;
- 	}
- 
--	usbphyc->rst = devm_reset_control_get(dev, 0);
-+	usbphyc->rst = devm_reset_control_get(dev, NULL);
- 	if (!IS_ERR(usbphyc->rst)) {
- 		reset_control_assert(usbphyc->rst);
- 		udelay(2);
+Jose Abreu (6):
+  net: stmmac: Initial support for TBS
+  net: stmmac: tc: Add support for ETF Scheduler using TBS
+  net: stmmac: xgmac: Add TBS support
+  net: stmmac: gmac4+: Add TBS support
+  net: stmmac: pci: Enable TBS on GMAC5 IPK PCI entry
+  net: stmmac: Add missing information in DebugFS capabilities file
+
+ drivers/net/ethernet/stmicro/stmmac/common.h       |   1 +
+ drivers/net/ethernet/stmicro/stmmac/descs.h        |   9 ++
+ drivers/net/ethernet/stmicro/stmmac/dwmac4.h       |   4 +
+ drivers/net/ethernet/stmicro/stmmac/dwmac4_descs.c |  10 ++
+ drivers/net/ethernet/stmicro/stmmac/dwmac4_descs.h |   7 +
+ drivers/net/ethernet/stmicro/stmmac/dwmac4_dma.c   |  21 +++
+ drivers/net/ethernet/stmicro/stmmac/dwmac4_dma.h   |   7 +
+ drivers/net/ethernet/stmicro/stmmac/dwxgmac2.h     |  14 ++
+ .../net/ethernet/stmicro/stmmac/dwxgmac2_descs.c   |   9 ++
+ drivers/net/ethernet/stmicro/stmmac/dwxgmac2_dma.c |  24 ++++
+ drivers/net/ethernet/stmicro/stmmac/hwif.h         |  12 ++
+ drivers/net/ethernet/stmicro/stmmac/stmmac.h       |   3 +
+ drivers/net/ethernet/stmicro/stmmac/stmmac_main.c  | 149 ++++++++++++++++-----
+ drivers/net/ethernet/stmicro/stmmac/stmmac_pci.c   |   2 +
+ drivers/net/ethernet/stmicro/stmmac/stmmac_tc.c    |  18 +++
+ include/linux/stmmac.h                             |   1 +
+ 16 files changed, 259 insertions(+), 32 deletions(-)
+
 -- 
-2.17.1
+2.7.4
 
 _______________________________________________
 Linux-stm32 mailing list
