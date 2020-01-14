@@ -2,30 +2,30 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id C3F77138EA6
-	for <lists+linux-stm32@lfdr.de>; Mon, 13 Jan 2020 11:13:31 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id CFCA5138EA7
+	for <lists+linux-stm32@lfdr.de>; Mon, 13 Jan 2020 11:13:34 +0100 (CET)
 Received: from ip-172-31-3-76.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 8BF8AC36B0D;
-	Mon, 13 Jan 2020 10:13:31 +0000 (UTC)
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 960DBC36B0C;
+	Mon, 13 Jan 2020 10:13:34 +0000 (UTC)
 Received: from mga12.intel.com (mga12.intel.com [192.55.52.136])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 6B3B3C36B09
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id CA4BBC36B0A
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Mon, 13 Jan 2020 10:13:28 +0000 (UTC)
+ Mon, 13 Jan 2020 10:13:32 +0000 (UTC)
 X-Amp-Result: SKIPPED(no attachment in message)
 X-Amp-File-Uploaded: False
 Received: from orsmga005.jf.intel.com ([10.7.209.41])
  by fmsmga106.fm.intel.com with ESMTP/TLS/DHE-RSA-AES256-GCM-SHA384;
- 13 Jan 2020 02:13:28 -0800
+ 13 Jan 2020 02:13:31 -0800
 X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="5.69,428,1571727600"; d="scan'208";a="397116758"
+X-IronPort-AV: E=Sophos;i="5.69,428,1571727600"; d="scan'208";a="397116774"
 Received: from bong5-hp-z440.png.intel.com ([10.221.118.136])
- by orsmga005.jf.intel.com with ESMTP; 13 Jan 2020 02:13:24 -0800
+ by orsmga005.jf.intel.com with ESMTP; 13 Jan 2020 02:13:28 -0800
 From: Ong Boon Leong <boon.leong.ong@intel.com>
 To: netdev@vger.kernel.org
-Date: Tue, 14 Jan 2020 10:01:10 +0800
-Message-Id: <1578967276-55956-2-git-send-email-boon.leong.ong@intel.com>
+Date: Tue, 14 Jan 2020 10:01:11 +0800
+Message-Id: <1578967276-55956-3-git-send-email-boon.leong.ong@intel.com>
 X-Mailer: git-send-email 2.7.4
 In-Reply-To: <1578967276-55956-1-git-send-email-boon.leong.ong@intel.com>
 References: <1578967276-55956-1-git-send-email-boon.leong.ong@intel.com>
@@ -35,8 +35,8 @@ Cc: Jose Abreu <Jose.Abreu@synopsys.com>, Voon Weifeng <weifeng.voon@intel.com>,
  Tan Tee Min <tee.min.tan@intel.com>, Ong Boon Leong <boon.leong.ong@intel.com>,
  Giuseppe Cavallaro <peppe.cavallaro@st.com>,
  "David S . Miller" <davem@davemloft.net>, linux-arm-kernel@lists.infradead.org
-Subject: [Linux-stm32] [PATCH net 1/7] net: stmmac: fix error in updating rx
-	tail pointer to last free entry
+Subject: [Linux-stm32] [PATCH net 2/7] net: stmmac: Fix incorrect location
+	to set real_num_rx|tx_queues
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -54,67 +54,47 @@ Content-Transfer-Encoding: 7bit
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
-DMA_CH(#i)_RxDesc_Tail_Pointer points to an offset from the base and
-indicates the location of the last valid descriptor.
+From: Aashish Verma <aashishx.verma@intel.com>
 
-The change introduced by "net: stmmac: Update RX Tail Pointer to last
-free entry" incorrectly updates the RxDesc_Tail_Pointer and causess
-Rx operation to freeze in corner case. The issue is explained as
-follow:-
+netif_set_real_num_tx_queues() & netif_set_real_num_rx_queues() should be
+used to inform network stack about the real Tx & Rx queue (active) number
+in both stmmac_open() and stmmac_resume(), therefore, we move the code
+from stmmac_dvr_probe() to stmmac_hw_setup().
 
-Say, cur_rx=1 and dirty_rx=0, then we have dirty=1 and entry=0 before
-the while (dirty-- > 0) loop of stmmac_rx_refill() is entered. When
-the while loop is 1st entered, Rx buffer[entry=0] is refilled and after
-entry++, then, entry=1. Now, the while loop condition check "dirty-- > 0"
-and the while loop bails out because dirty=0. Up to this point, the
-driver code works correctly.
+Fixes: c02b7a914551 ("net: stmmac: use netif_set_real_num_{rx,tx}_queues")
 
-However, the current implementation sets the Rx Tail Pointer to the
-location pointed by dirty_rx, just updated to the value of entry(=1).
-This is incorrect because the last Rx buffer that is refileld with empty
-buffer is with entry=0. In another words, the current logics always sets
-Rx Tail Pointer to the next Rx buffer to be refilled (too early).
-
-So, we fix this by tracking the index of the most recently refilled Rx
-buffer by using "last_refill" and use "last_refill" to update the Rx Tail
-Pointer instead of using "entry" which points to the next dirty_rx to be
-refilled in future.
-
-Fixes: 858a31ffc3d9 ("net: stmmac: Update RX Tail Pointer to last free entry")
-
+Signed-off-by: Aashish Verma <aashishx.verma@intel.com>
 Signed-off-by: Ong Boon Leong <boon.leong.ong@intel.com>
 ---
- drivers/net/ethernet/stmicro/stmmac/stmmac_main.c | 6 ++++--
- 1 file changed, 4 insertions(+), 2 deletions(-)
+ drivers/net/ethernet/stmicro/stmmac/stmmac_main.c | 8 ++++----
+ 1 file changed, 4 insertions(+), 4 deletions(-)
 
 diff --git a/drivers/net/ethernet/stmicro/stmmac/stmmac_main.c b/drivers/net/ethernet/stmicro/stmmac/stmmac_main.c
-index 80d59b7..a317f67 100644
+index a317f67..cd55d16 100644
 --- a/drivers/net/ethernet/stmicro/stmmac/stmmac_main.c
 +++ b/drivers/net/ethernet/stmicro/stmmac/stmmac_main.c
-@@ -3417,6 +3417,7 @@ static inline void stmmac_rx_refill(struct stmmac_priv *priv, u32 queue)
- 	struct stmmac_rx_queue *rx_q = &priv->rx_queue[queue];
- 	int len, dirty = stmmac_rx_dirty(priv, queue);
- 	unsigned int entry = rx_q->dirty_rx;
-+	unsigned int last_refill = entry;
+@@ -2624,6 +2624,10 @@ static int stmmac_hw_setup(struct net_device *dev, bool init_ptp)
+ 	if (priv->dma_cap.vlins)
+ 		stmmac_enable_vlan(priv, priv->hw, STMMAC_VLAN_INSERT);
  
- 	len = DIV_ROUND_UP(priv->dma_buf_sz, PAGE_SIZE) * PAGE_SIZE;
- 
-@@ -3471,12 +3472,13 @@ static inline void stmmac_rx_refill(struct stmmac_priv *priv, u32 queue)
- 
- 		dma_wmb();
- 		stmmac_set_rx_owner(priv, p, use_rx_wd);
--
-+		last_refill = entry;
- 		entry = STMMAC_GET_ENTRY(entry, DMA_RX_SIZE);
- 	}
++	/* Configure real RX and TX queues */
++	netif_set_real_num_rx_queues(dev, priv->plat->rx_queues_to_use);
++	netif_set_real_num_tx_queues(dev, priv->plat->tx_queues_to_use);
 +
- 	rx_q->dirty_rx = entry;
- 	rx_q->rx_tail_addr = rx_q->dma_rx_phy +
--			    (rx_q->dirty_rx * sizeof(struct dma_desc));
-+			     (last_refill * sizeof(struct dma_desc));
- 	stmmac_set_rx_tail_ptr(priv, priv->ioaddr, rx_q->rx_tail_addr, queue);
- }
+ 	/* Start the ball rolling... */
+ 	stmmac_start_all_dma(priv);
  
+@@ -4624,10 +4628,6 @@ int stmmac_dvr_probe(struct device *device,
+ 
+ 	stmmac_check_ether_addr(priv);
+ 
+-	/* Configure real RX and TX queues */
+-	netif_set_real_num_rx_queues(ndev, priv->plat->rx_queues_to_use);
+-	netif_set_real_num_tx_queues(ndev, priv->plat->tx_queues_to_use);
+-
+ 	ndev->netdev_ops = &stmmac_netdev_ops;
+ 
+ 	ndev->hw_features = NETIF_F_SG | NETIF_F_IP_CSUM | NETIF_F_IPV6_CSUM |
 -- 
 2.7.4
 
