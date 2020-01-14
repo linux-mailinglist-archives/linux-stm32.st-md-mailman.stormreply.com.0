@@ -2,50 +2,42 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id 460F7139C11
-	for <lists+linux-stm32@lfdr.de>; Mon, 13 Jan 2020 23:02:19 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 4A19C139FEE
+	for <lists+linux-stm32@lfdr.de>; Tue, 14 Jan 2020 04:26:51 +0100 (CET)
 Received: from ip-172-31-3-76.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 04BC1C36B0D;
-	Mon, 13 Jan 2020 22:02:19 +0000 (UTC)
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id CB92DC36B0D;
+	Tue, 14 Jan 2020 03:26:50 +0000 (UTC)
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
  (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 1C6EDC36B0B
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 712B4C36B0B
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Mon, 13 Jan 2020 22:02:16 +0000 (UTC)
-Received: from archlinux (cpc149474-cmbg20-2-0-cust94.5-4.cable.virginm.net
- [82.4.196.95])
+ Tue, 14 Jan 2020 03:26:47 +0000 (UTC)
+Received: from cakuba (c-73-93-4-247.hsd1.ca.comcast.net [73.93.4.247])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by mail.kernel.org (Postfix) with ESMTPSA id D42022072B;
- Mon, 13 Jan 2020 22:02:12 +0000 (UTC)
+ by mail.kernel.org (Postfix) with ESMTPSA id 299BA20CC7;
+ Tue, 14 Jan 2020 03:26:46 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
- s=default; t=1578952934;
- bh=OgKDay9p8f2ObZyGcicQ+gy/7tCHu46EYwzbBIFy4Bw=;
+ s=default; t=1578972406;
+ bh=K6QwoHZlKmBhi1HwYzE/vZ5jsixqOCwKPUF803F9Qxs=;
  h=Date:From:To:Cc:Subject:In-Reply-To:References:From;
- b=pHT5bBh0iez8IKcr+GlyuKn5q/SAP7pNTjWGjKMvkbXrd1UI/wSmspGEACN7yYH+I
- /1/yBtWWtpU2t/cc18f2m4bbAs+Isbe3BZKwPYV8SnxhrkdWXoRJX+Oftin0kAmLtO
- +Wkfw8ev1pXrvi9Or7YvB4Zb1BizyIiaKPqXo3EY=
-Date: Mon, 13 Jan 2020 22:02:08 +0000
-From: Jonathan Cameron <jic23@kernel.org>
-To: Olivier MOYSAN <olivier.moysan@st.com>
-Message-ID: <20200113220208.6471ba42@archlinux>
-In-Reply-To: <9b7e2161-1a31-8d69-52f9-ae9dedc902e3@st.com>
-References: <20191127131008.18896-1-olivier.moysan@st.com>
- <9b7e2161-1a31-8d69-52f9-ae9dedc902e3@st.com>
-X-Mailer: Claws Mail 3.17.4 (GTK+ 2.24.32; x86_64-pc-linux-gnu)
+ b=MOw/5NOJp9s0xnIQVt2/sEGGKIeo0Cyb1YDjbXSSkAiEBe36usdVrXv9v3vNsWHdp
+ Lo9S42pGO0Awd1ZGkPJB02wF0w5FsKBNHdK5lR8g6TZWLQMD5lfU9992QlV/pbCxKP
+ mtIW0MgAAVFt/IeLYY26xiacHbP42MkmI5ulPG38=
+Date: Mon, 13 Jan 2020 19:26:45 -0800
+From: Jakub Kicinski <kuba@kernel.org>
+To: Jose Abreu <Jose.Abreu@synopsys.com>
+Message-ID: <20200113192645.6b9f51d1@cakuba>
+In-Reply-To: <cover.1578932287.git.Jose.Abreu@synopsys.com>
+References: <cover.1578932287.git.Jose.Abreu@synopsys.com>
 MIME-Version: 1.0
-Cc: "lars@metafoo.de" <lars@metafoo.de>,
- "linux-iio@vger.kernel.org" <linux-iio@vger.kernel.org>,
- "pmeerw@pmeerw.net" <pmeerw@pmeerw.net>,
- "linux-kernel@vger.kernel.org" <linux-kernel@vger.kernel.org>,
- "mcoquelin.stm32@gmail.com" <mcoquelin.stm32@gmail.com>,
- "knaack.h@gmx.de" <knaack.h@gmx.de>, Fabrice GASNIER <fabrice.gasnier@st.com>,
- "linux-stm32@st-md-mailman.stormreply.com"
- <linux-stm32@st-md-mailman.stormreply.com>,
- "linux-arm-kernel@lists.infradead.org" <linux-arm-kernel@lists.infradead.org>
-Subject: Re: [Linux-stm32] [PATCH v2] iio: adc: stm32-dfsdm: adapt sampling
- rate to oversampling ratio
+Cc: Joao Pinto <Joao.Pinto@synopsys.com>, netdev@vger.kernel.org,
+ linux-kernel@vger.kernel.org, linux-stm32@st-md-mailman.stormreply.com,
+ Maxime Coquelin <mcoquelin.stm32@gmail.com>,
+ Giuseppe Cavallaro <peppe.cavallaro@st.com>,
+ "David S. Miller" <davem@davemloft.net>, linux-arm-kernel@lists.infradead.org
+Subject: Re: [Linux-stm32] [PATCH net-next v3 0/8] net: stmmac: ETF support
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -62,97 +54,28 @@ Content-Transfer-Encoding: 7bit
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
-On Fri, 10 Jan 2020 10:06:13 +0000
-Olivier MOYSAN <olivier.moysan@st.com> wrote:
-
-> Hi Jonathan, all,
+On Mon, 13 Jan 2020 17:24:08 +0100, Jose Abreu wrote:
+> This series adds the support for ETF scheduler in stmmac.
 > 
-> Kind reminder on this patch.
-Thanks!
-
-Applied to the togreg branch of iio.git and pushed out of testing
-to give the build bots a brief period to poke at it.
-
-Sorry again for the delay
-
-Thanks,
-
-Jonathan
-
-
-> Regards
-> Olivier
+> 1) Starts adding the support by implementing Enhanced Descriptors in stmmac
+> main core. This is needed for ETF feature in XGMAC and QoS cores.
 > 
-> On 11/27/19 2:10 PM, Olivier Moysan wrote:
-> > Update sampling rate when oversampling ratio is changed
-> > through the IIO ABI.
-> >
-> > Signed-off-by: Olivier Moysan <olivier.moysan@st.com>
-> > ---
-> > changes in version 2:
-> > - correct title
-> > ---
-> >   drivers/iio/adc/stm32-dfsdm-adc.c | 32 ++++++++++++++++++-------------
-> >   1 file changed, 19 insertions(+), 13 deletions(-)
-> >
-> > diff --git a/drivers/iio/adc/stm32-dfsdm-adc.c b/drivers/iio/adc/stm32-dfsdm-adc.c
-> > index 0339ecdd06bd..87a842507509 100644
-> > --- a/drivers/iio/adc/stm32-dfsdm-adc.c
-> > +++ b/drivers/iio/adc/stm32-dfsdm-adc.c
-> > @@ -1221,14 +1221,32 @@ static int stm32_dfsdm_write_raw(struct iio_dev *indio_dev,
-> >   	unsigned int spi_freq;
-> >   	int ret = -EINVAL;
-> >   
-> > +	switch (ch->src) {
-> > +	case DFSDM_CHANNEL_SPI_CLOCK_INTERNAL:
-> > +		spi_freq = adc->dfsdm->spi_master_freq;
-> > +		break;
-> > +	case DFSDM_CHANNEL_SPI_CLOCK_INTERNAL_DIV2_FALLING:
-> > +	case DFSDM_CHANNEL_SPI_CLOCK_INTERNAL_DIV2_RISING:
-> > +		spi_freq = adc->dfsdm->spi_master_freq / 2;
-> > +		break;
-> > +	default:
-> > +		spi_freq = adc->spi_freq;
-> > +	}
-> > +
-> >   	switch (mask) {
-> >   	case IIO_CHAN_INFO_OVERSAMPLING_RATIO:
-> >   		ret = iio_device_claim_direct_mode(indio_dev);
-> >   		if (ret)
-> >   			return ret;
-> > +
-> >   		ret = stm32_dfsdm_compute_all_osrs(indio_dev, val);
-> > -		if (!ret)
-> > +		if (!ret) {
-> > +			dev_dbg(&indio_dev->dev,
-> > +				"Sampling rate changed from (%u) to (%u)\n",
-> > +				adc->sample_freq, spi_freq / val);
-> >   			adc->oversamp = val;
-> > +			adc->sample_freq = spi_freq / val;
-> > +		}
-> >   		iio_device_release_direct_mode(indio_dev);
-> >   		return ret;
-> >   
-> > @@ -1240,18 +1258,6 @@ static int stm32_dfsdm_write_raw(struct iio_dev *indio_dev,
-> >   		if (ret)
-> >   			return ret;
-> >   
-> > -		switch (ch->src) {
-> > -		case DFSDM_CHANNEL_SPI_CLOCK_INTERNAL:
-> > -			spi_freq = adc->dfsdm->spi_master_freq;
-> > -			break;
-> > -		case DFSDM_CHANNEL_SPI_CLOCK_INTERNAL_DIV2_FALLING:
-> > -		case DFSDM_CHANNEL_SPI_CLOCK_INTERNAL_DIV2_RISING:
-> > -			spi_freq = adc->dfsdm->spi_master_freq / 2;
-> > -			break;
-> > -		default:
-> > -			spi_freq = adc->spi_freq;
-> > -		}
-> > -
-> >   		ret = dfsdm_adc_set_samp_freq(indio_dev, val, spi_freq);
-> >   		iio_device_release_direct_mode(indio_dev);
-> >   		return ret;  
+> 2) Integrates the ETF logic into stmmac TC core.
+> 
+> 3) and 4) adds the HW specific support for ETF in XGMAC and QoS cores. The
+> IP feature is called TBS (Time Based Scheduling).
+> 
+> 5) Enables ETF in GMAC5 IPK PCI entry for all Queues except Queue 0.
+> 
+> 6) Adds the new TBS feature and even more information into the debugFS
+> HW features file.
+> 
+> 7) Switches the selftests mechanism to use dev_direct_xmit() so that we can
+> send packets on specific Queues.
+> 
+> 8) Adds a new test for TBS feature.
 
+Applied, thank you!
 _______________________________________________
 Linux-stm32 mailing list
 Linux-stm32@st-md-mailman.stormreply.com
