@@ -2,42 +2,42 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id 4D7AC13AE75
-	for <lists+linux-stm32@lfdr.de>; Tue, 14 Jan 2020 17:09:45 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 2076813AE71
+	for <lists+linux-stm32@lfdr.de>; Tue, 14 Jan 2020 17:09:41 +0100 (CET)
 Received: from ip-172-31-3-76.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 0F3C4C36B14;
-	Tue, 14 Jan 2020 16:09:45 +0000 (UTC)
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id D0C70C36B0D;
+	Tue, 14 Jan 2020 16:09:40 +0000 (UTC)
 Received: from smtprelay-out1.synopsys.com (smtprelay-out1.synopsys.com
  [149.117.87.133])
  (using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 4A065C36B0F
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 64D71C36B0C
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Tue, 14 Jan 2020 16:09:43 +0000 (UTC)
+ Tue, 14 Jan 2020 16:09:39 +0000 (UTC)
 Received: from mailhost.synopsys.com (mdc-mailhost1.synopsys.com
  [10.225.0.209])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits))
  (No client certificate requested)
- by smtprelay-out1.synopsys.com (Postfix) with ESMTPS id A9A60C0625;
+ by smtprelay-out1.synopsys.com (Postfix) with ESMTPS id 8D9B4C0623;
  Tue, 14 Jan 2020 16:09:36 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=synopsys.com; s=mail;
- t=1579018182; bh=IpgC8gwCLfuMhlz/18scusRLH4OpcFzXcL5IZQwNnHQ=;
+ t=1579018178; bh=SATy7ndJEIOBEqXRG+bt0KtbNZXEPfoL4GDzHGjf0uE=;
  h=From:To:Cc:Subject:Date:In-Reply-To:References:In-Reply-To:
  References:From;
- b=kThH+XYfPaJRH4DPNarOkI+XphSw/f6G6Ld25d7xlQ7r/qhsDgyU3gPBfAAmk2hue
- r4x8azQ3rkTEppHVrggSEFU0hz3f9SCJmMVARO9NxY/F1nhTPYS1LB/mI2oh90uDNB
- Cm3udueCSmYBnpC9pZCdXSwfqhFkevW2isarqK4erxL8fA02uJ6mcfNaJEb2YfFz9B
- Eu9Yc2t1nxqvr0i/d4AUopRG2Yz37eiEqNrN4E7feik5iwQTSqZtxYep8IErQE89j/
- EZmn3qNVIR8gMDt4WDwu46jS2MXw9EJuqulIRnqBvn1ikQyJSVRUmzHd6P0KBe7zlo
- 19cSyJMmQViwQ==
+ b=C8wENoLnQk0kfxeOxzbHVodoBqbIP2P0Gm53bCX8t5qxrIWoSloaUxjR6/I/faQ6O
+ sLvH0mEREQo57rWGgh71HGdo1+VWns9oo9TsUlzuM3jIUy+smkOb8Fn+USgRq/CBOR
+ reWDvENZ1mK1v/LA6ObAD1cn7+AdlwYnvLQVjjwXpYQNlRtNzM2Igc9S6OCHjGqyZU
+ 5Ftk2G+EpcTsMx4UvzCeyb1GeWsEjr/55B8wJWLtDFnClg558bSVPkT/nVDEjdODYx
+ lruSdDM8zkrcyAF4ytaoJpJjD2v7T3QRiiiqAOe0GoCQxGHuZ8uFWCL+35+PVyDiEg
+ pkwv2M5FzZClA==
 Received: from de02dwia024.internal.synopsys.com
  (de02dwia024.internal.synopsys.com [10.225.19.81])
- by mailhost.synopsys.com (Postfix) with ESMTP id 136EAA0061;
+ by mailhost.synopsys.com (Postfix) with ESMTP id 28468A006C;
  Tue, 14 Jan 2020 16:09:35 +0000 (UTC)
 From: Jose Abreu <Jose.Abreu@synopsys.com>
 To: netdev@vger.kernel.org
-Date: Tue, 14 Jan 2020 17:09:21 +0100
-Message-Id: <73b03cd37079ed3e2a5bc8568bcaa21dffe6198a.1579017787.git.Jose.Abreu@synopsys.com>
+Date: Tue, 14 Jan 2020 17:09:22 +0100
+Message-Id: <2d9e75a94a3e4c120ff7e2135c6f0976ab9d0708.1579017787.git.Jose.Abreu@synopsys.com>
 X-Mailer: git-send-email 2.7.4
 In-Reply-To: <cover.1579017787.git.Jose.Abreu@synopsys.com>
 References: <cover.1579017787.git.Jose.Abreu@synopsys.com>
@@ -51,8 +51,8 @@ Cc: Jose Abreu <Jose.Abreu@synopsys.com>, Joao Pinto <Joao.Pinto@synopsys.com>,
  Giuseppe Cavallaro <peppe.cavallaro@st.com>,
  linux-snps-arc@lists.infradead.org, "David S. Miller" <davem@davemloft.net>,
  linux-arm-kernel@lists.infradead.org
-Subject: [Linux-stm32] [PATCH net 1/4] net: stmmac: selftests: Make it work
-	in Synopsys AXS101 boards
+Subject: [Linux-stm32] [PATCH net 2/4] net: stmmac: selftests: Mark as fail
+	when received VLAN ID != expected
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -70,12 +70,10 @@ Content-Transfer-Encoding: 7bit
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
-Synopsys AXS101 boards do not support unaligned memory loads or stores.
-Change the selftests mechanism to explicity:
-- Not add extra alignment in TX SKB
-- Use the unaligned version of ether_addr_equal()
+When the VLAN ID does not match the expected one it means filter failed
+in HW. Fix it.
 
-Fixes: 091810dbded9 ("net: stmmac: Introduce selftests support")
+Fixes: 94e18382003c ("net: stmmac: selftests: Add selftest for VLAN TX Offload")
 Signed-off-by: Jose Abreu <Jose.Abreu@synopsys.com>
 
 ---
@@ -92,79 +90,27 @@ Cc: Alexey Brodkin <abrodkin@synopsys.com>
 Cc: Vineet Gupta <vgupta@synopsys.com>
 Cc: linux-snps-arc@lists.infradead.org
 ---
- .../net/ethernet/stmicro/stmmac/stmmac_selftests.c   | 20 +++++++++++---------
- 1 file changed, 11 insertions(+), 9 deletions(-)
+ drivers/net/ethernet/stmicro/stmmac/stmmac_selftests.c | 6 +++++-
+ 1 file changed, 5 insertions(+), 1 deletion(-)
 
 diff --git a/drivers/net/ethernet/stmicro/stmmac/stmmac_selftests.c b/drivers/net/ethernet/stmicro/stmmac/stmmac_selftests.c
-index 36a4c43a799a..6516d65e84b8 100644
+index 6516d65e84b8..7edee3c87ac9 100644
 --- a/drivers/net/ethernet/stmicro/stmmac/stmmac_selftests.c
 +++ b/drivers/net/ethernet/stmicro/stmmac/stmmac_selftests.c
-@@ -80,7 +80,7 @@ static struct sk_buff *stmmac_test_get_udp_skb(struct stmmac_priv *priv,
- 	if (attr->max_size && (attr->max_size > size))
- 		size = attr->max_size;
- 
--	skb = netdev_alloc_skb_ip_align(priv->dev, size);
-+	skb = netdev_alloc_skb(priv->dev, size);
- 	if (!skb)
- 		return NULL;
- 
-@@ -244,6 +244,8 @@ static int stmmac_test_loopback_validate(struct sk_buff *skb,
- 					 struct net_device *orig_ndev)
- {
- 	struct stmmac_test_priv *tpriv = pt->af_packet_priv;
-+	unsigned char *src = tpriv->packet->src;
-+	unsigned char *dst = tpriv->packet->dst;
- 	struct stmmachdr *shdr;
- 	struct ethhdr *ehdr;
- 	struct udphdr *uhdr;
-@@ -260,15 +262,15 @@ static int stmmac_test_loopback_validate(struct sk_buff *skb,
- 		goto out;
- 
- 	ehdr = (struct ethhdr *)skb_mac_header(skb);
--	if (tpriv->packet->dst) {
--		if (!ether_addr_equal(ehdr->h_dest, tpriv->packet->dst))
-+	if (dst) {
-+		if (!ether_addr_equal_unaligned(ehdr->h_dest, dst))
+@@ -853,8 +853,12 @@ static int stmmac_test_vlan_validate(struct sk_buff *skb,
+ 	if (tpriv->vlan_id) {
+ 		if (skb->vlan_proto != htons(proto))
  			goto out;
- 	}
- 	if (tpriv->packet->sarc) {
--		if (!ether_addr_equal(ehdr->h_source, ehdr->h_dest))
-+		if (!ether_addr_equal_unaligned(ehdr->h_source, ehdr->h_dest))
+-		if (skb->vlan_tci != tpriv->vlan_id)
++		if (skb->vlan_tci != tpriv->vlan_id) {
++			/* Means filter did not work. */
++			tpriv->ok = false;
++			complete(&tpriv->comp);
  			goto out;
--	} else if (tpriv->packet->src) {
--		if (!ether_addr_equal(ehdr->h_source, tpriv->packet->src))
-+	} else if (src) {
-+		if (!ether_addr_equal_unaligned(ehdr->h_source, src))
- 			goto out;
- 	}
- 
-@@ -714,7 +716,7 @@ static int stmmac_test_flowctrl_validate(struct sk_buff *skb,
- 	struct ethhdr *ehdr;
- 
- 	ehdr = (struct ethhdr *)skb_mac_header(skb);
--	if (!ether_addr_equal(ehdr->h_source, orig_ndev->dev_addr))
-+	if (!ether_addr_equal_unaligned(ehdr->h_source, orig_ndev->dev_addr))
- 		goto out;
- 	if (ehdr->h_proto != htons(ETH_P_PAUSE))
- 		goto out;
-@@ -856,7 +858,7 @@ static int stmmac_test_vlan_validate(struct sk_buff *skb,
++		}
  	}
  
  	ehdr = (struct ethhdr *)skb_mac_header(skb);
--	if (!ether_addr_equal(ehdr->h_dest, tpriv->packet->dst))
-+	if (!ether_addr_equal_unaligned(ehdr->h_dest, tpriv->packet->dst))
- 		goto out;
- 
- 	ihdr = ip_hdr(skb);
-@@ -1586,7 +1588,7 @@ static int stmmac_test_arp_validate(struct sk_buff *skb,
- 	struct arphdr *ahdr;
- 
- 	ehdr = (struct ethhdr *)skb_mac_header(skb);
--	if (!ether_addr_equal(ehdr->h_dest, tpriv->packet->src))
-+	if (!ether_addr_equal_unaligned(ehdr->h_dest, tpriv->packet->src))
- 		goto out;
- 
- 	ahdr = arp_hdr(skb);
 -- 
 2.7.4
 
