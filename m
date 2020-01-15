@@ -2,59 +2,60 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id 91B7713C7C7
-	for <lists+linux-stm32@lfdr.de>; Wed, 15 Jan 2020 16:32:25 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 50B9613C86E
+	for <lists+linux-stm32@lfdr.de>; Wed, 15 Jan 2020 16:54:02 +0100 (CET)
 Received: from ip-172-31-3-76.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 51565C36B0F;
-	Wed, 15 Jan 2020 15:32:25 +0000 (UTC)
-Received: from lelv0143.ext.ti.com (lelv0143.ext.ti.com [198.47.23.248])
- (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 0FA17C36B0F;
+	Wed, 15 Jan 2020 15:54:02 +0000 (UTC)
+Received: from mail-pg1-f194.google.com (mail-pg1-f194.google.com
+ [209.85.215.194])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 84D42C36B0D
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id D3FB5C36B0D
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Wed, 15 Jan 2020 15:32:24 +0000 (UTC)
-Received: from lelv0265.itg.ti.com ([10.180.67.224])
- by lelv0143.ext.ti.com (8.15.2/8.15.2) with ESMTP id 00FFWMfY033992;
- Wed, 15 Jan 2020 09:32:22 -0600
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=ti.com;
- s=ti-com-17Q1; t=1579102342;
- bh=CIFk2z09Rgz02itwkwKbH7Ge7nfwZT4HXBXZ1Nbl/zo=;
- h=Subject:To:CC:References:From:Date:In-Reply-To;
- b=xFnBcx4+Uhej6Vz6Bz7EP8VZvHtQwU2E+pxVoHhvZdfjxQe2spY3EpUs6gyx4hlCA
- CWmmkcAaYTdlaCpJin0HL1FtiTT2Hyi/S+h6o+lgCP5qQyD/pkNNFTuRqJLwvD66AF
- +6qtkOI6H19tyqWdxkPSWMDADGscjeTztJXK/LjM=
-Received: from DFLE105.ent.ti.com (dfle105.ent.ti.com [10.64.6.26])
- by lelv0265.itg.ti.com (8.15.2/8.15.2) with ESMTPS id 00FFWM5Q057468
- (version=TLSv1.2 cipher=AES256-GCM-SHA384 bits=256 verify=FAIL);
- Wed, 15 Jan 2020 09:32:22 -0600
-Received: from DFLE102.ent.ti.com (10.64.6.23) by DFLE105.ent.ti.com
- (10.64.6.26) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_128_CBC_SHA256_P256) id 15.1.1847.3; Wed, 15
- Jan 2020 09:32:22 -0600
-Received: from fllv0040.itg.ti.com (10.64.41.20) by DFLE102.ent.ti.com
- (10.64.6.23) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_128_CBC_SHA256_P256) id 15.1.1847.3 via
- Frontend Transport; Wed, 15 Jan 2020 09:32:22 -0600
-Received: from [128.247.58.153] (ileax41-snat.itg.ti.com [10.172.224.153])
- by fllv0040.itg.ti.com (8.15.2/8.15.2) with ESMTP id 00FFWLRR063623;
- Wed, 15 Jan 2020 09:32:21 -0600
-To: Arnaud Pouliquen <arnaud.pouliquen@st.com>, Ohad Ben-Cohen
- <ohad@wizery.com>, Bjorn Andersson <bjorn.andersson@linaro.org>,
- <linux-kernel@vger.kernel.org>, <linux-remoteproc@vger.kernel.org>,
- <linux-arm-msm@vger.kernel.org>
-References: <20200115082722.13102-1-arnaud.pouliquen@st.com>
-From: Suman Anna <s-anna@ti.com>
-Message-ID: <744500d3-643e-1446-1606-b4dde313e98f@ti.com>
-Date: Wed, 15 Jan 2020 09:32:21 -0600
-User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:60.0) Gecko/20100101
- Thunderbird/60.6.1
-MIME-Version: 1.0
-In-Reply-To: <20200115082722.13102-1-arnaud.pouliquen@st.com>
-Content-Language: en-US
-X-EXCLAIMER-MD-CONFIG: e1e8a2fd-e40a-4ac6-ac9b-f7e9cc9ee180
-Cc: linux-stm32@st-md-mailman.stormreply.com,
- Fabien DESSENNE <fabien.dessenne@st.com>
-Subject: Re: [Linux-stm32] [PATCH v3] rpmsg: core: add API to get MTU
+ Wed, 15 Jan 2020 15:53:57 +0000 (UTC)
+Received: by mail-pg1-f194.google.com with SMTP id s64so8387709pgb.9
+ for <linux-stm32@st-md-mailman.stormreply.com>;
+ Wed, 15 Jan 2020 07:53:57 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20161025;
+ h=from:to:cc:subject:date:message-id;
+ bh=c/GWPQtRfN7j/bEfY+uIGMfC4b83t2OdSqf9AvElNRM=;
+ b=EwuEbm4VZGa5Yrj1M1k5z/SPIhI/TyArbfnbVrC91uJvgqCXjVIYHF5u+M5/X1rdJT
+ 70gnHeB+JCcWu5W4tgZ1AO7gppBRrmPJhPzaC6T7a/sQlFkxe/ild7vt8rZ9zah7jWtE
+ Z4I7BJFOJ5+XZh33RgFyQjHfnKNYYhB++PdcLYi7aYsJK1WIJ14lZtuiYXMErVz4EPyx
+ FBnF+th9KbYbdtNpiaWd7qI+ImCzrn0S2An3ip7vWxySJWmnkbLp+PgK4KcjGJTzLKfP
+ GnRrnYuLBNwEaidccyXlPF952M7ocLNt8U1ydpR/UJMCeb1xs020494ha66/l6yU+5jS
+ K+Vg==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20161025;
+ h=x-gm-message-state:from:to:cc:subject:date:message-id;
+ bh=c/GWPQtRfN7j/bEfY+uIGMfC4b83t2OdSqf9AvElNRM=;
+ b=ad9C7/q/aD928dlknOYWOeu1ogwbsJNld6nIpvEbl+dmxnniZWUKiQIA1y1LMaDLeT
+ vFyK5FAtcyaXPfWC3i9LrlD8APwWYvv5EgaNRSlvXv011ZvO6GvN7GK4MSrapsxnbgAi
+ k1i06XCSd+Jbj9/frzzZAr5gXVgFyuR/RncUYHksfu7c8+lw9qNjDmXX3hxDtMNzpUjy
+ eJDwzU3jQkNcCnE229iTVyWFjEFrucDAVLM9lQyqA/+ftjoV/N/UchEVVFR5zPsVWlCP
+ Vz7UQ//Hqq+R9d1nWzg2mFk0cCOWke6GkslUzuXqM5N9JqvD2PgbvlzUQCQ9kHwija+M
+ p5Hw==
+X-Gm-Message-State: APjAAAXNoWWJiAmFkrFumvuj6+01N/DwA6XXOA6/GVFDZgx5/a/Wsdhy
+ W+0N15yzdbKlvzx9dYEPWw8=
+X-Google-Smtp-Source: APXvYqyKceOTx9ZjZoes/c2uX1iezUq1hng9gL92ptSPdkUO9WPHZB3PUuC6MsV6ZBJ7g6f6sPoZEQ==
+X-Received: by 2002:aa7:8088:: with SMTP id v8mr32789472pff.142.1579103636329; 
+ Wed, 15 Jan 2020 07:53:56 -0800 (PST)
+Received: from localhost (64.64.229.47.16clouds.com. [64.64.229.47])
+ by smtp.gmail.com with ESMTPSA id i66sm22664925pfg.85.2020.01.15.07.53.55
+ (version=TLS1_2 cipher=ECDHE-RSA-CHACHA20-POLY1305 bits=256/256);
+ Wed, 15 Jan 2020 07:53:55 -0800 (PST)
+From: Dejin Zheng <zhengdejin5@gmail.com>
+To: peppe.cavallaro@st.com, alexandre.torgue@st.com, joabreu@synopsys.com,
+ davem@davemloft.net, mcoquelin.stm32@gmail.com
+Date: Wed, 15 Jan 2020 23:53:23 +0800
+Message-Id: <20200115155323.15543-1-zhengdejin5@gmail.com>
+X-Mailer: git-send-email 2.17.1
+Cc: netdev@vger.kernel.org, Dejin Zheng <zhengdejin5@gmail.com>,
+ linux-stm32@st-md-mailman.stormreply.com, linux-arm-kernel@lists.infradead.org,
+ linux-kernel@vger.kernel.org
+Subject: [Linux-stm32] [PATCH] net: stmmac: modified pcs mode support for
+	RGMII
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -66,150 +67,81 @@ List-Post: <mailto:linux-stm32@st-md-mailman.stormreply.com>
 List-Help: <mailto:linux-stm32-request@st-md-mailman.stormreply.com?subject=help>
 List-Subscribe: <https://st-md-mailman.stormreply.com/mailman/listinfo/linux-stm32>, 
  <mailto:linux-stm32-request@st-md-mailman.stormreply.com?subject=subscribe>
+MIME-Version: 1.0
 Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
-On 1/15/20 2:27 AM, Arnaud Pouliquen wrote:
-> Return the rpmsg buffer MTU for sending message, so rpmsg users
-> can split a long message in several sub rpmsg buffers.
-> 
-> Signed-off-by: Arnaud Pouliquen <arnaud.pouliquen@st.com>
+snps databook noted that physical coding sublayer (PCS) interface
+that can be used when the MAC is configured for the TBI, RTBI, or
+SGMII PHY interface. we have RGMII and SGMII in a SoC and it also
+has the PCS block. it needs stmmac_init_phy and stmmac_mdio_register
+function for initializing phy when it used RGMII interface.
 
-Acked-by: Suman Anna <s-anna@ti.com>
+Signed-off-by: Dejin Zheng <zhengdejin5@gmail.com>
+---
+ .../net/ethernet/stmicro/stmmac/stmmac_main.c   | 17 ++++++-----------
+ 1 file changed, 6 insertions(+), 11 deletions(-)
 
-regards
-Suman
-
-> ---
-> V2[1] to V3
->   - fix parameter description in rpmsg_device_ops struct
-> 
-> [1]: https://lore.kernel.org/patchwork/patch/1124684/
-> ---
->  drivers/rpmsg/rpmsg_core.c       | 21 +++++++++++++++++++++
->  drivers/rpmsg/rpmsg_internal.h   |  2 ++
->  drivers/rpmsg/virtio_rpmsg_bus.c | 10 ++++++++++
->  include/linux/rpmsg.h            | 10 ++++++++++
->  4 files changed, 43 insertions(+)
-> 
-> diff --git a/drivers/rpmsg/rpmsg_core.c b/drivers/rpmsg/rpmsg_core.c
-> index e330ec4dfc33..a6ef54c4779a 100644
-> --- a/drivers/rpmsg/rpmsg_core.c
-> +++ b/drivers/rpmsg/rpmsg_core.c
-> @@ -283,6 +283,27 @@ int rpmsg_trysend_offchannel(struct rpmsg_endpoint *ept, u32 src, u32 dst,
->  }
->  EXPORT_SYMBOL(rpmsg_trysend_offchannel);
->  
-> +/**
-> + * rpmsg_get_mtu() - get maximum transmission buffer size for sending message.
-> + * @ept: the rpmsg endpoint
-> + *
-> + * This function returns maximum buffer size available for a single message.
-> + *
-> + * Return: the maximum transmission size on success and an appropriate error
-> + * value on failure.
-> + */
-> +
-> +ssize_t rpmsg_get_mtu(struct rpmsg_endpoint *ept)
-> +{
-> +	if (WARN_ON(!ept))
-> +		return -EINVAL;
-> +	if (!ept->ops->get_mtu)
-> +		return -ENOTSUPP;
-> +
-> +	return ept->ops->get_mtu(ept);
-> +}
-> +EXPORT_SYMBOL(rpmsg_get_mtu);
-> +
->  /*
->   * match an rpmsg channel with a channel info struct.
->   * this is used to make sure we're not creating rpmsg devices for channels
-> diff --git a/drivers/rpmsg/rpmsg_internal.h b/drivers/rpmsg/rpmsg_internal.h
-> index 3fc83cd50e98..e6f88ee90ff6 100644
-> --- a/drivers/rpmsg/rpmsg_internal.h
-> +++ b/drivers/rpmsg/rpmsg_internal.h
-> @@ -47,6 +47,7 @@ struct rpmsg_device_ops {
->   * @trysendto:		see @rpmsg_trysendto(), optional
->   * @trysend_offchannel:	see @rpmsg_trysend_offchannel(), optional
->   * @poll:		see @rpmsg_poll(), optional
-> + * @get_mtu:		see @rpmsg_get_mtu(), optional
->   *
->   * Indirection table for the operations that a rpmsg backend should implement.
->   * In addition to @destroy_ept, the backend must at least implement @send and
-> @@ -66,6 +67,7 @@ struct rpmsg_endpoint_ops {
->  			     void *data, int len);
->  	__poll_t (*poll)(struct rpmsg_endpoint *ept, struct file *filp,
->  			     poll_table *wait);
-> +	ssize_t (*get_mtu)(struct rpmsg_endpoint *ept);
->  };
->  
->  int rpmsg_register_device(struct rpmsg_device *rpdev);
-> diff --git a/drivers/rpmsg/virtio_rpmsg_bus.c b/drivers/rpmsg/virtio_rpmsg_bus.c
-> index 376ebbf880d6..6e48fdf24555 100644
-> --- a/drivers/rpmsg/virtio_rpmsg_bus.c
-> +++ b/drivers/rpmsg/virtio_rpmsg_bus.c
-> @@ -175,6 +175,7 @@ static int virtio_rpmsg_trysendto(struct rpmsg_endpoint *ept, void *data,
->  				  int len, u32 dst);
->  static int virtio_rpmsg_trysend_offchannel(struct rpmsg_endpoint *ept, u32 src,
->  					   u32 dst, void *data, int len);
-> +static ssize_t virtio_rpmsg_get_mtu(struct rpmsg_endpoint *ept);
->  
->  static const struct rpmsg_endpoint_ops virtio_endpoint_ops = {
->  	.destroy_ept = virtio_rpmsg_destroy_ept,
-> @@ -184,6 +185,7 @@ static const struct rpmsg_endpoint_ops virtio_endpoint_ops = {
->  	.trysend = virtio_rpmsg_trysend,
->  	.trysendto = virtio_rpmsg_trysendto,
->  	.trysend_offchannel = virtio_rpmsg_trysend_offchannel,
-> +	.get_mtu = virtio_rpmsg_get_mtu,
->  };
->  
->  /**
-> @@ -699,6 +701,14 @@ static int virtio_rpmsg_trysend_offchannel(struct rpmsg_endpoint *ept, u32 src,
->  	return rpmsg_send_offchannel_raw(rpdev, src, dst, data, len, false);
->  }
->  
-> +static ssize_t virtio_rpmsg_get_mtu(struct rpmsg_endpoint *ept)
-> +{
-> +	struct rpmsg_device *rpdev = ept->rpdev;
-> +	struct virtio_rpmsg_channel *vch = to_virtio_rpmsg_channel(rpdev);
-> +
-> +	return vch->vrp->buf_size - sizeof(struct rpmsg_hdr);
-> +}
-> +
->  static int rpmsg_recv_single(struct virtproc_info *vrp, struct device *dev,
->  			     struct rpmsg_hdr *msg, unsigned int len)
->  {
-> diff --git a/include/linux/rpmsg.h b/include/linux/rpmsg.h
-> index 9fe156d1c018..88d7892ca93d 100644
-> --- a/include/linux/rpmsg.h
-> +++ b/include/linux/rpmsg.h
-> @@ -135,6 +135,8 @@ int rpmsg_trysend_offchannel(struct rpmsg_endpoint *ept, u32 src, u32 dst,
->  __poll_t rpmsg_poll(struct rpmsg_endpoint *ept, struct file *filp,
->  			poll_table *wait);
->  
-> +ssize_t rpmsg_get_mtu(struct rpmsg_endpoint *ept);
-> +
->  #else
->  
->  static inline int register_rpmsg_device(struct rpmsg_device *dev)
-> @@ -242,6 +244,14 @@ static inline __poll_t rpmsg_poll(struct rpmsg_endpoint *ept,
->  	return 0;
->  }
->  
-> +static inline ssize_t rpmsg_get_mtu(struct rpmsg_endpoint *ept)
-> +{
-> +	/* This shouldn't be possible */
-> +	WARN_ON(1);
-> +
-> +	return -ENXIO;
-> +}
-> +
->  #endif /* IS_ENABLED(CONFIG_RPMSG) */
->  
->  /* use a macro to avoid include chaining to get THIS_MODULE */
-> 
+diff --git a/drivers/net/ethernet/stmicro/stmmac/stmmac_main.c b/drivers/net/ethernet/stmicro/stmmac/stmmac_main.c
+index 6f51a265459d..9778e7e0c005 100644
+--- a/drivers/net/ethernet/stmicro/stmmac/stmmac_main.c
++++ b/drivers/net/ethernet/stmicro/stmmac/stmmac_main.c
+@@ -387,9 +387,8 @@ bool stmmac_eee_init(struct stmmac_priv *priv)
+ 	/* Using PCS we cannot dial with the phy registers at this stage
+ 	 * so we do not support extra feature like EEE.
+ 	 */
+-	if ((priv->hw->pcs == STMMAC_PCS_RGMII) ||
+-	    (priv->hw->pcs == STMMAC_PCS_TBI) ||
+-	    (priv->hw->pcs == STMMAC_PCS_RTBI))
++	if (priv->hw->pcs == STMMAC_PCS_TBI ||
++	    priv->hw->pcs == STMMAC_PCS_RTBI)
+ 		return false;
+ 
+ 	/* Check if MAC core supports the EEE feature. */
+@@ -2652,8 +2651,7 @@ static int stmmac_open(struct net_device *dev)
+ 	u32 chan;
+ 	int ret;
+ 
+-	if (priv->hw->pcs != STMMAC_PCS_RGMII &&
+-	    priv->hw->pcs != STMMAC_PCS_TBI &&
++	if (priv->hw->pcs != STMMAC_PCS_TBI &&
+ 	    priv->hw->pcs != STMMAC_PCS_RTBI) {
+ 		ret = stmmac_init_phy(dev);
+ 		if (ret) {
+@@ -4725,8 +4723,7 @@ int stmmac_dvr_probe(struct device *device,
+ 
+ 	stmmac_check_pcs_mode(priv);
+ 
+-	if (priv->hw->pcs != STMMAC_PCS_RGMII  &&
+-	    priv->hw->pcs != STMMAC_PCS_TBI &&
++	if (priv->hw->pcs != STMMAC_PCS_TBI &&
+ 	    priv->hw->pcs != STMMAC_PCS_RTBI) {
+ 		/* MDIO bus Registration */
+ 		ret = stmmac_mdio_register(ndev);
+@@ -4760,8 +4757,7 @@ int stmmac_dvr_probe(struct device *device,
+ error_netdev_register:
+ 	phylink_destroy(priv->phylink);
+ error_phy_setup:
+-	if (priv->hw->pcs != STMMAC_PCS_RGMII &&
+-	    priv->hw->pcs != STMMAC_PCS_TBI &&
++	if (priv->hw->pcs != STMMAC_PCS_TBI &&
+ 	    priv->hw->pcs != STMMAC_PCS_RTBI)
+ 		stmmac_mdio_unregister(ndev);
+ error_mdio_register:
+@@ -4806,8 +4802,7 @@ int stmmac_dvr_remove(struct device *dev)
+ 		reset_control_assert(priv->plat->stmmac_rst);
+ 	clk_disable_unprepare(priv->plat->pclk);
+ 	clk_disable_unprepare(priv->plat->stmmac_clk);
+-	if (priv->hw->pcs != STMMAC_PCS_RGMII &&
+-	    priv->hw->pcs != STMMAC_PCS_TBI &&
++	if (priv->hw->pcs != STMMAC_PCS_TBI &&
+ 	    priv->hw->pcs != STMMAC_PCS_RTBI)
+ 		stmmac_mdio_unregister(ndev);
+ 	destroy_workqueue(priv->wq);
+-- 
+2.17.1
 
 _______________________________________________
 Linux-stm32 mailing list
