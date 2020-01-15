@@ -2,123 +2,58 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id C006913C8F8
-	for <lists+linux-stm32@lfdr.de>; Wed, 15 Jan 2020 17:16:22 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 87CAF13CCB6
+	for <lists+linux-stm32@lfdr.de>; Wed, 15 Jan 2020 20:00:45 +0100 (CET)
 Received: from ip-172-31-3-76.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 80E06C36B0F;
-	Wed, 15 Jan 2020 16:16:22 +0000 (UTC)
-Received: from smtprelay-out1.synopsys.com (smtprelay-out1.synopsys.com
- [149.117.87.133])
- (using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 43CA0C36B0F;
+	Wed, 15 Jan 2020 19:00:45 +0000 (UTC)
+Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
+ (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id CC4BCC36B0D
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 020B5C36B0D
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Wed, 15 Jan 2020 16:16:20 +0000 (UTC)
-Received: from mailhost.synopsys.com (badc-mailhost1.synopsys.com
- [10.192.0.17])
- (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits))
+ Wed, 15 Jan 2020 19:00:41 +0000 (UTC)
+Received: from mail-qk1-f176.google.com (mail-qk1-f176.google.com
+ [209.85.222.176])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by smtprelay-out1.synopsys.com (Postfix) with ESMTPS id 14D76C0646;
- Wed, 15 Jan 2020 16:16:12 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=synopsys.com; s=mail;
- t=1579104979; bh=Pm+KzXesAkYAGe4VNi485/QuOtVc2zfN8tF3kYYW09U=;
- h=From:To:CC:Subject:Date:References:In-Reply-To:From;
- b=fu01RFtIon+g/XHAM3eiRXBmWTF93F2qh1C9Ha/fOB8PH7Ztb4LUEjmZT/cck1oXe
- cHQuBpYUR2DPhJWtiq9hDyOxJzt1aSqtZmkVAZ+bkYRM3RTb81DLBZuAoYDST12b9l
- lAGs+osT8B7Gbp2/f2W6yCvwCkkWSuIQEwPr1wa5WY+vJzYgRRmNEUlza/wus0Z+Ks
- UBwYygKc14T1cnmw4GHGUDCe4DOqY/5uOpNGi3ldgLuTN6iPz1qgWfKsD/DqjyN2Du
- MrJEOkcDvxZd0tNsf1iLQ8wiCaE2KE0LklzB8sGfAd0MlsKgr0c68edvqh6fAQWutO
- loouKHj1xP+og==
-Received: from US01WEHTC3.internal.synopsys.com
- (us01wehtc3.internal.synopsys.com [10.15.84.232])
- (using TLSv1.2 with cipher ECDHE-RSA-AES256-SHA384 (256/256 bits))
- (No client certificate requested)
- by mailhost.synopsys.com (Postfix) with ESMTPS id 7EFD8A007F;
- Wed, 15 Jan 2020 16:16:05 +0000 (UTC)
-Received: from us01hybrid1.internal.synopsys.com (10.200.27.51) by
- US01WEHTC3.internal.synopsys.com (10.15.84.232) with Microsoft SMTP Server
- (TLS) id 14.3.408.0; Wed, 15 Jan 2020 08:15:51 -0800
-Received: from NAM12-DM6-obe.outbound.protection.outlook.com (10.202.3.67) by
- mrs.synopsys.com (10.200.27.51) with Microsoft SMTP Server (TLS) id
- 14.3.408.0; Wed, 15 Jan 2020 08:15:50 -0800
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=WvXNKNqz4HSyhGh2YA1gmjdtO9mW8HAoXRk+dPYfew9Z5/kQuILvfilnC+u1/gLhhIWWOOYSO+vjdaI+wbkfMe3/MOZCHlDNTxFRcOa/yXBgu2qrO0jU5lOg/wQU4PRSt4t90ZEUeXq/Ibd0PnS+dYw4cFy0cxGyleG0LBkRXUDZ8qMEY0HFkigzjYTeI9ouc+AeH8r72D5uOX2NTCygBO0haP3SMaQfJbbTI7uYgPtMkKlQCBkcn6JSLBnwDlaZqPMIKFRFRAioO1WfzXfexlsFhwl0sNzBW6/XVr1jWpaSCwRw9A1iuPLymePzTzRlkCHPhNlXojdOdu9oWEk/7Q==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
- s=arcselector9901;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=w34eBEERU37rQYTi8ro7STXXUOAIvWiiXBlp26m7YZ0=;
- b=C3NZog2UKARhhbeUoN1CsY1OGFnOD7+IzAQ3Kswn5sFIBzx7+Ov42axsbMtQG6EeaIKP7spAu8UMm9efroByXefw+TJJP2aK8g0DUmGu5RFhDdWFV9Ul0qp5z+0cmph24RvoqY90a4rvRDfYXs6TYRg7Xg/YFabkaoVOJnIaC3py8vaUSyd/KseB4d5uejR9uDIk6ig1SEBxkhODEfw9IwE4ZYGDNDF0Ntl8lTlW2VeXj8a5Sq7wRPJlrioUe/Ipy2r4d+2VmCL25fx9+e3ht76EamU0oTKKk5r4+4HIphFvGReb8J9Q4Gm2jOspGq6brIwTCIUp4pFnb0uU9Ibtrg==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=synopsys.com; dmarc=pass action=none header.from=synopsys.com;
- dkim=pass header.d=synopsys.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=synopsys.onmicrosoft.com; s=selector2-synopsys-onmicrosoft-com;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=w34eBEERU37rQYTi8ro7STXXUOAIvWiiXBlp26m7YZ0=;
- b=FsSgminDsBrIvgc4sqIU4YUE0UVdgZUMGMOspTgfR4aCJfRwfSE5SUHlZcx8KVsm1f3IwGa0rxg+qd6W+lZQsnqHS7HAWB0tM/Z2VjnsBaBRyQLoJpv8XrAIjtCmtkxKf0BLkxI47cA4a8W9pHb9t4m6sAEhIMnP/uqt0Mmt9ho=
-Received: from BN8PR12MB3266.namprd12.prod.outlook.com (20.179.67.145) by
- BN8PR12MB2851.namprd12.prod.outlook.com (20.179.65.219) with Microsoft SMTP
- Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.20.2623.10; Wed, 15 Jan 2020 16:15:48 +0000
-Received: from BN8PR12MB3266.namprd12.prod.outlook.com
- ([fe80::c62:b247:6963:9da2]) by BN8PR12MB3266.namprd12.prod.outlook.com
- ([fe80::c62:b247:6963:9da2%6]) with mapi id 15.20.2623.015; Wed, 15 Jan 2020
- 16:15:48 +0000
-From: Jose Abreu <Jose.Abreu@synopsys.com>
-To: Ong Boon Leong <boon.leong.ong@intel.com>, "netdev@vger.kernel.org"
- <netdev@vger.kernel.org>
-Thread-Topic: [PATCH net v2 1/4] net: stmmac: Fix incorrect location to set
- real_num_rx|tx_queues
-Thread-Index: AQHVy3L8yN7x0daunUum4okkbbxKDafr5uCg
-Date: Wed, 15 Jan 2020 16:15:48 +0000
-Message-ID: <BN8PR12MB3266F3619CDF78C14179E025D3370@BN8PR12MB3266.namprd12.prod.outlook.com>
-References: <20200115071003.42820-1-boon.leong.ong@intel.com>
- <20200115071003.42820-2-boon.leong.ong@intel.com>
-In-Reply-To: <20200115071003.42820-2-boon.leong.ong@intel.com>
-Accept-Language: en-US
-Content-Language: en-US
-X-MS-Has-Attach: 
-X-MS-TNEF-Correlator: 
-authentication-results: spf=none (sender IP is )
- smtp.mailfrom=joabreu@synopsys.com; 
-x-originating-ip: [83.174.63.141]
-x-ms-publictraffictype: Email
-x-ms-office365-filtering-correlation-id: 230d6895-e2b4-4285-b6e3-08d799d62f19
-x-ms-traffictypediagnostic: BN8PR12MB2851:
-x-microsoft-antispam-prvs: <BN8PR12MB2851866EDB989038CF82798BD3370@BN8PR12MB2851.namprd12.prod.outlook.com>
-x-ms-oob-tlc-oobclassifiers: OLM:5797;
-x-forefront-prvs: 02830F0362
-x-forefront-antispam-report: SFV:NSPM;
- SFS:(10019020)(366004)(189003)(199004)(110136005)(54906003)(8676002)(4326008)(66946007)(7416002)(81166006)(71200400001)(7696005)(66476007)(52536014)(8936002)(186003)(33656002)(86362001)(9686003)(498600001)(2906002)(26005)(66446008)(66556008)(76116006)(81156014)(64756008)(6506007)(55016002)(5660300002);
- DIR:OUT; SFP:1102; SCL:1; SRVR:BN8PR12MB2851;
- H:BN8PR12MB3266.namprd12.prod.outlook.com; FPR:; SPF:None; LANG:en;
- PTR:InfoNoRecords; MX:1; A:1; 
-received-spf: None (protection.outlook.com: synopsys.com does not designate
- permitted sender hosts)
-x-ms-exchange-senderadcheck: 1
-x-microsoft-antispam: BCL:0;
-x-microsoft-antispam-message-info: 5OFhQlQJBfH74J4XKFp7CAso182YOEgBQVqc+/kt/rN+JlkwPjae7m0yxN0LPn/T1nMfSTTVkX13ofT19IIktcG3kiY9UFm+Xddn1nfqbxK9LRSi4p9oMmsJEZp5qEsxkhbrIsnP9aRhv83qu+H4nJgI2H9kMWU204mM/aQm8LaumpVMlC1NHKGTQ3wsUCgsdkVNvigs8D3KvUHAWOlfHOa/DnM9DOapRAI4ItFBfg7aYIqZ0jhqXDLI+9kzccPKYPAI3m7Jx5t9ebr/9c1pCwjN5HSITBifS4aNeyKaCMNFM8i0t9wurESpZzIqjpA2miIQhBY+xAZ/BTaip5eCbkXAsxzyqEpUouwWhE3iuPjITKxZcyIbGOcZm4DqmqlI3uFmntpZpR+Uyv1Jg2KepSyOvN+vNN6jJ2p/QlVNBnh3jFXlTJfmISsXhLQwHIuQ
-x-ms-exchange-transport-forked: True
+ by mail.kernel.org (Postfix) with ESMTPSA id 59DD32467C
+ for <linux-stm32@st-md-mailman.stormreply.com>;
+ Wed, 15 Jan 2020 19:00:40 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
+ s=default; t=1579114840;
+ bh=MlG4s8gIf9QIp7cmwxv8Ub3MJBcjIUIPloJI7is/YIM=;
+ h=References:In-Reply-To:From:Date:Subject:To:Cc:From;
+ b=bGAWEXGuvwR5V8/IBccmj+E3ISleKHwW/4Bu8O4vIMtC9e6TXQJS3Du4rHFBTCbYI
+ oZsiYeuWgl6Vb/9gLW5a0rslAAncSApseT1j89zkRCVZ8aFXK2aq3eXEk4uoFoIDGU
+ kYsuKnL7Kh2/RcLp9aajLIEWSQ0V91KwaX2oUBC8=
+Received: by mail-qk1-f176.google.com with SMTP id x129so16669097qke.8
+ for <linux-stm32@st-md-mailman.stormreply.com>;
+ Wed, 15 Jan 2020 11:00:40 -0800 (PST)
+X-Gm-Message-State: APjAAAUDel2whdTVdrVDirK2IsY46AofL+XtuNdZ2TIDYUG4mSqlkl8h
+ tF0HCOM20eLA8sDkt8OPXbATZLYRLWFrhdWRBQ==
+X-Google-Smtp-Source: APXvYqxnDh1IEhLyZP31/QgZF61ylKseQtKsfhE9nWDF1jxrTcOeHZYesnoZvVtxadzwM8P/TeMg5/NndDzuP3fXuos=
+X-Received: by 2002:a37:a70b:: with SMTP id q11mr23911932qke.393.1579114839424; 
+ Wed, 15 Jan 2020 11:00:39 -0800 (PST)
 MIME-Version: 1.0
-X-MS-Exchange-CrossTenant-Network-Message-Id: 230d6895-e2b4-4285-b6e3-08d799d62f19
-X-MS-Exchange-CrossTenant-originalarrivaltime: 15 Jan 2020 16:15:48.7680 (UTC)
-X-MS-Exchange-CrossTenant-fromentityheader: Hosted
-X-MS-Exchange-CrossTenant-id: c33c9f88-1eb7-4099-9700-16013fd9e8aa
-X-MS-Exchange-CrossTenant-mailboxtype: HOSTED
-X-MS-Exchange-CrossTenant-userprincipalname: e2q0WQVWVP2LFoaXMqOkGWP3MgWkRthpPFkuD4wdMZUqYIH7Tkppf6E9Z6mkFimx6nRGFiS/QHYC58wek14aBg==
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: BN8PR12MB2851
-X-OriginatorOrg: synopsys.com
-Cc: Voon Weifeng <weifeng.voon@intel.com>, Jakub Kicinski <kubakici@wp.pl>,
- "linux-kernel@vger.kernel.org" <linux-kernel@vger.kernel.org>,
- "linux-stm32@st-md-mailman.stormreply.com"
- <linux-stm32@st-md-mailman.stormreply.com>,
- Maxime Coquelin <mcoquelin.stm32@gmail.com>,
- Tan Tee Min <tee.min.tan@intel.com>,
- Giuseppe Cavallaro <peppe.cavallaro@st.com>, "David
- S . Miller" <davem@davemloft.net>,
- "linux-arm-kernel@lists.infradead.org" <linux-arm-kernel@lists.infradead.org>
-Subject: Re: [Linux-stm32] [PATCH net v2 1/4] net: stmmac: Fix incorrect
- location to set real_num_rx|tx_queues
+References: <20200109145333.12260-1-benjamin.gaignard@st.com>
+ <20200109145333.12260-2-benjamin.gaignard@st.com>
+ <20200115143521.GA15099@bogus>
+ <CA+M3ks7FGZ9TMO0=yXrhZph1Cn1GQ+2-tM7SnDrRDXVoCjrTjA@mail.gmail.com>
+In-Reply-To: <CA+M3ks7FGZ9TMO0=yXrhZph1Cn1GQ+2-tM7SnDrRDXVoCjrTjA@mail.gmail.com>
+From: Rob Herring <robh@kernel.org>
+Date: Wed, 15 Jan 2020 13:00:28 -0600
+X-Gmail-Original-Message-ID: <CAL_JsqLki6D4soncDo0ZEh4xeC9+U_Kf2dnOVjrMTY1QrXTjfg@mail.gmail.com>
+Message-ID: <CAL_JsqLki6D4soncDo0ZEh4xeC9+U_Kf2dnOVjrMTY1QrXTjfg@mail.gmail.com>
+To: Benjamin Gaignard <benjamin.gaignard@linaro.org>
+Cc: Mark Rutland <mark.rutland@arm.com>, devicetree@vger.kernel.org,
+ Daniel Lezcano <daniel.lezcano@linaro.org>,
+ Russell King - ARM Linux <linux@armlinux.org.uk>,
+ pascal paillet <p.paillet@st.com>, Maxime Coquelin <mcoquelin.stm32@gmail.com>,
+ Thomas Gleixner <tglx@linutronix.de>, linux-stm32@st-md-mailman.stormreply.com,
+ Linux ARM <linux-arm-kernel@lists.infradead.org>
+Subject: Re: [Linux-stm32] [PATCH 1/3] dt-bindings: timer: Add STM32 Low
+	Power Timer bindings
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -130,48 +65,52 @@ List-Post: <mailto:linux-stm32@st-md-mailman.stormreply.com>
 List-Help: <mailto:linux-stm32-request@st-md-mailman.stormreply.com?subject=help>
 List-Subscribe: <https://st-md-mailman.stormreply.com/mailman/listinfo/linux-stm32>, 
  <mailto:linux-stm32-request@st-md-mailman.stormreply.com?subject=subscribe>
-Content-Type: text/plain; charset="us-ascii"
-Content-Transfer-Encoding: 7bit
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: base64
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
-From: Ong Boon Leong <boon.leong.ong@intel.com>
-Date: Jan/15/2020, 07:10:00 (UTC+00:00)
-
-> From: Aashish Verma <aashishx.verma@intel.com>
-> 
-> netif_set_real_num_tx_queues() & netif_set_real_num_rx_queues() should be
-> used to inform network stack about the real Tx & Rx queue (active) number
-> in both stmmac_open() and stmmac_resume(), therefore, we move the code
-> from stmmac_dvr_probe() to stmmac_hw_setup().
-> 
-> Fixes: c02b7a914551 ("net: stmmac: use netif_set_real_num_{rx,tx}_queues")
-> Signed-off-by: Aashish Verma <aashishx.verma@intel.com>
-> Signed-off-by: Ong Boon Leong <boon.leong.ong@intel.com>
-> ---
->  drivers/net/ethernet/stmicro/stmmac/stmmac_main.c | 8 ++++----
->  1 file changed, 4 insertions(+), 4 deletions(-)
-> 
-> diff --git a/drivers/net/ethernet/stmicro/stmmac/stmmac_main.c b/drivers/net/ethernet/stmicro/stmmac/stmmac_main.c
-> index 80d59b775907..0780e00580a2 100644
-> --- a/drivers/net/ethernet/stmicro/stmmac/stmmac_main.c
-> +++ b/drivers/net/ethernet/stmicro/stmmac/stmmac_main.c
-> @@ -2624,6 +2624,10 @@ static int stmmac_hw_setup(struct net_device *dev, bool init_ptp)
->  	if (priv->dma_cap.vlins)
->  		stmmac_enable_vlan(priv, priv->hw, STMMAC_VLAN_INSERT);
->  
-> +	/* Configure real RX and TX queues */
-> +	netif_set_real_num_rx_queues(dev, priv->plat->rx_queues_to_use);
-> +	netif_set_real_num_tx_queues(dev, priv->plat->tx_queues_to_use);
-> +
-
-Nack. You need to hold rtnl lock when calling this and at suspend / resume 
-you don't.
-
----
-Thanks,
-Jose Miguel Abreu
-_______________________________________________
-Linux-stm32 mailing list
-Linux-stm32@st-md-mailman.stormreply.com
-https://st-md-mailman.stormreply.com/mailman/listinfo/linux-stm32
+T24gV2VkLCBKYW4gMTUsIDIwMjAgYXQgODo0NiBBTSBCZW5qYW1pbiBHYWlnbmFyZAo8YmVuamFt
+aW4uZ2FpZ25hcmRAbGluYXJvLm9yZz4gd3JvdGU6Cj4KPiBMZSBtZXIuIDE1IGphbnYuIDIwMjAg
+w6AgMTU6MzUsIFJvYiBIZXJyaW5nIDxyb2JoQGtlcm5lbC5vcmc+IGEgw6ljcml0IDoKPiA+Cj4g
+PiBPbiBUaHUsIEphbiAwOSwgMjAyMCBhdCAwMzo1MzozMVBNICswMTAwLCBCZW5qYW1pbiBHYWln
+bmFyZCB3cm90ZToKPiA+ID4gRG9jdW1lbnQgU1RNMzIgTG93IFBvd2VyIGJpbmRpbmdzLgo+ID4g
+Pgo+ID4gPiBTaWduZWQtb2ZmLWJ5OiBCZW5qYW1pbiBHYWlnbmFyZCA8YmVuamFtaW4uZ2FpZ25h
+cmRAc3QuY29tPgo+ID4gPiAtLS0KPiA+ID4gIC4uLi9iaW5kaW5ncy90aW1lci9zdCxzdG0zMi1s
+cC10aW1lci55YW1sICAgICAgICAgIHwgNDQgKysrKysrKysrKysrKysrKysrKysrKwo+ID4gPiAg
+MSBmaWxlIGNoYW5nZWQsIDQ0IGluc2VydGlvbnMoKykKPiA+ID4gIGNyZWF0ZSBtb2RlIDEwMDY0
+NCBEb2N1bWVudGF0aW9uL2RldmljZXRyZWUvYmluZGluZ3MvdGltZXIvc3Qsc3RtMzItbHAtdGlt
+ZXIueWFtbAo+ID4gPgo+ID4gPiBkaWZmIC0tZ2l0IGEvRG9jdW1lbnRhdGlvbi9kZXZpY2V0cmVl
+L2JpbmRpbmdzL3RpbWVyL3N0LHN0bTMyLWxwLXRpbWVyLnlhbWwgYi9Eb2N1bWVudGF0aW9uL2Rl
+dmljZXRyZWUvYmluZGluZ3MvdGltZXIvc3Qsc3RtMzItbHAtdGltZXIueWFtbAo+ID4gPiBuZXcg
+ZmlsZSBtb2RlIDEwMDY0NAo+ID4gPiBpbmRleCAwMDAwMDAwMDAwMDAuLmNhMDQwYjk2ZGM0Nwo+
+ID4gPiAtLS0gL2Rldi9udWxsCj4gPiA+ICsrKyBiL0RvY3VtZW50YXRpb24vZGV2aWNldHJlZS9i
+aW5kaW5ncy90aW1lci9zdCxzdG0zMi1scC10aW1lci55YW1sCj4gPgo+ID4gVXNlIHRoZSBjb21w
+YXRpYmxlIGZvciB0aGUgZmlsZW5hbWUuCj4KPiBpdCB3aWxsIGJlIGluIHYyCj4KPiA+Cj4gPiA+
+IEBAIC0wLDAgKzEsNDQgQEAKPiA+ID4gKyMgU1BEWC1MaWNlbnNlLUlkZW50aWZpZXI6IChHUEwt
+Mi4wLW9ubHkgT1IgQlNELTItQ2xhdXNlKQo+ID4gPiArJVlBTUwgMS4yCj4gPiA+ICstLS0KPiA+
+ID4gKyRpZDogaHR0cDovL2RldmljZXRyZWUub3JnL3NjaGVtYXMvdGltZXIvc3Qsc3RtMzItbHAt
+dGltZXIueWFtbCMKPiA+ID4gKyRzY2hlbWE6IGh0dHA6Ly9kZXZpY2V0cmVlLm9yZy9tZXRhLXNj
+aGVtYXMvY29yZS55YW1sIwo+ID4gPiArCj4gPiA+ICt0aXRsZTogU1RNaWNyb2VsZWN0cm9uaWNz
+IFNUTTMyIExvdyBQb3dlciAxNiBiaXRzIHRpbWVycyBiaW5kaW5ncwo+ID4gPiArCj4gPiA+ICtt
+YWludGFpbmVyczoKPiA+ID4gKyAgLSBCZW5qYW1pbiBHYWlnbmFyZCA8YmVuamFtaW4uZ2FpZ25h
+cmRAc3QuY29tPgo+ID4gPiArCj4gPiA+ICtwcm9wZXJ0aWVzOgo+ID4gPiArICBjb21wYXRpYmxl
+Ogo+ID4gPiArICAgIGNvbnN0OiBzdCxzdG0zMi1scHRpbWVyLWNsa2V2ZW50Cj4gPgo+ID4gJ2Ns
+a2V2ZW50JyBpcyBhIGgvdyBuYW1lPyBTZWVtcyByZWR1bmRhbnQgYW5kIGFidXNpbmcgY29tcGF0
+aWJsZSB0bwo+ID4gYmluZCB0byBhIHNwZWNpZmljIExpbnV4IGRyaXZlci4KPgo+IE5vIGJ1dCBz
+dCxzdG0zMi1scHRpbWVyIGNvbXBhdGlibGUgaXMgYWxyZWFkeSB1c2VkIGZvciBhbm90aGVyIGRy
+aXZlcgo+IFRoZSBoYXJkd2FyZSBibG9jayBjYW4gaW1wbGVtZW50IG11bHRpcGxlIGZlYXR1cmVz
+IGJ1dCBub3QgYWxsIGF0IHRoZSBzYW1lIHRpbWUKPiBzbyBJIHRyeSB0byBkaXN0aW5ndWlzaCB0
+aGVtIHdpdGggdGhlIGNvbXBhdGlibGUuCj4gSW4gdGhpcyBwYXJ0aWN1bGFyIGNhc2UgSSB3b3Vs
+ZCBsaWtlIHRhZyBpdCBhcyBhIGNsb2NrIGV2ZW50IGRyaXZlci4KClRoYXQncyBhIExpbnV4IHNw
+ZWNpZmljIHRoaW5nIHdoaWNoIHdlJ3ZlIHNhaWQgbm8gdG8gZm9yIDEwIHllYXJzLgoKSXMgIk5v
+dCBhdCB0aGUgc2FtZSB0aW1lIiBhIGNoaXAgZGVzaWduIHRpbWUgY29uZmlndXJhdGlvbiBvciBy
+dW4tdGltZQpjb25maWcuIElmIHRoZSBsYXR0ZXIsIHdoeSBkbyB5b3Ugd2FudCB0byB1c2UgYSBw
+YXJ0aWN1bGFyIGluc3RhbmNlCm92ZXIgYW5vdGhlciBvbmUgZm9yIGNsb2NrIGV2ZW50PyBUaGVy
+ZSBoYXMgdG8gYmUgc29tZSBoL3cgZGlmZmVyZW5jZS4KRGVzY3JpYmUgdGhlIGRpZmZlcmVuY2Ug
+YW5kIHRoZW4gdXNlIHRoYXQgdG8gZ3JhYiB0aGUgZGV2aWNlIHRvIHVzZQpmb3IgYSBjbG9ja2V2
+ZW50LiBJJ20gZmluZSBpZiB5b3Ugb21pdCB0aGUgcHdtIG5vZGUgYW5kIHRoZW4gdXNlIHRoYXQK
+dG8gZGVjaWRlIHdoaWNoIGluc3RhbmNlIHRvIHVzZS4KClJvYgpfX19fX19fX19fX19fX19fX19f
+X19fX19fX19fX19fX19fX19fX19fX19fX19fXwpMaW51eC1zdG0zMiBtYWlsaW5nIGxpc3QKTGlu
+dXgtc3RtMzJAc3QtbWQtbWFpbG1hbi5zdG9ybXJlcGx5LmNvbQpodHRwczovL3N0LW1kLW1haWxt
+YW4uc3Rvcm1yZXBseS5jb20vbWFpbG1hbi9saXN0aW5mby9saW51eC1zdG0zMgo=
