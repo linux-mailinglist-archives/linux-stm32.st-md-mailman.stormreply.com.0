@@ -2,60 +2,63 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id 50B9613C86E
-	for <lists+linux-stm32@lfdr.de>; Wed, 15 Jan 2020 16:54:02 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 3BD7013C8C6
+	for <lists+linux-stm32@lfdr.de>; Wed, 15 Jan 2020 17:07:47 +0100 (CET)
 Received: from ip-172-31-3-76.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 0FA17C36B0F;
-	Wed, 15 Jan 2020 15:54:02 +0000 (UTC)
-Received: from mail-pg1-f194.google.com (mail-pg1-f194.google.com
- [209.85.215.194])
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id EA9E6C36B0F;
+	Wed, 15 Jan 2020 16:07:46 +0000 (UTC)
+Received: from mail-oi1-f195.google.com (mail-oi1-f195.google.com
+ [209.85.167.195])
  (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id D3FB5C36B0D
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 0E896C36B0D
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Wed, 15 Jan 2020 15:53:57 +0000 (UTC)
-Received: by mail-pg1-f194.google.com with SMTP id s64so8387709pgb.9
+ Wed, 15 Jan 2020 16:07:45 +0000 (UTC)
+Received: by mail-oi1-f195.google.com with SMTP id 18so15859299oin.9
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Wed, 15 Jan 2020 07:53:57 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20161025;
- h=from:to:cc:subject:date:message-id;
- bh=c/GWPQtRfN7j/bEfY+uIGMfC4b83t2OdSqf9AvElNRM=;
- b=EwuEbm4VZGa5Yrj1M1k5z/SPIhI/TyArbfnbVrC91uJvgqCXjVIYHF5u+M5/X1rdJT
- 70gnHeB+JCcWu5W4tgZ1AO7gppBRrmPJhPzaC6T7a/sQlFkxe/ild7vt8rZ9zah7jWtE
- Z4I7BJFOJ5+XZh33RgFyQjHfnKNYYhB++PdcLYi7aYsJK1WIJ14lZtuiYXMErVz4EPyx
- FBnF+th9KbYbdtNpiaWd7qI+ImCzrn0S2An3ip7vWxySJWmnkbLp+PgK4KcjGJTzLKfP
- GnRrnYuLBNwEaidccyXlPF952M7ocLNt8U1ydpR/UJMCeb1xs020494ha66/l6yU+5jS
- K+Vg==
+ Wed, 15 Jan 2020 08:07:45 -0800 (PST)
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=1e100.net; s=20161025;
- h=x-gm-message-state:from:to:cc:subject:date:message-id;
- bh=c/GWPQtRfN7j/bEfY+uIGMfC4b83t2OdSqf9AvElNRM=;
- b=ad9C7/q/aD928dlknOYWOeu1ogwbsJNld6nIpvEbl+dmxnniZWUKiQIA1y1LMaDLeT
- vFyK5FAtcyaXPfWC3i9LrlD8APwWYvv5EgaNRSlvXv011ZvO6GvN7GK4MSrapsxnbgAi
- k1i06XCSd+Jbj9/frzzZAr5gXVgFyuR/RncUYHksfu7c8+lw9qNjDmXX3hxDtMNzpUjy
- eJDwzU3jQkNcCnE229iTVyWFjEFrucDAVLM9lQyqA/+ftjoV/N/UchEVVFR5zPsVWlCP
- Vz7UQ//Hqq+R9d1nWzg2mFk0cCOWke6GkslUzuXqM5N9JqvD2PgbvlzUQCQ9kHwija+M
- p5Hw==
-X-Gm-Message-State: APjAAAXNoWWJiAmFkrFumvuj6+01N/DwA6XXOA6/GVFDZgx5/a/Wsdhy
- W+0N15yzdbKlvzx9dYEPWw8=
-X-Google-Smtp-Source: APXvYqyKceOTx9ZjZoes/c2uX1iezUq1hng9gL92ptSPdkUO9WPHZB3PUuC6MsV6ZBJ7g6f6sPoZEQ==
-X-Received: by 2002:aa7:8088:: with SMTP id v8mr32789472pff.142.1579103636329; 
- Wed, 15 Jan 2020 07:53:56 -0800 (PST)
-Received: from localhost (64.64.229.47.16clouds.com. [64.64.229.47])
- by smtp.gmail.com with ESMTPSA id i66sm22664925pfg.85.2020.01.15.07.53.55
- (version=TLS1_2 cipher=ECDHE-RSA-CHACHA20-POLY1305 bits=256/256);
- Wed, 15 Jan 2020 07:53:55 -0800 (PST)
-From: Dejin Zheng <zhengdejin5@gmail.com>
-To: peppe.cavallaro@st.com, alexandre.torgue@st.com, joabreu@synopsys.com,
- davem@davemloft.net, mcoquelin.stm32@gmail.com
-Date: Wed, 15 Jan 2020 23:53:23 +0800
-Message-Id: <20200115155323.15543-1-zhengdejin5@gmail.com>
-X-Mailer: git-send-email 2.17.1
-Cc: netdev@vger.kernel.org, Dejin Zheng <zhengdejin5@gmail.com>,
- linux-stm32@st-md-mailman.stormreply.com, linux-arm-kernel@lists.infradead.org,
- linux-kernel@vger.kernel.org
-Subject: [Linux-stm32] [PATCH] net: stmmac: modified pcs mode support for
-	RGMII
+ h=x-gm-message-state:date:from:to:cc:subject:message-id:references
+ :mime-version:content-disposition:in-reply-to:user-agent;
+ bh=GgrG+HKS7SJS1YSumldfNDhrIEBU95RMvZklBq/bHds=;
+ b=prmjYmu/KbqJKQUEuPxGhjgiRRskuoBz629LLZHOrOPAdpOH4qkpcAhHIa7EbT+nT1
+ jwfS2iL5n8W4N5rqc1UCbCAoY4xQtXcrmCabGlYJYd65f7y2LM2t9BwdMRvHWv8MRdxy
+ 3lFSuFjHSVSmABnuZy+UZ9r1/INllqHB5G0tjXF0eZtjdx3AOZJmMWGNrTCGG79IO3OP
+ cd93NRz13jykBn2Dd73SCbn3HA1ZaLxfIvQgcLZzPu5fU/1cxZB6llL6pc6ByXtqMMqs
+ BwvtOUgLLWltRnzOtgLAiFoknVkuuB72K8ty5N0ItMLGvSgAKHZKrv8+zkwVDDdlQqz2
+ zHOQ==
+X-Gm-Message-State: APjAAAXO6OTr6j0ivA/j3j/L4j2fbfvvxpQRLcFxXNKOCr45xcmzNDHt
+ Lr7Ka2c383xRnRmj8YVu0iwlkk0=
+X-Google-Smtp-Source: APXvYqyty68PAMWORBFS4SOumBSi0SGW6OqOq41JF4XLCXyhk6e25NllWvvx+DACJd0Zs0zlczSJKg==
+X-Received: by 2002:a05:6808:3c2:: with SMTP id
+ o2mr363663oie.145.1579104463552; 
+ Wed, 15 Jan 2020 08:07:43 -0800 (PST)
+Received: from rob-hp-laptop (24-155-109-49.dyn.grandenetworks.net.
+ [24.155.109.49])
+ by smtp.gmail.com with ESMTPSA id j8sm2444704oii.32.2020.01.15.08.07.42
+ for <linux-stm32@st-md-mailman.stormreply.com>
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Wed, 15 Jan 2020 08:07:42 -0800 (PST)
+Received: from rob (uid 1000) (envelope-from rob@rob-hp-laptop) id 220379
+ by rob-hp-laptop (DragonFly Mail Agent v0.11);
+ Wed, 15 Jan 2020 10:07:41 -0600
+Date: Wed, 15 Jan 2020 10:07:41 -0600
+From: Rob Herring <robh@kernel.org>
+To: Olivier Moysan <olivier.moysan@st.com>
+Message-ID: <20200115160741.GA20174@bogus>
+References: <20200113161954.29779-1-olivier.moysan@st.com>
+MIME-Version: 1.0
+Content-Disposition: inline
+In-Reply-To: <20200113161954.29779-1-olivier.moysan@st.com>
+User-Agent: Mutt/1.10.1 (2018-07-13)
+Cc: mark.rutland@arm.com, devicetree@vger.kernel.org,
+ alsa-devel@alsa-project.org, linux-kernel@vger.kernel.org, tiwai@suse.com,
+ lgirdwood@gmail.com, broonie@kernel.org, mcoquelin.stm32@gmail.com,
+ perex@perex.cz, linux-stm32@st-md-mailman.stormreply.com,
+ linux-arm-kernel@lists.infradead.org
+Subject: Re: [Linux-stm32] [PATCH] ASoC: dt-bindings: stm32: convert spdfirx
+	to json-schema
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -67,82 +70,182 @@ List-Post: <mailto:linux-stm32@st-md-mailman.stormreply.com>
 List-Help: <mailto:linux-stm32-request@st-md-mailman.stormreply.com?subject=help>
 List-Subscribe: <https://st-md-mailman.stormreply.com/mailman/listinfo/linux-stm32>, 
  <mailto:linux-stm32-request@st-md-mailman.stormreply.com?subject=subscribe>
-MIME-Version: 1.0
 Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
-snps databook noted that physical coding sublayer (PCS) interface
-that can be used when the MAC is configured for the TBI, RTBI, or
-SGMII PHY interface. we have RGMII and SGMII in a SoC and it also
-has the PCS block. it needs stmmac_init_phy and stmmac_mdio_register
-function for initializing phy when it used RGMII interface.
+On Mon, Jan 13, 2020 at 05:19:54PM +0100, Olivier Moysan wrote:
+> Convert the STM32 SPDIFRX bindings to DT schema format using json-schema.
+> 
+> Signed-off-by: Olivier Moysan <olivier.moysan@st.com>
+> ---
+>  .../bindings/sound/st,stm32-spdifrx.txt       | 56 -------------
+>  .../bindings/sound/st,stm32-spdifrx.yaml      | 80 +++++++++++++++++++
+>  2 files changed, 80 insertions(+), 56 deletions(-)
+>  delete mode 100644 Documentation/devicetree/bindings/sound/st,stm32-spdifrx.txt
+>  create mode 100644 Documentation/devicetree/bindings/sound/st,stm32-spdifrx.yaml
+> 
+> diff --git a/Documentation/devicetree/bindings/sound/st,stm32-spdifrx.txt b/Documentation/devicetree/bindings/sound/st,stm32-spdifrx.txt
+> deleted file mode 100644
+> index 33826f2459fa..000000000000
+> --- a/Documentation/devicetree/bindings/sound/st,stm32-spdifrx.txt
+> +++ /dev/null
+> @@ -1,56 +0,0 @@
+> -STMicroelectronics STM32 S/PDIF receiver (SPDIFRX).
+> -
+> -The SPDIFRX peripheral, is designed to receive an S/PDIF flow compliant with
+> -IEC-60958 and IEC-61937.
+> -
+> -Required properties:
+> -  - compatible: should be "st,stm32h7-spdifrx"
+> -  - reg: cpu DAI IP base address and size
+> -  - clocks: must contain an entry for kclk (used as S/PDIF signal reference)
+> -  - clock-names: must contain "kclk"
+> -  - interrupts: cpu DAI interrupt line
+> -  - dmas: DMA specifiers for audio data DMA and iec control flow DMA
+> -    See STM32 DMA bindings, Documentation/devicetree/bindings/dma/stm32-dma.txt
+> -  - dma-names: two dmas have to be defined, "rx" and "rx-ctrl"
+> -
+> -Optional properties:
+> -  - resets: Reference to a reset controller asserting the SPDIFRX
+> -
+> -The device node should contain one 'port' child node with one child 'endpoint'
+> -node, according to the bindings defined in Documentation/devicetree/bindings/
+> -graph.txt.
+> -
+> -Example:
+> -spdifrx: spdifrx@40004000 {
+> -	compatible = "st,stm32h7-spdifrx";
+> -	reg = <0x40004000 0x400>;
+> -	clocks = <&rcc SPDIFRX_CK>;
+> -	clock-names = "kclk";
+> -	interrupts = <97>;
+> -	dmas = <&dmamux1 2 93 0x400 0x0>,
+> -	       <&dmamux1 3 94 0x400 0x0>;
+> -	dma-names = "rx", "rx-ctrl";
+> -	pinctrl-0 = <&spdifrx_pins>;
+> -	pinctrl-names = "default";
+> -
+> -	spdifrx_port: port {
+> -		cpu_endpoint: endpoint {
+> -			remote-endpoint = <&codec_endpoint>;
+> -		};
+> -	};
+> -};
+> -
+> -spdif_in: spdif-in {
+> -	compatible = "linux,spdif-dir";
+> -
+> -	codec_port: port {
+> -		codec_endpoint: endpoint {
+> -			remote-endpoint = <&cpu_endpoint>;
+> -		};
+> -	};
+> -};
+> -
+> -soundcard {
+> -	compatible = "audio-graph-card";
+> -	dais = <&spdifrx_port>;
+> -};
+> diff --git a/Documentation/devicetree/bindings/sound/st,stm32-spdifrx.yaml b/Documentation/devicetree/bindings/sound/st,stm32-spdifrx.yaml
+> new file mode 100644
+> index 000000000000..ab8e9d74ac3c
+> --- /dev/null
+> +++ b/Documentation/devicetree/bindings/sound/st,stm32-spdifrx.yaml
+> @@ -0,0 +1,80 @@
+> +# SPDX-License-Identifier: (GPL-2.0-only OR BSD-2-Clause)
+> +%YAML 1.2
+> +---
+> +$id: http://devicetree.org/schemas/sound/st,stm32-spdifrx.yaml#
+> +$schema: http://devicetree.org/meta-schemas/core.yaml#
+> +
+> +title: STMicroelectronics STM32 S/PDIF receiver (SPDIFRX)
+> +
+> +maintainers:
+> +  - Olivier Moysan <olivier.moysan@st.com>
+> +
+> +description: |
+> +  The SPDIFRX peripheral, is designed to receive an S/PDIF flow compliant with
+> +  IEC-60958 and IEC-61937.
+> +
+> +properties:
+> +  compatible:
+> +    enum:
+> +      - st,stm32h7-spdifrx
+> +
+> +  "#sound-dai-cells":
+> +    const: 0
+> +
+> +  reg:
+> +    maxItems: 1
+> +
+> +  clocks:
+> +    maxItems: 1
+> +
+> +  clock-names:
+> +    items:
+> +      - const: kclk
+> +
+> +  interrupts:
+> +    maxItems: 1
+> +
+> +  dmas:
+> +    items:
+> +      - description: audio data capture DMA
+> +      - description: IEC status bits capture DMA
+> +    minItems: 1
+> +    maxItems: 2
+> +
+> +  dma-names:
+> +    items:
+> +      - const: rx
+> +      - const: rx-ctrl
+> +
+> +  resets:
+> +    maxItems: 1
+> +
+> +required:
+> +  - compatible
+> +  - "#sound-dai-cells"
+> +  - reg
+> +  - clocks
+> +  - clock-names
+> +  - interrupts
+> +  - dmas
+> +  - dma-names
 
-Signed-off-by: Dejin Zheng <zhengdejin5@gmail.com>
----
- .../net/ethernet/stmicro/stmmac/stmmac_main.c   | 17 ++++++-----------
- 1 file changed, 6 insertions(+), 11 deletions(-)
+Needs a:
 
-diff --git a/drivers/net/ethernet/stmicro/stmmac/stmmac_main.c b/drivers/net/ethernet/stmicro/stmmac/stmmac_main.c
-index 6f51a265459d..9778e7e0c005 100644
---- a/drivers/net/ethernet/stmicro/stmmac/stmmac_main.c
-+++ b/drivers/net/ethernet/stmicro/stmmac/stmmac_main.c
-@@ -387,9 +387,8 @@ bool stmmac_eee_init(struct stmmac_priv *priv)
- 	/* Using PCS we cannot dial with the phy registers at this stage
- 	 * so we do not support extra feature like EEE.
- 	 */
--	if ((priv->hw->pcs == STMMAC_PCS_RGMII) ||
--	    (priv->hw->pcs == STMMAC_PCS_TBI) ||
--	    (priv->hw->pcs == STMMAC_PCS_RTBI))
-+	if (priv->hw->pcs == STMMAC_PCS_TBI ||
-+	    priv->hw->pcs == STMMAC_PCS_RTBI)
- 		return false;
- 
- 	/* Check if MAC core supports the EEE feature. */
-@@ -2652,8 +2651,7 @@ static int stmmac_open(struct net_device *dev)
- 	u32 chan;
- 	int ret;
- 
--	if (priv->hw->pcs != STMMAC_PCS_RGMII &&
--	    priv->hw->pcs != STMMAC_PCS_TBI &&
-+	if (priv->hw->pcs != STMMAC_PCS_TBI &&
- 	    priv->hw->pcs != STMMAC_PCS_RTBI) {
- 		ret = stmmac_init_phy(dev);
- 		if (ret) {
-@@ -4725,8 +4723,7 @@ int stmmac_dvr_probe(struct device *device,
- 
- 	stmmac_check_pcs_mode(priv);
- 
--	if (priv->hw->pcs != STMMAC_PCS_RGMII  &&
--	    priv->hw->pcs != STMMAC_PCS_TBI &&
-+	if (priv->hw->pcs != STMMAC_PCS_TBI &&
- 	    priv->hw->pcs != STMMAC_PCS_RTBI) {
- 		/* MDIO bus Registration */
- 		ret = stmmac_mdio_register(ndev);
-@@ -4760,8 +4757,7 @@ int stmmac_dvr_probe(struct device *device,
- error_netdev_register:
- 	phylink_destroy(priv->phylink);
- error_phy_setup:
--	if (priv->hw->pcs != STMMAC_PCS_RGMII &&
--	    priv->hw->pcs != STMMAC_PCS_TBI &&
-+	if (priv->hw->pcs != STMMAC_PCS_TBI &&
- 	    priv->hw->pcs != STMMAC_PCS_RTBI)
- 		stmmac_mdio_unregister(ndev);
- error_mdio_register:
-@@ -4806,8 +4802,7 @@ int stmmac_dvr_remove(struct device *dev)
- 		reset_control_assert(priv->plat->stmmac_rst);
- 	clk_disable_unprepare(priv->plat->pclk);
- 	clk_disable_unprepare(priv->plat->stmmac_clk);
--	if (priv->hw->pcs != STMMAC_PCS_RGMII &&
--	    priv->hw->pcs != STMMAC_PCS_TBI &&
-+	if (priv->hw->pcs != STMMAC_PCS_TBI &&
- 	    priv->hw->pcs != STMMAC_PCS_RTBI)
- 		stmmac_mdio_unregister(ndev);
- 	destroy_workqueue(priv->wq);
--- 
-2.17.1
+additionalProperties: false
 
+With that,
+
+Reviewed-by: Rob Herring <robh@kernel.org>
+
+> +
+> +examples:
+> +  - |
+> +    #include <dt-bindings/interrupt-controller/arm-gic.h>
+> +    #include <dt-bindings/clock/stm32mp1-clks.h>
+> +    spdifrx: spdifrx@40004000 {
+> +        compatible = "st,stm32h7-spdifrx";
+> +        #sound-dai-cells = <0>;
+> +        reg = <0x40004000 0x400>;
+> +        clocks = <&rcc SPDIF_K>;
+> +        clock-names = "kclk";
+> +        interrupts = <GIC_SPI 97 IRQ_TYPE_LEVEL_HIGH>;
+> +        dmas = <&dmamux1 2 93 0x400 0x0>,
+> +               <&dmamux1 3 94 0x400 0x0>;
+> +        dma-names = "rx", "rx-ctrl";
+> +        pinctrl-0 = <&spdifrx_pins>;
+> +        pinctrl-names = "default";
+> +    };
+> +
+> +...
+> -- 
+> 2.17.1
+> 
 _______________________________________________
 Linux-stm32 mailing list
 Linux-stm32@st-md-mailman.stormreply.com
