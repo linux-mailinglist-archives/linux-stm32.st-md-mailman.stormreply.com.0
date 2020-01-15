@@ -2,42 +2,69 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id E8ED213BA2B
-	for <lists+linux-stm32@lfdr.de>; Wed, 15 Jan 2020 08:10:51 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id A716F13BA88
+	for <lists+linux-stm32@lfdr.de>; Wed, 15 Jan 2020 08:56:49 +0100 (CET)
 Received: from ip-172-31-3-76.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id A8B58C36B1E;
-	Wed, 15 Jan 2020 07:10:51 +0000 (UTC)
-Received: from mga07.intel.com (mga07.intel.com [134.134.136.100])
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 54F46C36B0F;
+	Wed, 15 Jan 2020 07:56:49 +0000 (UTC)
+Received: from mx07-00178001.pphosted.com (mx08-00178001.pphosted.com
+ [91.207.212.93])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 5D4C2C36B0D
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 35E07C36B0D
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Wed, 15 Jan 2020 07:10:50 +0000 (UTC)
-X-Amp-Result: SKIPPED(no attachment in message)
-X-Amp-File-Uploaded: False
-Received: from fmsmga002.fm.intel.com ([10.253.24.26])
- by orsmga105.jf.intel.com with ESMTP/TLS/DHE-RSA-AES256-GCM-SHA384;
- 14 Jan 2020 23:10:50 -0800
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="5.70,321,1574150400"; d="scan'208";a="256643684"
-Received: from bong5-hp-z440.png.intel.com ([10.221.118.136])
- by fmsmga002.fm.intel.com with ESMTP; 14 Jan 2020 23:10:46 -0800
-From: Ong Boon Leong <boon.leong.ong@intel.com>
-To: netdev@vger.kernel.org
-Date: Wed, 15 Jan 2020 15:10:03 +0800
-Message-Id: <20200115071003.42820-5-boon.leong.ong@intel.com>
-X-Mailer: git-send-email 2.17.1
-In-Reply-To: <20200115071003.42820-1-boon.leong.ong@intel.com>
-References: <20200115071003.42820-1-boon.leong.ong@intel.com>
-Cc: Jose Abreu <Jose.Abreu@synopsys.com>, Voon Weifeng <weifeng.voon@intel.com>,
- Jakub Kicinski <kubakici@wp.pl>, linux-kernel@vger.kernel.org,
+ Wed, 15 Jan 2020 07:56:48 +0000 (UTC)
+Received: from pps.filterd (m0046660.ppops.net [127.0.0.1])
+ by mx07-00178001.pphosted.com (8.16.0.42/8.16.0.42) with SMTP id
+ 00F7s3i2016770; Wed, 15 Jan 2020 08:56:47 +0100
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=st.com;
+ h=subject : to : cc :
+ references : from : message-id : date : mime-version : in-reply-to :
+ content-type : content-transfer-encoding; s=STMicroelectronics;
+ bh=+FyPAJhyAahmD983zlanIo1zEgFOFkL6x75eCA0EJng=;
+ b=0Wo1EgMnic89ZQHRLDGCXbtR8D/XkSsw4bkxP9ptbz9xt1DIrf3NVkCCaytJBlBGUWYS
+ EkhnjCOQHer4r9EQWJjDrXyF18qmFSkJfRMi9CfrmlSJYQ+6P97Cu7N/e4W8tefGfDe/
+ 1j70LqQ5wCmDxN/SDraWWF0icMlxpzvXfxVeyiN4+BmLyKJGqu0Q7ZiJ9o2dCySRvwWh
+ nKe1rESm4LZoCYrt8kg8Xw5ESfzs9lA6mOOJDKEKV9StykP+fgZIjwyEfzwZZeM8IPEl
+ 7g2/Qtu8KhgsDWwI5I7T8HFZ2mjbDyoiUt8jQG4CKiPvGAi95JvemqH18Y440E8QMOTl Vg== 
+Received: from beta.dmz-eu.st.com (beta.dmz-eu.st.com [164.129.1.35])
+ by mx07-00178001.pphosted.com with ESMTP id 2xf78s9vvc-1
+ (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
+ Wed, 15 Jan 2020 08:56:47 +0100
+Received: from euls16034.sgp.st.com (euls16034.sgp.st.com [10.75.44.20])
+ by beta.dmz-eu.st.com (STMicroelectronics) with ESMTP id AF8AB10002A;
+ Wed, 15 Jan 2020 08:56:45 +0100 (CET)
+Received: from Webmail-eu.st.com (sfhdag3node1.st.com [10.75.127.7])
+ by euls16034.sgp.st.com (STMicroelectronics) with ESMTP id 965FB210F85;
+ Wed, 15 Jan 2020 08:56:45 +0100 (CET)
+Received: from lmecxl0889.lme.st.com (10.75.127.44) by SFHDAG3NODE1.st.com
+ (10.75.127.7) with Microsoft SMTP Server (TLS) id 15.0.1473.3; Wed, 15 Jan
+ 2020 08:56:44 +0100
+To: Suman Anna <s-anna@ti.com>, Ohad Ben-Cohen <ohad@wizery.com>, Bjorn
+ Andersson <bjorn.andersson@linaro.org>,
+ <linux-kernel@vger.kernel.org>, <linux-remoteproc@vger.kernel.org>,
+ <linux-arm-msm@vger.kernel.org>
+References: <20191113172249.32412-1-arnaud.pouliquen@st.com>
+ <f0419672-f1a5-b909-2dff-c611f852919b@st.com>
+ <90bec284-6a99-e75f-1609-de763048a1e2@ti.com>
+From: Arnaud POULIQUEN <arnaud.pouliquen@st.com>
+Message-ID: <92891482-3d8c-8c4c-9100-bb23d6ac628e@st.com>
+Date: Wed, 15 Jan 2020 08:56:44 +0100
+User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:68.0) Gecko/20100101
+ Thunderbird/68.2.2
+MIME-Version: 1.0
+In-Reply-To: <90bec284-6a99-e75f-1609-de763048a1e2@ti.com>
+Content-Language: en-US
+X-Originating-IP: [10.75.127.44]
+X-ClientProxiedBy: SFHDAG5NODE3.st.com (10.75.127.15) To SFHDAG3NODE1.st.com
+ (10.75.127.7)
+X-Proofpoint-Virus-Version: vendor=fsecure engine=2.50.10434:6.0.138, 18.0.572
+ definitions=2020-01-14_06:2020-01-14,
+ 2020-01-14 signatures=0
+Cc: Mathieu Poirier <mathieu.poirier@linaro.org>,
  linux-stm32@st-md-mailman.stormreply.com,
- Maxime Coquelin <mcoquelin.stm32@gmail.com>,
- Tan Tee Min <tee.min.tan@intel.com>, Ong Boon Leong <boon.leong.ong@intel.com>,
- Giuseppe Cavallaro <peppe.cavallaro@st.com>,
- "David S . Miller" <davem@davemloft.net>, linux-arm-kernel@lists.infradead.org
-Subject: [Linux-stm32] [PATCH net v2 4/4] net: stmmac: update pci platform
-	data to use phy_interface
+ Fabien DESSENNE <fabien.dessenne@st.com>
+Subject: Re: [Linux-stm32] [PATCH v2] rpmsg: core: add API to get MTU
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -49,88 +76,188 @@ List-Post: <mailto:linux-stm32@st-md-mailman.stormreply.com>
 List-Help: <mailto:linux-stm32-request@st-md-mailman.stormreply.com?subject=help>
 List-Subscribe: <https://st-md-mailman.stormreply.com/mailman/listinfo/linux-stm32>, 
  <mailto:linux-stm32-request@st-md-mailman.stormreply.com?subject=subscribe>
-MIME-Version: 1.0
 Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
-From: Voon Weifeng <weifeng.voon@intel.com>
+Hi Suman,
 
-The recent patch to support passive mode converter did not take care the
-phy interface configuration in PCI platform data. Hence, converting all
-the PCI platform data from plat->interface to plat->phy_interface as the
-default mode is meant for PHY.
+On 1/15/20 12:40 AM, Suman Anna wrote:
+> Hi Arnaud,
+> 
+> On 1/13/20 7:19 AM, Arnaud POULIQUEN wrote:
+>> Hi Bjorn, Suman,
+>>
+>> Gentleman reminder :)
+> 
+> Thanks for the revised version, and very sorry about the delay.  Only
+> one minor nit that you missed from my comments the v6 rpmsg-tty series
+> [1], otherwise I am good with the changes. See below.
+> 
+> FWIW, I have already been using this patch on our downstream 2020 LTS
+> based kernel and eliminate the the need to expose the virtio_rpmsg's
+> rpmsg_hdr to rpmsg client drivers :).
+Right  without this API the client needs also to know the RPMSG buffer size to
+compute the MTU.
+> 
+>>
+>> Thank in advance,
+>>
+>> Arnaud
+>>
+>> On 11/13/19 6:22 PM, Arnaud Pouliquen wrote:
+>>> Return the rpmsg buffer MTU for sending message, so rpmsg users
+>>> can split a long message in several sub rpmsg buffers.
+>>>
+>>> Signed-off-by: Arnaud Pouliquen <arnaud.pouliquen@st.com>
+>>> ---
+>>>  V1 to V2
+>>>
+>>>   V1 patch:https://lore.kernel.org/patchwork/patch/1124684/
+>>>   - Change patch title,
+>>>   - as not solution today to support MTU on GLINK make ops optional,
+>>>     RPMsg client API returns -ENOTSUPP in this case,
+>>>   - suppress smd and glink patches.
+>>> ---
+>>>  drivers/rpmsg/rpmsg_core.c       | 21 +++++++++++++++++++++
+>>>  drivers/rpmsg/rpmsg_internal.h   |  2 ++
+>>>  drivers/rpmsg/virtio_rpmsg_bus.c | 10 ++++++++++
+>>>  include/linux/rpmsg.h            | 10 ++++++++++
+>>>  4 files changed, 43 insertions(+)
+>>>
+>>> diff --git a/drivers/rpmsg/rpmsg_core.c b/drivers/rpmsg/rpmsg_core.c
+>>> index e330ec4dfc33..a6ef54c4779a 100644
+>>> --- a/drivers/rpmsg/rpmsg_core.c
+>>> +++ b/drivers/rpmsg/rpmsg_core.c
+>>> @@ -283,6 +283,27 @@ int rpmsg_trysend_offchannel(struct rpmsg_endpoint *ept, u32 src, u32 dst,
+>>>  }
+>>>  EXPORT_SYMBOL(rpmsg_trysend_offchannel);
+>>>  
+>>> +/**
+>>> + * rpmsg_get_mtu() - get maximum transmission buffer size for sending message.
+>>> + * @ept: the rpmsg endpoint
+>>> + *
+>>> + * This function returns maximum buffer size available for a single message.
+>>> + *
+>>> + * Return: the maximum transmission size on success and an appropriate error
+>>> + * value on failure.
+>>> + */
+>>> +
+>>> +ssize_t rpmsg_get_mtu(struct rpmsg_endpoint *ept)
+>>> +{
+>>> +	if (WARN_ON(!ept))
+>>> +		return -EINVAL;
+>>> +	if (!ept->ops->get_mtu)
+>>> +		return -ENOTSUPP;
+>>> +
+>>> +	return ept->ops->get_mtu(ept);
+>>> +}
+>>> +EXPORT_SYMBOL(rpmsg_get_mtu);
+>>> +
+>>>  /*
+>>>   * match an rpmsg channel with a channel info struct.
+>>>   * this is used to make sure we're not creating rpmsg devices for channels
+>>> diff --git a/drivers/rpmsg/rpmsg_internal.h b/drivers/rpmsg/rpmsg_internal.h
+>>> index 3fc83cd50e98..0e56e046f5c6 100644
+>>> --- a/drivers/rpmsg/rpmsg_internal.h
+>>> +++ b/drivers/rpmsg/rpmsg_internal.h
+>>> @@ -47,6 +47,7 @@ struct rpmsg_device_ops {
+>>>   * @trysendto:		see @rpmsg_trysendto(), optional
+>>>   * @trysend_offchannel:	see @rpmsg_trysend_offchannel(), optional
+>>>   * @poll:		see @rpmsg_poll(), optional
+>>> + * @get_mtu:		see @get_mpu(), optional
+> 
+> In the description for the ops, 'mpu' is a typo. My earlier comment was
+> essentially,
+> %s/see @get_mpu()/see @rpmsg_get_mtu()/
+Sorry, completly missed it i sent a v3
 
-Fixes: 0060c8783330 ("net: stmmac: implement support for passive mode converters via dt")
-Signed-off-by: Voon Weifeng <weifeng.voon@intel.com>
----
- drivers/net/ethernet/stmicro/stmmac/stmmac_pci.c | 14 ++++++++------
- 1 file changed, 8 insertions(+), 6 deletions(-)
+Thanks,
+Arnaud
 
-diff --git a/drivers/net/ethernet/stmicro/stmmac/stmmac_pci.c b/drivers/net/ethernet/stmicro/stmmac/stmmac_pci.c
-index 8237dbc3e991..d2bc04dedd7c 100644
---- a/drivers/net/ethernet/stmicro/stmmac/stmmac_pci.c
-+++ b/drivers/net/ethernet/stmicro/stmmac/stmmac_pci.c
-@@ -96,7 +96,7 @@ static int stmmac_default_data(struct pci_dev *pdev,
- 
- 	plat->bus_id = 1;
- 	plat->phy_addr = 0;
--	plat->interface = PHY_INTERFACE_MODE_GMII;
-+	plat->phy_interface = PHY_INTERFACE_MODE_GMII;
- 
- 	plat->dma_cfg->pbl = 32;
- 	plat->dma_cfg->pblx8 = true;
-@@ -220,7 +220,8 @@ static int ehl_sgmii_data(struct pci_dev *pdev,
- {
- 	plat->bus_id = 1;
- 	plat->phy_addr = 0;
--	plat->interface = PHY_INTERFACE_MODE_SGMII;
-+	plat->phy_interface = PHY_INTERFACE_MODE_SGMII;
-+
- 	return ehl_common_data(pdev, plat);
- }
- 
-@@ -233,7 +234,8 @@ static int ehl_rgmii_data(struct pci_dev *pdev,
- {
- 	plat->bus_id = 1;
- 	plat->phy_addr = 0;
--	plat->interface = PHY_INTERFACE_MODE_RGMII;
-+	plat->phy_interface = PHY_INTERFACE_MODE_RGMII;
-+
- 	return ehl_common_data(pdev, plat);
- }
- 
-@@ -261,7 +263,7 @@ static int tgl_sgmii_data(struct pci_dev *pdev,
- {
- 	plat->bus_id = 1;
- 	plat->phy_addr = 0;
--	plat->interface = PHY_INTERFACE_MODE_SGMII;
-+	plat->phy_interface = PHY_INTERFACE_MODE_SGMII;
- 	return tgl_common_data(pdev, plat);
- }
- 
-@@ -361,7 +363,7 @@ static int quark_default_data(struct pci_dev *pdev,
- 
- 	plat->bus_id = pci_dev_id(pdev);
- 	plat->phy_addr = ret;
--	plat->interface = PHY_INTERFACE_MODE_RMII;
-+	plat->phy_interface = PHY_INTERFACE_MODE_RMII;
- 
- 	plat->dma_cfg->pbl = 16;
- 	plat->dma_cfg->pblx8 = true;
-@@ -418,7 +420,7 @@ static int snps_gmac5_default_data(struct pci_dev *pdev,
- 
- 	plat->bus_id = 1;
- 	plat->phy_addr = -1;
--	plat->interface = PHY_INTERFACE_MODE_GMII;
-+	plat->phy_interface = PHY_INTERFACE_MODE_GMII;
- 
- 	plat->dma_cfg->pbl = 32;
- 	plat->dma_cfg->pblx8 = true;
--- 
-2.17.1
-
+> 
+> regards
+> Suman
+> 
+> [1] https://patchwork.kernel.org/patch/11130209/
+> 
+>>>   *
+>>>   * Indirection table for the operations that a rpmsg backend should implement.
+>>>   * In addition to @destroy_ept, the backend must at least implement @send and
+>>> @@ -66,6 +67,7 @@ struct rpmsg_endpoint_ops {
+>>>  			     void *data, int len);
+>>>  	__poll_t (*poll)(struct rpmsg_endpoint *ept, struct file *filp,
+>>>  			     poll_table *wait);
+>>> +	ssize_t (*get_mtu)(struct rpmsg_endpoint *ept);
+>>>  };
+>>>  
+>>>  int rpmsg_register_device(struct rpmsg_device *rpdev);
+>>> diff --git a/drivers/rpmsg/virtio_rpmsg_bus.c b/drivers/rpmsg/virtio_rpmsg_bus.c
+>>> index 376ebbf880d6..6e48fdf24555 100644
+>>> --- a/drivers/rpmsg/virtio_rpmsg_bus.c
+>>> +++ b/drivers/rpmsg/virtio_rpmsg_bus.c
+>>> @@ -175,6 +175,7 @@ static int virtio_rpmsg_trysendto(struct rpmsg_endpoint *ept, void *data,
+>>>  				  int len, u32 dst);
+>>>  static int virtio_rpmsg_trysend_offchannel(struct rpmsg_endpoint *ept, u32 src,
+>>>  					   u32 dst, void *data, int len);
+>>> +static ssize_t virtio_rpmsg_get_mtu(struct rpmsg_endpoint *ept);
+>>>  
+>>>  static const struct rpmsg_endpoint_ops virtio_endpoint_ops = {
+>>>  	.destroy_ept = virtio_rpmsg_destroy_ept,
+>>> @@ -184,6 +185,7 @@ static const struct rpmsg_endpoint_ops virtio_endpoint_ops = {
+>>>  	.trysend = virtio_rpmsg_trysend,
+>>>  	.trysendto = virtio_rpmsg_trysendto,
+>>>  	.trysend_offchannel = virtio_rpmsg_trysend_offchannel,
+>>> +	.get_mtu = virtio_rpmsg_get_mtu,
+>>>  };
+>>>  
+>>>  /**
+>>> @@ -699,6 +701,14 @@ static int virtio_rpmsg_trysend_offchannel(struct rpmsg_endpoint *ept, u32 src,
+>>>  	return rpmsg_send_offchannel_raw(rpdev, src, dst, data, len, false);
+>>>  }
+>>>  
+>>> +static ssize_t virtio_rpmsg_get_mtu(struct rpmsg_endpoint *ept)
+>>> +{
+>>> +	struct rpmsg_device *rpdev = ept->rpdev;
+>>> +	struct virtio_rpmsg_channel *vch = to_virtio_rpmsg_channel(rpdev);
+>>> +
+>>> +	return vch->vrp->buf_size - sizeof(struct rpmsg_hdr);
+>>> +}
+>>> +
+>>>  static int rpmsg_recv_single(struct virtproc_info *vrp, struct device *dev,
+>>>  			     struct rpmsg_hdr *msg, unsigned int len)
+>>>  {
+>>> diff --git a/include/linux/rpmsg.h b/include/linux/rpmsg.h
+>>> index 9fe156d1c018..88d7892ca93d 100644
+>>> --- a/include/linux/rpmsg.h
+>>> +++ b/include/linux/rpmsg.h
+>>> @@ -135,6 +135,8 @@ int rpmsg_trysend_offchannel(struct rpmsg_endpoint *ept, u32 src, u32 dst,
+>>>  __poll_t rpmsg_poll(struct rpmsg_endpoint *ept, struct file *filp,
+>>>  			poll_table *wait);
+>>>  
+>>> +ssize_t rpmsg_get_mtu(struct rpmsg_endpoint *ept);
+>>> +
+>>>  #else
+>>>  
+>>>  static inline int register_rpmsg_device(struct rpmsg_device *dev)
+>>> @@ -242,6 +244,14 @@ static inline __poll_t rpmsg_poll(struct rpmsg_endpoint *ept,
+>>>  	return 0;
+>>>  }
+>>>  
+>>> +static inline ssize_t rpmsg_get_mtu(struct rpmsg_endpoint *ept)
+>>> +{
+>>> +	/* This shouldn't be possible */
+>>> +	WARN_ON(1);
+>>> +
+>>> +	return -ENXIO;
+>>> +}
+>>> +
+>>>  #endif /* IS_ENABLED(CONFIG_RPMSG) */
+>>>  
+>>>  /* use a macro to avoid include chaining to get THIS_MODULE */
+>>>
+> 
 _______________________________________________
 Linux-stm32 mailing list
 Linux-stm32@st-md-mailman.stormreply.com
