@@ -2,63 +2,123 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id 3BD7013C8C6
-	for <lists+linux-stm32@lfdr.de>; Wed, 15 Jan 2020 17:07:47 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id C006913C8F8
+	for <lists+linux-stm32@lfdr.de>; Wed, 15 Jan 2020 17:16:22 +0100 (CET)
 Received: from ip-172-31-3-76.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id EA9E6C36B0F;
-	Wed, 15 Jan 2020 16:07:46 +0000 (UTC)
-Received: from mail-oi1-f195.google.com (mail-oi1-f195.google.com
- [209.85.167.195])
- (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 80E06C36B0F;
+	Wed, 15 Jan 2020 16:16:22 +0000 (UTC)
+Received: from smtprelay-out1.synopsys.com (smtprelay-out1.synopsys.com
+ [149.117.87.133])
+ (using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 0E896C36B0D
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id CC4BCC36B0D
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Wed, 15 Jan 2020 16:07:45 +0000 (UTC)
-Received: by mail-oi1-f195.google.com with SMTP id 18so15859299oin.9
- for <linux-stm32@st-md-mailman.stormreply.com>;
- Wed, 15 Jan 2020 08:07:45 -0800 (PST)
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20161025;
- h=x-gm-message-state:date:from:to:cc:subject:message-id:references
- :mime-version:content-disposition:in-reply-to:user-agent;
- bh=GgrG+HKS7SJS1YSumldfNDhrIEBU95RMvZklBq/bHds=;
- b=prmjYmu/KbqJKQUEuPxGhjgiRRskuoBz629LLZHOrOPAdpOH4qkpcAhHIa7EbT+nT1
- jwfS2iL5n8W4N5rqc1UCbCAoY4xQtXcrmCabGlYJYd65f7y2LM2t9BwdMRvHWv8MRdxy
- 3lFSuFjHSVSmABnuZy+UZ9r1/INllqHB5G0tjXF0eZtjdx3AOZJmMWGNrTCGG79IO3OP
- cd93NRz13jykBn2Dd73SCbn3HA1ZaLxfIvQgcLZzPu5fU/1cxZB6llL6pc6ByXtqMMqs
- BwvtOUgLLWltRnzOtgLAiFoknVkuuB72K8ty5N0ItMLGvSgAKHZKrv8+zkwVDDdlQqz2
- zHOQ==
-X-Gm-Message-State: APjAAAXO6OTr6j0ivA/j3j/L4j2fbfvvxpQRLcFxXNKOCr45xcmzNDHt
- Lr7Ka2c383xRnRmj8YVu0iwlkk0=
-X-Google-Smtp-Source: APXvYqyty68PAMWORBFS4SOumBSi0SGW6OqOq41JF4XLCXyhk6e25NllWvvx+DACJd0Zs0zlczSJKg==
-X-Received: by 2002:a05:6808:3c2:: with SMTP id
- o2mr363663oie.145.1579104463552; 
- Wed, 15 Jan 2020 08:07:43 -0800 (PST)
-Received: from rob-hp-laptop (24-155-109-49.dyn.grandenetworks.net.
- [24.155.109.49])
- by smtp.gmail.com with ESMTPSA id j8sm2444704oii.32.2020.01.15.08.07.42
- for <linux-stm32@st-md-mailman.stormreply.com>
- (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Wed, 15 Jan 2020 08:07:42 -0800 (PST)
-Received: from rob (uid 1000) (envelope-from rob@rob-hp-laptop) id 220379
- by rob-hp-laptop (DragonFly Mail Agent v0.11);
- Wed, 15 Jan 2020 10:07:41 -0600
-Date: Wed, 15 Jan 2020 10:07:41 -0600
-From: Rob Herring <robh@kernel.org>
-To: Olivier Moysan <olivier.moysan@st.com>
-Message-ID: <20200115160741.GA20174@bogus>
-References: <20200113161954.29779-1-olivier.moysan@st.com>
+ Wed, 15 Jan 2020 16:16:20 +0000 (UTC)
+Received: from mailhost.synopsys.com (badc-mailhost1.synopsys.com
+ [10.192.0.17])
+ (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits))
+ (No client certificate requested)
+ by smtprelay-out1.synopsys.com (Postfix) with ESMTPS id 14D76C0646;
+ Wed, 15 Jan 2020 16:16:12 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=synopsys.com; s=mail;
+ t=1579104979; bh=Pm+KzXesAkYAGe4VNi485/QuOtVc2zfN8tF3kYYW09U=;
+ h=From:To:CC:Subject:Date:References:In-Reply-To:From;
+ b=fu01RFtIon+g/XHAM3eiRXBmWTF93F2qh1C9Ha/fOB8PH7Ztb4LUEjmZT/cck1oXe
+ cHQuBpYUR2DPhJWtiq9hDyOxJzt1aSqtZmkVAZ+bkYRM3RTb81DLBZuAoYDST12b9l
+ lAGs+osT8B7Gbp2/f2W6yCvwCkkWSuIQEwPr1wa5WY+vJzYgRRmNEUlza/wus0Z+Ks
+ UBwYygKc14T1cnmw4GHGUDCe4DOqY/5uOpNGi3ldgLuTN6iPz1qgWfKsD/DqjyN2Du
+ MrJEOkcDvxZd0tNsf1iLQ8wiCaE2KE0LklzB8sGfAd0MlsKgr0c68edvqh6fAQWutO
+ loouKHj1xP+og==
+Received: from US01WEHTC3.internal.synopsys.com
+ (us01wehtc3.internal.synopsys.com [10.15.84.232])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES256-SHA384 (256/256 bits))
+ (No client certificate requested)
+ by mailhost.synopsys.com (Postfix) with ESMTPS id 7EFD8A007F;
+ Wed, 15 Jan 2020 16:16:05 +0000 (UTC)
+Received: from us01hybrid1.internal.synopsys.com (10.200.27.51) by
+ US01WEHTC3.internal.synopsys.com (10.15.84.232) with Microsoft SMTP Server
+ (TLS) id 14.3.408.0; Wed, 15 Jan 2020 08:15:51 -0800
+Received: from NAM12-DM6-obe.outbound.protection.outlook.com (10.202.3.67) by
+ mrs.synopsys.com (10.200.27.51) with Microsoft SMTP Server (TLS) id
+ 14.3.408.0; Wed, 15 Jan 2020 08:15:50 -0800
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
+ b=WvXNKNqz4HSyhGh2YA1gmjdtO9mW8HAoXRk+dPYfew9Z5/kQuILvfilnC+u1/gLhhIWWOOYSO+vjdaI+wbkfMe3/MOZCHlDNTxFRcOa/yXBgu2qrO0jU5lOg/wQU4PRSt4t90ZEUeXq/Ibd0PnS+dYw4cFy0cxGyleG0LBkRXUDZ8qMEY0HFkigzjYTeI9ouc+AeH8r72D5uOX2NTCygBO0haP3SMaQfJbbTI7uYgPtMkKlQCBkcn6JSLBnwDlaZqPMIKFRFRAioO1WfzXfexlsFhwl0sNzBW6/XVr1jWpaSCwRw9A1iuPLymePzTzRlkCHPhNlXojdOdu9oWEk/7Q==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
+ s=arcselector9901;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=w34eBEERU37rQYTi8ro7STXXUOAIvWiiXBlp26m7YZ0=;
+ b=C3NZog2UKARhhbeUoN1CsY1OGFnOD7+IzAQ3Kswn5sFIBzx7+Ov42axsbMtQG6EeaIKP7spAu8UMm9efroByXefw+TJJP2aK8g0DUmGu5RFhDdWFV9Ul0qp5z+0cmph24RvoqY90a4rvRDfYXs6TYRg7Xg/YFabkaoVOJnIaC3py8vaUSyd/KseB4d5uejR9uDIk6ig1SEBxkhODEfw9IwE4ZYGDNDF0Ntl8lTlW2VeXj8a5Sq7wRPJlrioUe/Ipy2r4d+2VmCL25fx9+e3ht76EamU0oTKKk5r4+4HIphFvGReb8J9Q4Gm2jOspGq6brIwTCIUp4pFnb0uU9Ibtrg==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=synopsys.com; dmarc=pass action=none header.from=synopsys.com;
+ dkim=pass header.d=synopsys.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=synopsys.onmicrosoft.com; s=selector2-synopsys-onmicrosoft-com;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=w34eBEERU37rQYTi8ro7STXXUOAIvWiiXBlp26m7YZ0=;
+ b=FsSgminDsBrIvgc4sqIU4YUE0UVdgZUMGMOspTgfR4aCJfRwfSE5SUHlZcx8KVsm1f3IwGa0rxg+qd6W+lZQsnqHS7HAWB0tM/Z2VjnsBaBRyQLoJpv8XrAIjtCmtkxKf0BLkxI47cA4a8W9pHb9t4m6sAEhIMnP/uqt0Mmt9ho=
+Received: from BN8PR12MB3266.namprd12.prod.outlook.com (20.179.67.145) by
+ BN8PR12MB2851.namprd12.prod.outlook.com (20.179.65.219) with Microsoft SMTP
+ Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.20.2623.10; Wed, 15 Jan 2020 16:15:48 +0000
+Received: from BN8PR12MB3266.namprd12.prod.outlook.com
+ ([fe80::c62:b247:6963:9da2]) by BN8PR12MB3266.namprd12.prod.outlook.com
+ ([fe80::c62:b247:6963:9da2%6]) with mapi id 15.20.2623.015; Wed, 15 Jan 2020
+ 16:15:48 +0000
+From: Jose Abreu <Jose.Abreu@synopsys.com>
+To: Ong Boon Leong <boon.leong.ong@intel.com>, "netdev@vger.kernel.org"
+ <netdev@vger.kernel.org>
+Thread-Topic: [PATCH net v2 1/4] net: stmmac: Fix incorrect location to set
+ real_num_rx|tx_queues
+Thread-Index: AQHVy3L8yN7x0daunUum4okkbbxKDafr5uCg
+Date: Wed, 15 Jan 2020 16:15:48 +0000
+Message-ID: <BN8PR12MB3266F3619CDF78C14179E025D3370@BN8PR12MB3266.namprd12.prod.outlook.com>
+References: <20200115071003.42820-1-boon.leong.ong@intel.com>
+ <20200115071003.42820-2-boon.leong.ong@intel.com>
+In-Reply-To: <20200115071003.42820-2-boon.leong.ong@intel.com>
+Accept-Language: en-US
+Content-Language: en-US
+X-MS-Has-Attach: 
+X-MS-TNEF-Correlator: 
+authentication-results: spf=none (sender IP is )
+ smtp.mailfrom=joabreu@synopsys.com; 
+x-originating-ip: [83.174.63.141]
+x-ms-publictraffictype: Email
+x-ms-office365-filtering-correlation-id: 230d6895-e2b4-4285-b6e3-08d799d62f19
+x-ms-traffictypediagnostic: BN8PR12MB2851:
+x-microsoft-antispam-prvs: <BN8PR12MB2851866EDB989038CF82798BD3370@BN8PR12MB2851.namprd12.prod.outlook.com>
+x-ms-oob-tlc-oobclassifiers: OLM:5797;
+x-forefront-prvs: 02830F0362
+x-forefront-antispam-report: SFV:NSPM;
+ SFS:(10019020)(366004)(189003)(199004)(110136005)(54906003)(8676002)(4326008)(66946007)(7416002)(81166006)(71200400001)(7696005)(66476007)(52536014)(8936002)(186003)(33656002)(86362001)(9686003)(498600001)(2906002)(26005)(66446008)(66556008)(76116006)(81156014)(64756008)(6506007)(55016002)(5660300002);
+ DIR:OUT; SFP:1102; SCL:1; SRVR:BN8PR12MB2851;
+ H:BN8PR12MB3266.namprd12.prod.outlook.com; FPR:; SPF:None; LANG:en;
+ PTR:InfoNoRecords; MX:1; A:1; 
+received-spf: None (protection.outlook.com: synopsys.com does not designate
+ permitted sender hosts)
+x-ms-exchange-senderadcheck: 1
+x-microsoft-antispam: BCL:0;
+x-microsoft-antispam-message-info: 5OFhQlQJBfH74J4XKFp7CAso182YOEgBQVqc+/kt/rN+JlkwPjae7m0yxN0LPn/T1nMfSTTVkX13ofT19IIktcG3kiY9UFm+Xddn1nfqbxK9LRSi4p9oMmsJEZp5qEsxkhbrIsnP9aRhv83qu+H4nJgI2H9kMWU204mM/aQm8LaumpVMlC1NHKGTQ3wsUCgsdkVNvigs8D3KvUHAWOlfHOa/DnM9DOapRAI4ItFBfg7aYIqZ0jhqXDLI+9kzccPKYPAI3m7Jx5t9ebr/9c1pCwjN5HSITBifS4aNeyKaCMNFM8i0t9wurESpZzIqjpA2miIQhBY+xAZ/BTaip5eCbkXAsxzyqEpUouwWhE3iuPjITKxZcyIbGOcZm4DqmqlI3uFmntpZpR+Uyv1Jg2KepSyOvN+vNN6jJ2p/QlVNBnh3jFXlTJfmISsXhLQwHIuQ
+x-ms-exchange-transport-forked: True
 MIME-Version: 1.0
-Content-Disposition: inline
-In-Reply-To: <20200113161954.29779-1-olivier.moysan@st.com>
-User-Agent: Mutt/1.10.1 (2018-07-13)
-Cc: mark.rutland@arm.com, devicetree@vger.kernel.org,
- alsa-devel@alsa-project.org, linux-kernel@vger.kernel.org, tiwai@suse.com,
- lgirdwood@gmail.com, broonie@kernel.org, mcoquelin.stm32@gmail.com,
- perex@perex.cz, linux-stm32@st-md-mailman.stormreply.com,
- linux-arm-kernel@lists.infradead.org
-Subject: Re: [Linux-stm32] [PATCH] ASoC: dt-bindings: stm32: convert spdfirx
-	to json-schema
+X-MS-Exchange-CrossTenant-Network-Message-Id: 230d6895-e2b4-4285-b6e3-08d799d62f19
+X-MS-Exchange-CrossTenant-originalarrivaltime: 15 Jan 2020 16:15:48.7680 (UTC)
+X-MS-Exchange-CrossTenant-fromentityheader: Hosted
+X-MS-Exchange-CrossTenant-id: c33c9f88-1eb7-4099-9700-16013fd9e8aa
+X-MS-Exchange-CrossTenant-mailboxtype: HOSTED
+X-MS-Exchange-CrossTenant-userprincipalname: e2q0WQVWVP2LFoaXMqOkGWP3MgWkRthpPFkuD4wdMZUqYIH7Tkppf6E9Z6mkFimx6nRGFiS/QHYC58wek14aBg==
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: BN8PR12MB2851
+X-OriginatorOrg: synopsys.com
+Cc: Voon Weifeng <weifeng.voon@intel.com>, Jakub Kicinski <kubakici@wp.pl>,
+ "linux-kernel@vger.kernel.org" <linux-kernel@vger.kernel.org>,
+ "linux-stm32@st-md-mailman.stormreply.com"
+ <linux-stm32@st-md-mailman.stormreply.com>,
+ Maxime Coquelin <mcoquelin.stm32@gmail.com>,
+ Tan Tee Min <tee.min.tan@intel.com>,
+ Giuseppe Cavallaro <peppe.cavallaro@st.com>, "David
+ S . Miller" <davem@davemloft.net>,
+ "linux-arm-kernel@lists.infradead.org" <linux-arm-kernel@lists.infradead.org>
+Subject: Re: [Linux-stm32] [PATCH net v2 1/4] net: stmmac: Fix incorrect
+ location to set real_num_rx|tx_queues
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -75,177 +135,42 @@ Content-Transfer-Encoding: 7bit
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
-On Mon, Jan 13, 2020 at 05:19:54PM +0100, Olivier Moysan wrote:
-> Convert the STM32 SPDIFRX bindings to DT schema format using json-schema.
+From: Ong Boon Leong <boon.leong.ong@intel.com>
+Date: Jan/15/2020, 07:10:00 (UTC+00:00)
+
+> From: Aashish Verma <aashishx.verma@intel.com>
 > 
-> Signed-off-by: Olivier Moysan <olivier.moysan@st.com>
+> netif_set_real_num_tx_queues() & netif_set_real_num_rx_queues() should be
+> used to inform network stack about the real Tx & Rx queue (active) number
+> in both stmmac_open() and stmmac_resume(), therefore, we move the code
+> from stmmac_dvr_probe() to stmmac_hw_setup().
+> 
+> Fixes: c02b7a914551 ("net: stmmac: use netif_set_real_num_{rx,tx}_queues")
+> Signed-off-by: Aashish Verma <aashishx.verma@intel.com>
+> Signed-off-by: Ong Boon Leong <boon.leong.ong@intel.com>
 > ---
->  .../bindings/sound/st,stm32-spdifrx.txt       | 56 -------------
->  .../bindings/sound/st,stm32-spdifrx.yaml      | 80 +++++++++++++++++++
->  2 files changed, 80 insertions(+), 56 deletions(-)
->  delete mode 100644 Documentation/devicetree/bindings/sound/st,stm32-spdifrx.txt
->  create mode 100644 Documentation/devicetree/bindings/sound/st,stm32-spdifrx.yaml
+>  drivers/net/ethernet/stmicro/stmmac/stmmac_main.c | 8 ++++----
+>  1 file changed, 4 insertions(+), 4 deletions(-)
 > 
-> diff --git a/Documentation/devicetree/bindings/sound/st,stm32-spdifrx.txt b/Documentation/devicetree/bindings/sound/st,stm32-spdifrx.txt
-> deleted file mode 100644
-> index 33826f2459fa..000000000000
-> --- a/Documentation/devicetree/bindings/sound/st,stm32-spdifrx.txt
-> +++ /dev/null
-> @@ -1,56 +0,0 @@
-> -STMicroelectronics STM32 S/PDIF receiver (SPDIFRX).
-> -
-> -The SPDIFRX peripheral, is designed to receive an S/PDIF flow compliant with
-> -IEC-60958 and IEC-61937.
-> -
-> -Required properties:
-> -  - compatible: should be "st,stm32h7-spdifrx"
-> -  - reg: cpu DAI IP base address and size
-> -  - clocks: must contain an entry for kclk (used as S/PDIF signal reference)
-> -  - clock-names: must contain "kclk"
-> -  - interrupts: cpu DAI interrupt line
-> -  - dmas: DMA specifiers for audio data DMA and iec control flow DMA
-> -    See STM32 DMA bindings, Documentation/devicetree/bindings/dma/stm32-dma.txt
-> -  - dma-names: two dmas have to be defined, "rx" and "rx-ctrl"
-> -
-> -Optional properties:
-> -  - resets: Reference to a reset controller asserting the SPDIFRX
-> -
-> -The device node should contain one 'port' child node with one child 'endpoint'
-> -node, according to the bindings defined in Documentation/devicetree/bindings/
-> -graph.txt.
-> -
-> -Example:
-> -spdifrx: spdifrx@40004000 {
-> -	compatible = "st,stm32h7-spdifrx";
-> -	reg = <0x40004000 0x400>;
-> -	clocks = <&rcc SPDIFRX_CK>;
-> -	clock-names = "kclk";
-> -	interrupts = <97>;
-> -	dmas = <&dmamux1 2 93 0x400 0x0>,
-> -	       <&dmamux1 3 94 0x400 0x0>;
-> -	dma-names = "rx", "rx-ctrl";
-> -	pinctrl-0 = <&spdifrx_pins>;
-> -	pinctrl-names = "default";
-> -
-> -	spdifrx_port: port {
-> -		cpu_endpoint: endpoint {
-> -			remote-endpoint = <&codec_endpoint>;
-> -		};
-> -	};
-> -};
-> -
-> -spdif_in: spdif-in {
-> -	compatible = "linux,spdif-dir";
-> -
-> -	codec_port: port {
-> -		codec_endpoint: endpoint {
-> -			remote-endpoint = <&cpu_endpoint>;
-> -		};
-> -	};
-> -};
-> -
-> -soundcard {
-> -	compatible = "audio-graph-card";
-> -	dais = <&spdifrx_port>;
-> -};
-> diff --git a/Documentation/devicetree/bindings/sound/st,stm32-spdifrx.yaml b/Documentation/devicetree/bindings/sound/st,stm32-spdifrx.yaml
-> new file mode 100644
-> index 000000000000..ab8e9d74ac3c
-> --- /dev/null
-> +++ b/Documentation/devicetree/bindings/sound/st,stm32-spdifrx.yaml
-> @@ -0,0 +1,80 @@
-> +# SPDX-License-Identifier: (GPL-2.0-only OR BSD-2-Clause)
-> +%YAML 1.2
-> +---
-> +$id: http://devicetree.org/schemas/sound/st,stm32-spdifrx.yaml#
-> +$schema: http://devicetree.org/meta-schemas/core.yaml#
+> diff --git a/drivers/net/ethernet/stmicro/stmmac/stmmac_main.c b/drivers/net/ethernet/stmicro/stmmac/stmmac_main.c
+> index 80d59b775907..0780e00580a2 100644
+> --- a/drivers/net/ethernet/stmicro/stmmac/stmmac_main.c
+> +++ b/drivers/net/ethernet/stmicro/stmmac/stmmac_main.c
+> @@ -2624,6 +2624,10 @@ static int stmmac_hw_setup(struct net_device *dev, bool init_ptp)
+>  	if (priv->dma_cap.vlins)
+>  		stmmac_enable_vlan(priv, priv->hw, STMMAC_VLAN_INSERT);
+>  
+> +	/* Configure real RX and TX queues */
+> +	netif_set_real_num_rx_queues(dev, priv->plat->rx_queues_to_use);
+> +	netif_set_real_num_tx_queues(dev, priv->plat->tx_queues_to_use);
 > +
-> +title: STMicroelectronics STM32 S/PDIF receiver (SPDIFRX)
-> +
-> +maintainers:
-> +  - Olivier Moysan <olivier.moysan@st.com>
-> +
-> +description: |
-> +  The SPDIFRX peripheral, is designed to receive an S/PDIF flow compliant with
-> +  IEC-60958 and IEC-61937.
-> +
-> +properties:
-> +  compatible:
-> +    enum:
-> +      - st,stm32h7-spdifrx
-> +
-> +  "#sound-dai-cells":
-> +    const: 0
-> +
-> +  reg:
-> +    maxItems: 1
-> +
-> +  clocks:
-> +    maxItems: 1
-> +
-> +  clock-names:
-> +    items:
-> +      - const: kclk
-> +
-> +  interrupts:
-> +    maxItems: 1
-> +
-> +  dmas:
-> +    items:
-> +      - description: audio data capture DMA
-> +      - description: IEC status bits capture DMA
-> +    minItems: 1
-> +    maxItems: 2
-> +
-> +  dma-names:
-> +    items:
-> +      - const: rx
-> +      - const: rx-ctrl
-> +
-> +  resets:
-> +    maxItems: 1
-> +
-> +required:
-> +  - compatible
-> +  - "#sound-dai-cells"
-> +  - reg
-> +  - clocks
-> +  - clock-names
-> +  - interrupts
-> +  - dmas
-> +  - dma-names
 
-Needs a:
+Nack. You need to hold rtnl lock when calling this and at suspend / resume 
+you don't.
 
-additionalProperties: false
-
-With that,
-
-Reviewed-by: Rob Herring <robh@kernel.org>
-
-> +
-> +examples:
-> +  - |
-> +    #include <dt-bindings/interrupt-controller/arm-gic.h>
-> +    #include <dt-bindings/clock/stm32mp1-clks.h>
-> +    spdifrx: spdifrx@40004000 {
-> +        compatible = "st,stm32h7-spdifrx";
-> +        #sound-dai-cells = <0>;
-> +        reg = <0x40004000 0x400>;
-> +        clocks = <&rcc SPDIF_K>;
-> +        clock-names = "kclk";
-> +        interrupts = <GIC_SPI 97 IRQ_TYPE_LEVEL_HIGH>;
-> +        dmas = <&dmamux1 2 93 0x400 0x0>,
-> +               <&dmamux1 3 94 0x400 0x0>;
-> +        dma-names = "rx", "rx-ctrl";
-> +        pinctrl-0 = <&spdifrx_pins>;
-> +        pinctrl-names = "default";
-> +    };
-> +
-> +...
-> -- 
-> 2.17.1
-> 
+---
+Thanks,
+Jose Miguel Abreu
 _______________________________________________
 Linux-stm32 mailing list
 Linux-stm32@st-md-mailman.stormreply.com
