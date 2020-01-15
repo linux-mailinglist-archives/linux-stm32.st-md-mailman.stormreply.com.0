@@ -2,30 +2,30 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id C4FF413BA29
+	by mail.lfdr.de (Postfix) with ESMTPS id E8ED213BA2B
 	for <lists+linux-stm32@lfdr.de>; Wed, 15 Jan 2020 08:10:51 +0100 (CET)
 Received: from ip-172-31-3-76.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 87238C36B14;
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id A8B58C36B1E;
 	Wed, 15 Jan 2020 07:10:51 +0000 (UTC)
 Received: from mga07.intel.com (mga07.intel.com [134.134.136.100])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 572D9C36B0E
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 5D4C2C36B0D
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Wed, 15 Jan 2020 07:10:47 +0000 (UTC)
+ Wed, 15 Jan 2020 07:10:50 +0000 (UTC)
 X-Amp-Result: SKIPPED(no attachment in message)
 X-Amp-File-Uploaded: False
 Received: from fmsmga002.fm.intel.com ([10.253.24.26])
  by orsmga105.jf.intel.com with ESMTP/TLS/DHE-RSA-AES256-GCM-SHA384;
- 14 Jan 2020 23:10:46 -0800
+ 14 Jan 2020 23:10:50 -0800
 X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="5.70,321,1574150400"; d="scan'208";a="256643673"
+X-IronPort-AV: E=Sophos;i="5.70,321,1574150400"; d="scan'208";a="256643684"
 Received: from bong5-hp-z440.png.intel.com ([10.221.118.136])
- by fmsmga002.fm.intel.com with ESMTP; 14 Jan 2020 23:10:43 -0800
+ by fmsmga002.fm.intel.com with ESMTP; 14 Jan 2020 23:10:46 -0800
 From: Ong Boon Leong <boon.leong.ong@intel.com>
 To: netdev@vger.kernel.org
-Date: Wed, 15 Jan 2020 15:10:02 +0800
-Message-Id: <20200115071003.42820-4-boon.leong.ong@intel.com>
+Date: Wed, 15 Jan 2020 15:10:03 +0800
+Message-Id: <20200115071003.42820-5-boon.leong.ong@intel.com>
 X-Mailer: git-send-email 2.17.1
 In-Reply-To: <20200115071003.42820-1-boon.leong.ong@intel.com>
 References: <20200115071003.42820-1-boon.leong.ong@intel.com>
@@ -36,8 +36,8 @@ Cc: Jose Abreu <Jose.Abreu@synopsys.com>, Voon Weifeng <weifeng.voon@intel.com>,
  Tan Tee Min <tee.min.tan@intel.com>, Ong Boon Leong <boon.leong.ong@intel.com>,
  Giuseppe Cavallaro <peppe.cavallaro@st.com>,
  "David S . Miller" <davem@davemloft.net>, linux-arm-kernel@lists.infradead.org
-Subject: [Linux-stm32] [PATCH net v2 3/4] net: stmmac: fix missing
-	IFF_MULTICAST check in dwmac4_set_filter
+Subject: [Linux-stm32] [PATCH net v2 4/4] net: stmmac: update pci platform
+	data to use phy_interface
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -55,35 +55,79 @@ Content-Transfer-Encoding: 7bit
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
-From: "Verma, Aashish" <aashishx.verma@intel.com>
+From: Voon Weifeng <weifeng.voon@intel.com>
 
-Without checking for IFF_MULTICAST flag, it is wrong to assume multicast
-filtering is always enabled. By checking against IFF_MULTICAST, now
-the driver behaves correctly when the multicast support is toggled by below
-command:-
+The recent patch to support passive mode converter did not take care the
+phy interface configuration in PCI platform data. Hence, converting all
+the PCI platform data from plat->interface to plat->phy_interface as the
+default mode is meant for PHY.
 
-  ip link set <devname> multicast off|on
-
-Fixes: 477286b53f55 ("stmmac: add GMAC4 core support")
-Signed-off-by: Verma, Aashish <aashishx.verma@intel.com>
-Signed-off-by: Ong Boon Leong <boon.leong.ong@intel.com>
+Fixes: 0060c8783330 ("net: stmmac: implement support for passive mode converters via dt")
+Signed-off-by: Voon Weifeng <weifeng.voon@intel.com>
 ---
- drivers/net/ethernet/stmicro/stmmac/dwmac4_core.c | 2 +-
- 1 file changed, 1 insertion(+), 1 deletion(-)
+ drivers/net/ethernet/stmicro/stmmac/stmmac_pci.c | 14 ++++++++------
+ 1 file changed, 8 insertions(+), 6 deletions(-)
 
-diff --git a/drivers/net/ethernet/stmicro/stmmac/dwmac4_core.c b/drivers/net/ethernet/stmicro/stmmac/dwmac4_core.c
-index 6e3d0ab0ecd6..53be936137d0 100644
---- a/drivers/net/ethernet/stmicro/stmmac/dwmac4_core.c
-+++ b/drivers/net/ethernet/stmicro/stmmac/dwmac4_core.c
-@@ -420,7 +420,7 @@ static void dwmac4_set_filter(struct mac_device_info *hw,
- 		value |= GMAC_PACKET_FILTER_PM;
- 		/* Set all the bits of the HASH tab */
- 		memset(mc_filter, 0xff, sizeof(mc_filter));
--	} else if (!netdev_mc_empty(dev)) {
-+	} else if (!netdev_mc_empty(dev) && (dev->flags & IFF_MULTICAST)) {
- 		struct netdev_hw_addr *ha;
+diff --git a/drivers/net/ethernet/stmicro/stmmac/stmmac_pci.c b/drivers/net/ethernet/stmicro/stmmac/stmmac_pci.c
+index 8237dbc3e991..d2bc04dedd7c 100644
+--- a/drivers/net/ethernet/stmicro/stmmac/stmmac_pci.c
++++ b/drivers/net/ethernet/stmicro/stmmac/stmmac_pci.c
+@@ -96,7 +96,7 @@ static int stmmac_default_data(struct pci_dev *pdev,
  
- 		/* Hash filter for multicast */
+ 	plat->bus_id = 1;
+ 	plat->phy_addr = 0;
+-	plat->interface = PHY_INTERFACE_MODE_GMII;
++	plat->phy_interface = PHY_INTERFACE_MODE_GMII;
+ 
+ 	plat->dma_cfg->pbl = 32;
+ 	plat->dma_cfg->pblx8 = true;
+@@ -220,7 +220,8 @@ static int ehl_sgmii_data(struct pci_dev *pdev,
+ {
+ 	plat->bus_id = 1;
+ 	plat->phy_addr = 0;
+-	plat->interface = PHY_INTERFACE_MODE_SGMII;
++	plat->phy_interface = PHY_INTERFACE_MODE_SGMII;
++
+ 	return ehl_common_data(pdev, plat);
+ }
+ 
+@@ -233,7 +234,8 @@ static int ehl_rgmii_data(struct pci_dev *pdev,
+ {
+ 	plat->bus_id = 1;
+ 	plat->phy_addr = 0;
+-	plat->interface = PHY_INTERFACE_MODE_RGMII;
++	plat->phy_interface = PHY_INTERFACE_MODE_RGMII;
++
+ 	return ehl_common_data(pdev, plat);
+ }
+ 
+@@ -261,7 +263,7 @@ static int tgl_sgmii_data(struct pci_dev *pdev,
+ {
+ 	plat->bus_id = 1;
+ 	plat->phy_addr = 0;
+-	plat->interface = PHY_INTERFACE_MODE_SGMII;
++	plat->phy_interface = PHY_INTERFACE_MODE_SGMII;
+ 	return tgl_common_data(pdev, plat);
+ }
+ 
+@@ -361,7 +363,7 @@ static int quark_default_data(struct pci_dev *pdev,
+ 
+ 	plat->bus_id = pci_dev_id(pdev);
+ 	plat->phy_addr = ret;
+-	plat->interface = PHY_INTERFACE_MODE_RMII;
++	plat->phy_interface = PHY_INTERFACE_MODE_RMII;
+ 
+ 	plat->dma_cfg->pbl = 16;
+ 	plat->dma_cfg->pblx8 = true;
+@@ -418,7 +420,7 @@ static int snps_gmac5_default_data(struct pci_dev *pdev,
+ 
+ 	plat->bus_id = 1;
+ 	plat->phy_addr = -1;
+-	plat->interface = PHY_INTERFACE_MODE_GMII;
++	plat->phy_interface = PHY_INTERFACE_MODE_GMII;
+ 
+ 	plat->dma_cfg->pbl = 32;
+ 	plat->dma_cfg->pblx8 = true;
 -- 
 2.17.1
 
