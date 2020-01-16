@@ -2,76 +2,59 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id 6E9EF13DB58
-	for <lists+linux-stm32@lfdr.de>; Thu, 16 Jan 2020 14:21:13 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id CD38113DD7D
+	for <lists+linux-stm32@lfdr.de>; Thu, 16 Jan 2020 15:33:46 +0100 (CET)
 Received: from ip-172-31-3-76.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 08DF7C36B0F;
-	Thu, 16 Jan 2020 13:21:12 +0000 (UTC)
-Received: from mail-wr1-f67.google.com (mail-wr1-f67.google.com
- [209.85.221.67])
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 864EBC36B0F;
+	Thu, 16 Jan 2020 14:33:46 +0000 (UTC)
+Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
+ (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
+ (No client certificate requested)
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 8E201C36B0D
+ for <linux-stm32@st-md-mailman.stormreply.com>;
+ Thu, 16 Jan 2020 14:33:44 +0000 (UTC)
+Received: from mail-qv1-f52.google.com (mail-qv1-f52.google.com
+ [209.85.219.52])
  (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 4C535C36B0D
+ by mail.kernel.org (Postfix) with ESMTPSA id 1C29A20748
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Thu, 16 Jan 2020 13:21:11 +0000 (UTC)
-Received: by mail-wr1-f67.google.com with SMTP id q6so19048414wro.9
+ Thu, 16 Jan 2020 14:33:43 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
+ s=default; t=1579185223;
+ bh=zCTzRzpxW45hf9zhu97cl/HH/TkaKoXKxG33ubUlcis=;
+ h=References:In-Reply-To:From:Date:Subject:To:Cc:From;
+ b=lzvmVPxC0YoX1GCXF9xUvPrjSs4rABccejlMEYJBJejJBHBYBFbLHbl9I1uSYPV0s
+ 3EY+xd0XAuDU9RZq3eOwaUXPY3w86rI2ei6fInbAhyjKcskoR3Ss6JG1AD0V/OTu72
+ nbcIyHgK5xQvFUJjrWjxwTqxbhEM7tjwPVQtLOqo=
+Received: by mail-qv1-f52.google.com with SMTP id l14so9120923qvu.12
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Thu, 16 Jan 2020 05:21:11 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20161025;
- h=date:from:to:cc:subject:message-id:references:mime-version
- :content-disposition:in-reply-to:user-agent;
- bh=tbAt5pOcctelyMI0Pw/2Boj48DssPhA/WaoryvyZ5m0=;
- b=Y1tnjYY9zApO2OQtTlDt04IWqpItEAIZ5N7I1UyRyrMF0VujSdOWoWeW23YpRJREit
- Ye7auccjOUK5vicYqb5Kybo0WeIT3zvCnpw2YhunRBvypG34tKCGQO+Am7f7xzTZmKzG
- O/CU2sLyQOWI0vysFxCMbgNRbAFQK7aw6ke/dLrtXqmXBOxY7x1mSWOtn8uIb/A5+bcO
- VSayKSZztrGF42u+FDH0K6DMs3+GPpUFxslOKs//lWPYKSNF+Vc+xUua0Top/zxAdZhO
- rQEOPlOwktWilbCv0LX37iTT08dPftP+a5KI+ymcN1qZpKbzkkhaYj8DmKqhEKoWAlck
- x1+w==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20161025;
- h=x-gm-message-state:date:from:to:cc:subject:message-id:references
- :mime-version:content-disposition:in-reply-to:user-agent;
- bh=tbAt5pOcctelyMI0Pw/2Boj48DssPhA/WaoryvyZ5m0=;
- b=qW+7iq4Bq1zr8ZBvSn8Ioy6ZBWKw9cHgm5QXo+j+mOl8iaLK+SESo4gYAtwblqWpFo
- gIKRpbjF+OZZuGUxDuaqjQkbJRAWlEat9F4M/Er4XUxp3AphpofwdL2Yvj0QWnhfr5Xw
- a1uYx+JyewV6BgosDMT7hwuoBUHyCHrpbF5As1BS/WxI6xkzkKSS5jWkihiW035a8coX
- eTNOZhtf2buRmfLGENc5taa0pgrPRq+pL/dcyETq7s3pUapzpaPf5rSFqWFKEqHwdqvw
- axvlPjUN6FlMEmxa0vkSsWwls3IBBY76iIkF/u4Mf/NIkFFZv6Vaw0YguzQxx6PRdMQ+
- yJUw==
-X-Gm-Message-State: APjAAAVUyJKdt2pSoUJK7VodGXWp1FUleIRUVwD11IfL5UB70cmExx3+
- GTnx0m0g3/zLqHYvz+Mh+YU=
-X-Google-Smtp-Source: APXvYqw01+GqfkH35JYXyBsSnjwvr0X4uh+5I3kzup5rww9ZVJeL67W4XhmH/pce4L5zuqrTSc5t4g==
-X-Received: by 2002:a05:6000:1187:: with SMTP id
- g7mr3415042wrx.109.1579180870884; 
- Thu, 16 Jan 2020 05:21:10 -0800 (PST)
-Received: from Red ([2a01:cb1d:147:7200:2e56:dcff:fed2:c6d6])
- by smtp.googlemail.com with ESMTPSA id o15sm29681752wra.83.2020.01.16.05.21.08
- (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Thu, 16 Jan 2020 05:21:09 -0800 (PST)
-Date: Thu, 16 Jan 2020 14:21:07 +0100
-From: Corentin Labbe <clabbe.montjoie@gmail.com>
-To: Iuliana Prodan <iuliana.prodan@nxp.com>
-Message-ID: <20200116132107.GB26487@Red>
-References: <20200114135936.32422-1-clabbe.montjoie@gmail.com>
- <20200114135936.32422-7-clabbe.montjoie@gmail.com>
- <VI1PR04MB44455F7F7830159B6ED336648C360@VI1PR04MB4445.eurprd04.prod.outlook.com>
+ Thu, 16 Jan 2020 06:33:43 -0800 (PST)
+X-Gm-Message-State: APjAAAWbE7JU2aRJ4jsCIzS0+UklhbqhS9E3ZexGpuj0yQuTt7DnLEtn
+ aSBF/ZbWpgePdL7cPHxaTFyv/Sq8owkxdF1nIQ==
+X-Google-Smtp-Source: APXvYqxpzOz30rqleYyMHf6/FcDEmshzxEl/xINJJW+FtV85eSNgGaPEZdKTK/HozyW+hT6davB/mrOR0U63bbSIPFg=
+X-Received: by 2002:ad4:450a:: with SMTP id k10mr2710244qvu.136.1579185222222; 
+ Thu, 16 Jan 2020 06:33:42 -0800 (PST)
 MIME-Version: 1.0
-Content-Disposition: inline
-In-Reply-To: <VI1PR04MB44455F7F7830159B6ED336648C360@VI1PR04MB4445.eurprd04.prod.outlook.com>
-User-Agent: Mutt/1.10.1 (2018-07-13)
-Cc: Aymen Sghaier <aymen.sghaier@nxp.com>,
- "herbert@gondor.apana.org.au" <herbert@gondor.apana.org.au>,
- Horia Geanta <horia.geanta@nxp.com>,
- "linux-sunxi@googlegroups.com" <linux-sunxi@googlegroups.com>,
+References: <20200110134823.14882-1-ludovic.barre@st.com>
+ <20200110134823.14882-6-ludovic.barre@st.com>
+ <20200115145645.GA599@bogus> <2ce63f11-8b0c-8261-63fa-cd19e874c537@st.com>
+In-Reply-To: <2ce63f11-8b0c-8261-63fa-cd19e874c537@st.com>
+From: Rob Herring <robh@kernel.org>
+Date: Thu, 16 Jan 2020 08:33:30 -0600
+X-Gmail-Original-Message-ID: <CAL_JsqJMGY-n07e81iAsj+P7wPHFojBerNnjx8vtvqLTDA7yEw@mail.gmail.com>
+Message-ID: <CAL_JsqJMGY-n07e81iAsj+P7wPHFojBerNnjx8vtvqLTDA7yEw@mail.gmail.com>
+To: Ludovic BARRE <ludovic.barre@st.com>
+Cc: devicetree@vger.kernel.org, Ulf Hansson <ulf.hansson@linaro.org>,
+ linux-mmc <linux-mmc@vger.kernel.org>,
  "linux-kernel@vger.kernel.org" <linux-kernel@vger.kernel.org>,
- "mripard@kernel.org" <mripard@kernel.org>,
- "linux-stm32@st-md-mailman.stormreply.com"
- <linux-stm32@st-md-mailman.stormreply.com>, "wens@csie.org" <wens@csie.org>,
- "linux-crypto@vger.kernel.org" <linux-crypto@vger.kernel.org>,
- "mcoquelin.stm32@gmail.com" <mcoquelin.stm32@gmail.com>,
- "davem@davemloft.net" <davem@davemloft.net>,
- "linux-arm-kernel@lists.infradead.org" <linux-arm-kernel@lists.infradead.org>
-Subject: Re: [Linux-stm32] [PATCH RFC 06/10] crypto: engine: introduce ct
+ Srinivas Kandagatla <srinivas.kandagatla@linaro.org>,
+ Maxime Coquelin <mcoquelin.stm32@gmail.com>,
+ linux-stm32@st-md-mailman.stormreply.com,
+ "moderated list:ARM/FREESCALE IMX / MXC ARM ARCHITECTURE"
+ <linux-arm-kernel@lists.infradead.org>
+Subject: Re: [Linux-stm32] [PATCH 5/9] dt-bindings: mmc: mmci: add delay
+ block base register for sdmmc
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -83,55 +66,48 @@ List-Post: <mailto:linux-stm32@st-md-mailman.stormreply.com>
 List-Help: <mailto:linux-stm32-request@st-md-mailman.stormreply.com?subject=help>
 List-Subscribe: <https://st-md-mailman.stormreply.com/mailman/listinfo/linux-stm32>, 
  <mailto:linux-stm32-request@st-md-mailman.stormreply.com?subject=subscribe>
-Content-Type: text/plain; charset="us-ascii"
-Content-Transfer-Encoding: 7bit
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: base64
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
-On Thu, Jan 16, 2020 at 11:34:19AM +0000, Iuliana Prodan wrote:
-> On 1/14/2020 4:00 PM, Corentin Labbe wrote:
-> > We will store the number of request in a batch in engine->ct.
-> > This patch adds all loop to unprepare all requests of a batch.
-> > 
-> > Signed-off-by: Corentin Labbe <clabbe.montjoie@gmail.com>
-> > ---
-> >   crypto/crypto_engine.c  | 30 ++++++++++++++++++------------
-> >   include/crypto/engine.h |  2 ++
-> >   2 files changed, 20 insertions(+), 12 deletions(-)
-> > 
-> > diff --git a/crypto/crypto_engine.c b/crypto/crypto_engine.c
-> > index b72873550587..591dea5ddeec 100644
-> > --- a/crypto/crypto_engine.c
-> > +++ b/crypto/crypto_engine.c
-> > @@ -28,6 +28,7 @@ static void crypto_finalize_request(struct crypto_engine *engine,
-> >   	bool finalize_cur_req = false;
-> >   	int ret;
-> >   	struct crypto_engine_ctx *enginectx;
-> > +	int i = 0;
-> >   
-> >   	spin_lock_irqsave(&engine->queue_lock, flags);
-> >   	if (engine->cur_reqs[0].req == req)
-> You're checking here just the first request, but do the completion for 
-> all? Why? Shouldn't we check for each request if it was done by hw or not?
-
-The first request is a sort of key for the whole batch.
-> 
-> I've also seen that the do_one_request is called only on the first 
-> request, from the batch.
-
-Since the request are linked, this is not a problem.
-But I miss this explanaition in the code.
-
-> 
-> In your driver you do the prepare/unprepare for the whole batch at once, 
-> but not all drivers, who uses crypto-engine, are doing this (see virtio, 
-> amlogic, stm32). And I don't know if they can...
-
-prepare is optionnal, and unprepare is optional even if prepare is done.
-Furthermore, doing prepare/unprepare is optional per request.
-I have tested this serie on sun8i-ss and amlogic which dont use prepare/unprepare.
-
-_______________________________________________
-Linux-stm32 mailing list
-Linux-stm32@st-md-mailman.stormreply.com
-https://st-md-mailman.stormreply.com/mailman/listinfo/linux-stm32
+T24gVGh1LCBKYW4gMTYsIDIwMjAgYXQgMzoyMSBBTSBMdWRvdmljIEJBUlJFIDxsdWRvdmljLmJh
+cnJlQHN0LmNvbT4gd3JvdGU6Cj4KPiBIaSBSb2IKPgo+IExlIDEvMTUvMjAgw6AgMzo1NiBQTSwg
+Um9iIEhlcnJpbmcgYSDDqWNyaXQgOgo+ID4gT24gRnJpLCBKYW4gMTAsIDIwMjAgYXQgMDI6NDg6
+MTlQTSArMDEwMCwgTHVkb3ZpYyBCYXJyZSB3cm90ZToKPiA+PiBUbyBzdXBwb3J0IHRoZSBzZHIx
+MDQgbW9kZSwgdGhlIHNkbW1jIHZhcmlhbnQgaGFzIGEKPiA+PiBoYXJkd2FyZSBkZWxheSBibG9j
+ayB0byBtYW5hZ2UgdGhlIGNsb2NrIHBoYXNlIHdoZW4gc2FtcGxpbmcKPiA+PiBkYXRhIHJlY2Vp
+dmVkIGJ5IHRoZSBjYXJkLgo+ID4+Cj4gPj4gVGhpcyBwYXRjaCBhZGRzIGEgc2Vjb25kIGJhc2Ug
+cmVnaXN0ZXIgKG9wdGlvbmFsKSBmb3IKPiA+PiBzZG1tYyBkZWxheSBibG9jay4KPiA+Pgo+ID4+
+IFNpZ25lZC1vZmYtYnk6IEx1ZG92aWMgQmFycmUgPGx1ZG92aWMuYmFycmVAc3QuY29tPgo+ID4+
+IC0tLQo+ID4+ICAgRG9jdW1lbnRhdGlvbi9kZXZpY2V0cmVlL2JpbmRpbmdzL21tYy9tbWNpLnR4
+dCB8IDIgKysKPiA+PiAgIDEgZmlsZSBjaGFuZ2VkLCAyIGluc2VydGlvbnMoKykKPiA+Pgo+ID4+
+IGRpZmYgLS1naXQgYS9Eb2N1bWVudGF0aW9uL2RldmljZXRyZWUvYmluZGluZ3MvbW1jL21tY2ku
+dHh0IGIvRG9jdW1lbnRhdGlvbi9kZXZpY2V0cmVlL2JpbmRpbmdzL21tYy9tbWNpLnR4dAo+ID4+
+IGluZGV4IDZkM2M2MjZlMDE3ZC4uNGVjOTIxZTRiZjM0IDEwMDY0NAo+ID4+IC0tLSBhL0RvY3Vt
+ZW50YXRpb24vZGV2aWNldHJlZS9iaW5kaW5ncy9tbWMvbW1jaS50eHQKPiA+PiArKysgYi9Eb2N1
+bWVudGF0aW9uL2RldmljZXRyZWUvYmluZGluZ3MvbW1jL21tY2kudHh0Cj4gPj4gQEAgLTI4LDYg
+KzI4LDggQEAgc3BlY2lmaWMgZm9yIHV4NTAwIHZhcmlhbnQ6Cj4gPj4gICAtIHN0LHNpZy1waW4t
+ZmJjbGsgICAgICAgOiBmZWVkYmFjayBjbG9jayBzaWduYWwgcGluIHVzZWQuCj4gPj4KPiA+PiAg
+IHNwZWNpZmljIGZvciBzZG1tYyB2YXJpYW50Ogo+ID4+ICstIHJlZyAgICAgICAgICAgICAgICAg
+ICAgICAgIDogYSBzZWNvbmQgYmFzZSByZWdpc3RlciBtYXkgYmUgZGVmaW5lZCBpZiBhIGRlbGF5
+Cj4gPj4gKyAgICAgICAgICAgICAgICAgICAgICAgICAgIGJsb2NrIGlzIHByZXNlbnQgYW5kIHVz
+ZWQgZm9yIHR1bmluZy4KPiA+Cj4gPiBXaGljaCBjb21wYXRpYmxlcyBoYXZlIGEgMm5kIHJlZyBl
+bnRyeT8KPgo+IEluIGZhY3QsIG1tY2kgZHJpdmVyIGlzIEFSTSBBbWJhIGRyaXZlciAoYXJtLHBy
+aW1lY2VsbCkgYW5kIGhhcyBvbmx5IG9uZQo+IGNvbXBhdGlibGUgImFybSxwbDE4eCIuCj4gVGhl
+IHZhcmlhbnRzIGFyZSBpZGVudGlmaWVkIGJ5IHByaW1lY2VsbC1wZXJpcGhpZCBwcm9wZXJ0eQo+
+IChkaXNjb3ZlcmVkIGF0IHJ1bnRpbWUgd2l0aCBIVyBibG9jayByZWdpc3RlciBvciBkZWZpbmVk
+IGJ5Cj4gZGV2aWNlIHRyZWUgcHJvcGVydHkgImFybSxwcmltZWNlbGwtcGVyaXBoaWQiKS4KPgo+
+IFRoZSBkZWZhdWx0cyAiYXJtLHBsMTh4IiB2YXJpYW50cyBoYXZlIG9ubHkgb25lIGJhc2UgcmVn
+aXN0ZXIsCj4gYnV0IHRoZSBTRE1NQyBuZWVkIGEgc2Vjb25kIGJhc2UgcmVnaXN0ZXIgZm9yIHRo
+ZXNlCj4gZGVsYXkgYmxvY2sgcmVnaXN0ZXJzLgo+Cj4gZXhhbXBsZSBvZiBzZG1tYyBub2RlOgo+
+ICAgICAgICAgc2RtbWMxOiBzZG1tY0A1ODAwNTAwMCB7Cj4gICAgICAgICAgICAgICAgIGNvbXBh
+dGlibGUgPSAiYXJtLHBsMTh4IiwgImFybSxwcmltZWNlbGwiOwo+ICAgICAgICAgICAgICAgICBh
+cm0scHJpbWVjZWxsLXBlcmlwaGlkID0gPDB4MDAyNTMxODA+Owo+ICAgICAgICAgICAgICAgICBy
+ZWcgPSA8MHg1ODAwNTAwMCAweDEwMDA+LCA8MHg1ODAwNjAwMCAweDEwMDA+Owo+ICAgICAgICAg
+fTsKPgo+IHdoYXQgZG8geW91IGFkdmlzZT8KCkkgbWlzc2VkIHRoYXQgdGhpcyBpcyBhIHByaW1l
+Y2VsbCBibG9jay4gSnVzdCBnaXZlIHNvbWUgaW5kaWNhdGlvbgp3aGljaCB2YXJpYW50cyBoYXZl
+IHRoaXMgMm5kIHJhbmdlLgoKUm9iCl9fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19f
+X19fX19fX19fX19fCkxpbnV4LXN0bTMyIG1haWxpbmcgbGlzdApMaW51eC1zdG0zMkBzdC1tZC1t
+YWlsbWFuLnN0b3JtcmVwbHkuY29tCmh0dHBzOi8vc3QtbWQtbWFpbG1hbi5zdG9ybXJlcGx5LmNv
+bS9tYWlsbWFuL2xpc3RpbmZvL2xpbnV4LXN0bTMyCg==
