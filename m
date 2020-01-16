@@ -2,78 +2,61 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id 4FC6C14026F
-	for <lists+linux-stm32@lfdr.de>; Fri, 17 Jan 2020 04:39:33 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 21724140508
+	for <lists+linux-stm32@lfdr.de>; Fri, 17 Jan 2020 09:13:58 +0100 (CET)
 Received: from ip-172-31-3-76.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 0C863C36B0F;
-	Fri, 17 Jan 2020 03:39:33 +0000 (UTC)
-Received: from userp2120.oracle.com (userp2120.oracle.com [156.151.31.85])
- (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id D04FEC36B0F;
+	Fri, 17 Jan 2020 08:13:57 +0000 (UTC)
+Received: from mail-wr1-f68.google.com (mail-wr1-f68.google.com
+ [209.85.221.68])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id E354EC36B0D
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 43CDFC36B0D
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Fri, 17 Jan 2020 03:39:30 +0000 (UTC)
-Received: from pps.filterd (userp2120.oracle.com [127.0.0.1])
- by userp2120.oracle.com (8.16.0.27/8.16.0.27) with SMTP id 00H3bs2o063668;
- Fri, 17 Jan 2020 03:39:04 GMT
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=oracle.com;
- h=date : from : to : cc
- : subject : message-id : references : mime-version : content-type :
- in-reply-to; s=corp-2019-08-05;
- bh=nuIy1AKUur+rkuPHpU5e8KcUcja25k7xLa+gNFNIWfo=;
- b=DQtxTb0fVig1P2lVno4+5cDrYQ5NeL1N9fMVqLBrJF4KxXMFl7JpfxnSgviQd51dCPM7
- RZXkPWUffhhYvJSpl2kcdRUG6TqFx0QBAQJnMYsAVko9EsttE6hLRCrGod92K114s+G7
- iuAU5MuynUpfa/7JK4G3vw/TWYBwF2x8PHGva1cTUVojM9zUQ9SKSxG1M3aZwl34tvcG
- jGbZl+GnIlJIQmoC1OdoeVDE2qeXuiRqZJyL2XB9oEWRd2rPrqpb36HZToIG832dTBNd
- 5UN14I/BDnwSxJCo5v7LRI5Ar2Z3PHDKU1znWP80Tphd1jXEwKHtnCN/PiODfEay4Vit 5A== 
-Received: from userp3020.oracle.com (userp3020.oracle.com [156.151.31.79])
- by userp2120.oracle.com with ESMTP id 2xf73yxb0b-1
- (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=OK);
- Fri, 17 Jan 2020 03:39:04 +0000
-Received: from pps.filterd (userp3020.oracle.com [127.0.0.1])
- by userp3020.oracle.com (8.16.0.27/8.16.0.27) with SMTP id 00H3cs5g027486;
- Fri, 17 Jan 2020 03:39:04 GMT
-Received: from userv0121.oracle.com (userv0121.oracle.com [156.151.31.72])
- by userp3020.oracle.com with ESMTP id 2xjxp4aaqu-1
- (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=OK);
- Fri, 17 Jan 2020 03:39:03 +0000
-Received: from abhmp0019.oracle.com (abhmp0019.oracle.com [141.146.116.25])
- by userv0121.oracle.com (8.14.4/8.13.8) with ESMTP id 00H3cuob028532;
- Fri, 17 Jan 2020 03:39:00 GMT
-Received: from kadam (/10.175.29.77) by default (Oracle Beehive Gateway v4.0)
- with ESMTP ; Thu, 16 Jan 2020 19:38:56 -0800
-Date: Fri, 17 Jan 2020 06:40:35 +0300
-From: Dan Carpenter <dan.carpenter@oracle.com>
-To: Richard Weinberger <richard.weinberger@gmail.com>
-Message-ID: <20200117034035.GB19765@kadam>
-References: <20200113132346.rmeamdmbxwvo7kgj@kili.mountain>
- <CAFLxGvyBO=_4-f+HQPZSaAL=aJouok3y=MxEKjup3Q=Cj0KKZg@mail.gmail.com>
+ Thu, 16 Jan 2020 23:50:26 +0000 (UTC)
+Received: by mail-wr1-f68.google.com with SMTP id b6so20995842wrq.0
+ for <linux-stm32@st-md-mailman.stormreply.com>;
+ Thu, 16 Jan 2020 15:50:26 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20161025;
+ h=mime-version:references:in-reply-to:from:date:message-id:subject:to
+ :cc; bh=2lbAeEf1Yfxb0DJw9/N9gwdCq7G191eIts14KOq3L+Q=;
+ b=hpy0k+VDHzuaeRxDYJuMBs4ThERabafVqSuX9SaVtXcArs5U0b8Ooa+/xRuwNyWgzG
+ x2iilgSnBwMaZf9m7w7myErwx7iyxZNWB1TWTG4Kc2U7FqPjUr3gDHcRXkA+J5N3cYm0
+ E+vRW8io7CIHnao/TWcmSEADad9mO6H1xUb1O6O5HfdMfZD+ZlX5QLJm3ERmA4pRO2yp
+ YM9RrS5V7fL32NeLU067Ac2VjDOsTxHrlt4YLhkLtGhlqaBlsk4WBpDWCN5EVpeP+K0K
+ 4c9pmVjLF97LmD+CH/WJ4BaQkrXco1rJhEJ+3TmEsDKw6XzMBN1TcJXB0Ku4Qn4kMLsa
+ orTw==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20161025;
+ h=x-gm-message-state:mime-version:references:in-reply-to:from:date
+ :message-id:subject:to:cc;
+ bh=2lbAeEf1Yfxb0DJw9/N9gwdCq7G191eIts14KOq3L+Q=;
+ b=Z703uHnpbghKSEnq25FfgJ+hfVigk6sPpW2K/MhuMuqxfznIICPPVbWqjYMENjR+/l
+ h0ZRg2a/VvC7QlA1ZFAtqM753T+PlC7a7wkCNzoQSKOkZu+lZtWuVqZeer+CNwRqD2F/
+ IAauwwCIjExnT8RwM2LJrJoeZ46APALBSIlshIE7riZ/XX3g/9W799Y0BT25xKNwQ3KT
+ rM8shELzcEvQUaEmqTPMIOFXiafwZPO+TDmI4wJ7lpJIJC2dsxq+VxzdmOLmbc1auqYS
+ iI5Tk9Glzey+I9IDz0n1blH6ZYZEaK1lBApZrkYPBYr5w1oFsqZaiwCkIYjXcft9ch6b
+ IJZQ==
+X-Gm-Message-State: APjAAAUADT0yJEcZsLyCV2q9oLwFA1HBWo2MOxZ5+pyfLYT1oej19mm7
+ UTrDQKXeG7H+8oMT9ExjAqGTFoQUtZsNC6+M1jQ=
+X-Google-Smtp-Source: APXvYqz3NjHnKZS/uIG7B6I5ItCxyAj0uAxLYgWl/p41bwSYkpABFCg9erzLI0PjhmCIPeRUO3U2/15sl+ZY4Lh55rk=
+X-Received: by 2002:a5d:6441:: with SMTP id d1mr5811589wrw.93.1579218625760;
+ Thu, 16 Jan 2020 15:50:25 -0800 (PST)
 MIME-Version: 1.0
-Content-Disposition: inline
-In-Reply-To: <CAFLxGvyBO=_4-f+HQPZSaAL=aJouok3y=MxEKjup3Q=Cj0KKZg@mail.gmail.com>
-User-Agent: Mutt/1.9.4 (2018-02-28)
-X-Proofpoint-Virus-Version: vendor=nai engine=6000 definitions=9502
- signatures=668685
-X-Proofpoint-Spam-Details: rule=notspam policy=default score=0 suspectscore=0
- malwarescore=0
- phishscore=0 bulkscore=0 spamscore=0 mlxscore=0 mlxlogscore=999
- adultscore=0 classifier=spam adjust=0 reason=mlx scancount=1
- engine=8.0.1-1911140001 definitions=main-2001170026
-X-Proofpoint-Virus-Version: vendor=nai engine=6000 definitions=9502
- signatures=668685
-X-Proofpoint-Spam-Details: rule=notspam policy=default score=0
- priorityscore=1501 malwarescore=0
- suspectscore=0 phishscore=0 bulkscore=0 spamscore=0 clxscore=1011
- lowpriorityscore=0 mlxscore=0 impostorscore=0 mlxlogscore=999 adultscore=0
- classifier=spam adjust=0 reason=mlx scancount=1 engine=8.0.1-1911140001
- definitions=main-2001170026
+References: <20200113132346.rmeamdmbxwvo7kgj@kili.mountain>
+In-Reply-To: <20200113132346.rmeamdmbxwvo7kgj@kili.mountain>
+From: Richard Weinberger <richard.weinberger@gmail.com>
+Date: Fri, 17 Jan 2020 00:50:14 +0100
+Message-ID: <CAFLxGvyBO=_4-f+HQPZSaAL=aJouok3y=MxEKjup3Q=Cj0KKZg@mail.gmail.com>
+To: Dan Carpenter <dan.carpenter@oracle.com>
+X-Mailman-Approved-At: Fri, 17 Jan 2020 08:13:56 +0000
 Cc: Richard Weinberger <richard@nod.at>, kernel-janitors@vger.kernel.org,
  linux-mtd@lists.infradead.org, Maxime Coquelin <mcoquelin.stm32@gmail.com>,
  Miquel Raynal <miquel.raynal@bootlin.com>,
  linux-stm32@st-md-mailman.stormreply.com,
  Vignesh Raghavendra <vigneshr@ti.com>
 Subject: Re: [Linux-stm32] [PATCH] ubi: Fix an error pointer dereference in
- error handling code
+	error handling code
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -90,34 +73,114 @@ Content-Transfer-Encoding: 7bit
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
-On Fri, Jan 17, 2020 at 12:50:14AM +0100, Richard Weinberger wrote:
-> On Mon, Jan 13, 2020 at 2:24 PM Dan Carpenter <dan.carpenter@oracle.com> wrote:
-> >
-> > If "seen_pebs = init_seen(ubi);" fails then "seen_pebs" is an error pointer
-> > and we try to kfree() it which results in an Oops.
-> >
-> > This patch re-arranges the error handling so now it only frees things
-> > which have been allocated successfully.
-> >
-> > Fixes: daef3dd1f0ae ("UBI: Fastmap: Add self check to detect absent PEBs")
-> > Signed-off-by: Dan Carpenter <dan.carpenter@oracle.com>
-> > ---
-> >  drivers/mtd/ubi/fastmap.c | 19 +++++++++++--------
-> >  1 file changed, 11 insertions(+), 8 deletions(-)
-> > ---
-> >  drivers/mtd/ubi/fastmap.c | 21 ++++++++++++---------
-> >  1 file changed, 12 insertions(+), 9 deletions(-)
-> 
-> This patch seems badly formatted.
-> Copy&paste error?
-> 
+On Mon, Jan 13, 2020 at 2:24 PM Dan Carpenter <dan.carpenter@oracle.com> wrote:
+>
+> If "seen_pebs = init_seen(ubi);" fails then "seen_pebs" is an error pointer
+> and we try to kfree() it which results in an Oops.
+>
+> This patch re-arranges the error handling so now it only frees things
+> which have been allocated successfully.
+>
+> Fixes: daef3dd1f0ae ("UBI: Fastmap: Add self check to detect absent PEBs")
+> Signed-off-by: Dan Carpenter <dan.carpenter@oracle.com>
+> ---
+>  drivers/mtd/ubi/fastmap.c | 19 +++++++++++--------
+>  1 file changed, 11 insertions(+), 8 deletions(-)
+> ---
+>  drivers/mtd/ubi/fastmap.c | 21 ++++++++++++---------
+>  1 file changed, 12 insertions(+), 9 deletions(-)
 
-Oh, yeah.  Sorrry.  I shouldn't affect anything though.  I can resend
-if you want.
+This patch seems badly formatted.
+Copy&paste error?
 
-regards,
-dan carpenter
+> diff --git a/drivers/mtd/ubi/fastmap.c b/drivers/mtd/ubi/fastmap.c
+> index 1c7be4eb3ba6..6b544665318a 100644
+> --- a/drivers/mtd/ubi/fastmap.c
+> +++ b/drivers/mtd/ubi/fastmap.c
+> @@ -1137,7 +1137,7 @@ static int ubi_write_fastmap(struct ubi_device *ubi,
+>         struct rb_node *tmp_rb;
+>         int ret, i, j, free_peb_count, used_peb_count, vol_count;
+>         int scrub_peb_count, erase_peb_count;
+> -       unsigned long *seen_pebs = NULL;
+> +       unsigned long *seen_pebs;
+>
+>         fm_raw = ubi->fm_buf;
+>         memset(ubi->fm_buf, 0, ubi->fm_size);
+> @@ -1151,7 +1151,7 @@ static int ubi_write_fastmap(struct ubi_device *ubi,
+>         dvbuf = new_fm_vbuf(ubi, UBI_FM_DATA_VOLUME_ID);
+>         if (!dvbuf) {
+>                 ret = -ENOMEM;
+> -               goto out_kfree;
+> +               goto out_free_avbuf;
+>         }
+>
+>         avhdr = ubi_get_vid_hdr(avbuf);
+> @@ -1160,7 +1160,7 @@ static int ubi_write_fastmap(struct ubi_device *ubi,
+>         seen_pebs = init_seen(ubi);
+>         if (IS_ERR(seen_pebs)) {
+>                 ret = PTR_ERR(seen_pebs);
+> -               goto out_kfree;
+> +               goto out_free_dvbuf;
+>         }
+>
+>         spin_lock(&ubi->volumes_lock);
+> @@ -1328,7 +1328,7 @@ static int ubi_write_fastmap(struct ubi_device *ubi,
+>         ret = ubi_io_write_vid_hdr(ubi, new_fm->e[0]->pnum, avbuf);
+>         if (ret) {
+>                 ubi_err(ubi, "unable to write vid_hdr to fastmap SB!");
+> -               goto out_kfree;
+> +               goto out_free_seen;
+>         }
+>
+>         for (i = 0; i < new_fm->used_blocks; i++) {
+> @@ -1350,7 +1350,7 @@ static int ubi_write_fastmap(struct ubi_device *ubi,
+>                 if (ret) {
+>                         ubi_err(ubi, "unable to write vid_hdr to PEB %i!",
+>                                 new_fm->e[i]->pnum);
+> -                       goto out_kfree;
+> +                       goto out_free_seen;
+>                 }
+>         }
+>
+> @@ -1360,7 +1360,7 @@ static int ubi_write_fastmap(struct ubi_device *ubi,
+>                 if (ret) {
+>                         ubi_err(ubi, "unable to write fastmap to PEB %i!",
+>                                 new_fm->e[i]->pnum);
+> -                       goto out_kfree;
+> +                       goto out_free_seen;
+>                 }
+>         }
+>
+> @@ -1370,10 +1370,13 @@ static int ubi_write_fastmap(struct ubi_device *ubi,
+>         ret = self_check_seen(ubi, seen_pebs);
+>         dbg_bld("fastmap written!");
+>
+> -out_kfree:
+> -       ubi_free_vid_buf(avbuf);
+> -       ubi_free_vid_buf(dvbuf);
+> +out_free_seen:
+>         free_seen(seen_pebs);
+> +out_free_dvbuf:
+> +       ubi_free_vid_buf(dvbuf);
+> +out_free_avbuf:
+> +       ubi_free_vid_buf(avbuf);
+> +
+>  out:
+>         return ret;
+>  }
+> --
+> 2.11.0
+>
+>
+> ______________________________________________________
+> Linux MTD discussion mailing list
+> http://lists.infradead.org/mailman/listinfo/linux-mtd/
 
+
+
+-- 
+Thanks,
+//richard
 _______________________________________________
 Linux-stm32 mailing list
 Linux-stm32@st-md-mailman.stormreply.com
