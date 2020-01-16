@@ -2,47 +2,46 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id A126A13E1CE
-	for <lists+linux-stm32@lfdr.de>; Thu, 16 Jan 2020 17:53:13 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 8B93413E44D
+	for <lists+linux-stm32@lfdr.de>; Thu, 16 Jan 2020 18:07:50 +0100 (CET)
 Received: from ip-172-31-3-76.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 638A6C36B0F;
-	Thu, 16 Jan 2020 16:53:13 +0000 (UTC)
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 48CF8C36B10;
+	Thu, 16 Jan 2020 17:07:50 +0000 (UTC)
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
  (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 991CCC36B0D
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id D759AC36B0D
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Thu, 16 Jan 2020 16:53:10 +0000 (UTC)
+ Thu, 16 Jan 2020 17:07:48 +0000 (UTC)
 Received: from sasha-vm.mshome.net (c-73-47-72-35.hsd1.nh.comcast.net
  [73.47.72.35])
  (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by mail.kernel.org (Postfix) with ESMTPSA id 34D792073A;
- Thu, 16 Jan 2020 16:53:08 +0000 (UTC)
+ by mail.kernel.org (Postfix) with ESMTPSA id 8D849205F4;
+ Thu, 16 Jan 2020 17:07:46 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
- s=default; t=1579193589;
- bh=OEnWGrgvNT9GZVvzp8phpkWRl3yWQ6tbihlsEPw0Iro=;
+ s=default; t=1579194467;
+ bh=6xiaWiqLBwxpR1apSPx73HdLXm/uolr0vKCvNKnnGE4=;
  h=From:To:Cc:Subject:Date:In-Reply-To:References:From;
- b=wl77zXH6Rt0yOHyUvXXjRyPqln1kwY8Vrmkam4XPKHR9AbcFPMryWM9QkCZEhV0vf
- YL7gqy7ZPlncSb1u/fpIvW70GxahkQylu+7iEehoo4N7CoTFE+7PJoFR+zPhQ+gHk9
- m9d7HkzEKVXxAuj9nS6+O5N34nz0NJUwdyB7wc1g=
+ b=h0HmP5WYDbsHDmavUfPhMDti8HPpQmMhWPyzJWxvYQHzMVx/teQgbWN+E6GrkIhxE
+ nQPAXZ/vdPIwZG5RVOvrM6NHxnmFjT1IlPDcVcBsyzd2ZQYuvCWZYUsb3GZ/P+c+tA
+ uPiAacRmR1EOBSONCi+MY8tMpD4Nby7gDhBho/Ek=
 From: Sasha Levin <sashal@kernel.org>
 To: linux-kernel@vger.kernel.org,
 	stable@vger.kernel.org
-Date: Thu, 16 Jan 2020 11:41:44 -0500
-Message-Id: <20200116164300.6705-129-sashal@kernel.org>
+Date: Thu, 16 Jan 2020 12:00:11 -0500
+Message-Id: <20200116170509.12787-110-sashal@kernel.org>
 X-Mailer: git-send-email 2.20.1
-In-Reply-To: <20200116164300.6705-1-sashal@kernel.org>
-References: <20200116164300.6705-1-sashal@kernel.org>
+In-Reply-To: <20200116170509.12787-1-sashal@kernel.org>
+References: <20200116170509.12787-1-sashal@kernel.org>
 MIME-Version: 1.0
 X-stable: review
 X-Patchwork-Hint: Ignore
-Cc: Sasha Levin <sashal@kernel.org>, Wolfram Sang <wsa@the-dreams.de>,
- Pierre-Yves MORDRET <pierre-yves.mordret@st.com>,
- Alain Volmat <alain.volmat@st.com>, linux-i2c@vger.kernel.org,
+Cc: Sasha Levin <sashal@kernel.org>,
+ Greg Kroah-Hartman <gregkh@linuxfoundation.org>, linux-serial@vger.kernel.org,
  linux-stm32@st-md-mailman.stormreply.com, linux-arm-kernel@lists.infradead.org
-Subject: [Linux-stm32] [PATCH AUTOSEL 5.4 129/205] i2c: stm32f7: report dma
-	error during probe
+Subject: [Linux-stm32] [PATCH AUTOSEL 4.19 373/671] serial: stm32: fix word
+	length configuration
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -59,89 +58,133 @@ Content-Transfer-Encoding: 7bit
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
-From: Alain Volmat <alain.volmat@st.com>
+From: Erwan Le Ray <erwan.leray@st.com>
 
-[ Upstream commit d77eceb2de99f5d7e0c645bad15511fe1af59e09 ]
+[ Upstream commit c8a9d043947b4acb19a65f7fac2bd0893e581cd5 ]
 
-Distinguish between the case where dma information is not provided
-within the DT and the case of an error during the dma init.
-Exit the probe with error in case of an error during dma init.
+STM32 supports either:
+- 8 and 9 bits word length (including parity bit) for stm32f4 compatible
+  devices
+- 7, 8 and 9 bits word length (including parity bit) for stm32f7 and
+  stm32h7 compatible devices.
 
-Fixes: bb8822cbbc53 ("i2c: i2c-stm32: Add generic DMA API")
-Signed-off-by: Alain Volmat <alain.volmat@st.com>
-Reviewed-by: Pierre-Yves MORDRET <pierre-yves.mordret@st.com>
-Signed-off-by: Wolfram Sang <wsa@the-dreams.de>
+As a consequence STM32 supports the following termios configurations:
+- CS7 with parity bit, and CS8 (with or without parity bit) for stm32f4
+  compatible devices.
+- CS6 with parity bit, CS7 and CS8 (with or without parity bit) for
+  stm32f7 and stm32h7 compatible devices.
+
+This patch is fixing word length by configuring correctly the SoC with
+supported configurations.
+
+Fixes: ada8618ff3bf ("serial: stm32: adding support for stm32f7")
+Signed-off-by: Erwan Le Ray <erwan.leray@st.com>
+Signed-off-by: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
 Signed-off-by: Sasha Levin <sashal@kernel.org>
 ---
- drivers/i2c/busses/i2c-stm32.c   | 16 ++++++++--------
- drivers/i2c/busses/i2c-stm32f7.c |  9 +++++++++
- 2 files changed, 17 insertions(+), 8 deletions(-)
+ drivers/tty/serial/stm32-usart.c | 56 ++++++++++++++++++++++++++++----
+ drivers/tty/serial/stm32-usart.h |  3 +-
+ 2 files changed, 50 insertions(+), 9 deletions(-)
 
-diff --git a/drivers/i2c/busses/i2c-stm32.c b/drivers/i2c/busses/i2c-stm32.c
-index 07d5dfce68d4..1da347e6a358 100644
---- a/drivers/i2c/busses/i2c-stm32.c
-+++ b/drivers/i2c/busses/i2c-stm32.c
-@@ -20,13 +20,13 @@ struct stm32_i2c_dma *stm32_i2c_dma_request(struct device *dev,
- 
- 	dma = devm_kzalloc(dev, sizeof(*dma), GFP_KERNEL);
- 	if (!dma)
--		return NULL;
-+		return ERR_PTR(-ENOMEM);
- 
- 	/* Request and configure I2C TX dma channel */
--	dma->chan_tx = dma_request_slave_channel(dev, "tx");
--	if (!dma->chan_tx) {
-+	dma->chan_tx = dma_request_chan(dev, "tx");
-+	if (IS_ERR(dma->chan_tx)) {
- 		dev_dbg(dev, "can't request DMA tx channel\n");
--		ret = -EINVAL;
-+		ret = PTR_ERR(dma->chan_tx);
- 		goto fail_al;
- 	}
- 
-@@ -42,10 +42,10 @@ struct stm32_i2c_dma *stm32_i2c_dma_request(struct device *dev,
- 	}
- 
- 	/* Request and configure I2C RX dma channel */
--	dma->chan_rx = dma_request_slave_channel(dev, "rx");
--	if (!dma->chan_rx) {
-+	dma->chan_rx = dma_request_chan(dev, "rx");
-+	if (IS_ERR(dma->chan_rx)) {
- 		dev_err(dev, "can't request DMA rx channel\n");
--		ret = -EINVAL;
-+		ret = PTR_ERR(dma->chan_rx);
- 		goto fail_tx;
- 	}
- 
-@@ -75,7 +75,7 @@ struct stm32_i2c_dma *stm32_i2c_dma_request(struct device *dev,
- 	devm_kfree(dev, dma);
- 	dev_info(dev, "can't use DMA\n");
- 
--	return NULL;
-+	return ERR_PTR(ret);
+diff --git a/drivers/tty/serial/stm32-usart.c b/drivers/tty/serial/stm32-usart.c
+index e8d7a7bb4339..e8321850938a 100644
+--- a/drivers/tty/serial/stm32-usart.c
++++ b/drivers/tty/serial/stm32-usart.c
+@@ -599,6 +599,36 @@ static void stm32_shutdown(struct uart_port *port)
+ 	free_irq(port->irq, port);
  }
  
- void stm32_i2c_dma_free(struct stm32_i2c_dma *dma)
-diff --git a/drivers/i2c/busses/i2c-stm32f7.c b/drivers/i2c/busses/i2c-stm32f7.c
-index 84cfed17ff4f..37a76516e203 100644
---- a/drivers/i2c/busses/i2c-stm32f7.c
-+++ b/drivers/i2c/busses/i2c-stm32f7.c
-@@ -1955,6 +1955,15 @@ static int stm32f7_i2c_probe(struct platform_device *pdev)
- 	i2c_dev->dma = stm32_i2c_dma_request(i2c_dev->dev, phy_addr,
- 					     STM32F7_I2C_TXDR,
- 					     STM32F7_I2C_RXDR);
-+	if (PTR_ERR(i2c_dev->dma) == -ENODEV)
-+		i2c_dev->dma = NULL;
-+	else if (IS_ERR(i2c_dev->dma)) {
-+		ret = PTR_ERR(i2c_dev->dma);
-+		if (ret != -EPROBE_DEFER)
-+			dev_err(&pdev->dev,
-+				"Failed to request dma error %i\n", ret);
-+		goto clk_free;
++unsigned int stm32_get_databits(struct ktermios *termios)
++{
++	unsigned int bits;
++
++	tcflag_t cflag = termios->c_cflag;
++
++	switch (cflag & CSIZE) {
++	/*
++	 * CSIZE settings are not necessarily supported in hardware.
++	 * CSIZE unsupported configurations are handled here to set word length
++	 * to 8 bits word as default configuration and to print debug message.
++	 */
++	case CS5:
++		bits = 5;
++		break;
++	case CS6:
++		bits = 6;
++		break;
++	case CS7:
++		bits = 7;
++		break;
++	/* default including CS8 */
++	default:
++		bits = 8;
++		break;
 +	}
++
++	return bits;
++}
++
+ static void stm32_set_termios(struct uart_port *port, struct ktermios *termios,
+ 			    struct ktermios *old)
+ {
+@@ -606,7 +636,7 @@ static void stm32_set_termios(struct uart_port *port, struct ktermios *termios,
+ 	struct stm32_usart_offsets *ofs = &stm32_port->info->ofs;
+ 	struct stm32_usart_config *cfg = &stm32_port->info->cfg;
+ 	struct serial_rs485 *rs485conf = &port->rs485;
+-	unsigned int baud;
++	unsigned int baud, bits;
+ 	u32 usartdiv, mantissa, fraction, oversampling;
+ 	tcflag_t cflag = termios->c_cflag;
+ 	u32 cr1, cr2, cr3;
+@@ -632,16 +662,28 @@ static void stm32_set_termios(struct uart_port *port, struct ktermios *termios,
+ 	if (cflag & CSTOPB)
+ 		cr2 |= USART_CR2_STOP_2B;
  
- 	platform_set_drvdata(pdev, i2c_dev);
++	bits = stm32_get_databits(termios);
++
+ 	if (cflag & PARENB) {
++		bits++;
+ 		cr1 |= USART_CR1_PCE;
+-		if ((cflag & CSIZE) == CS8) {
+-			if (cfg->has_7bits_data)
+-				cr1 |= USART_CR1_M0;
+-			else
+-				cr1 |= USART_CR1_M;
+-		}
+ 	}
  
++	/*
++	 * Word length configuration:
++	 * CS8 + parity, 9 bits word aka [M1:M0] = 0b01
++	 * CS7 or (CS6 + parity), 7 bits word aka [M1:M0] = 0b10
++	 * CS8 or (CS7 + parity), 8 bits word aka [M1:M0] = 0b00
++	 * M0 and M1 already cleared by cr1 initialization.
++	 */
++	if (bits == 9)
++		cr1 |= USART_CR1_M0;
++	else if ((bits == 7) && cfg->has_7bits_data)
++		cr1 |= USART_CR1_M1;
++	else if (bits != 8)
++		dev_dbg(port->dev, "Unsupported data bits config: %u bits\n"
++			, bits);
++
+ 	if (cflag & PARODD)
+ 		cr1 |= USART_CR1_PS;
+ 
+diff --git a/drivers/tty/serial/stm32-usart.h b/drivers/tty/serial/stm32-usart.h
+index 6f294e280ea3..a70aa5006ab9 100644
+--- a/drivers/tty/serial/stm32-usart.h
++++ b/drivers/tty/serial/stm32-usart.h
+@@ -151,8 +151,7 @@ struct stm32_usart_info stm32h7_info = {
+ #define USART_CR1_PS		BIT(9)
+ #define USART_CR1_PCE		BIT(10)
+ #define USART_CR1_WAKE		BIT(11)
+-#define USART_CR1_M		BIT(12)
+-#define USART_CR1_M0		BIT(12)		/* F7 */
++#define USART_CR1_M0		BIT(12)		/* F7 (CR1_M for F4) */
+ #define USART_CR1_MME		BIT(13)		/* F7 */
+ #define USART_CR1_CMIE		BIT(14)		/* F7 */
+ #define USART_CR1_OVER8		BIT(15)
 -- 
 2.20.1
 
