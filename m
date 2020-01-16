@@ -2,35 +2,35 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id 55F6513E514
-	for <lists+linux-stm32@lfdr.de>; Thu, 16 Jan 2020 18:12:46 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 63F2213E515
+	for <lists+linux-stm32@lfdr.de>; Thu, 16 Jan 2020 18:12:47 +0100 (CET)
 Received: from ip-172-31-3-76.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 1FB04C36B0D;
-	Thu, 16 Jan 2020 17:12:46 +0000 (UTC)
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 2BB17C36B12;
+	Thu, 16 Jan 2020 17:12:47 +0000 (UTC)
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
  (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 187B4C36B0D
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 37AF6C36B0D
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Thu, 16 Jan 2020 17:12:43 +0000 (UTC)
+ Thu, 16 Jan 2020 17:12:44 +0000 (UTC)
 Received: from sasha-vm.mshome.net (c-73-47-72-35.hsd1.nh.comcast.net
  [73.47.72.35])
  (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by mail.kernel.org (Postfix) with ESMTPSA id E33A224690;
- Thu, 16 Jan 2020 17:12:40 +0000 (UTC)
+ by mail.kernel.org (Postfix) with ESMTPSA id 35A102469B;
+ Thu, 16 Jan 2020 17:12:42 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
- s=default; t=1579194761;
- bh=hpu6Tkyl98vFxhi9jnYRAUwIgGag0U6ndpdJTEwzzOY=;
+ s=default; t=1579194763;
+ bh=+LjzRZhG/asUPV6mXmu3rlMw0EJxr7fb6ki0KxCziZQ=;
  h=From:To:Cc:Subject:Date:In-Reply-To:References:From;
- b=HAo/r75QmTrSdnwABpuNGGrSDqrM+XYfKCtmIHE60nsGgXgxChEuGW8znnU9xMwCF
- jYw/6ww0adlWRE7aOyRBbDfd1FYUYNgOkBHIQhKwrMdoLo+mRHgOvbXh0KK5SMddTZ
- Ugr2RhDosOVZDpUN70OEo/WXz6VJZFA6zcTw2sZQ=
+ b=haCFxe/sDJyXUtzlFTQ3G1tZqAbmtIZ09mCv4K+MQorLEMCkj1o9I0avcbn1adcGl
+ 0dRFuZXF6S/txlcsn/YHSAVZE1cwj8nVJa/UE+wAbtX3nF3BUgDLt9Ghf8q1OF1LXI
+ Ru+d9r8MFRsbZvHFbXr63Vfz88v7gWIHCz1new6M=
 From: Sasha Levin <sashal@kernel.org>
 To: linux-kernel@vger.kernel.org,
 	stable@vger.kernel.org
-Date: Thu, 16 Jan 2020 12:03:41 -0500
-Message-Id: <20200116170509.12787-320-sashal@kernel.org>
+Date: Thu, 16 Jan 2020 12:03:42 -0500
+Message-Id: <20200116170509.12787-321-sashal@kernel.org>
 X-Mailer: git-send-email 2.20.1
 In-Reply-To: <20200116170509.12787-1-sashal@kernel.org>
 References: <20200116170509.12787-1-sashal@kernel.org>
@@ -40,8 +40,8 @@ X-Patchwork-Hint: Ignore
 Cc: Sasha Levin <sashal@kernel.org>,
  Jakub Kicinski <jakub.kicinski@netronome.com>, netdev@vger.kernel.org,
  linux-stm32@st-md-mailman.stormreply.com, linux-arm-kernel@lists.infradead.org
-Subject: [Linux-stm32] [PATCH AUTOSEL 4.19 583/671] net: stmmac: fix length
-	of PTP clock's name string
+Subject: [Linux-stm32] [PATCH AUTOSEL 4.19 584/671] net: stmmac: fix
+	disabling flexible PPS output
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -60,47 +60,43 @@ Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
 From: Antonio Borneo <antonio.borneo@st.com>
 
-[ Upstream commit 5da202c88f8c355ad79bc2e8eb582e6d433060e7 ]
+[ Upstream commit 520cf6002147281d1e7b522bb338416b623dcb93 ]
 
-The field "name" in struct ptp_clock_info has a fixed size of 16
-chars and is used as zero terminated string by clock_name_show()
-in drivers/ptp/ptp_sysfs.c
-The current initialization value requires 17 chars to fit also the
-null termination, and this causes overflow to the next bytes in
-the struct when the string is read as null terminated:
-	hexdump -C /sys/class/ptp/ptp0/clock_name
-	00000000  73 74 6d 6d 61 63 5f 70  74 70 5f 63 6c 6f 63 6b  |stmmac_ptp_clock|
-	00000010  a0 ac b9 03 0a                                    |.....|
-where the extra 4 bytes (excluding the newline) after the string
-represent the integer 0x03b9aca0 = 62500000 assigned to the field
-"max_adj" that follows "name" in the same struct.
+Accordingly to Synopsys documentation [1] and [2], when bit PPSEN0
+in register MAC_PPS_CONTROL is set it selects the functionality
+command in the same register, otherwise selects the functionality
+control.
+Command functionality is required to either enable (command 0x2)
+and disable (command 0x5) the flexible PPS output, but the bit
+PPSEN0 is currently set only for enabling.
 
-There is no strict requirement for the "name" content and in the
-comment in ptp_clock_kernel.h it's reported it should just be 'A
-short "friendly name" to identify the clock'.
-Replace it with "stmmac ptp".
+Set the bit PPSEN0 to properly disable flexible PPS output.
+
+Tested on STM32MP15x, based on dwmac 4.10a.
+
+[1] DWC Ethernet QoS Databook 4.10a October 2014
+[2] DWC Ethernet QoS Databook 5.00a September 2017
 
 Signed-off-by: Antonio Borneo <antonio.borneo@st.com>
-Fixes: 92ba6888510c ("stmmac: add the support for PTP hw clock driver")
+Fixes: 9a8a02c9d46d ("net: stmmac: Add Flexible PPS support")
 Signed-off-by: Jakub Kicinski <jakub.kicinski@netronome.com>
 Signed-off-by: Sasha Levin <sashal@kernel.org>
 ---
- drivers/net/ethernet/stmicro/stmmac/stmmac_ptp.c | 2 +-
- 1 file changed, 1 insertion(+), 1 deletion(-)
+ drivers/net/ethernet/stmicro/stmmac/dwmac5.c | 1 +
+ 1 file changed, 1 insertion(+)
 
-diff --git a/drivers/net/ethernet/stmicro/stmmac/stmmac_ptp.c b/drivers/net/ethernet/stmicro/stmmac/stmmac_ptp.c
-index cc60b3fb0892..8f8b8f381ffd 100644
---- a/drivers/net/ethernet/stmicro/stmmac/stmmac_ptp.c
-+++ b/drivers/net/ethernet/stmicro/stmmac/stmmac_ptp.c
-@@ -174,7 +174,7 @@ static int stmmac_enable(struct ptp_clock_info *ptp,
- /* structure describing a PTP hardware clock */
- static struct ptp_clock_info stmmac_ptp_clock_ops = {
- 	.owner = THIS_MODULE,
--	.name = "stmmac_ptp_clock",
-+	.name = "stmmac ptp",
- 	.max_adj = 62500000,
- 	.n_alarm = 0,
- 	.n_ext_ts = 0,
+diff --git a/drivers/net/ethernet/stmicro/stmmac/dwmac5.c b/drivers/net/ethernet/stmicro/stmmac/dwmac5.c
+index 3f4f3132e16b..e436fa160c7d 100644
+--- a/drivers/net/ethernet/stmicro/stmmac/dwmac5.c
++++ b/drivers/net/ethernet/stmicro/stmmac/dwmac5.c
+@@ -515,6 +515,7 @@ int dwmac5_flex_pps_config(void __iomem *ioaddr, int index,
+ 
+ 	if (!enable) {
+ 		val |= PPSCMDx(index, 0x5);
++		val |= PPSEN0;
+ 		writel(val, ioaddr + MAC_PPS_CONTROL);
+ 		return 0;
+ 	}
 -- 
 2.20.1
 
