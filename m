@@ -2,35 +2,35 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id 8733413E80E
-	for <lists+linux-stm32@lfdr.de>; Thu, 16 Jan 2020 18:30:05 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id A237013E840
+	for <lists+linux-stm32@lfdr.de>; Thu, 16 Jan 2020 18:31:21 +0100 (CET)
 Received: from ip-172-31-3-76.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 513FCC36B0F;
-	Thu, 16 Jan 2020 17:30:05 +0000 (UTC)
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 6C6B5C36B0F;
+	Thu, 16 Jan 2020 17:31:21 +0000 (UTC)
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
  (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id A31EAC36B0D
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 0D5E1C36B0D
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Thu, 16 Jan 2020 17:30:02 +0000 (UTC)
+ Thu, 16 Jan 2020 17:31:20 +0000 (UTC)
 Received: from sasha-vm.mshome.net (c-73-47-72-35.hsd1.nh.comcast.net
  [73.47.72.35])
  (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by mail.kernel.org (Postfix) with ESMTPSA id 6FC6724715;
- Thu, 16 Jan 2020 17:30:00 +0000 (UTC)
+ by mail.kernel.org (Postfix) with ESMTPSA id C64FC246CC;
+ Thu, 16 Jan 2020 17:31:17 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
- s=default; t=1579195801;
- bh=+R0bIKk6cHujaaucd3ZQ55+sch9kQbp2rR6EJMfpN54=;
+ s=default; t=1579195878;
+ bh=rNEdYtx4AyblOlb0zrQkR8wIdxh7NLZf6zh2ptUtJ2E=;
  h=From:To:Cc:Subject:Date:In-Reply-To:References:From;
- b=AErVBMhOse48gwot0UmKs4YFzTRyLQI1rrTa1ySyhsUb6mP2YbbYF/XN5Ky2MI2mh
- J/6v5G5hbkOtDaYsPYUsJCK1x8Fz31vOyBZ4tWfGonfSOd1O7jJLztuB5gUIty6t14
- y4PGT+p/r568M4VcXqNsbGPoa1ZdgMu5uZrdj8UU=
+ b=xsW8TlTIiezsK3Zkn0iXsaLfL4kOnc7io+STR0hFNuU3JWwPEjWyB6hqSxCmsxmuC
+ +BDHtiuuNvUglHOp0oNAOlASL5g4KvKyJIG0Lf8BFv3zoS3gvCOk+yTnvDPW9zKoAk
+ vW9RXcizy7lm46ydgFwdenp4kEMepYiAWU0Fv0Mc=
 From: Sasha Levin <sashal@kernel.org>
 To: linux-kernel@vger.kernel.org,
 	stable@vger.kernel.org
-Date: Thu, 16 Jan 2020 12:23:08 -0500
-Message-Id: <20200116172403.18149-259-sashal@kernel.org>
+Date: Thu, 16 Jan 2020 12:24:03 -0500
+Message-Id: <20200116172403.18149-314-sashal@kernel.org>
 X-Mailer: git-send-email 2.20.1
 In-Reply-To: <20200116172403.18149-1-sashal@kernel.org>
 References: <20200116172403.18149-1-sashal@kernel.org>
@@ -38,10 +38,11 @@ MIME-Version: 1.0
 X-stable: review
 X-Patchwork-Hint: Ignore
 Cc: Sasha Levin <sashal@kernel.org>,
- Jakub Kicinski <jakub.kicinski@netronome.com>, netdev@vger.kernel.org,
+ Greg Kroah-Hartman <gregkh@linuxfoundation.org>, linux-serial@vger.kernel.org,
+ Fabrice Gasnier <fabrice.gasnier@st.com>,
  linux-stm32@st-md-mailman.stormreply.com, linux-arm-kernel@lists.infradead.org
-Subject: [Linux-stm32] [PATCH AUTOSEL 4.14 316/371] net: stmmac: fix length
-	of PTP clock's name string
+Subject: [Linux-stm32] [PATCH AUTOSEL 4.14 371/371] serial: stm32: fix
+	clearing interrupt error flags
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -58,49 +59,50 @@ Content-Transfer-Encoding: 7bit
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
-From: Antonio Borneo <antonio.borneo@st.com>
+From: Fabrice Gasnier <fabrice.gasnier@st.com>
 
-[ Upstream commit 5da202c88f8c355ad79bc2e8eb582e6d433060e7 ]
+[ Upstream commit 1250ed7114a977cdc2a67a0c09d6cdda63970eb9 ]
 
-The field "name" in struct ptp_clock_info has a fixed size of 16
-chars and is used as zero terminated string by clock_name_show()
-in drivers/ptp/ptp_sysfs.c
-The current initialization value requires 17 chars to fit also the
-null termination, and this causes overflow to the next bytes in
-the struct when the string is read as null terminated:
-	hexdump -C /sys/class/ptp/ptp0/clock_name
-	00000000  73 74 6d 6d 61 63 5f 70  74 70 5f 63 6c 6f 63 6b  |stmmac_ptp_clock|
-	00000010  a0 ac b9 03 0a                                    |.....|
-where the extra 4 bytes (excluding the newline) after the string
-represent the integer 0x03b9aca0 = 62500000 assigned to the field
-"max_adj" that follows "name" in the same struct.
+The interrupt clear flag register is a "write 1 to clear" register.
+So, only writing ones allows to clear flags:
+- Replace buggy stm32_clr_bits() by a simple write to clear error flags
+- Replace useless read/modify/write stm32_set_bits() routine by a
+  simple write to clear TC (transfer complete) flag.
 
-There is no strict requirement for the "name" content and in the
-comment in ptp_clock_kernel.h it's reported it should just be 'A
-short "friendly name" to identify the clock'.
-Replace it with "stmmac ptp".
-
-Signed-off-by: Antonio Borneo <antonio.borneo@st.com>
-Fixes: 92ba6888510c ("stmmac: add the support for PTP hw clock driver")
-Signed-off-by: Jakub Kicinski <jakub.kicinski@netronome.com>
+Fixes: 4f01d833fdcd ("serial: stm32: fix rx error handling")
+Signed-off-by: Fabrice Gasnier <fabrice.gasnier@st.com>
+Cc: stable <stable@vger.kernel.org>
+Link: https://lore.kernel.org/r/1574323849-1909-1-git-send-email-fabrice.gasnier@st.com
+Signed-off-by: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
 Signed-off-by: Sasha Levin <sashal@kernel.org>
 ---
- drivers/net/ethernet/stmicro/stmmac/stmmac_ptp.c | 2 +-
- 1 file changed, 1 insertion(+), 1 deletion(-)
+ drivers/tty/serial/stm32-usart.c | 6 +++---
+ 1 file changed, 3 insertions(+), 3 deletions(-)
 
-diff --git a/drivers/net/ethernet/stmicro/stmmac/stmmac_ptp.c b/drivers/net/ethernet/stmicro/stmmac/stmmac_ptp.c
-index e471a903c654..1c1d6a942822 100644
---- a/drivers/net/ethernet/stmicro/stmmac/stmmac_ptp.c
-+++ b/drivers/net/ethernet/stmicro/stmmac/stmmac_ptp.c
-@@ -154,7 +154,7 @@ static int stmmac_enable(struct ptp_clock_info *ptp,
- /* structure describing a PTP hardware clock */
- static const struct ptp_clock_info stmmac_ptp_clock_ops = {
- 	.owner = THIS_MODULE,
--	.name = "stmmac_ptp_clock",
-+	.name = "stmmac ptp",
- 	.max_adj = 62500000,
- 	.n_alarm = 0,
- 	.n_ext_ts = 0,
+diff --git a/drivers/tty/serial/stm32-usart.c b/drivers/tty/serial/stm32-usart.c
+index f8f3f8fafd9f..1e854e1851fb 100644
+--- a/drivers/tty/serial/stm32-usart.c
++++ b/drivers/tty/serial/stm32-usart.c
+@@ -132,8 +132,8 @@ static void stm32_receive_chars(struct uart_port *port, bool threaded)
+ 		 * cleared by the sequence [read SR - read DR].
+ 		 */
+ 		if ((sr & USART_SR_ERR_MASK) && ofs->icr != UNDEF_REG)
+-			stm32_clr_bits(port, ofs->icr, USART_ICR_ORECF |
+-				       USART_ICR_PECF | USART_ICR_FECF);
++			writel_relaxed(sr & USART_SR_ERR_MASK,
++				       port->membase + ofs->icr);
+ 
+ 		c = stm32_get_char(port, &sr, &stm32_port->last_res);
+ 		port->icount.rx++;
+@@ -302,7 +302,7 @@ static void stm32_transmit_chars(struct uart_port *port)
+ 	if (ofs->icr == UNDEF_REG)
+ 		stm32_clr_bits(port, ofs->isr, USART_SR_TC);
+ 	else
+-		stm32_set_bits(port, ofs->icr, USART_ICR_TCCF);
++		writel_relaxed(USART_ICR_TCCF, port->membase + ofs->icr);
+ 
+ 	if (stm32_port->tx_ch)
+ 		stm32_transmit_chars_dma(port);
 -- 
 2.20.1
 
