@@ -2,46 +2,47 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id 63F2213E515
-	for <lists+linux-stm32@lfdr.de>; Thu, 16 Jan 2020 18:12:47 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 8C44613E54E
+	for <lists+linux-stm32@lfdr.de>; Thu, 16 Jan 2020 18:14:09 +0100 (CET)
 Received: from ip-172-31-3-76.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 2BB17C36B12;
-	Thu, 16 Jan 2020 17:12:47 +0000 (UTC)
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 4D203C36B0F;
+	Thu, 16 Jan 2020 17:14:09 +0000 (UTC)
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
  (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 37AF6C36B0D
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 793F2C36B0D
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Thu, 16 Jan 2020 17:12:44 +0000 (UTC)
+ Thu, 16 Jan 2020 17:14:06 +0000 (UTC)
 Received: from sasha-vm.mshome.net (c-73-47-72-35.hsd1.nh.comcast.net
  [73.47.72.35])
  (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by mail.kernel.org (Postfix) with ESMTPSA id 35A102469B;
- Thu, 16 Jan 2020 17:12:42 +0000 (UTC)
+ by mail.kernel.org (Postfix) with ESMTPSA id 55B65246B8;
+ Thu, 16 Jan 2020 17:14:04 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
- s=default; t=1579194763;
- bh=+LjzRZhG/asUPV6mXmu3rlMw0EJxr7fb6ki0KxCziZQ=;
+ s=default; t=1579194845;
+ bh=uuGNeJ84tj3vKL1hOiXrjSINcWLgGHxFYDVBn4t2+3A=;
  h=From:To:Cc:Subject:Date:In-Reply-To:References:From;
- b=haCFxe/sDJyXUtzlFTQ3G1tZqAbmtIZ09mCv4K+MQorLEMCkj1o9I0avcbn1adcGl
- 0dRFuZXF6S/txlcsn/YHSAVZE1cwj8nVJa/UE+wAbtX3nF3BUgDLt9Ghf8q1OF1LXI
- Ru+d9r8MFRsbZvHFbXr63Vfz88v7gWIHCz1new6M=
+ b=UYgEdbjuAnjKzCukJwtEqmFa1qOmv6E7qbiYeOxQb4MYhJOMWQ28zjx1s4iUxUm6/
+ 4i/S96Q57fYLBZxCA4YnfH6n1zAU81Mn13r2ZenSio8W0sdSxVireRvqf3s5DwWlaM
+ ULH1TWqdfH7MNLbSdr2+lsNfig2EEwJPtwSovYDs=
 From: Sasha Levin <sashal@kernel.org>
 To: linux-kernel@vger.kernel.org,
 	stable@vger.kernel.org
-Date: Thu, 16 Jan 2020 12:03:42 -0500
-Message-Id: <20200116170509.12787-321-sashal@kernel.org>
+Date: Thu, 16 Jan 2020 12:04:41 -0500
+Message-Id: <20200116170509.12787-380-sashal@kernel.org>
 X-Mailer: git-send-email 2.20.1
 In-Reply-To: <20200116170509.12787-1-sashal@kernel.org>
 References: <20200116170509.12787-1-sashal@kernel.org>
 MIME-Version: 1.0
 X-stable: review
 X-Patchwork-Hint: Ignore
-Cc: Sasha Levin <sashal@kernel.org>,
- Jakub Kicinski <jakub.kicinski@netronome.com>, netdev@vger.kernel.org,
+Cc: Sasha Levin <sashal@kernel.org>, Wolfram Sang <wsa@the-dreams.de>,
+ Pierre-Yves MORDRET <pierre-yves.mordret@st.com>,
+ Alain Volmat <alain.volmat@st.com>, linux-i2c@vger.kernel.org,
  linux-stm32@st-md-mailman.stormreply.com, linux-arm-kernel@lists.infradead.org
-Subject: [Linux-stm32] [PATCH AUTOSEL 4.19 584/671] net: stmmac: fix
-	disabling flexible PPS output
+Subject: [Linux-stm32] [PATCH AUTOSEL 4.19 643/671] i2c: stm32f7: report dma
+	error during probe
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -58,45 +59,89 @@ Content-Transfer-Encoding: 7bit
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
-From: Antonio Borneo <antonio.borneo@st.com>
+From: Alain Volmat <alain.volmat@st.com>
 
-[ Upstream commit 520cf6002147281d1e7b522bb338416b623dcb93 ]
+[ Upstream commit d77eceb2de99f5d7e0c645bad15511fe1af59e09 ]
 
-Accordingly to Synopsys documentation [1] and [2], when bit PPSEN0
-in register MAC_PPS_CONTROL is set it selects the functionality
-command in the same register, otherwise selects the functionality
-control.
-Command functionality is required to either enable (command 0x2)
-and disable (command 0x5) the flexible PPS output, but the bit
-PPSEN0 is currently set only for enabling.
+Distinguish between the case where dma information is not provided
+within the DT and the case of an error during the dma init.
+Exit the probe with error in case of an error during dma init.
 
-Set the bit PPSEN0 to properly disable flexible PPS output.
-
-Tested on STM32MP15x, based on dwmac 4.10a.
-
-[1] DWC Ethernet QoS Databook 4.10a October 2014
-[2] DWC Ethernet QoS Databook 5.00a September 2017
-
-Signed-off-by: Antonio Borneo <antonio.borneo@st.com>
-Fixes: 9a8a02c9d46d ("net: stmmac: Add Flexible PPS support")
-Signed-off-by: Jakub Kicinski <jakub.kicinski@netronome.com>
+Fixes: bb8822cbbc53 ("i2c: i2c-stm32: Add generic DMA API")
+Signed-off-by: Alain Volmat <alain.volmat@st.com>
+Reviewed-by: Pierre-Yves MORDRET <pierre-yves.mordret@st.com>
+Signed-off-by: Wolfram Sang <wsa@the-dreams.de>
 Signed-off-by: Sasha Levin <sashal@kernel.org>
 ---
- drivers/net/ethernet/stmicro/stmmac/dwmac5.c | 1 +
- 1 file changed, 1 insertion(+)
+ drivers/i2c/busses/i2c-stm32.c   | 16 ++++++++--------
+ drivers/i2c/busses/i2c-stm32f7.c |  9 +++++++++
+ 2 files changed, 17 insertions(+), 8 deletions(-)
 
-diff --git a/drivers/net/ethernet/stmicro/stmmac/dwmac5.c b/drivers/net/ethernet/stmicro/stmmac/dwmac5.c
-index 3f4f3132e16b..e436fa160c7d 100644
---- a/drivers/net/ethernet/stmicro/stmmac/dwmac5.c
-+++ b/drivers/net/ethernet/stmicro/stmmac/dwmac5.c
-@@ -515,6 +515,7 @@ int dwmac5_flex_pps_config(void __iomem *ioaddr, int index,
+diff --git a/drivers/i2c/busses/i2c-stm32.c b/drivers/i2c/busses/i2c-stm32.c
+index d75fbcbf02ef..667f8032f8ef 100644
+--- a/drivers/i2c/busses/i2c-stm32.c
++++ b/drivers/i2c/busses/i2c-stm32.c
+@@ -21,13 +21,13 @@ struct stm32_i2c_dma *stm32_i2c_dma_request(struct device *dev,
  
- 	if (!enable) {
- 		val |= PPSCMDx(index, 0x5);
-+		val |= PPSEN0;
- 		writel(val, ioaddr + MAC_PPS_CONTROL);
- 		return 0;
+ 	dma = devm_kzalloc(dev, sizeof(*dma), GFP_KERNEL);
+ 	if (!dma)
+-		return NULL;
++		return ERR_PTR(-ENOMEM);
+ 
+ 	/* Request and configure I2C TX dma channel */
+-	dma->chan_tx = dma_request_slave_channel(dev, "tx");
+-	if (!dma->chan_tx) {
++	dma->chan_tx = dma_request_chan(dev, "tx");
++	if (IS_ERR(dma->chan_tx)) {
+ 		dev_dbg(dev, "can't request DMA tx channel\n");
+-		ret = -EINVAL;
++		ret = PTR_ERR(dma->chan_tx);
+ 		goto fail_al;
  	}
+ 
+@@ -43,10 +43,10 @@ struct stm32_i2c_dma *stm32_i2c_dma_request(struct device *dev,
+ 	}
+ 
+ 	/* Request and configure I2C RX dma channel */
+-	dma->chan_rx = dma_request_slave_channel(dev, "rx");
+-	if (!dma->chan_rx) {
++	dma->chan_rx = dma_request_chan(dev, "rx");
++	if (IS_ERR(dma->chan_rx)) {
+ 		dev_err(dev, "can't request DMA rx channel\n");
+-		ret = -EINVAL;
++		ret = PTR_ERR(dma->chan_rx);
+ 		goto fail_tx;
+ 	}
+ 
+@@ -76,7 +76,7 @@ struct stm32_i2c_dma *stm32_i2c_dma_request(struct device *dev,
+ 	devm_kfree(dev, dma);
+ 	dev_info(dev, "can't use DMA\n");
+ 
+-	return NULL;
++	return ERR_PTR(ret);
+ }
+ 
+ void stm32_i2c_dma_free(struct stm32_i2c_dma *dma)
+diff --git a/drivers/i2c/busses/i2c-stm32f7.c b/drivers/i2c/busses/i2c-stm32f7.c
+index f4e3613f9361..af32a14550de 100644
+--- a/drivers/i2c/busses/i2c-stm32f7.c
++++ b/drivers/i2c/busses/i2c-stm32f7.c
+@@ -1914,6 +1914,15 @@ static int stm32f7_i2c_probe(struct platform_device *pdev)
+ 	i2c_dev->dma = stm32_i2c_dma_request(i2c_dev->dev, phy_addr,
+ 					     STM32F7_I2C_TXDR,
+ 					     STM32F7_I2C_RXDR);
++	if (PTR_ERR(i2c_dev->dma) == -ENODEV)
++		i2c_dev->dma = NULL;
++	else if (IS_ERR(i2c_dev->dma)) {
++		ret = PTR_ERR(i2c_dev->dma);
++		if (ret != -EPROBE_DEFER)
++			dev_err(&pdev->dev,
++				"Failed to request dma error %i\n", ret);
++		goto clk_free;
++	}
+ 
+ 	ret = i2c_add_adapter(adap);
+ 	if (ret)
 -- 
 2.20.1
 
