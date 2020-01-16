@@ -2,47 +2,46 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id E59DC13EAC2
-	for <lists+linux-stm32@lfdr.de>; Thu, 16 Jan 2020 18:46:13 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id E727E13EAC4
+	for <lists+linux-stm32@lfdr.de>; Thu, 16 Jan 2020 18:46:22 +0100 (CET)
 Received: from ip-172-31-3-76.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id A56C3C36B0F;
-	Thu, 16 Jan 2020 17:46:13 +0000 (UTC)
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id B14C1C36B0F;
+	Thu, 16 Jan 2020 17:46:22 +0000 (UTC)
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
  (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 6590EC36B0D
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 76A05C36B0D
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Thu, 16 Jan 2020 17:46:12 +0000 (UTC)
+ Thu, 16 Jan 2020 17:46:21 +0000 (UTC)
 Received: from sasha-vm.mshome.net (c-73-47-72-35.hsd1.nh.comcast.net
  [73.47.72.35])
  (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by mail.kernel.org (Postfix) with ESMTPSA id 0EDED246D9;
- Thu, 16 Jan 2020 17:46:09 +0000 (UTC)
+ by mail.kernel.org (Postfix) with ESMTPSA id F3FA0246DC;
+ Thu, 16 Jan 2020 17:46:18 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
- s=default; t=1579196771;
- bh=6D+79WwMSPJwWxIogyrPAlZXVQVa57CQ2ordv16TGEA=;
+ s=default; t=1579196780;
+ bh=9XW7SWDu+KCgjzAcqzRMIf/9Nyn+7Kj2PwLiQnolGfk=;
  h=From:To:Cc:Subject:Date:In-Reply-To:References:From;
- b=e6WHy6lMy7h0EeLvS6oRzojwXtX41fZXP98P4QCyR5Nhi355H+7UC7L/mgCvVerWU
- yZ31IqOoZctnXf/EJ8aP5jb+QxcZWdChdz4K4pmQb+DyaqSuLMsDdZkVmg93S1MPWz
- y8qTdEjB2UJEw73/xXwPEuemFqEtuorHCsEHG3ms=
+ b=BqGuEcquX55csfJUhWvX+VGFyC4xki3d1ib6qDMey/UvwKKHDK3PL2TahcNxEc3D1
+ JkW55f8T99O1q6m6miXp5rP1KwNnHNt85WMfwlvzyVuvYC3m3qa47WXW9jBnZRt+Dz
+ tXfg6QvSUKjIowSXAbZRQGxntRp0+kIy3kpqhuSE=
 From: Sasha Levin <sashal@kernel.org>
 To: linux-kernel@vger.kernel.org,
 	stable@vger.kernel.org
-Date: Thu, 16 Jan 2020 12:42:19 -0500
-Message-Id: <20200116174251.24326-142-sashal@kernel.org>
+Date: Thu, 16 Jan 2020 12:42:23 -0500
+Message-Id: <20200116174251.24326-146-sashal@kernel.org>
 X-Mailer: git-send-email 2.20.1
 In-Reply-To: <20200116174251.24326-1-sashal@kernel.org>
 References: <20200116174251.24326-1-sashal@kernel.org>
 MIME-Version: 1.0
 X-stable: review
 X-Patchwork-Hint: Ignore
-Cc: Sasha Levin <sashal@kernel.org>, netdev@vger.kernel.org,
- linux-stm32@st-md-mailman.stormreply.com,
- Dan Carpenter <dan.carpenter@oracle.com>,
- "David S . Miller" <davem@davemloft.net>, linux-arm-kernel@lists.infradead.org
-Subject: [Linux-stm32] [PATCH AUTOSEL 4.4 142/174] net: ethernet: stmmac:
-	Fix signedness bug in ipq806x_gmac_of_parse()
+Cc: Sasha Levin <sashal@kernel.org>,
+ Jakub Kicinski <jakub.kicinski@netronome.com>, netdev@vger.kernel.org,
+ linux-stm32@st-md-mailman.stormreply.com, linux-arm-kernel@lists.infradead.org
+Subject: [Linux-stm32] [PATCH AUTOSEL 4.4 146/174] net: stmmac: fix length
+	of PTP clock's name string
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -59,35 +58,49 @@ Content-Transfer-Encoding: 7bit
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
-From: Dan Carpenter <dan.carpenter@oracle.com>
+From: Antonio Borneo <antonio.borneo@st.com>
 
-[ Upstream commit 231042181dc9d6122c6faba64e99ccb25f13cc6c ]
+[ Upstream commit 5da202c88f8c355ad79bc2e8eb582e6d433060e7 ]
 
-The "gmac->phy_mode" variable is an enum and in this context GCC will
-treat it as an unsigned int so the error handling will never be
-triggered.
+The field "name" in struct ptp_clock_info has a fixed size of 16
+chars and is used as zero terminated string by clock_name_show()
+in drivers/ptp/ptp_sysfs.c
+The current initialization value requires 17 chars to fit also the
+null termination, and this causes overflow to the next bytes in
+the struct when the string is read as null terminated:
+	hexdump -C /sys/class/ptp/ptp0/clock_name
+	00000000  73 74 6d 6d 61 63 5f 70  74 70 5f 63 6c 6f 63 6b  |stmmac_ptp_clock|
+	00000010  a0 ac b9 03 0a                                    |.....|
+where the extra 4 bytes (excluding the newline) after the string
+represent the integer 0x03b9aca0 = 62500000 assigned to the field
+"max_adj" that follows "name" in the same struct.
 
-Fixes: b1c17215d718 ("stmmac: add ipq806x glue layer")
-Signed-off-by: Dan Carpenter <dan.carpenter@oracle.com>
-Signed-off-by: David S. Miller <davem@davemloft.net>
+There is no strict requirement for the "name" content and in the
+comment in ptp_clock_kernel.h it's reported it should just be 'A
+short "friendly name" to identify the clock'.
+Replace it with "stmmac ptp".
+
+Signed-off-by: Antonio Borneo <antonio.borneo@st.com>
+Fixes: 92ba6888510c ("stmmac: add the support for PTP hw clock driver")
+Signed-off-by: Jakub Kicinski <jakub.kicinski@netronome.com>
 Signed-off-by: Sasha Levin <sashal@kernel.org>
 ---
- drivers/net/ethernet/stmicro/stmmac/dwmac-ipq806x.c | 2 +-
+ drivers/net/ethernet/stmicro/stmmac/stmmac_ptp.c | 2 +-
  1 file changed, 1 insertion(+), 1 deletion(-)
 
-diff --git a/drivers/net/ethernet/stmicro/stmmac/dwmac-ipq806x.c b/drivers/net/ethernet/stmicro/stmmac/dwmac-ipq806x.c
-index 82de68b1a452..1fc356c17750 100644
---- a/drivers/net/ethernet/stmicro/stmmac/dwmac-ipq806x.c
-+++ b/drivers/net/ethernet/stmicro/stmmac/dwmac-ipq806x.c
-@@ -203,7 +203,7 @@ static void *ipq806x_gmac_of_parse(struct ipq806x_gmac *gmac)
- 	struct device *dev = &gmac->pdev->dev;
- 
- 	gmac->phy_mode = of_get_phy_mode(dev->of_node);
--	if (gmac->phy_mode < 0) {
-+	if ((int)gmac->phy_mode < 0) {
- 		dev_err(dev, "missing phy mode property\n");
- 		return ERR_PTR(-EINVAL);
- 	}
+diff --git a/drivers/net/ethernet/stmicro/stmmac/stmmac_ptp.c b/drivers/net/ethernet/stmicro/stmmac/stmmac_ptp.c
+index 170a18b61281..147c9f8cee7f 100644
+--- a/drivers/net/ethernet/stmicro/stmmac/stmmac_ptp.c
++++ b/drivers/net/ethernet/stmicro/stmmac/stmmac_ptp.c
+@@ -157,7 +157,7 @@ static int stmmac_enable(struct ptp_clock_info *ptp,
+ /* structure describing a PTP hardware clock */
+ static struct ptp_clock_info stmmac_ptp_clock_ops = {
+ 	.owner = THIS_MODULE,
+-	.name = "stmmac_ptp_clock",
++	.name = "stmmac ptp",
+ 	.max_adj = 62500000,
+ 	.n_alarm = 0,
+ 	.n_ext_ts = 0,
 -- 
 2.20.1
 
