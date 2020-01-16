@@ -2,95 +2,75 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id 0056A13DA34
-	for <lists+linux-stm32@lfdr.de>; Thu, 16 Jan 2020 13:41:59 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 1F1E613DB40
+	for <lists+linux-stm32@lfdr.de>; Thu, 16 Jan 2020 14:16:08 +0100 (CET)
 Received: from ip-172-31-3-76.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id B9143C36B18;
-	Thu, 16 Jan 2020 12:41:58 +0000 (UTC)
-Received: from EUR03-DB5-obe.outbound.protection.outlook.com
- (mail-eopbgr40048.outbound.protection.outlook.com [40.107.4.48])
- (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id B5F8AC36B0F;
+	Thu, 16 Jan 2020 13:16:07 +0000 (UTC)
+Received: from mail-wm1-f65.google.com (mail-wm1-f65.google.com
+ [209.85.128.65])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id B3A3FC36B0D
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id E15F4C36B0D
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Thu, 16 Jan 2020 11:34:35 +0000 (UTC)
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=TBen2DF7aLTd1dkswMX/kZdbRyXS45SwHN2kzADejY8nO4U/Q6dzcJFvIkYxJ3KBibi6my8mlQr/7A9UbtXfAnicygGhu+e9XKRQ+PC2aoOrva4+YnoPPoV8koVheVuIVdQpBDyS1Q0f0CR51ILn/MnxKVGlAYmavF34Sdxejva4TNHtLv5VgN24u8L71KWd984ThSmKBmi1ebfl28H176TiEb4Izp+oldc7izJXQyqWWTQWHCjdPFzHE4mdcq+aKITno1MNrtUxCJlf3SDQZgIwgF884aLLYrb8IQhv1F6Y7iVodgTXrg0SGZyqGNq8QK/e4zKBetv4TynrZzcZJQ==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
- s=arcselector9901;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=tiJ+M4QLhkh+5BI+alTVgquliUFQLGXcC9Cq/LKkQTU=;
- b=b90VE5zyBWqqY12L7l6rfH5l+fAXCp+MqniO45rjI+40dc7bYnsVEQP9SgAXZnZwnCEsZZQBtVB5qdMLsuhxTYe7OpNkUmftqoNbbjPgpwf9U0gtsGXH2Zf0JFvz08hCfCZ9N/FkzBO+l2XlBYw1Y0iAARWQPp7mRGhTo8NaDlg9jijmQGrz5FJ3yK548TATzfBAUThAlqhy1dOOKR4+MklD/GN27ujdG70Okzi/Z08cU2V0B9pkA5uRGz8HDl7/t/otNwrB6V/RHzGuJ6L5nYwSBm5uhQUO/IIsGh4aXwVqkxkDNLZBcvx3Zq1/s3DX13vBOVslLT9HqCmrtYTfIg==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=nxp.com; dmarc=pass action=none header.from=nxp.com; dkim=pass
- header.d=nxp.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=nxp.com; s=selector2; 
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=tiJ+M4QLhkh+5BI+alTVgquliUFQLGXcC9Cq/LKkQTU=;
- b=HqCmx8tD8IPP+DE665t8t/FoPHotFLgNhUIxwnfOQYnIZftXgEWXx7RMWkpWxBORb0nZIl7vLKiiSvPR3vfCeTFzSpFMxQ1u1y8ZWTqbDEODV0MxqQSiQ/PvrAJKNTP5DoHxe+D3nzJ24lppRdKP6WZEIe8zXLUJBaRVZPL5xDw=
-Received: from VI1PR04MB4445.eurprd04.prod.outlook.com (20.177.55.161) by
- VI1PR04MB7184.eurprd04.prod.outlook.com (10.186.157.15) with Microsoft SMTP
- Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.20.2644.20; Thu, 16 Jan 2020 11:34:34 +0000
-Received: from VI1PR04MB4445.eurprd04.prod.outlook.com
- ([fe80::304d:b7d8:1233:2ae0]) by VI1PR04MB4445.eurprd04.prod.outlook.com
- ([fe80::304d:b7d8:1233:2ae0%6]) with mapi id 15.20.2623.018; Thu, 16 Jan 2020
- 11:34:34 +0000
-From: Iuliana Prodan <iuliana.prodan@nxp.com>
-To: Corentin Labbe <clabbe.montjoie@gmail.com>, "alexandre.torgue@st.com"
- <alexandre.torgue@st.com>, "davem@davemloft.net" <davem@davemloft.net>,
- "herbert@gondor.apana.org.au" <herbert@gondor.apana.org.au>,
- "mcoquelin.stm32@gmail.com" <mcoquelin.stm32@gmail.com>, "mripard@kernel.org"
- <mripard@kernel.org>, "wens@csie.org" <wens@csie.org>, Horia Geanta
- <horia.geanta@nxp.com>, Aymen Sghaier <aymen.sghaier@nxp.com>
-Thread-Topic: [PATCH RFC 09/10] crypto: engine: permit to batch requests
-Thread-Index: AQHVyuLsCMmCcJsnqU6cDfOK2wZNrg==
-Date: Thu, 16 Jan 2020 11:34:34 +0000
-Message-ID: <VI1PR04MB4445182A8A827C3EA303A2978C360@VI1PR04MB4445.eurprd04.prod.outlook.com>
+ Thu, 16 Jan 2020 13:16:06 +0000 (UTC)
+Received: by mail-wm1-f65.google.com with SMTP id w5so7139993wmi.1
+ for <linux-stm32@st-md-mailman.stormreply.com>;
+ Thu, 16 Jan 2020 05:16:06 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20161025;
+ h=date:from:to:cc:subject:message-id:references:mime-version
+ :content-disposition:in-reply-to:user-agent;
+ bh=2fUXK8SpQFeNUTHHjq17WKEa2HX3RjBEp1dlf1605d8=;
+ b=QctqX+SABPym4k6LOX1hzx5gGwkEvbayU2AwkCvhTMCpEs7ix0z3Y9lzgR8BIzExGs
+ 7Nmlqo7vmRyMi5++i7LRdKtmyQT8h2AfO8p5VVGLeEuuRSByY4ji0ucCpYlyiAntiLhu
+ VsZz2FGp/upKFVJQvg0CGbvNSY1KlWk+pFvE8a8aihQPntSsMDotWqDTQIiPgwfSrpeP
+ kj7Hfcr35pFToHNz5/Ub5rPit4WdGxYOcZuxPMdDsVrPknOEcggUKzQu2umL1Fkw76g8
+ oiToDbmSTMNxl31Lfusng0BIhaz9f+r7aGAksBjS7megI67hE+Gmn+5o41tNxzsfXU5V
+ +X6Q==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20161025;
+ h=x-gm-message-state:date:from:to:cc:subject:message-id:references
+ :mime-version:content-disposition:in-reply-to:user-agent;
+ bh=2fUXK8SpQFeNUTHHjq17WKEa2HX3RjBEp1dlf1605d8=;
+ b=g11hIJHjxR8q8QWtKDMHZrGv0dUZXaE6Hals5OfrPyfF5SPWRKm3ir3NSHKHsugFUt
+ 2g5wGM5tP+fs5qfW14MnJkKSeiwAOYPT1XAr6suUbVPZcfCvsS1XSTxh9mFbiINss/QI
+ fgq6GW9iQ+IuBWAIPchCshtErL+6e43KXhs08/Ymt+XLe7nR2Dc6bGAeFx5x955i2H6w
+ afdAUG5sC9NcRDBDsauqTPgMjs+iL9sQYuOKT1BfExx/q7kiDez0FfUZcovRUFAuf1Az
+ 6wkg4fMqrn7Ek5b6WOd+/WqSaUcWRBELqLHKV9Lj+Uk9You4WvDgVmZTqsPpmzWtwLhi
+ Kbww==
+X-Gm-Message-State: APjAAAUB//8BgmUBA7MgFRzbMD5cJmCXJ1PkEH6p8osIFHu0R/o5EJvd
+ CePSHq1dPMLGtaqaN4c/djM=
+X-Google-Smtp-Source: APXvYqy+KZj1RE5Da5UJUk8yDqkXjQ9G20krvYN+N07Q3VSfPwOBls/Wn9bvazOAR6xdN4I5BNBNVg==
+X-Received: by 2002:a05:600c:224d:: with SMTP id
+ a13mr6139437wmm.70.1579180566478; 
+ Thu, 16 Jan 2020 05:16:06 -0800 (PST)
+Received: from Red ([2a01:cb1d:147:7200:2e56:dcff:fed2:c6d6])
+ by smtp.googlemail.com with ESMTPSA id y139sm3415692wmd.24.2020.01.16.05.16.04
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Thu, 16 Jan 2020 05:16:05 -0800 (PST)
+Date: Thu, 16 Jan 2020 14:16:03 +0100
+From: Corentin Labbe <clabbe.montjoie@gmail.com>
+To: Iuliana Prodan <iuliana.prodan@nxp.com>
+Message-ID: <20200116131603.GA26487@Red>
 References: <20200114135936.32422-1-clabbe.montjoie@gmail.com>
- <20200114135936.32422-10-clabbe.montjoie@gmail.com>
-Accept-Language: en-US
-Content-Language: en-US
-X-MS-Has-Attach: 
-X-MS-TNEF-Correlator: 
-authentication-results: spf=none (sender IP is )
- smtp.mailfrom=iuliana.prodan@nxp.com; 
-x-originating-ip: [212.146.100.6]
-x-ms-publictraffictype: Email
-x-ms-office365-filtering-ht: Tenant
-x-ms-office365-filtering-correlation-id: cc7d1cc7-1848-47ef-f84e-08d79a780fc5
-x-ms-traffictypediagnostic: VI1PR04MB7184:|VI1PR04MB7184:
-x-ms-exchange-transport-forked: True
-x-microsoft-antispam-prvs: <VI1PR04MB71844E3EB904213FC2BF6A168C360@VI1PR04MB7184.eurprd04.prod.outlook.com>
-x-ms-oob-tlc-oobclassifiers: OLM:431;
-x-forefront-prvs: 02843AA9E0
-x-forefront-antispam-report: SFV:NSPM;
- SFS:(10009020)(4636009)(366004)(396003)(376002)(346002)(136003)(39860400002)(189003)(199004)(9686003)(44832011)(8936002)(6636002)(5660300002)(81156014)(81166006)(8676002)(71200400001)(7696005)(4326008)(2906002)(6506007)(316002)(66446008)(66556008)(66476007)(66946007)(64756008)(54906003)(55016002)(110136005)(86362001)(76116006)(478600001)(186003)(53546011)(33656002)(52536014)(26005)(7416002)(91956017);
- DIR:OUT; SFP:1101; SCL:1; SRVR:VI1PR04MB7184;
- H:VI1PR04MB4445.eurprd04.prod.outlook.com; FPR:; SPF:None; LANG:en;
- PTR:InfoNoRecords; MX:1; A:1; 
-received-spf: None (protection.outlook.com: nxp.com does not designate
- permitted sender hosts)
-x-ms-exchange-senderadcheck: 1
-x-microsoft-antispam: BCL:0;
-x-microsoft-antispam-message-info: K8NvZTVtd5OYewy94MF+rcoIqr+bSkh6Tos48cpcll6axwnooJkAscM+8NnYxMtBu158xTtB7wE71UO+MJHXhsNqTzRSWN0eTrrZYqr7W9G58uRD5uGCLmFk1lp1mN/egxGs6FTnRoLanfbGZBWuyCIR1nuC30GzZaJIX+nEC2gs12o46vxqPrSbEVD6CpogZb/6JwTmWHyHK0OeaFDil+NGf9WjSM7bR/M8d3o9TI2cFSqAYviZE+bBVN4eP3AwGDyg+q0YNFx5vv6xatK0GhrIVOxot3jX3lK+HVZkW6bmRQO6M42BWp8r8hsbTKjGZEfS9uZQIT92jVQeFn59urn7jOUY04fk+fgGXGjcMOcZxuN387Nl3k6g49ltL9g+tr9kxuKxBYG2Y2D6Vzo3yi/4+p0fqglV+qSzC++Vev96MycfEdm+vd2VwRlUGCLz
+ <VI1PR04MB444530675D82743E8AFFD8FE8C360@VI1PR04MB4445.eurprd04.prod.outlook.com>
 MIME-Version: 1.0
-X-OriginatorOrg: nxp.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: cc7d1cc7-1848-47ef-f84e-08d79a780fc5
-X-MS-Exchange-CrossTenant-originalarrivaltime: 16 Jan 2020 11:34:34.6480 (UTC)
-X-MS-Exchange-CrossTenant-fromentityheader: Hosted
-X-MS-Exchange-CrossTenant-id: 686ea1d3-bc2b-4c6f-a92c-d99c5c301635
-X-MS-Exchange-CrossTenant-mailboxtype: HOSTED
-X-MS-Exchange-CrossTenant-userprincipalname: qDAKvTY8ZwVEF+2SRLCJRXSSdQd/L6gw0cPkXsr9rc471vpmjvA28c7qp+pMuhqr18orkZkdXIb9JkPsKffMvA==
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: VI1PR04MB7184
-X-Mailman-Approved-At: Thu, 16 Jan 2020 12:41:55 +0000
-Cc: "linux-sunxi@googlegroups.com" <linux-sunxi@googlegroups.com>,
+Content-Disposition: inline
+In-Reply-To: <VI1PR04MB444530675D82743E8AFFD8FE8C360@VI1PR04MB4445.eurprd04.prod.outlook.com>
+User-Agent: Mutt/1.10.1 (2018-07-13)
+Cc: Aymen Sghaier <aymen.sghaier@nxp.com>,
+ "herbert@gondor.apana.org.au" <herbert@gondor.apana.org.au>,
+ Horia Geanta <horia.geanta@nxp.com>,
+ "linux-sunxi@googlegroups.com" <linux-sunxi@googlegroups.com>,
+ "linux-kernel@vger.kernel.org" <linux-kernel@vger.kernel.org>,
+ "mripard@kernel.org" <mripard@kernel.org>,
  "linux-stm32@st-md-mailman.stormreply.com"
- <linux-stm32@st-md-mailman.stormreply.com>,
+ <linux-stm32@st-md-mailman.stormreply.com>, "wens@csie.org" <wens@csie.org>,
  "linux-crypto@vger.kernel.org" <linux-crypto@vger.kernel.org>,
- "linux-arm-kernel@lists.infradead.org" <linux-arm-kernel@lists.infradead.org>,
- "linux-kernel@vger.kernel.org" <linux-kernel@vger.kernel.org>
-Subject: Re: [Linux-stm32] [PATCH RFC 09/10] crypto: engine: permit to batch
+ "mcoquelin.stm32@gmail.com" <mcoquelin.stm32@gmail.com>,
+ "davem@davemloft.net" <davem@davemloft.net>,
+ "linux-arm-kernel@lists.infradead.org" <linux-arm-kernel@lists.infradead.org>
+Subject: Re: [Linux-stm32] [PATCH RFC 00/10] crypto: engine: permit to batch
 	requests
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
@@ -108,118 +88,56 @@ Content-Transfer-Encoding: 7bit
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
-On 1/14/2020 4:00 PM, Corentin Labbe wrote:
-> Now everything is ready, this patch permits to choose the number of
-> request to batch.
+On Thu, Jan 16, 2020 at 11:33:24AM +0000, Iuliana Prodan wrote:
+> On 1/14/2020 3:59 PM, Corentin Labbe wrote:
+> > Hello
+> > 
+> > The sun8i-ce hardware can work on multiple requests in one batch.
+> > For this it use a task descriptor, and chain them.
+> > For the moment, the driver does not use this mechanism and do requests
+> > one at a time and issue an irq for each.
+> > 
+> > Using the chaning will permit to issue less interrupts, and increase
+> > thoughput.
+> > 
+> > But the crypto/engine can enqueue lots of requests but can ran them only
+> > one by one.
+> > 
+> > This serie introduce a way to batch requests in crypto/engine by
+> > - setting a batch limit (1 by default)
+> > - refactor the prepare/unprepare code to permit to have x requests
+> >    prepared/unprepared at the same time.
+> > 
+> > For testing the serie, the selftest are not enough, since it issue
+> > request one at a time.
+> > I have used LUKS for testing it.
+> > 
+> > Please give me what you think about this serie, specially maintainers
+> > which have hardware with the same kind of capability.
+> > 
+> Hi,
 > 
-> Signed-off-by: Corentin Labbe <clabbe.montjoie@gmail.com>
-> ---
->   crypto/crypto_engine.c  | 32 +++++++++++++++++++++++++++-----
->   include/crypto/engine.h |  2 ++
->   2 files changed, 29 insertions(+), 5 deletions(-)
+> I'm working on CAAM, on adding support for crypto-engine.
+> These modifications are not working on CAAM.
+> They seem to be specific to requests that are linked. CAAM can work on 
+> multiple request, at the same time, but they are processed independently.
+> So, I believe the parallelization is a good idea, but the requests still 
+> need to be independent.
+> I'll follow up with comments on each patch.
+
+Hello
+
+Thanks for the review.
+Yes my serie is for doing "linked" request.
+For the CAAM, if you can do multiple request independently, why not having x crypto engine ? (like sun8i-ce/sun8i-ss/amlogic)
+
 > 
-> diff --git a/crypto/crypto_engine.c b/crypto/crypto_engine.c
-> index e23a398ba330..e9cd9ec9a732 100644
-> --- a/crypto/crypto_engine.c
-> +++ b/crypto/crypto_engine.c
-> @@ -114,6 +114,7 @@ static void crypto_pump_requests(struct crypto_engine *engine,
->   	}
->   
->   	engine->ct = 0;
-> +retry:
->   	/* Get the fist request from the engine queue to handle */
->   	backlog = crypto_get_backlog(&engine->queue);
->   	async_req = crypto_dequeue_request(&engine->queue);
-> @@ -151,7 +152,10 @@ static void crypto_pump_requests(struct crypto_engine *engine,
->   		}
->   		engine->cur_reqs[engine->ct].prepared = true;
->   	}
-> -	engine->ct++;
-> +	if (++engine->ct < engine->rmax && engine->queue.qlen > 0) {
-> +		spin_lock_irqsave(&engine->queue_lock, flags);
-> +		goto retry;
-> +	}
->   	if (!enginectx->op.do_one_request) {
->   		dev_err(engine->dev, "failed to do request\n");
->   		ret = -EINVAL;
-> @@ -393,15 +397,18 @@ int crypto_engine_stop(struct crypto_engine *engine)
->   EXPORT_SYMBOL_GPL(crypto_engine_stop);
->   
->   /**
-> - * crypto_engine_alloc_init - allocate crypto hardware engine structure and
-> + * crypto_engine_alloc_init2 - allocate crypto hardware engine structure and
->    * initialize it.
->    * @dev: the device attached with one hardware engine
->    * @rt: whether this queue is set to run as a realtime task
-> + * @rmax: The number of request that the engine can batch in one
-> + * @qlen: The size of the crypto queue
->    *
->    * This must be called from context that can sleep.
->    * Return: the crypto engine structure on success, else NULL.
->    */
-> -struct crypto_engine *crypto_engine_alloc_init(struct device *dev, bool rt)
-> +struct crypto_engine *crypto_engine_alloc_init2(struct device *dev, bool rt,
-> +						int rmax, int qlen)
+> Also, IMO you should send the patches for crypto-engine improvements in 
+> a separate series from the one for allwinner driver.
 
-I think one _alloc_init function is enough, which will set the size of 
-crypto-engine queue (not hardcoded like it is now) and the number of 
-requests that the engine can execute in parallel.
+For this RFC serie, I tried to do real atomic patch, for let people see the whole process.
 
-{
->   	struct sched_param param = { .sched_priority = MAX_RT_PRIO / 2 };
->   	struct crypto_engine *engine;
-> @@ -421,12 +428,12 @@ struct crypto_engine *crypto_engine_alloc_init(struct device *dev, bool rt)
->   	engine->priv_data = dev;
->   	snprintf(engine->name, sizeof(engine->name),
->   		 "%s-engine", dev_name(dev));
-> -	engine->rmax = 1;
-> +	engine->rmax = rmax;
->   	engine->cur_reqs = devm_kzalloc(dev, sizeof(struct cur_req) * engine->rmax, GFP_KERNEL);
->   	if (!engine->cur_reqs)
->   		return NULL;
->   
-> -	crypto_init_queue(&engine->queue, CRYPTO_ENGINE_MAX_QLEN);
-> +	crypto_init_queue(&engine->queue, qlen);
->   	spin_lock_init(&engine->queue_lock);
->   
->   	engine->kworker = kthread_create_worker(0, "%s", engine->name);
-> @@ -443,6 +450,21 @@ struct crypto_engine *crypto_engine_alloc_init(struct device *dev, bool rt)
->   
->   	return engine;
->   }
-> +EXPORT_SYMBOL_GPL(crypto_engine_alloc_init2);
-> +
-> +/**
-> + * crypto_engine_alloc_init - allocate crypto hardware engine structure and
-> + * initialize it.
-> + * @dev: the device attached with one hardware engine
-> + * @rt: whether this queue is set to run as a realtime task
-> + *
-> + * This must be called from context that can sleep.
-> + * Return: the crypto engine structure on success, else NULL.
-> + */
-> +struct crypto_engine *crypto_engine_alloc_init(struct device *dev, bool rt)
-> +{
-> +	return crypto_engine_alloc_init2(dev, rt, 1, CRYPTO_ENGINE_MAX_QLEN);
-> +}
->   EXPORT_SYMBOL_GPL(crypto_engine_alloc_init);
->   
->   /**
-> diff --git a/include/crypto/engine.h b/include/crypto/engine.h
-> index 55d3dbc2498c..fe0dfea8bf07 100644
-> --- a/include/crypto/engine.h
-> +++ b/include/crypto/engine.h
-> @@ -115,6 +115,8 @@ void crypto_finalize_skcipher_request(struct crypto_engine *engine,
->   int crypto_engine_start(struct crypto_engine *engine);
->   int crypto_engine_stop(struct crypto_engine *engine);
->   struct crypto_engine *crypto_engine_alloc_init(struct device *dev, bool rt);
-> +struct crypto_engine *crypto_engine_alloc_init2(struct device *dev, bool rt,
-> +						int rmax, int qlen);
->   int crypto_engine_exit(struct crypto_engine *engine);
->   
->   #endif /* _CRYPTO_ENGINE_H */
-> 
-
+Regards
 _______________________________________________
 Linux-stm32 mailing list
 Linux-stm32@st-md-mailman.stormreply.com
