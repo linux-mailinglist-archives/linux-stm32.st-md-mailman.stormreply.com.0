@@ -2,60 +2,78 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id C155913FCD4
-	for <lists+linux-stm32@lfdr.de>; Fri, 17 Jan 2020 00:18:06 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 4FC6C14026F
+	for <lists+linux-stm32@lfdr.de>; Fri, 17 Jan 2020 04:39:33 +0100 (CET)
 Received: from ip-172-31-3-76.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 809C0C36B0F;
-	Thu, 16 Jan 2020 23:18:06 +0000 (UTC)
-Received: from mail-oi1-f194.google.com (mail-oi1-f194.google.com
- [209.85.167.194])
- (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 0C863C36B0F;
+	Fri, 17 Jan 2020 03:39:33 +0000 (UTC)
+Received: from userp2120.oracle.com (userp2120.oracle.com [156.151.31.85])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 87797C36B0D
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id E354EC36B0D
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Thu, 16 Jan 2020 23:18:04 +0000 (UTC)
-Received: by mail-oi1-f194.google.com with SMTP id 13so20483965oij.13
- for <linux-stm32@st-md-mailman.stormreply.com>;
- Thu, 16 Jan 2020 15:18:04 -0800 (PST)
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20161025;
- h=x-gm-message-state:date:from:to:cc:subject:message-id:references
- :mime-version:content-disposition:in-reply-to:user-agent;
- bh=AxYTHo1xbvVXlE9BL422q+BMWDP33NtgDNx+D8mvMAI=;
- b=BPQ463cYKWVfwWUYF8tkxloIw1xaTE1d6AQWbFyKHsRkuLFbS0zDnQEbSdiLPbS3yn
- XuYtUEXY8x2OzG1xqVKrvjLHoi5+Vn+fofQZ9qjtE6roihhJ/hMMyRzUHKbGdo2R21ro
- nvmjPD7pu6cOsMCBf23Pofzi7tq1QfedxQKpJw/F8NkWu4gRvd51Nweo1lBhFjmV/ah3
- FUmru9bTQfC3Kna6dAf1SvM1zXiPJDYLFyMlY52tZ5C+Fzc8RJbDrfMqGCTSdnTlCZes
- Ow5upEZaHHnpXLi9OdllFymfQUeGYse9SLxE16gWAGRatGyqQVn/k25EswvtE3OR3UMC
- 63sg==
-X-Gm-Message-State: APjAAAVQUCOMuCAD5x3gMH2Hej9aUGzNN+veyilylb1kRvapSgwTU6FB
- YOlobNRQlFU+0MdmjgvfCw==
-X-Google-Smtp-Source: APXvYqzZJygX0GSguvTQM81bKzfOop6LBjuapSvKPn1gt2ZgNjWt9VE/fJhIO05KbnfYneSZhP3g+A==
-X-Received: by 2002:aca:c386:: with SMTP id t128mr1347117oif.32.1579216683166; 
- Thu, 16 Jan 2020 15:18:03 -0800 (PST)
-Received: from rob-hp-laptop (24-155-109-49.dyn.grandenetworks.net.
- [24.155.109.49])
- by smtp.gmail.com with ESMTPSA id e21sm7211797oib.16.2020.01.16.15.18.01
- (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Thu, 16 Jan 2020 15:18:02 -0800 (PST)
-Received: (nullmailer pid 30679 invoked by uid 1000);
- Thu, 16 Jan 2020 23:18:01 -0000
-Date: Thu, 16 Jan 2020 17:18:01 -0600
-From: Rob Herring <robh@kernel.org>
-To: Olivier Moysan <olivier.moysan@st.com>
-Message-ID: <20200116231801.GA18958@bogus>
-References: <20200116105244.13485-1-olivier.moysan@st.com>
+ Fri, 17 Jan 2020 03:39:30 +0000 (UTC)
+Received: from pps.filterd (userp2120.oracle.com [127.0.0.1])
+ by userp2120.oracle.com (8.16.0.27/8.16.0.27) with SMTP id 00H3bs2o063668;
+ Fri, 17 Jan 2020 03:39:04 GMT
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=oracle.com;
+ h=date : from : to : cc
+ : subject : message-id : references : mime-version : content-type :
+ in-reply-to; s=corp-2019-08-05;
+ bh=nuIy1AKUur+rkuPHpU5e8KcUcja25k7xLa+gNFNIWfo=;
+ b=DQtxTb0fVig1P2lVno4+5cDrYQ5NeL1N9fMVqLBrJF4KxXMFl7JpfxnSgviQd51dCPM7
+ RZXkPWUffhhYvJSpl2kcdRUG6TqFx0QBAQJnMYsAVko9EsttE6hLRCrGod92K114s+G7
+ iuAU5MuynUpfa/7JK4G3vw/TWYBwF2x8PHGva1cTUVojM9zUQ9SKSxG1M3aZwl34tvcG
+ jGbZl+GnIlJIQmoC1OdoeVDE2qeXuiRqZJyL2XB9oEWRd2rPrqpb36HZToIG832dTBNd
+ 5UN14I/BDnwSxJCo5v7LRI5Ar2Z3PHDKU1znWP80Tphd1jXEwKHtnCN/PiODfEay4Vit 5A== 
+Received: from userp3020.oracle.com (userp3020.oracle.com [156.151.31.79])
+ by userp2120.oracle.com with ESMTP id 2xf73yxb0b-1
+ (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=OK);
+ Fri, 17 Jan 2020 03:39:04 +0000
+Received: from pps.filterd (userp3020.oracle.com [127.0.0.1])
+ by userp3020.oracle.com (8.16.0.27/8.16.0.27) with SMTP id 00H3cs5g027486;
+ Fri, 17 Jan 2020 03:39:04 GMT
+Received: from userv0121.oracle.com (userv0121.oracle.com [156.151.31.72])
+ by userp3020.oracle.com with ESMTP id 2xjxp4aaqu-1
+ (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=OK);
+ Fri, 17 Jan 2020 03:39:03 +0000
+Received: from abhmp0019.oracle.com (abhmp0019.oracle.com [141.146.116.25])
+ by userv0121.oracle.com (8.14.4/8.13.8) with ESMTP id 00H3cuob028532;
+ Fri, 17 Jan 2020 03:39:00 GMT
+Received: from kadam (/10.175.29.77) by default (Oracle Beehive Gateway v4.0)
+ with ESMTP ; Thu, 16 Jan 2020 19:38:56 -0800
+Date: Fri, 17 Jan 2020 06:40:35 +0300
+From: Dan Carpenter <dan.carpenter@oracle.com>
+To: Richard Weinberger <richard.weinberger@gmail.com>
+Message-ID: <20200117034035.GB19765@kadam>
+References: <20200113132346.rmeamdmbxwvo7kgj@kili.mountain>
+ <CAFLxGvyBO=_4-f+HQPZSaAL=aJouok3y=MxEKjup3Q=Cj0KKZg@mail.gmail.com>
 MIME-Version: 1.0
 Content-Disposition: inline
-In-Reply-To: <20200116105244.13485-1-olivier.moysan@st.com>
-User-Agent: Mutt/1.10.1 (2018-07-13)
-Cc: mark.rutland@arm.com, devicetree@vger.kernel.org,
- alsa-devel@alsa-project.org, linux-kernel@vger.kernel.org, tiwai@suse.com,
- lgirdwood@gmail.com, broonie@kernel.org, mcoquelin.stm32@gmail.com,
- perex@perex.cz, linux-stm32@st-md-mailman.stormreply.com,
- linux-arm-kernel@lists.infradead.org
-Subject: Re: [Linux-stm32] [PATCH v2] ASoC: dt-bindings: stm32: convert
- spdfirx to json-schema
+In-Reply-To: <CAFLxGvyBO=_4-f+HQPZSaAL=aJouok3y=MxEKjup3Q=Cj0KKZg@mail.gmail.com>
+User-Agent: Mutt/1.9.4 (2018-02-28)
+X-Proofpoint-Virus-Version: vendor=nai engine=6000 definitions=9502
+ signatures=668685
+X-Proofpoint-Spam-Details: rule=notspam policy=default score=0 suspectscore=0
+ malwarescore=0
+ phishscore=0 bulkscore=0 spamscore=0 mlxscore=0 mlxlogscore=999
+ adultscore=0 classifier=spam adjust=0 reason=mlx scancount=1
+ engine=8.0.1-1911140001 definitions=main-2001170026
+X-Proofpoint-Virus-Version: vendor=nai engine=6000 definitions=9502
+ signatures=668685
+X-Proofpoint-Spam-Details: rule=notspam policy=default score=0
+ priorityscore=1501 malwarescore=0
+ suspectscore=0 phishscore=0 bulkscore=0 spamscore=0 clxscore=1011
+ lowpriorityscore=0 mlxscore=0 impostorscore=0 mlxlogscore=999 adultscore=0
+ classifier=spam adjust=0 reason=mlx scancount=1 engine=8.0.1-1911140001
+ definitions=main-2001170026
+Cc: Richard Weinberger <richard@nod.at>, kernel-janitors@vger.kernel.org,
+ linux-mtd@lists.infradead.org, Maxime Coquelin <mcoquelin.stm32@gmail.com>,
+ Miquel Raynal <miquel.raynal@bootlin.com>,
+ linux-stm32@st-md-mailman.stormreply.com,
+ Vignesh Raghavendra <vigneshr@ti.com>
+Subject: Re: [Linux-stm32] [PATCH] ubi: Fix an error pointer dereference in
+ error handling code
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -72,188 +90,34 @@ Content-Transfer-Encoding: 7bit
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
-On Thu, Jan 16, 2020 at 11:52:44AM +0100, Olivier Moysan wrote:
-> Convert the STM32 SPDIFRX bindings to DT schema format using json-schema.
+On Fri, Jan 17, 2020 at 12:50:14AM +0100, Richard Weinberger wrote:
+> On Mon, Jan 13, 2020 at 2:24 PM Dan Carpenter <dan.carpenter@oracle.com> wrote:
+> >
+> > If "seen_pebs = init_seen(ubi);" fails then "seen_pebs" is an error pointer
+> > and we try to kfree() it which results in an Oops.
+> >
+> > This patch re-arranges the error handling so now it only frees things
+> > which have been allocated successfully.
+> >
+> > Fixes: daef3dd1f0ae ("UBI: Fastmap: Add self check to detect absent PEBs")
+> > Signed-off-by: Dan Carpenter <dan.carpenter@oracle.com>
+> > ---
+> >  drivers/mtd/ubi/fastmap.c | 19 +++++++++++--------
+> >  1 file changed, 11 insertions(+), 8 deletions(-)
+> > ---
+> >  drivers/mtd/ubi/fastmap.c | 21 ++++++++++++---------
+> >  1 file changed, 12 insertions(+), 9 deletions(-)
 > 
-> Signed-off-by: Olivier Moysan <olivier.moysan@st.com>
-> ---
-> Changes in v2:
-> - Add "additionalProperties: false"
-> - Also change minItems to 2 for dmas property, as both DMAs are required.
-> ---
->  .../bindings/sound/st,stm32-spdifrx.txt       | 56 -------------
->  .../bindings/sound/st,stm32-spdifrx.yaml      | 84 +++++++++++++++++++
->  2 files changed, 84 insertions(+), 56 deletions(-)
->  delete mode 100644 Documentation/devicetree/bindings/sound/st,stm32-spdifrx.txt
->  create mode 100644 Documentation/devicetree/bindings/sound/st,stm32-spdifrx.yaml
+> This patch seems badly formatted.
+> Copy&paste error?
 > 
-> diff --git a/Documentation/devicetree/bindings/sound/st,stm32-spdifrx.txt b/Documentation/devicetree/bindings/sound/st,stm32-spdifrx.txt
-> deleted file mode 100644
-> index 33826f2459fa..000000000000
-> --- a/Documentation/devicetree/bindings/sound/st,stm32-spdifrx.txt
-> +++ /dev/null
-> @@ -1,56 +0,0 @@
-> -STMicroelectronics STM32 S/PDIF receiver (SPDIFRX).
-> -
-> -The SPDIFRX peripheral, is designed to receive an S/PDIF flow compliant with
-> -IEC-60958 and IEC-61937.
-> -
-> -Required properties:
-> -  - compatible: should be "st,stm32h7-spdifrx"
-> -  - reg: cpu DAI IP base address and size
-> -  - clocks: must contain an entry for kclk (used as S/PDIF signal reference)
-> -  - clock-names: must contain "kclk"
-> -  - interrupts: cpu DAI interrupt line
-> -  - dmas: DMA specifiers for audio data DMA and iec control flow DMA
-> -    See STM32 DMA bindings, Documentation/devicetree/bindings/dma/stm32-dma.txt
-> -  - dma-names: two dmas have to be defined, "rx" and "rx-ctrl"
-> -
-> -Optional properties:
-> -  - resets: Reference to a reset controller asserting the SPDIFRX
-> -
-> -The device node should contain one 'port' child node with one child 'endpoint'
-> -node, according to the bindings defined in Documentation/devicetree/bindings/
-> -graph.txt.
-> -
-> -Example:
-> -spdifrx: spdifrx@40004000 {
-> -	compatible = "st,stm32h7-spdifrx";
-> -	reg = <0x40004000 0x400>;
-> -	clocks = <&rcc SPDIFRX_CK>;
-> -	clock-names = "kclk";
-> -	interrupts = <97>;
-> -	dmas = <&dmamux1 2 93 0x400 0x0>,
-> -	       <&dmamux1 3 94 0x400 0x0>;
-> -	dma-names = "rx", "rx-ctrl";
-> -	pinctrl-0 = <&spdifrx_pins>;
-> -	pinctrl-names = "default";
-> -
-> -	spdifrx_port: port {
-> -		cpu_endpoint: endpoint {
-> -			remote-endpoint = <&codec_endpoint>;
-> -		};
-> -	};
-> -};
-> -
-> -spdif_in: spdif-in {
-> -	compatible = "linux,spdif-dir";
-> -
-> -	codec_port: port {
-> -		codec_endpoint: endpoint {
-> -			remote-endpoint = <&cpu_endpoint>;
-> -		};
-> -	};
-> -};
-> -
-> -soundcard {
-> -	compatible = "audio-graph-card";
-> -	dais = <&spdifrx_port>;
-> -};
-> diff --git a/Documentation/devicetree/bindings/sound/st,stm32-spdifrx.yaml b/Documentation/devicetree/bindings/sound/st,stm32-spdifrx.yaml
-> new file mode 100644
-> index 000000000000..e19313e7a552
-> --- /dev/null
-> +++ b/Documentation/devicetree/bindings/sound/st,stm32-spdifrx.yaml
-> @@ -0,0 +1,84 @@
-> +# SPDX-License-Identifier: (GPL-2.0-only OR BSD-2-Clause)
-> +%YAML 1.2
-> +---
-> +$id: http://devicetree.org/schemas/sound/st,stm32-spdifrx.yaml#
-> +$schema: http://devicetree.org/meta-schemas/core.yaml#
-> +
-> +title: STMicroelectronics STM32 S/PDIF receiver (SPDIFRX)
-> +
-> +maintainers:
-> +  - Olivier Moysan <olivier.moysan@st.com>
-> +
-> +description: |
-> +  The SPDIFRX peripheral, is designed to receive an S/PDIF flow compliant with
-> +  IEC-60958 and IEC-61937.
-> +
-> +properties:
-> +  compatible:
-> +    enum:
-> +      - st,stm32h7-spdifrx
-> +
-> +  "#sound-dai-cells":
-> +    const: 0
-> +
-> +  reg:
-> +    maxItems: 1
-> +
-> +  clocks:
-> +    maxItems: 1
-> +
-> +  clock-names:
-> +    items:
-> +      - const: kclk
-> +
-> +  interrupts:
-> +    maxItems: 1
-> +
-> +  dmas:
-> +    description: |
-> +      Two DMA channel specifiers are requested:
-> +      - audio data capture DMA
-> +      - IEC status bits capture DMA
-> +      See STM32 DMA bindings /bindings/dma/stm32-dma.txt.
-> +    minItems: 2
-> +    maxItems: 2
 
-dmas:
-  items:
-    - description: audio data capture DMA
-    - description: IEC status bits capture DMA
+Oh, yeah.  Sorrry.  I shouldn't affect anything though.  I can resend
+if you want.
 
-And minItems/maxItems aren't necessary.
+regards,
+dan carpenter
 
-I'd probably just drop 'See STM32 DMA bindings 
-/bindings/dma/stm32-dma.txt' too, so we don't have to update this when 
-that file is converted to schema.
-
-> +
-> +  dma-names:
-> +    items:
-> +      - const: rx
-> +      - const: rx-ctrl
-> +
-> +  resets:
-> +    maxItems: 1
-> +
-> +required:
-> +  - compatible
-> +  - "#sound-dai-cells"
-> +  - reg
-> +  - clocks
-> +  - clock-names
-> +  - interrupts
-> +  - dmas
-> +  - dma-names
-> +
-> +additionalProperties: false
-> +
-> +examples:
-> +  - |
-> +    #include <dt-bindings/interrupt-controller/arm-gic.h>
-> +    #include <dt-bindings/clock/stm32mp1-clks.h>
-> +    spdifrx: spdifrx@40004000 {
-> +        compatible = "st,stm32h7-spdifrx";
-> +        #sound-dai-cells = <0>;
-> +        reg = <0x40004000 0x400>;
-> +        clocks = <&rcc SPDIF_K>;
-> +        clock-names = "kclk";
-> +        interrupts = <GIC_SPI 97 IRQ_TYPE_LEVEL_HIGH>;
-> +        dmas = <&dmamux1 2 93 0x400 0x0>,
-> +               <&dmamux1 3 94 0x400 0x0>;
-> +        dma-names = "rx", "rx-ctrl";
-> +        pinctrl-0 = <&spdifrx_pins>;
-> +        pinctrl-names = "default";
-> +    };
-> +
-> +...
-> -- 
-> 2.17.1
-> 
 _______________________________________________
 Linux-stm32 mailing list
 Linux-stm32@st-md-mailman.stormreply.com
