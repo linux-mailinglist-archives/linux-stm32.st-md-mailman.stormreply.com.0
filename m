@@ -2,45 +2,62 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id 5F75A14180A
-	for <lists+linux-stm32@lfdr.de>; Sat, 18 Jan 2020 15:32:45 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 6A9DF141FBE
+	for <lists+linux-stm32@lfdr.de>; Sun, 19 Jan 2020 20:16:01 +0100 (CET)
 Received: from ip-172-31-3-76.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 21558C36B0F;
-	Sat, 18 Jan 2020 14:32:45 +0000 (UTC)
-Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
- (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id F2731C36B0D;
+	Sun, 19 Jan 2020 19:16:00 +0000 (UTC)
+Received: from mail-wm1-f65.google.com (mail-wm1-f65.google.com
+ [209.85.128.65])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 5A715C36B0D
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id AB422C36B09
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Sat, 18 Jan 2020 14:32:42 +0000 (UTC)
-Received: from archlinux (cpc149474-cmbg20-2-0-cust94.5-4.cable.virginm.net
- [82.4.196.95])
- (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
- (No client certificate requested)
- by mail.kernel.org (Postfix) with ESMTPSA id 046A72469A;
- Sat, 18 Jan 2020 14:32:38 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
- s=default; t=1579357961;
- bh=2gpBuuvhYqy8RvrcBZ6bAFOgb2g6EP4XMMQ95aGZvKA=;
- h=Date:From:To:Cc:Subject:In-Reply-To:References:From;
- b=0GL8Sn03Xa52kpQ5+KYaDSu2O5damtoCfh914pmIzR1RJ0uoqJTGmjBL+smWd3DhC
- eofUbsfz99ZMPKpe1VakxqNVaBnlJwftR+9Mi5ZBF17402M3timem9g35dIx+p+klp
- tIEQP2CwbuYIrNghF2HSrfDv+U2VJ72qZUaMGB2U=
-Date: Sat, 18 Jan 2020 14:32:35 +0000
-From: Jonathan Cameron <jic23@kernel.org>
-To: Fabrice Gasnier <fabrice.gasnier@st.com>
-Message-ID: <20200118143235.71a67b76@archlinux>
-In-Reply-To: <1578921266-6025-3-git-send-email-fabrice.gasnier@st.com>
-References: <1578921266-6025-1-git-send-email-fabrice.gasnier@st.com>
- <1578921266-6025-3-git-send-email-fabrice.gasnier@st.com>
-X-Mailer: Claws Mail 3.17.4 (GTK+ 2.24.32; x86_64-pc-linux-gnu)
+ Sun, 19 Jan 2020 19:15:58 +0000 (UTC)
+Received: by mail-wm1-f65.google.com with SMTP id a5so12331269wmb.0
+ for <linux-stm32@st-md-mailman.stormreply.com>;
+ Sun, 19 Jan 2020 11:15:58 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20161025;
+ h=mime-version:references:in-reply-to:from:date:message-id:subject:to
+ :cc; bh=wjPqQ+QcgdIt/3k/Xgoi79/wU8alTV3s3eopmW4iuJ4=;
+ b=pbnbAH/bUX12Izz9PfnJQGv8De5M+j/8A0539bbmCvM9Kr3lCMwBNBj7/NLFX1hX5N
+ xevMpe4hX4hU1+EbDyquumYVC6i5bvZn3yMZGSDVgjdR2xJGhI5viocmxGKI/EXsdTaQ
+ DMQqrwPyu3QSvdFAin8XnwwCN9WFbwec8Hbyhb3uvo/f7haaG37X5cw1hx/yGc/wt13W
+ bJijlhZi148lZHLc/bpgmkztlWg+l7mbxViuqdq5hUj5xEWW8Us24mqYk451C2XXox0B
+ DXDfxFN/rL888aF7/S3LuktLMf556o29pIBrQLUyJ2drc0EpwaolAe1EvsieQ/iF1t8a
+ r4Xg==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20161025;
+ h=x-gm-message-state:mime-version:references:in-reply-to:from:date
+ :message-id:subject:to:cc;
+ bh=wjPqQ+QcgdIt/3k/Xgoi79/wU8alTV3s3eopmW4iuJ4=;
+ b=ofu0VTJLCRffhABsBONi4wZkeqHRFUTajC8gFeLCHEF/iqyVrsAxHIceu+NFbj6xye
+ tFbw0yRne6X13u0961texLzqiMpv6HjTe/oyxiu+AOoT98WK9YqwbDkQkMhyAFxuXNEz
+ GRgxwpfElcW3ALZ14A8E+bDYdWgwlTDccZpdL4LxG6UhQxgYyXRqdW5BRAQpB8PDer8s
+ Ri/6vaVhGtUemrks5eYhVum4FynJBypvnp0vPpxN5XDmWBcFlBeK9aVv28vhM1cPIdbD
+ YIm6IMJXx2krL5xumgNVvdMNT2MqbUben17nPieook1xGTNszuc+K1moYChLBCrmq5zt
+ MhrQ==
+X-Gm-Message-State: APjAAAXCitC5+vhHuxqY+hGXm8XTCug8chz22fRc+3dslujcwbuhup8V
+ oitbqvKpCh3X3kpXOWp1f9pH+2/afHeKiehHt6U=
+X-Google-Smtp-Source: APXvYqzaBOq+usci2PMODRtU54TPMBfi0WijWwTBptOYu4FQw3HqD/2aJDrNY4I40wXQwl5H1OOYdw9zFnhcOFW5Ma0=
+X-Received: by 2002:a1c:f719:: with SMTP id v25mr15697450wmh.116.1579461358280; 
+ Sun, 19 Jan 2020 11:15:58 -0800 (PST)
 MIME-Version: 1.0
-Cc: etienne.carriere@st.com, lars@metafoo.de, linux-iio@vger.kernel.org,
- pmeerw@pmeerw.net, linux-kernel@vger.kernel.org, mcoquelin.stm32@gmail.com,
- knaack.h@gmx.de, linux-stm32@st-md-mailman.stormreply.com,
- linux-arm-kernel@lists.infradead.org
-Subject: Re: [Linux-stm32] [PATCH 2/2] iio: dac: stm32-dac: better handle
- reset controller failures
+References: <20200113132346.rmeamdmbxwvo7kgj@kili.mountain>
+ <CAFLxGvyBO=_4-f+HQPZSaAL=aJouok3y=MxEKjup3Q=Cj0KKZg@mail.gmail.com>
+ <20200117034035.GB19765@kadam>
+In-Reply-To: <20200117034035.GB19765@kadam>
+From: Richard Weinberger <richard.weinberger@gmail.com>
+Date: Sun, 19 Jan 2020 20:15:47 +0100
+Message-ID: <CAFLxGvymMF-ijcUFc71Rg6MisC5RUa4dsUGesvE=rU=Z9Pj7-w@mail.gmail.com>
+To: Dan Carpenter <dan.carpenter@oracle.com>
+Cc: Richard Weinberger <richard@nod.at>, kernel-janitors@vger.kernel.org,
+ linux-mtd@lists.infradead.org, Maxime Coquelin <mcoquelin.stm32@gmail.com>,
+ Miquel Raynal <miquel.raynal@bootlin.com>,
+ linux-stm32@st-md-mailman.stormreply.com,
+ Vignesh Raghavendra <vigneshr@ti.com>
+Subject: Re: [Linux-stm32] [PATCH] ubi: Fix an error pointer dereference in
+	error handling code
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -57,55 +74,39 @@ Content-Transfer-Encoding: 7bit
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
-On Mon, 13 Jan 2020 14:14:26 +0100
-Fabrice Gasnier <fabrice.gasnier@st.com> wrote:
+On Fri, Jan 17, 2020 at 4:39 AM Dan Carpenter <dan.carpenter@oracle.com> wrote:
+>
+> On Fri, Jan 17, 2020 at 12:50:14AM +0100, Richard Weinberger wrote:
+> > On Mon, Jan 13, 2020 at 2:24 PM Dan Carpenter <dan.carpenter@oracle.com> wrote:
+> > >
+> > > If "seen_pebs = init_seen(ubi);" fails then "seen_pebs" is an error pointer
+> > > and we try to kfree() it which results in an Oops.
+> > >
+> > > This patch re-arranges the error handling so now it only frees things
+> > > which have been allocated successfully.
+> > >
+> > > Fixes: daef3dd1f0ae ("UBI: Fastmap: Add self check to detect absent PEBs")
+> > > Signed-off-by: Dan Carpenter <dan.carpenter@oracle.com>
+> > > ---
+> > >  drivers/mtd/ubi/fastmap.c | 19 +++++++++++--------
+> > >  1 file changed, 11 insertions(+), 8 deletions(-)
+> > > ---
+> > >  drivers/mtd/ubi/fastmap.c | 21 ++++++++++++---------
+> > >  1 file changed, 12 insertions(+), 9 deletions(-)
+> >
+> > This patch seems badly formatted.
+> > Copy&paste error?
+> >
+>
+> Oh, yeah.  Sorrry.  I shouldn't affect anything though.  I can resend
+> if you want.
 
-> From: Etienne Carriere <etienne.carriere@st.com>
-> 
-> Use devm_reset_control_get_optional_exclusive() instead of
-> devm_reset_control_get_exclusive() as reset controller is optional.
-> 
-> Nevertheless if reset controller is expected but reports an
-> error, propagate the error code to the caller. In such case
-> a nice error trace is emitted unless we're deferring the probe
-> operation.
-> 
-> Signed-off-by: Etienne Carriere <etienne.carriere@st.com>
-> Signed-off-by: Fabrice Gasnier <fabrice.gasnier@st.com>
-Applied to the togreg branch of iio.git and pushed out as testing.
+No need to resend, just wanted to make sure you sent the right patch.
+Applied, thanks!
 
+-- 
 Thanks,
-
-Jonathan
-
-> ---
->  drivers/iio/dac/stm32-dac-core.c | 12 ++++++++++--
->  1 file changed, 10 insertions(+), 2 deletions(-)
-> 
-> diff --git a/drivers/iio/dac/stm32-dac-core.c b/drivers/iio/dac/stm32-dac-core.c
-> index 4d93446..7e5809b 100644
-> --- a/drivers/iio/dac/stm32-dac-core.c
-> +++ b/drivers/iio/dac/stm32-dac-core.c
-> @@ -147,8 +147,16 @@ static int stm32_dac_probe(struct platform_device *pdev)
->  	priv->common.vref_mv = ret / 1000;
->  	dev_dbg(dev, "vref+=%dmV\n", priv->common.vref_mv);
->  
-> -	rst = devm_reset_control_get_exclusive(dev, NULL);
-> -	if (!IS_ERR(rst)) {
-> +	rst = devm_reset_control_get_optional_exclusive(dev, NULL);
-> +	if (rst) {
-> +		if (IS_ERR(rst)) {
-> +			ret = PTR_ERR(rst);
-> +			if (ret != -EPROBE_DEFER)
-> +				dev_err(dev, "reset get failed, %d\n", ret);
-> +
-> +			goto err_hw_stop;
-> +		}
-> +
->  		reset_control_assert(rst);
->  		udelay(2);
->  		reset_control_deassert(rst);
-
+//richard
 _______________________________________________
 Linux-stm32 mailing list
 Linux-stm32@st-md-mailman.stormreply.com
