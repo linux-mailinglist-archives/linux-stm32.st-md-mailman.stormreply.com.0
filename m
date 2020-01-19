@@ -2,62 +2,46 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id 6A9DF141FBE
-	for <lists+linux-stm32@lfdr.de>; Sun, 19 Jan 2020 20:16:01 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 4209D1424A5
+	for <lists+linux-stm32@lfdr.de>; Mon, 20 Jan 2020 09:01:01 +0100 (CET)
 Received: from ip-172-31-3-76.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id F2731C36B0D;
-	Sun, 19 Jan 2020 19:16:00 +0000 (UTC)
-Received: from mail-wm1-f65.google.com (mail-wm1-f65.google.com
- [209.85.128.65])
- (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id DB00EC36B0C;
+	Mon, 20 Jan 2020 08:01:00 +0000 (UTC)
+Received: from mail-out.m-online.net (mail-out.m-online.net [212.18.0.10])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id AB422C36B09
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 1423BC36B09
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Sun, 19 Jan 2020 19:15:58 +0000 (UTC)
-Received: by mail-wm1-f65.google.com with SMTP id a5so12331269wmb.0
- for <linux-stm32@st-md-mailman.stormreply.com>;
- Sun, 19 Jan 2020 11:15:58 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20161025;
- h=mime-version:references:in-reply-to:from:date:message-id:subject:to
- :cc; bh=wjPqQ+QcgdIt/3k/Xgoi79/wU8alTV3s3eopmW4iuJ4=;
- b=pbnbAH/bUX12Izz9PfnJQGv8De5M+j/8A0539bbmCvM9Kr3lCMwBNBj7/NLFX1hX5N
- xevMpe4hX4hU1+EbDyquumYVC6i5bvZn3yMZGSDVgjdR2xJGhI5viocmxGKI/EXsdTaQ
- DMQqrwPyu3QSvdFAin8XnwwCN9WFbwec8Hbyhb3uvo/f7haaG37X5cw1hx/yGc/wt13W
- bJijlhZi148lZHLc/bpgmkztlWg+l7mbxViuqdq5hUj5xEWW8Us24mqYk451C2XXox0B
- DXDfxFN/rL888aF7/S3LuktLMf556o29pIBrQLUyJ2drc0EpwaolAe1EvsieQ/iF1t8a
- r4Xg==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20161025;
- h=x-gm-message-state:mime-version:references:in-reply-to:from:date
- :message-id:subject:to:cc;
- bh=wjPqQ+QcgdIt/3k/Xgoi79/wU8alTV3s3eopmW4iuJ4=;
- b=ofu0VTJLCRffhABsBONi4wZkeqHRFUTajC8gFeLCHEF/iqyVrsAxHIceu+NFbj6xye
- tFbw0yRne6X13u0961texLzqiMpv6HjTe/oyxiu+AOoT98WK9YqwbDkQkMhyAFxuXNEz
- GRgxwpfElcW3ALZ14A8E+bDYdWgwlTDccZpdL4LxG6UhQxgYyXRqdW5BRAQpB8PDer8s
- Ri/6vaVhGtUemrks5eYhVum4FynJBypvnp0vPpxN5XDmWBcFlBeK9aVv28vhM1cPIdbD
- YIm6IMJXx2krL5xumgNVvdMNT2MqbUben17nPieook1xGTNszuc+K1moYChLBCrmq5zt
- MhrQ==
-X-Gm-Message-State: APjAAAXCitC5+vhHuxqY+hGXm8XTCug8chz22fRc+3dslujcwbuhup8V
- oitbqvKpCh3X3kpXOWp1f9pH+2/afHeKiehHt6U=
-X-Google-Smtp-Source: APXvYqzaBOq+usci2PMODRtU54TPMBfi0WijWwTBptOYu4FQw3HqD/2aJDrNY4I40wXQwl5H1OOYdw9zFnhcOFW5Ma0=
-X-Received: by 2002:a1c:f719:: with SMTP id v25mr15697450wmh.116.1579461358280; 
- Sun, 19 Jan 2020 11:15:58 -0800 (PST)
+ Sun, 19 Jan 2020 19:11:59 +0000 (UTC)
+Received: from frontend01.mail.m-online.net (unknown [192.168.8.182])
+ by mail-out.m-online.net (Postfix) with ESMTP id 4814DF51QBz1rgh4;
+ Sun, 19 Jan 2020 20:11:57 +0100 (CET)
+Received: from localhost (dynscan1.mnet-online.de [192.168.6.70])
+ by mail.m-online.net (Postfix) with ESMTP id 4814DF4CDmz1qwyZ;
+ Sun, 19 Jan 2020 20:11:57 +0100 (CET)
+X-Virus-Scanned: amavisd-new at mnet-online.de
+Received: from mail.mnet-online.de ([192.168.8.182])
+ by localhost (dynscan1.mail.m-online.net [192.168.6.70]) (amavisd-new,
+ port 10024)
+ with ESMTP id AuL_fTI9kyR1; Sun, 19 Jan 2020 20:11:56 +0100 (CET)
+X-Auth-Info: PZaa6TT/6QnmJsNUXQcUkF4NR0LARCaLnc3AROe62bc=
+Received: from desktop.lan (ip-86-49-35-8.net.upcbroadband.cz [86.49.35.8])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+ (No client certificate requested)
+ by mail.mnet-online.de (Postfix) with ESMTPSA;
+ Sun, 19 Jan 2020 20:11:56 +0100 (CET)
+From: Marek Vasut <marex@denx.de>
+To: linux-arm-kernel@lists.infradead.org
+Date: Sun, 19 Jan 2020 20:11:38 +0100
+Message-Id: <20200119191143.50033-1-marex@denx.de>
+X-Mailer: git-send-email 2.24.1
 MIME-Version: 1.0
-References: <20200113132346.rmeamdmbxwvo7kgj@kili.mountain>
- <CAFLxGvyBO=_4-f+HQPZSaAL=aJouok3y=MxEKjup3Q=Cj0KKZg@mail.gmail.com>
- <20200117034035.GB19765@kadam>
-In-Reply-To: <20200117034035.GB19765@kadam>
-From: Richard Weinberger <richard.weinberger@gmail.com>
-Date: Sun, 19 Jan 2020 20:15:47 +0100
-Message-ID: <CAFLxGvymMF-ijcUFc71Rg6MisC5RUa4dsUGesvE=rU=Z9Pj7-w@mail.gmail.com>
-To: Dan Carpenter <dan.carpenter@oracle.com>
-Cc: Richard Weinberger <richard@nod.at>, kernel-janitors@vger.kernel.org,
- linux-mtd@lists.infradead.org, Maxime Coquelin <mcoquelin.stm32@gmail.com>,
- Miquel Raynal <miquel.raynal@bootlin.com>,
- linux-stm32@st-md-mailman.stormreply.com,
- Vignesh Raghavendra <vigneshr@ti.com>
-Subject: Re: [Linux-stm32] [PATCH] ubi: Fix an error pointer dereference in
-	error handling code
+X-Mailman-Approved-At: Mon, 20 Jan 2020 08:00:58 +0000
+Cc: Marek Vasut <marex@denx.de>, Patrick Delaunay <patrick.delaunay@st.com>,
+ Maxime Coquelin <mcoquelin.stm32@gmail.com>,
+ linux-stm32@st-md-mailman.stormreply.com
+Subject: [Linux-stm32] [PATCH V2 1/6] ARM: dts: stm32: Add Ethernet0 RMII
+	pins A pinmux entry on stm32mp1
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -74,39 +58,69 @@ Content-Transfer-Encoding: 7bit
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
-On Fri, Jan 17, 2020 at 4:39 AM Dan Carpenter <dan.carpenter@oracle.com> wrote:
->
-> On Fri, Jan 17, 2020 at 12:50:14AM +0100, Richard Weinberger wrote:
-> > On Mon, Jan 13, 2020 at 2:24 PM Dan Carpenter <dan.carpenter@oracle.com> wrote:
-> > >
-> > > If "seen_pebs = init_seen(ubi);" fails then "seen_pebs" is an error pointer
-> > > and we try to kfree() it which results in an Oops.
-> > >
-> > > This patch re-arranges the error handling so now it only frees things
-> > > which have been allocated successfully.
-> > >
-> > > Fixes: daef3dd1f0ae ("UBI: Fastmap: Add self check to detect absent PEBs")
-> > > Signed-off-by: Dan Carpenter <dan.carpenter@oracle.com>
-> > > ---
-> > >  drivers/mtd/ubi/fastmap.c | 19 +++++++++++--------
-> > >  1 file changed, 11 insertions(+), 8 deletions(-)
-> > > ---
-> > >  drivers/mtd/ubi/fastmap.c | 21 ++++++++++++---------
-> > >  1 file changed, 12 insertions(+), 9 deletions(-)
-> >
-> > This patch seems badly formatted.
-> > Copy&paste error?
-> >
->
-> Oh, yeah.  Sorrry.  I shouldn't affect anything though.  I can resend
-> if you want.
+Add pinmux entry for ethernet0 RMII .
 
-No need to resend, just wanted to make sure you sent the right patch.
-Applied, thanks!
+Signed-off-by: Marek Vasut <marex@denx.de>
+Cc: Alexandre Torgue <alexandre.torgue@st.com>
+Cc: Maxime Coquelin <mcoquelin.stm32@gmail.com>
+Cc: Patrice Chotard <patrice.chotard@st.com>
+Cc: Patrick Delaunay <patrick.delaunay@st.com>
+Cc: linux-stm32@st-md-mailman.stormreply.com
+To: linux-arm-kernel@lists.infradead.org
+---
+V2: New patch
+---
+ arch/arm/boot/dts/stm32mp15-pinctrl.dtsi | 34 ++++++++++++++++++++++++
+ 1 file changed, 34 insertions(+)
 
+diff --git a/arch/arm/boot/dts/stm32mp15-pinctrl.dtsi b/arch/arm/boot/dts/stm32mp15-pinctrl.dtsi
+index 0237d4ddaa92..f40f66a692a1 100644
+--- a/arch/arm/boot/dts/stm32mp15-pinctrl.dtsi
++++ b/arch/arm/boot/dts/stm32mp15-pinctrl.dtsi
+@@ -162,6 +162,40 @@ pins1 {
+ 		};
+ 	};
+ 
++	ethernet0_rmii_pins_a: rmii-0 {
++		pins1 {
++			pinmux = <STM32_PINMUX('G', 13, AF11)>, /* ETH1_RMII_TXD0 */
++				 <STM32_PINMUX('G', 14, AF11)>, /* ETH1_RMII_TXD1 */
++				 <STM32_PINMUX('B', 11, AF11)>, /* ETH1_RMII_TX_EN */
++				 <STM32_PINMUX('A', 1, AF0)>,   /* ETH1_RMII_REF_CLK */
++				 <STM32_PINMUX('A', 2, AF11)>,  /* ETH1_MDIO */
++				 <STM32_PINMUX('C', 1, AF11)>;  /* ETH1_MDC */
++			bias-disable;
++			drive-push-pull;
++			slew-rate = <2>;
++		};
++		pins2 {
++			pinmux = <STM32_PINMUX('C', 4, AF11)>,  /* ETH1_RMII_RXD0 */
++				 <STM32_PINMUX('C', 5, AF11)>,  /* ETH1_RMII_RXD1 */
++				 <STM32_PINMUX('A', 7, AF11)>;  /* ETH1_RMII_CRS_DV */
++			bias-disable;
++		};
++	};
++
++	ethernet0_rmii_pins_sleep_a: rmii-sleep-0 {
++		pins1 {
++			pinmux = <STM32_PINMUX('G', 13, ANALOG)>, /* ETH1_RMII_TXD0 */
++				 <STM32_PINMUX('G', 14, ANALOG)>, /* ETH1_RMII_TXD1 */
++				 <STM32_PINMUX('B', 11, ANALOG)>, /* ETH1_RMII_TX_EN */
++				 <STM32_PINMUX('A', 2, ANALOG)>,  /* ETH1_MDIO */
++				 <STM32_PINMUX('C', 1, ANALOG)>,  /* ETH1_MDC */
++				 <STM32_PINMUX('C', 4, ANALOG)>,  /* ETH1_RMII_RXD0 */
++				 <STM32_PINMUX('C', 5, ANALOG)>,  /* ETH1_RMII_RXD1 */
++				 <STM32_PINMUX('A', 1, ANALOG)>,  /* ETH1_RMII_REF_CLK */
++				 <STM32_PINMUX('A', 7, ANALOG)>;  /* ETH1_RMII_CRS_DV */
++		};
++	};
++
+ 	fmc_pins_a: fmc-0 {
+ 		pins1 {
+ 			pinmux = <STM32_PINMUX('D', 4, AF12)>, /* FMC_NOE */
 -- 
-Thanks,
-//richard
+2.24.1
+
 _______________________________________________
 Linux-stm32 mailing list
 Linux-stm32@st-md-mailman.stormreply.com
