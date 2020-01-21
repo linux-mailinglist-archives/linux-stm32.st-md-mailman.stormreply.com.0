@@ -2,61 +2,62 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id 4C5E814471C
-	for <lists+linux-stm32@lfdr.de>; Tue, 21 Jan 2020 23:20:12 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 68C1D144729
+	for <lists+linux-stm32@lfdr.de>; Tue, 21 Jan 2020 23:22:23 +0100 (CET)
 Received: from ip-172-31-3-76.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id EF60BC36B0C;
-	Tue, 21 Jan 2020 22:20:11 +0000 (UTC)
-Received: from mail-oi1-f193.google.com (mail-oi1-f193.google.com
- [209.85.167.193])
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 27605C36B0C;
+	Tue, 21 Jan 2020 22:22:23 +0000 (UTC)
+Received: from mail-oi1-f194.google.com (mail-oi1-f194.google.com
+ [209.85.167.194])
  (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 5C68BC36B0A
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 82EE9C36B0A
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Tue, 21 Jan 2020 22:20:10 +0000 (UTC)
-Received: by mail-oi1-f193.google.com with SMTP id i1so4191236oie.8
+ Tue, 21 Jan 2020 22:22:21 +0000 (UTC)
+Received: by mail-oi1-f194.google.com with SMTP id i1so4196791oie.8
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Tue, 21 Jan 2020 14:20:10 -0800 (PST)
+ Tue, 21 Jan 2020 14:22:21 -0800 (PST)
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=1e100.net; s=20161025;
  h=x-gm-message-state:date:from:to:cc:subject:message-id:references
  :mime-version:content-disposition:in-reply-to:user-agent;
- bh=JYjL5Dj4sHium7MXkG5wUfXThgHrFk9aKNPtUfH5UZc=;
- b=XOI5Q9qJjuI0TAeoL1/L9BS0nRIpAFj+XevuNn8B7SQ99JJfLquddcLwzSIogPOwgX
- HKrxlkCQMH1IEjijplyL1S3SujPLJWP++RHnM0afVBS8SngNhzDuEQTgl/Wd9NUBIVPb
- sgkym7CxC5lSSlE3mIfTDx6n3+CUyJ71deSsPDtZHeKmwuf8RdgmgfyOrVJHSwK91JZ/
- IHpaG/py/wYrSkkGnVLv6EGBM+JNUQfMWIQT6V4L24XHaO3+fiW+7dL12gn0Brxp0raw
- c6SeKN5IA8JeLGjfVu/ccybsHlMj3DM/5Ne2bOeQO8zdxgSUisqk9jZSx/E80ND/orEl
- x+5g==
-X-Gm-Message-State: APjAAAWnPyYbycGCaiWNEMvOVDGz1uBzNjl1Xc7hACuxJ9cTOMUmSikq
- axAKozGDNDEMG+fMTkVfXA==
-X-Google-Smtp-Source: APXvYqyA0cFBVl5WxqRWUAajmwQG24um1yPraaZ5cnlqeSKW61xBpYW8L1xuloSvzFgFL8RaFKDW6w==
-X-Received: by 2002:aca:5588:: with SMTP id j130mr4595173oib.122.1579645208961; 
- Tue, 21 Jan 2020 14:20:08 -0800 (PST)
+ bh=qQ3ESJiwe24A1xRRFdOQ68BgNu0jHa+2w0EJEUQi0CQ=;
+ b=HZcIVRyujBbTTYUtq2uwGMmFCeJioLCdcoBFKulbRmvoV4XemXvlg60hx38Ho48Txw
+ 7AV8UgpxeI7t2dOk8ElgizJrCrqba66uuxWlF7xD/LqAvEJuc9cR6wJW3hz6f0YmJqy7
+ Pjq5YztYojgjrKhjIVUXGAk0aE6P5agsetn8yzfAT7hq+wEHoNuTzjZeBZOE3KPThq5r
+ VprsQ4+bj131Ktxy1n+/ovc6titB+zabEJbDSyQr+xGiH/dlbSFAAx24aNczMCrc7SEe
+ sFqScKc5GjWdTbAJI/H5sQoia+FFXvHpiAFOl2Tac7oqYi9Sm1ZmfGiDZZywOmvhAQKs
+ oQLw==
+X-Gm-Message-State: APjAAAWk6XLq0G1sRDdunLkyJ8hQdJHwVq0llxvUi6wGtPhtCrrAyQT9
+ HpGKz8O8afYS4dhhhgqFuQ==
+X-Google-Smtp-Source: APXvYqxtTBp1m0NoVYXgYISnqaA0oCc25esO/7iHUU9wqcKpSAWyGjQXwz90q4B5a30iOmY5CpuOCw==
+X-Received: by 2002:a05:6808:1c6:: with SMTP id
+ x6mr4687242oic.49.1579645340281; 
+ Tue, 21 Jan 2020 14:22:20 -0800 (PST)
 Received: from rob-hp-laptop (24-155-109-49.dyn.grandenetworks.net.
  [24.155.109.49])
- by smtp.gmail.com with ESMTPSA id d7sm12406255oic.46.2020.01.21.14.20.07
+ by smtp.gmail.com with ESMTPSA id m185sm12426354oia.26.2020.01.21.14.22.19
  (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Tue, 21 Jan 2020 14:20:08 -0800 (PST)
-Received: (nullmailer pid 8896 invoked by uid 1000);
- Tue, 21 Jan 2020 22:20:07 -0000
-Date: Tue, 21 Jan 2020 16:20:07 -0600
+ Tue, 21 Jan 2020 14:22:19 -0800 (PST)
+Received: (nullmailer pid 11864 invoked by uid 1000);
+ Tue, 21 Jan 2020 22:22:18 -0000
+Date: Tue, 21 Jan 2020 16:22:18 -0600
 From: Rob Herring <robh@kernel.org>
 To: Benjamin Gaignard <benjamin.gaignard@st.com>
-Message-ID: <20200121222007.GA1686@bogus>
+Message-ID: <20200121222218.GA9196@bogus>
 References: <20200114123329.3792-1-benjamin.gaignard@st.com>
- <20200114123329.3792-2-benjamin.gaignard@st.com>
+ <20200114123329.3792-3-benjamin.gaignard@st.com>
 MIME-Version: 1.0
 Content-Disposition: inline
-In-Reply-To: <20200114123329.3792-2-benjamin.gaignard@st.com>
+In-Reply-To: <20200114123329.3792-3-benjamin.gaignard@st.com>
 User-Agent: Mutt/1.10.1 (2018-07-13)
 Cc: mark.rutland@arm.com, devicetree@vger.kernel.org,
  gregkh@linuxfoundation.org, linux-kernel@vger.kernel.org,
  mcoquelin.stm32@gmail.com, linux-serial@vger.kernel.org,
  fabrice.gasnier@st.com, linux-stm32@st-md-mailman.stormreply.com,
  linux-arm-kernel@lists.infradead.org
-Subject: Re: [Linux-stm32] [PATCH 1/2] dt-bindings: serial: Convert rs485
- bindings to json-schema
+Subject: Re: [Linux-stm32] [PATCH 2/2] dt-bindings: serial: Convert STM32
+ UART to json-schema
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -73,113 +74,20 @@ Content-Transfer-Encoding: 7bit
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
-On Tue, Jan 14, 2020 at 01:33:28PM +0100, Benjamin Gaignard wrote:
-> Convert rs485 binding to yaml style file.
+On Tue, Jan 14, 2020 at 01:33:29PM +0100, Benjamin Gaignard wrote:
+> Convert STM32 UART bindings to json-schema.
 > 
 > Signed-off-by: Benjamin Gaignard <benjamin.gaignard@st.com>
 > ---
->  Documentation/devicetree/bindings/serial/rs485.txt | 32 +--------------
->  .../devicetree/bindings/serial/rs485.yaml          | 45 ++++++++++++++++++++++
->  2 files changed, 46 insertions(+), 31 deletions(-)
->  create mode 100644 Documentation/devicetree/bindings/serial/rs485.yaml
-> 
-> diff --git a/Documentation/devicetree/bindings/serial/rs485.txt b/Documentation/devicetree/bindings/serial/rs485.txt
-> index b92592dff6dd..a7fe93efc4a5 100644
-> --- a/Documentation/devicetree/bindings/serial/rs485.txt
-> +++ b/Documentation/devicetree/bindings/serial/rs485.txt
-> @@ -1,31 +1 @@
-> -* RS485 serial communications
-> -
-> -The RTS signal is capable of automatically controlling line direction for
-> -the built-in half-duplex mode.
-> -The properties described hereafter shall be given to a half-duplex capable
-> -UART node.
-> -
-> -Optional properties:
-> -- rs485-rts-delay: prop-encoded-array <a b> where:
-> -  * a is the delay between rts signal and beginning of data sent in milliseconds.
-> -      it corresponds to the delay before sending data.
-> -  * b is the delay between end of data sent and rts signal in milliseconds
-> -      it corresponds to the delay after sending data and actual release of the line.
-> -  If this property is not specified, <0 0> is assumed.
-> -- rs485-rts-active-low: drive RTS low when sending (default is high).
-> -- linux,rs485-enabled-at-boot-time: empty property telling to enable the rs485
-> -  feature at boot time. It can be disabled later with proper ioctl.
-> -- rs485-rx-during-tx: empty property that enables the receiving of data even
-> -  while sending data.
-> -
-> -RS485 example for Atmel USART:
-> -	usart0: serial@fff8c000 {
-> -		compatible = "atmel,at91sam9260-usart";
-> -		reg = <0xfff8c000 0x4000>;
-> -		interrupts = <7>;
-> -		atmel,use-dma-rx;
-> -		atmel,use-dma-tx;
-> -		linux,rs485-enabled-at-boot-time;
-> -		rs485-rts-delay = <0 200>;		// in milliseconds
-> -	};
-> -
-> +See rs485.yaml
-> diff --git a/Documentation/devicetree/bindings/serial/rs485.yaml b/Documentation/devicetree/bindings/serial/rs485.yaml
-> new file mode 100644
-> index 000000000000..65c6a98969a8
-> --- /dev/null
-> +++ b/Documentation/devicetree/bindings/serial/rs485.yaml
-> @@ -0,0 +1,45 @@
-> +# SPDX-License-Identifier: GPL-2.0
-> +%YAML 1.2
-> +---
-> +$id: http://devicetree.org/schemas/serial/rs485.yaml#
-> +$schema: http://devicetree.org/meta-schemas/core.yaml#
-> +
-> +title: RS485 serial communications Bindings
-> +
-> +description: The RTS signal is capable of automatically controlling
-> +             line direction for the built-in half-duplex mode.
-> +             The properties described hereafter shall be given to a
-> +             half-duplex capable UART node.
-> +
-> +maintainers:
-> +  -  Rob Herring <robh@kernel.org>
-> +
-> +properties:
-> +  rs485-rts-delay:
-> +    description: prop-encoded-array <a b>
-> +    allOf:
-> +      - $ref: /schemas/types.yaml#/definitions/uint32-matrix
-> +      - items:
-> +          items:
-> +            - description:
-> +                Delay between rts signal and beginning of data sent in milliseconds.
-> +                It corresponds to the delay before sending data.
-> +              $ref: "/schemas/types.yaml#/definitions/uint32"
+>  .../devicetree/bindings/serial/st,stm32-uart.yaml  | 80 ++++++++++++++++++++++
+>  .../devicetree/bindings/serial/st,stm32-usart.txt  | 57 ---------------
+>  2 files changed, 80 insertions(+), 57 deletions(-)
+>  create mode 100644 Documentation/devicetree/bindings/serial/st,stm32-uart.yaml
+>  delete mode 100644 Documentation/devicetree/bindings/serial/st,stm32-usart.txt
 
-This is not correct. The types only apply to whole properties.
+Looks fine. Will pick up when you respin patch 1.
 
-Is there a maximum? Seems like 1 sec would be more than anyone would 
-ever want?
-
-> +              default: 0
-> +            - description:
-> +                Delay between end of data sent and rts signal in milliseconds.
-> +                It corresponds to the delay after sending data and actual release of the line.
-> +              $ref: "/schemas/types.yaml#/definitions/uint32"
-> +              default: 0
-> +
-> +  rs485-rts-active-low:
-> +    description: drive RTS low when sending (default is high).
-> +    $ref: /schemas/types.yaml#/definitions/flag
-> +
-> +  linux,rs485-enabled-at-boot-time:
-> +    description: enables the rs485 feature at boot time. It can be disabled later with proper ioctl.
-> +    $ref: /schemas/types.yaml#/definitions/flag
-> +
-> +  rs485-rx-during-tx:
-> +   description: enables the receiving of data even while sending data.
-> +   $ref: /schemas/types.yaml#/definitions/flag
-> -- 
-> 2.15.0
-> 
+Rob
 _______________________________________________
 Linux-stm32 mailing list
 Linux-stm32@st-md-mailman.stormreply.com
