@@ -2,125 +2,67 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id 656F61452A3
-	for <lists+linux-stm32@lfdr.de>; Wed, 22 Jan 2020 11:31:55 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 8DEE3145A5C
+	for <lists+linux-stm32@lfdr.de>; Wed, 22 Jan 2020 17:56:44 +0100 (CET)
 Received: from ip-172-31-3-76.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 148FDC36B0C;
-	Wed, 22 Jan 2020 10:31:55 +0000 (UTC)
-Received: from smtprelay-out1.synopsys.com (smtprelay-out1.synopsys.com
- [149.117.73.133])
- (using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 43DBDC36B0C;
+	Wed, 22 Jan 2020 16:56:44 +0000 (UTC)
+Received: from mx07-00178001.pphosted.com (mx07-00178001.pphosted.com
+ [62.209.51.94])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 09F57C36B0A
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 8BC78C36B0A
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Wed, 22 Jan 2020 10:31:52 +0000 (UTC)
-Received: from mailhost.synopsys.com (badc-mailhost1.synopsys.com
- [10.192.0.17])
- (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits))
- (No client certificate requested)
- by smtprelay-out1.synopsys.com (Postfix) with ESMTPS id DC1494064D;
- Wed, 22 Jan 2020 10:31:49 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=synopsys.com; s=mail;
- t=1579689111; bh=TpBvhcq0e0QKCHbKp1nIql75IZbIWHuxSSbnqHbX4kM=;
- h=From:To:CC:Subject:Date:References:In-Reply-To:From;
- b=lh2oKx9ajk7oQABBOSuPkzB9JjmRvQiv4OnO8qaxevkuxFqnQBX/U0bqIKLaGmEBa
- OJjYlUldIK8dUzDUGnnXZ36u9Bkq+jZ3I/ztXxPzkW+ZaaOFWH2iupdu2goz3qa9xp
- yXEeHzwoCQ0D+V5Mk3GdHmvNSEgrbmPbp6fAccf/J8bU1vsMZqk3dquJFRinm68hRn
- dfcZezdPNDjd8URlovToJ5TId0qST/KnpKc7cbVqOTZ799NPgm5kH7OuHusljtxPlb
- iuqsjv3fTaImMYI07/QxvOia6bPAQd4p2oDBF8KCyStlaorSbnwk6qWI+bvycI3ASK
- XDZBszDgbEzEA==
-Received: from US01WEHTC3.internal.synopsys.com
- (us01wehtc3.internal.synopsys.com [10.15.84.232])
- (using TLSv1.2 with cipher ECDHE-RSA-AES256-SHA384 (256/256 bits))
- (No client certificate requested)
- by mailhost.synopsys.com (Postfix) with ESMTPS id 13BFAA0083;
- Wed, 22 Jan 2020 10:31:49 +0000 (UTC)
-Received: from US01HYBRID2.internal.synopsys.com (10.15.246.24) by
- US01WEHTC3.internal.synopsys.com (10.15.84.232) with Microsoft SMTP Server
- (TLS) id 14.3.408.0; Wed, 22 Jan 2020 02:31:37 -0800
-Received: from NAM04-BN3-obe.outbound.protection.outlook.com (10.202.3.67) by
- mrs.synopsys.com (10.15.246.24) with Microsoft SMTP Server (TLS) id
- 14.3.408.0; Wed, 22 Jan 2020 02:31:37 -0800
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=PMvOLMuk+dY8rMG8n+fr/t0XCeFbh82666kFbW5cFJ3UZxu8XBuB0DTqf1mR9O0AB3PTCB6ayVwK0NgNTEUy9VI+H9DxGxQxwdDqZmjPGT1x5em6DaTlKMpBzl/X9nWhcWOWhIHni4FBiV5U8DDDFvD6ibN1KGbsqTPb89vEoMA9B1L8e7Ag/pmOY6N1Rz7RQ2osN5HOGNqtxdZqeXIuoPt4foNz3PkkGrqkErClEsL2OXjc2dIHQPqZBxyAFwAxBjGjNuC1mJ1sOyDeZlHUmYKFT9CP72uwmESXocw5FF7vND+3vk7FWMHWixX85B1Kgu6XAoaxG1tDT8fGhqkuQg==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
- s=arcselector9901;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=TpBvhcq0e0QKCHbKp1nIql75IZbIWHuxSSbnqHbX4kM=;
- b=c44Kv4my60hqA9wa2Q8YkHgEPcawTr4SKjVoCm049mxkzo8t98MsmlL/U6XG2EUZfC3RDjv91X8IdV9VDqubY8UlAksEhM1tb4+HYAentzfv+n7M63kCG3oMqMgYbBWE+zu+BiKvhznmLciP9GB01bcKlTcJthkQ02nR4LSZqpj7UakWMLUevlKkHyMPSN2cfp3efck+DiMtNBvb+L9DabSfmZBHSRRch0RBuBZLomNYlhkt4M8z37jJB9wjFyF1xjHUpRpzX+aE5C+XZM5kqYdmagwpltre/tHlv7XJs1D8TZ/Ffhp5akX6c2H0s7KZCq90M7qnCUqRXhCs0Bfz5g==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=synopsys.com; dmarc=pass action=none header.from=synopsys.com;
- dkim=pass header.d=synopsys.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=synopsys.onmicrosoft.com; s=selector2-synopsys-onmicrosoft-com;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=TpBvhcq0e0QKCHbKp1nIql75IZbIWHuxSSbnqHbX4kM=;
- b=gU8NPLYybKICL2jPOjbhSqJ7GX7NS00dc1LLOuel2squ1EAkwbUzwhYeJSoTrV8pPQ5ZXn+ClzdYow/yz8lApPYrhodrcG0tbWdgT7tPvKm1sN9KmQCgogmswZ8VfdYmwd/MaCBn6JJK24svGTlov8eR354Y9iXJASgULkMJ7zU=
-Received: from BN8PR12MB3266.namprd12.prod.outlook.com (20.179.67.145) by
- BN8PR12MB3332.namprd12.prod.outlook.com (20.178.209.138) with Microsoft SMTP
- Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.20.2644.20; Wed, 22 Jan 2020 10:31:36 +0000
-Received: from BN8PR12MB3266.namprd12.prod.outlook.com
- ([fe80::c62:b247:6963:9da2]) by BN8PR12MB3266.namprd12.prod.outlook.com
- ([fe80::c62:b247:6963:9da2%6]) with mapi id 15.20.2644.027; Wed, 22 Jan 2020
- 10:31:35 +0000
-From: Jose Abreu <Jose.Abreu@synopsys.com>
-To: Ong Boon Leong <boon.leong.ong@intel.com>, "netdev@vger.kernel.org"
- <netdev@vger.kernel.org>
-Thread-Topic: [PATCH net v3 2/5] net: stmmac: fix incorrect GMAC_VLAN_TAG
- register writting in GMAC4+
-Thread-Index: AQHV0QPeIdIQkFuhA0e0QyofmiZPfqf2e+IA
-Date: Wed, 22 Jan 2020 10:31:35 +0000
-Message-ID: <BN8PR12MB326699D4E4CD49804F2E5097D30C0@BN8PR12MB3266.namprd12.prod.outlook.com>
-References: <20200122090936.28555-1-boon.leong.ong@intel.com>
- <20200122090936.28555-3-boon.leong.ong@intel.com>
-In-Reply-To: <20200122090936.28555-3-boon.leong.ong@intel.com>
-Accept-Language: en-US
-Content-Language: en-US
-X-MS-Has-Attach: 
-X-MS-TNEF-Correlator: 
-authentication-results: spf=none (sender IP is )
- smtp.mailfrom=joabreu@synopsys.com; 
-x-originating-ip: [83.174.63.141]
-x-ms-publictraffictype: Email
-x-ms-office365-filtering-correlation-id: adcf4088-de43-4ba8-97ec-08d79f2641e6
-x-ms-traffictypediagnostic: BN8PR12MB3332:
-x-ms-exchange-transport-forked: True
-x-microsoft-antispam-prvs: <BN8PR12MB3332C4ECB31FA0BECAF5DB08D30C0@BN8PR12MB3332.namprd12.prod.outlook.com>
-x-ms-oob-tlc-oobclassifiers: OLM:6108;
-x-forefront-prvs: 029097202E
-x-forefront-antispam-report: SFV:NSPM;
- SFS:(10019020)(346002)(39860400002)(396003)(136003)(366004)(376002)(199004)(189003)(6506007)(8676002)(81166006)(81156014)(7696005)(55016002)(66476007)(71200400001)(66556008)(186003)(86362001)(64756008)(26005)(9686003)(478600001)(4326008)(33656002)(66446008)(7416002)(8936002)(66946007)(76116006)(5660300002)(52536014)(54906003)(110136005)(4744005)(2906002)(316002);
- DIR:OUT; SFP:1102; SCL:1; SRVR:BN8PR12MB3332;
- H:BN8PR12MB3266.namprd12.prod.outlook.com; FPR:; SPF:None; LANG:en;
- PTR:InfoNoRecords; A:1; MX:1; 
-received-spf: None (protection.outlook.com: synopsys.com does not designate
- permitted sender hosts)
-x-ms-exchange-senderadcheck: 1
-x-microsoft-antispam: BCL:0;
-x-microsoft-antispam-message-info: kgu80RqPPncafBNpBGXNnH/9+34arbsEKVMdpvkFqS9QS1RD3VY6WoRL29+BaQnI54xJDtrP+w6Smn4W56/zdfWupgt3FsoIkb7kJKzWW3ZD3btnyM1rzd63YTvrwqbmS5mAhrQDvwCi6bHjOKKZq7mJ55W9VyJaIH5JGFx8OHIZyb9Gz9oX7EhpJSDo/cNCMqOPrI8q5XsVUbbpG+tf6Fgc+1OgSoCcgkiYdvshEsR4UpfDGveA3aQuR8tkHElqx40cdYDJP59qn61nfEwMjAQx9FjLGKCbXe8K8kBPU2NulkeWiMBCOCCS110fHqwj5pzqSXwGUa/f/hWwJW3r1TsA+P1ZEPX6ms5umNgdS2HBGMaUgXKaDa/zBTeFNx6GCLoPE+Oibql+5HMzbMOmuXL5ClUQEl3ntU7w2psAKlrquB9CSgq1xiWTlFj80Vmh
+ Wed, 22 Jan 2020 16:56:42 +0000 (UTC)
+Received: from pps.filterd (m0046668.ppops.net [127.0.0.1])
+ by mx07-00178001.pphosted.com (8.16.0.42/8.16.0.42) with SMTP id
+ 00MGsJHq027353; Wed, 22 Jan 2020 17:56:33 +0100
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=st.com;
+ h=subject : to : cc :
+ references : from : message-id : date : mime-version : in-reply-to :
+ content-type : content-transfer-encoding; s=STMicroelectronics;
+ bh=jAofysKmTGDIe4uI2hyjowvegh3nfAUkdVFQzLbkYOo=;
+ b=gKOzHILeo1KDtzrB4mK2DNL8NNXirLO4Blnw2JMEBTiBdimQMMRudPLqaYH2svcVQEsn
+ mEtrlZ3m0Gki2cxtAtNAttn1fcaPZYSeqBynYqrqgzlWLEvN68RRFlDJ63Jl20tKNl6J
+ Y+bjexaXxlahsJnU9ao7sJIxubrDxpmSbhFzjz7u9eJ0N0eJLZupCBhPaDNhl85tkNNb
+ a3/Cx1DSAKXhM7orUYICfi65FjPUEZEx1Nl7+rRQH9SARP7H83gmDEpMWTMIxUI0LKw5
+ up8fT3295kHjGRjioXPqUlgFgSNtheqocL6dnKeUQe5kZs9yob9FTFi6l09QB9vRIKQc 3Q== 
+Received: from beta.dmz-eu.st.com (beta.dmz-eu.st.com [164.129.1.35])
+ by mx07-00178001.pphosted.com with ESMTP id 2xkrc55q54-1
+ (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
+ Wed, 22 Jan 2020 17:56:33 +0100
+Received: from euls16034.sgp.st.com (euls16034.sgp.st.com [10.75.44.20])
+ by beta.dmz-eu.st.com (STMicroelectronics) with ESMTP id 6C42510002A;
+ Wed, 22 Jan 2020 17:56:33 +0100 (CET)
+Received: from Webmail-eu.st.com (sfhdag3node2.st.com [10.75.127.8])
+ by euls16034.sgp.st.com (STMicroelectronics) with ESMTP id 56E5D22030F;
+ Wed, 22 Jan 2020 17:56:33 +0100 (CET)
+Received: from lmecxl0912.lme.st.com (10.75.127.48) by SFHDAG3NODE2.st.com
+ (10.75.127.8) with Microsoft SMTP Server (TLS) id 15.0.1347.2; Wed, 22 Jan
+ 2020 17:56:32 +0100
+To: Marc Zyngier <maz@kernel.org>
+References: <20bb72d0-8258-abc0-e729-4d3d5a75c41c@denx.de>
+ <d6e02817-2464-51b9-246a-7720b607b8d6@st.com>
+ <82d4619107e9ac76d317268637f050cf@kernel.org>
+From: Alexandre Torgue <alexandre.torgue@st.com>
+Message-ID: <5f788bb1-d3b3-4ae3-2a85-de19a7d40ff2@st.com>
+Date: Wed, 22 Jan 2020 17:56:32 +0100
+User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:68.0) Gecko/20100101
+ Thunderbird/68.4.1
 MIME-Version: 1.0
-X-MS-Exchange-CrossTenant-Network-Message-Id: adcf4088-de43-4ba8-97ec-08d79f2641e6
-X-MS-Exchange-CrossTenant-originalarrivaltime: 22 Jan 2020 10:31:35.7760 (UTC)
-X-MS-Exchange-CrossTenant-fromentityheader: Hosted
-X-MS-Exchange-CrossTenant-id: c33c9f88-1eb7-4099-9700-16013fd9e8aa
-X-MS-Exchange-CrossTenant-mailboxtype: HOSTED
-X-MS-Exchange-CrossTenant-userprincipalname: SrcGpDgnxDzqFii3kxN/pbL3RyILjBGNy9wzOXuDtczcFu8esfmC6Sk4TPj89DIMiFcgg31cFkZiT3tINBsZRA==
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: BN8PR12MB3332
-X-OriginatorOrg: synopsys.com
-Cc: Joao  Pinto <Joao.Pinto@synopsys.com>,
- Voon Weifeng <weifeng.voon@intel.com>,
- "linux-kernel@vger.kernel.org" <linux-kernel@vger.kernel.org>,
- "linux-stm32@st-md-mailman.stormreply.com"
- <linux-stm32@st-md-mailman.stormreply.com>, Arnd Bergmann <arnd@arndb.de>,
- Maxime Coquelin <mcoquelin.stm32@gmail.com>,
- Tan Tee Min <tee.min.tan@intel.com>,
- Giuseppe Cavallaro <peppe.cavallaro@st.com>,
- Alexandru  Ardelean <alexandru.ardelean@analog.com>,
- "David S . Miller" <davem@davemloft.net>,
- "linux-arm-kernel@lists.infradead.org" <linux-arm-kernel@lists.infradead.org>
-Subject: Re: [Linux-stm32] [PATCH net v3 2/5] net: stmmac: fix incorrect
- GMAC_VLAN_TAG register writting in GMAC4+
+In-Reply-To: <82d4619107e9ac76d317268637f050cf@kernel.org>
+Content-Language: en-US
+X-Originating-IP: [10.75.127.48]
+X-ClientProxiedBy: SFHDAG5NODE2.st.com (10.75.127.14) To SFHDAG3NODE2.st.com
+ (10.75.127.8)
+X-Proofpoint-Virus-Version: vendor=fsecure engine=2.50.10434:6.0.138, 18.0.572
+ definitions=2020-01-22_07:2020-01-22,
+ 2020-01-22 signatures=0
+Cc: Marek Vasut <marex@denx.de>, Maxime Coquelin <mcoquelin.stm32@gmail.com>,
+ Patrick Delaunay <patrick.delaunay@st.com>,
+ linux-stm32@st-md-mailman.stormreply.com,
+ Linux ARM <linux-arm-kernel@lists.infradead.org>
+Subject: Re: [Linux-stm32] STM32MP1 level triggered interrupts
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -132,24 +74,39 @@ List-Post: <mailto:linux-stm32@st-md-mailman.stormreply.com>
 List-Help: <mailto:linux-stm32-request@st-md-mailman.stormreply.com?subject=help>
 List-Subscribe: <https://st-md-mailman.stormreply.com/mailman/listinfo/linux-stm32>, 
  <mailto:linux-stm32-request@st-md-mailman.stormreply.com?subject=subscribe>
-Content-Type: text/plain; charset="us-ascii"
-Content-Transfer-Encoding: 7bit
+Content-Transfer-Encoding: base64
+Content-Type: text/plain; charset="utf-8"; Format="flowed"
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
-From: Ong Boon Leong <boon.leong.ong@intel.com>
-Date: Jan/22/2020, 09:09:33 (UTC+00:00)
-
-> It should always do a read of current value of GMAC_VLAN_TAG instead of
-> directly overwriting the register value.
-
-Thanks for adding patch 4/5 but I meant in previous reply that this patch 
-should also go for XGMAC cores ...
-
----
-Thanks,
-Jose Miguel Abreu
-_______________________________________________
-Linux-stm32 mailing list
-Linux-stm32@st-md-mailman.stormreply.com
-https://st-md-mailman.stormreply.com/mailman/listinfo/linux-stm32
+CgpPbiAxLzIxLzIwIDY6MjEgUE0sIE1hcmMgWnluZ2llciB3cm90ZToKPiBPbiAyMDIwLTAxLTIx
+IDE3OjEyLCBBbGV4YW5kcmUgVG9yZ3VlIHdyb3RlOgo+PiBIaSBNYXJlaywKPj4KPj4gT24gMS8y
+MC8yMCA3OjMyIFBNLCBNYXJlayBWYXN1dCB3cm90ZToKPj4+IEhpLAo+Pj4KPj4+IEkgaGF2ZSBh
+IGRldmljZSBjb25uZWN0ZWQgdG8gU1RNMzJNUDE1N0Mgd2hpY2ggcmVxdWlyZXMgYWN0aXZlLWxv
+dwo+Pj4gbGV2ZWwtdHJpZ2dlcmVkIGludGVycnVwdCBzaW5rLiBUaGUgZGV2aWNlIGludGVycnVw
+dCBsaW5lIGlzIGNvbm5lY3RlZAo+Pj4gdG8gdGhlIFNvQyBncGlvLUMgYmFuaywgd2hpY2ggaGFz
+IGl0J3MgaW50ZXJydXB0IGxpbmUgcm91dGVkIGludG8gRVhUSSwKPj4+IHdoaWNoIGNhbiBvbmx5
+IGhhbmRsZSBlZGdlIHRyaWdnZXJlZCBpbnRlcnJ1cHRzIHRvIG15IHVuZGVyc3RhbmRpbmcuCj4+
+Cj4+IGNvcnJlY3QuCj4+Cj4+Pgo+Pj4gSG93ZXZlciwgQVJNIEdJQyBzaG91bGQgYmUgYWJsZSB0
+byBkbyBib3RoIGFuZCBFWFRJIGhhcyB0aGlzIGlycW11eCAvCj4+PiBFWFRJbXV4IGZ1bmN0aW9u
+YWxpdHksIHdoaWNoIC0tIGlmIG15IHVuZGVyc3RhbmRpbmcgaXMgY29ycmVjdCAtLSBpcwo+Pj4g
+Y2FwYWJsZSBvZiByb3V0aW5nIGEgc2VsZWN0IEdQSU8gbGluZSBkaXJlY3RseSBpbnRvIHRoZSBH
+SUMgYXMgYW4gRVhUSW4KPj4+IGludGVycnVwdCBzaWduYWwuIFRodXMsIHRoaXMgbWlnaHQgcGVy
+bWl0IGhhbmRsaW5nIGFjdGl2ZSBsb3cKPj4+IGxldmVsLXRyaWdnZXJlZCBpbnRlcnJ1cHRzLiBJ
+cyB0aGVyZSBzb21lIERUIGJpbmRpbmcgdG8gY29uZmlndXJlIAo+Pj4gdGhpcyB5ZXQgPwo+Pj4K
+Pj4+IE9yIGlzIHRoZXJlIHNvbWUgb3RoZXIsIGJldHRlciwgd2F5ID8KPj4+Cj4+Cj4+IEZvciBT
+UElzLCBHSUMgY29udHJvbGxlciBoYW5kbGVzIHJpc2luZyBlZGdlIHRyaWdnZXJlZCBpbnRlcnJ1
+cHQgYW5kCj4+IGFjdGl2ZSBoaWdoIGxldmVsLXNlbnNpdGl2ZS4gR0lDIGludGVncmF0aW9uIGlu
+IFNUTTMyTVAxNTdjIG1ha2VzIHRoYXQKPj4gb25seSBhY3RpdmUgaGlnaCBsZXZlbC1zZW5zaXRp
+dmUgY29uZmlndXJhdGlvbiBmb3IgU1BJIGludGVycnVwdHMgaXMKPj4gc3VwcG9ydGVkLgo+IAo+
+IFRoaXMgc3RhdGVtZW50IGlzIGEgc2xpZ2h0IGV4YWdnZXJhdGlvbi4gKmFueSogR0lDIHdpbGwg
+aGFwcGlseSBzZXJ2aWNlCj4gcmlzaW5nLWVkZ2UgdHJpZ2dlcmVkIFNQSXMsIGFzIGl0IGlzIG1h
+bmRhdGVkIGJ5IHRoZSBzcGVjLiBXaGF0IEkgc3VzcGVjdAo+IGlzIHRoYXQgdGhlcmUgaXMgbm8g
+U1BJIHRoYXQgaXMgcm91dGVkIG91dCBvZiB0aGUgU29DIGZvciBhbnlvbmUgdG8gCj4gZGlyZWN0
+bHkKPiBwbHVnIGFueXRoaW5nIGludG8gaXQuCgpZZXMgY29ycmVjdC4gTm8gU1BJIGFyZSByb3V0
+ZWQgb3V0IG9mIHRoZSBTb0MuIEV4dGVybmFsIGludGVycnVwdGlvbnMgCmFyZSBtYXBwZWQgdG8g
+RXh0aS4gRXh0aSBpcyB0aGVuIHJvdXRlZCB0byB0aGUgR0lDIHdpdGggb3RoZXIgc2lnbmFscy4K
+ClJlZ2FyZHMKQWxleAoKPiAKPiAgwqDCoMKgwqDCoMKgwqDCoCBNLgpfX19fX19fX19fX19fX19f
+X19fX19fX19fX19fX19fX19fX19fX19fX19fX19fXwpMaW51eC1zdG0zMiBtYWlsaW5nIGxpc3QK
+TGludXgtc3RtMzJAc3QtbWQtbWFpbG1hbi5zdG9ybXJlcGx5LmNvbQpodHRwczovL3N0LW1kLW1h
+aWxtYW4uc3Rvcm1yZXBseS5jb20vbWFpbG1hbi9saXN0aW5mby9saW51eC1zdG0zMgo=
