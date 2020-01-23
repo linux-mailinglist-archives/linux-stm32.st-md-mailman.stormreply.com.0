@@ -2,64 +2,65 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id 4EAF51464F6
-	for <lists+linux-stm32@lfdr.de>; Thu, 23 Jan 2020 10:51:46 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 73132146501
+	for <lists+linux-stm32@lfdr.de>; Thu, 23 Jan 2020 10:53:05 +0100 (CET)
 Received: from ip-172-31-3-76.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 14C20C36B0C;
-	Thu, 23 Jan 2020 09:51:46 +0000 (UTC)
-Received: from mx07-00178001.pphosted.com (mx08-00178001.pphosted.com
- [91.207.212.93])
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 3328CC36B0C;
+	Thu, 23 Jan 2020 09:53:05 +0000 (UTC)
+Received: from mx07-00178001.pphosted.com (mx07-00178001.pphosted.com
+ [62.209.51.94])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 2B97DC36B0A
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 7FDA1C36B0A
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Thu, 23 Jan 2020 09:51:44 +0000 (UTC)
-Received: from pps.filterd (m0046661.ppops.net [127.0.0.1])
+ Thu, 23 Jan 2020 09:53:03 +0000 (UTC)
+Received: from pps.filterd (m0046037.ppops.net [127.0.0.1])
  by mx07-00178001.pphosted.com (8.16.0.42/8.16.0.42) with SMTP id
- 00N9lii0016829; Thu, 23 Jan 2020 10:51:37 +0100
+ 00N9qYtJ031103; Thu, 23 Jan 2020 10:52:56 +0100
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=st.com;
  h=from : to : subject :
  date : message-id : references : in-reply-to : content-type : content-id :
  content-transfer-encoding : mime-version; s=STMicroelectronics;
- bh=T/YIP5KOKmJo3u1A5u+SESxGEriYvHw0pRGBTv6flAk=;
- b=laMMUSlIWfAE1t5I5o3iea7f3hUgQkBSEYiUi5Y++30PQZT+Mn3BPUdE8cJp78DeHfOh
- aa16hHUaBJmDwCsXm5B2M+4hboHBJXvEfNgblAvtCvYZe2ApcisW6pxbrl06ivAK4Yy0
- YlktQjLFGlGCBt3w7b6/nug5VQNJU0nO09J/QKaIYDqrAJGbpJuTuaKgHB2uVPW2h1Yb
- +4jx1RCRVqpqS0V4OSi7+apYRY3RKo3yyfmFc5wHc26PXc+HkJTcqhuNymC3O7JVM/LR
- H7gkobcItIxbvLLKbIcSoftBd4ffHav+oVEwJE5Satg7DTAdTYZCT1+oenks2Bvce2uu XA== 
+ bh=VkExEA1zSYkkIawwysFPM2UtiIcmbIryXd4T7Fqwhqw=;
+ b=MKEoa9U0xc75iuaGbBbbosWCuyYadzLqTILEEEWqRcR75ATLSLHrcIPj9jX3T8S+7Caw
+ JmAGtOoXoO4X2wuLUhigGLBBJ5Zf+stX01D6TTxpNSJV8s2zvRkewk40do/n7n/JyFB5
+ qHsa85WpdQlKxGfbNjNiwBGOlzhqXj6Db3pU5sVeToX7K5FVmupCmp8TMGncU97steV3
+ 3DixSsYcnRpM66nh6SWwaSojdJ+iYU364qANn0FVN3ZGPa5RGj1Rp6md+3Xp2gHKM34Q
+ ktOkVFEL0iLiZKL6pg4okiLsZ2Vjb437LIkpw2FX7cnIsx46QlfLFUJWYlt48SQQgq3e 8g== 
 Received: from beta.dmz-eu.st.com (beta.dmz-eu.st.com [164.129.1.35])
- by mx07-00178001.pphosted.com with ESMTP id 2xkssp96dt-1
+ by mx07-00178001.pphosted.com with ESMTP id 2xkrp2hep3-1
  (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
- Thu, 23 Jan 2020 10:51:37 +0100
+ Thu, 23 Jan 2020 10:52:56 +0100
 Received: from euls16034.sgp.st.com (euls16034.sgp.st.com [10.75.44.20])
- by beta.dmz-eu.st.com (STMicroelectronics) with ESMTP id 8C0BD10003E;
- Thu, 23 Jan 2020 10:51:30 +0100 (CET)
-Received: from Webmail-eu.st.com (sfhdag3node3.st.com [10.75.127.9])
- by euls16034.sgp.st.com (STMicroelectronics) with ESMTP id 7CC04220301;
- Thu, 23 Jan 2020 10:51:30 +0100 (CET)
-Received: from SFHDAG6NODE3.st.com (10.75.127.18) by SFHDAG3NODE3.st.com
- (10.75.127.9) with Microsoft SMTP Server (TLS) id 15.0.1347.2; Thu, 23 Jan
- 2020 10:51:30 +0100
+ by beta.dmz-eu.st.com (STMicroelectronics) with ESMTP id 93FF310002A;
+ Thu, 23 Jan 2020 10:52:51 +0100 (CET)
+Received: from Webmail-eu.st.com (sfhdag3node1.st.com [10.75.127.7])
+ by euls16034.sgp.st.com (STMicroelectronics) with ESMTP id 83128220301;
+ Thu, 23 Jan 2020 10:52:51 +0100 (CET)
+Received: from SFHDAG6NODE3.st.com (10.75.127.18) by SFHDAG3NODE1.st.com
+ (10.75.127.7) with Microsoft SMTP Server (TLS) id 15.0.1473.3; Thu, 23 Jan
+ 2020 10:52:50 +0100
 Received: from SFHDAG6NODE3.st.com ([fe80::d04:5337:ab17:b6f6]) by
  SFHDAG6NODE3.st.com ([fe80::d04:5337:ab17:b6f6%20]) with mapi id
- 15.00.1473.003; Thu, 23 Jan 2020 10:51:30 +0100
+ 15.00.1473.003; Thu, 23 Jan 2020 10:52:50 +0100
 From: Philippe CORNU <philippe.cornu@st.com>
-To: Yannick FERTRE <yannick.fertre@st.com>, Benjamin GAIGNARD
- <benjamin.gaignard@st.com>, David Airlie <airlied@linux.ie>, Daniel Vetter
- <daniel@ffwll.ch>, Maxime Coquelin <mcoquelin.stm32@gmail.com>, "Alexandre
- TORGUE" <alexandre.torgue@st.com>, "dri-devel@lists.freedesktop.org"
- <dri-devel@lists.freedesktop.org>,
+To: Yannick FERTRE <yannick.fertre@st.com>, Mauro Carvalho Chehab
+ <mchehab@kernel.org>, Maxime Coquelin <mcoquelin.stm32@gmail.com>,
+ "Alexandre TORGUE" <alexandre.torgue@st.com>, Etienne CARRIERE
+ <etienne.carriere@st.com>, Hans Verkuil <hverkuil-cisco@xs4all.nl>,
+ Benjamin Gaignard <benjamin.gaignard@linaro.org>,
+ "linux-media@vger.kernel.org" <linux-media@vger.kernel.org>,
  "linux-stm32@st-md-mailman.stormreply.com"
  <linux-stm32@st-md-mailman.stormreply.com>,
  "linux-arm-kernel@lists.infradead.org"
  <linux-arm-kernel@lists.infradead.org>, "linux-kernel@vger.kernel.org"
  <linux-kernel@vger.kernel.org>
-Thread-Topic: [PATCH] drm/stm: ltdc: check number of endpoints
-Thread-Index: AQHV0EOURSMjvZYjaE6ExH6tBTGDg6f39BOA
-Date: Thu, 23 Jan 2020 09:51:30 +0000
-Message-ID: <882271f1-5b91-f4c9-4619-fbdb70a32a46@st.com>
-References: <1579601673-7111-1-git-send-email-yannick.fertre@st.com>
-In-Reply-To: <1579601673-7111-1-git-send-email-yannick.fertre@st.com>
+Thread-Topic: [PATCH] media: platform: stm32: defer probe for auxiliary clock
+Thread-Index: AQHV0ESzDelCfuJRrECy+dIwI+lKx6f39HIA
+Date: Thu, 23 Jan 2020 09:52:50 +0000
+Message-ID: <e7573c97-7c88-bb3d-1bfb-dea92f146da9@st.com>
+References: <1579602152-7432-1-git-send-email-yannick.fertre@st.com>
+In-Reply-To: <1579602152-7432-1-git-send-email-yannick.fertre@st.com>
 Accept-Language: fr-FR, en-US
 Content-Language: en-US
 X-MS-Has-Attach: 
@@ -69,12 +70,13 @@ user-agent: Mozilla/5.0 (X11; Linux x86_64; rv:68.0) Gecko/20100101
 x-ms-exchange-messagesentrepresentingtype: 1
 x-ms-exchange-transport-fromentityheader: Hosted
 x-originating-ip: [10.75.127.48]
-Content-ID: <78E917FBF0C3A942BCC416B14FFBCC3E@st.com>
+Content-ID: <034509C68120DF4483F7B9EB6FAA225C@st.com>
 MIME-Version: 1.0
 X-Proofpoint-Virus-Version: vendor=fsecure engine=2.50.10434:6.0.138, 18.0.572
  definitions=2020-01-23_01:2020-01-23,
  2020-01-22 signatures=0
-Subject: Re: [Linux-stm32] [PATCH] drm/stm: ltdc: check number of endpoints
+Subject: Re: [Linux-stm32] [PATCH] media: platform: stm32: defer probe for
+	auxiliary clock
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -86,108 +88,51 @@ List-Post: <mailto:linux-stm32@st-md-mailman.stormreply.com>
 List-Help: <mailto:linux-stm32-request@st-md-mailman.stormreply.com?subject=help>
 List-Subscribe: <https://st-md-mailman.stormreply.com/mailman/listinfo/linux-stm32>, 
  <mailto:linux-stm32-request@st-md-mailman.stormreply.com?subject=subscribe>
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: base64
+Content-Type: text/plain; charset="us-ascii"
+Content-Transfer-Encoding: 7bit
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
-RGVhciBZYW5uaWNrLA0KVGhhbmsgeW91IGZvciB5b3VyIHBhdGNoLA0KDQpBY2tlZC1ieTogUGhp
-bGlwcGUgQ29ybnUgPHBoaWxpcHBlLmNvcm51QHN0LmNvbT4NCg0KUGhpbGlwcGUgOi0pDQoNCk9u
-IDEvMjEvMjAgMTE6MTQgQU0sIFlhbm5pY2sgRmVydHJlIHdyb3RlOg0KPiBOdW1iZXIgb2YgZW5k
-cG9pbnRzIGNvdWxkIGV4Y2VlZCB0aGUgZml4IHZhbHVlIE1BWF9FTkRQT0lOVFMoMikuDQo+IElu
-c3RlYWQgb2YgaW5jcmVhc2Ugc2ltcGx5IHRoaXMgdmFsdWUsIHRoZSBudW1iZXIgb2YgZW5kcG9p
-bnQNCj4gY291bGQgYmUgcmVhZCBmcm9tIGRldmljZSB0cmVlLiBMb2FkIHNlcXVlbmNlIGhhcyBi
-ZWVuIGEgbGl0dGxlDQo+IHJld29yayB0byB0YWtlIGNhcmUgb2Ygc2V2ZXJhbCBwYW5lbCBvciBi
-cmlkZ2Ugd2hpY2ggY2FuIGJlDQo+IGNvbm5lY3RlZC9kaXNjb25uZWN0ZWQgb3IgZW5hYmxlL2Rp
-c2FibGUuDQo+IA0KPiBTaWduZWQtb2ZmLWJ5OiBZYW5uaWNrIEZlcnRyw6kgPHlhbm5pY2suZmVy
-dHJlQHN0LmNvbT4NCj4gLS0tDQo+ICAgZHJpdmVycy9ncHUvZHJtL3N0bS9sdGRjLmMgfCAxMDQg
-KysrKysrKysrKysrKysrKysrKysrKy0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tDQo+ICAgMSBmaWxl
-IGNoYW5nZWQsIDUyIGluc2VydGlvbnMoKyksIDUyIGRlbGV0aW9ucygtKQ0KPiANCj4gZGlmZiAt
-LWdpdCBhL2RyaXZlcnMvZ3B1L2RybS9zdG0vbHRkYy5jIGIvZHJpdmVycy9ncHUvZHJtL3N0bS9s
-dGRjLmMNCj4gaW5kZXggYzI4MTVlOC4uZGJhOGU3ZiAxMDA2NDQNCj4gLS0tIGEvZHJpdmVycy9n
-cHUvZHJtL3N0bS9sdGRjLmMNCj4gKysrIGIvZHJpdmVycy9ncHUvZHJtL3N0bS9sdGRjLmMNCj4g
-QEAgLTQyLDggKzQyLDYgQEANCj4gICANCj4gICAjZGVmaW5lIE1BWF9JUlEgNA0KPiAgIA0KPiAt
-I2RlZmluZSBNQVhfRU5EUE9JTlRTIDINCj4gLQ0KPiAgICNkZWZpbmUgSFdWRVJfMTAyMDAgMHgw
-MTAyMDANCj4gICAjZGVmaW5lIEhXVkVSXzEwMzAwIDB4MDEwMzAwDQo+ICAgI2RlZmluZSBIV1ZF
-Ul8yMDEwMSAweDAyMDEwMQ0KPiBAQCAtMTE5MCwzNiArMTE4OCwyMCBAQCBpbnQgbHRkY19sb2Fk
-KHN0cnVjdCBkcm1fZGV2aWNlICpkZGV2KQ0KPiAgIAlzdHJ1Y3QgbHRkY19kZXZpY2UgKmxkZXYg
-PSBkZGV2LT5kZXZfcHJpdmF0ZTsNCj4gICAJc3RydWN0IGRldmljZSAqZGV2ID0gZGRldi0+ZGV2
-Ow0KPiAgIAlzdHJ1Y3QgZGV2aWNlX25vZGUgKm5wID0gZGV2LT5vZl9ub2RlOw0KPiAtCXN0cnVj
-dCBkcm1fYnJpZGdlICpicmlkZ2VbTUFYX0VORFBPSU5UU10gPSB7TlVMTH07DQo+IC0Jc3RydWN0
-IGRybV9wYW5lbCAqcGFuZWxbTUFYX0VORFBPSU5UU10gPSB7TlVMTH07DQo+ICsJc3RydWN0IGRy
-bV9icmlkZ2UgKmJyaWRnZTsNCj4gKwlzdHJ1Y3QgZHJtX3BhbmVsICpwYW5lbDsNCj4gICAJc3Ry
-dWN0IGRybV9jcnRjICpjcnRjOw0KPiAgIAlzdHJ1Y3QgcmVzZXRfY29udHJvbCAqcnN0YzsNCj4g
-ICAJc3RydWN0IHJlc291cmNlICpyZXM7DQo+IC0JaW50IGlycSwgcmV0LCBpLCBlbmRwb2ludF9u
-b3RfcmVhZHkgPSAtRU5PREVWOw0KPiArCWludCBpcnEsIGksIG5iX2VuZHBvaW50czsNCj4gKwlp
-bnQgcmV0ID0gLUVOT0RFVjsNCj4gICANCj4gICAJRFJNX0RFQlVHX0RSSVZFUigiXG4iKTsNCj4g
-ICANCj4gLQkvKiBHZXQgZW5kcG9pbnRzIGlmIGFueSAqLw0KPiAtCWZvciAoaSA9IDA7IGkgPCBN
-QVhfRU5EUE9JTlRTOyBpKyspIHsNCj4gLQkJcmV0ID0gZHJtX29mX2ZpbmRfcGFuZWxfb3JfYnJp
-ZGdlKG5wLCAwLCBpLCAmcGFuZWxbaV0sDQo+IC0JCQkJCQkgICZicmlkZ2VbaV0pOw0KPiAtDQo+
-IC0JCS8qDQo+IC0JCSAqIElmIGF0IGxlYXN0IG9uZSBlbmRwb2ludCBpcyAtRVBST0JFX0RFRkVS
-LCBkZWZlciBwcm9iaW5nLA0KPiAtCQkgKiBlbHNlIGlmIGF0IGxlYXN0IG9uZSBlbmRwb2ludCBp
-cyByZWFkeSwgY29udGludWUgcHJvYmluZy4NCj4gLQkJICovDQo+IC0JCWlmIChyZXQgPT0gLUVQ
-Uk9CRV9ERUZFUikNCj4gLQkJCXJldHVybiByZXQ7DQo+IC0JCWVsc2UgaWYgKCFyZXQpDQo+IC0J
-CQllbmRwb2ludF9ub3RfcmVhZHkgPSAwOw0KPiAtCX0NCj4gLQ0KPiAtCWlmIChlbmRwb2ludF9u
-b3RfcmVhZHkpDQo+IC0JCXJldHVybiBlbmRwb2ludF9ub3RfcmVhZHk7DQo+IC0NCj4gLQlyc3Rj
-ID0gZGV2bV9yZXNldF9jb250cm9sX2dldF9leGNsdXNpdmUoZGV2LCBOVUxMKTsNCj4gLQ0KPiAt
-CW11dGV4X2luaXQoJmxkZXYtPmVycl9sb2NrKTsNCj4gKwkvKiBHZXQgbnVtYmVyIG9mIGVuZHBv
-aW50cyAqLw0KPiArCW5iX2VuZHBvaW50cyA9IG9mX2dyYXBoX2dldF9lbmRwb2ludF9jb3VudChu
-cCk7DQo+ICsJaWYgKCFuYl9lbmRwb2ludHMpDQo+ICsJCXJldHVybiAtRU5PREVWOw0KPiAgIA0K
-PiAgIAlsZGV2LT5waXhlbF9jbGsgPSBkZXZtX2Nsa19nZXQoZGV2LCAibGNkIik7DQo+ICAgCWlm
-IChJU19FUlIobGRldi0+cGl4ZWxfY2xrKSkgew0KPiBAQCAtMTIzMyw2ICsxMjE1LDQzIEBAIGlu
-dCBsdGRjX2xvYWQoc3RydWN0IGRybV9kZXZpY2UgKmRkZXYpDQo+ICAgCQlyZXR1cm4gLUVOT0RF
-VjsNCj4gICAJfQ0KPiAgIA0KPiArCS8qIEdldCBlbmRwb2ludHMgaWYgYW55ICovDQo+ICsJZm9y
-IChpID0gMDsgaSA8IG5iX2VuZHBvaW50czsgaSsrKSB7DQo+ICsJCXJldCA9IGRybV9vZl9maW5k
-X3BhbmVsX29yX2JyaWRnZShucCwgMCwgaSwgJnBhbmVsLCAmYnJpZGdlKTsNCj4gKw0KPiArCQkv
-Kg0KPiArCQkgKiBJZiBhdCBsZWFzdCBvbmUgZW5kcG9pbnQgaXMgLUVOT0RFViwgY29udGludWUg
-cHJvYmluZywNCj4gKwkJICogZWxzZSBpZiBhdCBsZWFzdCBvbmUgZW5kcG9pbnQgcmV0dXJuZWQg
-YW4gZXJyb3INCj4gKwkJICogKGllIC1FUFJPQkVfREVGRVIpIHRoZW4gc3RvcCBwcm9iaW5nLg0K
-PiArCQkgKi8NCj4gKwkJaWYgKHJldCA9PSAtRU5PREVWKQ0KPiArCQkJY29udGludWU7DQo+ICsJ
-CWVsc2UgaWYgKHJldCkNCj4gKwkJCWdvdG8gZXJyOw0KPiArDQo+ICsJCWlmIChwYW5lbCkgew0K
-PiArCQkJYnJpZGdlID0gZHJtX3BhbmVsX2JyaWRnZV9hZGRfdHlwZWQocGFuZWwsDQo+ICsJCQkJ
-CQkJICAgIERSTV9NT0RFX0NPTk5FQ1RPUl9EUEkpOw0KPiArCQkJaWYgKElTX0VSUihicmlkZ2Up
-KSB7DQo+ICsJCQkJRFJNX0VSUk9SKCJwYW5lbC1icmlkZ2UgZW5kcG9pbnQgJWRcbiIsIGkpOw0K
-PiArCQkJCXJldCA9IFBUUl9FUlIoYnJpZGdlKTsNCj4gKwkJCQlnb3RvIGVycjsNCj4gKwkJCX0N
-Cj4gKwkJfQ0KPiArDQo+ICsJCWlmIChicmlkZ2UpIHsNCj4gKwkJCXJldCA9IGx0ZGNfZW5jb2Rl
-cl9pbml0KGRkZXYsIGJyaWRnZSk7DQo+ICsJCQlpZiAocmV0KSB7DQo+ICsJCQkJRFJNX0VSUk9S
-KCJpbml0IGVuY29kZXIgZW5kcG9pbnQgJWRcbiIsIGkpOw0KPiArCQkJCWdvdG8gZXJyOw0KPiAr
-CQkJfQ0KPiArCQl9DQo+ICsJfQ0KPiArDQo+ICsJcnN0YyA9IGRldm1fcmVzZXRfY29udHJvbF9n
-ZXRfZXhjbHVzaXZlKGRldiwgTlVMTCk7DQo+ICsNCj4gKwltdXRleF9pbml0KCZsZGV2LT5lcnJf
-bG9jayk7DQo+ICsNCj4gICAJaWYgKCFJU19FUlIocnN0YykpIHsNCj4gICAJCXJlc2V0X2NvbnRy
-b2xfYXNzZXJ0KHJzdGMpOw0KPiAgIAkJdXNsZWVwX3JhbmdlKDEwLCAyMCk7DQo+IEBAIC0xMjY4
-LDcgKzEyODcsNiBAQCBpbnQgbHRkY19sb2FkKHN0cnVjdCBkcm1fZGV2aWNlICpkZGV2KQ0KPiAg
-IAkJfQ0KPiAgIAl9DQo+ICAgDQo+IC0NCj4gICAJcmV0ID0gbHRkY19nZXRfY2FwcyhkZGV2KTsN
-Cj4gICAJaWYgKHJldCkgew0KPiAgIAkJRFJNX0VSUk9SKCJoYXJkd2FyZSBpZGVudGlmaWVyICgw
-eCUwOHgpIG5vdCBzdXBwb3J0ZWQhXG4iLA0KPiBAQCAtMTI3OCwyNyArMTI5Niw2IEBAIGludCBs
-dGRjX2xvYWQoc3RydWN0IGRybV9kZXZpY2UgKmRkZXYpDQo+ICAgDQo+ICAgCURSTV9ERUJVR19E
-UklWRVIoImx0ZGMgaHcgdmVyc2lvbiAweCUwOHhcbiIsIGxkZXYtPmNhcHMuaHdfdmVyc2lvbik7
-DQo+ICAgDQo+IC0JLyogQWRkIGVuZHBvaW50cyBwYW5lbHMgb3IgYnJpZGdlcyBpZiBhbnkgKi8N
-Cj4gLQlmb3IgKGkgPSAwOyBpIDwgTUFYX0VORFBPSU5UUzsgaSsrKSB7DQo+IC0JCWlmIChwYW5l
-bFtpXSkgew0KPiAtCQkJYnJpZGdlW2ldID0gZHJtX3BhbmVsX2JyaWRnZV9hZGRfdHlwZWQocGFu
-ZWxbaV0sDQo+IC0JCQkJCQkJICAgICAgIERSTV9NT0RFX0NPTk5FQ1RPUl9EUEkpOw0KPiAtCQkJ
-aWYgKElTX0VSUihicmlkZ2VbaV0pKSB7DQo+IC0JCQkJRFJNX0VSUk9SKCJwYW5lbC1icmlkZ2Ug
-ZW5kcG9pbnQgJWRcbiIsIGkpOw0KPiAtCQkJCXJldCA9IFBUUl9FUlIoYnJpZGdlW2ldKTsNCj4g
-LQkJCQlnb3RvIGVycjsNCj4gLQkJCX0NCj4gLQkJfQ0KPiAtDQo+IC0JCWlmIChicmlkZ2VbaV0p
-IHsNCj4gLQkJCXJldCA9IGx0ZGNfZW5jb2Rlcl9pbml0KGRkZXYsIGJyaWRnZVtpXSk7DQo+IC0J
-CQlpZiAocmV0KSB7DQo+IC0JCQkJRFJNX0VSUk9SKCJpbml0IGVuY29kZXIgZW5kcG9pbnQgJWRc
-biIsIGkpOw0KPiAtCQkJCWdvdG8gZXJyOw0KPiAtCQkJfQ0KPiAtCQl9DQo+IC0JfQ0KPiAtDQo+
-ICAgCWNydGMgPSBkZXZtX2t6YWxsb2MoZGV2LCBzaXplb2YoKmNydGMpLCBHRlBfS0VSTkVMKTsN
-Cj4gICAJaWYgKCFjcnRjKSB7DQo+ICAgCQlEUk1fRVJST1IoIkZhaWxlZCB0byBhbGxvY2F0ZSBj
-cnRjXG4iKTsNCj4gQEAgLTEzMzEsOCArMTMyOCw4IEBAIGludCBsdGRjX2xvYWQoc3RydWN0IGRy
-bV9kZXZpY2UgKmRkZXYpDQo+ICAgDQo+ICAgCXJldHVybiAwOw0KPiAgIGVycjoNCj4gLQlmb3Ig
-KGkgPSAwOyBpIDwgTUFYX0VORFBPSU5UUzsgaSsrKQ0KPiAtCQlkcm1fcGFuZWxfYnJpZGdlX3Jl
-bW92ZShicmlkZ2VbaV0pOw0KPiArCWZvciAoaSA9IDA7IGkgPCBuYl9lbmRwb2ludHM7IGkrKykN
-Cj4gKwkJZHJtX29mX3BhbmVsX2JyaWRnZV9yZW1vdmUoZGRldi0+ZGV2LT5vZl9ub2RlLCAwLCBp
-KTsNCj4gICANCj4gICAJY2xrX2Rpc2FibGVfdW5wcmVwYXJlKGxkZXYtPnBpeGVsX2Nsayk7DQo+
-ICAgDQo+IEBAIC0xMzQxLDExICsxMzM4LDE0IEBAIGludCBsdGRjX2xvYWQoc3RydWN0IGRybV9k
-ZXZpY2UgKmRkZXYpDQo+ICAgDQo+ICAgdm9pZCBsdGRjX3VubG9hZChzdHJ1Y3QgZHJtX2Rldmlj
-ZSAqZGRldikNCj4gICB7DQo+IC0JaW50IGk7DQo+ICsJc3RydWN0IGRldmljZSAqZGV2ID0gZGRl
-di0+ZGV2Ow0KPiArCWludCBuYl9lbmRwb2ludHMsIGk7DQo+ICAgDQo+ICAgCURSTV9ERUJVR19E
-UklWRVIoIlxuIik7DQo+ICAgDQo+IC0JZm9yIChpID0gMDsgaSA8IE1BWF9FTkRQT0lOVFM7IGkr
-KykNCj4gKwluYl9lbmRwb2ludHMgPSBvZl9ncmFwaF9nZXRfZW5kcG9pbnRfY291bnQoZGV2LT5v
-Zl9ub2RlKTsNCj4gKw0KPiArCWZvciAoaSA9IDA7IGkgPCBuYl9lbmRwb2ludHM7IGkrKykNCj4g
-ICAJCWRybV9vZl9wYW5lbF9icmlkZ2VfcmVtb3ZlKGRkZXYtPmRldi0+b2Zfbm9kZSwgMCwgaSk7
-DQo+ICAgDQo+ICAgCXBtX3J1bnRpbWVfZGlzYWJsZShkZGV2LT5kZXYpOw0KPiAKX19fX19fX19f
-X19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX18KTGludXgtc3RtMzIgbWFpbGlu
-ZyBsaXN0CkxpbnV4LXN0bTMyQHN0LW1kLW1haWxtYW4uc3Rvcm1yZXBseS5jb20KaHR0cHM6Ly9z
-dC1tZC1tYWlsbWFuLnN0b3JtcmVwbHkuY29tL21haWxtYW4vbGlzdGluZm8vbGludXgtc3RtMzIK
+Dears Yannick & Etienne,
+Thank you for your patch,
+
+Reviewed-by: Philippe Cornu <philippe.cornu@st.com>
+
+Philippe :-)
+
+On 1/21/20 11:22 AM, Yannick Fertre wrote:
+> From: Etienne Carriere <etienne.carriere@st.com>
+> 
+> Change stm32-cec driver to defer probe when auxiliary clock
+> "hdmi-cec" is registered in the system not has not been probed yet.
+> 
+> Signed-off-by: Etienne Carriere <etienne.carriere@st.com>
+> ---
+>   drivers/media/platform/stm32/stm32-cec.c | 6 +++++-
+>   1 file changed, 5 insertions(+), 1 deletion(-)
+> 
+> diff --git a/drivers/media/platform/stm32/stm32-cec.c b/drivers/media/platform/stm32/stm32-cec.c
+> index 8a86b2c..543c9ec 100644
+> --- a/drivers/media/platform/stm32/stm32-cec.c
+> +++ b/drivers/media/platform/stm32/stm32-cec.c
+> @@ -302,10 +302,14 @@ static int stm32_cec_probe(struct platform_device *pdev)
+>   	}
+>   
+>   	cec->clk_hdmi_cec = devm_clk_get(&pdev->dev, "hdmi-cec");
+> +	if (IS_ERR(cec->clk_hdmi_cec) &&
+> +	    PTR_ERR(cec->clk_hdmi_cec) == -EPROBE_DEFER)
+> +			return -EPROBE_DEFER;
+> +
+>   	if (!IS_ERR(cec->clk_hdmi_cec)) {
+>   		ret = clk_prepare(cec->clk_hdmi_cec);
+>   		if (ret) {
+> -			dev_err(&pdev->dev, "Unable to prepare hdmi-cec clock\n");
+> +			dev_err(&pdev->dev, "Can't prepare hdmi-cec clock\n");
+>   			return ret;
+>   		}
+>   	}
+> 
+_______________________________________________
+Linux-stm32 mailing list
+Linux-stm32@st-md-mailman.stormreply.com
+https://st-md-mailman.stormreply.com/mailman/listinfo/linux-stm32
