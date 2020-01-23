@@ -2,53 +2,58 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id D6DBF145C69
-	for <lists+linux-stm32@lfdr.de>; Wed, 22 Jan 2020 20:29:18 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 68011146368
+	for <lists+linux-stm32@lfdr.de>; Thu, 23 Jan 2020 09:23:37 +0100 (CET)
 Received: from ip-172-31-3-76.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 9914FC36B0C;
-	Wed, 22 Jan 2020 19:29:18 +0000 (UTC)
-Received: from mail-out.m-online.net (mail-out.m-online.net [212.18.0.10])
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 1BA53C36B0C;
+	Thu, 23 Jan 2020 08:23:37 +0000 (UTC)
+Received: from mx07-00178001.pphosted.com (mx08-00178001.pphosted.com
+ [91.207.212.93])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 2F1B3C36B0A
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id E141CC36B0A
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Wed, 22 Jan 2020 19:29:17 +0000 (UTC)
-Received: from frontend01.mail.m-online.net (unknown [192.168.8.182])
- by mail-out.m-online.net (Postfix) with ESMTP id 482wSr1hQCz1rh7v;
- Wed, 22 Jan 2020 20:29:16 +0100 (CET)
-Received: from localhost (dynscan1.mnet-online.de [192.168.6.70])
- by mail.m-online.net (Postfix) with ESMTP id 482wSr13VJz1qrnG;
- Wed, 22 Jan 2020 20:29:16 +0100 (CET)
-X-Virus-Scanned: amavisd-new at mnet-online.de
-Received: from mail.mnet-online.de ([192.168.8.182])
- by localhost (dynscan1.mail.m-online.net [192.168.6.70]) (amavisd-new,
- port 10024)
- with ESMTP id sn4K-R6IxAgY; Wed, 22 Jan 2020 20:29:14 +0100 (CET)
-X-Auth-Info: nnhbN4JxEyR9kaafm0F2Jd/LipmWamMPaqS5s2fEZz8=
-Received: from [IPv6:::1] (unknown [195.140.253.167])
- (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
- (No client certificate requested)
- by mail.mnet-online.de (Postfix) with ESMTPSA;
- Wed, 22 Jan 2020 20:29:14 +0100 (CET)
-To: Alexandre Torgue <alexandre.torgue@st.com>,
- Linux ARM <linux-arm-kernel@lists.infradead.org>,
- "linux-stm32@st-md-mailman.stormreply.com"
- <linux-stm32@st-md-mailman.stormreply.com>
-References: <20bb72d0-8258-abc0-e729-4d3d5a75c41c@denx.de>
- <d6e02817-2464-51b9-246a-7720b607b8d6@st.com>
- <65a1c5b2-c1b9-322f-338c-e6ff6379d8d1@denx.de>
- <129d04a0-c846-506d-5726-4a1024d977a6@st.com>
-From: Marek Vasut <marex@denx.de>
-Message-ID: <80db762c-3b3d-f007-2f9b-dadbffd95782@denx.de>
-Date: Wed, 22 Jan 2020 20:29:13 +0100
-User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:60.0) Gecko/20100101
- Thunderbird/60.9.0
+ Thu, 23 Jan 2020 08:23:35 +0000 (UTC)
+Received: from pps.filterd (m0046661.ppops.net [127.0.0.1])
+ by mx07-00178001.pphosted.com (8.16.0.42/8.16.0.42) with SMTP id
+ 00N8DfUn017496; Thu, 23 Jan 2020 09:23:21 +0100
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=st.com;
+ h=from : to : cc : subject
+ : date : message-id : mime-version : content-type; s=STMicroelectronics;
+ bh=v2rNH4Gsw0bzUghfyGUw+uoKwXzibWz9pq9H3oEz7bQ=;
+ b=B1qARC/kP+m68l3RIC3OE6xFWuO4hUxfbL9cUkfn2YW57LnXOqBB8SUJNsmrn91P2fTd
+ 0h0xHn+Jc3ekuiajiilRpYjrQqk0e8hKKrToyrUalnWsqbL+hv+4/oTknEbr35rnoSsO
+ RIno2e0Z4jOum+2O21AfF7qB6U1P7ndkFQyTFUs96UKY4lZsWrNLApZ2vqpGsmXzb8di
+ TVOcjNaySGjBhi70Lm+zT+yRRdS7pATwSldb3YNJ85XCMtxmGl1526YTJv+j+LOcZlmT
+ VhCG8naFSmDqaCDBvUB4nXNiANarXYEpG4TQ5gnWsnJsTBwiQKNI2rHX7ifA4sEBDcLC QQ== 
+Received: from beta.dmz-eu.st.com (beta.dmz-eu.st.com [164.129.1.35])
+ by mx07-00178001.pphosted.com with ESMTP id 2xkssp8r8r-1
+ (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
+ Thu, 23 Jan 2020 09:23:21 +0100
+Received: from euls16034.sgp.st.com (euls16034.sgp.st.com [10.75.44.20])
+ by beta.dmz-eu.st.com (STMicroelectronics) with ESMTP id 0BA75100038;
+ Thu, 23 Jan 2020 09:23:17 +0100 (CET)
+Received: from Webmail-eu.st.com (sfhdag6node2.st.com [10.75.127.17])
+ by euls16034.sgp.st.com (STMicroelectronics) with ESMTP id E9A4320EDDA;
+ Thu, 23 Jan 2020 09:23:16 +0100 (CET)
+Received: from localhost (10.75.127.46) by SFHDAG6NODE2.st.com (10.75.127.17)
+ with Microsoft SMTP Server (TLS) id 15.0.1347.2;
+ Thu, 23 Jan 2020 09:23:16 +0100
+From: Christophe Kerello <christophe.kerello@st.com>
+To: <miquel.raynal@bootlin.com>, <richard@nod.at>, <vigneshr@ti.com>
+Date: Thu, 23 Jan 2020 09:22:48 +0100
+Message-ID: <1579767768-32295-1-git-send-email-christophe.kerello@st.com>
+X-Mailer: git-send-email 1.9.1
 MIME-Version: 1.0
-In-Reply-To: <129d04a0-c846-506d-5726-4a1024d977a6@st.com>
-Content-Language: en-US
-Cc: Maxime Coquelin <mcoquelin.stm32@gmail.com>,
- Patrick Delaunay <patrick.delaunay@st.com>
-Subject: Re: [Linux-stm32] STM32MP1 level triggered interrupts
+X-Originating-IP: [10.75.127.46]
+X-ClientProxiedBy: SFHDAG7NODE1.st.com (10.75.127.19) To SFHDAG6NODE2.st.com
+ (10.75.127.17)
+X-Proofpoint-Virus-Version: vendor=fsecure engine=2.50.10434:6.0.138, 18.0.572
+ definitions=2020-01-22_08:2020-01-22,
+ 2020-01-22 signatures=0
+Cc: linux-mtd@lists.infradead.org, linux-kernel@vger.kernel.org,
+ linux-stm32@st-md-mailman.stormreply.com
+Subject: [Linux-stm32] mtd: rawnand: free the nand_device object
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -65,41 +70,30 @@ Content-Transfer-Encoding: 7bit
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
-On 1/22/20 6:19 PM, Alexandre Torgue wrote:
+This patch releases the resources allocated in nanddev_init function.
 
-Hi,
+Fixes: a7ab085d7c16 ("mtd: rawnand: Initialize the nand_device object")
+Signed-off-by: Christophe Kerello <christophe.kerello@st.com>
+---
+ drivers/mtd/nand/raw/nand_base.c | 2 ++
+ 1 file changed, 2 insertions(+)
 
-[...]
-
->>> Concerning, your question:
->>>
->>> Setting your gpioC interruption as "falling edge" should be enough. On
->>> gpioCx falling edge, a high-level signal is generated by exti and sent
->>> to GIC (which triggers GIC interrupt). This signal remains high until
->>> stm32_irq_ack is called.
->>>
->>> So you only need: (ex for gpioc 1).
->>>
->>> interrupt-parent = <&gpioc>;
->>> interrupts = <1 IRQ_TYPE_EDGE_FALLING>;
->>
->> How does this deal with the case where the device holds the interrupt
->> line low (since it's level-sensitive, active low) after the driver
->> interrupt handler finishes ? Does such condition generate another
->> interrupt and call the driver interrupt handler again ? I would expect
->> the answer is no, because the interrupt is edge-triggered and there is
->> no edge.
-> 
-> Your assumption is good. If your device continue to hold the line to low
-> at the end of your interrupt handler, no more interrupt will be generated.
-
-But does that basically mean that such a device cannot be used with
-STM32MP1 or am I fundamentally mistaken and don't understand how a
-level-triggered interrupt works ? :)
-
+diff --git a/drivers/mtd/nand/raw/nand_base.c b/drivers/mtd/nand/raw/nand_base.c
+index f64e3b6..47c6396 100644
+--- a/drivers/mtd/nand/raw/nand_base.c
++++ b/drivers/mtd/nand/raw/nand_base.c
+@@ -5907,6 +5907,8 @@ void nand_cleanup(struct nand_chip *chip)
+ 	    chip->ecc.algo == NAND_ECC_BCH)
+ 		nand_bch_free((struct nand_bch_control *)chip->ecc.priv);
+ 
++	nanddev_cleanup(&chip->base);
++
+ 	/* Free bad block table memory */
+ 	kfree(chip->bbt);
+ 	kfree(chip->data_buf);
 -- 
-Best regards,
-Marek Vasut
+1.9.1
+
 _______________________________________________
 Linux-stm32 mailing list
 Linux-stm32@st-md-mailman.stormreply.com
