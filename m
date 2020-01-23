@@ -2,63 +2,61 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id 6CD5F146CD7
-	for <lists+linux-stm32@lfdr.de>; Thu, 23 Jan 2020 16:30:10 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id D6804146DF2
+	for <lists+linux-stm32@lfdr.de>; Thu, 23 Jan 2020 17:13:31 +0100 (CET)
 Received: from ip-172-31-3-76.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 2AC73C36B0C;
-	Thu, 23 Jan 2020 15:30:10 +0000 (UTC)
-Received: from mail-ot1-f68.google.com (mail-ot1-f68.google.com
- [209.85.210.68])
- (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 81145C36B0A;
+	Thu, 23 Jan 2020 16:13:31 +0000 (UTC)
+Received: from mx07-00178001.pphosted.com (mx08-00178001.pphosted.com
+ [91.207.212.93])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 7DF8CC36B0A
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 2DF30C36B0A
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Thu, 23 Jan 2020 15:30:06 +0000 (UTC)
-Received: by mail-ot1-f68.google.com with SMTP id w21so3085901otj.7
- for <linux-stm32@st-md-mailman.stormreply.com>;
- Thu, 23 Jan 2020 07:30:05 -0800 (PST)
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20161025;
- h=x-gm-message-state:date:from:to:cc:subject:message-id:references
- :mime-version:content-disposition:in-reply-to:user-agent;
- bh=YHqBGj/ukTPkl69zvdBgkmcYaLWB1N0Qj6YD43sxU/8=;
- b=fUwG6gjZNRF7DeAeFNjggun4C5zwun079dqG7fhpnv+QODgkdyuU55FYhERUCvpon3
- J1laIuRWhofqShBcW2MKa+ZsSSN45f2BMbCv1estbpDvuzd3+Sl5rgrv1moLWWuIzv2a
- fL5Ho32ubBsolP5cdHQzHtqlK2bkiyBINLnLz8ozB33gl0aTmS4OfsYSn/gfwyE4zRzs
- q/JsYXf4lwip8xnz1ANIh30FBvPl3DmFiRwSN7eOt62i2QiPqO8o+2rtJAJbaWJrxgez
- Uqz3WcUwYSDO1J7HKtW+eKzs4m+qMmOEhVqdqg8oZWIEzuZSTtOVgpKWKm7l48J6EV77
- fEOA==
-X-Gm-Message-State: APjAAAWlYLa4R0j0g4NvU/t9L27p/bAX5GkbyPegiDpUemaHrKb5QtAw
- uDsmQk/EtUQw3UH9ZUhkVQ==
-X-Google-Smtp-Source: APXvYqxkWG8AeF8EXXnGTWZ4IdGe6xCc6yw9d5YQpXCkxvBsnWb6O8ACMvnxGdINcohg5IvNyDKtDQ==
-X-Received: by 2002:a05:6830:4ca:: with SMTP id
- s10mr11737763otd.268.1579793404638; 
- Thu, 23 Jan 2020 07:30:04 -0800 (PST)
-Received: from rob-hp-laptop (24-155-109-49.dyn.grandenetworks.net.
- [24.155.109.49])
- by smtp.gmail.com with ESMTPSA id p24sm891368oth.28.2020.01.23.07.30.03
- (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Thu, 23 Jan 2020 07:30:04 -0800 (PST)
-Received: (nullmailer pid 12956 invoked by uid 1000);
- Thu, 23 Jan 2020 15:30:02 -0000
-Date: Thu, 23 Jan 2020 09:30:02 -0600
-From: Rob Herring <robh@kernel.org>
-To: Olivier Moysan <olivier.moysan@st.com>
-Message-ID: <20200123153002.GA14241@bogus>
-References: <20200123083432.21997-1-olivier.moysan@st.com>
+ Thu, 23 Jan 2020 16:13:29 +0000 (UTC)
+Received: from pps.filterd (m0046661.ppops.net [127.0.0.1])
+ by mx07-00178001.pphosted.com (8.16.0.42/8.16.0.42) with SMTP id
+ 00NFve58031431; Thu, 23 Jan 2020 17:13:19 +0100
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=st.com;
+ h=from : to : cc : subject
+ : date : message-id : mime-version : content-type; s=STMicroelectronics;
+ bh=r/6c10V8HCc+Fjz5JnvPVy9a3NtCwRdREVfF/KVqSgI=;
+ b=mflejtxGm2ZsR5E0/hbbcq1Oo447wSLkEP+G3mDuj0rX49pqJ9zqYU2mwjm4xrX2jvJr
+ KrCUGIzhfBYBAb0++x80C6DT4bOeLYpQq2g+8LDYfFC9FW9kI2vPeUBK80s6jiiR4Pov
+ QCwBti+In5y6kpMIirp/8v8Kum09D+GcHq7aWQzY09tXJheXLZkHs7+TieIPnUwxrRi0
+ bpBT+2ejWoA/Fnc3r2zjRTnAjOgCF6Rk6kZSs+KC0nwSomLvEH4crhh7pC2z+m/BIRX7
+ WDi4sNaWAJd6d2tO3RigPp3atGuzGONQD6tt9HmP/uAk6Fd+JI6I/A0Tf1bmSBycgjxW kA== 
+Received: from beta.dmz-eu.st.com (beta.dmz-eu.st.com [164.129.1.35])
+ by mx07-00178001.pphosted.com with ESMTP id 2xksspaynq-1
+ (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
+ Thu, 23 Jan 2020 17:13:19 +0100
+Received: from euls16034.sgp.st.com (euls16034.sgp.st.com [10.75.44.20])
+ by beta.dmz-eu.st.com (STMicroelectronics) with ESMTP id 457BF100038;
+ Thu, 23 Jan 2020 17:13:16 +0100 (CET)
+Received: from Webmail-eu.st.com (sfhdag3node2.st.com [10.75.127.8])
+ by euls16034.sgp.st.com (STMicroelectronics) with ESMTP id 290DF2BC7D5;
+ Thu, 23 Jan 2020 17:13:16 +0100 (CET)
+Received: from localhost (10.75.127.49) by SFHDAG3NODE2.st.com (10.75.127.8)
+ with Microsoft SMTP Server (TLS) id 15.0.1347.2; Thu, 23 Jan 2020 17:13:15
+ +0100
+From: Alain Volmat <alain.volmat@st.com>
+To: <wsa@the-dreams.de>, <robh+dt@kernel.org>
+Date: Thu, 23 Jan 2020 17:12:45 +0100
+Message-ID: <1579795970-22319-1-git-send-email-alain.volmat@st.com>
+X-Mailer: git-send-email 2.7.4
 MIME-Version: 1.0
-Content-Disposition: inline
-In-Reply-To: <20200123083432.21997-1-olivier.moysan@st.com>
-User-Agent: Mutt/1.10.1 (2018-07-13)
+X-Originating-IP: [10.75.127.49]
+X-ClientProxiedBy: SFHDAG2NODE3.st.com (10.75.127.6) To SFHDAG3NODE2.st.com
+ (10.75.127.8)
+X-Proofpoint-Virus-Version: vendor=fsecure engine=2.50.10434:6.0.138, 18.0.572
+ definitions=2020-01-23_08:2020-01-23,
+ 2020-01-23 signatures=0
 Cc: mark.rutland@arm.com, devicetree@vger.kernel.org,
- alsa-devel@alsa-project.org, lars@metafoo.de, pmeerw@pmeerw.net,
- fabrice.gasnier@st.com, linux-iio@vger.kernel.org,
- linux-kernel@vger.kernel.org, tiwai@suse.com, lgirdwood@gmail.com,
- broonie@kernel.org, linux-arm-kernel@lists.infradead.org,
- mcoquelin.stm32@gmail.com, knaack.h@gmx.de, perex@perex.cz,
- linux-stm32@st-md-mailman.stormreply.com, jic23@kernel.org
-Subject: Re: [Linux-stm32] [PATCH] dt-bindings: stm32: convert dfsdm to
-	json-schema
+ linux-kernel@vger.kernel.org, pierre-yves.mordret@st.com, alain.volmat@st.com,
+ linux-i2c@vger.kernel.org, mcoquelin.stm32@gmail.com, fabrice.gasnier@st.com,
+ linux-stm32@st-md-mailman.stormreply.com, linux-arm-kernel@lists.infradead.org
+Subject: [Linux-stm32] [PATCH 0/5] i2c: i2c-stm32f7: enhance FastModePlus
+	support
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -75,39 +73,27 @@ Content-Transfer-Encoding: 7bit
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
-On Thu, Jan 23, 2020 at 09:34:31AM +0100, Olivier Moysan wrote:
-> Convert the STM32 DFSDM bindings to DT schema format
-> using json-schema.
-> 
-> Signed-off-by: Olivier Moysan <olivier.moysan@st.com>
-> ---
-> The DT check still returns some warnings on this bindings:
-> dfsdm@4400d000: filter@4: 'st,adc-channels' is a required property
-> dfsdm@4400d000: filter@5: 'st,adc-channels' is a required property ...
-> 
-> These warnings occur because some disabled nodes do not provides the
-> required properties. These nodes are included from SoC DT,
-> and do not provides by default the properties which are board dependent.
+This serie enhance Fast Mode Plus support in the i2c-stm32f7 driver
+(support suspend/resume) and add the support for the stm32mp15 SoC
+that has new syscfg bits.
 
-We handle disabled nodes, but not when they are child nodes.
+Alain Volmat (5):
+  i2c: i2c-stm32f7: disable/restore Fast Mode Plus bits in low power
+    modes
+  dt-bindings: i2c: i2c-stm32f7: add st,stm32mp15-i2c compatible
+  i2c: i2c-stm32f7: add a new st,stm32mp15-i2c compatible
+  ARM: dts: stm32: use st,stm32mp15-i2c compatible for stm32mp151
+  ARM: dts: stm32: add Fast Mode Plus info in I2C nodes of stm32mp151
 
-> As workaround in DFSDM yaml bindings, the properties
-> (like st,adc-channels) could be defined as required,
-> only for the nodes which are in enabled state.
+ .../devicetree/bindings/i2c/st,stm32-i2c.yaml      |  6 +-
+ arch/arm/boot/dts/stm32mp151.dtsi                  | 18 ++++--
+ drivers/i2c/busses/i2c-stm32f7.c                   | 75 +++++++++++++++++++---
+ 3 files changed, 83 insertions(+), 16 deletions(-)
 
-We should handle this in the tooling, not the schemas. I entered an 
-issue to track this[1].
+-- 
+2.7.4
 
-> ---
->  .../bindings/iio/adc/st,stm32-dfsdm-adc.txt   | 135 -------
->  .../bindings/iio/adc/st,stm32-dfsdm-adc.yaml  | 332 ++++++++++++++++++
->  2 files changed, 332 insertions(+), 135 deletions(-)
->  delete mode 100644 Documentation/devicetree/bindings/iio/adc/st,stm32-dfsdm-adc.txt
->  create mode 100644 Documentation/devicetree/bindings/iio/adc/st,stm32-dfsdm-adc.yaml
 
-Applied.
-
-[1] https://github.com/devicetree-org/dt-schema/issues/32
 _______________________________________________
 Linux-stm32 mailing list
 Linux-stm32@st-md-mailman.stormreply.com
