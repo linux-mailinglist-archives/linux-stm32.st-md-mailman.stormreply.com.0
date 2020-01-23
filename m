@@ -2,61 +2,80 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id B208214646E
-	for <lists+linux-stm32@lfdr.de>; Thu, 23 Jan 2020 10:22:53 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 8D3A81464CB
+	for <lists+linux-stm32@lfdr.de>; Thu, 23 Jan 2020 10:47:36 +0100 (CET)
 Received: from ip-172-31-3-76.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 6C43EC36B0C;
-	Thu, 23 Jan 2020 09:22:53 +0000 (UTC)
-Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
- (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
- (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 1CA5DC36B0A
- for <linux-stm32@st-md-mailman.stormreply.com>;
- Thu, 23 Jan 2020 09:22:52 +0000 (UTC)
-Received: from disco-boy.misterjones.org (disco-boy.misterjones.org
- [51.254.78.96])
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 3E1A6C36B0C;
+	Thu, 23 Jan 2020 09:47:36 +0000 (UTC)
+Received: from mx07-00178001.pphosted.com (mx07-00178001.pphosted.com
+ [62.209.51.94])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by mail.kernel.org (Postfix) with ESMTPSA id 8441C2087E;
- Thu, 23 Jan 2020 09:22:50 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
- s=default; t=1579771370;
- bh=Xa1jc12GgD3XPZe27C61UKhYiyg5L/iwg/AywK3fLUA=;
- h=Date:From:To:Cc:Subject:In-Reply-To:References:From;
- b=jLgG9/3N8q68uP1c9+dSMq6VuxSeYlnzoIho+5lvZj7fF36gwgdet6z7aRhp6JM1E
- R54tasc6mYqhQbi6UbhGnVharSGjTtTqpbJ8yk3XSVXQPPfm1o/w2pdoExNqJE4q6Z
- Au2XLYHBRWa2mylLRSjQw5smkRBL+IK78zGn7ruI=
-Received: from disco-boy.misterjones.org ([51.254.78.96] helo=www.loen.fr)
- by disco-boy.misterjones.org with esmtpsa
- (TLS1.2:ECDHE_RSA_AES_128_GCM_SHA256:128) (Exim 4.92)
- (envelope-from <maz@kernel.org>)
- id 1iuYhM-000uYp-S9; Thu, 23 Jan 2020 09:22:48 +0000
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 77B50C36B0A
+ for <linux-stm32@st-md-mailman.stormreply.com>;
+ Thu, 23 Jan 2020 09:47:33 +0000 (UTC)
+Received: from pps.filterd (m0046037.ppops.net [127.0.0.1])
+ by mx07-00178001.pphosted.com (8.16.0.42/8.16.0.42) with SMTP id
+ 00N9gOWP010714; Thu, 23 Jan 2020 10:47:23 +0100
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=st.com;
+ h=from : to : subject :
+ date : message-id : references : in-reply-to : content-type : content-id :
+ content-transfer-encoding : mime-version; s=STMicroelectronics;
+ bh=Ee7JMj7P+X5t7prD9iCwmR1WOo33+7cFo6FcbCsMCJ0=;
+ b=xQPBD8LpTOT3PNBUf9BdGOqZAV3UF1PoCJjUGHSieHQPAoqmwsc9NSJ09hrN/siaw+Yj
+ cvg3bXXIFO1ezQGu+UfKjh/8d6f2x3EH7kl2LhznyFzcy/5+MIvfke8WWTRL2nW1cehf
+ cQg81nOJP5brp/pkBlgOkaP67YZh/itlOkoxZWCHf8J5rMRenMnimT68swHzJ83XKEFJ
+ r3okRzqD/hT5Fm8XFBdEsaKIVeA/TddOWI4FVKvHPJut9XFLAP5qKzcaOh21TI+QOjl+
+ I4cLR9WHfTpCZKbkEiopp5uJk3wQKEN0P+4xsLzu+6OpPXw3+vBHqQYPgDcggn81JawK iQ== 
+Received: from beta.dmz-eu.st.com (beta.dmz-eu.st.com [164.129.1.35])
+ by mx07-00178001.pphosted.com with ESMTP id 2xkrp2hdt5-1
+ (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
+ Thu, 23 Jan 2020 10:47:23 +0100
+Received: from euls16034.sgp.st.com (euls16034.sgp.st.com [10.75.44.20])
+ by beta.dmz-eu.st.com (STMicroelectronics) with ESMTP id D39B610002A;
+ Thu, 23 Jan 2020 10:47:22 +0100 (CET)
+Received: from Webmail-eu.st.com (sfhdag3node3.st.com [10.75.127.9])
+ by euls16034.sgp.st.com (STMicroelectronics) with ESMTP id 97F9121FEBF;
+ Thu, 23 Jan 2020 10:47:22 +0100 (CET)
+Received: from SFHDAG6NODE3.st.com (10.75.127.18) by SFHDAG3NODE3.st.com
+ (10.75.127.9) with Microsoft SMTP Server (TLS) id 15.0.1347.2; Thu, 23 Jan
+ 2020 10:47:22 +0100
+Received: from SFHDAG6NODE3.st.com ([fe80::d04:5337:ab17:b6f6]) by
+ SFHDAG6NODE3.st.com ([fe80::d04:5337:ab17:b6f6%20]) with mapi id
+ 15.00.1473.003; Thu, 23 Jan 2020 10:47:22 +0100
+From: Philippe CORNU <philippe.cornu@st.com>
+To: Yannick FERTRE <yannick.fertre@st.com>, Benjamin GAIGNARD
+ <benjamin.gaignard@st.com>, David Airlie <airlied@linux.ie>, Daniel Vetter
+ <daniel@ffwll.ch>, Maxime Coquelin <mcoquelin.stm32@gmail.com>, "Alexandre
+ TORGUE" <alexandre.torgue@st.com>, "dri-devel@lists.freedesktop.org"
+ <dri-devel@lists.freedesktop.org>,
+ "linux-stm32@st-md-mailman.stormreply.com"
+ <linux-stm32@st-md-mailman.stormreply.com>,
+ "linux-arm-kernel@lists.infradead.org"
+ <linux-arm-kernel@lists.infradead.org>, "linux-kernel@vger.kernel.org"
+ <linux-kernel@vger.kernel.org>
+Thread-Topic: [PATCH] drm/stm: ltdc: enable/disable depends on encoder
+Thread-Index: AQHVz5gWDqh+tSb29kCN+B0hu2GdDKf39EOA
+Date: Thu, 23 Jan 2020 09:47:22 +0000
+Message-ID: <69cced11-c30a-da6c-0465-79b632901b62@st.com>
+References: <1579528013-28445-1-git-send-email-yannick.fertre@st.com>
+In-Reply-To: <1579528013-28445-1-git-send-email-yannick.fertre@st.com>
+Accept-Language: fr-FR, en-US
+Content-Language: en-US
+X-MS-Has-Attach: 
+X-MS-TNEF-Correlator: 
+user-agent: Mozilla/5.0 (X11; Linux x86_64; rv:68.0) Gecko/20100101
+ Thunderbird/68.4.1
+x-ms-exchange-messagesentrepresentingtype: 1
+x-ms-exchange-transport-fromentityheader: Hosted
+x-originating-ip: [10.75.127.51]
+Content-ID: <752BB9EC20A560488E65BA0D876A022B@st.com>
 MIME-Version: 1.0
-Date: Thu, 23 Jan 2020 09:22:48 +0000
-From: Marc Zyngier <maz@kernel.org>
-To: Alexandre Torgue <alexandre.torgue@st.com>
-In-Reply-To: <360b1adc-32f1-7993-c463-e52c7a5a8a67@st.com>
-References: <20bb72d0-8258-abc0-e729-4d3d5a75c41c@denx.de>
- <d6e02817-2464-51b9-246a-7720b607b8d6@st.com>
- <65a1c5b2-c1b9-322f-338c-e6ff6379d8d1@denx.de>
- <129d04a0-c846-506d-5726-4a1024d977a6@st.com>
- <80db762c-3b3d-f007-2f9b-dadbffd95782@denx.de>
- <360b1adc-32f1-7993-c463-e52c7a5a8a67@st.com>
-Message-ID: <c4f08f59acd31951527ef1d6e9409e6f@kernel.org>
-X-Sender: maz@kernel.org
-User-Agent: Roundcube Webmail/1.3.8
-X-SA-Exim-Connect-IP: 51.254.78.96
-X-SA-Exim-Rcpt-To: alexandre.torgue@st.com, marex@denx.de,
- linux-arm-kernel@lists.infradead.org, linux-stm32@st-md-mailman.stormreply.com,
- mcoquelin.stm32@gmail.com, patrick.delaunay@st.com
-X-SA-Exim-Mail-From: maz@kernel.org
-X-SA-Exim-Scanned: No (on disco-boy.misterjones.org);
- SAEximRunCond expanded to false
-Cc: Marek Vasut <marex@denx.de>, Maxime Coquelin <mcoquelin.stm32@gmail.com>,
- Patrick Delaunay <patrick.delaunay@st.com>,
- linux-stm32@st-md-mailman.stormreply.com,
- Linux ARM <linux-arm-kernel@lists.infradead.org>
-Subject: Re: [Linux-stm32] STM32MP1 level triggered interrupts
+X-Proofpoint-Virus-Version: vendor=fsecure engine=2.50.10434:6.0.138, 18.0.572
+ definitions=2020-01-23_01:2020-01-23,
+ 2020-01-22 signatures=0
+Subject: Re: [Linux-stm32] [PATCH] drm/stm: ltdc: enable/disable depends on
+	encoder
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -68,64 +87,59 @@ List-Post: <mailto:linux-stm32@st-md-mailman.stormreply.com>
 List-Help: <mailto:linux-stm32-request@st-md-mailman.stormreply.com?subject=help>
 List-Subscribe: <https://st-md-mailman.stormreply.com/mailman/listinfo/linux-stm32>, 
  <mailto:linux-stm32-request@st-md-mailman.stormreply.com?subject=subscribe>
-Content-Transfer-Encoding: 7bit
-Content-Type: text/plain; charset="us-ascii"; Format="flowed"
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: base64
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
-On 2020-01-23 08:27, Alexandre Torgue wrote:
-> On 1/22/20 8:29 PM, Marek Vasut wrote:
->> On 1/22/20 6:19 PM, Alexandre Torgue wrote:
->> 
->> Hi,
->> 
->> [...]
->> 
->>>>> Concerning, your question:
->>>>> 
->>>>> Setting your gpioC interruption as "falling edge" should be enough. 
->>>>> On
->>>>> gpioCx falling edge, a high-level signal is generated by exti and 
->>>>> sent
->>>>> to GIC (which triggers GIC interrupt). This signal remains high 
->>>>> until
->>>>> stm32_irq_ack is called.
->>>>> 
->>>>> So you only need: (ex for gpioc 1).
->>>>> 
->>>>> interrupt-parent = <&gpioc>;
->>>>> interrupts = <1 IRQ_TYPE_EDGE_FALLING>;
->>>> 
->>>> How does this deal with the case where the device holds the 
->>>> interrupt
->>>> line low (since it's level-sensitive, active low) after the driver
->>>> interrupt handler finishes ? Does such condition generate another
->>>> interrupt and call the driver interrupt handler again ? I would 
->>>> expect
->>>> the answer is no, because the interrupt is edge-triggered and there 
->>>> is
->>>> no edge.
->>> 
->>> Your assumption is good. If your device continue to hold the line to 
->>> low
->>> at the end of your interrupt handler, no more interrupt will be 
->>> generated.
->> 
->> But does that basically mean that such a device cannot be used with
->> STM32MP1 or am I fundamentally mistaken and don't understand how a
->> level-triggered interrupt works ? :)
-> 
-> You need to release the line in your device interrupt handler. If not,
-> yes, you will miss interrupts :$
-
-So to sum it up, this SoC doesn't support external level interrupts
-on its own, full stop. You'd need some additional external sampling
-HW to retrigger an edge on EOI.
-
-         M.
--- 
-Jazz is not dead. It just smells funny...
-_______________________________________________
-Linux-stm32 mailing list
-Linux-stm32@st-md-mailman.stormreply.com
-https://st-md-mailman.stormreply.com/mailman/listinfo/linux-stm32
+RGVhciBZYW5uaWNrLA0KVGhhbmsgeW91IGZvciB5b3VyIHBhdGNoLA0KDQpBY2tlZC1ieTogUGhp
+bGlwcGUgQ29ybnUgPHBoaWxpcHBlLmNvcm51QHN0LmNvbT4NCg0KUGhpbGlwcGUgOi0pDQoNCk9u
+IDEvMjAvMjAgMjo0NiBQTSwgWWFubmljayBGZXJ0cmUgd3JvdGU6DQo+IEZyb206IFlhbm5pY2sg
+RmVydHLDqSA8eWFubmljay5mZXJ0cmVAc3QuY29tPg0KPiANCj4gV2hlbiBjb25uZWN0ZWQgdG8g
+YSBkc2kgaG9zdCwgdGhlIGx0ZGMgZGlzcGxheSBjb250cm9sbGVyDQo+IG11c3Qgc2VuZCBmcmFt
+ZXMgb25seSBhZnRlciB0aGUgZW5kIG9mIHRoZSBkc2kgcGFuZWwNCj4gaW5pdGlhbGl6YXRpb24g
+dG8gYXZvaWQgZXJyb3JzIHdoZW4gdGhlIGRzaSBob3N0IHNlbmRzDQo+IGNvbW1hbmRzIHRvIHRo
+ZSBkc2kgcGFuZWwgKGRzaSBweCBmaWZvIGZ1bGwpLg0KPiBUbyBhdm9pZCB0aGlzIGlzc3VlLCB0
+aGUgZGlzcGxheSBjb250cm9sbGVyIG11c3QgYmUNCj4gZW5hYmxlZC9kaXNhYmxlZCB3aGVuIHRo
+ZSBlbmNvZGVyIGlzIGVuYWJsZWQvZGlzYWJsZWQuDQo+IA0KPiBTaWduZWQtb2ZmLWJ5OiBZYW5u
+aWNrIEZlcnRyw6kgPHlhbm5pY2suZmVydHJlQHN0LmNvbT4NCj4gLS0tDQo+ICAgZHJpdmVycy9n
+cHUvZHJtL3N0bS9sdGRjLmMgfCAxNCArKysrKysrKy0tLS0tLQ0KPiAgIDEgZmlsZSBjaGFuZ2Vk
+LCA4IGluc2VydGlvbnMoKyksIDYgZGVsZXRpb25zKC0pDQo+IA0KPiBkaWZmIC0tZ2l0IGEvZHJp
+dmVycy9ncHUvZHJtL3N0bS9sdGRjLmMgYi9kcml2ZXJzL2dwdS9kcm0vc3RtL2x0ZGMuYw0KPiBp
+bmRleCA3MTlkZmM1Li45ZWYxMjVkIDEwMDY0NA0KPiAtLS0gYS9kcml2ZXJzL2dwdS9kcm0vc3Rt
+L2x0ZGMuYw0KPiArKysgYi9kcml2ZXJzL2dwdS9kcm0vc3RtL2x0ZGMuYw0KPiBAQCAtNDM3LDkg
+KzQzNyw2IEBAIHN0YXRpYyB2b2lkIGx0ZGNfY3J0Y19hdG9taWNfZW5hYmxlKHN0cnVjdCBkcm1f
+Y3J0YyAqY3J0YywNCj4gICAJLyogQ29tbWl0IHNoYWRvdyByZWdpc3RlcnMgPSB1cGRhdGUgcGxh
+bmVzIGF0IG5leHQgdmJsYW5rICovDQo+ICAgCXJlZ19zZXQobGRldi0+cmVncywgTFREQ19TUkNS
+LCBTUkNSX1ZCUik7DQo+ICAgDQo+IC0JLyogRW5hYmxlIExUREMgKi8NCj4gLQlyZWdfc2V0KGxk
+ZXYtPnJlZ3MsIExURENfR0NSLCBHQ1JfTFREQ0VOKTsNCj4gLQ0KPiAgIAlkcm1fY3J0Y192Ymxh
+bmtfb24oY3J0Yyk7DQo+ICAgfQ0KPiAgIA0KPiBAQCAtNDUzLDkgKzQ1MCw2IEBAIHN0YXRpYyB2
+b2lkIGx0ZGNfY3J0Y19hdG9taWNfZGlzYWJsZShzdHJ1Y3QgZHJtX2NydGMgKmNydGMsDQo+ICAg
+DQo+ICAgCWRybV9jcnRjX3ZibGFua19vZmYoY3J0Yyk7DQo+ICAgDQo+IC0JLyogZGlzYWJsZSBM
+VERDICovDQo+IC0JcmVnX2NsZWFyKGxkZXYtPnJlZ3MsIExURENfR0NSLCBHQ1JfTFREQ0VOKTsN
+Cj4gLQ0KPiAgIAkvKiBkaXNhYmxlIElSUSAqLw0KPiAgIAlyZWdfY2xlYXIobGRldi0+cmVncywg
+TFREQ19JRVIsIElFUl9SUklFIHwgSUVSX0ZVSUUgfCBJRVJfVEVSUklFKTsNCj4gICANCj4gQEAg
+LTEwNTgsOSArMTA1MiwxMyBAQCBzdGF0aWMgY29uc3Qgc3RydWN0IGRybV9lbmNvZGVyX2Z1bmNz
+IGx0ZGNfZW5jb2Rlcl9mdW5jcyA9IHsNCj4gICBzdGF0aWMgdm9pZCBsdGRjX2VuY29kZXJfZGlz
+YWJsZShzdHJ1Y3QgZHJtX2VuY29kZXIgKmVuY29kZXIpDQo+ICAgew0KPiAgIAlzdHJ1Y3QgZHJt
+X2RldmljZSAqZGRldiA9IGVuY29kZXItPmRldjsNCj4gKwlzdHJ1Y3QgbHRkY19kZXZpY2UgKmxk
+ZXYgPSBkZGV2LT5kZXZfcHJpdmF0ZTsNCj4gICANCj4gICAJRFJNX0RFQlVHX0RSSVZFUigiXG4i
+KTsNCj4gICANCj4gKwkvKiBEaXNhYmxlIExUREMgKi8NCj4gKwlyZWdfY2xlYXIobGRldi0+cmVn
+cywgTFREQ19HQ1IsIEdDUl9MVERDRU4pOw0KPiArDQo+ICAgCS8qIFNldCB0byBzbGVlcCBzdGF0
+ZSB0aGUgcGluY3RybCB3aGF0ZXZlciB0eXBlIG9mIGVuY29kZXIgKi8NCj4gICAJcGluY3RybF9w
+bV9zZWxlY3Rfc2xlZXBfc3RhdGUoZGRldi0+ZGV2KTsNCj4gICB9DQo+IEBAIC0xMDY4LDYgKzEw
+NjYsNyBAQCBzdGF0aWMgdm9pZCBsdGRjX2VuY29kZXJfZGlzYWJsZShzdHJ1Y3QgZHJtX2VuY29k
+ZXIgKmVuY29kZXIpDQo+ICAgc3RhdGljIHZvaWQgbHRkY19lbmNvZGVyX2VuYWJsZShzdHJ1Y3Qg
+ZHJtX2VuY29kZXIgKmVuY29kZXIpDQo+ICAgew0KPiAgIAlzdHJ1Y3QgZHJtX2RldmljZSAqZGRl
+diA9IGVuY29kZXItPmRldjsNCj4gKwlzdHJ1Y3QgbHRkY19kZXZpY2UgKmxkZXYgPSBkZGV2LT5k
+ZXZfcHJpdmF0ZTsNCj4gICANCj4gICAJRFJNX0RFQlVHX0RSSVZFUigiXG4iKTsNCj4gICANCj4g
+QEAgLTEwNzgsNiArMTA3Nyw5IEBAIHN0YXRpYyB2b2lkIGx0ZGNfZW5jb2Rlcl9lbmFibGUoc3Ry
+dWN0IGRybV9lbmNvZGVyICplbmNvZGVyKQ0KPiAgIAkgKi8NCj4gICAJaWYgKGVuY29kZXItPmVu
+Y29kZXJfdHlwZSA9PSBEUk1fTU9ERV9FTkNPREVSX0RQSSkNCj4gICAJCXBpbmN0cmxfcG1fc2Vs
+ZWN0X2RlZmF1bHRfc3RhdGUoZGRldi0+ZGV2KTsNCj4gKw0KPiArCS8qIEVuYWJsZSBMVERDICov
+DQo+ICsJcmVnX3NldChsZGV2LT5yZWdzLCBMVERDX0dDUiwgR0NSX0xURENFTik7DQo+ICAgfQ0K
+PiAgIA0KPiAgIHN0YXRpYyBjb25zdCBzdHJ1Y3QgZHJtX2VuY29kZXJfaGVscGVyX2Z1bmNzIGx0
+ZGNfZW5jb2Rlcl9oZWxwZXJfZnVuY3MgPSB7DQo+IApfX19fX19fX19fX19fX19fX19fX19fX19f
+X19fX19fX19fX19fX19fX19fX19fXwpMaW51eC1zdG0zMiBtYWlsaW5nIGxpc3QKTGludXgtc3Rt
+MzJAc3QtbWQtbWFpbG1hbi5zdG9ybXJlcGx5LmNvbQpodHRwczovL3N0LW1kLW1haWxtYW4uc3Rv
+cm1yZXBseS5jb20vbWFpbG1hbi9saXN0aW5mby9saW51eC1zdG0zMgo=
