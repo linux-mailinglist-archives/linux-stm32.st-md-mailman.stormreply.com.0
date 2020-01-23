@@ -2,61 +2,63 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id 30708146B8F
-	for <lists+linux-stm32@lfdr.de>; Thu, 23 Jan 2020 15:43:31 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 6CD5F146CD7
+	for <lists+linux-stm32@lfdr.de>; Thu, 23 Jan 2020 16:30:10 +0100 (CET)
 Received: from ip-172-31-3-76.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id F02DAC36B0C;
-	Thu, 23 Jan 2020 14:43:30 +0000 (UTC)
-Received: from mail-oi1-f194.google.com (mail-oi1-f194.google.com
- [209.85.167.194])
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 2AC73C36B0C;
+	Thu, 23 Jan 2020 15:30:10 +0000 (UTC)
+Received: from mail-ot1-f68.google.com (mail-ot1-f68.google.com
+ [209.85.210.68])
  (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id D0C5AC36B0A
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 7DF8CC36B0A
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Thu, 23 Jan 2020 14:43:28 +0000 (UTC)
-Received: by mail-oi1-f194.google.com with SMTP id l9so3096309oii.5
+ Thu, 23 Jan 2020 15:30:06 +0000 (UTC)
+Received: by mail-ot1-f68.google.com with SMTP id w21so3085901otj.7
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Thu, 23 Jan 2020 06:43:28 -0800 (PST)
+ Thu, 23 Jan 2020 07:30:05 -0800 (PST)
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=1e100.net; s=20161025;
  h=x-gm-message-state:date:from:to:cc:subject:message-id:references
  :mime-version:content-disposition:in-reply-to:user-agent;
- bh=7SayZJgIXHjCdU3TAFI8Ocs5cvmGh8wgxSjfDXiqUmU=;
- b=D9ZX/V/sSGrYmOivmeGP42spZbnxXUraaCgTKyKmyJQpVx6vwqdLW0L8ngHYw4Jz2k
- A9n3OhQ5G50ft92cgXGDpO2d7CQI5ZB0/RGJerhI7tDH5W6PJawEfKbiKtl+fwBlwXBc
- kraO3fk3+KQ0J22kDF/GBqtMDFnOIeLw45+FJN0FZjU+litc7OpBAdR9/sQM+eC4HsMw
- 4i6E7vOkcR86p9R01gM0JiOzfwD8GN02WPZEGqomlQbE8WX6/6NFkTT0gOQk+nPQG2FA
- ipAVA9vFw5m6vuAFOCG0jMi6/Bpp5WLrSvdKHdJS33OVhddj1St4DPhN8PkNZWlzJ25G
- SLAg==
-X-Gm-Message-State: APjAAAWzuIZBW9q0j1DTYFOhEpBZvz7HHpKmzVMvPqB+ZoLzBFO6Z5Me
- 2D1l2t0S6N7s7JV4xjpIOQ==
-X-Google-Smtp-Source: APXvYqzGbdY9oCHH7SiwtERsp5ylmchXaof2S8Eo3kpOm01m82P1WOVc0ecY+Jf3C0L3OyPvAH5Kzg==
-X-Received: by 2002:aca:1c1a:: with SMTP id c26mr10845348oic.75.1579790607604; 
- Thu, 23 Jan 2020 06:43:27 -0800 (PST)
+ bh=YHqBGj/ukTPkl69zvdBgkmcYaLWB1N0Qj6YD43sxU/8=;
+ b=fUwG6gjZNRF7DeAeFNjggun4C5zwun079dqG7fhpnv+QODgkdyuU55FYhERUCvpon3
+ J1laIuRWhofqShBcW2MKa+ZsSSN45f2BMbCv1estbpDvuzd3+Sl5rgrv1moLWWuIzv2a
+ fL5Ho32ubBsolP5cdHQzHtqlK2bkiyBINLnLz8ozB33gl0aTmS4OfsYSn/gfwyE4zRzs
+ q/JsYXf4lwip8xnz1ANIh30FBvPl3DmFiRwSN7eOt62i2QiPqO8o+2rtJAJbaWJrxgez
+ Uqz3WcUwYSDO1J7HKtW+eKzs4m+qMmOEhVqdqg8oZWIEzuZSTtOVgpKWKm7l48J6EV77
+ fEOA==
+X-Gm-Message-State: APjAAAWlYLa4R0j0g4NvU/t9L27p/bAX5GkbyPegiDpUemaHrKb5QtAw
+ uDsmQk/EtUQw3UH9ZUhkVQ==
+X-Google-Smtp-Source: APXvYqxkWG8AeF8EXXnGTWZ4IdGe6xCc6yw9d5YQpXCkxvBsnWb6O8ACMvnxGdINcohg5IvNyDKtDQ==
+X-Received: by 2002:a05:6830:4ca:: with SMTP id
+ s10mr11737763otd.268.1579793404638; 
+ Thu, 23 Jan 2020 07:30:04 -0800 (PST)
 Received: from rob-hp-laptop (24-155-109-49.dyn.grandenetworks.net.
  [24.155.109.49])
- by smtp.gmail.com with ESMTPSA id s6sm849207otd.72.2020.01.23.06.43.26
+ by smtp.gmail.com with ESMTPSA id p24sm891368oth.28.2020.01.23.07.30.03
  (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Thu, 23 Jan 2020 06:43:26 -0800 (PST)
-Received: (nullmailer pid 12444 invoked by uid 1000);
- Thu, 23 Jan 2020 14:43:26 -0000
-Date: Thu, 23 Jan 2020 08:43:26 -0600
+ Thu, 23 Jan 2020 07:30:04 -0800 (PST)
+Received: (nullmailer pid 12956 invoked by uid 1000);
+ Thu, 23 Jan 2020 15:30:02 -0000
+Date: Thu, 23 Jan 2020 09:30:02 -0600
 From: Rob Herring <robh@kernel.org>
-To: Benjamin Gaignard <benjamin.gaignard@st.com>
-Message-ID: <20200123144326.GA12392@bogus>
-References: <20200122095558.22553-1-benjamin.gaignard@st.com>
- <20200122095558.22553-3-benjamin.gaignard@st.com>
+To: Olivier Moysan <olivier.moysan@st.com>
+Message-ID: <20200123153002.GA14241@bogus>
+References: <20200123083432.21997-1-olivier.moysan@st.com>
 MIME-Version: 1.0
 Content-Disposition: inline
-In-Reply-To: <20200122095558.22553-3-benjamin.gaignard@st.com>
+In-Reply-To: <20200123083432.21997-1-olivier.moysan@st.com>
 User-Agent: Mutt/1.10.1 (2018-07-13)
 Cc: mark.rutland@arm.com, devicetree@vger.kernel.org,
- gregkh@linuxfoundation.org, linux-kernel@vger.kernel.org, robh+dt@kernel.org,
- mcoquelin.stm32@gmail.com, linux-serial@vger.kernel.org,
- fabrice.gasnier@st.com, linux-stm32@st-md-mailman.stormreply.com,
- linux-arm-kernel@lists.infradead.org
-Subject: Re: [Linux-stm32] [PATCH v2 2/2] dt-bindings: serial: Convert STM32
- UART to json-schema
+ alsa-devel@alsa-project.org, lars@metafoo.de, pmeerw@pmeerw.net,
+ fabrice.gasnier@st.com, linux-iio@vger.kernel.org,
+ linux-kernel@vger.kernel.org, tiwai@suse.com, lgirdwood@gmail.com,
+ broonie@kernel.org, linux-arm-kernel@lists.infradead.org,
+ mcoquelin.stm32@gmail.com, knaack.h@gmx.de, perex@perex.cz,
+ linux-stm32@st-md-mailman.stormreply.com, jic23@kernel.org
+Subject: Re: [Linux-stm32] [PATCH] dt-bindings: stm32: convert dfsdm to
+	json-schema
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -73,21 +75,39 @@ Content-Transfer-Encoding: 7bit
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
-On Wed, 22 Jan 2020 10:55:58 +0100, Benjamin Gaignard wrote:
-> Convert STM32 UART bindings to json-schema.
+On Thu, Jan 23, 2020 at 09:34:31AM +0100, Olivier Moysan wrote:
+> Convert the STM32 DFSDM bindings to DT schema format
+> using json-schema.
 > 
-> Signed-off-by: Benjamin Gaignard <benjamin.gaignard@st.com>
+> Signed-off-by: Olivier Moysan <olivier.moysan@st.com>
 > ---
->  .../devicetree/bindings/serial/st,stm32-uart.yaml  | 80 ++++++++++++++++++++++
->  .../devicetree/bindings/serial/st,stm32-usart.txt  | 57 ---------------
->  2 files changed, 80 insertions(+), 57 deletions(-)
->  create mode 100644 Documentation/devicetree/bindings/serial/st,stm32-uart.yaml
->  delete mode 100644 Documentation/devicetree/bindings/serial/st,stm32-usart.txt
+> The DT check still returns some warnings on this bindings:
+> dfsdm@4400d000: filter@4: 'st,adc-channels' is a required property
+> dfsdm@4400d000: filter@5: 'st,adc-channels' is a required property ...
 > 
+> These warnings occur because some disabled nodes do not provides the
+> required properties. These nodes are included from SoC DT,
+> and do not provides by default the properties which are board dependent.
 
-Applied, thanks.
+We handle disabled nodes, but not when they are child nodes.
 
-Rob
+> As workaround in DFSDM yaml bindings, the properties
+> (like st,adc-channels) could be defined as required,
+> only for the nodes which are in enabled state.
+
+We should handle this in the tooling, not the schemas. I entered an 
+issue to track this[1].
+
+> ---
+>  .../bindings/iio/adc/st,stm32-dfsdm-adc.txt   | 135 -------
+>  .../bindings/iio/adc/st,stm32-dfsdm-adc.yaml  | 332 ++++++++++++++++++
+>  2 files changed, 332 insertions(+), 135 deletions(-)
+>  delete mode 100644 Documentation/devicetree/bindings/iio/adc/st,stm32-dfsdm-adc.txt
+>  create mode 100644 Documentation/devicetree/bindings/iio/adc/st,stm32-dfsdm-adc.yaml
+
+Applied.
+
+[1] https://github.com/devicetree-org/dt-schema/issues/32
 _______________________________________________
 Linux-stm32 mailing list
 Linux-stm32@st-md-mailman.stormreply.com
