@@ -2,55 +2,61 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id 419AB1473B5
-	for <lists+linux-stm32@lfdr.de>; Thu, 23 Jan 2020 23:21:54 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 88E6B14795B
+	for <lists+linux-stm32@lfdr.de>; Fri, 24 Jan 2020 09:26:43 +0100 (CET)
 Received: from ip-172-31-3-76.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 0C019C36B0C;
-	Thu, 23 Jan 2020 22:21:54 +0000 (UTC)
-Received: from mail-out.m-online.net (mail-out.m-online.net [212.18.0.10])
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 3C1DAC36B0C;
+	Fri, 24 Jan 2020 08:26:43 +0000 (UTC)
+Received: from mx07-00178001.pphosted.com (mx07-00178001.pphosted.com
+ [62.209.51.94])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 85651C36B0A
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 1C18FC36B0A
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Thu, 23 Jan 2020 22:21:53 +0000 (UTC)
-Received: from frontend01.mail.m-online.net (unknown [192.168.8.182])
- by mail-out.m-online.net (Postfix) with ESMTP id 483cFY1TXrz1rVvM;
- Thu, 23 Jan 2020 23:21:53 +0100 (CET)
-Received: from localhost (dynscan1.mnet-online.de [192.168.6.70])
- by mail.m-online.net (Postfix) with ESMTP id 483cFY0g3gz1qqkW;
- Thu, 23 Jan 2020 23:21:53 +0100 (CET)
-X-Virus-Scanned: amavisd-new at mnet-online.de
-Received: from mail.mnet-online.de ([192.168.8.182])
- by localhost (dynscan1.mail.m-online.net [192.168.6.70]) (amavisd-new,
- port 10024)
- with ESMTP id Vd9BkDfx5arJ; Thu, 23 Jan 2020 23:21:52 +0100 (CET)
-X-Auth-Info: AjghCkUmegV7CIuohImDfsu5ciTaAHdczIUoMA0Lpxs=
-Received: from [IPv6:::1] (unknown [195.140.253.167])
- (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
- (No client certificate requested)
- by mail.mnet-online.de (Postfix) with ESMTPSA;
- Thu, 23 Jan 2020 23:21:51 +0100 (CET)
-To: Marc Zyngier <maz@kernel.org>, Alexandre Torgue <alexandre.torgue@st.com>
-References: <20bb72d0-8258-abc0-e729-4d3d5a75c41c@denx.de>
- <d6e02817-2464-51b9-246a-7720b607b8d6@st.com>
- <65a1c5b2-c1b9-322f-338c-e6ff6379d8d1@denx.de>
- <129d04a0-c846-506d-5726-4a1024d977a6@st.com>
- <80db762c-3b3d-f007-2f9b-dadbffd95782@denx.de>
- <360b1adc-32f1-7993-c463-e52c7a5a8a67@st.com>
- <c4f08f59acd31951527ef1d6e9409e6f@kernel.org>
-From: Marek Vasut <marex@denx.de>
-Message-ID: <ae80c911-1905-136d-56d3-5cb01d4770a4@denx.de>
-Date: Thu, 23 Jan 2020 23:21:51 +0100
-User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:60.0) Gecko/20100101
- Thunderbird/60.9.0
+ Fri, 24 Jan 2020 08:26:41 +0000 (UTC)
+Received: from pps.filterd (m0046668.ppops.net [127.0.0.1])
+ by mx07-00178001.pphosted.com (8.16.0.42/8.16.0.42) with SMTP id
+ 00O8OTl2014122; Fri, 24 Jan 2020 09:26:19 +0100
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=st.com;
+ h=from : to : cc : subject
+ : date : message-id : mime-version : content-type; s=STMicroelectronics;
+ bh=3JYauW1ZnMoc3P4fm4vLggKu8VcPTT/FhM8tD56QD7Q=;
+ b=bBs5zpcroZYlUe3fzeRIsQQ1gXtFsdFgq9HGnU5Qghc627kb+6mSZOljVJt9Yz3fZiTg
+ Hxt7SFgdwq8eVBFEp1TomOLUNcKRTralUEt9kuN+WdhX/Iy6PuW4MRs8Wy4J1gP51ISc
+ pqnBfmpfs59QYoyJ+FBkHkK6W+rMGhCg38Tqv7XVXf+BVFEgDoNSfOBl+ywieQASo20N
+ dM8lXnTsyKmbEoFxB6XeMYjQgEBx+qW7yoB8H6c70M/r1MiflBKxlcBdIJLslNfv3X2T
+ inqPSFfEFn//Nj4XAJh4orjlXmJs15OQvebp8cRqRp06N4qDqeSKWHW+GhYsxRHtV4ec PQ== 
+Received: from beta.dmz-eu.st.com (beta.dmz-eu.st.com [164.129.1.35])
+ by mx07-00178001.pphosted.com with ESMTP id 2xkrc5erw7-1
+ (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
+ Fri, 24 Jan 2020 09:26:19 +0100
+Received: from euls16034.sgp.st.com (euls16034.sgp.st.com [10.75.44.20])
+ by beta.dmz-eu.st.com (STMicroelectronics) with ESMTP id 4A92B100034;
+ Fri, 24 Jan 2020 09:26:15 +0100 (CET)
+Received: from Webmail-eu.st.com (sfhdag5node3.st.com [10.75.127.15])
+ by euls16034.sgp.st.com (STMicroelectronics) with ESMTP id 3203A20EB92;
+ Fri, 24 Jan 2020 09:26:15 +0100 (CET)
+Received: from localhost (10.75.127.45) by SFHDAG5NODE3.st.com (10.75.127.15)
+ with Microsoft SMTP Server (TLS) id 15.0.1473.3;
+ Fri, 24 Jan 2020 09:26:14 +0100
+From: Fabrice Gasnier <fabrice.gasnier@st.com>
+To: <jic23@kernel.org>
+Date: Fri, 24 Jan 2020 09:26:09 +0100
+Message-ID: <1579854369-7972-1-git-send-email-fabrice.gasnier@st.com>
+X-Mailer: git-send-email 2.7.4
 MIME-Version: 1.0
-In-Reply-To: <c4f08f59acd31951527ef1d6e9409e6f@kernel.org>
-Content-Language: en-US
-Cc: Maxime Coquelin <mcoquelin.stm32@gmail.com>,
- Patrick Delaunay <patrick.delaunay@st.com>,
- linux-stm32@st-md-mailman.stormreply.com,
- Linux ARM <linux-arm-kernel@lists.infradead.org>
-Subject: Re: [Linux-stm32] STM32MP1 level triggered interrupts
+X-Originating-IP: [10.75.127.45]
+X-ClientProxiedBy: SFHDAG2NODE2.st.com (10.75.127.5) To SFHDAG5NODE3.st.com
+ (10.75.127.15)
+X-Proofpoint-Virus-Version: vendor=fsecure engine=2.50.10434:6.0.138, 18.0.572
+ definitions=2020-01-24_02:2020-01-24,
+ 2020-01-24 signatures=0
+Cc: lars@metafoo.de, linux-iio@vger.kernel.org, pmeerw@pmeerw.net,
+ linux-kernel@vger.kernel.org, mcoquelin.stm32@gmail.com, knaack.h@gmx.de,
+ fabrice.gasnier@st.com, linux-stm32@st-md-mailman.stormreply.com,
+ linux-arm-kernel@lists.infradead.org
+Subject: [Linux-stm32] [PATCH] iio: adc: stm32-adc: fix runtime autosuspend
+	delay when slow polling
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -67,53 +73,91 @@ Content-Transfer-Encoding: 7bit
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
-On 1/23/20 10:22 AM, Marc Zyngier wrote:
-> On 2020-01-23 08:27, Alexandre Torgue wrote:
->> On 1/22/20 8:29 PM, Marek Vasut wrote:
->>> On 1/22/20 6:19 PM, Alexandre Torgue wrote:
->>>
->>> Hi,
->>>
->>> [...]
->>>
->>>>>> Concerning, your question:
->>>>>>
->>>>>> Setting your gpioC interruption as "falling edge" should be
->>>>>> enough. On
->>>>>> gpioCx falling edge, a high-level signal is generated by exti and
->>>>>> sent
->>>>>> to GIC (which triggers GIC interrupt). This signal remains high until
->>>>>> stm32_irq_ack is called.
->>>>>>
->>>>>> So you only need: (ex for gpioc 1).
->>>>>>
->>>>>> interrupt-parent = <&gpioc>;
->>>>>> interrupts = <1 IRQ_TYPE_EDGE_FALLING>;
->>>>>
->>>>> How does this deal with the case where the device holds the interrupt
->>>>> line low (since it's level-sensitive, active low) after the driver
->>>>> interrupt handler finishes ? Does such condition generate another
->>>>> interrupt and call the driver interrupt handler again ? I would expect
->>>>> the answer is no, because the interrupt is edge-triggered and there is
->>>>> no edge.
->>>>
->>>> Your assumption is good. If your device continue to hold the line to
->>>> low
->>>> at the end of your interrupt handler, no more interrupt will be
->>>> generated.
->>>
->>> But does that basically mean that such a device cannot be used with
->>> STM32MP1 or am I fundamentally mistaken and don't understand how a
->>> level-triggered interrupt works ? :)
->>
->> You need to release the line in your device interrupt handler. If not,
->> yes, you will miss interrupts :$
-> 
-> So to sum it up, this SoC doesn't support external level interrupts
-> on its own, full stop. You'd need some additional external sampling
-> HW to retrigger an edge on EOI.
+When the ADC is runtime suspended and starting a conversion, the stm32-adc
+driver calls pm_runtime_get_sync() that gets cascaded to the parent
+(e.g. runtime resume of stm32-adc-core driver). This also kicks the
+autosuspend delay (e.g. 2s) of the parent.
+Once the ADC is active, calling pm_runtime_get_sync() again (upon a new
+capture) won't kick the autosuspend delay for the parent (stm32-adc-core
+driver) as already active.
 
-Thank you for confirming my suspicion.
+Currently, this makes the stm32-adc-core driver go in suspend state
+every 2s when doing slow polling. As an example, doing a capture, e.g.
+cat in_voltageY_raw at a 0.2s rate, the auto suspend delay for the parent
+isn't refreshed. Once it expires, the parent immediately falls into
+runtime suspended state, in between two captures, as soon as the child
+driver falls into runtime suspend state:
+- e.g. after 2s, + child calls pm_runtime_put_autosuspend() + 100ms
+  autosuspend delay of the child.
+- stm32-adc-core switches off regulators, clocks and so on.
+- They get switched on back again 100ms later in this example (at 2.2s).
+
+So, add an explicit call to pm_runtime_mark_last_busy() for the parent
+driver (stm32-adc-core), synchronously with the child driver (stm32-adc),
+to avoid this.
+
+Fixes: 9bdbb1139ca1 ("iio: adc: stm32-adc: add power management support")
+
+Signed-off-by: Fabrice Gasnier <fabrice.gasnier@st.com>
+---
+ drivers/iio/adc/stm32-adc.c | 6 ++++++
+ 1 file changed, 6 insertions(+)
+
+diff --git a/drivers/iio/adc/stm32-adc.c b/drivers/iio/adc/stm32-adc.c
+index 3b291d7..670157e 100644
+--- a/drivers/iio/adc/stm32-adc.c
++++ b/drivers/iio/adc/stm32-adc.c
+@@ -1157,6 +1157,7 @@ static int stm32_adc_single_conv(struct iio_dev *indio_dev,
+ 
+ 	stm32_adc_conv_irq_disable(adc);
+ 
++	pm_runtime_mark_last_busy(dev->parent);
+ 	pm_runtime_mark_last_busy(dev);
+ 	pm_runtime_put_autosuspend(dev);
+ 
+@@ -1278,6 +1279,7 @@ static int stm32_adc_update_scan_mode(struct iio_dev *indio_dev,
+ 	adc->num_conv = bitmap_weight(scan_mask, indio_dev->masklength);
+ 
+ 	ret = stm32_adc_conf_scan_seq(indio_dev, scan_mask);
++	pm_runtime_mark_last_busy(dev->parent);
+ 	pm_runtime_mark_last_busy(dev);
+ 	pm_runtime_put_autosuspend(dev);
+ 
+@@ -1329,6 +1331,7 @@ static int stm32_adc_debugfs_reg_access(struct iio_dev *indio_dev,
+ 	else
+ 		*readval = stm32_adc_readl(adc, reg);
+ 
++	pm_runtime_mark_last_busy(dev->parent);
+ 	pm_runtime_mark_last_busy(dev);
+ 	pm_runtime_put_autosuspend(dev);
+ 
+@@ -1451,6 +1454,7 @@ static int __stm32_adc_buffer_postenable(struct iio_dev *indio_dev)
+ err_clr_trig:
+ 	stm32_adc_set_trig(indio_dev, NULL);
+ err_pm_put:
++	pm_runtime_mark_last_busy(dev->parent);
+ 	pm_runtime_mark_last_busy(dev);
+ 	pm_runtime_put_autosuspend(dev);
+ 
+@@ -1487,6 +1491,7 @@ static void __stm32_adc_buffer_predisable(struct iio_dev *indio_dev)
+ 	if (stm32_adc_set_trig(indio_dev, NULL))
+ 		dev_err(&indio_dev->dev, "Can't clear trigger\n");
+ 
++	pm_runtime_mark_last_busy(dev->parent);
+ 	pm_runtime_mark_last_busy(dev);
+ 	pm_runtime_put_autosuspend(dev);
+ }
+@@ -1874,6 +1879,7 @@ static int stm32_adc_probe(struct platform_device *pdev)
+ 		goto err_hw_stop;
+ 	}
+ 
++	pm_runtime_mark_last_busy(dev->parent);
+ 	pm_runtime_mark_last_busy(dev);
+ 	pm_runtime_put_autosuspend(dev);
+ 
+-- 
+2.7.4
+
 _______________________________________________
 Linux-stm32 mailing list
 Linux-stm32@st-md-mailman.stormreply.com
