@@ -2,53 +2,53 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id 0F6101485AC
-	for <lists+linux-stm32@lfdr.de>; Fri, 24 Jan 2020 14:13:17 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id B92311485CC
+	for <lists+linux-stm32@lfdr.de>; Fri, 24 Jan 2020 14:17:14 +0100 (CET)
 Received: from ip-172-31-3-76.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id BB389C36B0C;
-	Fri, 24 Jan 2020 13:13:16 +0000 (UTC)
-Received: from mail-vk1-f194.google.com (mail-vk1-f194.google.com
- [209.85.221.194])
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 5287EC36B0C;
+	Fri, 24 Jan 2020 13:17:14 +0000 (UTC)
+Received: from mail-vs1-f66.google.com (mail-vs1-f66.google.com
+ [209.85.217.66])
  (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 773EDC36B0A
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 77E65C36B0A
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Fri, 24 Jan 2020 13:13:14 +0000 (UTC)
-Received: by mail-vk1-f194.google.com with SMTP id i4so594990vkc.3
+ Fri, 24 Jan 2020 13:17:11 +0000 (UTC)
+Received: by mail-vs1-f66.google.com with SMTP id p6so1143677vsj.11
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Fri, 24 Jan 2020 05:13:14 -0800 (PST)
+ Fri, 24 Jan 2020 05:17:11 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linaro.org; s=google;
  h=mime-version:references:in-reply-to:from:date:message-id:subject:to
- :cc; bh=0pCJ51fgs/0G4N/AkTYuiiJRhKjkqBJy/ABL+0E/bFk=;
- b=P6IMwHE8uT8RMdr1P8rDQpRrJ5PNR4L4H7E0i7DQXVdviFO6LD475vzz1mjKOK1iuK
- aJERxWGDezcMiHDHs58NUqcgXYF2j4dEMNFJtigubdbAwW7CH95WNAXL9vXEb13GgBPs
- 00sCtxzu+hBjYlqlOLeDYcXG887pbfo1S0Nmjo47abdHXdfRBJQ/2HfQeO8R2jInTfPp
- fARl9XjAr32zEKJOQtTZBpNlkVYlB+yb7xrkmvb0YRgdOKav0ImuGbK0XGBLOcZ9YXF/
- 2YtVULLz2da5RU43io9ze0nwFBk/FX2ubwO8cG0aRikoB5nDS5N0LxFQvbKWHNVJ+8xr
- e31Q==
+ :cc; bh=CY7ltUl+oKffieFB5UMThEtSPwanbFsXqyW/QH4Ukh0=;
+ b=e9RWc7TAC74AHptTQcr8hXxfjxpt3Z0iET5zEidjYPqHYng8MtDugSWQvHKeBShScB
+ l6F6DVcE6itNBO5dTXEyCYIfAVhN1GUphQxrbM+HQQ1AZM9Ux6fIPYPoEm8cno+PCdHM
+ ywFYIdhzHaHkJb1RvQ21xmiMRinXHLswPI1c5LPyYNEEeq9qdLhEjGE2VnozomaoTw4w
+ /N+NeLRtuOvmaAAWa2oqq5efgDFjwsh7yeAgIFg3BF/bfUF9AkwLqx1s/b9ao84vQphT
+ H3SzbTiol/MbELYfxNcjJx5ZBft9+XrklMQ07BCznmvRb2ufC1wZSC8dY9hurMidqeZ+
+ p6Qg==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=1e100.net; s=20161025;
  h=x-gm-message-state:mime-version:references:in-reply-to:from:date
  :message-id:subject:to:cc;
- bh=0pCJ51fgs/0G4N/AkTYuiiJRhKjkqBJy/ABL+0E/bFk=;
- b=q4FhXUNYsq692GD7qV/6fn3TjdJNWH4ytMUU5T+NtpXX+K1PYpkG1/KdnT/UFRUzMf
- dgr9qr3aMBOfuM8stxSzLpQKpBxebSVMO6Gsy+ywwsC4CBHnFb5qE9spd2GmopnVw1gM
- GeuXQirHVmKgqmTbj5TveoP1FUmgLfieNR/PNzso6rYFmEAR+OhHqLw/dCZlXMPhtLM8
- YnlkEzLn96sjHfA/vWaT3OsKnN/j86xs/UB7Z0GBBMlizIOxyYVSLqzXVesz5sX5P72a
- 9FAc8whd2ZwjrtCl9MRndDzd5pAtY/xxx9+LBXkRC3wq25n7rxUrN5c1d4KlkP/ImjiR
- WcWg==
-X-Gm-Message-State: APjAAAWRpwoWMdvVf+/M+SkFitg8vbq9xGEyD+SlUD78YKXeG8eOQFPR
- G5kkpvamq5/HLfI5n/IIHnPxYTHgaY5B4noIXQzW3g==
-X-Google-Smtp-Source: APXvYqwvweHW+//fi2a64HFcGs84CB60rRh0VyQGFxeZ6xd6bTwXqvSw/Zs/SJ/+x6Yw0TF8Gdlx6/fNzadVplvj68g=
-X-Received: by 2002:a1f:914b:: with SMTP id t72mr1847120vkd.101.1579871593005; 
- Fri, 24 Jan 2020 05:13:13 -0800 (PST)
+ bh=CY7ltUl+oKffieFB5UMThEtSPwanbFsXqyW/QH4Ukh0=;
+ b=B40pCaghwgu4dYOLUM3h77ML8ppztLn+Eyw+kfybvb9L56LupaN5CM7oXlzKVCHSEq
+ YL4PZDTvN5aLJWACm61eXErGURF7WvBIx/txSC9FJ0tYz+SrBf88/sZTnxIUPK/MdHIp
+ XcOQHYKBGaWpKphPXDicZ71ZVoJYkTCDSEV3zchRcSLBC/nR9xJoXMNIKi6LHO3lpIc6
+ rDVZcxDWJYq2hVUEcSxX/a5pA+2Y/tg1dDapcOFL2OjZ0Hd54OIKspVmiFjdRhagraiv
+ Cvz5qOSHvlUe64WNG6M57c3dnSWoMAzYxrlbbVbiLo1yLrJA0loPBXk4Qi2MKdSHldfw
+ E8KA==
+X-Gm-Message-State: APjAAAWnneGVR8Vbewhoyhgx913zE4cV+5J13cDRdE0K9THn3KNPqBMZ
+ XJwZNGG4QBnxBO2BGu631L2x6xCzAGvIUCo/LayUGg==
+X-Google-Smtp-Source: APXvYqxuazxpyOLmT7wp2Bb5Qs3z0UkG3lAUPzIzMHC3yzutOc4zmH0KV20Nsdhmyiq1SYfbmAs1J3r1bPtSYgQDFEE=
+X-Received: by 2002:a67:314e:: with SMTP id x75mr1897330vsx.35.1579871830131; 
+ Fri, 24 Jan 2020 05:17:10 -0800 (PST)
 MIME-Version: 1.0
 References: <20200110134823.14882-1-ludovic.barre@st.com>
- <20200110134823.14882-8-ludovic.barre@st.com>
-In-Reply-To: <20200110134823.14882-8-ludovic.barre@st.com>
+ <20200110134823.14882-9-ludovic.barre@st.com>
+In-Reply-To: <20200110134823.14882-9-ludovic.barre@st.com>
 From: Ulf Hansson <ulf.hansson@linaro.org>
-Date: Fri, 24 Jan 2020 14:12:36 +0100
-Message-ID: <CAPDyKFqt6SuQh8V1_2-2HzBixR2HTKM+1FKgYuNA1zytc22W7g@mail.gmail.com>
+Date: Fri, 24 Jan 2020 14:16:34 +0100
+Message-ID: <CAPDyKFp1Qsb3yCoTJevHF+SEt5thVVriLfL-4UZSYsNTc0rdMQ@mail.gmail.com>
 To: Ludovic Barre <ludovic.barre@st.com>
 Cc: DTML <devicetree@vger.kernel.org>,
  "linux-mmc@vger.kernel.org" <linux-mmc@vger.kernel.org>,
@@ -58,7 +58,8 @@ Cc: DTML <devicetree@vger.kernel.org>,
  Maxime Coquelin <mcoquelin.stm32@gmail.com>,
  linux-stm32@st-md-mailman.stormreply.com,
  Linux ARM <linux-arm-kernel@lists.infradead.org>
-Subject: Re: [Linux-stm32] [PATCH 7/9] mmc: mmci: add volt_switch callbacks
+Subject: Re: [Linux-stm32] [PATCH 8/9] mmc: mmci: sdmmc: add voltage switch
+	functions
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -77,78 +78,109 @@ Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
 On Fri, 10 Jan 2020 at 14:49, Ludovic Barre <ludovic.barre@st.com> wrote:
 >
-> This patch adds 2 voltage switch callbacks in mmci_host_ops:
-> -prep_volt_switch allows to prepare voltage switch before to
->  sent the SD_SWITCH_VOLTAGE command (cmd11).
-> -volt_switch callback allows to define specific action after
->  regulator set voltage.
-
-I am fine with adding these callbacks, however I strongly suggest to
-have a reference to "signal voltage" in the name of the callbacks. As
-to avoid confusion for what there are used for.
-
-Perhaps ->post_sig_volt_switch() and ->pre_sig_volt_switch() can work?
-
+> To prepare the voltage switch procedure, the VSWITCHEN bit must be
+> set before sending the cmd11.
+> To confirm completion of voltage switch, the VSWEND flag must be
+> checked.
 >
 > Signed-off-by: Ludovic Barre <ludovic.barre@st.com>
 > ---
->  drivers/mmc/host/mmci.c | 8 ++++++++
->  drivers/mmc/host/mmci.h | 2 ++
->  2 files changed, 10 insertions(+)
+>  drivers/mmc/host/mmci.h             |  4 +++
+>  drivers/mmc/host/mmci_stm32_sdmmc.c | 40 ++++++++++++++++++++++++++++-
+>  2 files changed, 43 insertions(+), 1 deletion(-)
 >
-> diff --git a/drivers/mmc/host/mmci.c b/drivers/mmc/host/mmci.c
-> index 00b473f57047..d76a59c06cb0 100644
-> --- a/drivers/mmc/host/mmci.c
-> +++ b/drivers/mmc/host/mmci.c
-> @@ -22,6 +22,7 @@
->  #include <linux/mmc/pm.h>
->  #include <linux/mmc/host.h>
->  #include <linux/mmc/card.h>
-> +#include <linux/mmc/sd.h>
->  #include <linux/mmc/slot-gpio.h>
->  #include <linux/amba/bus.h>
->  #include <linux/clk.h>
-> @@ -1207,6 +1208,9 @@ mmci_start_command(struct mmci_host *host, struct mmc_command *cmd, u32 c)
->                 writel_relaxed(clks, host->base + MMCIDATATIMER);
->         }
->
-> +       if (host->ops->prep_volt_switch && cmd->opcode == SD_SWITCH_VOLTAGE)
-> +               host->ops->prep_volt_switch(host);
-> +
->         if (/*interrupt*/0)
->                 c |= MCI_CPSM_INTERRUPT;
->
-> @@ -1820,6 +1824,7 @@ static int mmci_get_cd(struct mmc_host *mmc)
->
->  static int mmci_sig_volt_switch(struct mmc_host *mmc, struct mmc_ios *ios)
->  {
-> +       struct mmci_host *host = mmc_priv(mmc);
->         int ret = 0;
->
->         if (!IS_ERR(mmc->supply.vqmmc)) {
-> @@ -1839,6 +1844,9 @@ static int mmci_sig_volt_switch(struct mmc_host *mmc, struct mmc_ios *ios)
->                         break;
->                 }
->
-> +               if (!ret && host->ops && host->ops->volt_switch)
-> +                       ret = host->ops->volt_switch(host, ios);
-> +
->                 if (ret)
->                         dev_warn(mmc_dev(mmc), "Voltage switch failed\n");
->         }
 > diff --git a/drivers/mmc/host/mmci.h b/drivers/mmc/host/mmci.h
-> index ddcdfb827996..c04a144259a2 100644
+> index c04a144259a2..3634f98ad2d8 100644
 > --- a/drivers/mmc/host/mmci.h
 > +++ b/drivers/mmc/host/mmci.h
-> @@ -377,6 +377,8 @@ struct mmci_host_ops {
->         void (*set_clkreg)(struct mmci_host *host, unsigned int desired);
->         void (*set_pwrreg)(struct mmci_host *host, unsigned int pwr);
->         bool (*busy_complete)(struct mmci_host *host, u32 status, u32 err_msk);
-> +       void (*prep_volt_switch)(struct mmci_host *host);
-> +       int (*volt_switch)(struct mmci_host *host, struct mmc_ios *ios);
+> @@ -165,6 +165,7 @@
+>  /* Extended status bits for the STM32 variants */
+>  #define MCI_STM32_BUSYD0       BIT(20)
+>  #define MCI_STM32_BUSYD0END    BIT(21)
+> +#define MCI_STM32_VSWEND       BIT(25)
+>
+>  #define MMCICLEAR              0x038
+>  #define MCI_CMDCRCFAILCLR      (1 << 0)
+> @@ -182,6 +183,9 @@
+>  #define MCI_ST_SDIOITC         (1 << 22)
+>  #define MCI_ST_CEATAENDC       (1 << 23)
+>  #define MCI_ST_BUSYENDC                (1 << 24)
+> +/* Extended clear bits for the STM32 variants */
+> +#define MCI_STM32_VSWENDC      BIT(25)
+> +#define MCI_STM32_CKSTOPC      BIT(26)
+>
+>  #define MMCIMASK0              0x03c
+>  #define MCI_CMDCRCFAILMASK     (1 << 0)
+> diff --git a/drivers/mmc/host/mmci_stm32_sdmmc.c b/drivers/mmc/host/mmci_stm32_sdmmc.c
+> index 10059fa19f4a..9f43cf947c5f 100644
+> --- a/drivers/mmc/host/mmci_stm32_sdmmc.c
+> +++ b/drivers/mmc/host/mmci_stm32_sdmmc.c
+> @@ -263,7 +263,9 @@ static void mmci_sdmmc_set_pwrreg(struct mmci_host *host, unsigned int pwr)
+>         struct mmc_ios ios = host->mmc->ios;
+>         struct sdmmc_dlyb *dlyb = host->variant_priv;
+>
+> -       pwr = host->pwr_reg_add;
+> +       /* adds OF options and preserves voltage switch bits */
+> +       pwr = host->pwr_reg_add |
+> +               (host->pwr_reg & (MCI_STM32_VSWITCHEN | MCI_STM32_VSWITCH));
+>
+>         sdmmc_dlyb_input_ck(dlyb);
+>
+> @@ -454,6 +456,40 @@ static int sdmmc_execute_tuning(struct mmc_host *mmc, u32 opcode)
+>         return sdmmc_dlyb_phase_tuning(host, opcode);
+>  }
+>
+> +static void sdmmc_prep_vswitch(struct mmci_host *host)
+> +{
+> +       /* clear the voltage switch completion flag */
+> +       writel_relaxed(MCI_STM32_VSWENDC, host->base + MMCICLEAR);
+> +       /* enable Voltage switch procedure */
+> +       mmci_write_pwrreg(host, host->pwr_reg | MCI_STM32_VSWITCHEN);
+> +}
+> +
+> +static int sdmmc_vswitch(struct mmci_host *host, struct mmc_ios *ios)
+> +{
+> +       unsigned long flags;
+> +       u32 status;
+> +       int ret = 0;
+> +
+> +       if (ios->signal_voltage == MMC_SIGNAL_VOLTAGE_180) {
+> +               spin_lock_irqsave(&host->lock, flags);
+> +               mmci_write_pwrreg(host, host->pwr_reg | MCI_STM32_VSWITCH);
+> +               spin_unlock_irqrestore(&host->lock, flags);
+> +
+> +               /* wait voltage switch completion while 10ms */
+> +               ret = readl_relaxed_poll_timeout(host->base + MMCISTATUS,
+> +                                                status,
+> +                                                (status & MCI_STM32_VSWEND),
+> +                                                10, 10000);
+> +
+> +               writel_relaxed(MCI_STM32_VSWENDC | MCI_STM32_CKSTOPC,
+> +                              host->base + MMCICLEAR);
+> +               mmci_write_pwrreg(host, host->pwr_reg &
+> +                                 ~(MCI_STM32_VSWITCHEN | MCI_STM32_VSWITCH));
+> +       }
+
+Don't you need to manage things when resetting to
+MMC_SIGNAL_VOLTAGE_330, which for example happens during a card
+removal or at system suspend/resume?
+
+> +
+> +       return ret;
+> +}
+> +
+>  static struct mmci_host_ops sdmmc_variant_ops = {
+>         .validate_data = sdmmc_idma_validate_data,
+>         .prep_data = sdmmc_idma_prep_data,
+> @@ -465,6 +501,8 @@ static struct mmci_host_ops sdmmc_variant_ops = {
+>         .set_clkreg = mmci_sdmmc_set_clkreg,
+>         .set_pwrreg = mmci_sdmmc_set_pwrreg,
+>         .busy_complete = sdmmc_busy_complete,
+> +       .prep_volt_switch = sdmmc_prep_vswitch,
+> +       .volt_switch = sdmmc_vswitch,
 >  };
 >
->  struct mmci_host {
+>  void sdmmc_variant_init(struct mmci_host *host)
 > --
 > 2.17.1
 >
