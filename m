@@ -2,65 +2,64 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id 6F355148571
-	for <lists+linux-stm32@lfdr.de>; Fri, 24 Jan 2020 13:55:36 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 6B7B814859F
+	for <lists+linux-stm32@lfdr.de>; Fri, 24 Jan 2020 14:10:25 +0100 (CET)
 Received: from ip-172-31-3-76.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 2F37AC36B0C;
-	Fri, 24 Jan 2020 12:55:36 +0000 (UTC)
-Received: from mx07-00178001.pphosted.com (mx07-00178001.pphosted.com
- [62.209.51.94])
- (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 275C4C36B0C;
+	Fri, 24 Jan 2020 13:10:25 +0000 (UTC)
+Received: from mail-vs1-f67.google.com (mail-vs1-f67.google.com
+ [209.85.217.67])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id E56A6C36B0A
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 68F26C36B0A
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Fri, 24 Jan 2020 12:55:34 +0000 (UTC)
-Received: from pps.filterd (m0046668.ppops.net [127.0.0.1])
- by mx07-00178001.pphosted.com (8.16.0.42/8.16.0.42) with SMTP id
- 00OCsTCw012368; Fri, 24 Jan 2020 13:55:24 +0100
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=st.com;
- h=subject : to : cc :
- references : from : message-id : date : mime-version : in-reply-to :
- content-type : content-transfer-encoding; s=STMicroelectronics;
- bh=HsT5XOh0k0Oip5e4q1QwfFV3XVw3YKpi81ECZxj8y6Q=;
- b=aqxG94s1vaUPEi7oDUwgOsYy3ksvsgGOaWryEalFEw+6Zgdpn66PA45Wk9YnaG06YC0O
- aBklNAsLyjk63X/6JayBKfFWnPoajK64SDY5dhXmGZ5SYJXnDEuGIwkrxaDGKW7Lqoxu
- 5imLP6Ba6rd3VLxeGfE5eELqunxfwIp/TEo6qOT1oIRrHt8ADdzIe97YYl01EGefCZ68
- 8tbO7EMpd0mYn/mc8D923WscSRyQv2abfuiZbik1+S7JawA9NuI1C8Ct9ZKLLcp5B7N1
- ApvOKGuEbrfLmwvcTx3KpafV0loMaKPLNCmf9fnU1DQyWTdhTUdaAVSVhzPPor7hJXBG Cw== 
-Received: from beta.dmz-eu.st.com (beta.dmz-eu.st.com [164.129.1.35])
- by mx07-00178001.pphosted.com with ESMTP id 2xkrc5g12e-1
- (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
- Fri, 24 Jan 2020 13:55:24 +0100
-Received: from euls16034.sgp.st.com (euls16034.sgp.st.com [10.75.44.20])
- by beta.dmz-eu.st.com (STMicroelectronics) with ESMTP id CE8E310002A;
- Fri, 24 Jan 2020 13:55:23 +0100 (CET)
-Received: from Webmail-eu.st.com (sfhdag6node1.st.com [10.75.127.16])
- by euls16034.sgp.st.com (STMicroelectronics) with ESMTP id B75A72A847D;
- Fri, 24 Jan 2020 13:55:23 +0100 (CET)
-Received: from lmecxl0923.lme.st.com (10.75.127.48) by SFHDAG6NODE1.st.com
- (10.75.127.16) with Microsoft SMTP Server (TLS) id 15.0.1473.3; Fri, 24 Jan
- 2020 13:55:23 +0100
-To: Ulf Hansson <ulf.hansson@linaro.org>, Rob Herring <robh+dt@kernel.org>
-References: <20200110134823.14882-1-ludovic.barre@st.com>
-From: Ludovic BARRE <ludovic.barre@st.com>
-Message-ID: <6d859def-351e-abd7-0d5f-962ad935dff2@st.com>
-Date: Fri, 24 Jan 2020 13:55:22 +0100
-User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:68.0) Gecko/20100101
- Thunderbird/68.1.0
+ Fri, 24 Jan 2020 13:10:24 +0000 (UTC)
+Received: by mail-vs1-f67.google.com with SMTP id g23so1146451vsr.7
+ for <linux-stm32@st-md-mailman.stormreply.com>;
+ Fri, 24 Jan 2020 05:10:24 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linaro.org; s=google;
+ h=mime-version:references:in-reply-to:from:date:message-id:subject:to
+ :cc; bh=FgJ5lZH4Mb1Tzk/p5bRIKhcE7A+Y7euEYLcO1OpV4S8=;
+ b=gjmgAgx3XOChzsVHsvnM5jQSiMZ4Fjx3NBVYIq2/dT3CH9ql1U7aAdqnR14513DZFT
+ YCH8qYlXsmEWt6b1r3I4OAxTH8Hk8zQT0770sSu4j1UryQK2excH9kVrqUJQL+Z1HVuK
+ ZRxv2qonE2OXIHbhU41udwALpiap6wfaL6E6mUiUMX8FBzbhBbFqVUz1IoqdD941o+rp
+ g96vbjsxuLg7zYqFDMRrMQNHFyolL5jDENiFUrPIEwhM5Nf/gGAkkwqtpERmRCxKTNFs
+ CWPzTUUwNYmAnFwuZlb3CQgCKwG4t4dH3hX7laxkMyuEdwEesH6wFkZTpIMSXWIkXhHz
+ dkig==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20161025;
+ h=x-gm-message-state:mime-version:references:in-reply-to:from:date
+ :message-id:subject:to:cc;
+ bh=FgJ5lZH4Mb1Tzk/p5bRIKhcE7A+Y7euEYLcO1OpV4S8=;
+ b=Ze6POEpMR1PsnievZ497snrTvyXSRgyklDKg2LHOA8ZGlVym8SvYWek1Xd4uKYfWsJ
+ T1E9/4l6Iz/G2NrYHFrZx+QBzKyrpHcyccxGunOkGCnjwwyhEpoCQHQ62pTuNzOVRqNv
+ Z0hLkrVmb6BqppBJd2uSAYFawqduVbs1qNnkDbzC0mh33Rt2I2M9R98HhQYfP48ynZtW
+ aiRE3Xx0Tf18/ZIoBik81Lc6WU4w8k8jP+q9TByJlDR9WZJelQ9MVL8SqwaucRGaxBq2
+ P5kQHXr7T0MhLwKr8eJymr6u6zMxvLuOAocjM5Fk8325cNQMABg5xBznKvKVoCfRHYJW
+ lJ0A==
+X-Gm-Message-State: APjAAAWU+swHJ7EUND55JeN7ncetmxwKStTS9xjDlWzZASP56Vi0wQLs
+ OI+c16SCEjxkcnMXbiVxXWdJBFk/wQwTBJBkwm3mtw==
+X-Google-Smtp-Source: APXvYqwTSyMti1aLrHxV4T1GbulSVX2llyodm3KWM+MmIFpyCh3UiqUM4MYq/lAoQMj2ylGIpLcWxal/hp0XVXJXDjA=
+X-Received: by 2002:a67:de15:: with SMTP id q21mr2060825vsk.165.1579871422965; 
+ Fri, 24 Jan 2020 05:10:22 -0800 (PST)
 MIME-Version: 1.0
-In-Reply-To: <20200110134823.14882-1-ludovic.barre@st.com>
-Content-Language: fr
-X-Originating-IP: [10.75.127.48]
-X-ClientProxiedBy: SFHDAG1NODE2.st.com (10.75.127.2) To SFHDAG6NODE1.st.com
- (10.75.127.16)
-X-Proofpoint-Virus-Version: vendor=fsecure engine=2.50.10434:6.0.138, 18.0.572
- definitions=2020-01-24_03:2020-01-24,
- 2020-01-24 signatures=0
-Cc: devicetree@vger.kernel.org, linux-mmc@vger.kernel.org,
- linux-kernel@vger.kernel.org, srinivas.kandagatla@linaro.org,
+References: <20200110134823.14882-1-ludovic.barre@st.com>
+ <20200110134823.14882-4-ludovic.barre@st.com>
+In-Reply-To: <20200110134823.14882-4-ludovic.barre@st.com>
+From: Ulf Hansson <ulf.hansson@linaro.org>
+Date: Fri, 24 Jan 2020 14:09:46 +0100
+Message-ID: <CAPDyKFpBgRGbRjOKHygknUMvGt9AKke+svoSG+So4B7hdZ8AMw@mail.gmail.com>
+To: Ludovic Barre <ludovic.barre@st.com>
+Cc: DTML <devicetree@vger.kernel.org>,
+ "linux-mmc@vger.kernel.org" <linux-mmc@vger.kernel.org>,
+ Linux Kernel Mailing List <linux-kernel@vger.kernel.org>,
+ Rob Herring <robh+dt@kernel.org>,
+ Srinivas Kandagatla <srinivas.kandagatla@linaro.org>,
  Maxime Coquelin <mcoquelin.stm32@gmail.com>,
- linux-stm32@st-md-mailman.stormreply.com, linux-arm-kernel@lists.infradead.org
-Subject: Re: [Linux-stm32] [PATCH 0/9] mmc: mmci: sdmmc: add sdr104 support
+ linux-stm32@st-md-mailman.stormreply.com,
+ Linux ARM <linux-arm-kernel@lists.infradead.org>
+Subject: Re: [Linux-stm32] [PATCH 3/9] mmc: mmci: add a reference at
+	mmc_host_ops in mmci struct
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -72,32 +71,61 @@ List-Post: <mailto:linux-stm32@st-md-mailman.stormreply.com>
 List-Help: <mailto:linux-stm32-request@st-md-mailman.stormreply.com?subject=help>
 List-Subscribe: <https://st-md-mailman.stormreply.com/mailman/listinfo/linux-stm32>, 
  <mailto:linux-stm32-request@st-md-mailman.stormreply.com?subject=subscribe>
-Content-Transfer-Encoding: base64
-Content-Type: text/plain; charset="utf-8"; Format="flowed"
+Content-Type: text/plain; charset="us-ascii"
+Content-Transfer-Encoding: 7bit
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
-aGkgVWxmCgpKdXN0IGEgImdlbnRsZW1hbiBwaW5nIiBvbiB0aGlzIHNlcmllcwpodHRwczovL2xr
-bWwub3JnL2xrbWwvMjAyMC8xLzEwLzM5MgoKUmVnYXJkcwpMdWRvCgpMZSAxLzEwLzIwIMOgIDI6
-NDggUE0sIEx1ZG92aWMgQmFycmUgYSDDqWNyaXTCoDoKPiBUbyBzdXBwb3J0IHRoZSBzZHIxMDQg
-bW9kZSwgc2RtbWMgdmFyaWFudCBuZWVkczoKPiAtSGFyZHdhcmUgZGVsYXkgYmxvY2sgc3VwcG9y
-dCBmb3Igc2RtbWMgdmFyaWFudAo+ICAgd2l0aCB0dW5pbmcgcHJvY2VkdXJlCj4gLVZvbHRhZ2Ug
-c3dpdGNoIGNhbGxiYWNrcwo+IC1zZG1tYyByZXZpc2lvbiAyLjAKPiAKPiBMdWRvdmljIEJhcnJl
-ICg5KToKPiAgICBtbWM6IG1tY2k6IHNkbW1jOiByZXBsYWNlIHNnX2RtYV94eHggbWFjcm9zCj4g
-ICAgbW1jOiBtbWNpOiBzZG1tYzogcmVuYW1lIHNkbW1jX3ByaXYgc3RydWN0IHRvIHNkbW1jX2lk
-bWEKPiAgICBtbWM6IG1tY2k6IGFkZCBhIHJlZmVyZW5jZSBhdCBtbWNfaG9zdF9vcHMgaW4gbW1j
-aSBzdHJ1Y3QKPiAgICBtbWM6IG1tY2k6IGFkZCBwcml2YXRlIHBvaW50ZXIgZm9yIHZhcmlhbnQK
-PiAgICBkdC1iaW5kaW5nczogbW1jOiBtbWNpOiBhZGQgZGVsYXkgYmxvY2sgYmFzZSByZWdpc3Rl
-ciBmb3Igc2RtbWMKPiAgICBtbWM6IG1tY2k6IHNkbW1jOiBhZGQgZXhlY3V0ZSB0dW5pbmcgd2l0
-aCBkZWxheSBibG9jawo+ICAgIG1tYzogbW1jaTogYWRkIHZvbHRfc3dpdGNoIGNhbGxiYWNrcwo+
-ICAgIG1tYzogbW1jaTogc2RtbWM6IGFkZCB2b2x0YWdlIHN3aXRjaCBmdW5jdGlvbnMKPiAgICBt
-bWM6IG1tY2k6IGFkZCBzZG1tYyB2YXJpYW50IHJldmlzaW9uIDIuMAo+IAo+ICAgLi4uL2Rldmlj
-ZXRyZWUvYmluZGluZ3MvbW1jL21tY2kudHh0ICAgICAgICAgIHwgICAyICsKPiAgIGRyaXZlcnMv
-bW1jL2hvc3QvbW1jaS5jICAgICAgICAgICAgICAgICAgICAgICB8ICAzOSArKysrCj4gICBkcml2
-ZXJzL21tYy9ob3N0L21tY2kuaCAgICAgICAgICAgICAgICAgICAgICAgfCAgIDggKwo+ICAgZHJp
-dmVycy9tbWMvaG9zdC9tbWNpX3N0bTMyX3NkbW1jLmMgICAgICAgICAgIHwgMTk5ICsrKysrKysr
-KysrKysrKysrLQo+ICAgNCBmaWxlcyBjaGFuZ2VkLCAyNDEgaW5zZXJ0aW9ucygrKSwgNyBkZWxl
-dGlvbnMoLSkKPiAKX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19f
-X18KTGludXgtc3RtMzIgbWFpbGluZyBsaXN0CkxpbnV4LXN0bTMyQHN0LW1kLW1haWxtYW4uc3Rv
-cm1yZXBseS5jb20KaHR0cHM6Ly9zdC1tZC1tYWlsbWFuLnN0b3JtcmVwbHkuY29tL21haWxtYW4v
-bGlzdGluZm8vbGludXgtc3RtMzIK
+On Fri, 10 Jan 2020 at 14:49, Ludovic Barre <ludovic.barre@st.com> wrote:
+>
+> This patch adds mmc_host_ops pointer in mmci struct.
+> The variant init function may need to add a mmc_host_ops,
+> for example to add the execute_tuning support if this feature
+> is available.
+>
+> Signed-off-by: Ludovic Barre <ludovic.barre@st.com>
+> ---
+>  drivers/mmc/host/mmci.c | 1 +
+>  drivers/mmc/host/mmci.h | 1 +
+>  2 files changed, 2 insertions(+)
+>
+> diff --git a/drivers/mmc/host/mmci.c b/drivers/mmc/host/mmci.c
+> index 7b13d66cbb21..00b473f57047 100644
+> --- a/drivers/mmc/host/mmci.c
+> +++ b/drivers/mmc/host/mmci.c
+> @@ -1923,6 +1923,7 @@ static int mmci_probe(struct amba_device *dev,
+>
+>         host = mmc_priv(mmc);
+>         host->mmc = mmc;
+> +       host->mmc_ops = &mmci_ops;
+
+Nitpick:
+
+Can you please also move the assignment "mmc->ops = &mmci_ops;" to
+this place as well, as I think these belongs together.
+
+>
+>         /*
+>          * Some variant (STM32) doesn't have opendrain bit, nevertheless
+> diff --git a/drivers/mmc/host/mmci.h b/drivers/mmc/host/mmci.h
+> index ea6a0b5779d4..55acc0971a44 100644
+> --- a/drivers/mmc/host/mmci.h
+> +++ b/drivers/mmc/host/mmci.h
+> @@ -407,6 +407,7 @@ struct mmci_host {
+>         u32                     mask1_reg;
+>         u8                      vqmmc_enabled:1;
+>         struct mmci_platform_data *plat;
+> +       struct mmc_host_ops     *mmc_ops;
+>         struct mmci_host_ops    *ops;
+>         struct variant_data     *variant;
+>         struct pinctrl          *pinctrl;
+> --
+> 2.17.1
+>
+
+Kind regards
+Uffe
+_______________________________________________
+Linux-stm32 mailing list
+Linux-stm32@st-md-mailman.stormreply.com
+https://st-md-mailman.stormreply.com/mailman/listinfo/linux-stm32
