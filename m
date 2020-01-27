@@ -2,42 +2,56 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id 5C11414A94D
-	for <lists+linux-stm32@lfdr.de>; Mon, 27 Jan 2020 18:56:34 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 59FDC14AA72
+	for <lists+linux-stm32@lfdr.de>; Mon, 27 Jan 2020 20:28:36 +0100 (CET)
 Received: from ip-172-31-3-76.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 19D21C36B0B;
-	Mon, 27 Jan 2020 17:56:34 +0000 (UTC)
-Received: from pandora.armlinux.org.uk (pandora.armlinux.org.uk [78.32.30.218])
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 794E5C36B0B;
+	Mon, 27 Jan 2020 19:28:35 +0000 (UTC)
+Received: from mail-wm1-f65.google.com (mail-wm1-f65.google.com
+ [209.85.128.65])
  (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 49AB2C36B09
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 1106CC36B09
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Mon, 27 Jan 2020 17:56:31 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
- d=armlinux.org.uk; s=pandora-2019; h=Sender:In-Reply-To:Content-Type:
- MIME-Version:References:Message-ID:Subject:Cc:To:From:Date:Reply-To:
- Content-Transfer-Encoding:Content-ID:Content-Description:Resent-Date:
- Resent-From:Resent-Sender:Resent-To:Resent-Cc:Resent-Message-ID:List-Id:
- List-Help:List-Unsubscribe:List-Subscribe:List-Post:List-Owner:List-Archive;
- bh=+pgM004QYnoz29dLdl6cQI6MAMztJHbXMIE6Mk2wd9E=; b=hrmN0Jqo5RN46j8mJrWc0QFxt
- i0o1dz1saSXn0aEOLYzyy+sxzAZT8OkIzKZoPM+U/9IVSJ/Gibx6ztmXNulZyzder7F16lY6y88vm
- j2fOgw0H+uYYgnl7sNvtMaMB1x6KHI1QXguengDBwkTLETebOvpt5xb4r3qGezpJb3jsT1Ptafy6K
- hc2GF9Fz9geX+wrFTzLQtEktiC+US7EHLFWmhCMFHyD77kBWCNXig6IhSXLlnu6XVDeXQ0WpKjUJC
- 9FPM+8xe5L6RkT3i8IlRznv/IpRnpdoUST+t5R/SYZ2uTU7IPd/25n1J6gIpnBG8msYo2t6uGx7Ia
- dOsUXx+qw==;
-Received: from shell.armlinux.org.uk
- ([2001:4d48:ad52:3201:5054:ff:fe00:4ec]:60650)
- by pandora.armlinux.org.uk with esmtpsa
- (TLSv1.2:ECDHE-RSA-AES256-GCM-SHA384:256) (Exim 4.90_1)
- (envelope-from <linux@armlinux.org.uk>)
- id 1iw8cW-0002lu-E0; Mon, 27 Jan 2020 17:56:20 +0000
-Received: from linux by shell.armlinux.org.uk with local (Exim 4.92)
- (envelope-from <linux@shell.armlinux.org.uk>)
- id 1iw8cS-0001bc-5y; Mon, 27 Jan 2020 17:56:16 +0000
-Date: Mon, 27 Jan 2020 17:56:16 +0000
-From: Russell King - ARM Linux admin <linux@armlinux.org.uk>
-To: Andrew Lunn <andrew@lunn.ch>
-Message-ID: <20200127175616.GZ25745@shell.armlinux.org.uk>
+ Mon, 27 Jan 2020 19:28:32 +0000 (UTC)
+Received: by mail-wm1-f65.google.com with SMTP id a5so8036540wmb.0
+ for <linux-stm32@st-md-mailman.stormreply.com>;
+ Mon, 27 Jan 2020 11:28:32 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20161025;
+ h=subject:to:cc:references:from:message-id:date:user-agent
+ :mime-version:in-reply-to:content-language:content-transfer-encoding;
+ bh=nVpNgKJkF9tkji59pMJrNk0LvUKK5aYZzAaELznZEIo=;
+ b=EOPSnOhcgaq1gVIt4MtWAnnjLhta8bYIS1juX1koiLs8kPKtUS+C8v+HIVkCGlcxuA
+ j8v+OFcxiedIi+GPnp5ZjC6mMCb6f67Hw33ayz55aUpmhj+57sMXUmUn41UfqE9NT7Ad
+ drQiejNjHnpG3hwUF9zSRsVq4AOqdhYv2HScIj99eoD1IyoQ7ILWYjt+L3c5E7DDWxl+
+ 81ojPuXLQN+n84E4lL1zuKsyOwkRHIDS3tEAjpZ5Po6ufowof5o/OZwe6BZwAUGFHB+A
+ w84W02xMdaIqsZEa6jlyiTL0M7TJUEW8IpyO6D8RBZdVTZ/D9pO8UNjhHy60bWEhbU94
+ +yTw==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20161025;
+ h=x-gm-message-state:subject:to:cc:references:from:message-id:date
+ :user-agent:mime-version:in-reply-to:content-language
+ :content-transfer-encoding;
+ bh=nVpNgKJkF9tkji59pMJrNk0LvUKK5aYZzAaELznZEIo=;
+ b=aPcbGNKpz/p3XhqPgAn2K940v5mCbV6d1GXIl+5etz0WfNwc1SToa5o8Pib8oNUDdE
+ ZFClEKtPyhGfNLJUJeHYFYtEPnYJdXDcV+AH6UN+CtAo1KTV+lb9+TCZdCPmJWI7wF8T
+ esJ3+6fWTM+w87aaPnuX7OEWtNDWpyOOjcoTog5DAiA7VzY8PlB9wsm6gW2ojjTpVfOk
+ zFtAw9kI4CR+ELq6XeL6Ol4KsgzxSsPfdZiAzzr1Yr0YmZV7MOZ/ZZ21NTCdH0/bW16i
+ jlmeDspT+1163qyeux8wSDJLu2mRj5Dz7/qCtCEyAqiazNrxjx/277JMp8VHRlYUFETD
+ kfUw==
+X-Gm-Message-State: APjAAAXjVGPcqJIxIA0lLPzw6f+0ICHw6mrTIroOqkDPW97HV2O4r3AG
+ aWcZ51e2dGSB07BESzNEmU8=
+X-Google-Smtp-Source: APXvYqxoCNMBFRKbINc2j745ycYNdqyYUaS3O3hsaHm6/siwUXdgo2uba0UD5gd43Kd/W8rSqHHk3w==
+X-Received: by 2002:a1c:9c87:: with SMTP id f129mr235606wme.26.1580153311807; 
+ Mon, 27 Jan 2020 11:28:31 -0800 (PST)
+Received: from ?IPv6:2003:ea:8f36:6800:3496:17d5:1b2b:bee1?
+ (p200300EA8F366800349617D51B2BBEE1.dip0.t-ipconnect.de.
+ [2003:ea:8f36:6800:3496:17d5:1b2b:bee1])
+ by smtp.googlemail.com with ESMTPSA id e6sm22981852wru.44.2020.01.27.11.28.30
+ (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+ Mon, 27 Jan 2020 11:28:31 -0800 (PST)
+To: Andrew Lunn <andrew@lunn.ch>,
+ Russell King - ARM Linux admin <linux@armlinux.org.uk>
 References: <cover.1580122909.git.Jose.Abreu@synopsys.com>
  <9a2136885d9a892ff170be88fdffeda82c778a10.1580122909.git.Jose.Abreu@synopsys.com>
  <20200127112102.GT25745@shell.armlinux.org.uk>
@@ -47,11 +61,15 @@ References: <cover.1580122909.git.Jose.Abreu@synopsys.com>
  <20200127140834.GW25745@shell.armlinux.org.uk>
  <20200127145107.GE13647@lunn.ch>
  <20200127161132.GX25745@shell.armlinux.org.uk>
- <20200127163241.GK13647@lunn.ch>
+ <20200127162206.GJ13647@lunn.ch>
+From: Heiner Kallweit <hkallweit1@gmail.com>
+Message-ID: <c3e863b8-2143-fee3-bb0b-65699661d7ab@gmail.com>
+Date: Mon, 27 Jan 2020 20:28:21 +0100
+User-Agent: Mozilla/5.0 (Windows NT 10.0; WOW64; rv:68.0) Gecko/20100101
+ Thunderbird/68.4.1
 MIME-Version: 1.0
-Content-Disposition: inline
-In-Reply-To: <20200127163241.GK13647@lunn.ch>
-User-Agent: Mutt/1.10.1 (2018-07-13)
+In-Reply-To: <20200127162206.GJ13647@lunn.ch>
+Content-Language: en-US
 Cc: Jose Abreu <Jose.Abreu@synopsys.com>, Joao Pinto <Joao.Pinto@synopsys.com>,
  "netdev@vger.kernel.org" <netdev@vger.kernel.org>,
  "linux-kernel@vger.kernel.org" <linux-kernel@vger.kernel.org>,
@@ -61,8 +79,7 @@ Cc: Jose Abreu <Jose.Abreu@synopsys.com>, Joao Pinto <Joao.Pinto@synopsys.com>,
  Giuseppe Cavallaro <peppe.cavallaro@st.com>, Jakub Kicinski <kuba@kernel.org>,
  "linux-stm32@st-md-mailman.stormreply.com"
  <linux-stm32@st-md-mailman.stormreply.com>,
- "linux-arm-kernel@lists.infradead.org" <linux-arm-kernel@lists.infradead.org>,
- Heiner Kallweit <hkallweit1@gmail.com>
+ "linux-arm-kernel@lists.infradead.org" <linux-arm-kernel@lists.infradead.org>
 Subject: Re: [Linux-stm32] [RFC net-next 6/8] net: phylink: Configure
  MAC/PCS when link is up without PHY
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
@@ -81,80 +98,28 @@ Content-Transfer-Encoding: 7bit
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
-On Mon, Jan 27, 2020 at 05:32:41PM +0100, Andrew Lunn wrote:
-> > Presumably, all these should be visible on the ZII rev B as well?
+On 27.01.2020 17:22, Andrew Lunn wrote:
+>>> Heiner has another device which has an Aquantia PHY running in an odd
+>>> mode so that it does 1G over a T2 link. It uses SGMII for this, and
+>>> that is where we first noticed the issue of the MAC and PCS having
+>>> different configurations.
+>>
+>> Do you know when the issue appeared?
 > 
-> Maybe. The two SFF mounted on most rev B are connected to ports which
-> only do SGMII, not 1000Base X. They tend to work by chance, and as
-> such, i've never taken them seriously.
+> As far as i understand, it never worked, it is not a regression as
+> such. But Heiner probably knows more.
 > 
-> If i remember correctly, you modified your board, moved the SFF over
-> to the normally unpopulated slots, and removed a resistor. That setup
-> then has the SFF connected to the 6352, which can do both SGMII and
-> 1000BaseX.
+I think you're referring to the issue that was fixed with following
+commit: 72d8b4fdbfb6 ("net: dsa: mv88e6xxx: support in-band signalling
+on SGMII ports with external PHYs"). The commit description also has a
+link to the discussion we had about the issue. If I read it correctly
+the issue is independent of this proprietary 1000BaseT2 mode having
+been used.
 
-Yes, I modified the board to fix a design mistake - removing R412.
-The SFF are where they are when they were delivered:
-
-OPT P1 - no module fitted, and the serdes signals are not routed.
-	 This might as well not exist.
-
-OPT P2 - Cotsworks SFBG53DRAP.
-	 This is connected to port 4 of switch 0, one of the 88E6352.
-
-The 88E6352 can have the serdes block associated with either port 4 or
-port 5 depending on the state of the S_SEL signal.  The serdes will be
-associated with port 4 if S_SEL is low at reset, and with port 5 if
-S_SEL is high at reset.
-
-88E6352 Port 4 RGMII signals are not used.  Port 5 RGMII is used to
-connect to the next 88E6352 switch.  So, if the serdes is associated
-with port 5, and if RGMII is used, it prevents the use of the serdes.
-
-With R412 fitted, S_SEL is pulled high, and assocates the serdes with
-port 5, and hence is unusable.  When R412 is removed, the serdes is
-associated with port 4, and can be configured for either SGMII or
-1000baseX mode via the PHY detect bit.
-
-So, the ZII rev B, OPT P2 only becomes useful if R412 is removed.
-
-OPT P3 - Cotsworks SFBG53DRAP
-	 This is connected to port 3 of switch 2, one of the 88E6185.
-OPT P4 - AVAGO AFBR-59R5ALZ
-	 This is connected to port 4 of switch 2, one of the 88E6185.
-
-The 88E6185 can only have ports 7, 8 or 9 configured for 1000BASE-X
-mode.  These two ports end up configured for cross-chip serdes mode
-which is 1000BASE-X but with manually controlled link status, as
-this mode is designed to link two 88E6185 to each other (hence
-"cross-chip").  There appears to be no accessible serdes block on this
-device to give us any interrupts.
-
-With my suggestion for a polling mode in phylink, it may be possible
-to get OPT P3 and OPT P4 working.
-
-> It could also be that the 6352 does have pass through from the PCS to
-> the MAC, where as the 6390 does not? The 6390 is much more capable,
-> having 2.5G and 10G support. The SERDES registers are very different,
-> C45 vs C22 of the 6352.
-
-My feeling is that the issues you're seeing with the ZII rev C come
-down to the phylink implementation for MV88E6xxx lacking some of the
-necessary support, and this has probably been broken ever since
-phylink was introduced into the mainline MV88E6xxx driver.
-
-Try
-
-http://git.armlinux.org.uk/cgit/linux-arm.git/patch/?id=eb717ca455b1ae425a4d4b60615ba3e4d0ba35d4
-
-which will be 5.4 based; I haven't pushed out my 5.5 based tree yet
-as I'm busy writing emails rather than testing it, and running out
-of time to do so before tomorrow!
-
--- 
-RMK's Patch system: https://www.armlinux.org.uk/developer/patches/
-FTTC broadband for 0.8mile line in suburbia: sync at 12.1Mbps down 622kbps up
-According to speedtest.net: 11.9Mbps down 500kbps up
+>       Andrew
+> .
+> 
+Heiner
 _______________________________________________
 Linux-stm32 mailing list
 Linux-stm32@st-md-mailman.stormreply.com
