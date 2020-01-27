@@ -2,33 +2,33 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id 97AD414A7F2
-	for <lists+linux-stm32@lfdr.de>; Mon, 27 Jan 2020 17:22:13 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 167FB14A81C
+	for <lists+linux-stm32@lfdr.de>; Mon, 27 Jan 2020 17:32:52 +0100 (CET)
 Received: from ip-172-31-3-76.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 353A0C36B0B;
-	Mon, 27 Jan 2020 16:22:13 +0000 (UTC)
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id CB76CC36B0B;
+	Mon, 27 Jan 2020 16:32:51 +0000 (UTC)
 Received: from vps0.lunn.ch (vps0.lunn.ch [185.16.172.187])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 4B608C36B09
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 8FAD9C36B09
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Mon, 27 Jan 2020 16:22:12 +0000 (UTC)
+ Mon, 27 Jan 2020 16:32:50 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=lunn.ch;
  s=20171124; h=In-Reply-To:Content-Type:MIME-Version:References:Message-ID:
  Subject:Cc:To:From:Date:Sender:Reply-To:Content-Transfer-Encoding:Content-ID:
  Content-Description:Resent-Date:Resent-From:Resent-Sender:Resent-To:Resent-Cc
  :Resent-Message-ID:List-Id:List-Help:List-Unsubscribe:List-Subscribe:
  List-Post:List-Owner:List-Archive;
- bh=jqVwM+IjEqXkV9M8NMwyyP0+f47l+p41i+3R+JYJ8V0=; b=mqlDVbcQuEeg/xh8juESDnyTCA
- EV2SZgsM9/mfEMZJntjYI9HKbPXJqaMO9Wb8xI61gyQhiLVoN8pYugGUCzVwVVMARE5yqbfHIgc4C
- n36zZTIJ9TfLD0EB81WznFHWH9SK9Znf3960J3xkKLzQOT64vsdoDoDqD9p11Av2TsOU=;
+ bh=BnSfaZk62rOeNYfQ6Q5vO9fhE1qKEGe75T8dAanwXwk=; b=KrVk633erhN4xaEPpKrr+NevW2
+ GsJ+AKkyK8sVkRdsD/oFOpNTSOHRW9t7+JGjKS/CZTNF4DyHMsjPNisewktHT41HFxJA/CGFjsS4/
+ 6MzWUO0URxpXbITMLaq1V2Hgi+n9e/2rRb/+LVN6fdjUE9+HVzr666Nc6N9uYoC1ESkQ=;
 Received: from andrew by vps0.lunn.ch with local (Exim 4.93)
  (envelope-from <andrew@lunn.ch>)
- id 1iw79K-0007AO-8b; Mon, 27 Jan 2020 17:22:06 +0100
-Date: Mon, 27 Jan 2020 17:22:06 +0100
+ id 1iw7JZ-0007C7-U2; Mon, 27 Jan 2020 17:32:41 +0100
+Date: Mon, 27 Jan 2020 17:32:41 +0100
 From: Andrew Lunn <andrew@lunn.ch>
 To: Russell King - ARM Linux admin <linux@armlinux.org.uk>
-Message-ID: <20200127162206.GJ13647@lunn.ch>
+Message-ID: <20200127163241.GK13647@lunn.ch>
 References: <cover.1580122909.git.Jose.Abreu@synopsys.com>
  <9a2136885d9a892ff170be88fdffeda82c778a10.1580122909.git.Jose.Abreu@synopsys.com>
  <20200127112102.GT25745@shell.armlinux.org.uk>
@@ -70,17 +70,23 @@ Content-Transfer-Encoding: 7bit
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
-> > Heiner has another device which has an Aquantia PHY running in an odd
-> > mode so that it does 1G over a T2 link. It uses SGMII for this, and
-> > that is where we first noticed the issue of the MAC and PCS having
-> > different configurations.
-> 
-> Do you know when the issue appeared?
+> Presumably, all these should be visible on the ZII rev B as well?
 
-As far as i understand, it never worked, it is not a regression as
-such. But Heiner probably knows more.
+Maybe. The two SFF mounted on most rev B are connected to ports which
+only do SGMII, not 1000Base X. They tend to work by chance, and as
+such, i've never taken them seriously.
 
-      Andrew
+If i remember correctly, you modified your board, moved the SFF over
+to the normally unpopulated slots, and removed a resistor. That setup
+then has the SFF connected to the 6352, which can do both SGMII and
+1000BaseX.
+
+It could also be that the 6352 does have pass through from the PCS to
+the MAC, where as the 6390 does not? The 6390 is much more capable,
+having 2.5G and 10G support. The SERDES registers are very different,
+C45 vs C22 of the 6352.
+
+    Andrew
 _______________________________________________
 Linux-stm32 mailing list
 Linux-stm32@st-md-mailman.stormreply.com
