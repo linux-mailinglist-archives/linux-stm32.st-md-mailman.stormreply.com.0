@@ -2,47 +2,47 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id 4EB8614A2C1
-	for <lists+linux-stm32@lfdr.de>; Mon, 27 Jan 2020 12:16:27 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 9D6FD14A2ED
+	for <lists+linux-stm32@lfdr.de>; Mon, 27 Jan 2020 12:21:22 +0100 (CET)
 Received: from ip-172-31-3-76.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 0D0B1C36B0B;
-	Mon, 27 Jan 2020 11:16:27 +0000 (UTC)
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 5E705C36B0B;
+	Mon, 27 Jan 2020 11:21:22 +0000 (UTC)
 Received: from pandora.armlinux.org.uk (pandora.armlinux.org.uk [78.32.30.218])
  (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 0793DC36B09
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 0E373C36B09
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Mon, 27 Jan 2020 11:16:23 +0000 (UTC)
+ Mon, 27 Jan 2020 11:21:21 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
  d=armlinux.org.uk; s=pandora-2019; h=Sender:In-Reply-To:Content-Type:
  MIME-Version:References:Message-ID:Subject:Cc:To:From:Date:Reply-To:
  Content-Transfer-Encoding:Content-ID:Content-Description:Resent-Date:
  Resent-From:Resent-Sender:Resent-To:Resent-Cc:Resent-Message-ID:List-Id:
  List-Help:List-Unsubscribe:List-Subscribe:List-Post:List-Owner:List-Archive;
- bh=UCgrtPNzJO46r3b/mUyJxh1OmaEkXSe8oNF3O0byYUc=; b=B5zjVL/wnoqw6vZqWGnCca6Ix
- 3Mq/MYyf+fXGYsEl5W1q5lu7Xb3teExMbEiD3mvjH6wKDtYDJhxKHnfLY3y1BeoyeVEVoag+SHWDR
- t2SUAmY7dM1JZ2s1kpCFNN4GOCWaFpxNl80ASB1APiT9LYVt0FOYA19T1i8SzXhUS3kEbmsE448du
- xhzhk5vlCS3J4s5lGJftXgiArNRJgcLyoiC3RK8EmaIxOleCbc98AuZJLZbFbMi8h+jXIMFjW6up6
- twiSvEWfyZWT7i3AsS+z4OKAQzYpp3dAlUakHFCr1Z4efCqVdLSlYPjAQSvFpBIIASWVZX3StzWY1
- 0Nd0AlQqw==;
+ bh=oN9jrHITT8NXPApGR5IdI2zdZsOhyn/YSoMnNfuDNDA=; b=FchA0Pz8WrdNQTx9TZOkxLvOV
+ /1bPeZn17gBYrAnfgHxUyFM+fIwkwlPcSETRQsHKFtGdf/R6kuK/uS9C0sWK6/kqPwDWSqgyX0iRr
+ ei5VsfhNvh19TG4oOweCY0FW4J8QLNV8hggyiAw8kUz43sr89Jf/eVHUJb1YW5O33vmcu/FMTeAEl
+ kRgTZBW/EiOuHnEkSLpSeQQsafpyaWFF/bVML1fC39Md6ZZtWx1LZEBJxH6VhTjuelj9dYus0xoAX
+ jCAux7AN6nGMMTeyciG2N+Wvc5oMPbtvuthIHCiN8AwnUisyPlZZpm1shEZLxINlYAM+s634ybDDO
+ byc/CulpA==;
 Received: from shell.armlinux.org.uk
- ([2002:4e20:1eda:1:5054:ff:fe00:4ec]:39806)
+ ([2001:4d48:ad52:3201:5054:ff:fe00:4ec]:60526)
  by pandora.armlinux.org.uk with esmtpsa
  (TLSv1.2:ECDHE-RSA-AES256-GCM-SHA384:256) (Exim 4.90_1)
  (envelope-from <linux@armlinux.org.uk>)
- id 1iw2NC-0000rn-8i; Mon, 27 Jan 2020 11:16:06 +0000
+ id 1iw2S1-0000u0-5S; Mon, 27 Jan 2020 11:21:05 +0000
 Received: from linux by shell.armlinux.org.uk with local (Exim 4.92)
  (envelope-from <linux@shell.armlinux.org.uk>)
- id 1iw2N7-0001Lr-Sg; Mon, 27 Jan 2020 11:16:01 +0000
-Date: Mon, 27 Jan 2020 11:16:01 +0000
+ id 1iw2Ry-0001M9-7w; Mon, 27 Jan 2020 11:21:02 +0000
+Date: Mon, 27 Jan 2020 11:21:02 +0000
 From: Russell King - ARM Linux admin <linux@armlinux.org.uk>
 To: Jose Abreu <Jose.Abreu@synopsys.com>
-Message-ID: <20200127111601.GS25745@shell.armlinux.org.uk>
+Message-ID: <20200127112102.GT25745@shell.armlinux.org.uk>
 References: <cover.1580122909.git.Jose.Abreu@synopsys.com>
- <9509e5d75810da4ef49c674f0fd5cacb81d1a536.1580122909.git.Jose.Abreu@synopsys.com>
+ <9a2136885d9a892ff170be88fdffeda82c778a10.1580122909.git.Jose.Abreu@synopsys.com>
 MIME-Version: 1.0
 Content-Disposition: inline
-In-Reply-To: <9509e5d75810da4ef49c674f0fd5cacb81d1a536.1580122909.git.Jose.Abreu@synopsys.com>
+In-Reply-To: <9a2136885d9a892ff170be88fdffeda82c778a10.1580122909.git.Jose.Abreu@synopsys.com>
 User-Agent: Mutt/1.10.1 (2018-07-13)
 Cc: Andrew Lunn <andrew@lunn.ch>, Joao Pinto <Joao.Pinto@synopsys.com>,
  netdev@vger.kernel.org, linux-kernel@vger.kernel.org,
@@ -52,8 +52,8 @@ Cc: Andrew Lunn <andrew@lunn.ch>, Joao Pinto <Joao.Pinto@synopsys.com>,
  Giuseppe Cavallaro <peppe.cavallaro@st.com>, Jakub Kicinski <kuba@kernel.org>,
  "David S. Miller" <davem@davemloft.net>, linux-arm-kernel@lists.infradead.org,
  Heiner Kallweit <hkallweit1@gmail.com>
-Subject: Re: [Linux-stm32] [RFC net-next 2/8] net: phylink: Add phylink_and
- and phylink_andnot Helpers
+Subject: Re: [Linux-stm32] [RFC net-next 6/8] net: phylink: Configure
+ MAC/PCS when link is up without PHY
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -70,10 +70,13 @@ Content-Transfer-Encoding: 7bit
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
-On Mon, Jan 27, 2020 at 12:09:07PM +0100, Jose Abreu wrote:
-> Add two new helpers for bitmap handling.
+On Mon, Jan 27, 2020 at 12:09:11PM +0100, Jose Abreu wrote:
+> When we don't have any real PHY driver connected and we get link up from
+> PCS we shall configure MAC and PCS for the desired speed and also
+> resolve the flow control settings from MAC side.
 
-Please use linkmode_andnot() and linkmode_and() instead.
+This is certainly the wrong place for it.  Please hold off on this patch
+for the time being.  Thanks.
 
 > 
 > Signed-off-by: Jose Abreu <Jose.Abreu@synopsys.com>
@@ -94,24 +97,36 @@ Please use linkmode_andnot() and linkmode_and() instead.
 > Cc: linux-arm-kernel@lists.infradead.org
 > Cc: linux-kernel@vger.kernel.org
 > ---
->  include/linux/phylink.h | 4 ++++
->  1 file changed, 4 insertions(+)
+>  drivers/net/phy/phylink.c | 14 ++++++++++++--
+>  1 file changed, 12 insertions(+), 2 deletions(-)
 > 
-> diff --git a/include/linux/phylink.h b/include/linux/phylink.h
-> index 523209e70947..70a2f7a4450b 100644
-> --- a/include/linux/phylink.h
-> +++ b/include/linux/phylink.h
-> @@ -272,6 +272,10 @@ int phylink_mii_ioctl(struct phylink *, struct ifreq *, int);
+> diff --git a/drivers/net/phy/phylink.c b/drivers/net/phy/phylink.c
+> index 4174d874b1f7..75dbaf80d7a5 100644
+> --- a/drivers/net/phy/phylink.c
+> +++ b/drivers/net/phy/phylink.c
+> @@ -533,10 +533,20 @@ static void phylink_resolve(struct work_struct *w)
 >  
->  #define phylink_zero(bm) \
->  	bitmap_zero(bm, __ETHTOOL_LINK_MODE_MASK_NBITS)
-> +#define phylink_and(bm, obm) \
-> +	bitmap_and(bm, bm, obm, __ETHTOOL_LINK_MODE_MASK_NBITS)
-> +#define phylink_andnot(bm, obm) \
-> +	bitmap_andnot(bm, bm, obm, __ETHTOOL_LINK_MODE_MASK_NBITS)
->  #define __phylink_do_bit(op, bm, mode) \
->  	op(ETHTOOL_LINK_MODE_ ## mode ## _BIT, bm)
->  
+>  	if (link_changed) {
+>  		pl->old_link_state = link_state.link;
+> -		if (!link_state.link)
+> +		if (!link_state.link) {
+>  			phylink_mac_link_down(pl);
+> -		else
+> +		} else {
+> +			/* If no PHY is connected, we still need to configure
+> +			 * MAC/PCS for flow control and speed.
+> +			 */
+> +			if (!pl->phydev) {
+> +				phylink_resolve_flow(pl, &link_state);
+> +				phylink_mac_config(pl, &link_state);
+> +			}
+> +
+>  			phylink_mac_link_up(pl, link_state);
+> +		}
+> +
+>  	}
+>  	if (!link_state.link && pl->mac_link_dropped) {
+>  		pl->mac_link_dropped = false;
 > -- 
 > 2.7.4
 > 
