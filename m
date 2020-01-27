@@ -2,42 +2,42 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id 9FD3214A29E
-	for <lists+linux-stm32@lfdr.de>; Mon, 27 Jan 2020 12:09:38 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id B0DB314A2A2
+	for <lists+linux-stm32@lfdr.de>; Mon, 27 Jan 2020 12:09:39 +0100 (CET)
 Received: from ip-172-31-3-76.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 5DD80C36B11;
-	Mon, 27 Jan 2020 11:09:38 +0000 (UTC)
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 76748C36B20;
+	Mon, 27 Jan 2020 11:09:39 +0000 (UTC)
 Received: from smtprelay-out1.synopsys.com (sv2-smtprelay2.synopsys.com
  [149.117.73.133])
  (using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id E353BC36B0B
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 98DF1C36B09
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Mon, 27 Jan 2020 11:09:33 +0000 (UTC)
+ Mon, 27 Jan 2020 11:09:36 +0000 (UTC)
 Received: from mailhost.synopsys.com (mdc-mailhost1.synopsys.com
  [10.225.0.209])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits))
  (No client certificate requested)
- by smtprelay-out1.synopsys.com (Postfix) with ESMTPS id 33C31407CC;
+ by smtprelay-out1.synopsys.com (Postfix) with ESMTPS id 3C08B407D5;
  Mon, 27 Jan 2020 11:09:30 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=synopsys.com; s=mail;
- t=1580123371; bh=rmlubmDXcPsD8KeTSdEzU0/rEGB6hNMFoYChQwg5Hb0=;
+ t=1580123375; bh=1V4KZNLCEVQkZbEnBclEB7b/pPbEYIU2LmrJ1xt38hU=;
  h=From:To:Cc:Subject:Date:In-Reply-To:References:In-Reply-To:
  References:From;
- b=mYkahSOzNMTatlzFj1EbzYdNgEs4Q0VRwJ4Bpl3gQBBwhfWsqviYjhoDUYoSYdv34
- eS7IXWPTkaWdHWTRb8hN5SPOmbrgMl10DdDRaaV7ULXGC8IW7077nLzlJYv/E4K9Dt
- NUOGP0rjpDfoMeGXWQNDI8e22MpQROMgObMTDWBPOse47wGL3Hd1Pz9Zlh4QWZ9/oL
- 8UowTbE0Snf1qlILWqar6MQXJ7zgQafG1xNHnUXQvLTAb5rfYquTAMH1LAMyzrdZrl
- 1zV8DDCla9boyWfk3bG5TZ6go8DBcZFVF4LEK0PLVBTC75y4JXa5pyoGUOQaXv6/D/
- pRj7oN5XZ0LpQ==
+ b=P7m5H+TYovgq1Tbg20Kyhg1fxMJlFVMh3d8jwUBPAhhb1AlvIOcunhyVM1Bp5emXE
+ Qt8hbzGKo3/OoXgM/l91kYqid/iAkPKZE2xAf54l19WPvUs39uzsI/H/y5cRK10P6R
+ JPHeoLbPtoYn65Vi79LQprNB+D/93Lhh2iOwKyR5qfXwT7BtYdeyr+hTzmnjmeorcZ
+ T+1FCi1QGp3A0xEPR2gDa4K5Y8yZd3MPNqtsnPqfoSyWbyWYz26zgjOJK1u4X3a/vV
+ PN7Ch6K8K4XYRpKzjfhrl8I7LwBVL7UDe29s5sJDi/8UQ3GXMrHy3xaeapkaQOueFv
+ /YNuMazcSY34w==
 Received: from de02dwia024.internal.synopsys.com
  (de02dwia024.internal.synopsys.com [10.225.19.81])
- by mailhost.synopsys.com (Postfix) with ESMTP id A480AA008F;
+ by mailhost.synopsys.com (Postfix) with ESMTP id ACC22A0094;
  Mon, 27 Jan 2020 11:09:28 +0000 (UTC)
 From: Jose Abreu <Jose.Abreu@synopsys.com>
 To: netdev@vger.kernel.org
-Date: Mon, 27 Jan 2020 12:09:08 +0100
-Message-Id: <25138389972ebd7b01844ae66abdff0a279f7504.1580122909.git.Jose.Abreu@synopsys.com>
+Date: Mon, 27 Jan 2020 12:09:09 +0100
+Message-Id: <983e5022dfeea7fca1404790130052ec2874ebec.1580122909.git.Jose.Abreu@synopsys.com>
 X-Mailer: git-send-email 2.7.4
 In-Reply-To: <cover.1580122909.git.Jose.Abreu@synopsys.com>
 References: <cover.1580122909.git.Jose.Abreu@synopsys.com>
@@ -51,8 +51,8 @@ Cc: Jose Abreu <Jose.Abreu@synopsys.com>, Andrew Lunn <andrew@lunn.ch>,
  Giuseppe Cavallaro <peppe.cavallaro@st.com>,
  "David S. Miller" <davem@davemloft.net>, linux-arm-kernel@lists.infradead.org,
  Heiner Kallweit <hkallweit1@gmail.com>
-Subject: [Linux-stm32] [RFC net-next 3/8] net: stmmac: Switch to
-	phylink_and()/phylink_andnot()
+Subject: [Linux-stm32] [RFC net-next 4/8] net: stmmac: Fallback to
+	dev_fwnode() if needed
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -70,7 +70,10 @@ Content-Transfer-Encoding: 7bit
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
-Use the newly introduced helpers to simplify the code.
+When CONFIG_OF is not enabled, of_fwnode_handle() will return NULL, even
+though we can have a FW handle from a given device.
+
+Fallback to dev_fwnode() helper if needed.
 
 Signed-off-by: Jose Abreu <Jose.Abreu@synopsys.com>
 
@@ -90,33 +93,23 @@ Cc: linux-stm32@st-md-mailman.stormreply.com
 Cc: linux-arm-kernel@lists.infradead.org
 Cc: linux-kernel@vger.kernel.org
 ---
- drivers/net/ethernet/stmicro/stmmac/stmmac_main.c | 13 +++++--------
- 1 file changed, 5 insertions(+), 8 deletions(-)
+ drivers/net/ethernet/stmicro/stmmac/stmmac_main.c | 3 +++
+ 1 file changed, 3 insertions(+)
 
 diff --git a/drivers/net/ethernet/stmicro/stmmac/stmmac_main.c b/drivers/net/ethernet/stmicro/stmmac/stmmac_main.c
-index ff1cbfc834b0..0bbc9e8b7aae 100644
+index 0bbc9e8b7aae..eaedea4b353e 100644
 --- a/drivers/net/ethernet/stmicro/stmmac/stmmac_main.c
 +++ b/drivers/net/ethernet/stmicro/stmmac/stmmac_main.c
-@@ -858,14 +858,11 @@ static void stmmac_validate(struct phylink_config *config,
- 		phylink_set(mask, 1000baseT_Half);
- 	}
+@@ -1041,6 +1041,9 @@ static int stmmac_phy_setup(struct stmmac_priv *priv)
+ 	priv->phylink_config.dev = &priv->dev->dev;
+ 	priv->phylink_config.type = PHYLINK_NETDEV;
  
--	bitmap_and(supported, supported, mac_supported,
--		   __ETHTOOL_LINK_MODE_MASK_NBITS);
--	bitmap_andnot(supported, supported, mask,
--		      __ETHTOOL_LINK_MODE_MASK_NBITS);
--	bitmap_and(state->advertising, state->advertising, mac_supported,
--		   __ETHTOOL_LINK_MODE_MASK_NBITS);
--	bitmap_andnot(state->advertising, state->advertising, mask,
--		      __ETHTOOL_LINK_MODE_MASK_NBITS);
-+	phylink_and(supported, mac_supported);
-+	phylink_andnot(supported, mask);
++	if (!fwnode)
++		fwnode = dev_fwnode(priv->device);
 +
-+	phylink_and(state->advertising, mac_supported);
-+	phylink_andnot(state->advertising, mask);
- }
- 
- static void stmmac_mac_pcs_get_state(struct phylink_config *config,
+ 	phylink = phylink_create(&priv->phylink_config, fwnode,
+ 				 mode, &stmmac_phylink_mac_ops);
+ 	if (IS_ERR(phylink))
 -- 
 2.7.4
 
