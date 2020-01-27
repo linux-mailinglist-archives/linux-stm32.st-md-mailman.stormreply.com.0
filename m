@@ -2,68 +2,72 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id F074914A085
-	for <lists+linux-stm32@lfdr.de>; Mon, 27 Jan 2020 10:19:35 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id BDBA614A25E
+	for <lists+linux-stm32@lfdr.de>; Mon, 27 Jan 2020 11:57:58 +0100 (CET)
 Received: from ip-172-31-3-76.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id BBC8DC36B0B;
-	Mon, 27 Jan 2020 09:19:35 +0000 (UTC)
-Received: from mx07-00178001.pphosted.com (mx07-00178001.pphosted.com
- [62.209.51.94])
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 68A79C36B0B;
+	Mon, 27 Jan 2020 10:57:58 +0000 (UTC)
+Received: from mx07-00178001.pphosted.com (mx08-00178001.pphosted.com
+ [91.207.212.93])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 04827C36B09
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 4DF4CC36B09
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Mon, 27 Jan 2020 09:19:34 +0000 (UTC)
-Received: from pps.filterd (m0046037.ppops.net [127.0.0.1])
+ Mon, 27 Jan 2020 10:57:56 +0000 (UTC)
+Received: from pps.filterd (m0046661.ppops.net [127.0.0.1])
  by mx07-00178001.pphosted.com (8.16.0.42/8.16.0.42) with SMTP id
- 00R9Cmal019871; Mon, 27 Jan 2020 10:19:28 +0100
+ 00RAqVVc027061; Mon, 27 Jan 2020 11:57:44 +0100
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=st.com;
  h=subject : to : cc :
  references : from : message-id : date : mime-version : in-reply-to :
  content-type : content-transfer-encoding; s=STMicroelectronics;
- bh=ueqthobvadLal6Ybw8bV50x/5p9w1/cZMHnbvGkPnpI=;
- b=Lq+cmVILX1s6L4L0ipLM7wNtDtdMFtxFhyrpkQGr1rvFDNNFbVJXpQwwQgrPP9eESOpS
- r2Gyx5T0dVDCcQbtaRdN7ZB69NiswaQ5BVb58ySxl7VTLY9xTGBy8Lb/mkhShwoGY/qf
- p6O7MEaXmWV3eiCRIhZ4ZBK+PnLukA1MT+08AM/wAQS1z9o7ZT5FVKW4rlI/wE4fCRfa
- 5phCw4XzlJ4ItCnvMg5ahMmGziBEMbGpLBbqNqlRq1oi6ENTDjbigGbdTIyJlWk+LKfD
- pup8fFPL6Vv63m+Xqg0HjLc0uShB25oqUvKlFwC4WKHnernsRDHZr/RwUSbFbkuEqONl Eg== 
+ bh=q3IUqnq8uZOdoSYHGb0y6kLnvH+Tx0j/V7+lgKc4Nzo=;
+ b=rpRfr6Dn/ZCXCve9TZDosVDdDszaMeVTTOoOJYbAPp/PZv4DEMWyjyNU9gDF+6fmIL9z
+ mAxF7enBIwaeI2O8kbzEpnebCqQ32gFUXMIBrDre5X7ALOTnD7UB3TJQmAtAxt/RkuCk
+ kzUCqVthoVzIjkPbRsw8t7LrRZ6Nicr2+iwtX/lm++8cB/KNL86BbGQrykT3LZNIAGeo
+ AcohO9zoPTJ+GTIJfvHZeT/ZfwFptKWjp5EzPqka9nPlUJPxfvoj2vI+VLCkW2nd6jvO
+ HG5j2MKCEwClLfKew0nb0D3g9iWTz8LX1osKBlil9o/3BgodOMmMi48x/IWvuEQ0vpHu Ew== 
 Received: from beta.dmz-eu.st.com (beta.dmz-eu.st.com [164.129.1.35])
- by mx07-00178001.pphosted.com with ESMTP id 2xrcaxr1v5-1
+ by mx07-00178001.pphosted.com with ESMTP id 2xrdek8c0m-1
  (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
- Mon, 27 Jan 2020 10:19:28 +0100
+ Mon, 27 Jan 2020 11:57:44 +0100
 Received: from euls16034.sgp.st.com (euls16034.sgp.st.com [10.75.44.20])
- by beta.dmz-eu.st.com (STMicroelectronics) with ESMTP id 8448310002A;
- Mon, 27 Jan 2020 10:19:27 +0100 (CET)
-Received: from Webmail-eu.st.com (sfhdag5node2.st.com [10.75.127.14])
- by euls16034.sgp.st.com (STMicroelectronics) with ESMTP id 7855321E5DB;
- Mon, 27 Jan 2020 10:19:27 +0100 (CET)
-Received: from [10.48.1.171] (10.75.127.48) by SFHDAG5NODE2.st.com
- (10.75.127.14) with Microsoft SMTP Server (TLS) id 15.0.1473.3; Mon, 27 Jan
- 2020 10:19:26 +0100
-To: Alain Volmat <alain.volmat@st.com>, <wsa@the-dreams.de>,
- <robh+dt@kernel.org>
-References: <1579795970-22319-1-git-send-email-alain.volmat@st.com>
- <1579795970-22319-4-git-send-email-alain.volmat@st.com>
-From: Pierre Yves MORDRET <pierre-yves.mordret@st.com>
-Message-ID: <fcd47330-2408-feb0-1ce0-127387c3f2fb@st.com>
-Date: Mon, 27 Jan 2020 10:19:26 +0100
-User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:60.0) Gecko/20100101
- Thunderbird/60.9.0
+ by beta.dmz-eu.st.com (STMicroelectronics) with ESMTP id 5903B10002A;
+ Mon, 27 Jan 2020 11:57:40 +0100 (CET)
+Received: from Webmail-eu.st.com (sfhdag6node1.st.com [10.75.127.16])
+ by euls16034.sgp.st.com (STMicroelectronics) with ESMTP id 4846B2A5B8E;
+ Mon, 27 Jan 2020 11:57:40 +0100 (CET)
+Received: from lmecxl0923.lme.st.com (10.75.127.51) by SFHDAG6NODE1.st.com
+ (10.75.127.16) with Microsoft SMTP Server (TLS) id 15.0.1473.3; Mon, 27 Jan
+ 2020 11:57:39 +0100
+To: Ulf Hansson <ulf.hansson@linaro.org>
+References: <20200110134823.14882-1-ludovic.barre@st.com>
+ <20200110134823.14882-4-ludovic.barre@st.com>
+ <CAPDyKFpBgRGbRjOKHygknUMvGt9AKke+svoSG+So4B7hdZ8AMw@mail.gmail.com>
+From: Ludovic BARRE <ludovic.barre@st.com>
+Message-ID: <075935e7-6c26-9baa-72a5-8dbdecef1e8e@st.com>
+Date: Mon, 27 Jan 2020 11:57:39 +0100
+User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:68.0) Gecko/20100101
+ Thunderbird/68.1.0
 MIME-Version: 1.0
-In-Reply-To: <1579795970-22319-4-git-send-email-alain.volmat@st.com>
-Content-Language: en-US
-X-Originating-IP: [10.75.127.48]
-X-ClientProxiedBy: SFHDAG4NODE1.st.com (10.75.127.10) To SFHDAG5NODE2.st.com
- (10.75.127.14)
+In-Reply-To: <CAPDyKFpBgRGbRjOKHygknUMvGt9AKke+svoSG+So4B7hdZ8AMw@mail.gmail.com>
+Content-Language: fr
+X-Originating-IP: [10.75.127.51]
+X-ClientProxiedBy: SFHDAG3NODE2.st.com (10.75.127.8) To SFHDAG6NODE1.st.com
+ (10.75.127.16)
 X-Proofpoint-Virus-Version: vendor=fsecure engine=2.50.10434:6.0.138, 18.0.572
  definitions=2020-01-27_02:2020-01-24,
  2020-01-27 signatures=0
-Cc: mark.rutland@arm.com, devicetree@vger.kernel.org,
- linux-kernel@vger.kernel.org, linux-i2c@vger.kernel.org,
- mcoquelin.stm32@gmail.com, fabrice.gasnier@st.com,
- linux-stm32@st-md-mailman.stormreply.com, linux-arm-kernel@lists.infradead.org
-Subject: Re: [Linux-stm32] [PATCH 3/5] i2c: i2c-stm32f7: add a new st,
- stm32mp15-i2c compatible
+Cc: DTML <devicetree@vger.kernel.org>,
+ "linux-mmc@vger.kernel.org" <linux-mmc@vger.kernel.org>,
+ Linux Kernel Mailing List <linux-kernel@vger.kernel.org>,
+ Rob Herring <robh+dt@kernel.org>,
+ Srinivas Kandagatla <srinivas.kandagatla@linaro.org>,
+ Maxime Coquelin <mcoquelin.stm32@gmail.com>,
+ linux-stm32@st-md-mailman.stormreply.com,
+ Linux ARM <linux-arm-kernel@lists.infradead.org>
+Subject: Re: [Linux-stm32] [PATCH 3/9] mmc: mmci: add a reference at
+ mmc_host_ops in mmci struct
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -75,142 +79,41 @@ List-Post: <mailto:linux-stm32@st-md-mailman.stormreply.com>
 List-Help: <mailto:linux-stm32-request@st-md-mailman.stormreply.com?subject=help>
 List-Subscribe: <https://st-md-mailman.stormreply.com/mailman/listinfo/linux-stm32>, 
  <mailto:linux-stm32-request@st-md-mailman.stormreply.com?subject=subscribe>
-Content-Type: text/plain; charset="us-ascii"
-Content-Transfer-Encoding: 7bit
+Content-Transfer-Encoding: base64
+Content-Type: text/plain; charset="utf-8"; Format="flowed"
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
-Hi
-
-Reviewed-by: Pierre-Yves MORDRET <pierre-yves.mordret@st.com>
-
-Thanks
-
-On 1/23/20 5:12 PM, Alain Volmat wrote:
-> Add a new stm32mp15 specific compatible to handle FastMode+
-> registers handling which is different on the stm32mp15 compared
-> to the stm32f7 or stm32h7.
-> Indeed, on the stm32mp15, the FastMode+ set and clear registers
-> are separated while on the other platforms (F7 or H7) the control
-> is done in a unique register.
-> 
-> Signed-off-by: Alain Volmat <alain.volmat@st.com>
-> ---
->  drivers/i2c/busses/i2c-stm32f7.c | 41 +++++++++++++++++++++++++++++++++-------
->  1 file changed, 34 insertions(+), 7 deletions(-)
-> 
-> diff --git a/drivers/i2c/busses/i2c-stm32f7.c b/drivers/i2c/busses/i2c-stm32f7.c
-> index 1a3b3fa582ff..6bee9eca789f 100644
-> --- a/drivers/i2c/busses/i2c-stm32f7.c
-> +++ b/drivers/i2c/busses/i2c-stm32f7.c
-> @@ -223,6 +223,7 @@ struct stm32f7_i2c_spec {
->   * @fall_time: Fall time (ns)
->   * @dnf: Digital filter coefficient (0-16)
->   * @analog_filter: Analog filter delay (On/Off)
-> + * @fmp_clr_offset: Fast Mode Plus clear register offset from set register
->   */
->  struct stm32f7_i2c_setup {
->  	enum stm32_i2c_speed speed;
-> @@ -232,6 +233,7 @@ struct stm32f7_i2c_setup {
->  	u32 fall_time;
->  	u8 dnf;
->  	bool analog_filter;
-> +	u32 fmp_clr_offset;
->  };
->  
->  /**
-> @@ -303,8 +305,9 @@ struct stm32f7_i2c_msg {
->   * @dma: dma data
->   * @use_dma: boolean to know if dma is used in the current transfer
->   * @regmap: holds SYSCFG phandle for Fast Mode Plus bits
-> - * @regmap_reg: register address for setting Fast Mode Plus bits
-> - * @regmap_mask: mask for Fast Mode Plus bits in set register
-> + * @regmap_sreg: register address for setting Fast Mode Plus bits
-> + * @regmap_creg: register address for clearing Fast Mode Plus bits
-> + * @regmap_mask: mask for Fast Mode Plus bits
->   * @wakeup_src: boolean to know if the device is a wakeup source
->   */
->  struct stm32f7_i2c_dev {
-> @@ -328,7 +331,8 @@ struct stm32f7_i2c_dev {
->  	struct stm32_i2c_dma *dma;
->  	bool use_dma;
->  	struct regmap *regmap;
-> -	u32 regmap_reg;
-> +	u32 regmap_sreg;
-> +	u32 regmap_creg;
->  	u32 regmap_mask;
->  	bool wakeup_src;
->  };
-> @@ -386,6 +390,14 @@ static const struct stm32f7_i2c_setup stm32f7_setup = {
->  	.analog_filter = STM32F7_I2C_ANALOG_FILTER_ENABLE,
->  };
->  
-> +static const struct stm32f7_i2c_setup stm32mp15_setup = {
-> +	.rise_time = STM32F7_I2C_RISE_TIME_DEFAULT,
-> +	.fall_time = STM32F7_I2C_FALL_TIME_DEFAULT,
-> +	.dnf = STM32F7_I2C_DNF_DEFAULT,
-> +	.analog_filter = STM32F7_I2C_ANALOG_FILTER_ENABLE,
-> +	.fmp_clr_offset = 0x40,
-> +};
-> +
->  static inline void stm32f7_i2c_set_bits(void __iomem *reg, u32 mask)
->  {
->  	writel_relaxed(readl_relaxed(reg) | mask, reg);
-> @@ -1822,15 +1834,26 @@ static int stm32f7_i2c_unreg_slave(struct i2c_client *slave)
->  static int stm32f7_i2c_write_fm_plus_bits(struct stm32f7_i2c_dev *i2c_dev,
->  					  bool enable)
->  {
-> +	int ret;
-> +
->  	if (i2c_dev->speed != STM32_I2C_SPEED_FAST_PLUS ||
->  	    IS_ERR_OR_NULL(i2c_dev->regmap)) {
->  		/* Optional */
->  		return 0;
->  	}
->  
-> -	return regmap_update_bits(i2c_dev->regmap, i2c_dev->regmap_reg,
-> -				  i2c_dev->regmap_mask,
-> -				  enable ? i2c_dev->regmap_mask : 0);
-> +	if (i2c_dev->regmap_sreg == i2c_dev->regmap_creg)
-> +		ret = regmap_update_bits(i2c_dev->regmap,
-> +					 i2c_dev->regmap_sreg,
-> +					 i2c_dev->regmap_mask,
-> +					 enable ? i2c_dev->regmap_mask : 0);
-> +	else
-> +		ret = regmap_write(i2c_dev->regmap,
-> +				   enable ? i2c_dev->regmap_sreg :
-> +					    i2c_dev->regmap_creg,
-> +				   i2c_dev->regmap_mask);
-> +
-> +	return ret;
->  }
->  
->  static int stm32f7_i2c_setup_fm_plus_bits(struct platform_device *pdev,
-> @@ -1846,10 +1869,13 @@ static int stm32f7_i2c_setup_fm_plus_bits(struct platform_device *pdev,
->  	}
->  
->  	ret = of_property_read_u32_index(np, "st,syscfg-fmp", 1,
-> -					 &i2c_dev->regmap_reg);
-> +					 &i2c_dev->regmap_sreg);
->  	if (ret)
->  		return ret;
->  
-> +	i2c_dev->regmap_creg = i2c_dev->regmap_sreg +
-> +			       i2c_dev->setup.fmp_clr_offset;
-> +
->  	ret = of_property_read_u32_index(np, "st,syscfg-fmp", 2,
->  					 &i2c_dev->regmap_mask);
->  	if (ret)
-> @@ -2271,6 +2297,7 @@ static const struct dev_pm_ops stm32f7_i2c_pm_ops = {
->  
->  static const struct of_device_id stm32f7_i2c_match[] = {
->  	{ .compatible = "st,stm32f7-i2c", .data = &stm32f7_setup},
-> +	{ .compatible = "st,stm32mp15-i2c", .data = &stm32mp15_setup},
->  	{},
->  };
->  MODULE_DEVICE_TABLE(of, stm32f7_i2c_match);
-> 
-_______________________________________________
-Linux-stm32 mailing list
-Linux-stm32@st-md-mailman.stormreply.com
-https://st-md-mailman.stormreply.com/mailman/listinfo/linux-stm32
+CgpMZSAxLzI0LzIwIMOgIDI6MDkgUE0sIFVsZiBIYW5zc29uIGEgw6ljcml0wqA6Cj4gT24gRnJp
+LCAxMCBKYW4gMjAyMCBhdCAxNDo0OSwgTHVkb3ZpYyBCYXJyZSA8bHVkb3ZpYy5iYXJyZUBzdC5j
+b20+IHdyb3RlOgo+Pgo+PiBUaGlzIHBhdGNoIGFkZHMgbW1jX2hvc3Rfb3BzIHBvaW50ZXIgaW4g
+bW1jaSBzdHJ1Y3QuCj4+IFRoZSB2YXJpYW50IGluaXQgZnVuY3Rpb24gbWF5IG5lZWQgdG8gYWRk
+IGEgbW1jX2hvc3Rfb3BzLAo+PiBmb3IgZXhhbXBsZSB0byBhZGQgdGhlIGV4ZWN1dGVfdHVuaW5n
+IHN1cHBvcnQgaWYgdGhpcyBmZWF0dXJlCj4+IGlzIGF2YWlsYWJsZS4KPj4KPj4gU2lnbmVkLW9m
+Zi1ieTogTHVkb3ZpYyBCYXJyZSA8bHVkb3ZpYy5iYXJyZUBzdC5jb20+Cj4+IC0tLQo+PiAgIGRy
+aXZlcnMvbW1jL2hvc3QvbW1jaS5jIHwgMSArCj4+ICAgZHJpdmVycy9tbWMvaG9zdC9tbWNpLmgg
+fCAxICsKPj4gICAyIGZpbGVzIGNoYW5nZWQsIDIgaW5zZXJ0aW9ucygrKQo+Pgo+PiBkaWZmIC0t
+Z2l0IGEvZHJpdmVycy9tbWMvaG9zdC9tbWNpLmMgYi9kcml2ZXJzL21tYy9ob3N0L21tY2kuYwo+
+PiBpbmRleCA3YjEzZDY2Y2JiMjEuLjAwYjQ3M2Y1NzA0NyAxMDA2NDQKPj4gLS0tIGEvZHJpdmVy
+cy9tbWMvaG9zdC9tbWNpLmMKPj4gKysrIGIvZHJpdmVycy9tbWMvaG9zdC9tbWNpLmMKPj4gQEAg
+LTE5MjMsNiArMTkyMyw3IEBAIHN0YXRpYyBpbnQgbW1jaV9wcm9iZShzdHJ1Y3QgYW1iYV9kZXZp
+Y2UgKmRldiwKPj4KPj4gICAgICAgICAgaG9zdCA9IG1tY19wcml2KG1tYyk7Cj4+ICAgICAgICAg
+IGhvc3QtPm1tYyA9IG1tYzsKPj4gKyAgICAgICBob3N0LT5tbWNfb3BzID0gJm1tY2lfb3BzOwo+
+IAo+IE5pdHBpY2s6Cj4gCj4gQ2FuIHlvdSBwbGVhc2UgYWxzbyBtb3ZlIHRoZSBhc3NpZ25tZW50
+ICJtbWMtPm9wcyA9ICZtbWNpX29wczsiIHRvCj4gdGhpcyBwbGFjZSBhcyB3ZWxsLCBhcyBJIHRo
+aW5rIHRoZXNlIGJlbG9uZ3MgdG9nZXRoZXIuCgpPSwoKPiAKPj4KPj4gICAgICAgICAgLyoKPj4g
+ICAgICAgICAgICogU29tZSB2YXJpYW50IChTVE0zMikgZG9lc24ndCBoYXZlIG9wZW5kcmFpbiBi
+aXQsIG5ldmVydGhlbGVzcwo+PiBkaWZmIC0tZ2l0IGEvZHJpdmVycy9tbWMvaG9zdC9tbWNpLmgg
+Yi9kcml2ZXJzL21tYy9ob3N0L21tY2kuaAo+PiBpbmRleCBlYTZhMGI1Nzc5ZDQuLjU1YWNjMDk3
+MWE0NCAxMDA2NDQKPj4gLS0tIGEvZHJpdmVycy9tbWMvaG9zdC9tbWNpLmgKPj4gKysrIGIvZHJp
+dmVycy9tbWMvaG9zdC9tbWNpLmgKPj4gQEAgLTQwNyw2ICs0MDcsNyBAQCBzdHJ1Y3QgbW1jaV9o
+b3N0IHsKPj4gICAgICAgICAgdTMyICAgICAgICAgICAgICAgICAgICAgbWFzazFfcmVnOwo+PiAg
+ICAgICAgICB1OCAgICAgICAgICAgICAgICAgICAgICB2cW1tY19lbmFibGVkOjE7Cj4+ICAgICAg
+ICAgIHN0cnVjdCBtbWNpX3BsYXRmb3JtX2RhdGEgKnBsYXQ7Cj4+ICsgICAgICAgc3RydWN0IG1t
+Y19ob3N0X29wcyAgICAgKm1tY19vcHM7Cj4+ICAgICAgICAgIHN0cnVjdCBtbWNpX2hvc3Rfb3Bz
+ICAgICpvcHM7Cj4+ICAgICAgICAgIHN0cnVjdCB2YXJpYW50X2RhdGEgICAgICp2YXJpYW50Owo+
+PiAgICAgICAgICBzdHJ1Y3QgcGluY3RybCAgICAgICAgICAqcGluY3RybDsKPj4gLS0KPj4gMi4x
+Ny4xCj4+Cj4gCj4gS2luZCByZWdhcmRzCj4gVWZmZQo+IApfX19fX19fX19fX19fX19fX19fX19f
+X19fX19fX19fX19fX19fX19fX19fX19fXwpMaW51eC1zdG0zMiBtYWlsaW5nIGxpc3QKTGludXgt
+c3RtMzJAc3QtbWQtbWFpbG1hbi5zdG9ybXJlcGx5LmNvbQpodHRwczovL3N0LW1kLW1haWxtYW4u
+c3Rvcm1yZXBseS5jb20vbWFpbG1hbi9saXN0aW5mby9saW51eC1zdG0zMgo=
