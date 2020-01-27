@@ -2,42 +2,42 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id 99DD314A29C
-	for <lists+linux-stm32@lfdr.de>; Mon, 27 Jan 2020 12:09:37 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 0581C14A2A1
+	for <lists+linux-stm32@lfdr.de>; Mon, 27 Jan 2020 12:09:39 +0100 (CET)
 Received: from ip-172-31-3-76.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 2F26CC36B0F;
-	Mon, 27 Jan 2020 11:09:37 +0000 (UTC)
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id B321CC36B1E;
+	Mon, 27 Jan 2020 11:09:38 +0000 (UTC)
 Received: from smtprelay-out1.synopsys.com (sv2-smtprelay2.synopsys.com
  [149.117.73.133])
  (using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id E1BD6C36B0A
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id D5CBAC36B0B
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Mon, 27 Jan 2020 11:09:33 +0000 (UTC)
+ Mon, 27 Jan 2020 11:09:36 +0000 (UTC)
 Received: from mailhost.synopsys.com (mdc-mailhost1.synopsys.com
  [10.225.0.209])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits))
  (No client certificate requested)
- by smtprelay-out1.synopsys.com (Postfix) with ESMTPS id 2424240681;
+ by smtprelay-out1.synopsys.com (Postfix) with ESMTPS id 30CF8407A1;
  Mon, 27 Jan 2020 11:09:30 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=synopsys.com; s=mail;
- t=1580123371; bh=cO+g3Kr2uxEqhz3b3YZ0amNPqSvwwFt7LtKb3+gOCo4=;
+ t=1580123375; bh=NixIYL9DJLQ1EjTICLfMWuieQcujDdoMHw59TKyyS8M=;
  h=From:To:Cc:Subject:Date:In-Reply-To:References:In-Reply-To:
  References:From;
- b=MYoby/cG1j0uNTuOKPe4zJEkqEzPfmiwzwVbWaZq+bb1EzFQCP+Kx6E9MAQojvvHx
- WSR0NwS5UAGinV0n1bPOhiezeOQuSQ1SfM+hZ1bH/p5TnGkAcWUkqMJneYTiZ8lhu1
- O2XSEXo7CddZoJBPXNlbCIuQGcq3UMKSs2qgaGpSTfVM3lrOf6r/AKFo2cwvSUO2R1
- rVnTTr+s5DKYWOqznGWsfDzBK77mEkvj/daJSX+WdFssDZgBgE+cFQvBrf/NQzj/6G
- 5hLcjyw5UPU5jaQ5L4bfvXveCCoIyo0XqiuvLU3DCBYiIkVKxPosmYjQ2LfpHiNATt
- Py4csElTLqj0Q==
+ b=TfOTD3c61jySU590rkw/WFPmnX4b3Yp1lziig60p8MtXl/WVBNxXo6Eesngx+eomY
+ QwzQcFIQEBQT5yFCCWbIYUgPd/Gf6bquxFUnrJzgLahK/AMKBrYhn8TK8iXfLEXQBE
+ 1uWntPc45cgt/P611nE6So2fe0aScGXMFPM9bvqOQK+xi9p5SBRa9J6PnCYtBUNmbb
+ B+kXNx8qSeg2RXFaVHbaPzhvqv6jX8y9HInABcF+DsAvrx3OX/rpSknvCBn4nMkS57
+ R129Qv3KRyueOvdsntraQascjwgfEXhYZJco/6HdkiKXUdmHHeyx6SIr0d9ysgYuFa
+ sZWoAJcRwq+Bg==
 Received: from de02dwia024.internal.synopsys.com
  (de02dwia024.internal.synopsys.com [10.225.19.81])
- by mailhost.synopsys.com (Postfix) with ESMTP id B4F04A0098;
+ by mailhost.synopsys.com (Postfix) with ESMTP id BD0F3A009B;
  Mon, 27 Jan 2020 11:09:28 +0000 (UTC)
 From: Jose Abreu <Jose.Abreu@synopsys.com>
 To: netdev@vger.kernel.org
-Date: Mon, 27 Jan 2020 12:09:10 +0100
-Message-Id: <52404355acc97d174abb1c85d39ec1a56f96593a.1580122909.git.Jose.Abreu@synopsys.com>
+Date: Mon, 27 Jan 2020 12:09:11 +0100
+Message-Id: <9a2136885d9a892ff170be88fdffeda82c778a10.1580122909.git.Jose.Abreu@synopsys.com>
 X-Mailer: git-send-email 2.7.4
 In-Reply-To: <cover.1580122909.git.Jose.Abreu@synopsys.com>
 References: <cover.1580122909.git.Jose.Abreu@synopsys.com>
@@ -51,8 +51,8 @@ Cc: Jose Abreu <Jose.Abreu@synopsys.com>, Andrew Lunn <andrew@lunn.ch>,
  Giuseppe Cavallaro <peppe.cavallaro@st.com>,
  "David S. Miller" <davem@davemloft.net>, linux-arm-kernel@lists.infradead.org,
  Heiner Kallweit <hkallweit1@gmail.com>
-Subject: [Linux-stm32] [RFC net-next 5/8] net: phylink: Add missing
-	Backplane speeds
+Subject: [Linux-stm32] [RFC net-next 6/8] net: phylink: Configure MAC/PCS
+	when link is up without PHY
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -70,7 +70,9 @@ Content-Transfer-Encoding: 7bit
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
-USXGMII also supports these missing backplane speeds.
+When we don't have any real PHY driver connected and we get link up from
+PCS we shall configure MAC and PCS for the desired speed and also
+resolve the flow control settings from MAC side.
 
 Signed-off-by: Jose Abreu <Jose.Abreu@synopsys.com>
 
@@ -90,27 +92,36 @@ Cc: linux-stm32@st-md-mailman.stormreply.com
 Cc: linux-arm-kernel@lists.infradead.org
 Cc: linux-kernel@vger.kernel.org
 ---
- drivers/net/phy/phylink.c | 2 ++
- 1 file changed, 2 insertions(+)
+ drivers/net/phy/phylink.c | 14 ++++++++++++--
+ 1 file changed, 12 insertions(+), 2 deletions(-)
 
 diff --git a/drivers/net/phy/phylink.c b/drivers/net/phy/phylink.c
-index 70b9a143db84..4174d874b1f7 100644
+index 4174d874b1f7..75dbaf80d7a5 100644
 --- a/drivers/net/phy/phylink.c
 +++ b/drivers/net/phy/phylink.c
-@@ -308,11 +308,13 @@ static int phylink_parse_mode(struct phylink *pl, struct fwnode_handle *fwnode)
- 			phylink_set(pl->supported, 1000baseT_Half);
- 			phylink_set(pl->supported, 1000baseT_Full);
- 			phylink_set(pl->supported, 1000baseX_Full);
-+			phylink_set(pl->supported, 1000baseKX_Full);
- 			phylink_set(pl->supported, 2500baseT_Full);
- 			phylink_set(pl->supported, 2500baseX_Full);
- 			phylink_set(pl->supported, 5000baseT_Full);
- 			phylink_set(pl->supported, 10000baseT_Full);
- 			phylink_set(pl->supported, 10000baseKR_Full);
-+			phylink_set(pl->supported, 10000baseKX4_Full);
- 			phylink_set(pl->supported, 10000baseCR_Full);
- 			phylink_set(pl->supported, 10000baseSR_Full);
- 			phylink_set(pl->supported, 10000baseLR_Full);
+@@ -533,10 +533,20 @@ static void phylink_resolve(struct work_struct *w)
+ 
+ 	if (link_changed) {
+ 		pl->old_link_state = link_state.link;
+-		if (!link_state.link)
++		if (!link_state.link) {
+ 			phylink_mac_link_down(pl);
+-		else
++		} else {
++			/* If no PHY is connected, we still need to configure
++			 * MAC/PCS for flow control and speed.
++			 */
++			if (!pl->phydev) {
++				phylink_resolve_flow(pl, &link_state);
++				phylink_mac_config(pl, &link_state);
++			}
++
+ 			phylink_mac_link_up(pl, link_state);
++		}
++
+ 	}
+ 	if (!link_state.link && pl->mac_link_dropped) {
+ 		pl->mac_link_dropped = false;
 -- 
 2.7.4
 
