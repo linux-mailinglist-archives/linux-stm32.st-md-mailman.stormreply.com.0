@@ -2,42 +2,42 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id B0DB314A2A2
-	for <lists+linux-stm32@lfdr.de>; Mon, 27 Jan 2020 12:09:39 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 99DD314A29C
+	for <lists+linux-stm32@lfdr.de>; Mon, 27 Jan 2020 12:09:37 +0100 (CET)
 Received: from ip-172-31-3-76.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 76748C36B20;
-	Mon, 27 Jan 2020 11:09:39 +0000 (UTC)
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 2F26CC36B0F;
+	Mon, 27 Jan 2020 11:09:37 +0000 (UTC)
 Received: from smtprelay-out1.synopsys.com (sv2-smtprelay2.synopsys.com
  [149.117.73.133])
  (using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 98DF1C36B09
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id E1BD6C36B0A
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Mon, 27 Jan 2020 11:09:36 +0000 (UTC)
+ Mon, 27 Jan 2020 11:09:33 +0000 (UTC)
 Received: from mailhost.synopsys.com (mdc-mailhost1.synopsys.com
  [10.225.0.209])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits))
  (No client certificate requested)
- by smtprelay-out1.synopsys.com (Postfix) with ESMTPS id 3C08B407D5;
+ by smtprelay-out1.synopsys.com (Postfix) with ESMTPS id 2424240681;
  Mon, 27 Jan 2020 11:09:30 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=synopsys.com; s=mail;
- t=1580123375; bh=1V4KZNLCEVQkZbEnBclEB7b/pPbEYIU2LmrJ1xt38hU=;
+ t=1580123371; bh=cO+g3Kr2uxEqhz3b3YZ0amNPqSvwwFt7LtKb3+gOCo4=;
  h=From:To:Cc:Subject:Date:In-Reply-To:References:In-Reply-To:
  References:From;
- b=P7m5H+TYovgq1Tbg20Kyhg1fxMJlFVMh3d8jwUBPAhhb1AlvIOcunhyVM1Bp5emXE
- Qt8hbzGKo3/OoXgM/l91kYqid/iAkPKZE2xAf54l19WPvUs39uzsI/H/y5cRK10P6R
- JPHeoLbPtoYn65Vi79LQprNB+D/93Lhh2iOwKyR5qfXwT7BtYdeyr+hTzmnjmeorcZ
- T+1FCi1QGp3A0xEPR2gDa4K5Y8yZd3MPNqtsnPqfoSyWbyWYz26zgjOJK1u4X3a/vV
- PN7Ch6K8K4XYRpKzjfhrl8I7LwBVL7UDe29s5sJDi/8UQ3GXMrHy3xaeapkaQOueFv
- /YNuMazcSY34w==
+ b=MYoby/cG1j0uNTuOKPe4zJEkqEzPfmiwzwVbWaZq+bb1EzFQCP+Kx6E9MAQojvvHx
+ WSR0NwS5UAGinV0n1bPOhiezeOQuSQ1SfM+hZ1bH/p5TnGkAcWUkqMJneYTiZ8lhu1
+ O2XSEXo7CddZoJBPXNlbCIuQGcq3UMKSs2qgaGpSTfVM3lrOf6r/AKFo2cwvSUO2R1
+ rVnTTr+s5DKYWOqznGWsfDzBK77mEkvj/daJSX+WdFssDZgBgE+cFQvBrf/NQzj/6G
+ 5hLcjyw5UPU5jaQ5L4bfvXveCCoIyo0XqiuvLU3DCBYiIkVKxPosmYjQ2LfpHiNATt
+ Py4csElTLqj0Q==
 Received: from de02dwia024.internal.synopsys.com
  (de02dwia024.internal.synopsys.com [10.225.19.81])
- by mailhost.synopsys.com (Postfix) with ESMTP id ACC22A0094;
+ by mailhost.synopsys.com (Postfix) with ESMTP id B4F04A0098;
  Mon, 27 Jan 2020 11:09:28 +0000 (UTC)
 From: Jose Abreu <Jose.Abreu@synopsys.com>
 To: netdev@vger.kernel.org
-Date: Mon, 27 Jan 2020 12:09:09 +0100
-Message-Id: <983e5022dfeea7fca1404790130052ec2874ebec.1580122909.git.Jose.Abreu@synopsys.com>
+Date: Mon, 27 Jan 2020 12:09:10 +0100
+Message-Id: <52404355acc97d174abb1c85d39ec1a56f96593a.1580122909.git.Jose.Abreu@synopsys.com>
 X-Mailer: git-send-email 2.7.4
 In-Reply-To: <cover.1580122909.git.Jose.Abreu@synopsys.com>
 References: <cover.1580122909.git.Jose.Abreu@synopsys.com>
@@ -51,8 +51,8 @@ Cc: Jose Abreu <Jose.Abreu@synopsys.com>, Andrew Lunn <andrew@lunn.ch>,
  Giuseppe Cavallaro <peppe.cavallaro@st.com>,
  "David S. Miller" <davem@davemloft.net>, linux-arm-kernel@lists.infradead.org,
  Heiner Kallweit <hkallweit1@gmail.com>
-Subject: [Linux-stm32] [RFC net-next 4/8] net: stmmac: Fallback to
-	dev_fwnode() if needed
+Subject: [Linux-stm32] [RFC net-next 5/8] net: phylink: Add missing
+	Backplane speeds
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -70,10 +70,7 @@ Content-Transfer-Encoding: 7bit
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
-When CONFIG_OF is not enabled, of_fwnode_handle() will return NULL, even
-though we can have a FW handle from a given device.
-
-Fallback to dev_fwnode() helper if needed.
+USXGMII also supports these missing backplane speeds.
 
 Signed-off-by: Jose Abreu <Jose.Abreu@synopsys.com>
 
@@ -93,23 +90,27 @@ Cc: linux-stm32@st-md-mailman.stormreply.com
 Cc: linux-arm-kernel@lists.infradead.org
 Cc: linux-kernel@vger.kernel.org
 ---
- drivers/net/ethernet/stmicro/stmmac/stmmac_main.c | 3 +++
- 1 file changed, 3 insertions(+)
+ drivers/net/phy/phylink.c | 2 ++
+ 1 file changed, 2 insertions(+)
 
-diff --git a/drivers/net/ethernet/stmicro/stmmac/stmmac_main.c b/drivers/net/ethernet/stmicro/stmmac/stmmac_main.c
-index 0bbc9e8b7aae..eaedea4b353e 100644
---- a/drivers/net/ethernet/stmicro/stmmac/stmmac_main.c
-+++ b/drivers/net/ethernet/stmicro/stmmac/stmmac_main.c
-@@ -1041,6 +1041,9 @@ static int stmmac_phy_setup(struct stmmac_priv *priv)
- 	priv->phylink_config.dev = &priv->dev->dev;
- 	priv->phylink_config.type = PHYLINK_NETDEV;
- 
-+	if (!fwnode)
-+		fwnode = dev_fwnode(priv->device);
-+
- 	phylink = phylink_create(&priv->phylink_config, fwnode,
- 				 mode, &stmmac_phylink_mac_ops);
- 	if (IS_ERR(phylink))
+diff --git a/drivers/net/phy/phylink.c b/drivers/net/phy/phylink.c
+index 70b9a143db84..4174d874b1f7 100644
+--- a/drivers/net/phy/phylink.c
++++ b/drivers/net/phy/phylink.c
+@@ -308,11 +308,13 @@ static int phylink_parse_mode(struct phylink *pl, struct fwnode_handle *fwnode)
+ 			phylink_set(pl->supported, 1000baseT_Half);
+ 			phylink_set(pl->supported, 1000baseT_Full);
+ 			phylink_set(pl->supported, 1000baseX_Full);
++			phylink_set(pl->supported, 1000baseKX_Full);
+ 			phylink_set(pl->supported, 2500baseT_Full);
+ 			phylink_set(pl->supported, 2500baseX_Full);
+ 			phylink_set(pl->supported, 5000baseT_Full);
+ 			phylink_set(pl->supported, 10000baseT_Full);
+ 			phylink_set(pl->supported, 10000baseKR_Full);
++			phylink_set(pl->supported, 10000baseKX4_Full);
+ 			phylink_set(pl->supported, 10000baseCR_Full);
+ 			phylink_set(pl->supported, 10000baseSR_Full);
+ 			phylink_set(pl->supported, 10000baseLR_Full);
 -- 
 2.7.4
 
