@@ -2,71 +2,65 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id E4D2D14A4D4
-	for <lists+linux-stm32@lfdr.de>; Mon, 27 Jan 2020 14:21:28 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id E48FC14A538
+	for <lists+linux-stm32@lfdr.de>; Mon, 27 Jan 2020 14:38:18 +0100 (CET)
 Received: from ip-172-31-3-76.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id A0D6EC36B0B;
-	Mon, 27 Jan 2020 13:21:28 +0000 (UTC)
-Received: from mx07-00178001.pphosted.com (mx08-00178001.pphosted.com
- [91.207.212.93])
- (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 96404C36B0B;
+	Mon, 27 Jan 2020 13:38:18 +0000 (UTC)
+Received: from pandora.armlinux.org.uk (pandora.armlinux.org.uk [78.32.30.218])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id D0CE2C36B09
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id E3F7DC36B09
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Mon, 27 Jan 2020 13:21:26 +0000 (UTC)
-Received: from pps.filterd (m0046660.ppops.net [127.0.0.1])
- by mx07-00178001.pphosted.com (8.16.0.42/8.16.0.42) with SMTP id
- 00RDHIgu030114; Mon, 27 Jan 2020 14:21:20 +0100
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=st.com;
- h=subject : to : cc :
- references : from : message-id : date : mime-version : in-reply-to :
- content-type : content-transfer-encoding; s=STMicroelectronics;
- bh=Ynyg3l3bCZvEHYJP9ooaKE6qoJny3AOLT9lZG+35P+Y=;
- b=Oa8/ux9a8wVQREI/DQEGek7/L3+KZ11oy/8M8Wqb4ntcZzz9NkaGBk5eii18tdyUP/2l
- o48/s6ku5LYMkcHRk6Lgt0qo3vx5GKdMVv6/T6QRdFjo5anu80ZlWhDz655ISyMDzeFz
- 0LYci8ICQasSli1cJBR6qOx4SNXgOR5WZHkb+EbpYTDPSchmJszbbgMoowblruWO5uih
- UQdNCd7/Ejq20XtRXAJaWWNILoj9IV65o3cnL+SAx29HZi+2dYVwaO3aeaOF9KKgDKUQ
- P7S41DkRid9Omm/WBjysgy/UEsDxuDAjBMKVCJ34qprTLZ9utI6nffWfUnBNQZtWU88Y +A== 
-Received: from beta.dmz-eu.st.com (beta.dmz-eu.st.com [164.129.1.35])
- by mx07-00178001.pphosted.com with ESMTP id 2xrbpas72t-1
- (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
- Mon, 27 Jan 2020 14:21:20 +0100
-Received: from euls16034.sgp.st.com (euls16034.sgp.st.com [10.75.44.20])
- by beta.dmz-eu.st.com (STMicroelectronics) with ESMTP id 0DA4D10002A;
- Mon, 27 Jan 2020 14:21:20 +0100 (CET)
-Received: from Webmail-eu.st.com (sfhdag6node1.st.com [10.75.127.16])
- by euls16034.sgp.st.com (STMicroelectronics) with ESMTP id ECEE62B1871;
- Mon, 27 Jan 2020 14:21:19 +0100 (CET)
-Received: from lmecxl0923.lme.st.com (10.75.127.49) by SFHDAG6NODE1.st.com
- (10.75.127.16) with Microsoft SMTP Server (TLS) id 15.0.1473.3; Mon, 27 Jan
- 2020 14:21:18 +0100
-To: Ulf Hansson <ulf.hansson@linaro.org>
-References: <20200110134823.14882-1-ludovic.barre@st.com>
- <20200110134823.14882-8-ludovic.barre@st.com>
- <CAPDyKFqt6SuQh8V1_2-2HzBixR2HTKM+1FKgYuNA1zytc22W7g@mail.gmail.com>
-From: Ludovic BARRE <ludovic.barre@st.com>
-Message-ID: <1b8e1428-c1b6-86e4-8d21-4257bcc16a90@st.com>
-Date: Mon, 27 Jan 2020 14:21:17 +0100
-User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:68.0) Gecko/20100101
- Thunderbird/68.1.0
+ Mon, 27 Jan 2020 13:38:16 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
+ d=armlinux.org.uk; s=pandora-2019; h=Sender:In-Reply-To:Content-Type:
+ MIME-Version:References:Message-ID:Subject:Cc:To:From:Date:Reply-To:
+ Content-Transfer-Encoding:Content-ID:Content-Description:Resent-Date:
+ Resent-From:Resent-Sender:Resent-To:Resent-Cc:Resent-Message-ID:List-Id:
+ List-Help:List-Unsubscribe:List-Subscribe:List-Post:List-Owner:List-Archive;
+ bh=hEVPihTZFlBUB/O1wOv5ir2YG3twNX+UmDFf1Ag2ags=; b=nccEWHjbZecrTrsl3dnNR/7UW
+ nimh9OAu7lLkVrt06Ql2e4wDgO2vLZtCyL6rarQuocvwK2ptV91N8avan3rxwmo+iSZz/ooWNR88g
+ TVo8EDks9/jzdCdCncKuaHM+xrKMJ+IYpk4AH5Jtf9vrbabO8QGGXbXEiVyeygtMyOSgGq165fvdE
+ WZ9rdYZX8v/lu4bvS0XxKg5T55XfoZ/F845vhvU0tQAwGZpjCYHUOXrDi0e7cZLw1OQB5/pEBNqNl
+ QthgpQKADD+3EG9NVU1qLBBqFgcAkWxpWYaU1BHZ3Jm8dUEfbRJfLiRxSK3Wk3f42dRWGQU8OLNdT
+ MnvJ5MuAA==;
+Received: from shell.armlinux.org.uk
+ ([fd8f:7570:feb6:1:5054:ff:fe00:4ec]:43996)
+ by pandora.armlinux.org.uk with esmtpsa
+ (TLSv1.2:ECDHE-RSA-AES256-GCM-SHA384:256) (Exim 4.90_1)
+ (envelope-from <linux@armlinux.org.uk>)
+ id 1iw4aS-0001ap-OS; Mon, 27 Jan 2020 13:37:57 +0000
+Received: from linux by shell.armlinux.org.uk with local (Exim 4.92)
+ (envelope-from <linux@shell.armlinux.org.uk>)
+ id 1iw4aO-0001R2-Bf; Mon, 27 Jan 2020 13:37:52 +0000
+Date: Mon, 27 Jan 2020 13:37:52 +0000
+From: Russell King - ARM Linux admin <linux@armlinux.org.uk>
+To: Jose Abreu <Jose.Abreu@synopsys.com>
+Message-ID: <20200127133752.GV25745@shell.armlinux.org.uk>
+References: <cover.1580122909.git.Jose.Abreu@synopsys.com>
+ <9a2136885d9a892ff170be88fdffeda82c778a10.1580122909.git.Jose.Abreu@synopsys.com>
+ <20200127112102.GT25745@shell.armlinux.org.uk>
+ <BN8PR12MB3266714AE9EC1A97218120B3D30B0@BN8PR12MB3266.namprd12.prod.outlook.com>
+ <20200127114600.GU25745@shell.armlinux.org.uk>
+ <BN8PR12MB3266A7C976B4E63466B5FA35D30B0@BN8PR12MB3266.namprd12.prod.outlook.com>
 MIME-Version: 1.0
-In-Reply-To: <CAPDyKFqt6SuQh8V1_2-2HzBixR2HTKM+1FKgYuNA1zytc22W7g@mail.gmail.com>
-Content-Language: fr
-X-Originating-IP: [10.75.127.49]
-X-ClientProxiedBy: SFHDAG1NODE2.st.com (10.75.127.2) To SFHDAG6NODE1.st.com
- (10.75.127.16)
-X-Proofpoint-Virus-Version: vendor=fsecure engine=2.50.10434:6.0.138, 18.0.572
- definitions=2020-01-27_02:2020-01-24,
- 2020-01-27 signatures=0
-Cc: DTML <devicetree@vger.kernel.org>,
- "linux-mmc@vger.kernel.org" <linux-mmc@vger.kernel.org>,
- Linux Kernel Mailing List <linux-kernel@vger.kernel.org>,
- Rob Herring <robh+dt@kernel.org>,
- Srinivas Kandagatla <srinivas.kandagatla@linaro.org>,
+Content-Disposition: inline
+In-Reply-To: <BN8PR12MB3266A7C976B4E63466B5FA35D30B0@BN8PR12MB3266.namprd12.prod.outlook.com>
+User-Agent: Mutt/1.10.1 (2018-07-13)
+Cc: Andrew Lunn <andrew@lunn.ch>, Joao Pinto <Joao.Pinto@synopsys.com>,
+ "netdev@vger.kernel.org" <netdev@vger.kernel.org>,
+ "linux-kernel@vger.kernel.org" <linux-kernel@vger.kernel.org>,
+ "linux-stm32@st-md-mailman.stormreply.com"
+ <linux-stm32@st-md-mailman.stormreply.com>,
+ Florian Fainelli <f.fainelli@gmail.com>,
  Maxime Coquelin <mcoquelin.stm32@gmail.com>,
- linux-stm32@st-md-mailman.stormreply.com,
- Linux ARM <linux-arm-kernel@lists.infradead.org>
-Subject: Re: [Linux-stm32] [PATCH 7/9] mmc: mmci: add volt_switch callbacks
+ Giuseppe Cavallaro <peppe.cavallaro@st.com>, Jakub Kicinski <kuba@kernel.org>,
+ "David S. Miller" <davem@davemloft.net>,
+ "linux-arm-kernel@lists.infradead.org" <linux-arm-kernel@lists.infradead.org>,
+ Heiner Kallweit <hkallweit1@gmail.com>
+Subject: Re: [Linux-stm32] [RFC net-next 6/8] net: phylink: Configure
+ MAC/PCS when link is up without PHY
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -78,67 +72,83 @@ List-Post: <mailto:linux-stm32@st-md-mailman.stormreply.com>
 List-Help: <mailto:linux-stm32-request@st-md-mailman.stormreply.com?subject=help>
 List-Subscribe: <https://st-md-mailman.stormreply.com/mailman/listinfo/linux-stm32>, 
  <mailto:linux-stm32-request@st-md-mailman.stormreply.com?subject=subscribe>
-Content-Transfer-Encoding: base64
-Content-Type: text/plain; charset="utf-8"; Format="flowed"
+Content-Type: text/plain; charset="us-ascii"
+Content-Transfer-Encoding: 7bit
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
-aGkgVWxmCgpMZSAxLzI0LzIwIMOgIDI6MTIgUE0sIFVsZiBIYW5zc29uIGEgw6ljcml0wqA6Cj4g
-T24gRnJpLCAxMCBKYW4gMjAyMCBhdCAxNDo0OSwgTHVkb3ZpYyBCYXJyZSA8bHVkb3ZpYy5iYXJy
-ZUBzdC5jb20+IHdyb3RlOgo+Pgo+PiBUaGlzIHBhdGNoIGFkZHMgMiB2b2x0YWdlIHN3aXRjaCBj
-YWxsYmFja3MgaW4gbW1jaV9ob3N0X29wczoKPj4gLXByZXBfdm9sdF9zd2l0Y2ggYWxsb3dzIHRv
-IHByZXBhcmUgdm9sdGFnZSBzd2l0Y2ggYmVmb3JlIHRvCj4+ICAgc2VudCB0aGUgU0RfU1dJVENI
-X1ZPTFRBR0UgY29tbWFuZCAoY21kMTEpLgo+PiAtdm9sdF9zd2l0Y2ggY2FsbGJhY2sgYWxsb3dz
-IHRvIGRlZmluZSBzcGVjaWZpYyBhY3Rpb24gYWZ0ZXIKPj4gICByZWd1bGF0b3Igc2V0IHZvbHRh
-Z2UuCj4gCj4gSSBhbSBmaW5lIHdpdGggYWRkaW5nIHRoZXNlIGNhbGxiYWNrcywgaG93ZXZlciBJ
-IHN0cm9uZ2x5IHN1Z2dlc3QgdG8KPiBoYXZlIGEgcmVmZXJlbmNlIHRvICJzaWduYWwgdm9sdGFn
-ZSIgaW4gdGhlIG5hbWUgb2YgdGhlIGNhbGxiYWNrcy4gQXMKPiB0byBhdm9pZCBjb25mdXNpb24g
-Zm9yIHdoYXQgdGhlcmUgYXJlIHVzZWQgZm9yLgo+IAo+IFBlcmhhcHMgLT5wb3N0X3NpZ192b2x0
-X3N3aXRjaCgpIGFuZCAtPnByZV9zaWdfdm9sdF9zd2l0Y2goKSBjYW4gd29yaz8KPiAKCnN1cmUs
-IEkgY2hhbmdlIHRvIHBvc3Rfc2lnX3ZvbHRfc3dpdGNoIGFuZCBwcmVfc2lnX3ZvbHRfc3dpdGNo
-LgoKPj4KPj4gU2lnbmVkLW9mZi1ieTogTHVkb3ZpYyBCYXJyZSA8bHVkb3ZpYy5iYXJyZUBzdC5j
-b20+Cj4+IC0tLQo+PiAgIGRyaXZlcnMvbW1jL2hvc3QvbW1jaS5jIHwgOCArKysrKysrKwo+PiAg
-IGRyaXZlcnMvbW1jL2hvc3QvbW1jaS5oIHwgMiArKwo+PiAgIDIgZmlsZXMgY2hhbmdlZCwgMTAg
-aW5zZXJ0aW9ucygrKQo+Pgo+PiBkaWZmIC0tZ2l0IGEvZHJpdmVycy9tbWMvaG9zdC9tbWNpLmMg
-Yi9kcml2ZXJzL21tYy9ob3N0L21tY2kuYwo+PiBpbmRleCAwMGI0NzNmNTcwNDcuLmQ3NmE1OWMw
-NmNiMCAxMDA2NDQKPj4gLS0tIGEvZHJpdmVycy9tbWMvaG9zdC9tbWNpLmMKPj4gKysrIGIvZHJp
-dmVycy9tbWMvaG9zdC9tbWNpLmMKPj4gQEAgLTIyLDYgKzIyLDcgQEAKPj4gICAjaW5jbHVkZSA8
-bGludXgvbW1jL3BtLmg+Cj4+ICAgI2luY2x1ZGUgPGxpbnV4L21tYy9ob3N0Lmg+Cj4+ICAgI2lu
-Y2x1ZGUgPGxpbnV4L21tYy9jYXJkLmg+Cj4+ICsjaW5jbHVkZSA8bGludXgvbW1jL3NkLmg+Cj4+
-ICAgI2luY2x1ZGUgPGxpbnV4L21tYy9zbG90LWdwaW8uaD4KPj4gICAjaW5jbHVkZSA8bGludXgv
-YW1iYS9idXMuaD4KPj4gICAjaW5jbHVkZSA8bGludXgvY2xrLmg+Cj4+IEBAIC0xMjA3LDYgKzEy
-MDgsOSBAQCBtbWNpX3N0YXJ0X2NvbW1hbmQoc3RydWN0IG1tY2lfaG9zdCAqaG9zdCwgc3RydWN0
-IG1tY19jb21tYW5kICpjbWQsIHUzMiBjKQo+PiAgICAgICAgICAgICAgICAgIHdyaXRlbF9yZWxh
-eGVkKGNsa3MsIGhvc3QtPmJhc2UgKyBNTUNJREFUQVRJTUVSKTsKPj4gICAgICAgICAgfQo+Pgo+
-PiArICAgICAgIGlmIChob3N0LT5vcHMtPnByZXBfdm9sdF9zd2l0Y2ggJiYgY21kLT5vcGNvZGUg
-PT0gU0RfU1dJVENIX1ZPTFRBR0UpCj4+ICsgICAgICAgICAgICAgICBob3N0LT5vcHMtPnByZXBf
-dm9sdF9zd2l0Y2goaG9zdCk7Cj4+ICsKPj4gICAgICAgICAgaWYgKC8qaW50ZXJydXB0Ki8wKQo+
-PiAgICAgICAgICAgICAgICAgIGMgfD0gTUNJX0NQU01fSU5URVJSVVBUOwo+Pgo+PiBAQCAtMTgy
-MCw2ICsxODI0LDcgQEAgc3RhdGljIGludCBtbWNpX2dldF9jZChzdHJ1Y3QgbW1jX2hvc3QgKm1t
-YykKPj4KPj4gICBzdGF0aWMgaW50IG1tY2lfc2lnX3ZvbHRfc3dpdGNoKHN0cnVjdCBtbWNfaG9z
-dCAqbW1jLCBzdHJ1Y3QgbW1jX2lvcyAqaW9zKQo+PiAgIHsKPj4gKyAgICAgICBzdHJ1Y3QgbW1j
-aV9ob3N0ICpob3N0ID0gbW1jX3ByaXYobW1jKTsKPj4gICAgICAgICAgaW50IHJldCA9IDA7Cj4+
-Cj4+ICAgICAgICAgIGlmICghSVNfRVJSKG1tYy0+c3VwcGx5LnZxbW1jKSkgewo+PiBAQCAtMTgz
-OSw2ICsxODQ0LDkgQEAgc3RhdGljIGludCBtbWNpX3NpZ192b2x0X3N3aXRjaChzdHJ1Y3QgbW1j
-X2hvc3QgKm1tYywgc3RydWN0IG1tY19pb3MgKmlvcykKPj4gICAgICAgICAgICAgICAgICAgICAg
-ICAgIGJyZWFrOwo+PiAgICAgICAgICAgICAgICAgIH0KPj4KPj4gKyAgICAgICAgICAgICAgIGlm
-ICghcmV0ICYmIGhvc3QtPm9wcyAmJiBob3N0LT5vcHMtPnZvbHRfc3dpdGNoKQo+PiArICAgICAg
-ICAgICAgICAgICAgICAgICByZXQgPSBob3N0LT5vcHMtPnZvbHRfc3dpdGNoKGhvc3QsIGlvcyk7
-Cj4+ICsKPj4gICAgICAgICAgICAgICAgICBpZiAocmV0KQo+PiAgICAgICAgICAgICAgICAgICAg
-ICAgICAgZGV2X3dhcm4obW1jX2RldihtbWMpLCAiVm9sdGFnZSBzd2l0Y2ggZmFpbGVkXG4iKTsK
-Pj4gICAgICAgICAgfQo+PiBkaWZmIC0tZ2l0IGEvZHJpdmVycy9tbWMvaG9zdC9tbWNpLmggYi9k
-cml2ZXJzL21tYy9ob3N0L21tY2kuaAo+PiBpbmRleCBkZGNkZmI4Mjc5OTYuLmMwNGExNDQyNTlh
-MiAxMDA2NDQKPj4gLS0tIGEvZHJpdmVycy9tbWMvaG9zdC9tbWNpLmgKPj4gKysrIGIvZHJpdmVy
-cy9tbWMvaG9zdC9tbWNpLmgKPj4gQEAgLTM3Nyw2ICszNzcsOCBAQCBzdHJ1Y3QgbW1jaV9ob3N0
-X29wcyB7Cj4+ICAgICAgICAgIHZvaWQgKCpzZXRfY2xrcmVnKShzdHJ1Y3QgbW1jaV9ob3N0ICpo
-b3N0LCB1bnNpZ25lZCBpbnQgZGVzaXJlZCk7Cj4+ICAgICAgICAgIHZvaWQgKCpzZXRfcHdycmVn
-KShzdHJ1Y3QgbW1jaV9ob3N0ICpob3N0LCB1bnNpZ25lZCBpbnQgcHdyKTsKPj4gICAgICAgICAg
-Ym9vbCAoKmJ1c3lfY29tcGxldGUpKHN0cnVjdCBtbWNpX2hvc3QgKmhvc3QsIHUzMiBzdGF0dXMs
-IHUzMiBlcnJfbXNrKTsKPj4gKyAgICAgICB2b2lkICgqcHJlcF92b2x0X3N3aXRjaCkoc3RydWN0
-IG1tY2lfaG9zdCAqaG9zdCk7Cj4+ICsgICAgICAgaW50ICgqdm9sdF9zd2l0Y2gpKHN0cnVjdCBt
-bWNpX2hvc3QgKmhvc3QsIHN0cnVjdCBtbWNfaW9zICppb3MpOwo+PiAgIH07Cj4+Cj4+ICAgc3Ry
-dWN0IG1tY2lfaG9zdCB7Cj4+IC0tCj4+IDIuMTcuMQo+Pgo+IAo+IEtpbmQgcmVnYXJkcwo+IFVm
-ZmUKPiAKX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX18KTGlu
-dXgtc3RtMzIgbWFpbGluZyBsaXN0CkxpbnV4LXN0bTMyQHN0LW1kLW1haWxtYW4uc3Rvcm1yZXBs
-eS5jb20KaHR0cHM6Ly9zdC1tZC1tYWlsbWFuLnN0b3JtcmVwbHkuY29tL21haWxtYW4vbGlzdGlu
-Zm8vbGludXgtc3RtMzIK
+On Mon, Jan 27, 2020 at 12:50:54PM +0000, Jose Abreu wrote:
+> From: Russell King - ARM Linux admin <linux@armlinux.org.uk>
+> Date: Jan/27/2020, 11:46:00 (UTC+00:00)
+> 
+> > On Mon, Jan 27, 2020 at 11:38:05AM +0000, Jose Abreu wrote:
+> > > From: Russell King - ARM Linux admin <linux@armlinux.org.uk>
+> > > Date: Jan/27/2020, 11:21:02 (UTC+00:00)
+> > > 
+> > > > On Mon, Jan 27, 2020 at 12:09:11PM +0100, Jose Abreu wrote:
+> > > > > When we don't have any real PHY driver connected and we get link up from
+> > > > > PCS we shall configure MAC and PCS for the desired speed and also
+> > > > > resolve the flow control settings from MAC side.
+> > > > 
+> > > > This is certainly the wrong place for it.  Please hold off on this patch
+> > > > for the time being.  Thanks.
+> > > 
+> > > This is actually the change that makes everything work ...
+> > > 
+> > > I need to configure PCS before Aneg is complete and then I need to 
+> > > configure MAC once Aneg is done and link is up with the outcome speed and 
+> > > flow control.
+> > 
+> > Yes, I realise that, but it comes with the expense of potentially
+> > breaking mvneta and mvpp2, where the settings are automatically
+> > passed between the PCS and MAC in hardware. I also believe DSA
+> > works around this, and I need to look at that.
+> 
+> OK so there is one alternative solution for this that's just saving the 
+> last link status on stmmac internal structure (if applicable ofc, 
+> something like an_complete is true and link is true) and then just use 
+> that info in mac_link_up() callback to configure the MAC when PCS is in 
+> use.
+
+I'm not disagreeing that something needs to be done - the assumption
+in phylink that the MAC and PCS talk to each other is one that comes
+from the hardware which it was developed on, but is not true for all
+hardware.  The IEEE 802.3 model doesn't include that behaviour.
+
+So please, don't try to come up with an alternative solution; this
+problem _does_ need solving in phylink, but it needs to be done in a
+way that doesn't regress the existing users.
+
+I've already started to split the current set of MAC operations into
+a purely MAC set of operations and a set of PCS operations, but still,
+the problem of how to sensibly deal with mvneta and mvpp2 remain.
+
+The problem is that both these use two registers to control both the
+PCS and MAC.  One is a control register, which controls what is
+advertised, whether AN is used, what is negotiated and what is forced,
+including whether the link is forced up.
+
+The other is a status register that gives the status of the MAC -
+whether tx pause and/or rx pause is enabled, what speed and duplex the
+MAC is running at, whether the link is in sync, whether the link is up
+etc.
+
+Essentially, the PCS and MAC are tightly integrated together in this
+hardware, so splitting this into separate PCS and MAC control blocks is
+very problematical.
+
+As I say, this is something that needs solving.  A solution needs to be
+found, rather than having lots of drivers working around this issue in
+their own special ways, and my fear is that the more workarounds we
+have, the more the phylink core will become unmaintainable.
+
+So please, no workarounds.
+
+-- 
+RMK's Patch system: https://www.armlinux.org.uk/developer/patches/
+FTTC broadband for 0.8mile line in suburbia: sync at 12.1Mbps down 622kbps up
+According to speedtest.net: 11.9Mbps down 500kbps up
+_______________________________________________
+Linux-stm32 mailing list
+Linux-stm32@st-md-mailman.stormreply.com
+https://st-md-mailman.stormreply.com/mailman/listinfo/linux-stm32
