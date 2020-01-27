@@ -2,71 +2,130 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id CCDB414A572
-	for <lists+linux-stm32@lfdr.de>; Mon, 27 Jan 2020 14:52:46 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 286B114A58C
+	for <lists+linux-stm32@lfdr.de>; Mon, 27 Jan 2020 14:57:42 +0100 (CET)
 Received: from ip-172-31-3-76.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 8D783C36B0B;
-	Mon, 27 Jan 2020 13:52:46 +0000 (UTC)
-Received: from mx07-00178001.pphosted.com (mx08-00178001.pphosted.com
- [91.207.212.93])
- (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id DD321C36B0B;
+	Mon, 27 Jan 2020 13:57:41 +0000 (UTC)
+Received: from smtprelay-out1.synopsys.com (smtprelay-out1.synopsys.com
+ [149.117.73.133])
+ (using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 55516C36B09
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 6E116C36B09
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Mon, 27 Jan 2020 13:52:43 +0000 (UTC)
-Received: from pps.filterd (m0046661.ppops.net [127.0.0.1])
- by mx07-00178001.pphosted.com (8.16.0.42/8.16.0.42) with SMTP id
- 00RDqbnt009301; Mon, 27 Jan 2020 14:52:37 +0100
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=st.com;
- h=subject : to : cc :
- references : from : message-id : date : mime-version : in-reply-to :
- content-type : content-transfer-encoding; s=STMicroelectronics;
- bh=O6+dl2h2jXKNX+fyEpk/L/rLP8vjpdo1SJpvyPqDs8o=;
- b=X/iiA29CNOrjDNNUARjzkyJpC1jddl3AsBxKBhiHW+SWoftFjY8Gi4idGPQEkJG5183x
- krj9qylWMsE8A6gNOBlZqR6kDZrYQxmgYytDDj5hc2gFbkwdeZXnicL6BmcgfKUmlkS6
- 48/Ua5wooQ/Z1K5UN5otgsaMIwZSvUyBejfnvh2CuMlSiLWsNZLH0Cue+aWsDbs2G+xe
- AqvY1Wu2uxfxnMhZ+I30pSzC53NG16S6S8pYprESRWtO5t6nIIDl1SFxMtvJIWY4ugk4
- qa1FE1Yehgv2YPYf1ZJdHV3obXWB/iF8jmS4pOEK97Bk4ybbfI35+Hs/KWOhFRNnm3vu Zw== 
-Received: from beta.dmz-eu.st.com (beta.dmz-eu.st.com [164.129.1.35])
- by mx07-00178001.pphosted.com with ESMTP id 2xrdek90x4-1
- (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
- Mon, 27 Jan 2020 14:52:37 +0100
-Received: from euls16034.sgp.st.com (euls16034.sgp.st.com [10.75.44.20])
- by beta.dmz-eu.st.com (STMicroelectronics) with ESMTP id 15257100038;
- Mon, 27 Jan 2020 14:52:30 +0100 (CET)
-Received: from Webmail-eu.st.com (sfhdag6node1.st.com [10.75.127.16])
- by euls16034.sgp.st.com (STMicroelectronics) with ESMTP id 00C312B2F22;
- Mon, 27 Jan 2020 14:52:29 +0100 (CET)
-Received: from lmecxl0923.lme.st.com (10.75.127.49) by SFHDAG6NODE1.st.com
- (10.75.127.16) with Microsoft SMTP Server (TLS) id 15.0.1473.3; Mon, 27 Jan
- 2020 14:52:29 +0100
-To: Ulf Hansson <ulf.hansson@linaro.org>
-References: <20200110134823.14882-1-ludovic.barre@st.com>
- <6d859def-351e-abd7-0d5f-962ad935dff2@st.com>
- <CAPDyKFo+4qTZbE=4Zgj3VN9BPYUHGskPSnYEJRo1TpARzg5zJg@mail.gmail.com>
-From: Ludovic BARRE <ludovic.barre@st.com>
-Message-ID: <cdc08d8d-ffb1-0fe9-377d-a1e5faf089ce@st.com>
-Date: Mon, 27 Jan 2020 14:52:28 +0100
-User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:68.0) Gecko/20100101
- Thunderbird/68.1.0
+ Mon, 27 Jan 2020 13:57:40 +0000 (UTC)
+Received: from mailhost.synopsys.com (badc-mailhost1.synopsys.com
+ [10.192.0.17])
+ (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits))
+ (No client certificate requested)
+ by smtprelay-out1.synopsys.com (Postfix) with ESMTPS id 623DE4016D;
+ Mon, 27 Jan 2020 13:57:38 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=synopsys.com; s=mail;
+ t=1580133458; bh=jJy8tk5qmv70Jk1LSAs4Y9W7p+kjmzT77aBpwXOF2nk=;
+ h=From:To:CC:Subject:Date:References:In-Reply-To:From;
+ b=CwZwzh91MRSI59PbU+uus21FSOOB9tWhiXp09BoDy60G0ENnOmt39ztMHd1W/M57L
+ BYXBuhp16Kuba3wTp8fYppz/I7jnE/6gx7NYPH7DkAS/UxdLjyhNu9GqqIGUttPFul
+ O2iY6CCofIpk5vmADlmIhCunhnunBgjCjgqNAWbN4p1VlesDzf2hYYfx4s1Vl0wZYr
+ ssIpsoi33K7ZFkD5ZfO+xAd2K8AgNXPDHRj9GiP4qz2atRWI/WDbVT5a37eAzuaxun
+ 7gOOgwN9ppjWUhutoD4XlGXw+APXIvp6QCp1Aa8qSvOi2ra0x+SKUuL2gtE05OwEs7
+ ezB7YAx/XkLKQ==
+Received: from US01WEHTC3.internal.synopsys.com
+ (us01wehtc3.internal.synopsys.com [10.15.84.232])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES256-SHA384 (256/256 bits))
+ (No client certificate requested)
+ by mailhost.synopsys.com (Postfix) with ESMTPS id 8D67CA008A;
+ Mon, 27 Jan 2020 13:57:36 +0000 (UTC)
+Received: from us01hybrid1.internal.synopsys.com (10.200.27.51) by
+ US01WEHTC3.internal.synopsys.com (10.15.84.232) with Microsoft SMTP Server
+ (TLS) id 14.3.408.0; Mon, 27 Jan 2020 05:57:36 -0800
+Received: from NAM10-MW2-obe.outbound.protection.outlook.com (10.202.3.67) by
+ mrs.synopsys.com (10.200.27.51) with Microsoft SMTP Server (TLS) id
+ 14.3.408.0; Mon, 27 Jan 2020 05:57:35 -0800
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
+ b=UHvBKUT4OGymRW01nFbYn2LYU4FW2mFZ3Zy1BkGTKuqBkLj4ngqiIqgMDubjFf04P2OyF1JbIBBpaXFdQ6HkOU8wcaaPClUY/8Nq5hHAxdOIHRYm0CZ/IpWRRDig45SNCU3BhPCivZN2Q/OXunloX4fDnCtSr8/XMeX60oc+W+lDOjU3WH51oLRh1G4c0OXIKNN6x9azoNQ2NQvYpFF4NQ0V9XYZr6ctPJM+iR6f0XbVATl0gdtQSHlU7xxmYaEQwPSgoJAoVnTj9ewf0P8c2v7g2vbQGW8AEqdur+fG4bxE58KeGCaJIAkZQJNgYWU/eyt7/z3uAe6XLL2xY5cLXw==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
+ s=arcselector9901;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=Ji/r14uDI0vCFO0RGoIJMI6UkHFhssswRRJ/aD97RRY=;
+ b=EVXZQF7Y/yrCrG0MIJFEUPX0B9JvcN1icW5/i6Q3kKpioEUNEJpWTQGs0TkglzYaB29um2GvJY+HWi17v9StGxJorgOIszZjfT4HGLD39ThWZ7lFa93ekPezAlQhOcxXJZy2Iw4fwAlRpC1SHA0G3AHwz1r5ProjSkdNZV7BvGlnddypt2gm40nwT2IY88xUFX3V57kKgeFmlY55gbunfnEK1JeKs22/gKmHDmA5IFtrEgATyCV6ve44dkVG1pkzSAl2RsBbJHBXOtVVl8jSDwVO2JcTVmNubsW4b1wS6OJWMygjoDBQ9+m8riWk6UDs+trWh8jxmn0642j6K3u4Ag==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=synopsys.com; dmarc=pass action=none header.from=synopsys.com;
+ dkim=pass header.d=synopsys.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=synopsys.onmicrosoft.com; s=selector2-synopsys-onmicrosoft-com;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=Ji/r14uDI0vCFO0RGoIJMI6UkHFhssswRRJ/aD97RRY=;
+ b=LHK2YJ6vF4YwGkFoutyV2Jo4R26Uawvx7u8svwgQQzhWL+PvhyWI0fdd2F0n8cpr7Qh8zQT0Mb7lyOB3Kr16Gylb2kSftzWETkr/gvWMmsnaiUjsdfa9xi1vai4pPB4HhVqsSgapy8C/+IJnqKgGH98nRimnyJHlwUafOGBcynY=
+Received: from BN8PR12MB3266.namprd12.prod.outlook.com (20.179.67.145) by
+ BN8PR12MB3426.namprd12.prod.outlook.com (20.178.212.142) with Microsoft SMTP
+ Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.20.2665.20; Mon, 27 Jan 2020 13:57:34 +0000
+Received: from BN8PR12MB3266.namprd12.prod.outlook.com
+ ([fe80::c62:b247:6963:9da2]) by BN8PR12MB3266.namprd12.prod.outlook.com
+ ([fe80::c62:b247:6963:9da2%6]) with mapi id 15.20.2665.017; Mon, 27 Jan 2020
+ 13:57:34 +0000
+From: Jose Abreu <Jose.Abreu@synopsys.com>
+To: Russell King - ARM Linux admin <linux@armlinux.org.uk>
+Thread-Topic: [RFC net-next 6/8] net: phylink: Configure MAC/PCS when link is
+ up without PHY
+Thread-Index: AQHV1QJR/2IdLzxcIUOq2qgDmVwJ/6f+XbIAgAAEH1CAAALaAIAADuwwgAAQVgCAAAHg8A==
+Date: Mon, 27 Jan 2020 13:57:34 +0000
+Message-ID: <BN8PR12MB326690B31B35F4B655185A28D30B0@BN8PR12MB3266.namprd12.prod.outlook.com>
+References: <cover.1580122909.git.Jose.Abreu@synopsys.com>
+ <9a2136885d9a892ff170be88fdffeda82c778a10.1580122909.git.Jose.Abreu@synopsys.com>
+ <20200127112102.GT25745@shell.armlinux.org.uk>
+ <BN8PR12MB3266714AE9EC1A97218120B3D30B0@BN8PR12MB3266.namprd12.prod.outlook.com>
+ <20200127114600.GU25745@shell.armlinux.org.uk>
+ <BN8PR12MB3266A7C976B4E63466B5FA35D30B0@BN8PR12MB3266.namprd12.prod.outlook.com>
+ <20200127133752.GV25745@shell.armlinux.org.uk>
+In-Reply-To: <20200127133752.GV25745@shell.armlinux.org.uk>
+Accept-Language: en-US
+Content-Language: en-US
+X-MS-Has-Attach: 
+X-MS-TNEF-Correlator: 
+authentication-results: spf=none (sender IP is )
+ smtp.mailfrom=joabreu@synopsys.com; 
+x-originating-ip: [83.174.63.141]
+x-ms-publictraffictype: Email
+x-ms-office365-filtering-correlation-id: 2a06f67e-4b38-44f6-b00e-08d7a330dc47
+x-ms-traffictypediagnostic: BN8PR12MB3426:
+x-ms-exchange-transport-forked: True
+x-microsoft-antispam-prvs: <BN8PR12MB342609D1008D50B4E9A32E88D30B0@BN8PR12MB3426.namprd12.prod.outlook.com>
+x-ms-oob-tlc-oobclassifiers: OLM:10000;
+x-forefront-prvs: 02951C14DC
+x-forefront-antispam-report: SFV:NSPM;
+ SFS:(10019020)(136003)(376002)(396003)(39860400002)(366004)(346002)(199004)(189003)(316002)(6916009)(54906003)(478600001)(8936002)(7416002)(66446008)(66556008)(64756008)(81156014)(55016002)(8676002)(81166006)(71200400001)(33656002)(66476007)(9686003)(4326008)(7696005)(2906002)(76116006)(66946007)(26005)(5660300002)(52536014)(6506007)(186003)(86362001);
+ DIR:OUT; SFP:1102; SCL:1; SRVR:BN8PR12MB3426;
+ H:BN8PR12MB3266.namprd12.prod.outlook.com; FPR:; SPF:None; LANG:en;
+ PTR:InfoNoRecords; A:1; MX:1; 
+received-spf: None (protection.outlook.com: synopsys.com does not designate
+ permitted sender hosts)
+x-ms-exchange-senderadcheck: 1
+x-microsoft-antispam: BCL:0;
+x-microsoft-antispam-message-info: X/VerNwGhDJvzukWf3Vx3Yo5M6UVOb+7bvcXByUTSGjL7VxX+7014pTcUpgeOWdyNUKEjqatxoOE+BB0dv7CYpihGxLdxoLivrqR3LcGu7XyDyYD3JRRJPTGweccEM3YgE73lFyXMgBvlFTRi6f9ynT74qccxQbSa7CKiRxe6TOCXhngkj2CbYrEUAEQMY240wdd0tbYTPmMTW0gtfBN4Ke0BLo0Hcpyv0QRqj7MRgCU+Ulv/8sNL+XaF7PzMZlbhTr+qHF7O0K1C8o0v6qVx+JmpJu9x7Xvb3LgFPp44T8DKiPAxeKL6QcWKSf90ohQGfFQs0VKZoe4BjApBih7g+ygeSdlStbaYSsUeZ8gcZbpqhOtmk20ANbgjtB5ah8kb/+8Ha3RkCF3vnhIqKT6xeS6O90bkOvZV1E50c5C0+k+HcEyqTSnxR5fyL3sPiEN
+x-ms-exchange-antispam-messagedata: CYEr+U/bR+kyeKdrNqpgJzWuaVq4ci11mSoQnUqakc+6DyHBNIUQqiX+HADzIn9hTyjjRVinE9Yx09ToIIASz7DTV98UzD2y4K1cOK0hcMB+c+Edncyv6E/+LDhAF4hyXTxAuW5hNVaJuX7fENPBAg==
 MIME-Version: 1.0
-In-Reply-To: <CAPDyKFo+4qTZbE=4Zgj3VN9BPYUHGskPSnYEJRo1TpARzg5zJg@mail.gmail.com>
-Content-Language: fr
-X-Originating-IP: [10.75.127.49]
-X-ClientProxiedBy: SFHDAG2NODE3.st.com (10.75.127.6) To SFHDAG6NODE1.st.com
- (10.75.127.16)
-X-Proofpoint-Virus-Version: vendor=fsecure engine=2.50.10434:6.0.138, 18.0.572
- definitions=2020-01-27_02:2020-01-24,
- 2020-01-27 signatures=0
-Cc: DTML <devicetree@vger.kernel.org>,
- "linux-mmc@vger.kernel.org" <linux-mmc@vger.kernel.org>,
- Linux Kernel Mailing List <linux-kernel@vger.kernel.org>,
- Rob Herring <robh+dt@kernel.org>,
- Srinivas Kandagatla <srinivas.kandagatla@linaro.org>,
+X-MS-Exchange-CrossTenant-Network-Message-Id: 2a06f67e-4b38-44f6-b00e-08d7a330dc47
+X-MS-Exchange-CrossTenant-originalarrivaltime: 27 Jan 2020 13:57:34.4468 (UTC)
+X-MS-Exchange-CrossTenant-fromentityheader: Hosted
+X-MS-Exchange-CrossTenant-id: c33c9f88-1eb7-4099-9700-16013fd9e8aa
+X-MS-Exchange-CrossTenant-mailboxtype: HOSTED
+X-MS-Exchange-CrossTenant-userprincipalname: x0LLX3yrAR4VjqlvirU/4PS7yuXqtLR3l8AeE9W1dWoH1A4+lDQ1O3unp15O1uVQpn+WBFpGPtnLWV4UaXTQsQ==
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: BN8PR12MB3426
+X-OriginatorOrg: synopsys.com
+Cc: Andrew Lunn <andrew@lunn.ch>, Joao Pinto <Joao.Pinto@synopsys.com>,
+ "netdev@vger.kernel.org" <netdev@vger.kernel.org>,
+ "linux-kernel@vger.kernel.org" <linux-kernel@vger.kernel.org>,
+ "linux-stm32@st-md-mailman.stormreply.com"
+ <linux-stm32@st-md-mailman.stormreply.com>,
+ Florian Fainelli <f.fainelli@gmail.com>,
  Maxime Coquelin <mcoquelin.stm32@gmail.com>,
- linux-stm32@st-md-mailman.stormreply.com,
- Linux ARM <linux-arm-kernel@lists.infradead.org>
-Subject: Re: [Linux-stm32] [PATCH 0/9] mmc: mmci: sdmmc: add sdr104 support
+ Giuseppe Cavallaro <peppe.cavallaro@st.com>, Jakub Kicinski <kuba@kernel.org>,
+ "David S. Miller" <davem@davemloft.net>,
+ "linux-arm-kernel@lists.infradead.org" <linux-arm-kernel@lists.infradead.org>,
+ Heiner Kallweit <hkallweit1@gmail.com>
+Subject: Re: [Linux-stm32] [RFC net-next 6/8] net: phylink: Configure
+ MAC/PCS when link is up without PHY
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -78,22 +137,103 @@ List-Post: <mailto:linux-stm32@st-md-mailman.stormreply.com>
 List-Help: <mailto:linux-stm32-request@st-md-mailman.stormreply.com?subject=help>
 List-Subscribe: <https://st-md-mailman.stormreply.com/mailman/listinfo/linux-stm32>, 
  <mailto:linux-stm32-request@st-md-mailman.stormreply.com?subject=subscribe>
-Content-Transfer-Encoding: base64
-Content-Type: text/plain; charset="utf-8"; Format="flowed"
+Content-Type: text/plain; charset="us-ascii"
+Content-Transfer-Encoding: 7bit
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
-aGkgVWxmCgpMZSAxLzI0LzIwIMOgIDI6MTkgUE0sIFVsZiBIYW5zc29uIGEgw6ljcml0wqA6Cj4g
-T24gRnJpLCAyNCBKYW4gMjAyMCBhdCAxMzo1NSwgTHVkb3ZpYyBCQVJSRSA8bHVkb3ZpYy5iYXJy
-ZUBzdC5jb20+IHdyb3RlOgo+Pgo+PiBoaSBVbGYKPj4KPj4gSnVzdCBhICJnZW50bGVtYW4gcGlu
-ZyIgb24gdGhpcyBzZXJpZXMKPj4gaHR0cHM6Ly9sa21sLm9yZy9sa21sLzIwMjAvMS8xMC8zOTIK
-PiAKPiBJIHdhcyBqdXN0IHJldmlld2luZyA6LSkgVGhhbmtzIGZvciBwaW5naW5nIQo+IAo+IE9u
-ZSBvdmVyYWxsIGNvbW1lbnQgaXMgdGhhdCBJIHRoaW5rIHlvdSBjYW4gdHJ5IHRvIHdvcmsgYSBi
-aXQgb24gdGhlCj4gY2hhbmdlbG9ncy4gSW4gc29tZSBjYXNlcyB5b3UgZGVzY3JpYmVkIHdoYXQg
-dGhlIHBhdGNoIGRvZXMsIHdoaWNoIGlzCj4gZ29vZCwgYnV0IGl0IG1heSBsYWNrIGluZm9ybWF0
-aW9uIGFib3V0ICp3aHkqIHRoZSBjaGFuZ2UgaXMgd2FudGVkLgoKT2ssIEkgdHJ5IHRvIGFkZCBh
-IGNvbW1lbnQgdG8gKndoeSoKCj4gCj4gT3ZlcmFsbCwgdGhlIHNlcmllcyBsb29rcyBuaWNlLgo+
-IAo+IEtpbmQgcmVnYXJkcwo+IFVmZmUKPiAKX19fX19fX19fX19fX19fX19fX19fX19fX19fX19f
-X19fX19fX19fX19fX19fX18KTGludXgtc3RtMzIgbWFpbGluZyBsaXN0CkxpbnV4LXN0bTMyQHN0
-LW1kLW1haWxtYW4uc3Rvcm1yZXBseS5jb20KaHR0cHM6Ly9zdC1tZC1tYWlsbWFuLnN0b3JtcmVw
-bHkuY29tL21haWxtYW4vbGlzdGluZm8vbGludXgtc3RtMzIK
+From: Russell King - ARM Linux admin <linux@armlinux.org.uk>
+Date: Jan/27/2020, 13:37:52 (UTC+00:00)
+
+> On Mon, Jan 27, 2020 at 12:50:54PM +0000, Jose Abreu wrote:
+> > From: Russell King - ARM Linux admin <linux@armlinux.org.uk>
+> > Date: Jan/27/2020, 11:46:00 (UTC+00:00)
+> > 
+> > > On Mon, Jan 27, 2020 at 11:38:05AM +0000, Jose Abreu wrote:
+> > > > From: Russell King - ARM Linux admin <linux@armlinux.org.uk>
+> > > > Date: Jan/27/2020, 11:21:02 (UTC+00:00)
+> > > > 
+> > > > > On Mon, Jan 27, 2020 at 12:09:11PM +0100, Jose Abreu wrote:
+> > > > > > When we don't have any real PHY driver connected and we get link up from
+> > > > > > PCS we shall configure MAC and PCS for the desired speed and also
+> > > > > > resolve the flow control settings from MAC side.
+> > > > > 
+> > > > > This is certainly the wrong place for it.  Please hold off on this patch
+> > > > > for the time being.  Thanks.
+> > > > 
+> > > > This is actually the change that makes everything work ...
+> > > > 
+> > > > I need to configure PCS before Aneg is complete and then I need to 
+> > > > configure MAC once Aneg is done and link is up with the outcome speed and 
+> > > > flow control.
+> > > 
+> > > Yes, I realise that, but it comes with the expense of potentially
+> > > breaking mvneta and mvpp2, where the settings are automatically
+> > > passed between the PCS and MAC in hardware. I also believe DSA
+> > > works around this, and I need to look at that.
+> > 
+> > OK so there is one alternative solution for this that's just saving the 
+> > last link status on stmmac internal structure (if applicable ofc, 
+> > something like an_complete is true and link is true) and then just use 
+> > that info in mac_link_up() callback to configure the MAC when PCS is in 
+> > use.
+> 
+> I'm not disagreeing that something needs to be done - the assumption
+> in phylink that the MAC and PCS talk to each other is one that comes
+> from the hardware which it was developed on, but is not true for all
+> hardware.  The IEEE 802.3 model doesn't include that behaviour.
+> 
+> So please, don't try to come up with an alternative solution; this
+> problem _does_ need solving in phylink, but it needs to be done in a
+> way that doesn't regress the existing users.
+> 
+> I've already started to split the current set of MAC operations into
+> a purely MAC set of operations and a set of PCS operations, but still,
+> the problem of how to sensibly deal with mvneta and mvpp2 remain.
+> 
+> The problem is that both these use two registers to control both the
+> PCS and MAC.  One is a control register, which controls what is
+> advertised, whether AN is used, what is negotiated and what is forced,
+> including whether the link is forced up.
+> 
+> The other is a status register that gives the status of the MAC -
+> whether tx pause and/or rx pause is enabled, what speed and duplex the
+> MAC is running at, whether the link is in sync, whether the link is up
+> etc.
+> 
+> Essentially, the PCS and MAC are tightly integrated together in this
+> hardware, so splitting this into separate PCS and MAC control blocks is
+> very problematical.
+> 
+> As I say, this is something that needs solving.  A solution needs to be
+> found, rather than having lots of drivers working around this issue in
+> their own special ways, and my fear is that the more workarounds we
+> have, the more the phylink core will become unmaintainable.
+> 
+> So please, no workarounds.
+
+I'm not trying to rush and I do agree with you. I just thought this was a 
+particular case but I did tried to fix it in this commit.
+
+I'm not familiar with mvneta HW but thanks for the description. Indeed, 
+for XPCS and stmmac they are independent but MAC still needs to know the 
+speed at least. My main problem here is USXGMII. This needs to know the 
+speed negotiated taking into account MAC limitations and then use it to 
+configure XPCS.
+
+So, another possible solution is just to pass phylink_link_state struct to 
+mac_link_up() and mac_link_down(). From the comment on the function and 
+it's usage in phylink it seems this could be a good fit ?
+
+Another thing I could solve here (while I'm at it), is PCS that sit in a 
+MII bus: Instead of having stmmac saving all that private data of XPCS I 
+could just pass it to phylink and save it there ? Something like you 
+proposed in ("net: axienet: Fix SGMII support") ?
+
+---
+Thanks,
+Jose Miguel Abreu
+_______________________________________________
+Linux-stm32 mailing list
+Linux-stm32@st-md-mailman.stormreply.com
+https://st-md-mailman.stormreply.com/mailman/listinfo/linux-stm32
