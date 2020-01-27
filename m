@@ -2,65 +2,68 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id 465B614A026
-	for <lists+linux-stm32@lfdr.de>; Mon, 27 Jan 2020 09:54:05 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 082D914A083
+	for <lists+linux-stm32@lfdr.de>; Mon, 27 Jan 2020 10:19:11 +0100 (CET)
 Received: from ip-172-31-3-76.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 060A1C36B17;
-	Mon, 27 Jan 2020 08:54:05 +0000 (UTC)
-Received: from mx07-00178001.pphosted.com (mx08-00178001.pphosted.com
- [91.207.212.93])
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id AB1CBC36B0B;
+	Mon, 27 Jan 2020 09:19:10 +0000 (UTC)
+Received: from mx07-00178001.pphosted.com (mx07-00178001.pphosted.com
+ [62.209.51.94])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id C95C3C36B0B
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 09E62C36B09
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Mon, 27 Jan 2020 08:54:01 +0000 (UTC)
-Received: from pps.filterd (m0046660.ppops.net [127.0.0.1])
+ Mon, 27 Jan 2020 09:19:09 +0000 (UTC)
+Received: from pps.filterd (m0046668.ppops.net [127.0.0.1])
  by mx07-00178001.pphosted.com (8.16.0.42/8.16.0.42) with SMTP id
- 00R8rEEk011479; Mon, 27 Jan 2020 09:53:50 +0100
+ 00R9E0br024940; Mon, 27 Jan 2020 10:18:58 +0100
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=st.com;
- h=from : to : cc : subject
- : date : message-id : in-reply-to : references : mime-version :
- content-type; s=STMicroelectronics;
- bh=MMDeiSg4L1Vk9AfJFcs4IZMV1l1esEisuYa4GJvczRM=;
- b=GTic1X4CIVQuiEJY+OIES3bgmZGaApZn77hpKM7mFtrs7h4DFqA6ZhN6UTJgYUEtm24Y
- OBUSuoCcVhcaW2jhj2DfJ+Uwu0Bi92I5GrZZCpiWP+YVMFWxb4Q6RjgOnwR2S69oksqI
- hHDbZTXqxvFbMwWKDvx4J2dNySJJvBtd5gy3H9y3mQgiftsaMMar3e5TqkNcFxtE2Uwt
- DoibHBS+Qp1RzNjJRvXScoiPrVy9pyKIXOFMYI+4u72BKxOuN/mpWbrjEu48sLb+mZCJ
- 5jRyqYMYizQhp0xBQ0hnJjtjkhdCOlVEhQgq6kq6FNmo7+C4tfGH8n/gJo3OcDIszdn0 sQ== 
+ h=subject : to : cc :
+ references : from : message-id : date : mime-version : in-reply-to :
+ content-type : content-transfer-encoding; s=STMicroelectronics;
+ bh=qw5jXI9Fj+OOUBfj/yMYXXwP3AGDOIZ6klKp/MtIpko=;
+ b=Jn/dx63prKcdtPhA443Cc2Nai1atA+WRk4SSE/5LqiXM0HTdMMmO2M4sc2bsokcwcYtf
+ aQceA7WE8ExobVwGf/blYQsJIYN9QVQINzdYmlvgLNBqHa83D77pyzY99U09QwqJxDBe
+ uVWDq+Foib7j7I5zHbWqUGysFvvoTBh6yI7Gl0H34D66LUadzB5vy6m2pJYJvdUiF455
+ Le63EtkeeOMeAfCthOFC4J1g+3CjcpqZ+dLbn48G5EBZznEXLSEotxUsai2twkdHfJL1
+ c49DvZAqBW8/AH2bP+mBvsfLq9ZhTwbg+eK9wiQ5IXOXBJu0acC0it7AXd4NxYKvFmNp Lw== 
 Received: from beta.dmz-eu.st.com (beta.dmz-eu.st.com [164.129.1.35])
- by mx07-00178001.pphosted.com with ESMTP id 2xrbpar4t5-1
+ by mx07-00178001.pphosted.com with ESMTP id 2xrc1303ev-1
  (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
- Mon, 27 Jan 2020 09:53:50 +0100
+ Mon, 27 Jan 2020 10:18:58 +0100
 Received: from euls16034.sgp.st.com (euls16034.sgp.st.com [10.75.44.20])
- by beta.dmz-eu.st.com (STMicroelectronics) with ESMTP id 26FA9100044;
- Mon, 27 Jan 2020 09:53:46 +0100 (CET)
-Received: from Webmail-eu.st.com (sfhdag3node2.st.com [10.75.127.8])
- by euls16034.sgp.st.com (STMicroelectronics) with ESMTP id 1A7E421CA6A;
- Mon, 27 Jan 2020 09:53:46 +0100 (CET)
-Received: from localhost (10.75.127.44) by SFHDAG3NODE2.st.com (10.75.127.8)
- with Microsoft SMTP Server (TLS) id 15.0.1347.2; Mon, 27 Jan 2020 09:53:45
- +0100
-From: Amelie Delaunay <amelie.delaunay@st.com>
-To: Vinod Koul <vkoul@kernel.org>, Dan Williams <dan.j.williams@intel.com>,
- Maxime Coquelin <mcoquelin.stm32@gmail.com>, Alexandre Torgue
- <alexandre.torgue@st.com>
-Date: Mon, 27 Jan 2020 09:53:34 +0100
-Message-ID: <20200127085334.13163-7-amelie.delaunay@st.com>
-X-Mailer: git-send-email 2.17.1
-In-Reply-To: <20200127085334.13163-1-amelie.delaunay@st.com>
-References: <20200127085334.13163-1-amelie.delaunay@st.com>
+ by beta.dmz-eu.st.com (STMicroelectronics) with ESMTP id 616EC100034;
+ Mon, 27 Jan 2020 10:18:58 +0100 (CET)
+Received: from Webmail-eu.st.com (sfhdag5node2.st.com [10.75.127.14])
+ by euls16034.sgp.st.com (STMicroelectronics) with ESMTP id 4B80221E5E7;
+ Mon, 27 Jan 2020 10:18:58 +0100 (CET)
+Received: from [10.48.1.171] (10.75.127.49) by SFHDAG5NODE2.st.com
+ (10.75.127.14) with Microsoft SMTP Server (TLS) id 15.0.1473.3; Mon, 27 Jan
+ 2020 10:18:57 +0100
+To: Alain Volmat <alain.volmat@st.com>, <wsa@the-dreams.de>,
+ <robh+dt@kernel.org>
+References: <1579795970-22319-1-git-send-email-alain.volmat@st.com>
+ <1579795970-22319-2-git-send-email-alain.volmat@st.com>
+From: Pierre Yves MORDRET <pierre-yves.mordret@st.com>
+Message-ID: <4e92ad2d-d373-f009-7c79-63d7caafac45@st.com>
+Date: Mon, 27 Jan 2020 10:18:57 +0100
+User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:60.0) Gecko/20100101
+ Thunderbird/60.9.0
 MIME-Version: 1.0
-X-Originating-IP: [10.75.127.44]
-X-ClientProxiedBy: SFHDAG4NODE2.st.com (10.75.127.11) To SFHDAG3NODE2.st.com
- (10.75.127.8)
+In-Reply-To: <1579795970-22319-2-git-send-email-alain.volmat@st.com>
+Content-Language: en-US
+X-Originating-IP: [10.75.127.49]
+X-ClientProxiedBy: SFHDAG4NODE1.st.com (10.75.127.10) To SFHDAG5NODE2.st.com
+ (10.75.127.14)
 X-Proofpoint-Virus-Version: vendor=fsecure engine=2.50.10434:6.0.138, 18.0.572
  definitions=2020-01-27_02:2020-01-24,
  2020-01-27 signatures=0
-Cc: linux-kernel@vger.kernel.org,
- Pierre-Yves MORDRET <pierre-yves.mordret@st.com>, dmaengine@vger.kernel.org,
+Cc: mark.rutland@arm.com, devicetree@vger.kernel.org,
+ linux-kernel@vger.kernel.org, linux-i2c@vger.kernel.org,
+ mcoquelin.stm32@gmail.com, fabrice.gasnier@st.com,
  linux-stm32@st-md-mailman.stormreply.com, linux-arm-kernel@lists.infradead.org
-Subject: [Linux-stm32] [PATCH 6/6] dmaengine: stm32-mdma: use
-	vchan_terminate_vdesc() in .terminate_all
+Subject: Re: [Linux-stm32] [PATCH 1/5] i2c: i2c-stm32f7: disable/restore
+ Fast Mode Plus bits in low power modes
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -77,54 +80,165 @@ Content-Transfer-Encoding: 7bit
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
-To avoid race with vchan_complete, use the race free way to terminate
-running transfer.
+Hello
 
-Move vdesc->node list_del in stm32_mdma_start_transfer instead of in
-stm32_mdma_xfer_end to avoid another race in vchan_dma_desc_free_list.
+Reviewed-by: Pierre-Yves MORDRET <pierre-yves.mordret@st.com>
 
-Signed-off-by: Amelie Delaunay <amelie.delaunay@st.com>
----
- drivers/dma/stm32-mdma.c | 9 ++++++---
- 1 file changed, 6 insertions(+), 3 deletions(-)
+Thanks
 
-diff --git a/drivers/dma/stm32-mdma.c b/drivers/dma/stm32-mdma.c
-index f2043f47ae9e..5469563703d1 100644
---- a/drivers/dma/stm32-mdma.c
-+++ b/drivers/dma/stm32-mdma.c
-@@ -1126,6 +1126,8 @@ static void stm32_mdma_start_transfer(struct stm32_mdma_chan *chan)
- 		return;
- 	}
- 
-+	list_del(&vdesc->node);
-+
- 	chan->desc = to_stm32_mdma_desc(vdesc);
- 	hwdesc = chan->desc->node[0].hwdesc;
- 	chan->curr_hwdesc = 0;
-@@ -1241,8 +1243,10 @@ static int stm32_mdma_terminate_all(struct dma_chan *c)
- 	LIST_HEAD(head);
- 
- 	spin_lock_irqsave(&chan->vchan.lock, flags);
--	if (chan->busy) {
--		stm32_mdma_stop(chan);
-+	if (chan->desc) {
-+		vchan_terminate_vdesc(&chan->desc->vdesc);
-+		if (chan->busy)
-+			stm32_mdma_stop(chan);
- 		chan->desc = NULL;
- 	}
- 	vchan_get_all_descriptors(&chan->vchan, &head);
-@@ -1330,7 +1334,6 @@ static enum dma_status stm32_mdma_tx_status(struct dma_chan *c,
- 
- static void stm32_mdma_xfer_end(struct stm32_mdma_chan *chan)
- {
--	list_del(&chan->desc->vdesc.node);
- 	vchan_cookie_complete(&chan->desc->vdesc);
- 	chan->desc = NULL;
- 	chan->busy = false;
--- 
-2.17.1
-
+On 1/23/20 5:12 PM, Alain Volmat wrote:
+> Defer the initial enabling of the Fast Mode Plus bits after the
+> stm32f7_i2c_setup_timing call in probe function in order to avoid
+> enabling them if speed is downgraded.
+> Clear & restore the Fast Mode Plus bits in the suspend/resume
+> handlers of the driver.
+> 
+> Signed-off-by: Alain Volmat <alain.volmat@st.com>
+> ---
+>  drivers/i2c/busses/i2c-stm32f7.c | 48 +++++++++++++++++++++++++++++++++-------
+>  1 file changed, 40 insertions(+), 8 deletions(-)
+> 
+> diff --git a/drivers/i2c/busses/i2c-stm32f7.c b/drivers/i2c/busses/i2c-stm32f7.c
+> index 844a22d64aa8..1a3b3fa582ff 100644
+> --- a/drivers/i2c/busses/i2c-stm32f7.c
+> +++ b/drivers/i2c/busses/i2c-stm32f7.c
+> @@ -303,6 +303,8 @@ struct stm32f7_i2c_msg {
+>   * @dma: dma data
+>   * @use_dma: boolean to know if dma is used in the current transfer
+>   * @regmap: holds SYSCFG phandle for Fast Mode Plus bits
+> + * @regmap_reg: register address for setting Fast Mode Plus bits
+> + * @regmap_mask: mask for Fast Mode Plus bits in set register
+>   * @wakeup_src: boolean to know if the device is a wakeup source
+>   */
+>  struct stm32f7_i2c_dev {
+> @@ -326,6 +328,8 @@ struct stm32f7_i2c_dev {
+>  	struct stm32_i2c_dma *dma;
+>  	bool use_dma;
+>  	struct regmap *regmap;
+> +	u32 regmap_reg;
+> +	u32 regmap_mask;
+>  	bool wakeup_src;
+>  };
+>  
+> @@ -1815,12 +1819,25 @@ static int stm32f7_i2c_unreg_slave(struct i2c_client *slave)
+>  	return 0;
+>  }
+>  
+> +static int stm32f7_i2c_write_fm_plus_bits(struct stm32f7_i2c_dev *i2c_dev,
+> +					  bool enable)
+> +{
+> +	if (i2c_dev->speed != STM32_I2C_SPEED_FAST_PLUS ||
+> +	    IS_ERR_OR_NULL(i2c_dev->regmap)) {
+> +		/* Optional */
+> +		return 0;
+> +	}
+> +
+> +	return regmap_update_bits(i2c_dev->regmap, i2c_dev->regmap_reg,
+> +				  i2c_dev->regmap_mask,
+> +				  enable ? i2c_dev->regmap_mask : 0);
+> +}
+> +
+>  static int stm32f7_i2c_setup_fm_plus_bits(struct platform_device *pdev,
+>  					  struct stm32f7_i2c_dev *i2c_dev)
+>  {
+>  	struct device_node *np = pdev->dev.of_node;
+>  	int ret;
+> -	u32 reg, mask;
+>  
+>  	i2c_dev->regmap = syscon_regmap_lookup_by_phandle(np, "st,syscfg-fmp");
+>  	if (IS_ERR(i2c_dev->regmap)) {
+> @@ -1828,15 +1845,17 @@ static int stm32f7_i2c_setup_fm_plus_bits(struct platform_device *pdev,
+>  		return 0;
+>  	}
+>  
+> -	ret = of_property_read_u32_index(np, "st,syscfg-fmp", 1, &reg);
+> +	ret = of_property_read_u32_index(np, "st,syscfg-fmp", 1,
+> +					 &i2c_dev->regmap_reg);
+>  	if (ret)
+>  		return ret;
+>  
+> -	ret = of_property_read_u32_index(np, "st,syscfg-fmp", 2, &mask);
+> +	ret = of_property_read_u32_index(np, "st,syscfg-fmp", 2,
+> +					 &i2c_dev->regmap_mask);
+>  	if (ret)
+>  		return ret;
+>  
+> -	return regmap_update_bits(i2c_dev->regmap, reg, mask, mask);
+> +	return 0;
+>  }
+>  
+>  static u32 stm32f7_i2c_func(struct i2c_adapter *adap)
+> @@ -1914,9 +1933,6 @@ static int stm32f7_i2c_probe(struct platform_device *pdev)
+>  				       &clk_rate);
+>  	if (!ret && clk_rate >= 1000000) {
+>  		i2c_dev->speed = STM32_I2C_SPEED_FAST_PLUS;
+> -		ret = stm32f7_i2c_setup_fm_plus_bits(pdev, i2c_dev);
+> -		if (ret)
+> -			goto clk_free;
+>  	} else if (!ret && clk_rate >= 400000) {
+>  		i2c_dev->speed = STM32_I2C_SPEED_FAST;
+>  	} else if (!ret && clk_rate >= 100000) {
+> @@ -1976,6 +1992,15 @@ static int stm32f7_i2c_probe(struct platform_device *pdev)
+>  	if (ret)
+>  		goto clk_free;
+>  
+> +	if (i2c_dev->speed == STM32_I2C_SPEED_FAST_PLUS) {
+> +		ret = stm32f7_i2c_setup_fm_plus_bits(pdev, i2c_dev);
+> +		if (ret)
+> +			goto clk_free;
+> +		ret = stm32f7_i2c_write_fm_plus_bits(i2c_dev, 1);
+> +		if (ret)
+> +			goto clk_free;
+> +	}
+> +
+>  	adap = &i2c_dev->adap;
+>  	i2c_set_adapdata(adap, i2c_dev);
+>  	snprintf(adap->name, sizeof(adap->name), "STM32F7 I2C(%pa)",
+> @@ -2000,7 +2025,7 @@ static int stm32f7_i2c_probe(struct platform_device *pdev)
+>  		if (ret != -EPROBE_DEFER)
+>  			dev_err(&pdev->dev,
+>  				"Failed to request dma error %i\n", ret);
+> -		goto clk_free;
+> +		goto fmp_clear;
+>  	}
+>  
+>  	if (i2c_dev->wakeup_src) {
+> @@ -2054,6 +2079,9 @@ static int stm32f7_i2c_probe(struct platform_device *pdev)
+>  		i2c_dev->dma = NULL;
+>  	}
+>  
+> +fmp_clear:
+> +	stm32f7_i2c_write_fm_plus_bits(i2c_dev, 0);
+> +
+>  clk_free:
+>  	clk_disable_unprepare(i2c_dev->clk);
+>  
+> @@ -2086,6 +2114,8 @@ static int stm32f7_i2c_remove(struct platform_device *pdev)
+>  		i2c_dev->dma = NULL;
+>  	}
+>  
+> +	stm32f7_i2c_write_fm_plus_bits(i2c_dev, 0);
+> +
+>  	clk_disable_unprepare(i2c_dev->clk);
+>  
+>  	return 0;
+> @@ -2133,6 +2163,7 @@ stm32f7_i2c_regs_backup(struct stm32f7_i2c_dev *i2c_dev)
+>  	backup_regs->oar2 = readl_relaxed(i2c_dev->base + STM32F7_I2C_OAR2);
+>  	backup_regs->pecr = readl_relaxed(i2c_dev->base + STM32F7_I2C_PECR);
+>  	backup_regs->tmgr = readl_relaxed(i2c_dev->base + STM32F7_I2C_TIMINGR);
+> +	stm32f7_i2c_write_fm_plus_bits(i2c_dev, 0);
+>  
+>  	pm_runtime_put_sync(i2c_dev->dev);
+>  
+> @@ -2165,6 +2196,7 @@ stm32f7_i2c_regs_restore(struct stm32f7_i2c_dev *i2c_dev)
+>  	writel_relaxed(backup_regs->oar1, i2c_dev->base + STM32F7_I2C_OAR1);
+>  	writel_relaxed(backup_regs->oar2, i2c_dev->base + STM32F7_I2C_OAR2);
+>  	writel_relaxed(backup_regs->pecr, i2c_dev->base + STM32F7_I2C_PECR);
+> +	stm32f7_i2c_write_fm_plus_bits(i2c_dev, 1);
+>  
+>  	pm_runtime_put_sync(i2c_dev->dev);
+>  
+> 
 _______________________________________________
 Linux-stm32 mailing list
 Linux-stm32@st-md-mailman.stormreply.com
