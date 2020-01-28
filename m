@@ -2,86 +2,60 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id 59FDC14AA72
-	for <lists+linux-stm32@lfdr.de>; Mon, 27 Jan 2020 20:28:36 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id B8A8714B105
+	for <lists+linux-stm32@lfdr.de>; Tue, 28 Jan 2020 09:40:12 +0100 (CET)
 Received: from ip-172-31-3-76.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 794E5C36B0B;
-	Mon, 27 Jan 2020 19:28:35 +0000 (UTC)
-Received: from mail-wm1-f65.google.com (mail-wm1-f65.google.com
- [209.85.128.65])
- (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 6A03BC36B0B;
+	Tue, 28 Jan 2020 08:40:12 +0000 (UTC)
+Received: from mx07-00178001.pphosted.com (mx07-00178001.pphosted.com
+ [62.209.51.94])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 1106CC36B09
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id D9AADC36B09
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Mon, 27 Jan 2020 19:28:32 +0000 (UTC)
-Received: by mail-wm1-f65.google.com with SMTP id a5so8036540wmb.0
- for <linux-stm32@st-md-mailman.stormreply.com>;
- Mon, 27 Jan 2020 11:28:32 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20161025;
- h=subject:to:cc:references:from:message-id:date:user-agent
- :mime-version:in-reply-to:content-language:content-transfer-encoding;
- bh=nVpNgKJkF9tkji59pMJrNk0LvUKK5aYZzAaELznZEIo=;
- b=EOPSnOhcgaq1gVIt4MtWAnnjLhta8bYIS1juX1koiLs8kPKtUS+C8v+HIVkCGlcxuA
- j8v+OFcxiedIi+GPnp5ZjC6mMCb6f67Hw33ayz55aUpmhj+57sMXUmUn41UfqE9NT7Ad
- drQiejNjHnpG3hwUF9zSRsVq4AOqdhYv2HScIj99eoD1IyoQ7ILWYjt+L3c5E7DDWxl+
- 81ojPuXLQN+n84E4lL1zuKsyOwkRHIDS3tEAjpZ5Po6ufowof5o/OZwe6BZwAUGFHB+A
- w84W02xMdaIqsZEa6jlyiTL0M7TJUEW8IpyO6D8RBZdVTZ/D9pO8UNjhHy60bWEhbU94
- +yTw==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20161025;
- h=x-gm-message-state:subject:to:cc:references:from:message-id:date
- :user-agent:mime-version:in-reply-to:content-language
- :content-transfer-encoding;
- bh=nVpNgKJkF9tkji59pMJrNk0LvUKK5aYZzAaELznZEIo=;
- b=aPcbGNKpz/p3XhqPgAn2K940v5mCbV6d1GXIl+5etz0WfNwc1SToa5o8Pib8oNUDdE
- ZFClEKtPyhGfNLJUJeHYFYtEPnYJdXDcV+AH6UN+CtAo1KTV+lb9+TCZdCPmJWI7wF8T
- esJ3+6fWTM+w87aaPnuX7OEWtNDWpyOOjcoTog5DAiA7VzY8PlB9wsm6gW2ojjTpVfOk
- zFtAw9kI4CR+ELq6XeL6Ol4KsgzxSsPfdZiAzzr1Yr0YmZV7MOZ/ZZ21NTCdH0/bW16i
- jlmeDspT+1163qyeux8wSDJLu2mRj5Dz7/qCtCEyAqiazNrxjx/277JMp8VHRlYUFETD
- kfUw==
-X-Gm-Message-State: APjAAAXjVGPcqJIxIA0lLPzw6f+0ICHw6mrTIroOqkDPW97HV2O4r3AG
- aWcZ51e2dGSB07BESzNEmU8=
-X-Google-Smtp-Source: APXvYqxoCNMBFRKbINc2j745ycYNdqyYUaS3O3hsaHm6/siwUXdgo2uba0UD5gd43Kd/W8rSqHHk3w==
-X-Received: by 2002:a1c:9c87:: with SMTP id f129mr235606wme.26.1580153311807; 
- Mon, 27 Jan 2020 11:28:31 -0800 (PST)
-Received: from ?IPv6:2003:ea:8f36:6800:3496:17d5:1b2b:bee1?
- (p200300EA8F366800349617D51B2BBEE1.dip0.t-ipconnect.de.
- [2003:ea:8f36:6800:3496:17d5:1b2b:bee1])
- by smtp.googlemail.com with ESMTPSA id e6sm22981852wru.44.2020.01.27.11.28.30
- (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Mon, 27 Jan 2020 11:28:31 -0800 (PST)
-To: Andrew Lunn <andrew@lunn.ch>,
- Russell King - ARM Linux admin <linux@armlinux.org.uk>
-References: <cover.1580122909.git.Jose.Abreu@synopsys.com>
- <9a2136885d9a892ff170be88fdffeda82c778a10.1580122909.git.Jose.Abreu@synopsys.com>
- <20200127112102.GT25745@shell.armlinux.org.uk>
- <BN8PR12MB3266714AE9EC1A97218120B3D30B0@BN8PR12MB3266.namprd12.prod.outlook.com>
- <20200127114600.GU25745@shell.armlinux.org.uk>
- <20200127140038.GD13647@lunn.ch>
- <20200127140834.GW25745@shell.armlinux.org.uk>
- <20200127145107.GE13647@lunn.ch>
- <20200127161132.GX25745@shell.armlinux.org.uk>
- <20200127162206.GJ13647@lunn.ch>
-From: Heiner Kallweit <hkallweit1@gmail.com>
-Message-ID: <c3e863b8-2143-fee3-bb0b-65699661d7ab@gmail.com>
-Date: Mon, 27 Jan 2020 20:28:21 +0100
-User-Agent: Mozilla/5.0 (Windows NT 10.0; WOW64; rv:68.0) Gecko/20100101
- Thunderbird/68.4.1
+ Tue, 28 Jan 2020 08:40:10 +0000 (UTC)
+Received: from pps.filterd (m0046037.ppops.net [127.0.0.1])
+ by mx07-00178001.pphosted.com (8.16.0.42/8.16.0.42) with SMTP id
+ 00S8WtBS008580; Tue, 28 Jan 2020 09:40:00 +0100
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=st.com;
+ h=from : to : cc : subject
+ : date : message-id : mime-version : content-type; s=STMicroelectronics;
+ bh=wYVLtBQDsVpHpQf/7yE70/hiuInLMKJGmpFUxExoUkk=;
+ b=YjhOSP9P4lWFFyr1VBF94DHLOUzMLuRFiOnYnD5ZYvkd3f46cKSVYS8nd69wZumylxN/
+ li3GFgUJB8pA6h6mWv8zX+iW5sS1FcgcHBci0jv65sqaaDEULF9NmiJZdmDNEOdOEQmR
+ fFHIUKvfvPhsnhzL6rEc0LPkQ/R+j5sj+iD0hJeLICCWf7uO1ECeJnBGCXm4i8dFfRis
+ Ma2/gHmdtJzR/5+7CUqUP6vo3aaI9B69fUA3GgOTgYcfr/RJ+1ADV+hemNK3ROOYiQdM
+ hVMsqVlb8FLHeUgLYFjcti62DGR3/wMiJQfIoKiQNe195XoX7R+mkiSl9ypLuN6fwkBT lw== 
+Received: from beta.dmz-eu.st.com (beta.dmz-eu.st.com [164.129.1.35])
+ by mx07-00178001.pphosted.com with ESMTP id 2xrcaxvrv1-1
+ (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
+ Tue, 28 Jan 2020 09:40:00 +0100
+Received: from euls16034.sgp.st.com (euls16034.sgp.st.com [10.75.44.20])
+ by beta.dmz-eu.st.com (STMicroelectronics) with ESMTP id C422210002A;
+ Tue, 28 Jan 2020 09:39:55 +0100 (CET)
+Received: from Webmail-eu.st.com (sfhdag5node3.st.com [10.75.127.15])
+ by euls16034.sgp.st.com (STMicroelectronics) with ESMTP id 7D5A8211F3F;
+ Tue, 28 Jan 2020 09:39:55 +0100 (CET)
+Received: from localhost (10.75.127.44) by SFHDAG5NODE3.st.com (10.75.127.15)
+ with Microsoft SMTP Server (TLS) id 15.0.1473.3;
+ Tue, 28 Jan 2020 09:39:54 +0100
+From: Christophe Roullier <christophe.roullier@st.com>
+To: <davem@davemloft.net>, <joabreu@synopsys.com>, <mcoquelin.stm32@gmail.com>,
+ <alexandre.torgue@st.com>, <peppe.cavallaro@st.com>
+Date: Tue, 28 Jan 2020 09:39:42 +0100
+Message-ID: <20200128083942.17823-1-christophe.roullier@st.com>
+X-Mailer: git-send-email 2.17.1
 MIME-Version: 1.0
-In-Reply-To: <20200127162206.GJ13647@lunn.ch>
-Content-Language: en-US
-Cc: Jose Abreu <Jose.Abreu@synopsys.com>, Joao Pinto <Joao.Pinto@synopsys.com>,
- "netdev@vger.kernel.org" <netdev@vger.kernel.org>,
- "linux-kernel@vger.kernel.org" <linux-kernel@vger.kernel.org>,
- "David S. Miller" <davem@davemloft.net>,
- Florian Fainelli <f.fainelli@gmail.com>,
- Maxime Coquelin <mcoquelin.stm32@gmail.com>,
- Giuseppe Cavallaro <peppe.cavallaro@st.com>, Jakub Kicinski <kuba@kernel.org>,
- "linux-stm32@st-md-mailman.stormreply.com"
- <linux-stm32@st-md-mailman.stormreply.com>,
- "linux-arm-kernel@lists.infradead.org" <linux-arm-kernel@lists.infradead.org>
-Subject: Re: [Linux-stm32] [RFC net-next 6/8] net: phylink: Configure
- MAC/PCS when link is up without PHY
+X-Originating-IP: [10.75.127.44]
+X-ClientProxiedBy: SFHDAG6NODE2.st.com (10.75.127.17) To SFHDAG5NODE3.st.com
+ (10.75.127.15)
+X-Proofpoint-Virus-Version: vendor=fsecure engine=2.50.10434:6.0.138, 18.0.572
+ definitions=2020-01-28_02:2020-01-24,
+ 2020-01-28 signatures=0
+Cc: netdev@vger.kernel.org, linux-kernel@vger.kernel.org,
+ linux-arm-kernel@lists.infradead.org, linux-stm32@st-md-mailman.stormreply.com
+Subject: [Linux-stm32] [PATCH 1/1] net: ethernet: stmmac: simplify phy modes
+	management for stm32
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -98,28 +72,166 @@ Content-Transfer-Encoding: 7bit
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
-On 27.01.2020 17:22, Andrew Lunn wrote:
->>> Heiner has another device which has an Aquantia PHY running in an odd
->>> mode so that it does 1G over a T2 link. It uses SGMII for this, and
->>> that is where we first noticed the issue of the MAC and PCS having
->>> different configurations.
->>
->> Do you know when the issue appeared?
-> 
-> As far as i understand, it never worked, it is not a regression as
-> such. But Heiner probably knows more.
-> 
-I think you're referring to the issue that was fixed with following
-commit: 72d8b4fdbfb6 ("net: dsa: mv88e6xxx: support in-band signalling
-on SGMII ports with external PHYs"). The commit description also has a
-link to the discussion we had about the issue. If I read it correctly
-the issue is independent of this proprietary 1000BaseT2 mode having
-been used.
+No new feature, just to simplify stm32 part to be easier to use.
+Add by default all Ethernet clocks in DT, and activate or not in function
+of phy mode, clock frequency, if property "st,ext-phyclk" is set or not.
+Keep backward compatibility
+-----------------------------------------------------------------------
+|PHY_MODE | Normal | PHY wo crystal|   PHY wo crystal   |  No 125Mhz  |
+|         |        |      25MHz    |        50MHz       |  from PHY   |
+-----------------------------------------------------------------------
+|  MII    |	 -    |     eth-ck    |       n/a          |	    n/a  |
+|         |        | st,ext-phyclk |                    |             |
+-----------------------------------------------------------------------
+|  GMII   |	 -    |     eth-ck    |       n/a          |	    n/a  |
+|         |        | st,ext-phyclk |                    |             |
+-----------------------------------------------------------------------
+| RGMII   |	 -    |     eth-ck    |       n/a          |      eth-ck  |
+|         |        | st,ext-phyclk |                    |st,eth-clk-sel|
+|         |        |               |                    |       or     |
+|         |        |               |                    | st,ext-phyclk|
+------------------------------------------------------------------------
+| RMII    |	 -    |     eth-ck    |      eth-ck        |	     n/a  |
+|         |        | st,ext-phyclk | st,eth-ref-clk-sel |              |
+|         |        |               | or st,ext-phyclk   |              |
+------------------------------------------------------------------------
 
->       Andrew
-> .
-> 
-Heiner
+Signed-off-by: Christophe Roullier <christophe.roullier@st.com>
+
+---
+ .../net/ethernet/stmicro/stmmac/dwmac-stm32.c | 58 +++++++++++--------
+ 1 file changed, 34 insertions(+), 24 deletions(-)
+
+diff --git a/drivers/net/ethernet/stmicro/stmmac/dwmac-stm32.c b/drivers/net/ethernet/stmicro/stmmac/dwmac-stm32.c
+index 9b7be996d07b..866251eac868 100644
+--- a/drivers/net/ethernet/stmicro/stmmac/dwmac-stm32.c
++++ b/drivers/net/ethernet/stmicro/stmmac/dwmac-stm32.c
+@@ -29,6 +29,11 @@
+ #define SYSCFG_PMCR_ETH_CLK_SEL		BIT(16)
+ #define SYSCFG_PMCR_ETH_REF_CLK_SEL	BIT(17)
+ 
++/* CLOCK feed to PHY*/
++#define ETH_CK_F_25M	25000000
++#define ETH_CK_F_50M	50000000
++#define ETH_CK_F_125M	125000000
++
+ /*  Ethernet PHY interface selection in register SYSCFG Configuration
+  *------------------------------------------
+  * src	 |BIT(23)| BIT(22)| BIT(21)|BIT(20)|
+@@ -58,33 +63,20 @@
+  *|         |        |      25MHz    |        50MHz       |                  |
+  * ---------------------------------------------------------------------------
+  *|  MII    |	 -   |     eth-ck    |	      n/a	  |	  n/a        |
+- *|         |        |		     |                    |		     |
++ *|         |        | st,ext-phyclk |                    |		     |
+  * ---------------------------------------------------------------------------
+  *|  GMII   |	 -   |     eth-ck    |	      n/a	  |	  n/a        |
+- *|         |        |               |                    |		     |
++ *|         |        | st,ext-phyclk |                    |		     |
+  * ---------------------------------------------------------------------------
+- *| RGMII   |	 -   |     eth-ck    |	      n/a	  |  eth-ck (no pin) |
+- *|         |        |               |                    |  st,eth-clk-sel  |
++ *| RGMII   |	 -   |     eth-ck    |	      n/a	  |      eth-ck      |
++ *|         |        | st,ext-phyclk |                    | st,eth-clk-sel or|
++ *|         |        |               |                    | st,ext-phyclk    |
+  * ---------------------------------------------------------------------------
+  *| RMII    |	 -   |     eth-ck    |	    eth-ck        |	  n/a        |
+- *|         |        |		     | st,eth-ref-clk-sel |		     |
++ *|         |        | st,ext-phyclk | st,eth-ref-clk-sel |		     |
++ *|         |        |               | or st,ext-phyclk   |		     |
+  * ---------------------------------------------------------------------------
+  *
+- * BIT(17) : set this bit in RMII mode when you have PHY without crystal 50MHz
+- * BIT(16) : set this bit in GMII/RGMII PHY when you do not want use 125Mhz
+- * from PHY
+- *-----------------------------------------------------
+- * src	 |         BIT(17)       |       BIT(16)      |
+- *-----------------------------------------------------
+- * MII   |           n/a	 |         n/a        |
+- *-----------------------------------------------------
+- * GMII  |           n/a         |   st,eth-clk-sel   |
+- *-----------------------------------------------------
+- * RGMII |           n/a         |   st,eth-clk-sel   |
+- *-----------------------------------------------------
+- * RMII  |   st,eth-ref-clk-sel	 |         n/a        |
+- *-----------------------------------------------------
+- *
+  */
+ 
+ struct stm32_dwmac {
+@@ -93,6 +85,8 @@ struct stm32_dwmac {
+ 	struct clk *clk_eth_ck;
+ 	struct clk *clk_ethstp;
+ 	struct clk *syscfg_clk;
++	int ext_phyclk;
++	int enable_eth_ck;
+ 	int eth_clk_sel_reg;
+ 	int eth_ref_clk_sel_reg;
+ 	int irq_pwr_wakeup;
+@@ -170,24 +164,34 @@ static int stm32mp1_clk_prepare(struct stm32_dwmac *dwmac, bool prepare)
+ static int stm32mp1_set_mode(struct plat_stmmacenet_data *plat_dat)
+ {
+ 	struct stm32_dwmac *dwmac = plat_dat->bsp_priv;
+-	u32 reg = dwmac->mode_reg;
++	u32 reg = dwmac->mode_reg, clk_rate;
+ 	int val;
+ 
++	clk_rate = clk_get_rate(dwmac->clk_eth_ck);
++	dwmac->enable_eth_ck = false;
+ 	switch (plat_dat->interface) {
+ 	case PHY_INTERFACE_MODE_MII:
++		if (clk_rate == ETH_CK_F_25M && dwmac->ext_phyclk)
++			dwmac->enable_eth_ck = true;
+ 		val = SYSCFG_PMCR_ETH_SEL_MII;
+ 		pr_debug("SYSCFG init : PHY_INTERFACE_MODE_MII\n");
+ 		break;
+ 	case PHY_INTERFACE_MODE_GMII:
+ 		val = SYSCFG_PMCR_ETH_SEL_GMII;
+-		if (dwmac->eth_clk_sel_reg)
++		if (clk_rate == ETH_CK_F_25M &&
++		    (dwmac->eth_clk_sel_reg || dwmac->ext_phyclk)) {
++			dwmac->enable_eth_ck = true;
+ 			val |= SYSCFG_PMCR_ETH_CLK_SEL;
++		}
+ 		pr_debug("SYSCFG init : PHY_INTERFACE_MODE_GMII\n");
+ 		break;
+ 	case PHY_INTERFACE_MODE_RMII:
+ 		val = SYSCFG_PMCR_ETH_SEL_RMII;
+-		if (dwmac->eth_ref_clk_sel_reg)
++		if ((clk_rate == ETH_CK_F_25M || clk_rate == ETH_CK_F_50M) &&
++		    (dwmac->eth_ref_clk_sel_reg || dwmac->ext_phyclk)) {
++			dwmac->enable_eth_ck = true;
+ 			val |= SYSCFG_PMCR_ETH_REF_CLK_SEL;
++		}
+ 		pr_debug("SYSCFG init : PHY_INTERFACE_MODE_RMII\n");
+ 		break;
+ 	case PHY_INTERFACE_MODE_RGMII:
+@@ -195,8 +199,11 @@ static int stm32mp1_set_mode(struct plat_stmmacenet_data *plat_dat)
+ 	case PHY_INTERFACE_MODE_RGMII_RXID:
+ 	case PHY_INTERFACE_MODE_RGMII_TXID:
+ 		val = SYSCFG_PMCR_ETH_SEL_RGMII;
+-		if (dwmac->eth_clk_sel_reg)
++		if ((clk_rate == ETH_CK_F_25M || clk_rate == ETH_CK_F_125M) &&
++		    (dwmac->eth_clk_sel_reg || dwmac->ext_phyclk)) {
++			dwmac->enable_eth_ck = true;
+ 			val |= SYSCFG_PMCR_ETH_CLK_SEL;
++		}
+ 		pr_debug("SYSCFG init : PHY_INTERFACE_MODE_RGMII\n");
+ 		break;
+ 	default:
+@@ -294,6 +301,9 @@ static int stm32mp1_parse_data(struct stm32_dwmac *dwmac,
+ 	struct device_node *np = dev->of_node;
+ 	int err = 0;
+ 
++	/* Ethernet PHY have no crystal */
++	dwmac->ext_phyclk = of_property_read_bool(np, "st,ext-phyclk");
++
+ 	/* Gigabit Ethernet 125MHz clock selection. */
+ 	dwmac->eth_clk_sel_reg = of_property_read_bool(np, "st,eth-clk-sel");
+ 
+-- 
+2.17.1
+
 _______________________________________________
 Linux-stm32 mailing list
 Linux-stm32@st-md-mailman.stormreply.com
