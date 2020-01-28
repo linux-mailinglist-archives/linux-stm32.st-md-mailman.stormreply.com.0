@@ -2,60 +2,60 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id B8A8714B105
-	for <lists+linux-stm32@lfdr.de>; Tue, 28 Jan 2020 09:40:12 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 576B014B14A
+	for <lists+linux-stm32@lfdr.de>; Tue, 28 Jan 2020 10:06:54 +0100 (CET)
 Received: from ip-172-31-3-76.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 6A03BC36B0B;
-	Tue, 28 Jan 2020 08:40:12 +0000 (UTC)
-Received: from mx07-00178001.pphosted.com (mx07-00178001.pphosted.com
- [62.209.51.94])
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 0DABEC36B0E;
+	Tue, 28 Jan 2020 09:06:54 +0000 (UTC)
+Received: from mx07-00178001.pphosted.com (mx08-00178001.pphosted.com
+ [91.207.212.93])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id D9AADC36B09
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 074D4C36B09
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Tue, 28 Jan 2020 08:40:10 +0000 (UTC)
-Received: from pps.filterd (m0046037.ppops.net [127.0.0.1])
+ Tue, 28 Jan 2020 09:06:51 +0000 (UTC)
+Received: from pps.filterd (m0046661.ppops.net [127.0.0.1])
  by mx07-00178001.pphosted.com (8.16.0.42/8.16.0.42) with SMTP id
- 00S8WtBS008580; Tue, 28 Jan 2020 09:40:00 +0100
+ 00S92kWS021535; Tue, 28 Jan 2020 10:06:40 +0100
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=st.com;
  h=from : to : cc : subject
  : date : message-id : mime-version : content-type; s=STMicroelectronics;
- bh=wYVLtBQDsVpHpQf/7yE70/hiuInLMKJGmpFUxExoUkk=;
- b=YjhOSP9P4lWFFyr1VBF94DHLOUzMLuRFiOnYnD5ZYvkd3f46cKSVYS8nd69wZumylxN/
- li3GFgUJB8pA6h6mWv8zX+iW5sS1FcgcHBci0jv65sqaaDEULF9NmiJZdmDNEOdOEQmR
- fFHIUKvfvPhsnhzL6rEc0LPkQ/R+j5sj+iD0hJeLICCWf7uO1ECeJnBGCXm4i8dFfRis
- Ma2/gHmdtJzR/5+7CUqUP6vo3aaI9B69fUA3GgOTgYcfr/RJ+1ADV+hemNK3ROOYiQdM
- hVMsqVlb8FLHeUgLYFjcti62DGR3/wMiJQfIoKiQNe195XoX7R+mkiSl9ypLuN6fwkBT lw== 
+ bh=dM4EBFGBDxEbKJ3rgoXqLG+/SBlJ9gkuXeRvPF/9krE=;
+ b=nMdIWhzp+SqKhb3FySeBN89jovlV4Q/x1JwFEEwrgv+3cy6ssAqH+0H6NsD2ne8AtCj4
+ Ln5lX3LBrfaIsjlMfJjazhItRY8/UbmCL2Sg19FstvtIcZZMpiYvvlMDIf7URiGKIEp1
+ Dn0jSO0kf02NMdJi89lywq/Ch4VaWk1OaaCUjQZZHjtGDz3ftv5c7zZxcbiJnJJRXSpn
+ Cot4u5++wXTHxmRAnMUOdPHM8BZM86JqMosORJUrRLP7QLW75BrBFef7xK+lNcyE5Tq3
+ 5wSUAZBezsgnEj+RRbbGxS9dZnaAu4DG6LFr6GP5ND5X1/zlATJvHEPGnXpUPfunpafI KA== 
 Received: from beta.dmz-eu.st.com (beta.dmz-eu.st.com [164.129.1.35])
- by mx07-00178001.pphosted.com with ESMTP id 2xrcaxvrv1-1
+ by mx07-00178001.pphosted.com with ESMTP id 2xrdekcugb-1
  (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
- Tue, 28 Jan 2020 09:40:00 +0100
+ Tue, 28 Jan 2020 10:06:40 +0100
 Received: from euls16034.sgp.st.com (euls16034.sgp.st.com [10.75.44.20])
- by beta.dmz-eu.st.com (STMicroelectronics) with ESMTP id C422210002A;
- Tue, 28 Jan 2020 09:39:55 +0100 (CET)
-Received: from Webmail-eu.st.com (sfhdag5node3.st.com [10.75.127.15])
- by euls16034.sgp.st.com (STMicroelectronics) with ESMTP id 7D5A8211F3F;
- Tue, 28 Jan 2020 09:39:55 +0100 (CET)
-Received: from localhost (10.75.127.44) by SFHDAG5NODE3.st.com (10.75.127.15)
+ by beta.dmz-eu.st.com (STMicroelectronics) with ESMTP id 9D790100034;
+ Tue, 28 Jan 2020 10:06:39 +0100 (CET)
+Received: from Webmail-eu.st.com (sfhdag6node1.st.com [10.75.127.16])
+ by euls16034.sgp.st.com (STMicroelectronics) with ESMTP id 8B6CB212A35;
+ Tue, 28 Jan 2020 10:06:39 +0100 (CET)
+Received: from localhost (10.75.127.47) by SFHDAG6NODE1.st.com (10.75.127.16)
  with Microsoft SMTP Server (TLS) id 15.0.1473.3;
- Tue, 28 Jan 2020 09:39:54 +0100
-From: Christophe Roullier <christophe.roullier@st.com>
-To: <davem@davemloft.net>, <joabreu@synopsys.com>, <mcoquelin.stm32@gmail.com>,
- <alexandre.torgue@st.com>, <peppe.cavallaro@st.com>
-Date: Tue, 28 Jan 2020 09:39:42 +0100
-Message-ID: <20200128083942.17823-1-christophe.roullier@st.com>
+ Tue, 28 Jan 2020 10:06:38 +0100
+From: Ludovic Barre <ludovic.barre@st.com>
+To: Ulf Hansson <ulf.hansson@linaro.org>, Rob Herring <robh+dt@kernel.org>
+Date: Tue, 28 Jan 2020 10:06:27 +0100
+Message-ID: <20200128090636.13689-1-ludovic.barre@st.com>
 X-Mailer: git-send-email 2.17.1
 MIME-Version: 1.0
-X-Originating-IP: [10.75.127.44]
-X-ClientProxiedBy: SFHDAG6NODE2.st.com (10.75.127.17) To SFHDAG5NODE3.st.com
- (10.75.127.15)
+X-Originating-IP: [10.75.127.47]
+X-ClientProxiedBy: SFHDAG3NODE1.st.com (10.75.127.7) To SFHDAG6NODE1.st.com
+ (10.75.127.16)
 X-Proofpoint-Virus-Version: vendor=fsecure engine=2.50.10434:6.0.138, 18.0.572
  definitions=2020-01-28_02:2020-01-24,
  2020-01-28 signatures=0
-Cc: netdev@vger.kernel.org, linux-kernel@vger.kernel.org,
- linux-arm-kernel@lists.infradead.org, linux-stm32@st-md-mailman.stormreply.com
-Subject: [Linux-stm32] [PATCH 1/1] net: ethernet: stmmac: simplify phy modes
-	management for stm32
+Cc: devicetree@vger.kernel.org, linux-mmc@vger.kernel.org,
+ linux-kernel@vger.kernel.org, srinivas.kandagatla@linaro.org,
+ Maxime Coquelin <mcoquelin.stm32@gmail.com>,
+ linux-stm32@st-md-mailman.stormreply.com, linux-arm-kernel@lists.infradead.org
+Subject: [Linux-stm32] [PATCH V2 0/9] mmc: mmci: sdmmc: add sdr104 support
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -72,163 +72,36 @@ Content-Transfer-Encoding: 7bit
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
-No new feature, just to simplify stm32 part to be easier to use.
-Add by default all Ethernet clocks in DT, and activate or not in function
-of phy mode, clock frequency, if property "st,ext-phyclk" is set or not.
-Keep backward compatibility
------------------------------------------------------------------------
-|PHY_MODE | Normal | PHY wo crystal|   PHY wo crystal   |  No 125Mhz  |
-|         |        |      25MHz    |        50MHz       |  from PHY   |
------------------------------------------------------------------------
-|  MII    |	 -    |     eth-ck    |       n/a          |	    n/a  |
-|         |        | st,ext-phyclk |                    |             |
------------------------------------------------------------------------
-|  GMII   |	 -    |     eth-ck    |       n/a          |	    n/a  |
-|         |        | st,ext-phyclk |                    |             |
------------------------------------------------------------------------
-| RGMII   |	 -    |     eth-ck    |       n/a          |      eth-ck  |
-|         |        | st,ext-phyclk |                    |st,eth-clk-sel|
-|         |        |               |                    |       or     |
-|         |        |               |                    | st,ext-phyclk|
-------------------------------------------------------------------------
-| RMII    |	 -    |     eth-ck    |      eth-ck        |	     n/a  |
-|         |        | st,ext-phyclk | st,eth-ref-clk-sel |              |
-|         |        |               | or st,ext-phyclk   |              |
-------------------------------------------------------------------------
+To support the sdr104 mode, sdmmc variant needs:
+-Hardware delay block support for sdmmc variant
+ with tuning procedure
+-Voltage switch callbacks
+-sdmmc revision 2.0
 
-Signed-off-by: Christophe Roullier <christophe.roullier@st.com>
+V2:
+-regroup host->mmc_ops & mmc->ops assignment
+-add timeout define
+-rename prep_volt_switch to pre_sig_volt_switch
+-rename volt_switch to post_sig_volt_switch
+-add 'why' comment for "mmc: mmci: add volt_switch callbacks"
 
----
- .../net/ethernet/stmicro/stmmac/dwmac-stm32.c | 58 +++++++++++--------
- 1 file changed, 34 insertions(+), 24 deletions(-)
+Ludovic Barre (9):
+  mmc: mmci: sdmmc: replace sg_dma_xxx macros
+  mmc: mmci: sdmmc: rename sdmmc_priv struct to sdmmc_idma
+  mmc: mmci: add a reference at mmc_host_ops in mmci struct
+  mmc: mmci: add private pointer for variant
+  dt-bindings: mmc: mmci: add delay block base register for sdmmc
+  mmc: mmci: sdmmc: add execute tuning with delay block
+  mmc: mmci: add volt_switch callbacks
+  mmc: mmci: sdmmc: add voltage switch functions
+  mmc: mmci: add sdmmc variant revision 2.0
 
-diff --git a/drivers/net/ethernet/stmicro/stmmac/dwmac-stm32.c b/drivers/net/ethernet/stmicro/stmmac/dwmac-stm32.c
-index 9b7be996d07b..866251eac868 100644
---- a/drivers/net/ethernet/stmicro/stmmac/dwmac-stm32.c
-+++ b/drivers/net/ethernet/stmicro/stmmac/dwmac-stm32.c
-@@ -29,6 +29,11 @@
- #define SYSCFG_PMCR_ETH_CLK_SEL		BIT(16)
- #define SYSCFG_PMCR_ETH_REF_CLK_SEL	BIT(17)
- 
-+/* CLOCK feed to PHY*/
-+#define ETH_CK_F_25M	25000000
-+#define ETH_CK_F_50M	50000000
-+#define ETH_CK_F_125M	125000000
-+
- /*  Ethernet PHY interface selection in register SYSCFG Configuration
-  *------------------------------------------
-  * src	 |BIT(23)| BIT(22)| BIT(21)|BIT(20)|
-@@ -58,33 +63,20 @@
-  *|         |        |      25MHz    |        50MHz       |                  |
-  * ---------------------------------------------------------------------------
-  *|  MII    |	 -   |     eth-ck    |	      n/a	  |	  n/a        |
-- *|         |        |		     |                    |		     |
-+ *|         |        | st,ext-phyclk |                    |		     |
-  * ---------------------------------------------------------------------------
-  *|  GMII   |	 -   |     eth-ck    |	      n/a	  |	  n/a        |
-- *|         |        |               |                    |		     |
-+ *|         |        | st,ext-phyclk |                    |		     |
-  * ---------------------------------------------------------------------------
-- *| RGMII   |	 -   |     eth-ck    |	      n/a	  |  eth-ck (no pin) |
-- *|         |        |               |                    |  st,eth-clk-sel  |
-+ *| RGMII   |	 -   |     eth-ck    |	      n/a	  |      eth-ck      |
-+ *|         |        | st,ext-phyclk |                    | st,eth-clk-sel or|
-+ *|         |        |               |                    | st,ext-phyclk    |
-  * ---------------------------------------------------------------------------
-  *| RMII    |	 -   |     eth-ck    |	    eth-ck        |	  n/a        |
-- *|         |        |		     | st,eth-ref-clk-sel |		     |
-+ *|         |        | st,ext-phyclk | st,eth-ref-clk-sel |		     |
-+ *|         |        |               | or st,ext-phyclk   |		     |
-  * ---------------------------------------------------------------------------
-  *
-- * BIT(17) : set this bit in RMII mode when you have PHY without crystal 50MHz
-- * BIT(16) : set this bit in GMII/RGMII PHY when you do not want use 125Mhz
-- * from PHY
-- *-----------------------------------------------------
-- * src	 |         BIT(17)       |       BIT(16)      |
-- *-----------------------------------------------------
-- * MII   |           n/a	 |         n/a        |
-- *-----------------------------------------------------
-- * GMII  |           n/a         |   st,eth-clk-sel   |
-- *-----------------------------------------------------
-- * RGMII |           n/a         |   st,eth-clk-sel   |
-- *-----------------------------------------------------
-- * RMII  |   st,eth-ref-clk-sel	 |         n/a        |
-- *-----------------------------------------------------
-- *
-  */
- 
- struct stm32_dwmac {
-@@ -93,6 +85,8 @@ struct stm32_dwmac {
- 	struct clk *clk_eth_ck;
- 	struct clk *clk_ethstp;
- 	struct clk *syscfg_clk;
-+	int ext_phyclk;
-+	int enable_eth_ck;
- 	int eth_clk_sel_reg;
- 	int eth_ref_clk_sel_reg;
- 	int irq_pwr_wakeup;
-@@ -170,24 +164,34 @@ static int stm32mp1_clk_prepare(struct stm32_dwmac *dwmac, bool prepare)
- static int stm32mp1_set_mode(struct plat_stmmacenet_data *plat_dat)
- {
- 	struct stm32_dwmac *dwmac = plat_dat->bsp_priv;
--	u32 reg = dwmac->mode_reg;
-+	u32 reg = dwmac->mode_reg, clk_rate;
- 	int val;
- 
-+	clk_rate = clk_get_rate(dwmac->clk_eth_ck);
-+	dwmac->enable_eth_ck = false;
- 	switch (plat_dat->interface) {
- 	case PHY_INTERFACE_MODE_MII:
-+		if (clk_rate == ETH_CK_F_25M && dwmac->ext_phyclk)
-+			dwmac->enable_eth_ck = true;
- 		val = SYSCFG_PMCR_ETH_SEL_MII;
- 		pr_debug("SYSCFG init : PHY_INTERFACE_MODE_MII\n");
- 		break;
- 	case PHY_INTERFACE_MODE_GMII:
- 		val = SYSCFG_PMCR_ETH_SEL_GMII;
--		if (dwmac->eth_clk_sel_reg)
-+		if (clk_rate == ETH_CK_F_25M &&
-+		    (dwmac->eth_clk_sel_reg || dwmac->ext_phyclk)) {
-+			dwmac->enable_eth_ck = true;
- 			val |= SYSCFG_PMCR_ETH_CLK_SEL;
-+		}
- 		pr_debug("SYSCFG init : PHY_INTERFACE_MODE_GMII\n");
- 		break;
- 	case PHY_INTERFACE_MODE_RMII:
- 		val = SYSCFG_PMCR_ETH_SEL_RMII;
--		if (dwmac->eth_ref_clk_sel_reg)
-+		if ((clk_rate == ETH_CK_F_25M || clk_rate == ETH_CK_F_50M) &&
-+		    (dwmac->eth_ref_clk_sel_reg || dwmac->ext_phyclk)) {
-+			dwmac->enable_eth_ck = true;
- 			val |= SYSCFG_PMCR_ETH_REF_CLK_SEL;
-+		}
- 		pr_debug("SYSCFG init : PHY_INTERFACE_MODE_RMII\n");
- 		break;
- 	case PHY_INTERFACE_MODE_RGMII:
-@@ -195,8 +199,11 @@ static int stm32mp1_set_mode(struct plat_stmmacenet_data *plat_dat)
- 	case PHY_INTERFACE_MODE_RGMII_RXID:
- 	case PHY_INTERFACE_MODE_RGMII_TXID:
- 		val = SYSCFG_PMCR_ETH_SEL_RGMII;
--		if (dwmac->eth_clk_sel_reg)
-+		if ((clk_rate == ETH_CK_F_25M || clk_rate == ETH_CK_F_125M) &&
-+		    (dwmac->eth_clk_sel_reg || dwmac->ext_phyclk)) {
-+			dwmac->enable_eth_ck = true;
- 			val |= SYSCFG_PMCR_ETH_CLK_SEL;
-+		}
- 		pr_debug("SYSCFG init : PHY_INTERFACE_MODE_RGMII\n");
- 		break;
- 	default:
-@@ -294,6 +301,9 @@ static int stm32mp1_parse_data(struct stm32_dwmac *dwmac,
- 	struct device_node *np = dev->of_node;
- 	int err = 0;
- 
-+	/* Ethernet PHY have no crystal */
-+	dwmac->ext_phyclk = of_property_read_bool(np, "st,ext-phyclk");
-+
- 	/* Gigabit Ethernet 125MHz clock selection. */
- 	dwmac->eth_clk_sel_reg = of_property_read_bool(np, "st,eth-clk-sel");
- 
+ .../devicetree/bindings/mmc/mmci.txt          |   2 +
+ drivers/mmc/host/mmci.c                       |  42 +++-
+ drivers/mmc/host/mmci.h                       |   8 +
+ drivers/mmc/host/mmci_stm32_sdmmc.c           | 204 +++++++++++++++++-
+ 4 files changed, 248 insertions(+), 8 deletions(-)
+
 -- 
 2.17.1
 
