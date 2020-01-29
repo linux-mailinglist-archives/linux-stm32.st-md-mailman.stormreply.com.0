@@ -2,63 +2,39 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id 7F55214BFE5
-	for <lists+linux-stm32@lfdr.de>; Tue, 28 Jan 2020 19:32:08 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 9A80114C8FD
+	for <lists+linux-stm32@lfdr.de>; Wed, 29 Jan 2020 11:51:39 +0100 (CET)
 Received: from ip-172-31-3-76.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 36B1DC36B0B;
-	Tue, 28 Jan 2020 18:32:08 +0000 (UTC)
-Received: from mail-out.m-online.net (mail-out.m-online.net [212.18.0.9])
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 47FA8C36B0B;
+	Wed, 29 Jan 2020 10:51:39 +0000 (UTC)
+Received: from shards.monkeyblade.net (shards.monkeyblade.net [23.128.96.9])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id EF8B5C36B09
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id C94DCC36B09
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Tue, 28 Jan 2020 18:32:04 +0000 (UTC)
-Received: from frontend01.mail.m-online.net (unknown [192.168.8.182])
- by mail-out.m-online.net (Postfix) with ESMTP id 486Zw30m8Kz1rD8v;
- Tue, 28 Jan 2020 19:32:03 +0100 (CET)
-Received: from localhost (dynscan1.mnet-online.de [192.168.6.70])
- by mail.m-online.net (Postfix) with ESMTP id 486Zw3058Dz1r42J;
- Tue, 28 Jan 2020 19:32:02 +0100 (CET)
-X-Virus-Scanned: amavisd-new at mnet-online.de
-Received: from mail.mnet-online.de ([192.168.8.182])
- by localhost (dynscan1.mail.m-online.net [192.168.6.70]) (amavisd-new,
- port 10024)
- with ESMTP id h-Irgru-JSPy; Tue, 28 Jan 2020 19:32:01 +0100 (CET)
-X-Auth-Info: eaBw9gFJKjlVG/QeDQT0EJ026VLAM9o4jzu27nZpxJo=
-Received: from [IPv6:::1] (unknown [195.140.253.167])
- (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
- (No client certificate requested)
- by mail.mnet-online.de (Postfix) with ESMTPSA;
- Tue, 28 Jan 2020 19:32:01 +0100 (CET)
-To: Marc Zyngier <maz@kernel.org>, Alexandre Torgue <alexandre.torgue@st.com>
-References: <20bb72d0-8258-abc0-e729-4d3d5a75c41c@denx.de>
- <d6e02817-2464-51b9-246a-7720b607b8d6@st.com>
- <65a1c5b2-c1b9-322f-338c-e6ff6379d8d1@denx.de>
- <129d04a0-c846-506d-5726-4a1024d977a6@st.com>
- <80db762c-3b3d-f007-2f9b-dadbffd95782@denx.de>
- <360b1adc-32f1-7993-c463-e52c7a5a8a67@st.com>
- <c4f08f59acd31951527ef1d6e9409e6f@kernel.org>
- <20200123101225.nscpc5t4nmlarbw2@pengutronix.de>
- <03fd1cb7b5985b3221f66c6b0058adc8@kernel.org>
- <20200123105214.ru4j76xbisjtbtgw@pengutronix.de>
- <cf98f4fd257ba4f34c75fe1656bd341b@kernel.org>
- <e1fffd57-4814-ec36-68b4-4207e3d4ae5d@denx.de>
- <f9d98afc-6cb8-ef7b-cff7-a04e14dba4c8@st.com>
- <7e0ce712f7e34b38c8f541644026c52e@kernel.org>
-From: Marek Vasut <marex@denx.de>
-Message-ID: <5e1c419c-b141-52f6-88f1-ee3ab8219a4e@denx.de>
-Date: Tue, 28 Jan 2020 19:32:01 +0100
-User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:68.0) Gecko/20100101
- Thunderbird/68.4.1
-MIME-Version: 1.0
-In-Reply-To: <7e0ce712f7e34b38c8f541644026c52e@kernel.org>
-Content-Language: en-US
-Cc: Linux ARM <linux-arm-kernel@lists.infradead.org>,
- linux-stm32@st-md-mailman.stormreply.com,
- Maxime Coquelin <mcoquelin.stm32@gmail.com>,
- Patrick Delaunay <patrick.delaunay@st.com>,
- =?UTF-8?Q?Uwe_Kleine-K=c3=b6nig?= <u.kleine-koenig@pengutronix.de>
-Subject: Re: [Linux-stm32] STM32MP1 level triggered interrupts
+ Wed, 29 Jan 2020 10:51:37 +0000 (UTC)
+Received: from localhost (unknown [IPv6:2001:982:756:1:57a7:3bfd:5e85:defb])
+ (using TLSv1 with cipher AES256-SHA (256/256 bits))
+ (Client did not present a certificate)
+ (Authenticated sender: davem-davemloft)
+ by shards.monkeyblade.net (Postfix) with ESMTPSA id A09B015C045A5;
+ Wed, 29 Jan 2020 02:51:33 -0800 (PST)
+Date: Wed, 29 Jan 2020 11:51:31 +0100 (CET)
+Message-Id: <20200129.115131.1101786807458791369.davem@davemloft.net>
+To: christophe.roullier@st.com
+From: David Miller <davem@davemloft.net>
+In-Reply-To: <20200128083942.17823-1-christophe.roullier@st.com>
+References: <20200128083942.17823-1-christophe.roullier@st.com>
+X-Mailer: Mew version 6.8 on Emacs 26.3
+Mime-Version: 1.0
+X-Greylist: Sender succeeded SMTP AUTH, not delayed by milter-greylist-4.5.12
+ (shards.monkeyblade.net [149.20.54.216]);
+ Wed, 29 Jan 2020 02:51:35 -0800 (PST)
+Cc: netdev@vger.kernel.org, linux-kernel@vger.kernel.org, joabreu@synopsys.com,
+ mcoquelin.stm32@gmail.com, peppe.cavallaro@st.com,
+ linux-stm32@st-md-mailman.stormreply.com, linux-arm-kernel@lists.infradead.org
+Subject: Re: [Linux-stm32] [PATCH 1/1] net: ethernet: stmmac: simplify phy
+ modes management for stm32
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -75,40 +51,37 @@ Content-Transfer-Encoding: 7bit
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
-On 1/24/20 10:24 AM, Marc Zyngier wrote:
-> On 2020-01-24 09:17, Alexandre Torgue wrote:
->> On 1/23/20 11:21 PM, Marek Vasut wrote:
-> 
-> [...]
-> 
->>> But I still wonder, what is the purpose of the EXTImux in that SoC?
->>> Shouldn't that permit routing GPIOs directly into GIC SPIs, which would
->>> then permit detecting at least level-high interrupts ?
->>>
->>
->> For this SoC, EXTI block detects external line edges and rises a GIC
->> SPI interrupt. This EXTi block is mainly used to handle HW events like
->> buttons, clocks ... So first issue seems more to be a design issue
->> (your design doesn't fit with MP1 datasheet).
->>
->> Now, let's find a solution. I'll have a look on your proposition:
->> "check the line in EOI callback and retrig".
->>
->> Marc, this kind a solution could be acceptable on your side ?
-> 
-> It will depend on the nature of the hack you will have to put in there.
-> If it is 100% reliable, why not? Anything short of that, probably not.
+From: Christophe Roullier <christophe.roullier@st.com>
+Date: Tue, 28 Jan 2020 09:39:42 +0100
 
-I had another look into this, and what we would end up is some sort of
-phandle from exti to all the gpioX nodes in DT, would that be OK ?
-However, if we do that, then we will have the pinctrl controller (which
-has the gpio banks as subnodes) require the exti through a phandle and
-exti require the gpio banks through a phandle, so we end up with some
-sort of cyclic dependency there.
+> No new feature, just to simplify stm32 part to be easier to use.
+> Add by default all Ethernet clocks in DT, and activate or not in function
+> of phy mode, clock frequency, if property "st,ext-phyclk" is set or not.
+> Keep backward compatibility
+> -----------------------------------------------------------------------
+> |PHY_MODE | Normal | PHY wo crystal|   PHY wo crystal   |  No 125Mhz  |
+> |         |        |      25MHz    |        50MHz       |  from PHY   |
+> -----------------------------------------------------------------------
+> |  MII    |	 -    |     eth-ck    |       n/a          |	    n/a  |
+> |         |        | st,ext-phyclk |                    |             |
+> -----------------------------------------------------------------------
+> |  GMII   |	 -    |     eth-ck    |       n/a          |	    n/a  |
+> |         |        | st,ext-phyclk |                    |             |
+> -----------------------------------------------------------------------
+> | RGMII   |	 -    |     eth-ck    |       n/a          |      eth-ck  |
+> |         |        | st,ext-phyclk |                    |st,eth-clk-sel|
+> |         |        |               |                    |       or     |
+> |         |        |               |                    | st,ext-phyclk|
+> ------------------------------------------------------------------------
+> | RMII    |	 -    |     eth-ck    |      eth-ck        |	     n/a  |
+> |         |        | st,ext-phyclk | st,eth-ref-clk-sel |              |
+> |         |        |               | or st,ext-phyclk   |              |
+> ------------------------------------------------------------------------
+> 
+> Signed-off-by: Christophe Roullier <christophe.roullier@st.com>
 
-So we would need to somehow have exti lazily deal with it's gpioX
-controller phandles only when someone requests level interrupt ? That
-would probably do.
+If anything, this is more of a cleanup, and therefore only appropriate for
+net-next when it opens back up.
 _______________________________________________
 Linux-stm32 mailing list
 Linux-stm32@st-md-mailman.stormreply.com
