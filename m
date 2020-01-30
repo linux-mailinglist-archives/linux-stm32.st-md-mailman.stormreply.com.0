@@ -2,60 +2,53 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id D921214DC53
-	for <lists+linux-stm32@lfdr.de>; Thu, 30 Jan 2020 14:53:17 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 5759A14E372
+	for <lists+linux-stm32@lfdr.de>; Thu, 30 Jan 2020 20:55:45 +0100 (CET)
 Received: from ip-172-31-3-76.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id A4F7DC36B0B;
-	Thu, 30 Jan 2020 13:53:17 +0000 (UTC)
-Received: from mx07-00178001.pphosted.com (mx08-00178001.pphosted.com
- [91.207.212.93])
- (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id CB680C36B0B;
+	Thu, 30 Jan 2020 19:55:44 +0000 (UTC)
+Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
+ (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 5BC0AC36B09
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id D79CAC36B09
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Thu, 30 Jan 2020 13:53:16 +0000 (UTC)
-Received: from pps.filterd (m0046660.ppops.net [127.0.0.1])
- by mx07-00178001.pphosted.com (8.16.0.42/8.16.0.42) with SMTP id
- 00UDnSjw004657; Thu, 30 Jan 2020 14:53:07 +0100
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=st.com;
- h=from : to : cc : subject
- : date : message-id : mime-version : content-type; s=STMicroelectronics;
- bh=SD9ONTcrqh7sLptkSCNzDFwyy/VkjsecS0bueRwE0no=;
- b=IEmCqz7FmwowZpTDCN3w3Kl6DEuQx9oD4MhHEI2UZ4UB17EWonGLODlAL1QvIVvKHZ8k
- 64YPxPkmuNMvRsXT3JSDbTgHE1EhWTSjcsfJy7C+dQaiBVhNxJp8HLGVmjTLS/c3Qtdg
- v4siMxrzYhs6iq3NRSL8W4G4CEiKlwVLWvstJ20YRAKGNAY1Kj4wktOlP7D6S+s8X+8B
- fF5hW6+EFVD1MReO3+R3kaJFUYfaEj48SjOIagmy0Yg4YhENTZ3qrMaswId4upEFdC1B
- FC2A/hbxIuprQR1E/75/KbflZ4IzSOf594k5t0fJTETvpfj8BdkQDhVlRvy99zbOESwC Gg== 
-Received: from beta.dmz-eu.st.com (beta.dmz-eu.st.com [164.129.1.35])
- by mx07-00178001.pphosted.com with ESMTP id 2xrbpb8w2x-1
- (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
- Thu, 30 Jan 2020 14:53:07 +0100
-Received: from euls16034.sgp.st.com (euls16034.sgp.st.com [10.75.44.20])
- by beta.dmz-eu.st.com (STMicroelectronics) with ESMTP id B256710002A;
- Thu, 30 Jan 2020 14:53:06 +0100 (CET)
-Received: from Webmail-eu.st.com (sfhdag3node3.st.com [10.75.127.9])
- by euls16034.sgp.st.com (STMicroelectronics) with ESMTP id A045D2D792D;
- Thu, 30 Jan 2020 14:53:06 +0100 (CET)
-Received: from localhost (10.75.127.45) by SFHDAG3NODE3.st.com (10.75.127.9)
- with Microsoft SMTP Server (TLS) id 15.0.1347.2; Thu, 30 Jan 2020 14:53:05
- +0100
-From: Benjamin Gaignard <benjamin.gaignard@st.com>
-To: <mcoquelin.stm32@gmail.com>, <alexandre.torgue@st.com>,
- <robh+dt@kernel.org>, <mark.rutland@arm.com>
-Date: Thu, 30 Jan 2020 14:53:04 +0100
-Message-ID: <20200130135304.27842-1-benjamin.gaignard@st.com>
-X-Mailer: git-send-email 2.15.0
-MIME-Version: 1.0
-X-Originating-IP: [10.75.127.45]
-X-ClientProxiedBy: SFHDAG8NODE2.st.com (10.75.127.23) To SFHDAG3NODE3.st.com
- (10.75.127.9)
-X-Proofpoint-Virus-Version: vendor=fsecure engine=2.50.10434:6.0.138, 18.0.572
- definitions=2020-01-30_04:2020-01-28,
- 2020-01-30 signatures=0
-Cc: devicetree@vger.kernel.org, linux-stm32@st-md-mailman.stormreply.com,
- linux-arm-kernel@lists.infradead.org, linux-kernel@vger.kernel.org
-Subject: [Linux-stm32] [PATCH] ARM: dts: stm32: remove useless properties in
-	stm32mp157a-avenger96 stmpic node
+ Thu, 30 Jan 2020 19:55:43 +0000 (UTC)
+Received: from localhost.localdomain (unknown [194.230.155.229])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+ (No client certificate requested)
+ by mail.kernel.org (Postfix) with ESMTPSA id 8280D20708;
+ Thu, 30 Jan 2020 19:55:35 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
+ s=default; t=1580414142;
+ bh=h28+OzWv84FMorXQcpuwm+CgBd4CxAA13jLAZ5nqeG4=;
+ h=From:To:Cc:Subject:Date:From;
+ b=etdT/+iMcutb7+ZqXyY9N7nNmLoyK+tYGnjhtJEfT1PGuvNPHJNUdk/GrCYWz6n6R
+ LDOk2fkt7m8UqvCWVC35I1x2fRXINQXEIlFRuXy87RUBXbE6jwA6GgiJc7M+F6It96
+ By1Qf5Pul1V2ML6bPiIECano85qKpLoFCLjnKMI8=
+From: Krzysztof Kozlowski <krzk@kernel.org>
+To: Russell King <linux@armlinux.org.uk>, Alexander Shiyan <shc_work@mail.ru>,
+ =?UTF-8?q?Uwe=20Kleine-K=C3=B6nig?= <u.kleine-koenig@pengutronix.de>,
+ Pengutronix Kernel Team <kernel@pengutronix.de>,
+ Shawn Guo <shawnguo@kernel.org>, Sascha Hauer <s.hauer@pengutronix.de>,
+ Fabio Estevam <festevam@gmail.com>, NXP Linux Team <linux-imx@nxp.com>,
+ Vladimir Zapolskiy <vz@mleia.com>, Aaro Koskinen <aaro.koskinen@iki.fi>,
+ Tony Lindgren <tony@atomide.com>,
+ Maxime Coquelin <mcoquelin.stm32@gmail.com>,
+ Alexandre Torgue <alexandre.torgue@st.com>,
+ Liviu Dudau <liviu.dudau@arm.com>, Sudeep Holla <sudeep.holla@arm.com>,
+ Lorenzo Pieralisi <lorenzo.pieralisi@arm.com>,
+ Avi Fishman <avifishman70@gmail.com>, Tomer Maimon <tmaimon77@gmail.com>,
+ Tali Perry <tali.perry1@gmail.com>, Patrick Venture <venture@google.com>,
+ Nancy Yuen <yuenn@google.com>, Benjamin Fair <benjaminfair@google.com>,
+ Olof Johansson <olof@lixom.net>, Arnd Bergmann <arnd@arndb.de>,
+ linux-arm-kernel@lists.infradead.org, linux-kernel@vger.kernel.org,
+ linux-omap@vger.kernel.org, linux-stm32@st-md-mailman.stormreply.com,
+ openbmc@lists.ozlabs.org, arm@kernel.org, soc@kernel.org
+Date: Thu, 30 Jan 2020 20:55:24 +0100
+Message-Id: <20200130195525.4525-1-krzk@kernel.org>
+X-Mailer: git-send-email 2.17.1
+Cc: stable@vger.kernel.org, Krzysztof Kozlowski <krzk@kernel.org>
+Subject: [Linux-stm32] [PATCH 1/2] ARM: npcm: Bring back GPIOLIB support
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -67,35 +60,38 @@ List-Post: <mailto:linux-stm32@st-md-mailman.stormreply.com>
 List-Help: <mailto:linux-stm32-request@st-md-mailman.stormreply.com?subject=help>
 List-Subscribe: <https://st-md-mailman.stormreply.com/mailman/listinfo/linux-stm32>, 
  <mailto:linux-stm32-request@st-md-mailman.stormreply.com?subject=subscribe>
+MIME-Version: 1.0
 Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
-Theses 3 properties are not coded in driver so remove them from the DTS.
+The CONFIG_ARCH_REQUIRE_GPIOLIB is gone since commit 65053e1a7743
+("gpio: delete ARCH_[WANTS_OPTIONAL|REQUIRE]_GPIOLIB") and all platforms
+should explicitly select GPIOLIB to have it.
 
-Signed-off-by: Benjamin Gaignard <benjamin.gaignard@st.com>
+Cc: <stable@vger.kernel.org>
+Fixes: 65053e1a7743 ("gpio: delete ARCH_[WANTS_OPTIONAL|REQUIRE]_GPIOLIB")
+Signed-off-by: Krzysztof Kozlowski <krzk@kernel.org>
 ---
- arch/arm/boot/dts/stm32mp157a-avenger96.dts | 4 ----
- 1 file changed, 4 deletions(-)
+ arch/arm/mach-npcm/Kconfig | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
 
-diff --git a/arch/arm/boot/dts/stm32mp157a-avenger96.dts b/arch/arm/boot/dts/stm32mp157a-avenger96.dts
-index 628c74a45a25..e2d9febaa661 100644
---- a/arch/arm/boot/dts/stm32mp157a-avenger96.dts
-+++ b/arch/arm/boot/dts/stm32mp157a-avenger96.dts
-@@ -134,10 +134,6 @@
- 		#interrupt-cells = <2>;
- 		status = "okay";
- 
--		st,main-control-register = <0x04>;
--		st,vin-control-register = <0xc0>;
--		st,usb-control-register = <0x30>;
--
- 		regulators {
- 			compatible = "st,stpmic1-regulators";
- 
+diff --git a/arch/arm/mach-npcm/Kconfig b/arch/arm/mach-npcm/Kconfig
+index 880bc2a5cada..7f7002dc2b21 100644
+--- a/arch/arm/mach-npcm/Kconfig
++++ b/arch/arm/mach-npcm/Kconfig
+@@ -11,7 +11,7 @@ config ARCH_NPCM7XX
+ 	depends on ARCH_MULTI_V7
+ 	select PINCTRL_NPCM7XX
+ 	select NPCM7XX_TIMER
+-	select ARCH_REQUIRE_GPIOLIB
++	select GPIOLIB
+ 	select CACHE_L2X0
+ 	select ARM_GIC
+ 	select HAVE_ARM_TWD if SMP
 -- 
-2.15.0
+2.17.1
 
 _______________________________________________
 Linux-stm32 mailing list
