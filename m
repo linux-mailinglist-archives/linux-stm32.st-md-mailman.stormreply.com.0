@@ -2,67 +2,65 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id 756B714ED8F
-	for <lists+linux-stm32@lfdr.de>; Fri, 31 Jan 2020 14:41:05 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 83F2C14ED97
+	for <lists+linux-stm32@lfdr.de>; Fri, 31 Jan 2020 14:41:53 +0100 (CET)
 Received: from ip-172-31-3-76.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 27A30C36B0D;
-	Fri, 31 Jan 2020 13:41:05 +0000 (UTC)
-Received: from mail-lj1-f170.google.com (mail-lj1-f170.google.com
- [209.85.208.170])
- (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 4C402C36B0E;
+	Fri, 31 Jan 2020 13:41:53 +0000 (UTC)
+Received: from mx07-00178001.pphosted.com (mx07-00178001.pphosted.com
+ [62.209.51.94])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 0CD88C36B0A
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 1DA96C36B0E
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Fri, 31 Jan 2020 13:36:24 +0000 (UTC)
-Received: by mail-lj1-f170.google.com with SMTP id w1so7133704ljh.5
- for <linux-stm32@st-md-mailman.stormreply.com>;
- Fri, 31 Jan 2020 05:36:23 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20161025;
- h=sender:from:to:cc:subject:in-reply-to:references:date:message-id
- :mime-version; bh=36im6bznVr3VlhITe091kW2o8aBJr7dAtawFyqiBVVc=;
- b=aCgWyI54FFxymXQIxylsUJxHwJOzcvMk/eK3kXkaRxQUbLwqy7aA51PXmRG0vrmNdu
- K93Oz5gIeIiopw3F/E+0VjM54ZstePlZNcnLw5mhD+Y7bcSsalgiyiuO4Zfx9I/Iv/Lw
- a+O57/lv01X6ZXtROOF4NiOQeIILLCnBdgOx/pAfG4crT0ZFffiutPawQwfh3HtrPodJ
- SW/lIw+B+PPgALXnR0QiV1SuODqPAr4b6h7BNk0VWA9JkV2elmr6Rj5slkO8H9bQfANc
- YfXePRTFJ2YqY/Nx30dr12Td1rMCPS1DWMTrmFciMVCfm5Sv9rzi20sy57Fnv7OasVLa
- ttTQ==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20161025;
- h=x-gm-message-state:sender:from:to:cc:subject:in-reply-to:references
- :date:message-id:mime-version;
- bh=36im6bznVr3VlhITe091kW2o8aBJr7dAtawFyqiBVVc=;
- b=fRAmG+p4Wca9JEb6z8WszUq8xdmuNR2IKVyHyPcBwKBhfkeyiuIgDxfrpbGMVMZ7S/
- 2bWwE7t1qqfdnTtc7YWd5XLxJvd1ur4o+DqB14FmjbMgJ/lqdAklMhIC1oOtysfEMT3M
- vYUD9OFXF8NJDsFzDBCpzSNfkqqtyHGPRomrRxB/OB/2sEtRsLX4cvIHd9O5GULuzRre
- P7SWQtij9PjLPGOnsuu6MfEMZPu0C2/hbsM7yV7gZR+f/de6nE1keU3nAi2BYNtHguhb
- I4E7HhPzQ5Ge2fSuTOF5sGIKsPID61PUCRLgYzA9tQQYAODa0ze5RZUfkDXaIFP8TiST
- M9Cg==
-X-Gm-Message-State: APjAAAW/jWU8YsGiKvZ/s+flyyRGjii26vmKavX+VeDziRNSlIIeUz6C
- SNZvwoOuCZiHPKcCYUJ8osE=
-X-Google-Smtp-Source: APXvYqy9SXfc4Ak9UEw8yYRMtjd1zHNdFzILr7FF5HWU+feIs3Zgjdp34mjDT2MiG1qbVqC08wXeEA==
-X-Received: by 2002:a2e:8944:: with SMTP id b4mr6106832ljk.90.1580477783171;
- Fri, 31 Jan 2020 05:36:23 -0800 (PST)
-Received: from saruman (88-113-215-33.elisa-laajakaista.fi. [88.113.215.33])
- by smtp.gmail.com with ESMTPSA id f21sm2901282ljc.30.2020.01.31.05.36.21
- (version=TLS1_2 cipher=ECDHE-RSA-CHACHA20-POLY1305 bits=256/256);
- Fri, 31 Jan 2020 05:36:22 -0800 (PST)
-From: Felipe Balbi <balbi@kernel.org>
-To: Amelie Delaunay <amelie.delaunay@st.com>,
- Minas Harutyunyan <hminas@synopsys.com>,
- Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
- Rob Herring <robh+dt@kernel.org>, Mark Rutland <mark.rutland@arm.com>
-In-Reply-To: <20200124084131.23749-2-amelie.delaunay@st.com>
-References: <20200124084131.23749-1-amelie.delaunay@st.com>
- <20200124084131.23749-2-amelie.delaunay@st.com>
-Date: Fri, 31 Jan 2020 15:36:17 +0200
-Message-ID: <87imkr7nou.fsf@kernel.org>
+ Fri, 31 Jan 2020 13:41:52 +0000 (UTC)
+Received: from pps.filterd (m0046037.ppops.net [127.0.0.1])
+ by mx07-00178001.pphosted.com (8.16.0.42/8.16.0.42) with SMTP id
+ 00VDbNl5027500; Fri, 31 Jan 2020 14:41:30 +0100
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=st.com;
+ h=from : to : cc : subject
+ : date : message-id : mime-version : content-type; s=STMicroelectronics;
+ bh=sJXTIsXxfIevlb+APOWmZFM7lKhWvD+4uZfBRqTpF2E=;
+ b=ITDGB5w8k/S3e5C5VjNl9gu6fvxZZUHr3VJVvgTkNtk10YqYyEQXStZ7ix/x7Na1WXtR
+ VTcouFyitd6Qp7aMVchxZJOWG0DuLi4BN9PbiHnqXdERwUrrvCRW0eAE4n0nw2RGCI1B
+ iMStLB6qcpzs4CQALhBFE12DDN0saPiJnR5fi5hCwP9xg4G5cPd+k5EYAI1vskn6uPii
+ 041EfsoKjGaMqusa9YSJ5Fh4RqForQWDFoSmiF8AqifizB+rXs0zeDeIl/MpmlM27Hhf
+ qnVU6EfQ8ghTW0a7NMGTaje/mxc67Sc01Z2UbLYj1uHbapTF270avdqwfCvpxUSV0vz9 qA== 
+Received: from beta.dmz-eu.st.com (beta.dmz-eu.st.com [164.129.1.35])
+ by mx07-00178001.pphosted.com with ESMTP id 2xrcaye2qc-1
+ (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
+ Fri, 31 Jan 2020 14:41:30 +0100
+Received: from euls16034.sgp.st.com (euls16034.sgp.st.com [10.75.44.20])
+ by beta.dmz-eu.st.com (STMicroelectronics) with ESMTP id 646D410002A;
+ Fri, 31 Jan 2020 14:41:28 +0100 (CET)
+Received: from Webmail-eu.st.com (sfhdag3node1.st.com [10.75.127.7])
+ by euls16034.sgp.st.com (STMicroelectronics) with ESMTP id 2E9E12BC7D1;
+ Fri, 31 Jan 2020 14:41:28 +0100 (CET)
+Received: from localhost (10.75.127.47) by SFHDAG3NODE1.st.com (10.75.127.7)
+ with Microsoft SMTP Server (TLS) id 15.0.1473.3; Fri, 31 Jan 2020 14:41:27
+ +0100
+From: Erwan Le Ray <erwan.leray@st.com>
+To: Russell King <linux@armlinux.org.uk>, Maxime Coquelin
+ <mcoquelin.stm32@gmail.com>, Alexandre Torgue <alexandre.torgue@st.com>,
+ Arnd Bergmann <arnd@arndb.de>, Linus Walleij <linus.walleij@linaro.org>,
+ Olof Johansson <olof@lixom.net>
+Date: Fri, 31 Jan 2020 14:41:19 +0100
+Message-ID: <20200131134123.27775-1-erwan.leray@st.com>
+X-Mailer: git-send-email 2.17.1
 MIME-Version: 1.0
-X-Mailman-Approved-At: Fri, 31 Jan 2020 13:41:04 +0000
-Cc: devicetree@vger.kernel.org, linux-usb@vger.kernel.org,
- linux-kernel@vger.kernel.org, Fabrice Gasnier <fabrice.gasnier@st.com>,
- linux-stm32@st-md-mailman.stormreply.com
-Subject: Re: [Linux-stm32] [PATCH v3 1/2] dt-bindings: usb: dwc2: add
-	support for STM32MP15 SoCs USB OTG HS and FS
+X-Originating-IP: [10.75.127.47]
+X-ClientProxiedBy: SFHDAG6NODE2.st.com (10.75.127.17) To SFHDAG3NODE1.st.com
+ (10.75.127.7)
+X-Proofpoint-Virus-Version: vendor=fsecure engine=2.50.10434:6.0.138, 18.0.572
+ definitions=2020-01-31_03:2020-01-31,
+ 2020-01-31 signatures=0
+Cc: Geert Uytterhoeven <geert+renesas@glider.be>,
+ Sascha Hauer <s.hauer@pengutronix.de>, linux-kernel@vger.kernel.org,
+ Clement Peron <peron.clem@gmail.com>, Gerald Baeza <gerald.baeza@st.com>,
+ Nathan Huckleberry <nhuck15@gmail.com>,
+ Fabrice Gasnier <fabrice.gasnier@st.com>,
+ linux-stm32@st-md-mailman.stormreply.com, linux-arm-kernel@lists.infradead.org
+Subject: [Linux-stm32] [PATCH v2 0/4] STM32 early console
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -74,67 +72,34 @@ List-Post: <mailto:linux-stm32@st-md-mailman.stormreply.com>
 List-Help: <mailto:linux-stm32-request@st-md-mailman.stormreply.com?subject=help>
 List-Subscribe: <https://st-md-mailman.stormreply.com/mailman/listinfo/linux-stm32>, 
  <mailto:linux-stm32-request@st-md-mailman.stormreply.com?subject=subscribe>
-Content-Type: multipart/mixed; boundary="===============5165346063581431098=="
+Content-Type: text/plain; charset="us-ascii"
+Content-Transfer-Encoding: 7bit
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
---===============5165346063581431098==
-Content-Type: multipart/signed; boundary="=-=-=";
-	micalg=pgp-sha256; protocol="application/pgp-signature"
+Add UART instance configuration to STM32 F4 and F7 early console.
+Add STM32 H7 and MP1 early console support.
 
---=-=-=
-Content-Type: text/plain
-Content-Transfer-Encoding: quoted-printable
+Changes in v2:
+- split "[PATCH] ARM: debug: stm32: add UART early console configuration"
+  into separate patches as suggested by Clement into [1]
 
+[1] https://lkml.org/lkml/2019/4/10/199
 
-Hi,
+Erwan Le Ray (4):
+  ARM: debug: stm32: add UART early console configuration for STM32F4
+  ARM: debug: stm32: add UART early console configuration for STM32F7
+  ARM: debug: stm32: add UART early console support for STM32H7
+  ARM: debug: stm32: add UART early console support for STM32MP1
 
-Amelie Delaunay <amelie.delaunay@st.com> writes:
+ arch/arm/Kconfig.debug         | 42 +++++++++++++++++++++++++++++-----
+ arch/arm/include/debug/stm32.S |  9 ++++----
+ 2 files changed, 40 insertions(+), 11 deletions(-)
 
-> Add the specific compatible string for the DWC2 IP found in the STM32MP15
-> SoCs.
-> STM32MP15 SoCs uses sensing comparators to detect Vbus valid levels and
-> ID pin state. usb33d-supply described the regulator supplying Vbus and ID
-> sensing comparators.
->
-> Signed-off-by: Amelie Delaunay <amelie.delaunay@st.com>
-
-This doesn't apply. dwc2 bindings is still in .txt format. I have taken
-patch 2, though.
-
-=2D-=20
-balbi
-
---=-=-=
-Content-Type: application/pgp-signature; name="signature.asc"
-
------BEGIN PGP SIGNATURE-----
-
-iQIzBAEBCAAdFiEElLzh7wn96CXwjh2IzL64meEamQYFAl40LVEACgkQzL64meEa
-mQZIPQ/+PCvVhKhlTWv/YRoBCIDmZrvMR7z4BnhSOWmy8BihbEU5X7F+qo3P+VyY
-Gw/us6ppE93yom8f5mljaKlLrB1nWhVa8EU3wq3kFSDgIcMZ1HV8zBWDhqDClcN7
-SG/fImL0IxTTf9SDhPiNU+Kj+MfUMuwMmoIcvqDfoWtM9lR/9JDWOPfzTHYWl6Qv
-5zkxOrMuTA4z+/yYQpwXsmQxUQnywhhgN8AHmFCeXtnO+AsdutFJHM52Pp8XXW7I
-s6SMdX0/EaC8IFCxLXYIdRw1agHTDwf5EqtML1d9pVrgZzGC4wcknDwWZMwvRTha
-YXNRFPiQ6bqzeT7RJPRpxBtoYZDXxBNXQ/cqVt+FTiv3G+xYiVW97Sj1+fwIC7/0
-T/A01s7frHhCnJM5pDErhoJW0aq5BmesgxW2AhyY/M+mXlGbjcKCKDWahAuhf0Cx
-s4em3gwLACNvw1Ztp1sv/BvRAE81QMt9+m9PI5pZu8IVU6PpIb1jQBsvgu6POoYc
-9FIhAqYKYuzIgF1p7z3ee2c7+14IwJl1br5P6Xyx81IeS0gna8v+vicErSPCt+On
-r8VDIjv5dknh5IoQfO/+q59f8mp3e2XdVB6pZYTwsJu2i1nK6Afy/jVCJICw1I+a
-7FD6QaprCNakl/Zbfv8wJUQaKbCChpZEV3gNL1lzNinIG6b2KDc=
-=QKjo
------END PGP SIGNATURE-----
---=-=-=--
-
---===============5165346063581431098==
-Content-Type: text/plain; charset="us-ascii"
-MIME-Version: 1.0
-Content-Transfer-Encoding: 7bit
-Content-Disposition: inline
+-- 
+2.17.1
 
 _______________________________________________
 Linux-stm32 mailing list
 Linux-stm32@st-md-mailman.stormreply.com
 https://st-md-mailman.stormreply.com/mailman/listinfo/linux-stm32
-
---===============5165346063581431098==--
