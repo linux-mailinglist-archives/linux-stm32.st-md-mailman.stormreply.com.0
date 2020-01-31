@@ -2,58 +2,88 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id 1EFEA14E54E
-	for <lists+linux-stm32@lfdr.de>; Thu, 30 Jan 2020 23:06:03 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 49AB314E818
+	for <lists+linux-stm32@lfdr.de>; Fri, 31 Jan 2020 06:02:32 +0100 (CET)
 Received: from ip-172-31-3-76.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id B2087C36B0B;
-	Thu, 30 Jan 2020 22:06:02 +0000 (UTC)
-Received: from smtprelay.hostedemail.com (smtprelay0112.hostedemail.com
- [216.40.44.112])
- (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id E7BEBC36B0C;
+	Fri, 31 Jan 2020 05:02:31 +0000 (UTC)
+Received: from aserp2120.oracle.com (aserp2120.oracle.com [141.146.126.78])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 6C097C36B09
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 39614C36B0A
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Thu, 30 Jan 2020 22:06:01 +0000 (UTC)
-Received: from filter.hostedemail.com (clb03-v110.bra.tucows.net
- [216.40.38.60])
- by smtprelay02.hostedemail.com (Postfix) with ESMTP id 0503849961A;
- Thu, 30 Jan 2020 22:06:00 +0000 (UTC)
-X-Session-Marker: 6A6F6540706572636865732E636F6D
-X-Spam-Summary: 2,
-X-HE-Tag: heat78_8b0a421ba2a53
-X-Filterd-Recvd-Size: 11101
-Received: from XPS-9350.home (unknown [47.151.135.224])
- (Authenticated sender: joe@perches.com)
- by omf09.hostedemail.com (Postfix) with ESMTPA;
- Thu, 30 Jan 2020 22:05:55 +0000 (UTC)
-Message-ID: <9f8a0a8e09893e7087d2212fb0eeb94a908b7be1.camel@perches.com>
-From: Joe Perches <joe@perches.com>
-To: Krzysztof Kozlowski <krzk@kernel.org>, Russell King
- <linux@armlinux.org.uk>,  Alexander Shiyan <shc_work@mail.ru>, Uwe
- =?ISO-8859-1?Q?Kleine-K=F6nig?= <u.kleine-koenig@pengutronix.de>,
- Pengutronix Kernel Team <kernel@pengutronix.de>, Shawn Guo
- <shawnguo@kernel.org>, Sascha Hauer <s.hauer@pengutronix.de>, Fabio Estevam
- <festevam@gmail.com>, NXP Linux Team <linux-imx@nxp.com>, Vladimir
- Zapolskiy <vz@mleia.com>, Aaro Koskinen <aaro.koskinen@iki.fi>, Tony
- Lindgren <tony@atomide.com>, Maxime Coquelin <mcoquelin.stm32@gmail.com>,
- Alexandre Torgue <alexandre.torgue@st.com>,  Liviu Dudau
- <liviu.dudau@arm.com>, Sudeep Holla <sudeep.holla@arm.com>, Lorenzo
- Pieralisi <lorenzo.pieralisi@arm.com>, Avi Fishman
- <avifishman70@gmail.com>, Tomer Maimon <tmaimon77@gmail.com>, Tali Perry
- <tali.perry1@gmail.com>, Patrick Venture <venture@google.com>, Nancy Yuen
- <yuenn@google.com>, Benjamin Fair <benjaminfair@google.com>, Olof Johansson
- <olof@lixom.net>, Arnd Bergmann <arnd@arndb.de>,
- linux-arm-kernel@lists.infradead.org,  linux-kernel@vger.kernel.org,
- linux-omap@vger.kernel.org,  linux-stm32@st-md-mailman.stormreply.com,
- openbmc@lists.ozlabs.org,  arm@kernel.org, soc@kernel.org
-Date: Thu, 30 Jan 2020 14:04:49 -0800
-In-Reply-To: <20200130195525.4525-2-krzk@kernel.org>
-References: <20200130195525.4525-1-krzk@kernel.org>
- <20200130195525.4525-2-krzk@kernel.org>
-User-Agent: Evolution 3.34.1-2 
+ Fri, 31 Jan 2020 05:02:29 +0000 (UTC)
+Received: from pps.filterd (aserp2120.oracle.com [127.0.0.1])
+ by aserp2120.oracle.com (8.16.0.27/8.16.0.27) with SMTP id 00V4w2Fb163740;
+ Fri, 31 Jan 2020 05:00:17 GMT
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=oracle.com;
+ h=date : from : to : cc
+ : subject : message-id : mime-version : content-type; s=corp-2019-08-05;
+ bh=ZQU5pjagovfzj67UlXMMtovHXCYgxqsUWqAbT7eBLpo=;
+ b=LAWtH3+sIYNNX5aUn+3YLF3Vytzinb38A2xKWulszer98DKCjNnT9D6TTmdDpKHSE04A
+ FBbzPoHSFl7M89txI4ENIeFSYuRC0lomDTMlveHW0Bu8MTaNEjj7wKSoMfBlyer+h1FD
+ 4FUlPl1zgsBC4BKpeTp09vPRei3WygTzwpud4fYEvMYEwflEwFFH/SbsujMuCKeTdLUT
+ ND6vOJu/+XS8713VXKtt6Y4pcu+utaP9SX2637HhZFtEOuloy102yzr46+s8FcPiBO3l
+ rpTxVJdCpucKn03lddjZHlKTl/HzEG5todFZ24mGEXygKLcn9ujGYXUWkj3O4MiWV907 +A== 
+Received: from userp3030.oracle.com (userp3030.oracle.com [156.151.31.80])
+ by aserp2120.oracle.com with ESMTP id 2xrdmr0651-1
+ (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=OK);
+ Fri, 31 Jan 2020 05:00:17 +0000
+Received: from pps.filterd (userp3030.oracle.com [127.0.0.1])
+ by userp3030.oracle.com (8.16.0.27/8.16.0.27) with SMTP id 00V4w1Y3123010;
+ Fri, 31 Jan 2020 05:00:16 GMT
+Received: from userv0122.oracle.com (userv0122.oracle.com [156.151.31.75])
+ by userp3030.oracle.com with ESMTP id 2xv9bvtw95-1
+ (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=OK);
+ Fri, 31 Jan 2020 05:00:15 +0000
+Received: from abhmp0007.oracle.com (abhmp0007.oracle.com [141.146.116.13])
+ by userv0122.oracle.com (8.14.4/8.14.4) with ESMTP id 00V50508006695;
+ Fri, 31 Jan 2020 05:00:06 GMT
+Received: from kili.mountain (/129.205.23.165)
+ by default (Oracle Beehive Gateway v4.0)
+ with ESMTP ; Thu, 30 Jan 2020 21:00:05 -0800
+Date: Fri, 31 Jan 2020 07:59:53 +0300
+From: Dan Carpenter <dan.carpenter@oracle.com>
+To: Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
+ Ajay Gupta <ajayg@nvidia.com>, "David S. Miller" <davem@davemloft.net>
+Message-ID: <20200131045953.wbj66jkvijnmf5s2@kili.mountain>
 MIME-Version: 1.0
-Subject: Re: [Linux-stm32] [PATCH 2/2] ARM: configs: Cleanup old Kconfig
-	options
+Content-Disposition: inline
+X-Mailer: git-send-email haha only kidding
+User-Agent: NeoMutt/20170113 (1.7.2)
+X-Proofpoint-Virus-Version: vendor=nai engine=6000 definitions=9516
+ signatures=668685
+X-Proofpoint-Spam-Details: rule=notspam policy=default score=0 suspectscore=2
+ malwarescore=0
+ phishscore=0 bulkscore=0 spamscore=0 mlxscore=0 mlxlogscore=999
+ adultscore=0 classifier=spam adjust=0 reason=mlx scancount=1
+ engine=8.0.1-1911140001 definitions=main-2001310043
+X-Proofpoint-Virus-Version: vendor=nai engine=6000 definitions=9516
+ signatures=668685
+X-Proofpoint-Spam-Details: rule=notspam policy=default score=0
+ priorityscore=1501 malwarescore=0
+ suspectscore=2 phishscore=0 bulkscore=0 spamscore=0 clxscore=1011
+ lowpriorityscore=0 mlxscore=0 impostorscore=0 mlxlogscore=999 adultscore=0
+ classifier=spam adjust=0 reason=mlx scancount=1 engine=8.0.1-1911140001
+ definitions=main-2001310043
+Cc: Steve Glendinning <steve.glendinning@shawell.net>,
+ Jose Abreu <joabreu@synopsys.com>,
+ Ilias Apalodimas <ilias.apalodimas@linaro.org>,
+ "Rafael J. Wysocki" <rafael@kernel.org>, netdev@vger.kernel.org,
+ Keyur Chudgar <keyur@os.amperecomputing.com>, kernel-janitors@vger.kernel.org,
+ linux-kernel@vger.kernel.org,
+ Andy Shevchenko <andriy.shevchenko@linux.intel.com>,
+ Sakari Ailus <sakari.ailus@linux.intel.com>,
+ Jassi Brar <jaswinder.singh@linaro.org>,
+ Iyappan Subramanian <iyappan@os.amperecomputing.com>,
+ Quan Nguyen <quan@os.amperecomputing.com>,
+ Maxime Coquelin <mcoquelin.stm32@gmail.com>,
+ Heikki Krogerus <heikki.krogerus@linux.intel.com>,
+ Giuseppe Cavallaro <peppe.cavallaro@st.com>,
+ Dmitry Torokhov <dmitry.torokhov@gmail.com>,
+ linux-stm32@st-md-mailman.stormreply.com
+Subject: [Linux-stm32] [PATCH net] device property: change
+ device_get_phy_mode() to prevent signedess bugs
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -70,388 +100,216 @@ Content-Transfer-Encoding: 7bit
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
-On Thu, 2020-01-30 at 20:55 +0100, Krzysztof Kozlowski wrote:
-> CONFIG_MMC_BLOCK_BOUNCE is gone since commit c3dccb74be28 ("mmc: core:
-> Delete bounce buffer Kconfig option").
-> 
-> CONFIG_LBDAF is gone since commit 72deb455b5ec ("block: remove
-> CONFIG_LBDAF").
-> 
-> CONFIG_IOSCHED_DEADLINE and CONFIG_IOSCHED_CFQ are gone since
-> commit f382fb0bcef4 ("block: remove legacy IO schedulers").
-> 
-> The IOSCHED_DEADLINE was replaced by MQ_IOSCHED_DEADLINE and it will be
-> now enabled by default (along with MQ_IOSCHED_KYBER).
-> 
-> The IOSCHED_BFQ seems to replace IOSCHED_CFQ so select it in configs
-> previously choosing the latter.
-> 
-> CONFIG_CROSS_COMPILE is gone since commit f1089c92da79 ("kbuild: remove
-> CONFIG_CROSS_COMPILE support").
+The device_get_phy_mode() was returning negative error codes on
+failure and positive phy_interface_t values on success.  The problem is
+that the phy_interface_t type is an enum which GCC treats as unsigned.
+This lead to recurring signedness bugs where we check "if (phy_mode < 0)"
+and "phy_mode" is unsigned.
 
-Hi Krzysztof.
+In the commit 0c65b2b90d13 ("net: of_get_phy_mode: Change API to solve
+int/unit warnings") we updated of_get_phy_mode() take a pointer to
+phy_mode and only return zero on success and negatives on failure.  This
+patch does the same thing for device_get_phy_mode().  Plus it's just
+nice for the API to be the same in both places.
 
-There seems there are a lot more of these unused CONFIG_<foo>
-symbols in various defconfigs. (just for arm and treewide below)
+Fixes: b9f0b2f634c0 ("net: stmmac: platform: fix probe for ACPI devices")
+Signed-off-by: Dan Carpenter <dan.carpenter@oracle.com>
+---
+This is a change to drivers/base/ but all the users are ethernet drivers
+so probably it makes sense for Dave to take this?
 
-ARM defconfigs:
+Also this fixes a bug in stmmac.  If you wanted I could make a one
+liner fix for that and then write this change on top of that.  The bug
+is only in v5.6 so it doesn't affect old kernels.
 
---------------------------------------------------------------------
+ drivers/base/property.c                               | 13 +++++++++++--
+ drivers/net/ethernet/apm/xgene-v2/main.c              |  9 ++++-----
+ drivers/net/ethernet/apm/xgene-v2/main.h              |  2 +-
+ drivers/net/ethernet/apm/xgene/xgene_enet_main.c      |  6 +++---
+ drivers/net/ethernet/apm/xgene/xgene_enet_main.h      |  2 +-
+ drivers/net/ethernet/smsc/smsc911x.c                  |  8 +++-----
+ drivers/net/ethernet/socionext/netsec.c               |  5 ++---
+ drivers/net/ethernet/stmicro/stmmac/stmmac_platform.c |  6 +++---
+ include/linux/property.h                              |  3 ++-
+ 9 files changed, 30 insertions(+), 24 deletions(-)
 
-# find all defined config symbols in Kconfig files
-
-$ git grep -P -oh '^\s*(?:menu)?config\s+\w+' -- '*/Kconfig*' | \
-  sed -r -e 's/\s*config\s+//' -e 's/\s*menuconfig\s+//' | \
-  sort | uniq > config_symbols
-
-# find CONFIG_ symbols in arm defconfigs
-
-$ git grep -w -oh -P 'CONFIG_\w+' 'arch/arm*/*defconfig*' | \
-  sort | uniq > used_in_arm_defconfigs
-
-# find all the unused symbols
-
-$ cat used_in_arm_defconfigs | \
-  while read line ; do \
-    echo -n "$line " ; grep -w -c ${line/CONFIG_/} config_symbols ; \
-  done | \
-  grep " 0" | \
-  sed 's/ 0//'
-CONFIG_ARCH_AUTCPU12
-CONFIG_ARCH_CDB89712
-CONFIG_ARCH_CLEP7312
-CONFIG_ARCH_EDB7211
-CONFIG_ARCH_P720T
-CONFIG_ARCH_R8A7796
-CONFIG_BT_HCIBTUART
-CONFIG_CC_STACKPROTECTOR_REGULAR
-CONFIG_CHR_DEV_OSST
-CONFIG_CIFS_STATS
-CONFIG_CROSS_COMPILE
-CONFIG_DEBUG_SPINLOCK_SLEEP
-CONFIG_DETECT_SOFTLOCKUP
-CONFIG_DM9000_DEBUGLEVEL
-CONFIG_DRM_TINYDRM
-CONFIG_EXT3_DEFAULTS_TO_ORDERED
-CONFIG_EXT3_FS_XATTR
-CONFIG_FB_XGI
-CONFIG_GPIO_MOXART
-CONFIG_HOTPLUG
-CONFIG_INET6_XFRM_MODE_BEET
-CONFIG_INET6_XFRM_MODE_TRANSPORT
-CONFIG_INET6_XFRM_MODE_TUNNEL
-CONFIG_INET_XFRM_MODE_BEET
-CONFIG_INET_XFRM_MODE_TRANSPORT
-CONFIG_INET_XFRM_MODE_TUNNEL
-CONFIG_IOSCHED_CFQ
-CONFIG_IOSCHED_DEADLINE
-CONFIG_IP_NF_MATCH_ADDRTYPE
-CONFIG_IP_NF_TARGET_LOG
-CONFIG_IPX
-CONFIG_IRCOMM
-CONFIG_IRDA
-CONFIG_IRDA_CACHE_LAST_LSAP
-CONFIG_IRDA_DEBUG
-CONFIG_IRDA_FAST_RR
-CONFIG_IRDA_ULTRA
-CONFIG_IRLAN
-CONFIG_IRNET
-CONFIG_IRTTY_SIR
-CONFIG_KALLSYMS_EXTRA_PASS
-CONFIG_LBDAF
-CONFIG_LEDS_CPU
-CONFIG_LEDS_TIMER
-CONFIG_MAC80211_RC_PID
-CONFIG_MACH_BIGDISK
-CONFIG_MACH_D2NET
-CONFIG_MACH_DOVE_DT
-CONFIG_MACH_EDMINI_V2_DT
-CONFIG_MACH_LINKSTATION_LSCHL
-CONFIG_MACH_MSS2
-CONFIG_MACH_U300_SPIDUMMY
-CONFIG_MACH_VOICEBLUE
-CONFIG_MEDIA_TUNER_CUSTOMISE
-CONFIG_MMC_BLOCK_BOUNCE
-CONFIG_MMP_SPI
-CONFIG_MTD_DEBUG
-CONFIG_MTD_DEBUG_VERBOSE
-CONFIG_MTD_DOC2000
-CONFIG_MTD_DOC2001
-CONFIG_MTD_DOC2001PLUS
-CONFIG_MTD_DOCPROBE_ADDRESS
-CONFIG_MTD_DOCPROBE_ADVANCED
-CONFIG_MTD_DOCPROBE_HIGH
-CONFIG_MTD_M25P80
-CONFIG_NET_CADENCE
-CONFIG_NET_DMA
-CONFIG_NET_ETHERNET
-CONFIG_NET_PCI
-CONFIG_NET_PCMCIA
-CONFIG_NET_VENDOR_SMC
-CONFIG_NF_CONNTRACK_IPV4
-CONFIG_NF_CONNTRACK_IPV6
-CONFIG_PCIE_AXXIA
-CONFIG_PM_RUNTIME
-CONFIG_PROC_DEVICETREE
-CONFIG_PXA_FICP
-CONFIG_QCOM_ADSP_PIL
-CONFIG_QCOM_Q6V5_PIL
-CONFIG_SA1100_FIR
-CONFIG_SCSI_MULTI_LUN
-CONFIG_SMB_FS
-CONFIG_SMB_NLS_DEFAULT
-CONFIG_SOC_CAMERA_OV2640
-CONFIG_SOC_CAMERA_PLATFORM
-CONFIG_SOUND_DMAP
-CONFIG_SOUND_OSS
-CONFIG_SOUND_PRIME
-CONFIG_SOUND_TRACEINIT
-CONFIG_SOUND_VIDC
-CONFIG_SOUND_WAVEARTIST
-CONFIG_SOUND_YM3812
-CONFIG_SUSPEND_TIME
-CONFIG_SYSCTL_SYSCALL
-CONFIG_TIMER_STATS
-CONFIG_UID_STAT
-CONFIG_USB_CHIPIDEA_ULPI
-CONFIG_USB_EHCI_HCD_AXXIA
-CONFIG_USB_EHCI_MSM
-CONFIG_USB_GADGET_DUMMY_HCD
-CONFIG_USB_MSM_OTG
-CONFIG_V4L_USB_DRIVERS
-CONFIG_VIDEO_HELPER_CHIPS_AUTO
-CONFIG_WAN_ROUTER
-CONFIG_WAN_ROUTER_DRIVERS
-CONFIG_WINBOND_FIR
-
---------------------------------------------------------------------
-
-And treewide defconfigs:
-
-$ git grep -P -oh '^\s*(?:menu)?config\s+\w+' -- '*/Kconfig*' | \
-  sed -r -e 's/\s*config\s+//' -e 's/\s*menuconfig\s+//' | \
-  sort | uniq > config_symbols
-
-$ git grep -w -oh -P 'CONFIG_\w+' '*defconfig*' | \
-  sort | uniq >  used_in_defconfigs
-
-$ cat used_in_defconfigs | \
-  while read line ; do \
-    echo -n "$line " ; grep -w -c ${line/CONFIG_/} config_symbols ;  \
-  done | \
-  grep " 0" | \
-  sed 's/ 0//'
-CONFIG_ALI_FIR
-CONFIG_ARCH_AUTCPU12
-CONFIG_ARCH_CDB89712
-CONFIG_ARCH_CLEP7312
-CONFIG_ARCH_EDB7211
-CONFIG_ARCH_P720T
-CONFIG_ARCH_R8A7796
-CONFIG_ARCPGU_DISPTYPE
-CONFIG_ARCPGU_RGB888
-CONFIG_ARPD
-CONFIG_ATH79_MACH_AP121
-CONFIG_ATH79_MACH_AP136
-CONFIG_ATH79_MACH_AP81
-CONFIG_ATH79_MACH_DB120
-CONFIG_ATH79_MACH_PB44
-CONFIG_ATH79_MACH_UBNT_XM
-CONFIG_BLK_DEV_RAM_DAX
-CONFIG_BOARD_EVM6457
-CONFIG_BOARD_EVM6472
-CONFIG_BOARD_EVM6474
-CONFIG_BOARD_EVM6678
-CONFIG_BT_HCIBTUART
-CONFIG_CC_STACKPROTECTOR_REGULAR
-CONFIG_CFQ_GROUP_IOSCHED
-CONFIG_CGROUP_MEMCG
-CONFIG_CGROUP_MEMCG_SWAP
-CONFIG_CHR_DEV_OSST
-CONFIG_CIFS_STATS
-CONFIG_CROSS_COMPILE
-CONFIG_CRYPTO_AES_586
-CONFIG_CSKY_MPTIMER
-CONFIG_DEBUG_SPINLOCK_SLEEP
-CONFIG_DEFAULT_DEADLINE
-CONFIG_DEFAULT_NOOP
-CONFIG_DETECT_SOFTLOCKUP
-CONFIG_DEVPTS_MULTIPLE_INSTANCES
-CONFIG_DM9000_DEBUGLEVEL
-CONFIG_DRM_TINYDRM
-CONFIG_DSCC4
-CONFIG_DVB_FE_CUSTOMISE
-CONFIG_ENABLE_WARN_DEPRECATED
-CONFIG_EXOFS_FS
-CONFIG_EXPERIMENTAL
-CONFIG_EXT2_FS_XIP
-CONFIG_EXT3_DEFAULTS_TO_ORDERED
-CONFIG_EXT3_FS_XATTR
-CONFIG_FB_SH7785FB
-CONFIG_FB_XGI
-CONFIG_GPIO_MOXART
-CONFIG_HEADERS_CHECK
-CONFIG_HID_SUPPORT
-CONFIG_HOTPLUG
-CONFIG_I2C_PARPORT_LIGHT
-CONFIG_INET6_XFRM_MODE_BEET
-CONFIG_INET6_XFRM_MODE_ROUTEOPTIMIZATION
-CONFIG_INET6_XFRM_MODE_TRANSPORT
-CONFIG_INET6_XFRM_MODE_TUNNEL
-CONFIG_INET_LRO
-CONFIG_INET_XFRM_MODE_BEET
-CONFIG_INET_XFRM_MODE_TRANSPORT
-CONFIG_INET_XFRM_MODE_TUNNEL
-CONFIG_INFINIBAND_CXGB3
-CONFIG_IOSCHED_CFQ
-CONFIG_IOSCHED_DEADLINE
-CONFIG_IP_NF_MATCH_ADDRTYPE
-CONFIG_IP_NF_TARGET_LOG
-CONFIG_IPV6_PRIVACY
-CONFIG_IPX
-CONFIG_IRCOMM
-CONFIG_IRDA
-CONFIG_IRDA_CACHE_LAST_LSAP
-CONFIG_IRDA_DEBUG
-CONFIG_IRDA_FAST_RR
-CONFIG_IRDA_ULTRA
-CONFIG_IRLAN
-CONFIG_IRNET
-CONFIG_IRTTY_SIR
-CONFIG_KALLSYMS_EXTRA_PASS
-CONFIG_KINGSUN_DONGLE
-CONFIG_KS959_DONGLE
-CONFIG_KSDAZZLE_DONGLE
-CONFIG_LBDAF
-CONFIG_LEDS_CPU
-CONFIG_LEDS_TIMER
-CONFIG_MAC80211_RC_PID
-CONFIG_MACH_BIGDISK
-CONFIG_MACH_D2NET
-CONFIG_MACH_DOVE_DT
-CONFIG_MACH_EDMINI_V2_DT
-CONFIG_MACH_LINKSTATION_LSCHL
-CONFIG_MACH_MSS2
-CONFIG_MACH_U300_SPIDUMMY
-CONFIG_MACH_VOICEBLUE
-CONFIG_MCS_FIR
-CONFIG_MEDIA_TUNER_CUSTOMISE
-CONFIG_MFD_SH_MOBILE_SDHI
-CONFIG_MMC_BLOCK_BOUNCE
-CONFIG_MMP_SPI
-CONFIG_MTD_CHAR
-CONFIG_MTD_DEBUG
-CONFIG_MTD_DEBUG_VERBOSE
-CONFIG_MTD_DOC2000
-CONFIG_MTD_DOC2001
-CONFIG_MTD_DOC2001PLUS
-CONFIG_MTD_DOCPROBE_ADDRESS
-CONFIG_MTD_DOCPROBE_ADVANCED
-CONFIG_MTD_DOCPROBE_HIGH
-CONFIG_MTD_M25P80
-CONFIG_MTD_PARTITIONS
-CONFIG_NCP_FS
-CONFIG_NCPFS_EXTRAS
-CONFIG_NCPFS_IOCTL_LOCKING
-CONFIG_NCPFS_NFS_NS
-CONFIG_NCPFS_NLS
-CONFIG_NCPFS_OS2_NS
-CONFIG_NCPFS_PACKET_SIGNING
-CONFIG_NCPFS_SMALLDOS
-CONFIG_NCPFS_STRONG
-CONFIG_NET_CADENCE
-CONFIG_NET_DCCPPROBE
-CONFIG_NETDEV_1000
-CONFIG_NETDEV_10000
-CONFIG_NET_DMA
-CONFIG_NET_ETHERNET
-CONFIG_NET_PACKET_ENGINE
-CONFIG_NET_PCI
-CONFIG_NET_PCMCIA
-CONFIG_NET_TCPPROBE
-CONFIG_NET_VENDOR_EXAR
-CONFIG_NET_VENDOR_SMC
-CONFIG_NF_CONNTRACK_IPV4
-CONFIG_NF_CONNTRACK_IPV6
-CONFIG_NF_NAT_IPV4
-CONFIG_NF_NAT_IPV6
-CONFIG_NR_DMA_CHANNELS
-CONFIG_NR_DMA_CHANNELS_BOOL
-CONFIG_NSC_FIR
-CONFIG_OCTEON_ETHERNET
-CONFIG_OCTEON_USB
-CONFIG_PCIEASPM_DEBUG
-CONFIG_PCIE_AXXIA
-CONFIG_PCI_LEGACY
-CONFIG_PERF_COUNTERS
-CONFIG_PHONE
-CONFIG_PM_RUNTIME
-CONFIG_PROC_DEVICETREE
-CONFIG_PUV3_AC97
-CONFIG_PUV3_MMC
-CONFIG_PUV3_MUSB
-CONFIG_PUV3_NAND
-CONFIG_PUV3_UART
-CONFIG_PUV3_UMAL
-CONFIG_PXA_FICP
-CONFIG_QCOM_ADSP_PIL
-CONFIG_QCOM_Q6V5_PIL
-CONFIG_RCU_CPU_STALL_INFO
-CONFIG_SA1100_FIR
-CONFIG_SBC834x
-CONFIG_SCSI_MULTI_LUN
-CONFIG_SCSI_OSD_INITIATOR
-CONFIG_SCSI_OSD_ULD
-CONFIG_SECURITY_SELINUX_BOOTPARAM_VALUE
-CONFIG_SH_SIR
-CONFIG_SIGMATEL_FIR
-CONFIG_SMB_FS
-CONFIG_SMB_NLS_DEFAULT
-CONFIG_SMC_IRCC_FIR
-CONFIG_SND_FSI_AK4642
-CONFIG_SND_FSI_DA7210
-CONFIG_SOC_CAMERA_MT9T112
-CONFIG_SOC_CAMERA_OV2640
-CONFIG_SOC_CAMERA_OV772X
-CONFIG_SOC_CAMERA_PLATFORM
-CONFIG_SOC_CAMERA_TW9910
-CONFIG_SOUND_DMAP
-CONFIG_SOUND_OSS
-CONFIG_SOUND_PRIME
-CONFIG_SOUND_TRACEINIT
-CONFIG_SOUND_VIDC
-CONFIG_SOUND_WAVEARTIST
-CONFIG_SOUND_YM3812
-CONFIG_SPI_XILINX_PLTFM
-CONFIG_STAGING_EXCLUDE_BUILD
-CONFIG_SUSPEND_TIME
-CONFIG_SYSCTL_SYSCALL
-CONFIG_TIMER_STATS
-CONFIG_TOSHIBA_FIR
-CONFIG_TREE_PREEMPT_RCU
-CONFIG_UID_STAT
-CONFIG_UIO_PDRV
-CONFIG_USB_CHIPIDEA_ULPI
-CONFIG_USB_CMMB_INNOFIDEI
-CONFIG_USB_EHCI_HCD_AXXIA
-CONFIG_USB_EHCI_MSM
-CONFIG_USB_GADGET_DUMMY_HCD
-CONFIG_USB_GADGET_M66592
-CONFIG_USB_IRDA
-CONFIG_USB_MSM_OTG
-CONFIG_USB_WLAN_HED_AQ3
-CONFIG_V4L_USB_DRIVERS
-CONFIG_VIA_FIR
-CONFIG_VIDEO_ALLOW_V4L1
-CONFIG_VIDEO_HELPER_CHIPS_AUTO
-CONFIG_VIDEO_SH_MOBILE_CEU
-CONFIG_VLSI_FIR
-CONFIG_W1_SLAVE_DS2760
-CONFIG_WAN_ROUTER
-CONFIG_WAN_ROUTER_DRIVERS
-CONFIG_WINBOND_FIR
-CONFIG_WLAN_80211
-
+diff --git a/drivers/base/property.c b/drivers/base/property.c
+index 511f6d7acdfe..8854cfbd213b 100644
+--- a/drivers/base/property.c
++++ b/drivers/base/property.c
+@@ -863,9 +863,18 @@ EXPORT_SYMBOL_GPL(fwnode_get_phy_mode);
+  * 'phy-connection-type', and return its index in phy_modes table, or errno in
+  * error case.
+  */
+-int device_get_phy_mode(struct device *dev)
++int device_get_phy_mode(struct device *dev, phy_interface_t *interface)
+ {
+-	return fwnode_get_phy_mode(dev_fwnode(dev));
++	int mode;
++
++	*interface = PHY_INTERFACE_MODE_NA;
++
++	mode = fwnode_get_phy_mode(dev_fwnode(dev));
++	if (mode < 0)
++		return mode;
++
++	*interface = mode;
++	return 0;
+ }
+ EXPORT_SYMBOL_GPL(device_get_phy_mode);
+ 
+diff --git a/drivers/net/ethernet/apm/xgene-v2/main.c b/drivers/net/ethernet/apm/xgene-v2/main.c
+index c48f60996761..706602918dd1 100644
+--- a/drivers/net/ethernet/apm/xgene-v2/main.c
++++ b/drivers/net/ethernet/apm/xgene-v2/main.c
+@@ -15,7 +15,7 @@ static int xge_get_resources(struct xge_pdata *pdata)
+ {
+ 	struct platform_device *pdev;
+ 	struct net_device *ndev;
+-	int phy_mode, ret = 0;
++	int ret = 0;
+ 	struct resource *res;
+ 	struct device *dev;
+ 
+@@ -41,12 +41,11 @@ static int xge_get_resources(struct xge_pdata *pdata)
+ 
+ 	memcpy(ndev->perm_addr, ndev->dev_addr, ndev->addr_len);
+ 
+-	phy_mode = device_get_phy_mode(dev);
+-	if (phy_mode < 0) {
++	ret = device_get_phy_mode(dev, &pdata->resources.phy_mode);
++	if (ret) {
+ 		dev_err(dev, "Unable to get phy-connection-type\n");
+-		return phy_mode;
++		return ret;
+ 	}
+-	pdata->resources.phy_mode = phy_mode;
+ 
+ 	if (pdata->resources.phy_mode != PHY_INTERFACE_MODE_RGMII) {
+ 		dev_err(dev, "Incorrect phy-connection-type specified\n");
+diff --git a/drivers/net/ethernet/apm/xgene-v2/main.h b/drivers/net/ethernet/apm/xgene-v2/main.h
+index d41439d2709d..d687f0185908 100644
+--- a/drivers/net/ethernet/apm/xgene-v2/main.h
++++ b/drivers/net/ethernet/apm/xgene-v2/main.h
+@@ -35,7 +35,7 @@
+ 
+ struct xge_resource {
+ 	void __iomem *base_addr;
+-	int phy_mode;
++	phy_interface_t phy_mode;
+ 	u32 irq;
+ };
+ 
+diff --git a/drivers/net/ethernet/apm/xgene/xgene_enet_main.c b/drivers/net/ethernet/apm/xgene/xgene_enet_main.c
+index 6aee2f0fc0db..da35e70ccceb 100644
+--- a/drivers/net/ethernet/apm/xgene/xgene_enet_main.c
++++ b/drivers/net/ethernet/apm/xgene/xgene_enet_main.c
+@@ -1736,10 +1736,10 @@ static int xgene_enet_get_resources(struct xgene_enet_pdata *pdata)
+ 
+ 	memcpy(ndev->perm_addr, ndev->dev_addr, ndev->addr_len);
+ 
+-	pdata->phy_mode = device_get_phy_mode(dev);
+-	if (pdata->phy_mode < 0) {
++	ret = device_get_phy_mode(dev, &pdata->phy_mode);
++	if (ret) {
+ 		dev_err(dev, "Unable to get phy-connection-type\n");
+-		return pdata->phy_mode;
++		return ret;
+ 	}
+ 	if (!phy_interface_mode_is_rgmii(pdata->phy_mode) &&
+ 	    pdata->phy_mode != PHY_INTERFACE_MODE_SGMII &&
+diff --git a/drivers/net/ethernet/apm/xgene/xgene_enet_main.h b/drivers/net/ethernet/apm/xgene/xgene_enet_main.h
+index 18f4923b1723..600cddf1942d 100644
+--- a/drivers/net/ethernet/apm/xgene/xgene_enet_main.h
++++ b/drivers/net/ethernet/apm/xgene/xgene_enet_main.h
+@@ -209,7 +209,7 @@ struct xgene_enet_pdata {
+ 	void __iomem *pcs_addr;
+ 	void __iomem *ring_csr_addr;
+ 	void __iomem *ring_cmd_addr;
+-	int phy_mode;
++	phy_interface_t phy_mode;
+ 	enum xgene_enet_rm rm;
+ 	struct xgene_enet_cle cle;
+ 	u64 *extd_stats;
+diff --git a/drivers/net/ethernet/smsc/smsc911x.c b/drivers/net/ethernet/smsc/smsc911x.c
+index 49a6a9167af4..2d773e5e67f8 100644
+--- a/drivers/net/ethernet/smsc/smsc911x.c
++++ b/drivers/net/ethernet/smsc/smsc911x.c
+@@ -2361,14 +2361,12 @@ static const struct smsc911x_ops shifted_smsc911x_ops = {
+ static int smsc911x_probe_config(struct smsc911x_platform_config *config,
+ 				 struct device *dev)
+ {
+-	int phy_interface;
+ 	u32 width = 0;
+ 	int err;
+ 
+-	phy_interface = device_get_phy_mode(dev);
+-	if (phy_interface < 0)
+-		phy_interface = PHY_INTERFACE_MODE_NA;
+-	config->phy_interface = phy_interface;
++	err = device_get_phy_mode(dev, &config->phy_interface);
++	if (err)
++		config->phy_interface = PHY_INTERFACE_MODE_NA;
+ 
+ 	device_get_mac_address(dev, config->mac, ETH_ALEN);
+ 
+diff --git a/drivers/net/ethernet/socionext/netsec.c b/drivers/net/ethernet/socionext/netsec.c
+index e8224b543dfc..95ff91230523 100644
+--- a/drivers/net/ethernet/socionext/netsec.c
++++ b/drivers/net/ethernet/socionext/netsec.c
+@@ -1994,10 +1994,9 @@ static int netsec_probe(struct platform_device *pdev)
+ 	priv->msg_enable = NETIF_MSG_TX_ERR | NETIF_MSG_HW | NETIF_MSG_DRV |
+ 			   NETIF_MSG_LINK | NETIF_MSG_PROBE;
+ 
+-	priv->phy_interface = device_get_phy_mode(&pdev->dev);
+-	if ((int)priv->phy_interface < 0) {
++	ret = device_get_phy_mode(&pdev->dev, &priv->phy_interface);
++	if (ret) {
+ 		dev_err(&pdev->dev, "missing required property 'phy-mode'\n");
+-		ret = -ENODEV;
+ 		goto free_ndev;
+ 	}
+ 
+diff --git a/drivers/net/ethernet/stmicro/stmmac/stmmac_platform.c b/drivers/net/ethernet/stmicro/stmmac/stmmac_platform.c
+index d10ac54bf385..aa77c332ea1d 100644
+--- a/drivers/net/ethernet/stmicro/stmmac/stmmac_platform.c
++++ b/drivers/net/ethernet/stmicro/stmmac/stmmac_platform.c
+@@ -412,9 +412,9 @@ stmmac_probe_config_dt(struct platform_device *pdev, const char **mac)
+ 		*mac = NULL;
+ 	}
+ 
+-	plat->phy_interface = device_get_phy_mode(&pdev->dev);
+-	if (plat->phy_interface < 0)
+-		return ERR_PTR(plat->phy_interface);
++	rc = device_get_phy_mode(&pdev->dev, &plat->phy_interface);
++	if (rc)
++		return ERR_PTR(rc);
+ 
+ 	plat->interface = stmmac_of_get_mac_mode(np);
+ 	if (plat->interface < 0)
+diff --git a/include/linux/property.h b/include/linux/property.h
+index d86de017c689..2ffe9842c997 100644
+--- a/include/linux/property.h
++++ b/include/linux/property.h
+@@ -12,6 +12,7 @@
+ 
+ #include <linux/bits.h>
+ #include <linux/fwnode.h>
++#include <linux/phy.h>
+ #include <linux/types.h>
+ 
+ struct device;
+@@ -368,7 +369,7 @@ enum dev_dma_attr device_get_dma_attr(struct device *dev);
+ 
+ const void *device_get_match_data(struct device *dev);
+ 
+-int device_get_phy_mode(struct device *dev);
++int device_get_phy_mode(struct device *dev, phy_interface_t *interface);
+ 
+ void *device_get_mac_address(struct device *dev, char *addr, int alen);
+ 
+-- 
+2.11.0
 
 _______________________________________________
 Linux-stm32 mailing list
