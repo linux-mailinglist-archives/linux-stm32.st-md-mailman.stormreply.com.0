@@ -2,75 +2,67 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id 2489D14E9C6
-	for <lists+linux-stm32@lfdr.de>; Fri, 31 Jan 2020 09:48:35 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 756B714ED8F
+	for <lists+linux-stm32@lfdr.de>; Fri, 31 Jan 2020 14:41:05 +0100 (CET)
 Received: from ip-172-31-3-76.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id CA84CC36B0C;
-	Fri, 31 Jan 2020 08:48:34 +0000 (UTC)
-Received: from mail-pl1-f196.google.com (mail-pl1-f196.google.com
- [209.85.214.196])
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 27A30C36B0D;
+	Fri, 31 Jan 2020 13:41:05 +0000 (UTC)
+Received: from mail-lj1-f170.google.com (mail-lj1-f170.google.com
+ [209.85.208.170])
  (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id EE02CC36B0A
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 0CD88C36B0A
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Fri, 31 Jan 2020 08:48:32 +0000 (UTC)
-Received: by mail-pl1-f196.google.com with SMTP id t14so2449139plr.8
+ Fri, 31 Jan 2020 13:36:24 +0000 (UTC)
+Received: by mail-lj1-f170.google.com with SMTP id w1so7133704ljh.5
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Fri, 31 Jan 2020 00:48:32 -0800 (PST)
+ Fri, 31 Jan 2020 05:36:23 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20161025;
- h=mime-version:references:in-reply-to:from:date:message-id:subject:to
- :cc; bh=O5ycccSqPafUQDUtArWJENgWEJXME9xnY8wDyWmiLVw=;
- b=CtCjGMxHlPa4uMBe55NlXbqQ2Ri9C6ybpjqfv3+Q45xOWA+0PRrI+HH7abYlewqIMe
- JElfCO3sLos1TxRjfZ+bArgAjmSLiCPYWIufxyd42VnqnBTaUCUP3f36GmdeEpc0LQ8l
- 5lQEZNT53I9+hpinOzEh7SB9irGLI90zc7Ph5xdp0eDFdktqKzCKbxKt6kFS9sWr0DDA
- jFOkroK/s3JcQzwjPyZc22e/lAhqN0mLPFUTwPGn5w4z5ahN2JEkION/DaKhvcHOjp+t
- 7dF8dHtRRg8bFr4rrXWE4bHbVaAOW1rxA9X+wpv3zllUE66krzpaAf6zzZc7e5FvtV6l
- cafQ==
+ h=sender:from:to:cc:subject:in-reply-to:references:date:message-id
+ :mime-version; bh=36im6bznVr3VlhITe091kW2o8aBJr7dAtawFyqiBVVc=;
+ b=aCgWyI54FFxymXQIxylsUJxHwJOzcvMk/eK3kXkaRxQUbLwqy7aA51PXmRG0vrmNdu
+ K93Oz5gIeIiopw3F/E+0VjM54ZstePlZNcnLw5mhD+Y7bcSsalgiyiuO4Zfx9I/Iv/Lw
+ a+O57/lv01X6ZXtROOF4NiOQeIILLCnBdgOx/pAfG4crT0ZFffiutPawQwfh3HtrPodJ
+ SW/lIw+B+PPgALXnR0QiV1SuODqPAr4b6h7BNk0VWA9JkV2elmr6Rj5slkO8H9bQfANc
+ YfXePRTFJ2YqY/Nx30dr12Td1rMCPS1DWMTrmFciMVCfm5Sv9rzi20sy57Fnv7OasVLa
+ ttTQ==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=1e100.net; s=20161025;
- h=x-gm-message-state:mime-version:references:in-reply-to:from:date
- :message-id:subject:to:cc;
- bh=O5ycccSqPafUQDUtArWJENgWEJXME9xnY8wDyWmiLVw=;
- b=O/mnJPmGY7lBVe34ag9h2CU7J9t7gXjmumOv9LjXwk0oxyibwUylf3Q6IqzSL13ofp
- B/VjJHXeVOhKdUegbMhBkkmjuY7OpQr9zcQwLTyEoakKhRu2VMIvrc4rHqPNOzt54xeV
- m5RVmdXqTeqppwJS3PdpKXsw1MoSBtR3xQg3b9SSKbfmmTuOyRpC0cpE9WhIIjuHBqAo
- wzF3Y0xKz49gfuPnxwp6wHKfgFgIDsOjKbDxr20+j8NijUFK3J+LljY1thqlU+5yLxsl
- dhL2kNPxoCFNLWUIuXqqXAzJmmTY+SDS6rpk1k1dwifefa8H04eUZ7Sm0A3j7UqVLfuV
- MAcA==
-X-Gm-Message-State: APjAAAXr/mLIOCtlv6YpN7michduOuvfELf3iffGj/v3CyrNbNTm2zm4
- l15K9pyrGJ5SuIA6gvUmh69XvGyJ4kxiArssNOk=
-X-Google-Smtp-Source: APXvYqyiNY4uwfOnlxbSqgONwjK+nUKqWtW8I5m0IqBAngruxNfTIHVXqcPwf70qsozwC/k9s9tg0VayqPXTxiO6peM=
-X-Received: by 2002:a17:90a:b10b:: with SMTP id
- z11mr11383068pjq.132.1580460511210; 
- Fri, 31 Jan 2020 00:48:31 -0800 (PST)
-MIME-Version: 1.0
-References: <20200131045953.wbj66jkvijnmf5s2@kili.mountain>
- <CAHp75Vd_CNFx8xT9yO9LA=jKjT_xnc3XotUJx4jNFKaq0bpHsg@mail.gmail.com>
-In-Reply-To: <CAHp75Vd_CNFx8xT9yO9LA=jKjT_xnc3XotUJx4jNFKaq0bpHsg@mail.gmail.com>
-From: Andy Shevchenko <andy.shevchenko@gmail.com>
-Date: Fri, 31 Jan 2020 10:48:22 +0200
-Message-ID: <CAHp75VcxgoMstVHEUyUT9nwYKGgLER7_jXjtp+zFWfJQ1k=ykA@mail.gmail.com>
-To: Dan Carpenter <dan.carpenter@oracle.com>
-Cc: Heikki Krogerus <heikki.krogerus@linux.intel.com>,
- Ajay Gupta <ajayg@nvidia.com>, "Rafael J. Wysocki" <rafael@kernel.org>,
- kernel-janitors@vger.kernel.org,
- Iyappan Subramanian <iyappan@os.amperecomputing.com>,
- Quan Nguyen <quan@os.amperecomputing.com>,
- Dmitry Torokhov <dmitry.torokhov@gmail.com>,
- linux-stm32@st-md-mailman.stormreply.com, Jose Abreu <joabreu@synopsys.com>,
- Steve Glendinning <steve.glendinning@shawell.net>,
- Keyur Chudgar <keyur@os.amperecomputing.com>,
- Jassi Brar <jaswinder.singh@linaro.org>,
- Giuseppe Cavallaro <peppe.cavallaro@st.com>,
- Andy Shevchenko <andriy.shevchenko@linux.intel.com>,
- Maxime Coquelin <mcoquelin.stm32@gmail.com>,
+ h=x-gm-message-state:sender:from:to:cc:subject:in-reply-to:references
+ :date:message-id:mime-version;
+ bh=36im6bznVr3VlhITe091kW2o8aBJr7dAtawFyqiBVVc=;
+ b=fRAmG+p4Wca9JEb6z8WszUq8xdmuNR2IKVyHyPcBwKBhfkeyiuIgDxfrpbGMVMZ7S/
+ 2bWwE7t1qqfdnTtc7YWd5XLxJvd1ur4o+DqB14FmjbMgJ/lqdAklMhIC1oOtysfEMT3M
+ vYUD9OFXF8NJDsFzDBCpzSNfkqqtyHGPRomrRxB/OB/2sEtRsLX4cvIHd9O5GULuzRre
+ P7SWQtij9PjLPGOnsuu6MfEMZPu0C2/hbsM7yV7gZR+f/de6nE1keU3nAi2BYNtHguhb
+ I4E7HhPzQ5Ge2fSuTOF5sGIKsPID61PUCRLgYzA9tQQYAODa0ze5RZUfkDXaIFP8TiST
+ M9Cg==
+X-Gm-Message-State: APjAAAW/jWU8YsGiKvZ/s+flyyRGjii26vmKavX+VeDziRNSlIIeUz6C
+ SNZvwoOuCZiHPKcCYUJ8osE=
+X-Google-Smtp-Source: APXvYqy9SXfc4Ak9UEw8yYRMtjd1zHNdFzILr7FF5HWU+feIs3Zgjdp34mjDT2MiG1qbVqC08wXeEA==
+X-Received: by 2002:a2e:8944:: with SMTP id b4mr6106832ljk.90.1580477783171;
+ Fri, 31 Jan 2020 05:36:23 -0800 (PST)
+Received: from saruman (88-113-215-33.elisa-laajakaista.fi. [88.113.215.33])
+ by smtp.gmail.com with ESMTPSA id f21sm2901282ljc.30.2020.01.31.05.36.21
+ (version=TLS1_2 cipher=ECDHE-RSA-CHACHA20-POLY1305 bits=256/256);
+ Fri, 31 Jan 2020 05:36:22 -0800 (PST)
+From: Felipe Balbi <balbi@kernel.org>
+To: Amelie Delaunay <amelie.delaunay@st.com>,
+ Minas Harutyunyan <hminas@synopsys.com>,
  Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
- Ilias Apalodimas <ilias.apalodimas@linaro.org>,
- Linux Kernel Mailing List <linux-kernel@vger.kernel.org>,
- Sakari Ailus <sakari.ailus@linux.intel.com>, netdev <netdev@vger.kernel.org>,
- "David S. Miller" <davem@davemloft.net>
-Subject: Re: [Linux-stm32] [PATCH net] device property: change
- device_get_phy_mode() to prevent signedess bugs
+ Rob Herring <robh+dt@kernel.org>, Mark Rutland <mark.rutland@arm.com>
+In-Reply-To: <20200124084131.23749-2-amelie.delaunay@st.com>
+References: <20200124084131.23749-1-amelie.delaunay@st.com>
+ <20200124084131.23749-2-amelie.delaunay@st.com>
+Date: Fri, 31 Jan 2020 15:36:17 +0200
+Message-ID: <87imkr7nou.fsf@kernel.org>
+MIME-Version: 1.0
+X-Mailman-Approved-At: Fri, 31 Jan 2020 13:41:04 +0000
+Cc: devicetree@vger.kernel.org, linux-usb@vger.kernel.org,
+ linux-kernel@vger.kernel.org, Fabrice Gasnier <fabrice.gasnier@st.com>,
+ linux-stm32@st-md-mailman.stormreply.com
+Subject: Re: [Linux-stm32] [PATCH v3 1/2] dt-bindings: usb: dwc2: add
+	support for STM32MP15 SoCs USB OTG HS and FS
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -82,249 +74,67 @@ List-Post: <mailto:linux-stm32@st-md-mailman.stormreply.com>
 List-Help: <mailto:linux-stm32-request@st-md-mailman.stormreply.com?subject=help>
 List-Subscribe: <https://st-md-mailman.stormreply.com/mailman/listinfo/linux-stm32>, 
  <mailto:linux-stm32-request@st-md-mailman.stormreply.com?subject=subscribe>
-Content-Type: text/plain; charset="us-ascii"
-Content-Transfer-Encoding: 7bit
+Content-Type: multipart/mixed; boundary="===============5165346063581431098=="
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
-On Fri, Jan 31, 2020 at 10:12 AM Andy Shevchenko
-<andy.shevchenko@gmail.com> wrote:
+--===============5165346063581431098==
+Content-Type: multipart/signed; boundary="=-=-=";
+	micalg=pgp-sha256; protocol="application/pgp-signature"
+
+--=-=-=
+Content-Type: text/plain
+Content-Transfer-Encoding: quoted-printable
+
+
+Hi,
+
+Amelie Delaunay <amelie.delaunay@st.com> writes:
+
+> Add the specific compatible string for the DWC2 IP found in the STM32MP15
+> SoCs.
+> STM32MP15 SoCs uses sensing comparators to detect Vbus valid levels and
+> ID pin state. usb33d-supply described the regulator supplying Vbus and ID
+> sensing comparators.
 >
-> On Fri, Jan 31, 2020 at 7:03 AM Dan Carpenter <dan.carpenter@oracle.com> wrote:
-> >
-> > The device_get_phy_mode() was returning negative error codes on
-> > failure and positive phy_interface_t values on success.  The problem is
-> > that the phy_interface_t type is an enum which GCC treats as unsigned.
-> > This lead to recurring signedness bugs where we check "if (phy_mode < 0)"
-> > and "phy_mode" is unsigned.
-> >
-> > In the commit 0c65b2b90d13 ("net: of_get_phy_mode: Change API to solve
-> > int/unit warnings") we updated of_get_phy_mode() take a pointer to
-> > phy_mode and only return zero on success and negatives on failure.  This
-> > patch does the same thing for device_get_phy_mode().  Plus it's just
-> > nice for the API to be the same in both places.
-> >
->
-> For device property API changes
-> Reviewed-by: Andy Shevchenko <andy.shevchenko@gmail.com>
+> Signed-off-by: Amelie Delaunay <amelie.delaunay@st.com>
 
-Sorry, have to withdraw my tag. See below.
+This doesn't apply. dwc2 bindings is still in .txt format. I have taken
+patch 2, though.
 
-> > Fixes: b9f0b2f634c0 ("net: stmmac: platform: fix probe for ACPI devices")
-> > Signed-off-by: Dan Carpenter <dan.carpenter@oracle.com>
-> > ---
-> > This is a change to drivers/base/ but all the users are ethernet drivers
-> > so probably it makes sense for Dave to take this?
-> >
-> > Also this fixes a bug in stmmac.  If you wanted I could make a one
-> > liner fix for that and then write this change on top of that.  The bug
-> > is only in v5.6 so it doesn't affect old kernels.
-> >
-> >  drivers/base/property.c                               | 13 +++++++++++--
-> >  drivers/net/ethernet/apm/xgene-v2/main.c              |  9 ++++-----
-> >  drivers/net/ethernet/apm/xgene-v2/main.h              |  2 +-
-> >  drivers/net/ethernet/apm/xgene/xgene_enet_main.c      |  6 +++---
-> >  drivers/net/ethernet/apm/xgene/xgene_enet_main.h      |  2 +-
-> >  drivers/net/ethernet/smsc/smsc911x.c                  |  8 +++-----
-> >  drivers/net/ethernet/socionext/netsec.c               |  5 ++---
-> >  drivers/net/ethernet/stmicro/stmmac/stmmac_platform.c |  6 +++---
-> >  include/linux/property.h                              |  3 ++-
-> >  9 files changed, 30 insertions(+), 24 deletions(-)
-> >
-> > diff --git a/drivers/base/property.c b/drivers/base/property.c
-> > index 511f6d7acdfe..8854cfbd213b 100644
-> > --- a/drivers/base/property.c
-> > +++ b/drivers/base/property.c
-> > @@ -863,9 +863,18 @@ EXPORT_SYMBOL_GPL(fwnode_get_phy_mode);
-> >   * 'phy-connection-type', and return its index in phy_modes table, or errno in
-> >   * error case.
-> >   */
+=2D-=20
+balbi
 
-You forgot to update documentation part.
-After addressing you may put my tag back.
+--=-=-=
+Content-Type: application/pgp-signature; name="signature.asc"
 
-> > -int device_get_phy_mode(struct device *dev)
-> > +int device_get_phy_mode(struct device *dev, phy_interface_t *interface)
-> >  {
-> > -       return fwnode_get_phy_mode(dev_fwnode(dev));
-> > +       int mode;
-> > +
-> > +       *interface = PHY_INTERFACE_MODE_NA;
-> > +
-> > +       mode = fwnode_get_phy_mode(dev_fwnode(dev));
-> > +       if (mode < 0)
-> > +               return mode;
-> > +
-> > +       *interface = mode;
-> > +       return 0;
-> >  }
-> >  EXPORT_SYMBOL_GPL(device_get_phy_mode);
-> >
-> > diff --git a/drivers/net/ethernet/apm/xgene-v2/main.c b/drivers/net/ethernet/apm/xgene-v2/main.c
-> > index c48f60996761..706602918dd1 100644
-> > --- a/drivers/net/ethernet/apm/xgene-v2/main.c
-> > +++ b/drivers/net/ethernet/apm/xgene-v2/main.c
-> > @@ -15,7 +15,7 @@ static int xge_get_resources(struct xge_pdata *pdata)
-> >  {
-> >         struct platform_device *pdev;
-> >         struct net_device *ndev;
-> > -       int phy_mode, ret = 0;
-> > +       int ret = 0;
-> >         struct resource *res;
-> >         struct device *dev;
-> >
-> > @@ -41,12 +41,11 @@ static int xge_get_resources(struct xge_pdata *pdata)
-> >
-> >         memcpy(ndev->perm_addr, ndev->dev_addr, ndev->addr_len);
-> >
-> > -       phy_mode = device_get_phy_mode(dev);
-> > -       if (phy_mode < 0) {
-> > +       ret = device_get_phy_mode(dev, &pdata->resources.phy_mode);
-> > +       if (ret) {
-> >                 dev_err(dev, "Unable to get phy-connection-type\n");
-> > -               return phy_mode;
-> > +               return ret;
-> >         }
-> > -       pdata->resources.phy_mode = phy_mode;
-> >
-> >         if (pdata->resources.phy_mode != PHY_INTERFACE_MODE_RGMII) {
-> >                 dev_err(dev, "Incorrect phy-connection-type specified\n");
-> > diff --git a/drivers/net/ethernet/apm/xgene-v2/main.h b/drivers/net/ethernet/apm/xgene-v2/main.h
-> > index d41439d2709d..d687f0185908 100644
-> > --- a/drivers/net/ethernet/apm/xgene-v2/main.h
-> > +++ b/drivers/net/ethernet/apm/xgene-v2/main.h
-> > @@ -35,7 +35,7 @@
-> >
-> >  struct xge_resource {
-> >         void __iomem *base_addr;
-> > -       int phy_mode;
-> > +       phy_interface_t phy_mode;
-> >         u32 irq;
-> >  };
-> >
-> > diff --git a/drivers/net/ethernet/apm/xgene/xgene_enet_main.c b/drivers/net/ethernet/apm/xgene/xgene_enet_main.c
-> > index 6aee2f0fc0db..da35e70ccceb 100644
-> > --- a/drivers/net/ethernet/apm/xgene/xgene_enet_main.c
-> > +++ b/drivers/net/ethernet/apm/xgene/xgene_enet_main.c
-> > @@ -1736,10 +1736,10 @@ static int xgene_enet_get_resources(struct xgene_enet_pdata *pdata)
-> >
-> >         memcpy(ndev->perm_addr, ndev->dev_addr, ndev->addr_len);
-> >
-> > -       pdata->phy_mode = device_get_phy_mode(dev);
-> > -       if (pdata->phy_mode < 0) {
-> > +       ret = device_get_phy_mode(dev, &pdata->phy_mode);
-> > +       if (ret) {
-> >                 dev_err(dev, "Unable to get phy-connection-type\n");
-> > -               return pdata->phy_mode;
-> > +               return ret;
-> >         }
-> >         if (!phy_interface_mode_is_rgmii(pdata->phy_mode) &&
-> >             pdata->phy_mode != PHY_INTERFACE_MODE_SGMII &&
-> > diff --git a/drivers/net/ethernet/apm/xgene/xgene_enet_main.h b/drivers/net/ethernet/apm/xgene/xgene_enet_main.h
-> > index 18f4923b1723..600cddf1942d 100644
-> > --- a/drivers/net/ethernet/apm/xgene/xgene_enet_main.h
-> > +++ b/drivers/net/ethernet/apm/xgene/xgene_enet_main.h
-> > @@ -209,7 +209,7 @@ struct xgene_enet_pdata {
-> >         void __iomem *pcs_addr;
-> >         void __iomem *ring_csr_addr;
-> >         void __iomem *ring_cmd_addr;
-> > -       int phy_mode;
-> > +       phy_interface_t phy_mode;
-> >         enum xgene_enet_rm rm;
-> >         struct xgene_enet_cle cle;
-> >         u64 *extd_stats;
-> > diff --git a/drivers/net/ethernet/smsc/smsc911x.c b/drivers/net/ethernet/smsc/smsc911x.c
-> > index 49a6a9167af4..2d773e5e67f8 100644
-> > --- a/drivers/net/ethernet/smsc/smsc911x.c
-> > +++ b/drivers/net/ethernet/smsc/smsc911x.c
-> > @@ -2361,14 +2361,12 @@ static const struct smsc911x_ops shifted_smsc911x_ops = {
-> >  static int smsc911x_probe_config(struct smsc911x_platform_config *config,
-> >                                  struct device *dev)
-> >  {
-> > -       int phy_interface;
-> >         u32 width = 0;
-> >         int err;
-> >
-> > -       phy_interface = device_get_phy_mode(dev);
-> > -       if (phy_interface < 0)
-> > -               phy_interface = PHY_INTERFACE_MODE_NA;
-> > -       config->phy_interface = phy_interface;
-> > +       err = device_get_phy_mode(dev, &config->phy_interface);
-> > +       if (err)
-> > +               config->phy_interface = PHY_INTERFACE_MODE_NA;
-> >
-> >         device_get_mac_address(dev, config->mac, ETH_ALEN);
-> >
-> > diff --git a/drivers/net/ethernet/socionext/netsec.c b/drivers/net/ethernet/socionext/netsec.c
-> > index e8224b543dfc..95ff91230523 100644
-> > --- a/drivers/net/ethernet/socionext/netsec.c
-> > +++ b/drivers/net/ethernet/socionext/netsec.c
-> > @@ -1994,10 +1994,9 @@ static int netsec_probe(struct platform_device *pdev)
-> >         priv->msg_enable = NETIF_MSG_TX_ERR | NETIF_MSG_HW | NETIF_MSG_DRV |
-> >                            NETIF_MSG_LINK | NETIF_MSG_PROBE;
-> >
-> > -       priv->phy_interface = device_get_phy_mode(&pdev->dev);
-> > -       if ((int)priv->phy_interface < 0) {
-> > +       ret = device_get_phy_mode(&pdev->dev, &priv->phy_interface);
-> > +       if (ret) {
-> >                 dev_err(&pdev->dev, "missing required property 'phy-mode'\n");
-> > -               ret = -ENODEV;
-> >                 goto free_ndev;
-> >         }
-> >
-> > diff --git a/drivers/net/ethernet/stmicro/stmmac/stmmac_platform.c b/drivers/net/ethernet/stmicro/stmmac/stmmac_platform.c
-> > index d10ac54bf385..aa77c332ea1d 100644
-> > --- a/drivers/net/ethernet/stmicro/stmmac/stmmac_platform.c
-> > +++ b/drivers/net/ethernet/stmicro/stmmac/stmmac_platform.c
-> > @@ -412,9 +412,9 @@ stmmac_probe_config_dt(struct platform_device *pdev, const char **mac)
-> >                 *mac = NULL;
-> >         }
-> >
-> > -       plat->phy_interface = device_get_phy_mode(&pdev->dev);
-> > -       if (plat->phy_interface < 0)
-> > -               return ERR_PTR(plat->phy_interface);
-> > +       rc = device_get_phy_mode(&pdev->dev, &plat->phy_interface);
-> > +       if (rc)
-> > +               return ERR_PTR(rc);
-> >
-> >         plat->interface = stmmac_of_get_mac_mode(np);
-> >         if (plat->interface < 0)
-> > diff --git a/include/linux/property.h b/include/linux/property.h
-> > index d86de017c689..2ffe9842c997 100644
-> > --- a/include/linux/property.h
-> > +++ b/include/linux/property.h
-> > @@ -12,6 +12,7 @@
-> >
-> >  #include <linux/bits.h>
-> >  #include <linux/fwnode.h>
-> > +#include <linux/phy.h>
-> >  #include <linux/types.h>
-> >
-> >  struct device;
-> > @@ -368,7 +369,7 @@ enum dev_dma_attr device_get_dma_attr(struct device *dev);
-> >
-> >  const void *device_get_match_data(struct device *dev);
-> >
-> > -int device_get_phy_mode(struct device *dev);
-> > +int device_get_phy_mode(struct device *dev, phy_interface_t *interface);
-> >
-> >  void *device_get_mac_address(struct device *dev, char *addr, int alen);
-> >
-> > --
-> > 2.11.0
-> >
->
->
-> --
-> With Best Regards,
-> Andy Shevchenko
+-----BEGIN PGP SIGNATURE-----
 
+iQIzBAEBCAAdFiEElLzh7wn96CXwjh2IzL64meEamQYFAl40LVEACgkQzL64meEa
+mQZIPQ/+PCvVhKhlTWv/YRoBCIDmZrvMR7z4BnhSOWmy8BihbEU5X7F+qo3P+VyY
+Gw/us6ppE93yom8f5mljaKlLrB1nWhVa8EU3wq3kFSDgIcMZ1HV8zBWDhqDClcN7
+SG/fImL0IxTTf9SDhPiNU+Kj+MfUMuwMmoIcvqDfoWtM9lR/9JDWOPfzTHYWl6Qv
+5zkxOrMuTA4z+/yYQpwXsmQxUQnywhhgN8AHmFCeXtnO+AsdutFJHM52Pp8XXW7I
+s6SMdX0/EaC8IFCxLXYIdRw1agHTDwf5EqtML1d9pVrgZzGC4wcknDwWZMwvRTha
+YXNRFPiQ6bqzeT7RJPRpxBtoYZDXxBNXQ/cqVt+FTiv3G+xYiVW97Sj1+fwIC7/0
+T/A01s7frHhCnJM5pDErhoJW0aq5BmesgxW2AhyY/M+mXlGbjcKCKDWahAuhf0Cx
+s4em3gwLACNvw1Ztp1sv/BvRAE81QMt9+m9PI5pZu8IVU6PpIb1jQBsvgu6POoYc
+9FIhAqYKYuzIgF1p7z3ee2c7+14IwJl1br5P6Xyx81IeS0gna8v+vicErSPCt+On
+r8VDIjv5dknh5IoQfO/+q59f8mp3e2XdVB6pZYTwsJu2i1nK6Afy/jVCJICw1I+a
+7FD6QaprCNakl/Zbfv8wJUQaKbCChpZEV3gNL1lzNinIG6b2KDc=
+=QKjo
+-----END PGP SIGNATURE-----
+--=-=-=--
 
+--===============5165346063581431098==
+Content-Type: text/plain; charset="us-ascii"
+MIME-Version: 1.0
+Content-Transfer-Encoding: 7bit
+Content-Disposition: inline
 
--- 
-With Best Regards,
-Andy Shevchenko
 _______________________________________________
 Linux-stm32 mailing list
 Linux-stm32@st-md-mailman.stormreply.com
 https://st-md-mailman.stormreply.com/mailman/listinfo/linux-stm32
+
+--===============5165346063581431098==--
