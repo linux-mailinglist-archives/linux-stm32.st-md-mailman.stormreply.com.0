@@ -2,64 +2,44 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id 5D89414F309
-	for <lists+linux-stm32@lfdr.de>; Fri, 31 Jan 2020 21:06:47 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id D281414FD74
+	for <lists+linux-stm32@lfdr.de>; Sun,  2 Feb 2020 15:08:33 +0100 (CET)
 Received: from ip-172-31-3-76.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 0D2ECC36B0C;
-	Fri, 31 Jan 2020 20:06:47 +0000 (UTC)
-Received: from mail-ot1-f68.google.com (mail-ot1-f68.google.com
- [209.85.210.68])
- (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 7C43EC36B0C;
+	Sun,  2 Feb 2020 14:08:33 +0000 (UTC)
+Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
+ (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id B166CC36B0A
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 6F66DC36B0A
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Fri, 31 Jan 2020 20:06:44 +0000 (UTC)
-Received: by mail-ot1-f68.google.com with SMTP id a15so7793463otf.1
- for <linux-stm32@st-md-mailman.stormreply.com>;
- Fri, 31 Jan 2020 12:06:44 -0800 (PST)
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20161025;
- h=x-gm-message-state:date:from:to:cc:subject:message-id:references
- :mime-version:content-disposition:in-reply-to:user-agent;
- bh=AbO+gon8QEJiqD6b6PW0TmWlbcPnG39Yyju/1Ptva7A=;
- b=Lsum4vOteaN9Uipak1WAn/r34tpPvnA/nzx+1XusEBuMoD0vl1lPplw1bQuIjyxtBV
- HnaNs9rUNVUUZmxToU8P1CFpDFemIDi3mBVhCp/h/tfuAFxqNAGEHJ4xXr38OMg7Wo5D
- rJPCS4rtY9b13ZpTfyhwe5hdNP2DIh8B1YtXZsigMPZzcdr7D16JnaKQbpX4ZSwVuRvj
- jhuNpfEU0bN0UGkoOdKKEVQOaLNw9SsN9dXi2UDPBrSZMB3XwRsUPWF9dIsM5r41nYXx
- oAFdEcxFOdbti/y9TU/XS4Sp/8XkQ7fFzF9A5SQyIZ4YopvSvXJBPgmJs+jIy4MprhzT
- 9N5g==
-X-Gm-Message-State: APjAAAUaNH21/iWHlTOWZfSDMi7aCPcvIme0H+EZyXbAmrMs1ifDcD5B
- ilQxYs/bRVx7OhBWa28vTw==
-X-Google-Smtp-Source: APXvYqypW7CmmlNjveScb/uhps8dAYhHTYKvur2n/FPc2Yr0pzCb4xGJ80xks8YoGnMim8R/3fHxsg==
-X-Received: by 2002:a9d:1706:: with SMTP id i6mr9325576ota.151.1580501203331; 
- Fri, 31 Jan 2020 12:06:43 -0800 (PST)
-Received: from rob-hp-laptop (24-155-109-49.dyn.grandenetworks.net.
- [24.155.109.49])
- by smtp.gmail.com with ESMTPSA id w201sm2978724oif.29.2020.01.31.12.06.42
- (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Fri, 31 Jan 2020 12:06:42 -0800 (PST)
-Received: (nullmailer pid 26745 invoked by uid 1000);
- Fri, 31 Jan 2020 20:06:41 -0000
-Date: Fri, 31 Jan 2020 14:06:41 -0600
-From: Rob Herring <robh@kernel.org>
-To: Amelie DELAUNAY <amelie.delaunay@st.com>
-Message-ID: <20200131200641.GA24534@bogus>
-References: <20200124084131.23749-1-amelie.delaunay@st.com>
- <20200124084131.23749-2-amelie.delaunay@st.com>
- <87imkr7nou.fsf@kernel.org>
- <c29867bd-8056-a82f-2273-101470395e78@st.com>
+ Sun,  2 Feb 2020 14:08:31 +0000 (UTC)
+Received: from archlinux (cpc149474-cmbg20-2-0-cust94.5-4.cable.virginm.net
+ [82.4.196.95])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+ (No client certificate requested)
+ by mail.kernel.org (Postfix) with ESMTPSA id 74D3B20643;
+ Sun,  2 Feb 2020 14:08:27 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
+ s=default; t=1580652509;
+ bh=1gYVSw87cV5telUJWyrU4zFFINerB9YY8C8irZlxApA=;
+ h=Date:From:To:Cc:Subject:In-Reply-To:References:From;
+ b=ess6qBFo/F1BcnkklY0GwQ0BaBxBJsuYomqCrB30q1vmmC6dsjDMoKMpqMIUUZZUK
+ znJl3Dr37+R4USh1jUHGRUCdUaetljWY9diwl/hUxmdeR5wFzc/oo3d2k8GxHsPJkz
+ IPULSo+/5Rx0OTexcH3P9lIQTNvyGSRSCguT0AxY=
+Date: Sun, 2 Feb 2020 14:08:23 +0000
+From: Jonathan Cameron <jic23@kernel.org>
+To: Olivier Moysan <olivier.moysan@st.com>
+Message-ID: <20200202140823.531aad39@archlinux>
+In-Reply-To: <20200121110256.12415-1-olivier.moysan@st.com>
+References: <20200121110256.12415-1-olivier.moysan@st.com>
+X-Mailer: Claws Mail 3.17.4 (GTK+ 2.24.32; x86_64-pc-linux-gnu)
 MIME-Version: 1.0
-Content-Disposition: inline
-In-Reply-To: <c29867bd-8056-a82f-2273-101470395e78@st.com>
-User-Agent: Mutt/1.10.1 (2018-07-13)
-Cc: Mark Rutland <mark.rutland@arm.com>, Felipe Balbi <balbi@kernel.org>,
- devicetree@vger.kernel.org, Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
- linux-usb@vger.kernel.org, linux-kernel@vger.kernel.org,
- Minas Harutyunyan <hminas@synopsys.com>,
- Fabrice Gasnier <fabrice.gasnier@st.com>,
- linux-stm32@st-md-mailman.stormreply.com
-Subject: Re: [Linux-stm32] [PATCH v3 1/2] dt-bindings: usb: dwc2: add
- support for STM32MP15 SoCs USB OTG HS and FS
+Cc: lars@metafoo.de, linux-iio@vger.kernel.org, pmeerw@pmeerw.net,
+ linux-kernel@vger.kernel.org, mcoquelin.stm32@gmail.com, knaack.h@gmx.de,
+ fabrice.gasnier@st.com, linux-stm32@st-md-mailman.stormreply.com,
+ linux-arm-kernel@lists.infradead.org
+Subject: Re: [Linux-stm32] [PATCH] iio: adc: stm32-dfsdm: fix sleep in
+	atomic context
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -76,33 +56,111 @@ Content-Transfer-Encoding: 7bit
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
-On Fri, Jan 31, 2020 at 05:13:25PM +0100, Amelie DELAUNAY wrote:
-> Hi,
-> 
-> On 1/31/20 2:36 PM, Felipe Balbi wrote:
-> > Hi,
-> > 
-> > Amelie Delaunay <amelie.delaunay@st.com> writes:
-> > 
-> > > Add the specific compatible string for the DWC2 IP found in the STM32MP15
-> > > SoCs.
-> > > STM32MP15 SoCs uses sensing comparators to detect Vbus valid levels and
-> > > ID pin state. usb33d-supply described the regulator supplying Vbus and ID
-> > > sensing comparators.
-> > > 
-> > > Signed-off-by: Amelie Delaunay <amelie.delaunay@st.com>
-> > 
-> > This doesn't apply. dwc2 bindings is still in .txt format. I have taken
-> > patch 2, though.
-> > 
-> 
-> Thanks for taking driver patch.
-> 
-> Rob, would you mind to take patch 1 (Yaml binding update) in your tree ?
+On Tue, 21 Jan 2020 12:02:56 +0100
+Olivier Moysan <olivier.moysan@st.com> wrote:
 
-Done.
+> This commit fixes the error message:
+> "BUG: sleeping function called from invalid context at kernel/irq/chip.c"
+> Suppress the trigger irq handler. Make the buffer transfers directly
+> in DMA callback, instead.
+> Push buffers without timestamps, as timestamps are not supported
+> in DFSDM driver.
+> 
+> Fixes: 11646e81d775 ("iio: adc: stm32-dfsdm: add support for buffer modes")
+> 
+> Signed-off-by: Olivier Moysan <olivier.moysan@st.com>
+Applied to the fixes-togreg branch of iio.git and marked for stable.
 
-Rob
+Thanks,
+
+Jonathan
+
+> ---
+> There is the same issue on STM32 ADC driver.
+> The solution for ADC driver has been already discussed in the thread
+> https://lkml.org/lkml/2019/3/30/171
+> The current patch for STM32 DFSDM driver, bypasses the IIO IRQ trigger
+> handler, as proposed in this thread.
+> ---
+>  drivers/iio/adc/stm32-dfsdm-adc.c | 43 +++++++------------------------
+>  1 file changed, 10 insertions(+), 33 deletions(-)
+> 
+> diff --git a/drivers/iio/adc/stm32-dfsdm-adc.c b/drivers/iio/adc/stm32-dfsdm-adc.c
+> index 2aad2cda6943..76a60d93fe23 100644
+> --- a/drivers/iio/adc/stm32-dfsdm-adc.c
+> +++ b/drivers/iio/adc/stm32-dfsdm-adc.c
+> @@ -842,31 +842,6 @@ static inline void stm32_dfsdm_process_data(struct stm32_dfsdm_adc *adc,
+>  	}
+>  }
+>  
+> -static irqreturn_t stm32_dfsdm_adc_trigger_handler(int irq, void *p)
+> -{
+> -	struct iio_poll_func *pf = p;
+> -	struct iio_dev *indio_dev = pf->indio_dev;
+> -	struct stm32_dfsdm_adc *adc = iio_priv(indio_dev);
+> -	int available = stm32_dfsdm_adc_dma_residue(adc);
+> -
+> -	while (available >= indio_dev->scan_bytes) {
+> -		s32 *buffer = (s32 *)&adc->rx_buf[adc->bufi];
+> -
+> -		stm32_dfsdm_process_data(adc, buffer);
+> -
+> -		iio_push_to_buffers_with_timestamp(indio_dev, buffer,
+> -						   pf->timestamp);
+> -		available -= indio_dev->scan_bytes;
+> -		adc->bufi += indio_dev->scan_bytes;
+> -		if (adc->bufi >= adc->buf_sz)
+> -			adc->bufi = 0;
+> -	}
+> -
+> -	iio_trigger_notify_done(indio_dev->trig);
+> -
+> -	return IRQ_HANDLED;
+> -}
+> -
+>  static void stm32_dfsdm_dma_buffer_done(void *data)
+>  {
+>  	struct iio_dev *indio_dev = data;
+> @@ -874,11 +849,6 @@ static void stm32_dfsdm_dma_buffer_done(void *data)
+>  	int available = stm32_dfsdm_adc_dma_residue(adc);
+>  	size_t old_pos;
+>  
+> -	if (indio_dev->currentmode & INDIO_BUFFER_TRIGGERED) {
+> -		iio_trigger_poll_chained(indio_dev->trig);
+> -		return;
+> -	}
+> -
+>  	/*
+>  	 * FIXME: In Kernel interface does not support cyclic DMA buffer,and
+>  	 * offers only an interface to push data samples per samples.
+> @@ -906,7 +876,15 @@ static void stm32_dfsdm_dma_buffer_done(void *data)
+>  			adc->bufi = 0;
+>  			old_pos = 0;
+>  		}
+> -		/* regular iio buffer without trigger */
+> +		/*
+> +		 * In DMA mode the trigger services of IIO are not used
+> +		 * (e.g. no call to iio_trigger_poll).
+> +		 * Calling irq handler associated to the hardware trigger is not
+> +		 * relevant as the conversions have already been done. Data
+> +		 * transfers are performed directly in DMA callback instead.
+> +		 * This implementation avoids to call trigger irq handler that
+> +		 * may sleep, in an atomic context (DMA irq handler context).
+> +		 */
+>  		if (adc->dev_data->type == DFSDM_IIO)
+>  			iio_push_to_buffers(indio_dev, buffer);
+>  	}
+> @@ -1536,8 +1514,7 @@ static int stm32_dfsdm_adc_init(struct iio_dev *indio_dev)
+>  	}
+>  
+>  	ret = iio_triggered_buffer_setup(indio_dev,
+> -					 &iio_pollfunc_store_time,
+> -					 &stm32_dfsdm_adc_trigger_handler,
+> +					 &iio_pollfunc_store_time, NULL,
+>  					 &stm32_dfsdm_buffer_setup_ops);
+>  	if (ret) {
+>  		stm32_dfsdm_dma_release(indio_dev);
+
 _______________________________________________
 Linux-stm32 mailing list
 Linux-stm32@st-md-mailman.stormreply.com
