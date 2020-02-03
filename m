@@ -2,69 +2,60 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id EC7511505A9
-	for <lists+linux-stm32@lfdr.de>; Mon,  3 Feb 2020 12:53:03 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id C14F6150614
+	for <lists+linux-stm32@lfdr.de>; Mon,  3 Feb 2020 13:23:58 +0100 (CET)
 Received: from ip-172-31-3-76.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id AB657C36B0C;
-	Mon,  3 Feb 2020 11:53:03 +0000 (UTC)
-Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
- (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
- (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id DF33FC36B0A
- for <linux-stm32@st-md-mailman.stormreply.com>;
- Mon,  3 Feb 2020 11:53:00 +0000 (UTC)
-Received: from mail-lj1-f178.google.com (mail-lj1-f178.google.com
- [209.85.208.178])
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 780B6C36B0C;
+	Mon,  3 Feb 2020 12:23:58 +0000 (UTC)
+Received: from mail-wr1-f65.google.com (mail-wr1-f65.google.com
+ [209.85.221.65])
  (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by mail.kernel.org (Postfix) with ESMTPSA id A468B21D7E
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 201B6C36B0A
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Mon,  3 Feb 2020 11:52:58 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
- s=default; t=1580730779;
- bh=7xf6l0x9f3yqiOhlxlprQWM2OQY9DYvJlDJWXMnII54=;
- h=References:In-Reply-To:From:Date:Subject:To:Cc:From;
- b=ZwVsVUHORi7AEaxQxLj+Nu8jbcVykEXvdfGL7vkRLhB0mTQiMThf7Ta5VFtb6XrYx
- LPGAsl/3oQd1MhfnblwPdlunyVn0WwjNlRReE3L/H07XxgtqJldOTdNAek7kl5ArP0
- hwuQWOheegxknp2fpCWWvgtUl8pzQM8yNraeDgzY=
-Received: by mail-lj1-f178.google.com with SMTP id o15so8742900ljg.6
+ Mon,  3 Feb 2020 12:23:55 +0000 (UTC)
+Received: by mail-wr1-f65.google.com with SMTP id z3so17841255wru.3
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Mon, 03 Feb 2020 03:52:58 -0800 (PST)
-X-Gm-Message-State: APjAAAX5alFDbc28RSCjbLQfzNqXDARbEBPxYIK3DX4Rq4TR1Pnt/Oqy
- jluFwMouKOL6CnhBSCwFyG0urkR73PkLezzleUk=
-X-Google-Smtp-Source: APXvYqzr5wd/VbPIliYCYFMvvcM1qcze60h66l8h6hCiB4vZZDzfTGLOeSa9EfTbYebXVLxdN/na3R/Ef6tYAfxaBEQ=
-X-Received: by 2002:a2e:9a11:: with SMTP id o17mr13176749lji.256.1580730776602; 
- Mon, 03 Feb 2020 03:52:56 -0800 (PST)
+ Mon, 03 Feb 2020 04:23:55 -0800 (PST)
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20161025;
+ h=x-gm-message-state:date:from:to:cc:subject:message-id:references
+ :mime-version:content-disposition:in-reply-to:user-agent;
+ bh=3v/Vs0yeJ3ecKwEer6nb6dCD848+syrgOhZ1MgNf01o=;
+ b=OQjszmdeF1avb9z4L8TI3nAzsDMNuMML1awwJiBVgnYx6iI7YimVGjVFAF3F4HCzyz
+ x1iv+Dzc/Fe7OtSbRyRIktw0AmkfSfMon/QDs3xKEGk/U0yqABjy3FmWrMARlz3M2nVR
+ RMuWtJMEk5HJNpNari14zqmoXtySlA81bN963epuSJz50EnPh+zWnssUtufSQsdhCYCr
+ 05H4cKZJv18/NVvUFXKsFdzht3vWpM9cz2oeT02JjxucwEvf0BG7QPR4gPW/bk1yto8E
+ M/NpIN78s98Iuy5A2N4f4cPLqc9WMIAjS13cwqYbVITYsqU7u3GtV6ubhBBCdFNgKH8a
+ eaHw==
+X-Gm-Message-State: APjAAAWiGLs4WodBaaoGkVe5DY6oGIJpOZHRFnkXffxVgJiK5UBlkXWt
+ dOodR8irC4latHBQ5GLjFg==
+X-Google-Smtp-Source: APXvYqzm7oTIsPC2zqv1FVF4iP/x1vKYv6xy17lG21/YsbaWyAoqw9qpdPt25TTkhLOPw4zWj+CrZQ==
+X-Received: by 2002:a5d:620b:: with SMTP id y11mr15162486wru.230.1580732635248; 
+ Mon, 03 Feb 2020 04:23:55 -0800 (PST)
+Received: from rob-hp-laptop ([212.187.182.163])
+ by smtp.gmail.com with ESMTPSA id n1sm25145622wrw.52.2020.02.03.04.23.53
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Mon, 03 Feb 2020 04:23:54 -0800 (PST)
+Received: (nullmailer pid 26802 invoked by uid 1000);
+ Mon, 03 Feb 2020 12:23:52 -0000
+Date: Mon, 3 Feb 2020 12:23:52 +0000
+From: Rob Herring <robh@kernel.org>
+To: Alain Volmat <alain.volmat@st.com>
+Message-ID: <20200203122352.GA26745@bogus>
+References: <1579795970-22319-1-git-send-email-alain.volmat@st.com>
+ <1579795970-22319-3-git-send-email-alain.volmat@st.com>
 MIME-Version: 1.0
-References: <20200130195525.4525-1-krzk@kernel.org>
- <20200130195525.4525-2-krzk@kernel.org>
- <9f8a0a8e09893e7087d2212fb0eeb94a908b7be1.camel@perches.com>
-In-Reply-To: <9f8a0a8e09893e7087d2212fb0eeb94a908b7be1.camel@perches.com>
-From: Krzysztof Kozlowski <krzk@kernel.org>
-Date: Mon, 3 Feb 2020 12:52:45 +0100
-X-Gmail-Original-Message-ID: <CAJKOXPf5Mf4FCmtME5yJsBZeP8BkYJgcxkKzS2hd-gp-mq3nag@mail.gmail.com>
-Message-ID: <CAJKOXPf5Mf4FCmtME5yJsBZeP8BkYJgcxkKzS2hd-gp-mq3nag@mail.gmail.com>
-To: Joe Perches <joe@perches.com>
-Cc: Tomer Maimon <tmaimon77@gmail.com>, Tony Lindgren <tony@atomide.com>,
- Liviu Dudau <liviu.dudau@arm.com>, Tali Perry <tali.perry1@gmail.com>,
- Fabio Estevam <festevam@gmail.com>, linux-stm32@st-md-mailman.stormreply.com,
- Lorenzo Pieralisi <lorenzo.pieralisi@arm.com>,
- Benjamin Fair <benjaminfair@google.com>, Alexander Shiyan <shc_work@mail.ru>,
- Aaro Koskinen <aaro.koskinen@iki.fi>, openbmc@lists.ozlabs.org,
- Russell King <linux@armlinux.org.uk>, Nancy Yuen <yuenn@google.com>,
- arm@kernel.org, NXP Linux Team <linux-imx@nxp.com>,
- =?UTF-8?Q?Uwe_Kleine=2DK=C3=B6nig?= <u.kleine-koenig@pengutronix.de>,
- Pengutronix Kernel Team <kernel@pengutronix.de>, Arnd Bergmann <arnd@arndb.de>,
- Sascha Hauer <s.hauer@pengutronix.de>, Vladimir Zapolskiy <vz@mleia.com>,
- soc@kernel.org, linux-omap@vger.kernel.org,
- linux-arm-kernel@lists.infradead.org, Avi Fishman <avifishman70@gmail.com>,
- Patrick Venture <venture@google.com>,
- "linux-kernel@vger.kernel.org" <linux-kernel@vger.kernel.org>,
- Maxime Coquelin <mcoquelin.stm32@gmail.com>,
- Sudeep Holla <sudeep.holla@arm.com>, Olof Johansson <olof@lixom.net>,
- Shawn Guo <shawnguo@kernel.org>
-Subject: Re: [Linux-stm32] [PATCH 2/2] ARM: configs: Cleanup old Kconfig
-	options
+Content-Disposition: inline
+In-Reply-To: <1579795970-22319-3-git-send-email-alain.volmat@st.com>
+User-Agent: Mutt/1.10.1 (2018-07-13)
+Cc: mark.rutland@arm.com, devicetree@vger.kernel.org, wsa@the-dreams.de,
+ linux-kernel@vger.kernel.org, pierre-yves.mordret@st.com, alain.volmat@st.com,
+ robh+dt@kernel.org, linux-i2c@vger.kernel.org, mcoquelin.stm32@gmail.com,
+ fabrice.gasnier@st.com, linux-stm32@st-md-mailman.stormreply.com,
+ linux-arm-kernel@lists.infradead.org
+Subject: Re: [Linux-stm32] [PATCH 2/5] dt-bindings: i2c: i2c-stm32f7: add st,
+ stm32mp15-i2c compatible
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -81,72 +72,18 @@ Content-Transfer-Encoding: 7bit
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
-On Thu, 30 Jan 2020 at 23:06, Joe Perches <joe@perches.com> wrote:
->
-> On Thu, 2020-01-30 at 20:55 +0100, Krzysztof Kozlowski wrote:
-> > CONFIG_MMC_BLOCK_BOUNCE is gone since commit c3dccb74be28 ("mmc: core:
-> > Delete bounce buffer Kconfig option").
-> >
-> > CONFIG_LBDAF is gone since commit 72deb455b5ec ("block: remove
-> > CONFIG_LBDAF").
-> >
-> > CONFIG_IOSCHED_DEADLINE and CONFIG_IOSCHED_CFQ are gone since
-> > commit f382fb0bcef4 ("block: remove legacy IO schedulers").
-> >
-> > The IOSCHED_DEADLINE was replaced by MQ_IOSCHED_DEADLINE and it will be
-> > now enabled by default (along with MQ_IOSCHED_KYBER).
-> >
-> > The IOSCHED_BFQ seems to replace IOSCHED_CFQ so select it in configs
-> > previously choosing the latter.
-> >
-> > CONFIG_CROSS_COMPILE is gone since commit f1089c92da79 ("kbuild: remove
-> > CONFIG_CROSS_COMPILE support").
->
-> Hi Krzysztof.
->
-> There seems there are a lot more of these unused CONFIG_<foo>
-> symbols in various defconfigs. (just for arm and treewide below)
->
-> ARM defconfigs:
+On Thu, 23 Jan 2020 17:12:47 +0100, Alain Volmat wrote:
+> Add a new stm32mp15 specific compatible to handle FastMode+
+> registers which are different on the stm32mp15 compared
+> to the stm32f7 or stm32h7.
+> 
+> Signed-off-by: Alain Volmat <alain.volmat@st.com>
+> ---
+>  Documentation/devicetree/bindings/i2c/st,stm32-i2c.yaml | 6 ++++--
+>  1 file changed, 4 insertions(+), 2 deletions(-)
+> 
 
-Hi Joe,
-
-Nice finding! The trickier point is to nicely remove them because:
-1. The easiest is 'savedefconfig' but then some valuable options might
-disappear (like recently happened with DEBUG_FS),
-2. They could be removed in automated way with a script. However in
-such case what about replacements? If some symbol was replaced with
-other (or just renamed), maybe we should enable the other one to
-restore the desired functionality?
-3. Or maybe let's don't care about keeping defconfigs stable and just
-clean them up automatically.
-
-Best regards,
-Krzysztof
-
-> --------------------------------------------------------------------
->
-> # find all defined config symbols in Kconfig files
->
-> $ git grep -P -oh '^\s*(?:menu)?config\s+\w+' -- '*/Kconfig*' | \
->   sed -r -e 's/\s*config\s+//' -e 's/\s*menuconfig\s+//' | \
->   sort | uniq > config_symbols
->
-> # find CONFIG_ symbols in arm defconfigs
->
-> $ git grep -w -oh -P 'CONFIG_\w+' 'arch/arm*/*defconfig*' | \
->   sort | uniq > used_in_arm_defconfigs
->
-> # find all the unused symbols
->
-> $ cat used_in_arm_defconfigs | \
->   while read line ; do \
->     echo -n "$line " ; grep -w -c ${line/CONFIG_/} config_symbols ; \
->   done | \
->   grep " 0" | \
->   sed 's/ 0//'
-
-(...)
+Reviewed-by: Rob Herring <robh@kernel.org>
 _______________________________________________
 Linux-stm32 mailing list
 Linux-stm32@st-md-mailman.stormreply.com
