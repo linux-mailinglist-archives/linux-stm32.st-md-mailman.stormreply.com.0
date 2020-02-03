@@ -2,64 +2,65 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id 072EA1507BB
-	for <lists+linux-stm32@lfdr.de>; Mon,  3 Feb 2020 14:51:21 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 3CD001507EF
+	for <lists+linux-stm32@lfdr.de>; Mon,  3 Feb 2020 15:04:56 +0100 (CET)
 Received: from ip-172-31-3-76.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id C4C9EC36B0C;
-	Mon,  3 Feb 2020 13:51:20 +0000 (UTC)
-Received: from mx07-00178001.pphosted.com (mx08-00178001.pphosted.com
- [91.207.212.93])
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id F0C3CC36B0C;
+	Mon,  3 Feb 2020 14:04:55 +0000 (UTC)
+Received: from mx07-00178001.pphosted.com (mx07-00178001.pphosted.com
+ [62.209.51.94])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 1F659C36B0A
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id AE6FBC36B0A
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Mon,  3 Feb 2020 13:51:19 +0000 (UTC)
-Received: from pps.filterd (m0046660.ppops.net [127.0.0.1])
+ Mon,  3 Feb 2020 14:04:53 +0000 (UTC)
+Received: from pps.filterd (m0046037.ppops.net [127.0.0.1])
  by mx07-00178001.pphosted.com (8.16.0.42/8.16.0.42) with SMTP id
- 013Dlotp027606; Mon, 3 Feb 2020 14:51:13 +0100
+ 013E3d10002251; Mon, 3 Feb 2020 15:04:32 +0100
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=st.com;
  h=from : to : cc : subject
- : date : message-id : in-reply-to : references : mime-version :
- content-type; s=STMicroelectronics;
- bh=2R3886/w6q71uZmE3lqE7gZfMtiidQ+pH7InOJfEqaA=;
- b=pYxJkcwpclhdj3teUM+ERViKiYiNKqnogvchmFlaycWKi5e1kEoEC7GZZ99ppL7rzGAC
- j/ppCsni1GqQbeo0ULFZJmH+tiTSnsP3ydim6TTkXLTXuGbpCjK1CCpIp8BUvblV3YUj
- +JtGCFDJZD9Uo2x/7r+uY6L72w2q2hkoxYlV8aAY2eY4Z19gyD3wxbkI/6v6tA4bEXKX
- vE0pXnUIAmhTORpTlt3m8fyePTDoGrAxB/AabbkUy3JvRz0rIcbOH9zAFSaGYatVX60Y
- SZLHk4jc/BEjotXDWTsCfVGqj5PZjTjW9yzbLvvtV6sx4Nn7tO65mF6zEqQE3UnmxQrZ TA== 
+ : date : message-id : mime-version : content-type; s=STMicroelectronics;
+ bh=ViJ0uu31Mf4rs+Bz45YQEc14NjEainPuHcdaoA+GRO4=;
+ b=0YacjzIe6zCCjUB2MyzaOi3+IXuy4ZVr/AWweXpdov01B6iZsdvGGzcf+kaTybgERuLy
+ +jxfZrTRRfGH3Dt99maMvOTjlrxuVcuASmQRD9HHFeERmQvfKveoF3ZPdTGvvzwq9wtw
+ v3Py/VuKT1H2GuV/r54AKb+6g5h9kcY3BelnGBRyBLAVEV2qztLMWzhvvFCmZ+Gxc5Te
+ ub1tGgphpwXLgDc89YyWxRco9HXS4JjQZbwvxZSmR07Gepd9VkcX2wVwipBP9tuR0OYL
+ PGdk5L2gHLkOCTihO5/XHjWuk4une+vPcW+INKJhD2WS7VhUOpWECF65KLJoKGlLuq/K iw== 
 Received: from beta.dmz-eu.st.com (beta.dmz-eu.st.com [164.129.1.35])
- by mx07-00178001.pphosted.com with ESMTP id 2xvybdsmtv-1
+ by mx07-00178001.pphosted.com with ESMTP id 2xw0011ftw-1
  (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
- Mon, 03 Feb 2020 14:51:13 +0100
+ Mon, 03 Feb 2020 15:04:32 +0100
 Received: from euls16034.sgp.st.com (euls16034.sgp.st.com [10.75.44.20])
- by beta.dmz-eu.st.com (STMicroelectronics) with ESMTP id E48E410002A;
- Mon,  3 Feb 2020 14:51:08 +0100 (CET)
-Received: from Webmail-eu.st.com (sfhdag6node3.st.com [10.75.127.18])
- by euls16034.sgp.st.com (STMicroelectronics) with ESMTP id D8BA72BE228;
- Mon,  3 Feb 2020 14:51:08 +0100 (CET)
-Received: from localhost (10.75.127.44) by SFHDAG6NODE3.st.com (10.75.127.18)
- with Microsoft SMTP Server (TLS) id 15.0.1473.3;
- Mon, 3 Feb 2020 14:51:08 +0100
-From: <patrice.chotard@st.com>
-To: Mark Brown <broonie@kernel.org>, Maxime Coquelin
+ by beta.dmz-eu.st.com (STMicroelectronics) with ESMTP id 1F9EA10002A;
+ Mon,  3 Feb 2020 15:04:30 +0100 (CET)
+Received: from Webmail-eu.st.com (sfhdag3node1.st.com [10.75.127.7])
+ by euls16034.sgp.st.com (STMicroelectronics) with ESMTP id 247DE2AAB7A;
+ Mon,  3 Feb 2020 15:04:30 +0100 (CET)
+Received: from localhost (10.75.127.46) by SFHDAG3NODE1.st.com (10.75.127.7)
+ with Microsoft SMTP Server (TLS) id 15.0.1473.3; Mon, 3 Feb 2020 15:04:29
+ +0100
+From: Erwan Le Ray <erwan.leray@st.com>
+To: Russell King <linux@armlinux.org.uk>, Maxime Coquelin
  <mcoquelin.stm32@gmail.com>, Alexandre Torgue <alexandre.torgue@st.com>,
- <linux-spi@vger.kernel.org>, <linux-stm32@st-md-mailman.stormreply.com>,
- <linux-arm-kernel@lists.infradead.org>, <linux-kernel@vger.kernel.org>
-Date: Mon, 3 Feb 2020 14:50:48 +0100
-Message-ID: <20200203135048.1299-3-patrice.chotard@st.com>
+ Arnd Bergmann <arnd@arndb.de>, Linus Walleij <linus.walleij@linaro.org>,
+ Olof Johansson <olof@lixom.net>
+Date: Mon, 3 Feb 2020 15:04:21 +0100
+Message-ID: <20200203140425.26579-1-erwan.leray@st.com>
 X-Mailer: git-send-email 2.17.1
-In-Reply-To: <20200203135048.1299-1-patrice.chotard@st.com>
-References: <20200203135048.1299-1-patrice.chotard@st.com>
 MIME-Version: 1.0
-X-Originating-IP: [10.75.127.44]
-X-ClientProxiedBy: SFHDAG5NODE1.st.com (10.75.127.13) To SFHDAG6NODE3.st.com
- (10.75.127.18)
+X-Originating-IP: [10.75.127.46]
+X-ClientProxiedBy: SFHDAG2NODE2.st.com (10.75.127.5) To SFHDAG3NODE1.st.com
+ (10.75.127.7)
 X-Proofpoint-Virus-Version: vendor=fsecure engine=2.50.10434:6.0.138, 18.0.572
  definitions=2020-02-03_04:2020-02-02,
  2020-02-03 signatures=0
-Cc: Etienne Carriere <etienne.carriere@st.com>
-Subject: [Linux-stm32] [PATCH 2/2] spi: stm32-qspi: properly manage probe
-	errors
+Cc: Geert Uytterhoeven <geert+renesas@glider.be>,
+ Sascha Hauer <s.hauer@pengutronix.de>, linux-kernel@vger.kernel.org,
+ Clement Peron <peron.clem@gmail.com>, Gerald Baeza <gerald.baeza@st.com>,
+ Nathan Huckleberry <nhuck15@gmail.com>,
+ Fabrice Gasnier <fabrice.gasnier@st.com>,
+ linux-stm32@st-md-mailman.stormreply.com, linux-arm-kernel@lists.infradead.org
+Subject: [Linux-stm32] [PATCH v3 0/4] STM32 early console
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -76,113 +77,28 @@ Content-Transfer-Encoding: 7bit
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
-From: Lionel Debieve <lionel.debieve@st.com>
+Add UART instance configuration to STM32 F4 and F7 early console.
+Add STM32 H7 and MP1 early console support.
 
-Fix resource release issues when driver probe operation fails.
+Changes in v3:
+- fix a missing condition for STM32MP1
+  
+Changes in v2:
+- split "[PATCH] ARM: debug: stm32: add UART early console configuration"
+  into separate patches as suggested by Clement into [1]
 
-Signed-off-by: Lionel Debieve <lionel.debieve@st.com>
-Signed-off-by: Etienne Carriere <etienne.carriere@st.com>
-Signed-off-by: Patrice Chotard <patrice.chotard@st.com>
----
- drivers/spi/spi-stm32-qspi.c | 27 +++++++++++++++------------
- 1 file changed, 15 insertions(+), 12 deletions(-)
+[1] https://lkml.org/lkml/2019/4/10/199
 
-diff --git a/drivers/spi/spi-stm32-qspi.c b/drivers/spi/spi-stm32-qspi.c
-index 13bb64bf4c8f..d066f5144c3e 100644
---- a/drivers/spi/spi-stm32-qspi.c
-+++ b/drivers/spi/spi-stm32-qspi.c
-@@ -565,7 +565,7 @@ static int stm32_qspi_probe(struct platform_device *pdev)
- 	qspi->io_base = devm_ioremap_resource(dev, res);
- 	if (IS_ERR(qspi->io_base)) {
- 		ret = PTR_ERR(qspi->io_base);
--		goto err;
-+		goto err_master_put;
- 	}
- 
- 	qspi->phys_base = res->start;
-@@ -574,24 +574,26 @@ static int stm32_qspi_probe(struct platform_device *pdev)
- 	qspi->mm_base = devm_ioremap_resource(dev, res);
- 	if (IS_ERR(qspi->mm_base)) {
- 		ret = PTR_ERR(qspi->mm_base);
--		goto err;
-+		goto err_master_put;
- 	}
- 
- 	qspi->mm_size = resource_size(res);
- 	if (qspi->mm_size > STM32_QSPI_MAX_MMAP_SZ) {
- 		ret = -EINVAL;
--		goto err;
-+		goto err_master_put;
- 	}
- 
- 	irq = platform_get_irq(pdev, 0);
--	if (irq < 0)
--		return irq;
-+	if (irq < 0) {
-+		ret = irq;
-+		goto err_master_put;
-+	}
- 
- 	ret = devm_request_irq(dev, irq, stm32_qspi_irq, 0,
- 			       dev_name(dev), qspi);
- 	if (ret) {
- 		dev_err(dev, "failed to request irq\n");
--		goto err;
-+		goto err_master_put;
- 	}
- 
- 	init_completion(&qspi->data_completion);
-@@ -599,26 +601,26 @@ static int stm32_qspi_probe(struct platform_device *pdev)
- 	qspi->clk = devm_clk_get(dev, NULL);
- 	if (IS_ERR(qspi->clk)) {
- 		ret = PTR_ERR(qspi->clk);
--		goto err;
-+		goto err_master_put;
- 	}
- 
- 	qspi->clk_rate = clk_get_rate(qspi->clk);
- 	if (!qspi->clk_rate) {
- 		ret = -EINVAL;
--		goto err;
-+		goto err_master_put;
- 	}
- 
- 	ret = clk_prepare_enable(qspi->clk);
- 	if (ret) {
- 		dev_err(dev, "can not enable the clock\n");
--		goto err;
-+		goto err_master_put;
- 	}
- 
- 	rstc = devm_reset_control_get_exclusive(dev, NULL);
- 	if (IS_ERR(rstc)) {
- 		ret = PTR_ERR(rstc);
- 		if (ret == -EPROBE_DEFER)
--			goto err;
-+			goto err_qspi_release;
- 	} else {
- 		reset_control_assert(rstc);
- 		udelay(2);
-@@ -629,7 +631,7 @@ static int stm32_qspi_probe(struct platform_device *pdev)
- 	platform_set_drvdata(pdev, qspi);
- 	ret = stm32_qspi_dma_setup(qspi);
- 	if (ret)
--		goto err;
-+		goto err_qspi_release;
- 
- 	mutex_init(&qspi->lock);
- 
-@@ -645,8 +647,9 @@ static int stm32_qspi_probe(struct platform_device *pdev)
- 	if (!ret)
- 		return 0;
- 
--err:
-+err_qspi_release:
- 	stm32_qspi_release(qspi);
-+err_master_put:
- 	spi_master_put(qspi->ctrl);
- 
- 	return ret;
+Erwan Le Ray (4):
+  ARM: debug: stm32: add UART early console configuration for STM32F4
+  ARM: debug: stm32: add UART early console configuration for STM32F7
+  ARM: debug: stm32: add UART early console support for STM32H7
+  ARM: debug: stm32: add UART early console support for STM32MP1
+
+ arch/arm/Kconfig.debug         | 42 +++++++++++++++++++++++++++++-----
+ arch/arm/include/debug/stm32.S |  9 ++++----
+ 2 files changed, 40 insertions(+), 11 deletions(-)
+
 -- 
 2.17.1
 
