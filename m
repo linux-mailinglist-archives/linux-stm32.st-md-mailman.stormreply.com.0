@@ -2,66 +2,69 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id DE8441503DF
-	for <lists+linux-stm32@lfdr.de>; Mon,  3 Feb 2020 11:09:48 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id EC7511505A9
+	for <lists+linux-stm32@lfdr.de>; Mon,  3 Feb 2020 12:53:03 +0100 (CET)
 Received: from ip-172-31-3-76.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id A3D33C36B0F;
-	Mon,  3 Feb 2020 10:09:48 +0000 (UTC)
-Received: from mx07-00178001.pphosted.com (mx08-00178001.pphosted.com
- [91.207.212.93])
- (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id AB657C36B0C;
+	Mon,  3 Feb 2020 11:53:03 +0000 (UTC)
+Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
+ (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 9A7DBC36B10
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id DF33FC36B0A
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Mon,  3 Feb 2020 10:09:47 +0000 (UTC)
-Received: from pps.filterd (m0046661.ppops.net [127.0.0.1])
- by mx07-00178001.pphosted.com (8.16.0.42/8.16.0.42) with SMTP id
- 0139vM0F024591; Mon, 3 Feb 2020 11:09:05 +0100
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=st.com;
- h=from : to : cc : subject
- : date : message-id : in-reply-to : references : mime-version :
- content-type; s=STMicroelectronics;
- bh=opqGRUisAUeNTFQFarkeIQS2xwkVHOyUZ4dQfSDAHe0=;
- b=wzkVCfKQgstkYyZWedkGMuhFtDHfXlchmK2VomNhoUMd8QdTo2oL3EgpuN/UnPmVByBJ
- nePsgLC02Gk5mQgVk9k6fvpESVBk1Z5vKN7rz0AIdMtNgndTIAvJ4yZHK2qBKCP3QbC9
- FWmk2OTan5xzUKtSPpR3iqVvbUzS4D2GFkuIJE9exMhyzEpH+1BdkWeZCrfStbLueX9r
- 4Z1edlhgoel11mPrHyQnrBZdxknQ63/RDi7pmZvndZTvDc+asF94BPJtNRUhfJY+s1f5
- I+p6O89fGadmuC4QACtZJhnxaX/yKzL6yzj268uWxLjDrjrwa4uhcaLCdCh46H7ccfj7 Aw== 
-Received: from beta.dmz-eu.st.com (beta.dmz-eu.st.com [164.129.1.35])
- by mx07-00178001.pphosted.com with ESMTP id 2xw13ngdpw-1
- (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
- Mon, 03 Feb 2020 11:09:05 +0100
-Received: from euls16034.sgp.st.com (euls16034.sgp.st.com [10.75.44.20])
- by beta.dmz-eu.st.com (STMicroelectronics) with ESMTP id B203F10002A;
- Mon,  3 Feb 2020 11:09:04 +0100 (CET)
-Received: from Webmail-eu.st.com (sfhdag6node2.st.com [10.75.127.17])
- by euls16034.sgp.st.com (STMicroelectronics) with ESMTP id A599B2BE22E;
- Mon,  3 Feb 2020 11:09:04 +0100 (CET)
-Received: from localhost (10.75.127.47) by SFHDAG6NODE2.st.com (10.75.127.17)
- with Microsoft SMTP Server (TLS) id 15.0.1347.2;
- Mon, 3 Feb 2020 11:09:04 +0100
-From: Olivier Moysan <olivier.moysan@st.com>
-To: <lgirdwood@gmail.com>, <broonie@kernel.org>, <perex@perex.cz>,
- <tiwai@suse.com>, <mcoquelin.stm32@gmail.com>,
- <alexandre.torgue@st.com>, <alsa-devel@alsa-project.org>,
- <linux-arm-kernel@lists.infradead.org>,
- <linux-stm32@st-md-mailman.stormreply.com>,
- <linux-kernel@vger.kernel.org>, <olivier.moysan@st.com>
-Date: Mon, 3 Feb 2020 11:08:14 +0100
-Message-ID: <20200203100814.22944-7-olivier.moysan@st.com>
-X-Mailer: git-send-email 2.17.1
-In-Reply-To: <20200203100814.22944-1-olivier.moysan@st.com>
-References: <20200203100814.22944-1-olivier.moysan@st.com>
+ Mon,  3 Feb 2020 11:53:00 +0000 (UTC)
+Received: from mail-lj1-f178.google.com (mail-lj1-f178.google.com
+ [209.85.208.178])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+ (No client certificate requested)
+ by mail.kernel.org (Postfix) with ESMTPSA id A468B21D7E
+ for <linux-stm32@st-md-mailman.stormreply.com>;
+ Mon,  3 Feb 2020 11:52:58 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
+ s=default; t=1580730779;
+ bh=7xf6l0x9f3yqiOhlxlprQWM2OQY9DYvJlDJWXMnII54=;
+ h=References:In-Reply-To:From:Date:Subject:To:Cc:From;
+ b=ZwVsVUHORi7AEaxQxLj+Nu8jbcVykEXvdfGL7vkRLhB0mTQiMThf7Ta5VFtb6XrYx
+ LPGAsl/3oQd1MhfnblwPdlunyVn0WwjNlRReE3L/H07XxgtqJldOTdNAek7kl5ArP0
+ hwuQWOheegxknp2fpCWWvgtUl8pzQM8yNraeDgzY=
+Received: by mail-lj1-f178.google.com with SMTP id o15so8742900ljg.6
+ for <linux-stm32@st-md-mailman.stormreply.com>;
+ Mon, 03 Feb 2020 03:52:58 -0800 (PST)
+X-Gm-Message-State: APjAAAX5alFDbc28RSCjbLQfzNqXDARbEBPxYIK3DX4Rq4TR1Pnt/Oqy
+ jluFwMouKOL6CnhBSCwFyG0urkR73PkLezzleUk=
+X-Google-Smtp-Source: APXvYqzr5wd/VbPIliYCYFMvvcM1qcze60h66l8h6hCiB4vZZDzfTGLOeSa9EfTbYebXVLxdN/na3R/Ef6tYAfxaBEQ=
+X-Received: by 2002:a2e:9a11:: with SMTP id o17mr13176749lji.256.1580730776602; 
+ Mon, 03 Feb 2020 03:52:56 -0800 (PST)
 MIME-Version: 1.0
-X-Originating-IP: [10.75.127.47]
-X-ClientProxiedBy: SFHDAG7NODE3.st.com (10.75.127.21) To SFHDAG6NODE2.st.com
- (10.75.127.17)
-X-Proofpoint-Virus-Version: vendor=fsecure engine=2.50.10434:6.0.138, 18.0.572
- definitions=2020-02-03_02:2020-02-02,
- 2020-02-03 signatures=0
-Cc: Etienne Carriere <etienne.carriere@st.com>
-Subject: [Linux-stm32] [PATCH 6/6] ASoC: stm32: i2s: improve error
-	management on probe deferral
+References: <20200130195525.4525-1-krzk@kernel.org>
+ <20200130195525.4525-2-krzk@kernel.org>
+ <9f8a0a8e09893e7087d2212fb0eeb94a908b7be1.camel@perches.com>
+In-Reply-To: <9f8a0a8e09893e7087d2212fb0eeb94a908b7be1.camel@perches.com>
+From: Krzysztof Kozlowski <krzk@kernel.org>
+Date: Mon, 3 Feb 2020 12:52:45 +0100
+X-Gmail-Original-Message-ID: <CAJKOXPf5Mf4FCmtME5yJsBZeP8BkYJgcxkKzS2hd-gp-mq3nag@mail.gmail.com>
+Message-ID: <CAJKOXPf5Mf4FCmtME5yJsBZeP8BkYJgcxkKzS2hd-gp-mq3nag@mail.gmail.com>
+To: Joe Perches <joe@perches.com>
+Cc: Tomer Maimon <tmaimon77@gmail.com>, Tony Lindgren <tony@atomide.com>,
+ Liviu Dudau <liviu.dudau@arm.com>, Tali Perry <tali.perry1@gmail.com>,
+ Fabio Estevam <festevam@gmail.com>, linux-stm32@st-md-mailman.stormreply.com,
+ Lorenzo Pieralisi <lorenzo.pieralisi@arm.com>,
+ Benjamin Fair <benjaminfair@google.com>, Alexander Shiyan <shc_work@mail.ru>,
+ Aaro Koskinen <aaro.koskinen@iki.fi>, openbmc@lists.ozlabs.org,
+ Russell King <linux@armlinux.org.uk>, Nancy Yuen <yuenn@google.com>,
+ arm@kernel.org, NXP Linux Team <linux-imx@nxp.com>,
+ =?UTF-8?Q?Uwe_Kleine=2DK=C3=B6nig?= <u.kleine-koenig@pengutronix.de>,
+ Pengutronix Kernel Team <kernel@pengutronix.de>, Arnd Bergmann <arnd@arndb.de>,
+ Sascha Hauer <s.hauer@pengutronix.de>, Vladimir Zapolskiy <vz@mleia.com>,
+ soc@kernel.org, linux-omap@vger.kernel.org,
+ linux-arm-kernel@lists.infradead.org, Avi Fishman <avifishman70@gmail.com>,
+ Patrick Venture <venture@google.com>,
+ "linux-kernel@vger.kernel.org" <linux-kernel@vger.kernel.org>,
+ Maxime Coquelin <mcoquelin.stm32@gmail.com>,
+ Sudeep Holla <sudeep.holla@arm.com>, Olof Johansson <olof@lixom.net>,
+ Shawn Guo <shawnguo@kernel.org>
+Subject: Re: [Linux-stm32] [PATCH 2/2] ARM: configs: Cleanup old Kconfig
+	options
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -78,83 +81,72 @@ Content-Transfer-Encoding: 7bit
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
-Do not print an error trace when deferring probe for I2S driver.
+On Thu, 30 Jan 2020 at 23:06, Joe Perches <joe@perches.com> wrote:
+>
+> On Thu, 2020-01-30 at 20:55 +0100, Krzysztof Kozlowski wrote:
+> > CONFIG_MMC_BLOCK_BOUNCE is gone since commit c3dccb74be28 ("mmc: core:
+> > Delete bounce buffer Kconfig option").
+> >
+> > CONFIG_LBDAF is gone since commit 72deb455b5ec ("block: remove
+> > CONFIG_LBDAF").
+> >
+> > CONFIG_IOSCHED_DEADLINE and CONFIG_IOSCHED_CFQ are gone since
+> > commit f382fb0bcef4 ("block: remove legacy IO schedulers").
+> >
+> > The IOSCHED_DEADLINE was replaced by MQ_IOSCHED_DEADLINE and it will be
+> > now enabled by default (along with MQ_IOSCHED_KYBER).
+> >
+> > The IOSCHED_BFQ seems to replace IOSCHED_CFQ so select it in configs
+> > previously choosing the latter.
+> >
+> > CONFIG_CROSS_COMPILE is gone since commit f1089c92da79 ("kbuild: remove
+> > CONFIG_CROSS_COMPILE support").
+>
+> Hi Krzysztof.
+>
+> There seems there are a lot more of these unused CONFIG_<foo>
+> symbols in various defconfigs. (just for arm and treewide below)
+>
+> ARM defconfigs:
 
-Signed-off-by: Etienne Carriere <etienne.carriere@st.com>
-Signed-off-by: Olivier Moysan <olivier.moysan@st.com>
----
- sound/soc/stm/stm32_i2s.c | 25 +++++++++++++++++++------
- 1 file changed, 19 insertions(+), 6 deletions(-)
+Hi Joe,
 
-diff --git a/sound/soc/stm/stm32_i2s.c b/sound/soc/stm/stm32_i2s.c
-index cdcc00d9a67e..2478405727c3 100644
---- a/sound/soc/stm/stm32_i2s.c
-+++ b/sound/soc/stm/stm32_i2s.c
-@@ -831,25 +831,33 @@ static int stm32_i2s_parse_dt(struct platform_device *pdev,
- 	/* Get clocks */
- 	i2s->pclk = devm_clk_get(&pdev->dev, "pclk");
- 	if (IS_ERR(i2s->pclk)) {
--		dev_err(&pdev->dev, "Could not get pclk\n");
-+		if (PTR_ERR(i2s->pclk) != -EPROBE_DEFER)
-+			dev_err(&pdev->dev, "Could not get pclk: %ld\n",
-+				PTR_ERR(i2s->pclk));
- 		return PTR_ERR(i2s->pclk);
- 	}
- 
- 	i2s->i2sclk = devm_clk_get(&pdev->dev, "i2sclk");
- 	if (IS_ERR(i2s->i2sclk)) {
--		dev_err(&pdev->dev, "Could not get i2sclk\n");
-+		if (PTR_ERR(i2s->i2sclk) != -EPROBE_DEFER)
-+			dev_err(&pdev->dev, "Could not get i2sclk: %ld\n",
-+				PTR_ERR(i2s->i2sclk));
- 		return PTR_ERR(i2s->i2sclk);
- 	}
- 
- 	i2s->x8kclk = devm_clk_get(&pdev->dev, "x8k");
- 	if (IS_ERR(i2s->x8kclk)) {
--		dev_err(&pdev->dev, "missing x8k parent clock\n");
-+		if (PTR_ERR(i2s->x8kclk) != -EPROBE_DEFER)
-+			dev_err(&pdev->dev, "Could not get x8k parent clock: %ld\n",
-+				PTR_ERR(i2s->x8kclk));
- 		return PTR_ERR(i2s->x8kclk);
- 	}
- 
- 	i2s->x11kclk = devm_clk_get(&pdev->dev, "x11k");
- 	if (IS_ERR(i2s->x11kclk)) {
--		dev_err(&pdev->dev, "missing x11k parent clock\n");
-+		if (PTR_ERR(i2s->x11kclk) != -EPROBE_DEFER)
-+			dev_err(&pdev->dev, "Could not get x11k parent clock: %ld\n",
-+				PTR_ERR(i2s->x11kclk));
- 		return PTR_ERR(i2s->x11kclk);
- 	}
- 
-@@ -907,7 +915,9 @@ static int stm32_i2s_probe(struct platform_device *pdev)
- 	i2s->regmap = devm_regmap_init_mmio_clk(&pdev->dev, "pclk",
- 						i2s->base, i2s->regmap_conf);
- 	if (IS_ERR(i2s->regmap)) {
--		dev_err(&pdev->dev, "regmap init failed\n");
-+		if (PTR_ERR(i2s->regmap) != -EPROBE_DEFER)
-+			dev_err(&pdev->dev, "Regmap init error %ld\n",
-+				PTR_ERR(i2s->regmap));
- 		return PTR_ERR(i2s->regmap);
- 	}
- 
-@@ -918,8 +928,11 @@ static int stm32_i2s_probe(struct platform_device *pdev)
- 
- 	ret = devm_snd_dmaengine_pcm_register(&pdev->dev,
- 					      &stm32_i2s_pcm_config, 0);
--	if (ret)
-+	if (ret) {
-+		if (ret != -EPROBE_DEFER)
-+			dev_err(&pdev->dev, "PCM DMA register error %d\n", ret);
- 		return ret;
-+	}
- 
- 	/* Set SPI/I2S in i2s mode */
- 	ret = regmap_update_bits(i2s->regmap, STM32_I2S_CGFR_REG,
--- 
-2.17.1
+Nice finding! The trickier point is to nicely remove them because:
+1. The easiest is 'savedefconfig' but then some valuable options might
+disappear (like recently happened with DEBUG_FS),
+2. They could be removed in automated way with a script. However in
+such case what about replacements? If some symbol was replaced with
+other (or just renamed), maybe we should enable the other one to
+restore the desired functionality?
+3. Or maybe let's don't care about keeping defconfigs stable and just
+clean them up automatically.
 
+Best regards,
+Krzysztof
+
+> --------------------------------------------------------------------
+>
+> # find all defined config symbols in Kconfig files
+>
+> $ git grep -P -oh '^\s*(?:menu)?config\s+\w+' -- '*/Kconfig*' | \
+>   sed -r -e 's/\s*config\s+//' -e 's/\s*menuconfig\s+//' | \
+>   sort | uniq > config_symbols
+>
+> # find CONFIG_ symbols in arm defconfigs
+>
+> $ git grep -w -oh -P 'CONFIG_\w+' 'arch/arm*/*defconfig*' | \
+>   sort | uniq > used_in_arm_defconfigs
+>
+> # find all the unused symbols
+>
+> $ cat used_in_arm_defconfigs | \
+>   while read line ; do \
+>     echo -n "$line " ; grep -w -c ${line/CONFIG_/} config_symbols ; \
+>   done | \
+>   grep " 0" | \
+>   sed 's/ 0//'
+
+(...)
 _______________________________________________
 Linux-stm32 mailing list
 Linux-stm32@st-md-mailman.stormreply.com
