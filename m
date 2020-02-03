@@ -2,65 +2,60 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id 7BD46150879
-	for <lists+linux-stm32@lfdr.de>; Mon,  3 Feb 2020 15:35:15 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id E1242150EF0
+	for <lists+linux-stm32@lfdr.de>; Mon,  3 Feb 2020 18:52:23 +0100 (CET)
 Received: from ip-172-31-3-76.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 3A462C36B0C;
-	Mon,  3 Feb 2020 14:35:15 +0000 (UTC)
-Received: from mail-il1-f196.google.com (mail-il1-f196.google.com
- [209.85.166.196])
- (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 42602C36B0C;
+	Mon,  3 Feb 2020 17:52:23 +0000 (UTC)
+Received: from mx07-00178001.pphosted.com (mx08-00178001.pphosted.com
+ [91.207.212.93])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 88089C36B0A
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id BCED3C36B0A
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Mon,  3 Feb 2020 14:35:12 +0000 (UTC)
-Received: by mail-il1-f196.google.com with SMTP id f5so12790704ilq.5
- for <linux-stm32@st-md-mailman.stormreply.com>;
- Mon, 03 Feb 2020 06:35:12 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20161025;
- h=mime-version:references:in-reply-to:from:date:message-id:subject:to
- :cc:content-transfer-encoding;
- bh=PeAE2050RUwA2PhxvSVJSMNprANdC/69hQV8eL+NY48=;
- b=TUaaPrZnYM1tgevoqkuJWFXrJMpt7+22SMpJkevzbwT+vt6EMOU3Sxf5Ll8wF7cWhx
- 7wgPwHJBuaVxTxd2/kVnoxRg3aW8jdNZabM+0Z/6I40M8Hfubj7S1Z5RTdQgDwPFOlFX
- OVICfMVZyyoNxzFIvNvbpQZVApef+W2nMB6qVASrRYzBY8X67KyEq3DacxVLhs9NYN9H
- vqjOWSLE5mRse511pO6UqBzDcy18YqEX0PX3v8nMk5Y+GMUrUyHqK5xTkzftOzmp7jp5
- zRsbdXlVnXf4+DzZwS5E3lmroWXUCCzizzdOG527hxV8gTth11yutKox7zlpOIfLMnZV
- 5aRQ==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20161025;
- h=x-gm-message-state:mime-version:references:in-reply-to:from:date
- :message-id:subject:to:cc:content-transfer-encoding;
- bh=PeAE2050RUwA2PhxvSVJSMNprANdC/69hQV8eL+NY48=;
- b=MDzMXE5zSVKpYZDXhB0271ZHdJvutqHjHzFMb3vOv/GL5A+/F93UQM9o6OHvetlOCW
- iLDXdt+1lF9H/RFht6EiJD2GoeruI0G3NvmryCL6wXeqixkAk4GNqpe8uN3PLfvVhv53
- WCy935BAiS4ZYyDZAOVvTtevx82fgo7eYv7875kq58Ng44HH8DnfKZPp5/TKj9bDaVIM
- i4QnbQfGhPyHb97y+c34XN8lBsgXiEZ01FmtW4f7FF872bjhHWMSMADtkIRSwksVV8yj
- Axy0X05flrasMRcFkUg4VThWVo0Cz59AoAdY6eGGphtabTpgFCytugMuQJf+fIbuhJzw
- CNHA==
-X-Gm-Message-State: APjAAAXikvGbrQnR2uq+fN3wKMSu9MXXB6xw3QEcZ3W0+RJW1fkg5vSB
- qfUNX/pOFHz/5TaA4uehtigkXBSd1hZ2qyUHXis=
-X-Google-Smtp-Source: APXvYqyHSJVh71XbyNxUrseBdDaOrgsCKYEgH80cZsvYCQFfhjuOIwCdgh9E8GWzYcLhFnLBPzjp7kW4MaZ05lXAWdg=
-X-Received: by 2002:a92:981b:: with SMTP id l27mr22497981ili.118.1580740511331; 
- Mon, 03 Feb 2020 06:35:11 -0800 (PST)
+ Mon,  3 Feb 2020 17:52:21 +0000 (UTC)
+Received: from pps.filterd (m0046661.ppops.net [127.0.0.1])
+ by mx07-00178001.pphosted.com (8.16.0.42/8.16.0.42) with SMTP id
+ 013HdDWu016570; Mon, 3 Feb 2020 18:52:14 +0100
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=st.com;
+ h=from : to : cc : subject
+ : date : message-id : mime-version : content-type; s=STMicroelectronics;
+ bh=j0xx/Vr40+FFZVuRXMdLMe0ryqfyTZ4MJeuGhZs3NCI=;
+ b=c3YWFaz0wjzexJu3xgWel9YKC4LCUOUWdq0d2hsPb+13B8qqPNXyssXku/9H30CZ6J+s
+ +JnlzRe9N8Gi7852TWcnss2azJf8tIvqiSWLmDtNFrLzS/e2pz+dJKW96/NNq/943yKw
+ 8CI0xGZc/+FQdn9HQvcKhK0C5Vn7TL7YRT+bnhQ34sarGybkZOkLGs+BH1X/bJD9BjLZ
+ Tff1kNgNImVuRXsnfUkB/s6Cwjg+bF1JuCA2NCr+HAwPndaUuwLQ4QOSd5vFj+7+qMiM
+ NunqxFmiXWfv98fOB/iQnl4SdJonVyG9UXvdgD3qp1ZXktarHpz68wiZoWHKVONbNYrI Ng== 
+Received: from beta.dmz-eu.st.com (beta.dmz-eu.st.com [164.129.1.35])
+ by mx07-00178001.pphosted.com with ESMTP id 2xw13nj858-1
+ (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
+ Mon, 03 Feb 2020 18:52:14 +0100
+Received: from euls16034.sgp.st.com (euls16034.sgp.st.com [10.75.44.20])
+ by beta.dmz-eu.st.com (STMicroelectronics) with ESMTP id C567510002A;
+ Mon,  3 Feb 2020 18:52:09 +0100 (CET)
+Received: from Webmail-eu.st.com (sfhdag3node2.st.com [10.75.127.8])
+ by euls16034.sgp.st.com (STMicroelectronics) with ESMTP id B5CCA2C7B79;
+ Mon,  3 Feb 2020 18:52:09 +0100 (CET)
+Received: from localhost (10.75.127.44) by SFHDAG3NODE2.st.com (10.75.127.8)
+ with Microsoft SMTP Server (TLS) id 15.0.1347.2; Mon, 3 Feb 2020 18:52:09
+ +0100
+From: Alain Volmat <alain.volmat@st.com>
+To: <wsa@the-dreams.de>, <pierre-yves.mordret@st.com>
+Date: Mon, 3 Feb 2020 18:52:08 +0100
+Message-ID: <1580752328-26009-1-git-send-email-alain.volmat@st.com>
+X-Mailer: git-send-email 2.7.4
 MIME-Version: 1.0
-References: <20200203140425.26579-1-erwan.leray@st.com>
-In-Reply-To: <20200203140425.26579-1-erwan.leray@st.com>
-From: =?UTF-8?B?Q2zDqW1lbnQgUMOpcm9u?= <peron.clem@gmail.com>
-Date: Mon, 3 Feb 2020 15:35:00 +0100
-Message-ID: <CAJiuCcfRuHXajo7+cDMpQ73vhGuerW3_ObrfG0YOEzogKaH-sA@mail.gmail.com>
-To: Erwan Le Ray <erwan.leray@st.com>
-Cc: Sascha Hauer <s.hauer@pengutronix.de>, Arnd Bergmann <arnd@arndb.de>,
- Linus Walleij <linus.walleij@linaro.org>, Russell King <linux@armlinux.org.uk>,
- linux-kernel <linux-kernel@vger.kernel.org>,
- Maxime Coquelin <mcoquelin.stm32@gmail.com>,
- Gerald Baeza <gerald.baeza@st.com>, Olof Johansson <olof@lixom.net>,
- Nathan Huckleberry <nhuck15@gmail.com>,
- Geert Uytterhoeven <geert+renesas@glider.be>,
- Fabrice Gasnier <fabrice.gasnier@st.com>,
- linux-stm32@st-md-mailman.stormreply.com,
- linux-arm-kernel <linux-arm-kernel@lists.infradead.org>
-Subject: Re: [Linux-stm32] [PATCH v3 0/4] STM32 early console
+X-Originating-IP: [10.75.127.44]
+X-ClientProxiedBy: SFHDAG4NODE2.st.com (10.75.127.11) To SFHDAG3NODE2.st.com
+ (10.75.127.8)
+X-Proofpoint-Virus-Version: vendor=fsecure engine=2.50.10434:6.0.138, 18.0.572
+ definitions=2020-02-03_06:2020-02-02,
+ 2020-02-03 signatures=0
+Cc: linux-kernel@vger.kernel.org, alain.volmat@st.com,
+ linux-i2c@vger.kernel.org, fabrice.gasnier@st.com,
+ linux-stm32@st-md-mailman.stormreply.com, linux-arm-kernel@lists.infradead.org
+Subject: [Linux-stm32] [PATCHv2] i2c: i2c-stm32f7: allow controller to be
+	wakeup-source
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -72,31 +67,271 @@ List-Post: <mailto:linux-stm32@st-md-mailman.stormreply.com>
 List-Help: <mailto:linux-stm32-request@st-md-mailman.stormreply.com?subject=help>
 List-Subscribe: <https://st-md-mailman.stormreply.com/mailman/listinfo/linux-stm32>, 
  <mailto:linux-stm32-request@st-md-mailman.stormreply.com?subject=subscribe>
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: base64
+Content-Type: text/plain; charset="us-ascii"
+Content-Transfer-Encoding: 7bit
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
-SGkgRXJ3YW4sCgpPbiBNb24sIDMgRmViIDIwMjAgYXQgMTU6MDQsIEVyd2FuIExlIFJheSA8ZXJ3
-YW4ubGVyYXlAc3QuY29tPiB3cm90ZToKPgo+IEFkZCBVQVJUIGluc3RhbmNlIGNvbmZpZ3VyYXRp
-b24gdG8gU1RNMzIgRjQgYW5kIEY3IGVhcmx5IGNvbnNvbGUuCj4gQWRkIFNUTTMyIEg3IGFuZCBN
-UDEgZWFybHkgY29uc29sZSBzdXBwb3J0Lgo+Cj4gQ2hhbmdlcyBpbiB2MzoKPiAtIGZpeCBhIG1p
-c3NpbmcgY29uZGl0aW9uIGZvciBTVE0zMk1QMQo+Cj4gQ2hhbmdlcyBpbiB2MjoKPiAtIHNwbGl0
-ICJbUEFUQ0hdIEFSTTogZGVidWc6IHN0bTMyOiBhZGQgVUFSVCBlYXJseSBjb25zb2xlIGNvbmZp
-Z3VyYXRpb24iCj4gICBpbnRvIHNlcGFyYXRlIHBhdGNoZXMgYXMgc3VnZ2VzdGVkIGJ5IENsZW1l
-bnQgaW50byBbMV0KClRoYW5rcyBmb3Igc3BsaXR0aW5nIHRoZSBwYXRjaCwgdGhlIHdob2xlIHNl
-cmllcyBsb29rcyBmaW5lIHRvIG1lLgoKQWNrZWQtYnk6IENsw6ltZW50IFDDqXJvbiA8cGVyb24u
-Y2xlbUBnbWFpbC5jb20+CgpDbMOpbWVudAoKCgo+Cj4gWzFdIGh0dHBzOi8vbGttbC5vcmcvbGtt
-bC8yMDE5LzQvMTAvMTk5Cj4KPiBFcndhbiBMZSBSYXkgKDQpOgo+ICAgQVJNOiBkZWJ1Zzogc3Rt
-MzI6IGFkZCBVQVJUIGVhcmx5IGNvbnNvbGUgY29uZmlndXJhdGlvbiBmb3IgU1RNMzJGNAo+ICAg
-QVJNOiBkZWJ1Zzogc3RtMzI6IGFkZCBVQVJUIGVhcmx5IGNvbnNvbGUgY29uZmlndXJhdGlvbiBm
-b3IgU1RNMzJGNwo+ICAgQVJNOiBkZWJ1Zzogc3RtMzI6IGFkZCBVQVJUIGVhcmx5IGNvbnNvbGUg
-c3VwcG9ydCBmb3IgU1RNMzJINwo+ICAgQVJNOiBkZWJ1Zzogc3RtMzI6IGFkZCBVQVJUIGVhcmx5
-IGNvbnNvbGUgc3VwcG9ydCBmb3IgU1RNMzJNUDEKPgo+ICBhcmNoL2FybS9LY29uZmlnLmRlYnVn
-ICAgICAgICAgfCA0MiArKysrKysrKysrKysrKysrKysrKysrKysrKysrKy0tLS0tCj4gIGFyY2gv
-YXJtL2luY2x1ZGUvZGVidWcvc3RtMzIuUyB8ICA5ICsrKystLS0tCj4gIDIgZmlsZXMgY2hhbmdl
-ZCwgNDAgaW5zZXJ0aW9ucygrKSwgMTEgZGVsZXRpb25zKC0pCj4KPiAtLQo+IDIuMTcuMQo+Cl9f
-X19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fCkxpbnV4LXN0bTMy
-IG1haWxpbmcgbGlzdApMaW51eC1zdG0zMkBzdC1tZC1tYWlsbWFuLnN0b3JtcmVwbHkuY29tCmh0
-dHBzOi8vc3QtbWQtbWFpbG1hbi5zdG9ybXJlcGx5LmNvbS9tYWlsbWFuL2xpc3RpbmZvL2xpbnV4
-LXN0bTMyCg==
+Allow the i2c-stm32f7 controller to become a wakeup-source
+of the system. In such case, when a slave is registered to the
+I2C controller, receiving a I2C message targeting that registered
+slave address wakes up the suspended system.
+
+In order to be able to wake-up, the I2C controller DT node
+must have the property wakeup-source defined and a slave
+must be registered.
+
+Signed-off-by: Alain Volmat <alain.volmat@st.com>
+---
+ v2: - enclose _suspend and _resume functions (and related) with
+       #ifdef CONFIG_PM_SLEEP
+     - remove the __maybe_unused for functions enclosed with CONFIG_PM_SLEEP
+     - move stm32f7_i2c_enable_wakeup function upper in the file to avoid
+       having a prototype.
+ 
+ drivers/i2c/busses/i2c-stm32f7.c | 107 +++++++++++++++++++++++++------
+ 1 file changed, 86 insertions(+), 21 deletions(-)
+
+diff --git a/drivers/i2c/busses/i2c-stm32f7.c b/drivers/i2c/busses/i2c-stm32f7.c
+index 5c3e8ac6ad92..378956ac6d1d 100644
+--- a/drivers/i2c/busses/i2c-stm32f7.c
++++ b/drivers/i2c/busses/i2c-stm32f7.c
+@@ -29,6 +29,7 @@
+ #include <linux/platform_device.h>
+ #include <linux/pinctrl/consumer.h>
+ #include <linux/pm_runtime.h>
++#include <linux/pm_wakeirq.h>
+ #include <linux/regmap.h>
+ #include <linux/reset.h>
+ #include <linux/slab.h>
+@@ -49,6 +50,7 @@
+ 
+ /* STM32F7 I2C control 1 */
+ #define STM32F7_I2C_CR1_PECEN			BIT(23)
++#define STM32F7_I2C_CR1_WUPEN			BIT(18)
+ #define STM32F7_I2C_CR1_SBC			BIT(16)
+ #define STM32F7_I2C_CR1_RXDMAEN			BIT(15)
+ #define STM32F7_I2C_CR1_TXDMAEN			BIT(14)
+@@ -301,6 +303,7 @@ struct stm32f7_i2c_msg {
+  * @dma: dma data
+  * @use_dma: boolean to know if dma is used in the current transfer
+  * @regmap: holds SYSCFG phandle for Fast Mode Plus bits
++ * @wakeup_src: boolean to know if the device is a wakeup source
+  */
+ struct stm32f7_i2c_dev {
+ 	struct i2c_adapter adap;
+@@ -323,6 +326,7 @@ struct stm32f7_i2c_dev {
+ 	struct stm32_i2c_dma *dma;
+ 	bool use_dma;
+ 	struct regmap *regmap;
++	bool wakeup_src;
+ };
+ 
+ /*
+@@ -1691,6 +1695,24 @@ static int stm32f7_i2c_smbus_xfer(struct i2c_adapter *adapter, u16 addr,
+ 	return ret;
+ }
+ 
++static void stm32f7_i2c_enable_wakeup(struct stm32f7_i2c_dev *i2c_dev,
++				      bool enable)
++{
++	void __iomem *base = i2c_dev->base;
++	u32 mask = STM32F7_I2C_CR1_WUPEN;
++
++	if (!i2c_dev->wakeup_src)
++		return;
++
++	if (enable) {
++		device_set_wakeup_enable(i2c_dev->dev, true);
++		stm32f7_i2c_set_bits(base + STM32F7_I2C_CR1, mask);
++	} else {
++		device_set_wakeup_enable(i2c_dev->dev, false);
++		stm32f7_i2c_clr_bits(base + STM32F7_I2C_CR1, mask);
++	}
++}
++
+ static int stm32f7_i2c_reg_slave(struct i2c_client *slave)
+ {
+ 	struct stm32f7_i2c_dev *i2c_dev = i2c_get_adapdata(slave->adapter);
+@@ -1717,6 +1739,9 @@ static int stm32f7_i2c_reg_slave(struct i2c_client *slave)
+ 	if (ret < 0)
+ 		return ret;
+ 
++	if (!stm32f7_i2c_is_slave_registered(i2c_dev))
++		stm32f7_i2c_enable_wakeup(i2c_dev, true);
++
+ 	if (id == 0) {
+ 		/* Configure Own Address 1 */
+ 		oar1 = readl_relaxed(i2c_dev->base + STM32F7_I2C_OAR1);
+@@ -1758,6 +1783,9 @@ static int stm32f7_i2c_reg_slave(struct i2c_client *slave)
+ 
+ 	ret = 0;
+ pm_free:
++	if (!stm32f7_i2c_is_slave_registered(i2c_dev))
++		stm32f7_i2c_enable_wakeup(i2c_dev, false);
++
+ 	pm_runtime_mark_last_busy(dev);
+ 	pm_runtime_put_autosuspend(dev);
+ 
+@@ -1791,8 +1819,10 @@ static int stm32f7_i2c_unreg_slave(struct i2c_client *slave)
+ 
+ 	i2c_dev->slave[id] = NULL;
+ 
+-	if (!(stm32f7_i2c_is_slave_registered(i2c_dev)))
++	if (!stm32f7_i2c_is_slave_registered(i2c_dev)) {
+ 		stm32f7_i2c_disable_irq(i2c_dev, STM32F7_I2C_ALL_IRQ_MASK);
++		stm32f7_i2c_enable_wakeup(i2c_dev, false);
++	}
+ 
+ 	pm_runtime_mark_last_busy(i2c_dev->dev);
+ 	pm_runtime_put_autosuspend(i2c_dev->dev);
+@@ -1879,6 +1909,9 @@ static int stm32f7_i2c_probe(struct platform_device *pdev)
+ 		return irq_error ? : -ENOENT;
+ 	}
+ 
++	i2c_dev->wakeup_src = of_property_read_bool(pdev->dev.of_node,
++						    "wakeup-source");
++
+ 	i2c_dev->clk = devm_clk_get(&pdev->dev, NULL);
+ 	if (IS_ERR(i2c_dev->clk)) {
+ 		dev_err(&pdev->dev, "Error: Missing controller clock\n");
+@@ -1985,6 +2018,16 @@ static int stm32f7_i2c_probe(struct platform_device *pdev)
+ 		goto clk_free;
+ 	}
+ 
++	if (i2c_dev->wakeup_src) {
++		device_set_wakeup_capable(i2c_dev->dev, true);
++
++		ret = dev_pm_set_wake_irq(i2c_dev->dev, irq_event);
++		if (ret) {
++			dev_err(i2c_dev->dev, "Failed to set wake up irq\n");
++			goto clr_wakeup_capable;
++		}
++	}
++
+ 	platform_set_drvdata(pdev, i2c_dev);
+ 
+ 	pm_runtime_set_autosuspend_delay(i2c_dev->dev,
+@@ -2014,6 +2057,13 @@ static int stm32f7_i2c_probe(struct platform_device *pdev)
+ 	pm_runtime_set_suspended(i2c_dev->dev);
+ 	pm_runtime_dont_use_autosuspend(i2c_dev->dev);
+ 
++	if (i2c_dev->wakeup_src)
++		dev_pm_clear_wake_irq(i2c_dev->dev);
++
++clr_wakeup_capable:
++	if (i2c_dev->wakeup_src)
++		device_set_wakeup_capable(i2c_dev->dev, false);
++
+ 	if (i2c_dev->dma) {
+ 		stm32_i2c_dma_free(i2c_dev->dma);
+ 		i2c_dev->dma = NULL;
+@@ -2032,6 +2082,15 @@ static int stm32f7_i2c_remove(struct platform_device *pdev)
+ 	i2c_del_adapter(&i2c_dev->adap);
+ 	pm_runtime_get_sync(i2c_dev->dev);
+ 
++	if (i2c_dev->wakeup_src) {
++		dev_pm_clear_wake_irq(i2c_dev->dev);
++		/*
++		 * enforce that wakeup is disabled and that the device
++		 * is marked as non wakeup capable
++		 */
++		device_init_wakeup(i2c_dev->dev, false);
++	}
++
+ 	pm_runtime_put_noidle(i2c_dev->dev);
+ 	pm_runtime_disable(i2c_dev->dev);
+ 	pm_runtime_set_suspended(i2c_dev->dev);
+@@ -2073,8 +2132,8 @@ static int __maybe_unused stm32f7_i2c_runtime_resume(struct device *dev)
+ 	return 0;
+ }
+ 
+-static int __maybe_unused
+-stm32f7_i2c_regs_backup(struct stm32f7_i2c_dev *i2c_dev)
++#ifdef CONFIG_PM_SLEEP
++static int stm32f7_i2c_regs_backup(struct stm32f7_i2c_dev *i2c_dev)
+ {
+ 	int ret;
+ 	struct stm32f7_i2c_regs *backup_regs = &i2c_dev->backup_regs;
+@@ -2095,8 +2154,7 @@ stm32f7_i2c_regs_backup(struct stm32f7_i2c_dev *i2c_dev)
+ 	return ret;
+ }
+ 
+-static int __maybe_unused
+-stm32f7_i2c_regs_restore(struct stm32f7_i2c_dev *i2c_dev)
++static int stm32f7_i2c_regs_restore(struct stm32f7_i2c_dev *i2c_dev)
+ {
+ 	u32 cr1;
+ 	int ret;
+@@ -2127,41 +2185,48 @@ stm32f7_i2c_regs_restore(struct stm32f7_i2c_dev *i2c_dev)
+ 	return ret;
+ }
+ 
+-static int __maybe_unused stm32f7_i2c_suspend(struct device *dev)
++static int stm32f7_i2c_suspend(struct device *dev)
+ {
+ 	struct stm32f7_i2c_dev *i2c_dev = dev_get_drvdata(dev);
+ 	int ret;
+ 
+ 	i2c_mark_adapter_suspended(&i2c_dev->adap);
+-	ret = stm32f7_i2c_regs_backup(i2c_dev);
+-	if (ret < 0) {
+-		i2c_mark_adapter_resumed(&i2c_dev->adap);
+-		return ret;
+-	}
+ 
+-	pinctrl_pm_select_sleep_state(dev);
+-	pm_runtime_force_suspend(dev);
++	if (!device_may_wakeup(dev) && !dev->power.wakeup_path) {
++		ret = stm32f7_i2c_regs_backup(i2c_dev);
++		if (ret < 0) {
++			i2c_mark_adapter_resumed(&i2c_dev->adap);
++			return ret;
++		}
++
++		pinctrl_pm_select_sleep_state(dev);
++		pm_runtime_force_suspend(dev);
++	}
+ 
+ 	return 0;
+ }
+ 
+-static int __maybe_unused stm32f7_i2c_resume(struct device *dev)
++static int stm32f7_i2c_resume(struct device *dev)
+ {
+ 	struct stm32f7_i2c_dev *i2c_dev = dev_get_drvdata(dev);
+ 	int ret;
+ 
+-	ret = pm_runtime_force_resume(dev);
+-	if (ret < 0)
+-		return ret;
+-	pinctrl_pm_select_default_state(dev);
++	if (!device_may_wakeup(dev) && !dev->power.wakeup_path) {
++		ret = pm_runtime_force_resume(dev);
++		if (ret < 0)
++			return ret;
++		pinctrl_pm_select_default_state(dev);
++
++		ret = stm32f7_i2c_regs_restore(i2c_dev);
++		if (ret < 0)
++			return ret;
++	}
+ 
+-	ret = stm32f7_i2c_regs_restore(i2c_dev);
+-	if (ret < 0)
+-		return ret;
+ 	i2c_mark_adapter_resumed(&i2c_dev->adap);
+ 
+ 	return 0;
+ }
++#endif
+ 
+ static const struct dev_pm_ops stm32f7_i2c_pm_ops = {
+ 	SET_RUNTIME_PM_OPS(stm32f7_i2c_runtime_suspend,
+-- 
+2.17.1
+
+_______________________________________________
+Linux-stm32 mailing list
+Linux-stm32@st-md-mailman.stormreply.com
+https://st-md-mailman.stormreply.com/mailman/listinfo/linux-stm32
