@@ -2,44 +2,57 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id ACE2B14FDD1
-	for <lists+linux-stm32@lfdr.de>; Sun,  2 Feb 2020 16:34:04 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 1773A15011D
+	for <lists+linux-stm32@lfdr.de>; Mon,  3 Feb 2020 06:12:41 +0100 (CET)
 Received: from ip-172-31-3-76.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id E7BE1C36B0C;
-	Sun,  2 Feb 2020 15:34:03 +0000 (UTC)
-Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
- (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
- (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 535ADC36B0A
- for <linux-stm32@st-md-mailman.stormreply.com>;
- Sun,  2 Feb 2020 15:34:01 +0000 (UTC)
-Received: from archlinux (cpc149474-cmbg20-2-0-cust94.5-4.cable.virginm.net
- [82.4.196.95])
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id BE393C36B0C;
+	Mon,  3 Feb 2020 05:12:40 +0000 (UTC)
+Received: from mga02.intel.com (mga02.intel.com [134.134.136.20])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by mail.kernel.org (Postfix) with ESMTPSA id AB2DB20643;
- Sun,  2 Feb 2020 15:33:57 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
- s=default; t=1580657639;
- bh=NQdIkCaHC++sdUz8EJtM4E6FaGmhFs3epc/t8aDK9gE=;
- h=Date:From:To:Cc:Subject:In-Reply-To:References:From;
- b=u/IMqBLoMM+bIHEdv7B/M0xS8LMvVgqbwg5T3uMqLP/gV7D6krxtIepaW7pSKfkHj
- LDZFqStqTQOJZ6fzM75yGQEfK1xax25a/hc7KTOb43dRXo0KVtwiEnMBKhAW/KG11Z
- 6k/3a/nHXjwoWQiDn6KTwEly4ElCCfTKoemRjoNs=
-Date: Sun, 2 Feb 2020 15:33:54 +0000
-From: Jonathan Cameron <jic23@kernel.org>
-To: Fabrice Gasnier <fabrice.gasnier@st.com>
-Message-ID: <20200202153354.3dae5863@archlinux>
-In-Reply-To: <1579854369-7972-1-git-send-email-fabrice.gasnier@st.com>
-References: <1579854369-7972-1-git-send-email-fabrice.gasnier@st.com>
-X-Mailer: Claws Mail 3.17.4 (GTK+ 2.24.32; x86_64-pc-linux-gnu)
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id B46A4C36B0A
+ for <linux-stm32@st-md-mailman.stormreply.com>;
+ Mon,  3 Feb 2020 05:12:39 +0000 (UTC)
+X-Amp-Result: UNSCANNABLE
+X-Amp-File-Uploaded: False
+Received: from fmsmga003.fm.intel.com ([10.253.24.29])
+ by orsmga101.jf.intel.com with ESMTP/TLS/DHE-RSA-AES256-GCM-SHA384;
+ 02 Feb 2020 21:12:37 -0800
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="5.70,396,1574150400"; d="scan'208";a="278639647"
+Received: from lkp-server01.sh.intel.com (HELO lkp-server01) ([10.239.97.150])
+ by FMSMGA003.fm.intel.com with ESMTP; 02 Feb 2020 21:12:33 -0800
+Received: from kbuild by lkp-server01 with local (Exim 4.89)
+ (envelope-from <lkp@intel.com>)
+ id 1iyU2D-00040h-80; Mon, 03 Feb 2020 13:12:33 +0800
+Date: Mon, 3 Feb 2020 13:11:49 +0800
+From: kbuild test robot <lkp@intel.com>
+To: Dan Carpenter <dan.carpenter@oracle.com>
+Message-ID: <202002031247.fhmzF9z1%lkp@intel.com>
+References: <20200131045953.wbj66jkvijnmf5s2@kili.mountain>
 MIME-Version: 1.0
-Cc: lars@metafoo.de, linux-pm@vger.kernel.org, linux-iio@vger.kernel.org,
- pmeerw@pmeerw.net, "Rafael J. Wysocki" <rjw@rjwysocki.net>,
- linux-kernel@vger.kernel.org, mcoquelin.stm32@gmail.com, knaack.h@gmx.de,
- linux-stm32@st-md-mailman.stormreply.com, linux-arm-kernel@lists.infradead.org
-Subject: Re: [Linux-stm32] [PATCH] iio: adc: stm32-adc: fix runtime
- autosuspend delay when slow polling
+Content-Disposition: inline
+In-Reply-To: <20200131045953.wbj66jkvijnmf5s2@kili.mountain>
+User-Agent: NeoMutt/20170113 (1.7.2)
+Cc: Heikki Krogerus <heikki.krogerus@linux.intel.com>,
+ Ajay Gupta <ajayg@nvidia.com>, "Rafael J. Wysocki" <rafael@kernel.org>,
+ kernel-janitors@vger.kernel.org,
+ Iyappan Subramanian <iyappan@os.amperecomputing.com>,
+ Quan Nguyen <quan@os.amperecomputing.com>,
+ Dmitry Torokhov <dmitry.torokhov@gmail.com>,
+ linux-stm32@st-md-mailman.stormreply.com, Jose Abreu <joabreu@synopsys.com>,
+ Steve Glendinning <steve.glendinning@shawell.net>,
+ Keyur Chudgar <keyur@os.amperecomputing.com>,
+ Jassi Brar <jaswinder.singh@linaro.org>,
+ Giuseppe Cavallaro <peppe.cavallaro@st.com>,
+ Andy Shevchenko <andriy.shevchenko@linux.intel.com>,
+ Maxime Coquelin <mcoquelin.stm32@gmail.com>, kbuild-all@lists.01.org,
+ Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
+ Ilias Apalodimas <ilias.apalodimas@linaro.org>, linux-kernel@vger.kernel.org,
+ Sakari Ailus <sakari.ailus@linux.intel.com>, netdev@vger.kernel.org,
+ "David S. Miller" <davem@davemloft.net>
+Subject: Re: [Linux-stm32] [PATCH net] device property: change
+ device_get_phy_mode() to prevent signedess bugs
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -56,103 +69,57 @@ Content-Transfer-Encoding: 7bit
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
-On Fri, 24 Jan 2020 09:26:09 +0100
-Fabrice Gasnier <fabrice.gasnier@st.com> wrote:
+Hi Dan,
 
-> When the ADC is runtime suspended and starting a conversion, the stm32-adc
-> driver calls pm_runtime_get_sync() that gets cascaded to the parent
-> (e.g. runtime resume of stm32-adc-core driver). This also kicks the
-> autosuspend delay (e.g. 2s) of the parent.
-> Once the ADC is active, calling pm_runtime_get_sync() again (upon a new
-> capture) won't kick the autosuspend delay for the parent (stm32-adc-core
-> driver) as already active.
-> 
-> Currently, this makes the stm32-adc-core driver go in suspend state
-> every 2s when doing slow polling. As an example, doing a capture, e.g.
-> cat in_voltageY_raw at a 0.2s rate, the auto suspend delay for the parent
-> isn't refreshed. Once it expires, the parent immediately falls into
-> runtime suspended state, in between two captures, as soon as the child
-> driver falls into runtime suspend state:
-> - e.g. after 2s, + child calls pm_runtime_put_autosuspend() + 100ms
->   autosuspend delay of the child.
-> - stm32-adc-core switches off regulators, clocks and so on.
-> - They get switched on back again 100ms later in this example (at 2.2s).
-> 
-> So, add an explicit call to pm_runtime_mark_last_busy() for the parent
-> driver (stm32-adc-core), synchronously with the child driver (stm32-adc),
-> to avoid this.
-> 
-> Fixes: 9bdbb1139ca1 ("iio: adc: stm32-adc: add power management support")
-> 
-> Signed-off-by: Fabrice Gasnier <fabrice.gasnier@st.com>
+Thank you for the patch! Perhaps something to improve:
 
-Hi Fabrice,
+[auto build test WARNING on net/master]
+[also build test WARNING on driver-core/driver-core-testing linus/master v5.5 next-20200131]
+[cannot apply to sparc-next/master]
+[if your patch is applied to the wrong git tree, please drop us a note to help
+improve the system. BTW, we also suggest to use '--base' option to specify the
+base tree in git format-patch, please see https://stackoverflow.com/a/37406982]
 
-Whilst this will clearly work, it seems like a somewhat adhoc solution.
-Power management specialists (cc'd):  Is this what we should be doing, or
-have Fabrice and I both missed something that we should be doing here?
+url:    https://github.com/0day-ci/linux/commits/Dan-Carpenter/device-property-change-device_get_phy_mode-to-prevent-signedess-bugs/20200203-043126
+base:   https://git.kernel.org/pub/scm/linux/kernel/git/davem/net.git b7c3a17c6062701d97a0959890a2c882bfaac537
+reproduce:
+        # apt-get install sparse
+        # sparse version: v0.6.1-154-g1dc00f87-dirty
+        make ARCH=x86_64 allmodconfig
+        make C=1 CF='-fdiagnostic-prefix -D__CHECK_ENDIAN__'
 
-Thanks,
+If you fix the issue, kindly add following tag
+Reported-by: kbuild test robot <lkp@intel.com>
 
-Jonathan
 
-> ---
->  drivers/iio/adc/stm32-adc.c | 6 ++++++
->  1 file changed, 6 insertions(+)
-> 
-> diff --git a/drivers/iio/adc/stm32-adc.c b/drivers/iio/adc/stm32-adc.c
-> index 3b291d7..670157e 100644
-> --- a/drivers/iio/adc/stm32-adc.c
-> +++ b/drivers/iio/adc/stm32-adc.c
-> @@ -1157,6 +1157,7 @@ static int stm32_adc_single_conv(struct iio_dev *indio_dev,
->  
->  	stm32_adc_conv_irq_disable(adc);
->  
-> +	pm_runtime_mark_last_busy(dev->parent);
->  	pm_runtime_mark_last_busy(dev);
->  	pm_runtime_put_autosuspend(dev);
->  
-> @@ -1278,6 +1279,7 @@ static int stm32_adc_update_scan_mode(struct iio_dev *indio_dev,
->  	adc->num_conv = bitmap_weight(scan_mask, indio_dev->masklength);
->  
->  	ret = stm32_adc_conf_scan_seq(indio_dev, scan_mask);
-> +	pm_runtime_mark_last_busy(dev->parent);
->  	pm_runtime_mark_last_busy(dev);
->  	pm_runtime_put_autosuspend(dev);
->  
-> @@ -1329,6 +1331,7 @@ static int stm32_adc_debugfs_reg_access(struct iio_dev *indio_dev,
->  	else
->  		*readval = stm32_adc_readl(adc, reg);
->  
-> +	pm_runtime_mark_last_busy(dev->parent);
->  	pm_runtime_mark_last_busy(dev);
->  	pm_runtime_put_autosuspend(dev);
->  
-> @@ -1451,6 +1454,7 @@ static int __stm32_adc_buffer_postenable(struct iio_dev *indio_dev)
->  err_clr_trig:
->  	stm32_adc_set_trig(indio_dev, NULL);
->  err_pm_put:
-> +	pm_runtime_mark_last_busy(dev->parent);
->  	pm_runtime_mark_last_busy(dev);
->  	pm_runtime_put_autosuspend(dev);
->  
-> @@ -1487,6 +1491,7 @@ static void __stm32_adc_buffer_predisable(struct iio_dev *indio_dev)
->  	if (stm32_adc_set_trig(indio_dev, NULL))
->  		dev_err(&indio_dev->dev, "Can't clear trigger\n");
->  
-> +	pm_runtime_mark_last_busy(dev->parent);
->  	pm_runtime_mark_last_busy(dev);
->  	pm_runtime_put_autosuspend(dev);
->  }
-> @@ -1874,6 +1879,7 @@ static int stm32_adc_probe(struct platform_device *pdev)
->  		goto err_hw_stop;
->  	}
->  
-> +	pm_runtime_mark_last_busy(dev->parent);
->  	pm_runtime_mark_last_busy(dev);
->  	pm_runtime_put_autosuspend(dev);
->  
+sparse warnings: (new ones prefixed by >>)
 
+   arch/x86/boot/compressed/cmdline.c:5:20: sparse: sparse: multiple definitions for function 'set_fs'
+>> arch/x86/include/asm/uaccess.h:29:20: sparse:  the previous one is here
+   arch/x86/boot/compressed/../cmdline.c:28:5: sparse: sparse: symbol '__cmdline_find_option' was not declared. Should it be static?
+   arch/x86/boot/compressed/../cmdline.c:100:5: sparse: sparse: symbol '__cmdline_find_option_bool' was not declared. Should it be static?
+
+vim +29 arch/x86/include/asm/uaccess.h
+
+ca23386216b9d4 include/asm-x86/uaccess.h      Glauber Costa   2008-06-13  27  
+13d4ea097d18b4 arch/x86/include/asm/uaccess.h Andy Lutomirski 2016-07-14  28  #define get_fs()	(current->thread.addr_limit)
+5ea0727b163cb5 arch/x86/include/asm/uaccess.h Thomas Garnier  2017-06-14 @29  static inline void set_fs(mm_segment_t fs)
+5ea0727b163cb5 arch/x86/include/asm/uaccess.h Thomas Garnier  2017-06-14  30  {
+5ea0727b163cb5 arch/x86/include/asm/uaccess.h Thomas Garnier  2017-06-14  31  	current->thread.addr_limit = fs;
+5ea0727b163cb5 arch/x86/include/asm/uaccess.h Thomas Garnier  2017-06-14  32  	/* On user-mode return, check fs is correct */
+5ea0727b163cb5 arch/x86/include/asm/uaccess.h Thomas Garnier  2017-06-14  33  	set_thread_flag(TIF_FSCHECK);
+5ea0727b163cb5 arch/x86/include/asm/uaccess.h Thomas Garnier  2017-06-14  34  }
+ca23386216b9d4 include/asm-x86/uaccess.h      Glauber Costa   2008-06-13  35  
+
+:::::: The code at line 29 was first introduced by commit
+:::::: 5ea0727b163cb5575e36397a12eade68a1f35f24 x86/syscalls: Check address limit on user-mode return
+
+:::::: TO: Thomas Garnier <thgarnie@google.com>
+:::::: CC: Thomas Gleixner <tglx@linutronix.de>
+
+---
+0-DAY kernel test infrastructure                 Open Source Technology Center
+https://lists.01.org/hyperkitty/list/kbuild-all@lists.01.org Intel Corporation
 _______________________________________________
 Linux-stm32 mailing list
 Linux-stm32@st-md-mailman.stormreply.com
