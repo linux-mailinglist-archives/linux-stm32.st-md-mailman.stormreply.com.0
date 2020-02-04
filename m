@@ -2,64 +2,60 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id 634BB151926
-	for <lists+linux-stm32@lfdr.de>; Tue,  4 Feb 2020 12:01:30 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 475B6151B33
+	for <lists+linux-stm32@lfdr.de>; Tue,  4 Feb 2020 14:26:30 +0100 (CET)
 Received: from ip-172-31-3-76.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id D7F80C36B0C;
-	Tue,  4 Feb 2020 11:01:29 +0000 (UTC)
-Received: from mail-qt1-f195.google.com (mail-qt1-f195.google.com
- [209.85.160.195])
- (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id E2C2BC36B0D;
+	Tue,  4 Feb 2020 13:26:29 +0000 (UTC)
+Received: from mx07-00178001.pphosted.com (mx07-00178001.pphosted.com
+ [62.209.51.94])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 95D40C36B0A
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 14DECC36B0A
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Tue,  4 Feb 2020 11:01:28 +0000 (UTC)
-Received: by mail-qt1-f195.google.com with SMTP id l19so13930892qtq.8
- for <linux-stm32@st-md-mailman.stormreply.com>;
- Tue, 04 Feb 2020 03:01:28 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linaro.org; s=google;
- h=mime-version:references:in-reply-to:from:date:message-id:subject:to
- :cc:content-transfer-encoding;
- bh=aEabL2qRUn55z6lyX/Z+Th/5uhuWx8TzOkCmYLG9NR0=;
- b=bAd/Qs1zd6OYkFiCldTJkNTW2ygBCRZcODtrNNYGJJuAICh9W92ClTa8ZRuBmuIOAs
- To1rQRtdIgeW5suGCxPuijnvD2RTyhPieJyomszvrbn11hP5By947HNPKvhNQ4jb7+Xg
- fWZfTk08E0qMRKdpwvbZ9siEYCw3Oa4uSPEyXNvheXJgj4OcQi8ToP+iG448Z0mYBEFU
- +NLKeiYarVPOpEtZ3i2va2oP1qDcJlJ0DMRZ0djwTjTE2ZuK68HWyR5EzCk9M6bDdegX
- Y3yjoJSFyIQgmNUxEc333skJ2ZlGKSBgBiXDrtSa+glHbsBQp3QtEyMX8BuaUsJcalMk
- y1Vw==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20161025;
- h=x-gm-message-state:mime-version:references:in-reply-to:from:date
- :message-id:subject:to:cc:content-transfer-encoding;
- bh=aEabL2qRUn55z6lyX/Z+Th/5uhuWx8TzOkCmYLG9NR0=;
- b=a2GGcHhr6RKOz0MraC17UQM2S18eULhDs15wXgQLH/vvD3rRcvehDQK/iMzRyyTwtk
- 9azA/H7qVclWx2PdzP91CoyYUzxfj5wErFNVxhJziI1+6/uDlna0hLJp5qsP/vas9VoZ
- Xd1Uc/+1Lhix9lpxPyXl9V8hP3J2BhEUTPT5wKlioml+Vn7+0HPiw9GAA1oh6Le5dlBa
- 5uSV5LMFHUmjF3iN/scKz/TUoJblKFr3Kz0etd77UPGE365XzuC/hhtbEpeAt8q/jRTE
- AIxtSoOR1n4Wy8ML0IYYd5ODKaV7jgdfEq0L8r6vteuTteoilp0fK/VtDvaY4xQ1M4Cq
- jx/Q==
-X-Gm-Message-State: APjAAAVu4dCXYQA/KQbr1FY1H4Ip3mKCH4XQSK1U1oqgviQoN5hqq71B
- TUD0MiG1GMW0GG2nHHfXIMD93bphY+XsfZb3S3FKfomK1mw=
-X-Google-Smtp-Source: APXvYqyjkQxKW1OjbHaXibxC6rrzLum2VlhNvNr4LKSdQvRP/tMYwkJ8ahnaviGWX2jV5jyaGOLuXxGmu0abBpB52fM=
-X-Received: by 2002:ac8:42c6:: with SMTP id g6mr28287189qtm.250.1580814087238; 
- Tue, 04 Feb 2020 03:01:27 -0800 (PST)
+ Tue,  4 Feb 2020 13:26:27 +0000 (UTC)
+Received: from pps.filterd (m0046037.ppops.net [127.0.0.1])
+ by mx07-00178001.pphosted.com (8.16.0.42/8.16.0.42) with SMTP id
+ 014DNoVK030249; Tue, 4 Feb 2020 14:26:17 +0100
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=st.com;
+ h=from : to : cc : subject
+ : date : message-id : mime-version : content-type; s=STMicroelectronics;
+ bh=AplTNN5L+r2sBe+jH4b1Al4L+72dRx8nYadx/tYF8Ug=;
+ b=ZQptpfXca1Q2Ug7CIhv4qXR30/e2gpoGXV3YL2Z0t0T2MGKKK6j5dXKjgJUQnDbREHsm
+ FEysJBgBfVpQDR8mZnRG92U3HBeQXHpUDhKKdXAMkIcs9IyZtsv1rbVmyFwMNlEGVV2j
+ x7ZIhpJim5exW954sZQ+vPSCWnvUSHDhsy7wuwu11nc+ieZGNLt/s59zvAMv9j4cJUAX
+ eX7jYYNdXmUZZRecIbbBvVvtNV4YAQWTOgtanF04qHn+qhcm6WfOsccx1ZWXFiVuNdaV
+ 2q7bZKb+DXRrie9IFAtHat4+z2rcugLY1ZQOsegz0Sz/kylIvf2LdD2uJHYZaXlJbYHF 1Q== 
+Received: from beta.dmz-eu.st.com (beta.dmz-eu.st.com [164.129.1.35])
+ by mx07-00178001.pphosted.com with ESMTP id 2xw0019tb3-1
+ (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
+ Tue, 04 Feb 2020 14:26:17 +0100
+Received: from euls16034.sgp.st.com (euls16034.sgp.st.com [10.75.44.20])
+ by beta.dmz-eu.st.com (STMicroelectronics) with ESMTP id 042AB100034;
+ Tue,  4 Feb 2020 14:26:12 +0100 (CET)
+Received: from Webmail-eu.st.com (sfhdag3node2.st.com [10.75.127.8])
+ by euls16034.sgp.st.com (STMicroelectronics) with ESMTP id D5FEA2B188F;
+ Tue,  4 Feb 2020 14:26:12 +0100 (CET)
+Received: from localhost (10.75.127.45) by SFHDAG3NODE2.st.com (10.75.127.8)
+ with Microsoft SMTP Server (TLS) id 15.0.1347.2; Tue, 4 Feb 2020 14:26:12
+ +0100
+From: Amelie Delaunay <amelie.delaunay@st.com>
+To: Maxime Coquelin <mcoquelin.stm32@gmail.com>, Alexandre Torgue
+ <alexandre.torgue@st.com>, Rob Herring <robh+dt@kernel.org>, Mark Rutland
+ <mark.rutland@arm.com>
+Date: Tue, 4 Feb 2020 14:26:03 +0100
+Message-ID: <20200204132606.20222-1-amelie.delaunay@st.com>
+X-Mailer: git-send-email 2.17.1
 MIME-Version: 1.0
-References: <1579601673-7111-1-git-send-email-yannick.fertre@st.com>
- <882271f1-5b91-f4c9-4619-fbdb70a32a46@st.com>
-In-Reply-To: <882271f1-5b91-f4c9-4619-fbdb70a32a46@st.com>
-From: Benjamin Gaignard <benjamin.gaignard@linaro.org>
-Date: Tue, 4 Feb 2020 12:01:16 +0100
-Message-ID: <CA+M3ks4qsz1iTx1CuE66Gc5_+EMuVy+w1o-T0mEjh5vBcC3ATQ@mail.gmail.com>
-To: Philippe CORNU <philippe.cornu@st.com>
-Cc: David Airlie <airlied@linux.ie>,
- "linux-kernel@vger.kernel.org" <linux-kernel@vger.kernel.org>,
- "dri-devel@lists.freedesktop.org" <dri-devel@lists.freedesktop.org>,
- Yannick FERTRE <yannick.fertre@st.com>,
- Maxime Coquelin <mcoquelin.stm32@gmail.com>, Daniel Vetter <daniel@ffwll.ch>,
- "linux-stm32@st-md-mailman.stormreply.com"
- <linux-stm32@st-md-mailman.stormreply.com>,
- "linux-arm-kernel@lists.infradead.org" <linux-arm-kernel@lists.infradead.org>
-Subject: Re: [Linux-stm32] [PATCH] drm/stm: ltdc: check number of endpoints
+X-Originating-IP: [10.75.127.45]
+X-ClientProxiedBy: SFHDAG6NODE2.st.com (10.75.127.17) To SFHDAG3NODE2.st.com
+ (10.75.127.8)
+X-Proofpoint-Virus-Version: vendor=fsecure engine=2.50.10434:6.0.138, 18.0.572
+ definitions=2020-02-04_04:2020-02-04,
+ 2020-02-04 signatures=0
+Cc: devicetree@vger.kernel.org, linux-stm32@st-md-mailman.stormreply.com,
+ linux-arm-kernel@lists.infradead.org, linux-kernel@vger.kernel.org
+Subject: [Linux-stm32] [PATCH 0/3] USB OTG Dual Role on STM32MP15
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -71,139 +67,30 @@ List-Post: <mailto:linux-stm32@st-md-mailman.stormreply.com>
 List-Help: <mailto:linux-stm32-request@st-md-mailman.stormreply.com?subject=help>
 List-Subscribe: <https://st-md-mailman.stormreply.com/mailman/listinfo/linux-stm32>, 
  <mailto:linux-stm32-request@st-md-mailman.stormreply.com?subject=subscribe>
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: base64
+Content-Type: text/plain; charset="us-ascii"
+Content-Transfer-Encoding: 7bit
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
-TGUgamV1LiAyMyBqYW52LiAyMDIwIMOgIDEwOjUxLCBQaGlsaXBwZSBDT1JOVSA8cGhpbGlwcGUu
-Y29ybnVAc3QuY29tPiBhIMOpY3JpdCA6Cj4KPiBEZWFyIFlhbm5pY2ssCj4gVGhhbmsgeW91IGZv
-ciB5b3VyIHBhdGNoLAo+Cj4gQWNrZWQtYnk6IFBoaWxpcHBlIENvcm51IDxwaGlsaXBwZS5jb3Ju
-dUBzdC5jb20+Cj4KPiBQaGlsaXBwZSA6LSkKPgo+IE9uIDEvMjEvMjAgMTE6MTQgQU0sIFlhbm5p
-Y2sgRmVydHJlIHdyb3RlOgo+ID4gTnVtYmVyIG9mIGVuZHBvaW50cyBjb3VsZCBleGNlZWQgdGhl
-IGZpeCB2YWx1ZSBNQVhfRU5EUE9JTlRTKDIpLgo+ID4gSW5zdGVhZCBvZiBpbmNyZWFzZSBzaW1w
-bHkgdGhpcyB2YWx1ZSwgdGhlIG51bWJlciBvZiBlbmRwb2ludAo+ID4gY291bGQgYmUgcmVhZCBm
-cm9tIGRldmljZSB0cmVlLiBMb2FkIHNlcXVlbmNlIGhhcyBiZWVuIGEgbGl0dGxlCj4gPiByZXdv
-cmsgdG8gdGFrZSBjYXJlIG9mIHNldmVyYWwgcGFuZWwgb3IgYnJpZGdlIHdoaWNoIGNhbiBiZQo+
-ID4gY29ubmVjdGVkL2Rpc2Nvbm5lY3RlZCBvciBlbmFibGUvZGlzYWJsZS4KClRoaXMgcGF0Y2gg
-ZG9lc24ndCBhcHBseSBvbiBkcm0tbWlzYy1uZXh0LgpZYW5uaWNrIGNvdWxkIHlvdSByZWJhc2Ug
-aXMgb24gdG9wIG9mIGRybS1taXNjLW5leHQgYW5kIHJlc2VuZCBpdCA/ClRoYW5rcywKCkJlbmph
-bWluCj4gPgo+ID4gU2lnbmVkLW9mZi1ieTogWWFubmljayBGZXJ0csOpIDx5YW5uaWNrLmZlcnRy
-ZUBzdC5jb20+Cj4gPiAtLS0KPiA+ICAgZHJpdmVycy9ncHUvZHJtL3N0bS9sdGRjLmMgfCAxMDQg
-KysrKysrKysrKysrKysrKysrKysrKy0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tCj4gPiAgIDEgZmls
-ZSBjaGFuZ2VkLCA1MiBpbnNlcnRpb25zKCspLCA1MiBkZWxldGlvbnMoLSkKPiA+Cj4gPiBkaWZm
-IC0tZ2l0IGEvZHJpdmVycy9ncHUvZHJtL3N0bS9sdGRjLmMgYi9kcml2ZXJzL2dwdS9kcm0vc3Rt
-L2x0ZGMuYwo+ID4gaW5kZXggYzI4MTVlOC4uZGJhOGU3ZiAxMDA2NDQKPiA+IC0tLSBhL2RyaXZl
-cnMvZ3B1L2RybS9zdG0vbHRkYy5jCj4gPiArKysgYi9kcml2ZXJzL2dwdS9kcm0vc3RtL2x0ZGMu
-Ywo+ID4gQEAgLTQyLDggKzQyLDYgQEAKPiA+Cj4gPiAgICNkZWZpbmUgTUFYX0lSUSA0Cj4gPgo+
-ID4gLSNkZWZpbmUgTUFYX0VORFBPSU5UUyAyCj4gPiAtCj4gPiAgICNkZWZpbmUgSFdWRVJfMTAy
-MDAgMHgwMTAyMDAKPiA+ICAgI2RlZmluZSBIV1ZFUl8xMDMwMCAweDAxMDMwMAo+ID4gICAjZGVm
-aW5lIEhXVkVSXzIwMTAxIDB4MDIwMTAxCj4gPiBAQCAtMTE5MCwzNiArMTE4OCwyMCBAQCBpbnQg
-bHRkY19sb2FkKHN0cnVjdCBkcm1fZGV2aWNlICpkZGV2KQo+ID4gICAgICAgc3RydWN0IGx0ZGNf
-ZGV2aWNlICpsZGV2ID0gZGRldi0+ZGV2X3ByaXZhdGU7Cj4gPiAgICAgICBzdHJ1Y3QgZGV2aWNl
-ICpkZXYgPSBkZGV2LT5kZXY7Cj4gPiAgICAgICBzdHJ1Y3QgZGV2aWNlX25vZGUgKm5wID0gZGV2
-LT5vZl9ub2RlOwo+ID4gLSAgICAgc3RydWN0IGRybV9icmlkZ2UgKmJyaWRnZVtNQVhfRU5EUE9J
-TlRTXSA9IHtOVUxMfTsKPiA+IC0gICAgIHN0cnVjdCBkcm1fcGFuZWwgKnBhbmVsW01BWF9FTkRQ
-T0lOVFNdID0ge05VTEx9Owo+ID4gKyAgICAgc3RydWN0IGRybV9icmlkZ2UgKmJyaWRnZTsKPiA+
-ICsgICAgIHN0cnVjdCBkcm1fcGFuZWwgKnBhbmVsOwo+ID4gICAgICAgc3RydWN0IGRybV9jcnRj
-ICpjcnRjOwo+ID4gICAgICAgc3RydWN0IHJlc2V0X2NvbnRyb2wgKnJzdGM7Cj4gPiAgICAgICBz
-dHJ1Y3QgcmVzb3VyY2UgKnJlczsKPiA+IC0gICAgIGludCBpcnEsIHJldCwgaSwgZW5kcG9pbnRf
-bm90X3JlYWR5ID0gLUVOT0RFVjsKPiA+ICsgICAgIGludCBpcnEsIGksIG5iX2VuZHBvaW50czsK
-PiA+ICsgICAgIGludCByZXQgPSAtRU5PREVWOwo+ID4KPiA+ICAgICAgIERSTV9ERUJVR19EUklW
-RVIoIlxuIik7Cj4gPgo+ID4gLSAgICAgLyogR2V0IGVuZHBvaW50cyBpZiBhbnkgKi8KPiA+IC0g
-ICAgIGZvciAoaSA9IDA7IGkgPCBNQVhfRU5EUE9JTlRTOyBpKyspIHsKPiA+IC0gICAgICAgICAg
-ICAgcmV0ID0gZHJtX29mX2ZpbmRfcGFuZWxfb3JfYnJpZGdlKG5wLCAwLCBpLCAmcGFuZWxbaV0s
-Cj4gPiAtICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAmYnJp
-ZGdlW2ldKTsKPiA+IC0KPiA+IC0gICAgICAgICAgICAgLyoKPiA+IC0gICAgICAgICAgICAgICog
-SWYgYXQgbGVhc3Qgb25lIGVuZHBvaW50IGlzIC1FUFJPQkVfREVGRVIsIGRlZmVyIHByb2Jpbmcs
-Cj4gPiAtICAgICAgICAgICAgICAqIGVsc2UgaWYgYXQgbGVhc3Qgb25lIGVuZHBvaW50IGlzIHJl
-YWR5LCBjb250aW51ZSBwcm9iaW5nLgo+ID4gLSAgICAgICAgICAgICAgKi8KPiA+IC0gICAgICAg
-ICAgICAgaWYgKHJldCA9PSAtRVBST0JFX0RFRkVSKQo+ID4gLSAgICAgICAgICAgICAgICAgICAg
-IHJldHVybiByZXQ7Cj4gPiAtICAgICAgICAgICAgIGVsc2UgaWYgKCFyZXQpCj4gPiAtICAgICAg
-ICAgICAgICAgICAgICAgZW5kcG9pbnRfbm90X3JlYWR5ID0gMDsKPiA+IC0gICAgIH0KPiA+IC0K
-PiA+IC0gICAgIGlmIChlbmRwb2ludF9ub3RfcmVhZHkpCj4gPiAtICAgICAgICAgICAgIHJldHVy
-biBlbmRwb2ludF9ub3RfcmVhZHk7Cj4gPiAtCj4gPiAtICAgICByc3RjID0gZGV2bV9yZXNldF9j
-b250cm9sX2dldF9leGNsdXNpdmUoZGV2LCBOVUxMKTsKPiA+IC0KPiA+IC0gICAgIG11dGV4X2lu
-aXQoJmxkZXYtPmVycl9sb2NrKTsKPiA+ICsgICAgIC8qIEdldCBudW1iZXIgb2YgZW5kcG9pbnRz
-ICovCj4gPiArICAgICBuYl9lbmRwb2ludHMgPSBvZl9ncmFwaF9nZXRfZW5kcG9pbnRfY291bnQo
-bnApOwo+ID4gKyAgICAgaWYgKCFuYl9lbmRwb2ludHMpCj4gPiArICAgICAgICAgICAgIHJldHVy
-biAtRU5PREVWOwo+ID4KPiA+ICAgICAgIGxkZXYtPnBpeGVsX2NsayA9IGRldm1fY2xrX2dldChk
-ZXYsICJsY2QiKTsKPiA+ICAgICAgIGlmIChJU19FUlIobGRldi0+cGl4ZWxfY2xrKSkgewo+ID4g
-QEAgLTEyMzMsNiArMTIxNSw0MyBAQCBpbnQgbHRkY19sb2FkKHN0cnVjdCBkcm1fZGV2aWNlICpk
-ZGV2KQo+ID4gICAgICAgICAgICAgICByZXR1cm4gLUVOT0RFVjsKPiA+ICAgICAgIH0KPiA+Cj4g
-PiArICAgICAvKiBHZXQgZW5kcG9pbnRzIGlmIGFueSAqLwo+ID4gKyAgICAgZm9yIChpID0gMDsg
-aSA8IG5iX2VuZHBvaW50czsgaSsrKSB7Cj4gPiArICAgICAgICAgICAgIHJldCA9IGRybV9vZl9m
-aW5kX3BhbmVsX29yX2JyaWRnZShucCwgMCwgaSwgJnBhbmVsLCAmYnJpZGdlKTsKPiA+ICsKPiA+
-ICsgICAgICAgICAgICAgLyoKPiA+ICsgICAgICAgICAgICAgICogSWYgYXQgbGVhc3Qgb25lIGVu
-ZHBvaW50IGlzIC1FTk9ERVYsIGNvbnRpbnVlIHByb2JpbmcsCj4gPiArICAgICAgICAgICAgICAq
-IGVsc2UgaWYgYXQgbGVhc3Qgb25lIGVuZHBvaW50IHJldHVybmVkIGFuIGVycm9yCj4gPiArICAg
-ICAgICAgICAgICAqIChpZSAtRVBST0JFX0RFRkVSKSB0aGVuIHN0b3AgcHJvYmluZy4KPiA+ICsg
-ICAgICAgICAgICAgICovCj4gPiArICAgICAgICAgICAgIGlmIChyZXQgPT0gLUVOT0RFVikKPiA+
-ICsgICAgICAgICAgICAgICAgICAgICBjb250aW51ZTsKPiA+ICsgICAgICAgICAgICAgZWxzZSBp
-ZiAocmV0KQo+ID4gKyAgICAgICAgICAgICAgICAgICAgIGdvdG8gZXJyOwo+ID4gKwo+ID4gKyAg
-ICAgICAgICAgICBpZiAocGFuZWwpIHsKPiA+ICsgICAgICAgICAgICAgICAgICAgICBicmlkZ2Ug
-PSBkcm1fcGFuZWxfYnJpZGdlX2FkZF90eXBlZChwYW5lbCwKPiA+ICsgICAgICAgICAgICAgICAg
-ICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICBEUk1fTU9ERV9DT05ORUNU
-T1JfRFBJKTsKPiA+ICsgICAgICAgICAgICAgICAgICAgICBpZiAoSVNfRVJSKGJyaWRnZSkpIHsK
-PiA+ICsgICAgICAgICAgICAgICAgICAgICAgICAgICAgIERSTV9FUlJPUigicGFuZWwtYnJpZGdl
-IGVuZHBvaW50ICVkXG4iLCBpKTsKPiA+ICsgICAgICAgICAgICAgICAgICAgICAgICAgICAgIHJl
-dCA9IFBUUl9FUlIoYnJpZGdlKTsKPiA+ICsgICAgICAgICAgICAgICAgICAgICAgICAgICAgIGdv
-dG8gZXJyOwo+ID4gKyAgICAgICAgICAgICAgICAgICAgIH0KPiA+ICsgICAgICAgICAgICAgfQo+
-ID4gKwo+ID4gKyAgICAgICAgICAgICBpZiAoYnJpZGdlKSB7Cj4gPiArICAgICAgICAgICAgICAg
-ICAgICAgcmV0ID0gbHRkY19lbmNvZGVyX2luaXQoZGRldiwgYnJpZGdlKTsKPiA+ICsgICAgICAg
-ICAgICAgICAgICAgICBpZiAocmV0KSB7Cj4gPiArICAgICAgICAgICAgICAgICAgICAgICAgICAg
-ICBEUk1fRVJST1IoImluaXQgZW5jb2RlciBlbmRwb2ludCAlZFxuIiwgaSk7Cj4gPiArICAgICAg
-ICAgICAgICAgICAgICAgICAgICAgICBnb3RvIGVycjsKPiA+ICsgICAgICAgICAgICAgICAgICAg
-ICB9Cj4gPiArICAgICAgICAgICAgIH0KPiA+ICsgICAgIH0KPiA+ICsKPiA+ICsgICAgIHJzdGMg
-PSBkZXZtX3Jlc2V0X2NvbnRyb2xfZ2V0X2V4Y2x1c2l2ZShkZXYsIE5VTEwpOwo+ID4gKwo+ID4g
-KyAgICAgbXV0ZXhfaW5pdCgmbGRldi0+ZXJyX2xvY2spOwo+ID4gKwo+ID4gICAgICAgaWYgKCFJ
-U19FUlIocnN0YykpIHsKPiA+ICAgICAgICAgICAgICAgcmVzZXRfY29udHJvbF9hc3NlcnQocnN0
-Yyk7Cj4gPiAgICAgICAgICAgICAgIHVzbGVlcF9yYW5nZSgxMCwgMjApOwo+ID4gQEAgLTEyNjgs
-NyArMTI4Nyw2IEBAIGludCBsdGRjX2xvYWQoc3RydWN0IGRybV9kZXZpY2UgKmRkZXYpCj4gPiAg
-ICAgICAgICAgICAgIH0KPiA+ICAgICAgIH0KPiA+Cj4gPiAtCj4gPiAgICAgICByZXQgPSBsdGRj
-X2dldF9jYXBzKGRkZXYpOwo+ID4gICAgICAgaWYgKHJldCkgewo+ID4gICAgICAgICAgICAgICBE
-Uk1fRVJST1IoImhhcmR3YXJlIGlkZW50aWZpZXIgKDB4JTA4eCkgbm90IHN1cHBvcnRlZCFcbiIs
-Cj4gPiBAQCAtMTI3OCwyNyArMTI5Niw2IEBAIGludCBsdGRjX2xvYWQoc3RydWN0IGRybV9kZXZp
-Y2UgKmRkZXYpCj4gPgo+ID4gICAgICAgRFJNX0RFQlVHX0RSSVZFUigibHRkYyBodyB2ZXJzaW9u
-IDB4JTA4eFxuIiwgbGRldi0+Y2Fwcy5od192ZXJzaW9uKTsKPiA+Cj4gPiAtICAgICAvKiBBZGQg
-ZW5kcG9pbnRzIHBhbmVscyBvciBicmlkZ2VzIGlmIGFueSAqLwo+ID4gLSAgICAgZm9yIChpID0g
-MDsgaSA8IE1BWF9FTkRQT0lOVFM7IGkrKykgewo+ID4gLSAgICAgICAgICAgICBpZiAocGFuZWxb
-aV0pIHsKPiA+IC0gICAgICAgICAgICAgICAgICAgICBicmlkZ2VbaV0gPSBkcm1fcGFuZWxfYnJp
-ZGdlX2FkZF90eXBlZChwYW5lbFtpXSwKPiA+IC0gICAgICAgICAgICAgICAgICAgICAgICAgICAg
-ICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICBEUk1fTU9ERV9DT05ORUNUT1JfRFBJKTsK
-PiA+IC0gICAgICAgICAgICAgICAgICAgICBpZiAoSVNfRVJSKGJyaWRnZVtpXSkpIHsKPiA+IC0g
-ICAgICAgICAgICAgICAgICAgICAgICAgICAgIERSTV9FUlJPUigicGFuZWwtYnJpZGdlIGVuZHBv
-aW50ICVkXG4iLCBpKTsKPiA+IC0gICAgICAgICAgICAgICAgICAgICAgICAgICAgIHJldCA9IFBU
-Ul9FUlIoYnJpZGdlW2ldKTsKPiA+IC0gICAgICAgICAgICAgICAgICAgICAgICAgICAgIGdvdG8g
-ZXJyOwo+ID4gLSAgICAgICAgICAgICAgICAgICAgIH0KPiA+IC0gICAgICAgICAgICAgfQo+ID4g
-LQo+ID4gLSAgICAgICAgICAgICBpZiAoYnJpZGdlW2ldKSB7Cj4gPiAtICAgICAgICAgICAgICAg
-ICAgICAgcmV0ID0gbHRkY19lbmNvZGVyX2luaXQoZGRldiwgYnJpZGdlW2ldKTsKPiA+IC0gICAg
-ICAgICAgICAgICAgICAgICBpZiAocmV0KSB7Cj4gPiAtICAgICAgICAgICAgICAgICAgICAgICAg
-ICAgICBEUk1fRVJST1IoImluaXQgZW5jb2RlciBlbmRwb2ludCAlZFxuIiwgaSk7Cj4gPiAtICAg
-ICAgICAgICAgICAgICAgICAgICAgICAgICBnb3RvIGVycjsKPiA+IC0gICAgICAgICAgICAgICAg
-ICAgICB9Cj4gPiAtICAgICAgICAgICAgIH0KPiA+IC0gICAgIH0KPiA+IC0KPiA+ICAgICAgIGNy
-dGMgPSBkZXZtX2t6YWxsb2MoZGV2LCBzaXplb2YoKmNydGMpLCBHRlBfS0VSTkVMKTsKPiA+ICAg
-ICAgIGlmICghY3J0Yykgewo+ID4gICAgICAgICAgICAgICBEUk1fRVJST1IoIkZhaWxlZCB0byBh
-bGxvY2F0ZSBjcnRjXG4iKTsKPiA+IEBAIC0xMzMxLDggKzEzMjgsOCBAQCBpbnQgbHRkY19sb2Fk
-KHN0cnVjdCBkcm1fZGV2aWNlICpkZGV2KQo+ID4KPiA+ICAgICAgIHJldHVybiAwOwo+ID4gICBl
-cnI6Cj4gPiAtICAgICBmb3IgKGkgPSAwOyBpIDwgTUFYX0VORFBPSU5UUzsgaSsrKQo+ID4gLSAg
-ICAgICAgICAgICBkcm1fcGFuZWxfYnJpZGdlX3JlbW92ZShicmlkZ2VbaV0pOwo+ID4gKyAgICAg
-Zm9yIChpID0gMDsgaSA8IG5iX2VuZHBvaW50czsgaSsrKQo+ID4gKyAgICAgICAgICAgICBkcm1f
-b2ZfcGFuZWxfYnJpZGdlX3JlbW92ZShkZGV2LT5kZXYtPm9mX25vZGUsIDAsIGkpOwo+ID4KPiA+
-ICAgICAgIGNsa19kaXNhYmxlX3VucHJlcGFyZShsZGV2LT5waXhlbF9jbGspOwo+ID4KPiA+IEBA
-IC0xMzQxLDExICsxMzM4LDE0IEBAIGludCBsdGRjX2xvYWQoc3RydWN0IGRybV9kZXZpY2UgKmRk
-ZXYpCj4gPgo+ID4gICB2b2lkIGx0ZGNfdW5sb2FkKHN0cnVjdCBkcm1fZGV2aWNlICpkZGV2KQo+
-ID4gICB7Cj4gPiAtICAgICBpbnQgaTsKPiA+ICsgICAgIHN0cnVjdCBkZXZpY2UgKmRldiA9IGRk
-ZXYtPmRldjsKPiA+ICsgICAgIGludCBuYl9lbmRwb2ludHMsIGk7Cj4gPgo+ID4gICAgICAgRFJN
-X0RFQlVHX0RSSVZFUigiXG4iKTsKPiA+Cj4gPiAtICAgICBmb3IgKGkgPSAwOyBpIDwgTUFYX0VO
-RFBPSU5UUzsgaSsrKQo+ID4gKyAgICAgbmJfZW5kcG9pbnRzID0gb2ZfZ3JhcGhfZ2V0X2VuZHBv
-aW50X2NvdW50KGRldi0+b2Zfbm9kZSk7Cj4gPiArCj4gPiArICAgICBmb3IgKGkgPSAwOyBpIDwg
-bmJfZW5kcG9pbnRzOyBpKyspCj4gPiAgICAgICAgICAgICAgIGRybV9vZl9wYW5lbF9icmlkZ2Vf
-cmVtb3ZlKGRkZXYtPmRldi0+b2Zfbm9kZSwgMCwgaSk7Cj4gPgo+ID4gICAgICAgcG1fcnVudGlt
-ZV9kaXNhYmxlKGRkZXYtPmRldik7Cj4gPgo+IF9fX19fX19fX19fX19fX19fX19fX19fX19fX19f
-X19fX19fX19fX19fX19fX19fCj4gbGludXgtYXJtLWtlcm5lbCBtYWlsaW5nIGxpc3QKPiBsaW51
-eC1hcm0ta2VybmVsQGxpc3RzLmluZnJhZGVhZC5vcmcKPiBodHRwOi8vbGlzdHMuaW5mcmFkZWFk
-Lm9yZy9tYWlsbWFuL2xpc3RpbmZvL2xpbnV4LWFybS1rZXJuZWwKX19fX19fX19fX19fX19fX19f
-X19fX19fX19fX19fX19fX19fX19fX19fX19fX18KTGludXgtc3RtMzIgbWFpbGluZyBsaXN0Ckxp
-bnV4LXN0bTMyQHN0LW1kLW1haWxtYW4uc3Rvcm1yZXBseS5jb20KaHR0cHM6Ly9zdC1tZC1tYWls
-bWFuLnN0b3JtcmVwbHkuY29tL21haWxtYW4vbGlzdGluZm8vbGludXgtc3RtMzIK
+This patchset adds support for USB OTG Dual Role on stm32mp15.
+USB OTG HS is configured in Dual Role mode on stm32mp157c-ev1, role detection
+uses ID pin.
+
+Amelie Delaunay (3):
+  ARM: dts: stm32: add USB OTG full support on stm32mp151
+  ARM: dts: stm32: add USB OTG pinctrl to stm32mp15
+  ARM: dts: stm32: enable USB OTG Dual Role on stm32mp157c-ev1
+
+ arch/arm/boot/dts/stm32mp15-pinctrl.dtsi | 13 +++++++++++++
+ arch/arm/boot/dts/stm32mp151.dtsi        |  3 ++-
+ arch/arm/boot/dts/stm32mp157c-ed1.dts    |  4 ++++
+ arch/arm/boot/dts/stm32mp157c-ev1.dts    |  3 ++-
+ 4 files changed, 21 insertions(+), 2 deletions(-)
+
+-- 
+2.17.1
+
+_______________________________________________
+Linux-stm32 mailing list
+Linux-stm32@st-md-mailman.stormreply.com
+https://st-md-mailman.stormreply.com/mailman/listinfo/linux-stm32
