@@ -2,65 +2,69 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id 857D6153033
-	for <lists+linux-stm32@lfdr.de>; Wed,  5 Feb 2020 12:54:02 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id A0F6B1530AC
+	for <lists+linux-stm32@lfdr.de>; Wed,  5 Feb 2020 13:28:00 +0100 (CET)
 Received: from ip-172-31-3-76.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 3AA5AC36B0B;
-	Wed,  5 Feb 2020 11:54:02 +0000 (UTC)
-Received: from mail-out.m-online.net (mail-out.m-online.net [212.18.0.10])
- (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 46C12C36B0B;
+	Wed,  5 Feb 2020 12:28:00 +0000 (UTC)
+Received: from pandora.armlinux.org.uk (pandora.armlinux.org.uk [78.32.30.218])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 4C99DC36B09
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id B09CCC36B09
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Wed,  5 Feb 2020 11:53:59 +0000 (UTC)
-Received: from frontend01.mail.m-online.net (unknown [192.168.8.182])
- by mail-out.m-online.net (Postfix) with ESMTP id 48CKj24db1z1rhZp;
- Wed,  5 Feb 2020 12:53:58 +0100 (CET)
-Received: from localhost (dynscan1.mnet-online.de [192.168.6.70])
- by mail.m-online.net (Postfix) with ESMTP id 48CKj23g0Cz1qyWX;
- Wed,  5 Feb 2020 12:53:58 +0100 (CET)
-X-Virus-Scanned: amavisd-new at mnet-online.de
-Received: from mail.mnet-online.de ([192.168.8.182])
- by localhost (dynscan1.mail.m-online.net [192.168.6.70]) (amavisd-new,
- port 10024)
- with ESMTP id 5v9UrMj0JyH6; Wed,  5 Feb 2020 12:53:57 +0100 (CET)
-X-Auth-Info: 2OzHQEQHDnh3ZgyP4l+mOQVWx8s4i/Y+97lxFGLkJJ8=
-Received: from [127.0.0.1] (unknown [195.140.253.167])
- (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
- (No client certificate requested)
- by mail.mnet-online.de (Postfix) with ESMTPSA;
- Wed,  5 Feb 2020 12:53:57 +0100 (CET)
-To: Marc Zyngier <maz@kernel.org>
-References: <20bb72d0-8258-abc0-e729-4d3d5a75c41c@denx.de>
- <d6e02817-2464-51b9-246a-7720b607b8d6@st.com>
- <65a1c5b2-c1b9-322f-338c-e6ff6379d8d1@denx.de>
- <129d04a0-c846-506d-5726-4a1024d977a6@st.com>
- <80db762c-3b3d-f007-2f9b-dadbffd95782@denx.de>
- <360b1adc-32f1-7993-c463-e52c7a5a8a67@st.com>
- <c4f08f59acd31951527ef1d6e9409e6f@kernel.org>
- <20200123101225.nscpc5t4nmlarbw2@pengutronix.de>
- <03fd1cb7b5985b3221f66c6b0058adc8@kernel.org>
- <20200123105214.ru4j76xbisjtbtgw@pengutronix.de>
- <cf98f4fd257ba4f34c75fe1656bd341b@kernel.org>
- <e1fffd57-4814-ec36-68b4-4207e3d4ae5d@denx.de>
- <f9d98afc-6cb8-ef7b-cff7-a04e14dba4c8@st.com>
- <7e0ce712f7e34b38c8f541644026c52e@kernel.org>
- <5e1c419c-b141-52f6-88f1-ee3ab8219a4e@denx.de>
- <dcbb8f0447f2aa75f0cec6f420310b21@kernel.org>
-From: Marek Vasut <marex@denx.de>
-Message-ID: <760b42cd-0fc4-5675-3f55-40edfe9440b2@denx.de>
-Date: Wed, 5 Feb 2020 12:53:56 +0100
-User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:68.0) Gecko/20100101
- Thunderbird/68.4.2
+ Wed,  5 Feb 2020 12:27:58 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
+ d=armlinux.org.uk; s=pandora-2019; h=Sender:In-Reply-To:Content-Type:
+ MIME-Version:References:Message-ID:Subject:Cc:To:From:Date:Reply-To:
+ Content-Transfer-Encoding:Content-ID:Content-Description:Resent-Date:
+ Resent-From:Resent-Sender:Resent-To:Resent-Cc:Resent-Message-ID:List-Id:
+ List-Help:List-Unsubscribe:List-Subscribe:List-Post:List-Owner:List-Archive;
+ bh=BOW5KZykxI349ZwRVvxHRZ+Lw+4S+aeevegHK214C94=; b=q9KTEEJH599k/P0x11SS7ayg4
+ L0jenCNDR9Y+41TF9olCN0RGMhGGMfF1wNh1KyWIR/npJ7yX72i6h+c9Pf8RvVDbYd9CZLXFVglHC
+ eqjBzgFo/zhnRXaS6hrIfG3Wqjd3kXPn9gvb9gmzEEWrnue4KuyMiJtm/ZaSjJsd95YVX+mwb46De
+ 4RrfB6rGoFMsCL3ra5SVHz0bbJPEqhMPCOV9Z4qXOqdzlakTjGR+G73D+/Mn9lru7np6ATjEBQUwA
+ q0FlTWlTEgMy6RHdDVUdajcHzH+IZgMtRgAo+f8PBglLJZ9aBnvHnuMxhwYXlt2BSyT3/vqFtzXkU
+ VG+Jm69dQ==;
+Received: from shell.armlinux.org.uk
+ ([2001:4d48:ad52:3201:5054:ff:fe00:4ec]:36278)
+ by pandora.armlinux.org.uk with esmtpsa
+ (TLSv1.2:ECDHE-RSA-AES256-GCM-SHA384:256) (Exim 4.90_1)
+ (envelope-from <linux@armlinux.org.uk>)
+ id 1izJmN-0000RR-6U; Wed, 05 Feb 2020 12:27:39 +0000
+Received: from linux by shell.armlinux.org.uk with local (Exim 4.92)
+ (envelope-from <linux@shell.armlinux.org.uk>)
+ id 1izJmH-0001t4-Sd; Wed, 05 Feb 2020 12:27:33 +0000
+Date: Wed, 5 Feb 2020 12:27:33 +0000
+From: Russell King - ARM Linux admin <linux@armlinux.org.uk>
+To: Andrew Lunn <andrew@lunn.ch>
+Message-ID: <20200205122733.GU25745@shell.armlinux.org.uk>
+References: <20200127140038.GD13647@lunn.ch>
+ <20200127140834.GW25745@shell.armlinux.org.uk>
+ <20200127145107.GE13647@lunn.ch>
+ <20200127161132.GX25745@shell.armlinux.org.uk>
+ <20200127162206.GJ13647@lunn.ch>
+ <c3e863b8-2143-fee3-bb0b-65699661d7ab@gmail.com>
+ <BN8PR12MB3266B69DA09E1CC215843C3CD30A0@BN8PR12MB3266.namprd12.prod.outlook.com>
+ <20200204172603.GS25745@shell.armlinux.org.uk>
+ <20200204174318.GB1364@lunn.ch>
+ <20200204193230.GT25745@shell.armlinux.org.uk>
 MIME-Version: 1.0
-In-Reply-To: <dcbb8f0447f2aa75f0cec6f420310b21@kernel.org>
-Content-Language: en-US
-Cc: Patrick Delaunay <patrick.delaunay@st.com>,
- Maxime Coquelin <mcoquelin.stm32@gmail.com>,
- =?UTF-8?Q?Uwe_Kleine-K=c3=b6nig?= <u.kleine-koenig@pengutronix.de>,
- linux-stm32@st-md-mailman.stormreply.com,
- Linux ARM <linux-arm-kernel@lists.infradead.org>
-Subject: Re: [Linux-stm32] STM32MP1 level triggered interrupts
+Content-Disposition: inline
+In-Reply-To: <20200204193230.GT25745@shell.armlinux.org.uk>
+User-Agent: Mutt/1.10.1 (2018-07-13)
+Cc: Jose Abreu <Jose.Abreu@synopsys.com>, Joao Pinto <Joao.Pinto@synopsys.com>,
+ "netdev@vger.kernel.org" <netdev@vger.kernel.org>,
+ "linux-kernel@vger.kernel.org" <linux-kernel@vger.kernel.org>,
+ "linux-stm32@st-md-mailman.stormreply.com"
+ <linux-stm32@st-md-mailman.stormreply.com>,
+ Florian Fainelli <f.fainelli@gmail.com>,
+ Maxime Coquelin <mcoquelin.stm32@gmail.com>, Jakub Kicinski <kuba@kernel.org>,
+ Giuseppe Cavallaro <peppe.cavallaro@st.com>,
+ "David S. Miller" <davem@davemloft.net>,
+ "linux-arm-kernel@lists.infradead.org" <linux-arm-kernel@lists.infradead.org>,
+ Heiner Kallweit <hkallweit1@gmail.com>
+Subject: Re: [Linux-stm32] [RFC net-next 6/8] net: phylink: Configure
+ MAC/PCS when link is up without PHY
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -77,55 +81,80 @@ Content-Transfer-Encoding: 7bit
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
-On 2/5/20 12:42 PM, Marc Zyngier wrote:
-> On 2020-01-28 18:32, Marek Vasut wrote:
->> On 1/24/20 10:24 AM, Marc Zyngier wrote:
->>> On 2020-01-24 09:17, Alexandre Torgue wrote:
->>>> On 1/23/20 11:21 PM, Marek Vasut wrote:
->>>
->>> [...]
->>>
->>>>> But I still wonder, what is the purpose of the EXTImux in that SoC?
->>>>> Shouldn't that permit routing GPIOs directly into GIC SPIs, which
->>>>> would
->>>>> then permit detecting at least level-high interrupts ?
->>>>>
->>>>
->>>> For this SoC, EXTI block detects external line edges and rises a GIC
->>>> SPI interrupt. This EXTi block is mainly used to handle HW events like
->>>> buttons, clocks ... So first issue seems more to be a design issue
->>>> (your design doesn't fit with MP1 datasheet).
->>>>
->>>> Now, let's find a solution. I'll have a look on your proposition:
->>>> "check the line in EOI callback and retrig".
->>>>
->>>> Marc, this kind a solution could be acceptable on your side ?
->>>
->>> It will depend on the nature of the hack you will have to put in there.
->>> If it is 100% reliable, why not? Anything short of that, probably not.
->>
->> I had another look into this, and what we would end up is some sort of
->> phandle from exti to all the gpioX nodes in DT, would that be OK ?
->> However, if we do that, then we will have the pinctrl controller (which
->> has the gpio banks as subnodes) require the exti through a phandle and
->> exti require the gpio banks through a phandle, so we end up with some
->> sort of cyclic dependency there.
->>
->> So we would need to somehow have exti lazily deal with it's gpioX
->> controller phandles only when someone requests level interrupt ? That
->> would probably do.
+On Tue, Feb 04, 2020 at 07:32:30PM +0000, Russell King - ARM Linux admin wrote:
+> On Tue, Feb 04, 2020 at 06:43:18PM +0100, Andrew Lunn wrote:
+> > > There, there is one MAC, but there are multiple different PCS - one
+> > > for SGMII and 1000base-X, another for 10G, another for 25G, etc.
+> > > These PCS are accessed via a MDIO adapter embedded in each of the
+> > > MAC hardware blocks.
+> > 
+> > Hi Russell
+> > 
+> > Marvell mv88e6390X switches are like this is a well. There is a PCS
+> > for SGMII and 1000Base-X, and a second one for 10G. And it dynamically
+> > swaps between them depending on the port mode, the so called cmode.
+> > 
+> > So a generic solution is required, and please take your time to build
+> > one.
 > 
-> TBH, I don't have much of an opinion here. If you can deal with the
-> plumbing
-> that's required to make this thing work reliably, then why not?
+> Well, DSA is quite a mixed bag...
 > 
-> What I insist on is that the sampling/retriggering is made 100% reliable.
-> I'd prefer we don't offer the functionality if it there is any doubt
-> about it.
+> As far as I can work out, the situation with the CPU and DSA ports is
+> quite hopeless - you've claimed that a change in phylink has broken it,
+> I can't find what that may be.  The fact is, phylink has never had any
+> link information for DSA links when no fixed-link property has been
+> specified in DT.  As I've already said in a previous email about this,
+> I can't see *any* sane way to fix that - but there was no response.
+> 
+> 
+> On a more positive note...
+> 
+> The mac_link_up() changes that I've talked about should work for DSA,
+> if only there was a reasonable way to reconfigure the ports.  If you
+> look at the "phy" branch, you will notice that there's a patch there -
+> "net: mv88e6xxx: use resolved link config in mac_link_up()" which adds
+> the support to configure the MAC manually.  It's rather messy, and I
+> see no way to deal with the pause settings.  There is support in some
+> Marvell DSA switches to force flow control but that's not supported
+> through the current mid-layer at all (port_set_pause doesn't do it.)
+> I'm not sure whether the "mv88e6xxx_phy_is_internal()" check there is
+> the right test for every DSA switch correct either.
+> 
+> What is missing is reading the results from the PCS (aka serdes) and
+> forwarding them into phylink - I did have a quick look at how that might
+> be possible, but the DSA code structure (consisting of multiple
+> mid-layers) makes it hard without rewriting quite a lot of code.  That's
+> fine if you know all the DSA chips inside out, but I don't - and that's
+> where we need someone who has the knowledge of all DSA switches that we
+> support.  Or, we get rid of the multiple mid-layers and switch to a
+> library approach, so that we can modify support for one DSA switch
+> without affecting everything.  It may be a simple matter of dropping the
+> existing serdes workaround, but I'm not sure at the moment.
+> 
+> I've tried this code out on the ZII rev B, I haven't tried it on the rev
+> C which has the 6390 switches yet.
 
-That question was more in the direction of ST, to see how it fits in
-their design/plans. I would hate to work on something only to have it
-rejected because ST developed something else in parallel.
+Well, it seems GPIO hogging with the sx1503q (for the 3310 PHY, which
+is a local change) has broken sometime between v4.20 and v5.5, which
+prevents the sx1503q driver probing:
+
+[   23.378706] gpio gpiochip7: (sx1503q): setup of own GPIO 10g-rstn failed
+[   23.394858] requesting hog GPIO 10g-rstn (chip sx1503q, offset 9) failed, -517
+[   23.402512] gpiochip_add_data_with_key: GPIOs 480..495 (sx1503q) failed to register, -517
+
+Without the hog, the 3310 PHY doesn't come out of reset, so I lose
+port 9 on the first switch.
+
+With that removed, I can boot, and if I bring up sff2, I see the port 9
+on the second switch status report 0xef4b and control 0x303f without
+fiber connected.  I'm out of time to do anything further on this today
+(not even decode those), because its taken all morning to get the board
+to this point, and I won't have any time tomorrow either.
+
+-- 
+RMK's Patch system: https://www.armlinux.org.uk/developer/patches/
+FTTC broadband for 0.8mile line in suburbia: sync at 12.1Mbps down 622kbps up
+According to speedtest.net: 11.9Mbps down 500kbps up
 _______________________________________________
 Linux-stm32 mailing list
 Linux-stm32@st-md-mailman.stormreply.com
