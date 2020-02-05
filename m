@@ -2,30 +2,30 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id 04DE61527BA
-	for <lists+linux-stm32@lfdr.de>; Wed,  5 Feb 2020 09:55:41 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 7D3F71527BC
+	for <lists+linux-stm32@lfdr.de>; Wed,  5 Feb 2020 09:55:46 +0100 (CET)
 Received: from ip-172-31-3-76.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id C324EC36B0D;
-	Wed,  5 Feb 2020 08:55:40 +0000 (UTC)
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 4739DC36B0C;
+	Wed,  5 Feb 2020 08:55:46 +0000 (UTC)
 Received: from mga14.intel.com (mga14.intel.com [192.55.52.115])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 70A21C36B0B
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id A3384C36B09
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Wed,  5 Feb 2020 08:55:39 +0000 (UTC)
+ Wed,  5 Feb 2020 08:55:42 +0000 (UTC)
 X-Amp-Result: SKIPPED(no attachment in message)
 X-Amp-File-Uploaded: False
 Received: from fmsmga002.fm.intel.com ([10.253.24.26])
  by fmsmga103.fm.intel.com with ESMTP/TLS/DHE-RSA-AES256-GCM-SHA384;
- 05 Feb 2020 00:55:39 -0800
+ 05 Feb 2020 00:55:42 -0800
 X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="5.70,405,1574150400"; d="scan'208";a="264149185"
+X-IronPort-AV: E=Sophos;i="5.70,405,1574150400"; d="scan'208";a="264149194"
 Received: from unknown (HELO bong5-HP-Z440.png.intel.com) ([10.221.118.166])
- by fmsmga002.fm.intel.com with ESMTP; 05 Feb 2020 00:55:36 -0800
+ by fmsmga002.fm.intel.com with ESMTP; 05 Feb 2020 00:55:39 -0800
 From: Ong Boon Leong <boon.leong.ong@intel.com>
 To: netdev@vger.kernel.org
-Date: Wed,  5 Feb 2020 16:55:06 +0800
-Message-Id: <20200205085510.32353-3-boon.leong.ong@intel.com>
+Date: Wed,  5 Feb 2020 16:55:07 +0800
+Message-Id: <20200205085510.32353-4-boon.leong.ong@intel.com>
 X-Mailer: git-send-email 2.17.1
 In-Reply-To: <20200205085510.32353-1-boon.leong.ong@intel.com>
 References: <20200205085510.32353-1-boon.leong.ong@intel.com>
@@ -37,8 +37,8 @@ Cc: Jose Abreu <Jose.Abreu@synopsys.com>, Joao Pinto <Joao.Pinto@synopsys.com>,
  Giuseppe Cavallaro <peppe.cavallaro@st.com>,
  Alexandru Ardelean <alexandru.ardelean@analog.com>,
  "David S . Miller" <davem@davemloft.net>, linux-arm-kernel@lists.infradead.org
-Subject: [Linux-stm32] [PATCH net v4 2/6] net: stmmac: fix incorrect
-	GMAC_VLAN_TAG register writting in GMAC4+
+Subject: [Linux-stm32] [PATCH net v4 3/6] net: stmmac: xgmac: fix incorrect
+	XGMAC_VLAN_TAG register writting
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -56,47 +56,41 @@ Content-Transfer-Encoding: 7bit
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
-From: "Tan, Tee Min" <tee.min.tan@intel.com>
-
-It should always do a read of current value of GMAC_VLAN_TAG instead of
+We should always do a read of current value of XGMAC_VLAN_TAG instead of
 directly overwriting the register value.
 
-Fixes: c1be0022df0d ("net: stmmac: Add VLAN HASH filtering support in GMAC4+")
-Signed-off-by: Tan, Tee Min <tee.min.tan@intel.com>
+Fixes: 3cd1cfcba26e2 ("net: stmmac: Implement VLAN Hash Filtering in XGMAC")
 Signed-off-by: Ong Boon Leong <boon.leong.ong@intel.com>
 ---
- drivers/net/ethernet/stmicro/stmmac/dwmac4_core.c | 7 ++++---
- 1 file changed, 4 insertions(+), 3 deletions(-)
+ drivers/net/ethernet/stmicro/stmmac/dwxgmac2_core.c | 8 ++++++--
+ 1 file changed, 6 insertions(+), 2 deletions(-)
 
-diff --git a/drivers/net/ethernet/stmicro/stmmac/dwmac4_core.c b/drivers/net/ethernet/stmicro/stmmac/dwmac4_core.c
-index f0c0ea616032..4d8eef9ff137 100644
---- a/drivers/net/ethernet/stmicro/stmmac/dwmac4_core.c
-+++ b/drivers/net/ethernet/stmicro/stmmac/dwmac4_core.c
-@@ -736,11 +736,14 @@ static void dwmac4_update_vlan_hash(struct mac_device_info *hw, u32 hash,
- 				    __le16 perfect_match, bool is_double)
- {
- 	void __iomem *ioaddr = hw->pcsr;
-+	u32 value;
+diff --git a/drivers/net/ethernet/stmicro/stmmac/dwxgmac2_core.c b/drivers/net/ethernet/stmicro/stmmac/dwxgmac2_core.c
+index 2af3ac5409b7..a0e67d178280 100644
+--- a/drivers/net/ethernet/stmicro/stmmac/dwxgmac2_core.c
++++ b/drivers/net/ethernet/stmicro/stmmac/dwxgmac2_core.c
+@@ -569,7 +569,9 @@ static void dwxgmac2_update_vlan_hash(struct mac_device_info *hw, u32 hash,
  
- 	writel(hash, ioaddr + GMAC_VLAN_HASH_TABLE);
+ 		writel(value, ioaddr + XGMAC_PACKET_FILTER);
  
-+	value = readl(ioaddr + GMAC_VLAN_TAG);
+-		value = XGMAC_VLAN_VTHM | XGMAC_VLAN_ETV;
++		value = readl(ioaddr + XGMAC_VLAN_TAG);
 +
- 	if (hash) {
--		u32 value = GMAC_VLAN_VTHM | GMAC_VLAN_ETV;
-+		value |= GMAC_VLAN_VTHM | GMAC_VLAN_ETV;
++		value |= XGMAC_VLAN_VTHM | XGMAC_VLAN_ETV;
  		if (is_double) {
- 			value |= GMAC_VLAN_EDVLP;
- 			value |= GMAC_VLAN_ESVL;
-@@ -759,8 +762,6 @@ static void dwmac4_update_vlan_hash(struct mac_device_info *hw, u32 hash,
+ 			value |= XGMAC_VLAN_EDVLP;
+ 			value |= XGMAC_VLAN_ESVL;
+@@ -584,7 +586,9 @@ static void dwxgmac2_update_vlan_hash(struct mac_device_info *hw, u32 hash,
  
- 		writel(value | perfect_match, ioaddr + GMAC_VLAN_TAG);
- 	} else {
--		u32 value = readl(ioaddr + GMAC_VLAN_TAG);
--
- 		value &= ~(GMAC_VLAN_VTHM | GMAC_VLAN_ETV);
- 		value &= ~(GMAC_VLAN_EDVLP | GMAC_VLAN_ESVL);
- 		value &= ~GMAC_VLAN_DOVLTC;
+ 		writel(value, ioaddr + XGMAC_PACKET_FILTER);
+ 
+-		value = XGMAC_VLAN_ETV;
++		value = readl(ioaddr + XGMAC_VLAN_TAG);
++
++		value |= XGMAC_VLAN_ETV;
+ 		if (is_double) {
+ 			value |= XGMAC_VLAN_EDVLP;
+ 			value |= XGMAC_VLAN_ESVL;
 -- 
 2.17.1
 
