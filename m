@@ -2,61 +2,64 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id 5BE47154D25
-	for <lists+linux-stm32@lfdr.de>; Thu,  6 Feb 2020 21:45:57 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 05BB21552D7
+	for <lists+linux-stm32@lfdr.de>; Fri,  7 Feb 2020 08:21:48 +0100 (CET)
 Received: from ip-172-31-3-76.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 0DF2AC36B0B;
-	Thu,  6 Feb 2020 20:45:57 +0000 (UTC)
-Received: from mail-pj1-f68.google.com (mail-pj1-f68.google.com
- [209.85.216.68])
- (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id AFFFCC36B0B;
+	Fri,  7 Feb 2020 07:21:47 +0000 (UTC)
+Received: from mga07.intel.com (mga07.intel.com [134.134.136.100])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 3BFE0C36B09
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 32C35C36B09
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Thu,  6 Feb 2020 20:45:55 +0000 (UTC)
-Received: by mail-pj1-f68.google.com with SMTP id fa20so497517pjb.1
- for <linux-stm32@st-md-mailman.stormreply.com>;
- Thu, 06 Feb 2020 12:45:55 -0800 (PST)
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20161025;
- h=x-gm-message-state:date:from:to:cc:subject:message-id:references
- :mime-version:content-disposition:in-reply-to:user-agent;
- bh=7t1ZBW9g5wlG8KTvc0XcPIxcORXLml7TZ0TKspaLkvA=;
- b=pnpruvKDBorWr3jcztgVDdbRdXsvsqu15m0dwVeX/s3+9NXx0sgPrdY4tln0Y4PMJ3
- XQCIbS1Wj5ThCm0Gyg3OxsZL1eEuJo4Irx5wNp4DXa9U22qpC5hw1oAv4p9QIF5Hbw0k
- eZUv5n6dipf2+htVdK10i6RF8bukSzBGyxX0T+KWL8UKzyBbt1Ic2QAYsW+1wRV3PzxM
- YkOOWGVz2ZiDulfWW1CrRvpEnDY+PF7AetVXcfy3R0eddVS3+7ELAyATuzrKfDCobMdZ
- nPokYx/oiCooknJXCTzEc4JcPInIqyso/KiuipcdxcYPR/46nc/eO4c2vDSisTOp4LAr
- wxsQ==
-X-Gm-Message-State: APjAAAURMeocnB1Wj7OOTkdQFSh7NfuLD/MfFngJ7GIa8PUqqkpS3hOB
- 117JITjYTmnokqHcU23Yqg==
-X-Google-Smtp-Source: APXvYqzHq35xMKGzxw/a8MEVmjvvcJB0PiyrMJ12ZZgUVekYH3aTlmRKhxb8cjo4/eurccisZ8lRXw==
-X-Received: by 2002:a17:902:5a44:: with SMTP id
- f4mr6093219plm.328.1581021953661; 
- Thu, 06 Feb 2020 12:45:53 -0800 (PST)
-Received: from rob-hp-laptop (63-158-47-182.dia.static.qwest.net.
- [63.158.47.182])
- by smtp.gmail.com with ESMTPSA id z10sm275754pgz.88.2020.02.06.12.45.51
- (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Thu, 06 Feb 2020 12:45:53 -0800 (PST)
-Received: (nullmailer pid 15150 invoked by uid 1000);
- Thu, 06 Feb 2020 19:08:40 -0000
-Date: Thu, 6 Feb 2020 19:08:40 +0000
-From: Rob Herring <robh@kernel.org>
-To: Olivier Moysan <olivier.moysan@st.com>
-Message-ID: <20200206190840.GA15088@bogus>
-References: <20200204101008.11411-1-olivier.moysan@st.com>
- <20200204101008.11411-2-olivier.moysan@st.com>
+ Fri,  7 Feb 2020 07:21:44 +0000 (UTC)
+X-Amp-Result: SKIPPED(no attachment in message)
+X-Amp-File-Uploaded: False
+Received: from orsmga002.jf.intel.com ([10.7.209.21])
+ by orsmga105.jf.intel.com with ESMTP/TLS/DHE-RSA-AES256-GCM-SHA384;
+ 06 Feb 2020 23:21:42 -0800
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="5.70,412,1574150400"; d="scan'208";a="250325781"
+Received: from pgsmsx104.gar.corp.intel.com ([10.221.44.91])
+ by orsmga002.jf.intel.com with ESMTP; 06 Feb 2020 23:21:39 -0800
+Received: from pgsmsx114.gar.corp.intel.com ([169.254.4.192]) by
+ PGSMSX104.gar.corp.intel.com ([169.254.3.14]) with mapi id 14.03.0439.000;
+ Fri, 7 Feb 2020 15:21:38 +0800
+From: "Ong, Boon Leong" <boon.leong.ong@intel.com>
+To: David Miller <davem@davemloft.net>
+Thread-Topic: [PATCH net v4 1/6] net: stmmac: Fix incorrect location to set
+ real_num_rx|tx_queues
+Thread-Index: AQHV3AI9OlvIBg8tJE+vuiHHv7FbVKgMFToAgAM6L7A=
+Date: Fri, 7 Feb 2020 07:21:38 +0000
+Message-ID: <AF233D1473C1364ABD51D28909A1B1B75C4A8F7E@pgsmsx114.gar.corp.intel.com>
+References: <20200205085510.32353-1-boon.leong.ong@intel.com>
+ <20200205085510.32353-2-boon.leong.ong@intel.com>
+ <20200205.143924.1875004608052019375.davem@davemloft.net>
+In-Reply-To: <20200205.143924.1875004608052019375.davem@davemloft.net>
+Accept-Language: en-GB, en-US
+Content-Language: en-US
+X-MS-Has-Attach: 
+X-MS-TNEF-Correlator: 
+dlp-product: dlpe-windows
+dlp-version: 11.2.0.6
+dlp-reaction: no-action
+x-originating-ip: [172.30.20.206]
 MIME-Version: 1.0
-Content-Disposition: inline
-In-Reply-To: <20200204101008.11411-2-olivier.moysan@st.com>
-User-Agent: Mutt/1.10.1 (2018-07-13)
-Cc: mark.rutland@arm.com, devicetree@vger.kernel.org, lars@metafoo.de,
- linux-iio@vger.kernel.org, linux-kernel@vger.kernel.org, robh+dt@kernel.org,
- linux-arm-kernel@lists.infradead.org, pmeerw@pmeerw.net, knaack.h@gmx.de,
- linux-stm32@st-md-mailman.stormreply.com, jic23@kernel.org
-Subject: Re: [Linux-stm32] [PATCH 1/4] dt-bindings: iio: adc: sd modulator:
-	add vref support
+Cc: "Jose.Abreu@synopsys.com" <Jose.Abreu@synopsys.com>,
+ "Joao.Pinto@synopsys.com" <Joao.Pinto@synopsys.com>, "Voon,
+ Weifeng" <weifeng.voon@intel.com>,
+ "netdev@vger.kernel.org" <netdev@vger.kernel.org>,
+ "linux-kernel@vger.kernel.org" <linux-kernel@vger.kernel.org>,
+ "arnd@arndb.de" <arnd@arndb.de>,
+ "mcoquelin.stm32@gmail.com" <mcoquelin.stm32@gmail.com>, "Tan,
+ Tee Min" <tee.min.tan@intel.com>,
+ "peppe.cavallaro@st.com" <peppe.cavallaro@st.com>,
+ "alexandru.ardelean@analog.com" <alexandru.ardelean@analog.com>,
+ "linux-stm32@st-md-mailman.stormreply.com"
+ <linux-stm32@st-md-mailman.stormreply.com>,
+ "linux-arm-kernel@lists.infradead.org" <linux-arm-kernel@lists.infradead.org>
+Subject: Re: [Linux-stm32] [PATCH net v4 1/6] net: stmmac: Fix incorrect
+ location to set real_num_rx|tx_queues
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -73,16 +76,59 @@ Content-Transfer-Encoding: 7bit
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
-On Tue, 4 Feb 2020 11:10:05 +0100, Olivier Moysan wrote:
-> Add vref supply support to sigma delta modulator.
-> 
-> Signed-off-by: Olivier Moysan <olivier.moysan@st.com>
-> ---
->  .../devicetree/bindings/iio/adc/sigma-delta-modulator.yaml    | 4 ++++
->  1 file changed, 4 insertions(+)
-> 
+From: David Miller <davem@davemloft.net>
+Date: Wednesday, February 5, 2020 9:39 PM
 
-Acked-by: Rob Herring <robh@kernel.org>
+>From: Ong Boon Leong <boon.leong.ong@intel.com>
+>Date: Wed,  5 Feb 2020 16:55:05 +0800
+>
+>> diff --git a/drivers/net/ethernet/stmicro/stmmac/stmmac_main.c
+>b/drivers/net/ethernet/stmicro/stmmac/stmmac_main.c
+>> index 5836b21edd7e..4d9afa13eeb9 100644
+>> --- a/drivers/net/ethernet/stmicro/stmmac/stmmac_main.c
+>> +++ b/drivers/net/ethernet/stmicro/stmmac/stmmac_main.c
+>> @@ -2657,6 +2657,10 @@ static int stmmac_hw_setup(struct net_device
+>*dev, bool init_ptp)
+>>  >--->-------stmmac_enable_tbs(priv, priv->ioaddr, enable, chan);
+>>  >---}
+>>
+>> +>---/* Configure real RX and TX queues */
+>> +>---netif_set_real_num_rx_queues(dev, priv->plat->rx_queues_to_use);
+>> +>---netif_set_real_num_tx_queues(dev, priv->plat->tx_queues_to_use);
+>> +
+>>  >---/* Start the ball rolling... */
+>>  >---stmmac_start_all_dma(priv);
+>>
+>
+>It is only safe to ignore the return values from
+>netif_set_real_num_{rx,tx}_queues() if you call them before the
+>network device is registered.  Because only in that case are these
+>functions guaranteed to succeed.
+>
+>But now that you have moved these calls here, they can fail.
+>
+>Therefore you must check the return value and unwind the state
+>completely upon failures.
+>
+>Honestly, I think this change will have several undesirable side effects:
+>
+>1) Lots of added new code complexity
+>
+>2) A new failure mode when resuming the device, users will find this
+>   very hard to diagnose and recover from
+>
+>What real value do you get from doing these calls after probe?
+>
+>If you can't come up with a suitable answer to that question, you
+>should reconsider this change.
+>
+>Thanks.
+
+We have patch that implements get|set_channels() that depends on this fix.
+Anyway, we understand your insight and perspective now. So, we will drop
+this patch in v5 series.
+
+Thanks
 _______________________________________________
 Linux-stm32 mailing list
 Linux-stm32@st-md-mailman.stormreply.com
