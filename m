@@ -2,69 +2,63 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id 1E55C15568C
-	for <lists+linux-stm32@lfdr.de>; Fri,  7 Feb 2020 12:21:45 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 7A6B5155756
+	for <lists+linux-stm32@lfdr.de>; Fri,  7 Feb 2020 13:05:48 +0100 (CET)
 Received: from ip-172-31-3-76.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id CB101C36B0B;
-	Fri,  7 Feb 2020 11:21:44 +0000 (UTC)
-Received: from pandora.armlinux.org.uk (pandora.armlinux.org.uk [78.32.30.218])
- (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 2F484C36B0B;
+	Fri,  7 Feb 2020 12:05:48 +0000 (UTC)
+Received: from mx07-00178001.pphosted.com (mx08-00178001.pphosted.com
+ [91.207.212.93])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id B70B2C36B09
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 52637C36B09
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Fri,  7 Feb 2020 11:21:40 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
- d=armlinux.org.uk; s=pandora-2019; h=Sender:In-Reply-To:Content-Type:
- MIME-Version:References:Message-ID:Subject:Cc:To:From:Date:Reply-To:
- Content-Transfer-Encoding:Content-ID:Content-Description:Resent-Date:
- Resent-From:Resent-Sender:Resent-To:Resent-Cc:Resent-Message-ID:List-Id:
- List-Help:List-Unsubscribe:List-Subscribe:List-Post:List-Owner:List-Archive;
- bh=QhA4QVZ5ByLg2ZJeiSgt1rWbXHtvWaaQ6PxpCDdM444=; b=yEHr3OgCJHnpHNSe2jvVGSAK4
- /Lu4mQEZ/oNrDo9KnLQYLmvq6nlV1n8WxsRBSpBU1BcNdxyEE/g70qHl6ogwlma0n8M80lxX4HWoG
- T7u5XWO1h0rISG+EmE6/F6RyHyyoxjQlRLTTcXFEi8Ug5ZSOwcPLHh41sbNeaMRL7ntPjxk525+2Z
- Kc5Nque5Gzvk+mIBNkXtNPM2WYG4XgvAnjpGFxxLqkn9Bj6jXYx+Q9fQGSez1Z3rSdhWgl9cUHX3u
- +44SfqPt2yNnSYgB9514cW+W597+FUXfA6DgyKoQa7i/WLe9Qp1JSF/gsZ8Z6UD4xv+9LyRS2YJHJ
- lqozYziEA==;
-Received: from shell.armlinux.org.uk
- ([fd8f:7570:feb6:1:5054:ff:fe00:4ec]:48784)
- by pandora.armlinux.org.uk with esmtpsa
- (TLSv1.2:ECDHE-RSA-AES256-GCM-SHA384:256) (Exim 4.90_1)
- (envelope-from <linux@armlinux.org.uk>)
- id 1j01hN-0005Y1-9x; Fri, 07 Feb 2020 11:21:25 +0000
-Received: from linux by shell.armlinux.org.uk with local (Exim 4.92)
- (envelope-from <linux@shell.armlinux.org.uk>)
- id 1j01hD-0003oQ-L9; Fri, 07 Feb 2020 11:21:15 +0000
-Date: Fri, 7 Feb 2020 11:21:15 +0000
-From: Russell King - ARM Linux admin <linux@armlinux.org.uk>
-To: Andrew Lunn <andrew@lunn.ch>
-Message-ID: <20200207112115.GY25745@shell.armlinux.org.uk>
-References: <20200127140834.GW25745@shell.armlinux.org.uk>
- <20200127145107.GE13647@lunn.ch>
- <20200127161132.GX25745@shell.armlinux.org.uk>
- <20200127162206.GJ13647@lunn.ch>
- <c3e863b8-2143-fee3-bb0b-65699661d7ab@gmail.com>
- <BN8PR12MB3266B69DA09E1CC215843C3CD30A0@BN8PR12MB3266.namprd12.prod.outlook.com>
- <20200204172603.GS25745@shell.armlinux.org.uk>
- <20200204174318.GB1364@lunn.ch>
- <20200204193230.GT25745@shell.armlinux.org.uk>
- <20200205122733.GU25745@shell.armlinux.org.uk>
-MIME-Version: 1.0
-Content-Disposition: inline
-In-Reply-To: <20200205122733.GU25745@shell.armlinux.org.uk>
-User-Agent: Mutt/1.10.1 (2018-07-13)
-Cc: Jose Abreu <Jose.Abreu@synopsys.com>, Joao Pinto <Joao.Pinto@synopsys.com>,
- "netdev@vger.kernel.org" <netdev@vger.kernel.org>,
- "linux-kernel@vger.kernel.org" <linux-kernel@vger.kernel.org>,
- "David S. Miller" <davem@davemloft.net>,
- Florian Fainelli <f.fainelli@gmail.com>,
- Maxime Coquelin <mcoquelin.stm32@gmail.com>,
- Giuseppe Cavallaro <peppe.cavallaro@st.com>, Jakub Kicinski <kuba@kernel.org>,
- "linux-stm32@st-md-mailman.stormreply.com"
+ Fri,  7 Feb 2020 12:05:45 +0000 (UTC)
+Received: from pps.filterd (m0046660.ppops.net [127.0.0.1])
+ by mx07-00178001.pphosted.com (8.16.0.42/8.16.0.42) with SMTP id
+ 017C46FU011497; Fri, 7 Feb 2020 13:04:54 +0100
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=st.com;
+ h=from : to : cc : subject
+ : date : message-id : mime-version : content-type; s=STMicroelectronics;
+ bh=iBQhYgSBgcuIqzcDUdUOlfFrxK4Faz6+YOshSkZgHl4=;
+ b=xcTmbCRjerjRHreCBsVttBbvxrjsAsmMee+8dXf6bdAkXcTuCUwKQPwC8sDTcIrlvvOA
+ xZ8Q2ZJH2V8Y/AC77a3vDvQF+KmbeVgUVQat/gBNzgqN8504OkWN2xAR6iVCwzHtpJ+X
+ pg9vNu/zsvKZVa0UuC/FjMyf9oVIR5wg9Oxe0K7LDdAGmwsLs0w4383Ji1wAXx2RwedB
+ 3NY31s9JJgn1y2hm0UmWMGjs8/2toiZy/2QCudRbwNqN9aV7LP9QiRYZpnSolb8bH+ku
+ mVTziVi8LBPKNC0wTbRxb68jU0HMdPycXZTq9lNQCo0mQYCMFGMEbcUm+j2vNQKbI5wW DA== 
+Received: from beta.dmz-eu.st.com (beta.dmz-eu.st.com [164.129.1.35])
+ by mx07-00178001.pphosted.com with ESMTP id 2xyhkbshtx-1
+ (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
+ Fri, 07 Feb 2020 13:04:54 +0100
+Received: from euls16034.sgp.st.com (euls16034.sgp.st.com [10.75.44.20])
+ by beta.dmz-eu.st.com (STMicroelectronics) with ESMTP id 9366F10002A;
+ Fri,  7 Feb 2020 13:04:53 +0100 (CET)
+Received: from Webmail-eu.st.com (sfhdag6node2.st.com [10.75.127.17])
+ by euls16034.sgp.st.com (STMicroelectronics) with ESMTP id 5270F2B5017;
+ Fri,  7 Feb 2020 13:04:53 +0100 (CET)
+Received: from localhost (10.75.127.46) by SFHDAG6NODE2.st.com (10.75.127.17)
+ with Microsoft SMTP Server (TLS) id 15.0.1347.2;
+ Fri, 7 Feb 2020 13:04:52 +0100
+From: Olivier Moysan <olivier.moysan@st.com>
+To: <lgirdwood@gmail.com>, <broonie@kernel.org>, <perex@perex.cz>,
+ <tiwai@suse.com>, <mcoquelin.stm32@gmail.com>,
+ <alexandre.torgue@st.com>, <alsa-devel@alsa-project.org>,
+ <robh@kernel.org>, <mark.rutland@arm.com>,
+ <devicetree@vger.kernel.org>, <linux-arm-kernel@lists.infradead.org>,
  <linux-stm32@st-md-mailman.stormreply.com>,
- "linux-arm-kernel@lists.infradead.org" <linux-arm-kernel@lists.infradead.org>,
- Heiner Kallweit <hkallweit1@gmail.com>
-Subject: Re: [Linux-stm32] [RFC net-next 6/8] net: phylink: Configure
- MAC/PCS when link is up without PHY
+ <linux-kernel@vger.kernel.org>, <olivier.moysan@st.com>
+Date: Fri, 7 Feb 2020 13:03:45 +0100
+Message-ID: <20200207120345.24672-1-olivier.moysan@st.com>
+X-Mailer: git-send-email 2.17.1
+MIME-Version: 1.0
+X-Originating-IP: [10.75.127.46]
+X-ClientProxiedBy: SFHDAG6NODE2.st.com (10.75.127.17) To SFHDAG6NODE2.st.com
+ (10.75.127.17)
+X-Proofpoint-Virus-Version: vendor=fsecure engine=2.50.10434:6.0.138, 18.0.572
+ definitions=2020-02-07_01:2020-02-07,
+ 2020-02-07 signatures=0
+Subject: [Linux-stm32] [PATCH v2] ASoC: dt-bindings: stm32: convert i2s to
+	json-schema
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -81,124 +75,183 @@ Content-Transfer-Encoding: 7bit
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
-On Wed, Feb 05, 2020 at 12:27:33PM +0000, Russell King - ARM Linux admin wrote:
-> On Tue, Feb 04, 2020 at 07:32:30PM +0000, Russell King - ARM Linux admin wrote:
-> > On Tue, Feb 04, 2020 at 06:43:18PM +0100, Andrew Lunn wrote:
-> > > > There, there is one MAC, but there are multiple different PCS - one
-> > > > for SGMII and 1000base-X, another for 10G, another for 25G, etc.
-> > > > These PCS are accessed via a MDIO adapter embedded in each of the
-> > > > MAC hardware blocks.
-> > > 
-> > > Hi Russell
-> > > 
-> > > Marvell mv88e6390X switches are like this is a well. There is a PCS
-> > > for SGMII and 1000Base-X, and a second one for 10G. And it dynamically
-> > > swaps between them depending on the port mode, the so called cmode.
-> > > 
-> > > So a generic solution is required, and please take your time to build
-> > > one.
-> > 
-> > Well, DSA is quite a mixed bag...
-> > 
-> > As far as I can work out, the situation with the CPU and DSA ports is
-> > quite hopeless - you've claimed that a change in phylink has broken it,
-> > I can't find what that may be.  The fact is, phylink has never had any
-> > link information for DSA links when no fixed-link property has been
-> > specified in DT.  As I've already said in a previous email about this,
-> > I can't see *any* sane way to fix that - but there was no response.
-> > 
-> > 
-> > On a more positive note...
-> > 
-> > The mac_link_up() changes that I've talked about should work for DSA,
-> > if only there was a reasonable way to reconfigure the ports.  If you
-> > look at the "phy" branch, you will notice that there's a patch there -
-> > "net: mv88e6xxx: use resolved link config in mac_link_up()" which adds
-> > the support to configure the MAC manually.  It's rather messy, and I
-> > see no way to deal with the pause settings.  There is support in some
-> > Marvell DSA switches to force flow control but that's not supported
-> > through the current mid-layer at all (port_set_pause doesn't do it.)
-> > I'm not sure whether the "mv88e6xxx_phy_is_internal()" check there is
-> > the right test for every DSA switch correct either.
-> > 
-> > What is missing is reading the results from the PCS (aka serdes) and
-> > forwarding them into phylink - I did have a quick look at how that might
-> > be possible, but the DSA code structure (consisting of multiple
-> > mid-layers) makes it hard without rewriting quite a lot of code.  That's
-> > fine if you know all the DSA chips inside out, but I don't - and that's
-> > where we need someone who has the knowledge of all DSA switches that we
-> > support.  Or, we get rid of the multiple mid-layers and switch to a
-> > library approach, so that we can modify support for one DSA switch
-> > without affecting everything.  It may be a simple matter of dropping the
-> > existing serdes workaround, but I'm not sure at the moment.
-> > 
-> > I've tried this code out on the ZII rev B, I haven't tried it on the rev
-> > C which has the 6390 switches yet.
-> 
-> Well, it seems GPIO hogging with the sx1503q (for the 3310 PHY, which
-> is a local change) has broken sometime between v4.20 and v5.5, which
-> prevents the sx1503q driver probing:
-> 
-> [   23.378706] gpio gpiochip7: (sx1503q): setup of own GPIO 10g-rstn failed
-> [   23.394858] requesting hog GPIO 10g-rstn (chip sx1503q, offset 9) failed, -517
-> [   23.402512] gpiochip_add_data_with_key: GPIOs 480..495 (sx1503q) failed to register, -517
-> 
-> Without the hog, the 3310 PHY doesn't come out of reset, so I lose
-> port 9 on the first switch.
-> 
-> With that removed, I can boot, and if I bring up sff2, I see the port 9
-> on the second switch status report 0xef4b and control 0x303f without
-> fiber connected.  I'm out of time to do anything further on this today
-> (not even decode those), because its taken all morning to get the board
-> to this point, and I won't have any time tomorrow either.
+Convert the STM32 I2S bindings to DT schema format using json-schema.
 
-Okay, I have a solution for the serdes ports on the mv88e6390 family
-of switches (I hope all serdes blocks are the same across those)
-tested on the ZII rev C - as expected, that requires no further
-changes to phylink beyond what I've already stated in these threads.
+Signed-off-by: Olivier Moysan <olivier.moysan@st.com>
+---
+Changes in v2:
+- Define items order for clock and dma properties
+---
+ .../bindings/sound/st,stm32-i2s.txt           | 62 -------------
+ .../bindings/sound/st,stm32-i2s.yaml          | 87 +++++++++++++++++++
+ 2 files changed, 87 insertions(+), 62 deletions(-)
+ delete mode 100644 Documentation/devicetree/bindings/sound/st,stm32-i2s.txt
+ create mode 100644 Documentation/devicetree/bindings/sound/st,stm32-i2s.yaml
 
-It's a bit hacky at the moment because of all the layering that's
-going on in DSA and mv88e6xxx - which will become worse if we split
-the current phylink_mac_ops into separate MAC and PCS operations -
-giving a number of extra problems.
-
-I've pulled the patches into my "zii" branch - no idea if that will
-build, I've a fair number of experimental phylink patches that I've
-been working on for the split PCS/MAC issue that aren't a part of
-that series.  I may need to shuffle some patches around...
-
-Much of the base of the "phy" branch base is what was submitted for
-net-next - "net: phy: provide phy driver start/stop hooks" marks the
-boundary between stuff in net-next (before that commit) and stuff
-which isn't.  I was planning to submit "net: linkmode: make
-linkmode_test_bit() take const pointer" through "net: phylink: clarify
-flow control settings in documentation" for this merge window, but it
-wasn't tested enough to make it in time.
-
-There's also a fix for DSA buried in there; DSA fails to call
-phylink_stop() before tearing down phylink for DSA and CPU ports
-"net: dsa: fix phylink_start()/phylink_stop() calls".  I'm not sure
-that's the best solution yet, but I just hacked something up so that
-unloading the mv88e6xxx module could be done reliably.
-
-While working on this, I didn't notice where the behaviour you
-described wrt serdes was coming from, so it'll be interesting to see
-whether the issue still exists.  It may be wise if you enable phylink
-debugging to grab what's going on, particularly with the mac_config()
-calls before trying out any of the above patches.
-
-For others, the Clause 37 patch and a few others have changed a bit
-since I posted it as a result of working on these issues.  All this is
-very much "up in the air" still.
-
-I was planning to spend more time on this today, but unfortunately
-other issues have got in the way, so I've pushed the stuff out, and
-see what 0-day finds - I may be able to do a bit more later today.
-
+diff --git a/Documentation/devicetree/bindings/sound/st,stm32-i2s.txt b/Documentation/devicetree/bindings/sound/st,stm32-i2s.txt
+deleted file mode 100644
+index cbf24bcd1b8d..000000000000
+--- a/Documentation/devicetree/bindings/sound/st,stm32-i2s.txt
++++ /dev/null
+@@ -1,62 +0,0 @@
+-STMicroelectronics STM32 SPI/I2S Controller
+-
+-The SPI/I2S block supports I2S/PCM protocols when configured on I2S mode.
+-Only some SPI instances support I2S.
+-
+-Required properties:
+-  - compatible: Must be "st,stm32h7-i2s"
+-  - reg: Offset and length of the device's register set.
+-  - interrupts: Must contain the interrupt line id.
+-  - clocks: Must contain phandle and clock specifier pairs for each entry
+-	in clock-names.
+-  - clock-names: Must contain "i2sclk", "pclk", "x8k" and "x11k".
+-	"i2sclk": clock which feeds the internal clock generator
+-	"pclk": clock which feeds the peripheral bus interface
+-	"x8k": I2S parent clock for sampling rates multiple of 8kHz.
+-	"x11k": I2S parent clock for sampling rates multiple of 11.025kHz.
+-  - dmas: DMA specifiers for tx and rx dma.
+-    See Documentation/devicetree/bindings/dma/stm32-dma.txt.
+-  - dma-names: Identifier for each DMA request line. Must be "tx" and "rx".
+-  - pinctrl-names: should contain only value "default"
+-  - pinctrl-0: see Documentation/devicetree/bindings/pinctrl/st,stm32-pinctrl.yaml
+-
+-Optional properties:
+-  - resets: Reference to a reset controller asserting the reset controller
+-
+-The device node should contain one 'port' child node with one child 'endpoint'
+-node, according to the bindings defined in Documentation/devicetree/bindings/
+-graph.txt.
+-
+-Example:
+-sound_card {
+-	compatible = "audio-graph-card";
+-	dais = <&i2s2_port>;
+-};
+-
+-i2s2: audio-controller@40003800 {
+-	compatible = "st,stm32h7-i2s";
+-	reg = <0x40003800 0x400>;
+-	interrupts = <36>;
+-	clocks = <&rcc PCLK1>, <&rcc SPI2_CK>, <&rcc PLL1_Q>, <&rcc PLL2_P>;
+-	clock-names = "pclk", "i2sclk",  "x8k", "x11k";
+-	dmas = <&dmamux2 2 39 0x400 0x1>,
+-           <&dmamux2 3 40 0x400 0x1>;
+-	dma-names = "rx", "tx";
+-	pinctrl-names = "default";
+-	pinctrl-0 = <&pinctrl_i2s2>;
+-
+-	i2s2_port: port@0 {
+-		cpu_endpoint: endpoint {
+-			remote-endpoint = <&codec_endpoint>;
+-			format = "i2s";
+-		};
+-	};
+-};
+-
+-audio-codec {
+-	codec_port: port@0 {
+-		codec_endpoint: endpoint {
+-			remote-endpoint = <&cpu_endpoint>;
+-		};
+-	};
+-};
+diff --git a/Documentation/devicetree/bindings/sound/st,stm32-i2s.yaml b/Documentation/devicetree/bindings/sound/st,stm32-i2s.yaml
+new file mode 100644
+index 000000000000..f32410890589
+--- /dev/null
++++ b/Documentation/devicetree/bindings/sound/st,stm32-i2s.yaml
+@@ -0,0 +1,87 @@
++# SPDX-License-Identifier: (GPL-2.0-only OR BSD-2-Clause)
++%YAML 1.2
++---
++$id: http://devicetree.org/schemas/sound/st,stm32-i2s.yaml#
++$schema: http://devicetree.org/meta-schemas/core.yaml#
++
++title: STMicroelectronics STM32 SPI/I2S Controller
++
++maintainers:
++  - Olivier Moysan <olivier.moysan@st.com>
++
++description:
++  The SPI/I2S block supports I2S/PCM protocols when configured on I2S mode.
++  Only some SPI instances support I2S.
++
++properties:
++  compatible:
++    enum:
++      - st,stm32h7-i2s
++
++  "#sound-dai-cells":
++    const: 0
++
++  reg:
++    maxItems: 1
++
++  clocks:
++    items:
++      - description: clock feeding the peripheral bus interface.
++      - description: clock feeding the internal clock generator.
++      - description: I2S parent clock for sampling rates multiple of 8kHz.
++      - description: I2S parent clock for sampling rates multiple of 11.025kHz.
++
++  clock-names:
++    items:
++      - const: pclk
++      - const: i2sclk
++      - const: x8k
++      - const: x11k
++
++  interrupts:
++    maxItems: 1
++
++  dmas:
++    items:
++      - description: audio capture DMA.
++      - description: audio playback DMA.
++
++  dma-names:
++    items:
++      - const: rx
++      - const: tx
++
++  resets:
++    maxItems: 1
++
++required:
++  - compatible
++  - "#sound-dai-cells"
++  - reg
++  - clocks
++  - clock-names
++  - interrupts
++  - dmas
++  - dma-names
++
++additionalProperties: false
++
++examples:
++  - |
++    #include <dt-bindings/interrupt-controller/arm-gic.h>
++    #include <dt-bindings/clock/stm32mp1-clks.h>
++    i2s2: audio-controller@4000b000 {
++        compatible = "st,stm32h7-i2s";
++        #sound-dai-cells = <0>;
++        reg = <0x4000b000 0x400>;
++        clocks = <&rcc SPI2>, <&rcc SPI2_K>, <&rcc PLL3_Q>, <&rcc PLL3_R>;
++        clock-names = "pclk", "i2sclk", "x8k", "x11k";
++        interrupts = <GIC_SPI 35 IRQ_TYPE_LEVEL_HIGH>;
++        dmas = <&dmamux1 39 0x400 0x01>,
++               <&dmamux1 40 0x400 0x01>;
++        dma-names = "rx", "tx";
++        pinctrl-names = "default";
++        pinctrl-0 = <&i2s2_pins_a>;
++    };
++
++...
 -- 
-RMK's Patch system: https://www.armlinux.org.uk/developer/patches/
-FTTC broadband for 0.8mile line in suburbia: sync at 12.1Mbps down 622kbps up
-According to speedtest.net: 11.9Mbps down 500kbps up
+2.17.1
+
 _______________________________________________
 Linux-stm32 mailing list
 Linux-stm32@st-md-mailman.stormreply.com
