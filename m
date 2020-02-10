@@ -2,84 +2,82 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id 8FE4C156A00
-	for <lists+linux-stm32@lfdr.de>; Sun,  9 Feb 2020 12:51:59 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 0BEB8157163
+	for <lists+linux-stm32@lfdr.de>; Mon, 10 Feb 2020 10:03:09 +0100 (CET)
 Received: from ip-172-31-3-76.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 38E11C36B0B;
-	Sun,  9 Feb 2020 11:51:59 +0000 (UTC)
-Received: from mail-lj1-f195.google.com (mail-lj1-f195.google.com
- [209.85.208.195])
- (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 9CB0EC36B0B;
+	Mon, 10 Feb 2020 09:03:08 +0000 (UTC)
+Received: from mx07-00178001.pphosted.com (mx07-00178001.pphosted.com
+ [62.209.51.94])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 522D8C36B09
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id C99B8C36B09
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Sun,  9 Feb 2020 11:51:57 +0000 (UTC)
-Received: by mail-lj1-f195.google.com with SMTP id y6so4004905lji.0
- for <linux-stm32@st-md-mailman.stormreply.com>;
- Sun, 09 Feb 2020 03:51:57 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=lixom-net.20150623.gappssmtp.com; s=20150623;
- h=date:from:to:cc:subject:message-id:references:mime-version
- :content-disposition:in-reply-to:user-agent;
- bh=cYfE72YZyxByl4dR2QWGKhFqP7/CoINOriIGeXLOawg=;
- b=NptrmHtYTiL5YgJrYH1ti+K078fPaTfnbfGukV1wYirmvtVfyLHmk1Y4G+sPJKzhtO
- VgRFHCDnWWN+XuVsDUc/DNV0NsDAuA2QOU06s5e1+fW6D8mS1IQM1mZXo/5tOruAXnEz
- 4MjqiZlt4kB0G3I7w9ipN+dGcniokuXyuNBVVhpbVKp4hPGH1jz37zk8Iba/rzzbc43S
- IUejSY2mrWWstTFatbHDPiv2stxA0cAwteuFIXbqAZFLIlyD+iRgkFrkzU9rs6XzYD42
- 8VCyfkaKdOZCtqpix7QOOcXbC0dgvoPIxPEVz8rICA+iBFfrWxPSl/cJVJaN4lxXkrIm
- sAfQ==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20161025;
- h=x-gm-message-state:date:from:to:cc:subject:message-id:references
- :mime-version:content-disposition:in-reply-to:user-agent;
- bh=cYfE72YZyxByl4dR2QWGKhFqP7/CoINOriIGeXLOawg=;
- b=S5UEthn7/D7n0lQnJZMXmn8/c7HBmd7v4UWSS8Po+wpJibYoz6NNypUtRtrX5miPn3
- c998k4XCn8XJNqWG4zjxkaC3hbhsVswJ66OSKGemILF/RCpeK0SCcfnPKb4wKv83VzOZ
- JyDULZe5OXjK1ycqcoF4sGjnXJeLLFPt667VXMgsB2adkg8zR0sFKOxw51Ygk+21Z+hR
- dLujaMZFcH+ingwHYJ2RhYQ+KdrzXD30OLnfF0q8bLVwx6/Cu8K3KcDYkL1ytA7jC+xw
- lEaOYKTwNOPS+qUDbsxMwaMzpvUFordlxzZQkSoUq6dBm0nCU+u7XGfWHfAW7RiQCfhC
- KICA==
-X-Gm-Message-State: APjAAAVrDsFwuFIZcnRF8Ngg5IZ0ffnNbtbz6wVyUGakI0i8H9jTsYMc
- yL/JgeZLxKXnsAIWjSE7H61wwQ==
-X-Google-Smtp-Source: APXvYqyBJcdgJJntrsixcqZPfIHwYwrfiSxVX8Hkh88iVLuNcb42dKupf9X+gL/jDnv0ncXLtXIzSg==
-X-Received: by 2002:a2e:7e11:: with SMTP id z17mr4960192ljc.279.1581249116367; 
- Sun, 09 Feb 2020 03:51:56 -0800 (PST)
-Received: from localhost (h85-30-9-151.cust.a3fiber.se. [85.30.9.151])
- by smtp.gmail.com with ESMTPSA id 14sm3752313lfz.47.2020.02.09.03.51.54
- (version=TLS1_2 cipher=ECDHE-RSA-CHACHA20-POLY1305 bits=256/256);
- Sun, 09 Feb 2020 03:51:55 -0800 (PST)
-Date: Sun, 9 Feb 2020 03:44:22 -0800
-From: Olof Johansson <olof@lixom.net>
-To: Krzysztof Kozlowski <krzk@kernel.org>
-Message-ID: <20200209114422.as5xpytakhaa3vur@localhost>
-References: <20200130195525.4525-1-krzk@kernel.org>
- <20200130195525.4525-2-krzk@kernel.org>
- <9f8a0a8e09893e7087d2212fb0eeb94a908b7be1.camel@perches.com>
- <CAJKOXPf5Mf4FCmtME5yJsBZeP8BkYJgcxkKzS2hd-gp-mq3nag@mail.gmail.com>
+ Mon, 10 Feb 2020 09:03:04 +0000 (UTC)
+Received: from pps.filterd (m0046037.ppops.net [127.0.0.1])
+ by mx07-00178001.pphosted.com (8.16.0.42/8.16.0.42) with SMTP id
+ 01A8mLPn001938; Mon, 10 Feb 2020 10:02:41 +0100
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=st.com;
+ h=from : to : cc : subject
+ : date : message-id : references : in-reply-to : content-type : content-id
+ : content-transfer-encoding : mime-version; s=STMicroelectronics;
+ bh=H3rjV2A7fROz9cnfk/NtpzzXf8VAhOt6rYAt5Ftt45U=;
+ b=D5V7BBkvCc0kUybXL+upTzZgl75lCiYEW+mg1iyuSGZCPHhDqvHoOLqEIwWAHpsvx3JT
+ lvYZvivPSRavo5I9BBLtWVpiBqbpSFtNLa5TUve6Sr8ggCN5Hcu6D7PowvHqmhZ9lZ9G
+ vDepXpzaLOSvrHOH/kYlLUCn8WG1xVCKPykOH0L3Ry0LCAQuGllUluzwr9X0RWoA44rs
+ aEhtdrV6O2OgcpZ2A3Sa0gKshHV458DIZuhKJqmGcCM1HKSo7z9m8vsTEc8PoCjFFGst
+ Cyb1vC6w20bsewVzwgofcOqKYauilVE+Ms51/8SvoIYyPnd6sbaOSkqgAreHz5+QKCaa kg== 
+Received: from beta.dmz-eu.st.com (beta.dmz-eu.st.com [164.129.1.35])
+ by mx07-00178001.pphosted.com with ESMTP id 2y1urgr6gv-1
+ (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
+ Mon, 10 Feb 2020 10:02:41 +0100
+Received: from euls16034.sgp.st.com (euls16034.sgp.st.com [10.75.44.20])
+ by beta.dmz-eu.st.com (STMicroelectronics) with ESMTP id EAD0010002A;
+ Mon, 10 Feb 2020 10:02:36 +0100 (CET)
+Received: from Webmail-eu.st.com (sfhdag5node2.st.com [10.75.127.14])
+ by euls16034.sgp.st.com (STMicroelectronics) with ESMTP id D059F2B793A;
+ Mon, 10 Feb 2020 10:02:36 +0100 (CET)
+Received: from SFHDAG3NODE3.st.com (10.75.127.9) by SFHDAG5NODE2.st.com
+ (10.75.127.14) with Microsoft SMTP Server (TLS) id 15.0.1473.3; Mon, 10 Feb
+ 2020 10:02:36 +0100
+Received: from SFHDAG3NODE3.st.com ([fe80::3507:b372:7648:476]) by
+ SFHDAG3NODE3.st.com ([fe80::3507:b372:7648:476%20]) with mapi id
+ 15.00.1347.000; Mon, 10 Feb 2020 10:02:36 +0100
+From: Benjamin GAIGNARD <benjamin.gaignard@st.com>
+To: "daniel.lezcano@linaro.org" <daniel.lezcano@linaro.org>,
+ "tglx@linutronix.de" <tglx@linutronix.de>, "robh+dt@kernel.org"
+ <robh+dt@kernel.org>, "mark.rutland@arm.com" <mark.rutland@arm.com>,
+ "mcoquelin.stm32@gmail.com" <mcoquelin.stm32@gmail.com>, Alexandre TORGUE
+ <alexandre.torgue@st.com>, "linux@armlinux.org.uk" <linux@armlinux.org.uk>,
+ Pascal PAILLET-LME <p.paillet@st.com>, "linus.walleij@linaro.org"
+ <linus.walleij@linaro.org>
+Thread-Topic: [PATCH v3 0/2] clockevent: add low power STM32 timer
+Thread-Index: AQHV1dN0ASRe/0fvOUqwQX9rlF1+nagUJUGA
+Date: Mon, 10 Feb 2020 09:02:36 +0000
+Message-ID: <7d062f5b-9272-c7db-7a9e-b908870dd8b4@st.com>
+References: <20200128120702.26166-1-benjamin.gaignard@st.com>
+In-Reply-To: <20200128120702.26166-1-benjamin.gaignard@st.com>
+Accept-Language: en-US
+Content-Language: en-US
+X-MS-Has-Attach: 
+X-MS-TNEF-Correlator: 
+user-agent: Mozilla/5.0 (X11; Linux x86_64; rv:60.0) Gecko/20100101
+ Thunderbird/60.9.0
+x-ms-exchange-messagesentrepresentingtype: 1
+x-ms-exchange-transport-fromentityheader: Hosted
+x-originating-ip: [10.75.127.50]
+Content-ID: <5AF5E50E0266274A90729B9F125EDBE9@st.com>
 MIME-Version: 1.0
-Content-Disposition: inline
-In-Reply-To: <CAJKOXPf5Mf4FCmtME5yJsBZeP8BkYJgcxkKzS2hd-gp-mq3nag@mail.gmail.com>
-User-Agent: NeoMutt/20170113 (1.7.2)
-Cc: Tomer Maimon <tmaimon77@gmail.com>, Tony Lindgren <tony@atomide.com>,
- Liviu Dudau <liviu.dudau@arm.com>, Tali Perry <tali.perry1@gmail.com>,
- Fabio Estevam <festevam@gmail.com>, linux-stm32@st-md-mailman.stormreply.com,
- Lorenzo Pieralisi <lorenzo.pieralisi@arm.com>,
- Benjamin Fair <benjaminfair@google.com>, Alexander Shiyan <shc_work@mail.ru>,
- Aaro Koskinen <aaro.koskinen@iki.fi>, openbmc@lists.ozlabs.org,
- Russell King <linux@armlinux.org.uk>, Nancy Yuen <yuenn@google.com>,
- arm@kernel.org, NXP Linux Team <linux-imx@nxp.com>,
- Uwe Kleine-K??nig <u.kleine-koenig@pengutronix.de>,
- Pengutronix Kernel Team <kernel@pengutronix.de>, Arnd Bergmann <arnd@arndb.de>,
- Sascha Hauer <s.hauer@pengutronix.de>, Vladimir Zapolskiy <vz@mleia.com>,
- soc@kernel.org, linux-omap@vger.kernel.org,
- linux-arm-kernel@lists.infradead.org, Avi Fishman <avifishman70@gmail.com>,
- Patrick Venture <venture@google.com>,
- "linux-kernel@vger.kernel.org" <linux-kernel@vger.kernel.org>,
- Maxime Coquelin <mcoquelin.stm32@gmail.com>,
- Sudeep Holla <sudeep.holla@arm.com>, Joe Perches <joe@perches.com>,
- Shawn Guo <shawnguo@kernel.org>
-Subject: Re: [Linux-stm32] [PATCH 2/2] ARM: configs: Cleanup old Kconfig
-	options
+X-Proofpoint-Virus-Version: vendor=fsecure engine=2.50.10434:6.0.138, 18.0.572
+ definitions=2020-02-10_02:2020-02-07,
+ 2020-02-10 signatures=0
+Cc: "devicetree@vger.kernel.org" <devicetree@vger.kernel.org>,
+ Fabrice GASNIER <fabrice.gasnier@st.com>,
+ "linux-stm32@st-md-mailman.stormreply.com"
+ <linux-stm32@st-md-mailman.stormreply.com>,
+ "linux-arm-kernel@lists.infradead.org" <linux-arm-kernel@lists.infradead.org>
+Subject: Re: [Linux-stm32] [PATCH v3 0/2] clockevent: add low power STM32
+	timer
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -96,60 +94,42 @@ Content-Transfer-Encoding: 7bit
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
-On Mon, Feb 03, 2020 at 12:52:45PM +0100, Krzysztof Kozlowski wrote:
-> On Thu, 30 Jan 2020 at 23:06, Joe Perches <joe@perches.com> wrote:
-> >
-> > On Thu, 2020-01-30 at 20:55 +0100, Krzysztof Kozlowski wrote:
-> > > CONFIG_MMC_BLOCK_BOUNCE is gone since commit c3dccb74be28 ("mmc: core:
-> > > Delete bounce buffer Kconfig option").
-> > >
-> > > CONFIG_LBDAF is gone since commit 72deb455b5ec ("block: remove
-> > > CONFIG_LBDAF").
-> > >
-> > > CONFIG_IOSCHED_DEADLINE and CONFIG_IOSCHED_CFQ are gone since
-> > > commit f382fb0bcef4 ("block: remove legacy IO schedulers").
-> > >
-> > > The IOSCHED_DEADLINE was replaced by MQ_IOSCHED_DEADLINE and it will be
-> > > now enabled by default (along with MQ_IOSCHED_KYBER).
-> > >
-> > > The IOSCHED_BFQ seems to replace IOSCHED_CFQ so select it in configs
-> > > previously choosing the latter.
-> > >
-> > > CONFIG_CROSS_COMPILE is gone since commit f1089c92da79 ("kbuild: remove
-> > > CONFIG_CROSS_COMPILE support").
-> >
-> > Hi Krzysztof.
-> >
-> > There seems there are a lot more of these unused CONFIG_<foo>
-> > symbols in various defconfigs. (just for arm and treewide below)
-> >
-> > ARM defconfigs:
-> 
-> Hi Joe,
-> 
-> Nice finding! The trickier point is to nicely remove them because:
-> 1. The easiest is 'savedefconfig' but then some valuable options might
-> disappear (like recently happened with DEBUG_FS),
 
-Note that while they disappear from the defconfig, they were already not part
-of the build. So kernels have been built without them for a while. It's a good
-way to surface the problem, but it's pretty clear that trees fall in the forest
-here all the time and nobody is noticing.
+On 1/28/20 1:07 PM, Benjamin Gaignard wrote:
+> This series add low power timer as boadcast clockevent device.
+> Low power timer could runs even when CPUs are in idle mode and
+> could wakeup them.
 
-> 2. They could be removed in automated way with a script. However in
-> such case what about replacements? If some symbol was replaced with
-> other (or just renamed), maybe we should enable the other one to
-> restore the desired functionality?
-> 3. Or maybe let's don't care about keeping defconfigs stable and just
-> clean them up automatically.
+Gentle ping to reviewers.
 
-Churning defconfigs is just noise, and a source of annoying needless
-conflicts when people do it at the same time. If an option is no longer
-in-tree, it doesn't do any harm. But it makes sense to clean up every
-now and then like the original patch here.
+Thanks,
 
+Benjamin
 
--Olof
+>
+> version 3:
+> - fix timer set sequence
+> - don't forget to free irq on remove function
+> - use devm_kzalloc to simplify errors handling in probe function
+>
+> version 2:
+> - stm32 clkevent driver is now a child of the stm32 lp timer node
+> - add a probe function and adpat the driver to use regmap provide
+>    by it parent
+> - stop using timer_of helpers
+> - document the bindings inside stm32 lptimer yaml
+>
+> Benjamin Gaignard (2):
+>    dt-bindings: mfd: Document STM32 low power clkevent bindings
+>    clocksource: Add Low Power STM32 timers driver
+>
+>   .../devicetree/bindings/mfd/st,stm32-lptimer.yaml  |  14 ++
+>   drivers/clocksource/Kconfig                        |   4 +
+>   drivers/clocksource/Makefile                       |   1 +
+>   drivers/clocksource/timer-stm32-lp.c               | 248 +++++++++++++++++++++
+>   4 files changed, 267 insertions(+)
+>   create mode 100644 drivers/clocksource/timer-stm32-lp.c
+>
 _______________________________________________
 Linux-stm32 mailing list
 Linux-stm32@st-md-mailman.stormreply.com
