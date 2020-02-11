@@ -2,60 +2,67 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id A4BE1158D05
-	for <lists+linux-stm32@lfdr.de>; Tue, 11 Feb 2020 11:56:33 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 6210B159221
+	for <lists+linux-stm32@lfdr.de>; Tue, 11 Feb 2020 15:44:40 +0100 (CET)
 Received: from ip-172-31-3-76.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 5FD7DC36B0B;
-	Tue, 11 Feb 2020 10:56:33 +0000 (UTC)
-Received: from mx07-00178001.pphosted.com (mx08-00178001.pphosted.com
- [91.207.212.93])
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 11980C36B0B;
+	Tue, 11 Feb 2020 14:44:40 +0000 (UTC)
+Received: from mx07-00178001.pphosted.com (mx07-00178001.pphosted.com
+ [62.209.51.94])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id B7014C36B09
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 350A3C36B09
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Tue, 11 Feb 2020 10:56:31 +0000 (UTC)
-Received: from pps.filterd (m0046661.ppops.net [127.0.0.1])
+ Tue, 11 Feb 2020 14:44:38 +0000 (UTC)
+Received: from pps.filterd (m0046668.ppops.net [127.0.0.1])
  by mx07-00178001.pphosted.com (8.16.0.42/8.16.0.42) with SMTP id
- 01BAuKJR011415; Tue, 11 Feb 2020 11:56:25 +0100
+ 01BEiRXu032757; Tue, 11 Feb 2020 15:44:28 +0100
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=st.com;
- h=from : to : cc : subject
- : date : message-id : mime-version : content-type; s=STMicroelectronics;
- bh=cV1Wais5QMnCi8AYrjauwcQtc7x8Akg7kC3DCHNTrfI=;
- b=cKJVTis8lYfFtJmiAwNtEstgu8ZuVu2qme2/jqgNfi7pG9/H8KjgeBt4JOPrcc/790wY
- ijOpUeKHTdkXZiW4s2GpQ5TARF1uFND/zPKxeJVMfGH/ryd4E4nglrEkvomKjcIfQ8uk
- NpGvOdYh0TnLxQYM7CLRDaaaz6ajHx3kv3l4loO3SAabEbPQEctkz8x6EQLXSmPLbPCv
- WwGQUUXgqs/50JLQEHG9Ho8g5q+ouF1s7IdkRvtR033cAT0Cpqu59gjz81I910V1mZ2x
- mBA1tHHsuktI3Gbi2QXPZE6za+GsD7erMLutX7W/4mdOMHvDKiNhlqVYISlpZIpGqecx PQ== 
+ h=subject : to : cc :
+ references : from : message-id : date : mime-version : in-reply-to :
+ content-type : content-transfer-encoding; s=STMicroelectronics;
+ bh=zMrqEZqOCVnlA3/9d0Rc7Rgo4RLOby/Y5h96V1K6k5k=;
+ b=GtWzjgWpZQmghAi169LU0uuY4j7UF/y4Gxjub5zSHljucQ9SciIS1fLFx8NgjERgpEqd
+ wD2ePTUv/IS4QpFL9ashW1yofY0nK/2ZRkTrwnh5vpa39jIgJSyf0bP0MsxLWB3JnPwC
+ c1nSsQxR/ELJ1NNAZiSh6qB5VMdSGOdzJw/piJ0VJCKihyErlkdRkV9gaiGiZggHXRb3
+ JKG1oAfc3Pk3dP48IbxrRU1u7fZArbuL1j1hAOco7JtMhjlz4ZZv7pVn4VOAXp9fdizr
+ uotji9CPN2DDHDLLtx4hKF92yFf7FnBzwHslCu1jX0mj3fq8XgNV6R/j+ka/1TtPFeHt PA== 
 Received: from beta.dmz-eu.st.com (beta.dmz-eu.st.com [164.129.1.35])
- by mx07-00178001.pphosted.com with ESMTP id 2y1ud9m85f-1
+ by mx07-00178001.pphosted.com with ESMTP id 2y1ufh5xf0-1
  (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
- Tue, 11 Feb 2020 11:56:25 +0100
+ Tue, 11 Feb 2020 15:44:28 +0100
 Received: from euls16034.sgp.st.com (euls16034.sgp.st.com [10.75.44.20])
- by beta.dmz-eu.st.com (STMicroelectronics) with ESMTP id A7594100050;
- Tue, 11 Feb 2020 11:56:20 +0100 (CET)
-Received: from Webmail-eu.st.com (sfhdag5node3.st.com [10.75.127.15])
- by euls16034.sgp.st.com (STMicroelectronics) with ESMTP id 96D282AEAB8;
- Tue, 11 Feb 2020 11:56:20 +0100 (CET)
-Received: from localhost (10.75.127.44) by SFHDAG5NODE3.st.com (10.75.127.15)
- with Microsoft SMTP Server (TLS) id 15.0.1473.3;
- Tue, 11 Feb 2020 11:56:20 +0100
-From: Fabrice Gasnier <fabrice.gasnier@st.com>
-To: <jic23@kernel.org>
-Date: Tue, 11 Feb 2020 11:56:06 +0100
-Message-ID: <1581418566-31954-1-git-send-email-fabrice.gasnier@st.com>
-X-Mailer: git-send-email 2.7.4
+ by beta.dmz-eu.st.com (STMicroelectronics) with ESMTP id 6748F100046;
+ Tue, 11 Feb 2020 15:44:18 +0100 (CET)
+Received: from Webmail-eu.st.com (sfhdag6node1.st.com [10.75.127.16])
+ by euls16034.sgp.st.com (STMicroelectronics) with ESMTP id 535752BD3FC;
+ Tue, 11 Feb 2020 15:44:18 +0100 (CET)
+Received: from lmecxl0923.lme.st.com (10.75.127.48) by SFHDAG6NODE1.st.com
+ (10.75.127.16) with Microsoft SMTP Server (TLS) id 15.0.1473.3; Tue, 11 Feb
+ 2020 15:44:17 +0100
+To: Ulf Hansson <ulf.hansson@linaro.org>, Rob Herring <robh+dt@kernel.org>
+References: <20200128090636.13689-1-ludovic.barre@st.com>
+ <20200128090636.13689-10-ludovic.barre@st.com>
+From: Ludovic BARRE <ludovic.barre@st.com>
+Message-ID: <853f4b14-a188-f329-34e5-8e88fcafa775@st.com>
+Date: Tue, 11 Feb 2020 15:44:17 +0100
+User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:68.0) Gecko/20100101
+ Thunderbird/68.1.0
 MIME-Version: 1.0
-X-Originating-IP: [10.75.127.44]
-X-ClientProxiedBy: SFHDAG7NODE3.st.com (10.75.127.21) To SFHDAG5NODE3.st.com
- (10.75.127.15)
+In-Reply-To: <20200128090636.13689-10-ludovic.barre@st.com>
+Content-Language: fr
+X-Originating-IP: [10.75.127.48]
+X-ClientProxiedBy: SFHDAG7NODE2.st.com (10.75.127.20) To SFHDAG6NODE1.st.com
+ (10.75.127.16)
 X-Proofpoint-Virus-Version: vendor=fsecure engine=2.50.10434:6.0.138, 18.0.572
- definitions=2020-02-11_03:2020-02-10,
+ definitions=2020-02-11_04:2020-02-10,
  2020-02-11 signatures=0
-Cc: linux-iio@vger.kernel.org, vilhelm.gray@gmail.com,
- linux-kernel@vger.kernel.org, mcoquelin.stm32@gmail.com,
- fabrice.gasnier@st.com, linux-stm32@st-md-mailman.stormreply.com,
- linux-arm-kernel@lists.infradead.org
-Subject: [Linux-stm32] [PATCH] counter: stm32-timer-cnt: remove iio headers
+Cc: devicetree@vger.kernel.org, linux-mmc@vger.kernel.org,
+ linux-kernel@vger.kernel.org, srinivas.kandagatla@linaro.org,
+ Maxime Coquelin <mcoquelin.stm32@gmail.com>,
+ linux-stm32@st-md-mailman.stormreply.com, linux-arm-kernel@lists.infradead.org
+Subject: Re: [Linux-stm32] [PATCH V2 9/9] mmc: mmci: add sdmmc variant
+	revision 2.0
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -67,46 +74,47 @@ List-Post: <mailto:linux-stm32@st-md-mailman.stormreply.com>
 List-Help: <mailto:linux-stm32-request@st-md-mailman.stormreply.com?subject=help>
 List-Subscribe: <https://st-md-mailman.stormreply.com/mailman/listinfo/linux-stm32>, 
  <mailto:linux-stm32-request@st-md-mailman.stormreply.com?subject=subscribe>
-Content-Type: text/plain; charset="us-ascii"
-Content-Transfer-Encoding: 7bit
+Content-Transfer-Encoding: base64
+Content-Type: text/plain; charset="utf-8"; Format="flowed"
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
-The stm32-timer-cnt driver doesn't use the iio interface. The iio headers
-aren't relevant and can be removed as reported by William in [1].
-With this change, mod_devicetable.h needs to be added to define the
-'of_device_id' struct.
-
-[1] https://lkml.org/lkml/2020/2/10/1516
-
-Reported-by: William Breathitt Gray <vilhelm.gray@gmail.com>
-Signed-off-by: Fabrice Gasnier <fabrice.gasnier@st.com>
----
-Note this applies on top of:
-- "counter: stm32-timer-cnt: add power management support"
----
- drivers/counter/stm32-timer-cnt.c | 3 +--
- 1 file changed, 1 insertion(+), 2 deletions(-)
-
-diff --git a/drivers/counter/stm32-timer-cnt.c b/drivers/counter/stm32-timer-cnt.c
-index 50496f4..ef2a974 100644
---- a/drivers/counter/stm32-timer-cnt.c
-+++ b/drivers/counter/stm32-timer-cnt.c
-@@ -8,9 +8,8 @@
-  *
-  */
- #include <linux/counter.h>
--#include <linux/iio/iio.h>
--#include <linux/iio/types.h>
- #include <linux/mfd/stm32-timers.h>
-+#include <linux/mod_devicetable.h>
- #include <linux/module.h>
- #include <linux/pinctrl/consumer.h>
- #include <linux/platform_device.h>
--- 
-2.7.4
-
-_______________________________________________
-Linux-stm32 mailing list
-Linux-stm32@st-md-mailman.stormreply.com
-https://st-md-mailman.stormreply.com/mailman/listinfo/linux-stm32
+aGkgVWxmCgpMZSAxLzI4LzIwIMOgIDEwOjA2IEFNLCBMdWRvdmljIEJhcnJlIGEgw6ljcml0wqA6
+Cj4gVGhpcyBwYXRjaCBhZGRzIGEgc2RtbWMgdmFyaWFudCByZXZpc2lvbiAyLjAuCj4gVGhpcyBy
+ZXZpc2lvbiBpcyBiYWNrd2FyZCBjb21wYXRpYmxlIHdpdGggMS4xLCBhbmQgYWRkcyBkbWEKPiBs
+aW5rIGxpc3Qgc3VwcG9ydC4KPiAKPiBTaWduZWQtb2ZmLWJ5OiBMdWRvdmljIEJhcnJlIDxsdWRv
+dmljLmJhcnJlQHN0LmNvbT4KPiAtLS0KPiAgIGRyaXZlcnMvbW1jL2hvc3QvbW1jaS5jIHwgMzAg
+KysrKysrKysrKysrKysrKysrKysrKysrKysrKysrCj4gICAxIGZpbGUgY2hhbmdlZCwgMzAgaW5z
+ZXJ0aW9ucygrKQo+IAo+IGRpZmYgLS1naXQgYS9kcml2ZXJzL21tYy9ob3N0L21tY2kuYyBiL2Ry
+aXZlcnMvbW1jL2hvc3QvbW1jaS5jCj4gaW5kZXggMjRlNjMwMTgzZWQ0Li5hNzc0YzMyOWMyMTIg
+MTAwNjQ0Cj4gLS0tIGEvZHJpdmVycy9tbWMvaG9zdC9tbWNpLmMKPiArKysgYi9kcml2ZXJzL21t
+Yy9ob3N0L21tY2kuYwo+IEBAIC0yNzUsNiArMjc1LDMxIEBAIHN0YXRpYyBzdHJ1Y3QgdmFyaWFu
+dF9kYXRhIHZhcmlhbnRfc3RtMzJfc2RtbWMgPSB7Cj4gICAJLmluaXQJCQk9IHNkbW1jX3Zhcmlh
+bnRfaW5pdCwKPiAgIH07Cj4gICAKPiArc3RhdGljIHN0cnVjdCB2YXJpYW50X2RhdGEgdmFyaWFu
+dF9zdG0zMl9zZG1tY3YyID0gewo+ICsJLmZpZm9zaXplCQk9IDE2ICogNCwKPiArCS5maWZvaGFs
+ZnNpemUJCT0gOCAqIDQsCj4gKwkuZl9tYXgJCQk9IDIwODAwMDAwMCwKPiArCS5zdG0zMl9jbGtk
+aXYJCT0gdHJ1ZSwKPiArCS5jbWRyZWdfY3BzbV9lbmFibGUJPSBNQ0lfQ1BTTV9TVE0zMl9FTkFC
+TEUsCj4gKwkuY21kcmVnX2xyc3BfY3JjCT0gTUNJX0NQU01fU1RNMzJfTFJTUF9DUkMsCj4gKwku
+Y21kcmVnX3Nyc3BfY3JjCT0gTUNJX0NQU01fU1RNMzJfU1JTUF9DUkMsCj4gKwkuY21kcmVnX3Ny
+c3AJCT0gTUNJX0NQU01fU1RNMzJfU1JTUCwKPiArCS5jbWRyZWdfc3RvcAkJPSBNQ0lfQ1BTTV9T
+VE0zMl9DTURTVE9QLAo+ICsJLmRhdGFfY21kX2VuYWJsZQk9IE1DSV9DUFNNX1NUTTMyX0NNRFRS
+QU5TLAo+ICsJLmlycV9waW9fbWFzawkJPSBNQ0lfSVJRX1BJT19TVE0zMl9NQVNLLAo+ICsJLmRh
+dGFjdHJsX2ZpcnN0CQk9IHRydWUsCj4gKwkuZGF0YWNudF91c2VsZXNzCT0gdHJ1ZSwKPiArCS5k
+YXRhbGVuZ3RoX2JpdHMJPSAyNSwKPiArCS5kYXRhY3RybF9ibG9ja3N6CT0gMTQsCj4gKwkuZGF0
+YWN0cmxfYW55X2Jsb2Nrc3oJPSB0cnVlLAo+ICsJLnN0bTMyX2lkbWFic2l6ZV9tYXNrCT0gR0VO
+TUFTSygxNiwgNSksCj4gKwkuZG1hX2xsaQkJPSB0cnVlLAo+ICsJLmJ1c3lfdGltZW91dAkJPSB0
+cnVlLAoKSSBmb3JnZXQgImJ1c3lfZGV0ZWN0CQk9IHRydWUsIiBwcm9wZXJ0eQpJIGFkZCB0aGlz
+IGluIG5leHQgcGF0Y2ggc2V0Cgo+ICsJLmJ1c3lfZGV0ZWN0X2ZsYWcJPSBNQ0lfU1RNMzJfQlVT
+WUQwLAo+ICsJLmJ1c3lfZGV0ZWN0X21hc2sJPSBNQ0lfU1RNMzJfQlVTWUQwRU5ETUFTSywKPiAr
+CS5pbml0CQkJPSBzZG1tY192YXJpYW50X2luaXQsCj4gK307Cj4gKwo+ICAgc3RhdGljIHN0cnVj
+dCB2YXJpYW50X2RhdGEgdmFyaWFudF9xY29tID0gewo+ICAgCS5maWZvc2l6ZQkJPSAxNiAqIDQs
+Cj4gICAJLmZpZm9oYWxmc2l6ZQkJPSA4ICogNCwKPiBAQCAtMjM0Myw2ICsyMzY4LDExIEBAIHN0
+YXRpYyBjb25zdCBzdHJ1Y3QgYW1iYV9pZCBtbWNpX2lkc1tdID0gewo+ICAgCQkubWFzawk9IDB4
+ZjBmZmZmZmYsCj4gICAJCS5kYXRhCT0gJnZhcmlhbnRfc3RtMzJfc2RtbWMsCj4gICAJfSwKPiAr
+CXsKPiArCQkuaWQgICAgID0gMHgwMDI1MzE4MCwKPiArCQkubWFzawk9IDB4ZjBmZmZmZmYsCj4g
+KwkJLmRhdGEJPSAmdmFyaWFudF9zdG0zMl9zZG1tY3YyLAo+ICsJfSwKPiAgIAkvKiBRdWFsY29t
+bSB2YXJpYW50cyAqLwo+ICAgCXsKPiAgIAkJLmlkICAgICA9IDB4MDAwNTExODAsCj4gCl9fX19f
+X19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fCkxpbnV4LXN0bTMyIG1h
+aWxpbmcgbGlzdApMaW51eC1zdG0zMkBzdC1tZC1tYWlsbWFuLnN0b3JtcmVwbHkuY29tCmh0dHBz
+Oi8vc3QtbWQtbWFpbG1hbi5zdG9ybXJlcGx5LmNvbS9tYWlsbWFuL2xpc3RpbmZvL2xpbnV4LXN0
+bTMyCg==
