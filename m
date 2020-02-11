@@ -2,32 +2,63 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id CB41F1593D1
-	for <lists+linux-stm32@lfdr.de>; Tue, 11 Feb 2020 16:51:54 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 7634C159658
+	for <lists+linux-stm32@lfdr.de>; Tue, 11 Feb 2020 18:42:37 +0100 (CET)
 Received: from ip-172-31-3-76.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 9A50AC36B0B;
-	Tue, 11 Feb 2020 15:51:54 +0000 (UTC)
-Received: from foss.arm.com (foss.arm.com [217.140.110.172])
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 9A0F4C36B09
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id F1C68C36B0C;
+	Tue, 11 Feb 2020 17:42:36 +0000 (UTC)
+Received: from mx07-00178001.pphosted.com (mx07-00178001.pphosted.com
+ [62.209.51.94])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+ (No client certificate requested)
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 75432C36B09
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Tue, 11 Feb 2020 15:51:53 +0000 (UTC)
-Received: from usa-sjc-imap-foss1.foss.arm.com (unknown [10.121.207.14])
- by usa-sjc-mx-foss1.foss.arm.com (Postfix) with ESMTP id 2D1EA31B;
- Tue, 11 Feb 2020 07:51:53 -0800 (PST)
-Received: from localhost (unknown [10.37.6.21])
- by usa-sjc-imap-foss1.foss.arm.com (Postfix) with ESMTPSA id A73DF3F68E;
- Tue, 11 Feb 2020 07:51:52 -0800 (PST)
-Date: Tue, 11 Feb 2020 15:51:51 +0000
-From: Mark Brown <broonie@kernel.org>
-To: Etienne Carriere <etienne.carriere@st.com>
-In-Reply-To: <20200203135048.1299-2-patrice.chotard@st.com>
-Message-Id: <applied-20200203135048.1299-2-patrice.chotard@st.com>
-X-Patchwork-Hint: ignore
-Cc: linux-kernel@vger.kernel.org, linux-spi@vger.kernel.org,
- Mark Brown <broonie@kernel.org>, Maxime Coquelin <mcoquelin.stm32@gmail.com>,
- linux-stm32@st-md-mailman.stormreply.com, linux-arm-kernel@lists.infradead.org
-Subject: [Linux-stm32] Applied "spi: stm32-qspi: defer probe for reset
-	controller" to the spi tree
+ Tue, 11 Feb 2020 17:42:34 +0000 (UTC)
+Received: from pps.filterd (m0046668.ppops.net [127.0.0.1])
+ by mx07-00178001.pphosted.com (8.16.0.42/8.16.0.42) with SMTP id
+ 01BHgTGV007804; Tue, 11 Feb 2020 18:42:30 +0100
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=st.com;
+ h=from : to : cc : subject
+ : date : message-id : mime-version : content-type; s=STMicroelectronics;
+ bh=RDDGxzn9ujSpMGf3xyClXU8q9LiJT2dp9a7bhWHwHaE=;
+ b=WOnWH8557Fafslre+IfU0FrL6wbdVb1sKjSWV37mfbkF9SY2IINGpl5FcdrcLcGNyzHN
+ SIaQe+OlGU6/SC96BtMmz75WZVCqG58cuFcNrnCh8CSwAh4ae8UrEzeR4+4oveGp80V4
+ SaMQK2g5sEi/1ShRtcwsBjPpas5AzmR9QwPe8alPjQfyztB+2rtPQJnkT76u2yIKoTk2
+ /61HchnUFmPsTW9e42jsk+Oq9mKWhUFuRCgvM557mzvjkR9WK57WdHQFxpsyqjTjLhHN
+ Dq8I+ZyUOcredGxtC0NkWFQbQvbvLF00qFSbohBBK646ZwRB7n8olJjDeBeEejmapCip Dg== 
+Received: from beta.dmz-eu.st.com (beta.dmz-eu.st.com [164.129.1.35])
+ by mx07-00178001.pphosted.com with ESMTP id 2y1ufh7phr-1
+ (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
+ Tue, 11 Feb 2020 18:42:30 +0100
+Received: from euls16034.sgp.st.com (euls16034.sgp.st.com [10.75.44.20])
+ by beta.dmz-eu.st.com (STMicroelectronics) with ESMTP id D1AAB10005C;
+ Tue, 11 Feb 2020 18:42:22 +0100 (CET)
+Received: from Webmail-eu.st.com (sfhdag3node1.st.com [10.75.127.7])
+ by euls16034.sgp.st.com (STMicroelectronics) with ESMTP id B6E1E2C8E8C;
+ Tue, 11 Feb 2020 18:42:22 +0100 (CET)
+Received: from localhost (10.75.127.46) by SFHDAG3NODE1.st.com (10.75.127.7)
+ with Microsoft SMTP Server (TLS) id 15.0.1473.3; Tue, 11 Feb 2020 18:42:22
+ +0100
+From: Arnaud Pouliquen <arnaud.pouliquen@st.com>
+To: Bjorn Andersson <bjorn.andersson@linaro.org>, Rob Herring
+ <robh+dt@kernel.org>, Mark Rutland <mark.rutland@arm.com>,
+ <linux-remoteproc@vger.kernel.org>, <devicetree@vger.kernel.org>
+Date: Tue, 11 Feb 2020 18:42:02 +0100
+Message-ID: <20200211174205.22247-1-arnaud.pouliquen@st.com>
+X-Mailer: git-send-email 2.17.1
+MIME-Version: 1.0
+X-Originating-IP: [10.75.127.46]
+X-ClientProxiedBy: SFHDAG8NODE2.st.com (10.75.127.23) To SFHDAG3NODE1.st.com
+ (10.75.127.7)
+X-Proofpoint-Virus-Version: vendor=fsecure engine=2.50.10434:6.0.138, 18.0.572
+ definitions=2020-02-11_05:2020-02-10,
+ 2020-02-11 signatures=0
+Cc: Ohad Ben-Cohen <ohad@wizery.com>,
+ Mathieu Poirier <mathieu.poirier@linaro.org>, linux-kernel@vger.kernel.org,
+ Fabien DESSENNE <fabien.dessenne@st.com>, Suman Anna <s-anna@ti.com>,
+ linux-stm32@st-md-mailman.stormreply.com
+Subject: [Linux-stm32] [PATCH v5 0/3] add support for co-processor loaded
+	and booted before kernel
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -39,75 +70,39 @@ List-Post: <mailto:linux-stm32@st-md-mailman.stormreply.com>
 List-Help: <mailto:linux-stm32-request@st-md-mailman.stormreply.com?subject=help>
 List-Subscribe: <https://st-md-mailman.stormreply.com/mailman/listinfo/linux-stm32>, 
  <mailto:linux-stm32-request@st-md-mailman.stormreply.com?subject=subscribe>
-MIME-Version: 1.0
 Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
-The patch
+This series introduce the support of a preloaded firmware. In this case
+the load of the firmware is skipped. It is platform driver responsibility
+to implement the right firmware load ops according to HW specificities.
 
-   spi: stm32-qspi: defer probe for reset controller
+V4[1] to V5 update:
+  - add stm32 platform implementation  
 
-has been applied to the spi tree at
+[1]. https://patchwork.kernel.org/patch/11265869/
 
-   https://git.kernel.org/pub/scm/linux/kernel/git/broonie/spi.git for-5.7
+Arnaud Pouliquen (1):
+  dt-bindings: remoteproc: stm32: add syscon bindings preloaded fw
+    support
 
-All being well this means that it will be integrated into the linux-next
-tree (usually sometime in the next 24 hours) and sent to Linus during
-the next merge window (or sooner if it is a bug fix), however if
-problems are discovered then the patch may be dropped or reverted.  
+Fabien Dessenne (1):
+  remoteproc: stm32: add support for co-processor booted before kernel
 
-You may get further e-mails resulting from automated or manual testing
-and review of the tree, please engage with people reporting problems and
-send followup patches addressing any issues that are reported if needed.
+Loic Pallardy (1):
+  remoteproc: add support for co-processor loaded and booted before
+    kernel
 
-If any updates are required or you are submitting further changes they
-should be sent as incremental updates against current git, existing
-patches will not be replaced.
+ .../bindings/remoteproc/st,stm32-rproc.yaml   |  21 ++
+ drivers/remoteproc/remoteproc_core.c          |  67 ++++--
+ drivers/remoteproc/stm32_rproc.c              | 205 ++++++++++++++++--
+ include/linux/remoteproc.h                    |   2 +
+ 4 files changed, 267 insertions(+), 28 deletions(-)
 
-Please add any relevant lists and maintainers to the CCs when replying
-to this mail.
-
-Thanks,
-Mark
-
-From 8196f7bcc2adf21f83d82691d537fcef7abaa1c7 Mon Sep 17 00:00:00 2001
-From: Etienne Carriere <etienne.carriere@st.com>
-Date: Mon, 3 Feb 2020 14:50:47 +0100
-Subject: [PATCH] spi: stm32-qspi: defer probe for reset controller
-
-Changes stm32 QSPI driver to defer its probe operation when a reset
-controller device have not yet probed but is registered in the
-system.
-
-Signed-off-by: Etienne Carriere <etienne.carriere@st.com>
-Signed-off-by: Patrice Chotard <patrice.chotard@st.com>
-Link: https://lore.kernel.org/r/20200203135048.1299-2-patrice.chotard@st.com
-Signed-off-by: Mark Brown <broonie@kernel.org>
----
- drivers/spi/spi-stm32-qspi.c | 6 +++++-
- 1 file changed, 5 insertions(+), 1 deletion(-)
-
-diff --git a/drivers/spi/spi-stm32-qspi.c b/drivers/spi/spi-stm32-qspi.c
-index 4ef569b47aa6..13bb64bf4c8f 100644
---- a/drivers/spi/spi-stm32-qspi.c
-+++ b/drivers/spi/spi-stm32-qspi.c
-@@ -615,7 +615,11 @@ static int stm32_qspi_probe(struct platform_device *pdev)
- 	}
- 
- 	rstc = devm_reset_control_get_exclusive(dev, NULL);
--	if (!IS_ERR(rstc)) {
-+	if (IS_ERR(rstc)) {
-+		ret = PTR_ERR(rstc);
-+		if (ret == -EPROBE_DEFER)
-+			goto err;
-+	} else {
- 		reset_control_assert(rstc);
- 		udelay(2);
- 		reset_control_deassert(rstc);
 -- 
-2.20.1
+2.17.1
 
 _______________________________________________
 Linux-stm32 mailing list
