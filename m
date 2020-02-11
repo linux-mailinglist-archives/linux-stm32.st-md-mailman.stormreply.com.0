@@ -2,62 +2,66 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id 281091597DE
-	for <lists+linux-stm32@lfdr.de>; Tue, 11 Feb 2020 19:13:28 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 0882F159C3B
+	for <lists+linux-stm32@lfdr.de>; Tue, 11 Feb 2020 23:30:51 +0100 (CET)
 Received: from ip-172-31-3-76.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id D22CEC36B0B;
-	Tue, 11 Feb 2020 18:13:27 +0000 (UTC)
-Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
- (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
- (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 66A97C36B09
- for <linux-stm32@st-md-mailman.stormreply.com>;
- Tue, 11 Feb 2020 18:13:25 +0000 (UTC)
-Received: from mail-qk1-f169.google.com (mail-qk1-f169.google.com
- [209.85.222.169])
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 50C6BC36B0B;
+	Tue, 11 Feb 2020 22:30:50 +0000 (UTC)
+Received: from mail-yb1-f196.google.com (mail-yb1-f196.google.com
+ [209.85.219.196])
  (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by mail.kernel.org (Postfix) with ESMTPSA id AC50A2168B
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id A648EC36B09
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Tue, 11 Feb 2020 18:13:23 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
- s=default; t=1581444803;
- bh=3riax90X3cB1LTgwegasbmXkNo83BsShz5HQj87AsSg=;
- h=References:In-Reply-To:From:Date:Subject:To:Cc:From;
- b=vKBQdf7sq8abEa5O+/jfAR/LrlO09VRq0Z8A4pR8a4/sVqTwKbBjz0b+jF4mKUjJz
- cbaIxk3EQNVW6V0EEQQtrPeEUrmfiWllfOzuhSsW7m9ur/R0BZ0zlVs25gOQg+kvxl
- W33tqbKqHX0dSPBeI6mowsfPGrsH3gclSmBnKwmI=
-Received: by mail-qk1-f169.google.com with SMTP id g195so10983481qke.13
+ Tue, 11 Feb 2020 22:30:46 +0000 (UTC)
+Received: by mail-yb1-f196.google.com with SMTP id f130so4332721ybc.7
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Tue, 11 Feb 2020 10:13:23 -0800 (PST)
-X-Gm-Message-State: APjAAAVpol+mwJZ8tEqsvS/DH3Yr42Hlw5hDLVpe5gv7fJ8S5THJhPUd
- D6fo4ottFJKRpoSkF1JJ1d1nvdT+K0WB2JdK2Q==
-X-Google-Smtp-Source: APXvYqwRNNy+ur96m7q6c3i3fkxvIT/TIzcSWdajVPSiLV011854FY1lIs7P3ivinO4cTTgIv5XuOleMFRvHINxetz0=
-X-Received: by 2002:a37:6042:: with SMTP id u63mr6765137qkb.119.1581444802651; 
- Tue, 11 Feb 2020 10:13:22 -0800 (PST)
+ Tue, 11 Feb 2020 14:30:46 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20161025;
+ h=date:from:to:cc:subject:message-id:references:mime-version
+ :content-disposition:in-reply-to;
+ bh=CHoiFuVyPb6jGydbvdkP7hbmi4a+GAh7Qj76wkBaMrw=;
+ b=KqXh8ljWsaeJuL5FZXSBYEMOEtwIDGtNhPOg0K+XUvNK9WNzlf102sQ8jl82PFo8XF
+ s+Ljzb/2DZuO0hfDjig0E+42lrnPZv/TPE7RJ8Aqcx5xI9V7autaDv1tzexHXbY8iQty
+ emEUEpwNSlANK1zORXQhRhy5tNQf2Ob0zLmcHG55uqs/alcX9ODLzR5BetAN9ZF5rmQ2
+ L25xAQtPyXz4zTfuqZZ/CpTP5vh7LsBhN8NpOxxgp0t58Zctl7vxGJbVRa2ovEgfn55s
+ i7Ls6CX0QpJTP0yd4t9igAHATrBZ+sxcHJfF2O09c0ls0c51XDilEOQdV2YfxfRxZoPj
+ KfZQ==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20161025;
+ h=x-gm-message-state:date:from:to:cc:subject:message-id:references
+ :mime-version:content-disposition:in-reply-to;
+ bh=CHoiFuVyPb6jGydbvdkP7hbmi4a+GAh7Qj76wkBaMrw=;
+ b=XSfPHOsDMPwHyKQRcSvJRcKwZjZ+XZkk5gHVsHqLjfSwVnSAaujGBbOWB37oQJubGU
+ nn2XqjtjzLOUeOxXww0hkEGKnRAiPoWs2mD2gA0IjOy+b7+CNhvTrBhIN+TxBdodZYeN
+ IaUgwzSM1MncXtRHbFbOIdq+8INlHCGM4S+mbNfjujbN1yltSt5j4MrGTO+C6DD7IAdj
+ 3YWUqJb+wG0S5vaylg1CHYeYjPSIGebyuzXMBN+kcJ5TQi9Li+Ro865mzEnSREgQX8V1
+ Zm41kUJ9tjzABlEwBxT9EV0NwSTU4ZYpBgjIhi2TE2BeDXswwgdr3UQGMbgSP9xvD79o
+ icoQ==
+X-Gm-Message-State: APjAAAXvq6zfd+qpaV7DmCQHA6h9mGOEcXxbIu43Xt+fnHC9KUkcNdgb
+ Ks/3Tua04ZsAF2+aBkEKv1Q=
+X-Google-Smtp-Source: APXvYqyilsRsa87oczzBpnbDDzSd9mSalUhB8qVYON+pfbtfykYkhrGIfyKeqrrb88A0edcvtP8mkQ==
+X-Received: by 2002:a25:8290:: with SMTP id r16mr7654104ybk.4.1581460245400;
+ Tue, 11 Feb 2020 14:30:45 -0800 (PST)
+Received: from icarus (072-189-064-225.res.spectrum.com. [72.189.64.225])
+ by smtp.gmail.com with ESMTPSA id q130sm2560552ywg.52.2020.02.11.14.30.43
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Tue, 11 Feb 2020 14:30:44 -0800 (PST)
+Date: Tue, 11 Feb 2020 17:30:28 -0500
+From: William Breathitt Gray <vilhelm.gray@gmail.com>
+To: Fabrice Gasnier <fabrice.gasnier@st.com>
+Message-ID: <20200211223028.GA7369@icarus>
+References: <1581355198-30428-1-git-send-email-fabrice.gasnier@st.com>
+ <20200210174550.GA4626@icarus>
+ <b1e2930a-eeaf-dcfe-3e2c-b666908262bf@st.com>
 MIME-Version: 1.0
-References: <20200130135040.22575-1-olivier.moysan@st.com>
- <20200206182125.GA23274@bogus>
- <843b9213-99c0-ec9f-bde6-4745a9cb6221@st.com>
-In-Reply-To: <843b9213-99c0-ec9f-bde6-4745a9cb6221@st.com>
-From: Rob Herring <robh@kernel.org>
-Date: Tue, 11 Feb 2020 12:13:11 -0600
-X-Gmail-Original-Message-ID: <CAL_JsqJECUKkvZ1rt=4p5sMku3id973drEqLDvMZp8Fr+wx9tA@mail.gmail.com>
-Message-ID: <CAL_JsqJECUKkvZ1rt=4p5sMku3id973drEqLDvMZp8Fr+wx9tA@mail.gmail.com>
-To: Olivier MOYSAN <olivier.moysan@st.com>
-Cc: "mark.rutland@arm.com" <mark.rutland@arm.com>,
- "devicetree@vger.kernel.org" <devicetree@vger.kernel.org>,
- "alsa-devel@alsa-project.org" <alsa-devel@alsa-project.org>,
- "linux-kernel@vger.kernel.org" <linux-kernel@vger.kernel.org>,
- "tiwai@suse.com" <tiwai@suse.com>, "lgirdwood@gmail.com" <lgirdwood@gmail.com>,
- "broonie@kernel.org" <broonie@kernel.org>,
- "mcoquelin.stm32@gmail.com" <mcoquelin.stm32@gmail.com>,
- "perex@perex.cz" <perex@perex.cz>,
- "linux-stm32@st-md-mailman.stormreply.com"
- <linux-stm32@st-md-mailman.stormreply.com>,
- "linux-arm-kernel@lists.infradead.org" <linux-arm-kernel@lists.infradead.org>
-Subject: Re: [Linux-stm32] [PATCH] ASoC: dt-bindings: stm32: convert sai to
-	json-schema
+Content-Disposition: inline
+In-Reply-To: <b1e2930a-eeaf-dcfe-3e2c-b666908262bf@st.com>
+Cc: linux-iio@vger.kernel.org, linux-kernel@vger.kernel.org,
+ linux-arm-kernel@lists.infradead.org, mcoquelin.stm32@gmail.com,
+ linux-stm32@st-md-mailman.stormreply.com, jic23@kernel.org
+Subject: Re: [Linux-stm32] [PATCH v2] counter: stm32-timer-cnt: add power
+	management support
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -74,232 +78,49 @@ Content-Transfer-Encoding: 7bit
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
-On Fri, Feb 7, 2020 at 7:42 AM Olivier MOYSAN <olivier.moysan@st.com> wrote:
->
-> Hi Rob,
->
-> On 2/6/20 7:21 PM, Rob Herring wrote:
-> > On Thu, Jan 30, 2020 at 02:50:40PM +0100, Olivier Moysan wrote:
-> >> Convert the STM32 SAI bindings to DT schema format using json-schema.
+On Tue, Feb 11, 2020 at 11:54:17AM +0100, Fabrice Gasnier wrote:
+> On 2/10/20 6:45 PM, William Breathitt Gray wrote:
+> > On Mon, Feb 10, 2020 at 06:19:58PM +0100, Fabrice Gasnier wrote:
+> >> Add suspend/resume PM sleep ops. When going to low power, enforce the
+> >> counter isn't active. Gracefully restore its state upon resume in case
+> >> it's been left enabled prior to suspend.
 > >>
-> >> Signed-off-by: Olivier Moysan <olivier.moysan@st.com>
+> >> Acked-by: William Breathitt Gray <vilhelm.gray@gmail.com>
+> >> Signed-off-by: Fabrice Gasnier <fabrice.gasnier@st.com>
 > >> ---
-> >>   .../bindings/sound/st,stm32-sai.txt           | 107 ----------
-> >>   .../bindings/sound/st,stm32-sai.yaml          | 193 ++++++++++++++++++
-> >>   2 files changed, 193 insertions(+), 107 deletions(-)
-> >>   delete mode 100644 Documentation/devicetree/bindings/sound/st,stm32-sai.txt
-> >>   create mode 100644 Documentation/devicetree/bindings/sound/st,stm32-sai.yaml
-> >
-> >> diff --git a/Documentation/devicetree/bindings/sound/st,stm32-sai.yaml b/Documentation/devicetree/bindings/sound/st,stm32-sai.yaml
-> >> new file mode 100644
-> >> index 000000000000..33dca007fc86
-> >> --- /dev/null
-> >> +++ b/Documentation/devicetree/bindings/sound/st,stm32-sai.yaml
-> >> @@ -0,0 +1,193 @@
-> >> +# SPDX-License-Identifier: (GPL-2.0-only OR BSD-2-Clause)
-> >> +%YAML 1.2
-> >> +---
-> >> +$id: http://devicetree.org/schemas/sound/st,stm32-sai.yaml#
-> >> +$schema: http://devicetree.org/meta-schemas/core.yaml#
-> >> +
-> >> +title: STMicroelectronics STM32 Serial Audio Interface (SAI)
-> >> +
-> >> +maintainers:
-> >> +  - Olivier Moysan <olivier.moysan@st.com>
-> >> +
-> >> +description:
-> >> +  The SAI interface (Serial Audio Interface) offers a wide set of audio
-> >> +  protocols as I2S standards, LSB or MSB-justified, PCM/DSP, TDM, and AC'97.
-> >> +  The SAI contains two independent audio sub-blocks. Each sub-block has
-> >> +  its own clock generator and I/O lines controller.
-> >> +
-> >> +properties:
-> >> +  compatible:
-> >> +    enum:
-> >> +      - st,stm32f4-sai
-> >> +      - st,stm32h7-sai
-> >> +
-> >> +  reg:
-> >> +    items:
-> >> +      - description: Base address and size of SAI common register set.
-> >> +      - description: Base address and size of SAI identification register set.
-> >> +    minItems: 1
-> >> +    maxItems: 2
-> >> +
-> >> +  ranges:
-> >> +    maxItems: 1
-> >> +
-> >> +  interrupts:
-> >> +    maxItems: 1
-> >> +
-> >> +  resets:
-> >> +    maxItems: 1
-> >> +
-> >> +  "#address-cells":
-> >> +    const: 1
-> >> +
-> >> +  "#size-cells":
-> >> +    const: 1
-> >> +
-> >> +  clocks:
-> >> +    items:
-> >> +      - description: pclk feeds the peripheral bus interface.
-> >> +      - description: x8k, SAI parent clock for sampling rates multiple of 8kHz.
-> >> +      - description: x11k, SAI parent clock for sampling rates multiple of 11.025kHz.
-> >> +
-> >> +  clock-names:
-> >> +    items:
-> >> +      enum: [ pclk, x8k, x11k ]
-> >> +    minItems: 3
-> >> +    maxItems: 3
-> >> +
-> >> +required:
-> >> +  - compatible
-> >> +  - reg
-> >> +  - ranges
-> >> +  - "#address-cells"
-> >> +  - "#size-cells"
-> >> +  - clocks
-> >> +  - clock-names
-> >> +
-> >> +patternProperties:
-> >> +  "^audio-controller@[0-9a-f]+$":
-> >> +    type: object
-> >> +    description:
-> >> +      Two subnodes corresponding to SAI sub-block instances A et B
-> >> +      can be defined. Subnode can be omitted for unsused sub-block.
-> >> +
-> >> +    properties:
-> >> +      compatible:
-> >> +        description: Compatible for SAI sub-block A or B.
-> >> +        enum:
-> >> +          - st,stm32-sai-sub-a
-> >> +          - st,stm32-sai-sub-b
-> > pattern: 'st,stm32-sai-sub-[ab]'
-> I will change this in v2
-> >> +
-> >> +      "#sound-dai-cells":
-> >> +        const: 0
-> >> +
-> >> +      reg:
-> >> +        maxItems: 1
-> >> +
-> >> +      clocks:
-> >> +        items:
-> >> +          - description: sai_ck clock feeding the internal clock generator.
-> >> +          - description: MCLK clock from a SAI set as master clock provider.
-> >> +        minItems: 1
-> >> +        maxItems: 2
-> >> +
-> >> +      clock-names:
-> >> +        items:
-> >> +          - const: sai_ck
-> >> +          - const: MCLK
-> >> +        minItems: 1
-> >> +        maxItems: 2
-> >> +
-> >> +      dmas:
-> >> +        items:
-> >> +          - description: SAI sub-block is configured as a capture DAI.
-> >> +          - description: SAI sub-block is configured as a playback DAI.
-> >> +        minItems: 1
-> >> +        maxItems: 1
-> > This is defining that dmas has 2 entries, but then limits it to the 1st
-> > entry only.
-> dma can be either "rx" or "tx", but not both.
-> Maybe, the following syntax is more appropriate:
->
->        dmas:
->          maxItems: 1
->
->        dma-names:
->          description: |
->            rx: SAI sub-block is configured as a capture DAI.
->            tx: SAI sub-block is configured as a playback DAI.
->          items:
->            - enum: [ rx, tx ]
+> >> Changes in v2:
+> >> - Don't refuse to suspend in case the counter has been left enabled.
+> >>   Gracefully disable it and restore its state upon resume.
+> >> ---
+> >>  drivers/counter/stm32-timer-cnt.c | 63 +++++++++++++++++++++++++++++++++++++++
+> >>  1 file changed, 63 insertions(+)
+> >>
+> >> diff --git a/drivers/counter/stm32-timer-cnt.c b/drivers/counter/stm32-timer-cnt.c
+> >> index 3eafcce..50496f4 100644
+> >> --- a/drivers/counter/stm32-timer-cnt.c
+> >> +++ b/drivers/counter/stm32-timer-cnt.c
+> >> @@ -12,6 +12,7 @@
+> >>  #include <linux/iio/types.h>
+> > 
+> > Unrelated to your patch but it caught my eye: are iio headers necessary
+> > for this file? I suspect they are not needed since this driver does not
+> > make use of the IIO interface.
+> 
+> Hi William,
+> 
+> Yes, you're right. Thanks for pointing this!
+> I'll push a patch on top of this one to fix it. BTW, I'm not sure if
+> this needs to be a marked as a fix, as this seems a quite minor issue?
+> 
+> Best Regards,
+> Fabrice
 
-Yes, but for a single entry you can drop 'items'.
+No need for a Fixes tag in this case since this is not a bug fix, but
+rather just a minor clean up of the included headers.
 
->
-> >> +
-> >> +      dma-names:
-> >> +        items:
-> >> +          - enum: [ rx, tx ]
-> >> +
-> >> +      st,sync:
-> >> +        description:
-> >> +          Configure the SAI sub-block as slave of another SAI sub-block.
-> >> +          By default SAI sub-block is in asynchronous mode.
-> >> +          Must contain the phandle and index of the SAI sub-block providing
-> >> +          the synchronization.
-> >> +        allOf:
-> >> +          - $ref: /schemas/types.yaml#definitions/phandle-array
-> >> +          - maxItems: 1
-> >> +
-> >> +      st,iec60958:
-> >> +        description:
-> >> +          If set, support S/PDIF IEC6958 protocol for playback.
-> >> +          IEC60958 protocol is not available for capture.
-> >> +          By default, custom protocol is assumed, meaning that protocol is
-> >> +          configured according to protocol defined in related DAI link node,
-> >> +          such as i2s, left justified, right justified, dsp and pdm protocols.
-> >> +        allOf:
-> >> +          - $ref: /schemas/types.yaml#definitions/flag
-> >> +
-> >> +      "#clock-cells":
-> >> +        description: Configure the SAI device as master clock provider.
-> >> +        const: 0
-> >> +
-> >> +    required:
-> >> +      - compatible
-> >> +      - "#sound-dai-cells"
-> >> +      - reg
-> >> +      - clocks
-> >> +      - clock-names
-> >> +      - dmas
-> >> +      - dma-names
-> >         additionalProperties: false.
-> >
-> >> +
-> >> +allOf:
-> >> +  - if:
-> >> +      properties:
-> >> +        compatible:
-> >> +          contains:
-> >> +            const: st,stm32f4-sai
-> >> +
-> >> +  - then:
-> >> +      properties:
-> >> +        clocks:
-> >> +          minItems: 2
-> >> +          maxItems: 2
-> >> +
-> >> +        clock-names:
-> >> +          items:
-> >> +            enum: [ x8k, x11k ]
-> > Define the order.
-> >
-> Do you mean, adding in clocks property  :
->            items:
->              - description: x8k, SAI parent clock for sampling rates
-> multiple of 8kHz.
->              - description: x11k, SAI parent clock for sampling rates
-> multiple of 11.025kHz.
+Thanks,
 
-That too, but for clocks you need:
-
-clock-names:
-  items:
-    - const: x8k
-    - const: x11k
-
-> But, it seems to me that this is redundant with previous definition of
-> clocks property.
-
-It's not because it's clocks in different positions.
-
-Rob
+William Breathitt Gray
 _______________________________________________
 Linux-stm32 mailing list
 Linux-stm32@st-md-mailman.stormreply.com
