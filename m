@@ -2,66 +2,62 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id 5696615965D
-	for <lists+linux-stm32@lfdr.de>; Tue, 11 Feb 2020 18:42:49 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 281091597DE
+	for <lists+linux-stm32@lfdr.de>; Tue, 11 Feb 2020 19:13:28 +0100 (CET)
 Received: from ip-172-31-3-76.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 20D58C36B0B;
-	Tue, 11 Feb 2020 17:42:49 +0000 (UTC)
-Received: from mx07-00178001.pphosted.com (mx07-00178001.pphosted.com
- [62.209.51.94])
- (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id D22CEC36B0B;
+	Tue, 11 Feb 2020 18:13:27 +0000 (UTC)
+Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
+ (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 4E77BC36B09
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 66A97C36B09
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Tue, 11 Feb 2020 17:42:48 +0000 (UTC)
-Received: from pps.filterd (m0046668.ppops.net [127.0.0.1])
- by mx07-00178001.pphosted.com (8.16.0.42/8.16.0.42) with SMTP id
- 01BHgTGa007804; Tue, 11 Feb 2020 18:42:44 +0100
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=st.com;
- h=from : to : cc : subject
- : date : message-id : in-reply-to : references : mime-version :
- content-type; s=STMicroelectronics;
- bh=5FnBHOfltD6Qnn+JdMECbmym6xkAwyRT+poCX9qSXpk=;
- b=EfWDfiF2Z1twdIY3AZEm6D9aTwLRMg+NxwTPBNDzh9vWp/ZdDSc7LC1HbG21PVKhB/qQ
- ii6H9nSA+CxHHtE4GByDod87XtScWCoVevrJGMIg+RayuXku5CoB51L4ytAIScjPfAKW
- 9xxxKsULZgXGJM52FG7tOP4o7r3ymCAHAWZTqDFO47pwCWwq4WTuH5O7aHUs27MKfnG/
- aZ1NMKL5A8pVI5p8vkuW/mHMigdYJybHP0jTWPrq/tJyqTicQiYE2TdQ2uOEPIl3N5O2
- X4mNyuxIzS273RmHF30imWpaVeI2kudBVug3Ge6SSgB0McdShgN00dLY80DLR2jGrvqe Ig== 
-Received: from beta.dmz-eu.st.com (beta.dmz-eu.st.com [164.129.1.35])
- by mx07-00178001.pphosted.com with ESMTP id 2y1ufh7pk7-1
- (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
- Tue, 11 Feb 2020 18:42:44 +0100
-Received: from euls16034.sgp.st.com (euls16034.sgp.st.com [10.75.44.20])
- by beta.dmz-eu.st.com (STMicroelectronics) with ESMTP id 02B3F10002A;
- Tue, 11 Feb 2020 18:42:40 +0100 (CET)
-Received: from Webmail-eu.st.com (sfhdag3node1.st.com [10.75.127.7])
- by euls16034.sgp.st.com (STMicroelectronics) with ESMTP id E8D322C8E8C;
- Tue, 11 Feb 2020 18:42:39 +0100 (CET)
-Received: from localhost (10.75.127.44) by SFHDAG3NODE1.st.com (10.75.127.7)
- with Microsoft SMTP Server (TLS) id 15.0.1473.3; Tue, 11 Feb 2020 18:42:39
- +0100
-From: Arnaud Pouliquen <arnaud.pouliquen@st.com>
-To: Bjorn Andersson <bjorn.andersson@linaro.org>, Rob Herring
- <robh+dt@kernel.org>, Mark Rutland <mark.rutland@arm.com>,
- <linux-remoteproc@vger.kernel.org>, <devicetree@vger.kernel.org>
-Date: Tue, 11 Feb 2020 18:42:05 +0100
-Message-ID: <20200211174205.22247-4-arnaud.pouliquen@st.com>
-X-Mailer: git-send-email 2.17.1
-In-Reply-To: <20200211174205.22247-1-arnaud.pouliquen@st.com>
-References: <20200211174205.22247-1-arnaud.pouliquen@st.com>
+ Tue, 11 Feb 2020 18:13:25 +0000 (UTC)
+Received: from mail-qk1-f169.google.com (mail-qk1-f169.google.com
+ [209.85.222.169])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+ (No client certificate requested)
+ by mail.kernel.org (Postfix) with ESMTPSA id AC50A2168B
+ for <linux-stm32@st-md-mailman.stormreply.com>;
+ Tue, 11 Feb 2020 18:13:23 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
+ s=default; t=1581444803;
+ bh=3riax90X3cB1LTgwegasbmXkNo83BsShz5HQj87AsSg=;
+ h=References:In-Reply-To:From:Date:Subject:To:Cc:From;
+ b=vKBQdf7sq8abEa5O+/jfAR/LrlO09VRq0Z8A4pR8a4/sVqTwKbBjz0b+jF4mKUjJz
+ cbaIxk3EQNVW6V0EEQQtrPeEUrmfiWllfOzuhSsW7m9ur/R0BZ0zlVs25gOQg+kvxl
+ W33tqbKqHX0dSPBeI6mowsfPGrsH3gclSmBnKwmI=
+Received: by mail-qk1-f169.google.com with SMTP id g195so10983481qke.13
+ for <linux-stm32@st-md-mailman.stormreply.com>;
+ Tue, 11 Feb 2020 10:13:23 -0800 (PST)
+X-Gm-Message-State: APjAAAVpol+mwJZ8tEqsvS/DH3Yr42Hlw5hDLVpe5gv7fJ8S5THJhPUd
+ D6fo4ottFJKRpoSkF1JJ1d1nvdT+K0WB2JdK2Q==
+X-Google-Smtp-Source: APXvYqwRNNy+ur96m7q6c3i3fkxvIT/TIzcSWdajVPSiLV011854FY1lIs7P3ivinO4cTTgIv5XuOleMFRvHINxetz0=
+X-Received: by 2002:a37:6042:: with SMTP id u63mr6765137qkb.119.1581444802651; 
+ Tue, 11 Feb 2020 10:13:22 -0800 (PST)
 MIME-Version: 1.0
-X-Originating-IP: [10.75.127.44]
-X-ClientProxiedBy: SFHDAG7NODE3.st.com (10.75.127.21) To SFHDAG3NODE1.st.com
- (10.75.127.7)
-X-Proofpoint-Virus-Version: vendor=fsecure engine=2.50.10434:6.0.138, 18.0.572
- definitions=2020-02-11_05:2020-02-10,
- 2020-02-11 signatures=0
-Cc: Ohad Ben-Cohen <ohad@wizery.com>,
- Mathieu Poirier <mathieu.poirier@linaro.org>, linux-kernel@vger.kernel.org,
- Fabien DESSENNE <fabien.dessenne@st.com>, Suman Anna <s-anna@ti.com>,
- linux-stm32@st-md-mailman.stormreply.com
-Subject: [Linux-stm32] [PATCH v5 3/3] dt-bindings: remoteproc: stm32: add
-	syscon bindings preloaded fw support
+References: <20200130135040.22575-1-olivier.moysan@st.com>
+ <20200206182125.GA23274@bogus>
+ <843b9213-99c0-ec9f-bde6-4745a9cb6221@st.com>
+In-Reply-To: <843b9213-99c0-ec9f-bde6-4745a9cb6221@st.com>
+From: Rob Herring <robh@kernel.org>
+Date: Tue, 11 Feb 2020 12:13:11 -0600
+X-Gmail-Original-Message-ID: <CAL_JsqJECUKkvZ1rt=4p5sMku3id973drEqLDvMZp8Fr+wx9tA@mail.gmail.com>
+Message-ID: <CAL_JsqJECUKkvZ1rt=4p5sMku3id973drEqLDvMZp8Fr+wx9tA@mail.gmail.com>
+To: Olivier MOYSAN <olivier.moysan@st.com>
+Cc: "mark.rutland@arm.com" <mark.rutland@arm.com>,
+ "devicetree@vger.kernel.org" <devicetree@vger.kernel.org>,
+ "alsa-devel@alsa-project.org" <alsa-devel@alsa-project.org>,
+ "linux-kernel@vger.kernel.org" <linux-kernel@vger.kernel.org>,
+ "tiwai@suse.com" <tiwai@suse.com>, "lgirdwood@gmail.com" <lgirdwood@gmail.com>,
+ "broonie@kernel.org" <broonie@kernel.org>,
+ "mcoquelin.stm32@gmail.com" <mcoquelin.stm32@gmail.com>,
+ "perex@perex.cz" <perex@perex.cz>,
+ "linux-stm32@st-md-mailman.stormreply.com"
+ <linux-stm32@st-md-mailman.stormreply.com>,
+ "linux-arm-kernel@lists.infradead.org" <linux-arm-kernel@lists.infradead.org>
+Subject: Re: [Linux-stm32] [PATCH] ASoC: dt-bindings: stm32: convert sai to
+	json-schema
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -78,49 +74,232 @@ Content-Transfer-Encoding: 7bit
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
-Add the optional syscon property that points to the resource table
-address and the state of the Cortex-M4 firmware loaded by the bootloader.
+On Fri, Feb 7, 2020 at 7:42 AM Olivier MOYSAN <olivier.moysan@st.com> wrote:
+>
+> Hi Rob,
+>
+> On 2/6/20 7:21 PM, Rob Herring wrote:
+> > On Thu, Jan 30, 2020 at 02:50:40PM +0100, Olivier Moysan wrote:
+> >> Convert the STM32 SAI bindings to DT schema format using json-schema.
+> >>
+> >> Signed-off-by: Olivier Moysan <olivier.moysan@st.com>
+> >> ---
+> >>   .../bindings/sound/st,stm32-sai.txt           | 107 ----------
+> >>   .../bindings/sound/st,stm32-sai.yaml          | 193 ++++++++++++++++++
+> >>   2 files changed, 193 insertions(+), 107 deletions(-)
+> >>   delete mode 100644 Documentation/devicetree/bindings/sound/st,stm32-sai.txt
+> >>   create mode 100644 Documentation/devicetree/bindings/sound/st,stm32-sai.yaml
+> >
+> >> diff --git a/Documentation/devicetree/bindings/sound/st,stm32-sai.yaml b/Documentation/devicetree/bindings/sound/st,stm32-sai.yaml
+> >> new file mode 100644
+> >> index 000000000000..33dca007fc86
+> >> --- /dev/null
+> >> +++ b/Documentation/devicetree/bindings/sound/st,stm32-sai.yaml
+> >> @@ -0,0 +1,193 @@
+> >> +# SPDX-License-Identifier: (GPL-2.0-only OR BSD-2-Clause)
+> >> +%YAML 1.2
+> >> +---
+> >> +$id: http://devicetree.org/schemas/sound/st,stm32-sai.yaml#
+> >> +$schema: http://devicetree.org/meta-schemas/core.yaml#
+> >> +
+> >> +title: STMicroelectronics STM32 Serial Audio Interface (SAI)
+> >> +
+> >> +maintainers:
+> >> +  - Olivier Moysan <olivier.moysan@st.com>
+> >> +
+> >> +description:
+> >> +  The SAI interface (Serial Audio Interface) offers a wide set of audio
+> >> +  protocols as I2S standards, LSB or MSB-justified, PCM/DSP, TDM, and AC'97.
+> >> +  The SAI contains two independent audio sub-blocks. Each sub-block has
+> >> +  its own clock generator and I/O lines controller.
+> >> +
+> >> +properties:
+> >> +  compatible:
+> >> +    enum:
+> >> +      - st,stm32f4-sai
+> >> +      - st,stm32h7-sai
+> >> +
+> >> +  reg:
+> >> +    items:
+> >> +      - description: Base address and size of SAI common register set.
+> >> +      - description: Base address and size of SAI identification register set.
+> >> +    minItems: 1
+> >> +    maxItems: 2
+> >> +
+> >> +  ranges:
+> >> +    maxItems: 1
+> >> +
+> >> +  interrupts:
+> >> +    maxItems: 1
+> >> +
+> >> +  resets:
+> >> +    maxItems: 1
+> >> +
+> >> +  "#address-cells":
+> >> +    const: 1
+> >> +
+> >> +  "#size-cells":
+> >> +    const: 1
+> >> +
+> >> +  clocks:
+> >> +    items:
+> >> +      - description: pclk feeds the peripheral bus interface.
+> >> +      - description: x8k, SAI parent clock for sampling rates multiple of 8kHz.
+> >> +      - description: x11k, SAI parent clock for sampling rates multiple of 11.025kHz.
+> >> +
+> >> +  clock-names:
+> >> +    items:
+> >> +      enum: [ pclk, x8k, x11k ]
+> >> +    minItems: 3
+> >> +    maxItems: 3
+> >> +
+> >> +required:
+> >> +  - compatible
+> >> +  - reg
+> >> +  - ranges
+> >> +  - "#address-cells"
+> >> +  - "#size-cells"
+> >> +  - clocks
+> >> +  - clock-names
+> >> +
+> >> +patternProperties:
+> >> +  "^audio-controller@[0-9a-f]+$":
+> >> +    type: object
+> >> +    description:
+> >> +      Two subnodes corresponding to SAI sub-block instances A et B
+> >> +      can be defined. Subnode can be omitted for unsused sub-block.
+> >> +
+> >> +    properties:
+> >> +      compatible:
+> >> +        description: Compatible for SAI sub-block A or B.
+> >> +        enum:
+> >> +          - st,stm32-sai-sub-a
+> >> +          - st,stm32-sai-sub-b
+> > pattern: 'st,stm32-sai-sub-[ab]'
+> I will change this in v2
+> >> +
+> >> +      "#sound-dai-cells":
+> >> +        const: 0
+> >> +
+> >> +      reg:
+> >> +        maxItems: 1
+> >> +
+> >> +      clocks:
+> >> +        items:
+> >> +          - description: sai_ck clock feeding the internal clock generator.
+> >> +          - description: MCLK clock from a SAI set as master clock provider.
+> >> +        minItems: 1
+> >> +        maxItems: 2
+> >> +
+> >> +      clock-names:
+> >> +        items:
+> >> +          - const: sai_ck
+> >> +          - const: MCLK
+> >> +        minItems: 1
+> >> +        maxItems: 2
+> >> +
+> >> +      dmas:
+> >> +        items:
+> >> +          - description: SAI sub-block is configured as a capture DAI.
+> >> +          - description: SAI sub-block is configured as a playback DAI.
+> >> +        minItems: 1
+> >> +        maxItems: 1
+> > This is defining that dmas has 2 entries, but then limits it to the 1st
+> > entry only.
+> dma can be either "rx" or "tx", but not both.
+> Maybe, the following syntax is more appropriate:
+>
+>        dmas:
+>          maxItems: 1
+>
+>        dma-names:
+>          description: |
+>            rx: SAI sub-block is configured as a capture DAI.
+>            tx: SAI sub-block is configured as a playback DAI.
+>          items:
+>            - enum: [ rx, tx ]
 
-Signed-off-by: Arnaud Pouliquen <arnaud.pouliquen@st.com>
----
- .../bindings/remoteproc/st,stm32-rproc.yaml   | 21 +++++++++++++++++++
- 1 file changed, 21 insertions(+)
+Yes, but for a single entry you can drop 'items'.
 
-diff --git a/Documentation/devicetree/bindings/remoteproc/st,stm32-rproc.yaml b/Documentation/devicetree/bindings/remoteproc/st,stm32-rproc.yaml
-index c0d83865e933..3947ddaca891 100644
---- a/Documentation/devicetree/bindings/remoteproc/st,stm32-rproc.yaml
-+++ b/Documentation/devicetree/bindings/remoteproc/st,stm32-rproc.yaml
-@@ -46,6 +46,27 @@ properties:
-       - The field mask of the RCC trust zone mode.
-     maxItems: 1
- 
-+  st,syscfg-copro-state:
-+    allOf:
-+      - $ref: "/schemas/types.yaml#/definitions/phandle-array"
-+    description:
-+      Reference to the system configuration which returns the coprocessor state.
-+      - Phandle of syscon block.
-+      - The offset containing the coprocessor state.
-+      - The field mask of bitmask for the coprocessor state.
-+    maxItems: 1
-+
-+  st,syscfg-rsc-tbl:
-+    allOf:
-+      - $ref: "/schemas/types.yaml#/definitions/phandle-array"
-+    description:
-+      Reference to the system configuration controlling the
-+      resource table address loaded by the bootloader
-+      - Phandle to syscon block.
-+      - The offset of the register containing the resource table address.
-+      - The field mask for the resource table address.
-+    maxItems: 1
-+
-   interrupts:
-     description: Should contain the WWDG1 watchdog reset interrupt
-     maxItems: 1
--- 
-2.17.1
+>
+> >> +
+> >> +      dma-names:
+> >> +        items:
+> >> +          - enum: [ rx, tx ]
+> >> +
+> >> +      st,sync:
+> >> +        description:
+> >> +          Configure the SAI sub-block as slave of another SAI sub-block.
+> >> +          By default SAI sub-block is in asynchronous mode.
+> >> +          Must contain the phandle and index of the SAI sub-block providing
+> >> +          the synchronization.
+> >> +        allOf:
+> >> +          - $ref: /schemas/types.yaml#definitions/phandle-array
+> >> +          - maxItems: 1
+> >> +
+> >> +      st,iec60958:
+> >> +        description:
+> >> +          If set, support S/PDIF IEC6958 protocol for playback.
+> >> +          IEC60958 protocol is not available for capture.
+> >> +          By default, custom protocol is assumed, meaning that protocol is
+> >> +          configured according to protocol defined in related DAI link node,
+> >> +          such as i2s, left justified, right justified, dsp and pdm protocols.
+> >> +        allOf:
+> >> +          - $ref: /schemas/types.yaml#definitions/flag
+> >> +
+> >> +      "#clock-cells":
+> >> +        description: Configure the SAI device as master clock provider.
+> >> +        const: 0
+> >> +
+> >> +    required:
+> >> +      - compatible
+> >> +      - "#sound-dai-cells"
+> >> +      - reg
+> >> +      - clocks
+> >> +      - clock-names
+> >> +      - dmas
+> >> +      - dma-names
+> >         additionalProperties: false.
+> >
+> >> +
+> >> +allOf:
+> >> +  - if:
+> >> +      properties:
+> >> +        compatible:
+> >> +          contains:
+> >> +            const: st,stm32f4-sai
+> >> +
+> >> +  - then:
+> >> +      properties:
+> >> +        clocks:
+> >> +          minItems: 2
+> >> +          maxItems: 2
+> >> +
+> >> +        clock-names:
+> >> +          items:
+> >> +            enum: [ x8k, x11k ]
+> > Define the order.
+> >
+> Do you mean, adding in clocks property  :
+>            items:
+>              - description: x8k, SAI parent clock for sampling rates
+> multiple of 8kHz.
+>              - description: x11k, SAI parent clock for sampling rates
+> multiple of 11.025kHz.
 
+That too, but for clocks you need:
+
+clock-names:
+  items:
+    - const: x8k
+    - const: x11k
+
+> But, it seems to me that this is redundant with previous definition of
+> clocks property.
+
+It's not because it's clocks in different positions.
+
+Rob
 _______________________________________________
 Linux-stm32 mailing list
 Linux-stm32@st-md-mailman.stormreply.com
