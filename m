@@ -2,62 +2,68 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id 7647515A9D3
-	for <lists+linux-stm32@lfdr.de>; Wed, 12 Feb 2020 14:14:13 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 8CE4115AAA6
+	for <lists+linux-stm32@lfdr.de>; Wed, 12 Feb 2020 15:03:06 +0100 (CET)
 Received: from ip-172-31-3-76.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 25673C36B0B;
-	Wed, 12 Feb 2020 13:14:13 +0000 (UTC)
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 475DBC36B0B;
+	Wed, 12 Feb 2020 14:03:06 +0000 (UTC)
 Received: from mx07-00178001.pphosted.com (mx07-00178001.pphosted.com
  [62.209.51.94])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 9027EC36B09
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 79EC8C36B09
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Wed, 12 Feb 2020 13:14:11 +0000 (UTC)
+ Wed, 12 Feb 2020 14:03:03 +0000 (UTC)
 Received: from pps.filterd (m0046037.ppops.net [127.0.0.1])
  by mx07-00178001.pphosted.com (8.16.0.42/8.16.0.42) with SMTP id
- 01CDCo5s006703; Wed, 12 Feb 2020 14:13:54 +0100
+ 01CDwcg2007768; Wed, 12 Feb 2020 15:02:39 +0100
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=st.com;
- h=from : to : cc : subject
- : date : message-id : mime-version : content-type; s=STMicroelectronics;
- bh=cMQSvP5y+t4Vew7hK0VJeB3JFY/VZ4Yym6bNVW+GnoE=;
- b=ueDX8jK4FDD9zhDO10OpFljVEn1+vUtxJiT+ZxQ6OWF5tvh318PDyTEQYiuMAuFiY54L
- p+cLMuj1lUgtAJ0pqmRxrFChBIsdRypjxYeoVpYWYKqDpkrQ0x2XPHPic4ieKaldfzAm
- 7IsX1MD0h+cDtVFesLzh5ctezUZivET9N1wXmEv48Ppvr/pW1smzOtClO+9wpqPpF4Zw
- jX59Evjn3CPvSjdlz1+/RavklZoHbijid2xHt9197kNZXJ4ODoLR9ufmTgU1FRtA79um
- Na12sY3ggM8JYtRMw0jacl6Way2eqiT4NgvdF6bFoadpW4NsGWzFK3bsIYn7oRCo9yQQ tA== 
+ h=subject : to : cc :
+ references : from : message-id : date : mime-version : in-reply-to :
+ content-type : content-transfer-encoding; s=STMicroelectronics;
+ bh=/8l92jgFtvZ9KFonos6IeWCOhSFNRaH+VFtBAk4RDCo=;
+ b=ChsTacUV8Q4OByXultemNzXtr/cnMMHJ5reMiF4MGcikCkWxcnKUlVuoy6Y4MVbdKGbx
+ t4i83krf+dl603BYsHPaErugW3dvhWq3ky4tFZ2WQM8D1tUoFhp1A77Ob2IoKFUmGdO4
+ vkBoLZc9dR93AKyH6kYU4kYlnWQf19PniZUn9xR5B5pE91j8iv7ZHafW+I+FSOkApOzf
+ cOawaUAMuwgfk/+J2YDir6cFY3yUt0eLWxq5pxvuPfuXsdHDt11f/bAj8v0gdz/28iy7
+ Fe9TsClg15V3akbq2jDD3oEPeGvE6YnjlBa/pycuGSAmRc69v7Tez1IRnn0fEKItvVPA TA== 
 Received: from beta.dmz-eu.st.com (beta.dmz-eu.st.com [164.129.1.35])
- by mx07-00178001.pphosted.com with ESMTP id 2y1urhehmu-1
+ by mx07-00178001.pphosted.com with ESMTP id 2y1urhet63-1
  (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
- Wed, 12 Feb 2020 14:13:54 +0100
+ Wed, 12 Feb 2020 15:02:39 +0100
 Received: from euls16034.sgp.st.com (euls16034.sgp.st.com [10.75.44.20])
- by beta.dmz-eu.st.com (STMicroelectronics) with ESMTP id BEC7510002A;
- Wed, 12 Feb 2020 14:13:46 +0100 (CET)
-Received: from Webmail-eu.st.com (sfhdag6node2.st.com [10.75.127.17])
- by euls16034.sgp.st.com (STMicroelectronics) with ESMTP id 87F5D2B2054;
- Wed, 12 Feb 2020 14:13:46 +0100 (CET)
-Received: from localhost (10.75.127.47) by SFHDAG6NODE2.st.com (10.75.127.17)
- with Microsoft SMTP Server (TLS) id 15.0.1347.2;
- Wed, 12 Feb 2020 14:13:45 +0100
-From: Olivier Moysan <olivier.moysan@st.com>
-To: <lgirdwood@gmail.com>, <broonie@kernel.org>, <perex@perex.cz>,
- <tiwai@suse.com>, <alexandre.torgue@st.com>, <robh@kernel.org>,
- <mark.rutland@arm.com>
-Date: Wed, 12 Feb 2020 14:12:59 +0100
-Message-ID: <20200212131259.18805-1-olivier.moysan@st.com>
-X-Mailer: git-send-email 2.17.1
+ by beta.dmz-eu.st.com (STMicroelectronics) with ESMTP id 62B8E10002A;
+ Wed, 12 Feb 2020 15:02:38 +0100 (CET)
+Received: from Webmail-eu.st.com (sfhdag5node3.st.com [10.75.127.15])
+ by euls16034.sgp.st.com (STMicroelectronics) with ESMTP id 4D3452B46AE;
+ Wed, 12 Feb 2020 15:02:38 +0100 (CET)
+Received: from [10.48.0.71] (10.75.127.45) by SFHDAG5NODE3.st.com
+ (10.75.127.15) with Microsoft SMTP Server (TLS) id 15.0.1473.3; Wed, 12 Feb
+ 2020 15:02:37 +0100
+To: Jonathan Cameron <jic23@kernel.org>, "Rafael J. Wysocki"
+ <rjw@rjwysocki.net>
+References: <1579854369-7972-1-git-send-email-fabrice.gasnier@st.com>
+ <20200202153354.3dae5863@archlinux>
+From: Fabrice Gasnier <fabrice.gasnier@st.com>
+Message-ID: <d30cb29b-d15c-a9fe-8c95-7ce59ce15062@st.com>
+Date: Wed, 12 Feb 2020 15:02:37 +0100
+User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:60.0) Gecko/20100101
+ Thunderbird/60.9.0
 MIME-Version: 1.0
-X-Originating-IP: [10.75.127.47]
-X-ClientProxiedBy: SFHDAG6NODE2.st.com (10.75.127.17) To SFHDAG6NODE2.st.com
- (10.75.127.17)
+In-Reply-To: <20200202153354.3dae5863@archlinux>
+Content-Language: en-US
+X-Originating-IP: [10.75.127.45]
+X-ClientProxiedBy: SFHDAG6NODE2.st.com (10.75.127.17) To SFHDAG5NODE3.st.com
+ (10.75.127.15)
 X-Proofpoint-Virus-Version: vendor=fsecure engine=2.50.10434:6.0.138, 18.0.572
  definitions=2020-02-12_07:2020-02-11,
  2020-02-12 signatures=0
-Cc: devicetree@vger.kernel.org, alsa-devel@alsa-project.org,
- linux-kernel@vger.kernel.org, linux-stm32@st-md-mailman.stormreply.com,
- linux-arm-kernel@lists.infradead.org
-Subject: [Linux-stm32] [PATCH v2] ASoC: dt-bindings: stm32: convert sai to
-	json-schema
+Cc: ulf.hansson@linaro.org, lars@metafoo.de, linux-pm@vger.kernel.org,
+ linux-iio@vger.kernel.org, pmeerw@pmeerw.net, khilman@kernel.org,
+ linux-kernel@vger.kernel.org, mcoquelin.stm32@gmail.com, knaack.h@gmx.de,
+ linux-stm32@st-md-mailman.stormreply.com, linux-arm-kernel@lists.infradead.org
+Subject: Re: [Linux-stm32] [PATCH] iio: adc: stm32-adc: fix runtime
+ autosuspend delay when slow polling
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -74,334 +80,151 @@ Content-Transfer-Encoding: 7bit
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
-Convert the STM32 SAI bindings to DT schema format using json-schema.
+On 2/2/20 4:33 PM, Jonathan Cameron wrote:
+> On Fri, 24 Jan 2020 09:26:09 +0100
+> Fabrice Gasnier <fabrice.gasnier@st.com> wrote:
+> 
+>> When the ADC is runtime suspended and starting a conversion, the stm32-adc
+>> driver calls pm_runtime_get_sync() that gets cascaded to the parent
+>> (e.g. runtime resume of stm32-adc-core driver). This also kicks the
+>> autosuspend delay (e.g. 2s) of the parent.
+>> Once the ADC is active, calling pm_runtime_get_sync() again (upon a new
+>> capture) won't kick the autosuspend delay for the parent (stm32-adc-core
+>> driver) as already active.
+>>
+>> Currently, this makes the stm32-adc-core driver go in suspend state
+>> every 2s when doing slow polling. As an example, doing a capture, e.g.
+>> cat in_voltageY_raw at a 0.2s rate, the auto suspend delay for the parent
+>> isn't refreshed. Once it expires, the parent immediately falls into
+>> runtime suspended state, in between two captures, as soon as the child
+>> driver falls into runtime suspend state:
+>> - e.g. after 2s, + child calls pm_runtime_put_autosuspend() + 100ms
+>>   autosuspend delay of the child.
+>> - stm32-adc-core switches off regulators, clocks and so on.
+>> - They get switched on back again 100ms later in this example (at 2.2s).
+>>
+>> So, add an explicit call to pm_runtime_mark_last_busy() for the parent
+>> driver (stm32-adc-core), synchronously with the child driver (stm32-adc),
+>> to avoid this.
+>>
+>> Fixes: 9bdbb1139ca1 ("iio: adc: stm32-adc: add power management support")
+>>
+>> Signed-off-by: Fabrice Gasnier <fabrice.gasnier@st.com>
+> 
+> Hi Fabrice,
+> 
+> Whilst this will clearly work, it seems like a somewhat adhoc solution.
+> Power management specialists (cc'd):  Is this what we should be doing, or
+> have Fabrice and I both missed something that we should be doing here?
 
-Signed-off-by: Olivier Moysan <olivier.moysan@st.com>
----
-Changes in v2:
-- use pattern for compatible of child nodes
-- rework dmas and clocks properties
-- add "additionalProperties"
----
- .../bindings/sound/st,stm32-sai.txt           | 107 ----------
- .../bindings/sound/st,stm32-sai.yaml          | 191 ++++++++++++++++++
- 2 files changed, 191 insertions(+), 107 deletions(-)
- delete mode 100644 Documentation/devicetree/bindings/sound/st,stm32-sai.txt
- create mode 100644 Documentation/devicetree/bindings/sound/st,stm32-sai.yaml
+Hi all, PM specialists,
 
-diff --git a/Documentation/devicetree/bindings/sound/st,stm32-sai.txt b/Documentation/devicetree/bindings/sound/st,stm32-sai.txt
-deleted file mode 100644
-index 944743dd9212..000000000000
---- a/Documentation/devicetree/bindings/sound/st,stm32-sai.txt
-+++ /dev/null
-@@ -1,107 +0,0 @@
--STMicroelectronics STM32 Serial Audio Interface (SAI).
--
--The SAI interface (Serial Audio Interface) offers a wide set of audio protocols
--as I2S standards, LSB or MSB-justified, PCM/DSP, TDM, and AC'97.
--The SAI contains two independent audio sub-blocks. Each sub-block has
--its own clock generator and I/O lines controller.
--
--Required properties:
--  - compatible: Should be "st,stm32f4-sai" or "st,stm32h7-sai"
--  - reg: Base address and size of SAI common register set.
--  - clocks: Must contain phandle and clock specifier pairs for each entry
--	in clock-names.
--  - clock-names: Must contain "pclk" "x8k" and "x11k"
--	"pclk": Clock which feeds the peripheral bus interface.
--	        Mandatory for "st,stm32h7-sai" compatible.
--	        Not used for "st,stm32f4-sai" compatible.
--	"x8k": SAI parent clock for sampling rates multiple of 8kHz.
--	"x11k": SAI parent clock for sampling rates multiple of 11.025kHz.
--  - interrupts: cpu DAI interrupt line shared by SAI sub-blocks
--
--Optional properties:
--  - resets: Reference to a reset controller asserting the SAI
--
--SAI subnodes:
--Two subnodes corresponding to SAI sub-block instances A et B can be defined.
--Subnode can be omitted for unsused sub-block.
--
--SAI subnodes required properties:
--  - compatible: Should be "st,stm32-sai-sub-a" or "st,stm32-sai-sub-b"
--	for SAI sub-block A or B respectively.
--  - reg: Base address and size of SAI sub-block register set.
--  - clocks: Must contain one phandle and clock specifier pair
--	for sai_ck which feeds the internal clock generator.
--	If the SAI shares a master clock, with another SAI set as MCLK
--	clock provider, SAI provider phandle must be specified here.
--  - clock-names: Must contain "sai_ck".
--	Must also contain "MCLK", if SAI shares a master clock,
--	with a SAI set as MCLK clock provider.
--  - dmas: see Documentation/devicetree/bindings/dma/stm32-dma.txt
--  - dma-names: identifier string for each DMA request line
--	"tx": if sai sub-block is configured as playback DAI
--	"rx": if sai sub-block is configured as capture DAI
--  - pinctrl-names: should contain only value "default"
--  - pinctrl-0: see Documentation/devicetree/bindings/pinctrl/st,stm32-pinctrl.yaml
--
--SAI subnodes Optional properties:
--  - st,sync: specify synchronization mode.
--	By default SAI sub-block is in asynchronous mode.
--	This property sets SAI sub-block as slave of another SAI sub-block.
--	Must contain the phandle and index of the sai sub-block providing
--	the synchronization.
--  - st,iec60958: support S/PDIF IEC6958 protocol for playback
--	IEC60958 protocol is not available for capture.
--	By default, custom protocol is assumed, meaning that protocol is
--	configured according to protocol defined in related DAI link node,
--	such as i2s, left justified, right justified, dsp and pdm protocols.
--	Note: ac97 protocol is not supported by SAI driver
--   - #clock-cells: should be 0. This property must be present if the SAI device
--	is a master clock provider, according to clocks bindings, described in
--	Documentation/devicetree/bindings/clock/clock-bindings.txt.
--
--The device node should contain one 'port' child node with one child 'endpoint'
--node, according to the bindings defined in Documentation/devicetree/bindings/
--graph.txt.
--
--Example:
--sound_card {
--	compatible = "audio-graph-card";
--	dais = <&sai1b_port>;
--};
--
--sai1: sai1@40015800 {
--	compatible = "st,stm32h7-sai";
--	#address-cells = <1>;
--	#size-cells = <1>;
--	ranges = <0 0x40015800 0x400>;
--	reg = <0x40015800 0x4>;
--	clocks = <&rcc SAI1_CK>, <&rcc PLL1_Q>, <&rcc PLL2_P>;
--	clock-names = "pclk", "x8k", "x11k";
--	interrupts = <87>;
--
--	sai1a: audio-controller@40015804 {
--		compatible = "st,stm32-sai-sub-a";
--		reg = <0x4 0x1C>;
--		clocks = <&rcc SAI1_CK>;
--		clock-names = "sai_ck";
--		dmas = <&dmamux1 1 87 0x400 0x0>;
--		dma-names = "tx";
--		pinctrl-names = "default";
--		pinctrl-0 = <&pinctrl_sai1a>;
--
--		sai1b_port: port {
--			cpu_endpoint: endpoint {
--				remote-endpoint = <&codec_endpoint>;
--				format = "i2s";
--			};
--		};
--	};
--};
--
--audio-codec {
--	codec_port: port {
--		codec_endpoint: endpoint {
--			remote-endpoint = <&cpu_endpoint>;
--		};
--	};
--};
-diff --git a/Documentation/devicetree/bindings/sound/st,stm32-sai.yaml b/Documentation/devicetree/bindings/sound/st,stm32-sai.yaml
-new file mode 100644
-index 000000000000..51dd2b3bdeb1
---- /dev/null
-+++ b/Documentation/devicetree/bindings/sound/st,stm32-sai.yaml
-@@ -0,0 +1,191 @@
-+# SPDX-License-Identifier: (GPL-2.0-only OR BSD-2-Clause)
-+%YAML 1.2
-+---
-+$id: http://devicetree.org/schemas/sound/st,stm32-sai.yaml#
-+$schema: http://devicetree.org/meta-schemas/core.yaml#
-+
-+title: STMicroelectronics STM32 Serial Audio Interface (SAI)
-+
-+maintainers:
-+  - Olivier Moysan <olivier.moysan@st.com>
-+
-+description:
-+  The SAI interface (Serial Audio Interface) offers a wide set of audio
-+  protocols as I2S standards, LSB or MSB-justified, PCM/DSP, TDM, and AC'97.
-+  The SAI contains two independent audio sub-blocks. Each sub-block has
-+  its own clock generator and I/O lines controller.
-+
-+properties:
-+  compatible:
-+    enum:
-+      - st,stm32f4-sai
-+      - st,stm32h7-sai
-+
-+  reg:
-+    items:
-+      - description: Base address and size of SAI common register set.
-+      - description: Base address and size of SAI identification register set.
-+    minItems: 1
-+    maxItems: 2
-+
-+  ranges:
-+    maxItems: 1
-+
-+  interrupts:
-+    maxItems: 1
-+
-+  resets:
-+    maxItems: 1
-+
-+  "#address-cells":
-+    const: 1
-+
-+  "#size-cells":
-+    const: 1
-+
-+  clocks:
-+    items:
-+      - description: pclk feeds the peripheral bus interface.
-+      - description: x8k, SAI parent clock for sampling rates multiple of 8kHz.
-+      - description: x11k, SAI parent clock for sampling rates multiple of 11.025kHz.
-+
-+  clock-names:
-+    items:
-+      - const: pclk
-+      - const: x8k
-+      - const: x11k
-+
-+required:
-+  - compatible
-+  - reg
-+  - ranges
-+  - "#address-cells"
-+  - "#size-cells"
-+  - clocks
-+  - clock-names
-+
-+patternProperties:
-+  "^audio-controller@[0-9a-f]+$":
-+    type: object
-+    description:
-+      Two subnodes corresponding to SAI sub-block instances A et B
-+      can be defined. Subnode can be omitted for unsused sub-block.
-+
-+    properties:
-+      compatible:
-+        description: Compatible for SAI sub-block A or B.
-+        pattern: "st,stm32-sai-sub-[ab]"
-+
-+      "#sound-dai-cells":
-+        const: 0
-+
-+      reg:
-+        maxItems: 1
-+
-+      clocks:
-+        items:
-+          - description: sai_ck clock feeding the internal clock generator.
-+          - description: MCLK clock from a SAI set as master clock provider.
-+        minItems: 1
-+        maxItems: 2
-+
-+      clock-names:
-+        items:
-+          - const: sai_ck
-+          - const: MCLK
-+        minItems: 1
-+        maxItems: 2
-+
-+      dmas:
-+        maxItems: 1
-+
-+      dma-names:
-+        description: |
-+          rx: SAI sub-block is configured as a capture DAI.
-+          tx: SAI sub-block is configured as a playback DAI.
-+        enum: [ rx, tx ]
-+
-+      st,sync:
-+        description:
-+          Configure the SAI sub-block as slave of another SAI sub-block.
-+          By default SAI sub-block is in asynchronous mode.
-+          Must contain the phandle and index of the SAI sub-block providing
-+          the synchronization.
-+        allOf:
-+          - $ref: /schemas/types.yaml#definitions/phandle-array
-+          - maxItems: 1
-+
-+      st,iec60958:
-+        description:
-+          If set, support S/PDIF IEC6958 protocol for playback.
-+          IEC60958 protocol is not available for capture.
-+          By default, custom protocol is assumed, meaning that protocol is
-+          configured according to protocol defined in related DAI link node,
-+          such as i2s, left justified, right justified, dsp and pdm protocols.
-+        allOf:
-+          - $ref: /schemas/types.yaml#definitions/flag
-+
-+      "#clock-cells":
-+        description: Configure the SAI device as master clock provider.
-+        const: 0
-+
-+    required:
-+      - compatible
-+      - "#sound-dai-cells"
-+      - reg
-+      - clocks
-+      - clock-names
-+      - dmas
-+      - dma-names
-+
-+    additionalProperties: false
-+
-+allOf:
-+  - if:
-+      properties:
-+        compatible:
-+          contains:
-+            const: st,stm32f4-sai
-+
-+  - then:
-+      properties:
-+        clocks:
-+          items:
-+            - description: x8k, SAI parent clock for sampling rates multiple of 8kHz.
-+            - description: x11k, SAI parent clock for sampling rates multiple of 11.025kHz.        
-+
-+        clock-names:
-+          items:
-+            - const: x8k
-+            - const: x11k
-+
-+additionalProperties: false
-+
-+examples:
-+  - |
-+    #include <dt-bindings/interrupt-controller/arm-gic.h>
-+    #include <dt-bindings/clock/stm32mp1-clks.h>
-+    #include <dt-bindings/reset/stm32mp1-resets.h>
-+    sai1: sai@4400a000 {
-+      compatible = "st,stm32h7-sai";
-+      #address-cells = <1>;
-+      #size-cells = <1>;
-+      ranges = <0 0x4400a000 0x400>;
-+      reg = <0x4400a000 0x4>, <0x4400a3f0 0x10>;
-+      interrupts = <GIC_SPI 87 IRQ_TYPE_LEVEL_HIGH>;
-+      clocks = <&rcc SAI1>, <&rcc PLL1_Q>, <&rcc PLL2_P>;
-+      clock-names = "pclk", "x8k", "x11k";
-+      resets = <&rcc SAI1_R>;
-+
-+      sai1a: audio-controller@4400a004 {
-+        compatible = "st,stm32-sai-sub-a";
-+        #sound-dai-cells = <0>;
-+        reg = <0x4 0x1c>;
-+        clocks = <&rcc SAI1_K>;
-+        clock-names = "sai_ck";
-+        dmas = <&dmamux1 87 0x400 0x01>;
-+        dma-names = "tx";
-+      };
-+    };
-+
-+...
--- 
-2.17.1
+As per my understanding, pm_runtime_mark_last_busy() doesn't cascade to
+the parent device:
 
+- in pm_runtime.h:
+static inline void pm_runtime_mark_last_busy(struct device *dev)
+{
+	WRITE_ONCE(dev->power.last_busy, ktime_get_mono_fast_ns());
+}
+
+STM32 ADC driver uses a model with an autosupsend delay for
+- a parent driver to handle common resources, registers etc.
+- child drivers for each ADC.
+
+So the question is on how to fix the behavior I described:
+1: Child  activity with "short" autosuspend_delay
+2: Parent activity with "longer" autosuspend_delay
+     _     _     _     _     _       _     _     _
+1: _| |___| |___| |___| |___| |_..._| |___| |___| |_...
+
+    v v   v v   v v   v v   v v ... v v   v v   v v
+    | |                                     |   |
+    | +- pm_runtime_mark_last_busy()        |   |
+    | +- pm_runtime_put_autosuspend()       v   |
+    |                                       |   |
+    +--- pm_runtime_get_sync()              |   v
+    |                                       |   |
+    +---> expires after autosuspend_delay   |   |
+    |                                       |   |
+    v                                       v   v
+     _______________________________________     ___...
+2: _|                           ...         |___|
+
+Glitches on parent dev near autosuspend_delay ^
+
+- does the child driver needs to "kick" parent driver with
+pm_runtime_mark_last_busy(), as proposed in current patch ?
+
+- or is it something that should be done by PM runtime core routines ?
+e.g. make pm_runtime_mark_last_busy() recursive or something else ?
+
+Please advise
+Best regards,
+Fabrice
+
+> 
+> Thanks,
+> 
+> Jonathan
+> 
+>> ---
+>>  drivers/iio/adc/stm32-adc.c | 6 ++++++
+>>  1 file changed, 6 insertions(+)
+>>
+>> diff --git a/drivers/iio/adc/stm32-adc.c b/drivers/iio/adc/stm32-adc.c
+>> index 3b291d7..670157e 100644
+>> --- a/drivers/iio/adc/stm32-adc.c
+>> +++ b/drivers/iio/adc/stm32-adc.c
+>> @@ -1157,6 +1157,7 @@ static int stm32_adc_single_conv(struct iio_dev *indio_dev,
+>>  
+>>  	stm32_adc_conv_irq_disable(adc);
+>>  
+>> +	pm_runtime_mark_last_busy(dev->parent);
+>>  	pm_runtime_mark_last_busy(dev);
+>>  	pm_runtime_put_autosuspend(dev);
+>>  
+>> @@ -1278,6 +1279,7 @@ static int stm32_adc_update_scan_mode(struct iio_dev *indio_dev,
+>>  	adc->num_conv = bitmap_weight(scan_mask, indio_dev->masklength);
+>>  
+>>  	ret = stm32_adc_conf_scan_seq(indio_dev, scan_mask);
+>> +	pm_runtime_mark_last_busy(dev->parent);
+>>  	pm_runtime_mark_last_busy(dev);
+>>  	pm_runtime_put_autosuspend(dev);
+>>  
+>> @@ -1329,6 +1331,7 @@ static int stm32_adc_debugfs_reg_access(struct iio_dev *indio_dev,
+>>  	else
+>>  		*readval = stm32_adc_readl(adc, reg);
+>>  
+>> +	pm_runtime_mark_last_busy(dev->parent);
+>>  	pm_runtime_mark_last_busy(dev);
+>>  	pm_runtime_put_autosuspend(dev);
+>>  
+>> @@ -1451,6 +1454,7 @@ static int __stm32_adc_buffer_postenable(struct iio_dev *indio_dev)
+>>  err_clr_trig:
+>>  	stm32_adc_set_trig(indio_dev, NULL);
+>>  err_pm_put:
+>> +	pm_runtime_mark_last_busy(dev->parent);
+>>  	pm_runtime_mark_last_busy(dev);
+>>  	pm_runtime_put_autosuspend(dev);
+>>  
+>> @@ -1487,6 +1491,7 @@ static void __stm32_adc_buffer_predisable(struct iio_dev *indio_dev)
+>>  	if (stm32_adc_set_trig(indio_dev, NULL))
+>>  		dev_err(&indio_dev->dev, "Can't clear trigger\n");
+>>  
+>> +	pm_runtime_mark_last_busy(dev->parent);
+>>  	pm_runtime_mark_last_busy(dev);
+>>  	pm_runtime_put_autosuspend(dev);
+>>  }
+>> @@ -1874,6 +1879,7 @@ static int stm32_adc_probe(struct platform_device *pdev)
+>>  		goto err_hw_stop;
+>>  	}
+>>  
+>> +	pm_runtime_mark_last_busy(dev->parent);
+>>  	pm_runtime_mark_last_busy(dev);
+>>  	pm_runtime_put_autosuspend(dev);
+>>  
+> 
 _______________________________________________
 Linux-stm32 mailing list
 Linux-stm32@st-md-mailman.stormreply.com
