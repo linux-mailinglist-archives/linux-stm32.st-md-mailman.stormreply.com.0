@@ -2,68 +2,47 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id 8CE4115AAA6
-	for <lists+linux-stm32@lfdr.de>; Wed, 12 Feb 2020 15:03:06 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id B5BE315AC70
+	for <lists+linux-stm32@lfdr.de>; Wed, 12 Feb 2020 16:54:37 +0100 (CET)
 Received: from ip-172-31-3-76.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 475DBC36B0B;
-	Wed, 12 Feb 2020 14:03:06 +0000 (UTC)
-Received: from mx07-00178001.pphosted.com (mx07-00178001.pphosted.com
- [62.209.51.94])
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 40C25C36B0B;
+	Wed, 12 Feb 2020 15:54:37 +0000 (UTC)
+Received: from bombadil.infradead.org (bombadil.infradead.org
+ [198.137.202.133])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 79EC8C36B09
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id B6561C36B09
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Wed, 12 Feb 2020 14:03:03 +0000 (UTC)
-Received: from pps.filterd (m0046037.ppops.net [127.0.0.1])
- by mx07-00178001.pphosted.com (8.16.0.42/8.16.0.42) with SMTP id
- 01CDwcg2007768; Wed, 12 Feb 2020 15:02:39 +0100
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=st.com;
- h=subject : to : cc :
- references : from : message-id : date : mime-version : in-reply-to :
- content-type : content-transfer-encoding; s=STMicroelectronics;
- bh=/8l92jgFtvZ9KFonos6IeWCOhSFNRaH+VFtBAk4RDCo=;
- b=ChsTacUV8Q4OByXultemNzXtr/cnMMHJ5reMiF4MGcikCkWxcnKUlVuoy6Y4MVbdKGbx
- t4i83krf+dl603BYsHPaErugW3dvhWq3ky4tFZ2WQM8D1tUoFhp1A77Ob2IoKFUmGdO4
- vkBoLZc9dR93AKyH6kYU4kYlnWQf19PniZUn9xR5B5pE91j8iv7ZHafW+I+FSOkApOzf
- cOawaUAMuwgfk/+J2YDir6cFY3yUt0eLWxq5pxvuPfuXsdHDt11f/bAj8v0gdz/28iy7
- Fe9TsClg15V3akbq2jDD3oEPeGvE6YnjlBa/pycuGSAmRc69v7Tez1IRnn0fEKItvVPA TA== 
-Received: from beta.dmz-eu.st.com (beta.dmz-eu.st.com [164.129.1.35])
- by mx07-00178001.pphosted.com with ESMTP id 2y1urhet63-1
- (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
- Wed, 12 Feb 2020 15:02:39 +0100
-Received: from euls16034.sgp.st.com (euls16034.sgp.st.com [10.75.44.20])
- by beta.dmz-eu.st.com (STMicroelectronics) with ESMTP id 62B8E10002A;
- Wed, 12 Feb 2020 15:02:38 +0100 (CET)
-Received: from Webmail-eu.st.com (sfhdag5node3.st.com [10.75.127.15])
- by euls16034.sgp.st.com (STMicroelectronics) with ESMTP id 4D3452B46AE;
- Wed, 12 Feb 2020 15:02:38 +0100 (CET)
-Received: from [10.48.0.71] (10.75.127.45) by SFHDAG5NODE3.st.com
- (10.75.127.15) with Microsoft SMTP Server (TLS) id 15.0.1473.3; Wed, 12 Feb
- 2020 15:02:37 +0100
-To: Jonathan Cameron <jic23@kernel.org>, "Rafael J. Wysocki"
- <rjw@rjwysocki.net>
-References: <1579854369-7972-1-git-send-email-fabrice.gasnier@st.com>
- <20200202153354.3dae5863@archlinux>
-From: Fabrice Gasnier <fabrice.gasnier@st.com>
-Message-ID: <d30cb29b-d15c-a9fe-8c95-7ce59ce15062@st.com>
-Date: Wed, 12 Feb 2020 15:02:37 +0100
-User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:60.0) Gecko/20100101
- Thunderbird/60.9.0
+ Wed, 12 Feb 2020 15:54:34 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
+ d=infradead.org; s=bombadil.20170209; h=Content-Transfer-Encoding:
+ Content-Type:In-Reply-To:MIME-Version:Date:Message-ID:From:References:Cc:To:
+ Subject:Sender:Reply-To:Content-ID:Content-Description;
+ bh=EIQuvZVjRgnZucfdtz7UxkDAyXXF62ACmzF0Z1QyBKQ=; b=I5uemIgZznT+KbXN73VDUVcGQe
+ YT/UiFrjY2biFKrNf4NvXDs8X7FZJ0am5TD+zu5aZ2+FHjB20O9wkWFzLzXaGdGavuCtBzblcBBKi
+ SHjW5dUuZVLM4KV3o7ZhVVA1tGvysjlWcM649K0FS3i54wSZxlIT6LSdi/5WT9ULT+CVnImWlw0M3
+ w/dXR7XkrxM9QdfrCzO4ACyK6YjQeOQeHJkVEJAJCH0PbMYP+2X/Gz8GlNmW3ko6xN+Yiqb1shVPv
+ e482LAGCQef8sq25rp9W2A5J9Ku20gKII0Tr7zGRrKgVxyHJCKrZHLF4jCfqDT3IIeIq6Yrqcr0OU
+ YUUsXz9A==;
+Received: from [2601:1c0:6280:3f0::19c2]
+ by bombadil.infradead.org with esmtpsa (Exim 4.92.3 #3 (Red Hat Linux))
+ id 1j1uLO-0002OF-TQ; Wed, 12 Feb 2020 15:54:30 +0000
+To: Arnaud Pouliquen <arnaud.pouliquen@st.com>,
+ Bjorn Andersson <bjorn.andersson@linaro.org>,
+ Ohad Ben-Cohen <ohad@wizery.com>,
+ Mathieu Poirier <mathieu.poirier@linaro.org>
+References: <20200212093211.15270-1-arnaud.pouliquen@st.com>
+From: Randy Dunlap <rdunlap@infradead.org>
+Message-ID: <c912fe7e-601d-6d07-c368-109fecd11a7a@infradead.org>
+Date: Wed, 12 Feb 2020 07:54:30 -0800
+User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:68.0) Gecko/20100101
+ Thunderbird/68.4.1
 MIME-Version: 1.0
-In-Reply-To: <20200202153354.3dae5863@archlinux>
+In-Reply-To: <20200212093211.15270-1-arnaud.pouliquen@st.com>
 Content-Language: en-US
-X-Originating-IP: [10.75.127.45]
-X-ClientProxiedBy: SFHDAG6NODE2.st.com (10.75.127.17) To SFHDAG5NODE3.st.com
- (10.75.127.15)
-X-Proofpoint-Virus-Version: vendor=fsecure engine=2.50.10434:6.0.138, 18.0.572
- definitions=2020-02-12_07:2020-02-11,
- 2020-02-12 signatures=0
-Cc: ulf.hansson@linaro.org, lars@metafoo.de, linux-pm@vger.kernel.org,
- linux-iio@vger.kernel.org, pmeerw@pmeerw.net, khilman@kernel.org,
- linux-kernel@vger.kernel.org, mcoquelin.stm32@gmail.com, knaack.h@gmx.de,
- linux-stm32@st-md-mailman.stormreply.com, linux-arm-kernel@lists.infradead.org
-Subject: Re: [Linux-stm32] [PATCH] iio: adc: stm32-adc: fix runtime
- autosuspend delay when slow polling
+Cc: linux-remoteproc@vger.kernel.org, linux-kernel@vger.kernel.org,
+ linux-stm32@st-md-mailman.stormreply.com
+Subject: Re: [Linux-stm32] [PATCH] remoteproc: fix kernel-doc warnings
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -80,151 +59,45 @@ Content-Transfer-Encoding: 7bit
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
-On 2/2/20 4:33 PM, Jonathan Cameron wrote:
-> On Fri, 24 Jan 2020 09:26:09 +0100
-> Fabrice Gasnier <fabrice.gasnier@st.com> wrote:
-> 
->> When the ADC is runtime suspended and starting a conversion, the stm32-adc
->> driver calls pm_runtime_get_sync() that gets cascaded to the parent
->> (e.g. runtime resume of stm32-adc-core driver). This also kicks the
->> autosuspend delay (e.g. 2s) of the parent.
->> Once the ADC is active, calling pm_runtime_get_sync() again (upon a new
->> capture) won't kick the autosuspend delay for the parent (stm32-adc-core
->> driver) as already active.
->>
->> Currently, this makes the stm32-adc-core driver go in suspend state
->> every 2s when doing slow polling. As an example, doing a capture, e.g.
->> cat in_voltageY_raw at a 0.2s rate, the auto suspend delay for the parent
->> isn't refreshed. Once it expires, the parent immediately falls into
->> runtime suspended state, in between two captures, as soon as the child
->> driver falls into runtime suspend state:
->> - e.g. after 2s, + child calls pm_runtime_put_autosuspend() + 100ms
->>   autosuspend delay of the child.
->> - stm32-adc-core switches off regulators, clocks and so on.
->> - They get switched on back again 100ms later in this example (at 2.2s).
->>
->> So, add an explicit call to pm_runtime_mark_last_busy() for the parent
->> driver (stm32-adc-core), synchronously with the child driver (stm32-adc),
->> to avoid this.
->>
->> Fixes: 9bdbb1139ca1 ("iio: adc: stm32-adc: add power management support")
->>
->> Signed-off-by: Fabrice Gasnier <fabrice.gasnier@st.com>
-> 
-> Hi Fabrice,
-> 
-> Whilst this will clearly work, it seems like a somewhat adhoc solution.
-> Power management specialists (cc'd):  Is this what we should be doing, or
-> have Fabrice and I both missed something that we should be doing here?
+Hi,
 
-Hi all, PM specialists,
+kernel-doc supports "..." as a function argument for varargs.
+See Documentation/doc-guide/kernel-doc.rst:
 
-As per my understanding, pm_runtime_mark_last_busy() doesn't cascade to
-the parent device:
+"If a function has a variable number of arguments, its description should
+be written in kernel-doc notation as::
 
-- in pm_runtime.h:
-static inline void pm_runtime_mark_last_busy(struct device *dev)
-{
-	WRITE_ONCE(dev->power.last_busy, ktime_get_mono_fast_ns());
-}
+      * @...: description"
 
-STM32 ADC driver uses a model with an autosupsend delay for
-- a parent driver to handle common resources, registers etc.
-- child drivers for each ADC.
 
-So the question is on how to fix the behavior I described:
-1: Child  activity with "short" autosuspend_delay
-2: Parent activity with "longer" autosuspend_delay
-     _     _     _     _     _       _     _     _
-1: _| |___| |___| |___| |___| |_..._| |___| |___| |_...
+So the below could be done as:
 
-    v v   v v   v v   v v   v v ... v v   v v   v v
-    | |                                     |   |
-    | +- pm_runtime_mark_last_busy()        |   |
-    | +- pm_runtime_put_autosuspend()       v   |
-    |                                       |   |
-    +--- pm_runtime_get_sync()              |   v
-    |                                       |   |
-    +---> expires after autosuspend_delay   |   |
-    |                                       |   |
-    v                                       v   v
-     _______________________________________     ___...
-2: _|                           ...         |___|
+On 2/12/20 1:32 AM, Arnaud Pouliquen wrote:
+> diff --git a/drivers/remoteproc/remoteproc_core.c b/drivers/remoteproc/remoteproc_core.c
+> index 097f33e4f1f3..5f9a5812505c 100644
+> --- a/drivers/remoteproc/remoteproc_core.c
+> +++ b/drivers/remoteproc/remoteproc_core.c
+> @@ -224,7 +224,7 @@ EXPORT_SYMBOL(rproc_da_to_va);
+>  /**
+>   * rproc_find_carveout_by_name() - lookup the carveout region by a name
+>   * @rproc: handle of a remote processor
+> - * @name,..: carveout name to find (standard printf format)
+> + * @name: carveout name to find (standard printf format)
 
-Glitches on parent dev near autosuspend_delay ^
+ * @name: carveout name to find
+ * @...: standard printf format of args to search for carveout name
 
-- does the child driver needs to "kick" parent driver with
-pm_runtime_mark_last_busy(), as proposed in current patch ?
+although I'm not so sure about the descriptions there.
 
-- or is it something that should be done by PM runtime core routines ?
-e.g. make pm_runtime_mark_last_busy() recursive or something else ?
+>   *
+>   * Platform driver has the capability to register some pre-allacoted carveout
+>   * (physically contiguous memory regions) before rproc firmware loading and
 
-Please advise
-Best regards,
-Fabrice
 
-> 
-> Thanks,
-> 
-> Jonathan
-> 
->> ---
->>  drivers/iio/adc/stm32-adc.c | 6 ++++++
->>  1 file changed, 6 insertions(+)
->>
->> diff --git a/drivers/iio/adc/stm32-adc.c b/drivers/iio/adc/stm32-adc.c
->> index 3b291d7..670157e 100644
->> --- a/drivers/iio/adc/stm32-adc.c
->> +++ b/drivers/iio/adc/stm32-adc.c
->> @@ -1157,6 +1157,7 @@ static int stm32_adc_single_conv(struct iio_dev *indio_dev,
->>  
->>  	stm32_adc_conv_irq_disable(adc);
->>  
->> +	pm_runtime_mark_last_busy(dev->parent);
->>  	pm_runtime_mark_last_busy(dev);
->>  	pm_runtime_put_autosuspend(dev);
->>  
->> @@ -1278,6 +1279,7 @@ static int stm32_adc_update_scan_mode(struct iio_dev *indio_dev,
->>  	adc->num_conv = bitmap_weight(scan_mask, indio_dev->masklength);
->>  
->>  	ret = stm32_adc_conf_scan_seq(indio_dev, scan_mask);
->> +	pm_runtime_mark_last_busy(dev->parent);
->>  	pm_runtime_mark_last_busy(dev);
->>  	pm_runtime_put_autosuspend(dev);
->>  
->> @@ -1329,6 +1331,7 @@ static int stm32_adc_debugfs_reg_access(struct iio_dev *indio_dev,
->>  	else
->>  		*readval = stm32_adc_readl(adc, reg);
->>  
->> +	pm_runtime_mark_last_busy(dev->parent);
->>  	pm_runtime_mark_last_busy(dev);
->>  	pm_runtime_put_autosuspend(dev);
->>  
->> @@ -1451,6 +1454,7 @@ static int __stm32_adc_buffer_postenable(struct iio_dev *indio_dev)
->>  err_clr_trig:
->>  	stm32_adc_set_trig(indio_dev, NULL);
->>  err_pm_put:
->> +	pm_runtime_mark_last_busy(dev->parent);
->>  	pm_runtime_mark_last_busy(dev);
->>  	pm_runtime_put_autosuspend(dev);
->>  
->> @@ -1487,6 +1491,7 @@ static void __stm32_adc_buffer_predisable(struct iio_dev *indio_dev)
->>  	if (stm32_adc_set_trig(indio_dev, NULL))
->>  		dev_err(&indio_dev->dev, "Can't clear trigger\n");
->>  
->> +	pm_runtime_mark_last_busy(dev->parent);
->>  	pm_runtime_mark_last_busy(dev);
->>  	pm_runtime_put_autosuspend(dev);
->>  }
->> @@ -1874,6 +1879,7 @@ static int stm32_adc_probe(struct platform_device *pdev)
->>  		goto err_hw_stop;
->>  	}
->>  
->> +	pm_runtime_mark_last_busy(dev->parent);
->>  	pm_runtime_mark_last_busy(dev);
->>  	pm_runtime_put_autosuspend(dev);
->>  
-> 
+thanks for the kernel-doc update.
+-- 
+~Randy
+
 _______________________________________________
 Linux-stm32 mailing list
 Linux-stm32@st-md-mailman.stormreply.com
