@@ -2,44 +2,44 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id DC3EA15DF1D
-	for <lists+linux-stm32@lfdr.de>; Fri, 14 Feb 2020 17:07:38 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 52B6915E08B
+	for <lists+linux-stm32@lfdr.de>; Fri, 14 Feb 2020 17:14:49 +0100 (CET)
 Received: from ip-172-31-3-76.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 94D11C36B0B;
-	Fri, 14 Feb 2020 16:07:38 +0000 (UTC)
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 10E33C36B0B;
+	Fri, 14 Feb 2020 16:14:49 +0000 (UTC)
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
  (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 9CB24C36B09
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 70496C36B09
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Fri, 14 Feb 2020 16:07:36 +0000 (UTC)
+ Fri, 14 Feb 2020 16:14:48 +0000 (UTC)
 Received: from sasha-vm.mshome.net (c-73-47-72-35.hsd1.nh.comcast.net
  [73.47.72.35])
  (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by mail.kernel.org (Postfix) with ESMTPSA id 8677A2467E;
- Fri, 14 Feb 2020 16:07:34 +0000 (UTC)
+ by mail.kernel.org (Postfix) with ESMTPSA id 336E7246D2;
+ Fri, 14 Feb 2020 16:14:46 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
- s=default; t=1581696455;
- bh=ScsIUI1jhlemcbd0HtcfRdTTAt1Fs26SJj8CgwW/VZ0=;
+ s=default; t=1581696887;
+ bh=XqHntQ68nAA1PkhJZLhzZ1cKTnOr9ceFKNXlAqKnqBA=;
  h=From:To:Cc:Subject:Date:In-Reply-To:References:From;
- b=0duWHp31wHHiK4aOtyfGzLjxVAfWqWjBQwV0MKt0QOknjdZKnEBN14zdLeBCMPGDf
- vJ6/qhtvfmbEIcazs0AStyaTbA8kUE5AeyMOCZrwU2lt7dZS0AxuQMB98b3Q798BPP
- JeSqWPht4usZMhfii9qaYK0/LQk+xgfCTw81gPrs=
+ b=Nhaf9M8LDFS7Qv3pR2bbTeWyzFwwV7IJnBWGCtQPu/p2cW4MX/OM7Kpnow/9aRFL9
+ GjIQpRJDy1iLAUdjSCP8qshobUJ+BmRnpySzKlUCg2xhqvmxuU2o6Npe2Da6jwxlFe
+ MdI4LkYgogoYQ5SzbvMo9er+8o9HU43e7YWGOHbg=
 From: Sasha Levin <sashal@kernel.org>
 To: linux-kernel@vger.kernel.org,
 	stable@vger.kernel.org
-Date: Fri, 14 Feb 2020 10:58:37 -0500
-Message-Id: <20200214160149.11681-267-sashal@kernel.org>
+Date: Fri, 14 Feb 2020 11:09:55 -0500
+Message-Id: <20200214161147.15842-140-sashal@kernel.org>
 X-Mailer: git-send-email 2.20.1
-In-Reply-To: <20200214160149.11681-1-sashal@kernel.org>
-References: <20200214160149.11681-1-sashal@kernel.org>
+In-Reply-To: <20200214161147.15842-1-sashal@kernel.org>
+References: <20200214161147.15842-1-sashal@kernel.org>
 MIME-Version: 1.0
 X-stable: review
 X-Patchwork-Hint: Ignore
 Cc: Sasha Levin <sashal@kernel.org>, devicetree@vger.kernel.org,
  linux-stm32@st-md-mailman.stormreply.com, linux-arm-kernel@lists.infradead.org
-Subject: [Linux-stm32] [PATCH AUTOSEL 5.4 267/459] ARM: dts: stm32: Add
+Subject: [Linux-stm32] [PATCH AUTOSEL 4.19 140/252] ARM: dts: stm32: Add
 	power-supply for DSI panel on stm32f469-disco
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
@@ -73,10 +73,10 @@ Signed-off-by: Sasha Levin <sashal@kernel.org>
  1 file changed, 8 insertions(+)
 
 diff --git a/arch/arm/boot/dts/stm32f469-disco.dts b/arch/arm/boot/dts/stm32f469-disco.dts
-index a3ff04940aec1..c6dc6d1a051b0 100644
+index 3ee768cb86fc9..eea979ef5512f 100644
 --- a/arch/arm/boot/dts/stm32f469-disco.dts
 +++ b/arch/arm/boot/dts/stm32f469-disco.dts
-@@ -76,6 +76,13 @@
+@@ -75,6 +75,13 @@
  		regulator-max-microvolt = <3300000>;
  	};
  
@@ -90,7 +90,7 @@ index a3ff04940aec1..c6dc6d1a051b0 100644
  	soc {
  		dma-ranges = <0xc0000000 0x0 0x10000000>;
  	};
-@@ -155,6 +162,7 @@
+@@ -154,6 +161,7 @@
  		compatible = "orisetech,otm8009a";
  		reg = <0>; /* dsi virtual channel (0..3) */
  		reset-gpios = <&gpioh 7 GPIO_ACTIVE_LOW>;
