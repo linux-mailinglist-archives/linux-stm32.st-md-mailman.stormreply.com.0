@@ -2,45 +2,47 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id B198615DA6B
-	for <lists+linux-stm32@lfdr.de>; Fri, 14 Feb 2020 16:14:16 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 937EC15DB81
+	for <lists+linux-stm32@lfdr.de>; Fri, 14 Feb 2020 16:49:19 +0100 (CET)
 Received: from ip-172-31-3-76.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 75068C36B0B;
-	Fri, 14 Feb 2020 15:14:16 +0000 (UTC)
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 54B17C36B0B;
+	Fri, 14 Feb 2020 15:49:19 +0000 (UTC)
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
  (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 48D8AC36B09
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 4C3CBC36B09
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Fri, 14 Feb 2020 15:14:14 +0000 (UTC)
-Received: from archlinux (cpc149474-cmbg20-2-0-cust94.5-4.cable.virginm.net
- [82.4.196.95])
- (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+ Fri, 14 Feb 2020 15:49:18 +0000 (UTC)
+Received: from sasha-vm.mshome.net (c-73-47-72-35.hsd1.nh.comcast.net
+ [73.47.72.35])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by mail.kernel.org (Postfix) with ESMTPSA id 006C824650;
- Fri, 14 Feb 2020 15:14:10 +0000 (UTC)
+ by mail.kernel.org (Postfix) with ESMTPSA id B4B5B24684;
+ Fri, 14 Feb 2020 15:49:15 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
- s=default; t=1581693252;
- bh=hTK6kPaqlavFXELhCTwjIUGSrou/UGwXzyl/9x4wP6c=;
- h=Date:From:To:Cc:Subject:In-Reply-To:References:From;
- b=QDaNZf8eD1P66QXXxrP367JjcD7yHWENUAx8nNOh28Q6fg7Ub7lejpxc7AZOoESLX
- ZEw9OKRlEZRnzMFzdd+9dtYqZLZoxYf6S3neVLTxHeYXQp70YLo7QBiZkFmgQxkuBv
- ZAJw3IsYpFk8lVspCgVrfc00CZ/xJdaoMl8J+h2A=
-Date: Fri, 14 Feb 2020 15:14:08 +0000
-From: Jonathan Cameron <jic23@kernel.org>
-To: Fabrice Gasnier <fabrice.gasnier@st.com>
-Message-ID: <20200214151408.570c1658@archlinux>
-In-Reply-To: <3a9dfc05-f6c3-a283-5791-5d9b72bb44f7@st.com>
-References: <1581093031-9871-1-git-send-email-fabrice.gasnier@st.com>
- <20200214142035.576e11e1@archlinux>
- <3a9dfc05-f6c3-a283-5791-5d9b72bb44f7@st.com>
-X-Mailer: Claws Mail 3.17.4 (GTK+ 2.24.32; x86_64-pc-linux-gnu)
+ s=default; t=1581695356;
+ bh=J1j4OCreJQkS7zD0uwA8aoWiIOqAgpvxOtjmXUV0ThQ=;
+ h=From:To:Cc:Subject:Date:In-Reply-To:References:From;
+ b=s1FOrJSFHK1fcrKCAqWyONa1z7M/tWLqmODPCdEwKKw39JFV5WyjS5bwI87zVXqaj
+ kiJYXwKB/h0IbVaMu25Cm9t4KRsEBU4gEWU7c5jZ/ODfVe2aMvBuE7yMzUhkC7KiHZ
+ XLVN7emu2Qra+z8EIavcCDYrtvDYkIib1uT9/RU8=
+From: Sasha Levin <sashal@kernel.org>
+To: linux-kernel@vger.kernel.org,
+	stable@vger.kernel.org
+Date: Fri, 14 Feb 2020 10:40:09 -0500
+Message-Id: <20200214154854.6746-17-sashal@kernel.org>
+X-Mailer: git-send-email 2.20.1
+In-Reply-To: <20200214154854.6746-1-sashal@kernel.org>
+References: <20200214154854.6746-1-sashal@kernel.org>
 MIME-Version: 1.0
-Cc: lars@metafoo.de, linux-iio@vger.kernel.org, pmeerw@pmeerw.net,
- linux-kernel@vger.kernel.org, mcoquelin.stm32@gmail.com, knaack.h@gmx.de,
+X-stable: review
+X-Patchwork-Hint: Ignore
+Cc: Sasha Levin <sashal@kernel.org>, Herbert Xu <herbert@gondor.apana.org.au>,
+ Eric Biggers <ebiggers@google.com>,
+ Pascal Van Leeuwen <pvanleeuwen@verimatrix.com>, linux-crypto@vger.kernel.org,
  linux-stm32@st-md-mailman.stormreply.com, linux-arm-kernel@lists.infradead.org
-Subject: Re: [Linux-stm32] [PATCH v2] iio: trigger: stm32-timer: enable
- clock when in master mode
+Subject: [Linux-stm32] [PATCH AUTOSEL 5.5 017/542] crypto: testmgr - don't
+	try to decrypt uninitialized buffers
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -57,309 +59,80 @@ Content-Transfer-Encoding: 7bit
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
-On Fri, 14 Feb 2020 15:50:57 +0100
-Fabrice Gasnier <fabrice.gasnier@st.com> wrote:
+From: Eric Biggers <ebiggers@google.com>
 
-> On 2/14/20 3:20 PM, Jonathan Cameron wrote:
-> > On Fri, 7 Feb 2020 17:30:31 +0100
-> > Fabrice Gasnier <fabrice.gasnier@st.com> wrote:
-> >   
-> >> Clock should be enabled as soon as using master modes, even before
-> >> enabling timer. Or, this may provoke bad behavior on the other end
-> >> (slave timer). Then, introduce 'clk_enabled' flag, instead of relying
-> >> on CR1 EN bit, to keep track of clock being enabled (balanced refcount).
-> >> Propagate this anywhere else in the driver.
-> >>
-> >> Also add 'remove' routine to stop timer and disable clock in case it
-> >> has been left enabled. Enforce the user interface has been unregistered
-> >> in the remove routine, before disabling the hardware to avoid possible
-> >> race. So, remove use of devm_ variant to register triggers and unregister
-> >> them before the hardware gets disabled [1].
-> >> [1] https://patchwork.kernel.org/patch/9956247/
-> >>
-> >> Signed-off-by: Fabrice Gasnier <fabrice.gasnier@st.com>  
-> > Patch looks fine. So is this a fix for a known issue or a theoretical one?
-> > Just a question of whether to line it up for an rc, or wait for next
-> > merge window.  Ideally please give me a fixes tag as well if this
-> > fixes a problem that is being seen in the wild.  
-> 
-> Hi Jonathan,
-> 
-> I got no complain for now. So I think this is fine to wait for the next
-> merge window.
-Hi Fabrice,
+[ Upstream commit eb455dbd02cb1074b37872ffca30a81cb2a18eaa ]
 
-Great.  Unfortunately this has crossed with other changes on the driver.
-Would you mind doing a rebase on my testing branch?  It looked fairly
-simple but I wasn't totally confident to do it without being able
-to test!
+Currently if the comparison fuzz tests encounter an encryption error
+when generating an skcipher or AEAD test vector, they will still test
+the decryption side (passing it the uninitialized ciphertext buffer)
+and expect it to fail with the same error.
 
-Thanks,
+This is sort of broken because it's not well-defined usage of the API to
+pass an uninitialized buffer, and furthermore in the AEAD case it's
+acceptable for the decryption error to be EBADMSG (meaning "inauthentic
+input") even if the encryption error was something else like EINVAL.
 
-Jonathan
+Fix this for skcipher by explicitly initializing the ciphertext buffer
+on error, and for AEAD by skipping the decryption test on error.
 
-> 
-> Thanks,
-> Fabrice
-> 
-> > 
-> > Thanks,
-> > 
-> > Jonathan
-> >   
-> >> ---
-> >> Changes in v2:
-> >> - enforce the user interface has been unregistered in the remove routine,
-> >>   before disabling the hardware to avoid possible race.
-> >> ---
-> >>  drivers/iio/trigger/stm32-timer-trigger.c | 98 ++++++++++++++++++++++++-------
-> >>  1 file changed, 76 insertions(+), 22 deletions(-)
-> >>
-> >> diff --git a/drivers/iio/trigger/stm32-timer-trigger.c b/drivers/iio/trigger/stm32-timer-trigger.c
-> >> index a5dfe65..473853e 100644
-> >> --- a/drivers/iio/trigger/stm32-timer-trigger.c
-> >> +++ b/drivers/iio/trigger/stm32-timer-trigger.c
-> >> @@ -79,10 +79,13 @@ struct stm32_timer_trigger {
-> >>  	struct device *dev;
-> >>  	struct regmap *regmap;
-> >>  	struct clk *clk;
-> >> +	bool clk_enabled;
-> >>  	u32 max_arr;
-> >>  	const void *triggers;
-> >>  	const void *valids;
-> >>  	bool has_trgo2;
-> >> +	struct mutex lock; /* concurrent sysfs configuration */
-> >> +	struct list_head tr_list;
-> >>  };
-> >>  
-> >>  struct stm32_timer_trigger_cfg {
-> >> @@ -106,7 +109,7 @@ static int stm32_timer_start(struct stm32_timer_trigger *priv,
-> >>  {
-> >>  	unsigned long long prd, div;
-> >>  	int prescaler = 0;
-> >> -	u32 ccer, cr1;
-> >> +	u32 ccer;
-> >>  
-> >>  	/* Period and prescaler values depends of clock rate */
-> >>  	div = (unsigned long long)clk_get_rate(priv->clk);
-> >> @@ -136,9 +139,11 @@ static int stm32_timer_start(struct stm32_timer_trigger *priv,
-> >>  	if (ccer & TIM_CCER_CCXE)
-> >>  		return -EBUSY;
-> >>  
-> >> -	regmap_read(priv->regmap, TIM_CR1, &cr1);
-> >> -	if (!(cr1 & TIM_CR1_CEN))
-> >> +	mutex_lock(&priv->lock);
-> >> +	if (!priv->clk_enabled) {
-> >> +		priv->clk_enabled = true;
-> >>  		clk_enable(priv->clk);
-> >> +	}
-> >>  
-> >>  	regmap_write(priv->regmap, TIM_PSC, prescaler);
-> >>  	regmap_write(priv->regmap, TIM_ARR, prd - 1);
-> >> @@ -157,22 +162,20 @@ static int stm32_timer_start(struct stm32_timer_trigger *priv,
-> >>  
-> >>  	/* Enable controller */
-> >>  	regmap_update_bits(priv->regmap, TIM_CR1, TIM_CR1_CEN, TIM_CR1_CEN);
-> >> +	mutex_unlock(&priv->lock);
-> >>  
-> >>  	return 0;
-> >>  }
-> >>  
-> >>  static void stm32_timer_stop(struct stm32_timer_trigger *priv)
-> >>  {
-> >> -	u32 ccer, cr1;
-> >> +	u32 ccer;
-> >>  
-> >>  	regmap_read(priv->regmap, TIM_CCER, &ccer);
-> >>  	if (ccer & TIM_CCER_CCXE)
-> >>  		return;
-> >>  
-> >> -	regmap_read(priv->regmap, TIM_CR1, &cr1);
-> >> -	if (cr1 & TIM_CR1_CEN)
-> >> -		clk_disable(priv->clk);
-> >> -
-> >> +	mutex_lock(&priv->lock);
-> >>  	/* Stop timer */
-> >>  	regmap_update_bits(priv->regmap, TIM_CR1, TIM_CR1_ARPE, 0);
-> >>  	regmap_update_bits(priv->regmap, TIM_CR1, TIM_CR1_CEN, 0);
-> >> @@ -181,6 +184,12 @@ static void stm32_timer_stop(struct stm32_timer_trigger *priv)
-> >>  
-> >>  	/* Make sure that registers are updated */
-> >>  	regmap_update_bits(priv->regmap, TIM_EGR, TIM_EGR_UG, TIM_EGR_UG);
-> >> +
-> >> +	if (priv->clk_enabled) {
-> >> +		priv->clk_enabled = false;
-> >> +		clk_disable(priv->clk);
-> >> +	}
-> >> +	mutex_unlock(&priv->lock);
-> >>  }
-> >>  
-> >>  static ssize_t stm32_tt_store_frequency(struct device *dev,
-> >> @@ -295,11 +304,18 @@ static ssize_t stm32_tt_store_master_mode(struct device *dev,
-> >>  	for (i = 0; i <= master_mode_max; i++) {
-> >>  		if (!strncmp(master_mode_table[i], buf,
-> >>  			     strlen(master_mode_table[i]))) {
-> >> +			mutex_lock(&priv->lock);
-> >> +			if (!priv->clk_enabled) {
-> >> +				/* Clock should be enabled first */
-> >> +				priv->clk_enabled = true;
-> >> +				clk_enable(priv->clk);
-> >> +			}
-> >>  			regmap_update_bits(priv->regmap, TIM_CR2, mask,
-> >>  					   i << shift);
-> >>  			/* Make sure that registers are updated */
-> >>  			regmap_update_bits(priv->regmap, TIM_EGR,
-> >>  					   TIM_EGR_UG, TIM_EGR_UG);
-> >> +			mutex_unlock(&priv->lock);
-> >>  			return len;
-> >>  		}
-> >>  	}
-> >> @@ -357,11 +373,21 @@ static const struct attribute_group *stm32_trigger_attr_groups[] = {
-> >>  static const struct iio_trigger_ops timer_trigger_ops = {
-> >>  };
-> >>  
-> >> -static int stm32_setup_iio_triggers(struct stm32_timer_trigger *priv)
-> >> +static void stm32_unregister_iio_triggers(struct stm32_timer_trigger *priv)
-> >> +{
-> >> +	struct iio_trigger *tr;
-> >> +
-> >> +	list_for_each_entry(tr, &priv->tr_list, alloc_list)
-> >> +		iio_trigger_unregister(tr);
-> >> +}
-> >> +
-> >> +static int stm32_register_iio_triggers(struct stm32_timer_trigger *priv)
-> >>  {
-> >>  	int ret;
-> >>  	const char * const *cur = priv->triggers;
-> >>  
-> >> +	INIT_LIST_HEAD(&priv->tr_list);
-> >> +
-> >>  	while (cur && *cur) {
-> >>  		struct iio_trigger *trig;
-> >>  		bool cur_is_trgo = stm32_timer_is_trgo_name(*cur);
-> >> @@ -388,9 +414,13 @@ static int stm32_setup_iio_triggers(struct stm32_timer_trigger *priv)
-> >>  
-> >>  		iio_trigger_set_drvdata(trig, priv);
-> >>  
-> >> -		ret = devm_iio_trigger_register(priv->dev, trig);
-> >> -		if (ret)
-> >> +		ret = iio_trigger_register(trig);
-> >> +		if (ret) {
-> >> +			stm32_unregister_iio_triggers(priv);
-> >>  			return ret;
-> >> +		}
-> >> +
-> >> +		list_add_tail(&trig->alloc_list, &priv->tr_list);
-> >>  		cur++;
-> >>  	}
-> >>  
-> >> @@ -437,7 +467,6 @@ static int stm32_counter_write_raw(struct iio_dev *indio_dev,
-> >>  				   int val, int val2, long mask)
-> >>  {
-> >>  	struct stm32_timer_trigger *priv = iio_priv(indio_dev);
-> >> -	u32 dat;
-> >>  
-> >>  	switch (mask) {
-> >>  	case IIO_CHAN_INFO_RAW:
-> >> @@ -448,19 +477,23 @@ static int stm32_counter_write_raw(struct iio_dev *indio_dev,
-> >>  		return -EINVAL;
-> >>  
-> >>  	case IIO_CHAN_INFO_ENABLE:
-> >> +		mutex_lock(&priv->lock);
-> >>  		if (val) {
-> >> -			regmap_read(priv->regmap, TIM_CR1, &dat);
-> >> -			if (!(dat & TIM_CR1_CEN))
-> >> +			if (!priv->clk_enabled) {
-> >> +				priv->clk_enabled = true;
-> >>  				clk_enable(priv->clk);
-> >> +			}
-> >>  			regmap_update_bits(priv->regmap, TIM_CR1, TIM_CR1_CEN,
-> >>  					   TIM_CR1_CEN);
-> >>  		} else {
-> >> -			regmap_read(priv->regmap, TIM_CR1, &dat);
-> >>  			regmap_update_bits(priv->regmap, TIM_CR1, TIM_CR1_CEN,
-> >>  					   0);
-> >> -			if (dat & TIM_CR1_CEN)
-> >> +			if (priv->clk_enabled) {
-> >> +				priv->clk_enabled = false;
-> >>  				clk_disable(priv->clk);
-> >> +			}
-> >>  		}
-> >> +		mutex_unlock(&priv->lock);
-> >>  		return 0;
-> >>  	}
-> >>  
-> >> @@ -556,7 +589,6 @@ static int stm32_set_enable_mode(struct iio_dev *indio_dev,
-> >>  {
-> >>  	struct stm32_timer_trigger *priv = iio_priv(indio_dev);
-> >>  	int sms = stm32_enable_mode2sms(mode);
-> >> -	u32 val;
-> >>  
-> >>  	if (sms < 0)
-> >>  		return sms;
-> >> @@ -564,11 +596,12 @@ static int stm32_set_enable_mode(struct iio_dev *indio_dev,
-> >>  	 * Triggered mode sets CEN bit automatically by hardware. So, first
-> >>  	 * enable counter clock, so it can use it. Keeps it in sync with CEN.
-> >>  	 */
-> >> -	if (sms == 6) {
-> >> -		regmap_read(priv->regmap, TIM_CR1, &val);
-> >> -		if (!(val & TIM_CR1_CEN))
-> >> -			clk_enable(priv->clk);
-> >> +	mutex_lock(&priv->lock);
-> >> +	if (sms == 6 && !priv->clk_enabled) {
-> >> +		clk_enable(priv->clk);
-> >> +		priv->clk_enabled = true;
-> >>  	}
-> >> +	mutex_unlock(&priv->lock);
-> >>  
-> >>  	regmap_update_bits(priv->regmap, TIM_SMCR, TIM_SMCR_SMS, sms);
-> >>  
-> >> @@ -752,8 +785,9 @@ static int stm32_timer_trigger_probe(struct platform_device *pdev)
-> >>  	priv->triggers = triggers_table[index];
-> >>  	priv->valids = cfg->valids_table[index];
-> >>  	stm32_timer_detect_trgo2(priv);
-> >> +	mutex_init(&priv->lock);
-> >>  
-> >> -	ret = stm32_setup_iio_triggers(priv);
-> >> +	ret = stm32_register_iio_triggers(priv);
-> >>  	if (ret)
-> >>  		return ret;
-> >>  
-> >> @@ -762,6 +796,25 @@ static int stm32_timer_trigger_probe(struct platform_device *pdev)
-> >>  	return 0;
-> >>  }
-> >>  
-> >> +static int stm32_timer_trigger_remove(struct platform_device *pdev)
-> >> +{
-> >> +	struct stm32_timer_trigger *priv = platform_get_drvdata(pdev);
-> >> +	u32 val;
-> >> +
-> >> +	/* Unregister triggers before everything can be safely turned off */
-> >> +	stm32_unregister_iio_triggers(priv);
-> >> +
-> >> +	/* Check if nobody else use the timer, then disable it */
-> >> +	regmap_read(priv->regmap, TIM_CCER, &val);
-> >> +	if (!(val & TIM_CCER_CCXE))
-> >> +		regmap_update_bits(priv->regmap, TIM_CR1, TIM_CR1_CEN, 0);
-> >> +
-> >> +	if (priv->clk_enabled)
-> >> +		clk_disable(priv->clk);
-> >> +
-> >> +	return 0;
-> >> +}
-> >> +
-> >>  static const struct stm32_timer_trigger_cfg stm32_timer_trg_cfg = {
-> >>  	.valids_table = valids_table,
-> >>  	.num_valids_table = ARRAY_SIZE(valids_table),
-> >> @@ -786,6 +839,7 @@ MODULE_DEVICE_TABLE(of, stm32_trig_of_match);
-> >>  
-> >>  static struct platform_driver stm32_timer_trigger_driver = {
-> >>  	.probe = stm32_timer_trigger_probe,
-> >> +	.remove = stm32_timer_trigger_remove,
-> >>  	.driver = {
-> >>  		.name = "stm32-timer-trigger",
-> >>  		.of_match_table = stm32_trig_of_match,  
-> >   
+Reported-by: Pascal Van Leeuwen <pvanleeuwen@verimatrix.com>
+Fixes: d435e10e67be ("crypto: testmgr - fuzz skciphers against their generic implementation")
+Fixes: 40153b10d91c ("crypto: testmgr - fuzz AEADs against their generic implementation")
+Signed-off-by: Eric Biggers <ebiggers@google.com>
+Signed-off-by: Herbert Xu <herbert@gondor.apana.org.au>
+Signed-off-by: Sasha Levin <sashal@kernel.org>
+---
+ crypto/testmgr.c | 20 ++++++++++++++++----
+ 1 file changed, 16 insertions(+), 4 deletions(-)
+
+diff --git a/crypto/testmgr.c b/crypto/testmgr.c
+index 82513b6b0abd0..2c96963b2e51e 100644
+--- a/crypto/testmgr.c
++++ b/crypto/testmgr.c
+@@ -2102,6 +2102,7 @@ static void generate_random_aead_testvec(struct aead_request *req,
+ 	 * If the key or authentication tag size couldn't be set, no need to
+ 	 * continue to encrypt.
+ 	 */
++	vec->crypt_error = 0;
+ 	if (vec->setkey_error || vec->setauthsize_error)
+ 		goto done;
+ 
+@@ -2245,10 +2246,12 @@ static int test_aead_vs_generic_impl(const char *driver,
+ 					req, tsgls);
+ 		if (err)
+ 			goto out;
+-		err = test_aead_vec_cfg(driver, DECRYPT, &vec, vec_name, cfg,
+-					req, tsgls);
+-		if (err)
+-			goto out;
++		if (vec.crypt_error == 0) {
++			err = test_aead_vec_cfg(driver, DECRYPT, &vec, vec_name,
++						cfg, req, tsgls);
++			if (err)
++				goto out;
++		}
+ 		cond_resched();
+ 	}
+ 	err = 0;
+@@ -2678,6 +2681,15 @@ static void generate_random_cipher_testvec(struct skcipher_request *req,
+ 	skcipher_request_set_callback(req, 0, crypto_req_done, &wait);
+ 	skcipher_request_set_crypt(req, &src, &dst, vec->len, iv);
+ 	vec->crypt_error = crypto_wait_req(crypto_skcipher_encrypt(req), &wait);
++	if (vec->crypt_error != 0) {
++		/*
++		 * The only acceptable error here is for an invalid length, so
++		 * skcipher decryption should fail with the same error too.
++		 * We'll test for this.  But to keep the API usage well-defined,
++		 * explicitly initialize the ciphertext buffer too.
++		 */
++		memset((u8 *)vec->ctext, 0, vec->len);
++	}
+ done:
+ 	snprintf(name, max_namelen, "\"random: len=%u klen=%u\"",
+ 		 vec->len, vec->klen);
+-- 
+2.20.1
 
 _______________________________________________
 Linux-stm32 mailing list
