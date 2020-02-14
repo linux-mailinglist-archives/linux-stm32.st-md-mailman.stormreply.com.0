@@ -2,45 +2,47 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id 4C18515DCA0
-	for <lists+linux-stm32@lfdr.de>; Fri, 14 Feb 2020 16:55:36 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id AA5EA15DDFC
+	for <lists+linux-stm32@lfdr.de>; Fri, 14 Feb 2020 17:02:10 +0100 (CET)
 Received: from ip-172-31-3-76.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 0D225C36B0B;
-	Fri, 14 Feb 2020 15:55:36 +0000 (UTC)
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 68B3EC36B0B;
+	Fri, 14 Feb 2020 16:02:10 +0000 (UTC)
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
  (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 1C4F8C36B09
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id B8793C36B09
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Fri, 14 Feb 2020 15:55:33 +0000 (UTC)
+ Fri, 14 Feb 2020 16:02:09 +0000 (UTC)
 Received: from sasha-vm.mshome.net (c-73-47-72-35.hsd1.nh.comcast.net
  [73.47.72.35])
  (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by mail.kernel.org (Postfix) with ESMTPSA id 591EF2467C;
- Fri, 14 Feb 2020 15:55:31 +0000 (UTC)
+ by mail.kernel.org (Postfix) with ESMTPSA id A10A5206CC;
+ Fri, 14 Feb 2020 16:02:06 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
- s=default; t=1581695732;
- bh=8Yb5HhRfNtu90zyqPHEgbqHDjAy4hSB8qwaNWc47P64=;
+ s=default; t=1581696127;
+ bh=Wf6+5th2F9srA5n2O4rn5EYSr5Vxtth49+lAj9Yemro=;
  h=From:To:Cc:Subject:Date:In-Reply-To:References:From;
- b=o6rus/f3oqz8ScjHPeOvGNETQ1X43tt2ddezZQ80XyTTWetWk01uUmdEwkcVIJXP4
- Ki/90xOA/vIaqDFow5SwyV4C/cULprVfRvAsshOQ7fMc5QyNXfAmPwcj148Nk6hWrn
- L8kazU1h109Di6UcJ/QjeIL51oTSA7JriVgYTE7g=
+ b=kpapbOD4/DWCTIUmGh9LLD2pM5PAPRFmTMsx8P818NSH7nTwM2sIes9rZJTsrFdLl
+ zegoXHiHgaNlV6IXy7/9rNCJN7gSrqBt3hLMMJNUQnBlXV9RReOHjQFXNS4g/Qx5Eo
+ IpgSrL8+zLGwoI3SCw8HDXoTi3juyDnhEqu1Y2BE=
 From: Sasha Levin <sashal@kernel.org>
 To: linux-kernel@vger.kernel.org,
 	stable@vger.kernel.org
-Date: Fri, 14 Feb 2020 10:44:58 -0500
-Message-Id: <20200214154854.6746-306-sashal@kernel.org>
+Date: Fri, 14 Feb 2020 10:54:23 -0500
+Message-Id: <20200214160149.11681-13-sashal@kernel.org>
 X-Mailer: git-send-email 2.20.1
-In-Reply-To: <20200214154854.6746-1-sashal@kernel.org>
-References: <20200214154854.6746-1-sashal@kernel.org>
+In-Reply-To: <20200214160149.11681-1-sashal@kernel.org>
+References: <20200214160149.11681-1-sashal@kernel.org>
 MIME-Version: 1.0
 X-stable: review
 X-Patchwork-Hint: Ignore
-Cc: Sasha Levin <sashal@kernel.org>, devicetree@vger.kernel.org,
+Cc: Sasha Levin <sashal@kernel.org>, Herbert Xu <herbert@gondor.apana.org.au>,
+ Eric Biggers <ebiggers@google.com>,
+ Pascal Van Leeuwen <pvanleeuwen@verimatrix.com>, linux-crypto@vger.kernel.org,
  linux-stm32@st-md-mailman.stormreply.com, linux-arm-kernel@lists.infradead.org
-Subject: [Linux-stm32] [PATCH AUTOSEL 5.5 306/542] ARM: dts: stm32: Add
-	power-supply for DSI panel on stm32f469-disco
+Subject: [Linux-stm32] [PATCH AUTOSEL 5.4 013/459] crypto: testmgr - don't
+	try to decrypt uninitialized buffers
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -57,47 +59,78 @@ Content-Transfer-Encoding: 7bit
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
-From: Benjamin Gaignard <benjamin.gaignard@st.com>
+From: Eric Biggers <ebiggers@google.com>
 
-[ Upstream commit 0ff15a86d0c5a3f004fee2e92d65b88e56a3bc58 ]
+[ Upstream commit eb455dbd02cb1074b37872ffca30a81cb2a18eaa ]
 
-Add a fixed regulator and use it as power supply for DSI panel.
+Currently if the comparison fuzz tests encounter an encryption error
+when generating an skcipher or AEAD test vector, they will still test
+the decryption side (passing it the uninitialized ciphertext buffer)
+and expect it to fail with the same error.
 
-Fixes: 18c8866266 ("ARM: dts: stm32: Add display support on stm32f469-disco")
+This is sort of broken because it's not well-defined usage of the API to
+pass an uninitialized buffer, and furthermore in the AEAD case it's
+acceptable for the decryption error to be EBADMSG (meaning "inauthentic
+input") even if the encryption error was something else like EINVAL.
 
-Signed-off-by: Benjamin Gaignard <benjamin.gaignard@st.com>
-Signed-off-by: Alexandre Torgue <alexandre.torgue@st.com>
+Fix this for skcipher by explicitly initializing the ciphertext buffer
+on error, and for AEAD by skipping the decryption test on error.
+
+Reported-by: Pascal Van Leeuwen <pvanleeuwen@verimatrix.com>
+Fixes: d435e10e67be ("crypto: testmgr - fuzz skciphers against their generic implementation")
+Fixes: 40153b10d91c ("crypto: testmgr - fuzz AEADs against their generic implementation")
+Signed-off-by: Eric Biggers <ebiggers@google.com>
+Signed-off-by: Herbert Xu <herbert@gondor.apana.org.au>
 Signed-off-by: Sasha Levin <sashal@kernel.org>
 ---
- arch/arm/boot/dts/stm32f469-disco.dts | 8 ++++++++
- 1 file changed, 8 insertions(+)
+ crypto/testmgr.c | 20 ++++++++++++++++----
+ 1 file changed, 16 insertions(+), 4 deletions(-)
 
-diff --git a/arch/arm/boot/dts/stm32f469-disco.dts b/arch/arm/boot/dts/stm32f469-disco.dts
-index f3ce477b7bae6..9397db0c43de2 100644
---- a/arch/arm/boot/dts/stm32f469-disco.dts
-+++ b/arch/arm/boot/dts/stm32f469-disco.dts
-@@ -76,6 +76,13 @@
- 		regulator-max-microvolt = <3300000>;
- 	};
+diff --git a/crypto/testmgr.c b/crypto/testmgr.c
+index c39e39e55dc20..7473c5bc06b1a 100644
+--- a/crypto/testmgr.c
++++ b/crypto/testmgr.c
+@@ -2102,6 +2102,7 @@ static void generate_random_aead_testvec(struct aead_request *req,
+ 	 * If the key or authentication tag size couldn't be set, no need to
+ 	 * continue to encrypt.
+ 	 */
++	vec->crypt_error = 0;
+ 	if (vec->setkey_error || vec->setauthsize_error)
+ 		goto done;
  
-+	vdd_dsi: vdd-dsi {
-+		compatible = "regulator-fixed";
-+		regulator-name = "vdd_dsi";
-+		regulator-min-microvolt = <3300000>;
-+		regulator-max-microvolt = <3300000>;
-+	};
-+
- 	soc {
- 		dma-ranges = <0xc0000000 0x0 0x10000000>;
- 	};
-@@ -155,6 +162,7 @@
- 		compatible = "orisetech,otm8009a";
- 		reg = <0>; /* dsi virtual channel (0..3) */
- 		reset-gpios = <&gpioh 7 GPIO_ACTIVE_LOW>;
-+		power-supply = <&vdd_dsi>;
- 		status = "okay";
- 
- 		port {
+@@ -2245,10 +2246,12 @@ static int test_aead_vs_generic_impl(const char *driver,
+ 					req, tsgls);
+ 		if (err)
+ 			goto out;
+-		err = test_aead_vec_cfg(driver, DECRYPT, &vec, vec_name, cfg,
+-					req, tsgls);
+-		if (err)
+-			goto out;
++		if (vec.crypt_error == 0) {
++			err = test_aead_vec_cfg(driver, DECRYPT, &vec, vec_name,
++						cfg, req, tsgls);
++			if (err)
++				goto out;
++		}
+ 		cond_resched();
+ 	}
+ 	err = 0;
+@@ -2678,6 +2681,15 @@ static void generate_random_cipher_testvec(struct skcipher_request *req,
+ 	skcipher_request_set_callback(req, 0, crypto_req_done, &wait);
+ 	skcipher_request_set_crypt(req, &src, &dst, vec->len, iv);
+ 	vec->crypt_error = crypto_wait_req(crypto_skcipher_encrypt(req), &wait);
++	if (vec->crypt_error != 0) {
++		/*
++		 * The only acceptable error here is for an invalid length, so
++		 * skcipher decryption should fail with the same error too.
++		 * We'll test for this.  But to keep the API usage well-defined,
++		 * explicitly initialize the ciphertext buffer too.
++		 */
++		memset((u8 *)vec->ctext, 0, vec->len);
++	}
+ done:
+ 	snprintf(name, max_namelen, "\"random: len=%u klen=%u\"",
+ 		 vec->len, vec->klen);
 -- 
 2.20.1
 
