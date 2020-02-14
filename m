@@ -2,47 +2,47 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id AA5EA15DDFC
-	for <lists+linux-stm32@lfdr.de>; Fri, 14 Feb 2020 17:02:10 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 9C16D15DE4D
+	for <lists+linux-stm32@lfdr.de>; Fri, 14 Feb 2020 17:04:01 +0100 (CET)
 Received: from ip-172-31-3-76.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 68B3EC36B0B;
-	Fri, 14 Feb 2020 16:02:10 +0000 (UTC)
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 5A415C36B0B;
+	Fri, 14 Feb 2020 16:04:01 +0000 (UTC)
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
  (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id B8793C36B09
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 5AD26C36B09
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Fri, 14 Feb 2020 16:02:09 +0000 (UTC)
+ Fri, 14 Feb 2020 16:03:59 +0000 (UTC)
 Received: from sasha-vm.mshome.net (c-73-47-72-35.hsd1.nh.comcast.net
  [73.47.72.35])
  (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by mail.kernel.org (Postfix) with ESMTPSA id A10A5206CC;
- Fri, 14 Feb 2020 16:02:06 +0000 (UTC)
+ by mail.kernel.org (Postfix) with ESMTPSA id 006A7222C2;
+ Fri, 14 Feb 2020 16:03:56 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
- s=default; t=1581696127;
- bh=Wf6+5th2F9srA5n2O4rn5EYSr5Vxtth49+lAj9Yemro=;
+ s=default; t=1581696238;
+ bh=HnWhr6/KKXYznfesNXl5gOHM6wIdNTDv3KbNna8Ndxc=;
  h=From:To:Cc:Subject:Date:In-Reply-To:References:From;
- b=kpapbOD4/DWCTIUmGh9LLD2pM5PAPRFmTMsx8P818NSH7nTwM2sIes9rZJTsrFdLl
- zegoXHiHgaNlV6IXy7/9rNCJN7gSrqBt3hLMMJNUQnBlXV9RReOHjQFXNS4g/Qx5Eo
- IpgSrL8+zLGwoI3SCw8HDXoTi3juyDnhEqu1Y2BE=
+ b=LcNEtOz9ZBb0EqlKjXMQy/d2ykxJDzEtTN8unPZ8bendSqzQ7y3e6cnVNgCRurDPV
+ j6ip8FIUsp3vTUzlTAtTOHXg8wmIHSPa/+MgygF3N7+hcHoBZPvy+9QBWfe33ta32L
+ D3WjHrsuZUezK01P1wGlvpNpteW+hm2Wt/oPtUbE=
 From: Sasha Levin <sashal@kernel.org>
 To: linux-kernel@vger.kernel.org,
 	stable@vger.kernel.org
-Date: Fri, 14 Feb 2020 10:54:23 -0500
-Message-Id: <20200214160149.11681-13-sashal@kernel.org>
+Date: Fri, 14 Feb 2020 10:55:47 -0500
+Message-Id: <20200214160149.11681-97-sashal@kernel.org>
 X-Mailer: git-send-email 2.20.1
 In-Reply-To: <20200214160149.11681-1-sashal@kernel.org>
 References: <20200214160149.11681-1-sashal@kernel.org>
 MIME-Version: 1.0
 X-stable: review
 X-Patchwork-Hint: Ignore
-Cc: Sasha Levin <sashal@kernel.org>, Herbert Xu <herbert@gondor.apana.org.au>,
- Eric Biggers <ebiggers@google.com>,
- Pascal Van Leeuwen <pvanleeuwen@verimatrix.com>, linux-crypto@vger.kernel.org,
- linux-stm32@st-md-mailman.stormreply.com, linux-arm-kernel@lists.infradead.org
-Subject: [Linux-stm32] [PATCH AUTOSEL 5.4 013/459] crypto: testmgr - don't
-	try to decrypt uninitialized buffers
+Cc: Sasha Levin <sashal@kernel.org>, linux-watchdog@vger.kernel.org,
+ linux-arm-kernel@lists.infradead.org,
+ Wim Van Sebroeck <wim@linux-watchdog.org>,
+ linux-stm32@st-md-mailman.stormreply.com, Guenter Roeck <linux@roeck-us.net>
+Subject: [Linux-stm32] [PATCH AUTOSEL 5.4 097/459] drivers: watchdog:
+	stm32_iwdg: set WDOG_HW_RUNNING at probe
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -59,78 +59,57 @@ Content-Transfer-Encoding: 7bit
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
-From: Eric Biggers <ebiggers@google.com>
+From: Christophe Roullier <christophe.roullier@st.com>
 
-[ Upstream commit eb455dbd02cb1074b37872ffca30a81cb2a18eaa ]
+[ Upstream commit 85fdc63fe256b595f923a69848cd99972ff446d8 ]
 
-Currently if the comparison fuzz tests encounter an encryption error
-when generating an skcipher or AEAD test vector, they will still test
-the decryption side (passing it the uninitialized ciphertext buffer)
-and expect it to fail with the same error.
+If the watchdog hardware is already enabled during the boot process,
+when the Linux watchdog driver loads, it should start/reset the watchdog
+and tell the watchdog framework. As a result, ping can be generated from
+the watchdog framework (if CONFIG_WATCHDOG_HANDLE_BOOT_ENABLED is set),
+until the userspace watchdog daemon takes over control
 
-This is sort of broken because it's not well-defined usage of the API to
-pass an uninitialized buffer, and furthermore in the AEAD case it's
-acceptable for the decryption error to be EBADMSG (meaning "inauthentic
-input") even if the encryption error was something else like EINVAL.
+Fixes:4332d113c66a ("watchdog: Add STM32 IWDG driver")
 
-Fix this for skcipher by explicitly initializing the ciphertext buffer
-on error, and for AEAD by skipping the decryption test on error.
-
-Reported-by: Pascal Van Leeuwen <pvanleeuwen@verimatrix.com>
-Fixes: d435e10e67be ("crypto: testmgr - fuzz skciphers against their generic implementation")
-Fixes: 40153b10d91c ("crypto: testmgr - fuzz AEADs against their generic implementation")
-Signed-off-by: Eric Biggers <ebiggers@google.com>
-Signed-off-by: Herbert Xu <herbert@gondor.apana.org.au>
+Signed-off-by: Christophe Roullier <christophe.roullier@st.com>
+Reviewed-by: Guenter Roeck <linux@roeck-us.net>
+Link: https://lore.kernel.org/r/20191122132246.8473-1-christophe.roullier@st.com
+Signed-off-by: Guenter Roeck <linux@roeck-us.net>
+Signed-off-by: Wim Van Sebroeck <wim@linux-watchdog.org>
 Signed-off-by: Sasha Levin <sashal@kernel.org>
 ---
- crypto/testmgr.c | 20 ++++++++++++++++----
- 1 file changed, 16 insertions(+), 4 deletions(-)
+ drivers/watchdog/stm32_iwdg.c | 18 ++++++++++++++++++
+ 1 file changed, 18 insertions(+)
 
-diff --git a/crypto/testmgr.c b/crypto/testmgr.c
-index c39e39e55dc20..7473c5bc06b1a 100644
---- a/crypto/testmgr.c
-+++ b/crypto/testmgr.c
-@@ -2102,6 +2102,7 @@ static void generate_random_aead_testvec(struct aead_request *req,
- 	 * If the key or authentication tag size couldn't be set, no need to
- 	 * continue to encrypt.
- 	 */
-+	vec->crypt_error = 0;
- 	if (vec->setkey_error || vec->setauthsize_error)
- 		goto done;
+diff --git a/drivers/watchdog/stm32_iwdg.c b/drivers/watchdog/stm32_iwdg.c
+index a3a329011a06b..25188d6bbe152 100644
+--- a/drivers/watchdog/stm32_iwdg.c
++++ b/drivers/watchdog/stm32_iwdg.c
+@@ -262,6 +262,24 @@ static int stm32_iwdg_probe(struct platform_device *pdev)
+ 	watchdog_set_nowayout(wdd, WATCHDOG_NOWAYOUT);
+ 	watchdog_init_timeout(wdd, 0, dev);
  
-@@ -2245,10 +2246,12 @@ static int test_aead_vs_generic_impl(const char *driver,
- 					req, tsgls);
- 		if (err)
- 			goto out;
--		err = test_aead_vec_cfg(driver, DECRYPT, &vec, vec_name, cfg,
--					req, tsgls);
--		if (err)
--			goto out;
-+		if (vec.crypt_error == 0) {
-+			err = test_aead_vec_cfg(driver, DECRYPT, &vec, vec_name,
-+						cfg, req, tsgls);
-+			if (err)
-+				goto out;
-+		}
- 		cond_resched();
- 	}
- 	err = 0;
-@@ -2678,6 +2681,15 @@ static void generate_random_cipher_testvec(struct skcipher_request *req,
- 	skcipher_request_set_callback(req, 0, crypto_req_done, &wait);
- 	skcipher_request_set_crypt(req, &src, &dst, vec->len, iv);
- 	vec->crypt_error = crypto_wait_req(crypto_skcipher_encrypt(req), &wait);
-+	if (vec->crypt_error != 0) {
-+		/*
-+		 * The only acceptable error here is for an invalid length, so
-+		 * skcipher decryption should fail with the same error too.
-+		 * We'll test for this.  But to keep the API usage well-defined,
-+		 * explicitly initialize the ciphertext buffer too.
-+		 */
-+		memset((u8 *)vec->ctext, 0, vec->len);
++	/*
++	 * In case of CONFIG_WATCHDOG_HANDLE_BOOT_ENABLED is set
++	 * (Means U-Boot/bootloaders leaves the watchdog running)
++	 * When we get here we should make a decision to prevent
++	 * any side effects before user space daemon will take care of it.
++	 * The best option, taking into consideration that there is no
++	 * way to read values back from hardware, is to enforce watchdog
++	 * being run with deterministic values.
++	 */
++	if (IS_ENABLED(CONFIG_WATCHDOG_HANDLE_BOOT_ENABLED)) {
++		ret = stm32_iwdg_start(wdd);
++		if (ret)
++			return ret;
++
++		/* Make sure the watchdog is serviced */
++		set_bit(WDOG_HW_RUNNING, &wdd->status);
 +	}
- done:
- 	snprintf(name, max_namelen, "\"random: len=%u klen=%u\"",
- 		 vec->len, vec->klen);
++
+ 	ret = devm_watchdog_register_device(dev, wdd);
+ 	if (ret)
+ 		return ret;
 -- 
 2.20.1
 
