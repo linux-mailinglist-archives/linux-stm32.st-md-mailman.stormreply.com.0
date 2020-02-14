@@ -2,53 +2,43 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id D894915D806
-	for <lists+linux-stm32@lfdr.de>; Fri, 14 Feb 2020 14:11:21 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 2791E15D94E
+	for <lists+linux-stm32@lfdr.de>; Fri, 14 Feb 2020 15:20:45 +0100 (CET)
 Received: from ip-172-31-3-76.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 930B7C36B0B;
-	Fri, 14 Feb 2020 13:11:21 +0000 (UTC)
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id D7E45C36B0B;
+	Fri, 14 Feb 2020 14:20:44 +0000 (UTC)
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
  (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id A4A27C36B09
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 09A5DC36B09
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Fri, 14 Feb 2020 13:11:19 +0000 (UTC)
+ Fri, 14 Feb 2020 14:20:41 +0000 (UTC)
 Received: from archlinux (cpc149474-cmbg20-2-0-cust94.5-4.cable.virginm.net
  [82.4.196.95])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by mail.kernel.org (Postfix) with ESMTPSA id 59065222C2;
- Fri, 14 Feb 2020 13:11:16 +0000 (UTC)
+ by mail.kernel.org (Postfix) with ESMTPSA id 9731B206B6;
+ Fri, 14 Feb 2020 14:20:38 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
- s=default; t=1581685878;
- bh=FHsHZRJpZHbKmcpb1fTmxc1K9yq4sJ5NuR3hevlbaW4=;
+ s=default; t=1581690040;
+ bh=btFz8UjfJcHRg5K9vspAhI9v+b8KBsbZGyaM99sIHXw=;
  h=Date:From:To:Cc:Subject:In-Reply-To:References:From;
- b=ygQq8IAtKw3LAcHJLq59h8acwMxo2J7sJ7lCjry/BupYVvC81YvKaJqkyGWVEmVcI
- cH+QrE8Qy4Lwe3Huh9NrQDGHzNQ+n33qEbzwMhCVCgYzWRwM6r2ZoLGIOsgswONpde
- dDwpCmU2gyhlMdOQX7rhjOYdwxme/j5SlBDnbkmk=
-Date: Fri, 14 Feb 2020 13:11:13 +0000
+ b=QlBRCnJgnk2x8hYz/7oERx5otsicaWKKA9ndz1/URHpLK8ubsTLQ3xNQz4fGgQMvp
+ nNK8NSepBFLVWY6ODESN9UiDHkmnDcGD14vuLelGBlRrHZDsLlXuui05ZnG6KDmll0
+ eq+EMPurObKT9DfuNdG0VGZDrDXvD1FXoYUMMBDg=
+Date: Fri, 14 Feb 2020 14:20:35 +0000
 From: Jonathan Cameron <jic23@kernel.org>
-To: Olivier MOYSAN <olivier.moysan@st.com>
-Message-ID: <20200214131113.70aa36b8@archlinux>
-In-Reply-To: <8400827e-5f3d-ad3f-99c8-986934b1a7b8@st.com>
-References: <20200204101008.11411-1-olivier.moysan@st.com>
- <20200204101008.11411-5-olivier.moysan@st.com>
- <20200208161847.76c7d6e8@archlinux>
- <8400827e-5f3d-ad3f-99c8-986934b1a7b8@st.com>
+To: Fabrice Gasnier <fabrice.gasnier@st.com>
+Message-ID: <20200214142035.576e11e1@archlinux>
+In-Reply-To: <1581093031-9871-1-git-send-email-fabrice.gasnier@st.com>
+References: <1581093031-9871-1-git-send-email-fabrice.gasnier@st.com>
 X-Mailer: Claws Mail 3.17.4 (GTK+ 2.24.32; x86_64-pc-linux-gnu)
 MIME-Version: 1.0
-Cc: "mark.rutland@arm.com" <mark.rutland@arm.com>,
- "devicetree@vger.kernel.org" <devicetree@vger.kernel.org>,
- "lars@metafoo.de" <lars@metafoo.de>,
- "linux-iio@vger.kernel.org" <linux-iio@vger.kernel.org>,
- "linux-kernel@vger.kernel.org" <linux-kernel@vger.kernel.org>,
- "robh+dt@kernel.org" <robh+dt@kernel.org>,
- "pmeerw@pmeerw.net" <pmeerw@pmeerw.net>, "knaack.h@gmx.de" <knaack.h@gmx.de>,
- "linux-stm32@st-md-mailman.stormreply.com"
- <linux-stm32@st-md-mailman.stormreply.com>,
- "linux-arm-kernel@lists.infradead.org" <linux-arm-kernel@lists.infradead.org>
-Subject: Re: [Linux-stm32] [PATCH 4/4] iio: adc: stm32-dfsdm: add scale and
-	offset support
+Cc: lars@metafoo.de, linux-iio@vger.kernel.org, pmeerw@pmeerw.net,
+ linux-kernel@vger.kernel.org, mcoquelin.stm32@gmail.com, knaack.h@gmx.de,
+ linux-stm32@st-md-mailman.stormreply.com, linux-arm-kernel@lists.infradead.org
+Subject: Re: [Linux-stm32] [PATCH v2] iio: trigger: stm32-timer: enable
+ clock when in master mode
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -60,203 +50,291 @@ List-Post: <mailto:linux-stm32@st-md-mailman.stormreply.com>
 List-Help: <mailto:linux-stm32-request@st-md-mailman.stormreply.com?subject=help>
 List-Subscribe: <https://st-md-mailman.stormreply.com/mailman/listinfo/linux-stm32>, 
  <mailto:linux-stm32-request@st-md-mailman.stormreply.com?subject=subscribe>
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: base64
+Content-Type: text/plain; charset="us-ascii"
+Content-Transfer-Encoding: 7bit
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
-T24gVHVlLCAxMSBGZWIgMjAyMCAxNToxOTowMSArMDAwMApPbGl2aWVyIE1PWVNBTiA8b2xpdmll
-ci5tb3lzYW5Ac3QuY29tPiB3cm90ZToKCj4gSGkgSm9uYXRoYW4sCj4gCj4gT24gMi84LzIwIDU6
-MTggUE0sIEpvbmF0aGFuIENhbWVyb24gd3JvdGU6Cj4gPiBPbiBUdWUsIDQgRmViIDIwMjAgMTE6
-MTA6MDggKzAxMDAKPiA+IE9saXZpZXIgTW95c2FuIDxvbGl2aWVyLm1veXNhbkBzdC5jb20+IHdy
-b3RlOgo+ID4gIAo+ID4+IEFkZCBzY2FsZSBhbmQgb2Zmc2V0IGF0dHJpYnV0ZXMgc3VwcG9ydCB0
-byBTVE0zMiBERlNETS4KPiA+Pgo+ID4+IFNpZ25lZC1vZmYtYnk6IE9saXZpZXIgTW95c2FuIDxv
-bGl2aWVyLm1veXNhbkBzdC5jb20+ICAKPiA+IEhtbS4gSSBjYW4ndCByZW1lbWJlciB0aGlzIGhp
-c3Rvcnkgb2YgdGhpcyBidXQgd2UndmUga2luZCBvZgo+ID4gZW5kZWQgdXAgYmFja3dhcmRzIHdy
-dCB0byBvdGhlciBjb25zdW1lciBkcml2ZXJzLgo+ID4KPiA+IEluIHNvbWUgc2Vuc2UgdGhpcyBp
-cyBzaW1pbGFyIHRvIHRoZSBhbmFsb2cgZ3lyb3Njb3Blcy4gIEluIHRob3NlCj4gPiB0aGUgY29u
-c3VtZXIgZHJpdmVyIGlzIHRoZSBneXJvc2NvcGUgd2hpY2ggaXMgY29uc3VtaW5nIHRoZSByYXcK
-PiA+IHJlYWRpbmdzIGZyb20gYW4gQURDIGNvbm5lY3RlZCB0byB0aGUgY2hhbm5lbC4gIFRoaXMg
-cmVzdWx0cwo+ID4gaW4gdXMgZ2V0dGluZyByZWFkaW5ncyByZXBvcnRlZCBieSB0aGUgZ3lyb3Nj
-b3BlIGRyaXZlci4KPiA+Cj4gPiBIZXJlIHdlIGhhdmUgYSBzaWdtYSBkZWx0YSBjb252ZXJ0b3Ig
-Y29uc3VtaW5nIHRoZSBwdWxzZSB0cmFpbgo+ID4gZnJvbSBhIHNpZ21hIGRlbHRhIGRldmljZS4g
-IFNvIHRoZSBjaGFubmVscyBhcmUgcmVwb3J0ZWQgYnkKPiA+IHRoZSBzaWdtYSBkZWx0YSByZWNl
-aXZlciwgd2hlcmVhcyBpIHRoaW5rIHRoZSBuZWFyZXN0IGVxdWl2YWxlbnQKPiA+IHRvIHRoZSBh
-bmFsb2cgdm9sdGFnZSBvdXRwdXRpbmcgZ3lyb3Njb3BlcyB3b3VsZCBoYXZlIGJlZW4gaWYKPiA+
-IHdlIGhhZCByZXBvcnRlZCB0aGUgY2hhbm5lbCB2YWx1ZXMgYXQgdGhlIHNpZ21hIGRlbHRhIGNv
-bnZlcnRlci4gIAo+IFRoZSBERlNETSBkcml2ZXIgaXMgY3VycmVudGx5IHVzZWQgYXMgYSBjb25z
-dW1lciBvZiB0aGUgc2QgbW9kdWxhdG9yLgo+IFRoZSBzY2FsZSBhbmQgb2Zmc2V0IHZhbHVlcyBv
-ZiB0aGUgY2hhbm5lbHMgYXJlIGFscmVhZHkgY29tcHV0ZWQgYnkKPiB0aGUgREZTRE0gZHJpdmVy
-LCBhbmQgcHJvdmlkZWQgYnkgdGhpcyBkcml2ZXIgdG8gdGhlIElJTyBBQkkuCj4gSG93ZXZlciwg
-dGhlIERGU0RNIGhhcyBubyB2b2x0YWdlIHJlZmVyZW5jZSwgc28gaXQgaGFzIHRvIHJldHJpZXZl
-Cj4gaXQgZnJvbSBzZC1tb2R1bGF0b3IgY2hhbm5lbHMsIGZvciB0aGUgc2NhbGUgZmFjdG9yIGNv
-bXB1dGF0aW9uLgo+IAo+ICDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKg
-wqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgIHNjYWxlwqAgb2Zmc2V0Cj4gIMKgwqDCoMKg
-wqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDC
-oMKgwqDCoMKgIF7CoMKgwqDCoMKgIF4KPiAgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKg
-wqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqAgfMKgwqDCoMKgwqAg
-fMKgwqDCoMKgwqDCoCBJSU8gQUJJCj4gKy0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0t
-LS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0rCj4gIMKgwqDCoMKgwqDCoMKgwqAgKy0tLS0t
-LS0tLS0tLS0tLSvCoMKgwqDCoMKgwqDCoMKgwqAgKy0tLS0tLS0tLS0tLS0rCj4gIMKgwqDCoMKg
-wqDCoMKgwqAgfHNkIGRyaXZlcsKgwqDCoMKgwqAgfMKgwqDCoMKgwqDCoMKgwqDCoCB8REZTRE0g
-ZHJpdmVyIHwKPiAgwqDCoMKgwqDCoMKgwqDCoCArLS0tLS0tLS0tLS0tLS0tK8KgwqDCoMKgwqDC
-oMKgwqDCoCArLS0tLS0tLS0tLS0tLSsKPiArLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0t
-LS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLSsKPiAgwqDCoMKgwqDCoMKgwqDCoMKgwqDC
-oMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKg
-wqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoCBIVwo+ICDCoMKgwqDCoMKgwqDCoMKg
-ICstLS0tLS0tLS0tLS0tLS0rwqDCoMKgwqDCoMKgwqDCoMKgICstLS0tLS0tLS0tLS0tKwo+ICst
-LS0tLS0tPisgc2QtbW9kdWxhdG9ywqAgKy0tLS0tLS0tLT4rIERGU0RNICstLS0tLS0tLT4KPiBh
-bmFsb2fCoMKgICstLS0tLS0rLS0tLS0tLS0rwqDCoMKgwqDCoMKgwqDCoMKgICstLS0tLS0tLS0t
-LS0tKyBvdXRwdXQKPiBpbnB1dMKgwqDCoMKgwqDCoMKgwqDCoMKgIF4KPiAgwqDCoMKgwqDCoMKg
-wqDCoMKgwqDCoMKgwqDCoMKgIHwgdnJlZgo+ICDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKg
-wqAgKwo+IAo+IAo+IElzIGl0IHRoZSB0b3BvbG9neSB5b3VyIGFyZSBleHBlY3RpbmcgPwoKSXQn
-cyBub3QgdGhlIG9uZSB3ZSdkIGV4cGVjdCBpZiB3ZSBhcmUgYWxpZ25pbmcgd2l0aCBzaW1pbGFy
-IGNhc2VzCmVsc2V3aGVyZSBpbiBJSU8uICBGb3IgZXhhbXBsZSwgaWYgd2UgYXR0YWNoIGFuIGFu
-YWxvZyBhY2NlbGVyb21ldGVyCnRvIGFuIEFEQywgd2UgcmVwb3J0IHRoZSBhY2NlbCBjaGFubmVs
-cyBvbiB0aGUgYWNjZWxlcm9tZXRlciBub3QgdGhlCkFEQy4gIFRoZSBlcXVpdmFsZW50IHdvdWxk
-IGJlIHRvIHNlZSB0aGUgREZTRE0gYXMgcHJvdmlkaW5nIGEKY29udmVyc2lvbiBzZXJ2aWNlIHRv
-IHRoZSBTRCBkZXZpY2Ugd2hpY2ggaXMgYWN0dWFsbHkgZXhlY3V0aW5nCnRoZSBtZWFzdXJlbWVu
-dCBhbmQgaGFzIHRoZSBpbnB1dCBjaGFubmVscy4KCgrCoMKgwqDCoMKgwqDCoMKgIHNjYWxlwqAg
-b2Zmc2V0ICByYXcKwqDCoMKgwqDCoMKgwqDCoMKgwqAgXsKgwqDCoMKgwqAgXiAgICAgIF4KwqDC
-oMKgwqDCoMKgwqDCoMKgwqAgfMKgwqDCoMKgwqAgfMKgwqDCoMKgICB8ICDCoMKgICAgICAgICAg
-ICAgICAgICAgICAgICAgICBJSU8gQUJJCiArLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0t
-LS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLSsKICDCoMKgwqDCoMKgwqDCoMKgICstLS0t
-LS0tLS0tLS0tLS0rwqDCoMKgwqDCoMKgwqDCoMKgICstLS0tLS0tLS0tLS0tKwogIMKgwqDCoMKg
-wqDCoMKgwqAgfHNkIGRyaXZlcsKgwqDCoMKgwqAgfMKgwqDCoMKgwqDCoMKgwqDCoCB8REZTRE0g
-ZHJpdmVyIHwKICDCoMKgwqDCoMKgwqDCoMKgICstLS0tLS0tLS0tLS0tLS0rwqDCoMKgwqDCoMKg
-wqDCoMKgICstLS0tLS0tLS0tLS0tKwogKy0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0t
-LS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0rCiAgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKg
-wqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDC
-oMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoCBIVwogIMKgwqDCoMKgwqDCoMKgwqAgKy0t
-LS0tLS0tLS0tLS0tLSvCoMKgwqDCoMKgwqDCoMKgwqAgKy0tLS0tLS0tLS0tLS0rCiArLS0tLS0t
-LT4rIHNkLW1vZHVsYXRvcsKgICstLS0tLS0tLS0+KyBERlNETSArLS0tLS0tLS0+CiBhbmFsb2fC
-oMKgICstLS0tLS0rLS0tLS0tLS0rwqDCoMKgwqDCoMKgwqDCoMKgICstLS0tLS0tLS0tLS0tKyBv
-dXRwdXQKIGlucHV0wqDCoMKgwqDCoMKgwqDCoMKgwqAgXgogIMKgwqDCoMKgwqDCoMKgwqDCoMKg
-wqDCoMKgwqDCoCB8IHZyZWYKPiAgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgICsKPiAK
-Cj4gSWYgbm90LCBJIHByb2JhYmx5IG1pc3NlZHNvbWV0aGluZy4gQ291bGQgeW91IHBsZWFzZSBj
-bGFyaWZ5IHRoaXMgcG9pbnQgPwo+IAo+IFJlZ2FyZHMKPiBPbGl2aWVyCj4gPiBUaGlzIHdhc24n
-dCByZWFsbHkgYW4gaXNzdWUgd2hlbiB0aGUgb25seSB2YWx1ZXMgYXZhaWxhYmxlIHdlcmUKPiA+
-IHJhdywgYnV0IGlmIHdlIGFyZSBhZGRpbmcgc2NhbGUgYW5kIG9mZnNldCwgdGhleSBhcmUgdGhp
-bmdzIHRoYXQKPiA+IGJlbG9uZyB0byB0aGUgYWQxMjAxIGZvciBleGFtcGxlLCBub3QgdGhlIHVw
-c3RyZWFtIHN0bTMyLWRmc2RtIHVuaXQuCj4gPgo+ID4gVGhpbmtpbmcgb2YgaXQgYW5vdGhlciB3
-YXksIHdlIGRvbid0IHJlcG9ydCBhbiBTUEkgQURDIG91dHB1dCBpbgo+ID4gdGhlIGRyaXZlciBm
-b3IgdGhlIFNQSSBtYXN0ZXIuCj4gPgo+ID4gQ291bGQgd2UgZmxpcCBpdCBhcm91bmQgd2l0aG91
-dCBicmVha2luZyBhbnl0aGluZz8KPiA+Cj4gPiBKb25hdGhhbgo+ID4gIAo+ID4+IC0tLQo+ID4+
-ICAgZHJpdmVycy9paW8vYWRjL3N0bTMyLWRmc2RtLWFkYy5jIHwgMTA1ICsrKysrKysrKysrKysr
-KysrKysrKysrKysrKysrLQo+ID4+ICAgMSBmaWxlIGNoYW5nZWQsIDEwMiBpbnNlcnRpb25zKCsp
-LCAzIGRlbGV0aW9ucygtKQo+ID4+Cj4gPj4gZGlmZiAtLWdpdCBhL2RyaXZlcnMvaWlvL2FkYy9z
-dG0zMi1kZnNkbS1hZGMuYyBiL2RyaXZlcnMvaWlvL2FkYy9zdG0zMi1kZnNkbS1hZGMuYwo+ID4+
-IGluZGV4IDA3YjlkZmRmOGU3Ni4uYjg1ZmQzZTkwNDk2IDEwMDY0NAo+ID4+IC0tLSBhL2RyaXZl
-cnMvaWlvL2FkYy9zdG0zMi1kZnNkbS1hZGMuYwo+ID4+ICsrKyBiL2RyaXZlcnMvaWlvL2FkYy9z
-dG0zMi1kZnNkbS1hZGMuYwo+ID4+IEBAIC0xMCw2ICsxMCw3IEBACj4gPj4gICAjaW5jbHVkZSA8
-bGludXgvZG1hLW1hcHBpbmcuaD4KPiA+PiAgICNpbmNsdWRlIDxsaW51eC9paW8vYWRjL3N0bTMy
-LWRmc2RtLWFkYy5oPgo+ID4+ICAgI2luY2x1ZGUgPGxpbnV4L2lpby9idWZmZXIuaD4KPiA+PiAr
-I2luY2x1ZGUgPGxpbnV4L2lpby9jb25zdW1lci5oPgo+ID4+ICAgI2luY2x1ZGUgPGxpbnV4L2lp
-by9ody1jb25zdW1lci5oPgo+ID4+ICAgI2luY2x1ZGUgPGxpbnV4L2lpby9zeXNmcy5oPgo+ID4+
-ICAgI2luY2x1ZGUgPGxpbnV4L2lpby90aW1lci9zdG0zMi1scHRpbS10cmlnZ2VyLmg+Cj4gPj4g
-QEAgLTY3LDYgKzY4LDEzIEBAIHN0cnVjdCBzdG0zMl9kZnNkbV9kZXZfZGF0YSB7Cj4gPj4gICAJ
-Y29uc3Qgc3RydWN0IHJlZ21hcF9jb25maWcgKnJlZ21hcF9jZmc7Cj4gPj4gICB9Owo+ID4+ICAg
-Cj4gPj4gK3N0cnVjdCBzdG0zMl9kZnNkbV9zZF9jaGFuX2luZm8gewo+ID4+ICsJaW50IHNjYWxl
-X3ZhbDsKPiA+PiArCWludCBzY2FsZV92YWwyOwo+ID4+ICsJaW50IG9mZnNldDsKPiA+PiArCXVu
-c2lnbmVkIGludCBkaWZmZXJlbnRpYWw7Cj4gPj4gK307Cj4gPj4gKwo+ID4+ICAgc3RydWN0IHN0
-bTMyX2Rmc2RtX2FkYyB7Cj4gPj4gICAJc3RydWN0IHN0bTMyX2Rmc2RtICpkZnNkbTsKPiA+PiAg
-IAljb25zdCBzdHJ1Y3Qgc3RtMzJfZGZzZG1fZGV2X2RhdGEgKmRldl9kYXRhOwo+ID4+IEBAIC03
-OSw2ICs4Nyw3IEBAIHN0cnVjdCBzdG0zMl9kZnNkbV9hZGMgewo+ID4+ICAgCXN0cnVjdCBpaW9f
-aHdfY29uc3VtZXIgKmh3YzsKPiA+PiAgIAlzdHJ1Y3QgY29tcGxldGlvbiBjb21wbGV0aW9uOwo+
-ID4+ICAgCXUzMiAqYnVmZmVyOwo+ID4+ICsJc3RydWN0IHN0bTMyX2Rmc2RtX3NkX2NoYW5faW5m
-byAqc2RfY2hhbjsKPiA+PiAgIAo+ID4+ICAgCS8qIEF1ZGlvIHNwZWNpZmljICovCj4gPj4gICAJ
-dW5zaWduZWQgaW50IHNwaV9mcmVxOyAgLyogU1BJIGJ1cyBjbG9jayBmcmVxdWVuY3kgKi8KPiA+
-PiBAQCAtMTI3MSw3ICsxMjgwLDEwIEBAIHN0YXRpYyBpbnQgc3RtMzJfZGZzZG1fcmVhZF9yYXco
-c3RydWN0IGlpb19kZXYgKmluZGlvX2RldiwKPiA+PiAgIAkJCQlpbnQgKnZhbDIsIGxvbmcgbWFz
-aykKPiA+PiAgIHsKPiA+PiAgIAlzdHJ1Y3Qgc3RtMzJfZGZzZG1fYWRjICphZGMgPSBpaW9fcHJp
-dihpbmRpb19kZXYpOwo+ID4+IC0JaW50IHJldDsKPiA+PiArCXN0cnVjdCBzdG0zMl9kZnNkbV9m
-aWx0ZXIgKmZsID0gJmFkYy0+ZGZzZG0tPmZsX2xpc3RbYWRjLT5mbF9pZF07Cj4gPj4gKwlzdHJ1
-Y3Qgc3RtMzJfZGZzZG1fZmlsdGVyX29zciAqZmxvID0gJmZsLT5mbG9bZmwtPmZhc3RdOwo+ID4+
-ICsJdTMyIG1heCA9IGZsby0+bWF4IDw8IChmbG8tPmxzaGlmdCAtIGNoYW4tPnNjYW5fdHlwZS5z
-aGlmdCk7Cj4gPj4gKwlpbnQgcmV0LCBpZHggPSBjaGFuLT5zY2FuX2luZGV4Owo+ID4+ICAgCj4g
-Pj4gICAJc3dpdGNoIChtYXNrKSB7Cj4gPj4gICAJY2FzZSBJSU9fQ0hBTl9JTkZPX1JBVzoKPiA+
-PiBAQCAtMTMwNyw2ICsxMzE5LDQxIEBAIHN0YXRpYyBpbnQgc3RtMzJfZGZzZG1fcmVhZF9yYXco
-c3RydWN0IGlpb19kZXYgKmluZGlvX2RldiwKPiA+PiAgIAkJKnZhbCA9IGFkYy0+c2FtcGxlX2Zy
-ZXE7Cj4gPj4gICAKPiA+PiAgIAkJcmV0dXJuIElJT19WQUxfSU5UOwo+ID4+ICsKPiA+PiArCWNh
-c2UgSUlPX0NIQU5fSU5GT19TQ0FMRToKPiA+PiArCQkvKgo+ID4+ICsJCSAqIFNjYWxlIGlzIGV4
-cHJlc3NlZCBpbiBtVi4KPiA+PiArCQkgKiBXaGVuIGZhc3QgbW9kZSBpcyBkaXNhYmxlZCwgYWN0
-dWFsIHJlc29sdXRpb24gbWF5IGJlIGxvd2VyCj4gPj4gKwkJICogdGhhbiAyXm4sIHdoZXJlIG49
-cmVhbGJpdHMtMS4KPiA+PiArCQkgKiBUaGlzIGxlYWRzIHRvIHVuZGVyZXN0aW1hdGluZyBpbnB1
-dCB2b2x0YWdlLiBUbwo+ID4+ICsJCSAqIGNvbXBlbnNhdGUgdGhpcyBkZXZpYXRpb24sIHRoZSB2
-b2x0YWdlIHJlZmVyZW5jZSBjYW4gYmUKPiA+PiArCQkgKiBjb3JyZWN0ZWQgd2l0aCBhIGZhY3Rv
-ciA9IHJlYWxiaXRzIHJlc29sdXRpb24gLyBhY3R1YWwgbWF4Cj4gPj4gKwkJICovCj4gPj4gKwkJ
-KnZhbCA9IGRpdl91NjQoKHU2NClhZGMtPnNkX2NoYW5baWR4XS5zY2FsZV92YWwgKgo+ID4+ICsJ
-CQkgICAgICAgKHU2NClCSVQoREZTRE1fREFUQV9SRVMgLSAxKSwgbWF4KTsKPiA+PiArCQkqdmFs
-MiA9IGNoYW4tPnNjYW5fdHlwZS5yZWFsYml0czsKPiA+PiArCQlpZiAoYWRjLT5zZF9jaGFuW2lk
-eF0uZGlmZmVyZW50aWFsKQo+ID4+ICsJCQkqdmFsICo9IDI7Cj4gPj4gKwo+ID4+ICsJCXJldHVy
-biBJSU9fVkFMX0ZSQUNUSU9OQUxfTE9HMjsKPiA+PiArCj4gPj4gKwljYXNlIElJT19DSEFOX0lO
-Rk9fT0ZGU0VUOgo+ID4+ICsJCS8qCj4gPj4gKwkJICogREZTRE0gb3V0cHV0IGRhdGEgYXJlIGlu
-IHRoZSByYW5nZSBbLTJebiwyXm4tMV0sCj4gPj4gKwkJICogd2l0aCBuPXJlYWxiaXRzLTEuCj4g
-Pj4gKwkJICogLSBEaWZmZXJlbnRpYWwgbW9kdWxhdG9yOgo+ID4+ICsJCSAqIE9mZnNldCBjb3Jy
-ZXNwb25kIHRvIFNEIG1vZHVsYXRvciBvZmZzZXQuCj4gPj4gKwkJICogLSBTaW5nbGUgZW5kZWQg
-bW9kdWxhdG9yOgo+ID4+ICsJCSAqIElucHV0IGlzIGluIFswVixWcmVmXSByYW5nZSwgd2hlcmUg
-MFYgY29ycmVzcG9uZHMgdG8gLTJebi4KPiA+PiArCQkgKiBBZGQgMl5uIHRvIG9mZnNldC4gKGku
-ZS4gbWlkZGxlIG9mIGlucHV0IHJhbmdlKQo+ID4+ICsJCSAqIG9mZnNldCA9IG9mZnNldChzZCkg
-KiB2cmVmIC8gcmVzKHNkKSAqIG1heCAvIHZyZWYuCj4gPj4gKwkJICovCj4gPj4gKwkJKnZhbCA9
-IGRpdl91NjQoKHU2NCltYXggKiBhZGMtPnNkX2NoYW5baWR4XS5vZmZzZXQsCj4gPj4gKwkJCSAg
-ICAgICBCSVQoYWRjLT5zZF9jaGFuW2lkeF0uc2NhbGVfdmFsMiAtIDEpKTsKPiA+PiArCQlpZiAo
-IWFkYy0+c2RfY2hhbltpZHhdLmRpZmZlcmVudGlhbCkKPiA+PiArCQkJKnZhbCArPSBtYXg7Cj4g
-Pj4gKwo+ID4+ICsJCXJldHVybiBJSU9fVkFMX0lOVDsKPiA+PiAgIAl9Cj4gPj4gICAKPiA+PiAg
-IAlyZXR1cm4gLUVJTlZBTDsKPiA+PiBAQCAtMTQzMCw3ICsxNDc3LDkgQEAgc3RhdGljIGludCBz
-dG0zMl9kZnNkbV9hZGNfY2hhbl9pbml0X29uZShzdHJ1Y3QgaWlvX2RldiAqaW5kaW9fZGV2LAo+
-ID4+ICAgCSAqIElJT19DSEFOX0lORk9fUkFXOiB1c2VkIHRvIGNvbXB1dGUgcmVndWxhciBjb252
-ZXJzaW9uCj4gPj4gICAJICogSUlPX0NIQU5fSU5GT19PVkVSU0FNUExJTkdfUkFUSU86IHVzZWQg
-dG8gc2V0IG92ZXJzYW1wbGluZwo+ID4+ICAgCSAqLwo+ID4+IC0JY2gtPmluZm9fbWFza19zZXBh
-cmF0ZSA9IEJJVChJSU9fQ0hBTl9JTkZPX1JBVyk7Cj4gPj4gKwljaC0+aW5mb19tYXNrX3NlcGFy
-YXRlID0gQklUKElJT19DSEFOX0lORk9fUkFXKSB8Cj4gPj4gKwkJCQkgQklUKElJT19DSEFOX0lO
-Rk9fU0NBTEUpIHwKPiA+PiArCQkJCSBCSVQoSUlPX0NIQU5fSU5GT19PRkZTRVQpOwo+ID4+ICAg
-CWNoLT5pbmZvX21hc2tfc2hhcmVkX2J5X2FsbCA9IEJJVChJSU9fQ0hBTl9JTkZPX09WRVJTQU1Q
-TElOR19SQVRJTykgfAo+ID4+ICAgCQkJCQlCSVQoSUlPX0NIQU5fSU5GT19TQU1QX0ZSRVEpOwo+
-ID4+ICAgCj4gPj4gQEAgLTE0ODEsOCArMTUzMCwxMCBAQCBzdGF0aWMgaW50IHN0bTMyX2Rmc2Rt
-X2FkY19pbml0KHN0cnVjdCBpaW9fZGV2ICppbmRpb19kZXYpCj4gPj4gICB7Cj4gPj4gICAJc3Ry
-dWN0IGlpb19jaGFuX3NwZWMgKmNoOwo+ID4+ICAgCXN0cnVjdCBzdG0zMl9kZnNkbV9hZGMgKmFk
-YyA9IGlpb19wcml2KGluZGlvX2Rldik7Cj4gPj4gKwlzdHJ1Y3QgaWlvX2NoYW5uZWwgKmNoYW5u
-ZWxzLCAqY2hhbjsKPiA+PiArCXN0cnVjdCBzdG0zMl9kZnNkbV9zZF9jaGFuX2luZm8gKnNkX2No
-YW47Cj4gPj4gICAJaW50IG51bV9jaDsKPiA+PiAtCWludCByZXQsIGNoYW5faWR4Owo+ID4+ICsJ
-aW50IHJldCwgY2hhbl9pZHgsIHZhbDI7Cj4gPj4gICAKPiA+PiAgIAlhZGMtPm92ZXJzYW1wID0g
-REZTRE1fREVGQVVMVF9PVkVSU0FNUExJTkc7Cj4gPj4gICAJcmV0ID0gc3RtMzJfZGZzZG1fY29t
-cHV0ZV9hbGxfb3NycyhpbmRpb19kZXYsIGFkYy0+b3ZlcnNhbXApOwo+ID4+IEBAIC0xNTA2LDYg
-KzE1NTcsMjIgQEAgc3RhdGljIGludCBzdG0zMl9kZnNkbV9hZGNfaW5pdChzdHJ1Y3QgaWlvX2Rl
-diAqaW5kaW9fZGV2KQo+ID4+ICAgCWlmICghY2gpCj4gPj4gICAJCXJldHVybiAtRU5PTUVNOwo+
-ID4+ICAgCj4gPj4gKwkvKiBHZXQgU0QgbW9kdWxhdG9yIGNoYW5uZWxzICovCj4gPj4gKwljaGFu
-bmVscyA9IGlpb19jaGFubmVsX2dldF9hbGwoJmluZGlvX2Rldi0+ZGV2KTsKPiA+PiArCWlmIChJ
-U19FUlIoY2hhbm5lbHMpKSB7Cj4gPj4gKwkJZGV2X2VycigmaW5kaW9fZGV2LT5kZXYsICJGYWls
-ZWQgdG8gZ2V0IGNoYW5uZWwgJWxkXG4iLAo+ID4+ICsJCQlQVFJfRVJSKGNoYW5uZWxzKSk7Cj4g
-Pj4gKwkJcmV0dXJuIFBUUl9FUlIoY2hhbm5lbHMpOwo+ID4+ICsJfQo+ID4+ICsJY2hhbiA9ICZj
-aGFubmVsc1swXTsKPiA+PiArCj4gPj4gKwlhZGMtPnNkX2NoYW4gPSBkZXZtX2t6YWxsb2MoJmlu
-ZGlvX2Rldi0+ZGV2LAo+ID4+ICsJCQkJICAgIHNpemVvZigqYWRjLT5zZF9jaGFuKSAqIG51bV9j
-aCwgR0ZQX0tFUk5FTCk7Cj4gPj4gKwlpZiAoIWFkYy0+c2RfY2hhbikKPiA+PiArCQlyZXR1cm4g
-LUVOT01FTTsKPiA+PiArCj4gPj4gKwlzZF9jaGFuID0gYWRjLT5zZF9jaGFuOwo+ID4+ICsKPiA+
-PiAgIAlmb3IgKGNoYW5faWR4ID0gMDsgY2hhbl9pZHggPCBudW1fY2g7IGNoYW5faWR4KyspIHsK
-PiA+PiAgIAkJY2hbY2hhbl9pZHhdLnNjYW5faW5kZXggPSBjaGFuX2lkeDsKPiA+PiAgIAkJcmV0
-ID0gc3RtMzJfZGZzZG1fYWRjX2NoYW5faW5pdF9vbmUoaW5kaW9fZGV2LCAmY2hbY2hhbl9pZHhd
-KTsKPiA+PiBAQCAtMTUxMyw2ICsxNTgwLDM4IEBAIHN0YXRpYyBpbnQgc3RtMzJfZGZzZG1fYWRj
-X2luaXQoc3RydWN0IGlpb19kZXYgKmluZGlvX2RldikKPiA+PiAgIAkJCWRldl9lcnIoJmluZGlv
-X2Rldi0+ZGV2LCAiQ2hhbm5lbHMgaW5pdCBmYWlsZWRcbiIpOwo+ID4+ICAgCQkJcmV0dXJuIHJl
-dDsKPiA+PiAgIAkJfQo+ID4+ICsKPiA+PiArCQlpZiAoIWNoYW4tPmluZGlvX2RldikKPiA+PiAr
-CQkJcmV0dXJuIC1FSU5WQUw7Cj4gPj4gKwo+ID4+ICsJCXJldCA9IGlpb19yZWFkX2NoYW5uZWxf
-c2NhbGUoY2hhbiwgJnNkX2NoYW4tPnNjYWxlX3ZhbCwKPiA+PiArCQkJCQkgICAgICZzZF9jaGFu
-LT5zY2FsZV92YWwyKTsKPiA+PiArCQlpZiAocmV0IDwgMCkgewo+ID4+ICsJCQlkZXZfZXJyKCZp
-bmRpb19kZXYtPmRldiwKPiA+PiArCQkJCSJGYWlsZWQgdG8gZ2V0IGNoYW5uZWwgJWQgc2NhbGVc
-biIsIGNoYW5faWR4KTsKPiA+PiArCQkJcmV0dXJuIHJldDsKPiA+PiArCQl9Cj4gPj4gKwo+ID4+
-ICsJCWlmIChpaW9fY2hhbm5lbF9oYXNfaW5mbyhjaGFuLT5jaGFubmVsLCBJSU9fQ0hBTl9JTkZP
-X09GRlNFVCkpIHsKPiA+PiArCQkJcmV0ID0gaWlvX3JlYWRfY2hhbm5lbF9vZmZzZXQoY2hhbiwg
-JnNkX2NoYW4tPm9mZnNldCwKPiA+PiArCQkJCQkJICAgICAgJnZhbDIpOwo+ID4+ICsJCQlpZiAo
-cmV0IDwgMCkgewo+ID4+ICsJCQkJZGV2X2VycigmaW5kaW9fZGV2LT5kZXYsCj4gPj4gKwkJCQkJ
-IkZhaWxlZCB0byBnZXQgY2hhbm5lbCAlZCBvZmZzZXRcbiIsCj4gPj4gKwkJCQkJY2hhbl9pZHgp
-Owo+ID4+ICsJCQkJcmV0dXJuIHJldDsKPiA+PiArCQkJfQo+ID4+ICsJCX0KPiA+PiArCj4gPj4g
-KwkJc2RfY2hhbi0+ZGlmZmVyZW50aWFsID0gY2hhbi0+Y2hhbm5lbC0+ZGlmZmVyZW50aWFsOwo+
-ID4+ICsKPiA+PiArCQlkZXZfZGJnKCZpbmRpb19kZXYtPmRldiwgIkNoYW5uZWwgJWQgJXMgc2Nh
-bGUgcmVmPSVkIG9mZnNldD0lZCIsCj4gPj4gKwkJCWNoYW5faWR4LCBjaGFuLT5jaGFubmVsLT5k
-aWZmZXJlbnRpYWwgPwo+ID4+ICsJCQkiZGlmZmVyZW50aWFsIiA6ICJzaW5nbGUtZW5kZWQiLAo+
-ID4+ICsJCQlzZF9jaGFuLT5zY2FsZV92YWwsIHNkX2NoYW4tPm9mZnNldCk7Cj4gPj4gKwo+ID4+
-ICsJCWNoYW4rKzsKPiA+PiArCQlzZF9jaGFuKys7Cj4gPj4gICAJfQo+ID4+ICAgCj4gPj4gICAJ
-aW5kaW9fZGV2LT5udW1fY2hhbm5lbHMgPSBudW1fY2g7ICAKCl9fX19fX19fX19fX19fX19fX19f
-X19fX19fX19fX19fX19fX19fX19fX19fX19fCkxpbnV4LXN0bTMyIG1haWxpbmcgbGlzdApMaW51
-eC1zdG0zMkBzdC1tZC1tYWlsbWFuLnN0b3JtcmVwbHkuY29tCmh0dHBzOi8vc3QtbWQtbWFpbG1h
-bi5zdG9ybXJlcGx5LmNvbS9tYWlsbWFuL2xpc3RpbmZvL2xpbnV4LXN0bTMyCg==
+On Fri, 7 Feb 2020 17:30:31 +0100
+Fabrice Gasnier <fabrice.gasnier@st.com> wrote:
+
+> Clock should be enabled as soon as using master modes, even before
+> enabling timer. Or, this may provoke bad behavior on the other end
+> (slave timer). Then, introduce 'clk_enabled' flag, instead of relying
+> on CR1 EN bit, to keep track of clock being enabled (balanced refcount).
+> Propagate this anywhere else in the driver.
+> 
+> Also add 'remove' routine to stop timer and disable clock in case it
+> has been left enabled. Enforce the user interface has been unregistered
+> in the remove routine, before disabling the hardware to avoid possible
+> race. So, remove use of devm_ variant to register triggers and unregister
+> them before the hardware gets disabled [1].
+> [1] https://patchwork.kernel.org/patch/9956247/
+> 
+> Signed-off-by: Fabrice Gasnier <fabrice.gasnier@st.com>
+Patch looks fine. So is this a fix for a known issue or a theoretical one?
+Just a question of whether to line it up for an rc, or wait for next
+merge window.  Ideally please give me a fixes tag as well if this
+fixes a problem that is being seen in the wild.
+
+Thanks,
+
+Jonathan
+
+> ---
+> Changes in v2:
+> - enforce the user interface has been unregistered in the remove routine,
+>   before disabling the hardware to avoid possible race.
+> ---
+>  drivers/iio/trigger/stm32-timer-trigger.c | 98 ++++++++++++++++++++++++-------
+>  1 file changed, 76 insertions(+), 22 deletions(-)
+> 
+> diff --git a/drivers/iio/trigger/stm32-timer-trigger.c b/drivers/iio/trigger/stm32-timer-trigger.c
+> index a5dfe65..473853e 100644
+> --- a/drivers/iio/trigger/stm32-timer-trigger.c
+> +++ b/drivers/iio/trigger/stm32-timer-trigger.c
+> @@ -79,10 +79,13 @@ struct stm32_timer_trigger {
+>  	struct device *dev;
+>  	struct regmap *regmap;
+>  	struct clk *clk;
+> +	bool clk_enabled;
+>  	u32 max_arr;
+>  	const void *triggers;
+>  	const void *valids;
+>  	bool has_trgo2;
+> +	struct mutex lock; /* concurrent sysfs configuration */
+> +	struct list_head tr_list;
+>  };
+>  
+>  struct stm32_timer_trigger_cfg {
+> @@ -106,7 +109,7 @@ static int stm32_timer_start(struct stm32_timer_trigger *priv,
+>  {
+>  	unsigned long long prd, div;
+>  	int prescaler = 0;
+> -	u32 ccer, cr1;
+> +	u32 ccer;
+>  
+>  	/* Period and prescaler values depends of clock rate */
+>  	div = (unsigned long long)clk_get_rate(priv->clk);
+> @@ -136,9 +139,11 @@ static int stm32_timer_start(struct stm32_timer_trigger *priv,
+>  	if (ccer & TIM_CCER_CCXE)
+>  		return -EBUSY;
+>  
+> -	regmap_read(priv->regmap, TIM_CR1, &cr1);
+> -	if (!(cr1 & TIM_CR1_CEN))
+> +	mutex_lock(&priv->lock);
+> +	if (!priv->clk_enabled) {
+> +		priv->clk_enabled = true;
+>  		clk_enable(priv->clk);
+> +	}
+>  
+>  	regmap_write(priv->regmap, TIM_PSC, prescaler);
+>  	regmap_write(priv->regmap, TIM_ARR, prd - 1);
+> @@ -157,22 +162,20 @@ static int stm32_timer_start(struct stm32_timer_trigger *priv,
+>  
+>  	/* Enable controller */
+>  	regmap_update_bits(priv->regmap, TIM_CR1, TIM_CR1_CEN, TIM_CR1_CEN);
+> +	mutex_unlock(&priv->lock);
+>  
+>  	return 0;
+>  }
+>  
+>  static void stm32_timer_stop(struct stm32_timer_trigger *priv)
+>  {
+> -	u32 ccer, cr1;
+> +	u32 ccer;
+>  
+>  	regmap_read(priv->regmap, TIM_CCER, &ccer);
+>  	if (ccer & TIM_CCER_CCXE)
+>  		return;
+>  
+> -	regmap_read(priv->regmap, TIM_CR1, &cr1);
+> -	if (cr1 & TIM_CR1_CEN)
+> -		clk_disable(priv->clk);
+> -
+> +	mutex_lock(&priv->lock);
+>  	/* Stop timer */
+>  	regmap_update_bits(priv->regmap, TIM_CR1, TIM_CR1_ARPE, 0);
+>  	regmap_update_bits(priv->regmap, TIM_CR1, TIM_CR1_CEN, 0);
+> @@ -181,6 +184,12 @@ static void stm32_timer_stop(struct stm32_timer_trigger *priv)
+>  
+>  	/* Make sure that registers are updated */
+>  	regmap_update_bits(priv->regmap, TIM_EGR, TIM_EGR_UG, TIM_EGR_UG);
+> +
+> +	if (priv->clk_enabled) {
+> +		priv->clk_enabled = false;
+> +		clk_disable(priv->clk);
+> +	}
+> +	mutex_unlock(&priv->lock);
+>  }
+>  
+>  static ssize_t stm32_tt_store_frequency(struct device *dev,
+> @@ -295,11 +304,18 @@ static ssize_t stm32_tt_store_master_mode(struct device *dev,
+>  	for (i = 0; i <= master_mode_max; i++) {
+>  		if (!strncmp(master_mode_table[i], buf,
+>  			     strlen(master_mode_table[i]))) {
+> +			mutex_lock(&priv->lock);
+> +			if (!priv->clk_enabled) {
+> +				/* Clock should be enabled first */
+> +				priv->clk_enabled = true;
+> +				clk_enable(priv->clk);
+> +			}
+>  			regmap_update_bits(priv->regmap, TIM_CR2, mask,
+>  					   i << shift);
+>  			/* Make sure that registers are updated */
+>  			regmap_update_bits(priv->regmap, TIM_EGR,
+>  					   TIM_EGR_UG, TIM_EGR_UG);
+> +			mutex_unlock(&priv->lock);
+>  			return len;
+>  		}
+>  	}
+> @@ -357,11 +373,21 @@ static const struct attribute_group *stm32_trigger_attr_groups[] = {
+>  static const struct iio_trigger_ops timer_trigger_ops = {
+>  };
+>  
+> -static int stm32_setup_iio_triggers(struct stm32_timer_trigger *priv)
+> +static void stm32_unregister_iio_triggers(struct stm32_timer_trigger *priv)
+> +{
+> +	struct iio_trigger *tr;
+> +
+> +	list_for_each_entry(tr, &priv->tr_list, alloc_list)
+> +		iio_trigger_unregister(tr);
+> +}
+> +
+> +static int stm32_register_iio_triggers(struct stm32_timer_trigger *priv)
+>  {
+>  	int ret;
+>  	const char * const *cur = priv->triggers;
+>  
+> +	INIT_LIST_HEAD(&priv->tr_list);
+> +
+>  	while (cur && *cur) {
+>  		struct iio_trigger *trig;
+>  		bool cur_is_trgo = stm32_timer_is_trgo_name(*cur);
+> @@ -388,9 +414,13 @@ static int stm32_setup_iio_triggers(struct stm32_timer_trigger *priv)
+>  
+>  		iio_trigger_set_drvdata(trig, priv);
+>  
+> -		ret = devm_iio_trigger_register(priv->dev, trig);
+> -		if (ret)
+> +		ret = iio_trigger_register(trig);
+> +		if (ret) {
+> +			stm32_unregister_iio_triggers(priv);
+>  			return ret;
+> +		}
+> +
+> +		list_add_tail(&trig->alloc_list, &priv->tr_list);
+>  		cur++;
+>  	}
+>  
+> @@ -437,7 +467,6 @@ static int stm32_counter_write_raw(struct iio_dev *indio_dev,
+>  				   int val, int val2, long mask)
+>  {
+>  	struct stm32_timer_trigger *priv = iio_priv(indio_dev);
+> -	u32 dat;
+>  
+>  	switch (mask) {
+>  	case IIO_CHAN_INFO_RAW:
+> @@ -448,19 +477,23 @@ static int stm32_counter_write_raw(struct iio_dev *indio_dev,
+>  		return -EINVAL;
+>  
+>  	case IIO_CHAN_INFO_ENABLE:
+> +		mutex_lock(&priv->lock);
+>  		if (val) {
+> -			regmap_read(priv->regmap, TIM_CR1, &dat);
+> -			if (!(dat & TIM_CR1_CEN))
+> +			if (!priv->clk_enabled) {
+> +				priv->clk_enabled = true;
+>  				clk_enable(priv->clk);
+> +			}
+>  			regmap_update_bits(priv->regmap, TIM_CR1, TIM_CR1_CEN,
+>  					   TIM_CR1_CEN);
+>  		} else {
+> -			regmap_read(priv->regmap, TIM_CR1, &dat);
+>  			regmap_update_bits(priv->regmap, TIM_CR1, TIM_CR1_CEN,
+>  					   0);
+> -			if (dat & TIM_CR1_CEN)
+> +			if (priv->clk_enabled) {
+> +				priv->clk_enabled = false;
+>  				clk_disable(priv->clk);
+> +			}
+>  		}
+> +		mutex_unlock(&priv->lock);
+>  		return 0;
+>  	}
+>  
+> @@ -556,7 +589,6 @@ static int stm32_set_enable_mode(struct iio_dev *indio_dev,
+>  {
+>  	struct stm32_timer_trigger *priv = iio_priv(indio_dev);
+>  	int sms = stm32_enable_mode2sms(mode);
+> -	u32 val;
+>  
+>  	if (sms < 0)
+>  		return sms;
+> @@ -564,11 +596,12 @@ static int stm32_set_enable_mode(struct iio_dev *indio_dev,
+>  	 * Triggered mode sets CEN bit automatically by hardware. So, first
+>  	 * enable counter clock, so it can use it. Keeps it in sync with CEN.
+>  	 */
+> -	if (sms == 6) {
+> -		regmap_read(priv->regmap, TIM_CR1, &val);
+> -		if (!(val & TIM_CR1_CEN))
+> -			clk_enable(priv->clk);
+> +	mutex_lock(&priv->lock);
+> +	if (sms == 6 && !priv->clk_enabled) {
+> +		clk_enable(priv->clk);
+> +		priv->clk_enabled = true;
+>  	}
+> +	mutex_unlock(&priv->lock);
+>  
+>  	regmap_update_bits(priv->regmap, TIM_SMCR, TIM_SMCR_SMS, sms);
+>  
+> @@ -752,8 +785,9 @@ static int stm32_timer_trigger_probe(struct platform_device *pdev)
+>  	priv->triggers = triggers_table[index];
+>  	priv->valids = cfg->valids_table[index];
+>  	stm32_timer_detect_trgo2(priv);
+> +	mutex_init(&priv->lock);
+>  
+> -	ret = stm32_setup_iio_triggers(priv);
+> +	ret = stm32_register_iio_triggers(priv);
+>  	if (ret)
+>  		return ret;
+>  
+> @@ -762,6 +796,25 @@ static int stm32_timer_trigger_probe(struct platform_device *pdev)
+>  	return 0;
+>  }
+>  
+> +static int stm32_timer_trigger_remove(struct platform_device *pdev)
+> +{
+> +	struct stm32_timer_trigger *priv = platform_get_drvdata(pdev);
+> +	u32 val;
+> +
+> +	/* Unregister triggers before everything can be safely turned off */
+> +	stm32_unregister_iio_triggers(priv);
+> +
+> +	/* Check if nobody else use the timer, then disable it */
+> +	regmap_read(priv->regmap, TIM_CCER, &val);
+> +	if (!(val & TIM_CCER_CCXE))
+> +		regmap_update_bits(priv->regmap, TIM_CR1, TIM_CR1_CEN, 0);
+> +
+> +	if (priv->clk_enabled)
+> +		clk_disable(priv->clk);
+> +
+> +	return 0;
+> +}
+> +
+>  static const struct stm32_timer_trigger_cfg stm32_timer_trg_cfg = {
+>  	.valids_table = valids_table,
+>  	.num_valids_table = ARRAY_SIZE(valids_table),
+> @@ -786,6 +839,7 @@ MODULE_DEVICE_TABLE(of, stm32_trig_of_match);
+>  
+>  static struct platform_driver stm32_timer_trigger_driver = {
+>  	.probe = stm32_timer_trigger_probe,
+> +	.remove = stm32_timer_trigger_remove,
+>  	.driver = {
+>  		.name = "stm32-timer-trigger",
+>  		.of_match_table = stm32_trig_of_match,
+
+_______________________________________________
+Linux-stm32 mailing list
+Linux-stm32@st-md-mailman.stormreply.com
+https://st-md-mailman.stormreply.com/mailman/listinfo/linux-stm32
