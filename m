@@ -2,65 +2,66 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id 5EFD6160C5F
-	for <lists+linux-stm32@lfdr.de>; Mon, 17 Feb 2020 09:08:54 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 278BA160CE1
+	for <lists+linux-stm32@lfdr.de>; Mon, 17 Feb 2020 09:21:34 +0100 (CET)
 Received: from ip-172-31-3-76.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 2755AC36B0B;
-	Mon, 17 Feb 2020 08:08:54 +0000 (UTC)
-Received: from us-smtp-1.mimecast.com (us-smtp-delivery-1.mimecast.com
- [205.139.110.120])
- (using TLSv1.2 with cipher ECDHE-RSA-AES256-SHA384 (256/256 bits))
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id DCAF5C36B0B;
+	Mon, 17 Feb 2020 08:21:33 +0000 (UTC)
+Received: from mx07-00178001.pphosted.com (mx07-00178001.pphosted.com
+ [62.209.51.94])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 87E60C36B09
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 3DF8BC36B09
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Mon, 17 Feb 2020 08:08:52 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
- s=mimecast20190719; t=1581926931;
- h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
- to:to:cc:cc:mime-version:mime-version:content-type:content-type:
- content-transfer-encoding:content-transfer-encoding:
- in-reply-to:in-reply-to:references:references;
- bh=EtqkCjqdRXLuRh9VlLNSDW1ljo1S6L5c70FnhGzTNhM=;
- b=OnZsI0bblNvbolzL7YFuQHX1bVDzFfhZLCjoJMhn2h04wBrc8aizDZRisYJbAnhTU2uBut
- jss2u6/QrCseAPirZzvKyJfsmZ1ltLSmuhZI8Mmt0CGg5DZKSrFvDhfbKYdSefJGDEagFe
- ujAyTeo7WPSO65GJq5qgyKF/ucBkg4M=
-Received: from mimecast-mx01.redhat.com (mimecast-mx01.redhat.com
- [209.132.183.4]) (Using TLS) by relay.mimecast.com with ESMTP id
- us-mta-152-9Nx8pL2hOKaLfoXLO9UU9Q-1; Mon, 17 Feb 2020 03:08:48 -0500
-X-MC-Unique: 9Nx8pL2hOKaLfoXLO9UU9Q-1
-Received: from smtp.corp.redhat.com (int-mx07.intmail.prod.int.phx2.redhat.com
- [10.5.11.22])
- (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
- (No client certificate requested)
- by mimecast-mx01.redhat.com (Postfix) with ESMTPS id 562D0107ACC4;
- Mon, 17 Feb 2020 08:08:45 +0000 (UTC)
-Received: from carbon (ovpn-200-41.brq.redhat.com [10.40.200.41])
- by smtp.corp.redhat.com (Postfix) with ESMTP id 6396C1001B09;
- Mon, 17 Feb 2020 08:08:33 +0000 (UTC)
-Date: Mon, 17 Feb 2020 09:08:31 +0100
-From: Jesper Dangaard Brouer <brouer@redhat.com>
-To: Ilias Apalodimas <ilias.apalodimas@linaro.org>
-Message-ID: <20200217090831.56de425e@carbon>
-In-Reply-To: <20200217074608.GA139819@apalos.home>
-References: <20200217062850.133121-1-ilias.apalodimas@linaro.org>
- <20200217084133.1a67ae63@carbon>
- <20200217074608.GA139819@apalos.home>
+ Mon, 17 Feb 2020 08:21:31 +0000 (UTC)
+Received: from pps.filterd (m0046668.ppops.net [127.0.0.1])
+ by mx07-00178001.pphosted.com (8.16.0.42/8.16.0.42) with SMTP id
+ 01H8DR2s003204; Mon, 17 Feb 2020 09:21:15 +0100
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=st.com;
+ h=subject : to : cc :
+ references : from : message-id : date : mime-version : in-reply-to :
+ content-type : content-transfer-encoding; s=STMicroelectronics;
+ bh=eeYePah8N20Fhz2BV0G/EU8+d/RYrV5o3pvxjTnWhtQ=;
+ b=tYjvTXZR/+yVgJq4Q7/Q8BVNR4fg57US+2Lz2Rv12fLlnKMRkjd+xOhyAsK4CKhqyC9P
+ ajb7XMJ/ERa17xR/QCtYS79B13JLRda0+BjSC1sCDOTeHO4++yTgshQ4zwKEUwaz2Pl+
+ 4o5moP2QRz+TXJNj01NOq2gBvNwim0410gQZjGsiWu+KiMZSeV5fWF3FHdu8Z8N78vKU
+ jxPpUZ89F4XVR2XxVoSWYO9Kdxsl/JQHBPgdUWEhVuYi2JiUBb0HBfKWnrKO6vH+TC6J
+ t/28ljTKWtjt73PMR+QJwTqcOLqsHr68cyFRWddll0XOHFcmbcKk5QRHyUyUb/bWPgxo Bg== 
+Received: from beta.dmz-eu.st.com (beta.dmz-eu.st.com [164.129.1.35])
+ by mx07-00178001.pphosted.com with ESMTP id 2y6705hmd4-1
+ (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
+ Mon, 17 Feb 2020 09:21:15 +0100
+Received: from euls16034.sgp.st.com (euls16034.sgp.st.com [10.75.44.20])
+ by beta.dmz-eu.st.com (STMicroelectronics) with ESMTP id 839C7100038;
+ Mon, 17 Feb 2020 09:21:10 +0100 (CET)
+Received: from Webmail-eu.st.com (sfhdag5node3.st.com [10.75.127.15])
+ by euls16034.sgp.st.com (STMicroelectronics) with ESMTP id 74E0B221612;
+ Mon, 17 Feb 2020 09:21:10 +0100 (CET)
+Received: from [10.48.0.71] (10.75.127.47) by SFHDAG5NODE3.st.com
+ (10.75.127.15) with Microsoft SMTP Server (TLS) id 15.0.1473.3; Mon, 17 Feb
+ 2020 09:21:09 +0100
+To: Lukas Bulwahn <lukas.bulwahn@gmail.com>, Benjamin Gaignard
+ <benjamin.gaignard@st.com>, Rob Herring <robh@kernel.org>
+References: <20200216130841.4187-1-lukas.bulwahn@gmail.com>
+From: Fabrice Gasnier <fabrice.gasnier@st.com>
+Message-ID: <d24f8983-1d68-11d3-280e-a632ba618460@st.com>
+Date: Mon, 17 Feb 2020 09:21:09 +0100
+User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:60.0) Gecko/20100101
+ Thunderbird/60.9.0
 MIME-Version: 1.0
-X-Scanned-By: MIMEDefang 2.84 on 10.5.11.22
-Cc: Maxime Coquelin <mcoquelin.stm32@gmail.com>,
- Jakub Kicinski <kuba@kernel.org>, Daniel Borkmann <daniel@iogearbox.net>,
- netdev@vger.kernel.org, linux-stm32@st-md-mailman.stormreply.com,
- toke@redhat.com, John Fastabend <john.fastabend@gmail.com>,
- Alexei Starovoitov <ast@kernel.org>, linux-kernel@vger.kernel.org,
- brouer@redhat.com, Jassi Brar <jaswinder.singh@linaro.org>,
- Jose Abreu <joabreu@synopsys.com>,
- Thomas Petazzoni <thomas.petazzoni@bootlin.com>, jonathan.lemon@gmail.com,
- Giuseppe Cavallaro <peppe.cavallaro@st.com>, bpf@vger.kernel.org,
- lorenzo@kernel.org, "David S.
- Miller" <davem@davemloft.net>, linux-arm-kernel@lists.infradead.org,
- Jesper Dangaard Brouer <hawk@kernel.org>
-Subject: Re: [Linux-stm32] [PATCH net-next v2] net: page_pool: API cleanup
-	and comments
+In-Reply-To: <20200216130841.4187-1-lukas.bulwahn@gmail.com>
+Content-Language: en-US
+X-Originating-IP: [10.75.127.47]
+X-ClientProxiedBy: SFHDAG5NODE3.st.com (10.75.127.15) To SFHDAG5NODE3.st.com
+ (10.75.127.15)
+X-Proofpoint-Virus-Version: vendor=fsecure engine=2.50.10434:6.0.138, 18.0.572
+ definitions=2020-02-17_04:2020-02-14,
+ 2020-02-17 signatures=0
+Cc: kernel-janitors@vger.kernel.org, linux-kernel@vger.kernel.org,
+ Joe Perches <joe@perches.com>, linux-stm32@st-md-mailman.stormreply.com,
+ linux-arm-kernel@lists.infradead.org
+Subject: Re: [Linux-stm32] [PATCH] MAINTAINERS: adjust to stm32 timer
+	dt-bindings conversion
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -77,47 +78,50 @@ Content-Transfer-Encoding: 7bit
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
-On Mon, 17 Feb 2020 09:46:08 +0200
-Ilias Apalodimas <ilias.apalodimas@linaro.org> wrote:
-
-> On Mon, Feb 17, 2020 at 08:41:33AM +0100, Jesper Dangaard Brouer wrote:
-> > On Mon, 17 Feb 2020 08:28:49 +0200
-> > Ilias Apalodimas <ilias.apalodimas@linaro.org> wrote:
-> >   
-> > > diff --git a/include/net/page_pool.h b/include/net/page_pool.h
-> > > index cfbed00ba7ee..7c1f23930035 100644
-> > > --- a/include/net/page_pool.h
-> > > +++ b/include/net/page_pool.h
-> > > @@ -162,39 +162,33 @@ static inline void page_pool_use_xdp_mem(struct page_pool *pool,
-> > >  }
-> > >  #endif
-> > >  
-> > > -/* Never call this directly, use helpers below */
-> > > -void __page_pool_put_page(struct page_pool *pool, struct page *page,
-> > > -			  unsigned int dma_sync_size, bool allow_direct);
-> > > +void page_pool_release_page(struct page_pool *pool, struct page *page);
-> > >  
-> > > -static inline void page_pool_put_page(struct page_pool *pool,
-> > > -				      struct page *page, bool allow_direct)
-> > > +/* If the page refcnt == 1, this will try to recycle the page.
-> > > + * if PP_FLAG_DMA_SYNC_DEV is set, it will try to sync the DMA area for
-> > > + * the configured size min(dma_sync_size, pool->max_len).
-> > > + * If the page refcnt != page will be returned  
-> > 
-> > Is this last comment line fully formed?  
+On 2/16/20 2:08 PM, Lukas Bulwahn wrote:
+> The commit 56fb34d86e87 ("dt-bindings: mfd: Convert stm32 timers bindings
+> to json-schema") and commit b88091f5d84a ("dt-bindings: mfd: Convert stm32
+> low power timers bindings to json-schema") converted some files from txt to
+> yaml format in ./Documentation/devicetree/bindings/, but they missed to
+> adjust MAINTAINERS.
 > 
-> Yes, but that dosen't mena it makes sense!
-> Maybe i should switch the last sentence to sometning like:
-> "If the page refcnt != 1, page will be returned to memory subsystem" ?
+> Since then, ./scripts/get_maintainer.pl --self-test complains:
+> 
+>   no file matches F: Documentation/devicetree/bindings/*/stm32-*timer*
+>   no file matches F: Documentation/devicetree/bindings/pwm/pwm-stm32*
+> 
+> So, repair the MAINTAINERS entry now.
+> 
+> Signed-off-by: Lukas Bulwahn <lukas.bulwahn@gmail.com>
+Hi Lukas,
 
-Yes, that sounds better.
+Acked-by: Fabrice Gasnier <fabrice.gasnier@st.com>
 
--- 
-Best regards,
-  Jesper Dangaard Brouer
-  MSc.CS, Principal Kernel Engineer at Red Hat
-  LinkedIn: http://www.linkedin.com/in/brouer
-
+Thanks,
+Fabrice
+> ---
+> Benjamin, Fabrice, please ack.
+> Rob, please pick this patch.
+> applies cleanly on current master and on next-20200214
+> 
+>  MAINTAINERS | 3 +--
+>  1 file changed, 1 insertion(+), 2 deletions(-)
+> 
+> diff --git a/MAINTAINERS b/MAINTAINERS
+> index a0d86490c2c6..9175b59e2b4c 100644
+> --- a/MAINTAINERS
+> +++ b/MAINTAINERS
+> @@ -15923,8 +15923,7 @@ F:	drivers/*/stm32-*timer*
+>  F:	drivers/pwm/pwm-stm32*
+>  F:	include/linux/*/stm32-*tim*
+>  F:	Documentation/ABI/testing/*timer-stm32
+> -F:	Documentation/devicetree/bindings/*/stm32-*timer*
+> -F:	Documentation/devicetree/bindings/pwm/pwm-stm32*
+> +F:	Documentation/devicetree/bindings/mfd/st,stm32-*timer*.yaml
+>  
+>  STMMAC ETHERNET DRIVER
+>  M:	Giuseppe Cavallaro <peppe.cavallaro@st.com>
+> 
 _______________________________________________
 Linux-stm32 mailing list
 Linux-stm32@st-md-mailman.stormreply.com
