@@ -2,66 +2,60 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id 278BA160CE1
-	for <lists+linux-stm32@lfdr.de>; Mon, 17 Feb 2020 09:21:34 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 408571613CD
+	for <lists+linux-stm32@lfdr.de>; Mon, 17 Feb 2020 14:46:09 +0100 (CET)
 Received: from ip-172-31-3-76.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id DCAF5C36B0B;
-	Mon, 17 Feb 2020 08:21:33 +0000 (UTC)
-Received: from mx07-00178001.pphosted.com (mx07-00178001.pphosted.com
- [62.209.51.94])
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id CE9F1C36B0B;
+	Mon, 17 Feb 2020 13:46:08 +0000 (UTC)
+Received: from mx07-00178001.pphosted.com (mx08-00178001.pphosted.com
+ [91.207.212.93])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 3DF8BC36B09
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 6BD71C36B0B
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Mon, 17 Feb 2020 08:21:31 +0000 (UTC)
-Received: from pps.filterd (m0046668.ppops.net [127.0.0.1])
+ Mon, 17 Feb 2020 13:46:04 +0000 (UTC)
+Received: from pps.filterd (m0046661.ppops.net [127.0.0.1])
  by mx07-00178001.pphosted.com (8.16.0.42/8.16.0.42) with SMTP id
- 01H8DR2s003204; Mon, 17 Feb 2020 09:21:15 +0100
+ 01HDhVxP007656; Mon, 17 Feb 2020 14:45:50 +0100
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=st.com;
- h=subject : to : cc :
- references : from : message-id : date : mime-version : in-reply-to :
- content-type : content-transfer-encoding; s=STMicroelectronics;
- bh=eeYePah8N20Fhz2BV0G/EU8+d/RYrV5o3pvxjTnWhtQ=;
- b=tYjvTXZR/+yVgJq4Q7/Q8BVNR4fg57US+2Lz2Rv12fLlnKMRkjd+xOhyAsK4CKhqyC9P
- ajb7XMJ/ERa17xR/QCtYS79B13JLRda0+BjSC1sCDOTeHO4++yTgshQ4zwKEUwaz2Pl+
- 4o5moP2QRz+TXJNj01NOq2gBvNwim0410gQZjGsiWu+KiMZSeV5fWF3FHdu8Z8N78vKU
- jxPpUZ89F4XVR2XxVoSWYO9Kdxsl/JQHBPgdUWEhVuYi2JiUBb0HBfKWnrKO6vH+TC6J
- t/28ljTKWtjt73PMR+QJwTqcOLqsHr68cyFRWddll0XOHFcmbcKk5QRHyUyUb/bWPgxo Bg== 
+ h=from : to : cc : subject
+ : date : message-id : mime-version : content-type; s=STMicroelectronics;
+ bh=6krLsyTnJQGCuNqc99FBtGiT29OEuI/cKr9z9oLmia8=;
+ b=F84Im76Z7/5isx65KidMfCyyaLPXGt2Y5cGz2X+0BlsHzESPQg4vgRpUp6J5rEQhhCOe
+ emI2exVjxiGhhLWsO9coFpILiLMqcnTGanXsd8/dreBVmvJV9s+xVNDLvxpmtiKZnDBZ
+ oOo10cDgPlSLoH/6mQTiQsblEhz6AYncmx41dwxyscm2KLYjp07f0i7LErZxMD9F1++X
+ RepEMliZoXQWFD+zh64zpjOS3f4r+FEJc5b6wlExHGz3KG91Tkt+6QhI20r9vXqOl0Vy
+ RQ97DpGzb4/dRxwF5kjC1sYgtkzMYJhAoIkLtSz+gxvnNWLR/VyGI4YLyihMutFA56Rt FA== 
 Received: from beta.dmz-eu.st.com (beta.dmz-eu.st.com [164.129.1.35])
- by mx07-00178001.pphosted.com with ESMTP id 2y6705hmd4-1
+ by mx07-00178001.pphosted.com with ESMTP id 2y68dp3axk-1
  (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
- Mon, 17 Feb 2020 09:21:15 +0100
+ Mon, 17 Feb 2020 14:45:50 +0100
 Received: from euls16034.sgp.st.com (euls16034.sgp.st.com [10.75.44.20])
- by beta.dmz-eu.st.com (STMicroelectronics) with ESMTP id 839C7100038;
- Mon, 17 Feb 2020 09:21:10 +0100 (CET)
-Received: from Webmail-eu.st.com (sfhdag5node3.st.com [10.75.127.15])
- by euls16034.sgp.st.com (STMicroelectronics) with ESMTP id 74E0B221612;
- Mon, 17 Feb 2020 09:21:10 +0100 (CET)
-Received: from [10.48.0.71] (10.75.127.47) by SFHDAG5NODE3.st.com
- (10.75.127.15) with Microsoft SMTP Server (TLS) id 15.0.1473.3; Mon, 17 Feb
- 2020 09:21:09 +0100
-To: Lukas Bulwahn <lukas.bulwahn@gmail.com>, Benjamin Gaignard
- <benjamin.gaignard@st.com>, Rob Herring <robh@kernel.org>
-References: <20200216130841.4187-1-lukas.bulwahn@gmail.com>
-From: Fabrice Gasnier <fabrice.gasnier@st.com>
-Message-ID: <d24f8983-1d68-11d3-280e-a632ba618460@st.com>
-Date: Mon, 17 Feb 2020 09:21:09 +0100
-User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:60.0) Gecko/20100101
- Thunderbird/60.9.0
+ by beta.dmz-eu.st.com (STMicroelectronics) with ESMTP id 93321100034;
+ Mon, 17 Feb 2020 14:45:49 +0100 (CET)
+Received: from Webmail-eu.st.com (sfhdag3node3.st.com [10.75.127.9])
+ by euls16034.sgp.st.com (STMicroelectronics) with ESMTP id 7E01A2FF5C7;
+ Mon, 17 Feb 2020 14:45:49 +0100 (CET)
+Received: from localhost (10.75.127.47) by SFHDAG3NODE3.st.com (10.75.127.9)
+ with Microsoft SMTP Server (TLS) id 15.0.1347.2; Mon, 17 Feb 2020 14:45:49
+ +0100
+From: Benjamin Gaignard <benjamin.gaignard@st.com>
+To: <lee.jones@linaro.org>, <robh+dt@kernel.org>, <mark.rutland@arm.com>,
+ <mcoquelin.stm32@gmail.com>, <alexandre.torgue@st.com>,
+ <daniel.lezcano@linaro.org>, <tglx@linutronix.de>, <fabrice.gasnier@st.com>
+Date: Mon, 17 Feb 2020 14:45:43 +0100
+Message-ID: <20200217134546.14562-1-benjamin.gaignard@st.com>
+X-Mailer: git-send-email 2.15.0
 MIME-Version: 1.0
-In-Reply-To: <20200216130841.4187-1-lukas.bulwahn@gmail.com>
-Content-Language: en-US
 X-Originating-IP: [10.75.127.47]
-X-ClientProxiedBy: SFHDAG5NODE3.st.com (10.75.127.15) To SFHDAG5NODE3.st.com
- (10.75.127.15)
+X-ClientProxiedBy: SFHDAG4NODE2.st.com (10.75.127.11) To SFHDAG3NODE3.st.com
+ (10.75.127.9)
 X-Proofpoint-Virus-Version: vendor=fsecure engine=2.50.10434:6.0.138, 18.0.572
- definitions=2020-02-17_04:2020-02-14,
+ definitions=2020-02-17_08:2020-02-17,
  2020-02-17 signatures=0
-Cc: kernel-janitors@vger.kernel.org, linux-kernel@vger.kernel.org,
- Joe Perches <joe@perches.com>, linux-stm32@st-md-mailman.stormreply.com,
- linux-arm-kernel@lists.infradead.org
-Subject: Re: [Linux-stm32] [PATCH] MAINTAINERS: adjust to stm32 timer
-	dt-bindings conversion
+Cc: devicetree@vger.kernel.org, linux-stm32@st-md-mailman.stormreply.com,
+ linux-arm-kernel@lists.infradead.org, linux-kernel@vger.kernel.org
+Subject: [Linux-stm32] [PATCH v4 0/3] clockevent: add low power STM32 timer
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -78,50 +72,50 @@ Content-Transfer-Encoding: 7bit
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
-On 2/16/20 2:08 PM, Lukas Bulwahn wrote:
-> The commit 56fb34d86e87 ("dt-bindings: mfd: Convert stm32 timers bindings
-> to json-schema") and commit b88091f5d84a ("dt-bindings: mfd: Convert stm32
-> low power timers bindings to json-schema") converted some files from txt to
-> yaml format in ./Documentation/devicetree/bindings/, but they missed to
-> adjust MAINTAINERS.
-> 
-> Since then, ./scripts/get_maintainer.pl --self-test complains:
-> 
->   no file matches F: Documentation/devicetree/bindings/*/stm32-*timer*
->   no file matches F: Documentation/devicetree/bindings/pwm/pwm-stm32*
-> 
-> So, repair the MAINTAINERS entry now.
-> 
-> Signed-off-by: Lukas Bulwahn <lukas.bulwahn@gmail.com>
-Hi Lukas,
+This series add low power timer as boadcast clockevent device.
+Low power timer could runs even when CPUs are in idle mode and 
+could wakeup them.
 
-Acked-by: Fabrice Gasnier <fabrice.gasnier@st.com>
+version 4:
+- move defines in mfd/stm32-lptimer.h
+- change compatible and subnode names
+- document wakeup-source property
+- reword commit message
+- make driver Kconfig depends of MFD_STM32_LPTIMER
+- remove useless include
+- remove rate and clk fields from the private structure
+- to add comments about the registers sequence in stm32_clkevent_lp_set_timer
+- rework probe function and use devm_request_irq()
+- do not allow module to be removed
 
-Thanks,
-Fabrice
-> ---
-> Benjamin, Fabrice, please ack.
-> Rob, please pick this patch.
-> applies cleanly on current master and on next-20200214
-> 
->  MAINTAINERS | 3 +--
->  1 file changed, 1 insertion(+), 2 deletions(-)
-> 
-> diff --git a/MAINTAINERS b/MAINTAINERS
-> index a0d86490c2c6..9175b59e2b4c 100644
-> --- a/MAINTAINERS
-> +++ b/MAINTAINERS
-> @@ -15923,8 +15923,7 @@ F:	drivers/*/stm32-*timer*
->  F:	drivers/pwm/pwm-stm32*
->  F:	include/linux/*/stm32-*tim*
->  F:	Documentation/ABI/testing/*timer-stm32
-> -F:	Documentation/devicetree/bindings/*/stm32-*timer*
-> -F:	Documentation/devicetree/bindings/pwm/pwm-stm32*
-> +F:	Documentation/devicetree/bindings/mfd/st,stm32-*timer*.yaml
->  
->  STMMAC ETHERNET DRIVER
->  M:	Giuseppe Cavallaro <peppe.cavallaro@st.com>
-> 
+version 3:
+- fix timer set sequence
+- don't forget to free irq on remove function
+- use devm_kzalloc to simplify errors handling in probe function
+
+version 2:
+- stm32 clkevent driver is now a child of the stm32 lp timer node
+- add a probe function and adpat the driver to use regmap provide
+  by it parent
+- stop using timer_of helpers
+
+
+Benjamin Gaignard (3):
+  dt-bindings: mfd: Document STM32 low power timer bindings
+  mfd: stm32: Add defines to be used for clkevent purpose
+  clocksource: Add Low Power STM32 timers driver
+
+ .../devicetree/bindings/mfd/st,stm32-lptimer.yaml  |  16 ++
+ drivers/clocksource/Kconfig                        |   7 +
+ drivers/clocksource/Makefile                       |   1 +
+ drivers/clocksource/timer-stm32-lp.c               | 213 +++++++++++++++++++++
+ include/linux/mfd/stm32-lptimer.h                  |   5 +
+ 5 files changed, 242 insertions(+)
+ create mode 100644 drivers/clocksource/timer-stm32-lp.c
+
+-- 
+2.15.0
+
 _______________________________________________
 Linux-stm32 mailing list
 Linux-stm32@st-md-mailman.stormreply.com
