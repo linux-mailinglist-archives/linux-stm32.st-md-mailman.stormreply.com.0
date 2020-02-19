@@ -2,60 +2,66 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id 6AD911634CC
-	for <lists+linux-stm32@lfdr.de>; Tue, 18 Feb 2020 22:24:25 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 182E616417F
+	for <lists+linux-stm32@lfdr.de>; Wed, 19 Feb 2020 11:22:21 +0100 (CET)
 Received: from ip-172-31-3-76.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 22748C36B0B;
-	Tue, 18 Feb 2020 21:24:25 +0000 (UTC)
-Received: from mail-oi1-f195.google.com (mail-oi1-f195.google.com
- [209.85.167.195])
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 945CEC36B0B;
+	Wed, 19 Feb 2020 10:22:20 +0000 (UTC)
+Received: from mail-wr1-f65.google.com (mail-wr1-f65.google.com
+ [209.85.221.65])
  (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 8E247C36B09
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 8D10DC36B09
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Tue, 18 Feb 2020 21:24:21 +0000 (UTC)
-Received: by mail-oi1-f195.google.com with SMTP id q81so21692200oig.0
+ Wed, 19 Feb 2020 10:22:18 +0000 (UTC)
+Received: by mail-wr1-f65.google.com with SMTP id t3so27522144wru.7
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Tue, 18 Feb 2020 13:24:21 -0800 (PST)
+ Wed, 19 Feb 2020 02:22:18 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=ffwll.ch; s=google;
+ h=from:to:cc:subject:date:message-id:in-reply-to:references
+ :mime-version:content-transfer-encoding;
+ bh=YSnq2pVWW+HKeYXXYM7BB1vTVqLVzuXFgXE6h06xFu0=;
+ b=liIx7CqvQUzNFoG4ELSAG3R9vmPB0o85DvqOnShuce4VgyiZn/mciQMBO1AhL0XJWg
+ OjqpsJYMUaXd2uAVaUgmLW7I9Q0LCxuoUwB16ZRnK4xIZT3Zr6KbI1h43R1iQxSf1gxa
+ lNBDHZGDLOUpLkxXfaGxaExMwBJNCUM1/5Zs0=
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=1e100.net; s=20161025;
- h=x-gm-message-state:date:from:to:cc:subject:message-id:references
- :mime-version:content-disposition:in-reply-to:user-agent;
- bh=wtMHXyFhYbqyTVO0vF6Kcqe6OQmnz/7Cal/xbWgxM1k=;
- b=bjuvFoxNutK/Fov+7NZTHJ9F3arpLA7/63WHC8VHx+oYbT24Ni/eyenOJvtNA9gS38
- kzQ+cUGKhAVzvs+gtgoUC9XoT9gwLEri70cYL+53jNGTQrOA4Jwq+hUC2174DGEGscnX
- CWgGXbx6ftGi5pwH6jb7RdLKnsZqtqOVugd67QTQEbZ+WFYqfbTJiaerb0gf0aDSos3D
- CVZgfYEcZprHdjLWIUmDJ5qFG71H+2OdKNdxxm5jWRIIBxa3mpH38i8VVyEdXAm35tve
- sNdjmyF+FFaYdsQSMUzgDUOdgQKeSvnd1SG+beJ2keyAqEwd9cumMjssFSOvsI6EadRo
- YP1w==
-X-Gm-Message-State: APjAAAVAUa5etn+hR21X5QCQnnNEYVkhHp3ZPAi43qH3HrQYNqhD+D86
- xZr+aKvo1VSt83q7I3fgTQ==
-X-Google-Smtp-Source: APXvYqzRApOAzxWTuj6FxZU0qh45JNaX3foVD2D6h/wVsRSCi4UeCotVaoEUHsPi9xiZdnGVL+n19A==
-X-Received: by 2002:aca:c1c2:: with SMTP id r185mr2676756oif.19.1582061060244; 
- Tue, 18 Feb 2020 13:24:20 -0800 (PST)
-Received: from rob-hp-laptop (24-155-109-49.dyn.grandenetworks.net.
- [24.155.109.49])
- by smtp.gmail.com with ESMTPSA id i7sm17411oib.42.2020.02.18.13.24.19
+ h=x-gm-message-state:from:to:cc:subject:date:message-id:in-reply-to
+ :references:mime-version:content-transfer-encoding;
+ bh=YSnq2pVWW+HKeYXXYM7BB1vTVqLVzuXFgXE6h06xFu0=;
+ b=Y5R9bAqr8iIfsSJsUXTZ08cxBtYSfrIdBc71rR2k9cvTh/cXEo3hOJFGO/M++JzrIH
+ fcWJ3tQQY7K3HAuDyJpgwsqYoKpxy+KCSjSqoiK0VY3MQMaBy1/QJbcW3LwAvbkHXRUR
+ Ci95HkPIqct6/aa8+9FZgK0KKLqgjmRR3vUbX23Nr+ctGHyxIyRsee/juUjWA05Iphhb
+ kHgImKWEDnnSIuJwxxW8yqaFI+wi6TumKrfGY0fYziGM2oqKFRk7FtwsOxpZfkuTMSp+
+ Ofxo83QVFPVqYOMrS09lDW957mbnhkZ5l3NggCb8slE2QOACmkffQySS1EMW9oA4ua/a
+ Ycmg==
+X-Gm-Message-State: APjAAAV8e3wGk4LI8oUlSHrvzBaxrmrNiK8fFbglFqjZj6OTBzB4nKpU
+ BE0KShCRlxKvVKuqpYKBGW1CdQ==
+X-Google-Smtp-Source: APXvYqy/e8jWrTjkXr2HY+OkVTrZXl8KRtvIPL5iL9prazJwu6GqRHfncrGgKjSWy6Dh2gzsPrnj6A==
+X-Received: by 2002:adf:f5cb:: with SMTP id k11mr34513767wrp.63.1582107738038; 
+ Wed, 19 Feb 2020 02:22:18 -0800 (PST)
+Received: from phenom.ffwll.local ([2a02:168:57f4:0:efd0:b9e5:5ae6:c2fa])
+ by smtp.gmail.com with ESMTPSA id s23sm2370339wra.15.2020.02.19.02.22.16
  (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Tue, 18 Feb 2020 13:24:19 -0800 (PST)
-Received: (nullmailer pid 29988 invoked by uid 1000);
- Tue, 18 Feb 2020 21:24:18 -0000
-Date: Tue, 18 Feb 2020 15:24:18 -0600
-From: Rob Herring <robh@kernel.org>
-To: Benjamin Gaignard <benjamin.gaignard@st.com>
-Message-ID: <20200218212418.GA29946@bogus>
-References: <20200217134546.14562-1-benjamin.gaignard@st.com>
- <20200217134546.14562-2-benjamin.gaignard@st.com>
+ Wed, 19 Feb 2020 02:22:17 -0800 (PST)
+From: Daniel Vetter <daniel.vetter@ffwll.ch>
+To: DRI Development <dri-devel@lists.freedesktop.org>
+Date: Wed, 19 Feb 2020 11:21:09 +0100
+Message-Id: <20200219102122.1607365-40-daniel.vetter@ffwll.ch>
+X-Mailer: git-send-email 2.24.1
+In-Reply-To: <20200219102122.1607365-1-daniel.vetter@ffwll.ch>
+References: <20200219102122.1607365-1-daniel.vetter@ffwll.ch>
 MIME-Version: 1.0
-Content-Disposition: inline
-In-Reply-To: <20200217134546.14562-2-benjamin.gaignard@st.com>
-User-Agent: Mutt/1.10.1 (2018-07-13)
-Cc: mark.rutland@arm.com, devicetree@vger.kernel.org, daniel.lezcano@linaro.org,
- linux-kernel@vger.kernel.org, robh+dt@kernel.org, mcoquelin.stm32@gmail.com,
- tglx@linutronix.de, fabrice.gasnier@st.com, lee.jones@linaro.org,
+Cc: Maxime Coquelin <mcoquelin.stm32@gmail.com>,
+ Daniel Vetter <daniel.vetter@ffwll.ch>,
+ Intel Graphics Development <intel-gfx@lists.freedesktop.org>,
+ Yannick Fertre <yannick.fertre@st.com>,
+ Benjamin Gaignard <benjamin.gaignard@linaro.org>,
+ Daniel Vetter <daniel.vetter@intel.com>,
+ Vincent Abriou <vincent.abriou@st.com>,
  linux-stm32@st-md-mailman.stormreply.com, linux-arm-kernel@lists.infradead.org
-Subject: Re: [Linux-stm32] [PATCH v4 1/3] dt-bindings: mfd: Document STM32
- low power timer bindings
+Subject: [Linux-stm32] [PATCH 39/52] drm/stm: Drop explicit
+	drm_mode_config_cleanup call
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -72,20 +78,69 @@ Content-Transfer-Encoding: 7bit
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
-On Mon, 17 Feb 2020 14:45:44 +0100, Benjamin Gaignard wrote:
-> Add a subnode to STM low power timer bindings to support timer driver
-> 
-> Signed-off-by: Benjamin Gaignard <benjamin.gaignard@st.com>
-> ---
-> version 4:
-> - change compatible and subnode names
-> - document wakeup-source property
-> 
->  .../devicetree/bindings/mfd/st,stm32-lptimer.yaml        | 16 ++++++++++++++++
->  1 file changed, 16 insertions(+)
-> 
+It's right above the drm_dev_put().
 
-Acked-by: Rob Herring <robh@kernel.org>
+Aside: Another driver with a bit much devm_kzalloc, which should
+probably use drmm_kzalloc instead ...
+
+Signed-off-by: Daniel Vetter <daniel.vetter@intel.com>
+Cc: Yannick Fertre <yannick.fertre@st.com>
+Cc: Philippe Cornu <philippe.cornu@st.com>
+Cc: Benjamin Gaignard <benjamin.gaignard@linaro.org>
+Cc: Vincent Abriou <vincent.abriou@st.com>
+Cc: Maxime Coquelin <mcoquelin.stm32@gmail.com>
+Cc: Alexandre Torgue <alexandre.torgue@st.com>
+Cc: linux-stm32@st-md-mailman.stormreply.com
+Cc: linux-arm-kernel@lists.infradead.org
+---
+ drivers/gpu/drm/stm/drv.c | 10 ++++------
+ 1 file changed, 4 insertions(+), 6 deletions(-)
+
+diff --git a/drivers/gpu/drm/stm/drv.c b/drivers/gpu/drm/stm/drv.c
+index ea9fcbdc68b3..5b374531dd8c 100644
+--- a/drivers/gpu/drm/stm/drv.c
++++ b/drivers/gpu/drm/stm/drv.c
+@@ -88,7 +88,9 @@ static int drv_load(struct drm_device *ddev)
+ 
+ 	ddev->dev_private = (void *)ldev;
+ 
+-	drm_mode_config_init(ddev);
++	ret = drm_mode_config_init(ddev);
++	if (ret)
++		return ret;
+ 
+ 	/*
+ 	 * set max width and height as default value.
+@@ -103,7 +105,7 @@ static int drv_load(struct drm_device *ddev)
+ 
+ 	ret = ltdc_load(ddev);
+ 	if (ret)
+-		goto err;
++		return ret;
+ 
+ 	drm_mode_config_reset(ddev);
+ 	drm_kms_helper_poll_init(ddev);
+@@ -111,9 +113,6 @@ static int drv_load(struct drm_device *ddev)
+ 	platform_set_drvdata(pdev, ddev);
+ 
+ 	return 0;
+-err:
+-	drm_mode_config_cleanup(ddev);
+-	return ret;
+ }
+ 
+ static void drv_unload(struct drm_device *ddev)
+@@ -122,7 +121,6 @@ static void drv_unload(struct drm_device *ddev)
+ 
+ 	drm_kms_helper_poll_fini(ddev);
+ 	ltdc_unload(ddev);
+-	drm_mode_config_cleanup(ddev);
+ }
+ 
+ static __maybe_unused int drv_suspend(struct device *dev)
+-- 
+2.24.1
+
 _______________________________________________
 Linux-stm32 mailing list
 Linux-stm32@st-md-mailman.stormreply.com
