@@ -2,62 +2,67 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id 5391B1649E6
-	for <lists+linux-stm32@lfdr.de>; Wed, 19 Feb 2020 17:18:39 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 1FB47165058
+	for <lists+linux-stm32@lfdr.de>; Wed, 19 Feb 2020 21:56:42 +0100 (CET)
 Received: from ip-172-31-3-76.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 08413C36B0B;
-	Wed, 19 Feb 2020 16:18:39 +0000 (UTC)
-Received: from mx07-00178001.pphosted.com (mx08-00178001.pphosted.com
- [91.207.212.93])
- (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id BF279C36B0B;
+	Wed, 19 Feb 2020 20:56:41 +0000 (UTC)
+Received: from mail-io1-f68.google.com (mail-io1-f68.google.com
+ [209.85.166.68])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id D9265C36B09
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 98B11C36B09
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Wed, 19 Feb 2020 16:18:37 +0000 (UTC)
-Received: from pps.filterd (m0046661.ppops.net [127.0.0.1])
- by mx07-00178001.pphosted.com (8.16.0.42/8.16.0.42) with SMTP id
- 01JGCh9U031765; Wed, 19 Feb 2020 17:17:48 +0100
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=st.com;
- h=from : to : cc : subject
- : date : message-id : mime-version : content-type; s=STMicroelectronics;
- bh=9NamLGhs1g5nnm8A0MBVlS+ZYEhBZEt4VSnOcM6QmqY=;
- b=QH9+HyeVbVNWVK5fp53HuhGwzhf6GG20PkI37SxmrAuUbYpQ9BskBOEirw7zc5sWAk3l
- oyiUOVC+hRCzM+N8z5q36dNApzXbshQf0BX2dflNnGnNAFAvb3+9UaO+XSP1HbiRg6fg
- KwgbCPuLz55kvRTb82qHrzaf0ymnGeJhhVWEWjApFeNKo5/DuDYYlFfWqDQuZmoFg6hh
- N334lc0SfBU/SxK5/zXYk1/gONIVThL4KbaVnOr/2mp/irL/+Z2B7Xigt84cbcE4VzTr
- K1WANXI8z2MqHpud67o5DvVLv5yg0ib96amV9LQlZGBLSWfTlcIOeNAWGcGM4j1Y4GXC JQ== 
-Received: from beta.dmz-eu.st.com (beta.dmz-eu.st.com [164.129.1.35])
- by mx07-00178001.pphosted.com with ESMTP id 2y8uafm22d-1
- (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
- Wed, 19 Feb 2020 17:17:48 +0100
-Received: from euls16034.sgp.st.com (euls16034.sgp.st.com [10.75.44.20])
- by beta.dmz-eu.st.com (STMicroelectronics) with ESMTP id 85A5110002A;
- Wed, 19 Feb 2020 17:17:46 +0100 (CET)
-Received: from Webmail-eu.st.com (sfhdag6node2.st.com [10.75.127.17])
- by euls16034.sgp.st.com (STMicroelectronics) with ESMTP id 5E6D62D7CC0;
- Wed, 19 Feb 2020 17:17:46 +0100 (CET)
-Received: from localhost (10.75.127.47) by SFHDAG6NODE2.st.com (10.75.127.17)
- with Microsoft SMTP Server (TLS) id 15.0.1347.2;
- Wed, 19 Feb 2020 17:17:45 +0100
-From: Olivier Moysan <olivier.moysan@st.com>
-To: <lgirdwood@gmail.com>, <broonie@kernel.org>, <perex@perex.cz>,
- <tiwai@suse.com>, <alexandre.torgue@st.com>, <robh@kernel.org>,
- <mark.rutland@arm.com>
-Date: Wed, 19 Feb 2020 17:17:33 +0100
-Message-ID: <20200219161733.9317-1-olivier.moysan@st.com>
-X-Mailer: git-send-email 2.17.1
+ Wed, 19 Feb 2020 20:56:39 +0000 (UTC)
+Received: by mail-io1-f68.google.com with SMTP id z1so2126269iom.9
+ for <linux-stm32@st-md-mailman.stormreply.com>;
+ Wed, 19 Feb 2020 12:56:39 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linaro.org; s=google;
+ h=mime-version:references:in-reply-to:from:date:message-id:subject:to
+ :cc; bh=BXtUYAMk2yypjpr2fiXAWRzmutEB5OJ96VfTvfe+/6c=;
+ b=AmGex7EwESJoGdxW/IK7RUt6DGyfpn9qvcWIBv9ejozvqo1awYekRr/sUSbXHAJZds
+ gvoKJSwsCWNdl18wq5WRb94mDmtvp47TpLG2/5Mala4om3G+9O4TvRx5UQXU+K7jaoxM
+ Un5HR8Yuzv3g17d1n3SfkNqqYZrWJQsH8AWJGebHrEB/vMcUoG5XPV1ohv1br3Hk9sXD
+ tSYamsf5SsI28O2RV6klxBb5vENMnfcLIOvGsuKRXVl4CPIgOJ4PpaSCTgBNb85ioQ3S
+ +RBsspW71MhyarciJf9fWRYrJ5jGP1nVXrVZ0pBI7XjzZGI+T88wHhNi7QGXTZi3QpTy
+ LGLw==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20161025;
+ h=x-gm-message-state:mime-version:references:in-reply-to:from:date
+ :message-id:subject:to:cc;
+ bh=BXtUYAMk2yypjpr2fiXAWRzmutEB5OJ96VfTvfe+/6c=;
+ b=migzdeFCxAzhpCJktsUcFizcS1vCvZ7wTNbTKvPP8VZndPe1Erz8U+xNGr6CHnlLOE
+ 844Z97mJjxpUXVyIw9DRZdjE6PEiyfhvvWdbfo5JEpdojylhh67GcY67kj7nFUH3LXFa
+ a3d7d7gZza87e9S21QOQVLy7yW/I3uTo/jFScutPcwbv2/PBhz1U/PaHxPNAwSE45Tic
+ XKq52/ZEWK7XY0bu8/0O5tY0TPXnS+57QszccleCic8sdH+KfPkO1aU5J8+pI2KFONjm
+ Ix1Yj6gQM7g94eAypTbOyI9xSEU8DxabLIARoEb05mpIKBCTkoWXKdcXxeTeiXfSAvzs
+ x4Kw==
+X-Gm-Message-State: APjAAAWwHaaIg9PbqnC5UHojuvrnKtsQ46ZbRRI/C+veWWzACGaqzmZk
+ K7Z9xQPz/mXt+wk8zjUMkV2mzXXW/vTxPnxttE3Zrg==
+X-Google-Smtp-Source: APXvYqyrfEJ75AkhgQEHrQ7440cuVEkH4ehytEjs4RWSvQcSM27eEcC9Sbt5xvxu/vjhwPrzEfjtBsP9MAIbTuE7ezI=
+X-Received: by 2002:a5e:d616:: with SMTP id w22mr20390545iom.57.1582145798058; 
+ Wed, 19 Feb 2020 12:56:38 -0800 (PST)
 MIME-Version: 1.0
-X-Originating-IP: [10.75.127.47]
-X-ClientProxiedBy: SFHDAG1NODE3.st.com (10.75.127.3) To SFHDAG6NODE2.st.com
- (10.75.127.17)
-X-Proofpoint-Virus-Version: vendor=fsecure engine=2.50.10434:6.0.138, 18.0.572
- definitions=2020-02-19_04:2020-02-19,
- 2020-02-19 signatures=0
-Cc: devicetree@vger.kernel.org, alsa-devel@alsa-project.org,
- linux-kernel@vger.kernel.org, linux-stm32@st-md-mailman.stormreply.com,
- linux-arm-kernel@lists.infradead.org
-Subject: [Linux-stm32] [PATCH v3] ASoC: dt-bindings: stm32: convert sai to
-	json-schema
+References: <20200211174205.22247-1-arnaud.pouliquen@st.com>
+ <20200211174205.22247-2-arnaud.pouliquen@st.com>
+ <20200213200813.GA14415@xps15>
+ <24947b31-bef6-cfb3-686e-80bef6f974e3@st.com>
+ <CANLsYkxhWWgVFVe3=5WOYkYGQgV7g+3FvDKRDKi7y9kuk4_G8w@mail.gmail.com>
+ <d6e09b93-f287-78a0-a6d9-3d9ea0a5f3d7@st.com>
+In-Reply-To: <d6e09b93-f287-78a0-a6d9-3d9ea0a5f3d7@st.com>
+From: Mathieu Poirier <mathieu.poirier@linaro.org>
+Date: Wed, 19 Feb 2020 13:56:27 -0700
+Message-ID: <CANLsYkzQz5yyu+KViEL8GwWtp7cfBotS8Fuvs1MJzvYq4LxOig@mail.gmail.com>
+To: Arnaud POULIQUEN <arnaud.pouliquen@st.com>
+Cc: Mark Rutland <mark.rutland@arm.com>, devicetree@vger.kernel.org,
+ Ohad Ben-Cohen <ohad@wizery.com>,
+ linux-remoteproc <linux-remoteproc@vger.kernel.org>,
+ Linux Kernel Mailing List <linux-kernel@vger.kernel.org>,
+ Fabien DESSENNE <fabien.dessenne@st.com>,
+ Bjorn Andersson <bjorn.andersson@linaro.org>, Rob Herring <robh+dt@kernel.org>,
+ Suman Anna <s-anna@ti.com>, linux-stm32@st-md-mailman.stormreply.com
+Subject: Re: [Linux-stm32] [PATCH v5 1/3] remoteproc: add support for
+ co-processor loaded and booted before kernel
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -74,339 +79,262 @@ Content-Transfer-Encoding: 7bit
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
-Convert the STM32 SAI bindings to DT schema format using json-schema.
+Hey Arnaud,
 
-Signed-off-by: Olivier Moysan <olivier.moysan@st.com>
----
-Changes in v2:
-- use pattern for compatible of child nodes
-- rework dmas and clocks properties
-- add "additionalProperties"
+On Tue, 18 Feb 2020 at 10:31, Arnaud POULIQUEN <arnaud.pouliquen@st.com> wrote:
+>
+> Hi Mathieu, Bjorn,
+>
+> On 2/17/20 7:40 PM, Mathieu Poirier wrote:
+> > On Fri, 14 Feb 2020 at 09:33, Arnaud POULIQUEN <arnaud.pouliquen@st.com> wrote:
+> >>
+> >> Hi Mathieu,
+> >>
+> >> On 2/13/20 9:08 PM, Mathieu Poirier wrote:
+> >>> Good day,
+> >>>
+> >>> On Tue, Feb 11, 2020 at 06:42:03PM +0100, Arnaud Pouliquen wrote:
+> >>>> From: Loic Pallardy <loic.pallardy@st.com>
+> >>>>
+> >>>> Remote processor could boot independently or be loaded/started before
+> >>>> Linux kernel by bootloader or any firmware.
+> >>>> This patch introduces a new property in rproc core, named skip_fw_load,
+> >>>> to be able to allocate resources and sub-devices like vdev and to
+> >>>> synchronize with current state without loading firmware from file system.
+> >>>> It is platform driver responsibility to implement the right firmware
+> >>>> load ops according to HW specificities.
+> >>>>
+> >>>> Signed-off-by: Loic Pallardy <loic.pallardy@st.com>
+> >>>> Acked-by: Mathieu Poirier <mathieu.poirier@linaro.org>
+> >>>> Signed-off-by: Arnaud Pouliquen <arnaud.pouliquen@st.com>
+> >>>> ---
+> >>>>  drivers/remoteproc/remoteproc_core.c | 67 ++++++++++++++++++++++------
+> >>>>  include/linux/remoteproc.h           |  2 +
+> >>>>  2 files changed, 55 insertions(+), 14 deletions(-)
+> >>>>
+> >>>> diff --git a/drivers/remoteproc/remoteproc_core.c b/drivers/remoteproc/remoteproc_core.c
+> >>>> index 097f33e4f1f3..876b5420a32b 100644
+> >>>> --- a/drivers/remoteproc/remoteproc_core.c
+> >>>> +++ b/drivers/remoteproc/remoteproc_core.c
+> >>>> @@ -1358,8 +1358,19 @@ static int rproc_start(struct rproc *rproc, const struct firmware *fw)
+> >>>>      return ret;
+> >>>>  }
+> >>>>
+> >>>> -/*
+> >>>> - * take a firmware and boot a remote processor with it.
+> >>>> +/**
+> >>>> + * rproc_fw_boot() - boot specified remote processor according to specified
+> >>>> + * firmware
+> >>>> + * @rproc: handle of a remote processor
+> >>>> + * @fw: pointer on firmware to handle
+> >>>> + *
+> >>>> + * Handle resources defined in resource table, load firmware and
+> >>>> + * start remote processor.
+> >>>> + *
+> >>>> + * If firmware pointer fw is NULL, firmware is not handled by remoteproc
+> >>>> + * core, but under the responsibility of platform driver.
+> >>>> + *
+> >>>> + * Returns 0 on success, and an appropriate error value otherwise.
+> >>>>   */
+> >>>>  static int rproc_fw_boot(struct rproc *rproc, const struct firmware *fw)
+> >>>>  {
+> >>>> @@ -1371,7 +1382,11 @@ static int rproc_fw_boot(struct rproc *rproc, const struct firmware *fw)
+> >>>>      if (ret)
+> >>>>              return ret;
+> >>>>
+> >>>> -    dev_info(dev, "Booting fw image %s, size %zd\n", name, fw->size);
+> >>>> +    if (fw)
+> >>>> +            dev_info(dev, "Booting fw image %s, size %zd\n", name,
+> >>>> +                     fw->size);
+> >>>> +    else
+> >>>> +            dev_info(dev, "Synchronizing with preloaded co-processor\n");
+> >>>>
+> >>>>      /*
+> >>>>       * if enabling an IOMMU isn't relevant for this rproc, this is
+> >>>> @@ -1718,16 +1733,22 @@ static void rproc_crash_handler_work(struct work_struct *work)
+> >>>>   * rproc_boot() - boot a remote processor
+> >>>>   * @rproc: handle of a remote processor
+> >>>>   *
+> >>>> - * Boot a remote processor (i.e. load its firmware, power it on, ...).
+> >>>> + * Boot a remote processor (i.e. load its firmware, power it on, ...) from
+> >>>> + * different contexts:
+> >>>> + * - power off
+> >>>> + * - preloaded firmware
+> >>>> + * - started before kernel execution
+> >>>> + * The different operations are selected thanks to properties defined by
+> >>>> + * platform driver.
+> >>>>   *
+> >>>> - * If the remote processor is already powered on, this function immediately
+> >>>> - * returns (successfully).
+> >>>> + * If the remote processor is already powered on at rproc level, this function
+> >>>> + * immediately returns (successfully).
+> >>>>   *
+> >>>>   * Returns 0 on success, and an appropriate error value otherwise.
+> >>>>   */
+> >>>>  int rproc_boot(struct rproc *rproc)
+> >>>>  {
+> >>>> -    const struct firmware *firmware_p;
+> >>>> +    const struct firmware *firmware_p = NULL;
+> >>>>      struct device *dev;
+> >>>>      int ret;
+> >>>>
+> >>>> @@ -1758,11 +1779,20 @@ int rproc_boot(struct rproc *rproc)
+> >>>>
+> >>>>      dev_info(dev, "powering up %s\n", rproc->name);
+> >>>>
+> >>>> -    /* load firmware */
+> >>>> -    ret = request_firmware(&firmware_p, rproc->firmware, dev);
+> >>>> -    if (ret < 0) {
+> >>>> -            dev_err(dev, "request_firmware failed: %d\n", ret);
+> >>>> -            goto downref_rproc;
+> >>>> +    if (!rproc->skip_fw_load) {
+> >>>> +            /* load firmware */
+> >>>> +            ret = request_firmware(&firmware_p, rproc->firmware, dev);
+> >>>> +            if (ret < 0) {
+> >>>> +                    dev_err(dev, "request_firmware failed: %d\n", ret);
+> >>>> +                    goto downref_rproc;
+> >>>> +            }
+> >>>> +    } else {
+> >>>> +            /*
+> >>>> +             * Set firmware name pointer to null as remoteproc core is not
+> >>>> +             * in charge of firmware loading
+> >>>> +             */
+> >>>> +            kfree(rproc->firmware);
+> >>>> +            rproc->firmware = NULL;
+> >>>
+> >>> If the MCU with pre-loaded FW crashes request_firmware() in
+> >>> rproc_trigger_recovery() will return an error and rproc_start()
+> >>> never called.
+> >>
+> >> Right, something is missing in the recovery function to prevent request_firmware call if skip_fw_load is set
+> >>
+> >> We also identify an issue if recovery fails:
+> >> In case of recovery issue the rproc state is RPROC_CRASHED, so that it is no more possible to load a new firmware from
+> >> user space.
+> >> This issue is not linked to this patchset. We have patches on our shelves for this.
+> >>
+> >>>>      }
+> >>>>
+> >>>>      ret = rproc_fw_boot(rproc, firmware_p);
+> >>>> @@ -1916,8 +1946,17 @@ int rproc_add(struct rproc *rproc)
+> >>>>      /* create debugfs entries */
+> >>>>      rproc_create_debug_dir(rproc);
+> >>>>
+> >>>> -    /* if rproc is marked always-on, request it to boot */
+> >>>> -    if (rproc->auto_boot) {
+> >>>> +    if (rproc->skip_fw_load) {
+> >>>> +            /*
+> >>>> +             * If rproc is marked already booted, no need to wait
+> >>>> +             * for firmware.
+> >>>> +             * Just handle associated resources and start sub devices
+> >>>> +             */
+> >>>> +            ret = rproc_boot(rproc);
+> >>>> +            if (ret < 0)
+> >>>> +                    return ret;
+> >>>> +    } else if (rproc->auto_boot) {
+> >>>> +            /* if rproc is marked always-on, request it to boot */
+> >>>
+> >>> I spent way too much time staring at this modification...  I can't decide if a
+> >>> system where the FW has been pre-loaded should be considered "auto_boot".
+> >>> Indeed the result is the same, i.e the MCU is started at boot time without user
+> >>> intervention.
+> >>
+> >> The main difference is that the firmware is loaded by the Linux remote proc in case of auto-boot.
+> >> In auto-boot mode the remoteproc loads a firmware, on probe, with a specified name without any request from user space.
+> >> One constraint of this mode is that the file system has to be accessible before the rproc probe.
+> >
+> > Indeed, but in both cases the MCU is booted automatically.  In one
+> > case the FW is loaded by the framework and in the other it is not.  As
+> > such both scenarios are "auto_boot", they simply have different
+> > flavours.
+> Regarding your concerns i would like to propose an alternative that will answer to following use cases:
+>
+> In term of use cases we can start the remote proc firmware in following modes:
+> - auto boot with FW loading, resource table parsing and FW start/stop
+> - auto boot without FW loading, with FW resource table parsing and FW start/stop
+> - auto boot with FW attachment and  resource table parsing
+> - boot on userspace request with FW loading, resource table parsing and FW start/stop
+> - boot on userspace request without FW loading, with FW resource table parsing and FW start/stop
+> - boot on userspace request with FW attachment and  resource table parsing
+>
+> I considered the recovery covered by these use cases...
+>
+> I tried to concatenate all use case to determine the behavior of the core and platform driver:
+> - "auto-boot" used to decide if boot is from driver or user space request (independently from fw loading and live cycle management)
+> - "skip_fw_load" allows to determine if a firmware has to be loaded or not.
+> - remote Firmware live cycle (start,stop,...) are managed by the platform driver, it would have to determine the manage the remote proc depending on the mode detected.
+>
+> If i apply this for stm32mp1 driver:
+> normal boot( FW started on user space request):
+>   - auto-boot = 0
+>   - skip_fw_load = 0
+> FW loaded and started by the bootloader
+>   - auto-boot = 1
+>   - skip_firmware = 1;
+>
+> => on a stop: the "auto-boot" and "skip_firmware flag will be reset by the stm32rproc driver, to allow user space to load a new firmware or reste the system.
+> this is considered as a ack by Bjorn today, if you have an alternative please share.
 
-Changes in v3:
-- move clocks properties for st,stm32h7-sai compatible, to 'else' clause
----
- .../bindings/sound/st,stm32-sai.txt           | 107 ----------
- .../bindings/sound/st,stm32-sai.yaml          | 193 ++++++++++++++++++
- 2 files changed, 193 insertions(+), 107 deletions(-)
- delete mode 100644 Documentation/devicetree/bindings/sound/st,stm32-sai.txt
- create mode 100644 Documentation/devicetree/bindings/sound/st,stm32-sai.yaml
+I wonder if we can achieve the same results without needing
+rproc::skip_fw_load...  For cases where the FW would have been loaded
+and the MCU started by another entity we could simply set rproc->state
+= RPROC_RUNNING in the platform driver.  That way when the MCU is
+stopped or crashes, there is no flag to reset, rproc->state is simply
+set correctly by the current code.
 
-diff --git a/Documentation/devicetree/bindings/sound/st,stm32-sai.txt b/Documentation/devicetree/bindings/sound/st,stm32-sai.txt
-deleted file mode 100644
-index 944743dd9212..000000000000
---- a/Documentation/devicetree/bindings/sound/st,stm32-sai.txt
-+++ /dev/null
-@@ -1,107 +0,0 @@
--STMicroelectronics STM32 Serial Audio Interface (SAI).
--
--The SAI interface (Serial Audio Interface) offers a wide set of audio protocols
--as I2S standards, LSB or MSB-justified, PCM/DSP, TDM, and AC'97.
--The SAI contains two independent audio sub-blocks. Each sub-block has
--its own clock generator and I/O lines controller.
--
--Required properties:
--  - compatible: Should be "st,stm32f4-sai" or "st,stm32h7-sai"
--  - reg: Base address and size of SAI common register set.
--  - clocks: Must contain phandle and clock specifier pairs for each entry
--	in clock-names.
--  - clock-names: Must contain "pclk" "x8k" and "x11k"
--	"pclk": Clock which feeds the peripheral bus interface.
--	        Mandatory for "st,stm32h7-sai" compatible.
--	        Not used for "st,stm32f4-sai" compatible.
--	"x8k": SAI parent clock for sampling rates multiple of 8kHz.
--	"x11k": SAI parent clock for sampling rates multiple of 11.025kHz.
--  - interrupts: cpu DAI interrupt line shared by SAI sub-blocks
--
--Optional properties:
--  - resets: Reference to a reset controller asserting the SAI
--
--SAI subnodes:
--Two subnodes corresponding to SAI sub-block instances A et B can be defined.
--Subnode can be omitted for unsused sub-block.
--
--SAI subnodes required properties:
--  - compatible: Should be "st,stm32-sai-sub-a" or "st,stm32-sai-sub-b"
--	for SAI sub-block A or B respectively.
--  - reg: Base address and size of SAI sub-block register set.
--  - clocks: Must contain one phandle and clock specifier pair
--	for sai_ck which feeds the internal clock generator.
--	If the SAI shares a master clock, with another SAI set as MCLK
--	clock provider, SAI provider phandle must be specified here.
--  - clock-names: Must contain "sai_ck".
--	Must also contain "MCLK", if SAI shares a master clock,
--	with a SAI set as MCLK clock provider.
--  - dmas: see Documentation/devicetree/bindings/dma/stm32-dma.txt
--  - dma-names: identifier string for each DMA request line
--	"tx": if sai sub-block is configured as playback DAI
--	"rx": if sai sub-block is configured as capture DAI
--  - pinctrl-names: should contain only value "default"
--  - pinctrl-0: see Documentation/devicetree/bindings/pinctrl/st,stm32-pinctrl.yaml
--
--SAI subnodes Optional properties:
--  - st,sync: specify synchronization mode.
--	By default SAI sub-block is in asynchronous mode.
--	This property sets SAI sub-block as slave of another SAI sub-block.
--	Must contain the phandle and index of the sai sub-block providing
--	the synchronization.
--  - st,iec60958: support S/PDIF IEC6958 protocol for playback
--	IEC60958 protocol is not available for capture.
--	By default, custom protocol is assumed, meaning that protocol is
--	configured according to protocol defined in related DAI link node,
--	such as i2s, left justified, right justified, dsp and pdm protocols.
--	Note: ac97 protocol is not supported by SAI driver
--   - #clock-cells: should be 0. This property must be present if the SAI device
--	is a master clock provider, according to clocks bindings, described in
--	Documentation/devicetree/bindings/clock/clock-bindings.txt.
--
--The device node should contain one 'port' child node with one child 'endpoint'
--node, according to the bindings defined in Documentation/devicetree/bindings/
--graph.txt.
--
--Example:
--sound_card {
--	compatible = "audio-graph-card";
--	dais = <&sai1b_port>;
--};
--
--sai1: sai1@40015800 {
--	compatible = "st,stm32h7-sai";
--	#address-cells = <1>;
--	#size-cells = <1>;
--	ranges = <0 0x40015800 0x400>;
--	reg = <0x40015800 0x4>;
--	clocks = <&rcc SAI1_CK>, <&rcc PLL1_Q>, <&rcc PLL2_P>;
--	clock-names = "pclk", "x8k", "x11k";
--	interrupts = <87>;
--
--	sai1a: audio-controller@40015804 {
--		compatible = "st,stm32-sai-sub-a";
--		reg = <0x4 0x1C>;
--		clocks = <&rcc SAI1_CK>;
--		clock-names = "sai_ck";
--		dmas = <&dmamux1 1 87 0x400 0x0>;
--		dma-names = "tx";
--		pinctrl-names = "default";
--		pinctrl-0 = <&pinctrl_sai1a>;
--
--		sai1b_port: port {
--			cpu_endpoint: endpoint {
--				remote-endpoint = <&codec_endpoint>;
--				format = "i2s";
--			};
--		};
--	};
--};
--
--audio-codec {
--	codec_port: port {
--		codec_endpoint: endpoint {
--			remote-endpoint = <&cpu_endpoint>;
--		};
--	};
--};
-diff --git a/Documentation/devicetree/bindings/sound/st,stm32-sai.yaml b/Documentation/devicetree/bindings/sound/st,stm32-sai.yaml
-new file mode 100644
-index 000000000000..cdea20150c1e
---- /dev/null
-+++ b/Documentation/devicetree/bindings/sound/st,stm32-sai.yaml
-@@ -0,0 +1,193 @@
-+# SPDX-License-Identifier: (GPL-2.0-only OR BSD-2-Clause)
-+%YAML 1.2
-+---
-+$id: http://devicetree.org/schemas/sound/st,stm32-sai.yaml#
-+$schema: http://devicetree.org/meta-schemas/core.yaml#
-+
-+title: STMicroelectronics STM32 Serial Audio Interface (SAI)
-+
-+maintainers:
-+  - Olivier Moysan <olivier.moysan@st.com>
-+
-+description:
-+  The SAI interface (Serial Audio Interface) offers a wide set of audio
-+  protocols as I2S standards, LSB or MSB-justified, PCM/DSP, TDM, and AC'97.
-+  The SAI contains two independent audio sub-blocks. Each sub-block has
-+  its own clock generator and I/O lines controller.
-+
-+properties:
-+  compatible:
-+    enum:
-+      - st,stm32f4-sai
-+      - st,stm32h7-sai
-+
-+  reg:
-+    items:
-+      - description: Base address and size of SAI common register set.
-+      - description: Base address and size of SAI identification register set.
-+    minItems: 1
-+    maxItems: 2
-+
-+  ranges:
-+    maxItems: 1
-+
-+  interrupts:
-+    maxItems: 1
-+
-+  resets:
-+    maxItems: 1
-+
-+  "#address-cells":
-+    const: 1
-+
-+  "#size-cells":
-+    const: 1
-+
-+required:
-+  - compatible
-+  - reg
-+  - ranges
-+  - "#address-cells"
-+  - "#size-cells"
-+  - clocks
-+  - clock-names
-+
-+patternProperties:
-+  "^audio-controller@[0-9a-f]+$":
-+    type: object
-+    description:
-+      Two subnodes corresponding to SAI sub-block instances A et B
-+      can be defined. Subnode can be omitted for unsused sub-block.
-+
-+    properties:
-+      compatible:
-+        description: Compatible for SAI sub-block A or B.
-+        pattern: "st,stm32-sai-sub-[ab]"
-+
-+      "#sound-dai-cells":
-+        const: 0
-+
-+      reg:
-+        maxItems: 1
-+
-+      clocks:
-+        items:
-+          - description: sai_ck clock feeding the internal clock generator.
-+          - description: MCLK clock from a SAI set as master clock provider.
-+        minItems: 1
-+        maxItems: 2
-+
-+      clock-names:
-+        items:
-+          - const: sai_ck
-+          - const: MCLK
-+        minItems: 1
-+        maxItems: 2
-+
-+      dmas:
-+        maxItems: 1
-+
-+      dma-names:
-+        description: |
-+          rx: SAI sub-block is configured as a capture DAI.
-+          tx: SAI sub-block is configured as a playback DAI.
-+        enum: [ rx, tx ]
-+
-+      st,sync:
-+        description:
-+          Configure the SAI sub-block as slave of another SAI sub-block.
-+          By default SAI sub-block is in asynchronous mode.
-+          Must contain the phandle and index of the SAI sub-block providing
-+          the synchronization.
-+        allOf:
-+          - $ref: /schemas/types.yaml#definitions/phandle-array
-+          - maxItems: 1
-+
-+      st,iec60958:
-+        description:
-+          If set, support S/PDIF IEC6958 protocol for playback.
-+          IEC60958 protocol is not available for capture.
-+          By default, custom protocol is assumed, meaning that protocol is
-+          configured according to protocol defined in related DAI link node,
-+          such as i2s, left justified, right justified, dsp and pdm protocols.
-+        allOf:
-+          - $ref: /schemas/types.yaml#definitions/flag
-+
-+      "#clock-cells":
-+        description: Configure the SAI device as master clock provider.
-+        const: 0
-+
-+    required:
-+      - compatible
-+      - "#sound-dai-cells"
-+      - reg
-+      - clocks
-+      - clock-names
-+      - dmas
-+      - dma-names
-+
-+    additionalProperties: false
-+
-+allOf:
-+  - if:
-+      properties:
-+        compatible:
-+          contains:
-+            const: st,stm32f4-sai
-+
-+  - then:
-+      properties:
-+        clocks:
-+          items:
-+            - description: x8k, SAI parent clock for sampling rates multiple of 8kHz.
-+            - description: x11k, SAI parent clock for sampling rates multiple of 11.025kHz.        
-+
-+        clock-names:
-+          items:
-+            - const: x8k
-+            - const: x11k
-+
-+  - else:
-+      properties:
-+        clocks:
-+          items:
-+            - description: pclk feeds the peripheral bus interface.
-+            - description: x8k, SAI parent clock for sampling rates multiple of 8kHz.
-+            - description: x11k, SAI parent clock for sampling rates multiple of 11.025kHz.
-+
-+        clock-names:
-+          items:
-+            - const: pclk
-+            - const: x8k
-+            - const: x11k
-+
-+additionalProperties: false
-+
-+examples:
-+  - |
-+    #include <dt-bindings/interrupt-controller/arm-gic.h>
-+    #include <dt-bindings/clock/stm32mp1-clks.h>
-+    #include <dt-bindings/reset/stm32mp1-resets.h>
-+    sai1: sai@4400a000 {
-+      compatible = "st,stm32h7-sai";
-+      #address-cells = <1>;
-+      #size-cells = <1>;
-+      ranges = <0 0x4400a000 0x400>;
-+      reg = <0x4400a000 0x4>, <0x4400a3f0 0x10>;
-+      interrupts = <GIC_SPI 87 IRQ_TYPE_LEVEL_HIGH>;
-+      clocks = <&rcc SAI1>, <&rcc PLL1_Q>, <&rcc PLL2_P>;
-+      clock-names = "pclk", "x8k", "x11k";
-+      resets = <&rcc SAI1_R>;
-+
-+      sai1a: audio-controller@4400a004 {
-+        compatible = "st,stm32-sai-sub-a";
-+        #sound-dai-cells = <0>;
-+        reg = <0x4 0x1c>;
-+        clocks = <&rcc SAI1_K>;
-+        clock-names = "sai_ck";
-+        dmas = <&dmamux1 87 0x400 0x01>;
-+        dma-names = "tx";
-+      };
-+    };
-+
-+...
--- 
-2.17.1
+I would also set auto_boot =1 in order to start the AP synchronisation
+as quickly as possible and add a check in rproc_trigger_auto_boot() to
+see if rproc->state == RPROC_RUNNING.  If so simply call rproc_boot()
+where platform specific rproc_ops would be tailored to handle a
+running processor.
 
+In my opinion the above would represent the state of the MCU rather
+than the state of the FW used by the MCU.  It would also provide an
+opening for supporting systems where the MCU is not the life cycle
+manager.
+
+Let me know what you think...
+
+>
+> I need to rework the patchset in consequence but i would appreciate your feedback on this proposal before, to be sure that i well interpreted your concerns...
+>
+> Regards,
+> Arnaud
+>
+> >
+> >> This is not necessary the case, even if EPROBE_DEFER is used. In this case the driver has to be build as kernel module.
+> >>
+> >> Thanks,
+> >> Arnaud
+> >>>
+> >>> I'd welcome other people's opinion on this.
+> >>>
+> >>>>              ret = rproc_trigger_auto_boot(rproc);
+> >>>>              if (ret < 0)
+> >>>>                      return ret;
+> >>>> diff --git a/include/linux/remoteproc.h b/include/linux/remoteproc.h
+> >>>> index 16ad66683ad0..4fd5bedab4fa 100644
+> >>>> --- a/include/linux/remoteproc.h
+> >>>> +++ b/include/linux/remoteproc.h
+> >>>> @@ -479,6 +479,7 @@ struct rproc_dump_segment {
+> >>>>   * @table_sz: size of @cached_table
+> >>>>   * @has_iommu: flag to indicate if remote processor is behind an MMU
+> >>>>   * @auto_boot: flag to indicate if remote processor should be auto-started
+> >>>> + * @skip_fw_load: remote processor has been preloaded before start sequence
+> >>>>   * @dump_segments: list of segments in the firmware
+> >>>>   * @nb_vdev: number of vdev currently handled by rproc
+> >>>>   */
+> >>>> @@ -512,6 +513,7 @@ struct rproc {
+> >>>>      size_t table_sz;
+> >>>>      bool has_iommu;
+> >>>>      bool auto_boot;
+> >>>> +    bool skip_fw_load;
+> >>>>      struct list_head dump_segments;
+> >>>>      int nb_vdev;
+> >>>>  };
+> >>>> --
+> >>>> 2.17.1
+> >>>>
 _______________________________________________
 Linux-stm32 mailing list
 Linux-stm32@st-md-mailman.stormreply.com
