@@ -2,34 +2,43 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id 0DE6F16505B
-	for <lists+linux-stm32@lfdr.de>; Wed, 19 Feb 2020 21:56:50 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id E752A165370
+	for <lists+linux-stm32@lfdr.de>; Thu, 20 Feb 2020 01:19:34 +0100 (CET)
 Received: from ip-172-31-3-76.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id CC0ACC36B0B;
-	Wed, 19 Feb 2020 20:56:49 +0000 (UTC)
-Received: from foss.arm.com (foss.arm.com [217.140.110.172])
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id D08F5C36B09
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 9AA35C36B0B;
+	Thu, 20 Feb 2020 00:19:34 +0000 (UTC)
+Received: from shards.monkeyblade.net (shards.monkeyblade.net [23.128.96.9])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+ (No client certificate requested)
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 7AB60C36B09
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Wed, 19 Feb 2020 20:56:47 +0000 (UTC)
-Received: from usa-sjc-imap-foss1.foss.arm.com (unknown [10.121.207.14])
- by usa-sjc-mx-foss1.foss.arm.com (Postfix) with ESMTP id 491D61FB;
- Wed, 19 Feb 2020 12:56:46 -0800 (PST)
-Received: from localhost (unknown [10.37.6.21])
- by usa-sjc-imap-foss1.foss.arm.com (Postfix) with ESMTPSA id C17EF3F68F;
- Wed, 19 Feb 2020 12:56:45 -0800 (PST)
-Date: Wed, 19 Feb 2020 20:56:44 +0000
-From: Mark Brown <broonie@kernel.org>
-To: Olivier Moysan <olivier.moysan@st.com>
-In-Reply-To: <20200207120345.24672-1-olivier.moysan@st.com>
-Message-Id: <applied-20200207120345.24672-1-olivier.moysan@st.com>
-X-Patchwork-Hint: ignore
-Cc: mark.rutland@arm.com, devicetree@vger.kernel.org,
- alsa-devel@alsa-project.org, robh@kernel.org, tiwai@suse.com,
- lgirdwood@gmail.com, linux-kernel@vger.kernel.org,
- Mark Brown <broonie@kernel.org>, mcoquelin.stm32@gmail.com, perex@perex.cz,
- linux-stm32@st-md-mailman.stormreply.com, linux-arm-kernel@lists.infradead.org
-Subject: [Linux-stm32] Applied "ASoC: dt-bindings: stm32: convert i2s to
-	json-schema" to the asoc tree
+ Thu, 20 Feb 2020 00:19:32 +0000 (UTC)
+Received: from localhost (unknown [IPv6:2601:601:9f00:477::3d5])
+ (using TLSv1 with cipher AES256-SHA (256/256 bits))
+ (Client did not present a certificate)
+ (Authenticated sender: davem-davemloft)
+ by shards.monkeyblade.net (Postfix) with ESMTPSA id 1897915BCF42D;
+ Wed, 19 Feb 2020 16:19:30 -0800 (PST)
+Date: Wed, 19 Feb 2020 16:19:29 -0800 (PST)
+Message-Id: <20200219.161929.816816918618854813.davem@davemloft.net>
+To: ilias.apalodimas@linaro.org
+From: David Miller <davem@davemloft.net>
+In-Reply-To: <20200218141031.377860-1-ilias.apalodimas@linaro.org>
+References: <20200218141031.377860-1-ilias.apalodimas@linaro.org>
+X-Mailer: Mew version 6.8 on Emacs 26.1
+Mime-Version: 1.0
+X-Greylist: Sender succeeded SMTP AUTH, not delayed by milter-greylist-4.5.12
+ (shards.monkeyblade.net [149.20.54.216]);
+ Wed, 19 Feb 2020 16:19:30 -0800 (PST)
+Cc: mcoquelin.stm32@gmail.com, kuba@kernel.org, daniel@iogearbox.net,
+ netdev@vger.kernel.org, toke@redhat.com, john.fastabend@gmail.com,
+ ast@kernel.org, linux-kernel@vger.kernel.org, jaswinder.singh@linaro.org,
+ joabreu@synopsys.com, thomas.petazzoni@bootlin.com, jonathan.lemon@gmail.com,
+ peppe.cavallaro@st.com, bpf@vger.kernel.org, lorenzo@kernel.org,
+ linux-stm32@st-md-mailman.stormreply.com, linux-arm-kernel@lists.infradead.org,
+ hawk@kernel.org
+Subject: Re: [Linux-stm32] [PATCH net-next v4] net: page_pool: API cleanup
+	and comments
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -41,221 +50,42 @@ List-Post: <mailto:linux-stm32@st-md-mailman.stormreply.com>
 List-Help: <mailto:linux-stm32-request@st-md-mailman.stormreply.com?subject=help>
 List-Subscribe: <https://st-md-mailman.stormreply.com/mailman/listinfo/linux-stm32>, 
  <mailto:linux-stm32-request@st-md-mailman.stormreply.com?subject=subscribe>
-MIME-Version: 1.0
-Content-Type: text/plain; charset="us-ascii"
-Content-Transfer-Encoding: 7bit
+Content-Type: text/plain; charset="iso-8859-1"
+Content-Transfer-Encoding: quoted-printable
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
-The patch
+From: Ilias Apalodimas <ilias.apalodimas@linaro.org>
+Date: Tue, 18 Feb 2020 16:10:31 +0200
 
-   ASoC: dt-bindings: stm32: convert i2s to json-schema
+> Functions starting with __ usually indicate those which are exported,
+> but should not be called directly. Update some of those declared in the
+> API and make it more readable.
+> =
 
-has been applied to the asoc tree at
+> page_pool_unmap_page() and page_pool_release_page() were doing
+> exactly the same thing calling __page_pool_clean_page().  Let's
+> rename __page_pool_clean_page() to page_pool_release_page() and
+> export it in order to show up on perf logs and get rid of
+> page_pool_unmap_page().
+> =
 
-   https://git.kernel.org/pub/scm/linux/kernel/git/broonie/sound.git 
+> Finally rename __page_pool_put_page() to page_pool_put_page() since we
+> can now directly call it from drivers and rename the existing
+> page_pool_put_page() to page_pool_put_full_page() since they do the same
+> thing but the latter is trying to sync the full DMA area.
+> =
 
-All being well this means that it will be integrated into the linux-next
-tree (usually sometime in the next 24 hours) and sent to Linus during
-the next merge window (or sooner if it is a bug fix), however if
-problems are discovered then the patch may be dropped or reverted.  
+> This patch also updates netsec, mvneta and stmmac drivers which use
+> those functions.
+> =
 
-You may get further e-mails resulting from automated or manual testing
-and review of the tree, please engage with people reporting problems and
-send followup patches addressing any issues that are reported if needed.
+> Acked-by: Toke H=F8iland-J=F8rgensen <toke@redhat.com>
+> Signed-off-by: Ilias Apalodimas <ilias.apalodimas@linaro.org>
 
-If any updates are required or you are submitting further changes they
-should be sent as incremental updates against current git, existing
-patches will not be replaced.
+This doesn't apply cleanly, please respin.
 
-Please add any relevant lists and maintainers to the CCs when replying
-to this mail.
-
-Thanks,
-Mark
-
-From 95e9e205fcbe34d003c558e0a98e6ae6f9ab3a61 Mon Sep 17 00:00:00 2001
-From: Olivier Moysan <olivier.moysan@st.com>
-Date: Fri, 7 Feb 2020 13:03:45 +0100
-Subject: [PATCH] ASoC: dt-bindings: stm32: convert i2s to json-schema
-
-Convert the STM32 I2S bindings to DT schema format using json-schema.
-
-Signed-off-by: Olivier Moysan <olivier.moysan@st.com>
-Reviewed-by: Rob Herring <robh@kernel.org>
-Link: https://lore.kernel.org/r/20200207120345.24672-1-olivier.moysan@st.com
-Signed-off-by: Mark Brown <broonie@kernel.org>
----
- .../bindings/sound/st,stm32-i2s.txt           | 62 -------------
- .../bindings/sound/st,stm32-i2s.yaml          | 87 +++++++++++++++++++
- 2 files changed, 87 insertions(+), 62 deletions(-)
- delete mode 100644 Documentation/devicetree/bindings/sound/st,stm32-i2s.txt
- create mode 100644 Documentation/devicetree/bindings/sound/st,stm32-i2s.yaml
-
-diff --git a/Documentation/devicetree/bindings/sound/st,stm32-i2s.txt b/Documentation/devicetree/bindings/sound/st,stm32-i2s.txt
-deleted file mode 100644
-index cbf24bcd1b8d..000000000000
---- a/Documentation/devicetree/bindings/sound/st,stm32-i2s.txt
-+++ /dev/null
-@@ -1,62 +0,0 @@
--STMicroelectronics STM32 SPI/I2S Controller
--
--The SPI/I2S block supports I2S/PCM protocols when configured on I2S mode.
--Only some SPI instances support I2S.
--
--Required properties:
--  - compatible: Must be "st,stm32h7-i2s"
--  - reg: Offset and length of the device's register set.
--  - interrupts: Must contain the interrupt line id.
--  - clocks: Must contain phandle and clock specifier pairs for each entry
--	in clock-names.
--  - clock-names: Must contain "i2sclk", "pclk", "x8k" and "x11k".
--	"i2sclk": clock which feeds the internal clock generator
--	"pclk": clock which feeds the peripheral bus interface
--	"x8k": I2S parent clock for sampling rates multiple of 8kHz.
--	"x11k": I2S parent clock for sampling rates multiple of 11.025kHz.
--  - dmas: DMA specifiers for tx and rx dma.
--    See Documentation/devicetree/bindings/dma/stm32-dma.txt.
--  - dma-names: Identifier for each DMA request line. Must be "tx" and "rx".
--  - pinctrl-names: should contain only value "default"
--  - pinctrl-0: see Documentation/devicetree/bindings/pinctrl/st,stm32-pinctrl.yaml
--
--Optional properties:
--  - resets: Reference to a reset controller asserting the reset controller
--
--The device node should contain one 'port' child node with one child 'endpoint'
--node, according to the bindings defined in Documentation/devicetree/bindings/
--graph.txt.
--
--Example:
--sound_card {
--	compatible = "audio-graph-card";
--	dais = <&i2s2_port>;
--};
--
--i2s2: audio-controller@40003800 {
--	compatible = "st,stm32h7-i2s";
--	reg = <0x40003800 0x400>;
--	interrupts = <36>;
--	clocks = <&rcc PCLK1>, <&rcc SPI2_CK>, <&rcc PLL1_Q>, <&rcc PLL2_P>;
--	clock-names = "pclk", "i2sclk",  "x8k", "x11k";
--	dmas = <&dmamux2 2 39 0x400 0x1>,
--           <&dmamux2 3 40 0x400 0x1>;
--	dma-names = "rx", "tx";
--	pinctrl-names = "default";
--	pinctrl-0 = <&pinctrl_i2s2>;
--
--	i2s2_port: port@0 {
--		cpu_endpoint: endpoint {
--			remote-endpoint = <&codec_endpoint>;
--			format = "i2s";
--		};
--	};
--};
--
--audio-codec {
--	codec_port: port@0 {
--		codec_endpoint: endpoint {
--			remote-endpoint = <&cpu_endpoint>;
--		};
--	};
--};
-diff --git a/Documentation/devicetree/bindings/sound/st,stm32-i2s.yaml b/Documentation/devicetree/bindings/sound/st,stm32-i2s.yaml
-new file mode 100644
-index 000000000000..f32410890589
---- /dev/null
-+++ b/Documentation/devicetree/bindings/sound/st,stm32-i2s.yaml
-@@ -0,0 +1,87 @@
-+# SPDX-License-Identifier: (GPL-2.0-only OR BSD-2-Clause)
-+%YAML 1.2
-+---
-+$id: http://devicetree.org/schemas/sound/st,stm32-i2s.yaml#
-+$schema: http://devicetree.org/meta-schemas/core.yaml#
-+
-+title: STMicroelectronics STM32 SPI/I2S Controller
-+
-+maintainers:
-+  - Olivier Moysan <olivier.moysan@st.com>
-+
-+description:
-+  The SPI/I2S block supports I2S/PCM protocols when configured on I2S mode.
-+  Only some SPI instances support I2S.
-+
-+properties:
-+  compatible:
-+    enum:
-+      - st,stm32h7-i2s
-+
-+  "#sound-dai-cells":
-+    const: 0
-+
-+  reg:
-+    maxItems: 1
-+
-+  clocks:
-+    items:
-+      - description: clock feeding the peripheral bus interface.
-+      - description: clock feeding the internal clock generator.
-+      - description: I2S parent clock for sampling rates multiple of 8kHz.
-+      - description: I2S parent clock for sampling rates multiple of 11.025kHz.
-+
-+  clock-names:
-+    items:
-+      - const: pclk
-+      - const: i2sclk
-+      - const: x8k
-+      - const: x11k
-+
-+  interrupts:
-+    maxItems: 1
-+
-+  dmas:
-+    items:
-+      - description: audio capture DMA.
-+      - description: audio playback DMA.
-+
-+  dma-names:
-+    items:
-+      - const: rx
-+      - const: tx
-+
-+  resets:
-+    maxItems: 1
-+
-+required:
-+  - compatible
-+  - "#sound-dai-cells"
-+  - reg
-+  - clocks
-+  - clock-names
-+  - interrupts
-+  - dmas
-+  - dma-names
-+
-+additionalProperties: false
-+
-+examples:
-+  - |
-+    #include <dt-bindings/interrupt-controller/arm-gic.h>
-+    #include <dt-bindings/clock/stm32mp1-clks.h>
-+    i2s2: audio-controller@4000b000 {
-+        compatible = "st,stm32h7-i2s";
-+        #sound-dai-cells = <0>;
-+        reg = <0x4000b000 0x400>;
-+        clocks = <&rcc SPI2>, <&rcc SPI2_K>, <&rcc PLL3_Q>, <&rcc PLL3_R>;
-+        clock-names = "pclk", "i2sclk", "x8k", "x11k";
-+        interrupts = <GIC_SPI 35 IRQ_TYPE_LEVEL_HIGH>;
-+        dmas = <&dmamux1 39 0x400 0x01>,
-+               <&dmamux1 40 0x400 0x01>;
-+        dma-names = "rx", "tx";
-+        pinctrl-names = "default";
-+        pinctrl-0 = <&i2s2_pins_a>;
-+    };
-+
-+...
--- 
-2.20.1
-
+Thank you.
 _______________________________________________
 Linux-stm32 mailing list
 Linux-stm32@st-md-mailman.stormreply.com
