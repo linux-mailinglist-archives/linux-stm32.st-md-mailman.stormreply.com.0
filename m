@@ -2,74 +2,74 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id 679CC16589C
-	for <lists+linux-stm32@lfdr.de>; Thu, 20 Feb 2020 08:42:10 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 49BD7165A3D
+	for <lists+linux-stm32@lfdr.de>; Thu, 20 Feb 2020 10:35:23 +0100 (CET)
 Received: from ip-172-31-3-76.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 23237C36B0B;
-	Thu, 20 Feb 2020 07:42:10 +0000 (UTC)
-Received: from mail-wm1-f66.google.com (mail-wm1-f66.google.com
- [209.85.128.66])
- (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id E6C15C36B0B;
+	Thu, 20 Feb 2020 09:35:22 +0000 (UTC)
+Received: from mx07-00178001.pphosted.com (mx07-00178001.pphosted.com
+ [62.209.51.94])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 828F2C36B09
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id D2123C36B09
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Thu, 20 Feb 2020 07:42:07 +0000 (UTC)
-Received: by mail-wm1-f66.google.com with SMTP id a6so887471wme.2
- for <linux-stm32@st-md-mailman.stormreply.com>;
- Wed, 19 Feb 2020 23:42:07 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linaro.org; s=google;
- h=from:to:cc:subject:date:message-id:mime-version
- :content-transfer-encoding;
- bh=MrExRVHfCTUA2yAPQFKdTX7r389hISwczuvvDXnDLbI=;
- b=sIU/Mc5WMqwVU314KSuaJzl5Pq6BEM5wROsfrj/OQsm7tWKpzgJveZxi42zHayBrFO
- r7giKeC8t1GtCD+i2qAi0Fd50+2tupd/X8ZZyKXdeVKCLms5q1rcQlY0xJqPsKCrBPk8
- fAmEweVFFzvHP+ejY+KYE0JZIu1nHGbRTpMU7uDzLaGWj0q5rzDQL2Z772aqnZfhTuGx
- ABS+/dcpW2Lh5+d16GBv0NRO14EctK6RzolCiNO6JATDZRZ7f7Fs7TA70Exq3q+mSczR
- rhuwisIk62WyRJdbwatMeQ91dUzayndBD+6ZaeyBSr58R7MWTnOfoqZYTs5une/P/KTe
- ufmQ==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20161025;
- h=x-gm-message-state:from:to:cc:subject:date:message-id:mime-version
- :content-transfer-encoding;
- bh=MrExRVHfCTUA2yAPQFKdTX7r389hISwczuvvDXnDLbI=;
- b=P1NWKyNwbopp0bgDr5YZ826rwiVLUX4l6nvXX4yHMBv0B4V83CJlCELUfg762IzPYw
- nyf3F1IpdSPj9U1Y06seZtA+4Vq95dVG5+RR4EtxxVB4i7ZgKHCRzeu3TRlMXGsLxsoD
- a4tn2eq4ZMxPXEeI3yB/SmVQTMGhUAcoPLEI2aPomPgJf9KtjX3PpEh60QmP0dcd4xHq
- 7BjDMdByd+G6yF0sp0dRjhfOalMo4zaqk6sXuwBX1wxmHJmSngX6mrJEwCwd0/2sckVC
- EG1y2rMPyLuDTR3Lxio0ouuPiXmQ6BgCPl5BBEUrz5KTQVt+mf+om5jSxpeR8+WaO65W
- copg==
-X-Gm-Message-State: APjAAAWtGgIZ2WX8RA8+aVeG5gbe+11vFU6hSwLb6Xqxs+H9iYmNcnUC
- SeODbOJ2TFAqVQBoinuy6BNvfg==
-X-Google-Smtp-Source: APXvYqzXJT0ymvqA0333og2fBQPI+h9ZejsFqB6ROkT5iajY7grWfPDkpfV6f49ugWuSKCZgSMOS0A==
-X-Received: by 2002:a05:600c:20f:: with SMTP id
- 15mr2695232wmi.128.1582184526641; 
- Wed, 19 Feb 2020 23:42:06 -0800 (PST)
-Received: from apalos.home ([2a02:587:4655:3a80:2e56:dcff:fe9a:8f06])
- by smtp.gmail.com with ESMTPSA id y12sm3265294wrw.88.2020.02.19.23.42.04
- (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Wed, 19 Feb 2020 23:42:05 -0800 (PST)
-From: Ilias Apalodimas <ilias.apalodimas@linaro.org>
-To: netdev@vger.kernel.org
-Date: Thu, 20 Feb 2020 09:41:55 +0200
-Message-Id: <20200220074155.765234-1-ilias.apalodimas@linaro.org>
-X-Mailer: git-send-email 2.25.1
+ Thu, 20 Feb 2020 09:35:20 +0000 (UTC)
+Received: from pps.filterd (m0046037.ppops.net [127.0.0.1])
+ by mx07-00178001.pphosted.com (8.16.0.42/8.16.0.42) with SMTP id
+ 01K9U0mB029558; Thu, 20 Feb 2020 10:35:15 +0100
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=st.com;
+ h=subject : to : cc :
+ references : from : message-id : date : mime-version : in-reply-to :
+ content-type : content-transfer-encoding; s=STMicroelectronics;
+ bh=3jdW5PZJwk6QMyC1Ny5sW7d40wmzJPgi/QtFD80zun8=;
+ b=qfW0oX06Ud0LG7ZE5pK44o5fLorDKBDfF6gjoWw5YacIzCZFe6mF31xK7D5pl6KcOXbi
+ PVmNjEY6tORLs2CfIZHzxK93QpqLHz2NmxlwNeueg1LrfN1UoOWukKEk4g7S9Et1K9WL
+ gEhy9nbiik3Vk5hkZbY1ORN5xdEGAR/IENWRhjj156WGXlFlmFTI3nuZFva5iubxr8Qq
+ a2Mn7xu1d2XG/3ElVBV3zeOR25HvWee/zrjHuwTwm+1dnxnTOCgs7kmtQfLudXCVRXWg
+ D3eljFIAFraUwra22kr3f2BfGM72q1zc7wAh7wVoPTkx6cupTGcssOie/uuW/9WcRQ0Q 7g== 
+Received: from beta.dmz-eu.st.com (beta.dmz-eu.st.com [164.129.1.35])
+ by mx07-00178001.pphosted.com with ESMTP id 2y8ub1g0dt-1
+ (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
+ Thu, 20 Feb 2020 10:35:15 +0100
+Received: from euls16034.sgp.st.com (euls16034.sgp.st.com [10.75.44.20])
+ by beta.dmz-eu.st.com (STMicroelectronics) with ESMTP id EC00410003A;
+ Thu, 20 Feb 2020 10:35:10 +0100 (CET)
+Received: from Webmail-eu.st.com (sfhdag3node1.st.com [10.75.127.7])
+ by euls16034.sgp.st.com (STMicroelectronics) with ESMTP id D06B72A5D10;
+ Thu, 20 Feb 2020 10:35:10 +0100 (CET)
+Received: from lmecxl0889.lme.st.com (10.75.127.44) by SFHDAG3NODE1.st.com
+ (10.75.127.7) with Microsoft SMTP Server (TLS) id 15.0.1473.3; Thu, 20 Feb
+ 2020 10:35:10 +0100
+To: Mathieu Poirier <mathieu.poirier@linaro.org>
+References: <20200211174205.22247-1-arnaud.pouliquen@st.com>
+ <20200211174205.22247-2-arnaud.pouliquen@st.com>
+ <20200213200813.GA14415@xps15> <24947b31-bef6-cfb3-686e-80bef6f974e3@st.com>
+ <CANLsYkxhWWgVFVe3=5WOYkYGQgV7g+3FvDKRDKi7y9kuk4_G8w@mail.gmail.com>
+ <d6e09b93-f287-78a0-a6d9-3d9ea0a5f3d7@st.com>
+ <CANLsYkzQz5yyu+KViEL8GwWtp7cfBotS8Fuvs1MJzvYq4LxOig@mail.gmail.com>
+From: Arnaud POULIQUEN <arnaud.pouliquen@st.com>
+Message-ID: <07d5bea4-1585-db55-4ca0-ae28dcf81d41@st.com>
+Date: Thu, 20 Feb 2020 10:35:09 +0100
+User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:68.0) Gecko/20100101
+ Thunderbird/68.4.1
 MIME-Version: 1.0
-Cc: Jose Abreu <joabreu@synopsys.com>, toke@redhat.com,
- Jakub Kicinski <kuba@kernel.org>, linux-stm32@st-md-mailman.stormreply.com,
- Ilias Apalodimas <ilias.apalodimas@linaro.org>,
- John Fastabend <john.fastabend@gmail.com>, Alexei Starovoitov <ast@kernel.org>,
- linux-kernel@vger.kernel.org, Jassi Brar <jaswinder.singh@linaro.org>,
- bpf@vger.kernel.org, jonathan.lemon@gmail.com,
- linux-arm-kernel@lists.infradead.org,
- Thomas Petazzoni <thomas.petazzoni@bootlin.com>,
- Jesper Dangaard Brouer <brouer@redhat.com>,
- Giuseppe Cavallaro <peppe.cavallaro@st.com>,
- Daniel Borkmann <daniel@iogearbox.net>, lorenzo@kernel.org,
- "David S. Miller" <davem@davemloft.net>,
- Maxime Coquelin <mcoquelin.stm32@gmail.com>,
- Jesper Dangaard Brouer <hawk@kernel.org>
-Subject: [Linux-stm32] [PATCH net-next v5] net: page_pool: API cleanup and
-	comments
+In-Reply-To: <CANLsYkzQz5yyu+KViEL8GwWtp7cfBotS8Fuvs1MJzvYq4LxOig@mail.gmail.com>
+Content-Language: en-US
+X-Originating-IP: [10.75.127.44]
+X-ClientProxiedBy: SFHDAG3NODE1.st.com (10.75.127.7) To SFHDAG3NODE1.st.com
+ (10.75.127.7)
+X-Proofpoint-Virus-Version: vendor=fsecure engine=2.50.10434:6.0.138, 18.0.572
+ definitions=2020-02-20_02:2020-02-19,
+ 2020-02-20 signatures=0
+Cc: Mark Rutland <mark.rutland@arm.com>, devicetree@vger.kernel.org,
+ Ohad Ben-Cohen <ohad@wizery.com>,
+ linux-remoteproc <linux-remoteproc@vger.kernel.org>,
+ Linux Kernel Mailing List <linux-kernel@vger.kernel.org>,
+ Fabien DESSENNE <fabien.dessenne@st.com>,
+ Bjorn Andersson <bjorn.andersson@linaro.org>, Rob Herring <robh+dt@kernel.org>,
+ Suman Anna <s-anna@ti.com>, linux-stm32@st-md-mailman.stormreply.com
+Subject: Re: [Linux-stm32] [PATCH v5 1/3] remoteproc: add support for
+ co-processor loaded and booted before kernel
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -81,300 +81,289 @@ List-Post: <mailto:linux-stm32@st-md-mailman.stormreply.com>
 List-Help: <mailto:linux-stm32-request@st-md-mailman.stormreply.com?subject=help>
 List-Subscribe: <https://st-md-mailman.stormreply.com/mailman/listinfo/linux-stm32>, 
  <mailto:linux-stm32-request@st-md-mailman.stormreply.com?subject=subscribe>
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: base64
+Content-Type: text/plain; charset="us-ascii"
+Content-Transfer-Encoding: 7bit
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
-RnVuY3Rpb25zIHN0YXJ0aW5nIHdpdGggX18gdXN1YWxseSBpbmRpY2F0ZSB0aG9zZSB3aGljaCBh
-cmUgZXhwb3J0ZWQsCmJ1dCBzaG91bGQgbm90IGJlIGNhbGxlZCBkaXJlY3RseS4gVXBkYXRlIHNv
-bWUgb2YgdGhvc2UgZGVjbGFyZWQgaW4gdGhlCkFQSSBhbmQgbWFrZSBpdCBtb3JlIHJlYWRhYmxl
-LgoKcGFnZV9wb29sX3VubWFwX3BhZ2UoKSBhbmQgcGFnZV9wb29sX3JlbGVhc2VfcGFnZSgpIHdl
-cmUgZG9pbmcKZXhhY3RseSB0aGUgc2FtZSB0aGluZyBjYWxsaW5nIF9fcGFnZV9wb29sX2NsZWFu
-X3BhZ2UoKS4gIExldCdzCnJlbmFtZSBfX3BhZ2VfcG9vbF9jbGVhbl9wYWdlKCkgdG8gcGFnZV9w
-b29sX3JlbGVhc2VfcGFnZSgpIGFuZApleHBvcnQgaXQgaW4gb3JkZXIgdG8gc2hvdyB1cCBvbiBw
-ZXJmIGxvZ3MgYW5kIGdldCByaWQgb2YKcGFnZV9wb29sX3VubWFwX3BhZ2UoKS4KCkZpbmFsbHkg
-cmVuYW1lIF9fcGFnZV9wb29sX3B1dF9wYWdlKCkgdG8gcGFnZV9wb29sX3B1dF9wYWdlKCkgc2lu
-Y2Ugd2UKY2FuIG5vdyBkaXJlY3RseSBjYWxsIGl0IGZyb20gZHJpdmVycyBhbmQgcmVuYW1lIHRo
-ZSBleGlzdGluZwpwYWdlX3Bvb2xfcHV0X3BhZ2UoKSB0byBwYWdlX3Bvb2xfcHV0X2Z1bGxfcGFn
-ZSgpIHNpbmNlIHRoZXkgZG8gdGhlIHNhbWUKdGhpbmcgYnV0IHRoZSBsYXR0ZXIgaXMgdHJ5aW5n
-IHRvIHN5bmMgdGhlIGZ1bGwgRE1BIGFyZWEuCgpUaGlzIHBhdGNoIGFsc28gdXBkYXRlcyBuZXRz
-ZWMsIG12bmV0YSBhbmQgc3RtbWFjIGRyaXZlcnMgd2hpY2ggdXNlCnRob3NlIGZ1bmN0aW9ucy4K
-ClN1Z2dlc3RlZC1ieTogSm9uYXRoYW4gTGVtb24gPGpvbmF0aGFuLmxlbW9uQGdtYWlsLmNvbT4K
-QWNrZWQtYnk6IFRva2UgSMO4aWxhbmQtSsO4cmdlbnNlbiA8dG9rZUByZWRoYXQuY29tPgpBY2tl
-ZC1ieTogSmVzcGVyIERhbmdhYXJkIEJyb3VlciA8YnJvdWVyQHJlZGhhdC5jb20+ClNpZ25lZC1v
-ZmYtYnk6IElsaWFzIEFwYWxvZGltYXMgPGlsaWFzLmFwYWxvZGltYXNAbGluYXJvLm9yZz4KLS0t
-CkNoYW5nZXMgc2luY2UKdjE6Ci0gRml4ZWQgbmV0c2VjIGRyaXZlciBjb21waWxhdGlvbiBlcnJv
-cgp2MjoKLSBJbXByb3ZlZCBjb21tZW50IGRlc2NyaXB0aW9uIG9mIHBhZ2VfcG9vbF9wdXRfcGFn
-ZSgpCnYzOgotIFByb3Blcmx5IGRlZmluZSBwYWdlX3Bvb2xfcmVsZWFzZV9wYWdlKCkgaW4gdGhl
-IGhlYWRlciBmaWxlCiAgd2l0aGluIGFuIGlmZGVmIHNpbmNlIHhkcC5jIHVzZXMgaXQgZXZlbiBp
-ZiBDT05GSUdfUEFHRV9QT09MIGlzIG5vdCBzZWxlY3RlZAotIHJlbmFtZSBfX3BhZ2VfcG9vbF9j
-bGVhbl9wYWdlIC0+IHBhZ2VfcG9vbF9yZWxlYXNlX3BhZ2UgYW5kIGdldCByaWQgb2YKYW5vdGhl
-ciByZWR1bmRhbnQgaGVscGVyCnY0OgotIFJlYmFzZSBvbiB0b3Agb2YgbWFzdGVyCgogZHJpdmVy
-cy9uZXQvZXRoZXJuZXQvbWFydmVsbC9tdm5ldGEuYyAgICAgICAgIHwgMTkgKysrLS0KIGRyaXZl
-cnMvbmV0L2V0aGVybmV0L3NvY2lvbmV4dC9uZXRzZWMuYyAgICAgICB8IDIzICsrKy0tLQogLi4u
-L25ldC9ldGhlcm5ldC9zdG1pY3JvL3N0bW1hYy9zdG1tYWNfbWFpbi5jIHwgIDQgKy0KIGluY2x1
-ZGUvbmV0L3BhZ2VfcG9vbC5oICAgICAgICAgICAgICAgICAgICAgICB8IDM2ICsrKystLS0tLS0K
-IG5ldC9jb3JlL3BhZ2VfcG9vbC5jICAgICAgICAgICAgICAgICAgICAgICAgICB8IDcwICsrKysr
-KysrKystLS0tLS0tLS0KIG5ldC9jb3JlL3hkcC5jICAgICAgICAgICAgICAgICAgICAgICAgICAg
-ICAgICB8ICAyICstCiA2IGZpbGVzIGNoYW5nZWQsIDc0IGluc2VydGlvbnMoKyksIDgwIGRlbGV0
-aW9ucygtKQoKZGlmZiAtLWdpdCBhL2RyaXZlcnMvbmV0L2V0aGVybmV0L21hcnZlbGwvbXZuZXRh
-LmMgYi9kcml2ZXJzL25ldC9ldGhlcm5ldC9tYXJ2ZWxsL212bmV0YS5jCmluZGV4IDhlMWZlYjY3
-OGNlYS4uMWMzOTFmNjNhMjZmIDEwMDY0NAotLS0gYS9kcml2ZXJzL25ldC9ldGhlcm5ldC9tYXJ2
-ZWxsL212bmV0YS5jCisrKyBiL2RyaXZlcnMvbmV0L2V0aGVybmV0L21hcnZlbGwvbXZuZXRhLmMK
-QEAgLTE5NTYsNyArMTk1Niw3IEBAIHN0YXRpYyB2b2lkIG12bmV0YV9yeHFfZHJvcF9wa3RzKHN0
-cnVjdCBtdm5ldGFfcG9ydCAqcHAsCiAJCWlmICghZGF0YSB8fCAhKHJ4X2Rlc2MtPmJ1Zl9waHlz
-X2FkZHIpKQogCQkJY29udGludWU7CiAKLQkJcGFnZV9wb29sX3B1dF9wYWdlKHJ4cS0+cGFnZV9w
-b29sLCBkYXRhLCBmYWxzZSk7CisJCXBhZ2VfcG9vbF9wdXRfZnVsbF9wYWdlKHJ4cS0+cGFnZV9w
-b29sLCBkYXRhLCBmYWxzZSk7CiAJfQogCWlmICh4ZHBfcnhxX2luZm9faXNfcmVnKCZyeHEtPnhk
-cF9yeHEpKQogCQl4ZHBfcnhxX2luZm9fdW5yZWcoJnJ4cS0+eGRwX3J4cSk7CkBAIC0yMTU0LDkg
-KzIxNTQsOSBAQCBtdm5ldGFfcnVuX3hkcChzdHJ1Y3QgbXZuZXRhX3BvcnQgKnBwLCBzdHJ1Y3Qg
-bXZuZXRhX3J4X3F1ZXVlICpyeHEsCiAJCWVyciA9IHhkcF9kb19yZWRpcmVjdChwcC0+ZGV2LCB4
-ZHAsIHByb2cpOwogCQlpZiAoZXJyKSB7CiAJCQlyZXQgPSBNVk5FVEFfWERQX0RST1BQRUQ7Ci0J
-CQlfX3BhZ2VfcG9vbF9wdXRfcGFnZShyeHEtPnBhZ2VfcG9vbCwKLQkJCQkJICAgICB2aXJ0X3Rv
-X2hlYWRfcGFnZSh4ZHAtPmRhdGEpLAotCQkJCQkgICAgIGxlbiwgdHJ1ZSk7CisJCQlwYWdlX3Bv
-b2xfcHV0X3BhZ2UocnhxLT5wYWdlX3Bvb2wsCisJCQkJCSAgIHZpcnRfdG9faGVhZF9wYWdlKHhk
-cC0+ZGF0YSksIGxlbiwKKwkJCQkJICAgdHJ1ZSk7CiAJCX0gZWxzZSB7CiAJCQlyZXQgPSBNVk5F
-VEFfWERQX1JFRElSOwogCQkJc3RhdHMtPnhkcF9yZWRpcmVjdCsrOwpAQCAtMjE2Niw5ICsyMTY2
-LDkgQEAgbXZuZXRhX3J1bl94ZHAoc3RydWN0IG12bmV0YV9wb3J0ICpwcCwgc3RydWN0IG12bmV0
-YV9yeF9xdWV1ZSAqcnhxLAogCWNhc2UgWERQX1RYOgogCQlyZXQgPSBtdm5ldGFfeGRwX3htaXRf
-YmFjayhwcCwgeGRwKTsKIAkJaWYgKHJldCAhPSBNVk5FVEFfWERQX1RYKQotCQkJX19wYWdlX3Bv
-b2xfcHV0X3BhZ2UocnhxLT5wYWdlX3Bvb2wsCi0JCQkJCSAgICAgdmlydF90b19oZWFkX3BhZ2Uo
-eGRwLT5kYXRhKSwKLQkJCQkJICAgICBsZW4sIHRydWUpOworCQkJcGFnZV9wb29sX3B1dF9wYWdl
-KHJ4cS0+cGFnZV9wb29sLAorCQkJCQkgICB2aXJ0X3RvX2hlYWRfcGFnZSh4ZHAtPmRhdGEpLCBs
-ZW4sCisJCQkJCSAgIHRydWUpOwogCQlicmVhazsKIAlkZWZhdWx0OgogCQlicGZfd2Fybl9pbnZh
-bGlkX3hkcF9hY3Rpb24oYWN0KTsKQEAgLTIxNzcsOSArMjE3Nyw4IEBAIG12bmV0YV9ydW5feGRw
-KHN0cnVjdCBtdm5ldGFfcG9ydCAqcHAsIHN0cnVjdCBtdm5ldGFfcnhfcXVldWUgKnJ4cSwKIAkJ
-dHJhY2VfeGRwX2V4Y2VwdGlvbihwcC0+ZGV2LCBwcm9nLCBhY3QpOwogCQkvKiBmYWxsIHRocm91
-Z2ggKi8KIAljYXNlIFhEUF9EUk9QOgotCQlfX3BhZ2VfcG9vbF9wdXRfcGFnZShyeHEtPnBhZ2Vf
-cG9vbCwKLQkJCQkgICAgIHZpcnRfdG9faGVhZF9wYWdlKHhkcC0+ZGF0YSksCi0JCQkJICAgICBs
-ZW4sIHRydWUpOworCQlwYWdlX3Bvb2xfcHV0X3BhZ2UocnhxLT5wYWdlX3Bvb2wsCisJCQkJICAg
-dmlydF90b19oZWFkX3BhZ2UoeGRwLT5kYXRhKSwgbGVuLCB0cnVlKTsKIAkJcmV0ID0gTVZORVRB
-X1hEUF9EUk9QUEVEOwogCQlzdGF0cy0+eGRwX2Ryb3ArKzsKIAkJYnJlYWs7CmRpZmYgLS1naXQg
-YS9kcml2ZXJzL25ldC9ldGhlcm5ldC9zb2Npb25leHQvbmV0c2VjLmMgYi9kcml2ZXJzL25ldC9l
-dGhlcm5ldC9zb2Npb25leHQvbmV0c2VjLmMKaW5kZXggNjI2NjkyNmZlMDU0Li41OGI5YjdjZTcx
-OTUgMTAwNjQ0Ci0tLSBhL2RyaXZlcnMvbmV0L2V0aGVybmV0L3NvY2lvbmV4dC9uZXRzZWMuYwor
-KysgYi9kcml2ZXJzL25ldC9ldGhlcm5ldC9zb2Npb25leHQvbmV0c2VjLmMKQEAgLTg5Niw5ICs4
-OTYsOSBAQCBzdGF0aWMgdTMyIG5ldHNlY19ydW5feGRwKHN0cnVjdCBuZXRzZWNfcHJpdiAqcHJp
-diwgc3RydWN0IGJwZl9wcm9nICpwcm9nLAogCWNhc2UgWERQX1RYOgogCQlyZXQgPSBuZXRzZWNf
-eGRwX3htaXRfYmFjayhwcml2LCB4ZHApOwogCQlpZiAocmV0ICE9IE5FVFNFQ19YRFBfVFgpCi0J
-CQlfX3BhZ2VfcG9vbF9wdXRfcGFnZShkcmluZy0+cGFnZV9wb29sLAotCQkJCQkgICAgIHZpcnRf
-dG9faGVhZF9wYWdlKHhkcC0+ZGF0YSksCi0JCQkJCSAgICAgbGVuLCB0cnVlKTsKKwkJCXBhZ2Vf
-cG9vbF9wdXRfcGFnZShkcmluZy0+cGFnZV9wb29sLAorCQkJCQkgICB2aXJ0X3RvX2hlYWRfcGFn
-ZSh4ZHAtPmRhdGEpLCBsZW4sCisJCQkJCSAgIHRydWUpOwogCQlicmVhazsKIAljYXNlIFhEUF9S
-RURJUkVDVDoKIAkJZXJyID0geGRwX2RvX3JlZGlyZWN0KHByaXYtPm5kZXYsIHhkcCwgcHJvZyk7
-CkBAIC05MDYsOSArOTA2LDkgQEAgc3RhdGljIHUzMiBuZXRzZWNfcnVuX3hkcChzdHJ1Y3QgbmV0
-c2VjX3ByaXYgKnByaXYsIHN0cnVjdCBicGZfcHJvZyAqcHJvZywKIAkJCXJldCA9IE5FVFNFQ19Y
-RFBfUkVESVI7CiAJCX0gZWxzZSB7CiAJCQlyZXQgPSBORVRTRUNfWERQX0NPTlNVTUVEOwotCQkJ
-X19wYWdlX3Bvb2xfcHV0X3BhZ2UoZHJpbmctPnBhZ2VfcG9vbCwKLQkJCQkJICAgICB2aXJ0X3Rv
-X2hlYWRfcGFnZSh4ZHAtPmRhdGEpLAotCQkJCQkgICAgIGxlbiwgdHJ1ZSk7CisJCQlwYWdlX3Bv
-b2xfcHV0X3BhZ2UoZHJpbmctPnBhZ2VfcG9vbCwKKwkJCQkJICAgdmlydF90b19oZWFkX3BhZ2Uo
-eGRwLT5kYXRhKSwgbGVuLAorCQkJCQkgICB0cnVlKTsKIAkJfQogCQlicmVhazsKIAlkZWZhdWx0
-OgpAQCAtOTE5LDkgKzkxOSw4IEBAIHN0YXRpYyB1MzIgbmV0c2VjX3J1bl94ZHAoc3RydWN0IG5l
-dHNlY19wcml2ICpwcml2LCBzdHJ1Y3QgYnBmX3Byb2cgKnByb2csCiAJCS8qIGZhbGwgdGhyb3Vn
-aCAtLSBoYW5kbGUgYWJvcnRzIGJ5IGRyb3BwaW5nIHBhY2tldCAqLwogCWNhc2UgWERQX0RST1A6
-CiAJCXJldCA9IE5FVFNFQ19YRFBfQ09OU1VNRUQ7Ci0JCV9fcGFnZV9wb29sX3B1dF9wYWdlKGRy
-aW5nLT5wYWdlX3Bvb2wsCi0JCQkJICAgICB2aXJ0X3RvX2hlYWRfcGFnZSh4ZHAtPmRhdGEpLAot
-CQkJCSAgICAgbGVuLCB0cnVlKTsKKwkJcGFnZV9wb29sX3B1dF9wYWdlKGRyaW5nLT5wYWdlX3Bv
-b2wsCisJCQkJICAgdmlydF90b19oZWFkX3BhZ2UoeGRwLT5kYXRhKSwgbGVuLCB0cnVlKTsKIAkJ
-YnJlYWs7CiAJfQogCkBAIC0xMDIwLDggKzEwMTksOCBAQCBzdGF0aWMgaW50IG5ldHNlY19wcm9j
-ZXNzX3J4KHN0cnVjdCBuZXRzZWNfcHJpdiAqcHJpdiwgaW50IGJ1ZGdldCkKIAkJCSAqIGNhY2hl
-IHN0YXRlLiBTaW5jZSB3ZSBwYWlkIHRoZSBhbGxvY2F0aW9uIGNvc3QgaWYKIAkJCSAqIGJ1aWxk
-aW5nIGFuIHNrYiBmYWlscyB0cnkgdG8gcHV0IHRoZSBwYWdlIGludG8gY2FjaGUKIAkJCSAqLwot
-CQkJX19wYWdlX3Bvb2xfcHV0X3BhZ2UoZHJpbmctPnBhZ2VfcG9vbCwgcGFnZSwKLQkJCQkJICAg
-ICBwa3RfbGVuLCB0cnVlKTsKKwkJCXBhZ2VfcG9vbF9wdXRfcGFnZShkcmluZy0+cGFnZV9wb29s
-LCBwYWdlLCBwa3RfbGVuLAorCQkJCQkgICB0cnVlKTsKIAkJCW5ldGlmX2Vycihwcml2LCBkcnYs
-IHByaXYtPm5kZXYsCiAJCQkJICAicnggZmFpbGVkIHRvIGJ1aWxkIHNrYlxuIik7CiAJCQlicmVh
-azsKQEAgLTExOTUsNyArMTE5NCw3IEBAIHN0YXRpYyB2b2lkIG5ldHNlY191bmluaXRfcGt0X2Ry
-aW5nKHN0cnVjdCBuZXRzZWNfcHJpdiAqcHJpdiwgaW50IGlkKQogCQlpZiAoaWQgPT0gTkVUU0VD
-X1JJTkdfUlgpIHsKIAkJCXN0cnVjdCBwYWdlICpwYWdlID0gdmlydF90b19wYWdlKGRlc2MtPmFk
-ZHIpOwogCi0JCQlwYWdlX3Bvb2xfcHV0X3BhZ2UoZHJpbmctPnBhZ2VfcG9vbCwgcGFnZSwgZmFs
-c2UpOworCQkJcGFnZV9wb29sX3B1dF9mdWxsX3BhZ2UoZHJpbmctPnBhZ2VfcG9vbCwgcGFnZSwg
-ZmFsc2UpOwogCQl9IGVsc2UgaWYgKGlkID09IE5FVFNFQ19SSU5HX1RYKSB7CiAJCQlkbWFfdW5t
-YXBfc2luZ2xlKHByaXYtPmRldiwgZGVzYy0+ZG1hX2FkZHIsIGRlc2MtPmxlbiwKIAkJCQkJIERN
-QV9UT19ERVZJQ0UpOwpkaWZmIC0tZ2l0IGEvZHJpdmVycy9uZXQvZXRoZXJuZXQvc3RtaWNyby9z
-dG1tYWMvc3RtbWFjX21haW4uYyBiL2RyaXZlcnMvbmV0L2V0aGVybmV0L3N0bWljcm8vc3RtbWFj
-L3N0bW1hY19tYWluLmMKaW5kZXggNTgzNmIyMWVkZDdlLi4zNzkyMGI0ZGEwOTEgMTAwNjQ0Ci0t
-LSBhL2RyaXZlcnMvbmV0L2V0aGVybmV0L3N0bWljcm8vc3RtbWFjL3N0bW1hY19tYWluLmMKKysr
-IGIvZHJpdmVycy9uZXQvZXRoZXJuZXQvc3RtaWNyby9zdG1tYWMvc3RtbWFjX21haW4uYwpAQCAt
-MTI1MSwxMSArMTI1MSwxMSBAQCBzdGF0aWMgdm9pZCBzdG1tYWNfZnJlZV9yeF9idWZmZXIoc3Ry
-dWN0IHN0bW1hY19wcml2ICpwcml2LCB1MzIgcXVldWUsIGludCBpKQogCXN0cnVjdCBzdG1tYWNf
-cnhfYnVmZmVyICpidWYgPSAmcnhfcS0+YnVmX3Bvb2xbaV07CiAKIAlpZiAoYnVmLT5wYWdlKQot
-CQlwYWdlX3Bvb2xfcHV0X3BhZ2UocnhfcS0+cGFnZV9wb29sLCBidWYtPnBhZ2UsIGZhbHNlKTsK
-KwkJcGFnZV9wb29sX3B1dF9mdWxsX3BhZ2UocnhfcS0+cGFnZV9wb29sLCBidWYtPnBhZ2UsIGZh
-bHNlKTsKIAlidWYtPnBhZ2UgPSBOVUxMOwogCiAJaWYgKGJ1Zi0+c2VjX3BhZ2UpCi0JCXBhZ2Vf
-cG9vbF9wdXRfcGFnZShyeF9xLT5wYWdlX3Bvb2wsIGJ1Zi0+c2VjX3BhZ2UsIGZhbHNlKTsKKwkJ
-cGFnZV9wb29sX3B1dF9mdWxsX3BhZ2UocnhfcS0+cGFnZV9wb29sLCBidWYtPnNlY19wYWdlLCBm
-YWxzZSk7CiAJYnVmLT5zZWNfcGFnZSA9IE5VTEw7CiB9CiAKZGlmZiAtLWdpdCBhL2luY2x1ZGUv
-bmV0L3BhZ2VfcG9vbC5oIGIvaW5jbHVkZS9uZXQvcGFnZV9wb29sLmgKaW5kZXggY2ZiZWQwMGJh
-N2VlLi44MWQ3NzczZjk2Y2QgMTAwNjQ0Ci0tLSBhL2luY2x1ZGUvbmV0L3BhZ2VfcG9vbC5oCisr
-KyBiL2luY2x1ZGUvbmV0L3BhZ2VfcG9vbC5oCkBAIC0xNTEsNiArMTUxLDcgQEAgc3RydWN0IHBh
-Z2VfcG9vbCAqcGFnZV9wb29sX2NyZWF0ZShjb25zdCBzdHJ1Y3QgcGFnZV9wb29sX3BhcmFtcyAq
-cGFyYW1zKTsKICNpZmRlZiBDT05GSUdfUEFHRV9QT09MCiB2b2lkIHBhZ2VfcG9vbF9kZXN0cm95
-KHN0cnVjdCBwYWdlX3Bvb2wgKnBvb2wpOwogdm9pZCBwYWdlX3Bvb2xfdXNlX3hkcF9tZW0oc3Ry
-dWN0IHBhZ2VfcG9vbCAqcG9vbCwgdm9pZCAoKmRpc2Nvbm5lY3QpKHZvaWQgKikpOwordm9pZCBw
-YWdlX3Bvb2xfcmVsZWFzZV9wYWdlKHN0cnVjdCBwYWdlX3Bvb2wgKnBvb2wsIHN0cnVjdCBwYWdl
-ICpwYWdlKTsKICNlbHNlCiBzdGF0aWMgaW5saW5lIHZvaWQgcGFnZV9wb29sX2Rlc3Ryb3koc3Ry
-dWN0IHBhZ2VfcG9vbCAqcG9vbCkKIHsKQEAgLTE2MCw0MSArMTYxLDMyIEBAIHN0YXRpYyBpbmxp
-bmUgdm9pZCBwYWdlX3Bvb2xfdXNlX3hkcF9tZW0oc3RydWN0IHBhZ2VfcG9vbCAqcG9vbCwKIAkJ
-CQkJIHZvaWQgKCpkaXNjb25uZWN0KSh2b2lkICopKQogewogfQorc3RhdGljIGlubGluZSB2b2lk
-IHBhZ2VfcG9vbF9yZWxlYXNlX3BhZ2Uoc3RydWN0IHBhZ2VfcG9vbCAqcG9vbCwKKwkJCQkJICBz
-dHJ1Y3QgcGFnZSAqcGFnZSkKK3sKK30KICNlbmRpZgogCi0vKiBOZXZlciBjYWxsIHRoaXMgZGly
-ZWN0bHksIHVzZSBoZWxwZXJzIGJlbG93ICovCi12b2lkIF9fcGFnZV9wb29sX3B1dF9wYWdlKHN0
-cnVjdCBwYWdlX3Bvb2wgKnBvb2wsIHN0cnVjdCBwYWdlICpwYWdlLAotCQkJICB1bnNpZ25lZCBp
-bnQgZG1hX3N5bmNfc2l6ZSwgYm9vbCBhbGxvd19kaXJlY3QpOwordm9pZCBwYWdlX3Bvb2xfcHV0
-X3BhZ2Uoc3RydWN0IHBhZ2VfcG9vbCAqcG9vbCwgc3RydWN0IHBhZ2UgKnBhZ2UsCisJCQl1bnNp
-Z25lZCBpbnQgZG1hX3N5bmNfc2l6ZSwgYm9vbCBhbGxvd19kaXJlY3QpOwogCi1zdGF0aWMgaW5s
-aW5lIHZvaWQgcGFnZV9wb29sX3B1dF9wYWdlKHN0cnVjdCBwYWdlX3Bvb2wgKnBvb2wsCi0JCQkJ
-ICAgICAgc3RydWN0IHBhZ2UgKnBhZ2UsIGJvb2wgYWxsb3dfZGlyZWN0KQorLyogU2FtZSBhcyBh
-Ym92ZSBidXQgd2lsbCB0cnkgdG8gc3luYyB0aGUgZW50aXJlIGFyZWEgcG9vbC0+bWF4X2xlbiAq
-Lworc3RhdGljIGlubGluZSB2b2lkIHBhZ2VfcG9vbF9wdXRfZnVsbF9wYWdlKHN0cnVjdCBwYWdl
-X3Bvb2wgKnBvb2wsCisJCQkJCSAgIHN0cnVjdCBwYWdlICpwYWdlLCBib29sIGFsbG93X2RpcmVj
-dCkKIHsKIAkvKiBXaGVuIHBhZ2VfcG9vbCBpc24ndCBjb21waWxlZC1pbiwgbmV0L2NvcmUveGRw
-LmMgZG9lc24ndAogCSAqIGFsbG93IHJlZ2lzdGVyaW5nIE1FTV9UWVBFX1BBR0VfUE9PTCwgYnV0
-IHNoaWVsZCBsaW5rZXIuCiAJICovCiAjaWZkZWYgQ09ORklHX1BBR0VfUE9PTAotCV9fcGFnZV9w
-b29sX3B1dF9wYWdlKHBvb2wsIHBhZ2UsIC0xLCBhbGxvd19kaXJlY3QpOworCXBhZ2VfcG9vbF9w
-dXRfcGFnZShwb29sLCBwYWdlLCAtMSwgYWxsb3dfZGlyZWN0KTsKICNlbmRpZgogfQotLyogVmVy
-eSBsaW1pdGVkIHVzZS1jYXNlcyBhbGxvdyByZWN5Y2xlIGRpcmVjdCAqLworCisvKiBTYW1lIGFz
-IGFib3ZlIGJ1dCB0aGUgY2FsbGVyIG11c3QgZ3VhcmFudGVlIHNhZmUgY29udGV4dC4gZS5nIE5B
-UEkgKi8KIHN0YXRpYyBpbmxpbmUgdm9pZCBwYWdlX3Bvb2xfcmVjeWNsZV9kaXJlY3Qoc3RydWN0
-IHBhZ2VfcG9vbCAqcG9vbCwKIAkJCQkJICAgIHN0cnVjdCBwYWdlICpwYWdlKQogewotCV9fcGFn
-ZV9wb29sX3B1dF9wYWdlKHBvb2wsIHBhZ2UsIC0xLCB0cnVlKTsKLX0KLQotLyogRGlzY29ubmVj
-dHMgYSBwYWdlIChmcm9tIGEgcGFnZV9wb29sKS4gIEFQSSB1c2VycyBjYW4gaGF2ZSBhIG5lZWQK
-LSAqIHRvIGRpc2Nvbm5lY3QgYSBwYWdlIChmcm9tIGEgcGFnZV9wb29sKSwgdG8gYWxsb3cgaXQg
-dG8gYmUgdXNlZCBhcwotICogYSByZWd1bGFyIHBhZ2UgKHRoYXQgd2lsbCBldmVudHVhbGx5IGJl
-IHJldHVybmVkIHRvIHRoZSBub3JtYWwKLSAqIHBhZ2UtYWxsb2NhdG9yIHZpYSBwdXRfcGFnZSku
-Ci0gKi8KLXZvaWQgcGFnZV9wb29sX3VubWFwX3BhZ2Uoc3RydWN0IHBhZ2VfcG9vbCAqcG9vbCwg
-c3RydWN0IHBhZ2UgKnBhZ2UpOwotc3RhdGljIGlubGluZSB2b2lkIHBhZ2VfcG9vbF9yZWxlYXNl
-X3BhZ2Uoc3RydWN0IHBhZ2VfcG9vbCAqcG9vbCwKLQkJCQkJICBzdHJ1Y3QgcGFnZSAqcGFnZSkK
-LXsKLSNpZmRlZiBDT05GSUdfUEFHRV9QT09MCi0JcGFnZV9wb29sX3VubWFwX3BhZ2UocG9vbCwg
-cGFnZSk7Ci0jZW5kaWYKKwlwYWdlX3Bvb2xfcHV0X2Z1bGxfcGFnZShwb29sLCBwYWdlLCB0cnVl
-KTsKIH0KIAogc3RhdGljIGlubGluZSBkbWFfYWRkcl90IHBhZ2VfcG9vbF9nZXRfZG1hX2FkZHIo
-c3RydWN0IHBhZ2UgKnBhZ2UpCmRpZmYgLS1naXQgYS9uZXQvY29yZS9wYWdlX3Bvb2wuYyBiL25l
-dC9jb3JlL3BhZ2VfcG9vbC5jCmluZGV4IDEwZDJiMjU1ZGY1ZS4uNjI2ZGI5MTJmY2U0IDEwMDY0
-NAotLS0gYS9uZXQvY29yZS9wYWdlX3Bvb2wuYworKysgYi9uZXQvY29yZS9wYWdlX3Bvb2wuYwpA
-QCAtOTYsNyArOTYsNyBAQCBzdHJ1Y3QgcGFnZV9wb29sICpwYWdlX3Bvb2xfY3JlYXRlKGNvbnN0
-IHN0cnVjdCBwYWdlX3Bvb2xfcGFyYW1zICpwYXJhbXMpCiB9CiBFWFBPUlRfU1lNQk9MKHBhZ2Vf
-cG9vbF9jcmVhdGUpOwogCi1zdGF0aWMgdm9pZCBfX3BhZ2VfcG9vbF9yZXR1cm5fcGFnZShzdHJ1
-Y3QgcGFnZV9wb29sICpwb29sLCBzdHJ1Y3QgcGFnZSAqcGFnZSk7CitzdGF0aWMgdm9pZCBwYWdl
-X3Bvb2xfcmV0dXJuX3BhZ2Uoc3RydWN0IHBhZ2VfcG9vbCAqcG9vbCwgc3RydWN0IHBhZ2UgKnBh
-Z2UpOwogCiBub2lubGluZQogc3RhdGljIHN0cnVjdCBwYWdlICpwYWdlX3Bvb2xfcmVmaWxsX2Fs
-bG9jX2NhY2hlKHN0cnVjdCBwYWdlX3Bvb2wgKnBvb2wpCkBAIC0xMzYsNyArMTM2LDcgQEAgc3Rh
-dGljIHN0cnVjdCBwYWdlICpwYWdlX3Bvb2xfcmVmaWxsX2FsbG9jX2NhY2hlKHN0cnVjdCBwYWdl
-X3Bvb2wgKnBvb2wpCiAJCQkgKiAoMikgYnJlYWsgb3V0IHRvIGZhbGx0aHJvdWdoIHRvIGFsbG9j
-X3BhZ2VzX25vZGUuCiAJCQkgKiBUaGlzIGxpbWl0IHN0cmVzcyBvbiBwYWdlIGJ1ZGR5IGFsbG9h
-Y3Rvci4KIAkJCSAqLwotCQkJX19wYWdlX3Bvb2xfcmV0dXJuX3BhZ2UocG9vbCwgcGFnZSk7CisJ
-CQlwYWdlX3Bvb2xfcmV0dXJuX3BhZ2UocG9vbCwgcGFnZSk7CiAJCQlwYWdlID0gTlVMTDsKIAkJ
-CWJyZWFrOwogCQl9CkBAIC0yNzQsMTggKzI3NCwyNSBAQCBzdGF0aWMgczMyIHBhZ2VfcG9vbF9p
-bmZsaWdodChzdHJ1Y3QgcGFnZV9wb29sICpwb29sKQogCXJldHVybiBpbmZsaWdodDsKIH0KIAot
-LyogQ2xlYW51cCBwYWdlX3Bvb2wgc3RhdGUgZnJvbSBwYWdlICovCi1zdGF0aWMgdm9pZCBfX3Bh
-Z2VfcG9vbF9jbGVhbl9wYWdlKHN0cnVjdCBwYWdlX3Bvb2wgKnBvb2wsCi0JCQkJICAgc3RydWN0
-IHBhZ2UgKnBhZ2UpCisvKiBEaXNjb25uZWN0cyBhIHBhZ2UgKGZyb20gYSBwYWdlX3Bvb2wpLiAg
-QVBJIHVzZXJzIGNhbiBoYXZlIGEgbmVlZAorICogdG8gZGlzY29ubmVjdCBhIHBhZ2UgKGZyb20g
-YSBwYWdlX3Bvb2wpLCB0byBhbGxvdyBpdCB0byBiZSB1c2VkIGFzCisgKiBhIHJlZ3VsYXIgcGFn
-ZSAodGhhdCB3aWxsIGV2ZW50dWFsbHkgYmUgcmV0dXJuZWQgdG8gdGhlIG5vcm1hbAorICogcGFn
-ZS1hbGxvY2F0b3IgdmlhIHB1dF9wYWdlKS4KKyAqLwordm9pZCBwYWdlX3Bvb2xfcmVsZWFzZV9w
-YWdlKHN0cnVjdCBwYWdlX3Bvb2wgKnBvb2wsIHN0cnVjdCBwYWdlICpwYWdlKQogewogCWRtYV9h
-ZGRyX3QgZG1hOwogCWludCBjb3VudDsKIAogCWlmICghKHBvb2wtPnAuZmxhZ3MgJiBQUF9GTEFH
-X0RNQV9NQVApKQorCQkvKiBBbHdheXMgYWNjb3VudCBmb3IgaW5mbGlnaHQgcGFnZXMsIGV2ZW4g
-aWYgd2UgZGlkbid0CisJCSAqIG1hcCB0aGVtCisJCSAqLwogCQlnb3RvIHNraXBfZG1hX3VubWFw
-OwogCiAJZG1hID0gcGFnZS0+ZG1hX2FkZHI7Ci0JLyogRE1BIHVubWFwICovCisKKwkvKiBXaGVu
-IHBhZ2UgaXMgdW5tYXBwZWQsIGl0IGNhbm5vdCBiZSByZXR1cm5lZCBvdXIgcG9vbCAqLwogCWRt
-YV91bm1hcF9wYWdlX2F0dHJzKHBvb2wtPnAuZGV2LCBkbWEsCiAJCQkgICAgIFBBR0VfU0laRSA8
-PCBwb29sLT5wLm9yZGVyLCBwb29sLT5wLmRtYV9kaXIsCiAJCQkgICAgIERNQV9BVFRSX1NLSVBf
-Q1BVX1NZTkMpOwpAQCAtMjk3LDIxICszMDQsMTIgQEAgc3RhdGljIHZvaWQgX19wYWdlX3Bvb2xf
-Y2xlYW5fcGFnZShzdHJ1Y3QgcGFnZV9wb29sICpwb29sLAogCWNvdW50ID0gYXRvbWljX2luY19y
-ZXR1cm4oJnBvb2wtPnBhZ2VzX3N0YXRlX3JlbGVhc2VfY250KTsKIAl0cmFjZV9wYWdlX3Bvb2xf
-c3RhdGVfcmVsZWFzZShwb29sLCBwYWdlLCBjb3VudCk7CiB9Ci0KLS8qIHVubWFwIHRoZSBwYWdl
-IGFuZCBjbGVhbiBvdXIgc3RhdGUgKi8KLXZvaWQgcGFnZV9wb29sX3VubWFwX3BhZ2Uoc3RydWN0
-IHBhZ2VfcG9vbCAqcG9vbCwgc3RydWN0IHBhZ2UgKnBhZ2UpCi17Ci0JLyogV2hlbiBwYWdlIGlz
-IHVubWFwcGVkLCB0aGlzIGltcGxpZXMgcGFnZSB3aWxsIG5vdCBiZQotCSAqIHJldHVybmVkIHRv
-IHBhZ2VfcG9vbC4KLQkgKi8KLQlfX3BhZ2VfcG9vbF9jbGVhbl9wYWdlKHBvb2wsIHBhZ2UpOwot
-fQotRVhQT1JUX1NZTUJPTChwYWdlX3Bvb2xfdW5tYXBfcGFnZSk7CitFWFBPUlRfU1lNQk9MKHBh
-Z2VfcG9vbF9yZWxlYXNlX3BhZ2UpOwogCiAvKiBSZXR1cm4gYSBwYWdlIHRvIHRoZSBwYWdlIGFs
-bG9jYXRvciwgY2xlYW5pbmcgdXAgb3VyIHN0YXRlICovCi1zdGF0aWMgdm9pZCBfX3BhZ2VfcG9v
-bF9yZXR1cm5fcGFnZShzdHJ1Y3QgcGFnZV9wb29sICpwb29sLCBzdHJ1Y3QgcGFnZSAqcGFnZSkK
-K3N0YXRpYyB2b2lkIHBhZ2VfcG9vbF9yZXR1cm5fcGFnZShzdHJ1Y3QgcGFnZV9wb29sICpwb29s
-LCBzdHJ1Y3QgcGFnZSAqcGFnZSkKIHsKLQlfX3BhZ2VfcG9vbF9jbGVhbl9wYWdlKHBvb2wsIHBh
-Z2UpOworCXBhZ2VfcG9vbF9yZWxlYXNlX3BhZ2UocG9vbCwgcGFnZSk7CiAKIAlwdXRfcGFnZShw
-YWdlKTsKIAkvKiBBbiBvcHRpbWl6YXRpb24gd291bGQgYmUgdG8gY2FsbCBfX2ZyZWVfcGFnZXMo
-cGFnZSwgcG9vbC0+cC5vcmRlcikKQEAgLTMyMCw4ICszMTgsNyBAQCBzdGF0aWMgdm9pZCBfX3Bh
-Z2VfcG9vbF9yZXR1cm5fcGFnZShzdHJ1Y3QgcGFnZV9wb29sICpwb29sLCBzdHJ1Y3QgcGFnZSAq
-cGFnZSkKIAkgKi8KIH0KIAotc3RhdGljIGJvb2wgX19wYWdlX3Bvb2xfcmVjeWNsZV9pbnRvX3Jp
-bmcoc3RydWN0IHBhZ2VfcG9vbCAqcG9vbCwKLQkJCQkgICBzdHJ1Y3QgcGFnZSAqcGFnZSkKK3N0
-YXRpYyBib29sIHBhZ2VfcG9vbF9yZWN5Y2xlX2luX3Jpbmcoc3RydWN0IHBhZ2VfcG9vbCAqcG9v
-bCwgc3RydWN0IHBhZ2UgKnBhZ2UpCiB7CiAJaW50IHJldDsKIAkvKiBCSCBwcm90ZWN0aW9uIG5v
-dCBuZWVkZWQgaWYgY3VycmVudCBpcyBzZXJ2aW5nIHNvZnRpcnEgKi8KQEAgLTMzOCw3ICszMzUs
-NyBAQCBzdGF0aWMgYm9vbCBfX3BhZ2VfcG9vbF9yZWN5Y2xlX2ludG9fcmluZyhzdHJ1Y3QgcGFn
-ZV9wb29sICpwb29sLAogICoKICAqIENhbGxlciBtdXN0IHByb3ZpZGUgYXBwcm9wcmlhdGUgc2Fm
-ZSBjb250ZXh0LgogICovCi1zdGF0aWMgYm9vbCBfX3BhZ2VfcG9vbF9yZWN5Y2xlX2RpcmVjdChz
-dHJ1Y3QgcGFnZSAqcGFnZSwKK3N0YXRpYyBib29sIHBhZ2VfcG9vbF9yZWN5Y2xlX2luX2NhY2hl
-KHN0cnVjdCBwYWdlICpwYWdlLAogCQkJCSAgICAgICBzdHJ1Y3QgcGFnZV9wb29sICpwb29sKQog
-ewogCWlmICh1bmxpa2VseShwb29sLT5hbGxvYy5jb3VudCA9PSBQUF9BTExPQ19DQUNIRV9TSVpF
-KSkKQEAgLTM1Nyw4ICszNTQsMTQgQEAgc3RhdGljIGJvb2wgcG9vbF9wYWdlX3JldXNhYmxlKHN0
-cnVjdCBwYWdlX3Bvb2wgKnBvb2wsIHN0cnVjdCBwYWdlICpwYWdlKQogCXJldHVybiAhcGFnZV9p
-c19wZm1lbWFsbG9jKHBhZ2UpOwogfQogCi12b2lkIF9fcGFnZV9wb29sX3B1dF9wYWdlKHN0cnVj
-dCBwYWdlX3Bvb2wgKnBvb2wsIHN0cnVjdCBwYWdlICpwYWdlLAotCQkJICB1bnNpZ25lZCBpbnQg
-ZG1hX3N5bmNfc2l6ZSwgYm9vbCBhbGxvd19kaXJlY3QpCisvKiBJZiB0aGUgcGFnZSByZWZjbnQg
-PT0gMSwgdGhpcyB3aWxsIHRyeSB0byByZWN5Y2xlIHRoZSBwYWdlLgorICogaWYgUFBfRkxBR19E
-TUFfU1lOQ19ERVYgaXMgc2V0LCB3ZSdsbCB0cnkgdG8gc3luYyB0aGUgRE1BIGFyZWEgZm9yCisg
-KiB0aGUgY29uZmlndXJlZCBzaXplIG1pbihkbWFfc3luY19zaXplLCBwb29sLT5tYXhfbGVuKS4K
-KyAqIElmIHRoZSBwYWdlIHJlZmNudCAhPSAxLCB0aGVuIHRoZSBwYWdlIHdpbGwgYmUgcmV0dXJu
-ZWQgdG8gbWVtb3J5CisgKiBzdWJzeXN0ZW0uCisgKi8KK3ZvaWQgcGFnZV9wb29sX3B1dF9wYWdl
-KHN0cnVjdCBwYWdlX3Bvb2wgKnBvb2wsIHN0cnVjdCBwYWdlICpwYWdlLAorCQkJdW5zaWduZWQg
-aW50IGRtYV9zeW5jX3NpemUsIGJvb2wgYWxsb3dfZGlyZWN0KQogewogCS8qIFRoaXMgYWxsb2Nh
-dG9yIGlzIG9wdGltaXplZCBmb3IgdGhlIFhEUCBtb2RlIHRoYXQgdXNlcwogCSAqIG9uZS1mcmFt
-ZS1wZXItcGFnZSwgYnV0IGhhdmUgZmFsbGJhY2tzIHRoYXQgYWN0IGxpa2UgdGhlCkBAIC0zNzUs
-MTIgKzM3OCwxMiBAQCB2b2lkIF9fcGFnZV9wb29sX3B1dF9wYWdlKHN0cnVjdCBwYWdlX3Bvb2wg
-KnBvb2wsIHN0cnVjdCBwYWdlICpwYWdlLAogCQkJCQkJICAgICAgZG1hX3N5bmNfc2l6ZSk7CiAK
-IAkJaWYgKGFsbG93X2RpcmVjdCAmJiBpbl9zZXJ2aW5nX3NvZnRpcnEoKSkKLQkJCWlmIChfX3Bh
-Z2VfcG9vbF9yZWN5Y2xlX2RpcmVjdChwYWdlLCBwb29sKSkKKwkJCWlmIChwYWdlX3Bvb2xfcmVj
-eWNsZV9pbl9jYWNoZShwYWdlLCBwb29sKSkKIAkJCQlyZXR1cm47CiAKLQkJaWYgKCFfX3BhZ2Vf
-cG9vbF9yZWN5Y2xlX2ludG9fcmluZyhwb29sLCBwYWdlKSkgeworCQlpZiAoIXBhZ2VfcG9vbF9y
-ZWN5Y2xlX2luX3JpbmcocG9vbCwgcGFnZSkpIHsKIAkJCS8qIENhY2hlIGZ1bGwsIGZhbGxiYWNr
-IHRvIGZyZWUgcGFnZXMgKi8KLQkJCV9fcGFnZV9wb29sX3JldHVybl9wYWdlKHBvb2wsIHBhZ2Up
-OworCQkJcGFnZV9wb29sX3JldHVybl9wYWdlKHBvb2wsIHBhZ2UpOwogCQl9CiAJCXJldHVybjsK
-IAl9CkBAIC0zOTcsMTIgKzQwMCwxMyBAQCB2b2lkIF9fcGFnZV9wb29sX3B1dF9wYWdlKHN0cnVj
-dCBwYWdlX3Bvb2wgKnBvb2wsIHN0cnVjdCBwYWdlICpwYWdlLAogCSAqIGRvaW5nIHJlZmNudCBi
-YXNlZCByZWN5Y2xlIHRyaWNrcywgbWVhbmluZyBhbm90aGVyIHByb2Nlc3MKIAkgKiB3aWxsIGJl
-IGludm9raW5nIHB1dF9wYWdlLgogCSAqLwotCV9fcGFnZV9wb29sX2NsZWFuX3BhZ2UocG9vbCwg
-cGFnZSk7CisJLyogRG8gbm90IHJlcGxhY2UgdGhpcyB3aXRoIHBhZ2VfcG9vbF9yZXR1cm5fcGFn
-ZSgpICovCisJcGFnZV9wb29sX3JlbGVhc2VfcGFnZShwb29sLCBwYWdlKTsKIAlwdXRfcGFnZShw
-YWdlKTsKIH0KLUVYUE9SVF9TWU1CT0woX19wYWdlX3Bvb2xfcHV0X3BhZ2UpOworRVhQT1JUX1NZ
-TUJPTChwYWdlX3Bvb2xfcHV0X3BhZ2UpOwogCi1zdGF0aWMgdm9pZCBfX3BhZ2VfcG9vbF9lbXB0
-eV9yaW5nKHN0cnVjdCBwYWdlX3Bvb2wgKnBvb2wpCitzdGF0aWMgdm9pZCBwYWdlX3Bvb2xfZW1w
-dHlfcmluZyhzdHJ1Y3QgcGFnZV9wb29sICpwb29sKQogewogCXN0cnVjdCBwYWdlICpwYWdlOwog
-CkBAIC00MTMsNyArNDE3LDcgQEAgc3RhdGljIHZvaWQgX19wYWdlX3Bvb2xfZW1wdHlfcmluZyhz
-dHJ1Y3QgcGFnZV9wb29sICpwb29sKQogCQkJcHJfY3JpdCgiJXMoKSBwYWdlX3Bvb2wgcmVmY250
-ICVkIHZpb2xhdGlvblxuIiwKIAkJCQlfX2Z1bmNfXywgcGFnZV9yZWZfY291bnQocGFnZSkpOwog
-Ci0JCV9fcGFnZV9wb29sX3JldHVybl9wYWdlKHBvb2wsIHBhZ2UpOworCQlwYWdlX3Bvb2xfcmV0
-dXJuX3BhZ2UocG9vbCwgcGFnZSk7CiAJfQogfQogCkBAIC00NDMsNyArNDQ3LDcgQEAgc3RhdGlj
-IHZvaWQgcGFnZV9wb29sX2VtcHR5X2FsbG9jX2NhY2hlX29uY2Uoc3RydWN0IHBhZ2VfcG9vbCAq
-cG9vbCkKIAkgKi8KIAl3aGlsZSAocG9vbC0+YWxsb2MuY291bnQpIHsKIAkJcGFnZSA9IHBvb2wt
-PmFsbG9jLmNhY2hlWy0tcG9vbC0+YWxsb2MuY291bnRdOwotCQlfX3BhZ2VfcG9vbF9yZXR1cm5f
-cGFnZShwb29sLCBwYWdlKTsKKwkJcGFnZV9wb29sX3JldHVybl9wYWdlKHBvb2wsIHBhZ2UpOwog
-CX0KIH0KIApAQCAtNDU1LDcgKzQ1OSw3IEBAIHN0YXRpYyB2b2lkIHBhZ2VfcG9vbF9zY3J1Yihz
-dHJ1Y3QgcGFnZV9wb29sICpwb29sKQogCS8qIE5vIG1vcmUgY29uc3VtZXJzIHNob3VsZCBleGlz
-dCwgYnV0IHByb2R1Y2VycyBjb3VsZCBzdGlsbAogCSAqIGJlIGluLWZsaWdodC4KIAkgKi8KLQlf
-X3BhZ2VfcG9vbF9lbXB0eV9yaW5nKHBvb2wpOworCXBhZ2VfcG9vbF9lbXB0eV9yaW5nKHBvb2wp
-OwogfQogCiBzdGF0aWMgaW50IHBhZ2VfcG9vbF9yZWxlYXNlKHN0cnVjdCBwYWdlX3Bvb2wgKnBv
-b2wpCkBAIC01MjksNyArNTMzLDcgQEAgdm9pZCBwYWdlX3Bvb2xfdXBkYXRlX25pZChzdHJ1Y3Qg
-cGFnZV9wb29sICpwb29sLCBpbnQgbmV3X25pZCkKIAkvKiBGbHVzaCBwb29sIGFsbG9jIGNhY2hl
-LCBhcyByZWZpbGwgd2lsbCBjaGVjayBOVU1BIG5vZGUgKi8KIAl3aGlsZSAocG9vbC0+YWxsb2Mu
-Y291bnQpIHsKIAkJcGFnZSA9IHBvb2wtPmFsbG9jLmNhY2hlWy0tcG9vbC0+YWxsb2MuY291bnRd
-OwotCQlfX3BhZ2VfcG9vbF9yZXR1cm5fcGFnZShwb29sLCBwYWdlKTsKKwkJcGFnZV9wb29sX3Jl
-dHVybl9wYWdlKHBvb2wsIHBhZ2UpOwogCX0KIH0KIEVYUE9SVF9TWU1CT0wocGFnZV9wb29sX3Vw
-ZGF0ZV9uaWQpOwpkaWZmIC0tZ2l0IGEvbmV0L2NvcmUveGRwLmMgYi9uZXQvY29yZS94ZHAuYwpp
-bmRleCA4MzEwNzE0YzQ3ZmQuLjRjN2VhODU0ODZhZiAxMDA2NDQKLS0tIGEvbmV0L2NvcmUveGRw
-LmMKKysrIGIvbmV0L2NvcmUveGRwLmMKQEAgLTM3Miw3ICszNzIsNyBAQCBzdGF0aWMgdm9pZCBf
-X3hkcF9yZXR1cm4odm9pZCAqZGF0YSwgc3RydWN0IHhkcF9tZW1faW5mbyAqbWVtLCBib29sIG5h
-cGlfZGlyZWN0LAogCQl4YSA9IHJoYXNodGFibGVfbG9va3VwKG1lbV9pZF9odCwgJm1lbS0+aWQs
-IG1lbV9pZF9yaHRfcGFyYW1zKTsKIAkJcGFnZSA9IHZpcnRfdG9faGVhZF9wYWdlKGRhdGEpOwog
-CQluYXBpX2RpcmVjdCAmPSAheGRwX3JldHVybl9mcmFtZV9ub19kaXJlY3QoKTsKLQkJcGFnZV9w
-b29sX3B1dF9wYWdlKHhhLT5wYWdlX3Bvb2wsIHBhZ2UsIG5hcGlfZGlyZWN0KTsKKwkJcGFnZV9w
-b29sX3B1dF9mdWxsX3BhZ2UoeGEtPnBhZ2VfcG9vbCwgcGFnZSwgbmFwaV9kaXJlY3QpOwogCQly
-Y3VfcmVhZF91bmxvY2soKTsKIAkJYnJlYWs7CiAJY2FzZSBNRU1fVFlQRV9QQUdFX1NIQVJFRDoK
-LS0gCjIuMjUuMQoKX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19f
-X18KTGludXgtc3RtMzIgbWFpbGluZyBsaXN0CkxpbnV4LXN0bTMyQHN0LW1kLW1haWxtYW4uc3Rv
-cm1yZXBseS5jb20KaHR0cHM6Ly9zdC1tZC1tYWlsbWFuLnN0b3JtcmVwbHkuY29tL21haWxtYW4v
-bGlzdGluZm8vbGludXgtc3RtMzIK
+
+
+On 2/19/20 9:56 PM, Mathieu Poirier wrote:
+> Hey Arnaud,
+> 
+> On Tue, 18 Feb 2020 at 10:31, Arnaud POULIQUEN <arnaud.pouliquen@st.com> wrote:
+>>
+>> Hi Mathieu, Bjorn,
+>>
+>> On 2/17/20 7:40 PM, Mathieu Poirier wrote:
+>>> On Fri, 14 Feb 2020 at 09:33, Arnaud POULIQUEN <arnaud.pouliquen@st.com> wrote:
+>>>>
+>>>> Hi Mathieu,
+>>>>
+>>>> On 2/13/20 9:08 PM, Mathieu Poirier wrote:
+>>>>> Good day,
+>>>>>
+>>>>> On Tue, Feb 11, 2020 at 06:42:03PM +0100, Arnaud Pouliquen wrote:
+>>>>>> From: Loic Pallardy <loic.pallardy@st.com>
+>>>>>>
+>>>>>> Remote processor could boot independently or be loaded/started before
+>>>>>> Linux kernel by bootloader or any firmware.
+>>>>>> This patch introduces a new property in rproc core, named skip_fw_load,
+>>>>>> to be able to allocate resources and sub-devices like vdev and to
+>>>>>> synchronize with current state without loading firmware from file system.
+>>>>>> It is platform driver responsibility to implement the right firmware
+>>>>>> load ops according to HW specificities.
+>>>>>>
+>>>>>> Signed-off-by: Loic Pallardy <loic.pallardy@st.com>
+>>>>>> Acked-by: Mathieu Poirier <mathieu.poirier@linaro.org>
+>>>>>> Signed-off-by: Arnaud Pouliquen <arnaud.pouliquen@st.com>
+>>>>>> ---
+>>>>>>  drivers/remoteproc/remoteproc_core.c | 67 ++++++++++++++++++++++------
+>>>>>>  include/linux/remoteproc.h           |  2 +
+>>>>>>  2 files changed, 55 insertions(+), 14 deletions(-)
+>>>>>>
+>>>>>> diff --git a/drivers/remoteproc/remoteproc_core.c b/drivers/remoteproc/remoteproc_core.c
+>>>>>> index 097f33e4f1f3..876b5420a32b 100644
+>>>>>> --- a/drivers/remoteproc/remoteproc_core.c
+>>>>>> +++ b/drivers/remoteproc/remoteproc_core.c
+>>>>>> @@ -1358,8 +1358,19 @@ static int rproc_start(struct rproc *rproc, const struct firmware *fw)
+>>>>>>      return ret;
+>>>>>>  }
+>>>>>>
+>>>>>> -/*
+>>>>>> - * take a firmware and boot a remote processor with it.
+>>>>>> +/**
+>>>>>> + * rproc_fw_boot() - boot specified remote processor according to specified
+>>>>>> + * firmware
+>>>>>> + * @rproc: handle of a remote processor
+>>>>>> + * @fw: pointer on firmware to handle
+>>>>>> + *
+>>>>>> + * Handle resources defined in resource table, load firmware and
+>>>>>> + * start remote processor.
+>>>>>> + *
+>>>>>> + * If firmware pointer fw is NULL, firmware is not handled by remoteproc
+>>>>>> + * core, but under the responsibility of platform driver.
+>>>>>> + *
+>>>>>> + * Returns 0 on success, and an appropriate error value otherwise.
+>>>>>>   */
+>>>>>>  static int rproc_fw_boot(struct rproc *rproc, const struct firmware *fw)
+>>>>>>  {
+>>>>>> @@ -1371,7 +1382,11 @@ static int rproc_fw_boot(struct rproc *rproc, const struct firmware *fw)
+>>>>>>      if (ret)
+>>>>>>              return ret;
+>>>>>>
+>>>>>> -    dev_info(dev, "Booting fw image %s, size %zd\n", name, fw->size);
+>>>>>> +    if (fw)
+>>>>>> +            dev_info(dev, "Booting fw image %s, size %zd\n", name,
+>>>>>> +                     fw->size);
+>>>>>> +    else
+>>>>>> +            dev_info(dev, "Synchronizing with preloaded co-processor\n");
+>>>>>>
+>>>>>>      /*
+>>>>>>       * if enabling an IOMMU isn't relevant for this rproc, this is
+>>>>>> @@ -1718,16 +1733,22 @@ static void rproc_crash_handler_work(struct work_struct *work)
+>>>>>>   * rproc_boot() - boot a remote processor
+>>>>>>   * @rproc: handle of a remote processor
+>>>>>>   *
+>>>>>> - * Boot a remote processor (i.e. load its firmware, power it on, ...).
+>>>>>> + * Boot a remote processor (i.e. load its firmware, power it on, ...) from
+>>>>>> + * different contexts:
+>>>>>> + * - power off
+>>>>>> + * - preloaded firmware
+>>>>>> + * - started before kernel execution
+>>>>>> + * The different operations are selected thanks to properties defined by
+>>>>>> + * platform driver.
+>>>>>>   *
+>>>>>> - * If the remote processor is already powered on, this function immediately
+>>>>>> - * returns (successfully).
+>>>>>> + * If the remote processor is already powered on at rproc level, this function
+>>>>>> + * immediately returns (successfully).
+>>>>>>   *
+>>>>>>   * Returns 0 on success, and an appropriate error value otherwise.
+>>>>>>   */
+>>>>>>  int rproc_boot(struct rproc *rproc)
+>>>>>>  {
+>>>>>> -    const struct firmware *firmware_p;
+>>>>>> +    const struct firmware *firmware_p = NULL;
+>>>>>>      struct device *dev;
+>>>>>>      int ret;
+>>>>>>
+>>>>>> @@ -1758,11 +1779,20 @@ int rproc_boot(struct rproc *rproc)
+>>>>>>
+>>>>>>      dev_info(dev, "powering up %s\n", rproc->name);
+>>>>>>
+>>>>>> -    /* load firmware */
+>>>>>> -    ret = request_firmware(&firmware_p, rproc->firmware, dev);
+>>>>>> -    if (ret < 0) {
+>>>>>> -            dev_err(dev, "request_firmware failed: %d\n", ret);
+>>>>>> -            goto downref_rproc;
+>>>>>> +    if (!rproc->skip_fw_load) {
+>>>>>> +            /* load firmware */
+>>>>>> +            ret = request_firmware(&firmware_p, rproc->firmware, dev);
+>>>>>> +            if (ret < 0) {
+>>>>>> +                    dev_err(dev, "request_firmware failed: %d\n", ret);
+>>>>>> +                    goto downref_rproc;
+>>>>>> +            }
+>>>>>> +    } else {
+>>>>>> +            /*
+>>>>>> +             * Set firmware name pointer to null as remoteproc core is not
+>>>>>> +             * in charge of firmware loading
+>>>>>> +             */
+>>>>>> +            kfree(rproc->firmware);
+>>>>>> +            rproc->firmware = NULL;
+>>>>>
+>>>>> If the MCU with pre-loaded FW crashes request_firmware() in
+>>>>> rproc_trigger_recovery() will return an error and rproc_start()
+>>>>> never called.
+>>>>
+>>>> Right, something is missing in the recovery function to prevent request_firmware call if skip_fw_load is set
+>>>>
+>>>> We also identify an issue if recovery fails:
+>>>> In case of recovery issue the rproc state is RPROC_CRASHED, so that it is no more possible to load a new firmware from
+>>>> user space.
+>>>> This issue is not linked to this patchset. We have patches on our shelves for this.
+>>>>
+>>>>>>      }
+>>>>>>
+>>>>>>      ret = rproc_fw_boot(rproc, firmware_p);
+>>>>>> @@ -1916,8 +1946,17 @@ int rproc_add(struct rproc *rproc)
+>>>>>>      /* create debugfs entries */
+>>>>>>      rproc_create_debug_dir(rproc);
+>>>>>>
+>>>>>> -    /* if rproc is marked always-on, request it to boot */
+>>>>>> -    if (rproc->auto_boot) {
+>>>>>> +    if (rproc->skip_fw_load) {
+>>>>>> +            /*
+>>>>>> +             * If rproc is marked already booted, no need to wait
+>>>>>> +             * for firmware.
+>>>>>> +             * Just handle associated resources and start sub devices
+>>>>>> +             */
+>>>>>> +            ret = rproc_boot(rproc);
+>>>>>> +            if (ret < 0)
+>>>>>> +                    return ret;
+>>>>>> +    } else if (rproc->auto_boot) {
+>>>>>> +            /* if rproc is marked always-on, request it to boot */
+>>>>>
+>>>>> I spent way too much time staring at this modification...  I can't decide if a
+>>>>> system where the FW has been pre-loaded should be considered "auto_boot".
+>>>>> Indeed the result is the same, i.e the MCU is started at boot time without user
+>>>>> intervention.
+>>>>
+>>>> The main difference is that the firmware is loaded by the Linux remote proc in case of auto-boot.
+>>>> In auto-boot mode the remoteproc loads a firmware, on probe, with a specified name without any request from user space.
+>>>> One constraint of this mode is that the file system has to be accessible before the rproc probe.
+>>>
+>>> Indeed, but in both cases the MCU is booted automatically.  In one
+>>> case the FW is loaded by the framework and in the other it is not.  As
+>>> such both scenarios are "auto_boot", they simply have different
+>>> flavours.
+>> Regarding your concerns i would like to propose an alternative that will answer to following use cases:
+>>
+>> In term of use cases we can start the remote proc firmware in following modes:
+>> - auto boot with FW loading, resource table parsing and FW start/stop
+>> - auto boot without FW loading, with FW resource table parsing and FW start/stop
+>> - auto boot with FW attachment and  resource table parsing
+>> - boot on userspace request with FW loading, resource table parsing and FW start/stop
+>> - boot on userspace request without FW loading, with FW resource table parsing and FW start/stop
+>> - boot on userspace request with FW attachment and  resource table parsing
+>>
+>> I considered the recovery covered by these use cases...
+>>
+>> I tried to concatenate all use case to determine the behavior of the core and platform driver:
+>> - "auto-boot" used to decide if boot is from driver or user space request (independently from fw loading and live cycle management)
+>> - "skip_fw_load" allows to determine if a firmware has to be loaded or not.
+>> - remote Firmware live cycle (start,stop,...) are managed by the platform driver, it would have to determine the manage the remote proc depending on the mode detected.
+>>
+>> If i apply this for stm32mp1 driver:
+>> normal boot( FW started on user space request):
+>>   - auto-boot = 0
+>>   - skip_fw_load = 0
+>> FW loaded and started by the bootloader
+>>   - auto-boot = 1
+>>   - skip_firmware = 1;
+>>
+>> => on a stop: the "auto-boot" and "skip_firmware flag will be reset by the stm32rproc driver, to allow user space to load a new firmware or reste the system.
+>> this is considered as a ack by Bjorn today, if you have an alternative please share.
+> 
+> I wonder if we can achieve the same results without needing
+> rproc::skip_fw_load...  For cases where the FW would have been loaded
+> and the MCU started by another entity we could simply set rproc->state
+> = RPROC_RUNNING in the platform driver.  That way when the MCU is
+> stopped or crashes, there is no flag to reset, rproc->state is simply
+> set correctly by the current code.
+> 
+> I would also set auto_boot =1 in order to start the AP synchronisation
+> as quickly as possible and add a check in rproc_trigger_auto_boot() to
+> see if rproc->state == RPROC_RUNNING.  If so simply call rproc_boot()
+> where platform specific rproc_ops would be tailored to handle a
+> running processor.
+
+Your proposal is interesting, what concerns me is that seems to work only
+for a first start. And calling rproc_boot, while state is RPROC_RUNNING seems
+pretty strange for me.
+Also, as Peng mentions in https://patchwork.kernel.org/patch/11390485/,
+the need also exists to skip the load of the firmware on recovery.
+How to manage ROM/XIP Firmwares, no handling of the FW code only management
+of the live cycle (using sysfs, crash management ....)?
+
+> 
+> In my opinion the above would represent the state of the MCU rather
+> than the state of the FW used by the MCU.  It would also provide an
+> opening for supporting systems where the MCU is not the life cycle
+> manager.
+Not sure to catch your point here. By "above" you mention your proposal or mine?
+In my opinion, rproc->state already represents the MCU state
+what seems missing is the FW state
+Could you clarify what you mean by "systems where the MCU is not the life cycle
+manager" MCU = rproc framework?
+
+Regards
+Arnaud
+
+> 
+> Let me know what you think...
+> 
+>>
+>> I need to rework the patchset in consequence but i would appreciate your feedback on this proposal before, to be sure that i well interpreted your concerns...
+>>
+>> Regards,
+>> Arnaud
+>>
+>>>
+>>>> This is not necessary the case, even if EPROBE_DEFER is used. In this case the driver has to be build as kernel module.
+>>>>
+>>>> Thanks,
+>>>> Arnaud
+>>>>>
+>>>>> I'd welcome other people's opinion on this.
+>>>>>
+>>>>>>              ret = rproc_trigger_auto_boot(rproc);
+>>>>>>              if (ret < 0)
+>>>>>>                      return ret;
+>>>>>> diff --git a/include/linux/remoteproc.h b/include/linux/remoteproc.h
+>>>>>> index 16ad66683ad0..4fd5bedab4fa 100644
+>>>>>> --- a/include/linux/remoteproc.h
+>>>>>> +++ b/include/linux/remoteproc.h
+>>>>>> @@ -479,6 +479,7 @@ struct rproc_dump_segment {
+>>>>>>   * @table_sz: size of @cached_table
+>>>>>>   * @has_iommu: flag to indicate if remote processor is behind an MMU
+>>>>>>   * @auto_boot: flag to indicate if remote processor should be auto-started
+>>>>>> + * @skip_fw_load: remote processor has been preloaded before start sequence
+>>>>>>   * @dump_segments: list of segments in the firmware
+>>>>>>   * @nb_vdev: number of vdev currently handled by rproc
+>>>>>>   */
+>>>>>> @@ -512,6 +513,7 @@ struct rproc {
+>>>>>>      size_t table_sz;
+>>>>>>      bool has_iommu;
+>>>>>>      bool auto_boot;
+>>>>>> +    bool skip_fw_load;
+>>>>>>      struct list_head dump_segments;
+>>>>>>      int nb_vdev;
+>>>>>>  };
+>>>>>> --
+>>>>>> 2.17.1
+>>>>>>
+_______________________________________________
+Linux-stm32 mailing list
+Linux-stm32@st-md-mailman.stormreply.com
+https://st-md-mailman.stormreply.com/mailman/listinfo/linux-stm32
