@@ -2,69 +2,67 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id B0C6C168279
-	for <lists+linux-stm32@lfdr.de>; Fri, 21 Feb 2020 16:59:02 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 9087B1688AB
+	for <lists+linux-stm32@lfdr.de>; Fri, 21 Feb 2020 22:04:21 +0100 (CET)
 Received: from ip-172-31-3-76.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 63061C36B0B;
-	Fri, 21 Feb 2020 15:59:02 +0000 (UTC)
-Received: from mx07-00178001.pphosted.com (mx07-00178001.pphosted.com
- [62.209.51.94])
- (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 35F9EC36B0B;
+	Fri, 21 Feb 2020 21:04:21 +0000 (UTC)
+Received: from mail-wm1-f67.google.com (mail-wm1-f67.google.com
+ [209.85.128.67])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 3D9B6C36B09
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id B46DEC36B09
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Fri, 21 Feb 2020 15:59:01 +0000 (UTC)
-Received: from pps.filterd (m0046037.ppops.net [127.0.0.1])
- by mx07-00178001.pphosted.com (8.16.0.42/8.16.0.42) with SMTP id
- 01LFiJfe029798; Fri, 21 Feb 2020 16:58:44 +0100
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=st.com;
- h=subject : to : cc :
- references : from : message-id : date : mime-version : in-reply-to :
- content-type : content-transfer-encoding; s=STMicroelectronics;
- bh=q7m0eWQuKU+1f/Hc3O6mTWcHzdCj7QRgHso723d9XGs=;
- b=Euuq+vh1udcasMYA2o1zPDWwzgMu9mv5bfzyIn88vggmaGewnrpTUwhnCwwGrdPqIIZD
- GCg5H/MYu1732s2elAaqiu+3IaIyWw0h2zEy5nobAL+hBqGBGiJ+PDShKlivPGG5pYWK
- AHmu3XNHCAqS0pzBqtwTvfaR16Gh9PRd0dkB61cqAZAApNp0nILnnfiGu2h/0Xs6kS0F
- meqmiH0PBe69DVjW7tE2XlKaRtIzMcO4fcdV7Li/1QJwhSOTPWsP/t0UeYWGBLemVgJf
- x6+P1wDolnEzoMXxAdwglMUcUOItcZjhsU3nc3WP8zBxaF5/LZbOu82Fd1G+tFwefLDq RA== 
-Received: from beta.dmz-eu.st.com (beta.dmz-eu.st.com [164.129.1.35])
- by mx07-00178001.pphosted.com with ESMTP id 2y8ub1r41d-1
- (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
- Fri, 21 Feb 2020 16:58:44 +0100
-Received: from euls16034.sgp.st.com (euls16034.sgp.st.com [10.75.44.20])
- by beta.dmz-eu.st.com (STMicroelectronics) with ESMTP id 0275710002A;
- Fri, 21 Feb 2020 16:58:44 +0100 (CET)
-Received: from Webmail-eu.st.com (sfhdag3node2.st.com [10.75.127.8])
- by euls16034.sgp.st.com (STMicroelectronics) with ESMTP id DF8EC2BC7CD;
- Fri, 21 Feb 2020 16:58:43 +0100 (CET)
-Received: from lmecxl0912.lme.st.com (10.75.127.46) by SFHDAG3NODE2.st.com
- (10.75.127.8) with Microsoft SMTP Server (TLS) id 15.0.1347.2; Fri, 21 Feb
- 2020 16:58:42 +0100
-To: Erwan Le Ray <erwan.leray@st.com>, Russell King <linux@armlinux.org.uk>,
- Maxime Coquelin <mcoquelin.stm32@gmail.com>, Arnd Bergmann <arnd@arndb.de>,
- Linus Walleij <linus.walleij@linaro.org>, Olof Johansson <olof@lixom.net>
-References: <20200203140425.26579-1-erwan.leray@st.com>
-From: Alexandre Torgue <alexandre.torgue@st.com>
-Message-ID: <609b5744-cc1e-8ada-fe14-6cc199c0a91d@st.com>
-Date: Fri, 21 Feb 2020 16:58:42 +0100
-User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:68.0) Gecko/20100101
- Thunderbird/68.4.1
+ Fri, 21 Feb 2020 21:04:19 +0000 (UTC)
+Received: by mail-wm1-f67.google.com with SMTP id p9so3169966wmc.2
+ for <linux-stm32@st-md-mailman.stormreply.com>;
+ Fri, 21 Feb 2020 13:04:19 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=ffwll.ch; s=google;
+ h=from:to:cc:subject:date:message-id:in-reply-to:references
+ :mime-version:content-transfer-encoding;
+ bh=HAoa+ReMwHomgBUwnpPQde3KSJuaKiY678ziXw+Di+w=;
+ b=JUcZUdSolVLSScJmZ4pac+fLPoptZYAMcXTFnstu23DOwylMJ5O5W4taZWhttty3Mu
+ hbyGk+GcTTVOoxC89GipeyReR/b6mHRz38H/WKGKCJeuHSflpn/4Di3is3fHSYWEbPAD
+ CiAzZTvk3JxSwukoFtIRgCcNVmJfj9axPoURE=
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20161025;
+ h=x-gm-message-state:from:to:cc:subject:date:message-id:in-reply-to
+ :references:mime-version:content-transfer-encoding;
+ bh=HAoa+ReMwHomgBUwnpPQde3KSJuaKiY678ziXw+Di+w=;
+ b=K0GY3sFTRIAlaY4kevyQ+cQk1LqA3L0nJEFgx3RcCZhMHp6OnvMK1gV41ssCBMCRy6
+ 1gmMSfDyWiGkVfjbaB67rINmqtD1mUpUj7fIdwJOlbvL/p+Jtz8wZDkzqPVfwDFKXb+h
+ 0KIPPO5U8iw8cMWTcn+wQyljQZu+HoarCo/k7j32lrqaNgwWBlsbWMbEord4cmmkdJQl
+ fe6ynSByZdM6wW1Jio6UVUJojLR0JyTvp5peSSTyFpXw2mRwIKnXUmpg45Lg5NBy04iC
+ CTGnVl7OGvFPK3NC8Np54flOfPQ4vEm6oUozWVLDlRDX92sM2o0XdRi3/1GrCgLyy0uK
+ w0yg==
+X-Gm-Message-State: APjAAAXwsEhXfFgE1iBqv6x/wAogcAXwJPHoKlp7dCSgejhstpO9dGgR
+ WxFrFEeBYIW9e0/k8wVJUxox8A==
+X-Google-Smtp-Source: APXvYqxE6d0z/PJ8kwl5QVJU6aMhteu81Ji4eCz5l4YndZMRUkDhwPSabGxBRoO884TWZ32cbROk7Q==
+X-Received: by 2002:a1c:9602:: with SMTP id y2mr5536410wmd.23.1582319058948;
+ Fri, 21 Feb 2020 13:04:18 -0800 (PST)
+Received: from phenom.ffwll.local ([2a02:168:57f4:0:efd0:b9e5:5ae6:c2fa])
+ by smtp.gmail.com with ESMTPSA id z6sm5483930wrw.36.2020.02.21.13.04.17
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Fri, 21 Feb 2020 13:04:18 -0800 (PST)
+From: Daniel Vetter <daniel.vetter@ffwll.ch>
+To: DRI Development <dri-devel@lists.freedesktop.org>
+Date: Fri, 21 Feb 2020 22:03:06 +0100
+Message-Id: <20200221210319.2245170-39-daniel.vetter@ffwll.ch>
+X-Mailer: git-send-email 2.24.1
+In-Reply-To: <20200221210319.2245170-1-daniel.vetter@ffwll.ch>
+References: <20200221210319.2245170-1-daniel.vetter@ffwll.ch>
 MIME-Version: 1.0
-In-Reply-To: <20200203140425.26579-1-erwan.leray@st.com>
-Content-Language: en-US
-X-Originating-IP: [10.75.127.46]
-X-ClientProxiedBy: SFHDAG4NODE2.st.com (10.75.127.11) To SFHDAG3NODE2.st.com
- (10.75.127.8)
-X-Proofpoint-Virus-Version: vendor=fsecure engine=2.50.10434:6.0.138, 18.0.572
- definitions=2020-02-21_05:2020-02-21,
- 2020-02-21 signatures=0
-Cc: Geert Uytterhoeven <geert+renesas@glider.be>,
- Sascha Hauer <s.hauer@pengutronix.de>, linux-kernel@vger.kernel.org,
- Clement Peron <peron.clem@gmail.com>, Gerald Baeza <gerald.baeza@st.com>,
- Nathan Huckleberry <nhuck15@gmail.com>,
- Fabrice Gasnier <fabrice.gasnier@st.com>,
+Cc: Maxime Coquelin <mcoquelin.stm32@gmail.com>,
+ Daniel Vetter <daniel.vetter@ffwll.ch>,
+ Intel Graphics Development <intel-gfx@lists.freedesktop.org>,
+ Yannick Fertre <yannick.fertre@st.com>,
+ Laurent Pinchart <laurent.pinchart@ideasonboard.com>,
+ Benjamin Gaignard <benjamin.gaignard@linaro.org>,
+ Daniel Vetter <daniel.vetter@intel.com>,
+ Vincent Abriou <vincent.abriou@st.com>,
  linux-stm32@st-md-mailman.stormreply.com, linux-arm-kernel@lists.infradead.org
-Subject: Re: [Linux-stm32] [PATCH v3 0/4] STM32 early console
+Subject: [Linux-stm32] [PATCH 38/51] drm/stm: Drop explicit
+	drm_mode_config_cleanup call
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -76,44 +74,83 @@ List-Post: <mailto:linux-stm32@st-md-mailman.stormreply.com>
 List-Help: <mailto:linux-stm32-request@st-md-mailman.stormreply.com?subject=help>
 List-Subscribe: <https://st-md-mailman.stormreply.com/mailman/listinfo/linux-stm32>, 
  <mailto:linux-stm32-request@st-md-mailman.stormreply.com?subject=subscribe>
+Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
-Content-Type: text/plain; charset="us-ascii"; Format="flowed"
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
-Hi
+It's right above the drm_dev_put().
 
-On 2/3/20 3:04 PM, Erwan Le Ray wrote:
-> Add UART instance configuration to STM32 F4 and F7 early console.
-> Add STM32 H7 and MP1 early console support.
-> 
-> Changes in v3:
-> - fix a missing condition for STM32MP1
->    
-> Changes in v2:
-> - split "[PATCH] ARM: debug: stm32: add UART early console configuration"
->    into separate patches as suggested by Clement into [1]
-> 
-> [1] https://lkml.org/lkml/2019/4/10/199
-> 
-> Erwan Le Ray (4):
->    ARM: debug: stm32: add UART early console configuration for STM32F4
->    ARM: debug: stm32: add UART early console configuration for STM32F7
->    ARM: debug: stm32: add UART early console support for STM32H7
->    ARM: debug: stm32: add UART early console support for STM32MP1
-> 
->   arch/arm/Kconfig.debug         | 42 +++++++++++++++++++++++++++++-----
->   arch/arm/include/debug/stm32.S |  9 ++++----
->   2 files changed, 40 insertions(+), 11 deletions(-)
-> 
+This is made possible by a preceeding patch which added a drmm_
+cleanup action to drm_mode_config_init(), hence all we need to do to
+ensure that drm_mode_config_cleanup() is run on final drm_device
+cleanup is check the new error code for _init().
 
-Acked-by: Alexandre TORGUE <alexandre.torgue@st.com>
+Aside: Another driver with a bit much devm_kzalloc, which should
+probably use drmm_kzalloc instead ...
 
-Russel, Arnd, Olof, Linus
-Do I have to take this series in my next PR ? or you'll ?
+v2: Explain why this cleanup is possible (Laurent).
 
-Thanks
-alex
+Acked-by: Philippe Cornu <philippe.cornu@st.com>
+Cc: Laurent Pinchart <laurent.pinchart@ideasonboard.com>
+Signed-off-by: Daniel Vetter <daniel.vetter@intel.com>
+Cc: Yannick Fertre <yannick.fertre@st.com>
+Cc: Philippe Cornu <philippe.cornu@st.com>
+Cc: Benjamin Gaignard <benjamin.gaignard@linaro.org>
+Cc: Vincent Abriou <vincent.abriou@st.com>
+Cc: Maxime Coquelin <mcoquelin.stm32@gmail.com>
+Cc: Alexandre Torgue <alexandre.torgue@st.com>
+Cc: linux-stm32@st-md-mailman.stormreply.com
+Cc: linux-arm-kernel@lists.infradead.org
+---
+ drivers/gpu/drm/stm/drv.c | 10 ++++------
+ 1 file changed, 4 insertions(+), 6 deletions(-)
+
+diff --git a/drivers/gpu/drm/stm/drv.c b/drivers/gpu/drm/stm/drv.c
+index ea9fcbdc68b3..5b374531dd8c 100644
+--- a/drivers/gpu/drm/stm/drv.c
++++ b/drivers/gpu/drm/stm/drv.c
+@@ -88,7 +88,9 @@ static int drv_load(struct drm_device *ddev)
+ 
+ 	ddev->dev_private = (void *)ldev;
+ 
+-	drm_mode_config_init(ddev);
++	ret = drm_mode_config_init(ddev);
++	if (ret)
++		return ret;
+ 
+ 	/*
+ 	 * set max width and height as default value.
+@@ -103,7 +105,7 @@ static int drv_load(struct drm_device *ddev)
+ 
+ 	ret = ltdc_load(ddev);
+ 	if (ret)
+-		goto err;
++		return ret;
+ 
+ 	drm_mode_config_reset(ddev);
+ 	drm_kms_helper_poll_init(ddev);
+@@ -111,9 +113,6 @@ static int drv_load(struct drm_device *ddev)
+ 	platform_set_drvdata(pdev, ddev);
+ 
+ 	return 0;
+-err:
+-	drm_mode_config_cleanup(ddev);
+-	return ret;
+ }
+ 
+ static void drv_unload(struct drm_device *ddev)
+@@ -122,7 +121,6 @@ static void drv_unload(struct drm_device *ddev)
+ 
+ 	drm_kms_helper_poll_fini(ddev);
+ 	ltdc_unload(ddev);
+-	drm_mode_config_cleanup(ddev);
+ }
+ 
+ static __maybe_unused int drv_suspend(struct device *dev)
+-- 
+2.24.1
+
 _______________________________________________
 Linux-stm32 mailing list
 Linux-stm32@st-md-mailman.stormreply.com
