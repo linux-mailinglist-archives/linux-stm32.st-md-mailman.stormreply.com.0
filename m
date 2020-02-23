@@ -2,55 +2,52 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id 4D2E41696EB
-	for <lists+linux-stm32@lfdr.de>; Sun, 23 Feb 2020 10:00:26 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 2B43716981A
+	for <lists+linux-stm32@lfdr.de>; Sun, 23 Feb 2020 15:38:02 +0100 (CET)
 Received: from ip-172-31-3-76.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 367FEC36B0B;
-	Sun, 23 Feb 2020 09:00:25 +0000 (UTC)
-Received: from bombadil.infradead.org (bombadil.infradead.org
- [198.137.202.133])
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id BBAF4C36B0B;
+	Sun, 23 Feb 2020 14:38:01 +0000 (UTC)
+Received: from mail-out.m-online.net (mail-out.m-online.net [212.18.0.10])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 10403C36B09
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 3438AC36B09
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Sun, 23 Feb 2020 09:00:22 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
- d=infradead.org; s=bombadil.20170209; h=Sender:Content-Transfer-Encoding:
- MIME-Version:Message-Id:Date:Subject:Cc:To:From:Reply-To:Content-Type:
- Content-ID:Content-Description:In-Reply-To:References;
- bh=RNB2J+mEHhCNl0xuNBvvHTB/2tWC60YI0L4tSd1QRB0=; b=GPUn5ur3nKI8vkZxD9zlfePIvg
- nYQ2HGRdonyN9ziEioizfW8K80tgKNBfd+diHIFZUweMFwqc1qBhNnrvWnDQYRQRweDIGMArB4v2R
- v6ePauHBnkFdZOFIc5sohI/3kse56yFR8eovN5pOAhfbC54SgEifNm83aPwU30wOWH4s0LI3By36A
- n/n8EW/0d9bB7jm+3kwbbRMXlGYQCtzmwyDKZ39c29i6Bt//Z2koUTUB0xvv3Jgx9bQp+y/cMWTIY
- vkp5MjPItSg6CGw8DTU5zxNqBviQ0LONpxkFW9gmzxIHd5u6CP8jMAOjEmpa4vjcYQ8K0BbK3fo2Y
- 7r/GfDXA==;
-Received: from [80.156.29.194] (helo=bombadil.infradead.org)
- by bombadil.infradead.org with esmtpsa (Exim 4.92.3 #3 (Red Hat Linux))
- id 1j5n7F-0007ZW-MS; Sun, 23 Feb 2020 08:59:57 +0000
-Received: from mchehab by bombadil.infradead.org with local (Exim 4.92.3)
- (envelope-from <mchehab@bombadil.infradead.org>)
- id 1j5n7D-001RYm-3q; Sun, 23 Feb 2020 09:59:55 +0100
-From: Mauro Carvalho Chehab <mchehab+huawei@kernel.org>
-To: Linux Doc Mailing List <linux-doc@vger.kernel.org>
-Date: Sun, 23 Feb 2020 09:59:53 +0100
-Message-Id: <0e530494349b37eb2eab4a8eccf56626e0b18e6d.1582448388.git.mchehab+huawei@kernel.org>
-X-Mailer: git-send-email 2.24.1
+ Sun, 23 Feb 2020 14:37:59 +0000 (UTC)
+Received: from frontend01.mail.m-online.net (unknown [192.168.8.182])
+ by mail-out.m-online.net (Postfix) with ESMTP id 48QSTx58wTz1rcBT;
+ Sun, 23 Feb 2020 15:37:57 +0100 (CET)
+Received: from localhost (dynscan1.mnet-online.de [192.168.6.70])
+ by mail.m-online.net (Postfix) with ESMTP id 48QSTx4R7hz1r0cR;
+ Sun, 23 Feb 2020 15:37:57 +0100 (CET)
+X-Virus-Scanned: amavisd-new at mnet-online.de
+Received: from mail.mnet-online.de ([192.168.8.182])
+ by localhost (dynscan1.mail.m-online.net [192.168.6.70]) (amavisd-new,
+ port 10024)
+ with ESMTP id DRg4d07ql-mS; Sun, 23 Feb 2020 15:37:56 +0100 (CET)
+X-Auth-Info: qbc25jYxOW4DR+2yuAUozJmjPr9Hme7XPCIo3LNOuy0=
+Received: from [IPv6:::1] (unknown [195.140.253.167])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+ (No client certificate requested)
+ by mail.mnet-online.de (Postfix) with ESMTPSA;
+ Sun, 23 Feb 2020 15:37:56 +0100 (CET)
+To: Alexandre Torgue <alexandre.torgue@st.com>,
+ linux-arm-kernel@lists.infradead.org
+References: <20200119191143.50033-1-marex@denx.de>
+ <20200119191143.50033-6-marex@denx.de>
+ <1b288811-8ffb-a150-71ef-4c006e6d5740@st.com>
+From: Marek Vasut <marex@denx.de>
+Message-ID: <1ec643e9-217d-c83d-793f-c05d6c4502bd@denx.de>
+Date: Sun, 23 Feb 2020 15:37:55 +0100
+User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:68.0) Gecko/20100101
+ Thunderbird/68.4.2
 MIME-Version: 1.0
-Cc: alsa-devel@alsa-project.org,
- =?UTF-8?q?J=C3=A9r=C3=B4me=20Pouiller?= <jerome.pouiller@silabs.com>,
- linux-mtd@lists.infradead.org, Miquel Raynal <miquel.raynal@bootlin.com>,
- linux-stm32@st-md-mailman.stormreply.com,
- Vignesh Raghavendra <vigneshr@ti.com>, devel@driverdev.osuosl.org,
- Jonathan Corbet <corbet@lwn.net>,
- Mauro Carvalho Chehab <mchehab+huawei@kernel.org>,
- Richard Weinberger <richard@nod.at>, Piotr Sroka <piotrs@cadence.com>,
- devicetree@vger.kernel.org, Mark Brown <broonie@kernel.org>,
- linux-arm-kernel@lists.infradead.org,
- Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
- Liam Girdwood <lgirdwood@gmail.com>, linux-spi@vger.kernel.org,
- Rob Herring <robh+dt@kernel.org>, Maxime Coquelin <mcoquelin.stm32@gmail.com>,
- netdev@vger.kernel.org, "David S. Miller" <davem@davemloft.net>
-Subject: [Linux-stm32] [PATCH] docs: dt: fix several broken doc references
+In-Reply-To: <1b288811-8ffb-a150-71ef-4c006e6d5740@st.com>
+Content-Language: en-US
+Cc: Patrick Delaunay <patrick.delaunay@st.com>,
+ Maxime Coquelin <mcoquelin.stm32@gmail.com>,
+ linux-stm32@st-md-mailman.stormreply.com
+Subject: Re: [Linux-stm32] [PATCH V2 6/6] ARM: dts: stm32: Add DH
+ Electronics DHCOM STM32MP1 SoM and PDK2 board
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -62,131 +59,29 @@ List-Post: <mailto:linux-stm32@st-md-mailman.stormreply.com>
 List-Help: <mailto:linux-stm32-request@st-md-mailman.stormreply.com?subject=help>
 List-Subscribe: <https://st-md-mailman.stormreply.com/mailman/listinfo/linux-stm32>, 
  <mailto:linux-stm32-request@st-md-mailman.stormreply.com?subject=subscribe>
-Content-Type: text/plain; charset="us-ascii"
-Content-Transfer-Encoding: 7bit
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: base64
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
-There are several DT doc references that require manual fixes.
-I found 3 cases fixed on this patch:
-
-	- directory named "binding/" instead of "bindings/";
-	- .txt to .yaml renames;
-	- file renames (still on txt format);
-
-Signed-off-by: Mauro Carvalho Chehab <mchehab+huawei@kernel.org>
----
- .../devicetree/bindings/mtd/cadence-nand-controller.txt       | 2 +-
- .../devicetree/bindings/net/brcm,bcm7445-switch-v4.0.txt      | 2 +-
- Documentation/devicetree/bindings/sound/st,stm32-sai.txt      | 2 +-
- Documentation/devicetree/bindings/sound/st,stm32-spdifrx.txt  | 2 +-
- Documentation/devicetree/bindings/spi/st,stm32-spi.yaml       | 2 +-
- MAINTAINERS                                                   | 4 ++--
- .../devicetree/bindings/net/wireless/siliabs,wfx.txt          | 2 +-
- 7 files changed, 8 insertions(+), 8 deletions(-)
-
-diff --git a/Documentation/devicetree/bindings/mtd/cadence-nand-controller.txt b/Documentation/devicetree/bindings/mtd/cadence-nand-controller.txt
-index f3893c4d3c6a..d2eada5044b2 100644
---- a/Documentation/devicetree/bindings/mtd/cadence-nand-controller.txt
-+++ b/Documentation/devicetree/bindings/mtd/cadence-nand-controller.txt
-@@ -27,7 +27,7 @@ Required properties of NAND chips:
-   - reg: shall contain the native Chip Select ids from 0 to max supported by
-     the cadence nand flash controller
- 
--See Documentation/devicetree/bindings/mtd/nand.txt for more details on
-+See Documentation/devicetree/bindings/mtd/nand-controller.yaml for more details on
- generic bindings.
- 
- Example:
-diff --git a/Documentation/devicetree/bindings/net/brcm,bcm7445-switch-v4.0.txt b/Documentation/devicetree/bindings/net/brcm,bcm7445-switch-v4.0.txt
-index 48a7f916c5e4..88b57b0ca1f4 100644
---- a/Documentation/devicetree/bindings/net/brcm,bcm7445-switch-v4.0.txt
-+++ b/Documentation/devicetree/bindings/net/brcm,bcm7445-switch-v4.0.txt
-@@ -45,7 +45,7 @@ Optional properties:
-   switch queue
- 
- - resets: a single phandle and reset identifier pair. See
--  Documentation/devicetree/binding/reset/reset.txt for details.
-+  Documentation/devicetree/bindings/reset/reset.txt for details.
- 
- - reset-names: If the "reset" property is specified, this property should have
-   the value "switch" to denote the switch reset line.
-diff --git a/Documentation/devicetree/bindings/sound/st,stm32-sai.txt b/Documentation/devicetree/bindings/sound/st,stm32-sai.txt
-index 944743dd9212..c42b91e525fa 100644
---- a/Documentation/devicetree/bindings/sound/st,stm32-sai.txt
-+++ b/Documentation/devicetree/bindings/sound/st,stm32-sai.txt
-@@ -36,7 +36,7 @@ SAI subnodes required properties:
-   - clock-names: Must contain "sai_ck".
- 	Must also contain "MCLK", if SAI shares a master clock,
- 	with a SAI set as MCLK clock provider.
--  - dmas: see Documentation/devicetree/bindings/dma/stm32-dma.txt
-+  - dmas: see Documentation/devicetree/bindings/dma/st,stm32-dma.yaml
-   - dma-names: identifier string for each DMA request line
- 	"tx": if sai sub-block is configured as playback DAI
- 	"rx": if sai sub-block is configured as capture DAI
-diff --git a/Documentation/devicetree/bindings/sound/st,stm32-spdifrx.txt b/Documentation/devicetree/bindings/sound/st,stm32-spdifrx.txt
-index 33826f2459fa..ca9101777c44 100644
---- a/Documentation/devicetree/bindings/sound/st,stm32-spdifrx.txt
-+++ b/Documentation/devicetree/bindings/sound/st,stm32-spdifrx.txt
-@@ -10,7 +10,7 @@ Required properties:
-   - clock-names: must contain "kclk"
-   - interrupts: cpu DAI interrupt line
-   - dmas: DMA specifiers for audio data DMA and iec control flow DMA
--    See STM32 DMA bindings, Documentation/devicetree/bindings/dma/stm32-dma.txt
-+    See STM32 DMA bindings, Documentation/devicetree/bindings/dma/st,stm32-dma.yaml
-   - dma-names: two dmas have to be defined, "rx" and "rx-ctrl"
- 
- Optional properties:
-diff --git a/Documentation/devicetree/bindings/spi/st,stm32-spi.yaml b/Documentation/devicetree/bindings/spi/st,stm32-spi.yaml
-index f0d979664f07..e49ecbf715ba 100644
---- a/Documentation/devicetree/bindings/spi/st,stm32-spi.yaml
-+++ b/Documentation/devicetree/bindings/spi/st,stm32-spi.yaml
-@@ -49,7 +49,7 @@ properties:
-   dmas:
-     description: |
-       DMA specifiers for tx and rx dma. DMA fifo mode must be used. See
--      the STM32 DMA bindings Documentation/devicetree/bindings/dma/stm32-dma.txt.
-+      the STM32 DMA bindings Documentation/devicetree/bindings/dma/st,stm32-dma.yaml.
-     items:
-       - description: rx DMA channel
-       - description: tx DMA channel
-diff --git a/MAINTAINERS b/MAINTAINERS
-index d81701ea3336..6b30a58bd77b 100644
---- a/MAINTAINERS
-+++ b/MAINTAINERS
-@@ -4480,7 +4480,7 @@ L:	linux-media@vger.kernel.org
- T:	git git://linuxtv.org/media_tree.git
- S:	Maintained
- F:	drivers/media/platform/sunxi/sun6i-csi/
--F:	Documentation/devicetree/bindings/media/sun6i-csi.txt
-+F:	Documentation/devicetree/bindings/media/allwinner,sun6i-a31-csi.yaml
- 
- CW1200 WLAN driver
- M:	Solomon Peachy <pizza@shaftnet.org>
-@@ -15955,7 +15955,7 @@ F:	drivers/*/stm32-*timer*
- F:	drivers/pwm/pwm-stm32*
- F:	include/linux/*/stm32-*tim*
- F:	Documentation/ABI/testing/*timer-stm32
--F:	Documentation/devicetree/bindings/*/stm32-*timer*
-+F:	Documentation/devicetree/bindings/*/*stm32-*timer*
- F:	Documentation/devicetree/bindings/pwm/pwm-stm32*
- 
- STMMAC ETHERNET DRIVER
-diff --git a/drivers/staging/wfx/Documentation/devicetree/bindings/net/wireless/siliabs,wfx.txt b/drivers/staging/wfx/Documentation/devicetree/bindings/net/wireless/siliabs,wfx.txt
-index ffec79c14786..17db67559f5e 100644
---- a/drivers/staging/wfx/Documentation/devicetree/bindings/net/wireless/siliabs,wfx.txt
-+++ b/drivers/staging/wfx/Documentation/devicetree/bindings/net/wireless/siliabs,wfx.txt
-@@ -94,5 +94,5 @@ Some properties are recognized either by SPI and SDIO versions:
-    Must contains 64 hexadecimal digits. Not supported in current version.
- 
- WFx driver also supports `mac-address` and `local-mac-address` as described in
--Documentation/devicetree/binding/net/ethernet.txt
-+Documentation/devicetree/bindings/net/ethernet.txt
- 
--- 
-2.24.1
-
-_______________________________________________
-Linux-stm32 mailing list
-Linux-stm32@st-md-mailman.stormreply.com
-https://st-md-mailman.stormreply.com/mailman/listinfo/linux-stm32
+T24gMi8xMC8yMCA1OjM1IFBNLCBBbGV4YW5kcmUgVG9yZ3VlIHdyb3RlOgo+IEhpIE1hcmVrCgpI
+aSwKCj4gT24gMS8xOS8yMCA4OjExIFBNLCBNYXJlayBWYXN1dCB3cm90ZToKPj4gQWRkIHN1cHBv
+cnQgZm9yIERIIEVsZWN0cm9uaWNzIERIQ09NIFNvTSBhbmQgUERLMiByZXYuIDQwMCBjYXJyaWVy
+Cj4+IGJvYXJkLiBUaGlzIGlzIGFuIFNvTSB3aXRoIFNUTTMyTVAxNTdDIGFuZCBhbiBldmFsdWF0
+aW9uIGtpdC4gVGhlCj4+IGJhc2Vib2FyZCBwcm92aWRlcyBFdGhlcm5ldCwgVUFSVCwgVVNCLCBD
+QU4gYW5kIG9wdGlvbmFsIGRpc3BsYXkuCj4+Cj4+IFNpZ25lZC1vZmYtYnk6IE1hcmVrIFZhc3V0
+IDxtYXJleEBkZW54LmRlPgo+PiBDYzogQWxleGFuZHJlIFRvcmd1ZSA8YWxleGFuZHJlLnRvcmd1
+ZUBzdC5jb20+Cj4+IENjOiBNYXhpbWUgQ29xdWVsaW4gPG1jb3F1ZWxpbi5zdG0zMkBnbWFpbC5j
+b20+Cj4+IENjOiBQYXRyaWNlIENob3RhcmQgPHBhdHJpY2UuY2hvdGFyZEBzdC5jb20+Cj4+IENj
+OiBQYXRyaWNrIERlbGF1bmF5IDxwYXRyaWNrLmRlbGF1bmF5QHN0LmNvbT4KPj4gQ2M6IGxpbnV4
+LXN0bTMyQHN0LW1kLW1haWxtYW4uc3Rvcm1yZXBseS5jb20KPj4gVG86IGxpbnV4LWFybS1rZXJu
+ZWxAbGlzdHMuaW5mcmFkZWFkLm9yZwo+PiAtLS0KPj4gVjI6IC0gQWRkIHN0bTMybXAxIGludG8g
+dGhlIHN1YmplY3QgYW5kIGNvbW1pdCBtZXNzYWdlCj4+IMKgwqDCoMKgIC0gU29ydCBEVCBhbHBo
+YW51bWVyaWNhbGx5Cj4+IMKgwqDCoMKgIC0gTW92ZSBhbGwgcGluY29udHJvbCBlbnRyaWVzIGlu
+dG8gc3RtMzJtcDE1LXBpbmN0cmwuZHRzaQo+PiAtLS0KPiAKPiBUaGFua3MgdG8gYWRkIGEgbmV3
+IFNUTTMyIGJvYXJkLgo+IAo+IFNlcmllcyBhcHBsaWVkIG9uIHN0bTMyLW5leHQuCgpIb3cgY29t
+ZSB0aGVzZSBhcmUgbm90IGluIG5leHQvbWFzdGVyIHlldCwgaXMgdGhlIGJyYW5jaCBub3QgYmVp
+bmcKbWVyZ2VkIGludG8gbmV4dCByZWd1bGFybHkgPwpfX19fX19fX19fX19fX19fX19fX19fX19f
+X19fX19fX19fX19fX19fX19fX19fXwpMaW51eC1zdG0zMiBtYWlsaW5nIGxpc3QKTGludXgtc3Rt
+MzJAc3QtbWQtbWFpbG1hbi5zdG9ybXJlcGx5LmNvbQpodHRwczovL3N0LW1kLW1haWxtYW4uc3Rv
+cm1yZXBseS5jb20vbWFpbG1hbi9saXN0aW5mby9saW51eC1zdG0zMgo=
