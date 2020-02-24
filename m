@@ -2,83 +2,71 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id F33E216A95D
-	for <lists+linux-stm32@lfdr.de>; Mon, 24 Feb 2020 16:05:19 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 1C83416AB37
+	for <lists+linux-stm32@lfdr.de>; Mon, 24 Feb 2020 17:20:41 +0100 (CET)
 Received: from ip-172-31-3-76.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 97AB4C36B0B;
-	Mon, 24 Feb 2020 15:05:19 +0000 (UTC)
-Received: from mail-vs1-f67.google.com (mail-vs1-f67.google.com
- [209.85.217.67])
- (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id CA723C36B0B;
+	Mon, 24 Feb 2020 16:20:40 +0000 (UTC)
+Received: from mx07-00178001.pphosted.com (mx07-00178001.pphosted.com
+ [62.209.51.94])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 94693C36B09
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 0C709C36B09
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Mon, 24 Feb 2020 14:55:17 +0000 (UTC)
-Received: by mail-vs1-f67.google.com with SMTP id r18so5835016vso.5
- for <linux-stm32@st-md-mailman.stormreply.com>;
- Mon, 24 Feb 2020 06:55:17 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=verdurent-com.20150623.gappssmtp.com; s=20150623;
- h=mime-version:references:in-reply-to:from:date:message-id:subject:to
- :cc; bh=nf8Hhdqzm/gWtkB0ZWHb2rHYmerMHbHruZ0Ukrv/hp8=;
- b=tTyvRsQ3w0ChPxDQdkv7glQk3wtPZb10J3tAyqqzoRHQ8KPQTGzEw7zNYCRWKnZ4q/
- Sp8M/ZgkeF0DtmsdSoX/jaS9Cj+6QBjmmTRJVhrc7HoP/5FhbIeVVDjpdF5PLkBe58vj
- ts7HWtfrr72NlXIevmGqHAfZoSQtS3kdP0RkKaH9LgNtDi+gsiTvRDUVyaaRZ9aMGbcK
- nWLTioIrgs3f4ikzwkQv7LsyiNYZ06XlkRhH7duzXqdMOUtinyzy3B9nZHXoHNW2BDly
- Q6PiovLQ+WSUH/5StMinuKTlSvTQU7SMVrsaqT4aYLh+Nu8jmjojFJaax3RoAahqLwvZ
- 0NHQ==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20161025;
- h=x-gm-message-state:mime-version:references:in-reply-to:from:date
- :message-id:subject:to:cc;
- bh=nf8Hhdqzm/gWtkB0ZWHb2rHYmerMHbHruZ0Ukrv/hp8=;
- b=bMMoTfkzItc/Sdc4H/hcaLJCVWMx9ghaXWUnSO6iY/pCSriiPPNzo6Cx5xC2UZaU6n
- VKUTAq+I6H/DpoAawNNiqh99SrNplCEq0T3oDrpOry1fz9Ew8fNMJE9pjjk7zsz2T4SP
- kWc6q2+8xsH9WWDQrm7jXs+hPkv0zccy2TgO4yuoKHYWp/tTfPWyL9Oqw7y5QmjTIIfd
- lhc2yTwL9ujZ4yGkwQjbQuk2Io35surHyPWBSorOz/TI+o6H5us3e1gQDfeyVT6JCsNo
- uKMirXRdB6T2Vai2Z7vTERkkFjnxwFeHnyds5IiJ9BQbgT9Ew4qK4Km20LPLlIkZt0T3
- nYRg==
-X-Gm-Message-State: APjAAAVwlFn/8J9MictJGUxc2rrSufxzGOdd1hoQC0bmSCAZZa41Hv3v
- UXWduw6TWFGwyz9OWRFmQdJ/KNx2zO79xUztFBD4Mw==
-X-Google-Smtp-Source: APXvYqwle+5L5EqgMdMX2NFSAUa3m6tBXE9trHhUlWTILDVFPKISTVy7qlGqCRTcc9lNxiPA7RF35oJihsqFh//dkI4=
-X-Received: by 2002:a05:6102:535:: with SMTP id
- m21mr25212006vsa.95.1582556116187; 
- Mon, 24 Feb 2020 06:55:16 -0800 (PST)
+ Mon, 24 Feb 2020 16:20:39 +0000 (UTC)
+Received: from pps.filterd (m0046668.ppops.net [127.0.0.1])
+ by mx07-00178001.pphosted.com (8.16.0.42/8.16.0.42) with SMTP id
+ 01OGCfam007873; Mon, 24 Feb 2020 17:20:28 +0100
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=st.com;
+ h=subject : to : cc :
+ references : from : message-id : date : mime-version : in-reply-to :
+ content-type : content-transfer-encoding; s=STMicroelectronics;
+ bh=WOrB9zjTn0T7PtrYAJ4aCW7Dq+zTAEPFOtROr7XMOzo=;
+ b=IkyaGR4EFtaiGt7dPLgTYVNiT5WVp0abgnGKHqvs5vb7jFPFo9CCfx7MR6GyWcYI94Pp
+ vDjJlFTZxwfD7MgR7i+gIVXHFor29lRKAnyWX72QDjXyARdthSLlyUVR7OhnZdcm96nU
+ gTLUdZkFVPS5qIqh+Kj+IHMY/TYLweul/f3DeoUbZbvsSXdVHpxWJe+L39GKH8vDCd5E
+ jedIymmRP6bmhuo8z2+i2nkgF/8fGKuf3BH/8v2ZEcTYD0xQr72wxqPTBx6HiIdZArCU
+ J864vOCt2r1/Ct0L3qydZ6kIHJVk9s2gQc3505UGe7Onar2sg6qbeYX9cf1t0eD9ltPv Lw== 
+Received: from beta.dmz-eu.st.com (beta.dmz-eu.st.com [164.129.1.35])
+ by mx07-00178001.pphosted.com with ESMTP id 2yatn5ts7a-1
+ (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
+ Mon, 24 Feb 2020 17:20:28 +0100
+Received: from euls16034.sgp.st.com (euls16034.sgp.st.com [10.75.44.20])
+ by beta.dmz-eu.st.com (STMicroelectronics) with ESMTP id D7BD410002A;
+ Mon, 24 Feb 2020 17:20:23 +0100 (CET)
+Received: from Webmail-eu.st.com (sfhdag6node1.st.com [10.75.127.16])
+ by euls16034.sgp.st.com (STMicroelectronics) with ESMTP id C73DE2A7B2C;
+ Mon, 24 Feb 2020 17:20:23 +0100 (CET)
+Received: from lmecxl0923.lme.st.com (10.75.127.45) by SFHDAG6NODE1.st.com
+ (10.75.127.16) with Microsoft SMTP Server (TLS) id 15.0.1473.3; Mon, 24 Feb
+ 2020 17:20:23 +0100
+To: Ulf Hansson <ulf.hansson@linaro.org>
+References: <20200128090636.13689-1-ludovic.barre@st.com>
+ <CAPDyKFr+7SvRasPPjFDA2kwG0ERS-Qp3FGbVbRGLrscz5N=L2g@mail.gmail.com>
+From: Ludovic BARRE <ludovic.barre@st.com>
+Message-ID: <86464a0a-d830-465e-b35b-8dd2e766db70@st.com>
+Date: Mon, 24 Feb 2020 17:20:22 +0100
+User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:68.0) Gecko/20100101
+ Thunderbird/68.1.0
 MIME-Version: 1.0
-References: <cover.1582361737.git.mchehab+huawei@kernel.org>
- <83c5df4acbbe0fa55a1d58d4c4a435b51cd2a7ad.1582361737.git.mchehab+huawei@kernel.org>
-In-Reply-To: <83c5df4acbbe0fa55a1d58d4c4a435b51cd2a7ad.1582361737.git.mchehab+huawei@kernel.org>
-From: Amit Kucheria <amit.kucheria@verdurent.com>
-Date: Mon, 24 Feb 2020 20:25:05 +0530
-Message-ID: <CAHLCerP_UW-6CdaOziHTY01cD_6Ou4h0Jj6mOJKj60P4GL9H=w@mail.gmail.com>
-To: Mauro Carvalho Chehab <mchehab+huawei@kernel.org>
-X-Mailman-Approved-At: Mon, 24 Feb 2020 15:05:17 +0000
-Cc: Stuart Yoder <stuyoder@gmail.com>,
- Linux Doc Mailing List <linux-doc@vger.kernel.org>,
- David Airlie <airlied@linux.ie>, Michael Turquette <mturquette@baylibre.com>,
- DRI mailing list <dri-devel@lists.freedesktop.org>,
- Bjorn Andersson <bjorn.andersson@linaro.org>, Pavel Machek <pavel@ucw.cz>,
- linux-clk <linux-clk@vger.kernel.org>, linux-leds@vger.kernel.org,
- linux-aspeed@lists.ozlabs.org, Jonathan Corbet <corbet@lwn.net>,
- Kevin Hilman <khilman@baylibre.com>, openbmc@lists.ozlabs.org,
- Daniel Lezcano <daniel.lezcano@linaro.org>,
+In-Reply-To: <CAPDyKFr+7SvRasPPjFDA2kwG0ERS-Qp3FGbVbRGLrscz5N=L2g@mail.gmail.com>
+Content-Language: fr
+X-Originating-IP: [10.75.127.45]
+X-ClientProxiedBy: SFHDAG5NODE3.st.com (10.75.127.15) To SFHDAG6NODE1.st.com
+ (10.75.127.16)
+X-Proofpoint-Virus-Version: vendor=fsecure engine=2.50.10434:6.0.138, 18.0.572
+ definitions=2020-02-24_04:2020-02-21,
+ 2020-02-24 signatures=0
+Cc: DTML <devicetree@vger.kernel.org>,
+ "linux-mmc@vger.kernel.org" <linux-mmc@vger.kernel.org>,
+ Linux Kernel Mailing List <linux-kernel@vger.kernel.org>,
+ Rob Herring <robh+dt@kernel.org>,
+ Srinivas Kandagatla <srinivas.kandagatla@linaro.org>,
+ Maxime Coquelin <mcoquelin.stm32@gmail.com>,
  linux-stm32@st-md-mailman.stormreply.com,
- Tomi Valkeinen <tomi.valkeinen@ti.com>, Joel Stanley <joel@jms.id.au>,
- Zhang Rui <rui.zhang@intel.com>, Linus Walleij <linus.walleij@linaro.org>,
- "open list:OPEN FIRMWARE AND FLATTENED DEVICE TREE BINDINGS"
- <devicetree@vger.kernel.org>, Philipp Zabel <p.zabel@pengutronix.de>,
- Linux PM list <linux-pm@vger.kernel.org>,
- linux-arm-msm <linux-arm-msm@vger.kernel.org>, Jyri Sarha <jsarha@ti.com>,
- linux-gpio@vger.kernel.org, Rob Herring <robh+dt@kernel.org>,
- Dan Murphy <dmurphy@ti.com>, linux-amlogic@lists.infradead.org,
- lakml <linux-arm-kernel@lists.infradead.org>,
- Laurentiu Tudor <laurentiu.tudor@nxp.com>,
- Maxime Coquelin <mcoquelin.stm32@gmail.com>, Stephen Boyd <sboyd@kernel.org>,
- Andy Gross <agross@kernel.org>, Andrew Jeffery <andrew@aj.id.au>,
- Daniel Vetter <daniel@ffwll.ch>, Sudeep Holla <sudeep.holla@arm.com>,
- Jacek Anaszewski <jacek.anaszewski@gmail.com>
-Subject: Re: [Linux-stm32] [PATCH 2/7] docs: dt: fix several broken
-	references due to renames
+ Linux ARM <linux-arm-kernel@lists.infradead.org>
+Subject: Re: [Linux-stm32] [PATCH V2 0/9] mmc: mmci: sdmmc: add sdr104
+	support
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -90,154 +78,45 @@ List-Post: <mailto:linux-stm32@st-md-mailman.stormreply.com>
 List-Help: <mailto:linux-stm32-request@st-md-mailman.stormreply.com?subject=help>
 List-Subscribe: <https://st-md-mailman.stormreply.com/mailman/listinfo/linux-stm32>, 
  <mailto:linux-stm32-request@st-md-mailman.stormreply.com?subject=subscribe>
-Content-Type: text/plain; charset="us-ascii"
-Content-Transfer-Encoding: 7bit
+Content-Transfer-Encoding: base64
+Content-Type: text/plain; charset="utf-8"; Format="flowed"
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
-On Sat, Feb 22, 2020 at 2:30 PM Mauro Carvalho Chehab
-<mchehab+huawei@kernel.org> wrote:
->
-> Several DT references got broken due to txt->yaml conversion.
->
-> Those are auto-fixed by running:
->
->         scripts/documentation-file-ref-check --fix
->
-> Signed-off-by: Mauro Carvalho Chehab <mchehab+huawei@kernel.org>
-> ---
->  Documentation/devicetree/bindings/arm/arm,scmi.txt        | 2 +-
->  Documentation/devicetree/bindings/arm/arm,scpi.txt        | 2 +-
->  .../devicetree/bindings/arm/bcm/brcm,bcm63138.txt         | 2 +-
->  .../devicetree/bindings/arm/hisilicon/hi3519-sysctrl.txt  | 2 +-
->  .../devicetree/bindings/arm/msm/qcom,idle-state.txt       | 2 +-
-
-For qcom idle state and ..
-
->  Documentation/devicetree/bindings/arm/omap/mpu.txt        | 2 +-
->  Documentation/devicetree/bindings/arm/psci.yaml           | 2 +-
->  .../devicetree/bindings/clock/qcom,gcc-apq8064.yaml       | 2 +-
-
-For qcom tsens,
-
-Reviewed-by: Amit Kucheria <amit.kucheria@linaro.org>
-
->  .../devicetree/bindings/display/tilcdc/tilcdc.txt         | 2 +-
->  Documentation/devicetree/bindings/leds/common.yaml        | 2 +-
->  .../devicetree/bindings/leds/register-bit-led.txt         | 2 +-
->  .../devicetree/bindings/memory-controllers/ti/emif.txt    | 2 +-
->  Documentation/devicetree/bindings/misc/fsl,qoriq-mc.txt   | 2 +-
->  .../bindings/pinctrl/aspeed,ast2400-pinctrl.yaml          | 2 +-
->  .../bindings/pinctrl/aspeed,ast2500-pinctrl.yaml          | 2 +-
->  .../bindings/pinctrl/aspeed,ast2600-pinctrl.yaml          | 2 +-
->  .../devicetree/bindings/power/amlogic,meson-ee-pwrc.yaml  | 2 +-
->  .../devicetree/bindings/reset/st,stm32mp1-rcc.txt         | 2 +-
->  .../devicetree/bindings/thermal/brcm,avs-ro-thermal.yaml  | 2 +-
->  MAINTAINERS                                               | 8 ++++----
->  20 files changed, 23 insertions(+), 23 deletions(-)
->
-> diff --git a/Documentation/devicetree/bindings/arm/arm,scmi.txt b/Documentation/devicetree/bindings/arm/arm,scmi.txt
-> index f493d69e6194..dc102c4e4a78 100644
-> --- a/Documentation/devicetree/bindings/arm/arm,scmi.txt
-> +++ b/Documentation/devicetree/bindings/arm/arm,scmi.txt
-> @@ -102,7 +102,7 @@ Required sub-node properties:
->  [1] Documentation/devicetree/bindings/clock/clock-bindings.txt
->  [2] Documentation/devicetree/bindings/power/power-domain.yaml
->  [3] Documentation/devicetree/bindings/thermal/thermal.txt
-> -[4] Documentation/devicetree/bindings/sram/sram.txt
-> +[4] Documentation/devicetree/bindings/sram/sram.yaml
->  [5] Documentation/devicetree/bindings/reset/reset.txt
->
->  Example:
-> diff --git a/Documentation/devicetree/bindings/arm/arm,scpi.txt b/Documentation/devicetree/bindings/arm/arm,scpi.txt
-> index 7b83ef43b418..dd04d9d9a1b8 100644
-> --- a/Documentation/devicetree/bindings/arm/arm,scpi.txt
-> +++ b/Documentation/devicetree/bindings/arm/arm,scpi.txt
-> @@ -109,7 +109,7 @@ Required properties:
->  [0] http://infocenter.arm.com/help/topic/com.arm.doc.dui0922b/index.html
->  [1] Documentation/devicetree/bindings/clock/clock-bindings.txt
->  [2] Documentation/devicetree/bindings/thermal/thermal.txt
-> -[3] Documentation/devicetree/bindings/sram/sram.txt
-> +[3] Documentation/devicetree/bindings/sram/sram.yaml
->  [4] Documentation/devicetree/bindings/power/power-domain.yaml
->
->  Example:
-> diff --git a/Documentation/devicetree/bindings/arm/bcm/brcm,bcm63138.txt b/Documentation/devicetree/bindings/arm/bcm/brcm,bcm63138.txt
-> index b82b6a0ae6f7..8c7a4908a849 100644
-> --- a/Documentation/devicetree/bindings/arm/bcm/brcm,bcm63138.txt
-> +++ b/Documentation/devicetree/bindings/arm/bcm/brcm,bcm63138.txt
-> @@ -62,7 +62,7 @@ Timer node:
->
->  Syscon reboot node:
->
-> -See Documentation/devicetree/bindings/power/reset/syscon-reboot.txt for the
-> +See Documentation/devicetree/bindings/power/reset/syscon-reboot.yaml for the
->  detailed list of properties, the two values defined below are specific to the
->  BCM6328-style timer:
->
-> diff --git a/Documentation/devicetree/bindings/arm/hisilicon/hi3519-sysctrl.txt b/Documentation/devicetree/bindings/arm/hisilicon/hi3519-sysctrl.txt
-> index 115c5be0bd0b..8defacc44dd5 100644
-> --- a/Documentation/devicetree/bindings/arm/hisilicon/hi3519-sysctrl.txt
-> +++ b/Documentation/devicetree/bindings/arm/hisilicon/hi3519-sysctrl.txt
-> @@ -1,7 +1,7 @@
->  * Hisilicon Hi3519 System Controller Block
->
->  This bindings use the following binding:
-> -Documentation/devicetree/bindings/mfd/syscon.txt
-> +Documentation/devicetree/bindings/mfd/syscon.yaml
->
->  Required properties:
->  - compatible: "hisilicon,hi3519-sysctrl".
-> diff --git a/Documentation/devicetree/bindings/arm/msm/qcom,idle-state.txt b/Documentation/devicetree/bindings/arm/msm/qcom,idle-state.txt
-> index 06df04cc827a..6ce0b212ec6d 100644
-> --- a/Documentation/devicetree/bindings/arm/msm/qcom,idle-state.txt
-> +++ b/Documentation/devicetree/bindings/arm/msm/qcom,idle-state.txt
-> @@ -81,4 +81,4 @@ Example:
->                 };
->         };
->
-> -[1]. Documentation/devicetree/bindings/arm/idle-states.txt
-> +[1]. Documentation/devicetree/bindings/arm/idle-states.yaml
-> diff --git a/Documentation/devicetree/bindings/arm/omap/mpu.txt b/Documentation/devicetree/bindings/arm/omap/mpu.txt
-> index f301e636fd52..e41490e6979c 100644
-> --- a/Documentation/devicetree/bindings/arm/omap/mpu.txt
-> +++ b/Documentation/devicetree/bindings/arm/omap/mpu.txt
-> @@ -17,7 +17,7 @@ am335x and am437x only:
->  - pm-sram: Phandles to ocmcram nodes to be used for power management.
->            First should be type 'protect-exec' for the driver to use to copy
->            and run PM functions, second should be regular pool to be used for
-> -          data region for code. See Documentation/devicetree/bindings/sram/sram.txt
-> +          data region for code. See Documentation/devicetree/bindings/sram/sram.yaml
->            for more details.
->
->  Examples:
-> diff --git a/Documentation/devicetree/bindings/arm/psci.yaml b/Documentation/devicetree/bindings/arm/psci.yaml
-> index 8ef85420b2ab..f8218e60e3e2 100644
-> --- a/Documentation/devicetree/bindings/arm/psci.yaml
-> +++ b/Documentation/devicetree/bindings/arm/psci.yaml
-> @@ -100,7 +100,7 @@ properties:
->        bindings in [1]) must specify this property.
->
->        [1] Kernel documentation - ARM idle states bindings
-> -        Documentation/devicetree/bindings/arm/idle-states.txt
-> +        Documentation/devicetree/bindings/arm/idle-states.yaml
->
->    "#power-domain-cells":
->      description:
-> diff --git a/Documentation/devicetree/bindings/clock/qcom,gcc-apq8064.yaml b/Documentation/devicetree/bindings/clock/qcom,gcc-apq8064.yaml
-> index 17f87178f6b8..3647007f82ca 100644
-> --- a/Documentation/devicetree/bindings/clock/qcom,gcc-apq8064.yaml
-> +++ b/Documentation/devicetree/bindings/clock/qcom,gcc-apq8064.yaml
-> @@ -42,7 +42,7 @@ properties:
->        be part of GCC and hence the TSENS properties can also be part
->        of the GCC/clock-controller node.
->        For more details on the TSENS properties please refer
-> -      Documentation/devicetree/bindings/thermal/qcom-tsens.txt
-> +      Documentation/devicetree/bindings/thermal/qcom-tsens.yaml
->
->    nvmem-cell-names:
->      minItems: 1
-_______________________________________________
-Linux-stm32 mailing list
-Linux-stm32@st-md-mailman.stormreply.com
-https://st-md-mailman.stormreply.com/mailman/listinfo/linux-stm32
+aGkgVWxmCgpMZSAyLzE5LzIwIMOgIDExOjI4IEFNLCBVbGYgSGFuc3NvbiBhIMOpY3JpdMKgOgo+
+IE9uIFR1ZSwgMjggSmFuIDIwMjAgYXQgMTA6MDYsIEx1ZG92aWMgQmFycmUgPGx1ZG92aWMuYmFy
+cmVAc3QuY29tPiB3cm90ZToKPj4KPj4gVG8gc3VwcG9ydCB0aGUgc2RyMTA0IG1vZGUsIHNkbW1j
+IHZhcmlhbnQgbmVlZHM6Cj4+IC1IYXJkd2FyZSBkZWxheSBibG9jayBzdXBwb3J0IGZvciBzZG1t
+YyB2YXJpYW50Cj4+ICAgd2l0aCB0dW5pbmcgcHJvY2VkdXJlCj4+IC1Wb2x0YWdlIHN3aXRjaCBj
+YWxsYmFja3MKPj4gLXNkbW1jIHJldmlzaW9uIDIuMAo+Pgo+PiBWMjoKPj4gLXJlZ3JvdXAgaG9z
+dC0+bW1jX29wcyAmIG1tYy0+b3BzIGFzc2lnbm1lbnQKPj4gLWFkZCB0aW1lb3V0IGRlZmluZQo+
+PiAtcmVuYW1lIHByZXBfdm9sdF9zd2l0Y2ggdG8gcHJlX3NpZ192b2x0X3N3aXRjaAo+PiAtcmVu
+YW1lIHZvbHRfc3dpdGNoIHRvIHBvc3Rfc2lnX3ZvbHRfc3dpdGNoCj4+IC1hZGQgJ3doeScgY29t
+bWVudCBmb3IgIm1tYzogbW1jaTogYWRkIHZvbHRfc3dpdGNoIGNhbGxiYWNrcyIKPj4KPj4gTHVk
+b3ZpYyBCYXJyZSAoOSk6Cj4+ICAgIG1tYzogbW1jaTogc2RtbWM6IHJlcGxhY2Ugc2dfZG1hX3h4
+eCBtYWNyb3MKPj4gICAgbW1jOiBtbWNpOiBzZG1tYzogcmVuYW1lIHNkbW1jX3ByaXYgc3RydWN0
+IHRvIHNkbW1jX2lkbWEKPj4gICAgbW1jOiBtbWNpOiBhZGQgYSByZWZlcmVuY2UgYXQgbW1jX2hv
+c3Rfb3BzIGluIG1tY2kgc3RydWN0Cj4+ICAgIG1tYzogbW1jaTogYWRkIHByaXZhdGUgcG9pbnRl
+ciBmb3IgdmFyaWFudAo+PiAgICBkdC1iaW5kaW5nczogbW1jOiBtbWNpOiBhZGQgZGVsYXkgYmxv
+Y2sgYmFzZSByZWdpc3RlciBmb3Igc2RtbWMKPj4gICAgbW1jOiBtbWNpOiBzZG1tYzogYWRkIGV4
+ZWN1dGUgdHVuaW5nIHdpdGggZGVsYXkgYmxvY2sKPj4gICAgbW1jOiBtbWNpOiBhZGQgdm9sdF9z
+d2l0Y2ggY2FsbGJhY2tzCj4+ICAgIG1tYzogbW1jaTogc2RtbWM6IGFkZCB2b2x0YWdlIHN3aXRj
+aCBmdW5jdGlvbnMKPj4gICAgbW1jOiBtbWNpOiBhZGQgc2RtbWMgdmFyaWFudCByZXZpc2lvbiAy
+LjAKPj4KPj4gICAuLi4vZGV2aWNldHJlZS9iaW5kaW5ncy9tbWMvbW1jaS50eHQgICAgICAgICAg
+fCAgIDIgKwo+PiAgIGRyaXZlcnMvbW1jL2hvc3QvbW1jaS5jICAgICAgICAgICAgICAgICAgICAg
+ICB8ICA0MiArKystCj4+ICAgZHJpdmVycy9tbWMvaG9zdC9tbWNpLmggICAgICAgICAgICAgICAg
+ICAgICAgIHwgICA4ICsKPj4gICBkcml2ZXJzL21tYy9ob3N0L21tY2lfc3RtMzJfc2RtbWMuYyAg
+ICAgICAgICAgfCAyMDQgKysrKysrKysrKysrKysrKystCj4+ICAgNCBmaWxlcyBjaGFuZ2VkLCAy
+NDggaW5zZXJ0aW9ucygrKSwgOCBkZWxldGlvbnMoLSkKPj4KPj4gLS0KPj4gMi4xNy4xCj4+Cj4g
+Cj4gQXBwbGllZCBmb3IgbmV4dCwgdGhhbmtzIQoKdGhhbmtzIFVsZi4KCj4gCj4gSSB0b29rIHRo
+ZSBsaWJlcnR5IHRvIGRvIG1pbm9yIGFtZW5kbWVudHMgdG8gc29tZSBvZiB0aGUgY2hhbmdlbG9n
+cywKPiBidXQgaW4gcGFydGljdWxhciBJIGhhdmUgY2hhbmdlIHNvbWUgb2YgcHJlZml4ZXMgZm9y
+IHRoZSBjb21taXQKPiBtZXNzYWdlIGhlYWRlcnMgaW50byAibW1jOiBtbWNpX3NkbW1jOiIuCgpP
+aywgSSB1c2UgdGhpcyBwcmVmaXhlIGZvciBuZXh0IGNvbW1pdC4KCj4gCj4gUGxlYXNlIHRlbGws
+IGlmIHRoZXJlIGlzIGFueXRoaW5nIHRoYXQgeW91IHdhbnQgbWUgdG8gdXBkYXRlLgoKSSB0ZXN0
+ZWQgeW91ciBuZXh0IGJyYW5jaCwgYW5kIGl0J3Mgb2sgZm9yIG1lLgpzZG1tYyB1cHN0cmVhbSBp
+cyBhbG1vc3QgZmluaXNoZWQsIEkganVzdCBzb21lIHJlY2VudCBmaXhlcyB0byBzZW5kLgoKPiAK
+PiBLaW5kIHJlZ2FyZHMKPiBVZmZlCj4gCl9fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19f
+X19fX19fX19fX19fX19fCkxpbnV4LXN0bTMyIG1haWxpbmcgbGlzdApMaW51eC1zdG0zMkBzdC1t
+ZC1tYWlsbWFuLnN0b3JtcmVwbHkuY29tCmh0dHBzOi8vc3QtbWQtbWFpbG1hbi5zdG9ybXJlcGx5
+LmNvbS9tYWlsbWFuL2xpc3RpbmZvL2xpbnV4LXN0bTMyCg==
