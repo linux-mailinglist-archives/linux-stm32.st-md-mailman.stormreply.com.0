@@ -2,55 +2,71 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id C695A16EDAC
-	for <lists+linux-stm32@lfdr.de>; Tue, 25 Feb 2020 19:15:41 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 1E32116F31E
+	for <lists+linux-stm32@lfdr.de>; Wed, 26 Feb 2020 00:23:58 +0100 (CET)
 Received: from ip-172-31-3-76.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 754BDC36B0B;
-	Tue, 25 Feb 2020 18:15:41 +0000 (UTC)
-Received: from mail-out.m-online.net (mail-out.m-online.net [212.18.0.10])
- (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id C5CB5C36B0B;
+	Tue, 25 Feb 2020 23:23:57 +0000 (UTC)
+Received: from pandora.armlinux.org.uk (pandora.armlinux.org.uk [78.32.30.218])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 4B107C36B09
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 93287C36B09
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Tue, 25 Feb 2020 18:15:40 +0000 (UTC)
-Received: from frontend01.mail.m-online.net (unknown [192.168.8.182])
- by mail-out.m-online.net (Postfix) with ESMTP id 48RnDC0GFRz1rnJD;
- Tue, 25 Feb 2020 19:15:39 +0100 (CET)
-Received: from localhost (dynscan1.mnet-online.de [192.168.6.70])
- by mail.m-online.net (Postfix) with ESMTP id 48RnDB6d0Cz1qx0G;
- Tue, 25 Feb 2020 19:15:38 +0100 (CET)
-X-Virus-Scanned: amavisd-new at mnet-online.de
-Received: from mail.mnet-online.de ([192.168.8.182])
- by localhost (dynscan1.mail.m-online.net [192.168.6.70]) (amavisd-new,
- port 10024)
- with ESMTP id 6zuKGk_WylJD; Tue, 25 Feb 2020 19:15:36 +0100 (CET)
-X-Auth-Info: 0IT4touvBjLmexdqSPYTkmvc17BwmPthOHw0G0rfafg=
-Received: from [127.0.0.1] (unknown [195.140.253.167])
- (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
- (No client certificate requested)
- by mail.mnet-online.de (Postfix) with ESMTPSA;
- Tue, 25 Feb 2020 19:15:36 +0100 (CET)
-To: Patrick DELAUNAY <patrick.delaunay@st.com>,
- Alexandre TORGUE <alexandre.torgue@st.com>,
- "linux-arm-kernel@lists.infradead.org" <linux-arm-kernel@lists.infradead.org>
-References: <20200119191143.50033-1-marex@denx.de>
- <20200119191143.50033-6-marex@denx.de>
- <1b288811-8ffb-a150-71ef-4c006e6d5740@st.com>
- <1ec643e9-217d-c83d-793f-c05d6c4502bd@denx.de>
- <5efd7978050e48d783d10c989b5e78f5@SFHDAG6NODE3.st.com>
-From: Marek Vasut <marex@denx.de>
-Message-ID: <2f38781f-cf13-fa25-5585-c22d088d0a03@denx.de>
-Date: Tue, 25 Feb 2020 18:56:30 +0100
-User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:68.0) Gecko/20100101
- Thunderbird/68.4.2
+ Tue, 25 Feb 2020 23:23:55 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
+ d=armlinux.org.uk; s=pandora-2019; h=Sender:In-Reply-To:Content-Type:
+ MIME-Version:References:Message-ID:Subject:Cc:To:From:Date:Reply-To:
+ Content-Transfer-Encoding:Content-ID:Content-Description:Resent-Date:
+ Resent-From:Resent-Sender:Resent-To:Resent-Cc:Resent-Message-ID:List-Id:
+ List-Help:List-Unsubscribe:List-Subscribe:List-Post:List-Owner:List-Archive;
+ bh=1NdWXTtNvNHAGbogy1ZnStwT/++LxICWN164u7rzZr0=; b=QamDRN5GaQqQYbFgMUSdUvUca
+ r3BzD0vUxPtIciEzVXv78nEdi9xBi0AsyCqmDkIcvJ3VLdQeP+OYByQEOa5O2ATfacbKFCcxH7WHP
+ ovBCb0GPhZmW0vzRGgT3XNKehBDXuxYq80Y59w4aGhrLgHjR3Uxi/M8coJZX1E25yPxPIyV3ml1Pp
+ tAZo8Coyep9kRHGO39lxQL8WuOYVz6Ovqtwf8OGZev5JspePoiWie/XOovtBX4wDAj68eyTRRhQty
+ eAjUHMEYKPHQKeWL36pLZe0p75WLRZVRV1iyv9dIBICj49Jp8dNSKhS5I0966IDmyv4hhe61oNASt
+ FP58W0TVQ==;
+Received: from shell.armlinux.org.uk
+ ([2002:4e20:1eda:1:5054:ff:fe00:4ec]:52756)
+ by pandora.armlinux.org.uk with esmtpsa
+ (TLSv1.2:ECDHE-RSA-AES256-GCM-SHA384:256) (Exim 4.90_1)
+ (envelope-from <linux@armlinux.org.uk>)
+ id 1j6jXq-0003pP-Oq; Tue, 25 Feb 2020 23:23:18 +0000
+Received: from linux by shell.armlinux.org.uk with local (Exim 4.92)
+ (envelope-from <linux@shell.armlinux.org.uk>)
+ id 1j6jXf-0007oA-TF; Tue, 25 Feb 2020 23:23:07 +0000
+Date: Tue, 25 Feb 2020 23:23:07 +0000
+From: Russell King - ARM Linux admin <linux@armlinux.org.uk>
+To: Vladimir Oltean <olteanv@gmail.com>
+Message-ID: <20200225232307.GU25745@shell.armlinux.org.uk>
+References: <20200225093703.GS25745@shell.armlinux.org.uk>
+ <E1j6Wg0-0000Ss-W7@rmk-PC.armlinux.org.uk>
+ <CA+h21hp8KCqhCasOAGz17k0eRteHVVYK-eANQmn4h443qv=2JQ@mail.gmail.com>
 MIME-Version: 1.0
-In-Reply-To: <5efd7978050e48d783d10c989b5e78f5@SFHDAG6NODE3.st.com>
-Content-Language: en-US
-Cc: Maxime Coquelin <mcoquelin.stm32@gmail.com>,
- "linux-stm32@st-md-mailman.stormreply.com"
- <linux-stm32@st-md-mailman.stormreply.com>
-Subject: Re: [Linux-stm32] [PATCH V2 6/6] ARM: dts: stm32: Add DH
- Electronics DHCOM STM32MP1 SoM and PDK2 board
+Content-Disposition: inline
+In-Reply-To: <CA+h21hp8KCqhCasOAGz17k0eRteHVVYK-eANQmn4h443qv=2JQ@mail.gmail.com>
+User-Agent: Mutt/1.10.1 (2018-07-13)
+Cc: Andrew Lunn <andrew@lunn.ch>,
+ Linux Doc Mailing List <linux-doc@vger.kernel.org>,
+ Thomas Petazzoni <thomas.petazzoni@bootlin.com>,
+ Ioana Ciornei <ioana.ciornei@nxp.com>,
+ linux-stm32@st-md-mailman.stormreply.com,
+ Florian Fainelli <f.fainelli@gmail.com>, Jonathan Corbet <corbet@lwn.net>,
+ Michal Simek <michal.simek@xilinx.com>, Jose Abreu <joabreu@synopsys.com>,
+ Jakub Kicinski <kuba@kernel.org>, Mark Lee <Mark-MC.Lee@mediatek.com>,
+ Sean Wang <sean.wang@mediatek.com>, Hauke Mehrtens <hauke@hauke-m.de>,
+ Radhey Shyam Pandey <radhey.shyam.pandey@xilinx.com>,
+ "moderated list:ARM/Mediatek SoC support" <linux-mediatek@lists.infradead.org>,
+ John Crispin <john@phrozen.org>, Matthias Brugger <matthias.bgg@gmail.com>,
+ Giuseppe Cavallaro <peppe.cavallaro@st.com>,
+ "moderated list:ARM/Mediatek SoC support"
+ <linux-arm-kernel@lists.infradead.org>, netdev <netdev@vger.kernel.org>,
+ Nicolas Ferre <nicolas.ferre@microchip.com>,
+ Vivien Didelot <vivien.didelot@gmail.com>,
+ Maxime Coquelin <mcoquelin.stm32@gmail.com>, Felix Fietkau <nbd@nbd.name>,
+ "David S. Miller" <davem@davemloft.net>,
+ Heiner Kallweit <hkallweit1@gmail.com>
+Subject: Re: [Linux-stm32] [PATCH net-next 2/8] net: dsa: propagate resolved
+ link config via mac_link_up()
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -62,37 +78,52 @@ List-Post: <mailto:linux-stm32@st-md-mailman.stormreply.com>
 List-Help: <mailto:linux-stm32-request@st-md-mailman.stormreply.com?subject=help>
 List-Subscribe: <https://st-md-mailman.stormreply.com/mailman/listinfo/linux-stm32>, 
  <mailto:linux-stm32-request@st-md-mailman.stormreply.com?subject=subscribe>
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: base64
+Content-Type: text/plain; charset="us-ascii"
+Content-Transfer-Encoding: 7bit
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
-T24gMi8yNC8yMCA5OjM1IEFNLCBQYXRyaWNrIERFTEFVTkFZIHdyb3RlOgo+IEhpIE1hcmVrLAoK
-SGksCgo+PiBGcm9tOiBNYXJlayBWYXN1dCA8bWFyZXhAZGVueC5kZT4KPj4gU2VudDogZGltYW5j
-aGUgMjMgZsOpdnJpZXIgMjAyMCAxNTozOAo+Pgo+PiBPbiAyLzEwLzIwIDU6MzUgUE0sIEFsZXhh
-bmRyZSBUb3JndWUgd3JvdGU6Cj4+PiBIaSBNYXJlawo+Pgo+PiBIaSwKPj4KPj4+IE9uIDEvMTkv
-MjAgODoxMSBQTSwgTWFyZWsgVmFzdXQgd3JvdGU6Cj4+Pj4gQWRkIHN1cHBvcnQgZm9yIERIIEVs
-ZWN0cm9uaWNzIERIQ09NIFNvTSBhbmQgUERLMiByZXYuIDQwMCBjYXJyaWVyCj4+Pj4gYm9hcmQu
-IFRoaXMgaXMgYW4gU29NIHdpdGggU1RNMzJNUDE1N0MgYW5kIGFuIGV2YWx1YXRpb24ga2l0LiBU
-aGUKPj4+PiBiYXNlYm9hcmQgcHJvdmlkZXMgRXRoZXJuZXQsIFVBUlQsIFVTQiwgQ0FOIGFuZCBv
-cHRpb25hbCBkaXNwbGF5Lgo+Pj4+Cj4+Pj4gU2lnbmVkLW9mZi1ieTogTWFyZWsgVmFzdXQgPG1h
-cmV4QGRlbnguZGU+Cj4+Pj4gQ2M6IEFsZXhhbmRyZSBUb3JndWUgPGFsZXhhbmRyZS50b3JndWVA
-c3QuY29tPgo+Pj4+IENjOiBNYXhpbWUgQ29xdWVsaW4gPG1jb3F1ZWxpbi5zdG0zMkBnbWFpbC5j
-b20+Cj4+Pj4gQ2M6IFBhdHJpY2UgQ2hvdGFyZCA8cGF0cmljZS5jaG90YXJkQHN0LmNvbT4KPj4+
-PiBDYzogUGF0cmljayBEZWxhdW5heSA8cGF0cmljay5kZWxhdW5heUBzdC5jb20+Cj4+Pj4gQ2M6
-IGxpbnV4LXN0bTMyQHN0LW1kLW1haWxtYW4uc3Rvcm1yZXBseS5jb20KPj4+PiBUbzogbGludXgt
-YXJtLWtlcm5lbEBsaXN0cy5pbmZyYWRlYWQub3JnCj4+Pj4gLS0tCj4+Pj4gVjI6IC0gQWRkIHN0
-bTMybXAxIGludG8gdGhlIHN1YmplY3QgYW5kIGNvbW1pdCBtZXNzYWdlCj4+Pj4gwqDCoMKgwqAg
-LSBTb3J0IERUIGFscGhhbnVtZXJpY2FsbHkKPj4+PiDCoMKgwqDCoCAtIE1vdmUgYWxsIHBpbmNv
-bnRyb2wgZW50cmllcyBpbnRvIHN0bTMybXAxNS1waW5jdHJsLmR0c2kKPj4+PiAtLS0KPj4+Cj4+
-PiBUaGFua3MgdG8gYWRkIGEgbmV3IFNUTTMyIGJvYXJkLgo+Pj4KPj4+IFNlcmllcyBhcHBsaWVk
-IG9uIHN0bTMyLW5leHQuCj4+Cj4+IEhvdyBjb21lIHRoZXNlIGFyZSBub3QgaW4gbmV4dC9tYXN0
-ZXIgeWV0LCBpcyB0aGUgYnJhbmNoIG5vdCBiZWluZyBtZXJnZWQgaW50bwo+PiBuZXh0IHJlZ3Vs
-YXJseSA/Cj4gCj4gVGhpcyBhY2NlcHRlZCBwYXRjaCBpcyBhbHJlYWR5IGluIHN0bTMyLW1hc3Rl
-ciwgaW5jbHVkZWQgaW4gbGFzdGVkIHB1bGwgcmVxdWVzdCB1LWJvb3Qtc3RtMzItMjAyMDAyMTQK
-PiAKPiBTSEExID0gMTk5NTM3MzA5YmE1M2QyOTRjMzEyODMwNjRkNjNkYWZjOTk1ZmJlZAo+IAo+
-IE1lcmdlZCBpbiB1LWJvb3QvbWFzdGVyIGp1c3RlIGFmdGVyIHYyMDIwLjA0LXJjMgoKVGhpcyBp
-cyBhIExpbnV4IGtlcm5lbCBwYXRjaHNldCB0aG91Z2ggPwpfX19fX19fX19fX19fX19fX19fX19f
-X19fX19fX19fX19fX19fX19fX19fX19fXwpMaW51eC1zdG0zMiBtYWlsaW5nIGxpc3QKTGludXgt
-c3RtMzJAc3QtbWQtbWFpbG1hbi5zdG9ybXJlcGx5LmNvbQpodHRwczovL3N0LW1kLW1haWxtYW4u
-c3Rvcm1yZXBseS5jb20vbWFpbG1hbi9saXN0aW5mby9saW51eC1zdG0zMgo=
+On Tue, Feb 25, 2020 at 11:09:35PM +0200, Vladimir Oltean wrote:
+> Hi Russell,
+> 
+> On Tue, 25 Feb 2020 at 11:39, Russell King <rmk+kernel@armlinux.org.uk> wrote:
+> >
+> > Propagate the resolved link configuration down via DSA's
+> > phylink_mac_link_up() operation to allow split PCS/MAC to work.
+> >
+> > Signed-off-by: Russell King <rmk+kernel@armlinux.org.uk>
+> > ---
+> >  drivers/net/dsa/b53/b53_common.c       | 4 +++-
+> >  drivers/net/dsa/b53/b53_priv.h         | 4 +++-
+> >  drivers/net/dsa/bcm_sf2.c              | 4 +++-
+> >  drivers/net/dsa/lantiq_gswip.c         | 4 +++-
+> >  drivers/net/dsa/mt7530.c               | 4 +++-
+> >  drivers/net/dsa/mv88e6xxx/chip.c       | 4 +++-
+> >  drivers/net/dsa/sja1105/sja1105_main.c | 4 +++-
+> >  include/net/dsa.h                      | 4 +++-
+> >  net/dsa/port.c                         | 3 ++-
+> >  9 files changed, 26 insertions(+), 9 deletions(-)
+> >
+> 
+> It looks like you missed the felix_phylink_mac_link_up() conversion in
+> this patch? (which also makes it fail to build, by the way, I'm
+> supposed the Kbuild robot didn't already jump)
+> Nonetheless, I've manually added the missing speed, duplex, tx_pause
+> and rx_pause parameters, and it appears to work as before.
+> Same for sja1105.
+
+Quite possibly; the patch was developed against 5.5 plus the phylink
+changes, but applied to net-next. Hmm, it seems my coccinelle script
+that detects .mac_link_up initialiser prototypes, but not the DSA
+equivalent using the old prototype.
+
+Thanks for pointing it out.
+
+-- 
+RMK's Patch system: https://www.armlinux.org.uk/developer/patches/
+FTTC broadband for 0.8mile line in suburbia: sync at 12.1Mbps down 622kbps up
+According to speedtest.net: 11.9Mbps down 500kbps up
+_______________________________________________
+Linux-stm32 mailing list
+Linux-stm32@st-md-mailman.stormreply.com
+https://st-md-mailman.stormreply.com/mailman/listinfo/linux-stm32
