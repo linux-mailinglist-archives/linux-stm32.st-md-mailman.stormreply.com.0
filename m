@@ -2,41 +2,44 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id E9D8A16B5D1
-	for <lists+linux-stm32@lfdr.de>; Tue, 25 Feb 2020 00:39:27 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id EEEB716B941
+	for <lists+linux-stm32@lfdr.de>; Tue, 25 Feb 2020 06:45:23 +0100 (CET)
 Received: from ip-172-31-3-76.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id B284FC36B0B;
-	Mon, 24 Feb 2020 23:39:27 +0000 (UTC)
-Received: from shards.monkeyblade.net (shards.monkeyblade.net [23.128.96.9])
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id A1B50C36B0B;
+	Tue, 25 Feb 2020 05:45:23 +0000 (UTC)
+Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
+ (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
+ (No client certificate requested)
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 02BF5C36B09
+ for <linux-stm32@st-md-mailman.stormreply.com>;
+ Tue, 25 Feb 2020 05:45:20 +0000 (UTC)
+Received: from localhost (unknown [122.167.120.28])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id DBB0FC36B0A
- for <linux-stm32@st-md-mailman.stormreply.com>;
- Mon, 24 Feb 2020 23:39:25 +0000 (UTC)
-Received: from localhost (unknown [50.226.181.18])
- (using TLSv1 with cipher AES256-SHA (256/256 bits))
- (Client did not present a certificate)
- (Authenticated sender: davem-davemloft)
- by shards.monkeyblade.net (Postfix) with ESMTPSA id 44E5B12543268;
- Mon, 24 Feb 2020 15:39:24 -0800 (PST)
-Date: Mon, 24 Feb 2020 15:39:23 -0800 (PST)
-Message-Id: <20200224.153923.1536313085486969964.davem@davemloft.net>
-To: a.fatoum@pengutronix.de
-From: David Miller <davem@davemloft.net>
-In-Reply-To: <20200224172956.28744-2-a.fatoum@pengutronix.de>
-References: <20200224172956.28744-1-a.fatoum@pengutronix.de>
- <20200224172956.28744-2-a.fatoum@pengutronix.de>
-X-Mailer: Mew version 6.8 on Emacs 26.3
-Mime-Version: 1.0
-X-Greylist: Sender succeeded SMTP AUTH, not delayed by milter-greylist-4.5.12
- (shards.monkeyblade.net [149.20.54.216]);
- Mon, 24 Feb 2020 15:39:24 -0800 (PST)
-Cc: mcoquelin.stm32@gmail.com, netdev@vger.kernel.org,
- linux-kernel@vger.kernel.org, joabreu@synopsys.com, kernel@pengutronix.de,
- peppe.cavallaro@st.com, linux-stm32@st-md-mailman.stormreply.com,
- linux-arm-kernel@lists.infradead.org
-Subject: Re: [Linux-stm32] [PATCH 2/2] net: ethernet: stmmac: don't warn
- about missing optional wakeup IRQ
+ by mail.kernel.org (Postfix) with ESMTPSA id 421E2222C2;
+ Tue, 25 Feb 2020 05:45:18 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
+ s=default; t=1582609519;
+ bh=j47OslZ9784bwULG/PPlCt7joegvFmVDiWVpyxhkBOo=;
+ h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
+ b=GMw66R3/uvqjEjYGCq2fhzTOA1W2l6ouvKd+EQSx4Zj472u9nMo+0nEKWCsAHdkWT
+ 7ccU6etf4Zy7O3d3E8Psqsc3YajJkmx2m9AP0PoRpYUCbJFybI2muZOQ2DhMBTu7np
+ zr3YDDKZkWx2d9lbYmIt1G2f134h89TdhzXFIXsY=
+Date: Tue, 25 Feb 2020 11:15:14 +0530
+From: Vinod Koul <vkoul@kernel.org>
+To: Amelie Delaunay <amelie.delaunay@st.com>
+Message-ID: <20200225054514.GG2618@vkoul-mobl>
+References: <20200129153628.29329-1-amelie.delaunay@st.com>
+MIME-Version: 1.0
+Content-Disposition: inline
+In-Reply-To: <20200129153628.29329-1-amelie.delaunay@st.com>
+Cc: linux-kernel@vger.kernel.org,
+ Pierre-Yves MORDRET <pierre-yves.mordret@st.com>,
+ Maxime Coquelin <mcoquelin.stm32@gmail.com>, dmaengine@vger.kernel.org,
+ Dan Williams <dan.j.williams@intel.com>,
+ linux-stm32@st-md-mailman.stormreply.com, linux-arm-kernel@lists.infradead.org
+Subject: Re: [Linux-stm32] [PATCH 0/8] STM32 DMA driver fixes and
+	improvements
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -53,17 +56,18 @@ Content-Transfer-Encoding: 7bit
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
-From: Ahmad Fatoum <a.fatoum@pengutronix.de>
-Date: Mon, 24 Feb 2020 18:29:55 +0100
+On 29-01-20, 16:36, Amelie Delaunay wrote:
+> This series brings improvements to the STM32 DMA driver, with support of
+> power management and descriptor reuse. Probe function gets a cleanup and
+> properties like copy_align and max_segment_size are set.
+> A "sleeping function called from invalid context" bug is also fixed. And
+> to avoid a race with vchan_complete, driver now adopts
+> vchan_terminate_vdesc().
 
-> The "stm32_pwr_wakeup" is optional per the binding and the driver
-> handles its absence gracefully. Request it with
-> platform_get_irq_byname_optional, so its absence doesn't needlessly
-> clutter the log.
-> 
-> Signed-off-by: Ahmad Fatoum <a.fatoum@pengutronix.de>
+Applied, thanks
 
-Applied.
+-- 
+~Vinod
 _______________________________________________
 Linux-stm32 mailing list
 Linux-stm32@st-md-mailman.stormreply.com
