@@ -2,59 +2,81 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id 4F5AC170430
-	for <lists+linux-stm32@lfdr.de>; Wed, 26 Feb 2020 17:21:32 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 7902D170784
+	for <lists+linux-stm32@lfdr.de>; Wed, 26 Feb 2020 19:22:02 +0100 (CET)
 Received: from ip-172-31-3-76.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 09009C36B0B;
-	Wed, 26 Feb 2020 16:21:32 +0000 (UTC)
-Received: from mail-oi1-f196.google.com (mail-oi1-f196.google.com
- [209.85.167.196])
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 24123C36B0B;
+	Wed, 26 Feb 2020 18:22:02 +0000 (UTC)
+Received: from mail-ed1-f66.google.com (mail-ed1-f66.google.com
+ [209.85.208.66])
  (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 55543C36B09
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 53B6CC36B09
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Wed, 26 Feb 2020 16:21:30 +0000 (UTC)
-Received: by mail-oi1-f196.google.com with SMTP id v19so9223oic.12
+ Wed, 26 Feb 2020 18:21:59 +0000 (UTC)
+Received: by mail-ed1-f66.google.com with SMTP id p23so4992424edr.5
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Wed, 26 Feb 2020 08:21:30 -0800 (PST)
+ Wed, 26 Feb 2020 10:21:59 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20161025;
+ h=mime-version:references:in-reply-to:from:date:message-id:subject:to
+ :cc; bh=ovPhpjCazhkBuPF/3ZKvkZXEB2wEDICs1R4JyVb9o08=;
+ b=OI9iBUUhfV6cJMJ9vJ68G9/cgbTv1wHVcLG3LksGDJejAEymTYAcHNfYaJykBuoCYe
+ 87vy3ZZP1+u0TaBtMLFbjh8l7ziIjEh+V4M8f3I/wxUqb7Ew7PxoqQKRR4ZT048Ejzju
+ wyU8A8YVqsth1rJFgn/NB5jkfes01W6LkbdTqYBI3MdZ3P4j2c9kTfU1x/BUFK72+5IV
+ JHmXKtnRhNimBUw3yac7D0HrmV6Y9w5aJcXVxQLAIsogWJzBZqOeGnjOwt/ZvdBqUHO5
+ x7txNWnt26x8UvtluXLhrabAHgxXnevK2t8iE7HXNw6RDu5P2EuMWsvI9OG7e6P2h/P+
+ cEig==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=1e100.net; s=20161025;
- h=x-gm-message-state:date:from:to:cc:subject:message-id:references
- :mime-version:content-disposition:in-reply-to:user-agent;
- bh=R8CgB5ofq/CEo+Bbd71eYLol0DUjIXGKdAp6HQA/9d8=;
- b=VE+cHYEjXTWJCwSctWVcZNdQZzigpPxS3fkeQxPUM/f9SjMolnnHFPqpxzQjGzsImd
- V9TICxFfzONw7REYs4VQWKnphzmVEtLy/EFhz3ukDYBLf3AB58ncj+Q9DPT//YjiOt49
- GGkeBtqTqzaaJG8/CCk6lGNY2mIG7rccclB5ggFGsEXsiunrRkCuiJCurgbdamT19dIo
- 03z/NWLR6H773n4+lANd+Frec/+Ul1LNvAn6mKXaYZQz2AC825OOQdLAlPiLU1x9EfSv
- gyT4Nsm7EkHVWkNvv2VTGfy2pZWb5PUDwI8wS9b+8fl1P6+SDMxEETE6iYbdn2/3CPop
- rCCA==
-X-Gm-Message-State: APjAAAW5s7Nz3aTe5cUzjnk2WILgPL03WpllP6B5/Zba+UxvvmFZcVkI
- rMQk3SBSQhmuF93+uXj8og==
-X-Google-Smtp-Source: APXvYqx4y3t8f8l9YMHa0dnaCosRY7xiR2vi0DCieSBpahLqPG+tzB/Y2iH6dVgGLzxAw9q3lrEIRA==
-X-Received: by 2002:aca:ab53:: with SMTP id u80mr3693789oie.94.1582734089012; 
- Wed, 26 Feb 2020 08:21:29 -0800 (PST)
-Received: from rob-hp-laptop (24-155-109-49.dyn.grandenetworks.net.
- [24.155.109.49])
- by smtp.gmail.com with ESMTPSA id t20sm939037oij.19.2020.02.26.08.21.25
- (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Wed, 26 Feb 2020 08:21:26 -0800 (PST)
-Received: (nullmailer pid 13405 invoked by uid 1000);
- Wed, 26 Feb 2020 16:21:25 -0000
-Date: Wed, 26 Feb 2020 10:21:25 -0600
-From: Rob Herring <robh@kernel.org>
-To: Benjamin Gaignard <benjamin.gaignard@st.com>
-Message-ID: <20200226162125.GA13349@bogus>
-References: <20200220162246.8334-1-benjamin.gaignard@st.com>
+ h=x-gm-message-state:mime-version:references:in-reply-to:from:date
+ :message-id:subject:to:cc;
+ bh=ovPhpjCazhkBuPF/3ZKvkZXEB2wEDICs1R4JyVb9o08=;
+ b=jN1yY2K7I0wbx2I/CuaUR66pq5BW/re1GLnAgNXesOeJwZXLawlT59s/ER+GNFqlQ8
+ dqmuIhAO62VXzNgip8ca9aSxI+Q8FdGvcjbEjGEWwmrpCOY+5WWk8FUhhH4R62SBp/Ip
+ ASXcjYNeopI4Bti6tr+6xlo/EU2POHDHpCXhHZ2cAjH0QQKgZc2ftLXe1sWhv7BwTzWh
+ 9mu+FhT55ufpV63ohWVApz03WC1/uWtlNyoUQKJGBvA8ISOE9mzCLMkYuQXEakWodXM+
+ HZqBFN6TpV2JuH8brab9HAFmiG6YKeXX9+iTWRlvIIu+/6NEBTijlp2q+sKFKFmkUkEq
+ ViJQ==
+X-Gm-Message-State: APjAAAU6+5u6fcn9JkOv6RcDcX1WUjJ8TMa2cz3AsnSoSlRk0r1B7Flf
+ h3SP+S6EHEH5sd/kz7JAWKOtu89WH9bJ8NWhqu8=
+X-Google-Smtp-Source: APXvYqyWWHDLBD74C4KrlGNwJKHlt0Sr7+Pr/k5MqDzX2pGa8p/QrMHHNyTSgjdqd2CIME9nHLlZVrItPU00x+MTPeA=
+X-Received: by 2002:a05:6402:128c:: with SMTP id
+ w12mr643997edv.368.1582741318899; 
+ Wed, 26 Feb 2020 10:21:58 -0800 (PST)
 MIME-Version: 1.0
-Content-Disposition: inline
-In-Reply-To: <20200220162246.8334-1-benjamin.gaignard@st.com>
-User-Agent: Mutt/1.10.1 (2018-07-13)
-Cc: mark.rutland@arm.co, devicetree@vger.kernel.org, linus.walleij@linaro.org,
- linux-kernel@vger.kernel.org, linux-gpio@vger.kernel.org, robh+dt@kernel.org,
- lee.jones@linaro.org, linux-stm32@st-md-mailman.stormreply.com,
- linux-arm-kernel@lists.infradead.org
-Subject: Re: [Linux-stm32] [PATCH v3] dt-bindings: mfd: Convert stmfx
- bindings to json-schema
+References: <20200226102312.GX25745@shell.armlinux.org.uk>
+ <E1j6tqv-0003G6-BO@rmk-PC.armlinux.org.uk>
+ <CA+h21hrR1Xkx9gwAT2FHqcH38L=xjWiPxmF2Er7-4fHFTrA8pQ@mail.gmail.com>
+ <20200226115549.GZ25745@shell.armlinux.org.uk>
+ <CA+h21hqjMBjgQDee8t=Csy5DXVUk9f=PP0hHSDfkuA746ZKzSQ@mail.gmail.com>
+ <20200226133614.GA25745@shell.armlinux.org.uk>
+In-Reply-To: <20200226133614.GA25745@shell.armlinux.org.uk>
+From: Vladimir Oltean <olteanv@gmail.com>
+Date: Wed, 26 Feb 2020 20:21:47 +0200
+Message-ID: <CA+h21hqHfC0joRDhCQP6MntFdVaApFiC51xk=tUf3+y-C7sX_Q@mail.gmail.com>
+To: Russell King - ARM Linux admin <linux@armlinux.org.uk>
+Cc: Andrew Lunn <andrew@lunn.ch>,
+ Linux Doc Mailing List <linux-doc@vger.kernel.org>,
+ Thomas Petazzoni <thomas.petazzoni@bootlin.com>,
+ Ioana Ciornei <ioana.ciornei@nxp.com>,
+ linux-stm32@st-md-mailman.stormreply.com,
+ Florian Fainelli <f.fainelli@gmail.com>,
+ Ioana Radulescu <ruxandra.radulescu@nxp.com>, Jonathan Corbet <corbet@lwn.net>,
+ Michal Simek <michal.simek@xilinx.com>, Jose Abreu <joabreu@synopsys.com>,
+ Jakub Kicinski <kuba@kernel.org>, Mark Lee <Mark-MC.Lee@mediatek.com>,
+ Sean Wang <sean.wang@mediatek.com>, Hauke Mehrtens <hauke@hauke-m.de>,
+ Radhey Shyam Pandey <radhey.shyam.pandey@xilinx.com>,
+ "moderated list:ARM/Mediatek SoC support" <linux-mediatek@lists.infradead.org>,
+ John Crispin <john@phrozen.org>, Matthias Brugger <matthias.bgg@gmail.com>,
+ Giuseppe Cavallaro <peppe.cavallaro@st.com>,
+ "moderated list:ARM/Mediatek SoC support"
+ <linux-arm-kernel@lists.infradead.org>, netdev <netdev@vger.kernel.org>,
+ Vivien Didelot <vivien.didelot@gmail.com>,
+ Maxime Coquelin <mcoquelin.stm32@gmail.com>, Felix Fietkau <nbd@nbd.name>,
+ "David S. Miller" <davem@davemloft.net>,
+ Heiner Kallweit <hkallweit1@gmail.com>
+Subject: Re: [Linux-stm32] [PATCH net-next v2 1/8] net: phylink: propagate
+ resolved link config via mac_link_up()
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -71,21 +93,34 @@ Content-Transfer-Encoding: 7bit
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
-On Thu, 20 Feb 2020 17:22:46 +0100, Benjamin Gaignard wrote:
-> Convert stmfx bindings to json-schema
-> 
-> Signed-off-by: Benjamin Gaignard <benjamin.gaignard@st.com>
-> ---
->  .../devicetree/bindings/mfd/st,stmfx.yaml          | 124 +++++++++++++++++++++
->  Documentation/devicetree/bindings/mfd/stmfx.txt    |  28 -----
->  .../devicetree/bindings/pinctrl/pinctrl-stmfx.txt  | 116 -------------------
->  3 files changed, 124 insertions(+), 144 deletions(-)
->  create mode 100644 Documentation/devicetree/bindings/mfd/st,stmfx.yaml
->  delete mode 100644 Documentation/devicetree/bindings/mfd/stmfx.txt
->  delete mode 100644 Documentation/devicetree/bindings/pinctrl/pinctrl-stmfx.txt
-> 
+On Wed, 26 Feb 2020 at 15:36, Russell King - ARM Linux admin
+<linux@armlinux.org.uk> wrote:
+>
+>
+> dpaa2 is complicated by the firmware, and that we can't switch the
+> interface mode between (SGMII,1000base-X) and 10G.
+>
+> If the firmware is in "DPMAC_LINK_TYPE_PHY" mode, it expects to be told
+> the current link parameters via the dpmac_set_link_state() call - it
+> isn't clear whether that needs to be called for other modes with the
+> up/down state (firmware API documentation is poor.)
+>
 
-Reviewed-by: Rob Herring <robh@kernel.org>
+With PCS control in Linux, I am pretty sure that you don't want
+anything other than DPMAC_LINK_TYPE_PHY anyway.
+Basically in DPMAC_LINK_TYPE_FIXED, the MC firmware is in control of
+the PCS and polls its link state to emit link notifications to objects
+connected to the DPMAC. So Linux control of PCS would class with
+firmware control of the PCS, leading to undesirable side-effects to
+say the least.
+
+> --
+> RMK's Patch system: https://www.armlinux.org.uk/developer/patches/
+> FTTC broadband for 0.8mile line in suburbia: sync at 12.1Mbps down 622kbps up
+> According to speedtest.net: 11.9Mbps down 500kbps up
+
+Regards,
+-Vladimir
 _______________________________________________
 Linux-stm32 mailing list
 Linux-stm32@st-md-mailman.stormreply.com
