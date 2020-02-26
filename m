@@ -2,73 +2,43 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id E3BCF170028
-	for <lists+linux-stm32@lfdr.de>; Wed, 26 Feb 2020 14:36:49 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 3DC01170158
+	for <lists+linux-stm32@lfdr.de>; Wed, 26 Feb 2020 15:38:45 +0100 (CET)
 Received: from ip-172-31-3-76.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 9C897C36B0B;
-	Wed, 26 Feb 2020 13:36:49 +0000 (UTC)
-Received: from pandora.armlinux.org.uk (pandora.armlinux.org.uk [78.32.30.218])
- (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 0854AC36B0B;
+	Wed, 26 Feb 2020 14:38:45 +0000 (UTC)
+Received: from metis.ext.pengutronix.de (metis.ext.pengutronix.de
+ [85.220.165.71])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 46AF6C36B09
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id EE75CC36B09
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Wed, 26 Feb 2020 13:36:47 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
- d=armlinux.org.uk; s=pandora-2019; h=Sender:In-Reply-To:Content-Type:
- MIME-Version:References:Message-ID:Subject:Cc:To:From:Date:Reply-To:
- Content-Transfer-Encoding:Content-ID:Content-Description:Resent-Date:
- Resent-From:Resent-Sender:Resent-To:Resent-Cc:Resent-Message-ID:List-Id:
- List-Help:List-Unsubscribe:List-Subscribe:List-Post:List-Owner:List-Archive;
- bh=TBp8jxz4Fmq6X7/vnIup4Lw/YHb5dMP+d4ClS8jxNgw=; b=wrqYx08rR2tTsnBz1DPPvryi2
- YTVRG+GIrDgaSd9MY490EZWpF+4l6G2tyCrJPUxc3qVKjh2dJQl5nfPDEDeF8tRIlDDgRwY7edlyy
- tS+OWrLcey8GjoMAeJP+CPnz9UpUcju6jHoqL91TX+or+1PLwYPypt7Rj02jHDLdZXtPDox6P/OUt
- /v/cD0NICWsSuKbp1+4lgfBshaD9fWz0RZEOxpaskqAcqbFv3mL0vHyJH3EIlgK6MBt9KBJuDvu8Q
- KpFE2heg1YaRy8+Wk8Ty+1q8S0Vrf7AVzW4cQNi+Qxtp9FmhYbvqRGaikNhVgOSO+wM6uXEXbdSmp
- uaPTYK3yQ==;
-Received: from shell.armlinux.org.uk
- ([2001:4d48:ad52:3201:5054:ff:fe00:4ec]:45522)
- by pandora.armlinux.org.uk with esmtpsa
- (TLSv1.2:ECDHE-RSA-AES256-GCM-SHA384:256) (Exim 4.90_1)
- (envelope-from <linux@armlinux.org.uk>)
- id 1j6wrQ-0007pI-Sc; Wed, 26 Feb 2020 13:36:29 +0000
-Received: from linux by shell.armlinux.org.uk with local (Exim 4.92)
- (envelope-from <linux@shell.armlinux.org.uk>)
- id 1j6wrG-0008RN-He; Wed, 26 Feb 2020 13:36:14 +0000
-Date: Wed, 26 Feb 2020 13:36:14 +0000
-From: Russell King - ARM Linux admin <linux@armlinux.org.uk>
-To: Vladimir Oltean <olteanv@gmail.com>
-Message-ID: <20200226133614.GA25745@shell.armlinux.org.uk>
-References: <20200226102312.GX25745@shell.armlinux.org.uk>
- <E1j6tqv-0003G6-BO@rmk-PC.armlinux.org.uk>
- <CA+h21hrR1Xkx9gwAT2FHqcH38L=xjWiPxmF2Er7-4fHFTrA8pQ@mail.gmail.com>
- <20200226115549.GZ25745@shell.armlinux.org.uk>
- <CA+h21hqjMBjgQDee8t=Csy5DXVUk9f=PP0hHSDfkuA746ZKzSQ@mail.gmail.com>
+ Wed, 26 Feb 2020 14:38:43 +0000 (UTC)
+Received: from dude.hi.pengutronix.de ([2001:67c:670:100:1d::7])
+ by metis.ext.pengutronix.de with esmtps
+ (TLS1.3:ECDHE_RSA_AES_256_GCM_SHA384:256) (Exim 4.92)
+ (envelope-from <afa@pengutronix.de>)
+ id 1j6xpb-0000a4-Cd; Wed, 26 Feb 2020 15:38:35 +0100
+Received: from afa by dude.hi.pengutronix.de with local (Exim 4.92)
+ (envelope-from <afa@pengutronix.de>)
+ id 1j6xpY-00011U-RF; Wed, 26 Feb 2020 15:38:32 +0100
+From: Ahmad Fatoum <a.fatoum@pengutronix.de>
+To: linux-stm32@st-md-mailman.stormreply.com, mcoquelin.stm32@gmail.com,
+ alexandre.torgue@st.com, linux-kernel@vger.kernel.org
+Date: Wed, 26 Feb 2020 15:38:23 +0100
+Message-Id: <20200226143826.1146-1-a.fatoum@pengutronix.de>
+X-Mailer: git-send-email 2.25.0
 MIME-Version: 1.0
-Content-Disposition: inline
-In-Reply-To: <CA+h21hqjMBjgQDee8t=Csy5DXVUk9f=PP0hHSDfkuA746ZKzSQ@mail.gmail.com>
-User-Agent: Mutt/1.10.1 (2018-07-13)
-Cc: Andrew Lunn <andrew@lunn.ch>,
- Linux Doc Mailing List <linux-doc@vger.kernel.org>,
- Thomas Petazzoni <thomas.petazzoni@bootlin.com>,
- Ioana Ciornei <ioana.ciornei@nxp.com>,
- linux-stm32@st-md-mailman.stormreply.com,
- Florian Fainelli <f.fainelli@gmail.com>,
- Ioana Radulescu <ruxandra.radulescu@nxp.com>, Jonathan Corbet <corbet@lwn.net>,
- Michal Simek <michal.simek@xilinx.com>, Jose Abreu <joabreu@synopsys.com>,
- Jakub Kicinski <kuba@kernel.org>, Mark Lee <Mark-MC.Lee@mediatek.com>,
- Sean Wang <sean.wang@mediatek.com>, Hauke Mehrtens <hauke@hauke-m.de>,
- Radhey Shyam Pandey <radhey.shyam.pandey@xilinx.com>,
- "moderated list:ARM/Mediatek SoC support" <linux-mediatek@lists.infradead.org>,
- John Crispin <john@phrozen.org>, Matthias Brugger <matthias.bgg@gmail.com>,
- Giuseppe Cavallaro <peppe.cavallaro@st.com>,
- "moderated list:ARM/Mediatek SoC support"
- <linux-arm-kernel@lists.infradead.org>, netdev <netdev@vger.kernel.org>,
- Vivien Didelot <vivien.didelot@gmail.com>,
- Maxime Coquelin <mcoquelin.stm32@gmail.com>, Felix Fietkau <nbd@nbd.name>,
- "David S. Miller" <davem@davemloft.net>,
- Heiner Kallweit <hkallweit1@gmail.com>
-Subject: Re: [Linux-stm32] [PATCH net-next v2 1/8] net: phylink: propagate
- resolved link config via mac_link_up()
+X-SA-Exim-Connect-IP: 2001:67c:670:100:1d::7
+X-SA-Exim-Mail-From: afa@pengutronix.de
+X-SA-Exim-Scanned: No (on metis.ext.pengutronix.de);
+ SAEximRunCond expanded to false
+X-PTX-Original-Recipient: linux-stm32@st-md-mailman.stormreply.com
+Cc: Mark Rutland <mark.rutland@arm.com>, devicetree@vger.kernel.org,
+ Rob Herring <robh+dt@kernel.org>, kernel@pengutronix.de,
+ linux-arm-kernel@lists.infradead.org
+Subject: [Linux-stm32] [PATCH 1/3] dt-bindings: add vendor prefix for Linux
+	Automation GmbH
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -85,234 +55,34 @@ Content-Transfer-Encoding: 7bit
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
-On Wed, Feb 26, 2020 at 03:00:30PM +0200, Vladimir Oltean wrote:
-> On Wed, 26 Feb 2020 at 13:56, Russell King - ARM Linux admin
-> <linux@armlinux.org.uk> wrote:
-> >
-> > On Wed, Feb 26, 2020 at 01:06:06PM +0200, Vladimir Oltean wrote:
-> > > Hi Russell,
-> > >
-> > > On Wed, 26 Feb 2020 at 12:23, Russell King <rmk+kernel@armlinux.org.uk> wrote:
-> > > >
-> > > > Propagate the resolved link parameters via the mac_link_up() call for
-> > > > MACs that do not automatically track their PCS state. We propagate the
-> > > > link parameters via function arguments so that inappropriate members
-> > > > of struct phylink_link_state can't be accessed, and creating a new
-> > > > structure just for this adds needless complexity to the API.
-> > > >
-> > > > Tested-by: Andre Przywara <andre.przywara@arm.com>
-> > > > Tested-by: Alexandre Belloni <alexandre.belloni@bootlin.com>
-> > > > Tested-by: Vladimir Oltean <vladimir.oltean@nxp.com>
-> > > > Signed-off-by: Russell King <rmk+kernel@armlinux.org.uk>
-> > > > ---
-> > > >  Documentation/networking/sfp-phylink.rst      | 17 +++++-
-> > > >  drivers/net/ethernet/cadence/macb_main.c      |  7 ++-
-> > > >  .../net/ethernet/freescale/dpaa2/dpaa2-mac.c  |  7 ++-
-> > > >  drivers/net/ethernet/marvell/mvneta.c         |  8 ++-
-> > > >  .../net/ethernet/marvell/mvpp2/mvpp2_main.c   | 19 +++++--
-> > > >  drivers/net/ethernet/mediatek/mtk_eth_soc.c   |  7 ++-
-> > > >  .../net/ethernet/stmicro/stmmac/stmmac_main.c |  4 +-
-> > > >  .../net/ethernet/xilinx/xilinx_axienet_main.c |  7 ++-
-> > > >  drivers/net/phy/phylink.c                     |  9 ++-
-> > > >  include/linux/phylink.h                       | 57 ++++++++++++++-----
-> > > >  net/dsa/port.c                                |  4 +-
-> > > >  11 files changed, 105 insertions(+), 41 deletions(-)
-> > > >
-> > > > diff --git a/Documentation/networking/sfp-phylink.rst b/Documentation/networking/sfp-phylink.rst
-> > > > index d753a309f9d1..8d7af28cd835 100644
-> > > > --- a/Documentation/networking/sfp-phylink.rst
-> > > > +++ b/Documentation/networking/sfp-phylink.rst
-> > > > @@ -74,10 +74,13 @@ phylib to the sfp/phylink support.  Please send patches to improve
-> > > >  this documentation.
-> > > >
-> > > >  1. Optionally split the network driver's phylib update function into
-> > > > -   three parts dealing with link-down, link-up and reconfiguring the
-> > > > -   MAC settings. This can be done as a separate preparation commit.
-> > > > +   two parts dealing with link-down and link-up. This can be done as
-> > > > +   a separate preparation commit.
-> > > >
-> > > > -   An example of this preparation can be found in git commit fc548b991fb0.
-> > > > +   An older example of this preparation can be found in git commit
-> > > > +   fc548b991fb0, although this was splitting into three parts; the
-> > > > +   link-up part now includes configuring the MAC for the link settings.
-> > > > +   Please see :c:func:`mac_link_up` for more information on this.
-> > > >
-> > > >  2. Replace::
-> > > >
-> > > > @@ -207,6 +210,14 @@ this documentation.
-> > > >     using. This is particularly important for in-band negotiation
-> > > >     methods such as 1000base-X and SGMII.
-> > > >
-> > > > +   The :c:func:`mac_link_up` method is used to inform the MAC that the
-> > > > +   link has come up. The call includes the negotiation mode and interface
-> > > > +   for reference only. The finalised link parameters are also supplied
-> > > > +   (speed, duplex and flow control/pause enablement settings) which
-> > > > +   should be used to configure the MAC when the MAC and PCS are not
-> > > > +   tightly integrated, or when the settings are not coming from in-band
-> > > > +   negotiation.
-> > > > +
-> > > >     The :c:func:`mac_config` method is used to update the MAC with the
-> > > >     requested state, and must avoid unnecessarily taking the link down
-> > > >     when making changes to the MAC configuration.  This means the
-> > >
-> > > Just to make sure I understand the changes:
-> > > - A MAC with no PCS can be configured in either .mac_config or .mac_link_up
-> >
-> > I would much prefer mac_link_up to be used for setting the speed,
-> > duplex and pause modes for future-proofing in all cases except for
-> > the case where these parameters are automatically updated in the
-> > MAC from its associated PCS.
-> >
-> > mac_link_up must not be used to configure the AN mode or interface
-> > mode; these must be configured in mac_config().
-> >
-> > > - A MAC that needs to be manually reconfigured to the link mode
-> > > negotiated by its PCS needs to have the PCS configured in .mac_config
-> > > and the MAC in .mac_link_up
-> >
-> > I do have further changes that split the PCS ops from the MAC ops, so
-> > what is in this series is not the full story yet - some of the further
-> > patches can be found in my "phy" branch and "cex7" branches where I add
-> > support to dpaa2 for automatically switching between SGMII and
-> > 1000BASE-X.  dpaa2 is one of these split PCS/MAC setups, but with the
-> > extra complication that there's a firmware layer between the PCS and
-> > MAC.
-> >
-> > However, this series is the first stand-alone step along the road to
-> > supporting split PCS/MAC setups in a sane manner.
-> >
-> > I discussed with Andrew Lunn how much to send, and the conclusion was
-> > to make the changes in a number of small patch series, as large patch
-> > series tend not to get reviewed.  My experience with _this_ series is
-> > that even this is very difficult to get feedback for, so adding any
-> > additional patches will just make that worse.
-> >
-> > > - A MAC with PCS where the MAC follows the PCS negotiation
-> > > automatically in hardware is basically equivalent with a MAC with no
-> > > PCS, and therefore can be configured in either .mac_config or
-> > > .mac_link_up
-> >
-> > In this case, mac_link_up doesn't do anything with the speed/duplex/
-> > pause stuff when those are automatically passed from the PCS.
-> >
-> > I'm afraid that sentence contains a subtlety that's going to get
-> > people: it is not clear cut because of the different natures of the
-> > various links.
-> >
-> > In 1000BASE-X, speed is fixed at 1G, and the PCS autonegotiates the
-> > duplex and pause with the remote end.  For mvneta (an example of a
-> > combined PCS/MAC implementation) operating in-band:
-> > - In mac_config():
-> >   - configures for 1000BASE-X interface type with in-band AN.
-> >   - configures fixed 1G.
-> >   - As mvneta only supports full duplex, we disable duplex negotiation
-> >     and force full duplex.
-> >   - Only symmetric pause is supported, and we set the symmetric pause
-> >     advertisement appropriately, with pause negotiation enabled.
-> > - In mac_link_up():
-> >   - merely allow the device to transmit and receive.
-> >
-> > The MAC will be forced to 1G, full duplex, and will automatically be
-> > configured by the PCS for pause support depending on the hardware
-> > based pause resolution.
-> >
-> > The situation is different for SGMII operating in-band:
-> > - In mac_config():
-> >   - configures for SGMII interface type with in-band AN.
-> >   - configures speed and duplex negotiation.
-> >   - disables pause negotiation; SGMII has no support for this.
-> > - In mac_link_up():
-> >   - enables or disables pause frames depending on the tx_pause/
-> >     rx_pause flags, since this is not available from the MAC.
-> >   - allow the device to transmit and receive.
-> >
-> > If we aren't operating in in-band mode, then:
-> > - In mac_config():
-> >   - configures for the interface type without in-band AN.
-> >   - disables speed, duplex and pause negotiation.
-> > - In mac_link_up():
-> >   - sets the speed, duplex and pause frames depending on the passed
-> >     parameters.
-> 
-> But there shouldn't be any requirement for this to be configured at
-> this step and not earlier?
-> 
-> >   - allow the device to transmit and receive.
-> >
-> > Please see patch 7 of this series which implements this for mvneta.
-> >
-> > So, there is a split between what mac_config() should be doing and what
-> > mac_link_up() should be doing; this is why I've said in the
-> > documentation that the "mode" and "interface" are for reference only in
-> > mac_link_up() - mac_link_up() can use these to decide _how_ to program
-> > the resolved parameters, but should _not_ use them to determine the
-> > link configuration (such as changing the interface between SGMII and
-> > 1000BASE-X - that is the responsibility of mac_config().)
-> 
-> Does any driver currently make any use of the phy_interface_t argument
-> provided as reference in .mac_link_up?
+Linux Automation GmbH[0] was founded in 2019 in order to develop
+electronics for embedded Linux. Add its vendor prefix so it may be used
+in future board and device compatibles.
 
-Yes.  mvpp2 uses it to decide whether to configure the 10/100/1G MAC
-or the 10G XLG MAC, for example - there are drivers that need to
-configure different blocks for the link-up event depending on the
-interface mode.  Rather than having drivers store the interface mode
-internally, copying what phylink is doing, we provide that to the
-network driver so it can make its own decisions without that additional
-complexity.
+[0]: https://www.linux-automation.com
 
-> > I hope that helps clarify the situation.
-> >
-> > --
-> > RMK's Patch system: https://www.armlinux.org.uk/developer/patches/
-> > FTTC broadband for 0.8mile line in suburbia: sync at 12.1Mbps down 622kbps up
-> > According to speedtest.net: 11.9Mbps down 500kbps up
-> 
-> Ok, so basically what is known early, as well as whatever is needed
-> for the in-band AN preparation, is configured in .mac_config and what
-> is known late is configured in .mac_link_up.
+Signed-off-by: Robert Schwebel <rsc@linux-automation.com>
+Signed-off-by: Ahmad Fatoum <a.fatoum@pengutronix.de>
+---
+ Documentation/devicetree/bindings/vendor-prefixes.yaml | 2 ++
+ 1 file changed, 2 insertions(+)
 
-I envision a time when the speed/duplex/pause settings will not be
-passed to mac_config.
-
-> Except that you would like to slowly move everything MAC-related to
-> .mac_link_up, and everything PCS-related to .mac_config, presumably in
-> an effort to convert .mac_config to .pcs_config and .mac_link_up to
-> .mac_config. I don't actually know what other patches you have in the
-> cex7 branch you mentioned. Please consider that people don't
-> necessarily bookmark your git trees. I've spent some good 10 minutes
-> searching for the "cex7" and "phy" keywords in emails received from
-> you, and haven't found the git links.
-
-http://git.armlinux.org.uk/cgit/linux-arm.git/
-
-I'm afraid that it's rather scattered amongst quite a few branches at
-the moment, because of their dependencies on other stuff in my tree.
-For dpaa2, see:
-
-http://git.armlinux.org.uk/cgit/linux-arm.git/log/?h=cex7
-
-specifically:
-
-"dpaa2-mac: add PCS support"
-"net: phylink: add c45 pcs helpers"
-"net: phylink: helpers for 802.3 clause 37/SGMII register sets"
-"net: phylink: add pcs operations"
-"net: phylink: rename 'ops' to 'mac_ops'"
-"net: mii: add linkmode_adv_to_mii_adv_x()"
-"net: mii: convert mii_lpa_to_ethtool_lpa_x() to linkmode variant"
-
-dpaa2 is complicated by the firmware, and that we can't switch the
-interface mode between (SGMII,1000base-X) and 10G.
-
-If the firmware is in "DPMAC_LINK_TYPE_PHY" mode, it expects to be told
-the current link parameters via the dpmac_set_link_state() call - it
-isn't clear whether that needs to be called for other modes with the
-up/down state (firmware API documentation is poor.)
-
+diff --git a/Documentation/devicetree/bindings/vendor-prefixes.yaml b/Documentation/devicetree/bindings/vendor-prefixes.yaml
+index 9e67944bec9c..bef6841428a2 100644
+--- a/Documentation/devicetree/bindings/vendor-prefixes.yaml
++++ b/Documentation/devicetree/bindings/vendor-prefixes.yaml
+@@ -561,6 +561,8 @@ patternProperties:
+     description: LSI Corp. (LSI Logic)
+   "^lwn,.*":
+     description: Liebherr-Werk Nenzing GmbH
++  "^lxa,.*":
++    description: Linux Automation GmbH
+   "^macnica,.*":
+     description: Macnica Americas
+   "^mapleboard,.*":
 -- 
-RMK's Patch system: https://www.armlinux.org.uk/developer/patches/
-FTTC broadband for 0.8mile line in suburbia: sync at 12.1Mbps down 622kbps up
-According to speedtest.net: 11.9Mbps down 500kbps up
+2.25.0
+
 _______________________________________________
 Linux-stm32 mailing list
 Linux-stm32@st-md-mailman.stormreply.com
