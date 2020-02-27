@@ -2,105 +2,142 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id 75D1E17124F
-	for <lists+linux-stm32@lfdr.de>; Thu, 27 Feb 2020 09:19:03 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 8C6CF1713E1
+	for <lists+linux-stm32@lfdr.de>; Thu, 27 Feb 2020 10:17:05 +0100 (CET)
 Received: from ip-172-31-3-76.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 31E25C36B0B;
-	Thu, 27 Feb 2020 08:19:03 +0000 (UTC)
-Received: from EUR02-VE1-obe.outbound.protection.outlook.com
- (mail-eopbgr20057.outbound.protection.outlook.com [40.107.2.57])
- (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 3F483C36B0B;
+	Thu, 27 Feb 2020 09:17:05 +0000 (UTC)
+Received: from mail-wm1-f65.google.com (mail-wm1-f65.google.com
+ [209.85.128.65])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id CC12BC36B09
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id D7229C36B09
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Thu, 27 Feb 2020 06:25:53 +0000 (UTC)
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=obZh0PjHmp7eE7wYoPlOUhUOgJsjasCFZxg3KVHsRnf22/eg6DDmVNou0zy1GuLMriXta0aa+rLD4VyFgcHspjIRYzVnpp3k0z7oXbPF/BXDFJsSZjJ81pWuxjE4R1hohEOHCqN03NTQGMwI+tPGnWFWPgXb3nVbLDEYvkWDZYcar1cx7MLk8QCanM+fo8bID/l6asa8ObiJQNCG6SXMS8AQvRWk5rKHGx0Dqtm9oryGn97+mdkkIylP15LCuK920+NWj/+qAmpZuAPxGEBf+6YikHOkBOJdpYVaf2UVig81kUYPWI9A5nt78s/F1oyP5/eAGsAzQvLFmmvlbA762Q==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
- s=arcselector9901;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=TJL17HUx2fHaO+Oc4r4ymsOqOQN+fnjw+67gT6DiLjI=;
- b=YHkFmjeLgTSJlMaQWchHXdYXmY1RPgRF8YSBSCew909HhfAIve412ONJxOzcIS0IK2KnnaYikPjBuI7Izm+QJgurn6WRETwXxLWB9QxzMFuh61BvNkDuQCtYueLXg6NhKNXwQpZcOr1byn6IBZEMAcCE79srFwIeyBRtFCMvU8YX65VyWezXnMc9/ZNrFI7Z195OZpSOPOuPzZe8AoZLTf1rvzm30PaasOF5u7t4LZYxU0/JXi7IuSPHwxWP4OQQH/PE3QYb6fwBoXL8hjIoYDIO70TFnuq2LYCHgRO0tkXZW+AljJJ2ZAlhYZ6M6OZOs1if1XyhQr3vXXEmLdtrMw==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=nxp.com; dmarc=pass action=none header.from=nxp.com; dkim=pass
- header.d=nxp.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=nxp.com; s=selector2; 
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=TJL17HUx2fHaO+Oc4r4ymsOqOQN+fnjw+67gT6DiLjI=;
- b=h7t0CGM0NY87t+/JvasNPtRKb6t4b4r+NITGdNN+FZvqChnHSSHlz7OMEH1HT8aAx+N5HrHylF4ThRDxm2C+lUFyqW8jbUvfwRaNriQDTZDyGepLPuZH2cyFmGjvxPc0WJSewjgUNCzz5T9xt2AhobGqyNa92OMX92E6qm1uHb0=
-Received: from AM0PR04MB4481.eurprd04.prod.outlook.com (52.135.147.15) by
- AM0PR04MB4883.eurprd04.prod.outlook.com (20.176.215.204) with Microsoft SMTP
- Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.20.2772.14; Thu, 27 Feb 2020 06:25:52 +0000
-Received: from AM0PR04MB4481.eurprd04.prod.outlook.com
- ([fe80::91e2:17:b3f4:d422]) by AM0PR04MB4481.eurprd04.prod.outlook.com
- ([fe80::91e2:17:b3f4:d422%3]) with mapi id 15.20.2772.012; Thu, 27 Feb 2020
- 06:25:51 +0000
-From: Peng Fan <peng.fan@nxp.com>
-To: Mathieu Poirier <mathieu.poirier@linaro.org>, Arnaud POULIQUEN
- <arnaud.pouliquen@st.com>
-Thread-Topic: [PATCH v5 1/3] remoteproc: add support for co-processor loaded
- and booted before kernel
-Thread-Index: AQHV52cWkaG3oUYM5k+Q+3HffuA6bKgj00eAgADKmgCACaTfAIAAW4/w
-Date: Thu, 27 Feb 2020 06:25:51 +0000
-Message-ID: <AM0PR04MB44812B2CE7ABB302DF72FA5288EB0@AM0PR04MB4481.eurprd04.prod.outlook.com>
-References: <20200211174205.22247-1-arnaud.pouliquen@st.com>
- <20200211174205.22247-2-arnaud.pouliquen@st.com>
- <20200213200813.GA14415@xps15> <24947b31-bef6-cfb3-686e-80bef6f974e3@st.com>
- <CANLsYkxhWWgVFVe3=5WOYkYGQgV7g+3FvDKRDKi7y9kuk4_G8w@mail.gmail.com>
- <d6e09b93-f287-78a0-a6d9-3d9ea0a5f3d7@st.com>
- <CANLsYkzQz5yyu+KViEL8GwWtp7cfBotS8Fuvs1MJzvYq4LxOig@mail.gmail.com>
- <07d5bea4-1585-db55-4ca0-ae28dcf81d41@st.com>
- <CANLsYkwPHZQ776AtSmzLO=m7Uxa4Dmw+aVrWL+tB5-ZUNy=N3g@mail.gmail.com>
- <CANLsYkwAyY86+85nWuP67wB+h8ycSNkbPmjmGz1-s=xVU5qs=w@mail.gmail.com>
-In-Reply-To: <CANLsYkwAyY86+85nWuP67wB+h8ycSNkbPmjmGz1-s=xVU5qs=w@mail.gmail.com>
-Accept-Language: en-US
-Content-Language: en-US
-X-MS-Has-Attach: 
-X-MS-TNEF-Correlator: 
-authentication-results: spf=none (sender IP is )
- smtp.mailfrom=peng.fan@nxp.com; 
-x-originating-ip: [119.31.174.68]
-x-ms-publictraffictype: Email
-x-ms-office365-filtering-ht: Tenant
-x-ms-office365-filtering-correlation-id: ea610392-2446-49b7-cb53-08d7bb4de4a8
-x-ms-traffictypediagnostic: AM0PR04MB4883:
-x-microsoft-antispam-prvs: <AM0PR04MB48832FF05DD6E65C1DC5135A88EB0@AM0PR04MB4883.eurprd04.prod.outlook.com>
-x-ms-oob-tlc-oobclassifiers: OLM:6790;
-x-forefront-prvs: 03264AEA72
-x-forefront-antispam-report: SFV:NSPM;
- SFS:(10001)(10009020)(4636009)(39860400002)(376002)(136003)(346002)(366004)(396003)(189003)(199004)(8676002)(66476007)(45080400002)(64756008)(478600001)(66946007)(8936002)(71200400001)(66446008)(5660300002)(54906003)(30864003)(66556008)(81156014)(110136005)(81166006)(966005)(76116006)(316002)(86362001)(26005)(186003)(52536014)(6506007)(53546011)(33656002)(2906002)(4326008)(9686003)(55016002)(44832011)(7416002)(7696005);
- DIR:OUT; SFP:1101; SCL:1; SRVR:AM0PR04MB4883;
- H:AM0PR04MB4481.eurprd04.prod.outlook.com; FPR:; SPF:None; LANG:en;
- PTR:InfoNoRecords; MX:1; A:1; 
-received-spf: None (protection.outlook.com: nxp.com does not designate
- permitted sender hosts)
-x-ms-exchange-senderadcheck: 1
-x-microsoft-antispam: BCL:0;
-x-microsoft-antispam-message-info: GYJaAdCl2FglpV5L0mqD3fvLq6iDm8srQ94P6/g+RjcU+5L44/FnC+WJ+tZPrkfQHoy+wR0s/P1iGSpDD8KwPMx1P8N1pY/kZrjSnbabRZwHd/oww6tdWeTDFV7wt2xkqykeMx1FRm6wqRnt7fjWK5PgMCDNdSKSPCt6zJqoYARN7W/7IC1sEMNXBkrVaHdESzUG7RQbguzEjEpFclT35UgVeC4REV7nHkrNpAt0wz+90gTh8+9AuprHLTtkE1lRdbemh0vVB+Gy75i9kLcqGYAxFVazzMV2OBBzfj6PQn7ppceCUoqCPSIoCYriV6G5mApoIlr382FcrKP+882FUMz50LYEUOZs7rBHcEdV32sR6nwN2SxxleUf5lN2gvsBZV7N+mIDR0f6Q0I16eMaIUCTfIfSmaB19CyizKjw3CeWmeyRhXvsp9W92c2kBkv+OUEZKGpBVVEWLnm5b/1ezDzDzzuubj+phNN+Xl30iMRCfXjh/CMDtGCIto69qYaJYKCZ3uZU28A8MuMtHeefsTUG7cH/d1Akf9nw+/N3htmLFR1KlMXfJv7oDxlU6mCjQ8X33t2eBDtajtZ2uS7kc6aqno1+HQXihCr9A4DXtVFJjqarVAkl8mXhy7+y3M90
-x-ms-exchange-antispam-messagedata: 5CFGN6S+RT3zzLe4Xp1sSlpaZ82YyVQQSAYmWCweo4cd+4Bci3NtiSj5eRGkf8R4u0BRlJ/h3lHSwiPmcAJkRpzf+lq0Qt+vslPwjZCqMpb+gbk8Y4N8Fj20bdoIh1Y8ei8sFAk2QihVxutxBb9/LQ==
-x-ms-exchange-transport-forked: True
+ Thu, 27 Feb 2020 09:17:03 +0000 (UTC)
+Received: by mail-wm1-f65.google.com with SMTP id f19so320392wmh.1
+ for <linux-stm32@st-md-mailman.stormreply.com>;
+ Thu, 27 Feb 2020 01:17:03 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linaro.org; s=google;
+ h=subject:to:cc:references:from:autocrypt:message-id:date:user-agent
+ :mime-version:in-reply-to:content-language:content-transfer-encoding;
+ bh=byYUcuzDUs6EI2f9ZAyw6JsIg3wiyl3GVfGmpZXFBGg=;
+ b=znc+w9PkEBnc+zTq9CxylE0W3IOsPMfyj0zzj9rfhzSqa6janRkZRYL48p3tGPMtZB
+ 0oR+0ElyxD+M4ZsBvDNSeR7HJDq2K5CNbZxIJ7qpklwpm0Xr2Fn0E9TFiQNmh6jtJfg5
+ QZp4mTQU9f06enAb2YyJWJ4DgFLmrpyy9peHIdQpbHXgMxiCDMbBkAqe02sjC5jID3lh
+ OZVDWGrnDTKfX0iQNWWM9yyuEnqlZRhVXzr4nxpcm67c3J/b7GRxRv9klHWdcw6KsoeE
+ 8Hdr+r55IVlqhwlg+jfucl7ZnsfbGGM0sQrk7+UvmcLQ09RR+sFZBPsfRtGYsvIjsb8A
+ HQHQ==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20161025;
+ h=x-gm-message-state:subject:to:cc:references:from:autocrypt
+ :message-id:date:user-agent:mime-version:in-reply-to
+ :content-language:content-transfer-encoding;
+ bh=byYUcuzDUs6EI2f9ZAyw6JsIg3wiyl3GVfGmpZXFBGg=;
+ b=POvZ+L+mte9ANziW0lLOnvK4dofItOx4nQHKUz5DAL8RtIkvfhSfDvJ/ahHzpWkhns
+ BHs0fijC4O4pHX/ZrjHY291432nVD1RbmBFjJ1qfXdjd4f6vNwDdpwfsR/OE2KqkvhGc
+ OJGLPr+L8NFVfxRI3wb/Z8wMAMDgg3kuGT90O8tlvz2ck0ysJEwntW2mawS3DbMLu2B2
+ 4mJi/zkm69Icepkphss6dVhbuq68TzyR6PJZNOI4MyOur9l3QpsWQWkBeqLAw4RaH6Tb
+ xNWXh3VvY/2Fnx9m/4s0/2lf3vrbaO6VWzgzDHy7+s1MCpbEfYuGCFyyzQWOSRT/OHMi
+ staA==
+X-Gm-Message-State: APjAAAUaiLqeU8xzlJ5QRzon34jQ74a/JMQ48m7V47/irD4l9PlEWm7+
+ 8ARD1SprxIw9b8Q5hmKIjaHPJQ==
+X-Google-Smtp-Source: APXvYqxawPiOKaKn88qM82HAWaYmFB3tLwYe0d+o9KWMRvOoNS4J9ny55LDYIKO79xtfY0CVYnrsmg==
+X-Received: by 2002:a05:600c:21c6:: with SMTP id
+ x6mr3966652wmj.17.1582795023046; 
+ Thu, 27 Feb 2020 01:17:03 -0800 (PST)
+Received: from ?IPv6:2a01:e34:ed2f:f020:d916:1723:c1c1:22d?
+ ([2a01:e34:ed2f:f020:d916:1723:c1c1:22d])
+ by smtp.googlemail.com with ESMTPSA id b16sm2185717wrq.14.2020.02.27.01.16.59
+ (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+ Thu, 27 Feb 2020 01:17:02 -0800 (PST)
+To: Mauro Carvalho Chehab <mchehab+huawei@kernel.org>,
+ Linux Doc Mailing List <linux-doc@vger.kernel.org>
+References: <cover.1582361737.git.mchehab+huawei@kernel.org>
+ <83c5df4acbbe0fa55a1d58d4c4a435b51cd2a7ad.1582361737.git.mchehab+huawei@kernel.org>
+From: Daniel Lezcano <daniel.lezcano@linaro.org>
+Autocrypt: addr=daniel.lezcano@linaro.org; prefer-encrypt=mutual; keydata=
+ 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
+Message-ID: <add18b30-6eec-9aba-a961-8ecfe9b32596@linaro.org>
+Date: Thu, 27 Feb 2020 10:16:59 +0100
+User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:68.0) Gecko/20100101
+ Thunderbird/68.4.1
 MIME-Version: 1.0
-X-OriginatorOrg: nxp.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: ea610392-2446-49b7-cb53-08d7bb4de4a8
-X-MS-Exchange-CrossTenant-originalarrivaltime: 27 Feb 2020 06:25:51.7998 (UTC)
-X-MS-Exchange-CrossTenant-fromentityheader: Hosted
-X-MS-Exchange-CrossTenant-id: 686ea1d3-bc2b-4c6f-a92c-d99c5c301635
-X-MS-Exchange-CrossTenant-mailboxtype: HOSTED
-X-MS-Exchange-CrossTenant-userprincipalname: q+q76hG4xTGJl8ovLdgyZvvgSGvBCAtIVou+Q4r6ZRDsX1WanMinLA8mGycsyD6NHnqAHGy+1Ja5wUTyMh8LDg==
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: AM0PR04MB4883
-X-Mailman-Approved-At: Thu, 27 Feb 2020 08:19:01 +0000
-Cc: Mark Rutland <mark.rutland@arm.com>,
- "devicetree@vger.kernel.org" <devicetree@vger.kernel.org>,
- Ohad Ben-Cohen <ohad@wizery.com>,
- linux-remoteproc <linux-remoteproc@vger.kernel.org>,
- Linux Kernel Mailing List <linux-kernel@vger.kernel.org>,
- Fabien DESSENNE <fabien.dessenne@st.com>,
- Bjorn Andersson <bjorn.andersson@linaro.org>, Rob Herring <robh+dt@kernel.org>,
- Suman Anna <s-anna@ti.com>, "linux-stm32@st-md-mailman.stormreply.com"
- <linux-stm32@st-md-mailman.stormreply.com>
-Subject: Re: [Linux-stm32] [PATCH v5 1/3] remoteproc: add support for
- co-processor loaded and booted before kernel
+In-Reply-To: <83c5df4acbbe0fa55a1d58d4c4a435b51cd2a7ad.1582361737.git.mchehab+huawei@kernel.org>
+Content-Language: en-US
+Cc: Stuart Yoder <stuyoder@gmail.com>, David Airlie <airlied@linux.ie>,
+ Michael Turquette <mturquette@baylibre.com>, dri-devel@lists.freedesktop.org,
+ Bjorn Andersson <bjorn.andersson@linaro.org>, Pavel Machek <pavel@ucw.cz>,
+ linux-clk@vger.kernel.org, linux-leds@vger.kernel.org,
+ Amit Kucheria <amit.kucheria@verdurent.com>, linux-aspeed@lists.ozlabs.org,
+ Jonathan Corbet <corbet@lwn.net>, Kevin Hilman <khilman@baylibre.com>,
+ openbmc@lists.ozlabs.org, linux-stm32@st-md-mailman.stormreply.com,
+ Tomi Valkeinen <tomi.valkeinen@ti.com>, Joel Stanley <joel@jms.id.au>,
+ Philipp Zabel <p.zabel@pengutronix.de>, Zhang Rui <rui.zhang@intel.com>,
+ Linus Walleij <linus.walleij@linaro.org>, devicetree@vger.kernel.org,
+ Daniel Vetter <daniel@ffwll.ch>, linux-pm@vger.kernel.org,
+ linux-arm-msm@vger.kernel.org, Jyri Sarha <jsarha@ti.com>,
+ linux-gpio@vger.kernel.org, Rob Herring <robh+dt@kernel.org>,
+ Dan Murphy <dmurphy@ti.com>, linux-amlogic@lists.infradead.org,
+ linux-arm-kernel@lists.infradead.org,
+ Laurentiu Tudor <laurentiu.tudor@nxp.com>, Stephen Boyd <sboyd@kernel.org>,
+ Andy Gross <agross@kernel.org>, Andrew Jeffery <andrew@aj.id.au>,
+ Maxime Coquelin <mcoquelin.stm32@gmail.com>,
+ Sudeep Holla <sudeep.holla@arm.com>,
+ Jacek Anaszewski <jacek.anaszewski@gmail.com>
+Subject: Re: [Linux-stm32] [PATCH 2/7] docs: dt: fix several broken
+ references due to renames
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -112,405 +149,32 @@ List-Post: <mailto:linux-stm32@st-md-mailman.stormreply.com>
 List-Help: <mailto:linux-stm32-request@st-md-mailman.stormreply.com?subject=help>
 List-Subscribe: <https://st-md-mailman.stormreply.com/mailman/listinfo/linux-stm32>, 
  <mailto:linux-stm32-request@st-md-mailman.stormreply.com?subject=subscribe>
-Content-Type: text/plain; charset="us-ascii"
-Content-Transfer-Encoding: 7bit
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: base64
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
-> Subject: Re: [PATCH v5 1/3] remoteproc: add support for co-processor loaded
-> and booted before kernel
-> 
-> On Thu, 20 Feb 2020 at 14:40, Mathieu Poirier <mathieu.poirier@linaro.org>
-> wrote:
-> >
-> > On Thu, 20 Feb 2020 at 02:35, Arnaud POULIQUEN
-> <arnaud.pouliquen@st.com> wrote:
-> > >
-> > >
-> > >
-> > > On 2/19/20 9:56 PM, Mathieu Poirier wrote:
-> > > > Hey Arnaud,
-> > > >
-> > > > On Tue, 18 Feb 2020 at 10:31, Arnaud POULIQUEN
-> <arnaud.pouliquen@st.com> wrote:
-> > > >>
-> > > >> Hi Mathieu, Bjorn,
-> > > >>
-> > > >> On 2/17/20 7:40 PM, Mathieu Poirier wrote:
-> > > >>> On Fri, 14 Feb 2020 at 09:33, Arnaud POULIQUEN
-> <arnaud.pouliquen@st.com> wrote:
-> > > >>>>
-> > > >>>> Hi Mathieu,
-> > > >>>>
-> > > >>>> On 2/13/20 9:08 PM, Mathieu Poirier wrote:
-> > > >>>>> Good day,
-> > > >>>>>
-> > > >>>>> On Tue, Feb 11, 2020 at 06:42:03PM +0100, Arnaud Pouliquen
-> wrote:
-> > > >>>>>> From: Loic Pallardy <loic.pallardy@st.com>
-> > > >>>>>>
-> > > >>>>>> Remote processor could boot independently or be
-> > > >>>>>> loaded/started before Linux kernel by bootloader or any
-> firmware.
-> > > >>>>>> This patch introduces a new property in rproc core, named
-> > > >>>>>> skip_fw_load, to be able to allocate resources and
-> > > >>>>>> sub-devices like vdev and to synchronize with current state
-> without loading firmware from file system.
-> > > >>>>>> It is platform driver responsibility to implement the right
-> > > >>>>>> firmware load ops according to HW specificities.
-> > > >>>>>>
-> > > >>>>>> Signed-off-by: Loic Pallardy <loic.pallardy@st.com>
-> > > >>>>>> Acked-by: Mathieu Poirier <mathieu.poirier@linaro.org>
-> > > >>>>>> Signed-off-by: Arnaud Pouliquen <arnaud.pouliquen@st.com>
-> > > >>>>>> ---
-> > > >>>>>>  drivers/remoteproc/remoteproc_core.c | 67
-> ++++++++++++++++++++++------
-> > > >>>>>>  include/linux/remoteproc.h           |  2 +
-> > > >>>>>>  2 files changed, 55 insertions(+), 14 deletions(-)
-> > > >>>>>>
-> > > >>>>>> diff --git a/drivers/remoteproc/remoteproc_core.c
-> > > >>>>>> b/drivers/remoteproc/remoteproc_core.c
-> > > >>>>>> index 097f33e4f1f3..876b5420a32b 100644
-> > > >>>>>> --- a/drivers/remoteproc/remoteproc_core.c
-> > > >>>>>> +++ b/drivers/remoteproc/remoteproc_core.c
-> > > >>>>>> @@ -1358,8 +1358,19 @@ static int rproc_start(struct rproc
-> *rproc, const struct firmware *fw)
-> > > >>>>>>      return ret;
-> > > >>>>>>  }
-> > > >>>>>>
-> > > >>>>>> -/*
-> > > >>>>>> - * take a firmware and boot a remote processor with it.
-> > > >>>>>> +/**
-> > > >>>>>> + * rproc_fw_boot() - boot specified remote processor
-> > > >>>>>> +according to specified
-> > > >>>>>> + * firmware
-> > > >>>>>> + * @rproc: handle of a remote processor
-> > > >>>>>> + * @fw: pointer on firmware to handle
-> > > >>>>>> + *
-> > > >>>>>> + * Handle resources defined in resource table, load firmware
-> > > >>>>>> +and
-> > > >>>>>> + * start remote processor.
-> > > >>>>>> + *
-> > > >>>>>> + * If firmware pointer fw is NULL, firmware is not handled
-> > > >>>>>> +by remoteproc
-> > > >>>>>> + * core, but under the responsibility of platform driver.
-> > > >>>>>> + *
-> > > >>>>>> + * Returns 0 on success, and an appropriate error value
-> otherwise.
-> > > >>>>>>   */
-> > > >>>>>>  static int rproc_fw_boot(struct rproc *rproc, const struct
-> > > >>>>>> firmware *fw)  { @@ -1371,7 +1382,11 @@ static int
-> > > >>>>>> rproc_fw_boot(struct rproc *rproc, const struct firmware *fw)
-> > > >>>>>>      if (ret)
-> > > >>>>>>              return ret;
-> > > >>>>>>
-> > > >>>>>> -    dev_info(dev, "Booting fw image %s, size %zd\n", name,
-> fw->size);
-> > > >>>>>> +    if (fw)
-> > > >>>>>> +            dev_info(dev, "Booting fw image %s, size %zd\n",
-> name,
-> > > >>>>>> +                     fw->size);
-> > > >>>>>> +    else
-> > > >>>>>> +            dev_info(dev, "Synchronizing with preloaded
-> > > >>>>>> + co-processor\n");
-> > > >>>>>>
-> > > >>>>>>      /*
-> > > >>>>>>       * if enabling an IOMMU isn't relevant for this rproc,
-> > > >>>>>> this is @@ -1718,16 +1733,22 @@ static void
-> rproc_crash_handler_work(struct work_struct *work)
-> > > >>>>>>   * rproc_boot() - boot a remote processor
-> > > >>>>>>   * @rproc: handle of a remote processor
-> > > >>>>>>   *
-> > > >>>>>> - * Boot a remote processor (i.e. load its firmware, power it
-> on, ...).
-> > > >>>>>> + * Boot a remote processor (i.e. load its firmware, power it
-> > > >>>>>> + on, ...) from
-> > > >>>>>> + * different contexts:
-> > > >>>>>> + * - power off
-> > > >>>>>> + * - preloaded firmware
-> > > >>>>>> + * - started before kernel execution
-> > > >>>>>> + * The different operations are selected thanks to
-> > > >>>>>> + properties defined by
-> > > >>>>>> + * platform driver.
-> > > >>>>>>   *
-> > > >>>>>> - * If the remote processor is already powered on, this
-> > > >>>>>> function immediately
-> > > >>>>>> - * returns (successfully).
-> > > >>>>>> + * If the remote processor is already powered on at rproc
-> > > >>>>>> + level, this function
-> > > >>>>>> + * immediately returns (successfully).
-> > > >>>>>>   *
-> > > >>>>>>   * Returns 0 on success, and an appropriate error value
-> otherwise.
-> > > >>>>>>   */
-> > > >>>>>>  int rproc_boot(struct rproc *rproc)  {
-> > > >>>>>> -    const struct firmware *firmware_p;
-> > > >>>>>> +    const struct firmware *firmware_p = NULL;
-> > > >>>>>>      struct device *dev;
-> > > >>>>>>      int ret;
-> > > >>>>>>
-> > > >>>>>> @@ -1758,11 +1779,20 @@ int rproc_boot(struct rproc *rproc)
-> > > >>>>>>
-> > > >>>>>>      dev_info(dev, "powering up %s\n", rproc->name);
-> > > >>>>>>
-> > > >>>>>> -    /* load firmware */
-> > > >>>>>> -    ret = request_firmware(&firmware_p, rproc->firmware,
-> dev);
-> > > >>>>>> -    if (ret < 0) {
-> > > >>>>>> -            dev_err(dev, "request_firmware failed: %d\n",
-> ret);
-> > > >>>>>> -            goto downref_rproc;
-> > > >>>>>> +    if (!rproc->skip_fw_load) {
-> > > >>>>>> +            /* load firmware */
-> > > >>>>>> +            ret = request_firmware(&firmware_p,
-> rproc->firmware, dev);
-> > > >>>>>> +            if (ret < 0) {
-> > > >>>>>> +                    dev_err(dev, "request_firmware
-> failed: %d\n", ret);
-> > > >>>>>> +                    goto downref_rproc;
-> > > >>>>>> +            }
-> > > >>>>>> +    } else {
-> > > >>>>>> +            /*
-> > > >>>>>> +             * Set firmware name pointer to null as
-> remoteproc core is not
-> > > >>>>>> +             * in charge of firmware loading
-> > > >>>>>> +             */
-> > > >>>>>> +            kfree(rproc->firmware);
-> > > >>>>>> +            rproc->firmware = NULL;
-> > > >>>>>
-> > > >>>>> If the MCU with pre-loaded FW crashes request_firmware() in
-> > > >>>>> rproc_trigger_recovery() will return an error and
-> > > >>>>> rproc_start() never called.
-> > > >>>>
-> > > >>>> Right, something is missing in the recovery function to prevent
-> > > >>>> request_firmware call if skip_fw_load is set
-> > > >>>>
-> > > >>>> We also identify an issue if recovery fails:
-> > > >>>> In case of recovery issue the rproc state is RPROC_CRASHED, so
-> > > >>>> that it is no more possible to load a new firmware from user space.
-> > > >>>> This issue is not linked to this patchset. We have patches on our
-> shelves for this.
-> > > >>>>
-> > > >>>>>>      }
-> > > >>>>>>
-> > > >>>>>>      ret = rproc_fw_boot(rproc, firmware_p); @@ -1916,8
-> > > >>>>>> +1946,17 @@ int rproc_add(struct rproc *rproc)
-> > > >>>>>>      /* create debugfs entries */
-> > > >>>>>>      rproc_create_debug_dir(rproc);
-> > > >>>>>>
-> > > >>>>>> -    /* if rproc is marked always-on, request it to boot */
-> > > >>>>>> -    if (rproc->auto_boot) {
-> > > >>>>>> +    if (rproc->skip_fw_load) {
-> > > >>>>>> +            /*
-> > > >>>>>> +             * If rproc is marked already booted, no need to
-> wait
-> > > >>>>>> +             * for firmware.
-> > > >>>>>> +             * Just handle associated resources and start sub
-> devices
-> > > >>>>>> +             */
-> > > >>>>>> +            ret = rproc_boot(rproc);
-> > > >>>>>> +            if (ret < 0)
-> > > >>>>>> +                    return ret;
-> > > >>>>>> +    } else if (rproc->auto_boot) {
-> > > >>>>>> +            /* if rproc is marked always-on, request it to
-> > > >>>>>> + boot */
-> > > >>>>>
-> > > >>>>> I spent way too much time staring at this modification...  I
-> > > >>>>> can't decide if a system where the FW has been pre-loaded should
-> be considered "auto_boot".
-> > > >>>>> Indeed the result is the same, i.e the MCU is started at boot
-> > > >>>>> time without user intervention.
-> > > >>>>
-> > > >>>> The main difference is that the firmware is loaded by the Linux
-> remote proc in case of auto-boot.
-> > > >>>> In auto-boot mode the remoteproc loads a firmware, on probe, with
-> a specified name without any request from user space.
-> > > >>>> One constraint of this mode is that the file system has to be
-> accessible before the rproc probe.
-> > > >>>
-> > > >>> Indeed, but in both cases the MCU is booted automatically.  In
-> > > >>> one case the FW is loaded by the framework and in the other it
-> > > >>> is not.  As such both scenarios are "auto_boot", they simply
-> > > >>> have different flavours.
-> > > >> Regarding your concerns i would like to propose an alternative that will
-> answer to following use cases:
-> > > >>
-> > > >> In term of use cases we can start the remote proc firmware in following
-> modes:
-> > > >> - auto boot with FW loading, resource table parsing and FW
-> > > >> start/stop
-> > > >> - auto boot without FW loading, with FW resource table parsing
-> > > >> and FW start/stop
-> > > >> - auto boot with FW attachment and  resource table parsing
-> > > >> - boot on userspace request with FW loading, resource table
-> > > >> parsing and FW start/stop
-> > > >> - boot on userspace request without FW loading, with FW resource
-> > > >> table parsing and FW start/stop
-> > > >> - boot on userspace request with FW attachment and  resource
-> > > >> table parsing
-> > > >>
-> > > >> I considered the recovery covered by these use cases...
-> > > >>
-> > > >> I tried to concatenate all use case to determine the behavior of the core
-> and platform driver:
-> > > >> - "auto-boot" used to decide if boot is from driver or user space
-> > > >> request (independently from fw loading and live cycle management)
-> > > >> - "skip_fw_load" allows to determine if a firmware has to be loaded or
-> not.
-> > > >> - remote Firmware live cycle (start,stop,...) are managed by the
-> platform driver, it would have to determine the manage the remote proc
-> depending on the mode detected.
-> > > >>
-> > > >> If i apply this for stm32mp1 driver:
-> > > >> normal boot( FW started on user space request):
-> > > >>   - auto-boot = 0
-> > > >>   - skip_fw_load = 0
-> > > >> FW loaded and started by the bootloader
-> > > >>   - auto-boot = 1
-> > > >>   - skip_firmware = 1;
-> > > >>
-> > > >> => on a stop: the "auto-boot" and "skip_firmware flag will be reset by
-> the stm32rproc driver, to allow user space to load a new firmware or reste
-> the system.
-> > > >> this is considered as a ack by Bjorn today, if you have an alternative
-> please share.
-> > > >
-> > > > I wonder if we can achieve the same results without needing
-> > > > rproc::skip_fw_load...  For cases where the FW would have been
-> > > > loaded and the MCU started by another entity we could simply set
-> > > > rproc->state = RPROC_RUNNING in the platform driver.  That way
-> > > > when the MCU is stopped or crashes, there is no flag to reset,
-> > > > rproc->state is simply set correctly by the current code.
-> > > >
-> > > > I would also set auto_boot =1 in order to start the AP
-> > > > synchronisation as quickly as possible and add a check in
-> > > > rproc_trigger_auto_boot() to see if rproc->state == RPROC_RUNNING.
-> > > > If so simply call rproc_boot() where platform specific rproc_ops
-> > > > would be tailored to handle a running processor.
-> > >
-> > > Your proposal is interesting, what concerns me is that seems to work
-> > > only for a first start.
-> >
-> > Correct, my proposal will skip loading the MCU firmware only when
-> > Linux boots and MCU probed.  I thought this was what your patchset is
-> > doing.
-> >
-> > > And calling rproc_boot, while state is RPROC_RUNNING seems pretty
-> > > strange for me.
-> >
-> > After sending my email I thought about spinning off a new function,
-> > something like rproc_sync() and call it instead of rproc_boot().  But
-> > none of that matters now that Peng has highlighted the need to handle
-> > late attach scenarios where the FW is never loaded by the remoteproc
-> > core.
-> >
-> > > Also, as Peng mentions in
-> > > https://eur01.safelinks.protection.outlook.com/?url=https%3A%2F%2Fpa
-> > >
-> tchwork.kernel.org%2Fpatch%2F11390485%2F&amp;data=02%7C01%7Cpen
-> g.fan
-> > > %40nxp.com%7C648ac45834db4c39759308d7bb1ff410%7C686ea1d3bc2
-> b4c6fa92c
-> > >
-> d99c5c301635%7C0%7C0%7C637183618236375559&amp;sdata=Lc54HlLqjd
-> e0WLmU
-> > > Zp27s9JVic6IQTqt%2BKDaCYfQDGo%3D&amp;reserved=0,
-> > > the need also exists to skip the load of the firmware on recovery.
-> > > How to manage ROM/XIP Firmwares, no handling of the FW code only
-> > > management of the live cycle (using sysfs, crash management ....)?
-> > >
-> >
-> > A very good question, and something I need to think about after
-> > reviewing Peng's patchset.  I will get back to you.
-> 
-> After reviewing Peng's patches it became clear to me using if/else statements
-> will quickly become unmanageable - we need something flexible that can
-> scale.  After spending a long time looking at what TI, NXP and ST have done
-> to address their specific needs I think a solution is starting to take shape in my
-> head.  From here I think the best way to proceed is for me to write a
-> patchset that enacts those ideas and sent it out for review, something that
-> should take me around
-> 2 weeks.
-
-Thanks for working on this. Looking forward your patches, then I'll rebase
-my patches and give a test.
-
-Thanks,
-Peng.
-
-> 
-> >
-> > > >
-> > > > In my opinion the above would represent the state of the MCU
-> > > > rather than the state of the FW used by the MCU.  It would also
-> > > > provide an opening for supporting systems where the MCU is not the
-> > > > life cycle manager.
-> > > Not sure to catch your point here. By "above" you mention your proposal
-> or mine?
-> >
-> > I was talking about the lines I wrote.
-> >
-> > > In my opinion, rproc->state already represents the MCU state what
-> > > seems missing is the FW state Could you clarify what you mean by
-> > > "systems where the MCU is not the life cycle manager" MCU = rproc
-> > > framework?
-> >
-> > Arrgghh... That's a brain bug on my side.  It should have been AP, not MCU.
-> >
-> > >
-> > > Regards
-> > > Arnaud
-> > >
-> > > >
-> > > > Let me know what you think...
-> > > >
-> > > >>
-> > > >> I need to rework the patchset in consequence but i would appreciate
-> your feedback on this proposal before, to be sure that i well interpreted your
-> concerns...
-> > > >>
-> > > >> Regards,
-> > > >> Arnaud
-> > > >>
-> > > >>>
-> > > >>>> This is not necessary the case, even if EPROBE_DEFER is used. In this
-> case the driver has to be build as kernel module.
-> > > >>>>
-> > > >>>> Thanks,
-> > > >>>> Arnaud
-> > > >>>>>
-> > > >>>>> I'd welcome other people's opinion on this.
-> > > >>>>>
-> > > >>>>>>              ret = rproc_trigger_auto_boot(rproc);
-> > > >>>>>>              if (ret < 0)
-> > > >>>>>>                      return ret; diff --git
-> > > >>>>>> a/include/linux/remoteproc.h b/include/linux/remoteproc.h
-> > > >>>>>> index 16ad66683ad0..4fd5bedab4fa 100644
-> > > >>>>>> --- a/include/linux/remoteproc.h
-> > > >>>>>> +++ b/include/linux/remoteproc.h
-> > > >>>>>> @@ -479,6 +479,7 @@ struct rproc_dump_segment {
-> > > >>>>>>   * @table_sz: size of @cached_table
-> > > >>>>>>   * @has_iommu: flag to indicate if remote processor is behind
-> an MMU
-> > > >>>>>>   * @auto_boot: flag to indicate if remote processor should
-> > > >>>>>> be auto-started
-> > > >>>>>> + * @skip_fw_load: remote processor has been preloaded before
-> > > >>>>>> + start sequence
-> > > >>>>>>   * @dump_segments: list of segments in the firmware
-> > > >>>>>>   * @nb_vdev: number of vdev currently handled by rproc
-> > > >>>>>>   */
-> > > >>>>>> @@ -512,6 +513,7 @@ struct rproc {
-> > > >>>>>>      size_t table_sz;
-> > > >>>>>>      bool has_iommu;
-> > > >>>>>>      bool auto_boot;
-> > > >>>>>> +    bool skip_fw_load;
-> > > >>>>>>      struct list_head dump_segments;
-> > > >>>>>>      int nb_vdev;
-> > > >>>>>>  };
-> > > >>>>>> --
-> > > >>>>>> 2.17.1
-> > > >>>>>>
-_______________________________________________
-Linux-stm32 mailing list
-Linux-stm32@st-md-mailman.stormreply.com
-https://st-md-mailman.stormreply.com/mailman/listinfo/linux-stm32
+T24gMjIvMDIvMjAyMCAxMDowMCwgTWF1cm8gQ2FydmFsaG8gQ2hlaGFiIHdyb3RlOgo+IFNldmVy
+YWwgRFQgcmVmZXJlbmNlcyBnb3QgYnJva2VuIGR1ZSB0byB0eHQtPnlhbWwgY29udmVyc2lvbi4K
+PiAKPiBUaG9zZSBhcmUgYXV0by1maXhlZCBieSBydW5uaW5nOgo+IAo+IAlzY3JpcHRzL2RvY3Vt
+ZW50YXRpb24tZmlsZS1yZWYtY2hlY2sgLS1maXgKPiAKPiBTaWduZWQtb2ZmLWJ5OiBNYXVybyBD
+YXJ2YWxobyBDaGVoYWIgPG1jaGVoYWIraHVhd2VpQGtlcm5lbC5vcmc+CgpbIC4uLiBdCgo+IGRp
+ZmYgLS1naXQgYS9Eb2N1bWVudGF0aW9uL2RldmljZXRyZWUvYmluZGluZ3MvdGhlcm1hbC9icmNt
+LGF2cy1yby10aGVybWFsLnlhbWwgYi9Eb2N1bWVudGF0aW9uL2RldmljZXRyZWUvYmluZGluZ3Mv
+dGhlcm1hbC9icmNtLGF2cy1yby10aGVybWFsLnlhbWwKPiBpbmRleCBkOWZkZjQ4MDlhNDkuLmYz
+ZTY4ZWQwM2FiZiAxMDA2NDQKPiAtLS0gYS9Eb2N1bWVudGF0aW9uL2RldmljZXRyZWUvYmluZGlu
+Z3MvdGhlcm1hbC9icmNtLGF2cy1yby10aGVybWFsLnlhbWwKPiArKysgYi9Eb2N1bWVudGF0aW9u
+L2RldmljZXRyZWUvYmluZGluZ3MvdGhlcm1hbC9icmNtLGF2cy1yby10aGVybWFsLnlhbWwKPiBA
+QCAtMTcsNyArMTcsNyBAQCBkZXNjcmlwdGlvbjogfCsKPiAgICAgICAgICAgICAgICAgICJicmNt
+LGJjbTI3MTEtYXZzLW1vbml0b3IiLCAic3lzY29uIiwgInNpbXBsZS1tZmQiCj4gIAo+ICAgIFJl
+ZmVyIHRvIHRoZSB0aGUgYmluZGluZ3MgZGVzY3JpYmVkIGluCj4gLSAgRG9jdW1lbnRhdGlvbi9k
+ZXZpY2V0cmVlL2JpbmRpbmdzL21mZC9zeXNjb24udHh0Cj4gKyAgRG9jdW1lbnRhdGlvbi9kZXZp
+Y2V0cmVlL2JpbmRpbmdzL21mZC9zeXNjb24ueWFtbAoKQWNrZWQtYnk6IERhbmllbCBMZXpjYW5v
+IDxkYW5pZWwubGV6Y2Fub0BsaW5hcm8ub3JnPgoKCi0tIAogPGh0dHA6Ly93d3cubGluYXJvLm9y
+Zy8+IExpbmFyby5vcmcg4pSCIE9wZW4gc291cmNlIHNvZnR3YXJlIGZvciBBUk0gU29DcwoKRm9s
+bG93IExpbmFybzogIDxodHRwOi8vd3d3LmZhY2Vib29rLmNvbS9wYWdlcy9MaW5hcm8+IEZhY2Vi
+b29rIHwKPGh0dHA6Ly90d2l0dGVyLmNvbS8jIS9saW5hcm9vcmc+IFR3aXR0ZXIgfAo8aHR0cDov
+L3d3dy5saW5hcm8ub3JnL2xpbmFyby1ibG9nLz4gQmxvZwoKX19fX19fX19fX19fX19fX19fX19f
+X19fX19fX19fX19fX19fX19fX19fX19fX18KTGludXgtc3RtMzIgbWFpbGluZyBsaXN0CkxpbnV4
+LXN0bTMyQHN0LW1kLW1haWxtYW4uc3Rvcm1yZXBseS5jb20KaHR0cHM6Ly9zdC1tZC1tYWlsbWFu
+LnN0b3JtcmVwbHkuY29tL21haWxtYW4vbGlzdGluZm8vbGludXgtc3RtMzIK
