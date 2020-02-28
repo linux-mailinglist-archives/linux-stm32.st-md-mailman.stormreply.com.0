@@ -2,63 +2,64 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id C601C172F77
-	for <lists+linux-stm32@lfdr.de>; Fri, 28 Feb 2020 04:40:56 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 14EF2173273
+	for <lists+linux-stm32@lfdr.de>; Fri, 28 Feb 2020 09:08:06 +0100 (CET)
 Received: from ip-172-31-3-76.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 7E39BC36B0B;
-	Fri, 28 Feb 2020 03:40:56 +0000 (UTC)
-Received: from fllv0016.ext.ti.com (fllv0016.ext.ti.com [198.47.19.142])
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 7822BC36B0B;
+	Fri, 28 Feb 2020 08:08:05 +0000 (UTC)
+Received: from mx07-00178001.pphosted.com (mx08-00178001.pphosted.com
+ [91.207.212.93])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id BD30FC36B09
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 669DCC36B09
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Fri, 28 Feb 2020 03:40:54 +0000 (UTC)
-Received: from lelv0265.itg.ti.com ([10.180.67.224])
- by fllv0016.ext.ti.com (8.15.2/8.15.2) with ESMTP id 01S3em9f024433;
- Thu, 27 Feb 2020 21:40:48 -0600
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=ti.com;
- s=ti-com-17Q1; t=1582861248;
- bh=nFHa3nPck9OMXyJJrWEfYBYfsZn16z2PgDyatq9xoXs=;
- h=Subject:To:CC:References:From:Date:In-Reply-To;
- b=sPuGsD1isLJOejYNCqmSS9rULVfhxpM8DxiVWUP+jeuRiyRxw0faahFqHm6/6VgBX
- oRYin1xWqYnk73WK8eZJJvhMTZ1uEysnFISDbHjpZ2sZxJPiPOJfOHT/gekpfFP8LC
- vX5pREEtm4HvKOnAEh6odAkPy/2yXAxsLEGp/Nuw=
-Received: from DFLE114.ent.ti.com (dfle114.ent.ti.com [10.64.6.35])
- by lelv0265.itg.ti.com (8.15.2/8.15.2) with ESMTPS id 01S3emtI117655
- (version=TLSv1.2 cipher=AES256-GCM-SHA384 bits=256 verify=FAIL);
- Thu, 27 Feb 2020 21:40:48 -0600
-Received: from DFLE115.ent.ti.com (10.64.6.36) by DFLE114.ent.ti.com
- (10.64.6.35) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_128_CBC_SHA256_P256) id 15.1.1847.3; Thu, 27
- Feb 2020 21:40:47 -0600
-Received: from localhost.localdomain (10.64.41.19) by DFLE115.ent.ti.com
- (10.64.6.36) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_128_CBC_SHA256_P256) id 15.1.1847.3 via
- Frontend Transport; Thu, 27 Feb 2020 21:40:47 -0600
-Received: from [128.247.58.153] (ileax41-snat.itg.ti.com [10.172.224.153])
- by localhost.localdomain (8.15.2/8.15.2) with ESMTP id 01S3ell0119905;
- Thu, 27 Feb 2020 21:40:47 -0600
-To: Mathieu Poirier <mathieu.poirier@linaro.org>, Arnaud Pouliquen
- <arnaud.pouliquen@st.com>
-References: <20200211174205.22247-1-arnaud.pouliquen@st.com>
- <20200211174205.22247-2-arnaud.pouliquen@st.com>
- <20200213200813.GA14415@xps15>
-From: Suman Anna <s-anna@ti.com>
-Message-ID: <1c259bf8-6cfa-c9b3-4707-e4d67a5e4483@ti.com>
-Date: Thu, 27 Feb 2020 21:40:47 -0600
-User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:60.0) Gecko/20100101
- Thunderbird/60.6.1
+ Fri, 28 Feb 2020 08:08:04 +0000 (UTC)
+Received: from pps.filterd (m0046660.ppops.net [127.0.0.1])
+ by mx07-00178001.pphosted.com (8.16.0.42/8.16.0.42) with SMTP id
+ 01S84TLH010774; Fri, 28 Feb 2020 09:07:50 +0100
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=st.com;
+ h=from : to : subject :
+ date : message-id : mime-version : content-type :
+ content-transfer-encoding; s=STMicroelectronics;
+ bh=MFKa27m3+mIoApWSAUCG9GPF8e+NvtbwdWYlYTRGNRs=;
+ b=dssF3bihvIH/mI+pbPnu8DkqSxvkNSqdk6h+gJSX95NbXimAVxG4j8X7bXqdETcNGYjJ
+ RHGbP8yaOrYMHSPJjg2Hf7bFv1cg3yRE6xQuroQdclqNQqu/X7p4xiC30pYUQUeqwSAb
+ 3+EbvMWWEQkc4Z2amyss6Dyse8zudNRiYbjGXTddnpGbEiKLAY2AGSYm9t0+2ELxtLKT
+ TnnUoONFIroqZF2vsnVBPWVIVd/bFmjxbTll8kAxcEIKKYTLKORGn00wHl4Is2dI2T6o
+ UnZJx6ZulTUWKOa/kjb/guA4+YKYzi007nVc/0eQA0VYru3zTKc/ljhyDtxn9vCAdD48 5Q== 
+Received: from beta.dmz-eu.st.com (beta.dmz-eu.st.com [164.129.1.35])
+ by mx07-00178001.pphosted.com with ESMTP id 2yepwptdgv-1
+ (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
+ Fri, 28 Feb 2020 09:07:50 +0100
+Received: from euls16034.sgp.st.com (euls16034.sgp.st.com [10.75.44.20])
+ by beta.dmz-eu.st.com (STMicroelectronics) with ESMTP id A4C0010002A;
+ Fri, 28 Feb 2020 09:07:46 +0100 (CET)
+Received: from Webmail-eu.st.com (sfhdag6node1.st.com [10.75.127.16])
+ by euls16034.sgp.st.com (STMicroelectronics) with ESMTP id 5EEBF2A6489;
+ Fri, 28 Feb 2020 09:07:46 +0100 (CET)
+Received: from localhost (10.75.127.44) by SFHDAG6NODE1.st.com (10.75.127.16)
+ with Microsoft SMTP Server (TLS) id 15.0.1473.3;
+ Fri, 28 Feb 2020 09:07:45 +0100
+From: Yannick Fertre <yannick.fertre@st.com>
+To: Yannick Fertre <yannick.fertre@st.com>, Philippe Cornu
+ <philippe.cornu@st.com>, Benjamin Gaignard <benjamin.gaignard@st.com>,
+ David Airlie <airlied@linux.ie>, Daniel Vetter <daniel@ffwll.ch>,
+ Maxime Coquelin <mcoquelin.stm32@gmail.com>,
+ Alexandre Torgue <alexandre.torgue@st.com>,
+ <dri-devel@lists.freedesktop.org>,
+ <linux-stm32@st-md-mailman.stormreply.com>,
+ <linux-arm-kernel@lists.infradead.org>, <linux-kernel@vger.kernel.org>
+Date: Fri, 28 Feb 2020 09:07:38 +0100
+Message-ID: <1582877258-1112-1-git-send-email-yannick.fertre@st.com>
+X-Mailer: git-send-email 2.7.4
 MIME-Version: 1.0
-In-Reply-To: <20200213200813.GA14415@xps15>
-Content-Language: en-US
-X-EXCLAIMER-MD-CONFIG: e1e8a2fd-e40a-4ac6-ac9b-f7e9cc9ee180
-Cc: Mark Rutland <mark.rutland@arm.com>, devicetree@vger.kernel.org,
- Ohad Ben-Cohen <ohad@wizery.com>, linux-remoteproc@vger.kernel.org,
- linux-kernel@vger.kernel.org, Fabien DESSENNE <fabien.dessenne@st.com>,
- Bjorn Andersson <bjorn.andersson@linaro.org>, Rob Herring <robh+dt@kernel.org>,
- linux-stm32@st-md-mailman.stormreply.com
-Subject: Re: [Linux-stm32] [PATCH v5 1/3] remoteproc: add support for
- co-processor loaded and booted before kernel
+X-Originating-IP: [10.75.127.44]
+X-ClientProxiedBy: SFHDAG3NODE1.st.com (10.75.127.7) To SFHDAG6NODE1.st.com
+ (10.75.127.16)
+X-Proofpoint-Virus-Version: vendor=fsecure engine=2.50.10434:6.0.138, 18.0.572
+ definitions=2020-02-28_02:2020-02-26,
+ 2020-02-28 signatures=0
+Subject: [Linux-stm32] [PATCH] drm/stm: ltdc: check number of endpoints
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -75,218 +76,177 @@ Content-Transfer-Encoding: 7bit
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
-Hi All,
+Number of endpoints could exceed the fix value MAX_ENDPOINTS(2).
+Instead of increase simply this value, the number of endpoint
+could be read from device tree. Load sequence has been a little
+rework to take care of several panel or bridge which can be
+connected/disconnected or enable/disable.
 
-On 2/13/20 2:08 PM, Mathieu Poirier wrote:
-> Good day,
-> 
-> On Tue, Feb 11, 2020 at 06:42:03PM +0100, Arnaud Pouliquen wrote:
->> From: Loic Pallardy <loic.pallardy@st.com>
->>
->> Remote processor could boot independently or be loaded/started before
->> Linux kernel by bootloader or any firmware.
->> This patch introduces a new property in rproc core, named skip_fw_load,
->> to be able to allocate resources and sub-devices like vdev and to
->> synchronize with current state without loading firmware from file system.
->> It is platform driver responsibility to implement the right firmware
->> load ops according to HW specificities.
->>
->> Signed-off-by: Loic Pallardy <loic.pallardy@st.com>
->> Acked-by: Mathieu Poirier <mathieu.poirier@linaro.org>
->> Signed-off-by: Arnaud Pouliquen <arnaud.pouliquen@st.com>
->> ---
->>  drivers/remoteproc/remoteproc_core.c | 67 ++++++++++++++++++++++------
->>  include/linux/remoteproc.h           |  2 +
->>  2 files changed, 55 insertions(+), 14 deletions(-)
->>
->> diff --git a/drivers/remoteproc/remoteproc_core.c b/drivers/remoteproc/remoteproc_core.c
->> index 097f33e4f1f3..876b5420a32b 100644
->> --- a/drivers/remoteproc/remoteproc_core.c
->> +++ b/drivers/remoteproc/remoteproc_core.c
->> @@ -1358,8 +1358,19 @@ static int rproc_start(struct rproc *rproc, const struct firmware *fw)
->>  	return ret;
->>  }
->>  
->> -/*
->> - * take a firmware and boot a remote processor with it.
->> +/**
->> + * rproc_fw_boot() - boot specified remote processor according to specified
->> + * firmware
->> + * @rproc: handle of a remote processor
->> + * @fw: pointer on firmware to handle
->> + *
->> + * Handle resources defined in resource table, load firmware and
->> + * start remote processor.
->> + *
->> + * If firmware pointer fw is NULL, firmware is not handled by remoteproc
->> + * core, but under the responsibility of platform driver.
->> + *
->> + * Returns 0 on success, and an appropriate error value otherwise.
->>   */
->>  static int rproc_fw_boot(struct rproc *rproc, const struct firmware *fw)
->>  {
->> @@ -1371,7 +1382,11 @@ static int rproc_fw_boot(struct rproc *rproc, const struct firmware *fw)
->>  	if (ret)
->>  		return ret;
->>  
->> -	dev_info(dev, "Booting fw image %s, size %zd\n", name, fw->size);
->> +	if (fw)
->> +		dev_info(dev, "Booting fw image %s, size %zd\n", name,
->> +			 fw->size);
->> +	else
->> +		dev_info(dev, "Synchronizing with preloaded co-processor\n");
->>  
->>  	/*
->>  	 * if enabling an IOMMU isn't relevant for this rproc, this is
->> @@ -1718,16 +1733,22 @@ static void rproc_crash_handler_work(struct work_struct *work)
->>   * rproc_boot() - boot a remote processor
->>   * @rproc: handle of a remote processor
->>   *
->> - * Boot a remote processor (i.e. load its firmware, power it on, ...).
->> + * Boot a remote processor (i.e. load its firmware, power it on, ...) from
->> + * different contexts:
->> + * - power off
->> + * - preloaded firmware
->> + * - started before kernel execution
->> + * The different operations are selected thanks to properties defined by
->> + * platform driver.
->>   *
->> - * If the remote processor is already powered on, this function immediately
->> - * returns (successfully).
->> + * If the remote processor is already powered on at rproc level, this function
->> + * immediately returns (successfully).
->>   *
->>   * Returns 0 on success, and an appropriate error value otherwise.
->>   */
->>  int rproc_boot(struct rproc *rproc)
->>  {
->> -	const struct firmware *firmware_p;
->> +	const struct firmware *firmware_p = NULL;
->>  	struct device *dev;
->>  	int ret;
->>  
->> @@ -1758,11 +1779,20 @@ int rproc_boot(struct rproc *rproc)
->>  
->>  	dev_info(dev, "powering up %s\n", rproc->name);
->>  
->> -	/* load firmware */
->> -	ret = request_firmware(&firmware_p, rproc->firmware, dev);
->> -	if (ret < 0) {
->> -		dev_err(dev, "request_firmware failed: %d\n", ret);
->> -		goto downref_rproc;
->> +	if (!rproc->skip_fw_load) {
->> +		/* load firmware */
->> +		ret = request_firmware(&firmware_p, rproc->firmware, dev);
->> +		if (ret < 0) {
->> +			dev_err(dev, "request_firmware failed: %d\n", ret);
->> +			goto downref_rproc;
->> +		}
->> +	} else {
->> +		/*
->> +		 * Set firmware name pointer to null as remoteproc core is not
->> +		 * in charge of firmware loading
->> +		 */
->> +		kfree(rproc->firmware);
->> +		rproc->firmware = NULL;
-> 
-> If the MCU with pre-loaded FW crashes request_firmware() in
-> rproc_trigger_recovery() will return an error and rproc_start()
-> never called.
-> 
->>  	}
->>  
->>  	ret = rproc_fw_boot(rproc, firmware_p);
->> @@ -1916,8 +1946,17 @@ int rproc_add(struct rproc *rproc)
->>  	/* create debugfs entries */
->>  	rproc_create_debug_dir(rproc);
->>  
->> -	/* if rproc is marked always-on, request it to boot */
->> -	if (rproc->auto_boot) {
->> +	if (rproc->skip_fw_load) {
->> +		/*
->> +		 * If rproc is marked already booted, no need to wait
->> +		 * for firmware.
->> +		 * Just handle associated resources and start sub devices
->> +		 */
->> +		ret = rproc_boot(rproc);
->> +		if (ret < 0)
->> +			return ret;
+Signed-off-by: Yannick Fertre <yannick.fertre@st.com>
+---
+ drivers/gpu/drm/stm/ltdc.c | 102 +++++++++++++++++++++++----------------------
+ 1 file changed, 52 insertions(+), 50 deletions(-)
 
-I am still catching up on all the various responses on this particular
-thread, but this particular path will have an issue for one of the
-usecases (#2 below) that I have for TI drivers.
+diff --git a/drivers/gpu/drm/stm/ltdc.c b/drivers/gpu/drm/stm/ltdc.c
+index df585fe..f894968 100644
+--- a/drivers/gpu/drm/stm/ltdc.c
++++ b/drivers/gpu/drm/stm/ltdc.c
+@@ -42,8 +42,6 @@
 
-We have couple of use-cases for TI drivers:
-1. The regular early-boot & late-attach case, where the processor is
-booted earlier by a bootloader, and we establish the virtio stack in
-kernel. We do want to support the regular remoteproc operations
-thereafter - stop the remoteproc using sysfs (userspace control to be
-able to stop, change firmware and boot the new firmware), support
-error-recovery (using the same firmware).
-2. Support a userspace loader with the kernel only providing the hooks
-for actually processing the vrings, and starting the processor (the boot
-control registers are not exposed). We support this by enhancing our
-platform driver to provide some ioctl support, and set skip_fw_load and
-clear auto_boot for this, but the above path takes will fail this.
-3. A third subset usecase of #1, where kernel is only responsible for
-establishing the the IPC. Linux won't be able to stop and/or start the
-processors, and perform any error recovery either. I use a combination
-of above flags + recovery_disabled + platform driver support + an
-additional flag where I do not allow any userspace start/stop that I
-have posted a while ago [1].
+ #define MAX_IRQ 4
 
->> +	} else if (rproc->auto_boot) {
->> +		/* if rproc is marked always-on, request it to boot */
-> 
-> I spent way too much time staring at this modification...  I can't decide if a
-> system where the FW has been pre-loaded should be considered "auto_boot".
-> Indeed the result is the same, i.e the MCU is started at boot time without user
-> intervention.
+-#define MAX_ENDPOINTS 2
+-
+ #define HWVER_10200 0x010200
+ #define HWVER_10300 0x010300
+ #define HWVER_20101 0x020101
+@@ -1201,36 +1199,20 @@ int ltdc_load(struct drm_device *ddev)
+ 	struct ltdc_device *ldev = ddev->dev_private;
+ 	struct device *dev = ddev->dev;
+ 	struct device_node *np = dev->of_node;
+-	struct drm_bridge *bridge[MAX_ENDPOINTS] = {NULL};
+-	struct drm_panel *panel[MAX_ENDPOINTS] = {NULL};
++	struct drm_bridge *bridge;
++	struct drm_panel *panel;
+ 	struct drm_crtc *crtc;
+ 	struct reset_control *rstc;
+ 	struct resource *res;
+-	int irq, ret, i, endpoint_not_ready = -ENODEV;
++	int irq, i, nb_endpoints;
++	int ret = -ENODEV;
 
-Yeah, #2 usecase falls in this category where it is not auto_boot.
+ 	DRM_DEBUG_DRIVER("\n");
 
-FYI, [2] is the patch that I was using on downstream TI kernels that
-looks slightly different to this patch - it uses two flags instead for
-skip_fw_load and skip_fw_request instead of clearing the fw, but even
-that one probably doesn't cater to all the combinations being discussed
-in this thread.
+-	/* Get endpoints if any */
+-	for (i = 0; i < MAX_ENDPOINTS; i++) {
+-		ret = drm_of_find_panel_or_bridge(np, 0, i, &panel[i],
+-						  &bridge[i]);
+-
+-		/*
+-		 * If at least one endpoint is -EPROBE_DEFER, defer probing,
+-		 * else if at least one endpoint is ready, continue probing.
+-		 */
+-		if (ret == -EPROBE_DEFER)
+-			return ret;
+-		else if (!ret)
+-			endpoint_not_ready = 0;
+-	}
+-
+-	if (endpoint_not_ready)
+-		return endpoint_not_ready;
+-
+-	rstc = devm_reset_control_get_exclusive(dev, NULL);
+-
+-	mutex_init(&ldev->err_lock);
++	/* Get number of endpoints */
++	nb_endpoints = of_graph_get_endpoint_count(np);
++	if (!nb_endpoints)
++		return -ENODEV;
 
-regards
-Suman
+ 	ldev->pixel_clk = devm_clk_get(dev, "lcd");
+ 	if (IS_ERR(ldev->pixel_clk)) {
+@@ -1244,6 +1226,43 @@ int ltdc_load(struct drm_device *ddev)
+ 		return -ENODEV;
+ 	}
 
-[1] https://patchwork.kernel.org/patch/10601325/
-[2]
-https://git.ti.com/gitweb?p=rpmsg/remoteproc.git;a=commitdiff;h=c1a632fc83e364aa8fd82e949b47b36db64523c5
++	/* Get endpoints if any */
++	for (i = 0; i < nb_endpoints; i++) {
++		ret = drm_of_find_panel_or_bridge(np, 0, i, &panel, &bridge);
++
++		/*
++		 * If at least one endpoint is -ENODEV, continue probing,
++		 * else if at least one endpoint returned an error
++		 * (ie -EPROBE_DEFER) then stop probing.
++		 */
++		if (ret == -ENODEV)
++			continue;
++		else if (ret)
++			goto err;
++
++		if (panel) {
++			bridge = drm_panel_bridge_add_typed(panel,
++							    DRM_MODE_CONNECTOR_DPI);
++			if (IS_ERR(bridge)) {
++				DRM_ERROR("panel-bridge endpoint %d\n", i);
++				ret = PTR_ERR(bridge);
++				goto err;
++			}
++		}
++
++		if (bridge) {
++			ret = ltdc_encoder_init(ddev, bridge);
++			if (ret) {
++				DRM_ERROR("init encoder endpoint %d\n", i);
++				goto err;
++			}
++		}
++	}
++
++	rstc = devm_reset_control_get_exclusive(dev, NULL);
++
++	mutex_init(&ldev->err_lock);
++
+ 	if (!IS_ERR(rstc)) {
+ 		reset_control_assert(rstc);
+ 		usleep_range(10, 20);
+@@ -1285,27 +1304,7 @@ int ltdc_load(struct drm_device *ddev)
+ 			DRM_ERROR("Failed to register LTDC interrupt\n");
+ 			goto err;
+ 		}
+-	}
 
-> 
-> I'd welcome other people's opinion on this.
-> 
->>  		ret = rproc_trigger_auto_boot(rproc);
->>  		if (ret < 0)
->>  			return ret;
->> diff --git a/include/linux/remoteproc.h b/include/linux/remoteproc.h
->> index 16ad66683ad0..4fd5bedab4fa 100644
->> --- a/include/linux/remoteproc.h
->> +++ b/include/linux/remoteproc.h
->> @@ -479,6 +479,7 @@ struct rproc_dump_segment {
->>   * @table_sz: size of @cached_table
->>   * @has_iommu: flag to indicate if remote processor is behind an MMU
->>   * @auto_boot: flag to indicate if remote processor should be auto-started
->> + * @skip_fw_load: remote processor has been preloaded before start sequence
->>   * @dump_segments: list of segments in the firmware
->>   * @nb_vdev: number of vdev currently handled by rproc
->>   */
->> @@ -512,6 +513,7 @@ struct rproc {
->>  	size_t table_sz;
->>  	bool has_iommu;
->>  	bool auto_boot;
->> +	bool skip_fw_load;
->>  	struct list_head dump_segments;
->>  	int nb_vdev;
->>  };
->> -- 
->> 2.17.1
->>
+-	/* Add endpoints panels or bridges if any */
+-	for (i = 0; i < MAX_ENDPOINTS; i++) {
+-		if (panel[i]) {
+-			bridge[i] = drm_panel_bridge_add_typed(panel[i],
+-							       DRM_MODE_CONNECTOR_DPI);
+-			if (IS_ERR(bridge[i])) {
+-				DRM_ERROR("panel-bridge endpoint %d\n", i);
+-				ret = PTR_ERR(bridge[i]);
+-				goto err;
+-			}
+-		}
+-
+-		if (bridge[i]) {
+-			ret = ltdc_encoder_init(ddev, bridge[i]);
+-			if (ret) {
+-				DRM_ERROR("init encoder endpoint %d\n", i);
+-				goto err;
+-			}
+-		}
+ 	}
+
+ 	crtc = devm_kzalloc(dev, sizeof(*crtc), GFP_KERNEL);
+@@ -1340,8 +1339,8 @@ int ltdc_load(struct drm_device *ddev)
+
+ 	return 0;
+ err:
+-	for (i = 0; i < MAX_ENDPOINTS; i++)
+-		drm_panel_bridge_remove(bridge[i]);
++	for (i = 0; i < nb_endpoints; i++)
++		drm_of_panel_bridge_remove(ddev->dev->of_node, 0, i);
+
+ 	clk_disable_unprepare(ldev->pixel_clk);
+
+@@ -1350,11 +1349,14 @@ int ltdc_load(struct drm_device *ddev)
+
+ void ltdc_unload(struct drm_device *ddev)
+ {
+-	int i;
++	struct device *dev = ddev->dev;
++	int nb_endpoints, i;
+
+ 	DRM_DEBUG_DRIVER("\n");
+
+-	for (i = 0; i < MAX_ENDPOINTS; i++)
++	nb_endpoints = of_graph_get_endpoint_count(dev->of_node);
++
++	for (i = 0; i < nb_endpoints; i++)
+ 		drm_of_panel_bridge_remove(ddev->dev->of_node, 0, i);
+
+ 	pm_runtime_disable(ddev->dev);
+--
+2.7.4
 
 _______________________________________________
 Linux-stm32 mailing list
