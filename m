@@ -2,60 +2,63 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id 55D12172AEE
-	for <lists+linux-stm32@lfdr.de>; Thu, 27 Feb 2020 23:13:50 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id C601C172F77
+	for <lists+linux-stm32@lfdr.de>; Fri, 28 Feb 2020 04:40:56 +0100 (CET)
 Received: from ip-172-31-3-76.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 97B31C36B0B;
-	Thu, 27 Feb 2020 22:13:49 +0000 (UTC)
-Received: from pandora.armlinux.org.uk (pandora.armlinux.org.uk [78.32.30.218])
- (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 7E39BC36B0B;
+	Fri, 28 Feb 2020 03:40:56 +0000 (UTC)
+Received: from fllv0016.ext.ti.com (fllv0016.ext.ti.com [198.47.19.142])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 60203C36B09
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id BD30FC36B09
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Thu, 27 Feb 2020 22:13:47 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
- d=armlinux.org.uk; s=pandora-2019; h=Sender:In-Reply-To:Content-Type:
- MIME-Version:References:Message-ID:Subject:Cc:To:From:Date:Reply-To:
- Content-Transfer-Encoding:Content-ID:Content-Description:Resent-Date:
- Resent-From:Resent-Sender:Resent-To:Resent-Cc:Resent-Message-ID:List-Id:
- List-Help:List-Unsubscribe:List-Subscribe:List-Post:List-Owner:List-Archive;
- bh=TLyRnJ1kCDzmRuRPTz7K92VaFFh1/vMyyOGH0HaTtQU=; b=hCxh6qfDzl2vp7DfzH7YiKHP4
- DhRLp6tdz6Pf8sxKQD3D3uLhUeE+80ZYoKZT3UyLGQSdNw2BZ2vr/HFjStzNnKnsTYpuy/9jOOGfk
- 6he1mGrm1X7/9X5DeNZUs1Z0YBlJbGOhyg/Mxqn/zwJREwIsRGrpgC623yJdZzyZ7xB5x/DQCzdNa
- fm5KA+xAB23YrLCSiNZBi0hBMiSRKZamKETgxTXepn1R/l59dEmUXwWzllDpEEhgRZJDxCjgOc3kp
- mQO+YUx+2XZASMjQcq5zZM75k/L8YzXGdqB7mqjRvkBPzH4TlE6bzD5IbwetU/vIwC7WwXYqo+UDW
- J0cfEvkEA==;
-Received: from shell.armlinux.org.uk
- ([2002:4e20:1eda:1:5054:ff:fe00:4ec]:53650)
- by pandora.armlinux.org.uk with esmtpsa
- (TLSv1.2:ECDHE-RSA-AES256-GCM-SHA384:256) (Exim 4.90_1)
- (envelope-from <linux@armlinux.org.uk>)
- id 1j7RPK-0008OF-2y; Thu, 27 Feb 2020 22:13:26 +0000
-Received: from linux by shell.armlinux.org.uk with local (Exim 4.92)
- (envelope-from <linux@shell.armlinux.org.uk>)
- id 1j7RP9-0001Kj-JH; Thu, 27 Feb 2020 22:13:15 +0000
-Date: Thu, 27 Feb 2020 22:13:15 +0000
-From: Russell King - ARM Linux admin <linux@armlinux.org.uk>
-To: David Miller <davem@davemloft.net>
-Message-ID: <20200227221315.GS25745@shell.armlinux.org.uk>
-References: <20200226102312.GX25745@shell.armlinux.org.uk>
- <20200227.120254.241641132362203475.davem@davemloft.net>
+ Fri, 28 Feb 2020 03:40:54 +0000 (UTC)
+Received: from lelv0265.itg.ti.com ([10.180.67.224])
+ by fllv0016.ext.ti.com (8.15.2/8.15.2) with ESMTP id 01S3em9f024433;
+ Thu, 27 Feb 2020 21:40:48 -0600
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=ti.com;
+ s=ti-com-17Q1; t=1582861248;
+ bh=nFHa3nPck9OMXyJJrWEfYBYfsZn16z2PgDyatq9xoXs=;
+ h=Subject:To:CC:References:From:Date:In-Reply-To;
+ b=sPuGsD1isLJOejYNCqmSS9rULVfhxpM8DxiVWUP+jeuRiyRxw0faahFqHm6/6VgBX
+ oRYin1xWqYnk73WK8eZJJvhMTZ1uEysnFISDbHjpZ2sZxJPiPOJfOHT/gekpfFP8LC
+ vX5pREEtm4HvKOnAEh6odAkPy/2yXAxsLEGp/Nuw=
+Received: from DFLE114.ent.ti.com (dfle114.ent.ti.com [10.64.6.35])
+ by lelv0265.itg.ti.com (8.15.2/8.15.2) with ESMTPS id 01S3emtI117655
+ (version=TLSv1.2 cipher=AES256-GCM-SHA384 bits=256 verify=FAIL);
+ Thu, 27 Feb 2020 21:40:48 -0600
+Received: from DFLE115.ent.ti.com (10.64.6.36) by DFLE114.ent.ti.com
+ (10.64.6.35) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_128_CBC_SHA256_P256) id 15.1.1847.3; Thu, 27
+ Feb 2020 21:40:47 -0600
+Received: from localhost.localdomain (10.64.41.19) by DFLE115.ent.ti.com
+ (10.64.6.36) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_128_CBC_SHA256_P256) id 15.1.1847.3 via
+ Frontend Transport; Thu, 27 Feb 2020 21:40:47 -0600
+Received: from [128.247.58.153] (ileax41-snat.itg.ti.com [10.172.224.153])
+ by localhost.localdomain (8.15.2/8.15.2) with ESMTP id 01S3ell0119905;
+ Thu, 27 Feb 2020 21:40:47 -0600
+To: Mathieu Poirier <mathieu.poirier@linaro.org>, Arnaud Pouliquen
+ <arnaud.pouliquen@st.com>
+References: <20200211174205.22247-1-arnaud.pouliquen@st.com>
+ <20200211174205.22247-2-arnaud.pouliquen@st.com>
+ <20200213200813.GA14415@xps15>
+From: Suman Anna <s-anna@ti.com>
+Message-ID: <1c259bf8-6cfa-c9b3-4707-e4d67a5e4483@ti.com>
+Date: Thu, 27 Feb 2020 21:40:47 -0600
+User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:60.0) Gecko/20100101
+ Thunderbird/60.6.1
 MIME-Version: 1.0
-Content-Disposition: inline
-In-Reply-To: <20200227.120254.241641132362203475.davem@davemloft.net>
-User-Agent: Mutt/1.10.1 (2018-07-13)
-Cc: andrew@lunn.ch, linux-doc@vger.kernel.org, thomas.petazzoni@bootlin.com,
- ioana.ciornei@nxp.com, linux-stm32@st-md-mailman.stormreply.com,
- f.fainelli@gmail.com, corbet@lwn.net, michal.simek@xilinx.com,
- hkallweit1@gmail.com, joabreu@synopsys.com, kuba@kernel.org,
- vivien.didelot@gmail.com, sean.wang@mediatek.com, hauke@hauke-m.de,
- radhey.shyam.pandey@xilinx.com, linux-mediatek@lists.infradead.org,
- john@phrozen.org, matthias.bgg@gmail.com, peppe.cavallaro@st.com,
- linux-arm-kernel@lists.infradead.org, netdev@vger.kernel.org,
- Mark-MC.Lee@mediatek.com, mcoquelin.stm32@gmail.com, olteanv@gmail.com,
- nbd@nbd.name
-Subject: Re: [Linux-stm32] [PATCH net-next v2 0/8] rework phylink interface
- for split MAC/PCS support
+In-Reply-To: <20200213200813.GA14415@xps15>
+Content-Language: en-US
+X-EXCLAIMER-MD-CONFIG: e1e8a2fd-e40a-4ac6-ac9b-f7e9cc9ee180
+Cc: Mark Rutland <mark.rutland@arm.com>, devicetree@vger.kernel.org,
+ Ohad Ben-Cohen <ohad@wizery.com>, linux-remoteproc@vger.kernel.org,
+ linux-kernel@vger.kernel.org, Fabien DESSENNE <fabien.dessenne@st.com>,
+ Bjorn Andersson <bjorn.andersson@linaro.org>, Rob Herring <robh+dt@kernel.org>,
+ linux-stm32@st-md-mailman.stormreply.com
+Subject: Re: [Linux-stm32] [PATCH v5 1/3] remoteproc: add support for
+ co-processor loaded and booted before kernel
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -72,51 +75,219 @@ Content-Transfer-Encoding: 7bit
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
-On Thu, Feb 27, 2020 at 12:02:54PM -0800, David Miller wrote:
-> From: Russell King - ARM Linux admin <linux@armlinux.org.uk>
-> Date: Wed, 26 Feb 2020 10:23:12 +0000
-> 
-> > The following series changes the phylink interface to allow us to
-> > better support split MAC / MAC PCS setups.  The fundamental change
-> > required for this turns out to be quite simple.
-> > 
-> > Today, mac_config() is used for everything to do with setting the
-> > parameters for the MAC, and mac_link_up() is used to inform the
-> > MAC driver that the link is now up (and so to allow packet flow.)
-> > mac_config() also has had a few implementation issues, with folk
-> > who believe that members such as "speed" and "duplex" are always
-> > valid, where "link" gets used inappropriately, etc.
-> > 
-> > With the proposed patches, all this changes subtly - but in a
-> > backwards compatible way at this stage.
-> > 
-> > We pass the the full resolved link state (speed, duplex, pause) to
-> > mac_link_up(), and it is now guaranteed that these parameters to
-> > this function will always be valid (no more SPEED_UNKNOWN or
-> > DUPLEX_UNKNOWN here - unless phylink is fed with such things.)
-> > 
-> > Drivers should convert over to using the state in mac_link_up()
-> > rather than configuring the speed, duplex and pause in the
-> > mac_config() method. The patch series includes a number of MAC
-> > drivers which I've thought have been easy targets - I've left the
-> > remainder as I think they need maintainer input. However, *all*
-> > drivers will need conversion for future phylink development.
-> > 
-> > v2: add ocelot/felix and qca/ar9331 DSA drivers to patch 2, add
-> >   received tested-by so far.
-> 
-> In order to end the storm in a teacup, I've applied this series.
-> 
-> :-)
-> 
-> Thanks Russell.
+Hi All,
 
-Thanks David, I was getting concerned that the teacup might break! :p
+On 2/13/20 2:08 PM, Mathieu Poirier wrote:
+> Good day,
+> 
+> On Tue, Feb 11, 2020 at 06:42:03PM +0100, Arnaud Pouliquen wrote:
+>> From: Loic Pallardy <loic.pallardy@st.com>
+>>
+>> Remote processor could boot independently or be loaded/started before
+>> Linux kernel by bootloader or any firmware.
+>> This patch introduces a new property in rproc core, named skip_fw_load,
+>> to be able to allocate resources and sub-devices like vdev and to
+>> synchronize with current state without loading firmware from file system.
+>> It is platform driver responsibility to implement the right firmware
+>> load ops according to HW specificities.
+>>
+>> Signed-off-by: Loic Pallardy <loic.pallardy@st.com>
+>> Acked-by: Mathieu Poirier <mathieu.poirier@linaro.org>
+>> Signed-off-by: Arnaud Pouliquen <arnaud.pouliquen@st.com>
+>> ---
+>>  drivers/remoteproc/remoteproc_core.c | 67 ++++++++++++++++++++++------
+>>  include/linux/remoteproc.h           |  2 +
+>>  2 files changed, 55 insertions(+), 14 deletions(-)
+>>
+>> diff --git a/drivers/remoteproc/remoteproc_core.c b/drivers/remoteproc/remoteproc_core.c
+>> index 097f33e4f1f3..876b5420a32b 100644
+>> --- a/drivers/remoteproc/remoteproc_core.c
+>> +++ b/drivers/remoteproc/remoteproc_core.c
+>> @@ -1358,8 +1358,19 @@ static int rproc_start(struct rproc *rproc, const struct firmware *fw)
+>>  	return ret;
+>>  }
+>>  
+>> -/*
+>> - * take a firmware and boot a remote processor with it.
+>> +/**
+>> + * rproc_fw_boot() - boot specified remote processor according to specified
+>> + * firmware
+>> + * @rproc: handle of a remote processor
+>> + * @fw: pointer on firmware to handle
+>> + *
+>> + * Handle resources defined in resource table, load firmware and
+>> + * start remote processor.
+>> + *
+>> + * If firmware pointer fw is NULL, firmware is not handled by remoteproc
+>> + * core, but under the responsibility of platform driver.
+>> + *
+>> + * Returns 0 on success, and an appropriate error value otherwise.
+>>   */
+>>  static int rproc_fw_boot(struct rproc *rproc, const struct firmware *fw)
+>>  {
+>> @@ -1371,7 +1382,11 @@ static int rproc_fw_boot(struct rproc *rproc, const struct firmware *fw)
+>>  	if (ret)
+>>  		return ret;
+>>  
+>> -	dev_info(dev, "Booting fw image %s, size %zd\n", name, fw->size);
+>> +	if (fw)
+>> +		dev_info(dev, "Booting fw image %s, size %zd\n", name,
+>> +			 fw->size);
+>> +	else
+>> +		dev_info(dev, "Synchronizing with preloaded co-processor\n");
+>>  
+>>  	/*
+>>  	 * if enabling an IOMMU isn't relevant for this rproc, this is
+>> @@ -1718,16 +1733,22 @@ static void rproc_crash_handler_work(struct work_struct *work)
+>>   * rproc_boot() - boot a remote processor
+>>   * @rproc: handle of a remote processor
+>>   *
+>> - * Boot a remote processor (i.e. load its firmware, power it on, ...).
+>> + * Boot a remote processor (i.e. load its firmware, power it on, ...) from
+>> + * different contexts:
+>> + * - power off
+>> + * - preloaded firmware
+>> + * - started before kernel execution
+>> + * The different operations are selected thanks to properties defined by
+>> + * platform driver.
+>>   *
+>> - * If the remote processor is already powered on, this function immediately
+>> - * returns (successfully).
+>> + * If the remote processor is already powered on at rproc level, this function
+>> + * immediately returns (successfully).
+>>   *
+>>   * Returns 0 on success, and an appropriate error value otherwise.
+>>   */
+>>  int rproc_boot(struct rproc *rproc)
+>>  {
+>> -	const struct firmware *firmware_p;
+>> +	const struct firmware *firmware_p = NULL;
+>>  	struct device *dev;
+>>  	int ret;
+>>  
+>> @@ -1758,11 +1779,20 @@ int rproc_boot(struct rproc *rproc)
+>>  
+>>  	dev_info(dev, "powering up %s\n", rproc->name);
+>>  
+>> -	/* load firmware */
+>> -	ret = request_firmware(&firmware_p, rproc->firmware, dev);
+>> -	if (ret < 0) {
+>> -		dev_err(dev, "request_firmware failed: %d\n", ret);
+>> -		goto downref_rproc;
+>> +	if (!rproc->skip_fw_load) {
+>> +		/* load firmware */
+>> +		ret = request_firmware(&firmware_p, rproc->firmware, dev);
+>> +		if (ret < 0) {
+>> +			dev_err(dev, "request_firmware failed: %d\n", ret);
+>> +			goto downref_rproc;
+>> +		}
+>> +	} else {
+>> +		/*
+>> +		 * Set firmware name pointer to null as remoteproc core is not
+>> +		 * in charge of firmware loading
+>> +		 */
+>> +		kfree(rproc->firmware);
+>> +		rproc->firmware = NULL;
+> 
+> If the MCU with pre-loaded FW crashes request_firmware() in
+> rproc_trigger_recovery() will return an error and rproc_start()
+> never called.
+> 
+>>  	}
+>>  
+>>  	ret = rproc_fw_boot(rproc, firmware_p);
+>> @@ -1916,8 +1946,17 @@ int rproc_add(struct rproc *rproc)
+>>  	/* create debugfs entries */
+>>  	rproc_create_debug_dir(rproc);
+>>  
+>> -	/* if rproc is marked always-on, request it to boot */
+>> -	if (rproc->auto_boot) {
+>> +	if (rproc->skip_fw_load) {
+>> +		/*
+>> +		 * If rproc is marked already booted, no need to wait
+>> +		 * for firmware.
+>> +		 * Just handle associated resources and start sub devices
+>> +		 */
+>> +		ret = rproc_boot(rproc);
+>> +		if (ret < 0)
+>> +			return ret;
 
--- 
-RMK's Patch system: https://www.armlinux.org.uk/developer/patches/
-FTTC broadband for 0.8mile line in suburbia: sync at 12.1Mbps down 622kbps up
-According to speedtest.net: 11.9Mbps down 500kbps up
+I am still catching up on all the various responses on this particular
+thread, but this particular path will have an issue for one of the
+usecases (#2 below) that I have for TI drivers.
+
+We have couple of use-cases for TI drivers:
+1. The regular early-boot & late-attach case, where the processor is
+booted earlier by a bootloader, and we establish the virtio stack in
+kernel. We do want to support the regular remoteproc operations
+thereafter - stop the remoteproc using sysfs (userspace control to be
+able to stop, change firmware and boot the new firmware), support
+error-recovery (using the same firmware).
+2. Support a userspace loader with the kernel only providing the hooks
+for actually processing the vrings, and starting the processor (the boot
+control registers are not exposed). We support this by enhancing our
+platform driver to provide some ioctl support, and set skip_fw_load and
+clear auto_boot for this, but the above path takes will fail this.
+3. A third subset usecase of #1, where kernel is only responsible for
+establishing the the IPC. Linux won't be able to stop and/or start the
+processors, and perform any error recovery either. I use a combination
+of above flags + recovery_disabled + platform driver support + an
+additional flag where I do not allow any userspace start/stop that I
+have posted a while ago [1].
+
+>> +	} else if (rproc->auto_boot) {
+>> +		/* if rproc is marked always-on, request it to boot */
+> 
+> I spent way too much time staring at this modification...  I can't decide if a
+> system where the FW has been pre-loaded should be considered "auto_boot".
+> Indeed the result is the same, i.e the MCU is started at boot time without user
+> intervention.
+
+Yeah, #2 usecase falls in this category where it is not auto_boot.
+
+FYI, [2] is the patch that I was using on downstream TI kernels that
+looks slightly different to this patch - it uses two flags instead for
+skip_fw_load and skip_fw_request instead of clearing the fw, but even
+that one probably doesn't cater to all the combinations being discussed
+in this thread.
+
+regards
+Suman
+
+[1] https://patchwork.kernel.org/patch/10601325/
+[2]
+https://git.ti.com/gitweb?p=rpmsg/remoteproc.git;a=commitdiff;h=c1a632fc83e364aa8fd82e949b47b36db64523c5
+
+> 
+> I'd welcome other people's opinion on this.
+> 
+>>  		ret = rproc_trigger_auto_boot(rproc);
+>>  		if (ret < 0)
+>>  			return ret;
+>> diff --git a/include/linux/remoteproc.h b/include/linux/remoteproc.h
+>> index 16ad66683ad0..4fd5bedab4fa 100644
+>> --- a/include/linux/remoteproc.h
+>> +++ b/include/linux/remoteproc.h
+>> @@ -479,6 +479,7 @@ struct rproc_dump_segment {
+>>   * @table_sz: size of @cached_table
+>>   * @has_iommu: flag to indicate if remote processor is behind an MMU
+>>   * @auto_boot: flag to indicate if remote processor should be auto-started
+>> + * @skip_fw_load: remote processor has been preloaded before start sequence
+>>   * @dump_segments: list of segments in the firmware
+>>   * @nb_vdev: number of vdev currently handled by rproc
+>>   */
+>> @@ -512,6 +513,7 @@ struct rproc {
+>>  	size_t table_sz;
+>>  	bool has_iommu;
+>>  	bool auto_boot;
+>> +	bool skip_fw_load;
+>>  	struct list_head dump_segments;
+>>  	int nb_vdev;
+>>  };
+>> -- 
+>> 2.17.1
+>>
+
 _______________________________________________
 Linux-stm32 mailing list
 Linux-stm32@st-md-mailman.stormreply.com
