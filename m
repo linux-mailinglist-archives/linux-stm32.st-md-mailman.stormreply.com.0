@@ -2,47 +2,71 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id 95E99174992
-	for <lists+linux-stm32@lfdr.de>; Sat, 29 Feb 2020 23:16:57 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 0D3E3174F9F
+	for <lists+linux-stm32@lfdr.de>; Sun,  1 Mar 2020 21:45:36 +0100 (CET)
 Received: from ip-172-31-3-76.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 31979C36B0B;
-	Sat, 29 Feb 2020 22:16:57 +0000 (UTC)
-Received: from mail-out.m-online.net (mail-out.m-online.net [212.18.0.10])
- (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 9D7E2C36B0B;
+	Sun,  1 Mar 2020 20:45:35 +0000 (UTC)
+Received: from mail-pl1-f195.google.com (mail-pl1-f195.google.com
+ [209.85.214.195])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 0421BC36B09
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 61466C36B09
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Sat, 29 Feb 2020 22:16:55 +0000 (UTC)
-Received: from frontend01.mail.m-online.net (unknown [192.168.8.182])
- by mail-out.m-online.net (Postfix) with ESMTP id 48VLNk2qpPz1rQC1;
- Sat, 29 Feb 2020 23:16:54 +0100 (CET)
-Received: from localhost (dynscan1.mnet-online.de [192.168.6.70])
- by mail.m-online.net (Postfix) with ESMTP id 48VLNk21X3z1r0bh;
- Sat, 29 Feb 2020 23:16:54 +0100 (CET)
-X-Virus-Scanned: amavisd-new at mnet-online.de
-Received: from mail.mnet-online.de ([192.168.8.182])
- by localhost (dynscan1.mail.m-online.net [192.168.6.70]) (amavisd-new,
- port 10024)
- with ESMTP id aGq5kC_jf68O; Sat, 29 Feb 2020 23:16:52 +0100 (CET)
-X-Auth-Info: WDpKlVTQBPcpmhOpnRbP8hWbVI4mHVuxtGRW2sTkeTo=
-Received: from desktop.lan (ip-86-49-35-8.net.upcbroadband.cz [86.49.35.8])
- (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
- (No client certificate requested)
- by mail.mnet-online.de (Postfix) with ESMTPSA;
- Sat, 29 Feb 2020 23:16:52 +0100 (CET)
-From: Marek Vasut <marex@denx.de>
-To: dri-devel@lists.freedesktop.org
-Date: Sat, 29 Feb 2020 23:16:49 +0100
-Message-Id: <20200229221649.90813-1-marex@denx.de>
-X-Mailer: git-send-email 2.25.0
-MIME-Version: 1.0
-Cc: Marek Vasut <marex@denx.de>,
- Benjamin Gaignard <benjamin.gaignard@linaro.org>,
- =?UTF-8?q?Yannick=20Fertr=C3=A9?= <yannick.fertre@st.com>,
+ Sun,  1 Mar 2020 20:45:32 +0000 (UTC)
+Received: by mail-pl1-f195.google.com with SMTP id y1so3342813plp.7
+ for <linux-stm32@st-md-mailman.stormreply.com>;
+ Sun, 01 Mar 2020 12:45:32 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20161025;
+ h=date:from:to:cc:subject:message-id:mime-version:content-disposition
+ :user-agent; bh=rKTRr7gH/H3erxMOjX8RHhnD0WNXnZrb4KZ5NXj3rVs=;
+ b=ED+21RTy6uFrUbhqFAJUvVt0+8PRGDmN4LkSicuW7WxsAJ1k5PUH9cHXRzHlzUhLRe
+ UUryCb7SvyQ06BK3HRT6U4qc/rMWFHRxqAqQOoqXmW5gCKRQrqaqH2Se1t/uYts2G6wW
+ wQJw4WF16qD0t7P7nJbTPak36k7X6Rj8KHH5saMV9X+4WBEysjSNGxPF28Vn6U61l+Py
+ 73M0xYa5eAUeOg+kJx4NgxnfVF8McUoG0nSZBghGgX1gH+60tZKM5aBihMesy01KEVs2
+ OaXq69FKFk6wGGuxFHeTGZutUEmr6jIusGIjZpE33U8U/gTvvL/vxrPdbhsG7O/jTwu9
+ yBrg==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20161025;
+ h=x-gm-message-state:date:from:to:cc:subject:message-id:mime-version
+ :content-disposition:user-agent;
+ bh=rKTRr7gH/H3erxMOjX8RHhnD0WNXnZrb4KZ5NXj3rVs=;
+ b=fmZxKvMpCmXwIiWM+oX8n6NdCuL5BnQSYAVns4E0y0vNP3YZAQoBt8lqFCzy1ZSpon
+ yyxaFePYtf4WvAD7FYW2VxIuL9D3MLnvTyWg6SpkKriqDiI90jN/3BOMLkeNH+26N5lJ
+ 5k+W0LFbuEwJpxrJn71SpWGWRy3E2Xv7X5jnOv+kRrniuW6rVvwzwpRnSlZlGySO2Aqs
+ V2/d3la5BuAwaTPcn/NjnJ941gHLC6/GAIxKur/nwfB0NolGIPlDeHqGVXppvJ5ZXjW2
+ zRhrjkpafZ3UDFWcAiFvfFy9fMypONE9qj8zC6Urqvk9sjYLotTQcC9r7Z0SHRfImaJd
+ gZOw==
+X-Gm-Message-State: APjAAAWUkNKAuIz80J5H+GqghwqP7kM8/XwOr28LhFx3BE+etk4PJLJH
+ 8kYZKV8+T0v4nGRjjFy/wfw=
+X-Google-Smtp-Source: APXvYqzTomvywQgBmsA0iDTcN1YhecACD1PW6HLIrDNCKUMpcYT/bZOHQr1NmKuRvn/iMLmXYazJ7A==
+X-Received: by 2002:a17:902:ab95:: with SMTP id
+ f21mr13470060plr.188.1583095530670; 
+ Sun, 01 Mar 2020 12:45:30 -0800 (PST)
+Received: from nishad ([106.51.232.103])
+ by smtp.gmail.com with ESMTPSA id h10sm18127494pfo.181.2020.03.01.12.45.25
+ (version=TLS1_2 cipher=ECDHE-RSA-CHACHA20-POLY1305 bits=256/256);
+ Sun, 01 Mar 2020 12:45:30 -0800 (PST)
+Date: Mon, 2 Mar 2020 02:15:21 +0530
+From: Nishad Kamdar <nishadkamdar@gmail.com>
+To: Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
+ Jiri Slaby <jslaby@suse.com>, Richard Genoud <richard.genoud@gmail.com>,
+ Nicolas Ferre <nicolas.ferre@microchip.com>,
+ Alexandre Belloni <alexandre.belloni@bootlin.com>,
+ Ludovic Desroches <ludovic.desroches@microchip.com>,
+ Barry Song <baohua@kernel.org>,
  Maxime Coquelin <mcoquelin.stm32@gmail.com>,
- Vincent Abriou <vincent.abriou@st.com>,
- linux-stm32@st-md-mailman.stormreply.com, linux-arm-kernel@lists.infradead.org
-Subject: [Linux-stm32] [PATCH] drm/stm: repair runtime power management
+ Alexandre Torgue <alexandre.torgue@st.com>,
+ Uwe =?utf-8?Q?Kleine-K=C3=B6nig?= <u.kleine-koenig@pengutronix.de>,
+ Joe Perches <joe@perches.com>
+Message-ID: <20200301204517.GA10368@nishad>
+MIME-Version: 1.0
+Content-Disposition: inline
+User-Agent: Mutt/1.9.4 (2018-02-28)
+Cc: linux-arm-kernel@lists.infradead.org, linux-kernel@vger.kernel.org,
+ linux-serial@vger.kernel.org, linux-stm32@st-md-mailman.stormreply.com
+Subject: [Linux-stm32] [PATCH] tty: serial: Use the correct style for SPDX
+ License Identifier
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -54,73 +78,161 @@ List-Post: <mailto:linux-stm32@st-md-mailman.stormreply.com>
 List-Help: <mailto:linux-stm32-request@st-md-mailman.stormreply.com?subject=help>
 List-Subscribe: <https://st-md-mailman.stormreply.com/mailman/listinfo/linux-stm32>, 
  <mailto:linux-stm32-request@st-md-mailman.stormreply.com?subject=subscribe>
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: base64
+Content-Type: text/plain; charset="us-ascii"
+Content-Transfer-Encoding: 7bit
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
-QWRkIG1pc3NpbmcgcG1fcnVudGltZV9nZXRfc3luYygpIGludG8gbHRkY19jcnRjX2F0b21pY19l
-bmFibGUoKSB0bwptYXRjaCBwbV9ydW50aW1lX3B1dF9zeW5jKCkgaW4gbHRkY19jcnRjX2F0b21p
-Y19kaXNhYmxlKCksIG90aGVyd2lzZQp0aGUgTFREQyBtaWdodCBzdXNwZW5kIHZpYSBydW50aW1l
-IFBNLCBkaXNhYmxlIGNsb2NrLCBhbmQgdGhlbiBmYWlsCnRvIHJlc3VtZSBsYXRlciBvbi4KClRo
-ZSB0ZXN0IHdoaWNoIHRyaWdnZXJzIGl0IGlzIHJvdWdobHkgLS0gcnVuIHF0NSBhcHBsaWNhdGlv
-biB3aGljaAp1c2VzIGVnbGZzIHBsYXRmb3JtIGFuZCBldG5hdml2LCBzdG9wIHRoZSBhcHBsaWNh
-dGlvbiwgc2xlZXAgZm9yIDE1Cm1pbnV0ZXMsIHJ1biB0aGUgYXBwbGljYXRpb24gYWdhaW4uIFRo
-aXMgbGVhZHMgdG8gYSB0aW1lb3V0IHdhaXRpbmcKZm9yIHZzeW5jLCBiZWNhdXNlIHRoZSBMVERD
-IGhhcyBzdXNwZW5kZWQsIGJ1dCBkaWQgbm90IHJlc3VtZS4KCkZpeGVzOiAzNWFiNmNmYmYyMTEg
-KCJkcm0vc3RtOiBzdXBwb3J0IHJ1bnRpbWUgcG93ZXIgbWFuYWdlbWVudCIpClNpZ25lZC1vZmYt
-Ynk6IE1hcmVrIFZhc3V0IDxtYXJleEBkZW54LmRlPgpDYzogWWFubmljayBGZXJ0csOpIDx5YW5u
-aWNrLmZlcnRyZUBzdC5jb20+CkNjOiBQaGlsaXBwZSBDb3JudSA8cGhpbGlwcGUuY29ybnVAc3Qu
-Y29tPgpDYzogQmVuamFtaW4gR2FpZ25hcmQgPGJlbmphbWluLmdhaWduYXJkQGxpbmFyby5vcmc+
-CkNjOiBWaW5jZW50IEFicmlvdSA8dmluY2VudC5hYnJpb3VAc3QuY29tPgpDYzogTWF4aW1lIENv
-cXVlbGluIDxtY29xdWVsaW4uc3RtMzJAZ21haWwuY29tPgpDYzogQWxleGFuZHJlIFRvcmd1ZSA8
-YWxleGFuZHJlLnRvcmd1ZUBzdC5jb20+ClRvOiBkcmktZGV2ZWxAbGlzdHMuZnJlZWRlc2t0b3Au
-b3JnCkNjOiBsaW51eC1zdG0zMkBzdC1tZC1tYWlsbWFuLnN0b3JtcmVwbHkuY29tCkNjOiBsaW51
-eC1hcm0ta2VybmVsQGxpc3RzLmluZnJhZGVhZC5vcmcKLS0tCi0tLS0tLS0tLS0tLVsgY3V0IGhl
-cmUgXS0tLS0tLS0tLS0tLQpXQVJOSU5HOiBDUFU6IDAgUElEOiAyOTcgYXQgZHJpdmVycy9ncHUv
-ZHJtL2RybV9hdG9taWNfaGVscGVyLmM6MTQ5NCBkcm1fYXRvbWljX2hlbHBlcl93YWl0X2Zvcl92
-YmxhbmtzKzB4MWRjLzB4MjAwCltDUlRDOjM1OmNydGMtMF0gdmJsYW5rIHdhaXQgdGltZWQgb3V0
-Ck1vZHVsZXMgbGlua2VkIGluOgpDUFU6IDAgUElEOiAyOTcgQ29tbTogUVNHUmVuZGVyVGhyZWFk
-IE5vdCB0YWludGVkIDUuNi4wLXJjMy1uZXh0LTIwMjAwMjI4LTAwMDEwLWczMThiZjBmYzA4ZWYg
-IzIKSGFyZHdhcmUgbmFtZTogU1RNMzIgKERldmljZSBUcmVlIFN1cHBvcnQpCls8YzAxMGYxOGM+
-XSAodW53aW5kX2JhY2t0cmFjZSkgZnJvbSBbPGMwMTBhZmI4Pl0gKHNob3dfc3RhY2srMHgxMC8w
-eDE0KQpbPGMwMTBhZmI4Pl0gKHNob3dfc3RhY2spIGZyb20gWzxjMDdiMWQzYz5dIChkdW1wX3N0
-YWNrKzB4YjQvMHhkMCkKWzxjMDdiMWQzYz5dIChkdW1wX3N0YWNrKSBmcm9tIFs8YzAxMWQ4Yjg+
-XSAoX193YXJuKzB4ZDQvMHhmMCkKWzxjMDExZDhiOD5dIChfX3dhcm4pIGZyb20gWzxjMDExZGM0
-Yz5dICh3YXJuX3Nsb3dwYXRoX2ZtdCsweDc4LzB4YTgpCls8YzAxMWRjNGM+XSAod2Fybl9zbG93
-cGF0aF9mbXQpIGZyb20gWzxjMDRhMjY2Yz5dIChkcm1fYXRvbWljX2hlbHBlcl93YWl0X2Zvcl92
-YmxhbmtzKzB4MWRjLzB4MjAwKQpbPGMwNGEyNjZjPl0gKGRybV9hdG9taWNfaGVscGVyX3dhaXRf
-Zm9yX3ZibGFua3MpIGZyb20gWzxjMDRhNTEwYz5dIChkcm1fYXRvbWljX2hlbHBlcl9jb21taXRf
-dGFpbCswCng1MC8weDYwKQpbPGMwNGE1MTBjPl0gKGRybV9hdG9taWNfaGVscGVyX2NvbW1pdF90
-YWlsKSBmcm9tIFs8YzA0YTUyYTg+XSAoY29tbWl0X3RhaWwrMHgxMmMvMHgxM2MpCls8YzA0YTUy
-YTg+XSAoY29tbWl0X3RhaWwpIGZyb20gWzxjMDRhNTNiND5dIChkcm1fYXRvbWljX2hlbHBlcl9j
-b21taXQrMHhmNC8weDEwMCkKWzxjMDRhNTNiND5dIChkcm1fYXRvbWljX2hlbHBlcl9jb21taXQp
-IGZyb20gWzxjMDRhMmQzOD5dIChkcm1fYXRvbWljX2hlbHBlcl9zZXRfY29uZmlnKzB4NTgvMHg2
-YykKWzxjMDRhMmQzOD5dIChkcm1fYXRvbWljX2hlbHBlcl9zZXRfY29uZmlnKSBmcm9tIFs8YzA0
-YjE5OTQ+XSAoZHJtX21vZGVfc2V0Y3J0YysweDQ1MC8weDU1MCkKWzxjMDRiMTk5ND5dIChkcm1f
-bW9kZV9zZXRjcnRjKSBmcm9tIFs8YzA0YWQ1NzA+XSAoZHJtX2lvY3RsX2tlcm5lbCsweDkwLzB4
-ZTgpCls8YzA0YWQ1NzA+XSAoZHJtX2lvY3RsX2tlcm5lbCkgZnJvbSBbPGMwNGFkOGFjPl0gKGRy
-bV9pb2N0bCsweDJlNC8weDMyYykKWzxjMDRhZDhhYz5dIChkcm1faW9jdGwpIGZyb20gWzxjMDI0
-Njc4ND5dICh2ZnNfaW9jdGwrMHgyMC8weDM4KQpbPGMwMjQ2Nzg0Pl0gKHZmc19pb2N0bCkgZnJv
-bSBbPGMwMjQ3MGYwPl0gKGtzeXNfaW9jdGwrMHhiYy8weDdiMCkKWzxjMDI0NzBmMD5dIChrc3lz
-X2lvY3RsKSBmcm9tIFs8YzAxMDEwMDA+XSAocmV0X2Zhc3Rfc3lzY2FsbCsweDAvMHg1NCkKRXhj
-ZXB0aW9uIHN0YWNrKDB4ZWU4ZjNmYTggdG8gMHhlZThmM2ZmMCkKM2ZhMDogICAgICAgICAgICAg
-ICAgICAgMDAwMDAwMDUgYWRjYmViMTggMDAwMDAwMDUgYzA2ODY0YTIgYWRjYmViMTggMDAwMDAw
-MDEKM2ZjMDogMDAwMDAwMDUgYWRjYmViMTggYzA2ODY0YTIgMDAwMDAwMzYgMDAwMDAwMjkgMDAw
-MDAwMjMgMDAwMDAwMjMgMDAwMDAwMDcKM2ZlMDogYjExM2IwOTggYWRjYmVhZmMgYjExMjU0MTMg
-YjYxNTVjZjgKLS0tWyBlbmQgdHJhY2UgMmFkNWJhOTU0Y2ViNzY3YSBdLS0tCi0tLQogZHJpdmVy
-cy9ncHUvZHJtL3N0bS9sdGRjLmMgfCAzICsrKwogMSBmaWxlIGNoYW5nZWQsIDMgaW5zZXJ0aW9u
-cygrKQoKZGlmZiAtLWdpdCBhL2RyaXZlcnMvZ3B1L2RybS9zdG0vbHRkYy5jIGIvZHJpdmVycy9n
-cHUvZHJtL3N0bS9sdGRjLmMKaW5kZXggOTliZjkzZThiMzZmLi4zMDFkZTA0OTgwNzggMTAwNjQ0
-Ci0tLSBhL2RyaXZlcnMvZ3B1L2RybS9zdG0vbHRkYy5jCisrKyBiL2RyaXZlcnMvZ3B1L2RybS9z
-dG0vbHRkYy5jCkBAIC00MjUsOSArNDI1LDEyIEBAIHN0YXRpYyB2b2lkIGx0ZGNfY3J0Y19hdG9t
-aWNfZW5hYmxlKHN0cnVjdCBkcm1fY3J0YyAqY3J0YywKIAkJCQkgICAgc3RydWN0IGRybV9jcnRj
-X3N0YXRlICpvbGRfc3RhdGUpCiB7CiAJc3RydWN0IGx0ZGNfZGV2aWNlICpsZGV2ID0gY3J0Y190
-b19sdGRjKGNydGMpOworCXN0cnVjdCBkcm1fZGV2aWNlICpkZGV2ID0gY3J0Yy0+ZGV2OwogCiAJ
-RFJNX0RFQlVHX0RSSVZFUigiXG4iKTsKIAorCXBtX3J1bnRpbWVfZ2V0X3N5bmMoZGRldi0+ZGV2
-KTsKKwogCS8qIFNldHMgdGhlIGJhY2tncm91bmQgY29sb3IgdmFsdWUgKi8KIAlyZWdfd3JpdGUo
-bGRldi0+cmVncywgTFREQ19CQ0NSLCBCQ0NSX0JDQkxBQ0spOwogCi0tIAoyLjI1LjAKCl9fX19f
-X19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fCkxpbnV4LXN0bTMyIG1h
-aWxpbmcgbGlzdApMaW51eC1zdG0zMkBzdC1tZC1tYWlsbWFuLnN0b3JtcmVwbHkuY29tCmh0dHBz
-Oi8vc3QtbWQtbWFpbG1hbi5zdG9ybXJlcGx5LmNvbS9tYWlsbWFuL2xpc3RpbmZvL2xpbnV4LXN0
-bTMyCg==
+This patch corrects the SPDX License Identifier style in
+header files related to tty serial drivers.
+For C header files Documentation/process/license-rules.rst
+mandates C-like comments (opposed to C source files where
+C++ style should be used).
+
+Changes made by using a script provided by Joe Perches here:
+https://lkml.org/lkml/2019/2/7/46.
+
+Suggested-by: Joe Perches <joe@perches.com>
+Signed-off-by: Nishad Kamdar <nishadkamdar@gmail.com>
+---
+ drivers/tty/serial/8250/8250.h         | 2 +-
+ drivers/tty/serial/8250/8250_dwlib.h   | 2 +-
+ drivers/tty/serial/atmel_serial.h      | 2 +-
+ drivers/tty/serial/cpm_uart/cpm_uart.h | 2 +-
+ drivers/tty/serial/icom.h              | 2 +-
+ drivers/tty/serial/ifx6x60.h           | 2 +-
+ drivers/tty/serial/jsm/jsm.h           | 2 +-
+ drivers/tty/serial/pic32_uart.h        | 2 +-
+ drivers/tty/serial/serial_mctrl_gpio.h | 2 +-
+ drivers/tty/serial/sirfsoc_uart.h      | 2 +-
+ drivers/tty/serial/stm32-usart.h       | 2 +-
+ drivers/tty/serial/timbuart.h          | 2 +-
+ 12 files changed, 12 insertions(+), 12 deletions(-)
+
+diff --git a/drivers/tty/serial/8250/8250.h b/drivers/tty/serial/8250/8250.h
+index 33ad9d6de532..32881e21b0c8 100644
+--- a/drivers/tty/serial/8250/8250.h
++++ b/drivers/tty/serial/8250/8250.h
+@@ -1,4 +1,4 @@
+-// SPDX-License-Identifier: GPL-2.0+
++/* SPDX-License-Identifier: GPL-2.0+ */
+ /*
+  *  Driver for 8250/16550-type serial ports
+  *
+diff --git a/drivers/tty/serial/8250/8250_dwlib.h b/drivers/tty/serial/8250/8250_dwlib.h
+index 87a4db2a8aba..9a12953832d3 100644
+--- a/drivers/tty/serial/8250/8250_dwlib.h
++++ b/drivers/tty/serial/8250/8250_dwlib.h
+@@ -1,4 +1,4 @@
+-// SPDX-License-Identifier: GPL-2.0+
++/* SPDX-License-Identifier: GPL-2.0+ */
+ /* Synopsys DesignWare 8250 library header file. */
+ 
+ #include <linux/types.h>
+diff --git a/drivers/tty/serial/atmel_serial.h b/drivers/tty/serial/atmel_serial.h
+index d811d4f2d0c0..0d8a0f9cc5c3 100644
+--- a/drivers/tty/serial/atmel_serial.h
++++ b/drivers/tty/serial/atmel_serial.h
+@@ -1,4 +1,4 @@
+-// SPDX-License-Identifier: GPL-2.0+
++/* SPDX-License-Identifier: GPL-2.0+ */
+ /*
+  * include/linux/atmel_serial.h
+  *
+diff --git a/drivers/tty/serial/cpm_uart/cpm_uart.h b/drivers/tty/serial/cpm_uart/cpm_uart.h
+index 9f175a92fb5d..0de77c18c475 100644
+--- a/drivers/tty/serial/cpm_uart/cpm_uart.h
++++ b/drivers/tty/serial/cpm_uart/cpm_uart.h
+@@ -1,4 +1,4 @@
+-// SPDX-License-Identifier: GPL-2.0
++/* SPDX-License-Identifier: GPL-2.0 */
+ /*
+  *  Driver for CPM (SCC/SMC) serial ports
+  *
+diff --git a/drivers/tty/serial/icom.h b/drivers/tty/serial/icom.h
+index 8a77e739b333..26e3aa7b01e2 100644
+--- a/drivers/tty/serial/icom.h
++++ b/drivers/tty/serial/icom.h
+@@ -1,4 +1,4 @@
+-// SPDX-License-Identifier: GPL-2.0+
++/* SPDX-License-Identifier: GPL-2.0+ */
+ /*
+  * icom.h
+  *
+diff --git a/drivers/tty/serial/ifx6x60.h b/drivers/tty/serial/ifx6x60.h
+index c5a2514212ff..cacca5be7390 100644
+--- a/drivers/tty/serial/ifx6x60.h
++++ b/drivers/tty/serial/ifx6x60.h
+@@ -1,4 +1,4 @@
+-// SPDX-License-Identifier: GPL-2.0
++/* SPDX-License-Identifier: GPL-2.0 */
+ /****************************************************************************
+  *
+  * Driver for the IFX spi modem.
+diff --git a/drivers/tty/serial/jsm/jsm.h b/drivers/tty/serial/jsm/jsm.h
+index 7a128aaa3a66..8489c07f4cd5 100644
+--- a/drivers/tty/serial/jsm/jsm.h
++++ b/drivers/tty/serial/jsm/jsm.h
+@@ -1,4 +1,4 @@
+-// SPDX-License-Identifier: GPL-2.0+
++/* SPDX-License-Identifier: GPL-2.0+ */
+ /************************************************************************
+  * Copyright 2003 Digi International (www.digi.com)
+  *
+diff --git a/drivers/tty/serial/pic32_uart.h b/drivers/tty/serial/pic32_uart.h
+index 2f2b56927dc6..b15639cc336b 100644
+--- a/drivers/tty/serial/pic32_uart.h
++++ b/drivers/tty/serial/pic32_uart.h
+@@ -1,4 +1,4 @@
+-// SPDX-License-Identifier: GPL-2.0+
++/* SPDX-License-Identifier: GPL-2.0+ */
+ /*
+  * PIC32 Integrated Serial Driver.
+  *
+diff --git a/drivers/tty/serial/serial_mctrl_gpio.h b/drivers/tty/serial/serial_mctrl_gpio.h
+index 1b2ff503b2c2..b134a0ffc894 100644
+--- a/drivers/tty/serial/serial_mctrl_gpio.h
++++ b/drivers/tty/serial/serial_mctrl_gpio.h
+@@ -1,4 +1,4 @@
+-// SPDX-License-Identifier: GPL-2.0+
++/* SPDX-License-Identifier: GPL-2.0+ */
+ /*
+  * Helpers for controlling modem lines via GPIO
+  *
+diff --git a/drivers/tty/serial/sirfsoc_uart.h b/drivers/tty/serial/sirfsoc_uart.h
+index 637b09d3fe79..fb88ac565227 100644
+--- a/drivers/tty/serial/sirfsoc_uart.h
++++ b/drivers/tty/serial/sirfsoc_uart.h
+@@ -1,4 +1,4 @@
+-// SPDX-License-Identifier: GPL-2.0+
++/* SPDX-License-Identifier: GPL-2.0+ */
+ /*
+  * Drivers for CSR SiRFprimaII onboard UARTs.
+  *
+diff --git a/drivers/tty/serial/stm32-usart.h b/drivers/tty/serial/stm32-usart.h
+index a175c1094dc8..db8bf0d4982d 100644
+--- a/drivers/tty/serial/stm32-usart.h
++++ b/drivers/tty/serial/stm32-usart.h
+@@ -1,4 +1,4 @@
+-// SPDX-License-Identifier: GPL-2.0
++/* SPDX-License-Identifier: GPL-2.0 */
+ /*
+  * Copyright (C) Maxime Coquelin 2015
+  * Copyright (C) STMicroelectronics SA 2017
+diff --git a/drivers/tty/serial/timbuart.h b/drivers/tty/serial/timbuart.h
+index fb00b172117d..007e59af636d 100644
+--- a/drivers/tty/serial/timbuart.h
++++ b/drivers/tty/serial/timbuart.h
+@@ -1,4 +1,4 @@
+-// SPDX-License-Identifier: GPL-2.0
++/* SPDX-License-Identifier: GPL-2.0 */
+ /*
+  * timbuart.c timberdale FPGA GPIO driver
+  * Copyright (c) 2009 Intel Corporation
+-- 
+2.17.1
+
+_______________________________________________
+Linux-stm32 mailing list
+Linux-stm32@st-md-mailman.stormreply.com
+https://st-md-mailman.stormreply.com/mailman/listinfo/linux-stm32
