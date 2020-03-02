@@ -2,71 +2,68 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id 0D3E3174F9F
-	for <lists+linux-stm32@lfdr.de>; Sun,  1 Mar 2020 21:45:36 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id E6DA71757EC
+	for <lists+linux-stm32@lfdr.de>; Mon,  2 Mar 2020 11:06:54 +0100 (CET)
 Received: from ip-172-31-3-76.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 9D7E2C36B0B;
-	Sun,  1 Mar 2020 20:45:35 +0000 (UTC)
-Received: from mail-pl1-f195.google.com (mail-pl1-f195.google.com
- [209.85.214.195])
- (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 9EB3CC36B0B;
+	Mon,  2 Mar 2020 10:06:54 +0000 (UTC)
+Received: from mx07-00178001.pphosted.com (mx08-00178001.pphosted.com
+ [91.207.212.93])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 61466C36B09
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id D3A01C36B09
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Sun,  1 Mar 2020 20:45:32 +0000 (UTC)
-Received: by mail-pl1-f195.google.com with SMTP id y1so3342813plp.7
- for <linux-stm32@st-md-mailman.stormreply.com>;
- Sun, 01 Mar 2020 12:45:32 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20161025;
- h=date:from:to:cc:subject:message-id:mime-version:content-disposition
- :user-agent; bh=rKTRr7gH/H3erxMOjX8RHhnD0WNXnZrb4KZ5NXj3rVs=;
- b=ED+21RTy6uFrUbhqFAJUvVt0+8PRGDmN4LkSicuW7WxsAJ1k5PUH9cHXRzHlzUhLRe
- UUryCb7SvyQ06BK3HRT6U4qc/rMWFHRxqAqQOoqXmW5gCKRQrqaqH2Se1t/uYts2G6wW
- wQJw4WF16qD0t7P7nJbTPak36k7X6Rj8KHH5saMV9X+4WBEysjSNGxPF28Vn6U61l+Py
- 73M0xYa5eAUeOg+kJx4NgxnfVF8McUoG0nSZBghGgX1gH+60tZKM5aBihMesy01KEVs2
- OaXq69FKFk6wGGuxFHeTGZutUEmr6jIusGIjZpE33U8U/gTvvL/vxrPdbhsG7O/jTwu9
- yBrg==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20161025;
- h=x-gm-message-state:date:from:to:cc:subject:message-id:mime-version
- :content-disposition:user-agent;
- bh=rKTRr7gH/H3erxMOjX8RHhnD0WNXnZrb4KZ5NXj3rVs=;
- b=fmZxKvMpCmXwIiWM+oX8n6NdCuL5BnQSYAVns4E0y0vNP3YZAQoBt8lqFCzy1ZSpon
- yyxaFePYtf4WvAD7FYW2VxIuL9D3MLnvTyWg6SpkKriqDiI90jN/3BOMLkeNH+26N5lJ
- 5k+W0LFbuEwJpxrJn71SpWGWRy3E2Xv7X5jnOv+kRrniuW6rVvwzwpRnSlZlGySO2Aqs
- V2/d3la5BuAwaTPcn/NjnJ941gHLC6/GAIxKur/nwfB0NolGIPlDeHqGVXppvJ5ZXjW2
- zRhrjkpafZ3UDFWcAiFvfFy9fMypONE9qj8zC6Urqvk9sjYLotTQcC9r7Z0SHRfImaJd
- gZOw==
-X-Gm-Message-State: APjAAAWUkNKAuIz80J5H+GqghwqP7kM8/XwOr28LhFx3BE+etk4PJLJH
- 8kYZKV8+T0v4nGRjjFy/wfw=
-X-Google-Smtp-Source: APXvYqzTomvywQgBmsA0iDTcN1YhecACD1PW6HLIrDNCKUMpcYT/bZOHQr1NmKuRvn/iMLmXYazJ7A==
-X-Received: by 2002:a17:902:ab95:: with SMTP id
- f21mr13470060plr.188.1583095530670; 
- Sun, 01 Mar 2020 12:45:30 -0800 (PST)
-Received: from nishad ([106.51.232.103])
- by smtp.gmail.com with ESMTPSA id h10sm18127494pfo.181.2020.03.01.12.45.25
- (version=TLS1_2 cipher=ECDHE-RSA-CHACHA20-POLY1305 bits=256/256);
- Sun, 01 Mar 2020 12:45:30 -0800 (PST)
-Date: Mon, 2 Mar 2020 02:15:21 +0530
-From: Nishad Kamdar <nishadkamdar@gmail.com>
-To: Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
- Jiri Slaby <jslaby@suse.com>, Richard Genoud <richard.genoud@gmail.com>,
- Nicolas Ferre <nicolas.ferre@microchip.com>,
- Alexandre Belloni <alexandre.belloni@bootlin.com>,
- Ludovic Desroches <ludovic.desroches@microchip.com>,
- Barry Song <baohua@kernel.org>,
- Maxime Coquelin <mcoquelin.stm32@gmail.com>,
- Alexandre Torgue <alexandre.torgue@st.com>,
- Uwe =?utf-8?Q?Kleine-K=C3=B6nig?= <u.kleine-koenig@pengutronix.de>,
- Joe Perches <joe@perches.com>
-Message-ID: <20200301204517.GA10368@nishad>
+ Mon,  2 Mar 2020 10:06:52 +0000 (UTC)
+Received: from pps.filterd (m0046660.ppops.net [127.0.0.1])
+ by mx07-00178001.pphosted.com (8.16.0.42/8.16.0.42) with SMTP id
+ 0229xB6t027123; Mon, 2 Mar 2020 11:06:35 +0100
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=st.com;
+ h=subject : to : cc :
+ references : from : message-id : date : mime-version : in-reply-to :
+ content-type : content-transfer-encoding; s=STMicroelectronics;
+ bh=NmdlIguhddaDqPz+E83YQzRpW8sgsanIXxQTAubgk2Y=;
+ b=heIxyKlLA2Hvy8UvEWV1SvfQFzAhdpHm8kRaIiSiL/IYZGsavKd1VYbbz8hINQ2esCad
+ O6BSl7fg+/eBdpXUBXDISZJ0zgAc6nWcx53lafo30CQtdGGZR9V0hyCKq9+Vf0snW7qD
+ hFQZmujL2bUPEtrkD9eVf2TBTuA/4ZJUHIe4qHaIUQikuLnZNxttRSyu8nS46NrwPzuM
+ z/uN1N+TqmtL4gdf+PkkK4lGpNJtd3UQ69IbssMQVG1Jm8FXsDcgOJMJQM98kN6x6sEK
+ +4n9EAqkcpQ9gQdS4tBVhEtwydFJpPFgZ7loOodfwKEHjlmWOdw74MJNcUqHYIZOPnQi Ow== 
+Received: from beta.dmz-eu.st.com (beta.dmz-eu.st.com [164.129.1.35])
+ by mx07-00178001.pphosted.com with ESMTP id 2yfdyck1hf-1
+ (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
+ Mon, 02 Mar 2020 11:06:35 +0100
+Received: from euls16034.sgp.st.com (euls16034.sgp.st.com [10.75.44.20])
+ by beta.dmz-eu.st.com (STMicroelectronics) with ESMTP id 90BCC10002A;
+ Mon,  2 Mar 2020 11:06:29 +0100 (CET)
+Received: from Webmail-eu.st.com (sfhdag3node2.st.com [10.75.127.8])
+ by euls16034.sgp.st.com (STMicroelectronics) with ESMTP id 787172B1872;
+ Mon,  2 Mar 2020 11:06:29 +0100 (CET)
+Received: from lmecxl0912.lme.st.com (10.75.127.48) by SFHDAG3NODE2.st.com
+ (10.75.127.8) with Microsoft SMTP Server (TLS) id 15.0.1347.2; Mon, 2 Mar
+ 2020 11:06:28 +0100
+To: Ahmad Fatoum <a.fatoum@pengutronix.de>,
+ <linux-stm32@st-md-mailman.stormreply.com>,
+ <mcoquelin.stm32@gmail.com>, Rob Herring <robh+dt@kernel.org>,
+ Mark Rutland <mark.rutland@arm.com>
+References: <20200226143826.1146-1-a.fatoum@pengutronix.de>
+ <20200226143826.1146-2-a.fatoum@pengutronix.de>
+From: Alexandre Torgue <alexandre.torgue@st.com>
+Message-ID: <244a4502-03e0-836c-2ce2-7fa6cef3c188@st.com>
+Date: Mon, 2 Mar 2020 11:06:27 +0100
+User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:68.0) Gecko/20100101
+ Thunderbird/68.4.1
 MIME-Version: 1.0
-Content-Disposition: inline
-User-Agent: Mutt/1.9.4 (2018-02-28)
-Cc: linux-arm-kernel@lists.infradead.org, linux-kernel@vger.kernel.org,
- linux-serial@vger.kernel.org, linux-stm32@st-md-mailman.stormreply.com
-Subject: [Linux-stm32] [PATCH] tty: serial: Use the correct style for SPDX
- License Identifier
+In-Reply-To: <20200226143826.1146-2-a.fatoum@pengutronix.de>
+Content-Language: en-US
+X-Originating-IP: [10.75.127.48]
+X-ClientProxiedBy: SFHDAG6NODE1.st.com (10.75.127.16) To SFHDAG3NODE2.st.com
+ (10.75.127.8)
+X-Proofpoint-Virus-Version: vendor=fsecure engine=2.50.10434:6.0.138, 18.0.572
+ definitions=2020-03-02_03:2020-02-28,
+ 2020-03-02 signatures=0
+Cc: devicetree@vger.kernel.org, linux-arm-kernel@lists.infradead.org,
+ kernel@pengutronix.de, linux-kernel@vger.kernel.org
+Subject: Re: [Linux-stm32] [PATCH 2/3] ARM: dts: stm32: add STM32MP1-based
+ Linux Automation MC-1 board
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -78,160 +75,664 @@ List-Post: <mailto:linux-stm32@st-md-mailman.stormreply.com>
 List-Help: <mailto:linux-stm32-request@st-md-mailman.stormreply.com?subject=help>
 List-Subscribe: <https://st-md-mailman.stormreply.com/mailman/listinfo/linux-stm32>, 
  <mailto:linux-stm32-request@st-md-mailman.stormreply.com?subject=subscribe>
-Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
+Content-Type: text/plain; charset="us-ascii"; Format="flowed"
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
-This patch corrects the SPDX License Identifier style in
-header files related to tty serial drivers.
-For C header files Documentation/process/license-rules.rst
-mandates C-like comments (opposed to C source files where
-C++ style should be used).
+Hi Ahmad
 
-Changes made by using a script provided by Joe Perches here:
-https://lkml.org/lkml/2019/2/7/46.
+Thanks for adding a new STM32 board. Some minor comments.
 
-Suggested-by: Joe Perches <joe@perches.com>
-Signed-off-by: Nishad Kamdar <nishadkamdar@gmail.com>
----
- drivers/tty/serial/8250/8250.h         | 2 +-
- drivers/tty/serial/8250/8250_dwlib.h   | 2 +-
- drivers/tty/serial/atmel_serial.h      | 2 +-
- drivers/tty/serial/cpm_uart/cpm_uart.h | 2 +-
- drivers/tty/serial/icom.h              | 2 +-
- drivers/tty/serial/ifx6x60.h           | 2 +-
- drivers/tty/serial/jsm/jsm.h           | 2 +-
- drivers/tty/serial/pic32_uart.h        | 2 +-
- drivers/tty/serial/serial_mctrl_gpio.h | 2 +-
- drivers/tty/serial/sirfsoc_uart.h      | 2 +-
- drivers/tty/serial/stm32-usart.h       | 2 +-
- drivers/tty/serial/timbuart.h          | 2 +-
- 12 files changed, 12 insertions(+), 12 deletions(-)
+On 2/26/20 3:38 PM, Ahmad Fatoum wrote:
+> The Linux Automation MC-1 is a SBC built around the Octavo Systems
+> OSD32MP15x SiP. The SiP features up to 1 GB DDR3 RAM, EEPROM and
+> a PMIC. The board has eMMC and a SD slot for storage and GbE
+> for both connectivity and power.
+> 
+> Signed-off-by: Ahmad Fatoum <a.fatoum@pengutronix.de
+> ---
+>   arch/arm/boot/dts/Makefile                |   3 +-
+>   arch/arm/boot/dts/stm32mp157c-lxa-mc1.dts | 367 ++++++++++++++++++++++
+>   arch/arm/boot/dts/stm32mp15xx-osd32.dtsi  | 229 ++++++++++++++
+>   3 files changed, 598 insertions(+), 1 deletion(-)
+>   create mode 100644 arch/arm/boot/dts/stm32mp157c-lxa-mc1.dts
+>   create mode 100644 arch/arm/boot/dts/stm32mp15xx-osd32.dtsi
+> 
+> diff --git a/arch/arm/boot/dts/Makefile b/arch/arm/boot/dts/Makefile
+> index d6546d2676b9..47db736ec4aa 100644
+> --- a/arch/arm/boot/dts/Makefile
+> +++ b/arch/arm/boot/dts/Makefile
+> @@ -1018,7 +1018,8 @@ dtb-$(CONFIG_ARCH_STM32) += \
+>   	stm32mp157a-dk1.dtb \
+>   	stm32mp157c-dk2.dtb \
+>   	stm32mp157c-ed1.dtb \
+> -	stm32mp157c-ev1.dtb
+> +	stm32mp157c-ev1.dtb \
+> +	stm32mp157c-lxa-mc1.dtb
+>   dtb-$(CONFIG_MACH_SUN4I) += \
+>   	sun4i-a10-a1000.dtb \
+>   	sun4i-a10-ba10-tvbox.dtb \
+> diff --git a/arch/arm/boot/dts/stm32mp157c-lxa-mc1.dts b/arch/arm/boot/dts/stm32mp157c-lxa-mc1.dts
+> new file mode 100644
+> index 000000000000..70fad7a2f2af
+> --- /dev/null
+> +++ b/arch/arm/boot/dts/stm32mp157c-lxa-mc1.dts
+> @@ -0,0 +1,367 @@
+> +/* SPDX-License-Identifier: (GPL-2.0-or-later OR BSD-3-Clause) */
+> +/*
+> + * Copyright (C) 2020 STMicroelectronics - All Rights Reserved
+> + * Copyright (C) 2020 Ahmad Fatoum, Pengutronix
+> + */
+> +
+> +/dts-v1/;
+> +
+> +#include "stm32mp157.dtsi"
+> +#include "stm32mp15xx-osd32.dtsi"
+> +#include "stm32mp15xxac-pinctrl.dtsi"
+> +
+> +#include <dt-bindings/gpio/gpio.h>
+> +#include <dt-bindings/pwm/pwm.h>
+> +
+> +/ {
+> +	model = "Linux Automation MC-1 board";
+> +	compatible = "lxa,stm32mp157c-mc1", "st,stm32mp157";
+> +
+> +	aliases {
+> +		ethernet0 = &ethernet0;
+> +		mmc0 = &sdmmc1;
+> +		mmc1 = &sdmmc2;
+> +		serial0 = &uart4;
+> +	};
+> +
+> +	backlight: backlight {
+> +		compatible = "pwm-backlight";
+> +		pwms = <&backlight_pwm 1 100000 PWM_POLARITY_INVERTED>;
+> +		brightness-levels = <0 31 63 95 127 159 191 223 255>;
+> +		default-brightness-level = <7>;
+> +		power-supply = <&reg_5v2>; /* 3V3_BACKLIGHT */
+> +	};
+> +
+> +	chosen {
+> +		stdout-path = &uart4;
+> +	};
+> +
+> +	led-act {
+> +		compatible = "gpio-leds";
+> +
+> +		led-green {
+> +			label = "mc1:green:act";
+> +			gpios = <&gpioa 13 GPIO_ACTIVE_LOW>;
+> +			linux,default-trigger = "heartbeat";
+> +			default-state = "off";
+> +		};
+> +	};
+> +
+> +	led-rgb {
+> +		compatible = "pwm-leds";
+> +
+> +		led-red {
+> +			label = "mc1:red:rgb";
+> +			pwms = <&leds_pwm 1 1000000 0>;
+> +			max-brightness = <255>;
+> +			active-low;
+> +		};
+> +
+> +		led-green {
+> +			label = "mc1:green:rgb";
+> +			pwms = <&leds_pwm 2 1000000 0>;
+> +			max-brightness = <255>;
+> +			active-low;
+> +		};
+> +
+> +		led-blue {
+> +			label = "mc1:blue:rgb";
+> +			pwms = <&leds_pwm 3 1000000 0>;
+> +			max-brightness = <255>;
+> +			active-low;
+> +		};
+> +	};
+> +
+> +	panel: panel {
+> +		compatible = "edt,etm0700g0edh6", "simple-panel";
+> +		backlight = <&backlight>;
+> +		enable-gpios = <&gpiod 4 GPIO_ACTIVE_HIGH>;
+> +		power-supply = <&reg_3v3>;
+> +
+> +		port {
+> +			panel_input: endpoint {
+> +				remote-endpoint = <&ltdc_ep0_out>;
+> +			};
+> +		};
+> +	};
+> +
+> +	reg_3v3: regulator_3v3 {
+> +		compatible = "regulator-fixed";
+> +		regulator-name = "3V3";
+> +		regulator-min-microvolt = <3300000>;
+> +		regulator-max-microvolt = <3300000>;
+> +		regulator-always-on;
+> +		vin-supply = <&v3v3>;
+> +	};
+> +
+> +	/* supplied by either debug board or PoE */
+> +	reg_5v2: regulator_5v2 {
+> +		compatible = "regulator-fixed";
+> +		regulator-name = "5V2";
+> +		regulator-min-microvolt = <5200000>;
+> +		regulator-max-microvolt = <5200000>;
+> +		regulator-always-on;
+> +	};
+> +};
+> +
+> +&gpioz {
+> +	gpio-line-names = "HWID0", "HWID1", "HWID2", "HWID3", "", "",
+> +			  "HWID4", "HWID5";
+> +};
+> +
+> +&gpu {
+> +	status = "okay";
+> +};
+> +
+> +&ethernet0 {
 
-diff --git a/drivers/tty/serial/8250/8250.h b/drivers/tty/serial/8250/8250.h
-index 33ad9d6de532..32881e21b0c8 100644
---- a/drivers/tty/serial/8250/8250.h
-+++ b/drivers/tty/serial/8250/8250.h
-@@ -1,4 +1,4 @@
--// SPDX-License-Identifier: GPL-2.0+
-+/* SPDX-License-Identifier: GPL-2.0+ */
- /*
-  *  Driver for 8250/16550-type serial ports
-  *
-diff --git a/drivers/tty/serial/8250/8250_dwlib.h b/drivers/tty/serial/8250/8250_dwlib.h
-index 87a4db2a8aba..9a12953832d3 100644
---- a/drivers/tty/serial/8250/8250_dwlib.h
-+++ b/drivers/tty/serial/8250/8250_dwlib.h
-@@ -1,4 +1,4 @@
--// SPDX-License-Identifier: GPL-2.0+
-+/* SPDX-License-Identifier: GPL-2.0+ */
- /* Synopsys DesignWare 8250 library header file. */
- 
- #include <linux/types.h>
-diff --git a/drivers/tty/serial/atmel_serial.h b/drivers/tty/serial/atmel_serial.h
-index d811d4f2d0c0..0d8a0f9cc5c3 100644
---- a/drivers/tty/serial/atmel_serial.h
-+++ b/drivers/tty/serial/atmel_serial.h
-@@ -1,4 +1,4 @@
--// SPDX-License-Identifier: GPL-2.0+
-+/* SPDX-License-Identifier: GPL-2.0+ */
- /*
-  * include/linux/atmel_serial.h
-  *
-diff --git a/drivers/tty/serial/cpm_uart/cpm_uart.h b/drivers/tty/serial/cpm_uart/cpm_uart.h
-index 9f175a92fb5d..0de77c18c475 100644
---- a/drivers/tty/serial/cpm_uart/cpm_uart.h
-+++ b/drivers/tty/serial/cpm_uart/cpm_uart.h
-@@ -1,4 +1,4 @@
--// SPDX-License-Identifier: GPL-2.0
-+/* SPDX-License-Identifier: GPL-2.0 */
- /*
-  *  Driver for CPM (SCC/SMC) serial ports
-  *
-diff --git a/drivers/tty/serial/icom.h b/drivers/tty/serial/icom.h
-index 8a77e739b333..26e3aa7b01e2 100644
---- a/drivers/tty/serial/icom.h
-+++ b/drivers/tty/serial/icom.h
-@@ -1,4 +1,4 @@
--// SPDX-License-Identifier: GPL-2.0+
-+/* SPDX-License-Identifier: GPL-2.0+ */
- /*
-  * icom.h
-  *
-diff --git a/drivers/tty/serial/ifx6x60.h b/drivers/tty/serial/ifx6x60.h
-index c5a2514212ff..cacca5be7390 100644
---- a/drivers/tty/serial/ifx6x60.h
-+++ b/drivers/tty/serial/ifx6x60.h
-@@ -1,4 +1,4 @@
--// SPDX-License-Identifier: GPL-2.0
-+/* SPDX-License-Identifier: GPL-2.0 */
- /****************************************************************************
-  *
-  * Driver for the IFX spi modem.
-diff --git a/drivers/tty/serial/jsm/jsm.h b/drivers/tty/serial/jsm/jsm.h
-index 7a128aaa3a66..8489c07f4cd5 100644
---- a/drivers/tty/serial/jsm/jsm.h
-+++ b/drivers/tty/serial/jsm/jsm.h
-@@ -1,4 +1,4 @@
--// SPDX-License-Identifier: GPL-2.0+
-+/* SPDX-License-Identifier: GPL-2.0+ */
- /************************************************************************
-  * Copyright 2003 Digi International (www.digi.com)
-  *
-diff --git a/drivers/tty/serial/pic32_uart.h b/drivers/tty/serial/pic32_uart.h
-index 2f2b56927dc6..b15639cc336b 100644
---- a/drivers/tty/serial/pic32_uart.h
-+++ b/drivers/tty/serial/pic32_uart.h
-@@ -1,4 +1,4 @@
--// SPDX-License-Identifier: GPL-2.0+
-+/* SPDX-License-Identifier: GPL-2.0+ */
- /*
-  * PIC32 Integrated Serial Driver.
-  *
-diff --git a/drivers/tty/serial/serial_mctrl_gpio.h b/drivers/tty/serial/serial_mctrl_gpio.h
-index 1b2ff503b2c2..b134a0ffc894 100644
---- a/drivers/tty/serial/serial_mctrl_gpio.h
-+++ b/drivers/tty/serial/serial_mctrl_gpio.h
-@@ -1,4 +1,4 @@
--// SPDX-License-Identifier: GPL-2.0+
-+/* SPDX-License-Identifier: GPL-2.0+ */
- /*
-  * Helpers for controlling modem lines via GPIO
-  *
-diff --git a/drivers/tty/serial/sirfsoc_uart.h b/drivers/tty/serial/sirfsoc_uart.h
-index 637b09d3fe79..fb88ac565227 100644
---- a/drivers/tty/serial/sirfsoc_uart.h
-+++ b/drivers/tty/serial/sirfsoc_uart.h
-@@ -1,4 +1,4 @@
--// SPDX-License-Identifier: GPL-2.0+
-+/* SPDX-License-Identifier: GPL-2.0+ */
- /*
-  * Drivers for CSR SiRFprimaII onboard UARTs.
-  *
-diff --git a/drivers/tty/serial/stm32-usart.h b/drivers/tty/serial/stm32-usart.h
-index a175c1094dc8..db8bf0d4982d 100644
---- a/drivers/tty/serial/stm32-usart.h
-+++ b/drivers/tty/serial/stm32-usart.h
-@@ -1,4 +1,4 @@
--// SPDX-License-Identifier: GPL-2.0
-+/* SPDX-License-Identifier: GPL-2.0 */
- /*
-  * Copyright (C) Maxime Coquelin 2015
-  * Copyright (C) STMicroelectronics SA 2017
-diff --git a/drivers/tty/serial/timbuart.h b/drivers/tty/serial/timbuart.h
-index fb00b172117d..007e59af636d 100644
---- a/drivers/tty/serial/timbuart.h
-+++ b/drivers/tty/serial/timbuart.h
-@@ -1,4 +1,4 @@
--// SPDX-License-Identifier: GPL-2.0
-+/* SPDX-License-Identifier: GPL-2.0 */
- /*
-  * timbuart.c timberdale FPGA GPIO driver
-  * Copyright (c) 2009 Intel Corporation
--- 
-2.17.1
+you could follow alphabetic ordering (I find it easier to read, but just 
+my opinion).
 
+> +	pinctrl-names = "default";
+> +	pinctrl-0 = <&eth_rgmii_pins>;
+> +	phy-mode = "rgmii-id";
+> +	phy-handle = <&ethphy>;
+> +	status = "okay";
+> +
+> +	mdio0 {
+> +		compatible = "snps,dwmac-mdio";
+> +		#address-cells = <1>;
+> +		#size-cells = <0>;
+> +
+> +		ethphy: ethernet-phy@3 { /* KSZ9031RN */
+> +			reg = <3>;
+> +			reset-gpios = <&gpiog 0 GPIO_ACTIVE_LOW>; /* ETH_RST# */
+> +			interrupt-parent = <&gpioa>;
+> +			interrupts = <6 IRQ_TYPE_EDGE_FALLING>; /* ETH_MDINT# */
+> +			rxc-skew-ps = <1860>;
+> +			txc-skew-ps = <1860>;
+> +			reset-assert-us = <10000>;
+> +			reset-deassert-us = <300>;
+> +			micrel,force-master;
+> +		};
+> +	};
+> +};
+> +
+> +&i2c5 {
+> +	pinctrl-names = "default";
+> +	pinctrl-0 = <&i2c5_pins>;
+> +	clock-frequency = <400000>;
+> +	status = "okay";
+> +
+> +	touchscreen@38 {
+> +		compatible = "edt,edt-ft5x06";
+> +		interrupt-parent = <&gpiod>;
+> +		interrupts = <11 IRQ_TYPE_EDGE_FALLING>; /* TOUCH_INT# */
+> +		vcc-supply = <&reg_3v3>;
+> +		reg = <0x38>;
+> +		reset-gpios = <&gpiof 8 GPIO_ACTIVE_LOW>; /* TOUCH_RESET# */
+> +		touchscreen-size-x = <1792>;
+> +		touchscreen-size-y = <1024>;
+> +		wakeup-source;
+> +	};
+> +};
+> +
+> +&ltdc {
+> +	pinctrl-names = "default";
+> +	pinctrl-0 = <&ltdc_pins>;
+> +	status = "okay";
+> +
+> +	port {
+> +		#address-cells = <1>;
+> +		#size-cells = <0>;
+> +
+> +		ltdc_ep0_out: endpoint@0 {
+> +			reg = <0>;
+> +			remote-endpoint = <&panel_input>;
+> +		};
+> +	};
+> +};
+> +
+> +&pmic {
+> +	regulators {
+> +		buck4-supply = <&reg_5v2>;	/* VIN */
+> +		ldo2-supply = <&reg_5v2>;	/* PMIC_LDO25IN */
+> +		ldo5-supply = <&reg_5v2>;	/* PMIC_LDO25IN */
+> +		boost-supply = <&reg_5v2>;	/* PMIC_BSTIN */
+> +		pwr_sw2-supply = <&bst_out>;    /* PMIC_SWIN */
+> +	};
+> +};
+> +
+> +&sdmmc1 {
+> +	pinctrl-names = "default", "opendrain";
+> +	pinctrl-0 = <&sdmmc1_b4_pu_pins_a>;
+> +	pinctrl-1 = <&sdmmc1_b4_od_pins_a>;
+> +	bus-width = <4>;
+> +	cd-gpios = <&gpioh 3 GPIO_ACTIVE_LOW>;
+> +	disable-wp;
+> +	no-1-8-v;
+> +	st,neg-edge;
+> +	vmmc-supply = <&reg_3v3>;
+> +	status = "okay";
+> +};
+> +
+> +&sdmmc2 {
+> +	pinctrl-names = "default", "opendrain";
+> +	pinctrl-0 = <&sdmmc2_b4_pins_a &sdmmc2_d47_pins_b>;
+> +	pinctrl-1 = <&sdmmc2_b4_od_pins_a &sdmmc2_d47_pins_b>;
+> +	bus-width = <8>;
+> +	no-1-8-v;
+> +	no-sd;
+> +	no-sdio;
+> +	non-removable;
+> +	st,neg-edge;
+> +	vmmc-supply = <&reg_3v3>;
+> +	status = "okay";
+> +};
+> +
+> +&timers3 {
+> +	status = "okay";
+> +
+> +	backlight_pwm: pwm {
+> +		pinctrl-names = "default";
+> +		pinctrl-0 = <&tim3_pwm_pins>;
+> +		status = "okay";
+> +	};
+> +};
+> +
+> +&timers5 {
+> +	status = "okay";
+> +
+> +	leds_pwm: pwm {
+> +		pinctrl-names = "default";
+> +		pinctrl-0 = <&tim5_pwm_pins>;
+> +		status = "okay";
+> +	};
+> +};
+> +
+> +&uart4 {
+> +	pinctrl-names = "default";
+> +	pinctrl-0 = <&uart4_pins_a>;
+> +	status = "okay";
+> +};
+> +
+> +&pinctrl {
+
+Pin groups are currently defined in stm32mp15-pinctrl.dtsi. You could 
+move this part.
+
+> +	eth_rgmii_pins: eth_rgmii {
+> +		pins1 {
+> +			pinmux = <STM32_PINMUX('G',  5, AF11)>, /* ETH_CLK125 */
+> +				 <STM32_PINMUX('G',  4, AF11)>, /* ETH_GTX_CLK */
+> +				 <STM32_PINMUX('G', 13, AF11)>, /* ETH_TXD0 */
+> +				 <STM32_PINMUX('G', 14, AF11)>, /* ETH_TXD1 */
+> +				 <STM32_PINMUX('C',  2, AF11)>, /* ETH_TXD2 */
+> +				 <STM32_PINMUX('E',  2, AF11)>, /* ETH_TXD3 */
+> +				 <STM32_PINMUX('B', 11, AF11)>, /* ETH_TX_CTL */
+> +				 <STM32_PINMUX('C',  1, AF11)>; /* ETH_MDC */
+> +			bias-disable;
+> +			drive-push-pull;
+> +			slew-rate = <2>;
+> +		};
+> +		pins2 {
+> +			pinmux = <STM32_PINMUX('C', 4, AF11)>, /* ETH_RXD0 */
+> +				 <STM32_PINMUX('C', 5, AF11)>, /* ETH_RXD1 */
+> +				 <STM32_PINMUX('H', 6, AF11)>, /* ETH_RXD2 */
+> +				 <STM32_PINMUX('H', 7, AF11)>, /* ETH_RXD3 */
+> +				 <STM32_PINMUX('A', 1, AF11)>, /* ETH_RX_CLK */
+> +				 <STM32_PINMUX('A', 7, AF11)>; /* ETH_RX_CTL */
+> +				 bias-disable;
+> +		};
+> +		pins3 {
+> +			pinmux = <STM32_PINMUX('A', 2, AF11)>; /* ETH_MDIO */
+> +			bias-disable;
+> +			drive-push-pull;
+> +			slew-rate = <0>;
+> +		};
+> +	};
+> +
+> +	i2c5_pins: i2c5 {
+> +		pins {
+> +			pinmux = <STM32_PINMUX('D', 0, AF4)>, /* TOUCH_SDA */
+> +			         <STM32_PINMUX('D', 1, AF4)>; /* TOUCH_SCL */
+> +			bias-disable;
+> +			drive-open-drain;
+> +			slew-rate = <0>;
+> +		};
+> +	};
+> +
+> +	ltdc_pins: ltdc {
+> +		pins1 {
+> +			pinmux = <STM32_PINMUX('B',  1, AF9)>,  /* LTDC_R6 */
+> +				 <STM32_PINMUX('B',  9, AF14)>, /* LTDC_B7 */
+> +				 <STM32_PINMUX('C',  0, AF14)>, /* LTDC_R5 */
+> +				 <STM32_PINMUX('D',  3, AF14)>, /* LTDC_G7 */
+> +				 <STM32_PINMUX('D',  6, AF14)>, /* LTDC_B2 */
+> +				 <STM32_PINMUX('D', 10, AF14)>, /* LTDC_B3 */
+> +				 <STM32_PINMUX('E', 11, AF14)>, /* LTDC_G3 */
+> +				 <STM32_PINMUX('E', 12, AF14)>, /* LTDC_B4 */
+> +				 <STM32_PINMUX('E', 13, AF14)>, /* LTDC_DE */
+> +				 <STM32_PINMUX('E', 15, AF14)>, /* LTDC_R7 */
+> +				 <STM32_PINMUX('H',  4, AF9)>,  /* LTDC_G5 */
+> +				 <STM32_PINMUX('H',  8, AF14)>, /* LTDC_R2 */
+> +				 <STM32_PINMUX('H',  9, AF14)>, /* LTDC_R3 */
+> +				 <STM32_PINMUX('H', 10, AF14)>, /* LTDC_R4 */
+> +				 <STM32_PINMUX('H', 13, AF14)>, /* LTDC_G2 */
+> +				 <STM32_PINMUX('H', 15, AF14)>, /* LTDC_G4 */
+> +				 <STM32_PINMUX('I',  1, AF14)>, /* LTDC_G6 */
+> +				 <STM32_PINMUX('I',  5, AF14)>, /* LTDC_B5 */
+> +				 <STM32_PINMUX('I',  6, AF14)>, /* LTDC_B6 */
+> +				 <STM32_PINMUX('I',  9, AF14)>, /* LTDC_VSYNC */
+> +				 <STM32_PINMUX('I', 10, AF14)>; /* LTDC_HSYNC */
+> +			bias-disable;
+> +			drive-push-pull;
+> +			slew-rate = <0>;
+> +		};
+> +		pins2 {
+> +			pinmux = <STM32_PINMUX('E', 14, AF14)>; /* LTDC_CLK */
+> +			bias-disable;
+> +			drive-push-pull;
+> +			slew-rate = <1>;
+> +		};
+> +	};
+> +
+> +	sdmmc1_b4_pu_pins_a: sdmmc1-pu-b4-0 {
+> +		pins1 {
+> +			pinmux = <STM32_PINMUX('C',  8, AF12)>, /* SDMMC1_D0 */
+> +				 <STM32_PINMUX('C',  9, AF12)>, /* SDMMC1_D1 */
+> +				 <STM32_PINMUX('C', 10, AF12)>, /* SDMMC1_D2 */
+> +				 <STM32_PINMUX('C', 11, AF12)>, /* SDMMC1_D3 */
+> +				 <STM32_PINMUX('D',  2, AF12)>; /* SDMMC1_CMD */
+> +			slew-rate = <1>;
+> +			drive-push-pull;
+> +			bias-pull-up;
+> +		};
+> +		pins2 {
+> +			pinmux = <STM32_PINMUX('C', 12, AF12)>; /* SDMMC1_CK */
+> +			slew-rate = <2>;
+> +			drive-push-pull;
+> +			bias-pull-up;
+> +		};
+> +	};
+> +
+> +	sdmmc2_d47_pins_b: sdmmc2-d47-1 {
+> +		pins {
+> +			pinmux = <STM32_PINMUX('A', 8, AF9)>,  /* eMMC_D4 */
+> +				 <STM32_PINMUX('A', 9, AF10)>, /* eMMC_D5 */
+> +				 <STM32_PINMUX('C', 6, AF10)>, /* eMMC_D6 */
+> +				 <STM32_PINMUX('C', 7, AF10)>; /* eMMC_D7 */
+> +			slew-rate = <1>;
+> +			drive-push-pull;
+> +			bias-disable;
+> +		};
+> +	};
+> +
+> +	tim3_pwm_pins: tim3_pwm {
+> +		pins {
+> +			pinmux = <STM32_PINMUX('B', 5, AF2)>; /* TIM3_CH2 */
+> +			bias-disable;
+> +			drive-push-pull;
+> +			slew-rate = <0>;
+> +		};
+> +	};
+> +
+> +	tim5_pwm_pins: tim5_pwm {
+> +		pins {
+> +			pinmux = <STM32_PINMUX('H', 11, AF2)>, /* TIM5_CH2 */
+> +				 <STM32_PINMUX('H', 12, AF2)>, /* TIM5_CH3 */
+> +				 <STM32_PINMUX('I',  0, AF2)>; /* TIM5_CH4 */
+> +			bias-disable;
+> +			drive-push-pull;
+> +			slew-rate = <0>;
+> +		};
+> +	};
+> +};
+> diff --git a/arch/arm/boot/dts/stm32mp15xx-osd32.dtsi b/arch/arm/boot/dts/stm32mp15xx-osd32.dtsi
+> new file mode 100644
+> index 000000000000..70ee1c9aa8ec
+> --- /dev/null
+> +++ b/arch/arm/boot/dts/stm32mp15xx-osd32.dtsi
+> @@ -0,0 +1,229 @@
+> +/* SPDX-License-Identifier: (GPL-2.0-or-later OR BSD-3-Clause) */
+> +/*
+> + * Copyright (C) 2020 STMicroelectronics - All Rights Reserved
+> + * Copyright (C) 2020 Ahmad Fatoum, Pengutronix
+> + */
+> +
+> +#include "stm32mp15-pinctrl.dtsi"
+> +
+> +#include <dt-bindings/mfd/st,stpmic1.h>
+> +
+> +/ {
+> +	reserved-memory {
+> +		#address-cells = <1>;
+> +		#size-cells = <1>;
+> +		ranges;
+> +
+> +		mcuram2: mcuram2@10000000 {
+> +			compatible = "shared-dma-pool";
+> +			reg = <0x10000000 0x40000>;
+> +			no-map;
+> +		};
+> +
+> +		vdev0vring0: vdev0vring0@10040000 {
+> +			compatible = "shared-dma-pool";
+> +			reg = <0x10040000 0x1000>;
+> +			no-map;
+> +		};
+> +
+> +		vdev0vring1: vdev0vring1@10041000 {
+> +			compatible = "shared-dma-pool";
+> +			reg = <0x10041000 0x1000>;
+> +			no-map;
+> +		};
+> +
+> +		vdev0buffer: vdev0buffer@10042000 {
+> +			compatible = "shared-dma-pool";
+> +			reg = <0x10042000 0x4000>;
+> +			no-map;
+> +		};
+> +
+> +		mcuram: mcuram@30000000 {
+> +			compatible = "shared-dma-pool";
+> +			reg = <0x30000000 0x40000>;
+> +			no-map;
+> +		};
+> +
+> +		retram: retram@38000000 {
+> +			compatible = "shared-dma-pool";
+> +			reg = <0x38000000 0x10000>;
+> +			no-map;
+> +		};
+> +	};
+> +
+> +	reg_sip_eeprom: regulator_eeprom {
+> +		compatible = "regulator-fixed";
+> +		regulator-name = "sip_eeprom";
+> +		regulator-always-on;
+> +	};
+> +};
+> +
+> +&i2c4 {
+> +	pinctrl-names = "default";
+> +	pinctrl-0 = <&i2c4_pins_a>;
+> +	clock-frequency = <400000>;
+> +	i2c-scl-rising-time-ns = <185>;
+> +	i2c-scl-falling-time-ns = <20>;
+> +	status = "okay";
+> +
+> +	pmic: stpmic@33 {
+> +		compatible = "st,stpmic1";
+> +		reg = <0x33>;
+> +		interrupts-extended = <&gpioa 0 IRQ_TYPE_EDGE_FALLING>;
+> +		interrupt-controller;
+> +		#interrupt-cells = <2>;
+> +
+> +		regulators {
+> +			compatible = "st,stpmic1-regulators";
+> +
+> +			ldo1-supply = <&v3v3>;
+> +			ldo6-supply = <&v3v3>;
+> +			pwr_sw1-supply = <&bst_out>;
+> +
+> +			vddcore: buck1 {
+> +				regulator-name = "vddcore";
+> +				regulator-min-microvolt = <1200000>;
+> +				regulator-max-microvolt = <1350000>;
+> +				regulator-always-on;
+> +				regulator-initial-mode = <0>;
+> +				regulator-over-current-protection;
+> +			};
+> +
+> +			vdd_ddr: buck2 {
+> +				regulator-name = "vdd_ddr";
+> +				regulator-min-microvolt = <1350000>;
+> +				regulator-max-microvolt = <1350000>;
+> +				regulator-always-on;
+> +				regulator-initial-mode = <0>;
+> +				regulator-over-current-protection;
+> +			};
+> +
+> +			vdd: buck3 {
+> +				regulator-name = "vdd";
+> +				regulator-min-microvolt = <3300000>;
+> +				regulator-max-microvolt = <3300000>;
+> +				regulator-always-on;
+> +				st,mask-reset;
+> +				regulator-initial-mode = <0>;
+> +				regulator-over-current-protection;
+> +			};
+> +
+> +			v3v3: buck4 {
+> +				regulator-name = "v3v3";
+> +				regulator-min-microvolt = <3300000>;
+> +				regulator-max-microvolt = <3300000>;
+> +				regulator-always-on;
+> +				regulator-over-current-protection;
+> +				regulator-initial-mode = <0>;
+> +			};
+> +
+> +			v1v8_audio: ldo1 {
+> +				regulator-name = "v1v8_audio";
+> +				regulator-min-microvolt = <1800000>;
+> +				regulator-max-microvolt = <1800000>;
+> +				regulator-always-on;
+> +				interrupts = <IT_CURLIM_LDO1 0>;
+> +
+> +			};
+> +
+> +			v3v3_hdmi: ldo2 {
+> +				regulator-name = "v3v3_hdmi";
+> +				regulator-min-microvolt = <3300000>;
+> +				regulator-max-microvolt = <3300000>;
+> +				regulator-always-on;
+> +				interrupts = <IT_CURLIM_LDO2 0>;
+> +
+> +			};
+> +
+> +			vtt_ddr: ldo3 {
+> +				regulator-name = "vtt_ddr";
+> +				regulator-min-microvolt = <500000>;
+> +				regulator-max-microvolt = <750000>;
+> +				regulator-always-on;
+> +				regulator-over-current-protection;
+> +			};
+> +
+> +			vdd_usb: ldo4 {
+> +				regulator-name = "vdd_usb";
+> +				regulator-min-microvolt = <3300000>;
+> +				regulator-max-microvolt = <3300000>;
+> +				interrupts = <IT_CURLIM_LDO4 0>;
+> +			};
+> +
+> +			vdda: ldo5 {
+> +				regulator-name = "vdda";
+> +				regulator-min-microvolt = <2900000>;
+> +				regulator-max-microvolt = <2900000>;
+> +				interrupts = <IT_CURLIM_LDO5 0>;
+> +				regulator-boot-on;
+> +			};
+> +
+> +			v1v2_hdmi: ldo6 {
+> +				regulator-name = "v1v2_hdmi";
+> +				regulator-min-microvolt = <1200000>;
+> +				regulator-max-microvolt = <1200000>;
+> +				regulator-always-on;
+> +				interrupts = <IT_CURLIM_LDO6 0>;
+> +
+> +			};
+> +
+> +			vref_ddr: vref_ddr {
+> +				regulator-name = "vref_ddr";
+> +				regulator-always-on;
+> +				regulator-over-current-protection;
+> +			};
+> +
+> +			bst_out: boost {
+> +				regulator-name = "bst_out";
+> +				interrupts = <IT_OCP_BOOST 0>;
+> +			};
+> +
+> +			vbus_otg: pwr_sw1 {
+> +				regulator-name = "vbus_otg";
+> +				interrupts = <IT_OCP_OTG 0>;
+> +				regulator-active-discharge;
+> +			};
+> +
+> +			vbus_sw: pwr_sw2 {
+> +				regulator-name = "vbus_sw";
+> +				interrupts = <IT_OCP_SWOUT 0>;
+> +				regulator-active-discharge;
+> +			};
+> +		};
+> +
+> +		onkey {
+> +			compatible = "st,stpmic1-onkey";
+> +			interrupts = <IT_PONKEY_F 0>, <IT_PONKEY_R 1>;
+> +			interrupt-names = "onkey-falling", "onkey-rising";
+> +		};
+> +
+> +		pmic_watchdog: watchdog {
+> +			compatible = "st,stpmic1-wdt";
+> +			status = "disabled";
+> +		};
+> +	};
+> +
+> +	sip_eeprom: eeprom@50 {
+> +		compatible = "atmel,24c32";
+> +		vcc-supply = <&reg_sip_eeprom>;
+> +		reg = <0x50>;
+> +	};
+> +};
+> +
+> +&ipcc {
+> +	status = "okay";
+> +};
+> +
+> +&rng1 {
+> +	status = "okay";
+> +};
+> +
+> +&m4_rproc {
+
+you could follow alphabetic ordering.
+
+> +	memory-region = <&retram>, <&mcuram>, <&mcuram2>, <&vdev0vring0>,
+> +			<&vdev0vring1>, <&vdev0buffer>;
+> +	mboxes = <&ipcc 0>, <&ipcc 1>, <&ipcc 2>;
+> +	mbox-names = "vq0", "vq1", "shutdown";
+> +	interrupt-parent = <&exti>;
+> +	interrupts = <68 1>;
+> +	status = "okay";
+> +};
+> 
 _______________________________________________
 Linux-stm32 mailing list
 Linux-stm32@st-md-mailman.stormreply.com
