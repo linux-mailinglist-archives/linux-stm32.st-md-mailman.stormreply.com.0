@@ -2,54 +2,68 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id 47521175F73
-	for <lists+linux-stm32@lfdr.de>; Mon,  2 Mar 2020 17:22:37 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 7E80D176705
+	for <lists+linux-stm32@lfdr.de>; Mon,  2 Mar 2020 23:27:30 +0100 (CET)
 Received: from ip-172-31-3-76.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 00563C36B0B;
-	Mon,  2 Mar 2020 16:22:37 +0000 (UTC)
-Received: from mail-out.m-online.net (mail-out.m-online.net [212.18.0.10])
- (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 3284BC36B0B;
+	Mon,  2 Mar 2020 22:27:30 +0000 (UTC)
+Received: from mail-wm1-f67.google.com (mail-wm1-f67.google.com
+ [209.85.128.67])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 9D59FC36B09
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id C8F5CC36B09
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Mon,  2 Mar 2020 16:22:33 +0000 (UTC)
-Received: from frontend01.mail.m-online.net (unknown [192.168.8.182])
- by mail-out.m-online.net (Postfix) with ESMTP id 48WQQw4np3z1rq9j;
- Mon,  2 Mar 2020 17:22:32 +0100 (CET)
-Received: from localhost (dynscan1.mnet-online.de [192.168.6.70])
- by mail.m-online.net (Postfix) with ESMTP id 48WQQw43zXz1qqlF;
- Mon,  2 Mar 2020 17:22:32 +0100 (CET)
-X-Virus-Scanned: amavisd-new at mnet-online.de
-Received: from mail.mnet-online.de ([192.168.8.182])
- by localhost (dynscan1.mail.m-online.net [192.168.6.70]) (amavisd-new,
- port 10024)
- with ESMTP id FUkd_oEz5BAG; Mon,  2 Mar 2020 17:22:31 +0100 (CET)
-X-Auth-Info: /mgSVaOtHHN+ArB4hRwgEFDX1yr8DchUgbmZ1sPbr4M=
-Received: from [127.0.0.1] (unknown [195.140.253.167])
- (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
- (No client certificate requested)
- by mail.mnet-online.de (Postfix) with ESMTPSA;
- Mon,  2 Mar 2020 17:22:31 +0100 (CET)
-To: Alexandre Torgue <alexandre.torgue@st.com>,
- linux-arm-kernel@lists.infradead.org
-References: <20200119191143.50033-1-marex@denx.de>
- <20200119191143.50033-6-marex@denx.de>
- <1b288811-8ffb-a150-71ef-4c006e6d5740@st.com>
- <1ec643e9-217d-c83d-793f-c05d6c4502bd@denx.de>
- <46e68418-21c0-b82c-d226-4f5ada0ef351@st.com>
-From: Marek Vasut <marex@denx.de>
-Message-ID: <07b15b36-6e68-47db-b2b3-e1e29a3b0399@denx.de>
-Date: Mon, 2 Mar 2020 17:22:30 +0100
-User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:68.0) Gecko/20100101
- Thunderbird/68.4.2
+ Mon,  2 Mar 2020 22:27:28 +0000 (UTC)
+Received: by mail-wm1-f67.google.com with SMTP id a5so860547wmb.0
+ for <linux-stm32@st-md-mailman.stormreply.com>;
+ Mon, 02 Mar 2020 14:27:28 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=ffwll.ch; s=google;
+ h=from:to:cc:subject:date:message-id:in-reply-to:references
+ :mime-version:content-transfer-encoding;
+ bh=Yl3p3hBPFlOPkoSdkeZjXHmocqTG4wlFcxWCuis8faE=;
+ b=BJjKTa1upJb+zW+g2KemiCGn2oj71gZr7WRaPkD8vJRBh6tVGNq8sk2paLvQUYSgq0
+ XrvFC21US3WDHdXKJzUUru8SJGuMi5xJsyLE9Lvm+nHAgMwdClaU83nDCp94YBHmpSTS
+ uX5xmOcnuhmuYur3VOpAdoedKgbc+pAeMQ6FE=
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20161025;
+ h=x-gm-message-state:from:to:cc:subject:date:message-id:in-reply-to
+ :references:mime-version:content-transfer-encoding;
+ bh=Yl3p3hBPFlOPkoSdkeZjXHmocqTG4wlFcxWCuis8faE=;
+ b=p4Vm86bWjMHVq2p63g0+8dchtMg2hubNnz7T+vxQNEEvHPmjJzPJrK0W/i1H5DUpW8
+ Tobfz3C3sllnNau0Wm1i6lO0EMrP4jmM51u/Y3+F9qGkBZvIR94DaTVau87GDJVLjguD
+ QNG2FEJjoFdYRtzJ4W6dPnvpIxDUNOcmRZdF36QoqOSdyzXU3bIWFCjfNtpU8vVtTfQC
+ XM3IMOi3Z724ywCaaE8b8CTYO00n6Ru2V960tYQyKZOefWBz6QdTeqToqtvB/TKoMDz3
+ Qog8nUISXUhFMw1Wp7NFFdP2r0N/xvsEY3/W8EVTqF4c/s60/k2aIvZ4Tu8dOnIpY4ZO
+ H0ew==
+X-Gm-Message-State: ANhLgQ103KmogHU3mLkwD7SfIM94G6IJ/tD1CCyDkYUYZOnqoQyLKUkd
+ EaiP5d6ksEff+5EgmEQRelhqYg==
+X-Google-Smtp-Source: ADFU+vsV6snY+ze8Mw13KvoxQVCCldm+RRMJ8DbeXSTs1U1dY0PkObe2dTJFMO/9e6eMtrIGTWAiAQ==
+X-Received: by 2002:a1c:25c6:: with SMTP id l189mr530634wml.104.1583188047595; 
+ Mon, 02 Mar 2020 14:27:27 -0800 (PST)
+Received: from phenom.ffwll.local ([2a02:168:57f4:0:efd0:b9e5:5ae6:c2fa])
+ by smtp.gmail.com with ESMTPSA id o18sm26114589wrv.60.2020.03.02.14.27.26
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Mon, 02 Mar 2020 14:27:27 -0800 (PST)
+From: Daniel Vetter <daniel.vetter@ffwll.ch>
+To: DRI Development <dri-devel@lists.freedesktop.org>
+Date: Mon,  2 Mar 2020 23:26:18 +0100
+Message-Id: <20200302222631.3861340-39-daniel.vetter@ffwll.ch>
+X-Mailer: git-send-email 2.24.1
+In-Reply-To: <20200302222631.3861340-1-daniel.vetter@ffwll.ch>
+References: <20200302222631.3861340-1-daniel.vetter@ffwll.ch>
 MIME-Version: 1.0
-In-Reply-To: <46e68418-21c0-b82c-d226-4f5ada0ef351@st.com>
-Content-Language: en-US
-Cc: Patrick Delaunay <patrick.delaunay@st.com>,
- Maxime Coquelin <mcoquelin.stm32@gmail.com>,
- linux-stm32@st-md-mailman.stormreply.com
-Subject: Re: [Linux-stm32] [PATCH V2 6/6] ARM: dts: stm32: Add DH
- Electronics DHCOM STM32MP1 SoM and PDK2 board
+Cc: Maxime Coquelin <mcoquelin.stm32@gmail.com>,
+ Vincent Abriou <vincent.abriou@st.com>,
+ Benjamin Gaignard <benjamin.gaignard@linaro.org>,
+ Daniel Vetter <daniel.vetter@ffwll.ch>,
+ Intel Graphics Development <intel-gfx@lists.freedesktop.org>,
+ Yannick Fertre <yannick.fertre@st.com>,
+ Laurent Pinchart <laurent.pinchart@ideasonboard.com>,
+ Thomas Zimmermann <tzimmermann@suse.de>,
+ Daniel Vetter <daniel.vetter@intel.com>, Sam Ravnborg <sam@ravnborg.org>,
+ linux-stm32@st-md-mailman.stormreply.com, linux-arm-kernel@lists.infradead.org
+Subject: [Linux-stm32] [PATCH 38/51] drm/stm: Drop explicit
+	drm_mode_config_cleanup call
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -61,35 +75,88 @@ List-Post: <mailto:linux-stm32@st-md-mailman.stormreply.com>
 List-Help: <mailto:linux-stm32-request@st-md-mailman.stormreply.com?subject=help>
 List-Subscribe: <https://st-md-mailman.stormreply.com/mailman/listinfo/linux-stm32>, 
  <mailto:linux-stm32-request@st-md-mailman.stormreply.com?subject=subscribe>
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: base64
+Content-Type: text/plain; charset="us-ascii"
+Content-Transfer-Encoding: 7bit
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
-T24gMy8yLzIwIDI6NDcgUE0sIEFsZXhhbmRyZSBUb3JndWUgd3JvdGU6Cj4gSGkgTWFyZWsKPiAK
-PiBPbiAyLzIzLzIwIDM6MzcgUE0sIE1hcmVrIFZhc3V0IHdyb3RlOgo+PiBPbiAyLzEwLzIwIDU6
-MzUgUE0sIEFsZXhhbmRyZSBUb3JndWUgd3JvdGU6Cj4+PiBIaSBNYXJlawo+Pgo+PiBIaSwKPj4K
-Pj4+IE9uIDEvMTkvMjAgODoxMSBQTSwgTWFyZWsgVmFzdXQgd3JvdGU6Cj4+Pj4gQWRkIHN1cHBv
-cnQgZm9yIERIIEVsZWN0cm9uaWNzIERIQ09NIFNvTSBhbmQgUERLMiByZXYuIDQwMCBjYXJyaWVy
-Cj4+Pj4gYm9hcmQuIFRoaXMgaXMgYW4gU29NIHdpdGggU1RNMzJNUDE1N0MgYW5kIGFuIGV2YWx1
-YXRpb24ga2l0LiBUaGUKPj4+PiBiYXNlYm9hcmQgcHJvdmlkZXMgRXRoZXJuZXQsIFVBUlQsIFVT
-QiwgQ0FOIGFuZCBvcHRpb25hbCBkaXNwbGF5Lgo+Pj4+Cj4+Pj4gU2lnbmVkLW9mZi1ieTogTWFy
-ZWsgVmFzdXQgPG1hcmV4QGRlbnguZGU+Cj4+Pj4gQ2M6IEFsZXhhbmRyZSBUb3JndWUgPGFsZXhh
-bmRyZS50b3JndWVAc3QuY29tPgo+Pj4+IENjOiBNYXhpbWUgQ29xdWVsaW4gPG1jb3F1ZWxpbi5z
-dG0zMkBnbWFpbC5jb20+Cj4+Pj4gQ2M6IFBhdHJpY2UgQ2hvdGFyZCA8cGF0cmljZS5jaG90YXJk
-QHN0LmNvbT4KPj4+PiBDYzogUGF0cmljayBEZWxhdW5heSA8cGF0cmljay5kZWxhdW5heUBzdC5j
-b20+Cj4+Pj4gQ2M6IGxpbnV4LXN0bTMyQHN0LW1kLW1haWxtYW4uc3Rvcm1yZXBseS5jb20KPj4+
-PiBUbzogbGludXgtYXJtLWtlcm5lbEBsaXN0cy5pbmZyYWRlYWQub3JnCj4+Pj4gLS0tCj4+Pj4g
-VjI6IC0gQWRkIHN0bTMybXAxIGludG8gdGhlIHN1YmplY3QgYW5kIGNvbW1pdCBtZXNzYWdlCj4+
-Pj4gwqDCoMKgwqDCoCAtIFNvcnQgRFQgYWxwaGFudW1lcmljYWxseQo+Pj4+IMKgwqDCoMKgwqAg
-LSBNb3ZlIGFsbCBwaW5jb250cm9sIGVudHJpZXMgaW50byBzdG0zMm1wMTUtcGluY3RybC5kdHNp
-Cj4+Pj4gLS0tCj4+Pgo+Pj4gVGhhbmtzIHRvIGFkZCBhIG5ldyBTVE0zMiBib2FyZC4KPj4+Cj4+
-PiBTZXJpZXMgYXBwbGllZCBvbiBzdG0zMi1uZXh0Lgo+Pgo+PiBIb3cgY29tZSB0aGVzZSBhcmUg
-bm90IGluIG5leHQvbWFzdGVyIHlldCwgaXMgdGhlIGJyYW5jaCBub3QgYmVpbmcKPj4gbWVyZ2Vk
-IGludG8gbmV4dCByZWd1bGFybHkgPwo+Pgo+IAo+IE5vIHRoaXMgYnJhbmNoIGlzIG5vdCBtZXJn
-ZWQgcmVndWxhcmx5IGluIG5leHQvbWFzdGVyLiBZb3UnbGwgZ2V0IGl0IGluCj4gNS43LXJjMS4K
-CkNhbiB3ZSBpbXByb3ZlIG9uIHRoYXQgPyAoYW5kIHRodXMgaW1wcm92ZSBvbiB0ZXN0aW5nKSA/
-Cl9fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fCkxpbnV4LXN0
-bTMyIG1haWxpbmcgbGlzdApMaW51eC1zdG0zMkBzdC1tZC1tYWlsbWFuLnN0b3JtcmVwbHkuY29t
-Cmh0dHBzOi8vc3QtbWQtbWFpbG1hbi5zdG9ybXJlcGx5LmNvbS9tYWlsbWFuL2xpc3RpbmZvL2xp
-bnV4LXN0bTMyCg==
+It's right above the drm_dev_put().
+
+This is made possible by a preceeding patch which added a drmm_
+cleanup action to drm_mode_config_init(), hence all we need to do to
+ensure that drm_mode_config_cleanup() is run on final drm_device
+cleanup is check the new error code for _init().
+
+Aside: Another driver with a bit much devm_kzalloc, which should
+probably use drmm_kzalloc instead ...
+
+v2: Explain why this cleanup is possible (Laurent).
+
+v3: Use drmm_mode_config_init() for more clarity (Sam, Thomas)
+
+Cc: Sam Ravnborg <sam@ravnborg.org>
+Cc: Thomas Zimmermann <tzimmermann@suse.de>
+Acked-by: Philippe Cornu <philippe.cornu@st.com>
+Cc: Laurent Pinchart <laurent.pinchart@ideasonboard.com>
+Signed-off-by: Daniel Vetter <daniel.vetter@intel.com>
+Cc: Yannick Fertre <yannick.fertre@st.com>
+Cc: Philippe Cornu <philippe.cornu@st.com>
+Cc: Benjamin Gaignard <benjamin.gaignard@linaro.org>
+Cc: Vincent Abriou <vincent.abriou@st.com>
+Cc: Maxime Coquelin <mcoquelin.stm32@gmail.com>
+Cc: Alexandre Torgue <alexandre.torgue@st.com>
+Cc: linux-stm32@st-md-mailman.stormreply.com
+Cc: linux-arm-kernel@lists.infradead.org
+---
+ drivers/gpu/drm/stm/drv.c | 10 ++++------
+ 1 file changed, 4 insertions(+), 6 deletions(-)
+
+diff --git a/drivers/gpu/drm/stm/drv.c b/drivers/gpu/drm/stm/drv.c
+index ea9fcbdc68b3..0f85dd86cafa 100644
+--- a/drivers/gpu/drm/stm/drv.c
++++ b/drivers/gpu/drm/stm/drv.c
+@@ -88,7 +88,9 @@ static int drv_load(struct drm_device *ddev)
+ 
+ 	ddev->dev_private = (void *)ldev;
+ 
+-	drm_mode_config_init(ddev);
++	ret = drmm_mode_config_init(ddev);
++	if (ret)
++		return ret;
+ 
+ 	/*
+ 	 * set max width and height as default value.
+@@ -103,7 +105,7 @@ static int drv_load(struct drm_device *ddev)
+ 
+ 	ret = ltdc_load(ddev);
+ 	if (ret)
+-		goto err;
++		return ret;
+ 
+ 	drm_mode_config_reset(ddev);
+ 	drm_kms_helper_poll_init(ddev);
+@@ -111,9 +113,6 @@ static int drv_load(struct drm_device *ddev)
+ 	platform_set_drvdata(pdev, ddev);
+ 
+ 	return 0;
+-err:
+-	drm_mode_config_cleanup(ddev);
+-	return ret;
+ }
+ 
+ static void drv_unload(struct drm_device *ddev)
+@@ -122,7 +121,6 @@ static void drv_unload(struct drm_device *ddev)
+ 
+ 	drm_kms_helper_poll_fini(ddev);
+ 	ltdc_unload(ddev);
+-	drm_mode_config_cleanup(ddev);
+ }
+ 
+ static __maybe_unused int drv_suspend(struct device *dev)
+-- 
+2.24.1
+
+_______________________________________________
+Linux-stm32 mailing list
+Linux-stm32@st-md-mailman.stormreply.com
+https://st-md-mailman.stormreply.com/mailman/listinfo/linux-stm32
