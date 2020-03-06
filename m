@@ -2,44 +2,66 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id 5D57517CF07
-	for <lists+linux-stm32@lfdr.de>; Sat,  7 Mar 2020 16:21:38 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 00C3B17DA35
+	for <lists+linux-stm32@lfdr.de>; Mon,  9 Mar 2020 09:05:07 +0100 (CET)
 Received: from ip-172-31-3-76.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 262A7C36B0B;
-	Sat,  7 Mar 2020 15:21:38 +0000 (UTC)
-Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
- (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 9B451C36B0F;
+	Mon,  9 Mar 2020 08:05:06 +0000 (UTC)
+Received: from mail-wr1-f65.google.com (mail-wr1-f65.google.com
+ [209.85.221.65])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id CF1E4C36B09
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id AB407C36B09
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Sat,  7 Mar 2020 15:21:35 +0000 (UTC)
-Received: from archlinux (cpc149474-cmbg20-2-0-cust94.5-4.cable.virginm.net
- [82.4.196.95])
- (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
- (No client certificate requested)
- by mail.kernel.org (Postfix) with ESMTPSA id 8CCB020674;
- Sat,  7 Mar 2020 15:21:32 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
- s=default; t=1583594494;
- bh=zXhA3RoLELcyY2UKL8bcqbSijN27udDZjliB55Zc+PM=;
- h=Date:From:To:Cc:Subject:In-Reply-To:References:From;
- b=eH3omeFiyPeHhZ9l62cNGCJmGil5/S2xcf4vhQoBUjPoOWVnsBYBk4gShULYCrSod
- IdEaczUOrw4cfLWzoM4VAiNV9Vswma2J6qsiaghim6DUNPRFrFW0JuMxPiGK9mCOBn
- vq8r9qma/eAE8YbYkWUXx3i6r9W5gPVV2ZZaRZ1o=
-Date: Sat, 7 Mar 2020 15:21:27 +0000
-From: Jonathan Cameron <jic23@kernel.org>
-To: Fabrice Gasnier <fabrice.gasnier@st.com>
-Message-ID: <20200307152127.404aba78@archlinux>
-In-Reply-To: <1583247585-16698-3-git-send-email-fabrice.gasnier@st.com>
-References: <1583247585-16698-1-git-send-email-fabrice.gasnier@st.com>
- <1583247585-16698-3-git-send-email-fabrice.gasnier@st.com>
-X-Mailer: Claws Mail 3.17.4 (GTK+ 2.24.32; x86_64-pc-linux-gnu)
+ Fri,  6 Mar 2020 16:40:42 +0000 (UTC)
+Received: by mail-wr1-f65.google.com with SMTP id v11so3107482wrm.9
+ for <linux-stm32@st-md-mailman.stormreply.com>;
+ Fri, 06 Mar 2020 08:40:42 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20161025;
+ h=from:to:cc:subject:date:message-id:mime-version
+ :content-transfer-encoding;
+ bh=XjHnSwyS0af+P6Jfh8Jzg4HPNo9WQiL8yOX1s0HApbQ=;
+ b=CbSaDyS3tlGIXzJPDGmj9+AIlYyU7Yowmve6GEk50xA6VmLmZxHH5HW67z5v9akxJN
+ nGmqQ1FAjSNx511yM1rus1wIj4/+IgiLa4jFXAq3t+VnZPbcJi2ejnaUkV6b5SKW6kyN
+ hzxB5IKSXIbWozwe8M041xvmZrKHB1s6eVUpG+MsHaDJ0Spfb05SAOeiwB8cKCN/Pn2e
+ fPhbdTuB2mYwsxcsDnol2mJBRBqcYUpJIndkM4bjmdNdbvdjzaAKHs5iHbBERWAoQ6Ed
+ IPbTM3kZsKjUscXO0/PBVdGu+tjOfbi+/lP9+Wz2T8EPTasDaTPRevA4VXyeTR6nXrpn
+ tWDQ==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20161025;
+ h=x-gm-message-state:from:to:cc:subject:date:message-id:mime-version
+ :content-transfer-encoding;
+ bh=XjHnSwyS0af+P6Jfh8Jzg4HPNo9WQiL8yOX1s0HApbQ=;
+ b=DfwE+YBY8bOyE5HgkYkYVhASR3z7J9DT+5DRqlXGylaHUal1DIhQWSXuK5WtwtBT/U
+ Ab6hKdXicHGPbw9nJP9Zj9tMoQYwx9moh6+o1mSKTTNXxXZ6+hdTx79V1YSlmDnnCMAd
+ 32zFyky/5SD5FofhyLD5mmp/d0j5OL7KZAz+Az7KccZmgAMzNWRVRsoRWULe2XA0IbKL
+ fVYtqtvSm8ASlvnyLw8gKBmaflFmFD9u2mVbPP+Me/5axdrNDHNfqFyIUYTB1U/kFbST
+ iAGfzx97036vcQg+ADWOokn0zg3GR3Jl+knjouCa8ophwAbpmR2zNtOCEklQV/wGNjG/
+ QFew==
+X-Gm-Message-State: ANhLgQ3CEtUfVstf30oEOoduSOoF6AbHw7K0d+/9K1f7cAdjoM9CBTWG
+ SYcF1Q84N24Zx1ZJ9GOaABo=
+X-Google-Smtp-Source: ADFU+vtU+an94UKd4UPfywLnbr+VHC0wDCwOSaA/3LsprBBI1hOWapF4bBHrYJWtYeuKNmQC60ln8A==
+X-Received: by 2002:adf:8162:: with SMTP id 89mr882490wrm.45.1583512841997;
+ Fri, 06 Mar 2020 08:40:41 -0800 (PST)
+Received: from localhost.localdomain ([2a02:810d:1b40:644:c890:7487:7d:ef6f])
+ by smtp.gmail.com with ESMTPSA id
+ c11sm48946421wrp.51.2020.03.06.08.40.41
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Fri, 06 Mar 2020 08:40:41 -0800 (PST)
+From: Markus Fuchs <mklntf@gmail.com>
+To: mklntf@gmail.com
+Date: Fri,  6 Mar 2020 17:38:48 +0100
+Message-Id: <20200306163848.5910-1-mklntf@gmail.com>
+X-Mailer: git-send-email 2.25.1
 MIME-Version: 1.0
-Cc: lars@metafoo.de, linux-iio@vger.kernel.org, pmeerw@pmeerw.net,
- linux-kernel@vger.kernel.org, mcoquelin.stm32@gmail.com, knaack.h@gmx.de,
- linux-stm32@st-md-mailman.stormreply.com, linux-arm-kernel@lists.infradead.org
-Subject: Re: [Linux-stm32] [PATCH 2/2] iio: trigger: stm32-timer: add power
- management support
+X-Mailman-Approved-At: Mon, 09 Mar 2020 08:05:02 +0000
+Cc: netdev@vger.kernel.org, linux-kernel@vger.kernel.org,
+ linux-stm32@st-md-mailman.stormreply.com, Jose Abreu <joabreu@synopsys.com>,
+ Maxime Coquelin <mcoquelin.stm32@gmail.com>,
+ Giuseppe Cavallaro <peppe.cavallaro@st.com>,
+ "David S. Miller" <davem@davemloft.net>, linux-arm-kernel@lists.infradead.org
+Subject: [Linux-stm32] [PATCH] net: stmmac: platform: Fix misleading
+	interrupt error msg
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -56,121 +78,99 @@ Content-Transfer-Encoding: 7bit
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
-On Tue, 3 Mar 2020 15:59:45 +0100
-Fabrice Gasnier <fabrice.gasnier@st.com> wrote:
+Not every stmmac based platform makes use of the eth_wake_irq or eth_lpi
+interrupts. Use the platform_get_irq_byname_optional variant for these
+interrupts, so no error message is displayed, if they can't be found.
+Rather print an information to hint something might be wrong to assist
+debugging on platforms which use these interrupts.
 
-> Add suspend/resume PM sleep ops to stm32-timer-trigger driver.
-> Register contents may be lost depending on low power modes.
-> When going to low power, enforce the timer isn't active. Gracefully
-> restore its state upon resume in case it's been left enabled prior to
-> suspend.
-> 
-> Signed-off-by: Fabrice Gasnier <fabrice.gasnier@st.com>
-Seems sensible. Applied,
+Signed-off-by: Markus Fuchs <mklntf@gmail.com>
+---
+On my cyclone V socfpga platform I get error messages after updating to
+Linux Kernel 5.4.24
 
-Thanks,
+Starting kernel ...
 
-Jonathan
+Deasserting all peripheral resets
+[    1.206363] socfpga-dwmac ff700000.ethernet: IRQ eth_wake_irq not found
+[    1.213023] socfpga-dwmac ff700000.ethernet: IRQ eth_lpi not found
 
-> ---
->  drivers/iio/trigger/stm32-timer-trigger.c | 63 +++++++++++++++++++++++++++++++
->  1 file changed, 63 insertions(+)
-> 
-> diff --git a/drivers/iio/trigger/stm32-timer-trigger.c b/drivers/iio/trigger/stm32-timer-trigger.c
-> index 32e1249..37545a8 100644
-> --- a/drivers/iio/trigger/stm32-timer-trigger.c
-> +++ b/drivers/iio/trigger/stm32-timer-trigger.c
-> @@ -75,6 +75,15 @@ static const void *stm32h7_valids_table[][MAX_VALIDS] = {
->  	{ }, /* timer 17 */
->  };
->  
-> +struct stm32_timer_trigger_regs {
-> +	u32 cr1;
-> +	u32 cr2;
-> +	u32 psc;
-> +	u32 arr;
-> +	u32 cnt;
-> +	u32 smcr;
-> +};
-> +
->  struct stm32_timer_trigger {
->  	struct device *dev;
->  	struct regmap *regmap;
-> @@ -86,6 +95,7 @@ struct stm32_timer_trigger {
->  	bool has_trgo2;
->  	struct mutex lock; /* concurrent sysfs configuration */
->  	struct list_head tr_list;
-> +	struct stm32_timer_trigger_regs bak;
->  };
->  
->  struct stm32_timer_trigger_cfg {
-> @@ -812,6 +822,58 @@ static int stm32_timer_trigger_remove(struct platform_device *pdev)
->  	return 0;
->  }
->  
-> +static int __maybe_unused stm32_timer_trigger_suspend(struct device *dev)
-> +{
-> +	struct stm32_timer_trigger *priv = dev_get_drvdata(dev);
-> +
-> +	/* Only take care of enabled timer: don't disturb other MFD child */
-> +	if (priv->enabled) {
-> +		/* Backup registers that may get lost in low power mode */
-> +		regmap_read(priv->regmap, TIM_CR1, &priv->bak.cr1);
-> +		regmap_read(priv->regmap, TIM_CR2, &priv->bak.cr2);
-> +		regmap_read(priv->regmap, TIM_PSC, &priv->bak.psc);
-> +		regmap_read(priv->regmap, TIM_ARR, &priv->bak.arr);
-> +		regmap_read(priv->regmap, TIM_CNT, &priv->bak.cnt);
-> +		regmap_read(priv->regmap, TIM_SMCR, &priv->bak.smcr);
-> +
-> +		/* Disable the timer */
-> +		regmap_update_bits(priv->regmap, TIM_CR1, TIM_CR1_CEN, 0);
-> +		clk_disable(priv->clk);
-> +	}
-> +
-> +	return 0;
-> +}
-> +
-> +static int __maybe_unused stm32_timer_trigger_resume(struct device *dev)
-> +{
-> +	struct stm32_timer_trigger *priv = dev_get_drvdata(dev);
-> +	int ret;
-> +
-> +	if (priv->enabled) {
-> +		ret = clk_enable(priv->clk);
-> +		if (ret)
-> +			return ret;
-> +
-> +		/* restore master/slave modes */
-> +		regmap_write(priv->regmap, TIM_SMCR, priv->bak.smcr);
-> +		regmap_write(priv->regmap, TIM_CR2, priv->bak.cr2);
-> +
-> +		/* restore sampling_frequency (trgo / trgo2 triggers) */
-> +		regmap_write(priv->regmap, TIM_PSC, priv->bak.psc);
-> +		regmap_write(priv->regmap, TIM_ARR, priv->bak.arr);
-> +		regmap_write(priv->regmap, TIM_CNT, priv->bak.cnt);
-> +
-> +		/* Also re-enables the timer */
-> +		regmap_write(priv->regmap, TIM_CR1, priv->bak.cr1);
-> +	}
-> +
-> +	return 0;
-> +}
-> +
-> +static SIMPLE_DEV_PM_OPS(stm32_timer_trigger_pm_ops,
-> +			 stm32_timer_trigger_suspend,
-> +			 stm32_timer_trigger_resume);
-> +
->  static const struct stm32_timer_trigger_cfg stm32_timer_trg_cfg = {
->  	.valids_table = valids_table,
->  	.num_valids_table = ARRAY_SIZE(valids_table),
-> @@ -840,6 +902,7 @@ static struct platform_driver stm32_timer_trigger_driver = {
->  	.driver = {
->  		.name = "stm32-timer-trigger",
->  		.of_match_table = stm32_trig_of_match,
-> +		.pm = &stm32_timer_trigger_pm_ops,
->  	},
->  };
->  module_platform_driver(stm32_timer_trigger_driver);
+These interrupts don't matter for my platform and many other stmmac based
+ones, as we can see by grepping for 'macirq'.
+
+socfpga.dtsi:                   interrupt-names = "macirq";
+socfpga.dtsi:                   interrupt-names = "macirq";
+sun7i-a20.dtsi:                 interrupt-names = "macirq";
+spear600.dtsi:                  interrupt-names = "macirq", "eth_wake_irq";
+artpec6.dtsi:                   interrupt-names = "macirq", "eth_lpi";
+rk322x.dtsi:                    interrupt-names = "macirq";
+sun9i-a80.dtsi:                 interrupt-names = "macirq";
+spear1310.dtsi:                 interrupt-names = "macirq";
+spear1310.dtsi:                 interrupt-names = "macirq";
+spear1310.dtsi:                 interrupt-names = "macirq";
+spear1310.dtsi:                 interrupt-names = "macirq";
+stih407-family.dtsi:            interrupt-names = "macirq", "eth_wake_irq";
+stm32f429.dtsi:                 interrupt-names = "macirq";
+sun6i-a31.dtsi:                 interrupt-names = "macirq";
+meson.dtsi:                     interrupt-names = "macirq";
+rk3288.dtsi:                    interrupt-names = "macirq", "eth_wake_irq";
+sun8i-r40.dtsi:                 interrupt-names = "macirq";
+sunxi-h3-h5.dtsi:               interrupt-names = "macirq";
+spear3xx.dtsi:                  interrupt-names = "macirq", "eth_wake_irq";
+lpc18xx.dtsi:                   interrupt-names = "macirq";
+stm32h743.dtsi:                 interrupt-names = "macirq";
+socfpga_arria10.dtsi:           interrupt-names = "macirq";
+socfpga_arria10.dtsi:           interrupt-names = "macirq";
+socfpga_arria10.dtsi:           interrupt-names = "macirq";
+rv1108.dtsi:                    interrupt-names = "macirq", "eth_wake_irq";
+spear13xx.dtsi:                 interrupt-names = "macirq", "eth_wake_irq";
+stm32mp151.dtsi:                interrupt-names = "macirq";
+ox820.dtsi:                     interrupt-names = "macirq", "eth_wake_irq";
+sun8i-a83t.dtsi:                interrupt-names = "macirq";
+
+So, in my opinion, the error messages are missleading. I believe
+the right way to handle this would require more changes though. Some
+kind of configuration information, telling which interrupts are required
+by the platform and than conditionally call platform_get_irq_byname().
+This would print an error message, if something is wrong, on the right
+platforms and nothing at all on the others.
+
+.../net/ethernet/stmicro/stmmac/stmmac_platform.c  | 14 ++++++++++----
+ 1 file changed, 10 insertions(+), 4 deletions(-)
+
+diff --git a/drivers/net/ethernet/stmicro/stmmac/stmmac_platform.c b/drivers/net/ethernet/stmicro/stmmac/stmmac_platform.c
+index d10ac54bf385..13fafd905db8 100644
+--- a/drivers/net/ethernet/stmicro/stmmac/stmmac_platform.c
++++ b/drivers/net/ethernet/stmicro/stmmac/stmmac_platform.c
+@@ -663,16 +663,22 @@ int stmmac_get_platform_resources(struct platform_device *pdev,
+ 	 * In case the wake up interrupt is not passed from the platform
+ 	 * so the driver will continue to use the mac irq (ndev->irq)
+ 	 */
+-	stmmac_res->wol_irq = platform_get_irq_byname(pdev, "eth_wake_irq");
++	stmmac_res->wol_irq =
++		platform_get_irq_byname_optional(pdev, "eth_wake_irq");
+ 	if (stmmac_res->wol_irq < 0) {
+ 		if (stmmac_res->wol_irq == -EPROBE_DEFER)
+ 			return -EPROBE_DEFER;
++		dev_info(&pdev->dev, "IRQ eth_wake_irq not found\n");
+ 		stmmac_res->wol_irq = stmmac_res->irq;
+ 	}
+ 
+-	stmmac_res->lpi_irq = platform_get_irq_byname(pdev, "eth_lpi");
+-	if (stmmac_res->lpi_irq == -EPROBE_DEFER)
+-		return -EPROBE_DEFER;
++	stmmac_res->lpi_irq =
++		platform_get_irq_byname_optional(pdev, "eth_lpi");
++	if (stmmac_res->lpi_irq < 0) {
++		if (stmmac_res->lpi_irq == -EPROBE_DEFER)
++			return -EPROBE_DEFER;
++		dev_info(&pdev->dev, "IRQ eth_lpi not found\n");
++	}
+ 
+ 	res = platform_get_resource(pdev, IORESOURCE_MEM, 0);
+ 	stmmac_res->addr = devm_ioremap_resource(&pdev->dev, res);
+-- 
+2.25.1
 
 _______________________________________________
 Linux-stm32 mailing list
