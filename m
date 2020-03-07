@@ -2,62 +2,54 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id 0B43117C23C
-	for <lists+linux-stm32@lfdr.de>; Fri,  6 Mar 2020 16:55:20 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 87FB417CD38
+	for <lists+linux-stm32@lfdr.de>; Sat,  7 Mar 2020 10:25:46 +0100 (CET)
 Received: from ip-172-31-3-76.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id B8A1FC36B0B;
-	Fri,  6 Mar 2020 15:55:19 +0000 (UTC)
-Received: from mx07-00178001.pphosted.com (mx07-00178001.pphosted.com
- [62.209.51.94])
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 25D8BC36B0B;
+	Sat,  7 Mar 2020 09:25:46 +0000 (UTC)
+Received: from asavdk4.altibox.net (asavdk4.altibox.net [109.247.116.15])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 2A1E7C36B09
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id BBDCAC36B09
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Fri,  6 Mar 2020 15:55:17 +0000 (UTC)
-Received: from pps.filterd (m0046037.ppops.net [127.0.0.1])
- by mx07-00178001.pphosted.com (8.16.0.42/8.16.0.42) with SMTP id
- 026FsGah030759; Fri, 6 Mar 2020 16:54:53 +0100
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=st.com;
- h=from : to : cc : subject
- : date : message-id : mime-version : content-type; s=STMicroelectronics;
- bh=8+YFUYs96OeEzRQg1qbRyqAhuHAgY/sTMrlNmK3AxsI=;
- b=f2tyXami/1p6FmsCHOVees/qhHxaYS4rhcgqOyY7Ozm3RVuTVzafSKpqQMgFisDshQqz
- MmIvYDy6PB//YsqyU3JSLDpCIzEQ4QgZKWnQAUimGG9Vq+EeNP2Edy9DtJ06KcDF/zYL
- ekAbQJi5mqbj1JA3uDWvrVjby5li7mkpRCRmB04T+W+2f1y+nvzP8VVjhVItQVqHOmI4
- wZ05pH9HqAQn26U5GEEtDvhmBgEFwdzEtJ/V+eUubnp6ezufaWcboNOqZDQ568yllIxY
- UjS6sGgXgvsUG3JM9zzMnZ1NMHmMt8ZohwPB5UD+ANFs70vggTaV+YiF+/Czt1cHhTGm PQ== 
-Received: from beta.dmz-eu.st.com (beta.dmz-eu.st.com [164.129.1.35])
- by mx07-00178001.pphosted.com with ESMTP id 2yfem1g9ht-1
- (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
- Fri, 06 Mar 2020 16:54:53 +0100
-Received: from euls16034.sgp.st.com (euls16034.sgp.st.com [10.75.44.20])
- by beta.dmz-eu.st.com (STMicroelectronics) with ESMTP id 7F20810003A;
- Fri,  6 Mar 2020 16:54:45 +0100 (CET)
-Received: from Webmail-eu.st.com (sfhdag6node2.st.com [10.75.127.17])
- by euls16034.sgp.st.com (STMicroelectronics) with ESMTP id 4C9522BE23F;
- Fri,  6 Mar 2020 16:54:45 +0100 (CET)
-Received: from localhost (10.75.127.45) by SFHDAG6NODE2.st.com (10.75.127.17)
- with Microsoft SMTP Server (TLS) id 15.0.1347.2;
- Fri, 6 Mar 2020 16:54:44 +0100
-From: Olivier Moysan <olivier.moysan@st.com>
-To: <jic23@kernel.org>, <knaack.h@gmx.de>, <lars@metafoo.de>,
- <pmeerw@pmeerw.net>, <alexandre.torgue@st.com>,
- <fabrice.gasnier@st.com>, <benjamin.gaignard@st.com>,
- <olivier.moysan@st.com>
-Date: Fri, 6 Mar 2020 16:53:35 +0100
-Message-ID: <20200306155335.6019-1-olivier.moysan@st.com>
-X-Mailer: git-send-email 2.17.1
+ Sat,  7 Mar 2020 09:25:43 +0000 (UTC)
+Received: from ravnborg.org (unknown [158.248.194.18])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+ (No client certificate requested)
+ by asavdk4.altibox.net (Postfix) with ESMTPS id 9AF258050C;
+ Sat,  7 Mar 2020 10:25:40 +0100 (CET)
+Date: Sat, 7 Mar 2020 10:25:39 +0100
+From: Sam Ravnborg <sam@ravnborg.org>
+To: Daniel Vetter <daniel.vetter@ffwll.ch>
+Message-ID: <20200307092539.GG28810@ravnborg.org>
+References: <20200302222631.3861340-1-daniel.vetter@ffwll.ch>
+ <20200302222631.3861340-39-daniel.vetter@ffwll.ch>
 MIME-Version: 1.0
-X-Originating-IP: [10.75.127.45]
-X-ClientProxiedBy: SFHDAG1NODE3.st.com (10.75.127.3) To SFHDAG6NODE2.st.com
- (10.75.127.17)
-X-Proofpoint-Virus-Version: vendor=fsecure engine=2.50.10434:6.0.138, 18.0.572
- definitions=2020-03-06_05:2020-03-06,
- 2020-03-06 signatures=0
-Cc: linux-iio@vger.kernel.org, linux-stm32@st-md-mailman.stormreply.com,
- linux-arm-kernel@lists.infradead.org, linux-kernel@vger.kernel.org
-Subject: [Linux-stm32] [PATCH] iio: adc: stm32-adc: fix sleep in atomic
-	context
+Content-Disposition: inline
+In-Reply-To: <20200302222631.3861340-39-daniel.vetter@ffwll.ch>
+User-Agent: Mutt/1.10.1 (2018-07-13)
+X-CMAE-Score: 0
+X-CMAE-Analysis: v=2.3 cv=XpTUx2N9 c=1 sm=1 tr=0
+ a=UWs3HLbX/2nnQ3s7vZ42gw==:117 a=UWs3HLbX/2nnQ3s7vZ42gw==:17
+ a=jpOVt7BSZ2e4Z31A5e1TngXxSK0=:19 a=kj9zAlcOel0A:10 a=7gkXJVJtAAAA:8
+ a=8b9GpE9nAAAA:8 a=P1BnusSwAAAA:8 a=QyXUC8HyAAAA:8 a=KKAkSRfTAAAA:8
+ a=pGLkceISAAAA:8 a=phlkwaE_AAAA:8 a=JfrnYn6hAAAA:8 a=e5mUnYsNAAAA:8
+ a=2cXivglsN4UzH7uZjNsA:9 a=m2WR8TVE0Z7MX67Z:21 a=-yedZiAf9xy0JtVK:21
+ a=CjuIK1q_8ugA:10 a=E9Po1WZjFZOl8hwRPBS3:22 a=T3LWEMljR5ZiDmsYVIUa:22
+ a=D0XLA9XvdZm18NrgonBM:22 a=cvBusfyB2V15izCimMoJ:22
+ a=uKTQOUHymn4LaG7oTSIC:22 a=1CNFftbPRP8L7MoqJWF3:22
+ a=Vxmtnl_E_bksehYqCbjh:22
+Cc: Thomas Zimmermann <tzimmermann@suse.de>,
+ Intel Graphics Development <intel-gfx@lists.freedesktop.org>,
+ DRI Development <dri-devel@lists.freedesktop.org>,
+ Yannick Fertre <yannick.fertre@st.com>,
+ Laurent Pinchart <laurent.pinchart@ideasonboard.com>,
+ Maxime Coquelin <mcoquelin.stm32@gmail.com>,
+ Daniel Vetter <daniel.vetter@intel.com>,
+ Vincent Abriou <vincent.abriou@st.com>,
+ linux-stm32@st-md-mailman.stormreply.com, linux-arm-kernel@lists.infradead.org
+Subject: Re: [Linux-stm32] [PATCH 38/51] drm/stm: Drop explicit
+	drm_mode_config_cleanup call
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -74,82 +66,90 @@ Content-Transfer-Encoding: 7bit
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
-This commit fixes the following error:
-"BUG: sleeping function called from invalid context at kernel/irq/chip.c"
+On Mon, Mar 02, 2020 at 11:26:18PM +0100, Daniel Vetter wrote:
+> It's right above the drm_dev_put().
+> 
+> This is made possible by a preceeding patch which added a drmm_
+> cleanup action to drm_mode_config_init(), hence all we need to do to
+> ensure that drm_mode_config_cleanup() is run on final drm_device
+> cleanup is check the new error code for _init().
+> 
+> Aside: Another driver with a bit much devm_kzalloc, which should
+> probably use drmm_kzalloc instead ...
+> 
+> v2: Explain why this cleanup is possible (Laurent).
+> 
+> v3: Use drmm_mode_config_init() for more clarity (Sam, Thomas)
+> 
+> Cc: Sam Ravnborg <sam@ravnborg.org>
+> Cc: Thomas Zimmermann <tzimmermann@suse.de>
+> Acked-by: Philippe Cornu <philippe.cornu@st.com>
+> Cc: Laurent Pinchart <laurent.pinchart@ideasonboard.com>
+> Signed-off-by: Daniel Vetter <daniel.vetter@intel.com>
+> Cc: Yannick Fertre <yannick.fertre@st.com>
+> Cc: Philippe Cornu <philippe.cornu@st.com>
+> Cc: Benjamin Gaignard <benjamin.gaignard@linaro.org>
+> Cc: Vincent Abriou <vincent.abriou@st.com>
+> Cc: Maxime Coquelin <mcoquelin.stm32@gmail.com>
+> Cc: Alexandre Torgue <alexandre.torgue@st.com>
+> Cc: linux-stm32@st-md-mailman.stormreply.com
+> Cc: linux-arm-kernel@lists.infradead.org
 
-In DMA mode suppress the trigger irq handler, and make the buffer
-transfers directly in DMA callback, instead.
+Acked-by: Sam Ravnborg <sam@ravnborg.org>
 
-Signed-off-by: Olivier Moysan <olivier.moysan@st.com>
----
-This solution has been already discussed in the thread
-https://lkml.org/lkml/2019/3/30/171, and applied in STM32 DFSDM driver:
-e19ac9d9a978 ("iio: adc: stm32-dfsdm: fix sleep in atomic context")
----
- drivers/iio/adc/stm32-adc.c | 31 ++++++++++++++++++++++++++++---
- 1 file changed, 28 insertions(+), 3 deletions(-)
-
-diff --git a/drivers/iio/adc/stm32-adc.c b/drivers/iio/adc/stm32-adc.c
-index 80c3f963527b..ae622ee6d08c 100644
---- a/drivers/iio/adc/stm32-adc.c
-+++ b/drivers/iio/adc/stm32-adc.c
-@@ -1418,8 +1418,30 @@ static unsigned int stm32_adc_dma_residue(struct stm32_adc *adc)
- static void stm32_adc_dma_buffer_done(void *data)
- {
- 	struct iio_dev *indio_dev = data;
-+	struct stm32_adc *adc = iio_priv(indio_dev);
-+	int residue = stm32_adc_dma_residue(adc);
-+
-+	/*
-+	 * In DMA mode the trigger services of IIO are not used
-+	 * (e.g. no call to iio_trigger_poll).
-+	 * Calling irq handler associated to the hardware trigger is not
-+	 * relevant as the conversions have already been done. Data
-+	 * transfers are performed directly in DMA callback instead.
-+	 * This implementation avoids to call trigger irq handler that
-+	 * may sleep, in an atomic context (DMA irq handler context).
-+	 */
-+	dev_dbg(&indio_dev->dev, "%s bufi=%d\n", __func__, adc->bufi);
- 
--	iio_trigger_poll_chained(indio_dev->trig);
-+	while (residue >= indio_dev->scan_bytes) {
-+		u16 *buffer = (u16 *)&adc->rx_buf[adc->bufi];
-+
-+		iio_push_to_buffers(indio_dev, buffer);
-+
-+		residue -= indio_dev->scan_bytes;
-+		adc->bufi += indio_dev->scan_bytes;
-+		if (adc->bufi >= adc->rx_buf_sz)
-+			adc->bufi = 0;
-+	}
- }
- 
- static int stm32_adc_dma_start(struct iio_dev *indio_dev)
-@@ -1845,6 +1867,7 @@ static int stm32_adc_probe(struct platform_device *pdev)
- {
- 	struct iio_dev *indio_dev;
- 	struct device *dev = &pdev->dev;
-+	irqreturn_t (*handler)(int irq, void *p) = NULL;
- 	struct stm32_adc *adc;
- 	int ret;
- 
-@@ -1911,9 +1934,11 @@ static int stm32_adc_probe(struct platform_device *pdev)
- 	if (ret < 0)
- 		return ret;
- 
-+	if (!adc->dma_chan)
-+		handler = &stm32_adc_trigger_handler;
-+
- 	ret = iio_triggered_buffer_setup(indio_dev,
--					 &iio_pollfunc_store_time,
--					 &stm32_adc_trigger_handler,
-+					 &iio_pollfunc_store_time, handler,
- 					 &stm32_adc_buffer_setup_ops);
- 	if (ret) {
- 		dev_err(&pdev->dev, "buffer setup failed\n");
--- 
-2.17.1
-
+> ---
+>  drivers/gpu/drm/stm/drv.c | 10 ++++------
+>  1 file changed, 4 insertions(+), 6 deletions(-)
+> 
+> diff --git a/drivers/gpu/drm/stm/drv.c b/drivers/gpu/drm/stm/drv.c
+> index ea9fcbdc68b3..0f85dd86cafa 100644
+> --- a/drivers/gpu/drm/stm/drv.c
+> +++ b/drivers/gpu/drm/stm/drv.c
+> @@ -88,7 +88,9 @@ static int drv_load(struct drm_device *ddev)
+>  
+>  	ddev->dev_private = (void *)ldev;
+>  
+> -	drm_mode_config_init(ddev);
+> +	ret = drmm_mode_config_init(ddev);
+> +	if (ret)
+> +		return ret;
+>  
+>  	/*
+>  	 * set max width and height as default value.
+> @@ -103,7 +105,7 @@ static int drv_load(struct drm_device *ddev)
+>  
+>  	ret = ltdc_load(ddev);
+>  	if (ret)
+> -		goto err;
+> +		return ret;
+>  
+>  	drm_mode_config_reset(ddev);
+>  	drm_kms_helper_poll_init(ddev);
+> @@ -111,9 +113,6 @@ static int drv_load(struct drm_device *ddev)
+>  	platform_set_drvdata(pdev, ddev);
+>  
+>  	return 0;
+> -err:
+> -	drm_mode_config_cleanup(ddev);
+> -	return ret;
+>  }
+>  
+>  static void drv_unload(struct drm_device *ddev)
+> @@ -122,7 +121,6 @@ static void drv_unload(struct drm_device *ddev)
+>  
+>  	drm_kms_helper_poll_fini(ddev);
+>  	ltdc_unload(ddev);
+> -	drm_mode_config_cleanup(ddev);
+>  }
+>  
+>  static __maybe_unused int drv_suspend(struct device *dev)
+> -- 
+> 2.24.1
+> 
+> _______________________________________________
+> dri-devel mailing list
+> dri-devel@lists.freedesktop.org
+> https://lists.freedesktop.org/mailman/listinfo/dri-devel
 _______________________________________________
 Linux-stm32 mailing list
 Linux-stm32@st-md-mailman.stormreply.com
