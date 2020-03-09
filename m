@@ -2,57 +2,62 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id DA16817DB08
-	for <lists+linux-stm32@lfdr.de>; Mon,  9 Mar 2020 09:36:48 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 5C78117DCE0
+	for <lists+linux-stm32@lfdr.de>; Mon,  9 Mar 2020 11:03:20 +0100 (CET)
 Received: from ip-172-31-3-76.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 906A5C36B14;
-	Mon,  9 Mar 2020 08:36:48 +0000 (UTC)
-Received: from smtprelay-out1.synopsys.com (smtprelay-out1.synopsys.com
- [149.117.87.133])
- (using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 09870C36B0B;
+	Mon,  9 Mar 2020 10:03:20 +0000 (UTC)
+Received: from mx07-00178001.pphosted.com (mx07-00178001.pphosted.com
+ [62.209.51.94])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 755D9C36B0A
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 3CD93C36B09
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Mon,  9 Mar 2020 08:36:46 +0000 (UTC)
-Received: from mailhost.synopsys.com (mdc-mailhost2.synopsys.com
- [10.225.0.210])
- (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits))
- (No client certificate requested)
- by smtprelay-out1.synopsys.com (Postfix) with ESMTPS id 00487C04C3;
- Mon,  9 Mar 2020 08:36:42 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=synopsys.com; s=mail;
- t=1583743004; bh=RfFOlusCqzdyy1sGpfQlEynYgwr/wJqcPpC2UxpYUl4=;
- h=From:To:Cc:Subject:Date:In-Reply-To:References:In-Reply-To:
- References:From;
- b=ZtUI+c6jDEceCIV5Lx6/biK5DofQHTWVu3kCi+EgZpy0xEPe4Dw81v+rkewDodsOA
- cIpiX9jXbvpGQPDnibnWai1/fK0xskS8oESYbuXBNabB9H0XgFzg5HISwX6ZbPULmK
- wkhoJB398P4kK7dwYass5YCXx/L5KGUBGRaKIQIw1EWixuru+vGwFIO/nfNcko5+2D
- NffRtDrPLM+8PUseuHYAlgVjFl7yFwld7xOglOvco5kvX1jfItO8sg6gn/hfioalcB
- zMggg/mwH/JP6rK4eNN3ziXgB9ljhNYN4u179pAYmpduZBE9QOm2yFqmgcn6IAd+9W
- 8a4AIXyQ/LJ5Q==
-Received: from de02dwia024.internal.synopsys.com
- (de02dwia024.internal.synopsys.com [10.225.19.81])
- by mailhost.synopsys.com (Postfix) with ESMTP id 92E41A007D;
- Mon,  9 Mar 2020 08:36:41 +0000 (UTC)
-From: Jose Abreu <Jose.Abreu@synopsys.com>
-To: netdev@vger.kernel.org
-Date: Mon,  9 Mar 2020 09:36:27 +0100
-Message-Id: <2eea422325b16b91c9183a178bab74c45204e228.1583742616.git.Jose.Abreu@synopsys.com>
-X-Mailer: git-send-email 2.7.4
-In-Reply-To: <cover.1583742615.git.Jose.Abreu@synopsys.com>
-References: <cover.1583742615.git.Jose.Abreu@synopsys.com>
-In-Reply-To: <cover.1583742615.git.Jose.Abreu@synopsys.com>
-References: <cover.1583742615.git.Jose.Abreu@synopsys.com>
-Cc: Jose Abreu <Jose.Abreu@synopsys.com>, Andrew Lunn <andrew@lunn.ch>,
- Joao Pinto <Joao.Pinto@synopsys.com>, linux-kernel@vger.kernel.org,
- Russell King <linux@armlinux.org.uk>, linux-stm32@st-md-mailman.stormreply.com,
- Florian Fainelli <f.fainelli@gmail.com>,
- Maxime Coquelin <mcoquelin.stm32@gmail.com>, Jakub Kicinski <kuba@kernel.org>,
- Giuseppe Cavallaro <peppe.cavallaro@st.com>,
- "David S. Miller" <davem@davemloft.net>, linux-arm-kernel@lists.infradead.org,
- Heiner Kallweit <hkallweit1@gmail.com>
-Subject: [Linux-stm32] [PATCH net-next 8/8] net: stmmac: Integrate it with
-	DesignWare XPCS
+ Mon,  9 Mar 2020 10:03:18 +0000 (UTC)
+Received: from pps.filterd (m0046037.ppops.net [127.0.0.1])
+ by mx07-00178001.pphosted.com (8.16.0.42/8.16.0.42) with SMTP id
+ 029A2fit029340; Mon, 9 Mar 2020 11:02:53 +0100
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=st.com;
+ h=from : to : cc : subject
+ : date : message-id : mime-version : content-type; s=STMicroelectronics;
+ bh=EEpTmJLKqEHuccfl2GlQ14M0nlV3ck8Nzcse6ro+Vy0=;
+ b=DozwLS7K8kjaoo53KukoT1Z+NXxCmbP7h3EUHK7cGIQZrZXjKmG+JsYRiDtBupGmmVFH
+ vhxxpC7Ivt0Fo+dg+5NcWdK1VGixf6WupJXPGrCB+pFWpbxVcraRToID8QB3Bnic0bME
+ Z0hV84ISLOxIFJv33Oa3bNQVirotzVg5Hs5mjQAg1yRc0XsxDyvBAoQAFueJVV5RqhBa
+ rRfLUEJezI83Ku6w0tRJGxJaB6FONysIPAmNI7aDl5gnUOQ4sljXC666unlI53lxPOUS
+ oR8pvNXS1kBXVWW7eE2/ue/nn96RT86i7eq+xc8lv9/krJ4jBk82tJDd5vV8PT/aynXG /g== 
+Received: from beta.dmz-eu.st.com (beta.dmz-eu.st.com [164.129.1.35])
+ by mx07-00178001.pphosted.com with ESMTP id 2ym292391k-1
+ (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
+ Mon, 09 Mar 2020 11:02:53 +0100
+Received: from euls16034.sgp.st.com (euls16034.sgp.st.com [10.75.44.20])
+ by beta.dmz-eu.st.com (STMicroelectronics) with ESMTP id 68A0E100038;
+ Mon,  9 Mar 2020 11:02:48 +0100 (CET)
+Received: from Webmail-eu.st.com (sfhdag6node2.st.com [10.75.127.17])
+ by euls16034.sgp.st.com (STMicroelectronics) with ESMTP id 2D6082A9719;
+ Mon,  9 Mar 2020 11:02:48 +0100 (CET)
+Received: from localhost (10.75.127.44) by SFHDAG6NODE2.st.com (10.75.127.17)
+ with Microsoft SMTP Server (TLS) id 15.0.1347.2;
+ Mon, 9 Mar 2020 11:02:47 +0100
+From: Olivier Moysan <olivier.moysan@st.com>
+To: <jic23@kernel.org>, <knaack.h@gmx.de>, <lars@metafoo.de>,
+ <pmeerw@pmeerw.net>, <alexandre.torgue@st.com>,
+ <fabrice.gasnier@st.com>, <benjamin.gaignard@st.com>,
+ <olivier.moysan@st.com>
+Date: Mon, 9 Mar 2020 11:02:12 +0100
+Message-ID: <20200309100212.16499-1-olivier.moysan@st.com>
+X-Mailer: git-send-email 2.17.1
+MIME-Version: 1.0
+X-Originating-IP: [10.75.127.44]
+X-ClientProxiedBy: SFHDAG5NODE3.st.com (10.75.127.15) To SFHDAG6NODE2.st.com
+ (10.75.127.17)
+X-Proofpoint-Virus-Version: vendor=fsecure engine=2.50.10434:6.0.138, 18.0.572
+ definitions=2020-03-09_02:2020-03-08,
+ 2020-03-09 signatures=0
+Cc: linux-iio@vger.kernel.org, linux-stm32@st-md-mailman.stormreply.com,
+ linux-arm-kernel@lists.infradead.org, linux-kernel@vger.kernel.org
+Subject: [Linux-stm32] [PATCH v2] iio: adc: stm32-adc: fix sleep in atomic
+	context
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -64,215 +69,91 @@ List-Post: <mailto:linux-stm32@st-md-mailman.stormreply.com>
 List-Help: <mailto:linux-stm32-request@st-md-mailman.stormreply.com?subject=help>
 List-Subscribe: <https://st-md-mailman.stormreply.com/mailman/listinfo/linux-stm32>, 
  <mailto:linux-stm32-request@st-md-mailman.stormreply.com?subject=subscribe>
-MIME-Version: 1.0
 Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
-Adds all the necessary logic so that stmmac can be used with Synopsys
-DesignWare XPCS.
+This commit fixes the following error:
+"BUG: sleeping function called from invalid context at kernel/irq/chip.c"
 
-Signed-off-by: Jose Abreu <Jose.Abreu@synopsys.com>
+In DMA mode suppress the trigger irq handler, and make the buffer
+transfers directly in DMA callback, instead.
 
+Fixes: 2763ea0585c9 ("iio: adc: stm32: add optional dma support")
+
+Signed-off-by: Olivier Moysan <olivier.moysan@st.com>
 ---
-Cc: Giuseppe Cavallaro <peppe.cavallaro@st.com>
-Cc: Alexandre Torgue <alexandre.torgue@st.com>
-Cc: Jose Abreu <joabreu@synopsys.com>
-Cc: "David S. Miller" <davem@davemloft.net>
-Cc: Jakub Kicinski <kuba@kernel.org>
-Cc: Maxime Coquelin <mcoquelin.stm32@gmail.com>
-Cc: Russell King <linux@armlinux.org.uk>
-Cc: Andrew Lunn <andrew@lunn.ch>
-Cc: Florian Fainelli <f.fainelli@gmail.com>
-Cc: Heiner Kallweit <hkallweit1@gmail.com>
-Cc: netdev@vger.kernel.org
-Cc: linux-stm32@st-md-mailman.stormreply.com
-Cc: linux-arm-kernel@lists.infradead.org
-Cc: linux-kernel@vger.kernel.org
----
- drivers/net/ethernet/stmicro/stmmac/Kconfig       |  1 +
- drivers/net/ethernet/stmicro/stmmac/common.h      |  3 +++
- drivers/net/ethernet/stmicro/stmmac/hwif.h        | 12 ++++++++++
- drivers/net/ethernet/stmicro/stmmac/stmmac_main.c | 16 ++++++++++++--
- drivers/net/ethernet/stmicro/stmmac/stmmac_mdio.c | 27 +++++++++++++++++++++++
- include/linux/stmmac.h                            |  1 +
- 6 files changed, 58 insertions(+), 2 deletions(-)
+Changes in v2:
+- Add "Fixes" tag in commit message
 
-diff --git a/drivers/net/ethernet/stmicro/stmmac/Kconfig b/drivers/net/ethernet/stmicro/stmmac/Kconfig
-index 338e25a6374e..9ad927f646e8 100644
---- a/drivers/net/ethernet/stmicro/stmmac/Kconfig
-+++ b/drivers/net/ethernet/stmicro/stmmac/Kconfig
-@@ -3,6 +3,7 @@ config STMMAC_ETH
- 	tristate "STMicroelectronics Multi-Gigabit Ethernet driver"
- 	depends on HAS_IOMEM && HAS_DMA
- 	select MII
-+	select MDIO_XPCS
- 	select PAGE_POOL
- 	select PHYLINK
- 	select CRC32
-diff --git a/drivers/net/ethernet/stmicro/stmmac/common.h b/drivers/net/ethernet/stmicro/stmmac/common.h
-index 487099092693..9bdbf589d93f 100644
---- a/drivers/net/ethernet/stmicro/stmmac/common.h
-+++ b/drivers/net/ethernet/stmicro/stmmac/common.h
-@@ -15,6 +15,7 @@
- #include <linux/netdevice.h>
- #include <linux/stmmac.h>
- #include <linux/phy.h>
-+#include <linux/mdio-xpcs.h>
- #include <linux/module.h>
- #if IS_ENABLED(CONFIG_VLAN_8021Q)
- #define STMMAC_VLAN_TAG_USED
-@@ -446,6 +447,8 @@ struct mac_device_info {
- 	const struct stmmac_hwtimestamp *ptp;
- 	const struct stmmac_tc_ops *tc;
- 	const struct stmmac_mmc_ops *mmc;
-+	const struct mdio_xpcs_ops *xpcs;
-+	struct mdio_xpcs_args xpcs_args;
- 	struct mii_regs mii;	/* MII register Addresses */
- 	struct mac_link link;
- 	void __iomem *pcsr;     /* vpointer to device CSRs */
-diff --git a/drivers/net/ethernet/stmicro/stmmac/hwif.h b/drivers/net/ethernet/stmicro/stmmac/hwif.h
-index df63b0367aff..c71dd99c8abf 100644
---- a/drivers/net/ethernet/stmicro/stmmac/hwif.h
-+++ b/drivers/net/ethernet/stmicro/stmmac/hwif.h
-@@ -577,6 +577,18 @@ struct stmmac_mmc_ops {
- #define stmmac_mmc_read(__priv, __args...) \
- 	stmmac_do_void_callback(__priv, mmc, read, __args)
- 
-+/* XPCS callbacks */
-+#define stmmac_xpcs_validate(__priv, __args...) \
-+	stmmac_do_callback(__priv, xpcs, validate, __args)
-+#define stmmac_xpcs_config(__priv, __args...) \
-+	stmmac_do_callback(__priv, xpcs, config, __args)
-+#define stmmac_xpcs_get_state(__priv, __args...) \
-+	stmmac_do_callback(__priv, xpcs, get_state, __args)
-+#define stmmac_xpcs_link_up(__priv, __args...) \
-+	stmmac_do_callback(__priv, xpcs, link_up, __args)
-+#define stmmac_xpcs_probe(__priv, __args...) \
-+	stmmac_do_callback(__priv, xpcs, probe, __args)
-+
- struct stmmac_regs_off {
- 	u32 ptp_off;
- 	u32 mmc_off;
-diff --git a/drivers/net/ethernet/stmicro/stmmac/stmmac_main.c b/drivers/net/ethernet/stmicro/stmmac/stmmac_main.c
-index 3a190cf250e6..f26699d9a050 100644
---- a/drivers/net/ethernet/stmicro/stmmac/stmmac_main.c
-+++ b/drivers/net/ethernet/stmicro/stmmac/stmmac_main.c
-@@ -863,18 +863,26 @@ static void stmmac_validate(struct phylink_config *config,
- 
- 	linkmode_and(state->advertising, state->advertising, mac_supported);
- 	linkmode_andnot(state->advertising, state->advertising, mask);
-+
-+	/* If PCS is supported, check which modes it supports. */
-+	stmmac_xpcs_validate(priv, &priv->hw->xpcs_args, supported, state);
- }
- 
- static void stmmac_mac_pcs_get_state(struct phylink_config *config,
- 				     struct phylink_link_state *state)
+This solution has been already discussed in the thread
+https://lkml.org/lkml/2019/3/30/171, and applied in STM32 DFSDM driver:
+e19ac9d9a978 ("iio: adc: stm32-dfsdm: fix sleep in atomic context")
+---
+ drivers/iio/adc/stm32-adc.c | 31 ++++++++++++++++++++++++++++---
+ 1 file changed, 28 insertions(+), 3 deletions(-)
+
+diff --git a/drivers/iio/adc/stm32-adc.c b/drivers/iio/adc/stm32-adc.c
+index 80c3f963527b..ae622ee6d08c 100644
+--- a/drivers/iio/adc/stm32-adc.c
++++ b/drivers/iio/adc/stm32-adc.c
+@@ -1418,8 +1418,30 @@ static unsigned int stm32_adc_dma_residue(struct stm32_adc *adc)
+ static void stm32_adc_dma_buffer_done(void *data)
  {
-+	struct stmmac_priv *priv = netdev_priv(to_net_dev(config->dev));
+ 	struct iio_dev *indio_dev = data;
++	struct stm32_adc *adc = iio_priv(indio_dev);
++	int residue = stm32_adc_dma_residue(adc);
 +
- 	state->link = 0;
-+	stmmac_xpcs_get_state(priv, &priv->hw->xpcs_args, state);
++	/*
++	 * In DMA mode the trigger services of IIO are not used
++	 * (e.g. no call to iio_trigger_poll).
++	 * Calling irq handler associated to the hardware trigger is not
++	 * relevant as the conversions have already been done. Data
++	 * transfers are performed directly in DMA callback instead.
++	 * This implementation avoids to call trigger irq handler that
++	 * may sleep, in an atomic context (DMA irq handler context).
++	 */
++	dev_dbg(&indio_dev->dev, "%s bufi=%d\n", __func__, adc->bufi);
+ 
+-	iio_trigger_poll_chained(indio_dev->trig);
++	while (residue >= indio_dev->scan_bytes) {
++		u16 *buffer = (u16 *)&adc->rx_buf[adc->bufi];
++
++		iio_push_to_buffers(indio_dev, buffer);
++
++		residue -= indio_dev->scan_bytes;
++		adc->bufi += indio_dev->scan_bytes;
++		if (adc->bufi >= adc->rx_buf_sz)
++			adc->bufi = 0;
++	}
  }
  
- static void stmmac_mac_config(struct phylink_config *config, unsigned int mode,
- 			      const struct phylink_link_state *state)
+ static int stm32_adc_dma_start(struct iio_dev *indio_dev)
+@@ -1845,6 +1867,7 @@ static int stm32_adc_probe(struct platform_device *pdev)
  {
--	/* Nothing for now. */
-+	struct stmmac_priv *priv = netdev_priv(to_net_dev(config->dev));
-+
-+	stmmac_xpcs_config(priv, &priv->hw->xpcs_args, state);
- }
- 
- static void stmmac_mac_an_restart(struct phylink_config *config)
-@@ -902,6 +910,8 @@ static void stmmac_mac_link_up(struct phylink_config *config,
- 	struct stmmac_priv *priv = netdev_priv(to_net_dev(config->dev));
- 	u32 ctrl;
- 
-+	stmmac_xpcs_link_up(priv, &priv->hw->xpcs_args, speed, interface);
-+
- 	ctrl = readl(priv->ioaddr + MAC_CTRL_REG);
- 	ctrl &= ~priv->hw->link.speed_mask;
- 
-@@ -1042,6 +1052,7 @@ static int stmmac_phy_setup(struct stmmac_priv *priv)
- 
- 	priv->phylink_config.dev = &priv->dev->dev;
- 	priv->phylink_config.type = PHYLINK_NETDEV;
-+	priv->phylink_config.pcs_poll = true;
- 
- 	if (!fwnode)
- 		fwnode = dev_fwnode(priv->device);
-@@ -2689,7 +2700,8 @@ static int stmmac_open(struct net_device *dev)
+ 	struct iio_dev *indio_dev;
+ 	struct device *dev = &pdev->dev;
++	irqreturn_t (*handler)(int irq, void *p) = NULL;
+ 	struct stm32_adc *adc;
  	int ret;
  
- 	if (priv->hw->pcs != STMMAC_PCS_TBI &&
--	    priv->hw->pcs != STMMAC_PCS_RTBI) {
-+	    priv->hw->pcs != STMMAC_PCS_RTBI &&
-+	    priv->hw->xpcs == NULL) {
- 		ret = stmmac_init_phy(dev);
- 		if (ret) {
- 			netdev_err(priv->dev,
-diff --git a/drivers/net/ethernet/stmicro/stmmac/stmmac_mdio.c b/drivers/net/ethernet/stmicro/stmmac/stmmac_mdio.c
-index cfe5d8b73142..b2a707e2ef43 100644
---- a/drivers/net/ethernet/stmicro/stmmac/stmmac_mdio.c
-+++ b/drivers/net/ethernet/stmicro/stmmac/stmmac_mdio.c
-@@ -382,6 +382,14 @@ int stmmac_mdio_register(struct net_device *ndev)
- 		max_addr = PHY_MAX_ADDR;
- 	}
+@@ -1911,9 +1934,11 @@ static int stm32_adc_probe(struct platform_device *pdev)
+ 	if (ret < 0)
+ 		return ret;
  
-+	if (mdio_bus_data->has_xpcs) {
-+		priv->hw->xpcs = mdio_xpcs_get_ops();
-+		if (!priv->hw->xpcs) {
-+			err = -ENODEV;
-+			goto bus_register_fail;
-+		}
-+	}
++	if (!adc->dma_chan)
++		handler = &stm32_adc_trigger_handler;
 +
- 	if (mdio_bus_data->needs_reset)
- 		new_bus->reset = &stmmac_mdio_reset;
- 
-@@ -433,6 +441,25 @@ int stmmac_mdio_register(struct net_device *ndev)
- 		found = 1;
- 	}
- 
-+	/* Try to probe the XPCS by scanning all addresses. */
-+	if (priv->hw->xpcs) {
-+		struct mdio_xpcs_args *xpcs = &priv->hw->xpcs_args;
-+		int ret, mode = priv->plat->phy_interface;
-+		max_addr = PHY_MAX_ADDR;
-+
-+		xpcs->bus = new_bus;
-+
-+		for (addr = 0; addr < max_addr; addr++) {
-+			xpcs->addr = addr;
-+
-+			ret = stmmac_xpcs_probe(priv, xpcs, mode);
-+			if (!ret) {
-+				found = 1;
-+				break;
-+			}
-+		}
-+	}
-+
- 	if (!found && !mdio_node) {
- 		dev_warn(dev, "No PHY found\n");
- 		mdiobus_unregister(new_bus);
-diff --git a/include/linux/stmmac.h b/include/linux/stmmac.h
-index 19190c609282..fbafb353e9be 100644
---- a/include/linux/stmmac.h
-+++ b/include/linux/stmmac.h
-@@ -80,6 +80,7 @@
- 
- struct stmmac_mdio_bus_data {
- 	unsigned int phy_mask;
-+	unsigned int has_xpcs;
- 	int *irqs;
- 	int probed_phy_irq;
- 	bool needs_reset;
+ 	ret = iio_triggered_buffer_setup(indio_dev,
+-					 &iio_pollfunc_store_time,
+-					 &stm32_adc_trigger_handler,
++					 &iio_pollfunc_store_time, handler,
+ 					 &stm32_adc_buffer_setup_ops);
+ 	if (ret) {
+ 		dev_err(&pdev->dev, "buffer setup failed\n");
 -- 
-2.7.4
+2.17.1
 
 _______________________________________________
 Linux-stm32 mailing list
