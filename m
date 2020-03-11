@@ -2,114 +2,82 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id 282BA181291
-	for <lists+linux-stm32@lfdr.de>; Wed, 11 Mar 2020 09:05:17 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 720C7181C75
+	for <lists+linux-stm32@lfdr.de>; Wed, 11 Mar 2020 16:37:58 +0100 (CET)
 Received: from ip-172-31-3-76.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id DA18CC36B12;
-	Wed, 11 Mar 2020 08:05:16 +0000 (UTC)
-Received: from EUR05-VI1-obe.outbound.protection.outlook.com
- (mail-vi1eur05on2073.outbound.protection.outlook.com [40.107.21.73])
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 27119C36B0E;
+	Wed, 11 Mar 2020 15:37:58 +0000 (UTC)
+Received: from mx07-00178001.pphosted.com (mx08-00178001.pphosted.com
+ [91.207.212.93])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 8F9B3C36B0C
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 6C6B0C36B0C
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Wed, 11 Mar 2020 05:53:55 +0000 (UTC)
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=aLqG8exrZXxbauFrGf3ljltSuyt2RzpcTr7+g1dhc3ieTjTLKdKyLgqvHxmhBEvbAhsT1dxJQKPcIFqps4aKASrfhQqNw5ADifgiyyZYn4I87ZFz4Pp+lEogfYCb2Mmd6tVtC2Q95VtpzJdpDrja7vO10XQ7UGBBMU3Rbyp0JPd8+cx9WTM+DnQY3Tr5ZucdHsGHONwx1dj/zjRfAGlWZ6iiO7gj2teZQt1UAK1CuMP7mcX760QHO+XGjznkofi+lbvlddEAQB6FR7b8ig9Zu6/06wnjm1Mz7/o7Xr6MfmjTiCEfVZYoo3Ti5aMBubHMuZ4EOjaScD40hP4k/LHq5Q==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
- s=arcselector9901;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=87rttV+1yuEH2RahdK7TcjO1im8BnWFwYQfyBBFsx+0=;
- b=jWQmtd63OXavTKgdLeFOGMimav1WFx2+2e+b5UbOBHCJmyDzLYX/SRiduT4LdwlrSS6b/8sNx+gHLlOAONTwl6OtLkE1RDaxx914gKeZsjD1i1qo9cpQhGsmGWgGPcdwA4qfT0T70vdhaFOSeJJvzliGwl1aQRtl66XCIB9BaIeZkg9rMd0zRCv9q+iA7oxnAZ9iNX4CpHmlnxQKxSe9evAb3cuuKfJSjkITO1uG2XLBmvg6DSd9xzacDMIZqY7VnbroHqIVHOJacfxKIDUrsBPyPm1R9GGiSAwBWjPG0nLxzcWYkKewGKWhCagM7odU97QtY1PVbEZEpc6vZGr/iA==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=oss.nxp.com; dmarc=pass action=none header.from=oss.nxp.com;
- dkim=pass header.d=oss.nxp.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=NXP1.onmicrosoft.com; 
- s=selector2-NXP1-onmicrosoft-com;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=87rttV+1yuEH2RahdK7TcjO1im8BnWFwYQfyBBFsx+0=;
- b=h5NCiVzsguVrBiOKf6QqVXNDKQ21L1WiI9wlr34sO3DLz1IdY+Oi+W3r/ZBvm/EzHcaZq15zENbOvObgkDmnLXNA+KjHjB1oS/poRp8p1X4cYfbUEkJNIywbr7h4qV/YoWDmK8zce+pAMYhB/iUPanpdJ1jnPbbcFFMwAQGPrgo=
-Authentication-Results: spf=none (sender IP is )
- smtp.mailfrom=calvin.johnson@oss.nxp.com; 
-Received: from DB8PR04MB5643.eurprd04.prod.outlook.com (20.179.10.153) by
- DB8PR04MB5802.eurprd04.prod.outlook.com (20.179.9.11) with Microsoft SMTP
- Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.20.2793.17; Wed, 11 Mar 2020 05:53:53 +0000
-Received: from DB8PR04MB5643.eurprd04.prod.outlook.com
- ([fe80::e1be:98ef:d81c:1eef]) by DB8PR04MB5643.eurprd04.prod.outlook.com
- ([fe80::e1be:98ef:d81c:1eef%2]) with mapi id 15.20.2793.013; Wed, 11 Mar 2020
- 05:53:53 +0000
-Date: Wed, 11 Mar 2020 11:23:39 +0530
-From: Calvin Johnson <calvin.johnson@oss.nxp.com>
-To: dan.carpenter@oracle.com
-Message-ID: <20200311055339.GA22511@lsv03152.swis.in-blr01.nxp.com>
-References: <20200131045953.wbj66jkvijnmf5s2@kili.mountain>
- <202002031247.fhmzF9z1%lkp@intel.com>
-Content-Disposition: inline
-In-Reply-To: <202002031247.fhmzF9z1%lkp@intel.com>
-User-Agent: Mutt/1.9.4 (2018-02-28)
-X-ClientProxiedBy: SG2PR02CA0079.apcprd02.prod.outlook.com
- (2603:1096:4:90::19) To DB8PR04MB5643.eurprd04.prod.outlook.com
- (2603:10a6:10:aa::25)
-MIME-Version: 1.0
-X-MS-Exchange-MessageSentRepresentingType: 1
-Received: from lsv03152.swis.in-blr01.nxp.com (14.142.151.118) by
- SG2PR02CA0079.apcprd02.prod.outlook.com (2603:1096:4:90::19) with Microsoft
- SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.20.2793.15 via Frontend Transport; Wed, 11 Mar 2020 05:53:47 +0000
-X-Originating-IP: [14.142.151.118]
-X-MS-PublicTrafficType: Email
-X-MS-Office365-Filtering-HT: Tenant
-X-MS-Office365-Filtering-Correlation-Id: e5b4970f-1d53-4c77-6f34-08d7c580943e
-X-MS-TrafficTypeDiagnostic: DB8PR04MB5802:
-X-MS-Exchange-SharedMailbox-RoutingAgent-Processed: True
-X-Microsoft-Antispam-PRVS: <DB8PR04MB58022965533541FB586A6464D2FC0@DB8PR04MB5802.eurprd04.prod.outlook.com>
-X-MS-Oob-TLC-OOBClassifiers: OLM:9508;
-X-Forefront-PRVS: 0339F89554
-X-Forefront-Antispam-Report: SFV:NSPM;
- SFS:(10009020)(4636009)(39860400002)(136003)(346002)(396003)(376002)(366004)(199004)(956004)(8676002)(1006002)(4326008)(966005)(44832011)(9686003)(7696005)(6666004)(52116002)(6506007)(55236004)(478600001)(55016002)(8936002)(81156014)(6916009)(81166006)(66556008)(66946007)(66476007)(16526019)(186003)(316002)(54906003)(1076003)(7416002)(86362001)(33656002)(5660300002)(2906002)(26005)(110426005);
- DIR:OUT; SFP:1101; SCL:1; SRVR:DB8PR04MB5802;
- H:DB8PR04MB5643.eurprd04.prod.outlook.com; FPR:; SPF:None; LANG:en;
- PTR:InfoNoRecords; A:0; 
-Received-SPF: None (protection.outlook.com: oss.nxp.com does not designate
- permitted sender hosts)
-X-MS-Exchange-SenderADCheck: 1
-X-Microsoft-Antispam: BCL:0;
-X-Microsoft-Antispam-Message-Info: 6IOVktekxdlG08PF3bCr3OjxPwh24/AOps4wXQ0ktCUtSFXHFK+MDHbd5j/IAR4OWrShfAvh4zYiH3wusoEHzAkFPkTthYH0IT9iB2sn0I0FXsGBgHznFrrVN0Sbfn2oQUVpwZXsT2oqhwXrYbumrck6BK4R97GbVa6A8uX/XMFoOJPemNiuRnvR+uGg3xYmoU1uSXYaFO0noIZGAqUPxS7ZD2pZqa/tQSzne01a6JCUmHNLq9F2/u/kQh/O4t2yBif/FVQSxtkAzLlhY+ZDK5yuWT7gw1UJcOhZNhEejRjdQ6TAj+nipf/ONym2jFO/SvFvNbsKx7w3mUjnIaDrWs2H0h1goxtCQuoz9GD5gcQGg2dWSnAWHWZwkCXCIn9GHjbMQWWzzg1IzYlldf9D/5tk9tJHFUwKx7jNRgTQgDea4hsrUigrPaYAlvBQ2AH5cPOaY2YRHKfh4YYlvaLuUcmUq99JKwvsCcV4WpW7dNIsM9cQ1gp9TCrtejSBsmx+t7Y9iAotr0zHZRA2YYFkV+jqCu+8vdDc/W8H1JTzwOjMaErahMKBOFXFBAadwb17
-X-MS-Exchange-AntiSpam-MessageData: ojdF8xquXkdcER073Fu8K0vbCkFu52sl/NnolF/pR6nNLJBmqR4/gAQ45xeH7r5FnLVR6GE9nmF84kcMY+pa5Yc0axoBf08eVjGjovLegqW+t+yhQJHjojK0T/NKcvuXSDr+cQYAru9XNm4QScKLiw==
-X-OriginatorOrg: oss.nxp.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: e5b4970f-1d53-4c77-6f34-08d7c580943e
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 11 Mar 2020 05:53:53.5866 (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: 686ea1d3-bc2b-4c6f-a92c-d99c5c301635
-X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: 8jxq6DdOProjWeYYcPbQUkttCu/lqTfTgp8Db0+MfqNWmdNsUp5AHoPkll5dZ2JoRIBbvsaOWkzIc6TZHaYG5w==
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: DB8PR04MB5802
-X-Mailman-Approved-At: Wed, 11 Mar 2020 08:05:14 +0000
-Cc: Heikki Krogerus <heikki.krogerus@linux.intel.com>,
- Ajay Gupta <ajayg@nvidia.com>, "Rafael J. Wysocki" <rafael@kernel.org>,
- "kernel-janitors@vger.kernel.org" <kernel-janitors@vger.kernel.org>,
- Iyappan Subramanian <iyappan@os.amperecomputing.com>,
- Quan Nguyen <quan@os.amperecomputing.com>,
- Dmitry Torokhov <dmitry.torokhov@gmail.com>,
+ Wed, 11 Mar 2020 15:37:55 +0000 (UTC)
+Received: from pps.filterd (m0046660.ppops.net [127.0.0.1])
+ by mx07-00178001.pphosted.com (8.16.0.42/8.16.0.42) with SMTP id
+ 02BFSPxx026781; Wed, 11 Mar 2020 16:37:05 +0100
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=st.com;
+ h=from : to : subject :
+ date : message-id : references : in-reply-to : content-type : content-id :
+ content-transfer-encoding : mime-version; s=STMicroelectronics;
+ bh=u63TEdJ10J2us4hSAuYiOHvOIMguRMztS88+drjyDZw=;
+ b=HjGJVrAW31p7gwahbFPcZxSlROIX/swYnqb52tJgFeutkdeArCT5ZYgmjy/2sFfGt1ek
+ DpapKTeYa9pi+gDpXKA2KbJvXErQh6rUgdaiW3M1X3TXpA7HjuUCzD2zsnOAXz1s6LRY
+ jENYvFKNYjA3OGTkkG9+11n2fMI67fG8ahuNh9YMlzuhqkDkFD3jD34XbitHG6Jw4wPA
+ sZs55nMDeUqViHtIYCQKEahtQPbUc6Yx3sBu3nkE7wIdvQW2UUCmoc5uml+C7EzGOOLf
+ uMIhwKGpQmS8juckdm0HhAJ1JVO4rQ1+tj22dm0UzX2SNxtcJNLWD52bboXM6ZINT+WC gg== 
+Received: from beta.dmz-eu.st.com (beta.dmz-eu.st.com [164.129.1.35])
+ by mx07-00178001.pphosted.com with ESMTP id 2ym1mh3ufu-1
+ (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
+ Wed, 11 Mar 2020 16:37:05 +0100
+Received: from euls16034.sgp.st.com (euls16034.sgp.st.com [10.75.44.20])
+ by beta.dmz-eu.st.com (STMicroelectronics) with ESMTP id C8AF6100034;
+ Wed, 11 Mar 2020 16:37:01 +0100 (CET)
+Received: from Webmail-eu.st.com (sfhdag3node3.st.com [10.75.127.9])
+ by euls16034.sgp.st.com (STMicroelectronics) with ESMTP id 8897A2BE238;
+ Wed, 11 Mar 2020 16:37:01 +0100 (CET)
+Received: from SFHDAG6NODE2.st.com (10.75.127.17) by SFHDAG3NODE3.st.com
+ (10.75.127.9) with Microsoft SMTP Server (TLS) id 15.0.1347.2; Wed, 11 Mar
+ 2020 16:37:01 +0100
+Received: from SFHDAG6NODE2.st.com ([fe80::a56f:c186:bab7:13d6]) by
+ SFHDAG6NODE2.st.com ([fe80::a56f:c186:bab7:13d6%20]) with mapi id
+ 15.00.1347.000; Wed, 11 Mar 2020 16:37:01 +0100
+From: Olivier MOYSAN <olivier.moysan@st.com>
+To: "lgirdwood@gmail.com" <lgirdwood@gmail.com>, "broonie@kernel.org"
+ <broonie@kernel.org>, "perex@perex.cz" <perex@perex.cz>, "tiwai@suse.com"
+ <tiwai@suse.com>, "mcoquelin.stm32@gmail.com" <mcoquelin.stm32@gmail.com>,
+ Alexandre TORGUE <alexandre.torgue@st.com>, "alsa-devel@alsa-project.org"
+ <alsa-devel@alsa-project.org>, "robh@kernel.org" <robh@kernel.org>,
+ "mark.rutland@arm.com" <mark.rutland@arm.com>, "devicetree@vger.kernel.org"
+ <devicetree@vger.kernel.org>, "linux-arm-kernel@lists.infradead.org"
+ <linux-arm-kernel@lists.infradead.org>,
  "linux-stm32@st-md-mailman.stormreply.com"
- <linux-stm32@st-md-mailman.stormreply.com>, Jose Abreu <joabreu@synopsys.com>,
- Dan Carpenter <dan.carpenter@oracle.com>,
- Steve Glendinning <steve.glendinning@shawell.net>,
- Keyur Chudgar <keyur@os.amperecomputing.com>,
- Jassi Brar <jaswinder.singh@linaro.org>,
- Giuseppe Cavallaro <peppe.cavallaro@st.com>,
- Andy Shevchenko <andriy.shevchenko@linux.intel.com>,
- Maxime Coquelin <mcoquelin.stm32@gmail.com>,
- "kbuild-all@lists.01.org" <kbuild-all@lists.01.org>,
- Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
- Ilias Apalodimas <ilias.apalodimas@linaro.org>,
- "linux-kernel@vger.kernel.org" <linux-kernel@vger.kernel.org>,
- Sakari Ailus <sakari.ailus@linux.intel.com>,
- "netdev@vger.kernel.org" <netdev@vger.kernel.org>,
- "David S. Miller" <davem@davemloft.net>
-Subject: Re: [Linux-stm32] [PATCH net] device property: change
- device_get_phy_mode() to prevent signedess bugs
+ <linux-stm32@st-md-mailman.stormreply.com>, "linux-kernel@vger.kernel.org"
+ <linux-kernel@vger.kernel.org>
+Thread-Topic: [PATCH v3] ASoC: dt-bindings: stm32: convert spdfirx to
+ json-schema
+Thread-Index: AQHVzVgef9G3dBVxwE2KXAseUjc6eKhDylsA
+Date: Wed, 11 Mar 2020 15:37:01 +0000
+Message-ID: <d792a2b8-3b59-f04e-c24d-06185d60c734@st.com>
+References: <20200117170352.16040-1-olivier.moysan@st.com>
+In-Reply-To: <20200117170352.16040-1-olivier.moysan@st.com>
+Accept-Language: en-US
+Content-Language: en-US
+X-MS-Has-Attach: 
+X-MS-TNEF-Correlator: 
+user-agent: Mozilla/5.0 (X11; Linux x86_64; rv:68.0) Gecko/20100101
+ Thunderbird/68.4.1
+x-ms-exchange-messagesentrepresentingtype: 1
+x-ms-exchange-transport-fromentityheader: Hosted
+x-originating-ip: [10.75.127.44]
+Content-ID: <DE5E72739C615C4AACA966C364D359B6@st.com>
+MIME-Version: 1.0
+X-Proofpoint-Virus-Version: vendor=fsecure engine=2.50.10434:6.0.138, 18.0.572
+ definitions=2020-03-11_05:2020-03-11,
+ 2020-03-11 signatures=0
+Subject: Re: [Linux-stm32] [PATCH v3] ASoC: dt-bindings: stm32: convert
+ spdfirx to json-schema
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -126,67 +94,177 @@ Content-Transfer-Encoding: 7bit
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
-Hi Dan,
-
-Do you plan to send v2 of this patch set?
-https://lkml.org/lkml/2020/1/31/1
-I'm preparing my patch set on top of this. Hence the query.
-
+Hi,
+Kind reminder for this patch.
 Thanks
-Calvin
+Olivier
 
-On Mon, Feb 03, 2020 at 05:11:49AM +0000, kbuild test robot wrote:
-> Hi Dan,
-> 
-> Thank you for the patch! Perhaps something to improve:
-> 
-> [auto build test WARNING on net/master]
-> [also build test WARNING on driver-core/driver-core-testing linus/master v5.5 next-20200131]
-> [cannot apply to sparc-next/master]
-> [if your patch is applied to the wrong git tree, please drop us a note to help
-> improve the system. BTW, we also suggest to use '--base' option to specify the
-> base tree in git format-patch, please see https://stackoverflow.com/a/37406982]
-> 
-> url:    https://github.com/0day-ci/linux/commits/Dan-Carpenter/device-property-change-device_get_phy_mode-to-prevent-signedess-bugs/20200203-043126
-> base:   https://git.kernel.org/pub/scm/linux/kernel/git/davem/net.git b7c3a17c6062701d97a0959890a2c882bfaac537
-> reproduce:
->         # apt-get install sparse
->         # sparse version: v0.6.1-154-g1dc00f87-dirty
->         make ARCH=x86_64 allmodconfig
->         make C=1 CF='-fdiagnostic-prefix -D__CHECK_ENDIAN__'
-> 
-> If you fix the issue, kindly add following tag
-> Reported-by: kbuild test robot <lkp@intel.com>
-> 
-> 
-> sparse warnings: (new ones prefixed by >>)
-> 
->    arch/x86/boot/compressed/cmdline.c:5:20: sparse: sparse: multiple definitions for function 'set_fs'
-> >> arch/x86/include/asm/uaccess.h:29:20: sparse:  the previous one is here
->    arch/x86/boot/compressed/../cmdline.c:28:5: sparse: sparse: symbol '__cmdline_find_option' was not declared. Should it be static?
->    arch/x86/boot/compressed/../cmdline.c:100:5: sparse: sparse: symbol '__cmdline_find_option_bool' was not declared. Should it be static?
-> 
-> vim +29 arch/x86/include/asm/uaccess.h
-> 
-> ca23386216b9d4 include/asm-x86/uaccess.h      Glauber Costa   2008-06-13  27  
-> 13d4ea097d18b4 arch/x86/include/asm/uaccess.h Andy Lutomirski 2016-07-14  28  #define get_fs()	(current->thread.addr_limit)
-> 5ea0727b163cb5 arch/x86/include/asm/uaccess.h Thomas Garnier  2017-06-14 @29  static inline void set_fs(mm_segment_t fs)
-> 5ea0727b163cb5 arch/x86/include/asm/uaccess.h Thomas Garnier  2017-06-14  30  {
-> 5ea0727b163cb5 arch/x86/include/asm/uaccess.h Thomas Garnier  2017-06-14  31  	current->thread.addr_limit = fs;
-> 5ea0727b163cb5 arch/x86/include/asm/uaccess.h Thomas Garnier  2017-06-14  32  	/* On user-mode return, check fs is correct */
-> 5ea0727b163cb5 arch/x86/include/asm/uaccess.h Thomas Garnier  2017-06-14  33  	set_thread_flag(TIF_FSCHECK);
-> 5ea0727b163cb5 arch/x86/include/asm/uaccess.h Thomas Garnier  2017-06-14  34  }
-> ca23386216b9d4 include/asm-x86/uaccess.h      Glauber Costa   2008-06-13  35  
-> 
-> :::::: The code at line 29 was first introduced by commit
-> :::::: 5ea0727b163cb5575e36397a12eade68a1f35f24 x86/syscalls: Check address limit on user-mode return
-> 
-> :::::: TO: Thomas Garnier <thgarnie@google.com>
-> :::::: CC: Thomas Gleixner <tglx@linutronix.de>
-> 
+On 1/17/20 6:03 PM, Olivier Moysan wrote:
+> Convert the STM32 SPDIFRX bindings to DT schema format using json-schema.
+>
+> Signed-off-by: Olivier Moysan <olivier.moysan@st.com>
 > ---
-> 0-DAY kernel test infrastructure                 Open Source Technology Center
-> https://lists.01.org/hyperkitty/list/kbuild-all@lists.01.org Intel Corporation
+> Changes in v2:
+> - Add "additionalProperties: false"
+> - Also change minItems to 2 for dmas property, as both DMAs are required.
+>
+> Changes in v3:
+> - Drop minItems/maxItems for dmas property, remove ref to stm32-dma.txt.
+> ---
+>   .../bindings/sound/st,stm32-spdifrx.txt       | 56 -------------
+>   .../bindings/sound/st,stm32-spdifrx.yaml      | 80 +++++++++++++++++++
+>   2 files changed, 80 insertions(+), 56 deletions(-)
+>   delete mode 100644 Documentation/devicetree/bindings/sound/st,stm32-spdifrx.txt
+>   create mode 100644 Documentation/devicetree/bindings/sound/st,stm32-spdifrx.yaml
+>
+> diff --git a/Documentation/devicetree/bindings/sound/st,stm32-spdifrx.txt b/Documentation/devicetree/bindings/sound/st,stm32-spdifrx.txt
+> deleted file mode 100644
+> index 33826f2459fa..000000000000
+> --- a/Documentation/devicetree/bindings/sound/st,stm32-spdifrx.txt
+> +++ /dev/null
+> @@ -1,56 +0,0 @@
+> -STMicroelectronics STM32 S/PDIF receiver (SPDIFRX).
+> -
+> -The SPDIFRX peripheral, is designed to receive an S/PDIF flow compliant with
+> -IEC-60958 and IEC-61937.
+> -
+> -Required properties:
+> -  - compatible: should be "st,stm32h7-spdifrx"
+> -  - reg: cpu DAI IP base address and size
+> -  - clocks: must contain an entry for kclk (used as S/PDIF signal reference)
+> -  - clock-names: must contain "kclk"
+> -  - interrupts: cpu DAI interrupt line
+> -  - dmas: DMA specifiers for audio data DMA and iec control flow DMA
+> -    See STM32 DMA bindings, Documentation/devicetree/bindings/dma/stm32-dma.txt
+> -  - dma-names: two dmas have to be defined, "rx" and "rx-ctrl"
+> -
+> -Optional properties:
+> -  - resets: Reference to a reset controller asserting the SPDIFRX
+> -
+> -The device node should contain one 'port' child node with one child 'endpoint'
+> -node, according to the bindings defined in Documentation/devicetree/bindings/
+> -graph.txt.
+> -
+> -Example:
+> -spdifrx: spdifrx@40004000 {
+> -	compatible = "st,stm32h7-spdifrx";
+> -	reg = <0x40004000 0x400>;
+> -	clocks = <&rcc SPDIFRX_CK>;
+> -	clock-names = "kclk";
+> -	interrupts = <97>;
+> -	dmas = <&dmamux1 2 93 0x400 0x0>,
+> -	       <&dmamux1 3 94 0x400 0x0>;
+> -	dma-names = "rx", "rx-ctrl";
+> -	pinctrl-0 = <&spdifrx_pins>;
+> -	pinctrl-names = "default";
+> -
+> -	spdifrx_port: port {
+> -		cpu_endpoint: endpoint {
+> -			remote-endpoint = <&codec_endpoint>;
+> -		};
+> -	};
+> -};
+> -
+> -spdif_in: spdif-in {
+> -	compatible = "linux,spdif-dir";
+> -
+> -	codec_port: port {
+> -		codec_endpoint: endpoint {
+> -			remote-endpoint = <&cpu_endpoint>;
+> -		};
+> -	};
+> -};
+> -
+> -soundcard {
+> -	compatible = "audio-graph-card";
+> -	dais = <&spdifrx_port>;
+> -};
+> diff --git a/Documentation/devicetree/bindings/sound/st,stm32-spdifrx.yaml b/Documentation/devicetree/bindings/sound/st,stm32-spdifrx.yaml
+> new file mode 100644
+> index 000000000000..b7f7dc452231
+> --- /dev/null
+> +++ b/Documentation/devicetree/bindings/sound/st,stm32-spdifrx.yaml
+> @@ -0,0 +1,80 @@
+> +# SPDX-License-Identifier: (GPL-2.0-only OR BSD-2-Clause)
+> +%YAML 1.2
+> +---
+> +$id: http://devicetree.org/schemas/sound/st,stm32-spdifrx.yaml#
+> +$schema: http://devicetree.org/meta-schemas/core.yaml#
+> +
+> +title: STMicroelectronics STM32 S/PDIF receiver (SPDIFRX)
+> +
+> +maintainers:
+> +  - Olivier Moysan <olivier.moysan@st.com>
+> +
+> +description: |
+> +  The SPDIFRX peripheral, is designed to receive an S/PDIF flow compliant with
+> +  IEC-60958 and IEC-61937.
+> +
+> +properties:
+> +  compatible:
+> +    enum:
+> +      - st,stm32h7-spdifrx
+> +
+> +  "#sound-dai-cells":
+> +    const: 0
+> +
+> +  reg:
+> +    maxItems: 1
+> +
+> +  clocks:
+> +    maxItems: 1
+> +
+> +  clock-names:
+> +    items:
+> +      - const: kclk
+> +
+> +  interrupts:
+> +    maxItems: 1
+> +
+> +  dmas:
+> +    items:
+> +      - description: audio data capture DMA
+> +      - description: IEC status bits capture DMA
+> +
+> +  dma-names:
+> +    items:
+> +      - const: rx
+> +      - const: rx-ctrl
+> +
+> +  resets:
+> +    maxItems: 1
+> +
+> +required:
+> +  - compatible
+> +  - "#sound-dai-cells"
+> +  - reg
+> +  - clocks
+> +  - clock-names
+> +  - interrupts
+> +  - dmas
+> +  - dma-names
+> +
+> +additionalProperties: false
+> +
+> +examples:
+> +  - |
+> +    #include <dt-bindings/interrupt-controller/arm-gic.h>
+> +    #include <dt-bindings/clock/stm32mp1-clks.h>
+> +    spdifrx: spdifrx@40004000 {
+> +        compatible = "st,stm32h7-spdifrx";
+> +        #sound-dai-cells = <0>;
+> +        reg = <0x40004000 0x400>;
+> +        clocks = <&rcc SPDIF_K>;
+> +        clock-names = "kclk";
+> +        interrupts = <GIC_SPI 97 IRQ_TYPE_LEVEL_HIGH>;
+> +        dmas = <&dmamux1 2 93 0x400 0x0>,
+> +               <&dmamux1 3 94 0x400 0x0>;
+> +        dma-names = "rx", "rx-ctrl";
+> +        pinctrl-0 = <&spdifrx_pins>;
+> +        pinctrl-names = "default";
+> +    };
+> +
+> +...
 _______________________________________________
 Linux-stm32 mailing list
 Linux-stm32@st-md-mailman.stormreply.com
