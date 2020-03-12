@@ -2,58 +2,62 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id 6BD26183643
-	for <lists+linux-stm32@lfdr.de>; Thu, 12 Mar 2020 17:37:41 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 6E9B41839C7
+	for <lists+linux-stm32@lfdr.de>; Thu, 12 Mar 2020 20:48:16 +0100 (CET)
 Received: from ip-172-31-3-76.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 0F855C36B0E;
-	Thu, 12 Mar 2020 16:37:41 +0000 (UTC)
-Received: from mail-wm1-f66.google.com (mail-wm1-f66.google.com
- [209.85.128.66])
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 15645C36B0E;
+	Thu, 12 Mar 2020 19:48:16 +0000 (UTC)
+Received: from mail-wm1-f68.google.com (mail-wm1-f68.google.com
+ [209.85.128.68])
  (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 93CC1C36B0C
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 64FF0C36B0C
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Thu, 12 Mar 2020 16:37:38 +0000 (UTC)
-Received: by mail-wm1-f66.google.com with SMTP id g62so7102880wme.1
+ Thu, 12 Mar 2020 19:48:14 +0000 (UTC)
+Received: by mail-wm1-f68.google.com with SMTP id m3so7760021wmi.0
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Thu, 12 Mar 2020 09:37:38 -0700 (PDT)
+ Thu, 12 Mar 2020 12:48:14 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20161025;
- h=mime-version:references:in-reply-to:from:date:message-id:subject:to
- :cc; bh=KLvR3Pv/VwwdNVMVEz53VHzZpwW5bYvxWCFzM4Vnud4=;
- b=CzukxYm//beRotTxT2Qf+ERZzXI1VAI7lJNakQoHciY8x9FJXbvEdagxVxd72auQHD
- L/CVnNVF/F+15+hV+B5JiAc2sJHtwVDSHuj3QqDU+F0hVyNyVMvMcfA/YJUP1LmIr1PU
- usV2f1cx6hiPfVfeHBAMOM+cCR2A+Qr3TE0wM7PGejfxLm9umejsmE4kSK53w7TzBVNO
- y/3ZhQjL1Svvb13zHh2Vksf/Sjj1CXg9zxX34hpnJU2wrAEOMfd+za6Xzz2q3OIr+xts
- Mz8JSJRhjHi6EjqxYIoEo/YsJRQsrn5zIyPn4XRQS49dyqULZw22d1QGB/u4bghsMK2P
- 1vQw==
+ h=date:from:to:cc:subject:message-id:references:mime-version
+ :content-disposition:in-reply-to;
+ bh=My5hy+eOd+BUGnLYjJSbZOd3nYUzutH2HG2GVn4YySU=;
+ b=AiSzVoHTgqpa1qac7d9U8arGecyjIGMg3cTXGJ8wlp5G007Eidw4MQ8r10C+dZx7vU
+ waJujvvQ3bbzCUvTunqQ7YHn/yXmeCwHKzYquSTivGPIZU/5BVFq27lEdMg2Pim1oIEL
+ 0v8QKp1y6Q4deCwbn9he07U2CRFUHo0ve8poxzPjPbf1ZeF3OgfahrX3tA3YGkXDHK6c
+ r6uBPe53trUhQ+DJ13jQPSNIDUR1xKpxwFdp1ZC9/KV6BYeBRzjR+NSl4WMioL2GWSRE
+ dXj/AegDov5wW/VZJVPPUanYQpO8FlPyHs1wpfKcESCue6oA+/q7NhgeDZCvtkI7VUTw
+ /E9g==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=1e100.net; s=20161025;
- h=x-gm-message-state:mime-version:references:in-reply-to:from:date
- :message-id:subject:to:cc;
- bh=KLvR3Pv/VwwdNVMVEz53VHzZpwW5bYvxWCFzM4Vnud4=;
- b=kGziwHP+ykcUHvaAbDsBZcXDXQareay/D03mWTUhcn6lyUQ5Fot6jsSNBpNDDBTAA5
- xEYD6nbJL1LwZSpbG6HWVRs6uqahrMIfX2Ue0AxE7dbBghNavRBV3x9zq8rxS3uwLQ4T
- vqtDECylnsa+Gndk0Usga+nWI4hDzNJsRMUDZnYYSQSLCKMk2PKMsfvnLcHy2sm/tGde
- ++xQI7NnjijYoAZAsKSX6Hg9PUBFfmkfZRKcawg5ZUgpAFFKwtVmlDMgRyew5A9qyNQa
- IFhjithQDfcf8LPjpzyikIRJvenutA8hZnHF+Q3+RGQtEi4m2fDdhRBHokQJtV3WJuTq
- zi6Q==
-X-Gm-Message-State: ANhLgQ35Xf456Er8/y75tQjDreLASGa2a51aGOe3vgsjzMWdwUrk+Mex
- A6vFWbjBXY/9X6x3rIWWbTH/YmGmTN0DLpGK+v0=
-X-Google-Smtp-Source: ADFU+vujZJQfx4KphaFkawHaVUhWqSnD+Jc07o1eQPnzLq4j7h7Sllg9lla+v7QtoWS4saFzOjAPrMn40v+CV+K24U8=
-X-Received: by 2002:a05:600c:204:: with SMTP id
- 4mr5394271wmi.112.1584031057921; 
- Thu, 12 Mar 2020 09:37:37 -0700 (PDT)
-MIME-Version: 1.0
+ h=x-gm-message-state:date:from:to:cc:subject:message-id:references
+ :mime-version:content-disposition:in-reply-to;
+ bh=My5hy+eOd+BUGnLYjJSbZOd3nYUzutH2HG2GVn4YySU=;
+ b=BnR1idhjwxbl1TIJct/AgGcP4lf1Z4eA0Kn1hH0lJglre/jpSio/fE4lo8Nrp+Wo4w
+ ETAq9L9ID0FtRLyn9GBreIfgPsCTxFtirE44dvHBxkpUM+z7L5cD4O4YrAaTKr3FB/mi
+ o2oGnj1TueYNllVqSqUNeARYn5xmNi9arjF0CuItzzK32PN5+xpOKkvvmt2bGOS01u3X
+ BlC1PjTLjC1YNmT8WAbQ7hSJKg/t4pRFAjvy54CsDnTWu76XmdaBDYf//cRc3CbmMH6K
+ P6mezVK2HW8+klzTrqVA0W9YOuLnAY2qu+4w/b7a+mlZ36Q8JKpa9X0Skc0xCfkMDkkH
+ glTQ==
+X-Gm-Message-State: ANhLgQ2a4L12ingudqBgEH9A/gIToaU/vTQr0HwKi5hlocRw6ayyyCGb
+ IJxhgJFVD0nSAMCefiUMTmY=
+X-Google-Smtp-Source: ADFU+vseCaW0oo7VMWsRQmbcHcBu9RZW4zq46TUY4mhg/yDNTUBrocjwJC+h98nGd0cnHrPixEVGnA==
+X-Received: by 2002:a1c:ac8a:: with SMTP id v132mr6092078wme.64.1584042493588; 
+ Thu, 12 Mar 2020 12:48:13 -0700 (PDT)
+Received: from DEFRL0001.localdomain ([2a02:810d:1b40:644:cfdf:73ac:91bd:6a1d])
+ by smtp.gmail.com with ESMTPSA id z6sm7271122wrp.95.2020.03.12.12.48.12
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Thu, 12 Mar 2020 12:48:12 -0700 (PDT)
+Date: Thu, 12 Mar 2020 20:46:25 +0100
+From: Markus Fuchs <mklntf@gmail.com>
+To: David Miller <davem@davemloft.net>
+Message-ID: <20200312194625.GA6684@DEFRL0001.localdomain>
 References: <20200306163848.5910-1-mklntf@gmail.com>
  <20200311.230402.1496009558967017193.davem@davemloft.net>
+MIME-Version: 1.0
+Content-Disposition: inline
 In-Reply-To: <20200311.230402.1496009558967017193.davem@davemloft.net>
-From: Markus Fuchs <mklntf@gmail.com>
-Date: Thu, 12 Mar 2020 17:37:26 +0100
-Message-ID: <CADv+quf+7Uh+-soXrN7kLnkre3dL6JACwRimN_KsuQ=01C84zw@mail.gmail.com>
-To: David Miller <davem@davemloft.net>
-Cc: netdev@vger.kernel.org, linux-kernel@vger.kernel.org,
- Jose Abreu <joabreu@synopsys.com>, Maxime Coquelin <mcoquelin.stm32@gmail.com>,
- Giuseppe Cavallaro <peppe.cavallaro@st.com>,
+Cc: netdev@vger.kernel.org, linux-kernel@vger.kernel.org, joabreu@synopsys.com,
+ mcoquelin.stm32@gmail.com, peppe.cavallaro@st.com,
  linux-stm32@st-md-mailman.stormreply.com, linux-arm-kernel@lists.infradead.org
 Subject: Re: [Linux-stm32] [PATCH] net: stmmac: platform: Fix misleading
 	interrupt error msg
@@ -73,81 +77,33 @@ Content-Transfer-Encoding: 7bit
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
-On Thu, 12 Mar 2020 at 07:04, David Miller <davem@davemloft.net> wrote:
->
+On Wed, Mar 11, 2020 at 11:04:02PM -0700, David Miller wrote:
 > From: Markus Fuchs <mklntf@gmail.com>
 > Date: Fri,  6 Mar 2020 17:38:48 +0100
->
+> 
 > > Not every stmmac based platform makes use of the eth_wake_irq or eth_lpi
 > > interrupts. Use the platform_get_irq_byname_optional variant for these
 > > interrupts, so no error message is displayed, if they can't be found.
 > > Rather print an information to hint something might be wrong to assist
 > > debugging on platforms which use these interrupts.
-> >
+> > 
 > > Signed-off-by: Markus Fuchs <mklntf@gmail.com>
->
+> 
 > What do you mean the error message is misleading right now?
->
+> 
 > It isn't printing anything out at the moment in this situation.
 
-Hello,
+Commit 7723f4c5ecdb driver core: platform: Add an error message to 
+    platform_get_irq*()
 
-the error messages are
-[    1.206363] socfpga-dwmac ff700000.ethernet: IRQ eth_wake_irq not found
-[    1.213023] socfpga-dwmac ff700000.ethernet: IRQ eth_lpi not found
+The above commit added a generic dev_err() output to the platform_get_irq_byname
+function.
 
-I tried to explain this in my original post between the --- lines of the patch.
-Maybe this was wrong, so I repost it.
-
-
-On my cyclone V socfpga platform I get error messages after updating to
-Linux Kernel 5.4.24
-
-Starting kernel ...
-
-Deasserting all peripheral resets
-[    1.206363] socfpga-dwmac ff700000.ethernet: IRQ eth_wake_irq not found
-[    1.213023] socfpga-dwmac ff700000.ethernet: IRQ eth_lpi not found
-
-These interrupts don't matter for my platform and many other stmmac based
-ones, as we can see by grepping for 'macirq'.
-
-socfpga.dtsi:                   interrupt-names = "macirq";
-socfpga.dtsi:                   interrupt-names = "macirq";
-sun7i-a20.dtsi:                 interrupt-names = "macirq";
-spear600.dtsi:                  interrupt-names = "macirq", "eth_wake_irq";
-artpec6.dtsi:                   interrupt-names = "macirq", "eth_lpi";
-rk322x.dtsi:                    interrupt-names = "macirq";
-sun9i-a80.dtsi:                 interrupt-names = "macirq";
-spear1310.dtsi:                 interrupt-names = "macirq";
-spear1310.dtsi:                 interrupt-names = "macirq";
-spear1310.dtsi:                 interrupt-names = "macirq";
-spear1310.dtsi:                 interrupt-names = "macirq";
-stih407-family.dtsi:            interrupt-names = "macirq", "eth_wake_irq";
-stm32f429.dtsi:                 interrupt-names = "macirq";
-sun6i-a31.dtsi:                 interrupt-names = "macirq";
-meson.dtsi:                     interrupt-names = "macirq";
-rk3288.dtsi:                    interrupt-names = "macirq", "eth_wake_irq";
-sun8i-r40.dtsi:                 interrupt-names = "macirq";
-sunxi-h3-h5.dtsi:               interrupt-names = "macirq";
-spear3xx.dtsi:                  interrupt-names = "macirq", "eth_wake_irq";
-lpc18xx.dtsi:                   interrupt-names = "macirq";
-stm32h743.dtsi:                 interrupt-names = "macirq";
-socfpga_arria10.dtsi:           interrupt-names = "macirq";
-socfpga_arria10.dtsi:           interrupt-names = "macirq";
-socfpga_arria10.dtsi:           interrupt-names = "macirq";
-rv1108.dtsi:                    interrupt-names = "macirq", "eth_wake_irq";
-spear13xx.dtsi:                 interrupt-names = "macirq", "eth_wake_irq";
-stm32mp151.dtsi:                interrupt-names = "macirq";
-ox820.dtsi:                     interrupt-names = "macirq", "eth_wake_irq";
-sun8i-a83t.dtsi:                interrupt-names = "macirq";
-
-So, in my opinion, the error messages are missleading. I believe
-the right way to handle this would require more changes though. Some
-kind of configuration information, telling which interrupts are required
-by the platform and than conditionally call platform_get_irq_byname().
-This would print an error message, if something is wrong, on the right
-platforms and nothing at all on the others.
+My patch uses the platform_get_irq_byname_optional function, which
+doesn't print anything and adds the original dev_err output as dev_info output 
+to the driver.
+Otherwise there would be no output at all even for platforms in need of these 
+irqs.
 _______________________________________________
 Linux-stm32 mailing list
 Linux-stm32@st-md-mailman.stormreply.com
