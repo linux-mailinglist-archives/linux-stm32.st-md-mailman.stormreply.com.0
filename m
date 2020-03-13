@@ -2,60 +2,61 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id D539D185002
-	for <lists+linux-stm32@lfdr.de>; Fri, 13 Mar 2020 21:17:59 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id E3A0118500E
+	for <lists+linux-stm32@lfdr.de>; Fri, 13 Mar 2020 21:18:05 +0100 (CET)
 Received: from ip-172-31-3-76.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 93B87C36B0E;
-	Fri, 13 Mar 2020 20:17:59 +0000 (UTC)
-Received: from mail-lj1-f194.google.com (mail-lj1-f194.google.com
- [209.85.208.194])
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id AE84BC36B0F;
+	Fri, 13 Mar 2020 20:18:05 +0000 (UTC)
+Received: from mail-lf1-f68.google.com (mail-lf1-f68.google.com
+ [209.85.167.68])
  (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 1E499C36B0C
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 56D1FC36B0F
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Fri, 13 Mar 2020 20:17:57 +0000 (UTC)
-Received: by mail-lj1-f194.google.com with SMTP id s13so11974280ljm.1
+ Fri, 13 Mar 2020 20:18:01 +0000 (UTC)
+Received: by mail-lf1-f68.google.com with SMTP id j17so8896163lfe.7
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Fri, 13 Mar 2020 13:17:57 -0700 (PDT)
+ Fri, 13 Mar 2020 13:18:01 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20161025;
- h=sender:from:to:cc:subject:date:message-id:mime-version
- :content-transfer-encoding;
- bh=Y58XOkdziIOagbDJXaKPopb+GQlU9fbifw4eoZN3YIE=;
- b=a14X4w4dS2yd7C/5VPno7i/nBzVNU5gbbv+Tld50flDKi1V2uj3T8h6/bqF56ixDIQ
- epKRKteT7A80miLVVtDJi3lvb36JcaGYtUskmmoOqNaKJ1NhtEhyu2O2EAotEBWp0vT9
- 9WxVBWDQZ3NOOOAnPnqFuwOoluVvfMrLSDkuPaw9WDbIK4blcU2ifQesuPyClX4FAKEs
- 20CzvQQtSPOunxFWzyZAUq7Nt6KJj/ysnwxZsxhMBttkKp2bVYBC7zh8lFkV6nWVsRnn
- cvQoH0PplvOPvD0k55tWiSo15BFZN0+ND6QYMNzWUr48SkzrTsb7gci8hvbjgK5znBXe
- sG+g==
+ h=sender:from:to:cc:subject:date:message-id:in-reply-to:references
+ :mime-version:content-transfer-encoding;
+ bh=BMotWAaAKwK3bHlZU4Nk/m5RAzk+ipGY0zwtvW/8Zts=;
+ b=bicRCsTBUB8tfIHsGH2fiIPISDECvEwg2qpOocZbR6Q5Hu5nLZnxheMlNJjdFMj1vA
+ FetnDYppdslEVeBKEPmwr8WrMhD61IJGWaIa/oOknKOO7ZOiVDeCrZAEt1rRlIeATOeQ
+ lQUeg31d/qtLTQvZKVS8oVOgByqbjXAdbpVHUhMzaGLlHiCZgZxTu02M3BybD/yPSiCs
+ ahnW70Fy4ZRggNSbvuqsYgGHX+zKz6Rf+am9rpyti9ywgjGu7/JU9lBZnBOAC291pAUi
+ D4CS36tpf80ypwbFsaPf5LjIFxXf+7TRNNu+TyrfZhI56yAJSSBqb1LXqZR/fYFBO+Fx
+ VZjQ==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=1e100.net; s=20161025;
  h=x-gm-message-state:sender:from:to:cc:subject:date:message-id
- :mime-version:content-transfer-encoding;
- bh=Y58XOkdziIOagbDJXaKPopb+GQlU9fbifw4eoZN3YIE=;
- b=QH9cY1zeNF71DhbOzcnu3bVKmCn085767tZc+DWScK6p/Hz39GZMnmIoVIGIRYaS5H
- c0tWFOEsDjjZx/cr3XyiuGfTc1czrO60/cAwxMbY4C3YFgk1E48a9AA6M3YSH2qeicTm
- ee2jUzb/w0/dZiIfI72rW5lehnvAv/FZErXiGo3NG42dkCOrpBWsLiyADF+VpGS1gGcH
- P05zXyMmL3xtzA19oqVqRdQfjr86u5Ni4gzG5eviOBlYlETJgtuUrUyHI32lWlwCvh0q
- nt+3PAjz9geT1R3zsr3RYh+Elva/dnSiLuJXZk1fMcfLsyretP02oDZbaSggThNiwT9/
- r/gA==
-X-Gm-Message-State: ANhLgQ2HWZTP+sXkFkC1rN+Mp4f4ZbP3DY7RnbTM2gyZN7MaVbKP0ZaQ
- qP6lQt43CR28vKPCDXXzITc=
-X-Google-Smtp-Source: ADFU+vuuP8eLGHs61Pn00F6kfLCzZYEGZpi+HoTitf53XYXkeT4pF7N73LFSnuUIomov7m47p3b2kA==
-X-Received: by 2002:a05:651c:1047:: with SMTP id
- x7mr6683206ljm.246.1584130676487; 
- Fri, 13 Mar 2020 13:17:56 -0700 (PDT)
+ :in-reply-to:references:mime-version:content-transfer-encoding;
+ bh=BMotWAaAKwK3bHlZU4Nk/m5RAzk+ipGY0zwtvW/8Zts=;
+ b=XTb9LQaYlZOiqixPwt0M38SXfhAkiEKCjOeqNFCndqSNoxnhYvoRuMSgRd/KkSYhCt
+ XOVjFw2ER7Ns9KTmJ0owH5gZFrfl5xh/ijwzfd6NqiaVS5BqwjlYd8uugC/5x/sQGF0e
+ mcyjVI0puuIiaHnm6FKpMtuM5Fv2zn+K0JGbjBAvX6+vmUqIeF7BRPtOIUx9kG/TBV0Q
+ sSWHrWWxwo7IlD+BeD6orpYEgPPNW1+HkFdi4+Puo/QZgum1MR0qwJqxTKHJrZ0yVT6/
+ wj0nywu/preynjgh2T72hUJtQe+CoJ3WGGPBNfLCIL5W3kVODHvUYP5FoCs53wHalcDf
+ T3WA==
+X-Gm-Message-State: ANhLgQ31HyVTwTxLxTKpX/5oXHOYdLcemwtpDa+YuidmZrtvQBNJUbjZ
+ MV1drlQQCVZBoUDHNydSRms=
+X-Google-Smtp-Source: ADFU+vs08U2ulmgppOicKEegEgw20vyZjY26u9u2fNJnhJY6xWGz9lseT5UGyNTnkxc+BLfBZ40pHA==
+X-Received: by 2002:ac2:4145:: with SMTP id c5mr9320676lfi.19.1584130680533;
+ Fri, 13 Mar 2020 13:18:00 -0700 (PDT)
 Received: from saturn.lan (18.158-248-194.customer.lyse.net. [158.248.194.18])
  by smtp.gmail.com with ESMTPSA id
- v10sm30774074lfb.61.2020.03.13.13.17.54
+ v10sm30774074lfb.61.2020.03.13.13.17.58
  (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Fri, 13 Mar 2020 13:17:55 -0700 (PDT)
+ Fri, 13 Mar 2020 13:18:00 -0700 (PDT)
 From: Sam Ravnborg <sam@ravnborg.org>
 To: Thomas Zimmermann <tzimmermann@suse.de>, Daniel Vetter <daniel@ffwll.ch>,
  Laurent Pinchart <laurent.pinchart@ideasonboard.com>,
  dri-devel@lists.freedesktop.org
-Date: Fri, 13 Mar 2020 21:17:41 +0100
-Message-Id: <20200313201744.19773-1-sam@ravnborg.org>
+Date: Fri, 13 Mar 2020 21:17:43 +0100
+Message-Id: <20200313201744.19773-3-sam@ravnborg.org>
 X-Mailer: git-send-email 2.20.1
+In-Reply-To: <20200313201744.19773-1-sam@ravnborg.org>
+References: <20200313201744.19773-1-sam@ravnborg.org>
 MIME-Version: 1.0
 Cc: Alexandre Belloni <alexandre.belloni@bootlin.com>,
  David Airlie <airlied@linux.ie>, Jose Roberto de Souza <jose.souza@intel.com>,
@@ -72,8 +73,8 @@ Cc: Alexandre Belloni <alexandre.belloni@bootlin.com>,
  Nicolas Ferre <nicolas.ferre@microchip.com>,
  Andrzej Pietrasiewicz <andrzej.p@collabora.com>,
  linux-renesas-soc@vger.kernel.org
-Subject: [Linux-stm32] [PATCH v1 0/3] drm: drm_encoder_init() =>
-	drm_encoder_init_funcs()
+Subject: [Linux-stm32] [PATCH v1 2/3] drm: drm_simple_encoder_init() =>
+	drm_encoder_init()
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -85,169 +86,177 @@ List-Post: <mailto:linux-stm32@st-md-mailman.stormreply.com>
 List-Help: <mailto:linux-stm32-request@st-md-mailman.stormreply.com?subject=help>
 List-Subscribe: <https://st-md-mailman.stormreply.com/mailman/listinfo/linux-stm32>, 
  <mailto:linux-stm32-request@st-md-mailman.stormreply.com?subject=subscribe>
-Content-Type: text/plain; charset="us-ascii"
-Content-Transfer-Encoding: 7bit
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: base64
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
-Thomas Zimmermann had made a nice patch-set that introduced
-drm_simple_encoder_init() which is already present in drm-misc-next.
-
-While looking at this it was suddenly obvious to me that
-this was functionalty that really should be included in drm_encoder.c
-The case where the core could handle the callback is pretty
-common and not part of the simple pipe line.
-
-So after some dialog on dri-devel the conclusion was to go for
-a change like this:
-
-    drm_encoder_init_funcs() for all users that specified a
-    drm_encoder_funcs to extend the functionality.
-
-    drm_encoder_init() for all users that did not
-    need to extend the basic functionality with
-    drm_encoder_funcs.
-
-A similar approach with a _funcs() prefix is used elsewhere in drm/
-
-This required a rename of the existing users, and
-a follow-up patch that moves drm_simple_encoder_init()
-to drm_encoder.c
-
-Patches 3 in this set demonstrate the use of drm_encoder_init().
-There are many more drivers that can be converted as Thomas
-has already demonstrated.
-
-This is all based on work done by Thomas Zimmermann,
-I just wanted to implement my suggestion so
-we could select the best way forward.
-
-Note: Daniel Vetter has hinted the approach implemented
-here smelled like middle-layer.
-IMO this is not so, it is just a way to handle cleanup
-for the simple cases.
-
-	Sam
-
-
-Sam Ravnborg (3):
-      drm: drm_encoder_init() => drm_encoder_init_funcs()
-      drm: drm_simple_encoder_init() => drm_encoder_init()
-      drm/atmel-hlcdc: Use drm_encoder_init()
-
- drivers/gpu/drm/amd/amdgpu/dce_v10_0.c             | 28 ++++++-------
- drivers/gpu/drm/amd/amdgpu/dce_v11_0.c             | 28 ++++++-------
- drivers/gpu/drm/amd/amdgpu/dce_v6_0.c              | 28 ++++++-------
- drivers/gpu/drm/amd/amdgpu/dce_v8_0.c              | 28 ++++++-------
- drivers/gpu/drm/amd/amdgpu/dce_virtual.c           |  4 +-
- drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c  | 10 ++---
- .../amd/display/amdgpu_dm/amdgpu_dm_mst_types.c    | 10 ++---
- drivers/gpu/drm/arc/arcpgu_hdmi.c                  |  4 +-
- drivers/gpu/drm/arc/arcpgu_sim.c                   |  4 +-
- drivers/gpu/drm/ast/ast_mode.c                     |  3 +-
- drivers/gpu/drm/atmel-hlcdc/atmel_hlcdc_output.c   |  8 +---
- drivers/gpu/drm/drm_encoder.c                      | 49 +++++++++++++++++++---
- drivers/gpu/drm/drm_encoder_slave.c                |  2 +-
- drivers/gpu/drm/drm_simple_kms_helper.c            | 45 +-------------------
- drivers/gpu/drm/drm_writeback.c                    |  6 +--
- drivers/gpu/drm/exynos/exynos_dp.c                 |  4 +-
- drivers/gpu/drm/exynos/exynos_drm_dpi.c            |  4 +-
- drivers/gpu/drm/exynos/exynos_drm_dsi.c            |  4 +-
- drivers/gpu/drm/exynos/exynos_drm_vidi.c           |  4 +-
- drivers/gpu/drm/exynos/exynos_hdmi.c               |  4 +-
- drivers/gpu/drm/fsl-dcu/fsl_dcu_drm_rgb.c          |  4 +-
- drivers/gpu/drm/gma500/cdv_intel_crt.c             |  5 ++-
- drivers/gpu/drm/gma500/cdv_intel_dp.c              |  4 +-
- drivers/gpu/drm/gma500/cdv_intel_hdmi.c            |  4 +-
- drivers/gpu/drm/gma500/cdv_intel_lvds.c            |  6 +--
- drivers/gpu/drm/gma500/mdfld_dsi_dpi.c             |  7 ++--
- drivers/gpu/drm/gma500/oaktrail_hdmi.c             |  6 +--
- drivers/gpu/drm/gma500/oaktrail_lvds.c             |  4 +-
- drivers/gpu/drm/gma500/psb_intel_lvds.c            |  6 +--
- drivers/gpu/drm/gma500/psb_intel_sdvo.c            |  4 +-
- drivers/gpu/drm/hisilicon/hibmc/hibmc_drm_vdac.c   |  4 +-
- drivers/gpu/drm/hisilicon/kirin/dw_drm_dsi.c       |  4 +-
- drivers/gpu/drm/i2c/tda998x_drv.c                  |  5 ++-
- drivers/gpu/drm/i915/display/icl_dsi.c             |  4 +-
- drivers/gpu/drm/i915/display/intel_crt.c           |  5 ++-
- drivers/gpu/drm/i915/display/intel_ddi.c           |  6 ++-
- drivers/gpu/drm/i915/display/intel_dp.c            |  6 +--
- drivers/gpu/drm/i915/display/intel_dp_mst.c        |  6 ++-
- drivers/gpu/drm/i915/display/intel_dvo.c           |  6 +--
- drivers/gpu/drm/i915/display/intel_hdmi.c          |  6 +--
- drivers/gpu/drm/i915/display/intel_lvds.c          |  4 +-
- drivers/gpu/drm/i915/display/intel_sdvo.c          |  6 +--
- drivers/gpu/drm/i915/display/intel_tv.c            |  4 +-
- drivers/gpu/drm/i915/display/vlv_dsi.c             |  5 ++-
- drivers/gpu/drm/imx/dw_hdmi-imx.c                  |  4 +-
- drivers/gpu/drm/imx/imx-ldb.c                      |  4 +-
- drivers/gpu/drm/imx/imx-tve.c                      |  4 +-
- drivers/gpu/drm/imx/parallel-display.c             |  4 +-
- drivers/gpu/drm/ingenic/ingenic-drm.c              |  5 ++-
- drivers/gpu/drm/mediatek/mtk_dpi.c                 |  5 ++-
- drivers/gpu/drm/mediatek/mtk_dsi.c                 |  4 +-
- drivers/gpu/drm/meson/meson_dw_hdmi.c              |  5 ++-
- drivers/gpu/drm/meson/meson_venc_cvbs.c            |  5 ++-
- drivers/gpu/drm/mgag200/mgag200_mode.c             |  7 +---
- drivers/gpu/drm/msm/disp/dpu1/dpu_encoder.c        |  4 +-
- drivers/gpu/drm/msm/disp/mdp4/mdp4_dsi_encoder.c   |  4 +-
- drivers/gpu/drm/msm/disp/mdp4/mdp4_dtv_encoder.c   |  4 +-
- drivers/gpu/drm/msm/disp/mdp4/mdp4_lcdc_encoder.c  |  4 +-
- drivers/gpu/drm/msm/disp/mdp5/mdp5_encoder.c       |  3 +-
- drivers/gpu/drm/nouveau/dispnv04/dac.c             |  4 +-
- drivers/gpu/drm/nouveau/dispnv04/dfp.c             |  3 +-
- drivers/gpu/drm/nouveau/dispnv04/tvnv04.c          |  4 +-
- drivers/gpu/drm/nouveau/dispnv04/tvnv17.c          |  4 +-
- drivers/gpu/drm/nouveau/dispnv50/disp.c            | 16 +++----
- drivers/gpu/drm/omapdrm/omap_encoder.c             |  4 +-
- drivers/gpu/drm/qxl/qxl_display.c                  |  7 +---
- drivers/gpu/drm/radeon/atombios_encoders.c         | 40 +++++++++---------
- drivers/gpu/drm/radeon/radeon_dp_mst.c             |  4 +-
- drivers/gpu/drm/radeon/radeon_legacy_encoders.c    | 20 ++++-----
- drivers/gpu/drm/rcar-du/rcar_du_encoder.c          |  4 +-
- drivers/gpu/drm/rockchip/analogix_dp-rockchip.c    |  5 ++-
- drivers/gpu/drm/rockchip/cdn-dp-core.c             |  4 +-
- drivers/gpu/drm/rockchip/dw-mipi-dsi-rockchip.c    |  5 ++-
- drivers/gpu/drm/rockchip/dw_hdmi-rockchip.c        |  4 +-
- drivers/gpu/drm/rockchip/inno_hdmi.c               |  4 +-
- drivers/gpu/drm/rockchip/rk3066_hdmi.c             |  4 +-
- drivers/gpu/drm/rockchip/rockchip_lvds.c           |  5 ++-
- drivers/gpu/drm/rockchip/rockchip_rgb.c            |  5 ++-
- drivers/gpu/drm/shmobile/shmob_drm_crtc.c          |  4 +-
- drivers/gpu/drm/sti/sti_tvout.c                    | 16 +++----
- drivers/gpu/drm/stm/ltdc.c                         |  4 +-
- drivers/gpu/drm/sun4i/sun4i_hdmi_enc.c             | 10 ++---
- drivers/gpu/drm/sun4i/sun4i_lvds.c                 | 10 ++---
- drivers/gpu/drm/sun4i/sun4i_rgb.c                  | 10 ++---
- drivers/gpu/drm/sun4i/sun4i_tv.c                   | 10 ++---
- drivers/gpu/drm/sun4i/sun6i_mipi_dsi.c             | 10 ++---
- drivers/gpu/drm/sun4i/sun8i_dw_hdmi.c              |  4 +-
- drivers/gpu/drm/tegra/dsi.c                        |  6 +--
- drivers/gpu/drm/tegra/hdmi.c                       |  5 ++-
- drivers/gpu/drm/tegra/rgb.c                        |  4 +-
- drivers/gpu/drm/tegra/sor.c                        |  4 +-
- drivers/gpu/drm/tidss/tidss_encoder.c              |  4 +-
- drivers/gpu/drm/tilcdc/tilcdc_external.c           |  8 ++--
- drivers/gpu/drm/tilcdc/tilcdc_panel.c              |  4 +-
- drivers/gpu/drm/vboxvideo/vbox_mode.c              |  4 +-
- drivers/gpu/drm/vc4/vc4_dpi.c                      |  4 +-
- drivers/gpu/drm/vc4/vc4_dsi.c                      |  4 +-
- drivers/gpu/drm/vc4/vc4_hdmi.c                     |  4 +-
- drivers/gpu/drm/vc4/vc4_vec.c                      |  4 +-
- drivers/gpu/drm/virtio/virtgpu_display.c           |  4 +-
- drivers/gpu/drm/vkms/vkms_output.c                 |  4 +-
- drivers/gpu/drm/vmwgfx/vmwgfx_ldu.c                |  4 +-
- drivers/gpu/drm/vmwgfx/vmwgfx_scrn.c               |  5 ++-
- drivers/gpu/drm/vmwgfx/vmwgfx_stdu.c               |  4 +-
- drivers/gpu/drm/zte/zx_hdmi.c                      |  4 +-
- drivers/gpu/drm/zte/zx_tvenc.c                     |  4 +-
- drivers/gpu/drm/zte/zx_vga.c                       |  4 +-
- include/drm/drm_encoder.h                          |  9 ++--
- include/drm/drm_simple_kms_helper.h                |  4 --
- 109 files changed, 394 insertions(+), 395 deletions(-)
-
-
-_______________________________________________
-Linux-stm32 mailing list
-Linux-stm32@st-md-mailman.stormreply.com
-https://st-md-mailman.stormreply.com/mailman/listinfo/linux-stm32
+QSBsb3Qgb2YgZHJpdmVycyByZXF1aXJlcyBvbmx5IGEgYmFzaWMgZW5jb2RlciB3aXRoIG5vIG5l
+ZWQKdG8gZXh0ZW5kIHRoZSBmdW5jdGlvbmFsaXR5LgpUaGlzIHdhcyBwcmV2aW91c2x5IGltcGxl
+bWVudGVkIGluIGRybV9zaW1wbGVfa21zX2hlbHBlci5jCmJ1dCBlbmNvZGVycyBhcmUgbm90IG5l
+Y2Vzc2FyaWx5IHNpbXBsZSBkZXNwaXRlIG5vCm5lZWQgZm9yIGEgZHJtX2VuY29kZXJfZnVuY3Mg
+Zm9yIGFkZGluZyBmdW5jdGlvbmFsaXR5LgoKTW92ZSB0aGUgaW5pdCBmdW5jdGlvbiB0byBkcm1f
+ZW5jb2Rlci5jIHRvIHJlZmxlY3QgdGhpcy4KQW5kIGFkanVzdCB0aGUgbmFtZSB0byBkcm1fZW5j
+b2Rlcl9pbml0KCkuCgpEcm9wIGluY2x1ZGUgb2YgZHJtX3NpbXBsZV9rbXNfaGVscGVyLmggaW4g
+dGhlIHRvdWNoZWQKZHJpdmVycyBhcyBpdCBpcyBubyBsb2duZXIgcmVxdWlyZWQuCgpTaWduZWQt
+b2ZmLWJ5OiBTYW0gUmF2bmJvcmcgPHNhbUByYXZuYm9yZy5vcmc+CkNjOiBEYXZlIEFpcmxpZSA8
+YWlybGllZEByZWRoYXQuY29tPgpDYzogTWFhcnRlbiBMYW5raG9yc3QgPG1hYXJ0ZW4ubGFua2hv
+cnN0QGxpbnV4LmludGVsLmNvbT4KQ2M6IE1heGltZSBSaXBhcmQgPG1yaXBhcmRAa2VybmVsLm9y
+Zz4KQ2M6IFRob21hcyBaaW1tZXJtYW5uIDx0emltbWVybWFubkBzdXNlLmRlPgpDYzogTGF1cmVu
+dCBQaW5jaGFydCA8bGF1cmVudC5waW5jaGFydEBpZGVhc29uYm9hcmQuY29tPgpDYzogRGF2aWQg
+QWlybGllIDxhaXJsaWVkQGxpbnV4LmllPgpDYzogRGFuaWVsIFZldHRlciA8ZGFuaWVsQGZmd2xs
+LmNoPgpDYzogR2VyZCBIb2ZmbWFubiA8a3JheGVsQHJlZGhhdC5jb20+CkNjOiBTYW0gUmF2bmJv
+cmcgPHNhbUByYXZuYm9yZy5vcmc+CkNjOiBFbWlsIFZlbGlrb3YgPGVtaWwudmVsaWtvdkBjb2xs
+YWJvcmEuY29tPgpDYzogQW5kcnplaiBQaWV0cmFzaWV3aWN6IDxhbmRyemVqLnBAY29sbGFib3Jh
+LmNvbT4KQ2M6ICJKb3PDqSBSb2JlcnRvIGRlIFNvdXphIiA8am9zZS5zb3V6YUBpbnRlbC5jb20+
+Ci0tLQogZHJpdmVycy9ncHUvZHJtL2FzdC9hc3RfbW9kZS5jICAgICAgICAgIHwgIDMgKy0KIGRy
+aXZlcnMvZ3B1L2RybS9kcm1fZW5jb2Rlci5jICAgICAgICAgICB8IDM3ICsrKysrKysrKysrKysr
+KysrKysrCiBkcml2ZXJzL2dwdS9kcm0vZHJtX3NpbXBsZV9rbXNfaGVscGVyLmMgfCA0NSArLS0t
+LS0tLS0tLS0tLS0tLS0tLS0tLS0tCiBkcml2ZXJzL2dwdS9kcm0vbWdhZzIwMC9tZ2FnMjAwX21v
+ZGUuYyAgfCAgNyArKy0tCiBkcml2ZXJzL2dwdS9kcm0vcXhsL3F4bF9kaXNwbGF5LmMgICAgICAg
+fCAgNyArKy0tCiBpbmNsdWRlL2RybS9kcm1fZW5jb2Rlci5oICAgICAgICAgICAgICAgfCAgMyAr
+KwogaW5jbHVkZS9kcm0vZHJtX3NpbXBsZV9rbXNfaGVscGVyLmggICAgIHwgIDQgLS0tCiA3IGZp
+bGVzIGNoYW5nZWQsIDQ2IGluc2VydGlvbnMoKyksIDYwIGRlbGV0aW9ucygtKQoKZGlmZiAtLWdp
+dCBhL2RyaXZlcnMvZ3B1L2RybS9hc3QvYXN0X21vZGUuYyBiL2RyaXZlcnMvZ3B1L2RybS9hc3Qv
+YXN0X21vZGUuYwppbmRleCBjZGQ2YzQ2ZDY1NTcuLjRmNmFjZTFhZmFmMCAxMDA2NDQKLS0tIGEv
+ZHJpdmVycy9ncHUvZHJtL2FzdC9hc3RfbW9kZS5jCisrKyBiL2RyaXZlcnMvZ3B1L2RybS9hc3Qv
+YXN0X21vZGUuYwpAQCAtNDAsNyArNDAsNiBAQAogI2luY2x1ZGUgPGRybS9kcm1fZ2VtX3ZyYW1f
+aGVscGVyLmg+CiAjaW5jbHVkZSA8ZHJtL2RybV9wbGFuZV9oZWxwZXIuaD4KICNpbmNsdWRlIDxk
+cm0vZHJtX3Byb2JlX2hlbHBlci5oPgotI2luY2x1ZGUgPGRybS9kcm1fc2ltcGxlX2ttc19oZWxw
+ZXIuaD4KIAogI2luY2x1ZGUgImFzdF9kcnYuaCIKICNpbmNsdWRlICJhc3RfdGFibGVzLmgiCkBA
+IC05NjQsNyArOTYzLDcgQEAgc3RhdGljIGludCBhc3RfZW5jb2Rlcl9pbml0KHN0cnVjdCBkcm1f
+ZGV2aWNlICpkZXYpCiAJc3RydWN0IGRybV9lbmNvZGVyICplbmNvZGVyID0gJmFzdC0+ZW5jb2Rl
+cjsKIAlpbnQgcmV0OwogCi0JcmV0ID0gZHJtX3NpbXBsZV9lbmNvZGVyX2luaXQoZGV2LCBlbmNv
+ZGVyLCBEUk1fTU9ERV9FTkNPREVSX0RBQyk7CisJcmV0ID0gZHJtX2VuY29kZXJfaW5pdChkZXYs
+IGVuY29kZXIsIERSTV9NT0RFX0VOQ09ERVJfREFDKTsKIAlpZiAocmV0KQogCQlyZXR1cm4gcmV0
+OwogCmRpZmYgLS1naXQgYS9kcml2ZXJzL2dwdS9kcm0vZHJtX2VuY29kZXIuYyBiL2RyaXZlcnMv
+Z3B1L2RybS9kcm1fZW5jb2Rlci5jCmluZGV4IGE3NmE1ZjA0YWIzOS4uZTFlOTA2NTIwOTRjIDEw
+MDY0NAotLS0gYS9kcml2ZXJzL2dwdS9kcm0vZHJtX2VuY29kZXIuYworKysgYi9kcml2ZXJzL2dw
+dS9kcm0vZHJtX2VuY29kZXIuYwpAQCAtMTUyLDYgKzE1Miw0MyBAQCBpbnQgZHJtX2VuY29kZXJf
+aW5pdF9mdW5jcyhzdHJ1Y3QgZHJtX2RldmljZSAqZGV2LAogfQogRVhQT1JUX1NZTUJPTChkcm1f
+ZW5jb2Rlcl9pbml0X2Z1bmNzKTsKIAorc3RhdGljIGNvbnN0IHN0cnVjdCBkcm1fZW5jb2Rlcl9m
+dW5jcyBkcm1fc2ltcGxlX2VuY29kZXJfZnVuY3NfY2xlYW51cCA9IHsKKwkuZGVzdHJveSA9IGRy
+bV9lbmNvZGVyX2NsZWFudXAsCit9OworCisvKioKKyAqIGRybV9zaW1wbGVfaW5pdCAtIEluaXRp
+YWxpemUgYSBwcmVhbGxvY2F0ZWQgZW5jb2RlciB3aXRoIGJhc2ljIGZ1bmN0aW9uYWxpdHkuCisg
+KiBAZGV2OiBkcm0gZGV2aWNlCisgKiBAZW5jb2RlcjogdGhlIGVuY29kZXIgdG8gaW5pdGlhbGl6
+ZQorICogQGVuY29kZXJfdHlwZTogdXNlciB2aXNpYmxlIHR5cGUgb2YgdGhlIGVuY29kZXIKKyAq
+CisgKiBJbml0aWFsaXNlcyBhIHByZWFsbG9jYXRlZCBlbmNvZGVyIHRoYXQgaGFzIG5vIGZ1cnRo
+ZXIgZnVuY3Rpb25hbGl0eS4KKyAqIFNldHRpbmdzIGZvciBwb3NzaWJsZSBDUlRDIGFuZCBjbG9u
+ZXMgYXJlIGxlZnQgdG8gdGhlaXIgaW5pdGlhbCB2YWx1ZXMuCisgKiBUaGUgZW5jb2RlciB3aWxs
+IGJlIGNsZWFuZWQgdXAgYXV0b21hdGljYWxseSBhcyBwYXJ0IG9mIHRoZSBtb2RlLXNldHRpbmcK
+KyAqIGNsZWFudXAuCisgKgorICogVGhlIGNhbGxlciBvZiBkcm1fZW5jb2Rlcl9pbml0KCkgaXMg
+cmVzcG9uc2libGUgZm9yIGZyZWVpbmcKKyAqIHRoZSBlbmNvZGVyJ3MgbWVtb3J5IGFmdGVyIHRo
+ZSBlbmNvZGVyIGhhcyBiZWVuIGNsZWFuZWQgdXAuIEF0IHRoZQorICogbW9tZW50IHRoaXMgb25s
+eSB3b3JrcyByZWxpYWJseSBpZiB0aGUgZW5jb2RlciBkYXRhIHN0cnVjdHVyZSBpcworICogc3Rv
+cmVkIGluIHRoZSBkZXZpY2Ugc3RydWN0dXJlLiBGcmVlIHRoZSBlbmNvZGVyJ3MgbWVtb3J5IGFz
+IHBhcnQgb2YKKyAqIHRoZSBkZXZpY2UgcmVsZWFzZSBmdW5jdGlvbi4KKyAqCisgKiBGSVhNRTog
+TGF0ZXIgaW1wcm92ZW1lbnRzIHRvIERSTSdzIHJlc291cmNlIG1hbmFnZW1lbnQgbWF5IGFsbG93
+IGZvcgorICogICAgICAgIGFuIGF1dG9tYXRlZCBrZnJlZSgpIG9mIHRoZSBlbmNvZGVyJ3MgbWVt
+b3J5LgorICoKKyAqIFJldHVybnM6CisgKiBaZXJvIG9uIHN1Y2Nlc3MsIGVycm9yIGNvZGUgb24g
+ZmFpbHVyZS4KKyAqLworaW50IGRybV9zaW1wbGVfaW5pdChzdHJ1Y3QgZHJtX2RldmljZSAqZGV2
+LAorCQkgICAgc3RydWN0IGRybV9lbmNvZGVyICplbmNvZGVyLAorCQkgICAgaW50IGVuY29kZXJf
+dHlwZSkKK3sKKwlyZXR1cm4gZHJtX2VuY29kZXJfaW5pdF9mdW5jcyhkZXYsIGVuY29kZXIsCisJ
+CQkJICAgICAgJmRybV9zaW1wbGVfZW5jb2Rlcl9mdW5jc19jbGVhbnVwLAorCQkJCSAgICAgIGVu
+Y29kZXJfdHlwZSwgTlVMTCk7Cit9CitFWFBPUlRfU1lNQk9MKGRybV9lbmNvZGVyX2luaXQpOwor
+CiAvKioKICAqIGRybV9lbmNvZGVyX2NsZWFudXAgLSBjbGVhbnMgdXAgYW4gaW5pdGlhbGlzZWQg
+ZW5jb2RlcgogICogQGVuY29kZXI6IGVuY29kZXIgdG8gY2xlYW51cApkaWZmIC0tZ2l0IGEvZHJp
+dmVycy9ncHUvZHJtL2RybV9zaW1wbGVfa21zX2hlbHBlci5jIGIvZHJpdmVycy9ncHUvZHJtL2Ry
+bV9zaW1wbGVfa21zX2hlbHBlci5jCmluZGV4IDI0ZDQ0MzNjMzQ3Yi4uZDcwMTcwOTgwODM5IDEw
+MDY0NAotLS0gYS9kcml2ZXJzL2dwdS9kcm0vZHJtX3NpbXBsZV9rbXNfaGVscGVyLmMKKysrIGIv
+ZHJpdmVycy9ncHUvZHJtL2RybV9zaW1wbGVfa21zX2hlbHBlci5jCkBAIC0yNiw1MSArMjYsOCBA
+QAogICogZW50aXR5LiBTb21lIGZsZXhpYmlsaXR5IGZvciBjb2RlIHJldXNlIGlzIHByb3ZpZGVk
+IHRocm91Z2ggYSBzZXBhcmF0ZWx5CiAgKiBhbGxvY2F0ZWQgJmRybV9jb25uZWN0b3Igb2JqZWN0
+IGFuZCBzdXBwb3J0aW5nIG9wdGlvbmFsICZkcm1fYnJpZGdlCiAgKiBlbmNvZGVyIGRyaXZlcnMu
+Ci0gKgotICogTWFueSBkcml2ZXJzIHJlcXVpcmUgb25seSBhIHZlcnkgc2ltcGxlIGVuY29kZXIg
+dGhhdCBmdWxmaWxscyB0aGUgbWluaW11bQotICogcmVxdWlyZW1lbnRzIG9mIHRoZSBkaXNwbGF5
+IHBpcGVsaW5lIGFuZCBkb2VzIG5vdCBhZGQgYWRkaXRpb25hbAotICogZnVuY3Rpb25hbGl0eS4g
+VGhlIGZ1bmN0aW9uIGRybV9zaW1wbGVfZW5jb2Rlcl9pbml0KCkgcHJvdmlkZXMgYW4KLSAqIGlt
+cGxlbWVudGF0aW9uIG9mIHN1Y2ggYW4gZW5jb2Rlci4KICAqLwogCi1zdGF0aWMgY29uc3Qgc3Ry
+dWN0IGRybV9lbmNvZGVyX2Z1bmNzIGRybV9zaW1wbGVfZW5jb2Rlcl9mdW5jc19jbGVhbnVwID0g
+ewotCS5kZXN0cm95ID0gZHJtX2VuY29kZXJfY2xlYW51cCwKLX07Ci0KLS8qKgotICogZHJtX3Np
+bXBsZV9lbmNvZGVyX2luaXQgLSBJbml0aWFsaXplIGEgcHJlYWxsb2NhdGVkIGVuY29kZXIgd2l0
+aAotICogICAgICAgICAgICAgICAgICAgICAgICAgICBiYXNpYyBmdW5jdGlvbmFsaXR5LgotICog
+QGRldjogZHJtIGRldmljZQotICogQGVuY29kZXI6IHRoZSBlbmNvZGVyIHRvIGluaXRpYWxpemUK
+LSAqIEBlbmNvZGVyX3R5cGU6IHVzZXIgdmlzaWJsZSB0eXBlIG9mIHRoZSBlbmNvZGVyCi0gKgot
+ICogSW5pdGlhbGlzZXMgYSBwcmVhbGxvY2F0ZWQgZW5jb2RlciB0aGF0IGhhcyBubyBmdXJ0aGVy
+IGZ1bmN0aW9uYWxpdHkuCi0gKiBTZXR0aW5ncyBmb3IgcG9zc2libGUgQ1JUQyBhbmQgY2xvbmVz
+IGFyZSBsZWZ0IHRvIHRoZWlyIGluaXRpYWwgdmFsdWVzLgotICogVGhlIGVuY29kZXIgd2lsbCBi
+ZSBjbGVhbmVkIHVwIGF1dG9tYXRpY2FsbHkgYXMgcGFydCBvZiB0aGUgbW9kZS1zZXR0aW5nCi0g
+KiBjbGVhbnVwLgotICoKLSAqIFRoZSBjYWxsZXIgb2YgZHJtX3NpbXBsZV9lbmNvZGVyX2luaXQo
+KSBpcyByZXNwb25zaWJsZSBmb3IgZnJlZWluZwotICogdGhlIGVuY29kZXIncyBtZW1vcnkgYWZ0
+ZXIgdGhlIGVuY29kZXIgaGFzIGJlZW4gY2xlYW5lZCB1cC4gQXQgdGhlCi0gKiBtb21lbnQgdGhp
+cyBvbmx5IHdvcmtzIHJlbGlhYmx5IGlmIHRoZSBlbmNvZGVyIGRhdGEgc3RydWN0dXJlIGlzCi0g
+KiBzdG9yZWQgaW4gdGhlIGRldmljZSBzdHJ1Y3R1cmUuIEZyZWUgdGhlIGVuY29kZXIncyBtZW1v
+cnkgYXMgcGFydCBvZgotICogdGhlIGRldmljZSByZWxlYXNlIGZ1bmN0aW9uLgotICoKLSAqIEZJ
+WE1FOiBMYXRlciBpbXByb3ZlbWVudHMgdG8gRFJNJ3MgcmVzb3VyY2UgbWFuYWdlbWVudCBtYXkg
+YWxsb3cgZm9yCi0gKiAgICAgICAgYW4gYXV0b21hdGVkIGtmcmVlKCkgb2YgdGhlIGVuY29kZXIn
+cyBtZW1vcnkuCi0gKgotICogUmV0dXJuczoKLSAqIFplcm8gb24gc3VjY2VzcywgZXJyb3IgY29k
+ZSBvbiBmYWlsdXJlLgotICovCi1pbnQgZHJtX3NpbXBsZV9lbmNvZGVyX2luaXQoc3RydWN0IGRy
+bV9kZXZpY2UgKmRldiwKLQkJCSAgICBzdHJ1Y3QgZHJtX2VuY29kZXIgKmVuY29kZXIsCi0JCQkg
+ICAgaW50IGVuY29kZXJfdHlwZSkKLXsKLQlyZXR1cm4gZHJtX2VuY29kZXJfaW5pdF9mdW5jcyhk
+ZXYsIGVuY29kZXIsCi0JCQkJICAgICAgJmRybV9zaW1wbGVfZW5jb2Rlcl9mdW5jc19jbGVhbnVw
+LAotCQkJCSAgICAgIGVuY29kZXJfdHlwZSwgTlVMTCk7Ci19Ci1FWFBPUlRfU1lNQk9MKGRybV9z
+aW1wbGVfZW5jb2Rlcl9pbml0KTsKLQogc3RhdGljIGVudW0gZHJtX21vZGVfc3RhdHVzCiBkcm1f
+c2ltcGxlX2ttc19jcnRjX21vZGVfdmFsaWQoc3RydWN0IGRybV9jcnRjICpjcnRjLAogCQkJICAg
+ICAgIGNvbnN0IHN0cnVjdCBkcm1fZGlzcGxheV9tb2RlICptb2RlKQpAQCAtMzI3LDcgKzI4NCw3
+IEBAIGludCBkcm1fc2ltcGxlX2Rpc3BsYXlfcGlwZV9pbml0KHN0cnVjdCBkcm1fZGV2aWNlICpk
+ZXYsCiAJCXJldHVybiByZXQ7CiAKIAllbmNvZGVyLT5wb3NzaWJsZV9jcnRjcyA9IGRybV9jcnRj
+X21hc2soY3J0Yyk7Ci0JcmV0ID0gZHJtX3NpbXBsZV9lbmNvZGVyX2luaXQoZGV2LCBlbmNvZGVy
+LCBEUk1fTU9ERV9FTkNPREVSX05PTkUpOworCXJldCA9IGRybV9lbmNvZGVyX2luaXQoZGV2LCBl
+bmNvZGVyLCBEUk1fTU9ERV9FTkNPREVSX05PTkUpOwogCWlmIChyZXQgfHwgIWNvbm5lY3RvcikK
+IAkJcmV0dXJuIHJldDsKIApkaWZmIC0tZ2l0IGEvZHJpdmVycy9ncHUvZHJtL21nYWcyMDAvbWdh
+ZzIwMF9tb2RlLmMgYi9kcml2ZXJzL2dwdS9kcm0vbWdhZzIwMC9tZ2FnMjAwX21vZGUuYwppbmRl
+eCBkOTBlODM5NTlmY2EuLjlkZTY1NGIyZGZmZCAxMDA2NDQKLS0tIGEvZHJpdmVycy9ncHUvZHJt
+L21nYWcyMDAvbWdhZzIwMF9tb2RlLmMKKysrIGIvZHJpdmVycy9ncHUvZHJtL21nYWcyMDAvbWdh
+ZzIwMF9tb2RlLmMKQEAgLTE1LDcgKzE1LDYgQEAKICNpbmNsdWRlIDxkcm0vZHJtX2ZvdXJjYy5o
+PgogI2luY2x1ZGUgPGRybS9kcm1fcGxhbmVfaGVscGVyLmg+CiAjaW5jbHVkZSA8ZHJtL2RybV9w
+cm9iZV9oZWxwZXIuaD4KLSNpbmNsdWRlIDxkcm0vZHJtX3NpbXBsZV9rbXNfaGVscGVyLmg+CiAK
+ICNpbmNsdWRlICJtZ2FnMjAwX2Rydi5oIgogCkBAIC0xNjMwLDEyICsxNjI5LDEwIEBAIGludCBt
+Z2FnMjAwX21vZGVzZXRfaW5pdChzdHJ1Y3QgbWdhX2RldmljZSAqbWRldikKIAogCW1nYV9jcnRj
+X2luaXQobWRldik7CiAKLQlyZXQgPSBkcm1fc2ltcGxlX2VuY29kZXJfaW5pdChtZGV2LT5kZXYs
+IGVuY29kZXIsCi0JCQkJICAgICAgRFJNX01PREVfRU5DT0RFUl9EQUMpOworCXJldCA9IGRybV9l
+bmNvZGVyX2luaXQobWRldi0+ZGV2LCBlbmNvZGVyLCBEUk1fTU9ERV9FTkNPREVSX0RBQyk7CiAJ
+aWYgKHJldCkgewogCQlkcm1fZXJyKG1kZXYtPmRldiwKLQkJCSJkcm1fc2ltcGxlX2VuY29kZXJf
+aW5pdCgpIGZhaWxlZCwgZXJyb3IgJWRcbiIsCi0JCQlyZXQpOworCQkJImRybV9lbmNvZGVyX2lu
+aXQoKSBmYWlsZWQsIGVycm9yICVkXG4iLCByZXQpOwogCQlyZXR1cm4gcmV0OwogCX0KIAllbmNv
+ZGVyLT5wb3NzaWJsZV9jcnRjcyA9IDB4MTsKZGlmZiAtLWdpdCBhL2RyaXZlcnMvZ3B1L2RybS9x
+eGwvcXhsX2Rpc3BsYXkuYyBiL2RyaXZlcnMvZ3B1L2RybS9xeGwvcXhsX2Rpc3BsYXkuYwppbmRl
+eCAwOTU4M2EwOGUxNDEuLjQzZmIwNWRmOTUwYyAxMDA2NDQKLS0tIGEvZHJpdmVycy9ncHUvZHJt
+L3F4bC9xeGxfZGlzcGxheS5jCisrKyBiL2RyaXZlcnMvZ3B1L2RybS9xeGwvcXhsX2Rpc3BsYXku
+YwpAQCAtMzEsNyArMzEsNiBAQAogI2luY2x1ZGUgPGRybS9kcm1fZ2VtX2ZyYW1lYnVmZmVyX2hl
+bHBlci5oPgogI2luY2x1ZGUgPGRybS9kcm1fcGxhbmVfaGVscGVyLmg+CiAjaW5jbHVkZSA8ZHJt
+L2RybV9wcm9iZV9oZWxwZXIuaD4KLSNpbmNsdWRlIDxkcm0vZHJtX3NpbXBsZV9rbXNfaGVscGVy
+Lmg+CiAKICNpbmNsdWRlICJxeGxfZHJ2LmgiCiAjaW5jbHVkZSAicXhsX29iamVjdC5oIgpAQCAt
+MTA4OCwxMSArMTA4Nyw5IEBAIHN0YXRpYyBpbnQgcWRldl9vdXRwdXRfaW5pdChzdHJ1Y3QgZHJt
+X2RldmljZSAqZGV2LCBpbnQgbnVtX291dHB1dCkKIAlkcm1fY29ubmVjdG9yX2luaXQoZGV2LCAm
+cXhsX291dHB1dC0+YmFzZSwKIAkJCSAgICZxeGxfY29ubmVjdG9yX2Z1bmNzLCBEUk1fTU9ERV9D
+T05ORUNUT1JfVklSVFVBTCk7CiAKLQlyZXQgPSBkcm1fc2ltcGxlX2VuY29kZXJfaW5pdChkZXYs
+ICZxeGxfb3V0cHV0LT5lbmMsCi0JCQkJICAgICAgRFJNX01PREVfRU5DT0RFUl9WSVJUVUFMKTsK
+KwlyZXQgPSBkcm1fZW5jb2Rlcl9pbml0KGRldiwgJnF4bF9vdXRwdXQtPmVuYywgRFJNX01PREVf
+RU5DT0RFUl9WSVJUVUFMKTsKIAlpZiAocmV0KSB7Ci0JCWRybV9lcnIoZGV2LCAiZHJtX3NpbXBs
+ZV9lbmNvZGVyX2luaXQoKSBmYWlsZWQsIGVycm9yICVkXG4iLAotCQkJcmV0KTsKKwkJZHJtX2Vy
+cihkZXYsICJkcm1fZW5jb2Rlcl9pbml0KCkgZmFpbGVkLCBlcnJvciAlZFxuIiwgcmV0KTsKIAkJ
+Z290byBlcnJfZHJtX2Nvbm5lY3Rvcl9jbGVhbnVwOwogCX0KIApkaWZmIC0tZ2l0IGEvaW5jbHVk
+ZS9kcm0vZHJtX2VuY29kZXIuaCBiL2luY2x1ZGUvZHJtL2RybV9lbmNvZGVyLmgKaW5kZXggMzc4
+YWIxNzc4YmUzLi44Mjk4YjY5NmRjYTggMTAwNjQ0Ci0tLSBhL2luY2x1ZGUvZHJtL2RybV9lbmNv
+ZGVyLmgKKysrIGIvaW5jbHVkZS9kcm0vZHJtX2VuY29kZXIuaApAQCAtMTkxLDYgKzE5MSw5IEBA
+IGludCBkcm1fZW5jb2Rlcl9pbml0X2Z1bmNzKHN0cnVjdCBkcm1fZGV2aWNlICpkZXYsCiAJCQkg
+ICBjb25zdCBzdHJ1Y3QgZHJtX2VuY29kZXJfZnVuY3MgKmZ1bmNzLAogCQkJICAgaW50IGVuY29k
+ZXJfdHlwZSwgY29uc3QgY2hhciAqbmFtZSwgLi4uKTsKIAoraW50IGRybV9lbmNvZGVyX2luaXQo
+c3RydWN0IGRybV9kZXZpY2UgKmRldiwKKwkJICAgICBzdHJ1Y3QgZHJtX2VuY29kZXIgKmVuY29k
+ZXIsCisJCSAgICAgaW50IGVuY29kZXJfdHlwZSk7CiAvKioKICAqIGRybV9lbmNvZGVyX2luZGV4
+IC0gZmluZCB0aGUgaW5kZXggb2YgYSByZWdpc3RlcmVkIGVuY29kZXIKICAqIEBlbmNvZGVyOiBl
+bmNvZGVyIHRvIGZpbmQgaW5kZXggZm9yCmRpZmYgLS1naXQgYS9pbmNsdWRlL2RybS9kcm1fc2lt
+cGxlX2ttc19oZWxwZXIuaCBiL2luY2x1ZGUvZHJtL2RybV9zaW1wbGVfa21zX2hlbHBlci5oCmlu
+ZGV4IGEwMjYzNzU0NjRmZi4uZTI1M2JhN2JlYTlkIDEwMDY0NAotLS0gYS9pbmNsdWRlL2RybS9k
+cm1fc2ltcGxlX2ttc19oZWxwZXIuaAorKysgYi9pbmNsdWRlL2RybS9kcm1fc2ltcGxlX2ttc19o
+ZWxwZXIuaApAQCAtMTgxLDggKzE4MSw0IEBAIGludCBkcm1fc2ltcGxlX2Rpc3BsYXlfcGlwZV9p
+bml0KHN0cnVjdCBkcm1fZGV2aWNlICpkZXYsCiAJCQljb25zdCB1aW50NjRfdCAqZm9ybWF0X21v
+ZGlmaWVycywKIAkJCXN0cnVjdCBkcm1fY29ubmVjdG9yICpjb25uZWN0b3IpOwogCi1pbnQgZHJt
+X3NpbXBsZV9lbmNvZGVyX2luaXQoc3RydWN0IGRybV9kZXZpY2UgKmRldiwKLQkJCSAgICBzdHJ1
+Y3QgZHJtX2VuY29kZXIgKmVuY29kZXIsCi0JCQkgICAgaW50IGVuY29kZXJfdHlwZSk7Ci0KICNl
+bmRpZiAvKiBfX0xJTlVYX0RSTV9TSU1QTEVfS01TX0hFTFBFUl9IICovCi0tIAoyLjIwLjEKCl9f
+X19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fCkxpbnV4LXN0bTMy
+IG1haWxpbmcgbGlzdApMaW51eC1zdG0zMkBzdC1tZC1tYWlsbWFuLnN0b3JtcmVwbHkuY29tCmh0
+dHBzOi8vc3QtbWQtbWFpbG1hbi5zdG9ybXJlcGx5LmNvbS9tYWlsbWFuL2xpc3RpbmZvL2xpbnV4
+LXN0bTMyCg==
