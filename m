@@ -2,45 +2,45 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id BB7E51861AF
-	for <lists+linux-stm32@lfdr.de>; Mon, 16 Mar 2020 03:33:57 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id E0D6D1861BC
+	for <lists+linux-stm32@lfdr.de>; Mon, 16 Mar 2020 03:34:44 +0100 (CET)
 Received: from ip-172-31-3-76.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 88C6EC36B0B;
-	Mon, 16 Mar 2020 02:33:57 +0000 (UTC)
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 9C17DC36B0B;
+	Mon, 16 Mar 2020 02:34:44 +0000 (UTC)
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
  (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 111C7C36B09
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 48F28C36B09
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Mon, 16 Mar 2020 02:33:56 +0000 (UTC)
+ Mon, 16 Mar 2020 02:34:42 +0000 (UTC)
 Received: from sasha-vm.mshome.net (c-73-47-72-35.hsd1.nh.comcast.net
  [73.47.72.35])
  (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by mail.kernel.org (Postfix) with ESMTPSA id E197E206BE;
- Mon, 16 Mar 2020 02:33:53 +0000 (UTC)
+ by mail.kernel.org (Postfix) with ESMTPSA id ED33A206BE;
+ Mon, 16 Mar 2020 02:34:39 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
- s=default; t=1584326034;
+ s=default; t=1584326080;
  bh=HDWemFmS6sNHHvqLejbRyMAPEs6e+okEDrDeTOhqVWg=;
  h=From:To:Cc:Subject:Date:In-Reply-To:References:From;
- b=sWoGXueoh9RRb9ZfMtqEouGMFCL9su9O4nrtnMEYxzO7hijuqz8FKpnxfH81EoccB
- w/SNJcnkP5oPSyAJvIzeTlxsAd3g+Z3e1n6OkGEfDXHk+kfY3HNI/UZ4zro6+n3Rby
- iVX22a/EeVg6vnFjla588hMJKfoFrL74BAX8xMg8=
+ b=aabHz0V2yDNTt2EWx+80T/H8PDJ35n9mrSo1fAQgPDaQq+FAv/QHaFcqm/EYcWN3L
+ v4+1Fj71cy6ZzZUUCLfpTKPQkAlPbfbB3PXfmdsLpWug9EdkypF/R1Z2bKereoxrqs
+ Cj1GvnlZ5pttlf7rNP/usdRP3lZpq6NMofY24lx4=
 From: Sasha Levin <sashal@kernel.org>
 To: linux-kernel@vger.kernel.org,
 	stable@vger.kernel.org
-Date: Sun, 15 Mar 2020 22:33:07 -0400
-Message-Id: <20200316023319.749-29-sashal@kernel.org>
+Date: Sun, 15 Mar 2020 22:34:01 -0400
+Message-Id: <20200316023411.1263-25-sashal@kernel.org>
 X-Mailer: git-send-email 2.20.1
-In-Reply-To: <20200316023319.749-1-sashal@kernel.org>
-References: <20200316023319.749-1-sashal@kernel.org>
+In-Reply-To: <20200316023411.1263-1-sashal@kernel.org>
+References: <20200316023411.1263-1-sashal@kernel.org>
 MIME-Version: 1.0
 X-stable: review
 X-Patchwork-Hint: Ignore
 Cc: Sasha Levin <sashal@kernel.org>, alsa-devel@alsa-project.org,
  Mark Brown <broonie@kernel.org>, linux-stm32@st-md-mailman.stormreply.com,
  linux-arm-kernel@lists.infradead.org
-Subject: [Linux-stm32] [PATCH AUTOSEL 5.5 29/41] ASoC: stm32: sai: manage
+Subject: [Linux-stm32] [PATCH AUTOSEL 5.4 25/35] ASoC: stm32: sai: manage
 	rebind issue
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
