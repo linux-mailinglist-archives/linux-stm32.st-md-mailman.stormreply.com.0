@@ -2,46 +2,62 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id E0D6D1861BC
-	for <lists+linux-stm32@lfdr.de>; Mon, 16 Mar 2020 03:34:44 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 8235118677D
+	for <lists+linux-stm32@lfdr.de>; Mon, 16 Mar 2020 10:10:04 +0100 (CET)
 Received: from ip-172-31-3-76.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 9C17DC36B0B;
-	Mon, 16 Mar 2020 02:34:44 +0000 (UTC)
-Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
- (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 314F8C36B0B;
+	Mon, 16 Mar 2020 09:10:04 +0000 (UTC)
+Received: from mx07-00178001.pphosted.com (mx08-00178001.pphosted.com
+ [91.207.212.93])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 48F28C36B09
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 943A8C36B09
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Mon, 16 Mar 2020 02:34:42 +0000 (UTC)
-Received: from sasha-vm.mshome.net (c-73-47-72-35.hsd1.nh.comcast.net
- [73.47.72.35])
- (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
- (No client certificate requested)
- by mail.kernel.org (Postfix) with ESMTPSA id ED33A206BE;
- Mon, 16 Mar 2020 02:34:39 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
- s=default; t=1584326080;
- bh=HDWemFmS6sNHHvqLejbRyMAPEs6e+okEDrDeTOhqVWg=;
- h=From:To:Cc:Subject:Date:In-Reply-To:References:From;
- b=aabHz0V2yDNTt2EWx+80T/H8PDJ35n9mrSo1fAQgPDaQq+FAv/QHaFcqm/EYcWN3L
- v4+1Fj71cy6ZzZUUCLfpTKPQkAlPbfbB3PXfmdsLpWug9EdkypF/R1Z2bKereoxrqs
- Cj1GvnlZ5pttlf7rNP/usdRP3lZpq6NMofY24lx4=
-From: Sasha Levin <sashal@kernel.org>
-To: linux-kernel@vger.kernel.org,
-	stable@vger.kernel.org
-Date: Sun, 15 Mar 2020 22:34:01 -0400
-Message-Id: <20200316023411.1263-25-sashal@kernel.org>
-X-Mailer: git-send-email 2.20.1
-In-Reply-To: <20200316023411.1263-1-sashal@kernel.org>
-References: <20200316023411.1263-1-sashal@kernel.org>
+ Mon, 16 Mar 2020 09:10:02 +0000 (UTC)
+Received: from pps.filterd (m0046661.ppops.net [127.0.0.1])
+ by mx07-00178001.pphosted.com (8.16.0.42/8.16.0.42) with SMTP id
+ 02G93bt4015574; Mon, 16 Mar 2020 10:09:45 +0100
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=st.com;
+ h=from : to : cc : subject
+ : date : message-id : mime-version : content-type; s=STMicroelectronics;
+ bh=iCHTmv5+KQ6tDSYoZf4uMAipyo7xfSoDIHIrOmeczBg=;
+ b=amITm585YYoORfKCMeI0ovpNZ79QNp4zFMOnmwE5K1gdY/nZOWXp0dcHhVLOW8y8jAJb
+ 1DQv9rrjboP8Eeurjo2Of4mYKKxMXmodhx4wUtZI8oomHzWK4Px4C0/BAe2NJBho+uSu
+ y85Aeg/JkiNsPVCoJaJB3gnIkhUMLJSFyLFtXPjawB3lp/cvdg9Fg5mLwPVoiyUCeVIM
+ eIt105Aip6byCu+B6z+OTIOdMlG3CHSMgNR0Z4fUyAR/otjS+HX4Lh8i12cEr/c7i0Gz
+ Sn87JtRjm2yUuFpBjVkmv9I77E8lua1kVrlpBQEgPtI6y364Bhwhgr/6nwqiMVmVGPS5 7A== 
+Received: from beta.dmz-eu.st.com (beta.dmz-eu.st.com [164.129.1.35])
+ by mx07-00178001.pphosted.com with ESMTP id 2yrqvcxjew-1
+ (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
+ Mon, 16 Mar 2020 10:09:45 +0100
+Received: from euls16034.sgp.st.com (euls16034.sgp.st.com [10.75.44.20])
+ by beta.dmz-eu.st.com (STMicroelectronics) with ESMTP id 9456910002A;
+ Mon, 16 Mar 2020 10:09:35 +0100 (CET)
+Received: from Webmail-eu.st.com (sfhdag5node3.st.com [10.75.127.15])
+ by euls16034.sgp.st.com (STMicroelectronics) with ESMTP id 5C4A22A4D77;
+ Mon, 16 Mar 2020 10:09:35 +0100 (CET)
+Received: from localhost (10.75.127.44) by SFHDAG5NODE3.st.com (10.75.127.15)
+ with Microsoft SMTP Server (TLS) id 15.0.1473.3;
+ Mon, 16 Mar 2020 10:09:34 +0100
+From: Christophe Roullier <christophe.roullier@st.com>
+To: <robh@kernel.org>, <davem@davemloft.net>, <joabreu@synopsys.com>,
+ <mark.rutland@arm.com>, <mcoquelin.stm32@gmail.com>,
+ <alexandre.torgue@st.com>, <peppe.cavallaro@st.com>
+Date: Mon, 16 Mar 2020 10:09:07 +0100
+Message-ID: <20200316090907.18488-1-christophe.roullier@st.com>
+X-Mailer: git-send-email 2.17.1
 MIME-Version: 1.0
-X-stable: review
-X-Patchwork-Hint: Ignore
-Cc: Sasha Levin <sashal@kernel.org>, alsa-devel@alsa-project.org,
- Mark Brown <broonie@kernel.org>, linux-stm32@st-md-mailman.stormreply.com,
+X-Originating-IP: [10.75.127.44]
+X-ClientProxiedBy: SFHDAG3NODE1.st.com (10.75.127.7) To SFHDAG5NODE3.st.com
+ (10.75.127.15)
+X-Proofpoint-Virus-Version: vendor=fsecure engine=2.50.10434:6.0.138, 18.0.572
+ definitions=2020-03-16_02:2020-03-12,
+ 2020-03-16 signatures=0
+Cc: devicetree@vger.kernel.org, andrew@lunn.ch, netdev@vger.kernel.org,
+ linux-kernel@vger.kernel.org, linux-stm32@st-md-mailman.stormreply.com,
  linux-arm-kernel@lists.infradead.org
-Subject: [Linux-stm32] [PATCH AUTOSEL 5.4 25/35] ASoC: stm32: sai: manage
-	rebind issue
+Subject: [Linux-stm32] [PATCHv2 1/1] net: ethernet: stmmac: simplify phy
+	modes management for stm32
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -58,99 +74,198 @@ Content-Transfer-Encoding: 7bit
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
-From: Olivier Moysan <olivier.moysan@st.com>
+No new feature, just to simplify stm32 part to be easier to use.
+Add by default all Ethernet clocks in DT, and activate or not in function
+of phy mode, clock frequency, if property "st,ext-phyclk" is set or not.
+Keep backward compatibility
+-----------------------------------------------------------------------
+|PHY_MODE | Normal | PHY wo crystal|   PHY wo crystal   |  No 125Mhz  |
+|         |        |      25MHz    |        50MHz       |  from PHY   |
+-----------------------------------------------------------------------
+|  MII    |	 -    |     eth-ck    |       n/a          |	    n/a  |
+|         |        | st,ext-phyclk |                    |             |
+-----------------------------------------------------------------------
+|  GMII   |	 -    |     eth-ck    |       n/a          |	    n/a  |
+|         |        | st,ext-phyclk |                    |             |
+-----------------------------------------------------------------------
+| RGMII   |	 -    |     eth-ck    |       n/a          |      eth-ck  |
+|         |        | st,ext-phyclk |                    |st,eth-clk-sel|
+|         |        |               |                    |       or     |
+|         |        |               |                    | st,ext-phyclk|
+------------------------------------------------------------------------
+| RMII    |	 -    |     eth-ck    |      eth-ck        |	     n/a  |
+|         |        | st,ext-phyclk | st,eth-ref-clk-sel |              |
+|         |        |               | or st,ext-phyclk   |              |
+------------------------------------------------------------------------
 
-[ Upstream commit 0d6defc7e0e437a9fd53622f7fd85740f38d5693 ]
+Signed-off-by: Christophe Roullier <christophe.roullier@st.com>
 
-The commit e894efef9ac7 ("ASoC: core: add support to card rebind")
-allows to rebind the sound card after a rebind of one of its component.
-With this commit, the sound card is actually rebound,
-but may be no more functional. The following problems have been seen
-with STM32 SAI driver.
-
-1) DMA channel is not requested:
-
-With the sound card rebind the simplified call sequence is:
-stm32_sai_sub_probe
-	snd_soc_register_component
-		snd_soc_try_rebind_card
-			snd_soc_instantiate_card
-	devm_snd_dmaengine_pcm_register
-
-The problem occurs because the pcm must be registered,
-before snd_soc_instantiate_card() is called.
-
-Modify SAI driver, to change the call sequence as follows:
-stm32_sai_sub_probe
-	devm_snd_dmaengine_pcm_register
-	snd_soc_register_component
-		snd_soc_try_rebind_card
-
-2) DMA channel is not released:
-
-dma_release_channel() is not called when
-devm_dmaengine_pcm_release() is executed.
-This occurs because SND_DMAENGINE_PCM_DRV_NAME component,
-has already been released through devm_component_release().
-
-devm_dmaengine_pcm_release() should be called before
-devm_component_release() to avoid this problem.
-
-Call snd_dmaengine_pcm_unregister() and snd_soc_unregister_component()
-explicitly from SAI driver, to have the right sequence.
-
-Signed-off-by: Olivier Moysan <olivier.moysan@st.com>
-Message-Id: <20200304102406.8093-1-olivier.moysan@st.com>
-Signed-off-by: Mark Brown <broonie@kernel.org>
-Signed-off-by: Sasha Levin <sashal@kernel.org>
 ---
- sound/soc/stm/stm32_sai_sub.c | 18 ++++++++++--------
- 1 file changed, 10 insertions(+), 8 deletions(-)
+ .../net/ethernet/stmicro/stmmac/dwmac-stm32.c | 74 +++++++++++--------
+ 1 file changed, 44 insertions(+), 30 deletions(-)
 
-diff --git a/sound/soc/stm/stm32_sai_sub.c b/sound/soc/stm/stm32_sai_sub.c
-index 30bcd5d3a32a8..10eb4b8e8e7ee 100644
---- a/sound/soc/stm/stm32_sai_sub.c
-+++ b/sound/soc/stm/stm32_sai_sub.c
-@@ -1543,20 +1543,20 @@ static int stm32_sai_sub_probe(struct platform_device *pdev)
- 		return ret;
- 	}
+diff --git a/drivers/net/ethernet/stmicro/stmmac/dwmac-stm32.c b/drivers/net/ethernet/stmicro/stmmac/dwmac-stm32.c
+index b2dc99289687..5d4df4c5254e 100644
+--- a/drivers/net/ethernet/stmicro/stmmac/dwmac-stm32.c
++++ b/drivers/net/ethernet/stmicro/stmmac/dwmac-stm32.c
+@@ -29,6 +29,11 @@
+ #define SYSCFG_PMCR_ETH_CLK_SEL		BIT(16)
+ #define SYSCFG_PMCR_ETH_REF_CLK_SEL	BIT(17)
  
--	ret = devm_snd_soc_register_component(&pdev->dev, &stm32_component,
--					      &sai->cpu_dai_drv, 1);
-+	ret = snd_dmaengine_pcm_register(&pdev->dev, conf, 0);
-+	if (ret) {
-+		dev_err(&pdev->dev, "Could not register pcm dma\n");
-+		return ret;
-+	}
++/* CLOCK feed to PHY*/
++#define ETH_CK_F_25M	25000000
++#define ETH_CK_F_50M	50000000
++#define ETH_CK_F_125M	125000000
 +
-+	ret = snd_soc_register_component(&pdev->dev, &stm32_component,
-+					 &sai->cpu_dai_drv, 1);
- 	if (ret)
- 		return ret;
+ /*  Ethernet PHY interface selection in register SYSCFG Configuration
+  *------------------------------------------
+  * src	 |BIT(23)| BIT(22)| BIT(21)|BIT(20)|
+@@ -58,33 +63,20 @@
+  *|         |        |      25MHz    |        50MHz       |                  |
+  * ---------------------------------------------------------------------------
+  *|  MII    |	 -   |     eth-ck    |	      n/a	  |	  n/a        |
+- *|         |        |		     |                    |		     |
++ *|         |        | st,ext-phyclk |                    |		     |
+  * ---------------------------------------------------------------------------
+  *|  GMII   |	 -   |     eth-ck    |	      n/a	  |	  n/a        |
+- *|         |        |               |                    |		     |
++ *|         |        | st,ext-phyclk |                    |		     |
+  * ---------------------------------------------------------------------------
+- *| RGMII   |	 -   |     eth-ck    |	      n/a	  |  eth-ck (no pin) |
+- *|         |        |               |                    |  st,eth-clk-sel  |
++ *| RGMII   |	 -   |     eth-ck    |	      n/a	  |      eth-ck      |
++ *|         |        | st,ext-phyclk |                    | st,eth-clk-sel or|
++ *|         |        |               |                    | st,ext-phyclk    |
+  * ---------------------------------------------------------------------------
+  *| RMII    |	 -   |     eth-ck    |	    eth-ck        |	  n/a        |
+- *|         |        |		     | st,eth-ref-clk-sel |		     |
++ *|         |        | st,ext-phyclk | st,eth-ref-clk-sel |		     |
++ *|         |        |               | or st,ext-phyclk   |		     |
+  * ---------------------------------------------------------------------------
+  *
+- * BIT(17) : set this bit in RMII mode when you have PHY without crystal 50MHz
+- * BIT(16) : set this bit in GMII/RGMII PHY when you do not want use 125Mhz
+- * from PHY
+- *-----------------------------------------------------
+- * src	 |         BIT(17)       |       BIT(16)      |
+- *-----------------------------------------------------
+- * MII   |           n/a	 |         n/a        |
+- *-----------------------------------------------------
+- * GMII  |           n/a         |   st,eth-clk-sel   |
+- *-----------------------------------------------------
+- * RGMII |           n/a         |   st,eth-clk-sel   |
+- *-----------------------------------------------------
+- * RMII  |   st,eth-ref-clk-sel	 |         n/a        |
+- *-----------------------------------------------------
+- *
+  */
  
- 	if (STM_SAI_PROTOCOL_IS_SPDIF(sai))
- 		conf = &stm32_sai_pcm_config_spdif;
- 
--	ret = devm_snd_dmaengine_pcm_register(&pdev->dev, conf, 0);
--	if (ret) {
--		dev_err(&pdev->dev, "Could not register pcm dma\n");
--		return ret;
--	}
--
- 	return 0;
+ struct stm32_dwmac {
+@@ -93,6 +85,8 @@ struct stm32_dwmac {
+ 	struct clk *clk_eth_ck;
+ 	struct clk *clk_ethstp;
+ 	struct clk *syscfg_clk;
++	int ext_phyclk;
++	int enable_eth_ck;
+ 	int eth_clk_sel_reg;
+ 	int eth_ref_clk_sel_reg;
+ 	int irq_pwr_wakeup;
+@@ -155,14 +149,17 @@ static int stm32mp1_clk_prepare(struct stm32_dwmac *dwmac, bool prepare)
+ 		ret = clk_prepare_enable(dwmac->syscfg_clk);
+ 		if (ret)
+ 			return ret;
+-		ret = clk_prepare_enable(dwmac->clk_eth_ck);
+-		if (ret) {
+-			clk_disable_unprepare(dwmac->syscfg_clk);
+-			return ret;
++		if (dwmac->enable_eth_ck) {
++			ret = clk_prepare_enable(dwmac->clk_eth_ck);
++			if (ret) {
++				clk_disable_unprepare(dwmac->syscfg_clk);
++				return ret;
++			}
+ 		}
+ 	} else {
+ 		clk_disable_unprepare(dwmac->syscfg_clk);
+-		clk_disable_unprepare(dwmac->clk_eth_ck);
++		if (dwmac->enable_eth_ck)
++			clk_disable_unprepare(dwmac->clk_eth_ck);
+ 	}
+ 	return ret;
  }
+@@ -170,24 +167,34 @@ static int stm32mp1_clk_prepare(struct stm32_dwmac *dwmac, bool prepare)
+ static int stm32mp1_set_mode(struct plat_stmmacenet_data *plat_dat)
+ {
+ 	struct stm32_dwmac *dwmac = plat_dat->bsp_priv;
+-	u32 reg = dwmac->mode_reg;
++	u32 reg = dwmac->mode_reg, clk_rate;
+ 	int val;
  
-@@ -1565,6 +1565,8 @@ static int stm32_sai_sub_remove(struct platform_device *pdev)
- 	struct stm32_sai_sub_data *sai = dev_get_drvdata(&pdev->dev);
++	clk_rate = clk_get_rate(dwmac->clk_eth_ck);
++	dwmac->enable_eth_ck = false;
+ 	switch (plat_dat->interface) {
+ 	case PHY_INTERFACE_MODE_MII:
++		if (clk_rate == ETH_CK_F_25M && dwmac->ext_phyclk)
++			dwmac->enable_eth_ck = true;
+ 		val = SYSCFG_PMCR_ETH_SEL_MII;
+ 		pr_debug("SYSCFG init : PHY_INTERFACE_MODE_MII\n");
+ 		break;
+ 	case PHY_INTERFACE_MODE_GMII:
+ 		val = SYSCFG_PMCR_ETH_SEL_GMII;
+-		if (dwmac->eth_clk_sel_reg)
++		if (clk_rate == ETH_CK_F_25M &&
++		    (dwmac->eth_clk_sel_reg || dwmac->ext_phyclk)) {
++			dwmac->enable_eth_ck = true;
+ 			val |= SYSCFG_PMCR_ETH_CLK_SEL;
++		}
+ 		pr_debug("SYSCFG init : PHY_INTERFACE_MODE_GMII\n");
+ 		break;
+ 	case PHY_INTERFACE_MODE_RMII:
+ 		val = SYSCFG_PMCR_ETH_SEL_RMII;
+-		if (dwmac->eth_ref_clk_sel_reg)
++		if ((clk_rate == ETH_CK_F_25M || clk_rate == ETH_CK_F_50M) &&
++		    (dwmac->eth_ref_clk_sel_reg || dwmac->ext_phyclk)) {
++			dwmac->enable_eth_ck = true;
+ 			val |= SYSCFG_PMCR_ETH_REF_CLK_SEL;
++		}
+ 		pr_debug("SYSCFG init : PHY_INTERFACE_MODE_RMII\n");
+ 		break;
+ 	case PHY_INTERFACE_MODE_RGMII:
+@@ -195,8 +202,11 @@ static int stm32mp1_set_mode(struct plat_stmmacenet_data *plat_dat)
+ 	case PHY_INTERFACE_MODE_RGMII_RXID:
+ 	case PHY_INTERFACE_MODE_RGMII_TXID:
+ 		val = SYSCFG_PMCR_ETH_SEL_RGMII;
+-		if (dwmac->eth_clk_sel_reg)
++		if ((clk_rate == ETH_CK_F_25M || clk_rate == ETH_CK_F_125M) &&
++		    (dwmac->eth_clk_sel_reg || dwmac->ext_phyclk)) {
++			dwmac->enable_eth_ck = true;
+ 			val |= SYSCFG_PMCR_ETH_CLK_SEL;
++		}
+ 		pr_debug("SYSCFG init : PHY_INTERFACE_MODE_RGMII\n");
+ 		break;
+ 	default:
+@@ -294,6 +304,9 @@ static int stm32mp1_parse_data(struct stm32_dwmac *dwmac,
+ 	struct device_node *np = dev->of_node;
+ 	int err = 0;
  
- 	clk_unprepare(sai->pdata->pclk);
-+	snd_dmaengine_pcm_unregister(&pdev->dev);
-+	snd_soc_unregister_component(&pdev->dev);
++	/* Ethernet PHY have no crystal */
++	dwmac->ext_phyclk = of_property_read_bool(np, "st,ext-phyclk");
++
+ 	/* Gigabit Ethernet 125MHz clock selection. */
+ 	dwmac->eth_clk_sel_reg = of_property_read_bool(np, "st,eth-clk-sel");
  
- 	return 0;
+@@ -431,7 +444,8 @@ static int stm32mp1_suspend(struct stm32_dwmac *dwmac)
+ 
+ 	clk_disable_unprepare(dwmac->clk_tx);
+ 	clk_disable_unprepare(dwmac->syscfg_clk);
+-	clk_disable_unprepare(dwmac->clk_eth_ck);
++	if (dwmac->enable_eth_ck)
++		clk_disable_unprepare(dwmac->clk_eth_ck);
+ 
+ 	return ret;
  }
 -- 
-2.20.1
+2.17.1
 
 _______________________________________________
 Linux-stm32 mailing list
