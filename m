@@ -2,39 +2,52 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id 34EBF186784
-	for <lists+linux-stm32@lfdr.de>; Mon, 16 Mar 2020 10:10:32 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id B7732187BDB
+	for <lists+linux-stm32@lfdr.de>; Tue, 17 Mar 2020 10:19:14 +0100 (CET)
 Received: from ip-172-31-3-76.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id CB77AC36B0B;
-	Mon, 16 Mar 2020 09:10:31 +0000 (UTC)
-Received: from shards.monkeyblade.net (shards.monkeyblade.net [23.128.96.9])
- (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 5EA14C36B0B;
+	Tue, 17 Mar 2020 09:19:14 +0000 (UTC)
+Received: from smtprelay-out1.synopsys.com (smtprelay-out1.synopsys.com
+ [149.117.73.133])
+ (using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 640D4C36B09
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id A9463C36B0C
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Mon, 16 Mar 2020 09:10:30 +0000 (UTC)
-Received: from localhost (unknown [IPv6:2601:601:9f00:477::3d5])
- (using TLSv1 with cipher AES256-SHA (256/256 bits))
- (Client did not present a certificate)
- (Authenticated sender: davem-davemloft)
- by shards.monkeyblade.net (Postfix) with ESMTPSA id D89EA14706AC7;
- Mon, 16 Mar 2020 02:10:27 -0700 (PDT)
-Date: Mon, 16 Mar 2020 02:10:27 -0700 (PDT)
-Message-Id: <20200316.021027.1748414593839565698.davem@davemloft.net>
-To: zhengdejin5@gmail.com
-From: David Miller <davem@davemloft.net>
-In-Reply-To: <20200316023254.13201-1-zhengdejin5@gmail.com>
-References: <20200316023254.13201-1-zhengdejin5@gmail.com>
-X-Mailer: Mew version 6.8 on Emacs 26.1
-Mime-Version: 1.0
-X-Greylist: Sender succeeded SMTP AUTH, not delayed by milter-greylist-4.5.12
- (shards.monkeyblade.net [149.20.54.216]);
- Mon, 16 Mar 2020 02:10:28 -0700 (PDT)
-Cc: andrew@lunn.ch, netdev@vger.kernel.org, linux-kernel@vger.kernel.org,
- joabreu@synopsys.com, mcoquelin.stm32@gmail.com, peppe.cavallaro@st.com,
- linux-stm32@st-md-mailman.stormreply.com, linux-arm-kernel@lists.infradead.org
-Subject: Re: [Linux-stm32] [PATCH net-next v3 0/2] net: stmmac: Use
- readl_poll_timeout() to simplify the code
+ Tue, 17 Mar 2020 09:19:12 +0000 (UTC)
+Received: from mailhost.synopsys.com (mdc-mailhost1.synopsys.com
+ [10.225.0.209])
+ (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits))
+ (No client certificate requested)
+ by smtprelay-out1.synopsys.com (Postfix) with ESMTPS id 870F940184;
+ Tue, 17 Mar 2020 09:19:09 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=synopsys.com; s=mail;
+ t=1584436751; bh=VK6M6NynkQutHkNGcSezRWGpOnu7G8uE4UbAW05pHdw=;
+ h=From:To:Cc:Subject:Date:From;
+ b=jdTQqScirKVGNgC3KqPiJjgx2fay44quEzcZ8Nv3oinH2jd8Xw2kGZw5NMQJ77u7n
+ a392Hn0Iplmw1M+f/qUdWmrn/J/OUqFWBrlHbWker6Uucu2Txo+0EhQTIcNebNQ0Mp
+ p02DOJKm5pETomSGgj0t+m1Jrmvw0ntnU6ZDbeCW2U5Rqr4bS9W8rMXDZYcSlS3wkv
+ ZH2z4ZGf5QEz0OKly2jIm1gExDpDaVEBkw4AScvVEf1a/seizGjPgDqIC+2G88Swi6
+ l0mO/3detAyWmkIB+zgPcwCstDym7fxAamm2590i/yrLpbTHp4m337j6MM63HHlrwD
+ GzTQJjYcS18Zw==
+Received: from de02dwia024.internal.synopsys.com
+ (de02dwia024.internal.synopsys.com [10.225.19.81])
+ by mailhost.synopsys.com (Postfix) with ESMTP id 1C533A005C;
+ Tue, 17 Mar 2020 09:19:01 +0000 (UTC)
+From: Jose Abreu <Jose.Abreu@synopsys.com>
+To: netdev@vger.kernel.org
+Date: Tue, 17 Mar 2020 10:18:49 +0100
+Message-Id: <cover.1584436401.git.Jose.Abreu@synopsys.com>
+X-Mailer: git-send-email 2.7.4
+Cc: Jose Abreu <Jose.Abreu@synopsys.com>, Andrew Lunn <andrew@lunn.ch>,
+ Joao Pinto <Joao.Pinto@synopsys.com>, Russell King <linux@armlinux.org.uk>,
+ linux-kernel@vger.kernel.org, linux-stm32@st-md-mailman.stormreply.com,
+ Florian Fainelli <f.fainelli@gmail.com>,
+ Maxime Coquelin <mcoquelin.stm32@gmail.com>,
+ Giuseppe Cavallaro <peppe.cavallaro@st.com>,
+ "David S. Miller" <davem@davemloft.net>, linux-arm-kernel@lists.infradead.org,
+ Heiner Kallweit <hkallweit1@gmail.com>
+Subject: [Linux-stm32] [PATCH net-next 0/4] net: stmmac: 100GB Enterprise
+	MAC support
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -46,27 +59,61 @@ List-Post: <mailto:linux-stm32@st-md-mailman.stormreply.com>
 List-Help: <mailto:linux-stm32-request@st-md-mailman.stormreply.com?subject=help>
 List-Subscribe: <https://st-md-mailman.stormreply.com/mailman/listinfo/linux-stm32>, 
  <mailto:linux-stm32-request@st-md-mailman.stormreply.com?subject=subscribe>
+MIME-Version: 1.0
 Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
-From: Dejin Zheng <zhengdejin5@gmail.com>
-Date: Mon, 16 Mar 2020 10:32:52 +0800
+Adds the support for Enterprise MAC IP version which allows operating
+speeds up to 100GB.
 
-> This patch sets just for replace the open-coded loop to the
-> readl_poll_timeout() helper macro for simplify the code in
-> stmmac driver.
-> 
-> v2 -> v3:
-> 	- return whatever error code by readl_poll_timeout() returned.
-> v1 -> v2:
-> 	- no changed. I am a newbie and sent this patch a month
-> 	  ago (February 6th). So far, I have not received any comments or
-> 	  suggestion. I think it may be lost somewhere in the world, so
-> 	  resend it.
+Patch 1/4, adds the support in XPCS for XLGMII interface that is used in
+this kind of Enterprise MAC IPs.
 
-Looks good, series applied, thank you.
+Patch 2/4, adds the XLGMII interface support in stmmac.
+
+Patch 3/4, adds the HW specific support for Enterprise MAC.
+
+We end in patch 4/4, by updating stmmac documentation to mention the
+support for this new IP version.
+
+---
+Cc: Giuseppe Cavallaro <peppe.cavallaro@st.com>
+Cc: Alexandre Torgue <alexandre.torgue@st.com>
+Cc: Jose Abreu <joabreu@synopsys.com>
+Cc: "David S. Miller" <davem@davemloft.net>
+Cc: Maxime Coquelin <mcoquelin.stm32@gmail.com>
+Cc: netdev@vger.kernel.org
+Cc: linux-stm32@st-md-mailman.stormreply.com
+Cc: linux-arm-kernel@lists.infradead.org
+Cc: linux-kernel@vger.kernel.org
+Cc: Andrew Lunn <andrew@lunn.ch>
+Cc: Florian Fainelli <f.fainelli@gmail.com>
+Cc: Heiner Kallweit <hkallweit1@gmail.com>
+Cc: Russell King <linux@armlinux.org.uk>
+---
+
+Jose Abreu (4):
+  net: phy: xpcs: Add XLGMII support
+  net: stmmac: Add XLGMII support
+  net: stmmac: Add support for Enterprise MAC version
+  Documentation: networking: stmmac: Mention new XLGMAC support
+
+ .../networking/device_drivers/stmicro/stmmac.rst   |  7 +-
+ drivers/net/ethernet/stmicro/stmmac/common.h       | 13 +++
+ .../net/ethernet/stmicro/stmmac/dwxgmac2_core.c    | 99 ++++++++++++++++++++++
+ drivers/net/ethernet/stmicro/stmmac/dwxlgmac2.h    | 22 +++++
+ drivers/net/ethernet/stmicro/stmmac/hwif.c         | 45 +++++++++-
+ drivers/net/ethernet/stmicro/stmmac/hwif.h         |  1 +
+ drivers/net/ethernet/stmicro/stmmac/stmmac_main.c  | 58 +++++++++++++
+ drivers/net/phy/mdio-xpcs.c                        | 98 +++++++++++++++++++++
+ 8 files changed, 340 insertions(+), 3 deletions(-)
+ create mode 100644 drivers/net/ethernet/stmicro/stmmac/dwxlgmac2.h
+
+-- 
+2.7.4
+
 _______________________________________________
 Linux-stm32 mailing list
 Linux-stm32@st-md-mailman.stormreply.com
