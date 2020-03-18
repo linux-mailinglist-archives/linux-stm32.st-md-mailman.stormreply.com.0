@@ -2,45 +2,45 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id 965B518A47B
-	for <lists+linux-stm32@lfdr.de>; Wed, 18 Mar 2020 21:54:36 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 88C4918A4A6
+	for <lists+linux-stm32@lfdr.de>; Wed, 18 Mar 2020 21:55:42 +0100 (CET)
 Received: from ip-172-31-3-76.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 229FBC36B0B;
-	Wed, 18 Mar 2020 20:54:36 +0000 (UTC)
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 3B736C36B0B;
+	Wed, 18 Mar 2020 20:55:42 +0000 (UTC)
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
  (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 42E3AC36B09
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 68FBBC36B09
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Wed, 18 Mar 2020 20:54:29 +0000 (UTC)
+ Wed, 18 Mar 2020 20:55:41 +0000 (UTC)
 Received: from sasha-vm.mshome.net (c-73-47-72-35.hsd1.nh.comcast.net
  [73.47.72.35])
  (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by mail.kernel.org (Postfix) with ESMTPSA id 9808B2098B;
- Wed, 18 Mar 2020 20:54:27 +0000 (UTC)
+ by mail.kernel.org (Postfix) with ESMTPSA id 232BE208E4;
+ Wed, 18 Mar 2020 20:55:39 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
- s=default; t=1584564868;
- bh=CPQtHhru0LQFaw5HTaIZ2IC1hzuZCsiamkZyzzB0/vc=;
+ s=default; t=1584564940;
+ bh=CRAB778nqg1MgETvFzYotqQD43sufLM5qforwF49esM=;
  h=From:To:Cc:Subject:Date:In-Reply-To:References:From;
- b=G+IrRK8f2A0wYwU8QzMC0k+xrstON+enN6/aOQAf4IeLJuQy9jwIIi8kWEQcYQ2x4
- b72B9kwEvYlNxj2tdb2HCYh9un5JmLCLnAB8oWntNw4WzgDNbmzr4wqzElwYqRxglD
- KvzHPXL/LlfkLezkkv/c7fG8KPtEyFdYPC1lCFMI=
+ b=1tnQH3WcMhQwTPlTBB/AFo7ONdlU/qksvq4f+P8vaC6ud6nvirBnmTJRdc8hXk3E6
+ i9jMt3hJ/8IpkRDicsNcwKXmNA/CLDJmd4Ozt9AEyH8H1mlO+6WdIeVbnO2vYc+fqB
+ GK8mhHwOsnTAc2wao4VwagFc2JBoqrxACljaIC2M=
 From: Sasha Levin <sashal@kernel.org>
 To: linux-kernel@vger.kernel.org,
 	stable@vger.kernel.org
-Date: Wed, 18 Mar 2020 16:53:04 -0400
-Message-Id: <20200318205337.16279-40-sashal@kernel.org>
+Date: Wed, 18 Mar 2020 16:54:57 -0400
+Message-Id: <20200318205509.17053-25-sashal@kernel.org>
 X-Mailer: git-send-email 2.20.1
-In-Reply-To: <20200318205337.16279-1-sashal@kernel.org>
-References: <20200318205337.16279-1-sashal@kernel.org>
+In-Reply-To: <20200318205509.17053-1-sashal@kernel.org>
+References: <20200318205509.17053-1-sashal@kernel.org>
 MIME-Version: 1.0
 X-stable: review
 X-Patchwork-Hint: Ignore
 Cc: Sasha Levin <sashal@kernel.org>, netdev@vger.kernel.org,
  linux-stm32@st-md-mailman.stormreply.com, Remi Pommarel <repk@triplefau.lt>,
  "David S . Miller" <davem@davemloft.net>, linux-arm-kernel@lists.infradead.org
-Subject: [Linux-stm32] [PATCH AUTOSEL 5.4 40/73] net: stmmac: dwmac1000:
+Subject: [Linux-stm32] [PATCH AUTOSEL 4.19 25/37] net: stmmac: dwmac1000:
 	Disable ACS if enhanced descs are not used
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
@@ -80,10 +80,10 @@ Signed-off-by: Sasha Levin <sashal@kernel.org>
  1 file changed, 2 insertions(+), 1 deletion(-)
 
 diff --git a/drivers/net/ethernet/stmicro/stmmac/dwmac1000_core.c b/drivers/net/ethernet/stmicro/stmmac/dwmac1000_core.c
-index 3d69da112625e..43a785f86c69d 100644
+index 21d131347e2ef..7b2a84320aabd 100644
 --- a/drivers/net/ethernet/stmicro/stmmac/dwmac1000_core.c
 +++ b/drivers/net/ethernet/stmicro/stmmac/dwmac1000_core.c
-@@ -24,6 +24,7 @@
+@@ -34,6 +34,7 @@
  static void dwmac1000_core_init(struct mac_device_info *hw,
  				struct net_device *dev)
  {
@@ -91,7 +91,7 @@ index 3d69da112625e..43a785f86c69d 100644
  	void __iomem *ioaddr = hw->pcsr;
  	u32 value = readl(ioaddr + GMAC_CONTROL);
  	int mtu = dev->mtu;
-@@ -35,7 +36,7 @@ static void dwmac1000_core_init(struct mac_device_info *hw,
+@@ -45,7 +46,7 @@ static void dwmac1000_core_init(struct mac_device_info *hw,
  	 * Broadcom tags can look like invalid LLC/SNAP packets and cause the
  	 * hardware to truncate packets on reception.
  	 */
