@@ -2,46 +2,32 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id 88C4918A4A6
-	for <lists+linux-stm32@lfdr.de>; Wed, 18 Mar 2020 21:55:42 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 4D36318A72D
+	for <lists+linux-stm32@lfdr.de>; Wed, 18 Mar 2020 22:41:54 +0100 (CET)
 Received: from ip-172-31-3-76.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 3B736C36B0B;
-	Wed, 18 Mar 2020 20:55:42 +0000 (UTC)
-Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
- (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
- (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 68FBBC36B09
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id F40B5C36B0B;
+	Wed, 18 Mar 2020 21:41:53 +0000 (UTC)
+Received: from foss.arm.com (foss.arm.com [217.140.110.172])
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 4B965C36B09
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Wed, 18 Mar 2020 20:55:41 +0000 (UTC)
-Received: from sasha-vm.mshome.net (c-73-47-72-35.hsd1.nh.comcast.net
- [73.47.72.35])
- (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
- (No client certificate requested)
- by mail.kernel.org (Postfix) with ESMTPSA id 232BE208E4;
- Wed, 18 Mar 2020 20:55:39 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
- s=default; t=1584564940;
- bh=CRAB778nqg1MgETvFzYotqQD43sufLM5qforwF49esM=;
- h=From:To:Cc:Subject:Date:In-Reply-To:References:From;
- b=1tnQH3WcMhQwTPlTBB/AFo7ONdlU/qksvq4f+P8vaC6ud6nvirBnmTJRdc8hXk3E6
- i9jMt3hJ/8IpkRDicsNcwKXmNA/CLDJmd4Ozt9AEyH8H1mlO+6WdIeVbnO2vYc+fqB
- GK8mhHwOsnTAc2wao4VwagFc2JBoqrxACljaIC2M=
-From: Sasha Levin <sashal@kernel.org>
-To: linux-kernel@vger.kernel.org,
-	stable@vger.kernel.org
-Date: Wed, 18 Mar 2020 16:54:57 -0400
-Message-Id: <20200318205509.17053-25-sashal@kernel.org>
-X-Mailer: git-send-email 2.20.1
-In-Reply-To: <20200318205509.17053-1-sashal@kernel.org>
-References: <20200318205509.17053-1-sashal@kernel.org>
-MIME-Version: 1.0
-X-stable: review
-X-Patchwork-Hint: Ignore
-Cc: Sasha Levin <sashal@kernel.org>, netdev@vger.kernel.org,
- linux-stm32@st-md-mailman.stormreply.com, Remi Pommarel <repk@triplefau.lt>,
- "David S . Miller" <davem@davemloft.net>, linux-arm-kernel@lists.infradead.org
-Subject: [Linux-stm32] [PATCH AUTOSEL 4.19 25/37] net: stmmac: dwmac1000:
-	Disable ACS if enhanced descs are not used
+ Wed, 18 Mar 2020 21:41:53 +0000 (UTC)
+Received: from usa-sjc-imap-foss1.foss.arm.com (unknown [10.121.207.14])
+ by usa-sjc-mx-foss1.foss.arm.com (Postfix) with ESMTP id 881B830E;
+ Wed, 18 Mar 2020 14:41:52 -0700 (PDT)
+Received: from localhost (unknown [10.37.6.21])
+ by usa-sjc-imap-foss1.foss.arm.com (Postfix) with ESMTPSA id 0C74F3F7BB;
+ Wed, 18 Mar 2020 14:41:51 -0700 (PDT)
+Date: Wed, 18 Mar 2020 21:41:50 +0000
+From: Mark Brown <broonie@kernel.org>
+To: Olivier Moysan <olivier.moysan@st.com>
+In-Reply-To: <20200318144125.9163-4-olivier.moysan@st.com>
+Message-Id: <applied-20200318144125.9163-4-olivier.moysan@st.com>
+X-Patchwork-Hint: ignore
+Cc: alsa-devel@alsa-project.org, tiwai@suse.com, linux-kernel@vger.kernel.org,
+ lgirdwood@gmail.com, Mark Brown <broonie@kernel.org>, perex@perex.cz,
+ linux-stm32@st-md-mailman.stormreply.com, linux-arm-kernel@lists.infradead.org
+Subject: [Linux-stm32] Applied "ASoC: stm32: i2s: manage rebind issue" to
+	the asoc tree
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -53,53 +39,156 @@ List-Post: <mailto:linux-stm32@st-md-mailman.stormreply.com>
 List-Help: <mailto:linux-stm32-request@st-md-mailman.stormreply.com?subject=help>
 List-Subscribe: <https://st-md-mailman.stormreply.com/mailman/listinfo/linux-stm32>, 
  <mailto:linux-stm32-request@st-md-mailman.stormreply.com?subject=subscribe>
+MIME-Version: 1.0
 Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
-From: Remi Pommarel <repk@triplefau.lt>
+The patch
 
-[ Upstream commit b723bd933980f4956dabc8a8d84b3e83be8d094c ]
+   ASoC: stm32: i2s: manage rebind issue
 
-ACS (auto PAD/FCS stripping) removes FCS off 802.3 packets (LLC) so that
-there is no need to manually strip it for such packets. The enhanced DMA
-descriptors allow to flag LLC packets so that the receiving callback can
-use that to strip FCS manually or not. On the other hand, normal
-descriptors do not support that.
+has been applied to the asoc tree at
 
-Thus in order to not truncate LLC packet ACS should be disabled when
-using normal DMA descriptors.
+   https://git.kernel.org/pub/scm/linux/kernel/git/broonie/sound.git 
 
-Fixes: 47dd7a540b8a0 ("net: add support for STMicroelectronics Ethernet controllers.")
-Signed-off-by: Remi Pommarel <repk@triplefau.lt>
-Signed-off-by: David S. Miller <davem@davemloft.net>
-Signed-off-by: Sasha Levin <sashal@kernel.org>
+All being well this means that it will be integrated into the linux-next
+tree (usually sometime in the next 24 hours) and sent to Linus during
+the next merge window (or sooner if it is a bug fix), however if
+problems are discovered then the patch may be dropped or reverted.  
+
+You may get further e-mails resulting from automated or manual testing
+and review of the tree, please engage with people reporting problems and
+send followup patches addressing any issues that are reported if needed.
+
+If any updates are required or you are submitting further changes they
+should be sent as incremental updates against current git, existing
+patches will not be replaced.
+
+Please add any relevant lists and maintainers to the CCs when replying
+to this mail.
+
+Thanks,
+Mark
+
+From caff4ce8cc582a97b17d10b7c7f5fe8500323135 Mon Sep 17 00:00:00 2001
+From: Olivier Moysan <olivier.moysan@st.com>
+Date: Wed, 18 Mar 2020 15:41:25 +0100
+Subject: [PATCH] ASoC: stm32: i2s: manage rebind issue
+
+The commit e894efef9ac7 ("ASoC: core: add support to card rebind")
+allows to rebind the sound card after a rebind of one of its component.
+With this commit, the sound card is actually rebound,
+but may be no more functional.
+
+Corrections:
+- Call snd_dmaengine_pcm_register() before snd_soc_register_component().
+- Call snd_dmaengine_pcm_unregister() and snd_soc_unregister_component()
+explicitly from I2S driver.
+
+Signed-off-by: Olivier Moysan <olivier.moysan@st.com>
+Link: https://lore.kernel.org/r/20200318144125.9163-4-olivier.moysan@st.com
+Signed-off-by: Mark Brown <broonie@kernel.org>
 ---
- drivers/net/ethernet/stmicro/stmmac/dwmac1000_core.c | 3 ++-
- 1 file changed, 2 insertions(+), 1 deletion(-)
+ sound/soc/stm/stm32_i2s.c | 40 ++++++++++++++++++++++++++++-----------
+ 1 file changed, 29 insertions(+), 11 deletions(-)
 
-diff --git a/drivers/net/ethernet/stmicro/stmmac/dwmac1000_core.c b/drivers/net/ethernet/stmicro/stmmac/dwmac1000_core.c
-index 21d131347e2ef..7b2a84320aabd 100644
---- a/drivers/net/ethernet/stmicro/stmmac/dwmac1000_core.c
-+++ b/drivers/net/ethernet/stmicro/stmmac/dwmac1000_core.c
-@@ -34,6 +34,7 @@
- static void dwmac1000_core_init(struct mac_device_info *hw,
- 				struct net_device *dev)
- {
-+	struct stmmac_priv *priv = netdev_priv(dev);
- 	void __iomem *ioaddr = hw->pcsr;
- 	u32 value = readl(ioaddr + GMAC_CONTROL);
- 	int mtu = dev->mtu;
-@@ -45,7 +46,7 @@ static void dwmac1000_core_init(struct mac_device_info *hw,
- 	 * Broadcom tags can look like invalid LLC/SNAP packets and cause the
- 	 * hardware to truncate packets on reception.
- 	 */
--	if (netdev_uses_dsa(dev))
-+	if (netdev_uses_dsa(dev) || !priv->plat->enh_desc)
- 		value &= ~GMAC_CONTROL_ACS;
+diff --git a/sound/soc/stm/stm32_i2s.c b/sound/soc/stm/stm32_i2s.c
+index 2478405727c3..7c4d63c33f15 100644
+--- a/sound/soc/stm/stm32_i2s.c
++++ b/sound/soc/stm/stm32_i2s.c
+@@ -888,6 +888,14 @@ static int stm32_i2s_parse_dt(struct platform_device *pdev,
+ 	return 0;
+ }
  
- 	if (mtu > 1500)
++static int stm32_i2s_remove(struct platform_device *pdev)
++{
++	snd_dmaengine_pcm_unregister(&pdev->dev);
++	snd_soc_unregister_component(&pdev->dev);
++
++	return 0;
++}
++
+ static int stm32_i2s_probe(struct platform_device *pdev)
+ {
+ 	struct stm32_i2s_data *i2s;
+@@ -921,47 +929,56 @@ static int stm32_i2s_probe(struct platform_device *pdev)
+ 		return PTR_ERR(i2s->regmap);
+ 	}
+ 
+-	ret = devm_snd_soc_register_component(&pdev->dev, &stm32_i2s_component,
+-					      i2s->dai_drv, 1);
+-	if (ret)
+-		return ret;
+-
+-	ret = devm_snd_dmaengine_pcm_register(&pdev->dev,
+-					      &stm32_i2s_pcm_config, 0);
++	ret = snd_dmaengine_pcm_register(&pdev->dev, &stm32_i2s_pcm_config, 0);
+ 	if (ret) {
+ 		if (ret != -EPROBE_DEFER)
+ 			dev_err(&pdev->dev, "PCM DMA register error %d\n", ret);
+ 		return ret;
+ 	}
+ 
++	ret = snd_soc_register_component(&pdev->dev, &stm32_i2s_component,
++					 i2s->dai_drv, 1);
++	if (ret) {
++		snd_dmaengine_pcm_unregister(&pdev->dev);
++		return ret;
++	}
++
+ 	/* Set SPI/I2S in i2s mode */
+ 	ret = regmap_update_bits(i2s->regmap, STM32_I2S_CGFR_REG,
+ 				 I2S_CGFR_I2SMOD, I2S_CGFR_I2SMOD);
+ 	if (ret)
+-		return ret;
++		goto error;
+ 
+ 	ret = regmap_read(i2s->regmap, STM32_I2S_IPIDR_REG, &val);
+ 	if (ret)
+-		return ret;
++		goto error;
+ 
+ 	if (val == I2S_IPIDR_NUMBER) {
+ 		ret = regmap_read(i2s->regmap, STM32_I2S_HWCFGR_REG, &val);
+ 		if (ret)
+-			return ret;
++			goto error;
+ 
+ 		if (!FIELD_GET(I2S_HWCFGR_I2S_SUPPORT_MASK, val)) {
+ 			dev_err(&pdev->dev,
+ 				"Device does not support i2s mode\n");
+-			return -EPERM;
++			ret = -EPERM;
++			goto error;
+ 		}
+ 
+ 		ret = regmap_read(i2s->regmap, STM32_I2S_VERR_REG, &val);
++		if (ret)
++			goto error;
+ 
+ 		dev_dbg(&pdev->dev, "I2S version: %lu.%lu registered\n",
+ 			FIELD_GET(I2S_VERR_MAJ_MASK, val),
+ 			FIELD_GET(I2S_VERR_MIN_MASK, val));
+ 	}
+ 
++	return ret;
++
++error:
++	stm32_i2s_remove(pdev);
++
+ 	return ret;
+ }
+ 
+@@ -998,6 +1015,7 @@ static struct platform_driver stm32_i2s_driver = {
+ 		.pm = &stm32_i2s_pm_ops,
+ 	},
+ 	.probe = stm32_i2s_probe,
++	.remove = stm32_i2s_remove,
+ };
+ 
+ module_platform_driver(stm32_i2s_driver);
 -- 
 2.20.1
 
