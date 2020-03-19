@@ -2,86 +2,62 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id 9A6E218B155
-	for <lists+linux-stm32@lfdr.de>; Thu, 19 Mar 2020 11:28:45 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id CDD5D18B16C
+	for <lists+linux-stm32@lfdr.de>; Thu, 19 Mar 2020 11:31:03 +0100 (CET)
 Received: from ip-172-31-3-76.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 5F008C36B0D;
-	Thu, 19 Mar 2020 10:28:45 +0000 (UTC)
-Received: from mx07-00178001.pphosted.com (mx08-00178001.pphosted.com
- [91.207.212.93])
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 8AF87C36B0E;
+	Thu, 19 Mar 2020 10:31:03 +0000 (UTC)
+Received: from mx07-00178001.pphosted.com (mx07-00178001.pphosted.com
+ [62.209.51.94])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 358BBC36B0B
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id B6BD5C36B0C
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Thu, 19 Mar 2020 10:28:44 +0000 (UTC)
-Received: from pps.filterd (m0046661.ppops.net [127.0.0.1])
+ Thu, 19 Mar 2020 10:31:01 +0000 (UTC)
+Received: from pps.filterd (m0046668.ppops.net [127.0.0.1])
  by mx07-00178001.pphosted.com (8.16.0.42/8.16.0.42) with SMTP id
- 02JAR7eY032209; Thu, 19 Mar 2020 11:28:28 +0100
+ 02JASqwX011436; Thu, 19 Mar 2020 11:30:54 +0100
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=st.com;
  h=from : to : cc : subject
- : date : message-id : references : in-reply-to : content-type : content-id
- : content-transfer-encoding : mime-version; s=STMicroelectronics;
- bh=a8IUIDV/simADAYkwM+Njnv3lTBx4k59GizTkWNN6Ss=;
- b=bkBlNCmUITsQYwAIxDnXxiof6dfStcMQbxGYnOstUEFFI+V/ja+pfnndlQ3ZN8hLH0B3
- b+QUBAtxCj5IBu9RWXHrpB26PYPUXuwmSsNqlJ0vJPFIMC3aTdGOm8K0qDGsC+pmPEtG
- +bHO3dOG9podOt62m+JmVlBu4y/NdkbfPyzjTPxFmIj9dc5ff3ShkYAqCHLc90RrWQ98
- EKW3VeunwewQVQWDDkyE+/ZLYcZPzfQdsyVdZX7tZQRwedRHYkD6IElxfdceTVH/iu/k
- EfgP2ECx8WZiBoSrWIexJtYkgZw1zVGEexLxS/quRrB1UkYUrakRbQwdSYfSmosiKuIb YA== 
+ : date : message-id : mime-version : content-type; s=STMicroelectronics;
+ bh=T6KxkBVdSlvswEwEr/fHrokZ23VjltZtaEhbr8esy5Y=;
+ b=V+mZ7etU3SXK2Sgi/eC0JJJcC0C2b6+W/lPBlCAm7cql5HaWiqr1nCquGskoO938ojO3
+ TdSa/73rQ4/9Vvydn+LYsfxmm9I3QKhZN0JEy+AOwUCnb0aeS/71iN2Yva50ffyWCgq9
+ I0MCbyxNAYcW/39U+TDk9ZKbSkOZsYCL8JGlcJt3G2UCWPWPGhcKA1ZyR7oHBgPqpjgV
+ d5U7uQKSx9mtCf1tjaEMXBLZGcjHBReEe4BlbVciglZhy7j4HO9qOoGTq5xv49RadOwH
+ UDbgdOcwmZUUsC+ZbjX8ZrM2hb9dppXkrhQGS0VR4mTJn5+H9X7tbTD8lWRFOJtMYtOh AQ== 
 Received: from beta.dmz-eu.st.com (beta.dmz-eu.st.com [164.129.1.35])
- by mx07-00178001.pphosted.com with ESMTP id 2yu95us066-1
+ by mx07-00178001.pphosted.com with ESMTP id 2yu6xdhk8b-1
  (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
- Thu, 19 Mar 2020 11:28:28 +0100
+ Thu, 19 Mar 2020 11:30:54 +0100
 Received: from euls16034.sgp.st.com (euls16034.sgp.st.com [10.75.44.20])
- by beta.dmz-eu.st.com (STMicroelectronics) with ESMTP id 996FB100034;
- Thu, 19 Mar 2020 11:28:23 +0100 (CET)
-Received: from Webmail-eu.st.com (sfhdag3node3.st.com [10.75.127.9])
- by euls16034.sgp.st.com (STMicroelectronics) with ESMTP id 80D312A5810;
- Thu, 19 Mar 2020 11:28:23 +0100 (CET)
-Received: from SFHDAG3NODE3.st.com (10.75.127.9) by SFHDAG3NODE3.st.com
- (10.75.127.9) with Microsoft SMTP Server (TLS) id 15.0.1347.2; Thu, 19 Mar
- 2020 11:28:23 +0100
-Received: from SFHDAG3NODE3.st.com ([fe80::3507:b372:7648:476]) by
- SFHDAG3NODE3.st.com ([fe80::3507:b372:7648:476%20]) with mapi id
- 15.00.1347.000; Thu, 19 Mar 2020 11:28:23 +0100
-From: Benjamin GAIGNARD <benjamin.gaignard@st.com>
-To: Lee Jones <lee.jones@linaro.org>, Daniel Lezcano
- <daniel.lezcano@linaro.org>
-Thread-Topic: [PATCH v4 2/3] mfd: stm32: Add defines to be used for clkevent
- purpose
-Thread-Index: AQHV5ZiQaom2ANb1fkS0EaDa85E9JagjxuwAgCwKSQCAAAURAA==
-Date: Thu, 19 Mar 2020 10:28:23 +0000
-Message-ID: <b21ac320-080d-3995-1c63-ca5c187224c6@st.com>
-References: <20200217134546.14562-1-benjamin.gaignard@st.com>
- <20200217134546.14562-3-benjamin.gaignard@st.com>
- <e9f7eaac-5b61-1662-2ae1-924d126e6a97@linaro.org>
- <20200319101014.GA5477@dell>
-In-Reply-To: <20200319101014.GA5477@dell>
-Accept-Language: en-US
-Content-Language: en-US
-X-MS-Has-Attach: 
-X-MS-TNEF-Correlator: 
-user-agent: Mozilla/5.0 (X11; Linux x86_64; rv:60.0) Gecko/20100101
- Thunderbird/60.9.0
-x-ms-exchange-messagesentrepresentingtype: 1
-x-ms-exchange-transport-fromentityheader: Hosted
-x-originating-ip: [10.75.127.45]
-Content-ID: <85765BABAB3113468E684283C64674E7@st.com>
+ by beta.dmz-eu.st.com (STMicroelectronics) with ESMTP id 12BCD100038;
+ Thu, 19 Mar 2020 11:30:54 +0100 (CET)
+Received: from Webmail-eu.st.com (sfhdag5node3.st.com [10.75.127.15])
+ by euls16034.sgp.st.com (STMicroelectronics) with ESMTP id F0ED82A5824;
+ Thu, 19 Mar 2020 11:30:53 +0100 (CET)
+Received: from localhost (10.75.127.44) by SFHDAG5NODE3.st.com (10.75.127.15)
+ with Microsoft SMTP Server (TLS) id 15.0.1473.3;
+ Thu, 19 Mar 2020 11:30:53 +0100
+From: Fabrice Gasnier <fabrice.gasnier@st.com>
+To: <alexandre.torgue@st.com>
+Date: Thu, 19 Mar 2020 11:30:26 +0100
+Message-ID: <1584613826-10838-1-git-send-email-fabrice.gasnier@st.com>
+X-Mailer: git-send-email 2.7.4
 MIME-Version: 1.0
+X-Originating-IP: [10.75.127.44]
+X-ClientProxiedBy: SFHDAG7NODE3.st.com (10.75.127.21) To SFHDAG5NODE3.st.com
+ (10.75.127.15)
 X-Proofpoint-Virus-Version: vendor=fsecure engine=2.50.10434:6.0.138, 18.0.645
- definitions=2020-03-19_02:2020-03-18,
+ definitions=2020-03-19_02:2020-03-19,
  2020-03-19 signatures=0
-Cc: "mark.rutland@arm.com" <mark.rutland@arm.com>,
- "devicetree@vger.kernel.org" <devicetree@vger.kernel.org>,
- "linux-kernel@vger.kernel.org" <linux-kernel@vger.kernel.org>,
- "robh+dt@kernel.org" <robh+dt@kernel.org>,
- "mcoquelin.stm32@gmail.com" <mcoquelin.stm32@gmail.com>,
- "tglx@linutronix.de" <tglx@linutronix.de>,
- Fabrice GASNIER <fabrice.gasnier@st.com>,
- "linux-stm32@st-md-mailman.stormreply.com"
- <linux-stm32@st-md-mailman.stormreply.com>,
- "linux-arm-kernel@lists.infradead.org" <linux-arm-kernel@lists.infradead.org>
-Subject: Re: [Linux-stm32] [PATCH v4 2/3] mfd: stm32: Add defines to be used
- for clkevent purpose
+Cc: mark.rutland@arm.com, devicetree@vger.kernel.org,
+ linux-kernel@vger.kernel.org, robh+dt@kernel.org,
+ linux-arm-kernel@lists.infradead.org, mcoquelin.stm32@gmail.com,
+ fabrice.gasnier@st.com, linux-stm32@st-md-mailman.stormreply.com,
+ jic23@kernel.org
+Subject: [Linux-stm32] [PATCH] ARM: dts: stm32: fix a typo for DAC
+	io-channel-cells on stm32mp15
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -98,26 +74,39 @@ Content-Transfer-Encoding: 7bit
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
+Fix a typo on STM32MP15 DAC, e.g. s/channels/channel
 
+Fixes: da6cddc7e8a4 ("ARM: dts: stm32: Add DAC support to stm32mp157c")
 
-On 3/19/20 11:10 AM, Lee Jones wrote:
-> On Thu, 20 Feb 2020, Daniel Lezcano wrote:
->> On 17/02/2020 14:45, Benjamin Gaignard wrote:
->>> Add defines to be able to enable/clear irq and configure one shot mode.
->>>
->>> Signed-off-by: Benjamin Gaignard <benjamin.gaignard@st.com>
->> Are you fine if I pick this patch with the series?
-> Nothing heard from you since I Acked this.
->
-> Are you still planning on taking this patch?
->
-> If so, can you also take patch 1 please?
-I will send a v5.
-Daniel could you wait until that to merge all the patches (even if this 
-one won't change) ?
+Signed-off-by: Fabrice Gasnier <fabrice.gasnier@st.com>
+---
+ arch/arm/boot/dts/stm32mp151.dtsi | 4 ++--
+ 1 file changed, 2 insertions(+), 2 deletions(-)
 
-Benjamin
->
+diff --git a/arch/arm/boot/dts/stm32mp151.dtsi b/arch/arm/boot/dts/stm32mp151.dtsi
+index 3ea05ba..5260818 100644
+--- a/arch/arm/boot/dts/stm32mp151.dtsi
++++ b/arch/arm/boot/dts/stm32mp151.dtsi
+@@ -550,14 +550,14 @@
+ 
+ 			dac1: dac@1 {
+ 				compatible = "st,stm32-dac";
+-				#io-channels-cells = <1>;
++				#io-channel-cells = <1>;
+ 				reg = <1>;
+ 				status = "disabled";
+ 			};
+ 
+ 			dac2: dac@2 {
+ 				compatible = "st,stm32-dac";
+-				#io-channels-cells = <1>;
++				#io-channel-cells = <1>;
+ 				reg = <2>;
+ 				status = "disabled";
+ 			};
+-- 
+2.7.4
+
 _______________________________________________
 Linux-stm32 mailing list
 Linux-stm32@st-md-mailman.stormreply.com
