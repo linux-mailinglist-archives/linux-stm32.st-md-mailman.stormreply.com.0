@@ -2,60 +2,75 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id 973E218BF49
-	for <lists+linux-stm32@lfdr.de>; Thu, 19 Mar 2020 19:22:27 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id AEF1118C265
+	for <lists+linux-stm32@lfdr.de>; Thu, 19 Mar 2020 22:40:14 +0100 (CET)
 Received: from ip-172-31-3-76.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 63902C36B0B;
-	Thu, 19 Mar 2020 18:22:27 +0000 (UTC)
-Received: from mx07-00178001.pphosted.com (mx07-00178001.pphosted.com
- [62.209.51.94])
- (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 5DC12C36B0B;
+	Thu, 19 Mar 2020 21:40:14 +0000 (UTC)
+Received: from gateway24.websitewelcome.com (gateway24.websitewelcome.com
+ [192.185.51.196])
+ (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 36800C36B09
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id F3061C36B09
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Thu, 19 Mar 2020 18:22:25 +0000 (UTC)
-Received: from pps.filterd (m0046037.ppops.net [127.0.0.1])
- by mx07-00178001.pphosted.com (8.16.0.42/8.16.0.42) with SMTP id
- 02JIE6KQ006369; Thu, 19 Mar 2020 19:22:21 +0100
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=st.com;
- h=from : to : cc : subject
- : date : message-id : mime-version : content-type; s=STMicroelectronics;
- bh=V1W1ZPAPMrHQt1KYv4hQ0NVBS3G0SeGs+MGIuDlSv+M=;
- b=0L6vrc0LKZikLUpVVK2vnLb7nwoHF+e8cUtc2U4X83wexv222/XYkKS7bxEbnCvB/Z81
- 2gSMItsO9LRkjg/mWCLT4a2UUPOuosQuN0qkCnfYqIZXlcjzqJ36kdr+3mKOBXHLo4Ud
- /7VM876MUv0PrHyW0F75yFVxayg4heBKxcrPwrsUTmOVVk4vxmn9kBN9aDIi8mDDlPbO
- 4GdwjDDY+58jXUBO4YChgQml4eV+pK9+yLu9N059mE/oI2GhVaZLuX5QVa6jy5QgcJqW
- 7asIhySdnOQ7wpr8JQ3f9/f/OeSi938VzNGSC0r2T6MYQQBnpjsa8BrLZBY2aq9h+jvc jA== 
-Received: from beta.dmz-eu.st.com (beta.dmz-eu.st.com [164.129.1.35])
- by mx07-00178001.pphosted.com with ESMTP id 2yu8etkcdq-1
- (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
- Thu, 19 Mar 2020 19:22:21 +0100
-Received: from euls16034.sgp.st.com (euls16034.sgp.st.com [10.75.44.20])
- by beta.dmz-eu.st.com (STMicroelectronics) with ESMTP id DA7BB10002A;
- Thu, 19 Mar 2020 19:22:16 +0100 (CET)
-Received: from Webmail-eu.st.com (sfhdag3node2.st.com [10.75.127.8])
- by euls16034.sgp.st.com (STMicroelectronics) with ESMTP id CE66F22190E;
- Thu, 19 Mar 2020 19:22:16 +0100 (CET)
-Received: from localhost (10.75.127.48) by SFHDAG3NODE2.st.com (10.75.127.8)
- with Microsoft SMTP Server (TLS) id 15.0.1347.2; Thu, 19 Mar 2020 19:22:16
- +0100
-From: Alain Volmat <alain.volmat@st.com>
-To: <wsa@the-dreams.de>, <pierre-yves.mordret@st.com>
-Date: Thu, 19 Mar 2020 19:22:16 +0100
-Message-ID: <1584642136-15418-1-git-send-email-alain.volmat@st.com>
-X-Mailer: git-send-email 2.7.4
+ Thu, 19 Mar 2020 21:40:11 +0000 (UTC)
+Received: from cm16.websitewelcome.com (cm16.websitewelcome.com [100.42.49.19])
+ by gateway24.websitewelcome.com (Postfix) with ESMTP id B754527D8D
+ for <linux-stm32@st-md-mailman.stormreply.com>;
+ Thu, 19 Mar 2020 16:40:10 -0500 (CDT)
+Received: from gator4166.hostgator.com ([108.167.133.22]) by cmsmtp with SMTP
+ id F2tejYK408vkBF2tejPM9I; Thu, 19 Mar 2020 16:40:10 -0500
+X-Authority-Reason: nr=8
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
+ d=embeddedor.com; s=default; h=Content-Type:MIME-Version:Message-ID:Subject:
+ Cc:To:From:Date:Sender:Reply-To:Content-Transfer-Encoding:Content-ID:
+ Content-Description:Resent-Date:Resent-From:Resent-Sender:Resent-To:Resent-Cc
+ :Resent-Message-ID:In-Reply-To:References:List-Id:List-Help:List-Unsubscribe:
+ List-Subscribe:List-Post:List-Owner:List-Archive;
+ bh=oA/NJzx0KXN+QumtJADitL2cYB/VD8HJ14U8VnEp9zA=; b=JRnvCmww/9bMYZ7+kD7HHrRpyB
+ 7dyWttXY5Z7XmETXNeoPM/TgZfMh9kdhfJVaOqwtO6SSkCy0FWCN7trwktbppOe5YOow9ubVoFZP8
+ H5MjhsO10o/N4CwXVNd1mCbABooStdUjOfZtt8ekPF3Jg/9MTCu1qfnSe2uTMNr6kHsMou6xiaGqt
+ zPOatNuxUDVRgh48lxdGpF9M+TnTCtcSDHdo74KI3dpJPRolopCgmfRtVO2e9X1XhPIcOQd32b9cz
+ yzkk50vpQl20IZtHA1NwK6q2FUxoZws9qhB+gYEo2HsAFfp0z2euLWZeq592hCu6rAmTJ/0FwV/+I
+ ETThXjBQ==;
+Received: from cablelink-189-218-116-241.hosts.intercable.net
+ ([189.218.116.241]:53372 helo=embeddedor)
+ by gator4166.hostgator.com with esmtpa (Exim 4.92)
+ (envelope-from <gustavo@embeddedor.com>)
+ id 1jF2tc-001i0U-04; Thu, 19 Mar 2020 16:40:08 -0500
+Date: Thu, 19 Mar 2020 16:40:07 -0500
+From: "Gustavo A. R. Silva" <gustavo@embeddedor.com>
+To: Alexander Shishkin <alexander.shishkin@linux.intel.com>,
+ Maxime Coquelin <mcoquelin.stm32@gmail.com>,
+ Alexandre Torgue <alexandre.torgue@st.com>
+Message-ID: <20200319214007.GA13640@embeddedor.com>
 MIME-Version: 1.0
-X-Originating-IP: [10.75.127.48]
-X-ClientProxiedBy: SFHDAG2NODE3.st.com (10.75.127.6) To SFHDAG3NODE2.st.com
- (10.75.127.8)
-X-Proofpoint-Virus-Version: vendor=fsecure engine=2.50.10434:6.0.138, 18.0.645
- definitions=2020-03-19_07:2020-03-19,
- 2020-03-19 signatures=0
-Cc: linux-kernel@vger.kernel.org, alain.volmat@st.com,
- linux-i2c@vger.kernel.org, fabrice.gasnier@st.com,
- linux-stm32@st-md-mailman.stormreply.com, linux-arm-kernel@lists.infradead.org
-Subject: [Linux-stm32] [PATCH] i2c: stm32: don't print an error on probe
-	deferral
+Content-Disposition: inline
+User-Agent: Mutt/1.9.4 (2018-02-28)
+X-AntiAbuse: This header was added to track abuse,
+ please include it with any abuse report
+X-AntiAbuse: Primary Hostname - gator4166.hostgator.com
+X-AntiAbuse: Original Domain - st-md-mailman.stormreply.com
+X-AntiAbuse: Originator/Caller UID/GID - [47 12] / [47 12]
+X-AntiAbuse: Sender Address Domain - embeddedor.com
+X-BWhitelist: no
+X-Source-IP: 189.218.116.241
+X-Source-L: No
+X-Exim-ID: 1jF2tc-001i0U-04
+X-Source: 
+X-Source-Args: 
+X-Source-Dir: 
+X-Source-Sender: cablelink-189-218-116-241.hosts.intercable.net (embeddedor)
+ [189.218.116.241]:53372
+X-Source-Auth: gustavo@embeddedor.com
+X-Email-Count: 45
+X-Source-Cap: Z3V6aWRpbmU7Z3V6aWRpbmU7Z2F0b3I0MTY2Lmhvc3RnYXRvci5jb20=
+X-Local-Domain: yes
+Cc: "Gustavo A. R. Silva" <gustavo@embeddedor.com>,
+ linux-stm32@st-md-mailman.stormreply.com, linux-arm-kernel@lists.infradead.org,
+ linux-kernel@vger.kernel.org
+Subject: [Linux-stm32] [PATCH][next] hwtracing: stm: stm.h: Replace
+ zero-length array with flexible-array member
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -72,99 +87,63 @@ Content-Transfer-Encoding: 7bit
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
-From: Etienne Carriere <etienne.carriere@st.com>
+The current codebase makes use of the zero-length array language
+extension to the C90 standard, but the preferred mechanism to declare
+variable-length types such as these ones is a flexible array member[1][2],
+introduced in C99:
 
-Do not print an error trace when deferring probe for some resource.
+struct foo {
+        int stuff;
+        struct boo array[];
+};
 
-Signed-off-by: Etienne Carriere <etienne.carriere@st.com>
-Signed-off-by: Alain Volmat <alain.volmat@st.com>
+By making use of the mechanism above, we will get a compiler warning
+in case the flexible array does not occur last in the structure, which
+will help us prevent some kind of undefined behavior bugs from being
+inadvertently introduced[3] to the codebase from now on.
+
+Also, notice that, dynamic memory allocations won't be affected by
+this change:
+
+"Flexible array members have incomplete type, and so the sizeof operator
+may not be applied. As a quirk of the original implementation of
+zero-length arrays, sizeof evaluates to zero."[1]
+
+This issue was found with the help of Coccinelle.
+
+[1] https://gcc.gnu.org/onlinedocs/gcc/Zero-Length.html
+[2] https://github.com/KSPP/linux/issues/21
+[3] commit 76497732932f ("cxgb3/l2t: Fix undefined behaviour")
+
+Signed-off-by: Gustavo A. R. Silva <gustavo@embeddedor.com>
 ---
- drivers/i2c/busses/i2c-stm32.c   | 10 +++++++---
- drivers/i2c/busses/i2c-stm32f4.c |  4 +++-
- drivers/i2c/busses/i2c-stm32f7.c |  7 +++++--
- 3 files changed, 15 insertions(+), 6 deletions(-)
+ drivers/hwtracing/stm/stm.h | 4 ++--
+ 1 file changed, 2 insertions(+), 2 deletions(-)
 
-diff --git a/drivers/i2c/busses/i2c-stm32.c b/drivers/i2c/busses/i2c-stm32.c
-index 1da347e6a358..7be559858402 100644
---- a/drivers/i2c/busses/i2c-stm32.c
-+++ b/drivers/i2c/busses/i2c-stm32.c
-@@ -25,8 +25,9 @@ struct stm32_i2c_dma *stm32_i2c_dma_request(struct device *dev,
- 	/* Request and configure I2C TX dma channel */
- 	dma->chan_tx = dma_request_chan(dev, "tx");
- 	if (IS_ERR(dma->chan_tx)) {
--		dev_dbg(dev, "can't request DMA tx channel\n");
- 		ret = PTR_ERR(dma->chan_tx);
-+		if (ret != -EPROBE_DEFER)
-+			dev_dbg(dev, "can't request DMA tx channel\n");
- 		goto fail_al;
- 	}
+diff --git a/drivers/hwtracing/stm/stm.h b/drivers/hwtracing/stm/stm.h
+index 3569439d53bb..a9be49fc7a6b 100644
+--- a/drivers/hwtracing/stm/stm.h
++++ b/drivers/hwtracing/stm/stm.h
+@@ -23,7 +23,7 @@ void *stp_policy_node_priv(struct stp_policy_node *pn);
  
-@@ -44,8 +45,10 @@ struct stm32_i2c_dma *stm32_i2c_dma_request(struct device *dev,
- 	/* Request and configure I2C RX dma channel */
- 	dma->chan_rx = dma_request_chan(dev, "rx");
- 	if (IS_ERR(dma->chan_rx)) {
--		dev_err(dev, "can't request DMA rx channel\n");
- 		ret = PTR_ERR(dma->chan_rx);
-+		if (ret != -EPROBE_DEFER)
-+			dev_err(dev, "can't request DMA rx channel\n");
-+
- 		goto fail_tx;
- 	}
+ struct stp_master {
+ 	unsigned int	nr_free;
+-	unsigned long	chan_map[0];
++	unsigned long	chan_map[];
+ };
  
-@@ -73,7 +76,8 @@ struct stm32_i2c_dma *stm32_i2c_dma_request(struct device *dev,
- 	dma_release_channel(dma->chan_tx);
- fail_al:
- 	devm_kfree(dev, dma);
--	dev_info(dev, "can't use DMA\n");
-+	if (ret != -EPROBE_DEFER)
-+		dev_info(dev, "can't use DMA\n");
+ struct stm_device {
+@@ -42,7 +42,7 @@ struct stm_device {
+ 	const struct config_item_type		*pdrv_node_type;
+ 	/* master allocation */
+ 	spinlock_t		mc_lock;
+-	struct stp_master	*masters[0];
++	struct stp_master	*masters[];
+ };
  
- 	return ERR_PTR(ret);
- }
-diff --git a/drivers/i2c/busses/i2c-stm32f4.c b/drivers/i2c/busses/i2c-stm32f4.c
-index ba600d77a3f8..1b8cad506ad7 100644
---- a/drivers/i2c/busses/i2c-stm32f4.c
-+++ b/drivers/i2c/busses/i2c-stm32f4.c
-@@ -797,8 +797,10 @@ static int stm32f4_i2c_probe(struct platform_device *pdev)
- 
- 	rst = devm_reset_control_get_exclusive(&pdev->dev, NULL);
- 	if (IS_ERR(rst)) {
--		dev_err(&pdev->dev, "Error: Missing controller reset\n");
- 		ret = PTR_ERR(rst);
-+		if (ret != -EPROBE_DEFER)
-+			dev_err(&pdev->dev, "Error: Missing reset ctrl\n");
-+
- 		goto clk_free;
- 	}
- 	reset_control_assert(rst);
-diff --git a/drivers/i2c/busses/i2c-stm32f7.c b/drivers/i2c/busses/i2c-stm32f7.c
-index 78d40a4cc282..ab95ed52a7dc 100644
---- a/drivers/i2c/busses/i2c-stm32f7.c
-+++ b/drivers/i2c/busses/i2c-stm32f7.c
-@@ -1915,7 +1915,8 @@ static int stm32f7_i2c_probe(struct platform_device *pdev)
- 
- 	i2c_dev->clk = devm_clk_get(&pdev->dev, NULL);
- 	if (IS_ERR(i2c_dev->clk)) {
--		dev_err(&pdev->dev, "Error: Missing controller clock\n");
-+		if (PTR_ERR(i2c_dev->clk) != -EPROBE_DEFER)
-+			dev_err(&pdev->dev, "Failed to get controller clock\n");
- 		return PTR_ERR(i2c_dev->clk);
- 	}
- 
-@@ -1941,8 +1942,10 @@ static int stm32f7_i2c_probe(struct platform_device *pdev)
- 
- 	rst = devm_reset_control_get(&pdev->dev, NULL);
- 	if (IS_ERR(rst)) {
--		dev_err(&pdev->dev, "Error: Missing controller reset\n");
- 		ret = PTR_ERR(rst);
-+		if (ret != -EPROBE_DEFER)
-+			dev_err(&pdev->dev, "Error: Missing reset ctrl\n");
-+
- 		goto clk_free;
- 	}
- 	reset_control_assert(rst);
+ #define to_stm_device(_d)				\
 -- 
-2.7.4
+2.23.0
 
 _______________________________________________
 Linux-stm32 mailing list
