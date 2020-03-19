@@ -2,32 +2,69 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id 3F08718A72E
-	for <lists+linux-stm32@lfdr.de>; Wed, 18 Mar 2020 22:41:58 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 00D3F18B0EE
+	for <lists+linux-stm32@lfdr.de>; Thu, 19 Mar 2020 11:09:30 +0100 (CET)
 Received: from ip-172-31-3-76.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 09805C36B0B;
-	Wed, 18 Mar 2020 21:41:58 +0000 (UTC)
-Received: from foss.arm.com (foss.arm.com [217.140.110.172])
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 93A32C36B09
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id B2F1DC36B0B;
+	Thu, 19 Mar 2020 10:09:30 +0000 (UTC)
+Received: from mail-wm1-f65.google.com (mail-wm1-f65.google.com
+ [209.85.128.65])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+ (No client certificate requested)
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 7D578C36B09
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Wed, 18 Mar 2020 21:41:57 +0000 (UTC)
-Received: from usa-sjc-imap-foss1.foss.arm.com (unknown [10.121.207.14])
- by usa-sjc-mx-foss1.foss.arm.com (Postfix) with ESMTP id 1E5AFFEC;
- Wed, 18 Mar 2020 14:41:57 -0700 (PDT)
-Received: from localhost (unknown [10.37.6.21])
- by usa-sjc-imap-foss1.foss.arm.com (Postfix) with ESMTPSA id 965A73F67D;
- Wed, 18 Mar 2020 14:41:56 -0700 (PDT)
-Date: Wed, 18 Mar 2020 21:41:55 +0000
-From: Mark Brown <broonie@kernel.org>
-To: Olivier Moysan <olivier.moysan@st.com>
-In-Reply-To: <20200318144125.9163-3-olivier.moysan@st.com>
-Message-Id: <applied-20200318144125.9163-3-olivier.moysan@st.com>
-X-Patchwork-Hint: ignore
-Cc: alsa-devel@alsa-project.org, tiwai@suse.com, linux-kernel@vger.kernel.org,
- lgirdwood@gmail.com, Mark Brown <broonie@kernel.org>, perex@perex.cz,
+ Thu, 19 Mar 2020 10:09:29 +0000 (UTC)
+Received: by mail-wm1-f65.google.com with SMTP id r7so4378182wmg.0
+ for <linux-stm32@st-md-mailman.stormreply.com>;
+ Thu, 19 Mar 2020 03:09:29 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linaro.org; s=google;
+ h=date:from:to:cc:subject:message-id:references:mime-version
+ :content-disposition:content-transfer-encoding:in-reply-to;
+ bh=RUn9UxzNYqDlVvjBdc02JsbNjG/1HKK11KHzgN8DpHk=;
+ b=Zy7A3gLvgvG/ej7PLOBuw+h4UHQ5YbbbobNUkbeATbvkfuxaQMOb0vCCzKzXulEcjw
+ Bflohb+c02EaGzLqe2kK0BuFaN6SiD4Vh3o5Z5DsCwi/hTTnjafJiooBLOzlmiLonQfq
+ VErW8XaIC6T6pTsNu7/AX+kP031rgbcXZ6HgannJPJPKd2wqBCXPu006yPFmo21RUGiN
+ L+Uzh/7ygSs1dOedYs1gEKqoqeQMW7ydWG1eRuOmfe3pM3dwE2yYYcQzmxvI3QcPe2f3
+ XzwNrVNlGh2T8ZCEksGYeFItDSMGoRFJuF3kAKSgBT79fR1850m+Cy0qSAYAGwYgneQl
+ Pkuw==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20161025;
+ h=x-gm-message-state:date:from:to:cc:subject:message-id:references
+ :mime-version:content-disposition:content-transfer-encoding
+ :in-reply-to;
+ bh=RUn9UxzNYqDlVvjBdc02JsbNjG/1HKK11KHzgN8DpHk=;
+ b=g56N8rNqd78oNpSVSmhQ8xpRBC1eVvduAR7mEGcq1HkuMsug31lCXMs+WUglFvtU5C
+ PkonDv60sr6/mhREtt8eq/vlSItbnjimRRLZxMr4NZxzYoPn4ZqSd/87FeNyqYzrJXhc
+ kFvhQ8WKsZCOTvM+s8rHgn1Zp+srHD9U/LFXTpGTq2DqMCw7Jt5PVU0goSZh6j4lAkkt
+ gFNcSKGH0tAOgMWR6jryTo3YWdp8ZgjTLnTS0nEc6Cea6ckEDSKEEtx4RmfD4LyoD8OH
+ IcxCzRaZ+L2uYP7rXdJtuNeIA9/B9Sjc+znAJt0Ne9QGdV+1vDRE6srP8G79X+qnDcAN
+ er6w==
+X-Gm-Message-State: ANhLgQ2CkSfwxS3PgevHSLMFYPKvTc7niRSBeCk4OO7bSvUehUsnbHq4
+ ddiZ2AzU0vMD4qMm6FbRsShIjg==
+X-Google-Smtp-Source: ADFU+vvPWW5ImdZ2pav4UsRH9+6PgZUguig9OJgjiIdwzr6ph+GkNIPoA4BMw5D7ED82x6qxdypSqw==
+X-Received: by 2002:a05:600c:2319:: with SMTP id
+ 25mr2829698wmo.106.1584612568933; 
+ Thu, 19 Mar 2020 03:09:28 -0700 (PDT)
+Received: from dell ([2.27.35.213])
+ by smtp.gmail.com with ESMTPSA id h16sm2730355wrr.48.2020.03.19.03.09.27
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Thu, 19 Mar 2020 03:09:28 -0700 (PDT)
+Date: Thu, 19 Mar 2020 10:10:14 +0000
+From: Lee Jones <lee.jones@linaro.org>
+To: Daniel Lezcano <daniel.lezcano@linaro.org>
+Message-ID: <20200319101014.GA5477@dell>
+References: <20200217134546.14562-1-benjamin.gaignard@st.com>
+ <20200217134546.14562-3-benjamin.gaignard@st.com>
+ <e9f7eaac-5b61-1662-2ae1-924d126e6a97@linaro.org>
+MIME-Version: 1.0
+Content-Disposition: inline
+In-Reply-To: <e9f7eaac-5b61-1662-2ae1-924d126e6a97@linaro.org>
+Cc: mark.rutland@arm.com, devicetree@vger.kernel.org,
+ linux-kernel@vger.kernel.org, robh+dt@kernel.org, mcoquelin.stm32@gmail.com,
+ tglx@linutronix.de, fabrice.gasnier@st.com,
  linux-stm32@st-md-mailman.stormreply.com, linux-arm-kernel@lists.infradead.org
-Subject: [Linux-stm32] Applied "ASoC: stm32: spdifrx: manage rebind issue"
-	to the asoc tree
+Subject: Re: [Linux-stm32] [PATCH v4 2/3] mfd: stm32: Add defines to be used
+ for clkevent purpose
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -39,162 +76,22 @@ List-Post: <mailto:linux-stm32@st-md-mailman.stormreply.com>
 List-Help: <mailto:linux-stm32-request@st-md-mailman.stormreply.com?subject=help>
 List-Subscribe: <https://st-md-mailman.stormreply.com/mailman/listinfo/linux-stm32>, 
  <mailto:linux-stm32-request@st-md-mailman.stormreply.com?subject=subscribe>
-MIME-Version: 1.0
-Content-Type: text/plain; charset="us-ascii"
-Content-Transfer-Encoding: 7bit
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: base64
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
-The patch
-
-   ASoC: stm32: spdifrx: manage rebind issue
-
-has been applied to the asoc tree at
-
-   https://git.kernel.org/pub/scm/linux/kernel/git/broonie/sound.git 
-
-All being well this means that it will be integrated into the linux-next
-tree (usually sometime in the next 24 hours) and sent to Linus during
-the next merge window (or sooner if it is a bug fix), however if
-problems are discovered then the patch may be dropped or reverted.  
-
-You may get further e-mails resulting from automated or manual testing
-and review of the tree, please engage with people reporting problems and
-send followup patches addressing any issues that are reported if needed.
-
-If any updates are required or you are submitting further changes they
-should be sent as incremental updates against current git, existing
-patches will not be replaced.
-
-Please add any relevant lists and maintainers to the CCs when replying
-to this mail.
-
-Thanks,
-Mark
-
-From 794df9448edb55978e50372f083aeedade1b2844 Mon Sep 17 00:00:00 2001
-From: Olivier Moysan <olivier.moysan@st.com>
-Date: Wed, 18 Mar 2020 15:41:24 +0100
-Subject: [PATCH] ASoC: stm32: spdifrx: manage rebind issue
-
-The commit e894efef9ac7 ("ASoC: core: add support to card rebind")
-allows to rebind the sound card after a rebind of one of its component.
-With this commit, the sound card is actually rebound,
-but may be no more functional.
-
-Corrections:
-- Call snd_dmaengine_pcm_register() before snd_soc_register_component().
-- Call snd_dmaengine_pcm_unregister() and snd_soc_unregister_component()
-explicitly from SPDFIRX driver.
-
-Signed-off-by: Olivier Moysan <olivier.moysan@st.com>
-Link: https://lore.kernel.org/r/20200318144125.9163-3-olivier.moysan@st.com
-Signed-off-by: Mark Brown <broonie@kernel.org>
----
- sound/soc/stm/stm32_spdifrx.c | 62 ++++++++++++++++++-----------------
- 1 file changed, 32 insertions(+), 30 deletions(-)
-
-diff --git a/sound/soc/stm/stm32_spdifrx.c b/sound/soc/stm/stm32_spdifrx.c
-index 49766afdae61..ae7a0f46a6fb 100644
---- a/sound/soc/stm/stm32_spdifrx.c
-+++ b/sound/soc/stm/stm32_spdifrx.c
-@@ -944,6 +944,22 @@ static int stm32_spdifrx_parse_of(struct platform_device *pdev,
- 	return 0;
- }
- 
-+static int stm32_spdifrx_remove(struct platform_device *pdev)
-+{
-+	struct stm32_spdifrx_data *spdifrx = platform_get_drvdata(pdev);
-+
-+	if (spdifrx->ctrl_chan)
-+		dma_release_channel(spdifrx->ctrl_chan);
-+
-+	if (spdifrx->dmab)
-+		snd_dma_free_pages(spdifrx->dmab);
-+
-+	snd_dmaengine_pcm_unregister(&pdev->dev);
-+	snd_soc_unregister_component(&pdev->dev);
-+
-+	return 0;
-+}
-+
- static int stm32_spdifrx_probe(struct platform_device *pdev)
- {
- 	struct stm32_spdifrx_data *spdifrx;
-@@ -995,25 +1011,27 @@ static int stm32_spdifrx_probe(struct platform_device *pdev)
- 	udelay(2);
- 	reset_control_deassert(rst);
- 
--	ret = devm_snd_soc_register_component(&pdev->dev,
--					      &stm32_spdifrx_component,
--					      stm32_spdifrx_dai,
--					      ARRAY_SIZE(stm32_spdifrx_dai));
--	if (ret)
--		return ret;
--
--	ret = stm32_spdifrx_dma_ctrl_register(&pdev->dev, spdifrx);
--	if (ret)
--		goto error;
--
- 	pcm_config = &stm32_spdifrx_pcm_config;
--	ret = devm_snd_dmaengine_pcm_register(&pdev->dev, pcm_config, 0);
-+	ret = snd_dmaengine_pcm_register(&pdev->dev, pcm_config, 0);
- 	if (ret) {
- 		if (ret != -EPROBE_DEFER)
- 			dev_err(&pdev->dev, "PCM DMA register error %d\n", ret);
--		goto error;
-+		return ret;
- 	}
- 
-+	ret = snd_soc_register_component(&pdev->dev,
-+					 &stm32_spdifrx_component,
-+					 stm32_spdifrx_dai,
-+					 ARRAY_SIZE(stm32_spdifrx_dai));
-+	if (ret) {
-+		snd_dmaengine_pcm_unregister(&pdev->dev);
-+		return ret;
-+	}
-+
-+	ret = stm32_spdifrx_dma_ctrl_register(&pdev->dev, spdifrx);
-+	if (ret)
-+		goto error;
-+
- 	ret = regmap_read(spdifrx->regmap, STM32_SPDIFRX_IDR, &idr);
- 	if (ret)
- 		goto error;
-@@ -1029,27 +1047,11 @@ static int stm32_spdifrx_probe(struct platform_device *pdev)
- 	return ret;
- 
- error:
--	if (!IS_ERR(spdifrx->ctrl_chan))
--		dma_release_channel(spdifrx->ctrl_chan);
--	if (spdifrx->dmab)
--		snd_dma_free_pages(spdifrx->dmab);
-+	stm32_spdifrx_remove(pdev);
- 
- 	return ret;
- }
- 
--static int stm32_spdifrx_remove(struct platform_device *pdev)
--{
--	struct stm32_spdifrx_data *spdifrx = platform_get_drvdata(pdev);
--
--	if (spdifrx->ctrl_chan)
--		dma_release_channel(spdifrx->ctrl_chan);
--
--	if (spdifrx->dmab)
--		snd_dma_free_pages(spdifrx->dmab);
--
--	return 0;
--}
--
- MODULE_DEVICE_TABLE(of, stm32_spdifrx_ids);
- 
- #ifdef CONFIG_PM_SLEEP
--- 
-2.20.1
-
-_______________________________________________
-Linux-stm32 mailing list
-Linux-stm32@st-md-mailman.stormreply.com
-https://st-md-mailman.stormreply.com/mailman/listinfo/linux-stm32
+T24gVGh1LCAyMCBGZWIgMjAyMCwgRGFuaWVsIExlemNhbm8gd3JvdGU6Cj4gT24gMTcvMDIvMjAy
+MCAxNDo0NSwgQmVuamFtaW4gR2FpZ25hcmQgd3JvdGU6Cj4gPiBBZGQgZGVmaW5lcyB0byBiZSBh
+YmxlIHRvIGVuYWJsZS9jbGVhciBpcnEgYW5kIGNvbmZpZ3VyZSBvbmUgc2hvdCBtb2RlLgo+ID4g
+Cj4gPiBTaWduZWQtb2ZmLWJ5OiBCZW5qYW1pbiBHYWlnbmFyZCA8YmVuamFtaW4uZ2FpZ25hcmRA
+c3QuY29tPgo+IAo+IEFyZSB5b3UgZmluZSBpZiBJIHBpY2sgdGhpcyBwYXRjaCB3aXRoIHRoZSBz
+ZXJpZXM/CgpOb3RoaW5nIGhlYXJkIGZyb20geW91IHNpbmNlIEkgQWNrZWQgdGhpcy4KCkFyZSB5
+b3Ugc3RpbGwgcGxhbm5pbmcgb24gdGFraW5nIHRoaXMgcGF0Y2g/CgpJZiBzbywgY2FuIHlvdSBh
+bHNvIHRha2UgcGF0Y2ggMSBwbGVhc2U/CgotLSAKTGVlIEpvbmVzIFvmnY7nkLzmlq9dCkxpbmFy
+byBTZXJ2aWNlcyBUZWNobmljYWwgTGVhZApMaW5hcm8ub3JnIOKUgiBPcGVuIHNvdXJjZSBzb2Z0
+d2FyZSBmb3IgQVJNIFNvQ3MKRm9sbG93IExpbmFybzogRmFjZWJvb2sgfCBUd2l0dGVyIHwgQmxv
+ZwpfX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fXwpMaW51eC1z
+dG0zMiBtYWlsaW5nIGxpc3QKTGludXgtc3RtMzJAc3QtbWQtbWFpbG1hbi5zdG9ybXJlcGx5LmNv
+bQpodHRwczovL3N0LW1kLW1haWxtYW4uc3Rvcm1yZXBseS5jb20vbWFpbG1hbi9saXN0aW5mby9s
+aW51eC1zdG0zMgo=
