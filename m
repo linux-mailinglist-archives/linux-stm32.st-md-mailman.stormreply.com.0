@@ -2,69 +2,60 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id 5FFCA18F758
-	for <lists+linux-stm32@lfdr.de>; Mon, 23 Mar 2020 15:50:54 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id C3AE718F7D9
+	for <lists+linux-stm32@lfdr.de>; Mon, 23 Mar 2020 15:59:50 +0100 (CET)
 Received: from ip-172-31-3-76.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id EBE94C36B0B;
-	Mon, 23 Mar 2020 14:50:52 +0000 (UTC)
-Received: from mail-wm1-f68.google.com (mail-wm1-f68.google.com
- [209.85.128.68])
- (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 7504EC36B0B;
+	Mon, 23 Mar 2020 14:59:50 +0000 (UTC)
+Received: from mx07-00178001.pphosted.com (mx07-00178001.pphosted.com
+ [62.209.51.94])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id AECC3C36B09
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 1E72CC36B09
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Mon, 23 Mar 2020 14:50:51 +0000 (UTC)
-Received: by mail-wm1-f68.google.com with SMTP id c81so4539179wmd.4
- for <linux-stm32@st-md-mailman.stormreply.com>;
- Mon, 23 Mar 2020 07:50:51 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=ffwll.ch; s=google;
- h=from:to:cc:subject:date:message-id:in-reply-to:references
- :mime-version:content-transfer-encoding;
- bh=Xv+IrwzuQ23kGkBFfkZ4yhYMKBg9vr4BWeG8XNXKFTc=;
- b=DFBuV/vHRlNy4uJgrHIviIKNEHIGV8DUY+m8Sf+lTTyhzMxZEKPTCOQJ6YV2BBEW6P
- /aR0KqcuCP7S7DbHXwUiuCcVeu9B/+SJ4+kFhRl4eHQaoHYLCN4Z6eWTRuk2PftIsH3z
- kRT6/M6GKtBM48YSYRBFw6eY40D4ZLZbGjffw=
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20161025;
- h=x-gm-message-state:from:to:cc:subject:date:message-id:in-reply-to
- :references:mime-version:content-transfer-encoding;
- bh=Xv+IrwzuQ23kGkBFfkZ4yhYMKBg9vr4BWeG8XNXKFTc=;
- b=fznAXs1Y18myAaP6W1XChpHh81gzkO7WShBA5RYuU/jbFwsyjGklWk+FZZiArSUrMF
- Pchr0pJCHnlK9K5geJvWTOqVlRSaNM/LfLW7ZxeKpwigGbcYGbs/LhGyBoIax2OtTG8b
- zK94JddmbJsAom7syTGP7FfkTmWDzLUMsmMdo7j9iGQwbu17XwrYOAahEGgV8Se92bWM
- rDMqdQOlgj2EGLb83UlECoT/zmSH94ArWFfNKAhaT18lrl3wiW7Xh1N7mvAW3iLtiuQF
- C4QXirRgP0v8S837iFJ08yLN3MWC/ZjvRr2nz+0Fd9k8uJifIhWe890LYtlhkwN0qaFU
- 8U2Q==
-X-Gm-Message-State: ANhLgQ02DeBfCl7lLavC6vvboxKizgITd5ZyrxSNOg4ndky6lYGV1KTi
- wh6v3C4HOs6ELxgYRTbOlFYNow==
-X-Google-Smtp-Source: ADFU+vszAryUzDEXodO9VeF21jcLEW9fueenhM6J2rfMAdMCTpAiCypypKtGWjmlifuRUoMyaOqCvg==
-X-Received: by 2002:a05:600c:10ce:: with SMTP id
- l14mr13066649wmd.161.1584975051183; 
- Mon, 23 Mar 2020 07:50:51 -0700 (PDT)
-Received: from phenom.ffwll.local ([2a02:168:57f4:0:efd0:b9e5:5ae6:c2fa])
- by smtp.gmail.com with ESMTPSA id s22sm20376522wmc.16.2020.03.23.07.50.49
- (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Mon, 23 Mar 2020 07:50:50 -0700 (PDT)
-From: Daniel Vetter <daniel.vetter@ffwll.ch>
-To: DRI Development <dri-devel@lists.freedesktop.org>
-Date: Mon, 23 Mar 2020 15:49:37 +0100
-Message-Id: <20200323144950.3018436-39-daniel.vetter@ffwll.ch>
-X-Mailer: git-send-email 2.25.1
-In-Reply-To: <20200323144950.3018436-1-daniel.vetter@ffwll.ch>
-References: <20200323144950.3018436-1-daniel.vetter@ffwll.ch>
+ Mon, 23 Mar 2020 14:59:49 +0000 (UTC)
+Received: from pps.filterd (m0046668.ppops.net [127.0.0.1])
+ by mx07-00178001.pphosted.com (8.16.0.42/8.16.0.42) with SMTP id
+ 02NEbU8j023776; Mon, 23 Mar 2020 15:59:24 +0100
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=st.com;
+ h=from : to : cc : subject
+ : date : message-id : mime-version : content-type; s=STMicroelectronics;
+ bh=yoIK90tuRPwC25Pp82+brJU/Ki+zCwsNgXSgRHpTEmE=;
+ b=Kw3F0Qfj9wlZpMlmthXNy16b7cAByjyv0hCtOmt2Vsd0LTpUkldMQtGiZfNnLmwRd0/y
+ NjI3EiWmbJ7L5Ou2DGpPjx22IWML4GfSKi4y8Z3eVvUXrd1APMe9MCib1Lh4RrGfZgHE
+ b3v6mf1ImKY2r4hPPKcZ4tONCXTprb9rFKMpP1fQgfVBLwky0SiyMIlGjhysdw3jpBEL
+ sfTpWzF9+gH+CrawxPi2FU3yHTv0Zl+f+G1bsuUwt/6l6+BeTIT1tdAj9kjYTSvpj2cp
+ PBogZxVkcemvcm5Dxt+iiQ92/ynA/cZz5G00YFJ9OUaCd4d4UBvcSRv+XM3kW/1b3qdf ew== 
+Received: from beta.dmz-eu.st.com (beta.dmz-eu.st.com [164.129.1.35])
+ by mx07-00178001.pphosted.com with ESMTP id 2yw995ajb2-1
+ (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
+ Mon, 23 Mar 2020 15:59:23 +0100
+Received: from euls16034.sgp.st.com (euls16034.sgp.st.com [10.75.44.20])
+ by beta.dmz-eu.st.com (STMicroelectronics) with ESMTP id F2E8910003A;
+ Mon, 23 Mar 2020 15:59:18 +0100 (CET)
+Received: from Webmail-eu.st.com (sfhdag6node2.st.com [10.75.127.17])
+ by euls16034.sgp.st.com (STMicroelectronics) with ESMTP id DA321220F81;
+ Mon, 23 Mar 2020 15:59:18 +0100 (CET)
+Received: from localhost (10.75.127.46) by SFHDAG6NODE2.st.com (10.75.127.17)
+ with Microsoft SMTP Server (TLS) id 15.0.1347.2;
+ Mon, 23 Mar 2020 15:59:18 +0100
+From: Christophe Kerello <christophe.kerello@st.com>
+To: <miquel.raynal@bootlin.com>, <richard@nod.at>, <vigneshr@ti.com>,
+ <lee.jones@linaro.org>, <robh+dt@kernel.org>, <mark.rutland@arm.com>,
+ <tony@atomide.com>
+Date: Mon, 23 Mar 2020 15:58:40 +0100
+Message-ID: <1584975532-8038-1-git-send-email-christophe.kerello@st.com>
+X-Mailer: git-send-email 1.9.1
 MIME-Version: 1.0
-Cc: Maxime Coquelin <mcoquelin.stm32@gmail.com>,
- Vincent Abriou <vincent.abriou@st.com>,
- Benjamin Gaignard <benjamin.gaignard@linaro.org>,
- Daniel Vetter <daniel.vetter@ffwll.ch>,
- Intel Graphics Development <intel-gfx@lists.freedesktop.org>,
- Yannick Fertre <yannick.fertre@st.com>,
- Laurent Pinchart <laurent.pinchart@ideasonboard.com>,
- Thomas Zimmermann <tzimmermann@suse.de>,
- Daniel Vetter <daniel.vetter@intel.com>, Sam Ravnborg <sam@ravnborg.org>,
- linux-stm32@st-md-mailman.stormreply.com, linux-arm-kernel@lists.infradead.org
-Subject: [Linux-stm32] [PATCH 38/51] drm/stm: Drop explicit
-	drm_mode_config_cleanup call
+X-Originating-IP: [10.75.127.46]
+X-ClientProxiedBy: SFHDAG3NODE1.st.com (10.75.127.7) To SFHDAG6NODE2.st.com
+ (10.75.127.17)
+X-Proofpoint-Virus-Version: vendor=fsecure engine=2.50.10434:6.0.138, 18.0.645
+ definitions=2020-03-23_05:2020-03-21,
+ 2020-03-23 signatures=0
+Cc: marex@denx.de, linux-mtd@lists.infradead.org, linux-kernel@vger.kernel.org,
+ linux-stm32@st-md-mailman.stormreply.com
+Subject: [Linux-stm32] [00/12] add STM32 FMC2 controller drivers
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -81,82 +72,49 @@ Content-Transfer-Encoding: 7bit
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
-It's right above the drm_dev_put().
+The FMC2 functional block makes the interface with: synchronous and
+asynchronous static devices (such as PSNOR, PSRAM or other memory-mapped
+peripherals) and NAND flash memories.
+Its main purposes are:
+  - to translate AXI transactions into the appropriate external device
+    protocol
+  - to meet the access time requirements of the external devices
+All external devices share the addresses, data and control signals with the
+controller. Each external device is accessed by means of a unique Chip
+Select. The FMC2 performs only one access at a time to an external device.
 
-This is made possible by a preceeding patch which added a drmm_
-cleanup action to drm_mode_config_init(), hence all we need to do to
-ensure that drm_mode_config_cleanup() is run on final drm_device
-cleanup is check the new error code for _init().
+Christophe Kerello (12):
+  dt-bindings: mfd: stm32-fmc2: add STM32 FMC2 controller documentation
+  mfd: stm32-fmc2: add STM32 FMC2 controller driver
+  bus: stm32-fmc2-ebi: add STM32 FMC2 EBI controller driver
+  mtd: rawnand: stm32_fmc2: manage all errors cases at probe time
+  mtd: rawnand: stm32_fmc2: remove useless inline comments
+  mtd: rawnand: stm32_fmc2: use FMC2_TIMEOUT_MS for timeouts
+  mtd: rawnand: stm32_fmc2: cleanup
+  mtd: rawnand: stm32_fmc2: use FIELD_PREP/FIELD_GET macros
+  mtd: rawnand: stm32_fmc2: move all registers
+  mtd: rawnand: stm32_fmc2: use regmap APIs
+  mtd: rawnand: stm32_fmc2: use stm32_fmc2 structure in nfc controller
+  mtd: rawnand: stm32_fmc2: add new MP1 compatible string
 
-Aside: Another driver with a bit much devm_kzalloc, which should
-probably use drmm_kzalloc instead ...
+ .../devicetree/bindings/mfd/st,stm32-fmc2.yaml     |  370 ++++++
+ drivers/bus/Kconfig                                |   11 +
+ drivers/bus/Makefile                               |    1 +
+ drivers/bus/stm32-fmc2-ebi.c                       | 1093 +++++++++++++++++
+ drivers/mfd/Kconfig                                |   12 +
+ drivers/mfd/Makefile                               |    1 +
+ drivers/mfd/stm32-fmc2.c                           |  120 ++
+ drivers/mtd/nand/raw/Kconfig                       |    3 +
+ drivers/mtd/nand/raw/stm32_fmc2_nand.c             | 1273 +++++++++-----------
+ include/linux/mfd/stm32-fmc2.h                     |  226 ++++
+ 10 files changed, 2407 insertions(+), 703 deletions(-)
+ create mode 100644 Documentation/devicetree/bindings/mfd/st,stm32-fmc2.yaml
+ create mode 100644 drivers/bus/stm32-fmc2-ebi.c
+ create mode 100644 drivers/mfd/stm32-fmc2.c
+ create mode 100644 include/linux/mfd/stm32-fmc2.h
 
-v2: Explain why this cleanup is possible (Laurent).
-
-v3: Use drmm_mode_config_init() for more clarity (Sam, Thomas)
-
-Cc: Sam Ravnborg <sam@ravnborg.org>
-Cc: Thomas Zimmermann <tzimmermann@suse.de>
-Acked-by: Sam Ravnborg <sam@ravnborg.org>
-Acked-by: Philippe Cornu <philippe.cornu@st.com>
-Cc: Laurent Pinchart <laurent.pinchart@ideasonboard.com>
-Signed-off-by: Daniel Vetter <daniel.vetter@intel.com>
-Cc: Yannick Fertre <yannick.fertre@st.com>
-Cc: Philippe Cornu <philippe.cornu@st.com>
-Cc: Benjamin Gaignard <benjamin.gaignard@linaro.org>
-Cc: Vincent Abriou <vincent.abriou@st.com>
-Cc: Maxime Coquelin <mcoquelin.stm32@gmail.com>
-Cc: Alexandre Torgue <alexandre.torgue@st.com>
-Cc: linux-stm32@st-md-mailman.stormreply.com
-Cc: linux-arm-kernel@lists.infradead.org
----
- drivers/gpu/drm/stm/drv.c | 10 ++++------
- 1 file changed, 4 insertions(+), 6 deletions(-)
-
-diff --git a/drivers/gpu/drm/stm/drv.c b/drivers/gpu/drm/stm/drv.c
-index ea9fcbdc68b3..0f85dd86cafa 100644
---- a/drivers/gpu/drm/stm/drv.c
-+++ b/drivers/gpu/drm/stm/drv.c
-@@ -88,7 +88,9 @@ static int drv_load(struct drm_device *ddev)
- 
- 	ddev->dev_private = (void *)ldev;
- 
--	drm_mode_config_init(ddev);
-+	ret = drmm_mode_config_init(ddev);
-+	if (ret)
-+		return ret;
- 
- 	/*
- 	 * set max width and height as default value.
-@@ -103,7 +105,7 @@ static int drv_load(struct drm_device *ddev)
- 
- 	ret = ltdc_load(ddev);
- 	if (ret)
--		goto err;
-+		return ret;
- 
- 	drm_mode_config_reset(ddev);
- 	drm_kms_helper_poll_init(ddev);
-@@ -111,9 +113,6 @@ static int drv_load(struct drm_device *ddev)
- 	platform_set_drvdata(pdev, ddev);
- 
- 	return 0;
--err:
--	drm_mode_config_cleanup(ddev);
--	return ret;
- }
- 
- static void drv_unload(struct drm_device *ddev)
-@@ -122,7 +121,6 @@ static void drv_unload(struct drm_device *ddev)
- 
- 	drm_kms_helper_poll_fini(ddev);
- 	ltdc_unload(ddev);
--	drm_mode_config_cleanup(ddev);
- }
- 
- static __maybe_unused int drv_suspend(struct device *dev)
 -- 
-2.25.1
+1.9.1
 
 _______________________________________________
 Linux-stm32 mailing list
