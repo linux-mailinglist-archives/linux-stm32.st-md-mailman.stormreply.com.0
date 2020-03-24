@@ -2,69 +2,50 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id 2E55D18FBA6
-	for <lists+linux-stm32@lfdr.de>; Mon, 23 Mar 2020 18:39:09 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id B000A190307
+	for <lists+linux-stm32@lfdr.de>; Tue, 24 Mar 2020 01:45:26 +0100 (CET)
 Received: from ip-172-31-3-76.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id D2A51C36B0B;
-	Mon, 23 Mar 2020 17:39:08 +0000 (UTC)
-Received: from mail26.static.mailgun.info (mail26.static.mailgun.info
- [104.130.122.26])
- (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
- (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id A62B7C36B09
- for <linux-stm32@st-md-mailman.stormreply.com>;
- Mon, 23 Mar 2020 17:39:04 +0000 (UTC)
-DKIM-Signature: a=rsa-sha256; v=1; c=relaxed/relaxed; d=mg.codeaurora.org;
- q=dns/txt; 
- s=smtp; t=1584985147; h=Date: Message-Id: Cc: To: References:
- In-Reply-To: From: Subject: Content-Transfer-Encoding: MIME-Version:
- Content-Type: Sender; bh=9lPNjkDMRM0Q3Ns6VRdg5nypoUormOtZGmZvJKo/sI8=;
- b=TGTdDHRfCdJhdkcFKtHZtSR1jMUBUQmXBK+W7Cat1e8OBtJi5Znf5/QnjJXsjzmFuv+undjm
- d8C0zU6LOQZR7ArQuBBRVSQipv7/mpgBrr9OInULiHD51TxCqtHgwD0StXWalnF54xQ8yERB
- UIDRR6ppmUSDaPjYZ9581BZ1ldQ=
-X-Mailgun-Sending-Ip: 104.130.122.26
-X-Mailgun-Sid: WyI1Njk0YyIsICJsaW51eC1zdG0zMkBzdC1tZC1tYWlsbWFuLnN0b3JtcmVwbHkuY29tIiwgImJlOWU0YSJd
-Received: from smtp.codeaurora.org
- (ec2-35-166-182-171.us-west-2.compute.amazonaws.com [35.166.182.171])
- by mxa.mailgun.org with ESMTP id 5e78f42a.7f6e36fdc7a0-smtp-out-n01;
- Mon, 23 Mar 2020 17:38:50 -0000 (UTC)
-Received: by smtp.codeaurora.org (Postfix, from userid 1001)
- id 7958AC44791; Mon, 23 Mar 2020 17:38:48 +0000 (UTC)
-X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
- aws-us-west-2-caf-mail-1.web.codeaurora.org
-X-Spam-Level: 
-X-Spam-Status: No, score=0.5 required=2.0 tests=ALL_TRUSTED,MISSING_DATE,
- MISSING_MID,SPF_NONE,URIBL_BLOCKED autolearn=no autolearn_force=no
- version=3.4.0
-Received: from potku.adurom.net (88-114-240-156.elisa-laajakaista.fi
- [88.114.240.156])
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 6035CC36B0B;
+	Tue, 24 Mar 2020 00:45:26 +0000 (UTC)
+Received: from mail-out.m-online.net (mail-out.m-online.net [212.18.0.10])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
- (No client certificate requested) (Authenticated sender: kvalo)
- by smtp.codeaurora.org (Postfix) with ESMTPSA id 0B64EC433CB;
- Mon, 23 Mar 2020 17:38:43 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.3.2 smtp.codeaurora.org 0B64EC433CB
-Authentication-Results: aws-us-west-2-caf-mail-1.web.codeaurora.org;
- dmarc=none (p=none dis=none) header.from=codeaurora.org
-Authentication-Results: aws-us-west-2-caf-mail-1.web.codeaurora.org;
- spf=none smtp.mailfrom=kvalo@codeaurora.org
+ (No client certificate requested)
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 78018C36B09
+ for <linux-stm32@st-md-mailman.stormreply.com>;
+ Tue, 24 Mar 2020 00:45:25 +0000 (UTC)
+Received: from frontend01.mail.m-online.net (unknown [192.168.8.182])
+ by mail-out.m-online.net (Postfix) with ESMTP id 48mXbQ0SMCz1rx8j;
+ Tue, 24 Mar 2020 01:45:21 +0100 (CET)
+Received: from localhost (dynscan1.mnet-online.de [192.168.6.70])
+ by mail.m-online.net (Postfix) with ESMTP id 48mXbP5Kc0z1qyF7;
+ Tue, 24 Mar 2020 01:45:21 +0100 (CET)
+X-Virus-Scanned: amavisd-new at mnet-online.de
+Received: from mail.mnet-online.de ([192.168.8.182])
+ by localhost (dynscan1.mail.m-online.net [192.168.6.70]) (amavisd-new,
+ port 10024)
+ with ESMTP id gC2vLJWwutXk; Tue, 24 Mar 2020 01:45:20 +0100 (CET)
+X-Auth-Info: ksnt2ePpOv6cIiM3lWTVPmpZXSXFGTDMcknb+ITNjK0=
+Received: from [IPv6:::1] (unknown [195.140.253.167])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+ (No client certificate requested)
+ by mail.mnet-online.de (Postfix) with ESMTPSA;
+ Tue, 24 Mar 2020 01:45:20 +0100 (CET)
+To: Christophe Kerello <christophe.kerello@st.com>,
+ miquel.raynal@bootlin.com, richard@nod.at, vigneshr@ti.com,
+ lee.jones@linaro.org, robh+dt@kernel.org, mark.rutland@arm.com,
+ tony@atomide.com
+References: <1584975532-8038-1-git-send-email-christophe.kerello@st.com>
+From: Marek Vasut <marex@denx.de>
+Message-ID: <466cf542-7575-d791-da81-da32c0919505@denx.de>
+Date: Tue, 24 Mar 2020 01:37:21 +0100
+User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:68.0) Gecko/20100101
+ Thunderbird/68.5.0
 MIME-Version: 1.0
-From: Kalle Valo <kvalo@codeaurora.org>
-In-Reply-To: <20200224165952.GA9377@embeddedor>
-References: <20200224165952.GA9377@embeddedor>
-To: "Gustavo A. R. Silva" <gustavo@embeddedor.com>
-User-Agent: pwcli/0.0.0-git (https://github.com/kvalo/pwcli/) Python/2.7.12
-Message-Id: <20200323173848.7958AC44791@smtp.codeaurora.org>
-Date: Mon, 23 Mar 2020 17:38:48 +0000 (UTC)
-Cc: Maya Erez <merez@codeaurora.org>,
- "Gustavo A. R. Silva" <gustavo@embeddedor.com>, netdev@vger.kernel.org,
- linux-stm32@st-md-mailman.stormreply.com, linux-wireless@vger.kernel.org,
- linux-kernel@vger.kernel.org, ath10k@lists.infradead.org,
- ath11k@lists.infradead.org, wil6210@qti.qualcomm.com,
- Maxime Coquelin <mcoquelin.stm32@gmail.com>,
- Christian Lamparter <chunkeey@googlemail.com>, wcn36xx@lists.infradead.org,
- "David S. Miller" <davem@davemloft.net>, linux-arm-kernel@lists.infradead.org
-Subject: Re: [Linux-stm32] [PATCH][next] ath: Replace zero-length array with
- flexible-array member
+In-Reply-To: <1584975532-8038-1-git-send-email-christophe.kerello@st.com>
+Content-Language: en-US
+Cc: linux-mtd@lists.infradead.org, linux-kernel@vger.kernel.org,
+ linux-stm32@st-md-mailman.stormreply.com
+Subject: Re: [Linux-stm32] [00/12] add STM32 FMC2 controller drivers
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -81,54 +62,34 @@ Content-Transfer-Encoding: 7bit
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
-"Gustavo A. R. Silva" <gustavo@embeddedor.com> wrote:
+On 3/23/20 3:58 PM, Christophe Kerello wrote:
+> The FMC2 functional block makes the interface with: synchronous and
+> asynchronous static devices (such as PSNOR, PSRAM or other memory-mapped
+> peripherals) and NAND flash memories.
+> Its main purposes are:
+>   - to translate AXI transactions into the appropriate external device
+>     protocol
+>   - to meet the access time requirements of the external devices
+> All external devices share the addresses, data and control signals with the
+> controller. Each external device is accessed by means of a unique Chip
+> Select. The FMC2 performs only one access at a time to an external device.
+> 
+> Christophe Kerello (12):
+>   dt-bindings: mfd: stm32-fmc2: add STM32 FMC2 controller documentation
+>   mfd: stm32-fmc2: add STM32 FMC2 controller driver
+>   bus: stm32-fmc2-ebi: add STM32 FMC2 EBI controller driver
+>   mtd: rawnand: stm32_fmc2: manage all errors cases at probe time
+>   mtd: rawnand: stm32_fmc2: remove useless inline comments
+>   mtd: rawnand: stm32_fmc2: use FMC2_TIMEOUT_MS for timeouts
+>   mtd: rawnand: stm32_fmc2: cleanup
+>   mtd: rawnand: stm32_fmc2: use FIELD_PREP/FIELD_GET macros
+>   mtd: rawnand: stm32_fmc2: move all registers
+>   mtd: rawnand: stm32_fmc2: use regmap APIs
+>   mtd: rawnand: stm32_fmc2: use stm32_fmc2 structure in nfc controller
+>   mtd: rawnand: stm32_fmc2: add new MP1 compatible string
 
-> The current codebase makes use of the zero-length array language
-> extension to the C90 standard, but the preferred mechanism to declare
-> variable-length types such as these ones is a flexible array member[1][2],
-> introduced in C99:
-> 
-> struct foo {
->         int stuff;
->         struct boo array[];
-> };
-> 
-> By making use of the mechanism above, we will get a compiler warning
-> in case the flexible array does not occur last in the structure, which
-> will help us prevent some kind of undefined behavior bugs from being
-> inadvertently introduced[3] to the codebase from now on.
-> 
-> Also, notice that, dynamic memory allocations won't be affected by
-> this change:
-> 
-> "Flexible array members have incomplete type, and so the sizeof operator
-> may not be applied. As a quirk of the original implementation of
-> zero-length arrays, sizeof evaluates to zero."[1]
-> 
-> This issue was detected with the help of Coccinelle.
-> 
-> [1] https://gcc.gnu.org/onlinedocs/gcc/Zero-Length.html
-> [2] https://github.com/KSPP/linux/issues/21
-> [3] commit 76497732932f ("cxgb3/l2t: Fix undefined behaviour")
-> 
-> Signed-off-by: Gustavo A. R. Silva <gustavo@embeddedor.com>
-
-Fails to apply, please rebase on top of my ath.git master branch.
-
-error: patch failed: drivers/net/wireless/ath/ath10k/core.h:1223
-error: drivers/net/wireless/ath/ath10k/core.h: patch does not apply
-error: patch failed: drivers/net/wireless/ath/ath11k/debug.h:65
-error: drivers/net/wireless/ath/ath11k/debug.h: patch does not apply
-error: patch failed: drivers/net/wireless/ath/ath11k/rx_desc.h:1206
-error: drivers/net/wireless/ath/ath11k/rx_desc.h: patch does not apply
-stg import: Diff does not apply cleanly
-
-Patch set to Changes Requested.
-
--- 
-https://patchwork.kernel.org/patch/11401227/
-
-https://wireless.wiki.kernel.org/en/developers/documentation/submittingpatches
+This doesn't apply to either next or 5.6-rc7, do you have a tree
+somewhere with those patches applied ?
 _______________________________________________
 Linux-stm32 mailing list
 Linux-stm32@st-md-mailman.stormreply.com
