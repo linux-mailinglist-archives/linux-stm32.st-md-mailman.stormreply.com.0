@@ -2,63 +2,65 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id 2F2CE191474
-	for <lists+linux-stm32@lfdr.de>; Tue, 24 Mar 2020 16:31:29 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 6683A191732
+	for <lists+linux-stm32@lfdr.de>; Tue, 24 Mar 2020 18:07:07 +0100 (CET)
 Received: from ip-172-31-3-76.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id E186EC36B0B;
-	Tue, 24 Mar 2020 15:31:28 +0000 (UTC)
-Received: from mail-io1-f65.google.com (mail-io1-f65.google.com
- [209.85.166.65])
- (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 22FF6C36B0B;
+	Tue, 24 Mar 2020 17:07:07 +0000 (UTC)
+Received: from mx07-00178001.pphosted.com (mx07-00178001.pphosted.com
+ [62.209.51.94])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 7C00DC36B09
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 9B467C36B09
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Tue, 24 Mar 2020 15:31:27 +0000 (UTC)
-Received: by mail-io1-f65.google.com with SMTP id v3so18455740iot.11
- for <linux-stm32@st-md-mailman.stormreply.com>;
- Tue, 24 Mar 2020 08:31:27 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linaro.org; s=google;
- h=mime-version:references:in-reply-to:from:date:message-id:subject:to
- :cc; bh=TvsXpRudrZXefQZMYk6cuc0cWu2RbTQ4gqZzuO1RbrE=;
- b=BjHea3wsg4pgRhuX5WvEm0e9slsyWVMuRNw2u5Xiba9mrWowe3NHzi4SMiyOfhRZl2
- VHDjDIl3XwbleetS0cuDb3fDQmZNs4rtS5UMl6A/IqxHlA8aVz2dgfdAnwibWW3zHMJO
- n2aHiBktj1ddQWYVNRo/NJaqEgppcrEZFUixzc7tqvXoNjZCCbBfSXvlXCxi0tSpDzgn
- PnB0zxefpTre2CedKpmwwlVJvSdiN/tui9ky+kB2VGxExJ2YYcZvF97AiqIUV1iHsU44
- 8PeuvVizzF3Lv/O2Bjg/nLDrz3V3einDnFaD6unLfWe0DvAjH7zUFur458nDcdXefd/A
- OWMA==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20161025;
- h=x-gm-message-state:mime-version:references:in-reply-to:from:date
- :message-id:subject:to:cc;
- bh=TvsXpRudrZXefQZMYk6cuc0cWu2RbTQ4gqZzuO1RbrE=;
- b=e9msosKu0HYbGPYAjdj3ZdGxw8AXy3BQ525R/BJbWrLFkwhP1tdl+p07l1hY98g10P
- Lv0q8Kwok8rjnHh9mfJ/uV35xr9YfO96T5JXb+tn2CHYVlLk7UQPvsZt6m4v5lHL6ZV8
- oEWfYh1LAeC/0h1HUtlfamrDPHd9zjQu2iPMcKbYNJrb/FxGOKIkoXbsAw8JD3eF2S1v
- WA3s+QpOHe1xxwnc2LWYI/kCghimCEzxEFzm1onGd4fIGp94wV7CYDWItMDUGMwMBYe6
- oLblCFK7V/b57zGENuJe1KAO1W3mirYm0mNqT5DxOsukIdjLNBYdOor+J6INEY6XMU+e
- iuyg==
-X-Gm-Message-State: ANhLgQ32a7rBQSeodjYr1DE370Qdnh2isyZNj5zN/d7pfGMDKvFzbJmc
- /Qv8H7NjEdEM1uF2VYMlX0qWykOGbSA4UWXA/NFbQQ==
-X-Google-Smtp-Source: ADFU+vuvx4HnHO0hvtSOlMwQMQBrgQYOkwH/y5TjDGcYLA1l6gQGvtVy1A0STfXLgY8fOuyRtSObqclduiOLIK8p0pg=
-X-Received: by 2002:a6b:ed17:: with SMTP id n23mr24380151iog.165.1585063886297; 
- Tue, 24 Mar 2020 08:31:26 -0700 (PDT)
+ Tue, 24 Mar 2020 17:07:06 +0000 (UTC)
+Received: from pps.filterd (m0046668.ppops.net [127.0.0.1])
+ by mx07-00178001.pphosted.com (8.16.0.42/8.16.0.42) with SMTP id
+ 02OH3jR9026290; Tue, 24 Mar 2020 18:04:59 +0100
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=st.com;
+ h=from : to : cc : subject
+ : date : message-id : mime-version : content-type; s=STMicroelectronics;
+ bh=AMCtPG8q5sasMVUMMcu5hxbwZnpMXqy+87NMHQ6HtMc=;
+ b=TFbdkIj/oir8wIc3oJ4N0mKD4OLm15n0J+VIEdPEpBP492raYFUzY+o7hV3wHD4p7uGG
+ MRX1QNBsGgBk1QoPSSIp+0GCrREPMJxKnxrOwe5mlXrRsmPqWKAvqe56946hxvObo1r0
+ yJRXnmm/leXXkIvF+G9q3QKfluC/t1i3wLn+KQ/7LvE9Ctj1xctS80A8GFu78OhEk2nd
+ 2/wKTngb9oDvk6kEn8dzkxHGWcLSVKXgW/RKtLIrwADiAM2fgnnRAzr4pesZLpFbU9Zy
+ e3bymWj6K8F0bPFivdBS1vIN6nw40BeiVtHi3dJw9h5FYGIP4HLGBXfkQyHS3PDg8+4T hw== 
+Received: from beta.dmz-eu.st.com (beta.dmz-eu.st.com [164.129.1.35])
+ by mx07-00178001.pphosted.com with ESMTP id 2yw995gsvq-1
+ (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
+ Tue, 24 Mar 2020 18:04:59 +0100
+Received: from euls16034.sgp.st.com (euls16034.sgp.st.com [10.75.44.20])
+ by beta.dmz-eu.st.com (STMicroelectronics) with ESMTP id 214A610002A;
+ Tue, 24 Mar 2020 18:04:57 +0100 (CET)
+Received: from Webmail-eu.st.com (sfhdag3node1.st.com [10.75.127.7])
+ by euls16034.sgp.st.com (STMicroelectronics) with ESMTP id 0B43F2BE24B;
+ Tue, 24 Mar 2020 18:04:57 +0100 (CET)
+Received: from localhost (10.75.127.46) by SFHDAG3NODE1.st.com (10.75.127.7)
+ with Microsoft SMTP Server (TLS) id 15.0.1473.3; Tue, 24 Mar 2020 18:04:55
+ +0100
+From: Arnaud Pouliquen <arnaud.pouliquen@st.com>
+To: Ohad Ben-Cohen <ohad@wizery.com>, Bjorn Andersson
+ <bjorn.andersson@linaro.org>, Greg Kroah-Hartman
+ <gregkh@linuxfoundation.org>,
+ Jiri Slaby <jslaby@suse.com>, <linux-kernel@vger.kernel.org>,
+ <linux-remoteproc@vger.kernel.org>, Mathieu
+ Poirier <mathieu.poirier@linaro.org>
+Date: Tue, 24 Mar 2020 18:04:05 +0100
+Message-ID: <20200324170407.16470-1-arnaud.pouliquen@st.com>
+X-Mailer: git-send-email 2.17.1
 MIME-Version: 1.0
-References: <20200324042213.GA10452@asgard.redhat.com>
-In-Reply-To: <20200324042213.GA10452@asgard.redhat.com>
-From: Mathieu Poirier <mathieu.poirier@linaro.org>
-Date: Tue, 24 Mar 2020 09:31:15 -0600
-Message-ID: <CANLsYkwVybRG9L6gDJTzZ=eXut66vJYfuEtOfLzaYaVpdybT1A@mail.gmail.com>
-To: Eugene Syromiatnikov <esyr@redhat.com>
-Cc: Michael Williams <michael.williams@arm.com>,
- Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
- Linux Kernel Mailing List <linux-kernel@vger.kernel.org>,
- Chunyan Zhang <zhang.chunyan@linaro.org>,
- Maxime Coquelin <mcoquelin.stm32@gmail.com>,
- "Dmitry V. Levin" <ldv@altlinux.org>, Pratik Patel <pratikp@codeaurora.org>,
- linux-stm32@st-md-mailman.stormreply.com,
- linux-arm-kernel <linux-arm-kernel@lists.infradead.org>
-Subject: Re: [Linux-stm32] [PATCH] coresight: do not use the BIT() macro in
-	the UAPI header
+X-Originating-IP: [10.75.127.46]
+X-ClientProxiedBy: SFHDAG8NODE2.st.com (10.75.127.23) To SFHDAG3NODE1.st.com
+ (10.75.127.7)
+X-Proofpoint-Virus-Version: vendor=fsecure engine=2.50.10434:6.0.138, 18.0.645
+ definitions=2020-03-24_05:2020-03-23,
+ 2020-03-24 signatures=0
+Cc: Alan Cox <gnomes@lxorguk.ukuu.org.uk>,
+ xiang xiao <xiaoxiang781216@gmail.com>,
+ Fabien DESSENNE <fabien.dessenne@st.com>, Suman Anna <s-anna@ti.com>,
+ linux-stm32@st-md-mailman.stormreply.com
+Subject: [Linux-stm32] [PATCH v7 0/2] Add rpmsg tty driver
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -75,48 +77,54 @@ Content-Transfer-Encoding: 7bit
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
-On Mon, 23 Mar 2020 at 22:22, Eugene Syromiatnikov <esyr@redhat.com> wrote:
->
-> The BIT() macro definition is not available for the UAPI headers
-> (moreover, it can be defined differently in the user space); replace
-> its usage with the _BITUL() macro that is defined in <linux/const.h>.
->
-> Fixes: 237483aa5cf4 ("coresight: stm: adding driver for CoreSight STM component")
-> Signed-off-by: Eugene Syromiatnikov <esyr@redhat.com>
-> ---
->  include/uapi/linux/coresight-stm.h | 6 ++++--
->  1 file changed, 4 insertions(+), 2 deletions(-)
->
-> diff --git a/include/uapi/linux/coresight-stm.h b/include/uapi/linux/coresight-stm.h
-> index aac550a..8847dbf 100644
-> --- a/include/uapi/linux/coresight-stm.h
-> +++ b/include/uapi/linux/coresight-stm.h
-> @@ -2,8 +2,10 @@
->  #ifndef __UAPI_CORESIGHT_STM_H_
->  #define __UAPI_CORESIGHT_STM_H_
->
-> -#define STM_FLAG_TIMESTAMPED   BIT(3)
-> -#define STM_FLAG_GUARANTEED    BIT(7)
-> +#include <linux/const.h>
-> +
-> +#define STM_FLAG_TIMESTAMPED   _BITUL(3)
-> +#define STM_FLAG_GUARANTEED    _BITUL(7)
+This patch set introduces a TTY console on top of the RPMsg framework which
+enables the following use cases:
+- Provide a console to communicate easily with the remote processor application.
+- Provide an interface to get the remote processor log traces without ring
+  buffer limitation.
+- Ease the migration from MPU + MCU processors to multi core processors
+  (MPU and MCU integrated in one processor) by offering a virtual serial link.
 
-Greg, if you want to pick this up right away:
+An alternative of this proposed solution would consist in using the virtio
+console:
+The drawback with that solution is that it requires a specific virtio buffer
+(in addition to the one already used for RPMsg) which does not fit with remote
+processors with little memory. The proposed solution allows to multiplex the
+console with the other rpmsg services, optimizing the memory.
 
-Reviewed-by: Mathieu Poirier <mathieu.poirier@linaro.org>
+The first patch adds an API to the rpmsg framework ('get max transmission unit')
+and the second one is the rpmsg tty driver itself.
 
-Otherwise let me know and I'll add it to my next tree.
+Previous revision:
+- the patch 1/2 ("rpmsg: core: add API to get MTU) has been discussed in a
+  separate thread on remoteproc mailing list:
+    https://patchwork.kernel.org/patch/11333509/
+- Previous version of the patch 2/2 (tty: add rpmsg driver) available here:
+    https://patchwork.kernel.org/cover/11130213/
 
-Thanks,
-Mathieu
+Main delta vs v6:
+ - Pack the rpmsg_tty_ctrl struct.
+ - MTU API acked by Suman Anna from Texas Intruments company. 
 
->
->  /*
->   * The CoreSight STM supports guaranteed and invariant timing
-> --
-> 2.1.4
->
+Arnaud Pouliquen (2):
+  rpmsg: core: add API to get MTU
+  tty: add rpmsg driver
+
+ Documentation/serial/tty_rpmsg.rst |  45 ++++
+ drivers/rpmsg/rpmsg_core.c         |  21 ++
+ drivers/rpmsg/rpmsg_internal.h     |   2 +
+ drivers/rpmsg/virtio_rpmsg_bus.c   |  10 +
+ drivers/tty/Kconfig                |   9 +
+ drivers/tty/Makefile               |   1 +
+ drivers/tty/rpmsg_tty.c            | 417 +++++++++++++++++++++++++++++
+ include/linux/rpmsg.h              |  10 +
+ 8 files changed, 515 insertions(+)
+ create mode 100644 Documentation/serial/tty_rpmsg.rst
+ create mode 100644 drivers/tty/rpmsg_tty.c
+
+-- 
+2.17.1
+
 _______________________________________________
 Linux-stm32 mailing list
 Linux-stm32@st-md-mailman.stormreply.com
