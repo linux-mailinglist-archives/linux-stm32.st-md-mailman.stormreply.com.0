@@ -2,64 +2,70 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id 28AFE192B36
-	for <lists+linux-stm32@lfdr.de>; Wed, 25 Mar 2020 15:34:37 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 0FD50192EC6
+	for <lists+linux-stm32@lfdr.de>; Wed, 25 Mar 2020 17:58:00 +0100 (CET)
 Received: from ip-172-31-3-76.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 4EFCFC36B0E;
-	Wed, 25 Mar 2020 14:34:35 +0000 (UTC)
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id B3F07C36B0B;
+	Wed, 25 Mar 2020 16:57:59 +0000 (UTC)
 Received: from mx07-00178001.pphosted.com (mx07-00178001.pphosted.com
  [62.209.51.94])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 56DFFC36B09
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id F1BBEC36B09
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Wed, 25 Mar 2020 14:34:33 +0000 (UTC)
-Received: from pps.filterd (m0046668.ppops.net [127.0.0.1])
+ Wed, 25 Mar 2020 16:57:57 +0000 (UTC)
+Received: from pps.filterd (m0046037.ppops.net [127.0.0.1])
  by mx07-00178001.pphosted.com (8.16.0.42/8.16.0.42) with SMTP id
- 02PEXpoT028153; Wed, 25 Mar 2020 15:34:22 +0100
+ 02PGquT7027578; Wed, 25 Mar 2020 17:57:49 +0100
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=st.com;
- h=from : to : cc : subject
- : date : message-id : in-reply-to : references : mime-version :
- content-type; s=STMicroelectronics;
- bh=VEAFtOcNCvy1cdPVdvmkbIGYrS+dcDQPVJdYDZN9sAE=;
- b=Qnz3PVl1O1O6t5UoRQDG0sZ7dh0akxGExXfSZJW0wxquZTC5KBhR1INkYQzgO6c73ZTc
- LE0VH97DiiSaPMdTcHiBuZUVlLUs5sHLRYIK54CnKELEG59c5Es9y+qjbpL8iB3V7TPr
- qFTkl3WzPB6CG+xpedT+Fc6IfWaby3EIdsflItj8fJWyFnGyzY73G5OlNR91UBS3vpvd
- o1nScjliW7MO75YgsAak0tHGLrReXqNZ0apZrBTSSZE5BS5vdglqqqm+wOZLjHO2Xy9S
- D7O+lKfD9gV4TuYMKHRlqmFsCqLNm3hnqH/6ams+yaYHZmwnC1a/Luyi2bhgdVngUMzP +w== 
+ h=subject : to : cc :
+ references : from : message-id : date : mime-version : in-reply-to :
+ content-type : content-transfer-encoding; s=STMicroelectronics;
+ bh=765SUSoYfp3NkYF15kCDHOpVCNo5Ahc9UvpYL/PCA/M=;
+ b=zbqieNq2sJ+MTi1bySzVUNs74mUZsYfbjmdlLQiSYqxZV+MhSPgzhG1o3mYW2HgbC7HQ
+ +epC4/SMzj9/qm+moIedwP6F3+I+PpQZplQ3QqED2Pj9V46qCJZd7GyHT6ZDkZ7pscP6
+ Nea5jRdfpG9yq/x8g3HeEZjKPebeQ5okDQqQ+lmBk+D4M+6DyFDPLGWAyERiToCWu445
+ SPsu+ohZqI7ATzaBKgOv6A0OkumloeCC51JF1EuybFteSvfwWpAtn0CZYNdEl6TWL92z
+ t5Rh9Vz2DzYXd0FVx9aSs1g7RRWlgEqPbePIGmlwwGGOwPBQ811TS+M7Jf6XzycToS1y ng== 
 Received: from beta.dmz-eu.st.com (beta.dmz-eu.st.com [164.129.1.35])
- by mx07-00178001.pphosted.com with ESMTP id 2yw995p99d-1
+ by mx07-00178001.pphosted.com with ESMTP id 2yw9k06txh-1
  (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
- Wed, 25 Mar 2020 15:34:22 +0100
+ Wed, 25 Mar 2020 17:57:49 +0100
 Received: from euls16034.sgp.st.com (euls16034.sgp.st.com [10.75.44.20])
- by beta.dmz-eu.st.com (STMicroelectronics) with ESMTP id EE701100038;
- Wed, 25 Mar 2020 15:34:21 +0100 (CET)
-Received: from Webmail-eu.st.com (sfhdag6node1.st.com [10.75.127.16])
- by euls16034.sgp.st.com (STMicroelectronics) with ESMTP id E0C562B2527;
- Wed, 25 Mar 2020 15:34:21 +0100 (CET)
-Received: from localhost (10.75.127.50) by SFHDAG6NODE1.st.com (10.75.127.16)
- with Microsoft SMTP Server (TLS) id 15.0.1473.3;
- Wed, 25 Mar 2020 15:34:21 +0100
-From: Ludovic Barre <ludovic.barre@st.com>
-To: Ulf Hansson <ulf.hansson@linaro.org>, Rob Herring <robh+dt@kernel.org>
-Date: Wed, 25 Mar 2020 15:34:09 +0100
-Message-ID: <20200325143409.13005-3-ludovic.barre@st.com>
-X-Mailer: git-send-email 2.17.1
-In-Reply-To: <20200325143409.13005-1-ludovic.barre@st.com>
-References: <20200325143409.13005-1-ludovic.barre@st.com>
+ by beta.dmz-eu.st.com (STMicroelectronics) with ESMTP id 120B910002A;
+ Wed, 25 Mar 2020 17:57:45 +0100 (CET)
+Received: from Webmail-eu.st.com (sfhdag3node1.st.com [10.75.127.7])
+ by euls16034.sgp.st.com (STMicroelectronics) with ESMTP id F40222BEC4A;
+ Wed, 25 Mar 2020 17:57:44 +0100 (CET)
+Received: from lmecxl0889.tpe.st.com (10.75.127.44) by SFHDAG3NODE1.st.com
+ (10.75.127.7) with Microsoft SMTP Server (TLS) id 15.0.1473.3; Wed, 25 Mar
+ 2020 17:57:36 +0100
+To: Bjorn Andersson <bjorn.andersson@linaro.org>
+References: <20200324170407.16470-1-arnaud.pouliquen@st.com>
+ <20200324170407.16470-3-arnaud.pouliquen@st.com>
+ <20200324205210.GE119913@minitux>
+From: Arnaud POULIQUEN <arnaud.pouliquen@st.com>
+Message-ID: <4f5e6dd0-5deb-8036-0a94-eb7055744f35@st.com>
+Date: Wed, 25 Mar 2020 17:57:26 +0100
+User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:68.0) Gecko/20100101
+ Thunderbird/68.4.1
 MIME-Version: 1.0
-X-Originating-IP: [10.75.127.50]
-X-ClientProxiedBy: SFHDAG2NODE3.st.com (10.75.127.6) To SFHDAG6NODE1.st.com
- (10.75.127.16)
+In-Reply-To: <20200324205210.GE119913@minitux>
+Content-Language: en-US
+X-Originating-IP: [10.75.127.44]
+X-ClientProxiedBy: SFHDAG3NODE1.st.com (10.75.127.7) To SFHDAG3NODE1.st.com
+ (10.75.127.7)
 X-Proofpoint-Virus-Version: vendor=fsecure engine=2.50.10434:6.0.138, 18.0.645
- definitions=2020-03-25_07:2020-03-24,
+ definitions=2020-03-25_09:2020-03-24,
  2020-03-25 signatures=0
-Cc: devicetree@vger.kernel.org, linux-mmc@vger.kernel.org,
- linux-kernel@vger.kernel.org, srinivas.kandagatla@linaro.org,
- Maxime Coquelin <mcoquelin.stm32@gmail.com>,
- linux-stm32@st-md-mailman.stormreply.com, linux-arm-kernel@lists.infradead.org
-Subject: [Linux-stm32] [PATCH V2 2/2] mmc: mmci: initialize
-	pwr|clk|datactrl_reg with their hardware values
+Cc: Ohad Ben-Cohen <ohad@wizery.com>,
+ Mathieu Poirier <mathieu.poirier@linaro.org>,
+ xiang xiao <xiaoxiang781216@gmail.com>,
+ Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
+ linux-remoteproc@vger.kernel.org, linux-kernel@vger.kernel.org,
+ Fabien DESSENNE <fabien.dessenne@st.com>, Jiri Slaby <jslaby@suse.com>,
+ Suman Anna <s-anna@ti.com>, linux-stm32@st-md-mailman.stormreply.com
+Subject: Re: [Linux-stm32] [PATCH v7 2/2] tty: add rpmsg driver
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -76,41 +82,115 @@ Content-Transfer-Encoding: 7bit
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
-In mmci_write_pwr|clk|datactrlreg functions, if the desired value
-is equal to corresponding variable (pwr_reg|clk_reg|datactrl_reg),
-the value is not written in the register.
+Hi Bjorn,
 
-At probe pwr|clk|datactrl_reg of mmci_host structure are initialized
-to 0 (kzalloc of mmc_alloc_host). But they does not necessarily reflect
-hardware value of these registers, if they are used while boot level.
-This is problematic, if we want to write 0 in these registers.
+On 3/24/20 9:52 PM, Bjorn Andersson wrote:
+> On Tue 24 Mar 10:04 PDT 2020, Arnaud Pouliquen wrote:
+> [..]
+>> diff --git a/drivers/tty/Makefile b/drivers/tty/Makefile
+>> index 020b1cd9294f..c2465e7ebc2a 100644
+>> --- a/drivers/tty/Makefile
+>> +++ b/drivers/tty/Makefile
+>> @@ -34,5 +34,6 @@ obj-$(CONFIG_PPC_EPAPR_HV_BYTECHAN) += ehv_bytechan.o
+>>  obj-$(CONFIG_GOLDFISH_TTY)	+= goldfish.o
+>>  obj-$(CONFIG_MIPS_EJTAG_FDC_TTY) += mips_ejtag_fdc.o
+>>  obj-$(CONFIG_VCC)		+= vcc.o
+>> +obj-$(CONFIG_RPMSG_TTY)		+= rpmsg_tty.o
+>>  
+>>  obj-y += ipwireless/
+>> diff --git a/drivers/tty/rpmsg_tty.c b/drivers/tty/rpmsg_tty.c
+> [..]
+>> +static struct rpmsg_device_id rpmsg_driver_tty_id_table[] = {
+>> +	{ .name	= TTY_CH_NAME_RAW },
+>> +	{ .name	= TTY_CH_NAME_WITH_CTS},
+> 
+> I still don't like the idea that the tty devices are tied to channels by
+> fixed names.
 
-This patch initializes pwr|clk|datactrl_reg variables with their
-hardware values while probing.
+This point has been discussed with Xiang, he has the same kind of requirement. 
+My proposal here is to do this in two steps. First a fixed name, then
+in a second step we can extend the naming using the implementation proposed
+by Mathieu Poirier:
 
-Signed-off-by: Ludovic Barre <ludovic.barre@st.com>
----
- drivers/mmc/host/mmci.c | 4 ++++
- 1 file changed, 4 insertions(+)
+[1]https://lkml.org/lkml/2020/2/12/1083
 
-diff --git a/drivers/mmc/host/mmci.c b/drivers/mmc/host/mmci.c
-index 647567def612..f378ae18d5dc 100644
---- a/drivers/mmc/host/mmci.c
-+++ b/drivers/mmc/host/mmci.c
-@@ -2085,6 +2085,10 @@ static int mmci_probe(struct amba_device *dev,
- 	else if (plat->ocr_mask)
- 		dev_warn(mmc_dev(mmc), "Platform OCR mask is ignored\n");
+Is this patch could answer to your requirement?
+
+if requested i can I can integrate the Mathieu's patch in this patchset.
  
-+	host->pwr_reg = readl_relaxed(host->base + MMCIPOWER);
-+	host->clk_reg = readl_relaxed(host->base + MMCICLOCK);
-+	host->datactrl_reg = readl_relaxed(host->base + MMCIDATACTRL);
-+
- 	/* We support these capabilities. */
- 	mmc->caps |= MMC_CAP_CMD23;
- 
--- 
-2.17.1
+> 
+> This makes the driver unusable for communicating with any firmware out
+> there that provides tty-like data over a channel with a different name -
+> such as modems with channels providing an AT command interface (they are
+> not named "rpmsg-tty-raw").
 
+I'm not fixed on the naming, any proposal is welcome.
+If we use the patch [1], could be renamed 
+"rpmsg-tty". then for AT command could be something like "rpmsg-tty-at"
+
+But here seems we are speaking about service over TTY and not over RPMsg.
+
+> 
+> I also fail to see how you would distinguish ttys when the firmware
+> provides more than a single tty - e.g. say you have a modem-like device
+> that provides an AT command channel and a NMEA stream.
+
+Today it is a limitation. In fact this limitation is the same for all RPMsg
+devices with multi instance.
+The patch [1] will allow to retrieve the instance by identifying
+the service device name in /sys/class/tty/ttyRPMSG<X>/device/name
+
+> 
+> 
+> These are the reasons why drivers/rpmsg/rpmsg_char registers a "control
+> device", from which you can spawn new char devices. As I've said before,
+> I really think the same approach should be taken for ttys - perhaps by
+> just extending the rpmsg_char to allow it to create tty devices in
+> addition to the "packet based" char device?
+> 
+I'm not very familiar with the rpmsg_char so please correct me if i'm wrong:
+
+The rpmsg_char exposes to userland an interface to manage rpmsg channels
+(relying on a char device). This interface offers the  possibility to create
+new channels/endpoints and send/received related messages. 
+ 
+Thus, the application declares the RPMsg channels which is bound if they matches
+with the remote processor channel (similar behavior than a kernel rpmsg driver).
+There is no constrain on the service once same service is advertised by remote
+firmware.
+
+In addition, a limitation of the rpmsg_char device is that it needs to be
+associated with an existing device, as example the implementation in qcom_smd
+driver.
+
+If i try to figure out how to implement TTY using the rpmsg_char:
+I should create a rpmsg_char dev in the rpmsg tty driver. Then application
+will create channels related to its service. But in this case
+how to ensure that channels created are related to the TTY service?  
+
+
+I would also expect to manage RPMsg TTY such as a generic TTY: without
+extra interface and auto mounted as an USB TTY. this means that the
+/dev/ttyRMPSGx are created automatically at remote firmware startup
+(without any application action). For instance a generic application 
+(e.g. minicom) could control an internal remote processor such as
+an external processor through a TTY link. 
+
+Then we have also similar RPMsg driver for I2C and SPI virtual link. So extend
+the rpmsg_char to support TTY seems not a good solution for long terms. 
+
+For these reasons i would prefer to have a specific driver. And found a solution
+to allow user to differentiate the TTY instances.
+
+Anyway I am very interesting in having more details of an implementation relying
+on rpmsg_char if you still thinking that is the good approach here.
+
+Thanks for your comments, 
+Arnaud
+
+> Regards,
+> Bjorn
+> 
 _______________________________________________
 Linux-stm32 mailing list
 Linux-stm32@st-md-mailman.stormreply.com
