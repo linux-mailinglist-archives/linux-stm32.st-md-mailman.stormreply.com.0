@@ -2,23 +2,23 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id D03A9193E23
-	for <lists+linux-stm32@lfdr.de>; Thu, 26 Mar 2020 12:46:02 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 86437193EE8
+	for <lists+linux-stm32@lfdr.de>; Thu, 26 Mar 2020 13:31:50 +0100 (CET)
 Received: from ip-172-31-3-76.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 8FBAAC36B0B;
-	Thu, 26 Mar 2020 11:46:02 +0000 (UTC)
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 2269DC36B0B;
+	Thu, 26 Mar 2020 12:31:50 +0000 (UTC)
 Received: from mx2.suse.de (mx2.suse.de [195.135.220.15])
  (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 5F101C36B09
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 7B9BEC36B09
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Thu, 26 Mar 2020 11:45:59 +0000 (UTC)
+ Thu, 26 Mar 2020 12:31:46 +0000 (UTC)
 X-Virus-Scanned: by amavisd-new at test-mx.suse.de
 Received: from relay2.suse.de (unknown [195.135.220.254])
- by mx2.suse.de (Postfix) with ESMTP id 618D9AD9F;
- Thu, 26 Mar 2020 11:45:58 +0000 (UTC)
-To: Arnaud POULIQUEN <arnaud.pouliquen@st.com>,
- Ohad Ben-Cohen <ohad@wizery.com>,
+ by mx2.suse.de (Postfix) with ESMTP id 62FFBAFBD;
+ Thu, 26 Mar 2020 12:31:45 +0000 (UTC)
+To: Arnaud POULIQUEN <arnaud.pouliquen@st.com>, Joe Perches
+ <joe@perches.com>, Ohad Ben-Cohen <ohad@wizery.com>,
  Bjorn Andersson <bjorn.andersson@linaro.org>,
  Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
  linux-kernel@vger.kernel.org, linux-remoteproc@vger.kernel.org,
@@ -28,7 +28,8 @@ References: <20200324170407.16470-1-arnaud.pouliquen@st.com>
  <e458f805-c746-c88e-98f4-d874a7552933@suse.cz>
  <1e4ce821-dd9b-bb04-774b-58a255834cf5@st.com>
  <ec061c30-eace-1df9-fa7b-71a61e5710a2@suse.cz>
- <2512639d-424f-9647-4dbd-3b3459465888@st.com>
+ <f97d9dc54178e4344512bc7986265f101f4639c6.camel@perches.com>
+ <54d9b379-ba51-b29c-db58-6e305773ee96@st.com>
 From: Jiri Slaby <jslaby@suse.cz>
 Autocrypt: addr=jslaby@suse.cz; prefer-encrypt=mutual; keydata=
  mQINBE6S54YBEACzzjLwDUbU5elY4GTg/NdotjA0jyyJtYI86wdKraekbNE0bC4zV+ryvH4j
@@ -72,12 +73,12 @@ Autocrypt: addr=jslaby@suse.cz; prefer-encrypt=mutual; keydata=
  9HKkJqkN9xYEYaxtfl5pelF8idoxMZpTvCZY7jhnl2IemZCBMs6s338wS12Qro5WEAxV6cjD
  VSdmcD5l9plhKGLmgVNCTe8DPv81oDn9s0cIRLg9wNnDtj8aIiH8lBHwfUkpn32iv0uMV6Ae
  sLxhDWfOR4N+wu1gzXWgLel4drkCJcuYK5IL1qaZDcuGR8RPo3jbFO7Y
-Message-ID: <3e666fa0-2f4d-9958-887e-8830049ccbe8@suse.cz>
-Date: Thu, 26 Mar 2020 12:45:57 +0100
+Message-ID: <7329d7bb-c9cd-8eb2-12c2-0b6d5cc2accf@suse.cz>
+Date: Thu, 26 Mar 2020 13:31:44 +0100
 User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:68.0) Gecko/20100101
  Thunderbird/68.5.0
 MIME-Version: 1.0
-In-Reply-To: <2512639d-424f-9647-4dbd-3b3459465888@st.com>
+In-Reply-To: <54d9b379-ba51-b29c-db58-6e305773ee96@st.com>
 Content-Language: en-US
 Cc: Suman Anna <s-anna@ti.com>, linux-stm32@st-md-mailman.stormreply.com,
  Fabien DESSENNE <fabien.dessenne@st.com>,
@@ -99,33 +100,54 @@ Content-Transfer-Encoding: 7bit
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
-On 26. 03. 20, 12:40, Arnaud POULIQUEN wrote:
->>>>> +	/*
->>>>> +	 * Try to send the message to remote processor, if failed return 0 as
->>>>> +	 * no data sent
->>>>> +	 */
->>>>> +	ret = rpmsg_trysendto(cport->d_ept, tmpbuf, msg_size, cport->data_dst);
->>>>
->>>> data of rpmsg_trysendto is not const. OK, you seem you need to change
->>>> that first, I see no blocker for that.
->>>
->>> I created a temporary buffer to ensure that buffer to sent does not exceed the 
->>> MTU size.
->>> But perhaps this is an useless protection as the rpmsg_tty_write_room already
->>> return the MTU value, and so the 'len' variable can not be higher that value
->>> returned by the write_room?
+On 26. 03. 20, 11:59, Arnaud POULIQUEN wrote:
+> 
+> 
+> On 3/26/20 1:01 AM, Joe Perches wrote:
+>> On Wed, 2020-03-25 at 14:31 +0100, Jiri Slaby wrote:
+>>> The question was exactly about that: can a compiler optimize it to a
+>>> bare number or will strlen call remain there?
 >>
->> You still can limit it by msg_size without cloning the buffer, right?
-> you are right, but in this case i need to cast the buff to suppress compilation
-> warning on const and I don't know if all compilers will accept this...
->  
-> pbuf = (u8 *)buf;
-> ret = rpmsg_trysendto(cport->d_ept, pbuf, msg_size, cport->data_dst);
+>> $ cat str.c
+>> #include <string.h>
+>>
+>> int foo(void)
+>> {
+>> 	return strlen("abc");
+>> }
+>>
+>> $ gcc -c -O2 str.c
+>> $ objdump -d str.o
+>> str.o:     file format elf64-x86-64
+>>
+>>
+>> Disassembly of section .text:
+>>
+>> 0000000000000000 <foo>:
+>>    0:	f3 0f 1e fa          	endbr64 
+>>    4:	b8 03 00 00 00       	mov    $0x3,%eax
+>>    9:	c3                   	retq   
+>>
+>>
+> same result with  arm gcc using  -O1 or -Og:
+> 
+> str.o:     file format elf32-littlearm
+> 
+> 
+> Disassembly of section .text:
+> 
+> 00000000 <foo>:
+>    0:	e3a00003 	mov	r0, #3
+>    4:	e12fff1e 	bx	lr
+> 
+> So in conclusion replacing sizeof by srlen even if not optimized in -o0, right?
 
-No, don't do that. Read my first message again; in particular:
+Right, gcc guys just confirmed, that it's constant-folded during parsing
+already. I asked them as I tried to dump the tree.original and the
+constant was already there.
 
-> data of rpmsg_trysendto is not const. OK, you seem you need to change
-> that first, I see no blocker for that.
+So we are safe to use strlen, at least for gcc :P. Others should adapt
+if they don't follow.
 
 thanks,
 -- 
