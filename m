@@ -2,73 +2,71 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id D32B0193D6D
-	for <lists+linux-stm32@lfdr.de>; Thu, 26 Mar 2020 12:00:03 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 16FDD193E0B
+	for <lists+linux-stm32@lfdr.de>; Thu, 26 Mar 2020 12:38:51 +0100 (CET)
 Received: from ip-172-31-3-76.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 54C15C36B0C;
-	Thu, 26 Mar 2020 11:00:02 +0000 (UTC)
-Received: from mx07-00178001.pphosted.com (mx08-00178001.pphosted.com
- [91.207.212.93])
- (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id BF819C36B0B;
+	Thu, 26 Mar 2020 11:38:50 +0000 (UTC)
+Received: from mail-pj1-f68.google.com (mail-pj1-f68.google.com
+ [209.85.216.68])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 3DC3BC36B09
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id E3F55C36B09
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Thu, 26 Mar 2020 11:00:00 +0000 (UTC)
-Received: from pps.filterd (m0046661.ppops.net [127.0.0.1])
- by mx07-00178001.pphosted.com (8.16.0.42/8.16.0.42) with SMTP id
- 02QAw3le004718; Thu, 26 Mar 2020 11:59:53 +0100
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=st.com;
- h=subject : to : cc :
- references : from : message-id : date : mime-version : in-reply-to :
- content-type : content-transfer-encoding; s=STMicroelectronics;
- bh=ePaRO2xQxOSssih3ATmMumUDQxzntYCKLl5miAQMV5w=;
- b=JH9clXkigdRraWQGXYGOr5OIW5C0DUutbVjb3FjeIpaKChItgfANVt8ZSlPcbAJ29JQF
- pcXwgEF3oq3ZiT6SlQBovqwa4XPGP0NoiabrJ1AzHyhzX0GHTYH3irwUrSjfNk3+j+np
- MT1qeeRo276ThIrrCloKGNcKxcoD8mSyc/Q08WnSeXaDcNLF2dPbyfV++pERS0Cba980
- YiUF7ir7TU7okOhmKfyC+9/kHPHg9eqRHCH3HiiCWeBH5MBY+kRZw76BxYUJOne1rqH5
- W9AZOg+uxLaMXCevPQSgT805s254FyCGJhIvJkehDIav9m5nVL/6W/ykSz11n5fRACKz Dg== 
-Received: from beta.dmz-eu.st.com (beta.dmz-eu.st.com [164.129.1.35])
- by mx07-00178001.pphosted.com with ESMTP id 2ywappb5e0-1
- (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
- Thu, 26 Mar 2020 11:59:53 +0100
-Received: from euls16034.sgp.st.com (euls16034.sgp.st.com [10.75.44.20])
- by beta.dmz-eu.st.com (STMicroelectronics) with ESMTP id 84D8F100038;
- Thu, 26 Mar 2020 11:59:48 +0100 (CET)
-Received: from Webmail-eu.st.com (sfhdag3node1.st.com [10.75.127.7])
- by euls16034.sgp.st.com (STMicroelectronics) with ESMTP id 6DC9E2A5553;
- Thu, 26 Mar 2020 11:59:48 +0100 (CET)
-Received: from lmecxl0889.tpe.st.com (10.75.127.46) by SFHDAG3NODE1.st.com
- (10.75.127.7) with Microsoft SMTP Server (TLS) id 15.0.1473.3; Thu, 26 Mar
- 2020 11:59:38 +0100
-To: Joe Perches <joe@perches.com>, Jiri Slaby <jslaby@suse.cz>, Ohad Ben-Cohen
- <ohad@wizery.com>, Bjorn Andersson <bjorn.andersson@linaro.org>, Greg
- Kroah-Hartman <gregkh@linuxfoundation.org>,
- <linux-kernel@vger.kernel.org>, <linux-remoteproc@vger.kernel.org>,
- Mathieu Poirier <mathieu.poirier@linaro.org>
-References: <20200324170407.16470-1-arnaud.pouliquen@st.com>
- <20200324170407.16470-3-arnaud.pouliquen@st.com>
- <e458f805-c746-c88e-98f4-d874a7552933@suse.cz>
- <1e4ce821-dd9b-bb04-774b-58a255834cf5@st.com>
- <ec061c30-eace-1df9-fa7b-71a61e5710a2@suse.cz>
- <f97d9dc54178e4344512bc7986265f101f4639c6.camel@perches.com>
-From: Arnaud POULIQUEN <arnaud.pouliquen@st.com>
-Message-ID: <54d9b379-ba51-b29c-db58-6e305773ee96@st.com>
-Date: Thu, 26 Mar 2020 11:59:28 +0100
-User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:68.0) Gecko/20100101
- Thunderbird/68.4.1
+ Thu, 26 Mar 2020 11:38:47 +0000 (UTC)
+Received: by mail-pj1-f68.google.com with SMTP id z3so1765022pjr.4
+ for <linux-stm32@st-md-mailman.stormreply.com>;
+ Thu, 26 Mar 2020 04:38:47 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20161025;
+ h=mime-version:references:in-reply-to:from:date:message-id:subject:to;
+ bh=R0qU1vfFJtq/8uG9IZGBPMdQ0ZUew1mrKKw6hutamAQ=;
+ b=DQZmDaLxybbCIR7OhJBlYkbfh0VC2lyHZ20SSGUBLSGqUYDxLQ8242wwrhvmMIkb+S
+ kauniwR17uUed8TQ9jHasiNY9F0hFIQ+iOXlw+Z3KaBoTjCoZBiR8qmIhLhgn0N/zuzM
+ 22Gb5fG2swp7zD4zWaEa3wgW3PwSj369qegoLcBMjvsICPfjheRv0y8uxvwVUSBIG5Bg
+ +OF0emN61e/tbswYEZI3gzkS/0ortnuXK/NQ29CCygBvb3JByEMDtFdtk+d7akr6J7KW
+ 7kSiz9I257CjR4R0WzKrrxKa8jSsmeOkN6bk6alieSvYuWHfQGIt4IjoxeM4+Q3z0DVJ
+ WLlQ==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20161025;
+ h=x-gm-message-state:mime-version:references:in-reply-to:from:date
+ :message-id:subject:to;
+ bh=R0qU1vfFJtq/8uG9IZGBPMdQ0ZUew1mrKKw6hutamAQ=;
+ b=SlOcq/r89XdTtJs1hfoUGDfru0TvHhhnavebuttgL5UTNOF4ZwDH5+KKKtFaBBRxs6
+ 2Sim5fNTcexaoHbySp6ezjFB5NHhdoqWL233APFTrbdQp4Z/uFDUcOk4bb2WFFTRcYxC
+ 8SPUMJ2nrm2cTF1jmnbcLxML4orAROmR+fPOWSqgUCFR4nR4ofS24rXKii8mJg9nSK0t
+ uPpYxZrpfg5VaKzLzQxcrSDVF8/pPCb0TqkJvyKcO+UErMaYiiZYtProxgHphOoo8S4V
+ fjyBHBbLWv/n9n3S1/HXbAQe315pWzlHFEXUwNfIs4NAO9Rp7AUBHQDv+r/J5oOZaXRv
+ +Fzw==
+X-Gm-Message-State: ANhLgQ31h7sXIe5X2bxGWELAmlSy0sR0/iYJhVuXIAKpvDA9l1Tdfmph
+ LCOAKiwncRagKja8P+G6/6/4QD9yJxHoTund7Bw=
+X-Google-Smtp-Source: ADFU+vvCH5BmVxfLH5Lsgo06YaFz8cXJ4Ew5KtuIz1eSdJLbu86yn4cADJqPrChVHtpWYi3ypBWuWoz1w1lJOmB4knk=
+X-Received: by 2002:a17:902:5acb:: with SMTP id
+ g11mr317572plm.18.1585222725777; 
+ Thu, 26 Mar 2020 04:38:45 -0700 (PDT)
 MIME-Version: 1.0
-In-Reply-To: <f97d9dc54178e4344512bc7986265f101f4639c6.camel@perches.com>
-Content-Language: en-US
-X-Originating-IP: [10.75.127.46]
-X-ClientProxiedBy: SFHDAG5NODE1.st.com (10.75.127.13) To SFHDAG3NODE1.st.com
- (10.75.127.7)
-X-Proofpoint-Virus-Version: vendor=fsecure engine=2.50.10434:6.0.138, 18.0.645
- definitions=2020-03-26_02:2020-03-26,
- 2020-03-26 signatures=0
-Cc: Suman Anna <s-anna@ti.com>, linux-stm32@st-md-mailman.stormreply.com,
- Fabien DESSENNE <fabien.dessenne@st.com>,
- xiang xiao <xiaoxiang781216@gmail.com>
-Subject: Re: [Linux-stm32] [PATCH v7 2/2] tty: add rpmsg driver
+References: <1585161361-3408-1-git-send-email-alain.volmat@st.com>
+ <1585161361-3408-3-git-send-email-alain.volmat@st.com>
+ <CAHp75VdPCWdpGo=2n9g0ivti-g2m4jZ=cG4BKHBLk8BVDzaCyg@mail.gmail.com>
+ <20200326101219.GA21190@gnbcxd0016.gnb.st.com>
+In-Reply-To: <20200326101219.GA21190@gnbcxd0016.gnb.st.com>
+From: Andy Shevchenko <andy.shevchenko@gmail.com>
+Date: Thu, 26 Mar 2020 13:38:38 +0200
+Message-ID: <CAHp75Vc896RpnrX6+yb0LfXVroLJO5XX6Gt5V4BJZjdFYOXYnQ@mail.gmail.com>
+To: Andy Shevchenko <andy.shevchenko@gmail.com>,
+ Wolfram Sang <wsa@the-dreams.de>, 
+ Rob Herring <robh+dt@kernel.org>, Mark Rutland <mark.rutland@arm.com>, 
+ Pierre Yves MORDRET <pierre-yves.mordret@st.com>,
+ Maxime Coquelin <mcoquelin.stm32@gmail.com>, 
+ Alexandre TORGUE <alexandre.torgue@st.com>,
+ linux-i2c <linux-i2c@vger.kernel.org>, 
+ devicetree <devicetree@vger.kernel.org>, 
+ "linux-stm32@st-md-mailman.stormreply.com"
+ <linux-stm32@st-md-mailman.stormreply.com>, 
+ linux-arm Mailing List <linux-arm-kernel@lists.infradead.org>, 
+ Linux Kernel Mailing List <linux-kernel@vger.kernel.org>,
+ Fabrice GASNIER <fabrice.gasnier@st.com>
+Subject: Re: [Linux-stm32] [PATCH 2/2] i2c: i2c-stm32f7: allows for any bus
+	frequency
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -85,49 +83,45 @@ Content-Transfer-Encoding: 7bit
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
+On Thu, Mar 26, 2020 at 12:12 PM Alain Volmat <alain.volmat@st.com> wrote:
+> On Wed, Mar 25, 2020 at 06:53:45PM +0000, Andy Shevchenko wrote:
+> > On Wed, Mar 25, 2020 at 8:38 PM Alain Volmat <alain.volmat@st.com> wrote:
 
+...
 
-On 3/26/20 1:01 AM, Joe Perches wrote:
-> On Wed, 2020-03-25 at 14:31 +0100, Jiri Slaby wrote:
->> The question was exactly about that: can a compiler optimize it to a
->> bare number or will strlen call remain there?
-> 
-> $ cat str.c
-> #include <string.h>
-> 
-> int foo(void)
+> > > +       int i;
+> > > +
+> > > +       for (i = ARRAY_SIZE(i2c_specs) - 1; i >= 0; i--)
+> >
+> >
+> > Perhaps
+> >
+> >        int i = ARRAY_SIZE(i2c_specs);
+> >
+> >        while(i--)
+> >
+> > ?
+>
+> I propose the following code to make it a bit easier to read/understand:
+>
+> static u32 get_lower_rate(u32 rate)
 > {
-> 	return strlen("abc");
+>         int i = ARRAY_SIZE(i2c_specs);
+>
+>         while (i--)
+>                 if (i2c_specs[i].rate < rate)
+>                         break;
+>
+>         return i2c_specs[i].rate;
 > }
-> 
-> $ gcc -c -O2 str.c
-> $ objdump -d str.o
-> str.o:     file format elf64-x86-64
-> 
-> 
-> Disassembly of section .text:
-> 
-> 0000000000000000 <foo>:
->    0:	f3 0f 1e fa          	endbr64 
->    4:	b8 03 00 00 00       	mov    $0x3,%eax
->    9:	c3                   	retq   
-> 
-> 
-same result with  arm gcc using  -O1 or -Og:
+>
+> If you agree with that I'll push a v2.
 
-str.o:     file format elf32-littlearm
+No objections.
 
-
-Disassembly of section .text:
-
-00000000 <foo>:
-   0:	e3a00003 	mov	r0, #3
-   4:	e12fff1e 	bx	lr
-
-So in conclusion replacing sizeof by srlen even if not optimized in -o0, right?
-
-Thanks,
-Arnaud
+-- 
+With Best Regards,
+Andy Shevchenko
 _______________________________________________
 Linux-stm32 mailing list
 Linux-stm32@st-md-mailman.stormreply.com
