@@ -2,38 +2,38 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id 5FA6F1967D9
-	for <lists+linux-stm32@lfdr.de>; Sat, 28 Mar 2020 18:11:56 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 664261967DA
+	for <lists+linux-stm32@lfdr.de>; Sat, 28 Mar 2020 18:11:57 +0100 (CET)
 Received: from ip-172-31-3-76.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 253ACC36B0E;
-	Sat, 28 Mar 2020 17:11:56 +0000 (UTC)
-Received: from mail-out.m-online.net (mail-out.m-online.net [212.18.0.10])
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 30465C36B10;
+	Sat, 28 Mar 2020 17:11:57 +0000 (UTC)
+Received: from mail-out.m-online.net (mail-out.m-online.net [212.18.0.9])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 18B2AC36B09
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id BA998C36B0C
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Sat, 28 Mar 2020 17:11:54 +0000 (UTC)
+ Sat, 28 Mar 2020 17:11:55 +0000 (UTC)
 Received: from frontend01.mail.m-online.net (unknown [192.168.8.182])
- by mail-out.m-online.net (Postfix) with ESMTP id 48qQHs5RyKz1rqRg;
- Sat, 28 Mar 2020 18:11:53 +0100 (CET)
+ by mail-out.m-online.net (Postfix) with ESMTP id 48qQHv09f1z1qrLP;
+ Sat, 28 Mar 2020 18:11:55 +0100 (CET)
 Received: from localhost (dynscan1.mnet-online.de [192.168.6.70])
- by mail.m-online.net (Postfix) with ESMTP id 48qQHs4pm7z1qv4n;
- Sat, 28 Mar 2020 18:11:53 +0100 (CET)
+ by mail.m-online.net (Postfix) with ESMTP id 48qQHt74pbz1qv4m;
+ Sat, 28 Mar 2020 18:11:54 +0100 (CET)
 X-Virus-Scanned: amavisd-new at mnet-online.de
 Received: from mail.mnet-online.de ([192.168.8.182])
  by localhost (dynscan1.mail.m-online.net [192.168.6.70]) (amavisd-new,
  port 10024)
- with ESMTP id BpiAUQxtKnvB; Sat, 28 Mar 2020 18:11:52 +0100 (CET)
-X-Auth-Info: SHsZ9Segp3JTbDt47EVSyzWCC/Pxk52U37nmFDVH00A=
+ with ESMTP id bz-46L39rROg; Sat, 28 Mar 2020 18:11:53 +0100 (CET)
+X-Auth-Info: uSvmlTK0BOOpghuGRFoQbNIc4eSpodjkkEVXIEyokyw=
 Received: from desktop.lan (ip-86-49-35-8.net.upcbroadband.cz [86.49.35.8])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
  by mail.mnet-online.de (Postfix) with ESMTPSA;
- Sat, 28 Mar 2020 18:11:52 +0100 (CET)
+ Sat, 28 Mar 2020 18:11:53 +0100 (CET)
 From: Marek Vasut <marex@denx.de>
 To: linux-arm-kernel@lists.infradead.org
-Date: Sat, 28 Mar 2020 18:11:23 +0100
-Message-Id: <20200328171144.51888-2-marex@denx.de>
+Date: Sat, 28 Mar 2020 18:11:24 +0100
+Message-Id: <20200328171144.51888-3-marex@denx.de>
 X-Mailer: git-send-email 2.25.1
 In-Reply-To: <20200328171144.51888-1-marex@denx.de>
 References: <20200328171144.51888-1-marex@denx.de>
@@ -41,8 +41,8 @@ MIME-Version: 1.0
 Cc: Marek Vasut <marex@denx.de>, Patrick Delaunay <patrick.delaunay@st.com>,
  Maxime Coquelin <mcoquelin.stm32@gmail.com>,
  linux-stm32@st-md-mailman.stormreply.com
-Subject: [Linux-stm32] [PATCH 01/22] ARM: dts: stm32: Add alternate pinmux
-	for ethernet RGMII
+Subject: [Linux-stm32] [PATCH 02/22] ARM: dts: stm32: Repair ethernet
+	operation on AV96
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -59,7 +59,8 @@ Content-Transfer-Encoding: 7bit
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
-Add another mux option for DWMAC RGMII, this is used on AV96 board.
+The AV96 RGMII uses different pinmux for ETH_RGMII_TXD0, ETH_RGMII_RXD2
+and ETH_RGMII_TX_CTL. Use the correct pinmux to make ethernet operational.
 
 Signed-off-by: Marek Vasut <marex@denx.de>
 Cc: Alexandre Torgue <alexandre.torgue@st.com>
@@ -69,71 +70,24 @@ Cc: Patrick Delaunay <patrick.delaunay@st.com>
 Cc: linux-stm32@st-md-mailman.stormreply.com
 To: linux-arm-kernel@lists.infradead.org
 ---
- arch/arm/boot/dts/stm32mp15-pinctrl.dtsi | 51 ++++++++++++++++++++++++
- 1 file changed, 51 insertions(+)
+ arch/arm/boot/dts/stm32mp157a-avenger96.dts | 4 ++--
+ 1 file changed, 2 insertions(+), 2 deletions(-)
 
-diff --git a/arch/arm/boot/dts/stm32mp15-pinctrl.dtsi b/arch/arm/boot/dts/stm32mp15-pinctrl.dtsi
-index 73c07f0dfad2..4569dc16e5a1 100644
---- a/arch/arm/boot/dts/stm32mp15-pinctrl.dtsi
-+++ b/arch/arm/boot/dts/stm32mp15-pinctrl.dtsi
-@@ -196,6 +196,57 @@ pins1 {
- 		};
- 	};
+diff --git a/arch/arm/boot/dts/stm32mp157a-avenger96.dts b/arch/arm/boot/dts/stm32mp157a-avenger96.dts
+index 425175f7d83c..1d15b745feeb 100644
+--- a/arch/arm/boot/dts/stm32mp157a-avenger96.dts
++++ b/arch/arm/boot/dts/stm32mp157a-avenger96.dts
+@@ -81,8 +81,8 @@ led6 {
  
-+	ethernet0_rgmii_pins_b: rgmii-1 {
-+		pins1 {
-+			pinmux = <STM32_PINMUX('G', 5, AF11)>, /* ETH_RGMII_CLK125 */
-+				 <STM32_PINMUX('G', 4, AF11)>, /* ETH_RGMII_GTX_CLK */
-+				 <STM32_PINMUX('B', 12, AF11)>, /* ETH_RGMII_TXD0 */
-+				 <STM32_PINMUX('G', 14, AF11)>, /* ETH_RGMII_TXD1 */
-+				 <STM32_PINMUX('C', 2, AF11)>, /* ETH_RGMII_TXD2 */
-+				 <STM32_PINMUX('E', 2, AF11)>, /* ETH_RGMII_TXD3 */
-+				 <STM32_PINMUX('G', 11, AF11)>, /* ETH_RGMII_TX_CTL */
-+				 <STM32_PINMUX('C', 1, AF11)>; /* ETH_MDC */
-+			bias-disable;
-+			drive-push-pull;
-+			slew-rate = <2>;
-+		};
-+		pins2 {
-+			pinmux = <STM32_PINMUX('A', 2, AF11)>; /* ETH_MDIO */
-+			bias-disable;
-+			drive-push-pull;
-+			slew-rate = <0>;
-+		};
-+		pins3 {
-+			pinmux = <STM32_PINMUX('C', 4, AF11)>, /* ETH_RGMII_RXD0 */
-+				 <STM32_PINMUX('C', 5, AF11)>, /* ETH_RGMII_RXD1 */
-+				 <STM32_PINMUX('H', 6, AF11)>, /* ETH_RGMII_RXD2 */
-+				 <STM32_PINMUX('B', 1, AF11)>, /* ETH_RGMII_RXD3 */
-+				 <STM32_PINMUX('A', 1, AF11)>, /* ETH_RGMII_RX_CLK */
-+				 <STM32_PINMUX('A', 7, AF11)>; /* ETH_RGMII_RX_CTL */
-+			bias-disable;
-+		};
-+	};
-+
-+	ethernet0_rgmii_pins_sleep_b: rgmii-sleep-1 {
-+		pins1 {
-+			pinmux = <STM32_PINMUX('G', 5, ANALOG)>, /* ETH_RGMII_CLK125 */
-+				 <STM32_PINMUX('G', 4, ANALOG)>, /* ETH_RGMII_GTX_CLK */
-+				 <STM32_PINMUX('B', 12, ANALOG)>, /* ETH_RGMII_TXD0 */
-+				 <STM32_PINMUX('G', 14, ANALOG)>, /* ETH_RGMII_TXD1 */
-+				 <STM32_PINMUX('C', 2, ANALOG)>, /* ETH_RGMII_TXD2 */
-+				 <STM32_PINMUX('E', 2, ANALOG)>, /* ETH_RGMII_TXD3 */
-+				 <STM32_PINMUX('G', 11, ANALOG)>, /* ETH_RGMII_TX_CTL */
-+				 <STM32_PINMUX('A', 2, ANALOG)>, /* ETH_MDIO */
-+				 <STM32_PINMUX('C', 1, ANALOG)>, /* ETH_MDC */
-+				 <STM32_PINMUX('C', 4, ANALOG)>, /* ETH_RGMII_RXD0 */
-+				 <STM32_PINMUX('C', 5, ANALOG)>, /* ETH_RGMII_RXD1 */
-+				 <STM32_PINMUX('H', 6, ANALOG)>, /* ETH_RGMII_RXD2 */
-+				 <STM32_PINMUX('B', 1, ANALOG)>, /* ETH_RGMII_RXD3 */
-+				 <STM32_PINMUX('A', 1, ANALOG)>, /* ETH_RGMII_RX_CLK */
-+				 <STM32_PINMUX('A', 7, ANALOG)>; /* ETH_RGMII_RX_CTL */
-+		};
-+	};
-+
- 	fmc_pins_a: fmc-0 {
- 		pins1 {
- 			pinmux = <STM32_PINMUX('D', 4, AF12)>, /* FMC_NOE */
+ &ethernet0 {
+ 	status = "okay";
+-	pinctrl-0 = <&ethernet0_rgmii_pins_a>;
+-	pinctrl-1 = <&ethernet0_rgmii_pins_sleep_a>;
++	pinctrl-0 = <&ethernet0_rgmii_pins_b>;
++	pinctrl-1 = <&ethernet0_rgmii_pins_sleep_b>;
+ 	pinctrl-names = "default", "sleep";
+ 	phy-mode = "rgmii";
+ 	max-speed = <1000>;
 -- 
 2.25.1
 
