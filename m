@@ -2,55 +2,34 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id 8A5C8197A9E
-	for <lists+linux-stm32@lfdr.de>; Mon, 30 Mar 2020 13:22:17 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id BCF8A197AC4
+	for <lists+linux-stm32@lfdr.de>; Mon, 30 Mar 2020 13:34:49 +0200 (CEST)
 Received: from ip-172-31-3-76.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 44638C36B0B;
-	Mon, 30 Mar 2020 11:22:17 +0000 (UTC)
-Received: from mail-out.m-online.net (mail-out.m-online.net [212.18.0.10])
- (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
- (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 8FCEDC36B09
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 0B6E3C36B0B;
+	Mon, 30 Mar 2020 11:34:49 +0000 (UTC)
+Received: from bhuna.collabora.co.uk (bhuna.collabora.co.uk [46.235.227.227])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256
+ bits)) (No client certificate requested)
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 9102DC36B09
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Mon, 30 Mar 2020 11:22:14 +0000 (UTC)
-Received: from frontend01.mail.m-online.net (unknown [192.168.8.182])
- by mail-out.m-online.net (Postfix) with ESMTP id 48rVRT66tdz1rx85;
- Mon, 30 Mar 2020 13:22:13 +0200 (CEST)
-Received: from localhost (dynscan1.mnet-online.de [192.168.6.70])
- by mail.m-online.net (Postfix) with ESMTP id 48rVRT5d3Hz1qqkP;
- Mon, 30 Mar 2020 13:22:13 +0200 (CEST)
-X-Virus-Scanned: amavisd-new at mnet-online.de
-Received: from mail.mnet-online.de ([192.168.8.182])
- by localhost (dynscan1.mail.m-online.net [192.168.6.70]) (amavisd-new,
- port 10024)
- with ESMTP id mS2VEcFxqWVX; Mon, 30 Mar 2020 13:22:11 +0200 (CEST)
-X-Auth-Info: 6DQo6+2Jt/0Ys0iyC4ho2lD1FIRPcxTsElASb30D0Cg=
-Received: from [IPv6:::1] (unknown [195.140.253.167])
- (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
- (No client certificate requested)
- by mail.mnet-online.de (Postfix) with ESMTPSA;
- Mon, 30 Mar 2020 13:22:11 +0200 (CEST)
-To: Ahmad Fatoum <a.fatoum@pengutronix.de>,
- Patrice CHOTARD <patrice.chotard@st.com>,
- "linux-arm-kernel@lists.infradead.org" <linux-arm-kernel@lists.infradead.org>
-References: <20200328171144.51888-1-marex@denx.de>
- <20200328171144.51888-8-marex@denx.de>
- <0fb89d25-feb0-2eb0-9e83-d7f8c76f8b9e@st.com>
- <82dcf412-119b-0de2-0c50-f6877a82a812@pengutronix.de>
-From: Marek Vasut <marex@denx.de>
-Message-ID: <fcf49298-a36c-e80e-e62b-1fb9c07f0d6e@denx.de>
-Date: Mon, 30 Mar 2020 13:22:11 +0200
-User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:68.0) Gecko/20100101
- Thunderbird/68.5.0
+ Mon, 30 Mar 2020 11:34:48 +0000 (UTC)
+Received: from [127.0.0.1] (localhost [127.0.0.1])
+ (Authenticated sender: aratiu) with ESMTPSA id 0545E292556
+From: Adrian Ratiu <adrian.ratiu@collabora.com>
+To: linux-arm-kernel@lists.infradead.org,
+	devicetree@vger.kernel.org
+Date: Mon, 30 Mar 2020 14:35:37 +0300
+Message-Id: <20200330113542.181752-1-adrian.ratiu@collabora.com>
+X-Mailer: git-send-email 2.26.0
 MIME-Version: 1.0
-In-Reply-To: <82dcf412-119b-0de2-0c50-f6877a82a812@pengutronix.de>
-Content-Language: en-US
-Cc: Maxime Coquelin <mcoquelin.stm32@gmail.com>,
- Patrick DELAUNAY <patrick.delaunay@st.com>,
- "linux-stm32@st-md-mailman.stormreply.com"
- <linux-stm32@st-md-mailman.stormreply.com>
-Subject: Re: [Linux-stm32] [PATCH 07/22] ARM: dts: stm32: Add alternate
- pinmux for SDMMC2 pins 4-7
+Cc: Jernej Skrabec <jernej.skrabec@siol.net>,
+ Andrzej Hajda <a.hajda@samsung.com>, Jonas Karlman <jonas@kwiboo.se>,
+ linux-kernel@vger.kernel.org, dri-devel@lists.freedesktop.org,
+ linux-rockchip@lists.infradead.org, linux-imx@nxp.com, kernel@collabora.com,
+ linux-stm32@st-md-mailman.stormreply.com,
+ Laurent Pinchart <Laurent.pinchart@ideasonboard.com>
+Subject: [Linux-stm32] [PATCH v5 0/5] Genericize DW MIPI DSI bridge and add
+	i.MX 6 driver
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -67,30 +46,40 @@ Content-Transfer-Encoding: 7bit
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
-On 3/30/20 1:17 PM, Ahmad Fatoum wrote:
-> Hello Patrice,
+Hello everyone,
 
-Hi,
+The v5 series is a significantly cleaned up version from v4,
+started by Ezequiel Garcia's suggestion of splitting out the
+regmap infrastructure from the drivers (thank you!).
 
-> On 3/30/20 1:11 PM, Patrice CHOTARD wrote:
->> For your information, another submitted patch uses the same pinctrl sdmmc2_d47_pins_b node with different muxing (SDMMC2_D5)
->>
->> see https://lore.kernel.org/patchwork/patch/1216452/
->>
->> I haven't checked other muxing if there are other conflict.
-> 
-> (author of linked patch here)
-> 
-> I don't like the central stm32mp15-pinctrl.dtsi. I'd have preferred if each
-> file defined the pinctrl groups it is using.
+Turns out no changes are required to the existing drivers and
+the bridge can transparently take care of the layout logic,
+so there's no need to expose the regmap via plat_data anymore.
 
-I'm not a big fan of that either, because this is gonna be a
-combinatorial explosion of various pinmux options. But if you have each
-board define it's pinmux, it's also gonna become a massive amount of
-duplication (like iMX). So I cannot tell which one is better ...
+Starting from this version I also opted to add per-patch
+changelogs. All review comments up to now have been addressed.
 
-So, just apply one patch or the other, let me know what got applied and
-I'll rebase on top of that and resubmit if needed.
+Tested on IMX6DL.
+
+Adrian Ratiu (5):
+  drm: bridge: dw_mipi_dsi: add initial regmap infrastructure
+  drm: bridge: dw_mipi_dsi: abstract register access using reg_fields
+  drm: bridge: synopsis: add dsi v1.01 support
+  drm: imx: Add i.MX 6 MIPI DSI host platform driver
+  dt-bindings: display: add i.MX6 MIPI DSI host controller doc
+
+ .../display/imx/fsl,mipi-dsi-imx6.yaml        | 134 ++++
+ drivers/gpu/drm/bridge/synopsys/dw-mipi-dsi.c | 683 +++++++++++++-----
+ drivers/gpu/drm/imx/Kconfig                   |   7 +
+ drivers/gpu/drm/imx/Makefile                  |   1 +
+ drivers/gpu/drm/imx/dw_mipi_dsi-imx6.c        | 399 ++++++++++
+ 5 files changed, 1049 insertions(+), 175 deletions(-)
+ create mode 100644 Documentation/devicetree/bindings/display/imx/fsl,mipi-dsi-imx6.yaml
+ create mode 100644 drivers/gpu/drm/imx/dw_mipi_dsi-imx6.c
+
+-- 
+2.26.0
+
 _______________________________________________
 Linux-stm32 mailing list
 Linux-stm32@st-md-mailman.stormreply.com
