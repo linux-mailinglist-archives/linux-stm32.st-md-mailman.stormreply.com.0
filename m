@@ -2,46 +2,63 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id E7F16197D85
-	for <lists+linux-stm32@lfdr.de>; Mon, 30 Mar 2020 15:51:35 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 2F3B6198009
+	for <lists+linux-stm32@lfdr.de>; Mon, 30 Mar 2020 17:44:10 +0200 (CEST)
 Received: from ip-172-31-3-76.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id AD972C36B0B;
-	Mon, 30 Mar 2020 13:51:35 +0000 (UTC)
-Received: from bhuna.collabora.co.uk (bhuna.collabora.co.uk [46.235.227.227])
- (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256
- bits)) (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id F3FCBC36B09
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id DF721C36B0B;
+	Mon, 30 Mar 2020 15:44:09 +0000 (UTC)
+Received: from mail-il1-f195.google.com (mail-il1-f195.google.com
+ [209.85.166.195])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+ (No client certificate requested)
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id B39F4C36B09
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Mon, 30 Mar 2020 13:51:34 +0000 (UTC)
-Received: from [127.0.0.1] (localhost [127.0.0.1])
- (Authenticated sender: ezequiel) with ESMTPSA id 36C842965EC
-Message-ID: <4a9d2d6e5cecbe296c14119d27a8793a7dbed7b2.camel@collabora.com>
-From: Ezequiel Garcia <ezequiel@collabora.com>
-To: Fabio Estevam <festevam@gmail.com>, Adrian Ratiu
- <adrian.ratiu@collabora.com>
-Date: Mon, 30 Mar 2020 10:51:23 -0300
-In-Reply-To: <CAOMZO5CEZSBfhb9xAdf=sDhUnmSeuWSsnUQArz=a1TPzytLAeQ@mail.gmail.com>
+ Mon, 30 Mar 2020 15:44:07 +0000 (UTC)
+Received: by mail-il1-f195.google.com with SMTP id p13so16217073ilp.3
+ for <linux-stm32@st-md-mailman.stormreply.com>;
+ Mon, 30 Mar 2020 08:44:07 -0700 (PDT)
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20161025;
+ h=x-gm-message-state:date:from:to:cc:subject:message-id:references
+ :mime-version:content-disposition:in-reply-to:user-agent;
+ bh=6L0zwcu6TJpBy8ROIw82e95a8IhAis774QnwFUUDei4=;
+ b=gZPG85E74OktJFxo/hQhBSuDGir5AMcHK12WZquVnEv6BppL/11yvgXOq2ER/9StHF
+ UkvUQIzDW8BM2y2KzrgJ8zcX+aw64+k3+7Tx/IyXFthNbBCLP/W6TfA3gIhyfgfGMfgf
+ riVi7EZwWGUP6p/VxE53ShBV+IgaTpy+D5IER5vbHU5T8Fh5V+BmQH2utYrjIEVMZmP2
+ dFyiaGnQEzW/DgIA5UE0toS0aNfv76ClWD4UoZGzipdoaLxUbzEqQGux3PWLu++mNY0w
+ o9rro9J4d4IfdbPyIDSPQhbfbMAm35Hhi04pPKmxo8ZumMb/iAlB8A9t1UvkW2UyuLKd
+ l9og==
+X-Gm-Message-State: ANhLgQ1VugpryHnJCb0kqyThpgJXdTPW1YR5AnAtjIqV/ftpPGSuaGK6
+ al7g3E8BAggXNUpQ5O7+gQ==
+X-Google-Smtp-Source: ADFU+vtLzoK7bLF3KNLPQffJzUbWf20WdfYgGwLo68WhEGLJBcEYEu+x/FRUoIOGhBcqWrVUOHXMcg==
+X-Received: by 2002:a92:8d0e:: with SMTP id s14mr11505607ild.117.1585583046446; 
+ Mon, 30 Mar 2020 08:44:06 -0700 (PDT)
+Received: from rob-hp-laptop ([64.188.179.250])
+ by smtp.gmail.com with ESMTPSA id c88sm4970096ill.15.2020.03.30.08.44.05
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Mon, 30 Mar 2020 08:44:05 -0700 (PDT)
+Received: (nullmailer pid 27458 invoked by uid 1000);
+ Mon, 30 Mar 2020 15:44:04 -0000
+Date: Mon, 30 Mar 2020 09:44:04 -0600
+From: Rob Herring <robh@kernel.org>
+To: Adrian Ratiu <adrian.ratiu@collabora.com>
+Message-ID: <20200330154404.GA26389@bogus>
 References: <20200330113542.181752-1-adrian.ratiu@collabora.com>
- <20200330113542.181752-5-adrian.ratiu@collabora.com>
- <CAOMZO5CEZSBfhb9xAdf=sDhUnmSeuWSsnUQArz=a1TPzytLAeQ@mail.gmail.com>
-Organization: Collabora
-User-Agent: Evolution 3.36.0-1 
+ <20200330113542.181752-6-adrian.ratiu@collabora.com>
 MIME-Version: 1.0
-Cc: "open list:OPEN FIRMWARE AND
- FLATTENED DEVICE TREE BINDINGS" <devicetree@vger.kernel.org>,
- Jernej Skrabec <jernej.skrabec@siol.net>,
+Content-Disposition: inline
+In-Reply-To: <20200330113542.181752-6-adrian.ratiu@collabora.com>
+User-Agent: Mutt/1.10.1 (2018-07-13)
+Cc: devicetree@vger.kernel.org, Jernej Skrabec <jernej.skrabec@siol.net>,
  Sjoerd Simons <sjoerd.simons@collabora.com>,
  Andrzej Hajda <a.hajda@samsung.com>, Martyn Welch <martyn.welch@collabora.com>,
- Jonas Karlman <jonas@kwiboo.se>, linux-kernel <linux-kernel@vger.kernel.org>,
- DRI mailing list <dri-devel@lists.freedesktop.org>,
- Emil Velikov <emil.velikov@collabora.com>, linux-rockchip@lists.infradead.org,
- NXP Linux Team <linux-imx@nxp.com>, kernel@collabora.com,
- linux-stm32@st-md-mailman.stormreply.com,
- "moderated list:ARM/FREESCALE IMX / MXC ARM ARCHITECTURE"
- <linux-arm-kernel@lists.infradead.org>,
+ Jonas Karlman <jonas@kwiboo.se>, linux-kernel@vger.kernel.org,
+ dri-devel@lists.freedesktop.org, Neil Armstrong <narmstrong@baylibre.com>,
+ linux-rockchip@lists.infradead.org, linux-imx@nxp.com, kernel@collabora.com,
+ linux-stm32@st-md-mailman.stormreply.com, linux-arm-kernel@lists.infradead.org,
  Laurent Pinchart <Laurent.pinchart@ideasonboard.com>
-Subject: Re: [Linux-stm32] [PATCH v5 4/5] drm: imx: Add i.MX 6 MIPI DSI host
- platform driver
+Subject: Re: [Linux-stm32] [PATCH v5 5/5] dt-bindings: display: add i.MX6
+ MIPI DSI host controller doc
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -58,57 +75,54 @@ Content-Transfer-Encoding: 7bit
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
-Hello Fabio, Adrian:
-
-On Mon, 2020-03-30 at 08:49 -0300, Fabio Estevam wrote:
-> Hi Adrian,
+On Mon, 30 Mar 2020 14:35:42 +0300, Adrian Ratiu wrote:
+> This provides an example DT binding for the MIPI DSI host controller
+> present on the i.MX6 SoC based on Synopsis DesignWare v1.01 IP.
 > 
-> On Mon, Mar 30, 2020 at 8:34 AM Adrian Ratiu <adrian.ratiu@collabora.com> wrote:
-> > This adds support for the Synopsis DesignWare MIPI DSI v1.01 host
-> > controller which is embedded in i.MX 6 SoCs.
-> > 
-> > Based on following patches, but updated/extended to work with existing
-> > support found in the kernel:
-> > 
-> > - drm: imx: Support Synopsys DesignWare MIPI DSI host controller
-> >   Signed-off-by: Liu Ying <Ying.Liu@freescale.com>
-> > 
-> > - ARM: dtsi: imx6qdl: Add support for MIPI DSI host controller
-> >   Signed-off-by: Liu Ying <Ying.Liu@freescale.com>
+> Cc: Rob Herring <robh@kernel.org>
+> Cc: Neil Armstrong <narmstrong@baylibre.com>
+> Cc: devicetree@vger.kernel.org
+> Signed-off-by: Sjoerd Simons <sjoerd.simons@collabora.com>
+> Signed-off-by: Martyn Welch <martyn.welch@collabora.com>
+> Signed-off-by: Adrian Ratiu <adrian.ratiu@collabora.com>
+> ---
+> Changes since v4:
+>   - Fixed yaml binding to pass `make dt_binding_check dtbs_check`
+>   and addressed received binding feedback (Rob)
 > 
-> This one looks like a devicetree patch, but this patch does not touch
-> devicetree.
+> Changes since v3:
+>   - Added commit message (Neil)
+>   - Converted to yaml format (Neil)
+>   - Minor dt node + driver fixes (Rob)
+>   - Added small panel example to the host controller binding
 > 
-> > +       ret = clk_prepare_enable(dsi->pllref_clk);
-> > +       if (ret) {
-> > +               dev_err(dev, "%s: Failed to enable pllref_clk\n", __func__);
-> > +               return ret;
-> > +       }
-> > +
-> > +       dsi->mux_sel = syscon_regmap_lookup_by_phandle(dev->of_node, "fsl,gpr");
-> > +       if (IS_ERR(dsi->mux_sel)) {
-> > +               ret = PTR_ERR(dsi->mux_sel);
-> > +               dev_err(dev, "%s: Failed to get GPR regmap: %d\n",
-> > +                       __func__, ret);
-> > +               return ret;
-> 
-> You should disable the dsi->pllref_clk clock prior to returning the error.
+> Changes since v2:
+>   - Fixed commit tags (Emil)
+> ---
+>  .../display/imx/fsl,mipi-dsi-imx6.yaml        | 134 ++++++++++++++++++
+>  1 file changed, 134 insertions(+)
+>  create mode 100644 Documentation/devicetree/bindings/display/imx/fsl,mipi-dsi-imx6.yaml
 > 
 
-Another approach could be moving the clock on and off to
-to component_ops.{bind,unbind} (as rockhip driver does).
+My bot found errors running 'make dt_binding_check' on your patch:
 
-What exactly is the PLL clock needed for? Would it make sense
-to move it some of the PHY power on/off? (Maybe not, but it's worthing
-checking).
+Documentation/devicetree/bindings/display/imx/fsl,mipi-dsi-imx6.example.dts:34.21-31: Warning (reg_format): /example-0/dsi@21e0000/ports/port@1:reg: property has invalid length (4 bytes) (#address-cells == 2, #size-cells == 1)
+Documentation/devicetree/bindings/display/imx/fsl,mipi-dsi-imx6.example.dt.yaml: Warning (pci_device_bus_num): Failed prerequisite 'reg_format'
+Documentation/devicetree/bindings/display/imx/fsl,mipi-dsi-imx6.example.dt.yaml: Warning (i2c_bus_reg): Failed prerequisite 'reg_format'
+Documentation/devicetree/bindings/display/imx/fsl,mipi-dsi-imx6.example.dt.yaml: Warning (spi_bus_reg): Failed prerequisite 'reg_format'
+Documentation/devicetree/bindings/display/imx/fsl,mipi-dsi-imx6.example.dts:33.24-38.19: Warning (avoid_default_addr_size): /example-0/dsi@21e0000/ports/port@1: Relying on default #address-cells value
+Documentation/devicetree/bindings/display/imx/fsl,mipi-dsi-imx6.example.dts:33.24-38.19: Warning (avoid_default_addr_size): /example-0/dsi@21e0000/ports/port@1: Relying on default #size-cells value
+Documentation/devicetree/bindings/display/imx/fsl,mipi-dsi-imx6.example.dts:33.24-38.19: Warning (graph_port): /example-0/dsi@21e0000/ports/port@1: graph node '#address-cells' is -1, must be 1
+Documentation/devicetree/bindings/display/imx/fsl,mipi-dsi-imx6.example.dts:33.24-38.19: Warning (graph_port): /example-0/dsi@21e0000/ports/port@1: graph node '#size-cells' is -1, must be 0
 
-Also, it seems the other IP blocks have this PLL clock, so maybe
-it could be moved to the dw_mipi_dsi core? This could be something
-for a follow-up, to avoid creeping this series.
+See https://patchwork.ozlabs.org/patch/1263893
 
-Thanks,
-Ezequiel
+If you already ran 'make dt_binding_check' and didn't see the above
+error(s), then make sure dt-schema is up to date:
 
+pip3 install git+https://github.com/devicetree-org/dt-schema.git@master --upgrade
+
+Please check and re-submit.
 _______________________________________________
 Linux-stm32 mailing list
 Linux-stm32@st-md-mailman.stormreply.com
