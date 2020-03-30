@@ -2,43 +2,51 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id 8FF67197AF1
-	for <lists+linux-stm32@lfdr.de>; Mon, 30 Mar 2020 13:37:48 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id B056D197B20
+	for <lists+linux-stm32@lfdr.de>; Mon, 30 Mar 2020 13:46:03 +0200 (CEST)
 Received: from ip-172-31-3-76.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 5321FC36B0B;
-	Mon, 30 Mar 2020 11:37:48 +0000 (UTC)
-Received: from metis.ext.pengutronix.de (metis.ext.pengutronix.de
- [85.220.165.71])
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 6E852C36B0B;
+	Mon, 30 Mar 2020 11:46:03 +0000 (UTC)
+Received: from mail-out.m-online.net (mail-out.m-online.net [212.18.0.10])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id B5011C36B09
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 11722C36B09
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Mon, 30 Mar 2020 11:37:46 +0000 (UTC)
-Received: from gallifrey.ext.pengutronix.de
- ([2001:67c:670:201:5054:ff:fe8d:eefb] helo=[IPv6:::1])
- by metis.ext.pengutronix.de with esmtp (Exim 4.92)
- (envelope-from <a.fatoum@pengutronix.de>)
- id 1jIsji-0006mx-40; Mon, 30 Mar 2020 13:37:46 +0200
-To: Marek Vasut <marex@denx.de>, Patrice CHOTARD <patrice.chotard@st.com>,
+ Mon, 30 Mar 2020 11:46:01 +0000 (UTC)
+Received: from frontend01.mail.m-online.net (unknown [192.168.8.182])
+ by mail-out.m-online.net (Postfix) with ESMTP id 48rVyw1Sgtz1rvRr;
+ Mon, 30 Mar 2020 13:46:00 +0200 (CEST)
+Received: from localhost (dynscan1.mnet-online.de [192.168.6.70])
+ by mail.m-online.net (Postfix) with ESMTP id 48rVyw0gK3z1qqkP;
+ Mon, 30 Mar 2020 13:46:00 +0200 (CEST)
+X-Virus-Scanned: amavisd-new at mnet-online.de
+Received: from mail.mnet-online.de ([192.168.8.182])
+ by localhost (dynscan1.mail.m-online.net [192.168.6.70]) (amavisd-new,
+ port 10024)
+ with ESMTP id MwHV6kv_ihNA; Mon, 30 Mar 2020 13:45:58 +0200 (CEST)
+X-Auth-Info: gT0Gk3tvCGkrHnFSE/Y6h4e1a8LDrg9q705hb0Ns4as=
+Received: from [IPv6:::1] (unknown [195.140.253.167])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+ (No client certificate requested)
+ by mail.mnet-online.de (Postfix) with ESMTPSA;
+ Mon, 30 Mar 2020 13:45:58 +0200 (CEST)
+To: Ahmad Fatoum <a.fatoum@pengutronix.de>,
+ Patrice CHOTARD <patrice.chotard@st.com>,
  "linux-arm-kernel@lists.infradead.org" <linux-arm-kernel@lists.infradead.org>
 References: <20200328171144.51888-1-marex@denx.de>
  <20200328171144.51888-8-marex@denx.de>
  <0fb89d25-feb0-2eb0-9e83-d7f8c76f8b9e@st.com>
  <82dcf412-119b-0de2-0c50-f6877a82a812@pengutronix.de>
  <fcf49298-a36c-e80e-e62b-1fb9c07f0d6e@denx.de>
-From: Ahmad Fatoum <a.fatoum@pengutronix.de>
-Message-ID: <310aa3a3-09ce-42ef-d1ea-b653163d1d72@pengutronix.de>
-Date: Mon, 30 Mar 2020 13:37:44 +0200
+ <310aa3a3-09ce-42ef-d1ea-b653163d1d72@pengutronix.de>
+From: Marek Vasut <marex@denx.de>
+Message-ID: <97d13a84-8220-aa7f-3ee6-df474cca3882@denx.de>
+Date: Mon, 30 Mar 2020 13:45:30 +0200
 User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:68.0) Gecko/20100101
  Thunderbird/68.5.0
 MIME-Version: 1.0
-In-Reply-To: <fcf49298-a36c-e80e-e62b-1fb9c07f0d6e@denx.de>
+In-Reply-To: <310aa3a3-09ce-42ef-d1ea-b653163d1d72@pengutronix.de>
 Content-Language: en-US
-X-SA-Exim-Connect-IP: 2001:67c:670:201:5054:ff:fe8d:eefb
-X-SA-Exim-Mail-From: a.fatoum@pengutronix.de
-X-SA-Exim-Scanned: No (on metis.ext.pengutronix.de);
- SAEximRunCond expanded to false
-X-PTX-Original-Recipient: linux-stm32@st-md-mailman.stormreply.com
 Cc: Maxime Coquelin <mcoquelin.stm32@gmail.com>,
  Patrick DELAUNAY <patrick.delaunay@st.com>,
  "linux-stm32@st-md-mailman.stormreply.com"
@@ -61,57 +69,59 @@ Content-Transfer-Encoding: 7bit
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
-Hi Marek,
+On 3/30/20 1:37 PM, Ahmad Fatoum wrote:
+> Hi Marek,
 
-On 3/30/20 1:22 PM, Marek Vasut wrote:
-> On 3/30/20 1:17 PM, Ahmad Fatoum wrote:
->> Hello Patrice,
-> 
-> Hi,
-> 
->> On 3/30/20 1:11 PM, Patrice CHOTARD wrote:
->>> For your information, another submitted patch uses the same pinctrl sdmmc2_d47_pins_b node with different muxing (SDMMC2_D5)
->>>
->>> see https://lore.kernel.org/patchwork/patch/1216452/
->>>
->>> I haven't checked other muxing if there are other conflict.
+Hi,
+
+> On 3/30/20 1:22 PM, Marek Vasut wrote:
+>> On 3/30/20 1:17 PM, Ahmad Fatoum wrote:
+>>> Hello Patrice,
 >>
->> (author of linked patch here)
+>> Hi,
 >>
->> I don't like the central stm32mp15-pinctrl.dtsi. I'd have preferred if each
->> file defined the pinctrl groups it is using.
+>>> On 3/30/20 1:11 PM, Patrice CHOTARD wrote:
+>>>> For your information, another submitted patch uses the same pinctrl sdmmc2_d47_pins_b node with different muxing (SDMMC2_D5)
+>>>>
+>>>> see https://lore.kernel.org/patchwork/patch/1216452/
+>>>>
+>>>> I haven't checked other muxing if there are other conflict.
+>>>
+>>> (author of linked patch here)
+>>>
+>>> I don't like the central stm32mp15-pinctrl.dtsi. I'd have preferred if each
+>>> file defined the pinctrl groups it is using.
+>>
+>> I'm not a big fan of that either, because this is gonna be a
+>> combinatorial explosion of various pinmux options. But if you have each
+>> board define it's pinmux, it's also gonna become a massive amount of
+>> duplication (like iMX). So I cannot tell which one is better ...
 > 
-> I'm not a big fan of that either, because this is gonna be a
-> combinatorial explosion of various pinmux options. But if you have each
-> board define it's pinmux, it's also gonna become a massive amount of
-> duplication (like iMX). So I cannot tell which one is better ...
+> Mhm. A middle ground could be keeping stm32mp15-pinctrl, but only for the
+> official ST eval kits as HW designers are expected to copy off those and have
+> board specifics in the board/SoM device tree?
 
-Mhm. A middle ground could be keeping stm32mp15-pinctrl, but only for the
-official ST eval kits as HW designers are expected to copy off those and have
-board specifics in the board/SoM device tree?
+Then you should call it stm32mp1-something-st-eval-pinmux.dtsi ,
+otherwise it's gonna be confusing.
 
-If it has to be either one or the other, I prefer duplication in the device
-tree. When the HW misses pull ups or needs to adjust slew rates, you probably
-don't want a new, slightly different, pinctrl group in the stm32mp15-pinctrl.dtsi
-for each variant.
+> If it has to be either one or the other, I prefer duplication in the device
+> tree. When the HW misses pull ups or needs to adjust slew rates, you probably
+> don't want a new, slightly different, pinctrl group in the stm32mp15-pinctrl.dtsi
+> for each variant.
 
-So you are left with doctoring around with overrides and /delete-property/,
-while just duplicating the node with the correct properties would've been
-better for readability IMO.
+That's a valid point, but then you can override those in the boards'
+pinmux node for a specific pinmux entry too.
 
-> So, just apply one patch or the other, let me know what got applied and
-> I'll rebase on top of that and resubmit if needed.
+> So you are left with doctoring around with overrides and /delete-property/,
+> while just duplicating the node with the correct properties would've been
+> better for readability IMO.
 
-Same.
-
-Cheers
-Ahmad
+That is true, but how many of such cases do we have so far ? Maybe it's
+better to cross that bridge when (if) we come to it.
 
 -- 
-Pengutronix e.K.                           |                             |
-Steuerwalder Str. 21                       | http://www.pengutronix.de/  |
-31137 Hildesheim, Germany                  | Phone: +49-5121-206917-0    |
-Amtsgericht Hildesheim, HRA 2686           | Fax:   +49-5121-206917-5555 |
+Best regards,
+Marek Vasut
 _______________________________________________
 Linux-stm32 mailing list
 Linux-stm32@st-md-mailman.stormreply.com
