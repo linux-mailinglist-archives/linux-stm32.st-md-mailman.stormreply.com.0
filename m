@@ -2,48 +2,50 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id B9AF7199D70
-	for <lists+linux-stm32@lfdr.de>; Tue, 31 Mar 2020 19:59:35 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id E84C1199D97
+	for <lists+linux-stm32@lfdr.de>; Tue, 31 Mar 2020 20:01:26 +0200 (CEST)
 Received: from ip-172-31-3-76.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 3AD43C36B0B;
-	Tue, 31 Mar 2020 17:59:35 +0000 (UTC)
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id A9729C36B0B;
+	Tue, 31 Mar 2020 18:01:26 +0000 (UTC)
 Received: from mail-out.m-online.net (mail-out.m-online.net [212.18.0.10])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id E8622C36B0B
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 9F699C36B09
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Tue, 31 Mar 2020 17:59:30 +0000 (UTC)
+ Tue, 31 Mar 2020 18:01:22 +0000 (UTC)
 Received: from frontend01.mail.m-online.net (unknown [192.168.8.182])
- by mail-out.m-online.net (Postfix) with ESMTP id 48sHCQ4Csyz1rqBD;
- Tue, 31 Mar 2020 19:59:30 +0200 (CEST)
+ by mail-out.m-online.net (Postfix) with ESMTP id 48sHFZ2YlNz1rrKd;
+ Tue, 31 Mar 2020 20:01:22 +0200 (CEST)
 Received: from localhost (dynscan1.mnet-online.de [192.168.6.70])
- by mail.m-online.net (Postfix) with ESMTP id 48sHCQ3yzcz1qqkQ;
- Tue, 31 Mar 2020 19:59:30 +0200 (CEST)
+ by mail.m-online.net (Postfix) with ESMTP id 48sHFZ2K2Mz1qqkQ;
+ Tue, 31 Mar 2020 20:01:22 +0200 (CEST)
 X-Virus-Scanned: amavisd-new at mnet-online.de
 Received: from mail.mnet-online.de ([192.168.8.182])
  by localhost (dynscan1.mail.m-online.net [192.168.6.70]) (amavisd-new,
  port 10024)
- with ESMTP id HxwAGZTn4ESC; Tue, 31 Mar 2020 19:59:29 +0200 (CEST)
-X-Auth-Info: 8mYMxzsUQHCQwaHUkkQofFkJjvt4f8kowaLuk0Phniw=
-Received: from desktop.lan (ip-86-49-35-8.net.upcbroadband.cz [86.49.35.8])
+ with ESMTP id xrQzzcVGy_Hz; Tue, 31 Mar 2020 20:01:21 +0200 (CEST)
+X-Auth-Info: yN0zzQWoyen3zRi22CQp7MyRJprY5qTGaGCclxnG4HY=
+Received: from [IPv6:::1] (unknown [195.140.253.167])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
  by mail.mnet-online.de (Postfix) with ESMTPSA;
- Tue, 31 Mar 2020 19:59:29 +0200 (CEST)
-From: Marek Vasut <marex@denx.de>
+ Tue, 31 Mar 2020 20:01:21 +0200 (CEST)
 To: linux-arm-kernel@lists.infradead.org
-Date: Tue, 31 Mar 2020 19:58:11 +0200
-Message-Id: <20200331175811.205153-23-marex@denx.de>
-X-Mailer: git-send-email 2.25.1
-In-Reply-To: <20200331175811.205153-1-marex@denx.de>
 References: <20200331175811.205153-1-marex@denx.de>
+From: Marek Vasut <marex@denx.de>
+Message-ID: <120043ca-7bd5-8965-c2a5-a80572c9f009@denx.de>
+Date: Tue, 31 Mar 2020 20:01:20 +0200
+User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:68.0) Gecko/20100101
+ Thunderbird/68.5.0
 MIME-Version: 1.0
-Cc: Marek Vasut <marex@denx.de>, Patrick Delaunay <patrick.delaunay@st.com>,
+In-Reply-To: <20200331175811.205153-1-marex@denx.de>
+Content-Language: en-US
+Cc: Patrick Delaunay <patrick.delaunay@st.com>,
  Maxime Coquelin <mcoquelin.stm32@gmail.com>,
  Manivannan Sadhasivam <manivannan.sadhasivam@linaro.org>,
  linux-stm32@st-md-mailman.stormreply.com
-Subject: [Linux-stm32] [PATCH V3 22/22] ARM: dts: stm32: Rename LEDs to
-	match silkscreen on AV96
+Subject: Re: [Linux-stm32] [PATCH V3 00/22] ARM: dts: stm32: Repair AV96
+	board
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -60,55 +62,40 @@ Content-Transfer-Encoding: 7bit
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
-The LED labels do not match the silkscreen on the board, fix it.
+On 3/31/20 7:57 PM, Marek Vasut wrote:
+> The AV96 board device tree is completely broken and does not match the
+> hardware. This series fixes it up.
+> 
+> Marek Vasut (22):
+>   ARM: dts: stm32: Add alternate pinmux for ethernet RGMII
+>   ARM: dts: stm32: Repair ethernet operation on AV96
+>   ARM: dts: stm32: Add missing ethernet PHY reset on AV96
+>   ARM: dts: stm32: Add missing ethernet PHY skews on AV96
+>   ARM: dts: stm32: Add alternate pinmux for SDMMC1 direction pins
+>   ARM: dts: stm32: Repair SDMMC1 operation on AV96
+>   ARM: dts: stm32: Repair PMIC configuration on AV96
+>   ARM: dts: stm32: Repair PMIC interrupt on AV96
+>   ARM: dts: stm32: Add alternate pinmux for SDMMC2 pins 4-7
+>   ARM: dts: stm32: Add eMMC attached to SDMMC2 on AV96
+>   ARM: dts: stm32: Add QSPI NOR on AV96
+>   ARM: dts: stm32: Add configuration EEPROM on AV96
+>   ARM: dts: stm32: Enable GPU on AV96
+>   ARM: dts: stm32: Add alternate pinmux for SDMMC3 pins
+>   ARM: dts: stm32: Enable WiFi on AV96
+>   ARM: dts: stm32: Add alternate pinmux for USART2 pins
+>   ARM: dts: stm32: Enable Bluetooth on AV96
+>   ARM: dts: stm32: Add alternate pinmux for LTDC pins
+>   ARM: dts: stm32: Add bindings for HDMI video on AV96
+>   ARM: dts: stm32: Add bindings for audio on AV96
+>   ARM: dts: stm32: Add bindings for USB on AV96
+>   ARM: dts: stm32: Rename LEDs to match silkscreen on AV96
+> 
+>  arch/arm/boot/dts/stm32mp15-pinctrl.dtsi    | 248 +++++++++++++++
+>  arch/arm/boot/dts/stm32mp157a-avenger96.dts | 328 ++++++++++++++++++--
+>  2 files changed, 543 insertions(+), 33 deletions(-)
 
-Signed-off-by: Marek Vasut <marex@denx.de>
-Cc: Alexandre Torgue <alexandre.torgue@st.com>
-Cc: Manivannan Sadhasivam <manivannan.sadhasivam@linaro.org>
-Cc: Maxime Coquelin <mcoquelin.stm32@gmail.com>
-Cc: Patrice Chotard <patrice.chotard@st.com>
-Cc: Patrick Delaunay <patrick.delaunay@st.com>
-Cc: linux-stm32@st-md-mailman.stormreply.com
-To: linux-arm-kernel@lists.infradead.org
----
-V2: No change
-V3: No change
----
- arch/arm/boot/dts/stm32mp157a-avenger96.dts | 6 +++---
- 1 file changed, 3 insertions(+), 3 deletions(-)
-
-diff --git a/arch/arm/boot/dts/stm32mp157a-avenger96.dts b/arch/arm/boot/dts/stm32mp157a-avenger96.dts
-index 7442a27754ac..b4d4d356cfbe 100644
---- a/arch/arm/boot/dts/stm32mp157a-avenger96.dts
-+++ b/arch/arm/boot/dts/stm32mp157a-avenger96.dts
-@@ -55,21 +55,21 @@ memory@c0000000 {
- 	led {
- 		compatible = "gpio-leds";
- 		led1 {
--			label = "green:user1";
-+			label = "green:user0";
- 			gpios = <&gpioz 7 GPIO_ACTIVE_HIGH>;
- 			linux,default-trigger = "heartbeat";
- 			default-state = "off";
- 		};
- 
- 		led2 {
--			label = "green:user2";
-+			label = "green:user1";
- 			gpios = <&gpiof 3 GPIO_ACTIVE_HIGH>;
- 			linux,default-trigger = "mmc0";
- 			default-state = "off";
- 		};
- 
- 		led3 {
--			label = "green:user3";
-+			label = "green:user2";
- 			gpios = <&gpiog 0 GPIO_ACTIVE_HIGH>;
- 			linux,default-trigger = "mmc1";
- 			default-state = "off";
--- 
-2.25.1
-
+And so, now I will wait a few days with further iterations and wait for
+feedback.
 _______________________________________________
 Linux-stm32 mailing list
 Linux-stm32@st-md-mailman.stormreply.com
