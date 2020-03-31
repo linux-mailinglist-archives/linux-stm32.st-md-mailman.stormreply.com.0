@@ -2,67 +2,66 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id 87305198C7E
-	for <lists+linux-stm32@lfdr.de>; Tue, 31 Mar 2020 08:46:50 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 1C201198C83
+	for <lists+linux-stm32@lfdr.de>; Tue, 31 Mar 2020 08:47:59 +0200 (CEST)
 Received: from ip-172-31-3-76.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 4AF6AC36B0B;
-	Tue, 31 Mar 2020 06:46:50 +0000 (UTC)
-Received: from mail-pl1-f193.google.com (mail-pl1-f193.google.com
- [209.85.214.193])
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id D92F8C36B0B;
+	Tue, 31 Mar 2020 06:47:58 +0000 (UTC)
+Received: from mail-pf1-f195.google.com (mail-pf1-f195.google.com
+ [209.85.210.195])
  (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 7865CC36B09
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 8F948C36B09
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Tue, 31 Mar 2020 06:46:47 +0000 (UTC)
-Received: by mail-pl1-f193.google.com with SMTP id h11so7746248plr.11
+ Tue, 31 Mar 2020 06:47:57 +0000 (UTC)
+Received: by mail-pf1-f195.google.com with SMTP id i13so9890775pfe.3
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Mon, 30 Mar 2020 23:46:47 -0700 (PDT)
+ Mon, 30 Mar 2020 23:47:57 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linaro.org; s=google;
  h=date:from:to:cc:subject:message-id:references:mime-version
  :content-disposition:in-reply-to:user-agent;
- bh=ozvP2af89tauDdl3uwnfBwoXG01io6pHPiam1L9z8h0=;
- b=joKWJfXn0RRBCCYer0QQpI5clTHBMrOBU81FoGWbvYbTztY9663GnwVeTNOWbjukiN
- pT1xT8xuMA1a8oPVgqshm+GFz+MSKuf0u8oj9j2kgqIKKqhrIWfZFzkJZeXqEJowmkdI
- ByQ3YUogfrpOdaZyySGP8KkXZtFyq11iuz640qeJg0mg9JZih7Sg2aZCDjPHaviua5d/
- V54oWU/nMHrGvRFab0joFjvLkLgd5R/Hed0pnHNEnAXiON/vCitkoEHQucLku7UkyFya
- LaNWAojX8AGC7+j/zS3iP+/iEGR3lcmR5ohdl+KvE8LB+kbmOvdDXWB4vXSoTkiaHsDp
- Jpwg==
+ bh=xzBzTtyv/ik/5EBBE5B9QBIPXEM25PMpqUtEZkO+j2o=;
+ b=YWiJoWdxOokr0IV/cq7x5S7oImQ3xpSnBWJaj/CnjT9pp1xdd61+UWDi4ViiQoAXeC
+ RIk6lzC2DdfPIEjFecCeaTAk3EHi9Ivm30yknHCQUtMXrC+gmtxNKep1BuDiBX2MbBDe
+ v/KaqM9xH/cOJv38hF6Wfgx6IJMQiklpPy1fv/QRIWXaBbj/q6JEvJB5lmPBbx+dJgzz
+ SEa3LZlJ3FGT7zIrO6uFSAFN3O8ncCy0ARu+niB3CeiEEmsrsbkBHiSi1atwPNptN5zy
+ 8La0T84o34UgCrlbYm649ZDPs37IqnM0gtSJHoAChDFAG3GfoOqpPjv2vGAgmJW2VCNJ
+ 0qjw==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=1e100.net; s=20161025;
  h=x-gm-message-state:date:from:to:cc:subject:message-id:references
  :mime-version:content-disposition:in-reply-to:user-agent;
- bh=ozvP2af89tauDdl3uwnfBwoXG01io6pHPiam1L9z8h0=;
- b=VRA35PGhgtOJw+rzvzLnstQVE53LHHt0LNfEeYmGy262ctyK+qQeS76kcDnJ9X1gn2
- bNh40AetFWX2jH/jWcpA6NrpqmLchNLRf8YLWxjcHdFvbHGYAxsX3uQz8SnOQyf2do5N
- Mi/CzVUxB+zSNd73NnPJzhJi/AICnO+S1CAR8abbsonZhUyz1DGlnqYufr30ee/Xo99d
- B7OuJESxHd8z/5VaAIGzdN2DAXKA3qWC/qg62Wn/oSbcjZ+G0L1fSDBxbogs8zXo0NZg
- 89+AaTcz+FRSL8D0Le3xZARZzuqQnnpgTQpoy2lFYpP//rXX4pLemyfOf1vSbgrzbMGc
- iaQw==
-X-Gm-Message-State: ANhLgQ1VoWlfgOlIy/OWlGJc8b9ADiJu33b5AExBsdjTTH+m8pD6X/1M
- 8LTl8ZbdwuZwi039aiDbN5AE
-X-Google-Smtp-Source: ADFU+vvgBzkgIbpFBd6cy7s7oA9i/Y2hvnVHA/LEq2oeOUqVKEAGpbz9kF7MFwbhGRlCmXwub+2Xkg==
-X-Received: by 2002:a17:902:b113:: with SMTP id
- q19mr15697950plr.202.1585637205753; 
- Mon, 30 Mar 2020 23:46:45 -0700 (PDT)
+ bh=xzBzTtyv/ik/5EBBE5B9QBIPXEM25PMpqUtEZkO+j2o=;
+ b=ZARNCcYuAofIe3OCxTSDLmHtm0OfQIiKHjAiQifur3so1BKt8t92qycLYa5EJoA8D7
+ Oc+DgbRJryjBcLJUrSZd0QCQ+JgyxkLm0xJ2afeHU6QxpSeWmJkxRgkRFjEEMwEzGfTh
+ Itx2bRh6bnQ+Vr3FtuHeSem8GACPoxBSQQrPLeQ0OQqArUbzD7DJ/HU5vQC7bgnXSb6h
+ GAjctZ1VBeaiLoywR9/lG3i5yy13NGiQrL/eNp3ONiIB+O8zm22YssdUOp2DBHqIH+Je
+ LZTcvOgfXYmtV4ivx7Owx7F6RADqoZ3bC67MVA92AXeIV5itwaNWrArq7l7uebJvgHd9
+ 8Ktg==
+X-Gm-Message-State: AGi0PuaDoGmZYnQwhDoU30rPE12k2yqOeyUyuSDawduL9H1pFSm01x+o
+ qDlCLSiaHfm0w3Wzhgz/vpJm
+X-Google-Smtp-Source: APiQypIEAbi6y8ZieLWWZV5hNFsKxVPMpUpaUafWP3vaBcDMbP+sPBBj/4VNd+xWoSMenMebveeTjQ==
+X-Received: by 2002:a63:1053:: with SMTP id 19mr2930152pgq.60.1585637276025;
+ Mon, 30 Mar 2020 23:47:56 -0700 (PDT)
 Received: from Mani-XPS-13-9360 ([2409:4072:630f:1337:c28:2530:7bf4:e941])
- by smtp.gmail.com with ESMTPSA id d26sm11641709pfo.37.2020.03.30.23.46.41
+ by smtp.gmail.com with ESMTPSA id h11sm11741855pfq.56.2020.03.30.23.47.51
  (version=TLS1_2 cipher=ECDHE-RSA-CHACHA20-POLY1305 bits=256/256);
- Mon, 30 Mar 2020 23:46:44 -0700 (PDT)
-Date: Tue, 31 Mar 2020 12:16:38 +0530
+ Mon, 30 Mar 2020 23:47:55 -0700 (PDT)
+Date: Tue, 31 Mar 2020 12:17:49 +0530
 From: Manivannan Sadhasivam <manivannan.sadhasivam@linaro.org>
 To: Marek Vasut <marex@denx.de>
-Message-ID: <20200331064638.GE17400@Mani-XPS-13-9360>
+Message-ID: <20200331064749.GF17400@Mani-XPS-13-9360>
 References: <20200331005701.283998-1-marex@denx.de>
- <20200331005701.283998-17-marex@denx.de>
+ <20200331005701.283998-18-marex@denx.de>
 MIME-Version: 1.0
 Content-Disposition: inline
-In-Reply-To: <20200331005701.283998-17-marex@denx.de>
+In-Reply-To: <20200331005701.283998-18-marex@denx.de>
 User-Agent: Mutt/1.9.4 (2018-02-28)
 Cc: Patrick Delaunay <patrick.delaunay@st.com>,
  Maxime Coquelin <mcoquelin.stm32@gmail.com>,
  linux-stm32@st-md-mailman.stormreply.com, linux-arm-kernel@lists.infradead.org
-Subject: Re: [Linux-stm32] [PATCH V2 16/22] ARM: dts: stm32: Add alternate
- pinmux for USART2 pins
+Subject: Re: [Linux-stm32] [PATCH V2 17/22] ARM: dts: stm32: Enable
+	Bluetooth on AV96
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -79,8 +78,11 @@ Content-Transfer-Encoding: 7bit
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
-On Tue, Mar 31, 2020 at 02:56:55AM +0200, Marek Vasut wrote:
-> Add mux option for USART2 pins, this is used on AV96 board.
+On Tue, Mar 31, 2020 at 02:56:56AM +0200, Marek Vasut wrote:
+> The WiFi/Bluetooth chip is attached to USART2 on AV96 as well, describe
+> it in DT to make it available. Remove BT LED and turn it into a shutdown
+> GPIO, because the GPIO line controls the BT_REG_ON signal. The LED is just
+> an indicator connected to the same line, but not the primary function.
 > 
 > Signed-off-by: Marek Vasut <marex@denx.de>
 
@@ -99,44 +101,54 @@ Mani
 > ---
 > V2: No change
 > ---
->  arch/arm/boot/dts/stm32mp15-pinctrl.dtsi | 24 ++++++++++++++++++++++++
->  1 file changed, 24 insertions(+)
+>  arch/arm/boot/dts/stm32mp157a-avenger96.dts | 23 ++++++++++++++-------
+>  1 file changed, 16 insertions(+), 7 deletions(-)
 > 
-> diff --git a/arch/arm/boot/dts/stm32mp15-pinctrl.dtsi b/arch/arm/boot/dts/stm32mp15-pinctrl.dtsi
-> index f3f9fc4a3503..4f3b40d5751f 100644
-> --- a/arch/arm/boot/dts/stm32mp15-pinctrl.dtsi
-> +++ b/arch/arm/boot/dts/stm32mp15-pinctrl.dtsi
-> @@ -1204,6 +1204,30 @@ pins {
->  		};
+> diff --git a/arch/arm/boot/dts/stm32mp157a-avenger96.dts b/arch/arm/boot/dts/stm32mp157a-avenger96.dts
+> index 12ee95d5adb1..29af5ed2ebb3 100644
+> --- a/arch/arm/boot/dts/stm32mp157a-avenger96.dts
+> +++ b/arch/arm/boot/dts/stm32mp157a-avenger96.dts
+> @@ -21,6 +21,7 @@ aliases {
+>  		mmc0 = &sdmmc1;
+>  		serial0 = &uart4;
+>  		serial1 = &uart7;
+> +		serial2 = &usart2;
+>  		spi0 = &qspi;
 >  	};
 >  
-> +	usart2_pins_a: usart2-0 {
-> +		pins1 {
-> +			pinmux = <STM32_PINMUX('F', 5, AF7)>, /* USART2_TX */
-> +				 <STM32_PINMUX('D', 4, AF7)>; /* USART2_RTS */
-> +			bias-disable;
-> +			drive-push-pull;
-> +			slew-rate = <0>;
-> +		};
-> +		pins2 {
-> +			pinmux = <STM32_PINMUX('D', 6, AF7)>, /* USART2_RX */
-> +				 <STM32_PINMUX('D', 3, AF7)>; /* USART2_CTS_NSS */
-> +			bias-disable;
-> +		};
-> +	};
+> @@ -63,13 +64,6 @@ led4 {
+>  			default-state = "off";
+>  			panic-indicator;
+>  		};
+> -
+> -		led5 {
+> -			label = "blue:bt";
+> -			gpios = <&gpioz 6 GPIO_ACTIVE_HIGH>;
+> -			linux,default-trigger = "bluetooth-power";
+> -			default-state = "off";
+> -		};
+>  	};
+>  
+>  	sd_switch: regulator-sd_switch {
+> @@ -421,3 +415,18 @@ &uart7 {
+>  	pinctrl-0 = <&uart7_pins_a>;
+>  	status = "okay";
+>  };
 > +
-> +	usart2_sleep_pins_a: usart2-sleep-0 {
-> +		pins {
-> +			pinmux = <STM32_PINMUX('F', 5, ANALOG)>, /* USART2_TX */
-> +				 <STM32_PINMUX('D', 4, ANALOG)>, /* USART2_RTS */
-> +				 <STM32_PINMUX('D', 6, ANALOG)>, /* USART2_RX */
-> +				 <STM32_PINMUX('D', 3, ANALOG)>; /* USART2_CTS_NSS */
-> +		};
-> +	};
+> +/* Bluetooth */
+> +&usart2 {
+> +	pinctrl-names = "default", "sleep";
+> +	pinctrl-0 = <&usart2_pins_a>;
+> +	pinctrl-1 = <&usart2_sleep_pins_a>;
+> +	st,hw-flow-ctrl;
+> +	status = "okay";
 > +
->  	usart3_pins_a: usart3-0 {
->  		pins1 {
->  			pinmux = <STM32_PINMUX('B', 10, AF7)>; /* USART3_TX */
+> +	bluetooth {
+> +		compatible = "brcm,bcm43438-bt";
+> +		max-speed = <3000000>;
+> +		shutdown-gpios = <&gpioz 6 GPIO_ACTIVE_HIGH>;
+> +	};
+> +};
 > -- 
 > 2.25.1
 > 
