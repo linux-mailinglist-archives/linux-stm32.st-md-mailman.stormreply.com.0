@@ -2,67 +2,66 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id AACD6198B5A
-	for <lists+linux-stm32@lfdr.de>; Tue, 31 Mar 2020 06:33:49 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id E0529198B5C
+	for <lists+linux-stm32@lfdr.de>; Tue, 31 Mar 2020 06:36:42 +0200 (CEST)
 Received: from ip-172-31-3-76.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 62405C36B0B;
-	Tue, 31 Mar 2020 04:33:49 +0000 (UTC)
-Received: from mail-pj1-f65.google.com (mail-pj1-f65.google.com
- [209.85.216.65])
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 9F228C36B0B;
+	Tue, 31 Mar 2020 04:36:42 +0000 (UTC)
+Received: from mail-pg1-f195.google.com (mail-pg1-f195.google.com
+ [209.85.215.195])
  (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id A7465C36B09
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 310CEC36B09
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Tue, 31 Mar 2020 04:33:47 +0000 (UTC)
-Received: by mail-pj1-f65.google.com with SMTP id m15so546516pje.3
+ Tue, 31 Mar 2020 04:36:41 +0000 (UTC)
+Received: by mail-pg1-f195.google.com with SMTP id d17so9788821pgo.0
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Mon, 30 Mar 2020 21:33:47 -0700 (PDT)
+ Mon, 30 Mar 2020 21:36:41 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linaro.org; s=google;
  h=date:from:to:cc:subject:message-id:references:mime-version
  :content-disposition:in-reply-to:user-agent;
- bh=KHj39y5fdH9Uv51+nxOzjv4v2uANykWV5CO0Mi85N6I=;
- b=vCDPFgxTTiWo5KOk4iJIiAKcSrHBIauour4dahxzyJugvrzYps5/MAuuYqxjfbDw/L
- vIYUm9DmpFEqeQts9+aLrGP8wGqW99S6SHoNgxNaIv/ZfefuVRD/2NdqWyNXS36XQM8H
- BCAEiQSZ9faEw9fyxplPGCRUgl4NSnR6BlX+lIPS18Qy4RrGTb+r81D4AlE/ZEPu3hhI
- Fl1vlZUsf/mJTkJl7MmlG7CnPtliOj/5RPyCxZ5cwBhUK1HD7meNEA7ub3RNiyWabNhQ
- v9UMXgxhQGtsgVPLXSFMnGSwMeMtzYoYrqwSOjqbx2/rErLLIURuOL4r/Q4NF2UbRHXt
- NjSA==
+ bh=ZePJ6gF3l6jA5xPHqluqpOczdHl6/t615VhrfHAgMe4=;
+ b=Uifxm67MlSIdTzbTDENp/is6Uhp9Fv1gHIUuCvDde1wMd5t5sjX4lWes0EFOJcfPxR
+ woVMa2yKrqMD1KXLh9e3rcy9j+75qoJ15erxtOM5zkn0ZkbrqNdouNo96qc03j9b8gIT
+ Bab2JZ7grhxPjf5tD4eeglhwKpLkTp2h10oqt81t6cyx5CRPfXBWkZ1dBFhqewphwqBS
+ s/03Pgb+4arRtZAiv2um5UUPeMtrlxcVI8B6cXgjz1wZtpDJPF0n2YDk0FpOBv9nGIzr
+ RwVBXPTPJ/ZPHxS7o6woON2rH8nqMpz1xGW+XmBivUvdgN8m6UCuGxSoWzx5eODRPO88
+ ljMw==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=1e100.net; s=20161025;
  h=x-gm-message-state:date:from:to:cc:subject:message-id:references
  :mime-version:content-disposition:in-reply-to:user-agent;
- bh=KHj39y5fdH9Uv51+nxOzjv4v2uANykWV5CO0Mi85N6I=;
- b=jqQfw6jG9BDIu8Nhn3T0yGDJeMWK7VxLv9fqO8wpZOkQZo/eoe5Iz/cvJGmmYhQY/R
- uPeJ4KRavrGh2URjFOtrzDW5tDRBzRSPIvrJ2wUxDJq0hjDIK9axpSn3drLR9h0m4Cid
- ywRjlWi47cImLwrGcNp2MuFPHovfZy26aLkKdFmrENtVVbVtwtD0UZUrg1LfgzAlgCmf
- 9YtIq1piLFYKXHH0Vsmw42ORLX/7g1bdoLfMC4j6o1nrKv5ks5G5Ei7OmefbzHgfvb/w
- TvT7/yXMppzOVQY7yrIdGYmoRj+NQOlfwKAWOOPZa0h5muZsU/3PTg7/3nqyUncB5uKQ
- W3Rw==
-X-Gm-Message-State: AGi0Pub5xtA1nMd+jHGrXJhSfdQIoRSx5IGwCnDlJ/Ih4siE1jV7fA8B
- JXq+l38cAQgsb1/EM2JjY6GZ
-X-Google-Smtp-Source: APiQypIPQMHA7xCDE37J1tm9V8LvIzT94pFuOlkJKUqV9VsympLng+X6jurgccQ3cev51Tc0bVEhjg==
-X-Received: by 2002:a17:90a:868b:: with SMTP id
- p11mr1769236pjn.34.1585629225956; 
- Mon, 30 Mar 2020 21:33:45 -0700 (PDT)
+ bh=ZePJ6gF3l6jA5xPHqluqpOczdHl6/t615VhrfHAgMe4=;
+ b=MZKFDQSA4S/Xp/3npPLRSNgAkWkG4+FkHD54VhMhtxBmFfbsaghYaEuZQvgEhTtzfh
+ s7ia8FwSZ9ayxXiHaR39Z5Htwjq8nPMupWKxCilONosc1LigvW4aMlAcpCdXPdAjJxEM
+ dymyLENgF+fV3JdJpNtbPF10jFHBCvbdNi7NUEwInvygcV98jhSv5SASEObOEcYY3ssQ
+ F6whRV59E7+mVhZb3nONDQBVR+LwxczHpUCwtKu9wNienUHn6xGmMALNCxQUUuMpjsgM
+ QXimi7UvtTQPEZvuIUWeNP9+1EfkLCPotAMDdgKKO5QsDB7jgzEUhx1o0/WvDqr8Z8My
+ OSSQ==
+X-Gm-Message-State: ANhLgQ3FWmkzbJ0+yIvgf0dm8bo+J9t8VgWaGlFynS5Ks/0d0bfHX+t4
+ DkkM0oH+OP/39Y2JbTVWqcCB
+X-Google-Smtp-Source: ADFU+vuABsMzcs+3bgdTq7M7oj4+j90hTyn6BzihSaf9D4S6Qt/+7ZRsgYisjIgTuC8qTFyZDhQSoA==
+X-Received: by 2002:a63:ea4e:: with SMTP id l14mr15741062pgk.431.1585629399496; 
+ Mon, 30 Mar 2020 21:36:39 -0700 (PDT)
 Received: from Mani-XPS-13-9360 ([2409:4072:630f:1337:c28:2530:7bf4:e941])
- by smtp.gmail.com with ESMTPSA id go9sm850663pjb.27.2020.03.30.21.33.41
+ by smtp.gmail.com with ESMTPSA id e7sm11476211pfj.97.2020.03.30.21.36.34
  (version=TLS1_2 cipher=ECDHE-RSA-CHACHA20-POLY1305 bits=256/256);
- Mon, 30 Mar 2020 21:33:45 -0700 (PDT)
-Date: Tue, 31 Mar 2020 10:03:38 +0530
+ Mon, 30 Mar 2020 21:36:38 -0700 (PDT)
+Date: Tue, 31 Mar 2020 10:06:32 +0530
 From: Manivannan Sadhasivam <manivannan.sadhasivam@linaro.org>
 To: Marek Vasut <marex@denx.de>
-Message-ID: <20200331043338.GH14274@Mani-XPS-13-9360>
+Message-ID: <20200331043632.GI14274@Mani-XPS-13-9360>
 References: <20200331005701.283998-1-marex@denx.de>
- <20200331005701.283998-7-marex@denx.de>
+ <20200331005701.283998-8-marex@denx.de>
 MIME-Version: 1.0
 Content-Disposition: inline
-In-Reply-To: <20200331005701.283998-7-marex@denx.de>
+In-Reply-To: <20200331005701.283998-8-marex@denx.de>
 User-Agent: Mutt/1.9.4 (2018-02-28)
 Cc: Patrick Delaunay <patrick.delaunay@st.com>,
  Maxime Coquelin <mcoquelin.stm32@gmail.com>,
  linux-stm32@st-md-mailman.stormreply.com, linux-arm-kernel@lists.infradead.org
-Subject: Re: [Linux-stm32] [PATCH V2 06/22] ARM: dts: stm32: Repair SDMMC1
-	operation on AV96
+Subject: Re: [Linux-stm32] [PATCH V2 07/22] ARM: dts: stm32: Add alternate
+ pinmux for SDMMC2 pins 4-7
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -79,12 +78,16 @@ Content-Transfer-Encoding: 7bit
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
-On Tue, Mar 31, 2020 at 02:56:45AM +0200, Marek Vasut wrote:
-> The SD uses different pinmux for the D123DIRline, use such a pinmux,
-> otherwise there is a pinmux collision on the AV96. Add missing SD
-> voltage regulator switch.
+On Tue, Mar 31, 2020 at 02:56:46AM +0200, Marek Vasut wrote:
+> Add another mux option for SDMMC2 pins 4..7, this is used on AV96 board.
 > 
 > Signed-off-by: Marek Vasut <marex@denx.de>
+
+Reviewed-by: Manivannan Sadhasivam <manivannan.sadhasivam@linaro.org>
+
+Thanks,
+Mani
+
 > Cc: Alexandre Torgue <alexandre.torgue@st.com>
 > Cc: Manivannan Sadhasivam <manivannan.sadhasivam@linaro.org>
 > Cc: Maxime Coquelin <mcoquelin.stm32@gmail.com>
@@ -93,68 +96,43 @@ On Tue, Mar 31, 2020 at 02:56:45AM +0200, Marek Vasut wrote:
 > Cc: linux-stm32@st-md-mailman.stormreply.com
 > To: linux-arm-kernel@lists.infradead.org
 > ---
-> V2: Disable SDR104, it seems unstable thus far
+> V2: No change
 > ---
->  arch/arm/boot/dts/stm32mp157a-avenger96.dts | 21 ++++++++++++++++++---
->  1 file changed, 18 insertions(+), 3 deletions(-)
+>  arch/arm/boot/dts/stm32mp15-pinctrl.dtsi | 21 +++++++++++++++++++++
+>  1 file changed, 21 insertions(+)
 > 
-> diff --git a/arch/arm/boot/dts/stm32mp157a-avenger96.dts b/arch/arm/boot/dts/stm32mp157a-avenger96.dts
-> index e58653ccb60f..04280353fdbe 100644
-> --- a/arch/arm/boot/dts/stm32mp157a-avenger96.dts
-> +++ b/arch/arm/boot/dts/stm32mp157a-avenger96.dts
-> @@ -77,6 +77,20 @@ led6 {
->  			default-state = "off";
+> diff --git a/arch/arm/boot/dts/stm32mp15-pinctrl.dtsi b/arch/arm/boot/dts/stm32mp15-pinctrl.dtsi
+> index 8ac534c5bdf6..ec3621e0ff08 100644
+> --- a/arch/arm/boot/dts/stm32mp15-pinctrl.dtsi
+> +++ b/arch/arm/boot/dts/stm32mp15-pinctrl.dtsi
+> @@ -1062,6 +1062,27 @@ pins {
 >  		};
 >  	};
-> +
-> +	sd_switch: regulator-sd_switch {
-> +		compatible = "regulator-gpio";
-> +		regulator-name = "sd_switch";
-> +		regulator-min-microvolt = <1800000>;
-> +		regulator-max-microvolt = <2900000>;
-> +		regulator-type = "voltage";
-> +		regulator-always-on;
-> +
-> +		gpios = <&gpioi 5 GPIO_ACTIVE_HIGH>;
-> +		gpios-states = <0>;
-> +		states = <1800000 0x1>,
-> +			 <2900000 0x0>;
+>  
+> +	sdmmc2_d47_pins_b: sdmmc2-d47-1 {
+> +		pins {
+> +			pinmux = <STM32_PINMUX('A', 8, AF9)>, /* SDMMC2_D4 */
+> +				 <STM32_PINMUX('A', 15, AF9)>, /* SDMMC2_D5 */
+> +				 <STM32_PINMUX('C', 6, AF10)>, /* SDMMC2_D6 */
+> +				 <STM32_PINMUX('C', 7, AF10)>; /* SDMMC2_D7 */
+> +			slew-rate = <1>;
+> +			drive-push-pull;
+> +			bias-pull-up;
+> +		};
 > +	};
->  };
->  
->  &ethernet0 {
-> @@ -305,9 +319,9 @@ &rtc {
->  
->  &sdmmc1 {
->  	pinctrl-names = "default", "opendrain", "sleep";
-> -	pinctrl-0 = <&sdmmc1_b4_pins_a &sdmmc1_dir_pins_a>;
-> -	pinctrl-1 = <&sdmmc1_b4_od_pins_a>;
-> -	pinctrl-2 = <&sdmmc1_b4_sleep_pins_a>;
-> +	pinctrl-0 = <&sdmmc1_b4_pins_a &sdmmc1_dir_pins_b>;
-> +	pinctrl-1 = <&sdmmc1_b4_od_pins_a &sdmmc1_dir_pins_b>;
-> +	pinctrl-2 = <&sdmmc1_b4_sleep_pins_a &sdmmc1_dir_sleep_pins_b>;
->  	cd-gpios = <&gpioi 8 (GPIO_ACTIVE_LOW | GPIO_PULL_UP)>;
-
-The "cd-gpios" change is not present in mainline. I think you can add it to
-this patch as well with relevant commit description.
-
-With that fixed,
-
-Reviewed-by: Manivannan Sadhasivam <manivannan.sadhasivam@linaro.org>
-
-Thanks,
-Mani
-
->  	disable-wp;
->  	st,sig-dir;
-> @@ -315,6 +329,7 @@ &sdmmc1 {
->  	st,use-ckin;
->  	bus-width = <4>;
->  	vmmc-supply = <&vdd_sd>;
-> +	vqmmc-supply = <&sd_switch>;
->  	status = "okay";
->  };
->  
+> +
+> +	sdmmc2_d47_sleep_pins_b: sdmmc2-d47-sleep-1 {
+> +		pins {
+> +			pinmux = <STM32_PINMUX('A', 8, ANALOG)>, /* SDMMC2_D4 */
+> +				 <STM32_PINMUX('A', 15, ANALOG)>, /* SDMMC2_D5 */
+> +				 <STM32_PINMUX('C', 6, ANALOG)>, /* SDMMC2_D6 */
+> +				 <STM32_PINMUX('C', 7, ANALOG)>; /* SDMMC2_D7 */
+> +		};
+> +	};
+> +
+>  	sdmmc3_b4_pins_a: sdmmc3-b4-0 {
+>  		pins1 {
+>  			pinmux = <STM32_PINMUX('F', 0, AF9)>, /* SDMMC3_D0 */
 > -- 
 > 2.25.1
 > 
