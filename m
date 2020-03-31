@@ -2,51 +2,60 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id 82D541997C4
-	for <lists+linux-stm32@lfdr.de>; Tue, 31 Mar 2020 15:46:07 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 974FD1997AA
+	for <lists+linux-stm32@lfdr.de>; Tue, 31 Mar 2020 15:38:55 +0200 (CEST)
 Received: from ip-172-31-3-76.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 40D42C36B0C;
-	Tue, 31 Mar 2020 13:46:07 +0000 (UTC)
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 3AEB3C36B0B;
+	Tue, 31 Mar 2020 13:38:55 +0000 (UTC)
 Received: from mail-out.m-online.net (mail-out.m-online.net [212.18.0.10])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id CE87FC36B0B
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id F0742C36B09
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Tue, 31 Mar 2020 13:46:05 +0000 (UTC)
+ Tue, 31 Mar 2020 13:38:53 +0000 (UTC)
 Received: from frontend01.mail.m-online.net (unknown [192.168.8.182])
- by mail-out.m-online.net (Postfix) with ESMTP id 48s9b13PvNz1rtyc;
- Tue, 31 Mar 2020 15:46:05 +0200 (CEST)
+ by mail-out.m-online.net (Postfix) with ESMTP id 48s9Qg3WC7z1rqBY;
+ Tue, 31 Mar 2020 15:38:51 +0200 (CEST)
 Received: from localhost (dynscan1.mnet-online.de [192.168.6.70])
- by mail.m-online.net (Postfix) with ESMTP id 48s9b12qp3z1r0cN;
- Tue, 31 Mar 2020 15:46:05 +0200 (CEST)
+ by mail.m-online.net (Postfix) with ESMTP id 48s9Qg2rYhz1qql0;
+ Tue, 31 Mar 2020 15:38:51 +0200 (CEST)
 X-Virus-Scanned: amavisd-new at mnet-online.de
 Received: from mail.mnet-online.de ([192.168.8.182])
  by localhost (dynscan1.mail.m-online.net [192.168.6.70]) (amavisd-new,
  port 10024)
- with ESMTP id XUAJaH3lkYL2; Tue, 31 Mar 2020 15:46:04 +0200 (CEST)
-X-Auth-Info: ZVbdu5Qzn76v1M7Q1xWo1DkSqlrVUTmBJBtwhqZErt8=
+ with ESMTP id 5Si0W4F1buy5; Tue, 31 Mar 2020 15:38:49 +0200 (CEST)
+X-Auth-Info: k6tfyBk8zdL7x6c06opzeuhQOK2xA/F5kIF/LgKCDTw=
 Received: from [IPv6:::1] (unknown [195.140.253.167])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
  by mail.mnet-online.de (Postfix) with ESMTPSA;
- Tue, 31 Mar 2020 15:46:04 +0200 (CEST)
-To: Manivannan Sadhasivam <manivannan.sadhasivam@linaro.org>
-References: <20200331005701.283998-1-marex@denx.de>
- <20200331005701.283998-7-marex@denx.de>
- <20200331043338.GH14274@Mani-XPS-13-9360>
+ Tue, 31 Mar 2020 15:38:49 +0200 (CEST)
+To: Alexandre Torgue <alexandre.torgue@st.com>,
+ Ahmad Fatoum <a.fatoum@pengutronix.de>,
+ Patrice CHOTARD <patrice.chotard@st.com>,
+ "linux-arm-kernel@lists.infradead.org" <linux-arm-kernel@lists.infradead.org>
+References: <20200328171144.51888-1-marex@denx.de>
+ <20200328171144.51888-8-marex@denx.de>
+ <0fb89d25-feb0-2eb0-9e83-d7f8c76f8b9e@st.com>
+ <82dcf412-119b-0de2-0c50-f6877a82a812@pengutronix.de>
+ <fcf49298-a36c-e80e-e62b-1fb9c07f0d6e@denx.de>
+ <310aa3a3-09ce-42ef-d1ea-b653163d1d72@pengutronix.de>
+ <97d13a84-8220-aa7f-3ee6-df474cca3882@denx.de>
+ <43e88a1b-f3e4-df1d-38a6-0bb281a2f786@st.com>
 From: Marek Vasut <marex@denx.de>
-Message-ID: <4936af1c-6bdf-de5a-c86e-07e52417cdec@denx.de>
-Date: Tue, 31 Mar 2020 15:36:34 +0200
+Message-ID: <871a5cc2-615d-b9e5-0eed-9a5a38be4f6c@denx.de>
+Date: Tue, 31 Mar 2020 15:38:49 +0200
 User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:68.0) Gecko/20100101
  Thunderbird/68.5.0
 MIME-Version: 1.0
-In-Reply-To: <20200331043338.GH14274@Mani-XPS-13-9360>
+In-Reply-To: <43e88a1b-f3e4-df1d-38a6-0bb281a2f786@st.com>
 Content-Language: en-US
-Cc: Patrick Delaunay <patrick.delaunay@st.com>,
+Cc: Patrick DELAUNAY <patrick.delaunay@st.com>,
  Maxime Coquelin <mcoquelin.stm32@gmail.com>,
- linux-stm32@st-md-mailman.stormreply.com, linux-arm-kernel@lists.infradead.org
-Subject: Re: [Linux-stm32] [PATCH V2 06/22] ARM: dts: stm32: Repair SDMMC1
-	operation on AV96
+ "linux-stm32@st-md-mailman.stormreply.com"
+ <linux-stm32@st-md-mailman.stormreply.com>
+Subject: Re: [Linux-stm32] [PATCH 07/22] ARM: dts: stm32: Add alternate
+ pinmux for SDMMC2 pins 4-7
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -63,67 +72,87 @@ Content-Transfer-Encoding: 7bit
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
-On 3/31/20 6:33 AM, Manivannan Sadhasivam wrote:
-> On Tue, Mar 31, 2020 at 02:56:45AM +0200, Marek Vasut wrote:
->> The SD uses different pinmux for the D123DIRline, use such a pinmux,
->> otherwise there is a pinmux collision on the AV96. Add missing SD
->> voltage regulator switch.
->>
->> Signed-off-by: Marek Vasut <marex@denx.de>
->> Cc: Alexandre Torgue <alexandre.torgue@st.com>
->> Cc: Manivannan Sadhasivam <manivannan.sadhasivam@linaro.org>
->> Cc: Maxime Coquelin <mcoquelin.stm32@gmail.com>
->> Cc: Patrice Chotard <patrice.chotard@st.com>
->> Cc: Patrick Delaunay <patrick.delaunay@st.com>
->> Cc: linux-stm32@st-md-mailman.stormreply.com
->> To: linux-arm-kernel@lists.infradead.org
->> ---
->> V2: Disable SDR104, it seems unstable thus far
->> ---
->>  arch/arm/boot/dts/stm32mp157a-avenger96.dts | 21 ++++++++++++++++++---
->>  1 file changed, 18 insertions(+), 3 deletions(-)
->>
->> diff --git a/arch/arm/boot/dts/stm32mp157a-avenger96.dts b/arch/arm/boot/dts/stm32mp157a-avenger96.dts
->> index e58653ccb60f..04280353fdbe 100644
->> --- a/arch/arm/boot/dts/stm32mp157a-avenger96.dts
->> +++ b/arch/arm/boot/dts/stm32mp157a-avenger96.dts
->> @@ -77,6 +77,20 @@ led6 {
->>  			default-state = "off";
->>  		};
->>  	};
->> +
->> +	sd_switch: regulator-sd_switch {
->> +		compatible = "regulator-gpio";
->> +		regulator-name = "sd_switch";
->> +		regulator-min-microvolt = <1800000>;
->> +		regulator-max-microvolt = <2900000>;
->> +		regulator-type = "voltage";
->> +		regulator-always-on;
->> +
->> +		gpios = <&gpioi 5 GPIO_ACTIVE_HIGH>;
->> +		gpios-states = <0>;
->> +		states = <1800000 0x1>,
->> +			 <2900000 0x0>;
->> +	};
->>  };
->>  
->>  &ethernet0 {
->> @@ -305,9 +319,9 @@ &rtc {
->>  
->>  &sdmmc1 {
->>  	pinctrl-names = "default", "opendrain", "sleep";
->> -	pinctrl-0 = <&sdmmc1_b4_pins_a &sdmmc1_dir_pins_a>;
->> -	pinctrl-1 = <&sdmmc1_b4_od_pins_a>;
->> -	pinctrl-2 = <&sdmmc1_b4_sleep_pins_a>;
->> +	pinctrl-0 = <&sdmmc1_b4_pins_a &sdmmc1_dir_pins_b>;
->> +	pinctrl-1 = <&sdmmc1_b4_od_pins_a &sdmmc1_dir_pins_b>;
->> +	pinctrl-2 = <&sdmmc1_b4_sleep_pins_a &sdmmc1_dir_sleep_pins_b>;
->>  	cd-gpios = <&gpioi 8 (GPIO_ACTIVE_LOW | GPIO_PULL_UP)>;
+On 3/31/20 10:58 AM, Alexandre Torgue wrote:
 > 
-> The "cd-gpios" change is not present in mainline. I think you can add it to
-> this patch as well with relevant commit description.
+> 
+> On 3/30/20 1:45 PM, Marek Vasut wrote:
+>> On 3/30/20 1:37 PM, Ahmad Fatoum wrote:
+>>> Hi Marek,
+>>
+>> Hi,
+>>
+>>> On 3/30/20 1:22 PM, Marek Vasut wrote:
+>>>> On 3/30/20 1:17 PM, Ahmad Fatoum wrote:
+>>>>> Hello Patrice,
+>>>>
+>>>> Hi,
+>>>>
+>>>>> On 3/30/20 1:11 PM, Patrice CHOTARD wrote:
+>>>>>> For your information, another submitted patch uses the same
+>>>>>> pinctrl sdmmc2_d47_pins_b node with different muxing (SDMMC2_D5)
+>>>>>>
+>>>>>> see https://lore.kernel.org/patchwork/patch/1216452/
+>>>>>>
+>>>>>> I haven't checked other muxing if there are other conflict.
+>>>>>
+>>>>> (author of linked patch here)
+>>>>>
+>>>>> I don't like the central stm32mp15-pinctrl.dtsi. I'd have preferred
+>>>>> if each
+>>>>> file defined the pinctrl groups it is using.
+>>>>
+>>>> I'm not a big fan of that either, because this is gonna be a
+>>>> combinatorial explosion of various pinmux options. But if you have each
+>>>> board define it's pinmux, it's also gonna become a massive amount of
+>>>> duplication (like iMX). So I cannot tell which one is better ...
+>>>
+>>> Mhm. A middle ground could be keeping stm32mp15-pinctrl, but only for
+>>> the
+>>> official ST eval kits as HW designers are expected to copy off those
+>>> and have
+>>> board specifics in the board/SoM device tree?
+>>
+>> Then you should call it stm32mp1-something-st-eval-pinmux.dtsi ,
+>> otherwise it's gonna be confusing.
+>>
+>>> If it has to be either one or the other, I prefer duplication in the
+>>> device
+>>> tree. When the HW misses pull ups or needs to adjust slew rates, you
+>>> probably
+>>> don't want a new, slightly different, pinctrl group in the
+>>> stm32mp15-pinctrl.dtsi
+>>> for each variant.
+>>
+>> That's a valid point, but then you can override those in the boards'
+>> pinmux node for a specific pinmux entry too.
+>>
+>>> So you are left with doctoring around with overrides and
+>>> /delete-property/,
+>>> while just duplicating the node with the correct properties would've
+>>> been
+>>> better for readability IMO.
+>>
+>> That is true, but how many of such cases do we have so far ? Maybe it's
+>> better to cross that bridge when (if) we come to it.
+>>
+> 
+> I agree, and I prefer to keep pins groups definition in
+> stm32mp15-pinctrl.dtsi file. IMO, it is easier for users to find them in
+> only one file. Actually, I already had this discussions with some guys
+> "where pins groups have to be defined ?". For me (and maybe only for
+> me), muxing is SOC dependent, I mean SoC provides a bunch a possible
+> pinmux for each IPs. If we got enough memory spaces (and time to waste
+> also) we could define all possible pinmux (AFx....) for each devices and
+> let board users chose the good one (using stm32mp15-pictrl.dtsi as a
+> database). In board file, you select one possible pin configuration
+> (provided by the SoC) for your device according to your schematic.
+> However you could append pin groups in board file to update bias,
+> slewrate ...
+> If your concern it to embed a bunch of not used pin configuration for a
+> board, we could use /omit-if-no-ref/ tag on pin groups.
 
-What change to cd-gpios ? This patch doesn't change cd-gpios.
+Can we instead define pinmux the way e.g. iMX6 does , as separate pins ,
+instead of pinmux groups ?
 _______________________________________________
 Linux-stm32 mailing list
 Linux-stm32@st-md-mailman.stormreply.com
