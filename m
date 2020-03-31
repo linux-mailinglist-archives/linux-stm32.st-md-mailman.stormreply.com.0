@@ -2,38 +2,38 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id A0FB8198936
-	for <lists+linux-stm32@lfdr.de>; Tue, 31 Mar 2020 02:57:59 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id C192E198937
+	for <lists+linux-stm32@lfdr.de>; Tue, 31 Mar 2020 02:58:00 +0200 (CEST)
 Received: from ip-172-31-3-76.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 69D15C36B0B;
-	Tue, 31 Mar 2020 00:57:59 +0000 (UTC)
-Received: from mail-out.m-online.net (mail-out.m-online.net [212.18.0.10])
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 8AE15C36B0E;
+	Tue, 31 Mar 2020 00:58:00 +0000 (UTC)
+Received: from mail-out.m-online.net (mail-out.m-online.net [212.18.0.9])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id E4E19C36B0A
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 3698BC36B09
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Tue, 31 Mar 2020 00:57:57 +0000 (UTC)
+ Tue, 31 Mar 2020 00:57:59 +0000 (UTC)
 Received: from frontend01.mail.m-online.net (unknown [192.168.8.182])
- by mail-out.m-online.net (Postfix) with ESMTP id 48rrXj48rtz1rqBQ;
- Tue, 31 Mar 2020 02:57:57 +0200 (CEST)
+ by mail-out.m-online.net (Postfix) with ESMTP id 48rrXk6HYbz1qrGL;
+ Tue, 31 Mar 2020 02:57:58 +0200 (CEST)
 Received: from localhost (dynscan1.mnet-online.de [192.168.6.70])
- by mail.m-online.net (Postfix) with ESMTP id 48rrXj3vLdz1r0cH;
- Tue, 31 Mar 2020 02:57:57 +0200 (CEST)
+ by mail.m-online.net (Postfix) with ESMTP id 48rrXk63rZz1r0cH;
+ Tue, 31 Mar 2020 02:57:58 +0200 (CEST)
 X-Virus-Scanned: amavisd-new at mnet-online.de
 Received: from mail.mnet-online.de ([192.168.8.182])
  by localhost (dynscan1.mail.m-online.net [192.168.6.70]) (amavisd-new,
  port 10024)
- with ESMTP id iz8Z2unHE53d; Tue, 31 Mar 2020 02:57:56 +0200 (CEST)
-X-Auth-Info: faz10mssaUNo0J0voFSKRanw5D+r1nrMsChjzVjHBiI=
+ with ESMTP id W-Dq-xjrqKJX; Tue, 31 Mar 2020 02:57:57 +0200 (CEST)
+X-Auth-Info: bUbNI+gae2m4NgB0EH/lG63KQoJ4AtqJZkVZi3s4D/s=
 Received: from desktop.lan (ip-86-49-35-8.net.upcbroadband.cz [86.49.35.8])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
  by mail.mnet-online.de (Postfix) with ESMTPSA;
- Tue, 31 Mar 2020 02:57:56 +0200 (CEST)
+ Tue, 31 Mar 2020 02:57:57 +0200 (CEST)
 From: Marek Vasut <marex@denx.de>
 To: linux-arm-kernel@lists.infradead.org
-Date: Tue, 31 Mar 2020 02:57:00 +0200
-Message-Id: <20200331005701.283998-22-marex@denx.de>
+Date: Tue, 31 Mar 2020 02:57:01 +0200
+Message-Id: <20200331005701.283998-23-marex@denx.de>
 X-Mailer: git-send-email 2.25.1
 In-Reply-To: <20200331005701.283998-1-marex@denx.de>
 References: <20200331005701.283998-1-marex@denx.de>
@@ -42,8 +42,8 @@ Cc: Marek Vasut <marex@denx.de>, Patrick Delaunay <patrick.delaunay@st.com>,
  Maxime Coquelin <mcoquelin.stm32@gmail.com>,
  Manivannan Sadhasivam <manivannan.sadhasivam@linaro.org>,
  linux-stm32@st-md-mailman.stormreply.com
-Subject: [Linux-stm32] [PATCH V2 21/22] ARM: dts: stm32: Add bindings for
-	USB on AV96
+Subject: [Linux-stm32] [PATCH V2 22/22] ARM: dts: stm32: Rename LEDs to
+	match silkscreen on AV96
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -60,7 +60,7 @@ Content-Transfer-Encoding: 7bit
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
-Fill in the bindings for USB host and gadget on AV96.
+The LED labels do not match the silkscreen on the board, fix it.
 
 Signed-off-by: Marek Vasut <marex@denx.de>
 Cc: Alexandre Torgue <alexandre.torgue@st.com>
@@ -73,48 +73,38 @@ To: linux-arm-kernel@lists.infradead.org
 ---
 V2: No change
 ---
- arch/arm/boot/dts/stm32mp157a-avenger96.dts | 31 +++++++++++++++++++++
- 1 file changed, 31 insertions(+)
+ arch/arm/boot/dts/stm32mp157a-avenger96.dts | 6 +++---
+ 1 file changed, 3 insertions(+), 3 deletions(-)
 
 diff --git a/arch/arm/boot/dts/stm32mp157a-avenger96.dts b/arch/arm/boot/dts/stm32mp157a-avenger96.dts
-index 110ee1ea5daf..b6cb3b2d8c78 100644
+index b6cb3b2d8c78..4291a97cc05f 100644
 --- a/arch/arm/boot/dts/stm32mp157a-avenger96.dts
 +++ b/arch/arm/boot/dts/stm32mp157a-avenger96.dts
-@@ -548,3 +548,34 @@ bluetooth {
- 		shutdown-gpios = <&gpioz 6 GPIO_ACTIVE_HIGH>;
- 	};
- };
-+
-+&usbh_ehci {
-+	phys = <&usbphyc_port0>;
-+	phy-names = "usb";
-+	status = "okay";
-+};
-+
-+&usbotg_hs {
-+	pinctrl-0 = <&usbotg_hs_pins_a>;
-+	pinctrl-names = "default";
-+	phy-names = "usb2-phy";
-+	phys = <&usbphyc_port1 0>;
-+	status = "okay";
-+	vbus-supply = <&vbus_otg>;
-+};
-+
-+&usbphyc {
-+	status = "okay";
-+};
-+
-+&usbphyc_port0 {
-+	phy-supply = <&vdd_usb>;
-+	vdda1v1-supply = <&reg11>;
-+	vdda1v8-supply = <&reg18>;
-+};
-+
-+&usbphyc_port1 {
-+	phy-supply = <&vdd_usb>;
-+	vdda1v1-supply = <&reg11>;
-+	vdda1v8-supply = <&reg18>;
-+};
+@@ -55,21 +55,21 @@ memory@c0000000 {
+ 	led {
+ 		compatible = "gpio-leds";
+ 		led1 {
+-			label = "green:user1";
++			label = "green:user0";
+ 			gpios = <&gpioz 7 GPIO_ACTIVE_HIGH>;
+ 			linux,default-trigger = "heartbeat";
+ 			default-state = "off";
+ 		};
+ 
+ 		led2 {
+-			label = "green:user2";
++			label = "green:user1";
+ 			gpios = <&gpiof 3 GPIO_ACTIVE_HIGH>;
+ 			linux,default-trigger = "mmc0";
+ 			default-state = "off";
+ 		};
+ 
+ 		led3 {
+-			label = "green:user3";
++			label = "green:user2";
+ 			gpios = <&gpiog 0 GPIO_ACTIVE_HIGH>;
+ 			linux,default-trigger = "mmc1";
+ 			default-state = "off";
 -- 
 2.25.1
 
