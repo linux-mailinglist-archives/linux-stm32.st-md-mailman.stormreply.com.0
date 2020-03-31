@@ -2,66 +2,67 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id 16BD2198C78
-	for <lists+linux-stm32@lfdr.de>; Tue, 31 Mar 2020 08:44:06 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 87305198C7E
+	for <lists+linux-stm32@lfdr.de>; Tue, 31 Mar 2020 08:46:50 +0200 (CEST)
 Received: from ip-172-31-3-76.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id CDDCCC36B0B;
-	Tue, 31 Mar 2020 06:44:05 +0000 (UTC)
-Received: from mail-pg1-f193.google.com (mail-pg1-f193.google.com
- [209.85.215.193])
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 4AF6AC36B0B;
+	Tue, 31 Mar 2020 06:46:50 +0000 (UTC)
+Received: from mail-pl1-f193.google.com (mail-pl1-f193.google.com
+ [209.85.214.193])
  (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id F267EC36B09
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 7865CC36B09
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Tue, 31 Mar 2020 06:44:03 +0000 (UTC)
-Received: by mail-pg1-f193.google.com with SMTP id b1so9903670pgm.8
+ Tue, 31 Mar 2020 06:46:47 +0000 (UTC)
+Received: by mail-pl1-f193.google.com with SMTP id h11so7746248plr.11
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Mon, 30 Mar 2020 23:44:03 -0700 (PDT)
+ Mon, 30 Mar 2020 23:46:47 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linaro.org; s=google;
  h=date:from:to:cc:subject:message-id:references:mime-version
  :content-disposition:in-reply-to:user-agent;
- bh=Z+ad/AWMVaWRvptdozo50uEsB6n25R2bp8xmB/EVVHI=;
- b=cK6WXAGJWAgkLzgsTyMMFHsNdm+WOz51RJktFnvwl5kknooE3uxcdncHymwx0+W8np
- DgCZ0yEqr7jBUgc5TPLUcJ9tDGq8zBdsYUEy6XWJ5/2jcK2eSA6j5rXDHiqFgn28Ig01
- QDrpxppXZmOfVv6Chd+NsPOlopFtactyfHdLN8/e1ngRzQYThBUl4H3zSpEziIJHDDtX
- ckvtc4089MHhQajo0K4Er1k3eGjEzyXVWNtnMt/JwsQe6FAZbKczfKJBxWmgbmSHZcDj
- p9V3FOOjIjHZrgViBM3ChaUMoMb7HHeXf4isI2272dVHFAX/UazhUumrIwgs6axYSUwh
- 2W/g==
+ bh=ozvP2af89tauDdl3uwnfBwoXG01io6pHPiam1L9z8h0=;
+ b=joKWJfXn0RRBCCYer0QQpI5clTHBMrOBU81FoGWbvYbTztY9663GnwVeTNOWbjukiN
+ pT1xT8xuMA1a8oPVgqshm+GFz+MSKuf0u8oj9j2kgqIKKqhrIWfZFzkJZeXqEJowmkdI
+ ByQ3YUogfrpOdaZyySGP8KkXZtFyq11iuz640qeJg0mg9JZih7Sg2aZCDjPHaviua5d/
+ V54oWU/nMHrGvRFab0joFjvLkLgd5R/Hed0pnHNEnAXiON/vCitkoEHQucLku7UkyFya
+ LaNWAojX8AGC7+j/zS3iP+/iEGR3lcmR5ohdl+KvE8LB+kbmOvdDXWB4vXSoTkiaHsDp
+ Jpwg==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=1e100.net; s=20161025;
  h=x-gm-message-state:date:from:to:cc:subject:message-id:references
  :mime-version:content-disposition:in-reply-to:user-agent;
- bh=Z+ad/AWMVaWRvptdozo50uEsB6n25R2bp8xmB/EVVHI=;
- b=A3auA2mSE/oCkCToc8vAFSHgp7e4r6ofdwkgE5ZdO+Tw5bwtdjYODb6QlpIQ4ZjH94
- VtBQnFWKb5h34NOUJnRcZjXW62Hg/lsbbUuNeRNG49Oyy/PEY7H0Ulq0KJ0Oe7lAp7pm
- SEk660g/2w8AKNJiNZuQpqqFWTHXgdoSoNNgJb+63p6MeR0ef685HlNFC1ZoLqn60ZMq
- ip3/OAiRWj7DLZ7e6CzkkFwxt8IyXuB1wn7E8xVmDpN4PN0eOZkbpWfDpmbnDXSFwJlh
- BD/B8UiJZH6UNQ3mB89K2xNGBmagP/0CD31F7llPJVDyNf4iHzBKAtLRx6PxPdKVyShD
- dCPg==
-X-Gm-Message-State: ANhLgQ0TveWP7pUmixP6W0YfSVKXJaYBKa40Fe4shHi4hKvqz4xjxi2R
- nZtlCk2amGU7ySd4l+Jn2uQE
-X-Google-Smtp-Source: ADFU+vscCJ2nCjmi6TZ6TEEmlGsEhXPbM6dqLetJ/Oov7NHmHbKjjP0RJGQtbtda/pJrVNsroQQKjg==
-X-Received: by 2002:a62:16d2:: with SMTP id 201mr15765745pfw.295.1585637042073; 
- Mon, 30 Mar 2020 23:44:02 -0700 (PDT)
+ bh=ozvP2af89tauDdl3uwnfBwoXG01io6pHPiam1L9z8h0=;
+ b=VRA35PGhgtOJw+rzvzLnstQVE53LHHt0LNfEeYmGy262ctyK+qQeS76kcDnJ9X1gn2
+ bNh40AetFWX2jH/jWcpA6NrpqmLchNLRf8YLWxjcHdFvbHGYAxsX3uQz8SnOQyf2do5N
+ Mi/CzVUxB+zSNd73NnPJzhJi/AICnO+S1CAR8abbsonZhUyz1DGlnqYufr30ee/Xo99d
+ B7OuJESxHd8z/5VaAIGzdN2DAXKA3qWC/qg62Wn/oSbcjZ+G0L1fSDBxbogs8zXo0NZg
+ 89+AaTcz+FRSL8D0Le3xZARZzuqQnnpgTQpoy2lFYpP//rXX4pLemyfOf1vSbgrzbMGc
+ iaQw==
+X-Gm-Message-State: ANhLgQ1VoWlfgOlIy/OWlGJc8b9ADiJu33b5AExBsdjTTH+m8pD6X/1M
+ 8LTl8ZbdwuZwi039aiDbN5AE
+X-Google-Smtp-Source: ADFU+vvgBzkgIbpFBd6cy7s7oA9i/Y2hvnVHA/LEq2oeOUqVKEAGpbz9kF7MFwbhGRlCmXwub+2Xkg==
+X-Received: by 2002:a17:902:b113:: with SMTP id
+ q19mr15697950plr.202.1585637205753; 
+ Mon, 30 Mar 2020 23:46:45 -0700 (PDT)
 Received: from Mani-XPS-13-9360 ([2409:4072:630f:1337:c28:2530:7bf4:e941])
- by smtp.gmail.com with ESMTPSA id i13sm7454761pfa.113.2020.03.30.23.43.58
+ by smtp.gmail.com with ESMTPSA id d26sm11641709pfo.37.2020.03.30.23.46.41
  (version=TLS1_2 cipher=ECDHE-RSA-CHACHA20-POLY1305 bits=256/256);
- Mon, 30 Mar 2020 23:44:01 -0700 (PDT)
-Date: Tue, 31 Mar 2020 12:13:56 +0530
+ Mon, 30 Mar 2020 23:46:44 -0700 (PDT)
+Date: Tue, 31 Mar 2020 12:16:38 +0530
 From: Manivannan Sadhasivam <manivannan.sadhasivam@linaro.org>
 To: Marek Vasut <marex@denx.de>
-Message-ID: <20200331064356.GD17400@Mani-XPS-13-9360>
+Message-ID: <20200331064638.GE17400@Mani-XPS-13-9360>
 References: <20200331005701.283998-1-marex@denx.de>
- <20200331005701.283998-16-marex@denx.de>
+ <20200331005701.283998-17-marex@denx.de>
 MIME-Version: 1.0
 Content-Disposition: inline
-In-Reply-To: <20200331005701.283998-16-marex@denx.de>
+In-Reply-To: <20200331005701.283998-17-marex@denx.de>
 User-Agent: Mutt/1.9.4 (2018-02-28)
 Cc: Patrick Delaunay <patrick.delaunay@st.com>,
  Maxime Coquelin <mcoquelin.stm32@gmail.com>,
  linux-stm32@st-md-mailman.stormreply.com, linux-arm-kernel@lists.infradead.org
-Subject: Re: [Linux-stm32] [PATCH V2 15/22] ARM: dts: stm32: Enable WiFi on
-	AV96
+Subject: Re: [Linux-stm32] [PATCH V2 16/22] ARM: dts: stm32: Add alternate
+ pinmux for USART2 pins
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -78,12 +79,8 @@ Content-Transfer-Encoding: 7bit
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
-On Tue, Mar 31, 2020 at 02:56:54AM +0200, Marek Vasut wrote:
-> The WiFi/Bluetooth SDIO chip is attached to SDMMC3 on AV96, describe it
-> in DT to make it available. Remove WiFi LED and turn it into a regulator,
-> because it is a GPIO controlling the WL_REG_ON input of the WiFi chip.
-> The LED is just an indicator connected to the same line, but not the
-> primary function.
+On Tue, Mar 31, 2020 at 02:56:55AM +0200, Marek Vasut wrote:
+> Add mux option for USART2 pins, this is used on AV96 board.
 > 
 > Signed-off-by: Marek Vasut <marex@denx.de>
 
@@ -102,72 +99,44 @@ Mani
 > ---
 > V2: No change
 > ---
->  arch/arm/boot/dts/stm32mp157a-avenger96.dts | 38 +++++++++++++++++----
->  1 file changed, 31 insertions(+), 7 deletions(-)
+>  arch/arm/boot/dts/stm32mp15-pinctrl.dtsi | 24 ++++++++++++++++++++++++
+>  1 file changed, 24 insertions(+)
 > 
-> diff --git a/arch/arm/boot/dts/stm32mp157a-avenger96.dts b/arch/arm/boot/dts/stm32mp157a-avenger96.dts
-> index 3aeb3afa37d9..12ee95d5adb1 100644
-> --- a/arch/arm/boot/dts/stm32mp157a-avenger96.dts
-> +++ b/arch/arm/boot/dts/stm32mp157a-avenger96.dts
-> @@ -65,13 +65,6 @@ led4 {
+> diff --git a/arch/arm/boot/dts/stm32mp15-pinctrl.dtsi b/arch/arm/boot/dts/stm32mp15-pinctrl.dtsi
+> index f3f9fc4a3503..4f3b40d5751f 100644
+> --- a/arch/arm/boot/dts/stm32mp15-pinctrl.dtsi
+> +++ b/arch/arm/boot/dts/stm32mp15-pinctrl.dtsi
+> @@ -1204,6 +1204,30 @@ pins {
 >  		};
->  
->  		led5 {
-> -			label = "yellow:wifi";
-> -			gpios = <&gpioz 3 GPIO_ACTIVE_HIGH>;
-> -			linux,default-trigger = "phy0tx";
-> -			default-state = "off";
-> -		};
-> -
-> -		led6 {
->  			label = "blue:bt";
->  			gpios = <&gpioz 6 GPIO_ACTIVE_HIGH>;
->  			linux,default-trigger = "bluetooth-power";
-> @@ -103,6 +96,17 @@ vdd_io: regulator-buck-io {
->  		regulator-boot-on;
->  		vin-supply = <&vdd>;
 >  	};
-> +
-> +	wlan_pwr: regulator-wlan {
-> +		compatible = "regulator-fixed";
-> +
-> +		regulator-name = "wl-reg";
-> +		regulator-min-microvolt = <3300000>;
-> +		regulator-max-microvolt = <3300000>;
-> +
-> +		gpios = <&gpioz 3 GPIO_ACTIVE_HIGH>;
-> +		enable-active-high;
-> +	};
->  };
 >  
->  &ethernet0 {
-> @@ -382,6 +386,26 @@ &sdmmc2 {
->  	status = "okay";
->  };
->  
-> +&sdmmc3 {
-> +	pinctrl-names = "default", "opendrain", "sleep";
-> +	pinctrl-0 = <&sdmmc3_b4_pins_b>;
-> +	pinctrl-1 = <&sdmmc3_b4_od_pins_b>;
-> +	pinctrl-2 = <&sdmmc3_b4_sleep_pins_b>;
-> +	broken-cd;
-> +	non-removable;
-> +	st,neg-edge;
-> +	bus-width = <4>;
-> +	vmmc-supply = <&wlan_pwr>;
-> +	status = "okay";
-> +
-> +	#address-cells = <1>;
-> +	#size-cells = <0>;
-> +	brcmf: bcrmf@1 {
-> +		reg = <1>;
-> +		compatible = "brcm,bcm4329-fmac";
+> +	usart2_pins_a: usart2-0 {
+> +		pins1 {
+> +			pinmux = <STM32_PINMUX('F', 5, AF7)>, /* USART2_TX */
+> +				 <STM32_PINMUX('D', 4, AF7)>; /* USART2_RTS */
+> +			bias-disable;
+> +			drive-push-pull;
+> +			slew-rate = <0>;
+> +		};
+> +		pins2 {
+> +			pinmux = <STM32_PINMUX('D', 6, AF7)>, /* USART2_RX */
+> +				 <STM32_PINMUX('D', 3, AF7)>; /* USART2_CTS_NSS */
+> +			bias-disable;
+> +		};
 > +	};
-> +};
 > +
->  &uart4 {
->  	/* On Low speed expansion header */
->  	label = "LS-UART1";
+> +	usart2_sleep_pins_a: usart2-sleep-0 {
+> +		pins {
+> +			pinmux = <STM32_PINMUX('F', 5, ANALOG)>, /* USART2_TX */
+> +				 <STM32_PINMUX('D', 4, ANALOG)>, /* USART2_RTS */
+> +				 <STM32_PINMUX('D', 6, ANALOG)>, /* USART2_RX */
+> +				 <STM32_PINMUX('D', 3, ANALOG)>; /* USART2_CTS_NSS */
+> +		};
+> +	};
+> +
+>  	usart3_pins_a: usart3-0 {
+>  		pins1 {
+>  			pinmux = <STM32_PINMUX('B', 10, AF7)>; /* USART3_TX */
 > -- 
 > 2.25.1
 > 
