@@ -2,52 +2,49 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id C6B46199A48
-	for <lists+linux-stm32@lfdr.de>; Tue, 31 Mar 2020 17:51:09 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 733B4199A57
+	for <lists+linux-stm32@lfdr.de>; Tue, 31 Mar 2020 17:53:03 +0200 (CEST)
 Received: from ip-172-31-3-76.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 439A9C36B0B;
-	Tue, 31 Mar 2020 15:51:07 +0000 (UTC)
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 69F08C36B0B;
+	Tue, 31 Mar 2020 15:53:02 +0000 (UTC)
 Received: from mail-out.m-online.net (mail-out.m-online.net [212.18.0.9])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 79B92C36B09
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 2B089C36B09
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Tue, 31 Mar 2020 15:51:06 +0000 (UTC)
+ Tue, 31 Mar 2020 15:53:01 +0000 (UTC)
 Received: from frontend01.mail.m-online.net (unknown [192.168.8.182])
- by mail-out.m-online.net (Postfix) with ESMTP id 48sDMG08zRz1qrLq;
- Tue, 31 Mar 2020 17:51:06 +0200 (CEST)
+ by mail-out.m-online.net (Postfix) with ESMTP id 48sDPS50MLz1qs1B;
+ Tue, 31 Mar 2020 17:52:59 +0200 (CEST)
 Received: from localhost (dynscan1.mnet-online.de [192.168.6.70])
- by mail.m-online.net (Postfix) with ESMTP id 48sDMF6Z0Zz1qqkQ;
- Tue, 31 Mar 2020 17:51:05 +0200 (CEST)
+ by mail.m-online.net (Postfix) with ESMTP id 48sDPR4fzWz1qqkQ;
+ Tue, 31 Mar 2020 17:52:59 +0200 (CEST)
 X-Virus-Scanned: amavisd-new at mnet-online.de
 Received: from mail.mnet-online.de ([192.168.8.182])
  by localhost (dynscan1.mail.m-online.net [192.168.6.70]) (amavisd-new,
  port 10024)
- with ESMTP id XNJmiJ7bzyC6; Tue, 31 Mar 2020 17:51:04 +0200 (CEST)
-X-Auth-Info: MJiEhPpU0Kddc5/OUrVPfOS2uVhs/G486Aox8qI/K8w=
-Received: from [IPv6:::1] (unknown [195.140.253.167])
+ with ESMTP id R0XGfFyZONyW; Tue, 31 Mar 2020 17:52:58 +0200 (CEST)
+X-Auth-Info: MOVOPDEgmMSBSqTGDHmXgUsvPU41SOIxHlLxvRnAAEM=
+Received: from desktop.lan (ip-86-49-35-8.net.upcbroadband.cz [86.49.35.8])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
  by mail.mnet-online.de (Postfix) with ESMTPSA;
- Tue, 31 Mar 2020 17:51:04 +0200 (CEST)
-To: Manivannan Sadhasivam <manivannan.sadhasivam@linaro.org>
-References: <20200331005701.283998-1-marex@denx.de>
- <20200331040736.GA14274@Mani-XPS-13-9360>
- <7dc86fa9-504c-cbc3-9a24-29644d66f9e3@denx.de>
- <20200331140900.GC17755@Mani-XPS-13-9360>
+ Tue, 31 Mar 2020 17:52:58 +0200 (CEST)
 From: Marek Vasut <marex@denx.de>
-Message-ID: <2595fc00-e3f0-fe38-995a-b0028819e47a@denx.de>
-Date: Tue, 31 Mar 2020 17:51:04 +0200
-User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:68.0) Gecko/20100101
- Thunderbird/68.5.0
+To: linux-mmc@vger.kernel.org
+Date: Tue, 31 Mar 2020 17:52:54 +0200
+Message-Id: <20200331155254.100952-1-marex@denx.de>
+X-Mailer: git-send-email 2.25.1
 MIME-Version: 1.0
-In-Reply-To: <20200331140900.GC17755@Mani-XPS-13-9360>
-Content-Language: en-US
-Cc: Patrick Delaunay <patrick.delaunay@st.com>,
+Cc: Marek Vasut <marex@denx.de>, Ulf Hansson <ulf.hansson@linaro.org>,
+ Linus Walleij <linus.walleij@linaro.org>,
+ Patrick Delaunay <patrick.delaunay@st.com>,
+ Russell King <linux@armlinux.org.uk>,
  Maxime Coquelin <mcoquelin.stm32@gmail.com>,
- linux-stm32@st-md-mailman.stormreply.com, linux-arm-kernel@lists.infradead.org
-Subject: Re: [Linux-stm32] [PATCH V2 00/22] ARM: dts: stm32: Repair AV96
-	board
+ Manivannan Sadhasivam <manivannan.sadhasivam@linaro.org>,
+ linux-stm32@st-md-mailman.stormreply.com
+Subject: [Linux-stm32] [PATCH] mmc: mmci: Only call .post_sig_volt_switch if
+	voltage switch happened
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -64,71 +61,65 @@ Content-Transfer-Encoding: 7bit
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
-On 3/31/20 4:09 PM, Manivannan Sadhasivam wrote:
-> On Tue, Mar 31, 2020 at 03:44:52PM +0200, Marek Vasut wrote:
->> On 3/31/20 6:07 AM, Manivannan Sadhasivam wrote:
->>> Hi Marek,
->>
->> Hi,
->>
->>> Thanks for the series. 
->>>
->>> On Tue, Mar 31, 2020 at 02:56:39AM +0200, Marek Vasut wrote:
->>>> The AV96 board device tree is completely broken and does not match the
->>>> hardware. This series fixes it up.
->>>>
->>>
->>> Completely broken?
->>
->> The board didn't even boot.
->>
-> 
-> Hmm. I think you're using a new revision of AV96. I added the board support
-> with an old version of it (might be an evaluation one). I don't have the delta
-> or changeset so can't compare. Anyway, DH started selling new boards and I
-> think the old ones were discontinued or not made available for purchase so we
-> don't have to worry about breaking the old one.
+Call the post voltage switch handler only if the voltage switch actually
+happened. It is well possible that the regulator is already set correctly
+and no voltage switch happened, so there is no need to take any further
+action.
 
-I'm sure we can/should support both, lemme ask about this. The baseboard
-I have is 588-200 (silkscreen next to barrel jack) and SoM 586-100.
+This fixes a real issue on STM32MP1 where, if the eMMC is supplied with
+VccQ=1.8 V, the post voltage switch code will spin indefinitelly waiting
+for the voltage switch to complete, even though no voltage switch really
+happened.
 
->>> The patch submitted previously was an initial one and there
->>> were many interfaces not enabled. I agree that there are few _obvious_ things
->>> like SDMMC1/Ethernet pinmux, LED naming were wrong. This was due to the fact the
->>> board was on early bringup stage and I couldn't test Ethernet due to my setup
->>> issue at that time (yeah I know it is bad). Also, I don't get access to DHCOR
->>> schematics as well for things like PMIC. Do you have access to it?
->>
->> Yes, I do have access.
->>
->>> If possible can you share a link to that if available publicly?
->>
->> The SoM schematic is not available in public, no, sorry.
->>
-> 
-> Fine. Just wanted to verify the PMIC part. But I got the information from
-> DH guy offline.
+Signed-off-by: Marek Vasut <marex@denx.de>
+Cc: Alexandre Torgue <alexandre.torgue@st.com>
+Cc: Linus Walleij <linus.walleij@linaro.org>
+Cc: Ludovic Barre <ludovic.barre@st.com>
+Cc: Manivannan Sadhasivam <manivannan.sadhasivam@linaro.org>
+Cc: Maxime Coquelin <mcoquelin.stm32@gmail.com>
+Cc: Patrice Chotard <patrice.chotard@st.com>
+Cc: Patrick Delaunay <patrick.delaunay@st.com>
+Cc: Russell King <linux@armlinux.org.uk>
+Cc: Ulf Hansson <ulf.hansson@linaro.org>
+Cc: linux-stm32@st-md-mailman.stormreply.com
+To: linux-mmc@vger.kernel.org
+---
+ drivers/mmc/host/mmci.c | 9 +++++++--
+ 1 file changed, 7 insertions(+), 2 deletions(-)
 
-Yep, I saw that, good.
+diff --git a/drivers/mmc/host/mmci.c b/drivers/mmc/host/mmci.c
+index 647567def612..11c2f417cbe8 100644
+--- a/drivers/mmc/host/mmci.c
++++ b/drivers/mmc/host/mmci.c
+@@ -1861,10 +1861,12 @@ static int mmci_get_cd(struct mmc_host *mmc)
+ static int mmci_sig_volt_switch(struct mmc_host *mmc, struct mmc_ios *ios)
+ {
+ 	struct mmci_host *host = mmc_priv(mmc);
+-	int ret = 0;
++	int old_voltage, new_voltage, ret = 0;
+ 
+ 	if (!IS_ERR(mmc->supply.vqmmc)) {
+ 
++		old_voltage = regulator_get_voltage(mmc->supply.vqmmc);
++
+ 		switch (ios->signal_voltage) {
+ 		case MMC_SIGNAL_VOLTAGE_330:
+ 			ret = regulator_set_voltage(mmc->supply.vqmmc,
+@@ -1880,7 +1882,10 @@ static int mmci_sig_volt_switch(struct mmc_host *mmc, struct mmc_ios *ios)
+ 			break;
+ 		}
+ 
+-		if (!ret && host->ops && host->ops->post_sig_volt_switch)
++		new_voltage = regulator_get_voltage(mmc->supply.vqmmc);
++
++		if (!ret && old_voltage != new_voltage &&
++		    host->ops && host->ops->post_sig_volt_switch)
+ 			ret = host->ops->post_sig_volt_switch(host, ios);
+ 
+ 		if (ret)
+-- 
+2.25.1
 
->>> I will test this series and also the uboot one on my board and give my
->>> Tested-by tag soon.
->>>
->>> Anyway, I think the patchset subject could be something like,
->>> "Improve AV96 support" :)
->>
->> I think if something doesn't work, "Repair" is the right word for it.
-> 
-> Right. Didn't know that it doesn't boot on newer boards. I do have one but
-> haven't tried mainline kernel on it, just vendor image for some demos. But
-> feel free to keep it as it is.
-
-Do you have the Enpirion regulator on the SoM ? It's between the
-STPMIC1A and the SPI NOR.
-
-I'll be sending a V3 shortly (few hours), apply it on next/master if you
-want to test:
-git://git.kernel.org/pub/scm/linux/kernel/git/next/linux-next.git
 _______________________________________________
 Linux-stm32 mailing list
 Linux-stm32@st-md-mailman.stormreply.com
