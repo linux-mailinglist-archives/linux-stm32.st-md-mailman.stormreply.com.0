@@ -2,54 +2,74 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id 024C7198E95
-	for <lists+linux-stm32@lfdr.de>; Tue, 31 Mar 2020 10:34:08 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 4A309198EF9
+	for <lists+linux-stm32@lfdr.de>; Tue, 31 Mar 2020 10:59:24 +0200 (CEST)
 Received: from ip-172-31-3-76.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id B7806C36B0B;
-	Tue, 31 Mar 2020 08:34:07 +0000 (UTC)
-Received: from zimbra2.kalray.eu (zimbra2.kalray.eu [92.103.151.219])
- (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 08D55C36B0B;
+	Tue, 31 Mar 2020 08:59:24 +0000 (UTC)
+Received: from mx07-00178001.pphosted.com (mx07-00178001.pphosted.com
+ [62.209.51.94])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id E098BC36B09
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 1D463C36B09
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Tue, 31 Mar 2020 08:34:06 +0000 (UTC)
-Received: from localhost (localhost [127.0.0.1])
- by zimbra2.kalray.eu (Postfix) with ESMTP id 2965527E0A17;
- Tue, 31 Mar 2020 10:34:06 +0200 (CEST)
-Received: from zimbra2.kalray.eu ([127.0.0.1])
- by localhost (zimbra2.kalray.eu [127.0.0.1]) (amavisd-new, port 10032)
- with ESMTP id nIdhjHKPRNmH; Tue, 31 Mar 2020 10:34:05 +0200 (CEST)
-Received: from localhost (localhost [127.0.0.1])
- by zimbra2.kalray.eu (Postfix) with ESMTP id 8943D27E0AE9;
- Tue, 31 Mar 2020 10:34:05 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.10.3 zimbra2.kalray.eu 8943D27E0AE9
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kalray.eu;
- s=32AE1B44-9502-11E5-BA35-3734643DEF29; t=1585643645;
- bh=cCvKvUu8M+rSsFyzUlIHDSjhGAwOtR7X7vlHD6HCZuk=;
- h=From:To:Date:Message-Id;
- b=S/KkU/sI0XHYyAzfwaG30Qa+DdY5n6WFJ0fHAMsHtmd5F/nlp6EmWR94FW4EnkVJE
- rcO4x1iOcB5s2og6EcaVMA15v08DEKZhrteBFgkcxYmmPjJjxPoBoeoFICHVB5Lw1w
- LRVQfbEH1zYGGX+ykOv7wuQy3yqtOMrW/TasQtWs=
-X-Virus-Scanned: amavisd-new at zimbra2.kalray.eu
-Received: from zimbra2.kalray.eu ([127.0.0.1])
- by localhost (zimbra2.kalray.eu [127.0.0.1]) (amavisd-new, port 10026)
- with ESMTP id Km0bFmN8UDQ5; Tue, 31 Mar 2020 10:34:05 +0200 (CEST)
-Received: from triton.lin.mbt.kalray.eu (unknown [192.168.37.25])
- by zimbra2.kalray.eu (Postfix) with ESMTPSA id 6657827E0A17;
- Tue, 31 Mar 2020 10:34:05 +0200 (CEST)
-From: Clement Leger <cleger@kalray.eu>
-To: Ohad Ben-Cohen <ohad@wizery.com>,
- Bjorn Andersson <bjorn.andersson@linaro.org>,
- Patrice Chotard <patrice.chotard@st.com>,
+ Tue, 31 Mar 2020 08:59:23 +0000 (UTC)
+Received: from pps.filterd (m0046037.ppops.net [127.0.0.1])
+ by mx07-00178001.pphosted.com (8.16.0.42/8.16.0.42) with SMTP id
+ 02V8vn9p028292; Tue, 31 Mar 2020 10:59:10 +0200
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=st.com;
+ h=subject : to : cc :
+ references : from : message-id : date : mime-version : in-reply-to :
+ content-type : content-transfer-encoding; s=STMicroelectronics;
+ bh=enLBbt0Ek5Ca0JE4O/ZSJ5BdliQ9BhlyvG3WkAYK41U=;
+ b=vCEyFWgDtGKYeRcKCSAzaehc0WakXOv4PxA3emG4ASqzrr+aEkKXyuYbi07/b63Kcn50
+ DZSN/YOADtIIJprFGocl8c7fSJ5Xep9g//Y0mMbilEw4hE2JC33+b7iyxKWtSBnQX8x/
+ HeLi+7r0poAhnA5d7uxJsxw+wiyjjZ1/KUedeYEGBTiURtp0gViFHkih+aOoCv1kA8z/
+ 0nQ0o0hGz2lU6OmHYTdkt6Nm5tnfIu4BXN/2qw+kOf0Gw0nAqnnCiXlw1uNNKAnIc/B+
+ NF0WXmb+nPmTb6mYiSiZ3tN7UK48rH6L0XWjsZan6I9t5yYFJoLTZTzXbYc8U7A3W0Bq IQ== 
+Received: from beta.dmz-eu.st.com (beta.dmz-eu.st.com [164.129.1.35])
+ by mx07-00178001.pphosted.com with ESMTP id 301w80wxx7-1
+ (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
+ Tue, 31 Mar 2020 10:59:10 +0200
+Received: from euls16034.sgp.st.com (euls16034.sgp.st.com [10.75.44.20])
+ by beta.dmz-eu.st.com (STMicroelectronics) with ESMTP id 3D6CF100039;
+ Tue, 31 Mar 2020 10:59:09 +0200 (CEST)
+Received: from Webmail-eu.st.com (sfhdag3node2.st.com [10.75.127.8])
+ by euls16034.sgp.st.com (STMicroelectronics) with ESMTP id 1800B21F668;
+ Tue, 31 Mar 2020 10:59:09 +0200 (CEST)
+Received: from lmecxl0912.tpe.st.com (10.75.127.50) by SFHDAG3NODE2.st.com
+ (10.75.127.8) with Microsoft SMTP Server (TLS) id 15.0.1347.2; Tue, 31 Mar
+ 2020 10:58:58 +0200
+To: Marek Vasut <marex@denx.de>, Ahmad Fatoum <a.fatoum@pengutronix.de>,
+ Patrice CHOTARD <patrice.chotard@st.com>,
+ "linux-arm-kernel@lists.infradead.org" <linux-arm-kernel@lists.infradead.org>
+References: <20200328171144.51888-1-marex@denx.de>
+ <20200328171144.51888-8-marex@denx.de>
+ <0fb89d25-feb0-2eb0-9e83-d7f8c76f8b9e@st.com>
+ <82dcf412-119b-0de2-0c50-f6877a82a812@pengutronix.de>
+ <fcf49298-a36c-e80e-e62b-1fb9c07f0d6e@denx.de>
+ <310aa3a3-09ce-42ef-d1ea-b653163d1d72@pengutronix.de>
+ <97d13a84-8220-aa7f-3ee6-df474cca3882@denx.de>
+From: Alexandre Torgue <alexandre.torgue@st.com>
+Message-ID: <43e88a1b-f3e4-df1d-38a6-0bb281a2f786@st.com>
+Date: Tue, 31 Mar 2020 10:58:57 +0200
+User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:68.0) Gecko/20100101
+ Thunderbird/68.4.1
+MIME-Version: 1.0
+In-Reply-To: <97d13a84-8220-aa7f-3ee6-df474cca3882@denx.de>
+Content-Language: en-US
+X-Originating-IP: [10.75.127.50]
+X-ClientProxiedBy: SFHDAG4NODE1.st.com (10.75.127.10) To SFHDAG3NODE2.st.com
+ (10.75.127.8)
+X-Proofpoint-Virus-Version: vendor=fsecure engine=2.50.10434:6.0.138, 18.0.676
+ definitions=2020-03-31_03:2020-03-30,
+ 2020-03-31 signatures=0
+Cc: Patrick DELAUNAY <patrick.delaunay@st.com>,
  Maxime Coquelin <mcoquelin.stm32@gmail.com>,
- Alexandre Torgue <alexandre.torgue@st.com>
-Date: Tue, 31 Mar 2020 10:33:36 +0200
-Message-Id: <20200331083336.7459-1-cleger@kalray.eu>
-X-Mailer: git-send-email 2.17.1
-Cc: Clement Leger <cleger@kalray.eu>, linux-remoteproc@vger.kernel.org,
- linux-kernel@vger.kernel.org, linux-arm-kernel@lists.infradead.org,
- linux-stm32@st-md-mailman.stormreply.com
-Subject: [Linux-stm32] [PATCH v2] remoteproc: remove rproc_elf32_sanity_check
+ "linux-stm32@st-md-mailman.stormreply.com"
+ <linux-stm32@st-md-mailman.stormreply.com>
+Subject: Re: [Linux-stm32] [PATCH 07/22] ARM: dts: stm32: Add alternate
+ pinmux for SDMMC2 pins 4-7
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -61,130 +81,82 @@ List-Post: <mailto:linux-stm32@st-md-mailman.stormreply.com>
 List-Help: <mailto:linux-stm32-request@st-md-mailman.stormreply.com?subject=help>
 List-Subscribe: <https://st-md-mailman.stormreply.com/mailman/listinfo/linux-stm32>, 
  <mailto:linux-stm32-request@st-md-mailman.stormreply.com?subject=subscribe>
-MIME-Version: 1.0
-Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
+Content-Type: text/plain; charset="us-ascii"; Format="flowed"
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
-Since checks are present in the remoteproc elf loader before calling
-da_to_va, loading a elf64 will work on 32bits flavors of kernel.
-Indeed, if a segment size is larger than what size_t can hold, the
-loader will return an error so the functionality is equivalent to
-what exists today.
 
-Signed-off-by: Clement Leger <cleger@kalray.eu>
----
-Changes from v1 -> v2:
- - Remove possibity to override sanity_check operation
 
- drivers/remoteproc/remoteproc_core.c       |  3 +--
- drivers/remoteproc/remoteproc_elf_loader.c | 21 ---------------------
- drivers/remoteproc/remoteproc_internal.h   |  1 -
- drivers/remoteproc/st_remoteproc.c         |  2 +-
- drivers/remoteproc/st_slim_rproc.c         |  2 +-
- drivers/remoteproc/stm32_rproc.c           |  2 +-
- 6 files changed, 4 insertions(+), 27 deletions(-)
+On 3/30/20 1:45 PM, Marek Vasut wrote:
+> On 3/30/20 1:37 PM, Ahmad Fatoum wrote:
+>> Hi Marek,
+> 
+> Hi,
+> 
+>> On 3/30/20 1:22 PM, Marek Vasut wrote:
+>>> On 3/30/20 1:17 PM, Ahmad Fatoum wrote:
+>>>> Hello Patrice,
+>>>
+>>> Hi,
+>>>
+>>>> On 3/30/20 1:11 PM, Patrice CHOTARD wrote:
+>>>>> For your information, another submitted patch uses the same pinctrl sdmmc2_d47_pins_b node with different muxing (SDMMC2_D5)
+>>>>>
+>>>>> see https://lore.kernel.org/patchwork/patch/1216452/
+>>>>>
+>>>>> I haven't checked other muxing if there are other conflict.
+>>>>
+>>>> (author of linked patch here)
+>>>>
+>>>> I don't like the central stm32mp15-pinctrl.dtsi. I'd have preferred if each
+>>>> file defined the pinctrl groups it is using.
+>>>
+>>> I'm not a big fan of that either, because this is gonna be a
+>>> combinatorial explosion of various pinmux options. But if you have each
+>>> board define it's pinmux, it's also gonna become a massive amount of
+>>> duplication (like iMX). So I cannot tell which one is better ...
+>>
+>> Mhm. A middle ground could be keeping stm32mp15-pinctrl, but only for the
+>> official ST eval kits as HW designers are expected to copy off those and have
+>> board specifics in the board/SoM device tree?
+> 
+> Then you should call it stm32mp1-something-st-eval-pinmux.dtsi ,
+> otherwise it's gonna be confusing.
+> 
+>> If it has to be either one or the other, I prefer duplication in the device
+>> tree. When the HW misses pull ups or needs to adjust slew rates, you probably
+>> don't want a new, slightly different, pinctrl group in the stm32mp15-pinctrl.dtsi
+>> for each variant.
+> 
+> That's a valid point, but then you can override those in the boards'
+> pinmux node for a specific pinmux entry too.
+> 
+>> So you are left with doctoring around with overrides and /delete-property/,
+>> while just duplicating the node with the correct properties would've been
+>> better for readability IMO.
+> 
+> That is true, but how many of such cases do we have so far ? Maybe it's
+> better to cross that bridge when (if) we come to it.
+>
 
-diff --git a/drivers/remoteproc/remoteproc_core.c b/drivers/remoteproc/remoteproc_core.c
-index a9ac1d01e09b..191560048c1a 100644
---- a/drivers/remoteproc/remoteproc_core.c
-+++ b/drivers/remoteproc/remoteproc_core.c
-@@ -2068,8 +2068,7 @@ struct rproc *rproc_alloc(struct device *dev, const char *name,
- 		rproc->ops->load = rproc_elf_load_segments;
- 		rproc->ops->parse_fw = rproc_elf_load_rsc_table;
- 		rproc->ops->find_loaded_rsc_table = rproc_elf_find_loaded_rsc_table;
--		if (!rproc->ops->sanity_check)
--			rproc->ops->sanity_check = rproc_elf32_sanity_check;
-+		rproc->ops->sanity_check = rproc_elf_sanity_check;
- 		rproc->ops->get_boot_addr = rproc_elf_get_boot_addr;
- 	}
- 
-diff --git a/drivers/remoteproc/remoteproc_elf_loader.c b/drivers/remoteproc/remoteproc_elf_loader.c
-index 16e2c496fd45..29034f99898d 100644
---- a/drivers/remoteproc/remoteproc_elf_loader.c
-+++ b/drivers/remoteproc/remoteproc_elf_loader.c
-@@ -112,27 +112,6 @@ int rproc_elf_sanity_check(struct rproc *rproc, const struct firmware *fw)
- }
- EXPORT_SYMBOL(rproc_elf_sanity_check);
- 
--/**
-- * rproc_elf_sanity_check() - Sanity Check ELF32 firmware image
-- * @rproc: the remote processor handle
-- * @fw: the ELF32 firmware image
-- *
-- * Make sure this fw image is sane.
-- */
--int rproc_elf32_sanity_check(struct rproc *rproc, const struct firmware *fw)
--{
--	int ret = rproc_elf_sanity_check(rproc, fw);
--
--	if (ret)
--		return ret;
--
--	if (fw_elf_get_class(fw) == ELFCLASS32)
--		return 0;
--
--	return -EINVAL;
--}
--EXPORT_SYMBOL(rproc_elf32_sanity_check);
--
- /**
-  * rproc_elf_get_boot_addr() - Get rproc's boot address.
-  * @rproc: the remote processor handle
-diff --git a/drivers/remoteproc/remoteproc_internal.h b/drivers/remoteproc/remoteproc_internal.h
-index b389dc79da81..31994715fd43 100644
---- a/drivers/remoteproc/remoteproc_internal.h
-+++ b/drivers/remoteproc/remoteproc_internal.h
-@@ -54,7 +54,6 @@ void *rproc_da_to_va(struct rproc *rproc, u64 da, size_t len);
- phys_addr_t rproc_va_to_pa(void *cpu_addr);
- int rproc_trigger_recovery(struct rproc *rproc);
- 
--int rproc_elf32_sanity_check(struct rproc *rproc, const struct firmware *fw);
- int rproc_elf_sanity_check(struct rproc *rproc, const struct firmware *fw);
- u64 rproc_elf_get_boot_addr(struct rproc *rproc, const struct firmware *fw);
- int rproc_elf_load_segments(struct rproc *rproc, const struct firmware *fw);
-diff --git a/drivers/remoteproc/st_remoteproc.c b/drivers/remoteproc/st_remoteproc.c
-index a6cbfa452764..a3268d95a50e 100644
---- a/drivers/remoteproc/st_remoteproc.c
-+++ b/drivers/remoteproc/st_remoteproc.c
-@@ -233,7 +233,7 @@ static const struct rproc_ops st_rproc_ops = {
- 	.parse_fw		= st_rproc_parse_fw,
- 	.load			= rproc_elf_load_segments,
- 	.find_loaded_rsc_table	= rproc_elf_find_loaded_rsc_table,
--	.sanity_check		= rproc_elf32_sanity_check,
-+	.sanity_check		= rproc_elf_sanity_check,
- 	.get_boot_addr		= rproc_elf_get_boot_addr,
- };
- 
-diff --git a/drivers/remoteproc/st_slim_rproc.c b/drivers/remoteproc/st_slim_rproc.c
-index 3cca8b65a8db..09bcb4d8b9e0 100644
---- a/drivers/remoteproc/st_slim_rproc.c
-+++ b/drivers/remoteproc/st_slim_rproc.c
-@@ -203,7 +203,7 @@ static const struct rproc_ops slim_rproc_ops = {
- 	.da_to_va       = slim_rproc_da_to_va,
- 	.get_boot_addr	= rproc_elf_get_boot_addr,
- 	.load		= rproc_elf_load_segments,
--	.sanity_check	= rproc_elf32_sanity_check,
-+	.sanity_check	= rproc_elf_sanity_check,
- };
- 
- /**
-diff --git a/drivers/remoteproc/stm32_rproc.c b/drivers/remoteproc/stm32_rproc.c
-index 6a66dbf2df40..2e07a95439c8 100644
---- a/drivers/remoteproc/stm32_rproc.c
-+++ b/drivers/remoteproc/stm32_rproc.c
-@@ -505,7 +505,7 @@ static struct rproc_ops st_rproc_ops = {
- 	.load		= rproc_elf_load_segments,
- 	.parse_fw	= stm32_rproc_parse_fw,
- 	.find_loaded_rsc_table = rproc_elf_find_loaded_rsc_table,
--	.sanity_check	= rproc_elf32_sanity_check,
-+	.sanity_check	= rproc_elf_sanity_check,
- 	.get_boot_addr	= rproc_elf_get_boot_addr,
- };
- 
--- 
-2.17.1
+I agree, and I prefer to keep pins groups definition in 
+stm32mp15-pinctrl.dtsi file. IMO, it is easier for users to find them in 
+only one file. Actually, I already had this discussions with some guys 
+"where pins groups have to be defined ?". For me (and maybe only for 
+me), muxing is SOC dependent, I mean SoC provides a bunch a possible 
+pinmux for each IPs. If we got enough memory spaces (and time to waste 
+also) we could define all possible pinmux (AFx....) for each devices and 
+let board users chose the good one (using stm32mp15-pictrl.dtsi as a 
+database). In board file, you select one possible pin configuration 
+(provided by the SoC) for your device according to your schematic. 
+However you could append pin groups in board file to update bias, 
+slewrate ...
+If your concern it to embed a bunch of not used pin configuration for a 
+board, we could use /omit-if-no-ref/ tag on pin groups.
+
+regards
+alex
 
 _______________________________________________
 Linux-stm32 mailing list
