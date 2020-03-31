@@ -2,38 +2,38 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id E8959199D67
-	for <lists+linux-stm32@lfdr.de>; Tue, 31 Mar 2020 19:59:21 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id F0636199D68
+	for <lists+linux-stm32@lfdr.de>; Tue, 31 Mar 2020 19:59:24 +0200 (CEST)
 Received: from ip-172-31-3-76.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id AE17BC36B0E;
-	Tue, 31 Mar 2020 17:59:21 +0000 (UTC)
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id B9E7DC36B0C;
+	Tue, 31 Mar 2020 17:59:24 +0000 (UTC)
 Received: from mail-out.m-online.net (mail-out.m-online.net [212.18.0.9])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 71F22C36B0C
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id B4C94C36B0F
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Tue, 31 Mar 2020 17:59:20 +0000 (UTC)
+ Tue, 31 Mar 2020 17:59:21 +0000 (UTC)
 Received: from frontend01.mail.m-online.net (unknown [192.168.8.182])
- by mail-out.m-online.net (Postfix) with ESMTP id 48sHCD0nH6z1qrMc;
- Tue, 31 Mar 2020 19:59:20 +0200 (CEST)
+ by mail-out.m-online.net (Postfix) with ESMTP id 48sHCF32cNz1qrfP;
+ Tue, 31 Mar 2020 19:59:21 +0200 (CEST)
 Received: from localhost (dynscan1.mnet-online.de [192.168.6.70])
- by mail.m-online.net (Postfix) with ESMTP id 48sHCD0WKzz1qqkQ;
- Tue, 31 Mar 2020 19:59:20 +0200 (CEST)
+ by mail.m-online.net (Postfix) with ESMTP id 48sHCF2k23z1qqkQ;
+ Tue, 31 Mar 2020 19:59:21 +0200 (CEST)
 X-Virus-Scanned: amavisd-new at mnet-online.de
 Received: from mail.mnet-online.de ([192.168.8.182])
  by localhost (dynscan1.mail.m-online.net [192.168.6.70]) (amavisd-new,
  port 10024)
- with ESMTP id GP5zFvCp9OhA; Tue, 31 Mar 2020 19:59:18 +0200 (CEST)
-X-Auth-Info: A8hOULHRniEKicHqar823G/aC6KY3UAdVUOy3O8MlVM=
+ with ESMTP id CiVlU1I9g-n0; Tue, 31 Mar 2020 19:59:20 +0200 (CEST)
+X-Auth-Info: w1BxQYRcwvR5wNi7qJaV6uJ84l79CKaZ4j9wI8kA8JU=
 Received: from desktop.lan (ip-86-49-35-8.net.upcbroadband.cz [86.49.35.8])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
  by mail.mnet-online.de (Postfix) with ESMTPSA;
- Tue, 31 Mar 2020 19:59:18 +0200 (CEST)
+ Tue, 31 Mar 2020 19:59:20 +0200 (CEST)
 From: Marek Vasut <marex@denx.de>
 To: linux-arm-kernel@lists.infradead.org
-Date: Tue, 31 Mar 2020 19:58:04 +0200
-Message-Id: <20200331175811.205153-16-marex@denx.de>
+Date: Tue, 31 Mar 2020 19:58:05 +0200
+Message-Id: <20200331175811.205153-17-marex@denx.de>
 X-Mailer: git-send-email 2.25.1
 In-Reply-To: <20200331175811.205153-1-marex@denx.de>
 References: <20200331175811.205153-1-marex@denx.de>
@@ -42,7 +42,8 @@ Cc: Marek Vasut <marex@denx.de>, Patrick Delaunay <patrick.delaunay@st.com>,
  Maxime Coquelin <mcoquelin.stm32@gmail.com>,
  Manivannan Sadhasivam <manivannan.sadhasivam@linaro.org>,
  linux-stm32@st-md-mailman.stormreply.com
-Subject: [Linux-stm32] [PATCH V3 15/22] ARM: dts: stm32: Enable WiFi on AV96
+Subject: [Linux-stm32] [PATCH V3 16/22] ARM: dts: stm32: Add alternate
+	pinmux for USART2 pins
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -59,11 +60,7 @@ Content-Transfer-Encoding: 7bit
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
-The WiFi/Bluetooth SDIO chip is attached to SDMMC3 on AV96, describe it
-in DT to make it available. Remove WiFi LED and turn it into a regulator,
-because it is a GPIO controlling the WL_REG_ON input of the WiFi chip.
-The LED is just an indicator connected to the same line, but not the
-primary function.
+Add mux option for USART2 pins, this is used on AV96 board.
 
 Reviewed-by: Manivannan Sadhasivam <manivannan.sadhasivam@linaro.org>
 Signed-off-by: Marek Vasut <marex@denx.de>
@@ -78,72 +75,44 @@ To: linux-arm-kernel@lists.infradead.org
 V2: No change
 V3: No change
 ---
- arch/arm/boot/dts/stm32mp157a-avenger96.dts | 38 +++++++++++++++++----
- 1 file changed, 31 insertions(+), 7 deletions(-)
+ arch/arm/boot/dts/stm32mp15-pinctrl.dtsi | 24 ++++++++++++++++++++++++
+ 1 file changed, 24 insertions(+)
 
-diff --git a/arch/arm/boot/dts/stm32mp157a-avenger96.dts b/arch/arm/boot/dts/stm32mp157a-avenger96.dts
-index 19a7a130b148..19676ff0efed 100644
---- a/arch/arm/boot/dts/stm32mp157a-avenger96.dts
-+++ b/arch/arm/boot/dts/stm32mp157a-avenger96.dts
-@@ -65,13 +65,6 @@ led4 {
+diff --git a/arch/arm/boot/dts/stm32mp15-pinctrl.dtsi b/arch/arm/boot/dts/stm32mp15-pinctrl.dtsi
+index f3f9fc4a3503..4f3b40d5751f 100644
+--- a/arch/arm/boot/dts/stm32mp15-pinctrl.dtsi
++++ b/arch/arm/boot/dts/stm32mp15-pinctrl.dtsi
+@@ -1204,6 +1204,30 @@ pins {
  		};
- 
- 		led5 {
--			label = "yellow:wifi";
--			gpios = <&gpioz 3 GPIO_ACTIVE_HIGH>;
--			linux,default-trigger = "phy0tx";
--			default-state = "off";
--		};
--
--		led6 {
- 			label = "blue:bt";
- 			gpios = <&gpioz 6 GPIO_ACTIVE_HIGH>;
- 			linux,default-trigger = "bluetooth-power";
-@@ -103,6 +96,17 @@ vdd_io: regulator-buck-io {
- 		regulator-boot-on;
- 		vin-supply = <&vdd>;
  	};
-+
-+	wlan_pwr: regulator-wlan {
-+		compatible = "regulator-fixed";
-+
-+		regulator-name = "wl-reg";
-+		regulator-min-microvolt = <3300000>;
-+		regulator-max-microvolt = <3300000>;
-+
-+		gpios = <&gpioz 3 GPIO_ACTIVE_HIGH>;
-+		enable-active-high;
-+	};
- };
  
- &ethernet0 {
-@@ -382,6 +386,26 @@ &sdmmc2 {
- 	status = "okay";
- };
- 
-+&sdmmc3 {
-+	pinctrl-names = "default", "opendrain", "sleep";
-+	pinctrl-0 = <&sdmmc3_b4_pins_b>;
-+	pinctrl-1 = <&sdmmc3_b4_od_pins_b>;
-+	pinctrl-2 = <&sdmmc3_b4_sleep_pins_b>;
-+	broken-cd;
-+	non-removable;
-+	st,neg-edge;
-+	bus-width = <4>;
-+	vmmc-supply = <&wlan_pwr>;
-+	status = "okay";
-+
-+	#address-cells = <1>;
-+	#size-cells = <0>;
-+	brcmf: bcrmf@1 {
-+		reg = <1>;
-+		compatible = "brcm,bcm4329-fmac";
++	usart2_pins_a: usart2-0 {
++		pins1 {
++			pinmux = <STM32_PINMUX('F', 5, AF7)>, /* USART2_TX */
++				 <STM32_PINMUX('D', 4, AF7)>; /* USART2_RTS */
++			bias-disable;
++			drive-push-pull;
++			slew-rate = <0>;
++		};
++		pins2 {
++			pinmux = <STM32_PINMUX('D', 6, AF7)>, /* USART2_RX */
++				 <STM32_PINMUX('D', 3, AF7)>; /* USART2_CTS_NSS */
++			bias-disable;
++		};
 +	};
-+};
 +
- &uart4 {
- 	/* On Low speed expansion header */
- 	label = "LS-UART1";
++	usart2_sleep_pins_a: usart2-sleep-0 {
++		pins {
++			pinmux = <STM32_PINMUX('F', 5, ANALOG)>, /* USART2_TX */
++				 <STM32_PINMUX('D', 4, ANALOG)>, /* USART2_RTS */
++				 <STM32_PINMUX('D', 6, ANALOG)>, /* USART2_RX */
++				 <STM32_PINMUX('D', 3, ANALOG)>; /* USART2_CTS_NSS */
++		};
++	};
++
+ 	usart3_pins_a: usart3-0 {
+ 		pins1 {
+ 			pinmux = <STM32_PINMUX('B', 10, AF7)>; /* USART3_TX */
 -- 
 2.25.1
 
