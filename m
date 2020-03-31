@@ -2,38 +2,38 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id AEE66198922
-	for <lists+linux-stm32@lfdr.de>; Tue, 31 Mar 2020 02:57:37 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id BB00F198923
+	for <lists+linux-stm32@lfdr.de>; Tue, 31 Mar 2020 02:57:38 +0200 (CEST)
 Received: from ip-172-31-3-76.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 77F62C36B0B;
-	Tue, 31 Mar 2020 00:57:37 +0000 (UTC)
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 834DAC36B0F;
+	Tue, 31 Mar 2020 00:57:38 +0000 (UTC)
 Received: from mail-out.m-online.net (mail-out.m-online.net [212.18.0.10])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 77E4DC36B13
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id C56C1C36B09
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Tue, 31 Mar 2020 00:57:35 +0000 (UTC)
+ Tue, 31 Mar 2020 00:57:36 +0000 (UTC)
 Received: from frontend01.mail.m-online.net (unknown [192.168.8.182])
- by mail-out.m-online.net (Postfix) with ESMTP id 48rrXH0zj4z1rmhQ;
- Tue, 31 Mar 2020 02:57:35 +0200 (CEST)
+ by mail-out.m-online.net (Postfix) with ESMTP id 48rrXJ3DSrz1rnJY;
+ Tue, 31 Mar 2020 02:57:36 +0200 (CEST)
 Received: from localhost (dynscan1.mnet-online.de [192.168.6.70])
- by mail.m-online.net (Postfix) with ESMTP id 48rrXH0QRjz1r0cH;
- Tue, 31 Mar 2020 02:57:35 +0200 (CEST)
+ by mail.m-online.net (Postfix) with ESMTP id 48rrXJ2YyYz1r0cH;
+ Tue, 31 Mar 2020 02:57:36 +0200 (CEST)
 X-Virus-Scanned: amavisd-new at mnet-online.de
 Received: from mail.mnet-online.de ([192.168.8.182])
  by localhost (dynscan1.mail.m-online.net [192.168.6.70]) (amavisd-new,
  port 10024)
- with ESMTP id NwlLdzj7rMqw; Tue, 31 Mar 2020 02:57:33 +0200 (CEST)
-X-Auth-Info: 0S9Sv8LqV1vgEkwVD//8FOCkcwf8QYolCLjD4oJoR3w=
+ with ESMTP id I6Ymu4pNLIOn; Tue, 31 Mar 2020 02:57:35 +0200 (CEST)
+X-Auth-Info: KhtxUSAcA/xpDlqQ2JlH8oCMoYUm3ZCCpnee7QMCcss=
 Received: from desktop.lan (ip-86-49-35-8.net.upcbroadband.cz [86.49.35.8])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
  by mail.mnet-online.de (Postfix) with ESMTPSA;
- Tue, 31 Mar 2020 02:57:33 +0200 (CEST)
+ Tue, 31 Mar 2020 02:57:35 +0200 (CEST)
 From: Marek Vasut <marex@denx.de>
 To: linux-arm-kernel@lists.infradead.org
-Date: Tue, 31 Mar 2020 02:56:43 +0200
-Message-Id: <20200331005701.283998-5-marex@denx.de>
+Date: Tue, 31 Mar 2020 02:56:44 +0200
+Message-Id: <20200331005701.283998-6-marex@denx.de>
 X-Mailer: git-send-email 2.25.1
 In-Reply-To: <20200331005701.283998-1-marex@denx.de>
 References: <20200331005701.283998-1-marex@denx.de>
@@ -42,8 +42,8 @@ Cc: Marek Vasut <marex@denx.de>, Patrick Delaunay <patrick.delaunay@st.com>,
  Maxime Coquelin <mcoquelin.stm32@gmail.com>,
  Manivannan Sadhasivam <manivannan.sadhasivam@linaro.org>,
  linux-stm32@st-md-mailman.stormreply.com
-Subject: [Linux-stm32] [PATCH V2 04/22] ARM: dts: stm32: Add missing
-	ethernet PHY skews on AV96
+Subject: [Linux-stm32] [PATCH V2 05/22] ARM: dts: stm32: Add alternate
+	pinmux for SDMMC1 direction pins
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -60,8 +60,8 @@ Content-Transfer-Encoding: 7bit
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
-The KS9031 PHY supports configurable PHY skews to compensate for
-the board routing. Fill in the correct values.
+Add another mux option for SDMMC1 direction pins, in particular
+SDMMC1_D123DIR, this is used on AV96 board.
 
 Signed-off-by: Marek Vasut <marex@denx.de>
 Cc: Alexandre Torgue <alexandre.torgue@st.com>
@@ -72,36 +72,46 @@ Cc: Patrick Delaunay <patrick.delaunay@st.com>
 Cc: linux-stm32@st-md-mailman.stormreply.com
 To: linux-arm-kernel@lists.infradead.org
 ---
-V2: No change
+V2: Fix SDMMC1_D123DIR AF, should be AF11
 ---
- arch/arm/boot/dts/stm32mp157a-avenger96.dts | 14 ++++++++++++++
- 1 file changed, 14 insertions(+)
+ arch/arm/boot/dts/stm32mp15-pinctrl.dtsi | 24 ++++++++++++++++++++++++
+ 1 file changed, 24 insertions(+)
 
-diff --git a/arch/arm/boot/dts/stm32mp157a-avenger96.dts b/arch/arm/boot/dts/stm32mp157a-avenger96.dts
-index a568d3824cb0..e58653ccb60f 100644
---- a/arch/arm/boot/dts/stm32mp157a-avenger96.dts
-+++ b/arch/arm/boot/dts/stm32mp157a-avenger96.dts
-@@ -96,6 +96,20 @@ mdio0 {
- 		compatible = "snps,dwmac-mdio";
- 		phy0: ethernet-phy@7 {
- 			reg = <7>;
-+
-+			rxc-skew-ps = <1500>;
-+			rxdv-skew-ps = <540>;
-+			rxd0-skew-ps = <420>;
-+			rxd1-skew-ps = <420>;
-+			rxd2-skew-ps = <420>;
-+			rxd3-skew-ps = <420>;
-+
-+			txc-skew-ps = <1440>;
-+			txen-skew-ps = <540>;
-+			txd0-skew-ps = <420>;
-+			txd1-skew-ps = <420>;
-+			txd2-skew-ps = <420>;
-+			txd3-skew-ps = <420>;
+diff --git a/arch/arm/boot/dts/stm32mp15-pinctrl.dtsi b/arch/arm/boot/dts/stm32mp15-pinctrl.dtsi
+index 4569dc16e5a1..8ac534c5bdf6 100644
+--- a/arch/arm/boot/dts/stm32mp15-pinctrl.dtsi
++++ b/arch/arm/boot/dts/stm32mp15-pinctrl.dtsi
+@@ -920,6 +920,30 @@ pins {
  		};
  	};
- };
+ 
++	sdmmc1_dir_pins_b: sdmmc1-dir-1 {
++		pins1 {
++			pinmux = <STM32_PINMUX('F', 2, AF11)>, /* SDMMC1_D0DIR */
++				 <STM32_PINMUX('E', 14, AF11)>, /* SDMMC1_D123DIR */
++				 <STM32_PINMUX('B', 9, AF11)>; /* SDMMC1_CDIR */
++			slew-rate = <1>;
++			drive-push-pull;
++			bias-pull-up;
++		};
++		pins2{
++			pinmux = <STM32_PINMUX('E', 4, AF8)>; /* SDMMC1_CKIN */
++			bias-pull-up;
++		};
++	};
++
++	sdmmc1_dir_sleep_pins_b: sdmmc1-dir-sleep-1 {
++		pins {
++			pinmux = <STM32_PINMUX('F', 2, ANALOG)>, /* SDMMC1_D0DIR */
++				 <STM32_PINMUX('E', 14, ANALOG)>, /* SDMMC1_D123DIR */
++				 <STM32_PINMUX('B', 9, ANALOG)>, /* SDMMC1_CDIR */
++				 <STM32_PINMUX('E', 4, ANALOG)>; /* SDMMC1_CKIN */
++		};
++	};
++
+ 	sdmmc2_b4_pins_a: sdmmc2-b4-0 {
+ 		pins1 {
+ 			pinmux = <STM32_PINMUX('B', 14, AF9)>, /* SDMMC2_D0 */
 -- 
 2.25.1
 
