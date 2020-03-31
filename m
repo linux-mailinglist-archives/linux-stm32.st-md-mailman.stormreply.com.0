@@ -2,60 +2,45 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id C257C198817
-	for <lists+linux-stm32@lfdr.de>; Tue, 31 Mar 2020 01:21:19 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 4CBD519891E
+	for <lists+linux-stm32@lfdr.de>; Tue, 31 Mar 2020 02:57:33 +0200 (CEST)
 Received: from ip-172-31-3-76.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 8C182C36B0B;
-	Mon, 30 Mar 2020 23:21:19 +0000 (UTC)
-Received: from mail-il1-f194.google.com (mail-il1-f194.google.com
- [209.85.166.194])
- (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 00DCFC36B0B;
+	Tue, 31 Mar 2020 00:57:32 +0000 (UTC)
+Received: from mail-out.m-online.net (mail-out.m-online.net [212.18.0.9])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 72D2EC36B09
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 1FE14C36B09
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Mon, 30 Mar 2020 23:21:18 +0000 (UTC)
-Received: by mail-il1-f194.google.com with SMTP id f16so17623046ilj.9
- for <linux-stm32@st-md-mailman.stormreply.com>;
- Mon, 30 Mar 2020 16:21:18 -0700 (PDT)
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20161025;
- h=x-gm-message-state:date:from:to:cc:subject:message-id:references
- :mime-version:content-disposition:in-reply-to:user-agent;
- bh=J6CtYXa3sClSqnbvBiuHvvlUuxEGfNZdWolqywsT7lk=;
- b=fZCO5FzXPTN7ywQAldEuNiBIyKhkQGJ9vsndlW31kedNjINpxx1aL0mjlOJaS3M14j
- xz/08GJlFRTL9LamypKS5iZwYiQGCpL/uf5YPcGme3qGNrFTadsxD4m7c2AKhiQPgXsX
- +JumvDJdGaln+aaHCI9tT6pthd+9QhoEuZifoUlRNq3SVp/MnRX7dL0SmO2kVrywGzX4
- mqqwCz2FlKeE4T9S+khwRpL5FqunYYMO5NsUDj/1Zksazjaq0A4ThaS+iTI4iibFNlaY
- ClRIrBg9pJ5cZWwl4uRIaCS59aac+nMW6o+regwLcQeWD2C7qVZv1I0osY4w4hqayoUB
- /5vQ==
-X-Gm-Message-State: ANhLgQ2r2HDXQDNDnciBRF1ZCFo+DOxoTVSgCp/1z1124omVnKL3KjvV
- sYH3g8FCw8YwGBvHzHnVgg==
-X-Google-Smtp-Source: ADFU+vuaKs6BtYALVaqgUXUnIFTShETJESYag2YrRrycS+2I8mzQdSm2bGh9kir55sPT0pkBtVUhBA==
-X-Received: by 2002:a05:6e02:be7:: with SMTP id
- d7mr14208948ilu.238.1585610477255; 
- Mon, 30 Mar 2020 16:21:17 -0700 (PDT)
-Received: from rob-hp-laptop ([64.188.179.250])
- by smtp.gmail.com with ESMTPSA id t5sm3578511iom.3.2020.03.30.16.21.15
- (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Mon, 30 Mar 2020 16:21:16 -0700 (PDT)
-Received: (nullmailer pid 17537 invoked by uid 1000);
- Mon, 30 Mar 2020 23:21:15 -0000
-Date: Mon, 30 Mar 2020 17:21:15 -0600
-From: Rob Herring <robh@kernel.org>
-To: Fabrice Gasnier <fabrice.gasnier@st.com>
-Message-ID: <20200330232115.GA17380@bogus>
-References: <1584641907-8228-1-git-send-email-fabrice.gasnier@st.com>
+ Tue, 31 Mar 2020 00:57:30 +0000 (UTC)
+Received: from frontend01.mail.m-online.net (unknown [192.168.8.182])
+ by mail-out.m-online.net (Postfix) with ESMTP id 48rrX96dvJz1qrGG;
+ Tue, 31 Mar 2020 02:57:29 +0200 (CEST)
+Received: from localhost (dynscan1.mnet-online.de [192.168.6.70])
+ by mail.m-online.net (Postfix) with ESMTP id 48rrX9621kz1r0cK;
+ Tue, 31 Mar 2020 02:57:29 +0200 (CEST)
+X-Virus-Scanned: amavisd-new at mnet-online.de
+Received: from mail.mnet-online.de ([192.168.8.182])
+ by localhost (dynscan1.mail.m-online.net [192.168.6.70]) (amavisd-new,
+ port 10024)
+ with ESMTP id HuYhLRn7TH_T; Tue, 31 Mar 2020 02:57:28 +0200 (CEST)
+X-Auth-Info: lYd3tf1OByz0YyGRUq7xLhcKT5AG8G1a3ZIg9bFfoig=
+Received: from desktop.lan (ip-86-49-35-8.net.upcbroadband.cz [86.49.35.8])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+ (No client certificate requested)
+ by mail.mnet-online.de (Postfix) with ESMTPSA;
+ Tue, 31 Mar 2020 02:57:28 +0200 (CEST)
+From: Marek Vasut <marex@denx.de>
+To: linux-arm-kernel@lists.infradead.org
+Date: Tue, 31 Mar 2020 02:56:39 +0200
+Message-Id: <20200331005701.283998-1-marex@denx.de>
+X-Mailer: git-send-email 2.25.1
 MIME-Version: 1.0
-Content-Disposition: inline
-In-Reply-To: <1584641907-8228-1-git-send-email-fabrice.gasnier@st.com>
-User-Agent: Mutt/1.10.1 (2018-07-13)
-Cc: mark.rutland@arm.com, devicetree@vger.kernel.org, lars@metafoo.de,
- linux-iio@vger.kernel.org, pmeerw@pmeerw.net, linux-kernel@vger.kernel.org,
- robh+dt@kernel.org, linux-arm-kernel@lists.infradead.org,
- mcoquelin.stm32@gmail.com, knaack.h@gmx.de, fabrice.gasnier@st.com,
- linux-stm32@st-md-mailman.stormreply.com, jic23@kernel.org
-Subject: Re: [Linux-stm32] [PATCH] dt-bindings: iio: adc: stm32-adc: fix id
-	relative path
+Cc: Marek Vasut <marex@denx.de>, Patrick Delaunay <patrick.delaunay@st.com>,
+ Maxime Coquelin <mcoquelin.stm32@gmail.com>,
+ Manivannan Sadhasivam <manivannan.sadhasivam@linaro.org>,
+ linux-stm32@st-md-mailman.stormreply.com
+Subject: [Linux-stm32] [PATCH V2 00/22] ARM: dts: stm32: Repair AV96 board
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -72,20 +57,48 @@ Content-Transfer-Encoding: 7bit
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
-On Thu, 19 Mar 2020 19:18:27 +0100, Fabrice Gasnier wrote:
-> Fix id relative path that shouldn't contain 'bindings', as pointed out
-> when submitting st,stm32-dac bindings conversion to json-schema [1].
-> [1] https://patchwork.ozlabs.org/patch/1257568/
-> 
-> Fixes: a8cf1723c4b7 ("dt-bindings: iio: adc: stm32-adc: convert bindings to json-schema")
-> 
-> Signed-off-by: Fabrice Gasnier <fabrice.gasnier@st.com>
-> ---
->  Documentation/devicetree/bindings/iio/adc/st,stm32-adc.yaml | 2 +-
->  1 file changed, 1 insertion(+), 1 deletion(-)
-> 
+The AV96 board device tree is completely broken and does not match the
+hardware. This series fixes it up.
 
-Reviewed-by: Rob Herring <robh@kernel.org>
+Marek Vasut (22):
+  ARM: dts: stm32: Add alternate pinmux for ethernet RGMII
+  ARM: dts: stm32: Repair ethernet operation on AV96
+  ARM: dts: stm32: Add missing ethernet PHY reset on AV96
+  ARM: dts: stm32: Add missing ethernet PHY skews on AV96
+  ARM: dts: stm32: Add alternate pinmux for SDMMC1 direction pins
+  ARM: dts: stm32: Repair SDMMC1 operation on AV96
+  ARM: dts: stm32: Add alternate pinmux for SDMMC2 pins 4-7
+  ARM: dts: stm32: Add eMMC attached to SDMMC2 on AV96
+  ARM: dts: stm32: Repair PMIC configuration on AV96
+  ARM: dts: stm32: Repair PMIC interrupt on AV96
+  ARM: dts: stm32: Add QSPI NOR on AV96
+  ARM: dts: stm32: Add configuration EEPROM on AV96
+  ARM: dts: stm32: Enable GPU on AV96
+  ARM: dts: stm32: Add alternate pinmux for SDMMC3 pins
+  ARM: dts: stm32: Enable WiFi on AV96
+  ARM: dts: stm32: Add alternate pinmux for USART2 pins
+  ARM: dts: stm32: Enable Bluetooth on AV96
+  ARM: dts: stm32: Add alternate pinmux for LTDC pins
+  ARM: dts: stm32: Add bindings for HDMI video on AV96
+  ARM: dts: stm32: Add bindings for audio on AV96
+  ARM: dts: stm32: Add bindings for USB on AV96
+  ARM: dts: stm32: Rename LEDs to match silkscreen on AV96
+
+ arch/arm/boot/dts/stm32mp15-pinctrl.dtsi    | 248 +++++++++++++++
+ arch/arm/boot/dts/stm32mp157a-avenger96.dts | 328 ++++++++++++++++++--
+ 2 files changed, 543 insertions(+), 33 deletions(-)
+
+Cc: Alexandre Torgue <alexandre.torgue@st.com>
+Cc: Manivannan Sadhasivam <manivannan.sadhasivam@linaro.org>
+Cc: Maxime Coquelin <mcoquelin.stm32@gmail.com>
+Cc: Patrice Chotard <patrice.chotard@st.com>
+Cc: Patrick Delaunay <patrick.delaunay@st.com>
+Cc: linux-stm32@st-md-mailman.stormreply.com
+To: linux-arm-kernel@lists.infradead.org
+
+-- 
+2.25.1
+
 _______________________________________________
 Linux-stm32 mailing list
 Linux-stm32@st-md-mailman.stormreply.com
