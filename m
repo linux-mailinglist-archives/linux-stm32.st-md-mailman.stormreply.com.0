@@ -2,38 +2,38 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id 4F5EE199D6D
+	by mail.lfdr.de (Postfix) with ESMTPS id 5D4B5199D6E
 	for <lists+linux-stm32@lfdr.de>; Tue, 31 Mar 2020 19:59:31 +0200 (CEST)
 Received: from ip-172-31-3-76.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 18A57C36B0C;
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 26232C36B0F;
 	Tue, 31 Mar 2020 17:59:31 +0000 (UTC)
 Received: from mail-out.m-online.net (mail-out.m-online.net [212.18.0.10])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 1F872C36B0A
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 6854BC36B0B
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Tue, 31 Mar 2020 17:59:27 +0000 (UTC)
+ Tue, 31 Mar 2020 17:59:28 +0000 (UTC)
 Received: from frontend01.mail.m-online.net (unknown [192.168.8.182])
- by mail-out.m-online.net (Postfix) with ESMTP id 48sHCL5chjz1rqBQ;
- Tue, 31 Mar 2020 19:59:26 +0200 (CEST)
+ by mail-out.m-online.net (Postfix) with ESMTP id 48sHCN0b44z1rqBY;
+ Tue, 31 Mar 2020 19:59:28 +0200 (CEST)
 Received: from localhost (dynscan1.mnet-online.de [192.168.6.70])
- by mail.m-online.net (Postfix) with ESMTP id 48sHCL5PPRz1qqkQ;
- Tue, 31 Mar 2020 19:59:26 +0200 (CEST)
+ by mail.m-online.net (Postfix) with ESMTP id 48sHCN0Hy5z1qqkQ;
+ Tue, 31 Mar 2020 19:59:28 +0200 (CEST)
 X-Virus-Scanned: amavisd-new at mnet-online.de
 Received: from mail.mnet-online.de ([192.168.8.182])
  by localhost (dynscan1.mail.m-online.net [192.168.6.70]) (amavisd-new,
  port 10024)
- with ESMTP id GmkZkkPergF3; Tue, 31 Mar 2020 19:59:24 +0200 (CEST)
-X-Auth-Info: mt51pGC+h53wH3sMQ6EhuBoGDZudV9IxsXeEMuJYGvw=
+ with ESMTP id wrDAqYzzCmBn; Tue, 31 Mar 2020 19:59:26 +0200 (CEST)
+X-Auth-Info: KyE8uxiCbF886KB/29LOrJsxeW73HsJRSPcu6fTI6FE=
 Received: from desktop.lan (ip-86-49-35-8.net.upcbroadband.cz [86.49.35.8])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
  by mail.mnet-online.de (Postfix) with ESMTPSA;
- Tue, 31 Mar 2020 19:59:24 +0200 (CEST)
+ Tue, 31 Mar 2020 19:59:26 +0200 (CEST)
 From: Marek Vasut <marex@denx.de>
 To: linux-arm-kernel@lists.infradead.org
-Date: Tue, 31 Mar 2020 19:58:08 +0200
-Message-Id: <20200331175811.205153-20-marex@denx.de>
+Date: Tue, 31 Mar 2020 19:58:09 +0200
+Message-Id: <20200331175811.205153-21-marex@denx.de>
 X-Mailer: git-send-email 2.25.1
 In-Reply-To: <20200331175811.205153-1-marex@denx.de>
 References: <20200331175811.205153-1-marex@denx.de>
@@ -42,8 +42,8 @@ Cc: Marek Vasut <marex@denx.de>, Patrick Delaunay <patrick.delaunay@st.com>,
  Maxime Coquelin <mcoquelin.stm32@gmail.com>,
  Manivannan Sadhasivam <manivannan.sadhasivam@linaro.org>,
  linux-stm32@st-md-mailman.stormreply.com
-Subject: [Linux-stm32] [PATCH V3 19/22] ARM: dts: stm32: Add bindings for
-	HDMI video on AV96
+Subject: [Linux-stm32] [PATCH V3 20/22] ARM: dts: stm32: Add bindings for
+	audio on AV96
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -60,7 +60,8 @@ Content-Transfer-Encoding: 7bit
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
-Fill in the HDMI video pipeline from AV96 into the DT.
+Fill in the bindings for HDMI audio on AV96, this permits audio playback
+via attached HDMI device if such device supports it.
 
 Signed-off-by: Marek Vasut <marex@denx.de>
 Cc: Alexandre Torgue <alexandre.torgue@st.com>
@@ -74,117 +75,73 @@ To: linux-arm-kernel@lists.infradead.org
 V2: No change
 V3: No change
 ---
- arch/arm/boot/dts/stm32mp157a-avenger96.dts | 79 +++++++++++++++++++++
- 1 file changed, 79 insertions(+)
+ arch/arm/boot/dts/stm32mp157a-avenger96.dts | 39 +++++++++++++++++++++
+ 1 file changed, 39 insertions(+)
 
 diff --git a/arch/arm/boot/dts/stm32mp157a-avenger96.dts b/arch/arm/boot/dts/stm32mp157a-avenger96.dts
-index be2fbe93d0eb..1ec44c155fb8 100644
+index 1ec44c155fb8..edf075310f3a 100644
 --- a/arch/arm/boot/dts/stm32mp157a-avenger96.dts
 +++ b/arch/arm/boot/dts/stm32mp157a-avenger96.dts
-@@ -25,10 +25,28 @@ aliases {
- 		spi0 = &qspi;
+@@ -98,6 +98,13 @@ sd_switch: regulator-sd_switch {
+ 			 <2900000 0x0>;
  	};
  
-+	/* XTal Q1 */
-+	cec_clock: clk-cec-fixed {
-+		#clock-cells = <0>;
-+		compatible = "fixed-clock";
-+		clock-frequency = <24000000>;
++	sound {
++		compatible = "audio-graph-card";
++		label = "STM32MP1-AV96-HDMI";
++		dais = <&sai2a_port>;
++		status = "okay";
 +	};
 +
- 	chosen {
- 		stdout-path = "serial0:115200n8";
- 	};
- 
-+	hdmi-out {
-+		compatible = "hdmi-connector";
-+		type = "a";
+ 	/* Enpirion EP3A8LQI U2 on the DHCOR */
+ 	vdd_io: regulator-buck-io {
+ 		compatible = "regulator-fixed";
+@@ -363,6 +370,13 @@ adv7513_out: endpoint {
+ 					remote-endpoint = <&hdmi_con>;
+ 				};
+ 			};
 +
-+		port {
-+			hdmi_con: endpoint {
-+				remote-endpoint = <&adv7513_out>;
++			port@2 {
++				reg = <2>;
++				adv7513_i2s0: endpoint {
++					remote-endpoint = <&sai2a_endpoint>;
++				};
 +			};
-+		};
-+	};
-+
- 	memory@c0000000 {
- 		device_type = "memory";
- 		reg = <0xc0000000 0x40000000>;
-@@ -304,6 +322,50 @@ watchdog {
  		};
  	};
  
-+	hdmi-transmitter@3d {
-+		compatible = "adi,adv7513";
-+		reg = <0x3d>, <0x2d>, <0x4d>, <0x5d>;
-+		reg-names = "main", "cec", "edid", "packet";
-+		clocks = <&cec_clock>;
-+		clock-names = "cec";
-+
-+		avdd-supply = <&v3v3>;
-+		dvdd-supply = <&v3v3>;
-+		pvdd-supply = <&v3v3>;
-+		dvdd-3v-supply = <&v3v3>;
-+		bgvdd-supply = <&v3v3>;
-+
-+		interrupts = <9 IRQ_TYPE_EDGE_FALLING>;
-+		interrupt-parent = <&gpiog>;
-+
-+		status = "okay";
-+
-+		adi,input-depth = <8>;
-+		adi,input-colorspace = "rgb";
-+		adi,input-clock = "1x";
-+		adi,input-style = <1>;
-+		adi,input-justification = "evenly";
-+
-+		ports {
-+			#address-cells = <1>;
-+			#size-cells = <0>;
-+
-+			port@0 {
-+				reg = <0>;
-+				adv7513_in: endpoint {
-+					remote-endpoint = <&ltdc_ep0_out>;
-+				};
-+			};
-+
-+			port@1 {
-+				reg = <1>;
-+				adv7513_out: endpoint {
-+					remote-endpoint = <&hdmi_con>;
-+				};
-+			};
-+		};
-+	};
-+
- 	eeprom@53 {
- 		compatible = "atmel,24c02";
- 		reg = <0x53>;
-@@ -316,6 +378,23 @@ &iwdg2 {
+@@ -427,6 +441,31 @@ &rtc {
  	status = "okay";
  };
  
-+&ltdc {
++&sai2 {
++	clocks = <&rcc SAI2>, <&rcc PLL3_Q>, <&rcc PLL3_R>;
 +	pinctrl-names = "default", "sleep";
-+	pinctrl-0 = <&ltdc_pins_c>;
-+	pinctrl-1 = <&ltdc_pins_sleep_c>;
++	pinctrl-0 = <&sai2a_pins_c>;
++	pinctrl-1 = <&sai2a_sleep_pins_c>;
++	clock-names = "pclk", "x8k", "x11k";
 +	status = "okay";
 +
-+	port {
-+		#address-cells = <1>;
-+		#size-cells = <0>;
++	sai2a: audio-controller@4400b004 {
++		#clock-cells = <0>;
++		dma-names = "tx";
++		clocks = <&rcc SAI2_K>;
++		clock-names = "sai_ck";
++		status = "okay";
 +
-+		ltdc_ep0_out: endpoint@0 {
-+			reg = <0>;
-+			remote-endpoint = <&adv7513_in>;
++		sai2a_port: port {
++			sai2a_endpoint: endpoint {
++				remote-endpoint = <&adv7513_i2s0>;
++				format = "i2s";
++				mclk-fs = <256>;
++			};
 +		};
 +	};
 +};
 +
- &pwr_regulators {
- 	vdd-supply = <&vdd_io>;
- 	vdd_3v3_usbfs-supply = <&vdd_usb>;
+ &sdmmc1 {
+ 	pinctrl-names = "default", "opendrain", "sleep";
+ 	pinctrl-0 = <&sdmmc1_b4_pins_a &sdmmc1_dir_pins_b>;
 -- 
 2.25.1
 
