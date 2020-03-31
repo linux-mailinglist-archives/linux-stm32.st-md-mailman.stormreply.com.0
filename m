@@ -2,38 +2,38 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id 8EAC5198920
+	by mail.lfdr.de (Postfix) with ESMTPS id B1FBC198921
 	for <lists+linux-stm32@lfdr.de>; Tue, 31 Mar 2020 02:57:35 +0200 (CEST)
 Received: from ip-172-31-3-76.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 4FC41C36B0F;
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 68650C36B12;
 	Tue, 31 Mar 2020 00:57:35 +0000 (UTC)
 Received: from mail-out.m-online.net (mail-out.m-online.net [212.18.0.10])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 0DFBBC36B0C
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 2AF72C36B0C
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Tue, 31 Mar 2020 00:57:33 +0000 (UTC)
+ Tue, 31 Mar 2020 00:57:34 +0000 (UTC)
 Received: from frontend01.mail.m-online.net (unknown [192.168.8.182])
- by mail-out.m-online.net (Postfix) with ESMTP id 48rrXD3rtRz1rlws;
- Tue, 31 Mar 2020 02:57:32 +0200 (CEST)
+ by mail-out.m-online.net (Postfix) with ESMTP id 48rrXF60L5z1rmgX;
+ Tue, 31 Mar 2020 02:57:33 +0200 (CEST)
 Received: from localhost (dynscan1.mnet-online.de [192.168.6.70])
- by mail.m-online.net (Postfix) with ESMTP id 48rrXD3cG9z1r0cH;
- Tue, 31 Mar 2020 02:57:32 +0200 (CEST)
+ by mail.m-online.net (Postfix) with ESMTP id 48rrXF5Klhz1r0cH;
+ Tue, 31 Mar 2020 02:57:33 +0200 (CEST)
 X-Virus-Scanned: amavisd-new at mnet-online.de
 Received: from mail.mnet-online.de ([192.168.8.182])
  by localhost (dynscan1.mail.m-online.net [192.168.6.70]) (amavisd-new,
  port 10024)
- with ESMTP id jpfGUCoNWNzC; Tue, 31 Mar 2020 02:57:31 +0200 (CEST)
-X-Auth-Info: cbF/od19LxKUWRdQld04GZvpftJLAKcwA/cS5kO1eRg=
+ with ESMTP id VGCOcA9LtVOi; Tue, 31 Mar 2020 02:57:32 +0200 (CEST)
+X-Auth-Info: 7nVM7y+azQBVkV+ehiQgimHnCCYbyuaMCcKtwSTINjU=
 Received: from desktop.lan (ip-86-49-35-8.net.upcbroadband.cz [86.49.35.8])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
  by mail.mnet-online.de (Postfix) with ESMTPSA;
- Tue, 31 Mar 2020 02:57:31 +0200 (CEST)
+ Tue, 31 Mar 2020 02:57:32 +0200 (CEST)
 From: Marek Vasut <marex@denx.de>
 To: linux-arm-kernel@lists.infradead.org
-Date: Tue, 31 Mar 2020 02:56:41 +0200
-Message-Id: <20200331005701.283998-3-marex@denx.de>
+Date: Tue, 31 Mar 2020 02:56:42 +0200
+Message-Id: <20200331005701.283998-4-marex@denx.de>
 X-Mailer: git-send-email 2.25.1
 In-Reply-To: <20200331005701.283998-1-marex@denx.de>
 References: <20200331005701.283998-1-marex@denx.de>
@@ -42,8 +42,8 @@ Cc: Marek Vasut <marex@denx.de>, Patrick Delaunay <patrick.delaunay@st.com>,
  Maxime Coquelin <mcoquelin.stm32@gmail.com>,
  Manivannan Sadhasivam <manivannan.sadhasivam@linaro.org>,
  linux-stm32@st-md-mailman.stormreply.com
-Subject: [Linux-stm32] [PATCH V2 02/22] ARM: dts: stm32: Repair ethernet
-	operation on AV96
+Subject: [Linux-stm32] [PATCH V2 03/22] ARM: dts: stm32: Add missing
+	ethernet PHY reset on AV96
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -60,8 +60,7 @@ Content-Transfer-Encoding: 7bit
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
-The AV96 RGMII uses different pinmux for ETH_RGMII_TXD0, ETH_RGMII_RXD2
-and ETH_RGMII_TX_CTL. Use the correct pinmux to make ethernet operational.
+Add PHY reset GPIO on AV96 ethernet PHY.
 
 Signed-off-by: Marek Vasut <marex@denx.de>
 Cc: Alexandre Torgue <alexandre.torgue@st.com>
@@ -74,24 +73,22 @@ To: linux-arm-kernel@lists.infradead.org
 ---
 V2: No change
 ---
- arch/arm/boot/dts/stm32mp157a-avenger96.dts | 4 ++--
- 1 file changed, 2 insertions(+), 2 deletions(-)
+ arch/arm/boot/dts/stm32mp157a-avenger96.dts | 2 ++
+ 1 file changed, 2 insertions(+)
 
 diff --git a/arch/arm/boot/dts/stm32mp157a-avenger96.dts b/arch/arm/boot/dts/stm32mp157a-avenger96.dts
-index 425175f7d83c..1d15b745feeb 100644
+index 1d15b745feeb..a568d3824cb0 100644
 --- a/arch/arm/boot/dts/stm32mp157a-avenger96.dts
 +++ b/arch/arm/boot/dts/stm32mp157a-avenger96.dts
-@@ -81,8 +81,8 @@ led6 {
- 
- &ethernet0 {
- 	status = "okay";
--	pinctrl-0 = <&ethernet0_rgmii_pins_a>;
--	pinctrl-1 = <&ethernet0_rgmii_pins_sleep_a>;
-+	pinctrl-0 = <&ethernet0_rgmii_pins_b>;
-+	pinctrl-1 = <&ethernet0_rgmii_pins_sleep_b>;
- 	pinctrl-names = "default", "sleep";
+@@ -87,6 +87,8 @@ &ethernet0 {
  	phy-mode = "rgmii";
  	max-speed = <1000>;
+ 	phy-handle = <&phy0>;
++	phy-reset-gpios = <&gpioz 2 GPIO_ACTIVE_LOW>;
++	phy-reset-duration = <100>;
+ 
+ 	mdio0 {
+ 		#address-cells = <1>;
 -- 
 2.25.1
 
