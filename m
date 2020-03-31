@@ -2,56 +2,46 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id 58BBC198CBA
-	for <lists+linux-stm32@lfdr.de>; Tue, 31 Mar 2020 09:11:32 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id D13A6198CCB
+	for <lists+linux-stm32@lfdr.de>; Tue, 31 Mar 2020 09:17:56 +0200 (CEST)
 Received: from ip-172-31-3-76.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 1CA01C36B14;
-	Tue, 31 Mar 2020 07:11:32 +0000 (UTC)
-Received: from zimbra2.kalray.eu (zimbra2.kalray.eu [92.103.151.219])
- (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
- (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id C8321C36B09
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 8091CC36B0B;
+	Tue, 31 Mar 2020 07:17:56 +0000 (UTC)
+Received: from bhuna.collabora.co.uk (bhuna.collabora.co.uk [46.235.227.227])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256
+ bits)) (No client certificate requested)
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id D71E5C36B09
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Tue, 31 Mar 2020 06:51:37 +0000 (UTC)
-Received: from localhost (localhost [127.0.0.1])
- by zimbra2.kalray.eu (Postfix) with ESMTP id 146DD27E03B2;
- Tue, 31 Mar 2020 08:51:37 +0200 (CEST)
-Received: from zimbra2.kalray.eu ([127.0.0.1])
- by localhost (zimbra2.kalray.eu [127.0.0.1]) (amavisd-new, port 10032)
- with ESMTP id waJ4S9bw_HMh; Tue, 31 Mar 2020 08:51:35 +0200 (CEST)
-Received: from localhost (localhost [127.0.0.1])
- by zimbra2.kalray.eu (Postfix) with ESMTP id D319527E0450;
- Tue, 31 Mar 2020 08:51:35 +0200 (CEST)
-X-Virus-Scanned: amavisd-new at zimbra2.kalray.eu
-Received: from zimbra2.kalray.eu ([127.0.0.1])
- by localhost (zimbra2.kalray.eu [127.0.0.1]) (amavisd-new, port 10026)
- with ESMTP id 31zHK_ttVHDg; Tue, 31 Mar 2020 08:51:35 +0200 (CEST)
-Received: from zimbra2.kalray.eu (localhost [127.0.0.1])
- by zimbra2.kalray.eu (Postfix) with ESMTP id B7D2527E03B2;
- Tue, 31 Mar 2020 08:51:35 +0200 (CEST)
-Date: Tue, 31 Mar 2020 08:51:35 +0200 (CEST)
-From: =?utf-8?Q?Cl=C3=A9ment?= Leger <cleger@kalrayinc.com>
-To: s-anna <s-anna@ti.com>
-Message-ID: <1759281267.12964559.1585637495215.JavaMail.zimbra@kalray.eu>
-In-Reply-To: <23fc7800-4ba4-07d0-de15-d81498f04d3c@ti.com>
-References: <20200327084939.8321-1-cleger@kalray.eu>
- <20200327161733.GA18041@xps15> <23fc7800-4ba4-07d0-de15-d81498f04d3c@ti.com>
+ Tue, 31 Mar 2020 07:17:54 +0000 (UTC)
+Received: from [127.0.0.1] (localhost [127.0.0.1])
+ (Authenticated sender: aratiu) with ESMTPSA id 867CC296952
+From: Adrian Ratiu <adrian.ratiu@collabora.com>
+To: Ezequiel Garcia <ezequiel@collabora.com>
+In-Reply-To: <246bf7c71620021258355c2fc32dd38ac6b0cc45.camel@collabora.com>
+References: <20200330113542.181752-1-adrian.ratiu@collabora.com>
+ <20200330113542.181752-5-adrian.ratiu@collabora.com>
+ <CAOMZO5CEZSBfhb9xAdf=sDhUnmSeuWSsnUQArz=a1TPzytLAeQ@mail.gmail.com>
+ <4a9d2d6e5cecbe296c14119d27a8793a7dbed7b2.camel@collabora.com>
+ <877dz134xf.fsf@collabora.com>
+ <246bf7c71620021258355c2fc32dd38ac6b0cc45.camel@collabora.com>
+Date: Tue, 31 Mar 2020 10:19:00 +0300
+Message-ID: <874ku52dqz.fsf@collabora.com>
 MIME-Version: 1.0
-X-Originating-IP: [192.168.40.202]
-X-Mailer: Zimbra 8.8.15_GA_3895 (ZimbraWebClient - GC80 (Linux)/8.8.15_GA_3895)
-Thread-Topic: remoteproc: remove rproc_elf32_sanity_check
-Thread-Index: 3VVoXwttsIAMn4RaA/dROFzI1f5hRw==
-X-Mailman-Approved-At: Tue, 31 Mar 2020 07:11:28 +0000
-Cc: Ohad Ben-Cohen <ohad@wizery.com>,
- Mathieu Poirier <mathieu.poirier@linaro.org>,
+Cc: "open list:OPEN FIRMWARE AND FLATTENED DEVICE TREE BINDINGS"
+ <devicetree@vger.kernel.org>, Jernej Skrabec <jernej.skrabec@siol.net>,
+ Laurent Pinchart <Laurent.pinchart@ideasonboard.com>,
+ Jonas Karlman <jonas@kwiboo.se>, Martyn Welch <martyn.welch@collabora.com>,
+ Sjoerd Simons <sjoerd.simons@collabora.com>,
  linux-kernel <linux-kernel@vger.kernel.org>,
- linux-remoteproc <linux-remoteproc@vger.kernel.org>,
- Bjorn Andersson <bjorn.andersson@linaro.org>,
- Maxime Coquelin <mcoquelin.stm32@gmail.com>,
- linux-stm32@st-md-mailman.stormreply.com,
- linux-arm-kernel <linux-arm-kernel@lists.infradead.org>
-Subject: Re: [Linux-stm32] [PATCH] remoteproc: remove
-	rproc_elf32_sanity_check
+ DRI mailing list <dri-devel@lists.freedesktop.org>,
+ Andrzej Hajda <a.hajda@samsung.com>, NXP Linux Team <linux-imx@nxp.com>,
+ linux-rockchip@lists.infradead.org, kernel@collabora.com,
+ Fabio Estevam <festevam@gmail.com>, linux-stm32@st-md-mailman.stormreply.com,
+ "moderated list:ARM/FREESCALE
+ IMX / MXC ARM ARCHITECTURE" <linux-arm-kernel@lists.infradead.org>,
+ Emil Velikov <emil.velikov@collabora.com>
+Subject: Re: [Linux-stm32] [PATCH v5 4/5] drm: imx: Add i.MX 6 MIPI DSI host
+	platform driver
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -63,154 +53,80 @@ List-Post: <mailto:linux-stm32@st-md-mailman.stormreply.com>
 List-Help: <mailto:linux-stm32-request@st-md-mailman.stormreply.com?subject=help>
 List-Subscribe: <https://st-md-mailman.stormreply.com/mailman/listinfo/linux-stm32>, 
  <mailto:linux-stm32-request@st-md-mailman.stormreply.com?subject=subscribe>
-Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
+Content-Type: text/plain; charset="us-ascii"; Format="flowed"
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
-Hi Suman,
-
------ On 30 Mar, 2020, at 21:11, s-anna s-anna@ti.com wrote:
-
-> Hi Clement,
+On Tue, 31 Mar 2020, Ezequiel Garcia <ezequiel@collabora.com> 
+wrote:
+> On Tue, 2020-03-31 at 00:31 +0300, Adrian Ratiu wrote: 
+>> On Mon, 30 Mar 2020, Ezequiel Garcia <ezequiel@collabora.com> 
+>> wrote: 
+>> > Hello Fabio, Adrian:   On Mon, 2020-03-30 at 08:49 -0300, 
+>> > Fabio Estevam wrote:  
+>> > > Hi Adrian,  On Mon, Mar 30, 2020 at 8:34 AM Adrian Ratiu 
+>> > > <adrian.ratiu@collabora.com> wrote:  
+>> > > > This adds support for the Synopsis DesignWare MIPI DSI 
+>> > > > v1.01  host controller which is embedded in i.MX 6 SoCs. 
+>> > > > Based on  following patches, but updated/extended to work 
+>> > > > with existing  support found in the kernel:  - drm: imx: 
+>> > > > Support Synopsys  DesignWare MIPI DSI host controller  
+>> > > >   Signed-off-by: Liu Ying <Ying.Liu@freescale.com>  
+>> > > >  - ARM: dtsi: imx6qdl: Add support for MIPI DSI host  
+>> > > > controller  
+>> > > >   Signed-off-by: Liu Ying <Ying.Liu@freescale.com>  
+>> > >  This one looks like a devicetree patch, but this patch 
+>> > >  does  
+>> > > not touch devicetree.   
+>> > > > +       ret = clk_prepare_enable(dsi->pllref_clk); + 
+>> > > > if  (ret) { +               dev_err(dev, "%s: Failed to 
+>> > > > enable  pllref_clk\n", __func__); +               return 
+>> > > > ret; +  } + +       dsi->mux_sel = 
+>> > > > syscon_regmap_lookup_by_phandle(dev->of_node, "fsl,gpr"); 
+>> > > > +  if (IS_ERR(dsi->mux_sel)) { +               ret = 
+>> > > > PTR_ERR(dsi->mux_sel); +               dev_err(dev, "%s: 
+>> > > > Failed to get GPR regmap: %d\n", +  __func__, ret); + 
+>> > > > return ret;  
+>> > >  You should disable the dsi->pllref_clk clock prior to  
+>> > > returning the error.   
+>> >  Another approach could be moving the clock on and off to to 
+>> > component_ops.{bind,unbind} (as rockhip driver does).    What 
+>> > exactly is the PLL clock needed for? Would it make sense to 
+>> > move it some of the PHY power on/off? (Maybe not, but it's 
+>> > worthing checking).    Also, it seems the other IP blocks 
+>> > have this PLL clock, so maybe  it could be moved to the 
+>> > dw_mipi_dsi core? This could be  something for a follow-up, 
+>> > to avoid creeping this series. 
+>>  Hi Ezequiel,  pll is the video reference clock which drives 
+>> the data lanes and  yes all drivers have it as it's a basic 
+>> requirement, so moving it  to the common bridge is indeed a 
+>> good idea, however this kind of  driver refactoring is out of 
+>> scope for this specific patch series,  because, for now, I'd 
+>> like to get the regmap and the imx6 driver  in, once that is 
+>> done we can think how to further abstract away  common logic 
+>> and slim down the existing drivers further.   Basically I just 
+>> want to avoid feature creep as I expect v6 to be  ~ 8 patches 
+>> big and the series is already over 1200 lines.  
 > 
-> On 3/27/20 11:17 AM, Mathieu Poirier wrote:
->> On Fri, Mar 27, 2020 at 09:49:39AM +0100, Clement Leger wrote:
->>> Since checks are present in the remoteproc elf loader before calling
->>> da_to_va, loading a elf64 will work on 32bits flavors of kernel.
->>> Indeed, if a segment size is larger than what size_t can hold, the
->>> loader will return an error so the functionality is equivalent to
->>> what exists today.
->>>
->>> Signed-off-by: Clement Leger <cleger@kalray.eu>
->>> ---
->>>  drivers/remoteproc/remoteproc_core.c       |  2 +-
->>>  drivers/remoteproc/remoteproc_elf_loader.c | 21 ---------------------
->>>  drivers/remoteproc/remoteproc_internal.h   |  1 -
->>>  drivers/remoteproc/st_remoteproc.c         |  2 +-
->>>  drivers/remoteproc/st_slim_rproc.c         |  2 +-
->>>  drivers/remoteproc/stm32_rproc.c           |  2 +-
->>>  6 files changed, 4 insertions(+), 26 deletions(-)
->> 
->> Reviewed-by: Mathieu Poirier <mathieu.poirier@linaro.org>
->> 
->>>
->>> diff --git a/drivers/remoteproc/remoteproc_core.c
->>> b/drivers/remoteproc/remoteproc_core.c
->>> index a9ac1d01e09b..02ff076b0122 100644
->>> --- a/drivers/remoteproc/remoteproc_core.c
->>> +++ b/drivers/remoteproc/remoteproc_core.c
->>> @@ -2069,7 +2069,7 @@ struct rproc *rproc_alloc(struct device *dev, const char
->>> *name,
->>>  		rproc->ops->parse_fw = rproc_elf_load_rsc_table;
->>>  		rproc->ops->find_loaded_rsc_table = rproc_elf_find_loaded_rsc_table;
->>>  		if (!rproc->ops->sanity_check)
->>> -			rproc->ops->sanity_check = rproc_elf32_sanity_check;
->>> +			rproc->ops->sanity_check = rproc_elf_sanity_check;
+> Oh, absolutely: if there's one thing I try to avoid is feature 
+> creep -- together with bikeshedding! 
 > 
-> Do you still need the capability to override the sanity_check? As I
-> understand, you introduced this to allow platform drivers to use the
-> appropriate elf32 or elf64 one during the ELF64 loader support series.
+> Do note however, that you could move the PLL clock handling to 
+> component_ops.{bind,unbind} and maybe simplify the error 
+> handling. 
+> 
+> (BTW, great work!)
 
-Indeed, this is probably not needed anymore, I will modify that.
+Thanks! I'll do the bind/unbind move for the new imx6 driver which 
+I'm
+adding in this series to make it resemble the existing rockchip 
+driver a bit more, then I'll stop short of further driver 
+refactorings.
 
-> 
-> regards
-> Suman
-> 
->>>  		rproc->ops->get_boot_addr = rproc_elf_get_boot_addr;
->>>  	}
->>>  
->>> diff --git a/drivers/remoteproc/remoteproc_elf_loader.c
->>> b/drivers/remoteproc/remoteproc_elf_loader.c
->>> index 16e2c496fd45..29034f99898d 100644
->>> --- a/drivers/remoteproc/remoteproc_elf_loader.c
->>> +++ b/drivers/remoteproc/remoteproc_elf_loader.c
->>> @@ -112,27 +112,6 @@ int rproc_elf_sanity_check(struct rproc *rproc, const
->>> struct firmware *fw)
->>>  }
->>>  EXPORT_SYMBOL(rproc_elf_sanity_check);
->>>  
->>> -/**
->>> - * rproc_elf_sanity_check() - Sanity Check ELF32 firmware image
->>> - * @rproc: the remote processor handle
->>> - * @fw: the ELF32 firmware image
->>> - *
->>> - * Make sure this fw image is sane.
->>> - */
->>> -int rproc_elf32_sanity_check(struct rproc *rproc, const struct firmware *fw)
->>> -{
->>> -	int ret = rproc_elf_sanity_check(rproc, fw);
->>> -
->>> -	if (ret)
->>> -		return ret;
->>> -
->>> -	if (fw_elf_get_class(fw) == ELFCLASS32)
->>> -		return 0;
->>> -
->>> -	return -EINVAL;
->>> -}
->>> -EXPORT_SYMBOL(rproc_elf32_sanity_check);
->>> -
->>>  /**
->>>   * rproc_elf_get_boot_addr() - Get rproc's boot address.
->>>   * @rproc: the remote processor handle
->>> diff --git a/drivers/remoteproc/remoteproc_internal.h
->>> b/drivers/remoteproc/remoteproc_internal.h
->>> index b389dc79da81..31994715fd43 100644
->>> --- a/drivers/remoteproc/remoteproc_internal.h
->>> +++ b/drivers/remoteproc/remoteproc_internal.h
->>> @@ -54,7 +54,6 @@ void *rproc_da_to_va(struct rproc *rproc, u64 da, size_t len);
->>>  phys_addr_t rproc_va_to_pa(void *cpu_addr);
->>>  int rproc_trigger_recovery(struct rproc *rproc);
->>>  
->>> -int rproc_elf32_sanity_check(struct rproc *rproc, const struct firmware *fw);
->>>  int rproc_elf_sanity_check(struct rproc *rproc, const struct firmware *fw);
->>>  u64 rproc_elf_get_boot_addr(struct rproc *rproc, const struct firmware *fw);
->>>  int rproc_elf_load_segments(struct rproc *rproc, const struct firmware *fw);
->>> diff --git a/drivers/remoteproc/st_remoteproc.c
->>> b/drivers/remoteproc/st_remoteproc.c
->>> index a6cbfa452764..a3268d95a50e 100644
->>> --- a/drivers/remoteproc/st_remoteproc.c
->>> +++ b/drivers/remoteproc/st_remoteproc.c
->>> @@ -233,7 +233,7 @@ static const struct rproc_ops st_rproc_ops = {
->>>  	.parse_fw		= st_rproc_parse_fw,
->>>  	.load			= rproc_elf_load_segments,
->>>  	.find_loaded_rsc_table	= rproc_elf_find_loaded_rsc_table,
->>> -	.sanity_check		= rproc_elf32_sanity_check,
->>> +	.sanity_check		= rproc_elf_sanity_check,
->>>  	.get_boot_addr		= rproc_elf_get_boot_addr,
->>>  };
->>>  
->>> diff --git a/drivers/remoteproc/st_slim_rproc.c
->>> b/drivers/remoteproc/st_slim_rproc.c
->>> index 3cca8b65a8db..09bcb4d8b9e0 100644
->>> --- a/drivers/remoteproc/st_slim_rproc.c
->>> +++ b/drivers/remoteproc/st_slim_rproc.c
->>> @@ -203,7 +203,7 @@ static const struct rproc_ops slim_rproc_ops = {
->>>  	.da_to_va       = slim_rproc_da_to_va,
->>>  	.get_boot_addr	= rproc_elf_get_boot_addr,
->>>  	.load		= rproc_elf_load_segments,
->>> -	.sanity_check	= rproc_elf32_sanity_check,
->>> +	.sanity_check	= rproc_elf_sanity_check,
->>>  };
->>>  
->>>  /**
->>> diff --git a/drivers/remoteproc/stm32_rproc.c b/drivers/remoteproc/stm32_rproc.c
->>> index 6a66dbf2df40..2e07a95439c8 100644
->>> --- a/drivers/remoteproc/stm32_rproc.c
->>> +++ b/drivers/remoteproc/stm32_rproc.c
->>> @@ -505,7 +505,7 @@ static struct rproc_ops st_rproc_ops = {
->>>  	.load		= rproc_elf_load_segments,
->>>  	.parse_fw	= stm32_rproc_parse_fw,
->>>  	.find_loaded_rsc_table = rproc_elf_find_loaded_rsc_table,
->>> -	.sanity_check	= rproc_elf32_sanity_check,
->>> +	.sanity_check	= rproc_elf_sanity_check,
->>>  	.get_boot_addr	= rproc_elf_get_boot_addr,
->>>  };
->>>  
->>> --
->>> 2.17.1
+>
+> Cheers,
+> Ezequiel
 _______________________________________________
 Linux-stm32 mailing list
 Linux-stm32@st-md-mailman.stormreply.com
