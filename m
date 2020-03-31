@@ -2,38 +2,38 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id E73BD198928
-	for <lists+linux-stm32@lfdr.de>; Tue, 31 Mar 2020 02:57:43 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id ED2B9198929
+	for <lists+linux-stm32@lfdr.de>; Tue, 31 Mar 2020 02:57:44 +0200 (CEST)
 Received: from ip-172-31-3-76.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id AF123C36B09;
-	Tue, 31 Mar 2020 00:57:43 +0000 (UTC)
-Received: from mail-out.m-online.net (mail-out.m-online.net [212.18.0.9])
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id B89DAC36B0D;
+	Tue, 31 Mar 2020 00:57:44 +0000 (UTC)
+Received: from mail-out.m-online.net (mail-out.m-online.net [212.18.0.10])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 24AFEC36B10
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id D9BF4C36B0B
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Tue, 31 Mar 2020 00:57:42 +0000 (UTC)
+ Tue, 31 Mar 2020 00:57:43 +0000 (UTC)
 Received: from frontend01.mail.m-online.net (unknown [192.168.8.182])
- by mail-out.m-online.net (Postfix) with ESMTP id 48rrXP5hXBz1qrGG;
- Tue, 31 Mar 2020 02:57:41 +0200 (CEST)
+ by mail-out.m-online.net (Postfix) with ESMTP id 48rrXR3wd0z1rpG2;
+ Tue, 31 Mar 2020 02:57:43 +0200 (CEST)
 Received: from localhost (dynscan1.mnet-online.de [192.168.6.70])
- by mail.m-online.net (Postfix) with ESMTP id 48rrXP5RJrz1r0cH;
- Tue, 31 Mar 2020 02:57:41 +0200 (CEST)
+ by mail.m-online.net (Postfix) with ESMTP id 48rrXR3GlSz1r0cH;
+ Tue, 31 Mar 2020 02:57:43 +0200 (CEST)
 X-Virus-Scanned: amavisd-new at mnet-online.de
 Received: from mail.mnet-online.de ([192.168.8.182])
  by localhost (dynscan1.mail.m-online.net [192.168.6.70]) (amavisd-new,
  port 10024)
- with ESMTP id Rd8R-32XQdLO; Tue, 31 Mar 2020 02:57:40 +0200 (CEST)
-X-Auth-Info: QRYos6mFsZ5xABvqSASABdSxEjObFvTesNeB1LBRRKY=
+ with ESMTP id BhXLrgHhuEbu; Tue, 31 Mar 2020 02:57:41 +0200 (CEST)
+X-Auth-Info: RxeJxoAY8CMqBuogti2Egcm06YvyI774ER+7fH7tphQ=
 Received: from desktop.lan (ip-86-49-35-8.net.upcbroadband.cz [86.49.35.8])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
  by mail.mnet-online.de (Postfix) with ESMTPSA;
- Tue, 31 Mar 2020 02:57:40 +0200 (CEST)
+ Tue, 31 Mar 2020 02:57:41 +0200 (CEST)
 From: Marek Vasut <marex@denx.de>
 To: linux-arm-kernel@lists.infradead.org
-Date: Tue, 31 Mar 2020 02:56:48 +0200
-Message-Id: <20200331005701.283998-10-marex@denx.de>
+Date: Tue, 31 Mar 2020 02:56:49 +0200
+Message-Id: <20200331005701.283998-11-marex@denx.de>
 X-Mailer: git-send-email 2.25.1
 In-Reply-To: <20200331005701.283998-1-marex@denx.de>
 References: <20200331005701.283998-1-marex@denx.de>
@@ -42,8 +42,8 @@ Cc: Marek Vasut <marex@denx.de>, Patrick Delaunay <patrick.delaunay@st.com>,
  Maxime Coquelin <mcoquelin.stm32@gmail.com>,
  Manivannan Sadhasivam <manivannan.sadhasivam@linaro.org>,
  linux-stm32@st-md-mailman.stormreply.com
-Subject: [Linux-stm32] [PATCH V2 09/22] ARM: dts: stm32: Repair PMIC
-	configuration on AV96
+Subject: [Linux-stm32] [PATCH V2 10/22] ARM: dts: stm32: Repair PMIC
+	interrupt on AV96
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -60,9 +60,9 @@ Content-Transfer-Encoding: 7bit
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
-The core and vdd PMIC buck regulators were misconfigured, which caused
-instability of the board and malfunction of high-speed interfaces, like
-the RGMII. Configure the PMIC correctly to repair these problems.
+The PMIC interrupt line is connected to PA0 on the DHCOR SoM, fix it.
+This makes the POWER button on the AV96 working, and also all the other
+PMIC interrupts. Furthermore, scrub the bogus interrupt-parent props.
 
 Signed-off-by: Marek Vasut <marex@denx.de>
 Cc: Alexandre Torgue <alexandre.torgue@st.com>
@@ -73,70 +73,85 @@ Cc: Patrick Delaunay <patrick.delaunay@st.com>
 Cc: linux-stm32@st-md-mailman.stormreply.com
 To: linux-arm-kernel@lists.infradead.org
 ---
-V2: Model the Enpirion EP53A8LQI on the DHCOR SoM as a fixed regulator
+V2: No change
 ---
- arch/arm/boot/dts/stm32mp157a-avenger96.dts | 20 ++++++++++++++++----
- 1 file changed, 16 insertions(+), 4 deletions(-)
+ arch/arm/boot/dts/stm32mp157a-avenger96.dts | 10 +---------
+ 1 file changed, 1 insertion(+), 9 deletions(-)
 
 diff --git a/arch/arm/boot/dts/stm32mp157a-avenger96.dts b/arch/arm/boot/dts/stm32mp157a-avenger96.dts
-index 6c34a003c3f6..ebe8a134c7ff 100644
+index ebe8a134c7ff..9a44c8777f67 100644
 --- a/arch/arm/boot/dts/stm32mp157a-avenger96.dts
 +++ b/arch/arm/boot/dts/stm32mp157a-avenger96.dts
-@@ -91,6 +91,17 @@ sd_switch: regulator-sd_switch {
- 		states = <1800000 0x1>,
- 			 <2900000 0x0>;
- 	};
-+
-+	/* Enpirion EP3A8LQI U2 on the DHCOR */
-+	vdd_io: regulator-buck-io {
-+		compatible = "regulator-fixed";
-+		regulator-name = "buck-io";
-+		regulator-min-microvolt = <1800000>;
-+		regulator-max-microvolt = <1800000>;
-+		regulator-always-on;
-+		regulator-boot-on;
-+		vin-supply = <&vdd>;
-+	};
- };
+@@ -171,7 +171,7 @@ &i2c4 {
+ 	pmic: stpmic@33 {
+ 		compatible = "st,stpmic1";
+ 		reg = <0x33>;
+-		interrupts-extended = <&exti 55 IRQ_TYPE_EDGE_FALLING>;
++		interrupts-extended = <&gpioa 0 IRQ_TYPE_EDGE_FALLING>;
+ 		interrupt-controller;
+ 		#interrupt-cells = <2>;
+ 		status = "okay";
+@@ -228,7 +228,6 @@ vdda: ldo1 {
+ 				regulator-min-microvolt = <2900000>;
+ 				regulator-max-microvolt = <2900000>;
+ 				interrupts = <IT_CURLIM_LDO1 0>;
+-				interrupt-parent = <&pmic>;
+ 			};
  
- &ethernet0 {
-@@ -178,7 +189,7 @@ regulators {
+ 			v2v8: ldo2 {
+@@ -236,7 +235,6 @@ v2v8: ldo2 {
+ 				regulator-min-microvolt = <2800000>;
+ 				regulator-max-microvolt = <2800000>;
+ 				interrupts = <IT_CURLIM_LDO2 0>;
+-				interrupt-parent = <&pmic>;
+ 			};
  
- 			vddcore: buck1 {
- 				regulator-name = "vddcore";
--				regulator-min-microvolt = <1200000>;
-+				regulator-min-microvolt = <800000>;
- 				regulator-max-microvolt = <1350000>;
- 				regulator-always-on;
- 				regulator-initial-mode = <0>;
-@@ -196,8 +207,8 @@ vdd_ddr: buck2 {
+ 			vtt_ddr: ldo3 {
+@@ -250,7 +248,6 @@ vtt_ddr: ldo3 {
+ 			vdd_usb: ldo4 {
+ 				regulator-name = "vdd_usb";
+ 				interrupts = <IT_CURLIM_LDO4 0>;
+-				interrupt-parent = <&pmic>;
+ 			};
  
- 			vdd: buck3 {
- 				regulator-name = "vdd";
--				regulator-min-microvolt = <3300000>;
--				regulator-max-microvolt = <3300000>;
-+				regulator-min-microvolt = <2900000>;
-+				regulator-max-microvolt = <2900000>;
- 				regulator-always-on;
- 				regulator-initial-mode = <0>;
- 				regulator-over-current-protection;
-@@ -275,6 +286,7 @@ vbus_otg: pwr_sw1 {
+ 			vdd_sd: ldo5 {
+@@ -258,7 +255,6 @@ vdd_sd: ldo5 {
+ 				regulator-min-microvolt = <2900000>;
+ 				regulator-max-microvolt = <2900000>;
+ 				interrupts = <IT_CURLIM_LDO5 0>;
+-				interrupt-parent = <&pmic>;
+ 				regulator-boot-on;
+ 			};
+ 
+@@ -267,7 +263,6 @@ v1v8: ldo6 {
+ 				regulator-min-microvolt = <1800000>;
+ 				regulator-max-microvolt = <1800000>;
+ 				interrupts = <IT_CURLIM_LDO6 0>;
+-				interrupt-parent = <&pmic>;
+ 				regulator-enable-ramp-delay = <300000>;
+ 			};
+ 
+@@ -279,20 +274,17 @@ vref_ddr: vref_ddr {
+ 			bst_out: boost {
+ 				regulator-name = "bst_out";
+ 				interrupts = <IT_OCP_BOOST 0>;
+-				interrupt-parent = <&pmic>;
+ 			};
+ 
+ 			vbus_otg: pwr_sw1 {
  				regulator-name = "vbus_otg";
  				interrupts = <IT_OCP_OTG 0>;
- 				interrupt-parent = <&pmic>;
-+				regulator-active-discharge = <1>;
+-				interrupt-parent = <&pmic>;
+ 				regulator-active-discharge = <1>;
  			};
  
  			vbus_sw: pwr_sw2 {
-@@ -305,7 +317,7 @@ &iwdg2 {
- };
- 
- &pwr_regulators {
--	vdd-supply = <&vdd>;
-+	vdd-supply = <&vdd_io>;
- 	vdd_3v3_usbfs-supply = <&vdd_usb>;
- };
- 
+ 				regulator-name = "vbus_sw";
+ 				interrupts = <IT_OCP_SWOUT 0>;
+-				interrupt-parent = <&pmic>;
+ 				regulator-active-discharge = <1>;
+ 			};
+ 		};
 -- 
 2.25.1
 
