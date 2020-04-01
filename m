@@ -2,66 +2,64 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id C909C19A6AB
-	for <lists+linux-stm32@lfdr.de>; Wed,  1 Apr 2020 09:55:06 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id CC65719A6F9
+	for <lists+linux-stm32@lfdr.de>; Wed,  1 Apr 2020 10:17:08 +0200 (CEST)
 Received: from ip-172-31-3-76.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 8F87EC36B0B;
-	Wed,  1 Apr 2020 07:55:06 +0000 (UTC)
-Received: from mx07-00178001.pphosted.com (mx08-00178001.pphosted.com
- [91.207.212.93])
- (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 81E12C36B0B;
+	Wed,  1 Apr 2020 08:17:08 +0000 (UTC)
+Received: from mail-ua1-f66.google.com (mail-ua1-f66.google.com
+ [209.85.222.66])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 82EA0C36B09
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 8D9ABC36B09
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Wed,  1 Apr 2020 07:55:04 +0000 (UTC)
-Received: from pps.filterd (m0046661.ppops.net [127.0.0.1])
- by mx07-00178001.pphosted.com (8.16.0.42/8.16.0.42) with SMTP id
- 0317qqm0016819; Wed, 1 Apr 2020 09:54:57 +0200
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=st.com;
- h=subject : to : cc :
- references : from : message-id : date : mime-version : in-reply-to :
- content-type : content-transfer-encoding; s=STMicroelectronics;
- bh=L3tZcNB6Zg4kzHn8ixX1iKWn3Upb6IYByXlIZINZM5g=;
- b=ghgQv2321JvzvV40jrK14Nv+QmrzE4kSAOfMjVjwzVaQVD/WvthsdJCaiytRgSKOFgem
- HwxhTof6gCmL71HeRskmvhcs+tJu8tRdhKytZ6JcUH8KmjKoBCgC5cV0ZcBiisyD7pbt
- clHg6qvLKBDHn/x7PFGD1Y/NZNFQCWbS+ehiVMoL5dOv3B+1HrgOr8oCqXvWBEu7w5lZ
- b70iuET5a+/upTRQpKFC8lTqxQWE1o1OWX9BCcmws0mXQxtPYO4lOAjR3/4H4isAkJNd
- sIeFKoP1I1pPjrqEkQQptMDXDfT9To2tH6UXPipiJ9KYlR126ODRq7u2OnHBAcjwduVz Vw== 
-Received: from beta.dmz-eu.st.com (beta.dmz-eu.st.com [164.129.1.35])
- by mx07-00178001.pphosted.com with ESMTP id 301xbmkkag-1
- (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
- Wed, 01 Apr 2020 09:54:57 +0200
-Received: from euls16034.sgp.st.com (euls16034.sgp.st.com [10.75.44.20])
- by beta.dmz-eu.st.com (STMicroelectronics) with ESMTP id 897D8100034;
- Wed,  1 Apr 2020 09:54:52 +0200 (CEST)
-Received: from Webmail-eu.st.com (sfhdag3node2.st.com [10.75.127.8])
- by euls16034.sgp.st.com (STMicroelectronics) with ESMTP id 7BF3021BA8F;
- Wed,  1 Apr 2020 09:54:52 +0200 (CEST)
-Received: from lmecxl0912.tpe.st.com (10.75.127.44) by SFHDAG3NODE2.st.com
- (10.75.127.8) with Microsoft SMTP Server (TLS) id 15.0.1347.2; Wed, 1 Apr
- 2020 09:54:48 +0200
-To: Fabrice Gasnier <fabrice.gasnier@st.com>
-References: <1584613826-10838-1-git-send-email-fabrice.gasnier@st.com>
-From: Alexandre Torgue <alexandre.torgue@st.com>
-Message-ID: <e2890c8b-a950-baac-8f25-d7b8adb147d5@st.com>
-Date: Wed, 1 Apr 2020 09:54:41 +0200
-User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:68.0) Gecko/20100101
- Thunderbird/68.4.1
+ Wed,  1 Apr 2020 08:17:06 +0000 (UTC)
+Received: by mail-ua1-f66.google.com with SMTP id f9so8743753uaq.8
+ for <linux-stm32@st-md-mailman.stormreply.com>;
+ Wed, 01 Apr 2020 01:17:06 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linaro.org; s=google;
+ h=mime-version:references:in-reply-to:from:date:message-id:subject:to
+ :cc; bh=ensGezno4nmhj/DQXTgSjB6W9s0hooLswX7hmYrhsYs=;
+ b=TFRE9IalabaS54Co9qCRHXDAKQZ8dqfLecwCXI0i4qEvEy2pykDB6zTBWsk6Y3YSUT
+ 6HN2RX1XTv4HHTt/9kJdLsz6wV9ajV1ybvfw1QEKHVLpsKWfJ2+U0ZXsxwybV+3oaqTb
+ Odq+0k1ojeQnFLJsBCyKj20zYQmmcXmK+e52TDBWXDftfip2IxyIxUg4r98xe/H/57Bk
+ K5XYc3YJQIxgZNiqmsXgC5SOyLNsbV67NyF9CWYCvfXdVYaqkhf7OOd+edYTaKvMLXCZ
+ /itut1tKZbfF8o+8jX9hnrws6V6ZK/nHF8ugr/knbrem2hfAdRS3IMyBFgxRwBgWvMvS
+ 2ggQ==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20161025;
+ h=x-gm-message-state:mime-version:references:in-reply-to:from:date
+ :message-id:subject:to:cc;
+ bh=ensGezno4nmhj/DQXTgSjB6W9s0hooLswX7hmYrhsYs=;
+ b=hG2P0ZkpYA7n5JYdomPNvvQ5MM41YpJ5iFcDnOuCxN+CMbFWXI3Yj3B8qE2fhtQGlD
+ 6IKxVLMekZj44k0ZE9NFDsLVPD4+2zrgF/JIJqxnwBwCGiQG7Hs0zXJgLNu8xahsNEJi
+ kedXcZfKH+ZZQktXhaZOjSV/cc12KEl7r1E9rrcwoQJKKqpLRF9B4cnXbgn6El4EDQ14
+ e9RqbBj3kxafE7fr0h2QE80YWHeIGY2ew7a2ZUYVJqFk9d53zhtr3jHHVmAig/umhTap
+ HacwXwP/v5l57VYA3BD6WThWU93/p5ALCdhBM8xTDJC6U1x8qkqtpnA3uCdSWrkS+moP
+ QkrQ==
+X-Gm-Message-State: AGi0PuaceM/Vscw2lEx6dJrGmiXrJHJYetkTAOJgm3m96Mdx4lFYdibX
+ F7uHE+QZyiirZlJ4jGHcXp2txZRT2aluXM00OOjXeQ==
+X-Google-Smtp-Source: APiQypJE/rOrtpVM/N8R34J7/BlgBaqpmAWpSVysnxQZrIHkKr0+mYCUesLSD5y0GEwVgkHo/cfrF633iR9GGKoYL7Y=
+X-Received: by 2002:ab0:6204:: with SMTP id m4mr15304673uao.15.1585729025357; 
+ Wed, 01 Apr 2020 01:17:05 -0700 (PDT)
 MIME-Version: 1.0
-In-Reply-To: <1584613826-10838-1-git-send-email-fabrice.gasnier@st.com>
-Content-Language: en-US
-X-Originating-IP: [10.75.127.44]
-X-ClientProxiedBy: SFHDAG5NODE3.st.com (10.75.127.15) To SFHDAG3NODE2.st.com
- (10.75.127.8)
-X-Proofpoint-Virus-Version: vendor=fsecure engine=2.50.10434:6.0.138, 18.0.676
- definitions=2020-03-31_07:2020-03-31,
- 2020-03-31 signatures=0
-Cc: mark.rutland@arm.com, devicetree@vger.kernel.org,
- linux-kernel@vger.kernel.org, robh+dt@kernel.org,
- linux-arm-kernel@lists.infradead.org, mcoquelin.stm32@gmail.com,
- linux-stm32@st-md-mailman.stormreply.com, jic23@kernel.org
-Subject: Re: [Linux-stm32] [PATCH] ARM: dts: stm32: fix a typo for DAC
- io-channel-cells on stm32mp15
+References: <20200331155254.100952-1-marex@denx.de>
+ <CAPDyKFrypbDEuDaGWySjC6j_qKbXpVHoubhh8e9jS24JSzBg3Q@mail.gmail.com>
+ <7a7c0180-0a11-17b2-7815-b18b1ca11120@denx.de>
+In-Reply-To: <7a7c0180-0a11-17b2-7815-b18b1ca11120@denx.de>
+From: Ulf Hansson <ulf.hansson@linaro.org>
+Date: Wed, 1 Apr 2020 10:16:29 +0200
+Message-ID: <CAPDyKFoEFe=fru0=HCTzG2CikGA72hFWK0y6iL_EN6BDK3Vtkw@mail.gmail.com>
+To: Marek Vasut <marex@denx.de>
+Cc: Linus Walleij <linus.walleij@linaro.org>,
+ "linux-mmc@vger.kernel.org" <linux-mmc@vger.kernel.org>,
+ Patrick Delaunay <patrick.delaunay@st.com>,
+ Russell King <linux@armlinux.org.uk>,
+ Maxime Coquelin <mcoquelin.stm32@gmail.com>,
+ Manivannan Sadhasivam <manivannan.sadhasivam@linaro.org>,
+ linux-stm32@st-md-mailman.stormreply.com
+Subject: Re: [Linux-stm32] [PATCH] mmc: mmci: Only call
+ .post_sig_volt_switch if voltage switch happened
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -73,49 +71,59 @@ List-Post: <mailto:linux-stm32@st-md-mailman.stormreply.com>
 List-Help: <mailto:linux-stm32-request@st-md-mailman.stormreply.com?subject=help>
 List-Subscribe: <https://st-md-mailman.stormreply.com/mailman/listinfo/linux-stm32>, 
  <mailto:linux-stm32-request@st-md-mailman.stormreply.com?subject=subscribe>
+Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
-Content-Type: text/plain; charset="us-ascii"; Format="flowed"
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
-Hi Fabrice
+On Tue, 31 Mar 2020 at 23:01, Marek Vasut <marex@denx.de> wrote:
+>
+> On 3/31/20 8:53 PM, Ulf Hansson wrote:
+> > On Tue, 31 Mar 2020 at 17:53, Marek Vasut <marex@denx.de> wrote:
+> >>
+> >> Call the post voltage switch handler only if the voltage switch actually
+> >> happened. It is well possible that the regulator is already set correctly
+> >> and no voltage switch happened, so there is no need to take any further
+> >> action.
+> >>
+> >> This fixes a real issue on STM32MP1 where, if the eMMC is supplied with
+> >> VccQ=1.8 V, the post voltage switch code will spin indefinitelly waiting
+> >> for the voltage switch to complete, even though no voltage switch really
+> >> happened.
+> >
+> > Whether this is a common problem or not, I think in a first step we
+> > should manage this in the common mmc_regulator_set_vqmmc().
+>
+> I can pass in a variable which would be set if a voltage switch actually
+> happened in mmc_regulator_set_vqmmc() OR I can return a code > 0 from
+> there. Which one do you prefer?
 
-On 3/19/20 11:30 AM, Fabrice Gasnier wrote:
-> Fix a typo on STM32MP15 DAC, e.g. s/channels/channel
-> 
-> Fixes: da6cddc7e8a4 ("ARM: dts: stm32: Add DAC support to stm32mp157c")
-> 
-> Signed-off-by: Fabrice Gasnier <fabrice.gasnier@st.com>
-> ---
->   arch/arm/boot/dts/stm32mp151.dtsi | 4 ++--
->   1 file changed, 2 insertions(+), 2 deletions(-)
-> 
-> diff --git a/arch/arm/boot/dts/stm32mp151.dtsi b/arch/arm/boot/dts/stm32mp151.dtsi
-> index 3ea05ba..5260818 100644
-> --- a/arch/arm/boot/dts/stm32mp151.dtsi
-> +++ b/arch/arm/boot/dts/stm32mp151.dtsi
-> @@ -550,14 +550,14 @@
->   
->   			dac1: dac@1 {
->   				compatible = "st,stm32-dac";
-> -				#io-channels-cells = <1>;
-> +				#io-channel-cells = <1>;
->   				reg = <1>;
->   				status = "disabled";
->   			};
->   
->   			dac2: dac@2 {
->   				compatible = "st,stm32-dac";
-> -				#io-channels-cells = <1>;
-> +				#io-channel-cells = <1>;
->   				reg = <2>;
->   				status = "disabled";
->   			};
-> 
-Applied on stm32-next.
+Return a code > 0.
 
-Thanks.
-Alex
+>
+> Then I guess we can add something like
+>
+> if (regulator_get_voltage(...vqmmc) is already in voltage range)
+>  return 1;
+>
+> ...
+>
+> and the MMCI driver would do something like
+>
+> if (mmc_regulator_set_vqmmc(...) > 0)
+>  host->ops->post_sig_volt_switch(...);
+>
+> That looks OK I guess ?
+>
+> > Then on top of that, convert mmci into using the mmc_regulator_set_vqmmc() API.
+> >
+> > Can please try this approach instead?
+> Sure. Does the above look sane ?
+
+Yes, great!
+
+Kind regards
+Uffe
 _______________________________________________
 Linux-stm32 mailing list
 Linux-stm32@st-md-mailman.stormreply.com
