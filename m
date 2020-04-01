@@ -2,66 +2,61 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id 586A419A71D
-	for <lists+linux-stm32@lfdr.de>; Wed,  1 Apr 2020 10:21:24 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 6615219A777
+	for <lists+linux-stm32@lfdr.de>; Wed,  1 Apr 2020 10:39:41 +0200 (CEST)
 Received: from ip-172-31-3-76.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 1BDD9C36B0B;
-	Wed,  1 Apr 2020 08:21:24 +0000 (UTC)
-Received: from mx07-00178001.pphosted.com (mx08-00178001.pphosted.com
- [91.207.212.93])
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 1D2B9C36B0B;
+	Wed,  1 Apr 2020 08:39:41 +0000 (UTC)
+Received: from mx07-00178001.pphosted.com (mx07-00178001.pphosted.com
+ [62.209.51.94])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 33B06C36B09
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id B140DC36B09
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Wed,  1 Apr 2020 08:21:22 +0000 (UTC)
-Received: from pps.filterd (m0046661.ppops.net [127.0.0.1])
+ Wed,  1 Apr 2020 08:39:40 +0000 (UTC)
+Received: from pps.filterd (m0046037.ppops.net [127.0.0.1])
  by mx07-00178001.pphosted.com (8.16.0.42/8.16.0.42) with SMTP id
- 0318Is1m016051; Wed, 1 Apr 2020 10:21:15 +0200
+ 0318buli010433; Wed, 1 Apr 2020 10:39:22 +0200
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=st.com;
- h=subject : to : cc :
- references : from : message-id : date : mime-version : in-reply-to :
- content-type : content-transfer-encoding; s=STMicroelectronics;
- bh=2LCt8uA66pi/fY3wjKmgurjBraqWfS8tTA6ImKoZ4+M=;
- b=YReJOvnM3mdzpepnWXqX+x1AX3MdpbBO910KweK2iWFva1K1R+zqB3Nx9riBzfJlXg4g
- Mzpqx8Xdq/OTyGtVvt9ytzC5auozXjbkeGRvzPEggt/Q2xtnyA7xtAmXdAuccznKg+9G
- YiRCW1Yhnl+Mh+3Ve+KEtOsosm5xSl/othLbb3zXvLyVrbBh4J0LSnh16wJh+WTvXUk3
- g8BQumoLKq/xngo4vOxllOhRBlDrMNlKXPLCvLGSjqosM0k+xe2SXaINrahUYzrpErZN
- HoX//vbhW3WBVpe/xhqjCTu5Zi5MM0K1Th/Wm4YRL0+5icBYwLIJONRrzBhIgmGWjRjW oQ== 
+ h=from : to : cc : subject
+ : date : message-id : mime-version : content-type; s=STMicroelectronics;
+ bh=lzzw7FXM0MO9eFzpIxeWfpnrQEPQjgWmRDZU797bXb8=;
+ b=xtrcxr1EAvv7HnNqNv9zC+wI60OE8e8OmAvMRjfnYxqkn8Xaphz9JIFc/mU1K1LkZmMh
+ 5ihsorr2LVId7ONlbCmT05Jy7DYRYYNWXmleCIqweN+XizU/EOr24WuxhBW6/36YBUay
+ aN0hchzyNFAW92C7SjqCJR2a4Ke+gZUilqdwUIzYyUehmlkuJbOs7kBwJQqEM1tOT56x
+ TrRaYgUEgRnc5aNGW3bXnqHK5JvJuaSvvfHFSU9/owDtNddT6nCzKhjV2It591+wbno5
+ 3ajHWBVZba9hszEmi6E6PIj6xN8s0Mf14b35GwxkfQMX7f0Q2lUuVT5NmULsYEiY3mdK Vg== 
 Received: from beta.dmz-eu.st.com (beta.dmz-eu.st.com [164.129.1.35])
- by mx07-00178001.pphosted.com with ESMTP id 301xbmkrhj-1
+ by mx07-00178001.pphosted.com with ESMTP id 301w813w5g-1
  (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
- Wed, 01 Apr 2020 10:21:15 +0200
+ Wed, 01 Apr 2020 10:39:22 +0200
 Received: from euls16034.sgp.st.com (euls16034.sgp.st.com [10.75.44.20])
- by beta.dmz-eu.st.com (STMicroelectronics) with ESMTP id 8E106100038;
- Wed,  1 Apr 2020 10:21:10 +0200 (CEST)
-Received: from Webmail-eu.st.com (sfhdag3node2.st.com [10.75.127.8])
- by euls16034.sgp.st.com (STMicroelectronics) with ESMTP id 77A912126CB;
- Wed,  1 Apr 2020 10:21:10 +0200 (CEST)
-Received: from lmecxl0912.tpe.st.com (10.75.127.46) by SFHDAG3NODE2.st.com
- (10.75.127.8) with Microsoft SMTP Server (TLS) id 15.0.1347.2; Wed, 1 Apr
- 2020 10:20:12 +0200
-To: Arnaud Pouliquen <arnaud.pouliquen@st.com>, Rob Herring <robh@kernel.org>, 
- Mark Rutland <mark.rutland@arm.com>
-References: <20200320125841.11059-1-arnaud.pouliquen@st.com>
-From: Alexandre Torgue <alexandre.torgue@st.com>
-Message-ID: <0b14ed2a-c384-af73-2e28-541eadb309e2@st.com>
-Date: Wed, 1 Apr 2020 10:20:03 +0200
-User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:68.0) Gecko/20100101
- Thunderbird/68.4.1
+ by beta.dmz-eu.st.com (STMicroelectronics) with ESMTP id A386510002A;
+ Wed,  1 Apr 2020 10:39:21 +0200 (CEST)
+Received: from Webmail-eu.st.com (sfhdag3node3.st.com [10.75.127.9])
+ by euls16034.sgp.st.com (STMicroelectronics) with ESMTP id 8BADA21CA86;
+ Wed,  1 Apr 2020 10:39:21 +0200 (CEST)
+Received: from localhost (10.75.127.47) by SFHDAG3NODE3.st.com (10.75.127.9)
+ with Microsoft SMTP Server (TLS) id 15.0.1347.2; Wed, 1 Apr 2020 10:39:21
+ +0200
+From: Benjamin Gaignard <benjamin.gaignard@st.com>
+To: <fabrice.gasnier@st.com>, <lee.jones@linaro.org>, <robh+dt@kernel.org>,
+ <mark.rutland@arm.com>, <mcoquelin.stm32@gmail.com>,
+ <alexandre.torgue@st.com>, <daniel.lezcano@linaro.org>,
+ <tglx@linutronix.de>
+Date: Wed, 1 Apr 2020 10:39:03 +0200
+Message-ID: <20200401083909.18886-1-benjamin.gaignard@st.com>
+X-Mailer: git-send-email 2.15.0
 MIME-Version: 1.0
-In-Reply-To: <20200320125841.11059-1-arnaud.pouliquen@st.com>
-Content-Language: en-US
-X-Originating-IP: [10.75.127.46]
-X-ClientProxiedBy: SFHDAG2NODE2.st.com (10.75.127.5) To SFHDAG3NODE2.st.com
- (10.75.127.8)
+X-Originating-IP: [10.75.127.47]
+X-ClientProxiedBy: SFHDAG6NODE2.st.com (10.75.127.17) To SFHDAG3NODE3.st.com
+ (10.75.127.9)
 X-Proofpoint-Virus-Version: vendor=fsecure engine=2.50.10434:6.0.138, 18.0.676
  definitions=2020-03-31_07:2020-03-31,
  2020-03-31 signatures=0
-Cc: Fabien Dessenne <fabien.dessenne@st.com>, devicetree@vger.kernel.org,
- linux-stm32@st-md-mailman.stormreply.com, linux-arm-kernel@lists.infradead.org,
- linux-kernel@vger.kernel.org
-Subject: Re: [Linux-stm32] [PATCH] ARM: dts: stm32: add cortex-M4 pdds
- management in Cortex-M4 node
+Cc: devicetree@vger.kernel.org, linux-stm32@st-md-mailman.stormreply.com,
+ linux-arm-kernel@lists.infradead.org, linux-kernel@vger.kernel.org
+Subject: [Linux-stm32] [PATCH v6 0/6] clockevent: add low power STM32 timer
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -73,49 +68,72 @@ List-Post: <mailto:linux-stm32@st-md-mailman.stormreply.com>
 List-Help: <mailto:linux-stm32-request@st-md-mailman.stormreply.com?subject=help>
 List-Subscribe: <https://st-md-mailman.stormreply.com/mailman/listinfo/linux-stm32>, 
  <mailto:linux-stm32-request@st-md-mailman.stormreply.com?subject=subscribe>
+Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
-Content-Type: text/plain; charset="us-ascii"; Format="flowed"
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
-Hi Arnaud
+This series add low power timer as boadcast clockevent device.
+Low power timer could runs even when CPUs are in idle mode and 
+could wakeup them.
 
-On 3/20/20 1:58 PM, Arnaud Pouliquen wrote:
-> Add declarations related to the syscon pdds for deep sleep management.
-> 
-> Signed-off-by: Arnaud Pouliquen <arnaud.pouliquen@st.com>
-> ---
+version 6:
+- simplify binding, DT and code to use only one interrupt
 
-Can you please rebase it on top of stm32-next ?
+version 5:
+- document interrupts and interrupt-names bindings
+- use a different wake up interrupt
+- add device-tree patch
+- make STM32MP157 select low power timer configuration flag
+- enable fast_io in regmap configuration
 
->   arch/arm/boot/dts/stm32mp151.dtsi | 6 ++++++
->   1 file changed, 6 insertions(+)
-> 
-> diff --git a/arch/arm/boot/dts/stm32mp151.dtsi b/arch/arm/boot/dts/stm32mp151.dtsi
-> index 7b93eb4b8f49..46ea1024340e 100644
-> --- a/arch/arm/boot/dts/stm32mp151.dtsi
-> +++ b/arch/arm/boot/dts/stm32mp151.dtsi
-> @@ -1115,6 +1115,11 @@
->   			};
->   		};
->   
-> +		pwr_mcu: pwr_mcu@50001014 {
-> +			compatible = "syscon";
-> +			reg = <0x50001014 0x4>;
-> +		};
-> +
->   		exti: interrupt-controller@5000d000 {
->   			compatible = "st,stm32mp1-exti", "syscon";
->   			interrupt-controller;
-> @@ -1693,6 +1698,7 @@
->   			st,syscfg-tz = <&rcc 0x000 0x1>;
->   			st,syscfg-rsc-tbl = <&tamp 0x144 0xFFFFFFFF>;
->   			st,syscfg-copro-state = <&tamp 0x148 0xFFFFFFFF>;
-> +			st,syscfg-pdds = <&pwr_mcu 0x0 0x1>;
->   			status = "disabled";
->   		};
->   	};
-> 
+version 4:
+- move defines in mfd/stm32-lptimer.h
+- change compatible and subnode names
+- document wakeup-source property
+- reword commit message
+- make driver Kconfig depends of MFD_STM32_LPTIMER
+- remove useless include
+- remove rate and clk fields from the private structure
+- to add comments about the registers sequence in stm32_clkevent_lp_set_timer
+- rework probe function and use devm_request_irq()
+- do not allow module to be removed
+
+version 3:
+- fix timer set sequence
+- don't forget to free irq on remove function
+- use devm_kzalloc to simplify errors handling in probe function
+
+version 2:
+- stm32 clkevent driver is now a child of the stm32 lp timer node
+- add a probe function and adpat the driver to use regmap provide
+  by it parent
+- stop using timer_of helpers
+
+
+
+Benjamin Gaignard (6):
+  dt-bindings: mfd: Document STM32 low power timer bindings
+  ARM: dts: stm32: Add timer subnodes on stm32mp15 SoCs
+  mfd: stm32: Add defines to be used for clkevent purpose
+  mfd: stm32: enable regmap fast_io for stm32-lptimer
+  clocksource: Add Low Power STM32 timers driver
+  ARM: mach-stm32: select low power timer for STM32MP157
+
+ .../devicetree/bindings/mfd/st,stm32-lptimer.yaml  |  21 ++
+ arch/arm/boot/dts/stm32mp151.dtsi                  |  35 ++++
+ arch/arm/mach-stm32/Kconfig                        |   1 +
+ drivers/clocksource/Kconfig                        |   4 +
+ drivers/clocksource/Makefile                       |   1 +
+ drivers/clocksource/timer-stm32-lp.c               | 221 +++++++++++++++++++++
+ drivers/mfd/stm32-lptimer.c                        |   1 +
+ include/linux/mfd/stm32-lptimer.h                  |   5 +
+ 8 files changed, 289 insertions(+)
+ create mode 100644 drivers/clocksource/timer-stm32-lp.c
+
+-- 
+2.15.0
+
 _______________________________________________
 Linux-stm32 mailing list
 Linux-stm32@st-md-mailman.stormreply.com
