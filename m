@@ -2,38 +2,38 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id A9E0319ACB8
-	for <lists+linux-stm32@lfdr.de>; Wed,  1 Apr 2020 15:23:23 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id B421319ACBA
+	for <lists+linux-stm32@lfdr.de>; Wed,  1 Apr 2020 15:23:25 +0200 (CEST)
 Received: from ip-172-31-3-76.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 7477DC36B0E;
-	Wed,  1 Apr 2020 13:23:23 +0000 (UTC)
-Received: from mail-out.m-online.net (mail-out.m-online.net [212.18.0.10])
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 80777C36B0D;
+	Wed,  1 Apr 2020 13:23:25 +0000 (UTC)
+Received: from mail-out.m-online.net (mail-out.m-online.net [212.18.0.9])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id BC953C36B09
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 2E28DC36B0F
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Wed,  1 Apr 2020 13:23:22 +0000 (UTC)
+ Wed,  1 Apr 2020 13:23:24 +0000 (UTC)
 Received: from frontend01.mail.m-online.net (unknown [192.168.8.182])
- by mail-out.m-online.net (Postfix) with ESMTP id 48sn2L2xwYz1rqqv;
- Wed,  1 Apr 2020 15:23:22 +0200 (CEST)
+ by mail-out.m-online.net (Postfix) with ESMTP id 48sn2M64kzz1qs07;
+ Wed,  1 Apr 2020 15:23:23 +0200 (CEST)
 Received: from localhost (dynscan1.mnet-online.de [192.168.6.70])
- by mail.m-online.net (Postfix) with ESMTP id 48sn2L1tB9z1r0cS;
- Wed,  1 Apr 2020 15:23:22 +0200 (CEST)
+ by mail.m-online.net (Postfix) with ESMTP id 48sn2M5LWXz1r0cW;
+ Wed,  1 Apr 2020 15:23:23 +0200 (CEST)
 X-Virus-Scanned: amavisd-new at mnet-online.de
 Received: from mail.mnet-online.de ([192.168.8.182])
  by localhost (dynscan1.mail.m-online.net [192.168.6.70]) (amavisd-new,
  port 10024)
- with ESMTP id Ab5BBosPwKFk; Wed,  1 Apr 2020 15:23:20 +0200 (CEST)
-X-Auth-Info: IbGsGFTO68etgJFvxSHeKT2+mXU0AYktPB2cLxtBYnE=
+ with ESMTP id YrLh26zqiFlR; Wed,  1 Apr 2020 15:23:22 +0200 (CEST)
+X-Auth-Info: SuXc7Djc+F1QUoyx6wHAH2r3NqtCtmoxf11t8JQbGPA=
 Received: from desktop.lan (ip-86-49-35-8.net.upcbroadband.cz [86.49.35.8])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
  by mail.mnet-online.de (Postfix) with ESMTPSA;
- Wed,  1 Apr 2020 15:23:20 +0200 (CEST)
+ Wed,  1 Apr 2020 15:23:22 +0200 (CEST)
 From: Marek Vasut <marex@denx.de>
 To: linux-arm-kernel@lists.infradead.org
-Date: Wed,  1 Apr 2020 15:22:32 +0200
-Message-Id: <20200401132237.60880-18-marex@denx.de>
+Date: Wed,  1 Apr 2020 15:22:33 +0200
+Message-Id: <20200401132237.60880-19-marex@denx.de>
 X-Mailer: git-send-email 2.25.1
 In-Reply-To: <20200401132237.60880-1-marex@denx.de>
 References: <20200401132237.60880-1-marex@denx.de>
@@ -42,8 +42,8 @@ Cc: Marek Vasut <marex@denx.de>, Patrick Delaunay <patrick.delaunay@st.com>,
  Maxime Coquelin <mcoquelin.stm32@gmail.com>,
  Manivannan Sadhasivam <manivannan.sadhasivam@linaro.org>,
  linux-stm32@st-md-mailman.stormreply.com
-Subject: [Linux-stm32] [PATCH V4 17/22] ARM: dts: stm32: Add alternate
-	pinmux for LTDC pins
+Subject: [Linux-stm32] [PATCH V4 18/22] ARM: dts: stm32: Add bindings for
+	HDMI video on AV96
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -60,7 +60,7 @@ Content-Transfer-Encoding: 7bit
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
-Add new mux option for LTDC pins, this is used on AV96 board.
+Fill in the HDMI video pipeline from AV96 into the DT.
 
 Signed-off-by: Marek Vasut <marex@denx.de>
 Cc: Alexandre Torgue <alexandre.torgue@st.com>
@@ -73,97 +73,120 @@ To: linux-arm-kernel@lists.infradead.org
 ---
 V2: No change
 V3: No change
-V4: - Rebase on stm32-next
-    - Rename to ltdc.*pins_d
+V4: Rebase on stm32-next
+    Use renamed ltdc_*_pins_d
 ---
- arch/arm/boot/dts/stm32mp15-pinctrl.dtsi | 74 ++++++++++++++++++++++++
- 1 file changed, 74 insertions(+)
+ arch/arm/boot/dts/stm32mp157a-avenger96.dts | 79 +++++++++++++++++++++
+ 1 file changed, 79 insertions(+)
 
-diff --git a/arch/arm/boot/dts/stm32mp15-pinctrl.dtsi b/arch/arm/boot/dts/stm32mp15-pinctrl.dtsi
-index f4bf87bd9b7e..c3a7402860af 100644
---- a/arch/arm/boot/dts/stm32mp15-pinctrl.dtsi
-+++ b/arch/arm/boot/dts/stm32mp15-pinctrl.dtsi
-@@ -662,6 +662,80 @@ pins1 {
+diff --git a/arch/arm/boot/dts/stm32mp157a-avenger96.dts b/arch/arm/boot/dts/stm32mp157a-avenger96.dts
+index faa9a5185ddd..756e79f2255a 100644
+--- a/arch/arm/boot/dts/stm32mp157a-avenger96.dts
++++ b/arch/arm/boot/dts/stm32mp157a-avenger96.dts
+@@ -25,10 +25,28 @@ aliases {
+ 		spi0 = &qspi;
+ 	};
+ 
++	/* XTal Q1 */
++	cec_clock: clk-cec-fixed {
++		#clock-cells = <0>;
++		compatible = "fixed-clock";
++		clock-frequency = <24000000>;
++	};
++
+ 	chosen {
+ 		stdout-path = "serial0:115200n8";
+ 	};
+ 
++	hdmi-out {
++		compatible = "hdmi-connector";
++		type = "a";
++
++		port {
++			hdmi_con: endpoint {
++				remote-endpoint = <&adv7513_out>;
++			};
++		};
++	};
++
+ 	memory@c0000000 {
+ 		device_type = "memory";
+ 		reg = <0xc0000000 0x40000000>;
+@@ -300,6 +318,50 @@ watchdog {
  		};
  	};
  
-+	ltdc_pins_d: ltdc-3 {
-+		pins1 {
-+			pinmux = <STM32_PINMUX('G',  7, AF14)>; /* LCD_CLK */
-+			bias-disable;
-+			drive-push-pull;
-+			slew-rate = <3>;
-+		};
-+		pins2 {
-+			pinmux = <STM32_PINMUX('I', 10, AF14)>, /* LCD_HSYNC */
-+				 <STM32_PINMUX('I',  9, AF14)>, /* LCD_VSYNC */
-+				 <STM32_PINMUX('E', 13, AF14)>, /* LCD_DE */
-+				 <STM32_PINMUX('G', 13, AF14)>, /* LCD_R0 */
-+				 <STM32_PINMUX('H',  3, AF14)>, /* LCD_R1 */
-+				 <STM32_PINMUX('H',  8, AF14)>, /* LCD_R2 */
-+				 <STM32_PINMUX('H',  9, AF14)>, /* LCD_R3 */
-+				 <STM32_PINMUX('A',  5, AF14)>, /* LCD_R4 */
-+				 <STM32_PINMUX('H', 11, AF14)>, /* LCD_R5 */
-+				 <STM32_PINMUX('H', 12, AF14)>, /* LCD_R6 */
-+				 <STM32_PINMUX('E', 15, AF14)>, /* LCD_R7 */
-+				 <STM32_PINMUX('E',  5, AF14)>, /* LCD_G0 */
-+				 <STM32_PINMUX('B',  0, AF14)>, /* LCD_G1 */
-+				 <STM32_PINMUX('H', 13, AF14)>, /* LCD_G2 */
-+				 <STM32_PINMUX('E', 11, AF14)>, /* LCD_G3 */
-+				 <STM32_PINMUX('H', 15, AF14)>, /* LCD_G4 */
-+				 <STM32_PINMUX('H',  4,  AF9)>, /* LCD_G5 */
-+				 <STM32_PINMUX('I', 11,  AF9)>, /* LCD_G6 */
-+				 <STM32_PINMUX('G',  8, AF14)>, /* LCD_G7 */
-+				 <STM32_PINMUX('D',  9, AF14)>, /* LCD_B0 */
-+				 <STM32_PINMUX('G', 12, AF14)>, /* LCD_B1 */
-+				 <STM32_PINMUX('G', 10, AF14)>, /* LCD_B2 */
-+				 <STM32_PINMUX('D', 10, AF14)>, /* LCD_B3 */
-+				 <STM32_PINMUX('E', 12, AF14)>, /* LCD_B4 */
-+				 <STM32_PINMUX('A',  3, AF14)>, /* LCD_B5 */
-+				 <STM32_PINMUX('B',  8, AF14)>, /* LCD_B6 */
-+				 <STM32_PINMUX('I',  7, AF14)>; /* LCD_B7 */
-+			bias-disable;
-+			drive-push-pull;
-+			slew-rate = <2>;
++	hdmi-transmitter@3d {
++		compatible = "adi,adv7513";
++		reg = <0x3d>, <0x2d>, <0x4d>, <0x5d>;
++		reg-names = "main", "cec", "edid", "packet";
++		clocks = <&cec_clock>;
++		clock-names = "cec";
++
++		avdd-supply = <&v3v3>;
++		dvdd-supply = <&v3v3>;
++		pvdd-supply = <&v3v3>;
++		dvdd-3v-supply = <&v3v3>;
++		bgvdd-supply = <&v3v3>;
++
++		interrupts = <9 IRQ_TYPE_EDGE_FALLING>;
++		interrupt-parent = <&gpiog>;
++
++		status = "okay";
++
++		adi,input-depth = <8>;
++		adi,input-colorspace = "rgb";
++		adi,input-clock = "1x";
++		adi,input-style = <1>;
++		adi,input-justification = "evenly";
++
++		ports {
++			#address-cells = <1>;
++			#size-cells = <0>;
++
++			port@0 {
++				reg = <0>;
++				adv7513_in: endpoint {
++					remote-endpoint = <&ltdc_ep0_out>;
++				};
++			};
++
++			port@1 {
++				reg = <1>;
++				adv7513_out: endpoint {
++					remote-endpoint = <&hdmi_con>;
++				};
++			};
 +		};
 +	};
 +
-+	ltdc_sleep_pins_d: ltdc-sleep-3 {
-+		pins {
-+			pinmux = <STM32_PINMUX('G',  7, ANALOG)>, /* LCD_CLK */
-+				 <STM32_PINMUX('I', 10, ANALOG)>, /* LCD_HSYNC */
-+				 <STM32_PINMUX('I',  9, ANALOG)>, /* LCD_VSYNC */
-+				 <STM32_PINMUX('E', 13, ANALOG)>, /* LCD_DE */
-+				 <STM32_PINMUX('G', 13, ANALOG)>, /* LCD_R0 */
-+				 <STM32_PINMUX('H',  3, ANALOG)>, /* LCD_R1 */
-+				 <STM32_PINMUX('H',  8, ANALOG)>, /* LCD_R2 */
-+				 <STM32_PINMUX('H',  9, ANALOG)>, /* LCD_R3 */
-+				 <STM32_PINMUX('A',  5, ANALOG)>, /* LCD_R4 */
-+				 <STM32_PINMUX('H', 11, ANALOG)>, /* LCD_R5 */
-+				 <STM32_PINMUX('H', 12, ANALOG)>, /* LCD_R6 */
-+				 <STM32_PINMUX('E', 15, ANALOG)>, /* LCD_R7 */
-+				 <STM32_PINMUX('E',  5, ANALOG)>, /* LCD_G0 */
-+				 <STM32_PINMUX('B',  0, ANALOG)>, /* LCD_G1 */
-+				 <STM32_PINMUX('H', 13, ANALOG)>, /* LCD_G2 */
-+				 <STM32_PINMUX('E', 11, ANALOG)>, /* LCD_G3 */
-+				 <STM32_PINMUX('H', 15, ANALOG)>, /* LCD_G4 */
-+				 <STM32_PINMUX('H',  4, ANALOG)>, /* LCD_G5 */
-+				 <STM32_PINMUX('I', 11, ANALOG)>, /* LCD_G6 */
-+				 <STM32_PINMUX('G',  8, ANALOG)>, /* LCD_G7 */
-+				 <STM32_PINMUX('D',  9, ANALOG)>, /* LCD_B0 */
-+				 <STM32_PINMUX('G', 12, ANALOG)>, /* LCD_B1 */
-+				 <STM32_PINMUX('G', 10, ANALOG)>, /* LCD_B2 */
-+				 <STM32_PINMUX('D', 10, ANALOG)>, /* LCD_B3 */
-+				 <STM32_PINMUX('E', 12, ANALOG)>, /* LCD_B4 */
-+				 <STM32_PINMUX('A',  3, ANALOG)>, /* LCD_B5 */
-+				 <STM32_PINMUX('B',  8, ANALOG)>, /* LCD_B6 */
-+				 <STM32_PINMUX('I',  7, ANALOG)>; /* LCD_B7 */
+ 	eeprom@53 {
+ 		compatible = "atmel,24c02";
+ 		reg = <0x53>;
+@@ -312,6 +374,23 @@ &iwdg2 {
+ 	status = "okay";
+ };
+ 
++&ltdc {
++	pinctrl-names = "default", "sleep";
++	pinctrl-0 = <&ltdc_pins_d>;
++	pinctrl-1 = <&ltdc_sleep_pins_d>;
++	status = "okay";
++
++	port {
++		#address-cells = <1>;
++		#size-cells = <0>;
++
++		ltdc_ep0_out: endpoint@0 {
++			reg = <0>;
++			remote-endpoint = <&adv7513_in>;
 +		};
 +	};
++};
 +
- 	m_can1_pins_a: m-can1-0 {
- 		pins1 {
- 			pinmux = <STM32_PINMUX('H', 13, AF9)>; /* CAN1_TX */
+ &pwr_regulators {
+ 	vdd-supply = <&vdd_io>;
+ 	vdd_3v3_usbfs-supply = <&vdd_usb>;
 -- 
 2.25.1
 
