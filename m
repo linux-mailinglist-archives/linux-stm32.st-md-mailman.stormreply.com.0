@@ -2,56 +2,56 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id ABED719A6A3
-	for <lists+linux-stm32@lfdr.de>; Wed,  1 Apr 2020 09:54:23 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id B52D719A6A7
+	for <lists+linux-stm32@lfdr.de>; Wed,  1 Apr 2020 09:54:42 +0200 (CEST)
 Received: from ip-172-31-3-76.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 71B33C36B0B;
-	Wed,  1 Apr 2020 07:54:23 +0000 (UTC)
-Received: from mx07-00178001.pphosted.com (mx07-00178001.pphosted.com
- [62.209.51.94])
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 81513C36B0B;
+	Wed,  1 Apr 2020 07:54:42 +0000 (UTC)
+Received: from mx07-00178001.pphosted.com (mx08-00178001.pphosted.com
+ [91.207.212.93])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id C8451C36B09
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 31822C36B09
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Wed,  1 Apr 2020 07:54:21 +0000 (UTC)
-Received: from pps.filterd (m0046668.ppops.net [127.0.0.1])
+ Wed,  1 Apr 2020 07:54:41 +0000 (UTC)
+Received: from pps.filterd (m0046661.ppops.net [127.0.0.1])
  by mx07-00178001.pphosted.com (8.16.0.42/8.16.0.42) with SMTP id
- 0317qoDT003866; Wed, 1 Apr 2020 09:54:12 +0200
+ 0317qq19016813; Wed, 1 Apr 2020 09:54:33 +0200
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=st.com;
  h=subject : to : cc :
  references : from : message-id : date : mime-version : in-reply-to :
  content-type : content-transfer-encoding; s=STMicroelectronics;
- bh=BKDE9MMecDKQRqYD8xRMWRfHz2z9BYvJ+3QJiN4RSdc=;
- b=fo6s2JSzvzSnzc5+c8zCLT+tOmDPmjUI50rROTqmWa+0Y0JchJWaWTcGR8/4vYvzsZm0
- 1E9EhOR3Jl3+k1BqCNalctaYiwZK1V0nHQrYqBiwME4B0fmDjIEoYn4NyJE0yKJWo4qa
- Vq4/DvNVxoEbZgh8XeJKencMOivf0Qxyh6lQmbbVYEV1SvLt6SA4Qp4dVIKNub9wofcs
- /RPOVv40xboslSX4qUWx2bSd8Fxvbp6dcAK+7O5JWuPRdglYjB+a8OBBevlcD21EDh8H
- UkkjCz56ErWCtRc/bunxHFwne7zd5Oy3yLHsjxuxekMym0GRzUvuIRWrwLumIXZbtDFf uw== 
+ bh=Nwoida0mOyRtoMMqVqwhbEDHH0e9ItjABw6BEvCa9GI=;
+ b=FibWxpbyadMxEE8ktmk4isvaphN2h8D3ynqSA5xUxuIuctR6o5DXDBW2nk+G64ua5nu6
+ IZCQKcS7Unu6Vi00TdYQGOJE3xZ0M7nqpYy4f4V8ijCwzRTH5GRL1FkrMT05tfDgb8TK
+ 8QSijP9XNlQMYKxUkzE6EtRH8ervi/8MwTcdN8vWu6YQlgGFpNCWm/SxCyYtalOf09F2
+ OogqpQKPvFKIs6S9PTx5iXmz7IA5vGdRPrJYJb+esuuV8/1kk9IsBvttupVgmUIiWNvu
+ d52hVRv8eFwaJuKihk9D1YuH5Hfx8nY68uz1uTLoFtJMGYWbRBT3lWnUPbJFOlyseMpr WQ== 
 Received: from beta.dmz-eu.st.com (beta.dmz-eu.st.com [164.129.1.35])
- by mx07-00178001.pphosted.com with ESMTP id 302y53wr1u-1
+ by mx07-00178001.pphosted.com with ESMTP id 301xbmkk8m-1
  (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
- Wed, 01 Apr 2020 09:54:12 +0200
+ Wed, 01 Apr 2020 09:54:33 +0200
 Received: from euls16034.sgp.st.com (euls16034.sgp.st.com [10.75.44.20])
- by beta.dmz-eu.st.com (STMicroelectronics) with ESMTP id 6F7EE10002A;
- Wed,  1 Apr 2020 09:54:08 +0200 (CEST)
+ by beta.dmz-eu.st.com (STMicroelectronics) with ESMTP id 9C0CC10002A;
+ Wed,  1 Apr 2020 09:54:30 +0200 (CEST)
 Received: from Webmail-eu.st.com (sfhdag3node2.st.com [10.75.127.8])
- by euls16034.sgp.st.com (STMicroelectronics) with ESMTP id 3B3DF21BA87;
- Wed,  1 Apr 2020 09:54:08 +0200 (CEST)
-Received: from lmecxl0912.tpe.st.com (10.75.127.47) by SFHDAG3NODE2.st.com
+ by euls16034.sgp.st.com (STMicroelectronics) with ESMTP id 8750F21BA90;
+ Wed,  1 Apr 2020 09:54:30 +0200 (CEST)
+Received: from lmecxl0912.tpe.st.com (10.75.127.46) by SFHDAG3NODE2.st.com
  (10.75.127.8) with Microsoft SMTP Server (TLS) id 15.0.1347.2; Wed, 1 Apr
- 2020 09:53:52 +0200
+ 2020 09:54:20 +0200
 To: Fabrice Gasnier <fabrice.gasnier@st.com>
-References: <1584613411-10218-1-git-send-email-fabrice.gasnier@st.com>
+References: <1584613571-10544-1-git-send-email-fabrice.gasnier@st.com>
 From: Alexandre Torgue <alexandre.torgue@st.com>
-Message-ID: <939dfabe-4adf-983e-8d06-d2c1025650cb@st.com>
-Date: Wed, 1 Apr 2020 09:53:38 +0200
+Message-ID: <3072513e-c60f-61fd-03d9-f03e3a7096b1@st.com>
+Date: Wed, 1 Apr 2020 09:54:13 +0200
 User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:68.0) Gecko/20100101
  Thunderbird/68.4.1
 MIME-Version: 1.0
-In-Reply-To: <1584613411-10218-1-git-send-email-fabrice.gasnier@st.com>
+In-Reply-To: <1584613571-10544-1-git-send-email-fabrice.gasnier@st.com>
 Content-Language: en-US
-X-Originating-IP: [10.75.127.47]
-X-ClientProxiedBy: SFHDAG5NODE1.st.com (10.75.127.13) To SFHDAG3NODE2.st.com
+X-Originating-IP: [10.75.127.46]
+X-ClientProxiedBy: SFHDAG6NODE2.st.com (10.75.127.17) To SFHDAG3NODE2.st.com
  (10.75.127.8)
 X-Proofpoint-Virus-Version: vendor=fsecure engine=2.50.10434:6.0.138, 18.0.676
  definitions=2020-03-31_07:2020-03-31,
@@ -61,7 +61,7 @@ Cc: mark.rutland@arm.com, devicetree@vger.kernel.org,
  linux-arm-kernel@lists.infradead.org, mcoquelin.stm32@gmail.com,
  linux-stm32@st-md-mailman.stormreply.com, jic23@kernel.org
 Subject: Re: [Linux-stm32] [PATCH] ARM: dts: stm32: fix a typo for DAC
- io-channel-cells on stm32f429
+ io-channel-cells on stm32h743
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -80,21 +80,21 @@ Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
 Hi Fabrice
 
-On 3/19/20 11:23 AM, Fabrice Gasnier wrote:
-> Fix a typo on STM32F429 DAC, e.g. s/channels/channel
+On 3/19/20 11:26 AM, Fabrice Gasnier wrote:
+> Fix a typo on STM32H743 DAC, e.g. s/channels/channel
 > 
-> Fixes: 25329b23fae9 ("ARM: dts: stm32: Add DAC support on stm32f429")
+> Fixes: 1536dec45e77 ("ARM: dts: stm32: Add DAC support on stm32h743")
 > 
 > Signed-off-by: Fabrice Gasnier <fabrice.gasnier@st.com>
 > ---
->   arch/arm/boot/dts/stm32f429.dtsi | 4 ++--
+>   arch/arm/boot/dts/stm32h743.dtsi | 4 ++--
 >   1 file changed, 2 insertions(+), 2 deletions(-)
 > 
-> diff --git a/arch/arm/boot/dts/stm32f429.dtsi b/arch/arm/boot/dts/stm32f429.dtsi
-> index d777069..393f43c 100644
-> --- a/arch/arm/boot/dts/stm32f429.dtsi
-> +++ b/arch/arm/boot/dts/stm32f429.dtsi
-> @@ -414,14 +414,14 @@
+> diff --git a/arch/arm/boot/dts/stm32h743.dtsi b/arch/arm/boot/dts/stm32h743.dtsi
+> index 05eb02e..9b7fc68 100644
+> --- a/arch/arm/boot/dts/stm32h743.dtsi
+> +++ b/arch/arm/boot/dts/stm32h743.dtsi
+> @@ -180,14 +180,14 @@
 >   
 >   			dac1: dac@1 {
 >   				compatible = "st,stm32-dac";
@@ -112,7 +112,6 @@ On 3/19/20 11:23 AM, Fabrice Gasnier wrote:
 >   				status = "disabled";
 >   			};
 > 
-
 Applied on stm32-next.
 
 Thanks.
