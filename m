@@ -2,38 +2,38 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id 571A619ACAE
-	for <lists+linux-stm32@lfdr.de>; Wed,  1 Apr 2020 15:23:15 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 615BE19ACB2
+	for <lists+linux-stm32@lfdr.de>; Wed,  1 Apr 2020 15:23:17 +0200 (CEST)
 Received: from ip-172-31-3-76.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 22D0BC36B0B;
-	Wed,  1 Apr 2020 13:23:15 +0000 (UTC)
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 2BA66C36B0C;
+	Wed,  1 Apr 2020 13:23:17 +0000 (UTC)
 Received: from mail-out.m-online.net (mail-out.m-online.net [212.18.0.9])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 5BB9EC36B09
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id CB56CC36B0C
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Wed,  1 Apr 2020 13:23:14 +0000 (UTC)
+ Wed,  1 Apr 2020 13:23:15 +0000 (UTC)
 Received: from frontend01.mail.m-online.net (unknown [192.168.8.182])
- by mail-out.m-online.net (Postfix) with ESMTP id 48sn2B0GHDz1qs0h;
- Wed,  1 Apr 2020 15:23:14 +0200 (CEST)
+ by mail-out.m-online.net (Postfix) with ESMTP id 48sn2C3T7jz1qs0x;
+ Wed,  1 Apr 2020 15:23:15 +0200 (CEST)
 Received: from localhost (dynscan1.mnet-online.de [192.168.6.70])
- by mail.m-online.net (Postfix) with ESMTP id 48sn2B00mDz1r0cV;
- Wed,  1 Apr 2020 15:23:13 +0200 (CEST)
+ by mail.m-online.net (Postfix) with ESMTP id 48sn2C36tHz1r0cV;
+ Wed,  1 Apr 2020 15:23:15 +0200 (CEST)
 X-Virus-Scanned: amavisd-new at mnet-online.de
 Received: from mail.mnet-online.de ([192.168.8.182])
  by localhost (dynscan1.mail.m-online.net [192.168.6.70]) (amavisd-new,
  port 10024)
- with ESMTP id HyPgzeKaBbrI; Wed,  1 Apr 2020 15:23:11 +0200 (CEST)
-X-Auth-Info: 4XIt7xUJc4Q4FZNJo47GAGF5Ox+8fO1rkwr0L5rU/YA=
+ with ESMTP id 7enNa_BIK8Uo; Wed,  1 Apr 2020 15:23:14 +0200 (CEST)
+X-Auth-Info: Gf5yZ8puembqpYOWh/4bbVoKV5hC0MtArZzDNLbmCnQ=
 Received: from desktop.lan (ip-86-49-35-8.net.upcbroadband.cz [86.49.35.8])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
  by mail.mnet-online.de (Postfix) with ESMTPSA;
- Wed,  1 Apr 2020 15:23:11 +0200 (CEST)
+ Wed,  1 Apr 2020 15:23:14 +0200 (CEST)
 From: Marek Vasut <marex@denx.de>
 To: linux-arm-kernel@lists.infradead.org
-Date: Wed,  1 Apr 2020 15:22:26 +0200
-Message-Id: <20200401132237.60880-12-marex@denx.de>
+Date: Wed,  1 Apr 2020 15:22:27 +0200
+Message-Id: <20200401132237.60880-13-marex@denx.de>
 X-Mailer: git-send-email 2.25.1
 In-Reply-To: <20200401132237.60880-1-marex@denx.de>
 References: <20200401132237.60880-1-marex@denx.de>
@@ -42,7 +42,8 @@ Cc: Marek Vasut <marex@denx.de>, Patrick Delaunay <patrick.delaunay@st.com>,
  Maxime Coquelin <mcoquelin.stm32@gmail.com>,
  Manivannan Sadhasivam <manivannan.sadhasivam@linaro.org>,
  linux-stm32@st-md-mailman.stormreply.com
-Subject: [Linux-stm32] [PATCH V4 11/22] ARM: dts: stm32: Add QSPI NOR on AV96
+Subject: [Linux-stm32] [PATCH V4 12/22] ARM: dts: stm32: Add configuration
+	EEPROM on AV96
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -59,9 +60,10 @@ Content-Transfer-Encoding: 7bit
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
-The DH Electronics DHCOR SOM has QSPI NOR on the SoM itself, add it
-into the DT.
+The board has an EEPROM on the same I2C bus as PMIC, at address 0x53.
+The EEPROM contains the board MAC address.
 
+Reviewed-by: Manivannan Sadhasivam <manivannan.sadhasivam@linaro.org>
 Signed-off-by: Marek Vasut <marex@denx.de>
 Cc: Alexandre Torgue <alexandre.torgue@st.com>
 Cc: Manivannan Sadhasivam <manivannan.sadhasivam@linaro.org>
@@ -71,51 +73,30 @@ Cc: Patrick Delaunay <patrick.delaunay@st.com>
 Cc: linux-stm32@st-md-mailman.stormreply.com
 To: linux-arm-kernel@lists.infradead.org
 ---
-V2: Use spi-flash in the DT node instead of explicit model name
-V3: Reduce the SPI controller window to 2 MiB, which is the flash size
+V2: No change
+V3: No change
 V4: Rebase on stm32-next
 ---
- arch/arm/boot/dts/stm32mp157a-avenger96.dts | 20 ++++++++++++++++++++
- 1 file changed, 20 insertions(+)
+ arch/arm/boot/dts/stm32mp157a-avenger96.dts | 6 ++++++
+ 1 file changed, 6 insertions(+)
 
 diff --git a/arch/arm/boot/dts/stm32mp157a-avenger96.dts b/arch/arm/boot/dts/stm32mp157a-avenger96.dts
-index df68768e8a12..5831280f78ee 100644
+index 5831280f78ee..b29e26eedbea 100644
 --- a/arch/arm/boot/dts/stm32mp157a-avenger96.dts
 +++ b/arch/arm/boot/dts/stm32mp157a-avenger96.dts
-@@ -21,6 +21,7 @@ aliases {
- 		mmc0 = &sdmmc1;
- 		serial0 = &uart4;
- 		serial1 = &uart7;
-+		spi0 = &qspi;
+@@ -301,6 +301,12 @@ watchdog {
+ 			status = "disabled";
+ 		};
  	};
- 
- 	chosen {
-@@ -312,6 +313,25 @@ &pwr_regulators {
- 	vdd_3v3_usbfs-supply = <&vdd_usb>;
- };
- 
-+&qspi {
-+	pinctrl-names = "default", "sleep";
-+	pinctrl-0 = <&qspi_clk_pins_a &qspi_bk1_pins_a>;
-+	pinctrl-1 = <&qspi_clk_sleep_pins_a &qspi_bk1_sleep_pins_a>;
-+	reg = <0x58003000 0x1000>, <0x70000000 0x200000>;
-+	#address-cells = <1>;
-+	#size-cells = <0>;
-+	status = "okay";
 +
-+	flash0: spi-flash@0 {
-+		compatible = "jedec,spi-nor";
-+		reg = <0>;
-+		spi-rx-bus-width = <4>;
-+		spi-max-frequency = <108000000>;
-+		#address-cells = <1>;
-+		#size-cells = <1>;
++	eeprom@53 {
++		compatible = "atmel,24c02";
++		reg = <0x53>;
++		pagesize = <16>;
 +	};
-+};
-+
- &rng1 {
- 	status = "okay";
  };
+ 
+ &iwdg2 {
 -- 
 2.25.1
 
