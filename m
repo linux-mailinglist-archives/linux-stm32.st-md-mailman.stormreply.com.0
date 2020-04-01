@@ -2,53 +2,71 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id D049519A9ED
-	for <lists+linux-stm32@lfdr.de>; Wed,  1 Apr 2020 13:04:26 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 5091F19AAD8
+	for <lists+linux-stm32@lfdr.de>; Wed,  1 Apr 2020 13:34:37 +0200 (CEST)
 Received: from ip-172-31-3-76.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 8BCAEC36B0B;
-	Wed,  1 Apr 2020 11:04:26 +0000 (UTC)
-Received: from mail-out.m-online.net (mail-out.m-online.net [212.18.0.10])
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 84A94C36B0B;
+	Wed,  1 Apr 2020 11:34:36 +0000 (UTC)
+Received: from mx07-00178001.pphosted.com (mx08-00178001.pphosted.com
+ [91.207.212.93])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 6D225C36B09
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id E2BF9C36B09
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Wed,  1 Apr 2020 11:04:25 +0000 (UTC)
-Received: from frontend01.mail.m-online.net (unknown [192.168.8.182])
- by mail-out.m-online.net (Postfix) with ESMTP id 48sjy05ZH8z1rtM7;
- Wed,  1 Apr 2020 13:04:24 +0200 (CEST)
-Received: from localhost (dynscan1.mnet-online.de [192.168.6.70])
- by mail.m-online.net (Postfix) with ESMTP id 48sjy04sNZz1r0cS;
- Wed,  1 Apr 2020 13:04:24 +0200 (CEST)
-X-Virus-Scanned: amavisd-new at mnet-online.de
-Received: from mail.mnet-online.de ([192.168.8.182])
- by localhost (dynscan1.mail.m-online.net [192.168.6.70]) (amavisd-new,
- port 10024)
- with ESMTP id dryn0hDFTdTa; Wed,  1 Apr 2020 13:04:22 +0200 (CEST)
-X-Auth-Info: P13QGhQEKyjD9t8OKEs8nxx7eM+buhDn3ECmbptOyz0=
-Received: from [IPv6:::1] (unknown [195.140.253.167])
- (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
- (No client certificate requested)
- by mail.mnet-online.de (Postfix) with ESMTPSA;
- Wed,  1 Apr 2020 13:04:22 +0200 (CEST)
-To: Alexandre Torgue <alexandre.torgue@st.com>,
- linux-arm-kernel@lists.infradead.org
-References: <20200331175811.205153-1-marex@denx.de>
- <20200331175811.205153-2-marex@denx.de>
- <06ad9a40-3118-7336-056d-b115aef66599@st.com>
-From: Marek Vasut <marex@denx.de>
-Message-ID: <86a4957a-dddd-08b9-e920-2943548610d1@denx.de>
-Date: Wed, 1 Apr 2020 13:04:21 +0200
+ Wed,  1 Apr 2020 11:34:33 +0000 (UTC)
+Received: from pps.filterd (m0046661.ppops.net [127.0.0.1])
+ by mx07-00178001.pphosted.com (8.16.0.42/8.16.0.42) with SMTP id
+ 031BWvg5017607; Wed, 1 Apr 2020 13:34:28 +0200
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=st.com;
+ h=subject : to : cc :
+ references : from : message-id : date : mime-version : in-reply-to :
+ content-type : content-transfer-encoding; s=STMicroelectronics;
+ bh=+2BMx26vkjwc3YK10hD0AM3GIY2oLTo87coBQTI8CTE=;
+ b=Jbwssv1SpmhchSvsN155hoa3kKwPEoHGmXXX4Ol/V9PgLhuGLy1m8WP83rhjp1Tw4NWz
+ CNGvLUfP2GbPT2IT0CW1Jb/X/7Ue8TmAprVWjmXvz96U1E6ZLn4imJKB9jdFIQ2rfiMV
+ bBdM6fhZu+9EZ7MdiEK0KwqRk3PvVZU+82jWe8ropTeWQgLRhKfLB29Le26wEPaOwXd5
+ ZPpPtQNzI1wd6lt3+dIPYmUK+oMzPYCXvEO/70+YWmsQ4N0llkp3waVtUo5MnrgSItS0
+ dcn+At/ybi4v/wPpd9xTVoECLoJ4j5jTHldXf9ggIYS1+UZ5+fruY53HKe6pBiZfBVUU rg== 
+Received: from beta.dmz-eu.st.com (beta.dmz-eu.st.com [164.129.1.35])
+ by mx07-00178001.pphosted.com with ESMTP id 301xbmmuq0-1
+ (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
+ Wed, 01 Apr 2020 13:34:28 +0200
+Received: from euls16034.sgp.st.com (euls16034.sgp.st.com [10.75.44.20])
+ by beta.dmz-eu.st.com (STMicroelectronics) with ESMTP id A7BAD10002A;
+ Wed,  1 Apr 2020 13:34:24 +0200 (CEST)
+Received: from Webmail-eu.st.com (sfhdag3node1.st.com [10.75.127.7])
+ by euls16034.sgp.st.com (STMicroelectronics) with ESMTP id 8FFA92A620D;
+ Wed,  1 Apr 2020 13:34:24 +0200 (CEST)
+Received: from lmecxl0889.tpe.st.com (10.75.127.51) by SFHDAG3NODE1.st.com
+ (10.75.127.7) with Microsoft SMTP Server (TLS) id 15.0.1473.3; Wed, 1 Apr
+ 2020 13:34:22 +0200
+To: Jiri Slaby <jslaby@suse.cz>, Ohad Ben-Cohen <ohad@wizery.com>, Bjorn
+ Andersson <bjorn.andersson@linaro.org>, Greg Kroah-Hartman
+ <gregkh@linuxfoundation.org>,
+ <linux-kernel@vger.kernel.org>, <linux-remoteproc@vger.kernel.org>,
+ Mathieu Poirier <mathieu.poirier@linaro.org>
+References: <20200324170407.16470-1-arnaud.pouliquen@st.com>
+ <20200324170407.16470-2-arnaud.pouliquen@st.com>
+ <356fe539-6ec4-6000-1f68-23404fc5d373@suse.com>
+ <9f302a19-e684-ffff-823a-02af7f90403c@suse.cz>
+From: Arnaud POULIQUEN <arnaud.pouliquen@st.com>
+Message-ID: <1edf98cf-dfb6-0e66-a58d-abba5d2a65c4@st.com>
+Date: Wed, 1 Apr 2020 13:34:19 +0200
 User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:68.0) Gecko/20100101
- Thunderbird/68.5.0
+ Thunderbird/68.4.1
 MIME-Version: 1.0
-In-Reply-To: <06ad9a40-3118-7336-056d-b115aef66599@st.com>
+In-Reply-To: <9f302a19-e684-ffff-823a-02af7f90403c@suse.cz>
 Content-Language: en-US
-Cc: Patrick Delaunay <patrick.delaunay@st.com>,
- linux-stm32@st-md-mailman.stormreply.com,
- Maxime Coquelin <mcoquelin.stm32@gmail.com>,
- Manivannan Sadhasivam <manivannan.sadhasivam@linaro.org>
-Subject: Re: [Linux-stm32] [PATCH V3 01/22] ARM: dts: stm32: Add alternate
- pinmux for ethernet RGMII
+X-Originating-IP: [10.75.127.51]
+X-ClientProxiedBy: SFHDAG3NODE2.st.com (10.75.127.8) To SFHDAG3NODE1.st.com
+ (10.75.127.7)
+X-Proofpoint-Virus-Version: vendor=fsecure engine=2.50.10434:6.0.138, 18.0.676
+ definitions=2020-04-01_01:2020-03-31,
+ 2020-03-31 signatures=0
+Cc: Suman Anna <s-anna@ti.com>, linux-stm32@st-md-mailman.stormreply.com,
+ Fabien DESSENNE <fabien.dessenne@st.com>,
+ xiang xiao <xiaoxiang781216@gmail.com>
+Subject: Re: [Linux-stm32] [PATCH v7 1/2] rpmsg: core: add API to get MTU
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -60,54 +78,70 @@ List-Post: <mailto:linux-stm32@st-md-mailman.stormreply.com>
 List-Help: <mailto:linux-stm32-request@st-md-mailman.stormreply.com?subject=help>
 List-Subscribe: <https://st-md-mailman.stormreply.com/mailman/listinfo/linux-stm32>, 
  <mailto:linux-stm32-request@st-md-mailman.stormreply.com?subject=subscribe>
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: base64
+Content-Type: text/plain; charset="us-ascii"
+Content-Transfer-Encoding: 7bit
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
-T24gNC8xLzIwIDExOjUyIEFNLCBBbGV4YW5kcmUgVG9yZ3VlIHdyb3RlOgo+IEhpIE1hcmVrCgpI
-aSwKClsuLi5dCgo+PiAtLS0gYS9hcmNoL2FybS9ib290L2R0cy9zdG0zMm1wMTUtcGluY3RybC5k
-dHNpCj4+ICsrKyBiL2FyY2gvYXJtL2Jvb3QvZHRzL3N0bTMybXAxNS1waW5jdHJsLmR0c2kKPj4g
-QEAgLTE5Niw2ICsxOTYsNTcgQEAgcGluczEgewo+PiDCoMKgwqDCoMKgwqDCoMKgwqAgfTsKPj4g
-wqDCoMKgwqDCoCB9Owo+PiDCoCArwqDCoMKgIGV0aGVybmV0MF9yZ21paV9waW5zX2I6IHJnbWlp
-LTEgewo+PiArwqDCoMKgwqDCoMKgwqAgcGluczEgewo+PiArwqDCoMKgwqDCoMKgwqDCoMKgwqDC
-oCBwaW5tdXggPSA8U1RNMzJfUElOTVVYKCdHJywgNSwgQUYxMSk+LCAvKgo+PiBFVEhfUkdNSUlf
-Q0xLMTI1ICovCj4+ICvCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoCA8U1RNMzJfUElO
-TVVYKCdHJywgNCwgQUYxMSk+LCAvKiBFVEhfUkdNSUlfR1RYX0NMSyAqLwo+PiArwqDCoMKgwqDC
-oMKgwqDCoMKgwqDCoMKgwqDCoMKgwqAgPFNUTTMyX1BJTk1VWCgnQicsIDEyLCBBRjExKT4sIC8q
-IEVUSF9SR01JSV9UWEQwICovCj4+ICvCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoCA8
-U1RNMzJfUElOTVVYKCdHJywgMTQsIEFGMTEpPiwgLyogRVRIX1JHTUlJX1RYRDEgKi8KPj4gK8Kg
-wqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgIDxTVE0zMl9QSU5NVVgoJ0MnLCAyLCBBRjEx
-KT4sIC8qIEVUSF9SR01JSV9UWEQyICovCj4+ICvCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKg
-wqDCoCA8U1RNMzJfUElOTVVYKCdFJywgMiwgQUYxMSk+LCAvKiBFVEhfUkdNSUlfVFhEMyAqLwo+
-PiArwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqAgPFNUTTMyX1BJTk1VWCgnRycsIDEx
-LCBBRjExKT4sIC8qIEVUSF9SR01JSV9UWF9DVEwgKi8KPj4gK8KgwqDCoMKgwqDCoMKgwqDCoMKg
-wqDCoMKgwqDCoMKgIDxTVE0zMl9QSU5NVVgoJ0MnLCAxLCBBRjExKT47IC8qIEVUSF9NREMgKi8K
-Pj4gK8KgwqDCoMKgwqDCoMKgwqDCoMKgwqAgYmlhcy1kaXNhYmxlOwo+PiArwqDCoMKgwqDCoMKg
-wqDCoMKgwqDCoCBkcml2ZS1wdXNoLXB1bGw7Cj4+ICvCoMKgwqDCoMKgwqDCoMKgwqDCoMKgIHNs
-ZXctcmF0ZSA9IDwyPjsKPj4gK8KgwqDCoMKgwqDCoMKgIH07Cj4+ICvCoMKgwqDCoMKgwqDCoCBw
-aW5zMiB7Cj4+ICvCoMKgwqDCoMKgwqDCoMKgwqDCoMKgIHBpbm11eCA9IDxTVE0zMl9QSU5NVVgo
-J0EnLCAyLCBBRjExKT47IC8qIEVUSF9NRElPICovCj4+ICvCoMKgwqDCoMKgwqDCoMKgwqDCoMKg
-IGJpYXMtZGlzYWJsZTsKPj4gK8KgwqDCoMKgwqDCoMKgwqDCoMKgwqAgZHJpdmUtcHVzaC1wdWxs
-Owo+PiArwqDCoMKgwqDCoMKgwqDCoMKgwqDCoCBzbGV3LXJhdGUgPSA8MD47Cj4+ICvCoMKgwqDC
-oMKgwqDCoCB9Owo+PiArwqDCoMKgwqDCoMKgwqAgcGluczMgewo+PiArwqDCoMKgwqDCoMKgwqDC
-oMKgwqDCoCBwaW5tdXggPSA8U1RNMzJfUElOTVVYKCdDJywgNCwgQUYxMSk+LCAvKiBFVEhfUkdN
-SUlfUlhEMCAqLwo+PiArwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqAgPFNUTTMyX1BJ
-Tk1VWCgnQycsIDUsIEFGMTEpPiwgLyogRVRIX1JHTUlJX1JYRDEgKi8KPj4gK8KgwqDCoMKgwqDC
-oMKgwqDCoMKgwqDCoMKgwqDCoMKgIDxTVE0zMl9QSU5NVVgoJ0gnLCA2LCBBRjExKT4sIC8qIEVU
-SF9SR01JSV9SWEQyICovCj4+ICvCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoCA8U1RN
-MzJfUElOTVVYKCdCJywgMSwgQUYxMSk+LCAvKiBFVEhfUkdNSUlfUlhEMyAqLwo+PiArwqDCoMKg
-wqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqAgPFNUTTMyX1BJTk1VWCgnQScsIDEsIEFGMTEpPiwg
-LyogRVRIX1JHTUlJX1JYX0NMSyAqLwo+PiArwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKg
-wqAgPFNUTTMyX1BJTk1VWCgnQScsIDcsIEFGMTEpPjsgLyogRVRIX1JHTUlJX1JYX0NUTCAqLwo+
-PiArwqDCoMKgwqDCoMKgwqDCoMKgwqDCoCBiaWFzLWRpc2FibGU7Cj4+ICvCoMKgwqDCoMKgwqDC
-oCB9Owo+PiArwqDCoMKgIH07Cj4+ICsKPj4gK8KgwqDCoCBldGhlcm5ldDBfcmdtaWlfcGluc19z
-bGVlcF9iOiByZ21paS1zbGVlcC0xIHsKPiAKPiBJIGp1c3QgbWVyZ2VkIGEgc2VyaWVzIGZyb20g
-QWhtYWQgdGhhdCB1bmlmeSBwaW5zIGdyb3VwIG5hbWUuIFNvIGl0Cj4gc2hvdWxkIGJlIGV0aGVy
-bmV0MF9yZ21paV9zbGVlcF9waW5zX2IuIEFzIGEgbG90IGNoYW5nZSBoYXZlIGJlZW4gZG9uZQo+
-IGluIHBpbmN0cmwgZHRzaSBkaWxlcywgY2FuIHlvdSByZWJhc2Ugb24gdG9wIG9mIHN0bTMyLW5l
-dCBwbGVhc2U/CgpHcmVhdC4gRG8geW91IGhhdmUgYSBsaW5rIHRvIHRoaXMgdHJlZSB3aXRoIHRo
-aXMgYnJhbmNoID8KX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19f
-X18KTGludXgtc3RtMzIgbWFpbGluZyBsaXN0CkxpbnV4LXN0bTMyQHN0LW1kLW1haWxtYW4uc3Rv
-cm1yZXBseS5jb20KaHR0cHM6Ly9zdC1tZC1tYWlsbWFuLnN0b3JtcmVwbHkuY29tL21haWxtYW4v
-bGlzdGluZm8vbGludXgtc3RtMzIK
+
+On 4/1/20 8:29 AM, Jiri Slaby wrote:
+> On 01. 04. 20, 8:28, Jiri Slaby wrote:
+>> On 24. 03. 20, 18:04, Arnaud Pouliquen wrote:
+>>> Return the rpmsg buffer MTU for sending message, so rpmsg users
+>>> can split a long message in several sub rpmsg buffers.
+>>>
+>>> Signed-off-by: Arnaud Pouliquen <arnaud.pouliquen@st.com>
+>>> Acked-by: Suman Anna <s-anna@ti.com>
+>>> ---
+>>>  drivers/rpmsg/rpmsg_core.c       | 21 +++++++++++++++++++++
+>>>  drivers/rpmsg/rpmsg_internal.h   |  2 ++
+>>>  drivers/rpmsg/virtio_rpmsg_bus.c | 10 ++++++++++
+>>>  include/linux/rpmsg.h            | 10 ++++++++++
+>>>  4 files changed, 43 insertions(+)
+>>>
+>>> diff --git a/drivers/rpmsg/rpmsg_core.c b/drivers/rpmsg/rpmsg_core.c
+>>> index e330ec4dfc33..a6ef54c4779a 100644
+>>> --- a/drivers/rpmsg/rpmsg_core.c
+>>> +++ b/drivers/rpmsg/rpmsg_core.c
+>>> @@ -283,6 +283,27 @@ int rpmsg_trysend_offchannel(struct rpmsg_endpoint *ept, u32 src, u32 dst,
+>>>  }
+>>>  EXPORT_SYMBOL(rpmsg_trysend_offchannel);
+>>>  
+>>> +/**
+>>> + * rpmsg_get_mtu() - get maximum transmission buffer size for sending message.
+>>> + * @ept: the rpmsg endpoint
+>>> + *
+>>> + * This function returns maximum buffer size available for a single message.
+>>> + *
+>>> + * Return: the maximum transmission size on success and an appropriate error
+>>> + * value on failure.
+>>> + */
+>>> +
+>>> +ssize_t rpmsg_get_mtu(struct rpmsg_endpoint *ept)
+>>> +{
+>>> +	if (WARN_ON(!ept))
+>>> +		return -EINVAL;
+>>> +	if (!ept->ops->get_mtu)
+>>> +		return -ENOTSUPP;
+>>
+>> Hmm, I don't think all callers of tty_write_room() handle negative values...
+>>
+>> But some drivers also return negative values. There is some work to be
+>> done, adding to TODO.
+>>
+>> For the time being, I suggest returning 0 instead.
+> 
+> Or better, convert the negative to 0 in rpmsg_tty_write_room for now.
+> 
+>> thanks,-- 
+
+Right, seems that a negative return of tty_write_room seems not always handled
+so i will force to 0 in rpmsg_tty in case of error returned. I will also
+add a comment in code that explain the context.
+  
+Thanks,
+Arnaud
+_______________________________________________
+Linux-stm32 mailing list
+Linux-stm32@st-md-mailman.stormreply.com
+https://st-md-mailman.stormreply.com/mailman/listinfo/linux-stm32
