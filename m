@@ -2,41 +2,50 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id E3CC219ABDE
-	for <lists+linux-stm32@lfdr.de>; Wed,  1 Apr 2020 14:41:03 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 32D8919ABF8
+	for <lists+linux-stm32@lfdr.de>; Wed,  1 Apr 2020 14:45:34 +0200 (CEST)
 Received: from ip-172-31-3-76.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id A090FC36B0B;
-	Wed,  1 Apr 2020 12:41:03 +0000 (UTC)
-Received: from metis.ext.pengutronix.de (metis.ext.pengutronix.de
- [85.220.165.71])
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id ECD97C36B0B;
+	Wed,  1 Apr 2020 12:45:33 +0000 (UTC)
+Received: from mail-out.m-online.net (mail-out.m-online.net [212.18.0.9])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 48AFEC36B09
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 9D79DC36B09
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Wed,  1 Apr 2020 12:41:01 +0000 (UTC)
-Received: from gallifrey.ext.pengutronix.de
- ([2001:67c:670:201:5054:ff:fe8d:eefb] helo=localhost)
- by metis.ext.pengutronix.de with esmtps
- (TLS1.3:ECDHE_RSA_AES_256_GCM_SHA384:256) (Exim 4.92)
- (envelope-from <l.stach@pengutronix.de>)
- id 1jJcfv-0002fd-Vc; Wed, 01 Apr 2020 14:40:56 +0200
-Message-ID: <84ebedc52340f57487f2e75fddef2be1df825d77.camel@pengutronix.de>
-From: Lucas Stach <l.stach@pengutronix.de>
-To: Marek Vasut <marex@denx.de>, Alexandre Torgue <alexandre.torgue@st.com>,
+ Wed,  1 Apr 2020 12:45:32 +0000 (UTC)
+Received: from frontend01.mail.m-online.net (unknown [192.168.8.182])
+ by mail-out.m-online.net (Postfix) with ESMTP id 48smBh1D6vz1qrfB;
+ Wed,  1 Apr 2020 14:45:32 +0200 (CEST)
+Received: from localhost (dynscan1.mnet-online.de [192.168.6.70])
+ by mail.m-online.net (Postfix) with ESMTP id 48smBh0QnCz1r0cS;
+ Wed,  1 Apr 2020 14:45:32 +0200 (CEST)
+X-Virus-Scanned: amavisd-new at mnet-online.de
+Received: from mail.mnet-online.de ([192.168.8.182])
+ by localhost (dynscan1.mail.m-online.net [192.168.6.70]) (amavisd-new,
+ port 10024)
+ with ESMTP id rGYzA3kVKRfJ; Wed,  1 Apr 2020 14:45:31 +0200 (CEST)
+X-Auth-Info: 6KQKAPHhJxCCe7C/XdCN8XrrkSVjWTtWr26IHnW7VxU=
+Received: from [IPv6:::1] (unknown [195.140.253.167])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+ (No client certificate requested)
+ by mail.mnet-online.de (Postfix) with ESMTPSA;
+ Wed,  1 Apr 2020 14:45:31 +0200 (CEST)
+To: Lucas Stach <l.stach@pengutronix.de>,
+ Alexandre Torgue <alexandre.torgue@st.com>,
  linux-arm-kernel@lists.infradead.org
-Date: Wed, 01 Apr 2020 14:40:46 +0200
-In-Reply-To: <9ed8f864-9bbe-b090-2399-6cea8b088fe2@denx.de>
 References: <20200331175811.205153-1-marex@denx.de>
  <20200331175811.205153-14-marex@denx.de>
  <eb93de42-1fa2-e4ee-e104-3c8b57b64c40@st.com>
  <9ed8f864-9bbe-b090-2399-6cea8b088fe2@denx.de>
-User-Agent: Evolution 3.34.4 (3.34.4-1.fc31) 
+ <84ebedc52340f57487f2e75fddef2be1df825d77.camel@pengutronix.de>
+From: Marek Vasut <marex@denx.de>
+Message-ID: <efaabb82-e710-762e-1e2b-fd7790fe69bb@denx.de>
+Date: Wed, 1 Apr 2020 14:45:30 +0200
+User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:68.0) Gecko/20100101
+ Thunderbird/68.5.0
 MIME-Version: 1.0
-X-SA-Exim-Connect-IP: 2001:67c:670:201:5054:ff:fe8d:eefb
-X-SA-Exim-Mail-From: l.stach@pengutronix.de
-X-SA-Exim-Scanned: No (on metis.ext.pengutronix.de);
- SAEximRunCond expanded to false
-X-PTX-Original-Recipient: linux-stm32@st-md-mailman.stormreply.com
+In-Reply-To: <84ebedc52340f57487f2e75fddef2be1df825d77.camel@pengutronix.de>
+Content-Language: en-US
 Cc: Maxime Coquelin <mcoquelin.stm32@gmail.com>,
  linux-stm32@st-md-mailman.stormreply.com,
  Patrick Delaunay <patrick.delaunay@st.com>,
@@ -59,63 +68,36 @@ Content-Transfer-Encoding: 7bit
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
-Am Mittwoch, den 01.04.2020, 14:21 +0200 schrieb Marek Vasut:
-> On 4/1/20 11:59 AM, Alexandre Torgue wrote:
-> > Hi Marek
+On 4/1/20 2:40 PM, Lucas Stach wrote:
+
+[...]
+
+>>>> index 27c48f988540..19a7a130b148 100644
+>>>> --- a/arch/arm/boot/dts/stm32mp157a-avenger96.dts
+>>>> +++ b/arch/arm/boot/dts/stm32mp157a-avenger96.dts
+>>>> @@ -139,6 +139,10 @@ phy0: ethernet-phy@7 {
+>>>>       };
+>>>>   };
+>>>>   +&gpu {
+>>>> +    status = "okay";
+>>>> +};
+>>>> +
+>>>
+>>> GPU is now enable by so you can drop this patch.
+>>
+>> Why is it enabled by default ? That's somewhat useless on headless
+>> systems.
 > 
-> Hi,
-> 
-> > On 3/31/20 7:58 PM, Marek Vasut wrote:
-> > > Enable the GPU present on the STM32MP1 populated on AV96.
-> > > 
-> > > Reviewed-by: Manivannan Sadhasivam <
-> > > manivannan.sadhasivam@linaro.org>
-> > > Signed-off-by: Marek Vasut <marex@denx.de>
-> > > Cc: Alexandre Torgue <alexandre.torgue@st.com>
-> > > Cc: Manivannan Sadhasivam <manivannan.sadhasivam@linaro.org>
-> > > Cc: Maxime Coquelin <mcoquelin.stm32@gmail.com>
-> > > Cc: Patrice Chotard <patrice.chotard@st.com>
-> > > Cc: Patrick Delaunay <patrick.delaunay@st.com>
-> > > Cc: linux-stm32@st-md-mailman.stormreply.com
-> > > To: linux-arm-kernel@lists.infradead.org
-> > > ---
-> > > V2: No change
-> > > V3: No change
-> > > ---
-> > >   arch/arm/boot/dts/stm32mp157a-avenger96.dts | 4 ++++
-> > >   1 file changed, 4 insertions(+)
-> > > 
-> > > diff --git a/arch/arm/boot/dts/stm32mp157a-avenger96.dts
-> > > b/arch/arm/boot/dts/stm32mp157a-avenger96.dts
-> > > index 27c48f988540..19a7a130b148 100644
-> > > --- a/arch/arm/boot/dts/stm32mp157a-avenger96.dts
-> > > +++ b/arch/arm/boot/dts/stm32mp157a-avenger96.dts
-> > > @@ -139,6 +139,10 @@ phy0: ethernet-phy@7 {
-> > >       };
-> > >   };
-> > >   +&gpu {
-> > > +    status = "okay";
-> > > +};
-> > > +
-> > 
-> > GPU is now enable by so you can drop this patch.
-> 
-> Why is it enabled by default ? That's somewhat useless on headless
-> systems.
+> The better question is: why wouldn't it be enabled by default? It's a
+> SoC peripheral and has no external dependencies. Even on a headless
+> system you can still do stuff like color conversion/balancing via GL in
+> a video pipeline or something like this. There is simply no good reason
+> to hide the existence of the GPU.
 
-The better question is: why wouldn't it be enabled by default? It's a
-SoC peripheral and has no external dependencies. Even on a headless
-system you can still do stuff like color conversion/balancing via GL in
-a video pipeline or something like this. There is simply no good reason
-to hide the existence of the GPU.
+Power saving ? Resource saving ?
+Why should it be enabled if it's not used ?
 
-If you are really concerned about the few ms it takes to initialize the
-GPU on boot, you can always choose to not build the driver, or use a
-specific DT for your use-case.
-
-Regards,
-Lucas
-
+[...]
 _______________________________________________
 Linux-stm32 mailing list
 Linux-stm32@st-md-mailman.stormreply.com
