@@ -2,56 +2,49 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id 0C87D19B6A8
-	for <lists+linux-stm32@lfdr.de>; Wed,  1 Apr 2020 21:59:51 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 0F5CA19C354
+	for <lists+linux-stm32@lfdr.de>; Thu,  2 Apr 2020 15:57:17 +0200 (CEST)
 Received: from ip-172-31-3-76.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id C3F31C36B0B;
-	Wed,  1 Apr 2020 19:59:50 +0000 (UTC)
-Received: from mail-out.m-online.net (mail-out.m-online.net [212.18.0.10])
- (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id AF4C6C36B0B;
+	Thu,  2 Apr 2020 13:57:16 +0000 (UTC)
+Received: from smtprelay-out1.synopsys.com (smtprelay-out1.synopsys.com
+ [149.117.73.133])
+ (using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 4A82CC36B09
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id F0EC3C36B09
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Wed,  1 Apr 2020 19:59:50 +0000 (UTC)
-Received: from frontend01.mail.m-online.net (unknown [192.168.8.182])
- by mail-out.m-online.net (Postfix) with ESMTP id 48sxqn17jPz1rmgX;
- Wed,  1 Apr 2020 21:59:48 +0200 (CEST)
-Received: from localhost (dynscan1.mnet-online.de [192.168.6.70])
- by mail.m-online.net (Postfix) with ESMTP id 48sxqm55ZKz1r0cc;
- Wed,  1 Apr 2020 21:59:48 +0200 (CEST)
-X-Virus-Scanned: amavisd-new at mnet-online.de
-Received: from mail.mnet-online.de ([192.168.8.182])
- by localhost (dynscan1.mail.m-online.net [192.168.6.70]) (amavisd-new,
- port 10024)
- with ESMTP id ARRSFarqvGyk; Wed,  1 Apr 2020 21:59:47 +0200 (CEST)
-X-Auth-Info: 4zaLNIcWZJ0OWFfwvO7Y1We/SkNclQpUKNMfR0QzUbg=
-Received: from [IPv6:::1] (unknown [195.140.253.167])
- (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+ Thu,  2 Apr 2020 13:57:15 +0000 (UTC)
+Received: from mailhost.synopsys.com (mdc-mailhost1.synopsys.com
+ [10.225.0.209])
+ (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits))
  (No client certificate requested)
- by mail.mnet-online.de (Postfix) with ESMTPSA;
- Wed,  1 Apr 2020 21:59:47 +0200 (CEST)
-To: Ulf Hansson <ulf.hansson@linaro.org>
-References: <20200331155254.100952-1-marex@denx.de>
- <CAPDyKFrypbDEuDaGWySjC6j_qKbXpVHoubhh8e9jS24JSzBg3Q@mail.gmail.com>
- <7a7c0180-0a11-17b2-7815-b18b1ca11120@denx.de>
- <CAPDyKFoEFe=fru0=HCTzG2CikGA72hFWK0y6iL_EN6BDK3Vtkw@mail.gmail.com>
-From: Marek Vasut <marex@denx.de>
-Message-ID: <29a4a198-db29-447a-fa64-68de9430cd07@denx.de>
-Date: Wed, 1 Apr 2020 21:59:46 +0200
-User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:68.0) Gecko/20100101
- Thunderbird/68.5.0
-MIME-Version: 1.0
-In-Reply-To: <CAPDyKFoEFe=fru0=HCTzG2CikGA72hFWK0y6iL_EN6BDK3Vtkw@mail.gmail.com>
-Content-Language: en-US
-Cc: Linus Walleij <linus.walleij@linaro.org>,
- "linux-mmc@vger.kernel.org" <linux-mmc@vger.kernel.org>,
- Patrick Delaunay <patrick.delaunay@st.com>,
- Russell King <linux@armlinux.org.uk>,
+ by smtprelay-out1.synopsys.com (Postfix) with ESMTPS id D0ABB43BB0;
+ Thu,  2 Apr 2020 13:57:13 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=synopsys.com; s=mail;
+ t=1585835834; bh=WxB9gfK7GgZCSSdeiOrOcAWKApS/sOPCGGGM63tiPEQ=;
+ h=From:To:Cc:Subject:Date:From;
+ b=SExtHH2/3uXBmmuJPIQIqhFRsoYdNajCJQ1pS2JGL7z5jnl3R/dZNe6/0He/izxdO
+ v+zCqA/rU8SvFWnQcfbsO/vyzcNwleriVnxioC+RGwbza21xF1XC3U721RWJXkBWRm
+ IL6AEBis1v/gyRaBVsEEDbXpLrSIz+thlhyyiAOGUpOsJVjK8/jKfIyn9op/WO66xq
+ 5lMNl0X/lQnw5BPXsRqTmMZ1m1pnlCITIQj4LxdU1hqqzXG58qRPKE++lvBQFIt46o
+ C1GY4XqJ8Ku7z04idUbEWry9734w2OeXZlGEE8EZm6cQT3wpdQu4eb2XqR8HYfYjel
+ mmSmWFe6x0Wjw==
+Received: from de02dwia024.internal.synopsys.com
+ (de02dwia024.internal.synopsys.com [10.225.19.81])
+ by mailhost.synopsys.com (Postfix) with ESMTP id 93E62A005B;
+ Thu,  2 Apr 2020 13:57:11 +0000 (UTC)
+From: Jose Abreu <Jose.Abreu@synopsys.com>
+To: netdev@vger.kernel.org
+Date: Thu,  2 Apr 2020 15:57:07 +0200
+Message-Id: <daf6d10d679c24e9b33b758b249b9b70e5eb1f01.1585835790.git.Jose.Abreu@synopsys.com>
+X-Mailer: git-send-email 2.7.4
+Cc: Jose Abreu <Jose.Abreu@synopsys.com>, Joao Pinto <Joao.Pinto@synopsys.com>,
+ linux-kernel@vger.kernel.org, linux-stm32@st-md-mailman.stormreply.com,
  Maxime Coquelin <mcoquelin.stm32@gmail.com>,
- Manivannan Sadhasivam <manivannan.sadhasivam@linaro.org>,
- linux-stm32@st-md-mailman.stormreply.com
-Subject: Re: [Linux-stm32] [PATCH] mmc: mmci: Only call
- .post_sig_volt_switch if voltage switch happened
+ Giuseppe Cavallaro <peppe.cavallaro@st.com>,
+ "David S. Miller" <davem@davemloft.net>, linux-arm-kernel@lists.infradead.org
+Subject: [Linux-stm32] [PATCH net] net: stmmac: xgmac: Fix VLAN register
+	handling
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -63,60 +56,76 @@ List-Post: <mailto:linux-stm32@st-md-mailman.stormreply.com>
 List-Help: <mailto:linux-stm32-request@st-md-mailman.stormreply.com?subject=help>
 List-Subscribe: <https://st-md-mailman.stormreply.com/mailman/listinfo/linux-stm32>, 
  <mailto:linux-stm32-request@st-md-mailman.stormreply.com?subject=subscribe>
+MIME-Version: 1.0
 Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
-On 4/1/20 10:16 AM, Ulf Hansson wrote:
-> On Tue, 31 Mar 2020 at 23:01, Marek Vasut <marex@denx.de> wrote:
->>
->> On 3/31/20 8:53 PM, Ulf Hansson wrote:
->>> On Tue, 31 Mar 2020 at 17:53, Marek Vasut <marex@denx.de> wrote:
->>>>
->>>> Call the post voltage switch handler only if the voltage switch actually
->>>> happened. It is well possible that the regulator is already set correctly
->>>> and no voltage switch happened, so there is no need to take any further
->>>> action.
->>>>
->>>> This fixes a real issue on STM32MP1 where, if the eMMC is supplied with
->>>> VccQ=1.8 V, the post voltage switch code will spin indefinitelly waiting
->>>> for the voltage switch to complete, even though no voltage switch really
->>>> happened.
->>>
->>> Whether this is a common problem or not, I think in a first step we
->>> should manage this in the common mmc_regulator_set_vqmmc().
->>
->> I can pass in a variable which would be set if a voltage switch actually
->> happened in mmc_regulator_set_vqmmc() OR I can return a code > 0 from
->> there. Which one do you prefer?
-> 
-> Return a code > 0.
-> 
->>
->> Then I guess we can add something like
->>
->> if (regulator_get_voltage(...vqmmc) is already in voltage range)
->>  return 1;
->>
->> ...
->>
->> and the MMCI driver would do something like
->>
->> if (mmc_regulator_set_vqmmc(...) > 0)
->>  host->ops->post_sig_volt_switch(...);
->>
->> That looks OK I guess ?
->>
->>> Then on top of that, convert mmci into using the mmc_regulator_set_vqmmc() API.
->>>
->>> Can please try this approach instead?
->> Sure. Does the above look sane ?
-> 
-> Yes, great!
+Commit 907a076881f1, forgot that we need to clear old values of
+XGMAC_VLAN_TAG register when we switch from VLAN perfect matching to
+HASH matching.
 
-The resulting patch doesn't really look all that great, but I sent out a
-small series.
+Fix it.
+
+Fixes: 907a076881f1 ("net: stmmac: xgmac: fix incorrect XGMAC_VLAN_TAG register writting")
+Signed-off-by: Jose Abreu <Jose.Abreu@synopsys.com>
+
+---
+Cc: Giuseppe Cavallaro <peppe.cavallaro@st.com>
+Cc: Alexandre Torgue <alexandre.torgue@st.com>
+Cc: Jose Abreu <joabreu@synopsys.com>
+Cc: "David S. Miller" <davem@davemloft.net>
+Cc: Maxime Coquelin <mcoquelin.stm32@gmail.com>
+Cc: netdev@vger.kernel.org
+Cc: linux-stm32@st-md-mailman.stormreply.com
+Cc: linux-arm-kernel@lists.infradead.org
+Cc: linux-kernel@vger.kernel.org
+---
+ drivers/net/ethernet/stmicro/stmmac/dwxgmac2_core.c | 11 +++++++++++
+ 1 file changed, 11 insertions(+)
+
+diff --git a/drivers/net/ethernet/stmicro/stmmac/dwxgmac2_core.c b/drivers/net/ethernet/stmicro/stmmac/dwxgmac2_core.c
+index 0e4575f7bedb..ad4df9bddcf3 100644
+--- a/drivers/net/ethernet/stmicro/stmmac/dwxgmac2_core.c
++++ b/drivers/net/ethernet/stmicro/stmmac/dwxgmac2_core.c
+@@ -577,8 +577,13 @@ static void dwxgmac2_update_vlan_hash(struct mac_device_info *hw, u32 hash,
+ 			value |= XGMAC_VLAN_EDVLP;
+ 			value |= XGMAC_VLAN_ESVL;
+ 			value |= XGMAC_VLAN_DOVLTC;
++		} else {
++			value &= ~XGMAC_VLAN_EDVLP;
++			value &= ~XGMAC_VLAN_ESVL;
++			value &= ~XGMAC_VLAN_DOVLTC;
+ 		}
+ 
++		value &= ~XGMAC_VLAN_VID;
+ 		writel(value, ioaddr + XGMAC_VLAN_TAG);
+ 	} else if (perfect_match) {
+ 		u32 value = readl(ioaddr + XGMAC_PACKET_FILTER);
+@@ -589,13 +594,19 @@ static void dwxgmac2_update_vlan_hash(struct mac_device_info *hw, u32 hash,
+ 
+ 		value = readl(ioaddr + XGMAC_VLAN_TAG);
+ 
++		value &= ~XGMAC_VLAN_VTHM;
+ 		value |= XGMAC_VLAN_ETV;
+ 		if (is_double) {
+ 			value |= XGMAC_VLAN_EDVLP;
+ 			value |= XGMAC_VLAN_ESVL;
+ 			value |= XGMAC_VLAN_DOVLTC;
++		} else {
++			value &= ~XGMAC_VLAN_EDVLP;
++			value &= ~XGMAC_VLAN_ESVL;
++			value &= ~XGMAC_VLAN_DOVLTC;
+ 		}
+ 
++		value &= ~XGMAC_VLAN_VID;
+ 		writel(value | perfect_match, ioaddr + XGMAC_VLAN_TAG);
+ 	} else {
+ 		u32 value = readl(ioaddr + XGMAC_PACKET_FILTER);
+-- 
+2.7.4
+
 _______________________________________________
 Linux-stm32 mailing list
 Linux-stm32@st-md-mailman.stormreply.com
