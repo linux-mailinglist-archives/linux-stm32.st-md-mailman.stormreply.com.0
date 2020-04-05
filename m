@@ -2,62 +2,47 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id 9503519ED5D
-	for <lists+linux-stm32@lfdr.de>; Sun,  5 Apr 2020 20:37:38 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id ACED119EDC9
+	for <lists+linux-stm32@lfdr.de>; Sun,  5 Apr 2020 22:02:00 +0200 (CEST)
 Received: from ip-172-31-3-76.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 4B98EC36B0B;
-	Sun,  5 Apr 2020 18:37:38 +0000 (UTC)
-Received: from mail-pg1-f196.google.com (mail-pg1-f196.google.com
- [209.85.215.196])
- (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 6BAC4C36B0B;
+	Sun,  5 Apr 2020 20:02:00 +0000 (UTC)
+Received: from mail-out.m-online.net (mail-out.m-online.net [212.18.0.10])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 1C0A3C36B09
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id DCD07C36B09
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Sun,  5 Apr 2020 18:37:36 +0000 (UTC)
-Received: by mail-pg1-f196.google.com with SMTP id m17so407112pgj.5
- for <linux-stm32@st-md-mailman.stormreply.com>;
- Sun, 05 Apr 2020 11:37:36 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linaro.org; s=google;
- h=date:from:to:cc:subject:message-id:references:mime-version
- :content-disposition:in-reply-to:user-agent;
- bh=r/V8xd48qmZ3Tejwsg4uBw3R9OCUKDXWmgs0tD6ufjM=;
- b=L2on1fYhGNBawXv6/jnFwWDhknkWKqq5q+rA9VgKHFe5sD+XmwpdZP/CYX2iLsmWb6
- as4PbmFjU1bkxGoGX5OTvJ3tkF59UDXK1dBBGyheqiDx4sRB9b9K7K0AbcXgw5KZsoIx
- b6zNCtHhsutOsmprl7smP3wcXJTb9Ma5MleU99OKZZm82fqElDUPQgGBaODIa7ShSnEd
- jplXT7J+sGPiqdTAZncH1pF73WEJXwpFoZaWQCzuPMUB/LEKaCVXUl9d3MP/DzV+Oo+A
- kvAE/2cjr0kRbsAlvaASDtj5dDvGk+w9/GN3sPOILpSUzkN6Bq/VY0VSlnrKXCJRmHY2
- 8Wkw==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20161025;
- h=x-gm-message-state:date:from:to:cc:subject:message-id:references
- :mime-version:content-disposition:in-reply-to:user-agent;
- bh=r/V8xd48qmZ3Tejwsg4uBw3R9OCUKDXWmgs0tD6ufjM=;
- b=WjxsJZa2ep3HHBT9BpeaTNPp4s7PTFJnGbXxJGti9VfAQMzAmdDDLy+HWd+ePngkM7
- Y5f4YJt6iNzDX38rI1fkbWKKtBtVHpcG6meY6hny0qx4SZeguIqZnYSZZBen4AT8kvrk
- W9cdK+ZhkQMgUSAKkWQnxlOUutnUDwgkWqCrGUC7BAPDuam0O6hmoKo/O24bCc8kTucG
- mVgo9gIXpv8uGJqU6n7unO1idc82IBn/vXWODqtw4LXaqAMAHfpjCCb27p340FyWirXl
- aAXm9BOZ6H3HlZf52a6RLEUVZQV087uIei2lIy91BHaHp6EbD8y8xPJgydn7DiYhwcub
- I5Ig==
-X-Gm-Message-State: AGi0Pubny5EjZRnuIUQXUn9pK3Q/OD5h/pEe4HHkrmITfOs87+tfy2tA
- TolN84Uyt25OtTM9iGRo2X9q
-X-Google-Smtp-Source: APiQypInL/Tpz4PVWz0R2bHqtkcOI8x3gaf98ELwYcqe4gYzx4f3CfI5QxvBE8L1c/LoRI/KQJe8Lw==
-X-Received: by 2002:aa7:9888:: with SMTP id r8mr18233535pfl.293.1586111855211; 
- Sun, 05 Apr 2020 11:37:35 -0700 (PDT)
-Received: from Mani-XPS-13-9360 ([157.51.125.214])
- by smtp.gmail.com with ESMTPSA id v20sm9197825pgo.34.2020.04.05.11.37.31
- (version=TLS1_2 cipher=ECDHE-RSA-CHACHA20-POLY1305 bits=256/256);
- Sun, 05 Apr 2020 11:37:34 -0700 (PDT)
-Date: Mon, 6 Apr 2020 00:07:29 +0530
-From: Manivannan Sadhasivam <manivannan.sadhasivam@linaro.org>
-To: Marek Vasut <marex@denx.de>
-Message-ID: <20200405183729.GA9410@Mani-XPS-13-9360>
+ Sun,  5 Apr 2020 20:01:58 +0000 (UTC)
+Received: from frontend01.mail.m-online.net (unknown [192.168.8.182])
+ by mail-out.m-online.net (Postfix) with ESMTP id 48wPhN4Rczz1rmgV;
+ Sun,  5 Apr 2020 22:01:56 +0200 (CEST)
+Received: from localhost (dynscan1.mnet-online.de [192.168.6.70])
+ by mail.m-online.net (Postfix) with ESMTP id 48wPhN3XpWz1r0c2;
+ Sun,  5 Apr 2020 22:01:56 +0200 (CEST)
+X-Virus-Scanned: amavisd-new at mnet-online.de
+Received: from mail.mnet-online.de ([192.168.8.182])
+ by localhost (dynscan1.mail.m-online.net [192.168.6.70]) (amavisd-new,
+ port 10024)
+ with ESMTP id q6qzRs8UefpC; Sun,  5 Apr 2020 22:01:55 +0200 (CEST)
+X-Auth-Info: Jnmf/64HAA3rEy/lcLC5G3kzQcYwtX1LBoXmoJeJsw0=
+Received: from [IPv6:::1] (unknown [195.140.253.167])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+ (No client certificate requested)
+ by mail.mnet-online.de (Postfix) with ESMTPSA;
+ Sun,  5 Apr 2020 22:01:55 +0200 (CEST)
+To: Manivannan Sadhasivam <manivannan.sadhasivam@linaro.org>
 References: <20200401132237.60880-1-marex@denx.de>
  <20200405144305.GT8912@Mani-XPS-13-9360>
  <38dc1697-28e3-8680-4998-74e30339a2eb@denx.de>
+ <20200405183729.GA9410@Mani-XPS-13-9360>
+From: Marek Vasut <marex@denx.de>
+Message-ID: <0faa0102-4504-d17b-fb7a-d710100cce2f@denx.de>
+Date: Sun, 5 Apr 2020 22:01:54 +0200
+User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:68.0) Gecko/20100101
+ Thunderbird/68.5.0
 MIME-Version: 1.0
-Content-Disposition: inline
-In-Reply-To: <38dc1697-28e3-8680-4998-74e30339a2eb@denx.de>
-User-Agent: Mutt/1.9.4 (2018-02-28)
+In-Reply-To: <20200405183729.GA9410@Mani-XPS-13-9360>
+Content-Language: en-US
 Cc: Patrick Delaunay <patrick.delaunay@st.com>,
  Maxime Coquelin <mcoquelin.stm32@gmail.com>,
  linux-stm32@st-md-mailman.stormreply.com, linux-arm-kernel@lists.infradead.org
@@ -79,45 +64,55 @@ Content-Transfer-Encoding: 7bit
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
-On Sun, Apr 05, 2020 at 04:55:54PM +0200, Marek Vasut wrote:
-> On 4/5/20 4:43 PM, Manivannan Sadhasivam wrote:
-> > Hi Marek,
+On 4/5/20 8:37 PM, Manivannan Sadhasivam wrote:
+> On Sun, Apr 05, 2020 at 04:55:54PM +0200, Marek Vasut wrote:
+>> On 4/5/20 4:43 PM, Manivannan Sadhasivam wrote:
+>>> Hi Marek,
+>>
+>> Hi,
+>>
+>>> On Wed, Apr 01, 2020 at 03:22:15PM +0200, Marek Vasut wrote:
+>>>> The AV96 board device tree is completely broken and does not match the
+>>>> hardware. This series fixes it up.
+>>>>
+>>>
+>>> Can you please share a git tree with all these patches? These are not
+>>> applying cleanly on top of mainline/master or linux-next/master.
+>>
+>> Alex asked for them to be rebased on
+>> git://git.kernel.org/pub/scm/linux/kernel/git/atorgue/stm32.git
+>> branch
+>> stm32-next
+>>
 > 
-> Hi,
+> Thanks, I'm able to build with your patches. Btw, I just found that the
+> current mainline versions of u-boot and Linux kernel are certainly broken
+> on old Avenger96 (588-100) as well.
+
+Considering the difference between the prototype board and the 588-200
+production board, that's quite possible. Are you willing to test things
+on the 588-100 board ? If so, then we can try and support the 588-100 too.
+
+> u-boot doesn't boot while linux kernel has MMC2 and Ethernet broken as you
+> reported. However, checking out the commit which added Avenger96 board support
+> in both projects works fine.
+
+At least
+35a54d41d9d4 ("ARM: dts: stm32mp1: sync device tree with v5.2-rc4")
+in U-Boot broke the old board.
+
+But that should all be fixed for the upcoming U-Boot release in master
+already (for 588-200).
+
+The rest is a lot of incorrect pinmux in both, fixed in U-Boot already,
+fixed by this set for Linux.
+
+> So this clearly tells that there is a regression which caused the board support
+> to be broken with mainline u-boot and kernel. I didn't try to find the offending
+> commit(s) as the support for STM32MP1 got matured in both the projects. But
+> we can go ahead with your patches.
 > 
-> > On Wed, Apr 01, 2020 at 03:22:15PM +0200, Marek Vasut wrote:
-> >> The AV96 board device tree is completely broken and does not match the
-> >> hardware. This series fixes it up.
-> >>
-> > 
-> > Can you please share a git tree with all these patches? These are not
-> > applying cleanly on top of mainline/master or linux-next/master.
-> 
-> Alex asked for them to be rebased on
-> git://git.kernel.org/pub/scm/linux/kernel/git/atorgue/stm32.git
-> branch
-> stm32-next
-> 
-
-Thanks, I'm able to build with your patches. Btw, I just found that the
-current mainline versions of u-boot and Linux kernel are certainly broken
-on old Avenger96 (588-100) as well.
-
-u-boot doesn't boot while linux kernel has MMC2 and Ethernet broken as you
-reported. However, checking out the commit which added Avenger96 board support
-in both projects works fine.
-
-So this clearly tells that there is a regression which caused the board support
-to be broken with mainline u-boot and kernel. I didn't try to find the offending
-commit(s) as the support for STM32MP1 got matured in both the projects. But
-we can go ahead with your patches.
-
-I will review the remaining patches tomorrow.
-
-Thanks,
-Mani
-
-> So that's where they apply.
+> I will review the remaining patches tomorrow
 _______________________________________________
 Linux-stm32 mailing list
 Linux-stm32@st-md-mailman.stormreply.com
