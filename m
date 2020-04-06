@@ -2,53 +2,42 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id 6801A19F730
-	for <lists+linux-stm32@lfdr.de>; Mon,  6 Apr 2020 15:49:24 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 4657C19F77F
+	for <lists+linux-stm32@lfdr.de>; Mon,  6 Apr 2020 16:03:54 +0200 (CEST)
 Received: from ip-172-31-3-76.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 1CEA5C36B0B;
-	Mon,  6 Apr 2020 13:49:24 +0000 (UTC)
-Received: from smtprelay-out1.synopsys.com (smtprelay-out1.synopsys.com
- [149.117.87.133])
- (using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id E91B9C36B0B;
+	Mon,  6 Apr 2020 14:03:53 +0000 (UTC)
+Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
+ (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id B7CCEC36B09
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 81F7CC36B09
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Mon,  6 Apr 2020 13:49:21 +0000 (UTC)
-Received: from mailhost.synopsys.com (mdc-mailhost2.synopsys.com
- [10.225.0.210])
- (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits))
+ Mon,  6 Apr 2020 14:03:51 +0000 (UTC)
+Received: from localhost (fw-tnat.cambridge.arm.com [217.140.96.140])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by smtprelay-out1.synopsys.com (Postfix) with ESMTPS id C55D9C0384;
- Mon,  6 Apr 2020 13:49:15 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=synopsys.com; s=mail;
- t=1586180959; bh=ZlXcrKakS3xNCjgGOMDwWxQfO9zxlDvxLe1htROlAFQ=;
- h=From:To:Cc:Subject:Date:From;
- b=TZRMQw/SLJo3cmRDiPXdd7uTAeyG75fKtY0F4K+yQnz8lFjf34livgcdyZAupG6aw
- zpe0I4LC7QEuhC0OCfrk72Q+VReG2jLlqzwQibl0vxfJKi3QQ+0iepUqIhMXI12j1a
- sgU6UCfV1+EPLcTdWReFlFJtez0DtROOyp2U2oOeqCFXlAffMY4SJx31eqL5WOiOFX
- FqyG7kC+Biwq3uvEgTH6LrFRvZivy8fOAUL43ODRjxwGr8IyrIm8CO1lam5wT1WSZp
- xZ1rvVBwgLmuFeD+sxfrtIXT7SNLuor3Yjm8lShzbUjM7C8I5w26KpvTPvTVGwvXbi
- mbw4FsdZ8jieQ==
-Received: from de02dwia024.internal.synopsys.com
- (de02dwia024.internal.synopsys.com [10.225.19.81])
- by mailhost.synopsys.com (Postfix) with ESMTP id 85677A005C;
- Mon,  6 Apr 2020 13:49:13 +0000 (UTC)
-From: Angelo Ribeiro <Angelo.Ribeiro@synopsys.com>
-To: yannick.fertre@st.com, philippe.cornu@st.com, benjamin.gaignard@st.com,
- airlied@linux.ie, daniel@ffwll.ch, mcoquelin.stm32@gmail.com,
- alexandre.torgue@st.com, dri-devel@lists.freedesktop.org,
- linux-stm32@st-md-mailman.stormreply.com,
- linux-arm-kernel@lists.infradead.org, linux-kernel@vger.kernel.org,
- pop.adrian61@gmail.com
-Date: Mon,  6 Apr 2020 15:49:03 +0200
-Message-Id: <a809feb7d7153a92e323416f744f1565e995da01.1586180592.git.angelo.ribeiro@synopsys.com>
-X-Mailer: git-send-email 2.7.4
-Cc: Jose Abreu <Jose.Abreu@synopsys.com>,
- Gustavo Pimentel <Gustavo.Pimentel@synopsys.com>,
- Joao Pinto <Joao.Pinto@synopsys.com>,
- Angelo Ribeiro <Angelo.Ribeiro@synopsys.com>
-Subject: [Linux-stm32] [PATCH v2] drm/bridge: dw-mipi-dsi.c: Add VPG runtime
-	config through debugfs
+ by mail.kernel.org (Postfix) with ESMTPSA id F061C23433;
+ Mon,  6 Apr 2020 14:03:48 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
+ s=default; t=1586181829;
+ bh=UbkFYXsatuzQbUdxGVDQAxnHxupZla2aqzUmbNgnnGI=;
+ h=Date:From:To:Cc:Subject:In-Reply-To:From;
+ b=F8Wsfrq0K11uyIa+GRybKbyBxjyoiQ72PIhjJXXAD60jFxbbOrC4Q4w3iv3l/BCOg
+ lJlT3GYD87feNnOAUIEaPoSpOJQBWeGU4GmwpJPLNmpRQZAqKLlBlFIku2Bnqr6+Je
+ TKQsB7z6IBrmoerd2HKKbinAfmIEktdHGKNMqioo=
+Date: Mon, 06 Apr 2020 15:03:46 +0100
+From: Mark Brown <broonie@kernel.org>
+To: Julia Lawall <Julia.Lawall@inria.fr>
+In-Reply-To: <1586099028-5104-1-git-send-email-Julia.Lawall@inria.fr>
+Message-Id: <applied-1586099028-5104-1-git-send-email-Julia.Lawall@inria.fr>
+X-Patchwork-Hint: ignore
+Cc: alsa-devel@alsa-project.org, Takashi Iwai <tiwai@suse.com>,
+ kernel-janitors@vger.kernel.org, Liam Girdwood <lgirdwood@gmail.com>,
+ linux-kernel@vger.kernel.org, Mark Brown <broonie@kernel.org>,
+ Maxime Coquelin <mcoquelin.stm32@gmail.com>,
+ linux-stm32@st-md-mailman.stormreply.com, linux-arm-kernel@lists.infradead.org
+Subject: [Linux-stm32] Applied "ASoC: stm32: sai: Add missing cleanup" to
+	the asoc tree
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -66,179 +55,73 @@ Content-Transfer-Encoding: 7bit
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
-Add support for the video pattern generator (VPG) BER pattern mode and
-configuration in runtime.
+The patch
 
-This enables using the debugfs interface to manipulate the VPG after
-the pipeline is set.
-Also, enables the usage of the VPG BER pattern.
+   ASoC: stm32: sai: Add missing cleanup
 
-Changes in v2:
-  - Added VID_MODE_VPG_MODE
-  - Solved incompatible return type on __get and __set
+has been applied to the asoc tree at
 
-Reported-by: kbuild test robot <lkp@intel.com>
-Reported-by: Adrian Pop <pop.adrian61@gmail.com>
-Cc: Gustavo Pimentel <gustavo.pimentel@synopsys.com>
-Cc: Joao Pinto <jpinto@synopsys.com>
-Cc: Jose Abreu <jose.abreu@synopsys.com>
-Signed-off-by: Angelo Ribeiro <angelo.ribeiro@synopsys.com>
+   https://git.kernel.org/pub/scm/linux/kernel/git/broonie/sound.git 
+
+All being well this means that it will be integrated into the linux-next
+tree (usually sometime in the next 24 hours) and sent to Linus during
+the next merge window (or sooner if it is a bug fix), however if
+problems are discovered then the patch may be dropped or reverted.  
+
+You may get further e-mails resulting from automated or manual testing
+and review of the tree, please engage with people reporting problems and
+send followup patches addressing any issues that are reported if needed.
+
+If any updates are required or you are submitting further changes they
+should be sent as incremental updates against current git, existing
+patches will not be replaced.
+
+Please add any relevant lists and maintainers to the CCs when replying
+to this mail.
+
+Thanks,
+Mark
+
+From 7506baeed8d05fc164254c64af14cfed2ac14446 Mon Sep 17 00:00:00 2001
+From: Julia Lawall <Julia.Lawall@inria.fr>
+Date: Sun, 5 Apr 2020 17:03:48 +0200
+Subject: [PATCH] ASoC: stm32: sai: Add missing cleanup
+
+The commit 0d6defc7e0e4 ("ASoC: stm32: sai: manage rebind issue")
+converts some function calls to their non-devm equivalents.  The
+appropriate cleanup code was added to the remove function, but not
+to the probe function.  Add a call to snd_dmaengine_pcm_unregister
+to compensate for the call to snd_dmaengine_pcm_register in case
+of subsequent failure.
+
+Fixes: commit 0d6defc7e0e4 ("ASoC: stm32: sai: manage rebind issue")
+Signed-off-by: Julia Lawall <Julia.Lawall@inria.fr>
+
+Acked-by: Olivier Moysan <olivier.moysan@st.com>
+Link: https://lore.kernel.org/r/1586099028-5104-1-git-send-email-Julia.Lawall@inria.fr
+Signed-off-by: Mark Brown <broonie@kernel.org>
 ---
- drivers/gpu/drm/bridge/synopsys/dw-mipi-dsi.c | 98 ++++++++++++++++++++++++---
- 1 file changed, 90 insertions(+), 8 deletions(-)
+ sound/soc/stm/stm32_sai_sub.c | 4 +++-
+ 1 file changed, 3 insertions(+), 1 deletion(-)
 
-diff --git a/drivers/gpu/drm/bridge/synopsys/dw-mipi-dsi.c b/drivers/gpu/drm/bridge/synopsys/dw-mipi-dsi.c
-index b18351b..9de3645 100644
---- a/drivers/gpu/drm/bridge/synopsys/dw-mipi-dsi.c
-+++ b/drivers/gpu/drm/bridge/synopsys/dw-mipi-dsi.c
-@@ -91,6 +91,7 @@
- #define VID_MODE_TYPE_BURST			0x2
- #define VID_MODE_TYPE_MASK			0x3
- #define VID_MODE_VPG_ENABLE		BIT(16)
-+#define VID_MODE_VPG_MODE		BIT(20)
- #define VID_MODE_VPG_HORIZONTAL		BIT(24)
+diff --git a/sound/soc/stm/stm32_sai_sub.c b/sound/soc/stm/stm32_sai_sub.c
+index 2bd280c01c33..0d0c9afd8791 100644
+--- a/sound/soc/stm/stm32_sai_sub.c
++++ b/sound/soc/stm/stm32_sai_sub.c
+@@ -1556,8 +1556,10 @@ static int stm32_sai_sub_probe(struct platform_device *pdev)
  
- #define DSI_VID_PKT_SIZE		0x3c
-@@ -221,6 +222,21 @@
- #define PHY_STATUS_TIMEOUT_US		10000
- #define CMD_PKT_STATUS_TIMEOUT_US	20000
+ 	ret = snd_soc_register_component(&pdev->dev, &stm32_component,
+ 					 &sai->cpu_dai_drv, 1);
+-	if (ret)
++	if (ret) {
++		snd_dmaengine_pcm_unregister(&pdev->dev);
+ 		return ret;
++	}
  
-+#ifdef CONFIG_DEBUG_FS
-+#define VPG_DEFS(name, dsi) \
-+	((void __force *)&((*dsi).vpg_defs.name))
-+
-+#define REGISTER(name, mask, dsi) \
-+	{ #name, VPG_DEFS(name, dsi), mask, dsi }
-+
-+struct debugfs_entries {
-+	const char				*name;
-+	bool					*reg;
-+	u32					mask;
-+	struct dw_mipi_dsi			*dsi;
-+};
-+#endif /* CONFIG_DEBUG_FS */
-+
- struct dw_mipi_dsi {
- 	struct drm_bridge bridge;
- 	struct mipi_dsi_host dsi_host;
-@@ -238,9 +254,12 @@ struct dw_mipi_dsi {
- 
- #ifdef CONFIG_DEBUG_FS
- 	struct dentry *debugfs;
--
--	bool vpg;
--	bool vpg_horizontal;
-+	struct debugfs_entries *debugfs_vpg;
-+	struct {
-+		bool vpg;
-+		bool vpg_horizontal;
-+		bool vpg_ber_pattern;
-+	} vpg_defs;
- #endif /* CONFIG_DEBUG_FS */
- 
- 	struct dw_mipi_dsi *master; /* dual-dsi master ptr */
-@@ -530,9 +549,11 @@ static void dw_mipi_dsi_video_mode_config(struct dw_mipi_dsi *dsi)
- 		val |= VID_MODE_TYPE_NON_BURST_SYNC_EVENTS;
- 
- #ifdef CONFIG_DEBUG_FS
--	if (dsi->vpg) {
-+	if (dsi->vpg_defs.vpg) {
- 		val |= VID_MODE_VPG_ENABLE;
--		val |= dsi->vpg_horizontal ? VID_MODE_VPG_HORIZONTAL : 0;
-+		val |= dsi->vpg_defs.vpg_horizontal ?
-+		       VID_MODE_VPG_HORIZONTAL : 0;
-+		val |= dsi->vpg_defs.vpg_ber_pattern ? VID_MODE_VPG_MODE : 0;
- 	}
- #endif /* CONFIG_DEBUG_FS */
- 
-@@ -961,6 +982,68 @@ static const struct drm_bridge_funcs dw_mipi_dsi_bridge_funcs = {
- 
- #ifdef CONFIG_DEBUG_FS
- 
-+int dw_mipi_dsi_debugfs_write(void *data, u64 val)
-+{
-+	struct debugfs_entries *vpg = data;
-+	struct dw_mipi_dsi *dsi;
-+	u32 mode_cfg;
-+
-+	if (!vpg)
-+		return -ENODEV;
-+
-+	dsi = vpg->dsi;
-+
-+	*vpg->reg = (bool)val;
-+
-+	mode_cfg = dsi_read(dsi, DSI_VID_MODE_CFG);
-+
-+	if (*vpg->reg)
-+		mode_cfg |= vpg->mask;
-+	else
-+		mode_cfg &= ~vpg->mask;
-+
-+	dsi_write(dsi, DSI_VID_MODE_CFG, mode_cfg);
-+
-+	return 0;
-+}
-+
-+int dw_mipi_dsi_debugfs_show(void *data, u64 *val)
-+{
-+	struct debugfs_entries *vpg = data;
-+
-+	if (!vpg)
-+		return -ENODEV;
-+
-+	*val = *vpg->reg;
-+
-+	return 0;
-+}
-+
-+DEFINE_DEBUGFS_ATTRIBUTE(fops_x32, dw_mipi_dsi_debugfs_show,
-+			 dw_mipi_dsi_debugfs_write, "%llu\n");
-+
-+static void debugfs_create_files(void *data)
-+{
-+	struct dw_mipi_dsi *dsi = data;
-+	struct debugfs_entries debugfs[] = {
-+		REGISTER(vpg, VID_MODE_VPG_ENABLE, dsi),
-+		REGISTER(vpg_horizontal, VID_MODE_VPG_HORIZONTAL, dsi),
-+		REGISTER(vpg_ber_pattern, VID_MODE_VPG_MODE, dsi),
-+	};
-+	int i;
-+
-+	dsi->debugfs_vpg = kmalloc(sizeof(debugfs), GFP_KERNEL);
-+	if (!dsi->debugfs_vpg)
-+		return;
-+
-+	memcpy(dsi->debugfs_vpg, debugfs, sizeof(debugfs));
-+
-+	for (i = 0; i < ARRAY_SIZE(debugfs); i++)
-+		debugfs_create_file(dsi->debugfs_vpg[i].name, 0644,
-+				    dsi->debugfs, &dsi->debugfs_vpg[i],
-+				    &fops_x32);
-+}
-+
- static void dw_mipi_dsi_debugfs_init(struct dw_mipi_dsi *dsi)
- {
- 	dsi->debugfs = debugfs_create_dir(dev_name(dsi->dev), NULL);
-@@ -969,14 +1052,13 @@ static void dw_mipi_dsi_debugfs_init(struct dw_mipi_dsi *dsi)
- 		return;
- 	}
- 
--	debugfs_create_bool("vpg", 0660, dsi->debugfs, &dsi->vpg);
--	debugfs_create_bool("vpg_horizontal", 0660, dsi->debugfs,
--			    &dsi->vpg_horizontal);
-+	debugfs_create_files(dsi);
- }
- 
- static void dw_mipi_dsi_debugfs_remove(struct dw_mipi_dsi *dsi)
- {
- 	debugfs_remove_recursive(dsi->debugfs);
-+	kfree(dsi->debugfs_vpg);
- }
- 
- #else
+ 	if (STM_SAI_PROTOCOL_IS_SPDIF(sai))
+ 		conf = &stm32_sai_pcm_config_spdif;
 -- 
-2.7.4
+2.20.1
 
 _______________________________________________
 Linux-stm32 mailing list
