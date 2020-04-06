@@ -2,71 +2,109 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id 8F19519F7C6
-	for <lists+linux-stm32@lfdr.de>; Mon,  6 Apr 2020 16:19:14 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id DCFEF19F7D6
+	for <lists+linux-stm32@lfdr.de>; Mon,  6 Apr 2020 16:23:53 +0200 (CEST)
 Received: from ip-172-31-3-76.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 50AF0C36B0B;
-	Mon,  6 Apr 2020 14:19:14 +0000 (UTC)
-Received: from mx07-00178001.pphosted.com (mx08-00178001.pphosted.com
- [91.207.212.93])
- (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id A1666C36B0B;
+	Mon,  6 Apr 2020 14:23:53 +0000 (UTC)
+Received: from mailout1.w1.samsung.com (mailout1.w1.samsung.com
+ [210.118.77.11])
+ (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 509C8C36B09
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 92701C36B09
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Mon,  6 Apr 2020 14:19:11 +0000 (UTC)
-Received: from pps.filterd (m0046660.ppops.net [127.0.0.1])
- by mx07-00178001.pphosted.com (8.16.0.42/8.16.0.42) with SMTP id
- 036E46gw019312; Mon, 6 Apr 2020 16:19:05 +0200
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=st.com;
- h=from : subject : to : cc
- : references : message-id : date : mime-version : in-reply-to :
- content-type : content-transfer-encoding; s=STMicroelectronics;
- bh=MDWrPWm65LgQvAsdXgU1HJgPbeJd38r+v9dG901gsDI=;
- b=QttZ/kCDnJiSM+aueKiZpnGgUtpdJCJ1Fxktvc5ugQWnSg5UAknfcTXlGsLFB0MIjXtb
- fWCEf6BnzAyJdD9GNtfEOkq5Q036AMS/6AQxljl/nKoUAs72k1VEYBMyhcaCREpWTa1Y
- nFUmfcAJPPDExsevSHrJTNACHy7HRm3IJYTc5AXH9jrovHX4KAnEkWjhQWGtZfjxonow
- iN6hr/dMiYUSMkwFXlQqbx9D2pRskjswwLBfs+KKjB2wbHb+qF/z6raO6feD8G8IPX+F
- s21mFizapfSZ0EPJIUKJLLG8+KhEiTzMmfjCHaskyl557PHkvV78/wyznkaBOvBR6xXF 1A== 
-Received: from beta.dmz-eu.st.com (beta.dmz-eu.st.com [164.129.1.35])
- by mx07-00178001.pphosted.com with ESMTP id 306fc9th31-1
- (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
- Mon, 06 Apr 2020 16:19:05 +0200
-Received: from euls16034.sgp.st.com (euls16034.sgp.st.com [10.75.44.20])
- by beta.dmz-eu.st.com (STMicroelectronics) with ESMTP id 4E290100034;
- Mon,  6 Apr 2020 16:19:00 +0200 (CEST)
-Received: from Webmail-eu.st.com (sfhdag3node1.st.com [10.75.127.7])
- by euls16034.sgp.st.com (STMicroelectronics) with ESMTP id 3958F220A2E;
- Mon,  6 Apr 2020 16:19:00 +0200 (CEST)
-Received: from lmecxl0889.tpe.st.com (10.75.127.45) by SFHDAG3NODE1.st.com
- (10.75.127.7) with Microsoft SMTP Server (TLS) id 15.0.1473.3; Mon, 6 Apr
- 2020 16:18:59 +0200
-From: Arnaud POULIQUEN <arnaud.pouliquen@st.com>
-To: Bjorn Andersson <bjorn.andersson@linaro.org>
-References: <20200324170407.16470-1-arnaud.pouliquen@st.com>
- <20200324170407.16470-3-arnaud.pouliquen@st.com>
- <20200324205210.GE119913@minitux>
- <4f5e6dd0-5deb-8036-0a94-eb7055744f35@st.com>
-Message-ID: <c0eed724-78b7-f8b6-cab4-de06e426d7d1@st.com>
-Date: Mon, 6 Apr 2020 16:18:58 +0200
-User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:68.0) Gecko/20100101
- Thunderbird/68.4.1
+ Mon,  6 Apr 2020 14:23:52 +0000 (UTC)
+Received: from eucas1p1.samsung.com (unknown [182.198.249.206])
+ by mailout1.w1.samsung.com (KnoxPortal) with ESMTP id
+ 20200406142351euoutp01ce2e3cde6554c25824f2ebda67faa219~DQRAtcik30596405964euoutp01C
+ for <linux-stm32@st-md-mailman.stormreply.com>;
+ Mon,  6 Apr 2020 14:23:51 +0000 (GMT)
+DKIM-Filter: OpenDKIM Filter v2.11.0 mailout1.w1.samsung.com
+ 20200406142351euoutp01ce2e3cde6554c25824f2ebda67faa219~DQRAtcik30596405964euoutp01C
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=samsung.com;
+ s=mail20170921; t=1586183031;
+ bh=80HiovpSACSa5iKWuDtXEGNMjiGgvGqhBPfk2+6zg2I=;
+ h=Subject:To:Cc:From:Date:In-Reply-To:References:From;
+ b=Y9S1R0tpk3yqYW2uH+9884TfpcTEYO2pF84lZFKPXhwoYBc3gkBFO6OqyCH1+jTGC
+ T20P0WZ5F0EYNMBJc42m//fPODIqTgx52+aa81BSoufpKyfLnK3pQQn9XNc+MECcpD
+ i1iSdMn2lfk0sAkq6grWcDGvAnsDJGNU5oTk1MkY=
+Received: from eusmges1new.samsung.com (unknown [203.254.199.242]) by
+ eucas1p1.samsung.com (KnoxPortal) with ESMTP id
+ 20200406142351eucas1p176e16341c0ae5cba40259b3b3b64279e~DQRAfqxZE2343723437eucas1p1r;
+ Mon,  6 Apr 2020 14:23:51 +0000 (GMT)
+Received: from eucas1p2.samsung.com ( [182.198.249.207]) by
+ eusmges1new.samsung.com (EUCPMTA) with SMTP id F5.1A.61286.77B3B8E5; Mon,  6
+ Apr 2020 15:23:51 +0100 (BST)
+Received: from eusmtrp1.samsung.com (unknown [182.198.249.138]) by
+ eucas1p2.samsung.com (KnoxPortal) with ESMTPA id
+ 20200406142350eucas1p2524f266941cfedd66c0181f2fedcf388~DQRAJGFE81495514955eucas1p2N;
+ Mon,  6 Apr 2020 14:23:50 +0000 (GMT)
+Received: from eusmgms1.samsung.com (unknown [182.198.249.179]) by
+ eusmtrp1.samsung.com (KnoxPortal) with ESMTP id
+ 20200406142350eusmtrp1d2e992634175bcb2ae0fea4a3e778668~DQRAIQ9ax0348903489eusmtrp1a;
+ Mon,  6 Apr 2020 14:23:50 +0000 (GMT)
+X-AuditID: cbfec7f2-f0bff7000001ef66-ea-5e8b3b77753e
+Received: from eusmtip1.samsung.com ( [203.254.199.221]) by
+ eusmgms1.samsung.com (EUCPMTA) with SMTP id 01.CF.08375.67B3B8E5; Mon,  6
+ Apr 2020 15:23:50 +0100 (BST)
+Received: from [106.210.85.205] (unknown [106.210.85.205]) by
+ eusmtip1.samsung.com (KnoxPortal) with ESMTPA id
+ 20200406142350eusmtip1eccb47d1871edabd5397fc2de3e805dc~DQQ-biU9_1810518105eusmtip1e;
+ Mon,  6 Apr 2020 14:23:50 +0000 (GMT)
+To: Adrian Ratiu <adrian.ratiu@collabora.com>,
+ linux-arm-kernel@lists.infradead.org, devicetree@vger.kernel.org
+From: Andrzej Hajda <a.hajda@samsung.com>
+Message-ID: <7b95e129-8035-df7f-3d50-2ae3c2e8af8d@samsung.com>
+Date: Mon, 6 Apr 2020 16:23:49 +0200
+User-Agent: Mozilla/5.0 (Windows NT 10.0; WOW64; rv:68.0) Gecko/20100101
+ Thunderbird/68.6.0
 MIME-Version: 1.0
-In-Reply-To: <4f5e6dd0-5deb-8036-0a94-eb7055744f35@st.com>
-Content-Language: en-US
-X-Originating-IP: [10.75.127.45]
-X-ClientProxiedBy: SFHDAG5NODE3.st.com (10.75.127.15) To SFHDAG3NODE1.st.com
- (10.75.127.7)
-X-Proofpoint-Virus-Version: vendor=fsecure engine=2.50.10434:6.0.138, 18.0.676
- definitions=2020-04-06_08:2020-04-06,
- 2020-04-06 signatures=0
-Cc: Ohad Ben-Cohen <ohad@wizery.com>,
- Mathieu Poirier <mathieu.poirier@linaro.org>,
- xiang xiao <xiaoxiang781216@gmail.com>,
- Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
- linux-remoteproc@vger.kernel.org, linux-kernel@vger.kernel.org,
- Fabien DESSENNE <fabien.dessenne@st.com>, Jiri Slaby <jslaby@suse.com>,
- Suman Anna <s-anna@ti.com>, linux-stm32@st-md-mailman.stormreply.com
-Subject: Re: [Linux-stm32] [PATCH v7 2/2] tty: add rpmsg driver
+In-Reply-To: <20200330113542.181752-1-adrian.ratiu@collabora.com>
+Content-Language: pl
+X-Brightmail-Tracker: H4sIAAAAAAAAA02SWUwTYRDH83V3y7ahuBSQEYxiY6JouIIxm6Aoxod9EKM+qQlHkQ0Q21Ja
+ DlEjBJBAOUTw4jAQjoggqFQQiCFQCEiQIkcJJDQQqA8QDsuloIi0i5G338z855v5Tz4SExsI
+ FzJKEcuqFFKZhC/Em7o3BjwS/LKCvUsfiuiNvCaCLu3SE/TI2hKfNvyYxejeeQNOa/XZBJ35
+ uNKGbpgZJWjN5muMHm4t4dPLU9sYrRk1EedtmWZjJWKKMwoJ5nPeEI+ZzOrhMdrKJOb9YjOP
+ ac8pwJmONh9mpeHQFcFN4ZlwVhYVz6q8/EOFkbpOQmnad2ep7SeRjKpsNYgkgToFXYMyDRKS
+ YqoawcJ8H48LVhF8+j2Oc8EKguWhZzYaJLB2mKe6Ma7wCsGX7dJd1RICY043z6JyoK6CfjCd
+ b2FHKgb0jTWERYRRnTxYSa+3iviUO2xpx60iEeUPQ+W1yMI4dRTq5zKt7EQFgX56jOA09tBb
+ aMItLKACYD3dbGWMOgypjcUYx44wNp2GLMOAMtvA8PYIj9v7IhjNjwiOHWCu58Oun4PQV5CN
+ c5wEk9VpGNecgaDxXQvGFfxgQr/Jt5wM29n6basXlw6Aj4YKxF3SDsYW7Lkd7CC/6TnGpUWQ
+ kS7m1Edgsr9x90FnqPq6xs9DkqI9zor2uCna46bo/9wyhNcgZzZOLY9g1T4KNsFTLZWr4xQR
+ nrei5Q1o57P1/elZbkZrQ2E6RJFIYiu6LsgKFhPSeHWiXIeAxCSOIpeczGCxKFyaeJdVRYeo
+ 4mSsWodcSVziLPItnw0SUxHSWPY2yypZ1b8qjxS4JKPSXMPZurGZGGX9E8Elj7Jjvxbvvfwu
+ 7ovq/+bqWvGipeTCcZt2U8KD0yMzymKnXreClIYws/vTrRSTW5VyK1cwkqqr0cqlvuc2t94I
+ BxbTah0TT3a4pdi1hOYYPZxv3J+A6fzlJEVI3eV1o2v0ag+L9N4Z+xXa1c5A3YGga4GTElwd
+ KfU5ganU0r9uZjfdaAMAAA==
+X-Brightmail-Tracker: H4sIAAAAAAAAA+NgFnrBIsWRmVeSWpSXmKPExsVy+t/xu7pl1t1xBr82mFj8nLCN1WL+kXOs
+ Fle+vmezuPr9JbPFyTdXWSw2n+thteicuITdYtPja6wWXb9WMltc3jWHzeLTg//MFl3XnrA6
+ 8HjsuLuE0WN2x0xWjxMTLjF53O8+zuSxeUm9x8Z3O5g8DvROZvE4uM/Q4/MmuQDOKD2bovzS
+ klSFjPziElulaEMLIz1DSws9IxNLPUNj81grI1MlfTublNSczLLUIn27BL2MQ4dZC57wV7zf
+ 94O1gXEpTxcjJ4eEgInExwfHmEFsIYGljBKXe70g4uISu+e/ZYawhSX+XOti62LkAqp5yyix
+ /fE2JpCEsECgxLmLbWwgtohAocSX6xvAipgFDjNJ7F02lR2iYwqjxIemVkaQKjYBTYm/m2+C
+ dfAK2ElcWrQaLM4ioCKx7lUnmC0qECvR37ybEaJGUOLkzCcsIDangKPEt7aPYDazgJnEvM0P
+ mSFseYnmrbOhbBGJG49aGCcwCs1C0j4LScssJC2zkLQsYGRZxSiSWlqcm55bbKhXnJhbXJqX
+ rpecn7uJERjL24793LyD8dLG4EOMAhyMSjy8EZzdcUKsiWXFlbmHGCU4mJVEeKV6O+OEeFMS
+ K6tSi/Lji0pzUosPMZoCPTeRWUo0OR+YZvJK4g1NDc0tLA3Njc2NzSyUxHk7BA7GCAmkJ5ak
+ ZqemFqQWwfQxcXBKNTD61jyd80V46Z2jM0M1Xwufq2LR3dcptittXrc7I3PXbcnnSk/cNvfs
+ 2nfkusDU3Q2GcdN7TlxxK7h1Pd3Tr6rmu0+44+9ZftXHtjwISiu3SQ5u99vductMaBWn3p5V
+ pfKLprBp7P9fo2Z2Ri786nqLb0vL3QVPcM0wb1i1z9/7LfPF68+514orsRRnJBpqMRcVJwIA
+ Q/GjXvsCAAA=
+X-CMS-MailID: 20200406142350eucas1p2524f266941cfedd66c0181f2fedcf388
+X-Msg-Generator: CA
+X-RootMTR: 20200330113455eucas1p1441dc79d44de5081e9d90079e2020ca0
+X-EPHeader: CA
+CMS-TYPE: 201P
+X-CMS-RootMailID: 20200330113455eucas1p1441dc79d44de5081e9d90079e2020ca0
+References: <CGME20200330113455eucas1p1441dc79d44de5081e9d90079e2020ca0@eucas1p1.samsung.com>
+ <20200330113542.181752-1-adrian.ratiu@collabora.com>
+Cc: Jernej Skrabec <jernej.skrabec@siol.net>, Jonas Karlman <jonas@kwiboo.se>,
+ linux-kernel@vger.kernel.org, dri-devel@lists.freedesktop.org,
+ linux-rockchip@lists.infradead.org, linux-imx@nxp.com, kernel@collabora.com,
+ linux-stm32@st-md-mailman.stormreply.com,
+ Laurent Pinchart <Laurent.pinchart@ideasonboard.com>
+Subject: Re: [Linux-stm32] [PATCH v5 0/5] Genericize DW MIPI DSI bridge and
+ add i.MX 6 driver
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -78,133 +116,46 @@ List-Post: <mailto:linux-stm32@st-md-mailman.stormreply.com>
 List-Help: <mailto:linux-stm32-request@st-md-mailman.stormreply.com?subject=help>
 List-Subscribe: <https://st-md-mailman.stormreply.com/mailman/listinfo/linux-stm32>, 
  <mailto:linux-stm32-request@st-md-mailman.stormreply.com?subject=subscribe>
-Content-Type: text/plain; charset="us-ascii"
-Content-Transfer-Encoding: 7bit
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: base64
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
-Hi Bjorn,
-
-On 3/25/20 5:57 PM, Arnaud POULIQUEN wrote:
-> Hi Bjorn,
-> 
-> On 3/24/20 9:52 PM, Bjorn Andersson wrote:
->> On Tue 24 Mar 10:04 PDT 2020, Arnaud Pouliquen wrote:
->> [..]
->>> diff --git a/drivers/tty/Makefile b/drivers/tty/Makefile
->>> index 020b1cd9294f..c2465e7ebc2a 100644
->>> --- a/drivers/tty/Makefile
->>> +++ b/drivers/tty/Makefile
->>> @@ -34,5 +34,6 @@ obj-$(CONFIG_PPC_EPAPR_HV_BYTECHAN) += ehv_bytechan.o
->>>  obj-$(CONFIG_GOLDFISH_TTY)	+= goldfish.o
->>>  obj-$(CONFIG_MIPS_EJTAG_FDC_TTY) += mips_ejtag_fdc.o
->>>  obj-$(CONFIG_VCC)		+= vcc.o
->>> +obj-$(CONFIG_RPMSG_TTY)		+= rpmsg_tty.o
->>>  
->>>  obj-y += ipwireless/
->>> diff --git a/drivers/tty/rpmsg_tty.c b/drivers/tty/rpmsg_tty.c
->> [..]
->>> +static struct rpmsg_device_id rpmsg_driver_tty_id_table[] = {
->>> +	{ .name	= TTY_CH_NAME_RAW },
->>> +	{ .name	= TTY_CH_NAME_WITH_CTS},
->>
->> I still don't like the idea that the tty devices are tied to channels by
->> fixed names.
-> 
-> This point has been discussed with Xiang, he has the same kind of requirement. 
-> My proposal here is to do this in two steps. First a fixed name, then
-> in a second step we can extend the naming using the implementation proposed
-> by Mathieu Poirier:
-> 
-> [1]https://lkml.org/lkml/2020/2/12/1083
-> 
-> Is this patch could answer to your requirement?
-> 
-> if requested i can I can integrate the Mathieu's patch in this patchset.
->  
->>
->> This makes the driver unusable for communicating with any firmware out
->> there that provides tty-like data over a channel with a different name -
->> such as modems with channels providing an AT command interface (they are
->> not named "rpmsg-tty-raw").
-> 
-> I'm not fixed on the naming, any proposal is welcome.
-> If we use the patch [1], could be renamed 
-> "rpmsg-tty". then for AT command could be something like "rpmsg-tty-at"
-> 
-> But here seems we are speaking about service over TTY and not over RPMsg.
-> 
->>
->> I also fail to see how you would distinguish ttys when the firmware
->> provides more than a single tty - e.g. say you have a modem-like device
->> that provides an AT command channel and a NMEA stream.
-> 
-> Today it is a limitation. In fact this limitation is the same for all RPMsg
-> devices with multi instance.
-> The patch [1] will allow to retrieve the instance by identifying
-> the service device name in /sys/class/tty/ttyRPMSG<X>/device/name
-> 
->>
->>
->> These are the reasons why drivers/rpmsg/rpmsg_char registers a "control
->> device", from which you can spawn new char devices. As I've said before,
->> I really think the same approach should be taken for ttys - perhaps by
->> just extending the rpmsg_char to allow it to create tty devices in
->> addition to the "packet based" char device?
->>
-> I'm not very familiar with the rpmsg_char so please correct me if i'm wrong:
-> 
-> The rpmsg_char exposes to userland an interface to manage rpmsg channels
-> (relying on a char device). This interface offers the  possibility to create
-> new channels/endpoints and send/received related messages. 
->  
-> Thus, the application declares the RPMsg channels which is bound if they matches
-> with the remote processor channel (similar behavior than a kernel rpmsg driver).
-> There is no constrain on the service once same service is advertised by remote
-> firmware.
-> 
-> In addition, a limitation of the rpmsg_char device is that it needs to be
-> associated with an existing device, as example the implementation in qcom_smd
-> driver.
-> 
-> If i try to figure out how to implement TTY using the rpmsg_char:
-> I should create a rpmsg_char dev in the rpmsg tty driver. Then application
-> will create channels related to its service. But in this case
-> how to ensure that channels created are related to the TTY service?  
-> 
-> 
-> I would also expect to manage RPMsg TTY such as a generic TTY: without
-> extra interface and auto mounted as an USB TTY. this means that the
-> /dev/ttyRMPSGx are created automatically at remote firmware startup
-> (without any application action). For instance a generic application 
-> (e.g. minicom) could control an internal remote processor such as
-> an external processor through a TTY link. 
-> 
-> Then we have also similar RPMsg driver for I2C and SPI virtual link. So extend
-> the rpmsg_char to support TTY seems not a good solution for long terms. 
-> 
-> For these reasons i would prefer to have a specific driver. And found a solution
-> to allow user to differentiate the TTY instances.
-> 
-> Anyway I am very interesting in having more details of an implementation relying
-> on rpmsg_char if you still thinking that is the good approach here.
-
-Do you think you would find time to move forward with this discussion?
-I would like to prepare a v8 to fix issue reported on v7, but as your comments
-challenges the driver itself, i would prefer that we first find solutions
-that address your concerns.
-
-Thanks,
-Arnaud
-
-> 
-> Thanks for your comments, 
-> Arnaud
-> 
->> Regards,
->> Bjorn
->>
-_______________________________________________
-Linux-stm32 mailing list
-Linux-stm32@st-md-mailman.stormreply.com
-https://st-md-mailman.stormreply.com/mailman/listinfo/linux-stm32
+SGkgQWRyaWFuLAoKRHVlIHRvIGRpZmZlcmVudCB3YXlzIG9mIHdvcmsgSSB1c2UgZGlmZmVyZW50
+IG1haWwgY2xpZW50LCBzbyBmb3JnaXZlIG1lIAppZiB0aGVyZSBhcmUgc29tZSBtaXNjb25mdWdy
+YXRpb25zLgoKClcgZG5pdSAzMC4wMy4yMDIwIG/CoDEzOjM1LCBBZHJpYW4gUmF0aXUgcGlzemU6
+Cj4gSGVsbG8gZXZlcnlvbmUsCj4KPiBUaGUgdjUgc2VyaWVzIGlzIGEgc2lnbmlmaWNhbnRseSBj
+bGVhbmVkIHVwIHZlcnNpb24gZnJvbSB2NCwKPiBzdGFydGVkIGJ5IEV6ZXF1aWVsIEdhcmNpYSdz
+IHN1Z2dlc3Rpb24gb2Ygc3BsaXR0aW5nIG91dCB0aGUKPiByZWdtYXAgaW5mcmFzdHJ1Y3R1cmUg
+ZnJvbSB0aGUgZHJpdmVycyAodGhhbmsgeW91ISkuCj4KPiBUdXJucyBvdXQgbm8gY2hhbmdlcyBh
+cmUgcmVxdWlyZWQgdG8gdGhlIGV4aXN0aW5nIGRyaXZlcnMgYW5kCj4gdGhlIGJyaWRnZSBjYW4g
+dHJhbnNwYXJlbnRseSB0YWtlIGNhcmUgb2YgdGhlIGxheW91dCBsb2dpYywKPiBzbyB0aGVyZSdz
+IG5vIG5lZWQgdG8gZXhwb3NlIHRoZSByZWdtYXAgdmlhIHBsYXRfZGF0YSBhbnltb3JlLgo+Cj4g
+U3RhcnRpbmcgZnJvbSB0aGlzIHZlcnNpb24gSSBhbHNvIG9wdGVkIHRvIGFkZCBwZXItcGF0Y2gK
+PiBjaGFuZ2Vsb2dzLiBBbGwgcmV2aWV3IGNvbW1lbnRzIHVwIHRvIG5vdyBoYXZlIGJlZW4gYWRk
+cmVzc2VkLgo+Cj4gVGVzdGVkIG9uIElNWDZETC4KPgo+IEFkcmlhbiBSYXRpdSAoNSk6Cj4gICAg
+ZHJtOiBicmlkZ2U6IGR3X21pcGlfZHNpOiBhZGQgaW5pdGlhbCByZWdtYXAgaW5mcmFzdHJ1Y3R1
+cmUKPiAgICBkcm06IGJyaWRnZTogZHdfbWlwaV9kc2k6IGFic3RyYWN0IHJlZ2lzdGVyIGFjY2Vz
+cyB1c2luZyByZWdfZmllbGRzCj4gICAgZHJtOiBicmlkZ2U6IHN5bm9wc2lzOiBhZGQgZHNpIHYx
+LjAxIHN1cHBvcnQKPiAgICBkcm06IGlteDogQWRkIGkuTVggNiBNSVBJIERTSSBob3N0IHBsYXRm
+b3JtIGRyaXZlcgo+ICAgIGR0LWJpbmRpbmdzOiBkaXNwbGF5OiBhZGQgaS5NWDYgTUlQSSBEU0kg
+aG9zdCBjb250cm9sbGVyIGRvYwo+Cj4gICAuLi4vZGlzcGxheS9pbXgvZnNsLG1pcGktZHNpLWlt
+eDYueWFtbCAgICAgICAgfCAxMzQgKysrKwo+ICAgZHJpdmVycy9ncHUvZHJtL2JyaWRnZS9zeW5v
+cHN5cy9kdy1taXBpLWRzaS5jIHwgNjgzICsrKysrKysrKysrKystLS0tLQoKClNvIHdlIGhhdmUg
+YWJvdmUgNDAwIGxpbmVzIG1vcmUganVzdCB0byBhZGQgc2xpZ2h0bHkgZGlmZmVyZW50IHJlZ2lz
+dGVyIApsYXlvdXQgb2YgdjEuMDEuCgpRdWl0ZSBiaWcgbGluZWNvdW50IGZvciBhcHBhcmVudGx5
+IHNtYWxsICg/KSBmdW5jdGlvbmFsIGNoYW5nZSAtIEkgd2FzIAp0b28gbGF6eSB0byBjaGVjayBo
+b3cgbWFueSByZWcgZmllbGRzIGFyZSByZWFsbHkgdXNlZCAoc29tZSBhcmUgbm90IHVzZWQgCmF0
+IGFsbCksIGJ1dCBpdCBkb2VzIG5vdCBzZWVtIHRvIGJlIGJpZyBlbm91Z2ggdG8ganVzdHlmeSBz
+byBiaWcgY2hhbmdlIElNTy4KCkkgd2lsbCBhZGQgbW9yZSBjb21tZW50cyBpbiBzcGVjaWZpYyBw
+YXRjaGVzLgoKClJlZ2FyZHMKCkFuZHJ6ZWoKCgo+ICAgZHJpdmVycy9ncHUvZHJtL2lteC9LY29u
+ZmlnICAgICAgICAgICAgICAgICAgIHwgICA3ICsKPiAgIGRyaXZlcnMvZ3B1L2RybS9pbXgvTWFr
+ZWZpbGUgICAgICAgICAgICAgICAgICB8ICAgMSArCj4gICBkcml2ZXJzL2dwdS9kcm0vaW14L2R3
+X21pcGlfZHNpLWlteDYuYyAgICAgICAgfCAzOTkgKysrKysrKysrKwo+ICAgNSBmaWxlcyBjaGFu
+Z2VkLCAxMDQ5IGluc2VydGlvbnMoKyksIDE3NSBkZWxldGlvbnMoLSkKPiAgIGNyZWF0ZSBtb2Rl
+IDEwMDY0NCBEb2N1bWVudGF0aW9uL2RldmljZXRyZWUvYmluZGluZ3MvZGlzcGxheS9pbXgvZnNs
+LG1pcGktZHNpLWlteDYueWFtbAo+ICAgY3JlYXRlIG1vZGUgMTAwNjQ0IGRyaXZlcnMvZ3B1L2Ry
+bS9pbXgvZHdfbWlwaV9kc2ktaW14Ni5jCj4KX19fX19fX19fX19fX19fX19fX19fX19fX19fX19f
+X19fX19fX19fX19fX19fX18KTGludXgtc3RtMzIgbWFpbGluZyBsaXN0CkxpbnV4LXN0bTMyQHN0
+LW1kLW1haWxtYW4uc3Rvcm1yZXBseS5jb20KaHR0cHM6Ly9zdC1tZC1tYWlsbWFuLnN0b3JtcmVw
+bHkuY29tL21haWxtYW4vbGlzdGluZm8vbGludXgtc3RtMzIK
