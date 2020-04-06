@@ -2,66 +2,67 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id B601619F091
-	for <lists+linux-stm32@lfdr.de>; Mon,  6 Apr 2020 09:06:00 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id DDAC919F0B1
+	for <lists+linux-stm32@lfdr.de>; Mon,  6 Apr 2020 09:22:54 +0200 (CEST)
 Received: from ip-172-31-3-76.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 70D7DC36B0B;
-	Mon,  6 Apr 2020 07:06:00 +0000 (UTC)
-Received: from mail-pg1-f196.google.com (mail-pg1-f196.google.com
- [209.85.215.196])
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 969B6C36B0B;
+	Mon,  6 Apr 2020 07:22:54 +0000 (UTC)
+Received: from mail-pj1-f68.google.com (mail-pj1-f68.google.com
+ [209.85.216.68])
  (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id EB8C2C36B09
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 69C96C36B09
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Mon,  6 Apr 2020 07:05:58 +0000 (UTC)
-Received: by mail-pg1-f196.google.com with SMTP id o26so7092309pgc.12
+ Mon,  6 Apr 2020 07:22:51 +0000 (UTC)
+Received: by mail-pj1-f68.google.com with SMTP id cp9so2642242pjb.0
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Mon, 06 Apr 2020 00:05:58 -0700 (PDT)
+ Mon, 06 Apr 2020 00:22:51 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linaro.org; s=google;
  h=date:from:to:cc:subject:message-id:references:mime-version
  :content-disposition:in-reply-to:user-agent;
- bh=DDpQKxORmlKumoUF8G/6nT57ECq+/mjuSgf1G0iOMS4=;
- b=rsmrRGwEePctcyPVU9wPRvM1Vat/Zwzujp/tMrrTc2yR4i7cvJAAbk//2S6IhOznTM
- BJKpg1jmK65SmrlNYxrAosXw2Q5CAxUnLjMLudJybaaeVJTNXW36rYpd+XZi+1CMoEwd
- y6kaROlO0LFlyKeV706XjClNtsyMFYORo3LT9sQockGa8RZn1qAiVIWWn+7Hvda7ycxm
- qqlmrhLZJB4bZhMggsL8HslYbC4Uo2xVU3Q7UA3qbUtv02EKZ0ftlkNfahrJUftUeTAo
- 7EXk5fHMkIvL8FPqZHas8y6id52R5+hDTQ12bXZz3CCaUfxncufua1Qyw+7Jb4B7aGTR
- te4w==
+ bh=/3mgukCJPVclytiBycxVoZY3c0drdjNGA56Om2cy7nQ=;
+ b=u55nKoHrnz1Z62lbfqqc09adL0yYk+m2FjS8nCvuD78nBnV/+96MsJ6vM5neSefx8B
+ H/2QjVbVLEwtvygPghD98xOTSjMrdgMqa9dzlBnwdgLntnA9l6XqNqsnSGw7r8f0P6QP
+ HW3QbJ9GqBOsMd/r6h8T/syYsBIFde7te26TzB6w/i/K6A/c+l1lXSrEzQ2SqYVtofbl
+ DtZmO2QQLcFVhE+11Bj9EumdI6bpIpj92lYN/OuLBSdRByvadAWDG4kKPivZt3+LxBDh
+ 7k3PQeVLKKckZnesaL8Qwco+bmmOPcYZCDkYplIcoRLpYVHYae8u8N7/0z2g2hsASOop
+ zwOw==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=1e100.net; s=20161025;
  h=x-gm-message-state:date:from:to:cc:subject:message-id:references
  :mime-version:content-disposition:in-reply-to:user-agent;
- bh=DDpQKxORmlKumoUF8G/6nT57ECq+/mjuSgf1G0iOMS4=;
- b=OYuFa0OGB8vxTitRwzxn/NGeND76+5dJPEu+xQlbDGjEGmFa2dtwfkilUteNMYBak4
- bIU5MKzvzLIF8foTWPdnlg5gHdqwj+pSn9X+1TfBMLbDDgYYTmAzPehdWF/uAUjHsYkK
- 3zTkKZpm2JCaSdRze2sp3wji8KE3hEaTnFqj9M397Ilon3Dwfs2MNyuI8OFYv2XgsMXb
- HVMH5jlM3b8xtteaFq4jjxTW1MByr096PSd4GXHLzhcJghagUXD0m4/Rrrt1eZtSzsaH
- 2WwxT+kHHlpRBtp42cOrEua1NfhMbceXa8H9ypWAXNq0CEvflc8HSOoUF71sWa5tZTnu
- EUbg==
-X-Gm-Message-State: AGi0PubNc+NKSPfZYT5bNaX8mcVfDxLAL6pqG4KHLDZSTZv1hRJc4MLQ
- SNA/NLnuHNz2psjH1rhh2of+
-X-Google-Smtp-Source: APiQypKrNFjnlpd8RsFYzq4UArfG2/9dBM4zlXsO29A7kUzAgoT9dc+rlsWiPv1GPeX4qGKZKY/EPw==
-X-Received: by 2002:a63:8041:: with SMTP id j62mr18833652pgd.273.1586156757220; 
- Mon, 06 Apr 2020 00:05:57 -0700 (PDT)
+ bh=/3mgukCJPVclytiBycxVoZY3c0drdjNGA56Om2cy7nQ=;
+ b=XVWup9i1rwO3Ncp6JPv/c85uBoNoJHx2JlWOwOcP1NilpxcWNPvzmYG6D7xrqvUUzr
+ I/ukpS+DxzhTGiSYItV5s8FX8gXTmmCetlWJFMchcmxQOpbTXxs+VIHwHE5cPmmFcwhL
+ eWRyWNtMz1GeuiMvI/ADsv1BQ47wow75DCubamHBvLaWXo38SRSWmke0ooblzGtt4S0o
+ 14ZAN9Fnz6RTuQnlV27DxgHDtlGGR4XF7o8GQIMZbFv/lAjGssf5F0XxntFTnsldP6Lb
+ bQdxydmCaLVhGlRUjrLJbcz5/WBD9UqwKhoG1X/mIbArIaWtZBp5lI2NH6H2ICzDauVK
+ IMGg==
+X-Gm-Message-State: AGi0PuZDBKrZ63XoKVzXndq7sABjGeaz8kfSXGsf/CTPdSp1Grji1rxg
+ heyK7rqLkvTL1bfYe2ujjawu
+X-Google-Smtp-Source: APiQypIJb8R3WLBu2lHBPBtV3glHu5GcUccn1AdlbpVTRzwbduTKcUpR7FhEfkGxZwu211KNeew9Aw==
+X-Received: by 2002:a17:902:720a:: with SMTP id
+ ba10mr20272477plb.323.1586157769685; 
+ Mon, 06 Apr 2020 00:22:49 -0700 (PDT)
 Received: from Mani-XPS-13-9360 ([2409:4072:6e80:687d:9124:eff9:55e8:1727])
- by smtp.gmail.com with ESMTPSA id l22sm11339152pjq.15.2020.04.06.00.05.53
+ by smtp.gmail.com with ESMTPSA id f69sm10725457pfa.124.2020.04.06.00.22.45
  (version=TLS1_2 cipher=ECDHE-RSA-CHACHA20-POLY1305 bits=256/256);
- Mon, 06 Apr 2020 00:05:56 -0700 (PDT)
-Date: Mon, 6 Apr 2020 12:35:50 +0530
+ Mon, 06 Apr 2020 00:22:48 -0700 (PDT)
+Date: Mon, 6 Apr 2020 12:52:42 +0530
 From: Manivannan Sadhasivam <manivannan.sadhasivam@linaro.org>
 To: Marek Vasut <marex@denx.de>
-Message-ID: <20200406070550.GF2937@Mani-XPS-13-9360>
+Message-ID: <20200406072242.GG2937@Mani-XPS-13-9360>
 References: <20200401132237.60880-1-marex@denx.de>
- <20200401132237.60880-19-marex@denx.de>
+ <20200401132237.60880-22-marex@denx.de>
 MIME-Version: 1.0
 Content-Disposition: inline
-In-Reply-To: <20200401132237.60880-19-marex@denx.de>
+In-Reply-To: <20200401132237.60880-22-marex@denx.de>
 User-Agent: Mutt/1.9.4 (2018-02-28)
 Cc: Patrick Delaunay <patrick.delaunay@st.com>,
  Maxime Coquelin <mcoquelin.stm32@gmail.com>,
  linux-stm32@st-md-mailman.stormreply.com, linux-arm-kernel@lists.infradead.org
-Subject: Re: [Linux-stm32] [PATCH V4 18/22] ARM: dts: stm32: Add bindings
- for HDMI video on AV96
+Subject: Re: [Linux-stm32] [PATCH V4 21/22] ARM: dts: stm32: Add bindings
+	for USB on AV96
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -78,12 +79,13 @@ Content-Transfer-Encoding: 7bit
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
-On Wed, Apr 01, 2020 at 03:22:33PM +0200, Marek Vasut wrote:
-> Fill in the HDMI video pipeline from AV96 into the DT.
+On Wed, Apr 01, 2020 at 03:22:36PM +0200, Marek Vasut wrote:
+> Fill in the bindings for USB host and gadget on AV96.
 > 
 > Signed-off-by: Marek Vasut <marex@denx.de>
 
-Reviewed-by: Manivannan Sadhasivam <manivannan.sadhasivam@linaro.org>
+I can't get the USB B-Micro OTG port to work with this patch. Do I need to
+enable any configs other than PHY and USB DWC2 drivers?
 
 Thanks,
 Mani
@@ -98,120 +100,49 @@ Mani
 > ---
 > V2: No change
 > V3: No change
-> V4: Rebase on stm32-next
->     Use renamed ltdc_*_pins_d
 > ---
->  arch/arm/boot/dts/stm32mp157a-avenger96.dts | 79 +++++++++++++++++++++
->  1 file changed, 79 insertions(+)
+>  arch/arm/boot/dts/stm32mp157a-avenger96.dts | 31 +++++++++++++++++++++
+>  1 file changed, 31 insertions(+)
 > 
 > diff --git a/arch/arm/boot/dts/stm32mp157a-avenger96.dts b/arch/arm/boot/dts/stm32mp157a-avenger96.dts
-> index faa9a5185ddd..756e79f2255a 100644
+> index 2f5a53e1b50d..31f23e60629f 100644
 > --- a/arch/arm/boot/dts/stm32mp157a-avenger96.dts
 > +++ b/arch/arm/boot/dts/stm32mp157a-avenger96.dts
-> @@ -25,10 +25,28 @@ aliases {
->  		spi0 = &qspi;
+> @@ -544,3 +544,34 @@ bluetooth {
+>  		shutdown-gpios = <&gpioz 6 GPIO_ACTIVE_HIGH>;
 >  	};
->  
-> +	/* XTal Q1 */
-> +	cec_clock: clk-cec-fixed {
-> +		#clock-cells = <0>;
-> +		compatible = "fixed-clock";
-> +		clock-frequency = <24000000>;
-> +	};
-> +
->  	chosen {
->  		stdout-path = "serial0:115200n8";
->  	};
->  
-> +	hdmi-out {
-> +		compatible = "hdmi-connector";
-> +		type = "a";
-> +
-> +		port {
-> +			hdmi_con: endpoint {
-> +				remote-endpoint = <&adv7513_out>;
-> +			};
-> +		};
-> +	};
-> +
->  	memory@c0000000 {
->  		device_type = "memory";
->  		reg = <0xc0000000 0x40000000>;
-> @@ -300,6 +318,50 @@ watchdog {
->  		};
->  	};
->  
-> +	hdmi-transmitter@3d {
-> +		compatible = "adi,adv7513";
-> +		reg = <0x3d>, <0x2d>, <0x4d>, <0x5d>;
-> +		reg-names = "main", "cec", "edid", "packet";
-> +		clocks = <&cec_clock>;
-> +		clock-names = "cec";
-> +
-> +		avdd-supply = <&v3v3>;
-> +		dvdd-supply = <&v3v3>;
-> +		pvdd-supply = <&v3v3>;
-> +		dvdd-3v-supply = <&v3v3>;
-> +		bgvdd-supply = <&v3v3>;
-> +
-> +		interrupts = <9 IRQ_TYPE_EDGE_FALLING>;
-> +		interrupt-parent = <&gpiog>;
-> +
-> +		status = "okay";
-> +
-> +		adi,input-depth = <8>;
-> +		adi,input-colorspace = "rgb";
-> +		adi,input-clock = "1x";
-> +		adi,input-style = <1>;
-> +		adi,input-justification = "evenly";
-> +
-> +		ports {
-> +			#address-cells = <1>;
-> +			#size-cells = <0>;
-> +
-> +			port@0 {
-> +				reg = <0>;
-> +				adv7513_in: endpoint {
-> +					remote-endpoint = <&ltdc_ep0_out>;
-> +				};
-> +			};
-> +
-> +			port@1 {
-> +				reg = <1>;
-> +				adv7513_out: endpoint {
-> +					remote-endpoint = <&hdmi_con>;
-> +				};
-> +			};
-> +		};
-> +	};
-> +
->  	eeprom@53 {
->  		compatible = "atmel,24c02";
->  		reg = <0x53>;
-> @@ -312,6 +374,23 @@ &iwdg2 {
->  	status = "okay";
 >  };
->  
-> +&ltdc {
-> +	pinctrl-names = "default", "sleep";
-> +	pinctrl-0 = <&ltdc_pins_d>;
-> +	pinctrl-1 = <&ltdc_sleep_pins_d>;
+> +
+> +&usbh_ehci {
+> +	phys = <&usbphyc_port0>;
+> +	phy-names = "usb";
 > +	status = "okay";
-> +
-> +	port {
-> +		#address-cells = <1>;
-> +		#size-cells = <0>;
-> +
-> +		ltdc_ep0_out: endpoint@0 {
-> +			reg = <0>;
-> +			remote-endpoint = <&adv7513_in>;
-> +		};
-> +	};
 > +};
 > +
->  &pwr_regulators {
->  	vdd-supply = <&vdd_io>;
->  	vdd_3v3_usbfs-supply = <&vdd_usb>;
+> +&usbotg_hs {
+> +	pinctrl-0 = <&usbotg_hs_pins_a>;
+> +	pinctrl-names = "default";
+> +	phy-names = "usb2-phy";
+> +	phys = <&usbphyc_port1 0>;
+> +	status = "okay";
+> +	vbus-supply = <&vbus_otg>;
+> +};
+> +
+> +&usbphyc {
+> +	status = "okay";
+> +};
+> +
+> +&usbphyc_port0 {
+> +	phy-supply = <&vdd_usb>;
+> +	vdda1v1-supply = <&reg11>;
+> +	vdda1v8-supply = <&reg18>;
+> +};
+> +
+> +&usbphyc_port1 {
+> +	phy-supply = <&vdd_usb>;
+> +	vdda1v1-supply = <&reg11>;
+> +	vdda1v8-supply = <&reg18>;
+> +};
 > -- 
 > 2.25.1
 > 
