@@ -2,46 +2,41 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id 96BF71A020A
-	for <lists+linux-stm32@lfdr.de>; Tue,  7 Apr 2020 02:02:14 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 6652D1A07A2
+	for <lists+linux-stm32@lfdr.de>; Tue,  7 Apr 2020 08:48:56 +0200 (CEST)
 Received: from ip-172-31-3-76.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 60375C36B0B;
-	Tue,  7 Apr 2020 00:02:14 +0000 (UTC)
-Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
- (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 05E87C36B0B;
+	Tue,  7 Apr 2020 06:48:56 +0000 (UTC)
+Received: from qq.com (smtpbg477.qq.com [59.36.132.88])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id CEB2DC36B09
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id EF1F7C36B09
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Tue,  7 Apr 2020 00:02:12 +0000 (UTC)
-Received: from sasha-vm.mshome.net (c-73-47-72-35.hsd1.nh.comcast.net
- [73.47.72.35])
- (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
- (No client certificate requested)
- by mail.kernel.org (Postfix) with ESMTPSA id 658E0208FE;
- Tue,  7 Apr 2020 00:02:10 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
- s=default; t=1586217731;
- bh=7W8SpPIOywJNExWL8DrXnjX+O9i7Fc36hKuhRdZJWF0=;
- h=From:To:Cc:Subject:Date:In-Reply-To:References:From;
- b=UmNT20xlxRoKUyH73h/MBPycBGy9QVc4Jw5mP53EBc5BrZPFSivXt6g9uPQMAcJ80
- Oi0oe5HSFjfxf92rUDLMbNWQGnbHBWmnJXk108ftbg+pClPHg0H92ww4HWhraaPR3c
- H6QdkZnjddMzx5AZQHlSEJxplYeUg13/AG9y4nrE=
-From: Sasha Levin <sashal@kernel.org>
-To: linux-kernel@vger.kernel.org,
-	stable@vger.kernel.org
-Date: Mon,  6 Apr 2020 20:01:33 -0400
-Message-Id: <20200407000151.16768-15-sashal@kernel.org>
-X-Mailer: git-send-email 2.20.1
-In-Reply-To: <20200407000151.16768-1-sashal@kernel.org>
-References: <20200407000151.16768-1-sashal@kernel.org>
-MIME-Version: 1.0
-X-stable: review
-X-Patchwork-Hint: Ignore
-Cc: Sasha Levin <sashal@kernel.org>, Markus Fuchs <mklntf@gmail.com>,
- netdev@vger.kernel.org, linux-stm32@st-md-mailman.stormreply.com,
- "David S . Miller" <davem@davemloft.net>, linux-arm-kernel@lists.infradead.org
-Subject: [Linux-stm32] [PATCH AUTOSEL 5.4 15/32] net: stmmac: platform: Fix
-	misleading interrupt error msg
+ Tue,  7 Apr 2020 06:48:52 +0000 (UTC)
+X-QQ-mid: bizesmtp18t1586242114t31i3imq
+Received: from localhost.localdomain (unknown [111.28.140.218])
+ by esmtp6.qq.com (ESMTP) with 
+ id ; Tue, 07 Apr 2020 14:48:32 +0800 (CST)
+X-QQ-SSF: 01400000002000N0LK40B00A0000000
+X-QQ-FEAT: M1J1ppP5VJu/IKvoalnukNKS6K1bq6+1e/GWW1pEr7NE+Hkf8UHRLSy7olpnN
+ AqQ+pjrfSRc0Pk31q0iTRIF3syz2hrevJJtowOeSFyLWY4/sC7sv5FV5dBtUmnNc0Uf9+5b
+ d4+LgGBsNR5FPXOP8ip1BS8Qzh079HnWuGn5Fg91Ezocnnrgp9zHLYT12NlZVJPAbAiL8tX
+ gOUd8SaCAO1iq2U9iuBbw4Td+HOcj/3ajxSh8nYsa/BdFDmDrF8IP3vnObJcBKsUAqSp9zU
+ HjDMcvraLlkODkN13LhOESe+9Guq6WFDU5/pjIbKUZjpYCI/ShytWuIommnGcYIBKtXw==
+X-QQ-GoodBg: 2
+From: xiaolinkui <xiaolinkui@tj.kylinos.cn>
+To: mcoquelin.stm32@gmail.com,
+	alexandre.torgue@st.com
+Date: Tue,  7 Apr 2020 14:48:19 +0800
+Message-Id: <20200407064819.16945-1-xiaolinkui@tj.kylinos.cn>
+X-Mailer: git-send-email 2.17.1
+X-QQ-SENDSIZE: 520
+Feedback-ID: bizesmtp:tj.kylinos.cn:qybgweb:qybgweb14
+Cc: Jose.Abreu@synopsys.com, netdev@vger.kernel.org, linux@armlinux.org.uk,
+ davem@davemloft.net, p.zabel@pengutronix.de,
+ xiaolinkui <xiaolinkui@tj.kylinos.cn>,
+ linux-stm32@st-md-mailman.stormreply.com, linux-arm-kernel@lists.infradead.org
+Subject: [Linux-stm32] [PATCH] net: stmmac: fix the wrong comment
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -53,61 +48,44 @@ List-Post: <mailto:linux-stm32@st-md-mailman.stormreply.com>
 List-Help: <mailto:linux-stm32-request@st-md-mailman.stormreply.com?subject=help>
 List-Subscribe: <https://st-md-mailman.stormreply.com/mailman/listinfo/linux-stm32>, 
  <mailto:linux-stm32-request@st-md-mailman.stormreply.com?subject=subscribe>
+MIME-Version: 1.0
 Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
-From: Markus Fuchs <mklntf@gmail.com>
+Corrected the incorrect comment "clk_scr_i" to "clk_csr_i".
 
-[ Upstream commit fc191af1bb0d069dc7e981076e8b80af21f1e61d ]
-
-Not every stmmac based platform makes use of the eth_wake_irq or eth_lpi
-interrupts. Use the platform_get_irq_byname_optional variant for these
-interrupts, so no error message is displayed, if they can't be found.
-Rather print an information to hint something might be wrong to assist
-debugging on platforms which use these interrupts.
-
-Signed-off-by: Markus Fuchs <mklntf@gmail.com>
-Signed-off-by: David S. Miller <davem@davemloft.net>
-Signed-off-by: Sasha Levin <sashal@kernel.org>
+Signed-off-by: xiaolinkui <xiaolinkui@tj.kylinos.cn>
 ---
- .../net/ethernet/stmicro/stmmac/stmmac_platform.c  | 14 ++++++++++----
- 1 file changed, 10 insertions(+), 4 deletions(-)
+ include/linux/stmmac.h | 12 ++++++------
+ 1 file changed, 6 insertions(+), 6 deletions(-)
 
-diff --git a/drivers/net/ethernet/stmicro/stmmac/stmmac_platform.c b/drivers/net/ethernet/stmicro/stmmac/stmmac_platform.c
-index 5150551c28be3..508325cc105d5 100644
---- a/drivers/net/ethernet/stmicro/stmmac/stmmac_platform.c
-+++ b/drivers/net/ethernet/stmicro/stmmac/stmmac_platform.c
-@@ -663,16 +663,22 @@ int stmmac_get_platform_resources(struct platform_device *pdev,
- 	 * In case the wake up interrupt is not passed from the platform
- 	 * so the driver will continue to use the mac irq (ndev->irq)
- 	 */
--	stmmac_res->wol_irq = platform_get_irq_byname(pdev, "eth_wake_irq");
-+	stmmac_res->wol_irq =
-+		platform_get_irq_byname_optional(pdev, "eth_wake_irq");
- 	if (stmmac_res->wol_irq < 0) {
- 		if (stmmac_res->wol_irq == -EPROBE_DEFER)
- 			return -EPROBE_DEFER;
-+		dev_info(&pdev->dev, "IRQ eth_wake_irq not found\n");
- 		stmmac_res->wol_irq = stmmac_res->irq;
- 	}
+diff --git a/include/linux/stmmac.h b/include/linux/stmmac.h
+index fbafb353e9be..234641b34fd4 100644
+--- a/include/linux/stmmac.h
++++ b/include/linux/stmmac.h
+@@ -28,12 +28,12 @@
+  * This could also be configured at run time using CPU freq framework. */
  
--	stmmac_res->lpi_irq = platform_get_irq_byname(pdev, "eth_lpi");
--	if (stmmac_res->lpi_irq == -EPROBE_DEFER)
--		return -EPROBE_DEFER;
-+	stmmac_res->lpi_irq =
-+		platform_get_irq_byname_optional(pdev, "eth_lpi");
-+	if (stmmac_res->lpi_irq < 0) {
-+		if (stmmac_res->lpi_irq == -EPROBE_DEFER)
-+			return -EPROBE_DEFER;
-+		dev_info(&pdev->dev, "IRQ eth_lpi not found\n");
-+	}
+ /* MDC Clock Selection define*/
+-#define	STMMAC_CSR_60_100M	0x0	/* MDC = clk_scr_i/42 */
+-#define	STMMAC_CSR_100_150M	0x1	/* MDC = clk_scr_i/62 */
+-#define	STMMAC_CSR_20_35M	0x2	/* MDC = clk_scr_i/16 */
+-#define	STMMAC_CSR_35_60M	0x3	/* MDC = clk_scr_i/26 */
+-#define	STMMAC_CSR_150_250M	0x4	/* MDC = clk_scr_i/102 */
+-#define	STMMAC_CSR_250_300M	0x5	/* MDC = clk_scr_i/122 */
++#define	STMMAC_CSR_60_100M	0x0	/* MDC = clk_csr_i/42 */
++#define	STMMAC_CSR_100_150M	0x1	/* MDC = clk_csr_i/62 */
++#define	STMMAC_CSR_20_35M	0x2	/* MDC = clk_csr_i/16 */
++#define	STMMAC_CSR_35_60M	0x3	/* MDC = clk_csr_i/26 */
++#define	STMMAC_CSR_150_250M	0x4	/* MDC = clk_csr_i/102 */
++#define	STMMAC_CSR_250_300M	0x5	/* MDC = clk_csr_i/122 */
  
- 	res = platform_get_resource(pdev, IORESOURCE_MEM, 0);
- 	stmmac_res->addr = devm_ioremap_resource(&pdev->dev, res);
+ /* MTL algorithms identifiers */
+ #define MTL_TX_ALGORITHM_WRR	0x0
 -- 
-2.20.1
+2.17.1
 
 _______________________________________________
 Linux-stm32 mailing list
