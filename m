@@ -2,45 +2,45 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id A4F801A01EA
-	for <lists+linux-stm32@lfdr.de>; Tue,  7 Apr 2020 02:01:23 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 96BF71A020A
+	for <lists+linux-stm32@lfdr.de>; Tue,  7 Apr 2020 02:02:14 +0200 (CEST)
 Received: from ip-172-31-3-76.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 44167C36B0B;
-	Tue,  7 Apr 2020 00:01:23 +0000 (UTC)
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 60375C36B0B;
+	Tue,  7 Apr 2020 00:02:14 +0000 (UTC)
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
  (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 45102C36B09
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id CEB2DC36B09
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Tue,  7 Apr 2020 00:01:20 +0000 (UTC)
+ Tue,  7 Apr 2020 00:02:12 +0000 (UTC)
 Received: from sasha-vm.mshome.net (c-73-47-72-35.hsd1.nh.comcast.net
  [73.47.72.35])
  (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by mail.kernel.org (Postfix) with ESMTPSA id 7F05120768;
- Tue,  7 Apr 2020 00:01:18 +0000 (UTC)
+ by mail.kernel.org (Postfix) with ESMTPSA id 658E0208FE;
+ Tue,  7 Apr 2020 00:02:10 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
- s=default; t=1586217679;
- bh=lCpe+4Dnaharjk9WK99w2h7l5Sscy3orPRfo6OQyoYA=;
+ s=default; t=1586217731;
+ bh=7W8SpPIOywJNExWL8DrXnjX+O9i7Fc36hKuhRdZJWF0=;
  h=From:To:Cc:Subject:Date:In-Reply-To:References:From;
- b=FkzYwlahAs4zNU9M3I2uv0RydbTTiYagp/vYTif7aH61x6cxkudj860Od3xH97+Sx
- fpiLeAHka3AK+VTYnxdTkZqGUr0ovgfC38hvJ5Xo9q7qBeynCdOOc/eScz5SjuA07M
- Umsu4ERcjatED1ecyZ0V9r//Y6JpD/JJJRdo+ciA=
+ b=UmNT20xlxRoKUyH73h/MBPycBGy9QVc4Jw5mP53EBc5BrZPFSivXt6g9uPQMAcJ80
+ Oi0oe5HSFjfxf92rUDLMbNWQGnbHBWmnJXk108ftbg+pClPHg0H92ww4HWhraaPR3c
+ H6QdkZnjddMzx5AZQHlSEJxplYeUg13/AG9y4nrE=
 From: Sasha Levin <sashal@kernel.org>
 To: linux-kernel@vger.kernel.org,
 	stable@vger.kernel.org
-Date: Mon,  6 Apr 2020 20:00:38 -0400
-Message-Id: <20200407000058.16423-16-sashal@kernel.org>
+Date: Mon,  6 Apr 2020 20:01:33 -0400
+Message-Id: <20200407000151.16768-15-sashal@kernel.org>
 X-Mailer: git-send-email 2.20.1
-In-Reply-To: <20200407000058.16423-1-sashal@kernel.org>
-References: <20200407000058.16423-1-sashal@kernel.org>
+In-Reply-To: <20200407000151.16768-1-sashal@kernel.org>
+References: <20200407000151.16768-1-sashal@kernel.org>
 MIME-Version: 1.0
 X-stable: review
 X-Patchwork-Hint: Ignore
 Cc: Sasha Levin <sashal@kernel.org>, Markus Fuchs <mklntf@gmail.com>,
  netdev@vger.kernel.org, linux-stm32@st-md-mailman.stormreply.com,
  "David S . Miller" <davem@davemloft.net>, linux-arm-kernel@lists.infradead.org
-Subject: [Linux-stm32] [PATCH AUTOSEL 5.5 16/35] net: stmmac: platform: Fix
+Subject: [Linux-stm32] [PATCH AUTOSEL 5.4 15/32] net: stmmac: platform: Fix
 	misleading interrupt error msg
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
@@ -76,7 +76,7 @@ Signed-off-by: Sasha Levin <sashal@kernel.org>
  1 file changed, 10 insertions(+), 4 deletions(-)
 
 diff --git a/drivers/net/ethernet/stmicro/stmmac/stmmac_platform.c b/drivers/net/ethernet/stmicro/stmmac/stmmac_platform.c
-index d10ac54bf385a..13fafd905db87 100644
+index 5150551c28be3..508325cc105d5 100644
 --- a/drivers/net/ethernet/stmicro/stmmac/stmmac_platform.c
 +++ b/drivers/net/ethernet/stmicro/stmmac/stmmac_platform.c
 @@ -663,16 +663,22 @@ int stmmac_get_platform_resources(struct platform_device *pdev,
