@@ -2,54 +2,52 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id A4D681A44D7
-	for <lists+linux-stm32@lfdr.de>; Fri, 10 Apr 2020 11:58:33 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id B7C811A44D8
+	for <lists+linux-stm32@lfdr.de>; Fri, 10 Apr 2020 11:58:34 +0200 (CEST)
 Received: from ip-172-31-3-76.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 6A71DC36B0C;
-	Fri, 10 Apr 2020 09:58:33 +0000 (UTC)
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 774C1C36B0E;
+	Fri, 10 Apr 2020 09:58:34 +0000 (UTC)
 Received: from mail-out.m-online.net (mail-out.m-online.net [212.18.0.9])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 186D4C36B0B
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id ABA47C36B09
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Fri, 10 Apr 2020 09:58:31 +0000 (UTC)
+ Fri, 10 Apr 2020 09:58:32 +0000 (UTC)
 Received: from frontend01.mail.m-online.net (unknown [192.168.8.182])
- by mail-out.m-online.net (Postfix) with ESMTP id 48zD3p5QWBz1qs0H;
- Fri, 10 Apr 2020 11:58:30 +0200 (CEST)
+ by mail-out.m-online.net (Postfix) with ESMTP id 48zD3r2ZS4z1qs03;
+ Fri, 10 Apr 2020 11:58:32 +0200 (CEST)
 Received: from localhost (dynscan1.mnet-online.de [192.168.6.70])
- by mail.m-online.net (Postfix) with ESMTP id 48zD3p4Msxz1r0bb;
- Fri, 10 Apr 2020 11:58:30 +0200 (CEST)
+ by mail.m-online.net (Postfix) with ESMTP id 48zD3r1mPzz1r0bb;
+ Fri, 10 Apr 2020 11:58:32 +0200 (CEST)
 X-Virus-Scanned: amavisd-new at mnet-online.de
 Received: from mail.mnet-online.de ([192.168.8.182])
  by localhost (dynscan1.mail.m-online.net [192.168.6.70]) (amavisd-new,
  port 10024)
- with ESMTP id wkmvuz9bxBqv; Fri, 10 Apr 2020 11:58:29 +0200 (CEST)
-X-Auth-Info: hdxjcCBA9QbhMuhWdgbfglETnU3ZdUJJWIepPA3XWkc=
+ with ESMTP id pKkWzqO_kBUE; Fri, 10 Apr 2020 11:58:31 +0200 (CEST)
+X-Auth-Info: XQLV1ClFM1naE+JGYy1hLRJfDDIRvx30OUheRE4o4Wg=
 Received: from [IPv6:::1] (unknown [195.140.253.167])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
  by mail.mnet-online.de (Postfix) with ESMTPSA;
- Fri, 10 Apr 2020 11:58:29 +0200 (CEST)
+ Fri, 10 Apr 2020 11:58:31 +0200 (CEST)
+From: Marek Vasut <marex@denx.de>
 To: Manivannan Sadhasivam <manivannan.sadhasivam@linaro.org>
 References: <20200401132237.60880-1-marex@denx.de>
- <20200401132237.60880-22-marex@denx.de>
- <20200406072242.GG2937@Mani-XPS-13-9360>
- <59d1cc85-a65e-d2bf-4591-0828cf7b8390@denx.de>
- <f952f1ad-53bb-7b85-caad-2174a4333a2c@denx.de>
- <20200410090828.GC5723@Mani-XPS-13-9360>
-From: Marek Vasut <marex@denx.de>
-Message-ID: <9d3b3a76-9711-6fd9-cb1b-af412c2babcd@denx.de>
-Date: Fri, 10 Apr 2020 11:16:53 +0200
+ <20200406072728.GI2937@Mani-XPS-13-9360>
+ <9c51236f-a543-99dc-ca4f-5113831451ea@denx.de>
+ <20200410090024.GB5723@Mani-XPS-13-9360>
+Message-ID: <7035b570-d1aa-532d-c70b-2fc1e04f9c28@denx.de>
+Date: Fri, 10 Apr 2020 11:55:57 +0200
 User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:68.0) Gecko/20100101
  Thunderbird/68.5.0
 MIME-Version: 1.0
-In-Reply-To: <20200410090828.GC5723@Mani-XPS-13-9360>
+In-Reply-To: <20200410090024.GB5723@Mani-XPS-13-9360>
 Content-Language: en-US
 Cc: Patrick Delaunay <patrick.delaunay@st.com>,
  Maxime Coquelin <mcoquelin.stm32@gmail.com>,
  linux-stm32@st-md-mailman.stormreply.com, linux-arm-kernel@lists.infradead.org
-Subject: Re: [Linux-stm32] [PATCH V4 21/22] ARM: dts: stm32: Add bindings
-	for USB on AV96
+Subject: Re: [Linux-stm32] [PATCH V4 00/22] ARM: dts: stm32: Repair AV96
+	board
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -66,50 +64,44 @@ Content-Transfer-Encoding: 7bit
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
-On 4/10/20 11:08 AM, Manivannan Sadhasivam wrote:
+On 4/10/20 11:00 AM, Manivannan Sadhasivam wrote:
 > Hi,
 
 Hi,
 
-> On Tue, Apr 07, 2020 at 08:37:50PM +0200, Marek Vasut wrote:
->> On 4/6/20 1:08 PM, Marek Vasut wrote:
->>> On 4/6/20 9:22 AM, Manivannan Sadhasivam wrote:
->>>> On Wed, Apr 01, 2020 at 03:22:36PM +0200, Marek Vasut wrote:
->>>>> Fill in the bindings for USB host and gadget on AV96.
->>>>>
->>>>> Signed-off-by: Marek Vasut <marex@denx.de>
+> On Tue, Apr 07, 2020 at 05:32:31PM +0200, Marek Vasut wrote:
+>> On 4/6/20 9:27 AM, Manivannan Sadhasivam wrote:
+>>> Hi,
+>>
+>> Hi,
+>>
+>>> On Wed, Apr 01, 2020 at 03:22:15PM +0200, Marek Vasut wrote:
+>>>> The AV96 board device tree is completely broken and does not match the
+>>>> hardware. This series fixes it up.
 >>>>
->>>> I can't get the USB B-Micro OTG port to work with this patch. Do I need to
->>>> enable any configs other than PHY and USB DWC2 drivers?
+>>>> Marek Vasut (22):
+>>>>   ARM: dts: stm32: Add alternate pinmux for ethernet RGMII
+>>>>   ARM: dts: stm32: Repair ethernet operation on AV96
+>>>>   ARM: dts: stm32: Add missing ethernet PHY reset on AV96
+>>>>   ARM: dts: stm32: Add missing ethernet PHY skews on AV96
 >>>
->>> Only the DWC2 GADGET (and possibly host, for dual-role) and some gadget
->>> implementation (e.g. gadget zero).
+>>> Ethernet works fine with cold boot but after warm reboot it fails with below
+>>> message,
+>>>
+>>> [   18.192842] stm32-dwmac 5800a000.ethernet eth0: no phy at addr -1
+>>> [   18.197539] stm32-dwmac 5800a000.ethernet eth0: stmmac_open: Cannot attach to PHY (err)
 >>
->> I think I see what doesn't work for you.
->>
->> It seems the following works on next:
->> power on -> plug in USB stick (or any other USB device) -> unplug ->
->> plug in usb host (e.g. PC)
->>
->> But this does not:
->> power on -> plug in usb host (e.g. PC)
->>  - the PC is not detected
+>> Try this patch:
 >>
 > 
-> Both doesn't work. I have the rndis gadget configured in userspace but plugging
-> in the micro-b cable doesn't do anything.
+> [   17.270826] stm32-dwmac 5800a000.ethernet eth0: no phy at addr -1
+> [   17.275519] stm32-dwmac 5800a000.ethernet eth0: stmmac_open: Cannot attach to PHY (err)
 > 
->> Did that ^ ever work for you before ? I suspect this is a bug in the
->> DWC2 driver. The OTG operation there is known to be flaky at best.
-> 
-> Not on this board. I don't recall what happended with vendor image. But I do
-> have another STM32MP1 based 96Board (which will be submitted soon), there I can
-> get OTG port working.
-> 
-> But in that board a BG96 modem is connected to USB2 port on the board itself
-> which gets enumerated during probe.
+> It doesn't work. Sorry, I don't have much time to dig into this issue so
+> I'll leave it up to you :)
 
-But it's not configured as OTG on this other board, right ?
+I see, it does work on the new board, so I don't really know what to do
+here. Maybe we should just not support the old prototype board ?
 _______________________________________________
 Linux-stm32 mailing list
 Linux-stm32@st-md-mailman.stormreply.com
