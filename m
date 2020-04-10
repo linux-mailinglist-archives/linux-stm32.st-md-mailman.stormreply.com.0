@@ -2,57 +2,70 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id 67D071A452D
-	for <lists+linux-stm32@lfdr.de>; Fri, 10 Apr 2020 12:24:45 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 1CA161A45A7
+	for <lists+linux-stm32@lfdr.de>; Fri, 10 Apr 2020 13:28:42 +0200 (CEST)
 Received: from ip-172-31-3-76.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 1FCA6C36B10;
-	Fri, 10 Apr 2020 10:24:45 +0000 (UTC)
-Received: from zimbra2.kalray.eu (zimbra2.kalray.eu [92.103.151.219])
- (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id BA795C36B0B;
+	Fri, 10 Apr 2020 11:28:41 +0000 (UTC)
+Received: from mail-pl1-f194.google.com (mail-pl1-f194.google.com
+ [209.85.214.194])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id CC126C36B09
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 3D791C36B09
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Fri, 10 Apr 2020 10:24:42 +0000 (UTC)
-Received: from localhost (localhost [127.0.0.1])
- by zimbra2.kalray.eu (Postfix) with ESMTP id 778A427E039A;
- Fri, 10 Apr 2020 12:24:42 +0200 (CEST)
-Received: from zimbra2.kalray.eu ([127.0.0.1])
- by localhost (zimbra2.kalray.eu [127.0.0.1]) (amavisd-new, port 10032)
- with ESMTP id G9XqLTYwtpAF; Fri, 10 Apr 2020 12:24:42 +0200 (CEST)
-Received: from localhost (localhost [127.0.0.1])
- by zimbra2.kalray.eu (Postfix) with ESMTP id 0F6B627E0589;
- Fri, 10 Apr 2020 12:24:42 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.10.3 zimbra2.kalray.eu 0F6B627E0589
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kalray.eu;
- s=32AE1B44-9502-11E5-BA35-3734643DEF29; t=1586514282;
- bh=oRE9VMfwQl9hbhJuv3IFNxO5INvbX602C4YIkGaSu6U=;
- h=From:To:Date:Message-Id;
- b=TGa+Zn3mgG8hIYhxMnAC6RC6fmxXSHgYYS+bDnpPXKoZ/xYyMEjdlV79PUx+6W+8o
- fSs2jgYu/uRL164qCGNpPvIW/CmXf9ke22ZZ2pKJO93g5h6gBu+X9C6d8wa6hl7C8V
- uBPN0eOA8wnHTzQSzXVJQeoWgvhF9BkMypxkanyI=
-X-Virus-Scanned: amavisd-new at zimbra2.kalray.eu
-Received: from zimbra2.kalray.eu ([127.0.0.1])
- by localhost (zimbra2.kalray.eu [127.0.0.1]) (amavisd-new, port 10026)
- with ESMTP id kHp0JyCnPWr8; Fri, 10 Apr 2020 12:24:41 +0200 (CEST)
-Received: from triton.lin.mbt.kalray.eu (unknown [192.168.37.25])
- by zimbra2.kalray.eu (Postfix) with ESMTPSA id C562D27E039A;
- Fri, 10 Apr 2020 12:24:41 +0200 (CEST)
-From: Clement Leger <cleger@kalray.eu>
-To: Andy Gross <agross@kernel.org>,
- Bjorn Andersson <bjorn.andersson@linaro.org>,
- Ohad Ben-Cohen <ohad@wizery.com>,
+ Fri, 10 Apr 2020 11:28:40 +0000 (UTC)
+Received: by mail-pl1-f194.google.com with SMTP id k18so584530pll.6
+ for <linux-stm32@st-md-mailman.stormreply.com>;
+ Fri, 10 Apr 2020 04:28:40 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linaro.org; s=google;
+ h=date:from:to:cc:subject:message-id:references:mime-version
+ :content-disposition:in-reply-to:user-agent;
+ bh=AO5eo+r5I1TiZXg+2m7xv1M8c8Hmwzbdi6osh2dcAjw=;
+ b=SHGMPucKD2h7jediRM2bzxjyjUV0rSgHtlebSGTYKI94B7TWRVO6Fgm8GEQxjBnABZ
+ 4m9/vN1yA4766aF/S7iiv0fiztaBr1zVc9Y20iOJFGtNNY1f/LBc6xeg01xRvEkj0Mq2
+ 7VsP2o7Y9G/ZupgAVCUveXYlYmqC0/Dh9VNpO/hpzzfw412V4yceoUt6kFueXaktL3+Z
+ 5knqtqQ2hrVpRXsyKWFUWS5aXaNLZxE4Xo5RZuop1w8bFVjyzWoLEeS5xg2IZdoBTrfV
+ h2VwltewuB3Twx6I4moVCDrQKT0dq2ZvYBvFn5lmsr+bt+g+8pHBtKI/M2kVaPeRta++
+ zfCQ==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20161025;
+ h=x-gm-message-state:date:from:to:cc:subject:message-id:references
+ :mime-version:content-disposition:in-reply-to:user-agent;
+ bh=AO5eo+r5I1TiZXg+2m7xv1M8c8Hmwzbdi6osh2dcAjw=;
+ b=VoNYDNf2JrGs9EWlC5NOW+kc+iAObYfrpuQdWI3llAuc2engkUgdBHUyBZo2j8luTZ
+ wuEkkp5PcwzyPTXihqN5ul4WCNY13a0bTv2Vm4zeMgTuHboUPZDA2oO22poUKsqGy70U
+ ZE2DIgJbShmaZwB8Wdr/9CKLCf2zrL8ZU0PzJ/U98bV2J52pjvL50qgNOAcUXh4Z0Bq8
+ 6nWBLdlszvY/YwygpmNmfZT56IeZmijy9++17FMdj25KLwUafp/tferZncxSTkrvjJYd
+ T0tayxrK5yI0+ftUWXJ3BI+ERTiTiZIJy4WMOoASfAxwdvngq43BY5aiZxU4hRtBS/j6
+ hiRA==
+X-Gm-Message-State: AGi0PuamsIywD1UCNAGGEbuXb9fi1yE1o9CQE81nr1uImt+Y1tUwlkOz
+ mpsQRRkOnNKGweQxa8gC9VYc
+X-Google-Smtp-Source: APiQypLTbOpUh1VQspoYmYDVVGVcK0Ly+KQcuRobnohiScDB5yYlvXG1Vb+V6FsinpDPpb8SlMlxfA==
+X-Received: by 2002:a17:902:8ec8:: with SMTP id
+ x8mr4224577plo.204.1586518118503; 
+ Fri, 10 Apr 2020 04:28:38 -0700 (PDT)
+Received: from Mani-XPS-13-9360 ([2409:4072:315:a1e8:ac45:4d4a:5a11:afed])
+ by smtp.gmail.com with ESMTPSA id f15sm1539587pfd.215.2020.04.10.04.28.32
+ (version=TLS1_2 cipher=ECDHE-ECDSA-CHACHA20-POLY1305 bits=256/256);
+ Fri, 10 Apr 2020 04:28:37 -0700 (PDT)
+Date: Fri, 10 Apr 2020 16:58:29 +0530
+From: Manivannan Sadhasivam <manivannan.sadhasivam@linaro.org>
+To: Marek Vasut <marex@denx.de>
+Message-ID: <20200410112829.GA27211@Mani-XPS-13-9360>
+References: <20200401132237.60880-1-marex@denx.de>
+ <20200406072728.GI2937@Mani-XPS-13-9360>
+ <9c51236f-a543-99dc-ca4f-5113831451ea@denx.de>
+ <20200410090024.GB5723@Mani-XPS-13-9360>
+ <7035b570-d1aa-532d-c70b-2fc1e04f9c28@denx.de>
+MIME-Version: 1.0
+Content-Disposition: inline
+In-Reply-To: <7035b570-d1aa-532d-c70b-2fc1e04f9c28@denx.de>
+User-Agent: Mutt/1.9.4 (2018-02-28)
+Cc: Patrick Delaunay <patrick.delaunay@st.com>,
  Maxime Coquelin <mcoquelin.stm32@gmail.com>,
- Alexandre Torgue <alexandre.torgue@st.com>
-Date: Fri, 10 Apr 2020 12:24:33 +0200
-Message-Id: <20200410102433.2672-3-cleger@kalray.eu>
-X-Mailer: git-send-email 2.17.1
-In-Reply-To: <20200410102433.2672-1-cleger@kalray.eu>
-References: <20200410102433.2672-1-cleger@kalray.eu>
-Cc: linux-arm-msm@vger.kernel.org, linux-remoteproc@vger.kernel.org,
- linux-kernel@vger.kernel.org, Clement Leger <cleger@kalray.eu>,
  linux-stm32@st-md-mailman.stormreply.com, linux-arm-kernel@lists.infradead.org
-Subject: [Linux-stm32] [PATCH 2/2] remoteproc: use
-	rproc_coredump_set_elf_info in drivers
+Subject: Re: [Linux-stm32] [PATCH V4 00/22] ARM: dts: stm32: Repair AV96
+	board
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -64,97 +77,60 @@ List-Post: <mailto:linux-stm32@st-md-mailman.stormreply.com>
 List-Help: <mailto:linux-stm32-request@st-md-mailman.stormreply.com?subject=help>
 List-Subscribe: <https://st-md-mailman.stormreply.com/mailman/listinfo/linux-stm32>, 
  <mailto:linux-stm32-request@st-md-mailman.stormreply.com?subject=subscribe>
-MIME-Version: 1.0
 Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
-Modify drivers which are using remoteproc coredump functionnality to use
-rproc_coredump_set_elf_info in order to create correct elf coredump
-format.
+On Fri, Apr 10, 2020 at 11:55:57AM +0200, Marek Vasut wrote:
+> On 4/10/20 11:00 AM, Manivannan Sadhasivam wrote:
+> > Hi,
+> 
+> Hi,
+> 
+> > On Tue, Apr 07, 2020 at 05:32:31PM +0200, Marek Vasut wrote:
+> >> On 4/6/20 9:27 AM, Manivannan Sadhasivam wrote:
+> >>> Hi,
+> >>
+> >> Hi,
+> >>
+> >>> On Wed, Apr 01, 2020 at 03:22:15PM +0200, Marek Vasut wrote:
+> >>>> The AV96 board device tree is completely broken and does not match the
+> >>>> hardware. This series fixes it up.
+> >>>>
+> >>>> Marek Vasut (22):
+> >>>>   ARM: dts: stm32: Add alternate pinmux for ethernet RGMII
+> >>>>   ARM: dts: stm32: Repair ethernet operation on AV96
+> >>>>   ARM: dts: stm32: Add missing ethernet PHY reset on AV96
+> >>>>   ARM: dts: stm32: Add missing ethernet PHY skews on AV96
+> >>>
+> >>> Ethernet works fine with cold boot but after warm reboot it fails with below
+> >>> message,
+> >>>
+> >>> [   18.192842] stm32-dwmac 5800a000.ethernet eth0: no phy at addr -1
+> >>> [   18.197539] stm32-dwmac 5800a000.ethernet eth0: stmmac_open: Cannot attach to PHY (err)
+> >>
+> >> Try this patch:
+> >>
+> > 
+> > [   17.270826] stm32-dwmac 5800a000.ethernet eth0: no phy at addr -1
+> > [   17.275519] stm32-dwmac 5800a000.ethernet eth0: stmmac_open: Cannot attach to PHY (err)
+> > 
+> > It doesn't work. Sorry, I don't have much time to dig into this issue so
+> > I'll leave it up to you :)
+> 
+> I see, it does work on the new board, so I don't really know what to do
+> here. Maybe we should just not support the old prototype board ?
 
-Signed-off-by: Clement Leger <cleger@kalray.eu>
----
- drivers/remoteproc/qcom_q6v5_adsp.c | 1 +
- drivers/remoteproc/qcom_q6v5_mss.c  | 3 +++
- drivers/remoteproc/qcom_q6v5_pas.c  | 1 +
- drivers/remoteproc/qcom_wcnss.c     | 1 +
- drivers/remoteproc/stm32_rproc.c    | 1 +
- 5 files changed, 7 insertions(+)
+Sorry, it turned out to be a DT issue. My script was not updated when I switched
+to upstream bootloader. This patch works perfectly on both old and new boards.
 
-diff --git a/drivers/remoteproc/qcom_q6v5_adsp.c b/drivers/remoteproc/qcom_q6v5_adsp.c
-index 2b01f2282062..8c3bd0954a13 100644
---- a/drivers/remoteproc/qcom_q6v5_adsp.c
-+++ b/drivers/remoteproc/qcom_q6v5_adsp.c
-@@ -423,6 +423,7 @@ static int adsp_probe(struct platform_device *pdev)
- 		dev_err(&pdev->dev, "unable to allocate remoteproc\n");
- 		return -ENOMEM;
- 	}
-+	rproc_coredump_set_elf_info(rproc, ELFCLASS32, EM_NONE);
- 
- 	adsp = (struct qcom_adsp *)rproc->priv;
- 	adsp->dev = &pdev->dev;
-diff --git a/drivers/remoteproc/qcom_q6v5_mss.c b/drivers/remoteproc/qcom_q6v5_mss.c
-index 03ffc6db4c68..5a7ff1092362 100644
---- a/drivers/remoteproc/qcom_q6v5_mss.c
-+++ b/drivers/remoteproc/qcom_q6v5_mss.c
-@@ -1355,6 +1355,8 @@ static int qcom_q6v5_register_dump_segments(struct rproc *rproc,
- 		return ret;
- 	}
- 
-+	rproc_coredump_set_elf_info(rproc, ELFCLASS32, EM_NONE);
-+
- 	ehdr = (struct elf32_hdr *)fw->data;
- 	phdrs = (struct elf32_phdr *)(ehdr + 1);
- 	qproc->dump_complete_mask = 0;
-@@ -1632,6 +1634,7 @@ static int q6v5_probe(struct platform_device *pdev)
- 	}
- 
- 	rproc->auto_boot = false;
-+	rproc_coredump_set_elf_info(rproc, ELFCLASS32, EM_NONE);
- 
- 	qproc = (struct q6v5 *)rproc->priv;
- 	qproc->dev = &pdev->dev;
-diff --git a/drivers/remoteproc/qcom_q6v5_pas.c b/drivers/remoteproc/qcom_q6v5_pas.c
-index a41860d2243a..991f57e8e55b 100644
---- a/drivers/remoteproc/qcom_q6v5_pas.c
-+++ b/drivers/remoteproc/qcom_q6v5_pas.c
-@@ -390,6 +390,7 @@ static int adsp_probe(struct platform_device *pdev)
- 	}
- 
- 	rproc->auto_boot = desc->auto_boot;
-+	rproc_coredump_set_elf_info(rproc, ELFCLASS32, EM_NONE);
- 
- 	adsp = (struct qcom_adsp *)rproc->priv;
- 	adsp->dev = &pdev->dev;
-diff --git a/drivers/remoteproc/qcom_wcnss.c b/drivers/remoteproc/qcom_wcnss.c
-index 0c7afd038f0d..5d65e1a9329a 100644
---- a/drivers/remoteproc/qcom_wcnss.c
-+++ b/drivers/remoteproc/qcom_wcnss.c
-@@ -480,6 +480,7 @@ static int wcnss_probe(struct platform_device *pdev)
- 		dev_err(&pdev->dev, "unable to allocate remoteproc\n");
- 		return -ENOMEM;
- 	}
-+	rproc_coredump_set_elf_info(rproc, ELFCLASS32, EM_NONE);
- 
- 	wcnss = (struct qcom_wcnss *)rproc->priv;
- 	wcnss->dev = &pdev->dev;
-diff --git a/drivers/remoteproc/stm32_rproc.c b/drivers/remoteproc/stm32_rproc.c
-index 6a66dbf2df40..0f9d02ca4f5a 100644
---- a/drivers/remoteproc/stm32_rproc.c
-+++ b/drivers/remoteproc/stm32_rproc.c
-@@ -625,6 +625,7 @@ static int stm32_rproc_probe(struct platform_device *pdev)
- 	if (!rproc)
- 		return -ENOMEM;
- 
-+	rproc_coredump_set_elf_info(rproc, ELFCLASS32, EM_NONE);
- 	rproc->has_iommu = false;
- 	ddata = rproc->priv;
- 	ddata->workqueue = create_workqueue(dev_name(dev));
--- 
-2.17.1
+Feel free to add,
 
+Tested-by: Manivannan Sadhasivam <manivannan.sadhasivam@linaro.org>
+
+Thanks,
+Mani
 _______________________________________________
 Linux-stm32 mailing list
 Linux-stm32@st-md-mailman.stormreply.com
