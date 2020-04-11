@@ -2,68 +2,73 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id 3DECF1A4D39
-	for <lists+linux-stm32@lfdr.de>; Sat, 11 Apr 2020 03:29:55 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 81B4F1A4DC0
+	for <lists+linux-stm32@lfdr.de>; Sat, 11 Apr 2020 06:12:25 +0200 (CEST)
 Received: from ip-172-31-3-76.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 07749C36B0B;
-	Sat, 11 Apr 2020 01:29:55 +0000 (UTC)
-Received: from mail-pj1-f65.google.com (mail-pj1-f65.google.com
- [209.85.216.65])
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 25DEDC36B0B;
+	Sat, 11 Apr 2020 04:12:25 +0000 (UTC)
+Received: from mail-pf1-f195.google.com (mail-pf1-f195.google.com
+ [209.85.210.195])
  (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 52A78C36B09
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 19FAAC36B09
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Sat, 11 Apr 2020 01:29:53 +0000 (UTC)
-Received: by mail-pj1-f65.google.com with SMTP id nu11so1359943pjb.1
+ Sat, 11 Apr 2020 04:12:23 +0000 (UTC)
+Received: by mail-pf1-f195.google.com with SMTP id u65so1911516pfb.4
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Fri, 10 Apr 2020 18:29:53 -0700 (PDT)
+ Fri, 10 Apr 2020 21:12:22 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linaro.org; s=google;
  h=date:from:to:cc:subject:message-id:references:mime-version
- :content-disposition:in-reply-to;
- bh=oViI8SklfCpZEbbYlFvgdpzM6/kZH9ALRRalOuYsvgM=;
- b=UNiShD7wlrWrXzBNeCBUu2DcSXJtHq7Z0Y8/MbsvAvNfpVWxNN7VvKLAuR31RGhV31
- LEOiAQi3VF/qJssY+mxdRur0UBNn39b9pLsPV87xF1fdZAvudU3b0CZ2rnInopThwfyR
- 0XyuuwJblsOtu+P+1AbiEW7/c1NwHvY+NZM2Yfy140kEFWTiqkSKfSbdXm9/RHxRv2dT
- aSrwEV2ox1H3Oz/URa8lu4yUXLj3AURT7dyuFqOEpYrfMklx44SQAiIFR6yGKCAs06K0
- aC2AR5lgaz9SoZn9OzR3ZhLbqpuDjsRS1k5vUFBhYBtLPbOJ3BqPH9S5MlQeBTE1ux+9
- OfeA==
+ :content-disposition:in-reply-to:user-agent;
+ bh=bPb+QNwH7oVZoU6e5v2DwAVPzHg2QhsdVYytLq5Z1Nc=;
+ b=JcMwtPdN51eAbJq4wmxBBACa7MHlV7MnOv6HH4olGOH2h+sccEbOSDEK1a0zSXa++s
+ q4UKdbwyl0EdlitspsRpgsw9UPjgZOElW01JUxHTyNLbu16RJ1rk/jNV3tIFvmcUS/QN
+ OpYzCsr6Ivllr3Cyeop2i70RG+DQtdxzPejj+pzw7xGs6aRlLowE/2oatHSn/1O0zQeC
+ XTFq08/nx7gBJH+w3zJnlUExA5HZHVSSAnIl6sMzbwgTmhKWvD6pWHCwiQh7qmnBk5Nj
+ 4CHfDr01xM9OhJRp7oyCm6ijAahVh3lGTv42YAiop2CpsdnOHWyX+6RLf5i8PiPJ/3yJ
+ 0JkQ==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=1e100.net; s=20161025;
  h=x-gm-message-state:date:from:to:cc:subject:message-id:references
- :mime-version:content-disposition:in-reply-to;
- bh=oViI8SklfCpZEbbYlFvgdpzM6/kZH9ALRRalOuYsvgM=;
- b=QYtLeaDeqqfe1WBR4pL9ozlRfy5kuwL7CY4PnP+/fwMdeNprDEhWHitkPRqxCcqF8s
- jEQQMWwHMEDf+9UOY5jtTjl5pxl4h6v6yPaPDBZcsW+Nj3AGTFPe/l4KVHH2+pBJgunW
- HkBMS6uzkz+K/GeJ9Y+iI67QDxKZtRvMq+sJhe211ncwnwqxTWjB3rfA1vaUYCs5GtaU
- btbL6F3H1udv4aaXchs4nAaX7OvPGsJ31d25eALTUJ9kvwC08ABTe3T5hgRoi4sqpXsb
- OTaVkZY57OtB3jHCLsSvf+/9zcsKf4I6XVTSR43avSuMbbdovLwc3xibhWu4muFnwj59
- ImlQ==
-X-Gm-Message-State: AGi0PuYEERTQIwqa85i9gaV/kOPF4YShnUzaB4PMLVwRqkWoqyjEngs3
- gT2fbCB/nE2aaYx2DjoLjBiyuQ==
-X-Google-Smtp-Source: APiQypIXEXPs9ksy3YjzBn7ixpo5mSMrugBfNzjkDJTpNfz4i3ihrt5TAUeFr8YSL7/BbVFVdh0/LA==
-X-Received: by 2002:a17:90a:6c22:: with SMTP id
- x31mr8469537pjj.124.1586568591685; 
- Fri, 10 Apr 2020 18:29:51 -0700 (PDT)
-Received: from builder.lan (104-188-17-28.lightspeed.sndgca.sbcglobal.net.
- [104.188.17.28])
- by smtp.gmail.com with ESMTPSA id s62sm2575561pgb.94.2020.04.10.18.29.50
- (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Fri, 10 Apr 2020 18:29:51 -0700 (PDT)
-Date: Fri, 10 Apr 2020 18:30:01 -0700
-From: Bjorn Andersson <bjorn.andersson@linaro.org>
-To: Clement Leger <cleger@kalray.eu>
-Message-ID: <20200411013001.GG576963@builder.lan>
-References: <20200410102433.2672-1-cleger@kalray.eu>
- <20200410102433.2672-3-cleger@kalray.eu>
+ :mime-version:content-disposition:in-reply-to:user-agent;
+ bh=bPb+QNwH7oVZoU6e5v2DwAVPzHg2QhsdVYytLq5Z1Nc=;
+ b=Ryg9Vq6xJ2wlT4cXaI59C6MXZgRaSUg+YWe683lVFbPKaA4UfjMyJrQZFSU7a6te5n
+ vSknORw0WnYngaxnkNa/cTqdDA53ew5WGTH0//cROrHwSUl4x8dcWF1cJbQqaj4yysdI
+ L+MlBxdgII4wFMtflXqrMo0Lpdz0IIBS9Sbk/08IluI6E2IwzRlpAsOtjjYWUHteLA9X
+ B8YvYowFs+HR8Y6vfDnTQE1F7SA5zgjXNkLAzcvdS/PLc40sRo5ombPeoCJG/OzUnI9h
+ yw+8FkIkn8yoQpicmTfsE12VakArzUP2a/61XhBSUquYP9HsSKtor812+LqM94mNQlSf
+ p1bQ==
+X-Gm-Message-State: AGi0PubaPYjWiq1kEYPI3muwkCQPJcrBimJV11n8bXFZWW/m7oHp45n+
+ XqaOJxBATXB1AM1BsEC0zWIN
+X-Google-Smtp-Source: APiQypJOC+BODV7Kr+qfFWPtolIzApihVHhwDc1jJtmGjDvTNXLwne45N3KRi0wChYGiCMXZ+CdbLw==
+X-Received: by 2002:a63:a55b:: with SMTP id r27mr4213140pgu.141.1586578341414; 
+ Fri, 10 Apr 2020 21:12:21 -0700 (PDT)
+Received: from Mani-XPS-13-9360 ([2409:4072:89:182f:8ca9:73df:c140:559e])
+ by smtp.gmail.com with ESMTPSA id o40sm1152889pjb.18.2020.04.10.21.12.17
+ (version=TLS1_2 cipher=ECDHE-ECDSA-CHACHA20-POLY1305 bits=256/256);
+ Fri, 10 Apr 2020 21:12:20 -0700 (PDT)
+Date: Sat, 11 Apr 2020 09:42:13 +0530
+From: Manivannan Sadhasivam <manivannan.sadhasivam@linaro.org>
+To: Marek Vasut <marex@denx.de>
+Message-ID: <20200411041213.GA11800@Mani-XPS-13-9360>
+References: <20200401132237.60880-1-marex@denx.de>
+ <20200401132237.60880-22-marex@denx.de>
+ <20200406072242.GG2937@Mani-XPS-13-9360>
+ <59d1cc85-a65e-d2bf-4591-0828cf7b8390@denx.de>
+ <f952f1ad-53bb-7b85-caad-2174a4333a2c@denx.de>
+ <20200410090828.GC5723@Mani-XPS-13-9360>
+ <9d3b3a76-9711-6fd9-cb1b-af412c2babcd@denx.de>
+ <20200410113429.GB27211@Mani-XPS-13-9360>
+ <3c342261-eb66-4c03-6981-65b4463e09cf@denx.de>
 MIME-Version: 1.0
 Content-Disposition: inline
-In-Reply-To: <20200410102433.2672-3-cleger@kalray.eu>
-Cc: Ohad Ben-Cohen <ohad@wizery.com>, linux-arm-msm@vger.kernel.org,
- linux-remoteproc@vger.kernel.org, linux-kernel@vger.kernel.org,
- Andy Gross <agross@kernel.org>, Maxime Coquelin <mcoquelin.stm32@gmail.com>,
+In-Reply-To: <3c342261-eb66-4c03-6981-65b4463e09cf@denx.de>
+User-Agent: Mutt/1.9.4 (2018-02-28)
+Cc: Patrick Delaunay <patrick.delaunay@st.com>,
+ Maxime Coquelin <mcoquelin.stm32@gmail.com>,
  linux-stm32@st-md-mailman.stormreply.com, linux-arm-kernel@lists.infradead.org
-Subject: Re: [Linux-stm32] [PATCH 2/2] remoteproc: use
- rproc_coredump_set_elf_info in drivers
+Subject: Re: [Linux-stm32] [PATCH V4 21/22] ARM: dts: stm32: Add bindings
+	for USB on AV96
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -80,96 +85,93 @@ Content-Transfer-Encoding: 7bit
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
-On Fri 10 Apr 03:24 PDT 2020, Clement Leger wrote:
-
-> Modify drivers which are using remoteproc coredump functionnality to use
-> rproc_coredump_set_elf_info in order to create correct elf coredump
-> format.
+On Fri, Apr 10, 2020 at 08:02:51PM +0200, Marek Vasut wrote:
+> On 4/10/20 1:34 PM, Manivannan Sadhasivam wrote:
+> > On Fri, Apr 10, 2020 at 11:16:53AM +0200, Marek Vasut wrote:
+> >> On 4/10/20 11:08 AM, Manivannan Sadhasivam wrote:
+> >>> Hi,
+> >>
+> >> Hi,
+> >>
+> >>> On Tue, Apr 07, 2020 at 08:37:50PM +0200, Marek Vasut wrote:
+> >>>> On 4/6/20 1:08 PM, Marek Vasut wrote:
+> >>>>> On 4/6/20 9:22 AM, Manivannan Sadhasivam wrote:
+> >>>>>> On Wed, Apr 01, 2020 at 03:22:36PM +0200, Marek Vasut wrote:
+> >>>>>>> Fill in the bindings for USB host and gadget on AV96.
+> >>>>>>>
+> >>>>>>> Signed-off-by: Marek Vasut <marex@denx.de>
+> >>>>>>
+> >>>>>> I can't get the USB B-Micro OTG port to work with this patch. Do I need to
+> >>>>>> enable any configs other than PHY and USB DWC2 drivers?
+> >>>>>
+> >>>>> Only the DWC2 GADGET (and possibly host, for dual-role) and some gadget
+> >>>>> implementation (e.g. gadget zero).
+> >>>>
+> >>>> I think I see what doesn't work for you.
+> >>>>
+> >>>> It seems the following works on next:
+> >>>> power on -> plug in USB stick (or any other USB device) -> unplug ->
+> >>>> plug in usb host (e.g. PC)
+> >>>>
+> >>>> But this does not:
+> >>>> power on -> plug in usb host (e.g. PC)
+> >>>>  - the PC is not detected
+> >>>>
+> >>>
+> >>> Both doesn't work. I have the rndis gadget configured in userspace but plugging
+> >>> in the micro-b cable doesn't do anything.
+> >>>
+> >>>> Did that ^ ever work for you before ? I suspect this is a bug in the
+> >>>> DWC2 driver. The OTG operation there is known to be flaky at best.
+> >>>
+> >>> Not on this board. I don't recall what happended with vendor image. But I do
+> >>> have another STM32MP1 based 96Board (which will be submitted soon), there I can
+> >>> get OTG port working.
+> >>>
+> >>> But in that board a BG96 modem is connected to USB2 port on the board itself
+> >>> which gets enumerated during probe.
+> >>
+> >> But it's not configured as OTG on this other board, right ?
+> > 
+> > It is configured as a OTG port. But that board has a different issue which
+> > resets the board when we connect any OTG cable to act as a host. That's not
+> > related to DWC2 or this issue btw.
+> 
+> Do I misunderstand the part where you claim there is a modem connected
+> to the DWC2 ? That would mean it's in Host mode, no ?
 > 
 
-Reviewed-by: Bjorn Andersson <bjorn.andersson@linaro.org>
+Let me make it clear. On that board, the USB connection is almost similar to
+Avenger96 except that there is only one host port used and it is connected to
+the BG96 modem onboard. The other OTG port is connected to micro-b connector.
 
-> Signed-off-by: Clement Leger <cleger@kalray.eu>
-> ---
->  drivers/remoteproc/qcom_q6v5_adsp.c | 1 +
->  drivers/remoteproc/qcom_q6v5_mss.c  | 3 +++
->  drivers/remoteproc/qcom_q6v5_pas.c  | 1 +
->  drivers/remoteproc/qcom_wcnss.c     | 1 +
->  drivers/remoteproc/stm32_rproc.c    | 1 +
->  5 files changed, 7 insertions(+)
+There I can _only_ get the OTG port to work in device mode. I haven't figured
+out what is the exact issue yet. So in the meantime, I may use
+
+dr_mode = "peripheral"
+
+to avoid it being used as host. But on Avenger96 board, the host ports are
+working but the OTG port is neither working as host nor as device.
+
+> > Anyway, I can't get OTG (device/host) to work on both old and new boards.
 > 
-> diff --git a/drivers/remoteproc/qcom_q6v5_adsp.c b/drivers/remoteproc/qcom_q6v5_adsp.c
-> index 2b01f2282062..8c3bd0954a13 100644
-> --- a/drivers/remoteproc/qcom_q6v5_adsp.c
-> +++ b/drivers/remoteproc/qcom_q6v5_adsp.c
-> @@ -423,6 +423,7 @@ static int adsp_probe(struct platform_device *pdev)
->  		dev_err(&pdev->dev, "unable to allocate remoteproc\n");
->  		return -ENOMEM;
->  	}
-> +	rproc_coredump_set_elf_info(rproc, ELFCLASS32, EM_NONE);
->  
->  	adsp = (struct qcom_adsp *)rproc->priv;
->  	adsp->dev = &pdev->dev;
-> diff --git a/drivers/remoteproc/qcom_q6v5_mss.c b/drivers/remoteproc/qcom_q6v5_mss.c
-> index 03ffc6db4c68..5a7ff1092362 100644
-> --- a/drivers/remoteproc/qcom_q6v5_mss.c
-> +++ b/drivers/remoteproc/qcom_q6v5_mss.c
-> @@ -1355,6 +1355,8 @@ static int qcom_q6v5_register_dump_segments(struct rproc *rproc,
->  		return ret;
->  	}
->  
-> +	rproc_coredump_set_elf_info(rproc, ELFCLASS32, EM_NONE);
-> +
->  	ehdr = (struct elf32_hdr *)fw->data;
->  	phdrs = (struct elf32_phdr *)(ehdr + 1);
->  	qproc->dump_complete_mask = 0;
-> @@ -1632,6 +1634,7 @@ static int q6v5_probe(struct platform_device *pdev)
->  	}
->  
->  	rproc->auto_boot = false;
-> +	rproc_coredump_set_elf_info(rproc, ELFCLASS32, EM_NONE);
->  
->  	qproc = (struct q6v5 *)rproc->priv;
->  	qproc->dev = &pdev->dev;
-> diff --git a/drivers/remoteproc/qcom_q6v5_pas.c b/drivers/remoteproc/qcom_q6v5_pas.c
-> index a41860d2243a..991f57e8e55b 100644
-> --- a/drivers/remoteproc/qcom_q6v5_pas.c
-> +++ b/drivers/remoteproc/qcom_q6v5_pas.c
-> @@ -390,6 +390,7 @@ static int adsp_probe(struct platform_device *pdev)
->  	}
->  
->  	rproc->auto_boot = desc->auto_boot;
-> +	rproc_coredump_set_elf_info(rproc, ELFCLASS32, EM_NONE);
->  
->  	adsp = (struct qcom_adsp *)rproc->priv;
->  	adsp->dev = &pdev->dev;
-> diff --git a/drivers/remoteproc/qcom_wcnss.c b/drivers/remoteproc/qcom_wcnss.c
-> index 0c7afd038f0d..5d65e1a9329a 100644
-> --- a/drivers/remoteproc/qcom_wcnss.c
-> +++ b/drivers/remoteproc/qcom_wcnss.c
-> @@ -480,6 +480,7 @@ static int wcnss_probe(struct platform_device *pdev)
->  		dev_err(&pdev->dev, "unable to allocate remoteproc\n");
->  		return -ENOMEM;
->  	}
-> +	rproc_coredump_set_elf_info(rproc, ELFCLASS32, EM_NONE);
->  
->  	wcnss = (struct qcom_wcnss *)rproc->priv;
->  	wcnss->dev = &pdev->dev;
-> diff --git a/drivers/remoteproc/stm32_rproc.c b/drivers/remoteproc/stm32_rproc.c
-> index 6a66dbf2df40..0f9d02ca4f5a 100644
-> --- a/drivers/remoteproc/stm32_rproc.c
-> +++ b/drivers/remoteproc/stm32_rproc.c
-> @@ -625,6 +625,7 @@ static int stm32_rproc_probe(struct platform_device *pdev)
->  	if (!rproc)
->  		return -ENOMEM;
->  
-> +	rproc_coredump_set_elf_info(rproc, ELFCLASS32, EM_NONE);
->  	rproc->has_iommu = false;
->  	ddata = rproc->priv;
->  	ddata->workqueue = create_workqueue(dev_name(dev));
-> -- 
-> 2.17.1
+> Do you have 588-200 now too ?
 > 
+
+I have both 588-100 and 588-200 now. I told you that at the time of initial
+upstreaming I had only 588-100 but later Arrow sent me the new board.
+
+> I think there is some fix in current linux-next which partly fixes the
+> DWC2 role switching, so rebase this patchset on current linux-next and
+> see what happens. But it's still not perfect. I also think that ST
+> managed to side-step this issue by using the STUSB1600 chip, but I might
+> be wrong.
+
+Okay, I'll try for both Avenger96 and Stinger96 (yeah that's the name of the
+board I'm working on right now).
+
+Thanks,
+Mani
 _______________________________________________
 Linux-stm32 mailing list
 Linux-stm32@st-md-mailman.stormreply.com
