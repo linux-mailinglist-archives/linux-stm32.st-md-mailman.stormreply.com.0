@@ -2,46 +2,46 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id CF46F1A54DD
-	for <lists+linux-stm32@lfdr.de>; Sun, 12 Apr 2020 01:08:20 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id D94CC1A550C
+	for <lists+linux-stm32@lfdr.de>; Sun, 12 Apr 2020 01:09:08 +0200 (CEST)
 Received: from ip-172-31-3-76.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 8D1F3C36B0B;
-	Sat, 11 Apr 2020 23:08:20 +0000 (UTC)
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id A3041C36B0B;
+	Sat, 11 Apr 2020 23:09:08 +0000 (UTC)
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
  (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 91169C36B09
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 8D84FC36B09
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Sat, 11 Apr 2020 23:08:18 +0000 (UTC)
+ Sat, 11 Apr 2020 23:09:07 +0000 (UTC)
 Received: from sasha-vm.mshome.net (c-73-47-72-35.hsd1.nh.comcast.net
  [73.47.72.35])
  (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by mail.kernel.org (Postfix) with ESMTPSA id 37ADA215A4;
- Sat, 11 Apr 2020 23:08:16 +0000 (UTC)
+ by mail.kernel.org (Postfix) with ESMTPSA id 52C7121744;
+ Sat, 11 Apr 2020 23:09:05 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
- s=default; t=1586646497;
- bh=hxSLI/Wp+FzU1WI/4USn63xVTDunb7/+FM/8EFyhj7o=;
+ s=default; t=1586646546;
+ bh=vkkBVzW/sRQX6NVpM58Zt+UhlaswQDSkXRNwMThHjj4=;
  h=From:To:Cc:Subject:Date:In-Reply-To:References:From;
- b=wCs9K7bbA7dmFsIgvLqUPFkpe6Q7aCFeJ1gEzjSBWkcmNBOJ67lGfoGjvI1XxCkE0
- R+qDwZoHwyj9Id1c6Cm6CVvg1fjXLA3h09HG4y+dDWeIG0W+Cg9UZCOy+PFohkGfZa
- cbGi1JM4Qov9o7JREj5mx10qExpk0FqdHeNIF7SY=
+ b=utviRmTT12LrF6rVLu6DjxeyrzY4XegpPqKwyBP4VIBnGRCcwJADUIwT9g1tB83ag
+ qOP5L4qTg+am+JqRusUq8w6SWkN5oRb8zBAfuYx8raCySYs0WsKQFfLgAMhgnfeYyQ
+ xJ6TGrJfoKCN6FMYHX3dX867FYUdnm/ufdQl4smg=
 From: Sasha Levin <sashal@kernel.org>
 To: linux-kernel@vger.kernel.org,
 	stable@vger.kernel.org
-Date: Sat, 11 Apr 2020 19:06:04 -0400
-Message-Id: <20200411230706.23855-59-sashal@kernel.org>
+Date: Sat, 11 Apr 2020 19:06:42 -0400
+Message-Id: <20200411230706.23855-97-sashal@kernel.org>
 X-Mailer: git-send-email 2.20.1
 In-Reply-To: <20200411230706.23855-1-sashal@kernel.org>
 References: <20200411230706.23855-1-sashal@kernel.org>
 MIME-Version: 1.0
 X-stable: review
 X-Patchwork-Hint: Ignore
-Cc: Sasha Levin <sashal@kernel.org>, dri-devel@lists.freedesktop.org,
- Yannick Fertre <yannick.fertre@st.com>,
- linux-stm32@st-md-mailman.stormreply.com, linux-arm-kernel@lists.infradead.org
-Subject: [Linux-stm32] [PATCH AUTOSEL 5.5 059/121] drm/stm: ltdc: check crtc
-	state before enabling LIE
+Cc: Sasha Levin <sashal@kernel.org>, alsa-devel@alsa-project.org,
+ Mark Brown <broonie@kernel.org>, linux-stm32@st-md-mailman.stormreply.com,
+ linux-arm-kernel@lists.infradead.org
+Subject: [Linux-stm32] [PATCH AUTOSEL 5.5 097/121] ASoC: stm32: spdifrx: fix
+	regmap status check
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -58,44 +58,35 @@ Content-Transfer-Encoding: 7bit
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
-From: Yannick Fertre <yannick.fertre@st.com>
+From: Olivier Moysan <olivier.moysan@st.com>
 
-[ Upstream commit a6bd58c51ac43083f3977057a7ad668def55812f ]
+[ Upstream commit a168dae5ea14283e8992d5282237bb0d6a3e1c06 ]
 
-Following investigations of a hardware bug, the LIE interrupt
-can occur while the display controller is not activated.
-LIE interrupt (vblank) don't have to be set if the CRTC is not
-enabled.
+Release resources when exiting on error.
 
-Signed-off-by: Yannick Fertre <yannick.fertre@st.com>
-Acked-by: Philippe Cornu <philippe.cornu@st.com>
-Signed-off-by: Benjamin Gaignard <benjamin.gaignard@st.com>
-Link: https://patchwork.freedesktop.org/patch/msgid/1579601650-7055-1-git-send-email-yannick.fertre@st.com
+Fixes: 1a5c0b28fc56 ("ASoC: stm32: spdifrx: manage identification registers")
+
+Signed-off-by: Olivier Moysan <olivier.moysan@st.com>
+Link: https://lore.kernel.org/r/20200318144125.9163-2-olivier.moysan@st.com
+Signed-off-by: Mark Brown <broonie@kernel.org>
 Signed-off-by: Sasha Levin <sashal@kernel.org>
 ---
- drivers/gpu/drm/stm/ltdc.c | 7 ++++++-
- 1 file changed, 6 insertions(+), 1 deletion(-)
+ sound/soc/stm/stm32_spdifrx.c | 2 ++
+ 1 file changed, 2 insertions(+)
 
-diff --git a/drivers/gpu/drm/stm/ltdc.c b/drivers/gpu/drm/stm/ltdc.c
-index 5b51298921cf1..cf899cff7610a 100644
---- a/drivers/gpu/drm/stm/ltdc.c
-+++ b/drivers/gpu/drm/stm/ltdc.c
-@@ -654,9 +654,14 @@ static const struct drm_crtc_helper_funcs ltdc_crtc_helper_funcs = {
- static int ltdc_crtc_enable_vblank(struct drm_crtc *crtc)
- {
- 	struct ltdc_device *ldev = crtc_to_ltdc(crtc);
-+	struct drm_crtc_state *state = crtc->state;
+diff --git a/sound/soc/stm/stm32_spdifrx.c b/sound/soc/stm/stm32_spdifrx.c
+index 3769d9ce5dbef..e6e75897cce83 100644
+--- a/sound/soc/stm/stm32_spdifrx.c
++++ b/sound/soc/stm/stm32_spdifrx.c
+@@ -1009,6 +1009,8 @@ static int stm32_spdifrx_probe(struct platform_device *pdev)
  
- 	DRM_DEBUG_DRIVER("\n");
--	reg_set(ldev->regs, LTDC_IER, IER_LIE);
-+
-+	if (state->enable)
-+		reg_set(ldev->regs, LTDC_IER, IER_LIE);
-+	else
-+		return -EPERM;
+ 	if (idr == SPDIFRX_IPIDR_NUMBER) {
+ 		ret = regmap_read(spdifrx->regmap, STM32_SPDIFRX_VERR, &ver);
++		if (ret)
++			goto error;
  
- 	return 0;
- }
+ 		dev_dbg(&pdev->dev, "SPDIFRX version: %lu.%lu registered\n",
+ 			FIELD_GET(SPDIFRX_VERR_MAJ_MASK, ver),
 -- 
 2.20.1
 
