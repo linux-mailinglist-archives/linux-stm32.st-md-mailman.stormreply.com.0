@@ -2,46 +2,46 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id 1052A1A550F
-	for <lists+linux-stm32@lfdr.de>; Sun, 12 Apr 2020 01:09:15 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 38E281A5551
+	for <lists+linux-stm32@lfdr.de>; Sun, 12 Apr 2020 01:10:49 +0200 (CEST)
 Received: from ip-172-31-3-76.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id ADBD8C36B0B;
-	Sat, 11 Apr 2020 23:09:14 +0000 (UTC)
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id E82C1C36B0B;
+	Sat, 11 Apr 2020 23:10:48 +0000 (UTC)
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
  (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 7A1F2C36B09
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id A7E70C36B09
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Sat, 11 Apr 2020 23:09:13 +0000 (UTC)
+ Sat, 11 Apr 2020 23:10:47 +0000 (UTC)
 Received: from sasha-vm.mshome.net (c-73-47-72-35.hsd1.nh.comcast.net
  [73.47.72.35])
  (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by mail.kernel.org (Postfix) with ESMTPSA id 2D69D20708;
- Sat, 11 Apr 2020 23:09:11 +0000 (UTC)
+ by mail.kernel.org (Postfix) with ESMTPSA id 1FC73215A4;
+ Sat, 11 Apr 2020 23:10:45 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
- s=default; t=1586646552;
- bh=BuT+U3bSnltRoLUw4bLKl1iPe6gDp2CGnADnaOvLaGw=;
+ s=default; t=1586646646;
+ bh=ro+UH2pzJ7jq/JsdwUicZ4oGUsoHLMDJ0rgOv9Z7+UQ=;
  h=From:To:Cc:Subject:Date:In-Reply-To:References:From;
- b=1eEN1Fbtet4vlVm4DU46J1iSdc6/Q9i3eiuR2CdoK1bjZw9oXuvuUyMr+VChiGAuF
- tdveL62/lXc1ZR0eOfFq1RVb2XZ3qm3u2GtfPMeq2PK3jdIMso6Bz+eiA+jVliylNq
- gVNMU+ZYm2bL2cApalkFnnRXK0CxwpabPpLbaaq4=
+ b=YPKQHlTkanqc8H7u7KoBkHaUbAt4gkY/fQd0jgB5OUn23wE9oAdT9zMKGRiceK3aA
+ oU/eU0mm4ex9FiUVmeFP22dZ7EuW4qYIAz2IqaqlEnhIDblomapcuS+MtquAu9Ujio
+ 1r52EnnmB/WmcmW9GQLLUgsw4S6IYRDTmulqlJHs=
 From: Sasha Levin <sashal@kernel.org>
 To: linux-kernel@vger.kernel.org,
 	stable@vger.kernel.org
-Date: Sat, 11 Apr 2020 19:06:47 -0400
-Message-Id: <20200411230706.23855-102-sashal@kernel.org>
+Date: Sat, 11 Apr 2020 19:08:46 -0400
+Message-Id: <20200411230943.24951-51-sashal@kernel.org>
 X-Mailer: git-send-email 2.20.1
-In-Reply-To: <20200411230706.23855-1-sashal@kernel.org>
-References: <20200411230706.23855-1-sashal@kernel.org>
+In-Reply-To: <20200411230943.24951-1-sashal@kernel.org>
+References: <20200411230943.24951-1-sashal@kernel.org>
 MIME-Version: 1.0
 X-stable: review
 X-Patchwork-Hint: Ignore
-Cc: Etienne Carriere <etienne.carriere@st.com>, Sasha Levin <sashal@kernel.org>,
- Vinod Koul <vkoul@kernel.org>, dmaengine@vger.kernel.org,
+Cc: Sasha Levin <sashal@kernel.org>, dri-devel@lists.freedesktop.org,
+ Yannick Fertre <yannick.fertre@st.com>,
  linux-stm32@st-md-mailman.stormreply.com, linux-arm-kernel@lists.infradead.org
-Subject: [Linux-stm32] [PATCH AUTOSEL 5.5 102/121] dmaengine: stm32-dma: use
-	reset controller only at probe time
+Subject: [Linux-stm32] [PATCH AUTOSEL 5.4 051/108] drm/stm: ltdc: check crtc
+	state before enabling LIE
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -58,58 +58,44 @@ Content-Transfer-Encoding: 7bit
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
-From: Etienne Carriere <etienne.carriere@st.com>
+From: Yannick Fertre <yannick.fertre@st.com>
 
-[ Upstream commit 8cf1e0fc50fcc25021567bb2755580504c57c83a ]
+[ Upstream commit a6bd58c51ac43083f3977057a7ad668def55812f ]
 
-Remove reset controller reference from device instance since it is
-used only at probe time.
+Following investigations of a hardware bug, the LIE interrupt
+can occur while the display controller is not activated.
+LIE interrupt (vblank) don't have to be set if the CRTC is not
+enabled.
 
-Signed-off-by: Etienne Carriere <etienne.carriere@st.com>
-Signed-off-by: Amelie Delaunay <amelie.delaunay@st.com>
-Link: https://lore.kernel.org/r/20200129153628.29329-3-amelie.delaunay@st.com
-Signed-off-by: Vinod Koul <vkoul@kernel.org>
+Signed-off-by: Yannick Fertre <yannick.fertre@st.com>
+Acked-by: Philippe Cornu <philippe.cornu@st.com>
+Signed-off-by: Benjamin Gaignard <benjamin.gaignard@st.com>
+Link: https://patchwork.freedesktop.org/patch/msgid/1579601650-7055-1-git-send-email-yannick.fertre@st.com
 Signed-off-by: Sasha Levin <sashal@kernel.org>
 ---
- drivers/dma/stm32-dma.c | 10 +++++-----
- 1 file changed, 5 insertions(+), 5 deletions(-)
+ drivers/gpu/drm/stm/ltdc.c | 7 ++++++-
+ 1 file changed, 6 insertions(+), 1 deletion(-)
 
-diff --git a/drivers/dma/stm32-dma.c b/drivers/dma/stm32-dma.c
-index 5989b08935211..ff34a10fc8d89 100644
---- a/drivers/dma/stm32-dma.c
-+++ b/drivers/dma/stm32-dma.c
-@@ -207,7 +207,6 @@ struct stm32_dma_device {
- 	struct dma_device ddev;
- 	void __iomem *base;
- 	struct clk *clk;
--	struct reset_control *rst;
- 	bool mem2mem;
- 	struct stm32_dma_chan chan[STM32_DMA_MAX_CHANNELS];
- };
-@@ -1275,6 +1274,7 @@ static int stm32_dma_probe(struct platform_device *pdev)
- 	struct dma_device *dd;
- 	const struct of_device_id *match;
- 	struct resource *res;
-+	struct reset_control *rst;
- 	int i, ret;
+diff --git a/drivers/gpu/drm/stm/ltdc.c b/drivers/gpu/drm/stm/ltdc.c
+index 3ab4fbf8eb0d1..2526dfb77401c 100644
+--- a/drivers/gpu/drm/stm/ltdc.c
++++ b/drivers/gpu/drm/stm/ltdc.c
+@@ -653,9 +653,14 @@ static const struct drm_crtc_helper_funcs ltdc_crtc_helper_funcs = {
+ static int ltdc_crtc_enable_vblank(struct drm_crtc *crtc)
+ {
+ 	struct ltdc_device *ldev = crtc_to_ltdc(crtc);
++	struct drm_crtc_state *state = crtc->state;
  
- 	match = of_match_device(stm32_dma_of_match, &pdev->dev);
-@@ -1309,11 +1309,11 @@ static int stm32_dma_probe(struct platform_device *pdev)
- 	dmadev->mem2mem = of_property_read_bool(pdev->dev.of_node,
- 						"st,mem2mem");
+ 	DRM_DEBUG_DRIVER("\n");
+-	reg_set(ldev->regs, LTDC_IER, IER_LIE);
++
++	if (state->enable)
++		reg_set(ldev->regs, LTDC_IER, IER_LIE);
++	else
++		return -EPERM;
  
--	dmadev->rst = devm_reset_control_get(&pdev->dev, NULL);
--	if (!IS_ERR(dmadev->rst)) {
--		reset_control_assert(dmadev->rst);
-+	rst = devm_reset_control_get(&pdev->dev, NULL);
-+	if (!IS_ERR(rst)) {
-+		reset_control_assert(rst);
- 		udelay(2);
--		reset_control_deassert(dmadev->rst);
-+		reset_control_deassert(rst);
- 	}
- 
- 	dma_cap_set(DMA_SLAVE, dd->cap_mask);
+ 	return 0;
+ }
 -- 
 2.20.1
 
