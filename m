@@ -2,73 +2,51 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id 0E0A71A8B5D
-	for <lists+linux-stm32@lfdr.de>; Tue, 14 Apr 2020 21:47:09 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 904771A8CB1
+	for <lists+linux-stm32@lfdr.de>; Tue, 14 Apr 2020 22:42:17 +0200 (CEST)
 Received: from ip-172-31-3-76.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id BAC64C36B0C;
-	Tue, 14 Apr 2020 19:47:08 +0000 (UTC)
-Received: from smtprelay.hostedemail.com (smtprelay0160.hostedemail.com
- [216.40.44.160])
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 4945CC36B0C;
+	Tue, 14 Apr 2020 20:42:17 +0000 (UTC)
+Received: from perceval.ideasonboard.com (perceval.ideasonboard.com
+ [213.167.242.64])
  (using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id C4639C36B0A
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 593C0C36B0A
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Tue, 14 Apr 2020 19:47:06 +0000 (UTC)
-Received: from filter.hostedemail.com (clb03-v110.bra.tucows.net
- [216.40.38.60])
- by smtprelay06.hostedemail.com (Postfix) with ESMTP id 9E3611802B57F;
- Tue, 14 Apr 2020 19:47:05 +0000 (UTC)
-X-Session-Marker: 6A6F6540706572636865732E636F6D
-X-Spam-Summary: 2, 0, 0, , d41d8cd98f00b204, joe@perches.com, ,
- RULES_HIT:41:355:379:599:966:988:989:1260:1277:1311:1313:1314:1345:1359:1437:1515:1516:1518:1534:1537:1561:1593:1594:1711:1714:1730:1747:1777:1792:2196:2199:2393:2559:2562:2828:3138:3139:3140:3141:3142:3622:3865:3867:3872:3874:4321:4385:5007:6742:6743:10004:10400:10848:11232:11658:11914:12297:12740:12760:12895:13069:13311:13357:13439:14659:14721:21080:21627:30045:30054:30070:30091,
- 0, RBL:none, CacheIP:none, Bayesian:0.5, 0.5, 0.5, Netcheck:none,
- DomainCache:0, MSF:not bulk, SPF:, MSBL:0, DNSBL:none, Custom_rules:0:0:0,
- LFtime:1, LUA_SUMMARY:none
-X-HE-Tag: coal59_5a1e7cc02a463
-X-Filterd-Recvd-Size: 2796
-Received: from XPS-9350.home (unknown [47.151.136.130])
- (Authenticated sender: joe@perches.com)
- by omf07.hostedemail.com (Postfix) with ESMTPA;
- Tue, 14 Apr 2020 19:46:59 +0000 (UTC)
-Message-ID: <2a58f592879cf67b4c6b8e859ce87e1f9652902a.camel@perches.com>
-From: Joe Perches <joe@perches.com>
-To: Waiman Long <longman@redhat.com>, Michal =?ISO-8859-1?Q?Such=E1nek?=
- <msuchanek@suse.de>
-Date: Tue, 14 Apr 2020 12:44:49 -0700
-In-Reply-To: <578fe9b6-1ccd-2698-60aa-96c3f2dd2c31@redhat.com>
-References: <20200413211550.8307-1-longman@redhat.com>
- <20200413222846.24240-1-longman@redhat.com>
- <eca85e0b-0af3-c43a-31e4-bd5c3f519798@c-s.fr>
- <e194a51f-a5e5-a557-c008-b08cac558572@redhat.com>
- <20200414191601.GZ25468@kitsune.suse.cz>
- <578fe9b6-1ccd-2698-60aa-96c3f2dd2c31@redhat.com>
-User-Agent: Evolution 3.34.1-2 
+ Tue, 14 Apr 2020 20:42:15 +0000 (UTC)
+Received: from pendragon.ideasonboard.com (81-175-216-236.bb.dnainternet.fi
+ [81.175.216.236])
+ by perceval.ideasonboard.com (Postfix) with ESMTPSA id D7B05521;
+ Tue, 14 Apr 2020 22:42:13 +0200 (CEST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=ideasonboard.com;
+ s=mail; t=1586896934;
+ bh=gUuaIJ3u+fel6jj4JqVEOGrL2STu9lBIgJke/U/dqJY=;
+ h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
+ b=NKMoMvq3toxLJ00KSu+xAkx6PhAfgq5ehyu67cm63r7bdZK3F9M+Js50OYUTf5wd8
+ ZkgyL8zrnF//1II9JfEzZnO+35ZpPAjQnZmABcq7cU8O04VTa066J3H3sIaMy+amCC
+ 0SIQj5mTegDI2a6TIb2y7j6rmdPML5PQiY9e61M0=
+Date: Tue, 14 Apr 2020 23:42:02 +0300
+From: Laurent Pinchart <laurent.pinchart@ideasonboard.com>
+To: Adrian Ratiu <adrian.ratiu@collabora.com>
+Message-ID: <20200414204202.GL19819@pendragon.ideasonboard.com>
+References: <20200414151955.311949-1-adrian.ratiu@collabora.com>
+ <20200414151955.311949-6-adrian.ratiu@collabora.com>
 MIME-Version: 1.0
-Cc: linux-btrfs@vger.kernel.org,
- Jarkko Sakkinen <jarkko.sakkinen@linux.intel.com>,
- virtualization@lists.linux-foundation.org, David Howells <dhowells@redhat.com>,
- linux-mm@kvack.org, linux-sctp@vger.kernel.org, keyrings@vger.kernel.org,
- kasan-dev@googlegroups.com, samba-technical@lists.samba.org,
- linux-stm32@st-md-mailman.stormreply.com, devel@driverdev.osuosl.org,
- linux-s390@vger.kernel.org, linux-scsi@vger.kernel.org, x86@kernel.org,
- James Morris <jmorris@namei.org>, Matthew Wilcox <willy@infradead.org>,
- cocci@systeme.lip6.fr, linux-wpan@vger.kernel.org,
- intel-wired-lan@lists.osuosl.org, David Rientjes <rientjes@google.com>,
- "Serge E. Hallyn" <serge@hallyn.com>, linux-pm@vger.kernel.org,
- ecryptfs@vger.kernel.org, linux-nfs@vger.kernel.org,
- linux-fscrypt@vger.kernel.org, linux-mediatek@lists.infradead.org,
- linux-amlogic@lists.infradead.org, linux-integrity@vger.kernel.org,
- linux-arm-kernel@lists.infradead.org,
- Christophe Leroy <christophe.leroy@c-s.fr>, linux-cifs@vger.kernel.org,
- Linus Torvalds <torvalds@linux-foundation.org>, linux-wireless@vger.kernel.org,
- linux-kernel@vger.kernel.org, linux-bluetooth@vger.kernel.org,
- linux-security-module@vger.kernel.org, target-devel@vger.kernel.org,
- tipc-discussion@lists.sourceforge.net, linux-crypto@vger.kernel.org,
- netdev@vger.kernel.org, Andrew Morton <akpm@linux-foundation.org>,
- linuxppc-dev@lists.ozlabs.org, wireguard@lists.zx2c4.com,
- linux-ppp@vger.kernel.org
-Subject: Re: [Linux-stm32] [PATCH v2 2/2] crypto: Remove unnecessary
-	memzero_explicit()
+Content-Disposition: inline
+In-Reply-To: <20200414151955.311949-6-adrian.ratiu@collabora.com>
+Cc: Rob Herring <robh@kernel.org>, devicetree@vger.kernel.org,
+ Jernej Skrabec <jernej.skrabec@siol.net>,
+ Sjoerd Simons <sjoerd.simons@collabora.com>, Heiko Stuebner <heiko@sntech.de>,
+ Adrian Pop <pop.adrian61@gmail.com>, Jonas Karlman <jonas@kwiboo.se>,
+ Martyn Welch <martyn.welch@collabora.com>,
+ Neil Armstrong <narmstrong@baylibre.com>, linux-kernel@vger.kernel.org,
+ dri-devel@lists.freedesktop.org, Andrzej Hajda <a.hajda@samsung.com>,
+ linux-imx@nxp.com, Arnaud Ferraris <arnaud.ferraris@collabora.com>,
+ linux-rockchip@lists.infradead.org, kernel@collabora.com,
+ Fabio Estevam <festevam@gmail.com>, linux-stm32@st-md-mailman.stormreply.com,
+ linux-arm-kernel@lists.infradead.org
+Subject: Re: [Linux-stm32] [PATCH v6 5/8] dt-bindings: display: add i.MX6
+ MIPI DSI host controller doc
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -85,20 +63,235 @@ Content-Transfer-Encoding: 7bit
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
-On Tue, 2020-04-14 at 15:37 -0400, Waiman Long wrote:
-> OK, I can change it to clear the key length when the allocation failed
-> which isn't likely.
+Hi Adrian,
+
+Thank you for the patch.
+
+On Tue, Apr 14, 2020 at 06:19:52PM +0300, Adrian Ratiu wrote:
+> This provides an example DT binding for the MIPI DSI host controller
+> present on the i.MX6 SoC based on Synopsis DesignWare v1.01 IP.
+> 
+> Cc: Rob Herring <robh@kernel.org>
+> Cc: Neil Armstrong <narmstrong@baylibre.com>
+> Cc: Fabio Estevam <festevam@gmail.com>
+> Cc: devicetree@vger.kernel.org
+> Tested-by: Adrian Pop <pop.adrian61@gmail.com>
+> Tested-by: Arnaud Ferraris <arnaud.ferraris@collabora.com>
+> Signed-off-by: Sjoerd Simons <sjoerd.simons@collabora.com>
+> Signed-off-by: Martyn Welch <martyn.welch@collabora.com>
+> Signed-off-by: Adrian Ratiu <adrian.ratiu@collabora.com>
+> ---
+> Changes since v5:
+>   - Fixed missing reg warning (Fabio)
+>   - Updated dt-schema and fixed warnings (Rob)
+> 
+> Changes since v4:
+>   - Fixed yaml binding to pass `make dt_binding_check dtbs_check`
+>   and addressed received binding feedback (Rob)
+> 
+> Changes since v3:
+>   - Added commit message (Neil)
+>   - Converted to yaml format (Neil)
+>   - Minor dt node + driver fixes (Rob)
+>   - Added small panel example to the host controller binding
+> 
+> Changes since v2:
+>   - Fixed commit tags (Emil)
+> ---
+>  .../display/imx/fsl,mipi-dsi-imx6.yaml        | 139 ++++++++++++++++++
+>  1 file changed, 139 insertions(+)
+>  create mode 100644 Documentation/devicetree/bindings/display/imx/fsl,mipi-dsi-imx6.yaml
+> 
+> diff --git a/Documentation/devicetree/bindings/display/imx/fsl,mipi-dsi-imx6.yaml b/Documentation/devicetree/bindings/display/imx/fsl,mipi-dsi-imx6.yaml
+> new file mode 100644
+> index 000000000000..10e289ea219a
+> --- /dev/null
+> +++ b/Documentation/devicetree/bindings/display/imx/fsl,mipi-dsi-imx6.yaml
+> @@ -0,0 +1,139 @@
+> +# SPDX-License-Identifier: (GPL-2.0-only OR BSD-2-Clause)
+> +%YAML 1.2
+> +---
+> +$id: http://devicetree.org/schemas/display/imx/fsl,mipi-dsi-imx6.yaml#
+> +$schema: http://devicetree.org/meta-schemas/core.yaml#
+> +
+> +title: Freescale i.MX6 DW MIPI DSI Host Controller
+> +
+> +maintainers:
+> +  - Adrian Ratiu <adrian.ratiu@collabora.com>
+> +
+> +description: |
+> +  The i.MX6 DSI host controller is a Synopsys DesignWare MIPI DSI v1.01
+> +  IP block with a companion PHY IP.
+> +
+> +  These DT bindings follow the Synopsys DW MIPI DSI bindings defined in
+> +  Documentation/devicetree/bindings/display/bridge/dw_mipi_dsi.txt with
+> +  the following device-specific properties.
+
+Not necessarily a prerequisite for this patch, but it would be nice to
+get that converted to yaml, and included here with
+
+allOf:
+  $ref: ../bridge/snps,dw-mipi-dsi.yaml#
+
+(assuming that's how the file will be called).
+
+> +
+> +properties:
+> +  compatible:
+> +    items:
+> +      - const: fsl,imx6q-mipi-dsi
+> +      - const: snps,dw-mipi-dsi
+> +
+> +  reg:
+> +    maxItems: 1
+> +
+> +  interrupts:
+> +    maxItems: 1
+> +
+> +  clocks:
+> +    items:
+> +      - description: Module Clock
+> +      - description: DSI bus clock
+> +
+> +  clock-names:
+> +    items:
+> +      - const: ref
+> +      - const: pclk
+> +
+> +  fsl,gpr:
+> +    description: Phandle to the iomuxc-gpr region containing the multiplexer control register.
+
+Could you please wrap liens at a 80 columns boundary ?
+
+> +    $ref: /schemas/types.yaml#/definitions/phandle
+> +
+> +  ports:
+> +    type: object
+> +    description: |
+> +      A node containing DSI input & output port nodes with endpoint
+> +      definitions as documented in
+> +      Documentation/devicetree/bindings/media/video-interfaces.txt
+> +      Documentation/devicetree/bindings/graph.txt
+> +    properties:
+
+You should add
+
+       '#address-cells':
+         const: 1
+
+       '#size-cells':
+         const: 0
+
+> +      port@0:
+> +        type: object
+> +        description:
+> +          DSI input port node, connected to the ltdc rgb output port.
+> +
+> +      port@1:
+> +        type: object
+> +        description:
+> +          DSI output port node, connected to a panel or a bridge input port"
 
 
-Perhaps:
+Should this be "RGB output port node" ? And s/"/./
 
-	kfree_sensitive(op->key);
-	op->key = NULL;
-	op->keylen = 0;
+And here you should add
 
-but I don't know that it impacts any possible state.
+       additionalProperties: false
 
+> +
+> +patternProperties:
+> +  "^panel@[0-3]$":
+> +    type: object
+> +    description: |
+> +      A node containing the panel or bridge description as documented in
+> +      Documentation/devicetree/bindings/display/mipi-dsi-bus.txt
+> +    properties:
+> +      port:
+> +        type: object
+> +        description:
+> +          Panel or bridge port node, connected to the DSI output port (port@1)
 
+Does this belong here ? I think the port property for the panel needs to
+be described in the panel's binding instead.
+
+> +
+> +  "#address-cells":
+> +    const: 1
+> +
+> +  "#size-cells":
+> +    const: 0
+
+These two properties are not pattern properties, right ? Should they be
+listed under the properties above ?
+
+> +
+> +required:
+> +  - "#address-cells"
+> +  - "#size-cells"
+> +  - compatible
+> +  - reg
+> +  - interrupts
+> +  - clocks
+> +  - clock-names
+> +  - ports
+> +
+> +additionalProperties: false
+> +
+> +examples:
+> +  - |+
+> +    #include <dt-bindings/interrupt-controller/arm-gic.h>
+> +    #include <dt-bindings/clock/imx6qdl-clock.h>
+> +    #include <dt-bindings/gpio/gpio.h>
+
+Alphabetical order ?
+
+> +
+> +    dsi: dsi@21e0000 {
+> +        #address-cells = <1>;
+> +        #size-cells = <0>;
+> +        compatible = "fsl,imx6q-mipi-dsi", "snps,dw-mipi-dsi";
+> +        reg = <0x021e0000 0x4000>;
+> +        interrupts = <0 102 IRQ_TYPE_LEVEL_HIGH>;
+> +        fsl,gpr = <&gpr>;
+> +        clocks = <&clks IMX6QDL_CLK_MIPI_CORE_CFG>,
+> +                 <&clks IMX6QDL_CLK_MIPI_IPG>;
+> +        clock-names = "ref", "pclk";
+> +
+> +        ports {
+> +            #address-cells = <1>;
+> +            #size-cells = <0>;
+> +            port@1 {
+> +                reg = <1>;
+> +                dsi_out: endpoint {
+> +                    remote-endpoint = <&panel_in>;
+> +                };
+> +            };
+> +        };
+> +
+> +        panel@0 {
+> +            compatible = "sharp,ls032b3sx01";
+> +            reg = <0>;
+> +            reset-gpios = <&gpio6 8 GPIO_ACTIVE_LOW>;
+> +            ports {
+> +                #address-cells = <1>;
+> +                #size-cells = <0>;
+> +                port@0 {
+> +                    reg = <0>;
+> +                    panel_in: endpoint {
+> +                        remote-endpoint = <&dsi_out>;
+> +                    };
+> +                };
+> +            };
+> +        };
+> +    };
+> +
+> +...
+
+-- 
+Regards,
+
+Laurent Pinchart
 _______________________________________________
 Linux-stm32 mailing list
 Linux-stm32@st-md-mailman.stormreply.com
