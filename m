@@ -2,62 +2,130 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id 830071A70A7
-	for <lists+linux-stm32@lfdr.de>; Tue, 14 Apr 2020 03:50:04 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 99E851A723D
+	for <lists+linux-stm32@lfdr.de>; Tue, 14 Apr 2020 06:05:55 +0200 (CEST)
 Received: from ip-172-31-3-76.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 26AF9C36B0B;
-	Tue, 14 Apr 2020 01:50:04 +0000 (UTC)
-Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
- (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
- (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id CEB81C36B09
- for <linux-stm32@st-md-mailman.stormreply.com>;
- Tue, 14 Apr 2020 01:50:01 +0000 (UTC)
-Received: from mail-wm1-f49.google.com (mail-wm1-f49.google.com
- [209.85.128.49])
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 37C21C36B0B;
+	Tue, 14 Apr 2020 04:05:55 +0000 (UTC)
+Received: from mail-pg1-f195.google.com (mail-pg1-f195.google.com
+ [209.85.215.195])
  (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by mail.kernel.org (Postfix) with ESMTPSA id F080720775
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 433F6C36B09
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Tue, 14 Apr 2020 01:49:59 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
- s=default; t=1586829000;
- bh=vXA9q8sEY9SbPvIcQ96LL9SjViMTa5ew+yrz24pkr/E=;
- h=References:In-Reply-To:From:Date:Subject:To:Cc:From;
- b=SWiKFLseJ5Tu4B0xlU02YhwRey+bsGWzKJguSE4tU9XTEruOGJHAbkczwSJp3x2eG
- fcsnfYjUqA2JDV3AV6xOFamC0oO4C6C8PSbaNSWceO/Iy2ctVm0sbpx5HKYBBQg4co
- DwCKGXkZFTN6F0blO0+SVDcVvG0Eq/nGgrdLn1cM=
-Received: by mail-wm1-f49.google.com with SMTP id r26so12225480wmh.0
+ Tue, 14 Apr 2020 04:05:53 +0000 (UTC)
+Received: by mail-pg1-f195.google.com with SMTP id r4so5445708pgg.4
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Mon, 13 Apr 2020 18:49:59 -0700 (PDT)
-X-Gm-Message-State: AGi0PuYopU8jwnoiuCbZhm+BkEc2pMZwUV8ywgUbUciYQm0h6c4FlAMg
- cJ42zxskQLVbaquLGLUinWvICUtQ91lbKIbUBDY=
-X-Google-Smtp-Source: APiQypKOxEpt6GAvO4Ooxq2Lkas6ZiYokwDtKPN9Jt46BH0K2njaNHzVcpNOU5zijVjK3H9M6q25t+rlrEOqhpvTon0=
-X-Received: by 2002:a05:600c:295a:: with SMTP id
- n26mr23009054wmd.16.1586828998334; 
- Mon, 13 Apr 2020 18:49:58 -0700 (PDT)
-MIME-Version: 1.0
+ Mon, 13 Apr 2020 21:05:53 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20161025;
+ h=subject:to:cc:references:from:autocrypt:message-id:date:user-agent
+ :mime-version:in-reply-to:content-language:content-transfer-encoding;
+ bh=57wR7JG4KovsCDlh+sC4csFKRuPvrO4meeh+YvRdIVk=;
+ b=szpE27qROKvKU7yT3f0u05s9ZgCO+p9oVjdTeFrdL5C4/FpuclODtYuncaEZ6ljX/X
+ /IOPK1GgCHp2vMraThc/t6GsOkVLWKV/hVxP9DJYIqt/DlT9vHqzrgnLN1vt0Rlk/aFX
+ YhWHyOrgjBlpITRvNjw/lvcmhj9e5xkTTpmqx9k1ZLFXTWc55TtkawHHciipO6SDVrwb
+ ZpAHH7CBnz29dfk0GFIBUrpQs26tL4WlBhaXgeSgePToQEyecwI8C/45NMuEXeqsqPJD
+ B9JETxuNVkdzmEj3NxQiuPS6+ipf2J0dmnbZYO+vqQq4mQX+kXcR1Ppgi8QpIHn18eb4
+ Q0HA==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20161025;
+ h=x-gm-message-state:subject:to:cc:references:from:autocrypt
+ :message-id:date:user-agent:mime-version:in-reply-to
+ :content-language:content-transfer-encoding;
+ bh=57wR7JG4KovsCDlh+sC4csFKRuPvrO4meeh+YvRdIVk=;
+ b=LkFmkd4AONWAe1C5TzTZOFzKn0oIJAZGvDTg9RMdcTLaY2w+97Nx8V2o80YS+keQb/
+ U1XwPrZgvz6E7hvmp0Fia110McKDqsFh1/7I7nDJpAe8Jg0VJXv/Bl6E8ujftVQsItn/
+ ngtSz97vOcrvc0C1CrctJ7Y66pIkxza6y1x8/gkKHxj6DvMTOjFa2ylMpSSoodhlxMXc
+ 7fC5vU/MXu4xF0QMr+Ib5nGCth1WS/99QQWGk19a3+c66sVFWLm4iPnXUT0Oi6GB8RiU
+ j8zn95zbWKS829OUX4i/n+vKG1COA2WAD1IstUYs1RLDkvbhcJNT21oWVySWre+aeSLZ
+ ODYA==
+X-Gm-Message-State: AGi0PuYouezdA2Mu3klvnR1gwKTwZIT5TiNB4NavMB8qmMdxP5MYDmbr
+ o/gdNFTChgxlsVpKhKtgUdM=
+X-Google-Smtp-Source: APiQypKChFmlWATB+qew24ZmMb6ujy8tXZXTanSdaJA5SK9tcudccbhcUthmmgIwSmVF3pF6I38tTA==
+X-Received: by 2002:a63:b952:: with SMTP id v18mr15018095pgo.179.1586837151624; 
+ Mon, 13 Apr 2020 21:05:51 -0700 (PDT)
+Received: from [10.230.188.26] ([192.19.223.252])
+ by smtp.gmail.com with ESMTPSA id t123sm9977679pfd.48.2020.04.13.21.05.49
+ (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+ Mon, 13 Apr 2020 21:05:50 -0700 (PDT)
+To: Chen-Yu Tsai <wens@kernel.org>, Jose Abreu <Jose.Abreu@synopsys.com>
 References: <20200412034931.9558-1-f.fainelli@gmail.com>
  <20200412112756.687ff227@kicinski-fedora-pc1c0hjn.dhcp.thefacebook.com>
  <ae06b4c6-6818-c053-6f33-55c96f88a4ae@gmail.com>
  <BN8PR12MB3266A47DE93CEAEBDB4F288AD3DD0@BN8PR12MB3266.namprd12.prod.outlook.com>
  <CAGb2v65wjtphcN4DEM4mfv+=U5KUmsTujVoPb9L0idwy=ysDZw@mail.gmail.com>
  <BN8PR12MB32667D9FEB2FBC9657C16183D3DD0@BN8PR12MB3266.namprd12.prod.outlook.com>
-In-Reply-To: <BN8PR12MB32667D9FEB2FBC9657C16183D3DD0@BN8PR12MB3266.namprd12.prod.outlook.com>
-From: Chen-Yu Tsai <wens@kernel.org>
-Date: Tue, 14 Apr 2020 09:49:57 +0800
-X-Gmail-Original-Message-ID: <CAGb2v64XcLHYFVwy8mnKnUR2qEcJOYLHJF1uDAcqmy484CUoFQ@mail.gmail.com>
-Message-ID: <CAGb2v64XcLHYFVwy8mnKnUR2qEcJOYLHJF1uDAcqmy484CUoFQ@mail.gmail.com>
-To: Jose Abreu <Jose.Abreu@synopsys.com>
-Cc: Florian Fainelli <f.fainelli@gmail.com>,
- "netdev@vger.kernel.org" <netdev@vger.kernel.org>,
+ <CAGb2v64XcLHYFVwy8mnKnUR2qEcJOYLHJF1uDAcqmy484CUoFQ@mail.gmail.com>
+From: Florian Fainelli <f.fainelli@gmail.com>
+Autocrypt: addr=f.fainelli@gmail.com; keydata=
+ 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
+ M5kY0ACeNhCZJvZ5g4C2Lc9fcTHu8jxmEkI=
+Message-ID: <c123b280-e66e-229e-a6a1-1999ed0b0338@gmail.com>
+Date: Mon, 13 Apr 2020 21:05:48 -0700
+User-Agent: Mozilla/5.0 (Windows NT 10.0; WOW64; rv:68.0) Gecko/20100101
+ Firefox/68.0 Thunderbird/68.7.0
+MIME-Version: 1.0
+In-Reply-To: <CAGb2v64XcLHYFVwy8mnKnUR2qEcJOYLHJF1uDAcqmy484CUoFQ@mail.gmail.com>
+Content-Language: en-US
+Cc: "netdev@vger.kernel.org" <netdev@vger.kernel.org>,
  open list <linux-kernel@vger.kernel.org>,
  "mripard@kernel.org" <mripard@kernel.org>,
  "David S. Miller" <davem@davemloft.net>,
- "olteanv@gmail.com" <olteanv@gmail.com>,
  Maxime Coquelin <mcoquelin.stm32@gmail.com>,
  Giuseppe Cavallaro <peppe.cavallaro@st.com>, Jakub Kicinski <kuba@kernel.org>,
- Chen-Yu Tsai <wens@kernel.org>, "moderated list:ARM/STM32 ARCHITECTURE"
+ "olteanv@gmail.com" <olteanv@gmail.com>,
+ "moderated list:ARM/STM32 ARCHITECTURE"
  <linux-stm32@st-md-mailman.stormreply.com>,
  "moderated list:ARM/STM32 ARCHITECTURE" <linux-arm-kernel@lists.infradead.org>
 Subject: Re: [Linux-stm32] [PATCH net] net: stmmac: Guard against txfifosz=0
@@ -77,62 +145,69 @@ Content-Transfer-Encoding: 7bit
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
-On Mon, Apr 13, 2020 at 2:59 PM Jose Abreu <Jose.Abreu@synopsys.com> wrote:
->
-> From: Chen-Yu Tsai <wens@kernel.org>
-> Date: Apr/13/2020, 07:50:47 (UTC+00:00)
->
-> > On Mon, Apr 13, 2020 at 2:42 PM Jose Abreu <Jose.Abreu@synopsys.com> wrote:
-> > >
-> > > From: Florian Fainelli <f.fainelli@gmail.com>
-> > > Date: Apr/12/2020, 19:31:55 (UTC+00:00)
-> > >
-> > > >
-> > > >
-> > > > On 4/12/2020 11:27 AM, Jakub Kicinski wrote:
-> > > > > On Sat, 11 Apr 2020 20:49:31 -0700 Florian Fainelli wrote:
-> > > > >> After commit bfcb813203e619a8960a819bf533ad2a108d8105 ("net: dsa:
-> > > > >> configure the MTU for switch ports") my Lamobo R1 platform which uses
-> > > > >> an allwinner,sun7i-a20-gmac compatible Ethernet MAC started to fail
-> > > > >> by rejecting a MTU of 1536. The reason for that is that the DMA
-> > > > >> capabilities are not readable on this version of the IP, and there is
-> > > > >> also no 'tx-fifo-depth' property being provided in Device Tree. The
-> > > > >> property is documented as optional, and is not provided.
-> > > > >>
-> > > > >> The minimum MTU that the network device accepts is ETH_ZLEN - ETH_HLEN,
-> > > > >> so rejecting the new MTU based on the txfifosz value unchecked seems a
-> > > > >> bit too heavy handed here.
-> > > > >
-> > > > > OTOH is it safe to assume MTUs up to 16k are valid if device tree lacks
-> > > > > the optional property? Is this change purely to preserve backward
-> > > > > (bug-ward?) compatibility, even if it's not entirely correct to allow
-> > > > > high MTU values? (I think that'd be worth stating in the commit message
-> > > > > more explicitly.) Is there no "reasonable default" we could select for
-> > > > > txfifosz if property is missing?
-> > > >
-> > > > Those are good questions, and I do not know how to answer them as I am
-> > > > not familiar with the stmmac HW design, but I am hoping Jose can respond
-> > > > on this patch. It does sound like providing a default TX FIFO size would
-> > > > solve that MTU problem, too, but without a 'tx-fifo-depth' property
-> > > > specified in Device Tree, and with the "dma_cap" being empty for this
-> > > > chip, I have no idea what to set it to.
-> > >
-> > > Unfortunately, allwinner uses GMAC which does not have any mean to detect
-> > > TX FIFO Size. Default value in HW is 2k but this can not be the case in
-> > > these platforms if HW team decided to change it.
-> >
-> > I looked at all the publicly available datasheets and Allwinner uses
-> > 4K TX FIFO and 16K RX FIFO in all SoCs. Not sure if this would help.
->
-> Yes, thanks for finding this!
->
-> So, I think correct fix is then to hard-code these values in dwmac-sunxi.c
-> probe function using the already available platform data structure.
 
-I guess we should also set this in the device trees, so that all DT users
-can benefit.
 
-ChenYu
+On 4/13/2020 6:49 PM, Chen-Yu Tsai wrote:
+> On Mon, Apr 13, 2020 at 2:59 PM Jose Abreu <Jose.Abreu@synopsys.com> wrote:
+>>
+>> From: Chen-Yu Tsai <wens@kernel.org>
+>> Date: Apr/13/2020, 07:50:47 (UTC+00:00)
+>>
+>>> On Mon, Apr 13, 2020 at 2:42 PM Jose Abreu <Jose.Abreu@synopsys.com> wrote:
+>>>>
+>>>> From: Florian Fainelli <f.fainelli@gmail.com>
+>>>> Date: Apr/12/2020, 19:31:55 (UTC+00:00)
+>>>>
+>>>>>
+>>>>>
+>>>>> On 4/12/2020 11:27 AM, Jakub Kicinski wrote:
+>>>>>> On Sat, 11 Apr 2020 20:49:31 -0700 Florian Fainelli wrote:
+>>>>>>> After commit bfcb813203e619a8960a819bf533ad2a108d8105 ("net: dsa:
+>>>>>>> configure the MTU for switch ports") my Lamobo R1 platform which uses
+>>>>>>> an allwinner,sun7i-a20-gmac compatible Ethernet MAC started to fail
+>>>>>>> by rejecting a MTU of 1536. The reason for that is that the DMA
+>>>>>>> capabilities are not readable on this version of the IP, and there is
+>>>>>>> also no 'tx-fifo-depth' property being provided in Device Tree. The
+>>>>>>> property is documented as optional, and is not provided.
+>>>>>>>
+>>>>>>> The minimum MTU that the network device accepts is ETH_ZLEN - ETH_HLEN,
+>>>>>>> so rejecting the new MTU based on the txfifosz value unchecked seems a
+>>>>>>> bit too heavy handed here.
+>>>>>>
+>>>>>> OTOH is it safe to assume MTUs up to 16k are valid if device tree lacks
+>>>>>> the optional property? Is this change purely to preserve backward
+>>>>>> (bug-ward?) compatibility, even if it's not entirely correct to allow
+>>>>>> high MTU values? (I think that'd be worth stating in the commit message
+>>>>>> more explicitly.) Is there no "reasonable default" we could select for
+>>>>>> txfifosz if property is missing?
+>>>>>
+>>>>> Those are good questions, and I do not know how to answer them as I am
+>>>>> not familiar with the stmmac HW design, but I am hoping Jose can respond
+>>>>> on this patch. It does sound like providing a default TX FIFO size would
+>>>>> solve that MTU problem, too, but without a 'tx-fifo-depth' property
+>>>>> specified in Device Tree, and with the "dma_cap" being empty for this
+>>>>> chip, I have no idea what to set it to.
+>>>>
+>>>> Unfortunately, allwinner uses GMAC which does not have any mean to detect
+>>>> TX FIFO Size. Default value in HW is 2k but this can not be the case in
+>>>> these platforms if HW team decided to change it.
+>>>
+>>> I looked at all the publicly available datasheets and Allwinner uses
+>>> 4K TX FIFO and 16K RX FIFO in all SoCs. Not sure if this would help.
+>>
+>> Yes, thanks for finding this!
+>>
+>> So, I think correct fix is then to hard-code these values in dwmac-sunxi.c
+>> probe function using the already available platform data structure.
+> 
+> I guess we should also set this in the device trees, so that all DT users
+> can benefit.
+
+Sure, but that will be a bit harder to roll in as a bug fix. I will go
+ahead and submit a fix for dwmac-sunxi.c to specify a 4KB TX FIFO and
+16KB RX FIFO. Thanks!
+-- 
+Florian
 _______________________________________________
 Linux-stm32 mailing list
 Linux-stm32@st-md-mailman.stormreply.com
