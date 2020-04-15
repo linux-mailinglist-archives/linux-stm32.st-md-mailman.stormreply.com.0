@@ -2,33 +2,65 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id CCCCA1A9BC4
-	for <lists+linux-stm32@lfdr.de>; Wed, 15 Apr 2020 13:09:18 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id C7FFA1A9BCD
+	for <lists+linux-stm32@lfdr.de>; Wed, 15 Apr 2020 13:09:50 +0200 (CEST)
 Received: from ip-172-31-3-76.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 76BECC36B0C;
-	Wed, 15 Apr 2020 11:09:18 +0000 (UTC)
-Received: from pokefinder.org (sauhun.de [88.99.104.3])
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 08B13C36B0A
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 8EBA7C36B0C;
+	Wed, 15 Apr 2020 11:09:50 +0000 (UTC)
+Received: from lb2-smtp-cloud7.xs4all.net (lb2-smtp-cloud7.xs4all.net
+ [194.109.24.28])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+ (No client certificate requested)
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id A9266C36B0A
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Wed, 15 Apr 2020 11:09:16 +0000 (UTC)
-Received: from localhost (p54B33507.dip0.t-ipconnect.de [84.179.53.7])
- by pokefinder.org (Postfix) with ESMTPSA id 958422C1FF1;
- Wed, 15 Apr 2020 13:09:16 +0200 (CEST)
-Date: Wed, 15 Apr 2020 13:09:16 +0200
-From: Wolfram Sang <wsa@the-dreams.de>
-To: Alain Volmat <alain.volmat@st.com>
-Message-ID: <20200415110916.GO1141@ninjato>
-References: <1585226661-26262-1-git-send-email-alain.volmat@st.com>
- <1585226661-26262-3-git-send-email-alain.volmat@st.com>
+ Wed, 15 Apr 2020 11:09:49 +0000 (UTC)
+Received: from cust-b5b5937f ([IPv6:fc0c:c16d:66b8:757f:c639:739b:9d66:799d])
+ by smtp-cloud7.xs4all.net with ESMTPA
+ id OfvEjW0aK7xncOfvHj4Xoj; Wed, 15 Apr 2020 13:09:49 +0200
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=xs4all.nl; s=s1;
+ t=1586948989; bh=KvgcRhkkMIcBPhFyfvfr0ndt7euIQsGvniakb86DSHI=;
+ h=Subject:To:From:Message-ID:Date:MIME-Version:Content-Type:From:
+ Subject;
+ b=ZV4QxIT6bvkSCSasI8Zij/Oetbj5jk9EkFRAmL9NsVCCPBpRACJmMpdT0TxlZ1DaD
+ Ln/5uq8wNvnoQUDoQPYP5QoAub3W+ePJgVhWnzggrwHXj4ENIJHfQhUp4zNy/PUPtt
+ MMLg11MJtiq3iZ3UMjLGjwTfdPWI0ebEK5B+Wo4VjQbMaRpfiiu2U7DSecmM7m7TLn
+ Ltkq0hHY+h2c/OP/scesKk2xXTt/gmwBq2EegbqvzlsnU4tphMhKgZ55Ey4S5VQM7+
+ Dv/H8cxtcESqSCG7weyIlGXkXIOPQMqzaSxgXNGOzB6lELA+H453M4UGjNYpD6Tx5n
+ IR5Y9MpivzNVg==
+To: Mauro Carvalho Chehab <mchehab+huawei@kernel.org>,
+ Linux Media Mailing List <linux-media@vger.kernel.org>
+References: <cover.1586946605.git.mchehab+huawei@kernel.org>
+From: Hans Verkuil <hverkuil-cisco@xs4all.nl>
+Message-ID: <a81dee7b-2641-0d2f-c659-f08fe7af94f6@xs4all.nl>
+Date: Wed, 15 Apr 2020 13:09:36 +0200
+User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:68.0) Gecko/20100101
+ Thunderbird/68.5.0
 MIME-Version: 1.0
-In-Reply-To: <1585226661-26262-3-git-send-email-alain.volmat@st.com>
-User-Agent: Mutt/1.10.1 (2018-07-13)
-Cc: mark.rutland@arm.com, devicetree@vger.kernel.org,
- linux-kernel@vger.kernel.org, pierre-yves.mordret@st.com, robh+dt@kernel.org,
- linux-i2c@vger.kernel.org, mcoquelin.stm32@gmail.com, fabrice.gasnier@st.com,
- linux-stm32@st-md-mailman.stormreply.com, linux-arm-kernel@lists.infradead.org
-Subject: Re: [Linux-stm32] [PATCH v2 2/2] i2c: i2c-stm32f7: allows for any
-	bus frequency
+In-Reply-To: <cover.1586946605.git.mchehab+huawei@kernel.org>
+Content-Language: en-US
+X-CMAE-Envelope: MS4wfAoQtOqqqoVPHMdN5oX53UyHTmQQMULnRUjFyTATs/v6GWsXgRHarqzS1ELM0muaKrF3VHksfe1o3zy75bIhrVkkxn3gbBl1BdmIN5+lcREmQFChMpoz
+ Ju9QQwCZI1BB9UntkfqJG+BgbfOeElcX/CEOIyxtYOaNE8WXyiVQwgXU08RSqvTQxpoRyl++31wJYQUdLRDMyvHnbpmZwP4DqUYw4IQp4AKSMr1T3+8u3MKh
+ OI6pngpl8MQLGEkOh5oVajnj05PyuPqp6ucSipF/SIK/u7zTN8mszOFEeKdpp0ntMC29ccEZs4n2DnbmCp1wSH/OFb4DUQ/DZrgFfRDWVm9QZbtbRhNkS5vj
+ 7Noc09ibpD7T2jTrOwru7jYQzqV+oYfBmoXZzM2Gs73fP4RzuMTv+MNFB87lsbq+64eUia/jg66F9niepDng4k63TfR+gXGKWr02QMF5Np4eAGJrb5rr14kd
+ yMEQKD/UvLPFlEi/1zuOidhRNdcFUg8bGiX7e6b+Sy/l34NdU/Tlc8ohcjplskom04uX66ChZEtb5coyIrpLOk7jyrJ5tJX/LjkTkbrezS8qELHEYc2/iLFj
+ iQhF5tS82wfwc7Y7BK4YGSC6WOToZW1pwgKX4s9vbIWx2c6L17TucLjxuSPMEG+X71NkJL8oO/OALqBd4vwvHtAGzqXXUzBq0fMo9olwSFxHHD9YscyO+LzP
+ /UKGTBJ5pucBIix9ZBK/sWlNXDD3p7RnYPQNphEKuj4VRc/T2Z8l9o3OlH3H9z/8JaHLcJ9TsOpA0+ATk8HKz/WaJuLjyKJFL4qiW51UYYbq7l/PQD+mf+Y9
+ izE2CkfYawIr9c/RD1VfwzWSATTNCym7frlNvrayUiITjutvJpc7j4RLWwO4FykV7fDjQlWYP8wvMxYkd9u9DiLzE4OR0PFSz/OXM4wIzMYG8Vp93UEcTQ0T
+ VycV0+v50PAJPn+lpTbWxBg0tZJZmrie3ujgadnEVqG+oGbz
+Cc: Maxime Coquelin <mcoquelin.stm32@gmail.com>,
+ linux-samsung-soc@vger.kernel.org, Neil Armstrong <narmstrong@baylibre.com>,
+ Kevin Hilman <khilman@baylibre.com>,
+ Enric Balletbo i Serra <enric.balletbo@collabora.com>,
+ Russell King <linux@armlinux.org.uk>, Krzysztof Kozlowski <krzk@kernel.org>,
+ Ettore Chimenti <ek5.chimenti@gmail.com>, linux-tegra@vger.kernel.org,
+ Kukjin Kim <kgene@kernel.org>, Thierry Reding <thierry.reding@gmail.com>,
+ Benjamin Gaignard <benjamin.gaignard@linaro.org>,
+ Guenter Roeck <groeck@chromium.org>, linux-amlogic@lists.infradead.org,
+ Jonathan Hunter <jonathanh@nvidia.com>, Benson Leung <bleung@chromium.org>,
+ linux-stm32@st-md-mailman.stormreply.com, linux-arm-kernel@lists.infradead.org,
+ Marek Szyprowski <m.szyprowski@samsung.com>
+Subject: Re: [Linux-stm32] [PATCH v2 0/6] Move CEC drivers and menu to be
+ out of MEDIA_SUPPORT
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -40,89 +72,152 @@ List-Post: <mailto:linux-stm32@st-md-mailman.stormreply.com>
 List-Help: <mailto:linux-stm32-request@st-md-mailman.stormreply.com?subject=help>
 List-Subscribe: <https://st-md-mailman.stormreply.com/mailman/listinfo/linux-stm32>, 
  <mailto:linux-stm32-request@st-md-mailman.stormreply.com?subject=subscribe>
-Content-Type: multipart/mixed; boundary="===============9160461740963538447=="
+Content-Type: text/plain; charset="us-ascii"
+Content-Transfer-Encoding: 7bit
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
+On 15/04/2020 12:31, Mauro Carvalho Chehab wrote:
+> The CEC_CORE doesn't depend on MEDIA_SUPPORT. So, it doesn't make
+> much sense to keep it under its menu.
+> 
+> This series move it to be just after RC support. As a side effect, now
+> dependencies like PCI and USB are now selected, making easier to
+> enable CEC drivers.
 
---===============9160461740963538447==
-Content-Type: multipart/signed; micalg=pgp-sha512;
-	protocol="application/pgp-signature"; boundary="Iys0Un1O+0sigPHU"
-Content-Disposition: inline
+For this series:
 
+Acked-by: Hans Verkuil <hverkuil-cisco@xs4all.nl>
 
---Iys0Un1O+0sigPHU
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-Content-Transfer-Encoding: quoted-printable
+Thanks!
 
-Hi Alain,
+	Hans
 
-On Thu, Mar 26, 2020 at 01:44:21PM +0100, Alain Volmat wrote:
-> Do not limitate to the 3 (100KHz, 400KHz, 1MHz) bus frequency but
-> instead allows any frequency (if it matches timing requirements).
-> Depending on the requested frequency, use the spec data from either
-> Standard, Fast or Fast Plus mode.
->=20
-> Hardcoding of min/max bus frequencies is removed and is instead computed.
->=20
-> The driver do not use anymore speed identifier but instead handle
-> directly the frequency and figure out the spec data (necessary
-> for the computation of the timing register) based on the frequency.
-
-Useful improvement!
-
-> +static struct stm32f7_i2c_spec *get_specs(u32 rate)
-
-This is quite a generic namespace. Can we prefix stm32f7_<sth> here?
-
-> +		if (rate <=3D i2c_specs[i].rate)
-> +			return &i2c_specs[i];
-
-Same for i2c_specs here?
-
-> +static u32 get_lower_rate(u32 rate)
-
-Here, too.
-
-Rest looks good to me.
-
-Regards,
-
-   Wolfram
-
-
---Iys0Un1O+0sigPHU
-Content-Type: application/pgp-signature; name="signature.asc"
-
------BEGIN PGP SIGNATURE-----
-
-iQIzBAABCgAdFiEEOZGx6rniZ1Gk92RdFA3kzBSgKbYFAl6W61wACgkQFA3kzBSg
-KbZhDA//QrjQyZGByv+sQkmvBPGnIsAXz2Nca2UGy56ln4/UAfHo1NvwTx3mqBJ3
-ovBURYObhG5pCwDi0hi/T0jQTXjTHy5KsA/F/OoF/KnJwruXcUa+vLGfcWztPc3c
-B/n22uncMOcZ84AadcTWe6wBQOQojeV25sEjfkSMMuFvfzRM/r5NXARqxDdIqsV0
-lEtTPBe6ol9wwAZJwYZR3ErrDkic3GBE9aMP8TQzfvsvmMgN/qBWlSEI5Sp9930e
-XSVymfMPebXhdUH6cbfTUZ8S+0+c5i/l3KA/BpV1weltc/EueYz9HH/fCsF2FHNW
-5RNWV9XHSzkhe0f9ryVPmuNuTFNz9/GRzR1TIio3n/VTemC7cZxCVUQo5VURHWc0
-D87DMgOz5dFL48zHLessi8n8/vOpOpweDgMHtPfYzEsIfZIRCjJxXEO+QIMD7cSp
-PT26ks9/zK36lqydCx6Jpo1TLTDNlr/dJY8ag6iQjjSWgxQxm354yFTavOds15Ua
-i1bGeKwYXkhFyH/TsnzX0I503nQpebW+StiPCIUOnKWS5pWA/8YvDVOAdAULOp0s
-pJags5YBAv0Bd8v/mCVnbbzUKXbTuZDIT2f1rbQxl2T4//AfeLhMJ5UPVmczr4DH
-08VuS7rAy0VGCvxXrWnoBgcR99qkXG8jHyecTgZzVVPHLVLT5uo=
-=rnTO
------END PGP SIGNATURE-----
-
---Iys0Un1O+0sigPHU--
-
---===============9160461740963538447==
-Content-Type: text/plain; charset="us-ascii"
-MIME-Version: 1.0
-Content-Transfer-Encoding: 7bit
-Content-Disposition: inline
+> 
+> - v2:
+>   - move more CEC drivers from platform/
+>   - rename kconfig options to be more coherent
+> 
+> Mauro Carvalho Chehab (6):
+>   media: cec: move the core to a separate directory
+>   media: place CEC menu before MEDIA_SUPPORT
+>   media: move CEC platform drivers to a separate directory
+>   media: move CEC USB drivers to a separate directory
+>   media: cec: rename CEC platform drivers config options
+>   media: cec: rename USB config options
+> 
+>  arch/arm/configs/exynos_defconfig             |   2 +-
+>  arch/arm/configs/multi_v7_defconfig           |   2 +-
+>  drivers/media/Kconfig                         |  30 +----
+>  drivers/media/cec/Kconfig                     |  25 ++++
+>  drivers/media/cec/Makefile                    |  16 +--
+>  drivers/media/cec/core/Makefile               |  16 +++
+>  drivers/media/cec/{ => core}/cec-adap.c       |   0
+>  drivers/media/cec/{ => core}/cec-api.c        |   0
+>  drivers/media/cec/{ => core}/cec-core.c       |   0
+>  drivers/media/cec/{ => core}/cec-notifier.c   |   0
+>  .../media/cec/{ => core}/cec-pin-error-inj.c  |   0
+>  drivers/media/cec/{ => core}/cec-pin-priv.h   |   0
+>  drivers/media/cec/{ => core}/cec-pin.c        |   0
+>  drivers/media/cec/{ => core}/cec-priv.h       |   0
+>  drivers/media/cec/platform/Kconfig            | 121 +++++++++++++++++
+>  drivers/media/cec/platform/Makefile           |  14 ++
+>  .../{ => cec}/platform/cec-gpio/Makefile      |   0
+>  .../{ => cec}/platform/cec-gpio/cec-gpio.c    |   0
+>  drivers/media/cec/platform/cros-ec/Makefile   |   2 +
+>  .../platform/cros-ec}/cros-ec-cec.c           |   0
+>  drivers/media/cec/platform/meson/Makefile     |   3 +
+>  .../{ => cec}/platform/meson/ao-cec-g12a.c    |   0
+>  .../media/{ => cec}/platform/meson/ao-cec.c   |   0
+>  .../s5p-cec => cec/platform/s5p}/Makefile     |   2 +-
+>  .../platform/s5p}/exynos_hdmi_cec.h           |   0
+>  .../platform/s5p}/exynos_hdmi_cecctrl.c       |   0
+>  .../s5p-cec => cec/platform/s5p}/regs-cec.h   |   0
+>  .../s5p-cec => cec/platform/s5p}/s5p_cec.c    |   0
+>  .../s5p-cec => cec/platform/s5p}/s5p_cec.h    |   0
+>  drivers/media/cec/platform/seco/Makefile      |   2 +
+>  .../seco-cec => cec/platform/seco}/seco-cec.c |   2 +-
+>  .../seco-cec => cec/platform/seco}/seco-cec.h |   0
+>  drivers/media/cec/platform/sti/Makefile       |   2 +
+>  .../sti/cec => cec/platform/sti}/stih-cec.c   |   0
+>  drivers/media/cec/platform/stm32/Makefile     |   2 +
+>  .../{ => cec}/platform/stm32/stm32-cec.c      |   0
+>  drivers/media/cec/platform/tegra/Makefile     |   2 +
+>  .../platform/tegra}/tegra_cec.c               |   0
+>  .../platform/tegra}/tegra_cec.h               |   0
+>  drivers/media/cec/usb/Kconfig                 |   6 +
+>  drivers/media/cec/usb/Makefile                |   6 +
+>  .../pulse8-cec => cec/usb/pulse8}/Kconfig     |   5 +-
+>  drivers/media/cec/usb/pulse8/Makefile         |   2 +
+>  .../usb/pulse8}/pulse8-cec.c                  |   0
+>  .../usb/rainshadow}/Kconfig                   |   5 +-
+>  drivers/media/cec/usb/rainshadow/Makefile     |   2 +
+>  .../usb/rainshadow}/rainshadow-cec.c          |   0
+>  drivers/media/platform/Kconfig                | 125 ------------------
+>  drivers/media/platform/Makefile               |  12 --
+>  drivers/media/platform/cros-ec-cec/Makefile   |   2 -
+>  drivers/media/platform/meson/Makefile         |   3 -
+>  drivers/media/platform/seco-cec/Makefile      |   2 -
+>  drivers/media/platform/sti/cec/Makefile       |   2 -
+>  drivers/media/platform/stm32/Makefile         |   1 -
+>  drivers/media/platform/tegra-cec/Makefile     |   2 -
+>  drivers/media/usb/Kconfig                     |   6 -
+>  drivers/media/usb/Makefile                    |   2 -
+>  drivers/media/usb/pulse8-cec/Makefile         |   2 -
+>  drivers/media/usb/rainshadow-cec/Makefile     |   2 -
+>  59 files changed, 218 insertions(+), 212 deletions(-)
+>  create mode 100644 drivers/media/cec/core/Makefile
+>  rename drivers/media/cec/{ => core}/cec-adap.c (100%)
+>  rename drivers/media/cec/{ => core}/cec-api.c (100%)
+>  rename drivers/media/cec/{ => core}/cec-core.c (100%)
+>  rename drivers/media/cec/{ => core}/cec-notifier.c (100%)
+>  rename drivers/media/cec/{ => core}/cec-pin-error-inj.c (100%)
+>  rename drivers/media/cec/{ => core}/cec-pin-priv.h (100%)
+>  rename drivers/media/cec/{ => core}/cec-pin.c (100%)
+>  rename drivers/media/cec/{ => core}/cec-priv.h (100%)
+>  create mode 100644 drivers/media/cec/platform/Kconfig
+>  create mode 100644 drivers/media/cec/platform/Makefile
+>  rename drivers/media/{ => cec}/platform/cec-gpio/Makefile (100%)
+>  rename drivers/media/{ => cec}/platform/cec-gpio/cec-gpio.c (100%)
+>  create mode 100644 drivers/media/cec/platform/cros-ec/Makefile
+>  rename drivers/media/{platform/cros-ec-cec => cec/platform/cros-ec}/cros-ec-cec.c (100%)
+>  create mode 100644 drivers/media/cec/platform/meson/Makefile
+>  rename drivers/media/{ => cec}/platform/meson/ao-cec-g12a.c (100%)
+>  rename drivers/media/{ => cec}/platform/meson/ao-cec.c (100%)
+>  rename drivers/media/{platform/s5p-cec => cec/platform/s5p}/Makefile (63%)
+>  rename drivers/media/{platform/s5p-cec => cec/platform/s5p}/exynos_hdmi_cec.h (100%)
+>  rename drivers/media/{platform/s5p-cec => cec/platform/s5p}/exynos_hdmi_cecctrl.c (100%)
+>  rename drivers/media/{platform/s5p-cec => cec/platform/s5p}/regs-cec.h (100%)
+>  rename drivers/media/{platform/s5p-cec => cec/platform/s5p}/s5p_cec.c (100%)
+>  rename drivers/media/{platform/s5p-cec => cec/platform/s5p}/s5p_cec.h (100%)
+>  create mode 100644 drivers/media/cec/platform/seco/Makefile
+>  rename drivers/media/{platform/seco-cec => cec/platform/seco}/seco-cec.c (99%)
+>  rename drivers/media/{platform/seco-cec => cec/platform/seco}/seco-cec.h (100%)
+>  create mode 100644 drivers/media/cec/platform/sti/Makefile
+>  rename drivers/media/{platform/sti/cec => cec/platform/sti}/stih-cec.c (100%)
+>  create mode 100644 drivers/media/cec/platform/stm32/Makefile
+>  rename drivers/media/{ => cec}/platform/stm32/stm32-cec.c (100%)
+>  create mode 100644 drivers/media/cec/platform/tegra/Makefile
+>  rename drivers/media/{platform/tegra-cec => cec/platform/tegra}/tegra_cec.c (100%)
+>  rename drivers/media/{platform/tegra-cec => cec/platform/tegra}/tegra_cec.h (100%)
+>  create mode 100644 drivers/media/cec/usb/Kconfig
+>  create mode 100644 drivers/media/cec/usb/Makefile
+>  rename drivers/media/{usb/pulse8-cec => cec/usb/pulse8}/Kconfig (86%)
+>  create mode 100644 drivers/media/cec/usb/pulse8/Makefile
+>  rename drivers/media/{usb/pulse8-cec => cec/usb/pulse8}/pulse8-cec.c (100%)
+>  rename drivers/media/{usb/rainshadow-cec => cec/usb/rainshadow}/Kconfig (85%)
+>  create mode 100644 drivers/media/cec/usb/rainshadow/Makefile
+>  rename drivers/media/{usb/rainshadow-cec => cec/usb/rainshadow}/rainshadow-cec.c (100%)
+>  delete mode 100644 drivers/media/platform/cros-ec-cec/Makefile
+>  delete mode 100644 drivers/media/platform/meson/Makefile
+>  delete mode 100644 drivers/media/platform/seco-cec/Makefile
+>  delete mode 100644 drivers/media/platform/sti/cec/Makefile
+>  delete mode 100644 drivers/media/platform/tegra-cec/Makefile
+>  delete mode 100644 drivers/media/usb/pulse8-cec/Makefile
+>  delete mode 100644 drivers/media/usb/rainshadow-cec/Makefile
+> 
 
 _______________________________________________
 Linux-stm32 mailing list
 Linux-stm32@st-md-mailman.stormreply.com
 https://st-md-mailman.stormreply.com/mailman/listinfo/linux-stm32
-
---===============9160461740963538447==--
