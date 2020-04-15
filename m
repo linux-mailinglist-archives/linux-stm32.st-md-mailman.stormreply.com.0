@@ -2,31 +2,33 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id 38D311A9B9C
-	for <lists+linux-stm32@lfdr.de>; Wed, 15 Apr 2020 13:01:47 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id CCCCA1A9BC4
+	for <lists+linux-stm32@lfdr.de>; Wed, 15 Apr 2020 13:09:18 +0200 (CEST)
 Received: from ip-172-31-3-76.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 0145FC36B0C;
-	Wed, 15 Apr 2020 11:01:47 +0000 (UTC)
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 76BECC36B0C;
+	Wed, 15 Apr 2020 11:09:18 +0000 (UTC)
 Received: from pokefinder.org (sauhun.de [88.99.104.3])
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 25CB0C36B0A
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 08B13C36B0A
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Wed, 15 Apr 2020 11:01:46 +0000 (UTC)
+ Wed, 15 Apr 2020 11:09:16 +0000 (UTC)
 Received: from localhost (p54B33507.dip0.t-ipconnect.de [84.179.53.7])
- by pokefinder.org (Postfix) with ESMTPSA id DB0512C1FF1;
- Wed, 15 Apr 2020 13:01:45 +0200 (CEST)
-Date: Wed, 15 Apr 2020 13:01:45 +0200
+ by pokefinder.org (Postfix) with ESMTPSA id 958422C1FF1;
+ Wed, 15 Apr 2020 13:09:16 +0200 (CEST)
+Date: Wed, 15 Apr 2020 13:09:16 +0200
 From: Wolfram Sang <wsa@the-dreams.de>
 To: Alain Volmat <alain.volmat@st.com>
-Message-ID: <20200415110145.GN1141@ninjato>
-References: <1584642136-15418-1-git-send-email-alain.volmat@st.com>
+Message-ID: <20200415110916.GO1141@ninjato>
+References: <1585226661-26262-1-git-send-email-alain.volmat@st.com>
+ <1585226661-26262-3-git-send-email-alain.volmat@st.com>
 MIME-Version: 1.0
-In-Reply-To: <1584642136-15418-1-git-send-email-alain.volmat@st.com>
+In-Reply-To: <1585226661-26262-3-git-send-email-alain.volmat@st.com>
 User-Agent: Mutt/1.10.1 (2018-07-13)
-Cc: linux-kernel@vger.kernel.org, pierre-yves.mordret@st.com,
- linux-i2c@vger.kernel.org, fabrice.gasnier@st.com,
+Cc: mark.rutland@arm.com, devicetree@vger.kernel.org,
+ linux-kernel@vger.kernel.org, pierre-yves.mordret@st.com, robh+dt@kernel.org,
+ linux-i2c@vger.kernel.org, mcoquelin.stm32@gmail.com, fabrice.gasnier@st.com,
  linux-stm32@st-md-mailman.stormreply.com, linux-arm-kernel@lists.infradead.org
-Subject: Re: [Linux-stm32] [PATCH] i2c: stm32: don't print an error on probe
-	deferral
+Subject: Re: [Linux-stm32] [PATCH v2 2/2] i2c: i2c-stm32f7: allows for any
+	bus frequency
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -38,69 +40,81 @@ List-Post: <mailto:linux-stm32@st-md-mailman.stormreply.com>
 List-Help: <mailto:linux-stm32-request@st-md-mailman.stormreply.com?subject=help>
 List-Subscribe: <https://st-md-mailman.stormreply.com/mailman/listinfo/linux-stm32>, 
  <mailto:linux-stm32-request@st-md-mailman.stormreply.com?subject=subscribe>
-Content-Type: multipart/mixed; boundary="===============4779938125799732668=="
+Content-Type: multipart/mixed; boundary="===============9160461740963538447=="
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
 
---===============4779938125799732668==
+--===============9160461740963538447==
 Content-Type: multipart/signed; micalg=pgp-sha512;
-	protocol="application/pgp-signature"; boundary="ggdAeHltlv4tpqCr"
+	protocol="application/pgp-signature"; boundary="Iys0Un1O+0sigPHU"
 Content-Disposition: inline
 
 
---ggdAeHltlv4tpqCr
+--Iys0Un1O+0sigPHU
 Content-Type: text/plain; charset=us-ascii
 Content-Disposition: inline
 Content-Transfer-Encoding: quoted-printable
 
->  	if (IS_ERR(dma->chan_tx)) {
-> -		dev_dbg(dev, "can't request DMA tx channel\n");
->  		ret =3D PTR_ERR(dma->chan_tx);
-> +		if (ret !=3D -EPROBE_DEFER)
-> +			dev_dbg(dev, "can't request DMA tx channel\n");
+Hi Alain,
 
-dev_dbg for tx...
+On Thu, Mar 26, 2020 at 01:44:21PM +0100, Alain Volmat wrote:
+> Do not limitate to the 3 (100KHz, 400KHz, 1MHz) bus frequency but
+> instead allows any frequency (if it matches timing requirements).
+> Depending on the requested frequency, use the spec data from either
+> Standard, Fast or Fast Plus mode.
+>=20
+> Hardcoding of min/max bus frequencies is removed and is instead computed.
+>=20
+> The driver do not use anymore speed identifier but instead handle
+> directly the frequency and figure out the spec data (necessary
+> for the computation of the timing register) based on the frequency.
 
->  		goto fail_al;
->  	}
-> =20
-> @@ -44,8 +45,10 @@ struct stm32_i2c_dma *stm32_i2c_dma_request(struct dev=
-ice *dev,
->  	/* Request and configure I2C RX dma channel */
->  	dma->chan_rx =3D dma_request_chan(dev, "rx");
->  	if (IS_ERR(dma->chan_rx)) {
-> -		dev_err(dev, "can't request DMA rx channel\n");
->  		ret =3D PTR_ERR(dma->chan_rx);
-> +		if (ret !=3D -EPROBE_DEFER)
-> +			dev_err(dev, "can't request DMA rx channel\n");
+Useful improvement!
 
-=2E.. and dev_err for rx? Intentional?
+> +static struct stm32f7_i2c_spec *get_specs(u32 rate)
+
+This is quite a generic namespace. Can we prefix stm32f7_<sth> here?
+
+> +		if (rate <=3D i2c_specs[i].rate)
+> +			return &i2c_specs[i];
+
+Same for i2c_specs here?
+
+> +static u32 get_lower_rate(u32 rate)
+
+Here, too.
+
+Rest looks good to me.
+
+Regards,
+
+   Wolfram
 
 
---ggdAeHltlv4tpqCr
+--Iys0Un1O+0sigPHU
 Content-Type: application/pgp-signature; name="signature.asc"
 
 -----BEGIN PGP SIGNATURE-----
 
-iQIzBAABCgAdFiEEOZGx6rniZ1Gk92RdFA3kzBSgKbYFAl6W6ZkACgkQFA3kzBSg
-KbaJ5g//Z4m5gD84GPP6vg6sSjL/LyJ6CZd/w08+hP95Uk1K82LELeWPmlaK1ibg
-vSJRO8GeZLYFOYY8LgLc7rzQkHpkvB9xN2TW1wzZlAycvsjBvQtg5Ka1hHfASRuW
-vR90ZA8G9eV5x8mpjEzNLEshHh4vkQlQjzgoO80v/r9ssHKHLDCwn0LAVr0hUEtR
-ewHUTG8UwBsUguxGbnOwmiSdICGw/F46P2i+9LHLgp/2r6QYnjA7f31dWZ8hTOsR
-HExpW9MoEmA9Kz4WeiNrSof/YXKh8I2z1ONzyeRDk+0IuBpHdF9MmY/Lb3wuQB2t
-k9Vx4MF+2uBYS8R/Tv2ivxjxFmh74Zo2tCMXAj1P/AXhXlMtABXTCWNnmREyz4pe
-lgskBVxJtwgybB+2r9RjWBE1uysnlG6GEJe82JP+yhPZfA8huDIGSG63+t5KVE5Y
-LpcWFfEtXiPio2dvsOYCif4kHaCM0eARpY+83NwAokleUbIsovR2jDvvX3IJMtRt
-SZWbMsW99eClAhSfLpxxA24OpgJoXRyhrhKqLPPil9/NucxWNgU1SbRqdmaA4LK2
-inY4gaMa7Nixi1+4efMZYKl+Jqm6z2ayVhjZqONCu57lpoHFx9/wzQtLoOihyBT/
-kObtfYnDh30/N8/6Btj9vpb5pA3NBMLuOKacj9sKZXdA5ipEGNQ=
-=mwAo
+iQIzBAABCgAdFiEEOZGx6rniZ1Gk92RdFA3kzBSgKbYFAl6W61wACgkQFA3kzBSg
+KbZhDA//QrjQyZGByv+sQkmvBPGnIsAXz2Nca2UGy56ln4/UAfHo1NvwTx3mqBJ3
+ovBURYObhG5pCwDi0hi/T0jQTXjTHy5KsA/F/OoF/KnJwruXcUa+vLGfcWztPc3c
+B/n22uncMOcZ84AadcTWe6wBQOQojeV25sEjfkSMMuFvfzRM/r5NXARqxDdIqsV0
+lEtTPBe6ol9wwAZJwYZR3ErrDkic3GBE9aMP8TQzfvsvmMgN/qBWlSEI5Sp9930e
+XSVymfMPebXhdUH6cbfTUZ8S+0+c5i/l3KA/BpV1weltc/EueYz9HH/fCsF2FHNW
+5RNWV9XHSzkhe0f9ryVPmuNuTFNz9/GRzR1TIio3n/VTemC7cZxCVUQo5VURHWc0
+D87DMgOz5dFL48zHLessi8n8/vOpOpweDgMHtPfYzEsIfZIRCjJxXEO+QIMD7cSp
+PT26ks9/zK36lqydCx6Jpo1TLTDNlr/dJY8ag6iQjjSWgxQxm354yFTavOds15Ua
+i1bGeKwYXkhFyH/TsnzX0I503nQpebW+StiPCIUOnKWS5pWA/8YvDVOAdAULOp0s
+pJags5YBAv0Bd8v/mCVnbbzUKXbTuZDIT2f1rbQxl2T4//AfeLhMJ5UPVmczr4DH
+08VuS7rAy0VGCvxXrWnoBgcR99qkXG8jHyecTgZzVVPHLVLT5uo=
+=rnTO
 -----END PGP SIGNATURE-----
 
---ggdAeHltlv4tpqCr--
+--Iys0Un1O+0sigPHU--
 
---===============4779938125799732668==
+--===============9160461740963538447==
 Content-Type: text/plain; charset="us-ascii"
 MIME-Version: 1.0
 Content-Transfer-Encoding: 7bit
@@ -111,4 +125,4 @@ Linux-stm32 mailing list
 Linux-stm32@st-md-mailman.stormreply.com
 https://st-md-mailman.stormreply.com/mailman/listinfo/linux-stm32
 
---===============4779938125799732668==--
+--===============9160461740963538447==--
