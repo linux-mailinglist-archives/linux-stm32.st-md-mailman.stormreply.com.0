@@ -2,52 +2,53 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id B793C1A9702
-	for <lists+linux-stm32@lfdr.de>; Wed, 15 Apr 2020 10:41:08 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 3588C1A9741
+	for <lists+linux-stm32@lfdr.de>; Wed, 15 Apr 2020 10:46:38 +0200 (CEST)
 Received: from ip-172-31-3-76.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 80B9FC36B0C;
-	Wed, 15 Apr 2020 08:41:08 +0000 (UTC)
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id D8CD9C36B0C;
+	Wed, 15 Apr 2020 08:46:37 +0000 (UTC)
 Received: from mail-ua1-f65.google.com (mail-ua1-f65.google.com
  [209.85.222.65])
  (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id DCC80C36B0A
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 9CA60C36B0A
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Wed, 15 Apr 2020 08:41:06 +0000 (UTC)
-Received: by mail-ua1-f65.google.com with SMTP id a6so1043292uao.2
+ Wed, 15 Apr 2020 08:46:36 +0000 (UTC)
+Received: by mail-ua1-f65.google.com with SMTP id t8so1047387uap.3
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Wed, 15 Apr 2020 01:41:06 -0700 (PDT)
+ Wed, 15 Apr 2020 01:46:36 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linaro.org; s=google;
  h=mime-version:references:in-reply-to:from:date:message-id:subject:to
- :cc; bh=G2k8McS/K5NefTNba5xsVsO/fUtMzpQPzb5n8a6auMs=;
- b=TGriCENOdLxLP77jm7Tb8Oa/5P93+8TDkF3Qd46iveBgLU6Nga83FMgYT9ME+mC5x9
- lU0PK3AO550ADRm4eh6Q5LHgaMRgqa5SAC4T+alOhC88n/M5T5QK4Rp+i4q9plVm+XnO
- 0tTfRspCoFo5GG0eEszFEez168zIm0cZdFM4K6XJRPSmB0G08+599039AlRNwJ7E0eMf
- iHg/SRa5UnDVph5xioqQTLMjgsvIXPucWU8nNAn82N7Pxfzi43DkqkS7uZFGXKLH/jhp
- QGKgusZOcJerGc31W+hh49QxUQDDAv3FqqcazcJr+q7OgJBgUESTPih2hNFTJegku/Wu
- 8DOw==
+ :cc; bh=pi2eGcMT6rMjNmHfTn+6C3a0PNU3Dbjr1+RHlUDbfdE=;
+ b=vJIB27nnx7NInYBYJNGhm545ijOXmPG5PJ+0Vf3NJpyxWQiPFS5/18D0/eVAL57jng
+ tlIfro/fzyefa7pzStFQS2+rHWQluG72uKIG4cVLU5AgRMje5I45jxIjNMQeETp8MZH2
+ qGQcpw8VturBpfuirdeqr9c124vzXTDw1zlq3NVQ/xx8sHPvrbNZmapL0k4MW7Tg1yrY
+ GrFUa4G6pRqtjxufOt86mHF/K7CarQ10IyDcYqRJyR4tfqsDatHAQRNGU/BifK5vfIyW
+ 8qvfaHXLlcayByo/SR1fJAh9EiBha1jkpc7wZbduXAVsVSoZoj7O8IEMKhUYk/wu6+Pt
+ EXFg==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=1e100.net; s=20161025;
  h=x-gm-message-state:mime-version:references:in-reply-to:from:date
  :message-id:subject:to:cc;
- bh=G2k8McS/K5NefTNba5xsVsO/fUtMzpQPzb5n8a6auMs=;
- b=HU2SmercqcBHCQcehGLC2aGKvc9PWXK7vZE22EjZ0b7Zhwt6kWqxWbeiCShVPLOfnd
- ilBgmg/HrxhvKcCAQteQYoN0gLaHtMBfKiTZ6VphMvTCD4kgnbjdoAl8ZxNje8VAn/d8
- IXx04M6DPV4Z1RIsnethH6+2YuBWTaYmsBh34NLaNoYJqH+lhV069iqCj52zmIxqFMal
- 83TedC8qDtV2qzI42td2pN1inJ6+aCowzeMtEIOIx+IrtxafByebFRavm+51LWdLdjPM
- 6xq7zBVZfH/XKMzhK3CaiDkqeZymYxR29EobyFACIkMKDJzCjXFd0DspNIvKIz8JVz3e
- DTyA==
-X-Gm-Message-State: AGi0PuYMk8Sd7P9rUYwjeoYQNmYvkme0cvsatvbIxbij2R2iT/DgOq3+
- PHH96IMwmBiSui11vIis/FgPvPzLcF3C3WWWy+8lbA==
-X-Google-Smtp-Source: APiQypInceMAHxuFWj5L8A7rNn9xiU0htqIhPLdEK0hmWs+SiG0rjpK4lzRvRh91FpVELvUuGl4DSB9mPofIb7/yCK0=
-X-Received: by 2002:ab0:2ea:: with SMTP id 97mr3644293uah.129.1586940065768;
- Wed, 15 Apr 2020 01:41:05 -0700 (PDT)
+ bh=pi2eGcMT6rMjNmHfTn+6C3a0PNU3Dbjr1+RHlUDbfdE=;
+ b=geOzj91S6bNHvx9QV/X+AjG5CefzxiiQyu2hGQ8P6r8lY72QzDKaDuJnDae+H5x12b
+ r5Jgs3fxhHOtQkQKZ7uqV2kNil27/zhhcflRz9VHfPudKUZ73J70+XMdZgQrE+qJj7PZ
+ xRlqnKTrgAvIjdGwXdU6cGb6S0zgslwK+xoGeN/6MNLgdtmyQ5bdGHMC4DKP35vrTGCY
+ SyNaRr/ayJ1TORxwgp1yh0jwtZb3Mjz3Mkxwdlt50EUn8Bat4pDdChA3Ej7kC5V5F6ld
+ mcw+MamMSp0teBs9X7ppNVwaZWdt+XRneG2eWtY2ultKsQpyAEj1/uN5IxOt+nyn0VJu
+ xrOA==
+X-Gm-Message-State: AGi0PuYChkFbZz0NLzIHJFG1RuLLzrVOLo02wECfgxCf6JvN59Nsfbb/
+ Lv4GBVHF1gMJQhhXc2o40NcsVLYwxxf9IOwSz+29RA==
+X-Google-Smtp-Source: APiQypKSnJq3GtI7I8370QcKOEbJus5EhyZKwcJPbeC4yoZidoU3fP1OuuptUIClEnTd5eWt4D57NVWQjScrvdMRcpQ=
+X-Received: by 2002:a9f:25af:: with SMTP id 44mr3566481uaf.104.1586940394324; 
+ Wed, 15 Apr 2020 01:46:34 -0700 (PDT)
 MIME-Version: 1.0
 References: <20200401195722.208157-1-marex@denx.de>
-In-Reply-To: <20200401195722.208157-1-marex@denx.de>
+ <20200401195722.208157-3-marex@denx.de>
+In-Reply-To: <20200401195722.208157-3-marex@denx.de>
 From: Ulf Hansson <ulf.hansson@linaro.org>
-Date: Wed, 15 Apr 2020 10:40:30 +0200
-Message-ID: <CAPDyKFoDB=d5B-2u_Y0e-XVzPQE46JBUTPwY_b_xzESm3NnjwQ@mail.gmail.com>
+Date: Wed, 15 Apr 2020 10:45:58 +0200
+Message-ID: <CAPDyKFpzM5NWR3D5uEmNu3hdhtr-vkucWNsCb2npd1eyR+=T_w@mail.gmail.com>
 To: Marek Vasut <marex@denx.de>
 Cc: Linus Walleij <linus.walleij@linaro.org>,
  "linux-mmc@vger.kernel.org" <linux-mmc@vger.kernel.org>,
@@ -56,8 +57,8 @@ Cc: Linus Walleij <linus.walleij@linaro.org>,
  Maxime Coquelin <mcoquelin.stm32@gmail.com>,
  Manivannan Sadhasivam <manivannan.sadhasivam@linaro.org>,
  linux-stm32@st-md-mailman.stormreply.com
-Subject: Re: [Linux-stm32] [PATCH 1/3] mmc: Prepare all code for
- mmc_set_signal_voltage() returning > 0
+Subject: Re: [Linux-stm32] [PATCH 3/3] mmc: mmci: Switch to
+	mmc_set_signal_voltage()
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -76,16 +77,20 @@ Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
 On Wed, 1 Apr 2020 at 21:57, Marek Vasut <marex@denx.de> wrote:
 >
-> Patch all drivers and core code which uses mmc_set_signal_voltage()
-> and prepare it for the fact that mmc_set_signal_voltage() can return
-> a value > 0, which would happen if the signal voltage switch did NOT
-> happen, because the voltage was already set correctly.
+> Instead of reimplementing the logic in mmc_set_signal_voltage(),
+> use the mmc code function directly.
 
-I am not sure why you want to change mmc_set_signal_voltage(), can you
-elaborate on that?
+Again, this isn't about mmc_set_signal_voltage() but about
+mmc_regulator_set_vqmmc(). Please update the changelog to reflect
+that.
 
-I thought we discussed changing mmc_regulator_set_vqmmc(), what am I missing?
-
+>
+> This fixes a real issue on STM32MP1 where, if the eMMC is supplied with
+> VccQ=1.8 V, the post voltage switch code will spin indefinitelly waiting
+> for the voltage switch to complete, even though no voltage switch really
+> happened. But since mmc_set_signal_voltage() would return 0, then the
+> condition for calling .post_sig_volt_switch() is not satisfied if the
+> switch did not happen.
 >
 > Signed-off-by: Marek Vasut <marex@denx.de>
 > Cc: Alexandre Torgue <alexandre.torgue@st.com>
@@ -100,148 +105,59 @@ I thought we discussed changing mmc_regulator_set_vqmmc(), what am I missing?
 > Cc: linux-stm32@st-md-mailman.stormreply.com
 > To: linux-mmc@vger.kernel.org
 > ---
->  drivers/mmc/core/core.c              | 10 +++++-----
->  drivers/mmc/core/mmc.c               | 16 ++++++++--------
->  drivers/mmc/host/dw_mmc-k3.c         |  2 +-
->  drivers/mmc/host/dw_mmc.c            |  3 +--
->  drivers/mmc/host/mtk-sd.c            |  2 +-
->  drivers/mmc/host/renesas_sdhi_core.c |  2 +-
->  drivers/mmc/host/sdhci-sprd.c        |  2 +-
->  drivers/mmc/host/sdhci.c             |  6 +++---
->  8 files changed, 21 insertions(+), 22 deletions(-)
+>  drivers/mmc/host/mmci.c | 28 ++++++----------------------
+>  1 file changed, 6 insertions(+), 22 deletions(-)
 >
-> diff --git a/drivers/mmc/core/core.c b/drivers/mmc/core/core.c
-> index 4c5de6d37ac7..98a3552205cb 100644
-> --- a/drivers/mmc/core/core.c
-> +++ b/drivers/mmc/core/core.c
-> @@ -1142,7 +1142,7 @@ int mmc_set_signal_voltage(struct mmc_host *host, int signal_voltage)
->         if (host->ops->start_signal_voltage_switch)
->                 err = host->ops->start_signal_voltage_switch(host, &host->ios);
->
-> -       if (err)
-> +       if (err < 0)
->                 host->ios.signal_voltage = old_signal_voltage;
->
->         return err;
-> @@ -1152,11 +1152,11 @@ int mmc_set_signal_voltage(struct mmc_host *host, int signal_voltage)
->  void mmc_set_initial_signal_voltage(struct mmc_host *host)
+> diff --git a/drivers/mmc/host/mmci.c b/drivers/mmc/host/mmci.c
+> index 647567def612..b8c8f0e623de 100644
+> --- a/drivers/mmc/host/mmci.c
+> +++ b/drivers/mmc/host/mmci.c
+> @@ -1861,31 +1861,15 @@ static int mmci_get_cd(struct mmc_host *mmc)
+>  static int mmci_sig_volt_switch(struct mmc_host *mmc, struct mmc_ios *ios)
 >  {
->         /* Try to set signal voltage to 3.3V but fall back to 1.8v or 1.2v */
-> -       if (!mmc_set_signal_voltage(host, MMC_SIGNAL_VOLTAGE_330))
-> +       if (mmc_set_signal_voltage(host, MMC_SIGNAL_VOLTAGE_330) >= 0)
->                 dev_dbg(mmc_dev(host), "Initial signal voltage of 3.3v\n");
-> -       else if (!mmc_set_signal_voltage(host, MMC_SIGNAL_VOLTAGE_180))
-> +       else if (mmc_set_signal_voltage(host, MMC_SIGNAL_VOLTAGE_180) >= 0)
->                 dev_dbg(mmc_dev(host), "Initial signal voltage of 1.8v\n");
-> -       else if (!mmc_set_signal_voltage(host, MMC_SIGNAL_VOLTAGE_120))
-> +       else if (mmc_set_signal_voltage(host, MMC_SIGNAL_VOLTAGE_120) >= 0)
->                 dev_dbg(mmc_dev(host), "Initial signal voltage of 1.2v\n");
+>         struct mmci_host *host = mmc_priv(mmc);
+> -       int ret = 0;
+> -
+> -       if (!IS_ERR(mmc->supply.vqmmc)) {
+> +       int ret;
+>
+> -               switch (ios->signal_voltage) {
+> -               case MMC_SIGNAL_VOLTAGE_330:
+> -                       ret = regulator_set_voltage(mmc->supply.vqmmc,
+> -                                               2700000, 3600000);
+> -                       break;
+> -               case MMC_SIGNAL_VOLTAGE_180:
+> -                       ret = regulator_set_voltage(mmc->supply.vqmmc,
+> -                                               1700000, 1950000);
+> -                       break;
+> -               case MMC_SIGNAL_VOLTAGE_120:
+> -                       ret = regulator_set_voltage(mmc->supply.vqmmc,
+> -                                               1100000, 1300000);
+> -                       break;
+> -               }
+> +       ret = mmc_regulator_set_vqmmc(mmc, ios);
+>
+> -               if (!ret && host->ops && host->ops->post_sig_volt_switch)
+> -                       ret = host->ops->post_sig_volt_switch(host, ios);
+> +       if (!ret && host->ops && host->ops->post_sig_volt_switch)
+
+I would suggest to add a comment here somewhere, that you explicitly
+want to avoid calling the ->post_sig_volt_switch() unless the voltage
+really changed. Just to make this clear.
+
+> +               ret = host->ops->post_sig_volt_switch(host, ios);
+>
+> -               if (ret)
+> -                       dev_warn(mmc_dev(mmc), "Voltage switch failed\n");
+> -       }
+> +       if (ret < 0)
+> +               dev_warn(mmc_dev(mmc), "Voltage switch failed\n");
+>
+>         return ret;
 >  }
+> --
+> 2.25.1
 >
-> @@ -1172,7 +1172,7 @@ int mmc_host_set_uhs_voltage(struct mmc_host *host)
->         host->ios.clock = 0;
->         mmc_set_ios(host);
->
-> -       if (mmc_set_signal_voltage(host, MMC_SIGNAL_VOLTAGE_180))
-> +       if (mmc_set_signal_voltage(host, MMC_SIGNAL_VOLTAGE_180) < 0)
->                 return -EAGAIN;
->
->         /* Keep clock gated for at least 10 ms, though spec only says 5 ms */
-> diff --git a/drivers/mmc/core/mmc.c b/drivers/mmc/core/mmc.c
-> index de94fbe629bd..9f5aae051f6d 100644
-> --- a/drivers/mmc/core/mmc.c
-> +++ b/drivers/mmc/core/mmc.c
-> @@ -1121,7 +1121,7 @@ static int mmc_select_hs_ddr(struct mmc_card *card)
->          */
->         if (card->mmc_avail_type & EXT_CSD_CARD_TYPE_DDR_1_2V) {
->                 err = mmc_set_signal_voltage(host, MMC_SIGNAL_VOLTAGE_120);
-> -               if (!err)
-> +               if (err >= 0)
->                         return 0;
->         }
->
-> @@ -1130,7 +1130,7 @@ static int mmc_select_hs_ddr(struct mmc_card *card)
->                 err = mmc_set_signal_voltage(host, MMC_SIGNAL_VOLTAGE_180);
->
->         /* make sure vccq is 3.3v after switching disaster */
-> -       if (err)
-> +       if (err < 0)
->                 err = mmc_set_signal_voltage(host, MMC_SIGNAL_VOLTAGE_330);
->
->         return err;
-> @@ -1339,11 +1339,11 @@ static int mmc_select_hs400es(struct mmc_card *card)
->         if (card->mmc_avail_type & EXT_CSD_CARD_TYPE_HS400_1_2V)
->                 err = mmc_set_signal_voltage(host, MMC_SIGNAL_VOLTAGE_120);
->
-> -       if (err && card->mmc_avail_type & EXT_CSD_CARD_TYPE_HS400_1_8V)
-> +       if (err < 0 && card->mmc_avail_type & EXT_CSD_CARD_TYPE_HS400_1_8V)
->                 err = mmc_set_signal_voltage(host, MMC_SIGNAL_VOLTAGE_180);
->
->         /* If fails try again during next card power cycle */
-> -       if (err)
-> +       if (err < 0)
->                 goto out_err;
->
->         err = mmc_select_bus_width(card);
-> @@ -1437,11 +1437,11 @@ static int mmc_select_hs200(struct mmc_card *card)
->         if (card->mmc_avail_type & EXT_CSD_CARD_TYPE_HS200_1_2V)
->                 err = mmc_set_signal_voltage(host, MMC_SIGNAL_VOLTAGE_120);
->
-> -       if (err && card->mmc_avail_type & EXT_CSD_CARD_TYPE_HS200_1_8V)
-> +       if (err < 0 && card->mmc_avail_type & EXT_CSD_CARD_TYPE_HS200_1_8V)
->                 err = mmc_set_signal_voltage(host, MMC_SIGNAL_VOLTAGE_180);
->
->         /* If fails try again during next card power cycle */
-> -       if (err)
-> +       if (err < 0)
->                 return err;
->
->         mmc_select_driver_type(card);
-> @@ -1480,7 +1480,7 @@ static int mmc_select_hs200(struct mmc_card *card)
->  err:
->         if (err) {
->                 /* fall back to the old signal voltage, if fails report error */
-> -               if (mmc_set_signal_voltage(host, old_signal_voltage))
-> +               if (mmc_set_signal_voltage(host, old_signal_voltage) < 0)
->                         err = -EIO;
->
->                 pr_err("%s: %s failed, error %d\n", mmc_hostname(card->host),
-> @@ -1769,7 +1769,7 @@ static int mmc_init_card(struct mmc_host *host, u32 ocr,
->                 err = mmc_select_bus_width(card);
->                 if (err > 0 && mmc_card_hs(card)) {
->                         err = mmc_select_hs_ddr(card);
-> -                       if (err)
-> +                       if (err < 0)
->                                 goto free_card;
->                 }
->         }
-> diff --git a/drivers/mmc/host/dw_mmc-k3.c b/drivers/mmc/host/dw_mmc-k3.c
-> index 23b6f65b3785..50977ff18074 100644
-> --- a/drivers/mmc/host/dw_mmc-k3.c
-> +++ b/drivers/mmc/host/dw_mmc-k3.c
-> @@ -424,7 +424,7 @@ static int dw_mci_hi3660_switch_voltage(struct mmc_host *mmc,
->
->         if (!IS_ERR(mmc->supply.vqmmc)) {
->                 ret = mmc_regulator_set_vqmmc(mmc, ios);
-> -               if (ret) {
-> +               if (ret < 0) {
-
-This change makes sense to me, however it's also a bit confusing, as
-the changelog refers to changes for mmc_set_signal_voltage().
-
-As I understand it, we want mmc_regulator_set_vqmmc() to return 1, in
-case the current voltage level is the same as the requested "new"
-target".
-
->                         dev_err(host->dev, "Regulator set error %d\n", ret);
->                         return ret;
->                 }
-
-[...]
-
-So, to conclude, it seems like $subject patch needs to be reworked a
-bit - just keep the changes you have made to the host drivers, then
-throw away the other parts in core.
 
 Kind regards
 Uffe
