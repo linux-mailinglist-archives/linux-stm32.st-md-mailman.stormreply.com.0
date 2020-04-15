@@ -2,54 +2,76 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id 01D961AAF8C
-	for <lists+linux-stm32@lfdr.de>; Wed, 15 Apr 2020 19:30:34 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 79C661AB922
+	for <lists+linux-stm32@lfdr.de>; Thu, 16 Apr 2020 09:01:27 +0200 (CEST)
 Received: from ip-172-31-3-76.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 9C7B3C36B0C;
-	Wed, 15 Apr 2020 17:30:33 +0000 (UTC)
-Received: from perceval.ideasonboard.com (perceval.ideasonboard.com
- [213.167.242.64])
- (using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 344C6C36B12;
+	Thu, 16 Apr 2020 07:01:27 +0000 (UTC)
+Received: from mail-wm1-f65.google.com (mail-wm1-f65.google.com
+ [209.85.128.65])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id DFFF9C36B0A
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id AD1E0C36B0A
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Wed, 15 Apr 2020 17:30:31 +0000 (UTC)
-Received: from pendragon.ideasonboard.com (81-175-216-236.bb.dnainternet.fi
- [81.175.216.236])
- by perceval.ideasonboard.com (Postfix) with ESMTPSA id 203D52D1;
- Wed, 15 Apr 2020 19:30:30 +0200 (CEST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=ideasonboard.com;
- s=mail; t=1586971830;
- bh=tQThVv8JePQJlsLsQ9w8O2FlrA4U4Rc55Az4j5aZGB4=;
- h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
- b=sR7vFTYCKoV9jHVKhTXn5RNWye/bgIctDTra7yZBkSUUgWOpncgCOBCj0ENWaiZLT
- rv/O9cFNi11VlWTY4wrA8HmWyz3ap/6iiDu3PEmNv+L1jOS0fgeboKPBPyRn0txVxO
- S1yRnDl7mxs2Ctsz5kOYJCIaER5qUfya2B/WyHxs=
-Date: Wed, 15 Apr 2020 20:30:18 +0300
-From: Laurent Pinchart <laurent.pinchart@ideasonboard.com>
-To: Enric Balletbo Serra <eballetbo@gmail.com>
-Message-ID: <20200415173018.GK4758@pendragon.ideasonboard.com>
-References: <20200414151955.311949-1-adrian.ratiu@collabora.com>
- <20200414151955.311949-5-adrian.ratiu@collabora.com>
- <CAFqH_51ZZTd6iK+G1QdqfBedxyG-A=HwPjY1kdOuWTqd7niTHQ@mail.gmail.com>
+ Wed, 15 Apr 2020 21:12:04 +0000 (UTC)
+Received: by mail-wm1-f65.google.com with SMTP id a201so1686615wme.1
+ for <linux-stm32@st-md-mailman.stormreply.com>;
+ Wed, 15 Apr 2020 14:12:04 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20161025;
+ h=date:from:to:cc:subject:message-id:references:mime-version
+ :content-disposition:in-reply-to;
+ bh=2ITZy7GBSnPnTn/d5uBu6xq8Y93aT2PYpjAoG4+4rWc=;
+ b=J9gPRWadel2dL70jWIPEtqi/yJoJc66C1Zj4cptKEwwSBYw8I/mlUBXw7or3ZTtU88
+ Czz59hxGHWpOnaPCxDRpBoMUc34VF2OPxGgnnWTSxppticOjNouUIDESjixEQBjhnMiE
+ i9Z5G9saQjp8dWM8VWvqsUwqe3QT5hPtaaHUAitRx30Y28g21qAq5pr6SQAppKCcYyHc
+ /zMC9X/pYsahSsxTJwtvFOiVBj2q3/sDLV41q6/OBktHzB9atk5KWJ4T60e8RYdtrsd0
+ S6/ucvI1QZ1mJ0xZDI5GKkRK9AVz6FrktRFC9G2xdTyyQ0LZb2CzlYMGQCotEDDrsK0p
+ cv4w==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20161025;
+ h=x-gm-message-state:date:from:to:cc:subject:message-id:references
+ :mime-version:content-disposition:in-reply-to;
+ bh=2ITZy7GBSnPnTn/d5uBu6xq8Y93aT2PYpjAoG4+4rWc=;
+ b=XPyA5prB/8bacAFc0atpRZrCqSCFqvC8wq/+v6Tb8gjFrcPDcESRQnUwurL0aPZctO
+ S+6Jeu2lIU2LbIxrSLStqXPWRLKwncqNANRbGrV/dnVYBDkdy9fuNYD768z1TEYpA4pX
+ EHSvqg3qQhGA7yienpNXw6BWim3QjCMobWlb9l2tKKNfznuhVOI5wQwzpqFujKF5Xu9y
+ ujpNFftvjIc+umC3S2srRLH+xZIjgQP/sFN2Er5QuzTeTlnmQ95N2zh94B62wpQrLtT9
+ phj3jXBO1nSJW+Un1d4IEO4hpSo4qDlO5Ids51bO7tDXj2irwsv8dp5VNYlXjrk3xnNP
+ hWWA==
+X-Gm-Message-State: AGi0PuZLv0VxjZVPx7XTTzE5zOKoFyoVAAZRquBuXCadceCkqrxshjOU
+ Oy5HsuGjgxvhD0HvdZsc/ZI=
+X-Google-Smtp-Source: APiQypKUlVmLgUucmKp2BrBcPTmwCTm5Na8BV7zK3LGSGlmt2FnkiqwyqyVfZIgAaZeSZaPO4OyhEA==
+X-Received: by 2002:a1c:bb08:: with SMTP id l8mr1332414wmf.168.1586985123722; 
+ Wed, 15 Apr 2020 14:12:03 -0700 (PDT)
+Received: from Ettosoft-T55 ([91.252.39.209])
+ by smtp.gmail.com with ESMTPSA id q17sm875515wmj.45.2020.04.15.14.11.59
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Wed, 15 Apr 2020 14:12:02 -0700 (PDT)
+Date: Wed, 15 Apr 2020 23:11:57 +0200
+From: Ettore Chimenti <ek5.chimenti@gmail.com>
+To: Mauro Carvalho Chehab <mchehab+huawei@kernel.org>
+Message-ID: <20200415211157.GA454671@Ettosoft-T55>
+References: <cover.1586946605.git.mchehab+huawei@kernel.org>
+ <221ac8f88034bb55c7029c162c0273eccd6b6480.1586946605.git.mchehab+huawei@kernel.org>
 MIME-Version: 1.0
 Content-Disposition: inline
-In-Reply-To: <CAFqH_51ZZTd6iK+G1QdqfBedxyG-A=HwPjY1kdOuWTqd7niTHQ@mail.gmail.com>
-Cc: "devicetree@vger.kernel.org" <devicetree@vger.kernel.org>,
- Jernej Skrabec <jernej.skrabec@siol.net>, Adrian Pop <pop.adrian61@gmail.com>,
- Jonas Karlman <jonas@kwiboo.se>, Martyn Welch <martyn.welch@collabora.com>,
- Sjoerd Simons <sjoerd.simons@collabora.com>,
- linux-kernel <linux-kernel@vger.kernel.org>,
- dri-devel <dri-devel@lists.freedesktop.org>,
- Andrzej Hajda <a.hajda@samsung.com>,
- "open list:ARM/Rockchip SoC..." <linux-rockchip@lists.infradead.org>,
- linux-imx@nxp.com, Arnaud Ferraris <arnaud.ferraris@collabora.com>,
- Collabora Kernel ML <kernel@collabora.com>,
- linux-stm32@st-md-mailman.stormreply.com,
- Linux ARM <linux-arm-kernel@lists.infradead.org>,
- Emil Velikov <emil.velikov@collabora.com>
-Subject: Re: [Linux-stm32] [PATCH v6 4/8] drm: imx: Add i.MX 6 MIPI DSI host
-	platform driver
+In-Reply-To: <221ac8f88034bb55c7029c162c0273eccd6b6480.1586946605.git.mchehab+huawei@kernel.org>
+X-Mailman-Approved-At: Thu, 16 Apr 2020 07:01:23 +0000
+Cc: Benjamin Gaignard <benjamin.gaignard@linaro.org>,
+ linux-samsung-soc@vger.kernel.org, linux-tegra@vger.kernel.org,
+ Neil Armstrong <narmstrong@baylibre.com>, Kevin Hilman <khilman@baylibre.com>,
+ Krzysztof Kozlowski <krzk@kernel.org>, Jonathan Hunter <jonathanh@nvidia.com>,
+ Enric Balletbo i Serra <enric.balletbo@collabora.com>,
+ Kukjin Kim <kgene@kernel.org>, Thierry Reding <thierry.reding@gmail.com>,
+ Maxime Coquelin <mcoquelin.stm32@gmail.com>,
+ Hans Verkuil <hverkuil-cisco@xs4all.nl>, linux-amlogic@lists.infradead.org,
+ Guenter Roeck <groeck@chromium.org>,
+ Marek Szyprowski <m.szyprowski@samsung.com>,
+ Benson Leung <bleung@chromium.org>, linux-stm32@st-md-mailman.stormreply.com,
+ linux-arm-kernel@lists.infradead.org,
+ Linux Media Mailing List <linux-media@vger.kernel.org>
+Subject: Re: [Linux-stm32] [PATCH v2 3/6] media: move CEC platform drivers
+ to a separate directory
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -61,350 +83,548 @@ List-Post: <mailto:linux-stm32@st-md-mailman.stormreply.com>
 List-Help: <mailto:linux-stm32-request@st-md-mailman.stormreply.com?subject=help>
 List-Subscribe: <https://st-md-mailman.stormreply.com/mailman/listinfo/linux-stm32>, 
  <mailto:linux-stm32-request@st-md-mailman.stormreply.com?subject=subscribe>
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: base64
+Content-Type: text/plain; charset="us-ascii"
+Content-Transfer-Encoding: 7bit
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
-SGkgRW5yaWMsCgpPbiBXZWQsIEFwciAxNSwgMjAyMCBhdCAwNzoyNjowMlBNICswMjAwLCBFbnJp
-YyBCYWxsZXRibyBTZXJyYSB3cm90ZToKPiBNaXNzYXRnZSBkZSBBZHJpYW4gUmF0aXUgPGFkcmlh
-bi5yYXRpdUBjb2xsYWJvcmEuY29tPiBkZWwgZGlhIGR0LiwgMTQKPiBk4oCZYWJyLiAyMDIwIGEg
-bGVzIDE3OjE5Ogo+ID4KPiA+IFRoaXMgYWRkcyBzdXBwb3J0IGZvciB0aGUgU3lub3BzaXMgRGVz
-aWduV2FyZSBNSVBJIERTSSB2MS4wMSBob3N0Cj4gPiBjb250cm9sbGVyIHdoaWNoIGlzIGVtYmVk
-ZGVkIGluIGkuTVggNiBTb0NzLgo+ID4KPiA+IEJhc2VkIG9uIGZvbGxvd2luZyBwYXRjaGVzLCBi
-dXQgdXBkYXRlZC9leHRlbmRlZCB0byB3b3JrIHdpdGggZXhpc3RpbmcKPiA+IHN1cHBvcnQgZm91
-bmQgaW4gdGhlIGtlcm5lbDoKPiA+Cj4gPiAtIGRybTogaW14OiBTdXBwb3J0IFN5bm9wc3lzIERl
-c2lnbldhcmUgTUlQSSBEU0kgaG9zdCBjb250cm9sbGVyCj4gPiAgIFNpZ25lZC1vZmYtYnk6IExp
-dSBZaW5nIDxZaW5nLkxpdUBmcmVlc2NhbGUuY29tPgo+ID4KPiA+IENjOiBGYWJpbyBFc3RldmFt
-IDxmZXN0ZXZhbUBnbWFpbC5jb20+Cj4gPiBSZXZpZXdlZC1ieTogRW1pbCBWZWxpa292IDxlbWls
-LnZlbGlrb3ZAY29sbGFib3JhLmNvbT4KPiA+IFRlc3RlZC1ieTogQWRyaWFuIFBvcCA8cG9wLmFk
-cmlhbjYxQGdtYWlsLmNvbT4KPiA+IFRlc3RlZC1ieTogQXJuYXVkIEZlcnJhcmlzIDxhcm5hdWQu
-ZmVycmFyaXNAY29sbGFib3JhLmNvbT4KPiA+IFNpZ25lZC1vZmYtYnk6IFNqb2VyZCBTaW1vbnMg
-PHNqb2VyZC5zaW1vbnNAY29sbGFib3JhLmNvbT4KPiA+IFNpZ25lZC1vZmYtYnk6IE1hcnR5biBX
-ZWxjaCA8bWFydHluLndlbGNoQGNvbGxhYm9yYS5jb20+Cj4gPiBTaWduZWQtb2ZmLWJ5OiBBZHJp
-YW4gUmF0aXUgPGFkcmlhbi5yYXRpdUBjb2xsYWJvcmEuY29tPgo+ID4gLS0tCj4gPiBDaGFuZ2Vz
-IHNpbmNlIHY1Ogo+ID4gICAtIFJld29yZCB0byByZW1vdmUgdW5yZWxhdGVkIGRldmljZSB0cmVl
-IHBhdGNoIG1lbnRpb24gKEZhYmlvKQo+ID4gICAtIE1vdmUgcGxscmVmX2NsayBlbmFibGUvZGlz
-YWJsZSB0byBiaW5kL3VuYmluZCAoRXplcXVpZWwpCj4gPiAgIC0gRml4IGZyZWVzY2FsZS5jb20g
-LT4gbnhwLmNvbSBlbWFpbCBhZGRyZXNzZXMgKEZhYmlvKQo+ID4gICAtIEFsc28gYWRkZWQgbXlz
-ZWxmIGFzIG1vZHVsZSBhdXRob3IgKEZhYmlvKQo+ID4gICAtIFVzZSBEUk1fREVWXyogbWFjcm9z
-IGZvciBjb25zaXN0ZW5jeSwgcHJpbnQgbW9yZSBlcnJvciBtc2cKPiA+Cj4gPiBDaGFuZ2VzIHNp
-bmNlIHY0Ogo+ID4gICAtIFNwbGl0IG9mZiBkcml2ZXItc3BlY2lmaWMgY29uZmlndXJhdGlvbiBv
-ZiBwaHkgdGltaW5ncyBkdWUKPiA+ICAgdG8gbmV3IHVwc3RyZWFtIEFQSS4KPiA+ICAgLSBNb3Zl
-IHJlZ21hcCBpbmZyYXN0cnVjdHVyZSBsb2dpYyB0byBzZXBhcmF0ZSBjb21taXQgKEV6ZXF1aWVs
-KQo+ID4gICAtIE1vdmUgZHNpIHYxLjAxIGxheW91dCBhZGRpdGlvbiB0byBhIHNlcGFyYXRlIGNv
-bW1pdCAoRXplcXVpZWwpCj4gPiAgIC0gTWlub3Igd2FybmluZ3MgYW5kIGRyaXZlciBuYW1lIGZp
-eGVzCj4gPgo+ID4gQ2hhbmdlcyBzaW5jZSB2MzoKPiA+ICAgLSBSZW5hbWVkIHBsYXRmb3JtIGRy
-aXZlciB0byByZWZsZWN0IGl0J3MgaS5NWDYgb25seS4gKEZhYmlvKQo+ID4KPiA+IENoYW5nZXMg
-c2luY2UgdjI6Cj4gPiAgIC0gRml4ZWQgY29tbWl0IHRhZ3MuIChFbWlsKQo+ID4KPiA+IENoYW5n
-ZXMgc2luY2UgdjE6Cj4gPiAgIC0gTW92ZWQgcmVnaXN0ZXIgZGVmaW5pdGlvbnMgJiByZWdtYXAg
-aW5pdGlhbGl6YXRpb24gaW50byBicmlkZ2UKPiA+ICAgbW9kdWxlLiBQbGF0Zm9ybSBkcml2ZXJz
-IGdldCB0aGUgcmVnbWFwIHZpYSBwbGF0X2RhdGEgYWZ0ZXIKPiA+ICAgY2FsbGluZyB0aGUgYnJp
-ZGdlIHByb2JlLiAoRW1pbCkKPiA+IC0tLQo+ID4gIGRyaXZlcnMvZ3B1L2RybS9pbXgvS2NvbmZp
-ZyAgICAgICAgICAgIHwgICA3ICsKPiA+ICBkcml2ZXJzL2dwdS9kcm0vaW14L01ha2VmaWxlICAg
-ICAgICAgICB8ICAgMSArCj4gPiAgZHJpdmVycy9ncHUvZHJtL2lteC9kd19taXBpX2RzaS1pbXg2
-LmMgfCA0MDkgKysrKysrKysrKysrKysrKysrKysrKysrKwo+ID4gIDMgZmlsZXMgY2hhbmdlZCwg
-NDE3IGluc2VydGlvbnMoKykKPiA+ICBjcmVhdGUgbW9kZSAxMDA2NDQgZHJpdmVycy9ncHUvZHJt
-L2lteC9kd19taXBpX2RzaS1pbXg2LmMKPiA+Cj4gPiBkaWZmIC0tZ2l0IGEvZHJpdmVycy9ncHUv
-ZHJtL2lteC9LY29uZmlnIGIvZHJpdmVycy9ncHUvZHJtL2lteC9LY29uZmlnCj4gPiBpbmRleCAy
-MDdiZjc0MDlkZmIuLmI0OWU3MGU3ZjBmZCAxMDA2NDQKPiA+IC0tLSBhL2RyaXZlcnMvZ3B1L2Ry
-bS9pbXgvS2NvbmZpZwo+ID4gKysrIGIvZHJpdmVycy9ncHUvZHJtL2lteC9LY29uZmlnCj4gPiBA
-QCAtMzksMyArMzksMTAgQEAgY29uZmlnIERSTV9JTVhfSERNSQo+ID4gICAgICAgICBkZXBlbmRz
-IG9uIERSTV9JTVgKPiA+ICAgICAgICAgaGVscAo+ID4gICAgICAgICAgIENob29zZSB0aGlzIGlm
-IHlvdSB3YW50IHRvIHVzZSBIRE1JIG9uIGkuTVg2Lgo+ID4gKwo+ID4gK2NvbmZpZyBEUk1fSU1Y
-Nl9NSVBJX0RTSQo+ID4gKyAgICAgICB0cmlzdGF0ZSAiRnJlZXNjYWxlIGkuTVg2IERSTSBNSVBJ
-IERTSSIKPiA+ICsgICAgICAgc2VsZWN0IERSTV9EV19NSVBJX0RTSQo+ID4gKyAgICAgICBkZXBl
-bmRzIG9uIERSTV9JTVgKPiAKPiBTaG91bGQgaXQgZGVwZW5kIG9uIENPTkZJR19PRiB0b28/IEkg
-c3VzcGVjdCB5b3UnbGwgZ2V0IGJ1aWxkIGVycm9ycwo+IGlmIE9GIGlzIG5vdCBzZWxlY3RlZAo+
-IAo+ID4gKyAgICAgICBoZWxwCj4gPiArICAgICAgICAgQ2hvb3NlIHRoaXMgaWYgeW91IHdhbnQg
-dG8gdXNlIE1JUEkgRFNJIG9uIGkuTVg2Lgo+ID4gZGlmZiAtLWdpdCBhL2RyaXZlcnMvZ3B1L2Ry
-bS9pbXgvTWFrZWZpbGUgYi9kcml2ZXJzL2dwdS9kcm0vaW14L01ha2VmaWxlCj4gPiBpbmRleCAy
-MWNkY2MyZmFhYmMuLjlhNzg0M2M1OTM0NyAxMDA2NDQKPiA+IC0tLSBhL2RyaXZlcnMvZ3B1L2Ry
-bS9pbXgvTWFrZWZpbGUKPiA+ICsrKyBiL2RyaXZlcnMvZ3B1L2RybS9pbXgvTWFrZWZpbGUKPiA+
-IEBAIC05LDMgKzksNCBAQCBvYmotJChDT05GSUdfRFJNX0lNWF9UVkUpICs9IGlteC10dmUubwo+
-ID4gIG9iai0kKENPTkZJR19EUk1fSU1YX0xEQikgKz0gaW14LWxkYi5vCj4gPgo+ID4gIG9iai0k
-KENPTkZJR19EUk1fSU1YX0hETUkpICs9IGR3X2hkbWktaW14Lm8KPiA+ICtvYmotJChDT05GSUdf
-RFJNX0lNWDZfTUlQSV9EU0kpICs9IGR3X21pcGlfZHNpLWlteDYubwo+ID4gZGlmZiAtLWdpdCBh
-L2RyaXZlcnMvZ3B1L2RybS9pbXgvZHdfbWlwaV9kc2ktaW14Ni5jIGIvZHJpdmVycy9ncHUvZHJt
-L2lteC9kd19taXBpX2RzaS1pbXg2LmMKPiA+IG5ldyBmaWxlIG1vZGUgMTAwNjQ0Cj4gPiBpbmRl
-eCAwMDAwMDAwMDAwMDAuLjY5MTRkYjhjZThjYgo+ID4gLS0tIC9kZXYvbnVsbAo+ID4gKysrIGIv
-ZHJpdmVycy9ncHUvZHJtL2lteC9kd19taXBpX2RzaS1pbXg2LmMKPiA+IEBAIC0wLDAgKzEsNDA5
-IEBACj4gPiArLy8gU1BEWC1MaWNlbnNlLUlkZW50aWZpZXI6IEdQTC0yLjArCj4gPiArLyoKPiA+
-ICsgKiBpLk1YNiBkcm0gZHJpdmVyIC0gTUlQSSBEU0kgSG9zdCBDb250cm9sbGVyCj4gPiArICoK
-PiA+ICsgKiBDb3B5cmlnaHQgKEMpIDIwMTEtMjAxNSBGcmVlc2NhbGUgU2VtaWNvbmR1Y3Rvciwg
-SW5jLgo+ID4gKyAqIENvcHlyaWdodCAoQykgMjAxOS0yMDIwIENvbGxhYm9yYSwgTHRkLgo+ID4g
-KyAqLwo+ID4gKwo+ID4gKyNpbmNsdWRlIDxsaW51eC9jbGsuaD4KPiA+ICsjaW5jbHVkZSA8bGlu
-dXgvY29tcG9uZW50Lmg+Cj4gPiArI2luY2x1ZGUgPGxpbnV4L21mZC9zeXNjb24uaD4KPiA+ICsj
-aW5jbHVkZSA8bGludXgvbWZkL3N5c2Nvbi9pbXg2cS1pb211eGMtZ3ByLmg+Cj4gPiArI2luY2x1
-ZGUgPGxpbnV4L21vZHVsZS5oPgo+ID4gKyNpbmNsdWRlIDxsaW51eC9vZl9kZXZpY2UuaD4KPiA+
-ICsjaW5jbHVkZSA8bGludXgvcmVnbWFwLmg+Cj4gPiArI2luY2x1ZGUgPGxpbnV4L3ZpZGVvZGV2
-Mi5oPgo+ID4gKyNpbmNsdWRlIDxkcm0vYnJpZGdlL2R3X21pcGlfZHNpLmg+Cj4gPiArI2luY2x1
-ZGUgPGRybS9kcm1fY3J0Y19oZWxwZXIuaD4KPiA+ICsjaW5jbHVkZSA8ZHJtL2RybV9taXBpX2Rz
-aS5oPgo+ID4gKyNpbmNsdWRlIDxkcm0vZHJtX29mLmg+Cj4gPiArI2luY2x1ZGUgPGRybS9kcm1f
-cHJpbnQuaD4KPiA+ICsKPiA+ICsjaW5jbHVkZSAiaW14LWRybS5oIgo+ID4gKwo+ID4gKyNkZWZp
-bmUgRFNJX1BXUl9VUCAgICAgICAgICAgICAgICAgICAgIDB4MDQKPiA+ICsjZGVmaW5lIFJFU0VU
-ICAgICAgICAgICAgICAgICAgICAgICAgICAwCj4gPiArI2RlZmluZSBQT1dFUlVQICAgICAgICAg
-ICAgICAgICAgICAgICAgICAgICAgICBCSVQoMCkKPiA+ICsKPiA+ICsjZGVmaW5lIERTSV9QSFlf
-SUZfQ1RSTCAgICAgICAgICAgICAgICAgICAgICAgIDB4NWMKPiA+ICsjZGVmaW5lIFBIWV9JRl9D
-VFJMX1JFU0VUICAgICAgICAgICAgICAweDAKPiA+ICsKPiA+ICsjZGVmaW5lIERTSV9QSFlfVFNU
-X0NUUkwwICAgICAgICAgICAgICAweDY0Cj4gPiArI2RlZmluZSBQSFlfVEVTVENMSyAgICAgICAg
-ICAgICAgICAgICAgQklUKDEpCj4gPiArI2RlZmluZSBQSFlfVU5URVNUQ0xLICAgICAgICAgICAg
-ICAgICAgMAo+ID4gKyNkZWZpbmUgUEhZX1RFU1RDTFIgICAgICAgICAgICAgICAgICAgIEJJVCgw
-KQo+ID4gKyNkZWZpbmUgUEhZX1VOVEVTVENMUiAgICAgICAgICAgICAgICAgIDAKPiA+ICsKPiA+
-ICsjZGVmaW5lIERTSV9QSFlfVFNUX0NUUkwxICAgICAgICAgICAgICAweDY4Cj4gPiArI2RlZmlu
-ZSBQSFlfVEVTVEVOICAgICAgICAgICAgICAgICAgICAgQklUKDE2KQo+ID4gKyNkZWZpbmUgUEhZ
-X1VOVEVTVEVOICAgICAgICAgICAgICAgICAgIDAKPiA+ICsjZGVmaW5lIFBIWV9URVNURE9VVChu
-KSAgICAgICAgICAgICAgICAgICAgICAgICgoKG4pICYgMHhmZikgPDwgOCkKPiA+ICsjZGVmaW5l
-IFBIWV9URVNURElOKG4pICAgICAgICAgICAgICAgICAoKChuKSAmIDB4ZmYpIDw8IDApCj4gPiAr
-Cj4gPiArc3RydWN0IGlteF9taXBpX2RzaSB7Cj4gPiArICAgICAgIHN0cnVjdCBkcm1fZW5jb2Rl
-ciBlbmNvZGVyOwo+ID4gKyAgICAgICBzdHJ1Y3QgZGV2aWNlICpkZXY7Cj4gPiArICAgICAgIHN0
-cnVjdCByZWdtYXAgKm11eF9zZWw7Cj4gPiArICAgICAgIHN0cnVjdCBkd19taXBpX2RzaSAqbWlw
-aV9kc2k7Cj4gPiArICAgICAgIHN0cnVjdCBjbGsgKnBsbHJlZl9jbGs7Cj4gPiArCj4gPiArICAg
-ICAgIHZvaWQgX19pb21lbSAqYmFzZTsKPiA+ICsgICAgICAgdW5zaWduZWQgaW50IGxhbmVfbWJw
-czsKPiA+ICt9Owo+ID4gKwo+ID4gK3N0cnVjdCBkcGh5X3BsbF90ZXN0ZGluX21hcCB7Cj4gPiAr
-ICAgICAgIHVuc2lnbmVkIGludCBtYXhfbWJwczsKPiA+ICsgICAgICAgdTggdGVzdGRpbjsKPiA+
-ICt9Owo+ID4gKwo+ID4gKy8qIFRoZSB0YWJsZSBpcyBiYXNlZCBvbiAyN01IeiBEUEhZIHBsbCBy
-ZWZlcmVuY2UgY2xvY2suICovCj4gPiArc3RhdGljIGNvbnN0IHN0cnVjdCBkcGh5X3BsbF90ZXN0
-ZGluX21hcCBkcHRkaW5fbWFwW10gPSB7Cj4gPiArICAgICAgIHsxNjAsIDB4MDR9LCB7MTgwLCAw
-eDI0fSwgezIwMCwgMHg0NH0sIHsyMTAsIDB4MDZ9LAo+ID4gKyAgICAgICB7MjQwLCAweDI2fSwg
-ezI1MCwgMHg0Nn0sIHsyNzAsIDB4MDh9LCB7MzAwLCAweDI4fSwKPiA+ICsgICAgICAgezMzMCwg
-MHg0OH0sIHszNjAsIDB4MmF9LCB7NDAwLCAweDRhfSwgezQ1MCwgMHgwY30sCj4gPiArICAgICAg
-IHs1MDAsIDB4MmN9LCB7NTUwLCAweDBlfSwgezYwMCwgMHgyZX0sIHs2NTAsIDB4MTB9LAo+ID4g
-KyAgICAgICB7NzAwLCAweDMwfSwgezc1MCwgMHgxMn0sIHs4MDAsIDB4MzJ9LCB7ODUwLCAweDE0
-fSwKPiA+ICsgICAgICAgezkwMCwgMHgzNH0sIHs5NTAsIDB4NTR9LCB7MTAwMCwgMHg3NH0KPiA+
-ICt9Owo+ID4gKwo+ID4gK3N0YXRpYyBpbmxpbmUgc3RydWN0IGlteF9taXBpX2RzaSAqZW5jX3Rv
-X2RzaShzdHJ1Y3QgZHJtX2VuY29kZXIgKmVuYykKPiA+ICt7Cj4gPiArICAgICAgIHJldHVybiBj
-b250YWluZXJfb2YoZW5jLCBzdHJ1Y3QgaW14X21pcGlfZHNpLCBlbmNvZGVyKTsKPiA+ICt9Cj4g
-PiArCj4gPiArc3RhdGljIHZvaWQgaW14X21pcGlfZHNpX3NldF9pcHVfZGlfbXV4KHN0cnVjdCBp
-bXhfbWlwaV9kc2kgKmRzaSwgaW50IGlwdV9kaSkKPiA+ICt7Cj4gPiArICAgICAgIHJlZ21hcF91
-cGRhdGVfYml0cyhkc2ktPm11eF9zZWwsIElPTVVYQ19HUFIzLAo+ID4gKyAgICAgICAgICAgICAg
-ICAgICAgICAgICAgSU1YNlFfR1BSM19NSVBJX01VWF9DVExfTUFTSywKPiA+ICsgICAgICAgICAg
-ICAgICAgICAgICAgICAgIGlwdV9kaSA8PCBJTVg2UV9HUFIzX01JUElfTVVYX0NUTF9TSElGVCk7
-Cj4gPiArfQo+ID4gKwo+ID4gK3N0YXRpYyBjb25zdCBzdHJ1Y3QgZHJtX2VuY29kZXJfZnVuY3Mg
-aW14X21pcGlfZHNpX2VuY29kZXJfZnVuY3MgPSB7Cj4gPiArICAgICAgIC5kZXN0cm95ID0gaW14
-X2RybV9lbmNvZGVyX2Rlc3Ryb3ksCj4gPiArfTsKPiA+ICsKPiA+ICtzdGF0aWMgYm9vbCBpbXhf
-bWlwaV9kc2lfZW5jb2Rlcl9tb2RlX2ZpeHVwKHN0cnVjdCBkcm1fZW5jb2RlciAqZW5jb2RlciwK
-PiA+ICsgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgY29uc3Qgc3Ry
-dWN0IGRybV9kaXNwbGF5X21vZGUgKm1vZGUsCj4gPiArICAgICAgICAgICAgICAgICAgICAgICAg
-ICAgICAgICAgICAgICAgICAgIHN0cnVjdCBkcm1fZGlzcGxheV9tb2RlICphZGpfbW9kZSkKPiA+
-ICt7Cj4gPiArICAgICAgIHJldHVybiB0cnVlOwo+ID4gK30KPiA+ICsKPiA+ICtzdGF0aWMgaW50
-IGlteF9taXBpX2RzaV9lbmNvZGVyX2F0b21pY19jaGVjayhzdHJ1Y3QgZHJtX2VuY29kZXIgKmVu
-Y29kZXIsCj4gPiArICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICBz
-dHJ1Y3QgZHJtX2NydGNfc3RhdGUgKmNydGNfc3RhdGUsCj4gPiArICAgICAgICAgICAgICAgICAg
-ICAgICAgICAgICAgICAgICAgICAgICAgICBzdHJ1Y3QgZHJtX2Nvbm5lY3Rvcl9zdGF0ZSAqY29u
-bikKPiA+ICt7Cj4gPiArICAgICAgIHN0cnVjdCBpbXhfY3J0Y19zdGF0ZSAqaW14X2NydGNfc3Rh
-dGUgPSB0b19pbXhfY3J0Y19zdGF0ZShjcnRjX3N0YXRlKTsKPiA+ICsKPiA+ICsgICAgICAgLyog
-VGhlIGZvbGxvd2luZyB2YWx1ZXMgYXJlIHRha2VuIGZyb20gZHdfaGRtaV9pbXhfYXRvbWljX2No
-ZWNrICovCj4gPiArICAgICAgIGlteF9jcnRjX3N0YXRlLT5idXNfZm9ybWF0ID0gTUVESUFfQlVT
-X0ZNVF9SR0I4ODhfMVgyNDsKPiA+ICsgICAgICAgaW14X2NydGNfc3RhdGUtPmRpX2hzeW5jX3Bp
-biA9IDI7Cj4gPiArICAgICAgIGlteF9jcnRjX3N0YXRlLT5kaV92c3luY19waW4gPSAzOwo+ID4g
-Kwo+ID4gKyAgICAgICByZXR1cm4gMDsKPiA+ICt9Cj4gPiArCj4gPiArc3RhdGljIHZvaWQgaW14
-X21pcGlfZHNpX2VuY29kZXJfY29tbWl0KHN0cnVjdCBkcm1fZW5jb2RlciAqZW5jb2RlcikKPiA+
-ICt7Cj4gPiArICAgICAgIHN0cnVjdCBpbXhfbWlwaV9kc2kgKmRzaSA9IGVuY190b19kc2koZW5j
-b2Rlcik7Cj4gPiArICAgICAgIGludCBtdXggPSBkcm1fb2ZfZW5jb2Rlcl9hY3RpdmVfcG9ydF9p
-ZChkc2ktPmRldi0+b2Zfbm9kZSwgZW5jb2Rlcik7Cj4gPiArCj4gPiArICAgICAgIGlteF9taXBp
-X2RzaV9zZXRfaXB1X2RpX211eChkc2ksIG11eCk7Cj4gPiArfQo+ID4gKwo+ID4gK3N0YXRpYyB2
-b2lkIGlteF9taXBpX2RzaV9lbmNvZGVyX2Rpc2FibGUoc3RydWN0IGRybV9lbmNvZGVyICplbmNv
-ZGVyKQo+ID4gK3sKPiA+ICt9Cj4gPiArCj4gPiArc3RhdGljIGNvbnN0IHN0cnVjdCBkcm1fZW5j
-b2Rlcl9oZWxwZXJfZnVuY3MgaW14X21pcGlfZHNpX2VuY29kZXJfaGVscGVycyA9IHsKPiAKPiBB
-RkFJSyAob3IgYXQgbGVhc3QgdGhpcyBpcyB0aGUgZmVlZGJhY2sgSSByZWNlaXZlZCkgZHJtX2Vu
-Y29kZXIgaXMKPiBraW5kIG9mIGRlcHJlY2F0ZWQsIGFuZCBub3dhZGF5cyBhbGwgaXMgbWlncmF0
-ZWQgdG8gZHJtX2JyaWRnZQo+IChlbmNvZGVycywgYnJpZGdlcyBhbmQgcGFuZWxzKS4gT2YgY291
-cnNlLCBhIGRybV9lbmNvZGVyIGlzIG5lZWRlZCwgYXMKPiB0aGUgRFJNIGNvcmUgZXhwZWN0cyBv
-bmUsIGJ1dCBzaG91bGQganVzdCBiZSBhIGR1bW15IG9iamVjdCB0aGF0IHlvdQo+IGNhbiBwcm9i
-YWJseSBjcmVhdGUgd2l0aCBqdXN0IGNhbGxpbmcgIGRybV9zaW1wbGVfZW5jb2Rlcl9pbml0KCku
-IERSTQo+IG1haW50YWluZXJzLCBwbGVhc2Ugc2hvdXQgaWYgSSBhbSB3cm9uZy4KClRoYXQgY2Vy
-dGFpbmx5IG1hdGNoZXMgbXkgcG9zaXRpb24gOi0pIEkgd291bGQgYWxzbyBhZGQgdGhhdCB0aGUg
-RFJNCmVuY29kZXIgc2hvdWxkIGJlIGNyZWF0ZWQgaW4gaW14LWRybS1jb3JlLmMgb3IgaW4gaXB1
-djMtY3J0Yy5jLCBub3QKaGVyZS4KCj4gPiArICAgICAgIC5tb2RlX2ZpeHVwID0gaW14X21pcGlf
-ZHNpX2VuY29kZXJfbW9kZV9maXh1cCwKPiA+ICsgICAgICAgLmNvbW1pdCA9IGlteF9taXBpX2Rz
-aV9lbmNvZGVyX2NvbW1pdCwKPiA+ICsgICAgICAgLmRpc2FibGUgPSBpbXhfbWlwaV9kc2lfZW5j
-b2Rlcl9kaXNhYmxlLAo+ID4gKyAgICAgICAuYXRvbWljX2NoZWNrID0gaW14X21pcGlfZHNpX2Vu
-Y29kZXJfYXRvbWljX2NoZWNrLAo+ID4gK307Cj4gPiArCj4gPiArc3RhdGljIGludCBpbXhfbWlw
-aV9kc2lfcmVnaXN0ZXIoc3RydWN0IGRybV9kZXZpY2UgKmRybSwKPiA+ICsgICAgICAgICAgICAg
-ICAgICAgICAgICAgICAgICAgIHN0cnVjdCBpbXhfbWlwaV9kc2kgKmRzaSkKPiA+ICt7Cj4gPiAr
-ICAgICAgIGludCByZXQ7Cj4gPiArCj4gPiArICAgICAgIHJldCA9IGlteF9kcm1fZW5jb2Rlcl9w
-YXJzZV9vZihkcm0sICZkc2ktPmVuY29kZXIsIGRzaS0+ZGV2LT5vZl9ub2RlKTsKPiA+ICsgICAg
-ICAgaWYgKHJldCkKPiA+ICsgICAgICAgICAgICAgICByZXR1cm4gcmV0Owo+ID4gKwo+ID4gKyAg
-ICAgICBkcm1fZW5jb2Rlcl9oZWxwZXJfYWRkKCZkc2ktPmVuY29kZXIsCj4gPiArICAgICAgICAg
-ICAgICAgICAgICAgICAgICAgICAgJmlteF9taXBpX2RzaV9lbmNvZGVyX2hlbHBlcnMpOwo+ID4g
-KyAgICAgICBkcm1fZW5jb2Rlcl9pbml0KGRybSwgJmRzaS0+ZW5jb2RlciwgJmlteF9taXBpX2Rz
-aV9lbmNvZGVyX2Z1bmNzLAo+ID4gKyAgICAgICAgICAgICAgICAgICAgICAgIERSTV9NT0RFX0VO
-Q09ERVJfRFNJLCBOVUxMKTsKPiA+ICsgICAgICAgcmV0dXJuIDA7Cj4gPiArfQo+ID4gKwo+ID4g
-K3N0YXRpYyBlbnVtIGRybV9tb2RlX3N0YXR1cyBpbXhfbWlwaV9kc2lfbW9kZV92YWxpZCh2b2lk
-ICpwcml2X2RhdGEsCj4gPiArICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAg
-Y29uc3Qgc3RydWN0IGRybV9kaXNwbGF5X21vZGUgKm1vZGUpCj4gPiArewo+ID4gKyAgICAgICAv
-Kgo+ID4gKyAgICAgICAgKiBUaGUgVklEX1BLVF9TSVpFIGZpZWxkIGluIHRoZSBEU0lfVklEX1BL
-VF9DRkcKPiA+ICsgICAgICAgICogcmVnaXN0ZXIgaXMgMTEtYml0Lgo+ID4gKyAgICAgICAgKi8K
-PiA+ICsgICAgICAgaWYgKG1vZGUtPmhkaXNwbGF5ID4gMHg3ZmYpCj4gPiArICAgICAgICAgICAg
-ICAgcmV0dXJuIE1PREVfQkFEX0hWQUxVRTsKPiA+ICsKPiA+ICsgICAgICAgLyoKPiA+ICsgICAg
-ICAgICogVGhlIFZfQUNUSVZFX0xJTkVTIGZpZWxkIGluIHRoZSBEU0lfVlRJTUlOR19DRkcKPiA+
-ICsgICAgICAgICogcmVnaXN0ZXIgaXMgMTEtYml0Lgo+ID4gKyAgICAgICAgKi8KPiA+ICsgICAg
-ICAgaWYgKG1vZGUtPnZkaXNwbGF5ID4gMHg3ZmYpCj4gPiArICAgICAgICAgICAgICAgcmV0dXJu
-IE1PREVfQkFEX1ZWQUxVRTsKPiA+ICsKPiA+ICsgICAgICAgcmV0dXJuIE1PREVfT0s7Cj4gPiAr
-fQo+ID4gKwo+ID4gKwo+ID4gK3N0YXRpYyB1bnNpZ25lZCBpbnQgbWF4X21icHNfdG9fdGVzdGRp
-bih1bnNpZ25lZCBpbnQgbWF4X21icHMpCj4gPiArewo+ID4gKyAgICAgICB1bnNpZ25lZCBpbnQg
-aTsKPiA+ICsKPiA+ICsgICAgICAgZm9yIChpID0gMDsgaSA8IEFSUkFZX1NJWkUoZHB0ZGluX21h
-cCk7IGkrKykKPiA+ICsgICAgICAgICAgICAgICBpZiAoZHB0ZGluX21hcFtpXS5tYXhfbWJwcyA9
-PSBtYXhfbWJwcykKPiA+ICsgICAgICAgICAgICAgICAgICAgICAgIHJldHVybiBkcHRkaW5fbWFw
-W2ldLnRlc3RkaW47Cj4gPiArCj4gPiArICAgICAgIHJldHVybiAtRUlOVkFMOwo+ID4gK30KPiA+
-ICsKPiA+ICtzdGF0aWMgaW5saW5lIHZvaWQgZHNpX3dyaXRlKHN0cnVjdCBpbXhfbWlwaV9kc2kg
-KmRzaSwgdTMyIHJlZywgdTMyIHZhbCkKPiA+ICt7Cj4gPiArICAgICAgIHdyaXRlbCh2YWwsIGRz
-aS0+YmFzZSArIHJlZyk7Cj4gPiArfQo+ID4gKwo+ID4gK3N0YXRpYyBpbnQgaW14X21pcGlfZHNp
-X3BoeV9pbml0KHZvaWQgKnByaXZfZGF0YSkKPiA+ICt7Cj4gPiArICAgICAgIHN0cnVjdCBpbXhf
-bWlwaV9kc2kgKmRzaSA9IHByaXZfZGF0YTsKPiA+ICsgICAgICAgaW50IHRlc3RkaW47Cj4gPiAr
-Cj4gPiArICAgICAgIHRlc3RkaW4gPSBtYXhfbWJwc190b190ZXN0ZGluKGRzaS0+bGFuZV9tYnBz
-KTsKPiA+ICsgICAgICAgaWYgKHRlc3RkaW4gPCAwKSB7Cj4gPiArICAgICAgICAgICAgICAgRFJN
-X0RFVl9FUlJPUihkc2ktPmRldiwKPiA+ICsgICAgICAgICAgICAgICAgICAgICAgICAgICAgICJm
-YWlsZWQgdG8gZ2V0IHRlc3RkaW4gZm9yICVkbWJwcyBsYW5lIGNsb2NrXG4iLAo+ID4gKyAgICAg
-ICAgICAgICAgICAgICAgICAgICAgICAgZHNpLT5sYW5lX21icHMpOwo+ID4gKyAgICAgICAgICAg
-ICAgIHJldHVybiB0ZXN0ZGluOwo+ID4gKyAgICAgICB9Cj4gPiArCj4gPiArICAgICAgIGRzaV93
-cml0ZShkc2ksIERTSV9QSFlfSUZfQ1RSTCwgUEhZX0lGX0NUUkxfUkVTRVQpOwo+ID4gKyAgICAg
-ICBkc2lfd3JpdGUoZHNpLCBEU0lfUFdSX1VQLCBQT1dFUlVQKTsKPiA+ICsKPiA+ICsgICAgICAg
-ZHNpX3dyaXRlKGRzaSwgRFNJX1BIWV9UU1RfQ1RSTDAsIFBIWV9VTlRFU1RDTEsgfCBQSFlfVU5U
-RVNUQ0xSKTsKPiA+ICsgICAgICAgZHNpX3dyaXRlKGRzaSwgRFNJX1BIWV9UU1RfQ1RSTDEsIFBI
-WV9URVNURU4gfCBQSFlfVEVTVERPVVQoMCkgfAo+ID4gKyAgICAgICAgICAgICAgICAgUEhZX1RF
-U1RESU4oMHg0NCkpOwo+ID4gKyAgICAgICBkc2lfd3JpdGUoZHNpLCBEU0lfUEhZX1RTVF9DVFJM
-MCwgUEhZX1RFU1RDTEsgfCBQSFlfVU5URVNUQ0xSKTsKPiA+ICsgICAgICAgZHNpX3dyaXRlKGRz
-aSwgRFNJX1BIWV9UU1RfQ1RSTDAsIFBIWV9VTlRFU1RDTEsgfCBQSFlfVU5URVNUQ0xSKTsKPiA+
-ICsgICAgICAgZHNpX3dyaXRlKGRzaSwgRFNJX1BIWV9UU1RfQ1RSTDEsIFBIWV9VTlRFU1RFTiB8
-IFBIWV9URVNURE9VVCgwKSB8Cj4gPiArICAgICAgICAgICAgICAgICBQSFlfVEVTVERJTih0ZXN0
-ZGluKSk7Cj4gPiArICAgICAgIGRzaV93cml0ZShkc2ksIERTSV9QSFlfVFNUX0NUUkwwLCBQSFlf
-VEVTVENMSyB8IFBIWV9VTlRFU1RDTFIpOwo+ID4gKyAgICAgICBkc2lfd3JpdGUoZHNpLCBEU0lf
-UEhZX1RTVF9DVFJMMCwgUEhZX1VOVEVTVENMSyB8IFBIWV9VTlRFU1RDTFIpOwo+ID4gKwo+ID4g
-KyAgICAgICByZXR1cm4gMDsKPiA+ICt9Cj4gPiArCj4gPiArc3RhdGljIGludCBpbXhfbWlwaV9k
-c2lfZ2V0X2xhbmVfbWJwcyh2b2lkICpwcml2X2RhdGEsCj4gPiArICAgICAgICAgICAgICAgICAg
-ICAgICAgICAgICAgICAgICAgIGNvbnN0IHN0cnVjdCBkcm1fZGlzcGxheV9tb2RlICptb2RlLAo+
-ID4gKyAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICB1bnNpZ25lZCBsb25nIG1v
-ZGVfZmxhZ3MsIHUzMiBsYW5lcywKPiA+ICsgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAg
-ICAgICAgdTMyIGZvcm1hdCwgdW5zaWduZWQgaW50ICpsYW5lX21icHMpCj4gPiArewo+ID4gKyAg
-ICAgICBzdHJ1Y3QgaW14X21pcGlfZHNpICpkc2kgPSBwcml2X2RhdGE7Cj4gPiArICAgICAgIGlu
-dCBicHA7Cj4gPiArICAgICAgIHVuc2lnbmVkIGludCBpLCB0YXJnZXRfbWJwcywgbXBjbGs7Cj4g
-PiArICAgICAgIHVuc2lnbmVkIGxvbmcgcGxscmVmOwo+ID4gKwo+ID4gKyAgICAgICBicHAgPSBt
-aXBpX2RzaV9waXhlbF9mb3JtYXRfdG9fYnBwKGZvcm1hdCk7Cj4gPiArICAgICAgIGlmIChicHAg
-PCAwKSB7Cj4gPiArICAgICAgICAgICAgICAgRFJNX0RFVl9FUlJPUihkc2ktPmRldiwgImZhaWxl
-ZCB0byBnZXQgYnBwIGZvciBmb3JtYXQgJWQ6ICVkXG4iLAo+ID4gKyAgICAgICAgICAgICAgICAg
-ICAgICAgICAgICAgZm9ybWF0LCBicHApOwo+ID4gKyAgICAgICAgICAgICAgIHJldHVybiBicHA7
-Cj4gPiArICAgICAgIH0KPiA+ICsKPiA+ICsgICAgICAgcGxscmVmID0gY2xrX2dldF9yYXRlKGRz
-aS0+cGxscmVmX2Nsayk7Cj4gPiArICAgICAgIGlmIChwbGxyZWYgIT0gMjcwMDAwMDApCj4gPiAr
-ICAgICAgICAgICAgICAgRFJNX1dBUk4oIkRTSSBwbGxyZWZfY2xrIG5vdCBzZXQgdG8gMjdNaHpc
-biIpOwo+ID4gKwo+ID4gKyAgICAgICBtcGNsayA9IERJVl9ST1VORF9VUChtb2RlLT5jbG9jaywg
-TVNFQ19QRVJfU0VDKTsKPiA+ICsgICAgICAgaWYgKG1wY2xrKSB7Cj4gPiArICAgICAgICAgICAg
-ICAgLyogdGFrZSAxLzAuNyBibGFua2luZyBvdmVyaGVhZCBpbnRvIGNvbnNpZGVyYXRpb24gKi8K
-PiA+ICsgICAgICAgICAgICAgICB0YXJnZXRfbWJwcyA9IChtcGNsayAqIChicHAgLyBsYW5lcykg
-KiAxMCkgLyA3Owo+ID4gKyAgICAgICB9IGVsc2Ugewo+ID4gKyAgICAgICAgICAgICAgIERSTV9E
-RVZfRVJST1IoZHNpLT5kZXYsICJ1c2UgZGVmYXVsdCAxR2JwcyBEUEhZIHBsbCBjbG9ja1xuIik7
-Cj4gPiArICAgICAgICAgICAgICAgdGFyZ2V0X21icHMgPSAxMDAwOwo+ID4gKyAgICAgICB9Cj4g
-PiArCj4gPiArICAgICAgIERSTV9ERVZfREVCVUcoZHNpLT5kZXYsICJ0YXJnZXQgcGxscmVmX2Ns
-ayBmcmVxdWVuY3kgaXMgJXVNYnBzXG4iLAo+ID4gKyAgICAgICAgICAgICAgICAgICAgIHRhcmdl
-dF9tYnBzKTsKPiA+ICsKPiA+ICsgICAgICAgZm9yIChpID0gMDsgaSA8IEFSUkFZX1NJWkUoZHB0
-ZGluX21hcCk7IGkrKykgewo+ID4gKyAgICAgICAgICAgICAgIGlmICh0YXJnZXRfbWJwcyA8IGRw
-dGRpbl9tYXBbaV0ubWF4X21icHMpIHsKPiA+ICsgICAgICAgICAgICAgICAgICAgICAgICpsYW5l
-X21icHMgPSBkcHRkaW5fbWFwW2ldLm1heF9tYnBzOwo+ID4gKyAgICAgICAgICAgICAgICAgICAg
-ICAgZHNpLT5sYW5lX21icHMgPSAqbGFuZV9tYnBzOwo+ID4gKyAgICAgICAgICAgICAgICAgICAg
-ICAgRFJNX0RFVl9ERUJVRyhkc2ktPmRldiwKPiA+ICsgICAgICAgICAgICAgICAgICAgICAgICAg
-ICAgICAgICAgICAgInJlYWwgcGxscmVmX2NsayBmcmVxdWVuY3kgaXMgJXVNYnBzXG4iLAo+ID4g
-KyAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAqbGFuZV9tYnBzKTsKPiA+ICsg
-ICAgICAgICAgICAgICAgICAgICAgIHJldHVybiAwOwo+ID4gKyAgICAgICAgICAgICAgIH0KPiA+
-ICsgICAgICAgfQo+ID4gKwo+ID4gKyAgICAgICBEUk1fREVWX0VSUk9SKGRzaS0+ZGV2LCAiRFBI
-WSBjbG9jayBmcmVxdWVuY3kgJXVNYnBzIGlzIG91dCBvZiByYW5nZVxuIiwKPiA+ICsgICAgICAg
-ICAgICAgICAgICAgICB0YXJnZXRfbWJwcyk7Cj4gPiArCj4gPiArICAgICAgIHJldHVybiAtRUlO
-VkFMOwo+ID4gK30KPiA+ICsKPiA+ICtzdGF0aWMgaW50Cj4gPiArZHdfbWlwaV9kc2lfcGh5X2dl
-dF90aW1pbmcodm9pZCAqcHJpdl9kYXRhLCB1bnNpZ25lZCBpbnQgbGFuZV9tYnBzLAo+ID4gKyAg
-ICAgICAgICAgICAgICAgICAgICAgICAgc3RydWN0IGR3X21pcGlfZHNpX2RwaHlfdGltaW5nICp0
-aW1pbmcpCj4gPiArewo+ID4gKyAgICAgICB0aW1pbmctPmNsa19oczJscCA9IDB4NDA7Cj4gPiAr
-ICAgICAgIHRpbWluZy0+Y2xrX2xwMmhzID0gMHg0MDsKPiA+ICsgICAgICAgdGltaW5nLT5kYXRh
-X2hzMmxwID0gMHg0MDsKPiA+ICsgICAgICAgdGltaW5nLT5kYXRhX2xwMmhzID0gMHg0MDsKPiA+
-ICsKPiA+ICsgICAgICAgcmV0dXJuIDA7Cj4gPiArfQo+ID4gKwo+ID4gK3N0YXRpYyBjb25zdCBz
-dHJ1Y3QgZHdfbWlwaV9kc2lfcGh5X29wcyBkd19taXBpX2RzaV9pbXg2X3BoeV9vcHMgPSB7Cj4g
-PiArICAgICAgIC5pbml0ID0gaW14X21pcGlfZHNpX3BoeV9pbml0LAo+ID4gKyAgICAgICAuZ2V0
-X2xhbmVfbWJwcyA9IGlteF9taXBpX2RzaV9nZXRfbGFuZV9tYnBzLAo+ID4gKyAgICAgICAuZ2V0
-X3RpbWluZyA9IGR3X21pcGlfZHNpX3BoeV9nZXRfdGltaW5nLAo+ID4gK307Cj4gPiArCj4gPiAr
-c3RhdGljIHN0cnVjdCBkd19taXBpX2RzaV9wbGF0X2RhdGEgaW14NnFfbWlwaV9kc2lfZHJ2X2Rh
-dGEgPSB7Cj4gPiArICAgICAgIC5tYXhfZGF0YV9sYW5lcyA9IDIsCj4gPiArICAgICAgIC5tb2Rl
-X3ZhbGlkID0gaW14X21pcGlfZHNpX21vZGVfdmFsaWQsCj4gPiArICAgICAgIC5waHlfb3BzID0g
-JmR3X21pcGlfZHNpX2lteDZfcGh5X29wcywKPiA+ICt9Owo+ID4gKwo+ID4gK3N0YXRpYyBjb25z
-dCBzdHJ1Y3Qgb2ZfZGV2aWNlX2lkIGlteF9kc2lfZHRfaWRzW10gPSB7Cj4gPiArICAgICAgIHsK
-PiA+ICsgICAgICAgICAgICAgICAuY29tcGF0aWJsZSA9ICJmc2wsaW14NnEtbWlwaS1kc2kiLAo+
-ID4gKyAgICAgICAgICAgICAgIC5kYXRhID0gJmlteDZxX21pcGlfZHNpX2Rydl9kYXRhLAo+ID4g
-KyAgICAgICB9LAo+ID4gKyAgICAgICB7IC8qIHNlbnRpbmVsICovIH0KPiA+ICt9Owo+ID4gK01P
-RFVMRV9ERVZJQ0VfVEFCTEUob2YsIGlteF9kc2lfZHRfaWRzKTsKPiA+ICsKPiA+ICtzdGF0aWMg
-aW50IGlteF9taXBpX2RzaV9iaW5kKHN0cnVjdCBkZXZpY2UgKmRldiwgc3RydWN0IGRldmljZSAq
-bWFzdGVyLAo+ID4gKyAgICAgICAgICAgICAgICAgICAgICAgICAgICB2b2lkICpkYXRhKQo+ID4g
-K3sKPiA+ICsgICAgICAgc3RydWN0IGlteF9taXBpX2RzaSAqZHNpID0gZGV2X2dldF9kcnZkYXRh
-KGRldik7Cj4gPiArICAgICAgIHN0cnVjdCBkcm1fZGV2aWNlICpkcm0gPSBkYXRhOwo+ID4gKyAg
-ICAgICBpbnQgcmV0Owo+ID4gKwo+ID4gKyAgICAgICByZXQgPSBjbGtfcHJlcGFyZV9lbmFibGUo
-ZHNpLT5wbGxyZWZfY2xrKTsKPiA+ICsgICAgICAgaWYgKHJldCkgewo+ID4gKyAgICAgICAgICAg
-ICAgIERSTV9ERVZfRVJST1IoZGV2LCAiRmFpbGVkIHRvIGVuYWJsZSBwbGxyZWZfY2xrOiAlZFxu
-IiwgcmV0KTsKPiA+ICsgICAgICAgICAgICAgICByZXR1cm4gcmV0Owo+ID4gKyAgICAgICB9Cj4g
-PiArCj4gPiArICAgICAgIHJldCA9IGlteF9taXBpX2RzaV9yZWdpc3Rlcihkcm0sIGRzaSk7Cj4g
-PiArICAgICAgIGlmIChyZXQpIHsKPiA+ICsgICAgICAgICAgICAgICBEUk1fREVWX0VSUk9SKGRl
-diwgIkZhaWxlZCB0byByZWdpc3RlcjogJWRcbiIsIHJldCk7Cj4gPiArICAgICAgICAgICAgICAg
-cmV0dXJuIHJldDsKPiA+ICsgICAgICAgfQo+ID4gKwo+ID4gKyAgICAgICByZXQgPSBkd19taXBp
-X2RzaV9iaW5kKGRzaS0+bWlwaV9kc2ksICZkc2ktPmVuY29kZXIpOwo+ID4gKyAgICAgICBpZiAo
-cmV0KSB7Cj4gPiArICAgICAgICAgICAgICAgRFJNX0RFVl9FUlJPUihkZXYsICJGYWlsZWQgdG8g
-YmluZDogJWRcbiIsIHJldCk7Cj4gPiArICAgICAgICAgICAgICAgcmV0dXJuIHJldDsKPiA+ICsg
-ICAgICAgfQo+ID4gKwo+ID4gKyAgICAgICByZXR1cm4gMDsKPiA+ICt9Cj4gPiArCj4gPiArc3Rh
-dGljIHZvaWQgaW14X21pcGlfZHNpX3VuYmluZChzdHJ1Y3QgZGV2aWNlICpkZXYsIHN0cnVjdCBk
-ZXZpY2UgKm1hc3RlciwKPiA+ICsgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgdm9pZCAq
-ZGF0YSkKPiA+ICt7Cj4gPiArICAgICAgIHN0cnVjdCBpbXhfbWlwaV9kc2kgKmRzaSA9IGRldl9n
-ZXRfZHJ2ZGF0YShkZXYpOwo+ID4gKwo+ID4gKyAgICAgICBkd19taXBpX2RzaV91bmJpbmQoZHNp
-LT5taXBpX2RzaSk7Cj4gPiArCj4gPiArICAgICAgIGNsa19kaXNhYmxlX3VucHJlcGFyZShkc2kt
-PnBsbHJlZl9jbGspOwo+ID4gK30KPiA+ICsKPiA+ICtzdGF0aWMgY29uc3Qgc3RydWN0IGNvbXBv
-bmVudF9vcHMgaW14X21pcGlfZHNpX29wcyA9IHsKPiA+ICsgICAgICAgLmJpbmQgICA9IGlteF9t
-aXBpX2RzaV9iaW5kLAo+ID4gKyAgICAgICAudW5iaW5kID0gaW14X21pcGlfZHNpX3VuYmluZCwK
-PiA+ICt9Owo+ID4gKwo+ID4gK3N0YXRpYyBpbnQgaW14X21pcGlfZHNpX3Byb2JlKHN0cnVjdCBw
-bGF0Zm9ybV9kZXZpY2UgKnBkZXYpCj4gPiArewo+ID4gKyAgICAgICBzdHJ1Y3QgZGV2aWNlICpk
-ZXYgPSAmcGRldi0+ZGV2Owo+ID4gKyAgICAgICBjb25zdCBzdHJ1Y3Qgb2ZfZGV2aWNlX2lkICpv
-Zl9pZCA9IG9mX21hdGNoX2RldmljZShpbXhfZHNpX2R0X2lkcywgZGV2KTsKPiA+ICsgICAgICAg
-c3RydWN0IGR3X21pcGlfZHNpX3BsYXRfZGF0YSAqcGRhdGEgPSAoc3RydWN0IGR3X21pcGlfZHNp
-X3BsYXRfZGF0YSAqKSBvZl9pZC0+ZGF0YTsKPiA+ICsgICAgICAgc3RydWN0IGlteF9taXBpX2Rz
-aSAqZHNpOwo+ID4gKyAgICAgICBzdHJ1Y3QgcmVzb3VyY2UgKnJlczsKPiA+ICsgICAgICAgaW50
-IHJldDsKPiA+ICsKPiA+ICsgICAgICAgZHNpID0gZGV2bV9remFsbG9jKGRldiwgc2l6ZW9mKCpk
-c2kpLCBHRlBfS0VSTkVMKTsKPiA+ICsgICAgICAgaWYgKCFkc2kpCj4gPiArICAgICAgICAgICAg
-ICAgcmV0dXJuIC1FTk9NRU07Cj4gPiArCj4gPiArICAgICAgIGRzaS0+ZGV2ID0gZGV2Owo+ID4g
-Kwo+ID4gKyAgICAgICByZXMgPSBwbGF0Zm9ybV9nZXRfcmVzb3VyY2UocGRldiwgSU9SRVNPVVJD
-RV9NRU0sIDApOwo+ID4gKyAgICAgICBkc2ktPmJhc2UgPSBkZXZtX2lvcmVtYXBfcmVzb3VyY2Uo
-ZGV2LCByZXMpOwo+ID4gKyAgICAgICBpZiAoSVNfRVJSKGRzaS0+YmFzZSkpIHsKPiA+ICsgICAg
-ICAgICAgICAgICByZXQgPSBQVFJfRVJSKGRzaS0+YmFzZSk7Cj4gPiArICAgICAgICAgICAgICAg
-RFJNX0RFVl9FUlJPUihkZXYsICJVbmFibGUgdG8gZ2V0IGRzaSByZWdpc3RlcnM6ICVkXG4iLCBy
-ZXQpOwo+ID4gKyAgICAgICAgICAgICAgIHJldHVybiByZXQ7Cj4gPiArICAgICAgIH0KPiA+ICsK
-PiA+ICsgICAgICAgZHNpLT5wbGxyZWZfY2xrID0gZGV2bV9jbGtfZ2V0KGRldiwgInJlZiIpOwo+
-ID4gKyAgICAgICBpZiAoSVNfRVJSKGRzaS0+cGxscmVmX2NsaykpIHsKPiA+ICsgICAgICAgICAg
-ICAgICByZXQgPSBQVFJfRVJSKGRzaS0+cGxscmVmX2Nsayk7Cj4gPiArICAgICAgICAgICAgICAg
-RFJNX0RFVl9FUlJPUihkZXYsICJVbmFibGUgdG8gZ2V0IHBsbHJlZl9jbGs6ICVkXG4iLCByZXQp
-Owo+ID4gKyAgICAgICAgICAgICAgIHJldHVybiByZXQ7Cj4gPiArICAgICAgIH0KPiA+ICsKPiA+
-ICsgICAgICAgZHNpLT5tdXhfc2VsID0gc3lzY29uX3JlZ21hcF9sb29rdXBfYnlfcGhhbmRsZShk
-ZXYtPm9mX25vZGUsICJmc2wsZ3ByIik7Cj4gPiArICAgICAgIGlmIChJU19FUlIoZHNpLT5tdXhf
-c2VsKSkgewo+ID4gKyAgICAgICAgICAgICAgIHJldCA9IFBUUl9FUlIoZHNpLT5tdXhfc2VsKTsK
-PiA+ICsgICAgICAgICAgICAgICBEUk1fREVWX0VSUk9SKGRldiwgIkZhaWxlZCB0byBnZXQgR1BS
-IHJlZ21hcDogJWRcbiIsIHJldCk7Cj4gPiArICAgICAgICAgICAgICAgcmV0dXJuIHJldDsKPiA+
-ICsgICAgICAgfQo+ID4gKwo+ID4gKyAgICAgICBkZXZfc2V0X2RydmRhdGEoZGV2LCBkc2kpOwo+
-ID4gKwo+ID4gKyAgICAgICBpbXg2cV9taXBpX2RzaV9kcnZfZGF0YS5iYXNlID0gZHNpLT5iYXNl
-Owo+ID4gKyAgICAgICBpbXg2cV9taXBpX2RzaV9kcnZfZGF0YS5wcml2X2RhdGEgPSBkc2k7Cj4g
-PiArCj4gPiArICAgICAgIGRzaS0+bWlwaV9kc2kgPSBkd19taXBpX2RzaV9wcm9iZShwZGV2LCBw
-ZGF0YSk7Cj4gPiArICAgICAgIGlmIChJU19FUlIoZHNpLT5taXBpX2RzaSkpIHsKPiA+ICsgICAg
-ICAgICAgICAgICByZXQgPSBQVFJfRVJSKGRzaS0+bWlwaV9kc2kpOwo+ID4gKyAgICAgICAgICAg
-ICAgIERSTV9ERVZfRVJST1IoZGV2LCAiRmFpbGVkIHRvIHByb2JlIERXIERTSSBob3N0OiAlZFxu
-IiwgcmV0KTsKPiA+ICsgICAgICAgICAgICAgICBnb3RvIGVycl9jbGtkaXNhYmxlOwo+ID4gKyAg
-ICAgICB9Cj4gPiArCj4gPiArICAgICAgIHJldHVybiBjb21wb25lbnRfYWRkKCZwZGV2LT5kZXYs
-ICZpbXhfbWlwaV9kc2lfb3BzKTsKPiA+ICsKPiA+ICtlcnJfY2xrZGlzYWJsZToKPiA+ICsgICAg
-ICAgY2xrX2Rpc2FibGVfdW5wcmVwYXJlKGRzaS0+cGxscmVmX2Nsayk7Cj4gPiArICAgICAgIHJl
-dHVybiByZXQ7Cj4gPiArfQo+ID4gKwo+ID4gK3N0YXRpYyBpbnQgaW14X21pcGlfZHNpX3JlbW92
-ZShzdHJ1Y3QgcGxhdGZvcm1fZGV2aWNlICpwZGV2KQo+ID4gK3sKPiA+ICsgICAgICAgY29tcG9u
-ZW50X2RlbCgmcGRldi0+ZGV2LCAmaW14X21pcGlfZHNpX29wcyk7Cj4gPiArICAgICAgIHJldHVy
-biAwOwo+ID4gK30KPiA+ICsKPiA+ICtzdGF0aWMgc3RydWN0IHBsYXRmb3JtX2RyaXZlciBpbXhf
-bWlwaV9kc2lfZHJpdmVyID0gewo+ID4gKyAgICAgICAucHJvYmUgICAgICAgICAgPSBpbXhfbWlw
-aV9kc2lfcHJvYmUsCj4gPiArICAgICAgIC5yZW1vdmUgICAgICAgICA9IGlteF9taXBpX2RzaV9y
-ZW1vdmUsCj4gPiArICAgICAgIC5kcml2ZXIgICAgICAgICA9IHsKPiA+ICsgICAgICAgICAgICAg
-ICAub2ZfbWF0Y2hfdGFibGUgPSBpbXhfZHNpX2R0X2lkcywKPiA+ICsgICAgICAgICAgICAgICAu
-bmFtZSAgID0gImR3LW1pcGktZHNpLWlteDYiLAo+ID4gKyAgICAgICB9LAo+ID4gK307Cj4gPiAr
-bW9kdWxlX3BsYXRmb3JtX2RyaXZlcihpbXhfbWlwaV9kc2lfZHJpdmVyKTsKPiA+ICsKPiA+ICtN
-T0RVTEVfREVTQ1JJUFRJT04oImkuTVg2IE1JUEkgRFNJIGhvc3QgY29udHJvbGxlciBkcml2ZXIi
-KTsKPiA+ICtNT0RVTEVfQVVUSE9SKCJMaXUgWWluZyA8dmljdG9yLmxpdUBueHAuY29tPiIpOwo+
-ID4gK01PRFVMRV9BVVRIT1IoIkFkcmlhbiBSYXRpdSA8YWRyaWFuLnJhdGl1QGNvbGxhYm9yYS5j
-b20+Iik7Cj4gPiArTU9EVUxFX0xJQ0VOU0UoIkdQTCIpOwoKLS0gClJlZ2FyZHMsCgpMYXVyZW50
-IFBpbmNoYXJ0Cl9fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19f
-CkxpbnV4LXN0bTMyIG1haWxpbmcgbGlzdApMaW51eC1zdG0zMkBzdC1tZC1tYWlsbWFuLnN0b3Jt
-cmVwbHkuY29tCmh0dHBzOi8vc3QtbWQtbWFpbG1hbi5zdG9ybXJlcGx5LmNvbS9tYWlsbWFuL2xp
-c3RpbmZvL2xpbnV4LXN0bTMyCg==
+On Wed, Apr 15, 2020 at 12:31:34PM +0200, Mauro Carvalho Chehab wrote:
+> As CEC support doesn't depend on MEDIA_SUPPORT, let's
+> place the platform drivers outside the media menu.
+> 
+> As a side effect, instead of depends on PCI, seco driver
+> can select it (and DMI).
+> 
+> Signed-off-by: Mauro Carvalho Chehab <mchehab+huawei@kernel.org>
+> ---
+>  drivers/media/cec/Kconfig                     |   6 +-
+>  drivers/media/cec/Makefile                    |   2 +-
+>  drivers/media/cec/platform/Kconfig            | 121 +++++++++++++++++
+>  drivers/media/cec/platform/Makefile           |  14 ++
+>  .../{ => cec}/platform/cec-gpio/Makefile      |   0
+>  .../{ => cec}/platform/cec-gpio/cec-gpio.c    |   0
+>  .../platform/cros-ec}/Makefile                |   0
+>  .../platform/cros-ec}/cros-ec-cec.c           |   0
+>  .../media/{ => cec}/platform/meson/Makefile   |   0
+>  .../{ => cec}/platform/meson/ao-cec-g12a.c    |   0
+>  .../media/{ => cec}/platform/meson/ao-cec.c   |   0
+>  .../s5p-cec => cec/platform/s5p}/Makefile     |   0
+>  .../platform/s5p}/exynos_hdmi_cec.h           |   0
+>  .../platform/s5p}/exynos_hdmi_cecctrl.c       |   0
+>  .../s5p-cec => cec/platform/s5p}/regs-cec.h   |   0
+>  .../s5p-cec => cec/platform/s5p}/s5p_cec.c    |   0
+>  .../s5p-cec => cec/platform/s5p}/s5p_cec.h    |   0
+>  .../seco-cec => cec/platform/seco}/Makefile   |   0
+>  .../seco-cec => cec/platform/seco}/seco-cec.c |   0
+>  .../seco-cec => cec/platform/seco}/seco-cec.h |   0
+>  .../sti/cec => cec/platform/sti}/Makefile     |   0
+>  .../sti/cec => cec/platform/sti}/stih-cec.c   |   0
+>  drivers/media/cec/platform/stm32/Makefile     |   2 +
+>  .../{ => cec}/platform/stm32/stm32-cec.c      |   0
+>  .../tegra-cec => cec/platform/tegra}/Makefile |   0
+>  .../platform/tegra}/tegra_cec.c               |   0
+>  .../platform/tegra}/tegra_cec.h               |   0
+>  drivers/media/platform/Kconfig                | 125 ------------------
+>  drivers/media/platform/Makefile               |  12 --
+>  drivers/media/platform/stm32/Makefile         |   1 -
+>  30 files changed, 143 insertions(+), 140 deletions(-)
+>  create mode 100644 drivers/media/cec/platform/Kconfig
+>  create mode 100644 drivers/media/cec/platform/Makefile
+>  rename drivers/media/{ => cec}/platform/cec-gpio/Makefile (100%)
+>  rename drivers/media/{ => cec}/platform/cec-gpio/cec-gpio.c (100%)
+>  rename drivers/media/{platform/cros-ec-cec => cec/platform/cros-ec}/Makefile (100%)
+>  rename drivers/media/{platform/cros-ec-cec => cec/platform/cros-ec}/cros-ec-cec.c (100%)
+>  rename drivers/media/{ => cec}/platform/meson/Makefile (100%)
+>  rename drivers/media/{ => cec}/platform/meson/ao-cec-g12a.c (100%)
+>  rename drivers/media/{ => cec}/platform/meson/ao-cec.c (100%)
+>  rename drivers/media/{platform/s5p-cec => cec/platform/s5p}/Makefile (100%)
+>  rename drivers/media/{platform/s5p-cec => cec/platform/s5p}/exynos_hdmi_cec.h (100%)
+>  rename drivers/media/{platform/s5p-cec => cec/platform/s5p}/exynos_hdmi_cecctrl.c (100%)
+>  rename drivers/media/{platform/s5p-cec => cec/platform/s5p}/regs-cec.h (100%)
+>  rename drivers/media/{platform/s5p-cec => cec/platform/s5p}/s5p_cec.c (100%)
+>  rename drivers/media/{platform/s5p-cec => cec/platform/s5p}/s5p_cec.h (100%)
+>  rename drivers/media/{platform/seco-cec => cec/platform/seco}/Makefile (100%)
+>  rename drivers/media/{platform/seco-cec => cec/platform/seco}/seco-cec.c (100%)
+>  rename drivers/media/{platform/seco-cec => cec/platform/seco}/seco-cec.h (100%)
+>  rename drivers/media/{platform/sti/cec => cec/platform/sti}/Makefile (100%)
+>  rename drivers/media/{platform/sti/cec => cec/platform/sti}/stih-cec.c (100%)
+>  create mode 100644 drivers/media/cec/platform/stm32/Makefile
+>  rename drivers/media/{ => cec}/platform/stm32/stm32-cec.c (100%)
+>  rename drivers/media/{platform/tegra-cec => cec/platform/tegra}/Makefile (100%)
+>  rename drivers/media/{platform/tegra-cec => cec/platform/tegra}/tegra_cec.c (100%)
+>  rename drivers/media/{platform/tegra-cec => cec/platform/tegra}/tegra_cec.h (100%)
+> 
+> diff --git a/drivers/media/cec/Kconfig b/drivers/media/cec/Kconfig
+> index 1586dd899302..7b1fb70066bd 100644
+> --- a/drivers/media/cec/Kconfig
+> +++ b/drivers/media/cec/Kconfig
+> @@ -21,7 +21,7 @@ config CEC_PIN_ERROR_INJ
+>  	help
+>  	  This option enables CEC error injection using debugfs.
+>  
+> -config MEDIA_CEC_SUPPORT
+> +menuconfig MEDIA_CEC_SUPPORT
+>  	bool
+>  	prompt "HDMI CEC drivers"
+>  	default y if !MEDIA_SUPPORT_FILTER
+> @@ -31,3 +31,7 @@ config MEDIA_CEC_SUPPORT
+>  
+>  	  Say Y when you have an HDMI receiver, transmitter or a USB CEC
+>  	  adapter that supports HDMI CEC.
+> +
+> +if MEDIA_CEC_SUPPORT
+> +source "drivers/media/cec/platform/Kconfig"
+> +endif
+> diff --git a/drivers/media/cec/Makefile b/drivers/media/cec/Makefile
+> index 3fdbc22b1530..8c6448bee386 100644
+> --- a/drivers/media/cec/Makefile
+> +++ b/drivers/media/cec/Makefile
+> @@ -1,2 +1,2 @@
+>  # SPDX-License-Identifier: GPL-2.0
+> -obj-y += core/
+> +obj-y += core/ platform/
+> diff --git a/drivers/media/cec/platform/Kconfig b/drivers/media/cec/platform/Kconfig
+> new file mode 100644
+> index 000000000000..6a8bb8b68344
+> --- /dev/null
+> +++ b/drivers/media/cec/platform/Kconfig
+> @@ -0,0 +1,121 @@
+> +# SPDX-License-Identifier: GPL-2.0-only
+> +#
+> +# Platform drivers
+> +
+> +config VIDEO_CROS_EC_CEC
+> +	tristate "ChromeOS EC CEC driver"
+> +	depends on CROS_EC
+> +	select CEC_CORE
+> +	select CEC_NOTIFIER
+> +	select CROS_EC_PROTO
+> +	help
+> +	  If you say yes here you will get support for the
+> +	  ChromeOS Embedded Controller's CEC.
+> +	  The CEC bus is present in the HDMI connector and enables communication
+> +	  between compatible devices.
+> +
+> +config VIDEO_MESON_AO_CEC
+> +	tristate "Amlogic Meson AO CEC driver"
+> +	depends on ARCH_MESON || COMPILE_TEST
+> +	select CEC_CORE
+> +	select CEC_NOTIFIER
+> +	help
+> +	  This is a driver for Amlogic Meson SoCs AO CEC interface. It uses the
+> +	  generic CEC framework interface.
+> +	  CEC bus is present in the HDMI connector and enables communication
+> +
+> +config VIDEO_MESON_G12A_AO_CEC
+> +	tristate "Amlogic Meson G12A AO CEC driver"
+> +	depends on ARCH_MESON || COMPILE_TEST
+> +	depends on COMMON_CLK && OF
+> +	select REGMAP
+> +	select REGMAP_MMIO
+> +	select CEC_CORE
+> +	select CEC_NOTIFIER
+> +	---help---
+> +	  This is a driver for Amlogic Meson G12A SoCs AO CEC interface.
+> +	  This driver if for the new AO-CEC module found in G12A SoCs,
+> +	  usually named AO_CEC_B in documentation.
+> +	  It uses the generic CEC framework interface.
+> +	  CEC bus is present in the HDMI connector and enables communication
+> +	  between compatible devices.
+> +
+> +config CEC_GPIO
+> +	tristate "Generic GPIO-based CEC driver"
+> +	depends on PREEMPTION || COMPILE_TEST
+> +	select CEC_CORE
+> +	select CEC_PIN
+> +	select CEC_NOTIFIER
+> +	select GPIOLIB
+> +	help
+> +	  This is a generic GPIO-based CEC driver.
+> +	  The CEC bus is present in the HDMI connector and enables communication
+> +	  between compatible devices.
+> +
+> +config VIDEO_SAMSUNG_S5P_CEC
+> +	tristate "Samsung S5P CEC driver"
+> +	depends on ARCH_EXYNOS || COMPILE_TEST
+> +	select CEC_CORE
+> +	select CEC_NOTIFIER
+> +	help
+> +	  This is a driver for Samsung S5P HDMI CEC interface. It uses the
+> +	  generic CEC framework interface.
+> +	  CEC bus is present in the HDMI connector and enables communication
+> +	  between compatible devices.
+> +
+> +config VIDEO_STI_HDMI_CEC
+> +	tristate "STMicroelectronics STiH4xx HDMI CEC driver"
+> +	depends on ARCH_STI || COMPILE_TEST
+> +	select CEC_CORE
+> +	select CEC_NOTIFIER
+> +	help
+> +	  This is a driver for STIH4xx HDMI CEC interface. It uses the
+> +	  generic CEC framework interface.
+> +	  CEC bus is present in the HDMI connector and enables communication
+> +	  between compatible devices.
+> +
+> +config VIDEO_STM32_HDMI_CEC
+> +	tristate "STMicroelectronics STM32 HDMI CEC driver"
+> +	depends on ARCH_STM32 || COMPILE_TEST
+> +	select REGMAP
+> +	select REGMAP_MMIO
+> +	select CEC_CORE
+> +	help
+> +	  This is a driver for STM32 interface. It uses the
+> +	  generic CEC framework interface.
+> +	  CEC bus is present in the HDMI connector and enables communication
+> +	  between compatible devices.
+> +
+> +config VIDEO_TEGRA_HDMI_CEC
+> +	tristate "Tegra HDMI CEC driver"
+> +	depends on ARCH_TEGRA || COMPILE_TEST
+> +	select CEC_CORE
+> +	select CEC_NOTIFIER
+> +	help
+> +	  This is a driver for the Tegra HDMI CEC interface. It uses the
+> +	  generic CEC framework interface.
+> +	  The CEC bus is present in the HDMI connector and enables communication
+> +	  between compatible devices.
+> +
+> +config VIDEO_SECO_CEC
+> +	tristate "SECO Boards HDMI CEC driver"
+> +	depends on (X86 || IA64) || COMPILE_TEST
+> +	select PCI
+> +	select DMI
+> +	select CEC_CORE
+> +	select CEC_NOTIFIER
+> +	help
+> +	  This is a driver for SECO Boards integrated CEC interface.
+> +	  Selecting it will enable support for this device.
+> +	  CEC bus is present in the HDMI connector and enables communication
+> +	  between compatible devices.
+> +
+> +config VIDEO_SECO_RC
+> +	bool "SECO Boards IR RC5 support"
+> +	depends on VIDEO_SECO_CEC
+> +	depends on RC_CORE=y || RC_CORE = VIDEO_SECO_CEC
+> +	help
+> +	  If you say yes here you will get support for the
+> +	  SECO Boards Consumer-IR in seco-cec driver.
+> +	  The embedded controller supports RC5 protocol only, default mapping
+> +	  is set to rc-hauppauge.
+> diff --git a/drivers/media/cec/platform/Makefile b/drivers/media/cec/platform/Makefile
+> new file mode 100644
+> index 000000000000..e5fb5d383e5c
+> --- /dev/null
+> +++ b/drivers/media/cec/platform/Makefile
+> @@ -0,0 +1,14 @@
+> +# SPDX-License-Identifier: GPL-2.0
+> +#
+> +# Makefile for the CEC platform device drivers.
+> +#
+> +
+> +obj-$(CONFIG_CEC_GPIO)			+= cec-gpio/
+> +
+> +obj-$(CONFIG_VIDEO_CROS_EC_CEC)		+= cros-ec/
+> +obj-$(CONFIG_VIDEO_MESON_AO_CEC)	+= meson/
+> +obj-$(CONFIG_VIDEO_SAMSUNG_S5P_CEC)	+= s5p/
+> +obj-$(CONFIG_VIDEO_SECO_CEC)		+= seco/
+> +obj-$(CONFIG_VIDEO_STI_HDMI_CEC)	+= sti/
+> +obj-$(CONFIG_VIDEO_TEGRA_HDMI_CEC)	+= tegra/
+> +
+> diff --git a/drivers/media/platform/cec-gpio/Makefile b/drivers/media/cec/platform/cec-gpio/Makefile
+> similarity index 100%
+> rename from drivers/media/platform/cec-gpio/Makefile
+> rename to drivers/media/cec/platform/cec-gpio/Makefile
+> diff --git a/drivers/media/platform/cec-gpio/cec-gpio.c b/drivers/media/cec/platform/cec-gpio/cec-gpio.c
+> similarity index 100%
+> rename from drivers/media/platform/cec-gpio/cec-gpio.c
+> rename to drivers/media/cec/platform/cec-gpio/cec-gpio.c
+> diff --git a/drivers/media/platform/cros-ec-cec/Makefile b/drivers/media/cec/platform/cros-ec/Makefile
+> similarity index 100%
+> rename from drivers/media/platform/cros-ec-cec/Makefile
+> rename to drivers/media/cec/platform/cros-ec/Makefile
+> diff --git a/drivers/media/platform/cros-ec-cec/cros-ec-cec.c b/drivers/media/cec/platform/cros-ec/cros-ec-cec.c
+> similarity index 100%
+> rename from drivers/media/platform/cros-ec-cec/cros-ec-cec.c
+> rename to drivers/media/cec/platform/cros-ec/cros-ec-cec.c
+> diff --git a/drivers/media/platform/meson/Makefile b/drivers/media/cec/platform/meson/Makefile
+> similarity index 100%
+> rename from drivers/media/platform/meson/Makefile
+> rename to drivers/media/cec/platform/meson/Makefile
+> diff --git a/drivers/media/platform/meson/ao-cec-g12a.c b/drivers/media/cec/platform/meson/ao-cec-g12a.c
+> similarity index 100%
+> rename from drivers/media/platform/meson/ao-cec-g12a.c
+> rename to drivers/media/cec/platform/meson/ao-cec-g12a.c
+> diff --git a/drivers/media/platform/meson/ao-cec.c b/drivers/media/cec/platform/meson/ao-cec.c
+> similarity index 100%
+> rename from drivers/media/platform/meson/ao-cec.c
+> rename to drivers/media/cec/platform/meson/ao-cec.c
+> diff --git a/drivers/media/platform/s5p-cec/Makefile b/drivers/media/cec/platform/s5p/Makefile
+> similarity index 100%
+> rename from drivers/media/platform/s5p-cec/Makefile
+> rename to drivers/media/cec/platform/s5p/Makefile
+> diff --git a/drivers/media/platform/s5p-cec/exynos_hdmi_cec.h b/drivers/media/cec/platform/s5p/exynos_hdmi_cec.h
+> similarity index 100%
+> rename from drivers/media/platform/s5p-cec/exynos_hdmi_cec.h
+> rename to drivers/media/cec/platform/s5p/exynos_hdmi_cec.h
+> diff --git a/drivers/media/platform/s5p-cec/exynos_hdmi_cecctrl.c b/drivers/media/cec/platform/s5p/exynos_hdmi_cecctrl.c
+> similarity index 100%
+> rename from drivers/media/platform/s5p-cec/exynos_hdmi_cecctrl.c
+> rename to drivers/media/cec/platform/s5p/exynos_hdmi_cecctrl.c
+> diff --git a/drivers/media/platform/s5p-cec/regs-cec.h b/drivers/media/cec/platform/s5p/regs-cec.h
+> similarity index 100%
+> rename from drivers/media/platform/s5p-cec/regs-cec.h
+> rename to drivers/media/cec/platform/s5p/regs-cec.h
+> diff --git a/drivers/media/platform/s5p-cec/s5p_cec.c b/drivers/media/cec/platform/s5p/s5p_cec.c
+> similarity index 100%
+> rename from drivers/media/platform/s5p-cec/s5p_cec.c
+> rename to drivers/media/cec/platform/s5p/s5p_cec.c
+> diff --git a/drivers/media/platform/s5p-cec/s5p_cec.h b/drivers/media/cec/platform/s5p/s5p_cec.h
+> similarity index 100%
+> rename from drivers/media/platform/s5p-cec/s5p_cec.h
+> rename to drivers/media/cec/platform/s5p/s5p_cec.h
+> diff --git a/drivers/media/platform/seco-cec/Makefile b/drivers/media/cec/platform/seco/Makefile
+> similarity index 100%
+> rename from drivers/media/platform/seco-cec/Makefile
+> rename to drivers/media/cec/platform/seco/Makefile
+> diff --git a/drivers/media/platform/seco-cec/seco-cec.c b/drivers/media/cec/platform/seco/seco-cec.c
+> similarity index 100%
+> rename from drivers/media/platform/seco-cec/seco-cec.c
+> rename to drivers/media/cec/platform/seco/seco-cec.c
+> diff --git a/drivers/media/platform/seco-cec/seco-cec.h b/drivers/media/cec/platform/seco/seco-cec.h
+> similarity index 100%
+> rename from drivers/media/platform/seco-cec/seco-cec.h
+> rename to drivers/media/cec/platform/seco/seco-cec.h
+> diff --git a/drivers/media/platform/sti/cec/Makefile b/drivers/media/cec/platform/sti/Makefile
+> similarity index 100%
+> rename from drivers/media/platform/sti/cec/Makefile
+> rename to drivers/media/cec/platform/sti/Makefile
+> diff --git a/drivers/media/platform/sti/cec/stih-cec.c b/drivers/media/cec/platform/sti/stih-cec.c
+> similarity index 100%
+> rename from drivers/media/platform/sti/cec/stih-cec.c
+> rename to drivers/media/cec/platform/sti/stih-cec.c
+> diff --git a/drivers/media/cec/platform/stm32/Makefile b/drivers/media/cec/platform/stm32/Makefile
+> new file mode 100644
+> index 000000000000..5c89dbce0f67
+> --- /dev/null
+> +++ b/drivers/media/cec/platform/stm32/Makefile
+> @@ -0,0 +1,2 @@
+> +# SPDX-License-Identifier: GPL-2.0-only
+> +obj-$(CONFIG_VIDEO_STM32_HDMI_CEC) += stm32-cec.o
+> diff --git a/drivers/media/platform/stm32/stm32-cec.c b/drivers/media/cec/platform/stm32/stm32-cec.c
+> similarity index 100%
+> rename from drivers/media/platform/stm32/stm32-cec.c
+> rename to drivers/media/cec/platform/stm32/stm32-cec.c
+> diff --git a/drivers/media/platform/tegra-cec/Makefile b/drivers/media/cec/platform/tegra/Makefile
+> similarity index 100%
+> rename from drivers/media/platform/tegra-cec/Makefile
+> rename to drivers/media/cec/platform/tegra/Makefile
+> diff --git a/drivers/media/platform/tegra-cec/tegra_cec.c b/drivers/media/cec/platform/tegra/tegra_cec.c
+> similarity index 100%
+> rename from drivers/media/platform/tegra-cec/tegra_cec.c
+> rename to drivers/media/cec/platform/tegra/tegra_cec.c
+> diff --git a/drivers/media/platform/tegra-cec/tegra_cec.h b/drivers/media/cec/platform/tegra/tegra_cec.h
+> similarity index 100%
+> rename from drivers/media/platform/tegra-cec/tegra_cec.h
+> rename to drivers/media/cec/platform/tegra/tegra_cec.h
+> diff --git a/drivers/media/platform/Kconfig b/drivers/media/platform/Kconfig
+> index 3df0d789d452..b1ac9c6c9cdb 100644
+> --- a/drivers/media/platform/Kconfig
+> +++ b/drivers/media/platform/Kconfig
+> @@ -552,131 +552,6 @@ if DVB_PLATFORM_DRIVERS
+>  source "drivers/media/platform/sti/c8sectpfe/Kconfig"
+>  endif #DVB_PLATFORM_DRIVERS
+>  
+> -menuconfig CEC_PLATFORM_DRIVERS
+> -	bool "CEC platform devices"
+> -	depends on MEDIA_CEC_SUPPORT
+> -
+> -if CEC_PLATFORM_DRIVERS
+> -
+> -config VIDEO_CROS_EC_CEC
+> -	tristate "ChromeOS EC CEC driver"
+> -	depends on CROS_EC
+> -	select CEC_CORE
+> -	select CEC_NOTIFIER
+> -	select CROS_EC_PROTO
+> -	help
+> -	  If you say yes here you will get support for the
+> -	  ChromeOS Embedded Controller's CEC.
+> -	  The CEC bus is present in the HDMI connector and enables communication
+> -	  between compatible devices.
+> -
+> -config VIDEO_MESON_AO_CEC
+> -	tristate "Amlogic Meson AO CEC driver"
+> -	depends on ARCH_MESON || COMPILE_TEST
+> -	select CEC_CORE
+> -	select CEC_NOTIFIER
+> -	help
+> -	  This is a driver for Amlogic Meson SoCs AO CEC interface. It uses the
+> -	  generic CEC framework interface.
+> -	  CEC bus is present in the HDMI connector and enables communication
+> -
+> -config VIDEO_MESON_G12A_AO_CEC
+> -	tristate "Amlogic Meson G12A AO CEC driver"
+> -	depends on ARCH_MESON || COMPILE_TEST
+> -	depends on COMMON_CLK && OF
+> -	select REGMAP
+> -	select REGMAP_MMIO
+> -	select CEC_CORE
+> -	select CEC_NOTIFIER
+> -	---help---
+> -	  This is a driver for Amlogic Meson G12A SoCs AO CEC interface.
+> -	  This driver if for the new AO-CEC module found in G12A SoCs,
+> -	  usually named AO_CEC_B in documentation.
+> -	  It uses the generic CEC framework interface.
+> -	  CEC bus is present in the HDMI connector and enables communication
+> -	  between compatible devices.
+> -
+> -config CEC_GPIO
+> -	tristate "Generic GPIO-based CEC driver"
+> -	depends on PREEMPTION || COMPILE_TEST
+> -	select CEC_CORE
+> -	select CEC_PIN
+> -	select CEC_NOTIFIER
+> -	select GPIOLIB
+> -	help
+> -	  This is a generic GPIO-based CEC driver.
+> -	  The CEC bus is present in the HDMI connector and enables communication
+> -	  between compatible devices.
+> -
+> -config VIDEO_SAMSUNG_S5P_CEC
+> -	tristate "Samsung S5P CEC driver"
+> -	depends on ARCH_EXYNOS || COMPILE_TEST
+> -	select CEC_CORE
+> -	select CEC_NOTIFIER
+> -	help
+> -	  This is a driver for Samsung S5P HDMI CEC interface. It uses the
+> -	  generic CEC framework interface.
+> -	  CEC bus is present in the HDMI connector and enables communication
+> -	  between compatible devices.
+> -
+> -config VIDEO_STI_HDMI_CEC
+> -	tristate "STMicroelectronics STiH4xx HDMI CEC driver"
+> -	depends on ARCH_STI || COMPILE_TEST
+> -	select CEC_CORE
+> -	select CEC_NOTIFIER
+> -	help
+> -	  This is a driver for STIH4xx HDMI CEC interface. It uses the
+> -	  generic CEC framework interface.
+> -	  CEC bus is present in the HDMI connector and enables communication
+> -	  between compatible devices.
+> -
+> -config VIDEO_STM32_HDMI_CEC
+> -	tristate "STMicroelectronics STM32 HDMI CEC driver"
+> -	depends on ARCH_STM32 || COMPILE_TEST
+> -	select REGMAP
+> -	select REGMAP_MMIO
+> -	select CEC_CORE
+> -	help
+> -	  This is a driver for STM32 interface. It uses the
+> -	  generic CEC framework interface.
+> -	  CEC bus is present in the HDMI connector and enables communication
+> -	  between compatible devices.
+> -
+> -config VIDEO_TEGRA_HDMI_CEC
+> -	tristate "Tegra HDMI CEC driver"
+> -	depends on ARCH_TEGRA || COMPILE_TEST
+> -	select CEC_CORE
+> -	select CEC_NOTIFIER
+> -	help
+> -	  This is a driver for the Tegra HDMI CEC interface. It uses the
+> -	  generic CEC framework interface.
+> -	  The CEC bus is present in the HDMI connector and enables communication
+> -	  between compatible devices.
+> -
+> -config VIDEO_SECO_CEC
+> -	tristate "SECO Boards HDMI CEC driver"
+> -	depends on (X86 || IA64) || COMPILE_TEST
+> -	depends on PCI && DMI
+> -	select CEC_CORE
+> -	select CEC_NOTIFIER
+> -	help
+> -	  This is a driver for SECO Boards integrated CEC interface.
+> -	  Selecting it will enable support for this device.
+> -	  CEC bus is present in the HDMI connector and enables communication
+> -	  between compatible devices.
+> -
+> -config VIDEO_SECO_RC
+> -	bool "SECO Boards IR RC5 support"
+> -	depends on VIDEO_SECO_CEC
+> -	depends on RC_CORE=y || RC_CORE = VIDEO_SECO_CEC
+> -	help
+> -	  If you say yes here you will get support for the
+> -	  SECO Boards Consumer-IR in seco-cec driver.
+> -	  The embedded controller supports RC5 protocol only, default mapping
+> -	  is set to rc-hauppauge.
+> -
+> -endif #CEC_PLATFORM_DRIVERS
+> -
+>  menuconfig SDR_PLATFORM_DRIVERS
+>  	bool "SDR platform devices"
+>  	depends on MEDIA_SDR_SUPPORT
+> diff --git a/drivers/media/platform/Makefile b/drivers/media/platform/Makefile
+> index a0194ef1211f..ac31d4748869 100644
+> --- a/drivers/media/platform/Makefile
+> +++ b/drivers/media/platform/Makefile
+> @@ -23,8 +23,6 @@ obj-$(CONFIG_VIDEO_IMX_PXP)		+= imx-pxp.o
+>  
+>  obj-$(CONFIG_VIDEO_SH_VEU)		+= sh_veu.o
+>  
+> -obj-$(CONFIG_CEC_GPIO)			+= cec-gpio/
+> -
+>  obj-$(CONFIG_VIDEO_MEM2MEM_DEINTERLACE)	+= m2m-deinterlace.o
+>  
+>  obj-$(CONFIG_VIDEO_MUX)			+= video-mux.o
+> @@ -35,22 +33,16 @@ obj-$(CONFIG_VIDEO_SAMSUNG_S5P_JPEG)	+= s5p-jpeg/
+>  obj-$(CONFIG_VIDEO_SAMSUNG_S5P_MFC)	+= s5p-mfc/
+>  
+>  obj-$(CONFIG_VIDEO_SAMSUNG_S5P_G2D)	+= s5p-g2d/
+> -obj-$(CONFIG_VIDEO_SAMSUNG_S5P_CEC)	+= s5p-cec/
+>  obj-$(CONFIG_VIDEO_SAMSUNG_EXYNOS_GSC)	+= exynos-gsc/
+>  
+>  obj-$(CONFIG_VIDEO_STI_BDISP)		+= sti/bdisp/
+>  obj-$(CONFIG_VIDEO_STI_HVA)		+= sti/hva/
+>  obj-$(CONFIG_DVB_C8SECTPFE)		+= sti/c8sectpfe/
+> -obj-$(CONFIG_VIDEO_STI_HDMI_CEC)	+= sti/cec/
+>  
+>  obj-$(CONFIG_VIDEO_STI_DELTA)		+= sti/delta/
+>  
+> -obj-$(CONFIG_VIDEO_TEGRA_HDMI_CEC)	+= tegra-cec/
+> -
+>  obj-y					+= stm32/
+>  
+> -obj-$(CONFIG_VIDEO_SECO_CEC)		+= seco-cec/
+> -
+>  obj-y					+= davinci/
+>  
+>  obj-$(CONFIG_VIDEO_SH_VOU)		+= sh_vou.o
+> @@ -89,8 +81,4 @@ obj-$(CONFIG_VIDEO_QCOM_CAMSS)		+= qcom/camss/
+>  
+>  obj-$(CONFIG_VIDEO_QCOM_VENUS)		+= qcom/venus/
+>  
+> -obj-y					+= meson/
+> -
+> -obj-y					+= cros-ec-cec/
+> -
+>  obj-y					+= sunxi/
+> diff --git a/drivers/media/platform/stm32/Makefile b/drivers/media/platform/stm32/Makefile
+> index 5ed73599ca44..48b36db2c2e2 100644
+> --- a/drivers/media/platform/stm32/Makefile
+> +++ b/drivers/media/platform/stm32/Makefile
+> @@ -1,3 +1,2 @@
+>  # SPDX-License-Identifier: GPL-2.0-only
+>  obj-$(CONFIG_VIDEO_STM32_DCMI) += stm32-dcmi.o
+> -obj-$(CONFIG_VIDEO_STM32_HDMI_CEC) += stm32-cec.o
+> -- 
+> 2.25.2
+> 
+
+For the seco-cec driver:
+Acked-by: Ettore Chimenti <ek5.chimenti@gmail.com>
+
+Thanks!
+Ettore
+_______________________________________________
+Linux-stm32 mailing list
+Linux-stm32@st-md-mailman.stormreply.com
+https://st-md-mailman.stormreply.com/mailman/listinfo/linux-stm32
