@@ -2,63 +2,55 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id 3588C1A9741
-	for <lists+linux-stm32@lfdr.de>; Wed, 15 Apr 2020 10:46:38 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 5231F1A9A7B
+	for <lists+linux-stm32@lfdr.de>; Wed, 15 Apr 2020 12:31:44 +0200 (CEST)
 Received: from ip-172-31-3-76.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id D8CD9C36B0C;
-	Wed, 15 Apr 2020 08:46:37 +0000 (UTC)
-Received: from mail-ua1-f65.google.com (mail-ua1-f65.google.com
- [209.85.222.65])
- (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id F1A2EC36B0C;
+	Wed, 15 Apr 2020 10:31:43 +0000 (UTC)
+Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
+ (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 9CA60C36B0A
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id B9C13C36B0A
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Wed, 15 Apr 2020 08:46:36 +0000 (UTC)
-Received: by mail-ua1-f65.google.com with SMTP id t8so1047387uap.3
- for <linux-stm32@st-md-mailman.stormreply.com>;
- Wed, 15 Apr 2020 01:46:36 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linaro.org; s=google;
- h=mime-version:references:in-reply-to:from:date:message-id:subject:to
- :cc; bh=pi2eGcMT6rMjNmHfTn+6C3a0PNU3Dbjr1+RHlUDbfdE=;
- b=vJIB27nnx7NInYBYJNGhm545ijOXmPG5PJ+0Vf3NJpyxWQiPFS5/18D0/eVAL57jng
- tlIfro/fzyefa7pzStFQS2+rHWQluG72uKIG4cVLU5AgRMje5I45jxIjNMQeETp8MZH2
- qGQcpw8VturBpfuirdeqr9c124vzXTDw1zlq3NVQ/xx8sHPvrbNZmapL0k4MW7Tg1yrY
- GrFUa4G6pRqtjxufOt86mHF/K7CarQ10IyDcYqRJyR4tfqsDatHAQRNGU/BifK5vfIyW
- 8qvfaHXLlcayByo/SR1fJAh9EiBha1jkpc7wZbduXAVsVSoZoj7O8IEMKhUYk/wu6+Pt
- EXFg==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20161025;
- h=x-gm-message-state:mime-version:references:in-reply-to:from:date
- :message-id:subject:to:cc;
- bh=pi2eGcMT6rMjNmHfTn+6C3a0PNU3Dbjr1+RHlUDbfdE=;
- b=geOzj91S6bNHvx9QV/X+AjG5CefzxiiQyu2hGQ8P6r8lY72QzDKaDuJnDae+H5x12b
- r5Jgs3fxhHOtQkQKZ7uqV2kNil27/zhhcflRz9VHfPudKUZ73J70+XMdZgQrE+qJj7PZ
- xRlqnKTrgAvIjdGwXdU6cGb6S0zgslwK+xoGeN/6MNLgdtmyQ5bdGHMC4DKP35vrTGCY
- SyNaRr/ayJ1TORxwgp1yh0jwtZb3Mjz3Mkxwdlt50EUn8Bat4pDdChA3Ej7kC5V5F6ld
- mcw+MamMSp0teBs9X7ppNVwaZWdt+XRneG2eWtY2ultKsQpyAEj1/uN5IxOt+nyn0VJu
- xrOA==
-X-Gm-Message-State: AGi0PuYChkFbZz0NLzIHJFG1RuLLzrVOLo02wECfgxCf6JvN59Nsfbb/
- Lv4GBVHF1gMJQhhXc2o40NcsVLYwxxf9IOwSz+29RA==
-X-Google-Smtp-Source: APiQypKSnJq3GtI7I8370QcKOEbJus5EhyZKwcJPbeC4yoZidoU3fP1OuuptUIClEnTd5eWt4D57NVWQjScrvdMRcpQ=
-X-Received: by 2002:a9f:25af:: with SMTP id 44mr3566481uaf.104.1586940394324; 
- Wed, 15 Apr 2020 01:46:34 -0700 (PDT)
+ Wed, 15 Apr 2020 10:31:42 +0000 (UTC)
+Received: from mail.kernel.org (ip5f5ad4d8.dynamic.kabel-deutschland.de
+ [95.90.212.216])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+ (No client certificate requested)
+ by mail.kernel.org (Postfix) with ESMTPSA id DCEED208FE;
+ Wed, 15 Apr 2020 10:31:40 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
+ s=default; t=1586946701;
+ bh=uRks2HYiRyRdiR4g4ENZwFdl3nuMvUwAgHch1gvWFtU=;
+ h=From:To:Cc:Subject:Date:From;
+ b=LjvFPPv18vTxu7vRGD7+5SofqLQC3JFt2Yh/g1J8TyUMrRbcnYNDjKFZXMbTvP+l2
+ 2b6QydhAIOc5+m83jy/p6rLevh6dSKnSQATtz2x1JvYlUAG1VDGoiNvLGHpZQ7NVpv
+ YUWuwFJRmt04Jol1FBOsxz2sWmgBvn5JgZW8sQPg=
+Received: from mchehab by mail.kernel.org with local (Exim 4.92.3)
+ (envelope-from <mchehab@kernel.org>)
+ id 1jOfKV-006gM0-23; Wed, 15 Apr 2020 12:31:39 +0200
+From: Mauro Carvalho Chehab <mchehab+huawei@kernel.org>
+To: Linux Media Mailing List <linux-media@vger.kernel.org>
+Date: Wed, 15 Apr 2020 12:31:31 +0200
+Message-Id: <cover.1586946605.git.mchehab+huawei@kernel.org>
+X-Mailer: git-send-email 2.25.2
 MIME-Version: 1.0
-References: <20200401195722.208157-1-marex@denx.de>
- <20200401195722.208157-3-marex@denx.de>
-In-Reply-To: <20200401195722.208157-3-marex@denx.de>
-From: Ulf Hansson <ulf.hansson@linaro.org>
-Date: Wed, 15 Apr 2020 10:45:58 +0200
-Message-ID: <CAPDyKFpzM5NWR3D5uEmNu3hdhtr-vkucWNsCb2npd1eyR+=T_w@mail.gmail.com>
-To: Marek Vasut <marex@denx.de>
-Cc: Linus Walleij <linus.walleij@linaro.org>,
- "linux-mmc@vger.kernel.org" <linux-mmc@vger.kernel.org>,
- Patrick Delaunay <patrick.delaunay@st.com>,
- Russell King <linux@armlinux.org.uk>,
+Cc: Neil Armstrong <narmstrong@baylibre.com>,
+ Ettore Chimenti <ek5.chimenti@gmail.com>,
+ Thierry Reding <thierry.reding@gmail.com>,
+ Benjamin Gaignard <benjamin.gaignard@linaro.org>,
+ Guenter Roeck <groeck@chromium.org>, linux-stm32@st-md-mailman.stormreply.com,
+ Marek Szyprowski <m.szyprowski@samsung.com>, linux-samsung-soc@vger.kernel.org,
+ Mauro Carvalho Chehab <mchehab+huawei@kernel.org>,
+ Kevin Hilman <khilman@baylibre.com>, Russell King <linux@armlinux.org.uk>,
+ Krzysztof Kozlowski <krzk@kernel.org>, Jonathan Hunter <jonathanh@nvidia.com>,
+ Kukjin Kim <kgene@kernel.org>, Hans Verkuil <hverkuil-cisco@xs4all.nl>,
+ linux-tegra@vger.kernel.org, linux-amlogic@lists.infradead.org,
+ Benson Leung <bleung@chromium.org>, linux-arm-kernel@lists.infradead.org,
  Maxime Coquelin <mcoquelin.stm32@gmail.com>,
- Manivannan Sadhasivam <manivannan.sadhasivam@linaro.org>,
- linux-stm32@st-md-mailman.stormreply.com
-Subject: Re: [Linux-stm32] [PATCH 3/3] mmc: mmci: Switch to
-	mmc_set_signal_voltage()
+ Enric Balletbo i Serra <enric.balletbo@collabora.com>
+Subject: [Linux-stm32] [PATCH v2 0/6] Move CEC drivers and menu to be out of
+	MEDIA_SUPPORT
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -75,92 +67,139 @@ Content-Transfer-Encoding: 7bit
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
-On Wed, 1 Apr 2020 at 21:57, Marek Vasut <marex@denx.de> wrote:
->
-> Instead of reimplementing the logic in mmc_set_signal_voltage(),
-> use the mmc code function directly.
+The CEC_CORE doesn't depend on MEDIA_SUPPORT. So, it doesn't make
+much sense to keep it under its menu.
 
-Again, this isn't about mmc_set_signal_voltage() but about
-mmc_regulator_set_vqmmc(). Please update the changelog to reflect
-that.
+This series move it to be just after RC support. As a side effect, now
+dependencies like PCI and USB are now selected, making easier to
+enable CEC drivers.
 
->
-> This fixes a real issue on STM32MP1 where, if the eMMC is supplied with
-> VccQ=1.8 V, the post voltage switch code will spin indefinitelly waiting
-> for the voltage switch to complete, even though no voltage switch really
-> happened. But since mmc_set_signal_voltage() would return 0, then the
-> condition for calling .post_sig_volt_switch() is not satisfied if the
-> switch did not happen.
->
-> Signed-off-by: Marek Vasut <marex@denx.de>
-> Cc: Alexandre Torgue <alexandre.torgue@st.com>
-> Cc: Linus Walleij <linus.walleij@linaro.org>
-> Cc: Ludovic Barre <ludovic.barre@st.com>
-> Cc: Manivannan Sadhasivam <manivannan.sadhasivam@linaro.org>
-> Cc: Maxime Coquelin <mcoquelin.stm32@gmail.com>
-> Cc: Patrice Chotard <patrice.chotard@st.com>
-> Cc: Patrick Delaunay <patrick.delaunay@st.com>
-> Cc: Russell King <linux@armlinux.org.uk>
-> Cc: Ulf Hansson <ulf.hansson@linaro.org>
-> Cc: linux-stm32@st-md-mailman.stormreply.com
-> To: linux-mmc@vger.kernel.org
-> ---
->  drivers/mmc/host/mmci.c | 28 ++++++----------------------
->  1 file changed, 6 insertions(+), 22 deletions(-)
->
-> diff --git a/drivers/mmc/host/mmci.c b/drivers/mmc/host/mmci.c
-> index 647567def612..b8c8f0e623de 100644
-> --- a/drivers/mmc/host/mmci.c
-> +++ b/drivers/mmc/host/mmci.c
-> @@ -1861,31 +1861,15 @@ static int mmci_get_cd(struct mmc_host *mmc)
->  static int mmci_sig_volt_switch(struct mmc_host *mmc, struct mmc_ios *ios)
->  {
->         struct mmci_host *host = mmc_priv(mmc);
-> -       int ret = 0;
-> -
-> -       if (!IS_ERR(mmc->supply.vqmmc)) {
-> +       int ret;
->
-> -               switch (ios->signal_voltage) {
-> -               case MMC_SIGNAL_VOLTAGE_330:
-> -                       ret = regulator_set_voltage(mmc->supply.vqmmc,
-> -                                               2700000, 3600000);
-> -                       break;
-> -               case MMC_SIGNAL_VOLTAGE_180:
-> -                       ret = regulator_set_voltage(mmc->supply.vqmmc,
-> -                                               1700000, 1950000);
-> -                       break;
-> -               case MMC_SIGNAL_VOLTAGE_120:
-> -                       ret = regulator_set_voltage(mmc->supply.vqmmc,
-> -                                               1100000, 1300000);
-> -                       break;
-> -               }
-> +       ret = mmc_regulator_set_vqmmc(mmc, ios);
->
-> -               if (!ret && host->ops && host->ops->post_sig_volt_switch)
-> -                       ret = host->ops->post_sig_volt_switch(host, ios);
-> +       if (!ret && host->ops && host->ops->post_sig_volt_switch)
+- v2:
+  - move more CEC drivers from platform/
+  - rename kconfig options to be more coherent
 
-I would suggest to add a comment here somewhere, that you explicitly
-want to avoid calling the ->post_sig_volt_switch() unless the voltage
-really changed. Just to make this clear.
+Mauro Carvalho Chehab (6):
+  media: cec: move the core to a separate directory
+  media: place CEC menu before MEDIA_SUPPORT
+  media: move CEC platform drivers to a separate directory
+  media: move CEC USB drivers to a separate directory
+  media: cec: rename CEC platform drivers config options
+  media: cec: rename USB config options
 
-> +               ret = host->ops->post_sig_volt_switch(host, ios);
->
-> -               if (ret)
-> -                       dev_warn(mmc_dev(mmc), "Voltage switch failed\n");
-> -       }
-> +       if (ret < 0)
-> +               dev_warn(mmc_dev(mmc), "Voltage switch failed\n");
->
->         return ret;
->  }
-> --
-> 2.25.1
->
+ arch/arm/configs/exynos_defconfig             |   2 +-
+ arch/arm/configs/multi_v7_defconfig           |   2 +-
+ drivers/media/Kconfig                         |  30 +----
+ drivers/media/cec/Kconfig                     |  25 ++++
+ drivers/media/cec/Makefile                    |  16 +--
+ drivers/media/cec/core/Makefile               |  16 +++
+ drivers/media/cec/{ => core}/cec-adap.c       |   0
+ drivers/media/cec/{ => core}/cec-api.c        |   0
+ drivers/media/cec/{ => core}/cec-core.c       |   0
+ drivers/media/cec/{ => core}/cec-notifier.c   |   0
+ .../media/cec/{ => core}/cec-pin-error-inj.c  |   0
+ drivers/media/cec/{ => core}/cec-pin-priv.h   |   0
+ drivers/media/cec/{ => core}/cec-pin.c        |   0
+ drivers/media/cec/{ => core}/cec-priv.h       |   0
+ drivers/media/cec/platform/Kconfig            | 121 +++++++++++++++++
+ drivers/media/cec/platform/Makefile           |  14 ++
+ .../{ => cec}/platform/cec-gpio/Makefile      |   0
+ .../{ => cec}/platform/cec-gpio/cec-gpio.c    |   0
+ drivers/media/cec/platform/cros-ec/Makefile   |   2 +
+ .../platform/cros-ec}/cros-ec-cec.c           |   0
+ drivers/media/cec/platform/meson/Makefile     |   3 +
+ .../{ => cec}/platform/meson/ao-cec-g12a.c    |   0
+ .../media/{ => cec}/platform/meson/ao-cec.c   |   0
+ .../s5p-cec => cec/platform/s5p}/Makefile     |   2 +-
+ .../platform/s5p}/exynos_hdmi_cec.h           |   0
+ .../platform/s5p}/exynos_hdmi_cecctrl.c       |   0
+ .../s5p-cec => cec/platform/s5p}/regs-cec.h   |   0
+ .../s5p-cec => cec/platform/s5p}/s5p_cec.c    |   0
+ .../s5p-cec => cec/platform/s5p}/s5p_cec.h    |   0
+ drivers/media/cec/platform/seco/Makefile      |   2 +
+ .../seco-cec => cec/platform/seco}/seco-cec.c |   2 +-
+ .../seco-cec => cec/platform/seco}/seco-cec.h |   0
+ drivers/media/cec/platform/sti/Makefile       |   2 +
+ .../sti/cec => cec/platform/sti}/stih-cec.c   |   0
+ drivers/media/cec/platform/stm32/Makefile     |   2 +
+ .../{ => cec}/platform/stm32/stm32-cec.c      |   0
+ drivers/media/cec/platform/tegra/Makefile     |   2 +
+ .../platform/tegra}/tegra_cec.c               |   0
+ .../platform/tegra}/tegra_cec.h               |   0
+ drivers/media/cec/usb/Kconfig                 |   6 +
+ drivers/media/cec/usb/Makefile                |   6 +
+ .../pulse8-cec => cec/usb/pulse8}/Kconfig     |   5 +-
+ drivers/media/cec/usb/pulse8/Makefile         |   2 +
+ .../usb/pulse8}/pulse8-cec.c                  |   0
+ .../usb/rainshadow}/Kconfig                   |   5 +-
+ drivers/media/cec/usb/rainshadow/Makefile     |   2 +
+ .../usb/rainshadow}/rainshadow-cec.c          |   0
+ drivers/media/platform/Kconfig                | 125 ------------------
+ drivers/media/platform/Makefile               |  12 --
+ drivers/media/platform/cros-ec-cec/Makefile   |   2 -
+ drivers/media/platform/meson/Makefile         |   3 -
+ drivers/media/platform/seco-cec/Makefile      |   2 -
+ drivers/media/platform/sti/cec/Makefile       |   2 -
+ drivers/media/platform/stm32/Makefile         |   1 -
+ drivers/media/platform/tegra-cec/Makefile     |   2 -
+ drivers/media/usb/Kconfig                     |   6 -
+ drivers/media/usb/Makefile                    |   2 -
+ drivers/media/usb/pulse8-cec/Makefile         |   2 -
+ drivers/media/usb/rainshadow-cec/Makefile     |   2 -
+ 59 files changed, 218 insertions(+), 212 deletions(-)
+ create mode 100644 drivers/media/cec/core/Makefile
+ rename drivers/media/cec/{ => core}/cec-adap.c (100%)
+ rename drivers/media/cec/{ => core}/cec-api.c (100%)
+ rename drivers/media/cec/{ => core}/cec-core.c (100%)
+ rename drivers/media/cec/{ => core}/cec-notifier.c (100%)
+ rename drivers/media/cec/{ => core}/cec-pin-error-inj.c (100%)
+ rename drivers/media/cec/{ => core}/cec-pin-priv.h (100%)
+ rename drivers/media/cec/{ => core}/cec-pin.c (100%)
+ rename drivers/media/cec/{ => core}/cec-priv.h (100%)
+ create mode 100644 drivers/media/cec/platform/Kconfig
+ create mode 100644 drivers/media/cec/platform/Makefile
+ rename drivers/media/{ => cec}/platform/cec-gpio/Makefile (100%)
+ rename drivers/media/{ => cec}/platform/cec-gpio/cec-gpio.c (100%)
+ create mode 100644 drivers/media/cec/platform/cros-ec/Makefile
+ rename drivers/media/{platform/cros-ec-cec => cec/platform/cros-ec}/cros-ec-cec.c (100%)
+ create mode 100644 drivers/media/cec/platform/meson/Makefile
+ rename drivers/media/{ => cec}/platform/meson/ao-cec-g12a.c (100%)
+ rename drivers/media/{ => cec}/platform/meson/ao-cec.c (100%)
+ rename drivers/media/{platform/s5p-cec => cec/platform/s5p}/Makefile (63%)
+ rename drivers/media/{platform/s5p-cec => cec/platform/s5p}/exynos_hdmi_cec.h (100%)
+ rename drivers/media/{platform/s5p-cec => cec/platform/s5p}/exynos_hdmi_cecctrl.c (100%)
+ rename drivers/media/{platform/s5p-cec => cec/platform/s5p}/regs-cec.h (100%)
+ rename drivers/media/{platform/s5p-cec => cec/platform/s5p}/s5p_cec.c (100%)
+ rename drivers/media/{platform/s5p-cec => cec/platform/s5p}/s5p_cec.h (100%)
+ create mode 100644 drivers/media/cec/platform/seco/Makefile
+ rename drivers/media/{platform/seco-cec => cec/platform/seco}/seco-cec.c (99%)
+ rename drivers/media/{platform/seco-cec => cec/platform/seco}/seco-cec.h (100%)
+ create mode 100644 drivers/media/cec/platform/sti/Makefile
+ rename drivers/media/{platform/sti/cec => cec/platform/sti}/stih-cec.c (100%)
+ create mode 100644 drivers/media/cec/platform/stm32/Makefile
+ rename drivers/media/{ => cec}/platform/stm32/stm32-cec.c (100%)
+ create mode 100644 drivers/media/cec/platform/tegra/Makefile
+ rename drivers/media/{platform/tegra-cec => cec/platform/tegra}/tegra_cec.c (100%)
+ rename drivers/media/{platform/tegra-cec => cec/platform/tegra}/tegra_cec.h (100%)
+ create mode 100644 drivers/media/cec/usb/Kconfig
+ create mode 100644 drivers/media/cec/usb/Makefile
+ rename drivers/media/{usb/pulse8-cec => cec/usb/pulse8}/Kconfig (86%)
+ create mode 100644 drivers/media/cec/usb/pulse8/Makefile
+ rename drivers/media/{usb/pulse8-cec => cec/usb/pulse8}/pulse8-cec.c (100%)
+ rename drivers/media/{usb/rainshadow-cec => cec/usb/rainshadow}/Kconfig (85%)
+ create mode 100644 drivers/media/cec/usb/rainshadow/Makefile
+ rename drivers/media/{usb/rainshadow-cec => cec/usb/rainshadow}/rainshadow-cec.c (100%)
+ delete mode 100644 drivers/media/platform/cros-ec-cec/Makefile
+ delete mode 100644 drivers/media/platform/meson/Makefile
+ delete mode 100644 drivers/media/platform/seco-cec/Makefile
+ delete mode 100644 drivers/media/platform/sti/cec/Makefile
+ delete mode 100644 drivers/media/platform/tegra-cec/Makefile
+ delete mode 100644 drivers/media/usb/pulse8-cec/Makefile
+ delete mode 100644 drivers/media/usb/rainshadow-cec/Makefile
 
-Kind regards
-Uffe
+-- 
+2.25.2
+
+
 _______________________________________________
 Linux-stm32 mailing list
 Linux-stm32@st-md-mailman.stormreply.com
