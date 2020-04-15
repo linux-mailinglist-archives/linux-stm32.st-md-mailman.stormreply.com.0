@@ -2,38 +2,38 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id A73881A9D4E
-	for <lists+linux-stm32@lfdr.de>; Wed, 15 Apr 2020 13:45:36 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id C22BB1A9D8E
+	for <lists+linux-stm32@lfdr.de>; Wed, 15 Apr 2020 13:46:49 +0200 (CEST)
 Received: from ip-172-31-3-76.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 660B2C36B0C;
-	Wed, 15 Apr 2020 11:45:36 +0000 (UTC)
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 81F02C36B0C;
+	Wed, 15 Apr 2020 11:46:49 +0000 (UTC)
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
  (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id E7A75C36B0A
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id E64E1C36B0A
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Wed, 15 Apr 2020 11:45:33 +0000 (UTC)
+ Wed, 15 Apr 2020 11:46:47 +0000 (UTC)
 Received: from sasha-vm.mshome.net (c-73-47-72-35.hsd1.nh.comcast.net
  [73.47.72.35])
  (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by mail.kernel.org (Postfix) with ESMTPSA id 54831216FD;
- Wed, 15 Apr 2020 11:45:31 +0000 (UTC)
+ by mail.kernel.org (Postfix) with ESMTPSA id 04F9E20775;
+ Wed, 15 Apr 2020 11:46:44 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
- s=default; t=1586951132;
- bh=xBEgba53mTyEABUlkIImud5TWQpeouQiE1ppnBXI4wc=;
+ s=default; t=1586951205;
+ bh=dv2tGa7oBR3Ndx5yj/9PBwKQi3aXbOwvi6Bg6mpOi6o=;
  h=From:To:Cc:Subject:Date:In-Reply-To:References:From;
- b=luh1KEAahIua7LIrYROE3DtNShFYkIgkZqrG3QL7Usk2Gwqk7ABBJSBqVJp0ARI8g
- +HJhJIlC1I8Bbj3yzoM3CgTV6aWofqAozlobxf5WPniAvTAg7WEQfLhSW9VPm1mz+K
- PKi3PccLvyEpriK4nV8mfNzp9hOSm7w9ZpcZnO0s=
+ b=rCO7KyTtHsFTDtey6x9DXWkLEdQZqZz/x2TV5dcmXZHSdY95NaQXHzC1NsHTVl+MI
+ juj+9GwfsAxw3YolT4l0xL/L5A+VaVIIB3mSN+1X2jWyFoWDGABxtisSWkDozqQ9XB
+ mKoa5w0MCypc1pwdW8cB3yhrIty6IklEv9JjlaTo=
 From: Sasha Levin <sashal@kernel.org>
 To: linux-kernel@vger.kernel.org,
 	stable@vger.kernel.org
-Date: Wed, 15 Apr 2020 07:44:00 -0400
-Message-Id: <20200415114442.14166-43-sashal@kernel.org>
+Date: Wed, 15 Apr 2020 07:46:02 -0400
+Message-Id: <20200415114623.14972-19-sashal@kernel.org>
 X-Mailer: git-send-email 2.20.1
-In-Reply-To: <20200415114442.14166-1-sashal@kernel.org>
-References: <20200415114442.14166-1-sashal@kernel.org>
+In-Reply-To: <20200415114623.14972-1-sashal@kernel.org>
+References: <20200415114623.14972-1-sashal@kernel.org>
 MIME-Version: 1.0
 X-stable: review
 X-Patchwork-Hint: Ignore
@@ -41,8 +41,8 @@ Cc: Sasha Levin <sashal@kernel.org>, netdev@vger.kernel.org,
  linux-stm32@st-md-mailman.stormreply.com,
  Jisheng Zhang <Jisheng.Zhang@synaptics.com>,
  "David S . Miller" <davem@davemloft.net>, linux-arm-kernel@lists.infradead.org
-Subject: [Linux-stm32] [PATCH AUTOSEL 5.4 43/84] net: stmmac: dwmac1000: fix
-	out-of-bounds mac address reg setting
+Subject: [Linux-stm32] [PATCH AUTOSEL 4.19 19/40] net: stmmac: dwmac1000:
+	fix out-of-bounds mac address reg setting
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -79,10 +79,10 @@ Signed-off-by: Sasha Levin <sashal@kernel.org>
  1 file changed, 1 insertion(+), 1 deletion(-)
 
 diff --git a/drivers/net/ethernet/stmicro/stmmac/dwmac1000_core.c b/drivers/net/ethernet/stmicro/stmmac/dwmac1000_core.c
-index 43a785f86c69d..bc9b01376e807 100644
+index 7b2a84320aabd..e4e9a7591efe9 100644
 --- a/drivers/net/ethernet/stmicro/stmmac/dwmac1000_core.c
 +++ b/drivers/net/ethernet/stmicro/stmmac/dwmac1000_core.c
-@@ -209,7 +209,7 @@ static void dwmac1000_set_filter(struct mac_device_info *hw,
+@@ -218,7 +218,7 @@ static void dwmac1000_set_filter(struct mac_device_info *hw,
  			reg++;
  		}
  
