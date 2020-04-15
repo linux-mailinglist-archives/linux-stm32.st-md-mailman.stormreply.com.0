@@ -2,70 +2,86 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id 7D7BE1A8EB5
-	for <lists+linux-stm32@lfdr.de>; Wed, 15 Apr 2020 00:40:03 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 4E0E81A939C
+	for <lists+linux-stm32@lfdr.de>; Wed, 15 Apr 2020 08:48:20 +0200 (CEST)
 Received: from ip-172-31-3-76.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 3E41DC36B0C;
-	Tue, 14 Apr 2020 22:40:03 +0000 (UTC)
-Received: from mail-pl1-f196.google.com (mail-pl1-f196.google.com
- [209.85.214.196])
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 0CD82C36B10;
+	Wed, 15 Apr 2020 06:48:20 +0000 (UTC)
+Received: from mail-qv1-f67.google.com (mail-qv1-f67.google.com
+ [209.85.219.67])
  (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 93EA3C36B0A
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 5A43AC36B0A
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Tue, 14 Apr 2020 22:39:59 +0000 (UTC)
-Received: by mail-pl1-f196.google.com with SMTP id g2so514212plo.3
+ Wed, 15 Apr 2020 05:01:09 +0000 (UTC)
+Received: by mail-qv1-f67.google.com with SMTP id p19so1122700qve.0
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Tue, 14 Apr 2020 15:39:59 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20161025;
- h=from:to:cc:subject:date:message-id:mime-version
- :content-transfer-encoding;
- bh=9t1OfRpRitZtOf4uo1UYB1/mDlF//ZHx3ZZOkOotBBs=;
- b=l3XQpqCuW3oYa5DHK/NlM9glUOcgF931LKIPpyUBbva6wQh/ApqWSeCHyzi1hghTZH
- E28Z7/PJgq8fK1ExjJYDRNg4bZEoHVY1Ka5gYHY7mRzcqb+ZSh6TFhMkpczIT5DetY1E
- Vfj0fgXh0s7lbHOBTeyH7qVzN6vqDxOPeyU369EWm3IC4lAaYIl58qqVXJdRpWo98ba6
- YwME3XfFr32hcDXqmy2j9PTh2FH/yV5Kc3Dbd3hIWB0AH7Sd2tg6uCIGaKfOW18TVAkM
- jLTIivkcJLKxd3oVpuERxs6gjCojoeC0IVzTuimvDjg/UPsqZ8qI/Yy/o+l+uNXkalOH
- 7SeA==
+ Tue, 14 Apr 2020 22:01:09 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=cmpxchg-org.20150623.gappssmtp.com; s=20150623;
+ h=date:from:to:cc:subject:message-id:references:mime-version
+ :content-disposition:in-reply-to;
+ bh=ef3HLI/XX5ogd42JRuoGnEbb/Ln3ZxgvuLj5jaeUWkI=;
+ b=Tcxzc6xC3iVTZShTUf3CIv3N8B5ZyCbru12fLV5+tpVooL5/Bo3MM2R4w1+y/qKNnw
+ 9lu0zJBRs+VK1Bc14YzwiZC+K/efs95VT8GzxaoJoz3t2WhfDZxWX+BgsMNU20r8wRPv
+ WS98QN/V8NZIzymtO0juNqdA9Tg6/2OTyjU7Zm1KL9ejebzf7wo1d0uOEsRrlg17M8fg
+ qYmffi6H6MwGLJe4epZjwPPvjWIdIXS0xtejpuhYYUqQSrz2GfoywvJh6tC6sCJVyKe7
+ xzOQhWdIv/o82YQJCk9DtMPUw2B8iLWuNwugd4l1OepDEbLixuOHRPHRALsrInJO+Rsn
+ o1og==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=1e100.net; s=20161025;
- h=x-gm-message-state:from:to:cc:subject:date:message-id:mime-version
- :content-transfer-encoding;
- bh=9t1OfRpRitZtOf4uo1UYB1/mDlF//ZHx3ZZOkOotBBs=;
- b=W6yIwnwENJwP2jMepbcfVISrhrYTzM0xAW8OsJyTg/R6FSBq7YSV/nufPqkIjbDoqn
- D0puyfZnvHFyW7fPWwoW17KKecW6Loiub99OMd+5+TTNMaBGA5baNXB1vq7UUMT1H44t
- MK9dpQypXeztmJwPPzzP4KcuVaHP5WWpHHQI4EtrOHVLc5Jy6EeWZz+Idob9DaKogH5b
- DuPiyv/pI5xexlK/vQQXIfQYMusrjFFEqt0gA0anRPj26mk+2RjBnNJPiKdbgo/t40ap
- DizSK/SomHvoJ9spLBY0i+h8uKuyALR95LL8MmJtDN8hN3RilVUNZNvoZDZ/DEYYsLVq
- Z7sg==
-X-Gm-Message-State: AGi0PuZrMCeVH9q/EVpmBiSz3TB3qMKEqWra6rwGWc2dnPa4CXqxkoEp
- z1hAz3PEpYxHt1FjUqrC7TQ=
-X-Google-Smtp-Source: APiQypLpzCWuUJeGz0XSN07gJ7EzCXSnJI9C2zEP968l+WFRfqF85ygGJoM3ztime9HQeFmq1bturg==
-X-Received: by 2002:a17:902:262:: with SMTP id
- 89mr2073094plc.131.1586903997813; 
- Tue, 14 Apr 2020 15:39:57 -0700 (PDT)
-Received: from localhost.localdomain (ip68-111-84-250.oc.oc.cox.net.
- [68.111.84.250])
- by smtp.gmail.com with ESMTPSA id e11sm12176214pfl.65.2020.04.14.15.39.55
+ h=x-gm-message-state:date:from:to:cc:subject:message-id:references
+ :mime-version:content-disposition:in-reply-to;
+ bh=ef3HLI/XX5ogd42JRuoGnEbb/Ln3ZxgvuLj5jaeUWkI=;
+ b=queI1evaVDWpUPFayffgftUxQ4oYIDn7zQBDJcQC0ll+tHsMKX52rkd1TsUBCtO/zu
+ mdfnz3wlFnuqWF4YGj/SPMh7QKCDIkVFpneY1p7GwTibarfSkAKJKcArjg/qytie4K46
+ z+kYkFTQ8rLeZWN3Vg78WrlKqPSspXrthE4S2nca9fE2okAne5nVeICQACfXezPg84Q+
+ ZnT3rzilS5zGtJWToUW5CZQhdgZrSaKaEt9tpKQOViUQH8JoDrI7RwkiCZ7BhTnSaBts
+ K97uf+U9vXgfKOcZcHtZkQdDGFI2Pve3sNJ6K3a2gxupdRO/7NFIY0/jp+VeU+X6VwP2
+ Qm3Q==
+X-Gm-Message-State: AGi0PuYvw1+q4J3+V+URT6QqBs5Sm66908LhfQG8Cdn1Jj/5j2C4y9zt
+ imVIWVpsnXky4US9hUrECboBeA==
+X-Google-Smtp-Source: APiQypJRjg+PyUSZjrIkjpxdMfgyPb9bMEWnffTFRMxoE1aQMUITXzNurR0P/0BN6q0H0W5xTyhSBA==
+X-Received: by 2002:a0c:e88d:: with SMTP id b13mr3243342qvo.245.1586926868219; 
+ Tue, 14 Apr 2020 22:01:08 -0700 (PDT)
+Received: from localhost ([2620:10d:c091:480::e623])
+ by smtp.gmail.com with ESMTPSA id 10sm6168833qtp.4.2020.04.14.22.01.07
  (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Tue, 14 Apr 2020 15:39:56 -0700 (PDT)
-From: Florian Fainelli <f.fainelli@gmail.com>
-To: netdev@vger.kernel.org
-Date: Tue, 14 Apr 2020 15:39:52 -0700
-Message-Id: <20200414223952.5886-1-f.fainelli@gmail.com>
-X-Mailer: git-send-email 2.19.1
+ Tue, 14 Apr 2020 22:01:07 -0700 (PDT)
+Date: Wed, 15 Apr 2020 01:01:06 -0400
+From: Johannes Weiner <hannes@cmpxchg.org>
+To: Waiman Long <longman@redhat.com>
+Message-ID: <20200415050106.GA154671@cmpxchg.org>
+References: <20200413211550.8307-1-longman@redhat.com>
+ <20200413211550.8307-2-longman@redhat.com>
 MIME-Version: 1.0
-Cc: Florian Fainelli <f.fainelli@gmail.com>,
- open list <linux-kernel@vger.kernel.org>, Maxime Ripard <mripard@kernel.org>,
- "moderated list:ARM/STM32 ARCHITECTURE"
- <linux-stm32@st-md-mailman.stormreply.com>, Chen-Yu Tsai <wens@csie.org>,
- Jose Abreu <joabreu@synopsys.com>, Maxime Coquelin <mcoquelin.stm32@gmail.com>,
- Giuseppe Cavallaro <peppe.cavallaro@st.com>, olteanv@gmail.com,
- "David S. Miller" <davem@davemloft.net>,
- "moderated list:ARM/Allwinner sunXi SoC support"
- <linux-arm-kernel@lists.infradead.org>
-Subject: [Linux-stm32] [PATCH net] net: stmmac: dwmac-sunxi: Provide TX and
-	RX fifo sizes
+Content-Disposition: inline
+In-Reply-To: <20200413211550.8307-2-longman@redhat.com>
+X-Mailman-Approved-At: Wed, 15 Apr 2020 06:48:18 +0000
+Cc: linux-btrfs@vger.kernel.org,
+ Jarkko Sakkinen <jarkko.sakkinen@linux.intel.com>,
+ virtualization@lists.linux-foundation.org, David Howells <dhowells@redhat.com>,
+ linux-mm@kvack.org, linux-sctp@vger.kernel.org, keyrings@vger.kernel.org,
+ kasan-dev@googlegroups.com, samba-technical@lists.samba.org,
+ linux-stm32@st-md-mailman.stormreply.com, devel@driverdev.osuosl.org,
+ linux-s390@vger.kernel.org, linux-scsi@vger.kernel.org, x86@kernel.org,
+ James Morris <jmorris@namei.org>, Matthew Wilcox <willy@infradead.org>,
+ cocci@systeme.lip6.fr, linux-wpan@vger.kernel.org,
+ intel-wired-lan@lists.osuosl.org, David Rientjes <rientjes@google.com>,
+ "Serge E. Hallyn" <serge@hallyn.com>, linux-pm@vger.kernel.org,
+ ecryptfs@vger.kernel.org, linux-nfs@vger.kernel.org,
+ linux-fscrypt@vger.kernel.org, linux-mediatek@lists.infradead.org,
+ linux-amlogic@lists.infradead.org, linux-integrity@vger.kernel.org,
+ linux-arm-kernel@lists.infradead.org, linux-cifs@vger.kernel.org,
+ Linus Torvalds <torvalds@linux-foundation.org>, linux-wireless@vger.kernel.org,
+ linux-kernel@vger.kernel.org, linux-bluetooth@vger.kernel.org,
+ linux-security-module@vger.kernel.org, target-devel@vger.kernel.org,
+ tipc-discussion@lists.sourceforge.net, linux-crypto@vger.kernel.org,
+ netdev@vger.kernel.org, Joe Perches <joe@perches.com>,
+ Andrew Morton <akpm@linux-foundation.org>, linuxppc-dev@lists.ozlabs.org,
+ wireguard@lists.zx2c4.com, linux-ppp@vger.kernel.org
+Subject: Re: [Linux-stm32] [PATCH 1/2] mm,
+	treewide: Rename kzfree() to kfree_sensitive()
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -82,41 +98,45 @@ Content-Transfer-Encoding: 7bit
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
-After commit bfcb813203e619a8960a819bf533ad2a108d8105 ("net: dsa:
-configure the MTU for switch ports") my Lamobo R1 platform which uses
-an allwinner,sun7i-a20-gmac compatible Ethernet MAC started to fail
-by rejecting a MTU of 1536. The reason for that is that the DMA
-capabilities are not readable on this version of the IP, and there
-is also no 'tx-fifo-depth' property being provided in Device Tree. The
-property is documented as optional, and is not provided.
+On Mon, Apr 13, 2020 at 05:15:49PM -0400, Waiman Long wrote:
+> As said by Linus:
+> 
+>   A symmetric naming is only helpful if it implies symmetries in use.
+>   Otherwise it's actively misleading.
 
-Chen-Yu indicated that the FIFO sizes are 4KB for TX and 16KB for RX, so
-provide these values through platform data as an immediate fix until
-various Device Tree sources get updated accordingly.
+As the btrfs example proves - people can be tempted by this false
+symmetry to pair kzalloc with kzfree, which isn't what we wanted.
 
-Fixes: eaf4fac47807 ("net: stmmac: Do not accept invalid MTU values")
-Suggested-by: Chen-Yu Tsai <wens@csie.org>
-Signed-off-by: Florian Fainelli <f.fainelli@gmail.com>
----
- drivers/net/ethernet/stmicro/stmmac/dwmac-sunxi.c | 2 ++
- 1 file changed, 2 insertions(+)
+>   In "kzalloc()", the z is meaningful and an important part of what the
+>   caller wants.
+> 
+>   In "kzfree()", the z is actively detrimental, because maybe in the
+>   future we really _might_ want to use that "memfill(0xdeadbeef)" or
+>   something. The "zero" part of the interface isn't even _relevant_.
+> 
+> The main reason that kzfree() exists is to clear sensitive information
+> that should not be leaked to other future users of the same memory
+> objects.
+> 
+> Rename kzfree() to kfree_sensitive() to follow the example of the
+> recently added kvfree_sensitive() and make the intention of the API
+> more explicit. In addition, memzero_explicit() is used to clear the
+> memory to make sure that it won't get optimized away by the compiler.
+> 
+> The renaming is done by using the command sequence:
+> 
+>   git grep -w --name-only kzfree |\
+>   xargs sed -i 's/\bkzfree\b/kfree_sensitive/'
+> 
+> followed by some editing of the kfree_sensitive() kerneldoc and the
+> use of memzero_explicit() instead of memset().
+> 
+> Suggested-by: Joe Perches <joe@perches.com>
+> Signed-off-by: Waiman Long <longman@redhat.com>
 
-diff --git a/drivers/net/ethernet/stmicro/stmmac/dwmac-sunxi.c b/drivers/net/ethernet/stmicro/stmmac/dwmac-sunxi.c
-index 7d40760e9ba8..0e1ca2cba3c7 100644
---- a/drivers/net/ethernet/stmicro/stmmac/dwmac-sunxi.c
-+++ b/drivers/net/ethernet/stmicro/stmmac/dwmac-sunxi.c
-@@ -150,6 +150,8 @@ static int sun7i_gmac_probe(struct platform_device *pdev)
- 	plat_dat->init = sun7i_gmac_init;
- 	plat_dat->exit = sun7i_gmac_exit;
- 	plat_dat->fix_mac_speed = sun7i_fix_speed;
-+	plat_dat->tx_fifo_size = 4096;
-+	plat_dat->rx_fifo_size = 16384;
- 
- 	ret = sun7i_gmac_init(pdev, plat_dat->bsp_priv);
- 	if (ret)
--- 
-2.19.1
+Looks good to me. Thanks for fixing this very old mistake.
 
+Acked-by: Johannes Weiner <hannes@cmpxchg.org>
 _______________________________________________
 Linux-stm32 mailing list
 Linux-stm32@st-md-mailman.stormreply.com
