@@ -2,67 +2,63 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id 933591A9295
-	for <lists+linux-stm32@lfdr.de>; Wed, 15 Apr 2020 07:42:01 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id D472F1A96FF
+	for <lists+linux-stm32@lfdr.de>; Wed, 15 Apr 2020 10:41:01 +0200 (CEST)
 Received: from ip-172-31-3-76.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 37D8EC36B0C;
-	Wed, 15 Apr 2020 05:42:01 +0000 (UTC)
-Received: from mail-ed1-f66.google.com (mail-ed1-f66.google.com
- [209.85.208.66])
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 71A94C36B0C;
+	Wed, 15 Apr 2020 08:41:01 +0000 (UTC)
+Received: from mail-vs1-f65.google.com (mail-vs1-f65.google.com
+ [209.85.217.65])
  (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id E561AC36B0A
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 70A33C36B0A
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Wed, 15 Apr 2020 05:41:58 +0000 (UTC)
-Received: by mail-ed1-f66.google.com with SMTP id ca21so3073017edb.7
+ Wed, 15 Apr 2020 08:40:59 +0000 (UTC)
+Received: by mail-vs1-f65.google.com with SMTP id y15so1738256vsm.5
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Tue, 14 Apr 2020 22:41:58 -0700 (PDT)
+ Wed, 15 Apr 2020 01:40:59 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linaro.org; s=google;
+ h=mime-version:references:in-reply-to:from:date:message-id:subject:to
+ :cc; bh=omiGcsbKasYfX0xBbG+LJDV61G+OkCUsHwRpvQU4/dA=;
+ b=rpdc6/7iEbpudnJRWnzdPPfcNHEK7QaAySAG1RrxtTnHM3yN1LVdB53uR7mf6PeZCZ
+ 0zgVtIIaclIrrokiRmDuNQI+VexcnktXC/gps9oyw0rm75pS5hlIEIHhuuVNqrYIdy85
+ J5wZz9Dy3pBh01Hu6KRzpmbvYADvMRLVf8mSiBUYdSbUOarsim7a1ciJMthY4cR8hnri
+ UpsmLnXwNNv1zFy/fYTXy0qmZ0+8MZ1Q6MYCZnUcKQT5nXRmaOu0sYe3NzzKCMG9Q0zI
+ zTtke6lX+TXtkQNZDCzjSqjAN9r2bvGHwH5bY0FLtIoZrBKR0FG8U/FuiLfTj2dmLah9
+ Es6A==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=1e100.net; s=20161025;
  h=x-gm-message-state:mime-version:references:in-reply-to:from:date
  :message-id:subject:to:cc;
- bh=8GnTx0izeYvyDZyS+vHAcMDpC99flKBZNWxhXwvZUWs=;
- b=KEPo+LrBD6JG5OiN7xAcYh6hPrukV/BNgbEL1a+2r8MVgpBTxIq8FA/gI9H8JJ9LoH
- 6Mq0NXEQ3cI8z/rMlKZYfADvYLy2FMPRDl+fonVJjdddjwQoEFixp7aBhE1I9QKEFlXz
- P5Hzays8U8fQUqV1D/ZyudC9NfJ47fX5EpH8PKGquS0bZpkXqgho5uSc1lTDoYZW6pQd
- mUaVTBqcs36WfUBXh8BF5mkbgvJlX4Zah4UF613StqiWTolx2YV/YC5F3OU36R2uAOh+
- EWKo/fTu8fNZ0kigT8DWrhWUC320Xe7lofe/+pVwQkYCIG6cnrio8bbF9V2O5cDkixv9
- SI/w==
-X-Gm-Message-State: AGi0PuZ0U9zttYQDn42I2dj2wi+ulipQ/UsU6+ych4noAdjBk4Z7tM3Z
- Z2+UysR3H9BFwB+z/X7JdbuZowG7ibI=
-X-Google-Smtp-Source: APiQypJCAqlGf4RLjz8/NFuDOVk4Vr4I8r3n45tX+QwV8I16+2mZ/4qCt5kSchdyKvTnJZnsz07gqg==
-X-Received: by 2002:a17:906:9494:: with SMTP id
- t20mr3309312ejx.51.1586929317723; 
- Tue, 14 Apr 2020 22:41:57 -0700 (PDT)
-Received: from mail-wr1-f41.google.com (mail-wr1-f41.google.com.
- [209.85.221.41])
- by smtp.gmail.com with ESMTPSA id qo12sm457720ejb.14.2020.04.14.22.41.57
- for <linux-stm32@st-md-mailman.stormreply.com>
- (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Tue, 14 Apr 2020 22:41:57 -0700 (PDT)
-Received: by mail-wr1-f41.google.com with SMTP id f13so17531260wrm.13
- for <linux-stm32@st-md-mailman.stormreply.com>;
- Tue, 14 Apr 2020 22:41:57 -0700 (PDT)
-X-Received: by 2002:a5d:65d2:: with SMTP id e18mr19082552wrw.104.1586929316945; 
- Tue, 14 Apr 2020 22:41:56 -0700 (PDT)
+ bh=omiGcsbKasYfX0xBbG+LJDV61G+OkCUsHwRpvQU4/dA=;
+ b=FmD5UbrRm6s1yL7oCDWgDb81C02aUaEab/tU9nFvGXClBG/D2NIFJkqD/ty7a80e9L
+ Uq5GLLUJ74hP3IAefHP0Lu+k8TLqOYCMVzel6nNidPlFBvoEU9J0U2KLACO+08DwPQt4
+ Wjcf7guxy0IJuxXrQ+3CJPg5QLncT40D41cXps3EbNPD7y2kJV6gzg+Vc9COWho9u27p
+ 5f6nBu7GLU7Y7zuVSdZY08b/tD0E4UW3G1o9MulfdrDmpObOHWTPaCgSwljx8KtjCur7
+ OYvw433rC1E/P2OtPRL9AyC7yS+A4zPFf+ZU0Z131Fl68mVZBhdOO9kRS3dyAggcdeZj
+ cu5g==
+X-Gm-Message-State: AGi0PuZHtgeBqFIDHhCBGDSwqkQEbaGd5+QGqu5iyfpEWgIY8ToGDTMm
+ eJre/xCcimYmENoDm5JTDvi+VCws2xjy4wn33oiM+Q==
+X-Google-Smtp-Source: APiQypKcS0T2Z05H58zalH1qbLVM4cPc7n1LTo5L/Z7jjHdRiPL0qSstLEaPV0uMvhkoKpRXznncsD8/tMqeuTb7mGE=
+X-Received: by 2002:a67:f24b:: with SMTP id y11mr3508054vsm.165.1586940058296; 
+ Wed, 15 Apr 2020 01:40:58 -0700 (PDT)
 MIME-Version: 1.0
-References: <20200414223952.5886-1-f.fainelli@gmail.com>
-In-Reply-To: <20200414223952.5886-1-f.fainelli@gmail.com>
-From: Chen-Yu Tsai <wens@csie.org>
-Date: Wed, 15 Apr 2020 13:41:47 +0800
-X-Gmail-Original-Message-ID: <CAGb2v65XwJ30_g1qf5a=1LR63BZ=DEq0qG9GQae0YuZfH1C79g@mail.gmail.com>
-Message-ID: <CAGb2v65XwJ30_g1qf5a=1LR63BZ=DEq0qG9GQae0YuZfH1C79g@mail.gmail.com>
-To: Florian Fainelli <f.fainelli@gmail.com>
-Cc: netdev <netdev@vger.kernel.org>, open list <linux-kernel@vger.kernel.org>,
- Maxime Ripard <mripard@kernel.org>, "moderated list:ARM/STM32 ARCHITECTURE"
- <linux-stm32@st-md-mailman.stormreply.com>, Jose Abreu <joabreu@synopsys.com>,
+References: <20200401195722.208157-1-marex@denx.de>
+ <20200401195722.208157-2-marex@denx.de>
+In-Reply-To: <20200401195722.208157-2-marex@denx.de>
+From: Ulf Hansson <ulf.hansson@linaro.org>
+Date: Wed, 15 Apr 2020 10:40:22 +0200
+Message-ID: <CAPDyKFohHXW+5G9PTjXdvFevbx6JDOUue9+6+Ck9na36B0sH5w@mail.gmail.com>
+To: Marek Vasut <marex@denx.de>
+Cc: Linus Walleij <linus.walleij@linaro.org>,
+ "linux-mmc@vger.kernel.org" <linux-mmc@vger.kernel.org>,
+ Patrick Delaunay <patrick.delaunay@st.com>,
+ Russell King <linux@armlinux.org.uk>,
  Maxime Coquelin <mcoquelin.stm32@gmail.com>,
- Giuseppe Cavallaro <peppe.cavallaro@st.com>, olteanv@gmail.com,
- "David S. Miller" <davem@davemloft.net>,
- "moderated list:ARM/Allwinner sunXi SoC support"
- <linux-arm-kernel@lists.infradead.org>
-Subject: Re: [Linux-stm32] [PATCH net] net: stmmac: dwmac-sunxi: Provide TX
-	and RX fifo sizes
+ Manivannan Sadhasivam <manivannan.sadhasivam@linaro.org>,
+ linux-stm32@st-md-mailman.stormreply.com
+Subject: Re: [Linux-stm32] [PATCH 2/3] mmc: Return 1 from
+	mmc_set_signal_voltage() if switch skipped
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -79,25 +75,81 @@ Content-Transfer-Encoding: 7bit
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
-On Wed, Apr 15, 2020 at 6:40 AM Florian Fainelli <f.fainelli@gmail.com> wrote:
+On Wed, 1 Apr 2020 at 21:57, Marek Vasut <marex@denx.de> wrote:
 >
-> After commit bfcb813203e619a8960a819bf533ad2a108d8105 ("net: dsa:
-> configure the MTU for switch ports") my Lamobo R1 platform which uses
-> an allwinner,sun7i-a20-gmac compatible Ethernet MAC started to fail
-> by rejecting a MTU of 1536. The reason for that is that the DMA
-> capabilities are not readable on this version of the IP, and there
-> is also no 'tx-fifo-depth' property being provided in Device Tree. The
-> property is documented as optional, and is not provided.
->
-> Chen-Yu indicated that the FIFO sizes are 4KB for TX and 16KB for RX, so
-> provide these values through platform data as an immediate fix until
-> various Device Tree sources get updated accordingly.
->
-> Fixes: eaf4fac47807 ("net: stmmac: Do not accept invalid MTU values")
-> Suggested-by: Chen-Yu Tsai <wens@csie.org>
-> Signed-off-by: Florian Fainelli <f.fainelli@gmail.com>
+> Adjust mmc_set_signal_voltage() to return 1 if the voltage switch was
+> skipped because the regulator voltage was already correct. This allows
+> drivers to detect such condition and possibly skip various voltage
+> switching extras.
 
-Acked-by: Chen-Yu Tsai <wens@csie.org>
+This change to the code isn't about mmc_set_signal_voltage(), but
+about mmc_regulator_set_voltage_if_supported(). Please update the
+changelog to reflect this.
+
+Moreover, as a part of $subject patch, you also need to adopt
+mmc_regulator_set_vqmmc() to cope with the new behaviour of
+mmc_regulator_set_voltage_if_supported().
+
+>
+> Signed-off-by: Marek Vasut <marex@denx.de>
+> Cc: Alexandre Torgue <alexandre.torgue@st.com>
+> Cc: Linus Walleij <linus.walleij@linaro.org>
+> Cc: Ludovic Barre <ludovic.barre@st.com>
+> Cc: Manivannan Sadhasivam <manivannan.sadhasivam@linaro.org>
+> Cc: Maxime Coquelin <mcoquelin.stm32@gmail.com>
+> Cc: Patrice Chotard <patrice.chotard@st.com>
+> Cc: Patrick Delaunay <patrick.delaunay@st.com>
+> Cc: Russell King <linux@armlinux.org.uk>
+> Cc: Ulf Hansson <ulf.hansson@linaro.org>
+> Cc: linux-stm32@st-md-mailman.stormreply.com
+> To: linux-mmc@vger.kernel.org
+
+If possible, please drop all these, as I don't think we need them as
+references part of the patch. Of course, it's easier for you to keep
+them, I can also drop it while applying.
+
+> ---
+>  drivers/mmc/core/regulator.c | 10 ++++++++++
+>  1 file changed, 10 insertions(+)
+>
+> diff --git a/drivers/mmc/core/regulator.c b/drivers/mmc/core/regulator.c
+> index b6febbcf8978..2805ea8a070e 100644
+> --- a/drivers/mmc/core/regulator.c
+> +++ b/drivers/mmc/core/regulator.c
+> @@ -136,6 +136,8 @@ static int mmc_regulator_set_voltage_if_supported(struct regulator *regulator,
+>                                                   int min_uV, int target_uV,
+>                                                   int max_uV)
+>  {
+> +       int curr_voltage;
+
+Nitpick: To be consistent with other variable names, maybe current_uV
+is a better name.
+
+> +
+>         /*
+>          * Check if supported first to avoid errors since we may try several
+>          * signal levels during power up and don't want to show errors.
+> @@ -143,6 +145,14 @@ static int mmc_regulator_set_voltage_if_supported(struct regulator *regulator,
+>         if (!regulator_is_supported_voltage(regulator, min_uV, max_uV))
+>                 return -EINVAL;
+>
+> +       /*
+> +        * The voltage is already set, no need to switch.
+> +        * Return 1 to indicate that no switch happened.
+> +        */
+> +       curr_voltage = regulator_get_voltage(regulator);
+> +       if (curr_voltage == target_uV)
+> +               return 1;
+> +
+>         return regulator_set_voltage_triplet(regulator, min_uV, target_uV,
+>                                              max_uV);
+>  }
+> --
+> 2.25.1
+>
+
+Kind regards
+Uffe
 _______________________________________________
 Linux-stm32 mailing list
 Linux-stm32@st-md-mailman.stormreply.com
