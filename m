@@ -2,70 +2,40 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id 5855E1AD0EB
-	for <lists+linux-stm32@lfdr.de>; Thu, 16 Apr 2020 22:15:35 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id B89571AD177
+	for <lists+linux-stm32@lfdr.de>; Thu, 16 Apr 2020 22:49:05 +0200 (CEST)
 Received: from ip-172-31-3-76.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id AF92CC36B0C;
-	Thu, 16 Apr 2020 20:15:34 +0000 (UTC)
-Received: from mail-qv1-f68.google.com (mail-qv1-f68.google.com
- [209.85.219.68])
- (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 92804C36B0C;
+	Thu, 16 Apr 2020 20:49:04 +0000 (UTC)
+Received: from shards.monkeyblade.net (shards.monkeyblade.net [23.128.96.9])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 9BA65C36B0A
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 187A4C36B0A
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Thu, 16 Apr 2020 20:15:31 +0000 (UTC)
-Received: by mail-qv1-f68.google.com with SMTP id q73so2750725qvq.2
- for <linux-stm32@st-md-mailman.stormreply.com>;
- Thu, 16 Apr 2020 13:15:31 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20161025;
- h=mime-version:references:in-reply-to:from:date:message-id:subject:to
- :cc; bh=RrhoCocMui3bsFc5qkdYNErfeCVARryDRP7TYadbG5M=;
- b=QfKW6F7xCXl6+vxdlzAiOL5ivPMy1SHP4U5CM8CVeegJchb5+KDPwsbTufj449g+u4
- SD8E5bdY6BjaDM0KbK7iKkgwtLkedOn6so4ibg1BTWRdPCngH3jq4GS1rAXU0x3tqAW+
- +Z+52kZuoEnBLuNVBNWfPaISsumvknew1jf03TvmuKfwG9QZs3ABAS2cvd1he0XhnLDQ
- aeKzpcLxXOlZl4GkR6FTBIMSIghnearpfUmTipNkoasRCwGXVJ76zE+VYDzzcJFVV3tu
- IXG/BpW9slI84n6+qwgUnA2Ga9rgXPyqvF4yPDwBPGswDWoEGlWhip+xHunJQ8F1C6C2
- YMLA==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20161025;
- h=x-gm-message-state:mime-version:references:in-reply-to:from:date
- :message-id:subject:to:cc;
- bh=RrhoCocMui3bsFc5qkdYNErfeCVARryDRP7TYadbG5M=;
- b=Fz82017+GHeioFtAfMM8XNLbp0eF+bTmSrMd1LUUfcmBQpg6PI8gh/D8KRgPFMBMyw
- wk8v/mcX08jeuPu67IfQpgw353+9mfxc1kGQ/3nhXtnmILBXOTmQpKxXKvJPdIChDtbR
- fxO2Vk1Tr3SwkW6MBtohJd1rEabR+HASZB2fEBR/MDWwWa2w/XuJALh4mrjWNRcNuhwZ
- J25uXlE8buVOvDyNuxWERbfz0XD1q3bqGtn/vcWK1wsQOLXYeilzlz9Yy4iAWFOP9CtC
- UQGxxfydYB5Gc9bZMzt6e/alt6K6MEQmEL6cGM+gcz3DD2l8bxnF+hsQk9NDPM/pYArP
- 5slg==
-X-Gm-Message-State: AGi0PuYmIlCH2u66MOvoDEn/0GOhJ3fhp07854jkIXju35oyy0ZpVWOt
- EduVsEN6P4tzpzk0resfHpr6BEz6b8hhbK0cmY4=
-X-Google-Smtp-Source: APiQypLEw9l7W2hSliB15jHFogvAHufSRGn0ZYH76LQ8VoeRoID9myxCgGr4Pn9PvD87gHrPUOj8sgZxasNifp8qNh4=
-X-Received: by 2002:a0c:f748:: with SMTP id e8mr11834286qvo.237.1587068130311; 
- Thu, 16 Apr 2020 13:15:30 -0700 (PDT)
-MIME-Version: 1.0
-References: <20200414151955.311949-1-adrian.ratiu@collabora.com>
- <20200414151955.311949-2-adrian.ratiu@collabora.com>
- <CAFqH_52eKB4jtmn5e4HQubv8ijOPqDqncp1dRGahhU3NOorJMQ@mail.gmail.com>
- <87lfmvjmt5.fsf@collabora.com>
-In-Reply-To: <87lfmvjmt5.fsf@collabora.com>
-From: Enric Balletbo Serra <eballetbo@gmail.com>
-Date: Thu, 16 Apr 2020 22:15:19 +0200
-Message-ID: <CAFqH_513KB+En_xbpXSBG6Q38kYxWCgw0KO3NVxCb6fqHDaKBA@mail.gmail.com>
-To: Adrian Ratiu <adrian.ratiu@collabora.com>
-Cc: "devicetree@vger.kernel.org" <devicetree@vger.kernel.org>,
- Jernej Skrabec <jernej.skrabec@siol.net>, Adrian Pop <pop.adrian61@gmail.com>,
- Jonas Karlman <jonas@kwiboo.se>, linux-kernel <linux-kernel@vger.kernel.org>,
- dri-devel <dri-devel@lists.freedesktop.org>,
- Andrzej Hajda <a.hajda@samsung.com>,
- "open list:ARM/Rockchip SoC..." <linux-rockchip@lists.infradead.org>,
- Laurent Pinchart <Laurent.pinchart@ideasonboard.com>,
- Arnaud Ferraris <arnaud.ferraris@collabora.com>,
- Collabora Kernel ML <kernel@collabora.com>,
- Ezequiel Garcia <ezequiel@collabora.com>,
- linux-stm32@st-md-mailman.stormreply.com,
- Linux ARM <linux-arm-kernel@lists.infradead.org>, linux-imx@nxp.com
-Subject: Re: [Linux-stm32] [PATCH v6 1/8] drm: bridge: dw_mipi_dsi: add
-	initial regmap infrastructure
+ Thu, 16 Apr 2020 20:48:59 +0000 (UTC)
+Received: from localhost (unknown [IPv6:2601:601:9f00:477::3d5])
+ (using TLSv1 with cipher AES256-SHA (256/256 bits))
+ (Client did not present a certificate)
+ (Authenticated sender: davem-davemloft)
+ by shards.monkeyblade.net (Postfix) with ESMTPSA id 627C412757E6A;
+ Thu, 16 Apr 2020 13:48:55 -0700 (PDT)
+Date: Thu, 16 Apr 2020 13:48:54 -0700 (PDT)
+Message-Id: <20200416.134854.89754180705215688.davem@davemloft.net>
+To: f.fainelli@gmail.com
+From: David Miller <davem@davemloft.net>
+In-Reply-To: <20200414223952.5886-1-f.fainelli@gmail.com>
+References: <20200414223952.5886-1-f.fainelli@gmail.com>
+X-Mailer: Mew version 6.8 on Emacs 26.1
+Mime-Version: 1.0
+X-Greylist: Sender succeeded SMTP AUTH, not delayed by milter-greylist-4.5.12
+ (shards.monkeyblade.net [149.20.54.216]);
+ Thu, 16 Apr 2020 13:48:56 -0700 (PDT)
+Cc: netdev@vger.kernel.org, linux-kernel@vger.kernel.org, mripard@kernel.org,
+ wens@csie.org, joabreu@synopsys.com, mcoquelin.stm32@gmail.com,
+ peppe.cavallaro@st.com, olteanv@gmail.com,
+ linux-stm32@st-md-mailman.stormreply.com, linux-arm-kernel@lists.infradead.org
+Subject: Re: [Linux-stm32] [PATCH net] net: stmmac: dwmac-sunxi: Provide TX
+ and RX fifo sizes
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -82,41 +52,26 @@ Content-Transfer-Encoding: 7bit
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
-Hi Adrian,
+From: Florian Fainelli <f.fainelli@gmail.com>
+Date: Tue, 14 Apr 2020 15:39:52 -0700
 
-[snip]
+> After commit bfcb813203e619a8960a819bf533ad2a108d8105 ("net: dsa:
+> configure the MTU for switch ports") my Lamobo R1 platform which uses
+> an allwinner,sun7i-a20-gmac compatible Ethernet MAC started to fail
+> by rejecting a MTU of 1536. The reason for that is that the DMA
+> capabilities are not readable on this version of the IP, and there
+> is also no 'tx-fifo-depth' property being provided in Device Tree. The
+> property is documented as optional, and is not provided.
+> 
+> Chen-Yu indicated that the FIFO sizes are 4KB for TX and 16KB for RX, so
+> provide these values through platform data as an immediate fix until
+> various Device Tree sources get updated accordingly.
+> 
+> Fixes: eaf4fac47807 ("net: stmmac: Do not accept invalid MTU values")
+> Suggested-by: Chen-Yu Tsai <wens@csie.org>
+> Signed-off-by: Florian Fainelli <f.fainelli@gmail.com>
 
-> >>
-> >> +static void dw_mipi_dsi_get_hw_version(struct dw_mipi_dsi
-> >> *dsi) +{ +       regmap_read(dsi->regs, DSI_VERSION,
-> >> &dsi->hw_version); +       dsi->hw_version &= VERSION; +
-> >> if (!dsi->hw_version) +               dev_err(dsi->dev, "Failed
-> >> to read DSI hw version register\n");
-> >
-> > Is this an error that should be ignored? If you can't get the HW
-> > version, probably, there is something wrong with your hardware
-> > so, don't you need to return an error?
-> >
->
-> After thinking a bit more about it, that error should be a
-> warning.
->
-> I added it because in some cases (for eg. if the peripheral clock
-> is disabled) the reads can return 0 which is obviously an invalid
-> version and the bridge will error in the next step when not
-> finding a layout.
->
-
-If you'll error anyway, why wait? IIUC at this point the clock *must*
-be enabled, and if not, something is wrong with the driver, I don't
-see any advantage on delay the error. do you have a use case where
-this is called and peripheral clock disabled?
-
-> So I'll make this a warning in v7 and explicitely mention that
-> reads version == 0 can be caused by a disabled pclk.
->
-
--- Enric
+Applied and queued up for -stable, thanks.
 _______________________________________________
 Linux-stm32 mailing list
 Linux-stm32@st-md-mailman.stormreply.com
