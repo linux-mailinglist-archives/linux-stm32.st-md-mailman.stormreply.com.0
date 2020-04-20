@@ -2,68 +2,56 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id A408C1B05C0
-	for <lists+linux-stm32@lfdr.de>; Mon, 20 Apr 2020 11:35:04 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id DBE0C1B0893
+	for <lists+linux-stm32@lfdr.de>; Mon, 20 Apr 2020 13:58:39 +0200 (CEST)
 Received: from ip-172-31-3-76.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 5485CC36B0C;
-	Mon, 20 Apr 2020 09:35:04 +0000 (UTC)
-Received: from mx07-00178001.pphosted.com (mx07-00178001.pphosted.com
- [62.209.51.94])
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 9921DC36B0C;
+	Mon, 20 Apr 2020 11:58:39 +0000 (UTC)
+Received: from mail-out.m-online.net (mail-out.m-online.net [212.18.0.9])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id B781FC36B09
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 5A38EC36B09
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Mon, 20 Apr 2020 09:35:01 +0000 (UTC)
-Received: from pps.filterd (m0046668.ppops.net [127.0.0.1])
- by mx07-00178001.pphosted.com (8.16.0.42/8.16.0.42) with SMTP id
- 03K9Xodh030718; Mon, 20 Apr 2020 11:34:47 +0200
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=st.com;
- h=subject : to : cc :
- references : from : message-id : date : mime-version : in-reply-to :
- content-type : content-transfer-encoding; s=STMicroelectronics;
- bh=a05mT9cvrGwq02jpMc/AFPdAz6oDSD/XlNg9F8frg1U=;
- b=sNGjbZ0q5b1ryKnFWcYEDuUXzdzoocENayMtfTKmenh5r13POZB1Uh+vuHfHCCaT5hyY
- 31INmIl6kwo1UibKvqE0EJ3hkLDaQDE9oVKwkLpH7TOuR2vM5AGctAwGbnBvmui1ByDb
- x2sVmN/aBciCpI5m+ts/dSN7jFwx5dpf03DL287gUJNmrh/nxg4hXM4MbTfoeuGlaAQq
- 9vnbqF+JCsl2uX+uJjI7D/YPsNEde9SVgOpHgWphHJKpENrYqBw5SVYI/n/9oIKrrHpX
- dnJxlcLQeRBfjZQVysYvFknk8gxgsl25niIPIwhREAQzceAjB5fXEAtH590Jfc6TaKb/ mA== 
-Received: from beta.dmz-eu.st.com (beta.dmz-eu.st.com [164.129.1.35])
- by mx07-00178001.pphosted.com with ESMTP id 30fq119ggr-1
- (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
- Mon, 20 Apr 2020 11:34:47 +0200
-Received: from euls16034.sgp.st.com (euls16034.sgp.st.com [10.75.44.20])
- by beta.dmz-eu.st.com (STMicroelectronics) with ESMTP id 26CBA10003A;
- Mon, 20 Apr 2020 11:34:46 +0200 (CEST)
-Received: from Webmail-eu.st.com (sfhdag5node3.st.com [10.75.127.15])
- by euls16034.sgp.st.com (STMicroelectronics) with ESMTP id 034CE2C0BE8;
- Mon, 20 Apr 2020 11:34:46 +0200 (CEST)
-Received: from [10.211.6.74] (10.75.127.44) by SFHDAG5NODE3.st.com
- (10.75.127.15) with Microsoft SMTP Server (TLS) id 15.0.1473.3; Mon, 20 Apr
- 2020 11:34:44 +0200
-To: Benjamin Gaignard <benjamin.gaignard@st.com>, <lee.jones@linaro.org>,
- <robh+dt@kernel.org>, <mark.rutland@arm.com>,
- <mcoquelin.stm32@gmail.com>, <alexandre.torgue@st.com>,
- <daniel.lezcano@linaro.org>, <tglx@linutronix.de>
-References: <20200420085930.26989-1-benjamin.gaignard@st.com>
- <20200420085930.26989-2-benjamin.gaignard@st.com>
-From: Fabrice Gasnier <fabrice.gasnier@st.com>
-Message-ID: <f9d41617-797e-15d4-a058-a0a9e6669cdc@st.com>
-Date: Mon, 20 Apr 2020 11:34:44 +0200
-User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:60.0) Gecko/20100101
- Thunderbird/60.9.0
+ Mon, 20 Apr 2020 11:58:38 +0000 (UTC)
+Received: from frontend01.mail.m-online.net (unknown [192.168.8.182])
+ by mail-out.m-online.net (Postfix) with ESMTP id 495QFn46Vnz1qsjf;
+ Mon, 20 Apr 2020 13:58:36 +0200 (CEST)
+Received: from localhost (dynscan1.mnet-online.de [192.168.6.70])
+ by mail.m-online.net (Postfix) with ESMTP id 495QFm3N2qz1qtwV;
+ Mon, 20 Apr 2020 13:58:36 +0200 (CEST)
+X-Virus-Scanned: amavisd-new at mnet-online.de
+Received: from mail.mnet-online.de ([192.168.8.182])
+ by localhost (dynscan1.mail.m-online.net [192.168.6.70]) (amavisd-new,
+ port 10024)
+ with ESMTP id S6ujsEzZ06o3; Mon, 20 Apr 2020 13:58:34 +0200 (CEST)
+X-Auth-Info: 6ZJTbsWqyJl7sbVBt/0oWoYQgpCoYVtXW+ihheJuOrY=
+Received: from [IPv6:::1] (unknown [195.140.253.167])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+ (No client certificate requested)
+ by mail.mnet-online.de (Postfix) with ESMTPSA;
+ Mon, 20 Apr 2020 13:58:34 +0200 (CEST)
+To: Ulf Hansson <ulf.hansson@linaro.org>
+References: <20200416163649.336967-1-marex@denx.de>
+ <CAPDyKFqztJDfTrc+1q9mdyf0f2s=gE91J3eM92rzmm+FJNBW9A@mail.gmail.com>
+ <11a78052-6320-2986-42b0-3f5536b8c061@denx.de>
+ <CAPDyKFpQXaQ+rOX7f+zLfG2Q6fX3FsDk8d+uBtxAcLNkKPhAxQ@mail.gmail.com>
+From: Marek Vasut <marex@denx.de>
+Message-ID: <40498fad-0eb7-026c-a410-f9958f695d53@denx.de>
+Date: Mon, 20 Apr 2020 13:58:02 +0200
+User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:68.0) Gecko/20100101
+ Thunderbird/68.5.0
 MIME-Version: 1.0
-In-Reply-To: <20200420085930.26989-2-benjamin.gaignard@st.com>
+In-Reply-To: <CAPDyKFpQXaQ+rOX7f+zLfG2Q6fX3FsDk8d+uBtxAcLNkKPhAxQ@mail.gmail.com>
 Content-Language: en-US
-X-Originating-IP: [10.75.127.44]
-X-ClientProxiedBy: SFHDAG4NODE2.st.com (10.75.127.11) To SFHDAG5NODE3.st.com
- (10.75.127.15)
-X-Proofpoint-Virus-Version: vendor=fsecure engine=2.50.10434:6.0.138, 18.0.676
- definitions=2020-04-20_03:2020-04-17,
- 2020-04-20 signatures=0
-Cc: devicetree@vger.kernel.org, linux-stm32@st-md-mailman.stormreply.com,
- linux-arm-kernel@lists.infradead.org, linux-kernel@vger.kernel.org
-Subject: Re: [Linux-stm32] [RESEND v6 1/6] dt-bindings: mfd: Document STM32
- low power timer bindings
+Cc: Linus Walleij <linus.walleij@linaro.org>,
+ "linux-mmc@vger.kernel.org" <linux-mmc@vger.kernel.org>,
+ Patrick Delaunay <patrick.delaunay@st.com>,
+ Russell King <linux@armlinux.org.uk>,
+ Maxime Coquelin <mcoquelin.stm32@gmail.com>,
+ Manivannan Sadhasivam <manivannan.sadhasivam@linaro.org>,
+ linux-stm32@st-md-mailman.stormreply.com
+Subject: Re: [Linux-stm32] [PATCH V2 1/3] mmc: Prepare all code for
+ mmc_regulator_set_vqmmc() returning > 0
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -80,83 +68,60 @@ Content-Transfer-Encoding: 7bit
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
-On 4/20/20 10:59 AM, Benjamin Gaignard wrote:
-> Add a subnode to STM low power timer bindings to support timer driver
+On 4/20/20 10:18 AM, Ulf Hansson wrote:
+> On Fri, 17 Apr 2020 at 17:33, Marek Vasut <marex@denx.de> wrote:
+>>
+>> On 4/17/20 11:30 AM, Ulf Hansson wrote:
+>>> On Thu, 16 Apr 2020 at 18:36, Marek Vasut <marex@denx.de> wrote:
+>>>>
+>>>> Patch all drivers which use mmc_regulator_set_vqmmc() and prepare them for
+>>>> the fact that mmc_regulator_set_vqmmc() can return a value > 0, which would
+>>>> happen if the signal voltage switch did NOT happen, because the voltage was
+>>>> already set correctly.
+>>>>
+>>>> Signed-off-by: Marek Vasut <marex@denx.de>
+>>>> Cc: Alexandre Torgue <alexandre.torgue@st.com>
+>>>> Cc: Linus Walleij <linus.walleij@linaro.org>
+>>>> Cc: Ludovic Barre <ludovic.barre@st.com>
+>>>> Cc: Manivannan Sadhasivam <manivannan.sadhasivam@linaro.org>
+>>>> Cc: Maxime Coquelin <mcoquelin.stm32@gmail.com>
+>>>> Cc: Patrice Chotard <patrice.chotard@st.com>
+>>>> Cc: Patrick Delaunay <patrick.delaunay@st.com>
+>>>> Cc: Russell King <linux@armlinux.org.uk>
+>>>> Cc: Ulf Hansson <ulf.hansson@linaro.org>
+>>>> Cc: linux-stm32@st-md-mailman.stormreply.com
+>>>> To: linux-mmc@vger.kernel.org
+>>>
+>>> Applied for next, thanks!
+>>>
+>>> I took the liberty to re-work and simplify some of the code, please
+>>> have a look at my next branch to make sure I didn't screw something
+>>> up.
+>>
+>> Where is your next branch ?
 > 
-> Signed-off-by: Benjamin Gaignard <benjamin.gaignard@st.com>
-> Reviewed-by: Rob Herring <robh@kernel.org>
-> ---
->  .../devicetree/bindings/mfd/st,stm32-lptimer.yaml     | 19 +++++++++++++++++++
->  1 file changed, 19 insertions(+)
+> It's listed in the MAINTAINERS file.
 > 
-> diff --git a/Documentation/devicetree/bindings/mfd/st,stm32-lptimer.yaml b/Documentation/devicetree/bindings/mfd/st,stm32-lptimer.yaml
-> index ddf190cb800b..64bab1c3bdac 100644
-> --- a/Documentation/devicetree/bindings/mfd/st,stm32-lptimer.yaml
-> +++ b/Documentation/devicetree/bindings/mfd/st,stm32-lptimer.yaml
-> @@ -33,6 +33,9 @@ properties:
->      items:
->        - const: mux
->  
-> +  interrupts:
-> +    maxItems: 1
-> +
->    "#address-cells":
->      const: 1
->  
-> @@ -93,6 +96,16 @@ patternProperties:
->      required:
->        - compatible
->  
-> +  timer:
-> +    type: object
-> +
-> +    properties:
-> +      compatible:
-> +        const: st,stm32-lptimer-timer
-> +
-> +    required:
-> +      - compatible
-> +
->  required:
->    - "#address-cells"
->    - "#size-cells"
-> @@ -106,11 +119,13 @@ additionalProperties: false
->  examples:
->    - |
->      #include <dt-bindings/clock/stm32mp1-clks.h>
-> +    #include <dt-bindings/interrupt-controller/arm-gic.h>
->      timer@40002400 {
->        compatible = "st,stm32-lptimer";
->        reg = <0x40002400 0x400>;
->        clocks = <&timer_clk>;
->        clock-names = "mux";
-> +      interrupts-extended = <&exti 47 IRQ_TYPE_LEVEL_HIGH>;
->        #address-cells = <1>;
->        #size-cells = <0>;
->  
-> @@ -131,6 +146,10 @@ examples:
->        timer {
->          compatible = "st,stm32-lptimer-timer";
->        };
-> +
-> +      timer {
-> +        compatible = "st,stm32-lptimer-timer";
-> +      };
+> git://git.kernel.org/pub/scm/linux/kernel/git/ulfh/mmc.git
 
-Hi Benjamin,
+All right, this one. The adjustments look OK, thanks.
 
-It looks like the compatible is duplicated in this example.
-Also, from "PATCH v6" I don't see the wakeup-source flag in your resend.
-Can you double-check ?
+I noticed this one in mtk-sd.c:
+/* Apply different pinctrl settings for different signal voltage */
+if (ios->signal_voltage == MMC_SIGNAL_VOLTAGE_180)
+	pinctrl_select_state(host->pinctrl, host->pins_uhs);
+else
+	pinctrl_select_state(host->pinctrl, host->pins_default);
 
-Thanks,
-Best Regards,
-Fabrice
+I would almost think that the MTK platforms would support 1V2 modes too,
+so the above should rather be:
 
->      };
->  
->  ...
-> 
+if (ios->signal_voltage == MMC_SIGNAL_VOLTAGE_330)
+	pinctrl_select_state(host->pinctrl, host->pins_default);
+else
+	pinctrl_select_state(host->pinctrl, host->pins_uhs);
+
+But I have no hardware to test, and it's a topic for another patch.
 _______________________________________________
 Linux-stm32 mailing list
 Linux-stm32@st-md-mailman.stormreply.com
