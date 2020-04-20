@@ -2,65 +2,68 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id 856A01B0508
-	for <lists+linux-stm32@lfdr.de>; Mon, 20 Apr 2020 10:59:56 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id A408C1B05C0
+	for <lists+linux-stm32@lfdr.de>; Mon, 20 Apr 2020 11:35:04 +0200 (CEST)
 Received: from ip-172-31-3-76.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 00DD6C36B1E;
-	Mon, 20 Apr 2020 08:59:56 +0000 (UTC)
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 5485CC36B0C;
+	Mon, 20 Apr 2020 09:35:04 +0000 (UTC)
 Received: from mx07-00178001.pphosted.com (mx07-00178001.pphosted.com
  [62.209.51.94])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 5C557C36B09
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id B781FC36B09
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Mon, 20 Apr 2020 08:59:53 +0000 (UTC)
+ Mon, 20 Apr 2020 09:35:01 +0000 (UTC)
 Received: from pps.filterd (m0046668.ppops.net [127.0.0.1])
  by mx07-00178001.pphosted.com (8.16.0.42/8.16.0.42) with SMTP id
- 03K8vqjm012176; Mon, 20 Apr 2020 10:59:41 +0200
+ 03K9Xodh030718; Mon, 20 Apr 2020 11:34:47 +0200
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=st.com;
- h=from : to : cc : subject
- : date : message-id : in-reply-to : references : mime-version :
- content-type; s=STMicroelectronics;
- bh=AXPGvtsGWLkKS+I+Kb5oNNnn9+C77me7iOpHlW+3zcQ=;
- b=fAQ/5ohXEFRIIS0Rv4JtlKhyAtqrA29l9pDaHYDho6y0+3pD5E+MS49aUyxSuViPicXq
- J6hccefle5xmWWSyNQ5ZpiBEnamoEHVlq7m1171KJoLcAM3Vm+RU3U4oDHHKVmHC47Wp
- Y0Ch390NWxgA3MYzZb/GaJQV+WkBFUAX0kTvfxcjHxr8kWy9IwoEp60bb0MnQmxLd1bd
- oZ9zGSA10WX8RUF1bGd5YZ9siXIm4jvvD9U5S7XedGUqASrdlvw1uj9fERVpTdN/W4JM
- D6YVldTPIZmTNCj7rlMYH9e/CCXxdvs7zl686rsRviT0Zdyn84ESdkircDMiniI5MY7x ww== 
+ h=subject : to : cc :
+ references : from : message-id : date : mime-version : in-reply-to :
+ content-type : content-transfer-encoding; s=STMicroelectronics;
+ bh=a05mT9cvrGwq02jpMc/AFPdAz6oDSD/XlNg9F8frg1U=;
+ b=sNGjbZ0q5b1ryKnFWcYEDuUXzdzoocENayMtfTKmenh5r13POZB1Uh+vuHfHCCaT5hyY
+ 31INmIl6kwo1UibKvqE0EJ3hkLDaQDE9oVKwkLpH7TOuR2vM5AGctAwGbnBvmui1ByDb
+ x2sVmN/aBciCpI5m+ts/dSN7jFwx5dpf03DL287gUJNmrh/nxg4hXM4MbTfoeuGlaAQq
+ 9vnbqF+JCsl2uX+uJjI7D/YPsNEde9SVgOpHgWphHJKpENrYqBw5SVYI/n/9oIKrrHpX
+ dnJxlcLQeRBfjZQVysYvFknk8gxgsl25niIPIwhREAQzceAjB5fXEAtH590Jfc6TaKb/ mA== 
 Received: from beta.dmz-eu.st.com (beta.dmz-eu.st.com [164.129.1.35])
- by mx07-00178001.pphosted.com with ESMTP id 30fq119ah1-1
+ by mx07-00178001.pphosted.com with ESMTP id 30fq119ggr-1
  (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
- Mon, 20 Apr 2020 10:59:41 +0200
+ Mon, 20 Apr 2020 11:34:47 +0200
 Received: from euls16034.sgp.st.com (euls16034.sgp.st.com [10.75.44.20])
- by beta.dmz-eu.st.com (STMicroelectronics) with ESMTP id 5382310002A;
- Mon, 20 Apr 2020 10:59:41 +0200 (CEST)
-Received: from Webmail-eu.st.com (sfhdag3node3.st.com [10.75.127.9])
- by euls16034.sgp.st.com (STMicroelectronics) with ESMTP id 44DB12BC7DA;
- Mon, 20 Apr 2020 10:59:41 +0200 (CEST)
-Received: from localhost (10.75.127.44) by SFHDAG3NODE3.st.com (10.75.127.9)
- with Microsoft SMTP Server (TLS) id 15.0.1347.2; Mon, 20 Apr 2020 10:59:40
- +0200
-From: Benjamin Gaignard <benjamin.gaignard@st.com>
-To: <fabrice.gasnier@st.com>, <lee.jones@linaro.org>, <robh+dt@kernel.org>,
- <mark.rutland@arm.com>, <mcoquelin.stm32@gmail.com>,
- <alexandre.torgue@st.com>, <daniel.lezcano@linaro.org>,
- <tglx@linutronix.de>
-Date: Mon, 20 Apr 2020 10:59:30 +0200
-Message-ID: <20200420085930.26989-7-benjamin.gaignard@st.com>
-X-Mailer: git-send-email 2.15.0
-In-Reply-To: <20200420085930.26989-1-benjamin.gaignard@st.com>
+ by beta.dmz-eu.st.com (STMicroelectronics) with ESMTP id 26CBA10003A;
+ Mon, 20 Apr 2020 11:34:46 +0200 (CEST)
+Received: from Webmail-eu.st.com (sfhdag5node3.st.com [10.75.127.15])
+ by euls16034.sgp.st.com (STMicroelectronics) with ESMTP id 034CE2C0BE8;
+ Mon, 20 Apr 2020 11:34:46 +0200 (CEST)
+Received: from [10.211.6.74] (10.75.127.44) by SFHDAG5NODE3.st.com
+ (10.75.127.15) with Microsoft SMTP Server (TLS) id 15.0.1473.3; Mon, 20 Apr
+ 2020 11:34:44 +0200
+To: Benjamin Gaignard <benjamin.gaignard@st.com>, <lee.jones@linaro.org>,
+ <robh+dt@kernel.org>, <mark.rutland@arm.com>,
+ <mcoquelin.stm32@gmail.com>, <alexandre.torgue@st.com>,
+ <daniel.lezcano@linaro.org>, <tglx@linutronix.de>
 References: <20200420085930.26989-1-benjamin.gaignard@st.com>
+ <20200420085930.26989-2-benjamin.gaignard@st.com>
+From: Fabrice Gasnier <fabrice.gasnier@st.com>
+Message-ID: <f9d41617-797e-15d4-a058-a0a9e6669cdc@st.com>
+Date: Mon, 20 Apr 2020 11:34:44 +0200
+User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:60.0) Gecko/20100101
+ Thunderbird/60.9.0
 MIME-Version: 1.0
+In-Reply-To: <20200420085930.26989-2-benjamin.gaignard@st.com>
+Content-Language: en-US
 X-Originating-IP: [10.75.127.44]
-X-ClientProxiedBy: SFHDAG5NODE3.st.com (10.75.127.15) To SFHDAG3NODE3.st.com
- (10.75.127.9)
+X-ClientProxiedBy: SFHDAG4NODE2.st.com (10.75.127.11) To SFHDAG5NODE3.st.com
+ (10.75.127.15)
 X-Proofpoint-Virus-Version: vendor=fsecure engine=2.50.10434:6.0.138, 18.0.676
  definitions=2020-04-20_03:2020-04-17,
  2020-04-20 signatures=0
 Cc: devicetree@vger.kernel.org, linux-stm32@st-md-mailman.stormreply.com,
  linux-arm-kernel@lists.infradead.org, linux-kernel@vger.kernel.org
-Subject: [Linux-stm32] [RESEND v6 6/6] ARM: mach-stm32: select low power
-	timer for STM32MP157
+Subject: Re: [Linux-stm32] [RESEND v6 1/6] dt-bindings: mfd: Document STM32
+ low power timer bindings
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -77,28 +80,83 @@ Content-Transfer-Encoding: 7bit
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
-Make MACH_STM32MP157 select CLKSRC_STM32_LP to get a broadcast timer.
+On 4/20/20 10:59 AM, Benjamin Gaignard wrote:
+> Add a subnode to STM low power timer bindings to support timer driver
+> 
+> Signed-off-by: Benjamin Gaignard <benjamin.gaignard@st.com>
+> Reviewed-by: Rob Herring <robh@kernel.org>
+> ---
+>  .../devicetree/bindings/mfd/st,stm32-lptimer.yaml     | 19 +++++++++++++++++++
+>  1 file changed, 19 insertions(+)
+> 
+> diff --git a/Documentation/devicetree/bindings/mfd/st,stm32-lptimer.yaml b/Documentation/devicetree/bindings/mfd/st,stm32-lptimer.yaml
+> index ddf190cb800b..64bab1c3bdac 100644
+> --- a/Documentation/devicetree/bindings/mfd/st,stm32-lptimer.yaml
+> +++ b/Documentation/devicetree/bindings/mfd/st,stm32-lptimer.yaml
+> @@ -33,6 +33,9 @@ properties:
+>      items:
+>        - const: mux
+>  
+> +  interrupts:
+> +    maxItems: 1
+> +
+>    "#address-cells":
+>      const: 1
+>  
+> @@ -93,6 +96,16 @@ patternProperties:
+>      required:
+>        - compatible
+>  
+> +  timer:
+> +    type: object
+> +
+> +    properties:
+> +      compatible:
+> +        const: st,stm32-lptimer-timer
+> +
+> +    required:
+> +      - compatible
+> +
+>  required:
+>    - "#address-cells"
+>    - "#size-cells"
+> @@ -106,11 +119,13 @@ additionalProperties: false
+>  examples:
+>    - |
+>      #include <dt-bindings/clock/stm32mp1-clks.h>
+> +    #include <dt-bindings/interrupt-controller/arm-gic.h>
+>      timer@40002400 {
+>        compatible = "st,stm32-lptimer";
+>        reg = <0x40002400 0x400>;
+>        clocks = <&timer_clk>;
+>        clock-names = "mux";
+> +      interrupts-extended = <&exti 47 IRQ_TYPE_LEVEL_HIGH>;
+>        #address-cells = <1>;
+>        #size-cells = <0>;
+>  
+> @@ -131,6 +146,10 @@ examples:
+>        timer {
+>          compatible = "st,stm32-lptimer-timer";
+>        };
+> +
+> +      timer {
+> +        compatible = "st,stm32-lptimer-timer";
+> +      };
 
-Signed-off-by: Benjamin Gaignard <benjamin.gaignard@st.com>
----
- arch/arm/mach-stm32/Kconfig | 1 +
- 1 file changed, 1 insertion(+)
+Hi Benjamin,
 
-diff --git a/arch/arm/mach-stm32/Kconfig b/arch/arm/mach-stm32/Kconfig
-index 57699bd8f107..d78f55b7b1d0 100644
---- a/arch/arm/mach-stm32/Kconfig
-+++ b/arch/arm/mach-stm32/Kconfig
-@@ -46,6 +46,7 @@ if ARCH_MULTI_V7
- config MACH_STM32MP157
- 	bool "STMicroelectronics STM32MP157"
- 	select ARM_ERRATA_814220
-+	select CLKSRC_STM32_LP
- 	default y
- 
- endif # ARMv7-A
--- 
-2.15.0
+It looks like the compatible is duplicated in this example.
+Also, from "PATCH v6" I don't see the wakeup-source flag in your resend.
+Can you double-check ?
 
+Thanks,
+Best Regards,
+Fabrice
+
+>      };
+>  
+>  ...
+> 
 _______________________________________________
 Linux-stm32 mailing list
 Linux-stm32@st-md-mailman.stormreply.com
