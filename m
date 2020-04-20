@@ -2,65 +2,60 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id B9ED51B091A
-	for <lists+linux-stm32@lfdr.de>; Mon, 20 Apr 2020 14:16:54 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 195461B0D37
+	for <lists+linux-stm32@lfdr.de>; Mon, 20 Apr 2020 15:48:20 +0200 (CEST)
 Received: from ip-172-31-3-76.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 84397C36B0C;
-	Mon, 20 Apr 2020 12:16:54 +0000 (UTC)
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id C3A08C36B0C;
+	Mon, 20 Apr 2020 13:48:19 +0000 (UTC)
 Received: from mx07-00178001.pphosted.com (mx07-00178001.pphosted.com
  [62.209.51.94])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 4058FC36B09
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 7705AC36B09
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Mon, 20 Apr 2020 12:16:53 +0000 (UTC)
+ Mon, 20 Apr 2020 13:48:17 +0000 (UTC)
 Received: from pps.filterd (m0046037.ppops.net [127.0.0.1])
  by mx07-00178001.pphosted.com (8.16.0.42/8.16.0.42) with SMTP id
- 03KBqlCg014149; Mon, 20 Apr 2020 14:16:37 +0200
+ 03KDgstO005039; Mon, 20 Apr 2020 15:48:04 +0200
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=st.com;
  h=from : to : cc : subject
- : date : message-id : in-reply-to : references : mime-version :
- content-type; s=STMicroelectronics;
- bh=AXPGvtsGWLkKS+I+Kb5oNNnn9+C77me7iOpHlW+3zcQ=;
- b=UJFrYfOfeauzWmjMtx5d+WSMuBCWNXdOfKRdSQ/1EfguSeB5d5sCbCxYl68Nof0YXX9u
- u0lyjQs7w+h4/W+tebjZH6fWdwOQo98gh2OXrkG5giVvNwy2S//XFY7dXnPYI/t/+kpl
- fB/T8M+leyXor1WnlNb8uRLgffgOMDRGAXex63D5HXQhq93octL2QFZkchJ3mb/ZyRyn
- OU2FMqZ5azBlsLk8KXlCQTuZvT9wdgyoo0OSOjT7DZBq2DtKgK7J8RlTJG+Z5NaILzvh
- RoyCJN64hRbhaEgYB3VAqbdhLFnZs3P4uHCcQEM54PmJke4Yl8oSKI1I8DjQ0WcQPWP6 Hg== 
+ : date : message-id : mime-version : content-type; s=STMicroelectronics;
+ bh=newRPJ2KK45rNiffU6kVcqsdXEu/KH0QagJjvhUP/K0=;
+ b=XPqRoJjKjDGfeUkdNw+k0fkpiD1WAoNG+4Go2mWVfQak6iXXhpphKOBdEZnrBDOghMd1
+ teAVobmzETK6a5fKzeWijLz0j+VlaNH+jjGGzIgVsJj+6lmjCVModMSqWzHteuf/a1LA
+ CK46XWPeHPEZo/EDDHEuyCjvVNkkNJDoCHL0ob2Z45L0CXMBxF8+mYitNoNYnJQGyduo
+ dy1a5pDDvr4RWGOsYjA5+5ciFni9uTtkVbezpBTvbc0HZZFCA7xRcAc6z24alNWlu++f
+ Q6Ol5I5aH0CSsjqZh8aVQhxGKUkcaPiqZkIQr9hVXO9uoyuxtzMFQGjJN3H2U5jgiPon /g== 
 Received: from beta.dmz-eu.st.com (beta.dmz-eu.st.com [164.129.1.35])
- by mx07-00178001.pphosted.com with ESMTP id 30fqaw24e1-1
+ by mx07-00178001.pphosted.com with ESMTP id 30fqaw2hyw-1
  (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
- Mon, 20 Apr 2020 14:16:37 +0200
+ Mon, 20 Apr 2020 15:48:04 +0200
 Received: from euls16034.sgp.st.com (euls16034.sgp.st.com [10.75.44.20])
- by beta.dmz-eu.st.com (STMicroelectronics) with ESMTP id 20CDA10003A;
- Mon, 20 Apr 2020 14:16:37 +0200 (CEST)
+ by beta.dmz-eu.st.com (STMicroelectronics) with ESMTP id C1DC710002A;
+ Mon, 20 Apr 2020 15:48:03 +0200 (CEST)
 Received: from Webmail-eu.st.com (sfhdag3node3.st.com [10.75.127.9])
- by euls16034.sgp.st.com (STMicroelectronics) with ESMTP id E18A920FA76;
- Mon, 20 Apr 2020 14:16:36 +0200 (CEST)
-Received: from localhost (10.75.127.49) by SFHDAG3NODE3.st.com (10.75.127.9)
- with Microsoft SMTP Server (TLS) id 15.0.1347.2; Mon, 20 Apr 2020 14:16:36
+ by euls16034.sgp.st.com (STMicroelectronics) with ESMTP id B08342B3E2D;
+ Mon, 20 Apr 2020 15:48:03 +0200 (CEST)
+Received: from localhost (10.75.127.47) by SFHDAG3NODE3.st.com (10.75.127.9)
+ with Microsoft SMTP Server (TLS) id 15.0.1347.2; Mon, 20 Apr 2020 15:48:02
  +0200
 From: Benjamin Gaignard <benjamin.gaignard@st.com>
-To: <fabrice.gasnier@st.com>, <lee.jones@linaro.org>, <robh+dt@kernel.org>,
- <mark.rutland@arm.com>, <mcoquelin.stm32@gmail.com>,
- <alexandre.torgue@st.com>, <daniel.lezcano@linaro.org>,
- <tglx@linutronix.de>
-Date: Mon, 20 Apr 2020 14:16:20 +0200
-Message-ID: <20200420121620.2099-7-benjamin.gaignard@st.com>
+To: <robh+dt@kernel.org>, <mcoquelin.stm32@gmail.com>,
+ <alexandre.torgue@st.com>, <gregkh@linuxfoundation.org>,
+ <loic.pallardy@st.com>, <linus.walleij@linaro.org>
+Date: Mon, 20 Apr 2020 15:47:55 +0200
+Message-ID: <20200420134800.31604-1-benjamin.gaignard@st.com>
 X-Mailer: git-send-email 2.15.0
-In-Reply-To: <20200420121620.2099-1-benjamin.gaignard@st.com>
-References: <20200420121620.2099-1-benjamin.gaignard@st.com>
 MIME-Version: 1.0
-X-Originating-IP: [10.75.127.49]
-X-ClientProxiedBy: SFHDAG6NODE3.st.com (10.75.127.18) To SFHDAG3NODE3.st.com
+X-Originating-IP: [10.75.127.47]
+X-ClientProxiedBy: SFHDAG7NODE3.st.com (10.75.127.21) To SFHDAG3NODE3.st.com
  (10.75.127.9)
 X-Proofpoint-Virus-Version: vendor=fsecure engine=2.50.10434:6.0.138, 18.0.676
- definitions=2020-04-20_03:2020-04-20,
+ definitions=2020-04-20_04:2020-04-20,
  2020-04-20 signatures=0
 Cc: devicetree@vger.kernel.org, linux-stm32@st-md-mailman.stormreply.com,
  linux-arm-kernel@lists.infradead.org, linux-kernel@vger.kernel.org
-Subject: [Linux-stm32] [PATCH v7 6/6] ARM: mach-stm32: select low power
-	timer for STM32MP157
+Subject: [Linux-stm32] [PATCH 0/5] STM32 ETZPC bus controller
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -77,25 +72,46 @@ Content-Transfer-Encoding: 7bit
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
-Make MACH_STM32MP157 select CLKSRC_STM32_LP to get a broadcast timer.
+STM32 Extended TrustZone Protection controller act like a firewall on the
+platform bus. Depending of its configuration devices could be accessible
+by the TrustZone, the co-processor or the non-secure world. ETZPC
+configuration could evolve at runtime for example to switch a device from
+non-secure world to co-processor.
 
-Signed-off-by: Benjamin Gaignard <benjamin.gaignard@st.com>
----
- arch/arm/mach-stm32/Kconfig | 1 +
- 1 file changed, 1 insertion(+)
+The series introduce 'firewall' helpers to handle the new devices-tree
+properties. These properties are not dedicated to ETZPC and will be reused
+for STM32 next generation of bus controller.
 
-diff --git a/arch/arm/mach-stm32/Kconfig b/arch/arm/mach-stm32/Kconfig
-index 57699bd8f107..d78f55b7b1d0 100644
---- a/arch/arm/mach-stm32/Kconfig
-+++ b/arch/arm/mach-stm32/Kconfig
-@@ -46,6 +46,7 @@ if ARCH_MULTI_V7
- config MACH_STM32MP157
- 	bool "STMicroelectronics STM32MP157"
- 	select ARM_ERRATA_814220
-+	select CLKSRC_STM32_LP
- 	default y
- 
- endif # ARMv7-A
+Benjamin Gaignard (5):
+  dt-bindings: bus: Add firewall bindings
+  bus: stm32: Introduce firewall controller helpers
+  dt-bindings: bus: Add STM32 ETZPC firewall controller
+  bus: stm32: Add stm32 ETZPC firewall bus controller
+  ARM: dts: stm32: Use ETZPC firewall bus
+
+ .../bindings/bus/stm32/firewall-consumer.yaml      |  25 ++
+ .../bindings/bus/stm32/firewall-provider.yaml      |  18 ++
+ .../bindings/bus/stm32/st,stm32-etzpc.yaml         |  46 ++++
+ arch/arm/boot/dts/stm32mp151.dtsi                  |   7 +-
+ drivers/bus/Kconfig                                |   2 +
+ drivers/bus/Makefile                               |   2 +
+ drivers/bus/stm32/Kconfig                          |  11 +
+ drivers/bus/stm32/Makefile                         |   2 +
+ drivers/bus/stm32/firewall.c                       | 266 +++++++++++++++++++++
+ drivers/bus/stm32/firewall.h                       |  75 ++++++
+ drivers/bus/stm32/stm32-etzpc.c                    | 160 +++++++++++++
+ include/dt-bindings/bus/stm32/stm32-etzpc.h        |  90 +++++++
+ 12 files changed, 702 insertions(+), 2 deletions(-)
+ create mode 100644 Documentation/devicetree/bindings/bus/stm32/firewall-consumer.yaml
+ create mode 100644 Documentation/devicetree/bindings/bus/stm32/firewall-provider.yaml
+ create mode 100644 Documentation/devicetree/bindings/bus/stm32/st,stm32-etzpc.yaml
+ create mode 100644 drivers/bus/stm32/Kconfig
+ create mode 100644 drivers/bus/stm32/Makefile
+ create mode 100644 drivers/bus/stm32/firewall.c
+ create mode 100644 drivers/bus/stm32/firewall.h
+ create mode 100644 drivers/bus/stm32/stm32-etzpc.c
+ create mode 100644 include/dt-bindings/bus/stm32/stm32-etzpc.h
+
 -- 
 2.15.0
 
