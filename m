@@ -2,64 +2,61 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id 495E31B042C
-	for <lists+linux-stm32@lfdr.de>; Mon, 20 Apr 2020 10:18:51 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 0970B1B0505
+	for <lists+linux-stm32@lfdr.de>; Mon, 20 Apr 2020 10:59:56 +0200 (CEST)
 Received: from ip-172-31-3-76.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 0220BC36B0C;
-	Mon, 20 Apr 2020 08:18:51 +0000 (UTC)
-Received: from mail-ua1-f65.google.com (mail-ua1-f65.google.com
- [209.85.222.65])
- (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id BB319C36B11;
+	Mon, 20 Apr 2020 08:59:55 +0000 (UTC)
+Received: from mx07-00178001.pphosted.com (mx08-00178001.pphosted.com
+ [91.207.212.93])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 50541C36B09
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 744EDC36B0C
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Mon, 20 Apr 2020 08:18:49 +0000 (UTC)
-Received: by mail-ua1-f65.google.com with SMTP id n26so1562975uap.11
- for <linux-stm32@st-md-mailman.stormreply.com>;
- Mon, 20 Apr 2020 01:18:49 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linaro.org; s=google;
- h=mime-version:references:in-reply-to:from:date:message-id:subject:to
- :cc; bh=It2vA21CwHolWpfirZrNfml7BAn8xW9KliuigaVPmQc=;
- b=jb1MGt9S2UQTTMPIjIj59TqFDBsCYHvXydQP1BV/FKasi9ecAniUpbEZyM4n0wyUBI
- rEIVIB1SoIuUQ5/RtDynoWn+x9z6lPx8chOdzQDtQcF2OTurfPvimcChtZQhDoyth90s
- dHKt9NIZkh4+iVw/+Lk17lOt/fj4pGvaPNBwaXS2CdhLeuei0Rcran3pkuRSZkRD84yA
- G4yw7PpFjYRALt+krAtZvAHqMROyloyKUh6xdZtzQncj0wt8XZYtre6TCDpaM+K2ostp
- 2Owmu8mpy9iVy1UsL0gNXmRa2aIfHWNYANkVzvRTnLfpuqWqXBCNdvwvO9kA9PtNohDH
- vPzg==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20161025;
- h=x-gm-message-state:mime-version:references:in-reply-to:from:date
- :message-id:subject:to:cc;
- bh=It2vA21CwHolWpfirZrNfml7BAn8xW9KliuigaVPmQc=;
- b=oLZ4DaLwPy0iEn9m07JP4f97NPFSuDnOGsv5IIZzcx8IchY25n1rhP5kyDHljEXqXl
- HIHq1kVPC/JKa83GHVZej2611r/7+0edfGZa27KBU27R4KjDc4ZCIerQeOHdns3/xlVo
- 1BGB74JqkkhKzQ06QfnwEkOrFUIhTdcZFG/lC927GnXt/Mej2sl5ICsgFtkBAb1Jz61p
- n+9nNoDwfZxyDre5+m6bkudtIwL2Qw0JBowBKrvLkARxOLBvBVkd8jOUo37eMg1nR++N
- neVZQiEBfNlPo85U4OLC8Pqoy5BCpmW7Hdc5hqnDRLOOg4RafroSmXfrqYpmoA6x/CQr
- EGmw==
-X-Gm-Message-State: AGi0PubzPMn50Gvgb2IGSBE1ITjzf1oqVj3VExiF0WTAjuzqDtKFYqBc
- 9YRyR1Vlt5JSWt1MUbntvCc+n0rPb9hqgwSUPMF4lA==
-X-Google-Smtp-Source: APiQypJtk77V1X8LIw0dAU5kX+wiqu7ySYUsJUq3LKsJR6m83qHiqqkP5jl/C3bqjnClwMvFKIlOPeqfCMfE1azjEhY=
-X-Received: by 2002:ab0:6588:: with SMTP id v8mr6243394uam.100.1587370728146; 
- Mon, 20 Apr 2020 01:18:48 -0700 (PDT)
+ Mon, 20 Apr 2020 08:59:52 +0000 (UTC)
+Received: from pps.filterd (m0046660.ppops.net [127.0.0.1])
+ by mx07-00178001.pphosted.com (8.16.0.42/8.16.0.42) with SMTP id
+ 03K8sD9j003373; Mon, 20 Apr 2020 10:59:36 +0200
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=st.com;
+ h=from : to : cc : subject
+ : date : message-id : mime-version : content-type; s=STMicroelectronics;
+ bh=eJoZbHi/I6MY38k32qFAxyb0cVPXzFRkdeC8iLkMElA=;
+ b=kyn4copkXqQLxXx9YX8xvUqmi0n4zjrv7lNa7I+ynYkdF24V8WOR2EgCLkVY8slp2okH
+ NUQejmQhM1A0GYsvZFmeGDdWey04hxq+YuDg6N6KMth+zUh7jd+CDBVw9XgnFlGaFS2l
+ StEbPXF2hUwp7PY2HlecKPSPKOmaRNyIPGpbiRFhuv8ZOyo3kQSFk5ZJjwvTpnZrJBXU
+ aR8xdcxNT5Nb+m3PGzp8aZIHERTzHyPam5QhjekOwVa8iU4oaoeBytgk8ozaEQ/1NhhK
+ RlbMkpJumWHw5yLbnouXB0eCp6qZUsg0X4x2LtNXXJkRrGIaPBwRG+ZOpzkVOryP+CHF ww== 
+Received: from beta.dmz-eu.st.com (beta.dmz-eu.st.com [164.129.1.35])
+ by mx07-00178001.pphosted.com with ESMTP id 30fpp8hdhn-1
+ (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
+ Mon, 20 Apr 2020 10:59:36 +0200
+Received: from euls16034.sgp.st.com (euls16034.sgp.st.com [10.75.44.20])
+ by beta.dmz-eu.st.com (STMicroelectronics) with ESMTP id AF763100039;
+ Mon, 20 Apr 2020 10:59:34 +0200 (CEST)
+Received: from Webmail-eu.st.com (sfhdag3node3.st.com [10.75.127.9])
+ by euls16034.sgp.st.com (STMicroelectronics) with ESMTP id 7AD9B2BC7DA;
+ Mon, 20 Apr 2020 10:59:34 +0200 (CEST)
+Received: from localhost (10.75.127.47) by SFHDAG3NODE3.st.com (10.75.127.9)
+ with Microsoft SMTP Server (TLS) id 15.0.1347.2; Mon, 20 Apr 2020 10:59:33
+ +0200
+From: Benjamin Gaignard <benjamin.gaignard@st.com>
+To: <fabrice.gasnier@st.com>, <lee.jones@linaro.org>, <robh+dt@kernel.org>,
+ <mark.rutland@arm.com>, <mcoquelin.stm32@gmail.com>,
+ <alexandre.torgue@st.com>, <daniel.lezcano@linaro.org>,
+ <tglx@linutronix.de>
+Date: Mon, 20 Apr 2020 10:59:24 +0200
+Message-ID: <20200420085930.26989-1-benjamin.gaignard@st.com>
+X-Mailer: git-send-email 2.15.0
 MIME-Version: 1.0
-References: <20200416163649.336967-1-marex@denx.de>
- <CAPDyKFqztJDfTrc+1q9mdyf0f2s=gE91J3eM92rzmm+FJNBW9A@mail.gmail.com>
- <11a78052-6320-2986-42b0-3f5536b8c061@denx.de>
-In-Reply-To: <11a78052-6320-2986-42b0-3f5536b8c061@denx.de>
-From: Ulf Hansson <ulf.hansson@linaro.org>
-Date: Mon, 20 Apr 2020 10:18:12 +0200
-Message-ID: <CAPDyKFpQXaQ+rOX7f+zLfG2Q6fX3FsDk8d+uBtxAcLNkKPhAxQ@mail.gmail.com>
-To: Marek Vasut <marex@denx.de>
-Cc: Linus Walleij <linus.walleij@linaro.org>,
- "linux-mmc@vger.kernel.org" <linux-mmc@vger.kernel.org>,
- Patrick Delaunay <patrick.delaunay@st.com>,
- Russell King <linux@armlinux.org.uk>,
- Maxime Coquelin <mcoquelin.stm32@gmail.com>,
- Manivannan Sadhasivam <manivannan.sadhasivam@linaro.org>,
- linux-stm32@st-md-mailman.stormreply.com
-Subject: Re: [Linux-stm32] [PATCH V2 1/3] mmc: Prepare all code for
- mmc_regulator_set_vqmmc() returning > 0
+X-Originating-IP: [10.75.127.47]
+X-ClientProxiedBy: SFHDAG8NODE2.st.com (10.75.127.23) To SFHDAG3NODE3.st.com
+ (10.75.127.9)
+X-Proofpoint-Virus-Version: vendor=fsecure engine=2.50.10434:6.0.138, 18.0.676
+ definitions=2020-04-20_03:2020-04-17,
+ 2020-04-20 signatures=0
+Cc: devicetree@vger.kernel.org, linux-stm32@st-md-mailman.stormreply.com,
+ linux-arm-kernel@lists.infradead.org, linux-kernel@vger.kernel.org
+Subject: [Linux-stm32] [RESEND v6 0/6] clockevent: add low power STM32 timer
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -76,43 +73,68 @@ Content-Transfer-Encoding: 7bit
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
-On Fri, 17 Apr 2020 at 17:33, Marek Vasut <marex@denx.de> wrote:
->
-> On 4/17/20 11:30 AM, Ulf Hansson wrote:
-> > On Thu, 16 Apr 2020 at 18:36, Marek Vasut <marex@denx.de> wrote:
-> >>
-> >> Patch all drivers which use mmc_regulator_set_vqmmc() and prepare them for
-> >> the fact that mmc_regulator_set_vqmmc() can return a value > 0, which would
-> >> happen if the signal voltage switch did NOT happen, because the voltage was
-> >> already set correctly.
-> >>
-> >> Signed-off-by: Marek Vasut <marex@denx.de>
-> >> Cc: Alexandre Torgue <alexandre.torgue@st.com>
-> >> Cc: Linus Walleij <linus.walleij@linaro.org>
-> >> Cc: Ludovic Barre <ludovic.barre@st.com>
-> >> Cc: Manivannan Sadhasivam <manivannan.sadhasivam@linaro.org>
-> >> Cc: Maxime Coquelin <mcoquelin.stm32@gmail.com>
-> >> Cc: Patrice Chotard <patrice.chotard@st.com>
-> >> Cc: Patrick Delaunay <patrick.delaunay@st.com>
-> >> Cc: Russell King <linux@armlinux.org.uk>
-> >> Cc: Ulf Hansson <ulf.hansson@linaro.org>
-> >> Cc: linux-stm32@st-md-mailman.stormreply.com
-> >> To: linux-mmc@vger.kernel.org
-> >
-> > Applied for next, thanks!
-> >
-> > I took the liberty to re-work and simplify some of the code, please
-> > have a look at my next branch to make sure I didn't screw something
-> > up.
->
-> Where is your next branch ?
+This series add low power timer as boadcast clockevent device.
+Low power timer could runs even when CPUs are in idle mode and 
+could wakeup them.
 
-It's listed in the MAINTAINERS file.
+Lee has acked the MFD part and Rob as reviewed the bindings.
+Clocksource driver still need to be reviewed by maintainers.
 
-git://git.kernel.org/pub/scm/linux/kernel/git/ulfh/mmc.git
+version 6:
+- simplify binding, DT and code to use only one interrupt
 
-Kind regards
-Uffe
+version 5:
+- document interrupts and interrupt-names bindings
+- use a different wake up interrupt
+- add device-tree patch
+- make STM32MP157 select low power timer configuration flag
+- enable fast_io in regmap configuration
+
+version 4:
+- move defines in mfd/stm32-lptimer.h
+- change compatible and subnode names
+- document wakeup-source property
+- reword commit message
+- make driver Kconfig depends of MFD_STM32_LPTIMER
+- remove useless include
+- remove rate and clk fields from the private structure
+- to add comments about the registers sequence in stm32_clkevent_lp_set_timer
+- rework probe function and use devm_request_irq()
+- do not allow module to be removed
+
+version 3:
+- fix timer set sequence
+- don't forget to free irq on remove function
+- use devm_kzalloc to simplify errors handling in probe function
+
+version 2:
+- stm32 clkevent driver is now a child of the stm32 lp timer node
+- add a probe function and adpat the driver to use regmap provide
+  by it parent
+- stop using timer_of helpers
+
+Benjamin Gaignard (6):
+  dt-bindings: mfd: Document STM32 low power timer bindings
+  ARM: dts: stm32: Add timer subnodes on stm32mp15 SoCs
+  mfd: stm32: Add defines to be used for clkevent purpose
+  mfd: stm32: enable regmap fast_io for stm32-lptimer
+  clocksource: Add Low Power STM32 timers driver
+  ARM: mach-stm32: select low power timer for STM32MP157
+
+ .../devicetree/bindings/mfd/st,stm32-lptimer.yaml  |  19 ++
+ arch/arm/boot/dts/stm32mp151.dtsi                  |  35 ++++
+ arch/arm/mach-stm32/Kconfig                        |   1 +
+ drivers/clocksource/Kconfig                        |   4 +
+ drivers/clocksource/Makefile                       |   1 +
+ drivers/clocksource/timer-stm32-lp.c               | 221 +++++++++++++++++++++
+ drivers/mfd/stm32-lptimer.c                        |   1 +
+ include/linux/mfd/stm32-lptimer.h                  |   5 +
+ 8 files changed, 287 insertions(+)
+ create mode 100644 drivers/clocksource/timer-stm32-lp.c
+
+-- 
+2.15.0
+
 _______________________________________________
 Linux-stm32 mailing list
 Linux-stm32@st-md-mailman.stormreply.com
