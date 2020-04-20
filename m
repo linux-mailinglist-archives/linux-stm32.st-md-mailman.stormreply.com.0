@@ -2,45 +2,75 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id 0EDB31B0037
-	for <lists+linux-stm32@lfdr.de>; Mon, 20 Apr 2020 05:31:36 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 4DB461B013E
+	for <lists+linux-stm32@lfdr.de>; Mon, 20 Apr 2020 07:57:28 +0200 (CEST)
 Received: from ip-172-31-3-76.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 94FD7C36B0C;
-	Mon, 20 Apr 2020 03:31:35 +0000 (UTC)
-Received: from mga03.intel.com (mga03.intel.com [134.134.136.65])
- (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 03D8FC36B0C;
+	Mon, 20 Apr 2020 05:57:28 +0000 (UTC)
+Received: from mail-pj1-f66.google.com (mail-pj1-f66.google.com
+ [209.85.216.66])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id E6BD4C36B09
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id CA342C36B09
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Mon, 20 Apr 2020 03:31:32 +0000 (UTC)
-IronPort-SDR: TGTOMHsHQ6wWblbcaqvgMTgE2dJhSDF9beqohmqlLdIpkCoC85vPMDCV0WyFGsfdDSL6zx2Jqv
- +xIqBoS7qh5g==
-X-Amp-Result: SKIPPED(no attachment in message)
-X-Amp-File-Uploaded: False
-Received: from orsmga002.jf.intel.com ([10.7.209.21])
- by orsmga103.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 19 Apr 2020 20:31:30 -0700
-IronPort-SDR: edhuHMjqHP9ErywtRRWHrLaytJmqVEjKvc7uIf+5na+R+BKrRYIRKDtE2lsM3pbSBKyN7z6L8e
- VL3qFI+42lnQ==
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="5.72,405,1580803200"; d="scan'208";a="273046498"
-Received: from glass.png.intel.com ([172.30.181.92])
- by orsmga002.jf.intel.com with ESMTP; 19 Apr 2020 20:31:24 -0700
-From: Wong Vee Khee <vee.khee.wong@intel.com>
-To: Giuseppe Cavallaro <peppe.cavallaro@st.com>,
- Alexandre Torgue <alexandre.torgue@st.com>,
- Jose Abreu <joabreu@synopsys.com>,
- "David S . Miller" <davem@davemloft.net>,
- Maxime Coquelin <mcoquelin.stm32@gmail.com>
-Date: Mon, 20 Apr 2020 11:33:59 +0800
-Message-Id: <20200420033359.11610-1-vee.khee.wong@intel.com>
-X-Mailer: git-send-email 2.17.0
-Cc: Voon Wei Feng <weifeng.voon@intel.com>,
- Wong Vee Khee <vee.khee.wong@intel.com>, netdev@vger.kernel.org,
- linux-kernel@vger.kernel.org, Ong Boon Leong <boon.leong.ong@intel.com>,
- linux-stm32@st-md-mailman.stormreply.com, linux-arm-kernel@lists.infradead.org
-Subject: [Linux-stm32] [PATCH net-next 1/1] net: stmmac: Add support for
-	VLAN promiscuous mode
+ Mon, 20 Apr 2020 05:57:25 +0000 (UTC)
+Received: by mail-pj1-f66.google.com with SMTP id kb16so4104558pjb.1
+ for <linux-stm32@st-md-mailman.stormreply.com>;
+ Sun, 19 Apr 2020 22:57:25 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linaro.org; s=google;
+ h=date:from:to:cc:subject:message-id:references:mime-version
+ :content-disposition:content-transfer-encoding:in-reply-to;
+ bh=XOlYkW/8hIDyB8VhMd7iCQpxoA6ZLYFkm9KhScpGO1k=;
+ b=gbcpG0/49M1IDeB5++xI6+56FJK32zdttZi30hnGPyU25rr/bWEFdT94Z6yncL6veO
+ 7WI8HxA5DDsukMkqiyitufF84unLtVQoDdRfy5dyPOxqMH90gLFav3vkSd5uSFodI2BG
+ fDiYFDsgyTG+WttIRKelT7RLgljHr3c0jPsjlaiMhFzb9er/ywYSbtVln8bO+flPb0xE
+ CHxoZ6XmbxK3Jn6JH4eXTQC9ASCvaqp9TSLFEt5Hh+04d1p5I9ipTo2ebJ+weQAeNSUd
+ QwbPlNxes1wukkhrlGs0O5YTrAuk3XplKr9RMgL+Hi3+rlXdIC3j/0fFc2wNK3dnM3sO
+ INLg==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20161025;
+ h=x-gm-message-state:date:from:to:cc:subject:message-id:references
+ :mime-version:content-disposition:content-transfer-encoding
+ :in-reply-to;
+ bh=XOlYkW/8hIDyB8VhMd7iCQpxoA6ZLYFkm9KhScpGO1k=;
+ b=ODAkbO3+mf4ko2Ae5Q4GEQ/IRU5WNv8DuimCjUUmRNrycW3o3HqcRRTAKQqLWGOPit
+ m0OofmIlMpx+/XflXZiKLengV8p8yRyuJqod/0JOoxYWvpOlOU/OTQsTikOZfcryTUzU
+ U2+e+Fgxx0UhReRonfA+sh40v7e7SnU+ZRGLlG7MC0cKSU6JrQcJJZoYciaMDCfmmMJe
+ fcsDrqgPM8IwFZAC2int6hsx9f3CXC3uXUpaYHAyQAQ6CdLkkf8VD+Ug6uHAXMu2M8ZT
+ eBfsJZfj3ITpS/tyRyzvpVKzwEFF5WByjTksyJcyCUsJblkLpu+9t7fiSdZEHMtNWrSo
+ FPtA==
+X-Gm-Message-State: AGi0PuY/mTumpO8JpTlfwvw9TETPLD7CT+k38HM6212DadrSJJMiLrDU
+ WUMTjuLy2PjqTvEcKXRSCADMsA==
+X-Google-Smtp-Source: APiQypJJsaRN2kwVAWfx+urkiVcYHFeQEbTr+tg1MzwPgOuM7o6/+A+5Vc3B1FZYuBizG6nS4DfUrg==
+X-Received: by 2002:a17:902:8ec7:: with SMTP id
+ x7mr15277533plo.3.1587362244158; 
+ Sun, 19 Apr 2020 22:57:24 -0700 (PDT)
+Received: from builder.lan (104-188-17-28.lightspeed.sndgca.sbcglobal.net.
+ [104.188.17.28])
+ by smtp.gmail.com with ESMTPSA id 202sm56836pgf.41.2020.04.19.22.57.22
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Sun, 19 Apr 2020 22:57:23 -0700 (PDT)
+Date: Sun, 19 Apr 2020 22:57:46 -0700
+From: Bjorn Andersson <bjorn.andersson@linaro.org>
+To: Cl?ment Leger <cleger@kalrayinc.com>
+Message-ID: <20200420055746.GJ1516868@builder.lan>
+References: <20200410102433.2672-1-cleger@kalray.eu>
+ <20200410102433.2672-2-cleger@kalray.eu>
+ <20200417193837.GB6797@xps15>
+ <1280711269.16158926.1587152627279.JavaMail.zimbra@kalray.eu>
+MIME-Version: 1.0
+Content-Disposition: inline
+In-Reply-To: <1280711269.16158926.1587152627279.JavaMail.zimbra@kalray.eu>
+Cc: Ohad Ben-Cohen <ohad@wizery.com>,
+ Mathieu Poirier <mathieu.poirier@linaro.org>,
+ linux-arm-msm <linux-arm-msm@vger.kernel.org>,
+ linux-remoteproc <linux-remoteproc@vger.kernel.org>,
+ linux-kernel <linux-kernel@vger.kernel.org>, Andy Gross <agross@kernel.org>,
+ Maxime Coquelin <mcoquelin.stm32@gmail.com>,
+ linux-stm32 <linux-stm32@st-md-mailman.stormreply.com>,
+ linux-arm-kernel <linux-arm-kernel@lists.infradead.org>
+Subject: Re: [Linux-stm32] [PATCH 1/2] remoteproc: add
+	rproc_coredump_set_elf_info
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -52,184 +82,173 @@ List-Post: <mailto:linux-stm32@st-md-mailman.stormreply.com>
 List-Help: <mailto:linux-stm32-request@st-md-mailman.stormreply.com?subject=help>
 List-Subscribe: <https://st-md-mailman.stormreply.com/mailman/listinfo/linux-stm32>, 
  <mailto:linux-stm32-request@st-md-mailman.stormreply.com?subject=subscribe>
-MIME-Version: 1.0
-Content-Type: text/plain; charset="us-ascii"
-Content-Transfer-Encoding: 7bit
+Content-Type: text/plain; charset="iso-8859-1"
+Content-Transfer-Encoding: quoted-printable
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
-From: "Chuah, Kim Tatt" <kim.tatt.chuah@intel.com>
+On Fri 17 Apr 12:43 PDT 2020, Cl?ment Leger wrote:
 
-For dwmac4, enable VLAN promiscuity when MAC controller is requested to
-enter promiscuous mode.
+> ----- On 17 Apr, 2020, at 21:38, Mathieu Poirier mathieu.poirier@linaro.o=
+rg wrote:
+> =
 
-Signed-off-by: Chuah, Kim Tatt <kim.tatt.chuah@intel.com>
-Signed-off-by: Ong Boon Leong <boon.leong.ong@intel.com>
-Signed-off-by: Tan, Tee Min <tee.min.tan@intel.com>
-Signed-off-by: Wong Vee Khee <vee.khee.wong@intel.com>
----
- drivers/net/ethernet/stmicro/stmmac/common.h  |  1 +
- drivers/net/ethernet/stmicro/stmmac/dwmac4.h  |  1 +
- .../net/ethernet/stmicro/stmmac/dwmac4_core.c | 67 +++++++++++++++++++
- .../net/ethernet/stmicro/stmmac/stmmac_main.c |  2 +-
- 4 files changed, 70 insertions(+), 1 deletion(-)
+> > On Fri, Apr 10, 2020 at 12:24:32PM +0200, Clement Leger wrote:
+> >> This function allows drivers to correctly setup the coredump output
+> >> elf information.
+> >> =
 
-diff --git a/drivers/net/ethernet/stmicro/stmmac/common.h b/drivers/net/ethernet/stmicro/stmmac/common.h
-index 6208a68a331d..127f75862962 100644
---- a/drivers/net/ethernet/stmicro/stmmac/common.h
-+++ b/drivers/net/ethernet/stmicro/stmmac/common.h
-@@ -473,6 +473,7 @@ struct mac_device_info {
- 	unsigned int xlgmac;
- 	unsigned int num_vlan;
- 	u32 vlan_filter[32];
-+	unsigned int promisc;
- };
- 
- struct stmmac_rx_routing {
-diff --git a/drivers/net/ethernet/stmicro/stmmac/dwmac4.h b/drivers/net/ethernet/stmicro/stmmac/dwmac4.h
-index 28cac28253b8..61f3249bd724 100644
---- a/drivers/net/ethernet/stmicro/stmmac/dwmac4.h
-+++ b/drivers/net/ethernet/stmicro/stmmac/dwmac4.h
-@@ -90,6 +90,7 @@
- #define GMAC_VLAN_CSVL			BIT(19)
- #define GMAC_VLAN_VLC			GENMASK(17, 16)
- #define GMAC_VLAN_VLC_SHIFT		16
-+#define GMAC_VLAN_VLHT			GENMASK(15, 0)
- 
- /* MAC VLAN Tag */
- #define GMAC_VLAN_TAG_VID		GENMASK(15, 0)
-diff --git a/drivers/net/ethernet/stmicro/stmmac/dwmac4_core.c b/drivers/net/ethernet/stmicro/stmmac/dwmac4_core.c
-index 39692d15d80c..ecd834e0e121 100644
---- a/drivers/net/ethernet/stmicro/stmmac/dwmac4_core.c
-+++ b/drivers/net/ethernet/stmicro/stmmac/dwmac4_core.c
-@@ -450,6 +450,12 @@ static int dwmac4_add_hw_vlan_rx_fltr(struct net_device *dev,
- 	if (vid > 4095)
- 		return -EINVAL;
- 
-+	if (hw->promisc) {
-+		netdev_err(dev,
-+			   "Adding VLAN in promisc mode not supported\n");
-+		return -EPERM;
-+	}
-+
- 	/* Single Rx VLAN Filter */
- 	if (hw->num_vlan == 1) {
- 		/* For single VLAN filter, VID 0 means VLAN promiscuous */
-@@ -499,6 +505,12 @@ static int dwmac4_del_hw_vlan_rx_fltr(struct net_device *dev,
- {
- 	int i, ret = 0;
- 
-+	if (hw->promisc) {
-+		netdev_err(dev,
-+			   "Deleting VLAN in promisc mode not supported\n");
-+		return -EPERM;
-+	}
-+
- 	/* Single Rx VLAN Filter */
- 	if (hw->num_vlan == 1) {
- 		if ((hw->vlan_filter[0] & GMAC_VLAN_TAG_VID) == vid) {
-@@ -523,9 +535,45 @@ static int dwmac4_del_hw_vlan_rx_fltr(struct net_device *dev,
- 	return ret;
- }
- 
-+static void dwmac4_vlan_promisc_enable(struct net_device *dev,
-+				       struct mac_device_info *hw)
-+{
-+	void __iomem *ioaddr = hw->pcsr;
-+	u32 value;
-+	u32 hash;
-+	u32 val;
-+	int i;
-+
-+	/* Single Rx VLAN Filter */
-+	if (hw->num_vlan == 1) {
-+		dwmac4_write_single_vlan(dev, 0);
-+		return;
-+	}
-+
-+	/* Extended Rx VLAN Filter Enable */
-+	for (i = 0; i < hw->num_vlan; i++) {
-+		if (hw->vlan_filter[i] & GMAC_VLAN_TAG_DATA_VEN) {
-+			val = hw->vlan_filter[i] & ~GMAC_VLAN_TAG_DATA_VEN;
-+			dwmac4_write_vlan_filter(dev, hw, i, val);
-+		}
-+	}
-+
-+	hash = readl(ioaddr + GMAC_VLAN_HASH_TABLE);
-+	if (hash & GMAC_VLAN_VLHT) {
-+		value = readl(ioaddr + GMAC_VLAN_TAG);
-+		if (value & GMAC_VLAN_VTHM) {
-+			value &= ~GMAC_VLAN_VTHM;
-+			writel(value, ioaddr + GMAC_VLAN_TAG);
-+		}
-+	}
-+}
-+
- static void dwmac4_restore_hw_vlan_rx_fltr(struct net_device *dev,
- 					   struct mac_device_info *hw)
- {
-+	void __iomem *ioaddr = hw->pcsr;
-+	u32 value;
-+	u32 hash;
- 	u32 val;
- 	int i;
- 
-@@ -542,6 +590,13 @@ static void dwmac4_restore_hw_vlan_rx_fltr(struct net_device *dev,
- 			dwmac4_write_vlan_filter(dev, hw, i, val);
- 		}
- 	}
-+
-+	hash = readl(ioaddr + GMAC_VLAN_HASH_TABLE);
-+	if (hash & GMAC_VLAN_VLHT) {
-+		value = readl(ioaddr + GMAC_VLAN_TAG);
-+		value |= GMAC_VLAN_VTHM;
-+		writel(value, ioaddr + GMAC_VLAN_TAG);
-+	}
- }
- 
- static void dwmac4_set_filter(struct mac_device_info *hw,
-@@ -624,6 +679,18 @@ static void dwmac4_set_filter(struct mac_device_info *hw,
- 		value |= GMAC_PACKET_FILTER_VTFE;
- 
- 	writel(value, ioaddr + GMAC_PACKET_FILTER);
-+
-+	if (dev->flags & IFF_PROMISC) {
-+		if (!hw->promisc) {
-+			hw->promisc = 1;
-+			dwmac4_vlan_promisc_enable(dev, hw);
-+		}
-+	} else {
-+		if (hw->promisc) {
-+			hw->promisc = 0;
-+			dwmac4_restore_hw_vlan_rx_fltr(dev, hw);
-+		}
-+	}
- }
- 
- static void dwmac4_flow_ctrl(struct mac_device_info *hw, unsigned int duplex,
-diff --git a/drivers/net/ethernet/stmicro/stmmac/stmmac_main.c b/drivers/net/ethernet/stmicro/stmmac/stmmac_main.c
-index e6898fd5223f..80250c7be783 100644
---- a/drivers/net/ethernet/stmicro/stmmac/stmmac_main.c
-+++ b/drivers/net/ethernet/stmicro/stmmac/stmmac_main.c
-@@ -4877,7 +4877,6 @@ int stmmac_dvr_probe(struct device *device,
- 		}
- 	}
- 
--	ndev->features |= ndev->hw_features | NETIF_F_HIGHDMA;
- 	ndev->watchdog_timeo = msecs_to_jiffies(watchdog);
- #ifdef STMMAC_VLAN_TAG_USED
- 	/* Both mac100 and gmac support receive VLAN tag detection */
-@@ -4892,6 +4891,7 @@ int stmmac_dvr_probe(struct device *device,
- 			ndev->features |= NETIF_F_HW_VLAN_STAG_TX;
- 	}
- #endif
-+	ndev->features |= ndev->hw_features | NETIF_F_HIGHDMA;
- 	priv->msg_enable = netif_msg_init(debug, default_msg_level);
- 
- 	/* Initialize RSS */
--- 
-2.17.0
+> >> Signed-off-by: Clement Leger <cleger@kalray.eu>
+> >> ---
+> >>  drivers/remoteproc/remoteproc_core.c       | 32 ++++++++++++++++++++--
+> >>  drivers/remoteproc/remoteproc_elf_loader.c |  3 --
+> >>  include/linux/remoteproc.h                 |  2 ++
+> >>  3 files changed, 32 insertions(+), 5 deletions(-)
+> >> =
 
+> >> diff --git a/drivers/remoteproc/remoteproc_core.c
+> >> b/drivers/remoteproc/remoteproc_core.c
+> >> index a9ac1d01e09b..382443bab583 100644
+> >> --- a/drivers/remoteproc/remoteproc_core.c
+> >> +++ b/drivers/remoteproc/remoteproc_core.c
+> >> @@ -1562,6 +1562,28 @@ int rproc_coredump_add_custom_segment(struct rp=
+roc
+> >> *rproc,
+> >>  }
+> >>  EXPORT_SYMBOL(rproc_coredump_add_custom_segment);
+> >>  =
+
+> >> +/**
+> >> + * rproc_coredump_set_elf_info() - set coredump elf information
+> >> + * @rproc:	handle of a remote processor
+> >> + * @class:	elf class for coredump elf file
+> >> + * @size:	elf machine for coredump elf file
+> =
+
+> I just noticed that there is a typo, this should be "machine" and not "si=
+ze".
+> Let me know if you'll fix it when applying.
+> =
+
+
+Thanks for noticing, I fixed this up and applied the two patches.
+
+Thanks,
+Bjorn
+
+> Thanks,
+> =
+
+> Cl=E9ment
+> =
+
+> >> + *
+> >> + * Set elf information which will be used for coredump elf file.
+> >> + *
+> >> + * Return: 0 on success, negative errno on error.
+> >> + */
+> >> +int rproc_coredump_set_elf_info(struct rproc *rproc, u8 class, u16 ma=
+chine)
+> >> +{
+> >> +	if (class !=3D ELFCLASS64 && class !=3D ELFCLASS32)
+> >> +		return -EINVAL;
+> >> +
+> >> +	rproc->elf_class =3D class;
+> >> +	rproc->elf_machine =3D machine;
+> >> +
+> >> +	return 0;
+> >> +}
+> >> +EXPORT_SYMBOL(rproc_coredump_set_elf_info);
+> >> +
+> >>  /**
+> >>   * rproc_coredump() - perform coredump
+> >>   * @rproc:	rproc handle
+> >> @@ -1584,6 +1606,11 @@ static void rproc_coredump(struct rproc *rproc)
+> >>  	if (list_empty(&rproc->dump_segments))
+> >>  		return;
+> >>  =
+
+> >> +	if (class =3D=3D ELFCLASSNONE) {
+> >> +		dev_err(&rproc->dev, "Elf class is not set\n");
+> >> +		return;
+> >> +	}
+> >> +
+> >>  	data_size =3D elf_size_of_hdr(class);
+> >>  	list_for_each_entry(segment, &rproc->dump_segments, node) {
+> >>  		data_size +=3D elf_size_of_phdr(class) + segment->size;
+> >> @@ -1602,7 +1629,7 @@ static void rproc_coredump(struct rproc *rproc)
+> >>  	elf_hdr_init_ident(ehdr, class);
+> >>  =
+
+> >>  	elf_hdr_set_e_type(class, ehdr, ET_CORE);
+> >> -	elf_hdr_set_e_machine(class, ehdr, EM_NONE);
+> >> +	elf_hdr_set_e_machine(class, ehdr, rproc->elf_machine);
+> >>  	elf_hdr_set_e_version(class, ehdr, EV_CURRENT);
+> >>  	elf_hdr_set_e_entry(class, ehdr, rproc->bootaddr);
+> >>  	elf_hdr_set_e_phoff(class, ehdr, elf_size_of_hdr(class));
+> >> @@ -2043,7 +2070,8 @@ struct rproc *rproc_alloc(struct device *dev, co=
+nst char
+> >> *name,
+> >>  	rproc->name =3D name;
+> >>  	rproc->priv =3D &rproc[1];
+> >>  	rproc->auto_boot =3D true;
+> >> -	rproc->elf_class =3D ELFCLASS32;
+> >> +	rproc->elf_class =3D ELFCLASSNONE;
+> >> +	rproc->elf_machine =3D EM_NONE;
+> >>  =
+
+> >>  	device_initialize(&rproc->dev);
+> >>  	rproc->dev.parent =3D dev;
+> >> diff --git a/drivers/remoteproc/remoteproc_elf_loader.c
+> >> b/drivers/remoteproc/remoteproc_elf_loader.c
+> >> index 16e2c496fd45..4869fb7d8fe4 100644
+> >> --- a/drivers/remoteproc/remoteproc_elf_loader.c
+> >> +++ b/drivers/remoteproc/remoteproc_elf_loader.c
+> >> @@ -248,9 +248,6 @@ int rproc_elf_load_segments(struct rproc *rproc, c=
+onst
+> >> struct firmware *fw)
+> >>  			memset(ptr + filesz, 0, memsz - filesz);
+> >>  	}
+> >>  =
+
+> >> -	if (ret =3D=3D 0)
+> >> -		rproc->elf_class =3D class;
+> >> -
+> >>  	return ret;
+> >>  }
+> >>  EXPORT_SYMBOL(rproc_elf_load_segments);
+> >> diff --git a/include/linux/remoteproc.h b/include/linux/remoteproc.h
+> >> index ed127b2d35ca..d67eb5a40476 100644
+> >> --- a/include/linux/remoteproc.h
+> >> +++ b/include/linux/remoteproc.h
+> >> @@ -515,6 +515,7 @@ struct rproc {
+> >>  	struct list_head dump_segments;
+> >>  	int nb_vdev;
+> >>  	u8 elf_class;
+> >> +	u16 elf_machine;
+> >>  };
+> > =
+
+> > Reviewed-by: Mathieu Poirier <mathieu.poirier@linaro.org>
+> > =
+
+> >>  =
+
+> >>  /**
+> >> @@ -619,6 +620,7 @@ int rproc_coredump_add_custom_segment(struct rproc=
+ *rproc,
+> >>  						     struct rproc_dump_segment *segment,
+> >>  						     void *dest),
+> >>  				      void *priv);
+> >> +int rproc_coredump_set_elf_info(struct rproc *rproc, u8 class, u16 ma=
+chine);
+> >>  =
+
+> >>  static inline struct rproc_vdev *vdev_to_rvdev(struct virtio_device *=
+vdev)
+> >>  {
+> >> --
+> >> 2.17.1
 _______________________________________________
 Linux-stm32 mailing list
 Linux-stm32@st-md-mailman.stormreply.com
