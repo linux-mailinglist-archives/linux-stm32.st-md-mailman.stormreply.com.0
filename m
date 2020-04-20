@@ -2,60 +2,60 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id EE4BA1B13BE
-	for <lists+linux-stm32@lfdr.de>; Mon, 20 Apr 2020 19:58:57 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 96B4D1B13DB
+	for <lists+linux-stm32@lfdr.de>; Mon, 20 Apr 2020 20:04:54 +0200 (CEST)
 Received: from ip-172-31-3-76.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id A894AC36B0C;
-	Mon, 20 Apr 2020 17:58:57 +0000 (UTC)
-Received: from mail-oi1-f195.google.com (mail-oi1-f195.google.com
- [209.85.167.195])
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 520DDC36B0C;
+	Mon, 20 Apr 2020 18:04:54 +0000 (UTC)
+Received: from mail-ot1-f65.google.com (mail-ot1-f65.google.com
+ [209.85.210.65])
  (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id D0767C36B09
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id C1140C36B09
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Mon, 20 Apr 2020 17:58:55 +0000 (UTC)
-Received: by mail-oi1-f195.google.com with SMTP id 8so9602557oiy.6
+ Mon, 20 Apr 2020 18:04:51 +0000 (UTC)
+Received: by mail-ot1-f65.google.com with SMTP id e20so8962457otl.2
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Mon, 20 Apr 2020 10:58:55 -0700 (PDT)
+ Mon, 20 Apr 2020 11:04:51 -0700 (PDT)
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=1e100.net; s=20161025;
  h=x-gm-message-state:date:from:to:cc:subject:message-id:references
  :mime-version:content-disposition:in-reply-to:user-agent;
- bh=/5W/lQ34ReMbXEDzAwXh6BEJq3UIgkv6eyC5gc3Bzrc=;
- b=tv/64HbgO6MnF4ajmJznt+SbQFQy2xupyUjSgy95sJH+myr4ZocfAFQDfG08z827Qa
- xkQz7OiR52/10fdp+bHJyws2E9x+2eE/5wsSZrQE45xqAI74IqiqhRDhDR05YDoGmiYu
- oA/JUywcpd6ywzgSMdpM9a6VmJfe/6m5B9z0GJ+5QzDq2d1RZYTDdLilJ3ZlTMpd0TFe
- 9fj7/6O0YXK4SK2Yo7sC7ag3O08Ibzhl2/169lN6Ixr9p0vYk6FIUuOKGWRBf3f+vst0
- FTdjLRr/TcdvNVhLqNS+wXFIryyh30FPyUu1GEplvj3XcidHx4p5EQb5NZmkgMxLzI3T
- KcQw==
-X-Gm-Message-State: AGi0PuYgjoR910ZzLrA+y7ABGavuGLsYKYyWT5vvxy0eCuyef/uLRh4O
- PahavP8GQcJzNqYt1EIBqg==
-X-Google-Smtp-Source: APiQypJG2laHDj1gFHJr/T8u1/7WLO1L1HK3oDn1rmL0PRluF7lKVfIH0ZzkLa/bWiGt+rj/5P4Hsg==
-X-Received: by 2002:aca:c68b:: with SMTP id w133mr422169oif.175.1587405534277; 
- Mon, 20 Apr 2020 10:58:54 -0700 (PDT)
+ bh=R9R3P8AxTY42i8eZbd/K2FLLSk3SQ9So4jiLRS8yUHA=;
+ b=NmENnbhhqD7QzfnSESzht9yEp+Gcl/8YaBfePtQmdduNUhSwdnTJY99ztD3QW1LZsj
+ xgilVquiLKkq4ilvVUEswEfElzCVxvFayxg9hunBoA3fl9DvfIXSn6nQuE43idunaPHS
+ eDrnJoYujWu/DxhC7+OsEC4uIJV6RDDgPeMVHt2ljwUGIg6OD1iqz/+Xjjuf3hJY7flO
+ N4w9bqwCUcvjrQ5B2fi8mcl9asYjPyFFpYppjm6ZUlQyd7uIKhT0XtIfCIx6+Y9Zez3D
+ rVPuaARSp1D6bB5V6jE69AuYSeJ3pM6GZedYcNHnU2RhNvxPt+nGCiJ9E6fvCb8pJFbl
+ sBAQ==
+X-Gm-Message-State: AGi0PuY8TF9kgyvKoPgeDDCNrF9kaak3q5g9vITWa2aVbIFK6p5TZRSZ
+ VF0dvDeW+f6cyWqgOqFcHw==
+X-Google-Smtp-Source: APiQypIcphhGbEDkzBJSApE45bLtbLIzGEcM5dFbdISmqJoJZVgTVbNbQyDPIrlbVc68ecDTsveOkA==
+X-Received: by 2002:a9d:6a98:: with SMTP id l24mr10210869otq.133.1587405890294; 
+ Mon, 20 Apr 2020 11:04:50 -0700 (PDT)
 Received: from rob-hp-laptop (24-155-109-49.dyn.grandenetworks.net.
  [24.155.109.49])
- by smtp.gmail.com with ESMTPSA id w18sm33636oos.13.2020.04.20.10.58.53
+ by smtp.gmail.com with ESMTPSA id r205sm17563oih.47.2020.04.20.11.04.49
  (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Mon, 20 Apr 2020 10:58:53 -0700 (PDT)
-Received: (nullmailer pid 5416 invoked by uid 1000);
- Mon, 20 Apr 2020 17:58:52 -0000
-Date: Mon, 20 Apr 2020 12:58:52 -0500
+ Mon, 20 Apr 2020 11:04:49 -0700 (PDT)
+Received: (nullmailer pid 22581 invoked by uid 1000);
+ Mon, 20 Apr 2020 18:04:48 -0000
+Date: Mon, 20 Apr 2020 13:04:48 -0500
 From: Rob Herring <robh@kernel.org>
 To: Benjamin Gaignard <benjamin.gaignard@st.com>
-Message-ID: <20200420175852.GA5063@bogus>
-References: <20200420134800.31604-1-benjamin.gaignard@st.com>
- <20200420134800.31604-4-benjamin.gaignard@st.com>
+Message-ID: <20200420180448.GA20546@bogus>
+References: <20200420121620.2099-1-benjamin.gaignard@st.com>
+ <20200420121620.2099-2-benjamin.gaignard@st.com>
 MIME-Version: 1.0
 Content-Disposition: inline
-In-Reply-To: <20200420134800.31604-4-benjamin.gaignard@st.com>
+In-Reply-To: <20200420121620.2099-2-benjamin.gaignard@st.com>
 User-Agent: Mutt/1.10.1 (2018-07-13)
-Cc: devicetree@vger.kernel.org, gregkh@linuxfoundation.org,
- linus.walleij@linaro.org, linux-kernel@vger.kernel.org, robh+dt@kernel.org,
- mcoquelin.stm32@gmail.com, linux-stm32@st-md-mailman.stormreply.com,
- linux-arm-kernel@lists.infradead.org
-Subject: Re: [Linux-stm32] [PATCH 3/5] dt-bindings: bus: Add STM32 ETZPC
-	firewall controller
+Cc: mark.rutland@arm.com, devicetree@vger.kernel.org, daniel.lezcano@linaro.org,
+ linux-kernel@vger.kernel.org, mcoquelin.stm32@gmail.com, tglx@linutronix.de,
+ fabrice.gasnier@st.com, lee.jones@linaro.org,
+ linux-stm32@st-md-mailman.stormreply.com, linux-arm-kernel@lists.infradead.org
+Subject: Re: [Linux-stm32] [PATCH v7 1/6] dt-bindings: mfd: Document STM32
+ low power timer bindings
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -72,28 +72,15 @@ Content-Transfer-Encoding: 7bit
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
-On Mon, 20 Apr 2020 15:47:58 +0200, Benjamin Gaignard wrote:
-> Document STM32 ETZPC firewall controller bindings
+On Mon, Apr 20, 2020 at 02:16:15PM +0200, Benjamin Gaignard wrote:
+> Add a subnode to STM low power timer bindings to support timer driver
 > 
 > Signed-off-by: Benjamin Gaignard <benjamin.gaignard@st.com>
 > ---
->  .../bindings/bus/stm32/st,stm32-etzpc.yaml         | 46 ++++++++++++++++++++++
->  1 file changed, 46 insertions(+)
->  create mode 100644 Documentation/devicetree/bindings/bus/stm32/st,stm32-etzpc.yaml
-> 
+>  Documentation/devicetree/bindings/mfd/st,stm32-lptimer.yaml | 5 +++++
+>  1 file changed, 5 insertions(+)
 
-My bot found errors running 'make dt_binding_check' on your patch:
-
-Documentation/devicetree/bindings/bus/stm32/st,stm32-etzpc.example.dts:17.5-24.11: Warning (unit_address_vs_reg): /example-0/soc: node has a reg or ranges property, but no unit name
-
-See https://patchwork.ozlabs.org/patch/1273431
-
-If you already ran 'make dt_binding_check' and didn't see the above
-error(s), then make sure dt-schema is up to date:
-
-pip3 install git+https://github.com/devicetree-org/dt-schema.git@master --upgrade
-
-Please check and re-submit.
+Reviewed-by: Rob Herring <robh@kernel.org>
 _______________________________________________
 Linux-stm32 mailing list
 Linux-stm32@st-md-mailman.stormreply.com
