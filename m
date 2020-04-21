@@ -2,63 +2,67 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id 0D2561B2B4B
-	for <lists+linux-stm32@lfdr.de>; Tue, 21 Apr 2020 17:38:11 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id D68551B2BDC
+	for <lists+linux-stm32@lfdr.de>; Tue, 21 Apr 2020 18:05:09 +0200 (CEST)
 Received: from ip-172-31-3-76.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 215C1C36B0C;
-	Tue, 21 Apr 2020 15:38:09 +0000 (UTC)
-Received: from zimbra2.kalray.eu (zimbra2.kalray.eu [92.103.151.219])
- (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 98A37C36B0C;
+	Tue, 21 Apr 2020 16:05:09 +0000 (UTC)
+Received: from mx07-00178001.pphosted.com (mx07-00178001.pphosted.com
+ [62.209.51.94])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id DCCD1C36B09
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 9B096C36B09
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Tue, 21 Apr 2020 15:38:07 +0000 (UTC)
-Received: from localhost (localhost [127.0.0.1])
- by zimbra2.kalray.eu (Postfix) with ESMTP id 49B5427E02FA;
- Tue, 21 Apr 2020 17:38:07 +0200 (CEST)
-Received: from zimbra2.kalray.eu ([127.0.0.1])
- by localhost (zimbra2.kalray.eu [127.0.0.1]) (amavisd-new, port 10032)
- with ESMTP id NFeVXngl6t0K; Tue, 21 Apr 2020 17:38:06 +0200 (CEST)
-Received: from localhost (localhost [127.0.0.1])
- by zimbra2.kalray.eu (Postfix) with ESMTP id 56BCA27E0A7E;
- Tue, 21 Apr 2020 17:38:06 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.10.3 zimbra2.kalray.eu 56BCA27E0A7E
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kalray.eu;
- s=32AE1B44-9502-11E5-BA35-3734643DEF29; t=1587483486;
- bh=E8Ef7Y9juD0L2yAlkBR135rMMoMAmO27lR7T+Rur6Qs=;
- h=Date:From:To:Message-ID:MIME-Version;
- b=WG5rI4nsdyZ/n6I/DKusgV+iXVV+IPnkZ25CsrFG8CMWbSpcqpA2APdPsmewJfxSS
- nHHhSmAIOVf+JEYh4cIqTM9KOfJcvgywN2R19TyeC6boSRDVpK26QVhmTbB6ncy//v
- ebHQOSRZAuUEmg41DPI6+pDzXKq/NaViizxTWJkI=
-X-Virus-Scanned: amavisd-new at zimbra2.kalray.eu
-Received: from zimbra2.kalray.eu ([127.0.0.1])
- by localhost (zimbra2.kalray.eu [127.0.0.1]) (amavisd-new, port 10026)
- with ESMTP id UhMRJdWpDRmw; Tue, 21 Apr 2020 17:38:06 +0200 (CEST)
-Received: from zimbra2.kalray.eu (localhost [127.0.0.1])
- by zimbra2.kalray.eu (Postfix) with ESMTP id 3765427E02FA;
- Tue, 21 Apr 2020 17:38:06 +0200 (CEST)
-Date: Tue, 21 Apr 2020 17:38:06 +0200 (CEST)
-From: =?utf-8?Q?Cl=C3=A9ment?= Leger <cleger@kalray.eu>
-To: s-anna <s-anna@ti.com>
-Message-ID: <777435415.16656480.1587483486065.JavaMail.zimbra@kalray.eu>
-In-Reply-To: <a7994631-7a63-5477-df70-e40b995fe14f@ti.com>
-References: <20200331083336.7459-1-cleger@kalray.eu>
- <0fc07250-c62c-cb10-58e5-04ccdd6ee176@ti.com>
- <a7994631-7a63-5477-df70-e40b995fe14f@ti.com>
+ Tue, 21 Apr 2020 16:05:08 +0000 (UTC)
+Received: from pps.filterd (m0046668.ppops.net [127.0.0.1])
+ by mx07-00178001.pphosted.com (8.16.0.42/8.16.0.42) with SMTP id
+ 03LFw0On028047; Tue, 21 Apr 2020 18:05:00 +0200
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=st.com;
+ h=subject : to : cc :
+ references : from : message-id : date : mime-version : in-reply-to :
+ content-type : content-transfer-encoding; s=STMicroelectronics;
+ bh=UcNZO3xM3HHi7oyXBYoDxOmNpVA61++TVvetEk1ioYo=;
+ b=gpwzmxlAraMrYnBys2wZ1Z8KTScT7XhQJNfhOcWqyR4xrdrFY0QxI3nFNmcX4Dvcg2L1
+ qe0aInvsmFaTebTz8WWgiM8MpMmEU9tud1XvRYH7sfXBIedOePiS4y6XMwqNt4k7Onoy
+ 7gLOYBIKl3JkYG0hEZdI6TkhHxDP8l0NMkEf9R+StcHiKSRnQVoMkYwUANiAIGsZIQ5t
+ 5H4+dJbGpnE2ZzvSG4Qc/L8ZX5cpoQrsp8wniLKPZ9K1TIqRNMn8K4HeN60FTN5wNZfP
+ mOLBCXyMA0WAb1yDL6/8YMbUtoBcISPWEOUdliT4eLeZo8EW073xlJN/+wQEGRxIPNuw AA== 
+Received: from beta.dmz-eu.st.com (beta.dmz-eu.st.com [164.129.1.35])
+ by mx07-00178001.pphosted.com with ESMTP id 30fq11h5xj-1
+ (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
+ Tue, 21 Apr 2020 18:05:00 +0200
+Received: from euls16034.sgp.st.com (euls16034.sgp.st.com [10.75.44.20])
+ by beta.dmz-eu.st.com (STMicroelectronics) with ESMTP id 823EE10002A;
+ Tue, 21 Apr 2020 18:05:00 +0200 (CEST)
+Received: from Webmail-eu.st.com (sfhdag3node2.st.com [10.75.127.8])
+ by euls16034.sgp.st.com (STMicroelectronics) with ESMTP id 65877210F9B;
+ Tue, 21 Apr 2020 18:05:00 +0200 (CEST)
+Received: from lmecxl0912.tpe.st.com (10.75.127.47) by SFHDAG3NODE2.st.com
+ (10.75.127.8) with Microsoft SMTP Server (TLS) id 15.0.1347.2; Tue, 21 Apr
+ 2020 18:04:55 +0200
+To: Marek Vasut <marex@denx.de>, <linux-arm-kernel@lists.infradead.org>
+References: <20200401132237.60880-1-marex@denx.de>
+ <971b9046-2d77-fdc6-2916-8b02ffb601d5@denx.de>
+From: Alexandre Torgue <alexandre.torgue@st.com>
+Message-ID: <b73cb2bf-e50b-ce52-8e53-d8b72fa273f0@st.com>
+Date: Tue, 21 Apr 2020 18:04:47 +0200
+User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:68.0) Gecko/20100101
+ Thunderbird/68.4.1
 MIME-Version: 1.0
-X-Originating-IP: [192.168.40.202]
-X-Mailer: Zimbra 8.8.15_GA_3895 (ZimbraWebClient - GC81 (Linux)/8.8.15_GA_3895)
-Thread-Topic: remoteproc: remove rproc_elf32_sanity_check
-Thread-Index: u5IOaZRLFAz0NztRXGyHwYidGzKInw==
-Cc: Ohad Ben-Cohen <ohad@wizery.com>,
- linux-kernel <linux-kernel@vger.kernel.org>,
- linux-remoteproc <linux-remoteproc@vger.kernel.org>,
- Bjorn Andersson <bjorn.andersson@linaro.org>,
+In-Reply-To: <971b9046-2d77-fdc6-2916-8b02ffb601d5@denx.de>
+Content-Language: en-US
+X-Originating-IP: [10.75.127.47]
+X-ClientProxiedBy: SFHDAG5NODE3.st.com (10.75.127.15) To SFHDAG3NODE2.st.com
+ (10.75.127.8)
+X-Proofpoint-Virus-Version: vendor=fsecure engine=2.50.10434:6.0.138, 18.0.676
+ definitions=2020-04-21_06:2020-04-20,
+ 2020-04-21 signatures=0
+Cc: Patrick Delaunay <patrick.delaunay@st.com>,
+ linux-stm32@st-md-mailman.stormreply.com,
  Maxime Coquelin <mcoquelin.stm32@gmail.com>,
- linux-stm32 <linux-stm32@st-md-mailman.stormreply.com>,
- linux-arm-kernel <linux-arm-kernel@lists.infradead.org>
-Subject: Re: [Linux-stm32] [PATCH v2] remoteproc: remove
-	rproc_elf32_sanity_check
+ Manivannan Sadhasivam <manivannan.sadhasivam@linaro.org>
+Subject: Re: [Linux-stm32] [PATCH V4 00/22] ARM: dts: stm32: Repair AV96
+	board
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -70,112 +74,63 @@ List-Post: <mailto:linux-stm32@st-md-mailman.stormreply.com>
 List-Help: <mailto:linux-stm32-request@st-md-mailman.stormreply.com?subject=help>
 List-Subscribe: <https://st-md-mailman.stormreply.com/mailman/listinfo/linux-stm32>, 
  <mailto:linux-stm32-request@st-md-mailman.stormreply.com?subject=subscribe>
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: base64
+Content-Transfer-Encoding: 7bit
+Content-Type: text/plain; charset="us-ascii"; Format="flowed"
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
-SGkgQW5uYSwKCi0tLS0tIE9uIDIxIEFwciwgMjAyMCwgYXQgMTc6MzAsIHMtYW5uYSBzLWFubmFA
-dGkuY29tIHdyb3RlOgoKPiBIaSBDbGVtZW50LAo+IAo+IE9uIDMvMzEvMjAgMTA6MTMgQU0sIFN1
-bWFuIEFubmEgd3JvdGU6Cj4+IE9uIDMvMzEvMjAgMzozMyBBTSwgQ2xlbWVudCBMZWdlciB3cm90
-ZToKPj4+IFNpbmNlIGNoZWNrcyBhcmUgcHJlc2VudCBpbiB0aGUgcmVtb3RlcHJvYyBlbGYgbG9h
-ZGVyIGJlZm9yZSBjYWxsaW5nCj4+PiBkYV90b192YSwgbG9hZGluZyBhIGVsZjY0IHdpbGwgd29y
-ayBvbiAzMmJpdHMgZmxhdm9ycyBvZiBrZXJuZWwuCj4+PiBJbmRlZWQsIGlmIGEgc2VnbWVudCBz
-aXplIGlzIGxhcmdlciB0aGFuIHdoYXQgc2l6ZV90IGNhbiBob2xkLCB0aGUKPj4+IGxvYWRlciB3
-aWxsIHJldHVybiBhbiBlcnJvciBzbyB0aGUgZnVuY3Rpb25hbGl0eSBpcyBlcXVpdmFsZW50IHRv
-Cj4+PiB3aGF0IGV4aXN0cyB0b2RheS4KPj4+Cj4+PiBTaWduZWQtb2ZmLWJ5OiBDbGVtZW50IExl
-Z2VyIDxjbGVnZXJAa2FscmF5LmV1Pgo+PiAKPj4gQWNrZWQtYnk6IFN1bWFuIEFubmEgPHMtYW5u
-YUB0aS5jb20+Cj4gCj4gQ2FuIHlvdSByZXBvc3QgdGhpcyBhZnRlciByZWJhc2luZyBvbiB0b3Ag
-b2YgdGhlIHJwcm9jLW5leHQgYnJhbmNoCj4gd2hpY2ggaGFzIHRoZSBycHJvY19hbGxvYyByZWZh
-Y3RvcmluZyBjaGFuZ2VzIHB1c2hlZCBub3c/CgpZZXMsIEkgd2lsbCBkbyB0aGF0LgoKUmVnYXJk
-cywKCkNsw6ltZW50Cgo+IAo+IHJlZ2FyZHMKPiBTdW1hbgo+IAo+PiAKPj4gcmVnYXJkcwo+PiBT
-dW1hbgo+PiAKPj4+IC0tLQo+Pj4gQ2hhbmdlcyBmcm9tIHYxIC0+IHYyOgo+Pj4gICAtIFJlbW92
-ZSBwb3NzaWJpdHkgdG8gb3ZlcnJpZGUgc2FuaXR5X2NoZWNrIG9wZXJhdGlvbgo+Pj4KPj4+ICAg
-ZHJpdmVycy9yZW1vdGVwcm9jL3JlbW90ZXByb2NfY29yZS5jICAgICAgIHwgIDMgKy0tCj4+PiAg
-IGRyaXZlcnMvcmVtb3RlcHJvYy9yZW1vdGVwcm9jX2VsZl9sb2FkZXIuYyB8IDIxIC0tLS0tLS0t
-LS0tLS0tLS0tLS0tLQo+Pj4gICBkcml2ZXJzL3JlbW90ZXByb2MvcmVtb3RlcHJvY19pbnRlcm5h
-bC5oICAgfCAgMSAtCj4+PiAgIGRyaXZlcnMvcmVtb3RlcHJvYy9zdF9yZW1vdGVwcm9jLmMgICAg
-ICAgICB8ICAyICstCj4+PiAgIGRyaXZlcnMvcmVtb3RlcHJvYy9zdF9zbGltX3Jwcm9jLmMgICAg
-ICAgICB8ICAyICstCj4+PiAgIGRyaXZlcnMvcmVtb3RlcHJvYy9zdG0zMl9ycHJvYy5jICAgICAg
-ICAgICB8ICAyICstCj4+PiAgIDYgZmlsZXMgY2hhbmdlZCwgNCBpbnNlcnRpb25zKCspLCAyNyBk
-ZWxldGlvbnMoLSkKPj4+Cj4+PiBkaWZmIC0tZ2l0IGEvZHJpdmVycy9yZW1vdGVwcm9jL3JlbW90
-ZXByb2NfY29yZS5jCj4+PiBiL2RyaXZlcnMvcmVtb3RlcHJvYy9yZW1vdGVwcm9jX2NvcmUuYwo+
-Pj4gaW5kZXggYTlhYzFkMDFlMDliLi4xOTE1NjAwNDhjMWEgMTAwNjQ0Cj4+PiAtLS0gYS9kcml2
-ZXJzL3JlbW90ZXByb2MvcmVtb3RlcHJvY19jb3JlLmMKPj4+ICsrKyBiL2RyaXZlcnMvcmVtb3Rl
-cHJvYy9yZW1vdGVwcm9jX2NvcmUuYwo+Pj4gQEAgLTIwNjgsOCArMjA2OCw3IEBAIHN0cnVjdCBy
-cHJvYyAqcnByb2NfYWxsb2Moc3RydWN0IGRldmljZSAqZGV2LCBjb25zdCBjaGFyCj4+PiAqbmFt
-ZSwKPj4+ICAgCQlycHJvYy0+b3BzLT5sb2FkID0gcnByb2NfZWxmX2xvYWRfc2VnbWVudHM7Cj4+
-PiAgIAkJcnByb2MtPm9wcy0+cGFyc2VfZncgPSBycHJvY19lbGZfbG9hZF9yc2NfdGFibGU7Cj4+
-PiAgIAkJcnByb2MtPm9wcy0+ZmluZF9sb2FkZWRfcnNjX3RhYmxlID0gcnByb2NfZWxmX2ZpbmRf
-bG9hZGVkX3JzY190YWJsZTsKPj4+IC0JCWlmICghcnByb2MtPm9wcy0+c2FuaXR5X2NoZWNrKQo+
-Pj4gLQkJCXJwcm9jLT5vcHMtPnNhbml0eV9jaGVjayA9IHJwcm9jX2VsZjMyX3Nhbml0eV9jaGVj
-azsKPj4+ICsJCXJwcm9jLT5vcHMtPnNhbml0eV9jaGVjayA9IHJwcm9jX2VsZl9zYW5pdHlfY2hl
-Y2s7Cj4+PiAgIAkJcnByb2MtPm9wcy0+Z2V0X2Jvb3RfYWRkciA9IHJwcm9jX2VsZl9nZXRfYm9v
-dF9hZGRyOwo+Pj4gICAJfQo+Pj4gICAKPj4+IGRpZmYgLS1naXQgYS9kcml2ZXJzL3JlbW90ZXBy
-b2MvcmVtb3RlcHJvY19lbGZfbG9hZGVyLmMKPj4+IGIvZHJpdmVycy9yZW1vdGVwcm9jL3JlbW90
-ZXByb2NfZWxmX2xvYWRlci5jCj4+PiBpbmRleCAxNmUyYzQ5NmZkNDUuLjI5MDM0Zjk5ODk4ZCAx
-MDA2NDQKPj4+IC0tLSBhL2RyaXZlcnMvcmVtb3RlcHJvYy9yZW1vdGVwcm9jX2VsZl9sb2FkZXIu
-Ywo+Pj4gKysrIGIvZHJpdmVycy9yZW1vdGVwcm9jL3JlbW90ZXByb2NfZWxmX2xvYWRlci5jCj4+
-PiBAQCAtMTEyLDI3ICsxMTIsNiBAQCBpbnQgcnByb2NfZWxmX3Nhbml0eV9jaGVjayhzdHJ1Y3Qg
-cnByb2MgKnJwcm9jLCBjb25zdAo+Pj4gc3RydWN0IGZpcm13YXJlICpmdykKPj4+ICAgfQo+Pj4g
-ICBFWFBPUlRfU1lNQk9MKHJwcm9jX2VsZl9zYW5pdHlfY2hlY2spOwo+Pj4gICAKPj4+IC0vKioK
-Pj4+IC0gKiBycHJvY19lbGZfc2FuaXR5X2NoZWNrKCkgLSBTYW5pdHkgQ2hlY2sgRUxGMzIgZmly
-bXdhcmUgaW1hZ2UKPj4+IC0gKiBAcnByb2M6IHRoZSByZW1vdGUgcHJvY2Vzc29yIGhhbmRsZQo+
-Pj4gLSAqIEBmdzogdGhlIEVMRjMyIGZpcm13YXJlIGltYWdlCj4+PiAtICoKPj4+IC0gKiBNYWtl
-IHN1cmUgdGhpcyBmdyBpbWFnZSBpcyBzYW5lLgo+Pj4gLSAqLwo+Pj4gLWludCBycHJvY19lbGYz
-Ml9zYW5pdHlfY2hlY2soc3RydWN0IHJwcm9jICpycHJvYywgY29uc3Qgc3RydWN0IGZpcm13YXJl
-ICpmdykKPj4+IC17Cj4+PiAtCWludCByZXQgPSBycHJvY19lbGZfc2FuaXR5X2NoZWNrKHJwcm9j
-LCBmdyk7Cj4+PiAtCj4+PiAtCWlmIChyZXQpCj4+PiAtCQlyZXR1cm4gcmV0Owo+Pj4gLQo+Pj4g
-LQlpZiAoZndfZWxmX2dldF9jbGFzcyhmdykgPT0gRUxGQ0xBU1MzMikKPj4+IC0JCXJldHVybiAw
-Owo+Pj4gLQo+Pj4gLQlyZXR1cm4gLUVJTlZBTDsKPj4+IC19Cj4+PiAtRVhQT1JUX1NZTUJPTChy
-cHJvY19lbGYzMl9zYW5pdHlfY2hlY2spOwo+Pj4gLQo+Pj4gICAvKioKPj4+ICAgICogcnByb2Nf
-ZWxmX2dldF9ib290X2FkZHIoKSAtIEdldCBycHJvYydzIGJvb3QgYWRkcmVzcy4KPj4+ICAgICog
-QHJwcm9jOiB0aGUgcmVtb3RlIHByb2Nlc3NvciBoYW5kbGUKPj4+IGRpZmYgLS1naXQgYS9kcml2
-ZXJzL3JlbW90ZXByb2MvcmVtb3RlcHJvY19pbnRlcm5hbC5oCj4+PiBiL2RyaXZlcnMvcmVtb3Rl
-cHJvYy9yZW1vdGVwcm9jX2ludGVybmFsLmgKPj4+IGluZGV4IGIzODlkYzc5ZGE4MS4uMzE5OTQ3
-MTVmZDQzIDEwMDY0NAo+Pj4gLS0tIGEvZHJpdmVycy9yZW1vdGVwcm9jL3JlbW90ZXByb2NfaW50
-ZXJuYWwuaAo+Pj4gKysrIGIvZHJpdmVycy9yZW1vdGVwcm9jL3JlbW90ZXByb2NfaW50ZXJuYWwu
-aAo+Pj4gQEAgLTU0LDcgKzU0LDYgQEAgdm9pZCAqcnByb2NfZGFfdG9fdmEoc3RydWN0IHJwcm9j
-ICpycHJvYywgdTY0IGRhLCBzaXplX3QgbGVuKTsKPj4+ICAgcGh5c19hZGRyX3QgcnByb2NfdmFf
-dG9fcGEodm9pZCAqY3B1X2FkZHIpOwo+Pj4gICBpbnQgcnByb2NfdHJpZ2dlcl9yZWNvdmVyeShz
-dHJ1Y3QgcnByb2MgKnJwcm9jKTsKPj4+ICAgCj4+PiAtaW50IHJwcm9jX2VsZjMyX3Nhbml0eV9j
-aGVjayhzdHJ1Y3QgcnByb2MgKnJwcm9jLCBjb25zdCBzdHJ1Y3QgZmlybXdhcmUgKmZ3KTsKPj4+
-ICAgaW50IHJwcm9jX2VsZl9zYW5pdHlfY2hlY2soc3RydWN0IHJwcm9jICpycHJvYywgY29uc3Qg
-c3RydWN0IGZpcm13YXJlICpmdyk7Cj4+PiAgIHU2NCBycHJvY19lbGZfZ2V0X2Jvb3RfYWRkcihz
-dHJ1Y3QgcnByb2MgKnJwcm9jLCBjb25zdCBzdHJ1Y3QgZmlybXdhcmUgKmZ3KTsKPj4+ICAgaW50
-IHJwcm9jX2VsZl9sb2FkX3NlZ21lbnRzKHN0cnVjdCBycHJvYyAqcnByb2MsIGNvbnN0IHN0cnVj
-dCBmaXJtd2FyZSAqZncpOwo+Pj4gZGlmZiAtLWdpdCBhL2RyaXZlcnMvcmVtb3RlcHJvYy9zdF9y
-ZW1vdGVwcm9jLmMKPj4+IGIvZHJpdmVycy9yZW1vdGVwcm9jL3N0X3JlbW90ZXByb2MuYwo+Pj4g
-aW5kZXggYTZjYmZhNDUyNzY0Li5hMzI2OGQ5NWE1MGUgMTAwNjQ0Cj4+PiAtLS0gYS9kcml2ZXJz
-L3JlbW90ZXByb2Mvc3RfcmVtb3RlcHJvYy5jCj4+PiArKysgYi9kcml2ZXJzL3JlbW90ZXByb2Mv
-c3RfcmVtb3RlcHJvYy5jCj4+PiBAQCAtMjMzLDcgKzIzMyw3IEBAIHN0YXRpYyBjb25zdCBzdHJ1
-Y3QgcnByb2Nfb3BzIHN0X3Jwcm9jX29wcyA9IHsKPj4+ICAgCS5wYXJzZV9mdwkJPSBzdF9ycHJv
-Y19wYXJzZV9mdywKPj4+ICAgCS5sb2FkCQkJPSBycHJvY19lbGZfbG9hZF9zZWdtZW50cywKPj4+
-ICAgCS5maW5kX2xvYWRlZF9yc2NfdGFibGUJPSBycHJvY19lbGZfZmluZF9sb2FkZWRfcnNjX3Rh
-YmxlLAo+Pj4gLQkuc2FuaXR5X2NoZWNrCQk9IHJwcm9jX2VsZjMyX3Nhbml0eV9jaGVjaywKPj4+
-ICsJLnNhbml0eV9jaGVjawkJPSBycHJvY19lbGZfc2FuaXR5X2NoZWNrLAo+Pj4gICAJLmdldF9i
-b290X2FkZHIJCT0gcnByb2NfZWxmX2dldF9ib290X2FkZHIsCj4+PiAgIH07Cj4+PiAgIAo+Pj4g
-ZGlmZiAtLWdpdCBhL2RyaXZlcnMvcmVtb3RlcHJvYy9zdF9zbGltX3Jwcm9jLmMKPj4+IGIvZHJp
-dmVycy9yZW1vdGVwcm9jL3N0X3NsaW1fcnByb2MuYwo+Pj4gaW5kZXggM2NjYThiNjVhOGRiLi4w
-OWJjYjRkOGI5ZTAgMTAwNjQ0Cj4+PiAtLS0gYS9kcml2ZXJzL3JlbW90ZXByb2Mvc3Rfc2xpbV9y
-cHJvYy5jCj4+PiArKysgYi9kcml2ZXJzL3JlbW90ZXByb2Mvc3Rfc2xpbV9ycHJvYy5jCj4+PiBA
-QCAtMjAzLDcgKzIwMyw3IEBAIHN0YXRpYyBjb25zdCBzdHJ1Y3QgcnByb2Nfb3BzIHNsaW1fcnBy
-b2Nfb3BzID0gewo+Pj4gICAJLmRhX3RvX3ZhICAgICAgID0gc2xpbV9ycHJvY19kYV90b192YSwK
-Pj4+ICAgCS5nZXRfYm9vdF9hZGRyCT0gcnByb2NfZWxmX2dldF9ib290X2FkZHIsCj4+PiAgIAku
-bG9hZAkJPSBycHJvY19lbGZfbG9hZF9zZWdtZW50cywKPj4+IC0JLnNhbml0eV9jaGVjawk9IHJw
-cm9jX2VsZjMyX3Nhbml0eV9jaGVjaywKPj4+ICsJLnNhbml0eV9jaGVjawk9IHJwcm9jX2VsZl9z
-YW5pdHlfY2hlY2ssCj4+PiAgIH07Cj4+PiAgIAo+Pj4gICAvKioKPj4+IGRpZmYgLS1naXQgYS9k
-cml2ZXJzL3JlbW90ZXByb2Mvc3RtMzJfcnByb2MuYyBiL2RyaXZlcnMvcmVtb3RlcHJvYy9zdG0z
-Ml9ycHJvYy5jCj4+PiBpbmRleCA2YTY2ZGJmMmRmNDAuLjJlMDdhOTU0MzljOCAxMDA2NDQKPj4+
-IC0tLSBhL2RyaXZlcnMvcmVtb3RlcHJvYy9zdG0zMl9ycHJvYy5jCj4+PiArKysgYi9kcml2ZXJz
-L3JlbW90ZXByb2Mvc3RtMzJfcnByb2MuYwo+Pj4gQEAgLTUwNSw3ICs1MDUsNyBAQCBzdGF0aWMg
-c3RydWN0IHJwcm9jX29wcyBzdF9ycHJvY19vcHMgPSB7Cj4+PiAgIAkubG9hZAkJPSBycHJvY19l
-bGZfbG9hZF9zZWdtZW50cywKPj4+ICAgCS5wYXJzZV9mdwk9IHN0bTMyX3Jwcm9jX3BhcnNlX2Z3
-LAo+Pj4gICAJLmZpbmRfbG9hZGVkX3JzY190YWJsZSA9IHJwcm9jX2VsZl9maW5kX2xvYWRlZF9y
-c2NfdGFibGUsCj4+PiAtCS5zYW5pdHlfY2hlY2sJPSBycHJvY19lbGYzMl9zYW5pdHlfY2hlY2ss
-Cj4+PiArCS5zYW5pdHlfY2hlY2sJPSBycHJvY19lbGZfc2FuaXR5X2NoZWNrLAo+Pj4gICAJLmdl
-dF9ib290X2FkZHIJPSBycHJvY19lbGZfZ2V0X2Jvb3RfYWRkciwKPj4+ICAgfTsKPj4+ICAgCj4+
-PgpfX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fXwpMaW51eC1z
-dG0zMiBtYWlsaW5nIGxpc3QKTGludXgtc3RtMzJAc3QtbWQtbWFpbG1hbi5zdG9ybXJlcGx5LmNv
-bQpodHRwczovL3N0LW1kLW1haWxtYW4uc3Rvcm1yZXBseS5jb20vbWFpbG1hbi9saXN0aW5mby9s
-aW51eC1zdG0zMgo=
+Hi Marek
+
+On 4/21/20 12:30 PM, Marek Vasut wrote:
+> On 4/1/20 3:22 PM, Marek Vasut wrote:
+>> The AV96 board device tree is completely broken and does not match the
+>> hardware. This series fixes it up.
+>>
+>> Marek Vasut (22):
+>>    ARM: dts: stm32: Add alternate pinmux for ethernet RGMII
+>>    ARM: dts: stm32: Repair ethernet operation on AV96
+>>    ARM: dts: stm32: Add missing ethernet PHY reset on AV96
+>>    ARM: dts: stm32: Add missing ethernet PHY skews on AV96
+>>    ARM: dts: stm32: Add alternate pinmux for SDMMC1 direction pins
+>>    ARM: dts: stm32: Repair SDMMC1 operation on AV96
+>>    ARM: dts: stm32: Repair PMIC configuration on AV96
+>>    ARM: dts: stm32: Repair PMIC interrupt on AV96
+>>    ARM: dts: stm32: Add alternate pinmux for SDMMC2 pins 4-7
+>>    ARM: dts: stm32: Add eMMC attached to SDMMC2 on AV96
+>>    ARM: dts: stm32: Add QSPI NOR on AV96
+>>    ARM: dts: stm32: Add configuration EEPROM on AV96
+>>    ARM: dts: stm32: Add alternate pinmux for SDMMC3 pins
+>>    ARM: dts: stm32: Enable WiFi on AV96
+>>    ARM: dts: stm32: Add alternate pinmux for USART2 pins
+>>    ARM: dts: stm32: Enable Bluetooth on AV96
+>>    ARM: dts: stm32: Add alternate pinmux for LTDC pins
+>>    ARM: dts: stm32: Add bindings for HDMI video on AV96
+>>    ARM: dts: stm32: Add alternate pinmux for SAI2 pins
+>>    ARM: dts: stm32: Add bindings for audio on AV96
+>>    ARM: dts: stm32: Add bindings for USB on AV96
+>>    ARM: dts: stm32: Rename LEDs to match silkscreen on AV96
+>>
+>>   arch/arm/boot/dts/stm32mp15-pinctrl.dtsi    | 280 +++++++++++++++++
+>>   arch/arm/boot/dts/stm32mp157a-avenger96.dts | 324 ++++++++++++++++++--
+>>   2 files changed, 571 insertions(+), 33 deletions(-)
+> 
+> Alex, can you provide some review of this series ? It's been posted for
+> three weeks now.
+> 
+
+Yes, I was waiting for Mani's review first (and I was a bit busy sorry).
+
+All patches looks good for me. Maybe I'll squash some pinctrl patches to 
+decrease number of patches.
+
+One remaining questions about patch 7 ("Repair PMIC configuration on 
+AV96). I saw a discussion on u-boot thread with pascal P., explaining 
+that 800mv is not the minimal voltage acceptable for vddcore. What is 
+the status ?
+
+regards
+alex
+_______________________________________________
+Linux-stm32 mailing list
+Linux-stm32@st-md-mailman.stormreply.com
+https://st-md-mailman.stormreply.com/mailman/listinfo/linux-stm32
