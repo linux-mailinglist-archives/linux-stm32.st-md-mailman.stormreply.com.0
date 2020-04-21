@@ -2,59 +2,61 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id 2D13A1B2B2B
-	for <lists+linux-stm32@lfdr.de>; Tue, 21 Apr 2020 17:30:41 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 0D2561B2B4B
+	for <lists+linux-stm32@lfdr.de>; Tue, 21 Apr 2020 17:38:11 +0200 (CEST)
 Received: from ip-172-31-3-76.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id A64F5C36B0C;
-	Tue, 21 Apr 2020 15:30:40 +0000 (UTC)
-Received: from lelv0143.ext.ti.com (lelv0143.ext.ti.com [198.47.23.248])
- (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 215C1C36B0C;
+	Tue, 21 Apr 2020 15:38:09 +0000 (UTC)
+Received: from zimbra2.kalray.eu (zimbra2.kalray.eu [92.103.151.219])
+ (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 77F89C36B09
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id DCCD1C36B09
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Tue, 21 Apr 2020 15:30:38 +0000 (UTC)
-Received: from lelv0266.itg.ti.com ([10.180.67.225])
- by lelv0143.ext.ti.com (8.15.2/8.15.2) with ESMTP id 03LFULav048654;
- Tue, 21 Apr 2020 10:30:21 -0500
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=ti.com;
- s=ti-com-17Q1; t=1587483021;
- bh=SqS4rr3BfxnSzLgPx1JoL8+qkQ9DLPAefk5MFj5dqPM=;
- h=Subject:From:To:CC:References:Date:In-Reply-To;
- b=yH6aMjiH+Ot5jJ512oB3wK+NLRKenM5UmRmRAXmjQ6bjskhiprJSZecsDr2KH0rAd
- Ducw0AKThPdP4noyB1/f85TcoybuWFv0gERmlVmZd4+SJVPt5xlDlWjr4nd4OCtI8o
- MMId2FSvS8yvnjYzfdwlzZgiqMIhnbU2eTGjjR3M=
-Received: from DFLE108.ent.ti.com (dfle108.ent.ti.com [10.64.6.29])
- by lelv0266.itg.ti.com (8.15.2/8.15.2) with ESMTPS id 03LFUKLQ071348
- (version=TLSv1.2 cipher=AES256-GCM-SHA384 bits=256 verify=FAIL);
- Tue, 21 Apr 2020 10:30:20 -0500
-Received: from DFLE113.ent.ti.com (10.64.6.34) by DFLE108.ent.ti.com
- (10.64.6.29) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_128_CBC_SHA256_P256) id 15.1.1847.3; Tue, 21
- Apr 2020 10:30:20 -0500
-Received: from fllv0040.itg.ti.com (10.64.41.20) by DFLE113.ent.ti.com
- (10.64.6.34) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_128_CBC_SHA256_P256) id 15.1.1847.3 via
- Frontend Transport; Tue, 21 Apr 2020 10:30:20 -0500
-Received: from [10.250.70.56] (ileax41-snat.itg.ti.com [10.172.224.153])
- by fllv0040.itg.ti.com (8.15.2/8.15.2) with ESMTP id 03LFUJ6P067959;
- Tue, 21 Apr 2020 10:30:19 -0500
-From: Suman Anna <s-anna@ti.com>
-To: Clement Leger <cleger@kalray.eu>, Ohad Ben-Cohen <ohad@wizery.com>, Bjorn
- Andersson <bjorn.andersson@linaro.org>, Patrice Chotard
- <patrice.chotard@st.com>, Maxime Coquelin <mcoquelin.stm32@gmail.com>,
- Alexandre Torgue <alexandre.torgue@st.com>
+ Tue, 21 Apr 2020 15:38:07 +0000 (UTC)
+Received: from localhost (localhost [127.0.0.1])
+ by zimbra2.kalray.eu (Postfix) with ESMTP id 49B5427E02FA;
+ Tue, 21 Apr 2020 17:38:07 +0200 (CEST)
+Received: from zimbra2.kalray.eu ([127.0.0.1])
+ by localhost (zimbra2.kalray.eu [127.0.0.1]) (amavisd-new, port 10032)
+ with ESMTP id NFeVXngl6t0K; Tue, 21 Apr 2020 17:38:06 +0200 (CEST)
+Received: from localhost (localhost [127.0.0.1])
+ by zimbra2.kalray.eu (Postfix) with ESMTP id 56BCA27E0A7E;
+ Tue, 21 Apr 2020 17:38:06 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.10.3 zimbra2.kalray.eu 56BCA27E0A7E
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kalray.eu;
+ s=32AE1B44-9502-11E5-BA35-3734643DEF29; t=1587483486;
+ bh=E8Ef7Y9juD0L2yAlkBR135rMMoMAmO27lR7T+Rur6Qs=;
+ h=Date:From:To:Message-ID:MIME-Version;
+ b=WG5rI4nsdyZ/n6I/DKusgV+iXVV+IPnkZ25CsrFG8CMWbSpcqpA2APdPsmewJfxSS
+ nHHhSmAIOVf+JEYh4cIqTM9KOfJcvgywN2R19TyeC6boSRDVpK26QVhmTbB6ncy//v
+ ebHQOSRZAuUEmg41DPI6+pDzXKq/NaViizxTWJkI=
+X-Virus-Scanned: amavisd-new at zimbra2.kalray.eu
+Received: from zimbra2.kalray.eu ([127.0.0.1])
+ by localhost (zimbra2.kalray.eu [127.0.0.1]) (amavisd-new, port 10026)
+ with ESMTP id UhMRJdWpDRmw; Tue, 21 Apr 2020 17:38:06 +0200 (CEST)
+Received: from zimbra2.kalray.eu (localhost [127.0.0.1])
+ by zimbra2.kalray.eu (Postfix) with ESMTP id 3765427E02FA;
+ Tue, 21 Apr 2020 17:38:06 +0200 (CEST)
+Date: Tue, 21 Apr 2020 17:38:06 +0200 (CEST)
+From: =?utf-8?Q?Cl=C3=A9ment?= Leger <cleger@kalray.eu>
+To: s-anna <s-anna@ti.com>
+Message-ID: <777435415.16656480.1587483486065.JavaMail.zimbra@kalray.eu>
+In-Reply-To: <a7994631-7a63-5477-df70-e40b995fe14f@ti.com>
 References: <20200331083336.7459-1-cleger@kalray.eu>
  <0fc07250-c62c-cb10-58e5-04ccdd6ee176@ti.com>
-Message-ID: <a7994631-7a63-5477-df70-e40b995fe14f@ti.com>
-Date: Tue, 21 Apr 2020 10:30:19 -0500
-User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:68.0) Gecko/20100101
- Thunderbird/68.7.0
+ <a7994631-7a63-5477-df70-e40b995fe14f@ti.com>
 MIME-Version: 1.0
-In-Reply-To: <0fc07250-c62c-cb10-58e5-04ccdd6ee176@ti.com>
-Content-Language: en-US
-X-EXCLAIMER-MD-CONFIG: e1e8a2fd-e40a-4ac6-ac9b-f7e9cc9ee180
-Cc: linux-remoteproc@vger.kernel.org, linux-kernel@vger.kernel.org,
- linux-arm-kernel@lists.infradead.org, linux-stm32@st-md-mailman.stormreply.com
+X-Originating-IP: [192.168.40.202]
+X-Mailer: Zimbra 8.8.15_GA_3895 (ZimbraWebClient - GC81 (Linux)/8.8.15_GA_3895)
+Thread-Topic: remoteproc: remove rproc_elf32_sanity_check
+Thread-Index: u5IOaZRLFAz0NztRXGyHwYidGzKInw==
+Cc: Ohad Ben-Cohen <ohad@wizery.com>,
+ linux-kernel <linux-kernel@vger.kernel.org>,
+ linux-remoteproc <linux-remoteproc@vger.kernel.org>,
+ Bjorn Andersson <bjorn.andersson@linaro.org>,
+ Maxime Coquelin <mcoquelin.stm32@gmail.com>,
+ linux-stm32 <linux-stm32@st-md-mailman.stormreply.com>,
+ linux-arm-kernel <linux-arm-kernel@lists.infradead.org>
 Subject: Re: [Linux-stm32] [PATCH v2] remoteproc: remove
 	rproc_elf32_sanity_check
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
@@ -68,148 +70,112 @@ List-Post: <mailto:linux-stm32@st-md-mailman.stormreply.com>
 List-Help: <mailto:linux-stm32-request@st-md-mailman.stormreply.com?subject=help>
 List-Subscribe: <https://st-md-mailman.stormreply.com/mailman/listinfo/linux-stm32>, 
  <mailto:linux-stm32-request@st-md-mailman.stormreply.com?subject=subscribe>
-Content-Transfer-Encoding: 7bit
-Content-Type: text/plain; charset="us-ascii"; Format="flowed"
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: base64
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
-Hi Clement,
-
-On 3/31/20 10:13 AM, Suman Anna wrote:
-> On 3/31/20 3:33 AM, Clement Leger wrote:
->> Since checks are present in the remoteproc elf loader before calling
->> da_to_va, loading a elf64 will work on 32bits flavors of kernel.
->> Indeed, if a segment size is larger than what size_t can hold, the
->> loader will return an error so the functionality is equivalent to
->> what exists today.
->>
->> Signed-off-by: Clement Leger <cleger@kalray.eu>
-> 
-> Acked-by: Suman Anna <s-anna@ti.com>
-
-Can you repost this after rebasing on top of the rproc-next branch
-which has the rproc_alloc refactoring changes pushed now?
-
-regards
-Suman
-
-> 
-> regards
-> Suman
-> 
->> ---
->> Changes from v1 -> v2:
->>   - Remove possibity to override sanity_check operation
->>
->>   drivers/remoteproc/remoteproc_core.c       |  3 +--
->>   drivers/remoteproc/remoteproc_elf_loader.c | 21 ---------------------
->>   drivers/remoteproc/remoteproc_internal.h   |  1 -
->>   drivers/remoteproc/st_remoteproc.c         |  2 +-
->>   drivers/remoteproc/st_slim_rproc.c         |  2 +-
->>   drivers/remoteproc/stm32_rproc.c           |  2 +-
->>   6 files changed, 4 insertions(+), 27 deletions(-)
->>
->> diff --git a/drivers/remoteproc/remoteproc_core.c b/drivers/remoteproc/remoteproc_core.c
->> index a9ac1d01e09b..191560048c1a 100644
->> --- a/drivers/remoteproc/remoteproc_core.c
->> +++ b/drivers/remoteproc/remoteproc_core.c
->> @@ -2068,8 +2068,7 @@ struct rproc *rproc_alloc(struct device *dev, const char *name,
->>   		rproc->ops->load = rproc_elf_load_segments;
->>   		rproc->ops->parse_fw = rproc_elf_load_rsc_table;
->>   		rproc->ops->find_loaded_rsc_table = rproc_elf_find_loaded_rsc_table;
->> -		if (!rproc->ops->sanity_check)
->> -			rproc->ops->sanity_check = rproc_elf32_sanity_check;
->> +		rproc->ops->sanity_check = rproc_elf_sanity_check;
->>   		rproc->ops->get_boot_addr = rproc_elf_get_boot_addr;
->>   	}
->>   
->> diff --git a/drivers/remoteproc/remoteproc_elf_loader.c b/drivers/remoteproc/remoteproc_elf_loader.c
->> index 16e2c496fd45..29034f99898d 100644
->> --- a/drivers/remoteproc/remoteproc_elf_loader.c
->> +++ b/drivers/remoteproc/remoteproc_elf_loader.c
->> @@ -112,27 +112,6 @@ int rproc_elf_sanity_check(struct rproc *rproc, const struct firmware *fw)
->>   }
->>   EXPORT_SYMBOL(rproc_elf_sanity_check);
->>   
->> -/**
->> - * rproc_elf_sanity_check() - Sanity Check ELF32 firmware image
->> - * @rproc: the remote processor handle
->> - * @fw: the ELF32 firmware image
->> - *
->> - * Make sure this fw image is sane.
->> - */
->> -int rproc_elf32_sanity_check(struct rproc *rproc, const struct firmware *fw)
->> -{
->> -	int ret = rproc_elf_sanity_check(rproc, fw);
->> -
->> -	if (ret)
->> -		return ret;
->> -
->> -	if (fw_elf_get_class(fw) == ELFCLASS32)
->> -		return 0;
->> -
->> -	return -EINVAL;
->> -}
->> -EXPORT_SYMBOL(rproc_elf32_sanity_check);
->> -
->>   /**
->>    * rproc_elf_get_boot_addr() - Get rproc's boot address.
->>    * @rproc: the remote processor handle
->> diff --git a/drivers/remoteproc/remoteproc_internal.h b/drivers/remoteproc/remoteproc_internal.h
->> index b389dc79da81..31994715fd43 100644
->> --- a/drivers/remoteproc/remoteproc_internal.h
->> +++ b/drivers/remoteproc/remoteproc_internal.h
->> @@ -54,7 +54,6 @@ void *rproc_da_to_va(struct rproc *rproc, u64 da, size_t len);
->>   phys_addr_t rproc_va_to_pa(void *cpu_addr);
->>   int rproc_trigger_recovery(struct rproc *rproc);
->>   
->> -int rproc_elf32_sanity_check(struct rproc *rproc, const struct firmware *fw);
->>   int rproc_elf_sanity_check(struct rproc *rproc, const struct firmware *fw);
->>   u64 rproc_elf_get_boot_addr(struct rproc *rproc, const struct firmware *fw);
->>   int rproc_elf_load_segments(struct rproc *rproc, const struct firmware *fw);
->> diff --git a/drivers/remoteproc/st_remoteproc.c b/drivers/remoteproc/st_remoteproc.c
->> index a6cbfa452764..a3268d95a50e 100644
->> --- a/drivers/remoteproc/st_remoteproc.c
->> +++ b/drivers/remoteproc/st_remoteproc.c
->> @@ -233,7 +233,7 @@ static const struct rproc_ops st_rproc_ops = {
->>   	.parse_fw		= st_rproc_parse_fw,
->>   	.load			= rproc_elf_load_segments,
->>   	.find_loaded_rsc_table	= rproc_elf_find_loaded_rsc_table,
->> -	.sanity_check		= rproc_elf32_sanity_check,
->> +	.sanity_check		= rproc_elf_sanity_check,
->>   	.get_boot_addr		= rproc_elf_get_boot_addr,
->>   };
->>   
->> diff --git a/drivers/remoteproc/st_slim_rproc.c b/drivers/remoteproc/st_slim_rproc.c
->> index 3cca8b65a8db..09bcb4d8b9e0 100644
->> --- a/drivers/remoteproc/st_slim_rproc.c
->> +++ b/drivers/remoteproc/st_slim_rproc.c
->> @@ -203,7 +203,7 @@ static const struct rproc_ops slim_rproc_ops = {
->>   	.da_to_va       = slim_rproc_da_to_va,
->>   	.get_boot_addr	= rproc_elf_get_boot_addr,
->>   	.load		= rproc_elf_load_segments,
->> -	.sanity_check	= rproc_elf32_sanity_check,
->> +	.sanity_check	= rproc_elf_sanity_check,
->>   };
->>   
->>   /**
->> diff --git a/drivers/remoteproc/stm32_rproc.c b/drivers/remoteproc/stm32_rproc.c
->> index 6a66dbf2df40..2e07a95439c8 100644
->> --- a/drivers/remoteproc/stm32_rproc.c
->> +++ b/drivers/remoteproc/stm32_rproc.c
->> @@ -505,7 +505,7 @@ static struct rproc_ops st_rproc_ops = {
->>   	.load		= rproc_elf_load_segments,
->>   	.parse_fw	= stm32_rproc_parse_fw,
->>   	.find_loaded_rsc_table = rproc_elf_find_loaded_rsc_table,
->> -	.sanity_check	= rproc_elf32_sanity_check,
->> +	.sanity_check	= rproc_elf_sanity_check,
->>   	.get_boot_addr	= rproc_elf_get_boot_addr,
->>   };
->>   
->>
-> 
-
-_______________________________________________
-Linux-stm32 mailing list
-Linux-stm32@st-md-mailman.stormreply.com
-https://st-md-mailman.stormreply.com/mailman/listinfo/linux-stm32
+SGkgQW5uYSwKCi0tLS0tIE9uIDIxIEFwciwgMjAyMCwgYXQgMTc6MzAsIHMtYW5uYSBzLWFubmFA
+dGkuY29tIHdyb3RlOgoKPiBIaSBDbGVtZW50LAo+IAo+IE9uIDMvMzEvMjAgMTA6MTMgQU0sIFN1
+bWFuIEFubmEgd3JvdGU6Cj4+IE9uIDMvMzEvMjAgMzozMyBBTSwgQ2xlbWVudCBMZWdlciB3cm90
+ZToKPj4+IFNpbmNlIGNoZWNrcyBhcmUgcHJlc2VudCBpbiB0aGUgcmVtb3RlcHJvYyBlbGYgbG9h
+ZGVyIGJlZm9yZSBjYWxsaW5nCj4+PiBkYV90b192YSwgbG9hZGluZyBhIGVsZjY0IHdpbGwgd29y
+ayBvbiAzMmJpdHMgZmxhdm9ycyBvZiBrZXJuZWwuCj4+PiBJbmRlZWQsIGlmIGEgc2VnbWVudCBz
+aXplIGlzIGxhcmdlciB0aGFuIHdoYXQgc2l6ZV90IGNhbiBob2xkLCB0aGUKPj4+IGxvYWRlciB3
+aWxsIHJldHVybiBhbiBlcnJvciBzbyB0aGUgZnVuY3Rpb25hbGl0eSBpcyBlcXVpdmFsZW50IHRv
+Cj4+PiB3aGF0IGV4aXN0cyB0b2RheS4KPj4+Cj4+PiBTaWduZWQtb2ZmLWJ5OiBDbGVtZW50IExl
+Z2VyIDxjbGVnZXJAa2FscmF5LmV1Pgo+PiAKPj4gQWNrZWQtYnk6IFN1bWFuIEFubmEgPHMtYW5u
+YUB0aS5jb20+Cj4gCj4gQ2FuIHlvdSByZXBvc3QgdGhpcyBhZnRlciByZWJhc2luZyBvbiB0b3Ag
+b2YgdGhlIHJwcm9jLW5leHQgYnJhbmNoCj4gd2hpY2ggaGFzIHRoZSBycHJvY19hbGxvYyByZWZh
+Y3RvcmluZyBjaGFuZ2VzIHB1c2hlZCBub3c/CgpZZXMsIEkgd2lsbCBkbyB0aGF0LgoKUmVnYXJk
+cywKCkNsw6ltZW50Cgo+IAo+IHJlZ2FyZHMKPiBTdW1hbgo+IAo+PiAKPj4gcmVnYXJkcwo+PiBT
+dW1hbgo+PiAKPj4+IC0tLQo+Pj4gQ2hhbmdlcyBmcm9tIHYxIC0+IHYyOgo+Pj4gICAtIFJlbW92
+ZSBwb3NzaWJpdHkgdG8gb3ZlcnJpZGUgc2FuaXR5X2NoZWNrIG9wZXJhdGlvbgo+Pj4KPj4+ICAg
+ZHJpdmVycy9yZW1vdGVwcm9jL3JlbW90ZXByb2NfY29yZS5jICAgICAgIHwgIDMgKy0tCj4+PiAg
+IGRyaXZlcnMvcmVtb3RlcHJvYy9yZW1vdGVwcm9jX2VsZl9sb2FkZXIuYyB8IDIxIC0tLS0tLS0t
+LS0tLS0tLS0tLS0tLQo+Pj4gICBkcml2ZXJzL3JlbW90ZXByb2MvcmVtb3RlcHJvY19pbnRlcm5h
+bC5oICAgfCAgMSAtCj4+PiAgIGRyaXZlcnMvcmVtb3RlcHJvYy9zdF9yZW1vdGVwcm9jLmMgICAg
+ICAgICB8ICAyICstCj4+PiAgIGRyaXZlcnMvcmVtb3RlcHJvYy9zdF9zbGltX3Jwcm9jLmMgICAg
+ICAgICB8ICAyICstCj4+PiAgIGRyaXZlcnMvcmVtb3RlcHJvYy9zdG0zMl9ycHJvYy5jICAgICAg
+ICAgICB8ICAyICstCj4+PiAgIDYgZmlsZXMgY2hhbmdlZCwgNCBpbnNlcnRpb25zKCspLCAyNyBk
+ZWxldGlvbnMoLSkKPj4+Cj4+PiBkaWZmIC0tZ2l0IGEvZHJpdmVycy9yZW1vdGVwcm9jL3JlbW90
+ZXByb2NfY29yZS5jCj4+PiBiL2RyaXZlcnMvcmVtb3RlcHJvYy9yZW1vdGVwcm9jX2NvcmUuYwo+
+Pj4gaW5kZXggYTlhYzFkMDFlMDliLi4xOTE1NjAwNDhjMWEgMTAwNjQ0Cj4+PiAtLS0gYS9kcml2
+ZXJzL3JlbW90ZXByb2MvcmVtb3RlcHJvY19jb3JlLmMKPj4+ICsrKyBiL2RyaXZlcnMvcmVtb3Rl
+cHJvYy9yZW1vdGVwcm9jX2NvcmUuYwo+Pj4gQEAgLTIwNjgsOCArMjA2OCw3IEBAIHN0cnVjdCBy
+cHJvYyAqcnByb2NfYWxsb2Moc3RydWN0IGRldmljZSAqZGV2LCBjb25zdCBjaGFyCj4+PiAqbmFt
+ZSwKPj4+ICAgCQlycHJvYy0+b3BzLT5sb2FkID0gcnByb2NfZWxmX2xvYWRfc2VnbWVudHM7Cj4+
+PiAgIAkJcnByb2MtPm9wcy0+cGFyc2VfZncgPSBycHJvY19lbGZfbG9hZF9yc2NfdGFibGU7Cj4+
+PiAgIAkJcnByb2MtPm9wcy0+ZmluZF9sb2FkZWRfcnNjX3RhYmxlID0gcnByb2NfZWxmX2ZpbmRf
+bG9hZGVkX3JzY190YWJsZTsKPj4+IC0JCWlmICghcnByb2MtPm9wcy0+c2FuaXR5X2NoZWNrKQo+
+Pj4gLQkJCXJwcm9jLT5vcHMtPnNhbml0eV9jaGVjayA9IHJwcm9jX2VsZjMyX3Nhbml0eV9jaGVj
+azsKPj4+ICsJCXJwcm9jLT5vcHMtPnNhbml0eV9jaGVjayA9IHJwcm9jX2VsZl9zYW5pdHlfY2hl
+Y2s7Cj4+PiAgIAkJcnByb2MtPm9wcy0+Z2V0X2Jvb3RfYWRkciA9IHJwcm9jX2VsZl9nZXRfYm9v
+dF9hZGRyOwo+Pj4gICAJfQo+Pj4gICAKPj4+IGRpZmYgLS1naXQgYS9kcml2ZXJzL3JlbW90ZXBy
+b2MvcmVtb3RlcHJvY19lbGZfbG9hZGVyLmMKPj4+IGIvZHJpdmVycy9yZW1vdGVwcm9jL3JlbW90
+ZXByb2NfZWxmX2xvYWRlci5jCj4+PiBpbmRleCAxNmUyYzQ5NmZkNDUuLjI5MDM0Zjk5ODk4ZCAx
+MDA2NDQKPj4+IC0tLSBhL2RyaXZlcnMvcmVtb3RlcHJvYy9yZW1vdGVwcm9jX2VsZl9sb2FkZXIu
+Ywo+Pj4gKysrIGIvZHJpdmVycy9yZW1vdGVwcm9jL3JlbW90ZXByb2NfZWxmX2xvYWRlci5jCj4+
+PiBAQCAtMTEyLDI3ICsxMTIsNiBAQCBpbnQgcnByb2NfZWxmX3Nhbml0eV9jaGVjayhzdHJ1Y3Qg
+cnByb2MgKnJwcm9jLCBjb25zdAo+Pj4gc3RydWN0IGZpcm13YXJlICpmdykKPj4+ICAgfQo+Pj4g
+ICBFWFBPUlRfU1lNQk9MKHJwcm9jX2VsZl9zYW5pdHlfY2hlY2spOwo+Pj4gICAKPj4+IC0vKioK
+Pj4+IC0gKiBycHJvY19lbGZfc2FuaXR5X2NoZWNrKCkgLSBTYW5pdHkgQ2hlY2sgRUxGMzIgZmly
+bXdhcmUgaW1hZ2UKPj4+IC0gKiBAcnByb2M6IHRoZSByZW1vdGUgcHJvY2Vzc29yIGhhbmRsZQo+
+Pj4gLSAqIEBmdzogdGhlIEVMRjMyIGZpcm13YXJlIGltYWdlCj4+PiAtICoKPj4+IC0gKiBNYWtl
+IHN1cmUgdGhpcyBmdyBpbWFnZSBpcyBzYW5lLgo+Pj4gLSAqLwo+Pj4gLWludCBycHJvY19lbGYz
+Ml9zYW5pdHlfY2hlY2soc3RydWN0IHJwcm9jICpycHJvYywgY29uc3Qgc3RydWN0IGZpcm13YXJl
+ICpmdykKPj4+IC17Cj4+PiAtCWludCByZXQgPSBycHJvY19lbGZfc2FuaXR5X2NoZWNrKHJwcm9j
+LCBmdyk7Cj4+PiAtCj4+PiAtCWlmIChyZXQpCj4+PiAtCQlyZXR1cm4gcmV0Owo+Pj4gLQo+Pj4g
+LQlpZiAoZndfZWxmX2dldF9jbGFzcyhmdykgPT0gRUxGQ0xBU1MzMikKPj4+IC0JCXJldHVybiAw
+Owo+Pj4gLQo+Pj4gLQlyZXR1cm4gLUVJTlZBTDsKPj4+IC19Cj4+PiAtRVhQT1JUX1NZTUJPTChy
+cHJvY19lbGYzMl9zYW5pdHlfY2hlY2spOwo+Pj4gLQo+Pj4gICAvKioKPj4+ICAgICogcnByb2Nf
+ZWxmX2dldF9ib290X2FkZHIoKSAtIEdldCBycHJvYydzIGJvb3QgYWRkcmVzcy4KPj4+ICAgICog
+QHJwcm9jOiB0aGUgcmVtb3RlIHByb2Nlc3NvciBoYW5kbGUKPj4+IGRpZmYgLS1naXQgYS9kcml2
+ZXJzL3JlbW90ZXByb2MvcmVtb3RlcHJvY19pbnRlcm5hbC5oCj4+PiBiL2RyaXZlcnMvcmVtb3Rl
+cHJvYy9yZW1vdGVwcm9jX2ludGVybmFsLmgKPj4+IGluZGV4IGIzODlkYzc5ZGE4MS4uMzE5OTQ3
+MTVmZDQzIDEwMDY0NAo+Pj4gLS0tIGEvZHJpdmVycy9yZW1vdGVwcm9jL3JlbW90ZXByb2NfaW50
+ZXJuYWwuaAo+Pj4gKysrIGIvZHJpdmVycy9yZW1vdGVwcm9jL3JlbW90ZXByb2NfaW50ZXJuYWwu
+aAo+Pj4gQEAgLTU0LDcgKzU0LDYgQEAgdm9pZCAqcnByb2NfZGFfdG9fdmEoc3RydWN0IHJwcm9j
+ICpycHJvYywgdTY0IGRhLCBzaXplX3QgbGVuKTsKPj4+ICAgcGh5c19hZGRyX3QgcnByb2NfdmFf
+dG9fcGEodm9pZCAqY3B1X2FkZHIpOwo+Pj4gICBpbnQgcnByb2NfdHJpZ2dlcl9yZWNvdmVyeShz
+dHJ1Y3QgcnByb2MgKnJwcm9jKTsKPj4+ICAgCj4+PiAtaW50IHJwcm9jX2VsZjMyX3Nhbml0eV9j
+aGVjayhzdHJ1Y3QgcnByb2MgKnJwcm9jLCBjb25zdCBzdHJ1Y3QgZmlybXdhcmUgKmZ3KTsKPj4+
+ICAgaW50IHJwcm9jX2VsZl9zYW5pdHlfY2hlY2soc3RydWN0IHJwcm9jICpycHJvYywgY29uc3Qg
+c3RydWN0IGZpcm13YXJlICpmdyk7Cj4+PiAgIHU2NCBycHJvY19lbGZfZ2V0X2Jvb3RfYWRkcihz
+dHJ1Y3QgcnByb2MgKnJwcm9jLCBjb25zdCBzdHJ1Y3QgZmlybXdhcmUgKmZ3KTsKPj4+ICAgaW50
+IHJwcm9jX2VsZl9sb2FkX3NlZ21lbnRzKHN0cnVjdCBycHJvYyAqcnByb2MsIGNvbnN0IHN0cnVj
+dCBmaXJtd2FyZSAqZncpOwo+Pj4gZGlmZiAtLWdpdCBhL2RyaXZlcnMvcmVtb3RlcHJvYy9zdF9y
+ZW1vdGVwcm9jLmMKPj4+IGIvZHJpdmVycy9yZW1vdGVwcm9jL3N0X3JlbW90ZXByb2MuYwo+Pj4g
+aW5kZXggYTZjYmZhNDUyNzY0Li5hMzI2OGQ5NWE1MGUgMTAwNjQ0Cj4+PiAtLS0gYS9kcml2ZXJz
+L3JlbW90ZXByb2Mvc3RfcmVtb3RlcHJvYy5jCj4+PiArKysgYi9kcml2ZXJzL3JlbW90ZXByb2Mv
+c3RfcmVtb3RlcHJvYy5jCj4+PiBAQCAtMjMzLDcgKzIzMyw3IEBAIHN0YXRpYyBjb25zdCBzdHJ1
+Y3QgcnByb2Nfb3BzIHN0X3Jwcm9jX29wcyA9IHsKPj4+ICAgCS5wYXJzZV9mdwkJPSBzdF9ycHJv
+Y19wYXJzZV9mdywKPj4+ICAgCS5sb2FkCQkJPSBycHJvY19lbGZfbG9hZF9zZWdtZW50cywKPj4+
+ICAgCS5maW5kX2xvYWRlZF9yc2NfdGFibGUJPSBycHJvY19lbGZfZmluZF9sb2FkZWRfcnNjX3Rh
+YmxlLAo+Pj4gLQkuc2FuaXR5X2NoZWNrCQk9IHJwcm9jX2VsZjMyX3Nhbml0eV9jaGVjaywKPj4+
+ICsJLnNhbml0eV9jaGVjawkJPSBycHJvY19lbGZfc2FuaXR5X2NoZWNrLAo+Pj4gICAJLmdldF9i
+b290X2FkZHIJCT0gcnByb2NfZWxmX2dldF9ib290X2FkZHIsCj4+PiAgIH07Cj4+PiAgIAo+Pj4g
+ZGlmZiAtLWdpdCBhL2RyaXZlcnMvcmVtb3RlcHJvYy9zdF9zbGltX3Jwcm9jLmMKPj4+IGIvZHJp
+dmVycy9yZW1vdGVwcm9jL3N0X3NsaW1fcnByb2MuYwo+Pj4gaW5kZXggM2NjYThiNjVhOGRiLi4w
+OWJjYjRkOGI5ZTAgMTAwNjQ0Cj4+PiAtLS0gYS9kcml2ZXJzL3JlbW90ZXByb2Mvc3Rfc2xpbV9y
+cHJvYy5jCj4+PiArKysgYi9kcml2ZXJzL3JlbW90ZXByb2Mvc3Rfc2xpbV9ycHJvYy5jCj4+PiBA
+QCAtMjAzLDcgKzIwMyw3IEBAIHN0YXRpYyBjb25zdCBzdHJ1Y3QgcnByb2Nfb3BzIHNsaW1fcnBy
+b2Nfb3BzID0gewo+Pj4gICAJLmRhX3RvX3ZhICAgICAgID0gc2xpbV9ycHJvY19kYV90b192YSwK
+Pj4+ICAgCS5nZXRfYm9vdF9hZGRyCT0gcnByb2NfZWxmX2dldF9ib290X2FkZHIsCj4+PiAgIAku
+bG9hZAkJPSBycHJvY19lbGZfbG9hZF9zZWdtZW50cywKPj4+IC0JLnNhbml0eV9jaGVjawk9IHJw
+cm9jX2VsZjMyX3Nhbml0eV9jaGVjaywKPj4+ICsJLnNhbml0eV9jaGVjawk9IHJwcm9jX2VsZl9z
+YW5pdHlfY2hlY2ssCj4+PiAgIH07Cj4+PiAgIAo+Pj4gICAvKioKPj4+IGRpZmYgLS1naXQgYS9k
+cml2ZXJzL3JlbW90ZXByb2Mvc3RtMzJfcnByb2MuYyBiL2RyaXZlcnMvcmVtb3RlcHJvYy9zdG0z
+Ml9ycHJvYy5jCj4+PiBpbmRleCA2YTY2ZGJmMmRmNDAuLjJlMDdhOTU0MzljOCAxMDA2NDQKPj4+
+IC0tLSBhL2RyaXZlcnMvcmVtb3RlcHJvYy9zdG0zMl9ycHJvYy5jCj4+PiArKysgYi9kcml2ZXJz
+L3JlbW90ZXByb2Mvc3RtMzJfcnByb2MuYwo+Pj4gQEAgLTUwNSw3ICs1MDUsNyBAQCBzdGF0aWMg
+c3RydWN0IHJwcm9jX29wcyBzdF9ycHJvY19vcHMgPSB7Cj4+PiAgIAkubG9hZAkJPSBycHJvY19l
+bGZfbG9hZF9zZWdtZW50cywKPj4+ICAgCS5wYXJzZV9mdwk9IHN0bTMyX3Jwcm9jX3BhcnNlX2Z3
+LAo+Pj4gICAJLmZpbmRfbG9hZGVkX3JzY190YWJsZSA9IHJwcm9jX2VsZl9maW5kX2xvYWRlZF9y
+c2NfdGFibGUsCj4+PiAtCS5zYW5pdHlfY2hlY2sJPSBycHJvY19lbGYzMl9zYW5pdHlfY2hlY2ss
+Cj4+PiArCS5zYW5pdHlfY2hlY2sJPSBycHJvY19lbGZfc2FuaXR5X2NoZWNrLAo+Pj4gICAJLmdl
+dF9ib290X2FkZHIJPSBycHJvY19lbGZfZ2V0X2Jvb3RfYWRkciwKPj4+ICAgfTsKPj4+ICAgCj4+
+PgpfX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fXwpMaW51eC1z
+dG0zMiBtYWlsaW5nIGxpc3QKTGludXgtc3RtMzJAc3QtbWQtbWFpbG1hbi5zdG9ybXJlcGx5LmNv
+bQpodHRwczovL3N0LW1kLW1haWxtYW4uc3Rvcm1yZXBseS5jb20vbWFpbG1hbi9saXN0aW5mby9s
+aW51eC1zdG0zMgo=
