@@ -2,38 +2,38 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id 4DA771B407C
+	by mail.lfdr.de (Postfix) with ESMTPS id 5A1891B407D
 	for <lists+linux-stm32@lfdr.de>; Wed, 22 Apr 2020 12:46:40 +0200 (CEST)
 Received: from ip-172-31-3-76.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 13C56C36B11;
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 218DAC36B14;
 	Wed, 22 Apr 2020 10:46:40 +0000 (UTC)
-Received: from mail-out.m-online.net (mail-out.m-online.net [212.18.0.10])
+Received: from mail-out.m-online.net (mail-out.m-online.net [212.18.0.9])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 7C564C36B0A
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id E440BC36B0A
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Wed, 22 Apr 2020 10:46:36 +0000 (UTC)
+ Wed, 22 Apr 2020 10:46:37 +0000 (UTC)
 Received: from frontend01.mail.m-online.net (unknown [192.168.8.182])
- by mail-out.m-online.net (Postfix) with ESMTP id 496cYm1Hjrz1rt3g;
- Wed, 22 Apr 2020 12:46:36 +0200 (CEST)
+ by mail-out.m-online.net (Postfix) with ESMTP id 496cYn4DGCz1qs3D;
+ Wed, 22 Apr 2020 12:46:37 +0200 (CEST)
 Received: from localhost (dynscan1.mnet-online.de [192.168.6.70])
- by mail.m-online.net (Postfix) with ESMTP id 496cYm0WDqz1qr40;
- Wed, 22 Apr 2020 12:46:36 +0200 (CEST)
+ by mail.m-online.net (Postfix) with ESMTP id 496cYn3TCYz1qr40;
+ Wed, 22 Apr 2020 12:46:37 +0200 (CEST)
 X-Virus-Scanned: amavisd-new at mnet-online.de
 Received: from mail.mnet-online.de ([192.168.8.182])
  by localhost (dynscan1.mail.m-online.net [192.168.6.70]) (amavisd-new,
  port 10024)
- with ESMTP id oztOSuGfIJ32; Wed, 22 Apr 2020 12:46:34 +0200 (CEST)
-X-Auth-Info: 0NZoi3M/0CTzuPSPGKZgFZ2HkXwFSb55HACbb7q/610=
+ with ESMTP id nAi4rAdKp-vr; Wed, 22 Apr 2020 12:46:36 +0200 (CEST)
+X-Auth-Info: uca6Lbbpi/VF4oSBhPVXV5nxXwbPtGm1rIwr/5rE2Pc=
 Received: from desktop.lan (ip-86-49-35-8.net.upcbroadband.cz [86.49.35.8])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
  by mail.mnet-online.de (Postfix) with ESMTPSA;
- Wed, 22 Apr 2020 12:46:34 +0200 (CEST)
+ Wed, 22 Apr 2020 12:46:36 +0200 (CEST)
 From: Marek Vasut <marex@denx.de>
 To: linux-arm-kernel@lists.infradead.org
-Date: Wed, 22 Apr 2020 12:46:00 +0200
-Message-Id: <20200422104613.96944-8-marex@denx.de>
+Date: Wed, 22 Apr 2020 12:46:01 +0200
+Message-Id: <20200422104613.96944-9-marex@denx.de>
 X-Mailer: git-send-email 2.25.1
 In-Reply-To: <20200422104613.96944-1-marex@denx.de>
 References: <20200422104613.96944-1-marex@denx.de>
@@ -42,8 +42,8 @@ Cc: Marek Vasut <marex@denx.de>, Patrick Delaunay <patrick.delaunay@st.com>,
  Maxime Coquelin <mcoquelin.stm32@gmail.com>,
  Manivannan Sadhasivam <manivannan.sadhasivam@linaro.org>,
  linux-stm32@st-md-mailman.stormreply.com
-Subject: [Linux-stm32] [PATCH V5 07/20] ARM: dts: stm32: Add alternate
-	pinmux for SDMMC pins
+Subject: [Linux-stm32] [PATCH V5 08/20] ARM: dts: stm32: Repair SDMMC1
+	operation on AV96
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -60,9 +60,11 @@ Content-Transfer-Encoding: 7bit
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
-Add another mux option for SDMMC1_D123DIR direction pins, SDMMC2 pins 4..7,
-and SDMMC3 pins PD5_SDMMC3_D2 and PD0_SDMMC3_CMD, this is used on AV96 board.
+The SD uses different pinmux for the D123DIRline, use such a pinmux,
+otherwise there is a pinmux collision on the AV96. Add missing SD
+voltage regulator switch.
 
+Reviewed-by: Manivannan Sadhasivam <manivannan.sadhasivam@linaro.org>
 Signed-off-by: Marek Vasut <marex@denx.de>
 Cc: Alexandre Torgue <alexandre.torgue@st.com>
 Cc: Manivannan Sadhasivam <manivannan.sadhasivam@linaro.org>
@@ -72,141 +74,60 @@ Cc: Patrick Delaunay <patrick.delaunay@st.com>
 Cc: linux-stm32@st-md-mailman.stormreply.com
 To: linux-arm-kernel@lists.infradead.org
 ---
-V2: Fix SDMMC1_D123DIR AF, should be AF11
+V2: Disable SDR104, it seems unstable thus far
 V3: No change
 V4: Rebase on stm32-next
-V5: Squash three patches doing three things into one:
-    ARM: dts: stm32: Add alternate pinmux for SDMMC1 direction pins
-    ARM: dts: stm32: Add alternate pinmux for SDMMC2 pins 4-7
-    ARM: dts: stm32: Add alternate pinmux for SDMMC3 pins
+V5: Reorder this patch after the PMIC patches
 ---
- arch/arm/boot/dts/stm32mp15-pinctrl.dtsi | 99 ++++++++++++++++++++++++
- 1 file changed, 99 insertions(+)
+ arch/arm/boot/dts/stm32mp157a-avenger96.dts | 21 ++++++++++++++++++---
+ 1 file changed, 18 insertions(+), 3 deletions(-)
 
-diff --git a/arch/arm/boot/dts/stm32mp15-pinctrl.dtsi b/arch/arm/boot/dts/stm32mp15-pinctrl.dtsi
-index 6fce6133d644..0f9a6b1325f9 100644
---- a/arch/arm/boot/dts/stm32mp15-pinctrl.dtsi
-+++ b/arch/arm/boot/dts/stm32mp15-pinctrl.dtsi
-@@ -1084,6 +1084,30 @@ pins {
+diff --git a/arch/arm/boot/dts/stm32mp157a-avenger96.dts b/arch/arm/boot/dts/stm32mp157a-avenger96.dts
+index 8198e22d81e7..1219e2b35c50 100644
+--- a/arch/arm/boot/dts/stm32mp157a-avenger96.dts
++++ b/arch/arm/boot/dts/stm32mp157a-avenger96.dts
+@@ -78,6 +78,20 @@ led6 {
  		};
  	};
  
-+	sdmmc1_dir_pins_b: sdmmc1-dir-1 {
-+		pins1 {
-+			pinmux = <STM32_PINMUX('F', 2, AF11)>, /* SDMMC1_D0DIR */
-+				 <STM32_PINMUX('E', 14, AF11)>, /* SDMMC1_D123DIR */
-+				 <STM32_PINMUX('B', 9, AF11)>; /* SDMMC1_CDIR */
-+			slew-rate = <1>;
-+			drive-push-pull;
-+			bias-pull-up;
-+		};
-+		pins2{
-+			pinmux = <STM32_PINMUX('E', 4, AF8)>; /* SDMMC1_CKIN */
-+			bias-pull-up;
-+		};
++	sd_switch: regulator-sd_switch {
++		compatible = "regulator-gpio";
++		regulator-name = "sd_switch";
++		regulator-min-microvolt = <1800000>;
++		regulator-max-microvolt = <2900000>;
++		regulator-type = "voltage";
++		regulator-always-on;
++
++		gpios = <&gpioi 5 GPIO_ACTIVE_HIGH>;
++		gpios-states = <0>;
++		states = <1800000 0x1>,
++			 <2900000 0x0>;
 +	};
 +
-+	sdmmc1_dir_sleep_pins_b: sdmmc1-dir-sleep-1 {
-+		pins {
-+			pinmux = <STM32_PINMUX('F', 2, ANALOG)>, /* SDMMC1_D0DIR */
-+				 <STM32_PINMUX('E', 14, ANALOG)>, /* SDMMC1_D123DIR */
-+				 <STM32_PINMUX('B', 9, ANALOG)>, /* SDMMC1_CDIR */
-+				 <STM32_PINMUX('E', 4, ANALOG)>; /* SDMMC1_CKIN */
-+		};
-+	};
-+
- 	sdmmc2_b4_pins_a: sdmmc2-b4-0 {
- 		pins1 {
- 			pinmux = <STM32_PINMUX('B', 14, AF9)>, /* SDMMC2_D0 */
-@@ -1223,6 +1247,27 @@ pins {
- 		};
- 	};
+ 	/* Enpirion EP3A8LQI U2 on the DHCOR */
+ 	vdd_io: regulator-buck-io {
+ 		compatible = "regulator-fixed";
+@@ -310,9 +324,9 @@ &rtc {
  
-+	sdmmc2_d47_pins_c: sdmmc2-d47-2 {
-+		pins {
-+			pinmux = <STM32_PINMUX('A', 8, AF9)>, /* SDMMC2_D4 */
-+				 <STM32_PINMUX('A', 15, AF9)>, /* SDMMC2_D5 */
-+				 <STM32_PINMUX('C', 6, AF10)>, /* SDMMC2_D6 */
-+				 <STM32_PINMUX('C', 7, AF10)>; /* SDMMC2_D7 */
-+			slew-rate = <1>;
-+			drive-push-pull;
-+			bias-pull-up;
-+		};
-+	};
-+
-+	sdmmc2_d47_sleep_pins_c: sdmmc2-d47-sleep-2 {
-+		pins {
-+			pinmux = <STM32_PINMUX('A', 8, ANALOG)>, /* SDMMC2_D4 */
-+				 <STM32_PINMUX('A', 15, ANALOG)>, /* SDMMC2_D5 */
-+				 <STM32_PINMUX('C', 6, ANALOG)>, /* SDMMC2_D6 */
-+				 <STM32_PINMUX('C', 7, ANALOG)>; /* SDMMC2_D7 */
-+		};
-+	};
-+
- 	sdmmc3_b4_pins_a: sdmmc3-b4-0 {
- 		pins1 {
- 			pinmux = <STM32_PINMUX('F', 0, AF9)>, /* SDMMC3_D0 */
-@@ -1277,6 +1322,60 @@ pins {
- 		};
- 	};
+ &sdmmc1 {
+ 	pinctrl-names = "default", "opendrain", "sleep";
+-	pinctrl-0 = <&sdmmc1_b4_pins_a &sdmmc1_dir_pins_a>;
+-	pinctrl-1 = <&sdmmc1_b4_od_pins_a>;
+-	pinctrl-2 = <&sdmmc1_b4_sleep_pins_a>;
++	pinctrl-0 = <&sdmmc1_b4_pins_a &sdmmc1_dir_pins_b>;
++	pinctrl-1 = <&sdmmc1_b4_od_pins_a &sdmmc1_dir_pins_b>;
++	pinctrl-2 = <&sdmmc1_b4_sleep_pins_a &sdmmc1_dir_sleep_pins_b>;
+ 	cd-gpios = <&gpioi 8 (GPIO_ACTIVE_LOW | GPIO_PULL_UP)>;
+ 	disable-wp;
+ 	st,sig-dir;
+@@ -320,6 +334,7 @@ &sdmmc1 {
+ 	st,use-ckin;
+ 	bus-width = <4>;
+ 	vmmc-supply = <&vdd_sd>;
++	vqmmc-supply = <&sd_switch>;
+ 	status = "okay";
+ };
  
-+	sdmmc3_b4_pins_b: sdmmc3-b4-1 {
-+		pins1 {
-+			pinmux = <STM32_PINMUX('F', 0, AF9)>, /* SDMMC3_D0 */
-+				 <STM32_PINMUX('F', 4, AF9)>, /* SDMMC3_D1 */
-+				 <STM32_PINMUX('D', 5, AF10)>, /* SDMMC3_D2 */
-+				 <STM32_PINMUX('D', 7, AF10)>, /* SDMMC3_D3 */
-+				 <STM32_PINMUX('D', 0, AF10)>; /* SDMMC3_CMD */
-+			slew-rate = <1>;
-+			drive-push-pull;
-+			bias-pull-up;
-+		};
-+		pins2 {
-+			pinmux = <STM32_PINMUX('G', 15, AF10)>; /* SDMMC3_CK */
-+			slew-rate = <2>;
-+			drive-push-pull;
-+			bias-pull-up;
-+		};
-+	};
-+
-+	sdmmc3_b4_od_pins_b: sdmmc3-b4-od-1 {
-+		pins1 {
-+			pinmux = <STM32_PINMUX('F', 0, AF9)>, /* SDMMC3_D0 */
-+				 <STM32_PINMUX('F', 4, AF9)>, /* SDMMC3_D1 */
-+				 <STM32_PINMUX('D', 5, AF10)>, /* SDMMC3_D2 */
-+				 <STM32_PINMUX('D', 7, AF10)>; /* SDMMC3_D3 */
-+			slew-rate = <1>;
-+			drive-push-pull;
-+			bias-pull-up;
-+		};
-+		pins2 {
-+			pinmux = <STM32_PINMUX('G', 15, AF10)>; /* SDMMC3_CK */
-+			slew-rate = <2>;
-+			drive-push-pull;
-+			bias-pull-up;
-+		};
-+		pins3 {
-+			pinmux = <STM32_PINMUX('D', 0, AF10)>; /* SDMMC2_CMD */
-+			slew-rate = <1>;
-+			drive-open-drain;
-+			bias-pull-up;
-+		};
-+	};
-+
-+	sdmmc3_b4_sleep_pins_b: sdmmc3-b4-sleep-1 {
-+		pins {
-+			pinmux = <STM32_PINMUX('F', 0, ANALOG)>, /* SDMMC3_D0 */
-+				 <STM32_PINMUX('F', 4, ANALOG)>, /* SDMMC3_D1 */
-+				 <STM32_PINMUX('D', 5, ANALOG)>, /* SDMMC3_D2 */
-+				 <STM32_PINMUX('D', 7, ANALOG)>, /* SDMMC3_D3 */
-+				 <STM32_PINMUX('G', 15, ANALOG)>, /* SDMMC3_CK */
-+				 <STM32_PINMUX('D', 0, ANALOG)>; /* SDMMC3_CMD */
-+		};
-+	};
-+
- 	spdifrx_pins_a: spdifrx-0 {
- 		pins {
- 			pinmux = <STM32_PINMUX('G', 12, AF8)>; /* SPDIF_IN1 */
 -- 
 2.25.1
 
