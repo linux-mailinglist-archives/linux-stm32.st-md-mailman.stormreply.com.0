@@ -2,38 +2,38 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id 64A111B407A
-	for <lists+linux-stm32@lfdr.de>; Wed, 22 Apr 2020 12:46:39 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 3C18D1B407B
+	for <lists+linux-stm32@lfdr.de>; Wed, 22 Apr 2020 12:46:40 +0200 (CEST)
 Received: from ip-172-31-3-76.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 307E9C36B0C;
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id A5926C36B0F;
 	Wed, 22 Apr 2020 10:46:39 +0000 (UTC)
 Received: from mail-out.m-online.net (mail-out.m-online.net [212.18.0.9])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 7FEACC36B0B
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id DE8BCC36B15
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Wed, 22 Apr 2020 10:46:33 +0000 (UTC)
+ Wed, 22 Apr 2020 10:46:34 +0000 (UTC)
 Received: from frontend01.mail.m-online.net (unknown [192.168.8.182])
- by mail-out.m-online.net (Postfix) with ESMTP id 496cYj1TWRz1qs3x;
- Wed, 22 Apr 2020 12:46:33 +0200 (CEST)
+ by mail-out.m-online.net (Postfix) with ESMTP id 496cYk3zp7z1qs3y;
+ Wed, 22 Apr 2020 12:46:34 +0200 (CEST)
 Received: from localhost (dynscan1.mnet-online.de [192.168.6.70])
- by mail.m-online.net (Postfix) with ESMTP id 496cYj0cwRz1qql5;
- Wed, 22 Apr 2020 12:46:33 +0200 (CEST)
+ by mail.m-online.net (Postfix) with ESMTP id 496cYk32Gkz1qr40;
+ Wed, 22 Apr 2020 12:46:34 +0200 (CEST)
 X-Virus-Scanned: amavisd-new at mnet-online.de
 Received: from mail.mnet-online.de ([192.168.8.182])
  by localhost (dynscan1.mail.m-online.net [192.168.6.70]) (amavisd-new,
  port 10024)
- with ESMTP id jyIy1-tQIl0P; Wed, 22 Apr 2020 12:46:32 +0200 (CEST)
-X-Auth-Info: 9JdKiwZyiqaagkxr6FvdGQZIR4NUtwAtRwEMDKWLuKE=
+ with ESMTP id rgmKW6cXs3CT; Wed, 22 Apr 2020 12:46:33 +0200 (CEST)
+X-Auth-Info: ynYWQ/YBF2J9c9aNT93enoXp4Vc2KB7wBPRXFe6guNk=
 Received: from desktop.lan (ip-86-49-35-8.net.upcbroadband.cz [86.49.35.8])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
  by mail.mnet-online.de (Postfix) with ESMTPSA;
- Wed, 22 Apr 2020 12:46:31 +0200 (CEST)
+ Wed, 22 Apr 2020 12:46:33 +0200 (CEST)
 From: Marek Vasut <marex@denx.de>
 To: linux-arm-kernel@lists.infradead.org
-Date: Wed, 22 Apr 2020 12:45:58 +0200
-Message-Id: <20200422104613.96944-6-marex@denx.de>
+Date: Wed, 22 Apr 2020 12:45:59 +0200
+Message-Id: <20200422104613.96944-7-marex@denx.de>
 X-Mailer: git-send-email 2.25.1
 In-Reply-To: <20200422104613.96944-1-marex@denx.de>
 References: <20200422104613.96944-1-marex@denx.de>
@@ -42,8 +42,8 @@ Cc: Marek Vasut <marex@denx.de>, Patrick Delaunay <patrick.delaunay@st.com>,
  Maxime Coquelin <mcoquelin.stm32@gmail.com>,
  Manivannan Sadhasivam <manivannan.sadhasivam@linaro.org>,
  linux-stm32@st-md-mailman.stormreply.com
-Subject: [Linux-stm32] [PATCH V5 05/20] ARM: dts: stm32: Add missing
-	ethernet PHY reset on AV96
+Subject: [Linux-stm32] [PATCH V5 06/20] ARM: dts: stm32: Add missing
+	ethernet PHY skews on AV96
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -60,7 +60,8 @@ Content-Transfer-Encoding: 7bit
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
-Add PHY reset GPIO on AV96 ethernet PHY.
+The KS9031 PHY supports configurable PHY skews to compensate for
+the board routing. Fill in the correct values.
 
 Reviewed-by: Manivannan Sadhasivam <manivannan.sadhasivam@linaro.org>
 Signed-off-by: Marek Vasut <marex@denx.de>
@@ -73,27 +74,38 @@ Cc: linux-stm32@st-md-mailman.stormreply.com
 To: linux-arm-kernel@lists.infradead.org
 ---
 V2: No change
-V3: Drop phy-reset-duration
+V3: No change
 V4: Rebase on stm32-next
-V5: Add reset delay
+V5: No change
 ---
- arch/arm/boot/dts/stm32mp157a-avenger96.dts | 3 +++
- 1 file changed, 3 insertions(+)
+ arch/arm/boot/dts/stm32mp157a-avenger96.dts | 14 ++++++++++++++
+ 1 file changed, 14 insertions(+)
 
 diff --git a/arch/arm/boot/dts/stm32mp157a-avenger96.dts b/arch/arm/boot/dts/stm32mp157a-avenger96.dts
-index 3c9161d0bc2c..4c31c8f4db7e 100644
+index 4c31c8f4db7e..8198e22d81e7 100644
 --- a/arch/arm/boot/dts/stm32mp157a-avenger96.dts
 +++ b/arch/arm/boot/dts/stm32mp157a-avenger96.dts
-@@ -103,6 +103,9 @@ mdio0 {
- 		#address-cells = <1>;
- 		#size-cells = <0>;
- 		compatible = "snps,dwmac-mdio";
-+		reset-gpios = <&gpioz 2 GPIO_ACTIVE_LOW>;
-+		reset-delay-us = <1000>;
-+
+@@ -108,6 +108,20 @@ mdio0 {
+ 
  		phy0: ethernet-phy@7 {
  			reg = <7>;
++
++			rxc-skew-ps = <1500>;
++			rxdv-skew-ps = <540>;
++			rxd0-skew-ps = <420>;
++			rxd1-skew-ps = <420>;
++			rxd2-skew-ps = <420>;
++			rxd3-skew-ps = <420>;
++
++			txc-skew-ps = <1440>;
++			txen-skew-ps = <540>;
++			txd0-skew-ps = <420>;
++			txd1-skew-ps = <420>;
++			txd2-skew-ps = <420>;
++			txd3-skew-ps = <420>;
  		};
+ 	};
+ };
 -- 
 2.25.1
 
