@@ -2,38 +2,38 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id 208F41B4088
-	for <lists+linux-stm32@lfdr.de>; Wed, 22 Apr 2020 12:46:52 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id A56201B408E
+	for <lists+linux-stm32@lfdr.de>; Wed, 22 Apr 2020 12:46:53 +0200 (CEST)
 Received: from ip-172-31-3-76.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id D984DC36B0E;
-	Wed, 22 Apr 2020 10:46:51 +0000 (UTC)
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id E3B05C36B11;
+	Wed, 22 Apr 2020 10:46:52 +0000 (UTC)
 Received: from mail-out.m-online.net (mail-out.m-online.net [212.18.0.9])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 1F888C36B0A
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id A4BACC36B09
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Wed, 22 Apr 2020 10:46:50 +0000 (UTC)
+ Wed, 22 Apr 2020 10:46:51 +0000 (UTC)
 Received: from frontend01.mail.m-online.net (unknown [192.168.8.182])
- by mail-out.m-online.net (Postfix) with ESMTP id 496cZ15fsqz1qs3x;
- Wed, 22 Apr 2020 12:46:49 +0200 (CEST)
+ by mail-out.m-online.net (Postfix) with ESMTP id 496cZ32FD5z1qs3k;
+ Wed, 22 Apr 2020 12:46:51 +0200 (CEST)
 Received: from localhost (dynscan1.mnet-online.de [192.168.6.70])
- by mail.m-online.net (Postfix) with ESMTP id 496cZ15SP6z1qql5;
- Wed, 22 Apr 2020 12:46:49 +0200 (CEST)
+ by mail.m-online.net (Postfix) with ESMTP id 496cZ31zzvz1qql5;
+ Wed, 22 Apr 2020 12:46:51 +0200 (CEST)
 X-Virus-Scanned: amavisd-new at mnet-online.de
 Received: from mail.mnet-online.de ([192.168.8.182])
  by localhost (dynscan1.mail.m-online.net [192.168.6.70]) (amavisd-new,
  port 10024)
- with ESMTP id ekDpZHwKExh9; Wed, 22 Apr 2020 12:46:48 +0200 (CEST)
-X-Auth-Info: aD6/eUjd5c+hwLbKyDgdXbgLlDCB4M9qv03Ed4Ja+ms=
+ with ESMTP id LXYGse23kfRo; Wed, 22 Apr 2020 12:46:49 +0200 (CEST)
+X-Auth-Info: 19kG0rPfPOOSQ1C7ifdgYPiF5lbYc+Il+8ZapZBABAI=
 Received: from desktop.lan (ip-86-49-35-8.net.upcbroadband.cz [86.49.35.8])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
  by mail.mnet-online.de (Postfix) with ESMTPSA;
- Wed, 22 Apr 2020 12:46:48 +0200 (CEST)
+ Wed, 22 Apr 2020 12:46:49 +0200 (CEST)
 From: Marek Vasut <marex@denx.de>
 To: linux-arm-kernel@lists.infradead.org
-Date: Wed, 22 Apr 2020 12:46:10 +0200
-Message-Id: <20200422104613.96944-18-marex@denx.de>
+Date: Wed, 22 Apr 2020 12:46:11 +0200
+Message-Id: <20200422104613.96944-19-marex@denx.de>
 X-Mailer: git-send-email 2.25.1
 In-Reply-To: <20200422104613.96944-1-marex@denx.de>
 References: <20200422104613.96944-1-marex@denx.de>
@@ -42,8 +42,8 @@ Cc: Marek Vasut <marex@denx.de>, Patrick Delaunay <patrick.delaunay@st.com>,
  Maxime Coquelin <mcoquelin.stm32@gmail.com>,
  Manivannan Sadhasivam <manivannan.sadhasivam@linaro.org>,
  linux-stm32@st-md-mailman.stormreply.com
-Subject: [Linux-stm32] [PATCH V5 17/20] ARM: dts: stm32: Add alternate
-	pinmux for SAI2 pins
+Subject: [Linux-stm32] [PATCH V5 18/20] ARM: dts: stm32: Add bindings for
+	audio on AV96
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -60,7 +60,8 @@ Content-Transfer-Encoding: 7bit
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
-Add new mux option for SAI2 pins, this is used on AV96 board.
+Fill in the bindings for HDMI audio on AV96, this permits audio playback
+via attached HDMI device if such device supports it.
 
 Signed-off-by: Marek Vasut <marex@denx.de>
 Cc: Alexandre Torgue <alexandre.torgue@st.com>
@@ -71,62 +72,78 @@ Cc: Patrick Delaunay <patrick.delaunay@st.com>
 Cc: linux-stm32@st-md-mailman.stormreply.com
 To: linux-arm-kernel@lists.infradead.org
 ---
-V4: New patch
+V2: No change
+V3: No change
+V4: No change
 V5: No change
 ---
- arch/arm/boot/dts/stm32mp15-pinctrl.dtsi | 32 ++++++++++++++++++++++++
- 1 file changed, 32 insertions(+)
+ arch/arm/boot/dts/stm32mp157a-avenger96.dts | 39 +++++++++++++++++++++
+ 1 file changed, 39 insertions(+)
 
-diff --git a/arch/arm/boot/dts/stm32mp15-pinctrl.dtsi b/arch/arm/boot/dts/stm32mp15-pinctrl.dtsi
-index c3a7402860af..aeddcaadb829 100644
---- a/arch/arm/boot/dts/stm32mp15-pinctrl.dtsi
-+++ b/arch/arm/boot/dts/stm32mp15-pinctrl.dtsi
-@@ -1028,6 +1028,25 @@ pins {
+diff --git a/arch/arm/boot/dts/stm32mp157a-avenger96.dts b/arch/arm/boot/dts/stm32mp157a-avenger96.dts
+index 85116e192b61..f04ad8dc6fc6 100644
+--- a/arch/arm/boot/dts/stm32mp157a-avenger96.dts
++++ b/arch/arm/boot/dts/stm32mp157a-avenger96.dts
+@@ -98,6 +98,13 @@ sd_switch: regulator-sd_switch {
+ 			 <2900000 0x0>;
+ 	};
+ 
++	sound {
++		compatible = "audio-graph-card";
++		label = "STM32MP1-AV96-HDMI";
++		dais = <&sai2a_port>;
++		status = "okay";
++	};
++
+ 	/* Enpirion EP3A8LQI U2 on the DHCOR */
+ 	vdd_io: regulator-buck-io {
+ 		compatible = "regulator-fixed";
+@@ -361,6 +368,13 @@ adv7513_out: endpoint {
+ 					remote-endpoint = <&hdmi_con>;
+ 				};
+ 			};
++
++			port@2 {
++				reg = <2>;
++				adv7513_i2s0: endpoint {
++					remote-endpoint = <&sai2a_endpoint>;
++				};
++			};
  		};
  	};
  
-+	sai2a_pins_c: sai2a-4 {
-+		pins {
-+			pinmux = <STM32_PINMUX('D', 13, AF10)>, /* SAI2_SCK_A */
-+				 <STM32_PINMUX('D', 11, AF10)>, /* SAI2_SD_A */
-+				 <STM32_PINMUX('D', 12, AF10)>; /* SAI2_FS_A */
-+			slew-rate = <0>;
-+			drive-push-pull;
-+			bias-disable;
-+		};
-+	};
-+
-+	sai2a_sleep_pins_c: sai2a-5 {
-+		pins {
-+			pinmux = <STM32_PINMUX('D', 13, ANALOG)>, /* SAI2_SCK_A */
-+				 <STM32_PINMUX('D', 11, ANALOG)>, /* SAI2_SD_A */
-+				 <STM32_PINMUX('D', 12, ANALOG)>; /* SAI2_FS_A */
-+		};
-+	};
-+
- 	sai2b_pins_a: sai2b-0 {
- 		pins1 {
- 			pinmux = <STM32_PINMUX('E', 12, AF10)>, /* SAI2_SCK_B */
-@@ -1065,6 +1084,19 @@ pins {
- 		};
- 	};
+@@ -425,6 +439,31 @@ &rtc {
+ 	status = "okay";
+ };
  
-+	sai2b_pins_c: sai2a-4 {
-+		pins1 {
-+			pinmux = <STM32_PINMUX('F', 11, AF10)>; /* SAI2_SD_B */
-+			bias-disable;
++&sai2 {
++	clocks = <&rcc SAI2>, <&rcc PLL3_Q>, <&rcc PLL3_R>;
++	pinctrl-names = "default", "sleep";
++	pinctrl-0 = <&sai2a_pins_c>;
++	pinctrl-1 = <&sai2a_sleep_pins_c>;
++	clock-names = "pclk", "x8k", "x11k";
++	status = "okay";
++
++	sai2a: audio-controller@4400b004 {
++		#clock-cells = <0>;
++		dma-names = "tx";
++		clocks = <&rcc SAI2_K>;
++		clock-names = "sai_ck";
++		status = "okay";
++
++		sai2a_port: port {
++			sai2a_endpoint: endpoint {
++				remote-endpoint = <&adv7513_i2s0>;
++				format = "i2s";
++				mclk-fs = <256>;
++			};
 +		};
 +	};
++};
 +
-+	sai2b_sleep_pins_c: sai2a-sleep-5 {
-+		pins {
-+			pinmux = <STM32_PINMUX('F', 11, ANALOG)>; /* SAI2_SD_B */
-+		};
-+	};
-+
- 	sai4a_pins_a: sai4a-0 {
- 		pins {
- 			pinmux = <STM32_PINMUX('B', 5, AF10)>; /* SAI4_SD_A */
+ &sdmmc1 {
+ 	pinctrl-names = "default", "opendrain", "sleep";
+ 	pinctrl-0 = <&sdmmc1_b4_pins_a &sdmmc1_dir_pins_b>;
 -- 
 2.25.1
 
