@@ -2,38 +2,38 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id 5A1891B407D
-	for <lists+linux-stm32@lfdr.de>; Wed, 22 Apr 2020 12:46:40 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 5FA4A1B407E
+	for <lists+linux-stm32@lfdr.de>; Wed, 22 Apr 2020 12:46:41 +0200 (CEST)
 Received: from ip-172-31-3-76.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 218DAC36B14;
-	Wed, 22 Apr 2020 10:46:40 +0000 (UTC)
-Received: from mail-out.m-online.net (mail-out.m-online.net [212.18.0.9])
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 2C0CFC36B0F;
+	Wed, 22 Apr 2020 10:46:41 +0000 (UTC)
+Received: from mail-out.m-online.net (mail-out.m-online.net [212.18.0.10])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id E440BC36B0A
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 5C9B2C36B09
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Wed, 22 Apr 2020 10:46:37 +0000 (UTC)
+ Wed, 22 Apr 2020 10:46:39 +0000 (UTC)
 Received: from frontend01.mail.m-online.net (unknown [192.168.8.182])
- by mail-out.m-online.net (Postfix) with ESMTP id 496cYn4DGCz1qs3D;
- Wed, 22 Apr 2020 12:46:37 +0200 (CEST)
+ by mail-out.m-online.net (Postfix) with ESMTP id 496cYq08Yjz1rtMh;
+ Wed, 22 Apr 2020 12:46:39 +0200 (CEST)
 Received: from localhost (dynscan1.mnet-online.de [192.168.6.70])
- by mail.m-online.net (Postfix) with ESMTP id 496cYn3TCYz1qr40;
- Wed, 22 Apr 2020 12:46:37 +0200 (CEST)
+ by mail.m-online.net (Postfix) with ESMTP id 496cYp6LpYz1qr40;
+ Wed, 22 Apr 2020 12:46:38 +0200 (CEST)
 X-Virus-Scanned: amavisd-new at mnet-online.de
 Received: from mail.mnet-online.de ([192.168.8.182])
  by localhost (dynscan1.mail.m-online.net [192.168.6.70]) (amavisd-new,
  port 10024)
- with ESMTP id nAi4rAdKp-vr; Wed, 22 Apr 2020 12:46:36 +0200 (CEST)
-X-Auth-Info: uca6Lbbpi/VF4oSBhPVXV5nxXwbPtGm1rIwr/5rE2Pc=
+ with ESMTP id 3Ys_4l3f7a_g; Wed, 22 Apr 2020 12:46:37 +0200 (CEST)
+X-Auth-Info: 5lOnO5k/kow7L7n/Q4Nm47xnN4Wh6K8mc3s6LmYoh4Q=
 Received: from desktop.lan (ip-86-49-35-8.net.upcbroadband.cz [86.49.35.8])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
  by mail.mnet-online.de (Postfix) with ESMTPSA;
- Wed, 22 Apr 2020 12:46:36 +0200 (CEST)
+ Wed, 22 Apr 2020 12:46:37 +0200 (CEST)
 From: Marek Vasut <marex@denx.de>
 To: linux-arm-kernel@lists.infradead.org
-Date: Wed, 22 Apr 2020 12:46:01 +0200
-Message-Id: <20200422104613.96944-9-marex@denx.de>
+Date: Wed, 22 Apr 2020 12:46:02 +0200
+Message-Id: <20200422104613.96944-10-marex@denx.de>
 X-Mailer: git-send-email 2.25.1
 In-Reply-To: <20200422104613.96944-1-marex@denx.de>
 References: <20200422104613.96944-1-marex@denx.de>
@@ -42,8 +42,8 @@ Cc: Marek Vasut <marex@denx.de>, Patrick Delaunay <patrick.delaunay@st.com>,
  Maxime Coquelin <mcoquelin.stm32@gmail.com>,
  Manivannan Sadhasivam <manivannan.sadhasivam@linaro.org>,
  linux-stm32@st-md-mailman.stormreply.com
-Subject: [Linux-stm32] [PATCH V5 08/20] ARM: dts: stm32: Repair SDMMC1
-	operation on AV96
+Subject: [Linux-stm32] [PATCH V5 09/20] ARM: dts: stm32: Add eMMC attached
+	to SDMMC2 on AV96
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -60,9 +60,8 @@ Content-Transfer-Encoding: 7bit
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
-The SD uses different pinmux for the D123DIRline, use such a pinmux,
-otherwise there is a pinmux collision on the AV96. Add missing SD
-voltage regulator switch.
+Add DT node describing the eMMC attached to SDMMC2 controller
+of the STM32MP1 on DHCOR SoM, which is the SoM soldered on AV96.
 
 Reviewed-by: Manivannan Sadhasivam <manivannan.sadhasivam@linaro.org>
 Signed-off-by: Marek Vasut <marex@denx.de>
@@ -74,60 +73,43 @@ Cc: Patrick Delaunay <patrick.delaunay@st.com>
 Cc: linux-stm32@st-md-mailman.stormreply.com
 To: linux-arm-kernel@lists.infradead.org
 ---
-V2: Disable SDR104, it seems unstable thus far
-V3: No change
+V2: No change
+V3: Connect Vcc to the enpirion output instead of 3v3 directly
+    Note that this patch now depends on:
+      mmc: mmci: Only call .post_sig_volt_switch if voltage switch happened
 V4: Rebase on stm32-next
-V5: Reorder this patch after the PMIC patches
+V5: No change
 ---
- arch/arm/boot/dts/stm32mp157a-avenger96.dts | 21 ++++++++++++++++++---
- 1 file changed, 18 insertions(+), 3 deletions(-)
+ arch/arm/boot/dts/stm32mp157a-avenger96.dts | 16 ++++++++++++++++
+ 1 file changed, 16 insertions(+)
 
 diff --git a/arch/arm/boot/dts/stm32mp157a-avenger96.dts b/arch/arm/boot/dts/stm32mp157a-avenger96.dts
-index 8198e22d81e7..1219e2b35c50 100644
+index 1219e2b35c50..811cc4aff2a5 100644
 --- a/arch/arm/boot/dts/stm32mp157a-avenger96.dts
 +++ b/arch/arm/boot/dts/stm32mp157a-avenger96.dts
-@@ -78,6 +78,20 @@ led6 {
- 		};
- 	};
- 
-+	sd_switch: regulator-sd_switch {
-+		compatible = "regulator-gpio";
-+		regulator-name = "sd_switch";
-+		regulator-min-microvolt = <1800000>;
-+		regulator-max-microvolt = <2900000>;
-+		regulator-type = "voltage";
-+		regulator-always-on;
-+
-+		gpios = <&gpioi 5 GPIO_ACTIVE_HIGH>;
-+		gpios-states = <0>;
-+		states = <1800000 0x1>,
-+			 <2900000 0x0>;
-+	};
-+
- 	/* Enpirion EP3A8LQI U2 on the DHCOR */
- 	vdd_io: regulator-buck-io {
- 		compatible = "regulator-fixed";
-@@ -310,9 +324,9 @@ &rtc {
- 
- &sdmmc1 {
- 	pinctrl-names = "default", "opendrain", "sleep";
--	pinctrl-0 = <&sdmmc1_b4_pins_a &sdmmc1_dir_pins_a>;
--	pinctrl-1 = <&sdmmc1_b4_od_pins_a>;
--	pinctrl-2 = <&sdmmc1_b4_sleep_pins_a>;
-+	pinctrl-0 = <&sdmmc1_b4_pins_a &sdmmc1_dir_pins_b>;
-+	pinctrl-1 = <&sdmmc1_b4_od_pins_a &sdmmc1_dir_pins_b>;
-+	pinctrl-2 = <&sdmmc1_b4_sleep_pins_a &sdmmc1_dir_sleep_pins_b>;
- 	cd-gpios = <&gpioi 8 (GPIO_ACTIVE_LOW | GPIO_PULL_UP)>;
- 	disable-wp;
- 	st,sig-dir;
-@@ -320,6 +334,7 @@ &sdmmc1 {
- 	st,use-ckin;
- 	bus-width = <4>;
- 	vmmc-supply = <&vdd_sd>;
-+	vqmmc-supply = <&sd_switch>;
+@@ -338,6 +338,22 @@ &sdmmc1 {
  	status = "okay";
  };
  
++&sdmmc2 {
++	pinctrl-names = "default", "opendrain", "sleep";
++	pinctrl-0 = <&sdmmc2_b4_pins_a &sdmmc2_d47_pins_b>;
++	pinctrl-1 = <&sdmmc2_b4_od_pins_a &sdmmc2_d47_pins_b>;
++	pinctrl-2 = <&sdmmc2_b4_sleep_pins_a &sdmmc2_d47_sleep_pins_b>;
++	bus-width = <8>;
++	mmc-ddr-1_8v;
++	no-sd;
++	no-sdio;
++	non-removable;
++	st,neg-edge;
++	vmmc-supply = <&v3v3>;
++	vqmmc-supply = <&vdd_io>;
++	status = "okay";
++};
++
+ &uart4 {
+ 	/* On Low speed expansion header */
+ 	label = "LS-UART1";
 -- 
 2.25.1
 
