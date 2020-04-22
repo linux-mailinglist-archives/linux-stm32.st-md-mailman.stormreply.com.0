@@ -2,45 +2,67 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id E4BF41B4A11
-	for <lists+linux-stm32@lfdr.de>; Wed, 22 Apr 2020 18:18:48 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 4774F1B4B17
+	for <lists+linux-stm32@lfdr.de>; Wed, 22 Apr 2020 18:57:28 +0200 (CEST)
 Received: from ip-172-31-3-76.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id A61D6C36B0B;
-	Wed, 22 Apr 2020 16:18:48 +0000 (UTC)
-Received: from bhuna.collabora.co.uk (bhuna.collabora.co.uk [46.235.227.227])
- (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256
- bits)) (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 00E0AC36B09
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 00C5CC36B0B;
+	Wed, 22 Apr 2020 16:57:28 +0000 (UTC)
+Received: from mail-pj1-f65.google.com (mail-pj1-f65.google.com
+ [209.85.216.65])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+ (No client certificate requested)
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 4B56EC36B09
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Wed, 22 Apr 2020 16:18:46 +0000 (UTC)
-Received: from [127.0.0.1] (localhost [127.0.0.1])
- (Authenticated sender: aratiu) with ESMTPSA id 56C542A089E
-From: Adrian Ratiu <adrian.ratiu@collabora.com>
-To: Laurent Pinchart <laurent.pinchart@ideasonboard.com>, Adrian Ratiu
- <adrian.ratiu@collabora.com>
-In-Reply-To: <20200422152956.GE28105@pendragon.ideasonboard.com>
-References: <20200421161610.1501827-1-adrian.ratiu@collabora.com>
- <20200421161610.1501827-6-adrian.ratiu@collabora.com>
- <20200422005832.GK5983@pendragon.ideasonboard.com>
- <20200422010155.GL5983@pendragon.ideasonboard.com>
- <877dy7ker6.fsf@collabora.com>
- <20200422152956.GE28105@pendragon.ideasonboard.com>
-Date: Wed, 22 Apr 2020 19:19:50 +0300
-Message-ID: <87368vjxw9.fsf@collabora.com>
+ Wed, 22 Apr 2020 16:57:27 +0000 (UTC)
+Received: by mail-pj1-f65.google.com with SMTP id t40so1249528pjb.3
+ for <linux-stm32@st-md-mailman.stormreply.com>;
+ Wed, 22 Apr 2020 09:57:27 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linaro.org; s=google;
+ h=date:from:to:cc:subject:message-id:references:mime-version
+ :content-disposition:in-reply-to:user-agent;
+ bh=LA63jnfhhhDCyX7Fu0cdpcXti3GWsmdF3pn/l4YJ88c=;
+ b=StViLItM3IVtkPnVbWVLQjAKCHxIZQegI1rtlUPycFWJL89AP8nxjL6hirDcS+pXRz
+ rW0LQla7jZvBhEaQEouwe6lHacxYUA4kkYLrUWEYKm7lPruPLWIEP2DEbzCA6h+XS39Q
+ 47VfIhdoYLPL/RXx7PbBoWqx48FGT0SudNTcIjAiplCTTINuJFXAFbg+cC2l3VSK15Dq
+ vv4250KTXIwHKtVEO0uqE3LNXkhfW7lcjPs4kwfxBAox9WzlZTT3Y80hnmuZ9GNPPJAe
+ 1D/wtSmiKwZahqacvNfmYRSvWS7diZm+4NGGX1bgP/CYP93G+VG7rl4B5PuYhRN5IFp3
+ ZqQQ==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20161025;
+ h=x-gm-message-state:date:from:to:cc:subject:message-id:references
+ :mime-version:content-disposition:in-reply-to:user-agent;
+ bh=LA63jnfhhhDCyX7Fu0cdpcXti3GWsmdF3pn/l4YJ88c=;
+ b=pQb6PcMbCuzUENBjz6FzHz0ZwTtjBRYEzFjyaMAu3xoxkDxQ4/OFnTy6/GLt6vf8iK
+ hQSN7qTIHeYjE4Ik7QnJmbtkuiL1QWb5GBbRllbPd4kXkqO5ExULlk/OoMkxfqu0cAHZ
+ PkcQxtjRy1LLy+mWHX3cOoVtEp/fQPOiQ7jKnQWhGiAUG5jjKltNqbdP/JvVMZkgaB1P
+ 9WM4c92UOPedJiIJdv7dakaEnRd/K2dvc5RY1bZT/jCGcqOJ/fArpj9ypjJ+Sa0jOwj9
+ GpjBBxKZu9mLT35ppLYa5uqb2ARXPR0t1PZpqxrMbg7a9w+Zb3+rx5Bs/Q+4bQ9hWLXu
+ lEYw==
+X-Gm-Message-State: AGi0PuafsG/CsKu3csdt2A+Lup5hLqHf0x++hRwRwV1iNMZLGmmo2WS/
+ DqCFPXsGpEOKGCMRCyyKaFj/Jw==
+X-Google-Smtp-Source: APiQypJrAPHYm3pFKDOryB0qSlR2qS4ej4IFKk7cli/N7z1Gq6cJ+cvck8r8p0iidKtU2dULeEJx/A==
+X-Received: by 2002:a17:902:76c1:: with SMTP id
+ j1mr4790699plt.79.1587574645684; 
+ Wed, 22 Apr 2020 09:57:25 -0700 (PDT)
+Received: from xps15 (S0106002369de4dac.cg.shawcable.net. [68.147.8.254])
+ by smtp.gmail.com with ESMTPSA id s22sm3938pfd.51.2020.04.22.09.57.24
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Wed, 22 Apr 2020 09:57:25 -0700 (PDT)
+Date: Wed, 22 Apr 2020 10:57:23 -0600
+From: Mathieu Poirier <mathieu.poirier@linaro.org>
+To: Arnaud Pouliquen <arnaud.pouliquen@st.com>
+Message-ID: <20200422165723.GA9283@xps15>
+References: <20200416161331.7606-1-arnaud.pouliquen@st.com>
+ <20200416161331.7606-3-arnaud.pouliquen@st.com>
 MIME-Version: 1.0
-Cc: Rob Herring <robh@kernel.org>, devicetree@vger.kernel.org,
- Jernej Skrabec <jernej.skrabec@siol.net>,
- Sjoerd Simons <sjoerd.simons@collabora.com>, Heiko Stuebner <heiko@sntech.de>,
- Adrian Pop <pop.adrian61@gmail.com>, Jonas Karlman <jonas@kwiboo.se>,
- Martyn Welch <martyn.welch@collabora.com>,
- Neil Armstrong <narmstrong@baylibre.com>, linux-kernel@vger.kernel.org,
- dri-devel@lists.freedesktop.org, Andrzej Hajda <a.hajda@samsung.com>,
- linux-rockchip@lists.infradead.org, linux-imx@nxp.com,
- Arnaud Ferraris <arnaud.ferraris@collabora.com>, kernel@collabora.com,
- Fabio Estevam <festevam@gmail.com>, linux-stm32@st-md-mailman.stormreply.com,
- linux-arm-kernel@lists.infradead.org
-Subject: Re: [Linux-stm32] [PATCH v7 5/8] dt-bindings: display: add i.MX6
- MIPI DSI host controller doc
+Content-Disposition: inline
+In-Reply-To: <20200416161331.7606-3-arnaud.pouliquen@st.com>
+User-Agent: Mutt/1.10.1 (2018-07-13)
+Cc: Ohad Ben-Cohen <ohad@wizery.com>, linux-stm32@st-md-mailman.stormreply.com,
+ linux-remoteproc@vger.kernel.org, linux-kernel@vger.kernel.org,
+ Bjorn Andersson <bjorn.andersson@linaro.org>
+Subject: Re: [Linux-stm32] [RFC 02/18] remoteproc: Introduce virtio device
+ add/remove functions in core.
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -52,231 +74,223 @@ List-Post: <mailto:linux-stm32@st-md-mailman.stormreply.com>
 List-Help: <mailto:linux-stm32-request@st-md-mailman.stormreply.com?subject=help>
 List-Subscribe: <https://st-md-mailman.stormreply.com/mailman/listinfo/linux-stm32>, 
  <mailto:linux-stm32-request@st-md-mailman.stormreply.com?subject=subscribe>
+Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
-Content-Type: text/plain; charset="us-ascii"; Format="flowed"
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
-On Wed, 22 Apr 2020, Laurent Pinchart 
-<laurent.pinchart@ideasonboard.com> wrote:
-> Hi Adrian, 
-> 
-> On Wed, Apr 22, 2020 at 01:15:41PM +0300, Adrian Ratiu wrote: 
->> On Wed, 22 Apr 2020, Laurent Pinchart wrote: 
->> > On Wed, Apr 22, 2020 at 03:58:33AM +0300, Laurent Pinchart 
->> > wrote:  
->> >> On Tue, Apr 21, 2020 at 07:16:07PM +0300, Adrian Ratiu 
->> >> wrote:  
->> >>> This provides an example DT binding for the MIPI DSI host 
->> >>> controller present on the i.MX6 SoC based on Synopsis 
->> >>> DesignWare v1.01 IP.   Cc: Rob Herring <robh@kernel.org> 
->> >>> Cc:  Neil Armstrong <narmstrong@baylibre.com> Cc: Fabio 
->> >>> Estevam  <festevam@gmail.com> Cc: Laurent Pinchart 
->> >>> <laurent.pinchart@ideasonboard.com> Cc: 
->> >>> devicetree@vger.kernel.org Tested-by: Adrian Pop 
->> >>> <pop.adrian61@gmail.com> Tested-by: Arnaud Ferraris 
->> >>> <arnaud.ferraris@collabora.com> Signed-off-by: Sjoerd 
->> >>> Simons  <sjoerd.simons@collabora.com> Signed-off-by: Martyn 
->> >>> Welch  <martyn.welch@collabora.com> Signed-off-by: Adrian 
->> >>> Ratiu  <adrian.ratiu@collabora.com> --- Changes since v6:  
->> >>>   - Added ref to the newly created snps,dw-mipi-dsi.yaml 
->> >>>   (Laurent) - Moved *-cells properties outside 
->> >>>   patternProperties (Laurent) - Removed the panel port 
->> >>>   documentation (Laurent) - Wrapped lines at 80 chars, typo 
->> >>>   fixes, sort includes (Laurent)  
->> >>>  Changes since v5:  
->> >>>   - Fixed missing reg warning (Fabio) - Updated dt-schema 
->> >>>   and  fixed warnings (Rob)  
->> >>>  Changes since v4:  
->> >>>   - Fixed yaml binding to pass `make dt_binding_check 
->> >>>   dtbs_check` and addressed received binding feedback (Rob)  
->> >>>  Changes since v3:  
->> >>>   - Added commit message (Neil) - Converted to yaml format 
->> >>>   (Neil) - Minor dt node + driver fixes (Rob) - Added small 
->> >>>   panel example to the host controller binding  
->> >>>  Changes since v2:  
->> >>>   - Fixed commit tags (Emil)  
->> >>> ---  
->> >>>  .../display/imx/fsl,mipi-dsi-imx6.yaml        | 135 
->> >>>  ++++++++++++++++++ 1 file changed, 135 insertions(+) 
->> >>>  create  mode 100644 
->> >>>  Documentation/devicetree/bindings/display/imx/fsl,mipi-dsi-imx6.yaml 
->> >>>  diff --git  
->> >>> a/Documentation/devicetree/bindings/display/imx/fsl,mipi-dsi-imx6.yaml 
->> >>> b/Documentation/devicetree/bindings/display/imx/fsl,mipi-dsi-imx6.yaml 
->> >>> new file mode 100644 index 0000000000000..b73e3ae33a852 --- 
->> >>> /dev/null +++ 
->> >>> b/Documentation/devicetree/bindings/display/imx/fsl,mipi-dsi-imx6.yaml 
->> >>> @@ -0,0 +1,135 @@ +# SPDX-License-Identifier: (GPL-2.0-only 
->> >>> OR BSD-2-Clause) +%YAML 1.2 +--- +$id: 
->> >>> http://devicetree.org/schemas/display/imx/fsl,mipi-dsi-imx6.yaml# 
->> >>> +$schema: http://devicetree.org/meta-schemas/core.yaml# + 
->> >>> +title: Freescale i.MX6 DW MIPI DSI Host Controller + 
->> >>> +maintainers: +  - Adrian Ratiu 
->> >>> <adrian.ratiu@collabora.com>  + +description: | +  The 
->> >>> i.MX6 DSI host controller is a  Synopsys DesignWare MIPI 
->> >>> DSI v1.01 +  IP block with a  companion PHY IP.  
->> >  I forgot to mention, if there's a companion PHY, shouldn't 
->> > it be  referenced from the DT bindings ?  
->>  I don't think so, that description was copied verbatim from 
->> the  imx6 ref manual IIRC, the physical layer is the same for 
->> MIPI DSI  which does TX as for MIPI CSI which does RX, but 
->> looking at the  ref manual and how drivers are written I don't 
->> think it's  necessary. 
-> 
-> Does that mean that the PHY is controlled through the registers 
-> specified by the reg property ? If so then this is fine. 
->
+This morning I'm attempting to take a fresh look at this set...
 
-Yes that is correct, there is just a single set of conf registers 
-specified via reg.
+On Thu, Apr 16, 2020 at 06:13:15PM +0200, Arnaud Pouliquen wrote:
+> In preparation of the migration of the management of rvdev in
+> rproc_virtio, this patch spins off new functions to manage the
+> virtio device.
+> 
+> Signed-off-by: Arnaud Pouliquen <arnaud.pouliquen@st.com>
+> ---
+>  drivers/remoteproc/remoteproc_core.c | 149 +++++++++++++++------------
+>  1 file changed, 83 insertions(+), 66 deletions(-)
+> 
+> diff --git a/drivers/remoteproc/remoteproc_core.c b/drivers/remoteproc/remoteproc_core.c
+> index 2a0425ab82a7..5c90d569c0f7 100644
+> --- a/drivers/remoteproc/remoteproc_core.c
+> +++ b/drivers/remoteproc/remoteproc_core.c
+> @@ -441,6 +441,86 @@ static void rproc_rvdev_release(struct device *dev)
+>  	kfree(rvdev);
+>  }
+>  
+> +static int rproc_rvdev_add_device(struct rproc_vdev *rvdev)
+> +{
+> +	struct rproc *rproc = rvdev->rproc;
+> +	struct fw_rsc_vdev *rsc = rvdev->rsc;
+> +	char name[16];
+> +	int ret, i;
+> +
+> +	/* Initialise vdev subdevice */
+> +	snprintf(name, sizeof(name), "vdev%dbuffer", rvdev->index);
+> +	rvdev->dev.parent = &rproc->dev;
+> +	rvdev->dev.dma_pfn_offset = rproc->dev.parent->dma_pfn_offset;
+> +	rvdev->dev.release = rproc_rvdev_release;
+> +	dev_set_name(&rvdev->dev, "%s#%s", dev_name(rvdev->dev.parent), name);
+> +	dev_set_drvdata(&rvdev->dev, rvdev);
+> +
+> +	ret = device_register(&rvdev->dev);
+> +	if (ret) {
+> +		put_device(&rvdev->dev);
+> +		return ret;
+> +	}
+> +	/* Make device dma capable by inheriting from parent's capabilities */
+> +	set_dma_ops(&rvdev->dev, get_dma_ops(rproc->dev.parent));
+> +
+> +	ret = dma_coerce_mask_and_coherent(&rvdev->dev,
+> +					   dma_get_mask(rproc->dev.parent));
+> +	if (ret) {
+> +		dev_warn(&rvdev->dev,
+> +			 "Failed to set DMA mask %llx. Trying to continue... %x\n",
+> +			 dma_get_mask(rproc->dev.parent), ret);
+> +	}
+> +
+> +	/* parse the vrings */
+> +	for (i = 0; i < rsc->num_of_vrings; i++) {
+> +		ret = rproc_parse_vring(rvdev, rsc, i);
+> +		if (ret)
+> +			goto free_rvdev;
+> +	}
+> +
+> +	/* allocate the vring resources */
+> +	for (i = 0; i < rsc->num_of_vrings; i++) {
+> +		ret = rproc_alloc_vring(rvdev, i);
+> +		if (ret)
+> +			goto free_vg;
+> +	}
+> +
+> +	rvdev->subdev.start = rproc_vdev_do_start;
+> +	rvdev->subdev.stop = rproc_vdev_do_stop;
+> +
+> +	rproc_add_subdev(rproc, &rvdev->subdev);
+> +
+> +	return 0;
+> +
+> +free_vg:
+> +	for (i--; i >= 0; i--) {
+> +		struct rproc_vring *rvring = &rvdev->vring[i];
+> +
+> +		rproc_free_vring(rvring);
+> +	}
+> +
+> +free_rvdev:
+> +	device_unregister(&rvdev->dev);
+> +
+> +	return ret;
+> +}
+> +
+> +static void rproc_rvdev_remove_device(struct rproc_vdev *rvdev)
+> +{
+> +	struct rproc *rproc = rvdev->rproc;
+> +	struct rproc_vring *rvring;
+> +	int id;
+> +
+> +	for (id = 0; id < ARRAY_SIZE(rvdev->vring); id++) {
+> +		rvring = &rvdev->vring[id];
+> +		rproc_free_vring(rvring);
+> +	}
+> +
+> +	rproc_remove_subdev(rproc, &rvdev->subdev);
+> +	device_unregister(&rvdev->dev);
+> +}
+> +
+>  /**
+>   * rproc_handle_vdev() - handle a vdev fw resource
+>   * @rproc: the remote processor
+> @@ -473,8 +553,6 @@ static int rproc_handle_vdev(struct rproc *rproc, struct fw_rsc_vdev *rsc,
+>  {
+>  	struct device *dev = &rproc->dev;
+>  	struct rproc_vdev *rvdev;
+> -	int i, ret;
+> -	char name[16];
+>  
+>  	/* make sure resource isn't truncated */
+>  	if (struct_size(rsc, vring, rsc->num_of_vrings) + rsc->config_len >
+> @@ -505,83 +583,22 @@ static int rproc_handle_vdev(struct rproc *rproc, struct fw_rsc_vdev *rsc,
+>  	kref_init(&rvdev->refcount);
+>  
+>  	rvdev->rsc = rsc;
+> +	rvdev->rsc_offset = offset;
+>  	rvdev->id = rsc->id;
+>  	rvdev->rproc = rproc;
+>  	rvdev->index = rproc->nb_vdev++;
+>  
+> -	/* Initialise vdev subdevice */
+> -	snprintf(name, sizeof(name), "vdev%dbuffer", rvdev->index);
+> -	rvdev->dev.parent = rproc->dev.parent;
+> -	rvdev->dev.dma_pfn_offset = rproc->dev.parent->dma_pfn_offset;
+> -	rvdev->dev.release = rproc_rvdev_release;
+> -	dev_set_name(&rvdev->dev, "%s#%s", dev_name(rvdev->dev.parent), name);
+> -	dev_set_drvdata(&rvdev->dev, rvdev);
+> -
+> -	ret = device_register(&rvdev->dev);
+> -	if (ret) {
+> -		put_device(&rvdev->dev);
+> -		return ret;
+> -	}
+> -	/* Make device dma capable by inheriting from parent's capabilities */
+> -	set_dma_ops(&rvdev->dev, get_dma_ops(rproc->dev.parent));
+> -
+> -	ret = dma_coerce_mask_and_coherent(&rvdev->dev,
+> -					   dma_get_mask(rproc->dev.parent));
+> -	if (ret) {
+> -		dev_warn(dev,
+> -			 "Failed to set DMA mask %llx. Trying to continue... %x\n",
+> -			 dma_get_mask(rproc->dev.parent), ret);
+> -	}
+> -
+> -	/* parse the vrings */
+> -	for (i = 0; i < rsc->num_of_vrings; i++) {
+> -		ret = rproc_parse_vring(rvdev, rsc, i);
+> -		if (ret)
+> -			goto free_rvdev;
+> -	}
+> -
+> -	/* remember the resource offset*/
+> -	rvdev->rsc_offset = offset;
+> -
+> -	/* allocate the vring resources */
+> -	for (i = 0; i < rsc->num_of_vrings; i++) {
+> -		ret = rproc_alloc_vring(rvdev, i);
+> -		if (ret)
+> -			goto unwind_vring_allocations;
+> -	}
+> -
+>  	list_add_tail(&rvdev->node, &rproc->rvdevs);
 
->> This might change if we wanted to unify the DSI and CSI drivers a 
->> bit, but considering the scope already associated with this patch 
->> series I'm a bit afraid to open a subject like that =)
->
-> That's understandable :-)
->
->> >>> +
->> >>> +  These DT bindings follow the Synopsys DW MIPI DSI bindings defined in
->> >>> +  Documentation/devicetree/bindings/display/bridge/dw_mipi_dsi.txt with
->> >>> +  the following device-specific properties.
->> >>> +
->> >>> +allOf:
->> >>> +  - $ref: ../bridge/snps,dw-mipi-dsi.yaml#
->> >>> +
->> >>> +properties:
->> >>> +  '#address-cells':
->> >>> +    const: 1
->> >>> +
->> >>> +  '#size-cells':
->> >>> +    const: 0
->> >>> +
->> >>> +  compatible:
->> >>> +    items:
->> >>> +      - const: fsl,imx6q-mipi-dsi
->> >>> +      - const: snps,dw-mipi-dsi
->> >>> +
->> >>> +  reg:
->> >>> +    maxItems: 1
->> >>> +
->> >>> +  interrupts:
->> >>> +    maxItems: 1
->> >>> +
->> >>> +  clocks:
->> >>> +    items:
->> >>> +      - description: Module Clock
->> >>> +      - description: DSI bus clock
->> >>> +
->> >>> +  clock-names:
->> >>> +    items:
->> >>> +      - const: ref
->> >>> +      - const: pclk
->> >>> +
->> >>> +  fsl,gpr:
->> >>> +    description:
->> >>> +      Phandle to the iomuxc-gpr region containing the multiplexer ctrl register.
->> >>> +    $ref: /schemas/types.yaml#/definitions/phandle
->> >>> +
->> >>> +  ports:
->> >>> +    type: object
->> >>> +    description: |
->> >>> +      A node containing DSI input & output port nodes with endpoint
->> >>> +      definitions as documented in
->> >>> +      Documentation/devicetree/bindings/media/video-interfaces.txt
->> >>> +      Documentation/devicetree/bindings/graph.txt
->> >>> +    properties:
->> >>> +      port@0:
->> >>> +        type: object
->> >>> +        description:
->> >>> +          DSI input port node, connected to the ltdc rgb output port.
->> >>> +
->> >>> +      port@1:
->> >>> +        type: object
->> >>> +        description:
->> >>> +          RGB output port node, connected to a panel or a bridge input port.
->> >> 
->> >> Isn't it the other way around, doesn't the bridge take RGB input and
->> >> output DSI ? And to be precise, it's not about RGB, but about the input
->> >> being parallel interface (DSI will also carry RGB).
->> >> 
->> >> I would add
->> >> 
->> >>     required:
->> >>       - port@0
->> >>       - port@1
->> >> 
->> >>> +
->> >>> +additionalProperties: false
->> >>> +
->> >>> +patternProperties:
->> >>> +  "^panel@[0-3]$":
->> >>> +    type: object
->> >>> +
->> >>> +required:
->> >>> +  - "#address-cells"
->> >>> +  - "#size-cells"
->> >>> +  - compatible
->> >>> +  - reg
->> >>> +  - interrupts
->> >>> +  - clocks
->> >>> +  - clock-names
->> >>> +  - ports
->> >>> +
->> >>> +examples:
->> >>> +  - |+
->> >>> +    #include <dt-bindings/clock/imx6qdl-clock.h>
->> >>> +    #include <dt-bindings/gpio/gpio.h>
->> >>> +    #include <dt-bindings/interrupt-controller/arm-gic.h>
->> >>> +
->> >>> +    dsi: dsi@21e0000 {
->> >>> +        #address-cells = <1>;
->> >>> +        #size-cells = <0>;
->> >>> +        compatible = "fsl,imx6q-mipi-dsi", "snps,dw-mipi-dsi";
->> >>> +        reg = <0x021e0000 0x4000>;
->> >>> +        interrupts = <0 102 IRQ_TYPE_LEVEL_HIGH>;
->> >>> +        fsl,gpr = <&gpr>;
->> >>> +        clocks = <&clks IMX6QDL_CLK_MIPI_CORE_CFG>,
->> >>> +                 <&clks IMX6QDL_CLK_MIPI_IPG>;
->> >>> +        clock-names = "ref", "pclk";
->> >>> +
->> >>> +        ports {
->> >>> +            #address-cells = <1>;
->> >>> +            #size-cells = <0>;
->> >> 
->> >> port@0 is missing.
->> >> 
->> >>> +            port@1 {
->> >>> +                reg = <1>;
->> >>> +                dsi_out: endpoint {
->> >>> +                    remote-endpoint = <&panel_in>;
->> >>> +                };
->> >>> +            };
->> >>> +        };
->> >>> +
->> >>> +        panel@0 {
->> >>> +            compatible = "sharp,ls032b3sx01";
->> >>> +            reg = <0>;
->> >>> +            reset-gpios = <&gpio6 8 GPIO_ACTIVE_LOW>;
->> >>> +            ports {
->> >>> +                #address-cells = <1>;
->> >>> +                #size-cells = <0>;
->> >>> +                port@0 {
->> >>> +                    reg = <0>;
->> >>> +                    panel_in: endpoint {
->> >>> +                        remote-endpoint = <&dsi_out>;
->> >>> +                    };
->> >>> +                };
->> >>> +            };
->> >>> +        };
->> >>> +    };
->> >>> +
->> >>> +...
->
+This should go in rproc_rvdev_add_device()
+
+>  
+> -	rvdev->subdev.start = rproc_vdev_do_start;
+> -	rvdev->subdev.stop = rproc_vdev_do_stop;
+> -
+> -	rproc_add_subdev(rproc, &rvdev->subdev);
+> -
+> -	return 0;
+> -
+> -unwind_vring_allocations:
+> -	for (i--; i >= 0; i--)
+> -		rproc_free_vring(&rvdev->vring[i]);
+> -free_rvdev:
+> -	device_unregister(&rvdev->dev);
+> -	return ret;
+> +	return rproc_rvdev_add_device(rvdev);
+>  }
+>  
+>  void rproc_vdev_release(struct kref *ref)
+>  {
+>  	struct rproc_vdev *rvdev = container_of(ref, struct rproc_vdev, refcount);
+> -	struct rproc_vring *rvring;
+> -	struct rproc *rproc = rvdev->rproc;
+> -	int id;
+> -
+> -	for (id = 0; id < ARRAY_SIZE(rvdev->vring); id++) {
+> -		rvring = &rvdev->vring[id];
+> -		rproc_free_vring(rvring);
+> -	}
+>  
+> -	rproc_remove_subdev(rproc, &rvdev->subdev);
+> +	rproc_rvdev_remove_device(rvdev);
+>  	list_del(&rvdev->node);
+> -	device_unregister(&rvdev->dev);
+
+Keep this function intact, rename it rproc_rvdev_remove_device() to balance out
+rproc_rvdev_add_device() and modify rproc_resource_cleanup() to reflect the
+change.  I suppose we have nothing to loose since rproc_handle_vdev() and
+rproc_vdev_release(), from a syntactic point of view, didn't balance each other
+out.
+
+>  }
+>  
+>  /**
 > -- 
-> Regards,
->
-> Laurent Pinchart
+> 2.17.1
+> 
 _______________________________________________
 Linux-stm32 mailing list
 Linux-stm32@st-md-mailman.stormreply.com
