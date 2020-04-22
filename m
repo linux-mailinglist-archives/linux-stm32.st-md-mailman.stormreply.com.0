@@ -2,70 +2,67 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id 4143E1B4940
-	for <lists+linux-stm32@lfdr.de>; Wed, 22 Apr 2020 17:57:20 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id C37FF1B4969
+	for <lists+linux-stm32@lfdr.de>; Wed, 22 Apr 2020 18:04:27 +0200 (CEST)
 Received: from ip-172-31-3-76.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 009B0C36B0B;
-	Wed, 22 Apr 2020 15:57:20 +0000 (UTC)
-Received: from mx07-00178001.pphosted.com (mx07-00178001.pphosted.com
- [62.209.51.94])
- (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 74FAEC36B0B;
+	Wed, 22 Apr 2020 16:04:27 +0000 (UTC)
+Received: from mail-ua1-f67.google.com (mail-ua1-f67.google.com
+ [209.85.222.67])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 3069AC36B09
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 7A0CFC36B09
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Wed, 22 Apr 2020 15:57:17 +0000 (UTC)
-Received: from pps.filterd (m0046668.ppops.net [127.0.0.1])
- by mx07-00178001.pphosted.com (8.16.0.42/8.16.0.42) with SMTP id
- 03MFiG0F021686; Wed, 22 Apr 2020 17:57:11 +0200
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=st.com;
- h=subject : to : cc :
- references : from : message-id : date : mime-version : in-reply-to :
- content-type : content-transfer-encoding; s=STMicroelectronics;
- bh=/JIrCxzSO0ZBPQ8v+cRwA4K5IMUfs3ZP++PD6X/KBMI=;
- b=wkq3WMts6Hmf/dzSoTmMQJvx4l/V+mon3WyE3PuwdKrSsa7p+ZgLZ0k0usbP8VIXmnjg
- eb9zNcwxIn49uwrEf7yJKFWWhvSt4RFVxOc+ow0iIcupVRQ2tZVhBnLpQuHJnwEJuhN9
- 15YHsh+2esM736HCyAcpr/qkCPaaKUQkjgtVnrpAA6fSJMOgg9ai/gm4EVf4MJzgonqo
- G0g8blsp6GpeRvGFgr+glwSsm1ZaG4jO9TTdeXcXjSXP336J80AN33oY4ku6GgRI+vRh
- 46lkbYztRmUNh/jkbWwwN/hBtDjg04DtlzrQxLh5mRoNc7oMojvQ9SUVvitBQqYWHEi7 Yw== 
-Received: from beta.dmz-eu.st.com (beta.dmz-eu.st.com [164.129.1.35])
- by mx07-00178001.pphosted.com with ESMTP id 30fq11qfrt-1
- (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
- Wed, 22 Apr 2020 17:57:11 +0200
-Received: from euls16034.sgp.st.com (euls16034.sgp.st.com [10.75.44.20])
- by beta.dmz-eu.st.com (STMicroelectronics) with ESMTP id A48A3100038;
- Wed, 22 Apr 2020 17:57:10 +0200 (CEST)
-Received: from Webmail-eu.st.com (sfhdag5node3.st.com [10.75.127.15])
- by euls16034.sgp.st.com (STMicroelectronics) with ESMTP id 953F92BEC5E;
- Wed, 22 Apr 2020 17:57:10 +0200 (CEST)
-Received: from [10.211.11.103] (10.75.127.46) by SFHDAG5NODE3.st.com
- (10.75.127.15) with Microsoft SMTP Server (TLS) id 15.0.1473.3; Wed, 22 Apr
- 2020 17:57:09 +0200
-To: Minas Harutyunyan <Minas.Harutyunyan@synopsys.com>, "balbi@kernel.org"
- <balbi@kernel.org>
-References: <1587472341-17935-1-git-send-email-fabrice.gasnier@st.com>
- <1587472341-17935-2-git-send-email-fabrice.gasnier@st.com>
- <5391768a-da52-def8-9b2a-aeb559d8e26b@synopsys.com>
-From: Fabrice Gasnier <fabrice.gasnier@st.com>
-Message-ID: <ba525953-fbab-c2cf-beba-8755846cd27e@st.com>
-Date: Wed, 22 Apr 2020 17:57:08 +0200
-User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:60.0) Gecko/20100101
- Thunderbird/60.9.0
+ Wed, 22 Apr 2020 16:04:26 +0000 (UTC)
+Received: by mail-ua1-f67.google.com with SMTP id c17so2178127uae.12
+ for <linux-stm32@st-md-mailman.stormreply.com>;
+ Wed, 22 Apr 2020 09:04:26 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linaro.org; s=google;
+ h=mime-version:references:in-reply-to:from:date:message-id:subject:to
+ :cc:content-transfer-encoding;
+ bh=R6uBiNfit5YCO191/wwIsaUUqzxSLO/g5l1s37v3Z3w=;
+ b=Q91bHmJwQtHKONLOIZVoVWCWA8wv4FJ6D+5JbGFlH88Y+/P8I6LlZJbyat1zNpYnaf
+ r9JaIC2uFsoEs8V9fc21pNnrEnBTY0z4mPbLva9ly4DlnJCI1pxsfQi5Qf874n/YBWXp
+ P6OzTz4nF2sutRlKNThQUqe+3ohrfIMiGWGbk/+l+YxGCV+2ATZ8bK8jV/D6rCN/17ja
+ 05VW2Ria5KGkfQS3EngD394SpfJwwdv2/Ps+LXsLN29JPBGNyGewMdFTTABE14T4A4yC
+ 4FASMLFN6kKn19Mg17U9anWakRdEGFgCyYqTvdEdi8pWvqQQpmzFhTBHb+r8UUDTIxGJ
+ nqMw==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20161025;
+ h=x-gm-message-state:mime-version:references:in-reply-to:from:date
+ :message-id:subject:to:cc:content-transfer-encoding;
+ bh=R6uBiNfit5YCO191/wwIsaUUqzxSLO/g5l1s37v3Z3w=;
+ b=rg+DLBASVJBPDw0l+vWUwX1yJGwo/TYOBEL4yaXbzMXGW+igNHNr/Eiek96jVL3iJj
+ 3lHmwR4ktcdvzG2MJFnuXxE46/KC7l16/dCtmQVCnWNCJmIYoxdWvkkmCtgiyCsnieSn
+ FwS/MdBqb07JwiWjvPOdAMCt7doAA6xuZ5WYptGY1wP4CY7oHAX2ipJ7TA1U5VwNAOPs
+ jyG0uJ4S8irQX0KnHCMD23VWpLJ4glBFGvkcOuazhgdafdJg5m5/iJhz98y9s4tvDkhf
+ kyH3fXxLCVg3gQwUkgz/CkhEXEKInOK0mH0FcNQ7y7hVV241GJTZlze8XoXVK923MwBb
+ f5oA==
+X-Gm-Message-State: AGi0PubIzjC3UUYwU5r8reb3Kv8MZxG+XK0cjwvDNRRDYiT4KCtGrutG
+ m/QNJ1TdpI3CuFd/VWqE7VdHmlbVS9br5V+sxhQH7w==
+X-Google-Smtp-Source: APiQypLRD/Imtj1vYufqpjP3oiW2KCXvoVlKWsNAdbd7j7U51hZYh0PP2WQvQ0URi1Cr71o91VK7Yv/5O96ZLwzvEtY=
+X-Received: by 2002:a67:ead1:: with SMTP id s17mr20427811vso.200.1587571464862; 
+ Wed, 22 Apr 2020 09:04:24 -0700 (PDT)
 MIME-Version: 1.0
-In-Reply-To: <5391768a-da52-def8-9b2a-aeb559d8e26b@synopsys.com>
-Content-Language: en-US
-X-Originating-IP: [10.75.127.46]
-X-ClientProxiedBy: SFHDAG2NODE2.st.com (10.75.127.5) To SFHDAG5NODE3.st.com
- (10.75.127.15)
-X-Proofpoint-Virus-Version: vendor=fsecure engine=2.50.10434:6.0.138, 18.0.676
- definitions=2020-04-22_06:2020-04-22,
- 2020-04-22 signatures=0
-Cc: "gregkh@linuxfoundation.org" <gregkh@linuxfoundation.org>,
- "linux-usb@vger.kernel.org" <linux-usb@vger.kernel.org>,
- "linux-kernel@vger.kernel.org" <linux-kernel@vger.kernel.org>,
- "linux-stm32@st-md-mailman.stormreply.com"
- <linux-stm32@st-md-mailman.stormreply.com>
-Subject: Re: [Linux-stm32] [PATCH 1/4] usb: dwc2: gadget: move gadget resume
- after the core is in L0 state
+References: <20200420161831.5043-1-ludovic.barre@st.com>
+ <CAPDyKFqC3fdnQ9CMYhS-=5MiCET=r5Az2S5oFoA2v1gdDeGO3w@mail.gmail.com>
+ <CAPDyKFrHcoVd=GKPB70gOFE8STOnTJrJbcZzE_DEgFWh1Vhszg@mail.gmail.com>
+ <1d9cefd1-aaed-1eb5-92f2-b1f45b4da2ac@st.com>
+In-Reply-To: <1d9cefd1-aaed-1eb5-92f2-b1f45b4da2ac@st.com>
+From: Ulf Hansson <ulf.hansson@linaro.org>
+Date: Wed, 22 Apr 2020 18:03:48 +0200
+Message-ID: <CAPDyKFpri4VBnH9nbqUa4L=3o_h+fSZ052v7AG_9MhJX2gKgCQ@mail.gmail.com>
+To: Ludovic BARRE <ludovic.barre@st.com>
+Cc: DTML <devicetree@vger.kernel.org>,
+ "linux-mmc@vger.kernel.org" <linux-mmc@vger.kernel.org>,
+ Linux Kernel Mailing List <linux-kernel@vger.kernel.org>,
+ Rob Herring <robh+dt@kernel.org>,
+ Srini Kandagatla <srinivas.kandagatla@linaro.org>,
+ Maxime Coquelin <mcoquelin.stm32@gmail.com>,
+ linux-stm32@st-md-mailman.stormreply.com,
+ Linux ARM <linux-arm-kernel@lists.infradead.org>
+Subject: Re: [Linux-stm32] [PATCH] mmc: mmci_sdmmc: fix power on issue due
+	to pwr_reg initialization
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -77,100 +74,87 @@ List-Post: <mailto:linux-stm32@st-md-mailman.stormreply.com>
 List-Help: <mailto:linux-stm32-request@st-md-mailman.stormreply.com?subject=help>
 List-Subscribe: <https://st-md-mailman.stormreply.com/mailman/listinfo/linux-stm32>, 
  <mailto:linux-stm32-request@st-md-mailman.stormreply.com?subject=subscribe>
-Content-Type: text/plain; charset="us-ascii"
-Content-Transfer-Encoding: 7bit
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: base64
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
-On 4/22/20 4:48 PM, Minas Harutyunyan wrote:
-> Hi Fabrice,
-> 
-> On 4/21/2020 4:32 PM, Fabrice Gasnier wrote:
->> When the remote wakeup interrupt is triggered, lx_state is resumed from L2
->> to L0 state. But when the gadget resume is called, lx_state is still L2.
->> This prevents the resume callback to queue any request. Any attempt
->> to queue a request from resume callback will result in:
->> - "submit request only in active state" debug message to be issued
->> - dwc2_hsotg_ep_queue() returns -EAGAIN
->>
->> Move the call to resume gadget after the core is put in DWC2_L0 state.
->>
->> Signed-off-by: Fabrice Gasnier <fabrice.gasnier@st.com>
->> ---
->>   drivers/usb/dwc2/core_intr.c | 10 +++++++---
->>   1 file changed, 7 insertions(+), 3 deletions(-)
->>
->> diff --git a/drivers/usb/dwc2/core_intr.c b/drivers/usb/dwc2/core_intr.c
->> index 876ff31..b8ebda5 100644
->> --- a/drivers/usb/dwc2/core_intr.c
->> +++ b/drivers/usb/dwc2/core_intr.c
->> @@ -404,9 +404,11 @@ static void dwc2_handle_wakeup_detected_intr(struct dwc2_hsotg *hsotg)
->>   	}
->>   
->>   	if (dwc2_is_device_mode(hsotg)) {
->> +		enum dwc2_lx_state lx_state = hsotg->lx_state;
->> +
->>   		dev_dbg(hsotg->dev, "DSTS=0x%0x\n",
->>   			dwc2_readl(hsotg, DSTS));
->> -		if (hsotg->lx_state == DWC2_L2) {
->> +		if (lx_state == DWC2_L2) {
->>   			u32 dctl = dwc2_readl(hsotg, DCTL);
->>   
->>   			/* Clear Remote Wakeup Signaling */
->> @@ -415,11 +417,13 @@ static void dwc2_handle_wakeup_detected_intr(struct dwc2_hsotg *hsotg)
->>   			ret = dwc2_exit_partial_power_down(hsotg, true);
->>   			if (ret && (ret != -ENOTSUPP))
->>   				dev_err(hsotg->dev, "exit power_down failed\n");
->> -
->> -			call_gadget(hsotg, resume);
->>   		}
->>   		/* Change to L0 state */
->>   		hsotg->lx_state = DWC2_L0;
->> +
->> +		/* Gadget may queue new requests upon resume to L0 state */
->> +		if (lx_state == DWC2_L2)
->> +			call_gadget(hsotg, resume);
->>   	} else {
->>   		if (hsotg->params.power_down)
->>   			return;
->>
-> 
-> What about below patch without introducing additional variable.
-> 
-> diff --git a/drivers/usb/dwc2/core_intr.c b/drivers/usb/dwc2/core_intr.c
-> index 876ff31261d5..543865e31c72 100644
-> --- a/drivers/usb/dwc2/core_intr.c
-> +++ b/drivers/usb/dwc2/core_intr.c
-> @@ -416,6 +416,8 @@ static void dwc2_handle_wakeup_detected_intr(struct 
-> dwc2_hsotg *hsotg)
->                          if (ret && (ret != -ENOTSUPP))
->                                  dev_err(hsotg->dev, "exit power_down 
-> failed\n");
-> 
-> +                       /* Change to L0 state */
-> +                       hsotg->lx_state = DWC2_L0;
-
-Hi Minas,
-
-That was my first approach locally, but I added a variable to avoid do
-it twice... few lines after.
-
-But if you prefer, I can change in V2 ?
-
-Please let me know.
-
-Thanks,
-Fabrice
-
->                          call_gadget(hsotg, resume);
->                  }
->                  /* Change to L0 state */
-> 
-> 
-> Thanks,
-> Minas
-> 
-_______________________________________________
-Linux-stm32 mailing list
-Linux-stm32@st-md-mailman.stormreply.com
-https://st-md-mailman.stormreply.com/mailman/listinfo/linux-stm32
+T24gV2VkLCAyMiBBcHIgMjAyMCBhdCAxNTo0MCwgTHVkb3ZpYyBCQVJSRSA8bHVkb3ZpYy5iYXJy
+ZUBzdC5jb20+IHdyb3RlOgo+Cj4gaGkgVWxmCj4KPiBMZSA0LzIxLzIwIMOgIDExOjM4IEFNLCBV
+bGYgSGFuc3NvbiBhIMOpY3JpdCA6Cj4gPiBPbiBUdWUsIDIxIEFwciAyMDIwIGF0IDExOjI1LCBV
+bGYgSGFuc3NvbiA8dWxmLmhhbnNzb25AbGluYXJvLm9yZz4gd3JvdGU6Cj4gPj4KPiA+PiBPbiBN
+b24sIDIwIEFwciAyMDIwIGF0IDE4OjE4LCBMdWRvdmljIEJhcnJlIDxsdWRvdmljLmJhcnJlQHN0
+LmNvbT4gd3JvdGU6Cj4gPj4+Cj4gPj4+IFRoaXMgcGF0Y2ggZml4IGEgcG93ZXItb24gaXNzdWUs
+IGFuZCBhdm9pZCB0byByZXRyeSB0aGUgcG93ZXIgc2VxdWVuY2UuCj4gPj4+Cj4gPj4+IEluIHBv
+d2VyIG9mZiBzZXF1ZW5jZTogc2RtbWMgbXVzdCBzZXQgcHdyX3JlZyBpbiAicG93ZXItY3ljbGUi
+IHN0YXRlCj4gPj4+ICh2YWx1ZSAweDIpLCB0byBwcmV2ZW50IHRoZSBjYXJkIGZyb20gYmVpbmcg
+c3VwcGxpZWQgdGhyb3VnaCB0aGUgc2lnbmFsCj4gPj4+IGxpbmVzIChhbGwgdGhlIGxpbmVzIGFy
+ZSBkcml2ZW4gbG93KS4KPiA+Pj4KPiA+Pj4gSW4gcG93ZXIgb24gc2VxdWVuY2U6IHdoZW4gdGhl
+IHBvd2VyIGlzIHN0YWJsZSwgc2RtbWMgbXVzdCBzZXQgcHdyX3JlZwo+ID4+PiBpbiAicG93ZXIt
+b2ZmIiBzdGF0ZSAodmFsdWUgMHgwKSB0byBkcml2ZSBhbGwgc2lnbmFsIHRvIGhpZ2ggYmVmb3Jl
+IHRvCj4gPj4+IHNldCAicG93ZXItb24iLgo+ID4+Cj4gPj4gSnVzdCBhIHF1ZXN0aW9uIHRvIGdh
+aW4gZnVydGhlciB1bmRlcnN0YW5kaW5nLgo+ID4+Cj4gPj4gTGV0J3MgYXNzdW1lIHRoYXQgdGhl
+IGNvbnRyb2xsZXIgaXMgYSBwb3dlci1vbiBzdGF0ZSwgYmVjYXVzZSBpdCdzCj4gPj4gYmVlbiBp
+bml0aWFsaXplZCBieSB0aGUgYm9vdCBsb2FkZXIuIFdoZW4gdGhlIG1tYyBjb3JlIHRoZW4gc3Rh
+cnRzIHRoZQo+ID4+IHBvd2VyLW9uIHNlcXVlbmNlIChub3QgZG9pbmcgYSBwb3dlci1vZmYgZmly
+c3QpLCB3b3VsZCAkc3ViamVjdCBwYXRjaAo+ID4+IHRoZW4gY2F1c2UgdGhlCj4gPj4gTU1DSVBP
+V0VSIHRvIHJlbWFpbiBhcyBpcywgb3IgaXMgaXQgZ29pbmcgdG8gYmUgb3ZlcndyaXR0ZW4/Cj4K
+PiBPbiBzZG1tYyBjb250cm9sbGVyLCB0aGUgUFdSQ1RSTFsxOjBdIGZpZWxkIG9mIE1NQ0lQT1dF
+UiByZWdpc3RlciBhbGxvdwo+IHRvIG1hbmFnZSBzZCBsaW5lcyBhbmQgaGFzIGEgc3BlY2lmaWMg
+YmFoYXZpb3IuCj4KPiBQV1JDVFJMIHZhbHVlOgo+ICAgLSAweDA6IEFmdGVyIHJlc2V0LCBSZXNl
+dDogdGhlIFNETU1DIGlzIGRpc2FibGVkIGFuZCB0aGUgY2xvY2sgdG8gdGhlCj4gICAgICAgICAg
+Q2FyZCBpcyBzdG9wcGVkLCBTRE1NQ19EWzc6MF0sIGFuZCBTRE1NQ19DTUQgYXJlIEhpWiBhbmQK
+PiAgICAgICAgICBTRE1NQ19DSyBpcyBkcml2ZW4gbG93Lgo+ICAgICAgICAgIFdoZW4gd3JpdHRl
+biAwMCwgcG93ZXItb2ZmOiB0aGUgU0RNTUMgaXMgZGlzYWJsZWQgYW5kIHRoZSBjbG9jawo+ICAg
+ICAgICAgIHRvIHRoZSBjYXJkIGlzIHN0b3BwZWQsIFNETU1DX0RbNzowXSwgU0RNTUNfQ01EIGFu
+ZCBTRE1NQ19DSwo+ICAgICAgICAgIGFyZSBkcml2ZW4gaGlnaC4KPgo+ICAgLSAweDI6IFBvd2Vy
+LWN5Y2xlLCB0aGUgU0RNTUMgaXMgZGlzYWJsZWQgYW5kIHRoZSBjbG9jayB0byB0aGUgY2FyZCBp
+cwo+ICAgICAgICAgIHN0b3BwZWQsIFNETU1DX0RbNzowXSwgU0RNTUNfQ01EIGFuZCBTRE1NQ19D
+SyBhcmUgZHJpdmVuIGxvdy4KPgo+ICAgLSAweDM6IFBvd2VyLW9uOiB0aGUgY2FyZCBpcyBjbG9j
+a2VkLCBUaGUgZmlyc3QgNzQgU0RNTUNfQ0sgY3ljbGVzIHRoZQo+ICAgICAgICAgIFNETU1DIGlz
+IHN0aWxsIGRpc2FibGVkLiBBZnRlciB0aGUgNzQgY3ljbGVzIHRoZSBTRE1NQyBpcwo+ICAgICAg
+ICAgIGVuYWJsZWQgYW5kIHRoZSBTRE1NQ19EWzc6MF0sIFNETU1DX0NNRCBhbmQgU0RNTUNfQ0sg
+YXJlCj4gICAgICAgICAgY29udHJvbGxlZCBhY2NvcmRpbmcgdGhlIFNETU1DIG9wZXJhdGlvbi4K
+PiAgICAgICAgICAqKkFueSBmdXJ0aGVyIHdyaXRlIHdpbGwgYmUgaWdub3JlZCwgUFdSQ1RSTCB2
+YWx1ZQo+ICAgICAgICAgIHdpbGwga2VlcCAweDMqKi4gd2hlbiB0aGUgU0RNTUMgaXMgT04gKDB4
+Mykgb25seSBhIHJlc2V0IGNvdWxkCj4gICAgICAgICAgY2hhbmdlIHB3cmN0cmwgdmFsdWUgYW5k
+IHRoZSBzdGF0ZSBvZiBzZG1tYyBsaW5lcy4KPgo+IFNvIGlmIHRoZSBsaW5lcyBhcmUgYWxyZWFk
+eSAiT04iLCB0aGUgcG93ZXItb24gc2VxdWVuY2UgKGRlY3JpYmVkIGluCj4gY29tbWl0IG1lc3Nh
+Z2UpIG5vdCBvdmVyd3JpdGUgdGhlIHB3Y3RybCBmaWVsZCBhbmQgbm90IGRpc3R1cmIgdGhlIHNk
+bW1jCj4gbGluZXMuCgpUaGFua3MgZm9yIHRoZSBkZXRhaWxlZCBpbmZvcm1hdGlvbiwgbXVjaCBh
+cHByZWNpYXRlZCEKCj4KPiA+Pgo+ID4+IEkgYW0gYSBsaXR0bGUgd29ycmllZCB0aGF0IHdlIG1h
+eSBzdGFydCB0byByZWx5IG9uIGJvb3QgbG9hZGVyCj4gPj4gY29uZGl0aW9ucywgd2hpY2ggaXNu
+J3QgcmVhbGx5IHdoYXQgd2Ugd2FudCBlaXRoZXIuLi4KPiA+Pgo+Cj4gV2Ugbm90IGRlcGVuZCBv
+ZiBib290IGxvYWRlciBjb25kaXRpb25zLgo+Cj4gVGhpcyBwYXRjaCBzaW1wbHkgYWxsb3dzIHRv
+IGRyaXZlIGhpZ2ggdGhlIHNkIGxpbmVzIGJlZm9yZSB0byBzZXQKPiAicG93ZXItb24iIHZhbHVl
+IChubyBlZmZlY3QgaWYgYWxyZWFkeSBwb3dlciBPTikuCgpZZXAsIHRoYW5rcyEKCj4KPiA+Pj4K
+PiA+Pj4gVG8gYXZvaWQgd3JpdGluZyB0aGUgc2FtZSB2YWx1ZSB0byB0aGUgcG93ZXIgcmVnaXN0
+ZXIgc2V2ZXJhbCB0aW1lcywgdGhpcwo+ID4+PiByZWdpc3RlciBpcyBjYWNoZWQgYnkgdGhlIHB3
+cl9yZWcgdmFyaWFibGUuIEF0IHByb2JlIHB3cl9yZWcgaXMgaW5pdGlhbGl6ZWQKPiA+Pj4gdG8g
+MCBieSBremFsbG9jIG9mIG1tY19hbGxvY19ob3N0Lgo+ID4+Pgo+ID4+PiBMaWtlIHB3cl9yZWcg
+dmFsdWUgaXMgMCBhdCBwcm9iaW5nLCB0aGUgcG93ZXIgb24gc2VxdWVuY2UgZmFpbCBiZWNhdXNl
+Cj4gPj4+IHRoZSAicG93ZXItb2ZmIiBzdGF0ZSBpcyBub3Qgd3JpdGVzICh2YWx1ZSAweDApIGFu
+ZCB0aGUgbGluZXMKPiA+Pj4gcmVtYWluIGRyaXZlIHRvIGxvdy4KPiA+Pj4KPiA+Pj4gVGhpcyBw
+YXRjaCBpbml0aWFsaXplcyAicHdyX3JlZyIgdmFyaWFibGUgd2l0aCBwb3dlciByZWdpc3RlciB2
+YWx1ZS4KPiA+Pj4gVGhpcyBpdCBkb25lIGluIHNkbW1jIHZhcmlhbnQgaW5pdCB0byBub3QgZGlz
+dHVyYiBkZWZhdWx0IG1tY2kgYmVoYXZpb3IuCj4gPj4+Cj4gPj4+IFNpZ25lZC1vZmYtYnk6IEx1
+ZG92aWMgQmFycmUgPGx1ZG92aWMuYmFycmVAc3QuY29tPgo+ID4+Cj4gPj4gQmVzaWRlcyB0aGUg
+Y29tbWVudCwgdGhlIGNvZGUgYW5kIHRoZSBhcHByb2FjaCBzZWVtcyByZWFzb25hYmxlIHRvIG1l
+Lgo+ID4KPiA+IEFub3RoZXIgcmVsYXRlZCBxdWVzdGlvbi4gSSBqdXN0IHJlYWxpemVkIHdoeSB5
+b3UgcHJvYmFibHkgaGF2ZW4ndCBzZXQKPiA+IC5wd3JyZWdfbm9wb3dlciBmb3IgdGhlIHZhcmlh
+bnRfc3RtMzJfc2RtbWMgYW5kIHZhcmlhbnRfc3RtMzJfc2RtbWN2Mi4KPiA+Cj4gPiBJIGd1ZXNz
+IGl0J3MgYmVjYXVzZSB5b3UgbmVlZCBhIHNsaWdodGx5IGRpZmZlcmVudCB3YXkgdG8gcmVzdG9y
+ZSB0aGUKPiA+IGNvbnRleHQgb2YgTU1DSVBPV0VSIHJlZ2lzdGVyIGF0IC0+cnVudGltZV9yZXN1
+bWUoKSwgcmF0aGVyIHRoYW4ganVzdAo+ID4gcmUtd3JpdGluZyBpdCB3aXRoIHRoZSBzYXZlZCBy
+ZWdpc3RlciB2YWx1ZXMuIElzIHRoaXMgc29tZXRoaW5nIHRoYXQKPiA+IHlvdSBhcmUgbG9va2lu
+ZyBpbnRvIGFzIHdlbGw/Cj4KPiBZZXMgZXhhY3RseSwgdGhlIHNlcXVlbmNlIGlzIHNsaWdodGx5
+IGRpZmZlcmVudC4gSSBjYW4ndCB3cml0ZSAwIG9uCj4gbW1jaV9ydW50aW1lX3N1c3BlbmQsIGFu
+ZCBjYW4ndCBqdXN0IHJlLXdyaXRpbmcgdGhlIHNhdmVkIHJlZ2lzdGVyLgoKU28sIGl0IHNlZW1z
+IGxpa2UgeW91IG5lZWQgdG8gdXNlIHRoZSAtPnNldF9pb3MoKSBjYWxsYmFjaywgdG8KcmUtY29u
+ZmlndXJlIHRoZSBjb250cm9sbGVyIGNvcnJlY3RseS4KCkp1c3QgdGVsbCBpZiB5b3UgbmVlZCBt
+b3JlIGhlbHAgdG8gbWFrZSB0aGF0IHdvcmssIG90aGVyd2lzZSBJIGFtIGhlcmUKdG8gcmV2aWV3
+IHlvdXIgcGF0Y2hlcy4KCkluIHJlZ2FyZHMgdG8gJHN1YmplY3QgcGF0Y2gsIEkgaGF2ZSBhcHBs
+aWVkIGl0IGZvciBuZXh0LCB0aGFua3MhCgpLaW5kIHJlZ2FyZHMKVWZmZQpfX19fX19fX19fX19f
+X19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fXwpMaW51eC1zdG0zMiBtYWlsaW5nIGxp
+c3QKTGludXgtc3RtMzJAc3QtbWQtbWFpbG1hbi5zdG9ybXJlcGx5LmNvbQpodHRwczovL3N0LW1k
+LW1haWxtYW4uc3Rvcm1yZXBseS5jb20vbWFpbG1hbi9saXN0aW5mby9saW51eC1zdG0zMgo=
