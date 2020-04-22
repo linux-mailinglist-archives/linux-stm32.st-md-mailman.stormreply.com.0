@@ -2,38 +2,38 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id 3AFD11B4076
+	by mail.lfdr.de (Postfix) with ESMTPS id 506AE1B4077
 	for <lists+linux-stm32@lfdr.de>; Wed, 22 Apr 2020 12:46:34 +0200 (CEST)
 Received: from ip-172-31-3-76.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id ED708C36B0F;
-	Wed, 22 Apr 2020 10:46:33 +0000 (UTC)
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 06E5DC36B11;
+	Wed, 22 Apr 2020 10:46:34 +0000 (UTC)
 Received: from mail-out.m-online.net (mail-out.m-online.net [212.18.0.9])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 7027FC36B0C
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id D8B67C36B0C
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Wed, 22 Apr 2020 10:46:29 +0000 (UTC)
+ Wed, 22 Apr 2020 10:46:30 +0000 (UTC)
 Received: from frontend01.mail.m-online.net (unknown [192.168.8.182])
- by mail-out.m-online.net (Postfix) with ESMTP id 496cYd0pXDz1qs3k;
- Wed, 22 Apr 2020 12:46:29 +0200 (CEST)
+ by mail-out.m-online.net (Postfix) with ESMTP id 496cYf3wmxz1qs3s;
+ Wed, 22 Apr 2020 12:46:30 +0200 (CEST)
 Received: from localhost (dynscan1.mnet-online.de [192.168.6.70])
- by mail.m-online.net (Postfix) with ESMTP id 496cYc718Pz1qql5;
- Wed, 22 Apr 2020 12:46:28 +0200 (CEST)
+ by mail.m-online.net (Postfix) with ESMTP id 496cYf3DfMz1qql5;
+ Wed, 22 Apr 2020 12:46:30 +0200 (CEST)
 X-Virus-Scanned: amavisd-new at mnet-online.de
 Received: from mail.mnet-online.de ([192.168.8.182])
  by localhost (dynscan1.mail.m-online.net [192.168.6.70]) (amavisd-new,
  port 10024)
- with ESMTP id QBJ02uAf5Prs; Wed, 22 Apr 2020 12:46:27 +0200 (CEST)
-X-Auth-Info: J00tCuseQG09sie0l30l627GPjjICIcArxdKZuXGBUs=
+ with ESMTP id t0iA9XA1EVJv; Wed, 22 Apr 2020 12:46:29 +0200 (CEST)
+X-Auth-Info: PULLnMIS8NbafGAcE3AVI2Kp76Zc3tEqsTa2pBtUpak=
 Received: from desktop.lan (ip-86-49-35-8.net.upcbroadband.cz [86.49.35.8])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
  by mail.mnet-online.de (Postfix) with ESMTPSA;
- Wed, 22 Apr 2020 12:46:27 +0200 (CEST)
+ Wed, 22 Apr 2020 12:46:29 +0200 (CEST)
 From: Marek Vasut <marex@denx.de>
 To: linux-arm-kernel@lists.infradead.org
-Date: Wed, 22 Apr 2020 12:45:55 +0200
-Message-Id: <20200422104613.96944-3-marex@denx.de>
+Date: Wed, 22 Apr 2020 12:45:56 +0200
+Message-Id: <20200422104613.96944-4-marex@denx.de>
 X-Mailer: git-send-email 2.25.1
 In-Reply-To: <20200422104613.96944-1-marex@denx.de>
 References: <20200422104613.96944-1-marex@denx.de>
@@ -42,8 +42,8 @@ Cc: Marek Vasut <marex@denx.de>, Patrick Delaunay <patrick.delaunay@st.com>,
  Maxime Coquelin <mcoquelin.stm32@gmail.com>,
  Manivannan Sadhasivam <manivannan.sadhasivam@linaro.org>,
  linux-stm32@st-md-mailman.stormreply.com
-Subject: [Linux-stm32] [PATCH V5 02/20] ARM: dts: stm32: Repair PMIC
-	interrupt on AV96
+Subject: [Linux-stm32] [PATCH V5 03/20] ARM: dts: stm32: Add alternate
+	pinmux for ethernet RGMII
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -60,10 +60,9 @@ Content-Transfer-Encoding: 7bit
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
-The PMIC interrupt line is connected to PA0 on the DHCOR SoM, fix it.
-This makes the POWER button on the AV96 working, and also all the other
-PMIC interrupts. Furthermore, scrub the bogus interrupt-parent props.
+Add another mux option for DWMAC RGMII, this is used on AV96 board.
 
+Reviewed-by: Manivannan Sadhasivam <manivannan.sadhasivam@linaro.org>
 Signed-off-by: Marek Vasut <marex@denx.de>
 Cc: Alexandre Torgue <alexandre.torgue@st.com>
 Cc: Manivannan Sadhasivam <manivannan.sadhasivam@linaro.org>
@@ -74,87 +73,76 @@ Cc: linux-stm32@st-md-mailman.stormreply.com
 To: linux-arm-kernel@lists.infradead.org
 ---
 V2: No change
-V3: Move this before the SDMMC2 patch
+V3: No change
 V4: Rebase on stm32-next
-V5: Reorder the patch before the SDMMC and ethernet patches
+    Rename the pinmux nodes to ethernet0_rgmii_{,sleep_}pins_c
+V5: No change
 ---
- arch/arm/boot/dts/stm32mp157a-avenger96.dts | 10 +---------
- 1 file changed, 1 insertion(+), 9 deletions(-)
+ arch/arm/boot/dts/stm32mp15-pinctrl.dtsi | 51 ++++++++++++++++++++++++
+ 1 file changed, 51 insertions(+)
 
-diff --git a/arch/arm/boot/dts/stm32mp157a-avenger96.dts b/arch/arm/boot/dts/stm32mp157a-avenger96.dts
-index 380ce148520f..010b7cdf8926 100644
---- a/arch/arm/boot/dts/stm32mp157a-avenger96.dts
-+++ b/arch/arm/boot/dts/stm32mp157a-avenger96.dts
-@@ -141,7 +141,7 @@ &i2c4 {
- 	pmic: stpmic@33 {
- 		compatible = "st,stpmic1";
- 		reg = <0x33>;
--		interrupts-extended = <&exti 55 IRQ_TYPE_EDGE_FALLING>;
-+		interrupts-extended = <&gpioa 0 IRQ_TYPE_EDGE_FALLING>;
- 		interrupt-controller;
- 		#interrupt-cells = <2>;
- 		status = "okay";
-@@ -198,7 +198,6 @@ vdda: ldo1 {
- 				regulator-min-microvolt = <2900000>;
- 				regulator-max-microvolt = <2900000>;
- 				interrupts = <IT_CURLIM_LDO1 0>;
--				interrupt-parent = <&pmic>;
- 			};
+diff --git a/arch/arm/boot/dts/stm32mp15-pinctrl.dtsi b/arch/arm/boot/dts/stm32mp15-pinctrl.dtsi
+index eb85ad19c926..6fce6133d644 100644
+--- a/arch/arm/boot/dts/stm32mp15-pinctrl.dtsi
++++ b/arch/arm/boot/dts/stm32mp15-pinctrl.dtsi
+@@ -213,6 +213,57 @@ pins1 {
+ 		 };
+ 	};
  
- 			v2v8: ldo2 {
-@@ -206,7 +205,6 @@ v2v8: ldo2 {
- 				regulator-min-microvolt = <2800000>;
- 				regulator-max-microvolt = <2800000>;
- 				interrupts = <IT_CURLIM_LDO2 0>;
--				interrupt-parent = <&pmic>;
- 			};
- 
- 			vtt_ddr: ldo3 {
-@@ -220,7 +218,6 @@ vtt_ddr: ldo3 {
- 			vdd_usb: ldo4 {
- 				regulator-name = "vdd_usb";
- 				interrupts = <IT_CURLIM_LDO4 0>;
--				interrupt-parent = <&pmic>;
- 			};
- 
- 			vdd_sd: ldo5 {
-@@ -228,7 +225,6 @@ vdd_sd: ldo5 {
- 				regulator-min-microvolt = <2900000>;
- 				regulator-max-microvolt = <2900000>;
- 				interrupts = <IT_CURLIM_LDO5 0>;
--				interrupt-parent = <&pmic>;
- 				regulator-boot-on;
- 			};
- 
-@@ -237,7 +233,6 @@ v1v8: ldo6 {
- 				regulator-min-microvolt = <1800000>;
- 				regulator-max-microvolt = <1800000>;
- 				interrupts = <IT_CURLIM_LDO6 0>;
--				interrupt-parent = <&pmic>;
- 				regulator-enable-ramp-delay = <300000>;
- 			};
- 
-@@ -249,20 +244,17 @@ vref_ddr: vref_ddr {
- 			bst_out: boost {
- 				regulator-name = "bst_out";
- 				interrupts = <IT_OCP_BOOST 0>;
--				interrupt-parent = <&pmic>;
- 			};
- 
- 			vbus_otg: pwr_sw1 {
- 				regulator-name = "vbus_otg";
- 				interrupts = <IT_OCP_OTG 0>;
--				interrupt-parent = <&pmic>;
- 				regulator-active-discharge = <1>;
- 			};
- 
- 			vbus_sw: pwr_sw2 {
- 				regulator-name = "vbus_sw";
- 				interrupts = <IT_OCP_SWOUT 0>;
--				interrupt-parent = <&pmic>;
- 				regulator-active-discharge = <1>;
- 			};
- 		};
++	ethernet0_rgmii_pins_c: rgmii-2 {
++		pins1 {
++			pinmux = <STM32_PINMUX('G', 5, AF11)>, /* ETH_RGMII_CLK125 */
++				 <STM32_PINMUX('G', 4, AF11)>, /* ETH_RGMII_GTX_CLK */
++				 <STM32_PINMUX('B', 12, AF11)>, /* ETH_RGMII_TXD0 */
++				 <STM32_PINMUX('G', 14, AF11)>, /* ETH_RGMII_TXD1 */
++				 <STM32_PINMUX('C', 2, AF11)>, /* ETH_RGMII_TXD2 */
++				 <STM32_PINMUX('E', 2, AF11)>, /* ETH_RGMII_TXD3 */
++				 <STM32_PINMUX('G', 11, AF11)>, /* ETH_RGMII_TX_CTL */
++				 <STM32_PINMUX('C', 1, AF11)>; /* ETH_MDC */
++			bias-disable;
++			drive-push-pull;
++			slew-rate = <2>;
++		};
++		pins2 {
++			pinmux = <STM32_PINMUX('A', 2, AF11)>; /* ETH_MDIO */
++			bias-disable;
++			drive-push-pull;
++			slew-rate = <0>;
++		};
++		pins3 {
++			pinmux = <STM32_PINMUX('C', 4, AF11)>, /* ETH_RGMII_RXD0 */
++				 <STM32_PINMUX('C', 5, AF11)>, /* ETH_RGMII_RXD1 */
++				 <STM32_PINMUX('H', 6, AF11)>, /* ETH_RGMII_RXD2 */
++				 <STM32_PINMUX('B', 1, AF11)>, /* ETH_RGMII_RXD3 */
++				 <STM32_PINMUX('A', 1, AF11)>, /* ETH_RGMII_RX_CLK */
++				 <STM32_PINMUX('A', 7, AF11)>; /* ETH_RGMII_RX_CTL */
++			bias-disable;
++		};
++	};
++
++	ethernet0_rgmii_sleep_pins_c: rgmii-sleep-2 {
++		pins1 {
++			pinmux = <STM32_PINMUX('G', 5, ANALOG)>, /* ETH_RGMII_CLK125 */
++				 <STM32_PINMUX('G', 4, ANALOG)>, /* ETH_RGMII_GTX_CLK */
++				 <STM32_PINMUX('B', 12, ANALOG)>, /* ETH_RGMII_TXD0 */
++				 <STM32_PINMUX('G', 14, ANALOG)>, /* ETH_RGMII_TXD1 */
++				 <STM32_PINMUX('C', 2, ANALOG)>, /* ETH_RGMII_TXD2 */
++				 <STM32_PINMUX('E', 2, ANALOG)>, /* ETH_RGMII_TXD3 */
++				 <STM32_PINMUX('G', 11, ANALOG)>, /* ETH_RGMII_TX_CTL */
++				 <STM32_PINMUX('A', 2, ANALOG)>, /* ETH_MDIO */
++				 <STM32_PINMUX('C', 1, ANALOG)>, /* ETH_MDC */
++				 <STM32_PINMUX('C', 4, ANALOG)>, /* ETH_RGMII_RXD0 */
++				 <STM32_PINMUX('C', 5, ANALOG)>, /* ETH_RGMII_RXD1 */
++				 <STM32_PINMUX('H', 6, ANALOG)>, /* ETH_RGMII_RXD2 */
++				 <STM32_PINMUX('B', 1, ANALOG)>, /* ETH_RGMII_RXD3 */
++				 <STM32_PINMUX('A', 1, ANALOG)>, /* ETH_RGMII_RX_CLK */
++				 <STM32_PINMUX('A', 7, ANALOG)>; /* ETH_RGMII_RX_CTL */
++		};
++	};
++
+ 	ethernet0_rmii_pins_a: rmii-0 {
+ 		pins1 {
+ 			pinmux = <STM32_PINMUX('G', 13, AF11)>, /* ETH1_RMII_TXD0 */
 -- 
 2.25.1
 
