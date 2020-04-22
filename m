@@ -2,127 +2,45 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id CE3E31B4A07
-	for <lists+linux-stm32@lfdr.de>; Wed, 22 Apr 2020 18:16:49 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id E4BF41B4A11
+	for <lists+linux-stm32@lfdr.de>; Wed, 22 Apr 2020 18:18:48 +0200 (CEST)
 Received: from ip-172-31-3-76.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 7DDC2C36B0B;
-	Wed, 22 Apr 2020 16:16:49 +0000 (UTC)
-Received: from smtprelay-out1.synopsys.com (smtprelay-out1.synopsys.com
- [149.117.87.133])
- (using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
- (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id CFCBDC36B09
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id A61D6C36B0B;
+	Wed, 22 Apr 2020 16:18:48 +0000 (UTC)
+Received: from bhuna.collabora.co.uk (bhuna.collabora.co.uk [46.235.227.227])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256
+ bits)) (No client certificate requested)
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 00E0AC36B09
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Wed, 22 Apr 2020 16:16:46 +0000 (UTC)
-Received: from mailhost.synopsys.com (badc-mailhost2.synopsys.com
- [10.192.0.18])
- (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits))
- (No client certificate requested)
- by smtprelay-out1.synopsys.com (Postfix) with ESMTPS id 07103C00AD;
- Wed, 22 Apr 2020 16:16:43 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=synopsys.com; s=mail;
- t=1587572204; bh=+odkonGKh8I/uNQEv1xU5FnB0KjU1G7BDRAj8u//EW0=;
- h=From:To:CC:Subject:Date:References:In-Reply-To:From;
- b=evkl7pVHgJ9mlGVZytScDfkR5WBWESXcr0uW7IQEYRLOwQx9MTCICOf2o9M9CmV+6
- HBzXbKA/BnUx3qp8WpxS/4CbIF0UXIIQdP9E6VrsWCtyi1mBB8FCFPoDuFzzjvM6my
- +cEBOyb6WAhsPsvf7CIrsv6yuCPKo8rvgEWAw3tNv8Pyli1+b/QK3OBo5n/j4um661
- 8+ZRLoxa3zKHGjmkd13L3r/XQ2lFsSfuScw5Oa2Rf8F5fTgSOhn6+5z7m+qi8KE9k2
- mqPhVRq8LDVlWBTr5T9GIXrhiCwMYxgLWJn7cjzvJGVysZT8H3SRki93uKfwpwnCba
- z3FTazkAqPCrA==
-Received: from US01WEHTC3.internal.synopsys.com
- (us01wehtc3.internal.synopsys.com [10.15.84.232])
- (using TLSv1.2 with cipher ECDHE-RSA-AES256-SHA384 (256/256 bits))
- (No client certificate requested)
- by mailhost.synopsys.com (Postfix) with ESMTPS id DFED9A0069;
- Wed, 22 Apr 2020 16:16:42 +0000 (UTC)
-Received: from us01hybrid1.internal.synopsys.com (10.200.27.51) by
- US01WEHTC3.internal.synopsys.com (10.15.84.232) with Microsoft SMTP Server
- (TLS) id 14.3.408.0; Wed, 22 Apr 2020 09:16:42 -0700
-Received: from NAM11-BN8-obe.outbound.protection.outlook.com (10.202.3.67) by
- mrs.synopsys.com (10.200.27.51) with Microsoft SMTP Server (TLS) id
- 14.3.487.0; Wed, 22 Apr 2020 09:16:42 -0700
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=QQAnMFAH41SMxykGd8/95fF3Ke/6vKqOmtcw0QmUjZkFBfBNMdft20bZc1SrqNW6udPqKHaE/WYf35YLH/QMhOM8vSLs4931jm58TonGPMdjDycOoUdZ9SjmWu9/xsTsF4pZSLWvevZQvWQMF8L4Bx+HSXpEBxtrc9touV262KI+LHK/8g3Dy/vZeN9ovNaQe7MyWL5tECykzYXVM1hP5xo/MRxJ8INxIXf08aZaxbZc++kWdytiLHX5pJp6jx3qYadPPCIMqxxKtIIqYcnHdo6hfHd/teFQyOhuWYRGoAXxSg3/qqJmyjUqU6hMwSJmBoJ4a2QRjZb2v8vnzQLUPw==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
- s=arcselector9901;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=+odkonGKh8I/uNQEv1xU5FnB0KjU1G7BDRAj8u//EW0=;
- b=l/CZhFVwK5sPfUVYO2+mvTEQMPmf0YA8PFlykpju/NVtO0Y0U2cpF0M4/+gd9O3Gq/7zIJpHfk0etu2vweFio7Q1B9H9S3iD5lGtAL1zDD8hO3oY1Ew/f9cAoFsUwBIvO0jmlFo/nirkXGU5Eo276IJFjAevFeMdVPZupDnOFtgfDUFKEW9m2n8aL5tF+7mcGm7hgVHAnNhfaPlxXhmNYxOuhAVQKGKF8oXKWajww6yvG3swzHJJSPVmi9s7AaUgmP/PlXyGRivtrLFRJKlv5aPU7WUoscL0JFqeO5lDwVU/yDka4LBNvr8C+Cd5CwxZGg3m6olDLob0kWsRSOME0w==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=synopsys.com; dmarc=pass action=none header.from=synopsys.com;
- dkim=pass header.d=synopsys.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=synopsys.com;
- s=selector1;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=+odkonGKh8I/uNQEv1xU5FnB0KjU1G7BDRAj8u//EW0=;
- b=TDJ0xKxZv9s/rgtHanqpsD8GBn6TJU1fSN7UIwXPPnUSLE0g9Azua12lkCKIMGv7ANDJKf2zAjQeTSCfePgBRCABuQgy+RxZOuAE404sEl+dVgNapjo6QKYOE07uONq8x1ZaZvZf1jL6eF8Dqn4sBWrkagjRKRmEXp4LZqUhzOE=
-Received: from SN1PR12MB2557.namprd12.prod.outlook.com (2603:10b6:802:22::15)
- by SN1PR12MB2349.namprd12.prod.outlook.com (2603:10b6:802:2a::13)
- with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.2921.29; Wed, 22 Apr
- 2020 16:16:41 +0000
-Received: from SN1PR12MB2557.namprd12.prod.outlook.com
- ([fe80::20d2:fe98:5580:932d]) by SN1PR12MB2557.namprd12.prod.outlook.com
- ([fe80::20d2:fe98:5580:932d%7]) with mapi id 15.20.2937.012; Wed, 22 Apr 2020
- 16:16:41 +0000
-From: Minas Harutyunyan <Minas.Harutyunyan@synopsys.com>
-To: Fabrice Gasnier <fabrice.gasnier@st.com>,
- Minas Harutyunyan <Minas.Harutyunyan@synopsys.com>,
- "balbi@kernel.org" <balbi@kernel.org>
-Thread-Topic: [PATCH 1/4] usb: dwc2: gadget: move gadget resume after the core
- is in L0 state
-Thread-Index: AQHWF9kltb5ivodInUCMhTw1JrJADqiFOpOAgAATFACAAAV1AA==
-Date: Wed, 22 Apr 2020 16:16:40 +0000
-Message-ID: <13a35aac-a3c9-df9f-a2b7-64abdbf9463c@synopsys.com>
-References: <1587472341-17935-1-git-send-email-fabrice.gasnier@st.com>
- <1587472341-17935-2-git-send-email-fabrice.gasnier@st.com>
- <5391768a-da52-def8-9b2a-aeb559d8e26b@synopsys.com>
- <ba525953-fbab-c2cf-beba-8755846cd27e@st.com>
-In-Reply-To: <ba525953-fbab-c2cf-beba-8755846cd27e@st.com>
-Accept-Language: en-US
-Content-Language: en-US
-X-MS-Has-Attach: 
-X-MS-TNEF-Correlator: 
-user-agent: Mozilla/5.0 (Windows NT 10.0; WOW64; rv:68.0) Gecko/20100101
- Thunderbird/68.7.0
-authentication-results: spf=none (sender IP is )
- smtp.mailfrom=hminas@synopsys.com; 
-x-originating-ip: [198.182.37.200]
-x-ms-publictraffictype: Email
-x-ms-office365-filtering-correlation-id: 87b8c1f9-f86d-4b19-57bf-08d7e6d88aba
-x-ms-traffictypediagnostic: SN1PR12MB2349:
-x-ms-exchange-transport-forked: True
-x-microsoft-antispam-prvs: <SN1PR12MB23496CB6081B4DAF9D473A19A7D20@SN1PR12MB2349.namprd12.prod.outlook.com>
-x-ms-oob-tlc-oobclassifiers: OLM:9508;
-x-forefront-prvs: 03818C953D
-x-forefront-antispam-report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
- IPV:NLI; SFV:NSPM; H:SN1PR12MB2557.namprd12.prod.outlook.com; PTR:; CAT:NONE;
- SFTY:;
- SFS:(10019020)(346002)(396003)(366004)(376002)(136003)(39860400002)(76116006)(5660300002)(6486002)(2616005)(91956017)(2906002)(66476007)(66556008)(6512007)(86362001)(66446008)(66946007)(4326008)(81156014)(31696002)(8936002)(64756008)(8676002)(110136005)(36756003)(478600001)(186003)(71200400001)(53546011)(316002)(31686004)(26005)(6506007)(54906003);
- DIR:OUT; SFP:1102; 
-received-spf: None (protection.outlook.com: synopsys.com does not designate
- permitted sender hosts)
-x-ms-exchange-senderadcheck: 1
-x-microsoft-antispam: BCL:0;
-x-microsoft-antispam-message-info: CebWBRcl+Ozjs6fKFWCSBx43FOn9tngMSACq2nkQkQCZkEeek46klbuhQErBr57gK+7Ui/GszcE3PJ+kLMlKdiwlrLJHJhVE6UNjVzNBL/grI0mtVA29JaqONfYRAH6neGV7XcWib6Xwch9i+2N8HQrVCO3cC2nhpFuB+MUalV3emItEJddHRdoRsMKuY+PLExBWiITMYQOPx1e/LGo3gxVVZJ0K6cOthOb2b9k8BlyfKNKaNwHZ5sqPqdDRW2AAoAnvUqKEEiFctIn5rLRxYNqDnzP84UgM54ezV7M9PI4bGvOWB/Zj/c9VDsv94HapCF1CJ+Zkg8ANYIBpDED0AlUJQi6C/WPwGku3oB+YjhLaH89SsfvcQm3aDetncVcY3bWamxrUgBoU+aimY9czulzFsh8lngeL8mS/rMXWAxo+KXsuWWFF+2juSMktKefI
-x-ms-exchange-antispam-messagedata: SDpZ/v4rci1l1JFQhzRIzlOgYYCom8LROMPOzhHqGd6YOf2eRdR5Vm3RmoO7Yc9naTuKEC5LR0WFJJthS+3zJ0QmdzaX64xMhvQAU2NMrTYK4jm1c4UWk69vNJDaqiBSkaUpmM/dl+UcWym4gNH/ug==
-Content-ID: <5E2A93375C477A42BAD7FD3E53CAF114@namprd12.prod.outlook.com>
+ Wed, 22 Apr 2020 16:18:46 +0000 (UTC)
+Received: from [127.0.0.1] (localhost [127.0.0.1])
+ (Authenticated sender: aratiu) with ESMTPSA id 56C542A089E
+From: Adrian Ratiu <adrian.ratiu@collabora.com>
+To: Laurent Pinchart <laurent.pinchart@ideasonboard.com>, Adrian Ratiu
+ <adrian.ratiu@collabora.com>
+In-Reply-To: <20200422152956.GE28105@pendragon.ideasonboard.com>
+References: <20200421161610.1501827-1-adrian.ratiu@collabora.com>
+ <20200421161610.1501827-6-adrian.ratiu@collabora.com>
+ <20200422005832.GK5983@pendragon.ideasonboard.com>
+ <20200422010155.GL5983@pendragon.ideasonboard.com>
+ <877dy7ker6.fsf@collabora.com>
+ <20200422152956.GE28105@pendragon.ideasonboard.com>
+Date: Wed, 22 Apr 2020 19:19:50 +0300
+Message-ID: <87368vjxw9.fsf@collabora.com>
 MIME-Version: 1.0
-X-MS-Exchange-CrossTenant-Network-Message-Id: 87b8c1f9-f86d-4b19-57bf-08d7e6d88aba
-X-MS-Exchange-CrossTenant-originalarrivaltime: 22 Apr 2020 16:16:40.9897 (UTC)
-X-MS-Exchange-CrossTenant-fromentityheader: Hosted
-X-MS-Exchange-CrossTenant-id: c33c9f88-1eb7-4099-9700-16013fd9e8aa
-X-MS-Exchange-CrossTenant-mailboxtype: HOSTED
-X-MS-Exchange-CrossTenant-userprincipalname: Q9p8ebPUtx3Vd66Rh6miGyh6q4R9vyGZsfnztsz3Nv5F9MWjpw5bU8Oz7oTAYB//ygOmmqwv1e8Ogl6iQ5+bbQ==
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: SN1PR12MB2349
-X-OriginatorOrg: synopsys.com
-Cc: "gregkh@linuxfoundation.org" <gregkh@linuxfoundation.org>,
- "linux-usb@vger.kernel.org" <linux-usb@vger.kernel.org>,
- "linux-kernel@vger.kernel.org" <linux-kernel@vger.kernel.org>,
- "linux-stm32@st-md-mailman.stormreply.com"
- <linux-stm32@st-md-mailman.stormreply.com>
-Subject: Re: [Linux-stm32] [PATCH 1/4] usb: dwc2: gadget: move gadget resume
- after the core is in L0 state
+Cc: Rob Herring <robh@kernel.org>, devicetree@vger.kernel.org,
+ Jernej Skrabec <jernej.skrabec@siol.net>,
+ Sjoerd Simons <sjoerd.simons@collabora.com>, Heiko Stuebner <heiko@sntech.de>,
+ Adrian Pop <pop.adrian61@gmail.com>, Jonas Karlman <jonas@kwiboo.se>,
+ Martyn Welch <martyn.welch@collabora.com>,
+ Neil Armstrong <narmstrong@baylibre.com>, linux-kernel@vger.kernel.org,
+ dri-devel@lists.freedesktop.org, Andrzej Hajda <a.hajda@samsung.com>,
+ linux-rockchip@lists.infradead.org, linux-imx@nxp.com,
+ Arnaud Ferraris <arnaud.ferraris@collabora.com>, kernel@collabora.com,
+ Fabio Estevam <festevam@gmail.com>, linux-stm32@st-md-mailman.stormreply.com,
+ linux-arm-kernel@lists.infradead.org
+Subject: Re: [Linux-stm32] [PATCH v7 5/8] dt-bindings: display: add i.MX6
+ MIPI DSI host controller doc
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -134,134 +52,231 @@ List-Post: <mailto:linux-stm32@st-md-mailman.stormreply.com>
 List-Help: <mailto:linux-stm32-request@st-md-mailman.stormreply.com?subject=help>
 List-Subscribe: <https://st-md-mailman.stormreply.com/mailman/listinfo/linux-stm32>, 
  <mailto:linux-stm32-request@st-md-mailman.stormreply.com?subject=subscribe>
-Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
+Content-Type: text/plain; charset="us-ascii"; Format="flowed"
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
-Hi Fabrice,
-
-On 4/22/2020 7:57 PM, Fabrice Gasnier wrote:
-> On 4/22/20 4:48 PM, Minas Harutyunyan wrote:
->> Hi Fabrice,
->>
->> On 4/21/2020 4:32 PM, Fabrice Gasnier wrote:
->>> When the remote wakeup interrupt is triggered, lx_state is resumed from L2
->>> to L0 state. But when the gadget resume is called, lx_state is still L2.
->>> This prevents the resume callback to queue any request. Any attempt
->>> to queue a request from resume callback will result in:
->>> - "submit request only in active state" debug message to be issued
->>> - dwc2_hsotg_ep_queue() returns -EAGAIN
->>>
->>> Move the call to resume gadget after the core is put in DWC2_L0 state.
->>>
->>> Signed-off-by: Fabrice Gasnier <fabrice.gasnier@st.com>
->>> ---
->>>    drivers/usb/dwc2/core_intr.c | 10 +++++++---
->>>    1 file changed, 7 insertions(+), 3 deletions(-)
->>>
->>> diff --git a/drivers/usb/dwc2/core_intr.c b/drivers/usb/dwc2/core_intr.c
->>> index 876ff31..b8ebda5 100644
->>> --- a/drivers/usb/dwc2/core_intr.c
->>> +++ b/drivers/usb/dwc2/core_intr.c
->>> @@ -404,9 +404,11 @@ static void dwc2_handle_wakeup_detected_intr(struct dwc2_hsotg *hsotg)
->>>    	}
->>>    
->>>    	if (dwc2_is_device_mode(hsotg)) {
->>> +		enum dwc2_lx_state lx_state = hsotg->lx_state;
->>> +
->>>    		dev_dbg(hsotg->dev, "DSTS=0x%0x\n",
->>>    			dwc2_readl(hsotg, DSTS));
->>> -		if (hsotg->lx_state == DWC2_L2) {
->>> +		if (lx_state == DWC2_L2) {
->>>    			u32 dctl = dwc2_readl(hsotg, DCTL);
->>>    
->>>    			/* Clear Remote Wakeup Signaling */
->>> @@ -415,11 +417,13 @@ static void dwc2_handle_wakeup_detected_intr(struct dwc2_hsotg *hsotg)
->>>    			ret = dwc2_exit_partial_power_down(hsotg, true);
->>>    			if (ret && (ret != -ENOTSUPP))
->>>    				dev_err(hsotg->dev, "exit power_down failed\n");
->>> -
->>> -			call_gadget(hsotg, resume);
->>>    		}
->>>    		/* Change to L0 state */
->>>    		hsotg->lx_state = DWC2_L0;
->>> +
->>> +		/* Gadget may queue new requests upon resume to L0 state */
->>> +		if (lx_state == DWC2_L2)
->>> +			call_gadget(hsotg, resume);
->>>    	} else {
->>>    		if (hsotg->params.power_down)
->>>    			return;
->>>
->>
->> What about below patch without introducing additional variable.
->>
->> diff --git a/drivers/usb/dwc2/core_intr.c b/drivers/usb/dwc2/core_intr.c
->> index 876ff31261d5..543865e31c72 100644
->> --- a/drivers/usb/dwc2/core_intr.c
->> +++ b/drivers/usb/dwc2/core_intr.c
->> @@ -416,6 +416,8 @@ static void dwc2_handle_wakeup_detected_intr(struct
->> dwc2_hsotg *hsotg)
->>                           if (ret && (ret != -ENOTSUPP))
->>                                   dev_err(hsotg->dev, "exit power_down
->> failed\n");
->>
->> +                       /* Change to L0 state */
->> +                       hsotg->lx_state = DWC2_L0;
+On Wed, 22 Apr 2020, Laurent Pinchart 
+<laurent.pinchart@ideasonboard.com> wrote:
+> Hi Adrian, 
 > 
-> Hi Minas,
+> On Wed, Apr 22, 2020 at 01:15:41PM +0300, Adrian Ratiu wrote: 
+>> On Wed, 22 Apr 2020, Laurent Pinchart wrote: 
+>> > On Wed, Apr 22, 2020 at 03:58:33AM +0300, Laurent Pinchart 
+>> > wrote:  
+>> >> On Tue, Apr 21, 2020 at 07:16:07PM +0300, Adrian Ratiu 
+>> >> wrote:  
+>> >>> This provides an example DT binding for the MIPI DSI host 
+>> >>> controller present on the i.MX6 SoC based on Synopsis 
+>> >>> DesignWare v1.01 IP.   Cc: Rob Herring <robh@kernel.org> 
+>> >>> Cc:  Neil Armstrong <narmstrong@baylibre.com> Cc: Fabio 
+>> >>> Estevam  <festevam@gmail.com> Cc: Laurent Pinchart 
+>> >>> <laurent.pinchart@ideasonboard.com> Cc: 
+>> >>> devicetree@vger.kernel.org Tested-by: Adrian Pop 
+>> >>> <pop.adrian61@gmail.com> Tested-by: Arnaud Ferraris 
+>> >>> <arnaud.ferraris@collabora.com> Signed-off-by: Sjoerd 
+>> >>> Simons  <sjoerd.simons@collabora.com> Signed-off-by: Martyn 
+>> >>> Welch  <martyn.welch@collabora.com> Signed-off-by: Adrian 
+>> >>> Ratiu  <adrian.ratiu@collabora.com> --- Changes since v6:  
+>> >>>   - Added ref to the newly created snps,dw-mipi-dsi.yaml 
+>> >>>   (Laurent) - Moved *-cells properties outside 
+>> >>>   patternProperties (Laurent) - Removed the panel port 
+>> >>>   documentation (Laurent) - Wrapped lines at 80 chars, typo 
+>> >>>   fixes, sort includes (Laurent)  
+>> >>>  Changes since v5:  
+>> >>>   - Fixed missing reg warning (Fabio) - Updated dt-schema 
+>> >>>   and  fixed warnings (Rob)  
+>> >>>  Changes since v4:  
+>> >>>   - Fixed yaml binding to pass `make dt_binding_check 
+>> >>>   dtbs_check` and addressed received binding feedback (Rob)  
+>> >>>  Changes since v3:  
+>> >>>   - Added commit message (Neil) - Converted to yaml format 
+>> >>>   (Neil) - Minor dt node + driver fixes (Rob) - Added small 
+>> >>>   panel example to the host controller binding  
+>> >>>  Changes since v2:  
+>> >>>   - Fixed commit tags (Emil)  
+>> >>> ---  
+>> >>>  .../display/imx/fsl,mipi-dsi-imx6.yaml        | 135 
+>> >>>  ++++++++++++++++++ 1 file changed, 135 insertions(+) 
+>> >>>  create  mode 100644 
+>> >>>  Documentation/devicetree/bindings/display/imx/fsl,mipi-dsi-imx6.yaml 
+>> >>>  diff --git  
+>> >>> a/Documentation/devicetree/bindings/display/imx/fsl,mipi-dsi-imx6.yaml 
+>> >>> b/Documentation/devicetree/bindings/display/imx/fsl,mipi-dsi-imx6.yaml 
+>> >>> new file mode 100644 index 0000000000000..b73e3ae33a852 --- 
+>> >>> /dev/null +++ 
+>> >>> b/Documentation/devicetree/bindings/display/imx/fsl,mipi-dsi-imx6.yaml 
+>> >>> @@ -0,0 +1,135 @@ +# SPDX-License-Identifier: (GPL-2.0-only 
+>> >>> OR BSD-2-Clause) +%YAML 1.2 +--- +$id: 
+>> >>> http://devicetree.org/schemas/display/imx/fsl,mipi-dsi-imx6.yaml# 
+>> >>> +$schema: http://devicetree.org/meta-schemas/core.yaml# + 
+>> >>> +title: Freescale i.MX6 DW MIPI DSI Host Controller + 
+>> >>> +maintainers: +  - Adrian Ratiu 
+>> >>> <adrian.ratiu@collabora.com>  + +description: | +  The 
+>> >>> i.MX6 DSI host controller is a  Synopsys DesignWare MIPI 
+>> >>> DSI v1.01 +  IP block with a  companion PHY IP.  
+>> >  I forgot to mention, if there's a companion PHY, shouldn't 
+>> > it be  referenced from the DT bindings ?  
+>>  I don't think so, that description was copied verbatim from 
+>> the  imx6 ref manual IIRC, the physical layer is the same for 
+>> MIPI DSI  which does TX as for MIPI CSI which does RX, but 
+>> looking at the  ref manual and how drivers are written I don't 
+>> think it's  necessary. 
 > 
-> That was my first approach locally, but I added a variable to avoid do
-> it twice... few lines after.
-> 
-> But if you prefer, I can change in V2 ?
-> 
-> Please let me know.
-> 
-> Thanks,
-> Fabrice
-> 
->>                           call_gadget(hsotg, resume);
->>                   }
->>                   /* Change to L0 state */
->>
->>
->> Thanks,
->> Minas
->>
-To avoid twice setting lx_state you can add 'else' before second setting.
+> Does that mean that the PHY is controlled through the registers 
+> specified by the reg property ? If so then this is fine. 
+>
 
-diff --git a/drivers/usb/dwc2/core_intr.c b/drivers/usb/dwc2/core_intr.c
-index 876ff31261d5..f59dabd46e60 100644
---- a/drivers/usb/dwc2/core_intr.c
-+++ b/drivers/usb/dwc2/core_intr.c
-@@ -416,10 +416,14 @@ static void 
-dwc2_handle_wakeup_detected_intr(struct dwc2_hsotg *hsotg)
-                         if (ret && (ret != -ENOTSUPP))
-                                 dev_err(hsotg->dev, "exit power_down 
-failed\n");
+Yes that is correct, there is just a single set of conf registers 
+specified via reg.
 
-+                       /* Change to L0 state */
-+                       hsotg->lx_state = DWC2_L0;
-                         call_gadget(hsotg, resume);
-                 }
--               /* Change to L0 state */
--               hsotg->lx_state = DWC2_L0;
-+               else {
-+                       /* Change to L0 state */
-+                       hsotg->lx_state = DWC2_L0;
-+               }
-         } else {
-                 if (hsotg->params.power_down)
-                         return;
-
-
-
-Am I missed something?
-
-Thanks,
-Minas
+>> This might change if we wanted to unify the DSI and CSI drivers a 
+>> bit, but considering the scope already associated with this patch 
+>> series I'm a bit afraid to open a subject like that =)
+>
+> That's understandable :-)
+>
+>> >>> +
+>> >>> +  These DT bindings follow the Synopsys DW MIPI DSI bindings defined in
+>> >>> +  Documentation/devicetree/bindings/display/bridge/dw_mipi_dsi.txt with
+>> >>> +  the following device-specific properties.
+>> >>> +
+>> >>> +allOf:
+>> >>> +  - $ref: ../bridge/snps,dw-mipi-dsi.yaml#
+>> >>> +
+>> >>> +properties:
+>> >>> +  '#address-cells':
+>> >>> +    const: 1
+>> >>> +
+>> >>> +  '#size-cells':
+>> >>> +    const: 0
+>> >>> +
+>> >>> +  compatible:
+>> >>> +    items:
+>> >>> +      - const: fsl,imx6q-mipi-dsi
+>> >>> +      - const: snps,dw-mipi-dsi
+>> >>> +
+>> >>> +  reg:
+>> >>> +    maxItems: 1
+>> >>> +
+>> >>> +  interrupts:
+>> >>> +    maxItems: 1
+>> >>> +
+>> >>> +  clocks:
+>> >>> +    items:
+>> >>> +      - description: Module Clock
+>> >>> +      - description: DSI bus clock
+>> >>> +
+>> >>> +  clock-names:
+>> >>> +    items:
+>> >>> +      - const: ref
+>> >>> +      - const: pclk
+>> >>> +
+>> >>> +  fsl,gpr:
+>> >>> +    description:
+>> >>> +      Phandle to the iomuxc-gpr region containing the multiplexer ctrl register.
+>> >>> +    $ref: /schemas/types.yaml#/definitions/phandle
+>> >>> +
+>> >>> +  ports:
+>> >>> +    type: object
+>> >>> +    description: |
+>> >>> +      A node containing DSI input & output port nodes with endpoint
+>> >>> +      definitions as documented in
+>> >>> +      Documentation/devicetree/bindings/media/video-interfaces.txt
+>> >>> +      Documentation/devicetree/bindings/graph.txt
+>> >>> +    properties:
+>> >>> +      port@0:
+>> >>> +        type: object
+>> >>> +        description:
+>> >>> +          DSI input port node, connected to the ltdc rgb output port.
+>> >>> +
+>> >>> +      port@1:
+>> >>> +        type: object
+>> >>> +        description:
+>> >>> +          RGB output port node, connected to a panel or a bridge input port.
+>> >> 
+>> >> Isn't it the other way around, doesn't the bridge take RGB input and
+>> >> output DSI ? And to be precise, it's not about RGB, but about the input
+>> >> being parallel interface (DSI will also carry RGB).
+>> >> 
+>> >> I would add
+>> >> 
+>> >>     required:
+>> >>       - port@0
+>> >>       - port@1
+>> >> 
+>> >>> +
+>> >>> +additionalProperties: false
+>> >>> +
+>> >>> +patternProperties:
+>> >>> +  "^panel@[0-3]$":
+>> >>> +    type: object
+>> >>> +
+>> >>> +required:
+>> >>> +  - "#address-cells"
+>> >>> +  - "#size-cells"
+>> >>> +  - compatible
+>> >>> +  - reg
+>> >>> +  - interrupts
+>> >>> +  - clocks
+>> >>> +  - clock-names
+>> >>> +  - ports
+>> >>> +
+>> >>> +examples:
+>> >>> +  - |+
+>> >>> +    #include <dt-bindings/clock/imx6qdl-clock.h>
+>> >>> +    #include <dt-bindings/gpio/gpio.h>
+>> >>> +    #include <dt-bindings/interrupt-controller/arm-gic.h>
+>> >>> +
+>> >>> +    dsi: dsi@21e0000 {
+>> >>> +        #address-cells = <1>;
+>> >>> +        #size-cells = <0>;
+>> >>> +        compatible = "fsl,imx6q-mipi-dsi", "snps,dw-mipi-dsi";
+>> >>> +        reg = <0x021e0000 0x4000>;
+>> >>> +        interrupts = <0 102 IRQ_TYPE_LEVEL_HIGH>;
+>> >>> +        fsl,gpr = <&gpr>;
+>> >>> +        clocks = <&clks IMX6QDL_CLK_MIPI_CORE_CFG>,
+>> >>> +                 <&clks IMX6QDL_CLK_MIPI_IPG>;
+>> >>> +        clock-names = "ref", "pclk";
+>> >>> +
+>> >>> +        ports {
+>> >>> +            #address-cells = <1>;
+>> >>> +            #size-cells = <0>;
+>> >> 
+>> >> port@0 is missing.
+>> >> 
+>> >>> +            port@1 {
+>> >>> +                reg = <1>;
+>> >>> +                dsi_out: endpoint {
+>> >>> +                    remote-endpoint = <&panel_in>;
+>> >>> +                };
+>> >>> +            };
+>> >>> +        };
+>> >>> +
+>> >>> +        panel@0 {
+>> >>> +            compatible = "sharp,ls032b3sx01";
+>> >>> +            reg = <0>;
+>> >>> +            reset-gpios = <&gpio6 8 GPIO_ACTIVE_LOW>;
+>> >>> +            ports {
+>> >>> +                #address-cells = <1>;
+>> >>> +                #size-cells = <0>;
+>> >>> +                port@0 {
+>> >>> +                    reg = <0>;
+>> >>> +                    panel_in: endpoint {
+>> >>> +                        remote-endpoint = <&dsi_out>;
+>> >>> +                    };
+>> >>> +                };
+>> >>> +            };
+>> >>> +        };
+>> >>> +    };
+>> >>> +
+>> >>> +...
+>
+> -- 
+> Regards,
+>
+> Laurent Pinchart
 _______________________________________________
 Linux-stm32 mailing list
 Linux-stm32@st-md-mailman.stormreply.com
