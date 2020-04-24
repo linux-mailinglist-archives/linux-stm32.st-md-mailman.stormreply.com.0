@@ -2,65 +2,64 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id A51D11B7DC3
-	for <lists+linux-stm32@lfdr.de>; Fri, 24 Apr 2020 20:21:41 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id C7BE21B8078
+	for <lists+linux-stm32@lfdr.de>; Fri, 24 Apr 2020 22:25:10 +0200 (CEST)
 Received: from ip-172-31-3-76.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 6D595C36B0B;
-	Fri, 24 Apr 2020 18:21:41 +0000 (UTC)
-Received: from mail-wm1-f53.google.com (mail-wm1-f53.google.com
- [209.85.128.53])
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 70F12C36B0B;
+	Fri, 24 Apr 2020 20:25:10 +0000 (UTC)
+Received: from mail-pj1-f65.google.com (mail-pj1-f65.google.com
+ [209.85.216.65])
  (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 948D5C36B09
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 05790C36B09
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Fri, 24 Apr 2020 18:21:40 +0000 (UTC)
-Received: by mail-wm1-f53.google.com with SMTP id x4so11618592wmj.1
+ Fri, 24 Apr 2020 20:25:08 +0000 (UTC)
+Received: by mail-pj1-f65.google.com with SMTP id y6so4336623pjc.4
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Fri, 24 Apr 2020 11:21:40 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20161025;
+ Fri, 24 Apr 2020 13:25:08 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linaro.org; s=google;
  h=from:to:cc:subject:date:message-id:mime-version
  :content-transfer-encoding;
- bh=rAYQCmL6IU2xY3DJLIY0s7M6/A1t7zEK7ce+EUTohJo=;
- b=u84fygdIrsBH86qD5SGKghp8DXnyg7qSkbkmLvLVWlwrhonzzdwSW1AYHFK2yC/R69
- flipLGa2VPJBxThDXoOGxXceU68RpDespacc5xLSVhQuQrggJfatmOb3NS8uqhOYjjHK
- Ik8EwKPUQ+yevL2z43tW5Ns1QKy33nWsAPcXkosdOoJ1sCHRInDMfUemRBoUoanJvqBh
- MzVSsQqJzwGEADQ9ezgfUJjXTp6RnkXL7CM++U8+PpgAAsAglMXPgYMYN/0ZBYagHU+q
- CNlrZmZ/7cdf1e1QeBs2xHdoRHYW3ugIgJX1sUCWfLG2LeiHDRppV19l8Q7QBIadWLe6
- Wh9g==
+ bh=/73dacrr5ih6hdF656dZ5NCkiqG8RDgJvTOSmKNoCEs=;
+ b=r4xd9ee3KSRA3FkjbDp5pdoFm4oqf1ju1oMdUPs/LsELEPXvZTvfKG3lRQumA6wtBK
+ x+11xAVPcf4GVSmDPoM6yZhyVTuH0Z88Wj15SecjCXvbdLCQXKiBGWk1zgiHGuKnIsre
+ UznblhiyO2NnxvzlnO09WN491gJDC0If/15xLvatdvan6jKISKDaqChXy4yQAJGt+f50
+ VV6RFOYRhf5L8brlwXTCehm8v5IOrJMhuIjG9/XiPVBz9bS1pgKSjPdg5Ru3DBHI3jSp
+ vP5N7sSdSals8yTBFMtInrHk4tK9aYrw5h5cXjxkEnbVe9enZ5IwrJ0WDfRkBsA68auS
+ 3eLg==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=1e100.net; s=20161025;
  h=x-gm-message-state:from:to:cc:subject:date:message-id:mime-version
  :content-transfer-encoding;
- bh=rAYQCmL6IU2xY3DJLIY0s7M6/A1t7zEK7ce+EUTohJo=;
- b=pq8vxlMpmRTEbETsbI+kKAxOLT37PxpRzkOBWT3iemhmoDjSkmEvNy5vf5JPUxU63k
- 7S5KLsBVxBk7cRVIZ2i49CtUVYKkK6P/T1B/Mt28qqDwc7NTbuwW8VGE64spGXBI2thw
- xVwtlLnY3I6tgdiFihdaVIYtKZWzGejzV298lNF3REQW1NSXepA62NimyqDhe6nS5naB
- YwisSSEEW0uMhnmamIMHlxZX7aHOtsymj2pYEbO+vAJtzP11lU7Cksg6BD/rHEKeULYK
- f42WCqLD2hFINL96siqhbiFbSrmhLNKbZIOSqlAGCsk/5an7O/o+5xHSZsaPShnacyDt
- 6Usw==
-X-Gm-Message-State: AGi0PubFh6XER8rUUc/eAPlO+bHrc2cryFyT3ccz9axC+AxxHF9UCWR2
- eMPHxhozBLY5ugYbH7y5KXI=
-X-Google-Smtp-Source: APiQypLUjLMhouWE33cxL9vt13Udxx8+F7+VXu6HcQFVF3uBl85CsetfpYO5KrT/E0cXXHX9BYHFwA==
-X-Received: by 2002:a1c:5683:: with SMTP id k125mr11193868wmb.17.1587752500199; 
- Fri, 24 Apr 2020 11:21:40 -0700 (PDT)
-Received: from localhost.localdomain
- ([2a04:2413:8140:d480:18da:1e39:90cf:b88b])
- by smtp.gmail.com with ESMTPSA id f8sm9338788wrm.14.2020.04.24.11.21.38
+ bh=/73dacrr5ih6hdF656dZ5NCkiqG8RDgJvTOSmKNoCEs=;
+ b=uXk5OjrKsH0s4+gYxkna97sQRFm/ndvB/R+9VDMsmy1BqhShBHtWiYQe2h2Bvx1Wqp
+ GmeO3NhYawdYA5YFmNRa7DK7DWQSiI0l/+7/cmT63SeSwrDr+NRVG47OyBPgjbmT/VDA
+ /PP3BHLhtDVMxIS+ukbeIHNmE/FTfFFT1zYvkSJeLv8rF38SFE/1tH+mZTdMVp4LpDAk
+ KCJSNpiGBOtY4A51gCl/YvgIpjNxtL3KNwmbZU3JC/vDYxWhX//X4dEpSmqlJlWWi0Qc
+ h4c/we+FmAScMGXQSyChV+vEK1atamoYh0MR0UPZHIQtKNGwYlwsrT3d3B7HGK16lww8
+ iEqg==
+X-Gm-Message-State: AGi0PuatDuMcUy8UhGqxEhFi9Vh5EXWl+LYYDWHzIexQR095Lju+AyWh
+ fgwaAwpkEeZrBc0y34WneMQYLQ==
+X-Google-Smtp-Source: APiQypLieWB+6wi/jnde8vnz/b1lgyl0vak4oSUed0SccGbaG2k63/PSP2q2PkRgO3eDH/w4o71TWg==
+X-Received: by 2002:a17:90a:26a2:: with SMTP id
+ m31mr8258040pje.128.1587759907264; 
+ Fri, 24 Apr 2020 13:25:07 -0700 (PDT)
+Received: from xps15.cg.shawcable.net (S0106002369de4dac.cg.shawcable.net.
+ [68.147.8.254])
+ by smtp.gmail.com with ESMTPSA id c1sm6553245pfc.94.2020.04.24.13.25.06
  (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Fri, 24 Apr 2020 11:21:39 -0700 (PDT)
-From: Adrian Pop <pop.adrian61@gmail.com>
-To: Maxime Coquelin <mcoquelin.stm32@gmail.com>,
- Alexandre Torgue <alexandre.torgue@st.com>,
- Rob Herring <robh+dt@kernel.org>
-Date: Fri, 24 Apr 2020 21:21:39 +0300
-Message-Id: <20200424182139.32190-1-pop.adrian61@gmail.com>
-X-Mailer: git-send-email 2.26.2
+ Fri, 24 Apr 2020 13:25:06 -0700 (PDT)
+From: Mathieu Poirier <mathieu.poirier@linaro.org>
+To: bjorn.andersson@linaro.org, ohad@wizery.com, mcoquelin.stm32@gmail.com,
+ alexandre.torgue@st.com
+Date: Fri, 24 Apr 2020 14:24:53 -0600
+Message-Id: <20200424202505.29562-1-mathieu.poirier@linaro.org>
+X-Mailer: git-send-email 2.20.1
 MIME-Version: 1.0
-Cc: Adrian Pop <pop.adrian61@gmail.com>, devicetree@vger.kernel.org,
- linux-stm32@st-md-mailman.stormreply.com, linux-arm-kernel@lists.infradead.org,
- linux-kernel@vger.kernel.org
-Subject: [Linux-stm32] [PATCH 2/2] arm: dts: stm32f769-disco: Enable MIPI
-	DSI display support
+Cc: linux-remoteproc@vger.kernel.org, linux-kernel@vger.kernel.org,
+ linux-stm32@st-md-mailman.stormreply.com, linux-arm-kernel@lists.infradead.org
+Subject: [Linux-stm32] [PATCH v2 00/12] remoteproc: stm32: Add support for
+	synchronising with M4
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -77,126 +76,45 @@ Content-Transfer-Encoding: 7bit
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
-STM32f769-disco features a 4" MIPI DSI display: add support for it.
+This patchset needs to be applied on top of this one [1].
 
-Signed-off-by: Adrian Pop <pop.adrian61@gmail.com>
----
- arch/arm/boot/dts/stm32f746.dtsi      | 34 ++++++++++++++++++
- arch/arm/boot/dts/stm32f769-disco.dts | 50 +++++++++++++++++++++++++++
- 2 files changed, 84 insertions(+)
+It refactors the STM32 platform code in order to introduce support for
+synchronising with the M4 remote processor that would have been started by
+the boot loader or another entity.
 
-diff --git a/arch/arm/boot/dts/stm32f746.dtsi b/arch/arm/boot/dts/stm32f746.dtsi
-index 93c063796780..202bb6edc9f1 100644
---- a/arch/arm/boot/dts/stm32f746.dtsi
-+++ b/arch/arm/boot/dts/stm32f746.dtsi
-@@ -48,6 +48,19 @@ / {
- 	#address-cells = <1>;
- 	#size-cells = <1>;
- 
-+	reserved-memory {
-+		#address-cells = <1>;
-+		#size-cells = <1>;
-+		ranges;
-+
-+		linux,dma {
-+			compatible = "shared-dma-pool";
-+			linux,dma-default;
-+			no-map;
-+			size = <0x10F000>;
-+		};
-+	};
-+
- 	clocks {
- 		clk_hse: clk-hse {
- 			#clock-cells = <0>;
-@@ -75,6 +88,27 @@ clk_i2s_ckin: clk-i2s-ckin {
- 	};
- 
- 	soc {
-+		ltdc: display-controller@40016800 {
-+			compatible = "st,stm32-ltdc";
-+			reg = <0x40016800 0x200>;
-+			interrupts = <88>, <89>;
-+			resets = <&rcc STM32F7_APB2_RESET(LTDC)>;
-+			clocks = <&rcc 1 CLK_LCD>;
-+			clock-names = "lcd";
-+			status = "disabled";
-+		};
-+
-+		dsi: dsi@40016c00 {
-+			compatible = "st,stm32-dsi";
-+			reg = <0x40016c00 0x800>;
-+			interrupts = <98>;
-+			clocks = <&rcc 1 CLK_F769_DSI>, <&clk_hse>;
-+			clock-names = "pclk", "ref";
-+			resets = <&rcc STM32F7_APB2_RESET(DSI)>;
-+			reset-names = "apb";
-+			status = "disabled";
-+		};
-+
- 		timer2: timer@40000000 {
- 			compatible = "st,stm32-timer";
- 			reg = <0x40000000 0x400>;
-diff --git a/arch/arm/boot/dts/stm32f769-disco.dts b/arch/arm/boot/dts/stm32f769-disco.dts
-index 1626e00bb2cb..30ebbc193e82 100644
---- a/arch/arm/boot/dts/stm32f769-disco.dts
-+++ b/arch/arm/boot/dts/stm32f769-disco.dts
-@@ -153,3 +153,53 @@ &usbotg_hs {
- 	pinctrl-names = "default";
- 	status = "okay";
- };
-+
-+&dsi {
-+	#address-cells = <1>;
-+	#size-cells = <0>;
-+	status = "okay";
-+
-+	ports {
-+		#address-cells = <1>;
-+		#size-cells = <0>;
-+
-+		port@0 {
-+			reg = <0>;
-+			dsi_in: endpoint {
-+				remote-endpoint = <&ltdc_out_dsi>;
-+			};
-+		};
-+
-+		port@1 {
-+			reg = <1>;
-+			dsi_out: endpoint {
-+				remote-endpoint = <&dsi_in_panel>;
-+			};
-+		};
-+
-+	};
-+
-+	panel: panel {
-+		compatible = "orisetech,otm8009a";
-+		reg = <0>; /* dsi virtual channel (0..3) */
-+		reset-gpios = <&gpioj 15 GPIO_ACTIVE_LOW>;
-+		status = "okay";
-+
-+		port {
-+			dsi_in_panel: endpoint {
-+				remote-endpoint = <&dsi_out>;
-+			};
-+		};
-+	};
-+};
-+
-+&ltdc {
-+	dma-ranges;
-+	status = "okay";
-+
-+	port {
-+		ltdc_out_dsi: endpoint {
-+			remote-endpoint = <&dsi_in>;
-+		};
-+	};
-+};
+It carries the same functionatlity as the previeous revision but account
+for changes in the remoteproc core to support synchronisation scenarios.
+Some RB tags have been removed when the content of the patch has strayed 
+too far from the original version. See patch 3, 8, 9 and 12 for more
+details.
+
+Tested on ST's mp157c board.
+
+Thanks,
+Mathieu
+
+[1]. https://patchwork.kernel.org/project/linux-remoteproc/list/?series=277049
+[2]. https://patchwork.kernel.org/project/linux-remoteproc/list/?series=239877
+
+Mathieu Poirier (12):
+  remoteproc: stm32: Decouple rproc from memory translation
+  remoteproc: stm32: Request IRQ with platform device
+  remoteproc: stm32: Decouple rproc from DT parsing
+  remoteproc: stm32: Remove memory translation from DT parsing
+  remoteproc: stm32: Parse syscon that will manage M4 synchronisation
+  remoteproc: stm32: Get coprocessor state
+  remoteproc: stm32: Get loaded resource table for synchronisation
+  remoteproc: stm32: Introduce new start ops for synchronisation
+  remoteproc: stm32: Update M4 state in stm32_rproc_stop()
+  remoteproc: stm32: Introduce new parse fw ops for synchronisation
+  remoteproc: stm32: Introduce new loaded rsc ops for synchronisation
+  remoteproc: stm32: Set synchronisation state machine if needed
+
+ drivers/remoteproc/stm32_rproc.c | 262 ++++++++++++++++++++++++++++---
+ 1 file changed, 244 insertions(+), 18 deletions(-)
+
 -- 
-2.26.2
+2.20.1
 
 _______________________________________________
 Linux-stm32 mailing list
