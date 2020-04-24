@@ -2,65 +2,70 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id B04891B7352
-	for <lists+linux-stm32@lfdr.de>; Fri, 24 Apr 2020 13:41:21 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 3BB061B736B
+	for <lists+linux-stm32@lfdr.de>; Fri, 24 Apr 2020 13:48:04 +0200 (CEST)
 Received: from ip-172-31-3-76.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 66DC9C36B11;
-	Fri, 24 Apr 2020 11:41:21 +0000 (UTC)
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id E7855C36B0B;
+	Fri, 24 Apr 2020 11:48:03 +0000 (UTC)
 Received: from mx07-00178001.pphosted.com (mx08-00178001.pphosted.com
  [91.207.212.93])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 59027C36B09
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 150CEC36B09
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Fri, 24 Apr 2020 11:41:19 +0000 (UTC)
+ Fri, 24 Apr 2020 11:48:02 +0000 (UTC)
 Received: from pps.filterd (m0046661.ppops.net [127.0.0.1])
  by mx07-00178001.pphosted.com (8.16.0.42/8.16.0.42) with SMTP id
- 03OBWi4b029084; Fri, 24 Apr 2020 13:41:06 +0200
+ 03OBko3N010590; Fri, 24 Apr 2020 13:47:38 +0200
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=st.com;
- h=from : to : cc : subject
- : date : message-id : in-reply-to : references : mime-version :
- content-type; s=STMicroelectronics;
- bh=f15cWn5l7+qnePYQkKeXeKN4S4ucsruNAsfQ5NRJgnw=;
- b=J6iWt8Pyv/o+0QkN41DpefKdKHfaEICctClHv4A7K0E1jeD3OY6t7KuiCpqPXdQpHKTi
- kB0LtSxI4ZUBJ5mp1FJVcglFZRtbGFMtdCh5Y0vt7Iwu9T3izsZk13yUvjktYwSts4pv
- XZeXC4swut3fqjqkxE5Q60GIehyGJL2+w2X8qMehw0qFohRGhre+MShqtH+PdttmypEi
- mT8PQdxMWTslx4Vto/iXhx7ipAWXrHhuzsssoyCT4uWQGrpsvsm6611No7o7FJMDsQtj
- YNztTP2MAe+5pm166gIncvD4tcKAohbXc269wwqTOGLHn0yb2x6Ut6ZSGKijqc7vGDE9 0g== 
+ h=subject : to : cc :
+ references : from : message-id : date : mime-version : in-reply-to :
+ content-type : content-transfer-encoding; s=STMicroelectronics;
+ bh=eDUxGG9O4i5CdabzQ9g1DJn7cKAT0JlJmvP3BX0WRjc=;
+ b=ZSjPsri72sQVac67WI7XcR73DLBOrEs+IFxub11JXnwGf/+djrmTBhHTPpY+jfiQ/WAJ
+ u32nNodWmPwoNX27zKntZ+3BHTLirru6VZddRYA+HX+41Kysw0D/eE5QzvjM0To7pD/3
+ zL/F/eiZLOilSNGdzRUyeNtn5Dip/94O0Oqi5WGfthyxetjorWr04UQMfZFrY730V6PK
+ ZhR/d3m8q4ZsaXGVo+NXpyXb3YGmJ4dzAA3LZOQ4+iCj3Bfn6NbBOEc3e3pPXNjpyuBl
+ SEbJvwzKhBXtYPy/9I0jWnbm2dZU1cWGOCgLAsZHRTt6hg+iqM3q8EPTDHvCkwGT38df qA== 
 Received: from beta.dmz-eu.st.com (beta.dmz-eu.st.com [164.129.1.35])
- by mx07-00178001.pphosted.com with ESMTP id 30freh30hv-1
+ by mx07-00178001.pphosted.com with ESMTP id 30freh31er-1
  (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
- Fri, 24 Apr 2020 13:41:05 +0200
+ Fri, 24 Apr 2020 13:47:38 +0200
 Received: from euls16034.sgp.st.com (euls16034.sgp.st.com [10.75.44.20])
- by beta.dmz-eu.st.com (STMicroelectronics) with ESMTP id 75E6210002A;
- Fri, 24 Apr 2020 13:41:05 +0200 (CEST)
-Received: from Webmail-eu.st.com (sfhdag3node3.st.com [10.75.127.9])
- by euls16034.sgp.st.com (STMicroelectronics) with ESMTP id 67D662B3DA0;
- Fri, 24 Apr 2020 13:41:05 +0200 (CEST)
-Received: from localhost (10.75.127.50) by SFHDAG3NODE3.st.com (10.75.127.9)
- with Microsoft SMTP Server (TLS) id 15.0.1347.2; Fri, 24 Apr 2020 13:41:04
- +0200
-From: Benjamin Gaignard <benjamin.gaignard@st.com>
-To: <rjw@rjwysocki.net>, <viresh.kumar@linaro.org>, <hugues.fruchet@st.com>,
- <mchehab@kernel.org>, <mcoquelin.stm32@gmail.com>,
- <alexandre.torgue@st.com>, <pavel@ucw.cz>, <len.brown@intel.com>
-Date: Fri, 24 Apr 2020 13:40:58 +0200
-Message-ID: <20200424114058.21199-4-benjamin.gaignard@st.com>
-X-Mailer: git-send-email 2.15.0
-In-Reply-To: <20200424114058.21199-1-benjamin.gaignard@st.com>
-References: <20200424114058.21199-1-benjamin.gaignard@st.com>
+ by beta.dmz-eu.st.com (STMicroelectronics) with ESMTP id EBD19100034;
+ Fri, 24 Apr 2020 13:47:36 +0200 (CEST)
+Received: from Webmail-eu.st.com (sfhdag6node2.st.com [10.75.127.17])
+ by euls16034.sgp.st.com (STMicroelectronics) with ESMTP id B19E52B47A0;
+ Fri, 24 Apr 2020 13:47:36 +0200 (CEST)
+Received: from [10.211.2.59] (10.75.127.51) by SFHDAG6NODE2.st.com
+ (10.75.127.17) with Microsoft SMTP Server (TLS) id 15.0.1347.2; Fri, 24 Apr
+ 2020 13:47:35 +0200
+To: Marek Vasut <marex@denx.de>, Lee Jones <lee.jones@linaro.org>
+References: <1586966256-29548-1-git-send-email-christophe.kerello@st.com>
+ <1586966256-29548-3-git-send-email-christophe.kerello@st.com>
+ <20200424074517.GN3612@dell> <8b625f1c-9ded-c07a-a20e-8cd44c1ca46d@denx.de>
+ <20200424105053.GC8414@dell> <e5e6c279-28d0-f423-aa6d-5c7aca563352@denx.de>
+From: Christophe Kerello <christophe.kerello@st.com>
+Message-ID: <268ea231-eb4a-6144-c632-1bc8e9f21582@st.com>
+Date: Fri, 24 Apr 2020 13:47:34 +0200
+User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:60.0) Gecko/20100101
+ Thunderbird/60.6.1
 MIME-Version: 1.0
-X-Originating-IP: [10.75.127.50]
-X-ClientProxiedBy: SFHDAG2NODE3.st.com (10.75.127.6) To SFHDAG3NODE3.st.com
- (10.75.127.9)
+In-Reply-To: <e5e6c279-28d0-f423-aa6d-5c7aca563352@denx.de>
+Content-Language: en-US
+X-Originating-IP: [10.75.127.51]
+X-ClientProxiedBy: SFHDAG4NODE3.st.com (10.75.127.12) To SFHDAG6NODE2.st.com
+ (10.75.127.17)
 X-Proofpoint-Virus-Version: vendor=fsecure engine=2.50.10434:6.0.138, 18.0.676
  definitions=2020-04-24_04:2020-04-23,
  2020-04-24 signatures=0
-Cc: linux-pm@vger.kernel.org, linux-kernel@vger.kernel.org,
- linux-stm32@st-md-mailman.stormreply.com, linux-arm-kernel@lists.infradead.org,
- linux-media@vger.kernel.org
-Subject: [Linux-stm32] [RFC 3/3] media: stm32-dcmi: Inform cpufreq governors
-	about cpu load needs
+Cc: mark.rutland@arm.com, devicetree@vger.kernel.org, vigneshr@ti.com,
+ tony@atomide.com, richard@nod.at, linux-kernel@vger.kernel.org,
+ robh+dt@kernel.org, linux-mtd@lists.infradead.org, miquel.raynal@bootlin.com,
+ Geert Uytterhoeven <geert@linux-m68k.org>,
+ linux-stm32@st-md-mailman.stormreply.com
+Subject: Re: [Linux-stm32] [PATCH v2 02/12] mfd: stm32-fmc2: add STM32 FMC2
+ controller driver
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -72,68 +77,122 @@ List-Post: <mailto:linux-stm32@st-md-mailman.stormreply.com>
 List-Help: <mailto:linux-stm32-request@st-md-mailman.stormreply.com?subject=help>
 List-Subscribe: <https://st-md-mailman.stormreply.com/mailman/listinfo/linux-stm32>, 
  <mailto:linux-stm32-request@st-md-mailman.stormreply.com?subject=subscribe>
-Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
+Content-Type: text/plain; charset="us-ascii"; Format="flowed"
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
-When start streaming the CPU load could remain very low because almost
-all the capture pipeline is done in hardware (i.e. without using the CPU)
-and let believe to cpufreq governor that it could use lower frequencies.
-If the governor decides to use a too low frequency that becomes a problem
-when we need to acknowledge the interrupt during the blanking time.
 
-To avoid this problem, DCMI driver informs the cpufreq governors by adding
-a cpufreq minimum load QoS resquest.
 
-Signed-off-by: Benjamin Gaignard <benjamin.gaignard@st.com>
----
- drivers/media/platform/stm32/stm32-dcmi.c | 8 ++++++++
- 1 file changed, 8 insertions(+)
+On 4/24/20 1:06 PM, Marek Vasut wrote:
+> On 4/24/20 12:50 PM, Lee Jones wrote:
+>> On Fri, 24 Apr 2020, Marek Vasut wrote:
+>>
+>>> On 4/24/20 9:45 AM, Lee Jones wrote:
+>>>> On Wed, 15 Apr 2020, Christophe Kerello wrote:
+>>>>
+>>>>> The driver adds the support for the STMicroelectronics FMC2 controller
+>>>>> found on STM32MP SOCs.
+>>>>>
+>>>>> The FMC2 functional block makes the interface with: synchronous and
+>>>>> asynchronous static memories (such as PSNOR, PSRAM or other
+>>>>> memory-mapped peripherals) and NAND flash memories.
+>>>>>
+>>>>> Signed-off-by: Christophe Kerello <christophe.kerello@st.com>
+>>>>> ---
+>>>>> Changes in v2:
+>>>>>   - remove ops from stm32_fmc2 structure
+>>>>>   - add 2 APIs to manage FMC2 enable/disable
+>>>>>   - add 2 APIs to manage FMC2 NWAIT shared signal
+>>>>>
+>>>>>   drivers/mfd/Kconfig            |  12 +++
+>>>>>   drivers/mfd/Makefile           |   1 +
+>>>>>   drivers/mfd/stm32-fmc2.c       | 136 +++++++++++++++++++++++++
+>>>>>   include/linux/mfd/stm32-fmc2.h | 225 +++++++++++++++++++++++++++++++++++++++++
+>>>>>   4 files changed, 374 insertions(+)
+>>>>>   create mode 100644 drivers/mfd/stm32-fmc2.c
+>>>>>   create mode 100644 include/linux/mfd/stm32-fmc2.h
+>>>>>
+>>>>> diff --git a/drivers/mfd/Kconfig b/drivers/mfd/Kconfig
+>>>>> index 2b20329..5260582 100644
+>>>>> --- a/drivers/mfd/Kconfig
+>>>>> +++ b/drivers/mfd/Kconfig
+>>>>> @@ -1922,6 +1922,18 @@ config MFD_ROHM_BD71828
+>>>>>   	  Also included is a Coulomb counter, a real-time clock (RTC), and
+>>>>>   	  a 32.768 kHz clock gate.
+>>>>>   
+>>>>> +config MFD_STM32_FMC2
+>>>>> +	tristate "Support for FMC2 controllers on STM32MP SoCs"
+>>>>> +	depends on MACH_STM32MP157 || COMPILE_TEST
+>>>>> +	select MFD_CORE
+>>>>> +	select REGMAP
+>>>>> +	select REGMAP_MMIO
+>>>>> +	help
+>>>>> +	  Select this option to enable STM32 FMC2 driver used for FMC2 External
+>>>>> +	  Bus Interface controller and FMC2 NAND flash controller. This driver
+>>>>> +	  provides core support for the STM32 FMC2 controllers, in order to use
+>>>>> +	  the actual functionality of the device other drivers must be enabled.
+>>>>
+>>>> Not sure how many times I have to say this before people stop
+>>>> attempting to pass these kinds of relationships off as MFDs:
+>>>>
+>>>> A memory device and its bus is not an MFD.  In a similar vain to the
+>>>> thousands of USB, I2C, SPI, PCI and the like devices that aren't MFDs
+>>>> either.
+>>>>
+>>>> Please find another way to associate your device with its bus.
+>>>
+>>> This FMC2 is however an IP which can either operate external devices
+>>> (like ethernet chip on this parallel bus) or external flashes (like NOR
+>>> and NAND chips).
+>>
+>> I'm sure that it *can*.  Although that's not its main purpose.
+> 
+> I use it to operate KSZ8851-16MLL ethernet chip, which has async bus
+> interface. Linux just didn't have support for that mode of operation
+> thus far and the FMC was used to operate NANDs and NORs only. This
+> series, or rather, the first three patches in this series, add support
+> for operating other bus devices, like this ethernet controller.
+> 
+>> The
+>> clue is in the nomenclature ("Flexible *Memory* Controller").  Nor is
+>> it how the device is being used in this submission:
+>>
+>>    "The FMC2 functional block makes the interface with: synchronous and
+>>     asynchronous static memories (such as PSNOR, PSRAM or other
+>>     memory-mapped peripherals) and NAND flash memories."
+>>
+>> As I mentioned, this is just another memory device and its bus.
+> 
+> I don't think it's _just_ a memory controller, it's more universal than
+> that, see above. Note that SRAM interface basically boils down to
+> anything which has external parallel bus, e.g. Davicom DM9000, that
+> KSZ8851-16MLL etc.
+> 
+>>> Can you provide a suggestion how this should be handled, if not as MFD?
+>>> It seems to me, that this is a Multi-Function Device .
+>>
+>> Simply move it into the MTD or Memory subsystems and set up the
+>> dependencies via Kconfig.
+>>
+>>> If this discussion is a recurring topic, is there some documentation
+>>> which explains how such devices should be handled ?
+>>
+>> Not that I'm aware of.
+> 
+> I see.
+>
 
-diff --git a/drivers/media/platform/stm32/stm32-dcmi.c b/drivers/media/platform/stm32/stm32-dcmi.c
-index b8931490b83b..774f2506b2f1 100644
---- a/drivers/media/platform/stm32/stm32-dcmi.c
-+++ b/drivers/media/platform/stm32/stm32-dcmi.c
-@@ -24,6 +24,7 @@
- #include <linux/of_graph.h>
- #include <linux/pinctrl/consumer.h>
- #include <linux/platform_device.h>
-+#include <linux/pm_qos.h>
- #include <linux/pm_runtime.h>
- #include <linux/reset.h>
- #include <linux/videodev2.h>
-@@ -173,6 +174,8 @@ struct stm32_dcmi {
- 	struct media_device		mdev;
- 	struct media_pad		vid_cap_pad;
- 	struct media_pipeline		pipeline;
-+
-+	struct pm_qos_request		qos_request;
- };
- 
- static inline struct stm32_dcmi *notifier_to_dcmi(struct v4l2_async_notifier *n)
-@@ -827,6 +830,9 @@ static int dcmi_start_streaming(struct vb2_queue *vq, unsigned int count)
- 	else
- 		reg_set(dcmi->regs, DCMI_IER, IT_OVR | IT_ERR);
- 
-+	cpufreq_minload_qos_add_request(&dcmi->qos_request,
-+					CPUFREQ_GOV_QOS_MIN_LOAD_MAX_VALUE);
-+
- 	return 0;
- 
- err_pipeline_stop:
-@@ -859,6 +865,8 @@ static void dcmi_stop_streaming(struct vb2_queue *vq)
- 	struct stm32_dcmi *dcmi = vb2_get_drv_priv(vq);
- 	struct dcmi_buf *buf, *node;
- 
-+	cpufreq_minload_qos_remove_request(&dcmi->qos_request);
-+
- 	dcmi_pipeline_stop(dcmi);
- 
- 	media_pipeline_stop(&dcmi->vdev->entity);
--- 
-2.15.0
+Hi Lee, Marek,
 
+I will move this source code in the FMC2 bus driver. I think that I 
+should be able to manage the 2 controllers with 2 drivers (the FMC2 bus 
+driver and the FMC2 raw NAND driver). I will have to modify some part of 
+the proposed bindings, and some updates will have to be done in the FMC2 
+bus driver. All these modifications will be part of V3.
+
+Regards,
+Christophe Kerello.
 _______________________________________________
 Linux-stm32 mailing list
 Linux-stm32@st-md-mailman.stormreply.com
