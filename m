@@ -2,33 +2,60 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id 7996F1B8DAB
-	for <lists+linux-stm32@lfdr.de>; Sun, 26 Apr 2020 09:54:27 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id CF0491B9795
+	for <lists+linux-stm32@lfdr.de>; Mon, 27 Apr 2020 08:43:20 +0200 (CEST)
 Received: from ip-172-31-3-76.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 2B65FC36B0B;
-	Sun, 26 Apr 2020 07:54:27 +0000 (UTC)
-Received: from pokefinder.org (sauhun.de [88.99.104.3])
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 4B905C36B09
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 3EA7FC36B0C;
+	Mon, 27 Apr 2020 06:43:19 +0000 (UTC)
+Received: from mx07-00178001.pphosted.com (mx08-00178001.pphosted.com
+ [91.207.212.93])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+ (No client certificate requested)
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 4E0B7C36B09
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Sun, 26 Apr 2020 07:54:26 +0000 (UTC)
-Received: from localhost (p54B33954.dip0.t-ipconnect.de [84.179.57.84])
- by pokefinder.org (Postfix) with ESMTPSA id DADC22C01E8;
- Sun, 26 Apr 2020 09:54:25 +0200 (CEST)
-Date: Sun, 26 Apr 2020 09:54:25 +0200
-From: Wolfram Sang <wsa@the-dreams.de>
-To: Alain Volmat <alain.volmat@st.com>
-Message-ID: <20200426075425.GE1262@kunai>
-References: <1587394677-6872-1-git-send-email-alain.volmat@st.com>
- <1587394677-6872-3-git-send-email-alain.volmat@st.com>
+ Mon, 27 Apr 2020 06:43:17 +0000 (UTC)
+Received: from pps.filterd (m0046660.ppops.net [127.0.0.1])
+ by mx07-00178001.pphosted.com (8.16.0.42/8.16.0.42) with SMTP id
+ 03R6cO6F024040; Mon, 27 Apr 2020 08:42:58 +0200
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=st.com;
+ h=from : to : cc : subject
+ : date : message-id : mime-version : content-type; s=STMicroelectronics;
+ bh=TDbaAq8nLSxL5Pn2AoB6X1/THDI0mod6aKQma53bdKU=;
+ b=bLig6qxKvGEjnGtaOjXzq4zAdvJpIBkSWQGyLqRnITGmh1KUYDrkQ91y4yc8aBWZXhzt
+ Lk2kWh7WqbhJoeUXkVfvXfVnxt5mG29rwMm5Qef2/zG075ECyiHF+aH2qZgAIEJ8nuAV
+ 5YhFcY8gS1ElPReEOHOZm5rpq68OjSJ1I+vj8ssZXSLLiGSy+AsVery+AlDehfAqW+wW
+ 3usr1bNMVWCV6gI1mj7CQ/w+87cJhQ4xYP1TfjldvV32qLs7ih7SZ8JUvIYt/2LFPVzm
+ PrkvlX4Zl6sR3EBrEYEpKu1xSxXAd1wYVzu2IGttUs/AJi1HVgtfwZNbTXnpokZeX94+ kQ== 
+Received: from beta.dmz-eu.st.com (beta.dmz-eu.st.com [164.129.1.35])
+ by mx07-00178001.pphosted.com with ESMTP id 30mhq5r2h7-1
+ (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
+ Mon, 27 Apr 2020 08:42:58 +0200
+Received: from euls16034.sgp.st.com (euls16034.sgp.st.com [10.75.44.20])
+ by beta.dmz-eu.st.com (STMicroelectronics) with ESMTP id 5B03B100034;
+ Mon, 27 Apr 2020 08:42:55 +0200 (CEST)
+Received: from Webmail-eu.st.com (sfhdag7node2.st.com [10.75.127.20])
+ by euls16034.sgp.st.com (STMicroelectronics) with ESMTP id 0E63021F679;
+ Mon, 27 Apr 2020 08:42:55 +0200 (CEST)
+Received: from localhost (10.75.127.44) by SFHDAG7NODE2.st.com (10.75.127.20)
+ with Microsoft SMTP Server (TLS) id 15.0.1473.3;
+ Mon, 27 Apr 2020 08:42:54 +0200
+From: Lionel Debieve <lionel.debieve@st.com>
+To: Herbert Xu <herbert@gondor.apana.org.au>, "David S . Miller"
+ <davem@davemloft.net>, Maxime Coquelin <mcoquelin.stm32@gmail.com>,
+ Alexandre Torgue <alexandre.torgue@st.com>, <linux-crypto@vger.kernel.org>
+Date: Mon, 27 Apr 2020 08:42:23 +0200
+Message-ID: <20200427064226.6991-1-lionel.debieve@st.com>
+X-Mailer: git-send-email 2.17.1
 MIME-Version: 1.0
-In-Reply-To: <1587394677-6872-3-git-send-email-alain.volmat@st.com>
-User-Agent: Mutt/1.10.1 (2018-07-13)
-Cc: mark.rutland@arm.com, devicetree@vger.kernel.org,
- linux-kernel@vger.kernel.org, pierre-yves.mordret@st.com, robh+dt@kernel.org,
- linux-i2c@vger.kernel.org, mcoquelin.stm32@gmail.com, fabrice.gasnier@st.com,
- linux-stm32@st-md-mailman.stormreply.com, linux-arm-kernel@lists.infradead.org
-Subject: Re: [Linux-stm32] [PATCH v3 2/2] i2c: i2c-stm32f7: allows for any
-	bus frequency
+X-Originating-IP: [10.75.127.44]
+X-ClientProxiedBy: SFHDAG8NODE2.st.com (10.75.127.23) To SFHDAG7NODE2.st.com
+ (10.75.127.20)
+X-Proofpoint-Virus-Version: vendor=fsecure engine=2.50.10434:6.0.138, 18.0.676
+ definitions=2020-04-27_03:2020-04-24,
+ 2020-04-27 signatures=0
+Cc: linux-kernel@vger.kernel.org, linux-arm-kernel@lists.infradead.org,
+ linux-stm32@st-md-mailman.stormreply.com
+Subject: [Linux-stm32] [PATCH 0/3] crypto: stm32/hash: Defer probe management
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -40,83 +67,30 @@ List-Post: <mailto:linux-stm32@st-md-mailman.stormreply.com>
 List-Help: <mailto:linux-stm32-request@st-md-mailman.stormreply.com?subject=help>
 List-Subscribe: <https://st-md-mailman.stormreply.com/mailman/listinfo/linux-stm32>, 
  <mailto:linux-stm32-request@st-md-mailman.stormreply.com?subject=subscribe>
-Content-Type: multipart/mixed; boundary="===============3490287528347162218=="
+Content-Type: text/plain; charset="us-ascii"
+Content-Transfer-Encoding: 7bit
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
+These patches manage properly the defer probe for STM32 Hash driver.
+It allows the driver to be probed later if clock, reset or dma return
+a defer error.
+It also removes the error print messages in such cases.
 
---===============3490287528347162218==
-Content-Type: multipart/signed; micalg=pgp-sha512;
-	protocol="application/pgp-signature"; boundary="G6nVm6DDWH/FONJq"
-Content-Disposition: inline
+Etienne Carriere (2):
+  crypto: stm32/hash - defer probe for reset controller
+  crypto: stm32/hash - defer probe for dma device
 
+Lionel Debieve (1):
+  crypto: stm32/hash - don't print error on probe deferral
 
---G6nVm6DDWH/FONJq
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-Content-Transfer-Encoding: quoted-printable
+ drivers/crypto/stm32/stm32-hash.c | 38 ++++++++++++++++++++++---------
+ 1 file changed, 27 insertions(+), 11 deletions(-)
 
-On Mon, Apr 20, 2020 at 04:57:57PM +0200, Alain Volmat wrote:
-> Do not limitate to the 3 (100KHz, 400KHz, 1MHz) bus frequency but
-> instead allows any frequency (if it matches timing requirements).
-> Depending on the requested frequency, use the spec data from either
-> Standard, Fast or Fast Plus mode.
->=20
-> Hardcoding of min/max bus frequencies is removed and is instead computed.
->=20
-> The driver do not use anymore speed identifier but instead handle
-> directly the frequency and figure out the spec data (necessary
-> for the computation of the timing register) based on the frequency.
->=20
-> Signed-off-by: Alain Volmat <alain.volmat@st.com>
-> Reviewed-by: Pierre-Yves MORDRET <pierre-yves.mordret@st.com>
-
-Fixed this checkpatch CHECK:
-
-CHECK: Macro argument 'rate' may be better as '(rate)' to avoid precedence =
-issues
-#133: FILE: drivers/i2c/busses/i2c-stm32f7.c:413:
-+#define	RATE_MIN(rate)	(rate * 8 / 10)
-
-and applied to for-next.
-
-If you could drop the 'i2c-' prefix in $subject, that would save me one
-step.
-
-Thanks!
-
-
---G6nVm6DDWH/FONJq
-Content-Type: application/pgp-signature; name="signature.asc"
-
------BEGIN PGP SIGNATURE-----
-
-iQIzBAABCgAdFiEEOZGx6rniZ1Gk92RdFA3kzBSgKbYFAl6lPjEACgkQFA3kzBSg
-KbZ32A//bNuNc1m8uNO3qX4GtIk7gvqICXMOsqW1gDL2FW0PlxR1D4J0jiLwYQQw
-PJ+FnD0Enp0TP7IgQ43/gZiZVhqJ0+vnzOYejWHcWM6PXggKVEp2R6+3GxQqcmHt
-55tl6t+qDHp4gcRNq0TAT025GnKF8DtiCx35bIVrb5i4mTE18ckk4B5VsrTrhuEk
-t6E8aLRADTKpcM3F2FD7jc9S2KXHScNQGYAiYSAQb8eBi1f2kloG5q36lua/MenA
-AF/BApIxIYcaKYicSxWsOG3ngQV5EUNUKCjlPAnIYJzjhgTjzjXsBLE/G6C0q/Gb
-QzUhobIeFEuVbFNduir0BSF+1Aj9SeIxx5Q83Kh8QgG4bDrpBOLhvkO/ZvXvF+II
-9DNyPZSQdrWjB6PWsR0fiJVPtlHWCxnv0Oq0yl182gtNudyqAXMLKl3r0w6Dyyin
-20Rl5Idx5NdcBY0iSuuk29XwNVb/7tO4fiTGsUvt6c/aXyCMsm+v7nTXGxoTpP63
-/x3ViqpewKGWamsIrMNTYJtFPhLa0AWyl4DLalF6/3TaC3PCJupYXR30e6+CNahk
-EFE6tJabxRiQ+4KRosTnWNjgYvyylfO3zt/XnHV/pPDvDR8JBu9hr58UlLzGM3/b
-WnzyHk67GbcvggNGpi5qzZQd37P3qSppxpG6u9Jz6Uj4Tv0RWQg=
-=TPJd
------END PGP SIGNATURE-----
-
---G6nVm6DDWH/FONJq--
-
---===============3490287528347162218==
-Content-Type: text/plain; charset="us-ascii"
-MIME-Version: 1.0
-Content-Transfer-Encoding: 7bit
-Content-Disposition: inline
+-- 
+2.17.1
 
 _______________________________________________
 Linux-stm32 mailing list
 Linux-stm32@st-md-mailman.stormreply.com
 https://st-md-mailman.stormreply.com/mailman/listinfo/linux-stm32
-
---===============3490287528347162218==--
