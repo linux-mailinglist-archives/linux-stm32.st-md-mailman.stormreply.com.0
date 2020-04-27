@@ -2,37 +2,65 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id 264641B99A8
-	for <lists+linux-stm32@lfdr.de>; Mon, 27 Apr 2020 10:19:10 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 684B81B9A2E
+	for <lists+linux-stm32@lfdr.de>; Mon, 27 Apr 2020 10:28:59 +0200 (CEST)
 Received: from ip-172-31-3-76.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id E33D3C36B14;
-	Mon, 27 Apr 2020 08:19:09 +0000 (UTC)
-Received: from bhuna.collabora.co.uk (bhuna.collabora.co.uk [46.235.227.227])
- (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256
- bits)) (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 722E4C36B0A
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 846D3C36B0B;
+	Mon, 27 Apr 2020 08:28:58 +0000 (UTC)
+Received: from mx07-00178001.pphosted.com (mx08-00178001.pphosted.com
+ [91.207.212.93])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+ (No client certificate requested)
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 30DC2C36B09
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Mon, 27 Apr 2020 08:19:06 +0000 (UTC)
-Received: from [127.0.0.1] (localhost [127.0.0.1])
- (Authenticated sender: aratiu) with ESMTPSA id A74082A098C
-From: Adrian Ratiu <adrian.ratiu@collabora.com>
-To: linux-arm-kernel@lists.infradead.org, devicetree@vger.kernel.org,
- linux-rockchip@lists.infradead.org,
- Laurent Pinchart <Laurent.pinchart@ideasonboard.com>
-Date: Mon, 27 Apr 2020 11:19:52 +0300
-Message-Id: <20200427081952.3536741-11-adrian.ratiu@collabora.com>
-X-Mailer: git-send-email 2.26.0
-In-Reply-To: <20200427081952.3536741-1-adrian.ratiu@collabora.com>
-References: <20200427081952.3536741-1-adrian.ratiu@collabora.com>
+ Mon, 27 Apr 2020 08:28:57 +0000 (UTC)
+Received: from pps.filterd (m0046660.ppops.net [127.0.0.1])
+ by mx07-00178001.pphosted.com (8.16.0.42/8.16.0.42) with SMTP id
+ 03R8S5vl013283; Mon, 27 Apr 2020 10:28:46 +0200
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=st.com;
+ h=subject : to : cc :
+ references : from : message-id : date : mime-version : in-reply-to :
+ content-type : content-transfer-encoding; s=STMicroelectronics;
+ bh=Ei68grOKsJeFCI9Ca78skkgOqw6dCGCXLGk/fJEiqBQ=;
+ b=sFhbk/PUGRpNN8m9TEoWF1RDKSXWZyAp1ZJqe7r8Zl6YSgIgHU7/LLKpwJ3b45gk2nzv
+ ZZMB0BGoLBP9z/Ln1Cwatp3WUkv0pjMiSRYpV95YPvoEahvX6oH7wG+CzsbXHO+P1MVB
+ wEzvmrDBGOh48YrNRb8reSLJoSq5b5f46bhkbnPmSMNTZIvEg+nI8agtmaEcz1B6F8Eh
+ qIxF0Z5mVwu3dAxH+1CsP/O6scKxCROl3hvX6IRqX5Au0NylIm2HSOqkvA9GZxEFdih0
+ eZfhwUrMQePmnshfemoCQMJskFrh5O7ohtRRGzBzH0UFirRLo/g/c9/ND/VhkrkzhCaq UA== 
+Received: from beta.dmz-eu.st.com (beta.dmz-eu.st.com [164.129.1.35])
+ by mx07-00178001.pphosted.com with ESMTP id 30mhq5rky9-1
+ (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
+ Mon, 27 Apr 2020 10:28:46 +0200
+Received: from euls16034.sgp.st.com (euls16034.sgp.st.com [10.75.44.20])
+ by beta.dmz-eu.st.com (STMicroelectronics) with ESMTP id 906D0100034;
+ Mon, 27 Apr 2020 10:28:45 +0200 (CEST)
+Received: from Webmail-eu.st.com (sfhdag3node2.st.com [10.75.127.8])
+ by euls16034.sgp.st.com (STMicroelectronics) with ESMTP id 7D5E52AC589;
+ Mon, 27 Apr 2020 10:28:45 +0200 (CEST)
+Received: from lmecxl0912.tpe.st.com (10.75.127.49) by SFHDAG3NODE2.st.com
+ (10.75.127.8) with Microsoft SMTP Server (TLS) id 15.0.1347.2; Mon, 27 Apr
+ 2020 10:28:42 +0200
+To: Adrian Pop <pop.adrian61@gmail.com>, Maxime Coquelin
+ <mcoquelin.stm32@gmail.com>, Rob Herring <robh+dt@kernel.org>
+References: <20200424182139.32190-1-pop.adrian61@gmail.com>
+From: Alexandre Torgue <alexandre.torgue@st.com>
+Message-ID: <3efb57a1-283b-f2f0-66a4-97e88c6c02d6@st.com>
+Date: Mon, 27 Apr 2020 10:28:35 +0200
+User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:68.0) Gecko/20100101
+ Thunderbird/68.4.1
 MIME-Version: 1.0
-Cc: Jernej Skrabec <jernej.skrabec@siol.net>, Heiko Stuebner <heiko@sntech.de>,
- Adrian Pop <pop.adrian61@gmail.com>, Jonas Karlman <jonas@kwiboo.se>,
- linux-kernel@vger.kernel.org, dri-devel@lists.freedesktop.org,
- Andrzej Hajda <a.hajda@samsung.com>, linux-imx@nxp.com, kernel@collabora.com,
- linux-stm32@st-md-mailman.stormreply.com,
- Arnaud Ferraris <arnaud.ferraris@collabora.com>
-Subject: [Linux-stm32] [PATCH v8 10/10] drm: bridge: dw-mipi-dsi: fix bad
-	register field offsets
+In-Reply-To: <20200424182139.32190-1-pop.adrian61@gmail.com>
+Content-Language: en-US
+X-Originating-IP: [10.75.127.49]
+X-ClientProxiedBy: SFHDAG4NODE3.st.com (10.75.127.12) To SFHDAG3NODE2.st.com
+ (10.75.127.8)
+X-Proofpoint-Virus-Version: vendor=fsecure engine=2.50.10434:6.0.138, 18.0.676
+ definitions=2020-04-27_03:2020-04-24,
+ 2020-04-27 signatures=0
+Cc: devicetree@vger.kernel.org, linux-stm32@st-md-mailman.stormreply.com,
+ linux-arm-kernel@lists.infradead.org, linux-kernel@vger.kernel.org
+Subject: Re: [Linux-stm32] [PATCH 2/2] arm: dts: stm32f769-disco: Enable
+ MIPI DSI display support
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -44,113 +72,145 @@ List-Post: <mailto:linux-stm32@st-md-mailman.stormreply.com>
 List-Help: <mailto:linux-stm32-request@st-md-mailman.stormreply.com?subject=help>
 List-Subscribe: <https://st-md-mailman.stormreply.com/mailman/listinfo/linux-stm32>, 
  <mailto:linux-stm32-request@st-md-mailman.stormreply.com?subject=subscribe>
-Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
+Content-Type: text/plain; charset="us-ascii"; Format="flowed"
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
-According to the DSI Host Registers sections available in the IMX,
-STM and RK ref manuals for 1.01, 1.30 and 1.31, the register fields
-are smaller or bigger than what's coded in the driver, leading to
-r/w in reserved spaces which might cause undefined behaviours.
+Hi Adrian
 
-Tested-by: Adrian Pop <pop.adrian61@gmail.com>
-Tested-by: Arnaud Ferraris <arnaud.ferraris@collabora.com>
-Signed-off-by: Adrian Ratiu <adrian.ratiu@collabora.com>
----
-New in v6.
----
- drivers/gpu/drm/bridge/synopsys/dw-mipi-dsi.c | 46 +++++++++----------
- 1 file changed, 23 insertions(+), 23 deletions(-)
+On 4/24/20 8:21 PM, Adrian Pop wrote:
+> STM32f769-disco features a 4" MIPI DSI display: add support for it.
+> 
+> Signed-off-by: Adrian Pop <pop.adrian61@gmail.com>
+> ---
 
-diff --git a/drivers/gpu/drm/bridge/synopsys/dw-mipi-dsi.c b/drivers/gpu/drm/bridge/synopsys/dw-mipi-dsi.c
-index 0903ec37289dd..bf22b04761fdf 100644
---- a/drivers/gpu/drm/bridge/synopsys/dw-mipi-dsi.c
-+++ b/drivers/gpu/drm/bridge/synopsys/dw-mipi-dsi.c
-@@ -316,7 +316,7 @@ struct dw_mipi_dsi_variant {
- static const struct dw_mipi_dsi_variant dw_mipi_dsi_v130_v131_layout = {
- 	.cfg_dpi_color_coding =		REG_FIELD(DSI_DPI_COLOR_CODING, 0, 3),
- 	.cfg_dpi_18loosely_en =		REG_FIELD(DSI_DPI_COLOR_CODING, 8, 8),
--	.cfg_dpi_vid =			REG_FIELD(DSI_DPI_VCID, 0, 2),
-+	.cfg_dpi_vid =			REG_FIELD(DSI_DPI_VCID, 0, 1),
- 	.cfg_dpi_vsync_active_low =	REG_FIELD(DSI_DPI_CFG_POL, 1, 1),
- 	.cfg_dpi_hsync_active_low =	REG_FIELD(DSI_DPI_CFG_POL, 2, 2),
- 	.cfg_cmd_mode_ack_rqst_en =	REG_FIELD(DSI_CMD_MODE_CFG, 1, 1),
-@@ -325,29 +325,29 @@ static const struct dw_mipi_dsi_variant dw_mipi_dsi_v130_v131_layout = {
- 	.cfg_cmd_mode_dcs_sw_sr_en =	REG_FIELD(DSI_CMD_MODE_CFG, 16, 18),
- 	.cfg_cmd_mode_dcs_lw_en =	REG_FIELD(DSI_CMD_MODE_CFG, 19, 19),
- 	.cfg_cmd_mode_max_rd_pkt_size =	REG_FIELD(DSI_CMD_MODE_CFG, 24, 24),
--	.cfg_cmd_mode_en =		REG_FIELD(DSI_MODE_CFG, 0, 31),
--	.cfg_cmd_pkt_status =		REG_FIELD(DSI_CMD_PKT_STATUS, 0, 31),
--	.cfg_vid_mode_en =		REG_FIELD(DSI_MODE_CFG, 0, 31),
-+	.cfg_cmd_mode_en =		REG_FIELD(DSI_MODE_CFG, 0, 0),
-+	.cfg_cmd_pkt_status =		REG_FIELD(DSI_CMD_PKT_STATUS, 0, 6),
-+	.cfg_vid_mode_en =		REG_FIELD(DSI_MODE_CFG, 0, 0),
- 	.cfg_vid_mode_type =		REG_FIELD(DSI_VID_MODE_CFG, 0, 1),
- 	.cfg_vid_mode_low_power =	REG_FIELD(DSI_VID_MODE_CFG, 8, 13),
- 	.cfg_vid_mode_vpg_en =		REG_FIELD(DSI_VID_MODE_CFG, 16, 16),
- 	.cfg_vid_mode_vpg_horiz =	REG_FIELD(DSI_VID_MODE_CFG, 24, 24),
--	.cfg_vid_pkt_size =		REG_FIELD(DSI_VID_PKT_SIZE, 0, 10),
--	.cfg_vid_hsa_time =		REG_FIELD(DSI_VID_HSA_TIME, 0, 31),
--	.cfg_vid_hbp_time =		REG_FIELD(DSI_VID_HBP_TIME, 0, 31),
--	.cfg_vid_hline_time =		REG_FIELD(DSI_VID_HLINE_TIME, 0, 31),
--	.cfg_vid_vsa_time =		REG_FIELD(DSI_VID_VSA_LINES, 0, 31),
--	.cfg_vid_vbp_time =		REG_FIELD(DSI_VID_VBP_LINES, 0, 31),
--	.cfg_vid_vfp_time =		REG_FIELD(DSI_VID_VFP_LINES, 0, 31),
--	.cfg_vid_vactive_time =		REG_FIELD(DSI_VID_VACTIVE_LINES, 0, 31),
-+	.cfg_vid_pkt_size =		REG_FIELD(DSI_VID_PKT_SIZE, 0, 13),
-+	.cfg_vid_hsa_time =		REG_FIELD(DSI_VID_HSA_TIME, 0, 11),
-+	.cfg_vid_hbp_time =		REG_FIELD(DSI_VID_HBP_TIME, 0, 11),
-+	.cfg_vid_hline_time =		REG_FIELD(DSI_VID_HLINE_TIME, 0, 14),
-+	.cfg_vid_vsa_time =		REG_FIELD(DSI_VID_VSA_LINES, 0, 9),
-+	.cfg_vid_vbp_time =		REG_FIELD(DSI_VID_VBP_LINES, 0, 9),
-+	.cfg_vid_vfp_time =		REG_FIELD(DSI_VID_VFP_LINES, 0, 9),
-+	.cfg_vid_vactive_time =		REG_FIELD(DSI_VID_VACTIVE_LINES, 0, 13),
- 	.cfg_phy_txrequestclkhs =	REG_FIELD(DSI_LPCLK_CTRL, 0, 0),
--	.cfg_phy_bta_time =		REG_FIELD(DSI_BTA_TO_CNT, 0, 31),
--	.cfg_phy_max_rd_time =		REG_FIELD(DSI_PHY_TMR_CFG, 0, 15),
-+	.cfg_phy_bta_time =		REG_FIELD(DSI_BTA_TO_CNT, 0, 15),
-+	.cfg_phy_max_rd_time =		REG_FIELD(DSI_PHY_TMR_CFG, 0, 14),
- 	.cfg_phy_lp2hs_time =		REG_FIELD(DSI_PHY_TMR_CFG, 16, 23),
- 	.cfg_phy_hs2lp_time =		REG_FIELD(DSI_PHY_TMR_CFG, 24, 31),
--	.cfg_phy_max_rd_time_v131 =	REG_FIELD(DSI_PHY_TMR_RD_CFG, 0, 15),
--	.cfg_phy_lp2hs_time_v131 =	REG_FIELD(DSI_PHY_TMR_CFG, 0, 15),
--	.cfg_phy_hs2lp_time_v131 =	REG_FIELD(DSI_PHY_TMR_CFG, 16, 31),
-+	.cfg_phy_max_rd_time_v131 =	REG_FIELD(DSI_PHY_TMR_RD_CFG, 0, 14),
-+	.cfg_phy_lp2hs_time_v131 =	REG_FIELD(DSI_PHY_TMR_CFG, 0, 9),
-+	.cfg_phy_hs2lp_time_v131 =	REG_FIELD(DSI_PHY_TMR_CFG, 16, 25),
- 	.cfg_phy_clklp2hs_time =	REG_FIELD(DSI_PHY_TMR_LPCLK_CFG, 0, 15),
- 	.cfg_phy_clkhs2lp_time =	REG_FIELD(DSI_PHY_TMR_LPCLK_CFG, 16, 31),
- 	.cfg_phy_testclr =		REG_FIELD(DSI_PHY_TST_CTRL0, 0, 0),
-@@ -361,11 +361,11 @@ static const struct dw_mipi_dsi_variant dw_mipi_dsi_v130_v131_layout = {
- 	.cfg_pckhdl_cfg =		REG_FIELD(DSI_PCKHDL_CFG, 0, 4),
- 	.cfg_hstx_timeout_counter =	REG_FIELD(DSI_TO_CNT_CFG, 16, 31),
- 	.cfg_lprx_timeout_counter =	REG_FIELD(DSI_TO_CNT_CFG, 0, 15),
--	.cfg_int_stat0 =		REG_FIELD(DSI_INT_ST0, 0, 31),
--	.cfg_int_stat1 =		REG_FIELD(DSI_INT_ST1, 0, 31),
--	.cfg_int_mask0 =		REG_FIELD(DSI_INT_MSK0, 0, 31),
--	.cfg_int_mask1 =		REG_FIELD(DSI_INT_MSK1, 0, 31),
--	.cfg_gen_hdr =			REG_FIELD(DSI_GEN_HDR, 0, 31),
-+	.cfg_int_stat0 =		REG_FIELD(DSI_INT_ST0, 0, 20),
-+	.cfg_int_stat1 =		REG_FIELD(DSI_INT_ST1, 0, 12),
-+	.cfg_int_mask0 =		REG_FIELD(DSI_INT_MSK0, 0, 20),
-+	.cfg_int_mask1 =		REG_FIELD(DSI_INT_MSK1, 0, 12),
-+	.cfg_gen_hdr =			REG_FIELD(DSI_GEN_HDR, 0, 23),
- 	.cfg_gen_payload =		REG_FIELD(DSI_GEN_PLD_DATA, 0, 31),
- };
- 
-@@ -382,7 +382,7 @@ static const struct dw_mipi_dsi_variant dw_mipi_dsi_v101_layout = {
- 	.cfg_cmd_mode_gen_lw_en =	REG_FIELD(DSI_CMD_MODE_CFG, 11, 11),
- 	.cfg_cmd_mode_dcs_lw_en =	REG_FIELD(DSI_CMD_MODE_CFG, 12, 12),
- 	.cfg_cmd_mode_ack_rqst_en =	REG_FIELD(DSI_CMD_MODE_CFG_V101, 13, 13),
--	.cfg_cmd_pkt_status =		REG_FIELD(DSI_CMD_PKT_STATUS_V101, 0, 14),
-+	.cfg_cmd_pkt_status =		REG_FIELD(DSI_CMD_PKT_STATUS_V101, 0, 6),
- 	.cfg_vid_mode_en =		REG_FIELD(DSI_VID_MODE_CFG_V101, 0, 0),
- 	.cfg_vid_mode_type =		REG_FIELD(DSI_VID_MODE_CFG_V101, 1, 2),
- 	.cfg_vid_mode_low_power =	REG_FIELD(DSI_VID_MODE_CFG_V101, 3, 8),
--- 
-2.26.0
+Commit title should be ARM: dts: stm32: ...
 
+Can you explain a bit more in your commit message why do you use a 
+reserved memory pool for DMA and where this pool is located. (I assume 
+it's linked to a story of DMA and cache memory attribute on cortexM7...)
+
+Did you try this configuration with XIP boot ?
+
+regards
+alex
+
+>   arch/arm/boot/dts/stm32f746.dtsi      | 34 ++++++++++++++++++
+>   arch/arm/boot/dts/stm32f769-disco.dts | 50 +++++++++++++++++++++++++++
+>   2 files changed, 84 insertions(+)
+> 
+> diff --git a/arch/arm/boot/dts/stm32f746.dtsi b/arch/arm/boot/dts/stm32f746.dtsi
+> index 93c063796780..202bb6edc9f1 100644
+> --- a/arch/arm/boot/dts/stm32f746.dtsi
+> +++ b/arch/arm/boot/dts/stm32f746.dtsi
+> @@ -48,6 +48,19 @@ / {
+>   	#address-cells = <1>;
+>   	#size-cells = <1>;
+>   
+> +	reserved-memory {
+> +		#address-cells = <1>;
+> +		#size-cells = <1>;
+> +		ranges;
+> +
+> +		linux,dma {
+> +			compatible = "shared-dma-pool";
+> +			linux,dma-default;
+> +			no-map;
+> +			size = <0x10F000>;
+> +		};
+> +	};
+> +
+>   	clocks {
+>   		clk_hse: clk-hse {
+>   			#clock-cells = <0>;
+> @@ -75,6 +88,27 @@ clk_i2s_ckin: clk-i2s-ckin {
+>   	};
+>   
+>   	soc {
+> +		ltdc: display-controller@40016800 {
+> +			compatible = "st,stm32-ltdc";
+> +			reg = <0x40016800 0x200>;
+> +			interrupts = <88>, <89>;
+> +			resets = <&rcc STM32F7_APB2_RESET(LTDC)>;
+> +			clocks = <&rcc 1 CLK_LCD>;
+> +			clock-names = "lcd";
+> +			status = "disabled";
+> +		};
+> +
+> +		dsi: dsi@40016c00 {
+> +			compatible = "st,stm32-dsi";
+> +			reg = <0x40016c00 0x800>;
+> +			interrupts = <98>;
+> +			clocks = <&rcc 1 CLK_F769_DSI>, <&clk_hse>;
+> +			clock-names = "pclk", "ref";
+> +			resets = <&rcc STM32F7_APB2_RESET(DSI)>;
+> +			reset-names = "apb";
+> +			status = "disabled";
+> +		};
+> +
+>   		timer2: timer@40000000 {
+>   			compatible = "st,stm32-timer";
+>   			reg = <0x40000000 0x400>;
+> diff --git a/arch/arm/boot/dts/stm32f769-disco.dts b/arch/arm/boot/dts/stm32f769-disco.dts
+> index 1626e00bb2cb..30ebbc193e82 100644
+> --- a/arch/arm/boot/dts/stm32f769-disco.dts
+> +++ b/arch/arm/boot/dts/stm32f769-disco.dts
+> @@ -153,3 +153,53 @@ &usbotg_hs {
+>   	pinctrl-names = "default";
+>   	status = "okay";
+>   };
+> +
+> +&dsi {
+> +	#address-cells = <1>;
+> +	#size-cells = <0>;
+> +	status = "okay";
+> +
+> +	ports {
+> +		#address-cells = <1>;
+> +		#size-cells = <0>;
+> +
+> +		port@0 {
+> +			reg = <0>;
+> +			dsi_in: endpoint {
+> +				remote-endpoint = <&ltdc_out_dsi>;
+> +			};
+> +		};
+> +
+> +		port@1 {
+> +			reg = <1>;
+> +			dsi_out: endpoint {
+> +				remote-endpoint = <&dsi_in_panel>;
+> +			};
+> +		};
+> +
+> +	};
+> +
+> +	panel: panel {
+> +		compatible = "orisetech,otm8009a";
+> +		reg = <0>; /* dsi virtual channel (0..3) */
+> +		reset-gpios = <&gpioj 15 GPIO_ACTIVE_LOW>;
+> +		status = "okay";
+> +
+> +		port {
+> +			dsi_in_panel: endpoint {
+> +				remote-endpoint = <&dsi_out>;
+> +			};
+> +		};
+> +	};
+> +};
+> +
+> +&ltdc {
+> +	dma-ranges;
+> +	status = "okay";
+> +
+> +	port {
+> +		ltdc_out_dsi: endpoint {
+> +			remote-endpoint = <&dsi_in>;
+> +		};
+> +	};
+> +};
+> 
 _______________________________________________
 Linux-stm32 mailing list
 Linux-stm32@st-md-mailman.stormreply.com
