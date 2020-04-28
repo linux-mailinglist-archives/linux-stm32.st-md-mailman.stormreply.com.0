@@ -2,40 +2,62 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id 88CA21BB979
-	for <lists+linux-stm32@lfdr.de>; Tue, 28 Apr 2020 11:07:38 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id A6EC41BBC55
+	for <lists+linux-stm32@lfdr.de>; Tue, 28 Apr 2020 13:24:17 +0200 (CEST)
 Received: from ip-172-31-3-76.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 2A092C36B0C;
-	Tue, 28 Apr 2020 09:07:38 +0000 (UTC)
-Received: from foss.arm.com (foss.arm.com [217.140.110.172])
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 8F26CC36B0A
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 5D8A8C36B0C;
+	Tue, 28 Apr 2020 11:24:17 +0000 (UTC)
+Received: from mail-lj1-f193.google.com (mail-lj1-f193.google.com
+ [209.85.208.193])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+ (No client certificate requested)
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 8014FC36B0A
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Tue, 28 Apr 2020 09:05:27 +0000 (UTC)
-Received: from usa-sjc-imap-foss1.foss.arm.com (unknown [10.121.207.14])
- by usa-sjc-mx-foss1.foss.arm.com (Postfix) with ESMTP id 2F4BF30E;
- Tue, 28 Apr 2020 02:05:27 -0700 (PDT)
-Received: from [10.57.41.45] (unknown [10.57.41.45])
- by usa-sjc-imap-foss1.foss.arm.com (Postfix) with ESMTPSA id 6399E3F305;
- Tue, 28 Apr 2020 02:05:25 -0700 (PDT)
-To: Adrian Pop <pop.adrian61@gmail.com>,
- Alexandre Torgue <alexandre.torgue@st.com>, Lee Jones <lee.jones@linaro.org>
-References: <20200424182139.32190-1-pop.adrian61@gmail.com>
- <3efb57a1-283b-f2f0-66a4-97e88c6c02d6@st.com>
- <CAP-HsdS0rq4iCq1oqpTU=EXF8UWbfPivCJVZG-4b7jyvdHHXUw@mail.gmail.com>
-From: Vladimir Murzin <vladimir.murzin@arm.com>
-Message-ID: <81d9b932-ef2d-6d5c-9a58-2edb88e7e593@arm.com>
-Date: Tue, 28 Apr 2020 10:05:44 +0100
-User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:60.0) Gecko/20100101
- Thunderbird/60.8.0
+ Tue, 28 Apr 2020 11:24:14 +0000 (UTC)
+Received: by mail-lj1-f193.google.com with SMTP id g4so21075193ljl.2
+ for <linux-stm32@st-md-mailman.stormreply.com>;
+ Tue, 28 Apr 2020 04:24:14 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linaro.org; s=google;
+ h=mime-version:references:in-reply-to:from:date:message-id:subject:to
+ :cc; bh=dtSCC/6Zk0CAn9Haq8H1TnXYmgXgUR49no/7MjmVHFQ=;
+ b=wbyZMmT9xNXh+i0FXuT8+Zx0WQdZUgyX61MnLeN982X/SWM7j8uLKdx4JNX0goNrlW
+ XNleJW0Aumfkz+/nYc6WoQ8Mbrxe3w1WLfSNynijdPAXIoQCU3Axz5WeoIANm/zvra2V
+ ijUUTgiTMZ8y0QAkIuJ2Bp78VCRcPB15ZdTKvt9ubTDohSlkhyXFMXv4xeDA7kXorXIc
+ jgucg0wgYdFFOPB7eDr41HD8vwo4BbHTO7E1pPV6RY/Q68xD3pDZwrTL4LOvetZ3bQ51
+ zH9VJUmgfofrM3p7AOv5Jsy5qEsxI1mNerRs3/gEPO5WEqb6omAGtU1ZPiO6iCLwZeNd
+ V+ow==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20161025;
+ h=x-gm-message-state:mime-version:references:in-reply-to:from:date
+ :message-id:subject:to:cc;
+ bh=dtSCC/6Zk0CAn9Haq8H1TnXYmgXgUR49no/7MjmVHFQ=;
+ b=b7FNKxTIM4XHanjbbwR4Y9BnroKPqqY5qVBZ96dNidILaYdHSPoFRZ7Etdd4GhtWcI
+ oj9uS63jEibGAxwT7+1YTiV0ZyZVmTTwQBwqxxatosIQXbrLYy4yoYNOGLIQ8NiIjJhq
+ ruc4RmaILE+X+oviBKmpJEpHf7/RqqCSUThWUgeZZFSwA9hKBTR3pojUHcrJyJpiixLi
+ bZdoeZc2RmyOf9d1WtzbrSF0rBi57uqqqMDoEj91e7tHAp3en4u1frqKWBtfkGQoxd+z
+ C5Lz5sBwkKJZnyHiF5HWzQUe6PKa7nT/FQQiH0E9hFQ5iLeoMadluzjBOOhGAfxuqLqd
+ TcbQ==
+X-Gm-Message-State: AGi0PuYKfdNBCOlrbqLLBB3KD6c3kLR6e8I594lNLBdEpLJp3PDMwB3M
+ cB0DPU06dbYB9VjL/ZoDXk2DtKQ9PY8wD6lE9eCgdQ==
+X-Google-Smtp-Source: APiQypIAZegG6Qn5JvZ0uvEzFCZSmajX66iK5f+sKRerbAwYFi9OxxOsRKHMp8MI1JCk0ToY+5PLv4Mls7VQnu506Fk=
+X-Received: by 2002:a2e:8805:: with SMTP id x5mr18067893ljh.223.1588073053796; 
+ Tue, 28 Apr 2020 04:24:13 -0700 (PDT)
 MIME-Version: 1.0
-In-Reply-To: <CAP-HsdS0rq4iCq1oqpTU=EXF8UWbfPivCJVZG-4b7jyvdHHXUw@mail.gmail.com>
-Content-Language: en-US
-X-Mailman-Approved-At: Tue, 28 Apr 2020 09:07:37 +0000
-Cc: devicetree@vger.kernel.org, linux-kernel@vger.kernel.org,
+References: <20200420134800.31604-1-benjamin.gaignard@st.com>
+ <20200420134800.31604-2-benjamin.gaignard@st.com>
+In-Reply-To: <20200420134800.31604-2-benjamin.gaignard@st.com>
+From: Linus Walleij <linus.walleij@linaro.org>
+Date: Tue, 28 Apr 2020 13:24:01 +0200
+Message-ID: <CACRpkdatGwWyruTLC=+BUtnunvqyxnXAYDhcHqy26oeud8Bs1w@mail.gmail.com>
+To: Benjamin Gaignard <benjamin.gaignard@st.com>
+Cc: "open list:OPEN FIRMWARE AND FLATTENED DEVICE TREE BINDINGS"
+ <devicetree@vger.kernel.org>, Greg KH <gregkh@linuxfoundation.org>,
+ "linux-kernel@vger.kernel.org" <linux-kernel@vger.kernel.org>,
  Rob Herring <robh+dt@kernel.org>, Maxime Coquelin <mcoquelin.stm32@gmail.com>,
- linux-stm32@st-md-mailman.stormreply.com, linux-arm-kernel@lists.infradead.org
-Subject: Re: [Linux-stm32] [PATCH 2/2] arm: dts: stm32f769-disco: Enable
- MIPI DSI display support
+ linux-stm32@st-md-mailman.stormreply.com,
+ Linux ARM <linux-arm-kernel@lists.infradead.org>
+Subject: Re: [Linux-stm32] [PATCH 1/5] dt-bindings: bus: Add firewall
+	bindings
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -52,87 +74,33 @@ Content-Transfer-Encoding: 7bit
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
-Hi Adrian,
+Hi Benjamin,
 
-On 4/27/20 9:05 PM, Adrian Pop wrote:
-> Added lee.jones@linaro.org.
-> 
-> First, thank you all for taking a look at my changes!
-> 
-> Hello Alex,
-> 
-> On Mon, Apr 27, 2020 at 11:28 AM Alexandre Torgue
-> <alexandre.torgue@st.com> wrote:
->>
->> Hi Adrian
->>
->> On 4/24/20 8:21 PM, Adrian Pop wrote:
->>> STM32f769-disco features a 4" MIPI DSI display: add support for it.
->>>
->>> Signed-off-by: Adrian Pop <pop.adrian61@gmail.com>
->>> ---
->>
->> Commit title should be ARM: dts: stm32: ...
-> 
-> Will fix in next version if that's ok.
-> 
->>
->> Can you explain a bit more in your commit message why do you use a
->> reserved memory pool for DMA and where this pool is located. (I assume
->> it's linked to a story of DMA and cache memory attribute on cortexM7...)
-> 
-> Need to look more into this, but if I remove it, /dev/fb0 is not
-> available anymore and I get a warning stating:
-> ...
-> [drm] Supports vblank timestamp caching Rev 2 (21.10.2013).
-> [drm] Initialized stm 1.0.0 20170330 for 40016800.display-controller on minor 0
-> ------------[ cut here ]------------
-> WARNING: CPU: 0 PID: 13 at arch/arm/mm/dma-mapping-nommu.c:50 0xc000b8ed
-> CPU: 0 PID: 13 Comm: kworker/0:1 Not tainted 5.6.0-next-20200412 #23
-> Hardware name: STM32 (Device Tree Support)
-> Workqueue: events 0xc014fa35
-> Function entered at [<c000b325>] from [<c000a487>]
-> ...
-> 
-> When I looked in arch/arm/mm/dma-mapping-nommu.c:50, there is a comment stating:
-> 
->     /*
->      * dma_alloc_from_global_coherent() may fail because:
->      *
->      * - no consistent DMA region has been defined, so we can't
->      *   continue.
->      * - there is no space left in consistent DMA region, so we
->      *   only can fallback to generic allocator if we are
->      *   advertised that consistency is not required.
->      */
-> 
-> This is the reason I added the reserved-memory.
-> 
-> About the location, does it need to be hardcoded? On my board
-> (STM32F769I-Disco, tftp boot) in boot log I get:
-> ...
-> Reserved memory: created DMA memory pool at 0xc0ef1000, size 1 MiB
-> OF: reserved mem: initialized node linux,dma, compatible id shared-dma-pool
-> ...
-> 
+On Mon, Apr 20, 2020 at 3:48 PM Benjamin Gaignard
+<benjamin.gaignard@st.com> wrote:
+>
+> Add schemas for firewall consumer and provider.
+>
+> Signed-off-by: Benjamin Gaignard <benjamin.gaignard@st.com>
 
-I'd recommend to place it at specific address, otherwise it will play badly with
-CONFIG_MPU=y. MPU covers only single contiguous memblock (due to limitations
-in number of available MPU regions), so placing DMA pool anywhere may result
-in split of such contiguous memblock, as effect you may see that some memory
-is not used. Usually, folks place DMA pool at the end of RAM.
+> +$id: http://devicetree.org/schemas/bus/stm32/firewall-consumer.yaml#
+> +$schema: http://devicetree.org/meta-schemas/core.yaml#
+> +
+> +title: Common Bus Firewall consumer binding
+> +
+> +maintainers:
+> +  - Benjamin Gaignard <benjamin.gaignard@st.com>
 
->>
->> Did you try this configuration with XIP boot ?
-> 
-> I did not try with XIP. Currently loading zImage from tftp to memory.
-> Will try with XIP as well, and get back with feedback.
-> 
+This really needs a description: to tell what is going on and what
+these firewalls
+are for and how they are supposed to work.
 
-Bear in mind that with CONFIG_MPU=y XIP start address need to be aligned to 1M.
+I suppose just a bit of cut'n'paste from the cover letter :D
 
-Cheers
-Vladimir
+Otherwise it looks good to me.
+
+Yours,
+Linus Walleij
 _______________________________________________
 Linux-stm32 mailing list
 Linux-stm32@st-md-mailman.stormreply.com
