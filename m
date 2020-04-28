@@ -2,62 +2,61 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id A6EC41BBC55
-	for <lists+linux-stm32@lfdr.de>; Tue, 28 Apr 2020 13:24:17 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id B5B3E1BBE26
+	for <lists+linux-stm32@lfdr.de>; Tue, 28 Apr 2020 14:49:51 +0200 (CEST)
 Received: from ip-172-31-3-76.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 5D8A8C36B0C;
-	Tue, 28 Apr 2020 11:24:17 +0000 (UTC)
-Received: from mail-lj1-f193.google.com (mail-lj1-f193.google.com
- [209.85.208.193])
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 57A3AC36B0C;
+	Tue, 28 Apr 2020 12:49:51 +0000 (UTC)
+Received: from mail-lf1-f66.google.com (mail-lf1-f66.google.com
+ [209.85.167.66])
  (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 8014FC36B0A
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 9061FC36B0A
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Tue, 28 Apr 2020 11:24:14 +0000 (UTC)
-Received: by mail-lj1-f193.google.com with SMTP id g4so21075193ljl.2
+ Tue, 28 Apr 2020 12:49:49 +0000 (UTC)
+Received: by mail-lf1-f66.google.com with SMTP id y3so1157061lfy.1
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Tue, 28 Apr 2020 04:24:14 -0700 (PDT)
+ Tue, 28 Apr 2020 05:49:49 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linaro.org; s=google;
  h=mime-version:references:in-reply-to:from:date:message-id:subject:to
- :cc; bh=dtSCC/6Zk0CAn9Haq8H1TnXYmgXgUR49no/7MjmVHFQ=;
- b=wbyZMmT9xNXh+i0FXuT8+Zx0WQdZUgyX61MnLeN982X/SWM7j8uLKdx4JNX0goNrlW
- XNleJW0Aumfkz+/nYc6WoQ8Mbrxe3w1WLfSNynijdPAXIoQCU3Axz5WeoIANm/zvra2V
- ijUUTgiTMZ8y0QAkIuJ2Bp78VCRcPB15ZdTKvt9ubTDohSlkhyXFMXv4xeDA7kXorXIc
- jgucg0wgYdFFOPB7eDr41HD8vwo4BbHTO7E1pPV6RY/Q68xD3pDZwrTL4LOvetZ3bQ51
- zH9VJUmgfofrM3p7AOv5Jsy5qEsxI1mNerRs3/gEPO5WEqb6omAGtU1ZPiO6iCLwZeNd
- V+ow==
+ :cc; bh=UL/TVs62faF1qHVs/iiuWvqOrsmLsKHyIOog76Ui4vY=;
+ b=VVzJkCiuPUgRSo5KUL+WQU5C4r/qwXnkA0/rH3dMnEHBm1e4tgddRH1V/HnB6F5iGK
+ 6ib22DEAlDbVPG7vXaKfYvHPpXUXg82m/Jl5PNK6yT1oufMeKGeZFqkHKGUG+OQes4IP
+ agBRex/tDRgpxy4wUHqJpz1gj+GMHf093SEeP83nm1BXRcMi6+dHfhlG0KcAGHG5r7A/
+ wTcuVPeQX1gFZ1n/iZb2/PqbErlG8zUwuEvEKct2LiiC99fi947KLNDpuypP+2ZWrz0m
+ NLqhkYR/CKdvqtvHlxp7gVzsJ5fRCBYFmBwEjITSas4Z3RbVgfHXBUykZr4mT9O7fFTd
+ 7M/Q==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=1e100.net; s=20161025;
  h=x-gm-message-state:mime-version:references:in-reply-to:from:date
  :message-id:subject:to:cc;
- bh=dtSCC/6Zk0CAn9Haq8H1TnXYmgXgUR49no/7MjmVHFQ=;
- b=b7FNKxTIM4XHanjbbwR4Y9BnroKPqqY5qVBZ96dNidILaYdHSPoFRZ7Etdd4GhtWcI
- oj9uS63jEibGAxwT7+1YTiV0ZyZVmTTwQBwqxxatosIQXbrLYy4yoYNOGLIQ8NiIjJhq
- ruc4RmaILE+X+oviBKmpJEpHf7/RqqCSUThWUgeZZFSwA9hKBTR3pojUHcrJyJpiixLi
- bZdoeZc2RmyOf9d1WtzbrSF0rBi57uqqqMDoEj91e7tHAp3en4u1frqKWBtfkGQoxd+z
- C5Lz5sBwkKJZnyHiF5HWzQUe6PKa7nT/FQQiH0E9hFQ5iLeoMadluzjBOOhGAfxuqLqd
- TcbQ==
-X-Gm-Message-State: AGi0PuYKfdNBCOlrbqLLBB3KD6c3kLR6e8I594lNLBdEpLJp3PDMwB3M
- cB0DPU06dbYB9VjL/ZoDXk2DtKQ9PY8wD6lE9eCgdQ==
-X-Google-Smtp-Source: APiQypIAZegG6Qn5JvZ0uvEzFCZSmajX66iK5f+sKRerbAwYFi9OxxOsRKHMp8MI1JCk0ToY+5PLv4Mls7VQnu506Fk=
-X-Received: by 2002:a2e:8805:: with SMTP id x5mr18067893ljh.223.1588073053796; 
- Tue, 28 Apr 2020 04:24:13 -0700 (PDT)
+ bh=UL/TVs62faF1qHVs/iiuWvqOrsmLsKHyIOog76Ui4vY=;
+ b=A9Agdos16P/AjQYibDSKNgeDcFMbGFFPVScADJ0VTHEV8Dtb7dujLvvcbnW5QYGofK
+ fbKin//1N4XSgUIur5ksdVxuKbu6xw/zk0s3SRj2JEZ1KKkQyF5O5OATB4EoaSmgirjm
+ xGL+3tMgCf92L3MZyq/1rHbiUQxMtuYalGWBT9ScpmNj8Z/gQNn6jkYZVxLpBIJFOtdb
+ WwH1azqMJnNSUhewj53lmK4nkYuf+iJLBG7Obsn30AvxKdi3BhasbNnYTknbLgsVF1O5
+ Jvj/TMVTXw17rLhRX41iFlVwiUCun39aXrFN3SLLSvtB7uxTCqHfQ/+uufUpTetnfmPk
+ xIYg==
+X-Gm-Message-State: AGi0PuZZG1S+YUdFDe/oZGfEqSYA3xUP5er5svGPSBGiy65SX7vo9gb3
+ ejDT+IGdW+ekmtVSnkLHYc06bjG+YCqcpjbdcfAvVQ==
+X-Google-Smtp-Source: APiQypJYIQJ85qOD1cwJ8t3Ko6n/QlAkuFT5C5YrkLuzUTtDUSKQTsPmMdAaXkYcqBPYL//zz5+kD6YQtD4IfGvW0B4=
+X-Received: by 2002:a05:6512:685:: with SMTP id
+ t5mr19029129lfe.47.1588078188674; 
+ Tue, 28 Apr 2020 05:49:48 -0700 (PDT)
 MIME-Version: 1.0
-References: <20200420134800.31604-1-benjamin.gaignard@st.com>
- <20200420134800.31604-2-benjamin.gaignard@st.com>
-In-Reply-To: <20200420134800.31604-2-benjamin.gaignard@st.com>
+References: <20200422072513.8352-1-amelie.delaunay@st.com>
+In-Reply-To: <20200422072513.8352-1-amelie.delaunay@st.com>
 From: Linus Walleij <linus.walleij@linaro.org>
-Date: Tue, 28 Apr 2020 13:24:01 +0200
-Message-ID: <CACRpkdatGwWyruTLC=+BUtnunvqyxnXAYDhcHqy26oeud8Bs1w@mail.gmail.com>
-To: Benjamin Gaignard <benjamin.gaignard@st.com>
-Cc: "open list:OPEN FIRMWARE AND FLATTENED DEVICE TREE BINDINGS"
- <devicetree@vger.kernel.org>, Greg KH <gregkh@linuxfoundation.org>,
- "linux-kernel@vger.kernel.org" <linux-kernel@vger.kernel.org>,
- Rob Herring <robh+dt@kernel.org>, Maxime Coquelin <mcoquelin.stm32@gmail.com>,
+Date: Tue, 28 Apr 2020 14:49:37 +0200
+Message-ID: <CACRpkdaG8PPA13gMXMS62Fow7De5vDaG=gZ+HAEx6yhpOH0sTw@mail.gmail.com>
+To: Amelie Delaunay <amelie.delaunay@st.com>
+Cc: "linux-kernel@vger.kernel.org" <linux-kernel@vger.kernel.org>,
+ "open list:GPIO SUBSYSTEM" <linux-gpio@vger.kernel.org>,
+ Maxime Coquelin <mcoquelin.stm32@gmail.com>,
  linux-stm32@st-md-mailman.stormreply.com,
  Linux ARM <linux-arm-kernel@lists.infradead.org>
-Subject: Re: [Linux-stm32] [PATCH 1/5] dt-bindings: bus: Add firewall
-	bindings
+Subject: Re: [Linux-stm32] [PATCH 1/1] pinctrl: stmfx: stmfx_pinconf_set
+ doesn't require to get direction anymore
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -74,30 +73,14 @@ Content-Transfer-Encoding: 7bit
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
-Hi Benjamin,
+On Wed, Apr 22, 2020 at 9:26 AM Amelie Delaunay <amelie.delaunay@st.com> wrote:
 
-On Mon, Apr 20, 2020 at 3:48 PM Benjamin Gaignard
-<benjamin.gaignard@st.com> wrote:
+> Pin direction is not used to set pin configuration.
 >
-> Add schemas for firewall consumer and provider.
->
-> Signed-off-by: Benjamin Gaignard <benjamin.gaignard@st.com>
+> Fixes: a502b343ebd0 ("pinctrl: stmfx: update pinconf settings")
+> Signed-off-by: Amelie Delaunay <amelie.delaunay@st.com>
 
-> +$id: http://devicetree.org/schemas/bus/stm32/firewall-consumer.yaml#
-> +$schema: http://devicetree.org/meta-schemas/core.yaml#
-> +
-> +title: Common Bus Firewall consumer binding
-> +
-> +maintainers:
-> +  - Benjamin Gaignard <benjamin.gaignard@st.com>
-
-This really needs a description: to tell what is going on and what
-these firewalls
-are for and how they are supposed to work.
-
-I suppose just a bit of cut'n'paste from the cover letter :D
-
-Otherwise it looks good to me.
+Patch applied.
 
 Yours,
 Linus Walleij
