@@ -2,45 +2,46 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id 371781BE380
-	for <lists+linux-stm32@lfdr.de>; Wed, 29 Apr 2020 18:12:35 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id B54611BE3FC
+	for <lists+linux-stm32@lfdr.de>; Wed, 29 Apr 2020 18:37:53 +0200 (CEST)
 Received: from ip-172-31-3-76.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id E699EC36B0D;
-	Wed, 29 Apr 2020 16:12:34 +0000 (UTC)
-Received: from foss.arm.com (foss.arm.com [217.140.110.172])
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 7641FC36B0A
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 6C5D8C36B0D;
+	Wed, 29 Apr 2020 16:37:53 +0000 (UTC)
+Received: from mail-out.m-online.net (mail-out.m-online.net [212.18.0.10])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+ (No client certificate requested)
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id DE15FC36B0A
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Wed, 29 Apr 2020 16:12:32 +0000 (UTC)
-Received: from usa-sjc-imap-foss1.foss.arm.com (unknown [10.121.207.14])
- by usa-sjc-mx-foss1.foss.arm.com (Postfix) with ESMTP id 7552E1045;
- Wed, 29 Apr 2020 09:12:31 -0700 (PDT)
-Received: from [10.0.2.15] (unknown [172.31.20.19])
- by usa-sjc-imap-foss1.foss.arm.com (Postfix) with ESMTPSA id 89FE63F73D;
- Wed, 29 Apr 2020 09:12:29 -0700 (PDT)
-To: Benjamin GAIGNARD <benjamin.gaignard@st.com>,
- "Rafael J. Wysocki" <rjw@rjwysocki.net>
-References: <20200424114058.21199-1-benjamin.gaignard@st.com>
- <7657495.QyJl4BcWH5@kreacher> <30cdecf9-703a-eb2b-7c2b-f1e21c805add@st.com>
-From: Valentin Schneider <valentin.schneider@arm.com>
-Message-ID: <70e743cf-b88e-346a-5114-939b8724c83d@arm.com>
-Date: Wed, 29 Apr 2020 17:12:26 +0100
-User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:68.0) Gecko/20100101
- Thunderbird/68.7.0
+ Wed, 29 Apr 2020 16:37:51 +0000 (UTC)
+Received: from frontend01.mail.m-online.net (unknown [192.168.8.182])
+ by mail-out.m-online.net (Postfix) with ESMTP id 49C41p6P3xz1rsNJ;
+ Wed, 29 Apr 2020 18:37:50 +0200 (CEST)
+Received: from localhost (dynscan1.mnet-online.de [192.168.6.70])
+ by mail.m-online.net (Postfix) with ESMTP id 49C41p5dmyz1qv7g;
+ Wed, 29 Apr 2020 18:37:50 +0200 (CEST)
+X-Virus-Scanned: amavisd-new at mnet-online.de
+Received: from mail.mnet-online.de ([192.168.8.182])
+ by localhost (dynscan1.mail.m-online.net [192.168.6.70]) (amavisd-new,
+ port 10024)
+ with ESMTP id LEgfi0Ad_eB1; Wed, 29 Apr 2020 18:37:49 +0200 (CEST)
+X-Auth-Info: Blw1rVRdh3r2Awk0bso87OWXAhujNHIgW1rFeyYzoGo=
+Received: from desktop.lan (ip-86-49-35-8.net.upcbroadband.cz [86.49.35.8])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+ (No client certificate requested)
+ by mail.mnet-online.de (Postfix) with ESMTPSA;
+ Wed, 29 Apr 2020 18:37:49 +0200 (CEST)
+From: Marek Vasut <marex@denx.de>
+To: linux-arm-kernel@lists.infradead.org
+Date: Wed, 29 Apr 2020 18:37:32 +0200
+Message-Id: <20200429163743.67854-1-marex@denx.de>
+X-Mailer: git-send-email 2.25.1
 MIME-Version: 1.0
-In-Reply-To: <30cdecf9-703a-eb2b-7c2b-f1e21c805add@st.com>
-Content-Language: en-US
-Cc: "mcoquelin.stm32@gmail.com" <mcoquelin.stm32@gmail.com>,
- "len.brown@intel.com" <len.brown@intel.com>,
- "viresh.kumar@linaro.org" <viresh.kumar@linaro.org>,
- "linux-pm@vger.kernel.org" <linux-pm@vger.kernel.org>,
- "linux-kernel@vger.kernel.org" <linux-kernel@vger.kernel.org>,
- Patrick Bellasi <patrick.bellasi@arm.com>, "pavel@ucw.cz" <pavel@ucw.cz>,
- "mchehab@kernel.org" <mchehab@kernel.org>,
- "linux-stm32@st-md-mailman.stormreply.com"
- <linux-stm32@st-md-mailman.stormreply.com>,
- "linux-arm-kernel@lists.infradead.org" <linux-arm-kernel@lists.infradead.org>,
- "linux-media@vger.kernel.org" <linux-media@vger.kernel.org>
-Subject: Re: [Linux-stm32] [RFC 0/3] Introduce cpufreq minimum load QoS
+Cc: Marek Vasut <marex@denx.de>, Patrick Delaunay <patrick.delaunay@st.com>,
+ Maxime Coquelin <mcoquelin.stm32@gmail.com>,
+ Manivannan Sadhasivam <manivannan.sadhasivam@linaro.org>,
+ linux-stm32@st-md-mailman.stormreply.com
+Subject: [Linux-stm32] [PATCH 01/12] ARM: dts: stm32: Add alternate pinmux
+	for I2C2 pins
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -57,46 +58,51 @@ Content-Transfer-Encoding: 7bit
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
-On 29/04/2020 16:57, Benjamin GAIGNARD wrote:
-> 
-> 
-> On 4/29/20 5:50 PM, Rafael J. Wysocki wrote:
->> On Friday, April 24, 2020 1:40:55 PM CEST Benjamin Gaignard wrote:
->>> When start streaming from the sensor the CPU load could remain very low
->>> because almost all the capture pipeline is done in hardware (i.e. without
->>> using the CPU) and let believe to cpufreq governor that it could use lower
->>> frequencies. If the governor decides to use a too low frequency that
->>> becomes a problem when we need to acknowledge the interrupt during the
->>> blanking time.
->>> The delay to ack the interrupt and perform all the other actions before
->>> the next frame is very short and doesn't allow to the cpufreq governor to
->>> provide the required burst of power. That led to drop the half of the frames.
->>>
->>> To avoid this problem, DCMI driver informs the cpufreq governors by adding
->>> a cpufreq minimum load QoS resquest.
->> This seems to be addressing a use case that can be addressed with the help of
->> utilization clamps with less power overhead.
-> Do mean clamping the policy frequencies ? I may have miss the API to do 
-> that...
->>
+Add another mux option for I2C2 pins, this is used on AV96 board.
 
-IIUC Rafael is referring to uclamp, i.e. scheduler utilization clamping, see:
+Signed-off-by: Marek Vasut <marex@denx.de>
+Cc: Alexandre Torgue <alexandre.torgue@st.com>
+Cc: Manivannan Sadhasivam <manivannan.sadhasivam@linaro.org>
+Cc: Maxime Coquelin <mcoquelin.stm32@gmail.com>
+Cc: Patrice Chotard <patrice.chotard@st.com>
+Cc: Patrick Delaunay <patrick.delaunay@st.com>
+Cc: linux-stm32@st-md-mailman.stormreply.com
+To: linux-arm-kernel@lists.infradead.org
+---
+ arch/arm/boot/dts/stm32mp15-pinctrl.dtsi | 17 +++++++++++++++++
+ 1 file changed, 17 insertions(+)
 
-  https://www.kernel.org/doc/html/latest/admin-guide/cgroup-v2.html#cpu
+diff --git a/arch/arm/boot/dts/stm32mp15-pinctrl.dtsi b/arch/arm/boot/dts/stm32mp15-pinctrl.dtsi
+index aeddcaadb829..ca4edcf369d0 100644
+--- a/arch/arm/boot/dts/stm32mp15-pinctrl.dtsi
++++ b/arch/arm/boot/dts/stm32mp15-pinctrl.dtsi
+@@ -408,6 +408,23 @@ pins {
+ 		};
+ 	};
+ 
++	i2c2_pins_c: i2c2-4 {
++		pins {
++			pinmux = <STM32_PINMUX('F', 1, AF4)>, /* I2C2_SCL */
++				 <STM32_PINMUX('H', 5, AF4)>; /* I2C2_SDA */
++			bias-disable;
++			drive-open-drain;
++			slew-rate = <0>;
++		};
++	};
++
++	i2c2_pins_sleep_c: i2c2-5 {
++		pins {
++			pinmux = <STM32_PINMUX('F', 1, ANALOG)>, /* I2C2_SCL */
++				 <STM32_PINMUX('H', 5, ANALOG)>; /* I2C2_SDA */
++		};
++	};
++
+ 	i2c5_pins_a: i2c5-0 {
+ 		pins {
+ 			pinmux = <STM32_PINMUX('A', 11, AF4)>, /* I2C5_SCL */
+-- 
+2.25.1
 
-The above describes the cgroup interface, note that you can also set clamps
-per task (via sched_setattr()).
-
-One thing that comes to mind however is that schedutil only "sees" the clamps
-of runnable tasks, and from reading your changelog you may not have moments
-without any (i.e. gears are grinding in HW). You'd have to try boosting
-(setting a high uclamp.min) whatever tasks you have on the software side and
-see how it all behaves.
-
->> Thanks!
->>
->>
->>
 _______________________________________________
 Linux-stm32 mailing list
 Linux-stm32@st-md-mailman.stormreply.com
