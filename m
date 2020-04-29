@@ -2,52 +2,64 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id 9F78B1BE418
-	for <lists+linux-stm32@lfdr.de>; Wed, 29 Apr 2020 18:40:48 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 8E7181BF0D8
+	for <lists+linux-stm32@lfdr.de>; Thu, 30 Apr 2020 09:10:34 +0200 (CEST)
 Received: from ip-172-31-3-76.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 6959AC36B0D;
-	Wed, 29 Apr 2020 16:40:48 +0000 (UTC)
-Received: from mail-out.m-online.net (mail-out.m-online.net [212.18.0.10])
- (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 31B67C36B0D;
+	Thu, 30 Apr 2020 07:10:34 +0000 (UTC)
+Received: from mail-lj1-f194.google.com (mail-lj1-f194.google.com
+ [209.85.208.194])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id E1769C36B0A
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 61A19C36B0A
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Wed, 29 Apr 2020 16:40:46 +0000 (UTC)
-Received: from frontend01.mail.m-online.net (unknown [192.168.8.182])
- by mail-out.m-online.net (Postfix) with ESMTP id 49C4596Bjfz1rs2Q;
- Wed, 29 Apr 2020 18:40:45 +0200 (CEST)
-Received: from localhost (dynscan1.mnet-online.de [192.168.6.70])
- by mail.m-online.net (Postfix) with ESMTP id 49C4595GR0z1qqkP;
- Wed, 29 Apr 2020 18:40:45 +0200 (CEST)
-X-Virus-Scanned: amavisd-new at mnet-online.de
-Received: from mail.mnet-online.de ([192.168.8.182])
- by localhost (dynscan1.mail.m-online.net [192.168.6.70]) (amavisd-new,
- port 10024)
- with ESMTP id 5BMjDKLmcYFg; Wed, 29 Apr 2020 18:40:44 +0200 (CEST)
-X-Auth-Info: 2OILK8JRk7oanegYFOtEzRhOZ8gy2ta3xQ80DatFi0U=
-Received: from [IPv6:::1] (unknown [195.140.253.167])
- (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
- (No client certificate requested)
- by mail.mnet-online.de (Postfix) with ESMTPSA;
- Wed, 29 Apr 2020 18:40:44 +0200 (CEST)
-To: Alexandre Torgue <alexandre.torgue@st.com>,
- linux-arm-kernel@lists.infradead.org
-References: <20200422104613.96944-1-marex@denx.de>
- <e47b72fc-9591-021d-7abc-14a7166a4845@st.com>
-From: Marek Vasut <marex@denx.de>
-Message-ID: <9a5d29a4-14ae-1e4f-68fe-21e4f619625d@denx.de>
-Date: Wed, 29 Apr 2020 18:40:43 +0200
-User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:68.0) Gecko/20100101
- Thunderbird/68.5.0
+ Wed, 29 Apr 2020 17:08:27 +0000 (UTC)
+Received: by mail-lj1-f194.google.com with SMTP id e25so3438270ljg.5
+ for <linux-stm32@st-md-mailman.stormreply.com>;
+ Wed, 29 Apr 2020 10:08:27 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linaro.org; s=google;
+ h=mime-version:references:in-reply-to:from:date:message-id:subject:to
+ :cc; bh=2F/GGX+E0c0+b/vD1LG0X0Imv+S43d6dDOK/FkPT3g8=;
+ b=jNkYpc6S0ZAt1d7I3WBLADvu8AvAoumyVfy15MqXYeffwC+o4Cob9YDhPtMZ8QWvH+
+ NIwdCDYO3Ztb8zQ3NlSssEXDT66TreFG8fQZFp2Sf/GUZvt3pdbYSGtLKGnxRX+tQTcQ
+ zb1kabUEdqdEgPGAX3PG8+MATiYMctEl87v0wIV8vw6cs9cJg5IaVwlKG6Zfiv5akn75
+ jDsY1e2YbK6YsNoc8BmOCB3Kw7UeY8zYQ1iUdKYUGLuug2TQemrSwaCGKE4Xe4nS9V9P
+ WBX0kvYhtVFlazgSsG0wd6v0mt1vwy7k9/83/pCmG6nJkn1eoGUkQmSC02Cnl2AeuK8+
+ nCzw==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20161025;
+ h=x-gm-message-state:mime-version:references:in-reply-to:from:date
+ :message-id:subject:to:cc;
+ bh=2F/GGX+E0c0+b/vD1LG0X0Imv+S43d6dDOK/FkPT3g8=;
+ b=pi5YIHoqdOOJmD9V395CxNGbDrD2z6y09YWbMCGrXeDc+9GMhE1GDhClxR89F3Ij3c
+ 6XCGGJzX/XAS3sCa+MjQ6HxP3oaegc2emTcMZQlOWRuSeATPFgA/FaMVUBwWpDlLoZgO
+ UXV4w/EohSnd9ofRoGV9WHDw1LAq+BFLr8NIH/f0nRhhEvDsXbPD9YmHjXUt2pjXkCjl
+ FMUElvWVUwp+9TD+ECvxA0Bt3dbKG5RCs0ot22insqMFqO2AtTBpNBNWj8wK8hdDCAVQ
+ uFExDua1AcsTZREpMF6kkP70NwDjZO5Z8v8J8ru5VxOGHviutLGbEfbPwNIEndwGU6cL
+ 5JOg==
+X-Gm-Message-State: AGi0PuZ+4Usztt7eh+hWDAo+DCMC3LDQ/4uBirUI8JzHAjuFpTQlJI+4
+ EZY7z4gY0k573rU0e7PDTMHYCd5xXPygWmupFcnqjQ==
+X-Google-Smtp-Source: APiQypI/p8hMCfeSVM1tpb+Hmphas9b6HroclmJaxP7F1hxtSeUvsqPKT++NGG1tH/H5GveF7lU55+kiTYZblxp87+I=
+X-Received: by 2002:a2e:8046:: with SMTP id p6mr20607906ljg.21.1588180106288; 
+ Wed, 29 Apr 2020 10:08:26 -0700 (PDT)
 MIME-Version: 1.0
-In-Reply-To: <e47b72fc-9591-021d-7abc-14a7166a4845@st.com>
-Content-Language: en-US
-Cc: Patrick Delaunay <patrick.delaunay@st.com>,
+References: <20200424114058.21199-1-benjamin.gaignard@st.com>
+ <7657495.QyJl4BcWH5@kreacher>
+In-Reply-To: <7657495.QyJl4BcWH5@kreacher>
+From: Vincent Guittot <vincent.guittot@linaro.org>
+Date: Wed, 29 Apr 2020 19:08:14 +0200
+Message-ID: <CAKfTPtBNH8x=83RVQajgK859qQGjMTyvEdP4GioMONEZp9t-NA@mail.gmail.com>
+To: "Rafael J. Wysocki" <rjw@rjwysocki.net>
+X-Mailman-Approved-At: Thu, 30 Apr 2020 07:10:31 +0000
+Cc: Len Brown <len.brown@intel.com>,
+ "open list:THERMAL" <linux-pm@vger.kernel.org>,
+ Viresh Kumar <viresh.kumar@linaro.org>, Pavel Machek <pavel@ucw.cz>,
+ linux-kernel <linux-kernel@vger.kernel.org>,
+ Patrick Bellasi <patrick.bellasi@arm.com>, linux-media@vger.kernel.org,
+ Maxime Coquelin <mcoquelin.stm32@gmail.com>, mchehab@kernel.org,
  linux-stm32@st-md-mailman.stormreply.com,
- Maxime Coquelin <mcoquelin.stm32@gmail.com>,
- Manivannan Sadhasivam <manivannan.sadhasivam@linaro.org>
-Subject: Re: [Linux-stm32] [PATCH V5 00/20] ARM: dts: stm32: Repair AV96
-	board
+ LAK <linux-arm-kernel@lists.infradead.org>
+Subject: Re: [Linux-stm32] [RFC 0/3] Introduce cpufreq minimum load QoS
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -59,48 +71,39 @@ List-Post: <mailto:linux-stm32@st-md-mailman.stormreply.com>
 List-Help: <mailto:linux-stm32-request@st-md-mailman.stormreply.com?subject=help>
 List-Subscribe: <https://st-md-mailman.stormreply.com/mailman/listinfo/linux-stm32>, 
  <mailto:linux-stm32-request@st-md-mailman.stormreply.com?subject=subscribe>
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: base64
+Content-Type: text/plain; charset="us-ascii"
+Content-Transfer-Encoding: 7bit
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
-T24gNC8yOS8yMCA5OjU2IEFNLCBBbGV4YW5kcmUgVG9yZ3VlIHdyb3RlOgo+IEhpIE1hcmVrCj4g
-Cj4gT24gNC8yMi8yMCAxMjo0NSBQTSwgTWFyZWsgVmFzdXQgd3JvdGU6Cj4+IFRoZSBBVjk2IGJv
-YXJkIGRldmljZSB0cmVlIGlzIGNvbXBsZXRlbHkgYnJva2VuIGFuZCBkb2VzIG5vdCBtYXRjaCB0
-aGUKPj4gaGFyZHdhcmUuIFRoaXMgc2VyaWVzIGZpeGVzIGl0IHVwLgo+Pgo+PiBNYXJlayBWYXN1
-dCAoMjApOgo+PiDCoMKgIEFSTTogZHRzOiBzdG0zMjogUmVwYWlyIFBNSUMgY29uZmlndXJhdGlv
-biBvbiBBVjk2Cj4+IMKgwqAgQVJNOiBkdHM6IHN0bTMyOiBSZXBhaXIgUE1JQyBpbnRlcnJ1cHQg
-b24gQVY5Ngo+PiDCoMKgIEFSTTogZHRzOiBzdG0zMjogQWRkIGFsdGVybmF0ZSBwaW5tdXggZm9y
-IGV0aGVybmV0IFJHTUlJCj4+IMKgwqAgQVJNOiBkdHM6IHN0bTMyOiBSZXBhaXIgZXRoZXJuZXQg
-b3BlcmF0aW9uIG9uIEFWOTYKPj4gwqDCoCBBUk06IGR0czogc3RtMzI6IEFkZCBtaXNzaW5nIGV0
-aGVybmV0IFBIWSByZXNldCBvbiBBVjk2Cj4+IMKgwqAgQVJNOiBkdHM6IHN0bTMyOiBBZGQgbWlz
-c2luZyBldGhlcm5ldCBQSFkgc2tld3Mgb24gQVY5Ngo+PiDCoMKgIEFSTTogZHRzOiBzdG0zMjog
-QWRkIGFsdGVybmF0ZSBwaW5tdXggZm9yIFNETU1DIHBpbnMKPj4gwqDCoCBBUk06IGR0czogc3Rt
-MzI6IFJlcGFpciBTRE1NQzEgb3BlcmF0aW9uIG9uIEFWOTYKPj4gwqDCoCBBUk06IGR0czogc3Rt
-MzI6IEFkZCBlTU1DIGF0dGFjaGVkIHRvIFNETU1DMiBvbiBBVjk2Cj4+IMKgwqAgQVJNOiBkdHM6
-IHN0bTMyOiBBZGQgUVNQSSBOT1Igb24gQVY5Ngo+PiDCoMKgIEFSTTogZHRzOiBzdG0zMjogQWRk
-IGNvbmZpZ3VyYXRpb24gRUVQUk9NIG9uIEFWOTYKPj4gwqDCoCBBUk06IGR0czogc3RtMzI6IEVu
-YWJsZSBXaUZpIG9uIEFWOTYKPj4gwqDCoCBBUk06IGR0czogc3RtMzI6IEFkZCBhbHRlcm5hdGUg
-cGlubXV4IGZvciBVU0FSVDIgcGlucwo+PiDCoMKgIEFSTTogZHRzOiBzdG0zMjogRW5hYmxlIEJs
-dWV0b290aCBvbiBBVjk2Cj4+IMKgwqAgQVJNOiBkdHM6IHN0bTMyOiBBZGQgYWx0ZXJuYXRlIHBp
-bm11eCBmb3IgTFREQyBwaW5zCj4+IMKgwqAgQVJNOiBkdHM6IHN0bTMyOiBBZGQgYmluZGluZ3Mg
-Zm9yIEhETUkgdmlkZW8gb24gQVY5Ngo+PiDCoMKgIEFSTTogZHRzOiBzdG0zMjogQWRkIGFsdGVy
-bmF0ZSBwaW5tdXggZm9yIFNBSTIgcGlucwo+PiDCoMKgIEFSTTogZHRzOiBzdG0zMjogQWRkIGJp
-bmRpbmdzIGZvciBhdWRpbyBvbiBBVjk2Cj4+IMKgwqAgQVJNOiBkdHM6IHN0bTMyOiBBZGQgYmlu
-ZGluZ3MgZm9yIFVTQiBvbiBBVjk2Cj4+IMKgwqAgQVJNOiBkdHM6IHN0bTMyOiBSZW5hbWUgTEVE
-cyB0byBtYXRjaCBzaWxrc2NyZWVuIG9uIEFWOTYKPj4KPj4gwqAgYXJjaC9hcm0vYm9vdC9kdHMv
-c3RtMzJtcDE1LXBpbmN0cmwuZHRzacKgwqDCoCB8IDI4MCArKysrKysrKysrKysrKysrKwo+PiDC
-oCBhcmNoL2FybS9ib290L2R0cy9zdG0zMm1wMTU3YS1hdmVuZ2VyOTYuZHRzIHwgMzI0ICsrKysr
-KysrKysrKysrKysrKy0tCj4+IMKgIDIgZmlsZXMgY2hhbmdlZCwgNTcyIGluc2VydGlvbnMoKyks
-IDMyIGRlbGV0aW9ucygtKQo+Pgo+PiBDYzogQWxleGFuZHJlIFRvcmd1ZSA8YWxleGFuZHJlLnRv
-cmd1ZUBzdC5jb20+Cj4+IENjOiBNYW5pdmFubmFuIFNhZGhhc2l2YW0gPG1hbml2YW5uYW4uc2Fk
-aGFzaXZhbUBsaW5hcm8ub3JnPgo+PiBDYzogTWF4aW1lIENvcXVlbGluIDxtY29xdWVsaW4uc3Rt
-MzJAZ21haWwuY29tPgo+PiBDYzogUGF0cmljZSBDaG90YXJkIDxwYXRyaWNlLmNob3RhcmRAc3Qu
-Y29tPgo+PiBDYzogUGF0cmljayBEZWxhdW5heSA8cGF0cmljay5kZWxhdW5heUBzdC5jb20+Cj4+
-IENjOiBsaW51eC1zdG0zMkBzdC1tZC1tYWlsbWFuLnN0b3JtcmVwbHkuY29tCj4+IFRvOiBsaW51
-eC1hcm0ta2VybmVsQGxpc3RzLmluZnJhZGVhZC5vcmcKPj4KPiAKPiBTZXJpZXMgYXBwbGllZCBv
-biBzdG0zMi1uZXh0LgoKVGhhbmtzLiBJIHNlbnQgb3V0IHRoZSByZXN0LCB3aGljaCBzaG91bGQg
-YmUgdmVyeSBtdWNoIGFsbCB0aGVyZSBpcyBmb3IKbm93IDopCl9fX19fX19fX19fX19fX19fX19f
-X19fX19fX19fX19fX19fX19fX19fX19fX19fCkxpbnV4LXN0bTMyIG1haWxpbmcgbGlzdApMaW51
-eC1zdG0zMkBzdC1tZC1tYWlsbWFuLnN0b3JtcmVwbHkuY29tCmh0dHBzOi8vc3QtbWQtbWFpbG1h
-bi5zdG9ybXJlcGx5LmNvbS9tYWlsbWFuL2xpc3RpbmZvL2xpbnV4LXN0bTMyCg==
+On Wed, 29 Apr 2020 at 17:50, Rafael J. Wysocki <rjw@rjwysocki.net> wrote:
+>
+> On Friday, April 24, 2020 1:40:55 PM CEST Benjamin Gaignard wrote:
+> > When start streaming from the sensor the CPU load could remain very low
+> > because almost all the capture pipeline is done in hardware (i.e. without
+> > using the CPU) and let believe to cpufreq governor that it could use lower
+> > frequencies. If the governor decides to use a too low frequency that
+> > becomes a problem when we need to acknowledge the interrupt during the
+> > blanking time.
+> > The delay to ack the interrupt and perform all the other actions before
+> > the next frame is very short and doesn't allow to the cpufreq governor to
+> > provide the required burst of power. That led to drop the half of the frames.
+> >
+> > To avoid this problem, DCMI driver informs the cpufreq governors by adding
+> > a cpufreq minimum load QoS resquest.
+>
+> This seems to be addressing a use case that can be addressed with the help of
+> utilization clamps with less power overhead.
+
+Can't freq_qos_update_request() be also used if you don't have cgroup
+enabled on your system ?
+
+>
+> Thanks!
+>
+>
+>
+_______________________________________________
+Linux-stm32 mailing list
+Linux-stm32@st-md-mailman.stormreply.com
+https://st-md-mailman.stormreply.com/mailman/listinfo/linux-stm32
