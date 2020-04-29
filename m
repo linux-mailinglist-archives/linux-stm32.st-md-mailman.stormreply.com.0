@@ -2,66 +2,45 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id DBF671BDE14
-	for <lists+linux-stm32@lfdr.de>; Wed, 29 Apr 2020 15:38:34 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 7B4C41BDFFC
+	for <lists+linux-stm32@lfdr.de>; Wed, 29 Apr 2020 16:04:59 +0200 (CEST)
 Received: from ip-172-31-3-76.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id A3560C36B0D;
-	Wed, 29 Apr 2020 13:38:34 +0000 (UTC)
-Received: from mx07-00178001.pphosted.com (mx07-00178001.pphosted.com
- [62.209.51.94])
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 459D0C36B0D;
+	Wed, 29 Apr 2020 14:04:59 +0000 (UTC)
+Received: from mga11.intel.com (mga11.intel.com [192.55.52.93])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id D5ADCC36B0A
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id EFB68C36B0A
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Wed, 29 Apr 2020 13:38:32 +0000 (UTC)
-Received: from pps.filterd (m0046668.ppops.net [127.0.0.1])
- by mx07-00178001.pphosted.com (8.16.0.42/8.16.0.42) with SMTP id
- 03TDWLDs030996; Wed, 29 Apr 2020 15:38:27 +0200
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=st.com;
- h=subject : to : cc :
- references : from : message-id : date : mime-version : in-reply-to :
- content-type : content-transfer-encoding; s=STMicroelectronics;
- bh=1c+9ulLdfVEh/Q0upa3QLpGbsPOwrW8hiYWHA/MwWE4=;
- b=iJSd+3uG+4/NHLyHFb2RXlYu3GhLhCZHEg/KdVHdD/FqwZAPhG1Dsl+eUZrT5mpqqzCx
- TIjrIpmqeUSNdPckLB0hc09qRC6XTxj7K3t9XfFW6RWaifvUvGPG/XGljC1UPdB0ZmJi
- 6at3nAUeyruV0/WpnGzPywOuTMA4c2BvtZPKnx+pZNBptJMiWuCxQc68IB5YMBYC7UFu
- QN6C+uan5fNPn4evmaiGrq2jtKc3+3/PqXw4iwW/u/bMByp8aN+kYxHegLxC4E62H/CS
- nMRm6pB7mh6AY/X4h8Qo5WPJEpc8HITkNOrNFk/Sqi9owbjdfjrjIwQxCBTne5BbEC8l gA== 
-Received: from beta.dmz-eu.st.com (beta.dmz-eu.st.com [164.129.1.35])
- by mx07-00178001.pphosted.com with ESMTP id 30n4j62sya-1
- (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
- Wed, 29 Apr 2020 15:38:27 +0200
-Received: from euls16034.sgp.st.com (euls16034.sgp.st.com [10.75.44.20])
- by beta.dmz-eu.st.com (STMicroelectronics) with ESMTP id 08472100034;
- Wed, 29 Apr 2020 15:38:27 +0200 (CEST)
-Received: from Webmail-eu.st.com (sfhdag3node1.st.com [10.75.127.7])
- by euls16034.sgp.st.com (STMicroelectronics) with ESMTP id EB7C221F699;
- Wed, 29 Apr 2020 15:38:26 +0200 (CEST)
-Received: from lmecxl0889.tpe.st.com (10.75.127.47) by SFHDAG3NODE1.st.com
- (10.75.127.7) with Microsoft SMTP Server (TLS) id 15.0.1473.3; Wed, 29 Apr
- 2020 15:38:26 +0200
-To: Mathieu Poirier <mathieu.poirier@linaro.org>, <bjorn.andersson@linaro.org>,
- <ohad@wizery.com>, <mcoquelin.stm32@gmail.com>, <alexandre.torgue@st.com>
-References: <20200424202505.29562-1-mathieu.poirier@linaro.org>
- <20200424202505.29562-7-mathieu.poirier@linaro.org>
-From: Arnaud POULIQUEN <arnaud.pouliquen@st.com>
-Message-ID: <faa9b0e1-2e2f-609f-c436-2a58223f5f72@st.com>
-Date: Wed, 29 Apr 2020 15:38:24 +0200
-User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:68.0) Gecko/20100101
- Thunderbird/68.7.0
+ Wed, 29 Apr 2020 14:04:55 +0000 (UTC)
+IronPort-SDR: LP/Culvuc4Fd6YJpzmRNROgzVTuXc/c8mYkisya6lrtzUq8L9g62/JK56oKTF+FQNwCfQ4eJWj
+ hqM+bnzCZT1g==
+X-Amp-Result: SKIPPED(no attachment in message)
+X-Amp-File-Uploaded: False
+Received: from orsmga004.jf.intel.com ([10.7.209.38])
+ by fmsmga102.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 29 Apr 2020 07:04:52 -0700
+IronPort-SDR: 7DX+UZdQUXxb7LFDz6Jhol+tCePZnpBEIwj7mZPJC8W60iTnn9ZqeQe5cbI1L611SyT7UQUk9H
+ 2xRFw+sBWT1g==
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="5.73,332,1583222400"; d="scan'208";a="405046935"
+Received: from black.fi.intel.com ([10.237.72.28])
+ by orsmga004.jf.intel.com with ESMTP; 29 Apr 2020 07:04:50 -0700
+Received: by black.fi.intel.com (Postfix, from userid 1003)
+ id 97FD3166; Wed, 29 Apr 2020 17:04:49 +0300 (EEST)
+From: Andy Shevchenko <andriy.shevchenko@linux.intel.com>
+To: Giuseppe Cavallaro <peppe.cavallaro@st.com>,
+ Alexandre Torgue <alexandre.torgue@st.com>,
+ Jose Abreu <joabreu@synopsys.com>,
+ linux-stm32@st-md-mailman.stormreply.com,
+ "David S. Miller" <davem@davemloft.net>, netdev@vger.kernel.org
+Date: Wed, 29 Apr 2020 17:04:45 +0300
+Message-Id: <20200429140449.9484-1-andriy.shevchenko@linux.intel.com>
+X-Mailer: git-send-email 2.26.2
 MIME-Version: 1.0
-In-Reply-To: <20200424202505.29562-7-mathieu.poirier@linaro.org>
-Content-Language: en-US
-X-Originating-IP: [10.75.127.47]
-X-ClientProxiedBy: SFHDAG1NODE3.st.com (10.75.127.3) To SFHDAG3NODE1.st.com
- (10.75.127.7)
-X-Proofpoint-Virus-Version: vendor=fsecure engine=2.50.10434:6.0.138, 18.0.676
- definitions=2020-04-29_05:2020-04-29,
- 2020-04-29 signatures=0
-Cc: linux-arm-kernel@lists.infradead.org, linux-remoteproc@vger.kernel.org,
- linux-stm32@st-md-mailman.stormreply.com, linux-kernel@vger.kernel.org
-Subject: Re: [Linux-stm32] [PATCH v2 06/12] remoteproc: stm32: Get
-	coprocessor state
+Cc: Andy Shevchenko <andriy.shevchenko@linux.intel.com>
+Subject: [Linux-stm32] [PATCH v1 1/5] stmmac: intel: Check return value of
+	clk_prepare_enable()
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -78,103 +57,85 @@ Content-Transfer-Encoding: 7bit
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
+clk_prepare_enable() might fail, we have to check its returned value.
 
+While at it, remove leftover in stmmac_pci, also remove unneeded condition
+for NULL-aware clk_unregister_fixed_rate() call and call it when
+stmmac_dvr_probe() fails.
 
-On 4/24/20 10:24 PM, Mathieu Poirier wrote:
-> Introduce the required mechanic to get the state of the M4 when the
-> remoteproc core is initialising.
-> 
-> Mainly based on the work published by Arnaud Pouliquen [1].
-> 
-> [1]. https://patchwork.kernel.org/project/linux-remoteproc/list/?series=239877
-> 
-> Signed-off-by: Mathieu Poirier <mathieu.poirier@linaro.org>
-> Reviewed-by: Loic Pallardy <loic.pallardy@st.com>
-> ---
->  drivers/remoteproc/stm32_rproc.c | 29 +++++++++++++++++++++++++++++
->  1 file changed, 29 insertions(+)
-> 
-> diff --git a/drivers/remoteproc/stm32_rproc.c b/drivers/remoteproc/stm32_rproc.c
-> index a285f338bed8..89fbd2ffac93 100644
-> --- a/drivers/remoteproc/stm32_rproc.c
-> +++ b/drivers/remoteproc/stm32_rproc.c
-> @@ -38,6 +38,15 @@
->  #define STM32_MBX_VQ1_ID	1
->  #define STM32_MBX_SHUTDOWN	"shutdown"
->  
-> +#define RSC_TBL_SIZE		(1024)
-> +
-> +#define M4_STATE_OFF		0
-> +#define M4_STATE_INI		1
-> +#define M4_STATE_CRUN		2
-> +#define M4_STATE_CSTOP		3
-> +#define M4_STATE_STANDBY	4
-> +#define M4_STATE_CRASH		5
-> +
->  struct stm32_syscon {
->  	struct regmap *map;
->  	u32 reg;
-> @@ -635,12 +644,23 @@ static int stm32_rproc_parse_dt(struct platform_device *pdev,
->  	return 0;
->  }
->  
-> +static int stm32_rproc_get_m4_status(struct stm32_rproc *ddata,
-> +				     unsigned int *state)
-> +{
-> +	/* See stm32_rproc_parse_dt() */
-> +	if (!ddata->m4_state.map)
-> +		return -EINVAL;
-> +
-> +	return regmap_read(ddata->m4_state.map, ddata->m4_state.reg, state);
-> +}
-i would manage here the default state depending on the error types
-if (!ddata->m4_state.map {
-	/* 
-	 * We couldn't get the coprocessor's state, assume
-	 * it is not running.
-	 */
-	state = M4_STATE_OFF;
+Signed-off-by: Andy Shevchenko <andriy.shevchenko@linux.intel.com>
+---
+ .../net/ethernet/stmicro/stmmac/dwmac-intel.c  | 18 ++++++++++++++----
+ .../net/ethernet/stmicro/stmmac/stmmac_pci.c   |  3 ---
+ 2 files changed, 14 insertions(+), 7 deletions(-)
 
-	return 0;
-}
+diff --git a/drivers/net/ethernet/stmicro/stmmac/dwmac-intel.c b/drivers/net/ethernet/stmicro/stmmac/dwmac-intel.c
+index 2e4aaedb93f580..5975c1e850425e 100644
+--- a/drivers/net/ethernet/stmicro/stmmac/dwmac-intel.c
++++ b/drivers/net/ethernet/stmicro/stmmac/dwmac-intel.c
+@@ -252,6 +252,7 @@ static void common_default_data(struct plat_stmmacenet_data *plat)
+ static int intel_mgbe_common_data(struct pci_dev *pdev,
+ 				  struct plat_stmmacenet_data *plat)
+ {
++	int ret;
+ 	int i;
+ 
+ 	plat->clk_csr = 5;
+@@ -324,7 +325,12 @@ static int intel_mgbe_common_data(struct pci_dev *pdev,
+ 		dev_warn(&pdev->dev, "Fail to register stmmac-clk\n");
+ 		plat->stmmac_clk = NULL;
+ 	}
+-	clk_prepare_enable(plat->stmmac_clk);
++
++	ret = clk_prepare_enable(plat->stmmac_clk);
++	if (ret) {
++		clk_unregister_fixed_rate(plat->stmmac_clk);
++		return ret;
++	}
+ 
+ 	/* Set default value for multicast hash bins */
+ 	plat->multicast_filter_bins = HASH_TABLE_SIZE;
+@@ -657,7 +663,12 @@ static int intel_eth_pci_probe(struct pci_dev *pdev,
+ 	res.wol_irq = pdev->irq;
+ 	res.irq = pdev->irq;
+ 
+-	return stmmac_dvr_probe(&pdev->dev, plat, &res);
++	ret = stmmac_dvr_probe(&pdev->dev, plat, &res);
++	if (ret) {
++		clk_unregister_fixed_rate(plat->stmmac_clk);
++	}
++
++	return ret;
+ }
+ 
+ /**
+@@ -675,8 +686,7 @@ static void intel_eth_pci_remove(struct pci_dev *pdev)
+ 
+ 	stmmac_dvr_remove(&pdev->dev);
+ 
+-	if (priv->plat->stmmac_clk)
+-		clk_unregister_fixed_rate(priv->plat->stmmac_clk);
++	clk_unregister_fixed_rate(priv->plat->stmmac_clk);
+ 
+ 	for (i = 0; i < PCI_STD_NUM_BARS; i++) {
+ 		if (pci_resource_len(pdev, i) == 0)
+diff --git a/drivers/net/ethernet/stmicro/stmmac/stmmac_pci.c b/drivers/net/ethernet/stmicro/stmmac/stmmac_pci.c
+index 3fb21f7ac9fbee..cf6b8f382e504f 100644
+--- a/drivers/net/ethernet/stmicro/stmmac/stmmac_pci.c
++++ b/drivers/net/ethernet/stmicro/stmmac/stmmac_pci.c
+@@ -223,9 +223,6 @@ static void stmmac_pci_remove(struct pci_dev *pdev)
+ 
+ 	stmmac_dvr_remove(&pdev->dev);
+ 
+-	if (priv->plat->stmmac_clk)
+-		clk_unregister_fixed_rate(priv->plat->stmmac_clk);
+-
+ 	for (i = 0; i < PCI_STD_NUM_BARS; i++) {
+ 		if (pci_resource_len(pdev, i) == 0)
+ 			continue;
+-- 
+2.26.2
 
-return regmap_read(ddata->m4_state.map, ddata->m4_state.reg, state);
-
-
-
-> +
->  static int stm32_rproc_probe(struct platform_device *pdev)
->  {
->  	struct device *dev = &pdev->dev;
->  	struct stm32_rproc *ddata;
->  	struct device_node *np = dev->of_node;
->  	struct rproc *rproc;
-> +	unsigned int state;
->  	bool auto_boot = false;
->  	int ret;
->  
-> @@ -664,6 +684,15 @@ static int stm32_rproc_probe(struct platform_device *pdev)
->  	if (ret)
->  		goto free_rproc;
->  
-> +	ret = stm32_rproc_get_m4_status(ddata, &state);
-> +	if (ret) {
-> +		/*
-> +		 * We couldn't get the coprocessor's state, assume
-> +		 * it is not running.
-> +		 */
-> +		state = M4_STATE_OFF;
-
-So here just handle the error;
-
-Regards
-Arnaud
-> +	}
-> +
->  	rproc->auto_boot = auto_boot;
->  	rproc->has_iommu = false;
->  	ddata->workqueue = create_workqueue(dev_name(dev));
-> 
 _______________________________________________
 Linux-stm32 mailing list
 Linux-stm32@st-md-mailman.stormreply.com
