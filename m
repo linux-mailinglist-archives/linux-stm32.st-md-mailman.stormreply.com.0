@@ -2,70 +2,33 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id 110061BE334
-	for <lists+linux-stm32@lfdr.de>; Wed, 29 Apr 2020 17:57:45 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 371781BE380
+	for <lists+linux-stm32@lfdr.de>; Wed, 29 Apr 2020 18:12:35 +0200 (CEST)
 Received: from ip-172-31-3-76.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id C0E03C36B0D;
-	Wed, 29 Apr 2020 15:57:44 +0000 (UTC)
-Received: from mx07-00178001.pphosted.com (mx08-00178001.pphosted.com
- [91.207.212.93])
- (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
- (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id A487DC36B0A
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id E699EC36B0D;
+	Wed, 29 Apr 2020 16:12:34 +0000 (UTC)
+Received: from foss.arm.com (foss.arm.com [217.140.110.172])
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 7641FC36B0A
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Wed, 29 Apr 2020 15:57:43 +0000 (UTC)
-Received: from pps.filterd (m0046660.ppops.net [127.0.0.1])
- by mx07-00178001.pphosted.com (8.16.0.42/8.16.0.42) with SMTP id
- 03TFuuIM025268; Wed, 29 Apr 2020 17:57:23 +0200
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=st.com;
- h=from : to : cc : subject
- : date : message-id : references : in-reply-to : content-type : content-id
- : content-transfer-encoding : mime-version; s=STMicroelectronics;
- bh=eCkbsHOC25FPIY1TTTZpD48jm9gXnoWIY4Y9Jr6sfic=;
- b=e53jiOwYKO+LkzbBqboM45RGmMiiNkfaPP7dB0FnECk37XNxJDKYXKJMGbOfKFUYwjSE
- 8dP5SR4YDXAyTNwQ4NxhiLrUCZAJF+Zafkjf+cRlDYacMCuo4H+eonM8wdy2r+K550a2
- 3nFsUM0ABpsrSC4gLE9tnea1Xbm7+7dUF43as0cNgn5S7Xi728/+i69xr9UFwX2suOkI
- WPeluJ/H57/IfWNpu8ApMehPvf06gWc96+I9LdK3rupRqwMHzisCxjgqIJXAyKIkLWgo
- hWxeqVIMJtMv8osZYnjXx5lT84OGwDv95LYkAsV05mYwPN18/i2JqFczglp3t7YKtgLm rA== 
-Received: from beta.dmz-eu.st.com (beta.dmz-eu.st.com [164.129.1.35])
- by mx07-00178001.pphosted.com with ESMTP id 30mhq67a5f-1
- (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
- Wed, 29 Apr 2020 17:57:23 +0200
-Received: from euls16034.sgp.st.com (euls16034.sgp.st.com [10.75.44.20])
- by beta.dmz-eu.st.com (STMicroelectronics) with ESMTP id 579AF100034;
- Wed, 29 Apr 2020 17:57:22 +0200 (CEST)
-Received: from Webmail-eu.st.com (sfhdag3node1.st.com [10.75.127.7])
- by euls16034.sgp.st.com (STMicroelectronics) with ESMTP id 1E9D52AD2DB;
- Wed, 29 Apr 2020 17:57:22 +0200 (CEST)
-Received: from SFHDAG3NODE3.st.com (10.75.127.9) by SFHDAG3NODE1.st.com
- (10.75.127.7) with Microsoft SMTP Server (TLS) id 15.0.1473.3; Wed, 29 Apr
- 2020 17:57:21 +0200
-Received: from SFHDAG3NODE3.st.com ([fe80::3507:b372:7648:476]) by
- SFHDAG3NODE3.st.com ([fe80::3507:b372:7648:476%20]) with mapi id
- 15.00.1347.000; Wed, 29 Apr 2020 17:57:21 +0200
-From: Benjamin GAIGNARD <benjamin.gaignard@st.com>
-To: "Rafael J. Wysocki" <rjw@rjwysocki.net>
-Thread-Topic: [RFC 0/3] Introduce cpufreq minimum load QoS
-Thread-Index: AQHWGi06wBgeAQBseECYOK/U7Qvw76iQJdAAgAACCYA=
-Date: Wed, 29 Apr 2020 15:57:21 +0000
-Message-ID: <30cdecf9-703a-eb2b-7c2b-f1e21c805add@st.com>
+ Wed, 29 Apr 2020 16:12:32 +0000 (UTC)
+Received: from usa-sjc-imap-foss1.foss.arm.com (unknown [10.121.207.14])
+ by usa-sjc-mx-foss1.foss.arm.com (Postfix) with ESMTP id 7552E1045;
+ Wed, 29 Apr 2020 09:12:31 -0700 (PDT)
+Received: from [10.0.2.15] (unknown [172.31.20.19])
+ by usa-sjc-imap-foss1.foss.arm.com (Postfix) with ESMTPSA id 89FE63F73D;
+ Wed, 29 Apr 2020 09:12:29 -0700 (PDT)
+To: Benjamin GAIGNARD <benjamin.gaignard@st.com>,
+ "Rafael J. Wysocki" <rjw@rjwysocki.net>
 References: <20200424114058.21199-1-benjamin.gaignard@st.com>
- <7657495.QyJl4BcWH5@kreacher>
-In-Reply-To: <7657495.QyJl4BcWH5@kreacher>
-Accept-Language: en-US
-Content-Language: en-US
-X-MS-Has-Attach: 
-X-MS-TNEF-Correlator: 
-user-agent: Mozilla/5.0 (X11; Linux x86_64; rv:68.0) Gecko/20100101
+ <7657495.QyJl4BcWH5@kreacher> <30cdecf9-703a-eb2b-7c2b-f1e21c805add@st.com>
+From: Valentin Schneider <valentin.schneider@arm.com>
+Message-ID: <70e743cf-b88e-346a-5114-939b8724c83d@arm.com>
+Date: Wed, 29 Apr 2020 17:12:26 +0100
+User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:68.0) Gecko/20100101
  Thunderbird/68.7.0
-x-ms-exchange-messagesentrepresentingtype: 1
-x-ms-exchange-transport-fromentityheader: Hosted
-x-originating-ip: [10.75.127.51]
-Content-ID: <C0367D8B3A5F0840A331F12D91CA5561@st.com>
 MIME-Version: 1.0
-X-Proofpoint-Virus-Version: vendor=fsecure engine=2.50.10434:6.0.138, 18.0.676
- definitions=2020-04-29_08:2020-04-29,
- 2020-04-29 signatures=0
+In-Reply-To: <30cdecf9-703a-eb2b-7c2b-f1e21c805add@st.com>
+Content-Language: en-US
 Cc: "mcoquelin.stm32@gmail.com" <mcoquelin.stm32@gmail.com>,
  "len.brown@intel.com" <len.brown@intel.com>,
  "viresh.kumar@linaro.org" <viresh.kumar@linaro.org>,
@@ -94,31 +57,46 @@ Content-Transfer-Encoding: 7bit
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
-
-
-On 4/29/20 5:50 PM, Rafael J. Wysocki wrote:
-> On Friday, April 24, 2020 1:40:55 PM CEST Benjamin Gaignard wrote:
->> When start streaming from the sensor the CPU load could remain very low
->> because almost all the capture pipeline is done in hardware (i.e. without
->> using the CPU) and let believe to cpufreq governor that it could use lower
->> frequencies. If the governor decides to use a too low frequency that
->> becomes a problem when we need to acknowledge the interrupt during the
->> blanking time.
->> The delay to ack the interrupt and perform all the other actions before
->> the next frame is very short and doesn't allow to the cpufreq governor to
->> provide the required burst of power. That led to drop the half of the frames.
+On 29/04/2020 16:57, Benjamin GAIGNARD wrote:
+> 
+> 
+> On 4/29/20 5:50 PM, Rafael J. Wysocki wrote:
+>> On Friday, April 24, 2020 1:40:55 PM CEST Benjamin Gaignard wrote:
+>>> When start streaming from the sensor the CPU load could remain very low
+>>> because almost all the capture pipeline is done in hardware (i.e. without
+>>> using the CPU) and let believe to cpufreq governor that it could use lower
+>>> frequencies. If the governor decides to use a too low frequency that
+>>> becomes a problem when we need to acknowledge the interrupt during the
+>>> blanking time.
+>>> The delay to ack the interrupt and perform all the other actions before
+>>> the next frame is very short and doesn't allow to the cpufreq governor to
+>>> provide the required burst of power. That led to drop the half of the frames.
+>>>
+>>> To avoid this problem, DCMI driver informs the cpufreq governors by adding
+>>> a cpufreq minimum load QoS resquest.
+>> This seems to be addressing a use case that can be addressed with the help of
+>> utilization clamps with less power overhead.
+> Do mean clamping the policy frequencies ? I may have miss the API to do 
+> that...
 >>
->> To avoid this problem, DCMI driver informs the cpufreq governors by adding
->> a cpufreq minimum load QoS resquest.
-> This seems to be addressing a use case that can be addressed with the help of
-> utilization clamps with less power overhead.
-Do mean clamping the policy frequencies ? I may have miss the API to do 
-that...
->
-> Thanks!
->
->
->
+
+IIUC Rafael is referring to uclamp, i.e. scheduler utilization clamping, see:
+
+  https://www.kernel.org/doc/html/latest/admin-guide/cgroup-v2.html#cpu
+
+The above describes the cgroup interface, note that you can also set clamps
+per task (via sched_setattr()).
+
+One thing that comes to mind however is that schedutil only "sees" the clamps
+of runnable tasks, and from reading your changelog you may not have moments
+without any (i.e. gears are grinding in HW). You'd have to try boosting
+(setting a high uclamp.min) whatever tasks you have on the software side and
+see how it all behaves.
+
+>> Thanks!
+>>
+>>
+>>
 _______________________________________________
 Linux-stm32 mailing list
 Linux-stm32@st-md-mailman.stormreply.com
