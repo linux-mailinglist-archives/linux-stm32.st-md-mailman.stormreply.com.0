@@ -2,66 +2,87 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id D94501BF904
-	for <lists+linux-stm32@lfdr.de>; Thu, 30 Apr 2020 15:14:15 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 969BF1BF9D3
+	for <lists+linux-stm32@lfdr.de>; Thu, 30 Apr 2020 15:46:19 +0200 (CEST)
 Received: from ip-172-31-3-76.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 92F8EC36B0E;
-	Thu, 30 Apr 2020 13:14:15 +0000 (UTC)
-Received: from mail-qv1-f66.google.com (mail-qv1-f66.google.com
- [209.85.219.66])
- (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 52393C36B0E;
+	Thu, 30 Apr 2020 13:46:19 +0000 (UTC)
+Received: from mx07-00178001.pphosted.com (mx08-00178001.pphosted.com
+ [91.207.212.93])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id BE0B4C36B0C
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 89ABAC36B0C
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Thu, 30 Apr 2020 13:14:13 +0000 (UTC)
-Received: by mail-qv1-f66.google.com with SMTP id p13so2900391qvt.12
- for <linux-stm32@st-md-mailman.stormreply.com>;
- Thu, 30 Apr 2020 06:14:13 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20161025;
- h=date:from:to:cc:subject:message-id:references:mime-version
- :content-disposition:in-reply-to;
- bh=pDdNvxiaHux68POpVOp2tfQ9DF2c5DQah7EUfVYCx48=;
- b=E0h/T0SHPd8VBNoJF8aBlM6G0p9wcDVCz80Sn50j4stfFRESoyn4/8aBAm4wiI/h8W
- cJtfqFoOP2uoHiEQxrbtiMAFoG/MUAy9qA/bYv3H1EkAlpTHTpk3UrqjXBfHMgPpcf+Q
- 8STgihdHuZypZe+LYN4XMOEboF22wQmoGSjWzV8CMvj+ge85/0l5ulwfpuzN8UOtWsv9
- 4WRr5Oi2iYznpzTsenrbuimRf6DvCq4didSJnpikbDkztan2cqA6Tvq70gWjjTotiYjL
- E8ffjaCXtOq2HlX50pDlgqg8rRQRrRSDvi5Ta9g7J07q2biMniAibTY9hiWP7SvwuEfH
- PM3g==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20161025;
- h=x-gm-message-state:date:from:to:cc:subject:message-id:references
- :mime-version:content-disposition:in-reply-to;
- bh=pDdNvxiaHux68POpVOp2tfQ9DF2c5DQah7EUfVYCx48=;
- b=uk2RQIA94lUfREyUNsJWvhlEuhqOKTIqnwxAtKFXhMRKA3ylbixnVlnHPhOs0vOl8g
- aLKyyb4jb0OqtQNhVGLyblp5XpO6Kh72O3+HpwLEozmA5fmaDbkmGNGfQkfTOzql9zKF
- AQq+ClOt5Ot86isAIqzefqf72lXiYpC0Pq9A9zVAgW5KQ1RpLDEanqNcH9sr4/AP5Vir
- QhtwVDWMkO4b8BVwYIj82ZyM6B6hZ5a78bZQbvI+ImrYr6MrX3HHLmGx0VhZgANOe7/V
- 8/Wu8sTetc6qr9317Pz5XGkY/t/p5NY6JOGuHEJyM357H/w9R9DmcTbThWka6nCtNsGA
- HnMg==
-X-Gm-Message-State: AGi0PuZT/uHtI3S41fX3j1ZDB2C5RBz4TxPG4p3MNnokZsXb9uk2rfoe
- ShXhRjEEI6x1wJulhHGa0Ro=
-X-Google-Smtp-Source: APiQypLZgkNpKfCBuKLEZD2YLW/rJjGZln92wUBimE1AWUJGk335FmNHsaMpWGh7zLEChyYWIrQx2Q==
-X-Received: by 2002:ad4:5604:: with SMTP id ca4mr3001987qvb.6.1588252451956;
- Thu, 30 Apr 2020 06:14:11 -0700 (PDT)
-Received: from icarus (072-189-064-225.res.spectrum.com. [72.189.64.225])
- by smtp.gmail.com with ESMTPSA id u5sm1807186qkm.116.2020.04.30.06.14.10
- (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Thu, 30 Apr 2020 06:14:10 -0700 (PDT)
-Date: Thu, 30 Apr 2020 09:13:54 -0400
-From: William Breathitt Gray <vilhelm.gray@gmail.com>
-To: kbuild test robot <lkp@intel.com>
-Message-ID: <20200430131354.GA3526@icarus>
-References: <d84f0bb3258d1664e90da64d75f787829c50a9bd.1588176662.git.vilhelm.gray@gmail.com>
- <202004301522.tS6NKxKy%lkp@intel.com>
+ Thu, 30 Apr 2020 13:46:17 +0000 (UTC)
+Received: from pps.filterd (m0046661.ppops.net [127.0.0.1])
+ by mx07-00178001.pphosted.com (8.16.0.42/8.16.0.42) with SMTP id
+ 03UDgb6x018733; Thu, 30 Apr 2020 15:46:01 +0200
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=st.com;
+ h=from : to : cc : subject
+ : date : message-id : references : in-reply-to : content-type : content-id
+ : content-transfer-encoding : mime-version; s=STMicroelectronics;
+ bh=fqQBAfMnO2lszgF11VpgCCeuOYHg07iN80HWwvGyUiI=;
+ b=AAgVx/8N6+9h0DGAXg1VfxblEF/vRCoBVHD+M8e1fUbD5J0QEZAAs4nw465j19GecmTH
+ DEhm5m4OYsQ5Vy3+pbHTe8rR3TFxLg+/mNidL6i1snK7kxmfIysg9R0Q1F4VLF783Ida
+ nUUQwMlDfqy98NJHnr/dyWuJIPupIpUPM0F/gQ/EcDYW1TLEqcdee+9Q3t89qO+TX9h7
+ kWIXMsOXiyoCgZZtpj6nULmLkuF2NtHLjpsYKKlCnyKLCi1mkTaNCEO0uuizjXSIpw8G
+ 0MG5xwkT2JPi89AO9LfTii5BKRYmmuIy94XlsM2ohuMOsjfipPShLy8TPFcBF0IU4YFV FA== 
+Received: from beta.dmz-eu.st.com (beta.dmz-eu.st.com [164.129.1.35])
+ by mx07-00178001.pphosted.com with ESMTP id 30mhjx4rgu-1
+ (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
+ Thu, 30 Apr 2020 15:46:01 +0200
+Received: from euls16034.sgp.st.com (euls16034.sgp.st.com [10.75.44.20])
+ by beta.dmz-eu.st.com (STMicroelectronics) with ESMTP id 08470100034;
+ Thu, 30 Apr 2020 15:46:01 +0200 (CEST)
+Received: from Webmail-eu.st.com (sfhdag3node1.st.com [10.75.127.7])
+ by euls16034.sgp.st.com (STMicroelectronics) with ESMTP id D418120E6E6;
+ Thu, 30 Apr 2020 15:46:00 +0200 (CEST)
+Received: from SFHDAG3NODE3.st.com (10.75.127.9) by SFHDAG3NODE1.st.com
+ (10.75.127.7) with Microsoft SMTP Server (TLS) id 15.0.1473.3; Thu, 30 Apr
+ 2020 15:46:00 +0200
+Received: from SFHDAG3NODE3.st.com ([fe80::3507:b372:7648:476]) by
+ SFHDAG3NODE3.st.com ([fe80::3507:b372:7648:476%20]) with mapi id
+ 15.00.1347.000; Thu, 30 Apr 2020 15:46:00 +0200
+From: Benjamin GAIGNARD <benjamin.gaignard@st.com>
+To: "Rafael J. Wysocki" <rafael@kernel.org>
+Thread-Topic: [RFC 0/3] Introduce cpufreq minimum load QoS
+Thread-Index: AQHWGi06wBgeAQBseECYOK/U7Qvw76iQJdAAgAACCYCAAAQ3AIABBseAgAAT0wCAAE7QgA==
+Date: Thu, 30 Apr 2020 13:46:00 +0000
+Message-ID: <a234e123-6c15-8e58-8921-614b58ca24ca@st.com>
+References: <20200424114058.21199-1-benjamin.gaignard@st.com>
+ <7657495.QyJl4BcWH5@kreacher> <30cdecf9-703a-eb2b-7c2b-f1e21c805add@st.com>
+ <70e743cf-b88e-346a-5114-939b8724c83d@arm.com>
+ <6b5cde14-58b3-045d-9413-223e66b87bf0@st.com>
+ <CAJZ5v0h6t6perZiibCWhEh1_V0pSXqFe-z22TFqH7KTFXYmqpQ@mail.gmail.com>
+In-Reply-To: <CAJZ5v0h6t6perZiibCWhEh1_V0pSXqFe-z22TFqH7KTFXYmqpQ@mail.gmail.com>
+Accept-Language: en-US
+Content-Language: en-US
+X-MS-Has-Attach: 
+X-MS-TNEF-Correlator: 
+user-agent: Mozilla/5.0 (X11; Linux x86_64; rv:68.0) Gecko/20100101
+ Thunderbird/68.7.0
+x-ms-exchange-messagesentrepresentingtype: 1
+x-ms-exchange-transport-fromentityheader: Hosted
+x-originating-ip: [10.75.127.50]
+Content-ID: <38939A4E8611F444B3EC426000050A86@st.com>
 MIME-Version: 1.0
-In-Reply-To: <202004301522.tS6NKxKy%lkp@intel.com>
-Cc: kamel.bouhara@bootlin.com, gwendal@chromium.org, kbuild-all@lists.01.org,
- david@lechnology.com, felipe.balbi@linux.intel.com, linux-iio@vger.kernel.org,
- alexandre.belloni@bootlin.com, linux-kernel@vger.kernel.org,
- fabien.lahoudere@collabora.com, linux-stm32@st-md-mailman.stormreply.com,
- jic23@kernel.org
-Subject: Re: [Linux-stm32] [PATCH 1/4] counter: Internalize sysfs interface
-	code
+X-Proofpoint-Virus-Version: vendor=fsecure engine=2.50.10434:6.0.138, 18.0.676
+ definitions=2020-04-30_08:2020-04-30,
+ 2020-04-30 signatures=0
+Cc: "len.brown@intel.com" <len.brown@intel.com>,
+ "linux-pm@vger.kernel.org" <linux-pm@vger.kernel.org>,
+ "viresh.kumar@linaro.org" <viresh.kumar@linaro.org>,
+ "pavel@ucw.cz" <pavel@ucw.cz>, "Rafael J. Wysocki" <rjw@rjwysocki.net>,
+ "linux-kernel@vger.kernel.org" <linux-kernel@vger.kernel.org>,
+ "linux-stm32@st-md-mailman.stormreply.com"
+ <linux-stm32@st-md-mailman.stormreply.com>,
+ Patrick Bellasi <patrick.bellasi@arm.com>,
+ "mcoquelin.stm32@gmail.com" <mcoquelin.stm32@gmail.com>,
+ "mchehab@kernel.org" <mchehab@kernel.org>,
+ Valentin Schneider <valentin.schneider@arm.com>,
+ "linux-arm-kernel@lists.infradead.org" <linux-arm-kernel@lists.infradead.org>,
+ "linux-media@vger.kernel.org" <linux-media@vger.kernel.org>
+Subject: Re: [Linux-stm32] [RFC 0/3] Introduce cpufreq minimum load QoS
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -73,132 +94,66 @@ List-Post: <mailto:linux-stm32@st-md-mailman.stormreply.com>
 List-Help: <mailto:linux-stm32-request@st-md-mailman.stormreply.com?subject=help>
 List-Subscribe: <https://st-md-mailman.stormreply.com/mailman/listinfo/linux-stm32>, 
  <mailto:linux-stm32-request@st-md-mailman.stormreply.com?subject=subscribe>
-Content-Type: multipart/mixed; boundary="===============5892651252497662690=="
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: base64
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
-
---===============5892651252497662690==
-Content-Type: multipart/signed; micalg=pgp-sha512;
-	protocol="application/pgp-signature"; boundary="NzB8fVQJ5HfG6fxh"
-Content-Disposition: inline
-
-
---NzB8fVQJ5HfG6fxh
-Content-Type: text/plain; charset=utf-8
-Content-Disposition: inline
-Content-Transfer-Encoding: quoted-printable
-
-On Thu, Apr 30, 2020 at 03:41:26PM +0800, kbuild test robot wrote:
-> Hi William,
->=20
-> I love your patch! Yet something to improve:
->=20
-> [auto build test ERROR on stm32/stm32-next]
-> [cannot apply to linus/master linux/master v5.7-rc3 next-20200429]
-> [if your patch is applied to the wrong git tree, please drop us a note to=
- help
-> improve the system. BTW, we also suggest to use '--base' option to specif=
-y the
-> base tree in git format-patch, please see https://stackoverflow.com/a/374=
-06982]
->=20
-> url:    https://github.com/0day-ci/linux/commits/William-Breathitt-Gray/I=
-ntroduce-the-Counter-character-device-interface/20200430-051734
-> base:   https://git.kernel.org/pub/scm/linux/kernel/git/atorgue/stm32.git=
- stm32-next
-> config: x86_64-allyesconfig (attached as .config)
-> compiler: gcc-7 (Ubuntu 7.5.0-6ubuntu2) 7.5.0
-> reproduce:
->         # save the attached .config to linux build tree
->         make ARCH=3Dx86_64=20
->=20
-> If you fix the issue, kindly add following tag as appropriate
-> Reported-by: kbuild test robot <lkp@intel.com>
->=20
-> All errors (new ones prefixed by >>):
->=20
-> >> drivers/counter/stm32-lptimer-cnt.c:387:2: error: initializer element =
-is not constant
->      stm32_lptim_l2c_actions_map[STM32_LPTIM_SYNAPSE_ACTION_RISING_EDGE],
->      ^~~~~~~~~~~~~~~~~~~~~~~~~~~
->    drivers/counter/stm32-lptimer-cnt.c:387:2: note: (near initialization =
-for 'stm32_lptim_cnt_synapse_actions[0]')
->    drivers/counter/stm32-lptimer-cnt.c:388:2: error: initializer element =
-is not constant
->      stm32_lptim_l2c_actions_map[STM32_LPTIM_SYNAPSE_ACTION_FALLING_EDGE],
->      ^~~~~~~~~~~~~~~~~~~~~~~~~~~
->    drivers/counter/stm32-lptimer-cnt.c:388:2: note: (near initialization =
-for 'stm32_lptim_cnt_synapse_actions[1]')
->    drivers/counter/stm32-lptimer-cnt.c:389:2: error: initializer element =
-is not constant
->      stm32_lptim_l2c_actions_map[STM32_LPTIM_SYNAPSE_ACTION_BOTH_EDGES],
->      ^~~~~~~~~~~~~~~~~~~~~~~~~~~
->    drivers/counter/stm32-lptimer-cnt.c:389:2: note: (near initialization =
-for 'stm32_lptim_cnt_synapse_actions[2]')
->    drivers/counter/stm32-lptimer-cnt.c:390:2: error: initializer element =
-is not constant
->      stm32_lptim_l2c_actions_map[STM32_LPTIM_SYNAPSE_ACTION_NONE],
->      ^~~~~~~~~~~~~~~~~~~~~~~~~~~
->    drivers/counter/stm32-lptimer-cnt.c:390:2: note: (near initialization =
-for 'stm32_lptim_cnt_synapse_actions[3]')
->=20
-> vim +387 drivers/counter/stm32-lptimer-cnt.c
->=20
->    385=09
->    386	static const enum counter_synapse_action stm32_lptim_cnt_synapse_a=
-ctions[] =3D {
->  > 387		stm32_lptim_l2c_actions_map[STM32_LPTIM_SYNAPSE_ACTION_RISING_EDG=
-E],
->    388		stm32_lptim_l2c_actions_map[STM32_LPTIM_SYNAPSE_ACTION_FALLING_ED=
-GE],
->    389		stm32_lptim_l2c_actions_map[STM32_LPTIM_SYNAPSE_ACTION_BOTH_EDGES=
-],
->    390		stm32_lptim_l2c_actions_map[STM32_LPTIM_SYNAPSE_ACTION_NONE],
->    391	};
->    392=09
->=20
-> ---
-> 0-DAY CI Kernel Test Service, Intel Corporation
-> https://lists.01.org/hyperkitty/list/kbuild-all@lists.01.org
-
-This array must be initialized with constants. I'll fix this up in v2.
-
-Thanks,
-
-William Breathitt Gray
-
---NzB8fVQJ5HfG6fxh
-Content-Type: application/pgp-signature; name="signature.asc"
-
------BEGIN PGP SIGNATURE-----
-
-iQIzBAABCgAdFiEEk5I4PDJ2w1cDf/bghvpINdm7VJIFAl6qzwYACgkQhvpINdm7
-VJLk/Q//clynsmUq9lcU/8cY8gN9E4wlFY1nGI4H1LZM2GC9Pk6s7CMQjyiTY1Lf
-VKUk7T/x2brPTsTR/ctE4Z1vCIBrZ7HzKE1qPBxm2P+CPSMJwbqYfPwhUwYO2GNH
-HyAhx8VpxyHGTFJf/IMPFEPY6esJj8nEuj0DrTS8IE0/LqvMzDfaltTWW3eBc1Zl
-0734KK8lUwe+4COZvsFkytii3yVVOHNfSQI6b5q1wdRqbLpRA3xQl7STYWsXv4s/
-Ed0unHGG+bZPy9ITjTw7FcReGgZUrGZwe+TjFBpAad3Bva0GtW36+cle0m6Bcy6G
-omgTRDfQXZkvYlN90CsLGnVhKUEMErsXzQ92HydrQQn6TcgaD4Al2+lKZLvfV5qV
-XI9yEiCMyZOxkhOtxl0hAKO7oicM5JFq173nW0dcer0TGOkgCgWNUwb1OPOqYO7X
-nh/er1AQRvh6N9MDH8Ypo48Is7z9rYYsYnwzSQ9K6Slyp241y0hJkJ0nhX4xl2Vv
-Rn7EzJMvz2d5zLCCyQo8esXNu98Ws4KxF66rgL+0ErMLOS1DOEyAOr5hPHow2u5H
-CCcTyCrCMgb46iJ34aHNqovWuLcnwtGYuTul1wuHORCeMCpUeyjDjQzC8MKIesH2
-8/LY7e9xG+o/oFl1UNkwi5X1IVekUrCOm6/CAPswRV/tNxnxrmM=
-=/poB
------END PGP SIGNATURE-----
-
---NzB8fVQJ5HfG6fxh--
-
---===============5892651252497662690==
-Content-Type: text/plain; charset="us-ascii"
-MIME-Version: 1.0
-Content-Transfer-Encoding: 7bit
-Content-Disposition: inline
-
-_______________________________________________
-Linux-stm32 mailing list
-Linux-stm32@st-md-mailman.stormreply.com
-https://st-md-mailman.stormreply.com/mailman/listinfo/linux-stm32
-
---===============5892651252497662690==--
+DQoNCk9uIDQvMzAvMjAgMTE6MDMgQU0sIFJhZmFlbCBKLiBXeXNvY2tpIHdyb3RlOg0KPiBPbiBU
+aHUsIEFwciAzMCwgMjAyMCBhdCA5OjUzIEFNIEJlbmphbWluIEdBSUdOQVJEDQo+IDxiZW5qYW1p
+bi5nYWlnbmFyZEBzdC5jb20+IHdyb3RlOg0KPj4NCj4+DQo+PiBPbiA0LzI5LzIwIDY6MTIgUE0s
+IFZhbGVudGluIFNjaG5laWRlciB3cm90ZToNCj4+PiBPbiAyOS8wNC8yMDIwIDE2OjU3LCBCZW5q
+YW1pbiBHQUlHTkFSRCB3cm90ZToNCj4+Pj4gT24gNC8yOS8yMCA1OjUwIFBNLCBSYWZhZWwgSi4g
+V3lzb2NraSB3cm90ZToNCj4+Pj4+IE9uIEZyaWRheSwgQXByaWwgMjQsIDIwMjAgMTo0MDo1NSBQ
+TSBDRVNUIEJlbmphbWluIEdhaWduYXJkIHdyb3RlOg0KPj4+Pj4+IFdoZW4gc3RhcnQgc3RyZWFt
+aW5nIGZyb20gdGhlIHNlbnNvciB0aGUgQ1BVIGxvYWQgY291bGQgcmVtYWluIHZlcnkgbG93DQo+
+Pj4+Pj4gYmVjYXVzZSBhbG1vc3QgYWxsIHRoZSBjYXB0dXJlIHBpcGVsaW5lIGlzIGRvbmUgaW4g
+aGFyZHdhcmUgKGkuZS4gd2l0aG91dA0KPj4+Pj4+IHVzaW5nIHRoZSBDUFUpIGFuZCBsZXQgYmVs
+aWV2ZSB0byBjcHVmcmVxIGdvdmVybm9yIHRoYXQgaXQgY291bGQgdXNlIGxvd2VyDQo+Pj4+Pj4g
+ZnJlcXVlbmNpZXMuIElmIHRoZSBnb3Zlcm5vciBkZWNpZGVzIHRvIHVzZSBhIHRvbyBsb3cgZnJl
+cXVlbmN5IHRoYXQNCj4+Pj4+PiBiZWNvbWVzIGEgcHJvYmxlbSB3aGVuIHdlIG5lZWQgdG8gYWNr
+bm93bGVkZ2UgdGhlIGludGVycnVwdCBkdXJpbmcgdGhlDQo+Pj4+Pj4gYmxhbmtpbmcgdGltZS4N
+Cj4+Pj4+PiBUaGUgZGVsYXkgdG8gYWNrIHRoZSBpbnRlcnJ1cHQgYW5kIHBlcmZvcm0gYWxsIHRo
+ZSBvdGhlciBhY3Rpb25zIGJlZm9yZQ0KPj4+Pj4+IHRoZSBuZXh0IGZyYW1lIGlzIHZlcnkgc2hv
+cnQgYW5kIGRvZXNuJ3QgYWxsb3cgdG8gdGhlIGNwdWZyZXEgZ292ZXJub3IgdG8NCj4+Pj4+PiBw
+cm92aWRlIHRoZSByZXF1aXJlZCBidXJzdCBvZiBwb3dlci4gVGhhdCBsZWQgdG8gZHJvcCB0aGUg
+aGFsZiBvZiB0aGUgZnJhbWVzLg0KPj4+Pj4+DQo+Pj4+Pj4gVG8gYXZvaWQgdGhpcyBwcm9ibGVt
+LCBEQ01JIGRyaXZlciBpbmZvcm1zIHRoZSBjcHVmcmVxIGdvdmVybm9ycyBieSBhZGRpbmcNCj4+
+Pj4+PiBhIGNwdWZyZXEgbWluaW11bSBsb2FkIFFvUyByZXNxdWVzdC4NCj4+Pj4+IFRoaXMgc2Vl
+bXMgdG8gYmUgYWRkcmVzc2luZyBhIHVzZSBjYXNlIHRoYXQgY2FuIGJlIGFkZHJlc3NlZCB3aXRo
+IHRoZSBoZWxwIG9mDQo+Pj4+PiB1dGlsaXphdGlvbiBjbGFtcHMgd2l0aCBsZXNzIHBvd2VyIG92
+ZXJoZWFkLg0KPj4+PiBEbyBtZWFuIGNsYW1waW5nIHRoZSBwb2xpY3kgZnJlcXVlbmNpZXMgPyBJ
+IG1heSBoYXZlIG1pc3MgdGhlIEFQSSB0byBkbw0KPj4+PiB0aGF0Li4uDQo+Pj4gSUlVQyBSYWZh
+ZWwgaXMgcmVmZXJyaW5nIHRvIHVjbGFtcCwgaS5lLiBzY2hlZHVsZXIgdXRpbGl6YXRpb24gY2xh
+bXBpbmcsIHNlZToNCj4+Pg0KPj4+ICAgICBodHRwczovL3d3dy5rZXJuZWwub3JnL2RvYy9odG1s
+L2xhdGVzdC9hZG1pbi1ndWlkZS9jZ3JvdXAtdjIuaHRtbCNjcHUNCj4+Pg0KPj4+IFRoZSBhYm92
+ZSBkZXNjcmliZXMgdGhlIGNncm91cCBpbnRlcmZhY2UsIG5vdGUgdGhhdCB5b3UgY2FuIGFsc28g
+c2V0IGNsYW1wcw0KPj4+IHBlciB0YXNrICh2aWEgc2NoZWRfc2V0YXR0cigpKS4NCj4+Pg0KPj4+
+IE9uZSB0aGluZyB0aGF0IGNvbWVzIHRvIG1pbmQgaG93ZXZlciBpcyB0aGF0IHNjaGVkdXRpbCBv
+bmx5ICJzZWVzIiB0aGUgY2xhbXBzDQo+Pj4gb2YgcnVubmFibGUgdGFza3MsIGFuZCBmcm9tIHJl
+YWRpbmcgeW91ciBjaGFuZ2Vsb2cgeW91IG1heSBub3QgaGF2ZSBtb21lbnRzDQo+Pj4gd2l0aG91
+dCBhbnkgKGkuZS4gZ2VhcnMgYXJlIGdyaW5kaW5nIGluIEhXKS4gWW91J2QgaGF2ZSB0byB0cnkg
+Ym9vc3RpbmcNCj4+PiAoc2V0dGluZyBhIGhpZ2ggdWNsYW1wLm1pbikgd2hhdGV2ZXIgdGFza3Mg
+eW91IGhhdmUgb24gdGhlIHNvZnR3YXJlIHNpZGUgYW5kDQo+Pj4gc2VlIGhvdyBpdCBhbGwgYmVo
+YXZlcy4NCj4+IFJlbHlpbmcgb24gdXNlcmxhbmQgc2lkZSBtZWFucyB0aGF0IHZhcmlvdXMgYXBw
+bGljYXRpb25zIG5lZWQgdG8gYmUgYXdhcmUNCj4+IG9mIHRoaXMgc3BlY2lmaWMgaGFyZHdhcmUg
+Y2FzZSBhbmQgZml4IGl0LiBJIHdhcyBob3BpbmcgdG8gZmluZCBhDQo+PiBzb2x1dGlvbiBpbiBz
+aWRlIHRoZSBrZXJuZWwNCj4+IHRvIG5vdCBpbXBhY3QgdGhlIHNvZnR3YXJlIHNpZGUuDQo+IFRo
+YXQncyBub3Qgd2hhdCBJIG1lYW50Lg0KPg0KPiBJIHN1cHBvc2UgdGhhdCB0aGUgaW50ZXJydXB0
+IHByb2Nlc3NpbmcgaW4gcXVlc3Rpb24gdGFrZXMgcGxhY2UgaW4NCj4gcHJvY2VzcyBjb250ZXh0
+IGFuZCBzbyB5b3UgbWF5IHNldCB0aGUgbG93ZXIgY2xhbXAgb24gdGhlIHV0aWxpemF0aW9uDQo+
+IG9mIHRoZSB0YXNrIGNhcnJ5aW5nIHRoYXQgb3V0Lg0KSSBoYXZlIHRyeSB0byBhZGQgdGhpcyBj
+b2RlIHdoZW4gc3RhcnRpbmcgc3RyZWFtaW5nIChiZWZvcmUgdGhlIGZpcnN0IA0KaW50ZXJydXB0
+KSB0aGUgZnJhbWVzIGZyb20gdGhlIHNlbnNvcjoNCmNvbnN0IHN0cnVjdCBzY2hlZF9hdHRyIHNj
+aGVkX2F0dHIgPSB7DQogwqDCoMKgIMKgwqDCoCAuc2NoZWRfdXRpbF9taW4gPSAxMDAwMCwgLyog
+MTAwJSBvZiB1c2FnZSAqLw0KIMKgwqDCoCDCoMKgwqAgLnNjaGVkX2ZsYWdzID0gU0NIRURfRkxB
+R19VVElMX0NMQU1QX01JTiwNCiDCoMKgwqAgfTsNCg0Kc2NoZWRfc2V0YXR0cihjdXJyZW50LCAm
+c2NoZWRfYXR0cik7DQoNCkkgZG9uJ3Qgc2VlIGFueSBiZW5lZmljZXMgbWF5YmUgdGhlcmUgaXMg
+c29tZSBjb25maWd1cmF0aW9uIGZsYWdzIHRvIHNldC4NCg0KSG93IGNoYW5naW5nIHNjaGVkX3V0
+aWxfbWluIGNvdWxkIGltcGFjdCBjcHVmcmVxIG9uZGVtYW5kIGdvdmVybm9yID8NCkRvZXMgaXQg
+Y2hhbmdlIHRoZSB2YWx1ZSByZXR1cm5lZCB3aGVuIHRoZSBnb3Zlcm5vciBjaGVjayB0aGUgaWRs
+ZSB0aW1lID8NCg0KPg0KPiBBbHRlcm5hdGl2ZWx5LCB0aGF0IHRhc2sgbWF5IGJlIGEgZGVhZGxp
+bmUgb25lLg0KX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX18K
+TGludXgtc3RtMzIgbWFpbGluZyBsaXN0CkxpbnV4LXN0bTMyQHN0LW1kLW1haWxtYW4uc3Rvcm1y
+ZXBseS5jb20KaHR0cHM6Ly9zdC1tZC1tYWlsbWFuLnN0b3JtcmVwbHkuY29tL21haWxtYW4vbGlz
+dGluZm8vbGludXgtc3RtMzIK
