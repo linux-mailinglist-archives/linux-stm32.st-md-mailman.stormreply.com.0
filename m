@@ -2,49 +2,45 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id 782CC1BFE63
-	for <lists+linux-stm32@lfdr.de>; Thu, 30 Apr 2020 16:33:42 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id E77E61BFF7A
+	for <lists+linux-stm32@lfdr.de>; Thu, 30 Apr 2020 17:03:03 +0200 (CEST)
 Received: from ip-172-31-3-76.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 2C0D7C36B0E;
-	Thu, 30 Apr 2020 14:33:42 +0000 (UTC)
-Received: from foss.arm.com (foss.arm.com [217.140.110.172])
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id E9DB3C36B0C
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 9ACB4C36B0D;
+	Thu, 30 Apr 2020 15:03:03 +0000 (UTC)
+Received: from mga14.intel.com (mga14.intel.com [192.55.52.115])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+ (No client certificate requested)
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 1E830C36B0F
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Thu, 30 Apr 2020 14:33:40 +0000 (UTC)
-Received: from usa-sjc-imap-foss1.foss.arm.com (unknown [10.121.207.14])
- by usa-sjc-mx-foss1.foss.arm.com (Postfix) with ESMTP id D8BAD1063;
- Thu, 30 Apr 2020 07:33:39 -0700 (PDT)
-Received: from e113632-lin (e113632-lin.cambridge.arm.com [10.1.194.46])
- by usa-sjc-imap-foss1.foss.arm.com (Postfix) with ESMTPSA id DA72A3F68F;
- Thu, 30 Apr 2020 07:33:37 -0700 (PDT)
-References: <20200424114058.21199-1-benjamin.gaignard@st.com>
- <7657495.QyJl4BcWH5@kreacher> <30cdecf9-703a-eb2b-7c2b-f1e21c805add@st.com>
- <70e743cf-b88e-346a-5114-939b8724c83d@arm.com>
- <6b5cde14-58b3-045d-9413-223e66b87bf0@st.com>
- <CAJZ5v0h6t6perZiibCWhEh1_V0pSXqFe-z22TFqH7KTFXYmqpQ@mail.gmail.com>
- <a234e123-6c15-8e58-8921-614b58ca24ca@st.com>
-User-agent: mu4e 0.9.17; emacs 26.3
-From: Valentin Schneider <valentin.schneider@arm.com>
-To: Benjamin GAIGNARD <benjamin.gaignard@st.com>
-In-reply-to: <a234e123-6c15-8e58-8921-614b58ca24ca@st.com>
-Date: Thu, 30 Apr 2020 15:33:35 +0100
-Message-ID: <jhjtv11cabk.mognet@arm.com>
+ Thu, 30 Apr 2020 15:03:00 +0000 (UTC)
+IronPort-SDR: j6py+PtDuCot9Zj154OeSoKkgyyhY+fbzeAZYuOcQYMjPt+RnkkSS1Q9f9TLd8lP2wq6UdWKv7
+ jadcCmPcvTLQ==
+X-Amp-Result: SKIPPED(no attachment in message)
+X-Amp-File-Uploaded: False
+Received: from orsmga002.jf.intel.com ([10.7.209.21])
+ by fmsmga103.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 30 Apr 2020 08:02:58 -0700
+IronPort-SDR: r1jUyWHRZkEWChP8YJLGCSIo4l7oiuL4IJe5rhtSZdpzW/8Z2SEVCiIzboGi5FXWKqjL6MJ9eX
+ gkLDP14mYUAw==
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="5.73,336,1583222400"; d="scan'208";a="276544744"
+Received: from black.fi.intel.com ([10.237.72.28])
+ by orsmga002.jf.intel.com with ESMTP; 30 Apr 2020 08:02:56 -0700
+Received: by black.fi.intel.com (Postfix, from userid 1003)
+ id 4AD4F11D; Thu, 30 Apr 2020 18:02:55 +0300 (EEST)
+From: Andy Shevchenko <andriy.shevchenko@linux.intel.com>
+To: Giuseppe Cavallaro <peppe.cavallaro@st.com>,
+ Alexandre Torgue <alexandre.torgue@st.com>,
+ Jose Abreu <joabreu@synopsys.com>,
+ linux-stm32@st-md-mailman.stormreply.com,
+ "David S. Miller" <davem@davemloft.net>, netdev@vger.kernel.org
+Date: Thu, 30 Apr 2020 18:02:47 +0300
+Message-Id: <20200430150254.34565-1-andriy.shevchenko@linux.intel.com>
+X-Mailer: git-send-email 2.26.2
 MIME-Version: 1.0
-Cc: "len.brown@intel.com" <len.brown@intel.com>,
- "Rafael J. Wysocki" <rafael@kernel.org>,
- "viresh.kumar@linaro.org" <viresh.kumar@linaro.org>,
- "pavel@ucw.cz" <pavel@ucw.cz>,
- "linux-pm@vger.kernel.org" <linux-pm@vger.kernel.org>,
- "Rafael J. Wysocki" <rjw@rjwysocki.net>,
- "linux-kernel@vger.kernel.org" <linux-kernel@vger.kernel.org>,
- Patrick Bellasi <patrick.bellasi@arm.com>,
- "mcoquelin.stm32@gmail.com" <mcoquelin.stm32@gmail.com>,
- "mchehab@kernel.org" <mchehab@kernel.org>,
- "linux-stm32@st-md-mailman.stormreply.com"
- <linux-stm32@st-md-mailman.stormreply.com>,
- "linux-arm-kernel@lists.infradead.org" <linux-arm-kernel@lists.infradead.org>,
- "linux-media@vger.kernel.org" <linux-media@vger.kernel.org>
-Subject: Re: [Linux-stm32] [RFC 0/3] Introduce cpufreq minimum load QoS
+Cc: Andy Shevchenko <andriy.shevchenko@linux.intel.com>
+Subject: [Linux-stm32] [PATCH v3 0/7] stmmac: intel: Fixes and cleanups
+	after dwmac-intel split
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -61,40 +57,43 @@ Content-Transfer-Encoding: 7bit
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
+Seems the split of dwmac-intel didn't go well and on top of that new
+functionality in the driver has not been properly tested.
 
-On 30/04/20 14:46, Benjamin GAIGNARD wrote:
->> That's not what I meant.
->>
->> I suppose that the interrupt processing in question takes place in
->> process context and so you may set the lower clamp on the utilization
->> of the task carrying that out.
->
-> I have try to add this code when starting streaming (before the first
-> interrupt) the frames from the sensor:
-> const struct sched_attr sched_attr = {
->    .sched_util_min = 10000, /* 100% of usage */
+Patch 1 fixes a nasty kernel crash due to missed error handling.
+Patches 2 and 3 fix the incorrect split (clock and PCI bar handling).
 
-Unless you play with SCHED_CAPACITY_SHIFT, the max should be 1024 -
-i.e. SCHED_CAPACITY_SCALE. That's a really big boost, but that's for you to
-benchmark.
+Patch 4 converts driver to use new PCI IRQ allocation API.
 
->    .sched_flags = SCHED_FLAG_UTIL_CLAMP_MIN,
->   };
->
-> sched_setattr(current, &sched_attr);
->
-> I don't see any benefices maybe there is some configuration flags to set.
->
-> How changing sched_util_min could impact cpufreq ondemand governor ?
-> Does it change the value returned when the governor check the idle time ?
->
+The rest is a set of clean ups that may have been done in the initial
+submission.
 
-You'll have to use the schedutil governor for uclamp to have an effect. And
-arguably that's what you should be using, unless something explicitly
-prevents you from doing that.
+Series has been tested on couple of Elkhart Lake platforms with different
+behaviour of ethernet hardware.
 
->>
->> Alternatively, that task may be a deadline one.
+Changelog v3:
+- added the cover letter (David)
+- appended separate fix as a first patch
+- marked patches 2 and 3 with Fixes tag
+
+Andy Shevchenko (7):
+  stmmac: intel: Fix kernel crash due to wrong error path
+  stmmac: intel: Fix clock handling on error and remove paths
+  stmmac: intel: Remove unnecessary loop for PCI BARs
+  stmmac: intel: Convert to use pci_alloc_irq_vectors() API
+  stmmac: intel: Eliminate useless conditions and variables
+  stmmac: intel: Fix indentation to put on one line affected code
+  stmmac: intel: Place object in the Makefile according to the order
+
+ drivers/net/ethernet/stmicro/stmmac/Makefile  |   4 +-
+ .../net/ethernet/stmicro/stmmac/dwmac-intel.c | 160 +++++++-----------
+ .../net/ethernet/stmicro/stmmac/stmmac_main.c |   4 +-
+ .../net/ethernet/stmicro/stmmac/stmmac_pci.c  |   5 -
+ 4 files changed, 68 insertions(+), 105 deletions(-)
+
+-- 
+2.26.2
+
 _______________________________________________
 Linux-stm32 mailing list
 Linux-stm32@st-md-mailman.stormreply.com
