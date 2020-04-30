@@ -2,38 +2,40 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id 58BE71C06FB
-	for <lists+linux-stm32@lfdr.de>; Thu, 30 Apr 2020 21:51:51 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id A2FF61C0790
+	for <lists+linux-stm32@lfdr.de>; Thu, 30 Apr 2020 22:13:49 +0200 (CEST)
 Received: from ip-172-31-3-76.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id F23CBC36B0E;
-	Thu, 30 Apr 2020 19:51:50 +0000 (UTC)
-Received: from shards.monkeyblade.net (shards.monkeyblade.net [23.128.96.9])
- (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 56475C36B0E;
+	Thu, 30 Apr 2020 20:13:49 +0000 (UTC)
+Received: from relay9-d.mail.gandi.net (relay9-d.mail.gandi.net
+ [217.70.183.199])
+ (using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id C763AC36B0C
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 74F9EC36B0C
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Thu, 30 Apr 2020 19:51:49 +0000 (UTC)
-Received: from localhost (unknown [IPv6:2601:601:9f00:477::3d5])
- (using TLSv1 with cipher AES256-SHA (256/256 bits))
- (Client did not present a certificate)
- (Authenticated sender: davem-davemloft)
- by shards.monkeyblade.net (Postfix) with ESMTPSA id 440621289FD3C;
- Thu, 30 Apr 2020 12:51:47 -0700 (PDT)
-Date: Thu, 30 Apr 2020 12:51:46 -0700 (PDT)
-Message-Id: <20200430.125146.1288195412515001021.davem@davemloft.net>
-To: andriy.shevchenko@linux.intel.com
-From: David Miller <davem@davemloft.net>
-In-Reply-To: <20200430150254.34565-1-andriy.shevchenko@linux.intel.com>
-References: <20200430150254.34565-1-andriy.shevchenko@linux.intel.com>
-X-Mailer: Mew version 6.8 on Emacs 26.1
-Mime-Version: 1.0
-X-Greylist: Sender succeeded SMTP AUTH, not delayed by milter-greylist-4.5.12
- (shards.monkeyblade.net [149.20.54.216]);
- Thu, 30 Apr 2020 12:51:47 -0700 (PDT)
-Cc: peppe.cavallaro@st.com, netdev@vger.kernel.org, joabreu@synopsys.com,
- linux-stm32@st-md-mailman.stormreply.com
-Subject: Re: [Linux-stm32] [PATCH v3 0/7] stmmac: intel: Fixes and cleanups
- after dwmac-intel split
+ Thu, 30 Apr 2020 20:13:47 +0000 (UTC)
+X-Originating-IP: 86.202.105.35
+Received: from localhost (lfbn-lyo-1-9-35.w86-202.abo.wanadoo.fr
+ [86.202.105.35])
+ (Authenticated sender: alexandre.belloni@bootlin.com)
+ by relay9-d.mail.gandi.net (Postfix) with ESMTPSA id 9F8B7FF80A;
+ Thu, 30 Apr 2020 20:13:45 +0000 (UTC)
+Date: Thu, 30 Apr 2020 22:13:45 +0200
+From: Alexandre Belloni <alexandre.belloni@bootlin.com>
+To: William Breathitt Gray <vilhelm.gray@gmail.com>
+Message-ID: <20200430201345.GX51277@piout.net>
+References: <cover.1588176662.git.vilhelm.gray@gmail.com>
+MIME-Version: 1.0
+Content-Disposition: inline
+In-Reply-To: <cover.1588176662.git.vilhelm.gray@gmail.com>
+Cc: kamel.bouhara@bootlin.com, gwendal@chromium.org, david@lechnology.com,
+ felipe.balbi@linux.intel.com, linux-iio@vger.kernel.org, syednwaris@gmail.com,
+ linux-kernel@vger.kernel.org, linux-arm-kernel@lists.infradead.org,
+ mcoquelin.stm32@gmail.com, patrick.havelange@essensium.com,
+ fabrice.gasnier@st.com, fabien.lahoudere@collabora.com,
+ linux-stm32@st-md-mailman.stormreply.com, jic23@kernel.org
+Subject: Re: [Linux-stm32] [PATCH 0/4] Introduce the Counter character
+	device interface
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -50,29 +52,68 @@ Content-Transfer-Encoding: 7bit
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
-From: Andy Shevchenko <andriy.shevchenko@linux.intel.com>
-Date: Thu, 30 Apr 2020 18:02:47 +0300
+Hi,
 
-> Seems the split of dwmac-intel didn't go well and on top of that new
-> functionality in the driver has not been properly tested.
+On 29/04/2020 14:11:34-0400, William Breathitt Gray wrote:
+> Over the past couple years we have noticed some shortcomings with the
+> Counter sysfs interface. Although useful in the majority of situations,
+> there are certain use-cases where interacting through sysfs attributes
+> can become cumbersome and inefficient. A desire to support more advanced
+> functionality such as timestamps, multi-axis positioning tables, and
+> other such latency-sensitive applications, has motivated a reevaluation
+> of the Counter subsystem. I believe a character device interface will be
+> helpful for this more niche area of counter device use.
 > 
-> Patch 1 fixes a nasty kernel crash due to missed error handling.
-> Patches 2 and 3 fix the incorrect split (clock and PCI bar handling).
+> To quell any concerns from the offset: this patchset makes no changes to
+> the existing Counter sysfs userspace interface -- existing userspace
+> applications will continue to work with no modifications necessary. I
+> request that driver maintainers please test their applications to verify
+> that this is true, and report any discrepancies if they arise.
 > 
-> Patch 4 converts driver to use new PCI IRQ allocation API.
-> 
-> The rest is a set of clean ups that may have been done in the initial
-> submission.
-> 
-> Series has been tested on couple of Elkhart Lake platforms with different
-> behaviour of ethernet hardware.
-> 
-> Changelog v3:
-> - added the cover letter (David)
-> - appended separate fix as a first patch
-> - marked patches 2 and 3 with Fixes tag
 
-Series applied, thank you.
+On that topic, I'm wondering why the counter subsystem uses /sys/bus
+instead of /sys/class that would be more natural for a class of devices.
+I can't see how counters would be considered busses. I think you should
+consider moving it over to /sys/class (even if deprecating
+/sys/bus/counter will be long).
+
+> Interaction with Counter character devices occurs via ioctl commands.
+> This allows userspace applications to access and set counter data using
+> native C datatypes rather than working through string translations.
+> 
+
+I agree with David that you should consider using read to retrieve the
+counter data as this will simplify interrupt handling/polling and
+blocking/non-blocking reads can be used by an application. ABI wise,
+this can also be a good move as you could always consider having an
+ioctl requesting a specific format when reading the device so you are
+not stuck with the initial format you are going to choose.
+
+> 2. Should device driver callbacks return int or long? I sometimes see
+>    error values returned as long (e.g. PTR_ERR(), the file_operations
+>    structure's ioctl callbacks, etc.); when is it necessary to return
+>    long as opposed to int?
+> 
+
+You should use a long if you ever have to return a point as it is
+guaranteed to have the correct size. Else, just stick to an int if you
+are not going to overflow it.
+
+> 3. I only implemented the unlocked_ioctl callback. Should I implement a
+>    compat_ioctl callback as well?
+> 
+
+The compat_ioctl is to handle 32bit userspace running on a 64bit kernel.
+If your structures have the same size in both cases, then you don't have
+to implement compat_ioctl.
+
+Have a look at Documentation/driver-api/ioctl.rst
+
+
+-- 
+Alexandre Belloni, Bootlin
+Embedded Linux and Kernel engineering
+https://bootlin.com
 _______________________________________________
 Linux-stm32 mailing list
 Linux-stm32@st-md-mailman.stormreply.com
