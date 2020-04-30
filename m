@@ -2,48 +2,47 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id 2782F1BFF7D
+	by mail.lfdr.de (Postfix) with ESMTPS id 1F3C71BFF7C
 	for <lists+linux-stm32@lfdr.de>; Thu, 30 Apr 2020 17:03:04 +0200 (CEST)
 Received: from ip-172-31-3-76.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id DA06DC36B17;
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id CAB7DC36B0F;
 	Thu, 30 Apr 2020 15:03:03 +0000 (UTC)
-Received: from mga12.intel.com (mga12.intel.com [192.55.52.136])
+Received: from mga02.intel.com (mga02.intel.com [134.134.136.20])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 126F6C36B0D
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 14316C36B0E
  for <linux-stm32@st-md-mailman.stormreply.com>;
  Thu, 30 Apr 2020 15:03:00 +0000 (UTC)
-IronPort-SDR: Bwxrq6yqq0eZlJXvvYuE3j/lbj7JaL5nwoWdyJV3l8FDREHAMawC0gxOVEzTuSkHyoQGeZneat
- 8BNQGGTTJDUw==
+IronPort-SDR: G65CQn7ub+3+0gEZ2zc5ShiPev+QXklR7THviZRMZWqvz9N2TJHBVzKqOoWwVMOg3OFWYQe8ga
+ N7bPTg9jcbzQ==
 X-Amp-Result: SKIPPED(no attachment in message)
 X-Amp-File-Uploaded: False
-Received: from fmsmga001.fm.intel.com ([10.253.24.23])
- by fmsmga106.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+Received: from orsmga008.jf.intel.com ([10.7.209.65])
+ by orsmga101.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
  30 Apr 2020 08:02:58 -0700
-IronPort-SDR: FWOsYAIC2NRGWTwjoW5xbGC8jQ1ujwb62GmdlZGtfWmPeaMnpfWu+Mu5z3eLyDa3eqLvAleZU2
- sbmWnC/QwUWg==
+IronPort-SDR: Jv10Lorl3VCf6kXCOl/0MNaUiHFoiyVTxs9pqTy0WOH0iFk/j4hiPMaTHJbSV8KkZrYyfqmVsZ
+ twuk0g7VGvlQ==
 X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="5.73,336,1583222400"; d="scan'208";a="368167922"
+X-IronPort-AV: E=Sophos;i="5.73,336,1583222400"; d="scan'208";a="294534199"
 Received: from black.fi.intel.com ([10.237.72.28])
- by fmsmga001.fm.intel.com with ESMTP; 30 Apr 2020 08:02:56 -0700
+ by orsmga008.jf.intel.com with ESMTP; 30 Apr 2020 08:02:56 -0700
 Received: by black.fi.intel.com (Postfix, from userid 1003)
- id 71F1E15C; Thu, 30 Apr 2020 18:02:55 +0300 (EEST)
+ id 7717617F; Thu, 30 Apr 2020 18:02:55 +0300 (EEST)
 From: Andy Shevchenko <andriy.shevchenko@linux.intel.com>
 To: Giuseppe Cavallaro <peppe.cavallaro@st.com>,
  Alexandre Torgue <alexandre.torgue@st.com>,
  Jose Abreu <joabreu@synopsys.com>,
  linux-stm32@st-md-mailman.stormreply.com,
  "David S. Miller" <davem@davemloft.net>, netdev@vger.kernel.org
-Date: Thu, 30 Apr 2020 18:02:50 +0300
-Message-Id: <20200430150254.34565-4-andriy.shevchenko@linux.intel.com>
+Date: Thu, 30 Apr 2020 18:02:51 +0300
+Message-Id: <20200430150254.34565-5-andriy.shevchenko@linux.intel.com>
 X-Mailer: git-send-email 2.26.2
 In-Reply-To: <20200430150254.34565-1-andriy.shevchenko@linux.intel.com>
 References: <20200430150254.34565-1-andriy.shevchenko@linux.intel.com>
 MIME-Version: 1.0
-Cc: Andy Shevchenko <andriy.shevchenko@linux.intel.com>,
- Voon Weifeng <weifeng.voon@intel.com>
-Subject: [Linux-stm32] [PATCH v3 3/7] stmmac: intel: Remove unnecessary loop
-	for PCI BARs
+Cc: Andy Shevchenko <andriy.shevchenko@linux.intel.com>
+Subject: [Linux-stm32] [PATCH v3 4/7] stmmac: intel: Convert to use
+	pci_alloc_irq_vectors() API
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -60,78 +59,49 @@ Content-Transfer-Encoding: 7bit
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
-Copy'n'paste without thinking is not a good idea and in this case it brought
-unnecessary loop over PCI BAR resources which was needed to workaround one of
-STMicro RVP boards. Remove unnecessary loops from Intel driver.
+pci_enable_msi() is deprecated API, thus, switch to modern
+pci_alloc_irq_vectors().
 
-Fixes: 58da0cfa6cf1 ("net: stmmac: create dwmac-intel.c to contain all Intel platform")
-Cc: Voon Weifeng <weifeng.voon@intel.com>
 Signed-off-by: Andy Shevchenko <andriy.shevchenko@linux.intel.com>
 ---
- .../net/ethernet/stmicro/stmmac/dwmac-intel.c | 23 ++++---------------
- 1 file changed, 5 insertions(+), 18 deletions(-)
+ drivers/net/ethernet/stmicro/stmmac/dwmac-intel.c | 11 ++++++++---
+ 1 file changed, 8 insertions(+), 3 deletions(-)
 
 diff --git a/drivers/net/ethernet/stmicro/stmmac/dwmac-intel.c b/drivers/net/ethernet/stmicro/stmmac/dwmac-intel.c
-index d163c4b43da0fd..e9f94855949959 100644
+index e9f94855949959..bb8bf31c1259ef 100644
 --- a/drivers/net/ethernet/stmicro/stmmac/dwmac-intel.c
 +++ b/drivers/net/ethernet/stmicro/stmmac/dwmac-intel.c
-@@ -606,7 +606,6 @@ static int intel_eth_pci_probe(struct pci_dev *pdev,
- 	struct intel_priv_data *intel_priv;
- 	struct plat_stmmacenet_data *plat;
- 	struct stmmac_resources res;
--	int i;
- 	int ret;
- 
- 	intel_priv = devm_kzalloc(&pdev->dev, sizeof(*intel_priv),
-@@ -637,15 +636,9 @@ static int intel_eth_pci_probe(struct pci_dev *pdev,
+@@ -649,15 +649,18 @@ static int intel_eth_pci_probe(struct pci_dev *pdev,
+ 	if (ret)
  		return ret;
- 	}
  
--	/* Get the base address of device */
--	for (i = 0; i < PCI_STD_NUM_BARS; i++) {
--		if (pci_resource_len(pdev, i) == 0)
--			continue;
--		ret = pcim_iomap_regions(pdev, BIT(i), pci_name(pdev));
--		if (ret)
--			return ret;
--		break;
--	}
-+	ret = pcim_iomap_regions(pdev, BIT(0), pci_name(pdev));
-+	if (ret)
+-	pci_enable_msi(pdev);
++	ret = pci_alloc_irq_vectors(pdev, 1, 1, PCI_IRQ_ALL_TYPES);
++	if (ret < 0)
 +		return ret;
  
- 	pci_set_master(pdev);
- 
-@@ -659,7 +652,7 @@ static int intel_eth_pci_probe(struct pci_dev *pdev,
- 	pci_enable_msi(pdev);
- 
  	memset(&res, 0, sizeof(res));
--	res.addr = pcim_iomap_table(pdev)[i];
-+	res.addr = pcim_iomap_table(pdev)[0];
- 	res.wol_irq = pdev->irq;
- 	res.irq = pdev->irq;
+ 	res.addr = pcim_iomap_table(pdev)[0];
+-	res.wol_irq = pdev->irq;
+-	res.irq = pdev->irq;
++	res.wol_irq = pci_irq_vector(pdev, 0);
++	res.irq = pci_irq_vector(pdev, 0);
  
-@@ -683,19 +676,13 @@ static void intel_eth_pci_remove(struct pci_dev *pdev)
- {
- 	struct net_device *ndev = dev_get_drvdata(&pdev->dev);
- 	struct stmmac_priv *priv = netdev_priv(ndev);
--	int i;
+ 	ret = stmmac_dvr_probe(&pdev->dev, plat, &res);
+ 	if (ret) {
++		pci_free_irq_vectors(pdev);
+ 		clk_disable_unprepare(plat->stmmac_clk);
+ 		clk_unregister_fixed_rate(plat->stmmac_clk);
+ 	}
+@@ -679,6 +682,8 @@ static void intel_eth_pci_remove(struct pci_dev *pdev)
  
  	stmmac_dvr_remove(&pdev->dev);
  
++	pci_free_irq_vectors(pdev);
++
  	clk_disable_unprepare(priv->plat->stmmac_clk);
  	clk_unregister_fixed_rate(priv->plat->stmmac_clk);
  
--	for (i = 0; i < PCI_STD_NUM_BARS; i++) {
--		if (pci_resource_len(pdev, i) == 0)
--			continue;
--		pcim_iounmap_regions(pdev, BIT(i));
--		break;
--	}
-+	pcim_iounmap_regions(pdev, BIT(0));
- 
- 	pci_disable_device(pdev);
- }
 -- 
 2.26.2
 
