@@ -2,61 +2,60 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id 137721BF459
-	for <lists+linux-stm32@lfdr.de>; Thu, 30 Apr 2020 11:43:52 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 23B5F1BF45D
+	for <lists+linux-stm32@lfdr.de>; Thu, 30 Apr 2020 11:44:10 +0200 (CEST)
 Received: from ip-172-31-3-76.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id D106DC36B0D;
-	Thu, 30 Apr 2020 09:43:51 +0000 (UTC)
-Received: from mail-pj1-f65.google.com (mail-pj1-f65.google.com
- [209.85.216.65])
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id DEC58C36B0D;
+	Thu, 30 Apr 2020 09:44:09 +0000 (UTC)
+Received: from mail-pg1-f194.google.com (mail-pg1-f194.google.com
+ [209.85.215.194])
  (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 1C28FC36B0A
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id D0DB6C36B0A
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Thu, 30 Apr 2020 09:43:51 +0000 (UTC)
-Received: by mail-pj1-f65.google.com with SMTP id y6so480678pjc.4
+ Thu, 30 Apr 2020 09:44:07 +0000 (UTC)
+Received: by mail-pg1-f194.google.com with SMTP id l25so175351pgc.5
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Thu, 30 Apr 2020 02:43:51 -0700 (PDT)
+ Thu, 30 Apr 2020 02:44:07 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20161025;
  h=from:to:cc:subject:date:message-id;
- bh=PMlWSW6ttnanNb8wF0bobaava2tVkjYUTBjAcm/ZuJs=;
- b=MFlPir4vo3tEZYxlusrpRQF5dV+NyqZ+15+TQFJLozgqv+/HoDTTsM9j5hQMDFgyI5
- /QPcVzxBAlfOI5DCpUcUmQPdN3BpfO5ImVwMShy5sFSa6XAqvb/69oqZIgApPKizVlib
- p2Z0OeoLvAPyMWpI5Ah+svBEvUfQfakzUXEWT/g36h6Imiwt2O/UwWeaWFpu/U2RrjI8
- 3wJaz9cELshAdY2rUcOq4Q8NiaBW2R2EJQf6dkyPNvxcT1dhz+tVp3WI+UXFDtZDEpRH
- Wr4vCgcociS8CmaTZYdyDFNKYLMNQFgpCQEMJo3OzPjoQ7AR/utuwMPMTdoKeZSmF0M1
- NbeA==
+ bh=3iE0ENs3U+fv2Eqqm2Bnr8UjitFetI73gpHRJaYjHKU=;
+ b=ilIpKR0xTF1aZ/g6hXsNtlH3zf2fYi/M9PCp7dr2ymfF41Gje6JPtrCXmX6Ir7fFP7
+ y7qqJ/RCU4YiWlYTmQssquDtdWptfOGfVr01IPJMz1T64/t3/0YFMipsXm7bYT0KCcFZ
+ GhADDDtSWZTUOnrTm5tUIsXalg4P/SZnHluKCIi4CdUM5eD8B0d7t5hSp8A0t4t26jmY
+ uloL2KYSNp8+DnGusiFvAl9oN03NT3HybGOP0+DcaHLXIMxliA8T6x6SvVMHfkPdyIHa
+ KfgeQtAiVtD/pWNA+gbzxrrbs8eK2VInhgKwjmKTULw91A6+qT2hIhoDD9qPyiEP/xPt
+ TfOg==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=1e100.net; s=20161025;
  h=x-gm-message-state:from:to:cc:subject:date:message-id;
- bh=PMlWSW6ttnanNb8wF0bobaava2tVkjYUTBjAcm/ZuJs=;
- b=hsXUcehF34ME/6BZled5c+LGcr1tjShaaSPmgT+Uf4uSfX0/fXcIkEuWMjZZXZdsjg
- LhLNNZKS5F37lmnDFZBHzKhG3ZQ2e9rL55ubBeLnkPE6h7Wu5449g80TGaNr1qcLbtYW
- Xycc4G+Lc8hkBhYikD3ObYerEBwX0eioFzxhvu3M/sChXaObVFKjmJeMXpwJWIQwJ+ef
- lIjzYbfUloYS4zNqsPRZ+/pmqJsci0JnY41y38Ym66OuhEj4pWwtKnChllCi8Q5gqA3C
- SqWg1uvD7p2boCXZVC5msnBHzNhyCG0LYjnGbXz9fx+356ioFth9rpM2Aw5VpBAMNoKR
- rW6w==
-X-Gm-Message-State: AGi0PuYjWdxjmblXOC6DiPASr81BeY5C06SUkdW1FTZHftEgMqCYD/jJ
- c6zYk/1+V+8TAAEbGbcQrXM=
-X-Google-Smtp-Source: APiQypLKUFlZg0CytxNp74nTXeWU2B/WRcjEZ8j8XaaORn8LkrMUWInRi+XbgmfA/ZJJ++4rjGTf1Q==
-X-Received: by 2002:a17:902:a586:: with SMTP id
- az6mr2779889plb.201.1588239829729; 
- Thu, 30 Apr 2020 02:43:49 -0700 (PDT)
+ bh=3iE0ENs3U+fv2Eqqm2Bnr8UjitFetI73gpHRJaYjHKU=;
+ b=YynsSVuFf9ZDTaMs0flw+QHdV5Xg7WbqEm5YD3CG1QZDqi8Z2nzssD7fjUMPGl9vKg
+ KNU8auNWHtwqrxYg8tXNsLdIW+mBNVgZhWE2IUSnN9TtUOVxQ7KMiQ7Vh5ovABB5c97b
+ w+owvNw/GabcVf0LhC1pgtmQUb/g0SselizR0spsLD/bxCHn2bU2D05PxRlxSd1jbc2I
+ YpFmRBHOodu8hboZLl3aHsBqC9A4QajUmJr517VbKBNEteiKA6dF2BJjOpBM2+PgT54Q
+ MzQddKYnLvb2l9RTlSjDMOydmD+cIuoieNPTUOqKI+azeXGkkLLur5MtDaXthGZHyWJn
+ W7EA==
+X-Gm-Message-State: AGi0PuahCmpdmzRkq2XAO07NypPQq8MGMM4NlxTVBI2ipNzZ9J8GkYGC
+ 1FfDOR5tWNOMIK4mKSRV7ZM=
+X-Google-Smtp-Source: APiQypKnHvgqqqAo0U6w7NfYRJ1g2+uwUdHqCvqsCYwfXM+SnrqOWtoCuCALu+75Kg/qIGU36FZMOg==
+X-Received: by 2002:a62:1a46:: with SMTP id a67mr2493063pfa.284.1588239846437; 
+ Thu, 30 Apr 2020 02:44:06 -0700 (PDT)
 Received: from fmin-OptiPlex-7060.nreal.work ([137.59.101.138])
- by smtp.gmail.com with ESMTPSA id 5sm1307138pjf.19.2020.04.30.02.43.46
+ by smtp.gmail.com with ESMTPSA id cp22sm1288431pjb.28.2020.04.30.02.44.03
  (version=TLS1_2 cipher=ECDHE-ECDSA-AES128-GCM-SHA256 bits=128/128);
- Thu, 30 Apr 2020 02:43:49 -0700 (PDT)
+ Thu, 30 Apr 2020 02:44:05 -0700 (PDT)
 From: dillon.minfei@gmail.com
 To: alexandre.torgue@st.com
-Date: Thu, 30 Apr 2020 17:43:44 +0800
-Message-Id: <1588239824-11491-1-git-send-email-dillon.minfei@gmail.com>
+Date: Thu, 30 Apr 2020 17:44:00 +0800
+Message-Id: <1588239840-11582-1-git-send-email-dillon.minfei@gmail.com>
 X-Mailer: git-send-email 2.7.4
-Cc: sboyd@kernel.org, mturquette@baylibre.com, linux-kernel@vger.kernel.org,
- linux-stm32@st-md-mailman.stormreply.com, mcoquelin.stm32@gmail.com,
- dillon.minfei@gmail.com, linux-clk@vger.kernel.org,
+Cc: mcoquelin.stm32@gmail.com, linux-kernel@vger.kernel.org,
+ linux-spi@vger.kernel.org, broonie@kernel.org, p.zabel@pengutronix.de,
+ dillon.minfei@gmail.com, linux-stm32@st-md-mailman.stormreply.com,
  linux-arm-kernel@lists.infradead.org
-Subject: [Linux-stm32] [PATCH 2/4] fix hang in ltdc driver loading bug,
-	add CLK_IGNORE_UNUSED for ltdc
+Subject: [Linux-stm32] [PATCH 4/4] add SPI_SIMPLEX_RX/SPI_3WIRE_RX support
+	for spi-stm32f4
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -76,45 +75,92 @@ Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
 From: dillon min <dillon.minfei@gmail.com>
 
-1) in clk-stm32f4.c set clk_hw to the wrong offset PLL_VCO_SAI, PLL_VCO_I2S
-   of clks array, should change to PLL_SAI, PLL_I2S, otherwise get null from
-   to_clk_gate
-
-2) add CLK_IGNORE_UNUSED for ltdc, otherwise system will close ltdc clk
-   before filesystem mount
+add SPI_SIMPLEX_RX/SPI_3WIRE_RX in spi-stm32f4.c
+for SPI_SIMPLEX_RX , as we running kernel in sdram, so
+that the performance is not as good as internal flash,
+need add send dummy data out while in rx,
+otherwise will get many overrun errors.
 
 Signed-off-by: dillon min <dillon.minfei@gmail.com>
 ---
- drivers/clk/clk-stm32f4.c | 7 ++++---
- 1 file changed, 4 insertions(+), 3 deletions(-)
+ drivers/spi/spi-stm32.c | 26 ++++++++++++++++++++++----
+ 1 file changed, 22 insertions(+), 4 deletions(-)
 
-diff --git a/drivers/clk/clk-stm32f4.c b/drivers/clk/clk-stm32f4.c
-index 18117ce..bdebe05 100644
---- a/drivers/clk/clk-stm32f4.c
-+++ b/drivers/clk/clk-stm32f4.c
-@@ -129,7 +129,8 @@ static const struct stm32f4_gate_data stm32f429_gates[] __initconst = {
- 	{ STM32F4_RCC_APB2ENR, 20,	"spi5",		"apb2_div" },
- 	{ STM32F4_RCC_APB2ENR, 21,	"spi6",		"apb2_div" },
- 	{ STM32F4_RCC_APB2ENR, 22,	"sai1",		"apb2_div" },
--	{ STM32F4_RCC_APB2ENR, 26,	"ltdc",		"apb2_div" },
-+	{ STM32F4_RCC_APB2ENR, 26,	"ltdc",		"apb2_div",
-+		CLK_IGNORE_UNUSED },
- };
+diff --git a/drivers/spi/spi-stm32.c b/drivers/spi/spi-stm32.c
+index 44ac6eb3..680cede 100644
+--- a/drivers/spi/spi-stm32.c
++++ b/drivers/spi/spi-stm32.c
+@@ -388,6 +388,10 @@ static int stm32h7_spi_get_fifo_size(struct stm32_spi *spi)
+ 	return count;
+ }
  
- static const struct stm32f4_gate_data stm32f469_gates[] __initconst = {
-@@ -1754,10 +1755,10 @@ static void __init stm32f4_rcc_init(struct device_node *np)
- 	stm32f4_rcc_register_pll("vco_in", &data->pll_data[0],
- 			&stm32f4_clk_lock);
++static void stm32f4_spi_tx_dummy(struct stm32_spi *spi)
++{
++	writeb_relaxed(0x55, spi->base + STM32F4_SPI_DR);
++}
+ /**
+  * stm32f4_spi_get_bpw_mask - Return bits per word mask
+  * @spi: pointer to the spi controller data structure
+@@ -811,7 +815,9 @@ static irqreturn_t stm32f4_spi_irq_event(int irq, void *dev_id)
+ 		mask |= STM32F4_SPI_SR_TXE;
+ 	}
  
--	clks[PLL_VCO_I2S] = stm32f4_rcc_register_pll("vco_in",
-+	clks[PLL_I2S] = stm32f4_rcc_register_pll("vco_in",
- 			&data->pll_data[1], &stm32f4_clk_lock);
+-	if (!spi->cur_usedma && spi->cur_comm == SPI_FULL_DUPLEX) {
++	if (!spi->cur_usedma && (spi->cur_comm == SPI_FULL_DUPLEX ||
++				 spi->cur_comm == SPI_SIMPLEX_RX ||
++				 spi->cur_comm == SPI_3WIRE_RX)) {
+ 		/* TXE flag is set and is handled when RXNE flag occurs */
+ 		sr &= ~STM32F4_SPI_SR_TXE;
+ 		mask |= STM32F4_SPI_SR_RXNE | STM32F4_SPI_SR_OVR;
+@@ -850,8 +856,10 @@ static irqreturn_t stm32f4_spi_irq_event(int irq, void *dev_id)
+ 		stm32f4_spi_read_rx(spi);
+ 		if (spi->rx_len == 0)
+ 			end = true;
+-		else /* Load data for discontinuous mode */
++		else if (spi->tx_buf)/* Load data for discontinuous mode */
+ 			stm32f4_spi_write_tx(spi);
++		else if (spi->cur_comm == SPI_SIMPLEX_RX)
++			stm32f4_spi_tx_dummy(spi);
+ 	}
  
--	clks[PLL_VCO_SAI] = stm32f4_rcc_register_pll("vco_in",
-+	clks[PLL_SAI] = stm32f4_rcc_register_pll("vco_in",
- 			&data->pll_data[2], &stm32f4_clk_lock);
+ end_irq:
+@@ -1151,7 +1159,9 @@ static int stm32f4_spi_transfer_one_irq(struct stm32_spi *spi)
+ 	/* Enable the interrupts relative to the current communication mode */
+ 	if (spi->cur_comm == SPI_SIMPLEX_TX || spi->cur_comm == SPI_3WIRE_TX) {
+ 		cr2 |= STM32F4_SPI_CR2_TXEIE;
+-	} else if (spi->cur_comm == SPI_FULL_DUPLEX) {
++	} else if (spi->cur_comm == SPI_FULL_DUPLEX ||
++				spi->cur_comm == SPI_SIMPLEX_RX ||
++				spi->cur_comm == SPI_3WIRE_RX) {
+ 		/* In transmit-only mode, the OVR flag is set in the SR register
+ 		 * since the received data are never read. Therefore set OVR
+ 		 * interrupt only when rx buffer is available.
+@@ -1170,6 +1180,8 @@ static int stm32f4_spi_transfer_one_irq(struct stm32_spi *spi)
+ 	/* starting data transfer when buffer is loaded */
+ 	if (spi->tx_buf)
+ 		stm32f4_spi_write_tx(spi);
++	else if (spi->cur_comm == SPI_SIMPLEX_RX)
++		stm32f4_spi_tx_dummy(spi);
  
- 	for (n = 0; n < MAX_POST_DIV; n++) {
+ 	spin_unlock_irqrestore(&spi->lock, flags);
+ 
+@@ -1462,9 +1474,15 @@ static int stm32f4_spi_set_mode(struct stm32_spi *spi, unsigned int comm_type)
+ 		stm32_spi_set_bits(spi, STM32F4_SPI_CR1,
+ 					STM32F4_SPI_CR1_BIDIMODE |
+ 					STM32F4_SPI_CR1_BIDIOE);
+-	} else if (comm_type == SPI_FULL_DUPLEX) {
++	} else if (comm_type == SPI_FULL_DUPLEX ||
++				comm_type == SPI_SIMPLEX_RX) {
+ 		stm32_spi_clr_bits(spi, STM32F4_SPI_CR1,
+ 					STM32F4_SPI_CR1_BIDIMODE |
++					STM32F4_SPI_CR1_RXONLY);
++	} else if (comm_type == SPI_3WIRE_RX) {
++		stm32_spi_set_bits(spi, STM32F4_SPI_CR1,
++					STM32F4_SPI_CR1_BIDIMODE);
++		stm32_spi_clr_bits(spi, STM32F4_SPI_CR1,
+ 					STM32F4_SPI_CR1_BIDIOE);
+ 	} else {
+ 		return -EINVAL;
 -- 
 2.7.4
 
