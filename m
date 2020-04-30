@@ -2,60 +2,67 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id 23B5F1BF45D
-	for <lists+linux-stm32@lfdr.de>; Thu, 30 Apr 2020 11:44:10 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 0C8331BF4A0
+	for <lists+linux-stm32@lfdr.de>; Thu, 30 Apr 2020 11:58:19 +0200 (CEST)
 Received: from ip-172-31-3-76.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id DEC58C36B0D;
-	Thu, 30 Apr 2020 09:44:09 +0000 (UTC)
-Received: from mail-pg1-f194.google.com (mail-pg1-f194.google.com
- [209.85.215.194])
- (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id BA74EC36B0D;
+	Thu, 30 Apr 2020 09:58:18 +0000 (UTC)
+Received: from mx07-00178001.pphosted.com (mx08-00178001.pphosted.com
+ [91.207.212.93])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id D0DB6C36B0A
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 8FD4DC36B0A
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Thu, 30 Apr 2020 09:44:07 +0000 (UTC)
-Received: by mail-pg1-f194.google.com with SMTP id l25so175351pgc.5
- for <linux-stm32@st-md-mailman.stormreply.com>;
- Thu, 30 Apr 2020 02:44:07 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20161025;
- h=from:to:cc:subject:date:message-id;
- bh=3iE0ENs3U+fv2Eqqm2Bnr8UjitFetI73gpHRJaYjHKU=;
- b=ilIpKR0xTF1aZ/g6hXsNtlH3zf2fYi/M9PCp7dr2ymfF41Gje6JPtrCXmX6Ir7fFP7
- y7qqJ/RCU4YiWlYTmQssquDtdWptfOGfVr01IPJMz1T64/t3/0YFMipsXm7bYT0KCcFZ
- GhADDDtSWZTUOnrTm5tUIsXalg4P/SZnHluKCIi4CdUM5eD8B0d7t5hSp8A0t4t26jmY
- uloL2KYSNp8+DnGusiFvAl9oN03NT3HybGOP0+DcaHLXIMxliA8T6x6SvVMHfkPdyIHa
- KfgeQtAiVtD/pWNA+gbzxrrbs8eK2VInhgKwjmKTULw91A6+qT2hIhoDD9qPyiEP/xPt
- TfOg==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20161025;
- h=x-gm-message-state:from:to:cc:subject:date:message-id;
- bh=3iE0ENs3U+fv2Eqqm2Bnr8UjitFetI73gpHRJaYjHKU=;
- b=YynsSVuFf9ZDTaMs0flw+QHdV5Xg7WbqEm5YD3CG1QZDqi8Z2nzssD7fjUMPGl9vKg
- KNU8auNWHtwqrxYg8tXNsLdIW+mBNVgZhWE2IUSnN9TtUOVxQ7KMiQ7Vh5ovABB5c97b
- w+owvNw/GabcVf0LhC1pgtmQUb/g0SselizR0spsLD/bxCHn2bU2D05PxRlxSd1jbc2I
- YpFmRBHOodu8hboZLl3aHsBqC9A4QajUmJr517VbKBNEteiKA6dF2BJjOpBM2+PgT54Q
- MzQddKYnLvb2l9RTlSjDMOydmD+cIuoieNPTUOqKI+azeXGkkLLur5MtDaXthGZHyWJn
- W7EA==
-X-Gm-Message-State: AGi0PuahCmpdmzRkq2XAO07NypPQq8MGMM4NlxTVBI2ipNzZ9J8GkYGC
- 1FfDOR5tWNOMIK4mKSRV7ZM=
-X-Google-Smtp-Source: APiQypKnHvgqqqAo0U6w7NfYRJ1g2+uwUdHqCvqsCYwfXM+SnrqOWtoCuCALu+75Kg/qIGU36FZMOg==
-X-Received: by 2002:a62:1a46:: with SMTP id a67mr2493063pfa.284.1588239846437; 
- Thu, 30 Apr 2020 02:44:06 -0700 (PDT)
-Received: from fmin-OptiPlex-7060.nreal.work ([137.59.101.138])
- by smtp.gmail.com with ESMTPSA id cp22sm1288431pjb.28.2020.04.30.02.44.03
- (version=TLS1_2 cipher=ECDHE-ECDSA-AES128-GCM-SHA256 bits=128/128);
- Thu, 30 Apr 2020 02:44:05 -0700 (PDT)
-From: dillon.minfei@gmail.com
-To: alexandre.torgue@st.com
-Date: Thu, 30 Apr 2020 17:44:00 +0800
-Message-Id: <1588239840-11582-1-git-send-email-dillon.minfei@gmail.com>
-X-Mailer: git-send-email 2.7.4
-Cc: mcoquelin.stm32@gmail.com, linux-kernel@vger.kernel.org,
- linux-spi@vger.kernel.org, broonie@kernel.org, p.zabel@pengutronix.de,
- dillon.minfei@gmail.com, linux-stm32@st-md-mailman.stormreply.com,
+ Thu, 30 Apr 2020 09:58:17 +0000 (UTC)
+Received: from pps.filterd (m0046661.ppops.net [127.0.0.1])
+ by mx07-00178001.pphosted.com (8.16.0.42/8.16.0.42) with SMTP id
+ 03U9qeKs000841; Thu, 30 Apr 2020 11:57:54 +0200
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=st.com;
+ h=subject : to : cc :
+ references : from : message-id : date : mime-version : in-reply-to :
+ content-type : content-transfer-encoding; s=STMicroelectronics;
+ bh=KI2AtPyJLvrsFvH8h/qo1asrr1uW5LJxQpJkGaRznVE=;
+ b=GaOlqtsELyMr/+7rGu414BfW6XhtkUr2Y1ImtOwm0WNi5hRk4ERUs61pdsp8bf2FPeyU
+ yOnOKmvq/63F8lZLFFZZNr1XJy1MdA4rwwGZT3Q9q/0te3ukYFBKp57EXupvhe4bLSvf
+ 7fSFgXrWMfZa23dUJ5bMPDlq5JuAa7W97PV0iIsh2m1YzQiZSTqM+3505GuoiGUlw7ly
+ yiNRlED4+rXqSJwz57Ea4YSu4PBhHbP68u3SDnhRtMo4RpERd3dyhRh9zaworeJEXPSN
+ XoSO0mpF4FmiYasNUf71JbUB1nGekHvc4XbnftoiNdFLkauiU5heHekMuYflwJ8SwcAw oQ== 
+Received: from beta.dmz-eu.st.com (beta.dmz-eu.st.com [164.129.1.35])
+ by mx07-00178001.pphosted.com with ESMTP id 30mhjx3grd-1
+ (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
+ Thu, 30 Apr 2020 11:57:54 +0200
+Received: from euls16034.sgp.st.com (euls16034.sgp.st.com [10.75.44.20])
+ by beta.dmz-eu.st.com (STMicroelectronics) with ESMTP id 28DE410002A;
+ Thu, 30 Apr 2020 11:57:54 +0200 (CEST)
+Received: from Webmail-eu.st.com (sfhdag3node2.st.com [10.75.127.8])
+ by euls16034.sgp.st.com (STMicroelectronics) with ESMTP id 126CA2B3BB8;
+ Thu, 30 Apr 2020 11:57:54 +0200 (CEST)
+Received: from lmecxl0912.tpe.st.com (10.75.127.44) by SFHDAG3NODE2.st.com
+ (10.75.127.8) with Microsoft SMTP Server (TLS) id 15.0.1347.2; Thu, 30 Apr
+ 2020 11:57:47 +0200
+To: <dillon.minfei@gmail.com>
+References: <1588239802-11442-1-git-send-email-dillon.minfei@gmail.com>
+From: Alexandre Torgue <alexandre.torgue@st.com>
+Message-ID: <33f928e7-3fde-99a2-b84d-d74a2d3f1186@st.com>
+Date: Thu, 30 Apr 2020 11:57:39 +0200
+User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:68.0) Gecko/20100101
+ Thunderbird/68.4.1
+MIME-Version: 1.0
+In-Reply-To: <1588239802-11442-1-git-send-email-dillon.minfei@gmail.com>
+Content-Language: en-US
+X-Originating-IP: [10.75.127.44]
+X-ClientProxiedBy: SFHDAG8NODE2.st.com (10.75.127.23) To SFHDAG3NODE2.st.com
+ (10.75.127.8)
+X-Proofpoint-Virus-Version: vendor=fsecure engine=2.50.10434:6.0.138, 18.0.676
+ definitions=2020-04-30_05:2020-04-30,
+ 2020-04-30 signatures=0
+Cc: devicetree@vger.kernel.org, mcoquelin.stm32@gmail.com, airlied@linux.ie,
+ linux-kernel@vger.kernel.org, dri-devel@lists.freedesktop.org,
+ robh+dt@kernel.org, thierry.reding@gmail.com, daniel@ffwll.ch,
+ sam@ravnborg.org, linux-stm32@st-md-mailman.stormreply.com,
  linux-arm-kernel@lists.infradead.org
-Subject: [Linux-stm32] [PATCH 4/4] add SPI_SIMPLEX_RX/SPI_3WIRE_RX support
-	for spi-stm32f4
+Subject: Re: [Linux-stm32] [PATCH 1/4] add dts node for drm panel driver
+ ili9341 add dts i2c3 for stmpe touch add dts spi5 for gyro & ili9341
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -67,103 +74,315 @@ List-Post: <mailto:linux-stm32@st-md-mailman.stormreply.com>
 List-Help: <mailto:linux-stm32-request@st-md-mailman.stormreply.com?subject=help>
 List-Subscribe: <https://st-md-mailman.stormreply.com/mailman/listinfo/linux-stm32>, 
  <mailto:linux-stm32-request@st-md-mailman.stormreply.com?subject=subscribe>
-MIME-Version: 1.0
-Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
+Content-Type: text/plain; charset="us-ascii"; Format="flowed"
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
-From: dillon min <dillon.minfei@gmail.com>
+Hi
 
-add SPI_SIMPLEX_RX/SPI_3WIRE_RX in spi-stm32f4.c
-for SPI_SIMPLEX_RX , as we running kernel in sdram, so
-that the performance is not as good as internal flash,
-need add send dummy data out while in rx,
-otherwise will get many overrun errors.
+On 4/30/20 11:43 AM, dillon.minfei@gmail.com wrote:
+> From: dillon min <dillon.minfei@gmail.com>
+> 
+> Signed-off-by: dillon min <dillon.minfei@gmail.com>
 
-Signed-off-by: dillon min <dillon.minfei@gmail.com>
----
- drivers/spi/spi-stm32.c | 26 ++++++++++++++++++++++----
- 1 file changed, 22 insertions(+), 4 deletions(-)
+Commit title should be ARM: dts: stm32: bla bla on stm32f429 and please 
+a commit message.
 
-diff --git a/drivers/spi/spi-stm32.c b/drivers/spi/spi-stm32.c
-index 44ac6eb3..680cede 100644
---- a/drivers/spi/spi-stm32.c
-+++ b/drivers/spi/spi-stm32.c
-@@ -388,6 +388,10 @@ static int stm32h7_spi_get_fifo_size(struct stm32_spi *spi)
- 	return count;
- }
- 
-+static void stm32f4_spi_tx_dummy(struct stm32_spi *spi)
-+{
-+	writeb_relaxed(0x55, spi->base + STM32F4_SPI_DR);
-+}
- /**
-  * stm32f4_spi_get_bpw_mask - Return bits per word mask
-  * @spi: pointer to the spi controller data structure
-@@ -811,7 +815,9 @@ static irqreturn_t stm32f4_spi_irq_event(int irq, void *dev_id)
- 		mask |= STM32F4_SPI_SR_TXE;
- 	}
- 
--	if (!spi->cur_usedma && spi->cur_comm == SPI_FULL_DUPLEX) {
-+	if (!spi->cur_usedma && (spi->cur_comm == SPI_FULL_DUPLEX ||
-+				 spi->cur_comm == SPI_SIMPLEX_RX ||
-+				 spi->cur_comm == SPI_3WIRE_RX)) {
- 		/* TXE flag is set and is handled when RXNE flag occurs */
- 		sr &= ~STM32F4_SPI_SR_TXE;
- 		mask |= STM32F4_SPI_SR_RXNE | STM32F4_SPI_SR_OVR;
-@@ -850,8 +856,10 @@ static irqreturn_t stm32f4_spi_irq_event(int irq, void *dev_id)
- 		stm32f4_spi_read_rx(spi);
- 		if (spi->rx_len == 0)
- 			end = true;
--		else /* Load data for discontinuous mode */
-+		else if (spi->tx_buf)/* Load data for discontinuous mode */
- 			stm32f4_spi_write_tx(spi);
-+		else if (spi->cur_comm == SPI_SIMPLEX_RX)
-+			stm32f4_spi_tx_dummy(spi);
- 	}
- 
- end_irq:
-@@ -1151,7 +1159,9 @@ static int stm32f4_spi_transfer_one_irq(struct stm32_spi *spi)
- 	/* Enable the interrupts relative to the current communication mode */
- 	if (spi->cur_comm == SPI_SIMPLEX_TX || spi->cur_comm == SPI_3WIRE_TX) {
- 		cr2 |= STM32F4_SPI_CR2_TXEIE;
--	} else if (spi->cur_comm == SPI_FULL_DUPLEX) {
-+	} else if (spi->cur_comm == SPI_FULL_DUPLEX ||
-+				spi->cur_comm == SPI_SIMPLEX_RX ||
-+				spi->cur_comm == SPI_3WIRE_RX) {
- 		/* In transmit-only mode, the OVR flag is set in the SR register
- 		 * since the received data are never read. Therefore set OVR
- 		 * interrupt only when rx buffer is available.
-@@ -1170,6 +1180,8 @@ static int stm32f4_spi_transfer_one_irq(struct stm32_spi *spi)
- 	/* starting data transfer when buffer is loaded */
- 	if (spi->tx_buf)
- 		stm32f4_spi_write_tx(spi);
-+	else if (spi->cur_comm == SPI_SIMPLEX_RX)
-+		stm32f4_spi_tx_dummy(spi);
- 
- 	spin_unlock_irqrestore(&spi->lock, flags);
- 
-@@ -1462,9 +1474,15 @@ static int stm32f4_spi_set_mode(struct stm32_spi *spi, unsigned int comm_type)
- 		stm32_spi_set_bits(spi, STM32F4_SPI_CR1,
- 					STM32F4_SPI_CR1_BIDIMODE |
- 					STM32F4_SPI_CR1_BIDIOE);
--	} else if (comm_type == SPI_FULL_DUPLEX) {
-+	} else if (comm_type == SPI_FULL_DUPLEX ||
-+				comm_type == SPI_SIMPLEX_RX) {
- 		stm32_spi_clr_bits(spi, STM32F4_SPI_CR1,
- 					STM32F4_SPI_CR1_BIDIMODE |
-+					STM32F4_SPI_CR1_RXONLY);
-+	} else if (comm_type == SPI_3WIRE_RX) {
-+		stm32_spi_set_bits(spi, STM32F4_SPI_CR1,
-+					STM32F4_SPI_CR1_BIDIMODE);
-+		stm32_spi_clr_bits(spi, STM32F4_SPI_CR1,
- 					STM32F4_SPI_CR1_BIDIOE);
- 	} else {
- 		return -EINVAL;
--- 
-2.7.4
+> ---
+>   .../bindings/display/panel/ilitek,ili9341.txt      | 42 +++++++++++
+>   arch/arm/boot/dts/stm32f4-pinctrl.dtsi             | 79 +++++++++++++++++++
+>   arch/arm/boot/dts/stm32f429-disco.dts              | 88 ++++++++++++++++++++++
+>   arch/arm/boot/dts/stm32f429.dtsi                   | 12 +++
+>   4 files changed, 221 insertions(+)
+>   create mode 100644 Documentation/devicetree/bindings/display/panel/ilitek,ili9341.txt
+> 
+> diff --git a/Documentation/devicetree/bindings/display/panel/ilitek,ili9341.txt b/Documentation/devicetree/bindings/display/panel/ilitek,ili9341.txt
 
+This binding description should be in a separate patch and you have to 
+write in YAML format.
+
+
+> new file mode 100644
+> index 0000000..f5a4e55
+> --- /dev/null
+> +++ b/Documentation/devicetree/bindings/display/panel/ilitek,ili9341.txt
+> @@ -0,0 +1,42 @@
+> +Ilitek ILI9341 TFT panel driver with SPI control bus
+> +
+> +This is a driver for 240x320 TFT panels, accepting a rgb input
+> +streams that get adapted and scaled to the panel.
+> +
+> +Required properties:
+> +  - compatible: "stm32f429-disco,ltdc-panel", "ilitek,ili9341"
+> +    (full system-specific compatible is always required to look up configuration)
+> +  - reg: address of the panel on the SPI bus
+> +
+> +Optional properties:
+> +  - reset-gpios: a GPIO spec for the reset pin, see gpio/gpio.txt
+> +  - dc-gpios: a GPIO spec for the dc pin, see gpio/gpio.txt
+> +
+> +  The following optional properties only apply to RGB input mode:
+> +
+> +  - pixelclk-active: see display/panel/display-timing.txt
+> +  - de-active: see display/panel/display-timing.txt
+> +  - hsync-active: see display/panel/display-timing.txt
+> +  - vsync-active: see display/panel/display-timing.txt
+> +
+> +The panel must obey the rules for a SPI slave device as specified in
+> +spi/spi-bus.txt
+> +
+> +The device node can contain one 'port' child node with one child
+> +'endpoint' node, according to the bindings defined in
+> +media/video-interfaces.txt. This node should describe panel's video bus.
+> +
+> +Example:
+> +
+> +panel: display@0 {
+> +	compatible = "stm32f429-disco,ltdc-panel", "ilitek,ili9341";
+> +	reg = <0>;
+> +	spi-3wire;
+> +	spi-max-frequency = <10000000>;
+> +	dc-gpios = <&gpiod 13 0>;
+> +	port {
+> +		panel_in: endpoint {
+> +			remote-endpoint = <&display_out>;
+> +		};
+> +	};
+> +};
+> diff --git a/arch/arm/boot/dts/stm32f4-pinctrl.dtsi b/arch/arm/boot/dts/stm32f4-pinctrl.dtsi
+> index 392fa14..45b68f4 100644
+> --- a/arch/arm/boot/dts/stm32f4-pinctrl.dtsi
+> +++ b/arch/arm/boot/dts/stm32f4-pinctrl.dtsi
+> @@ -316,6 +316,85 @@
+>   				};
+>   			};
+>   
+> +			ltdc_pins_f429_disco: ltdc-1 {
+> +				pins {
+> +					pinmux = <STM32_PINMUX('C', 6,  AF14)>,
+> +						/* LCD_HSYNC */
+> +						 <STM32_PINMUX('A', 4,  AF14)>,
+> +						 /* LCD_VSYNC */
+> +						 <STM32_PINMUX('G', 7,  AF14)>,
+> +						 /* LCD_CLK */
+> +						 <STM32_PINMUX('C', 10, AF14)>,
+> +						 /* LCD_R2 */
+> +						 <STM32_PINMUX('B', 0,  AF9)>,
+> +						 /* LCD_R3 */
+> +						 <STM32_PINMUX('A', 11, AF14)>,
+> +						 /* LCD_R4 */
+> +						 <STM32_PINMUX('A', 12, AF14)>,
+> +						 /* LCD_R5 */
+> +						 <STM32_PINMUX('B', 1,  AF9)>,
+> +						 /* LCD_R6*/
+> +						 <STM32_PINMUX('G', 6,  AF14)>,
+> +						 /* LCD_R7 */
+> +						 <STM32_PINMUX('A', 6,  AF14)>,
+> +						 /* LCD_G2 */
+> +						 <STM32_PINMUX('G', 10, AF9)>,
+> +						 /* LCD_G3 */
+> +						 <STM32_PINMUX('B', 10, AF14)>,
+> +						 /* LCD_G4 */
+> +						 <STM32_PINMUX('D', 6,  AF14)>,
+> +						 /* LCD_B2 */
+> +						 <STM32_PINMUX('G', 11, AF14)>,
+> +						 /* LCD_B3*/
+> +						 <STM32_PINMUX('B', 11, AF14)>,
+> +						 /* LCD_G5 */
+> +						 <STM32_PINMUX('C', 7,  AF14)>,
+> +						 /* LCD_G6 */
+> +						 <STM32_PINMUX('D', 3,  AF14)>,
+> +						 /* LCD_G7 */
+> +						 <STM32_PINMUX('G', 12, AF9)>,
+> +						 /* LCD_B4 */
+> +						 <STM32_PINMUX('A', 3,  AF14)>,
+> +						 /* LCD_B5 */
+> +						 <STM32_PINMUX('B', 8,  AF14)>,
+> +						 /* LCD_B6 */
+> +						 <STM32_PINMUX('B', 9,  AF14)>,
+> +						 /* LCD_B7 */
+> +						 <STM32_PINMUX('F', 10, AF14)>;
+> +						 /* LCD_DE */
+> +					slew-rate = <2>;
+> +				};
+> +			};
+> +
+> +			i2c3_pins: i2c3-0 {
+> +				pins {
+> +					pinmux = <STM32_PINMUX('C', 9, AF4)>,
+> +						/* I2C3_SDA */
+> +						 <STM32_PINMUX('A', 8, AF4)>;
+> +						/* I2C3_SCL */
+> +					bias-disable;
+> +					drive-open-drain;
+> +					slew-rate = <3>;
+> +				};
+> +			};
+> +
+> +			spi5_pins: spi5-0 {
+> +				pins1 {
+> +					pinmux = <STM32_PINMUX('F', 7, AF5)>,
+> +						/* SPI5_CLK */
+> +						 <STM32_PINMUX('F', 9, AF5)>;
+> +						/* SPI5_MOSI */
+> +					bias-disable;
+> +					drive-push-pull;
+> +					slew-rate = <0>;
+> +				};
+> +				pins2 {
+> +					pinmux = <STM32_PINMUX('F', 8, AF5)>;
+> +						/* SPI5_MISO */
+> +					bias-disable;
+> +				};
+> +			};
+> +
+>   			dcmi_pins: dcmi-0 {
+>   				pins {
+>   					pinmux = <STM32_PINMUX('A', 4, AF13)>, /* DCMI_HSYNC */
+> diff --git a/arch/arm/boot/dts/stm32f429-disco.dts b/arch/arm/boot/dts/stm32f429-disco.dts
+> index 30c0f67..55eed05 100644
+> --- a/arch/arm/boot/dts/stm32f429-disco.dts
+> +++ b/arch/arm/boot/dts/stm32f429-disco.dts
+> @@ -49,6 +49,8 @@
+>   #include "stm32f429.dtsi"
+>   #include "stm32f429-pinctrl.dtsi"
+>   #include <dt-bindings/input/input.h>
+> +#include <dt-bindings/interrupt-controller/irq.h>
+> +#include <dt-bindings/gpio/gpio.h>
+>   
+>   / {
+>   	model = "STMicroelectronics STM32F429i-DISCO board";
+> @@ -98,6 +100,14 @@
+>   		regulator-name = "vcc5_host1";
+>   		regulator-always-on;
+>   	};
+> +
+> +	reg_3p3v: regulator-3p3v {
+
+3p3 ?
+
+> +		compatible = "regulator-fixed";
+> +		regulator-name = "3P3V";
+> +		regulator-min-microvolt = <3300000>;
+> +		regulator-max-microvolt = <3300000>;
+> +		regulator-always-on;
+> +	};
+>   };
+>   
+>   &clk_hse {
+> @@ -127,3 +137,81 @@
+>   	pinctrl-names = "default";
+>   	status = "okay";
+>   };
+> +
+> +&ltdc {
+> +	status = "okay";
+> +	pinctrl-0 = <&ltdc_pins_f429_disco>;
+> +	pinctrl-names = "default";
+> +
+> +	port {
+> +		ltdc_out_rgb: endpoint {
+> +			remote-endpoint = <&panel_in_rgb>;
+> +		};
+> +	};
+> +};
+> +
+> +&spi5 {
+> +	status = "okay";
+> +	pinctrl-0 = <&spi5_pins>;
+> +	pinctrl-names = "default";
+> +	#address-cells = <1>;
+> +	#size-cells = <0>;
+> +	cs-gpios = <&gpioc 1 GPIO_ACTIVE_LOW>,<&gpioc 2 GPIO_ACTIVE_LOW>;
+> +	dmas = <&dma2 3 2 0x400 0x0>,
+> +	       <&dma2 4 2 0x400 0x0>;
+> +	dma-names = "rx", "tx";
+> +	l3gd20: l3gd20@0 {
+> +		compatible = "st,l3gd20-gyro";
+> +		spi-max-frequency = <10000000>;
+> +		st,drdy-int-pin = <2>;
+> +		interrupt-parent = <&gpioa>;
+> +		interrupts = <1 IRQ_TYPE_EDGE_RISING>,
+> +				<2 IRQ_TYPE_EDGE_RISING>;
+> +		reg = <0>;
+> +		vddio = <&reg_3p3v>;
+> +		vdd = <&reg_3p3v>;
+> +		status = "okay";
+> +	};
+> +	display: display@1{
+> +		/* Connect panel-ilitek-9341 to ltdc */
+> +		compatible = "stm32f429-disco,ltdc-panel", "ilitek,ili9341";
+> +		reg = <1>;
+> +		spi-3wire;
+> +		spi-max-frequency = <10000000>;
+> +		dc-gpios = <&gpiod 13 0>;
+> +		port {
+> +			panel_in_rgb: endpoint {
+> +			remote-endpoint = <&ltdc_out_rgb>;
+> +			};
+> +		};
+> +	};
+> +};
+> +
+> +&i2c3 {
+
+Nodes are have to be ordered
+
+> +	pinctrl-names = "default";
+> +	pinctrl-0 = <&i2c3_pins>;
+> +	status = "okay";
+> +
+> +	touch: stmpe811@41 {
+> +		compatible = "st,stmpe811";
+> +		reg = <0x41>;
+> +		interrupts = <15 IRQ_TYPE_EDGE_FALLING>;
+> +		interrupt-parent = <&gpioa>;
+> +		vio = <&reg_3p3v>;
+> +		vcc = <&reg_3p3v>;
+> +		status = "okay";
+> +
+> +		stmpe_touchscreen {
+> +			compatible = "st,stmpe-ts";
+> +			st,sample-time = <4>;
+> +			st,mod-12b = <1>;
+> +			st,ref-sel = <0>;
+> +			st,adc-freq = <1>;
+> +			st,ave-ctrl = <1>;
+> +			st,touch-det-delay = <2>;
+> +			st,settling = <2>;
+> +			st,fraction-z = <7>;
+> +			st,i-drive = <1>;
+> +		};
+> +	};
+> +};
+> diff --git a/arch/arm/boot/dts/stm32f429.dtsi b/arch/arm/boot/dts/stm32f429.dtsi
+> index d777069..257b843 100644
+> --- a/arch/arm/boot/dts/stm32f429.dtsi
+> +++ b/arch/arm/boot/dts/stm32f429.dtsi
+> @@ -402,6 +402,18 @@
+
+Split Soc updates in a separate patch
+
+>   			status = "disabled";
+>   		};
+>   
+> +		i2c3: i2c@40005c00 {
+> +			compatible = "st,stm32f4-i2c";
+> +			reg = <0x40005c00 0x400>;
+> +			interrupts = <72>,
+> +				     <73>;
+> +			resets = <&rcc STM32F4_APB1_RESET(I2C3)>;
+> +			clocks = <&rcc 0 STM32F4_APB1_CLOCK(I2C3)>;
+> +			#address-cells = <1>;
+> +			#size-cells = <0>;
+> +			status = "disabled";
+> +		};
+> +
+>   		dac: dac@40007400 {
+>   			compatible = "st,stm32f4-dac-core";
+>   			reg = <0x40007400 0x400>;
+> 
 _______________________________________________
 Linux-stm32 mailing list
 Linux-stm32@st-md-mailman.stormreply.com
