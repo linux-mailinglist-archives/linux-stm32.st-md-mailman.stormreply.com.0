@@ -2,40 +2,69 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id A2FF61C0790
-	for <lists+linux-stm32@lfdr.de>; Thu, 30 Apr 2020 22:13:49 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id D84651C08A5
+	for <lists+linux-stm32@lfdr.de>; Thu, 30 Apr 2020 22:58:26 +0200 (CEST)
 Received: from ip-172-31-3-76.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 56475C36B0E;
-	Thu, 30 Apr 2020 20:13:49 +0000 (UTC)
-Received: from relay9-d.mail.gandi.net (relay9-d.mail.gandi.net
- [217.70.183.199])
- (using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 93283C36B0E;
+	Thu, 30 Apr 2020 20:58:26 +0000 (UTC)
+Received: from mail-pj1-f65.google.com (mail-pj1-f65.google.com
+ [209.85.216.65])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 74F9EC36B0C
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 64758C36B0C
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Thu, 30 Apr 2020 20:13:47 +0000 (UTC)
-X-Originating-IP: 86.202.105.35
-Received: from localhost (lfbn-lyo-1-9-35.w86-202.abo.wanadoo.fr
- [86.202.105.35])
- (Authenticated sender: alexandre.belloni@bootlin.com)
- by relay9-d.mail.gandi.net (Postfix) with ESMTPSA id 9F8B7FF80A;
- Thu, 30 Apr 2020 20:13:45 +0000 (UTC)
-Date: Thu, 30 Apr 2020 22:13:45 +0200
-From: Alexandre Belloni <alexandre.belloni@bootlin.com>
-To: William Breathitt Gray <vilhelm.gray@gmail.com>
-Message-ID: <20200430201345.GX51277@piout.net>
-References: <cover.1588176662.git.vilhelm.gray@gmail.com>
+ Thu, 30 Apr 2020 20:58:23 +0000 (UTC)
+Received: by mail-pj1-f65.google.com with SMTP id a5so1389045pjh.2
+ for <linux-stm32@st-md-mailman.stormreply.com>;
+ Thu, 30 Apr 2020 13:58:23 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linaro.org; s=google;
+ h=date:from:to:cc:subject:message-id:references:mime-version
+ :content-disposition:in-reply-to:user-agent;
+ bh=MX/gFKorFD3fJiz0waGi+R3fRw1GVFpupUsSX0SPyJY=;
+ b=CsTBErZFaAQkEbs5S+GlwA8kRzgyJRrcYYtemLqJ9WlfIPAhaq6G4rW9gc3uI8mECY
+ OMjpu0MqbtnrkkGBFU8c/hoxlzYOAoSNV2BdQCVF8lHP2UPvKSWGeIHDMTYDp8al261g
+ lV8Vh0nWV30oVczqakw539UDRjIKSR24bd1HFHrw8Gf7opTt4Vk+SSqj/xO2nokwhZw2
+ 1OOJwQdoa+tqNpeiHYjzibN2xdFDXDes6gRUNiPGVnncDZywStP0554NDEfMabSOjeis
+ 8vfPXauZSf0IR0nm3IJrCMbGs3o/HsvmL3H0ypxjyka1O616cT1vv/24yQwBFsHDsy91
+ 9a3w==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20161025;
+ h=x-gm-message-state:date:from:to:cc:subject:message-id:references
+ :mime-version:content-disposition:in-reply-to:user-agent;
+ bh=MX/gFKorFD3fJiz0waGi+R3fRw1GVFpupUsSX0SPyJY=;
+ b=mMEAGDIo4GHDSY4hiak5jGMhroB1u/ph3wLhcYfNImtWqY4jNmzDEXBr9WR/ChYU4L
+ dZsSGS4VGiSzk1cQPnVGPSFleWaAp9YTDFXg7MbZvuC+KsIMCs5z/wRxFgrB6hG4+QeB
+ UmG47tJZCq2YKUqL+ruZXOoKLvUdDjTbNbQPeEyy0PIBhMQWO7ryurPDkQap/b+4T00d
+ 7lqJy+bOzsBH8+Z7qP02gNHVSgCrUVS+NZh1kLdFX+0sJGn423CP78/kNHxnx//MQaHp
+ wlKpyUSzuS00wKFp7GzGeIPa7m4qddbSWkdwiJrF9ou2KVHcANREmC/+ooMgkqJJKjBK
+ 50hQ==
+X-Gm-Message-State: AGi0PuYscXU12O8NGQXDbXIdZ3tMfRZ/ebcDToSlaYFDfJgLRWRp4wPe
+ 1p/4icOXw/FHq7Sqh+ZuZgtA5g==
+X-Google-Smtp-Source: APiQypKe3OdI9QEW41vMal8UJb8GDAGm5V7tlJQS0ryzb463ValPrIAGP3jeUyn/S22VakZZUZ9faw==
+X-Received: by 2002:a17:90b:297:: with SMTP id
+ az23mr762282pjb.85.1588280301989; 
+ Thu, 30 Apr 2020 13:58:21 -0700 (PDT)
+Received: from xps15 (S0106002369de4dac.cg.shawcable.net. [68.147.8.254])
+ by smtp.gmail.com with ESMTPSA id v7sm559509pfm.146.2020.04.30.13.58.20
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Thu, 30 Apr 2020 13:58:21 -0700 (PDT)
+Date: Thu, 30 Apr 2020 14:58:19 -0600
+From: Mathieu Poirier <mathieu.poirier@linaro.org>
+To: Arnaud POULIQUEN <arnaud.pouliquen@st.com>
+Message-ID: <20200430205819.GD18004@xps15>
+References: <20200424202505.29562-1-mathieu.poirier@linaro.org>
+ <20200424202505.29562-4-mathieu.poirier@linaro.org>
+ <b68419a6-65a9-08d0-bed8-5f8195ae3d55@st.com>
 MIME-Version: 1.0
 Content-Disposition: inline
-In-Reply-To: <cover.1588176662.git.vilhelm.gray@gmail.com>
-Cc: kamel.bouhara@bootlin.com, gwendal@chromium.org, david@lechnology.com,
- felipe.balbi@linux.intel.com, linux-iio@vger.kernel.org, syednwaris@gmail.com,
- linux-kernel@vger.kernel.org, linux-arm-kernel@lists.infradead.org,
- mcoquelin.stm32@gmail.com, patrick.havelange@essensium.com,
- fabrice.gasnier@st.com, fabien.lahoudere@collabora.com,
- linux-stm32@st-md-mailman.stormreply.com, jic23@kernel.org
-Subject: Re: [Linux-stm32] [PATCH 0/4] Introduce the Counter character
-	device interface
+In-Reply-To: <b68419a6-65a9-08d0-bed8-5f8195ae3d55@st.com>
+User-Agent: Mutt/1.10.1 (2018-07-13)
+Cc: ohad@wizery.com, linux-remoteproc@vger.kernel.org,
+ linux-kernel@vger.kernel.org, bjorn.andersson@linaro.org,
+ mcoquelin.stm32@gmail.com, linux-stm32@st-md-mailman.stormreply.com,
+ linux-arm-kernel@lists.infradead.org
+Subject: Re: [Linux-stm32] [PATCH v2 03/12] remoteproc: stm32: Decouple
+ rproc from DT parsing
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -52,68 +81,122 @@ Content-Transfer-Encoding: 7bit
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
-Hi,
-
-On 29/04/2020 14:11:34-0400, William Breathitt Gray wrote:
-> Over the past couple years we have noticed some shortcomings with the
-> Counter sysfs interface. Although useful in the majority of situations,
-> there are certain use-cases where interacting through sysfs attributes
-> can become cumbersome and inefficient. A desire to support more advanced
-> functionality such as timestamps, multi-axis positioning tables, and
-> other such latency-sensitive applications, has motivated a reevaluation
-> of the Counter subsystem. I believe a character device interface will be
-> helpful for this more niche area of counter device use.
+On Wed, Apr 29, 2020 at 03:37:58PM +0200, Arnaud POULIQUEN wrote:
+> Hi Mathieu,
 > 
-> To quell any concerns from the offset: this patchset makes no changes to
-> the existing Counter sysfs userspace interface -- existing userspace
-> applications will continue to work with no modifications necessary. I
-> request that driver maintainers please test their applications to verify
-> that this is true, and report any discrepancies if they arise.
+> On 4/24/20 10:24 PM, Mathieu Poirier wrote:
+> > Remove the remote processor from the process of parsing the device tree
+> > since (1) there is no correlation between them and (2) to use the
+> > information that was gathered to make a decision on whether to
+> > synchronise with the M4 or not.
+> > 
+> > Signed-off-by: Mathieu Poirier <mathieu.poirier@linaro.org>
+> > ---
+> >  drivers/remoteproc/stm32_rproc.c | 25 ++++++++++++++-----------
+> >  1 file changed, 14 insertions(+), 11 deletions(-)
+> > 
+> > diff --git a/drivers/remoteproc/stm32_rproc.c b/drivers/remoteproc/stm32_rproc.c
+> > index 1ac90adba9b1..57a426ea620b 100644
+> > --- a/drivers/remoteproc/stm32_rproc.c
+> > +++ b/drivers/remoteproc/stm32_rproc.c
+> > @@ -538,12 +538,11 @@ static int stm32_rproc_get_syscon(struct device_node *np, const char *prop,
+> >  	return err;
+> >  }
+> >  
+> > -static int stm32_rproc_parse_dt(struct platform_device *pdev)
+> > +static int stm32_rproc_parse_dt(struct platform_device *pdev,
+> > +				struct stm32_rproc *ddata, bool *auto_boot)
+> >  {
+> >  	struct device *dev = &pdev->dev;
+> >  	struct device_node *np = dev->of_node;
+> > -	struct rproc *rproc = platform_get_drvdata(pdev);
+> > -	struct stm32_rproc *ddata = rproc->priv;
+> >  	struct stm32_syscon tz;
+> >  	unsigned int tzen;
+> >  	int err, irq;
+> > @@ -589,7 +588,7 @@ static int stm32_rproc_parse_dt(struct platform_device *pdev)
+> >  
+> >  	err = regmap_read(tz.map, tz.reg, &tzen);
+> >  	if (err) {
+> > -		dev_err(&rproc->dev, "failed to read tzen\n");
+> > +		dev_err(dev, "failed to read tzen\n");
+> >  		return err;
+> >  	}
+> >  	ddata->secured_soc = tzen & tz.mask;
+> > @@ -605,7 +604,7 @@ static int stm32_rproc_parse_dt(struct platform_device *pdev)
+> >  	if (err)
+> >  		dev_info(dev, "failed to get pdds\n");
+> >  
+> > -	rproc->auto_boot = of_property_read_bool(np, "st,auto-boot");
+> > +	*auto_boot = of_property_read_bool(np, "st,auto-boot");
+> >  
+> >  	return stm32_rproc_of_memory_translations(pdev, ddata);
+> >  }
+> > @@ -616,6 +615,7 @@ static int stm32_rproc_probe(struct platform_device *pdev)
+> >  	struct stm32_rproc *ddata;
+> >  	struct device_node *np = dev->of_node;
+> >  	struct rproc *rproc;
+> > +	bool auto_boot = false;
 > 
+> Nitpicking: Seems that you don't need to initialize it. 
 
-On that topic, I'm wondering why the counter subsystem uses /sys/bus
-instead of /sys/class that would be more natural for a class of devices.
-I can't see how counters would be considered busses. I think you should
-consider moving it over to /sys/class (even if deprecating
-/sys/bus/counter will be long).
+I think you are correct.
 
-> Interaction with Counter character devices occurs via ioctl commands.
-> This allows userspace applications to access and set counter data using
-> native C datatypes rather than working through string translations.
+> Perhaps you can simply suppress the local variable and directly use rproc->auto_boot.
+
+... and change the value of rproc->auto_boot if state == M4_STATE_CRUN?  Sure,
+that's possible.
+
+Thanks for all the comments, it really helps to have a different perspective.  I
+am out of time for today but will continue with the rest of your comments
+tomorrow.
+
+Mathieu
+
 > 
-
-I agree with David that you should consider using read to retrieve the
-counter data as this will simplify interrupt handling/polling and
-blocking/non-blocking reads can be used by an application. ABI wise,
-this can also be a good move as you could always consider having an
-ioctl requesting a specific format when reading the device so you are
-not stuck with the initial format you are going to choose.
-
-> 2. Should device driver callbacks return int or long? I sometimes see
->    error values returned as long (e.g. PTR_ERR(), the file_operations
->    structure's ioctl callbacks, etc.); when is it necessary to return
->    long as opposed to int?
+> else LGTM
 > 
-
-You should use a long if you ever have to return a point as it is
-guaranteed to have the correct size. Else, just stick to an int if you
-are not going to overflow it.
-
-> 3. I only implemented the unlocked_ioctl callback. Should I implement a
->    compat_ioctl callback as well?
 > 
-
-The compat_ioctl is to handle 32bit userspace running on a 64bit kernel.
-If your structures have the same size in both cases, then you don't have
-to implement compat_ioctl.
-
-Have a look at Documentation/driver-api/ioctl.rst
-
-
--- 
-Alexandre Belloni, Bootlin
-Embedded Linux and Kernel engineering
-https://bootlin.com
+> Thanks,
+> Arnaud
+> 
+> >  	int ret;
+> >  
+> >  	ret = dma_coerce_mask_and_coherent(dev, DMA_BIT_MASK(32));
+> > @@ -626,9 +626,16 @@ static int stm32_rproc_probe(struct platform_device *pdev)
+> >  	if (!rproc)
+> >  		return -ENOMEM;
+> >  
+> > +	ddata = rproc->priv;
+> > +
+> >  	rproc_coredump_set_elf_info(rproc, ELFCLASS32, EM_NONE);
+> > +
+> > +	ret = stm32_rproc_parse_dt(pdev, ddata, &auto_boot);
+> > +	if (ret)
+> > +		goto free_rproc;
+> > +
+> > +	rproc->auto_boot = auto_boot;
+> >  	rproc->has_iommu = false;
+> > -	ddata = rproc->priv;
+> >  	ddata->workqueue = create_workqueue(dev_name(dev));
+> >  	if (!ddata->workqueue) {
+> >  		dev_err(dev, "cannot create workqueue\n");
+> > @@ -638,13 +645,9 @@ static int stm32_rproc_probe(struct platform_device *pdev)
+> >  
+> >  	platform_set_drvdata(pdev, rproc);
+> >  
+> > -	ret = stm32_rproc_parse_dt(pdev);
+> > -	if (ret)
+> > -		goto free_wkq;
+> > -
+> >  	ret = stm32_rproc_request_mbox(rproc);
+> >  	if (ret)
+> > -		goto free_rproc;
+> > +		goto free_wkq;
+> >  
+> >  	ret = rproc_add(rproc);
+> >  	if (ret)
+> > 
 _______________________________________________
 Linux-stm32 mailing list
 Linux-stm32@st-md-mailman.stormreply.com
