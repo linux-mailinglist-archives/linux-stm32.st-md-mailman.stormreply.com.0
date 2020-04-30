@@ -2,61 +2,50 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id 45E551C00A7
-	for <lists+linux-stm32@lfdr.de>; Thu, 30 Apr 2020 17:43:38 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id BD3EC1C00C4
+	for <lists+linux-stm32@lfdr.de>; Thu, 30 Apr 2020 17:50:47 +0200 (CEST)
 Received: from ip-172-31-3-76.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 042A6C36B0E;
-	Thu, 30 Apr 2020 15:43:38 +0000 (UTC)
-Received: from mx07-00178001.pphosted.com (mx08-00178001.pphosted.com
- [91.207.212.93])
- (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
- (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 19F6FC36B0C
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 763EDC36B0E;
+	Thu, 30 Apr 2020 15:50:47 +0000 (UTC)
+Received: from foss.arm.com (foss.arm.com [217.140.110.172])
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 66BE4C36B0C
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Thu, 30 Apr 2020 15:43:36 +0000 (UTC)
-Received: from pps.filterd (m0046660.ppops.net [127.0.0.1])
- by mx07-00178001.pphosted.com (8.16.0.42/8.16.0.42) with SMTP id
- 03UFcaTe000876; Thu, 30 Apr 2020 17:43:22 +0200
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=st.com;
- h=from : to : cc : subject
- : date : message-id : mime-version : content-type; s=STMicroelectronics;
- bh=FM5KaA1uV/WxDroCmg60tmJ6OFRkMqWZLOVG28f30so=;
- b=rKrWYm2WR11CqtjKHjOJE10wXs1SeV7guFfl2H1E7WK/HU48cgF9WUid+OZMUTZCTQ33
- Evb4j5q+28C/fj3zcCcjkn3jSAO6EZ+HVooBZGBk6naQJ21Srk4J7LIArE0ugWNAt4dj
- pUNfzi0W1FCPszx39V33ti8VqNumC4TCM7oWwMxprA6jlHoppgEmereLvfJVu+L9VYi3
- VGteWeK29cBn3hOgYypVKbxiK9rZFRmpm1RIYOvaYxCNd/p/8d6V/YXxzzzNnNjELZDJ
- 4K5eYh/iIA/OXh5Vtt5rD+MA3YLJn7buFlOyeTRnY+2ol8jH95xkGY7Q5ozGRjZnqyAN NA== 
-Received: from beta.dmz-eu.st.com (beta.dmz-eu.st.com [164.129.1.35])
- by mx07-00178001.pphosted.com with ESMTP id 30mhq6daug-1
- (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
- Thu, 30 Apr 2020 17:43:22 +0200
-Received: from euls16034.sgp.st.com (euls16034.sgp.st.com [10.75.44.20])
- by beta.dmz-eu.st.com (STMicroelectronics) with ESMTP id 2340510002A;
- Thu, 30 Apr 2020 17:43:22 +0200 (CEST)
-Received: from Webmail-eu.st.com (sfhdag3node2.st.com [10.75.127.8])
- by euls16034.sgp.st.com (STMicroelectronics) with ESMTP id 077512AAF71;
- Thu, 30 Apr 2020 17:43:22 +0200 (CEST)
-Received: from localhost (10.75.127.49) by SFHDAG3NODE2.st.com (10.75.127.8)
- with Microsoft SMTP Server (TLS) id 15.0.1347.2; Thu, 30 Apr 2020 17:43:21
- +0200
-From: Alain Volmat <alain.volmat@st.com>
-To: <wsa@the-dreams.de>, <robh+dt@kernel.org>
-Date: Thu, 30 Apr 2020 17:43:21 +0200
-Message-ID: <1588261401-11914-1-git-send-email-alain.volmat@st.com>
-X-Mailer: git-send-email 2.7.4
+ Thu, 30 Apr 2020 15:50:45 +0000 (UTC)
+Received: from usa-sjc-imap-foss1.foss.arm.com (unknown [10.121.207.14])
+ by usa-sjc-mx-foss1.foss.arm.com (Postfix) with ESMTP id C539931B;
+ Thu, 30 Apr 2020 08:50:44 -0700 (PDT)
+Received: from e113632-lin (e113632-lin.cambridge.arm.com [10.1.194.46])
+ by usa-sjc-imap-foss1.foss.arm.com (Postfix) with ESMTPSA id C9F273F68F;
+ Thu, 30 Apr 2020 08:50:42 -0700 (PDT)
+References: <20200424114058.21199-1-benjamin.gaignard@st.com>
+ <7657495.QyJl4BcWH5@kreacher> <30cdecf9-703a-eb2b-7c2b-f1e21c805add@st.com>
+ <70e743cf-b88e-346a-5114-939b8724c83d@arm.com>
+ <6b5cde14-58b3-045d-9413-223e66b87bf0@st.com>
+ <CAJZ5v0h6t6perZiibCWhEh1_V0pSXqFe-z22TFqH7KTFXYmqpQ@mail.gmail.com>
+ <a234e123-6c15-8e58-8921-614b58ca24ca@st.com> <jhjtv11cabk.mognet@arm.com>
+ <a20c5214-211b-1f70-1162-57b32e60549b@st.com>
+User-agent: mu4e 0.9.17; emacs 26.3
+From: Valentin Schneider <valentin.schneider@arm.com>
+To: Benjamin GAIGNARD <benjamin.gaignard@st.com>
+Message-ID: <jhjmu6tc6rz.mognet@arm.com>
+In-reply-to: <a20c5214-211b-1f70-1162-57b32e60549b@st.com>
+Date: Thu, 30 Apr 2020 16:50:40 +0100
 MIME-Version: 1.0
-X-Originating-IP: [10.75.127.49]
-X-ClientProxiedBy: SFHDAG8NODE3.st.com (10.75.127.24) To SFHDAG3NODE2.st.com
- (10.75.127.8)
-X-Proofpoint-Virus-Version: vendor=fsecure engine=2.50.10434:6.0.138, 18.0.676
- definitions=2020-04-30_10:2020-04-30,
- 2020-04-30 signatures=0
-Cc: mark.rutland@arm.com, devicetree@vger.kernel.org,
- linux-kernel@vger.kernel.org, pierre-yves.mordret@st.com, alain.volmat@st.com,
- linux-i2c@vger.kernel.org, mcoquelin.stm32@gmail.com, fabrice.gasnier@st.com,
- linux-stm32@st-md-mailman.stormreply.com, linux-arm-kernel@lists.infradead.org
-Subject: [Linux-stm32] [PATCH] i2c: fix missing pm_runtime_put_sync in
-	i2c_device_probe
+Cc: "len.brown@intel.com" <len.brown@intel.com>,
+ "Rafael J. Wysocki" <rafael@kernel.org>,
+ "viresh.kumar@linaro.org" <viresh.kumar@linaro.org>,
+ "pavel@ucw.cz" <pavel@ucw.cz>,
+ "linux-pm@vger.kernel.org" <linux-pm@vger.kernel.org>,
+ "Rafael J. Wysocki" <rjw@rjwysocki.net>,
+ "linux-kernel@vger.kernel.org" <linux-kernel@vger.kernel.org>,
+ Patrick Bellasi <patrick.bellasi@arm.com>,
+ "mcoquelin.stm32@gmail.com" <mcoquelin.stm32@gmail.com>,
+ "mchehab@kernel.org" <mchehab@kernel.org>,
+ "linux-stm32@st-md-mailman.stormreply.com"
+ <linux-stm32@st-md-mailman.stormreply.com>,
+ "linux-arm-kernel@lists.infradead.org" <linux-arm-kernel@lists.infradead.org>,
+ "linux-media@vger.kernel.org" <linux-media@vger.kernel.org>
+Subject: Re: [Linux-stm32] [RFC 0/3] Introduce cpufreq minimum load QoS
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -73,73 +62,55 @@ Content-Transfer-Encoding: 7bit
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
-In case of the I2C client exposes the flag I2C_CLIENT_HOST_NOTIFY,
-pm_runtime_get_sync is called in order to always keep active the
-adapter. However later on, pm_runtime_put_sync is never called
-within the function in case of an error. This commit add this
-error handling.
 
-Fixes: 72bfcee11cf8 ("i2c: Prevent runtime suspend of adapter when Host Notify is required")
-Signed-off-by: Alain Volmat <alain.volmat@st.com>
----
- drivers/i2c/i2c-core-base.c | 22 ++++++++++++++++------
- 1 file changed, 16 insertions(+), 6 deletions(-)
+On 30/04/20 16:37, Benjamin GAIGNARD wrote:
+> On 4/30/20 4:33 PM, Valentin Schneider wrote:
+>> On 30/04/20 14:46, Benjamin GAIGNARD wrote:
+>>>> That's not what I meant.
+>>>>
+>>>> I suppose that the interrupt processing in question takes place in
+>>>> process context and so you may set the lower clamp on the utilization
+>>>> of the task carrying that out.
+>>> I have try to add this code when starting streaming (before the first
+>>> interrupt) the frames from the sensor:
+>>> const struct sched_attr sched_attr = {
+>>>     .sched_util_min = 10000, /* 100% of usage */
+>> Unless you play with SCHED_CAPACITY_SHIFT, the max should be 1024 -
+>> i.e. SCHED_CAPACITY_SCALE. That's a really big boost, but that's for you to
+>> benchmark.
+>>
+>>>     .sched_flags = SCHED_FLAG_UTIL_CLAMP_MIN,
+>>>    };
+>>>
+>>> sched_setattr(current, &sched_attr);
+>>>
+>>> I don't see any benefices maybe there is some configuration flags to set.
+>>>
+>>> How changing sched_util_min could impact cpufreq ondemand governor ?
+>>> Does it change the value returned when the governor check the idle time ?
+>>>
+>> You'll have to use the schedutil governor for uclamp to have an effect. And
+>> arguably that's what you should be using, unless something explicitly
+>> prevents you from doing that.
+> Even with schedutil and SCHED_CAPACITY_SCALE that it doesn't work.
+> cpufreq/cpuinfo_cur_freq values are always on the max value even if the
+> stats show transitions between the available frequencies.
+>
+> I see two possibles reasons to explain that:
+> - sched_setattr() is called in userland process context, but the
+> threaded irq handler is running in another process.
 
-diff --git a/drivers/i2c/i2c-core-base.c b/drivers/i2c/i2c-core-base.c
-index 139aea351ffb..2e4560671183 100644
---- a/drivers/i2c/i2c-core-base.c
-+++ b/drivers/i2c/i2c-core-base.c
-@@ -338,8 +338,10 @@ static int i2c_device_probe(struct device *dev)
- 		} else if (ACPI_COMPANION(dev)) {
- 			irq = i2c_acpi_get_irq(client);
- 		}
--		if (irq == -EPROBE_DEFER)
--			return irq;
-+		if (irq == -EPROBE_DEFER) {
-+			status = irq;
-+			goto put_sync_adapter;
-+		}
- 
- 		if (irq < 0)
- 			irq = 0;
-@@ -353,15 +355,19 @@ static int i2c_device_probe(struct device *dev)
- 	 */
- 	if (!driver->id_table &&
- 	    !i2c_acpi_match_device(dev->driver->acpi_match_table, client) &&
--	    !i2c_of_match_device(dev->driver->of_match_table, client))
--		return -ENODEV;
-+	    !i2c_of_match_device(dev->driver->of_match_table, client)) {
-+		status = -ENODEV;
-+		goto put_sync_adapter;
-+	}
- 
- 	if (client->flags & I2C_CLIENT_WAKE) {
- 		int wakeirq;
- 
- 		wakeirq = of_irq_get_byname(dev->of_node, "wakeup");
--		if (wakeirq == -EPROBE_DEFER)
--			return wakeirq;
-+		if (wakeirq == -EPROBE_DEFER) {
-+			status = wakeirq;
-+			goto put_sync_adapter;
-+		}
- 
- 		device_init_wakeup(&client->dev, true);
- 
-@@ -408,6 +414,10 @@ static int i2c_device_probe(struct device *dev)
- err_clear_wakeup_irq:
- 	dev_pm_clear_wake_irq(&client->dev);
- 	device_init_wakeup(&client->dev, false);
-+put_sync_adapter:
-+	if (client->flags & I2C_CLIENT_HOST_NOTIFY)
-+		pm_runtime_put_sync(&client->adapter->dev);
-+
- 	return status;
- }
- 
--- 
-2.17.1
+Ah yes, this only works if the task you boost is the one that will handle
+whatever work you care about (in this case handling the irq). That said, if
+you do use threaded IRQs, that should give you a SCHED_FIFO thread, which
+should drive the frequency to its max when using schedutil (unrelated to
+uclamp).
 
+> - because this use case is almost running all in hardware the process
+> isn't doing anything so the scheduler doesn't take care of it.
+>
+>>
+>>>> Alternatively, that task may be a deadline one.
 _______________________________________________
 Linux-stm32 mailing list
 Linux-stm32@st-md-mailman.stormreply.com
