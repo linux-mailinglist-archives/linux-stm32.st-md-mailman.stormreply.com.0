@@ -2,39 +2,38 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id E43961C1273
-	for <lists+linux-stm32@lfdr.de>; Fri,  1 May 2020 14:55:30 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 18AE71C1744
+	for <lists+linux-stm32@lfdr.de>; Fri,  1 May 2020 16:10:24 +0200 (CEST)
 Received: from ip-172-31-3-76.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 9DE30C36B0F;
-	Fri,  1 May 2020 12:55:30 +0000 (UTC)
-Received: from smtp.smtpout.orange.fr (smtp04.smtpout.orange.fr
- [80.12.242.126])
- (using TLSv1 with cipher DHE-RSA-AES128-SHA (128/128 bits))
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id B9E64C36B0F;
+	Fri,  1 May 2020 14:10:23 +0000 (UTC)
+Received: from youngberry.canonical.com (youngberry.canonical.com
+ [91.189.89.112])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES128-SHA (128/128 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 19959C36B0C
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id AE5EEC36B0C
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Fri,  1 May 2020 12:55:27 +0000 (UTC)
-Received: from localhost.localdomain ([92.148.198.27]) by mwinf5d51 with ME
- id ZQvK2200L0bxQ9003QvKEZ; Fri, 01 May 2020 14:55:26 +0200
-X-ME-Helo: localhost.localdomain
-X-ME-Auth: Y2hyaXN0b3BoZS5qYWlsbGV0QHdhbmFkb28uZnI=
-X-ME-Date: Fri, 01 May 2020 14:55:26 +0200
-X-ME-IP: 92.148.198.27
-From: Christophe JAILLET <christophe.jaillet@wanadoo.fr>
-To: yannick.fertre@st.com, philippe.cornu@st.com, benjamin.gaignard@linaro.org,
- vincent.abriou@st.com, airlied@linux.ie, daniel@ffwll.ch,
- mcoquelin.stm32@gmail.com, alexandre.torgue@st.com, eric@anholt.net,
- narmstrong@baylibre.com
-Date: Fri,  1 May 2020 14:55:11 +0200
-Message-Id: <20200501125511.132029-1-christophe.jaillet@wanadoo.fr>
+ Fri,  1 May 2020 14:10:22 +0000 (UTC)
+Received: from 1.general.cking.uk.vpn ([10.172.193.212] helo=localhost)
+ by youngberry.canonical.com with esmtpsa
+ (TLS1.2:ECDHE_RSA_AES_128_GCM_SHA256:128) (Exim 4.86_2)
+ (envelope-from <colin.king@canonical.com>)
+ id 1jUWMr-0000uj-19; Fri, 01 May 2020 14:10:17 +0000
+From: Colin King <colin.king@canonical.com>
+To: Giuseppe Cavallaro <peppe.cavallaro@st.com>,
+ Alexandre Torgue <alexandre.torgue@st.com>,
+ Jose Abreu <joabreu@synopsys.com>,
+ "David S . Miller" <davem@davemloft.net>,
+ Maxime Coquelin <mcoquelin.stm32@gmail.com>, netdev@vger.kernel.org,
+ linux-stm32@st-md-mailman.stormreply.com,
+ linux-arm-kernel@lists.infradead.org
+Date: Fri,  1 May 2020 15:10:16 +0100
+Message-Id: <20200501141016.290699-1-colin.king@canonical.com>
 X-Mailer: git-send-email 2.25.1
 MIME-Version: 1.0
-Cc: kernel-janitors@vger.kernel.org, linux-kernel@vger.kernel.org,
- dri-devel@lists.freedesktop.org,
- Christophe JAILLET <christophe.jaillet@wanadoo.fr>,
- linux-stm32@st-md-mailman.stormreply.com, linux-arm-kernel@lists.infradead.org
-Subject: [Linux-stm32] [PATCH] drm/stm: Fix an error handling path in
-	'stm_drm_platform_probe()'
+Cc: kernel-janitors@vger.kernel.org, linux-kernel@vger.kernel.org
+Subject: [Linux-stm32] [PATCH] net: stmmac: gmac5+: fix potential integer
+	overflow on 32 bit multiply
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -51,35 +50,33 @@ Content-Transfer-Encoding: 7bit
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
-If 'drm_dev_register()' fails, a call to 'drv_load()' must be undone, as
-already done in the remove function.
+From: Colin Ian King <colin.king@canonical.com>
 
-Fixes: b759012c5fa7 ("drm/stm: Add STM32 LTDC driver")
-Signed-off-by: Christophe JAILLET <christophe.jaillet@wanadoo.fr>
+The multiplication of cfg->ctr[1] by 1000000000 is performed using a
+32 bit multiplication (since cfg->ctr[1] is a u32) and this can lead
+to a potential overflow. Fix this by making the constant a ULL to
+ensure a 64 bit multiply occurs.
+
+Fixes: 504723af0d85 ("net: stmmac: Add basic EST support for GMAC5+")
+Addresses-Coverity: ("Unintentional integer overflow")
+Signed-off-by: Colin Ian King <colin.king@canonical.com>
 ---
- drivers/gpu/drm/stm/drv.c | 4 +++-
- 1 file changed, 3 insertions(+), 1 deletion(-)
+ drivers/net/ethernet/stmicro/stmmac/dwmac5.c | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
 
-diff --git a/drivers/gpu/drm/stm/drv.c b/drivers/gpu/drm/stm/drv.c
-index ea9fcbdc68b3..9a66e350abd5 100644
---- a/drivers/gpu/drm/stm/drv.c
-+++ b/drivers/gpu/drm/stm/drv.c
-@@ -206,12 +206,14 @@ static int stm_drm_platform_probe(struct platform_device *pdev)
+diff --git a/drivers/net/ethernet/stmicro/stmmac/dwmac5.c b/drivers/net/ethernet/stmicro/stmmac/dwmac5.c
+index 494c859b4ade..67ba67ed0cb9 100644
+--- a/drivers/net/ethernet/stmicro/stmmac/dwmac5.c
++++ b/drivers/net/ethernet/stmicro/stmmac/dwmac5.c
+@@ -624,7 +624,7 @@ int dwmac5_est_configure(void __iomem *ioaddr, struct stmmac_est *cfg,
+ 		total_offset += offset;
+ 	}
  
- 	ret = drm_dev_register(ddev, 0);
- 	if (ret)
--		goto err_put;
-+		goto err_unload;
+-	total_ctr = cfg->ctr[0] + cfg->ctr[1] * 1000000000;
++	total_ctr = cfg->ctr[0] + cfg->ctr[1] * 1000000000ULL;
+ 	total_ctr += total_offset;
  
- 	drm_fbdev_generic_setup(ddev, 16);
- 
- 	return 0;
- 
-+err_unload:
-+	drv_unload(ddev);
- err_put:
- 	drm_dev_put(ddev);
- 
+ 	ctr_low = do_div(total_ctr, 1000000000);
 -- 
 2.25.1
 
