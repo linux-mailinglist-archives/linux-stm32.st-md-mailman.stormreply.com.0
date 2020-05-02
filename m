@@ -2,41 +2,49 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id 83B271C336A
-	for <lists+linux-stm32@lfdr.de>; Mon,  4 May 2020 09:14:45 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id AA2E91C2717
+	for <lists+linux-stm32@lfdr.de>; Sat,  2 May 2020 18:55:46 +0200 (CEST)
 Received: from ip-172-31-3-76.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 3D566C36B0E;
-	Mon,  4 May 2020 07:14:45 +0000 (UTC)
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 48D9CC36B0F;
+	Sat,  2 May 2020 16:55:46 +0000 (UTC)
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
  (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 928F7C36B09
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id E8521C36B09
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Sat,  2 May 2020 14:27:08 +0000 (UTC)
-Received: from localhost (p5486C608.dip0.t-ipconnect.de [84.134.198.8])
+ Sat,  2 May 2020 16:55:43 +0000 (UTC)
+Received: from archlinux (cpc149474-cmbg20-2-0-cust94.5-4.cable.virginm.net
+ [82.4.196.95])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by mail.kernel.org (Postfix) with ESMTPSA id 7ABDA2496B;
- Sat,  2 May 2020 14:27:06 +0000 (UTC)
+ by mail.kernel.org (Postfix) with ESMTPSA id A8C26206B8;
+ Sat,  2 May 2020 16:55:39 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
- s=default; t=1588429627;
- bh=SWAgqFjQtH+44KzNB37D3YGOf7TBc55dGtMgscD5tck=;
- h=From:To:Cc:Subject:Date:From;
- b=R/cAwhPZR5OcZx2udyqGygLoioE2/RPOjZzU81BkV1Bbxd4/Xsd3lQuOESkBKbeoe
- 284fPMtqJeVoN8K6AWgWiNHhxmLhAuQG1B0cV/WN4jip15NVyRez4zUmHvLg+t3SwX
- M6zp+ufgHWECupQ8pCJWfoVhieunt71VFxl4tBPI=
-From: Wolfram Sang <wsa@kernel.org>
-To: linux-kernel@vger.kernel.org
-Date: Sat,  2 May 2020 16:27:04 +0200
-Message-Id: <20200502142704.19308-1-wsa@kernel.org>
-X-Mailer: git-send-email 2.20.1
+ s=default; t=1588438542;
+ bh=EN0jC8jtMpvS3MIG3TGZ6/L5gRNmXrVn1U3RMM0Hd6o=;
+ h=Date:From:To:Cc:Subject:In-Reply-To:References:From;
+ b=K219v3P1Or+rBvMErrWH54Sa9dn/94QgsBGtbnvOq/l6WQL6DSKVVVPH4UYy5+Nfh
+ oUK/mAgInHqqjSZ8LQWpRCt121xKo+Ab+/Rgxgri5xr8mT2uMH4pCl3wP6cS6kFbht
+ 6z95s2UWcvSXBSY/KTkyFYClUSNHbg43q60dddFs=
+Date: Sat, 2 May 2020 17:55:36 +0100
+From: Jonathan Cameron <jic23@kernel.org>
+To: William Breathitt Gray <vilhelm.gray@gmail.com>
+Message-ID: <20200502175536.1e9ac944@archlinux>
+In-Reply-To: <20200501154519.GA4581@icarus>
+References: <cover.1588176662.git.vilhelm.gray@gmail.com>
+ <20200430201345.GX51277@piout.net> <20200501154519.GA4581@icarus>
+X-Mailer: Claws Mail 3.17.5 (GTK+ 2.24.32; x86_64-pc-linux-gnu)
 MIME-Version: 1.0
-X-Mailman-Approved-At: Mon, 04 May 2020 07:14:44 +0000
-Cc: linux-rtc@vger.kernel.org, Alessandro Zummo <a.zummo@towertech.it>,
- Alexandre Belloni <alexandre.belloni@bootlin.com>, kernel@pengutronix.de,
- Wolfram Sang <wsa@kernel.org>, Maxime Coquelin <mcoquelin.stm32@gmail.com>,
- linux-stm32@st-md-mailman.stormreply.com, linux-arm-kernel@lists.infradead.org
-Subject: [Linux-stm32] [PATCH] rtc: stmp3xxx: update contact email
+Cc: kamel.bouhara@bootlin.com,
+ Alexandre Belloni <alexandre.belloni@bootlin.com>, david@lechnology.com,
+ felipe.balbi@linux.intel.com, Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
+ linux-iio@vger.kernel.org, syednwaris@gmail.com, gwendal@chromium.org,
+ linux-kernel@vger.kernel.org, mcoquelin.stm32@gmail.com,
+ patrick.havelange@essensium.com, fabrice.gasnier@st.com,
+ fabien.lahoudere@collabora.com, linux-stm32@st-md-mailman.stormreply.com,
+ linux-arm-kernel@lists.infradead.org
+Subject: Re: [Linux-stm32] [PATCH 0/4] Introduce the Counter character
+	device interface
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -53,27 +61,121 @@ Content-Transfer-Encoding: 7bit
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
-The 'pengutronix' address is defunct for years. Use the proper contact
-address.
+On Fri, 1 May 2020 11:46:10 -0400
+William Breathitt Gray <vilhelm.gray@gmail.com> wrote:
 
-Signed-off-by: Wolfram Sang <wsa@kernel.org>
----
- drivers/rtc/rtc-stmp3xxx.c | 2 +-
- 1 file changed, 1 insertion(+), 1 deletion(-)
+> On Thu, Apr 30, 2020 at 10:13:45PM +0200, Alexandre Belloni wrote:
+> > Hi,
+> > 
+> > On 29/04/2020 14:11:34-0400, William Breathitt Gray wrote:  
+> > > Over the past couple years we have noticed some shortcomings with the
+> > > Counter sysfs interface. Although useful in the majority of situations,
+> > > there are certain use-cases where interacting through sysfs attributes
+> > > can become cumbersome and inefficient. A desire to support more advanced
+> > > functionality such as timestamps, multi-axis positioning tables, and
+> > > other such latency-sensitive applications, has motivated a reevaluation
+> > > of the Counter subsystem. I believe a character device interface will be
+> > > helpful for this more niche area of counter device use.
+> > > 
+> > > To quell any concerns from the offset: this patchset makes no changes to
+> > > the existing Counter sysfs userspace interface -- existing userspace
+> > > applications will continue to work with no modifications necessary. I
+> > > request that driver maintainers please test their applications to verify
+> > > that this is true, and report any discrepancies if they arise.
+> > >   
+> > 
+> > On that topic, I'm wondering why the counter subsystem uses /sys/bus
+> > instead of /sys/class that would be more natural for a class of devices.
+> > I can't see how counters would be considered busses. I think you should
+> > consider moving it over to /sys/class (even if deprecating
+> > /sys/bus/counter will be long).  
+> 
+> At the time I wasn't quite familiar with sysfs development so I was
+> following the iio sysfs code rather closely. However, I see now that
+> you're probably right: this isn't really a bus but rather a collection
+> of various types of counters -- i.e. a class of devices.
+> 
+> Perhaps I should migrate this then to /sys/class/counter. Of course, the
+> /sys/bus/counter location will have to remain for compatibility with
+> existing applications, but I think a simple symlink to the new
+> /sys/class/counter location should suffice for that.
+> 
+> If anyone sees an issue with this give me a heads up.
+To just address this point as I've not read the rest of the thread yet...
 
-diff --git a/drivers/rtc/rtc-stmp3xxx.c b/drivers/rtc/rtc-stmp3xxx.c
-index ff6488be385f..c9bc3d4a1e66 100644
---- a/drivers/rtc/rtc-stmp3xxx.c
-+++ b/drivers/rtc/rtc-stmp3xxx.c
-@@ -416,5 +416,5 @@ module_platform_driver(stmp3xxx_rtcdrv);
- 
- MODULE_DESCRIPTION("STMP3xxx RTC Driver");
- MODULE_AUTHOR("dmitry pervushin <dpervushin@embeddedalley.com> and "
--		"Wolfram Sang <w.sang@pengutronix.de>");
-+		"Wolfram Sang <kernel@pengutronix.de>");
- MODULE_LICENSE("GPL");
--- 
-2.20.1
+I would resist moving it.  This one is an old argument. 
+
+Some info in https://lwn.net/Articles/645810/
+As that puts it a "bus" is better known as a "subsystem".
+
+When we originally considered class vs bus for IIO, the view expressed
+at the times was that the whole separation of the two didn't mean anything
+and for non trivial cases bus was always preferred.  It's nothing to do
+with with whether the thing is a bus or not.  Now I suppose it's possible
+opinion has moved on this topic...    However, I'd say there
+is really 0 advantage in moving an existing subsystem even if opinion
+has changed.
+
++CC Greg in case he wants to add anything.
+
+> 
+> > > Interaction with Counter character devices occurs via ioctl commands.
+> > > This allows userspace applications to access and set counter data using
+> > > native C datatypes rather than working through string translations.
+> > >   
+> > 
+> > I agree with David that you should consider using read to retrieve the
+> > counter data as this will simplify interrupt handling/polling and
+> > blocking/non-blocking reads can be used by an application. ABI wise,
+> > this can also be a good move as you could always consider having an
+> > ioctl requesting a specific format when reading the device so you are
+> > not stuck with the initial format you are going to choose.  
+> 
+> My hesitation to implement support for read/write calls is due to a
+> concern that we will end up with various incompatible formats between
+> counter drivers (thus requiring users to have intimate knowledge of the
+> drivers and therefore defeating the purpose of a subsystem). However, if
+> we can standardize on a format that is flexible enough to work for all
+> counter drivers, then read/write calls should not be a problem.
+> 
+> I think a general format could be possible. For example, the counter
+> character device can return a standard header data at the start which
+> provides general information about the counter device: number of
+> counters, number or signals, number of extensions, etc. From this
+> information, offsets can be computed (or perhaps provided by the device)
+> to where the binary data for the count, extension, etc., can be read or
+> written. Interrupts can then be handled as blocking reads, as could
+> other types of events we implement.
+> 
+> Would something like this work well?
+> 
+> William Breathitt Gray
+> 
+> > > 2. Should device driver callbacks return int or long? I sometimes see
+> > >    error values returned as long (e.g. PTR_ERR(), the file_operations
+> > >    structure's ioctl callbacks, etc.); when is it necessary to return
+> > >    long as opposed to int?
+> > >   
+> > 
+> > You should use a long if you ever have to return a point as it is
+> > guaranteed to have the correct size. Else, just stick to an int if you
+> > are not going to overflow it.
+> >   
+> > > 3. I only implemented the unlocked_ioctl callback. Should I implement a
+> > >    compat_ioctl callback as well?
+> > >   
+> > 
+> > The compat_ioctl is to handle 32bit userspace running on a 64bit kernel.
+> > If your structures have the same size in both cases, then you don't have
+> > to implement compat_ioctl.
+> > 
+> > Have a look at Documentation/driver-api/ioctl.rst
+> > 
+> > 
+> > -- 
+> > Alexandre Belloni, Bootlin
+> > Embedded Linux and Kernel engineering
+> > https://bootlin.com  
 
 _______________________________________________
 Linux-stm32 mailing list
