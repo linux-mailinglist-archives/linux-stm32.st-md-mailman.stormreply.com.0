@@ -2,64 +2,40 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id 7BCA21C2D41
-	for <lists+linux-stm32@lfdr.de>; Sun,  3 May 2020 17:18:22 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id C494E1C2D84
+	for <lists+linux-stm32@lfdr.de>; Sun,  3 May 2020 17:42:32 +0200 (CEST)
 Received: from ip-172-31-3-76.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 31421C36B18;
-	Sun,  3 May 2020 15:18:22 +0000 (UTC)
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 325CCC36B19;
+	Sun,  3 May 2020 15:42:32 +0000 (UTC)
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
  (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 217BAC36B09
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id CB726C36B09
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Sun,  3 May 2020 15:18:21 +0000 (UTC)
-Received: from archlinux (cpc149474-cmbg20-2-0-cust94.5-4.cable.virginm.net
- [82.4.196.95])
- (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+ Sun,  3 May 2020 15:42:29 +0000 (UTC)
+Received: from localhost.localdomain (unknown [157.51.190.160])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by mail.kernel.org (Postfix) with ESMTPSA id CE4FD2071C;
- Sun,  3 May 2020 15:18:16 +0000 (UTC)
+ by mail.kernel.org (Postfix) with ESMTPSA id 7612220757;
+ Sun,  3 May 2020 15:42:23 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
- s=default; t=1588519099;
- bh=MDSoPNcgg0x8HewOG7f665U3drtcbP5E05HUQNAS2pc=;
- h=Date:From:To:Cc:Subject:In-Reply-To:References:From;
- b=j4yPv1BbfJmtHMdT/xRbz45EcjuSODlDNNR1LGfkWykBYP/bGLo/iTo240yvrpwxS
- KsNShL05vuZvF8zm60/AnGdPmDbEGJx2Ca0hOjNx8hiLnLPEHTgEcj2OujEUz92OFs
- w+Z6/9/gOXAL2t9No9638zsWvnkVEsSjZ0wPniZw=
-Date: Sun, 3 May 2020 16:18:12 +0100
-From: Jonathan Cameron <jic23@kernel.org>
-To: David Laight <David.Laight@ACULAB.COM>
-Message-ID: <20200503161812.024fc2ae@archlinux>
-In-Reply-To: <b2d51e3f9dfb4dd78156b2e945607e8d@AcuMS.aculab.com>
-References: <cover.1588176662.git.vilhelm.gray@gmail.com>
- <20200503151314.2ac1fc2e@archlinux>
- <b2d51e3f9dfb4dd78156b2e945607e8d@AcuMS.aculab.com>
-X-Mailer: Claws Mail 3.17.5 (GTK+ 2.24.32; x86_64-pc-linux-gnu)
-MIME-Version: 1.0
-Cc: "kamel.bouhara@bootlin.com" <kamel.bouhara@bootlin.com>,
-	"gwendal@chromium.org" <gwendal@chromium.org>,
-	"  <fabrice.gasnier@st.com>, "@stm-ict-prod-mailman-01.stormreply.prv,
+ s=default; t=1588520548;
+ bh=0CnMSeTOMkqPLyIXlkMMbKd1x1o/uhBytgUHSI2Q8IM=;
+ h=From:To:Cc:Subject:Date:From;
+ b=IULHFamipQH5bSodpv0GV3Nx9+FVZaxVXUfnbSU21fv2/JywgTGME+8mLNzI126jP
+ oPCbHEba/noEgcFuYPnbljJjxzF/zy7wYT/X4EgfHUHzUMBE6IFUvzRPg1pcd2XoQk
+ Z7E5fpcjD+GlJFhjRB92VRRgkAVutW4AZGCddY9M=
+From: mani@kernel.org
+To: robh+dt@kernel.org,
 	mcoquelin.stm32@gmail.com,
-	"david@lechnology.com" <david@lechnology.com>,
-	"felipe.balbi@linux.intel.com" <felipe.balbi@linux.intel.com>,
-	"  <syednwaris@gmail.com>, "@stm-ict-prod-mailman-01.stormreply.prv,
-	patrick.havelange@essensium.com,
-	"linux-iio@vger.kernel.org" <linux-iio@vger.kernel.org>,
-	<alexandre.torgue@st.com>,
-	William Breathitt Gray <vilhelm.gray@gmail.com>,
-	"  <patrick.havelange@essensium.com>, "@stm-ict-prod-mailman-01.stormreply.prv,
-	fabrice.gasnier@st.com,
-	"linux-kernel@vger.kernel.org" <linux-kernel@vger.kernel.org>,
-	"  <mcoquelin.stm32@gmail.com>, "@stm-ict-prod-mailman-01.stormreply.prv,
-	alexandre.torgue@st.com,
-	"alexandre.belloni@bootlin.com" <alexandre.belloni@bootlin.com>,
-	"linux-stm32@st-md-mailman.stormreply.com\"          <linux-stm32@st-md-mailman.stormreply.com>,  "@stm-ict-prod-mailman-01.stormreply.prv,
-	linux-arm-kernel@lists.infradead.org,,
-	"          <linux-arm-kernel@lists.infradead.org>, "@stm-ict-prod-mailman-01.stormreply.prv,
-	syednwaris@gmail.com,
-	"fabien.lahoudere@collabora.com" <fabien.lahoudere@collabora.com>
-Subject: Re: [Linux-stm32] [PATCH 0/4] Introduce the Counter character
-	device interface
+	alexandre.torgue@st.com
+Date: Sun,  3 May 2020 21:12:09 +0530
+Message-Id: <20200503154215.23654-1-mani@kernel.org>
+X-Mailer: git-send-email 2.17.1
+Cc: devicetree@vger.kernel.org, Manivannan Sadhasivam <mani@kernel.org>,
+ linux-stm32@st-md-mailman.stormreply.com, linux-arm-kernel@lists.infradead.org,
+ linux-kernel@vger.kernel.org
+Subject: [Linux-stm32] [PATCH v2 0/6] Add Stinger96 and IoT Box board support
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -71,58 +47,64 @@ List-Post: <mailto:linux-stm32@st-md-mailman.stormreply.com>
 List-Help: <mailto:linux-stm32-request@st-md-mailman.stormreply.com?subject=help>
 List-Subscribe: <https://st-md-mailman.stormreply.com/mailman/listinfo/linux-stm32>, 
  <mailto:linux-stm32-request@st-md-mailman.stormreply.com?subject=subscribe>
+MIME-Version: 1.0
 Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
-On Sun, 3 May 2020 14:21:11 +0000
-David Laight <David.Laight@ACULAB.COM> wrote:
+From: Manivannan Sadhasivam <mani@kernel.org>
 
-> From: Jonathan Cameron
-> > Sent: 03 May 2020 15:13  
-> ...
-> > > The following are some questions I have about this patchset:
-> > >
-> > > 1. Should enums be used to represent standard counter component states
-> > >    (e.g. COUNTER_SIGNAL_LOW), or would these be better defined as int?
-> > >
-> > >    These standard counter component states are defined in the
-> > >    counter-types.h file and serve as constants used by counter device
-> > >    drivers and Counter subsystem components in order to ensure a
-> > >    consistent interface.
-> > >
-> > >    My concern is whether enum constants will cause problems when passed
-> > >    to userspace via the Counter character device ioctl calls. Along the
-> > >    same lines is whether the C bool datatype is safe to pass as well,
-> > >    given that it is a more modern C datatype.  
-> > 
-> > For enums, I'd pass them as integers.
-> > 
-> > Bool is probably fine either way.  
-> 
-> Always use fixed size types in any API structures.
-> Ensure that fields are always on their natural boundaries.
-> 
-> So no enums and no bools.
-> It may even be worth using uint64_t for any userspace pointers.
-> 
-> At some point you'll live to regret anything else.
+Hello,
 
-Fair point I'd forgotten that c still doesn't make bool a particular
-size.  c99 defines it a 0 or 1, but not what the storage size is..
+This series adds Stinger96 and IoT Box board support. These boards are
+based on STM32MP157A SoC, designed and manufactured by Shiratech solutions.
 
-Jonathan
+The Stinger96 is a base board (96Boards IoT Extended edition) while IoT Box
+adds one mezzanine on top of it and sold as a gateway device.
 
+This series depends on below patchsets already submitted and gone through
+reviews:
 
+[PATCH v3 0/3] Add Reset and Wakeup support for CCS811
+[PATCH v3 0/2] Add CTS/RTS gpio support to STM32 UART
 
-> 
-> 	David
-> 
-> -
-> Registered Address Lakeside, Bramley Road, Mount Farm, Milton Keynes, MK1 1PT, UK
-> Registration No: 1397386 (Wales)
-> 
+More information about these boards can be found in below links:
+
+https://www.shiratech-solutions.com/products/stinger96/
+https://www.shiratech-solutions.com/products/iot-box/
+
+Thanks,
+Mani
+
+Changes in v2:
+
+* Used "stm32" prefix for all DT commits
+* Dropped custom sdmmc2 pinctrl node since existing node itself has pullup
+  enabled and works fine.
+
+Manivannan Sadhasivam (6):
+  dt-bindings: Add vendor prefix for Shiratech Solutions
+  ARM: dts: stm32: Add missing pinctrl entries for STM32MP15
+  dt-bindings: arm: stm32: Document Stinger96 compatible
+  ARM: dts: stm32: Add Stinger96 board support
+  dt-bindings: arm: stm32: Document IoT Box compatible
+  ARM: dts: stm32: Add IoT Box board support
+
+ .../devicetree/bindings/arm/stm32/stm32.yaml  |   2 +
+ .../devicetree/bindings/vendor-prefixes.yaml  |   2 +
+ arch/arm/boot/dts/Makefile                    |   2 +
+ arch/arm/boot/dts/stm32mp15-pinctrl.dtsi      |  64 ++++
+ arch/arm/boot/dts/stm32mp157a-iot-box.dts     |  68 ++++
+ arch/arm/boot/dts/stm32mp157a-stinger96.dts   |  12 +
+ arch/arm/boot/dts/stm32mp157a-stinger96.dtsi  | 342 ++++++++++++++++++
+ 7 files changed, 492 insertions(+)
+ create mode 100644 arch/arm/boot/dts/stm32mp157a-iot-box.dts
+ create mode 100644 arch/arm/boot/dts/stm32mp157a-stinger96.dts
+ create mode 100644 arch/arm/boot/dts/stm32mp157a-stinger96.dtsi
+
+-- 
+2.17.1
 
 _______________________________________________
 Linux-stm32 mailing list
