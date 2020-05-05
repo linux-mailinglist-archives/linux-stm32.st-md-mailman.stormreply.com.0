@@ -2,81 +2,60 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id 6342E1C5A4E
-	for <lists+linux-stm32@lfdr.de>; Tue,  5 May 2020 17:01:13 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 1B1AE1C5E75
+	for <lists+linux-stm32@lfdr.de>; Tue,  5 May 2020 19:14:09 +0200 (CEST)
 Received: from ip-172-31-3-76.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 247D2C36B38;
-	Tue,  5 May 2020 15:01:13 +0000 (UTC)
-Received: from mx07-00178001.pphosted.com (mx07-00178001.pphosted.com
- [62.209.51.94])
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id CB4E6C35E2B;
+	Tue,  5 May 2020 17:14:05 +0000 (UTC)
+Received: from mx07-00178001.pphosted.com (mx08-00178001.pphosted.com
+ [91.207.212.93])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 0F14FC36B09
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 00395C36B0A
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Tue,  5 May 2020 15:01:11 +0000 (UTC)
-Received: from pps.filterd (m0046668.ppops.net [127.0.0.1])
+ Tue,  5 May 2020 17:14:02 +0000 (UTC)
+Received: from pps.filterd (m0046661.ppops.net [127.0.0.1])
  by mx07-00178001.pphosted.com (8.16.0.42/8.16.0.42) with SMTP id
- 045El9ne016435; Tue, 5 May 2020 17:00:55 +0200
+ 045Gvi9w012978; Tue, 5 May 2020 19:13:38 +0200
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=st.com;
  h=from : to : cc : subject
- : date : message-id : references : in-reply-to : content-type : content-id
- : content-transfer-encoding : mime-version; s=STMicroelectronics;
- bh=IbLvmIr+VxgtqpaSuIKBL6LNWk+1yxMvrL3mHUlR5/g=;
- b=VtSgjuMRko+aYlOPzneie7sscr9XnTQSkMWmK01QoI3OZ7EaHWKpRlTrqXhFV7gSu/T4
- vNQuihrzJhVBbM68FXy4lx67khWj5M6vd9LFVbofc3IZ12ai1LQ7olLSMYQ9SN4g7FQV
- N2Oj1qUJZjBdq1WmaDv5bDdc4fERIKmGJRBggimnaaV2xPJqSGAIAOWdMfxbg3Et0ouD
- D+TYgsMld7vlAE2VLNBFn9Sqs+EIiBRb+1KxiMmVCBNpfXvvcGgZgBiQ5LlARKRkCxDu
- d3+AKcqG0xgyWmZus6dQNY85nOS2FCOpcvL26nsQnaV0uJMqPdN0+XEnCNtvXgElyfZI TQ== 
+ : date : message-id : mime-version : content-type; s=STMicroelectronics;
+ bh=saX4lP2HLA+Ud4B3Z1FOStFfoSHeb14YlpgoOtNGAF0=;
+ b=vXlbdvLtyJIimTN46SAZTQ6jBEY9Z6ResaovlEBOFBaRlGGoXHxYZ+qNczOsGQxJ96jV
+ rVYfnsDjHJZI5Q4ZOBWZtvQhAn5faghP1BAZYKgiG7/p6VCSArYauJVutVa6kCUflWbV
+ GRhUCesqGIQWPAsJLyEfsvrx/I6ctpvw5QPSz2QJgv2syRtfT+L/65JkvzuzsfPPBrYq
+ OeG9+tG/BKYmWqxQyjL8vrTyJ3Y8zU2ZcJYPUi965/PGZS3ekltf1a2cJt7ibsZebqHv
+ 6uk4Kvtcbjgockox58d1dj5hXZWBlJ1mBYPg9byE+GGLj3Sv5bbqtbniDgx2gukh39Rj 7A== 
 Received: from beta.dmz-eu.st.com (beta.dmz-eu.st.com [164.129.1.35])
- by mx07-00178001.pphosted.com with ESMTP id 30rxb20sdm-1
+ by mx07-00178001.pphosted.com with ESMTP id 30ryrj9de1-1
  (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
- Tue, 05 May 2020 17:00:55 +0200
+ Tue, 05 May 2020 19:13:38 +0200
 Received: from euls16034.sgp.st.com (euls16034.sgp.st.com [10.75.44.20])
- by beta.dmz-eu.st.com (STMicroelectronics) with ESMTP id 5F05210002A;
- Tue,  5 May 2020 17:00:54 +0200 (CEST)
-Received: from Webmail-eu.st.com (sfhdag7node2.st.com [10.75.127.20])
- by euls16034.sgp.st.com (STMicroelectronics) with ESMTP id 4BC382B0E9F;
- Tue,  5 May 2020 17:00:54 +0200 (CEST)
-Received: from SFHDAG3NODE3.st.com (10.75.127.9) by SFHDAG7NODE2.st.com
- (10.75.127.20) with Microsoft SMTP Server (TLS) id 15.0.1473.3; Tue, 5 May
- 2020 17:00:53 +0200
-Received: from SFHDAG3NODE3.st.com ([fe80::3507:b372:7648:476]) by
- SFHDAG3NODE3.st.com ([fe80::3507:b372:7648:476%20]) with mapi id
- 15.00.1347.000; Tue, 5 May 2020 17:00:53 +0200
-From: Benjamin GAIGNARD <benjamin.gaignard@st.com>
-To: Greg KH <gregkh@linuxfoundation.org>
-Thread-Topic: [PATCH v3 2/5] bus: stm32: Introduce firewall controller helpers
-Thread-Index: AQHWIq93zmKMzoYdMEeJzuj6lP5gO6iZb0WAgAAFxQA=
-Date: Tue, 5 May 2020 15:00:53 +0000
-Message-ID: <3f15fefa-b70f-5d20-c19b-3c42140a104c@st.com>
-References: <20200505073308.22914-1-benjamin.gaignard@st.com>
- <20200505073308.22914-3-benjamin.gaignard@st.com>
- <20200505144013.GB838641@kroah.com>
-In-Reply-To: <20200505144013.GB838641@kroah.com>
-Accept-Language: en-US
-Content-Language: en-US
-X-MS-Has-Attach: 
-X-MS-TNEF-Correlator: 
-user-agent: Mozilla/5.0 (X11; Linux x86_64; rv:68.0) Gecko/20100101
- Thunderbird/68.7.0
-x-ms-exchange-messagesentrepresentingtype: 1
-x-ms-exchange-transport-fromentityheader: Hosted
-x-originating-ip: [10.75.127.47]
-Content-ID: <57CCBC245F8373439B28D87A7A5EB0EF@st.com>
+ by beta.dmz-eu.st.com (STMicroelectronics) with ESMTP id 8975D100034;
+ Tue,  5 May 2020 19:13:36 +0200 (CEST)
+Received: from Webmail-eu.st.com (sfhdag6node2.st.com [10.75.127.17])
+ by euls16034.sgp.st.com (STMicroelectronics) with ESMTP id 6DF032B5A79;
+ Tue,  5 May 2020 19:13:36 +0200 (CEST)
+Received: from localhost (10.75.127.44) by SFHDAG6NODE2.st.com (10.75.127.17)
+ with Microsoft SMTP Server (TLS) id 15.0.1347.2;
+ Tue, 5 May 2020 19:13:35 +0200
+From: Christophe Kerello <christophe.kerello@st.com>
+To: <miquel.raynal@bootlin.com>, <richard@nod.at>, <vigneshr@ti.com>,
+ <robh+dt@kernel.org>, <mark.rutland@arm.com>,
+ <gregkh@linuxfoundation.org>, <boris.brezillon@collabora.com>
+Date: Tue, 5 May 2020 19:10:58 +0200
+Message-ID: <1588698668-25288-1-git-send-email-christophe.kerello@st.com>
+X-Mailer: git-send-email 1.9.1
 MIME-Version: 1.0
+X-Originating-IP: [10.75.127.44]
+X-ClientProxiedBy: SFHDAG5NODE3.st.com (10.75.127.15) To SFHDAG6NODE2.st.com
+ (10.75.127.17)
 X-Proofpoint-Virus-Version: vendor=fsecure engine=2.50.10434:6.0.138, 18.0.676
- definitions=2020-05-05_08:2020-05-04,
+ definitions=2020-05-05_09:2020-05-04,
  2020-05-05 signatures=0
-Cc: "devicetree@vger.kernel.org" <devicetree@vger.kernel.org>,
- "linus.walleij@linaro.org" <linus.walleij@linaro.org>,
- "linux-kernel@vger.kernel.org" <linux-kernel@vger.kernel.org>,
- "robh+dt@kernel.org" <robh+dt@kernel.org>,
- "mcoquelin.stm32@gmail.com" <mcoquelin.stm32@gmail.com>,
- "linux-stm32@st-md-mailman.stormreply.com"
- <linux-stm32@st-md-mailman.stormreply.com>,
- "linux-arm-kernel@lists.infradead.org" <linux-arm-kernel@lists.infradead.org>
-Subject: Re: [Linux-stm32] [PATCH v3 2/5] bus: stm32: Introduce firewall
-	controller helpers
+Cc: marex@denx.de, devicetree@vger.kernel.org, linux-kernel@vger.kernel.org,
+ linux-mtd@lists.infradead.org, linux-stm32@st-md-mailman.stormreply.com
+Subject: [Linux-stm32] [PATCH v3 00/10] add STM32 FMC2 EBI controller driver
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -93,144 +72,58 @@ Content-Transfer-Encoding: 7bit
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
+The FMC2 functional block makes the interface with: synchronous and
+asynchronous static devices (such as PSNOR, PSRAM or other memory-mapped
+peripherals) and NAND flash memories.
+Its main purposes are:
+  - to translate AXI transactions into the appropriate external device
+    protocol
+  - to meet the access time requirements of the external devices
+All external devices share the addresses, data and control signals with the
+controller. Each external device is accessed by means of a unique Chip
+Select. The FMC2 performs only one access at a time to an external device.
 
+Changes in v3:
+ - NAND:
+   - rename labels used on errors
+   - add in the commit log the reason to increase FMC2_TIMEOUT_MS (patch 3)
+   - add Miquel reviewed-by tag (patches 2/4/5/9)
+ - EBI:
+   - move in memory folder
+   - merge MFD and BUS drivers to avoid a MFD driver
+ - bindings:
+   - pattern name has been modified
+   - vendor properties have been modified
+     - s/_/-/
+     - add unit suffix (-ns) on timing properties
 
-On 5/5/20 4:40 PM, Greg KH wrote:
-> On Tue, May 05, 2020 at 09:33:05AM +0200, Benjamin Gaignard wrote:
->> The goal of these helpers are to offer an interface for the
->> hardware blocks controlling bus accesses rights.
->>
->> Bus firewall controllers are typically used to control if a
->> hardware block can perform read or write operations on bus.
->>
->> Smarter firewall controllers could be able to define accesses
->> rights per hardware blocks to control where they can read
->> or write.
->>
->> Firewall controller configurations are provided in device node,
->> parsed by the helpers and send to the driver to apply them.
->> Each controller may need different number and type of inputs
->> to configure the firewall so device-tree properties size have to
->> be define by using "#firewall-cells".
->> Firewall configurations properties have to be named "firewall-X"
->> on device node.
->> "firewall-names" keyword can also be used to give a name to
->> a specific configuration.
->>
->> Example of device-tree:
->> ctrl0: firewall@0 {
->> 	#firewall-cells = <2>;
->>        };
->>
->> foo: foo@0 {
->> 	firewall-names = "default", "setting1";
->> 	firewall-0 = <&ctrl0 1 2>;
->> 	firewall-1 = <&ctrl0 3 4>;
->> };
->>
->> Configurations could be applied with functions like
->> firewall_set_config_by_index() or firewall_set_config_by_name().
->>
->> firewall_set_default_config() function will apply the
->> configuration named "default" (if existing) or the configuration
->> with index 0 (i.e. firewall-0).
->>
->> Drivers could register/unregister themselves be calling
->> firewall_register/firewall_unregister functions.
->>
->> Signed-off-by: Benjamin Gaignard <benjamin.gaignard@st.com>
->> ---
->>   drivers/bus/Kconfig          |   2 +
->>   drivers/bus/Makefile         |   2 +
->>   drivers/bus/stm32/Kconfig    |   3 +
->>   drivers/bus/stm32/Makefile   |   1 +
->>   drivers/bus/stm32/firewall.c | 266 +++++++++++++++++++++++++++++++++++++++++++
->>   drivers/bus/stm32/firewall.h |  75 ++++++++++++
->>   6 files changed, 349 insertions(+)
->>   create mode 100644 drivers/bus/stm32/Kconfig
->>   create mode 100644 drivers/bus/stm32/Makefile
->>   create mode 100644 drivers/bus/stm32/firewall.c
->>   create mode 100644 drivers/bus/stm32/firewall.h
->>
->> diff --git a/drivers/bus/Kconfig b/drivers/bus/Kconfig
->> index 6d4e4497b59b..843b356322d9 100644
->> --- a/drivers/bus/Kconfig
->> +++ b/drivers/bus/Kconfig
->> @@ -203,4 +203,6 @@ config DA8XX_MSTPRI
->>   source "drivers/bus/fsl-mc/Kconfig"
->>   source "drivers/bus/mhi/Kconfig"
->>   
->> +source "drivers/bus/stm32/Kconfig"
->> +
->>   endmenu
->> diff --git a/drivers/bus/Makefile b/drivers/bus/Makefile
->> index 05f32cd694a4..5e0e34b10235 100644
->> --- a/drivers/bus/Makefile
->> +++ b/drivers/bus/Makefile
->> @@ -37,3 +37,5 @@ obj-$(CONFIG_DA8XX_MSTPRI)	+= da8xx-mstpri.o
->>   
->>   # MHI
->>   obj-$(CONFIG_MHI_BUS)		+= mhi/
->> +
->> +obj-$(CONFIG_MACH_STM32MP157) 	+= stm32/
->> \ No newline at end of file
->> diff --git a/drivers/bus/stm32/Kconfig b/drivers/bus/stm32/Kconfig
->> new file mode 100644
->> index 000000000000..57221e833e2d
->> --- /dev/null
->> +++ b/drivers/bus/stm32/Kconfig
->> @@ -0,0 +1,3 @@
->> +config FIREWALL_CONTROLLERS
->> +	bool "Support of bus firewall controllers"
->> +	depends on OF
->> diff --git a/drivers/bus/stm32/Makefile b/drivers/bus/stm32/Makefile
->> new file mode 100644
->> index 000000000000..eb6b978d6450
->> --- /dev/null
->> +++ b/drivers/bus/stm32/Makefile
->> @@ -0,0 +1 @@
->> +obj-$(CONFIG_FIREWALL_CONTROLLERS) += firewall.o
->> diff --git a/drivers/bus/stm32/firewall.c b/drivers/bus/stm32/firewall.c
->> new file mode 100644
->> index 000000000000..95f716cf926f
->> --- /dev/null
->> +++ b/drivers/bus/stm32/firewall.c
->> @@ -0,0 +1,266 @@
->> +// SPDX-License-Identifier: GPL-2.0
->> +/*
->> + * Copyright (C) STMicroelectronics 2020 - All Rights Reserved
->> + * Author: Benjamin Gaignard <benjamin.gaignard@st.com> for STMicroelectronics.
->> + */
->> +
->> +#include <linux/device.h>
->> +#include <linux/err.h>
->> +#include <linux/init.h>
->> +#include <linux/kernel.h>
->> +#include <linux/list.h>
->> +#include <linux/of.h>
->> +#include <linux/slab.h>
->> +
->> +#include "firewall.h"
->> +
->> +/* Mutex taken to protect firewall_list */
->> +static DEFINE_MUTEX(firewall_list_mutex);
->> +
->> +/* Global list of firewall control devices */
->> +static LIST_HEAD(firewall_list);
-> Why is that needed?  Why can't you just walk the list of devices on this
-> "bus/class" if you really wanted to?
->
-> Along those lines, why is this going around the driver model and
-> ignoring it?  Shouldn't this be a bus and you have devices attached to
-> it of the specific type?
-This part of the series is only a a set of common functions and bindings
-that I plan to reuse for futur STM32 SoCs.
-The 'real' bus implementation is in patch 4.
+Christophe Kerello (10):
+  mtd: rawnand: stm32_fmc2: manage all errors cases at probe time
+  mtd: rawnand: stm32_fmc2: remove useless inline comments
+  mtd: rawnand: stm32_fmc2: use FMC2_TIMEOUT_MS for timeouts
+  mtd: rawnand: stm32_fmc2: cleanup
+  mtd: rawnand: stm32_fmc2: use FIELD_PREP/FIELD_GET macros
+  dt-bindings: mtd: update STM32 FMC2 NAND controller documentation
+  dt-bindings: memory-controller: add STM32 FMC2 EBI controller
+    documentation
+  memory: stm32-fmc2-ebi: add STM32 FMC2 EBI controller driver
+  mtd: rawnand: stm32_fmc2: use regmap APIs
+  mtd: rawnand: stm32_fmc2: get resources from parent node
 
-Benjamin
->
->
-> greg k-h
+ .../memory-controllers/st,stm32-fmc2-ebi.yaml      |  261 +++++
+ .../bindings/mtd/st,stm32-fmc2-nand.yaml           |   19 +-
+ drivers/memory/Kconfig                             |   10 +
+ drivers/memory/Makefile                            |    1 +
+ drivers/memory/stm32-fmc2-ebi.c                    | 1206 ++++++++++++++++++++
+ drivers/mtd/nand/raw/Kconfig                       |    1 +
+ drivers/mtd/nand/raw/stm32_fmc2_nand.c             | 1176 ++++++++++---------
+ 7 files changed, 2061 insertions(+), 613 deletions(-)
+ create mode 100644 Documentation/devicetree/bindings/memory-controllers/st,stm32-fmc2-ebi.yaml
+ create mode 100644 drivers/memory/stm32-fmc2-ebi.c
+
+-- 
+1.9.1
+
 _______________________________________________
 Linux-stm32 mailing list
 Linux-stm32@st-md-mailman.stormreply.com
