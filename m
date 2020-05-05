@@ -2,64 +2,85 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id D5F501C4DD1
-	for <lists+linux-stm32@lfdr.de>; Tue,  5 May 2020 07:52:36 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 5DDD41C4F05
+	for <lists+linux-stm32@lfdr.de>; Tue,  5 May 2020 09:26:29 +0200 (CEST)
 Received: from ip-172-31-3-76.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 9A10BC36B31;
-	Tue,  5 May 2020 05:52:36 +0000 (UTC)
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 1051BC36B2A;
+	Tue,  5 May 2020 07:26:29 +0000 (UTC)
 Received: from mx07-00178001.pphosted.com (mx07-00178001.pphosted.com
  [62.209.51.94])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id D8CF9C36B09
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 3DB77C36B09
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Tue,  5 May 2020 05:52:34 +0000 (UTC)
-Received: from pps.filterd (m0046037.ppops.net [127.0.0.1])
+ Tue,  5 May 2020 07:26:26 +0000 (UTC)
+Received: from pps.filterd (m0046668.ppops.net [127.0.0.1])
  by mx07-00178001.pphosted.com (8.16.0.42/8.16.0.42) with SMTP id
- 0455lPhI009538; Tue, 5 May 2020 07:52:22 +0200
+ 0457NAh7027822; Tue, 5 May 2020 09:26:13 +0200
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=st.com;
  h=from : to : cc : subject
- : date : message-id : in-reply-to : references : mime-version :
- content-type; s=STMicroelectronics;
- bh=sF4j2SqbetdQG3bc1UfJr1QolPm7JTCYL8LwvwH5cZ8=;
- b=d44e5JnEZT0HHP/1fg2QjB08eFnjfZT1xtNPCEOmeekgsRCaEcV0Rjv1K+eG17weP/Q1
- Z9ZgzPXphpDFKzXCQdwqFs+2OdcUyMK/3Acnudh7v93DW7AGyh3li2iuzl7kXFWLoJE9
- e8cefNLchEOEsTTvHGW0u5Uhcv1nY6d5IMa3Z2fzRTBZDdewFdYKEapa633Ha+v+3k3/
- LG2Dmx86Pfxhm3SiZfZO+aOGCxS6cusLqZeXOMmpiOiFRzSK911xC0XsK725kL4u0nTt
- SI80Xh2guGqJfEQsWZmgf0DW7wNZMQkxiTeGgj22ZtQfYnJGaoF8vGJ5a5FuMD6yzWgh 7Q== 
+ : date : message-id : references : in-reply-to : content-type : content-id
+ : content-transfer-encoding : mime-version; s=STMicroelectronics;
+ bh=xyHT4pivjkfkJP6JJYCxQea414UJ6Q9EA83DPptpv2A=;
+ b=ItLPr1+vBSx99e94L9i5u0LECo0+F6wakE7f32CpSDDouvsXhc4CmExGL1qcc3M9peND
+ QKwEIgTXIXjsjHJby9KPZHllI+xf1zAe2WMBjVNu2pwjUWtFwcaIw2B/R2J7QaYnEfYU
+ 3ygBzKUJJRzo+PhzXqFV2qFMViRSzAcpeqq6yg0QUW98CP6LDcM/opp9vE2HDIE0xdu3
+ Z5TelRn3WMf5/OT8pYp/5yjkeoZwIyS3op6gQD2GCniFBO+C6CCuJ+O6c8UIe0e12oZ6
+ f9ftFIRVay6VKRHsgnEy3mFaXhJyiohLkPMJNF0pfi8BV0n6mthjRjeMWvAHvVxcu1tl EQ== 
 Received: from beta.dmz-eu.st.com (beta.dmz-eu.st.com [164.129.1.35])
- by mx07-00178001.pphosted.com with ESMTP id 30rxmvdw0c-1
+ by mx07-00178001.pphosted.com with ESMTP id 30rxb1xfdj-1
  (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
- Tue, 05 May 2020 07:52:22 +0200
+ Tue, 05 May 2020 09:26:13 +0200
 Received: from euls16034.sgp.st.com (euls16034.sgp.st.com [10.75.44.20])
- by beta.dmz-eu.st.com (STMicroelectronics) with ESMTP id 96F3D100038;
- Tue,  5 May 2020 07:52:21 +0200 (CEST)
-Received: from Webmail-eu.st.com (sfhdag3node2.st.com [10.75.127.8])
- by euls16034.sgp.st.com (STMicroelectronics) with ESMTP id 8A64321CA74;
- Tue,  5 May 2020 07:52:21 +0200 (CEST)
-Received: from localhost (10.75.127.50) by SFHDAG3NODE2.st.com (10.75.127.8)
- with Microsoft SMTP Server (TLS) id 15.0.1347.2; Tue, 5 May 2020 07:52:21
- +0200
-From: Alain Volmat <alain.volmat@st.com>
-To: <wsa@kernel.org>, <robh+dt@kernel.org>
-Date: Tue, 5 May 2020 07:51:11 +0200
-Message-ID: <1588657871-14747-5-git-send-email-alain.volmat@st.com>
-X-Mailer: git-send-email 2.7.4
-In-Reply-To: <1588657871-14747-1-git-send-email-alain.volmat@st.com>
-References: <1588657871-14747-1-git-send-email-alain.volmat@st.com>
+ by beta.dmz-eu.st.com (STMicroelectronics) with ESMTP id E909410002A;
+ Tue,  5 May 2020 09:26:10 +0200 (CEST)
+Received: from Webmail-eu.st.com (sfhdag5node2.st.com [10.75.127.14])
+ by euls16034.sgp.st.com (STMicroelectronics) with ESMTP id CF708222CFE;
+ Tue,  5 May 2020 09:26:10 +0200 (CEST)
+Received: from SFHDAG3NODE3.st.com (10.75.127.9) by SFHDAG5NODE2.st.com
+ (10.75.127.14) with Microsoft SMTP Server (TLS) id 15.0.1473.3; Tue, 5 May
+ 2020 09:26:10 +0200
+Received: from SFHDAG3NODE3.st.com ([fe80::3507:b372:7648:476]) by
+ SFHDAG3NODE3.st.com ([fe80::3507:b372:7648:476%20]) with mapi id
+ 15.00.1347.000; Tue, 5 May 2020 09:26:09 +0200
+From: Benjamin GAIGNARD <benjamin.gaignard@st.com>
+To: Fabrice GASNIER <fabrice.gasnier@st.com>, "lee.jones@linaro.org"
+ <lee.jones@linaro.org>, "robh+dt@kernel.org" <robh+dt@kernel.org>,
+ "mark.rutland@arm.com" <mark.rutland@arm.com>, "mcoquelin.stm32@gmail.com"
+ <mcoquelin.stm32@gmail.com>, Alexandre TORGUE <alexandre.torgue@st.com>,
+ "daniel.lezcano@linaro.org" <daniel.lezcano@linaro.org>,
+ "tglx@linutronix.de" <tglx@linutronix.de>
+Thread-Topic: [Linux-stm32] [PATCH v7 5/6] clocksource: Add Low Power STM32
+ timers driver
+Thread-Index: AQHWIq5ye17eyc+P4UqbHd8uXquVxw==
+Date: Tue, 5 May 2020 07:26:09 +0000
+Message-ID: <bbac5aa5-1c95-456e-3141-006d4fa86095@st.com>
+References: <20200420121620.2099-1-benjamin.gaignard@st.com>
+ <20200420121620.2099-6-benjamin.gaignard@st.com>
+In-Reply-To: <20200420121620.2099-6-benjamin.gaignard@st.com>
+Accept-Language: en-US
+Content-Language: en-US
+X-MS-Has-Attach: 
+X-MS-TNEF-Correlator: 
+user-agent: Mozilla/5.0 (X11; Linux x86_64; rv:68.0) Gecko/20100101
+ Thunderbird/68.7.0
+x-ms-exchange-messagesentrepresentingtype: 1
+x-ms-exchange-transport-fromentityheader: Hosted
+x-originating-ip: [10.75.127.49]
+Content-ID: <76F48F8B499BE849BFCBC6C161C5B8A3@st.com>
 MIME-Version: 1.0
-X-Originating-IP: [10.75.127.50]
-X-ClientProxiedBy: SFHDAG6NODE1.st.com (10.75.127.16) To SFHDAG3NODE2.st.com
- (10.75.127.8)
 X-Proofpoint-Virus-Version: vendor=fsecure engine=2.50.10434:6.0.138, 18.0.676
- definitions=2020-05-05_02:2020-05-04,
+ definitions=2020-05-05_04:2020-05-04,
  2020-05-05 signatures=0
-Cc: mark.rutland@arm.com, devicetree@vger.kernel.org,
- linux-kernel@vger.kernel.org, pierre-yves.mordret@st.com, alain.volmat@st.com,
- linux-i2c@vger.kernel.org, mcoquelin.stm32@gmail.com, fabrice.gasnier@st.com,
- linux-stm32@st-md-mailman.stormreply.com, linux-arm-kernel@lists.infradead.org
-Subject: [Linux-stm32] [PATCH 4/4] i2c: stm32f7: Add SMBus-specific
-	protocols support
+Cc: "devicetree@vger.kernel.org" <devicetree@vger.kernel.org>,
+ "linux-kernel@vger.kernel.org" <linux-kernel@vger.kernel.org>, Pascal
+ PAILLET-LME <p.paillet@st.com>,
+ Benjamin Gaignard <benjamin.gaignard@linaro.org>,
+ "linux-stm32@st-md-mailman.stormreply.com"
+ <linux-stm32@st-md-mailman.stormreply.com>,
+ "linux-arm-kernel@lists.infradead.org" <linux-arm-kernel@lists.infradead.org>
+Subject: Re: [Linux-stm32] [PATCH v7 5/6] clocksource: Add Low Power STM32
+ timers driver
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -76,386 +97,288 @@ Content-Transfer-Encoding: 7bit
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
-This patch adds the support for SMBus Host notify and SMBus Alert
-extensions protocols
 
-Signed-off-by: Alain Volmat <alain.volmat@st.com>
----
- drivers/i2c/busses/Kconfig       |   1 +
- drivers/i2c/busses/i2c-stm32f7.c | 198 +++++++++++++++++++++++++++++--
- 2 files changed, 189 insertions(+), 10 deletions(-)
 
-diff --git a/drivers/i2c/busses/Kconfig b/drivers/i2c/busses/Kconfig
-index 2f6e39b41e6c..b82c2f7d7d50 100644
---- a/drivers/i2c/busses/Kconfig
-+++ b/drivers/i2c/busses/Kconfig
-@@ -1024,6 +1024,7 @@ config I2C_STM32F7
- 	tristate "STMicroelectronics STM32F7 I2C support"
- 	depends on ARCH_STM32 || COMPILE_TEST
- 	select I2C_SLAVE
-+	select I2C_SMBUS
- 	help
- 	  Enable this option to add support for STM32 I2C controller embedded
- 	  in STM32F7 SoCs.
-diff --git a/drivers/i2c/busses/i2c-stm32f7.c b/drivers/i2c/busses/i2c-stm32f7.c
-index 9c9e10ea9199..6d02ddbc1ab4 100644
---- a/drivers/i2c/busses/i2c-stm32f7.c
-+++ b/drivers/i2c/busses/i2c-stm32f7.c
-@@ -14,10 +14,12 @@
-  * This driver is based on i2c-stm32f4.c
-  *
-  */
-+#include <linux/atomic.h>
- #include <linux/clk.h>
- #include <linux/delay.h>
- #include <linux/err.h>
- #include <linux/i2c.h>
-+#include <linux/i2c-smbus.h>
- #include <linux/interrupt.h>
- #include <linux/io.h>
- #include <linux/iopoll.h>
-@@ -50,6 +52,8 @@
- 
- /* STM32F7 I2C control 1 */
- #define STM32F7_I2C_CR1_PECEN			BIT(23)
-+#define STM32F7_I2C_CR1_ALERTEN			BIT(22)
-+#define STM32F7_I2C_CR1_SMBHEN			BIT(20)
- #define STM32F7_I2C_CR1_WUPEN			BIT(18)
- #define STM32F7_I2C_CR1_SBC			BIT(16)
- #define STM32F7_I2C_CR1_RXDMAEN			BIT(15)
-@@ -121,6 +125,7 @@
- 				(((n) & STM32F7_I2C_ISR_ADDCODE_MASK) >> 17)
- #define STM32F7_I2C_ISR_DIR			BIT(16)
- #define STM32F7_I2C_ISR_BUSY			BIT(15)
-+#define STM32F7_I2C_ISR_ALERT			BIT(13)
- #define STM32F7_I2C_ISR_PECERR			BIT(11)
- #define STM32F7_I2C_ISR_ARLO			BIT(9)
- #define STM32F7_I2C_ISR_BERR			BIT(8)
-@@ -134,6 +139,7 @@
- #define STM32F7_I2C_ISR_TXE			BIT(0)
- 
- /* STM32F7 I2C Interrupt Clear */
-+#define STM32F7_I2C_ICR_ALERTCF			BIT(13)
- #define STM32F7_I2C_ICR_PECCF			BIT(11)
- #define STM32F7_I2C_ICR_ARLOCF			BIT(9)
- #define STM32F7_I2C_ICR_BERRCF			BIT(8)
-@@ -150,7 +156,7 @@
- 
- #define STM32F7_I2C_MAX_LEN			0xff
- #define STM32F7_I2C_DMA_LEN_MIN			0x16
--#define STM32F7_I2C_MAX_SLAVE			0x2
-+#define STM32F7_I2C_MAX_SLAVE			0x3
- 
- #define STM32F7_I2C_DNF_DEFAULT			0
- #define STM32F7_I2C_DNF_MAX			16
-@@ -274,6 +280,29 @@ struct stm32f7_i2c_msg {
- 	u8 smbus_buf[I2C_SMBUS_BLOCK_MAX + 3] __aligned(4);
- };
- 
-+/**
-+ * struct stm32f7_i2c_host - SMBus host specific data
-+ * @client: I2C slave device that represents SMBus host
-+ * @notify_start: indicate that this is the start of the notify transaction
-+ * @addr: device address of SMBus device that initiate SMBus host protocol
-+ */
-+struct stm32f7_i2c_host {
-+	struct i2c_client *client;
-+	bool notify_start;
-+	u8 addr;
-+};
-+
-+/**
-+ * struct stm32f7_i2c_alert - SMBus alert specific data
-+ * @setup: platform data for the smbus_alert i2c client
-+ * @ara: I2C slave device used to respond to the SMBus Alert with Alert
-+ * Response Address
-+ */
-+struct stm32f7_i2c_alert {
-+	struct i2c_smbus_alert_setup setup;
-+	struct i2c_client *ara;
-+};
-+
- /**
-  * struct stm32f7_i2c_dev - private data of the controller
-  * @adap: I2C adapter for this controller
-@@ -301,6 +330,9 @@ struct stm32f7_i2c_msg {
-  * @fmp_creg: register address for clearing Fast Mode Plus bits
-  * @fmp_mask: mask for Fast Mode Plus bits in set register
-  * @wakeup_src: boolean to know if the device is a wakeup source
-+ * @host_notify_cnt: atomic to know number of host_notify enabled clients
-+ * @host_notify_client: SMBus host-notify client
-+ * @alert: SMBus alert specific data
-  */
- struct stm32f7_i2c_dev {
- 	struct i2c_adapter adap;
-@@ -327,6 +359,9 @@ struct stm32f7_i2c_dev {
- 	u32 fmp_creg;
- 	u32 fmp_mask;
- 	bool wakeup_src;
-+	atomic_t host_notify_cnt;
-+	struct i2c_client *host_notify_client;
-+	struct stm32f7_i2c_alert *alert;
- };
- 
- /*
-@@ -1321,10 +1356,20 @@ static int stm32f7_i2c_get_free_slave_id(struct stm32f7_i2c_dev *i2c_dev,
- 	int i;
- 
- 	/*
--	 * slave[0] supports 7-bit and 10-bit slave address
--	 * slave[1] supports 7-bit slave address only
-+	 * slave[0] support only SMBus Host address (0x8)
-+	 * slave[1] supports 7-bit and 10-bit slave address
-+	 * slave[2] supports 7-bit slave address only
- 	 */
--	for (i = STM32F7_I2C_MAX_SLAVE - 1; i >= 0; i--) {
-+	if (atomic_read(&i2c_dev->host_notify_cnt)) {
-+		if (slave->addr == 0x08) {
-+			if (i2c_dev->slave[0])
-+				goto fail;
-+			*id = 0;
-+			return 0;
-+		}
-+	}
-+
-+	for (i = STM32F7_I2C_MAX_SLAVE - 1; i > 0; i--) {
- 		if (i == 1 && (slave->flags & I2C_CLIENT_TEN))
- 			continue;
- 		if (!i2c_dev->slave[i]) {
-@@ -1333,6 +1378,7 @@ static int stm32f7_i2c_get_free_slave_id(struct stm32f7_i2c_dev *i2c_dev,
- 		}
- 	}
- 
-+fail:
- 	dev_err(dev, "Slave 0x%x could not be registered\n", slave->addr);
- 
- 	return -EINVAL;
-@@ -1586,6 +1632,13 @@ static irqreturn_t stm32f7_i2c_isr_error(int irq, void *data)
- 		f7_msg->result = -EINVAL;
- 	}
- 
-+	if (status & STM32F7_I2C_ISR_ALERT) {
-+		dev_dbg(dev, "<%s>: SMBus alert received\n", __func__);
-+		writel_relaxed(STM32F7_I2C_ICR_ALERTCF, base + STM32F7_I2C_ICR);
-+		i2c_handle_smbus_alert(i2c_dev->alert->ara);
-+		return IRQ_HANDLED;
-+	}
-+
- 	if (!i2c_dev->slave_running) {
- 		u32 mask;
- 		/* Disable interrupts */
-@@ -1776,7 +1829,13 @@ static int stm32f7_i2c_reg_slave(struct i2c_client *slave)
- 	if (!stm32f7_i2c_is_slave_registered(i2c_dev))
- 		stm32f7_i2c_enable_wakeup(i2c_dev, true);
- 
--	if (id == 0) {
-+	switch (id) {
-+	case 0:
-+		/* Slave SMBus Host */
-+		i2c_dev->slave[id] = slave;
-+		break;
-+
-+	case 1:
- 		/* Configure Own Address 1 */
- 		oar1 = readl_relaxed(i2c_dev->base + STM32F7_I2C_OAR1);
- 		oar1 &= ~STM32F7_I2C_OAR1_MASK;
-@@ -1789,7 +1848,9 @@ static int stm32f7_i2c_reg_slave(struct i2c_client *slave)
- 		oar1 |= STM32F7_I2C_OAR1_OA1EN;
- 		i2c_dev->slave[id] = slave;
- 		writel_relaxed(oar1, i2c_dev->base + STM32F7_I2C_OAR1);
--	} else if (id == 1) {
-+		break;
-+
-+	case 2:
- 		/* Configure Own Address 2 */
- 		oar2 = readl_relaxed(i2c_dev->base + STM32F7_I2C_OAR2);
- 		oar2 &= ~STM32F7_I2C_OAR2_MASK;
-@@ -1802,7 +1863,10 @@ static int stm32f7_i2c_reg_slave(struct i2c_client *slave)
- 		oar2 |= STM32F7_I2C_OAR2_OA2EN;
- 		i2c_dev->slave[id] = slave;
- 		writel_relaxed(oar2, i2c_dev->base + STM32F7_I2C_OAR2);
--	} else {
-+		break;
-+
-+	default:
-+		dev_err(dev, "I2C slave id not supported\n");
- 		ret = -ENODEV;
- 		goto pm_free;
- 	}
-@@ -1843,10 +1907,10 @@ static int stm32f7_i2c_unreg_slave(struct i2c_client *slave)
- 	if (ret < 0)
- 		return ret;
- 
--	if (id == 0) {
-+	if (id == 1) {
- 		mask = STM32F7_I2C_OAR1_OA1EN;
- 		stm32f7_i2c_clr_bits(base + STM32F7_I2C_OAR1, mask);
--	} else {
-+	} else if (id == 2) {
- 		mask = STM32F7_I2C_OAR2_OA2EN;
- 		stm32f7_i2c_clr_bits(base + STM32F7_I2C_OAR2, mask);
- 	}
-@@ -1911,6 +1975,103 @@ static int stm32f7_i2c_setup_fm_plus_bits(struct platform_device *pdev,
- 					  &i2c_dev->fmp_mask);
- }
- 
-+static int stm32f7_i2c_enable_smbus_host(struct stm32f7_i2c_dev *i2c_dev)
-+{
-+	struct i2c_adapter *adap = &i2c_dev->adap;
-+	void __iomem *base = i2c_dev->base;
-+	struct i2c_client *client;
-+
-+	client = i2c_new_smbus_host_notify_device(adap);
-+	if (IS_ERR(client))
-+		return PTR_ERR(client);
-+
-+	i2c_dev->host_notify_client = client;
-+
-+	/* Enable SMBus Host address */
-+	stm32f7_i2c_set_bits(base + STM32F7_I2C_CR1, STM32F7_I2C_CR1_SMBHEN);
-+
-+	return 0;
-+}
-+
-+static void stm32f7_i2c_disable_smbus_host(struct stm32f7_i2c_dev *i2c_dev)
-+{
-+	void __iomem *base = i2c_dev->base;
-+
-+	if (i2c_dev->host_notify_client) {
-+		/* Disable SMBus Host address */
-+		stm32f7_i2c_clr_bits(base + STM32F7_I2C_CR1,
-+				     STM32F7_I2C_CR1_SMBHEN);
-+		i2c_free_smbus_host_notify_device(i2c_dev->host_notify_client);
-+	}
-+}
-+
-+static int stm32f7_i2c_reg_client(struct i2c_client *client)
-+{
-+	struct stm32f7_i2c_dev *i2c_dev = i2c_get_adapdata(client->adapter);
-+	int ret;
-+
-+	if (client->flags & I2C_CLIENT_HOST_NOTIFY) {
-+		/* Only enable on the first device registration */
-+		if (atomic_inc_return(&i2c_dev->host_notify_cnt) == 1) {
-+			ret = stm32f7_i2c_enable_smbus_host(i2c_dev);
-+			if (ret) {
-+				dev_err(i2c_dev->dev,
-+					"failed to enable SMBus host notify (%d)\n",
-+					ret);
-+				return ret;
-+			}
-+		}
-+	}
-+
-+	return 0;
-+}
-+
-+static void stm32f7_i2c_unreg_client(struct i2c_client *client)
-+{
-+	struct stm32f7_i2c_dev *i2c_dev = i2c_get_adapdata(client->adapter);
-+
-+	if (client->flags & I2C_CLIENT_HOST_NOTIFY) {
-+		if (atomic_dec_return(&i2c_dev->host_notify_cnt) == 0)
-+			stm32f7_i2c_disable_smbus_host(i2c_dev);
-+	}
-+}
-+
-+static int stm32f7_i2c_enable_smbus_alert(struct stm32f7_i2c_dev *i2c_dev)
-+{
-+	struct stm32f7_i2c_alert *alert;
-+	struct i2c_adapter *adap = &i2c_dev->adap;
-+	struct device *dev = i2c_dev->dev;
-+	void __iomem *base = i2c_dev->base;
-+
-+	alert = devm_kzalloc(dev, sizeof(*alert), GFP_KERNEL);
-+	if (!alert)
-+		return -ENOMEM;
-+
-+	alert->ara = i2c_new_smbus_alert_device(adap, &alert->setup);
-+	if (IS_ERR(alert->ara))
-+		return PTR_ERR(alert->ara);
-+
-+	i2c_dev->alert = alert;
-+
-+	/* Enable SMBus Alert */
-+	stm32f7_i2c_set_bits(base + STM32F7_I2C_CR1, STM32F7_I2C_CR1_ALERTEN);
-+
-+	return 0;
-+}
-+
-+static void stm32f7_i2c_disable_smbus_alert(struct stm32f7_i2c_dev *i2c_dev)
-+{
-+	struct stm32f7_i2c_alert *alert = i2c_dev->alert;
-+	void __iomem *base = i2c_dev->base;
-+
-+	if (alert) {
-+		/* Disable SMBus Alert */
-+		stm32f7_i2c_clr_bits(base + STM32F7_I2C_CR1,
-+				     STM32F7_I2C_CR1_ALERTEN);
-+		i2c_unregister_device(alert->ara);
-+	}
-+}
-+
- static u32 stm32f7_i2c_func(struct i2c_adapter *adap)
- {
- 	return I2C_FUNC_I2C | I2C_FUNC_10BIT_ADDR | I2C_FUNC_SLAVE |
-@@ -1918,7 +2079,7 @@ static u32 stm32f7_i2c_func(struct i2c_adapter *adap)
- 		I2C_FUNC_SMBUS_BYTE_DATA | I2C_FUNC_SMBUS_WORD_DATA |
- 		I2C_FUNC_SMBUS_BLOCK_DATA | I2C_FUNC_SMBUS_BLOCK_PROC_CALL |
- 		I2C_FUNC_SMBUS_PROC_CALL | I2C_FUNC_SMBUS_PEC |
--		I2C_FUNC_SMBUS_I2C_BLOCK;
-+		I2C_FUNC_SMBUS_I2C_BLOCK | I2C_FUNC_SMBUS_HOST_NOTIFY;
- }
- 
- static const struct i2c_algorithm stm32f7_i2c_algo = {
-@@ -1927,6 +2088,8 @@ static const struct i2c_algorithm stm32f7_i2c_algo = {
- 	.functionality = stm32f7_i2c_func,
- 	.reg_slave = stm32f7_i2c_reg_slave,
- 	.unreg_slave = stm32f7_i2c_unreg_slave,
-+	.reg_client = stm32f7_i2c_reg_client,
-+	.unreg_client = stm32f7_i2c_unreg_client,
- };
- 
- static int stm32f7_i2c_probe(struct platform_device *pdev)
-@@ -2088,6 +2251,16 @@ static int stm32f7_i2c_probe(struct platform_device *pdev)
- 	if (ret)
- 		goto pm_disable;
- 
-+	if (device_property_read_bool(&pdev->dev, "st,smbus-alert")) {
-+		ret = stm32f7_i2c_enable_smbus_alert(i2c_dev);
-+		if (ret) {
-+			dev_err(i2c_dev->dev,
-+				"failed to enable SMBus alert protocol (%d)\n",
-+				ret);
-+			goto i2c_adapter_remove;
-+		}
-+	}
-+
- 	dev_info(i2c_dev->dev, "STM32F7 I2C-%d bus adapter\n", adap->nr);
- 
- 	pm_runtime_mark_last_busy(i2c_dev->dev);
-@@ -2095,6 +2268,9 @@ static int stm32f7_i2c_probe(struct platform_device *pdev)
- 
- 	return 0;
- 
-+i2c_adapter_remove:
-+	i2c_del_adapter(adap);
-+
- pm_disable:
- 	pm_runtime_put_noidle(i2c_dev->dev);
- 	pm_runtime_disable(i2c_dev->dev);
-@@ -2126,6 +2302,8 @@ static int stm32f7_i2c_remove(struct platform_device *pdev)
- {
- 	struct stm32f7_i2c_dev *i2c_dev = platform_get_drvdata(pdev);
- 
-+	stm32f7_i2c_disable_smbus_alert(i2c_dev);
-+
- 	i2c_del_adapter(&i2c_dev->adap);
- 	pm_runtime_get_sync(i2c_dev->dev);
- 
--- 
-2.17.1
+On 4/20/20 2:16 PM, Benjamin Gaignard wrote:
+> From: Benjamin Gaignard <benjamin.gaignard@linaro.org>
+>
+> Implement clock event driver using low power STM32 timers.
+> Low power timer counters running even when CPUs are stopped.
+> It could be used as clock event broadcaster to wake up CPUs but not like
+> a clocksource because each it rise an interrupt the counter restart from 0.
+>
+> Low power timers have a 16 bits counter and a prescaler which allow to
+> divide the clock per power of 2 to up 128 to target a 32KHz rate.
+Gentle ping to reviewers on this driver part of the series.
+The bindings and the MFD have been reviewed so I hope I can progress
+on the driver part too.
 
+Thanks.
+Benjamin
+>
+> Signed-off-by: Benjamin Gaignard <benjamin.gaignard@linaro.org>
+> Signed-off-by: Pascal Paillet <p.paillet@st.com>
+> ---
+>   drivers/clocksource/Kconfig          |   4 +
+>   drivers/clocksource/Makefile         |   1 +
+>   drivers/clocksource/timer-stm32-lp.c | 221 +++++++++++++++++++++++++++++++++++
+>   3 files changed, 226 insertions(+)
+>   create mode 100644 drivers/clocksource/timer-stm32-lp.c
+>
+> diff --git a/drivers/clocksource/Kconfig b/drivers/clocksource/Kconfig
+> index f2142e6bbea3..22b8d8f1eb40 100644
+> --- a/drivers/clocksource/Kconfig
+> +++ b/drivers/clocksource/Kconfig
+> @@ -292,6 +292,10 @@ config CLKSRC_STM32
+>   	select CLKSRC_MMIO
+>   	select TIMER_OF
+>   
+> +config CLKSRC_STM32_LP
+> +	bool "Low power clocksource for STM32 SoCs"
+> +	depends on MFD_STM32_LPTIMER || COMPILE_TEST
+> +
+>   config CLKSRC_MPS2
+>   	bool "Clocksource for MPS2 SoCs" if COMPILE_TEST
+>   	depends on GENERIC_SCHED_CLOCK
+> diff --git a/drivers/clocksource/Makefile b/drivers/clocksource/Makefile
+> index 641ba5383ab5..69f744135cb5 100644
+> --- a/drivers/clocksource/Makefile
+> +++ b/drivers/clocksource/Makefile
+> @@ -44,6 +44,7 @@ obj-$(CONFIG_BCM_KONA_TIMER)	+= bcm_kona_timer.o
+>   obj-$(CONFIG_CADENCE_TTC_TIMER)	+= timer-cadence-ttc.o
+>   obj-$(CONFIG_CLKSRC_EFM32)	+= timer-efm32.o
+>   obj-$(CONFIG_CLKSRC_STM32)	+= timer-stm32.o
+> +obj-$(CONFIG_CLKSRC_STM32_LP)	+= timer-stm32-lp.o
+>   obj-$(CONFIG_CLKSRC_EXYNOS_MCT)	+= exynos_mct.o
+>   obj-$(CONFIG_CLKSRC_LPC32XX)	+= timer-lpc32xx.o
+>   obj-$(CONFIG_CLKSRC_MPS2)	+= mps2-timer.o
+> diff --git a/drivers/clocksource/timer-stm32-lp.c b/drivers/clocksource/timer-stm32-lp.c
+> new file mode 100644
+> index 000000000000..0f06b8a337aa
+> --- /dev/null
+> +++ b/drivers/clocksource/timer-stm32-lp.c
+> @@ -0,0 +1,221 @@
+> +// SPDX-License-Identifier: GPL-2.0
+> +/*
+> + * Copyright (C) STMicroelectronics 2019 - All Rights Reserved
+> + * Authors: Benjamin Gaignard <benjamin.gaignard@st.com> for STMicroelectronics.
+> + *	    Pascal Paillet <p.paillet@st.com> for STMicroelectronics.
+> + */
+> +
+> +#include <linux/clk.h>
+> +#include <linux/clockchips.h>
+> +#include <linux/interrupt.h>
+> +#include <linux/mfd/stm32-lptimer.h>
+> +#include <linux/module.h>
+> +#include <linux/of_address.h>
+> +#include <linux/of_irq.h>
+> +#include <linux/platform_device.h>
+> +#include <linux/pm_wakeirq.h>
+> +
+> +#define CFGR_PSC_OFFSET		9
+> +#define STM32_LP_RATING		1000
+> +#define STM32_TARGET_CLKRATE	(32000 * HZ)
+> +#define STM32_LP_MAX_PSC	7
+> +
+> +struct stm32_lp_private {
+> +	struct regmap *reg;
+> +	struct clock_event_device clkevt;
+> +	unsigned long period;
+> +	struct device *dev;
+> +};
+> +
+> +static struct stm32_lp_private*
+> +to_priv(struct clock_event_device *clkevt)
+> +{
+> +	return container_of(clkevt, struct stm32_lp_private, clkevt);
+> +}
+> +
+> +static int stm32_clkevent_lp_shutdown(struct clock_event_device *clkevt)
+> +{
+> +	struct stm32_lp_private *priv = to_priv(clkevt);
+> +
+> +	regmap_write(priv->reg, STM32_LPTIM_CR, 0);
+> +	regmap_write(priv->reg, STM32_LPTIM_IER, 0);
+> +	/* clear pending flags */
+> +	regmap_write(priv->reg, STM32_LPTIM_ICR, STM32_LPTIM_ARRMCF);
+> +
+> +	return 0;
+> +}
+> +
+> +static int stm32_clkevent_lp_set_timer(unsigned long evt,
+> +				       struct clock_event_device *clkevt,
+> +				       int is_periodic)
+> +{
+> +	struct stm32_lp_private *priv = to_priv(clkevt);
+> +
+> +	/* disable LPTIMER to be able to write into IER register*/
+> +	regmap_write(priv->reg, STM32_LPTIM_CR, 0);
+> +	/* enable ARR interrupt */
+> +	regmap_write(priv->reg, STM32_LPTIM_IER, STM32_LPTIM_ARRMIE);
+> +	/* enable LPTIMER to be able to write into ARR register */
+> +	regmap_write(priv->reg, STM32_LPTIM_CR, STM32_LPTIM_ENABLE);
+> +	/* set next event counter */
+> +	regmap_write(priv->reg, STM32_LPTIM_ARR, evt);
+> +
+> +	/* start counter */
+> +	if (is_periodic)
+> +		regmap_write(priv->reg, STM32_LPTIM_CR,
+> +			     STM32_LPTIM_CNTSTRT | STM32_LPTIM_ENABLE);
+> +	else
+> +		regmap_write(priv->reg, STM32_LPTIM_CR,
+> +			     STM32_LPTIM_SNGSTRT | STM32_LPTIM_ENABLE);
+> +
+> +	return 0;
+> +}
+> +
+> +static int stm32_clkevent_lp_set_next_event(unsigned long evt,
+> +					    struct clock_event_device *clkevt)
+> +{
+> +	return stm32_clkevent_lp_set_timer(evt, clkevt,
+> +					   clockevent_state_periodic(clkevt));
+> +}
+> +
+> +static int stm32_clkevent_lp_set_periodic(struct clock_event_device *clkevt)
+> +{
+> +	struct stm32_lp_private *priv = to_priv(clkevt);
+> +
+> +	return stm32_clkevent_lp_set_timer(priv->period, clkevt, true);
+> +}
+> +
+> +static int stm32_clkevent_lp_set_oneshot(struct clock_event_device *clkevt)
+> +{
+> +	struct stm32_lp_private *priv = to_priv(clkevt);
+> +
+> +	return stm32_clkevent_lp_set_timer(priv->period, clkevt, false);
+> +}
+> +
+> +static irqreturn_t stm32_clkevent_lp_irq_handler(int irq, void *dev_id)
+> +{
+> +	struct clock_event_device *clkevt = (struct clock_event_device *)dev_id;
+> +	struct stm32_lp_private *priv = to_priv(clkevt);
+> +
+> +	regmap_write(priv->reg, STM32_LPTIM_ICR, STM32_LPTIM_ARRMCF);
+> +
+> +	if (clkevt->event_handler)
+> +		clkevt->event_handler(clkevt);
+> +
+> +	return IRQ_HANDLED;
+> +}
+> +
+> +static void stm32_clkevent_lp_set_prescaler(struct stm32_lp_private *priv,
+> +					    unsigned long *rate)
+> +{
+> +	int i;
+> +
+> +	for (i = 0; i <= STM32_LP_MAX_PSC; i++) {
+> +		if (DIV_ROUND_CLOSEST(*rate, 1 << i) < STM32_TARGET_CLKRATE)
+> +			break;
+> +	}
+> +
+> +	regmap_write(priv->reg, STM32_LPTIM_CFGR, i << CFGR_PSC_OFFSET);
+> +
+> +	/* Adjust rate and period given the prescaler value */
+> +	*rate = DIV_ROUND_CLOSEST(*rate, (1 << i));
+> +	priv->period = DIV_ROUND_UP(*rate, HZ);
+> +}
+> +
+> +static void stm32_clkevent_lp_init(struct stm32_lp_private *priv,
+> +				  struct device_node *np, unsigned long rate)
+> +{
+> +	priv->clkevt.name = np->full_name;
+> +	priv->clkevt.cpumask = cpu_possible_mask;
+> +	priv->clkevt.features = CLOCK_EVT_FEAT_PERIODIC |
+> +				CLOCK_EVT_FEAT_ONESHOT;
+> +	priv->clkevt.set_state_shutdown = stm32_clkevent_lp_shutdown;
+> +	priv->clkevt.set_state_periodic = stm32_clkevent_lp_set_periodic;
+> +	priv->clkevt.set_state_oneshot = stm32_clkevent_lp_set_oneshot;
+> +	priv->clkevt.set_next_event = stm32_clkevent_lp_set_next_event;
+> +	priv->clkevt.rating = STM32_LP_RATING;
+> +
+> +	clockevents_config_and_register(&priv->clkevt, rate, 0x1,
+> +					STM32_LPTIM_MAX_ARR);
+> +}
+> +
+> +static int stm32_clkevent_lp_probe(struct platform_device *pdev)
+> +{
+> +	struct stm32_lptimer *ddata = dev_get_drvdata(pdev->dev.parent);
+> +	struct stm32_lp_private *priv;
+> +	unsigned long rate;
+> +	int ret, irq;
+> +
+> +	priv = devm_kzalloc(&pdev->dev, sizeof(*priv), GFP_KERNEL);
+> +	if (!priv)
+> +		return -ENOMEM;
+> +
+> +	priv->reg = ddata->regmap;
+> +	ret = clk_prepare_enable(ddata->clk);
+> +	if (ret)
+> +		return -EINVAL;
+> +
+> +	rate = clk_get_rate(ddata->clk);
+> +	if (!rate) {
+> +		ret = -EINVAL;
+> +		goto out_clk_disable;
+> +	}
+> +
+> +	irq = platform_get_irq(to_platform_device(pdev->dev.parent), 0);
+> +	if (irq <= 0) {
+> +		ret = irq;
+> +		goto out_clk_disable;
+> +	}
+> +
+> +	if (of_property_read_bool(pdev->dev.parent->of_node, "wakeup-source")) {
+> +		ret = device_init_wakeup(&pdev->dev, true);
+> +		if (ret)
+> +			goto out_clk_disable;
+> +
+> +		ret = dev_pm_set_wake_irq(&pdev->dev, irq);
+> +		if (ret)
+> +			goto out_clk_disable;
+> +	}
+> +
+> +	ret = devm_request_irq(&pdev->dev, irq, stm32_clkevent_lp_irq_handler,
+> +			       IRQF_TIMER, pdev->name, &priv->clkevt);
+> +	if (ret)
+> +		goto out_clk_disable;
+> +
+> +	stm32_clkevent_lp_set_prescaler(priv, &rate);
+> +
+> +	stm32_clkevent_lp_init(priv, pdev->dev.parent->of_node, rate);
+> +
+> +	priv->dev = &pdev->dev;
+> +
+> +	return 0;
+> +
+> +out_clk_disable:
+> +	clk_disable_unprepare(ddata->clk);
+> +	return ret;
+> +}
+> +
+> +static int stm32_clkevent_lp_remove(struct platform_device *pdev)
+> +{
+> +	return -EBUSY; /* cannot unregister clockevent */
+> +}
+> +
+> +static const struct of_device_id stm32_clkevent_lp_of_match[] = {
+> +	{ .compatible = "st,stm32-lptimer-timer", },
+> +	{},
+> +};
+> +MODULE_DEVICE_TABLE(of, stm32_clkevent_lp_of_match);
+> +
+> +static struct platform_driver stm32_clkevent_lp_driver = {
+> +	.probe	= stm32_clkevent_lp_probe,
+> +	.remove = stm32_clkevent_lp_remove,
+> +	.driver	= {
+> +		.name = "stm32-lptimer-timer",
+> +		.of_match_table = of_match_ptr(stm32_clkevent_lp_of_match),
+> +	},
+> +};
+> +module_platform_driver(stm32_clkevent_lp_driver);
+> +
+> +MODULE_ALIAS("platform:stm32-lptimer-timer");
+> +MODULE_DESCRIPTION("STMicroelectronics STM32 clockevent low power driver");
+> +MODULE_LICENSE("GPL v2");
 _______________________________________________
 Linux-stm32 mailing list
 Linux-stm32@st-md-mailman.stormreply.com
