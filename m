@@ -2,63 +2,37 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id D52911C4F1D
-	for <lists+linux-stm32@lfdr.de>; Tue,  5 May 2020 09:33:42 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 5E7BB1C50AB
+	for <lists+linux-stm32@lfdr.de>; Tue,  5 May 2020 10:43:28 +0200 (CEST)
 Received: from ip-172-31-3-76.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 9B98CC36B2F;
-	Tue,  5 May 2020 07:33:42 +0000 (UTC)
-Received: from mx07-00178001.pphosted.com (mx07-00178001.pphosted.com
- [62.209.51.94])
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 4FCD4C36B30;
+	Tue,  5 May 2020 08:43:27 +0000 (UTC)
+Received: from huawei.com (szxga06-in.huawei.com [45.249.212.32])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 00FB5C36B0B
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 03865C36B09
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Tue,  5 May 2020 07:33:38 +0000 (UTC)
-Received: from pps.filterd (m0046037.ppops.net [127.0.0.1])
- by mx07-00178001.pphosted.com (8.16.0.42/8.16.0.42) with SMTP id
- 0457XE8i019011; Tue, 5 May 2020 09:33:31 +0200
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=st.com;
- h=from : to : cc : subject
- : date : message-id : in-reply-to : references : mime-version :
- content-type; s=STMicroelectronics;
- bh=iGCDghN3T5Y00zNouGbtPQSvGhwl/OIHxAZ2MQmEADQ=;
- b=EmajLjxqcwUHcoKFOnS/MbPJFNI09jkypCeIsZf9g1TVhc5Zb+ixhiVdNqoy96bu/ktQ
- KAkOLbJAlMdGRbwVrlDws8jkZ8ZA72Edw6KZWfpF82PcD69caXHNDQNkBLJzU1sDLhn4
- GSqG35pnXN5cLuuePB9yMDOjv2rMEZURG7cpXAGtoxYwdc8WP+Je1ipKG7xDYqFVHq/T
- ynRYajyApOLE5vL1hvIAEFz1xvP+c5UCDBHSJMIiLkjpYH00v23AQIQZtL3dNRVPlrck
- FTA8/mMTMjZA9ES3Qq/Ig9h4ZrJozqcZk2dggRXb6og0RyLwHOdzYo2Fu9JlV7rQSis4 6Q== 
-Received: from beta.dmz-eu.st.com (beta.dmz-eu.st.com [164.129.1.35])
- by mx07-00178001.pphosted.com with ESMTP id 30rxmveesn-1
- (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
- Tue, 05 May 2020 09:33:31 +0200
-Received: from euls16034.sgp.st.com (euls16034.sgp.st.com [10.75.44.20])
- by beta.dmz-eu.st.com (STMicroelectronics) with ESMTP id B2785100034;
- Tue,  5 May 2020 09:33:30 +0200 (CEST)
-Received: from Webmail-eu.st.com (sfhdag3node3.st.com [10.75.127.9])
- by euls16034.sgp.st.com (STMicroelectronics) with ESMTP id A62F62A4927;
- Tue,  5 May 2020 09:33:30 +0200 (CEST)
-Received: from localhost (10.75.127.51) by SFHDAG3NODE3.st.com (10.75.127.9)
- with Microsoft SMTP Server (TLS) id 15.0.1347.2; Tue, 5 May 2020 09:33:29
- +0200
-From: Benjamin Gaignard <benjamin.gaignard@st.com>
-To: <robh+dt@kernel.org>, <mcoquelin.stm32@gmail.com>,
- <alexandre.torgue@st.com>, <gregkh@linuxfoundation.org>,
- <loic.pallardy@st.com>, <linus.walleij@linaro.org>
-Date: Tue, 5 May 2020 09:33:08 +0200
-Message-ID: <20200505073308.22914-6-benjamin.gaignard@st.com>
-X-Mailer: git-send-email 2.15.0
-In-Reply-To: <20200505073308.22914-1-benjamin.gaignard@st.com>
-References: <20200505073308.22914-1-benjamin.gaignard@st.com>
+ Tue,  5 May 2020 08:43:25 +0000 (UTC)
+Received: from DGGEMS410-HUB.china.huawei.com (unknown [172.30.72.59])
+ by Forcepoint Email with ESMTP id 9E70EEA5BFBC82BBE8BC;
+ Tue,  5 May 2020 16:43:20 +0800 (CST)
+Received: from localhost (10.166.215.154) by DGGEMS410-HUB.china.huawei.com
+ (10.3.19.210) with Microsoft SMTP Server id 14.3.487.0; Tue, 5 May 2020
+ 16:43:13 +0800
+From: YueHaibing <yuehaibing@huawei.com>
+To: <peppe.cavallaro@st.com>, <alexandre.torgue@st.com>,
+ <joabreu@synopsys.com>, <davem@davemloft.net>, <mcoquelin.stm32@gmail.com>
+Date: Tue, 5 May 2020 16:42:56 +0800
+Message-ID: <20200505084256.52048-1-yuehaibing@huawei.com>
+X-Mailer: git-send-email 2.10.2.windows.1
 MIME-Version: 1.0
-X-Originating-IP: [10.75.127.51]
-X-ClientProxiedBy: SFHDAG3NODE2.st.com (10.75.127.8) To SFHDAG3NODE3.st.com
- (10.75.127.9)
-X-Proofpoint-Virus-Version: vendor=fsecure engine=2.50.10434:6.0.138, 18.0.676
- definitions=2020-05-05_04:2020-05-04,
- 2020-05-05 signatures=0
-Cc: devicetree@vger.kernel.org, linux-stm32@st-md-mailman.stormreply.com,
- linux-arm-kernel@lists.infradead.org, linux-kernel@vger.kernel.org
-Subject: [Linux-stm32] [PATCH v3 5/5] ARM: dts: stm32: Use ETZPC firewall bus
+X-Originating-IP: [10.166.215.154]
+X-CFilter-Loop: Reflected
+Cc: netdev@vger.kernel.org, YueHaibing <yuehaibing@huawei.com>,
+ linux-stm32@st-md-mailman.stormreply.com, linux-arm-kernel@lists.infradead.org,
+ linux-kernel@vger.kernel.org
+Subject: [Linux-stm32] [PATCH net-next] net: stmmac: Remove unused inline
+	function stmmac_rx_threshold_count
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -75,41 +49,37 @@ Content-Transfer-Encoding: 7bit
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
-Allow STM32 ETZPC to check firewall configuration before populating
-the platform bus.
+There's no caller in-tree since
+commit 2af6106ae949 ("net: stmmac: Introducing support for Page Pool")
 
-Signed-off-by: Benjamin Gaignard <benjamin.gaignard@st.com>
+Signed-off-by: YueHaibing <yuehaibing@huawei.com>
 ---
- arch/arm/boot/dts/stm32mp151.dtsi | 7 +++++--
- 1 file changed, 5 insertions(+), 2 deletions(-)
+ drivers/net/ethernet/stmicro/stmmac/stmmac_main.c | 9 ---------
+ 1 file changed, 9 deletions(-)
 
-diff --git a/arch/arm/boot/dts/stm32mp151.dtsi b/arch/arm/boot/dts/stm32mp151.dtsi
-index 3ea05ba48215..0290eb6f3c35 100644
---- a/arch/arm/boot/dts/stm32mp151.dtsi
-+++ b/arch/arm/boot/dts/stm32mp151.dtsi
-@@ -4,6 +4,7 @@
-  * Author: Ludovic Barre <ludovic.barre@st.com> for STMicroelectronics.
-  */
- #include <dt-bindings/interrupt-controller/arm-gic.h>
-+#include <dt-bindings/bus/stm32/stm32-etzpc.h>
- #include <dt-bindings/clock/stm32mp1-clks.h>
- #include <dt-bindings/reset/stm32mp1-resets.h>
+diff --git a/drivers/net/ethernet/stmicro/stmmac/stmmac_main.c b/drivers/net/ethernet/stmicro/stmmac/stmmac_main.c
+index ff22f274aa43..90bddca1ddd8 100644
+--- a/drivers/net/ethernet/stmicro/stmmac/stmmac_main.c
++++ b/drivers/net/ethernet/stmicro/stmmac/stmmac_main.c
+@@ -3543,15 +3543,6 @@ static void stmmac_rx_vlan(struct net_device *dev, struct sk_buff *skb)
+ 	}
+ }
  
-@@ -110,8 +111,10 @@
- 		status = "disabled";
- 	};
- 
--	soc {
--		compatible = "simple-bus";
-+	etzpc_bus: soc@5c007000 {
-+		compatible = "st,stm32-etzpc-bus", "simple-bus";
-+		reg = <0x5c007000 0x400>;
-+		#firewall-cells = <2>;
- 		#address-cells = <1>;
- 		#size-cells = <1>;
- 		interrupt-parent = <&intc>;
+-
+-static inline int stmmac_rx_threshold_count(struct stmmac_rx_queue *rx_q)
+-{
+-	if (rx_q->rx_zeroc_thresh < STMMAC_RX_THRESH)
+-		return 0;
+-
+-	return 1;
+-}
+-
+ /**
+  * stmmac_rx_refill - refill used skb preallocated buffers
+  * @priv: driver private structure
 -- 
-2.15.0
+2.17.1
+
 
 _______________________________________________
 Linux-stm32 mailing list
