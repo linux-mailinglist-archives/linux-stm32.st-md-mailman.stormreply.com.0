@@ -2,58 +2,62 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id E95E51C74A4
-	for <lists+linux-stm32@lfdr.de>; Wed,  6 May 2020 17:27:13 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 9808A1C836A
+	for <lists+linux-stm32@lfdr.de>; Thu,  7 May 2020 09:27:13 +0200 (CEST)
 Received: from ip-172-31-3-76.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 93279C32EB6;
-	Wed,  6 May 2020 15:27:13 +0000 (UTC)
-Received: from mail-out.m-online.net (mail-out.m-online.net [212.18.0.9])
- (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 43993C3087A;
+	Thu,  7 May 2020 07:27:13 +0000 (UTC)
+Received: from mail-wr1-f66.google.com (mail-wr1-f66.google.com
+ [209.85.221.66])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id E48FDC36B0A
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id EE5A6C36B0A
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Wed,  6 May 2020 15:27:10 +0000 (UTC)
-Received: from frontend01.mail.m-online.net (unknown [192.168.8.182])
- by mail-out.m-online.net (Postfix) with ESMTP id 49HL723NH7z1r0FS;
- Wed,  6 May 2020 17:27:10 +0200 (CEST)
-Received: from localhost (dynscan1.mnet-online.de [192.168.6.70])
- by mail.m-online.net (Postfix) with ESMTP id 49HL722cwPz1qv81;
- Wed,  6 May 2020 17:27:10 +0200 (CEST)
-X-Virus-Scanned: amavisd-new at mnet-online.de
-Received: from mail.mnet-online.de ([192.168.8.182])
- by localhost (dynscan1.mail.m-online.net [192.168.6.70]) (amavisd-new,
- port 10024)
- with ESMTP id 0LxFYhYoFGXR; Wed,  6 May 2020 17:27:09 +0200 (CEST)
-X-Auth-Info: fUzIjt1XL8BHjl2o7G5TQbgdiyRuNN8XHUH0yTFZnfs=
-Received: from [IPv6:::1] (unknown [195.140.253.167])
- (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
- (No client certificate requested)
- by mail.mnet-online.de (Postfix) with ESMTPSA;
- Wed,  6 May 2020 17:27:08 +0200 (CEST)
-To: Alexandre Torgue <alexandre.torgue@st.com>,
- linux-arm-kernel@lists.infradead.org
-References: <20200429163743.67854-1-marex@denx.de>
- <13aabff1-d4d0-7afb-6a57-a8136e35c6a4@st.com>
- <1d9cbde1-2be1-f54e-7c65-202f2bc7e0a9@denx.de>
- <b100645c-32ac-325d-5838-0fab2c93df22@st.com>
- <6dc6b79f-2a20-3899-e42f-eabaeb33a829@denx.de>
- <c012b356-c935-3536-a3eb-0683f4339dda@st.com>
- <dde82c6c-ec30-ad28-406d-4bd955c670c0@denx.de>
- <ea7c0254-f955-8636-8c62-326b8d07cb4f@st.com>
-From: Marek Vasut <marex@denx.de>
-Message-ID: <575b01a9-d2ba-917a-622f-2b5a166d642b@denx.de>
-Date: Wed, 6 May 2020 17:27:08 +0200
-User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:68.0) Gecko/20100101
- Thunderbird/68.5.0
-MIME-Version: 1.0
-In-Reply-To: <ea7c0254-f955-8636-8c62-326b8d07cb4f@st.com>
-Content-Language: en-US
-Cc: Patrick Delaunay <patrick.delaunay@st.com>,
- linux-stm32@st-md-mailman.stormreply.com,
- Maxime Coquelin <mcoquelin.stm32@gmail.com>,
- Manivannan Sadhasivam <manivannan.sadhasivam@linaro.org>
-Subject: Re: [Linux-stm32] [PATCH 01/12] ARM: dts: stm32: Add alternate
-	pinmux for I2C2 pins
+ Wed,  6 May 2020 17:49:03 +0000 (UTC)
+Received: by mail-wr1-f66.google.com with SMTP id y4so3211233wrm.11
+ for <linux-stm32@st-md-mailman.stormreply.com>;
+ Wed, 06 May 2020 10:49:03 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linaro.org; s=google;
+ h=from:to:cc:subject:date:message-id;
+ bh=srtH8bskiQrF0mpCWsWnCxht+uD1HNatLGnWm/k2SmY=;
+ b=I2C97RMATzMD8KLXLxy2rBCkuviQnKAhn6fSB5//HbcMzxaD2e96LoiXeaJMbjd4Ze
+ z3WcT3MOAG0FWtphVfkRUz4MDwS4w8jZk/K8eiGZYojVuasbWBc8vXv9OxMaCppZWP9l
+ aWrB+a240sIDDHYIVj1I9q3PMCKXYFrWKm60r4bL3HLGVOacpQr+qyWnvtA3Xe7rAs2j
+ XPq3PAkTrdfxBw10Lnjd7DusLULQgghR+ZFTzzdSg/6CiQNXdBf8a/SbCMLaI5k7AIA5
+ GgQjByqUdwYyt4u4huOJAkSsZLu+mCcXzbPgALmqAMqK/TZiOeub5XrUCImv67rN0CaB
+ Cnkg==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20161025;
+ h=x-gm-message-state:from:to:cc:subject:date:message-id;
+ bh=srtH8bskiQrF0mpCWsWnCxht+uD1HNatLGnWm/k2SmY=;
+ b=QinXfIXdMeT+h8cMyaW8D26BeQOrGa8l9OL/eNrLLWQGGiFOEVb7FjeqEM9KzTnY9C
+ CabsSZD8Qh/QCJFWJ+fZ+H+AFd3mLw7JRVkFVzQwQUSkFSxfqAseDNTY65qMo0fhWn+2
+ rePQ2/HUDOrudFM6N5mg2alsfT8E8Uznpx9IBdTtgCd40S/mfXKNugT2eZogSdW5H6A5
+ sT7sTitl66e/vUVUxbsfi3YfwN9sn8MhNXI1vzC5lddxNgiW6JyBnzr9dvjnqwY3n8RM
+ pR12nJg03Xd9LUGp9TtzvY7drGj+e70IQP/eAWA5H3h08fpOkoTVo7mz0YDYhjtrMN+O
+ 5aJg==
+X-Gm-Message-State: AGi0PuZjZEtrB9WjaqhuBs5hFEy/64XmyrgX8Wn/Y1S4LM89C38u0zoT
+ mO0gtyy+XP8B3Jg7OVdPygRdog==
+X-Google-Smtp-Source: APiQypJzrOxOnaeMZj2hShOBa2tNuW6vZBCQSqhwPsIO3GIRxw5ow3FX2cybrUz8TcJ9VkWpKvsviQ==
+X-Received: by 2002:a5d:498b:: with SMTP id r11mr10685245wrq.368.1588787343455; 
+ Wed, 06 May 2020 10:49:03 -0700 (PDT)
+Received: from lmecxl0524.home
+ (2a01cb058702ff00bc4b798f4f30d41e.ipv6.abo.wanadoo.fr.
+ [2a01:cb05:8702:ff00:bc4b:798f:4f30:d41e])
+ by smtp.gmail.com with ESMTPSA id n6sm1997992wrt.58.2020.05.06.10.49.01
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Wed, 06 May 2020 10:49:02 -0700 (PDT)
+From: Etienne Carriere <etienne.carriere@linaro.org>
+To: linux-kernel@vger.kernel.org
+Date: Wed,  6 May 2020 19:48:40 +0200
+Message-Id: <20200506174840.19856-1-etienne.carriere@linaro.org>
+X-Mailer: git-send-email 2.17.1
+X-Mailman-Approved-At: Thu, 07 May 2020 07:27:11 +0000
+Cc: Etienne Carriere <etienne.carriere@st.com>, devicetree@vger.kernel.org,
+ robh+dt@kernel.org, mcoquelin.stm32@gmail.com,
+ linux-stm32@st-md-mailman.stormreply.com, linux-arm-kernel@lists.infradead.org
+Subject: [Linux-stm32] [PATCH] ARM: dts: stm32: bump PSCI to version 1.0 on
+	stm32mp15x
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -65,63 +69,41 @@ List-Post: <mailto:linux-stm32@st-md-mailman.stormreply.com>
 List-Help: <mailto:linux-stm32-request@st-md-mailman.stormreply.com?subject=help>
 List-Subscribe: <https://st-md-mailman.stormreply.com/mailman/listinfo/linux-stm32>, 
  <mailto:linux-stm32-request@st-md-mailman.stormreply.com?subject=subscribe>
+MIME-Version: 1.0
 Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
-On 5/6/20 5:15 PM, Alexandre Torgue wrote:
-> 
-> 
-> On 5/6/20 4:58 PM, Marek Vasut wrote:
->> On 5/6/20 4:55 PM, Alexandre Torgue wrote:
->>>
->>>
->>> On 5/6/20 4:39 PM, Marek Vasut wrote:
->>>> On 5/6/20 4:26 PM, Alexandre Torgue wrote:
->>>>>
->>>>>
->>>>>
->>>>>> All right, thanks.
->>>>>>
->>>>>> btw I had this internal discussion now about handling the
->>>>>> combinatorial
->>>>>> explosion of board DTs here. If we support them all, by the end of
->>>>>> the
->>>>>> lifespan of these devices, we end up with:
->>>>>>
->>>>>> STM32MP15{1,3,7}{a,c,d,f} SoM rev. {0..7}00 on baseboard rev.
->>>>>> {0..7}00.
->>>>>>
->>>>>> There won't be every SoM and baseboard revision combination all
->>>>>> right.
->>>>>> But even the amount of SoM options gives me 12 DTs. That is not a low
->>>>>> number. Does ST have some plan to handle such situation ?
->>>>>
->>>>> Yes I have the same point in mind. How to maintain all boards ? Should
->>>>> we refuse some boards and only keep one as example ?
->>>>
->>>> But which ones do you want to drop? The pdk2 is a devkit , so you can
->>>> put in any SoM option, that's the problem.
->>>
->>> Ok but we could choice to build only one (or few) possibilities. I mean
->>> maybe only mp157 ?
->>
->> But that one isn't gonna work for e.g. 153 then, would it?
-> 
-> No but we could let user of 153 do his own dts by hand. With a good
-> split is not difficult to do.
-> 
-> For e.g I don't plan to upstream stm32mp153c-dk2 (I don't know if it
-> really exist), but user could easily create his own stm32mp153c-dk2.dts
-> by assembling well dtsi files and taking stm32mp157c-dk2 (or dk1) as
-> example.
+From: Etienne Carriere <etienne.carriere@st.com>
 
-I would still want to make it easy for the users of this SoM to just use
-it though. And I am quite sure there will be all combinations of it
-eventually.
+Declare PSCI v1.0 support instead of v0.1 as the former is supported
+by the PSCI firmware stacks stm32mp15x relies on.
 
-[...]
+Signed-off-by: Etienne Carriere <etienne.carriere@st.com>
+---
+ arch/arm/boot/dts/stm32mp151.dtsi | 4 +---
+ 1 file changed, 1 insertion(+), 3 deletions(-)
+
+diff --git a/arch/arm/boot/dts/stm32mp151.dtsi b/arch/arm/boot/dts/stm32mp151.dtsi
+index 3ea05ba48215..ebceead1b120 100644
+--- a/arch/arm/boot/dts/stm32mp151.dtsi
++++ b/arch/arm/boot/dts/stm32mp151.dtsi
+@@ -24,10 +24,8 @@
+ 	};
+ 
+ 	psci {
+-		compatible = "arm,psci";
++		compatible = "arm,psci-1.0";
+ 		method = "smc";
+-		cpu_off = <0x84000002>;
+-		cpu_on = <0x84000003>;
+ 	};
+ 
+ 	intc: interrupt-controller@a0021000 {
+-- 
+2.17.1
+
 _______________________________________________
 Linux-stm32 mailing list
 Linux-stm32@st-md-mailman.stormreply.com
