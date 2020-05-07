@@ -2,61 +2,60 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id A35801C87D4
-	for <lists+linux-stm32@lfdr.de>; Thu,  7 May 2020 13:15:33 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id AE7A31C87D9
+	for <lists+linux-stm32@lfdr.de>; Thu,  7 May 2020 13:15:57 +0200 (CEST)
 Received: from ip-172-31-3-76.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 6F845C3F93C;
-	Thu,  7 May 2020 11:15:33 +0000 (UTC)
-Received: from mail-pl1-f196.google.com (mail-pl1-f196.google.com
- [209.85.214.196])
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 6C587C3F93E;
+	Thu,  7 May 2020 11:15:57 +0000 (UTC)
+Received: from mail-pf1-f194.google.com (mail-pf1-f194.google.com
+ [209.85.210.194])
  (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 8E21DC36B0A
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id E8B38C36B0A
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Thu,  7 May 2020 11:15:30 +0000 (UTC)
-Received: by mail-pl1-f196.google.com with SMTP id z6so1932035plk.10
+ Thu,  7 May 2020 11:15:55 +0000 (UTC)
+Received: by mail-pf1-f194.google.com with SMTP id v63so2843544pfb.10
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Thu, 07 May 2020 04:15:30 -0700 (PDT)
+ Thu, 07 May 2020 04:15:55 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20161025;
  h=from:to:cc:subject:date:message-id;
- bh=dzZv5l46H3vCVPERauYX1uGZ7zgOzPk4wkpAl/BDozc=;
- b=tSbG7BME/8vv5wmI/sQc+zwSPUoEoKgUp4LNjaY+Qkz0zVVKE0Rc1qtVsZEaOJLq+D
- T7zYpqzmNEPG8PPe3sDzQmIBrVsQ3YdZHaWVxolM7OaCc04AJ72uDYD8xMTigC8YZ73O
- DtHhv6NGLxThEGqUri6YXrisZZkQWhZux89L9reZ1ZM0TXb1FDtClGLs5Cn3ZioT6Iql
- HIsRp4uVK4sDNELmcnS2ni7fPUOeRRhGs0TKaajJ3SZlCaquvsun27EVEgONBnuQeCmM
- OwD+kegqJKmB4tqYRmpgHMdVurC9Ap7GZ9ZpV5TuKaJJXeD5aDbo5AIsWc3ulXRZ8dwr
- x4dA==
+ bh=q5Ur7h/8oNS0E2jiQqG3CicZ1bVNQn1Ydx7PFOHfa0s=;
+ b=vR5ulAiFzgiMVcgSPCb6i5yphLLVEtvHKU/b5abZlIFH43323JlPd5KMMStpRnXzBh
+ WaI6/rirsojCkduRRV/ISOPLZmdiIuEpB57Y1eFvwFAo8LqTyxDXcix6QMLHG7BFeobo
+ jgZi1O968NO0xyNItwoWpBW2XGhT4JWh3z8hpxUjrVpoDc3RGTxwtkEfTzM5pn8eGh4h
+ UQdlyay/n0BgUc6MZhoACDDKw6l24cg92w0h6UUWWg0eE2Prim1/PQhMkJcNBe6RLvi2
+ XmVGQw0ZN0XpQToieiNZ50lWcepk2YyOIh4UtDooZjjoniNj8hGu+QqrRLEqcvwUpPvn
+ uIQg==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=1e100.net; s=20161025;
  h=x-gm-message-state:from:to:cc:subject:date:message-id;
- bh=dzZv5l46H3vCVPERauYX1uGZ7zgOzPk4wkpAl/BDozc=;
- b=Xnl/m+6jKvcbHLxJJNy69rsBUkMucvqHspMA/sls/x2a2ju7Gi/afFYm4r1GzvGSba
- y39njG6RDcdGX47Fj1rZ36yldUyWUXDrzw31hUKS+W76vdj/lXiEzG9LKH3Fino6qymh
- +yKDlMR5gWyqZUV1tt2TMdA7mAkgLGjO1VfcPdAopVIiSGid6gI+x46eqR4EAPndfRS1
- j/sNPtjD3RlkctrK9TyRjxjL8400EZLrdTlQkgoZqR26qnvCeo/Wml1sAoCZk3DGO8WJ
- vh31F99VEPb5iYHErpIkS/6aeaIWE2DQbetLzDKczokv1KWn0EtFaupzYxGm76J2pTEE
- aR2Q==
-X-Gm-Message-State: AGi0PuYsqjmm0MlCwbBjiWJhR1OmcXLu7p4olfi58ImFg6LSegy5oTAK
- SRdsEsufwxW7JZapB0723AESDT7Kcs0=
-X-Google-Smtp-Source: APiQypL0XwlSVSsL32FDaZck9swez03mevirdkbAAk25JZBdWGaET1BAU4+vusLEr5Iw20yBXb3YQA==
-X-Received: by 2002:a17:90a:1f8f:: with SMTP id
- x15mr14723323pja.76.1588850129146; 
- Thu, 07 May 2020 04:15:29 -0700 (PDT)
+ bh=q5Ur7h/8oNS0E2jiQqG3CicZ1bVNQn1Ydx7PFOHfa0s=;
+ b=kcrrcvVcE0BEv8+PxPCkQVhJyycjJpInFKq9gBozwFYXQ/s0ejjLcUu5oSYZeF70w4
+ w0bmH7iCSJC3Wx7mXZzImkIvMWqGBgdQHlqaiQKOdsbRA42++x9fLD/zLTYZ+rUSw4lc
+ 7L2bFy2bkDbuYnrV46uLJ3tiT/n/6/fm9tRD/24Tinn+SNXL0gvbUpF+ngnZnMjB0mVV
+ QfXslAm3v6NZu46eHLmI/QuadHzKQR/SPLqOJ/WMrmI74lZXuN0OeuKdBBkEehRYTsdJ
+ KPM6kgHZwNQ7YuAwNbJ95u2hhGP90iFF6bH6+vEun4rKutsG71jbQdCNB98R9m1/BeTO
+ s+YA==
+X-Gm-Message-State: AGi0Pub7ucDJ/c1zlUsTJ7MwdZnCGawkx6Hn1UB2GNZfzikojMnDJg3Q
+ nIXBCdTW/LBnN/bhSvY+eKY=
+X-Google-Smtp-Source: APiQypIkSq2sEnKfRxF2yLpUtwLsawR7IO0elGcrndZ1UHxIKE6n1f7LU+bM9YsoKY6q1jiE71yOWQ==
+X-Received: by 2002:a63:f70e:: with SMTP id x14mr10338566pgh.394.1588850154438; 
+ Thu, 07 May 2020 04:15:54 -0700 (PDT)
 Received: from fmin-OptiPlex-7060.nreal.work ([103.206.190.146])
- by smtp.gmail.com with ESMTPSA id z1sm7056388pjn.43.2020.05.07.04.15.26
+ by smtp.gmail.com with ESMTPSA id d184sm4492752pfc.130.2020.05.07.04.15.51
  (version=TLS1_2 cipher=ECDHE-ECDSA-AES128-GCM-SHA256 bits=128/128);
- Thu, 07 May 2020 04:15:28 -0700 (PDT)
+ Thu, 07 May 2020 04:15:53 -0700 (PDT)
 From: dillon.minfei@gmail.com
 To: mcoquelin.stm32@gmail.com, alexandre.torgue@st.com,
  philippe.schenker@toradex.com
-Date: Thu,  7 May 2020 19:15:25 +0800
-Message-Id: <1588850125-24344-1-git-send-email-dillon.minfei@gmail.com>
+Date: Thu,  7 May 2020 19:15:49 +0800
+Message-Id: <1588850149-24393-1-git-send-email-dillon.minfei@gmail.com>
 X-Mailer: git-send-email 2.7.4
 Cc: dillon min <dillon.minfei@gmail.com>,
  linux-stm32@st-md-mailman.stormreply.com, linux-arm-kernel@lists.infradead.org,
  linux-kernel@vger.kernel.org
-Subject: [Linux-stm32] [PATCH V2 3/4] ARM: dts: stm32: enable stmpe811 on
-	stm32429-disco board
+Subject: [Linux-stm32] [PATCH V2 4/4] i2c: stm32f4: Fix stmpe811 get xyz
+	data timeout issue
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -76,88 +75,56 @@ Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
 From: dillon min <dillon.minfei@gmail.com>
 
-Enable the stmpe811 touch screen on stm32429-disco board.
+As stm32f429's internal flash is 2Mbytes and compiled kernel
+image bigger than 2Mbytes, so we have to load kernel image
+to sdram on stm32f429-disco board which has 8Mbytes sdram space.
 
-Signed-off-by: dillon min <dillon.minfei@gmail.com>
+based on above context, as you knows kernel running on external
+sdram is more slower than internal flash. besides, we need read 4
+bytes to get touch screen xyz(x, y, pressure) coordinate data in
+stmpe811 interrupt.
 
-[PATCH 3/4]: ARM: dts: stm32: enable stmpe811 on stm32429-disco
-
-V2:
-patch 3: remove unused id, blocks, irq-trigger
-
-V1:
-patch 4: fix read touch screen xyz timeout bug
-patch 3: enable stmpe_touchscreen on stm32f429-disco board
-patch 2: add i2c3 pin mux for stm32f4
-patch 1: add i2c3 controller interface for stm32f4
+so, in stm32f4_i2c_handle_rx_done, as i2c read slower than running
+in xip mode, have to adjust 'STOP/START bit set time' from last two
+bytes to last one bytes. else, will get i2c timeout in reading
+touch screen coordinate.
 
 Signed-off-by: dillon min <dillon.minfei@gmail.com>
 ---
- arch/arm/boot/dts/stm32f429-disco.dts | 47 +++++++++++++++++++++++++++++++++++
- 1 file changed, 47 insertions(+)
+ drivers/i2c/busses/i2c-stm32f4.c | 6 +++---
+ 1 file changed, 3 insertions(+), 3 deletions(-)
 
-diff --git a/arch/arm/boot/dts/stm32f429-disco.dts b/arch/arm/boot/dts/stm32f429-disco.dts
-index 30c0f67..fad1ec1 100644
---- a/arch/arm/boot/dts/stm32f429-disco.dts
-+++ b/arch/arm/boot/dts/stm32f429-disco.dts
-@@ -49,6 +49,8 @@
- #include "stm32f429.dtsi"
- #include "stm32f429-pinctrl.dtsi"
- #include <dt-bindings/input/input.h>
-+#include <dt-bindings/interrupt-controller/irq.h>
-+#include <dt-bindings/gpio/gpio.h>
+diff --git a/drivers/i2c/busses/i2c-stm32f4.c b/drivers/i2c/busses/i2c-stm32f4.c
+index d6a69df..83004f2 100644
+--- a/drivers/i2c/busses/i2c-stm32f4.c
++++ b/drivers/i2c/busses/i2c-stm32f4.c
+@@ -439,7 +439,7 @@ static void stm32f4_i2c_handle_rx_done(struct stm32f4_i2c_dev *i2c_dev)
+ 	int i;
  
- / {
- 	model = "STMicroelectronics STM32F429i-DISCO board";
-@@ -127,3 +129,48 @@
- 	pinctrl-names = "default";
- 	status = "okay";
- };
-+
-+&i2c3 {
-+	pinctrl-names = "default";
-+	pinctrl-0 = <&i2c3_pins>;
-+	clock-frequency = <100000>;
-+	status = "okay";
-+
-+	stmpe811@41 {
-+		compatible = "st,stmpe811";
-+		reg = <0x41>;
-+		interrupts = <15 IRQ_TYPE_EDGE_FALLING>;
-+		interrupt-parent = <&gpioa>;
-+		/* 3.25 MHz ADC clock speed */
-+		st,adc-freq = <1>;
-+		/* 12-bit ADC */
-+		st,mod-12b = <1>;
-+		/* internal ADC reference */
-+		st,ref-sel = <0>;
-+		/* ADC converstion time: 80 clocks */
-+		st,sample-time = <4>;
-+
-+		stmpe_touchscreen {
-+			compatible = "st,stmpe-ts";
-+			/* 8 sample average control */
-+			st,ave-ctrl = <3>;
-+			/* 7 length fractional part in z */
-+			st,fraction-z = <7>;
-+			/*
-+			 * 50 mA typical 80 mA max touchscreen drivers
-+			 * current limit value
-+			 */
-+			st,i-drive = <1>;
-+			/* 1 ms panel driver settling time */
-+			st,settling = <3>;
-+			/* 5 ms touch detect interrupt delay */
-+			st,touch-det-delay = <5>;
-+		};
-+
-+		stmpe_adc {
-+			compatible = "st,stmpe-adc";
-+			/* forbid to use ADC channels 3-0 (touch) */
-+			st,norequest-mask = <0x0F>;
-+		};
-+	};
-+};
+ 	switch (msg->count) {
+-	case 2:
++	case 1:
+ 		/*
+ 		 * In order to correctly send the Stop or Repeated Start
+ 		 * condition on the I2C bus, the STOP/START bit has to be set
+@@ -454,7 +454,7 @@ static void stm32f4_i2c_handle_rx_done(struct stm32f4_i2c_dev *i2c_dev)
+ 		else
+ 			stm32f4_i2c_set_bits(reg, STM32F4_I2C_CR1_START);
+ 
+-		for (i = 2; i > 0; i--)
++		for (i = 1; i > 0; i--)
+ 			stm32f4_i2c_read_msg(i2c_dev);
+ 
+ 		reg = i2c_dev->base + STM32F4_I2C_CR2;
+@@ -463,7 +463,7 @@ static void stm32f4_i2c_handle_rx_done(struct stm32f4_i2c_dev *i2c_dev)
+ 
+ 		complete(&i2c_dev->complete);
+ 		break;
+-	case 3:
++	case 2:
+ 		/*
+ 		 * In order to correctly generate the NACK pulse after the last
+ 		 * received data byte, we have to enable NACK before reading N-2
 -- 
 2.7.4
 
