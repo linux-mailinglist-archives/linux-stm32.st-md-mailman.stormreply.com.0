@@ -2,61 +2,66 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id 2C2E81C7AD7
-	for <lists+linux-stm32@lfdr.de>; Wed,  6 May 2020 21:59:23 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 79A461C8349
+	for <lists+linux-stm32@lfdr.de>; Thu,  7 May 2020 09:15:33 +0200 (CEST)
 Received: from ip-172-31-3-76.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id C41C1C32EBF;
-	Wed,  6 May 2020 19:59:22 +0000 (UTC)
-Received: from mail-oi1-f196.google.com (mail-oi1-f196.google.com
- [209.85.167.196])
- (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 1E987C36B0D;
+	Thu,  7 May 2020 07:15:33 +0000 (UTC)
+Received: from mx07-00178001.pphosted.com (mx07-00178001.pphosted.com
+ [62.209.51.94])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 535CDC36B0A
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 399C1C36B0A
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Wed,  6 May 2020 19:59:19 +0000 (UTC)
-Received: by mail-oi1-f196.google.com with SMTP id o24so2923931oic.0
- for <linux-stm32@st-md-mailman.stormreply.com>;
- Wed, 06 May 2020 12:59:19 -0700 (PDT)
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20161025;
- h=x-gm-message-state:date:from:to:cc:subject:message-id:references
- :mime-version:content-disposition:in-reply-to:user-agent;
- bh=bO0DJaCUE0XKssvRg38lswObA4y7SjfSv2q1CR1u7z0=;
- b=G1U4m5RCWwJKl8kZuvHUAo9JDZcWd0FPXDa5ZJpACe0+TmySSl8qE9usxYA8Td1wpa
- tRd4PyVoyLNQSDIJdkOWDWemov95GA8tswndBwlpv4MsLYGmibdURe/NVhniyCstEWXA
- 5Ewg5v13kc/S3PY86wBcYM44lhj+aGe36K2ZqRoLGOi5FbwzN8UjZq4MOyFvuUwxW3zW
- VSIXFi6OdZouHYY3FFfNpk4IRDVkwX2WoX1NB16oIstLbn+kGUXNa2UWKP1uN82X3i7/
- zlinBF+FWlJpaN6HNnPcWdOsse9OCkV+RRZihD9RHVICXDTbNkT5m/EctegCCg7IzsNA
- LfBA==
-X-Gm-Message-State: AGi0Pubyaijh6ht3V4TdqWRxPmyk4sx4nuZTUF5zIO85RW4M5mOG/5+R
- uldEEb7TEKjTB76IHl7okg==
-X-Google-Smtp-Source: APiQypLR5WjjYamVAcv6tfzD1IA0+5vseecA/FXkvzZpzsWL3ae3CrTRLxA9Orkli3Z7VBOdSdow2Q==
-X-Received: by 2002:a54:4811:: with SMTP id j17mr3960001oij.29.1588795158503; 
- Wed, 06 May 2020 12:59:18 -0700 (PDT)
-Received: from rob-hp-laptop (24-155-109-49.dyn.grandenetworks.net.
- [24.155.109.49])
- by smtp.gmail.com with ESMTPSA id e13sm767826otj.46.2020.05.06.12.59.17
- (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Wed, 06 May 2020 12:59:17 -0700 (PDT)
-Received: (nullmailer pid 22166 invoked by uid 1000);
- Wed, 06 May 2020 19:59:16 -0000
-Date: Wed, 6 May 2020 14:59:16 -0500
-From: Rob Herring <robh@kernel.org>
-To: mani@kernel.org
-Message-ID: <20200506195916.GA22126@bogus>
-References: <20200420170204.24541-1-mani@kernel.org>
- <20200420170204.24541-2-mani@kernel.org>
+ Thu,  7 May 2020 07:15:29 +0000 (UTC)
+Received: from pps.filterd (m0046668.ppops.net [127.0.0.1])
+ by mx07-00178001.pphosted.com (8.16.0.42/8.16.0.42) with SMTP id
+ 0477DNFR027002; Thu, 7 May 2020 09:15:17 +0200
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=st.com;
+ h=subject : to : cc :
+ references : from : message-id : date : mime-version : in-reply-to :
+ content-type : content-transfer-encoding; s=STMicroelectronics;
+ bh=L51sRJlfOsw4Y7/MDpiNrdjYapAryMpWAkXSpi9QQMY=;
+ b=HRxjFxukXyKSMaGNQBkkWJ6P9pwuXC6m/u402TaI5cIh+7kndEykDz4wN80nn4MXVHHa
+ 1j28srPK3cmTG83qYegPsTqT5F0gdgvGw4J9TN8Hcjn4NtkuuOqhzi//3ss9UOPEnwNF
+ CdS3z2fuw6rQxe5O6VNqjTmvjfwSuV6sBAYejGHA1Hpp6eWK7LlInQE2rS1UHDze5w/p
+ qSwWGuTMx6Dqsm2POVWyQKGtECFXM43Wj4e3kFQ6x7Vy3L6wHoXGiQUEajt2kI9RfTyI
+ 4iFKwYo3GC3/Ak+KSka6HzwiTnwIK5H/Eoa6eFxww2mCPd9L0TlV4UGC4hk3Vri1uxOB YQ== 
+Received: from beta.dmz-eu.st.com (beta.dmz-eu.st.com [164.129.1.35])
+ by mx07-00178001.pphosted.com with ESMTP id 30rxb2a4tr-1
+ (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
+ Thu, 07 May 2020 09:15:17 +0200
+Received: from euls16034.sgp.st.com (euls16034.sgp.st.com [10.75.44.20])
+ by beta.dmz-eu.st.com (STMicroelectronics) with ESMTP id A04C810002A;
+ Thu,  7 May 2020 09:15:16 +0200 (CEST)
+Received: from Webmail-eu.st.com (sfhdag3node2.st.com [10.75.127.8])
+ by euls16034.sgp.st.com (STMicroelectronics) with ESMTP id 91ABC222CCC;
+ Thu,  7 May 2020 09:15:16 +0200 (CEST)
+Received: from lmecxl0912.tpe.st.com (10.75.127.50) by SFHDAG3NODE2.st.com
+ (10.75.127.8) with Microsoft SMTP Server (TLS) id 15.0.1347.2; Thu, 7 May
+ 2020 09:15:12 +0200
+To: Etienne Carriere <etienne.carriere@linaro.org>,
+ <linux-kernel@vger.kernel.org>
+References: <20200506174840.19856-1-etienne.carriere@linaro.org>
+From: Alexandre Torgue <alexandre.torgue@st.com>
+Message-ID: <52715352-c1f1-970a-5441-7780fc48c933@st.com>
+Date: Thu, 7 May 2020 09:15:04 +0200
+User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:68.0) Gecko/20100101
+ Thunderbird/68.4.1
 MIME-Version: 1.0
-Content-Disposition: inline
-In-Reply-To: <20200420170204.24541-2-mani@kernel.org>
-User-Agent: Mutt/1.10.1 (2018-07-13)
-Cc: devicetree@vger.kernel.org, Manivannan Sadhasivam <mani@kernel.org>,
- gregkh@linuxfoundation.org, linux-kernel@vger.kernel.org,
- andy.shevchenko@gmail.com, robh+dt@kernel.org, mcoquelin.stm32@gmail.com,
- linux-serial@vger.kernel.org, fabrice.gasnier@st.com,
+In-Reply-To: <20200506174840.19856-1-etienne.carriere@linaro.org>
+Content-Language: en-US
+X-Originating-IP: [10.75.127.50]
+X-ClientProxiedBy: SFHDAG3NODE2.st.com (10.75.127.8) To SFHDAG3NODE2.st.com
+ (10.75.127.8)
+X-Proofpoint-Virus-Version: vendor=fsecure engine=2.50.10434:6.0.216, 18.0.676
+ definitions=2020-05-07_04:2020-05-05,
+ 2020-05-07 signatures=0
+Cc: Etienne Carriere <etienne.carriere@st.com>, devicetree@vger.kernel.org,
+ robh+dt@kernel.org, mcoquelin.stm32@gmail.com,
  linux-stm32@st-md-mailman.stormreply.com, linux-arm-kernel@lists.infradead.org
-Subject: Re: [Linux-stm32] [PATCH v3 1/2] dt-bindings: serial: Document
- CTS/RTS gpios in STM32 UART
+Subject: Re: [Linux-stm32] [PATCH] ARM: dts: stm32: bump PSCI to version 1.0
+	on stm32mp15x
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -68,28 +73,46 @@ List-Post: <mailto:linux-stm32@st-md-mailman.stormreply.com>
 List-Help: <mailto:linux-stm32-request@st-md-mailman.stormreply.com?subject=help>
 List-Subscribe: <https://st-md-mailman.stormreply.com/mailman/listinfo/linux-stm32>, 
  <mailto:linux-stm32-request@st-md-mailman.stormreply.com?subject=subscribe>
-Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
+Content-Type: text/plain; charset="us-ascii"; Format="flowed"
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
-On Mon, 20 Apr 2020 22:32:03 +0530, mani@kernel.org wrote:
-> From: Manivannan Sadhasivam <mani@kernel.org>
+Hi Etienne
+
+On 5/6/20 7:48 PM, Etienne Carriere wrote:
+> From: Etienne Carriere <etienne.carriere@st.com>
 > 
-> Document the use of CTS/RTS gpios for flow control in STM32 UART
-> controller. These properties can be used instead of 'st,hw-flow-ctrl'
-> for making use of any gpio pins for flow control instead of dedicated
-> pins. It should be noted that both CTS/RTS and 'st,hw-flow-ctrl'
-> properties cannot co-exist in a design.
+> Declare PSCI v1.0 support instead of v0.1 as the former is supported
+> by the PSCI firmware stacks stm32mp15x relies on.
 > 
-> Reviewed-by: Andy Shevchenko <andy.shevchenko@gmail.com>
-> Signed-off-by: Manivannan Sadhasivam <mani@kernel.org>
+> Signed-off-by: Etienne Carriere <etienne.carriere@st.com>
 > ---
->  .../devicetree/bindings/serial/st,stm32-uart.yaml  | 14 ++++++++++++++
->  1 file changed, 14 insertions(+)
+>   arch/arm/boot/dts/stm32mp151.dtsi | 4 +---
+>   1 file changed, 1 insertion(+), 3 deletions(-)
+> 
+> diff --git a/arch/arm/boot/dts/stm32mp151.dtsi b/arch/arm/boot/dts/stm32mp151.dtsi
+> index 3ea05ba48215..ebceead1b120 100644
+> --- a/arch/arm/boot/dts/stm32mp151.dtsi
+> +++ b/arch/arm/boot/dts/stm32mp151.dtsi
+> @@ -24,10 +24,8 @@
+>   	};
+>   
+>   	psci {
+> -		compatible = "arm,psci";
+> +		compatible = "arm,psci-1.0";
+>   		method = "smc";
+> -		cpu_off = <0x84000002>;
+> -		cpu_on = <0x84000003>;
+>   	};
+>   
+>   	intc: interrupt-controller@a0021000 {
 > 
 
-Reviewed-by: Rob Herring <robh@kernel.org>
+Applied on stm32-next.
+
+Thanks.
+Alex
 _______________________________________________
 Linux-stm32 mailing list
 Linux-stm32@st-md-mailman.stormreply.com
