@@ -2,60 +2,61 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id 94EBA1C87D0
-	for <lists+linux-stm32@lfdr.de>; Thu,  7 May 2020 13:15:20 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id A35801C87D4
+	for <lists+linux-stm32@lfdr.de>; Thu,  7 May 2020 13:15:33 +0200 (CEST)
 Received: from ip-172-31-3-76.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 5F48EC3F93B;
-	Thu,  7 May 2020 11:15:20 +0000 (UTC)
-Received: from mail-pg1-f195.google.com (mail-pg1-f195.google.com
- [209.85.215.195])
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 6F845C3F93C;
+	Thu,  7 May 2020 11:15:33 +0000 (UTC)
+Received: from mail-pl1-f196.google.com (mail-pl1-f196.google.com
+ [209.85.214.196])
  (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 712F4C36B0A
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 8E21DC36B0A
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Thu,  7 May 2020 11:15:19 +0000 (UTC)
-Received: by mail-pg1-f195.google.com with SMTP id o18so2373598pgg.8
+ Thu,  7 May 2020 11:15:30 +0000 (UTC)
+Received: by mail-pl1-f196.google.com with SMTP id z6so1932035plk.10
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Thu, 07 May 2020 04:15:19 -0700 (PDT)
+ Thu, 07 May 2020 04:15:30 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20161025;
  h=from:to:cc:subject:date:message-id;
- bh=LPVqop7eYhlKO1AOSFfnjZfL6zhGOb1jJx61piurnL8=;
- b=tRS3YV17LbENu+VpnAc6CsLvuTRwOuDXc5iJ+rNe7z1ZO6/Sggfny1+zIo8dgIBpZl
- kg+jH7StyEUzti01YgpBJvS50xXVsSZk3qBOmgrdfdK/6mJRSYp9xCTa9h8RTdgk+zNR
- MOGHWMYooC5XgYl2CVraN6sJlD4oyzkNOJ9qfqDgN0PBukAP0vj1efJfVDp/2rElpjnz
- aPHvuRIN45z334PdXh+xEyNJR9cLcN0kv8bjI7cdDr+f9JnUN6DCrIgnToM8gTA9sXTt
- duS1BlGzDgKWYzGKSaOp1DKNfzojLz4Dnecot1rd0U6jMcjqBnEEmoQLRuAtBF4kGyVD
- YFuw==
+ bh=dzZv5l46H3vCVPERauYX1uGZ7zgOzPk4wkpAl/BDozc=;
+ b=tSbG7BME/8vv5wmI/sQc+zwSPUoEoKgUp4LNjaY+Qkz0zVVKE0Rc1qtVsZEaOJLq+D
+ T7zYpqzmNEPG8PPe3sDzQmIBrVsQ3YdZHaWVxolM7OaCc04AJ72uDYD8xMTigC8YZ73O
+ DtHhv6NGLxThEGqUri6YXrisZZkQWhZux89L9reZ1ZM0TXb1FDtClGLs5Cn3ZioT6Iql
+ HIsRp4uVK4sDNELmcnS2ni7fPUOeRRhGs0TKaajJ3SZlCaquvsun27EVEgONBnuQeCmM
+ OwD+kegqJKmB4tqYRmpgHMdVurC9Ap7GZ9ZpV5TuKaJJXeD5aDbo5AIsWc3ulXRZ8dwr
+ x4dA==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=1e100.net; s=20161025;
  h=x-gm-message-state:from:to:cc:subject:date:message-id;
- bh=LPVqop7eYhlKO1AOSFfnjZfL6zhGOb1jJx61piurnL8=;
- b=fX4q2TlYzVpeEInTR9yt/ar5d/LTSYofr0si5CYgQLmmI+0BO7si4loEyuhQMIvHpx
- 6ypt1WgavIx1TL6ROAcQ7tiIVqC7nBnZjMPf0UjMr61MRQQJNDAZoPlz3W8SiJL5w4DF
- 8qEHIp4Wat4jPO4/hU70SdGvML1P63nW7yQDmKDEcGvCw1ALS9Xzjb04PUw8s+CGgzbp
- GOAVHbsyAJrEyuGJTzNjod716F1gINUPwALTwk7gRSLeVFJpzYpaQzTlQQk3C7yeVZIh
- q7bWKTf6B13hblQ7UWphDch0aOyr11NLJn0jNpo+eKxc9Lk2C9k30rTW4AASzikKjian
- uDOg==
-X-Gm-Message-State: AGi0Pub+JLmDo5FitS8sOfnOXjPtE9MvzLQeC0H69vF9xBbEiXaQ10qT
- V7FjcmSu1XD6wVO1V8rI+NM=
-X-Google-Smtp-Source: APiQypIPageHHo5o6CT94w6iXvoqpKWIPl0+2Om0RAPGaNvLr57cPx3lh7dN6T0Lq0Wney2FP8ukbg==
-X-Received: by 2002:a62:7555:: with SMTP id q82mr13021927pfc.136.1588850117599; 
- Thu, 07 May 2020 04:15:17 -0700 (PDT)
+ bh=dzZv5l46H3vCVPERauYX1uGZ7zgOzPk4wkpAl/BDozc=;
+ b=Xnl/m+6jKvcbHLxJJNy69rsBUkMucvqHspMA/sls/x2a2ju7Gi/afFYm4r1GzvGSba
+ y39njG6RDcdGX47Fj1rZ36yldUyWUXDrzw31hUKS+W76vdj/lXiEzG9LKH3Fino6qymh
+ +yKDlMR5gWyqZUV1tt2TMdA7mAkgLGjO1VfcPdAopVIiSGid6gI+x46eqR4EAPndfRS1
+ j/sNPtjD3RlkctrK9TyRjxjL8400EZLrdTlQkgoZqR26qnvCeo/Wml1sAoCZk3DGO8WJ
+ vh31F99VEPb5iYHErpIkS/6aeaIWE2DQbetLzDKczokv1KWn0EtFaupzYxGm76J2pTEE
+ aR2Q==
+X-Gm-Message-State: AGi0PuYsqjmm0MlCwbBjiWJhR1OmcXLu7p4olfi58ImFg6LSegy5oTAK
+ SRdsEsufwxW7JZapB0723AESDT7Kcs0=
+X-Google-Smtp-Source: APiQypL0XwlSVSsL32FDaZck9swez03mevirdkbAAk25JZBdWGaET1BAU4+vusLEr5Iw20yBXb3YQA==
+X-Received: by 2002:a17:90a:1f8f:: with SMTP id
+ x15mr14723323pja.76.1588850129146; 
+ Thu, 07 May 2020 04:15:29 -0700 (PDT)
 Received: from fmin-OptiPlex-7060.nreal.work ([103.206.190.146])
- by smtp.gmail.com with ESMTPSA id t74sm4729687pfc.64.2020.05.07.04.15.15
+ by smtp.gmail.com with ESMTPSA id z1sm7056388pjn.43.2020.05.07.04.15.26
  (version=TLS1_2 cipher=ECDHE-ECDSA-AES128-GCM-SHA256 bits=128/128);
- Thu, 07 May 2020 04:15:17 -0700 (PDT)
+ Thu, 07 May 2020 04:15:28 -0700 (PDT)
 From: dillon.minfei@gmail.com
 To: mcoquelin.stm32@gmail.com, alexandre.torgue@st.com,
  philippe.schenker@toradex.com
-Date: Thu,  7 May 2020 19:15:12 +0800
-Message-Id: <1588850112-24297-1-git-send-email-dillon.minfei@gmail.com>
+Date: Thu,  7 May 2020 19:15:25 +0800
+Message-Id: <1588850125-24344-1-git-send-email-dillon.minfei@gmail.com>
 X-Mailer: git-send-email 2.7.4
 Cc: dillon min <dillon.minfei@gmail.com>,
  linux-stm32@st-md-mailman.stormreply.com, linux-arm-kernel@lists.infradead.org,
  linux-kernel@vger.kernel.org
-Subject: [Linux-stm32] [PATCH V2 2/4] ARM: dts: stm32: Add pin map for I2C3
-	controller on stm32f4
+Subject: [Linux-stm32] [PATCH V2 3/4] ARM: dts: stm32: enable stmpe811 on
+	stm32429-disco board
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -75,37 +76,88 @@ Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
 From: dillon min <dillon.minfei@gmail.com>
 
-This patch adds the pin configuration for I2C3 controller on
-stm32f4.
+Enable the stmpe811 touch screen on stm32429-disco board.
+
+Signed-off-by: dillon min <dillon.minfei@gmail.com>
+
+[PATCH 3/4]: ARM: dts: stm32: enable stmpe811 on stm32429-disco
+
+V2:
+patch 3: remove unused id, blocks, irq-trigger
+
+V1:
+patch 4: fix read touch screen xyz timeout bug
+patch 3: enable stmpe_touchscreen on stm32f429-disco board
+patch 2: add i2c3 pin mux for stm32f4
+patch 1: add i2c3 controller interface for stm32f4
 
 Signed-off-by: dillon min <dillon.minfei@gmail.com>
 ---
- arch/arm/boot/dts/stm32f4-pinctrl.dtsi | 12 ++++++++++++
- 1 file changed, 12 insertions(+)
+ arch/arm/boot/dts/stm32f429-disco.dts | 47 +++++++++++++++++++++++++++++++++++
+ 1 file changed, 47 insertions(+)
 
-diff --git a/arch/arm/boot/dts/stm32f4-pinctrl.dtsi b/arch/arm/boot/dts/stm32f4-pinctrl.dtsi
-index 392fa14..051f336 100644
---- a/arch/arm/boot/dts/stm32f4-pinctrl.dtsi
-+++ b/arch/arm/boot/dts/stm32f4-pinctrl.dtsi
-@@ -316,6 +316,18 @@
- 				};
- 			};
+diff --git a/arch/arm/boot/dts/stm32f429-disco.dts b/arch/arm/boot/dts/stm32f429-disco.dts
+index 30c0f67..fad1ec1 100644
+--- a/arch/arm/boot/dts/stm32f429-disco.dts
++++ b/arch/arm/boot/dts/stm32f429-disco.dts
+@@ -49,6 +49,8 @@
+ #include "stm32f429.dtsi"
+ #include "stm32f429-pinctrl.dtsi"
+ #include <dt-bindings/input/input.h>
++#include <dt-bindings/interrupt-controller/irq.h>
++#include <dt-bindings/gpio/gpio.h>
  
-+			i2c3_pins: i2c3-0 {
-+				pins {
-+					pinmux = <STM32_PINMUX('C', 9, AF4)>,
-+						/* I2C3_SDA */
-+						 <STM32_PINMUX('A', 8, AF4)>;
-+						/* I2C3_SCL */
-+					bias-disable;
-+					drive-open-drain;
-+					slew-rate = <3>;
-+				};
-+			};
+ / {
+ 	model = "STMicroelectronics STM32F429i-DISCO board";
+@@ -127,3 +129,48 @@
+ 	pinctrl-names = "default";
+ 	status = "okay";
+ };
 +
- 			dcmi_pins: dcmi-0 {
- 				pins {
- 					pinmux = <STM32_PINMUX('A', 4, AF13)>, /* DCMI_HSYNC */
++&i2c3 {
++	pinctrl-names = "default";
++	pinctrl-0 = <&i2c3_pins>;
++	clock-frequency = <100000>;
++	status = "okay";
++
++	stmpe811@41 {
++		compatible = "st,stmpe811";
++		reg = <0x41>;
++		interrupts = <15 IRQ_TYPE_EDGE_FALLING>;
++		interrupt-parent = <&gpioa>;
++		/* 3.25 MHz ADC clock speed */
++		st,adc-freq = <1>;
++		/* 12-bit ADC */
++		st,mod-12b = <1>;
++		/* internal ADC reference */
++		st,ref-sel = <0>;
++		/* ADC converstion time: 80 clocks */
++		st,sample-time = <4>;
++
++		stmpe_touchscreen {
++			compatible = "st,stmpe-ts";
++			/* 8 sample average control */
++			st,ave-ctrl = <3>;
++			/* 7 length fractional part in z */
++			st,fraction-z = <7>;
++			/*
++			 * 50 mA typical 80 mA max touchscreen drivers
++			 * current limit value
++			 */
++			st,i-drive = <1>;
++			/* 1 ms panel driver settling time */
++			st,settling = <3>;
++			/* 5 ms touch detect interrupt delay */
++			st,touch-det-delay = <5>;
++		};
++
++		stmpe_adc {
++			compatible = "st,stmpe-adc";
++			/* forbid to use ADC channels 3-0 (touch) */
++			st,norequest-mask = <0x0F>;
++		};
++	};
++};
 -- 
 2.7.4
 
