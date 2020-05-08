@@ -2,60 +2,63 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id 648FC1CA039
-	for <lists+linux-stm32@lfdr.de>; Fri,  8 May 2020 03:46:37 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 61D6D1CA03A
+	for <lists+linux-stm32@lfdr.de>; Fri,  8 May 2020 03:46:39 +0200 (CEST)
 Received: from ip-172-31-3-76.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 207ABC3F95F;
-	Fri,  8 May 2020 01:46:37 +0000 (UTC)
-Received: from mail-pg1-f171.google.com (mail-pg1-f171.google.com
- [209.85.215.171])
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 2BCD9C3FAC9;
+	Fri,  8 May 2020 01:46:39 +0000 (UTC)
+Received: from mail-pg1-f195.google.com (mail-pg1-f195.google.com
+ [209.85.215.195])
  (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 7699BC36B0A
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 904B6C3FAC7
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Fri,  8 May 2020 01:46:35 +0000 (UTC)
-Received: by mail-pg1-f171.google.com with SMTP id q124so98683pgq.13
+ Fri,  8 May 2020 01:46:37 +0000 (UTC)
+Received: by mail-pg1-f195.google.com with SMTP id r4so118825pgg.4
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Thu, 07 May 2020 18:46:35 -0700 (PDT)
+ Thu, 07 May 2020 18:46:37 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20161025;
- h=from:to:cc:subject:date:message-id;
- bh=alS8Kr7RIS62zN20gJA22RVwlZfBznZKCMd7Fh+rxNs=;
- b=GeSWVtCymiM2pRkZiRajPWrIg9Phe4A4Dum5/RXbulyy2pTFx37DkoJ3vgJQPbq9MW
- mf3uvUdLVFUtj9TWWhRT4xsy8nPUrV4+kNmUbV+M7J5x3KDLwvZrEpcORIanmdZcqaot
- xVrXu8dWMeOmcaGLN/uQNUT78TTuflDHZl2mgS0hD4Fv30ARH5wq6EYUkk7d2cVLE3o1
- VVGDDhKvyXHaYrqSX8RUuNe7an0f+NXBxeHDBAvAekTxjoSMyhjFrFuWV5ms0PxgUn++
- DCWmhcZ0pwc2yf9xKUCbHIMTNVAujIBZ8dFVTgSZ+bE6FWjuSyjf9XidcD1luwSLW9Z4
- hiNg==
+ h=from:to:cc:subject:date:message-id:in-reply-to:references;
+ bh=cweRr9cAyY6zAkbWBKWMpZ4+w4vWexg4Pp5+tOHzveM=;
+ b=qkSr8PCxTjLesHCIYKLjPg4DjNMUEOltWQ3xEt49V/dH3wG5Q2bFVu8h0oBVariOzD
+ 64FCLQtbLsFM3L2fGXIu2f3ZTV87w4JIZ4pByFeHiG0fb0e2eaLbwVSxq6uhbBOIsFVA
+ o4X2O6+JRsVnyjJXUZCkalLxRJ19vJF6+ZvXy4tIUYZe3eqzhmjPxg1NFR03nYirHoGO
+ OpqTL/wuA1r4/GAj+Y9d4LJ5zE7GQ+lQ0xsUWjmmOj7dJ+fpkQ5+L7+wbhfF/McwSuJp
+ Vlw/LHP/qZWOzoDyAuA3DYq4M3wy/I8sbhcO3oXxbgWsWyVjfc/swSe/DlISYnfepxCd
+ Vx2g==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=1e100.net; s=20161025;
- h=x-gm-message-state:from:to:cc:subject:date:message-id;
- bh=alS8Kr7RIS62zN20gJA22RVwlZfBznZKCMd7Fh+rxNs=;
- b=J729FLb4XOjJTK/omgVtrJT7IuaicGAC6Evvl/IWJSRMhlRFlSqL4xo3it0v5tqDtx
- Jdcz0qUdmPHPWbJWbm7Qw/KPeN7DVrapK3V4R/qhIrnFw1Adc2EtECCOPhz7av+SWyU3
- xPmk/kYydfInU+7nIG4o3DYIWDRRCwrxqAkmjGyvIqu54MYO/4hHy8jg0dDmvn/XDBpe
- /5EWudYGrfxTgzq/ivO2E+ZSHgWUeU9Bn0DHm489jkqUCAtXlG4gUrnVbAAtiOvb6hOK
- jMioW1y1c0wmru13sH8VpCtH9Sjs4K8LDLhQV9REcRY90gMKImyh7TR1pPBbXnocmRZm
- Byog==
-X-Gm-Message-State: AGi0PuZt6kBGkCELsnhn1k2ZGAzRE2whY7rcPT98rymMFsI9qustF4gc
- otv3BBtwFihXcZbdQlwGe6g=
-X-Google-Smtp-Source: APiQypJnSQcMaolrg+UI+/NNrYXp5sdhjMIzzc+8xWsfA0ZYycN3cwtOCSb4v/IJVPkWRFUHNgwBkg==
-X-Received: by 2002:a05:6a00:c8:: with SMTP id e8mr275081pfj.206.1588902393523; 
- Thu, 07 May 2020 18:46:33 -0700 (PDT)
+ h=x-gm-message-state:from:to:cc:subject:date:message-id:in-reply-to
+ :references;
+ bh=cweRr9cAyY6zAkbWBKWMpZ4+w4vWexg4Pp5+tOHzveM=;
+ b=do4bq+7il8o/+IZ4DWpoP8Y/z1B1NKks4kFckoNSy+IeKO2k85Iy6qKwlOwoNZCLM5
+ mxRE6s7dheniLy9kDyrM8E+EZ9zeGsDCHdFfMjTaXoATqm6gF09hmfClYPErxbL1PWAA
+ TPxUUNA2ARC0dPW+AyO9Oso1Mt5+AGoA7r+vQ8+2/miQPA8w3AQ82w0cIejUFh95Yf4d
+ owl84TgCSttf+5PnFJu2NVFcy/ghK0AJ9jCjTO5yFzEsRAK0DRprFUxk52obn9Ci16gS
+ QH/LUTaoXVF3sbGNU35ux6pauFWxLYOBUmnkByegRhDa6Eipw3cxAHjHpqwdyYFLHZ1I
+ tpzQ==
+X-Gm-Message-State: AGi0Pub4LN2r2WcCsxZTbih9JSYgPi+6tg5jzOQUR/msUlbDEZGRU6m7
+ qPXUl1/8uOyfp2zYn98Y8Fw=
+X-Google-Smtp-Source: APiQypLM2K5G2GnkqO1UGyLId9fhCM/BEPlhPv4MJCsMXb2nUR3hPIVNMI8YnRBe67fjalob4a88aQ==
+X-Received: by 2002:a62:18c8:: with SMTP id 191mr242124pfy.255.1588902396205; 
+ Thu, 07 May 2020 18:46:36 -0700 (PDT)
 Received: from fmin-OptiPlex-7060.nreal.work ([103.206.190.146])
- by smtp.gmail.com with ESMTPSA id f74sm9270816pje.3.2020.05.07.18.46.31
+ by smtp.gmail.com with ESMTPSA id f74sm9270816pje.3.2020.05.07.18.46.33
  (version=TLS1_2 cipher=ECDHE-ECDSA-AES128-GCM-SHA256 bits=128/128);
- Thu, 07 May 2020 18:46:33 -0700 (PDT)
+ Thu, 07 May 2020 18:46:35 -0700 (PDT)
 From: dillon.minfei@gmail.com
 To: mcoquelin.stm32@gmail.com, alexandre.torgue@st.com,
  philippe.schenker@toradex.com
-Date: Fri,  8 May 2020 09:46:24 +0800
-Message-Id: <1588902388-4596-1-git-send-email-dillon.minfei@gmail.com>
+Date: Fri,  8 May 2020 09:46:25 +0800
+Message-Id: <1588902388-4596-2-git-send-email-dillon.minfei@gmail.com>
 X-Mailer: git-send-email 2.7.4
+In-Reply-To: <1588902388-4596-1-git-send-email-dillon.minfei@gmail.com>
+References: <1588902388-4596-1-git-send-email-dillon.minfei@gmail.com>
 Cc: dillon min <dillon.minfei@gmail.com>,
  linux-stm32@st-md-mailman.stormreply.com, linux-arm-kernel@lists.infradead.org,
  linux-kernel@vger.kernel.org
-Subject: [Linux-stm32] [PATCH v3 0/4] Enable stmpe811 touch screen on
-	stm32f429-disco board
+Subject: [Linux-stm32] [PATCH v3 1/4] ARM: dts: stm32: add I2C3 support on
+	STM32F429 SoC
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -75,35 +78,36 @@ Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
 From: dillon min <dillon.minfei@gmail.com>
 
-This patchset is intend to enable stmpe811 touch screen on stm32f429-disco
-board with three dts and one i2c driver changes.
+This patch adds I2C3 instances of the STM32F429 SoC
 
-has been validated by ts_print tool
+Signed-off-by: dillon min <dillon.minfei@gmail.com>
+---
+ arch/arm/boot/dts/stm32f429.dtsi | 12 ++++++++++++
+ 1 file changed, 12 insertions(+)
 
-Changes log:
-
-V3: just add change log in [PATCH V3 3/4] below ---
-
-V2: remove id, blocks, irq-trigger from stmpe811 dts
-
-V1:
-    ARM: dts: stm32: add I2C3 support on STM32F429 SoC
-    ARM: dts: stm32: Add pin map for I2C3 controller on stm32f4
-    ARM: dts: stm32: enable stmpe811 on stm32429-disco board
-    i2c: stm32f4: Fix stmpe811 get xyz data timeout issue
-
-dillon min (4):
-  ARM: dts: stm32: add I2C3 support on STM32F429 SoC
-  ARM: dts: stm32: Add pin map for I2C3 controller on stm32f4
-  ARM: dts: stm32: enable stmpe811 on stm32429-disco board
-  i2c: stm32f4: Fix stmpe811 get xyz data timeout issue
-
- arch/arm/boot/dts/stm32f4-pinctrl.dtsi | 12 +++++++++
- arch/arm/boot/dts/stm32f429-disco.dts  | 47 ++++++++++++++++++++++++++++++++++
- arch/arm/boot/dts/stm32f429.dtsi       | 12 +++++++++
- drivers/i2c/busses/i2c-stm32f4.c       |  6 ++---
- 4 files changed, 74 insertions(+), 3 deletions(-)
-
+diff --git a/arch/arm/boot/dts/stm32f429.dtsi b/arch/arm/boot/dts/stm32f429.dtsi
+index d777069..257b843 100644
+--- a/arch/arm/boot/dts/stm32f429.dtsi
++++ b/arch/arm/boot/dts/stm32f429.dtsi
+@@ -402,6 +402,18 @@
+ 			status = "disabled";
+ 		};
+ 
++		i2c3: i2c@40005c00 {
++			compatible = "st,stm32f4-i2c";
++			reg = <0x40005c00 0x400>;
++			interrupts = <72>,
++				     <73>;
++			resets = <&rcc STM32F4_APB1_RESET(I2C3)>;
++			clocks = <&rcc 0 STM32F4_APB1_CLOCK(I2C3)>;
++			#address-cells = <1>;
++			#size-cells = <0>;
++			status = "disabled";
++		};
++
+ 		dac: dac@40007400 {
+ 			compatible = "st,stm32f4-dac-core";
+ 			reg = <0x40007400 0x400>;
 -- 
 2.7.4
 
