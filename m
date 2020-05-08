@@ -2,57 +2,56 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id 68B131CA1DD
-	for <lists+linux-stm32@lfdr.de>; Fri,  8 May 2020 06:13:37 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 755551CA1DE
+	for <lists+linux-stm32@lfdr.de>; Fri,  8 May 2020 06:13:41 +0200 (CEST)
 Received: from ip-172-31-3-76.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 30D73C3FACF;
-	Fri,  8 May 2020 04:13:37 +0000 (UTC)
-Received: from mail-pl1-f195.google.com (mail-pl1-f195.google.com
- [209.85.214.195])
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 3BD71C3FAD0;
+	Fri,  8 May 2020 04:13:41 +0000 (UTC)
+Received: from mail-pg1-f196.google.com (mail-pg1-f196.google.com
+ [209.85.215.196])
  (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 2F6CAC3FACC
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 0679FC36B0A
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Fri,  8 May 2020 04:13:35 +0000 (UTC)
-Received: by mail-pl1-f195.google.com with SMTP id z6so154306plk.10
+ Fri,  8 May 2020 04:13:40 +0000 (UTC)
+Received: by mail-pg1-f196.google.com with SMTP id q124so257199pgq.13
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Thu, 07 May 2020 21:13:35 -0700 (PDT)
+ Thu, 07 May 2020 21:13:39 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20161025;
  h=from:to:cc:subject:date:message-id:in-reply-to:references;
- bh=Db6qOihor5Bj8DkFXZYYMAre3zfCOsyEXmYIyTZWgqc=;
- b=HZa4Ftrmwnb5Ap1XUema1giGFlB40rvdwsHrEWexpeZ6u5tBF43Pq4MFzxAYUu84aI
- JunK7vj/+KG0NUE2q78MI7A8GNKQoC+8zU6hWn6d1wy/rzVCxyRUPShkVXyJi/z4rZ8X
- i25uLgD5ruVcCH5djhBBhZKzsS361Rev4ajBHWYRd4FOcqm3ApHA7RHKdjnCKfSxMdL/
- OYq7KHB0yYJoOYEjmMuKH2w3YwgJDQNmQMo5R1V5fS/spm2DHonKxkvkoJEquM3oeLcX
- SCQtrBzKRLKh6kVEGNoNtw3jUeLMTnSQoqR3iHXqONoXhHB0amdTdYRt6MPXFkfyz2Fy
- C1xw==
+ bh=sGTXTVIeWZfMKGu2Tui/sSS6UaYWbPyLZVydf0J+7iw=;
+ b=VrRdrzH7uKw/48TsVJC0k5uaudQ/8i4despiyT+mgT4Oe7Uw8VOpOj9Xe9kAwWSOrh
+ FtHdoUcfmFSrMJMUPMSkVlbzZlsazu7YQ21sZyaU2m3P0V48G4dqdsiUOh2Q/rwbZXNy
+ oqV1wlxFAiU8EQHraM/wta9w16G93woaX01sKbrtyrtgLftdjx/Zro/oT0KmPuTWsbfE
+ LsmgyY+DZ9ULBA4C908KplqHUhCNMgRhNIYnh9D/GFBwWyo0nRqKQGw95vF8LczzNpsy
+ OZII5c3ewtpx/1zWKnAbch5U03VOwcZd1k25XnYHOt1PqjJEBxdZ9kaLS8jj7SBzh/8m
+ KTVA==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=1e100.net; s=20161025;
  h=x-gm-message-state:from:to:cc:subject:date:message-id:in-reply-to
  :references;
- bh=Db6qOihor5Bj8DkFXZYYMAre3zfCOsyEXmYIyTZWgqc=;
- b=j/whhviVRlU8HaaMUKseFxBQpeqmLcEwTaJE5TkvhDGVGXMEgbFu1WTeuV7cl9fcgK
- e0GP7UBL5niVrb/bikGobbsKHACNPrHpCfzzc9EZoRMjlEH+t7HsBC3MtgD3kBVluPVN
- P2SBSKyyjGzCjyfY/UA5j8A3h4w3o8LpBw3Ax/KqijXL/WyGHR4eioxLuIeBISqQtIEu
- nYOMpdZvwNhU2UQjrXYkJEOsjH3LUFSF7emaFocz8Am4RsJrwU24Fym77NvVetaLr/9F
- 7RqmMxWYblEMldXLvLnWPGfFlbU0VWzVbg0CtiCkDWI84vV3ojpEUYqOppK64F49rer+
- Zhrw==
-X-Gm-Message-State: AGi0PubPXmeOuz1sXdD6QgeRejGlMKIQRbNjgTQBuP9nKUQvZRB5wWtX
- dVpdEJcTYxGtqff2op8GKFE=
-X-Google-Smtp-Source: APiQypJLGCxoTkz92z+vdPnEwubOafhAAPIJICKtjIgVVEZQPHbclNonxkvq6mn3XY2pZohgYlX7KQ==
-X-Received: by 2002:a17:90a:208f:: with SMTP id
- f15mr3825087pjg.60.1588911213774; 
- Thu, 07 May 2020 21:13:33 -0700 (PDT)
+ bh=sGTXTVIeWZfMKGu2Tui/sSS6UaYWbPyLZVydf0J+7iw=;
+ b=kbaKZmO9IurAoZLBfrvNHk84EcR51No3MSwwkeYSmATWDohorwtcPJxDnlgeB6Q0MJ
+ s1hkltZYAG1rf8w9SMQa06/GntfkEFzzJ50U36nWQ7pZr6QL8iSsLPuuxQX14KLi9VA1
+ f7hFQEDCTlLIwham9OPw/FjLMWEo60NqH2EAAe44Xkt7B9Q8O8aouhWcbSPg3suYcDwr
+ ndaLF+uIRTfOPx9q0LCgzz9XgXysi1i3u4Extl0y3fjIAzNJeMx+6BGD4RJpwD2lDdoj
+ 0I5J3YKS5H+zKMUk5QzGN9ZWLdQUJlaFIPYq3KjhJ1kTt0ryoT7LhLzQx2CgCrQvouWx
+ wXmg==
+X-Gm-Message-State: AGi0PuYNdlfT4tHCeUaz/X8fk6RbVzzW9DDQhpjSmiTiAm8Uw0h0kaSv
+ yN58IGq2+VWc+7JkQIHafNk=
+X-Google-Smtp-Source: APiQypKtSx7FFpg/lKRdr/OnMpMvj7PJ21YY/dFtMba1MMBSiMMuH8F3u50v0gIMSY0JufkuJgzOYQ==
+X-Received: by 2002:a62:1994:: with SMTP id 142mr720891pfz.259.1588911218632; 
+ Thu, 07 May 2020 21:13:38 -0700 (PDT)
 Received: from fmin-OptiPlex-7060.nreal.work ([103.206.190.146])
- by smtp.gmail.com with ESMTPSA id h12sm314868pfq.176.2020.05.07.21.13.29
+ by smtp.gmail.com with ESMTPSA id h12sm314868pfq.176.2020.05.07.21.13.34
  (version=TLS1_2 cipher=ECDHE-ECDSA-AES128-GCM-SHA256 bits=128/128);
- Thu, 07 May 2020 21:13:33 -0700 (PDT)
+ Thu, 07 May 2020 21:13:38 -0700 (PDT)
 From: dillon.minfei@gmail.com
 To: robh+dt@kernel.org, mcoquelin.stm32@gmail.com, alexandre.torgue@st.com,
  thierry.reding@gmail.com, sam@ravnborg.org, airlied@linux.ie,
  daniel@ffwll.ch, mturquette@baylibre.com, sboyd@kernel.org
-Date: Fri,  8 May 2020 12:13:12 +0800
-Message-Id: <1588911194-12433-4-git-send-email-dillon.minfei@gmail.com>
+Date: Fri,  8 May 2020 12:13:13 +0800
+Message-Id: <1588911194-12433-5-git-send-email-dillon.minfei@gmail.com>
 X-Mailer: git-send-email 2.7.4
 In-Reply-To: <1588911194-12433-1-git-send-email-dillon.minfei@gmail.com>
 References: <1588911194-12433-1-git-send-email-dillon.minfei@gmail.com>
@@ -60,8 +59,9 @@ Cc: devicetree@vger.kernel.org, linux-kernel@vger.kernel.org,
  dri-devel@lists.freedesktop.org, linux-stm32@st-md-mailman.stormreply.com,
  dillon min <dillon.minfei@gmail.com>, linux-clk@vger.kernel.org,
  linux-arm-kernel@lists.infradead.org
-Subject: [Linux-stm32] [PATCH v2 3/5] dt-bindings: display: panel: Add
-	ilitek ili9341 panel bindings
+Subject: [Linux-stm32] [PATCH v2 4/5] clk: stm32: Fix stm32f429 ltdc driver
+	loading hang in clk set rate. keep ltdc clk running after
+	kernel startup
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -81,99 +81,41 @@ Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
 From: dillon min <dillon.minfei@gmail.com>
 
-Add documentation for "ilitek,ili9341" panel.
+as store stm32f4_rcc_register_pll return to the wrong offset of clks,
+so ltdc gate clk is null.
+need change clks[PLL_VCO_SAI] to clks[PLL_SAI]
+
+add CLK_IGNORE_UNUSED for ltdc to make sure clk not be freed by
+clk_disable_unused
 
 Signed-off-by: dillon min <dillon.minfei@gmail.com>
 ---
+ drivers/clk/clk-stm32f4.c | 5 +++--
+ 1 file changed, 3 insertions(+), 2 deletions(-)
 
-Hi Rob Herring,
-
-This patch [PATCH V2 3/5] about ilitek,ili9341.yaml was verifyed with make dt_binding_check
-
-thanks.
-
-best regards,
-
-dillon,
-
-.../bindings/display/panel/ilitek,ili9341.yaml     | 68 ++++++++++++++++++++++
- 1 file changed, 68 insertions(+)
- create mode 100644 Documentation/devicetree/bindings/display/panel/ilitek,ili9341.yaml
-
-diff --git a/Documentation/devicetree/bindings/display/panel/ilitek,ili9341.yaml b/Documentation/devicetree/bindings/display/panel/ilitek,ili9341.yaml
-new file mode 100644
-index 0000000..94c2b15
---- /dev/null
-+++ b/Documentation/devicetree/bindings/display/panel/ilitek,ili9341.yaml
-@@ -0,0 +1,68 @@
-+# SPDX-License-Identifier: (GPL-2.0-only OR BSD-2-Clause)
-+%YAML 1.2
-+---
-+$id: http://devicetree.org/schemas/display/panel/ilitek,ili9341.yaml#
-+$schema: http://devicetree.org/meta-schemas/core.yaml#
-+
-+title: Ilitek-9341 Display Panel
-+
-+maintainers:
-+  - Dillon Min <dillon.minfei@gmail.com>
-+
-+description: |
-+  Ilitek ILI9341 TFT panel driver with SPI control bus
-+  This is a driver for 320x240 TFT panels, accepting a rgb input
-+  streams that get adapted and scaled to the panel.
-+
-+allOf:
-+  - $ref: panel-common.yaml#
-+
-+properties:
-+  compatible:
-+    items:
-+      - const: stm32f429,ltdc-panel
-+      - {} # ilitek,ili9341, but not listed here to avoid false select
-+
-+  reg: true
-+
-+  dc-gpios:
-+    maxItems: 1
-+    description: panel spi dc gpio
-+
-+  spi-3wire: true
-+
-+  spi-max-frequency:
-+    const: 10000000
-+
-+  port: true
-+
-+additionalProperties: false
-+
-+required:
-+  - compatible
-+  - reg
-+  - dc-gpios
-+  - spi-3wire
-+  - spi-max-frequency
-+  - port
-+
-+examples:
-+  - |+
-+    spi {
-+        #address-cells = <1>;
-+        #size-cells = <0>;
-+        panel: display@0 {
-+                 compatible = "stm32f429,ltdc-panel", "ilitek,ili9341";
-+                 reg = <0>;
-+                 spi-3wire;
-+                 spi-max-frequency = <10000000>;
-+                 dc-gpios = <&gpiod 13 0>;
-+                 port {
-+                         panel_in: endpoint {
-+                           remote-endpoint = <&display_out>;
-+                      };
-+                 };
-+             };
-+        };
-+...
-+
+diff --git a/drivers/clk/clk-stm32f4.c b/drivers/clk/clk-stm32f4.c
+index 18117ce..0ba73de 100644
+--- a/drivers/clk/clk-stm32f4.c
++++ b/drivers/clk/clk-stm32f4.c
+@@ -129,7 +129,8 @@ static const struct stm32f4_gate_data stm32f429_gates[] __initconst = {
+ 	{ STM32F4_RCC_APB2ENR, 20,	"spi5",		"apb2_div" },
+ 	{ STM32F4_RCC_APB2ENR, 21,	"spi6",		"apb2_div" },
+ 	{ STM32F4_RCC_APB2ENR, 22,	"sai1",		"apb2_div" },
+-	{ STM32F4_RCC_APB2ENR, 26,	"ltdc",		"apb2_div" },
++	{ STM32F4_RCC_APB2ENR, 26,	"ltdc",		"apb2_div",
++		CLK_IGNORE_UNUSED },
+ };
+ 
+ static const struct stm32f4_gate_data stm32f469_gates[] __initconst = {
+@@ -1757,7 +1758,7 @@ static void __init stm32f4_rcc_init(struct device_node *np)
+ 	clks[PLL_VCO_I2S] = stm32f4_rcc_register_pll("vco_in",
+ 			&data->pll_data[1], &stm32f4_clk_lock);
+ 
+-	clks[PLL_VCO_SAI] = stm32f4_rcc_register_pll("vco_in",
++	clks[PLL_SAI] = stm32f4_rcc_register_pll("vco_in",
+ 			&data->pll_data[2], &stm32f4_clk_lock);
+ 
+ 	for (n = 0; n < MAX_POST_DIV; n++) {
 -- 
 2.7.4
 
