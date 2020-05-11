@@ -2,62 +2,40 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id DB02B1CD470
-	for <lists+linux-stm32@lfdr.de>; Mon, 11 May 2020 11:06:02 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id BA35E1CD4B4
+	for <lists+linux-stm32@lfdr.de>; Mon, 11 May 2020 11:19:01 +0200 (CEST)
 Received: from ip-172-31-3-76.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 8F9DAC36B22;
-	Mon, 11 May 2020 09:06:02 +0000 (UTC)
-Received: from mail-il1-f196.google.com (mail-il1-f196.google.com
- [209.85.166.196])
- (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 72497C36B23;
+	Mon, 11 May 2020 09:19:01 +0000 (UTC)
+Received: from relay9-d.mail.gandi.net (relay9-d.mail.gandi.net
+ [217.70.183.199])
+ (using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 4EF70C36B0B
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 461E4C36B0B
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Mon, 11 May 2020 09:06:01 +0000 (UTC)
-Received: by mail-il1-f196.google.com with SMTP id e8so7697731ilm.7
- for <linux-stm32@st-md-mailman.stormreply.com>;
- Mon, 11 May 2020 02:06:01 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20161025;
- h=mime-version:references:in-reply-to:from:date:message-id:subject:to
- :cc; bh=KXPQ8oL1xKkz5N/1TA82hvXaOeCuVTJr1m04oqy4j94=;
- b=QQCg4mUX+wQSt9HJ5j0qgOn36rHY+87ZROvttm9Pa4pxhRgqIoB+DGF613qUhKHRQt
- H7L2MAbI9i0x6oxqXk8aB9lVAJuhwZPxftcdY+6+Hxe3SF9yVatTdtd5zdBTcAiYpEZ7
- 0cXXftjo38Hv1w15ZeWjTTLAKEtl6DQVyksD1tXQ5u8lO86y9szmheVmCsODRIQXUfQb
- ssgeZsR+jpJd9xGQALPQg/ZzfnATi+JPXIqUidFbf3WSZDHQ3MCybXqws+iEsv1rS4wW
- Os+41ItdlZu00mg0xVudeuIg834QhX9wM4Q+DCodtzjvjTjlAryTAJduavjzUy44zZib
- +UhA==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20161025;
- h=x-gm-message-state:mime-version:references:in-reply-to:from:date
- :message-id:subject:to:cc;
- bh=KXPQ8oL1xKkz5N/1TA82hvXaOeCuVTJr1m04oqy4j94=;
- b=kkQma2dEidczW3dL8KbhHq0vwcFSr+vfmamtUWFb5mP/mW07uIXsYpf9gz3/wORDfM
- dhs76ODgoq7Dzu1qBy7FPPaVptXO3cwqwoJNGQKPc6mZSC+UlRNkOKQ4Qnz+0ApdTorP
- 2wL3xpU7Bk5CXmXIvwPyUFVYO9fAVwwoeZbxjBLAtJD91W0yXTEYjnETccVnY0sYsFO7
- 7rpigPsuHroViAGWl7QGKj7bpMGSS4kKFPuCMeWxUMw317Ft1vkF+w2qtYo66V9Mw/66
- 9oLWkQeyqbRvrpMJGUdBv/PF8LreN8BuCmOtp4tIAgVFX94Ew/FejhdV44nXDWj2ZuBx
- Cvrw==
-X-Gm-Message-State: AGi0PuZvDKIx4E7fBM++45FCqb6m1MCP6o/odzlo8zvXYl4XNCi6ogti
- RYM5Gh4JBixRVQkHOMI9plO9ix3zvZh22JCxNCI=
-X-Google-Smtp-Source: APiQypLnjwDCTOoTp7cg995FVjGSfRMddjPCiRtwufCtIHvwd/5nPCOyL6yw+XfWN/gd71cdELN5CvnqJnAptBslxQQ=
-X-Received: by 2002:a92:607:: with SMTP id x7mr13744092ilg.218.1589187959912; 
- Mon, 11 May 2020 02:05:59 -0700 (PDT)
+ Mon, 11 May 2020 09:19:00 +0000 (UTC)
+X-Originating-IP: 91.224.148.103
+Received: from xps13 (unknown [91.224.148.103])
+ (Authenticated sender: miquel.raynal@bootlin.com)
+ by relay9-d.mail.gandi.net (Postfix) with ESMTPSA id D6943FF80B;
+ Mon, 11 May 2020 09:18:57 +0000 (UTC)
+Date: Mon, 11 May 2020 11:18:55 +0200
+From: Miquel Raynal <miquel.raynal@bootlin.com>
+To: Christophe Kerello <christophe.kerello@st.com>
+Message-ID: <20200511111855.48216940@xps13>
+In-Reply-To: <1588756279-17289-11-git-send-email-christophe.kerello@st.com>
+References: <1588756279-17289-1-git-send-email-christophe.kerello@st.com>
+ <1588756279-17289-11-git-send-email-christophe.kerello@st.com>
+Organization: Bootlin
+X-Mailer: Claws Mail 3.17.4 (GTK+ 2.24.32; x86_64-pc-linux-gnu)
 MIME-Version: 1.0
-References: <1589007503-9523-1-git-send-email-dillon.minfei@gmail.com>
- <1589007503-9523-3-git-send-email-dillon.minfei@gmail.com>
- <404e7f47-9c0f-44b1-aedb-a8d3af832d40@st.com>
-In-Reply-To: <404e7f47-9c0f-44b1-aedb-a8d3af832d40@st.com>
-From: dillon min <dillon.minfei@gmail.com>
-Date: Mon, 11 May 2020 17:05:23 +0800
-Message-ID: <CAL9mu0+5T3q8V8Ng_1jfPGfBxDWzgd7T1hzcdUXj23-rEtOgfg@mail.gmail.com>
-To: Alexandre Torgue <alexandre.torgue@st.com>
-Cc: devicetree@vger.kernel.org, Hua Dillon <dillonhua@gmail.com>,
- mcoquelin.stm32@gmail.com, linux-kernel@vger.kernel.org, robh+dt@kernel.org,
- linux-spi@vger.kernel.org, Mark Brown <broonie@kernel.org>,
- p.zabel@pengutronix.de, linux-stm32@st-md-mailman.stormreply.com,
- linux-arm-kernel@lists.infradead.org
-Subject: Re: [Linux-stm32] [PATCH 2/3] ARM: dts: stm32: enable l3gd20 on
-	stm32429-disco board
+Cc: mark.rutland@arm.com, devicetree@vger.kernel.org, marex@denx.de,
+ vigneshr@ti.com, gregkh@linuxfoundation.org, richard@nod.at,
+ linux-kernel@vger.kernel.org, robh+dt@kernel.org,
+ linux-mtd@lists.infradead.org, boris.brezillon@collabora.com,
+ linux-stm32@st-md-mailman.stormreply.com
+Subject: Re: [Linux-stm32] [PATCH v4 10/10] mtd: rawnand: stm32_fmc2: get
+ resources from parent node
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -74,73 +52,110 @@ Content-Transfer-Encoding: 7bit
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
-Hi, Alexandre,
+Hi Christophe,
 
-Thanks for review.
+Christophe Kerello <christophe.kerello@st.com> wrote on Wed, 6 May 2020
+11:11:19 +0200:
 
-On Mon, May 11, 2020 at 3:17 PM Alexandre Torgue
-<alexandre.torgue@st.com> wrote:
->
-> Hi
->
-> On 5/9/20 8:58 AM, dillon.minfei@gmail.com wrote:
-> > From: dillon min <dillon.minfei@gmail.com>
-> >
-> > Enable l3gd20 on stm32429-disco board.
->
-> You could add some words about l3gd20
-ok, thanks, i will add some description about l3gd20.
->
-> >
-> > Signed-off-by: dillon min <dillon.minfei@gmail.com>
-> > ---
-> >   arch/arm/boot/dts/stm32f429-disco.dts | 24 ++++++++++++++++++++++++
-> >   1 file changed, 24 insertions(+)
-> >
-> > diff --git a/arch/arm/boot/dts/stm32f429-disco.dts b/arch/arm/boot/dts/stm32f429-disco.dts
-> > index 30c0f67..d365358 100644
-> > --- a/arch/arm/boot/dts/stm32f429-disco.dts
-> > +++ b/arch/arm/boot/dts/stm32f429-disco.dts
-> > @@ -49,6 +49,8 @@
-> >   #include "stm32f429.dtsi"
-> >   #include "stm32f429-pinctrl.dtsi"
-> >   #include <dt-bindings/input/input.h>
-> > +#include <dt-bindings/interrupt-controller/irq.h>
-> > +#include <dt-bindings/gpio/gpio.h>
-> >
-> >   / {
-> >       model = "STMicroelectronics STM32F429i-DISCO board";
-> > @@ -127,3 +129,25 @@
-> >       pinctrl-names = "default";
-> >       status = "okay";
-> >   };
-> > +
-> > +&spi5 {
-> > +     status = "okay";
-> > +     pinctrl-0 = <&spi5_pins>;
-> > +     pinctrl-names = "default";
-> > +     #address-cells = <1>;
-> > +     #size-cells = <0>;
-> > +     cs-gpios = <&gpioc 1 GPIO_ACTIVE_LOW>;
-> > +     dmas = <&dma2 3 2 0x400 0x0>,
-> > +            <&dma2 4 2 0x400 0x0>;
-> > +     dma-names = "rx", "tx";
->
-> Insert blank line here.
-ok
->
-> > +     l3gd20: l3gd20@0 {
-> > +             compatible = "st,l3gd20-gyro";
-> > +             spi-max-frequency = <10000000>;
-> > +             st,drdy-int-pin = <2>;
-> > +             interrupt-parent = <&gpioa>;
-> > +             interrupts = <1 IRQ_TYPE_EDGE_RISING>,
-> > +                             <2 IRQ_TYPE_EDGE_RISING>;
-> > +             reg = <0>;
-> > +             status = "okay";
-> > +     };
-> > +};
-> >
+> FMC2 EBI support has been added. Common resources (registers base
+> and clock) are now shared between the 2 drivers. It means that the
+> common resources should now be found in the parent device when EBI
+> node is available.
+> 
+> Signed-off-by: Christophe Kerello <christophe.kerello@st.com>
+> ---
+
+[...]
+
+> +
+> +static bool stm32_fmc2_nfc_check_for_parent(struct platform_device *pdev)
+> +{
+> +	u32 i;
+> +	int nb_resources = 0;
+> +
+> +	/* Count the number of resources in reg property */
+> +	for (i = 0; i < pdev->num_resources; i++) {
+> +		struct resource *res = &pdev->resource[i];
+> +
+> +		if (resource_type(res) == IORESOURCE_MEM)
+> +			nb_resources++;
+> +	}
+> +
+> +	/* Each CS needs 3 resources defined (data, cmd and addr) */
+> +	if (nb_resources % 3)
+> +		return false;
+> +
+> +	return true;
+> +}
+
+This function looks fragile. Why not just checking the compatible
+string of the parent node?
+
+> +
+>  static int stm32_fmc2_nfc_probe(struct platform_device *pdev)
+>  {
+>  	struct device *dev = &pdev->dev;
+> @@ -1824,8 +1865,8 @@ static int stm32_fmc2_nfc_probe(struct platform_device *pdev)
+>  	struct resource *res;
+>  	struct mtd_info *mtd;
+>  	struct nand_chip *chip;
+> -	void __iomem *mmio;
+>  	int chip_cs, mem_region, ret, irq;
+> +	int num_region = 1;
+>  
+>  	nfc = devm_kzalloc(dev, sizeof(*nfc), GFP_KERNEL);
+>  	if (!nfc)
+> @@ -1834,23 +1875,19 @@ static int stm32_fmc2_nfc_probe(struct platform_device *pdev)
+>  	nfc->dev = dev;
+>  	nand_controller_init(&nfc->base);
+>  	nfc->base.ops = &stm32_fmc2_nfc_controller_ops;
+> +	nfc->has_parent = stm32_fmc2_nfc_check_for_parent(pdev);
+> +	if (nfc->has_parent)
+> +		num_region = 0;
+>  
+>  	ret = stm32_fmc2_nfc_parse_dt(nfc);
+>  	if (ret)
+>  		return ret;
+>  
+> -	res = platform_get_resource(pdev, IORESOURCE_MEM, 0);
+> -	mmio = devm_ioremap_resource(dev, res);
+> -	if (IS_ERR(mmio))
+> -		return PTR_ERR(mmio);
+> -
+> -	nfc->regmap = devm_regmap_init_mmio(dev, mmio, &stm32_fmc2_regmap_cfg);
+> -	if (IS_ERR(nfc->regmap))
+> -		return PTR_ERR(nfc->regmap);
+> -
+> -	nfc->io_phys_addr = res->start;
+> +	ret = stm32_fmc2_nfc_set_regmap_clk(pdev, nfc);
+> +	if (ret)
+> +		return ret;
+
+Are you sure this driver sill works without the EBI block?
+
+This change looks suspect.
+
+>  
+> -	for (chip_cs = 0, mem_region = 1; chip_cs < FMC2_MAX_CE;
+> +	for (chip_cs = 0, mem_region = num_region; chip_cs < FMC2_MAX_CE;
+>  	     chip_cs++, mem_region += 3) {
+>  		if (!(nfc->cs_assigned & BIT(chip_cs)))
+>  			continue;
+> @@ -1888,10 +1925,6 @@ static int stm32_fmc2_nfc_probe(struct platform_device *pdev)
+>  
+>  	init_completion(&nfc->complete);
+>  
+> -	nfc->clk = devm_clk_get(dev, NULL);
+> -	if (IS_ERR(nfc->clk))
+> -		return PTR_ERR(nfc->clk);
+> -
+
+Same here
+
+>  	ret = clk_prepare_enable(nfc->clk);
+>  	if (ret) {
+>  		dev_err(dev, "can not enable the clock\n");
+
 _______________________________________________
 Linux-stm32 mailing list
 Linux-stm32@st-md-mailman.stormreply.com
