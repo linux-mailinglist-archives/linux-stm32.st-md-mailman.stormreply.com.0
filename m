@@ -2,67 +2,67 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id C17A71CD240
-	for <lists+linux-stm32@lfdr.de>; Mon, 11 May 2020 09:17:36 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 76C4C1CD3CF
+	for <lists+linux-stm32@lfdr.de>; Mon, 11 May 2020 10:26:36 +0200 (CEST)
 Received: from ip-172-31-3-76.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 6912FC36B1E;
-	Mon, 11 May 2020 07:17:36 +0000 (UTC)
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 3555CC36B1F;
+	Mon, 11 May 2020 08:26:36 +0000 (UTC)
 Received: from mx07-00178001.pphosted.com (mx08-00178001.pphosted.com
  [91.207.212.93])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 8A8A3C36B0B
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 34992C36B0B
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Mon, 11 May 2020 07:17:33 +0000 (UTC)
-Received: from pps.filterd (m0046660.ppops.net [127.0.0.1])
+ Mon, 11 May 2020 08:26:35 +0000 (UTC)
+Received: from pps.filterd (m0046661.ppops.net [127.0.0.1])
  by mx07-00178001.pphosted.com (8.16.0.42/8.16.0.42) with SMTP id
- 04B78D68004239; Mon, 11 May 2020 09:17:15 +0200
+ 04B8IcDZ000838; Mon, 11 May 2020 10:26:23 +0200
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=st.com;
  h=subject : to : cc :
  references : from : message-id : date : mime-version : in-reply-to :
  content-type : content-transfer-encoding; s=STMicroelectronics;
- bh=7EjOxTddIIOGD46hGzyLSFcZQlrJHNVdlCjYIFYnon4=;
- b=yxOsCse5c5VAFj9hUoZ/WDw5yoX4uYk9bARejnXCNca0T9dxLT/ZukAlETjjliEtMiRC
- v9GOvjRa2bZ0KbgBJeswfSRkCZC+yyIVW5WHWyzxEDIda6A+u+qnK0S9X++1VRTJvQ1p
- wdWuEkRuM9DU0L8SQdLCKnCmqQEL1BOn15XuZduKUAVv5cE9Ew2ddTIt+LvtdcYZa4iU
- xf8MuUntXrTgGc6YHIe+SJ4YyII+uXs3j16vXJb3NsPFhAD5QY71icyWZfxDdIrHjqkR
- 7t35lFn/G2nAJI+5iNv7/uuP9/JuqCXFmMYz7EtpTBv7G3rbv1wC1+wMgXehEn/JVxhF qw== 
+ bh=Ru+Sn0FTJTVqbWOdslDA8U6LFzVoFwyVpPARpJGF2gA=;
+ b=FGeCx4LV77IswcaXp29EjbpT4kc5n3OE65604Q8NzAiZPXfAmmq4GGxc9FAmwjtGPrRv
+ fj2fI99u2SxUBkeVvPcItTSSsRoaTBG3JeodKJGvNzbenjkCQgjAaPkOXPWb2aAv2BlZ
+ cQzDZAazTU92bMS1906+iMgipZNIpXh0t9R8wKrlpOsPGuoH4a8zmlN2Do6X9//E2reb
+ 0GpHCg0Dlsa99yszPvYx6orte5fgz+IrjKETPaEFtBGImV275y/ASaYMLO7Oafxnbzls
+ yNiva4uSqU+nR8unYu/f9nf+VQ2HsnFOHRUlbUg3lQtlTTDwHWwTz8+A3i2yzTH+/lIk wA== 
 Received: from beta.dmz-eu.st.com (beta.dmz-eu.st.com [164.129.1.35])
- by mx07-00178001.pphosted.com with ESMTP id 30whn98tuc-1
+ by mx07-00178001.pphosted.com with ESMTP id 30wkdgrtx9-1
  (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
- Mon, 11 May 2020 09:17:15 +0200
+ Mon, 11 May 2020 10:26:22 +0200
 Received: from euls16034.sgp.st.com (euls16034.sgp.st.com [10.75.44.20])
- by beta.dmz-eu.st.com (STMicroelectronics) with ESMTP id AE992100034;
- Mon, 11 May 2020 09:17:11 +0200 (CEST)
-Received: from Webmail-eu.st.com (sfhdag3node2.st.com [10.75.127.8])
- by euls16034.sgp.st.com (STMicroelectronics) with ESMTP id 96B222AC585;
- Mon, 11 May 2020 09:17:11 +0200 (CEST)
-Received: from lmecxl0912.tpe.st.com (10.75.127.46) by SFHDAG3NODE2.st.com
- (10.75.127.8) with Microsoft SMTP Server (TLS) id 15.0.1347.2; Mon, 11 May
- 2020 09:17:06 +0200
-To: <dillon.minfei@gmail.com>, <robh+dt@kernel.org>,
- <mcoquelin.stm32@gmail.com>, <broonie@kernel.org>, <p.zabel@pengutronix.de>
-References: <1589007503-9523-1-git-send-email-dillon.minfei@gmail.com>
- <1589007503-9523-3-git-send-email-dillon.minfei@gmail.com>
-From: Alexandre Torgue <alexandre.torgue@st.com>
-Message-ID: <404e7f47-9c0f-44b1-aedb-a8d3af832d40@st.com>
-Date: Mon, 11 May 2020 09:16:59 +0200
-User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:68.0) Gecko/20100101
- Thunderbird/68.4.1
+ by beta.dmz-eu.st.com (STMicroelectronics) with ESMTP id 5A7CA100034;
+ Mon, 11 May 2020 10:26:22 +0200 (CEST)
+Received: from Webmail-eu.st.com (sfhdag5node2.st.com [10.75.127.14])
+ by euls16034.sgp.st.com (STMicroelectronics) with ESMTP id 2650A2B27B0;
+ Mon, 11 May 2020 10:26:22 +0200 (CEST)
+Received: from [10.131.226.156] (10.75.127.46) by SFHDAG5NODE2.st.com
+ (10.75.127.14) with Microsoft SMTP Server (TLS) id 15.0.1473.3; Mon, 11 May
+ 2020 10:26:20 +0200
+To: Alain Volmat <alain.volmat@st.com>, <wsa@kernel.org>, <robh+dt@kernel.org>
+References: <1588657871-14747-1-git-send-email-alain.volmat@st.com>
+ <1588657871-14747-2-git-send-email-alain.volmat@st.com>
+From: Pierre Yves MORDRET <pierre-yves.mordret@st.com>
+Message-ID: <c80936d4-2905-096c-9848-3f16444eaedc@st.com>
+Date: Mon, 11 May 2020 10:26:23 +0200
+User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:60.0) Gecko/20100101
+ Thunderbird/60.9.0
 MIME-Version: 1.0
-In-Reply-To: <1589007503-9523-3-git-send-email-dillon.minfei@gmail.com>
+In-Reply-To: <1588657871-14747-2-git-send-email-alain.volmat@st.com>
 Content-Language: en-US
 X-Originating-IP: [10.75.127.46]
-X-ClientProxiedBy: SFHDAG8NODE2.st.com (10.75.127.23) To SFHDAG3NODE2.st.com
- (10.75.127.8)
+X-ClientProxiedBy: SFHDAG6NODE2.st.com (10.75.127.17) To SFHDAG5NODE2.st.com
+ (10.75.127.14)
 X-Proofpoint-Virus-Version: vendor=fsecure engine=2.50.10434:6.0.216, 18.0.676
- definitions=2020-05-11_02:2020-05-11,
+ definitions=2020-05-11_03:2020-05-11,
  2020-05-11 signatures=0
-Cc: devicetree@vger.kernel.org, dillonhua@gmail.com,
- linux-kernel@vger.kernel.org, linux-spi@vger.kernel.org,
+Cc: mark.rutland@arm.com, devicetree@vger.kernel.org,
+ linux-kernel@vger.kernel.org, linux-i2c@vger.kernel.org,
+ mcoquelin.stm32@gmail.com, fabrice.gasnier@st.com,
  linux-stm32@st-md-mailman.stormreply.com, linux-arm-kernel@lists.infradead.org
-Subject: Re: [Linux-stm32] [PATCH 2/3] ARM: dts: stm32: enable l3gd20 on
- stm32429-disco board
+Subject: Re: [Linux-stm32] [PATCH 1/4] i2c: smbus: add core function
+ handling SMBus host-notify
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -74,68 +74,164 @@ List-Post: <mailto:linux-stm32@st-md-mailman.stormreply.com>
 List-Help: <mailto:linux-stm32-request@st-md-mailman.stormreply.com?subject=help>
 List-Subscribe: <https://st-md-mailman.stormreply.com/mailman/listinfo/linux-stm32>, 
  <mailto:linux-stm32-request@st-md-mailman.stormreply.com?subject=subscribe>
+Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
-Content-Type: text/plain; charset="us-ascii"; Format="flowed"
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
-Hi
+Hi all,
 
-On 5/9/20 8:58 AM, dillon.minfei@gmail.com wrote:
-> From: dillon min <dillon.minfei@gmail.com>
+Reviewed-by: Pierre-Yves MORDRET <pierre-yves.mordret@st.com>
+
+Thanks
+
+On 5/5/20 7:51 AM, Alain Volmat wrote:
+> SMBus Host-Notify protocol, from the adapter point of view
+> consist of receiving a message from a client, including the
+> client address and some other data.
 > 
-> Enable l3gd20 on stm32429-disco board.
-
-You could add some words about l3gd20
-
+> It can be simply handled by creating a new slave device
+> and registering a callback performing the parsing of the
+> message received from the client.
 > 
-> Signed-off-by: dillon min <dillon.minfei@gmail.com>
+> This commit introduces two new core functions
+>   * i2c_new_smbus_host_notify_device
+>   * i2c_free_smbus_host_notify_device
+> that take care of registration of the new slave device and
+> callback and will call i2c_handle_smbus_host_notify once a
+> Host-Notify event is received.
+> 
+> Signed-off-by: Alain Volmat <alain.volmat@st.com>
 > ---
->   arch/arm/boot/dts/stm32f429-disco.dts | 24 ++++++++++++++++++++++++
->   1 file changed, 24 insertions(+)
+>  drivers/i2c/i2c-core-smbus.c | 105 +++++++++++++++++++++++++++++++++++
+>  include/linux/i2c-smbus.h    |   2 +
+>  2 files changed, 107 insertions(+)
 > 
-> diff --git a/arch/arm/boot/dts/stm32f429-disco.dts b/arch/arm/boot/dts/stm32f429-disco.dts
-> index 30c0f67..d365358 100644
-> --- a/arch/arm/boot/dts/stm32f429-disco.dts
-> +++ b/arch/arm/boot/dts/stm32f429-disco.dts
-> @@ -49,6 +49,8 @@
->   #include "stm32f429.dtsi"
->   #include "stm32f429-pinctrl.dtsi"
->   #include <dt-bindings/input/input.h>
-> +#include <dt-bindings/interrupt-controller/irq.h>
-> +#include <dt-bindings/gpio/gpio.h>
->   
->   / {
->   	model = "STMicroelectronics STM32F429i-DISCO board";
-> @@ -127,3 +129,25 @@
->   	pinctrl-names = "default";
->   	status = "okay";
->   };
+> diff --git a/drivers/i2c/i2c-core-smbus.c b/drivers/i2c/i2c-core-smbus.c
+> index b34d2ff06931..0c7e135c73e1 100644
+> --- a/drivers/i2c/i2c-core-smbus.c
+> +++ b/drivers/i2c/i2c-core-smbus.c
+> @@ -708,3 +708,108 @@ int of_i2c_setup_smbus_alert(struct i2c_adapter *adapter)
+>  }
+>  EXPORT_SYMBOL_GPL(of_i2c_setup_smbus_alert);
+>  #endif
 > +
-> +&spi5 {
-> +	status = "okay";
-> +	pinctrl-0 = <&spi5_pins>;
-> +	pinctrl-names = "default";
-> +	#address-cells = <1>;
-> +	#size-cells = <0>;
-> +	cs-gpios = <&gpioc 1 GPIO_ACTIVE_LOW>;
-> +	dmas = <&dma2 3 2 0x400 0x0>,
-> +	       <&dma2 4 2 0x400 0x0>;
-> +	dma-names = "rx", "tx";
-
-Insert blank line here.
-
-> +	l3gd20: l3gd20@0 {
-> +		compatible = "st,l3gd20-gyro";
-> +		spi-max-frequency = <10000000>;
-> +		st,drdy-int-pin = <2>;
-> +		interrupt-parent = <&gpioa>;
-> +		interrupts = <1 IRQ_TYPE_EDGE_RISING>,
-> +				<2 IRQ_TYPE_EDGE_RISING>;
-> +		reg = <0>;
-> +		status = "okay";
-> +	};
+> +struct i2c_smbus_host_notify_status {
+> +	bool notify_start;
+> +	u8 addr;
 > +};
+> +
+> +static int i2c_smbus_host_notify_cb(struct i2c_client *client,
+> +				    enum i2c_slave_event event, u8 *val)
+> +{
+> +	struct i2c_smbus_host_notify_status *status = client->dev.platform_data;
+> +	int ret;
+> +
+> +	switch (event) {
+> +	case I2C_SLAVE_WRITE_REQUESTED:
+> +		status->notify_start = true;
+> +		break;
+> +	case I2C_SLAVE_WRITE_RECEIVED:
+> +		/* We only retrieve the first byte received (addr)
+> +		 * since there is currently no way to retrieve the data
+> +		 * parameter from the client.
+> +		 */
+> +		if (!status->notify_start)
+> +			break;
+> +		status->addr = *val;
+> +		status->notify_start = false;
+> +		break;
+> +	case I2C_SLAVE_STOP:
+> +		ret = i2c_handle_smbus_host_notify(client->adapter,
+> +						   status->addr);
+> +		if (ret < 0) {
+> +			dev_warn(&client->adapter->dev, "failed to handle host_notify (%d)\n",
+> +				ret);
+> +			return ret;
+> +		}
+> +		break;
+> +	default:
+> +		/* Only handle necessary events */
+> +		break;
+> +	}
+> +
+> +	return 0;
+> +}
+> +
+> +/**
+> + * i2c_new_smbus_host_notify_device - get a client for SMBus host-notify support
+> + * @adapter: the target adapter
+> + * Context: can sleep
+> + *
+> + * Setup handling of the SMBus host-notify protocol on a given I2C bus segment.
+> + *
+> + * Handling is done by creating a device and its callback and handling data
+> + * received via the SMBus host-notify address (0x8)
+> + *
+> + * This returns the client, which should be ultimately freed using
+> + * i2c_free_smbus_host_notify_device(); or an ERRPTR to indicate an error.
+> + */
+> +struct i2c_client *i2c_new_smbus_host_notify_device(struct i2c_adapter *adapter)
+> +{
+> +	struct i2c_board_info host_notify_board_info = {
+> +		I2C_BOARD_INFO("smbus_host_notify", 0x08),
+> +		.flags  = I2C_CLIENT_SLAVE,
+> +	};
+> +	struct i2c_smbus_host_notify_status *status;
+> +	struct i2c_client *client;
+> +	int ret;
+> +
+> +	status = kzalloc(sizeof(struct i2c_smbus_host_notify_status),
+> +			 GFP_KERNEL);
+> +	if (!status)
+> +		return ERR_PTR(-ENOMEM);
+> +
+> +	host_notify_board_info.platform_data = status;
+> +
+> +	client = i2c_new_client_device(adapter, &host_notify_board_info);
+> +	if (IS_ERR(client)) {
+> +		kfree(status);
+> +		return client;
+> +	}
+> +
+> +	ret = i2c_slave_register(client, i2c_smbus_host_notify_cb);
+> +	if (ret) {
+> +		i2c_unregister_device(client);
+> +		kfree(status);
+> +		return ERR_PTR(ret);
+> +	}
+> +
+> +	return client;
+> +}
+> +EXPORT_SYMBOL_GPL(i2c_new_smbus_host_notify_device);
+> +
+> +/**
+> + * i2c_free_smbus_host_notify_device - free the client for SMBus host-notify
+> + * support
+> + * @client: the client to free
+> + * Context: can sleep
+> + *
+> + * Free the i2c_client allocated via i2c_new_smbus_host_notify_device
+> + */
+> +void i2c_free_smbus_host_notify_device(struct i2c_client *client)
+> +{
+> +	i2c_slave_unregister(client);
+> +	kfree(client->dev.platform_data);
+> +	i2c_unregister_device(client);
+> +}
+> +EXPORT_SYMBOL_GPL(i2c_free_smbus_host_notify_device);
+> diff --git a/include/linux/i2c-smbus.h b/include/linux/i2c-smbus.h
+> index 8c5459034f92..926f6d8ae30d 100644
+> --- a/include/linux/i2c-smbus.h
+> +++ b/include/linux/i2c-smbus.h
+> @@ -38,5 +38,7 @@ static inline int of_i2c_setup_smbus_alert(struct i2c_adapter *adap)
+>  	return 0;
+>  }
+>  #endif
+> +struct i2c_client *i2c_new_smbus_host_notify_device(struct i2c_adapter *adapter);
+> +void i2c_free_smbus_host_notify_device(struct i2c_client *client);
+>  
+>  #endif /* _LINUX_I2C_SMBUS_H */
 > 
 _______________________________________________
 Linux-stm32 mailing list
