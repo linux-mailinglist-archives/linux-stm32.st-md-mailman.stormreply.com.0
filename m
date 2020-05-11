@@ -2,65 +2,39 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id 051401CE125
-	for <lists+linux-stm32@lfdr.de>; Mon, 11 May 2020 19:03:23 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 695921CE577
+	for <lists+linux-stm32@lfdr.de>; Mon, 11 May 2020 22:28:24 +0200 (CEST)
 Received: from ip-172-31-3-76.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id B7588C36B2E;
-	Mon, 11 May 2020 17:03:22 +0000 (UTC)
-Received: from mx07-00178001.pphosted.com (mx08-00178001.pphosted.com
- [91.207.212.93])
- (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 0FE87C36B2F;
+	Mon, 11 May 2020 20:28:24 +0000 (UTC)
+Received: from relay12.mail.gandi.net (relay12.mail.gandi.net [217.70.178.232])
+ (using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 77CA3C36B0B
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id D9A5AC36B0B
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Mon, 11 May 2020 17:03:21 +0000 (UTC)
-Received: from pps.filterd (m0046661.ppops.net [127.0.0.1])
- by mx07-00178001.pphosted.com (8.16.0.42/8.16.0.42) with SMTP id
- 04BH2cN5022580; Mon, 11 May 2020 19:03:04 +0200
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=st.com;
- h=subject : to : cc :
- references : from : message-id : date : mime-version : in-reply-to :
- content-type : content-transfer-encoding; s=STMicroelectronics;
- bh=fFdqkgz+ckOPjK+uqXh+/8VdlvCd7D/N0JciZfq7ZBY=;
- b=Ke9DXfekgW9O2wxAbld+LitkUu2LweglTH5nnuqdIy4Gbw8pjvDazRZPPF2CYMU6qWW5
- /UKJUP6OPVy8/GMrJ6/mja+mtG6/Trdi6yy483eHxgL2XGpJKCkKjyjOA2F/hijTQVLS
- EfKqs8HreakZM04VQo0EbFgWDoU22Em26e+BUBx8aej8F4lwuMBNoG7VX+063GjiFGqF
- dHA89acv/HqTPM+bxHlRIyInwpJmAzLJXOumER5WFPmJ1tGiILf1P2ABtvyIZxxdqk3t
- MBoUhN7oVq53xJUkgSuOfCA4ntZajw74EAWQpNYWtr7oKNpagkyPLweQiongJy8FcmR6 oQ== 
-Received: from beta.dmz-eu.st.com (beta.dmz-eu.st.com [164.129.1.35])
- by mx07-00178001.pphosted.com with ESMTP id 30wkdgua1f-1
- (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
- Mon, 11 May 2020 19:03:04 +0200
-Received: from euls16034.sgp.st.com (euls16034.sgp.st.com [10.75.44.20])
- by beta.dmz-eu.st.com (STMicroelectronics) with ESMTP id DE57510002A;
- Mon, 11 May 2020 19:03:02 +0200 (CEST)
-Received: from Webmail-eu.st.com (sfhdag6node2.st.com [10.75.127.17])
- by euls16034.sgp.st.com (STMicroelectronics) with ESMTP id A4DBB2B76B4;
- Mon, 11 May 2020 19:03:02 +0200 (CEST)
-Received: from [10.211.5.64] (10.75.127.48) by SFHDAG6NODE2.st.com
- (10.75.127.17) with Microsoft SMTP Server (TLS) id 15.0.1347.2; Mon, 11 May
- 2020 19:02:56 +0200
-To: Miquel Raynal <miquel.raynal@bootlin.com>
+ Mon, 11 May 2020 20:28:21 +0000 (UTC)
+Received: from xps13 (unknown [91.224.148.103])
+ (Authenticated sender: miquel.raynal@bootlin.com)
+ by relay12.mail.gandi.net (Postfix) with ESMTPSA id 4084D200002;
+ Mon, 11 May 2020 20:28:19 +0000 (UTC)
+Date: Mon, 11 May 2020 22:28:17 +0200
+From: Miquel Raynal <miquel.raynal@bootlin.com>
+To: Christophe Kerello <christophe.kerello@st.com>
+Message-ID: <20200511222817.003f5aff@xps13>
+In-Reply-To: <f09690bf-f985-d60d-7805-6dad00b19b66@st.com>
 References: <1588756279-17289-1-git-send-email-christophe.kerello@st.com>
  <1588756279-17289-11-git-send-email-christophe.kerello@st.com>
- <20200511111855.48216940@xps13> <3377adc6-3e5e-b9b7-12be-c7aa44bfac82@st.com>
- <20200511135926.3e5c622d@xps13> <0c704fea-f2a6-2cec-8741-d322acf6afd5@st.com>
- <20200511145855.35c6abfb@xps13> <6f822f79-18f1-5308-16cc-b31f0be80d5a@st.com>
+ <20200511111855.48216940@xps13>
+ <3377adc6-3e5e-b9b7-12be-c7aa44bfac82@st.com>
+ <20200511135926.3e5c622d@xps13>
+ <0c704fea-f2a6-2cec-8741-d322acf6afd5@st.com>
+ <20200511145855.35c6abfb@xps13>
+ <6f822f79-18f1-5308-16cc-b31f0be80d5a@st.com>
  <20200511164524.3f94ba31@xps13>
-From: Christophe Kerello <christophe.kerello@st.com>
-Message-ID: <f09690bf-f985-d60d-7805-6dad00b19b66@st.com>
-Date: Mon, 11 May 2020 19:02:51 +0200
-User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:60.0) Gecko/20100101
- Thunderbird/60.6.1
+ <f09690bf-f985-d60d-7805-6dad00b19b66@st.com>
+Organization: Bootlin
+X-Mailer: Claws Mail 3.17.4 (GTK+ 2.24.32; x86_64-pc-linux-gnu)
 MIME-Version: 1.0
-In-Reply-To: <20200511164524.3f94ba31@xps13>
-Content-Language: en-US
-X-Originating-IP: [10.75.127.48]
-X-ClientProxiedBy: SFHDAG7NODE2.st.com (10.75.127.20) To SFHDAG6NODE2.st.com
- (10.75.127.17)
-X-Proofpoint-Virus-Version: vendor=fsecure engine=2.50.10434:6.0.216, 18.0.676
- definitions=2020-05-11_08:2020-05-11,
- 2020-05-11 signatures=0
 Cc: mark.rutland@arm.com, devicetree@vger.kernel.org, marex@denx.de,
  vigneshr@ti.com, gregkh@linuxfoundation.org, richard@nod.at,
  linux-kernel@vger.kernel.org, robh+dt@kernel.org,
@@ -79,213 +53,154 @@ List-Post: <mailto:linux-stm32@st-md-mailman.stormreply.com>
 List-Help: <mailto:linux-stm32-request@st-md-mailman.stormreply.com?subject=help>
 List-Subscribe: <https://st-md-mailman.stormreply.com/mailman/listinfo/linux-stm32>, 
  <mailto:linux-stm32-request@st-md-mailman.stormreply.com?subject=subscribe>
-Content-Transfer-Encoding: 7bit
-Content-Type: text/plain; charset="us-ascii"; Format="flowed"
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: base64
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
-Hi Miquel,
-
-On 5/11/20 4:45 PM, Miquel Raynal wrote:
-> Hi Christophe,
-> 
-> Christophe Kerello <christophe.kerello@st.com> wrote on Mon, 11 May
-> 2020 16:19:47 +0200:
-> 
->> Hi Miquel,
->>
->> On 5/11/20 2:58 PM, Miquel Raynal wrote:
->>> Hi Christophe,
->>>
->>> Christophe Kerello <christophe.kerello@st.com> wrote on Mon, 11 May
->>> 2020 14:47:09 +0200:
->>>    
->>>> Hi Miquel,
->>>>
->>>> On 5/11/20 1:59 PM, Miquel Raynal wrote:
->>>>> Hi Christophe,
->>>>>
->>>>> Christophe Kerello <christophe.kerello@st.com> wrote on Mon, 11 May
->>>>> 2020 12:21:03 +0200:
->>>>>     >>>> Hi Miquel,
->>>>>>
->>>>>> On 5/11/20 11:18 AM, Miquel Raynal wrote:
->>>>>>> Hi Christophe,
->>>>>>>
->>>>>>> Christophe Kerello <christophe.kerello@st.com> wrote on Wed, 6 May 2020
->>>>>>> 11:11:19 +0200:
->>>>>>>      >>>> FMC2 EBI support has been added. Common resources (registers base
->>>>>>>> and clock) are now shared between the 2 drivers. It means that the
->>>>>>>> common resources should now be found in the parent device when EBI
->>>>>>>> node is available.
->>>>>>>>
->>>>>>>> Signed-off-by: Christophe Kerello <christophe.kerello@st.com>
->>>>>>>> ---
->>>>>>>
->>>>>>> [...]
->>>>>>>      >>>> +
->>>>>>>> +static bool stm32_fmc2_nfc_check_for_parent(struct platform_device *pdev)
->>>>>>>> +{
->>>>>>>> +	u32 i;
->>>>>>>> +	int nb_resources = 0;
->>>>>>>> +
->>>>>>>> +	/* Count the number of resources in reg property */
->>>>>>>> +	for (i = 0; i < pdev->num_resources; i++) {
->>>>>>>> +		struct resource *res = &pdev->resource[i];
->>>>>>>> +
->>>>>>>> +		if (resource_type(res) == IORESOURCE_MEM)
->>>>>>>> +			nb_resources++;
->>>>>>>> +	}
->>>>>>>> +
->>>>>>>> +	/* Each CS needs 3 resources defined (data, cmd and addr) */
->>>>>>>> +	if (nb_resources % 3)
->>>>>>>> +		return false;
->>>>>>>> +
->>>>>>>> +	return true;
->>>>>>>> +}
->>>>>>>
->>>>>>> This function looks fragile. Why not just checking the compatible
->>>>>>> string of the parent node?
->>>>>>>      >>
->>>>>> Yes, it is another way to check that we have an EBI parent node.
->>>>>>
->>>>>> In this implementation, I was checking the number of reg tuples.
->>>>>> In case we have 6, it means that the register base address is defined in the parent node (EBI node).
->>>>>> In case we have 7, it means that the register base address is defined in the current node (NFC node).
->>>>>
->>>>> Yes, I understand what you are doing, but I kind of dislike the logic.
->>>>> Relying on the number of reg tuples is something that can be done (I
->>>>> used it myself one time), but I think this is more a hack that you do
->>>>> when you have no other way to differentiate. I guess the proper way
->>>>> would be to look at the parent's compatible. If it matches what you
->>>>> expect, then you can store the dev->of_node->parent->dev somewhere in
->>>>> your controller's structure and then use it to initialize the clock and
->>>>> regmap. This way you don't have to move anything else in the probe path.
->>>>>     >>
->>>> OK, I will check the compatible string of the parent device using of_device_is_compatible API in v5.
->>>> In case of the parent is found, I will add it in the structure of the controller (dev_parent).
->>>> I will rely on this field only to get the common resources (the register base address and the clock) in the NFC node or in the EBI node.
->>>
->>> I had something slightly different in mind: what about setting a
->>> default value to this field as being the controller's device itself.
->>> This way, once it is set to either the parent device or the device
->>> itself, you can use it "blindly" in your devm_clk_get/regmap_init calls?
->>>    
->>
->> I will try to explain what I have in mind.
->>
->> I will add a new field in the structure of the controller (not called dev_parent but cdev)
->> struct device *cdev;
->>
->> Then, at probe time, this field will be assigned:
->> nfc->cdev = of_device_is_compatible(dev->parent->of_node, "bla bla") : dev->parent ? dev;
-> 
-> That's what I had in mind. Maybe you'll have to use
-> dev->of_node->parent though, I think they are not equivalent.
-> 
->>
->> For the clock, it will be
->> nfc->clk = devm_clk_get(nfc->cdev, NULL);
->>
->> For the register base, I need to replace:
->> res = platform_get_resource(pdev, IORESOURCE_MEM, 0);
->> mmio = devm_ioremap_resource(dev, res);
->> if (IS_ERR(mmio))
->> 	return PTR_ERR(mmio);
->>
->> nfc->regmap = devm_regmap_init_mmio(dev, mmio, &stm32_fmc2_regmap_cfg);
->> if (IS_ERR(nfc->regmap))
->> 	return PTR_ERR(nfc->regmap);
->>
->> nfc->io_phys_addr = res->start;
->>
->> With:
->>
->> ret = of_address_to_resource(nfc->cdev->of_node, 0, &res);
->> if (ret)
->> 	return ret;
->>
->> nfc->io_phys_addr = res.start;
->>
->> nfc->regmap = device_node_to_regmap(nfc->cdev->of_node);
->> if (IS_ERR(nfc->regmap))
->> 	return PTR_ERR(nfc->regmap);
->>
->> I expect that you were thinking about something like this proposal.
-> 
-> This means the regmap has already been initialized, can you make sure
-> it is actually the case? What if the probe of the EBI block happens
-> next, or is deferred? (maybe you'll get a -EPROBE_DEFER, which is fine
-> then). Please try booting with the EBI node but without the EBI driver
-> and see if this is handled gracefully.
-> 
-
-In case we have an EBI node, the NFC node will be a child node of the 
-EBI node.
-The EBI driver will first be probed, getting all its resources and then 
-it will populate all its children node (including the NFC node if this 
-one is enabled). If the EBI driver is deferred because of getting one of 
-its resources has failed, none of its children will be probed. They will 
-be probed later when the EBI driver will succeed to get all its 
-resources and will then populate all of its children.
-
-In case we have the EBI node without its driver, none of its children 
-will be populated, so the NFC node will not be probed.
-
-Here is an exemple of the bindings proposal:
-     fmc: memory-controller@58002000 {
-       #address-cells = <2>;
-       #size-cells = <1>;
-       compatible = "st,stm32mp1-fmc2-ebi";
-       reg = <0x58002000 0x1000>;
-       clocks = <&rcc FMC_K>;
-       resets = <&rcc FMC_R>;
-
-       ranges = <0 0 0x60000000 0x04000000>, /* EBI CS 1 */
-                <1 0 0x64000000 0x04000000>, /* EBI CS 2 */
-                <2 0 0x68000000 0x04000000>, /* EBI CS 3 */
-                <3 0 0x6c000000 0x04000000>, /* EBI CS 4 */
-                <4 0 0x80000000 0x10000000>; /* NAND */
-
-       psram@0,0 {
-         compatible = "mtd-ram";
-         reg = <0 0x00000000 0x100000>;
-         bank-width = <2>;
-
-         st,fmc2-ebi-cs-transaction-type = <1>;
-         st,fmc2-ebi-cs-address-setup-ns = <60>;
-         st,fmc2-ebi-cs-data-setup-ns = <30>;
-         st,fmc2-ebi-cs-bus-turnaround-ns = <5>;
-       };
-
-       nand-controller@4,0 {
-         #address-cells = <1>;
-         #size-cells = <0>;
-         compatible = "st,stm32mp15-fmc2";
-         reg = <4 0x00000000 0x1000>,
-               <4 0x08010000 0x1000>,
-               <4 0x08020000 0x1000>,
-               <4 0x01000000 0x1000>,
-               <4 0x09010000 0x1000>,
-               <4 0x09020000 0x1000>;
-         interrupts = <GIC_SPI 48 IRQ_TYPE_LEVEL_HIGH>;
-         dmas = <&mdma1 20 0x2 0x12000a02 0x0 0x0>,
-                <&mdma1 20 0x2 0x12000a08 0x0 0x0>,
-                <&mdma1 21 0x2 0x12000a0a 0x0 0x0>;
-         dma-names = "tx", "rx", "ecc";
-
-         nand@0 {
-           reg = <0>;
-           nand-on-flash-bbt;
-           #address-cells = <1>;
-           #size-cells = <1>;
-         };
-       };
-     };
-
-Regards,
-Christophe Kerello.
-_______________________________________________
-Linux-stm32 mailing list
-Linux-stm32@st-md-mailman.stormreply.com
-https://st-md-mailman.stormreply.com/mailman/listinfo/linux-stm32
+SGkgQ2hyaXN0b3BoZSwKCkNocmlzdG9waGUgS2VyZWxsbyA8Y2hyaXN0b3BoZS5rZXJlbGxvQHN0
+LmNvbT4gd3JvdGUgb24gTW9uLCAxMSBNYXkKMjAyMCAxOTowMjo1MSArMDIwMDoKCj4gSGkgTWlx
+dWVsLAo+IAo+IE9uIDUvMTEvMjAgNDo0NSBQTSwgTWlxdWVsIFJheW5hbCB3cm90ZToKPiA+IEhp
+IENocmlzdG9waGUsCj4gPiAKPiA+IENocmlzdG9waGUgS2VyZWxsbyA8Y2hyaXN0b3BoZS5rZXJl
+bGxvQHN0LmNvbT4gd3JvdGUgb24gTW9uLCAxMSBNYXkKPiA+IDIwMjAgMTY6MTk6NDcgKzAyMDA6
+Cj4gPiAgIAo+ID4+IEhpIE1pcXVlbCwKPiA+Pgo+ID4+IE9uIDUvMTEvMjAgMjo1OCBQTSwgTWlx
+dWVsIFJheW5hbCB3cm90ZTogIAo+ID4+PiBIaSBDaHJpc3RvcGhlLAo+ID4+Pgo+ID4+PiBDaHJp
+c3RvcGhlIEtlcmVsbG8gPGNocmlzdG9waGUua2VyZWxsb0BzdC5jb20+IHdyb3RlIG9uIE1vbiwg
+MTEgTWF5Cj4gPj4+IDIwMjAgMTQ6NDc6MDkgKzAyMDA6ICAKPiA+Pj4gICAgPj4+PiBIaSBNaXF1
+ZWwsICAKPiA+Pj4+Cj4gPj4+PiBPbiA1LzExLzIwIDE6NTkgUE0sIE1pcXVlbCBSYXluYWwgd3Jv
+dGU6ICAKPiA+Pj4+PiBIaSBDaHJpc3RvcGhlLAo+ID4+Pj4+Cj4gPj4+Pj4gQ2hyaXN0b3BoZSBL
+ZXJlbGxvIDxjaHJpc3RvcGhlLmtlcmVsbG9Ac3QuY29tPiB3cm90ZSBvbiBNb24sIDExIE1heQo+
+ID4+Pj4+IDIwMjAgMTI6MjE6MDMgKzAyMDA6ICAKPiA+Pj4+PiAgICAgPj4+PiBIaSBNaXF1ZWws
+ICAKPiA+Pj4+Pj4KPiA+Pj4+Pj4gT24gNS8xMS8yMCAxMToxOCBBTSwgTWlxdWVsIFJheW5hbCB3
+cm90ZTogIAo+ID4+Pj4+Pj4gSGkgQ2hyaXN0b3BoZSwKPiA+Pj4+Pj4+Cj4gPj4+Pj4+PiBDaHJp
+c3RvcGhlIEtlcmVsbG8gPGNocmlzdG9waGUua2VyZWxsb0BzdC5jb20+IHdyb3RlIG9uIFdlZCwg
+NiBNYXkgMjAyMAo+ID4+Pj4+Pj4gMTE6MTE6MTkgKzAyMDA6ICAKPiA+Pj4+Pj4+ICAgICAgPj4+
+PiBGTUMyIEVCSSBzdXBwb3J0IGhhcyBiZWVuIGFkZGVkLiBDb21tb24gcmVzb3VyY2VzIChyZWdp
+c3RlcnMgYmFzZSAgCj4gPj4+Pj4+Pj4gYW5kIGNsb2NrKSBhcmUgbm93IHNoYXJlZCBiZXR3ZWVu
+IHRoZSAyIGRyaXZlcnMuIEl0IG1lYW5zIHRoYXQgdGhlCj4gPj4+Pj4+Pj4gY29tbW9uIHJlc291
+cmNlcyBzaG91bGQgbm93IGJlIGZvdW5kIGluIHRoZSBwYXJlbnQgZGV2aWNlIHdoZW4gRUJJCj4g
+Pj4+Pj4+Pj4gbm9kZSBpcyBhdmFpbGFibGUuCj4gPj4+Pj4+Pj4KPiA+Pj4+Pj4+PiBTaWduZWQt
+b2ZmLWJ5OiBDaHJpc3RvcGhlIEtlcmVsbG8gPGNocmlzdG9waGUua2VyZWxsb0BzdC5jb20+Cj4g
+Pj4+Pj4+Pj4gLS0tICAKPiA+Pj4+Pj4+Cj4gPj4+Pj4+PiBbLi4uXSAgCj4gPj4+Pj4+PiAgICAg
+ID4+Pj4gKyAgCj4gPj4+Pj4+Pj4gK3N0YXRpYyBib29sIHN0bTMyX2ZtYzJfbmZjX2NoZWNrX2Zv
+cl9wYXJlbnQoc3RydWN0IHBsYXRmb3JtX2RldmljZSAqcGRldikKPiA+Pj4+Pj4+PiArewo+ID4+
+Pj4+Pj4+ICsJdTMyIGk7Cj4gPj4+Pj4+Pj4gKwlpbnQgbmJfcmVzb3VyY2VzID0gMDsKPiA+Pj4+
+Pj4+PiArCj4gPj4+Pj4+Pj4gKwkvKiBDb3VudCB0aGUgbnVtYmVyIG9mIHJlc291cmNlcyBpbiBy
+ZWcgcHJvcGVydHkgKi8KPiA+Pj4+Pj4+PiArCWZvciAoaSA9IDA7IGkgPCBwZGV2LT5udW1fcmVz
+b3VyY2VzOyBpKyspIHsKPiA+Pj4+Pj4+PiArCQlzdHJ1Y3QgcmVzb3VyY2UgKnJlcyA9ICZwZGV2
+LT5yZXNvdXJjZVtpXTsKPiA+Pj4+Pj4+PiArCj4gPj4+Pj4+Pj4gKwkJaWYgKHJlc291cmNlX3R5
+cGUocmVzKSA9PSBJT1JFU09VUkNFX01FTSkKPiA+Pj4+Pj4+PiArCQkJbmJfcmVzb3VyY2VzKys7
+Cj4gPj4+Pj4+Pj4gKwl9Cj4gPj4+Pj4+Pj4gKwo+ID4+Pj4+Pj4+ICsJLyogRWFjaCBDUyBuZWVk
+cyAzIHJlc291cmNlcyBkZWZpbmVkIChkYXRhLCBjbWQgYW5kIGFkZHIpICovCj4gPj4+Pj4+Pj4g
+KwlpZiAobmJfcmVzb3VyY2VzICUgMykKPiA+Pj4+Pj4+PiArCQlyZXR1cm4gZmFsc2U7Cj4gPj4+
+Pj4+Pj4gKwo+ID4+Pj4+Pj4+ICsJcmV0dXJuIHRydWU7Cj4gPj4+Pj4+Pj4gK30gIAo+ID4+Pj4+
+Pj4KPiA+Pj4+Pj4+IFRoaXMgZnVuY3Rpb24gbG9va3MgZnJhZ2lsZS4gV2h5IG5vdCBqdXN0IGNo
+ZWNraW5nIHRoZSBjb21wYXRpYmxlCj4gPj4+Pj4+PiBzdHJpbmcgb2YgdGhlIHBhcmVudCBub2Rl
+PyAgCj4gPj4+Pj4+PiAgICAgID4+ICAKPiA+Pj4+Pj4gWWVzLCBpdCBpcyBhbm90aGVyIHdheSB0
+byBjaGVjayB0aGF0IHdlIGhhdmUgYW4gRUJJIHBhcmVudCBub2RlLgo+ID4+Pj4+Pgo+ID4+Pj4+
+PiBJbiB0aGlzIGltcGxlbWVudGF0aW9uLCBJIHdhcyBjaGVja2luZyB0aGUgbnVtYmVyIG9mIHJl
+ZyB0dXBsZXMuCj4gPj4+Pj4+IEluIGNhc2Ugd2UgaGF2ZSA2LCBpdCBtZWFucyB0aGF0IHRoZSBy
+ZWdpc3RlciBiYXNlIGFkZHJlc3MgaXMgZGVmaW5lZCBpbiB0aGUgcGFyZW50IG5vZGUgKEVCSSBu
+b2RlKS4KPiA+Pj4+Pj4gSW4gY2FzZSB3ZSBoYXZlIDcsIGl0IG1lYW5zIHRoYXQgdGhlIHJlZ2lz
+dGVyIGJhc2UgYWRkcmVzcyBpcyBkZWZpbmVkIGluIHRoZSBjdXJyZW50IG5vZGUgKE5GQyBub2Rl
+KS4gIAo+ID4+Pj4+Cj4gPj4+Pj4gWWVzLCBJIHVuZGVyc3RhbmQgd2hhdCB5b3UgYXJlIGRvaW5n
+LCBidXQgSSBraW5kIG9mIGRpc2xpa2UgdGhlIGxvZ2ljLgo+ID4+Pj4+IFJlbHlpbmcgb24gdGhl
+IG51bWJlciBvZiByZWcgdHVwbGVzIGlzIHNvbWV0aGluZyB0aGF0IGNhbiBiZSBkb25lIChJCj4g
+Pj4+Pj4gdXNlZCBpdCBteXNlbGYgb25lIHRpbWUpLCBidXQgSSB0aGluayB0aGlzIGlzIG1vcmUg
+YSBoYWNrIHRoYXQgeW91IGRvCj4gPj4+Pj4gd2hlbiB5b3UgaGF2ZSBubyBvdGhlciB3YXkgdG8g
+ZGlmZmVyZW50aWF0ZS4gSSBndWVzcyB0aGUgcHJvcGVyIHdheQo+ID4+Pj4+IHdvdWxkIGJlIHRv
+IGxvb2sgYXQgdGhlIHBhcmVudCdzIGNvbXBhdGlibGUuIElmIGl0IG1hdGNoZXMgd2hhdCB5b3UK
+PiA+Pj4+PiBleHBlY3QsIHRoZW4geW91IGNhbiBzdG9yZSB0aGUgZGV2LT5vZl9ub2RlLT5wYXJl
+bnQtPmRldiBzb21ld2hlcmUgaW4KPiA+Pj4+PiB5b3VyIGNvbnRyb2xsZXIncyBzdHJ1Y3R1cmUg
+YW5kIHRoZW4gdXNlIGl0IHRvIGluaXRpYWxpemUgdGhlIGNsb2NrIGFuZAo+ID4+Pj4+IHJlZ21h
+cC4gVGhpcyB3YXkgeW91IGRvbid0IGhhdmUgdG8gbW92ZSBhbnl0aGluZyBlbHNlIGluIHRoZSBw
+cm9iZSBwYXRoLiAgCj4gPj4+Pj4gICAgID4+ICAKPiA+Pj4+IE9LLCBJIHdpbGwgY2hlY2sgdGhl
+IGNvbXBhdGlibGUgc3RyaW5nIG9mIHRoZSBwYXJlbnQgZGV2aWNlIHVzaW5nIG9mX2RldmljZV9p
+c19jb21wYXRpYmxlIEFQSSBpbiB2NS4KPiA+Pj4+IEluIGNhc2Ugb2YgdGhlIHBhcmVudCBpcyBm
+b3VuZCwgSSB3aWxsIGFkZCBpdCBpbiB0aGUgc3RydWN0dXJlIG9mIHRoZSBjb250cm9sbGVyIChk
+ZXZfcGFyZW50KS4KPiA+Pj4+IEkgd2lsbCByZWx5IG9uIHRoaXMgZmllbGQgb25seSB0byBnZXQg
+dGhlIGNvbW1vbiByZXNvdXJjZXMgKHRoZSByZWdpc3RlciBiYXNlIGFkZHJlc3MgYW5kIHRoZSBj
+bG9jaykgaW4gdGhlIE5GQyBub2RlIG9yIGluIHRoZSBFQkkgbm9kZS4gIAo+ID4+Pgo+ID4+PiBJ
+IGhhZCBzb21ldGhpbmcgc2xpZ2h0bHkgZGlmZmVyZW50IGluIG1pbmQ6IHdoYXQgYWJvdXQgc2V0
+dGluZyBhCj4gPj4+IGRlZmF1bHQgdmFsdWUgdG8gdGhpcyBmaWVsZCBhcyBiZWluZyB0aGUgY29u
+dHJvbGxlcidzIGRldmljZSBpdHNlbGYuCj4gPj4+IFRoaXMgd2F5LCBvbmNlIGl0IGlzIHNldCB0
+byBlaXRoZXIgdGhlIHBhcmVudCBkZXZpY2Ugb3IgdGhlIGRldmljZQo+ID4+PiBpdHNlbGYsIHlv
+dSBjYW4gdXNlIGl0ICJibGluZGx5IiBpbiB5b3VyIGRldm1fY2xrX2dldC9yZWdtYXBfaW5pdCBj
+YWxscz8gIAo+ID4+PiAgICA+PiAgCj4gPj4gSSB3aWxsIHRyeSB0byBleHBsYWluIHdoYXQgSSBo
+YXZlIGluIG1pbmQuCj4gPj4KPiA+PiBJIHdpbGwgYWRkIGEgbmV3IGZpZWxkIGluIHRoZSBzdHJ1
+Y3R1cmUgb2YgdGhlIGNvbnRyb2xsZXIgKG5vdCBjYWxsZWQgZGV2X3BhcmVudCBidXQgY2RldikK
+PiA+PiBzdHJ1Y3QgZGV2aWNlICpjZGV2Owo+ID4+Cj4gPj4gVGhlbiwgYXQgcHJvYmUgdGltZSwg
+dGhpcyBmaWVsZCB3aWxsIGJlIGFzc2lnbmVkOgo+ID4+IG5mYy0+Y2RldiA9IG9mX2RldmljZV9p
+c19jb21wYXRpYmxlKGRldi0+cGFyZW50LT5vZl9ub2RlLCAiYmxhIGJsYSIpIDogZGV2LT5wYXJl
+bnQgPyBkZXY7ICAKPiA+IAo+ID4gVGhhdCdzIHdoYXQgSSBoYWQgaW4gbWluZC4gTWF5YmUgeW91
+J2xsIGhhdmUgdG8gdXNlCj4gPiBkZXYtPm9mX25vZGUtPnBhcmVudCB0aG91Z2gsIEkgdGhpbmsg
+dGhleSBhcmUgbm90IGVxdWl2YWxlbnQuCj4gPiAgIAo+ID4+Cj4gPj4gRm9yIHRoZSBjbG9jaywg
+aXQgd2lsbCBiZQo+ID4+IG5mYy0+Y2xrID0gZGV2bV9jbGtfZ2V0KG5mYy0+Y2RldiwgTlVMTCk7
+Cj4gPj4KPiA+PiBGb3IgdGhlIHJlZ2lzdGVyIGJhc2UsIEkgbmVlZCB0byByZXBsYWNlOgo+ID4+
+IHJlcyA9IHBsYXRmb3JtX2dldF9yZXNvdXJjZShwZGV2LCBJT1JFU09VUkNFX01FTSwgMCk7Cj4g
+Pj4gbW1pbyA9IGRldm1faW9yZW1hcF9yZXNvdXJjZShkZXYsIHJlcyk7Cj4gPj4gaWYgKElTX0VS
+UihtbWlvKSkKPiA+PiAJcmV0dXJuIFBUUl9FUlIobW1pbyk7Cj4gPj4KPiA+PiBuZmMtPnJlZ21h
+cCA9IGRldm1fcmVnbWFwX2luaXRfbW1pbyhkZXYsIG1taW8sICZzdG0zMl9mbWMyX3JlZ21hcF9j
+ZmcpOwo+ID4+IGlmIChJU19FUlIobmZjLT5yZWdtYXApKQo+ID4+IAlyZXR1cm4gUFRSX0VSUihu
+ZmMtPnJlZ21hcCk7Cj4gPj4KPiA+PiBuZmMtPmlvX3BoeXNfYWRkciA9IHJlcy0+c3RhcnQ7Cj4g
+Pj4KPiA+PiBXaXRoOgo+ID4+Cj4gPj4gcmV0ID0gb2ZfYWRkcmVzc190b19yZXNvdXJjZShuZmMt
+PmNkZXYtPm9mX25vZGUsIDAsICZyZXMpOwo+ID4+IGlmIChyZXQpCj4gPj4gCXJldHVybiByZXQ7
+Cj4gPj4KPiA+PiBuZmMtPmlvX3BoeXNfYWRkciA9IHJlcy5zdGFydDsKPiA+Pgo+ID4+IG5mYy0+
+cmVnbWFwID0gZGV2aWNlX25vZGVfdG9fcmVnbWFwKG5mYy0+Y2Rldi0+b2Zfbm9kZSk7Cj4gPj4g
+aWYgKElTX0VSUihuZmMtPnJlZ21hcCkpCj4gPj4gCXJldHVybiBQVFJfRVJSKG5mYy0+cmVnbWFw
+KTsKPiA+Pgo+ID4+IEkgZXhwZWN0IHRoYXQgeW91IHdlcmUgdGhpbmtpbmcgYWJvdXQgc29tZXRo
+aW5nIGxpa2UgdGhpcyBwcm9wb3NhbC4gIAo+ID4gCj4gPiBUaGlzIG1lYW5zIHRoZSByZWdtYXAg
+aGFzIGFscmVhZHkgYmVlbiBpbml0aWFsaXplZCwgY2FuIHlvdSBtYWtlIHN1cmUKPiA+IGl0IGlz
+IGFjdHVhbGx5IHRoZSBjYXNlPyBXaGF0IGlmIHRoZSBwcm9iZSBvZiB0aGUgRUJJIGJsb2NrIGhh
+cHBlbnMKPiA+IG5leHQsIG9yIGlzIGRlZmVycmVkPyAobWF5YmUgeW91J2xsIGdldCBhIC1FUFJP
+QkVfREVGRVIsIHdoaWNoIGlzIGZpbmUKPiA+IHRoZW4pLiBQbGVhc2UgdHJ5IGJvb3Rpbmcgd2l0
+aCB0aGUgRUJJIG5vZGUgYnV0IHdpdGhvdXQgdGhlIEVCSSBkcml2ZXIKPiA+IGFuZCBzZWUgaWYg
+dGhpcyBpcyBoYW5kbGVkIGdyYWNlZnVsbHkuCj4gPiAgIAo+IAo+IEluIGNhc2Ugd2UgaGF2ZSBh
+biBFQkkgbm9kZSwgdGhlIE5GQyBub2RlIHdpbGwgYmUgYSBjaGlsZCBub2RlIG9mIHRoZSBFQkkg
+bm9kZS4KPiBUaGUgRUJJIGRyaXZlciB3aWxsIGZpcnN0IGJlIHByb2JlZCwgZ2V0dGluZyBhbGwg
+aXRzIHJlc291cmNlcyBhbmQgdGhlbiBpdCB3aWxsIHBvcHVsYXRlIGFsbCBpdHMgY2hpbGRyZW4g
+bm9kZSAoaW5jbHVkaW5nIHRoZSBORkMgbm9kZSBpZiB0aGlzIG9uZSBpcyBlbmFibGVkKS4gSWYg
+dGhlIEVCSSBkcml2ZXIgaXMgZGVmZXJyZWQgYmVjYXVzZSBvZiBnZXR0aW5nIG9uZSBvZiBpdHMg
+cmVzb3VyY2VzIGhhcyBmYWlsZWQsIG5vbmUgb2YgaXRzIGNoaWxkcmVuIHdpbGwgYmUgcHJvYmVk
+LiBUaGV5IHdpbGwgYmUgcHJvYmVkIGxhdGVyIHdoZW4gdGhlIEVCSSBkcml2ZXIgd2lsbCBzdWNj
+ZWVkIHRvIGdldCBhbGwgaXRzIHJlc291cmNlcyBhbmQgd2lsbCB0aGVuIHBvcHVsYXRlIGFsbCBv
+ZiBpdHMgY2hpbGRyZW4uCj4gCgpPaywgSSBqdXN0IHJldmlld2VkIGl0IG1vcmUgaW4gZGVwdGgg
+YW5kIEkgZ2V0IGl0IG5vdywgc2hvdWxkIGJlIGZpbmUuCgo+IEluIGNhc2Ugd2UgaGF2ZSB0aGUg
+RUJJIG5vZGUgd2l0aG91dCBpdHMgZHJpdmVyLCBub25lIG9mIGl0cyBjaGlsZHJlbiB3aWxsIGJl
+IHBvcHVsYXRlZCwgc28gdGhlIE5GQyBub2RlIHdpbGwgbm90IGJlIHByb2JlZC4KPiAKPiBIZXJl
+IGlzIGFuIGV4ZW1wbGUgb2YgdGhlIGJpbmRpbmdzIHByb3Bvc2FsOgo+ICAgICAgZm1jOiBtZW1v
+cnktY29udHJvbGxlckA1ODAwMjAwMCB7Cj4gICAgICAgICNhZGRyZXNzLWNlbGxzID0gPDI+Owo+
+ICAgICAgICAjc2l6ZS1jZWxscyA9IDwxPjsKPiAgICAgICAgY29tcGF0aWJsZSA9ICJzdCxzdG0z
+Mm1wMS1mbWMyLWViaSI7Cj4gICAgICAgIHJlZyA9IDwweDU4MDAyMDAwIDB4MTAwMD47Cj4gICAg
+ICAgIGNsb2NrcyA9IDwmcmNjIEZNQ19LPjsKPiAgICAgICAgcmVzZXRzID0gPCZyY2MgRk1DX1I+
+Owo+IAo+ICAgICAgICByYW5nZXMgPSA8MCAwIDB4NjAwMDAwMDAgMHgwNDAwMDAwMD4sIC8qIEVC
+SSBDUyAxICovCj4gICAgICAgICAgICAgICAgIDwxIDAgMHg2NDAwMDAwMCAweDA0MDAwMDAwPiwg
+LyogRUJJIENTIDIgKi8KPiAgICAgICAgICAgICAgICAgPDIgMCAweDY4MDAwMDAwIDB4MDQwMDAw
+MDA+LCAvKiBFQkkgQ1MgMyAqLwo+ICAgICAgICAgICAgICAgICA8MyAwIDB4NmMwMDAwMDAgMHgw
+NDAwMDAwMD4sIC8qIEVCSSBDUyA0ICovCj4gICAgICAgICAgICAgICAgIDw0IDAgMHg4MDAwMDAw
+MCAweDEwMDAwMDAwPjsgLyogTkFORCAqLwo+IAo+ICAgICAgICBwc3JhbUAwLDAgewo+ICAgICAg
+ICAgIGNvbXBhdGlibGUgPSAibXRkLXJhbSI7Cj4gICAgICAgICAgcmVnID0gPDAgMHgwMDAwMDAw
+MCAweDEwMDAwMD47Cj4gICAgICAgICAgYmFuay13aWR0aCA9IDwyPjsKPiAKPiAgICAgICAgICBz
+dCxmbWMyLWViaS1jcy10cmFuc2FjdGlvbi10eXBlID0gPDE+Owo+ICAgICAgICAgIHN0LGZtYzIt
+ZWJpLWNzLWFkZHJlc3Mtc2V0dXAtbnMgPSA8NjA+Owo+ICAgICAgICAgIHN0LGZtYzItZWJpLWNz
+LWRhdGEtc2V0dXAtbnMgPSA8MzA+Owo+ICAgICAgICAgIHN0LGZtYzItZWJpLWNzLWJ1cy10dXJu
+YXJvdW5kLW5zID0gPDU+Owo+ICAgICAgICB9Owo+IAo+ICAgICAgICBuYW5kLWNvbnRyb2xsZXJA
+NCwwIHsKPiAgICAgICAgICAjYWRkcmVzcy1jZWxscyA9IDwxPjsKPiAgICAgICAgICAjc2l6ZS1j
+ZWxscyA9IDwwPjsKPiAgICAgICAgICBjb21wYXRpYmxlID0gInN0LHN0bTMybXAxNS1mbWMyIjsK
+PiAgICAgICAgICByZWcgPSA8NCAweDAwMDAwMDAwIDB4MTAwMD4sCj4gICAgICAgICAgICAgICAg
+PDQgMHgwODAxMDAwMCAweDEwMDA+LAo+ICAgICAgICAgICAgICAgIDw0IDB4MDgwMjAwMDAgMHgx
+MDAwPiwKPiAgICAgICAgICAgICAgICA8NCAweDAxMDAwMDAwIDB4MTAwMD4sCj4gICAgICAgICAg
+ICAgICAgPDQgMHgwOTAxMDAwMCAweDEwMDA+LAo+ICAgICAgICAgICAgICAgIDw0IDB4MDkwMjAw
+MDAgMHgxMDAwPjsKPiAgICAgICAgICBpbnRlcnJ1cHRzID0gPEdJQ19TUEkgNDggSVJRX1RZUEVf
+TEVWRUxfSElHSD47Cj4gICAgICAgICAgZG1hcyA9IDwmbWRtYTEgMjAgMHgyIDB4MTIwMDBhMDIg
+MHgwIDB4MD4sCj4gICAgICAgICAgICAgICAgIDwmbWRtYTEgMjAgMHgyIDB4MTIwMDBhMDggMHgw
+IDB4MD4sCj4gICAgICAgICAgICAgICAgIDwmbWRtYTEgMjEgMHgyIDB4MTIwMDBhMGEgMHgwIDB4
+MD47Cj4gICAgICAgICAgZG1hLW5hbWVzID0gInR4IiwgInJ4IiwgImVjYyI7Cj4gCj4gICAgICAg
+ICAgbmFuZEAwIHsKPiAgICAgICAgICAgIHJlZyA9IDwwPjsKPiAgICAgICAgICAgIG5hbmQtb24t
+Zmxhc2gtYmJ0Owo+ICAgICAgICAgICAgI2FkZHJlc3MtY2VsbHMgPSA8MT47Cj4gICAgICAgICAg
+ICAjc2l6ZS1jZWxscyA9IDwxPjsKPiAgICAgICAgICB9Owo+ICAgICAgICB9Owo+ICAgICAgfTsK
+PiAKPiBSZWdhcmRzLAo+IENocmlzdG9waGUgS2VyZWxsby4KClRoYW5rcywKTWlxdcOobApfX19f
+X19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fXwpMaW51eC1zdG0zMiBt
+YWlsaW5nIGxpc3QKTGludXgtc3RtMzJAc3QtbWQtbWFpbG1hbi5zdG9ybXJlcGx5LmNvbQpodHRw
+czovL3N0LW1kLW1haWxtYW4uc3Rvcm1yZXBseS5jb20vbWFpbG1hbi9saXN0aW5mby9saW51eC1z
+dG0zMgo=
