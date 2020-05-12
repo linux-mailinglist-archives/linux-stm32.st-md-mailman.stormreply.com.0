@@ -2,65 +2,64 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id 868F51CEE49
-	for <lists+linux-stm32@lfdr.de>; Tue, 12 May 2020 09:37:11 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id E28031CF204
+	for <lists+linux-stm32@lfdr.de>; Tue, 12 May 2020 11:59:05 +0200 (CEST)
 Received: from ip-172-31-3-76.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 20FA2C35E3C;
-	Tue, 12 May 2020 07:37:10 +0000 (UTC)
-Received: from mail-pj1-f65.google.com (mail-pj1-f65.google.com
- [209.85.216.65])
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 9478CC35E3E;
+	Tue, 12 May 2020 09:59:05 +0000 (UTC)
+Received: from mail-lf1-f66.google.com (mail-lf1-f66.google.com
+ [209.85.167.66])
  (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id C9D26C36B0D
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 69B05C36B0B
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Tue, 12 May 2020 07:37:07 +0000 (UTC)
-Received: by mail-pj1-f65.google.com with SMTP id t40so8988161pjb.3
+ Tue, 12 May 2020 09:59:02 +0000 (UTC)
+Received: by mail-lf1-f66.google.com with SMTP id v5so5944661lfp.13
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Tue, 12 May 2020 00:37:07 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20161025;
- h=from:to:cc:subject:date:message-id:in-reply-to:references;
- bh=K+68zUT9ct7q6l7uIUZCLkOn4a7L9BomhNQ5jVg2Zxo=;
- b=dNh34QvshqjNp7DtA3MlOG2kBZxosBMZGl53Z/ldH18Yw5yg6Bcz+2gc/kgnq1Nd5y
- mIaBZTMnY7As80pi/E5gGV/PPR7kubeWI48JIFO6qcfDk13S+dMj5RItEcIsveEQFkLd
- eOi9fcmjAc0frIerTCer7F67YR1NhDS90OdLbshs3UeqTBIB2OhQLHOn8uykYTe+xC1S
- 4UX2nIG6VldRDHeKMkKUW+Z+HMq/j8hxXvbgl/api+IT5rUVh7xtjsnU+xE9yZYPukBZ
- +n3pNfceWro8BjxsTesATA3SbdRFwATUv/jIRQUM/JpMC/69kFtz4L5lafJQTMxDIgn0
- NMBg==
+ Tue, 12 May 2020 02:59:02 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linaro.org; s=google;
+ h=mime-version:references:in-reply-to:from:date:message-id:subject:to
+ :cc; bh=WXd5QHwJ1tPi5716Xcmxn3FGS3giieue5uSgZlXtiWg=;
+ b=eF4UZfPdwxY2kcJ3SbBcXESksctSLMe0oyp3Dqb6rpox9rfOdE5TWSXlhLeZ7WVuJu
+ K9EZyurUt4GoHXQGQJ/s/OIEAI31LdtzoB4OLI3c504mIW9b3C07x0rNyN/WpEEkui5z
+ VayR7QZBrGhhSxZ7mnv/UaXebyvcd/obTk6ROY/uR8l1vWjvlXye4pt4sY7vBX1vTxHl
+ lQlCW8H2SUcm6avA6W8stsSGIosReXoSyNmTLwiN8IH+JEk8cfxsp0MNEE4UFeELbKri
+ KVXEW3tiDJ6y1cjGXzsEfdg4CZr29OfRHfERGPeFut8XyeYZP8PWMVEK0wlzjsF6ZOtf
+ WWuw==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=1e100.net; s=20161025;
- h=x-gm-message-state:from:to:cc:subject:date:message-id:in-reply-to
- :references;
- bh=K+68zUT9ct7q6l7uIUZCLkOn4a7L9BomhNQ5jVg2Zxo=;
- b=btLhIVZzDE8q8RTnr4Cf4PTaoGyPpudwojLNL+Bu3eqEu9Nkj++0j+aMP3up7/1CKA
- xgjU7spmJxuBfu4yQyQb1JFX5HqUq5elKKHHR0FreHqS/9v59iPG+nO2Vu0OfdWrgLWt
- 0nVsJ3kb4lpQZ/PqAHTnBcoFWI7wR7MNBan0zKq/fMUIj19rsstYTFW6UobsSst8V1zu
- ux57sOoz6oI+uvDr/p/2GMQDa6z7Hdq7Uc0+kateaKRCVpG76vZvGjAzggOhWjvv35Ck
- dKzat1Rx2Nle59WkyTLpzyBekqeIsyQzBw09y8oxmU9TdbO8JQqOQVe2dnZlYA8mEqkb
- 2X7A==
-X-Gm-Message-State: AGi0PuZvI+pgEkXowx2BRFYHTZU2aseBvK9yZ0XCkNWg2qY104VDOdKb
- Arr0mLoKVNlf8J8fg++yxn4=
-X-Google-Smtp-Source: APiQypIIHFRhIkvjAwcUxwC+9xmufAvKnXQChJcabuuo7RX0G98cZV0dD+L+0+qw56P7H8SyGS0nRA==
-X-Received: by 2002:a17:90a:8807:: with SMTP id
- s7mr17888970pjn.157.1589269026260; 
- Tue, 12 May 2020 00:37:06 -0700 (PDT)
-Received: from fmin-OptiPlex-7060.nreal.work ([103.206.190.146])
- by smtp.gmail.com with ESMTPSA id 5sm11732471pjf.19.2020.05.12.00.37.02
- (version=TLS1_2 cipher=ECDHE-ECDSA-AES128-GCM-SHA256 bits=128/128);
- Tue, 12 May 2020 00:37:05 -0700 (PDT)
-From: dillon.minfei@gmail.com
-To: robh+dt@kernel.org, mcoquelin.stm32@gmail.com, alexandre.torgue@st.com,
- broonie@kernel.org, p.zabel@pengutronix.de
-Date: Tue, 12 May 2020 15:36:50 +0800
-Message-Id: <1589269010-18472-4-git-send-email-dillon.minfei@gmail.com>
-X-Mailer: git-send-email 2.7.4
-In-Reply-To: <1589269010-18472-1-git-send-email-dillon.minfei@gmail.com>
-References: <1589269010-18472-1-git-send-email-dillon.minfei@gmail.com>
-Cc: devicetree@vger.kernel.org, dillonhua@gmail.com,
- linux-kernel@vger.kernel.org, linux-spi@vger.kernel.org,
- dillon.minfei@gmail.com, linux-stm32@st-md-mailman.stormreply.com,
- linux-arm-kernel@lists.infradead.org
-Subject: [Linux-stm32] [PATCH v2 3/3] spi: stm32: Add SPI_SIMPLEX_RX,
-	SPI_3WIRE_RX support for stm32f4
+ h=x-gm-message-state:mime-version:references:in-reply-to:from:date
+ :message-id:subject:to:cc;
+ bh=WXd5QHwJ1tPi5716Xcmxn3FGS3giieue5uSgZlXtiWg=;
+ b=rYjbpksz19XHeDkbKwUndxbZ8l2Jw9S4ys3XiUQlZd3qmJ1fw3fVdduUFJ9MErEiuz
+ 1QUPT862KKkbSxASkWK2CBHLKSaqPUu9kIbarfIeKlICF3f98r3JzWk1kXR0Wpitck60
+ epn6sT08csAbFlMVaUsU/PbMbpgWGE1PSJ4bmHVZCpO4caqfVCaHoXxgUOKPUt1sJV1B
+ XPAXk/HZhJdJIgiBwj1jouMxFCHDS/0rjoMcyGfOxMS+UqRRpoogrO5EgeVUh5HPd0WJ
+ 54ZGMu7ueO4pLNl1S2Bogf5uPHVs81wAk1tpzWdWaAxX0+Zc5++kXEu0MV0sz0E0S6sZ
+ Lm7g==
+X-Gm-Message-State: AOAM533eo74iYBJXlIVIIbQXFYRIvqTk59ZjJY7WqDJ2viTiWCEQZIwA
+ 6GPU9WRd0no9hZCWEuqebWh7EpYRvDKowCSCHaQJ7g==
+X-Google-Smtp-Source: ABdhPJyBq7To18Sh0+GIDcFRF81NKkhoFYKeSr+78ZnK/tfcB+M6Xqf+HgiWU5Chhbq4xITdhpfrF18M/MgtiTWvtZ0=
+X-Received: by 2002:ac2:555b:: with SMTP id l27mr14203108lfk.170.1589277541973; 
+ Tue, 12 May 2020 02:59:01 -0700 (PDT)
+MIME-Version: 1.0
+References: <20200508134527.26555-1-etienne.carriere@linaro.org>
+ <CAL_JsqJVaWDYZWwRwotSQyaL5bOugM3judxipS9oKveV3FdK8w@mail.gmail.com>
+In-Reply-To: <CAL_JsqJVaWDYZWwRwotSQyaL5bOugM3judxipS9oKveV3FdK8w@mail.gmail.com>
+From: Etienne Carriere <etienne.carriere@linaro.org>
+Date: Tue, 12 May 2020 11:58:50 +0200
+Message-ID: <CAN5uoS8GzbFyQq=kjZuxNwBDJ8cn9q-sq8C=VLN5UWWD0HXWaA@mail.gmail.com>
+To: Rob Herring <robh+dt@kernel.org>
+Cc: Etienne Carriere <etienne.carriere@st.com>, devicetree@vger.kernel.org,
+ "linux-kernel@vger.kernel.org" <linux-kernel@vger.kernel.org>,
+ Srinivas Kandagatla <srinivas.kandagatla@linaro.org>,
+ Maxime Coquelin <mcoquelin.stm32@gmail.com>,
+ Fabrice Gasnier <fabrice.gasnier@st.com>,
+ linux-stm32@st-md-mailman.stormreply.com,
+ "moderated list:ARM/FREESCALE IMX / MXC ARM ARCHITECTURE"
+ <linux-arm-kernel@lists.infradead.org>
+Subject: Re: [Linux-stm32] [PATCH] dt-bindings: nvmem: stm32: new property
+	for data access
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -72,137 +71,72 @@ List-Post: <mailto:linux-stm32@st-md-mailman.stormreply.com>
 List-Help: <mailto:linux-stm32-request@st-md-mailman.stormreply.com?subject=help>
 List-Subscribe: <https://st-md-mailman.stormreply.com/mailman/listinfo/linux-stm32>, 
  <mailto:linux-stm32-request@st-md-mailman.stormreply.com?subject=subscribe>
-MIME-Version: 1.0
 Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
-From: dillon min <dillon.minfei@gmail.com>
+Hello Rob,
 
-in l3gd20 driver startup, there is a setup failed error return from
-stm32 spi driver
 
-    "
-    [    2.687630] st-gyro-spi spi0.0: supply vdd not found, using dummy
-    regulator
-    [    2.696869] st-gyro-spi spi0.0: supply vddio not found, using dummy
-    regulator
-    [    2.706707] spi_stm32 40015000.spi: SPI transfer setup failed
-    [    2.713741] st-gyro-spi spi0.0: SPI transfer failed: -22
-    [    2.721096] spi_master spi0: failed to transfer one message from queue
-    [    2.729268] iio iio:device0: failed to read Who-Am-I register.
-    [    2.737504] st-gyro-spi: probe of spi0.0 failed with error -22
-    "
+On Tue, 12 May 2020 at 03:51, Rob Herring <robh+dt@kernel.org> wrote:
+>
+> On Fri, May 8, 2020 at 8:47 AM Etienne Carriere
+> <etienne.carriere@linaro.org> wrote:
+> >
+> > From: Etienne Carriere <etienne.carriere@st.com>
+> >
+> > Introduce boolean property st,non-secure-otp for OTP data located
+> > in a factory programmed area that only secure firmware can access
+> > by default and that shall be reachable from the non-secure world.
+> >
+> > Signed-off-by: Etienne Carriere <etienne.carriere@st.com>
+> > ---
+> >  .../bindings/nvmem/st,stm32-romem.yaml          | 17 +++++++++++++++++
+> >  1 file changed, 17 insertions(+)
+> >
+> > diff --git a/Documentation/devicetree/bindings/nvmem/st,stm32-romem.yaml b/Documentation/devicetree/bindings/nvmem/st,stm32-romem.yaml
+> > index d84deb4774a4..c11c99f085d7 100644
+> > --- a/Documentation/devicetree/bindings/nvmem/st,stm32-romem.yaml
+> > +++ b/Documentation/devicetree/bindings/nvmem/st,stm32-romem.yaml
+> > @@ -24,6 +24,18 @@ properties:
+> >        - st,stm32f4-otp
+> >        - st,stm32mp15-bsec
+> >
+> > +patternProperties:
+> > +  "^.*@[0-9a-f]+$":
+> > +    type: object
+> > +
+> > +    properties:
+> > +      st,non-secure-otp:
+> > +        description: |
+> > +          This property explicits a factory programmed area that both secure
+> > +          and non-secure worlds can access. It is needed when, by default, the
+> > +          related area can only be reached by the secure world.
+> > +        type: boolean
+> > +
+> >  required:
+> >    - "#address-cells"
+> >    - "#size-cells"
+> > @@ -41,6 +53,11 @@ examples:
+> >        calib@22c {
+> >          reg = <0x22c 0x2>;
+> >        };
+> > +
+> > +      mac_addr@e4 {
+> > +        reg = <0xe4 0x8>;
+> > +        st,non-secure-otp;
+>
+> This fails validation. You need to drop 'additionalProperties' in nvmem.yaml.
 
-after debug into spi-stm32 driver, st-gyro-spi split two steps to read
-l3gd20 id
+My apologies. I guess I did not test `dt_binding_check` on this change.
+I'll send a v2.
 
-first: send command to l3gd20 with read id command in tx_buf,
-       rx_buf is null.
-second: read id with tx_buf is null, rx_buf not null.
+Regards,
+Etienne
 
-so, for second step, stm32 driver recongise this process is SPI_SIMPLE_RX
-from stm32_spi_communication_type, but there is no related process for this
-type in stm32f4_spi_set_mode, then we get error from
-stm32_spi_transfer_one_setup.
-
-we can use two method to fix this bug.
-1, use stm32 spi's "In unidirectional receive-only mode (BIDIMODE=0 and
-   RXONLY=1)". but as our code running in sdram, the read latency is
-   too large to get so many receive overrun error in interrupts handler.
-
-2, use stm32 spi's "In full-duplex (BIDIMODE=0 and RXONLY=0)", as
-   tx_buf is null, we must add dummy data sent out before read data.
-   so, add stm32f4_spi_tx_dummy to handle this situation.
-
-Signed-off-by: dillon min <dillon.minfei@gmail.com>
----
- drivers/spi/spi-stm32.c | 29 +++++++++++++++++++++++++----
- 1 file changed, 25 insertions(+), 4 deletions(-)
-
-diff --git a/drivers/spi/spi-stm32.c b/drivers/spi/spi-stm32.c
-index 44ac6eb3..bcf1ba7 100644
---- a/drivers/spi/spi-stm32.c
-+++ b/drivers/spi/spi-stm32.c
-@@ -388,6 +388,13 @@ static int stm32h7_spi_get_fifo_size(struct stm32_spi *spi)
- 	return count;
- }
- 
-+static void stm32f4_spi_tx_dummy(struct stm32_spi *spi)
-+{
-+	if (spi->cur_bpw == 16)
-+		writew_relaxed(0x5555, spi->base + STM32F4_SPI_DR);
-+	else
-+		writeb_relaxed(0x55, spi->base + STM32F4_SPI_DR);
-+}
- /**
-  * stm32f4_spi_get_bpw_mask - Return bits per word mask
-  * @spi: pointer to the spi controller data structure
-@@ -811,7 +818,9 @@ static irqreturn_t stm32f4_spi_irq_event(int irq, void *dev_id)
- 		mask |= STM32F4_SPI_SR_TXE;
- 	}
- 
--	if (!spi->cur_usedma && spi->cur_comm == SPI_FULL_DUPLEX) {
-+	if (!spi->cur_usedma && (spi->cur_comm == SPI_FULL_DUPLEX ||
-+				 spi->cur_comm == SPI_SIMPLEX_RX ||
-+				 spi->cur_comm == SPI_3WIRE_RX)) {
- 		/* TXE flag is set and is handled when RXNE flag occurs */
- 		sr &= ~STM32F4_SPI_SR_TXE;
- 		mask |= STM32F4_SPI_SR_RXNE | STM32F4_SPI_SR_OVR;
-@@ -850,8 +859,10 @@ static irqreturn_t stm32f4_spi_irq_event(int irq, void *dev_id)
- 		stm32f4_spi_read_rx(spi);
- 		if (spi->rx_len == 0)
- 			end = true;
--		else /* Load data for discontinuous mode */
-+		else if (spi->tx_buf)/* Load data for discontinuous mode */
- 			stm32f4_spi_write_tx(spi);
-+		else if (spi->cur_comm == SPI_SIMPLEX_RX)
-+			stm32f4_spi_tx_dummy(spi);
- 	}
- 
- end_irq:
-@@ -1151,7 +1162,9 @@ static int stm32f4_spi_transfer_one_irq(struct stm32_spi *spi)
- 	/* Enable the interrupts relative to the current communication mode */
- 	if (spi->cur_comm == SPI_SIMPLEX_TX || spi->cur_comm == SPI_3WIRE_TX) {
- 		cr2 |= STM32F4_SPI_CR2_TXEIE;
--	} else if (spi->cur_comm == SPI_FULL_DUPLEX) {
-+	} else if (spi->cur_comm == SPI_FULL_DUPLEX ||
-+				spi->cur_comm == SPI_SIMPLEX_RX ||
-+				spi->cur_comm == SPI_3WIRE_RX) {
- 		/* In transmit-only mode, the OVR flag is set in the SR register
- 		 * since the received data are never read. Therefore set OVR
- 		 * interrupt only when rx buffer is available.
-@@ -1170,6 +1183,8 @@ static int stm32f4_spi_transfer_one_irq(struct stm32_spi *spi)
- 	/* starting data transfer when buffer is loaded */
- 	if (spi->tx_buf)
- 		stm32f4_spi_write_tx(spi);
-+	else if (spi->cur_comm == SPI_SIMPLEX_RX)
-+		stm32f4_spi_tx_dummy(spi);
- 
- 	spin_unlock_irqrestore(&spi->lock, flags);
- 
-@@ -1462,10 +1477,16 @@ static int stm32f4_spi_set_mode(struct stm32_spi *spi, unsigned int comm_type)
- 		stm32_spi_set_bits(spi, STM32F4_SPI_CR1,
- 					STM32F4_SPI_CR1_BIDIMODE |
- 					STM32F4_SPI_CR1_BIDIOE);
--	} else if (comm_type == SPI_FULL_DUPLEX) {
-+	} else if (comm_type == SPI_FULL_DUPLEX ||
-+				comm_type == SPI_SIMPLEX_RX) {
- 		stm32_spi_clr_bits(spi, STM32F4_SPI_CR1,
- 					STM32F4_SPI_CR1_BIDIMODE |
- 					STM32F4_SPI_CR1_BIDIOE);
-+	} else if (comm_type == SPI_3WIRE_RX) {
-+		stm32_spi_set_bits(spi, STM32F4_SPI_CR1,
-+					STM32F4_SPI_CR1_BIDIMODE);
-+		stm32_spi_clr_bits(spi, STM32F4_SPI_CR1,
-+					STM32F4_SPI_CR1_BIDIOE);
- 	} else {
- 		return -EINVAL;
- 	}
--- 
-2.7.4
-
+>
+> Rob
 _______________________________________________
 Linux-stm32 mailing list
 Linux-stm32@st-md-mailman.stormreply.com
