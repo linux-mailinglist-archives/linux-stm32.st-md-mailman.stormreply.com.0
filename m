@@ -2,63 +2,65 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id 3B0591CED7B
-	for <lists+linux-stm32@lfdr.de>; Tue, 12 May 2020 09:03:47 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 23DC51CED7F
+	for <lists+linux-stm32@lfdr.de>; Tue, 12 May 2020 09:03:51 +0200 (CEST)
 Received: from ip-172-31-3-76.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id D8B59C36B3B;
-	Tue, 12 May 2020 07:03:46 +0000 (UTC)
-Received: from mail-pj1-f67.google.com (mail-pj1-f67.google.com
- [209.85.216.67])
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id E3A97C36B3C;
+	Tue, 12 May 2020 07:03:50 +0000 (UTC)
+Received: from mail-pf1-f194.google.com (mail-pf1-f194.google.com
+ [209.85.210.194])
  (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 6590BC36B0B
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id CBC86C36B0B
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Tue, 12 May 2020 07:03:45 +0000 (UTC)
-Received: by mail-pj1-f67.google.com with SMTP id hi11so9057042pjb.3
+ Tue, 12 May 2020 07:03:49 +0000 (UTC)
+Received: by mail-pf1-f194.google.com with SMTP id 18so5935776pfv.8
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Tue, 12 May 2020 00:03:45 -0700 (PDT)
+ Tue, 12 May 2020 00:03:49 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20161025;
- h=from:to:cc:subject:date:message-id;
- bh=mipxNW7wlMfxMGzhO28Zqov8GTbtGeGtVOGitUJWy1g=;
- b=jhsgIyTPnDqRWSwbXSvTHyprY40KS9vAbW6rcrOxqvOdnjjSCNpBTwLTElgpNEzgCv
- B/hU4Z8wkqrvGJHq59AS0U9JQ6yXrwGMFmB8kBkBvf7nXAqmNJ0jZaejbMa5GQZuvEBS
- eLoZmX4dAQxHnMwTz0F++g+Q9cMlfwGAGLMmpOWVa6HNkUWlnh6e16A5ZPiiELLtULyY
- z563mUjwWwpWancdRnp0L6fRRlwklxrRA5iRY5cvzd2FlBcT9lSknFeoiEuJJfdTgctn
- X/bMM/ECf64aLI5IcgeQibHurIkmnmOFetTDvjvalW3B8d+rNzxbwXeZHB3ykoTPHH3C
- BXeQ==
+ h=from:to:cc:subject:date:message-id:in-reply-to:references;
+ bh=bqTEGNao+ElhEnj/Er0d6hjqKNpR+gP54ehE1oHzSA8=;
+ b=LPWF55UROuEWJsOORU7U3+3zwOAe2UaXEmuS2uejERwD0rhyP3WitMtpOAoNwHvHU2
+ NX+yscBSTSkr9Wa9VfWpHIKrjVnbzDikWvV7SWyj/lCuFIMi0Rs55FtGRUJiLGbuciOf
+ ZeM2r2GiggPTprvgevhrPTnuAyQHNkqREn+F+leuyIL5NelVeiP45LEiS4wJhXJdnUwu
+ vPlz7NgQ6QvEMchdDHECRyGJ2dnNL7p/uIwOGAKRREdxmcO8YqQBUEcQ7NmHC+oViwdn
+ 3WLo829Nbutk0Ily2PSuPzaXt+x17AQIdrrZDecbsHiEpgOgdJPmrQBB/tm/+Glstjwt
+ Alng==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=1e100.net; s=20161025;
- h=x-gm-message-state:from:to:cc:subject:date:message-id;
- bh=mipxNW7wlMfxMGzhO28Zqov8GTbtGeGtVOGitUJWy1g=;
- b=G3aMIWvE6HQ0qq6d5whkkr+C1V1NmypyLFDUCxUNskcFq7z4qPr7a7pTWv9nsSPutB
- Ao/wHBFmTR8/kQCtalcSoA0kRYvPFuCxGFUFL2nPvzO1r/dF5/bDynKsjB1glL0WeLZn
- +etzBDFRZMN9fFUYjt7g53xRt302UmsibIdDmaHx+WVFs9g5dxGsOmlwdxU4R1zivHik
- a/LuaFM1hui6VfoIg93mzfhnMMd4h4IwWvbCcIoJ/z3Q1Ea33k/e+8enQCGVruPgXh95
- JtLwt5SWAqqyV/1/C5l8Am2M0QFoXL0hlFIkQGzmUe1ID2P6fTjzWwM29X1s7er+2OEb
- GWqg==
-X-Gm-Message-State: AGi0PuZwX3s23fYOR9a1NJ5ad+NtzcyV2NURk4e3zPGm94uBK10D43aP
- 9Rf0vmKQWuGLVOxLGHm7QBY=
-X-Google-Smtp-Source: APiQypKGhdYXmj/mC8uQ3bBGAeu+OpMtK+0m3u5lxy4OVl4GniR0xQaSDQxS0oHIcUIBNStrnMsqkg==
-X-Received: by 2002:a17:90a:db53:: with SMTP id
- u19mr25689708pjx.41.1589267023718; 
- Tue, 12 May 2020 00:03:43 -0700 (PDT)
+ h=x-gm-message-state:from:to:cc:subject:date:message-id:in-reply-to
+ :references;
+ bh=bqTEGNao+ElhEnj/Er0d6hjqKNpR+gP54ehE1oHzSA8=;
+ b=f8TKqXih0nOFYr/sNc7omRha7BqrmxlZ2MlqgW356HrFl/ze+Nkhxiq2yAKlSE/IZQ
+ J4TyUcjNSKtv0/QEZj5viQErHhoIed2qbt9j7dfQ/eAgggx997AhJx+YPcjL569pYuIZ
+ yJQyMLWGsbsZn23rdryLv58LEIQySeITA/7jleMaOvGi2Tj5ItV19yXuPM7/EWiWYMKh
+ Jaq3w5hCJRFvRd3LXzEFvCaJBiqJwMw9IEw6fdlD98S9BbvKGXNXbDIiW+UBV1VIkXmf
+ MmoYNry7BVfclVQoRnmeaAhz4enzqFEOwQUKvGyTdKtTU3Vx8Qa2z5t7aROGjguo8kie
+ YlfA==
+X-Gm-Message-State: AOAM53094kIBO18q6QWdJtlfg+NYedaYZQOnQpTjIfyGMShl1twRc8xZ
+ e78dmqcoMrh3Q7m4LhoIbaI=
+X-Google-Smtp-Source: ABdhPJw4UTugBpoiim+tCN/b06/fdorrDYjqGtUCIFAw9V2NA7waop88fc4+97RURQX7/VgfyPmi7A==
+X-Received: by 2002:a63:b506:: with SMTP id y6mr727619pge.107.1589267028282;
+ Tue, 12 May 2020 00:03:48 -0700 (PDT)
 Received: from fmin-OptiPlex-7060.nreal.work ([103.206.190.146])
- by smtp.gmail.com with ESMTPSA id 62sm11016369pfu.181.2020.05.12.00.03.39
+ by smtp.gmail.com with ESMTPSA id 62sm11016369pfu.181.2020.05.12.00.03.44
  (version=TLS1_2 cipher=ECDHE-ECDSA-AES128-GCM-SHA256 bits=128/128);
- Tue, 12 May 2020 00:03:43 -0700 (PDT)
+ Tue, 12 May 2020 00:03:47 -0700 (PDT)
 From: dillon.minfei@gmail.com
 To: robh+dt@kernel.org, mcoquelin.stm32@gmail.com, alexandre.torgue@st.com,
  thierry.reding@gmail.com, sam@ravnborg.org, airlied@linux.ie,
  daniel@ffwll.ch, mturquette@baylibre.com, sboyd@kernel.org
-Date: Tue, 12 May 2020 15:03:32 +0800
-Message-Id: <1589267017-17294-1-git-send-email-dillon.minfei@gmail.com>
+Date: Tue, 12 May 2020 15:03:33 +0800
+Message-Id: <1589267017-17294-2-git-send-email-dillon.minfei@gmail.com>
 X-Mailer: git-send-email 2.7.4
+In-Reply-To: <1589267017-17294-1-git-send-email-dillon.minfei@gmail.com>
+References: <1589267017-17294-1-git-send-email-dillon.minfei@gmail.com>
 Cc: devicetree@vger.kernel.org, linux-kernel@vger.kernel.org,
  dri-devel@lists.freedesktop.org, linux-stm32@st-md-mailman.stormreply.com,
  dillon.minfei@gmail.com, linux-clk@vger.kernel.org,
  linux-arm-kernel@lists.infradead.org
-Subject: [Linux-stm32] [PATCH v3 0/5] Enable ilitek ili9341 on
-	stm32f429-disco board
+Subject: [Linux-stm32] [PATCH v3 1/5] ARM: dts: stm32: Add pin map for ltdc,
+	spi5 on stm32f429-disco board
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -78,46 +80,92 @@ Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
 From: dillon min <dillon.minfei@gmail.com>
 
-This patchset has following changes:
+This patch adds the pin configuration for ltdc, spi5 controller
+on stm32f429-disco board.
 
-V3:
-    merge original tiny/ili9341.c driver to panel/panel-ilitek-ili9341.c
-    to support serial spi & parallel rgb interface in one driver.
-    update ilitek,ili9341.yaml dts binding documentation.
-    update stm32f429-disco dts binding
+Signed-off-by: dillon min <dillon.minfei@gmail.com>
+---
+ arch/arm/boot/dts/stm32f4-pinctrl.dtsi | 67 ++++++++++++++++++++++++++++++++++
+ 1 file changed, 67 insertions(+)
 
-V2: 
-    verify ilitek,ili9341.yaml with make O=../linux-stm32 dt_binding_check
-    DT_SCHEMA_FILES=Documentation/devicetree/bindings/display/panel/
-    ilitek,ili9341.yaml
-
-V1:
-    add ili9341 drm panel driver
-    add ltdc, spi5 controller for stm32f429-disco
-    add ltdc, spi5 pin map for stm32f429-disco
-    add docs about ili9341
-    fix ltdc driver loading hang in clk set rate bug
-
-dillon min (5):
-  ARM: dts: stm32: Add pin map for ltdc, spi5 on stm32f429-disco board
-  dt-bindings: display: panel: Add ilitek ili9341 panel bindings
-  ARM: dts: stm32: enable ltdc binding with ili9341 on stm32429-disco
-    board
-  clk: stm32: Fix stm32f429 ltdc driver loading hang in clk set rate.
-    keep ltdc     clk running after kernel startup
-  drm/panel: Add ilitek ili9341 driver
-
- .../bindings/display/panel/ilitek,ili9341.yaml     |  68 ++
- arch/arm/boot/dts/stm32f4-pinctrl.dtsi             |  67 ++
- arch/arm/boot/dts/stm32f429-disco.dts              |  39 ++
- drivers/clk/clk-stm32f4.c                          |   5 +-
- drivers/gpu/drm/panel/Kconfig                      |  12 +
- drivers/gpu/drm/panel/Makefile                     |   1 +
- drivers/gpu/drm/panel/panel-ilitek-ili9341.c       | 700 +++++++++++++++++++++
- 7 files changed, 890 insertions(+), 2 deletions(-)
- create mode 100644 Documentation/devicetree/bindings/display/panel/ilitek,ili9341.yaml
- create mode 100644 drivers/gpu/drm/panel/panel-ilitek-ili9341.c
-
+diff --git a/arch/arm/boot/dts/stm32f4-pinctrl.dtsi b/arch/arm/boot/dts/stm32f4-pinctrl.dtsi
+index 392fa14..0eb107f 100644
+--- a/arch/arm/boot/dts/stm32f4-pinctrl.dtsi
++++ b/arch/arm/boot/dts/stm32f4-pinctrl.dtsi
+@@ -316,6 +316,73 @@
+ 				};
+ 			};
+ 
++			ltdc_pins_f429_disco: ltdc-1 {
++				pins {
++					pinmux = <STM32_PINMUX('C', 6,  AF14)>,
++						/* LCD_HSYNC */
++						 <STM32_PINMUX('A', 4,  AF14)>,
++						 /* LCD_VSYNC */
++						 <STM32_PINMUX('G', 7,  AF14)>,
++						 /* LCD_CLK */
++						 <STM32_PINMUX('C', 10, AF14)>,
++						 /* LCD_R2 */
++						 <STM32_PINMUX('B', 0,  AF9)>,
++						 /* LCD_R3 */
++						 <STM32_PINMUX('A', 11, AF14)>,
++						 /* LCD_R4 */
++						 <STM32_PINMUX('A', 12, AF14)>,
++						 /* LCD_R5 */
++						 <STM32_PINMUX('B', 1,  AF9)>,
++						 /* LCD_R6*/
++						 <STM32_PINMUX('G', 6,  AF14)>,
++						 /* LCD_R7 */
++						 <STM32_PINMUX('A', 6,  AF14)>,
++						 /* LCD_G2 */
++						 <STM32_PINMUX('G', 10, AF9)>,
++						 /* LCD_G3 */
++						 <STM32_PINMUX('B', 10, AF14)>,
++						 /* LCD_G4 */
++						 <STM32_PINMUX('D', 6,  AF14)>,
++						 /* LCD_B2 */
++						 <STM32_PINMUX('G', 11, AF14)>,
++						 /* LCD_B3*/
++						 <STM32_PINMUX('B', 11, AF14)>,
++						 /* LCD_G5 */
++						 <STM32_PINMUX('C', 7,  AF14)>,
++						 /* LCD_G6 */
++						 <STM32_PINMUX('D', 3,  AF14)>,
++						 /* LCD_G7 */
++						 <STM32_PINMUX('G', 12, AF9)>,
++						 /* LCD_B4 */
++						 <STM32_PINMUX('A', 3,  AF14)>,
++						 /* LCD_B5 */
++						 <STM32_PINMUX('B', 8,  AF14)>,
++						 /* LCD_B6 */
++						 <STM32_PINMUX('B', 9,  AF14)>,
++						 /* LCD_B7 */
++						 <STM32_PINMUX('F', 10, AF14)>;
++						 /* LCD_DE */
++					slew-rate = <2>;
++				};
++			};
++
++			spi5_pins: spi5-0 {
++				pins1 {
++					pinmux = <STM32_PINMUX('F', 7, AF5)>,
++						/* SPI5_CLK */
++						 <STM32_PINMUX('F', 9, AF5)>;
++						/* SPI5_MOSI */
++					bias-disable;
++					drive-push-pull;
++					slew-rate = <0>;
++				};
++				pins2 {
++					pinmux = <STM32_PINMUX('F', 8, AF5)>;
++						/* SPI5_MISO */
++					bias-disable;
++				};
++			};
++
+ 			dcmi_pins: dcmi-0 {
+ 				pins {
+ 					pinmux = <STM32_PINMUX('A', 4, AF13)>, /* DCMI_HSYNC */
 -- 
 2.7.4
 
