@@ -2,62 +2,35 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id 4A50D1CED40
-	for <lists+linux-stm32@lfdr.de>; Tue, 12 May 2020 08:50:19 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id CCA301CED69
+	for <lists+linux-stm32@lfdr.de>; Tue, 12 May 2020 08:59:29 +0200 (CEST)
 Received: from ip-172-31-3-76.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 03E99C36B38;
-	Tue, 12 May 2020 06:50:19 +0000 (UTC)
-Received: from mx07-00178001.pphosted.com (mx08-00178001.pphosted.com
- [91.207.212.93])
- (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 8CAA1C36B3A;
+	Tue, 12 May 2020 06:59:29 +0000 (UTC)
+Received: from relay7-d.mail.gandi.net (relay7-d.mail.gandi.net
+ [217.70.183.200])
+ (using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 2BADCC36B0B
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id D5C43C36B0B
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Tue, 12 May 2020 06:50:17 +0000 (UTC)
-Received: from pps.filterd (m0046660.ppops.net [127.0.0.1])
- by mx07-00178001.pphosted.com (8.16.0.42/8.16.0.42) with SMTP id
- 04C6mDFD014173; Tue, 12 May 2020 08:49:58 +0200
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=st.com;
- h=subject : to : cc :
- references : from : message-id : date : mime-version : in-reply-to :
- content-type : content-transfer-encoding; s=STMicroelectronics;
- bh=iEKjer/AUZHyZOt8W1uqSZTqu50DObD4a45HBZNn1gg=;
- b=WGIsw95lqD0h3WMhec/jt5cW8wF8MlhfrFKGP/m06rYBvMAlXVCoO0WSKxYFbboKoxmZ
- D0rtymgEp5jsRaZcCf1ON6ck6FQb1fhal73CUajnkQRUvvhEbqQJEMlPA/iVdUALLAw7
- JeQrggkQ81PpYnIfDJHkGbVBehC0DcdJbsTYtgcVFE4Yk9lBkIAom7oXKfJ2G8ZNQm0c
- U/mMkY9GHTTVaOMCp+UtVazLUAg0REwjobdpNhBPNmqiK7FUZbfonJZKZ6sdYPswEyMU
- ra6sXeG8e8tlvbALus+swRodDS9Fsvk2kjSTQxCRX5uB9AdGv1INMl0TJ4eCzMxWX8DZ BA== 
-Received: from beta.dmz-eu.st.com (beta.dmz-eu.st.com [164.129.1.35])
- by mx07-00178001.pphosted.com with ESMTP id 30whn9ekuy-1
- (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
- Tue, 12 May 2020 08:49:58 +0200
-Received: from euls16034.sgp.st.com (euls16034.sgp.st.com [10.75.44.20])
- by beta.dmz-eu.st.com (STMicroelectronics) with ESMTP id D6295100034;
- Tue, 12 May 2020 08:49:57 +0200 (CEST)
-Received: from Webmail-eu.st.com (sfhdag6node2.st.com [10.75.127.17])
- by euls16034.sgp.st.com (STMicroelectronics) with ESMTP id B8BCD221A49;
- Tue, 12 May 2020 08:49:57 +0200 (CEST)
-Received: from [10.211.13.100] (10.75.127.46) by SFHDAG6NODE2.st.com
- (10.75.127.17) with Microsoft SMTP Server (TLS) id 15.0.1347.2; Tue, 12 May
- 2020 08:49:56 +0200
-To: Miquel Raynal <miquel.raynal@bootlin.com>
+ Tue, 12 May 2020 06:59:27 +0000 (UTC)
+X-Originating-IP: 91.224.148.103
+Received: from xps13 (unknown [91.224.148.103])
+ (Authenticated sender: miquel.raynal@bootlin.com)
+ by relay7-d.mail.gandi.net (Postfix) with ESMTPSA id A607E20006;
+ Tue, 12 May 2020 06:59:24 +0000 (UTC)
+Date: Tue, 12 May 2020 08:59:22 +0200
+From: Miquel Raynal <miquel.raynal@bootlin.com>
+To: Christophe Kerello <christophe.kerello@st.com>
+Message-ID: <20200512085922.3fc3e4dd@xps13>
+In-Reply-To: <49c51a13-96a1-0241-f4d1-c5ff7d52921d@st.com>
 References: <1588756279-17289-1-git-send-email-christophe.kerello@st.com>
  <1588756279-17289-5-git-send-email-christophe.kerello@st.com>
  <20200511223900.030fe5f4@xps13>
-From: Christophe Kerello <christophe.kerello@st.com>
-Message-ID: <49c51a13-96a1-0241-f4d1-c5ff7d52921d@st.com>
-Date: Tue, 12 May 2020 08:49:54 +0200
-User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:60.0) Gecko/20100101
- Thunderbird/60.6.1
+ <49c51a13-96a1-0241-f4d1-c5ff7d52921d@st.com>
+Organization: Bootlin
+X-Mailer: Claws Mail 3.17.4 (GTK+ 2.24.32; x86_64-pc-linux-gnu)
 MIME-Version: 1.0
-In-Reply-To: <20200511223900.030fe5f4@xps13>
-Content-Language: en-US
-X-Originating-IP: [10.75.127.46]
-X-ClientProxiedBy: SFHDAG7NODE1.st.com (10.75.127.19) To SFHDAG6NODE2.st.com
- (10.75.127.17)
-X-Proofpoint-Virus-Version: vendor=fsecure engine=2.50.10434:6.0.216, 18.0.676
- definitions=2020-05-12_01:2020-05-11,
- 2020-05-12 signatures=0
 Cc: mark.rutland@arm.com, devicetree@vger.kernel.org, marex@denx.de,
  vigneshr@ti.com, gregkh@linuxfoundation.org, richard@nod.at,
  linux-kernel@vger.kernel.org, robh+dt@kernel.org,
@@ -75,32 +48,43 @@ List-Post: <mailto:linux-stm32@st-md-mailman.stormreply.com>
 List-Help: <mailto:linux-stm32-request@st-md-mailman.stormreply.com?subject=help>
 List-Subscribe: <https://st-md-mailman.stormreply.com/mailman/listinfo/linux-stm32>, 
  <mailto:linux-stm32-request@st-md-mailman.stormreply.com?subject=subscribe>
+Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: base64
-Content-Type: text/plain; charset="utf-8"; Format="flowed"
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
-SGkgTWlxdWVsLAoKT24gNS8xMS8yMCAxMDozOSBQTSwgTWlxdWVsIFJheW5hbCB3cm90ZToKPiAK
-PiBDaHJpc3RvcGhlIEtlcmVsbG8gPGNocmlzdG9waGUua2VyZWxsb0BzdC5jb20+IHdyb3RlIG9u
-IFdlZCwgNiBNYXkgMjAyMAo+IDExOjExOjEzICswMjAwOgo+IAo+PiBUaGlzIHBhdGNoIHJlbmFt
-ZXMgZnVuY3Rpb25zIGFuZCBsb2NhbCB2YXJpYWJsZXMuCj4+IFRoaXMgY2xlYW51cCBpcyBkb25l
-IHRvIGdldCBhbGwgZnVuY3Rpb25zIHN0YXJ0aW5nIGJ5IHN0bTMyX2ZtYzJfbmZjCj4+IGluIHRo
-ZSBGTUMyIHJhdyBOQU5EIGRyaXZlciB3aGVuIGFsbCBmdW5jdGlvbnMgd2lsbCBzdGFydCBieQo+
-PiBzdG0zMl9mbWMyX2ViaSBpbiB0aGUgRk1DMiBFQkkgZHJpdmVyLgo+Pgo+PiBTaWduZWQtb2Zm
-LWJ5OiBDaHJpc3RvcGhlIEtlcmVsbG8gPGNocmlzdG9waGUua2VyZWxsb0BzdC5jb20+Cj4+IFJl
-dmlld2VkLWJ5OiBNaXF1ZWwgUmF5bmFsIDxtaXF1ZWwucmF5bmFsQGJvb3RsaW4uY29tPgo+IAo+
-IEFwcGxpZWQgdG8gbmFuZC9uZXh0IGFzIHdlbGwgYnV0IGZvciBhbiB1bmtub3duIHJlYXNvbiBJ
-IGhhZCB0byBkbyBpdAo+IGJ5IGhhbmQgYmVjYXVzZSB0aGUgcGF0Y2ggd291bGQgbm90IGFwcGx5
-Lgo+IAo+IFRoYW5rcywKPiBNaXF1w6hsCj4gClRoaXMgaXMgc3RyYW5nZSwgSSBjYW4gYXBwbHkg
-dGhpcyBwYXRjaCBvbiBteSB0cmVlIHdpdGhvdXQgYW55IGNvbmZsaWN0cy4KVGhlcmUgaXMgYSBj
-b21waWxhdGlvbiBpc3N1ZSBsaW5lIDEzMDEuCgpAQCAtMTMwMiw0NCArMTI5OCw0NSBAQCBzdGF0
-aWMgdm9pZCBzdG0zMl9mbWMyX3dyaXRlX2RhdGEoc3RydWN0IApuYW5kX2NoaXAgKmNoaXAsIGNv
-bnN0IHZvaWQgKmJ1ZiwKCiAgCWlmIChmb3JjZV84Yml0ICYmIGNoaXAtPm9wdGlvbnMgJiBOQU5E
-X0JVU1dJRFRIXzE2KQogIAkJLyogUmVjb25maWd1cmUgYnVzIHdpZHRoIHRvIDE2LWJpdCAqLwot
-CQlzdG0zMl9mbWMyX3NldF9idXN3aWR0aF8xNihmbWMyLCB0cnVlKTsKKwkJc3RtMzJfZm1jMl9u
-ZmNfc2V0X2J1c3dpZHRoXzE2KG5mYywgdHJ1ZSk7CiAgfQoKSSB3aWxsIHJlYmFzZSBvbiB0b3Ag
-b2YgbmFuZC9uZXh0IHRvZGF5IHRvIGNoZWNrIHRoYXQgdGhlcmUgaXMgbm8gaXNzdWVzIAp3aXRo
-IHRoZSBkcml2ZXIuCgpSZWdhcmRzLApDaHJpc3RvcGhlIEtlcmVsbG8uCl9fX19fX19fX19fX19f
-X19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fCkxpbnV4LXN0bTMyIG1haWxpbmcgbGlz
-dApMaW51eC1zdG0zMkBzdC1tZC1tYWlsbWFuLnN0b3JtcmVwbHkuY29tCmh0dHBzOi8vc3QtbWQt
-bWFpbG1hbi5zdG9ybXJlcGx5LmNvbS9tYWlsbWFuL2xpc3RpbmZvL2xpbnV4LXN0bTMyCg==
+SGkgQ2hyaXN0b3BoZSwKCkNocmlzdG9waGUgS2VyZWxsbyA8Y2hyaXN0b3BoZS5rZXJlbGxvQHN0
+LmNvbT4gd3JvdGUgb24gVHVlLCAxMiBNYXkKMjAyMCAwODo0OTo1NCArMDIwMDoKCj4gSGkgTWlx
+dWVsLAo+IAo+IE9uIDUvMTEvMjAgMTA6MzkgUE0sIE1pcXVlbCBSYXluYWwgd3JvdGU6Cj4gPiAK
+PiA+IENocmlzdG9waGUgS2VyZWxsbyA8Y2hyaXN0b3BoZS5rZXJlbGxvQHN0LmNvbT4gd3JvdGUg
+b24gV2VkLCA2IE1heSAyMDIwCj4gPiAxMToxMToxMyArMDIwMDoKPiA+ICAgCj4gPj4gVGhpcyBw
+YXRjaCByZW5hbWVzIGZ1bmN0aW9ucyBhbmQgbG9jYWwgdmFyaWFibGVzLgo+ID4+IFRoaXMgY2xl
+YW51cCBpcyBkb25lIHRvIGdldCBhbGwgZnVuY3Rpb25zIHN0YXJ0aW5nIGJ5IHN0bTMyX2ZtYzJf
+bmZjCj4gPj4gaW4gdGhlIEZNQzIgcmF3IE5BTkQgZHJpdmVyIHdoZW4gYWxsIGZ1bmN0aW9ucyB3
+aWxsIHN0YXJ0IGJ5Cj4gPj4gc3RtMzJfZm1jMl9lYmkgaW4gdGhlIEZNQzIgRUJJIGRyaXZlci4K
+PiA+Pgo+ID4+IFNpZ25lZC1vZmYtYnk6IENocmlzdG9waGUgS2VyZWxsbyA8Y2hyaXN0b3BoZS5r
+ZXJlbGxvQHN0LmNvbT4KPiA+PiBSZXZpZXdlZC1ieTogTWlxdWVsIFJheW5hbCA8bWlxdWVsLnJh
+eW5hbEBib290bGluLmNvbT4gIAo+ID4gCj4gPiBBcHBsaWVkIHRvIG5hbmQvbmV4dCBhcyB3ZWxs
+IGJ1dCBmb3IgYW4gdW5rbm93biByZWFzb24gSSBoYWQgdG8gZG8gaXQKPiA+IGJ5IGhhbmQgYmVj
+YXVzZSB0aGUgcGF0Y2ggd291bGQgbm90IGFwcGx5Lgo+ID4gCj4gPiBUaGFua3MsCj4gPiBNaXF1
+w6hsCj4gPiAgIAo+IFRoaXMgaXMgc3RyYW5nZSwgSSBjYW4gYXBwbHkgdGhpcyBwYXRjaCBvbiBt
+eSB0cmVlIHdpdGhvdXQgYW55IGNvbmZsaWN0cy4KPiBUaGVyZSBpcyBhIGNvbXBpbGF0aW9uIGlz
+c3VlIGxpbmUgMTMwMS4KPiAKPiBAQCAtMTMwMiw0NCArMTI5OCw0NSBAQCBzdGF0aWMgdm9pZCBz
+dG0zMl9mbWMyX3dyaXRlX2RhdGEoc3RydWN0IG5hbmRfY2hpcCAqY2hpcCwgY29uc3Qgdm9pZCAq
+YnVmLAo+IAo+ICAgCWlmIChmb3JjZV84Yml0ICYmIGNoaXAtPm9wdGlvbnMgJiBOQU5EX0JVU1dJ
+RFRIXzE2KQo+ICAgCQkvKiBSZWNvbmZpZ3VyZSBidXMgd2lkdGggdG8gMTYtYml0ICovCj4gLQkJ
+c3RtMzJfZm1jMl9zZXRfYnVzd2lkdGhfMTYoZm1jMiwgdHJ1ZSk7Cj4gKwkJc3RtMzJfZm1jMl9u
+ZmNfc2V0X2J1c3dpZHRoXzE2KG5mYywgdHJ1ZSk7Cj4gICB9Cj4gCj4gSSB3aWxsIHJlYmFzZSBv
+biB0b3Agb2YgbmFuZC9uZXh0IHRvZGF5IHRvIGNoZWNrIHRoYXQgdGhlcmUgaXMgbm8gaXNzdWVz
+IHdpdGggdGhlIGRyaXZlci4KCkkgaGFkIHRvIGRvIHNvbWUgY2hhbmdlcyBtYW51YWxseSwgbWFp
+YmUgSSBtaXNzZWQgdGhpcyBvbmUsIGJ1dCBJIGRvbid0CnJlbWVtYmVyIHRvdWNoaW5nIHRoaXMg
+aGVscGVyLgoKQW55d2F5LCBJIGp1c3QgZHJvcHBlZCB0aGUgdHdvIGxhc3QgcGF0Y2hlcyBvZiB5
+b3VyIHNlcmllcywgcGxlYXNlCnJlYmEmc2Ugbm93IG9uIG5hbmQvbmV4dCBhbmQganVzdCByZXNl
+bmQgcGF0Y2hlcyA0IGFuZCA1LgoKQWxzbywgd2hpbGUgYXQgaXQsIHdvdWxkIHlvdSBtaW5kIGNo
+YW5naW5nIHRoZSBjb21taXQgdGl0bGUgdG8Kc29tZXRoaW5nIG1vcmUgbWVhbmluZ2Z1bD8gImNs
+ZWFudXAiIGlzIGEgYml0IHZhZ3VlIGFuZCBub3QgdmVyeQphY2N1cmF0ZS4gTWF5YmUgc29tZXRo
+aW5nIGxpa2UgIkNvc21ldGljIGNoYW5nZSB0byB1c2UgbmZjIGluc3RlYWQgb2YKZm1jMiB3aGVy
+ZSByZWxldmFudCIuCgpUaGFua3MsCk1pcXXDqGwKX19fX19fX19fX19fX19fX19fX19fX19fX19f
+X19fX19fX19fX19fX19fX19fX18KTGludXgtc3RtMzIgbWFpbGluZyBsaXN0CkxpbnV4LXN0bTMy
+QHN0LW1kLW1haWxtYW4uc3Rvcm1yZXBseS5jb20KaHR0cHM6Ly9zdC1tZC1tYWlsbWFuLnN0b3Jt
+cmVwbHkuY29tL21haWxtYW4vbGlzdGluZm8vbGludXgtc3RtMzIK
