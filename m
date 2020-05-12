@@ -2,55 +2,56 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id 4C11C1CEE48
-	for <lists+linux-stm32@lfdr.de>; Tue, 12 May 2020 09:37:06 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 868F51CEE49
+	for <lists+linux-stm32@lfdr.de>; Tue, 12 May 2020 09:37:11 +0200 (CEST)
 Received: from ip-172-31-3-76.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 15992C35E2E;
-	Tue, 12 May 2020 07:37:06 +0000 (UTC)
-Received: from mail-pg1-f174.google.com (mail-pg1-f174.google.com
- [209.85.215.174])
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 20FA2C35E3C;
+	Tue, 12 May 2020 07:37:10 +0000 (UTC)
+Received: from mail-pj1-f65.google.com (mail-pj1-f65.google.com
+ [209.85.216.65])
  (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 29999C36B0B
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id C9D26C36B0D
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Tue, 12 May 2020 07:37:04 +0000 (UTC)
-Received: by mail-pg1-f174.google.com with SMTP id n11so5771712pgl.9
+ Tue, 12 May 2020 07:37:07 +0000 (UTC)
+Received: by mail-pj1-f65.google.com with SMTP id t40so8988161pjb.3
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Tue, 12 May 2020 00:37:04 -0700 (PDT)
+ Tue, 12 May 2020 00:37:07 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20161025;
  h=from:to:cc:subject:date:message-id:in-reply-to:references;
- bh=r4ch8j5fUt4KnjnT79HJgzesM349QfaUvm49nNEOTbM=;
- b=liGnZv9V+YlD0rTxwCsrqKX9T7b/uFKEWEmcLhyUVdVM4OLuljhp0H4BIxzOKopWpH
- qD2ZsbfwZ04LJWj410Nwng4Fj9Ivnzfe8nuB/uggi+t82UEiUK9OrHzDBFeHv6X+IgCy
- nP91XfVq24+2of3EHWR5g9MciEg4KN/4Hi7UXzwcIJ8JJKjjYWhxj0wQmjrA7ZCfsJl7
- QsIDHvh8F8md2YbeJHHd6wUlJhmUwiFyJlZxsC2TiBbtqn6qtDtIUAzMhajplC8uB0dx
- cajfYKfQWnF9mJF1n+U0VlcM1/3fYMjkfqOL2LIiUMViyVHWMe2/Ot3Qiy+rmcwbLJfT
- PDrA==
+ bh=K+68zUT9ct7q6l7uIUZCLkOn4a7L9BomhNQ5jVg2Zxo=;
+ b=dNh34QvshqjNp7DtA3MlOG2kBZxosBMZGl53Z/ldH18Yw5yg6Bcz+2gc/kgnq1Nd5y
+ mIaBZTMnY7As80pi/E5gGV/PPR7kubeWI48JIFO6qcfDk13S+dMj5RItEcIsveEQFkLd
+ eOi9fcmjAc0frIerTCer7F67YR1NhDS90OdLbshs3UeqTBIB2OhQLHOn8uykYTe+xC1S
+ 4UX2nIG6VldRDHeKMkKUW+Z+HMq/j8hxXvbgl/api+IT5rUVh7xtjsnU+xE9yZYPukBZ
+ +n3pNfceWro8BjxsTesATA3SbdRFwATUv/jIRQUM/JpMC/69kFtz4L5lafJQTMxDIgn0
+ NMBg==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=1e100.net; s=20161025;
  h=x-gm-message-state:from:to:cc:subject:date:message-id:in-reply-to
  :references;
- bh=r4ch8j5fUt4KnjnT79HJgzesM349QfaUvm49nNEOTbM=;
- b=rUOltkjJ6nxDqnDucNHR7HkZkfbi3i2OdEP4WGrhCGnSvMsdiQVFI/pQ7B3+Wsmhcj
- hNkG68taKYe8GywiUEJAal+3uIBuD9UHNaT7c6D7TMFOVVJzSy7RIXtOzxWaU/lJ/uNn
- xXxUU4CQZzhX2jT+g06OFlZO5rKS6s+kEQrClotsR1z9qTv9GJHSR0P3wpL4ioOJAj1x
- ZNzcYMP1Fs67GfT0rCwSfvt2RInPyJWP0khweAcPzNNVjJZTU0l4kWZgqPwxgzNnh5hT
- FdoDjuFhQuv0E3VSF4Wv7Y5/jU5oPfBd7MEicQC8lYyWNfzoVVQRGn4Tn0VzlPlMVTsQ
- hZAQ==
-X-Gm-Message-State: AGi0PubEpb0gafEjUhL7a8SB6vYRnkA7cn1BqFde6Cm4fh6rN5tgDNjr
- 84mMTtB2dIN2sCCpK4JJq1M=
-X-Google-Smtp-Source: APiQypKyQ9WN5ToMhvq2wklP3XUxBEgEbvE5+fep2zT8czr9PcuMmduH6S9XdVQSc2xZkkJ2D80wig==
-X-Received: by 2002:a62:1657:: with SMTP id 84mr19158275pfw.51.1589269022679; 
- Tue, 12 May 2020 00:37:02 -0700 (PDT)
+ bh=K+68zUT9ct7q6l7uIUZCLkOn4a7L9BomhNQ5jVg2Zxo=;
+ b=btLhIVZzDE8q8RTnr4Cf4PTaoGyPpudwojLNL+Bu3eqEu9Nkj++0j+aMP3up7/1CKA
+ xgjU7spmJxuBfu4yQyQb1JFX5HqUq5elKKHHR0FreHqS/9v59iPG+nO2Vu0OfdWrgLWt
+ 0nVsJ3kb4lpQZ/PqAHTnBcoFWI7wR7MNBan0zKq/fMUIj19rsstYTFW6UobsSst8V1zu
+ ux57sOoz6oI+uvDr/p/2GMQDa6z7Hdq7Uc0+kateaKRCVpG76vZvGjAzggOhWjvv35Ck
+ dKzat1Rx2Nle59WkyTLpzyBekqeIsyQzBw09y8oxmU9TdbO8JQqOQVe2dnZlYA8mEqkb
+ 2X7A==
+X-Gm-Message-State: AGi0PuZvI+pgEkXowx2BRFYHTZU2aseBvK9yZ0XCkNWg2qY104VDOdKb
+ Arr0mLoKVNlf8J8fg++yxn4=
+X-Google-Smtp-Source: APiQypIIHFRhIkvjAwcUxwC+9xmufAvKnXQChJcabuuo7RX0G98cZV0dD+L+0+qw56P7H8SyGS0nRA==
+X-Received: by 2002:a17:90a:8807:: with SMTP id
+ s7mr17888970pjn.157.1589269026260; 
+ Tue, 12 May 2020 00:37:06 -0700 (PDT)
 Received: from fmin-OptiPlex-7060.nreal.work ([103.206.190.146])
- by smtp.gmail.com with ESMTPSA id 5sm11732471pjf.19.2020.05.12.00.36.59
+ by smtp.gmail.com with ESMTPSA id 5sm11732471pjf.19.2020.05.12.00.37.02
  (version=TLS1_2 cipher=ECDHE-ECDSA-AES128-GCM-SHA256 bits=128/128);
- Tue, 12 May 2020 00:37:02 -0700 (PDT)
+ Tue, 12 May 2020 00:37:05 -0700 (PDT)
 From: dillon.minfei@gmail.com
 To: robh+dt@kernel.org, mcoquelin.stm32@gmail.com, alexandre.torgue@st.com,
  broonie@kernel.org, p.zabel@pengutronix.de
-Date: Tue, 12 May 2020 15:36:49 +0800
-Message-Id: <1589269010-18472-3-git-send-email-dillon.minfei@gmail.com>
+Date: Tue, 12 May 2020 15:36:50 +0800
+Message-Id: <1589269010-18472-4-git-send-email-dillon.minfei@gmail.com>
 X-Mailer: git-send-email 2.7.4
 In-Reply-To: <1589269010-18472-1-git-send-email-dillon.minfei@gmail.com>
 References: <1589269010-18472-1-git-send-email-dillon.minfei@gmail.com>
@@ -58,8 +59,8 @@ Cc: devicetree@vger.kernel.org, dillonhua@gmail.com,
  linux-kernel@vger.kernel.org, linux-spi@vger.kernel.org,
  dillon.minfei@gmail.com, linux-stm32@st-md-mailman.stormreply.com,
  linux-arm-kernel@lists.infradead.org
-Subject: [Linux-stm32] [PATCH v2 2/3] ARM: dts: stm32: enable l3gd20 on
-	stm32429-disco board
+Subject: [Linux-stm32] [PATCH v2 3/3] spi: stm32: Add SPI_SIMPLEX_RX,
+	SPI_3WIRE_RX support for stm32f4
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -79,68 +80,126 @@ Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
 From: dillon min <dillon.minfei@gmail.com>
 
-L3gd20, st mems motion sensor, 3-axis digital output gyroscope,
-connect to stm32f429 via spi5
+in l3gd20 driver startup, there is a setup failed error return from
+stm32 spi driver
+
+    "
+    [    2.687630] st-gyro-spi spi0.0: supply vdd not found, using dummy
+    regulator
+    [    2.696869] st-gyro-spi spi0.0: supply vddio not found, using dummy
+    regulator
+    [    2.706707] spi_stm32 40015000.spi: SPI transfer setup failed
+    [    2.713741] st-gyro-spi spi0.0: SPI transfer failed: -22
+    [    2.721096] spi_master spi0: failed to transfer one message from queue
+    [    2.729268] iio iio:device0: failed to read Who-Am-I register.
+    [    2.737504] st-gyro-spi: probe of spi0.0 failed with error -22
+    "
+
+after debug into spi-stm32 driver, st-gyro-spi split two steps to read
+l3gd20 id
+
+first: send command to l3gd20 with read id command in tx_buf,
+       rx_buf is null.
+second: read id with tx_buf is null, rx_buf not null.
+
+so, for second step, stm32 driver recongise this process is SPI_SIMPLE_RX
+from stm32_spi_communication_type, but there is no related process for this
+type in stm32f4_spi_set_mode, then we get error from
+stm32_spi_transfer_one_setup.
+
+we can use two method to fix this bug.
+1, use stm32 spi's "In unidirectional receive-only mode (BIDIMODE=0 and
+   RXONLY=1)". but as our code running in sdram, the read latency is
+   too large to get so many receive overrun error in interrupts handler.
+
+2, use stm32 spi's "In full-duplex (BIDIMODE=0 and RXONLY=0)", as
+   tx_buf is null, we must add dummy data sent out before read data.
+   so, add stm32f4_spi_tx_dummy to handle this situation.
 
 Signed-off-by: dillon min <dillon.minfei@gmail.com>
 ---
+ drivers/spi/spi-stm32.c | 29 +++++++++++++++++++++++++----
+ 1 file changed, 25 insertions(+), 4 deletions(-)
 
-Hi Alexandre,
-
-V2:
-    1, insert blank line at stm32f420-disco.dts line 143
-    2, add more description about l3gd20 in commit message
-
-V1:
-    enable l3gd20 dts binding on stm32f429-disco
-
-thanks.
-
-dillon,
-
- arch/arm/boot/dts/stm32f429-disco.dts | 25 +++++++++++++++++++++++++
- 1 file changed, 25 insertions(+)
-
-diff --git a/arch/arm/boot/dts/stm32f429-disco.dts b/arch/arm/boot/dts/stm32f429-disco.dts
-index 30c0f67..1bfb903 100644
---- a/arch/arm/boot/dts/stm32f429-disco.dts
-+++ b/arch/arm/boot/dts/stm32f429-disco.dts
-@@ -49,6 +49,8 @@
- #include "stm32f429.dtsi"
- #include "stm32f429-pinctrl.dtsi"
- #include <dt-bindings/input/input.h>
-+#include <dt-bindings/interrupt-controller/irq.h>
-+#include <dt-bindings/gpio/gpio.h>
+diff --git a/drivers/spi/spi-stm32.c b/drivers/spi/spi-stm32.c
+index 44ac6eb3..bcf1ba7 100644
+--- a/drivers/spi/spi-stm32.c
++++ b/drivers/spi/spi-stm32.c
+@@ -388,6 +388,13 @@ static int stm32h7_spi_get_fifo_size(struct stm32_spi *spi)
+ 	return count;
+ }
  
- / {
- 	model = "STMicroelectronics STM32F429i-DISCO board";
-@@ -127,3 +129,26 @@
- 	pinctrl-names = "default";
- 	status = "okay";
- };
-+
-+&spi5 {
-+	status = "okay";
-+	pinctrl-0 = <&spi5_pins>;
-+	pinctrl-names = "default";
-+	#address-cells = <1>;
-+	#size-cells = <0>;
-+	cs-gpios = <&gpioc 1 GPIO_ACTIVE_LOW>;
-+	dmas = <&dma2 3 2 0x400 0x0>,
-+	       <&dma2 4 2 0x400 0x0>;
-+	dma-names = "rx", "tx";
-+
-+	l3gd20: l3gd20@0 {
-+		compatible = "st,l3gd20-gyro";
-+		spi-max-frequency = <10000000>;
-+		st,drdy-int-pin = <2>;
-+		interrupt-parent = <&gpioa>;
-+		interrupts = <1 IRQ_TYPE_EDGE_RISING>,
-+				<2 IRQ_TYPE_EDGE_RISING>;
-+		reg = <0>;
-+		status = "okay";
-+	};
-+};
++static void stm32f4_spi_tx_dummy(struct stm32_spi *spi)
++{
++	if (spi->cur_bpw == 16)
++		writew_relaxed(0x5555, spi->base + STM32F4_SPI_DR);
++	else
++		writeb_relaxed(0x55, spi->base + STM32F4_SPI_DR);
++}
+ /**
+  * stm32f4_spi_get_bpw_mask - Return bits per word mask
+  * @spi: pointer to the spi controller data structure
+@@ -811,7 +818,9 @@ static irqreturn_t stm32f4_spi_irq_event(int irq, void *dev_id)
+ 		mask |= STM32F4_SPI_SR_TXE;
+ 	}
+ 
+-	if (!spi->cur_usedma && spi->cur_comm == SPI_FULL_DUPLEX) {
++	if (!spi->cur_usedma && (spi->cur_comm == SPI_FULL_DUPLEX ||
++				 spi->cur_comm == SPI_SIMPLEX_RX ||
++				 spi->cur_comm == SPI_3WIRE_RX)) {
+ 		/* TXE flag is set and is handled when RXNE flag occurs */
+ 		sr &= ~STM32F4_SPI_SR_TXE;
+ 		mask |= STM32F4_SPI_SR_RXNE | STM32F4_SPI_SR_OVR;
+@@ -850,8 +859,10 @@ static irqreturn_t stm32f4_spi_irq_event(int irq, void *dev_id)
+ 		stm32f4_spi_read_rx(spi);
+ 		if (spi->rx_len == 0)
+ 			end = true;
+-		else /* Load data for discontinuous mode */
++		else if (spi->tx_buf)/* Load data for discontinuous mode */
+ 			stm32f4_spi_write_tx(spi);
++		else if (spi->cur_comm == SPI_SIMPLEX_RX)
++			stm32f4_spi_tx_dummy(spi);
+ 	}
+ 
+ end_irq:
+@@ -1151,7 +1162,9 @@ static int stm32f4_spi_transfer_one_irq(struct stm32_spi *spi)
+ 	/* Enable the interrupts relative to the current communication mode */
+ 	if (spi->cur_comm == SPI_SIMPLEX_TX || spi->cur_comm == SPI_3WIRE_TX) {
+ 		cr2 |= STM32F4_SPI_CR2_TXEIE;
+-	} else if (spi->cur_comm == SPI_FULL_DUPLEX) {
++	} else if (spi->cur_comm == SPI_FULL_DUPLEX ||
++				spi->cur_comm == SPI_SIMPLEX_RX ||
++				spi->cur_comm == SPI_3WIRE_RX) {
+ 		/* In transmit-only mode, the OVR flag is set in the SR register
+ 		 * since the received data are never read. Therefore set OVR
+ 		 * interrupt only when rx buffer is available.
+@@ -1170,6 +1183,8 @@ static int stm32f4_spi_transfer_one_irq(struct stm32_spi *spi)
+ 	/* starting data transfer when buffer is loaded */
+ 	if (spi->tx_buf)
+ 		stm32f4_spi_write_tx(spi);
++	else if (spi->cur_comm == SPI_SIMPLEX_RX)
++		stm32f4_spi_tx_dummy(spi);
+ 
+ 	spin_unlock_irqrestore(&spi->lock, flags);
+ 
+@@ -1462,10 +1477,16 @@ static int stm32f4_spi_set_mode(struct stm32_spi *spi, unsigned int comm_type)
+ 		stm32_spi_set_bits(spi, STM32F4_SPI_CR1,
+ 					STM32F4_SPI_CR1_BIDIMODE |
+ 					STM32F4_SPI_CR1_BIDIOE);
+-	} else if (comm_type == SPI_FULL_DUPLEX) {
++	} else if (comm_type == SPI_FULL_DUPLEX ||
++				comm_type == SPI_SIMPLEX_RX) {
+ 		stm32_spi_clr_bits(spi, STM32F4_SPI_CR1,
+ 					STM32F4_SPI_CR1_BIDIMODE |
+ 					STM32F4_SPI_CR1_BIDIOE);
++	} else if (comm_type == SPI_3WIRE_RX) {
++		stm32_spi_set_bits(spi, STM32F4_SPI_CR1,
++					STM32F4_SPI_CR1_BIDIMODE);
++		stm32_spi_clr_bits(spi, STM32F4_SPI_CR1,
++					STM32F4_SPI_CR1_BIDIOE);
+ 	} else {
+ 		return -EINVAL;
+ 	}
 -- 
 2.7.4
 
