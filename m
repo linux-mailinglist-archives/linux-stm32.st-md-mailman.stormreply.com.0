@@ -2,60 +2,60 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id 84A951CF5C4
-	for <lists+linux-stm32@lfdr.de>; Tue, 12 May 2020 15:27:44 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id F20AF1CF667
+	for <lists+linux-stm32@lfdr.de>; Tue, 12 May 2020 16:04:29 +0200 (CEST)
 Received: from ip-172-31-3-76.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 42A38C349C3;
-	Tue, 12 May 2020 13:27:44 +0000 (UTC)
-Received: from mx07-00178001.pphosted.com (mx07-00178001.pphosted.com
- [62.209.51.94])
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 3AFBDC349C4;
+	Tue, 12 May 2020 14:04:29 +0000 (UTC)
+Received: from fllv0015.ext.ti.com (fllv0015.ext.ti.com [198.47.19.141])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id F14E9C36B0B
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id F2EA8C36B0B
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Tue, 12 May 2020 13:27:41 +0000 (UTC)
-Received: from pps.filterd (m0046037.ppops.net [127.0.0.1])
- by mx07-00178001.pphosted.com (8.16.0.42/8.16.0.42) with SMTP id
- 04CDMIfc025657; Tue, 12 May 2020 15:27:31 +0200
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=st.com;
- h=from : to : cc : subject
- : date : message-id : mime-version : content-type; s=STMicroelectronics;
- bh=+QVbU7pKjwzPGFYYPGKUWMEDgUaEdm0KEavReVltEBo=;
- b=jE6drnut+pDhoj5a0iOHjZNlYrBKoU2KqGec8sjwv6QP9/V9fI924spx58KBmr+glQ6n
- g/Q5mLrb0U+2idE/ZpEfWe2PzqKSsCIrbr2Rfd79CJ0OC8y0HuJYL8Z/9Ef5Ylpzdkns
- 1mWYzn5vyj02ohs8sBIlpTPG4UtfA5nReA2r35eW0LAg9RT/aNiJwhQsl8jcllYsSswK
- w5HPWbDlF3gETOMTpiH/9Mt2ScIcSMn+X939sJaND0HL47V5G+MgMeHcswDu7KDw88sy
- uqlC1gAv+pbSQjUMcy2i4PABy2PfysrUtZhcmsdPOSvQ/4QsLdOQ9b+Lg0Iook36HAbE yw== 
-Received: from beta.dmz-eu.st.com (beta.dmz-eu.st.com [164.129.1.35])
- by mx07-00178001.pphosted.com with ESMTP id 30wj9wgrnm-1
- (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
- Tue, 12 May 2020 15:27:31 +0200
-Received: from euls16034.sgp.st.com (euls16034.sgp.st.com [10.75.44.20])
- by beta.dmz-eu.st.com (STMicroelectronics) with ESMTP id B2FDB100038;
- Tue, 12 May 2020 15:27:30 +0200 (CEST)
-Received: from Webmail-eu.st.com (sfhdag5node3.st.com [10.75.127.15])
- by euls16034.sgp.st.com (STMicroelectronics) with ESMTP id A60FB2C38D2;
- Tue, 12 May 2020 15:27:30 +0200 (CEST)
-Received: from localhost (10.75.127.47) by SFHDAG5NODE3.st.com (10.75.127.15)
- with Microsoft SMTP Server (TLS) id 15.0.1473.3;
- Tue, 12 May 2020 15:27:30 +0200
-From: Fabrice Gasnier <fabrice.gasnier@st.com>
-To: <jic23@kernel.org>
-Date: Tue, 12 May 2020 15:27:05 +0200
-Message-ID: <1589290025-23857-1-git-send-email-fabrice.gasnier@st.com>
-X-Mailer: git-send-email 2.7.4
+ Tue, 12 May 2020 14:04:26 +0000 (UTC)
+Received: from fllv0035.itg.ti.com ([10.64.41.0])
+ by fllv0015.ext.ti.com (8.15.2/8.15.2) with ESMTP id 04CE4GWK104112;
+ Tue, 12 May 2020 09:04:16 -0500
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=ti.com;
+ s=ti-com-17Q1; t=1589292256;
+ bh=RYLxeYyV14EWrGllI+5nxV7VKhyVKweYLlCJbrn+/wQ=;
+ h=Subject:To:CC:References:From:Date:In-Reply-To;
+ b=YzO/t206C/tOJSoUonzoDfABTdJRCAuyp6RPO8/ZrH4cJqkrPnCYmOR2OoiN2CdHz
+ 7ZoqZv5HgEdxwuXZKU2YZ1shTUzta+AkkHxBOYF1SGD6XNseWRo3IpNw2nzF3t4i4o
+ ThbQv7vxkhNfuBbr6FvyZyW3k1L3+NHi5qldIDLI=
+Received: from DFLE103.ent.ti.com (dfle103.ent.ti.com [10.64.6.24])
+ by fllv0035.itg.ti.com (8.15.2/8.15.2) with ESMTP id 04CE4GxK004618;
+ Tue, 12 May 2020 09:04:16 -0500
+Received: from DFLE106.ent.ti.com (10.64.6.27) by DFLE103.ent.ti.com
+ (10.64.6.24) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_128_CBC_SHA256_P256) id 15.1.1979.3; Tue, 12
+ May 2020 09:04:16 -0500
+Received: from fllv0040.itg.ti.com (10.64.41.20) by DFLE106.ent.ti.com
+ (10.64.6.27) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_128_CBC_SHA256_P256) id 15.1.1979.3 via
+ Frontend Transport; Tue, 12 May 2020 09:04:16 -0500
+Received: from [192.168.2.6] (ileax41-snat.itg.ti.com [10.172.224.153])
+ by fllv0040.itg.ti.com (8.15.2/8.15.2) with ESMTP id 04CE4E0i097923;
+ Tue, 12 May 2020 09:04:14 -0500
+To: Lee Jones <lee.jones@linaro.org>
+References: <20200107105959.18920-1-peter.ujfalusi@ti.com>
+ <20200416084651.GW2167633@dell>
+From: Peter Ujfalusi <peter.ujfalusi@ti.com>
+X-Pep-Version: 2.0
+Message-ID: <b50b4568-88d6-3475-f3c5-84331d66632e@ti.com>
+Date: Tue, 12 May 2020 17:04:48 +0300
+User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:68.0) Gecko/20100101
+ Thunderbird/68.8.0
 MIME-Version: 1.0
-X-Originating-IP: [10.75.127.47]
-X-ClientProxiedBy: SFHDAG4NODE2.st.com (10.75.127.11) To SFHDAG5NODE3.st.com
- (10.75.127.15)
-X-Proofpoint-Virus-Version: vendor=fsecure engine=2.50.10434:6.0.216, 18.0.676
- definitions=2020-05-12_03:2020-05-11,
- 2020-05-12 signatures=0
-Cc: linux-iio@vger.kernel.org, linux-kernel@vger.kernel.org,
- mcoquelin.stm32@gmail.com, fabrice.gasnier@st.com,
- linux-stm32@st-md-mailman.stormreply.com, linux-arm-kernel@lists.infradead.org
-Subject: [Linux-stm32] [PATCH] iio: adc: stm32-adc: fix a wrong error
-	message when probing interrupts
+In-Reply-To: <20200416084651.GW2167633@dell>
+Content-Type: multipart/mixed; boundary="------------CF3D3B72ECF4F393ED0CA57E"
+Content-Language: en-US
+X-EXCLAIMER-MD-CONFIG: e1e8a2fd-e40a-4ac6-ac9b-f7e9cc9ee180
+Cc: linux-kernel@vger.kernel.org, vkoul@kernel.org, mcoquelin.stm32@gmail.com,
+ fabrice.gasnier@st.com, linux-stm32@st-md-mailman.stormreply.com,
+ linux-arm-kernel@lists.infradead.org
+Subject: Re: [Linux-stm32] [PATCH v2] mfd: stm32-timers: Use
+ dma_request_chan() instead dma_request_slave_channel()
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -67,129 +67,158 @@ List-Post: <mailto:linux-stm32@st-md-mailman.stormreply.com>
 List-Help: <mailto:linux-stm32-request@st-md-mailman.stormreply.com?subject=help>
 List-Subscribe: <https://st-md-mailman.stormreply.com/mailman/listinfo/linux-stm32>, 
  <mailto:linux-stm32-request@st-md-mailman.stormreply.com?subject=subscribe>
-Content-Type: text/plain; charset="us-ascii"
-Content-Transfer-Encoding: 7bit
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
-A wrong error message is printed out currently, like on STM32MP15:
-- stm32-adc-core 48003000.adc: IRQ index 2 not found.
+--------------CF3D3B72ECF4F393ED0CA57E
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: quoted-printable
 
-This is seen since commit 7723f4c5ecdb ("driver core: platform: Add an
-error message to platform_get_irq*()").
-The STM32 ADC core driver wrongly requests up to 3 interrupt lines. It
-should request only the necessary IRQs, based on the compatible:
-- stm32f4/h7 ADCs share a common interrupt
-- stm32mp1, has one interrupt line per ADC.
-So add the number of required interrupts to the compatible data.
 
-Fixes: d58c67d1d851 ("iio: adc: stm32-adc: add support for STM32MP1")
 
-Signed-off-by: Fabrice Gasnier <fabrice.gasnier@st.com>
----
- drivers/iio/adc/stm32-adc-core.c | 34 ++++++++++++++--------------------
- 1 file changed, 14 insertions(+), 20 deletions(-)
+On 16/04/2020 11.46, Lee Jones wrote:
+> On Tue, 07 Jan 2020, Peter Ujfalusi wrote:
+>=20
+>> dma_request_slave_channel() is a wrapper on top of dma_request_chan()
+>> eating up the error code.
+>>
+>> By using dma_request_chan() directly the driver can support deferred
+>> probing against DMA.
+>>
+>> Signed-off-by: Peter Ujfalusi <peter.ujfalusi@ti.com>
+>> ---
+>> Hi,
+>>
+>> Changes since v1:
+>> - Fall back to PIO mode only in case of ENODEV and report all other er=
+rors
+>>
+>> Regards,
+>> Peter
+>>
+>>  drivers/mfd/stm32-timers.c | 32 +++++++++++++++++++++++---------
+>>  1 file changed, 23 insertions(+), 9 deletions(-)
+>=20
+> Apologies for not spotting this patch sooner, it had slipped through
+> the net.  If this happens again, please just submit a [RESEND].
 
-diff --git a/drivers/iio/adc/stm32-adc-core.c b/drivers/iio/adc/stm32-adc-core.c
-index ebe5dbc..3586369 100644
---- a/drivers/iio/adc/stm32-adc-core.c
-+++ b/drivers/iio/adc/stm32-adc-core.c
-@@ -65,12 +65,14 @@ struct stm32_adc_priv;
-  * @clk_sel:	clock selection routine
-  * @max_clk_rate_hz: maximum analog clock rate (Hz, from datasheet)
-  * @has_syscfg: SYSCFG capability flags
-+ * @num_irqs:	number of interrupt lines
-  */
- struct stm32_adc_priv_cfg {
- 	const struct stm32_adc_common_regs *regs;
- 	int (*clk_sel)(struct platform_device *, struct stm32_adc_priv *);
- 	u32 max_clk_rate_hz;
- 	unsigned int has_syscfg;
-+	unsigned int num_irqs;
- };
- 
- /**
-@@ -375,21 +377,15 @@ static int stm32_adc_irq_probe(struct platform_device *pdev,
- 	struct device_node *np = pdev->dev.of_node;
- 	unsigned int i;
- 
--	for (i = 0; i < STM32_ADC_MAX_ADCS; i++) {
-+	/*
-+	 * Interrupt(s) must be provided, depending on the compatible:
-+	 * - stm32f4/h7 shares a common interrupt line.
-+	 * - stm32mp1, has one line per ADC
-+	 */
-+	for (i = 0; i < priv->cfg->num_irqs; i++) {
- 		priv->irq[i] = platform_get_irq(pdev, i);
--		if (priv->irq[i] < 0) {
--			/*
--			 * At least one interrupt must be provided, make others
--			 * optional:
--			 * - stm32f4/h7 shares a common interrupt.
--			 * - stm32mp1, has one line per ADC (either for ADC1,
--			 *   ADC2 or both).
--			 */
--			if (i && priv->irq[i] == -ENXIO)
--				continue;
--
-+		if (priv->irq[i] < 0)
- 			return priv->irq[i];
--		}
- 	}
- 
- 	priv->domain = irq_domain_add_simple(np, STM32_ADC_MAX_ADCS, 0,
-@@ -400,9 +396,7 @@ static int stm32_adc_irq_probe(struct platform_device *pdev,
- 		return -ENOMEM;
- 	}
- 
--	for (i = 0; i < STM32_ADC_MAX_ADCS; i++) {
--		if (priv->irq[i] < 0)
--			continue;
-+	for (i = 0; i < priv->cfg->num_irqs; i++) {
- 		irq_set_chained_handler(priv->irq[i], stm32_adc_irq_handler);
- 		irq_set_handler_data(priv->irq[i], priv);
- 	}
-@@ -420,11 +414,8 @@ static void stm32_adc_irq_remove(struct platform_device *pdev,
- 		irq_dispose_mapping(irq_find_mapping(priv->domain, hwirq));
- 	irq_domain_remove(priv->domain);
- 
--	for (i = 0; i < STM32_ADC_MAX_ADCS; i++) {
--		if (priv->irq[i] < 0)
--			continue;
-+	for (i = 0; i < priv->cfg->num_irqs; i++)
- 		irq_set_chained_handler(priv->irq[i], NULL);
--	}
- }
- 
- static int stm32_adc_core_switches_supply_en(struct stm32_adc_priv *priv,
-@@ -824,6 +815,7 @@ static const struct stm32_adc_priv_cfg stm32f4_adc_priv_cfg = {
- 	.regs = &stm32f4_adc_common_regs,
- 	.clk_sel = stm32f4_adc_clk_sel,
- 	.max_clk_rate_hz = 36000000,
-+	.num_irqs = 1,
- };
- 
- static const struct stm32_adc_priv_cfg stm32h7_adc_priv_cfg = {
-@@ -831,6 +823,7 @@ static const struct stm32_adc_priv_cfg stm32h7_adc_priv_cfg = {
- 	.clk_sel = stm32h7_adc_clk_sel,
- 	.max_clk_rate_hz = 36000000,
- 	.has_syscfg = HAS_VBOOSTER,
-+	.num_irqs = 1,
- };
- 
- static const struct stm32_adc_priv_cfg stm32mp1_adc_priv_cfg = {
-@@ -838,6 +831,7 @@ static const struct stm32_adc_priv_cfg stm32mp1_adc_priv_cfg = {
- 	.clk_sel = stm32h7_adc_clk_sel,
- 	.max_clk_rate_hz = 40000000,
- 	.has_syscfg = HAS_VBOOSTER | HAS_ANASWVDD,
-+	.num_irqs = 2,
- };
- 
- static const struct of_device_id stm32_adc_of_match[] = {
--- 
-2.7.4
+No issues, I have also forgot about it ;)
+
+
+>> diff --git a/drivers/mfd/stm32-timers.c b/drivers/mfd/stm32-timers.c
+>> index efcd4b980c94..add603359124 100644
+>> --- a/drivers/mfd/stm32-timers.c
+>> +++ b/drivers/mfd/stm32-timers.c
+>> @@ -167,10 +167,11 @@ static void stm32_timers_get_arr_size(struct stm=
+32_timers *ddata)
+>>  	regmap_write(ddata->regmap, TIM_ARR, 0x0);
+>>  }
+>> =20
+>> -static void stm32_timers_dma_probe(struct device *dev,
+>> +static int stm32_timers_dma_probe(struct device *dev,
+>>  				   struct stm32_timers *ddata)
+>>  {
+>>  	int i;
+>> +	int ret =3D 0;
+>>  	char name[4];
+>> =20
+>>  	init_completion(&ddata->dma.completion);
+>> @@ -179,14 +180,23 @@ static void stm32_timers_dma_probe(struct device=
+ *dev,
+>>  	/* Optional DMA support: get valid DMA channel(s) or NULL */
+>>  	for (i =3D STM32_TIMERS_DMA_CH1; i <=3D STM32_TIMERS_DMA_CH4; i++) {=
+
+>>  		snprintf(name, ARRAY_SIZE(name), "ch%1d", i + 1);
+>> -		ddata->dma.chans[i] =3D dma_request_slave_channel(dev, name);
+>> +		ddata->dma.chans[i] =3D dma_request_chan(dev, name);
+>>  	}
+>> -	ddata->dma.chans[STM32_TIMERS_DMA_UP] =3D
+>> -		dma_request_slave_channel(dev, "up");
+>> -	ddata->dma.chans[STM32_TIMERS_DMA_TRIG] =3D
+>> -		dma_request_slave_channel(dev, "trig");
+>> -	ddata->dma.chans[STM32_TIMERS_DMA_COM] =3D
+>> -		dma_request_slave_channel(dev, "com");
+>> +	ddata->dma.chans[STM32_TIMERS_DMA_UP] =3D dma_request_chan(dev, "up"=
+);
+>> +	ddata->dma.chans[STM32_TIMERS_DMA_TRIG] =3D dma_request_chan(dev, "t=
+rig");
+>> +	ddata->dma.chans[STM32_TIMERS_DMA_COM] =3D dma_request_chan(dev, "co=
+m");
+>> +
+>> +	for (i =3D STM32_TIMERS_DMA_CH1; i < STM32_TIMERS_MAX_DMAS; i++) {
+>> +		if (IS_ERR(ddata->dma.chans[i])) {
+>> +			/* Save the first error code to return */
+>> +			if (PTR_ERR(ddata->dma.chans[i]) !=3D -ENODEV && !ret)
+>> +				ret =3D PTR_ERR(ddata->dma.chans[i]);
+>> +
+>> +			ddata->dma.chans[i] =3D NULL;
+>> +		}
+>> +	}
+>=20
+> In my mind, it doesn't make sense to keep requesting channels if an
+> error has occurred.  Please remove all of the added complexity caused
+> by the for() loop and simply check the return value after each call to
+> dma_request_chan(), returning immediately on error.
+
+Yes. I have intentionally done the patch this way to _not_ change the
+behavior in any ways as it is not up to me to decide what is good or bad
+for a driver I can not test.
+
+>=20
+>> +	return ret;
+>>  }
+>=20
+
+- P=C3=A9ter
+
+Texas Instruments Finland Oy, Porkkalankatu 22, 00180 Helsinki.
+Y-tunnus/Business ID: 0615521-4. Kotipaikka/Domicile: Helsinki
+
+--------------CF3D3B72ECF4F393ED0CA57E
+Content-Type: application/pgp-keys; name="pEpkey.asc"
+Content-Transfer-Encoding: quoted-printable
+Content-Disposition: attachment; filename="pEpkey.asc"
+
+-----BEGIN PGP PUBLIC KEY BLOCK-----
+
+mQENBFki4nsBCAD3BM+Ogt951JlaDloruEjoZk/Z+/37CjP0fY2mqLhBOzkpx95u
+X1Fquf0KfVk+ZzCd25XGOZEtpZNlXfbxRr2iRWPS5RW2FeLYGvg2TTJCpSr+ugKu
+OOec6KECCUotGbGhpYwBrbarJNEwDcAzPK7UJYa1rhWOmkpZJ1hXF1hUghB84q35
+8DmN4sGLcsIbVdRFZ1tWFh4vGBFV9LsoDZIrnnANb6/XMX78s+tr3RG3GZBaFPl8
+jO5IIv0UIGNUKaYlNVFYthjGCzOqtstHchWuK9eQkR7m1+Vc+ezh1qK0VJydIcjn
+OtoMZZL7RAz13LB9vmcJjbQPnI7dJojz/M7zABEBAAG0JlBldGVyIFVqZmFsdXNp
+IDxwZXRlci51amZhbHVzaUB0aS5jb20+iQFOBBMBCAA4FiEE+dBcpRFvJjZw+uta
+LCayis85LN4FAlki4nsCGwMFCwkIBwIGFQgJCgsCBBYCAwECHgECF4AACgkQLCay
+is85LN4QjggAzxxxXqiWpA3vuj9yrlGLft3BeGKWqF8+RzdeRvshtNdpGeIFf+r5
+AJVR71R1w89Qeb4DGXus7qsKiafdFGG7yxbuhw8a5wUm+ZncBXA+ETn3OyVtl8g8
+r/ZcPX420jClBNTVuL0sSnyqDFDrt5f+uAFOIwsnHdpns174Zu9QhgYxdvdZ+jMh
+Psb745O9EVeNvdfUIRdrVjb4IhJKNIzkb0Tulsz5xeCJReUYpxZU1jzEq3YZqIou
++fi+oS4wlJuSoxKKTmIXtSeEy/weStF1XHMo6vLYqzaK4FyIuclqeuYUYSVy2425
+7TMXugaI+O85AEI6KW8MCcu1NucSfAWUabkBDQRZIuJ7AQgAypKq8iIugpHxWA2c
+Ck6MQdPBT6cOEVK0tjeHaHAVOUPiw9Pq+ssMifdIkDdqXNZ3RLH/X2svYvd8c81C
+egqshfB8nkJ5EKmQc9d7s0EwnYT8OwsoVb3c2WXnsdcKEyu2nHgyeJEUpPpMPyLc
++PWhoREifttab4sOPktepdnUbvrDK/gkjHmiG6+L2owSn637N+Apo3/eQuDajfEu
+kybxK19ReRcp6dbqWSBGSeNB32c/zv1ka37bTMNVUY39Rl+/8lA/utLfrMeACHRO
+FGO1BexMASKUdmlB0v9n4BaJFGrAJYAFJBNHLCDemqkU7gjaiimuHSjwuP0Wk7Ct
+KQJfVQARAQABiQE2BBgBCAAgFiEE+dBcpRFvJjZw+utaLCayis85LN4FAlki4nsC
+GwwACgkQLCayis85LN7kCwgAoy9r3ZQfJNOXO1q/YQfpEELHn0p8LpwliSDUS1xL
+sswyxtZS8LlW8PjlTXuBLu38Vfr0vGav7oyV7TkhnKT3oBOLXanyZqwgyZSKNEGB
+PB4v3Fo7YTzpfSofiwuz03uyfjTxiMGjonxSb+YxM7HBHfzjrOKKlg02fK+lWNZo
+m5lXugeWD7U6JJguNdYfr+U4zYIblelUImcIE+wnR0oLzUEVDIWSpVrl/OqS3Rzo
+mw8wBsHksTHrbgUnKL0SCzYc90BTeKbyjEBnVDr+dlfbxRxkB8h9RMPMdjodvXzS
+Gfsa9V/k4XAsh7iX9EUVBbnmjA61ySxU/w98h96jMuteTg=3D=3D
+=3DeQmw
+-----END PGP PUBLIC KEY BLOCK-----
+
+--------------CF3D3B72ECF4F393ED0CA57E
+Content-Type: text/plain; charset="us-ascii"
+MIME-Version: 1.0
+Content-Transfer-Encoding: 7bit
+Content-Disposition: inline
 
 _______________________________________________
 Linux-stm32 mailing list
 Linux-stm32@st-md-mailman.stormreply.com
 https://st-md-mailman.stormreply.com/mailman/listinfo/linux-stm32
+
+--------------CF3D3B72ECF4F393ED0CA57E--
