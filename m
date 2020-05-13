@@ -2,38 +2,38 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id D192C1D1D09
-	for <lists+linux-stm32@lfdr.de>; Wed, 13 May 2020 20:10:33 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 7EAAF1D1D0A
+	for <lists+linux-stm32@lfdr.de>; Wed, 13 May 2020 20:10:34 +0200 (CEST)
 Received: from ip-172-31-3-76.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 71CFAC32EB4;
-	Wed, 13 May 2020 18:10:32 +0000 (UTC)
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 4484FC3089E;
+	Wed, 13 May 2020 18:10:34 +0000 (UTC)
 Received: from mail-out.m-online.net (mail-out.m-online.net [212.18.0.9])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 08666C36B0B
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 292FBC32EB3
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Wed, 13 May 2020 18:10:28 +0000 (UTC)
+ Wed, 13 May 2020 18:10:30 +0000 (UTC)
 Received: from frontend01.mail.m-online.net (unknown [192.168.8.182])
- by mail-out.m-online.net (Postfix) with ESMTP id 49MjQC4hWCz1qs04;
- Wed, 13 May 2020 20:10:27 +0200 (CEST)
+ by mail-out.m-online.net (Postfix) with ESMTP id 49MjQF5tHmz1qs0B;
+ Wed, 13 May 2020 20:10:29 +0200 (CEST)
 Received: from localhost (dynscan1.mnet-online.de [192.168.6.70])
- by mail.m-online.net (Postfix) with ESMTP id 49MjQC4Wksz1r6F3;
- Wed, 13 May 2020 20:10:27 +0200 (CEST)
+ by mail.m-online.net (Postfix) with ESMTP id 49MjQF5BMMz1r6F3;
+ Wed, 13 May 2020 20:10:29 +0200 (CEST)
 X-Virus-Scanned: amavisd-new at mnet-online.de
 Received: from mail.mnet-online.de ([192.168.8.182])
  by localhost (dynscan1.mail.m-online.net [192.168.6.70]) (amavisd-new,
  port 10024)
- with ESMTP id mdFdJTsB8q0r; Wed, 13 May 2020 20:10:26 +0200 (CEST)
-X-Auth-Info: vMZX3dKa93xwGIAIgzbu4er/7nTFuSvQkV8i7oJETVQ=
+ with ESMTP id skP0l45XGED7; Wed, 13 May 2020 20:10:27 +0200 (CEST)
+X-Auth-Info: 8SjTU6bxaVQlF+eCTVPW3y/9PWfD+9bXh7aNsrSzv+Y=
 Received: from desktop.lan (ip-86-49-35-8.net.upcbroadband.cz [86.49.35.8])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
  by mail.mnet-online.de (Postfix) with ESMTPSA;
- Wed, 13 May 2020 20:10:26 +0200 (CEST)
+ Wed, 13 May 2020 20:10:27 +0200 (CEST)
 From: Marek Vasut <marex@denx.de>
 To: linux-arm-kernel@lists.infradead.org
-Date: Wed, 13 May 2020 20:10:18 +0200
-Message-Id: <20200513181020.8225-2-marex@denx.de>
+Date: Wed, 13 May 2020 20:10:19 +0200
+Message-Id: <20200513181020.8225-3-marex@denx.de>
 X-Mailer: git-send-email 2.25.1
 In-Reply-To: <20200513181020.8225-1-marex@denx.de>
 References: <20200513181020.8225-1-marex@denx.de>
@@ -41,8 +41,8 @@ MIME-Version: 1.0
 Cc: Marek Vasut <marex@denx.de>, Patrick Delaunay <patrick.delaunay@st.com>,
  Maxime Coquelin <mcoquelin.stm32@gmail.com>,
  linux-stm32@st-md-mailman.stormreply.com
-Subject: [Linux-stm32] [PATCH V3 2/4] ARM: dts: stm32: Add GPIO LEDs for
-	STM32MP1 DHCOM PDK2
+Subject: [Linux-stm32] [PATCH V3 3/4] ARM: dts: stm32: Split SoC-independent
+	parts of DHCOM SOM and PDK2
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -59,9 +59,10 @@ Content-Transfer-Encoding: 7bit
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
-Add bindings for the four GPIO LEDs on DH PDK2 board. Note that LED5
-GPIO-E may conflict with touchscreen interrupt, hence LED5 must be
-disabled when using the DH 560-200 display unit with touchscreen.
+The DH Electronics PDK2 can be populated with SoM with any STM32MP15xx
+variant. Split the SoC-independent parts of the SoM and PDK2 into the
+stm32mp15xx-dhcom-*.dtsi and reduce stm32mp157c-dhcom-*dts* to example
+of adding STM32MP157C variant of the SoM into a PDK2 carrier board.
 
 Signed-off-by: Marek Vasut <marex@denx.de>
 Cc: Alexandre Torgue <alexandre.torgue@st.com>
@@ -71,20 +72,476 @@ Cc: Patrick Delaunay <patrick.delaunay@st.com>
 Cc: linux-stm32@st-md-mailman.stormreply.com
 To: linux-arm-kernel@lists.infradead.org
 ---
-V2: No change
-V3: No change
+V2: - Drop the stm32mp157c-dhcom-som.dtsi , as it was just include statements
+    - Add comment about what SoM+Board combination is currently supported
+V3: Move the comment to stm32mp157c-dhcom-pdk2.dts
 ---
- arch/arm/boot/dts/stm32mp157c-dhcom-pdk2.dts | 28 ++++++++++++++++++++
- 1 file changed, 28 insertions(+)
+ arch/arm/boot/dts/stm32mp157c-dhcom-pdk2.dts  | 348 +-----------------
+ arch/arm/boot/dts/stm32mp15xx-dhcom-pdk2.dtsi | 337 +++++++++++++++++
+ ...om-som.dtsi => stm32mp15xx-dhcom-som.dtsi} |   5 +-
+ 3 files changed, 352 insertions(+), 338 deletions(-)
+ create mode 100644 arch/arm/boot/dts/stm32mp15xx-dhcom-pdk2.dtsi
+ rename arch/arm/boot/dts/{stm32mp157c-dhcom-som.dtsi => stm32mp15xx-dhcom-som.dtsi} (98%)
 
 diff --git a/arch/arm/boot/dts/stm32mp157c-dhcom-pdk2.dts b/arch/arm/boot/dts/stm32mp157c-dhcom-pdk2.dts
-index e5036c9b9e92..b380268750f3 100644
+index b380268750f3..197aa98d49e2 100644
 --- a/arch/arm/boot/dts/stm32mp157c-dhcom-pdk2.dts
 +++ b/arch/arm/boot/dts/stm32mp157c-dhcom-pdk2.dts
-@@ -89,6 +89,34 @@ button-3 {
- 		};
- 	};
+@@ -1,243 +1,23 @@
+ // SPDX-License-Identifier: GPL-2.0+ OR BSD-3-Clause
+ /*
+- * Copyright (C) 2019 Marek Vasut <marex@denx.de>
++ * Copyright (C) 2019-2020 Marek Vasut <marex@denx.de>
++ *
++ * DHCOM STM32MP1 variant:
++ * DHCM-STM32MP157C-C065-R102-F0819-SPI-E2-CAN2-SDR104-RTC-WBT-T-DSI-I-01D2
++ * DHCOR PCB number: 587-200 or newer
++ * PDK2 PCB number: 516-400 or newer
+  */
++/dts-v1/;
  
+-#include "stm32mp157c-dhcom-som.dtsi"
+-#include <dt-bindings/input/input.h>
+-#include <dt-bindings/pwm/pwm.h>
++#include "stm32mp157.dtsi"
++#include "stm32mp15xc.dtsi"
++#include "stm32mp15xx-dhcom-som.dtsi"
++#include "stm32mp15xx-dhcom-pdk2.dtsi"
+ 
+ / {
+-	model = "STMicroelectronics STM32MP157C DHCOM Premium Developer Kit (2)";
+-	compatible = "dh,stm32mp157c-dhcom-pdk2", "st,stm32mp157";
+-
+-	aliases {
+-		serial0 = &uart4;
+-		serial1 = &usart3;
+-		serial2 = &uart8;
+-		ethernet0 = &ethernet0;
+-	};
+-
+-	chosen {
+-		stdout-path = "serial0:115200n8";
+-	};
+-
+-	clk_ext_audio_codec: clock-codec {
+-		compatible = "fixed-clock";
+-		#clock-cells = <0>;
+-		clock-frequency = <24000000>;
+-	};
+-
+-	display_bl: display-bl {
+-		compatible = "pwm-backlight";
+-		pwms = <&pwm2 0 500000 PWM_POLARITY_INVERTED>;
+-		brightness-levels = <0 16 22 30 40 55 75 102 138 188 255>;
+-		default-brightness-level = <8>;
+-		enable-gpios = <&gpioi 0 GPIO_ACTIVE_HIGH>;
+-		status = "okay";
+-	};
+-
+-	ethernet_vio: vioregulator {
+-		compatible = "regulator-fixed";
+-		regulator-name = "vio";
+-		regulator-min-microvolt = <3300000>;
+-		regulator-max-microvolt = <3300000>;
+-		gpio = <&gpiog 3 GPIO_ACTIVE_LOW>;
+-		regulator-always-on;
+-		regulator-boot-on;
+-	};
+-
+-	gpio-keys-polled {
+-		compatible = "gpio-keys-polled";
+-		#size-cells = <0>;
+-		poll-interval = <20>;
+-
+-		/*
+-		 * The EXTi IRQ line 3 is shared with touchscreen and ethernet,
+-		 * so mark this as polled GPIO key.
+-		 */
+-		button-0 {
+-			label = "TA1-GPIO-A";
+-			linux,code = <KEY_A>;
+-			gpios = <&gpiof 3 GPIO_ACTIVE_LOW>;
+-		};
+-	};
+-
+-	gpio-keys {
+-		compatible = "gpio-keys";
+-		#size-cells = <0>;
+-
+-		button-1 {
+-			label = "TA2-GPIO-B";
+-			linux,code = <KEY_B>;
+-			gpios = <&gpiod 6 GPIO_ACTIVE_LOW>;
+-			wakeup-source;
+-		};
+-
+-		button-2 {
+-			label = "TA3-GPIO-C";
+-			linux,code = <KEY_C>;
+-			gpios = <&gpioi 11 GPIO_ACTIVE_LOW>;
+-			wakeup-source;
+-		};
+-
+-		button-3 {
+-			label = "TA4-GPIO-D";
+-			linux,code = <KEY_D>;
+-			gpios = <&gpiod 12 GPIO_ACTIVE_LOW>;
+-			wakeup-source;
+-		};
+-	};
+-
+-	led {
+-		compatible = "gpio-leds";
+-
+-		led-0 {
+-			label = "green:led5";
+-			gpios = <&gpiog 2 GPIO_ACTIVE_HIGH>;
+-			default-state = "off";
+-		};
+-
+-		led-1 {
+-			label = "green:led6";
+-			gpios = <&gpiod 11 GPIO_ACTIVE_HIGH>;
+-			default-state = "off";
+-		};
+-
+-		led-2 {
+-			label = "green:led7";
+-			gpios = <&gpioi 2 GPIO_ACTIVE_HIGH>;
+-			default-state = "off";
+-		};
+-
+-		led-3 {
+-			label = "green:led8";
+-			gpios = <&gpioi 3 GPIO_ACTIVE_HIGH>;
+-			default-state = "off";
+-		};
+-	};
+-
+-	panel {
+-		compatible = "edt,etm0700g0edh6";
+-		backlight = <&display_bl>;
+-
+-		port {
+-			lcd_panel_in: endpoint {
+-				remote-endpoint = <&lcd_display_out>;
+-			};
+-		};
+-	};
+-
+-	sound {
+-		compatible = "audio-graph-card";
+-		routing =
+-			"MIC_IN", "Capture",
+-			"Capture", "Mic Bias",
+-			"Playback", "HP_OUT";
+-		dais = <&sai2a_port &sai2b_port>;
+-		status = "okay";
+-	};
+-};
+-
+-&cec {
+-	pinctrl-names = "default";
+-	pinctrl-0 = <&cec_pins_a>;
+-	status = "okay";
+-};
+-
+-&ethernet0 {
+-	status = "okay";
+-	pinctrl-0 = <&ethernet0_rmii_pins_a>;
+-	pinctrl-1 = <&ethernet0_rmii_sleep_pins_a>;
+-	pinctrl-names = "default", "sleep";
+-	phy-mode = "rmii";
+-	max-speed = <100>;
+-	phy-handle = <&phy0>;
+-	st,eth-ref-clk-sel;
+-	phy-reset-gpios = <&gpioh 15 GPIO_ACTIVE_LOW>;
+-
+-	mdio0 {
+-		#address-cells = <1>;
+-		#size-cells = <0>;
+-		compatible = "snps,dwmac-mdio";
+-
+-		phy0: ethernet-phy@1 {
+-			reg = <1>;
+-		};
+-	};
+-};
+-
+-&i2c2 {	/* Header X22 */
+-	pinctrl-names = "default";
+-	pinctrl-0 = <&i2c2_pins_a>;
+-	i2c-scl-rising-time-ns = <185>;
+-	i2c-scl-falling-time-ns = <20>;
+-	status = "okay";
+-	/* spare dmas for other usage */
+-	/delete-property/dmas;
+-	/delete-property/dma-names;
+-	status = "okay";
+-};
+-
+-&i2c5 {	/* Header X21 */
+-	pinctrl-names = "default";
+-	pinctrl-0 = <&i2c5_pins_a>;
+-	i2c-scl-rising-time-ns = <185>;
+-	i2c-scl-falling-time-ns = <20>;
+-	status = "okay";
+-	/* spare dmas for other usage */
+-	/delete-property/dmas;
+-	/delete-property/dma-names;
+-
+-	sgtl5000: codec@a {
+-		compatible = "fsl,sgtl5000";
+-		reg = <0x0a>;
+-		#sound-dai-cells = <0>;
+-		clocks = <&clk_ext_audio_codec>;
+-		VDDA-supply = <&v3v3>;
+-		VDDIO-supply = <&vdd>;
+-
+-		sgtl5000_port: port {
+-			#address-cells = <1>;
+-			#size-cells = <0>;
+-
+-			sgtl5000_tx_endpoint: endpoint@0 {
+-				reg = <0>;
+-				remote-endpoint = <&sai2a_endpoint>;
+-				frame-master;
+-				bitclock-master;
+-			};
+-
+-			sgtl5000_rx_endpoint: endpoint@1 {
+-				reg = <1>;
+-				remote-endpoint = <&sai2b_endpoint>;
+-				frame-master;
+-				bitclock-master;
+-			};
+-		};
+-
+-	};
+-
+-	polytouch@38 {
+-		compatible = "edt,edt-ft5x06";
+-		reg = <0x38>;
+-		interrupt-parent = <&gpiog>;
+-		interrupts = <2 IRQ_TYPE_EDGE_FALLING>; /* GPIO E */
+-		linux,wakeup;
+-	};
+-};
+-
+-&ltdc {
+-	pinctrl-names = "default", "sleep";
+-	pinctrl-0 = <&ltdc_pins_b>;
+-	pinctrl-1 = <&ltdc_sleep_pins_b>;
+-	status = "okay";
+-
+-	port {
+-		lcd_display_out: endpoint {
+-			remote-endpoint = <&lcd_panel_in>;
+-		};
+-	};
++	model = "DH Electronics STM32MP157C DHCOM Premium Developer Kit (2)";
++	compatible = "dh,stm32mp157c-dhcom-pdk2", "dh,stm32mp157c-dhcom-som",
++		     "st,stm32mp157";
+ };
+ 
+ &m_can1 {
+@@ -246,103 +26,3 @@ &m_can1 {
+ 	pinctrl-1 = <&m_can1_sleep_pins_a>;
+ 	status = "okay";
+ };
+-
+-&sai2 {
+-	clocks = <&rcc SAI2>, <&rcc PLL3_Q>, <&rcc PLL3_R>;
+-	clock-names = "pclk", "x8k", "x11k";
+-	pinctrl-names = "default", "sleep";
+-	pinctrl-0 = <&sai2a_pins_b &sai2b_pins_b>;
+-	pinctrl-1 = <&sai2a_sleep_pins_b &sai2b_sleep_pins_b>;
+-	status = "okay";
+-
+-	sai2a: audio-controller@4400b004 {
+-		#clock-cells = <0>;
+-		dma-names = "tx";
+-		clocks = <&rcc SAI2_K>;
+-		clock-names = "sai_ck";
+-		status = "okay";
+-
+-		sai2a_port: port {
+-			sai2a_endpoint: endpoint {
+-				remote-endpoint = <&sgtl5000_tx_endpoint>;
+-				format = "i2s";
+-				mclk-fs = <512>;
+-				dai-tdm-slot-num = <2>;
+-				dai-tdm-slot-width = <16>;
+-			};
+-		};
+-	};
+-
+-	sai2b: audio-controller@4400b024 {
+-		dma-names = "rx";
+-		st,sync = <&sai2a 2>;
+-		clocks = <&rcc SAI2_K>, <&sai2a>;
+-		clock-names = "sai_ck", "MCLK";
+-		status = "okay";
+-
+-		sai2b_port: port {
+-			sai2b_endpoint: endpoint {
+-				remote-endpoint = <&sgtl5000_rx_endpoint>;
+-				format = "i2s";
+-				mclk-fs = <512>;
+-				dai-tdm-slot-num = <2>;
+-				dai-tdm-slot-width = <16>;
+-			};
+-		};
+-	};
+-};
+-
+-&timers2 {
+-	/* spare dmas for other usage (un-delete to enable pwm capture) */
+-	/delete-property/dmas;
+-	/delete-property/dma-names;
+-	status = "okay";
+-	pwm2: pwm {
+-		pinctrl-0 = <&pwm2_pins_a>;
+-		pinctrl-names = "default";
+-		status = "okay";
+-	};
+-	timer@1 {
+-		status = "okay";
+-	};
+-};
+-
+-&usart3 {
+-	pinctrl-names = "default";
+-	pinctrl-0 = <&usart3_pins_a>;
+-	status = "okay";
+-};
+-
+-&uart8 {
+-	pinctrl-names = "default";
+-	pinctrl-0 = <&uart8_pins_a>;
+-	status = "okay";
+-};
+-
+-&usbh_ehci {
+-	phys = <&usbphyc_port0>;
+-	status = "okay";
+-};
+-
+-&usbotg_hs {
+-	dr_mode = "peripheral";
+-	phys = <&usbphyc_port1 0>;
+-	phy-names = "usb2-phy";
+-	status = "okay";
+-};
+-
+-&usbphyc {
+-	status = "okay";
+-};
+-
+-&usbphyc_port0 {
+-	phy-supply = <&vdd_usb>;
+-	vdda1v1-supply = <&reg11>;
+-	vdda1v8-supply = <&reg18>;
+-};
+-
+-&usbphyc_port1 {
+-	phy-supply = <&vdd_usb>;
+-	vdda1v1-supply = <&reg11>;
+-	vdda1v8-supply = <&reg18>;
+-};
+diff --git a/arch/arm/boot/dts/stm32mp15xx-dhcom-pdk2.dtsi b/arch/arm/boot/dts/stm32mp15xx-dhcom-pdk2.dtsi
+new file mode 100644
+index 000000000000..7c4bd615b311
+--- /dev/null
++++ b/arch/arm/boot/dts/stm32mp15xx-dhcom-pdk2.dtsi
+@@ -0,0 +1,337 @@
++// SPDX-License-Identifier: GPL-2.0+ OR BSD-3-Clause
++/*
++ * Copyright (C) 2019-2020 Marek Vasut <marex@denx.de>
++ */
++
++#include <dt-bindings/input/input.h>
++#include <dt-bindings/pwm/pwm.h>
++
++/ {
++	aliases {
++		serial0 = &uart4;
++		serial1 = &usart3;
++		serial2 = &uart8;
++		ethernet0 = &ethernet0;
++	};
++
++	chosen {
++		stdout-path = "serial0:115200n8";
++	};
++
++	clk_ext_audio_codec: clock-codec {
++		compatible = "fixed-clock";
++		#clock-cells = <0>;
++		clock-frequency = <24000000>;
++	};
++
++	display_bl: display-bl {
++		compatible = "pwm-backlight";
++		pwms = <&pwm2 0 500000 PWM_POLARITY_INVERTED>;
++		brightness-levels = <0 16 22 30 40 55 75 102 138 188 255>;
++		default-brightness-level = <8>;
++		enable-gpios = <&gpioi 0 GPIO_ACTIVE_HIGH>;
++		status = "okay";
++	};
++
++	ethernet_vio: vioregulator {
++		compatible = "regulator-fixed";
++		regulator-name = "vio";
++		regulator-min-microvolt = <3300000>;
++		regulator-max-microvolt = <3300000>;
++		gpio = <&gpiog 3 GPIO_ACTIVE_LOW>;
++		regulator-always-on;
++		regulator-boot-on;
++	};
++
++	gpio-keys-polled {
++		compatible = "gpio-keys-polled";
++		#size-cells = <0>;
++		poll-interval = <20>;
++
++		/*
++		 * The EXTi IRQ line 3 is shared with touchscreen and ethernet,
++		 * so mark this as polled GPIO key.
++		 */
++		button-0 {
++			label = "TA1-GPIO-A";
++			linux,code = <KEY_A>;
++			gpios = <&gpiof 3 GPIO_ACTIVE_LOW>;
++		};
++	};
++
++	gpio-keys {
++		compatible = "gpio-keys";
++		#size-cells = <0>;
++
++		button-1 {
++			label = "TA2-GPIO-B";
++			linux,code = <KEY_B>;
++			gpios = <&gpiod 6 GPIO_ACTIVE_LOW>;
++			wakeup-source;
++		};
++
++		button-2 {
++			label = "TA3-GPIO-C";
++			linux,code = <KEY_C>;
++			gpios = <&gpioi 11 GPIO_ACTIVE_LOW>;
++			wakeup-source;
++		};
++
++		button-3 {
++			label = "TA4-GPIO-D";
++			linux,code = <KEY_D>;
++			gpios = <&gpiod 12 GPIO_ACTIVE_LOW>;
++			wakeup-source;
++		};
++	};
++
 +	led {
 +		compatible = "gpio-leds";
 +
@@ -113,9 +570,248 @@ index e5036c9b9e92..b380268750f3 100644
 +		};
 +	};
 +
- 	panel {
- 		compatible = "edt,etm0700g0edh6";
- 		backlight = <&display_bl>;
++	panel {
++		compatible = "edt,etm0700g0edh6";
++		backlight = <&display_bl>;
++
++		port {
++			lcd_panel_in: endpoint {
++				remote-endpoint = <&lcd_display_out>;
++			};
++		};
++	};
++
++	sound {
++		compatible = "audio-graph-card";
++		routing =
++			"MIC_IN", "Capture",
++			"Capture", "Mic Bias",
++			"Playback", "HP_OUT";
++		dais = <&sai2a_port &sai2b_port>;
++		status = "okay";
++	};
++};
++
++&cec {
++	pinctrl-names = "default";
++	pinctrl-0 = <&cec_pins_a>;
++	status = "okay";
++};
++
++&ethernet0 {
++	status = "okay";
++	pinctrl-0 = <&ethernet0_rmii_pins_a>;
++	pinctrl-1 = <&ethernet0_rmii_sleep_pins_a>;
++	pinctrl-names = "default", "sleep";
++	phy-mode = "rmii";
++	max-speed = <100>;
++	phy-handle = <&phy0>;
++	st,eth-ref-clk-sel;
++	phy-reset-gpios = <&gpioh 15 GPIO_ACTIVE_LOW>;
++
++	mdio0 {
++		#address-cells = <1>;
++		#size-cells = <0>;
++		compatible = "snps,dwmac-mdio";
++
++		phy0: ethernet-phy@1 {
++			reg = <1>;
++		};
++	};
++};
++
++&i2c2 {	/* Header X22 */
++	pinctrl-names = "default";
++	pinctrl-0 = <&i2c2_pins_a>;
++	i2c-scl-rising-time-ns = <185>;
++	i2c-scl-falling-time-ns = <20>;
++	status = "okay";
++	/* spare dmas for other usage */
++	/delete-property/dmas;
++	/delete-property/dma-names;
++	status = "okay";
++};
++
++&i2c5 {	/* Header X21 */
++	pinctrl-names = "default";
++	pinctrl-0 = <&i2c5_pins_a>;
++	i2c-scl-rising-time-ns = <185>;
++	i2c-scl-falling-time-ns = <20>;
++	status = "okay";
++	/* spare dmas for other usage */
++	/delete-property/dmas;
++	/delete-property/dma-names;
++
++	sgtl5000: codec@a {
++		compatible = "fsl,sgtl5000";
++		reg = <0x0a>;
++		#sound-dai-cells = <0>;
++		clocks = <&clk_ext_audio_codec>;
++		VDDA-supply = <&v3v3>;
++		VDDIO-supply = <&vdd>;
++
++		sgtl5000_port: port {
++			#address-cells = <1>;
++			#size-cells = <0>;
++
++			sgtl5000_tx_endpoint: endpoint@0 {
++				reg = <0>;
++				remote-endpoint = <&sai2a_endpoint>;
++				frame-master;
++				bitclock-master;
++			};
++
++			sgtl5000_rx_endpoint: endpoint@1 {
++				reg = <1>;
++				remote-endpoint = <&sai2b_endpoint>;
++				frame-master;
++				bitclock-master;
++			};
++		};
++
++	};
++
++	polytouch@38 {
++		compatible = "edt,edt-ft5x06";
++		reg = <0x38>;
++		interrupt-parent = <&gpiog>;
++		interrupts = <2 IRQ_TYPE_EDGE_FALLING>; /* GPIO E */
++		linux,wakeup;
++	};
++};
++
++&ltdc {
++	pinctrl-names = "default", "sleep";
++	pinctrl-0 = <&ltdc_pins_b>;
++	pinctrl-1 = <&ltdc_sleep_pins_b>;
++	status = "okay";
++
++	port {
++		lcd_display_out: endpoint {
++			remote-endpoint = <&lcd_panel_in>;
++		};
++	};
++};
++
++&sai2 {
++	clocks = <&rcc SAI2>, <&rcc PLL3_Q>, <&rcc PLL3_R>;
++	clock-names = "pclk", "x8k", "x11k";
++	pinctrl-names = "default", "sleep";
++	pinctrl-0 = <&sai2a_pins_b &sai2b_pins_b>;
++	pinctrl-1 = <&sai2a_sleep_pins_b &sai2b_sleep_pins_b>;
++	status = "okay";
++
++	sai2a: audio-controller@4400b004 {
++		#clock-cells = <0>;
++		dma-names = "tx";
++		clocks = <&rcc SAI2_K>;
++		clock-names = "sai_ck";
++		status = "okay";
++
++		sai2a_port: port {
++			sai2a_endpoint: endpoint {
++				remote-endpoint = <&sgtl5000_tx_endpoint>;
++				format = "i2s";
++				mclk-fs = <512>;
++				dai-tdm-slot-num = <2>;
++				dai-tdm-slot-width = <16>;
++			};
++		};
++	};
++
++	sai2b: audio-controller@4400b024 {
++		dma-names = "rx";
++		st,sync = <&sai2a 2>;
++		clocks = <&rcc SAI2_K>, <&sai2a>;
++		clock-names = "sai_ck", "MCLK";
++		status = "okay";
++
++		sai2b_port: port {
++			sai2b_endpoint: endpoint {
++				remote-endpoint = <&sgtl5000_rx_endpoint>;
++				format = "i2s";
++				mclk-fs = <512>;
++				dai-tdm-slot-num = <2>;
++				dai-tdm-slot-width = <16>;
++			};
++		};
++	};
++};
++
++&timers2 {
++	/* spare dmas for other usage (un-delete to enable pwm capture) */
++	/delete-property/dmas;
++	/delete-property/dma-names;
++	status = "okay";
++	pwm2: pwm {
++		pinctrl-0 = <&pwm2_pins_a>;
++		pinctrl-names = "default";
++		status = "okay";
++	};
++	timer@1 {
++		status = "okay";
++	};
++};
++
++&usart3 {
++	pinctrl-names = "default";
++	pinctrl-0 = <&usart3_pins_a>;
++	status = "okay";
++};
++
++&uart8 {
++	pinctrl-names = "default";
++	pinctrl-0 = <&uart8_pins_a>;
++	status = "okay";
++};
++
++&usbh_ehci {
++	phys = <&usbphyc_port0>;
++	status = "okay";
++};
++
++&usbotg_hs {
++	dr_mode = "peripheral";
++	phys = <&usbphyc_port1 0>;
++	phy-names = "usb2-phy";
++	status = "okay";
++};
++
++&usbphyc {
++	status = "okay";
++};
++
++&usbphyc_port0 {
++	phy-supply = <&vdd_usb>;
++	vdda1v1-supply = <&reg11>;
++	vdda1v8-supply = <&reg18>;
++};
++
++&usbphyc_port1 {
++	phy-supply = <&vdd_usb>;
++	vdda1v1-supply = <&reg11>;
++	vdda1v8-supply = <&reg18>;
++};
+diff --git a/arch/arm/boot/dts/stm32mp157c-dhcom-som.dtsi b/arch/arm/boot/dts/stm32mp15xx-dhcom-som.dtsi
+similarity index 98%
+rename from arch/arm/boot/dts/stm32mp157c-dhcom-som.dtsi
+rename to arch/arm/boot/dts/stm32mp15xx-dhcom-som.dtsi
+index f97e0d2ecf17..ba905196fb54 100644
+--- a/arch/arm/boot/dts/stm32mp157c-dhcom-som.dtsi
++++ b/arch/arm/boot/dts/stm32mp15xx-dhcom-som.dtsi
+@@ -1,11 +1,8 @@
+ // SPDX-License-Identifier: (GPL-2.0+ OR BSD-3-Clause)
+ /*
+- * Copyright (C) 2019 Marek Vasut <marex@denx.de>
++ * Copyright (C) 2019-2020 Marek Vasut <marex@denx.de>
+  */
+-/dts-v1/;
+ 
+-#include "stm32mp157.dtsi"
+-#include "stm32mp15xc.dtsi"
+ #include "stm32mp15-pinctrl.dtsi"
+ #include "stm32mp15xxaa-pinctrl.dtsi"
+ #include <dt-bindings/gpio/gpio.h>
 -- 
 2.25.1
 
