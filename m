@@ -2,44 +2,46 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id 3B32A1D1D08
-	for <lists+linux-stm32@lfdr.de>; Wed, 13 May 2020 20:10:29 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id D192C1D1D09
+	for <lists+linux-stm32@lfdr.de>; Wed, 13 May 2020 20:10:33 +0200 (CEST)
 Received: from ip-172-31-3-76.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id F3BEBC32EAB;
-	Wed, 13 May 2020 18:10:28 +0000 (UTC)
-Received: from mail-out.m-online.net (mail-out.m-online.net [212.18.0.10])
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 71CFAC32EB4;
+	Wed, 13 May 2020 18:10:32 +0000 (UTC)
+Received: from mail-out.m-online.net (mail-out.m-online.net [212.18.0.9])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 0E8BAC36B0B
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 08666C36B0B
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Wed, 13 May 2020 18:10:26 +0000 (UTC)
+ Wed, 13 May 2020 18:10:28 +0000 (UTC)
 Received: from frontend01.mail.m-online.net (unknown [192.168.8.182])
- by mail-out.m-online.net (Postfix) with ESMTP id 49MjQB37WPz1rvBS;
- Wed, 13 May 2020 20:10:26 +0200 (CEST)
+ by mail-out.m-online.net (Postfix) with ESMTP id 49MjQC4hWCz1qs04;
+ Wed, 13 May 2020 20:10:27 +0200 (CEST)
 Received: from localhost (dynscan1.mnet-online.de [192.168.6.70])
- by mail.m-online.net (Postfix) with ESMTP id 49MjQB2YlJz1qqkq;
- Wed, 13 May 2020 20:10:26 +0200 (CEST)
+ by mail.m-online.net (Postfix) with ESMTP id 49MjQC4Wksz1r6F3;
+ Wed, 13 May 2020 20:10:27 +0200 (CEST)
 X-Virus-Scanned: amavisd-new at mnet-online.de
 Received: from mail.mnet-online.de ([192.168.8.182])
  by localhost (dynscan1.mail.m-online.net [192.168.6.70]) (amavisd-new,
  port 10024)
- with ESMTP id SXNFxB_jGPgr; Wed, 13 May 2020 20:10:25 +0200 (CEST)
-X-Auth-Info: zRXCmWCiaA6eFdlZNzjMBGrSJQta7FWnNrgasW4OEmk=
+ with ESMTP id mdFdJTsB8q0r; Wed, 13 May 2020 20:10:26 +0200 (CEST)
+X-Auth-Info: vMZX3dKa93xwGIAIgzbu4er/7nTFuSvQkV8i7oJETVQ=
 Received: from desktop.lan (ip-86-49-35-8.net.upcbroadband.cz [86.49.35.8])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
  by mail.mnet-online.de (Postfix) with ESMTPSA;
- Wed, 13 May 2020 20:10:25 +0200 (CEST)
+ Wed, 13 May 2020 20:10:26 +0200 (CEST)
 From: Marek Vasut <marex@denx.de>
 To: linux-arm-kernel@lists.infradead.org
-Date: Wed, 13 May 2020 20:10:17 +0200
-Message-Id: <20200513181020.8225-1-marex@denx.de>
+Date: Wed, 13 May 2020 20:10:18 +0200
+Message-Id: <20200513181020.8225-2-marex@denx.de>
 X-Mailer: git-send-email 2.25.1
+In-Reply-To: <20200513181020.8225-1-marex@denx.de>
+References: <20200513181020.8225-1-marex@denx.de>
 MIME-Version: 1.0
 Cc: Marek Vasut <marex@denx.de>, Patrick Delaunay <patrick.delaunay@st.com>,
  Maxime Coquelin <mcoquelin.stm32@gmail.com>,
  linux-stm32@st-md-mailman.stormreply.com
-Subject: [Linux-stm32] [PATCH V3 1/4] ARM: dts: stm32: Add GPIO keys for
+Subject: [Linux-stm32] [PATCH V3 2/4] ARM: dts: stm32: Add GPIO LEDs for
 	STM32MP1 DHCOM PDK2
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
@@ -57,10 +59,9 @@ Content-Transfer-Encoding: 7bit
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
-Add bindings for the four GPIO keys on DH PDK2 board. Note that TA1
-key is polled because it's IRQ line conflicts with ethernet IRQ, the
-rest of the GPIO keys, TA2, TA3, TA4, are interrupt-driven and wake
-up sources.
+Add bindings for the four GPIO LEDs on DH PDK2 board. Note that LED5
+GPIO-E may conflict with touchscreen interrupt, hence LED5 must be
+disabled when using the DH 560-200 display unit with touchscreen.
 
 Signed-off-by: Marek Vasut <marex@denx.de>
 Cc: Alexandre Torgue <alexandre.torgue@st.com>
@@ -73,64 +74,42 @@ To: linux-arm-kernel@lists.infradead.org
 V2: No change
 V3: No change
 ---
- arch/arm/boot/dts/stm32mp157c-dhcom-pdk2.dts | 43 ++++++++++++++++++++
- 1 file changed, 43 insertions(+)
+ arch/arm/boot/dts/stm32mp157c-dhcom-pdk2.dts | 28 ++++++++++++++++++++
+ 1 file changed, 28 insertions(+)
 
 diff --git a/arch/arm/boot/dts/stm32mp157c-dhcom-pdk2.dts b/arch/arm/boot/dts/stm32mp157c-dhcom-pdk2.dts
-index 13b1586d4a8f..e5036c9b9e92 100644
+index e5036c9b9e92..b380268750f3 100644
 --- a/arch/arm/boot/dts/stm32mp157c-dhcom-pdk2.dts
 +++ b/arch/arm/boot/dts/stm32mp157c-dhcom-pdk2.dts
-@@ -4,6 +4,7 @@
-  */
- 
- #include "stm32mp157c-dhcom-som.dtsi"
-+#include <dt-bindings/input/input.h>
- #include <dt-bindings/pwm/pwm.h>
- 
- / {
-@@ -46,6 +47,48 @@ ethernet_vio: vioregulator {
- 		regulator-boot-on;
+@@ -89,6 +89,34 @@ button-3 {
+ 		};
  	};
  
-+	gpio-keys-polled {
-+		compatible = "gpio-keys-polled";
-+		#size-cells = <0>;
-+		poll-interval = <20>;
++	led {
++		compatible = "gpio-leds";
 +
-+		/*
-+		 * The EXTi IRQ line 3 is shared with touchscreen and ethernet,
-+		 * so mark this as polled GPIO key.
-+		 */
-+		button-0 {
-+			label = "TA1-GPIO-A";
-+			linux,code = <KEY_A>;
-+			gpios = <&gpiof 3 GPIO_ACTIVE_LOW>;
-+		};
-+	};
-+
-+	gpio-keys {
-+		compatible = "gpio-keys";
-+		#size-cells = <0>;
-+
-+		button-1 {
-+			label = "TA2-GPIO-B";
-+			linux,code = <KEY_B>;
-+			gpios = <&gpiod 6 GPIO_ACTIVE_LOW>;
-+			wakeup-source;
++		led-0 {
++			label = "green:led5";
++			gpios = <&gpiog 2 GPIO_ACTIVE_HIGH>;
++			default-state = "off";
 +		};
 +
-+		button-2 {
-+			label = "TA3-GPIO-C";
-+			linux,code = <KEY_C>;
-+			gpios = <&gpioi 11 GPIO_ACTIVE_LOW>;
-+			wakeup-source;
++		led-1 {
++			label = "green:led6";
++			gpios = <&gpiod 11 GPIO_ACTIVE_HIGH>;
++			default-state = "off";
 +		};
 +
-+		button-3 {
-+			label = "TA4-GPIO-D";
-+			linux,code = <KEY_D>;
-+			gpios = <&gpiod 12 GPIO_ACTIVE_LOW>;
-+			wakeup-source;
++		led-2 {
++			label = "green:led7";
++			gpios = <&gpioi 2 GPIO_ACTIVE_HIGH>;
++			default-state = "off";
++		};
++
++		led-3 {
++			label = "green:led8";
++			gpios = <&gpioi 3 GPIO_ACTIVE_HIGH>;
++			default-state = "off";
 +		};
 +	};
 +
