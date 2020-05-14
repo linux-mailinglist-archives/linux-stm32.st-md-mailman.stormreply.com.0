@@ -2,64 +2,76 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id E9C141D2FF5
-	for <lists+linux-stm32@lfdr.de>; Thu, 14 May 2020 14:39:07 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id C934E1D3058
+	for <lists+linux-stm32@lfdr.de>; Thu, 14 May 2020 14:53:34 +0200 (CEST)
 Received: from ip-172-31-3-76.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id A7B2FC36B12;
-	Thu, 14 May 2020 12:39:07 +0000 (UTC)
-Received: from mx07-00178001.pphosted.com (mx07-00178001.pphosted.com
- [62.209.51.94])
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 8A4AAC36B12;
+	Thu, 14 May 2020 12:53:34 +0000 (UTC)
+Received: from mx07-00178001.pphosted.com (mx08-00178001.pphosted.com
+ [91.207.212.93])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 20505C36B0E
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id CFB52C36B0E
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Thu, 14 May 2020 12:39:03 +0000 (UTC)
-Received: from pps.filterd (m0046037.ppops.net [127.0.0.1])
+ Thu, 14 May 2020 12:53:31 +0000 (UTC)
+Received: from pps.filterd (m0046660.ppops.net [127.0.0.1])
  by mx07-00178001.pphosted.com (8.16.0.42/8.16.0.42) with SMTP id
- 04ECWRpb031347; Thu, 14 May 2020 14:38:56 +0200
+ 04ECqOfG012268; Thu, 14 May 2020 14:53:08 +0200
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=st.com;
  h=subject : to : cc :
  references : from : message-id : date : mime-version : in-reply-to :
  content-type : content-transfer-encoding; s=STMicroelectronics;
- bh=gK4gRac8zCJ49BVWhgCYszm1HwapCUJoPR2k/1pndPk=;
- b=qPxbDB2jBqpiVaEwpezjOHZi/uxRnvCZ6Exwe+7WK52uI0EdKnWpTbUqyUuiZPXCnxJ4
- Do6vdK1vZ0BxbplxQakO7YP4qQZWe06PIx/FpH1gIMcKGPzyorjE+R6N4d64sBoQYGFp
- 6XO7K2XAzNc3Z7GAh/KLe7Mvzt1CrlA+Sfk7Nw+jVvL318TTMhJ4u+i4zo6wiH69qmza
- OKPCF+Htv29t+IyHli1feCCpVLZJGh0yYtHEWLOOzm08UKgOsA2t3tMOXT/ZnjgJDPpd
- UNX2aYKc3WJbUEPgHfToOJA+AmAwRIjoU0NPtm6/GAGnGRvPxTKb/D3g7lAKGvY+CXG8 Sw== 
+ bh=nHSWD3rAvd4p9vuLYKA3ZWiKVn+Vm2Lf+IPFO5a7YEk=;
+ b=aqMOulBAvl+8xoCgiDgMnbTqfEe79LvSFqONLc7j5PE6Hpuh1hW6OjVpaMaDDCalnUim
+ asRk0IBE6JIzsW0gKEpec3FgCSv+4gBMntCJHSqfdnBmCy5rXRn5/tgT0Debk3c5oZVg
+ ywFW1sS8IYwPOP1RK4gTQBxMzEoJh1T4kbeURsD6gyvIBPzugWOuT+NJL2j9OX5m1SME
+ zZZumUCD5bLXiTFkt0v+jhyyatlDh0HlK3Fu6fHTi5xeEXGr972vRrahzpV5PveXxKWX
+ 31xMuAnpAko1YAR9rsPFP0oh3/YyYzbjxVRINoHrOfZwEgFT8YHKIW0oAi8azE1Hor+A bg== 
 Received: from beta.dmz-eu.st.com (beta.dmz-eu.st.com [164.129.1.35])
- by mx07-00178001.pphosted.com with ESMTP id 3100vqk4kq-1
+ by mx07-00178001.pphosted.com with ESMTP id 3100vpkb2f-1
  (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
- Thu, 14 May 2020 14:38:55 +0200
+ Thu, 14 May 2020 14:53:08 +0200
 Received: from euls16034.sgp.st.com (euls16034.sgp.st.com [10.75.44.20])
- by beta.dmz-eu.st.com (STMicroelectronics) with ESMTP id 8996610002A;
- Thu, 14 May 2020 14:38:55 +0200 (CEST)
+ by beta.dmz-eu.st.com (STMicroelectronics) with ESMTP id 442B5100034;
+ Thu, 14 May 2020 14:53:05 +0200 (CEST)
 Received: from Webmail-eu.st.com (sfhdag3node2.st.com [10.75.127.8])
- by euls16034.sgp.st.com (STMicroelectronics) with ESMTP id 786702B8A1F;
- Thu, 14 May 2020 14:38:55 +0200 (CEST)
-Received: from lmecxl0912.tpe.st.com (10.75.127.46) by SFHDAG3NODE2.st.com
+ by euls16034.sgp.st.com (STMicroelectronics) with ESMTP id 18F0F2BAE4E;
+ Thu, 14 May 2020 14:53:05 +0200 (CEST)
+Received: from lmecxl0912.tpe.st.com (10.75.127.47) by SFHDAG3NODE2.st.com
  (10.75.127.8) with Microsoft SMTP Server (TLS) id 15.0.1347.2; Thu, 14 May
- 2020 14:38:51 +0200
-To: <mani@kernel.org>, <robh+dt@kernel.org>, <mcoquelin.stm32@gmail.com>
-References: <20200503154215.23654-1-mani@kernel.org>
+ 2020 14:52:56 +0200
+To: Linus Walleij <linus.walleij@linaro.org>, <dillon.minfei@gmail.com>
+References: <1589267017-17294-1-git-send-email-dillon.minfei@gmail.com>
+ <1589267017-17294-4-git-send-email-dillon.minfei@gmail.com>
+ <CACRpkda5VjjBdbruXTi33QBNb=VU6vK2zDE8yyQXoWw7=NQFeg@mail.gmail.com>
 From: Alexandre Torgue <alexandre.torgue@st.com>
-Message-ID: <abbd6fd1-ec74-3ae5-b041-d31dfc5ded82@st.com>
-Date: Thu, 14 May 2020 14:38:42 +0200
+Message-ID: <a4ebd7cd-5756-0683-135f-0f96be8a4a7b@st.com>
+Date: Thu, 14 May 2020 14:52:49 +0200
 User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:68.0) Gecko/20100101
  Thunderbird/68.7.0
 MIME-Version: 1.0
-In-Reply-To: <20200503154215.23654-1-mani@kernel.org>
+In-Reply-To: <CACRpkda5VjjBdbruXTi33QBNb=VU6vK2zDE8yyQXoWw7=NQFeg@mail.gmail.com>
 Content-Language: en-US
-X-Originating-IP: [10.75.127.46]
-X-ClientProxiedBy: SFHDAG4NODE2.st.com (10.75.127.11) To SFHDAG3NODE2.st.com
+X-Originating-IP: [10.75.127.47]
+X-ClientProxiedBy: SFHDAG3NODE1.st.com (10.75.127.7) To SFHDAG3NODE2.st.com
  (10.75.127.8)
 X-Proofpoint-Virus-Version: vendor=fsecure engine=2.50.10434:6.0.216, 18.0.676
  definitions=2020-05-14_03:2020-05-14,
  2020-05-14 signatures=0
-Cc: devicetree@vger.kernel.org, linux-stm32@st-md-mailman.stormreply.com,
- linux-arm-kernel@lists.infradead.org, linux-kernel@vger.kernel.org
-Subject: Re: [Linux-stm32] [PATCH v2 0/6] Add Stinger96 and IoT Box board
-	support
+Cc: "open list:OPEN
+ FIRMWARE AND FLATTENED DEVICE TREE BINDINGS" <devicetree@vger.kernel.org>,
+ Maxime Coquelin <mcoquelin.stm32@gmail.com>, Dave Airlie <airlied@linux.ie>,
+ Michael Turquette <mturquette@baylibre.com>,
+ "linux-kernel@vger.kernel.org" <linux-kernel@vger.kernel.org>,
+ "open list:DRM PANEL DRIVERS" <dri-devel@lists.freedesktop.org>,
+ linux-clk <linux-clk@vger.kernel.org>, Stephen Boyd <sboyd@kernel.org>,
+ Rob Herring <robh+dt@kernel.org>,
+ "thierry.reding@gmail.com" <thierry.reding@gmail.com>,
+ Daniel Vetter <daniel@ffwll.ch>, Sam Ravnborg <sam@ravnborg.org>,
+ linux-stm32@st-md-mailman.stormreply.com,
+ Linux ARM <linux-arm-kernel@lists.infradead.org>
+Subject: Re: [Linux-stm32] [PATCH v3 3/5] ARM: dts: stm32: enable ltdc
+ binding with ili9341 on stm32429-disco board
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -76,64 +88,42 @@ Content-Type: text/plain; charset="us-ascii"; Format="flowed"
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
-Hi Mani
 
-On 5/3/20 5:42 PM, mani@kernel.org wrote:
-> From: Manivannan Sadhasivam <mani@kernel.org>
-> 
-> Hello,
-> 
-> This series adds Stinger96 and IoT Box board support. These boards are
-> based on STM32MP157A SoC, designed and manufactured by Shiratech solutions.
-> 
-> The Stinger96 is a base board (96Boards IoT Extended edition) while IoT Box
-> adds one mezzanine on top of it and sold as a gateway device.
-> 
-> This series depends on below patchsets already submitted and gone through
-> reviews:
-> 
-> [PATCH v3 0/3] Add Reset and Wakeup support for CCS811
-> [PATCH v3 0/2] Add CTS/RTS gpio support to STM32 UART
-> 
-> More information about these boards can be found in below links:
-> 
-> https://www.shiratech-solutions.com/products/stinger96/
-> https://www.shiratech-solutions.com/products/iot-box/
-> 
-> Thanks,
-> Mani
-> 
 
-Series applied on stm32-next.
+On 5/14/20 10:24 AM, Linus Walleij wrote:
+> On Tue, May 12, 2020 at 9:04 AM <dillon.minfei@gmail.com> wrote:
+> 
+>> From: dillon min <dillon.minfei@gmail.com>
+>>
+>> Enable the ltdc & ili9341 on stm32429-disco board.
+>>
+>> Signed-off-by: dillon min <dillon.minfei@gmail.com>
+> 
+> This mostly looks good but...
+> 
+>> +&spi5 {
+>> +       status = "okay";
+>> +       pinctrl-0 = <&spi5_pins>;
+>> +       pinctrl-names = "default";
+>> +       #address-cells = <1>;
+>> +       #size-cells = <0>;
+>> +       cs-gpios = <&gpioc 2 GPIO_ACTIVE_LOW>;
+>> +       dmas = <&dma2 3 2 0x400 0x0>,
+>> +              <&dma2 4 2 0x400 0x0>;
+>> +       dma-names = "rx", "tx";
+> 
+> These DMA assignments seem to be SoC things and should
+> rather be in the DTS(I) file where &spi5 is defined, right?
+> stm32f429.dtsi I suppose?
 
-Regards
-Alex
+I agree with Linus, DMA have to be defined in SoC dtsi. And if a board 
+doesn't want to use it, we use the "delete-property".
 
-> Changes in v2:
 > 
-> * Used "stm32" prefix for all DT commits
-> * Dropped custom sdmmc2 pinctrl node since existing node itself has pullup
->    enabled and works fine.
+> It is likely the same no matter which device is using spi5.
 > 
-> Manivannan Sadhasivam (6):
->    dt-bindings: Add vendor prefix for Shiratech Solutions
->    ARM: dts: stm32: Add missing pinctrl entries for STM32MP15
->    dt-bindings: arm: stm32: Document Stinger96 compatible
->    ARM: dts: stm32: Add Stinger96 board support
->    dt-bindings: arm: stm32: Document IoT Box compatible
->    ARM: dts: stm32: Add IoT Box board support
-> 
->   .../devicetree/bindings/arm/stm32/stm32.yaml  |   2 +
->   .../devicetree/bindings/vendor-prefixes.yaml  |   2 +
->   arch/arm/boot/dts/Makefile                    |   2 +
->   arch/arm/boot/dts/stm32mp15-pinctrl.dtsi      |  64 ++++
->   arch/arm/boot/dts/stm32mp157a-iot-box.dts     |  68 ++++
->   arch/arm/boot/dts/stm32mp157a-stinger96.dts   |  12 +
->   arch/arm/boot/dts/stm32mp157a-stinger96.dtsi  | 342 ++++++++++++++++++
->   7 files changed, 492 insertions(+)
->   create mode 100644 arch/arm/boot/dts/stm32mp157a-iot-box.dts
->   create mode 100644 arch/arm/boot/dts/stm32mp157a-stinger96.dts
->   create mode 100644 arch/arm/boot/dts/stm32mp157a-stinger96.dtsi
+> Yours,
+> Linus Walleij
 > 
 _______________________________________________
 Linux-stm32 mailing list
