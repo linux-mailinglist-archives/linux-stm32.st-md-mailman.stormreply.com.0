@@ -2,45 +2,45 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id 12E481D3A00
-	for <lists+linux-stm32@lfdr.de>; Thu, 14 May 2020 20:53:55 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 4B6851D3A0C
+	for <lists+linux-stm32@lfdr.de>; Thu, 14 May 2020 20:54:49 +0200 (CEST)
 Received: from ip-172-31-3-76.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id CBF59C36B12;
-	Thu, 14 May 2020 18:53:54 +0000 (UTC)
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 12C5EC36B12;
+	Thu, 14 May 2020 18:54:49 +0000 (UTC)
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
  (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id CFCF9C36B0E
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 50A98C36B0E
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Thu, 14 May 2020 18:53:53 +0000 (UTC)
+ Thu, 14 May 2020 18:54:47 +0000 (UTC)
 Received: from sasha-vm.mshome.net (c-73-47-72-35.hsd1.nh.comcast.net
  [73.47.72.35])
  (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by mail.kernel.org (Postfix) with ESMTPSA id 875B12076A;
- Thu, 14 May 2020 18:53:51 +0000 (UTC)
+ by mail.kernel.org (Postfix) with ESMTPSA id 20DB6207BB;
+ Thu, 14 May 2020 18:54:45 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
- s=default; t=1589482432;
- bh=8gRYW0rLglVlDQwkjPXAtEHK9dKZHTsxDbFgyBskrlY=;
+ s=default; t=1589482486;
+ bh=vjdajjyLD04ftZ9sApe63FqXmLxOYnYh1OzMxe0xpIA=;
  h=From:To:Cc:Subject:Date:In-Reply-To:References:From;
- b=Odb5ZEf9tdAw6ejGAN/vw6sd99Ljslsh0glBKFFmk35iISWjGwcIpgKEnhWyF1DmW
- /tAMWZ0E6NVJbXaAql2afNABgHoZcKODePXxKmjNK/KmEprTTB10R1R/ycqOSeLlDx
- hP8wBFrF2SdOMe9HuyJRjfZYIvJR4YSVCwHGajyE=
+ b=KYznE05no4Dd/vNWPWmBCB8A8nwFH26FLOa21sfIlcbRwSFG+SdSc3sgJMmK2WvIg
+ HS7KNEyyiuhRvbmTazSM25uAih/Gv8sZQLuyYGDGCCIbcv+ZAf0pHIgUgtFxVV6mb5
+ Ee1LryU2XJs3/lASd/n2MBCxPqXmsf2hcFMphNco=
 From: Sasha Levin <sashal@kernel.org>
 To: linux-kernel@vger.kernel.org,
 	stable@vger.kernel.org
-Date: Thu, 14 May 2020 14:52:54 -0400
-Message-Id: <20200514185311.20294-33-sashal@kernel.org>
+Date: Thu, 14 May 2020 14:54:07 -0400
+Message-Id: <20200514185413.20755-25-sashal@kernel.org>
 X-Mailer: git-send-email 2.20.1
-In-Reply-To: <20200514185311.20294-1-sashal@kernel.org>
-References: <20200514185311.20294-1-sashal@kernel.org>
+In-Reply-To: <20200514185413.20755-1-sashal@kernel.org>
+References: <20200514185413.20755-1-sashal@kernel.org>
 MIME-Version: 1.0
 X-stable: review
 X-Patchwork-Hint: Ignore
 Cc: Sasha Levin <sashal@kernel.org>, netdev@vger.kernel.org,
  "David S . Miller" <davem@davemloft.net>, Maxim Petrov <mmrmaximuzz@gmail.com>,
  linux-stm32@st-md-mailman.stormreply.com, linux-arm-kernel@lists.infradead.org
-Subject: [Linux-stm32] [PATCH AUTOSEL 5.4 33/49] stmmac: fix pointer check
+Subject: [Linux-stm32] [PATCH AUTOSEL 4.19 25/31] stmmac: fix pointer check
 	after utilization in stmmac_interrupt
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
@@ -77,10 +77,10 @@ Signed-off-by: Sasha Levin <sashal@kernel.org>
  1 file changed, 1 insertion(+), 6 deletions(-)
 
 diff --git a/drivers/net/ethernet/stmicro/stmmac/stmmac_main.c b/drivers/net/ethernet/stmicro/stmmac/stmmac_main.c
-index 89a6ae2b17e35..1623516efb171 100644
+index 9c7b1d8e82204..c41879a955b57 100644
 --- a/drivers/net/ethernet/stmicro/stmmac/stmmac_main.c
 +++ b/drivers/net/ethernet/stmicro/stmmac/stmmac_main.c
-@@ -3832,7 +3832,7 @@ static int stmmac_set_features(struct net_device *netdev,
+@@ -3684,7 +3684,7 @@ static int stmmac_set_features(struct net_device *netdev,
  /**
   *  stmmac_interrupt - main ISR
   *  @irq: interrupt number.
@@ -89,7 +89,7 @@ index 89a6ae2b17e35..1623516efb171 100644
   *  Description: this is the main driver interrupt service routine.
   *  It can call:
   *  o DMA service routine (to manage incoming frame reception and transmission
-@@ -3856,11 +3856,6 @@ static irqreturn_t stmmac_interrupt(int irq, void *dev_id)
+@@ -3708,11 +3708,6 @@ static irqreturn_t stmmac_interrupt(int irq, void *dev_id)
  	if (priv->irq_wake)
  		pm_wakeup_event(priv->device, 0);
  
