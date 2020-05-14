@@ -2,35 +2,35 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id EBE431D39C1
-	for <lists+linux-stm32@lfdr.de>; Thu, 14 May 2020 20:52:37 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id EB4661D39C2
+	for <lists+linux-stm32@lfdr.de>; Thu, 14 May 2020 20:52:39 +0200 (CEST)
 Received: from ip-172-31-3-76.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id ABD62C36B12;
-	Thu, 14 May 2020 18:52:37 +0000 (UTC)
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id B599BC36B15;
+	Thu, 14 May 2020 18:52:39 +0000 (UTC)
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
  (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id E77FFC36B0E
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id E014CC36B13
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Thu, 14 May 2020 18:52:36 +0000 (UTC)
+ Thu, 14 May 2020 18:52:37 +0000 (UTC)
 Received: from sasha-vm.mshome.net (c-73-47-72-35.hsd1.nh.comcast.net
  [73.47.72.35])
  (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by mail.kernel.org (Postfix) with ESMTPSA id 9273B20722;
- Thu, 14 May 2020 18:52:34 +0000 (UTC)
+ by mail.kernel.org (Postfix) with ESMTPSA id DC55F206D8;
+ Thu, 14 May 2020 18:52:35 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
- s=default; t=1589482355;
- bh=veUa5lPzb2f+GGa/q/g1p26zaED/KCLS87AS6qy4gaY=;
+ s=default; t=1589482356;
+ bh=LJUH6SI1WM2SUCEX/8syheNDQeQu0nGxG/o/Bs3whsA=;
  h=From:To:Cc:Subject:Date:In-Reply-To:References:From;
- b=QhGiMmiTji4wIUGm4nE5aWGX226zIicha9iLgmYnFgEIZFmffpGqYdCZMPtvox4O8
- yXjaLD/y+c9i+nbr8fI0PLN9mDPATWT+HlaFn/tehxlN5p6PjRX97Nq2DAZsaC+deu
- CwT7Qom53lDvUXYrFeG7ecrwr3d9wO514dwFSKiE=
+ b=EyoI/SP3LdEDNArum8N02A+u4MbPQ5Np4IdRT9ly5WnP3QsQ2Z1/GxrY9/MEn8LZo
+ q+VEsVROGMweFlCgXbT5urshBwPueqZEvSgHbgA+LcuK00mei1cR/tHqnF6GsT5cgr
+ 8Ul1QNtDA42Ra4+E3m03mS+7vaZGsph2KBrwk3ZI=
 From: Sasha Levin <sashal@kernel.org>
 To: linux-kernel@vger.kernel.org,
 	stable@vger.kernel.org
-Date: Thu, 14 May 2020 14:51:21 -0400
-Message-Id: <20200514185147.19716-36-sashal@kernel.org>
+Date: Thu, 14 May 2020 14:51:22 -0400
+Message-Id: <20200514185147.19716-37-sashal@kernel.org>
 X-Mailer: git-send-email 2.20.1
 In-Reply-To: <20200514185147.19716-1-sashal@kernel.org>
 References: <20200514185147.19716-1-sashal@kernel.org>
@@ -38,10 +38,11 @@ MIME-Version: 1.0
 X-stable: review
 X-Patchwork-Hint: Ignore
 Cc: Sasha Levin <sashal@kernel.org>, netdev@vger.kernel.org,
- "David S . Miller" <davem@davemloft.net>, Maxim Petrov <mmrmaximuzz@gmail.com>,
+ "David S . Miller" <davem@davemloft.net>,
+ Colin Ian King <colin.king@canonical.com>,
  linux-stm32@st-md-mailman.stormreply.com, linux-arm-kernel@lists.infradead.org
-Subject: [Linux-stm32] [PATCH AUTOSEL 5.6 36/62] stmmac: fix pointer check
-	after utilization in stmmac_interrupt
+Subject: [Linux-stm32] [PATCH AUTOSEL 5.6 37/62] net: stmmac: gmac5+: fix
+	potential integer overflow on 32 bit multiply
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -58,49 +59,37 @@ Content-Transfer-Encoding: 7bit
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
-From: Maxim Petrov <mmrmaximuzz@gmail.com>
+From: Colin Ian King <colin.king@canonical.com>
 
-[ Upstream commit f42234ffd531ca6b13d9da02faa60b72eccf8334 ]
+[ Upstream commit 44d95cc6b10ff7439d45839c96c581cb4368c088 ]
 
-The paranoidal pointer check in IRQ handler looks very strange - it
-really protects us only against bogus drivers which request IRQ line
-with null pointer dev_id. However, the code fragment is incorrect
-because the dev pointer is used before the actual check which leads
-to undefined behavior. Remove the check to avoid confusing people
-with incorrect code.
+The multiplication of cfg->ctr[1] by 1000000000 is performed using a
+32 bit multiplication (since cfg->ctr[1] is a u32) and this can lead
+to a potential overflow. Fix this by making the constant a ULL to
+ensure a 64 bit multiply occurs.
 
-Signed-off-by: Maxim Petrov <mmrmaximuzz@gmail.com>
+Fixes: 504723af0d85 ("net: stmmac: Add basic EST support for GMAC5+")
+Addresses-Coverity: ("Unintentional integer overflow")
+Signed-off-by: Colin Ian King <colin.king@canonical.com>
 Signed-off-by: David S. Miller <davem@davemloft.net>
 Signed-off-by: Sasha Levin <sashal@kernel.org>
 ---
- drivers/net/ethernet/stmicro/stmmac/stmmac_main.c | 7 +------
- 1 file changed, 1 insertion(+), 6 deletions(-)
+ drivers/net/ethernet/stmicro/stmmac/dwmac5.c | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
 
-diff --git a/drivers/net/ethernet/stmicro/stmmac/stmmac_main.c b/drivers/net/ethernet/stmicro/stmmac/stmmac_main.c
-index 7da18c9afa01d..d564459290ce1 100644
---- a/drivers/net/ethernet/stmicro/stmmac/stmmac_main.c
-+++ b/drivers/net/ethernet/stmicro/stmmac/stmmac_main.c
-@@ -3988,7 +3988,7 @@ static int stmmac_set_features(struct net_device *netdev,
- /**
-  *  stmmac_interrupt - main ISR
-  *  @irq: interrupt number.
-- *  @dev_id: to pass the net device pointer.
-+ *  @dev_id: to pass the net device pointer (must be valid).
-  *  Description: this is the main driver interrupt service routine.
-  *  It can call:
-  *  o DMA service routine (to manage incoming frame reception and transmission
-@@ -4012,11 +4012,6 @@ static irqreturn_t stmmac_interrupt(int irq, void *dev_id)
- 	if (priv->irq_wake)
- 		pm_wakeup_event(priv->device, 0);
+diff --git a/drivers/net/ethernet/stmicro/stmmac/dwmac5.c b/drivers/net/ethernet/stmicro/stmmac/dwmac5.c
+index 494c859b4ade8..67ba67ed0cb99 100644
+--- a/drivers/net/ethernet/stmicro/stmmac/dwmac5.c
++++ b/drivers/net/ethernet/stmicro/stmmac/dwmac5.c
+@@ -624,7 +624,7 @@ int dwmac5_est_configure(void __iomem *ioaddr, struct stmmac_est *cfg,
+ 		total_offset += offset;
+ 	}
  
--	if (unlikely(!dev)) {
--		netdev_err(priv->dev, "%s: invalid dev pointer\n", __func__);
--		return IRQ_NONE;
--	}
--
- 	/* Check if adapter is up */
- 	if (test_bit(STMMAC_DOWN, &priv->state))
- 		return IRQ_HANDLED;
+-	total_ctr = cfg->ctr[0] + cfg->ctr[1] * 1000000000;
++	total_ctr = cfg->ctr[0] + cfg->ctr[1] * 1000000000ULL;
+ 	total_ctr += total_offset;
+ 
+ 	ctr_low = do_div(total_ctr, 1000000000);
 -- 
 2.20.1
 
