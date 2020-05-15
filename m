@@ -2,75 +2,119 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id BC70A1D4B11
-	for <lists+linux-stm32@lfdr.de>; Fri, 15 May 2020 12:33:07 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id CFF681D4CF4
+	for <lists+linux-stm32@lfdr.de>; Fri, 15 May 2020 13:48:18 +0200 (CEST)
 Received: from ip-172-31-3-76.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 87EA8C36B10;
-	Fri, 15 May 2020 10:33:07 +0000 (UTC)
-Received: from mail-il1-f195.google.com (mail-il1-f195.google.com
- [209.85.166.195])
- (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 8FAC2C36B10;
+	Fri, 15 May 2020 11:48:18 +0000 (UTC)
+Received: from mx0b-00128a01.pphosted.com (mx0b-00128a01.pphosted.com
+ [148.163.139.77])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id E420BC36B0E
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 7DC76C36B0E
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Fri, 15 May 2020 10:33:05 +0000 (UTC)
-Received: by mail-il1-f195.google.com with SMTP id l20so1953033ilj.10
- for <linux-stm32@st-md-mailman.stormreply.com>;
- Fri, 15 May 2020 03:33:05 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20161025;
- h=mime-version:references:in-reply-to:from:date:message-id:subject:to
- :cc; bh=uxCT2XVxCtoNmTqiWhqBcEudlvFd9wfrP50N1uK7vP0=;
- b=CEpylQx8/jmoucaFxOo6aDvRXqpObt3GOf3QrRyhcuqdkgrNf1lSuUtWU6UwC8nV1S
- K+DOmwilg/Su+oxqQRNpuw5BhEJzEnUgmkfMeb1QnS2dglQiL3VeTsFf360Qb+lPaXbT
- 0nQQnlMc9696yhdUynH2cBEM6k1fMa3/3F3c2l8oJ27Z1IFD5oB4cjLYuvD4v7pLri3G
- 0xv6Bymoqgq33uYlm9zg8EA2fYhDFv34nSO0Th6tb8BoyWAg03s5OSGrP2Dr7GVzGUfS
- 4df6x/6gUqLeiPKccFIeBBtZeqnNF2UOUQ8eXik4yu/qS6URNVCNYGYQcHek958U0tWA
- pjGg==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20161025;
- h=x-gm-message-state:mime-version:references:in-reply-to:from:date
- :message-id:subject:to:cc;
- bh=uxCT2XVxCtoNmTqiWhqBcEudlvFd9wfrP50N1uK7vP0=;
- b=R3cAtZPLcfFtB29bXfVDNqHbZqQQriwa11/2hYqHTVh0bnQbww4yv6glqkY40b/aIz
- SNghvUZF1TGaHpDYol3KWxdkm8Wrl2+3fMo1KbcGQ8L2SHBoxa2viG4rPMyhluUQBeaK
- y8t7tjM0vBx65OeMYsWdpsALbNXDLj4j7PYfniaOY0a0FBVn0zskRK/1tjul2ADz226I
- HpZVPVUyfNUQti1UBaFlJloH86VmMuHRR1quMGOfBJCLTXTHQGkG0Q0mQj9nGPR4hLjk
- kz11HOaoQJq7WDW7STYD2xSIS8X6fPe70B7zURlBW51rf7EuxsmrtGvKM+QWZUlNT+Up
- /yig==
-X-Gm-Message-State: AOAM531Wht5T0SGYb5K6GuhWEvL4BLX/TvAUnY63pUYmCjvfZWbFU2d2
- bXl982lisSnuetzGmlqyfPs0rMqaLf/FWLLUi4U=
-X-Google-Smtp-Source: ABdhPJzaWAkOj9ePr5WQ4WHJ7n0TNGqqxQVutiX22A22NsEmGBBEDDIzhAQZOVUh6ahtJoIJUaUjWwbwXnRetbDtAY0=
-X-Received: by 2002:a92:a1c9:: with SMTP id b70mr2367268ill.184.1589538784758; 
- Fri, 15 May 2020 03:33:04 -0700 (PDT)
-MIME-Version: 1.0
-References: <1589267017-17294-1-git-send-email-dillon.minfei@gmail.com>
- <1589267017-17294-4-git-send-email-dillon.minfei@gmail.com>
- <CACRpkda5VjjBdbruXTi33QBNb=VU6vK2zDE8yyQXoWw7=NQFeg@mail.gmail.com>
- <a4ebd7cd-5756-0683-135f-0f96be8a4a7b@st.com>
- <CAL9mu0Jt_xwo5pJfcx6G3grBuOaxLXvakpEjiB4gV3=bkiq2fg@mail.gmail.com>
- <818b93b4-4431-8338-cd90-ed125ecac615@st.com>
- <CAL9mu0L6d2V5qypPfOSeMdhc=DdHkcsaF4GysNG-vfDe5npkhw@mail.gmail.com>
- <2afd2853-e3bc-0c69-a0e5-8d4aa631a634@st.com>
-In-Reply-To: <2afd2853-e3bc-0c69-a0e5-8d4aa631a634@st.com>
-From: dillon min <dillon.minfei@gmail.com>
-Date: Fri, 15 May 2020 18:32:28 +0800
-Message-ID: <CAL9mu0J7s589e7weQ7vyi1iFCwPOmmyFHwqhwWfYwWVqJpN+Dw@mail.gmail.com>
-To: Benjamin GAIGNARD <benjamin.gaignard@st.com>
-Cc: "open list:OPEN FIRMWARE AND FLATTENED DEVICE TREE BINDINGS"
- <devicetree@vger.kernel.org>, Michael Turquette <mturquette@baylibre.com>,
- Dave Airlie <airlied@linux.ie>, Linus Walleij <linus.walleij@linaro.org>,
- "linux-kernel@vger.kernel.org" <linux-kernel@vger.kernel.org>,
- "open list:DRM PANEL DRIVERS" <dri-devel@lists.freedesktop.org>,
+ Fri, 15 May 2020 11:48:16 +0000 (UTC)
+Received: from pps.filterd (m0167091.ppops.net [127.0.0.1])
+ by mx0b-00128a01.pphosted.com (8.16.0.42/8.16.0.42) with SMTP id
+ 04FBj86l018828; Fri, 15 May 2020 07:48:01 -0400
+Received: from nam11-dm6-obe.outbound.protection.outlook.com
+ (mail-dm6nam11lp2177.outbound.protection.outlook.com [104.47.57.177])
+ by mx0b-00128a01.pphosted.com with ESMTP id 3100xpsvtx-1
+ (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
+ Fri, 15 May 2020 07:48:01 -0400
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
+ b=LsPUB2h8QruKAPm9Vn1k2wrIsDHV2uVI6J58/AK9hQYWn9+Txy3T1xMECBWZpKUPG/VOSo1lls5tlFzFFxTKipZ7n7aoIQN+w/4jAEiLEKNeu1cj48sskYESnkxOHHjcBgsDWuFjKM64G1Prz7lTfLCyqinbFQo6nhNKAgd7Fik/JeuJ21sDvz3Tg844Ao6nbLnVr/rZ9Lb17w02UodqW4Z77RQlS7bC0J201JJ7yONHdQ0oOkh/LIYACaC2LNBVWrW4uddR3qcHbQ8fqV1DMYS6/VJ535rfZd4g281oacUQqNSIegL3pu8WuYHMBqcEQP+8F3vvUr4m3qO8b3souQ==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
+ s=arcselector9901;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=I5PwNUE9meXfujqcIjeFhoh1QiIDwNYghIPcrcnDK8Y=;
+ b=oGNUXVJdTCMY2U8zOZnIR5sZlY115D4seYQ339BUQaC2Dq7QBfyiGduzjOFvd2rzCZ0IsiHpFmXXrbgIu/3wylp/u/iP2VQ/jocsPJ0Ta0vqaL9RtYeaUG4DbqIJWtaLAgk2xJr2FWTp8Nz56eVeJ+UI4iVBKIfufSY26HcN31xHMAoCo9XOat/P30s0NBulrsUg2mGpIQJDYogRuSPkTcwvMnkWBuH/KQejq00vi3zSsTPZu52FzlEf+Fa++iP7nw/o5QoOnDcKt5Sswp7Gm6HYj9CIWGQA/fTCdU39J0SXP7XJnfumjaC/7u/Ge1hE4dGOlOKkl8fLz6+7IHXkmw==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=analog.com; dmarc=pass action=none header.from=analog.com;
+ dkim=pass header.d=analog.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=analog.onmicrosoft.com; s=selector2-analog-onmicrosoft-com;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=I5PwNUE9meXfujqcIjeFhoh1QiIDwNYghIPcrcnDK8Y=;
+ b=mqMnvLzuvPesgcKwICKDrgG4gaRdPI0i4sF12k7Q4tBL1k4vBA4rvFYGK8sFGE5y2CrwSc6zSok9vCQmk0GwoZ/JLRpnMG+ktvQK8sPA/ot0SQo2/NE1hJ+y0mySf7AuStFFIDw2ZeV8MXiT/6zBiAtjM6ZOYAlfmrE45Q/lPFI=
+Received: from DM6PR03MB4411.namprd03.prod.outlook.com (2603:10b6:5:10f::14)
+ by DM6PR03MB4140.namprd03.prod.outlook.com (2603:10b6:5:5c::12) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.3000.20; Fri, 15 May
+ 2020 11:48:00 +0000
+Received: from DM6PR03MB4411.namprd03.prod.outlook.com
+ ([fe80::e02f:b3c0:d1e9:5eaf]) by DM6PR03MB4411.namprd03.prod.outlook.com
+ ([fe80::e02f:b3c0:d1e9:5eaf%3]) with mapi id 15.20.2979.033; Fri, 15 May 2020
+ 11:48:00 +0000
+From: "Ardelean, Alexandru" <alexandru.Ardelean@analog.com>
+To: "linux-arm-kernel@lists.infradead.org"
+ <linux-arm-kernel@lists.infradead.org>,
  "linux-stm32@st-md-mailman.stormreply.com"
- <linux-stm32@st-md-mailman.stormreply.com>, Stephen Boyd <sboyd@kernel.org>,
- Rob Herring <robh+dt@kernel.org>,
- "thierry.reding@gmail.com" <thierry.reding@gmail.com>,
- Linux ARM <linux-arm-kernel@lists.infradead.org>,
- Daniel Vetter <daniel@ffwll.ch>, Sam Ravnborg <sam@ravnborg.org>,
- linux-clk <linux-clk@vger.kernel.org>,
- Maxime Coquelin <mcoquelin.stm32@gmail.com>
-Subject: Re: [Linux-stm32] [PATCH v3 3/5] ARM: dts: stm32: enable ltdc
- binding with ili9341 on stm32429-disco board
+ <linux-stm32@st-md-mailman.stormreply.com>,
+ "Sa, Nuno" <Nuno.Sa@analog.com>,
+ "linux-kernel@vger.kernel.org" <linux-kernel@vger.kernel.org>,
+ "linux-iio@vger.kernel.org" <linux-iio@vger.kernel.org>
+Thread-Topic: [PATCH v2 7/8] iio: core: simplify alloc alignment code
+Thread-Index: AQHWKfIf2AOgR7laW0KzgAXiHIzwAaiovIwAgABM7IA=
+Date: Fri, 15 May 2020 11:47:59 +0000
+Message-ID: <1d89df334b08486e73ca181cf9035d9af8fbccf2.camel@analog.com>
+References: <20200514131710.84201-1-alexandru.ardelean@analog.com>
+ <20200514131710.84201-8-alexandru.ardelean@analog.com>
+ <BN6PR03MB33472A1B559F98E3BDCAB40B99BD0@BN6PR03MB3347.namprd03.prod.outlook.com>
+In-Reply-To: <BN6PR03MB33472A1B559F98E3BDCAB40B99BD0@BN6PR03MB3347.namprd03.prod.outlook.com>
+Accept-Language: en-US
+Content-Language: en-US
+X-MS-Has-Attach: 
+X-MS-TNEF-Correlator: 
+authentication-results: lists.infradead.org; dkim=none (message not signed)
+ header.d=none;lists.infradead.org; dmarc=none action=none
+ header.from=analog.com;
+x-originating-ip: [188.27.130.207]
+x-ms-publictraffictype: Email
+x-ms-office365-filtering-ht: Tenant
+x-ms-office365-filtering-correlation-id: 762a94be-8b55-48bd-2b9d-08d7f8c5d160
+x-ms-traffictypediagnostic: DM6PR03MB4140:
+x-ms-exchange-transport-forked: True
+x-microsoft-antispam-prvs: <DM6PR03MB4140FAD07208F009E8CE6C44F9BD0@DM6PR03MB4140.namprd03.prod.outlook.com>
+x-ms-oob-tlc-oobclassifiers: OLM:7691;
+x-forefront-prvs: 04041A2886
+x-ms-exchange-senderadcheck: 1
+x-microsoft-antispam: BCL:0;
+x-microsoft-antispam-message-info: icw/EXYXuuUlCedmnU+uya06Ar9LsYY4YNeGiioq3HWIFFCA4Zzu3Id/U1oMvbDULK+3G2o7pr69OPg7H7RfakuYp/HFM01Wa03U80j6WH5BP8f3boiP0EliVaEIrdg31Pc5vLBzGjfMDn7ymJWwVlDO2WtvSf0/Fvlew9z903DaaEsBcw300ycJamxGA/v1spu2bUJC5ybTZHwHDW5HeNw95EbSbtIuBVDY0EayEiaee6pxjtfDgHU31U47TV7jOWG33pdSACYlGeuIQYdeFBUMKAhki5oslFD8CqAhrTAwWOSZ6pUfBdNf+GkBVibZsCJLxqCvuLQlRooxFu1CciQcK5T2vyMVjwz+ePt+Z+M++IPe2qizUGnnmx7zWB369vrt5TId+yLLRM/vwLFmXJQqdfUyjO7HLOx1kwTgCVsjah+4oQFd3S7qbtEFbYu4KfYcTm22BShY2yYxYYXE6zwAAAQMEnFfBZKkzF+u9BDohk6lMJw4tuRD3PCoU2gLHnrivEPS17WRfWlQk9Ak8w==
+x-forefront-antispam-report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
+ IPV:NLI; SFV:NSPM; H:DM6PR03MB4411.namprd03.prod.outlook.com; PTR:; CAT:NONE;
+ SFTY:;
+ SFS:(366004)(136003)(39860400002)(346002)(376002)(396003)(966005)(71200400001)(53546011)(54906003)(7416002)(36756003)(26005)(64756008)(66946007)(6506007)(4326008)(110136005)(66476007)(66556008)(91956017)(76116006)(186003)(66446008)(86362001)(6512007)(8936002)(2906002)(5660300002)(2616005)(8676002)(316002)(6486002)(478600001);
+ DIR:OUT; SFP:1101; 
+x-ms-exchange-antispam-messagedata: lTNpfEsWK07dTdoxaUNDgU5MXTFZ5mVsnNU3pzk4MAAYHG2GQHRRF9sRULYLgykhknw80NK8PjkTmTNZGERL8/m1+YqyKjlvztBfpMrAsdpJD/98L/W433Al/DMiFMTfsU0oJc0Ga+JrRaf31CsXi27vy+374rwCLW25fXLK8/JngECR/VZqxKtUJvEJSQUl5BPT7ZYAOBVQBLj4ISGNmxjztfqQGRzWt5azWXNQUaHG+Vw0Vj4+t8KWv8TCFltJayX1m2BOXTC8Gw50KYkdVU6J4+/x2Bx9WHAaC+60+P+3wStUwBnpm33BsaX//NyczoDtW7wT9qSAcus5i+cknXSAlAzsqZVvZuxSyLSkPEqr4bF5laPJm37A7GoJmSeIGyEMMu46m5VaZNXRqHdaWoRSWHJLuYbZHxdL1SXlr2+nrmUgT9YbJhx1dTkfv2Wqm1xdY/NYU8+UQ2ziTDvzT6gYt9/hDQmYRMuxzoysM0cDh6AJ/Qy2RBbhMKSCauR3
+Content-ID: <CF09CC5698AF824F93E461A5864C8C3D@namprd03.prod.outlook.com>
+MIME-Version: 1.0
+X-OriginatorOrg: analog.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: 762a94be-8b55-48bd-2b9d-08d7f8c5d160
+X-MS-Exchange-CrossTenant-originalarrivaltime: 15 May 2020 11:47:59.9711 (UTC)
+X-MS-Exchange-CrossTenant-fromentityheader: Hosted
+X-MS-Exchange-CrossTenant-id: eaa689b4-8f87-40e0-9c6f-7228de4d754a
+X-MS-Exchange-CrossTenant-mailboxtype: HOSTED
+X-MS-Exchange-CrossTenant-userprincipalname: lytCTMUNGn08jyAW/2wNoSKPS8w57fYiSskF2Qf+S5cHhlESoCme+sHCddK41Q9G0N/Wbj8UE2h0Cghtl5OgrVlk6IA3c1Mxk35suliktZA=
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: DM6PR03MB4140
+X-Proofpoint-Virus-Version: vendor=fsecure engine=2.50.10434:6.0.216, 18.0.676
+ definitions=2020-05-15_04:2020-05-15,
+ 2020-05-15 signatures=0
+X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
+ lowpriorityscore=0
+ mlxlogscore=999 clxscore=1015 priorityscore=1501 adultscore=0 phishscore=0
+ bulkscore=0 malwarescore=0 spamscore=0 mlxscore=0 suspectscore=0
+ impostorscore=0 cotscore=-2147483648 classifier=spam adjust=0 reason=mlx
+ scancount=1 engine=8.12.0-2004280000 definitions=main-2005150102
+Cc: "alexandre.belloni@bootlin.com" <alexandre.belloni@bootlin.com>,
+ "nicolas.ferre@microchip.com" <nicolas.ferre@microchip.com>,
+ "ludovic.desroches@microchip.com" <ludovic.desroches@microchip.com>,
+ "ak@it-klinger.de" <ak@it-klinger.de>,
+ "mcoquelin.stm32@gmail.com" <mcoquelin.stm32@gmail.com>,
+ "eugen.hristev@microchip.com" <eugen.hristev@microchip.com>,
+ "jic23@kernel.org" <jic23@kernel.org>
+Subject: Re: [Linux-stm32] [PATCH v2 7/8] iio: core: simplify alloc
+	alignment code
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -82,118 +126,66 @@ List-Post: <mailto:linux-stm32@st-md-mailman.stormreply.com>
 List-Help: <mailto:linux-stm32-request@st-md-mailman.stormreply.com?subject=help>
 List-Subscribe: <https://st-md-mailman.stormreply.com/mailman/listinfo/linux-stm32>, 
  <mailto:linux-stm32-request@st-md-mailman.stormreply.com?subject=subscribe>
-Content-Type: text/plain; charset="us-ascii"
-Content-Transfer-Encoding: 7bit
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: base64
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
-Hi Benjamin,
-
-got it, thanks a lot.
-
-best regards
-
-Dillon
-
-On Fri, May 15, 2020 at 5:34 PM Benjamin GAIGNARD
-<benjamin.gaignard@st.com> wrote:
->
->
->
-> On 5/15/20 11:24 AM, dillon min wrote:
-> > Hi Benjamin,
-> >
-> > thanks for reply.
-> >
-> > On Fri, May 15, 2020 at 4:31 PM Benjamin GAIGNARD
-> > <benjamin.gaignard@st.com> wrote:
-> >>
-> >>
-> >> On 5/14/20 3:07 PM, dillon min wrote:
-> >>> Hi Alexandre,
-> >>>
-> >>> On Thu, May 14, 2020 at 8:53 PM Alexandre Torgue
-> >>> <alexandre.torgue@st.com> wrote:
-> >>>>
-> >>>> On 5/14/20 10:24 AM, Linus Walleij wrote:
-> >>>>> On Tue, May 12, 2020 at 9:04 AM <dillon.minfei@gmail.com> wrote:
-> >>>>>
-> >>>>>> From: dillon min <dillon.minfei@gmail.com>
-> >>>>>>
-> >>>>>> Enable the ltdc & ili9341 on stm32429-disco board.
-> >>>>>>
-> >>>>>> Signed-off-by: dillon min <dillon.minfei@gmail.com>
-> >>>>> This mostly looks good but...
-> >>>>>
-> >>>>>> +&spi5 {
-> >>>>>> +       status = "okay";
-> >>>>>> +       pinctrl-0 = <&spi5_pins>;
-> >>>>>> +       pinctrl-names = "default";
-> >>>>>> +       #address-cells = <1>;
-> >>>>>> +       #size-cells = <0>;
-> >>>>>> +       cs-gpios = <&gpioc 2 GPIO_ACTIVE_LOW>;
-> >>>>>> +       dmas = <&dma2 3 2 0x400 0x0>,
-> >>>>>> +              <&dma2 4 2 0x400 0x0>;
-> >>>>>> +       dma-names = "rx", "tx";
-> >>>>> These DMA assignments seem to be SoC things and should
-> >>>>> rather be in the DTS(I) file where &spi5 is defined, right?
-> >>>>> stm32f429.dtsi I suppose?
-> >>>> I agree with Linus, DMA have to be defined in SoC dtsi. And if a board
-> >>>> doesn't want to use it, we use the "delete-property".
-> >>> Yes, will move to Soc dtsi in next submits.
-> >>>
-> >>> i'm working on write a v4l2-m2m driver for dma2d of stm32 to support
-> >>> pixel conversion
-> >>> alpha blending between foreground and background graphics.
-> >>>
-> >>> as you know, some soc's engineer trying to add this function to drm system.
-> >>>
-> >>> do you know st's planning about soc's hardware accelerator driver on stm32mp?
-> >>> such as chrom-art, will add to drm subsystem via ioctl to access, or to v4l2,
-> >> On stm32mp we do not plan to use chrom-art in drm or v4l2 because it
-> >> does fit
-> >> with userland way of working. We use the GPU to do conversion, scaling,
-> >> blending
-> >> and composition in only one go.
-> >> As explain here [1] DRM subsytem it isn't a solution and v4l2-m2m isn't
-> >> used in any
-> >> mainline compositors like Weston or android surfaceflinger.
-> >>
-> >> Benjamin
-> >>
-> > After check stm32mp's datasheets, they don't have chrom-art ip inside. sorry for
-> > didn't check it yet.
-> >
-> > for stm32h7 series with chrom-art, jpeg hardware accelerator inside.
-> > does st has plan to
-> > setup a driver to support it ? i prefer v4l2-m2m should be easier to
-> > implement it.
-> > co work with dcmi, fbdev.
-> ST doesn't plan to create a driver for chrom-art because nothing in
-> mainline
-> userland could use it.
->
-> Benjamin
-> >
-> > thanks.
-> >
-> > best regards.
-> >
-> > Dillon
-> >> [1]
-> >> https://www.phoronix.com/scan.php?page=news_item&px=Linux-DRM-No-2D-Accel-API
-> >>> thanks.
-> >>>
-> >>>>> It is likely the same no matter which device is using spi5.
-> >>>>>
-> >>>>> Yours,
-> >>>>> Linus Walleij
-> >>>>>
-> >>> _______________________________________________
-> >>> Linux-stm32 mailing list
-> >>> Linux-stm32@st-md-mailman.stormreply.com
-> >>> https://st-md-mailman.stormreply.com/mailman/listinfo/linux-stm32
-_______________________________________________
-Linux-stm32 mailing list
-Linux-stm32@st-md-mailman.stormreply.com
-https://st-md-mailman.stormreply.com/mailman/listinfo/linux-stm32
+T24gRnJpLCAyMDIwLTA1LTE1IGF0IDA3OjEyICswMDAwLCBTYSwgTnVubyB3cm90ZToNCj4gSGV5
+IEFsZXgsDQo+IA0KPiBKdXN0IGEgc21hbGwgcXVlc3Rpb24uLi4NCj4gDQo+ID4gRnJvbTogbGlu
+dXgtaWlvLW93bmVyQHZnZXIua2VybmVsLm9yZyA8bGludXgtaWlvLW93bmVyQHZnZXIua2VybmVs
+Lm9yZz4NCj4gPiBPbiBCZWhhbGYgT2YgQWxleGFuZHJ1IEFyZGVsZWFuDQo+ID4gU2VudDogRG9u
+bmVyc3RhZywgMTQuIE1haSAyMDIwIDE1OjE3DQo+ID4gVG86IGxpbnV4LWlpb0B2Z2VyLmtlcm5l
+bC5vcmc7IGxpbnV4LWFybS1rZXJuZWxAbGlzdHMuaW5mcmFkZWFkLm9yZzsgbGludXgtDQo+ID4g
+c3RtMzJAc3QtbWQtbWFpbG1hbi5zdG9ybXJlcGx5LmNvbTsgbGludXgta2VybmVsQHZnZXIua2Vy
+bmVsLm9yZw0KPiA+IENjOiBsdWRvdmljLmRlc3JvY2hlc0BtaWNyb2NoaXAuY29tOyBldWdlbi5o
+cmlzdGV2QG1pY3JvY2hpcC5jb207DQo+ID4gamljMjNAa2VybmVsLm9yZzsgbmljb2xhcy5mZXJy
+ZUBtaWNyb2NoaXAuY29tOw0KPiA+IGFsZXhhbmRyZS5iZWxsb25pQGJvb3RsaW4uY29tOyBhbGV4
+YW5kcmUudG9yZ3VlQHN0LmNvbTsNCj4gPiBtY29xdWVsaW4uc3RtMzJAZ21haWwuY29tOyBha0Bp
+dC1rbGluZ2VyLmRlOyBBcmRlbGVhbiwgQWxleGFuZHJ1DQo+ID4gPGFsZXhhbmRydS5BcmRlbGVh
+bkBhbmFsb2cuY29tPg0KPiA+IFN1YmplY3Q6IFtQQVRDSCB2MiA3LzhdIGlpbzogY29yZTogc2lt
+cGxpZnkgYWxsb2MgYWxpZ25tZW50IGNvZGUNCj4gPiANCj4gPiBUaGVyZSB3YXMgYSByZWNlbnQg
+ZGlzY3Vzc2lvbiBhYm91dCB0aGlzIGNvZGU6DQo+ID4gICBodHRwczovL3VybGRlZmVuc2UuY29t
+L3YzL19faHR0cHM6Ly9sb3JlLmtlcm5lbC5vcmcvbGludXgtDQo+ID4gaWlvLzIwMjAwMzIyMTY1
+MzE3LjBiMWYwNjc0QGFyY2hsaW51eC9fXzshIUEzTmk4Q1MweTJZIXBnZFVTYXlKQ2Z4TWlFDQo+
+ID4gdzhGcHYwTGtFWnVyQ1NrWDBzRWNMblhlRFNDTG1ocHUxeG9udDYtdkJRajNaYkN3JA0KPiA+
+IA0KPiA+IFRoaXMgbG9va3MgbGlrZSBhIGdvb2QgdGltZSB0byByZXdvcmsgdGhpcywgc2luY2Ug
+YW55IGlzc3VlcyBhYm91dCBpdA0KPiA+IHNob3VsZCBwb3AtdXAgdW5kZXIgdGVzdGluZywgYmVj
+YXVzZSB0aGUgaWlvX2RldiBpcyBoYXZpbmcgYSBiaXQgb2YgYW4NCj4gPiBvdmVyaGF1bCBhbmQg
+c3R1ZmYgYmVpbmcgbW92ZWQgdG8gaWlvX2Rldl9wcml2Lg0KPiA+IA0KPiA+IFNpZ25lZC1vZmYt
+Ynk6IEFsZXhhbmRydSBBcmRlbGVhbiA8YWxleGFuZHJ1LmFyZGVsZWFuQGFuYWxvZy5jb20+DQo+
+ID4gLS0tDQo+ID4gIGRyaXZlcnMvaWlvL2luZHVzdHJpYWxpby1jb3JlLmMgfCAxMCArKystLS0t
+LS0tDQo+ID4gIDEgZmlsZSBjaGFuZ2VkLCAzIGluc2VydGlvbnMoKyksIDcgZGVsZXRpb25zKC0p
+DQo+ID4gDQo+ID4gZGlmZiAtLWdpdCBhL2RyaXZlcnMvaWlvL2luZHVzdHJpYWxpby1jb3JlLmMg
+Yi9kcml2ZXJzL2lpby9pbmR1c3RyaWFsaW8tDQo+ID4gY29yZS5jDQo+ID4gaW5kZXggYTFiMjll
+MGY4ZmQ2Li43NjcxZDM2ZWZhZTcgMTAwNjQ0DQo+ID4gLS0tIGEvZHJpdmVycy9paW8vaW5kdXN0
+cmlhbGlvLWNvcmUuYw0KPiA+ICsrKyBiL2RyaXZlcnMvaWlvL2luZHVzdHJpYWxpby1jb3JlLmMN
+Cj4gPiBAQCAtMTUxNCwxMyArMTUxNCw5IEBAIHN0cnVjdCBpaW9fZGV2ICppaW9fZGV2aWNlX2Fs
+bG9jKGludCBzaXplb2ZfcHJpdikNCj4gPiAgCXN0cnVjdCBpaW9fZGV2ICpkZXY7DQo+ID4gIAlz
+aXplX3QgYWxsb2Nfc2l6ZTsNCj4gPiANCj4gPiAtCWFsbG9jX3NpemUgPSBzaXplb2Yoc3RydWN0
+IGlpb19kZXZfb3BhcXVlKTsNCj4gPiAtCWlmIChzaXplb2ZfcHJpdikgew0KPiA+IC0JCWFsbG9j
+X3NpemUgPSBBTElHTihhbGxvY19zaXplLCBJSU9fQUxJR04pOw0KPiA+IC0JCWFsbG9jX3NpemUg
+Kz0gc2l6ZW9mX3ByaXY7DQo+ID4gLQl9DQo+ID4gLQkvKiBlbnN1cmUgMzItYnl0ZSBhbGlnbm1l
+bnQgb2Ygd2hvbGUgY29uc3RydWN0ID8gKi8NCj4gPiAtCWFsbG9jX3NpemUgKz0gSUlPX0FMSUdO
+IC0gMTsNCj4gPiArCWFsbG9jX3NpemUgPSBBTElHTihzaXplb2Yoc3RydWN0IGlpb19kZXZfb3Bh
+cXVlKSwgSUlPX0FMSUdOKTsNCj4gPiArCWlmIChzaXplb2ZfcHJpdikNCj4gPiArCQlhbGxvY19z
+aXplICs9IEFMSUdOKHNpemVvZl9wcml2LCBJSU9fQUxJR04pOw0KPiANCj4gRG8gd2UgYWN0dWFs
+bHkgbmVlZCB0byBkbyB0aGUgYEFMSUdOYCBhZ2Fpbj8gSXQgc2VlbXMgdG8gbWUgdGhhdCBgYWxs
+b2Nfc2l6ZQ0KPiArPSBzaXplb2ZfcHJpdmANCj4gd291bGQgYmUgZW5vdWdoIG9yIGFtIEkgbWlz
+c2luZyBzb21ldGhpbmcgb2J2aW91cz8NCg0KV2VsbCwgaXQncyBub3QgYWx3YXlzIGNsZWFyIHdo
+YXQgdmFsdWUgJ3NpemVvZl9wcml2JyBoYXMsIGFuZCB3aGV0aGVyIGl0IGlzDQpwcm92aWRlZCBh
+bHJlYWR5IGFsaWduZWQuDQpUaGUgcmVxdWlyZW1lbnQgaXMgdXN1YWxseSB0aGF0IHRoaXMgZGF0
+YSBiZSBjYWNoZWxpbmUgYWxpZ25lZC4NCg0KU28sIHNpemVvZihzdHJ1Y3QgaWlvX2Rldl9vcGFx
+dWUpIGlzIGFsaWduZWQgYWxyZWFkeSBhIGZldyBsaW5lcyBhYm92ZSwgYnV0IHRoZQ0KcHJpdmF0
+ZSBpbmZvcm1hdGlvbiBzaG91bGQgYWxzbyBiZSBhbGlnbmVkIFtnaXZlbiB0aGF0IGl0J3MgYW4g
+dW5rbm93biB2YWx1ZQ0KcHJvdmlkZWQgYnkgdGhlIGRyaXZlcl0uDQpJIHRoaW5rIHRoaXMgaXMg
+bW9zdGx5IGltcG9ydGFudCwgaWYgd2UgbmVlZCB0byBkbyBETUEgYWNjZXNzIHRvIGJ1ZmZlcnMN
+CmFsbG9jYXRlZCBvbiB0aGUgZHJpdmVyJ3Mgc3RhdGUtc3RydWN0LCB3aGljaCBpcyBhbGxvY2F0
+ZWQgaGVyZSwgYW5kIHdoaWNoIGlzDQp1c3VhbGx5IHByb3ZpZGVkIGFzIHNpemVvZl9wcml2Lg0K
+DQpUYmgsIHRoZSBkaXNjdXNzaW9ucyBhcm91bmQgdGhpcyBhbGlnbm1lbnQvY2FjaGVsaW5lLWFs
+aWdubWVudCBhcmUgYSBiaXQgZnV6enkNCnRvIG1lLiBJIGhhdmVuJ3QgcnVuIGludG8gYW55IG9m
+IHRoZXNlIGNvbXBsaWNhdGVkIGlzc3Vlcy4NCg0KPiANCj4gLSBOdW5vIFPDoQ0KPiANCl9fX19f
+X19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fCkxpbnV4LXN0bTMyIG1h
+aWxpbmcgbGlzdApMaW51eC1zdG0zMkBzdC1tZC1tYWlsbWFuLnN0b3JtcmVwbHkuY29tCmh0dHBz
+Oi8vc3QtbWQtbWFpbG1hbi5zdG9ybXJlcGx5LmNvbS9tYWlsbWFuL2xpc3RpbmZvL2xpbnV4LXN0
+bTMyCg==
