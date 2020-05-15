@@ -2,74 +2,74 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id 070631D48F9
-	for <lists+linux-stm32@lfdr.de>; Fri, 15 May 2020 11:03:02 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 459721D496F
+	for <lists+linux-stm32@lfdr.de>; Fri, 15 May 2020 11:25:09 +0200 (CEST)
 Received: from ip-172-31-3-76.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 301AFC36B10;
-	Fri, 15 May 2020 09:03:01 +0000 (UTC)
-Received: from mx07-00178001.pphosted.com (mx08-00178001.pphosted.com
- [91.207.212.93])
- (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id EDDFEC36B10;
+	Fri, 15 May 2020 09:25:08 +0000 (UTC)
+Received: from mail-io1-f66.google.com (mail-io1-f66.google.com
+ [209.85.166.66])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 2A8A5C36B0E
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id DC4DCC36B0E
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Fri, 15 May 2020 09:02:57 +0000 (UTC)
-Received: from pps.filterd (m0046660.ppops.net [127.0.0.1])
- by mx07-00178001.pphosted.com (8.16.0.42/8.16.0.42) with SMTP id
- 04F8wViO006970; Fri, 15 May 2020 11:02:39 +0200
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=st.com;
- h=subject : to : cc :
- references : from : message-id : date : mime-version : in-reply-to :
- content-type : content-transfer-encoding; s=STMicroelectronics;
- bh=hq0yOpTmRS0k57eXjZHsS0+DHOsIgaIpHyTmBrD4HFk=;
- b=Opl2LUPYsf6vW2IRAL6IE1rzsUXTolLe7tnktfb38zOD5SkHAEUlJ6+2JfLhQCyfDomd
- lJXikqCAu3c5LBiWAi7l8l8xLw4Pj5vl1hgc5sH37vlUt6O3kj+3VSZjlIWc+l7whmbD
- ufh2PmS4QIUZ3L3+Rc5t8TrXABB81F8N21LGtXs/PB41S2Kr9qCOSrUwlzkg7na/JYNU
- 21c/X2T4PIgUEOu6z2LpuYnt+u0PX4AR4QaapWqOgq8rfcwA4VBcq7V9nnXgwFk7o3VS
- aqIImLK7VqWYkLiJmeKFWGm0oRGx81rEinNHJYeFgd0yrpwwipv/q8/4LS6+BEjjT/4P qA== 
-Received: from beta.dmz-eu.st.com (beta.dmz-eu.st.com [164.129.1.35])
- by mx07-00178001.pphosted.com with ESMTP id 3100vps1ep-1
- (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
- Fri, 15 May 2020 11:02:39 +0200
-Received: from euls16034.sgp.st.com (euls16034.sgp.st.com [10.75.44.20])
- by beta.dmz-eu.st.com (STMicroelectronics) with ESMTP id 5EA7910002A;
- Fri, 15 May 2020 11:02:38 +0200 (CEST)
-Received: from Webmail-eu.st.com (sfhdag6node2.st.com [10.75.127.17])
- by euls16034.sgp.st.com (STMicroelectronics) with ESMTP id 4216F2A531B;
- Fri, 15 May 2020 11:02:38 +0200 (CEST)
-Received: from [10.211.11.124] (10.75.127.46) by SFHDAG6NODE2.st.com
- (10.75.127.17) with Microsoft SMTP Server (TLS) id 15.0.1347.2; Fri, 15 May
- 2020 11:02:37 +0200
-To: Rob Herring <robh@kernel.org>
-References: <1588756279-17289-1-git-send-email-christophe.kerello@st.com>
- <1588756279-17289-7-git-send-email-christophe.kerello@st.com>
- <20200514150028.GB28489@bogus> <9ffc04cf-137f-5ee5-57ff-39a876abfb34@st.com>
- <CAL_JsqLTyDHBHncrQqtPdkCNgKDkEbp+ts7BOeqWmGv64kcAsg@mail.gmail.com>
-From: Christophe Kerello <christophe.kerello@st.com>
-Message-ID: <3c860c17-f8dd-6130-861b-afccb9202093@st.com>
-Date: Fri, 15 May 2020 11:02:36 +0200
-User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:60.0) Gecko/20100101
- Thunderbird/60.6.1
+ Fri, 15 May 2020 09:25:07 +0000 (UTC)
+Received: by mail-io1-f66.google.com with SMTP id k18so1945652ion.0
+ for <linux-stm32@st-md-mailman.stormreply.com>;
+ Fri, 15 May 2020 02:25:07 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20161025;
+ h=mime-version:references:in-reply-to:from:date:message-id:subject:to
+ :cc; bh=Cc4MG6c747g2GpEAJm056wqMJo63ltnWhdsdBk/YjvU=;
+ b=ScyKUI9YtsU9p9A901j1O1w7H7TdnTlwcnuWzKYRo3T+bqoIZc8vOQ9X95sdz82tnm
+ urIdlt/GUp9Yfq/9xFWZj8mjEJR05XCX47NoY/P6Qt0R26F6a4+luq3nyePE1nmFInMi
+ 6BAfAKoBoWEhG6za8fIQD/VCbuJv1yUxDeWf/yoarFgULSJjRsGjQawtvMMXahIIItR+
+ KspUduc8eOvKKZ1LH2ZaKUn870ew37S9JgdauJkgRN1oLquW5K4IJPZ6HqXyZzq+NGxx
+ sE/WbC8Y9Ybw+RAytAcJEnTXxxp56g590pE4tr+7ttn7UIBYdlYCf8fDbzQ8qu7KV+M1
+ 0QRA==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20161025;
+ h=x-gm-message-state:mime-version:references:in-reply-to:from:date
+ :message-id:subject:to:cc;
+ bh=Cc4MG6c747g2GpEAJm056wqMJo63ltnWhdsdBk/YjvU=;
+ b=Ms0hpDmym7XU+/ikXuILbSgzXfMSTs97WEbxC2ecMp6rm1OKGLJCIovAa3KNhtkpUi
+ fG6xyHjmtZvkySHLUjjpewUEqP9IHrpBtcB+eLE0kTjFd1uYY+wxlLEGplhJXJV/LY6+
+ 2PvrIwUufKhVKEAoD7oJQ1XG+/ASilbU5CDiWVi7+y79FyWorKrZwRcUDdPgBciqNzO6
+ ToeICQ7fenMckx+QHCfEARvTGeArX97RqPrKo188BO1SKHnBuW8ZhuOeFPpYlAboxR/E
+ HCbfS1Bac2ZWZukXNd3X0p5bYpF4+JIY+nPEGtkzfiHEMMptFmQmeiTP5Psvo/l825Pt
+ K6bA==
+X-Gm-Message-State: AOAM531PJ/Ufggj9HYGr1etkAJEFHv4FNCCky9D6vND+tq27FOx34BbQ
+ gS6yqr4IztPwg71mF+kot1ldE+30V/ruXoKJn2I=
+X-Google-Smtp-Source: ABdhPJyr7Q+WoA1oeyUp1TGmDyNR7js+O5d1aEorqbluWDehBMJqofjEnccsNnqBusTGHRHYyHOE+n76LGnfJ7BM2as=
+X-Received: by 2002:a05:6638:1121:: with SMTP id
+ f1mr2281062jar.62.1589534706577; 
+ Fri, 15 May 2020 02:25:06 -0700 (PDT)
 MIME-Version: 1.0
-In-Reply-To: <CAL_JsqLTyDHBHncrQqtPdkCNgKDkEbp+ts7BOeqWmGv64kcAsg@mail.gmail.com>
-Content-Language: en-US
-X-Originating-IP: [10.75.127.46]
-X-ClientProxiedBy: SFHDAG7NODE3.st.com (10.75.127.21) To SFHDAG6NODE2.st.com
- (10.75.127.17)
-X-Proofpoint-Virus-Version: vendor=fsecure engine=2.50.10434:6.0.216, 18.0.676
- definitions=2020-05-15_03:2020-05-14,
- 2020-05-15 signatures=0
-Cc: Mark Rutland <mark.rutland@arm.com>, devicetree@vger.kernel.org,
- =?UTF-8?Q?Marek_Va=c5=a1ut?= <marex@denx.de>, Vignesh R <vigneshr@ti.com>,
- Richard Weinberger <richard@nod.at>,
- =?UTF-8?Q?Miqu=c3=a8l_Raynal?= <miquel.raynal@bootlin.com>,
+References: <1589267017-17294-1-git-send-email-dillon.minfei@gmail.com>
+ <1589267017-17294-4-git-send-email-dillon.minfei@gmail.com>
+ <CACRpkda5VjjBdbruXTi33QBNb=VU6vK2zDE8yyQXoWw7=NQFeg@mail.gmail.com>
+ <a4ebd7cd-5756-0683-135f-0f96be8a4a7b@st.com>
+ <CAL9mu0Jt_xwo5pJfcx6G3grBuOaxLXvakpEjiB4gV3=bkiq2fg@mail.gmail.com>
+ <818b93b4-4431-8338-cd90-ed125ecac615@st.com>
+In-Reply-To: <818b93b4-4431-8338-cd90-ed125ecac615@st.com>
+From: dillon min <dillon.minfei@gmail.com>
+Date: Fri, 15 May 2020 17:24:29 +0800
+Message-ID: <CAL9mu0L6d2V5qypPfOSeMdhc=DdHkcsaF4GysNG-vfDe5npkhw@mail.gmail.com>
+To: Benjamin GAIGNARD <benjamin.gaignard@st.com>
+Cc: "open list:OPEN FIRMWARE AND FLATTENED DEVICE TREE BINDINGS"
+ <devicetree@vger.kernel.org>, Michael Turquette <mturquette@baylibre.com>,
+ Dave Airlie <airlied@linux.ie>, Linus Walleij <linus.walleij@linaro.org>,
  "linux-kernel@vger.kernel.org" <linux-kernel@vger.kernel.org>,
- Boris Brezillon <boris.brezillon@collabora.com>,
- MTD Maling List <linux-mtd@lists.infradead.org>,
- Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
- linux-stm32@st-md-mailman.stormreply.com
-Subject: Re: [Linux-stm32] [PATCH v4 06/10] dt-bindings: mtd: update STM32
- FMC2 NAND controller documentation
+ "open list:DRM PANEL DRIVERS" <dri-devel@lists.freedesktop.org>,
+ "linux-stm32@st-md-mailman.stormreply.com"
+ <linux-stm32@st-md-mailman.stormreply.com>, Stephen Boyd <sboyd@kernel.org>,
+ Rob Herring <robh+dt@kernel.org>,
+ "thierry.reding@gmail.com" <thierry.reding@gmail.com>,
+ Linux ARM <linux-arm-kernel@lists.infradead.org>,
+ Daniel Vetter <daniel@ffwll.ch>, Sam Ravnborg <sam@ravnborg.org>,
+ linux-clk <linux-clk@vger.kernel.org>,
+ Maxime Coquelin <mcoquelin.stm32@gmail.com>
+Subject: Re: [Linux-stm32] [PATCH v3 3/5] ARM: dts: stm32: enable ltdc
+ binding with ili9341 on stm32429-disco board
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -81,105 +81,102 @@ List-Post: <mailto:linux-stm32@st-md-mailman.stormreply.com>
 List-Help: <mailto:linux-stm32-request@st-md-mailman.stormreply.com?subject=help>
 List-Subscribe: <https://st-md-mailman.stormreply.com/mailman/listinfo/linux-stm32>, 
  <mailto:linux-stm32-request@st-md-mailman.stormreply.com?subject=subscribe>
+Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
-Content-Type: text/plain; charset="us-ascii"; Format="flowed"
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
-Hi Rob,
+Hi Benjamin,
 
-On 5/14/20 7:55 PM, Rob Herring wrote:
-> On Thu, May 14, 2020 at 11:35 AM Christophe Kerello
-> <christophe.kerello@st.com> wrote:
->>
->> Hi Rob,
->>
->> On 5/14/20 5:00 PM, Rob Herring wrote:
->>> On Wed, May 06, 2020 at 11:11:15AM +0200, Christophe Kerello wrote:
->>>> These bindings can be used on SOCs where the FMC2 NAND controller is
->>>> in standalone. In case that the FMC2 embeds 2 controllers (an external
->>>> bus controller and a raw NAND controller), the register base and the
->>>> clock will be defined in the parent node. It is the reason why the
->>>> register base address and the clock are now optional.
->>>>
->>>> Signed-off-by: Christophe Kerello <christophe.kerello@st.com>
->>>> ---
->>>>    .../devicetree/bindings/mtd/st,stm32-fmc2-nand.yaml   | 19 ++++++++++---------
->>>>    1 file changed, 10 insertions(+), 9 deletions(-)
->>>>
->>>> diff --git a/Documentation/devicetree/bindings/mtd/st,stm32-fmc2-nand.yaml b/Documentation/devicetree/bindings/mtd/st,stm32-fmc2-nand.yaml
->>>> index b059267..68fac1a 100644
->>>> --- a/Documentation/devicetree/bindings/mtd/st,stm32-fmc2-nand.yaml
->>>> +++ b/Documentation/devicetree/bindings/mtd/st,stm32-fmc2-nand.yaml
->>>> @@ -18,13 +18,15 @@ properties:
->>>>
->>>>      reg:
->>>>        items:
->>>> -      - description: Registers
->>>> +      - description: Registers (optional)
->>>
->>> The only thing that can be optional are the last entries. You have to do
->>> a 'oneOf' with 6 entries and 7 entries.
->>
->> Ok, so the way to describe the reg property in my case should be:
->>          reg:
->>            oneOf:
->>              - description: FMC2 embeds the NFC controller in standalone.
->>                items:
->>                  - description: Registers
->>                  - description: Chip select 0 data
->>                  - description: Chip select 0 command
->>                  - description: Chip select 0 address space
->>                  - description: Chip select 1 data
->>                  - description: Chip select 1 command
->>                  - description: Chip select 1 address space
->>
->>              - description: FMC2 embeds the NFC controller and the EBI
->>                  controller.
->>                items:
->>                  - description: Chip select 0 data
->>                  - description: Chip select 0 command
->>                  - description: Chip select 0 address space
->>                  - description: Chip select 1 data
->>                  - description: Chip select 1 command
->>                  - description: Chip select 1 address space
->>
->>>
->>> And where's your new compatible string for this different h/w?
->>
->>   From NFC controller point of view, it is the same HW.
-> 
-> That's what everyone says until they have some quirk or integration
-> difference to handle.
-> 
->> In the case that we have 2 controllers embedded, the register base is
->> shared.
->> The NFC driver will check at probe time the compatible string of its
->> parent node.
->> In case that it is "st,stm32mp1-fmc2-ebi", then the driver will find the
->> register base in the parent node (EBI node), otherwise it will find it
->> in the NFC node.
->> Is it better to have 2 compatible strings (one for each reg description)
->> than checking the parent's compatible string and have only one
->> compatible string?
-> 
-> Why not just put the register base into the child node too? While
-> overlapping 'reg' regions for siblings is bad, it's fine for child
-> nodes. I guess since there are chip selects for the child nodes that
-> may not work here.
-> 
-> It doesn't hurt to have another compatible. You can always make the
-> old one a fallback. With different compatibles you can make sure reg
-> has the right number of entries.
-> 
-> Rob
-> 
+thanks for reply.
 
-I will add a new compatible string to handle the reg property.
-It will be part of v5.
+On Fri, May 15, 2020 at 4:31 PM Benjamin GAIGNARD
+<benjamin.gaignard@st.com> wrote:
+>
+>
+>
+> On 5/14/20 3:07 PM, dillon min wrote:
+> > Hi Alexandre,
+> >
+> > On Thu, May 14, 2020 at 8:53 PM Alexandre Torgue
+> > <alexandre.torgue@st.com> wrote:
+> >>
+> >>
+> >> On 5/14/20 10:24 AM, Linus Walleij wrote:
+> >>> On Tue, May 12, 2020 at 9:04 AM <dillon.minfei@gmail.com> wrote:
+> >>>
+> >>>> From: dillon min <dillon.minfei@gmail.com>
+> >>>>
+> >>>> Enable the ltdc & ili9341 on stm32429-disco board.
+> >>>>
+> >>>> Signed-off-by: dillon min <dillon.minfei@gmail.com>
+> >>> This mostly looks good but...
+> >>>
+> >>>> +&spi5 {
+> >>>> +       status = "okay";
+> >>>> +       pinctrl-0 = <&spi5_pins>;
+> >>>> +       pinctrl-names = "default";
+> >>>> +       #address-cells = <1>;
+> >>>> +       #size-cells = <0>;
+> >>>> +       cs-gpios = <&gpioc 2 GPIO_ACTIVE_LOW>;
+> >>>> +       dmas = <&dma2 3 2 0x400 0x0>,
+> >>>> +              <&dma2 4 2 0x400 0x0>;
+> >>>> +       dma-names = "rx", "tx";
+> >>> These DMA assignments seem to be SoC things and should
+> >>> rather be in the DTS(I) file where &spi5 is defined, right?
+> >>> stm32f429.dtsi I suppose?
+> >> I agree with Linus, DMA have to be defined in SoC dtsi. And if a board
+> >> doesn't want to use it, we use the "delete-property".
+> > Yes, will move to Soc dtsi in next submits.
+> >
+> > i'm working on write a v4l2-m2m driver for dma2d of stm32 to support
+> > pixel conversion
+> > alpha blending between foreground and background graphics.
+> >
+> > as you know, some soc's engineer trying to add this function to drm system.
+> >
+> > do you know st's planning about soc's hardware accelerator driver on stm32mp?
+> > such as chrom-art, will add to drm subsystem via ioctl to access, or to v4l2,
+> On stm32mp we do not plan to use chrom-art in drm or v4l2 because it
+> does fit
+> with userland way of working. We use the GPU to do conversion, scaling,
+> blending
+> and composition in only one go.
+> As explain here [1] DRM subsytem it isn't a solution and v4l2-m2m isn't
+> used in any
+> mainline compositors like Weston or android surfaceflinger.
+>
+> Benjamin
+>
 
-Regards,
-Christophe Kerello.
+After check stm32mp's datasheets, they don't have chrom-art ip inside. sorry for
+didn't check it yet.
+
+for stm32h7 series with chrom-art, jpeg hardware accelerator inside.
+does st has plan to
+setup a driver to support it ? i prefer v4l2-m2m should be easier to
+implement it.
+co work with dcmi, fbdev.
+
+thanks.
+
+best regards.
+
+Dillon
+> [1]
+> https://www.phoronix.com/scan.php?page=news_item&px=Linux-DRM-No-2D-Accel-API
+> >
+> > thanks.
+> >
+> >>> It is likely the same no matter which device is using spi5.
+> >>>
+> >>> Yours,
+> >>> Linus Walleij
+> >>>
+> > _______________________________________________
+> > Linux-stm32 mailing list
+> > Linux-stm32@st-md-mailman.stormreply.com
+> > https://st-md-mailman.stormreply.com/mailman/listinfo/linux-stm32
 _______________________________________________
 Linux-stm32 mailing list
 Linux-stm32@st-md-mailman.stormreply.com
