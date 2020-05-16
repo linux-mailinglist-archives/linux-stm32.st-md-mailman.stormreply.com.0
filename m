@@ -2,63 +2,45 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id 15BCE1D5FB7
-	for <lists+linux-stm32@lfdr.de>; Sat, 16 May 2020 10:38:38 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 572AA1D6214
+	for <lists+linux-stm32@lfdr.de>; Sat, 16 May 2020 17:35:29 +0200 (CEST)
 Received: from ip-172-31-3-76.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 571C5C3FAD2;
-	Sat, 16 May 2020 08:38:37 +0000 (UTC)
-Received: from mail-ej1-f66.google.com (mail-ej1-f66.google.com
- [209.85.218.66])
- (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 09446C36B20;
+	Sat, 16 May 2020 15:35:29 +0000 (UTC)
+Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
+ (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 30120C3FAD0
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 7DE74C36B16
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Sat, 16 May 2020 08:38:34 +0000 (UTC)
-Received: by mail-ej1-f66.google.com with SMTP id se13so4281667ejb.9
- for <linux-stm32@st-md-mailman.stormreply.com>;
- Sat, 16 May 2020 01:38:34 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20161025;
- h=mime-version:references:in-reply-to:from:date:message-id:subject:to
- :cc; bh=T9ORqMPvwiPeuaiySbbL/RSXPYuFp2sjZBmBACSvVb4=;
- b=oJiFmaO9gqb7DS1dlpAacukIBF598UJA4Nt5ZUhceGhBnOdLi4ljWtFz8Fxiof/69A
- Fkr/ViVuvP/a+Vn13nKPzNjcsKwLxXlHyfZdBm7NVj4zxZPLN/Aiu4B2qY6zqVraUpfG
- WN/eiYpLK/Q6gnuKTtrtwbJ6ZHfIyYUvJLvR9ul233drEZqDJMograz/Bc5AgibvRNgJ
- +Txc9cvSHdp2JrTMQN5JNUdaM39aIcFHMWfky5Ex1FqaptXNqvPxuULv9bNZnL7s6JUH
- UtwvP+ch5XWhL52oNiU6yHzmmD6WtiCwCyn8xNJJOSnvcz4vySq2mYRqGWaAbL+7CwCu
- b81w==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20161025;
- h=x-gm-message-state:mime-version:references:in-reply-to:from:date
- :message-id:subject:to:cc;
- bh=T9ORqMPvwiPeuaiySbbL/RSXPYuFp2sjZBmBACSvVb4=;
- b=NVC2XwAFmKig09ZbZQmtfMle8XKtaBu6FXBP8tAHB3heL1D6RrJc9vbgNsiVFEjZpw
- 44/KOvGIrxFzj82sNIgFaKkIooLQIpMm4CIY6D+DXaMbrm7GAsG1Ta4GKXiRJlR9+uvp
- puf6UcgdpoI1RKUBP9ZO55YG+63OxmYze0eGeWASUF1fbCDXC5Y9AfugRiGg4MUu7tyf
- QsMhJYwk57fbOk1Gpztv/VKWhg0U/SxdwEkRYScEmtNVoAYm+qB5aN+rEQ2gmpFPpGhE
- QdI6pCR7UnnvNpZBVsvvkKXrO2lRvzWLBC+vSNtB40VZsSnMwtq9Jqc7mF8BrK/N48iH
- ERYQ==
-X-Gm-Message-State: AOAM533nZVR+DfjHJ/0AESs9gRcKvWNm4GYJs/fpAXhkH53aPEh8OHSE
- bH6yWSJlZI5tSjOnVCPD+Xxg4rbIDL1Ear20jXQ=
-X-Google-Smtp-Source: ABdhPJwgyqfhQZmST+qUmMJfbQH9nNG9wMTERbqLfZfDLKc6LtGT6612db5GWSq0gSN6itAjdhp4IWRS8xTO5tkXAQs=
-X-Received: by 2002:a17:906:90c1:: with SMTP id
- v1mr6187140ejw.322.1589618314221; 
- Sat, 16 May 2020 01:38:34 -0700 (PDT)
+ Sat, 16 May 2020 15:35:27 +0000 (UTC)
+Received: from archlinux (cpc149474-cmbg20-2-0-cust94.5-4.cable.virginm.net
+ [82.4.196.95])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+ (No client certificate requested)
+ by mail.kernel.org (Postfix) with ESMTPSA id 3DE4720727;
+ Sat, 16 May 2020 15:35:24 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
+ s=default; t=1589643326;
+ bh=6bIdM83OAz8NTK5LfuYkYjYz/+gMNTHlGbMRn7g3eRA=;
+ h=Date:From:To:Cc:Subject:In-Reply-To:References:From;
+ b=b4273gexRENjUClnSjPWBqppBfsxCPCulwXSSMnKmtQkW2MzB/1hej7sgTuuHA8M4
+ CmO7PmyAlU/3gX5mX2zuFSuVCQ6W0S4XZnhrLtaL0TAmHvKPfY8ew93CtkLKczWPRC
+ xHYCcily2ddVLnRI0BJ88lzvL1gYXZ9Q3vp1ttjE=
+Date: Sat, 16 May 2020 16:35:21 +0100
+From: Jonathan Cameron <jic23@kernel.org>
+To: Sergiu Cuciurean <sergiu.cuciurean@analog.com>
+Message-ID: <20200516163521.2812cf86@archlinux>
+In-Reply-To: <20200514085018.79948-1-sergiu.cuciurean@analog.com>
+References: <20200514085018.79948-1-sergiu.cuciurean@analog.com>
+X-Mailer: Claws Mail 3.17.5 (GTK+ 2.24.32; x86_64-pc-linux-gnu)
 MIME-Version: 1.0
-References: <20200424182139.32190-1-pop.adrian61@gmail.com>
- <3efb57a1-283b-f2f0-66a4-97e88c6c02d6@st.com>
- <CAP-HsdS0rq4iCq1oqpTU=EXF8UWbfPivCJVZG-4b7jyvdHHXUw@mail.gmail.com>
- <39c59632-e395-f7ec-12b9-ca1d667651a6@st.com>
-In-Reply-To: <39c59632-e395-f7ec-12b9-ca1d667651a6@st.com>
-From: Adrian Pop <pop.adrian61@gmail.com>
-Date: Sat, 16 May 2020 11:39:03 +0300
-Message-ID: <CAP-HsdQLnu=_dZDHfHBmWfE3TBYt3MAB6=nkier-bpe9Jc7dVw@mail.gmail.com>
-To: Alexandre Torgue <alexandre.torgue@st.com>
-Cc: devicetree@vger.kernel.org, linux-kernel@vger.kernel.org,
- Rob Herring <robh+dt@kernel.org>, Maxime Coquelin <mcoquelin.stm32@gmail.com>,
- Lee Jones <lee.jones@linaro.org>, linux-stm32@st-md-mailman.stormreply.com,
- linux-arm-kernel@lists.infradead.org
-Subject: Re: [Linux-stm32] [PATCH 2/2] arm: dts: stm32f769-disco: Enable
-	MIPI DSI display support
+Cc: Lars-Peter Clausen <lars@metafoo.de>,
+ Peter Meerwald-Stadler <pmeerw@pmeerw.net>, linux-iio@vger.kernel.org,
+ linux-kernel@vger.kernel.org, Maxime Coquelin <mcoquelin.stm32@gmail.com>,
+ Hartmut Knaack <knaack.h@gmx.de>, Fabrice Gasnier <fabrice.gasnier@st.com>,
+ linux-stm32@st-md-mailman.stormreply.com, linux-arm-kernel@lists.infradead.org
+Subject: Re: [Linux-stm32] [PATCH] iio: stm32-dac: Replace indio_dev->mlock
+ with own device lock
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -75,241 +57,78 @@ Content-Transfer-Encoding: 7bit
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
- Hello all,
+On Thu, 14 May 2020 11:50:12 +0300
+Sergiu Cuciurean <sergiu.cuciurean@analog.com> wrote:
 
-a bit of a delayed response here, but:
+> As part of the general cleanup of indio_dev->mlock, this change replaces
+> it with a local lock on the device's state structure.
+> 
+> Signed-off-by: Sergiu Cuciurean <sergiu.cuciurean@analog.com>
+> ---
+>  drivers/iio/dac/stm32-dac.c | 12 ++++++++----
+>  1 file changed, 8 insertions(+), 4 deletions(-)
+> 
+> diff --git a/drivers/iio/dac/stm32-dac.c b/drivers/iio/dac/stm32-dac.c
+> index f22c1d9129b2..74b9474c8590 100644
+> --- a/drivers/iio/dac/stm32-dac.c
+> +++ b/drivers/iio/dac/stm32-dac.c
+> @@ -26,9 +26,11 @@
+>  /**
+>   * struct stm32_dac - private data of DAC driver
+>   * @common:		reference to DAC common data
+> + * @lock: lock to protect the data buffer during regmap ops
 
-On Tue, Apr 28, 2020 at 11:39 AM Alexandre Torgue
-<alexandre.torgue@st.com> wrote:
->
-> Hi Adrian
->
-> On 4/27/20 10:05 PM, Adrian Pop wrote:
-> > Added lee.jones@linaro.org.
-> >
-> > First, thank you all for taking a look at my changes!
->
-> no pb.
->
-> >
-> > Hello Alex,
-> >
-> > On Mon, Apr 27, 2020 at 11:28 AM Alexandre Torgue
-> > <alexandre.torgue@st.com> wrote:
-> >>
-> >> Hi Adrian
-> >>
-> >> On 4/24/20 8:21 PM, Adrian Pop wrote:
-> >>> STM32f769-disco features a 4" MIPI DSI display: add support for it.
-> >>>
-> >>> Signed-off-by: Adrian Pop <pop.adrian61@gmail.com>
-> >>> ---
-> >>
-> >> Commit title should be ARM: dts: stm32: ...
-> >
-> > Will fix in next version if that's ok.
-> >
-> >>
-> >> Can you explain a bit more in your commit message why do you use a
-> >> reserved memory pool for DMA and where this pool is located. (I assume
-> >> it's linked to a story of DMA and cache memory attribute on cortexM7...)
-> >
-> > Need to look more into this, but if I remove it, /dev/fb0 is not
-> > available anymore and I get a warning stating:
-> > ...
-> > [drm] Supports vblank timestamp caching Rev 2 (21.10.2013).
-> > [drm] Initialized stm 1.0.0 20170330 for 40016800.display-controller on minor 0
-> > ------------[ cut here ]------------
-> > WARNING: CPU: 0 PID: 13 at arch/arm/mm/dma-mapping-nommu.c:50 0xc000b8ed
-> > CPU: 0 PID: 13 Comm: kworker/0:1 Not tainted 5.6.0-next-20200412 #23
-> > Hardware name: STM32 (Device Tree Support)
-> > Workqueue: events 0xc014fa35
-> > Function entered at [<c000b325>] from [<c000a487>]
-> > ...
-> >
-> > When I looked in arch/arm/mm/dma-mapping-nommu.c:50, there is a comment stating:
-> >
-> >      /*
-> >       * dma_alloc_from_global_coherent() may fail because:
-> >       *
-> >       * - no consistent DMA region has been defined, so we can't
-> >       *   continue.
-> >       * - there is no space left in consistent DMA region, so we
-> >       *   only can fallback to generic allocator if we are
-> >       *   advertised that consistency is not required.
-> >       */
-> >
-> > This is the reason I added the reserved-memory.
->
-> Note that on cortexM7 DMA can't use cached memory. For this reason you
-> have to declare a dedicated memory area for DMA with no-cache attribute.
-> It is done thanks to a "linux,dma" node plus a kernel config:
-> CONFIG_ARM_MPU. I planed to declare this dedicated memeory region in
-> sram. Can you check if add it for the same reason I explain and check if
-> it works using sram ?
->
+In this particular case I'm not sure that's what mlock was being used for.
+I think it's about avoiding races around checking if powered down and
+actually doing it.
 
-I did not have CONFIG_ARM_MPU enabled, enabled it now.
 
-Just tried with SRAM:
-reg = <0x20020000 0x60000>; /* SRAM1 368KB + SRAM2 16KB*/
+>   */
+>  struct stm32_dac {
+>  	struct stm32_dac_common *common;
+> +	struct mutex		lock;
+>  };
+>  
+>  static int stm32_dac_is_enabled(struct iio_dev *indio_dev, int channel)
+> @@ -58,10 +60,10 @@ static int stm32_dac_set_enable_state(struct iio_dev *indio_dev, int ch,
+>  	int ret;
+>  
+>  	/* already enabled / disabled ? */
+> -	mutex_lock(&indio_dev->mlock);
+> +	mutex_lock(&dac->lock);
+>  	ret = stm32_dac_is_enabled(indio_dev, ch);
+>  	if (ret < 0 || enable == !!ret) {
+> -		mutex_unlock(&indio_dev->mlock);
+> +		mutex_unlock(&dac->lock);
+>  		return ret < 0 ? ret : 0;
+>  	}
+>  
+> @@ -69,13 +71,13 @@ static int stm32_dac_set_enable_state(struct iio_dev *indio_dev, int ch,
+>  		ret = pm_runtime_get_sync(dev);
+>  		if (ret < 0) {
+>  			pm_runtime_put_noidle(dev);
+> -			mutex_unlock(&indio_dev->mlock);
+> +			mutex_unlock(&dac->lock);
+>  			return ret;
+>  		}
+>  	}
+>  
+>  	ret = regmap_update_bits(dac->common->regmap, STM32_DAC_CR, msk, en);
+> -	mutex_unlock(&indio_dev->mlock);
+> +	mutex_unlock(&dac->lock);
+>  	if (ret < 0) {
+>  		dev_err(&indio_dev->dev, "%s failed\n", en ?
+>  			"Enable" : "Disable");
+> @@ -328,6 +330,8 @@ static int stm32_dac_probe(struct platform_device *pdev)
+>  	indio_dev->info = &stm32_dac_iio_info;
+>  	indio_dev->modes = INDIO_DIRECT_MODE;
+>  
+> +	mutex_init(&dac->lock);
+> +
+>  	ret = stm32_dac_chan_of_init(indio_dev);
+>  	if (ret < 0)
+>  		return ret;
 
-but `arm_nommu_dma_alloc()` size parameter is 819200 (which is bigger
-than the SRAM reserved memory), so the
-`dma_alloc_from_global_coherent()` fails, so again I get the warning
-stated above.
-
->
->
-> >
-> > About the location, does it need to be hardcoded? On my board
-> > (STM32F769I-Disco, tftp boot) in boot log I get:
-> > ...
-> > Reserved memory: created DMA memory pool at 0xc0ef1000, size 1 MiB
-> > OF: reserved mem: initialized node linux,dma, compatible id shared-dma-pool
-> > ...
-> >
-> >>
-> >> Did you try this configuration with XIP boot ?
-> >
-> > I did not try with XIP. Currently loading zImage from tftp to memory.
-> > Will try with XIP as well, and get back with feedback.
-
-Still trying to figure how to XIP :).
-
->
-> Ok thanks.
->
-> >
-> >>
-> >> regards
-> >> alex
-> >>
-> >>>    arch/arm/boot/dts/stm32f746.dtsi      | 34 ++++++++++++++++++
-> >>>    arch/arm/boot/dts/stm32f769-disco.dts | 50 +++++++++++++++++++++++++++
-> >>>    2 files changed, 84 insertions(+)
-> >>>
-> >>> diff --git a/arch/arm/boot/dts/stm32f746.dtsi b/arch/arm/boot/dts/stm32f746.dtsi
-> >>> index 93c063796780..202bb6edc9f1 100644
-> >>> --- a/arch/arm/boot/dts/stm32f746.dtsi
-> >>> +++ b/arch/arm/boot/dts/stm32f746.dtsi
-> >>> @@ -48,6 +48,19 @@ / {
-> >>>        #address-cells = <1>;
-> >>>        #size-cells = <1>;
-> >>>
-> >>> +     reserved-memory {
-> >>> +             #address-cells = <1>;
-> >>> +             #size-cells = <1>;
-> >>> +             ranges;
-> >>> +
-> >>> +             linux,dma {
-> >>> +                     compatible = "shared-dma-pool";
-> >>> +                     linux,dma-default;
-> >>> +                     no-map;
-> >>> +                     size = <0x10F000>;
-> >>> +             };
-> >>> +     };
-> >>> +
-> >>>        clocks {
-> >>>                clk_hse: clk-hse {
-> >>>                        #clock-cells = <0>;
-> >>> @@ -75,6 +88,27 @@ clk_i2s_ckin: clk-i2s-ckin {
-> >>>        };
-> >>>
-> >>>        soc {
-> >>> +             ltdc: display-controller@40016800 {
-> >>> +                     compatible = "st,stm32-ltdc";
-> >>> +                     reg = <0x40016800 0x200>;
-> >>> +                     interrupts = <88>, <89>;
-> >>> +                     resets = <&rcc STM32F7_APB2_RESET(LTDC)>;
-> >>> +                     clocks = <&rcc 1 CLK_LCD>;
-> >>> +                     clock-names = "lcd";
-> >>> +                     status = "disabled";
-> >>> +             };
-> >>> +
-> >>> +             dsi: dsi@40016c00 {
-> >>> +                     compatible = "st,stm32-dsi";
-> >>> +                     reg = <0x40016c00 0x800>;
-> >>> +                     interrupts = <98>;
-> >>> +                     clocks = <&rcc 1 CLK_F769_DSI>, <&clk_hse>;
-> >>> +                     clock-names = "pclk", "ref";
-> >>> +                     resets = <&rcc STM32F7_APB2_RESET(DSI)>;
-> >>> +                     reset-names = "apb";
-> >>> +                     status = "disabled";
-> >>> +             };
-> >>> +
-> >>>                timer2: timer@40000000 {
-> >>>                        compatible = "st,stm32-timer";
-> >>>                        reg = <0x40000000 0x400>;
-> >>> diff --git a/arch/arm/boot/dts/stm32f769-disco.dts b/arch/arm/boot/dts/stm32f769-disco.dts
-> >>> index 1626e00bb2cb..30ebbc193e82 100644
-> >>> --- a/arch/arm/boot/dts/stm32f769-disco.dts
-> >>> +++ b/arch/arm/boot/dts/stm32f769-disco.dts
-> >>> @@ -153,3 +153,53 @@ &usbotg_hs {
-> >>>        pinctrl-names = "default";
-> >>>        status = "okay";
-> >>>    };
-> >>> +
-> >>> +&dsi {
-> >>> +     #address-cells = <1>;
-> >>> +     #size-cells = <0>;
-> >>> +     status = "okay";
-> >>> +
-> >>> +     ports {
-> >>> +             #address-cells = <1>;
-> >>> +             #size-cells = <0>;
-> >>> +
-> >>> +             port@0 {
-> >>> +                     reg = <0>;
-> >>> +                     dsi_in: endpoint {
-> >>> +                             remote-endpoint = <&ltdc_out_dsi>;
-> >>> +                     };
-> >>> +             };
-> >>> +
-> >>> +             port@1 {
-> >>> +                     reg = <1>;
-> >>> +                     dsi_out: endpoint {
-> >>> +                             remote-endpoint = <&dsi_in_panel>;
-> >>> +                     };
-> >>> +             };
-> >>> +
-> >>> +     };
-> >>> +
-> >>> +     panel: panel {
-> >>> +             compatible = "orisetech,otm8009a";
-> >>> +             reg = <0>; /* dsi virtual channel (0..3) */
-> >>> +             reset-gpios = <&gpioj 15 GPIO_ACTIVE_LOW>;
-> >>> +             status = "okay";
-> >>> +
-> >>> +             port {
-> >>> +                     dsi_in_panel: endpoint {
-> >>> +                             remote-endpoint = <&dsi_out>;
-> >>> +                     };
-> >>> +             };
-> >>> +     };
-> >>> +};
-> >>> +
-> >>> +&ltdc {
-> >>> +     dma-ranges;
-> >
-> > Need to remove this, not needed and causes a warning.
-> >
-> >>> +     status = "okay";
-> >>> +
-> >>> +     port {
-> >>> +             ltdc_out_dsi: endpoint {
-> >>> +                     remote-endpoint = <&dsi_in>;
-> >>> +             };
-> >>> +     };
-> >>> +};
-> >>>
-> >
-> > Regards,
-> > Adrian
-> >
-
-Regards,
-Adrian
 _______________________________________________
 Linux-stm32 mailing list
 Linux-stm32@st-md-mailman.stormreply.com
