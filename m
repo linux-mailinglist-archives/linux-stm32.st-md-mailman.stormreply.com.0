@@ -2,64 +2,59 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id AAE631D937F
-	for <lists+linux-stm32@lfdr.de>; Tue, 19 May 2020 11:41:32 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id E5E411DA02C
+	for <lists+linux-stm32@lfdr.de>; Tue, 19 May 2020 21:00:25 +0200 (CEST)
 Received: from ip-172-31-3-76.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 61DD7C36B22;
-	Tue, 19 May 2020 09:41:32 +0000 (UTC)
-Received: from mx07-00178001.pphosted.com (mx07-00178001.pphosted.com
- [62.209.51.94])
- (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 1910CC36B22;
+	Tue, 19 May 2020 19:00:24 +0000 (UTC)
+Received: from mail-il1-f193.google.com (mail-il1-f193.google.com
+ [209.85.166.193])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 871A3C36B0B
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 5A6B9C36B0B
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Tue, 19 May 2020 09:41:30 +0000 (UTC)
-Received: from pps.filterd (m0046037.ppops.net [127.0.0.1])
- by mx07-00178001.pphosted.com (8.16.0.42/8.16.0.42) with SMTP id
- 04J9bCoK002859; Tue, 19 May 2020 11:41:13 +0200
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=st.com;
- h=from : to : cc : subject
- : date : message-id : mime-version : content-type; s=STMicroelectronics;
- bh=8umFBsqpXSyvV7P7Pt39jOOMGvMU9GE2G14TF8W9jgU=;
- b=CjcChvegMRR43kcF7VLmveYY3LeTbNP17nhluegroU/5+HEvQtGYduaZa4aBSWaz6hbm
- jZkaPjuVERGrfu3I5Yzf2SpMK08NSarRsty9Ffp1fxTff6Y9ykpSKjGNjQ+Fm1gsk5JX
- a5r0LvSOqXWI6MVOOIv45q9zV1YlsTKD6p5udChBW/fCXtow3Arj7pG2JAAlDk1wZopb
- g+ZOGREMtPrvN2goEFx4njwzqBHI12NAb5+vQVcm2rm1xKbqJrHKVRV09x8D1HHetv6r
- nzHbked10gKBadtATbbVKu2HXMNM1edJW6VQxNNNvfdTBXoB+UQa8Uv1wz3xLmcvikNB 8A== 
-Received: from beta.dmz-eu.st.com (beta.dmz-eu.st.com [164.129.1.35])
- by mx07-00178001.pphosted.com with ESMTP id 3125xxs1b2-1
- (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
- Tue, 19 May 2020 11:41:13 +0200
-Received: from euls16034.sgp.st.com (euls16034.sgp.st.com [10.75.44.20])
- by beta.dmz-eu.st.com (STMicroelectronics) with ESMTP id D257310002A;
- Tue, 19 May 2020 11:41:10 +0200 (CEST)
-Received: from Webmail-eu.st.com (sfhdag3node1.st.com [10.75.127.7])
- by euls16034.sgp.st.com (STMicroelectronics) with ESMTP id BD9F12B1881;
- Tue, 19 May 2020 11:41:10 +0200 (CEST)
-Received: from localhost (10.75.127.47) by SFHDAG3NODE1.st.com (10.75.127.7)
- with Microsoft SMTP Server (TLS) id 15.0.1473.3; Tue, 19 May 2020 11:41:10
- +0200
-From: Erwan Le Ray <erwan.leray@st.com>
-To: Greg Kroah-Hartman <gregkh@linuxfoundation.org>, Jiri Slaby
- <jslaby@suse.com>, Maxime Coquelin <mcoquelin.stm32@gmail.com>, Alexandre
- Torgue <alexandre.torgue@st.com>, Sumit Semwal <sumit.semwal@linaro.org>
-Date: Tue, 19 May 2020 11:41:04 +0200
-Message-ID: <20200519094104.27082-1-erwan.leray@st.com>
-X-Mailer: git-send-email 2.17.1
+ Tue, 19 May 2020 19:00:22 +0000 (UTC)
+Received: by mail-il1-f193.google.com with SMTP id m6so483648ilq.7
+ for <linux-stm32@st-md-mailman.stormreply.com>;
+ Tue, 19 May 2020 12:00:22 -0700 (PDT)
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20161025;
+ h=x-gm-message-state:date:from:to:cc:subject:message-id:references
+ :mime-version:content-disposition:in-reply-to;
+ bh=CigNBiFGguISDYdSjZo6JK7yGCkqs8bnsK3pMxkFnS0=;
+ b=hPYmBDX9wvhBd+/Lbgzc9/2dbc0kp7b5b+J6Yhv3EIzwunhIgr1WRvF/gsQKPJ/1nG
+ cHBvnVOEMxSCTc874V4NmMZAZHSrqWWKGVSKxr9HYIhAap1SdiE5T4I5UW3sCmVbmQGC
+ fTB9OiA1LLCoLunb7qul5fVhjW2mBZZ7m17ZQF7tWkjsAMP4j/lI0LKiRhs3ThD41//i
+ yVtJhHvQeRflMLUJHwL2KSoOfyyrxC+MAEXvCrV4VPmIa0IxXCHITl2vdgDvlFKXyxno
+ 9+m8MnRCNaoh+QTmulUc9+VEQb+yhpjMSfPIHxt010pn+75vbMKncN0HLVuJ0Ebln9n9
+ ezBw==
+X-Gm-Message-State: AOAM532DS2Ia2obhnN4Huvx7Mzb3LDpGLb7RpEry73ZQrhvjT7h8LINa
+ 50E+tYMXZUee82pwCHVhMg==
+X-Google-Smtp-Source: ABdhPJx7GM4OuG3FNL/RP90uFPgLl2sZetDsvHbDfXe9ifMm1+a3LfvTd1zFF24wU8jDuhFOpm62mA==
+X-Received: by 2002:a05:6e02:cc5:: with SMTP id
+ c5mr472948ilj.152.1589914820957; 
+ Tue, 19 May 2020 12:00:20 -0700 (PDT)
+Received: from xps15 ([64.188.179.252])
+ by smtp.gmail.com with ESMTPSA id b8sm130937iln.47.2020.05.19.12.00.19
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Tue, 19 May 2020 12:00:20 -0700 (PDT)
+Received: (nullmailer pid 478222 invoked by uid 1000);
+ Tue, 19 May 2020 19:00:19 -0000
+Date: Tue, 19 May 2020 13:00:19 -0600
+From: Rob Herring <robh@kernel.org>
+To: Etienne Carriere <etienne.carriere@linaro.org>
+Message-ID: <20200519190019.GA478168@bogus>
+References: <20200512131334.1750-1-etienne.carriere@linaro.org>
 MIME-Version: 1.0
-X-Originating-IP: [10.75.127.47]
-X-ClientProxiedBy: SFHDAG5NODE3.st.com (10.75.127.15) To SFHDAG3NODE1.st.com
- (10.75.127.7)
-X-Proofpoint-Virus-Version: vendor=fsecure engine=2.50.10434:6.0.216, 18.0.676
- definitions=2020-05-19_03:2020-05-19,
- 2020-05-19 signatures=0
-Cc: linux-kernel@vger.kernel.org, dri-devel@lists.freedesktop.org,
- linaro-mm-sig@lists.linaro.org, linux-serial@vger.kernel.org,
- Fabrice Gasnier <fabrice.gasnier@st.com>,
- linux-stm32@st-md-mailman.stormreply.com, linux-arm-kernel@lists.infradead.org,
- linux-media@vger.kernel.org
-Subject: [Linux-stm32] [PATCH 1/1] serial: stm32: add no_console_suspend
-	support
+Content-Disposition: inline
+In-Reply-To: <20200512131334.1750-1-etienne.carriere@linaro.org>
+Cc: Etienne Carriere <etienne.carriere@st.com>, devicetree@vger.kernel.org,
+ linux-kernel@vger.kernel.org, robh+dt@kernel.org,
+ srinivas.kandagatla@linaro.org, mcoquelin.stm32@gmail.com,
+ fabrice.gasnier@st.com, linux-stm32@st-md-mailman.stormreply.com,
+ linux-arm-kernel@lists.infradead.org
+Subject: Re: [Linux-stm32] [PATCH v2] dt-bindings: nvmem: stm32: new
+ property for data access
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -76,46 +71,30 @@ Content-Transfer-Encoding: 7bit
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
-In order to display console messages in low power mode, console pins
-must be kept active after suspend call.
+On Tue, 12 May 2020 15:13:34 +0200, Etienne Carriere wrote:
+> From: Etienne Carriere <etienne.carriere@st.com>
+> 
+> Introduce boolean property st,non-secure-otp for OTP data located
+> in a factory programmed area that only secure firmware can access
+> by default and that shall be reachable from the non-secure world.
+> 
+> This change also allows additional properties for NVMEM nodes that
+> were forbidden prior this change.
+> 
+> Signed-off-by: Etienne Carriere <etienne.carriere@st.com>
+> ---
+> Changes since v1:
+>   Change nvmem.yaml to allow additional properties in NVMEM nodes.
+> 
+> Link to v1:
+>   https://lore.kernel.org/patchwork/patch/1239028/
+> 
+>  .../devicetree/bindings/nvmem/nvmem.yaml        |  2 --
+>  .../bindings/nvmem/st,stm32-romem.yaml          | 17 +++++++++++++++++
+>  2 files changed, 17 insertions(+), 2 deletions(-)
+> 
 
----
-Initial patch "serial: stm32: add support for no_console_suspend" was part
-of "STM32 usart power improvement" series, but as dependancy to
-console_suspend pinctl state has been removed to fit with Rob comment [1],
-this patch has no more dependancy with any other patch of this series.
-
-[1] https://lkml.org/lkml/2019/7/9/451
-
-Signed-off-by: Erwan Le Ray <erwan.leray@st.com>
-
-diff --git a/drivers/tty/serial/stm32-usart.c b/drivers/tty/serial/stm32-usart.c
-index 9cfcf355567a..5afd29162f6c 100644
---- a/drivers/tty/serial/stm32-usart.c
-+++ b/drivers/tty/serial/stm32-usart.c
-@@ -1425,7 +1425,18 @@ static int __maybe_unused stm32_serial_suspend(struct device *dev)
- 	else
- 		stm32_serial_enable_wakeup(port, false);
- 
--	pinctrl_pm_select_sleep_state(dev);
-+	/*
-+	 * When "no_console_suspend" is enabled, keep the pinctrl default state
-+	 * and rely on bootloader stage to restore this state upon resume.
-+	 * Otherwise, apply the idle or sleep states depending on wakeup
-+	 * capabilities.
-+	 */
-+	if (console_suspend_enabled || !uart_console(port)) {
-+		if (device_may_wakeup(dev))
-+			pinctrl_pm_select_idle_state(dev);
-+		else
-+			pinctrl_pm_select_sleep_state(dev);
-+	}
- 
- 	return 0;
- }
--- 
-2.17.1
-
+Applied, thanks!
 _______________________________________________
 Linux-stm32 mailing list
 Linux-stm32@st-md-mailman.stormreply.com
