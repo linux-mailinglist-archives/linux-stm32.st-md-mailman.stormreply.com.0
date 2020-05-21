@@ -2,49 +2,54 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id 668191DE131
-	for <lists+linux-stm32@lfdr.de>; Fri, 22 May 2020 09:43:47 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 133661DD5DA
+	for <lists+linux-stm32@lfdr.de>; Thu, 21 May 2020 20:19:33 +0200 (CEST)
 Received: from ip-172-31-3-76.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 2BDD3C36B28;
-	Fri, 22 May 2020 07:43:47 +0000 (UTC)
-Received: from zju.edu.cn (mail.zju.edu.cn [61.164.42.155])
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id C8493C36B21
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id B14BFC36B24;
+	Thu, 21 May 2020 18:19:32 +0000 (UTC)
+Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
+ (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
+ (No client certificate requested)
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 5771EC36B22
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Thu, 21 May 2020 07:08:56 +0000 (UTC)
-Received: from localhost.localdomain (unknown [222.205.77.158])
- by mail-app3 (Coremail) with SMTP id cC_KCgB3P7UAKcZe4sHmAA--.4260S4;
- Thu, 21 May 2020 15:08:52 +0800 (CST)
-From: Dinghao Liu <dinghao.liu@zju.edu.cn>
-To: dinghao.liu@zju.edu.cn,
-	kjlu@umn.edu
-Date: Thu, 21 May 2020 15:08:47 +0800
-Message-Id: <20200521070847.13957-1-dinghao.liu@zju.edu.cn>
-X-Mailer: git-send-email 2.17.1
-X-CM-TRANSID: cC_KCgB3P7UAKcZe4sHmAA--.4260S4
-X-Coremail-Antispam: 1UD129KBjvdXoWrKrWrZF15CFyUGr4xXF1UKFg_yoWfArc_Gr
- 1ku3ZrCw1vgFZ5J34UGF98ZryS9r98W348Zw40yFySk34Fvw1DGrWUZr93Cr47XrsrKr12
- k3WDWF1fArsrCjkaLaAFLSUrUUUUUb8apTn2vfkv8UJUUUU8Yxn0WfASr-VFAUDa7-sFnT
- 9fnUUIcSsGvfJTRUUUbxAFc2x0x2IEx4CE42xK8VAvwI8IcIk0rVWrJVCq3wAFIxvE14AK
- wVWUJVWUGwA2ocxC64kIII0Yj41l84x0c7CEw4AK67xGY2AK021l84ACjcxK6xIIjxv20x
- vE14v26w1j6s0DM28EF7xvwVC0I7IYx2IY6xkF7I0E14v26rxl6s0DM28EF7xvwVC2z280
- aVAFwI0_GcCE3s1l84ACjcxK6I8E87Iv6xkF7I0E14v26rxl6s0DM2AIxVAIcxkEcVAq07
- x20xvEncxIr21l5I8CrVACY4xI64kE6c02F40Ex7xfMcIj6xIIjxv20xvE14v26r1Y6r17
- McIj6I8E87Iv67AKxVW8JVWxJwAm72CE4IkC6x0Yz7v_Jr0_Gr1lF7xvr2IYc2Ij64vIr4
- 1lF7I21c0EjII2zVCS5cI20VAGYxC7MxkIecxEwVAFwVW8CwCF04k20xvY0x0EwIxGrwCF
- 04k20xvE74AGY7Cv6cx26r4fKr1UJr1l4I8I3I0E4IkC6x0Yz7v_Jr0_Gr1lx2IqxVAqx4
- xG67AKxVWUJVWUGwC20s026x8GjcxK67AKxVWUGVWUWwC2zVAF1VAY17CE14v26r1q6r43
- MIIYrxkI7VAKI48JMIIF0xvE2Ix0cI8IcVAFwI0_Jr0_JF4lIxAIcVC0I7IYx2IY6xkF7I
- 0E14v26r4j6F4UMIIF0xvE42xK8VAvwI8IcIk0rVW3JVWrJr1lIxAIcVC2z280aVAFwI0_
- Gr0_Cr1lIxAIcVC2z280aVCY1x0267AKxVW8Jr0_Cr1UYxBIdaVFxhVjvjDU0xZFpf9x0J
- U67KsUUUUU=
-X-CM-SenderInfo: qrrzjiaqtzq6lmxovvfxof0/1tbiAgEHBlZdtOPItAACsg
-X-Mailman-Approved-At: Fri, 22 May 2020 07:43:45 +0000
-Cc: linux-kernel@vger.kernel.org,
- Pierre-Yves MORDRET <pierre-yves.mordret@st.com>, linux-i2c@vger.kernel.org,
- Maxime Coquelin <mcoquelin.stm32@gmail.com>,
- linux-stm32@st-md-mailman.stormreply.com, linux-arm-kernel@lists.infradead.org
-Subject: [Linux-stm32] [PATCH] i2c: stm32f7: Fix runtime PM imbalance in
-	stm32f7_i2c_unreg_slave
+ Thu, 21 May 2020 18:19:27 +0000 (UTC)
+Received: from archlinux (cpc149474-cmbg20-2-0-cust94.5-4.cable.virginm.net
+ [82.4.196.95])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+ (No client certificate requested)
+ by mail.kernel.org (Postfix) with ESMTPSA id 52A4E20738;
+ Thu, 21 May 2020 18:19:24 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
+ s=default; t=1590085166;
+ bh=N5CsmBgzgRJ1qoSjQJyCqgE9IOj3hAVxpxWnjwMHcOw=;
+ h=Date:From:To:Cc:Subject:In-Reply-To:References:From;
+ b=Sid+RAofpJhvVSePV8bzGp+OZMlEJfxE7e+9xOWfDmVLegyKQnOgPc3nSTCPsC5hP
+ cA1F18rZmRreoph12CkIhK+B3aUHnjMRyG2RXLt2QMgmjtjzVIok24QNlTbalhEa/0
+ Yn+IsceiGCdvPfkRTpU8D7Sf3FEzdiKaCkv9zVdc=
+Date: Thu, 21 May 2020 19:19:21 +0100
+From: Jonathan Cameron <jic23@kernel.org>
+To: "Ardelean, Alexandru" <alexandru.Ardelean@analog.com>
+Message-ID: <20200521191921.11473cba@archlinux>
+In-Reply-To: <99993df0dce7f7561e9659985265d6c1f5839208.camel@analog.com>
+References: <20200514131710.84201-1-alexandru.ardelean@analog.com>
+ <20200514131710.84201-4-alexandru.ardelean@analog.com>
+ <20200516181749.243c9515@archlinux>
+ <99993df0dce7f7561e9659985265d6c1f5839208.camel@analog.com>
+X-Mailer: Claws Mail 3.17.5 (GTK+ 2.24.32; x86_64-pc-linux-gnu)
+MIME-Version: 1.0
+Cc: "alexandre.belloni@bootlin.com" <alexandre.belloni@bootlin.com>,
+ "linux-iio@vger.kernel.org" <linux-iio@vger.kernel.org>,
+ "linux-kernel@vger.kernel.org" <linux-kernel@vger.kernel.org>,
+ "nicolas.ferre@microchip.com" <nicolas.ferre@microchip.com>,
+ "ludovic.desroches@microchip.com" <ludovic.desroches@microchip.com>,
+ "ak@it-klinger.de" <ak@it-klinger.de>,
+ "mcoquelin.stm32@gmail.com" <mcoquelin.stm32@gmail.com>,
+ "eugen.hristev@microchip.com" <eugen.hristev@microchip.com>,
+ "linux-stm32@st-md-mailman.stormreply.com"
+ <linux-stm32@st-md-mailman.stormreply.com>,
+ "linux-arm-kernel@lists.infradead.org" <linux-arm-kernel@lists.infradead.org>
+Subject: Re: [Linux-stm32] [PATCH v2 3/8] iio: at91_adc: pass ref to IIO
+ device via param for int function
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -56,39 +61,99 @@ List-Post: <mailto:linux-stm32@st-md-mailman.stormreply.com>
 List-Help: <mailto:linux-stm32-request@st-md-mailman.stormreply.com?subject=help>
 List-Subscribe: <https://st-md-mailman.stormreply.com/mailman/listinfo/linux-stm32>, 
  <mailto:linux-stm32-request@st-md-mailman.stormreply.com?subject=subscribe>
-MIME-Version: 1.0
 Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
-pm_runtime_get_sync() increments the runtime PM usage counter even
-the call returns an error code. Thus a pairing decrement is needed
-on the error handling path to keep the counter balanced.
+On Mon, 18 May 2020 08:32:11 +0000
+"Ardelean, Alexandru" <alexandru.Ardelean@analog.com> wrote:
 
-Signed-off-by: Dinghao Liu <dinghao.liu@zju.edu.cn>
----
- drivers/i2c/busses/i2c-stm32f7.c | 4 +++-
- 1 file changed, 3 insertions(+), 1 deletion(-)
+> On Sat, 2020-05-16 at 18:17 +0100, Jonathan Cameron wrote:
+> > [External]
+> > 
+> > On Thu, 14 May 2020 16:17:05 +0300
+> > Alexandru Ardelean <alexandru.ardelean@analog.com> wrote:
+> >   
+> > > Since there will be some changes to how iio_priv_to_dev() is implemented,
+> > > it could be that the helper becomes a bit slower, as it will be hidden away
+> > > in the IIO core.
+> > > 
+> > > For this driver, the IIO device can be passed directly as a parameter to
+> > > the at91_ts_sample() function, thus making it immune to the change of
+> > > iio_priv_to_dev().
+> > > The function gets called in an interrupt context.
+> > > 
+> > > Signed-off-by: Alexandru Ardelean <alexandru.ardelean@analog.com>  
+> > I wonder. Should we just pass the struct device?  It's only used for
+> > error printing I think, so we could make that explicit.  
+> 
+> I was also thinking that for this series, [for some drivers] it would make sense
+> to put a reference to indio_dev on the state-struct; and just return it.
+> I'll see about it.
+> I am feeling that sometimes these IIO core cleanups end up being more than I
+> want to do. But I'll try to see about it. Maybe I can make time or delegate some
+> of this.
 
-diff --git a/drivers/i2c/busses/i2c-stm32f7.c b/drivers/i2c/busses/i2c-stm32f7.c
-index 330ffed011e0..6f5f0fa68385 100644
---- a/drivers/i2c/busses/i2c-stm32f7.c
-+++ b/drivers/i2c/busses/i2c-stm32f7.c
-@@ -1837,8 +1837,10 @@ static int stm32f7_i2c_unreg_slave(struct i2c_client *slave)
- 	WARN_ON(!i2c_dev->slave[id]);
- 
- 	ret = pm_runtime_get_sync(i2c_dev->dev);
--	if (ret < 0)
-+	if (ret < 0) {
-+		pm_runtime_put_autosuspend(i2c_dev->dev);
- 		return ret;
-+	}
- 
- 	if (id == 0) {
- 		mask = STM32F7_I2C_OAR1_OA1EN;
--- 
-2.17.1
+Absolutely understood.  No problem if you don't have time / energy to
+do this stuff.  I very much appreciate it when you do, but I know how
+unrewarding it can be!
+
+> 
+> My personal interest with them, is to reduce my complaints during reviews.
+> People starting to write IIO drivers: well, I can see their frustration [on
+> their faces] when I complain that they shouldn't use something, and they copied
+> it from somewhere.
+> 
+
+That's more or less the only reason I write IIO patches currently!
+Though I get to mostly avoid seeing the faces of those who fall
+into the traps of old code we should have tidied up years ago :(
+Not gotten near any of new hardware pile of IIO hardware in a long time.
+Plenty of other new hardware, but not IIO stuff!
+
+Jonathan
+
+> 
+> > 
+> > I'm not that bothered either way though.
+> > 
+> > Jonathan
+> >   
+> > > ---
+> > >  drivers/iio/adc/at91_adc.c | 5 ++---
+> > >  1 file changed, 2 insertions(+), 3 deletions(-)
+> > > 
+> > > diff --git a/drivers/iio/adc/at91_adc.c b/drivers/iio/adc/at91_adc.c
+> > > index 0368b6dc6d60..5999defe47cd 100644
+> > > --- a/drivers/iio/adc/at91_adc.c
+> > > +++ b/drivers/iio/adc/at91_adc.c
+> > > @@ -287,13 +287,12 @@ static void handle_adc_eoc_trigger(int irq, struct
+> > > iio_dev *idev)
+> > >  	}
+> > >  }
+> > >  
+> > > -static int at91_ts_sample(struct at91_adc_state *st)
+> > > +static int at91_ts_sample(struct iio_dev *idev, struct at91_adc_state *st)
+> > >  {
+> > >  	unsigned int xscale, yscale, reg, z1, z2;
+> > >  	unsigned int x, y, pres, xpos, ypos;
+> > >  	unsigned int rxp = 1;
+> > >  	unsigned int factor = 1000;
+> > > -	struct iio_dev *idev = iio_priv_to_dev(st);
+> > >  
+> > >  	unsigned int xyz_mask_bits = st->res;
+> > >  	unsigned int xyz_mask = (1 << xyz_mask_bits) - 1;
+> > > @@ -449,7 +448,7 @@ static irqreturn_t at91_adc_9x5_interrupt(int irq, void
+> > > *private)
+> > >  
+> > >  		if (status & AT91_ADC_ISR_PENS) {
+> > >  			/* validate data by pen contact */
+> > > -			at91_ts_sample(st);
+> > > +			at91_ts_sample(idev, st);
+> > >  		} else {
+> > >  			/* triggered by event that is no pen contact, just read
+> > >  			 * them to clean the interrupt and discard all.  
 
 _______________________________________________
 Linux-stm32 mailing list
