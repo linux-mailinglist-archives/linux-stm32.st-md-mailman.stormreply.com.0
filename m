@@ -2,94 +2,68 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id 726381DE278
-	for <lists+linux-stm32@lfdr.de>; Fri, 22 May 2020 10:57:01 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 7A1EF1DE4C2
+	for <lists+linux-stm32@lfdr.de>; Fri, 22 May 2020 12:47:06 +0200 (CEST)
 Received: from ip-172-31-3-76.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 275EBC36B25;
-	Fri, 22 May 2020 08:57:01 +0000 (UTC)
-Received: from mail-pj1-f67.google.com (mail-pj1-f67.google.com
- [209.85.216.67])
- (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 44522C36B25;
+	Fri, 22 May 2020 10:47:06 +0000 (UTC)
+Received: from mx0a-00128a01.pphosted.com (mx0a-00128a01.pphosted.com
+ [148.163.135.77])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id D25AFC36B23
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 34180C36B23
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Fri, 22 May 2020 08:56:58 +0000 (UTC)
-Received: by mail-pj1-f67.google.com with SMTP id q9so4711009pjm.2
- for <linux-stm32@st-md-mailman.stormreply.com>;
- Fri, 22 May 2020 01:56:58 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20161025;
- h=mime-version:references:in-reply-to:from:date:message-id:subject:to
- :cc; bh=HqSbS1DmOxb6NnvLUkPt9gWJFICRLVchToB7BWy3wkM=;
- b=Qr0aiPW8ez2hrgndNNW2aOj6iqlB62Q8Csen7rUnDQ4NRSQgabRdbt4Bar3FrgoeRU
- YXe/TP39TtOUlyEh1cLBPdZCk/3YLTXEI8exjjKaqMuHdbLDb/LDti2axS0fZoZdjv6X
- 0rk/fuJGk8gCNdmHKmpZH1mOAOuASHs+GvXFrs0vC465xuXuDc20FQ9MDZktvpkvvcM+
- wP1+Dj3op/rsVKhvvxL00J+CujdvevgPnITzD52gyqucL8HCn+9kocVSp/x8eCG/ChO+
- d53iF9MzUCWVAhIo2r3a8H2gA92P6tU2Yaymg7kj07BQto/HSxVIzbiWLzcUStYCPO+c
- Rxyw==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20161025;
- h=x-gm-message-state:mime-version:references:in-reply-to:from:date
- :message-id:subject:to:cc;
- bh=HqSbS1DmOxb6NnvLUkPt9gWJFICRLVchToB7BWy3wkM=;
- b=AUSEJ8W9Xr8zrHjIEcLShNf8BK8ZLuKHTvw//73IfTLa5jIWB9GU5EnWFW36wQ4GgV
- Xk82agM3OlHe/mb9GRi9xAMl0SNZ977xW8VI/26NRpVK0s/QFPHHiMnTTZv0GnsbxOmR
- 7Au7xzliQCprBinJJBIJC3pMHBsaodJQT83tqY6nWWla3zo9i+pIZ0mKgbtrWrvBkyAw
- eLv5b2AJ9v+NZeIh14ajr3HTcHS1o2Efp98fSY86Z8pP2odc0Us2PHb93SAFtXdFXKsO
- 01Q7LDJqarO1VeoOhR9iT/jqprRlBnHwKnW+VkU2AqrYRM0VQ+iwYydCo6IIJCLQ7PNR
- ih3w==
-X-Gm-Message-State: AOAM530p/iOU/4zJ2wux1b3RgW5S4Uw4pu1l7DPSmXE+ABxLJuh00zKN
- 0NFdtG+ylWUuvYNnyiIDwgiCS+f4KYCIxU/HzQY=
-X-Google-Smtp-Source: ABdhPJwsYnXnt44yegP0XDUJYXKvunyOh6UzNzQcRgehUIEvMayZ6aBV9NpqOVREx8Il9izBbtLfXR3AicsFux8O3e4=
-X-Received: by 2002:a17:902:ea8a:: with SMTP id
- x10mr13795881plb.255.1590137817033; 
- Fri, 22 May 2020 01:56:57 -0700 (PDT)
+ Fri, 22 May 2020 10:47:04 +0000 (UTC)
+Received: from pps.filterd (m0167088.ppops.net [127.0.0.1])
+ by mx0a-00128a01.pphosted.com (8.16.0.42/8.16.0.42) with SMTP id
+ 04MAjAGC032134; Fri, 22 May 2020 06:46:42 -0400
+Received: from nwd2mta3.analog.com ([137.71.173.56])
+ by mx0a-00128a01.pphosted.com with ESMTP id 312a17e5we-1
+ (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
+ Fri, 22 May 2020 06:46:42 -0400
+Received: from ASHBMBX9.ad.analog.com (ashbmbx9.ad.analog.com [10.64.17.10])
+ by nwd2mta3.analog.com (8.14.7/8.14.7) with ESMTP id 04MAkf6d064238
+ (version=TLSv1/SSLv3 cipher=ECDHE-RSA-AES128-GCM-SHA256 bits=128 verify=FAIL); 
+ Fri, 22 May 2020 06:46:41 -0400
+Received: from ASHBCASHYB4.ad.analog.com (10.64.17.132) by
+ ASHBMBX9.ad.analog.com (10.64.17.10) with Microsoft SMTP Server
+ (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
+ 15.1.1779.2; Fri, 22 May 2020 06:46:40 -0400
+Received: from ASHBMBX8.ad.analog.com (10.64.17.5) by
+ ASHBCASHYB4.ad.analog.com (10.64.17.132) with Microsoft SMTP Server
+ (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
+ 15.1.1779.2; Fri, 22 May 2020 06:46:40 -0400
+Received: from zeus.spd.analog.com (10.64.82.11) by ASHBMBX8.ad.analog.com
+ (10.64.17.5) with Microsoft SMTP Server id 15.1.1779.2 via Frontend
+ Transport; Fri, 22 May 2020 06:46:40 -0400
+Received: from saturn.ad.analog.com ([10.48.65.112])
+ by zeus.spd.analog.com (8.15.1/8.15.1) with ESMTP id 04MAkaQp011641;
+ Fri, 22 May 2020 06:46:36 -0400
+From: Alexandru Ardelean <alexandru.ardelean@analog.com>
+To: <linux-iio@vger.kernel.org>, <linux-kernel@vger.kernel.org>,
+ <linux-arm-kernel@lists.infradead.org>,
+ <linux-stm32@st-md-mailman.stormreply.com>
+Date: Fri, 22 May 2020 13:46:30 +0300
+Message-ID: <20200522104632.517470-1-alexandru.ardelean@analog.com>
+X-Mailer: git-send-email 2.25.1
 MIME-Version: 1.0
-References: <20200522082208.383631-1-alexandru.ardelean@analog.com>
-In-Reply-To: <20200522082208.383631-1-alexandru.ardelean@analog.com>
-From: Andy Shevchenko <andy.shevchenko@gmail.com>
-Date: Fri, 22 May 2020 11:56:40 +0300
-Message-ID: <CAHp75VfqxJxa1Uk3h4vfzQOdZDRr8Lqvt3Z5vzpp5NAw=u_ZPQ@mail.gmail.com>
-To: Alexandru Ardelean <alexandru.ardelean@analog.com>
-Cc: milo.kim@ti.com, tomislav.denis@avl.com,
- Dan Robertson <dan@dlrobertson.com>,
- =?UTF-8?Q?Heiko_St=C3=BCbner?= <heiko@sntech.de>,
- linux-aspeed@lists.ozlabs.org, linux-iio <linux-iio@vger.kernel.org>,
- Linus Walleij <linus.walleij@linaro.org>, Eddie James <eajames@linux.ibm.com>,
- Platform Driver <platform-driver-x86@vger.kernel.org>,
- Paul Cercueil <paul@crapouillou.net>,
- Lorenzo Bianconi <lorenzo.bianconi83@gmail.com>,
- Song Qiang <songqiang1304521@gmail.com>,
- Srinivas Pandruvada <srinivas.pandruvada@linux.intel.com>,
- linux-stm32@st-md-mailman.stormreply.com,
- "open list:STAGING SUBSYSTEM" <devel@driverdev.osuosl.org>,
- linux-samsung-soc@vger.kernel.org, Kevin Hilman <khilman@baylibre.com>,
- tduszyns@gmail.com, Krzysztof Kozlowski <krzk@kernel.org>,
- linux-rockchip@lists.infradead.org, Chen-Yu Tsai <wens@csie.org>,
- Kukjin Kim <kgene@kernel.org>,
- bcm-kernel-feedback-list <bcm-kernel-feedback-list@broadcom.com>,
- agross@kernel.org, linux-input <linux-input@vger.kernel.org>,
- orsonzhai@gmail.com, Linux PM <linux-pm@vger.kernel.org>,
- linux-arm-msm@vger.kernel.org, Sascha Hauer <s.hauer@pengutronix.de>,
- Jiri Kosina <jikos@kernel.org>,
- William Breathitt Gray <vilhelm.gray@gmail.com>,
- Maxime Ripard <mripard@kernel.org>, Vladimir Zapolskiy <vz@mleia.com>,
- Hans de Goede <hdegoede@redhat.com>,
- "moderated list:ARM/Mediatek SoC support" <linux-mediatek@lists.infradead.org>,
- Andreas Klinger <ak@it-klinger.de>, Matthias Brugger <matthias.bgg@gmail.com>,
- linux-amlogic@lists.infradead.org, Fabrice GASNIER <fabrice.gasnier@st.com>,
- linux-arm Mailing List <linux-arm-kernel@lists.infradead.org>,
- Scott Branden <sbranden@broadcom.com>, rmfrfs@gmail.com,
- Shawn Guo <shawnguo@kernel.org>, Dmitry Torokhov <dmitry.torokhov@gmail.com>,
- Azael Avalos <coproscefalo@gmail.com>,
- Linux Kernel Mailing List <linux-kernel@vger.kernel.org>,
- Ray Jui <rjui@broadcom.com>, Sylvain Lemieux <slemieux.tyco@gmail.com>,
- Bjorn Andersson <bjorn.andersson@linaro.org>,
- Maxime Coquelin <mcoquelin.stm32@gmail.com>, zhang.lyra@gmail.com,
- baolin.wang7@gmail.com, Kevin Tsai <ktsai@capellamicro.com>,
- Syed Nayyar Waris <syednwaris@gmail.com>, Peter Rosin <peda@axentia.se>,
- Jonathan Cameron <jic23@kernel.org>
-Subject: Re: [Linux-stm32] [PATCH 1/5] iio: core: pass parent device as
-	parameter during allocation
+X-ADIRoutedOnPrem: True
+X-Proofpoint-Virus-Version: vendor=fsecure engine=2.50.10434:6.0.216, 18.0.676
+ definitions=2020-05-22_05:2020-05-22,
+ 2020-05-22 signatures=0
+X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
+ bulkscore=0 phishscore=0
+ priorityscore=1501 mlxlogscore=999 spamscore=0 impostorscore=0
+ clxscore=1015 malwarescore=0 lowpriorityscore=0 cotscore=-2147483648
+ suspectscore=0 adultscore=0 mlxscore=0 classifier=spam adjust=0 reason=mlx
+ scancount=1 engine=8.12.0-2004280000 definitions=main-2005220088
+Cc: Lars-Peter Clausen <lars@metafoo.de>, linus.walleij@linaro.org,
+ songqiang1304521@gmail.com, mcoquelin.stm32@gmail.com,
+ lorenzo.bianconi83@gmail.com,
+ Alexandru Ardelean <alexandru.ardelean@analog.com>, shawnguo@kernel.org,
+ s.hauer@pengutronix.de, jic23@kernel.org
+Subject: [Linux-stm32] [PATCH 1/3] iio: Move attach/detach of the poll func
+	to the core
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -106,199 +80,187 @@ Content-Transfer-Encoding: 7bit
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
-On Fri, May 22, 2020 at 11:36 AM Alexandru Ardelean
-<alexandru.ardelean@analog.com> wrote:
->
-> The change passes the parent device to the iio_device_alloc() call. This
-> also updates the devm_iio_device_alloc() call to consider the device object
-> as the parent device by default.
->
-> Having it passed like this, should ensure that any IIO device object
-> already has a device object as parent, allowing for neater control, like
-> passing the 'indio_dev' object for other stuff [like buffers/triggers/etc],
-> and potentially creating iiom_xxx(indio_dev) functions.
->
-> With this patch, only the 'drivers/platform/x86/toshiba_acpi.c' needs an
-> update to pass the parent object as a parameter.
+From: Lars-Peter Clausen <lars@metafoo.de>
 
-Acked-by: Andy Shevchenko <andy.shevchenko@gmail.com>
+All devices using a triggered buffer need to attach and detach the trigger
+to the device in order to properly work. Instead of doing this in each and
+every driver by hand move this into the core.
 
->
-> In the next patch all devm_iio_device_alloc() calls will be handled.
->
-> Signed-off-by: Alexandru Ardelean <alexandru.ardelean@analog.com>
-> ---
->  drivers/iio/dummy/iio_simple_dummy.c         | 14 ++++++++------
->  drivers/iio/industrialio-core.c              | 11 ++++++-----
->  drivers/platform/x86/toshiba_acpi.c          |  3 +--
->  drivers/staging/iio/Documentation/device.txt |  4 +---
->  include/linux/iio/iio.h                      |  4 ++--
->  5 files changed, 18 insertions(+), 18 deletions(-)
->
-> diff --git a/drivers/iio/dummy/iio_simple_dummy.c b/drivers/iio/dummy/iio_simple_dummy.c
-> index 6cb02299a215..b35ae7c039f7 100644
-> --- a/drivers/iio/dummy/iio_simple_dummy.c
-> +++ b/drivers/iio/dummy/iio_simple_dummy.c
-> @@ -566,6 +566,13 @@ static struct iio_sw_device *iio_dummy_probe(const char *name)
->         struct iio_dev *indio_dev;
->         struct iio_dummy_state *st;
->         struct iio_sw_device *swd;
-> +       struct device *parent = NULL;
-> +
-> +       /*
-> +        * With hardware: Set the parent device.
-> +        * parent = &spi->dev;
-> +        * parent = &client->dev;
-> +        */
->
->         swd = kzalloc(sizeof(*swd), GFP_KERNEL);
->         if (!swd) {
-> @@ -580,7 +587,7 @@ static struct iio_sw_device *iio_dummy_probe(const char *name)
->          * It also has a region (accessed by iio_priv()
->          * for chip specific state information.
->          */
-> -       indio_dev = iio_device_alloc(sizeof(*st));
-> +       indio_dev = iio_device_alloc(parent, sizeof(*st));
->         if (!indio_dev) {
->                 ret = -ENOMEM;
->                 goto error_ret;
-> @@ -590,11 +597,6 @@ static struct iio_sw_device *iio_dummy_probe(const char *name)
->         mutex_init(&st->lock);
->
->         iio_dummy_init_device(indio_dev);
-> -       /*
-> -        * With hardware: Set the parent device.
-> -        * indio_dev->dev.parent = &spi->dev;
-> -        * indio_dev->dev.parent = &client->dev;
-> -        */
->
->          /*
->          * Make the iio_dev struct available to remove function.
-> diff --git a/drivers/iio/industrialio-core.c b/drivers/iio/industrialio-core.c
-> index 1527f01a44f1..75661661aaba 100644
-> --- a/drivers/iio/industrialio-core.c
-> +++ b/drivers/iio/industrialio-core.c
-> @@ -1493,7 +1493,7 @@ struct device_type iio_device_type = {
->   * iio_device_alloc() - allocate an iio_dev from a driver
->   * @sizeof_priv:       Space to allocate for private structure.
->   **/
-> -struct iio_dev *iio_device_alloc(int sizeof_priv)
-> +struct iio_dev *iio_device_alloc(struct device *parent, int sizeof_priv)
->  {
->         struct iio_dev *dev;
->         size_t alloc_size;
-> @@ -1510,6 +1510,7 @@ struct iio_dev *iio_device_alloc(int sizeof_priv)
->         if (!dev)
->                 return NULL;
->
-> +       dev->dev.parent = parent;
->         dev->dev.groups = dev->groups;
->         dev->dev.type = &iio_device_type;
->         dev->dev.bus = &iio_bus_type;
-> @@ -1551,7 +1552,7 @@ static void devm_iio_device_release(struct device *dev, void *res)
->
->  /**
->   * devm_iio_device_alloc - Resource-managed iio_device_alloc()
-> - * @dev:               Device to allocate iio_dev for
-> + * @parent:            Device to allocate iio_dev for, and parent for this IIO device
->   * @sizeof_priv:       Space to allocate for private structure.
->   *
->   * Managed iio_device_alloc. iio_dev allocated with this function is
-> @@ -1560,7 +1561,7 @@ static void devm_iio_device_release(struct device *dev, void *res)
->   * RETURNS:
->   * Pointer to allocated iio_dev on success, NULL on failure.
->   */
-> -struct iio_dev *devm_iio_device_alloc(struct device *dev, int sizeof_priv)
-> +struct iio_dev *devm_iio_device_alloc(struct device *parent, int sizeof_priv)
->  {
->         struct iio_dev **ptr, *iio_dev;
->
-> @@ -1569,10 +1570,10 @@ struct iio_dev *devm_iio_device_alloc(struct device *dev, int sizeof_priv)
->         if (!ptr)
->                 return NULL;
->
-> -       iio_dev = iio_device_alloc(sizeof_priv);
-> +       iio_dev = iio_device_alloc(parent, sizeof_priv);
->         if (iio_dev) {
->                 *ptr = iio_dev;
-> -               devres_add(dev, ptr);
-> +               devres_add(parent, ptr);
->         } else {
->                 devres_free(ptr);
->         }
-> diff --git a/drivers/platform/x86/toshiba_acpi.c b/drivers/platform/x86/toshiba_acpi.c
-> index 808944546739..4a4d09c352dd 100644
-> --- a/drivers/platform/x86/toshiba_acpi.c
-> +++ b/drivers/platform/x86/toshiba_acpi.c
-> @@ -3128,7 +3128,7 @@ static int toshiba_acpi_add(struct acpi_device *acpi_dev)
->
->         toshiba_accelerometer_available(dev);
->         if (dev->accelerometer_supported) {
-> -               dev->indio_dev = iio_device_alloc(sizeof(*dev));
-> +               dev->indio_dev = iio_device_alloc(&acpi_dev->dev, sizeof(*dev));
->                 if (!dev->indio_dev) {
->                         pr_err("Unable to allocate iio device\n");
->                         goto iio_error;
-> @@ -3138,7 +3138,6 @@ static int toshiba_acpi_add(struct acpi_device *acpi_dev)
->
->                 dev->indio_dev->info = &toshiba_iio_accel_info;
->                 dev->indio_dev->name = "Toshiba accelerometer";
-> -               dev->indio_dev->dev.parent = &acpi_dev->dev;
->                 dev->indio_dev->modes = INDIO_DIRECT_MODE;
->                 dev->indio_dev->channels = toshiba_iio_accel_channels;
->                 dev->indio_dev->num_channels =
-> diff --git a/drivers/staging/iio/Documentation/device.txt b/drivers/staging/iio/Documentation/device.txt
-> index ec42544a46aa..0d1275b1eb3f 100644
-> --- a/drivers/staging/iio/Documentation/device.txt
-> +++ b/drivers/staging/iio/Documentation/device.txt
-> @@ -8,7 +8,7 @@ The crucial structure for device drivers in iio is iio_dev.
->
->  First allocate one using:
->
-> -struct iio_dev *indio_dev = iio_device_alloc(sizeof(struct chip_state));
-> +struct iio_dev *indio_dev = iio_device_alloc(parent, sizeof(struct chip_state));
->  where chip_state is a structure of local state data for this instance of
->  the chip.
->
-> @@ -16,8 +16,6 @@ That data can be accessed using iio_priv(struct iio_dev *).
->
->  Then fill in the following:
->
-> -- indio_dev->dev.parent
-> -       Struct device associated with the underlying hardware.
->  - indio_dev->name
->         Name of the device being driven - made available as the name
->         attribute in sysfs.
-> diff --git a/include/linux/iio/iio.h b/include/linux/iio/iio.h
-> index a1be82e74c93..91a69f4751aa 100644
-> --- a/include/linux/iio/iio.h
-> +++ b/include/linux/iio/iio.h
-> @@ -676,7 +676,7 @@ static inline void *iio_device_get_drvdata(struct iio_dev *indio_dev)
->
->  /* Can we make this smaller? */
->  #define IIO_ALIGN L1_CACHE_BYTES
-> -struct iio_dev *iio_device_alloc(int sizeof_priv);
-> +struct iio_dev *iio_device_alloc(struct device *parent, int sizeof_priv);
->
->  static inline void *iio_priv(const struct iio_dev *indio_dev)
->  {
-> @@ -690,7 +690,7 @@ static inline struct iio_dev *iio_priv_to_dev(void *priv)
->  }
->
->  void iio_device_free(struct iio_dev *indio_dev);
-> -struct iio_dev *devm_iio_device_alloc(struct device *dev, int sizeof_priv);
-> +struct iio_dev *devm_iio_device_alloc(struct device *parent, int sizeof_priv);
->  struct iio_trigger *devm_iio_trigger_alloc(struct device *dev,
->                                                 const char *fmt, ...);
->  /**
-> --
-> 2.25.1
->
+At this point in time, all drivers should have been resolved to
+attach/detach the poll-function in the same order.
 
+Signed-off-by: Lars-Peter Clausen <lars@metafoo.de>
+Signed-off-by: Alexandru Ardelean <alexandru.ardelean@analog.com>
+---
+ .../buffer/industrialio-triggered-buffer.c    | 10 +--------
+ drivers/iio/iio_core_trigger.h                | 17 ++++++++++++++
+ drivers/iio/industrialio-buffer.c             | 13 +++++++++++
+ drivers/iio/industrialio-trigger.c            | 22 ++++---------------
+ include/linux/iio/trigger_consumer.h          |  7 ------
+ 5 files changed, 35 insertions(+), 34 deletions(-)
 
+diff --git a/drivers/iio/buffer/industrialio-triggered-buffer.c b/drivers/iio/buffer/industrialio-triggered-buffer.c
+index e8046c1ecd6b..6c20a83f887e 100644
+--- a/drivers/iio/buffer/industrialio-triggered-buffer.c
++++ b/drivers/iio/buffer/industrialio-triggered-buffer.c
+@@ -13,11 +13,6 @@
+ #include <linux/iio/triggered_buffer.h>
+ #include <linux/iio/trigger_consumer.h>
+ 
+-static const struct iio_buffer_setup_ops iio_triggered_buffer_setup_ops = {
+-	.postenable = &iio_triggered_buffer_postenable,
+-	.predisable = &iio_triggered_buffer_predisable,
+-};
+-
+ /**
+  * iio_triggered_buffer_setup() - Setup triggered buffer and pollfunc
+  * @indio_dev:		IIO device structure
+@@ -67,10 +62,7 @@ int iio_triggered_buffer_setup(struct iio_dev *indio_dev,
+ 	}
+ 
+ 	/* Ring buffer functions - here trigger setup related */
+-	if (setup_ops)
+-		indio_dev->setup_ops = setup_ops;
+-	else
+-		indio_dev->setup_ops = &iio_triggered_buffer_setup_ops;
++	indio_dev->setup_ops = setup_ops;
+ 
+ 	/* Flag that polled ring buffering is possible */
+ 	indio_dev->modes |= INDIO_BUFFER_TRIGGERED;
+diff --git a/drivers/iio/iio_core_trigger.h b/drivers/iio/iio_core_trigger.h
+index e59fe2f36bbb..9d1a92cc6480 100644
+--- a/drivers/iio/iio_core_trigger.h
++++ b/drivers/iio/iio_core_trigger.h
+@@ -18,6 +18,12 @@ void iio_device_register_trigger_consumer(struct iio_dev *indio_dev);
+  **/
+ void iio_device_unregister_trigger_consumer(struct iio_dev *indio_dev);
+ 
++
++int iio_trigger_attach_poll_func(struct iio_trigger *trig,
++				 struct iio_poll_func *pf);
++int iio_trigger_detach_poll_func(struct iio_trigger *trig,
++				 struct iio_poll_func *pf);
++
+ #else
+ 
+ /**
+@@ -37,4 +43,15 @@ static void iio_device_unregister_trigger_consumer(struct iio_dev *indio_dev)
+ {
+ }
+ 
++static inline int iio_trigger_attach_poll_func(struct iio_trigger *trig,
++					       struct iio_poll_func *pf)
++{
++	return 0;
++}
++static inline int iio_trigger_detach_poll_func(struct iio_trigger *trig,
++					       struct iio_poll_func *pf)
++{
++	return 0;
++}
++
+ #endif /* CONFIG_TRIGGER_CONSUMER */
+diff --git a/drivers/iio/industrialio-buffer.c b/drivers/iio/industrialio-buffer.c
+index ec4f531994fa..88d756107fb2 100644
+--- a/drivers/iio/industrialio-buffer.c
++++ b/drivers/iio/industrialio-buffer.c
+@@ -20,6 +20,7 @@
+ 
+ #include <linux/iio/iio.h>
+ #include "iio_core.h"
++#include "iio_core_trigger.h"
+ #include <linux/iio/sysfs.h>
+ #include <linux/iio/buffer.h>
+ #include <linux/iio/buffer_impl.h>
+@@ -972,6 +973,13 @@ static int iio_enable_buffers(struct iio_dev *indio_dev,
+ 		}
+ 	}
+ 
++	if (indio_dev->currentmode == INDIO_BUFFER_TRIGGERED) {
++		ret = iio_trigger_attach_poll_func(indio_dev->trig,
++						   indio_dev->pollfunc);
++		if (ret)
++			goto err_disable_buffers;
++	}
++
+ 	return 0;
+ 
+ err_disable_buffers:
+@@ -998,6 +1006,11 @@ static int iio_disable_buffers(struct iio_dev *indio_dev)
+ 	if (list_empty(&indio_dev->buffer_list))
+ 		return 0;
+ 
++	if (indio_dev->currentmode == INDIO_BUFFER_TRIGGERED) {
++		iio_trigger_detach_poll_func(indio_dev->trig,
++					     indio_dev->pollfunc);
++	}
++
+ 	/*
+ 	 * If things go wrong at some step in disable we still need to continue
+ 	 * to perform the other steps, otherwise we leave the device in a
+diff --git a/drivers/iio/industrialio-trigger.c b/drivers/iio/industrialio-trigger.c
+index 53d1931f6be8..6f16357fd732 100644
+--- a/drivers/iio/industrialio-trigger.c
++++ b/drivers/iio/industrialio-trigger.c
+@@ -239,8 +239,8 @@ static void iio_trigger_put_irq(struct iio_trigger *trig, int irq)
+  * the relevant function is in there may be the best option.
+  */
+ /* Worth protecting against double additions? */
+-static int iio_trigger_attach_poll_func(struct iio_trigger *trig,
+-					struct iio_poll_func *pf)
++int iio_trigger_attach_poll_func(struct iio_trigger *trig,
++				 struct iio_poll_func *pf)
+ {
+ 	int ret = 0;
+ 	bool notinuse
+@@ -290,8 +290,8 @@ static int iio_trigger_attach_poll_func(struct iio_trigger *trig,
+ 	return ret;
+ }
+ 
+-static int iio_trigger_detach_poll_func(struct iio_trigger *trig,
+-					 struct iio_poll_func *pf)
++int iio_trigger_detach_poll_func(struct iio_trigger *trig,
++				 struct iio_poll_func *pf)
+ {
+ 	int ret = 0;
+ 	bool no_other_users
+@@ -705,17 +705,3 @@ void iio_device_unregister_trigger_consumer(struct iio_dev *indio_dev)
+ 	if (indio_dev->trig)
+ 		iio_trigger_put(indio_dev->trig);
+ }
+-
+-int iio_triggered_buffer_postenable(struct iio_dev *indio_dev)
+-{
+-	return iio_trigger_attach_poll_func(indio_dev->trig,
+-					    indio_dev->pollfunc);
+-}
+-EXPORT_SYMBOL(iio_triggered_buffer_postenable);
+-
+-int iio_triggered_buffer_predisable(struct iio_dev *indio_dev)
+-{
+-	return iio_trigger_detach_poll_func(indio_dev->trig,
+-					     indio_dev->pollfunc);
+-}
+-EXPORT_SYMBOL(iio_triggered_buffer_predisable);
+diff --git a/include/linux/iio/trigger_consumer.h b/include/linux/iio/trigger_consumer.h
+index c3c6ba5ec423..3aa2f132dd67 100644
+--- a/include/linux/iio/trigger_consumer.h
++++ b/include/linux/iio/trigger_consumer.h
+@@ -50,11 +50,4 @@ irqreturn_t iio_pollfunc_store_time(int irq, void *p);
+ 
+ void iio_trigger_notify_done(struct iio_trigger *trig);
+ 
+-/*
+- * Two functions for common case where all that happens is a pollfunc
+- * is attached and detached from a trigger
+- */
+-int iio_triggered_buffer_postenable(struct iio_dev *indio_dev);
+-int iio_triggered_buffer_predisable(struct iio_dev *indio_dev);
+-
+ #endif
 -- 
-With Best Regards,
-Andy Shevchenko
+2.25.1
+
 _______________________________________________
 Linux-stm32 mailing list
 Linux-stm32@st-md-mailman.stormreply.com
