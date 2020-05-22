@@ -2,35 +2,68 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id 879741DE88B
-	for <lists+linux-stm32@lfdr.de>; Fri, 22 May 2020 16:13:45 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 0AB141DEAF4
+	for <lists+linux-stm32@lfdr.de>; Fri, 22 May 2020 16:57:51 +0200 (CEST)
 Received: from ip-172-31-3-76.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id EB1FEC36B25;
-	Fri, 22 May 2020 14:13:44 +0000 (UTC)
-Received: from fornost.hmeau.com (helcar.hmeau.com [216.24.177.18])
- (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id BA93FC36B25;
+	Fri, 22 May 2020 14:57:50 +0000 (UTC)
+Received: from mail-io1-f65.google.com (mail-io1-f65.google.com
+ [209.85.166.65])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id CF8C9C36B23
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 870F2C36B23
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Fri, 22 May 2020 14:13:42 +0000 (UTC)
-Received: from gwarestrin.arnor.me.apana.org.au ([192.168.0.7])
- by fornost.hmeau.com with smtp (Exim 4.92 #5 (Debian))
- id 1jc8QD-0008Fn-G8; Sat, 23 May 2020 00:13:14 +1000
-Received: by gwarestrin.arnor.me.apana.org.au (sSMTP sendmail emulation);
- Sat, 23 May 2020 00:13:13 +1000
-Date: Sat, 23 May 2020 00:13:13 +1000
-From: Herbert Xu <herbert@gondor.apana.org.au>
-To: Nicolas Toromanoff <nicolas.toromanoff@st.com>
-Message-ID: <20200522141313.GA859@gondor.apana.org.au>
-References: <20200512141113.18972-1-nicolas.toromanoff@st.com>
+ Fri, 22 May 2020 14:57:47 +0000 (UTC)
+Received: by mail-io1-f65.google.com with SMTP id f3so11672980ioj.1
+ for <linux-stm32@st-md-mailman.stormreply.com>;
+ Fri, 22 May 2020 07:57:47 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20161025;
+ h=mime-version:references:in-reply-to:from:date:message-id:subject:to
+ :cc; bh=4E93R1F4OMg9K2XLuc0UwI5BfmV/kB8DZ8DcAqlj91Q=;
+ b=RJh8B/6rHjjbkuji4u+fJ26zGQ2weYdBP8O87V6gBC0R3uO3Cxuxwia4xEC5fiQpVd
+ BVao3bcj3EENB6cqKTKGBQu174xQRasXIfU4q+TkCRor9QpUGn/bNvOhtPgxnpksjF4z
+ 3fsMvYjJfJTHISaJ3cUFiRzeDfD7i3e9PZi6fj0SkJEmzk7TEWtsxWUY/iwJxQpOJ2R4
+ T9SYcuC5mIwu3BPDv9d/KbkENTdJY9raVR0/065zsK9r46jPvzUkAxudp8zmyxpkPzW8
+ Mh3IcqqBDWoU5MuQNyfGmuqSaUQzuiK4qAbocc1kDDt5QghsG+0LEtcX/A9knBg3T5Ef
+ pvLw==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20161025;
+ h=x-gm-message-state:mime-version:references:in-reply-to:from:date
+ :message-id:subject:to:cc;
+ bh=4E93R1F4OMg9K2XLuc0UwI5BfmV/kB8DZ8DcAqlj91Q=;
+ b=mnxydDgSAzJyFUwI3TWyBLHBkrPRQEAmo92lTzUR+aJymNJXewPSSvsDkS4xAKtJh7
+ CZagbJen9Nf+0uS7ZjejC5AcfQ7Z/SlvyCWuan9w0Lr+O+UZKQT5lfl2pYTPNVT0Lytx
+ B5HU58hRAHoKFKlOu/dUULnlETB6v15cwYFfWPbgIy20zqlRAQCAFvEMxSZxrDnbxEJJ
+ h/yyxBs8NU+tNU0ZGV1zKDnT4MLKDPM253JH20CukVgzrQ5VIstPjgyKtil5bRbNr9aM
+ dOe2O/pIhkvMCNlaRm8RDwooK5sDBnGIoL1khdqeO9fOs5k7rsC/v6OjaMWRJHBfc+LG
+ lnBw==
+X-Gm-Message-State: AOAM530t/n+EUWGG8LgVQ5aKgCUxE0V8E7utnyoXdiTgeNorufUz3nYJ
+ m36I6CR/IYi3LEgqaTea8PmlJ1Eg6ddLw4T2bW4=
+X-Google-Smtp-Source: ABdhPJzIBFSsXPwSSCGw73KtvrqDIXMGD/+GjvxVG0mSEkFCp7BWwg4nqAvzm+UoIsx0S8/uDt84GiJO2N2vFmJg7HM=
+X-Received: by 2002:a05:6602:2ac9:: with SMTP id
+ m9mr3461002iov.68.1590159466755; 
+ Fri, 22 May 2020 07:57:46 -0700 (PDT)
 MIME-Version: 1.0
-Content-Disposition: inline
-In-Reply-To: <20200512141113.18972-1-nicolas.toromanoff@st.com>
-User-Agent: Mutt/1.10.1 (2018-07-13)
-Cc: linux-kernel@vger.kernel.org, "David S . Miller" <davem@davemloft.net>,
- linux-crypto@vger.kernel.org, Maxime Coquelin <mcoquelin.stm32@gmail.com>,
- linux-stm32@st-md-mailman.stormreply.com, linux-arm-kernel@lists.infradead.org
-Subject: Re: [Linux-stm32] [PATCH 0/5] STM32 CRC update
+References: <1589800165-3271-1-git-send-email-dillon.minfei@gmail.com>
+ <1589800165-3271-4-git-send-email-dillon.minfei@gmail.com>
+ <20200522113634.GE5801@sirena.org.uk>
+In-Reply-To: <20200522113634.GE5801@sirena.org.uk>
+From: dillon min <dillon.minfei@gmail.com>
+Date: Fri, 22 May 2020 22:57:10 +0800
+Message-ID: <CAL9mu0LAnT+AfjpGs0O-MD2HYrpnQRmrj6qXtJQrJi9kbQLPUw@mail.gmail.com>
+To: Mark Brown <broonie@kernel.org>
+Cc: "open list:OPEN FIRMWARE AND FLATTENED DEVICE TREE BINDINGS"
+ <devicetree@vger.kernel.org>, p.zabel@pengutronix.de,
+ Dave Airlie <airlied@linux.ie>, Michael Turquette <mturquette@baylibre.com>,
+ linux-clk <linux-clk@vger.kernel.org>, linux-kernel@vger.kernel.org,
+ "open list:DRM PANEL DRIVERS" <dri-devel@lists.freedesktop.org>,
+ linux-spi@vger.kernel.org, Stephen Boyd <sboyd@kernel.org>,
+ Rob Herring <robh+dt@kernel.org>, thierry.reding@gmail.com,
+ Maxime Coquelin <mcoquelin.stm32@gmail.com>, Daniel Vetter <daniel@ffwll.ch>,
+ Sam Ravnborg <sam@ravnborg.org>, linux-stm32@st-md-mailman.stormreply.com,
+ Linux ARM <linux-arm-kernel@lists.infradead.org>
+Subject: Re: [Linux-stm32] [PATCH v4 3/8] spi: stm32: Add 'SPI_SIMPLEX_RX',
+ 'SPI_3WIRE_RX' support for stm32f4
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -47,38 +80,31 @@ Content-Transfer-Encoding: 7bit
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
-On Tue, May 12, 2020 at 04:11:08PM +0200, Nicolas Toromanoff wrote:
-> This set of patches update the STM32 CRC driver.
-> It contains bug fix.
-> 
-> First fixes issue if we enable STM32 CRC32 hardware accelerator with
-> ext4 (with metadata-chksum enable) and other fs that use same direct
-> access to update crc32 API without previous init.
-> Second fixes some issues raise by the extra self-test.
-> Third fixes wrong hw usage if there is multiple IP on the SOC.
-> Forth fixes "sleep while atomic" in tcrypt test, and some other places
-> (ext4)
-> Last fixes concurrent accesses. As state is saved in the hardware cell
-> and not in stack as other CRC32 drivers, we need to create atomic
-> section to protect concurrent CRC32 calculus.
-> 
-> This patch series applies to cryptodev/master.
-> 
-> Nicolas Toromanoff (5):
->   crypto: stm32/crc: fix ext4 chksum BUG_ON()
->   crypto: stm32/crc: fix run-time self test issue.
->   crypto: stm32/crc: fix multi-instance
->   crypto: stm32/crc: don't sleep in runtime pm
->   crypto: stm32/crc: protect from concurrent accesses
-> 
->  drivers/crypto/stm32/stm32-crc32.c | 230 ++++++++++++++++++++---------
->  1 file changed, 161 insertions(+), 69 deletions(-)
+hi Mark,
 
-All applied.  Thanks.
--- 
-Email: Herbert Xu <herbert@gondor.apana.org.au>
-Home Page: http://gondor.apana.org.au/~herbert/
-PGP Key: http://gondor.apana.org.au/~herbert/pubkey.txt
+Thanks for reviewing.
+
+On Fri, May 22, 2020 at 7:36 PM Mark Brown <broonie@kernel.org> wrote:
+>
+> On Mon, May 18, 2020 at 07:09:20PM +0800, dillon.minfei@gmail.com wrote:
+>
+> > 2, use stm32 spi's "In full-duplex (BIDIMODE=0 and RXONLY=0)", as tx_buf is
+> > null, we must add dummy data sent out before read data.
+> > so, add stm32f4_spi_tx_dummy() to handle this situation.
+>
+> There are flags SPI_CONTROLLER_MUST_TX and SPI_CONTROLLER_MUST_RX flags
+> that the driver can set if it needs to, no need to open code this in the
+> driver.
+
+Yes, after check SPI_CONTROLLER_MUST_TX in drivers/spi/spi.c , it's
+indeed to meet
+this situation,  i will try it and sumbmit a new patch.
+
+thanks.
+
+best regards
+
+Dillon
 _______________________________________________
 Linux-stm32 mailing list
 Linux-stm32@st-md-mailman.stormreply.com
