@@ -2,70 +2,53 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id 5F2431DF3DE
-	for <lists+linux-stm32@lfdr.de>; Sat, 23 May 2020 03:35:47 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id E92051DF6A1
+	for <lists+linux-stm32@lfdr.de>; Sat, 23 May 2020 12:36:15 +0200 (CEST)
 Received: from ip-172-31-3-76.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 17118C36B25;
-	Sat, 23 May 2020 01:35:47 +0000 (UTC)
-Received: from mail-il1-f194.google.com (mail-il1-f194.google.com
- [209.85.166.194])
- (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 8A550C36B25;
+	Sat, 23 May 2020 10:36:15 +0000 (UTC)
+Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
+ (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 2FBAEC36B23
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 27EEEC36B23
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Sat, 23 May 2020 01:35:44 +0000 (UTC)
-Received: by mail-il1-f194.google.com with SMTP id 17so12682937ilj.3
- for <linux-stm32@st-md-mailman.stormreply.com>;
- Fri, 22 May 2020 18:35:44 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20161025;
- h=mime-version:references:in-reply-to:from:date:message-id:subject:to
- :cc; bh=S1QSAzJLA557HDI9geZdFtza2j2ttaAmC0/pNbF94RQ=;
- b=A992b6KQ0XxvQBvr4hpSCBAiJVOy3bCMOJRZbTEgNVsjziHkOX1YLkNL2W7JgGf5kB
- 6dkdnQIBW/+Lh4TZr5VZ9W9jlKsQLHFUNaXvbtKPXiXkE2z25chDOo+YqkADBuJdDhZ/
- tHUB4rgSKsyEN1xbge2cNw65A0heIWhKbJcDMDvUkNC/9rydOmAqGX3PUZ8I2z0U7Y/V
- 5Cr+kLr+aMh+DQj7mplWOIOBhISwulzYr6G01tL+aSEMoNt7Tw1DQ0rbXyQBcNzZ99L6
- aTZi5JpRzKVrsOLiFDG26hTNg0/+eB2eYUciggM6rhuzsRwMg4KgAEsT2EqkXuw9fJM0
- UHFw==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20161025;
- h=x-gm-message-state:mime-version:references:in-reply-to:from:date
- :message-id:subject:to:cc;
- bh=S1QSAzJLA557HDI9geZdFtza2j2ttaAmC0/pNbF94RQ=;
- b=aFxm1/uAEzjS0r1NQbDJEyDjrynuaOIDyuf++5bQNKY0sZS+yOhxAss8nALa9gfb06
- 4k0ISbjafFgQ+Qdm3ncyCkn9Gd4kN8LQ8DAuV+xftUXtWLZElNBVH2q/Anyq4aO3KRJK
- 8bqL3B1H2NTDRimEgHiQmiQUw4nOJERs6UfSFfnzRCB3CgQHrIhT04PYgDPf2I8H/U7v
- V3mQHiFqUE4y30KU6o+muLdcpOrfiJUO4bQ215HAh3nQT4yV5nZUdMeeiwkljWfw/5c5
- 9PS0Kbnf3CuDNOKbQ1wIVMsKL/SQ//D8hxu1+IUY0oeVK8P8j9wnr+yFDH719UsSLbUJ
- ZKuA==
-X-Gm-Message-State: AOAM532nb+CLm2Br4X8A5jmBWRgtofQMA4nJaeR6+ZjwQwUgUhkovTed
- JYJM+XWce0wiAGP/BHSFb2fIoX2CLS71jFKAolQ=
-X-Google-Smtp-Source: ABdhPJyFMcan15/IQgBUd7V654mVVCiDvmI/KPlV1LTFmOXrmNhn289+5jn0LkISjmGIfWZTCLlEXoFxdgoJGQtXdZU=
-X-Received: by 2002:a92:dc85:: with SMTP id c5mr15557198iln.270.1590197742955; 
- Fri, 22 May 2020 18:35:42 -0700 (PDT)
+ Sat, 23 May 2020 10:36:14 +0000 (UTC)
+Received: from localhost (p5486c962.dip0.t-ipconnect.de [84.134.201.98])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+ (No client certificate requested)
+ by mail.kernel.org (Postfix) with ESMTPSA id DBBAC2071C;
+ Sat, 23 May 2020 10:36:11 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
+ s=default; t=1590230172;
+ bh=0HzKqeO/bdhEuUfUb/+2HOuRW4/bgdkt0jgum4LSP7I=;
+ h=Date:From:To:Subject:References:In-Reply-To:From;
+ b=tcvPOX7FmK7rYwEMs0HJbm5mXoYSvZ/SjgG1xtFkYnqcuzPx/GVq4O6LXnX6Eh5jk
+ c4jwP5wSX6gLthoBAv+t1O0DRMCFFPSoFh5CSHH6U2P0G10YU4sxA9pZOvnSnMBic0
+ PkhLQwfl1X1gtHJthD25SaApF13kbUkzfAA8Ia8Q=
+Date: Sat, 23 May 2020 12:36:01 +0200
+From: "wsa@kernel.org" <wsa@kernel.org>
+To: Rob Herring <robh@kernel.org>,
+ "mark.rutland@arm.com" <mark.rutland@arm.com>,
+ Pierre Yves MORDRET <pierre-yves.mordret@st.com>,
+ "mcoquelin.stm32@gmail.com" <mcoquelin.stm32@gmail.com>,
+ Alexandre TORGUE <alexandre.torgue@st.com>,
+ "linux-i2c@vger.kernel.org" <linux-i2c@vger.kernel.org>,
+ "devicetree@vger.kernel.org" <devicetree@vger.kernel.org>,
+ "linux-stm32@st-md-mailman.stormreply.com"
+ <linux-stm32@st-md-mailman.stormreply.com>, 
+ "linux-arm-kernel@lists.infradead.org" <linux-arm-kernel@lists.infradead.org>, 
+ "linux-kernel@vger.kernel.org" <linux-kernel@vger.kernel.org>,
+ Fabrice GASNIER <fabrice.gasnier@st.com>
+Message-ID: <20200523103601.GA3459@ninjato>
+References: <1588657871-14747-1-git-send-email-alain.volmat@st.com>
+ <1588657871-14747-4-git-send-email-alain.volmat@st.com>
+ <20200513021932.GA9172@bogus>
+ <20200513054231.GA16558@gnbcxd0016.gnb.st.com>
 MIME-Version: 1.0
-References: <1589800165-3271-1-git-send-email-dillon.minfei@gmail.com>
- <1589800165-3271-4-git-send-email-dillon.minfei@gmail.com>
- <20200522113634.GE5801@sirena.org.uk>
- <CAL9mu0LAnT+AfjpGs0O-MD2HYrpnQRmrj6qXtJQrJi9kbQLPUw@mail.gmail.com>
- <CAL9mu0JZ4Qy+m2oF9TSTRqA_mM0J89huCt3t_Gs7qHa=3LxhBw@mail.gmail.com>
- <20200522162901.GP5801@sirena.org.uk>
-In-Reply-To: <20200522162901.GP5801@sirena.org.uk>
-From: dillon min <dillon.minfei@gmail.com>
-Date: Sat, 23 May 2020 09:35:06 +0800
-Message-ID: <CAL9mu0+E5R0mDUW3f+aKpfE_457VimS-ow2z_xVOmCfCAMnKuA@mail.gmail.com>
-To: Mark Brown <broonie@kernel.org>
-Cc: "open list:OPEN FIRMWARE AND FLATTENED DEVICE TREE BINDINGS"
- <devicetree@vger.kernel.org>, p.zabel@pengutronix.de,
- Dave Airlie <airlied@linux.ie>, Michael Turquette <mturquette@baylibre.com>,
- linux-clk <linux-clk@vger.kernel.org>, linux-kernel@vger.kernel.org,
- "open list:DRM PANEL DRIVERS" <dri-devel@lists.freedesktop.org>,
- linux-spi@vger.kernel.org, Stephen Boyd <sboyd@kernel.org>,
- Rob Herring <robh+dt@kernel.org>, thierry.reding@gmail.com,
- Maxime Coquelin <mcoquelin.stm32@gmail.com>, Daniel Vetter <daniel@ffwll.ch>,
- Sam Ravnborg <sam@ravnborg.org>, linux-stm32@st-md-mailman.stormreply.com,
- Linux ARM <linux-arm-kernel@lists.infradead.org>
-Subject: Re: [Linux-stm32] [PATCH v4 3/8] spi: stm32: Add 'SPI_SIMPLEX_RX',
- 'SPI_3WIRE_RX' support for stm32f4
+In-Reply-To: <20200513054231.GA16558@gnbcxd0016.gnb.st.com>
+User-Agent: Mutt/1.10.1 (2018-07-13)
+Subject: Re: [Linux-stm32] [PATCH 3/4] dt-bindings: i2c-stm32: add SMBus
+	Alert bindings
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -77,54 +60,86 @@ List-Post: <mailto:linux-stm32@st-md-mailman.stormreply.com>
 List-Help: <mailto:linux-stm32-request@st-md-mailman.stormreply.com?subject=help>
 List-Subscribe: <https://st-md-mailman.stormreply.com/mailman/listinfo/linux-stm32>, 
  <mailto:linux-stm32-request@st-md-mailman.stormreply.com?subject=subscribe>
-Content-Type: text/plain; charset="us-ascii"
-Content-Transfer-Encoding: 7bit
+Content-Type: multipart/mixed; boundary="===============7050300083396533055=="
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
-On Sat, May 23, 2020 at 12:29 AM Mark Brown <broonie@kernel.org> wrote:
->
-> On Fri, May 22, 2020 at 11:59:25PM +0800, dillon min wrote:
->
-> > but, after spi-core create a dummy tx_buf or rx_buf, then i can't get
-> > the correct spi_3wire direction.
-> > actually, this dummy tx_buf is useless for SPI_3WIRE. it's has meaning
-> > for SPI_SIMPLE_RX mode,
-> > simulate SPI_FULL_DUMPLEX
->
-> Oh, that's annoying.  I think the fix here is in the core, it should
-> ignore MUST_TX and MUST_RX in 3WIRE mode since they clearly make no
-> sense there.
 
-How about add below changes to spi-core
+--===============7050300083396533055==
+Content-Type: multipart/signed; micalg=pgp-sha512;
+	protocol="application/pgp-signature"; boundary="BXVAT5kNtrzKuDFl"
+Content-Disposition: inline
 
-diff --git a/drivers/spi/spi.c b/drivers/spi/spi.c
-index 8994545..bfd465c 100644
---- a/drivers/spi/spi.c
-+++ b/drivers/spi/spi.c
-@@ -1022,7 +1022,8 @@ static int spi_map_msg(struct spi_controller
-*ctlr, struct spi_message *msg)
-        void *tmp;
-        unsigned int max_tx, max_rx;
 
--       if (ctlr->flags & (SPI_CONTROLLER_MUST_RX | SPI_CONTROLLER_MUST_TX)) {
-+       if ((ctlr->flags & (SPI_CONTROLLER_MUST_RX | SPI_CONTROLLER_MUST_TX)) &&
-+               !(msg->spi->mode & SPI_3WIRE)) {
-                max_tx = 0;
-                max_rx = 0;
+--BXVAT5kNtrzKuDFl
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+Content-Transfer-Encoding: quoted-printable
 
-for my board, lcd panel ilitek ill9341 use 3wire mode, gyro l3gd20 use
-simplex rx mode.
-it's has benefits to l3gd20, no impact to ili9341.
 
-if it's fine to spi-core, i will include it to my next submits.
+> > > +        st,smbus-alert:
+> > > +          description: Enable the SMBus Alert feature
+> > > +          $ref: /schemas/types.yaml#/definitions/flag
+> > > +
+> >=20
+> > We already have smbus_alert interrupt. Can't you just check for this in=
+=20
+> > the slave nodes and enable if found?
+>=20
+> My understanding reading the code (smbalert_probe within i2c-smbus.c, of_=
+i2c_setup_smbus_alert called when
+> registering an adapter within i2c-core-smbus.c) is that smbus_alert refer=
+s to an interrupt on the
+> adapter side. That is an interrupt that would be triggered when the adapt=
+er is receiving an smbus_alert
+> message.
+> In our case (stm32f7), we do not have specific interrupt for that purpose=
+=2E The interrupt triggered when
+> an SMBUS Alert is received (by the adapter) is the same interrupt as for =
+other reasons and we check
+> within the irq handler within stm32f7 the reason before calling i2c_handl=
+e_smbus_alert if the status
+> register indicated an SMBUS Alert.
+> So my understanding is that we cannot rely on the mechanism of naming an =
+interrupt smbus_alert.
+> Did I misunderstood something ?
 
-thanks
+I just wonder what is bad about specifying the same interrupt twice in
+the interrupt properties? You could then check in probe if "smbus_alert"
+is populated and if it matches the main irq.
 
-best regards.
 
-Dillon
+--BXVAT5kNtrzKuDFl
+Content-Type: application/pgp-signature; name="signature.asc"
+
+-----BEGIN PGP SIGNATURE-----
+
+iQIzBAABCgAdFiEEOZGx6rniZ1Gk92RdFA3kzBSgKbYFAl7I/I0ACgkQFA3kzBSg
+Kbavuw/+NO4H+Xha0Xe144SeVcvWUywbqoyWBQ0bwabNCH3szXM85RHPfEQsUXMo
+bwOa6rKiRHSI34T/PwCmjvNVAadYuYIkjGpLFNbUQEhpnEehWiLcsQMYWJUzg+ZE
+5uOg0Gbd5/Db6a/jpdF9A0FaPomsmqNPuXiThftutc5p1pk0eQzixOBaK61Ywky3
+OZoyCrOS4y2nZ0jNvCcccJI/38s35Sf0E5vMo0VUkXpUlqucdRp8oDWhapDNW8UP
+bvmCU9Xw7vfM1iaYOQ4hX0bUus/bH5/vkgEjnsEUNxlsbNB+nZDNAxm4ZLRr3hYW
+aLKVw6H+P7ZSbSOKy9SYzo+aHixk1r47kpzwCxLMEh3ul0BYwcArDQbqq0WtbhYf
+4fVswX9t5t194CW61jE2k/f12qiDpVJ3cn7XZZ2ygKY5JfmW3N6qjB+FY/o0amxs
+pfxClFmbMXuq4Bcn4+4Qj23QSAO4xxYkY7ImziQa9mYQAtmaJUagVzRxUz9JkP3Q
+qigB58PeO8etgZ+U6yNKjG6fxNg1THTmWtuE83Z5z0ZdwXyEtZLBpsXM8zCtptHq
+8m4ZI4SU6XVAFvQjrPgJXVSuZ1Tkc7ZJuBpXWF2UFhVGcJSeptEnkPQel6VJXME+
+ka3e+K9lySX+ub5zdNvEI+Uz3q9mTVzJP4RbW7PP7w13jb3kjm0=
+=NDSc
+-----END PGP SIGNATURE-----
+
+--BXVAT5kNtrzKuDFl--
+
+--===============7050300083396533055==
+Content-Type: text/plain; charset="us-ascii"
+MIME-Version: 1.0
+Content-Transfer-Encoding: 7bit
+Content-Disposition: inline
+
 _______________________________________________
 Linux-stm32 mailing list
 Linux-stm32@st-md-mailman.stormreply.com
 https://st-md-mailman.stormreply.com/mailman/listinfo/linux-stm32
+
+--===============7050300083396533055==--
