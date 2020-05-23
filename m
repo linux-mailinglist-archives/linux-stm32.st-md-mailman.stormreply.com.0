@@ -2,42 +2,58 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id 5A0561DED41
-	for <lists+linux-stm32@lfdr.de>; Fri, 22 May 2020 18:29:08 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 5F2431DF3DE
+	for <lists+linux-stm32@lfdr.de>; Sat, 23 May 2020 03:35:47 +0200 (CEST)
 Received: from ip-172-31-3-76.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 1917CC36B25;
-	Fri, 22 May 2020 16:29:08 +0000 (UTC)
-Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
- (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 17118C36B25;
+	Sat, 23 May 2020 01:35:47 +0000 (UTC)
+Received: from mail-il1-f194.google.com (mail-il1-f194.google.com
+ [209.85.166.194])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 966F8C36B23
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 2FBAEC36B23
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Fri, 22 May 2020 16:29:06 +0000 (UTC)
-Received: from localhost (fw-tnat.cambridge.arm.com [217.140.96.140])
- (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
- (No client certificate requested)
- by mail.kernel.org (Postfix) with ESMTPSA id ADB3720723;
- Fri, 22 May 2020 16:29:03 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
- s=default; t=1590164944;
- bh=AZ6aR48aUG//ESbctyBmG+YOjGowh1YxgZdIw6aq6bI=;
- h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
- b=s4FsV2uAqu/tX3pg7NewFoApyD7oEoZMnhAmmnKcl+3LRNhjjTs3275VGylctu3f1
- VIIKKiPn2SeIxaQfZeSKskq4enff164K3HACIxgju7ARsCEVTOOkAQ6sTcTGMSy5FX
- F6WMIvtZwCuLj5fXUKnSYt3O04BwosCqqhf4twPs=
-Date: Fri, 22 May 2020 17:29:01 +0100
-From: Mark Brown <broonie@kernel.org>
-To: dillon min <dillon.minfei@gmail.com>
-Message-ID: <20200522162901.GP5801@sirena.org.uk>
+ Sat, 23 May 2020 01:35:44 +0000 (UTC)
+Received: by mail-il1-f194.google.com with SMTP id 17so12682937ilj.3
+ for <linux-stm32@st-md-mailman.stormreply.com>;
+ Fri, 22 May 2020 18:35:44 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20161025;
+ h=mime-version:references:in-reply-to:from:date:message-id:subject:to
+ :cc; bh=S1QSAzJLA557HDI9geZdFtza2j2ttaAmC0/pNbF94RQ=;
+ b=A992b6KQ0XxvQBvr4hpSCBAiJVOy3bCMOJRZbTEgNVsjziHkOX1YLkNL2W7JgGf5kB
+ 6dkdnQIBW/+Lh4TZr5VZ9W9jlKsQLHFUNaXvbtKPXiXkE2z25chDOo+YqkADBuJdDhZ/
+ tHUB4rgSKsyEN1xbge2cNw65A0heIWhKbJcDMDvUkNC/9rydOmAqGX3PUZ8I2z0U7Y/V
+ 5Cr+kLr+aMh+DQj7mplWOIOBhISwulzYr6G01tL+aSEMoNt7Tw1DQ0rbXyQBcNzZ99L6
+ aTZi5JpRzKVrsOLiFDG26hTNg0/+eB2eYUciggM6rhuzsRwMg4KgAEsT2EqkXuw9fJM0
+ UHFw==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20161025;
+ h=x-gm-message-state:mime-version:references:in-reply-to:from:date
+ :message-id:subject:to:cc;
+ bh=S1QSAzJLA557HDI9geZdFtza2j2ttaAmC0/pNbF94RQ=;
+ b=aFxm1/uAEzjS0r1NQbDJEyDjrynuaOIDyuf++5bQNKY0sZS+yOhxAss8nALa9gfb06
+ 4k0ISbjafFgQ+Qdm3ncyCkn9Gd4kN8LQ8DAuV+xftUXtWLZElNBVH2q/Anyq4aO3KRJK
+ 8bqL3B1H2NTDRimEgHiQmiQUw4nOJERs6UfSFfnzRCB3CgQHrIhT04PYgDPf2I8H/U7v
+ V3mQHiFqUE4y30KU6o+muLdcpOrfiJUO4bQ215HAh3nQT4yV5nZUdMeeiwkljWfw/5c5
+ 9PS0Kbnf3CuDNOKbQ1wIVMsKL/SQ//D8hxu1+IUY0oeVK8P8j9wnr+yFDH719UsSLbUJ
+ ZKuA==
+X-Gm-Message-State: AOAM532nb+CLm2Br4X8A5jmBWRgtofQMA4nJaeR6+ZjwQwUgUhkovTed
+ JYJM+XWce0wiAGP/BHSFb2fIoX2CLS71jFKAolQ=
+X-Google-Smtp-Source: ABdhPJyFMcan15/IQgBUd7V654mVVCiDvmI/KPlV1LTFmOXrmNhn289+5jn0LkISjmGIfWZTCLlEXoFxdgoJGQtXdZU=
+X-Received: by 2002:a92:dc85:: with SMTP id c5mr15557198iln.270.1590197742955; 
+ Fri, 22 May 2020 18:35:42 -0700 (PDT)
+MIME-Version: 1.0
 References: <1589800165-3271-1-git-send-email-dillon.minfei@gmail.com>
  <1589800165-3271-4-git-send-email-dillon.minfei@gmail.com>
  <20200522113634.GE5801@sirena.org.uk>
  <CAL9mu0LAnT+AfjpGs0O-MD2HYrpnQRmrj6qXtJQrJi9kbQLPUw@mail.gmail.com>
  <CAL9mu0JZ4Qy+m2oF9TSTRqA_mM0J89huCt3t_Gs7qHa=3LxhBw@mail.gmail.com>
-MIME-Version: 1.0
-In-Reply-To: <CAL9mu0JZ4Qy+m2oF9TSTRqA_mM0J89huCt3t_Gs7qHa=3LxhBw@mail.gmail.com>
-X-Cookie: C for yourself.
-User-Agent: Mutt/1.10.1 (2018-07-13)
+ <20200522162901.GP5801@sirena.org.uk>
+In-Reply-To: <20200522162901.GP5801@sirena.org.uk>
+From: dillon min <dillon.minfei@gmail.com>
+Date: Sat, 23 May 2020 09:35:06 +0800
+Message-ID: <CAL9mu0+E5R0mDUW3f+aKpfE_457VimS-ow2z_xVOmCfCAMnKuA@mail.gmail.com>
+To: Mark Brown <broonie@kernel.org>
 Cc: "open list:OPEN FIRMWARE AND FLATTENED DEVICE TREE BINDINGS"
  <devicetree@vger.kernel.org>, p.zabel@pengutronix.de,
  Dave Airlie <airlied@linux.ie>, Michael Turquette <mturquette@baylibre.com>,
@@ -61,59 +77,54 @@ List-Post: <mailto:linux-stm32@st-md-mailman.stormreply.com>
 List-Help: <mailto:linux-stm32-request@st-md-mailman.stormreply.com?subject=help>
 List-Subscribe: <https://st-md-mailman.stormreply.com/mailman/listinfo/linux-stm32>, 
  <mailto:linux-stm32-request@st-md-mailman.stormreply.com?subject=subscribe>
-Content-Type: multipart/mixed; boundary="===============6314046386582917530=="
+Content-Type: text/plain; charset="us-ascii"
+Content-Transfer-Encoding: 7bit
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
+On Sat, May 23, 2020 at 12:29 AM Mark Brown <broonie@kernel.org> wrote:
+>
+> On Fri, May 22, 2020 at 11:59:25PM +0800, dillon min wrote:
+>
+> > but, after spi-core create a dummy tx_buf or rx_buf, then i can't get
+> > the correct spi_3wire direction.
+> > actually, this dummy tx_buf is useless for SPI_3WIRE. it's has meaning
+> > for SPI_SIMPLE_RX mode,
+> > simulate SPI_FULL_DUMPLEX
+>
+> Oh, that's annoying.  I think the fix here is in the core, it should
+> ignore MUST_TX and MUST_RX in 3WIRE mode since they clearly make no
+> sense there.
 
---===============6314046386582917530==
-Content-Type: multipart/signed; micalg=pgp-sha512;
-	protocol="application/pgp-signature"; boundary="WZLuFERxa6Y0cbOt"
-Content-Disposition: inline
+How about add below changes to spi-core
 
+diff --git a/drivers/spi/spi.c b/drivers/spi/spi.c
+index 8994545..bfd465c 100644
+--- a/drivers/spi/spi.c
++++ b/drivers/spi/spi.c
+@@ -1022,7 +1022,8 @@ static int spi_map_msg(struct spi_controller
+*ctlr, struct spi_message *msg)
+        void *tmp;
+        unsigned int max_tx, max_rx;
 
---WZLuFERxa6Y0cbOt
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
+-       if (ctlr->flags & (SPI_CONTROLLER_MUST_RX | SPI_CONTROLLER_MUST_TX)) {
++       if ((ctlr->flags & (SPI_CONTROLLER_MUST_RX | SPI_CONTROLLER_MUST_TX)) &&
++               !(msg->spi->mode & SPI_3WIRE)) {
+                max_tx = 0;
+                max_rx = 0;
 
-On Fri, May 22, 2020 at 11:59:25PM +0800, dillon min wrote:
+for my board, lcd panel ilitek ill9341 use 3wire mode, gyro l3gd20 use
+simplex rx mode.
+it's has benefits to l3gd20, no impact to ili9341.
 
-> but, after spi-core create a dummy tx_buf or rx_buf, then i can't get
-> the correct spi_3wire direction.
-> actually, this dummy tx_buf is useless for SPI_3WIRE. it's has meaning
-> for SPI_SIMPLE_RX mode,
-> simulate SPI_FULL_DUMPLEX
+if it's fine to spi-core, i will include it to my next submits.
 
-Oh, that's annoying.  I think the fix here is in the core, it should
-ignore MUST_TX and MUST_RX in 3WIRE mode since they clearly make no
-sense there.
+thanks
 
---WZLuFERxa6Y0cbOt
-Content-Type: application/pgp-signature; name="signature.asc"
+best regards.
 
------BEGIN PGP SIGNATURE-----
-
-iQEzBAABCgAdFiEEreZoqmdXGLWf4p/qJNaLcl1Uh9AFAl7H/c0ACgkQJNaLcl1U
-h9Cejgf9HdcJ4wfZ4TAHuSVLhSZ1f3OnJd4SsU3i35KhZ712W6yrHngXy+nbYV4N
-NhjTvvpDmzBo349gEEKpFG3dhTYbtS1kgzaVDbDeHh2B9M5YrRLkIYAjflSzwLeg
-Yti6Jgi8Lx7rwmbBx7ACHi/MwbFhTgRxmebmW/EprvqsF+Q1LPKwoqZzgewibxLc
-PHCGuWASzrD+VUARI8yApx4c0VvYevsCX3SqhAgEVABuyv5unCyrdK6feQ4pOe6j
-AWVdgGrscUVgis28iFGnfmjKc72Ilct0g+jn6CcMAxcNH75lYFazRIihBrGTjh2j
-TLYng7hGWV16ZT1d0tdphETvEKKG5A==
-=R/O9
------END PGP SIGNATURE-----
-
---WZLuFERxa6Y0cbOt--
-
---===============6314046386582917530==
-Content-Type: text/plain; charset="us-ascii"
-MIME-Version: 1.0
-Content-Transfer-Encoding: 7bit
-Content-Disposition: inline
-
+Dillon
 _______________________________________________
 Linux-stm32 mailing list
 Linux-stm32@st-md-mailman.stormreply.com
 https://st-md-mailman.stormreply.com/mailman/listinfo/linux-stm32
-
---===============6314046386582917530==--
