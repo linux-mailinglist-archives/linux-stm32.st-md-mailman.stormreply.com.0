@@ -2,53 +2,45 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id E92051DF6A1
-	for <lists+linux-stm32@lfdr.de>; Sat, 23 May 2020 12:36:15 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 84B8E1DF6B7
+	for <lists+linux-stm32@lfdr.de>; Sat, 23 May 2020 12:46:31 +0200 (CEST)
 Received: from ip-172-31-3-76.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 8A550C36B25;
-	Sat, 23 May 2020 10:36:15 +0000 (UTC)
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 3E377C36B25;
+	Sat, 23 May 2020 10:46:31 +0000 (UTC)
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
  (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 27EEEC36B23
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 7446AC36B23
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Sat, 23 May 2020 10:36:14 +0000 (UTC)
+ Sat, 23 May 2020 10:46:29 +0000 (UTC)
 Received: from localhost (p5486c962.dip0.t-ipconnect.de [84.134.201.98])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by mail.kernel.org (Postfix) with ESMTPSA id DBBAC2071C;
- Sat, 23 May 2020 10:36:11 +0000 (UTC)
+ by mail.kernel.org (Postfix) with ESMTPSA id 4740E2071C;
+ Sat, 23 May 2020 10:46:27 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
- s=default; t=1590230172;
- bh=0HzKqeO/bdhEuUfUb/+2HOuRW4/bgdkt0jgum4LSP7I=;
- h=Date:From:To:Subject:References:In-Reply-To:From;
- b=tcvPOX7FmK7rYwEMs0HJbm5mXoYSvZ/SjgG1xtFkYnqcuzPx/GVq4O6LXnX6Eh5jk
- c4jwP5wSX6gLthoBAv+t1O0DRMCFFPSoFh5CSHH6U2P0G10YU4sxA9pZOvnSnMBic0
- PkhLQwfl1X1gtHJthD25SaApF13kbUkzfAA8Ia8Q=
-Date: Sat, 23 May 2020 12:36:01 +0200
-From: "wsa@kernel.org" <wsa@kernel.org>
-To: Rob Herring <robh@kernel.org>,
- "mark.rutland@arm.com" <mark.rutland@arm.com>,
- Pierre Yves MORDRET <pierre-yves.mordret@st.com>,
- "mcoquelin.stm32@gmail.com" <mcoquelin.stm32@gmail.com>,
- Alexandre TORGUE <alexandre.torgue@st.com>,
- "linux-i2c@vger.kernel.org" <linux-i2c@vger.kernel.org>,
- "devicetree@vger.kernel.org" <devicetree@vger.kernel.org>,
- "linux-stm32@st-md-mailman.stormreply.com"
- <linux-stm32@st-md-mailman.stormreply.com>, 
- "linux-arm-kernel@lists.infradead.org" <linux-arm-kernel@lists.infradead.org>, 
- "linux-kernel@vger.kernel.org" <linux-kernel@vger.kernel.org>,
- Fabrice GASNIER <fabrice.gasnier@st.com>
-Message-ID: <20200523103601.GA3459@ninjato>
+ s=default; t=1590230788;
+ bh=pbReTCTmAIHmTd4BJrQV3YAqM3Cg2azMISSPySR/VeE=;
+ h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
+ b=dkhtftQ/UB2JXoW8P545devsy9L/piU0uizM9rj9bh9fsgUV27y1zesvuLCrCYqb4
+ ex99CvspcJLpmfp36jRcZUNvzuJj2aH/KIqA2Z/lAWh3C3t7erD8w209kJPvzhrcrt
+ JMWBvyOa/VKZvl4R9niA0/QJ2mgpf9oYRCZpAfFU=
+Date: Sat, 23 May 2020 12:46:25 +0200
+From: Wolfram Sang <wsa@kernel.org>
+To: Alain Volmat <alain.volmat@st.com>,
+ Benjamin Tissoires <benjamin.tissoires@redhat.com>
+Message-ID: <20200523104624.GB3459@ninjato>
 References: <1588657871-14747-1-git-send-email-alain.volmat@st.com>
- <1588657871-14747-4-git-send-email-alain.volmat@st.com>
- <20200513021932.GA9172@bogus>
- <20200513054231.GA16558@gnbcxd0016.gnb.st.com>
+ <1588657871-14747-2-git-send-email-alain.volmat@st.com>
 MIME-Version: 1.0
-In-Reply-To: <20200513054231.GA16558@gnbcxd0016.gnb.st.com>
+In-Reply-To: <1588657871-14747-2-git-send-email-alain.volmat@st.com>
 User-Agent: Mutt/1.10.1 (2018-07-13)
-Subject: Re: [Linux-stm32] [PATCH 3/4] dt-bindings: i2c-stm32: add SMBus
-	Alert bindings
+Cc: mark.rutland@arm.com, devicetree@vger.kernel.org,
+ linux-kernel@vger.kernel.org, pierre-yves.mordret@st.com, robh+dt@kernel.org,
+ linux-i2c@vger.kernel.org, mcoquelin.stm32@gmail.com, fabrice.gasnier@st.com,
+ linux-stm32@st-md-mailman.stormreply.com, linux-arm-kernel@lists.infradead.org
+Subject: Re: [Linux-stm32] [PATCH 1/4] i2c: smbus: add core function
+ handling SMBus host-notify
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -60,78 +52,121 @@ List-Post: <mailto:linux-stm32@st-md-mailman.stormreply.com>
 List-Help: <mailto:linux-stm32-request@st-md-mailman.stormreply.com?subject=help>
 List-Subscribe: <https://st-md-mailman.stormreply.com/mailman/listinfo/linux-stm32>, 
  <mailto:linux-stm32-request@st-md-mailman.stormreply.com?subject=subscribe>
-Content-Type: multipart/mixed; boundary="===============7050300083396533055=="
+Content-Type: multipart/mixed; boundary="===============5095578248850472424=="
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
 
---===============7050300083396533055==
+--===============5095578248850472424==
 Content-Type: multipart/signed; micalg=pgp-sha512;
-	protocol="application/pgp-signature"; boundary="BXVAT5kNtrzKuDFl"
+	protocol="application/pgp-signature"; boundary="WYTEVAkct0FjGQmd"
 Content-Disposition: inline
 
 
---BXVAT5kNtrzKuDFl
+--WYTEVAkct0FjGQmd
 Content-Type: text/plain; charset=us-ascii
 Content-Disposition: inline
 Content-Transfer-Encoding: quoted-printable
 
 
-> > > +        st,smbus-alert:
-> > > +          description: Enable the SMBus Alert feature
-> > > +          $ref: /schemas/types.yaml#/definitions/flag
-> > > +
-> >=20
-> > We already have smbus_alert interrupt. Can't you just check for this in=
-=20
-> > the slave nodes and enable if found?
+Adding Benjamin who mainly implemented this.
+
+On Tue, May 05, 2020 at 07:51:08AM +0200, Alain Volmat wrote:
+> SMBus Host-Notify protocol, from the adapter point of view
+> consist of receiving a message from a client, including the
+> client address and some other data.
 >=20
-> My understanding reading the code (smbalert_probe within i2c-smbus.c, of_=
-i2c_setup_smbus_alert called when
-> registering an adapter within i2c-core-smbus.c) is that smbus_alert refer=
-s to an interrupt on the
-> adapter side. That is an interrupt that would be triggered when the adapt=
-er is receiving an smbus_alert
-> message.
-> In our case (stm32f7), we do not have specific interrupt for that purpose=
-=2E The interrupt triggered when
-> an SMBUS Alert is received (by the adapter) is the same interrupt as for =
-other reasons and we check
-> within the irq handler within stm32f7 the reason before calling i2c_handl=
-e_smbus_alert if the status
-> register indicated an SMBUS Alert.
-> So my understanding is that we cannot rely on the mechanism of naming an =
-interrupt smbus_alert.
-> Did I misunderstood something ?
+> It can be simply handled by creating a new slave device
+> and registering a callback performing the parsing of the
+> message received from the client.
+>=20
+> This commit introduces two new core functions
+>   * i2c_new_smbus_host_notify_device
+>   * i2c_free_smbus_host_notify_device
+> that take care of registration of the new slave device and
+> callback and will call i2c_handle_smbus_host_notify once a
+> Host-Notify event is received.
 
-I just wonder what is bad about specifying the same interrupt twice in
-the interrupt properties? You could then check in probe if "smbus_alert"
-is populated and if it matches the main irq.
+Yay, cool idea to use the slave interface. I like it a lot!
+
+> +static int i2c_smbus_host_notify_cb(struct i2c_client *client,
+> +				    enum i2c_slave_event event, u8 *val)
+> +{
+> +	struct i2c_smbus_host_notify_status *status =3D client->dev.platform_da=
+ta;
+> +	int ret;
+> +
+> +	switch (event) {
+> +	case I2C_SLAVE_WRITE_REQUESTED:
+> +		status->notify_start =3D true;
+> +		break;
+> +	case I2C_SLAVE_WRITE_RECEIVED:
+> +		/* We only retrieve the first byte received (addr)
+> +		 * since there is currently no way to retrieve the data
+> +		 * parameter from the client.
+
+Maybe s/no way/no support/ ? I still wonder if we couldn't add it
+somehow. Once we find a device which needs this, of course.
+
+> +		 */
+> +		if (!status->notify_start)
+> +			break;
+> +		status->addr =3D *val;
+> +		status->notify_start =3D false;
+> +		break;
+> +	case I2C_SLAVE_STOP:
+
+What about setting 'notify_start' to false here as well? In the case of
+an incomplete write?
+
+> +		ret =3D i2c_handle_smbus_host_notify(client->adapter,
+> +						   status->addr);
+> +		if (ret < 0) {
+> +			dev_warn(&client->adapter->dev, "failed to handle host_notify (%d)\n",
+> +				ret);
+
+I think we should rather add such error strings to the core if we think
+they are needed. I am not convinced they are, though.
+
+> +			return ret;
+> +		}
+> +		break;
+> +	default:
+> +		/* Only handle necessary events */
+> +		break;
+> +	}
+> +
+> +	return 0;
+> +}
+> +
+
+Rest of the code looks good. Maybe we should compile all this only when
+I2C_SLAVE is enabled?
 
 
---BXVAT5kNtrzKuDFl
+--WYTEVAkct0FjGQmd
 Content-Type: application/pgp-signature; name="signature.asc"
 
 -----BEGIN PGP SIGNATURE-----
 
-iQIzBAABCgAdFiEEOZGx6rniZ1Gk92RdFA3kzBSgKbYFAl7I/I0ACgkQFA3kzBSg
-Kbavuw/+NO4H+Xha0Xe144SeVcvWUywbqoyWBQ0bwabNCH3szXM85RHPfEQsUXMo
-bwOa6rKiRHSI34T/PwCmjvNVAadYuYIkjGpLFNbUQEhpnEehWiLcsQMYWJUzg+ZE
-5uOg0Gbd5/Db6a/jpdF9A0FaPomsmqNPuXiThftutc5p1pk0eQzixOBaK61Ywky3
-OZoyCrOS4y2nZ0jNvCcccJI/38s35Sf0E5vMo0VUkXpUlqucdRp8oDWhapDNW8UP
-bvmCU9Xw7vfM1iaYOQ4hX0bUus/bH5/vkgEjnsEUNxlsbNB+nZDNAxm4ZLRr3hYW
-aLKVw6H+P7ZSbSOKy9SYzo+aHixk1r47kpzwCxLMEh3ul0BYwcArDQbqq0WtbhYf
-4fVswX9t5t194CW61jE2k/f12qiDpVJ3cn7XZZ2ygKY5JfmW3N6qjB+FY/o0amxs
-pfxClFmbMXuq4Bcn4+4Qj23QSAO4xxYkY7ImziQa9mYQAtmaJUagVzRxUz9JkP3Q
-qigB58PeO8etgZ+U6yNKjG6fxNg1THTmWtuE83Z5z0ZdwXyEtZLBpsXM8zCtptHq
-8m4ZI4SU6XVAFvQjrPgJXVSuZ1Tkc7ZJuBpXWF2UFhVGcJSeptEnkPQel6VJXME+
-ka3e+K9lySX+ub5zdNvEI+Uz3q9mTVzJP4RbW7PP7w13jb3kjm0=
-=NDSc
+iQIzBAABCgAdFiEEOZGx6rniZ1Gk92RdFA3kzBSgKbYFAl7I/wAACgkQFA3kzBSg
+KbbXgQ/+LcMC7QayI4s8Dvz6JvDUJwv5Hb0sbJhWY6hZjTukOGuxIPjrqZ/TqNGN
+FAqr4fNEgfEH2wJw2zvuMUlqkVhAgfnw5/DtOOzDGhmogXa8eyP8VCBA35wNkLv7
+glMCNfuaWYvQMZv0Ftr8atBoONlIofe0s7yIABC0KginLoUqTMLIGOzM4+JWAQ9o
+l4n8aoWdmZL1/TksIOhN6UK0uxup3MPvL3KGCFh8YwFRxvRvEZOcvxbcXjZstQd3
+5Rf0BYf85c0vVOxXY0V7tNUVSZtcgkKr0yyrFtRwpI0EaFwx6lR9zrclPeNZQd9p
+xHwp/i3DSUL69SPOgCgeaOglKUEZqNk8i8RzBDcGBtiih5illJH+6gXuYcS9GfR2
+XJgUybgtl9dQwIcr4KkZraayA4SNBiXwNcjOn1CqunS3Xv21Ep8dW3HTkv6opO1f
+u1j43ZN/51NATCPp/I6OdSQqpfMhpds4BPjrAm96ZygEVYHWqAdOOs/IK2Rvdnw5
+0yQBdpeqWP+oFpL/W0uUcS+u5pMjQSL8SA9hxav4FuitaECBsgeFU+k7O28Qsv4g
+9w6QKh7X9oEbbiG22YLNJ+/pGbijqMSRASEyYsu6wh3GsJ/RqIC1WnsGztdNwDtR
+8GXDv+ja9iaSIc28HjfMszo/vbXSlU2MJ7SwWOG1H2sFxQO3ZNw=
+=EXgv
 -----END PGP SIGNATURE-----
 
---BXVAT5kNtrzKuDFl--
+--WYTEVAkct0FjGQmd--
 
---===============7050300083396533055==
+--===============5095578248850472424==
 Content-Type: text/plain; charset="us-ascii"
 MIME-Version: 1.0
 Content-Transfer-Encoding: 7bit
@@ -142,4 +177,4 @@ Linux-stm32 mailing list
 Linux-stm32@st-md-mailman.stormreply.com
 https://st-md-mailman.stormreply.com/mailman/listinfo/linux-stm32
 
---===============7050300083396533055==--
+--===============5095578248850472424==--
