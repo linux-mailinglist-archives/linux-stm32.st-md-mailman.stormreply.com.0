@@ -2,38 +2,38 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id B3A611E01F9
-	for <lists+linux-stm32@lfdr.de>; Sun, 24 May 2020 21:17:51 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id AEB551E01FB
+	for <lists+linux-stm32@lfdr.de>; Sun, 24 May 2020 21:17:59 +0200 (CEST)
 Received: from ip-172-31-3-76.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 6B6A7C36B24;
-	Sun, 24 May 2020 19:17:51 +0000 (UTC)
-Received: from relay1-d.mail.gandi.net (relay1-d.mail.gandi.net
- [217.70.183.193])
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 783EEC36B24;
+	Sun, 24 May 2020 19:17:59 +0000 (UTC)
+Received: from relay9-d.mail.gandi.net (relay9-d.mail.gandi.net
+ [217.70.183.199])
  (using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 6FFD7C36B0D
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 6EB32C36B0D
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Sun, 24 May 2020 19:17:50 +0000 (UTC)
+ Sun, 24 May 2020 19:17:57 +0000 (UTC)
 X-Originating-IP: 91.224.148.103
 Received: from localhost.localdomain (unknown [91.224.148.103])
  (Authenticated sender: miquel.raynal@bootlin.com)
- by relay1-d.mail.gandi.net (Postfix) with ESMTPSA id 51EE6240002;
- Sun, 24 May 2020 19:17:49 +0000 (UTC)
+ by relay9-d.mail.gandi.net (Postfix) with ESMTPSA id 59790FF809;
+ Sun, 24 May 2020 19:17:56 +0000 (UTC)
 From: Miquel Raynal <miquel.raynal@bootlin.com>
 To: Christophe Kerello <christophe.kerello@st.com>, miquel.raynal@bootlin.com,
  richard@nod.at, vigneshr@ti.com
-Date: Sun, 24 May 2020 21:17:48 +0200
-Message-Id: <20200524191748.32248-1-miquel.raynal@bootlin.com>
+Date: Sun, 24 May 2020 21:17:55 +0200
+Message-Id: <20200524191755.353-1-miquel.raynal@bootlin.com>
 X-Mailer: git-send-email 2.20.1
-In-Reply-To: <1589284068-4079-3-git-send-email-christophe.kerello@st.com>
+In-Reply-To: <1589284068-4079-2-git-send-email-christophe.kerello@st.com>
 References: 
 MIME-Version: 1.0
 X-linux-mtd-patch-notification: thanks
-X-linux-mtd-patch-commit: 699d3e6a87d1ea37cb47343fa54f074a9e0a2391
+X-linux-mtd-patch-commit: 743f05572e7f81dcccfecf454bc7d9e10edbbaca
 Cc: linux-mtd@lists.infradead.org, linux-kernel@vger.kernel.org,
  linux-stm32@st-md-mailman.stormreply.com
-Subject: Re: [Linux-stm32] [PATCH v5 2/2] mtd: rawnand: stm32_fmc2: use
-	FIELD_PREP/FIELD_GET macros
+Subject: Re: [Linux-stm32] [PATCH v5 1/2] mtd: rawnand: stm32_fmc2: cosmetic
+	change to use nfc instead of fmc2 where relevant
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -50,8 +50,11 @@ Content-Transfer-Encoding: 7bit
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
-On Tue, 2020-05-12 at 11:47:48 UTC, Christophe Kerello wrote:
-> This patch removes custom macros and uses FIELD_PREP and FIELD_GET macros.
+On Tue, 2020-05-12 at 11:47:47 UTC, Christophe Kerello wrote:
+> This patch renames functions and local variables.
+> This cleanup is done to get all functions starting by stm32_fmc2_nfc
+> in the FMC2 raw NAND driver when all functions will start by
+> stm32_fmc2_ebi in the FMC2 EBI driver.
 > 
 > Signed-off-by: Christophe Kerello <christophe.kerello@st.com>
 > Reviewed-by: Miquel Raynal <miquel.raynal@bootlin.com>
