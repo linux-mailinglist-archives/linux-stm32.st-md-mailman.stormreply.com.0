@@ -2,63 +2,43 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id 308B41E0E54
-	for <lists+linux-stm32@lfdr.de>; Mon, 25 May 2020 14:23:57 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id B92741E1022
+	for <lists+linux-stm32@lfdr.de>; Mon, 25 May 2020 16:11:01 +0200 (CEST)
 Received: from ip-172-31-3-76.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id E73EFC36B24;
-	Mon, 25 May 2020 12:23:56 +0000 (UTC)
-Received: from mail-lj1-f196.google.com (mail-lj1-f196.google.com
- [209.85.208.196])
- (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 7043FC36B24;
+	Mon, 25 May 2020 14:11:01 +0000 (UTC)
+Received: from vps0.lunn.ch (vps0.lunn.ch [185.16.172.187])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 28EA2C36B0D
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 330B1C36B0D
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Mon, 25 May 2020 12:23:55 +0000 (UTC)
-Received: by mail-lj1-f196.google.com with SMTP id w10so20603888ljo.0
- for <linux-stm32@st-md-mailman.stormreply.com>;
- Mon, 25 May 2020 05:23:55 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linaro.org; s=google;
- h=mime-version:references:in-reply-to:from:date:message-id:subject:to
- :cc; bh=1neDSVvo2exAwO7XG1Q7asHC8C/uLbtbXAanu+QhUvY=;
- b=mHchiWv9d+bl7TypEyswUYJoJBznRNEzkaqNXJ6yZYcwVhCmDlHeQE5uaH/HclG1/A
- Bx4Cg9tDzYVicfaKmVDBhYVOUgLefRTuPj7YFVjqzZ8YnTP/1LLLJTykYqXl+FHN2pZL
- g8xP1m6SXMaHEiGtmqiEB2IP7G+kpZcs9VS8hZv85N+n3X6CdpddRhU6y1nCKsAQzFCY
- 4rfmeLIz/oOwhxkepv8pd1oS85BdwpikntEpMCfo0gVE3d09pfC4AhwFL/nAFV+L4+Zb
- mwcQqn4CqSg3gj+nOH2kk2AibQMFcCPYOzlGhx/9SXJpErxweRkVif+GCa4LGQO8gvT9
- 9trw==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20161025;
- h=x-gm-message-state:mime-version:references:in-reply-to:from:date
- :message-id:subject:to:cc;
- bh=1neDSVvo2exAwO7XG1Q7asHC8C/uLbtbXAanu+QhUvY=;
- b=oz+16hoJbXeVerdHloQ74AGF8NYmUZEP9d+Z9lEfEQKMwQR0bTk3URfltBXW+l7sUA
- 3qI5yUrJz+BGvJuswArsgEq1HUAhDiTjTrVkup5NSye07x0QzsVdavdQkbaw3PDalEN6
- Cj90kpVcJcLs6Qg/8C39eSvQDKIVlNCbVZzm5bTUv+KNAspKyUTAnrdFEgAWxJAql3qG
- SmgO9zx2sd0Gvc2BBAf/Ru+w4YAQSc9e36NNKW4sv7gbWXdTZ7+dsDAJrSDM8haGyEYf
- ON/+Yfuozh470y0HPwTnsPptkVueBqK6JYkCwoDDAxlfAF2o27iHH9jNwabBNbCWnXbq
- 5HLA==
-X-Gm-Message-State: AOAM530QeTRlgVXnXYxycYn30os6HNmkbpo1jYpaJI0K2UsF1fTSONkc
- 1Aamd86WjlCPCYPgCfwleHZ2YPob4veunnjWEbF71Q==
-X-Google-Smtp-Source: ABdhPJyf5wZA8Fh7xQjtaNnLLHBTpAkEbLAQIKhyb7JglaMhaJDSU7UOMtER0/cndL74Gsc/vcIt53XFGmKsX5AJ0t0=
-X-Received: by 2002:a2e:711c:: with SMTP id m28mr13451102ljc.104.1590409434478; 
- Mon, 25 May 2020 05:23:54 -0700 (PDT)
+ Mon, 25 May 2020 14:10:59 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=lunn.ch;
+ s=20171124; h=In-Reply-To:Content-Type:MIME-Version:References:Message-ID:
+ Subject:Cc:To:From:Date:Sender:Reply-To:Content-Transfer-Encoding:Content-ID:
+ Content-Description:Resent-Date:Resent-From:Resent-Sender:Resent-To:Resent-Cc
+ :Resent-Message-ID:List-Id:List-Help:List-Unsubscribe:List-Subscribe:
+ List-Post:List-Owner:List-Archive;
+ bh=I0JcXOa65pxt0xeOn7XZQNU2idxhZWDbbjFj+EaaSWo=; b=XIC82vWt8QdxYgP2GkmVIy9T3l
+ veUjidrRo4BVKiloackNjz5i742888MBHPsFodv7WcoggCkk5k1IYqD4yRz4hS6/3ANYgLCepIpUD
+ V2Qo1sDTJ7rq7vCI/bvLRvYvkkwI7BbRKpXjTFTXTdn4P9BIKpUPpDfHt9F7GsbN/4G4=;
+Received: from andrew by vps0.lunn.ch with local (Exim 4.93)
+ (envelope-from <andrew@lunn.ch>)
+ id 1jdDoW-003C8t-15; Mon, 25 May 2020 16:10:48 +0200
+Date: Mon, 25 May 2020 16:10:48 +0200
+From: Andrew Lunn <andrew@lunn.ch>
+To: Fugang Duan <fugang.duan@nxp.com>
+Message-ID: <20200525141048.GF752669@lunn.ch>
+References: <1590394945-5571-1-git-send-email-fugang.duan@nxp.com>
 MIME-Version: 1.0
-References: <1590378348-8115-1-git-send-email-dillon.minfei@gmail.com>
- <1590378348-8115-7-git-send-email-dillon.minfei@gmail.com>
-In-Reply-To: <1590378348-8115-7-git-send-email-dillon.minfei@gmail.com>
-From: Linus Walleij <linus.walleij@linaro.org>
-Date: Mon, 25 May 2020 14:23:43 +0200
-Message-ID: <CACRpkda26eQZGMfbq-FL9X532mK=Z87GotjYMu2MWNGgNohp7A@mail.gmail.com>
-To: dillon min <dillon.minfei@gmail.com>
-Cc: "open list:OPEN FIRMWARE AND FLATTENED DEVICE TREE BINDINGS"
- <devicetree@vger.kernel.org>, linux-clk <linux-clk@vger.kernel.org>,
- "linux-kernel@vger.kernel.org" <linux-kernel@vger.kernel.org>,
- "open list:DRM PANEL DRIVERS" <dri-devel@lists.freedesktop.org>,
- linux-spi <linux-spi@vger.kernel.org>, Mark Brown <broonie@kernel.org>,
- linux-stm32@st-md-mailman.stormreply.com,
- Linux ARM <linux-arm-kernel@lists.infradead.org>
-Subject: Re: [Linux-stm32] [PATCH v5 6/8] drm/panel: Add ilitek ili9341
-	panel driver
+Content-Disposition: inline
+In-Reply-To: <1590394945-5571-1-git-send-email-fugang.duan@nxp.com>
+Cc: p.zabel@pengutronix.de, netdev@vger.kernel.org,
+ linux-stm32@st-md-mailman.stormreply.com, joabreu@synopsys.com,
+ mcoquelin.stm32@gmail.com, kuba@kernel.org, peppe.cavallaro@st.com,
+ davem@davemloft.net, linux-arm-kernel@lists.infradead.org
+Subject: Re: [Linux-stm32] [PATCH] stmmac: platform: add "snps,
+ dwmac-5.10a" IP compatible string
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -75,29 +55,13 @@ Content-Transfer-Encoding: 7bit
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
-On Mon, May 25, 2020 at 5:46 AM <dillon.minfei@gmail.com> wrote:
+On Mon, May 25, 2020 at 04:22:25PM +0800, Fugang Duan wrote:
+> Add "snps,dwmac-5.10a" compatible string for 5.10a version that can
+> avoid to define some plat data in glue layer.
 
-> From: dillon min <dillon.minfei@gmail.com>
->
->     This driver combine tiny/ili9341.c mipi_dbi_interface driver
->     with mipi_dpi_interface driver, can support ili9341 with serial
->     mode or parallel rgb interface mode by register configuration.
->
-> Changes since V3:
->
->     accoding to Linus Walleij's suggestion.
->     1 add more comments to driver.
->     2 reduce magic number usage in the driver.
->     3 move panel configuration from common place to system configuration.
->     4 reuse MIPI_DCS_* as more as possible.
->
-> Signed-off-by: dillon min <dillon.minfei@gmail.com>
+Documentation/devicetree/bindings/net/snps,dwmac.yaml ?
 
-This looks good to me!
-Reviewed-by: Linus Walleij <linus.walleij@linaro.org>
-
-Yours,
-Linus Walleij
+      Andrew
 _______________________________________________
 Linux-stm32 mailing list
 Linux-stm32@st-md-mailman.stormreply.com
