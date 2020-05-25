@@ -2,67 +2,61 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id E27111E0554
-	for <lists+linux-stm32@lfdr.de>; Mon, 25 May 2020 05:41:51 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 376AC1E056F
+	for <lists+linux-stm32@lfdr.de>; Mon, 25 May 2020 05:45:56 +0200 (CEST)
 Received: from ip-172-31-3-76.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id ACCFDC36B24;
-	Mon, 25 May 2020 03:41:51 +0000 (UTC)
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id F27DEC36B24;
+	Mon, 25 May 2020 03:45:55 +0000 (UTC)
 Received: from mail-pg1-f195.google.com (mail-pg1-f195.google.com
  [209.85.215.195])
  (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 79C34C36B0D
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id D8C9DC36B0D
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Mon, 25 May 2020 03:41:50 +0000 (UTC)
-Received: by mail-pg1-f195.google.com with SMTP id f4so8104959pgi.10
+ Mon, 25 May 2020 03:45:54 +0000 (UTC)
+Received: by mail-pg1-f195.google.com with SMTP id 124so1920804pgi.9
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Sun, 24 May 2020 20:41:50 -0700 (PDT)
+ Sun, 24 May 2020 20:45:54 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20161025;
- h=from:to:cc:subject:date:message-id:in-reply-to:references;
- bh=Eu+Ho/X9r7MZN52F/RomcQQtgjiQ+X/m9AkGhdRXtC0=;
- b=PmqbvbjfQbPp8aCgYV4adtOizlxzzoYkkP3BmW00smgp2fP0Bgb6gdyaUQ4hSIboyv
- v17woXHMmCbO+WITpNoew3ZTtwk+GINDY8hwKAcYqbhKR5mfY5n8Sx6wOC3DKlVsJ254
- LC94GQMZAP7XMrauRY3joLeFA5EyYlu3MTIORwdh5K6lKQ4XbdESZQCBS+FTPbumlf4A
- WElSv97Cre7PEAgs33dgrOqpa7Caw6r+g2WUAH+gf6a6dTsV05j64XII4l4nOrXjlXB5
- lVAnOeQ9wLz5J4uOpLCjlTipqGfMETbFE4vqCnbX2n8GsVykhRXpzBRU8Xuzqeu9NO5H
- w0GQ==
+ h=from:to:cc:subject:date:message-id;
+ bh=V6bHngqzBjjcimyp4HxH/p2UMJo9dJvIc8PwFZSC+CA=;
+ b=ujh4cQjvO9LqYulZCLFG/EhC/ysEt3VzB4Cfqrtib0Uv000szrhWNJVAQqhnWwLmQj
+ KyI/c1CpyMwKTvIOtzl+DIOxWEqwg1/Ejr1NB2PDWObgdVWnJUKbfXYkj13FVI/OMInD
+ VjqW6yrac0hU+ZU6/6hqJLmGIbhEWTSxw8BFl+fksItTEg5jj2ijP9jOzYsgoG1v4d/k
+ UTpiVWLknc7v1Iyv2+wPDEa8Wi45AqiSaGZq52tE6dzgVdBFXYZ1BDH8VNbabbRflu6k
+ Z6Z7tQhYNL6SQS8PNFc/dVzmOzXvKO7ZaT4fraahv9czQoiNLNo+DODNQR2WolvAWSGw
+ Mz+Q==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=1e100.net; s=20161025;
- h=x-gm-message-state:from:to:cc:subject:date:message-id:in-reply-to
- :references;
- bh=Eu+Ho/X9r7MZN52F/RomcQQtgjiQ+X/m9AkGhdRXtC0=;
- b=YkAuNchegyiqfo+yjsaVcfDYWiKvERy/CKwzEGp5CQ3huHcrQatoWAWnz0Hkky/xzh
- khx+Wz18enxFY/rBJg0snM5NkPIDklKA9+sEt1i+DP1jr5tjZGlOz6bZli3FMzQJWDfM
- PlsoNjBIIQn6OblpLIeds/FoSh6yaa0tGtWokpB1WIdIRpoiGWYVKHKm+MOlD0atUpAD
- dJjpWq4scG6WptZYRwqKfYBdow7vi3xeBJdAicGQCd0RYf104EpijrMq55yx4pnaNW+A
- VHGNndOACN8ZX6qvfPxrLvYVlUc5nMSp2vMwHPCs2OtPK0srQNY6Vt5BVLGak7/rKMDO
- IrzQ==
-X-Gm-Message-State: AOAM533VFKySg7qRuCar/QviUkm2H1C80q8eK+RHZvfntKwJYBjObhCD
- TkbGvpSCZylf4mtq1MJCS2GNZ9ZZngY=
-X-Google-Smtp-Source: ABdhPJxIuHMaJzv5SBEYVh6aGCYw3zkHcCsCQujjuOk1hJAg5OSAvXpvA0RjBvenltA1HqrMvGbYhQ==
-X-Received: by 2002:a65:41c8:: with SMTP id b8mr23889318pgq.265.1590378108951; 
- Sun, 24 May 2020 20:41:48 -0700 (PDT)
+ h=x-gm-message-state:from:to:cc:subject:date:message-id;
+ bh=V6bHngqzBjjcimyp4HxH/p2UMJo9dJvIc8PwFZSC+CA=;
+ b=eFeTKyx+YHwWtbTnpGbZLJI7galU3kRSaj9PCurQuL+OhZlNkiqVJtmJMyczvY4teS
+ ukPKVdrnRD66ZxvfC5rEBIk1MkUHMCluteVsA/wtsjBL2EXlyEMXxfiCg3jwQsstwWV0
+ t7UHlIoL2IEToW8xfjtrBaVbAtKwUWbLNjF9jm9Vh9S3S4PGcFfLpziYCM/l9ZaD3jNr
+ Tb2EFtIztGKbzZNjO/gPmo2oIXH/tA0N2NQ+2Yi2h/VlN72pPuShY22FNVu6iQE9HyDh
+ JLlJwpxPYmy2FH1CLL7zouuU2gROP3HExFVFA0LJfKcuIL4SSy6OMYwSOxKM69MrvZvm
+ /uzw==
+X-Gm-Message-State: AOAM532Od9q+pkSbx7Ysrq6ocb3ElYjGB53gxetYrpKxm/Zi7YEcZHo3
+ pCXcjt7i9eoT5uWhV2Kc/YQArj1klLA=
+X-Google-Smtp-Source: ABdhPJzHOdNvEM+GtCSQLN0Rj3/3dq/dcwOzljG2N6BH2aAoIYChewg0WdqeD9k9WKyv/7C29tuJrg==
+X-Received: by 2002:a63:1a13:: with SMTP id a19mr24649723pga.350.1590378353414; 
+ Sun, 24 May 2020 20:45:53 -0700 (PDT)
 Received: from fmin-OptiPlex-7060.nreal.work ([103.206.191.44])
- by smtp.gmail.com with ESMTPSA id 7sm11981695pfc.203.2020.05.24.20.41.44
+ by smtp.gmail.com with ESMTPSA id i98sm12152831pje.37.2020.05.24.20.45.50
  (version=TLS1_2 cipher=ECDHE-ECDSA-AES128-GCM-SHA256 bits=128/128);
- Sun, 24 May 2020 20:41:48 -0700 (PDT)
+ Sun, 24 May 2020 20:45:52 -0700 (PDT)
 From: dillon.minfei@gmail.com
-To: robh+dt@kernel.org, p.zabel@pengutronix.de, mcoquelin.stm32@gmail.com,
- alexandre.torgue@st.com, thierry.reding@gmail.com, sam@ravnborg.org,
- airlied@linux.ie, daniel@ffwll.ch, mturquette@baylibre.com,
- sboyd@kernel.org
-Date: Mon, 25 May 2020 11:41:02 +0800
-Message-Id: <1590378062-7965-9-git-send-email-dillon.minfei@gmail.com>
+To: linus.walleij@linaro.org,
+	broonie@kernel.org
+Date: Mon, 25 May 2020 11:45:40 +0800
+Message-Id: <1590378348-8115-1-git-send-email-dillon.minfei@gmail.com>
 X-Mailer: git-send-email 2.7.4
-In-Reply-To: <1590378062-7965-1-git-send-email-dillon.minfei@gmail.com>
-References: <broonie@kernel.org>
- <1590378062-7965-1-git-send-email-dillon.minfei@gmail.com>
 Cc: devicetree@vger.kernel.org, linux-clk@vger.kernel.org,
  linux-kernel@vger.kernel.org, dri-devel@lists.freedesktop.org,
  linux-spi@vger.kernel.org, dillon min <dillon.minfei@gmail.com>,
  linux-stm32@st-md-mailman.stormreply.com, linux-arm-kernel@lists.infradead.org
-Subject: [Linux-stm32] [PATCH v5 8/8] spi: flags 'SPI_CONTROLLER_MUST_RX'
-	and 'SPI_CONTROLLER_MUST_TX' can't be coexit with 'SPI_3WIRE' mode
+Subject: [Linux-stm32] [PATCH v5 0/8] Enable ili9341 and l3gd20 on
+	stm32f429-disco
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -82,31 +76,89 @@ Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
 From: dillon min <dillon.minfei@gmail.com>
 
-since chip spi driver need get the transfer direction by 'tx_buf' and
-'rx_buf' of 'struct spi_transfer' in 'SPI_3WIRE' mode.
+V5's update based on Mark Brown's suggestion, use 'SPI_MASTER_MUST_RX'
+for SPI_SIMPLEX_RX mode on stm32 spi controller.
 
-so, we need bypass 'SPI_CONTROLLER_MUST_RX' and 'SPI_CONTROLLER_MUST_TX'
-feature in 'SPI_3WIRE' mode
+V5:
+1 instead of add send dummy data out under SIMPLEX_RX mode,
+   add flags 'SPI_CONTROLLER_MUST_TX' for stm32 spi driver
+2 bypass 'SPI_CONTROLLER_MUST_TX' and 'SPI_CONTROLLER_MUST_RX' under
+'SPI_3WIRE' mode
 
-Signed-off-by: dillon min <dillon.minfei@gmail.com>
----
- drivers/spi/spi.c | 3 ++-
- 1 file changed, 2 insertions(+), 1 deletion(-)
+V4:
+According to alexandre torgue's suggestion, combine ili9341 and
+l3gd20's modification on stm32f429-disco board to one patchset.
 
-diff --git a/drivers/spi/spi.c b/drivers/spi/spi.c
-index c92c894..f884411 100644
---- a/drivers/spi/spi.c
-+++ b/drivers/spi/spi.c
-@@ -1023,7 +1023,8 @@ static int spi_map_msg(struct spi_controller *ctlr, struct spi_message *msg)
- 	void *tmp;
- 	unsigned int max_tx, max_rx;
- 
--	if (ctlr->flags & (SPI_CONTROLLER_MUST_RX | SPI_CONTROLLER_MUST_TX)) {
-+	if ((ctlr->flags & (SPI_CONTROLLER_MUST_RX | SPI_CONTROLLER_MUST_TX))
-+		&& !(msg->spi->mode & SPI_3WIRE)) {
- 		max_tx = 0;
- 		max_rx = 0;
- 
+Changes:
+
+ili9341:
+
+1 update ili9341 panel driver according to Linus's suggestion
+2 drop V1's No.5 patch, sumbit new changes for clk-stm32f4
+3 merge l3gd20's change to this patchset
+
+V3:
+1 merge original tiny/ili9341.c driver to panel/panel-ilitek-ili9341.c
+  to support serial spi & parallel rgb interface in one driver.
+2 update ilitek,ili9341.yaml dts binding documentation.
+3 update stm32f429-disco dts binding
+
+V2:
+1 verify ilitek,ili9341.yaml with make O=../linux-stm32
+  dt_binding_check
+  DT_SCHEMA_FILES=Documentation/devicetree/bindings/display/panel/
+  ilitek,ili9341.yaml
+
+V1:
+1 add ili9341 drm panel driver
+2 add ltdc, spi5 controller for stm32f429-disco
+3 add ltdc, spi5 pin map for stm32f429-disco
+4 add docs about ili9341
+5 fix ltdc driver loading hang in clk set rate bug
+
+
+L3gd20:
+V3:
+1 merge stm32f429-disco dtbs binding with ili9341 part
+
+V2:
+1 insert blank line at stm32f420-disco.dts line 143
+2 add more description for l3gd20 in commit message
+
+V1:
+1 enable spi5 controller on stm32f429-disco (dts)
+2 add spi5 pinmap for stm32f429-disco  (dts)
+3 add SPI_SIMPLEX_RX, SPI_3WIRE_RX support for stm32f4
+
+
+dillon min (8):
+  ARM: dts: stm32: Add dma config for spi5
+  ARM: dts: stm32: Add pin map for ltdc & spi5 on stm32f429-disco board
+  ARM: dts: stm32: enable ltdc binding with ili9341, gyro l3gd20 on    
+    stm32429-disco board
+  dt-bindings: display: panel: Add ilitek ili9341 panel bindings
+  clk: stm32: Fix stm32f429's ltdc driver hang in set clock rate,    
+    fix duplicated ltdc clock register to 'clk_core' case ltdc's clock  
+      turn off by clk_disable_unused()
+  drm/panel: Add ilitek ili9341 panel driver
+  spi: stm32: Add 'SPI_SIMPLEX_RX', 'SPI_3WIRE_RX' support for stm32f4
+  spi: flags 'SPI_CONTROLLER_MUST_RX' and 'SPI_CONTROLLER_MUST_TX' can't
+    be     coexit with 'SPI_3WIRE' mode
+
+ .../bindings/display/panel/ilitek,ili9341.yaml     |   69 ++
+ arch/arm/boot/dts/stm32f4-pinctrl.dtsi             |   67 +
+ arch/arm/boot/dts/stm32f429-disco.dts              |   48 +
+ arch/arm/boot/dts/stm32f429.dtsi                   |    3 +
+ drivers/clk/clk-stm32f4.c                          |    7 +-
+ drivers/gpu/drm/panel/Kconfig                      |   12 +
+ drivers/gpu/drm/panel/Makefile                     |    1 +
+ drivers/gpu/drm/panel/panel-ilitek-ili9341.c       | 1301 ++++++++++++++++++++
+ drivers/spi/spi-stm32.c                            |   19 +-
+ drivers/spi/spi.c                                  |    3 +-
+ 10 files changed, 1521 insertions(+), 9 deletions(-)
+ create mode 100644 Documentation/devicetree/bindings/display/panel/ilitek,ili9341.yaml
+ create mode 100644 drivers/gpu/drm/panel/panel-ilitek-ili9341.c
+
 -- 
 2.7.4
 
