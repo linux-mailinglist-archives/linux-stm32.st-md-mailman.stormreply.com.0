@@ -2,42 +2,89 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id 01D441E1E39
-	for <lists+linux-stm32@lfdr.de>; Tue, 26 May 2020 11:19:25 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id E5AA41E1F8E
+	for <lists+linux-stm32@lfdr.de>; Tue, 26 May 2020 12:23:21 +0200 (CEST)
 Received: from ip-172-31-3-76.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id B2306C36B21;
-	Tue, 26 May 2020 09:19:24 +0000 (UTC)
-Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
- (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
- (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 70A57C36B0B
- for <linux-stm32@st-md-mailman.stormreply.com>;
- Tue, 26 May 2020 09:19:21 +0000 (UTC)
-Received: from localhost (fw-tnat.cambridge.arm.com [217.140.96.140])
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 682E0C36B21;
+	Tue, 26 May 2020 10:23:21 +0000 (UTC)
+Received: from mx07-00178001.pphosted.com (mx07-00178001.pphosted.com
+ [62.209.51.94])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by mail.kernel.org (Postfix) with ESMTPSA id 8A7C82073B;
- Tue, 26 May 2020 09:19:19 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
- s=default; t=1590484760;
- bh=pQ9fSIsd2546ytSpDQuQx2cfrsXYFihGA5BoJ2QU+ds=;
- h=Date:From:To:Cc:In-Reply-To:References:Subject:From;
- b=n+3mDJ0XDwFUiVHYZkKbTC2uE5yIjCtnlRYbS8jwqSCDc7Cui5pUHoUegUZePsW4s
- WYWFddgcOpEBwGbXLF71WExMKCgY+mOfSOpeozhUTOWCMV8y+uE4U2O1rnDSa+oHvG
- LIzJVsrejlOYQFvW4u31p/rSDKJa9NMjmAPjb++4=
-Date: Tue, 26 May 2020 10:19:17 +0100
-From: Mark Brown <broonie@kernel.org>
-To: "dillon.minfei@gmail.com" <dillon.minfei@gmail.com>,
- linus.walleij@linaro.org
-In-Reply-To: <1590378348-8115-1-git-send-email-dillon.minfei@gmail.com>
-References: <1590378348-8115-1-git-send-email-dillon.minfei@gmail.com>
-Message-Id: <159048475756.7363.2129939912077382888.b4-ty@kernel.org>
-Cc: devicetree@vger.kernel.org, linux-kernel@vger.kernel.org,
- dri-devel@lists.freedesktop.org, linux-stm32@st-md-mailman.stormreply.com,
- linux-spi@vger.kernel.org, linux-clk@vger.kernel.org,
- linux-arm-kernel@lists.infradead.org
-Subject: Re: [Linux-stm32] [PATCH v5 0/8] Enable ili9341 and l3gd20 on
-	stm32f429-disco
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 092FCC36B0B
+ for <linux-stm32@st-md-mailman.stormreply.com>;
+ Tue, 26 May 2020 10:23:19 +0000 (UTC)
+Received: from pps.filterd (m0046668.ppops.net [127.0.0.1])
+ by mx07-00178001.pphosted.com (8.16.0.42/8.16.0.42) with SMTP id
+ 04QALs08009674; Tue, 26 May 2020 12:23:07 +0200
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=st.com;
+ h=date : from : to : cc :
+ subject : message-id : references : mime-version : content-type :
+ in-reply-to; s=STMicroelectronics;
+ bh=p3D8tRzx5yi3dtudAYjOJKQoizPNsipgyxf+bvB/VrM=;
+ b=OyLNlCe1CWQeq2gKXTCrGyYEX9CZYQP6JsUgiRs9gGBKD2v2mCcnxRx4grsbzE1p50KE
+ jRozQrfLn0LDTOrO2vLJJnPBgLm8vLQE6RrIZRTUHW8pIAxdIGHqbhuOGWk12V3c3uGW
+ gjizCURYNy6w8wc7OEcgVrnt217nPDapCs2+nDf+nld2qBGCwJ7/EFwzAomPOdUNSMDP
+ rOTfRAoKZr5qd+TLx4kU/p8J1JYYole3YKqbPPRQ2HWO7oxE96ath2dCZwb5cXG+LOJm
+ KjV3X+/ERIB02bwxj9RbdAEy31XO1uf7lODvHcWLpWw6xex1vM/6He4MV0Y3YqDEfTB+ dg== 
+Received: from beta.dmz-eu.st.com (beta.dmz-eu.st.com [164.129.1.35])
+ by mx07-00178001.pphosted.com with ESMTP id 316sa1y741-1
+ (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
+ Tue, 26 May 2020 12:23:07 +0200
+Received: from euls16034.sgp.st.com (euls16034.sgp.st.com [10.75.44.20])
+ by beta.dmz-eu.st.com (STMicroelectronics) with ESMTP id 52FDB10002A;
+ Tue, 26 May 2020 12:23:07 +0200 (CEST)
+Received: from Webmail-eu.st.com (sfhdag3node2.st.com [10.75.127.8])
+ by euls16034.sgp.st.com (STMicroelectronics) with ESMTP id 2213C21BDB7;
+ Tue, 26 May 2020 12:23:07 +0200 (CEST)
+Received: from gnbcxd0016.gnb.st.com (10.75.127.44) by SFHDAG3NODE2.st.com
+ (10.75.127.8) with Microsoft SMTP Server (TLS) id 15.0.1347.2; Tue, 26 May
+ 2020 12:23:06 +0200
+Date: Tue, 26 May 2020 12:23:01 +0200
+From: Alain Volmat <alain.volmat@st.com>
+To: Wolfram Sang <wsa@kernel.org>
+Message-ID: <20200526102301.GA14423@gnbcxd0016.gnb.st.com>
+Mail-Followup-To: Wolfram Sang <wsa@kernel.org>,
+ Benjamin Tissoires <benjamin.tissoires@redhat.com>,
+ "robh+dt@kernel.org" <robh+dt@kernel.org>,
+ "mark.rutland@arm.com" <mark.rutland@arm.com>,
+ Pierre Yves MORDRET <pierre-yves.mordret@st.com>,
+ "mcoquelin.stm32@gmail.com" <mcoquelin.stm32@gmail.com>,
+ Alexandre TORGUE <alexandre.torgue@st.com>,
+ "linux-i2c@vger.kernel.org" <linux-i2c@vger.kernel.org>,
+ "devicetree@vger.kernel.org" <devicetree@vger.kernel.org>,
+ "linux-stm32@st-md-mailman.stormreply.com"
+ <linux-stm32@st-md-mailman.stormreply.com>, 
+ "linux-arm-kernel@lists.infradead.org" <linux-arm-kernel@lists.infradead.org>, 
+ "linux-kernel@vger.kernel.org" <linux-kernel@vger.kernel.org>,
+ Fabrice GASNIER <fabrice.gasnier@st.com>
+References: <1588657871-14747-1-git-send-email-alain.volmat@st.com>
+ <1588657871-14747-2-git-send-email-alain.volmat@st.com>
+ <20200523104624.GB3459@ninjato>
+MIME-Version: 1.0
+Content-Disposition: inline
+In-Reply-To: <20200523104624.GB3459@ninjato>
+X-Disclaimer: ce message est personnel / this message is private
+X-Originating-IP: [10.75.127.44]
+X-ClientProxiedBy: SFHDAG7NODE3.st.com (10.75.127.21) To SFHDAG3NODE2.st.com
+ (10.75.127.8)
+X-Proofpoint-Virus-Version: vendor=fsecure engine=2.50.10434:6.0.216, 18.0.687
+ definitions=2020-05-26_01:2020-05-26,
+ 2020-05-26 signatures=0
+Cc: "mark.rutland@arm.com" <mark.rutland@arm.com>,
+ "devicetree@vger.kernel.org" <devicetree@vger.kernel.org>,
+ "linux-kernel@vger.kernel.org" <linux-kernel@vger.kernel.org>,
+ Pierre Yves MORDRET <pierre-yves.mordret@st.com>,
+ "robh+dt@kernel.org" <robh+dt@kernel.org>,
+ Benjamin Tissoires <benjamin.tissoires@redhat.com>,
+ "linux-i2c@vger.kernel.org" <linux-i2c@vger.kernel.org>,
+ "mcoquelin.stm32@gmail.com" <mcoquelin.stm32@gmail.com>,
+ Fabrice GASNIER <fabrice.gasnier@st.com>,
+ "linux-stm32@st-md-mailman.stormreply.com"
+ <linux-stm32@st-md-mailman.stormreply.com>,
+ "linux-arm-kernel@lists.infradead.org" <linux-arm-kernel@lists.infradead.org>
+Subject: Re: [Linux-stm32] [PATCH 1/4] i2c: smbus: add core function
+ handling SMBus host-notify
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -49,53 +96,102 @@ List-Post: <mailto:linux-stm32@st-md-mailman.stormreply.com>
 List-Help: <mailto:linux-stm32-request@st-md-mailman.stormreply.com?subject=help>
 List-Subscribe: <https://st-md-mailman.stormreply.com/mailman/listinfo/linux-stm32>, 
  <mailto:linux-stm32-request@st-md-mailman.stormreply.com?subject=subscribe>
-MIME-Version: 1.0
 Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
-On Mon, 25 May 2020 11:45:40 +0800, dillon.minfei@gmail.com wrote:
-> V5's update based on Mark Brown's suggestion, use 'SPI_MASTER_MUST_RX'
-> for SPI_SIMPLEX_RX mode on stm32 spi controller.
+On Sat, May 23, 2020 at 10:46:25AM +0000, Wolfram Sang wrote:
 > 
-> V5:
-> 1 instead of add send dummy data out under SIMPLEX_RX mode,
->    add flags 'SPI_CONTROLLER_MUST_TX' for stm32 spi driver
-> 2 bypass 'SPI_CONTROLLER_MUST_TX' and 'SPI_CONTROLLER_MUST_RX' under
-> 'SPI_3WIRE' mode
+> Adding Benjamin who mainly implemented this.
 > 
-> [...]
+> On Tue, May 05, 2020 at 07:51:08AM +0200, Alain Volmat wrote:
+> > SMBus Host-Notify protocol, from the adapter point of view
+> > consist of receiving a message from a client, including the
+> > client address and some other data.
+> > 
+> > It can be simply handled by creating a new slave device
+> > and registering a callback performing the parsing of the
+> > message received from the client.
+> > 
+> > This commit introduces two new core functions
+> >   * i2c_new_smbus_host_notify_device
+> >   * i2c_free_smbus_host_notify_device
+> > that take care of registration of the new slave device and
+> > callback and will call i2c_handle_smbus_host_notify once a
+> > Host-Notify event is received.
+> 
+> Yay, cool idea to use the slave interface. I like it a lot!
+> 
+> > +static int i2c_smbus_host_notify_cb(struct i2c_client *client,
+> > +				    enum i2c_slave_event event, u8 *val)
+> > +{
+> > +	struct i2c_smbus_host_notify_status *status = client->dev.platform_data;
+> > +	int ret;
+> > +
+> > +	switch (event) {
+> > +	case I2C_SLAVE_WRITE_REQUESTED:
+> > +		status->notify_start = true;
+> > +		break;
+> > +	case I2C_SLAVE_WRITE_RECEIVED:
+> > +		/* We only retrieve the first byte received (addr)
+> > +		 * since there is currently no way to retrieve the data
+> > +		 * parameter from the client.
+> 
+> Maybe s/no way/no support/ ? I still wonder if we couldn't add it
+> somehow. Once we find a device which needs this, of course.
 
-Applied to
+Indeed. Such support can be added later on once such device is found. For the
+time being I will state "no support"
 
-   https://git.kernel.org/pub/scm/linux/kernel/git/broonie/spi.git for-next
+> 
+> > +		 */
+> > +		if (!status->notify_start)
+> > +			break;
+> > +		status->addr = *val;
+> > +		status->notify_start = false;
+> > +		break;
+> > +	case I2C_SLAVE_STOP:
+> 
+> What about setting 'notify_start' to false here as well? In the case of
+> an incomplete write?
 
-Thanks!
+Ok. I will check that notify_start is false before calling host_notify
+(since otherwise it will call i2c_handle_smbus_host_notify with a bad addr
+value) and reset notify_start to false if it is still true.
 
-[1/2] spi: stm32: Add 'SPI_SIMPLEX_RX', 'SPI_3WIRE_RX' support for stm32f4
-      commit: 61367d0b8f5edf5146059ba8b79ce4e4485340b2
-[2/2] spi: flags 'SPI_CONTROLLER_MUST_RX' and 'SPI_CONTROLLER_MUST_TX' can't be coexit with 'SPI_3WIRE' mode
-      commit: aee67fe879e5030a2f5e1d9af3cb5b2a1027e78a
+> 
+> > +		ret = i2c_handle_smbus_host_notify(client->adapter,
+> > +						   status->addr);
+> > +		if (ret < 0) {
+> > +			dev_warn(&client->adapter->dev, "failed to handle host_notify (%d)\n",
+> > +				ret);
+> 
+> I think we should rather add such error strings to the core if we think
+> they are needed. I am not convinced they are, though.
 
-All being well this means that it will be integrated into the linux-next
-tree (usually sometime in the next 24 hours) and sent to Linus during
-the next merge window (or sooner if it is a bug fix), however if
-problems are discovered then the patch may be dropped or reverted.
+Agreed, this error can be removed.
 
-You may get further e-mails resulting from automated or manual testing
-and review of the tree, please engage with people reporting problems and
-send followup patches addressing any issues that are reported if needed.
+> 
+> > +			return ret;
+> > +		}
+> > +		break;
+> > +	default:
+> > +		/* Only handle necessary events */
+> > +		break;
+> > +	}
+> > +
+> > +	return 0;
+> > +}
+> > +
+> 
+> Rest of the code looks good. Maybe we should compile all this only when
+> I2C_SLAVE is enabled?
+> 
 
-If any updates are required or you are submitting further changes they
-should be sent as incremental updates against current git, existing
-patches will not be replaced.
+Yes, I will enclose that around I2C_SLAVE support check.
 
-Please add any relevant lists and maintainers to the CCs when replying
-to this mail.
 
-Thanks,
-Mark
 _______________________________________________
 Linux-stm32 mailing list
 Linux-stm32@st-md-mailman.stormreply.com
