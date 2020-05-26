@@ -2,71 +2,67 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id 3093B1E1D66
-	for <lists+linux-stm32@lfdr.de>; Tue, 26 May 2020 10:34:13 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 6B1781E1DFE
+	for <lists+linux-stm32@lfdr.de>; Tue, 26 May 2020 11:09:33 +0200 (CEST)
 Received: from ip-172-31-3-76.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id DDB0CC36B23;
-	Tue, 26 May 2020 08:34:12 +0000 (UTC)
-Received: from mx07-00178001.pphosted.com (mx07-00178001.pphosted.com
- [62.209.51.94])
- (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id DB484C36B23;
+	Tue, 26 May 2020 09:09:32 +0000 (UTC)
+Received: from mail-io1-f65.google.com (mail-io1-f65.google.com
+ [209.85.166.65])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 1F2E8C36B0B
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id BB4A0C36B0B
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Tue, 26 May 2020 08:34:12 +0000 (UTC)
-Received: from pps.filterd (m0046037.ppops.net [127.0.0.1])
- by mx07-00178001.pphosted.com (8.16.0.42/8.16.0.42) with SMTP id
- 04Q8W2Kg031881; Tue, 26 May 2020 10:34:03 +0200
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=st.com;
- h=date : from : to : cc :
- subject : message-id : references : mime-version : content-type :
- in-reply-to; s=STMicroelectronics;
- bh=yYl7Q366t3wZdeT76gK6DolbnJ3PwezvlVa6m3FkDpQ=;
- b=P36yH9zYjirIl4Biz2lMPmtVJE18A0S4HPyvfBZfeoXnNCWdio7rZ53MIu+yq2voOYZw
- Ca186l1OP+6shHNyXcxEB6SUfHhwI9YLq/ZXu//ji2WFjuFFfwGnzoOjphA0QX9g7ifZ
- 6wYhrP2xzb3XI6AoOygPfT2/z0EyO+BDIpcyPk+1n6duOVcxbBtkeZ8UdfKEphhuwBij
- ZIyg0uGSU00QuCxX2NUPdLWep3cw1xqlH3OLaZKsFI+6mOEJbOYggFgYVacxHvBgUedR
- q4sV3L9AYofZuUef9udwp0HCyS9rvLEf7tfXnRPE3EEdAi49XknmsrwuVdssiv/bgQN8 LQ== 
-Received: from beta.dmz-eu.st.com (beta.dmz-eu.st.com [164.129.1.35])
- by mx07-00178001.pphosted.com with ESMTP id 316skw6hv7-1
- (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
- Tue, 26 May 2020 10:34:03 +0200
-Received: from euls16034.sgp.st.com (euls16034.sgp.st.com [10.75.44.20])
- by beta.dmz-eu.st.com (STMicroelectronics) with ESMTP id 31FC410002A;
- Tue, 26 May 2020 10:34:02 +0200 (CEST)
-Received: from Webmail-eu.st.com (sfhdag3node2.st.com [10.75.127.8])
- by euls16034.sgp.st.com (STMicroelectronics) with ESMTP id 203162BE22E;
- Tue, 26 May 2020 10:34:02 +0200 (CEST)
-Received: from gnbcxd0016.gnb.st.com (10.75.127.50) by SFHDAG3NODE2.st.com
- (10.75.127.8) with Microsoft SMTP Server (TLS) id 15.0.1347.2; Tue, 26 May
- 2020 10:34:01 +0200
-Date: Tue, 26 May 2020 10:34:00 +0200
-From: Alain Volmat <alain.volmat@st.com>
-To: Dinghao Liu <dinghao.liu@zju.edu.cn>
-Message-ID: <20200526083400.GC10725@gnbcxd0016.gnb.st.com>
-Mail-Followup-To: Dinghao Liu <dinghao.liu@zju.edu.cn>, kjlu@umn.edu,
- Pierre-Yves MORDRET <pierre-yves.mordret@st.com>,
- Maxime Coquelin <mcoquelin.stm32@gmail.com>,
- Alexandre Torgue <alexandre.torgue@st.com>,
- linux-i2c@vger.kernel.org, linux-stm32@st-md-mailman.stormreply.com,
- linux-arm-kernel@lists.infradead.org, linux-kernel@vger.kernel.org
-References: <20200521070507.13015-1-dinghao.liu@zju.edu.cn>
+ Tue, 26 May 2020 09:09:30 +0000 (UTC)
+Received: by mail-io1-f65.google.com with SMTP id k18so21223165ion.0
+ for <linux-stm32@st-md-mailman.stormreply.com>;
+ Tue, 26 May 2020 02:09:30 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20161025;
+ h=mime-version:references:in-reply-to:from:date:message-id:subject:to
+ :cc; bh=65DH7Yx0+fRXnGfTN5n2O+g3E3WvwmCcWicmHyQ3lkw=;
+ b=FCv7xAIGa3GDtpOxxLydbMoT+Iw41+0kjN35MW95QkVD8PAPGZ1TxmVabCgrmY78yz
+ YECjqBhJyS3zolx/8xJBac4XU6h6cR1XZeg4CU6PHNTd2M9LqK+5kG/wEL7WsNC0nwh2
+ gpV6e5BVy/uEF4hB82amE9VWBObm/w9rtxMNYLCy9RJ2jehRXjw+lDnYVC8orvZjHDMT
+ rL1IDBgV7Kaq4tgq+ETv5CEvY8otenJzY1txlxblMAVo2Q6SsJnSDaWGL8pbVwNfm6XY
+ 8lo7KDJvjfz2uLhMVx5UTVNw3KpZA0aLli0XNP1vDH7YD/+aT6hJGg+YsCdtPHB995O1
+ j2cA==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20161025;
+ h=x-gm-message-state:mime-version:references:in-reply-to:from:date
+ :message-id:subject:to:cc;
+ bh=65DH7Yx0+fRXnGfTN5n2O+g3E3WvwmCcWicmHyQ3lkw=;
+ b=dkbDuqyhZGx6mQYl9oF38JNy4ZABwZ+tQjt0qzDqxYZ2vK8UZGmyyN8AbQ59VbI2H1
+ 9+SMttAkFDSj1B6PTlSQNxEYz7MDynpC/tCmGCqnU2P7r89NnEQVELxh1Hz77POZkq+C
+ vqwoJnlnLFJN+0Xz1KWicxYLXNSJbUQEKIon9KfGOogWLw4WDM3SeN7jU69G0FSgBet1
+ 16PyTiWt4yFvUSBd8jikE/6Ghg3/4Wsxh4j3VWnW35rZxq3nL1EavDjdP79wrixYe1GJ
+ joNKF3hk+CN2Ssw3JV1ad4l8n92z3AicpNSW/Ot9rcBmmmyqx6flU1TQ/IInSjsNK9vS
+ IBXg==
+X-Gm-Message-State: AOAM532GEMj32me9+SxiriQDUsmVkZN6ddF3VsEIQSf24k0i04PA1u2l
+ 2jCSTgpSugdadHvtXPNg3afkAIg5gqz8d8xw4sg=
+X-Google-Smtp-Source: ABdhPJx+ZPvWfEF3Pa4JXfWwedh02p2n1SzhlABrsxCC4DunBcpjHogzclvpkhogi3xaE3bp5rzPidO7NY54+A2lD6E=
+X-Received: by 2002:a5e:a80e:: with SMTP id c14mr16354378ioa.3.1590484169175; 
+ Tue, 26 May 2020 02:09:29 -0700 (PDT)
 MIME-Version: 1.0
-Content-Disposition: inline
-In-Reply-To: <20200521070507.13015-1-dinghao.liu@zju.edu.cn>
-X-Disclaimer: ce message est personnel / this message is private
-X-Originating-IP: [10.75.127.50]
-X-ClientProxiedBy: SFHDAG1NODE2.st.com (10.75.127.2) To SFHDAG3NODE2.st.com
- (10.75.127.8)
-X-Proofpoint-Virus-Version: vendor=fsecure engine=2.50.10434:6.0.216, 18.0.687
- definitions=2020-05-25_12:2020-05-25,
- 2020-05-25 signatures=0
-Cc: kjlu@umn.edu, linux-kernel@vger.kernel.org,
- Pierre-Yves MORDRET <pierre-yves.mordret@st.com>, linux-i2c@vger.kernel.org,
- Maxime Coquelin <mcoquelin.stm32@gmail.com>,
- linux-stm32@st-md-mailman.stormreply.com, linux-arm-kernel@lists.infradead.org
-Subject: Re: [Linux-stm32] [PATCH] i2c: stm32f7: Fix runtime PM imbalance in
- stm32f7_i2c_reg_slave
+References: <1590378348-8115-1-git-send-email-dillon.minfei@gmail.com>
+ <1590378348-8115-7-git-send-email-dillon.minfei@gmail.com>
+ <CAHp75VebSZa6mwAETnM0t42RQCp4iM6_SNjmy3TB48ixsGKV8g@mail.gmail.com>
+In-Reply-To: <CAHp75VebSZa6mwAETnM0t42RQCp4iM6_SNjmy3TB48ixsGKV8g@mail.gmail.com>
+From: dillon min <dillon.minfei@gmail.com>
+Date: Tue, 26 May 2020 17:08:53 +0800
+Message-ID: <CAL9mu0+jmcivC6zAXxK0-oXy3n44pAU1QGD7BDq=CT2D7twROQ@mail.gmail.com>
+To: Andy Shevchenko <andy.shevchenko@gmail.com>
+Cc: devicetree <devicetree@vger.kernel.org>,
+ Linus Walleij <linus.walleij@linaro.org>,
+ linux-clk <linux-clk@vger.kernel.org>,
+ Linux Kernel Mailing List <linux-kernel@vger.kernel.org>,
+ dri-devel <dri-devel@lists.freedesktop.org>,
+ linux-spi <linux-spi@vger.kernel.org>,
+ =?UTF-8?Q?Noralf_Tr=C3=B8nnes?= <noralf@tronnes.org>,
+ Mark Brown <broonie@kernel.org>, Sam Ravnborg <sam@ravnborg.org>,
+ linux-stm32@st-md-mailman.stormreply.com,
+ linux-arm Mailing List <linux-arm-kernel@lists.infradead.org>
+Subject: Re: [Linux-stm32] [PATCH v5 6/8] drm/panel: Add ilitek ili9341
+	panel driver
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -83,47 +79,42 @@ Content-Transfer-Encoding: 7bit
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
-Hi Dinghao,
+Hi Andy,
 
-Thanks for the patch. Indeed, this should be fixed.
+Thanks for input.
 
-Overall, there are several other calls to pm_runtime_get_sync within this
-driver, would you like to fix them all at once ?
+On Tue, May 26, 2020 at 3:46 PM Andy Shevchenko
+<andy.shevchenko@gmail.com> wrote:
+>
+> On Mon, May 25, 2020 at 6:46 AM <dillon.minfei@gmail.com> wrote:
+> >
+> > From: dillon min <dillon.minfei@gmail.com>
+> >
+> >     This driver combine tiny/ili9341.c mipi_dbi_interface driver
+> >     with mipi_dpi_interface driver, can support ili9341 with serial
+> >     mode or parallel rgb interface mode by register configuration.
+>
+> Noralf told once that this driver should be unified with mi0283qt.c.
+>
+> So, what should we do here?
+>
+> --
+> With Best Regards,
+> Andy Shevchenko
 
-On Thu, May 21, 2020 at 03:05:07PM +0800, Dinghao Liu wrote:
-> pm_runtime_get_sync() increments the runtime PM usage counter even
-> the call returns an error code. Thus a pairing decrement is needed
-> on the error handling path to keep the counter balanced.
-> 
-> Signed-off-by: Dinghao Liu <dinghao.liu@zju.edu.cn>
-> ---
->  drivers/i2c/busses/i2c-stm32f7.c | 4 +++-
->  1 file changed, 3 insertions(+), 1 deletion(-)
-> 
-> diff --git a/drivers/i2c/busses/i2c-stm32f7.c b/drivers/i2c/busses/i2c-stm32f7.c
-> index 330ffed011e0..602cf35649c8 100644
-> --- a/drivers/i2c/busses/i2c-stm32f7.c
-> +++ b/drivers/i2c/busses/i2c-stm32f7.c
-> @@ -1767,8 +1767,10 @@ static int stm32f7_i2c_reg_slave(struct i2c_client *slave)
->  		return ret;
->  
->  	ret = pm_runtime_get_sync(dev);
-> -	if (ret < 0)
-> +	if (ret < 0) {
-> +		pm_runtime_put_autosuspend(dev);
+from sam's suggestion, we can't setup two drivers to support one panel
+in the tree. so, i copy the mipi dbi part from tiny/ili9341.c. to this driver
+from register settings and dts binding is keep the same to tiny/ili9341.c.
 
-Considering that if we fail here there is a very good chance that this is due
-to the resume failing, pm_runtime_put_noidle would probably make more sense
-since pm_runtime_put_autosuspend will most probably fail as well.
+so, in my opinion if tiny/ili9341.c is unified with mi0283qt.c, this
+driver should be
+too.
 
->  		return ret;
-> +	}
->  
->  	if (!stm32f7_i2c_is_slave_registered(i2c_dev))
->  		stm32f7_i2c_enable_wakeup(i2c_dev, true);
-> -- 
-> 2.17.1
-> 
+thanks.
+
+best regards,
+
+Dillon,
 _______________________________________________
 Linux-stm32 mailing list
 Linux-stm32@st-md-mailman.stormreply.com
