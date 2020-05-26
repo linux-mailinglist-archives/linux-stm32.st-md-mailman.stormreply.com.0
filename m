@@ -2,66 +2,66 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id 3B3AC1E1CA6
-	for <lists+linux-stm32@lfdr.de>; Tue, 26 May 2020 09:58:25 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 4AF261E1CB3
+	for <lists+linux-stm32@lfdr.de>; Tue, 26 May 2020 09:59:08 +0200 (CEST)
 Received: from ip-172-31-3-76.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id F269DC36B23;
-	Tue, 26 May 2020 07:58:24 +0000 (UTC)
-Received: from mail-wm1-f68.google.com (mail-wm1-f68.google.com
- [209.85.128.68])
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 14F73C36B23;
+	Tue, 26 May 2020 07:59:08 +0000 (UTC)
+Received: from mail-wr1-f68.google.com (mail-wr1-f68.google.com
+ [209.85.221.68])
  (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 9E9D6C36B0B
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id D2B25C36B0B
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Tue, 26 May 2020 07:58:22 +0000 (UTC)
-Received: by mail-wm1-f68.google.com with SMTP id r15so2028835wmh.5
+ Tue, 26 May 2020 07:59:03 +0000 (UTC)
+Received: by mail-wr1-f68.google.com with SMTP id y17so11025847wrn.11
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Tue, 26 May 2020 00:58:22 -0700 (PDT)
+ Tue, 26 May 2020 00:59:03 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linaro.org; s=google;
  h=date:from:to:cc:subject:message-id:references:mime-version
  :content-disposition:content-transfer-encoding:in-reply-to;
- bh=dJ7nNUH8waduGIyWxEV016jy3YBm4py1dEFZ4+moc0s=;
- b=A7d9iE7b9Upf36zlLWHFUh7N1P1CY4mQqszhIpb9d5Sl8zevcB1DdmcwQavIqWQbmw
- pX+23S3Y1u3fl+wZ932ldGkO8w6Lrtdl76NH7X0zFC1xB8ALdR3JhznT+pd07/KSSnsf
- hCNw+RSP5VLmcXqsozFu77d+Obd993ZdQ9KthTUkdwwx5xKTcb+n12El7J8g2uHUZw7s
- T/kxf3Nm+HWWBNgPaItR7FgJhTv8WyEaKfpONmcc1Py0NV6pLjU7LcHxvNrlRdSJr7im
- ACQBHGegYS3SNrFf59kTSNyyP10AXgMMR2wvqDAM4Wh2QHgxSgJIYVk/PAfvvrItr5on
- ZwJw==
+ bh=zYdjgpNGKkhHUaPVM1/nhRkNBCVbxfKW4NHkKWtwJ2Y=;
+ b=n/dXU9fyQ+2u0G9SXzRKn0Sd6pJTChNHgO3T/qJJlCgWgMb4CS573tIEQx+xoycpt5
+ ZH5fEO/STnba6a5noZgK+uleLYZg24fRK4RpI+M93bAfb7iWvfyTECnKeAx3Hs1Nyy8z
+ 3k6qYlbQlDVjbj7whcev/TQosfr+iCL0jQikOosi/J4RO2+fyTg6NguWXboOJsI/tsAm
+ 8p2GrWuV0sCQbUNji569BEikqLrJI2tJSONaEZf5CDhmIWZwRenMEDB1rC10eiprVUO7
+ djKXcWdnhf+v+kzsegrbQjmBD4aVi//DZxmrvgOt1Z4TYdJ9h3i+v/dLSIU26jWEA2gk
+ sp8Q==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=1e100.net; s=20161025;
  h=x-gm-message-state:date:from:to:cc:subject:message-id:references
  :mime-version:content-disposition:content-transfer-encoding
  :in-reply-to;
- bh=dJ7nNUH8waduGIyWxEV016jy3YBm4py1dEFZ4+moc0s=;
- b=tuvMQK35XyBK/vlaNYigSs4bxyfvcJddLEvaDXONLVhRanLucehw76TUWSSOT5rUdR
- rs6/NSvmJWCV0lV1e+xh4MTgqlJvg9HUd5B74VgMbO2cHOPXEIEcYCWhZYKfd+9uXPac
- pXAOrae9qigCGvj7hPHgVt07YjmcE66engTq9/nfwkV5CR3F0gJ1ovFoH7tRGk1bBrON
- Ap4lYanseQDGL5su6+yObTUSD0N4sGUX5FfHDMux1RrfzjgPxw5dRqj4FNWF/TMqLMFV
- vsfvdl/3J9g3+JiGO+iufNtIrLWTJVcXbhkOoMyZfBqB94nd9rtNK3PkM16tCfcO3A69
- TFzQ==
-X-Gm-Message-State: AOAM533zM58rRIcEutOQ7LRelzB888fZl8mgfXAqIcHuy32hpGYvSz92
- CmjnHVJDcUriRGZDZ7oVpx5GQg==
-X-Google-Smtp-Source: ABdhPJy8TQ7mKu5n0oMECEFkFjYc1EBZIzKzt2vRKCSKp3QhxeDkjqVyOGQXnuS+OyFgvG/1kqiDJw==
-X-Received: by 2002:a1c:a1c5:: with SMTP id k188mr176648wme.41.1590479902146; 
- Tue, 26 May 2020 00:58:22 -0700 (PDT)
+ bh=zYdjgpNGKkhHUaPVM1/nhRkNBCVbxfKW4NHkKWtwJ2Y=;
+ b=pupp6fEf+L4Ly4j181SivEvhF+X+M9lZ1FhPRUqw67cwlF6VufKvD1fifS7eIEuOOw
+ Bm/kJPvJi+9GofEH1KyFQoBTHNerZvjPjtK4ryAPolrpP0TLDR4ZP8Vas+6Tgm9nHVGp
+ JfV/klQDxbd78N8XgcXhVXS1XjHFsAM5gZfhZKIc4ewkc7DrZ/JvWGJKzpLGKsZVuQpF
+ 9S/7EDnDBgCu5RJ+67IkRdSpwv6eA1Dx9El4oNb6xq6z27vh1HbEgUP/3E0/Ji6KNoQk
+ jfTo+OVbhtctUpYxPpqT0qmgBoh7wKBolxyPxVc/IXo56i483PMcNwvrW0F2kBZgcojn
+ 2VCw==
+X-Gm-Message-State: AOAM533FdDCceU9vyiYu3BUkyVs+OYUY19S4PWcWKPIDoIIBiMLuWcR/
+ JlqwyuOTcKE+MXX/cSznbYqeVw==
+X-Google-Smtp-Source: ABdhPJzjh8siprJLpdOwjtzMP60lf7tTZJoWmJAVMzTka0tpDJqO/GhIRtY1OB3npRBX5C5TYEDnUw==
+X-Received: by 2002:adf:a51c:: with SMTP id i28mr1970108wrb.78.1590479943335; 
+ Tue, 26 May 2020 00:59:03 -0700 (PDT)
 Received: from dell ([95.149.164.102])
- by smtp.gmail.com with ESMTPSA id j4sm18893746wrx.24.2020.05.26.00.58.21
+ by smtp.gmail.com with ESMTPSA id d6sm22344913wrj.90.2020.05.26.00.59.02
  (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Tue, 26 May 2020 00:58:21 -0700 (PDT)
-Date: Tue, 26 May 2020 08:58:19 +0100
+ Tue, 26 May 2020 00:59:02 -0700 (PDT)
+Date: Tue, 26 May 2020 08:59:01 +0100
 From: Lee Jones <lee.jones@linaro.org>
 To: Amelie Delaunay <amelie.delaunay@st.com>
-Message-ID: <20200526075819.GF3628@dell>
+Message-ID: <20200526075901.GG3628@dell>
 References: <20200422090833.9743-1-amelie.delaunay@st.com>
- <20200422090833.9743-3-amelie.delaunay@st.com>
+ <20200422090833.9743-4-amelie.delaunay@st.com>
 MIME-Version: 1.0
 Content-Disposition: inline
-In-Reply-To: <20200422090833.9743-3-amelie.delaunay@st.com>
+In-Reply-To: <20200422090833.9743-4-amelie.delaunay@st.com>
 Cc: linux-arm-kernel@lists.infradead.org, linux-kernel@vger.kernel.org,
  Maxime Coquelin <mcoquelin.stm32@gmail.com>,
  linux-stm32@st-md-mailman.stormreply.com
-Subject: Re: [Linux-stm32] [PATCH 2/3] mfd: stmfx: fix stmfx_irq_init error
-	path
+Subject: Re: [Linux-stm32] [PATCH 3/3] mfd: stmfx: disable irq in suspend to
+ avoid spurious interrupt
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -78,16 +78,18 @@ Content-Transfer-Encoding: base64
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
-T24gV2VkLCAyMiBBcHIgMjAyMCwgQW1lbGllIERlbGF1bmF5IHdyb3RlOgoKPiBJbiBjYXNlIHRo
-ZSBpbnRlcnJ1cHQgc2lnbmFsIGNhbid0IGJlIGNvbmZpZ3VyZWQsIElSUSBkb21haW4gbmVlZHMg
-dG8gYmUKPiByZW1vdmVkLgo+IAo+IEZpeGVzOiAwNjI1MmFkZTkxNTYgKCJtZmQ6IEFkZCBTVCBN
-dWx0aS1GdW5jdGlvbiBlWHBhbmRlciAoU1RNRlgpIGNvcmUgZHJpdmVyIikKPiBTaWduZWQtb2Zm
-LWJ5OiBBbWVsaWUgRGVsYXVuYXkgPGFtZWxpZS5kZWxhdW5heUBzdC5jb20+Cj4gLS0tCj4gIGRy
-aXZlcnMvbWZkL3N0bWZ4LmMgfCA5ICsrKysrKystLQo+ICAxIGZpbGUgY2hhbmdlZCwgNyBpbnNl
-cnRpb25zKCspLCAyIGRlbGV0aW9ucygtKQoKQXBwbGllZCwgdGhhbmtzLgoKLS0gCkxlZSBKb25l
-cyBb5p2O55C85pavXQpMaW5hcm8gU2VydmljZXMgVGVjaG5pY2FsIExlYWQKTGluYXJvLm9yZyDi
-lIIgT3BlbiBzb3VyY2Ugc29mdHdhcmUgZm9yIEFSTSBTb0NzCkZvbGxvdyBMaW5hcm86IEZhY2Vi
-b29rIHwgVHdpdHRlciB8IEJsb2cKX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19f
-X19fX19fX19fX18KTGludXgtc3RtMzIgbWFpbGluZyBsaXN0CkxpbnV4LXN0bTMyQHN0LW1kLW1h
-aWxtYW4uc3Rvcm1yZXBseS5jb20KaHR0cHM6Ly9zdC1tZC1tYWlsbWFuLnN0b3JtcmVwbHkuY29t
-L21haWxtYW4vbGlzdGluZm8vbGludXgtc3RtMzIK
+T24gV2VkLCAyMiBBcHIgMjAyMCwgQW1lbGllIERlbGF1bmF5IHdyb3RlOgoKPiBXaGVuIFNUTUZY
+IHN1cHBseSBpcyBzdG9wcGVkLCBzcHVyaW91cyBpbnRlcnJ1cHQgY2FuIG9jY3VyLiBUbyBhdm9p
+ZCB0aGF0LAo+IGRpc2FibGUgdGhlIGludGVycnVwdCBpbiBzdXNwZW5kIGJlZm9yZSBkaXNhYmxp
+bmcgdGhlIHJlZ3VsYXRvciBhbmQKPiByZS1lbmFibGUgaXQgYXQgdGhlIGVuZCBvZiByZXN1bWUu
+Cj4gCj4gRml4ZXM6IDA2MjUyYWRlOTE1NiAoIm1mZDogQWRkIFNUIE11bHRpLUZ1bmN0aW9uIGVY
+cGFuZGVyIChTVE1GWCkgY29yZSBkcml2ZXIiKQo+IFNpZ25lZC1vZmYtYnk6IEFtZWxpZSBEZWxh
+dW5heSA8YW1lbGllLmRlbGF1bmF5QHN0LmNvbT4KPiAtLS0KPiAgZHJpdmVycy9tZmQvc3RtZngu
+YyAgICAgICB8IDYgKysrKysrCj4gIGluY2x1ZGUvbGludXgvbWZkL3N0bWZ4LmggfCAxICsKPiAg
+MiBmaWxlcyBjaGFuZ2VkLCA3IGluc2VydGlvbnMoKykKCkFwcGxpZWQsIHRoYW5rcy4KCi0tIApM
+ZWUgSm9uZXMgW+adjueQvOaWr10KTGluYXJvIFNlcnZpY2VzIFRlY2huaWNhbCBMZWFkCkxpbmFy
+by5vcmcg4pSCIE9wZW4gc291cmNlIHNvZnR3YXJlIGZvciBBUk0gU29DcwpGb2xsb3cgTGluYXJv
+OiBGYWNlYm9vayB8IFR3aXR0ZXIgfCBCbG9nCl9fX19fX19fX19fX19fX19fX19fX19fX19fX19f
+X19fX19fX19fX19fX19fX19fCkxpbnV4LXN0bTMyIG1haWxpbmcgbGlzdApMaW51eC1zdG0zMkBz
+dC1tZC1tYWlsbWFuLnN0b3JtcmVwbHkuY29tCmh0dHBzOi8vc3QtbWQtbWFpbG1hbi5zdG9ybXJl
+cGx5LmNvbS9tYWlsbWFuL2xpc3RpbmZvL2xpbnV4LXN0bTMyCg==
