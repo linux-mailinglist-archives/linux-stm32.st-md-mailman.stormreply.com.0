@@ -2,63 +2,61 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id A73F01E46D7
-	for <lists+linux-stm32@lfdr.de>; Wed, 27 May 2020 17:04:13 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 3D8451E4717
+	for <lists+linux-stm32@lfdr.de>; Wed, 27 May 2020 17:16:32 +0200 (CEST)
 Received: from ip-172-31-3-76.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 56D00C36B21;
-	Wed, 27 May 2020 15:04:13 +0000 (UTC)
-Received: from mail-ot1-f67.google.com (mail-ot1-f67.google.com
- [209.85.210.67])
- (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id DBD43C36B21;
+	Wed, 27 May 2020 15:16:31 +0000 (UTC)
+Received: from mx07-00178001.pphosted.com (mx08-00178001.pphosted.com
+ [91.207.212.93])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 4AEC4C36B0B
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 1B01EC36B0B
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Wed, 27 May 2020 15:04:05 +0000 (UTC)
-Received: by mail-ot1-f67.google.com with SMTP id x22so19398765otq.4
- for <linux-stm32@st-md-mailman.stormreply.com>;
- Wed, 27 May 2020 08:04:05 -0700 (PDT)
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20161025;
- h=x-gm-message-state:mime-version:references:in-reply-to:from:date
- :message-id:subject:to:cc;
- bh=5Vx58Hq7sHLXBsQGSYl+3QZFOqiNWHmAX7GPof+o7eQ=;
- b=trGA7LcBZ9WGxABbKj7OHnkMEsI0Dspn62Ny2oKnOYXvQIIKS/23PsrfhU0/cVS+9b
- k4GNryAd2Tk4YUgyiF7krctAEAs+aBQb5PWZJKUzcQpYjhk4fCNIHnwz21bV4MFbf35A
- Rvy9UlLsHjbJxCZGSkLk3O/GHkUROqOaj5HFo62iZO6v/GcjvMTDHHLXGsRXvVkao7kM
- 4Vvs6hLJ7i/YFeJz25/kKIhW+vKNsLFFVuzkQnR/Zema28+i1Zqtf6IRTGUg58nmIykP
- lMQO1GhiKDhCCcOjSFnJJwsXxRTnI7HD2vutf/4wI6mmj2Z3IGF6ZUxopnI5Lv6FHjZR
- Hh7A==
-X-Gm-Message-State: AOAM5307QXH4rd5RZgFlDhMWsQ4mlYN+5iB7+loD9I4h3kax/uUJswNM
- gPACnQ6V4QZOmAoBWi7nTZ4Cldyz9M83lKN1O50=
-X-Google-Smtp-Source: ABdhPJzwMPGSTgdrUYctj0XU40med+NR1Bq/ddfSHu6e0BLAm4f5O93pxTTndqvUHsxmhkX1InI0IHrV5NKDuiWzbv8=
-X-Received: by 2002:a9d:4713:: with SMTP id a19mr4711281otf.167.1590591844210; 
- Wed, 27 May 2020 08:04:04 -0700 (PDT)
+ Wed, 27 May 2020 15:16:29 +0000 (UTC)
+Received: from pps.filterd (m0046660.ppops.net [127.0.0.1])
+ by mx07-00178001.pphosted.com (8.16.0.42/8.16.0.42) with SMTP id
+ 04RF88gA021896; Wed, 27 May 2020 17:16:19 +0200
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=st.com;
+ h=from : to : cc : subject
+ : date : message-id : mime-version : content-type; s=STMicroelectronics;
+ bh=P+9oKFVvctxteNakurd2HftE8vay3BJJGfZ7uNvjGoY=;
+ b=ntTTyD9qpXKInxrhvJk9S0iljCU5qaI/yKj0KgZiYEeLnCyFOQq7bNPzi7WTnSYeIqUY
+ JL/Cs06ovMR0iYAJamwO8dho58HQvPXgRyGoXkMqSDNSIaJsCH9PN2WBPYaLRJ/ZWTpq
+ 6+FyEbEKTaV2esxVpQgIP0srJ5IxP5mQ2yFc3LymRYnsfLFqiSbShD+kYH2KIiFuljjn
+ NdkYWFLsiPqZR6UjjvwqZDak7641YTf5dcceMCOAMW8loK3M4jsA/w0Tk97WdQKRhgwR
+ q5OdvXy8enpe8dfCjdW8Lx1ccbEPKtcPAUUqhlLOTOxm/i/NJ3ddBNCQtHhv3VOJP8vL 1w== 
+Received: from beta.dmz-eu.st.com (beta.dmz-eu.st.com [164.129.1.35])
+ by mx07-00178001.pphosted.com with ESMTP id 319mfaj603-1
+ (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
+ Wed, 27 May 2020 17:16:18 +0200
+Received: from euls16034.sgp.st.com (euls16034.sgp.st.com [10.75.44.20])
+ by beta.dmz-eu.st.com (STMicroelectronics) with ESMTP id B2F4D100034;
+ Wed, 27 May 2020 17:16:16 +0200 (CEST)
+Received: from Webmail-eu.st.com (sfhdag3node3.st.com [10.75.127.9])
+ by euls16034.sgp.st.com (STMicroelectronics) with ESMTP id 99EAE2C02D7;
+ Wed, 27 May 2020 17:16:16 +0200 (CEST)
+Received: from localhost (10.75.127.45) by SFHDAG3NODE3.st.com (10.75.127.9)
+ with Microsoft SMTP Server (TLS) id 15.0.1347.2; Wed, 27 May 2020 17:16:15
+ +0200
+From: Benjamin Gaignard <benjamin.gaignard@st.com>
+To: <hugues.fruchet@st.com>, <mchehab@kernel.org>, <mcoquelin.stm32@gmail.com>,
+ <alexandre.torgue@st.com>
+Date: Wed, 27 May 2020 17:16:13 +0200
+Message-ID: <20200527151613.16083-1-benjamin.gaignard@st.com>
+X-Mailer: git-send-email 2.15.0
 MIME-Version: 1.0
-References: <20200526151619.8779-1-benjamin.gaignard@st.com>
- <jhjk10xu1tq.mognet@arm.com> <ab4340c0-bda3-e752-9073-e162e6325bb1@st.com>
- <CAKfTPtBt6Ju-CnETnn6_FkgR0CAJ+jYnySz9OHP9X2hmxWHM7w@mail.gmail.com>
- <51917583-f8ff-3933-7783-2eedc91484a4@st.com>
- <fe69390f-ea8c-b6e3-7610-d6bd73e8500d@st.com>
-In-Reply-To: <fe69390f-ea8c-b6e3-7610-d6bd73e8500d@st.com>
-From: "Rafael J. Wysocki" <rafael@kernel.org>
-Date: Wed, 27 May 2020 17:03:52 +0200
-Message-ID: <CAJZ5v0h17aPe69KbZ6xVV4RiUKwSHWOQLycUFFNCprg5XPpN4g@mail.gmail.com>
-To: Benjamin GAIGNARD <benjamin.gaignard@st.com>
-Cc: "len.brown@intel.com" <len.brown@intel.com>,
- Vincent Guittot <vincent.guittot@linaro.org>,
- "linux-pm@vger.kernel.org" <linux-pm@vger.kernel.org>,
- "viresh.kumar@linaro.org" <viresh.kumar@linaro.org>,
- "pavel@ucw.cz" <pavel@ucw.cz>, "rjw@rjwysocki.net" <rjw@rjwysocki.net>,
- "linux-kernel@vger.kernel.org" <linux-kernel@vger.kernel.org>,
- "linux-stm32@st-md-mailman.stormreply.com"
- <linux-stm32@st-md-mailman.stormreply.com>,
- "mcoquelin.stm32@gmail.com" <mcoquelin.stm32@gmail.com>,
- "mchehab@kernel.org" <mchehab@kernel.org>,
- Valentin Schneider <valentin.schneider@arm.com>,
- "linux-arm-kernel@lists.infradead.org" <linux-arm-kernel@lists.infradead.org>,
- "linux-media@vger.kernel.org" <linux-media@vger.kernel.org>
-Subject: Re: [Linux-stm32] [RFC RESEND 0/3] Introduce cpufreq minimum load
-	QoS
+X-Originating-IP: [10.75.127.45]
+X-ClientProxiedBy: SFHDAG2NODE2.st.com (10.75.127.5) To SFHDAG3NODE3.st.com
+ (10.75.127.9)
+X-Proofpoint-Virus-Version: vendor=fsecure engine=2.50.10434:6.0.216, 18.0.687
+ definitions=2020-05-27_03:2020-05-27,
+ 2020-05-27 signatures=0
+Cc: vincent.guittot@linaro.org, rjw@rjwysocki.net, linux-kernel@vger.kernel.org,
+ linux-stm32@st-md-mailman.stormreply.com, valentin.schneider@arm.com,
+ linux-arm-kernel@lists.infradead.org, linux-media@vger.kernel.org
+Subject: [Linux-stm32] [PATCH] media: stm32-dcmi: Set minimum cpufreq
+	requirement
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -75,60 +73,111 @@ Content-Transfer-Encoding: 7bit
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
-On Wed, May 27, 2020 at 4:54 PM Benjamin GAIGNARD
-<benjamin.gaignard@st.com> wrote:
->
->
->
-> On 5/27/20 2:48 PM, Benjamin GAIGNARD wrote:
-> >
-> >
-> > On 5/27/20 2:22 PM, Vincent Guittot wrote:
-> >> On Wed, 27 May 2020 at 13:17, Benjamin GAIGNARD
-> >> <benjamin.gaignard@st.com> wrote:
-> >>>
-> >>>
-> >>> On 5/27/20 12:09 PM, Valentin Schneider wrote:
-> >>>> Hi Benjamin,
-> >>>>
-> >>>> On 26/05/20 16:16, Benjamin Gaignard wrote:
-> >>>>> A first round [1] of discussions and suggestions have already be
-> >>>>> done on
-> >>>>> this series but without found a solution to the problem. I resend
-> >>>>> it to
-> >>>>> progress on this topic.
-> >>>>>
-> >>>> Apologies for sleeping on that previous thread.
-> >>>>
-> >>>> So what had been suggested over there was to use uclamp to boost the
-> >>>> frequency of the handling thread; however if you use threaded IRQs you
-> >>>> get RT threads, which already get the max frequency by default (at
-> >>>> least
-> >>>> with schedutil).
-> >>>>
-> >>>> Does that not work for you, and if so, why?
-> >>> That doesn't work because almost everything is done by the hardware
-> >>> blocks
-> >>> without charge the CPU so the thread isn't running. I have done the
-> >>> tests with schedutil
-> >>> and ondemand scheduler (which is the one I'm targeting). I have no
-> >>> issues when using
-> >>> performance scheduler because it always keep the highest frequencies.
-> >> IMHO, the only way to ensure a min frequency for anything else than a
-> >> thread is to use freq_qos_add_request() just like cpufreq cooling
-> >> device but for the opposite QoS. This can be applied only on the
-> >> frequency domain of the CPU which handles the interrupt.
-> > I will give a try with this idea.
-> > Thanks.
->
-> Adding freq_qos_add_request(FREQ_QOS_MIN) when starting streaming frames
-> solve my problem. I remove the request at the end of the streaming to
-> restore
-> the default value.
+Before start streaming set cpufreq minimum frequency requirement.
+The cpufreq governor will adapt the frequencies and we will have
+no latency for handling interrupts.
 
-You may as well add the request once at the init time with the request
-value set to PM_QOS_MIN_FREQUENCY_DEFAULT_VALUE initially and update
-it as needed going forward.
+Signed-off-by: Benjamin Gaignard <benjamin.gaignard@st.com>
+---
+ drivers/media/platform/stm32/stm32-dcmi.c | 29 ++++++++++++++++++++++++++++-
+ 1 file changed, 28 insertions(+), 1 deletion(-)
+
+diff --git a/drivers/media/platform/stm32/stm32-dcmi.c b/drivers/media/platform/stm32/stm32-dcmi.c
+index b8931490b83b..97c342351569 100644
+--- a/drivers/media/platform/stm32/stm32-dcmi.c
++++ b/drivers/media/platform/stm32/stm32-dcmi.c
+@@ -13,6 +13,7 @@
+ 
+ #include <linux/clk.h>
+ #include <linux/completion.h>
++#include <linux/cpufreq.h>
+ #include <linux/delay.h>
+ #include <linux/dmaengine.h>
+ #include <linux/init.h>
+@@ -99,6 +100,8 @@ enum state {
+ 
+ #define OVERRUN_ERROR_THRESHOLD	3
+ 
++#define DCMI_MIN_FREQ	650000 /* in KHz */
++
+ struct dcmi_graph_entity {
+ 	struct v4l2_async_subdev asd;
+ 
+@@ -173,6 +176,10 @@ struct stm32_dcmi {
+ 	struct media_device		mdev;
+ 	struct media_pad		vid_cap_pad;
+ 	struct media_pipeline		pipeline;
++
++	/* CPU freq contraint */
++	struct cpufreq_policy		*policy;
++	struct freq_qos_request		qos_req;
+ };
+ 
+ static inline struct stm32_dcmi *notifier_to_dcmi(struct v4l2_async_notifier *n)
+@@ -736,11 +743,20 @@ static int dcmi_start_streaming(struct vb2_queue *vq, unsigned int count)
+ 		goto err_release_buffers;
+ 	}
+ 
++	if (dcmi->policy) {
++		ret = freq_qos_add_request(&dcmi->policy->constraints,
++					   &dcmi->qos_req, FREQ_QOS_MIN,
++					   DCMI_MIN_FREQ);
++
++		if (ret < 0)
++			goto err_pm_put;
++	}
++
+ 	ret = media_pipeline_start(&dcmi->vdev->entity, &dcmi->pipeline);
+ 	if (ret < 0) {
+ 		dev_err(dcmi->dev, "%s: Failed to start streaming, media pipeline start error (%d)\n",
+ 			__func__, ret);
+-		goto err_pm_put;
++		goto err_drop_qos;
+ 	}
+ 
+ 	ret = dcmi_pipeline_start(dcmi);
+@@ -835,6 +851,9 @@ static int dcmi_start_streaming(struct vb2_queue *vq, unsigned int count)
+ err_media_pipeline_stop:
+ 	media_pipeline_stop(&dcmi->vdev->entity);
+ 
++err_drop_qos:
++	if (dcmi->policy)
++		freq_qos_remove_request(&dcmi->qos_req);
+ err_pm_put:
+ 	pm_runtime_put(dcmi->dev);
+ 
+@@ -863,6 +882,9 @@ static void dcmi_stop_streaming(struct vb2_queue *vq)
+ 
+ 	media_pipeline_stop(&dcmi->vdev->entity);
+ 
++	if (dcmi->policy)
++		freq_qos_remove_request(&dcmi->qos_req);
++
+ 	spin_lock_irq(&dcmi->irqlock);
+ 
+ 	/* Disable interruptions */
+@@ -2020,6 +2042,8 @@ static int dcmi_probe(struct platform_device *pdev)
+ 		goto err_cleanup;
+ 	}
+ 
++	dcmi->policy = cpufreq_cpu_get(0);
++
+ 	dev_info(&pdev->dev, "Probe done\n");
+ 
+ 	platform_set_drvdata(pdev, dcmi);
+@@ -2049,6 +2073,9 @@ static int dcmi_remove(struct platform_device *pdev)
+ 
+ 	pm_runtime_disable(&pdev->dev);
+ 
++	if (dcmi->policy)
++		cpufreq_cpu_put(dcmi->policy);
++
+ 	v4l2_async_notifier_unregister(&dcmi->notifier);
+ 	v4l2_async_notifier_cleanup(&dcmi->notifier);
+ 	media_entity_cleanup(&dcmi->vdev->entity);
+-- 
+2.15.0
+
 _______________________________________________
 Linux-stm32 mailing list
 Linux-stm32@st-md-mailman.stormreply.com
