@@ -2,58 +2,44 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id EE4CF1E3FB5
-	for <lists+linux-stm32@lfdr.de>; Wed, 27 May 2020 13:18:41 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 527171E41C8
+	for <lists+linux-stm32@lfdr.de>; Wed, 27 May 2020 14:14:37 +0200 (CEST)
 Received: from ip-172-31-3-76.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id B0B4EC36B21;
-	Wed, 27 May 2020 11:18:41 +0000 (UTC)
-Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
- (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
- (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 6AC45C36B0B
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id E4E6BC36B21;
+	Wed, 27 May 2020 12:14:36 +0000 (UTC)
+Received: from foss.arm.com (foss.arm.com [217.140.110.172])
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id EDBD3C36B0B
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Wed, 27 May 2020 11:18:35 +0000 (UTC)
-Received: from localhost (fw-tnat.cambridge.arm.com [217.140.96.140])
- (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
- (No client certificate requested)
- by mail.kernel.org (Postfix) with ESMTPSA id 9302A207CB;
- Wed, 27 May 2020 11:18:33 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
- s=default; t=1590578314;
- bh=Eb5W1Mu4UnXinW4nhuzmv6KKdI/oP0r3mQb3N4LC+sU=;
- h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
- b=XtBpaS+v/lpJ9RrOyaPoiNOws0yskW0gCFJwnq5/cqlLekMU3baEbiWM2aeapJ8di
- CklyM05gEwvP4Kf2SWN9Va00wb2otRuEMe7bisF3ZeRBm8TTQ0bikOri9+9fyDnkXP
- E7vBo27aAiaM9AkQWfLi96qnlVRBQMOK2vWz9Xfs=
-Date: Wed, 27 May 2020 12:18:31 +0100
-From: Mark Brown <broonie@kernel.org>
-To: dillon min <dillon.minfei@gmail.com>
-Message-ID: <20200527111831.GC5308@sirena.org.uk>
-References: <1590564453-24499-1-git-send-email-dillon.minfei@gmail.com>
- <1590564453-24499-9-git-send-email-dillon.minfei@gmail.com>
- <20200527095109.GA5308@sirena.org.uk>
- <CAL9mu0JA=XRTj_HONQGtj74X05TAV0__dW2At0AAeymwNvJhEw@mail.gmail.com>
+ Wed, 27 May 2020 12:14:34 +0000 (UTC)
+Received: from usa-sjc-imap-foss1.foss.arm.com (unknown [10.121.207.14])
+ by usa-sjc-mx-foss1.foss.arm.com (Postfix) with ESMTP id 52F8755D;
+ Wed, 27 May 2020 05:14:33 -0700 (PDT)
+Received: from e113632-lin (e113632-lin.cambridge.arm.com [10.1.194.46])
+ by usa-sjc-imap-foss1.foss.arm.com (Postfix) with ESMTPSA id 3B21C3F305;
+ Wed, 27 May 2020 05:14:31 -0700 (PDT)
+References: <20200526151619.8779-1-benjamin.gaignard@st.com>
+ <jhjk10xu1tq.mognet@arm.com> <ab4340c0-bda3-e752-9073-e162e6325bb1@st.com>
+User-agent: mu4e 0.9.17; emacs 26.3
+From: Valentin Schneider <valentin.schneider@arm.com>
+To: Benjamin GAIGNARD <benjamin.gaignard@st.com>
+In-reply-to: <ab4340c0-bda3-e752-9073-e162e6325bb1@st.com>
+Date: Wed, 27 May 2020 13:14:24 +0100
+Message-ID: <jhjwo4xinhb.mognet@arm.com>
 MIME-Version: 1.0
-In-Reply-To: <CAL9mu0JA=XRTj_HONQGtj74X05TAV0__dW2At0AAeymwNvJhEw@mail.gmail.com>
-X-Cookie: Drop in any mailbox.
-User-Agent: Mutt/1.10.1 (2018-07-13)
-Cc: "open list:OPEN FIRMWARE AND FLATTENED DEVICE TREE BINDINGS"
- <devicetree@vger.kernel.org>,
- Noralf =?iso-8859-1?Q?Tr=F8nnes?= <noralf@tronnes.org>,
- Hua Dillon <dillonhua@gmail.com>, p.zabel@pengutronix.de,
- linux-clk <linux-clk@vger.kernel.org>, Dave Airlie <airlied@linux.ie>,
- Michael Turquette <mturquette@baylibre.com>,
- linux-stm32@st-md-mailman.stormreply.com,
- Linux Kernel Mailing List <linux-kernel@vger.kernel.org>,
- "open list:DRM PANEL DRIVERS" <dri-devel@lists.freedesktop.org>,
- linux-spi <linux-spi@vger.kernel.org>, Stephen Boyd <sboyd@kernel.org>,
- Andy Shevchenko <andy.shevchenko@gmail.com>, Rob Herring <robh+dt@kernel.org>,
- thierry.reding@gmail.com, Maxime Coquelin <mcoquelin.stm32@gmail.com>,
- Daniel Vetter <daniel@ffwll.ch>, Sam Ravnborg <sam@ravnborg.org>,
- Linus Walleij <linus.walleij@linaro.org>,
- Linux ARM <linux-arm-kernel@lists.infradead.org>
-Subject: Re: [Linux-stm32] [PATCH v6 8/9] spi: stm32: Add 'SPI_SIMPLEX_RX',
- 'SPI_3WIRE_RX' support for stm32f4
+Cc: "len.brown@intel.com" <len.brown@intel.com>,
+ "vincent.guittot@linaro.org" <vincent.guittot@linaro.org>,
+ "linux-pm@vger.kernel.org" <linux-pm@vger.kernel.org>,
+ "viresh.kumar@linaro.org" <viresh.kumar@linaro.org>,
+ "pavel@ucw.cz" <pavel@ucw.cz>, "rjw@rjwysocki.net" <rjw@rjwysocki.net>,
+ "linux-kernel@vger.kernel.org" <linux-kernel@vger.kernel.org>,
+ "mcoquelin.stm32@gmail.com" <mcoquelin.stm32@gmail.com>,
+ "mchehab@kernel.org" <mchehab@kernel.org>,
+ "linux-stm32@st-md-mailman.stormreply.com"
+ <linux-stm32@st-md-mailman.stormreply.com>,
+ "linux-arm-kernel@lists.infradead.org" <linux-arm-kernel@lists.infradead.org>,
+ "linux-media@vger.kernel.org" <linux-media@vger.kernel.org>
+Subject: Re: [Linux-stm32] [RFC RESEND 0/3] Introduce cpufreq minimum load
+	QoS
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -65,55 +51,79 @@ List-Post: <mailto:linux-stm32@st-md-mailman.stormreply.com>
 List-Help: <mailto:linux-stm32-request@st-md-mailman.stormreply.com?subject=help>
 List-Subscribe: <https://st-md-mailman.stormreply.com/mailman/listinfo/linux-stm32>, 
  <mailto:linux-stm32-request@st-md-mailman.stormreply.com?subject=subscribe>
-Content-Type: multipart/mixed; boundary="===============6634235299016691749=="
+Content-Type: text/plain; charset="us-ascii"
+Content-Transfer-Encoding: 7bit
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
 
---===============6634235299016691749==
-Content-Type: multipart/signed; micalg=pgp-sha512;
-	protocol="application/pgp-signature"; boundary="TYecfFk8j8mZq+dy"
-Content-Disposition: inline
+On 27/05/20 12:17, Benjamin GAIGNARD wrote:
+> On 5/27/20 12:09 PM, Valentin Schneider wrote:
+>> Hi Benjamin,
+>>
+>> On 26/05/20 16:16, Benjamin Gaignard wrote:
+>>> A first round [1] of discussions and suggestions have already be done on
+>>> this series but without found a solution to the problem. I resend it to
+>>> progress on this topic.
+>>>
+>> Apologies for sleeping on that previous thread.
+>>
+>> So what had been suggested over there was to use uclamp to boost the
+>> frequency of the handling thread; however if you use threaded IRQs you
+>> get RT threads, which already get the max frequency by default (at least
+>> with schedutil).
+>>
+>> Does that not work for you, and if so, why?
+>
+> That doesn't work because almost everything is done by the hardware blocks
+> without charge the CPU so the thread isn't running.
 
+I'm not sure I follow; the frequency of the CPU doesn't matter while
+your hardware blocks are spinning, right? AIUI what matters is running
+your interrupt handler / action at max freq, which you get if you use
+threaded IRQs and schedutil.
 
---TYecfFk8j8mZq+dy
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
+I think it would help if you could clarify which tasks / parts of your
+pipeline you need running at high frequencies. The point is that setting
+a QoS request affects all tasks, whereas we could be smarter and only
+boost the required tasks.
 
-On Wed, May 27, 2020 at 06:45:53PM +0800, dillon min wrote:
-
-> sorry, forget to remove these two patch from this submits, will not
-> include it in later submits
-> which ack other's review result.
-
-Ah, OK - no problem.
-
---TYecfFk8j8mZq+dy
-Content-Type: application/pgp-signature; name="signature.asc"
-
------BEGIN PGP SIGNATURE-----
-
-iQEzBAABCgAdFiEEreZoqmdXGLWf4p/qJNaLcl1Uh9AFAl7OTIcACgkQJNaLcl1U
-h9CjnAf9EH3yOA2f087uyr/KGCDeTZDdKdksfcJ4a9wlCQWW1Cur92auEEnoA3Rt
-OaZkMT9iqrDJqCSZ80c9Be1Ql4zXnjxCHU+qExkLFmDJcR448ywgqaYh9gluj6D3
-xQnn0fxJcjgY+eixxAPqszazPIQm3iHZL0TsQo5DNBU7uDO/p+HytpUoYEntT7AT
-bjn2mYE+1drgcxELR/TkQdRnV0jUiAtcpkGnI2tPO70MBQ6jcAwIAX4cBSnjwdhO
-L9bXUB58NNMcuUWSj9+c8WyJn0zssre7UWLaYiX9g92/yJEPJNzGN2SFXiM1Jsks
-PQH9axxSmBjKf8StOS7727u+sJ8H8Q==
-=Ibfd
------END PGP SIGNATURE-----
-
---TYecfFk8j8mZq+dy--
-
---===============6634235299016691749==
-Content-Type: text/plain; charset="us-ascii"
-MIME-Version: 1.0
-Content-Transfer-Encoding: 7bit
-Content-Disposition: inline
-
+> I have done the
+> tests with schedutil
+> and ondemand scheduler (which is the one I'm targeting). I have no
+> issues when using
+> performance scheduler because it always keep the highest frequencies.
+>
+>
+>>
+>>> When start streaming from the sensor the CPU load could remain very low
+>>> because almost all the capture pipeline is done in hardware (i.e. without
+>>> using the CPU) and let believe to cpufreq governor that it could use lower
+>>> frequencies. If the governor decides to use a too low frequency that
+>>> becomes a problem when we need to acknowledge the interrupt during the
+>>> blanking time.
+>>> The delay to ack the interrupt and perform all the other actions before
+>>> the next frame is very short and doesn't allow to the cpufreq governor to
+>>> provide the required burst of power. That led to drop the half of the frames.
+>>>
+>>> To avoid this problem, DCMI driver informs the cpufreq governors by adding
+>>> a cpufreq minimum load QoS resquest.
+>>>
+>>> Benjamin
+>>>
+>>> [1] https://lkml.org/lkml/2020/4/24/360
+>>>
+>>> Benjamin Gaignard (3):
+>>>    PM: QoS: Introduce cpufreq minimum load QoS
+>>>    cpufreq: governor: Use minimum load QoS
+>>>    media: stm32-dcmi: Inform cpufreq governors about cpu load needs
+>>>
+>>>   drivers/cpufreq/cpufreq_governor.c        |   5 +
+>>>   drivers/media/platform/stm32/stm32-dcmi.c |   8 ++
+>>>   include/linux/pm_qos.h                    |  12 ++
+>>>   kernel/power/qos.c                        | 213 ++++++++++++++++++++++++++++++
+>>>   4 files changed, 238 insertions(+)
 _______________________________________________
 Linux-stm32 mailing list
 Linux-stm32@st-md-mailman.stormreply.com
 https://st-md-mailman.stormreply.com/mailman/listinfo/linux-stm32
-
---===============6634235299016691749==--
