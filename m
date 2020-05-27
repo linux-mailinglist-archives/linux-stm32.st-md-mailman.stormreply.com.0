@@ -2,39 +2,48 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id 695CC1E33AF
-	for <lists+linux-stm32@lfdr.de>; Wed, 27 May 2020 01:28:32 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 1574B1E34CF
+	for <lists+linux-stm32@lfdr.de>; Wed, 27 May 2020 03:39:10 +0200 (CEST)
 Received: from ip-172-31-3-76.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 2BE48C36B21;
-	Tue, 26 May 2020 23:28:32 +0000 (UTC)
-Received: from shards.monkeyblade.net (shards.monkeyblade.net [23.128.96.9])
- (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
- (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id B893EC36B0B
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 0A0F3C36B21;
+	Wed, 27 May 2020 01:39:09 +0000 (UTC)
+Received: from zju.edu.cn (mail.zju.edu.cn [61.164.42.155])
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 34AAFC36B0B
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Tue, 26 May 2020 23:28:29 +0000 (UTC)
-Received: from localhost (unknown [IPv6:2601:601:9f00:477::3d5])
- (using TLSv1 with cipher AES256-SHA (256/256 bits))
- (Client did not present a certificate)
- (Authenticated sender: davem-davemloft)
- by shards.monkeyblade.net (Postfix) with ESMTPSA id 7956C120ED490;
- Tue, 26 May 2020 16:28:26 -0700 (PDT)
-Date: Tue, 26 May 2020 16:28:25 -0700 (PDT)
-Message-Id: <20200526.162825.1972012781165820310.davem@davemloft.net>
-To: fugang.duan@nxp.com
-From: David Miller <davem@davemloft.net>
-In-Reply-To: <1590394694-5505-1-git-send-email-fugang.duan@nxp.com>
-References: <1590394694-5505-1-git-send-email-fugang.duan@nxp.com>
-X-Mailer: Mew version 6.8 on Emacs 26.3
-Mime-Version: 1.0
-X-Greylist: Sender succeeded SMTP AUTH, not delayed by milter-greylist-4.5.12
- (shards.monkeyblade.net [149.20.54.216]);
- Tue, 26 May 2020 16:28:26 -0700 (PDT)
-Cc: p.zabel@pengutronix.de, netdev@vger.kernel.org, joabreu@synopsys.com,
- mcoquelin.stm32@gmail.com, kuba@kernel.org, peppe.cavallaro@st.com,
+ Wed, 27 May 2020 01:39:02 +0000 (UTC)
+Received: from localhost.localdomain (unknown [222.205.60.151])
+ by mail-app3 (Coremail) with SMTP id cC_KCgCXSECuxM1ejBQOAA--.22651S4;
+ Wed, 27 May 2020 09:38:57 +0800 (CST)
+From: Dinghao Liu <dinghao.liu@zju.edu.cn>
+To: dinghao.liu@zju.edu.cn,
+	kjlu@umn.edu
+Date: Wed, 27 May 2020 09:38:53 +0800
+Message-Id: <20200527013853.30252-1-dinghao.liu@zju.edu.cn>
+X-Mailer: git-send-email 2.17.1
+X-CM-TRANSID: cC_KCgCXSECuxM1ejBQOAA--.22651S4
+X-Coremail-Antispam: 1UD129KBjvJXoWxGFW8AFyxJF4UWw15Ar4xWFg_yoW5Wr4xpr
+ W5KayakFWUt3yvqFn3ArnIqF98W3yft34DZFyF93WS9Fs5X3WDtFy8JFyYvF48XrZ5A3WU
+ A39FywsrC3Wrt3JanT9S1TB71UUUUUUqnTZGkaVYY2UrUUUUjbIjqfuFe4nvWSU5nxnvy2
+ 9KBjDU0xBIdaVrnRJUUUvF1xkIjI8I6I8E6xAIw20EY4v20xvaj40_Wr0E3s1l1IIY67AE
+ w4v_Jr0_Jr4l8cAvFVAK0II2c7xJM28CjxkF64kEwVA0rcxSw2x7M28EF7xvwVC0I7IYx2
+ IY67AKxVWDJVCq3wA2z4x0Y4vE2Ix0cI8IcVCY1x0267AKxVW0oVCq3wA2z4x0Y4vEx4A2
+ jsIE14v26rxl6s0DM28EF7xvwVC2z280aVCY1x0267AKxVW0oVCq3wAS0I0E0xvYzxvE52
+ x082IY62kv0487Mc02F40EFcxC0VAKzVAqx4xG6I80ewAv7VC0I7IYx2IY67AKxVWUJVWU
+ GwAv7VC2z280aVAFwI0_Jr0_Gr1lOx8S6xCaFVCjc4AY6r1j6r4UM4x0Y48IcxkI7VAKI4
+ 8JM4x0x7Aq67IIx4CEVc8vx2IErcIFxwCY02Avz4vE14v_KwCF04k20xvY0x0EwIxGrwCF
+ 04k20xvE74AGY7Cv6cx26r4fKr1UJr1l4I8I3I0E4IkC6x0Yz7v_Jr0_Gr1lx2IqxVAqx4
+ xG67AKxVWUJVWUGwC20s026x8GjcxK67AKxVWUGVWUWwC2zVAF1VAY17CE14v26r1q6r43
+ MIIYrxkI7VAKI48JMIIF0xvE2Ix0cI8IcVAFwI0_Jr0_JF4lIxAIcVC0I7IYx2IY6xkF7I
+ 0E14v26r1j6r4UMIIF0xvE42xK8VAvwI8IcIk0rVWrJr0_WFyUJwCI42IY6I8E87Iv67AK
+ xVWUJVW8JwCI42IY6I8E87Iv6xkF7I0E14v26r4j6r4UJbIYCTnIWIevJa73UjIFyTuYvj
+ fUOMKZDUUUU
+X-CM-SenderInfo: qrrzjiaqtzq6lmxovvfxof0/1tbiAg0MBlZdtOUT6wAHsg
+Cc: linux-kernel@vger.kernel.org,
+ Pierre-Yves MORDRET <pierre-yves.mordret@st.com>, linux-i2c@vger.kernel.org,
+ Maxime Coquelin <mcoquelin.stm32@gmail.com>,
  linux-stm32@st-md-mailman.stormreply.com, linux-arm-kernel@lists.infradead.org
-Subject: Re: [Linux-stm32] [PATCH net 1/1] net: stmmac: enable timestamp
- snapshot for required PTP packets in dwmac v5.10a
+Subject: [Linux-stm32] [PATCH] [v2] i2c: stm32f7: Fix runtime PM imbalance
+	on error
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -46,40 +55,108 @@ List-Post: <mailto:linux-stm32@st-md-mailman.stormreply.com>
 List-Help: <mailto:linux-stm32-request@st-md-mailman.stormreply.com?subject=help>
 List-Subscribe: <https://st-md-mailman.stormreply.com/mailman/listinfo/linux-stm32>, 
  <mailto:linux-stm32-request@st-md-mailman.stormreply.com?subject=subscribe>
-Content-Type: text/plain; charset="iso8859-7"
-Content-Transfer-Encoding: base64
+MIME-Version: 1.0
+Content-Type: text/plain; charset="us-ascii"
+Content-Transfer-Encoding: 7bit
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
-RnJvbTogRnVnYW5nIER1YW4gPGZ1Z2FuZy5kdWFuQG54cC5jb20+DQpEYXRlOiBNb24sIDI1IE1h
-eSAyMDIwIDE2OjE4OjE0ICswODAwDQoNCj4gRm9yIHJ4IGZpbHRlciAnSFdUU1RBTVBfRklMVEVS
-X1BUUF9WMl9FVkVOVCcsIGl0IHNob3VsZCBiZQ0KPiBQVFAgdjIvODAyLkFTMSwgYW55IGxheWVy
-LCBhbnkga2luZCBvZiBldmVudCBwYWNrZXQsIGJ1dCBIVyBvbmx5DQo+IHRha2UgdGltZXN0YW1w
-IHNuYXBzaG90IGZvciBiZWxvdyBQVFAgbWVzc2FnZTogc3luYywgUGRlbGF5X3JlcSwNCj4gUGRl
-bGF5X3Jlc3AuDQo+IA0KPiBUaGVuIGl0IGNhdXNlcyBiZWxvdyBpc3N1ZSB3aGVuIHRlc3QgRTJF
-IGNhc2U6DQo+IHB0cDRsWzI0NzkuNTM0XTogcG9ydCAxOiByZWNlaXZlZCBERUxBWV9SRVEgd2l0
-aG91dCB0aW1lc3RhbXANCj4gcHRwNGxbMjQ4MS40MjNdOiBwb3J0IDE6IHJlY2VpdmVkIERFTEFZ
-X1JFUSB3aXRob3V0IHRpbWVzdGFtcA0KPiBwdHA0bFsyNDgxLjc1OF06IHBvcnQgMTogcmVjZWl2
-ZWQgREVMQVlfUkVRIHdpdGhvdXQgdGltZXN0YW1wDQo+IHB0cDRsWzI0ODMuNTI0XTogcG9ydCAx
-OiByZWNlaXZlZCBERUxBWV9SRVEgd2l0aG91dCB0aW1lc3RhbXANCj4gcHRwNGxbMjQ4NC4yMzNd
-OiBwb3J0IDE6IHJlY2VpdmVkIERFTEFZX1JFUSB3aXRob3V0IHRpbWVzdGFtcA0KPiBwdHA0bFsy
-NDg1Ljc1MF06IHBvcnQgMTogcmVjZWl2ZWQgREVMQVlfUkVRIHdpdGhvdXQgdGltZXN0YW1wDQo+
-IHB0cDRsWzI0ODYuODg4XTogcG9ydCAxOiByZWNlaXZlZCBERUxBWV9SRVEgd2l0aG91dCB0aW1l
-c3RhbXANCj4gcHRwNGxbMjQ4Ny4yNjVdOiBwb3J0IDE6IHJlY2VpdmVkIERFTEFZX1JFUSB3aXRo
-b3V0IHRpbWVzdGFtcA0KPiBwdHA0bFsyNDg3LjMxNl06IHBvcnQgMTogcmVjZWl2ZWQgREVMQVlf
-UkVRIHdpdGhvdXQgdGltZXN0YW1wDQo+IA0KPiBUaW1lc3RhbXAgc25hcHNob3QgZGVwZW5kZW5j
-eSBvbiByZWdpc3RlciBiaXRzIGluIHJlY2VpdmVkIHBhdGg6DQo+IFNOQVBUWVBTRUwgVFNNU1RS
-RU5BIFRTRVZOVEVOQSAJUFRQX01lc3NhZ2VzDQo+IDAxICAgICAgICAgeCAgICAgICAgIDAgICAg
-ICAgICAgU1lOQywgRm9sbG93X1VwLCBEZWxheV9SZXEsDQo+ICAgICAgICAgICAgICAgICAgICAg
-ICAgICAgICAgICAgRGVsYXlfUmVzcCwgUGRlbGF5X1JlcSwgUGRlbGF5X1Jlc3AsDQo+ICAgICAg
-ICAgICAgICAgICAgICAgICAgICAgICAgICAgUGRlbGF5X1Jlc3BfRm9sbG93X1VwDQo+IDAxICAg
-ICAgICAgMCAgICAgICAgIDEgICAgICAgICAgU1lOQywgUGRlbGF5X1JlcSwgUGRlbGF5X1Jlc3AN
-Cj4gDQo+IEZvciBkd21hYyB2NS4xMGEsIGVuYWJsaW5nIGFsbCBldmVudHMgYnkgc2V0dGluZyBy
-ZWdpc3Rlcg0KPiBEV0NfRVFPU19USU1FX1NUQU1QSU5HW1NOQVBUWVBTRUxdIHRvIDKiYjAxLCBj
-bGVhcmluZyBiaXQgW1RTRVZOVEVOQV0NCj4gdG8gMKJiMCwgd2hpY2ggY2FuIHN1cHBvcnQgYWxs
-IHJlcXVpcmVkIGV2ZW50cy4NCj4gDQo+IFNpZ25lZC1vZmYtYnk6IEZ1Z2FuZyBEdWFuIDxmdWdh
-bmcuZHVhbkBueHAuY29tPg0KDQpBcHBsaWVkIGFuZCBxdWV1ZWQgdXAgZm9yIC1zdGFibGUsIHRo
-YW5rcy4NCl9fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fCkxp
-bnV4LXN0bTMyIG1haWxpbmcgbGlzdApMaW51eC1zdG0zMkBzdC1tZC1tYWlsbWFuLnN0b3JtcmVw
-bHkuY29tCmh0dHBzOi8vc3QtbWQtbWFpbG1hbi5zdG9ybXJlcGx5LmNvbS9tYWlsbWFuL2xpc3Rp
-bmZvL2xpbnV4LXN0bTMyCg==
+pm_runtime_get_sync() increments the runtime PM usage counter even
+the call returns an error code. Thus a pairing decrement is needed
+on the error handling path to keep the counter balanced.
+
+Signed-off-by: Dinghao Liu <dinghao.liu@zju.edu.cn>
+---
+
+Changelog:
+
+v2: - Use pm_runtime_put_noidle() instead of
+      pm_runtime_put_autosuspend(). Fix 5 more
+      similar cases within this dirver.
+---
+ drivers/i2c/busses/i2c-stm32f7.c | 24 ++++++++++++++++++------
+ 1 file changed, 18 insertions(+), 6 deletions(-)
+
+diff --git a/drivers/i2c/busses/i2c-stm32f7.c b/drivers/i2c/busses/i2c-stm32f7.c
+index 330ffed011e0..822fd1f5b5ae 100644
+--- a/drivers/i2c/busses/i2c-stm32f7.c
++++ b/drivers/i2c/busses/i2c-stm32f7.c
+@@ -1620,8 +1620,10 @@ static int stm32f7_i2c_xfer(struct i2c_adapter *i2c_adap,
+ 	f7_msg->smbus = false;
+ 
+ 	ret = pm_runtime_get_sync(i2c_dev->dev);
+-	if (ret < 0)
++	if (ret < 0) {
++		pm_runtime_put_noidle(i2c_dev->dev);
+ 		return ret;
++	}
+ 
+ 	ret = stm32f7_i2c_wait_free_bus(i2c_dev);
+ 	if (ret)
+@@ -1666,8 +1668,10 @@ static int stm32f7_i2c_smbus_xfer(struct i2c_adapter *adapter, u16 addr,
+ 	f7_msg->smbus = true;
+ 
+ 	ret = pm_runtime_get_sync(dev);
+-	if (ret < 0)
++	if (ret < 0) {
++		pm_runtime_put_noidle(dev);
+ 		return ret;
++	}
+ 
+ 	ret = stm32f7_i2c_wait_free_bus(i2c_dev);
+ 	if (ret)
+@@ -1767,8 +1771,10 @@ static int stm32f7_i2c_reg_slave(struct i2c_client *slave)
+ 		return ret;
+ 
+ 	ret = pm_runtime_get_sync(dev);
+-	if (ret < 0)
++	if (ret < 0) {
++		pm_runtime_put_noidle(dev);
+ 		return ret;
++	}
+ 
+ 	if (!stm32f7_i2c_is_slave_registered(i2c_dev))
+ 		stm32f7_i2c_enable_wakeup(i2c_dev, true);
+@@ -1837,8 +1843,10 @@ static int stm32f7_i2c_unreg_slave(struct i2c_client *slave)
+ 	WARN_ON(!i2c_dev->slave[id]);
+ 
+ 	ret = pm_runtime_get_sync(i2c_dev->dev);
+-	if (ret < 0)
++	if (ret < 0) {
++		pm_runtime_put_noidle(i2c_dev->dev);
+ 		return ret;
++	}
+ 
+ 	if (id == 0) {
+ 		mask = STM32F7_I2C_OAR1_OA1EN;
+@@ -2182,8 +2190,10 @@ static int stm32f7_i2c_regs_backup(struct stm32f7_i2c_dev *i2c_dev)
+ 	struct stm32f7_i2c_regs *backup_regs = &i2c_dev->backup_regs;
+ 
+ 	ret = pm_runtime_get_sync(i2c_dev->dev);
+-	if (ret < 0)
++	if (ret < 0) {
++		pm_runtime_put_noidle(i2c_dev->dev);
+ 		return ret;
++	}
+ 
+ 	backup_regs->cr1 = readl_relaxed(i2c_dev->base + STM32F7_I2C_CR1);
+ 	backup_regs->cr2 = readl_relaxed(i2c_dev->base + STM32F7_I2C_CR2);
+@@ -2204,8 +2214,10 @@ static int stm32f7_i2c_regs_restore(struct stm32f7_i2c_dev *i2c_dev)
+ 	struct stm32f7_i2c_regs *backup_regs = &i2c_dev->backup_regs;
+ 
+ 	ret = pm_runtime_get_sync(i2c_dev->dev);
+-	if (ret < 0)
++	if (ret < 0) {
++		pm_runtime_put_noidle(i2c_dev->dev);
+ 		return ret;
++	}
+ 
+ 	cr1 = readl_relaxed(i2c_dev->base + STM32F7_I2C_CR1);
+ 	if (cr1 & STM32F7_I2C_CR1_PE)
+-- 
+2.17.1
+
+_______________________________________________
+Linux-stm32 mailing list
+Linux-stm32@st-md-mailman.stormreply.com
+https://st-md-mailman.stormreply.com/mailman/listinfo/linux-stm32
