@@ -2,57 +2,57 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id 441D41E42A1
-	for <lists+linux-stm32@lfdr.de>; Wed, 27 May 2020 14:49:20 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id A45D01E42F7
+	for <lists+linux-stm32@lfdr.de>; Wed, 27 May 2020 15:11:57 +0200 (CEST)
 Received: from ip-172-31-3-76.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 000F0C36B21;
-	Wed, 27 May 2020 12:49:19 +0000 (UTC)
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 632B4C36B21;
+	Wed, 27 May 2020 13:11:57 +0000 (UTC)
 Received: from mx07-00178001.pphosted.com (mx07-00178001.pphosted.com
  [62.209.51.94])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id A9D30C36B0B
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 60D8BC36B0B
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Wed, 27 May 2020 12:49:18 +0000 (UTC)
-Received: from pps.filterd (m0046668.ppops.net [127.0.0.1])
+ Wed, 27 May 2020 13:11:56 +0000 (UTC)
+Received: from pps.filterd (m0046037.ppops.net [127.0.0.1])
  by mx07-00178001.pphosted.com (8.16.0.42/8.16.0.42) with SMTP id
- 04RCm1ie006236; Wed, 27 May 2020 14:48:46 +0200
+ 04RD8AFR008753; Wed, 27 May 2020 15:11:44 +0200
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=st.com;
  h=from : to : cc : subject
  : date : message-id : references : in-reply-to : content-type : content-id
  : content-transfer-encoding : mime-version; s=STMicroelectronics;
- bh=26IMlLvf/Y93jh9yA1Ns2+y1tGX2JVHjVd/Qs0j7tx0=;
- b=Y19tcPxK/czXOsbRcP6sSkKPo3NkL5FNgJBrp8S/XYQ+NFurz30lZ4/GvLPUjWolo1rj
- DfAOay8gU8SyqtKDzI1ZNDgmcmwYJWQBjmJc5SfnIr6bDJfgiLWC+DZ+xcKxDM2KXBea
- uDPeOcvmgPLZti7JGTtcgRo6bk/qHvc5jB0ZlnIeaAKE6M2eCH/MxxeuCAJm2cbhNSSr
- YCQ8JGYhdvmNRMe/8Bgwj46XYzOBX7DBOSbpcdTqa3uXKFE4ByeXqQhGbOiPzjWptEGK
- hRNUip9zAnIGxdb3a/VMG1UYj6tsPqtFfnP5Qd9/ma5UGLllAkmC9BXmV9ILKwaHvf8p zQ== 
+ bh=msqWAAt3W24QRgICYNWFWTZaQ/yQljeulY2121WBxwQ=;
+ b=SD6qx4d3rijF6tZWnCcsYWW7jfmei4vLK6Z5aocb2/DoMgk19LbBCfF6kjgcCfGLiEvP
+ wlM9t4PQePAVb/4x4hvxpvcVd8ir2/Fshu6uBUv8ga1NR3PG9OxktXqlrGFUNoBeDes0
+ lksiyR29y/5FOCyN1llf0v7/4gAzHr3qVv4NTimBjFNNMwNxMbZ4PAeMGNcKJrwrnMjG
+ jSJcF0bITSMQwLOdrx2xRe3zvSWU1MP5MXyV8W5rFd5uND4T29dQigUCDGhGuRojlkoo
+ obhFVrsVydHxQ+sPQ6WYngGeTbSL1UndsdleKKRZy/0DJa94vpeJAYN5ZTCV83waGoyq lQ== 
 Received: from beta.dmz-eu.st.com (beta.dmz-eu.st.com [164.129.1.35])
- by mx07-00178001.pphosted.com with ESMTP id 316sa25rd5-1
+ by mx07-00178001.pphosted.com with ESMTP id 316skwe06k-1
  (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
- Wed, 27 May 2020 14:48:46 +0200
+ Wed, 27 May 2020 15:11:43 +0200
 Received: from euls16034.sgp.st.com (euls16034.sgp.st.com [10.75.44.20])
- by beta.dmz-eu.st.com (STMicroelectronics) with ESMTP id 5768910002A;
- Wed, 27 May 2020 14:48:45 +0200 (CEST)
+ by beta.dmz-eu.st.com (STMicroelectronics) with ESMTP id 80D2710002A;
+ Wed, 27 May 2020 15:11:43 +0200 (CEST)
 Received: from Webmail-eu.st.com (sfhdag3node3.st.com [10.75.127.9])
- by euls16034.sgp.st.com (STMicroelectronics) with ESMTP id 1C95D2B7620;
- Wed, 27 May 2020 14:48:45 +0200 (CEST)
+ by euls16034.sgp.st.com (STMicroelectronics) with ESMTP id 668F82AC7CD;
+ Wed, 27 May 2020 15:11:43 +0200 (CEST)
 Received: from SFHDAG3NODE3.st.com (10.75.127.9) by SFHDAG3NODE3.st.com
  (10.75.127.9) with Microsoft SMTP Server (TLS) id 15.0.1347.2; Wed, 27 May
- 2020 14:48:44 +0200
+ 2020 15:11:42 +0200
 Received: from SFHDAG3NODE3.st.com ([fe80::3507:b372:7648:476]) by
  SFHDAG3NODE3.st.com ([fe80::3507:b372:7648:476%20]) with mapi id
- 15.00.1347.000; Wed, 27 May 2020 14:48:44 +0200
+ 15.00.1347.000; Wed, 27 May 2020 15:11:42 +0200
 From: Benjamin GAIGNARD <benjamin.gaignard@st.com>
-To: Vincent Guittot <vincent.guittot@linaro.org>
+To: Valentin Schneider <valentin.schneider@arm.com>
 Thread-Topic: [RFC RESEND 0/3] Introduce cpufreq minimum load QoS
-Thread-Index: AQHWM3CeA6bTrCFpTUymlrJxXTw8j6i7lUyAgAATBICAABI/gIAAB1gA
-Date: Wed, 27 May 2020 12:48:44 +0000
-Message-ID: <51917583-f8ff-3933-7783-2eedc91484a4@st.com>
+Thread-Index: AQHWM3CeA6bTrCFpTUymlrJxXTw8j6i7lUyAgAATBICAAA//AIAAEAGA
+Date: Wed, 27 May 2020 13:11:42 +0000
+Message-ID: <099f5b6c-aa81-be4a-19bf-52a2fff7b3db@st.com>
 References: <20200526151619.8779-1-benjamin.gaignard@st.com>
  <jhjk10xu1tq.mognet@arm.com> <ab4340c0-bda3-e752-9073-e162e6325bb1@st.com>
- <CAKfTPtBt6Ju-CnETnn6_FkgR0CAJ+jYnySz9OHP9X2hmxWHM7w@mail.gmail.com>
-In-Reply-To: <CAKfTPtBt6Ju-CnETnn6_FkgR0CAJ+jYnySz9OHP9X2hmxWHM7w@mail.gmail.com>
+ <jhjwo4xinhb.mognet@arm.com>
+In-Reply-To: <jhjwo4xinhb.mognet@arm.com>
 Accept-Language: en-US
 Content-Language: en-US
 X-MS-Has-Attach: 
@@ -61,22 +61,22 @@ user-agent: Mozilla/5.0 (X11; Linux x86_64; rv:68.0) Gecko/20100101
  Thunderbird/68.7.0
 x-ms-exchange-messagesentrepresentingtype: 1
 x-ms-exchange-transport-fromentityheader: Hosted
-x-originating-ip: [10.75.127.48]
-Content-ID: <A1EFABD517AC9847AA7C19D754960F2E@st.com>
+x-originating-ip: [10.75.127.49]
+Content-ID: <706816CEE5C22249B8804FAF19ABB7CF@st.com>
 MIME-Version: 1.0
 X-Proofpoint-Virus-Version: vendor=fsecure engine=2.50.10434:6.0.216, 18.0.687
  definitions=2020-05-27_03:2020-05-27,
  2020-05-27 signatures=0
 Cc: "len.brown@intel.com" <len.brown@intel.com>,
+ "vincent.guittot@linaro.org" <vincent.guittot@linaro.org>,
  "linux-pm@vger.kernel.org" <linux-pm@vger.kernel.org>,
  "viresh.kumar@linaro.org" <viresh.kumar@linaro.org>,
  "pavel@ucw.cz" <pavel@ucw.cz>, "rjw@rjwysocki.net" <rjw@rjwysocki.net>,
  "linux-kernel@vger.kernel.org" <linux-kernel@vger.kernel.org>,
- "linux-stm32@st-md-mailman.stormreply.com"
- <linux-stm32@st-md-mailman.stormreply.com>,
  "mcoquelin.stm32@gmail.com" <mcoquelin.stm32@gmail.com>,
  "mchehab@kernel.org" <mchehab@kernel.org>,
- Valentin Schneider <valentin.schneider@arm.com>,
+ "linux-stm32@st-md-mailman.stormreply.com"
+ <linux-stm32@st-md-mailman.stormreply.com>,
  "linux-arm-kernel@lists.infradead.org" <linux-arm-kernel@lists.infradead.org>,
  "linux-media@vger.kernel.org" <linux-media@vger.kernel.org>
 Subject: Re: [Linux-stm32] [RFC RESEND 0/3] Introduce cpufreq minimum load
@@ -99,11 +99,8 @@ Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
 
 
-On 5/27/20 2:22 PM, Vincent Guittot wrote:
-> On Wed, 27 May 2020 at 13:17, Benjamin GAIGNARD
-> <benjamin.gaignard@st.com> wrote:
->>
->>
+On 5/27/20 2:14 PM, Valentin Schneider wrote:
+> On 27/05/20 12:17, Benjamin GAIGNARD wrote:
 >> On 5/27/20 12:09 PM, Valentin Schneider wrote:
 >>> Hi Benjamin,
 >>>
@@ -121,20 +118,31 @@ On 5/27/20 2:22 PM, Vincent Guittot wrote:
 >>>
 >>> Does that not work for you, and if so, why?
 >> That doesn't work because almost everything is done by the hardware blocks
->> without charge the CPU so the thread isn't running. I have done the
+>> without charge the CPU so the thread isn't running.
+> I'm not sure I follow; the frequency of the CPU doesn't matter while
+> your hardware blocks are spinning, right? AIUI what matters is running
+> your interrupt handler / action at max freq, which you get if you use
+> threaded IRQs and schedutil.
+Yes but not limited to schedutil.
+Given the latency needed to change of frequencies I think it could 
+already too late
+to change the CPU frequency when handling the threaded interrupt.
+>
+> I think it would help if you could clarify which tasks / parts of your
+> pipeline you need running at high frequencies. The point is that setting
+> a QoS request affects all tasks, whereas we could be smarter and only
+> boost the required tasks.
+What make us drop frames is that the threaded IRQ is scheduled too late.
+The not thread part of the interrupt handler where we clear the 
+interrupt flags
+is going fine but the thread part not.
+>
+>> I have done the
 >> tests with schedutil
 >> and ondemand scheduler (which is the one I'm targeting). I have no
 >> issues when using
 >> performance scheduler because it always keep the highest frequencies.
-> IMHO, the only way to ensure a min frequency for anything else than a
-> thread is to use freq_qos_add_request() just like cpufreq cooling
-> device but for the opposite QoS. This can be applied only on the
-> frequency domain of the CPU which handles the interrupt.
-I will give a try with this idea.
-Thanks.
-> Have you also checked the wakeup latency of your idle state ?
-It just could go in WFI so latency should be minimal.
->
+>>
 >>
 >>>> When start streaming from the sensor the CPU load could remain very low
 >>>> because almost all the capture pipeline is done in hardware (i.e. without
