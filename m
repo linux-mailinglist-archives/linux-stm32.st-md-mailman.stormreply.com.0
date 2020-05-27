@@ -2,48 +2,46 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id 1574B1E34CF
-	for <lists+linux-stm32@lfdr.de>; Wed, 27 May 2020 03:39:10 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id B5F451E34E2
+	for <lists+linux-stm32@lfdr.de>; Wed, 27 May 2020 03:45:00 +0200 (CEST)
 Received: from ip-172-31-3-76.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 0A0F3C36B21;
-	Wed, 27 May 2020 01:39:09 +0000 (UTC)
-Received: from zju.edu.cn (mail.zju.edu.cn [61.164.42.155])
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 34AAFC36B0B
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 6B053C36B21;
+	Wed, 27 May 2020 01:45:00 +0000 (UTC)
+Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
+ (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
+ (No client certificate requested)
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id AF018C36B0B
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Wed, 27 May 2020 01:39:02 +0000 (UTC)
-Received: from localhost.localdomain (unknown [222.205.60.151])
- by mail-app3 (Coremail) with SMTP id cC_KCgCXSECuxM1ejBQOAA--.22651S4;
- Wed, 27 May 2020 09:38:57 +0800 (CST)
-From: Dinghao Liu <dinghao.liu@zju.edu.cn>
-To: dinghao.liu@zju.edu.cn,
-	kjlu@umn.edu
-Date: Wed, 27 May 2020 09:38:53 +0800
-Message-Id: <20200527013853.30252-1-dinghao.liu@zju.edu.cn>
-X-Mailer: git-send-email 2.17.1
-X-CM-TRANSID: cC_KCgCXSECuxM1ejBQOAA--.22651S4
-X-Coremail-Antispam: 1UD129KBjvJXoWxGFW8AFyxJF4UWw15Ar4xWFg_yoW5Wr4xpr
- W5KayakFWUt3yvqFn3ArnIqF98W3yft34DZFyF93WS9Fs5X3WDtFy8JFyYvF48XrZ5A3WU
- A39FywsrC3Wrt3JanT9S1TB71UUUUUUqnTZGkaVYY2UrUUUUjbIjqfuFe4nvWSU5nxnvy2
- 9KBjDU0xBIdaVrnRJUUUvF1xkIjI8I6I8E6xAIw20EY4v20xvaj40_Wr0E3s1l1IIY67AE
- w4v_Jr0_Jr4l8cAvFVAK0II2c7xJM28CjxkF64kEwVA0rcxSw2x7M28EF7xvwVC0I7IYx2
- IY67AKxVWDJVCq3wA2z4x0Y4vE2Ix0cI8IcVCY1x0267AKxVW0oVCq3wA2z4x0Y4vEx4A2
- jsIE14v26rxl6s0DM28EF7xvwVC2z280aVCY1x0267AKxVW0oVCq3wAS0I0E0xvYzxvE52
- x082IY62kv0487Mc02F40EFcxC0VAKzVAqx4xG6I80ewAv7VC0I7IYx2IY67AKxVWUJVWU
- GwAv7VC2z280aVAFwI0_Jr0_Gr1lOx8S6xCaFVCjc4AY6r1j6r4UM4x0Y48IcxkI7VAKI4
- 8JM4x0x7Aq67IIx4CEVc8vx2IErcIFxwCY02Avz4vE14v_KwCF04k20xvY0x0EwIxGrwCF
- 04k20xvE74AGY7Cv6cx26r4fKr1UJr1l4I8I3I0E4IkC6x0Yz7v_Jr0_Gr1lx2IqxVAqx4
- xG67AKxVWUJVWUGwC20s026x8GjcxK67AKxVWUGVWUWwC2zVAF1VAY17CE14v26r1q6r43
- MIIYrxkI7VAKI48JMIIF0xvE2Ix0cI8IcVAFwI0_Jr0_JF4lIxAIcVC0I7IYx2IY6xkF7I
- 0E14v26r1j6r4UMIIF0xvE42xK8VAvwI8IcIk0rVWrJr0_WFyUJwCI42IY6I8E87Iv67AK
- xVWUJVW8JwCI42IY6I8E87Iv6xkF7I0E14v26r4j6r4UJbIYCTnIWIevJa73UjIFyTuYvj
- fUOMKZDUUUU
-X-CM-SenderInfo: qrrzjiaqtzq6lmxovvfxof0/1tbiAg0MBlZdtOUT6wAHsg
-Cc: linux-kernel@vger.kernel.org,
- Pierre-Yves MORDRET <pierre-yves.mordret@st.com>, linux-i2c@vger.kernel.org,
- Maxime Coquelin <mcoquelin.stm32@gmail.com>,
+ Wed, 27 May 2020 01:44:58 +0000 (UTC)
+Received: from kernel.org (unknown [104.132.0.74])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+ (No client certificate requested)
+ by mail.kernel.org (Postfix) with ESMTPSA id 9D60D207CB;
+ Wed, 27 May 2020 01:44:56 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
+ s=default; t=1590543896;
+ bh=X8IeUYi5TEn1bZovze7WvWR7fZ/TpSB3r+3JOJw+vJQ=;
+ h=In-Reply-To:References:Subject:From:Cc:To:Date:From;
+ b=QLptIsKhuHarasq/W6RYkU8NHJoMp0xnt0xZil+C30FyLSxx0ko4GnJqD1aLFrCrv
+ JahMQqsz6vQdQrXrr7Lr60y5v4JGPCylyVhsRe+7tPWmeip6Q9DrXJiEgtMwCK7xfM
+ XKAngA+z8LBWFwXGQrGa2SIOEiDtNeNG0h/0i6vA=
+MIME-Version: 1.0
+In-Reply-To: <1590378348-8115-6-git-send-email-dillon.minfei@gmail.com>
+References: <1590378348-8115-1-git-send-email-dillon.minfei@gmail.com>
+ <1590378348-8115-6-git-send-email-dillon.minfei@gmail.com>
+From: Stephen Boyd <sboyd@kernel.org>
+To: broonie@kernel.org, dillon.minfei@gmail.com, linus.walleij@linaro.org
+Date: Tue, 26 May 2020 18:44:55 -0700
+Message-ID: <159054389592.88029.12389551390229328953@swboyd.mtv.corp.google.com>
+User-Agent: alot/0.9
+Cc: devicetree@vger.kernel.org, linux-clk@vger.kernel.org,
+ linux-kernel@vger.kernel.org, dri-devel@lists.freedesktop.org,
+ linux-spi@vger.kernel.org, dillon min <dillon.minfei@gmail.com>,
  linux-stm32@st-md-mailman.stormreply.com, linux-arm-kernel@lists.infradead.org
-Subject: [Linux-stm32] [PATCH] [v2] i2c: stm32f7: Fix runtime PM imbalance
-	on error
+Subject: Re: [Linux-stm32] [PATCH v5 5/8] clk: stm32: Fix stm32f429's ltdc
+	driver hang in set clock rate,
+	fix duplicated ltdc clock register to 'clk_core' case ltdc's clock
+	turn off by clk_disable_unused()
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -55,107 +53,47 @@ List-Post: <mailto:linux-stm32@st-md-mailman.stormreply.com>
 List-Help: <mailto:linux-stm32-request@st-md-mailman.stormreply.com?subject=help>
 List-Subscribe: <https://st-md-mailman.stormreply.com/mailman/listinfo/linux-stm32>, 
  <mailto:linux-stm32-request@st-md-mailman.stormreply.com?subject=subscribe>
-MIME-Version: 1.0
 Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
-pm_runtime_get_sync() increments the runtime PM usage counter even
-the call returns an error code. Thus a pairing decrement is needed
-on the error handling path to keep the counter balanced.
+Quoting dillon.minfei@gmail.com (2020-05-24 20:45:45)
+> From: dillon min <dillon.minfei@gmail.com>
+> 
+> ltdc set clock rate crashed
+>    'post_div_data[]''s pll_num is PLL_I2S, PLL_SAI (number is 1,2). but,
 
-Signed-off-by: Dinghao Liu <dinghao.liu@zju.edu.cn>
----
+Please write "post_div_data[]'s" if it is possessive. "But" doesn't
+start a sentence. This is one sentence, not two.
 
-Changelog:
+>     as pll_num is offset of 'clks[]' input to clk_register_pll_div(), which
+>     is FCLK, CLK_LSI, defined in 'include/dt-bindings/clock/stm32fx-clock.h'
+>     so, this is a null object at the register time.
+>     then, in ltdc's clock is_enabled(), enable(), will call to_clk_gate().
+>     will return a null object, cause kernel crashed.
+>     need change pll_num to PLL_VCO_I2S, PLL_VCO_SAI for 'post_div_data[]'
+> 
+>  duplicated ltdc clock
+>    'stm32f429_gates[]' has a member 'ltdc' register to 'clk_core', but no
+>     upper driver use it, ltdc driver use the lcd-tft defined in
+>    'stm32f429_aux_clk[]'. after system startup, as stm32f429_gates[]'s ltdc
+>     enable_count is zero, so turn off by clk_disable_unused()
 
-v2: - Use pm_runtime_put_noidle() instead of
-      pm_runtime_put_autosuspend(). Fix 5 more
-      similar cases within this dirver.
----
- drivers/i2c/busses/i2c-stm32f7.c | 24 ++++++++++++++++++------
- 1 file changed, 18 insertions(+), 6 deletions(-)
+I sort of follow this. Is this another patch? Seems like two things are
+going on here.
 
-diff --git a/drivers/i2c/busses/i2c-stm32f7.c b/drivers/i2c/busses/i2c-stm32f7.c
-index 330ffed011e0..822fd1f5b5ae 100644
---- a/drivers/i2c/busses/i2c-stm32f7.c
-+++ b/drivers/i2c/busses/i2c-stm32f7.c
-@@ -1620,8 +1620,10 @@ static int stm32f7_i2c_xfer(struct i2c_adapter *i2c_adap,
- 	f7_msg->smbus = false;
- 
- 	ret = pm_runtime_get_sync(i2c_dev->dev);
--	if (ret < 0)
-+	if (ret < 0) {
-+		pm_runtime_put_noidle(i2c_dev->dev);
- 		return ret;
-+	}
- 
- 	ret = stm32f7_i2c_wait_free_bus(i2c_dev);
- 	if (ret)
-@@ -1666,8 +1668,10 @@ static int stm32f7_i2c_smbus_xfer(struct i2c_adapter *adapter, u16 addr,
- 	f7_msg->smbus = true;
- 
- 	ret = pm_runtime_get_sync(dev);
--	if (ret < 0)
-+	if (ret < 0) {
-+		pm_runtime_put_noidle(dev);
- 		return ret;
-+	}
- 
- 	ret = stm32f7_i2c_wait_free_bus(i2c_dev);
- 	if (ret)
-@@ -1767,8 +1771,10 @@ static int stm32f7_i2c_reg_slave(struct i2c_client *slave)
- 		return ret;
- 
- 	ret = pm_runtime_get_sync(dev);
--	if (ret < 0)
-+	if (ret < 0) {
-+		pm_runtime_put_noidle(dev);
- 		return ret;
-+	}
- 
- 	if (!stm32f7_i2c_is_slave_registered(i2c_dev))
- 		stm32f7_i2c_enable_wakeup(i2c_dev, true);
-@@ -1837,8 +1843,10 @@ static int stm32f7_i2c_unreg_slave(struct i2c_client *slave)
- 	WARN_ON(!i2c_dev->slave[id]);
- 
- 	ret = pm_runtime_get_sync(i2c_dev->dev);
--	if (ret < 0)
-+	if (ret < 0) {
-+		pm_runtime_put_noidle(i2c_dev->dev);
- 		return ret;
-+	}
- 
- 	if (id == 0) {
- 		mask = STM32F7_I2C_OAR1_OA1EN;
-@@ -2182,8 +2190,10 @@ static int stm32f7_i2c_regs_backup(struct stm32f7_i2c_dev *i2c_dev)
- 	struct stm32f7_i2c_regs *backup_regs = &i2c_dev->backup_regs;
- 
- 	ret = pm_runtime_get_sync(i2c_dev->dev);
--	if (ret < 0)
-+	if (ret < 0) {
-+		pm_runtime_put_noidle(i2c_dev->dev);
- 		return ret;
-+	}
- 
- 	backup_regs->cr1 = readl_relaxed(i2c_dev->base + STM32F7_I2C_CR1);
- 	backup_regs->cr2 = readl_relaxed(i2c_dev->base + STM32F7_I2C_CR2);
-@@ -2204,8 +2214,10 @@ static int stm32f7_i2c_regs_restore(struct stm32f7_i2c_dev *i2c_dev)
- 	struct stm32f7_i2c_regs *backup_regs = &i2c_dev->backup_regs;
- 
- 	ret = pm_runtime_get_sync(i2c_dev->dev);
--	if (ret < 0)
-+	if (ret < 0) {
-+		pm_runtime_put_noidle(i2c_dev->dev);
- 		return ret;
-+	}
- 
- 	cr1 = readl_relaxed(i2c_dev->base + STM32F7_I2C_CR1);
- 	if (cr1 & STM32F7_I2C_CR1_PE)
--- 
-2.17.1
+> 
+> Changes since V3:
+> 1 drop last wrong changes about 'CLK_IGNORE_UNUSED' patch
+> 2 fix PLL_SAI mismatch with PLL_VCO_SAI
 
+This change log goes under the --- below.
+
+> 
+> Signed-off-by: dillon min <dillon.minfei@gmail.com>
+
+Any Fixes tag?
 _______________________________________________
 Linux-stm32 mailing list
 Linux-stm32@st-md-mailman.stormreply.com
