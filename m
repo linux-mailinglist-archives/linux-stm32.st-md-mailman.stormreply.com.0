@@ -2,41 +2,41 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id 8ACC21E58FA
+	by mail.lfdr.de (Postfix) with ESMTPS id 72A2B1E58F9
 	for <lists+linux-stm32@lfdr.de>; Thu, 28 May 2020 09:40:45 +0200 (CEST)
 Received: from ip-172-31-3-76.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 49CEDC36B24;
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 3A1ACC36B21;
 	Thu, 28 May 2020 07:40:45 +0000 (UTC)
 Received: from mx07-00178001.pphosted.com (mx07-00178001.pphosted.com
  [62.209.51.94])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id E62B8C36B0B
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 73061C36B21
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Thu, 28 May 2020 07:40:43 +0000 (UTC)
+ Thu, 28 May 2020 07:40:42 +0000 (UTC)
 Received: from pps.filterd (m0046037.ppops.net [127.0.0.1])
  by mx07-00178001.pphosted.com (8.16.0.42/8.16.0.42) with SMTP id
- 04S7cFtY026397; Thu, 28 May 2020 09:40:35 +0200
+ 04S7cETi026352; Thu, 28 May 2020 09:40:35 +0200
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=st.com;
  h=from : to : cc : subject
  : date : message-id : in-reply-to : references : mime-version :
  content-type; s=STMicroelectronics;
- bh=F1ks9VYjpvP05Of9CUD3DC+d0dNYqSzdgBJGWySKuj0=;
- b=wH9a+WqXsW+vxtNo1Vps7a4kDUyIg6hnL9k2woPtbsyAzcLoSVVhTbcfyxlKDizI22A0
- 3junNQPj/2CVaqbZPG/XaoYU7JS3FMjmNqlCuyz7F63fyaSMtDLCZkJhFWu6zFtZLpbT
- QIyMRc2hlNPy8lBae6DsyzkJRlJWKGufTeoBgMftn1K+wHI/PUyElXrRQ9OYrqGN7PC6
- G7orUNee+4989Frq9TlKyX9WRayTD60pmmmArrKTSJF4Pktjub4gv1kw1C3pgcDdh+xs
- MibRkEAQspX21uqbxNfD2WlGgKzX6HDjVFE9znbt334fj4Z5hzwfhjc6Ms77jXfdaMRU Ug== 
+ bh=n3PpjtcxTQP2S04rV4dD6wy+XyykGrsw3yJUS++ZlGg=;
+ b=SRSUIvX/es1cI6zPboA4gtFKFqBQG3wRaTxeoAqC4w40yBxRELJ8p50Llo445a3CqzdL
+ gGShYyeUs4s5K03Rr+8uobta6lnALtGgOsWoH/ksN39tRyKigF8Y/pbzYP39o6M37YEF
+ hR42F85eDy/cTCFhgoquPDnv/s7+3iEUdedtLoPFTevmHiMWzfZkJFKw74Q/r3ZPs3WE
+ p+Dq9Yp99CE+FjJElYF0zp6WUoPF8ePOQxNRfA1aO2cgtQ5lcrjrdbc/Sa+f2MZznnlM
+ NuqbYNISbZuMdAKlEkPBGMqZVHQvrsh+oA2eJZVsBtDwUfiTlKK8Jk/TyeMRYTmjzgtw fg== 
 Received: from beta.dmz-eu.st.com (beta.dmz-eu.st.com [164.129.1.35])
- by mx07-00178001.pphosted.com with ESMTP id 316skwj24v-1
+ by mx07-00178001.pphosted.com with ESMTP id 316skwj24x-1
  (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
  Thu, 28 May 2020 09:40:35 +0200
 Received: from euls16034.sgp.st.com (euls16034.sgp.st.com [10.75.44.20])
- by beta.dmz-eu.st.com (STMicroelectronics) with ESMTP id A4C0410002A;
- Thu, 28 May 2020 09:40:34 +0200 (CEST)
+ by beta.dmz-eu.st.com (STMicroelectronics) with ESMTP id 59E19100038;
+ Thu, 28 May 2020 09:40:35 +0200 (CEST)
 Received: from Webmail-eu.st.com (sfhdag3node1.st.com [10.75.127.7])
- by euls16034.sgp.st.com (STMicroelectronics) with ESMTP id 976C52B188D;
- Thu, 28 May 2020 09:40:34 +0200 (CEST)
+ by euls16034.sgp.st.com (STMicroelectronics) with ESMTP id 4DF872B188D;
+ Thu, 28 May 2020 09:40:35 +0200 (CEST)
 Received: from localhost (10.75.127.46) by SFHDAG3NODE1.st.com (10.75.127.7)
  with Microsoft SMTP Server (TLS) id 15.0.1473.3; Thu, 28 May 2020 09:40:34
  +0200
@@ -44,14 +44,14 @@ From: Erwan Le Ray <erwan.leray@st.com>
 To: Maxime Coquelin <mcoquelin.stm32@gmail.com>, Alexandre Torgue
  <alexandre.torgue@st.com>, Rob Herring <robh+dt@kernel.org>, Mark Rutland
  <mark.rutland@arm.com>
-Date: Thu, 28 May 2020 09:40:26 +0200
-Message-ID: <20200528074029.24962-3-erwan.leray@st.com>
+Date: Thu, 28 May 2020 09:40:27 +0200
+Message-ID: <20200528074029.24962-4-erwan.leray@st.com>
 X-Mailer: git-send-email 2.17.1
 In-Reply-To: <20200528074029.24962-1-erwan.leray@st.com>
 References: <20200528074029.24962-1-erwan.leray@st.com>
 MIME-Version: 1.0
 X-Originating-IP: [10.75.127.46]
-X-ClientProxiedBy: SFHDAG7NODE3.st.com (10.75.127.21) To SFHDAG3NODE1.st.com
+X-ClientProxiedBy: SFHDAG5NODE1.st.com (10.75.127.13) To SFHDAG3NODE1.st.com
  (10.75.127.7)
 X-Proofpoint-Virus-Version: vendor=fsecure engine=2.50.10434:6.0.216, 18.0.687
  definitions=2020-05-28_02:2020-05-28,
@@ -59,8 +59,8 @@ X-Proofpoint-Virus-Version: vendor=fsecure engine=2.50.10434:6.0.216, 18.0.687
 Cc: devicetree@vger.kernel.org, linux-kernel@vger.kernel.org,
  linux-arm-kernel@lists.infradead.org, Fabrice Gasnier <fabrice.gasnier@st.com>,
  linux-stm32@st-md-mailman.stormreply.com
-Subject: [Linux-stm32] [PATCH 2/5] ARM: dts: stm32: add usart3 node to
-	stm32mp15xx-dkx boards
+Subject: [Linux-stm32] [PATCH 3/5] ARM: dts: stm32: add usart3 node to
+	stm32mp157c-ev1
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -77,49 +77,32 @@ Content-Transfer-Encoding: 7bit
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
-Adds usart3 node to stm32mp15xx-dkx and usart3 alias to stm32mp157a-dk1
-and stm32mp157c-dk2 boards. usart3 pins are connected to GPIO Expansion
-connector. usart3 is disabled by default.
+Adds the usart3 node to stm32mp157c-ev1 board. usart3 pins are connected to
+GPIO Expansion connector. usart3 is disabled by default.
 
 Signed-off-by: Erwan Le Ray <erwan.leray@st.com>
 
-diff --git a/arch/arm/boot/dts/stm32mp157a-dk1.dts b/arch/arm/boot/dts/stm32mp157a-dk1.dts
-index d03d4cd2606a..65ee61b7667a 100644
---- a/arch/arm/boot/dts/stm32mp157a-dk1.dts
-+++ b/arch/arm/boot/dts/stm32mp157a-dk1.dts
-@@ -18,6 +18,7 @@
- 	aliases {
- 		ethernet0 = &ethernet0;
- 		serial0 = &uart4;
-+		serial1 = &usart3;
- 	};
- 
- 	chosen {
-diff --git a/arch/arm/boot/dts/stm32mp157c-dk2.dts b/arch/arm/boot/dts/stm32mp157c-dk2.dts
-index 9a8a26710ac1..fb690a817e28 100644
---- a/arch/arm/boot/dts/stm32mp157c-dk2.dts
-+++ b/arch/arm/boot/dts/stm32mp157c-dk2.dts
+diff --git a/arch/arm/boot/dts/stm32mp157c-ev1.dts b/arch/arm/boot/dts/stm32mp157c-ev1.dts
+index b19056557ef0..e56dde8d20f8 100644
+--- a/arch/arm/boot/dts/stm32mp157c-ev1.dts
++++ b/arch/arm/boot/dts/stm32mp157c-ev1.dts
 @@ -19,6 +19,7 @@
+ 
  	aliases {
- 		ethernet0 = &ethernet0;
  		serial0 = &uart4;
 +		serial1 = &usart3;
+ 		ethernet0 = &ethernet0;
  	};
  
- 	chosen {
-diff --git a/arch/arm/boot/dts/stm32mp15xx-dkx.dtsi b/arch/arm/boot/dts/stm32mp15xx-dkx.dtsi
-index e5fdbc149bf4..243aa4b2063d 100644
---- a/arch/arm/boot/dts/stm32mp15xx-dkx.dtsi
-+++ b/arch/arm/boot/dts/stm32mp15xx-dkx.dtsi
-@@ -591,6 +591,15 @@
- 	status = "okay";
+@@ -341,6 +342,15 @@
+ 	};
  };
  
 +&usart3 {
 +	pinctrl-names = "default", "sleep", "idle";
-+	pinctrl-0 = <&usart3_pins_c>;
-+	pinctrl-1 = <&usart3_sleep_pins_c>;
-+	pinctrl-2 = <&usart3_idle_pins_c>;
++	pinctrl-0 = <&usart3_pins_b>;
++	pinctrl-1 = <&usart3_sleep_pins_b>;
++	pinctrl-2 = <&usart3_idle_pins_b>;
 +	uart-has-rtscts;
 +	status = "disabled";
 +};
