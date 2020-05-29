@@ -2,88 +2,62 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id 726B71E8267
-	for <lists+linux-stm32@lfdr.de>; Fri, 29 May 2020 17:46:14 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 765891E8367
+	for <lists+linux-stm32@lfdr.de>; Fri, 29 May 2020 18:17:40 +0200 (CEST)
 Received: from ip-172-31-3-76.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id B10CCC36B22;
-	Fri, 29 May 2020 15:46:13 +0000 (UTC)
-Received: from mx07-00178001.pphosted.com (mx08-00178001.pphosted.com
- [91.207.212.93])
- (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 20070C36B22;
+	Fri, 29 May 2020 16:17:40 +0000 (UTC)
+Received: from mail-il1-f196.google.com (mail-il1-f196.google.com
+ [209.85.166.196])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id D9921C36B0D
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id E328AC36B0D
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Fri, 29 May 2020 15:46:11 +0000 (UTC)
-Received: from pps.filterd (m0046661.ppops.net [127.0.0.1])
- by mx07-00178001.pphosted.com (8.16.0.42/8.16.0.42) with SMTP id
- 04TFbsGw004565; Fri, 29 May 2020 17:45:49 +0200
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=st.com;
- h=from : to : cc : subject
- : date : message-id : references : in-reply-to : content-type : content-id
- : content-transfer-encoding : mime-version; s=STMicroelectronics;
- bh=MUqHOgczk7YoJhh076iqGU09+X0d5LSpCvIgcaIw6hU=;
- b=q0oGSqWCvjiL3B4zk68Matq7A+gu2efgaP+G8uXEWnPc9o93OqEZ1vtb4usPssjrtLVn
- 3meynMM4VDckBEJXGrXxCWOlCCKGk5K1EZVzmfTIx6kHKYlqVkJe73c3V50QYhqWquCE
- rutWC0WF5G+S/sDfzfx7nedXU0esELuaNrx5OigSCARnKYp1uhBUh2v/dCQVHaeY0e/F
- bwLlh6ThmCAdDee8QwGDK7BrpFTZV2a6MUMukwAJSChKy0RfewWwop5Cklp4Jam8y8YA
- psmO5/z8OTrHe6lPz4UFItkpbhQC0zvpagrl6lH8jYu2gtaF3dCsvNgSm+TN/JfVuwwu bg== 
-Received: from beta.dmz-eu.st.com (beta.dmz-eu.st.com [164.129.1.35])
- by mx07-00178001.pphosted.com with ESMTP id 316tqhhpwj-1
- (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
- Fri, 29 May 2020 17:45:48 +0200
-Received: from euls16034.sgp.st.com (euls16034.sgp.st.com [10.75.44.20])
- by beta.dmz-eu.st.com (STMicroelectronics) with ESMTP id 48A0E100034;
- Fri, 29 May 2020 17:45:45 +0200 (CEST)
-Received: from Webmail-eu.st.com (sfhdag3node2.st.com [10.75.127.8])
- by euls16034.sgp.st.com (STMicroelectronics) with ESMTP id DFC542B1893;
- Fri, 29 May 2020 17:45:44 +0200 (CEST)
-Received: from SFHDAG6NODE3.st.com (10.75.127.18) by SFHDAG3NODE2.st.com
- (10.75.127.8) with Microsoft SMTP Server (TLS) id 15.0.1347.2; Fri, 29 May
- 2020 17:45:44 +0200
-Received: from SFHDAG6NODE3.st.com ([fe80::d04:5337:ab17:b6f6]) by
- SFHDAG6NODE3.st.com ([fe80::d04:5337:ab17:b6f6%20]) with mapi id
- 15.00.1473.003; Fri, 29 May 2020 17:45:44 +0200
-From: Philippe CORNU <philippe.cornu@st.com>
-To: Adrian Ratiu <adrian.ratiu@collabora.com>,
- "linux-arm-kernel@lists.infradead.org"
- <linux-arm-kernel@lists.infradead.org>, "devicetree@vger.kernel.org"
- <devicetree@vger.kernel.org>, "linux-rockchip@lists.infradead.org"
- <linux-rockchip@lists.infradead.org>, Laurent Pinchart
- <Laurent.pinchart@ideasonboard.com>
-Thread-Topic: [Linux-stm32] [PATCH v8 08/10] drm: stm: dw-mipi-dsi: let the
- bridge handle the HW version check
-Thread-Index: AQHWNdA2P+mlUH/UMUatFbM8/3eWsg==
-Date: Fri, 29 May 2020 15:45:44 +0000
-Message-ID: <4acc09e8-0610-01f6-b18d-3ffc390c45a3@st.com>
-References: <20200427081952.3536741-1-adrian.ratiu@collabora.com>
- <20200427081952.3536741-9-adrian.ratiu@collabora.com>
-In-Reply-To: <20200427081952.3536741-9-adrian.ratiu@collabora.com>
-Accept-Language: fr-FR, en-US
-Content-Language: en-US
-X-MS-Has-Attach: 
-X-MS-TNEF-Correlator: 
-user-agent: Mozilla/5.0 (X11; Linux x86_64; rv:68.0) Gecko/20100101
- Thunderbird/68.4.1
-x-ms-exchange-messagesentrepresentingtype: 1
-x-ms-exchange-transport-fromentityheader: Hosted
-x-originating-ip: [10.75.127.47]
-Content-ID: <EB516333C6BA834A9DE9BB87A8FFBD44@st.com>
+ Fri, 29 May 2020 16:17:37 +0000 (UTC)
+Received: by mail-il1-f196.google.com with SMTP id a14so3072717ilk.2
+ for <linux-stm32@st-md-mailman.stormreply.com>;
+ Fri, 29 May 2020 09:17:37 -0700 (PDT)
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20161025;
+ h=x-gm-message-state:date:from:to:cc:subject:message-id:references
+ :mime-version:content-disposition:in-reply-to;
+ bh=1WA+w4gWKVFAKdOjyjOP/tEtWPocATjUQITVK+3DOw8=;
+ b=b5IwYAPCsfSP6+peB1cZgqhjPkV2c1wJv/2QmkWAZ2qb7i5PD/7AjFM80f6A8wu6LL
+ /x9XSZydngMeEfjQfKLmh2Q8o86+p8KJLI36K3mLllrBxMPlWmhUjg3DERdlCndTtuoL
+ Q9RQb6Lz93HMh4vRuqreihyQRlwc3lZU2ySW7rO5to0t5/BMH130GVOXdbgbjO3oQuSq
+ 4W7iEJUBm8YW9npctu0vxdp/L38IWIYLeKRZR2sELVgFo7u8vMFMZQ2QJx62oQWg1TdB
+ G/7Ogib5Do7K2IlVmhtYKWP/IK6QSR17T3BVCD7tS3SEglwPifm+h1qX/4OWfe1l6st5
+ kuTw==
+X-Gm-Message-State: AOAM532mLtiuXc8stSx+BC+mc7jRV4UvVHjz8dGes5Py4dHIr33EKROg
+ K1IhNjkdhR66PHvwo7R2qw==
+X-Google-Smtp-Source: ABdhPJzaiMsri3Ce6ct811n/Nx3VT+C3nOOEcWn2ikVVXzQHkkLZAWZnsnOcN0C90jGOSCtG3QTx+Q==
+X-Received: by 2002:a92:9142:: with SMTP id t63mr6838165ild.191.1590769056769; 
+ Fri, 29 May 2020 09:17:36 -0700 (PDT)
+Received: from xps15 ([64.188.179.252])
+ by smtp.gmail.com with ESMTPSA id j63sm1083926ilg.50.2020.05.29.09.17.33
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Fri, 29 May 2020 09:17:35 -0700 (PDT)
+Received: (nullmailer pid 2494095 invoked by uid 1000);
+ Fri, 29 May 2020 16:17:32 -0000
+Date: Fri, 29 May 2020 10:17:32 -0600
+From: Rob Herring <robh@kernel.org>
+To: dillon.minfei@gmail.com
+Message-ID: <20200529161732.GA2493963@bogus>
+References: <1590564453-24499-1-git-send-email-dillon.minfei@gmail.com>
+ <1590564453-24499-5-git-send-email-dillon.minfei@gmail.com>
 MIME-Version: 1.0
-X-Proofpoint-Virus-Version: vendor=fsecure engine=2.50.10434:6.0.216, 18.0.687
- definitions=2020-05-29_08:2020-05-28,
- 2020-05-29 signatures=0
-Cc: Jernej Skrabec <jernej.skrabec@siol.net>, Heiko Stuebner <heiko@sntech.de>,
- Adrian Pop <pop.adrian61@gmail.com>, Jonas Karlman <jonas@kwiboo.se>,
- "linux-kernel@vger.kernel.org" <linux-kernel@vger.kernel.org>,
- "dri-devel@lists.freedesktop.org" <dri-devel@lists.freedesktop.org>,
- Yannick FERTRE <yannick.fertre@st.com>, Andrzej Hajda <a.hajda@samsung.com>,
- "linux-imx@nxp.com" <linux-imx@nxp.com>,
- "kernel@collabora.com" <kernel@collabora.com>,
- "linux-stm32@st-md-mailman.stormreply.com"
- <linux-stm32@st-md-mailman.stormreply.com>,
- Arnaud Ferraris <arnaud.ferraris@collabora.com>
-Subject: Re: [Linux-stm32] [PATCH v8 08/10] drm: stm: dw-mipi-dsi: let the
- bridge handle the HW version check
+Content-Disposition: inline
+In-Reply-To: <1590564453-24499-5-git-send-email-dillon.minfei@gmail.com>
+Cc: dillonhua@gmail.com, airlied@linux.ie, linus.walleij@linaro.org,
+ dri-devel@lists.freedesktop.org, thierry.reding@gmail.com, sam@ravnborg.org,
+ linux-stm32@st-md-mailman.stormreply.com, linux-clk@vger.kernel.org,
+ andy.shevchenko@gmail.com, p.zabel@pengutronix.de, mturquette@baylibre.com,
+ devicetree@vger.kernel.org, robh+dt@kernel.org, daniel@ffwll.ch,
+ linux-arm-kernel@lists.infradead.org, sboyd@kernel.org,
+ linux-kernel@vger.kernel.org, linux-spi@vger.kernel.org, noralf@tronnes.org,
+ broonie@kernel.org, mcoquelin.stm32@gmail.com
+Subject: Re: [Linux-stm32] [PATCH v6 4/9] dt-bindings: display: panel: Add
+ ilitek ili9341 panel bindings
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -100,81 +74,19 @@ Content-Transfer-Encoding: 7bit
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
-Hi Adrian,
-and thank you very much for the patchset.
-Thank you also for having tested it on STM32F769 and STM32MP1.
-Sorry for the late response, Yannick and I will review it as soon as 
-possible and we will keep you posted.
-Note: Do not hesitate to put us in copy for the next version 
-(philippe.cornu@st.com, yannick.fertre@st.com)
-Regards,
-Philippe :-)
-
-
-On 4/27/20 10:19 AM, Adrian Ratiu wrote:
-> The stm mipi-dsi platform driver added a version test in
-> commit fa6251a747b7 ("drm/stm: dsi: check hardware version")
-> so that HW revisions other than v1.3x get rejected. The rockchip
-> driver had no such check and just assumed register layouts are
-> v1.3x compatible.
+On Wed, 27 May 2020 15:27:28 +0800, dillon.minfei@gmail.com wrote:
+> From: dillon min <dillon.minfei@gmail.com>
 > 
-> Having such tests was a good idea because only v130/v131 layouts
-> were supported at the time, however since adding multiple layout
-> support in the bridge, the version is automatically checked for
-> all drivers, compatible layouts get picked and unsupported HW is
-> automatically rejected by the bridge, so there's no use keeping
-> the test in the stm driver.
+> Add documentation for "ilitek,ili9341" panel.
 > 
-> The main reason prompting this change is that the stm driver
-> test immediately disabled the peripheral clock after reading
-> the version, making the bridge read version 0x0 immediately
-> after in its own probe(), so we move the clock disabling after
-> the bridge does the version test.
-> 
-> Tested on STM32F769 and STM32MP1.
-> 
-> Cc: linux-stm32@st-md-mailman.stormreply.com
-> Reported-by: Adrian Pop <pop.adrian61@gmail.com>
-> Tested-by: Adrian Pop <pop.adrian61@gmail.com>
-> Tested-by: Arnaud Ferraris <arnaud.ferraris@collabora.com>
-> Signed-off-by: Adrian Ratiu <adrian.ratiu@collabora.com>
+> Signed-off-by: dillon min <dillon.minfei@gmail.com>
 > ---
-> New in v6.
-> ---
->   drivers/gpu/drm/stm/dw_mipi_dsi-stm.c | 12 +++---------
->   1 file changed, 3 insertions(+), 9 deletions(-)
+>  .../bindings/display/panel/ilitek,ili9341.yaml     | 69 ++++++++++++++++++++++
+>  1 file changed, 69 insertions(+)
+>  create mode 100644 Documentation/devicetree/bindings/display/panel/ilitek,ili9341.yaml
 > 
-> diff --git a/drivers/gpu/drm/stm/dw_mipi_dsi-stm.c b/drivers/gpu/drm/stm/dw_mipi_dsi-stm.c
-> index 2e1f2664495d0..7218e405d7e2b 100644
-> --- a/drivers/gpu/drm/stm/dw_mipi_dsi-stm.c
-> +++ b/drivers/gpu/drm/stm/dw_mipi_dsi-stm.c
-> @@ -402,15 +402,6 @@ static int dw_mipi_dsi_stm_probe(struct platform_device *pdev)
->   		goto err_dsi_probe;
->   	}
->   
-> -	dsi->hw_version = dsi_read(dsi, DSI_VERSION) & VERSION;
-> -	clk_disable_unprepare(pclk);
-> -
-> -	if (dsi->hw_version != HWVER_130 && dsi->hw_version != HWVER_131) {
-> -		ret = -ENODEV;
-> -		DRM_ERROR("bad dsi hardware version\n");
-> -		goto err_dsi_probe;
-> -	}
-> -
->   	dw_mipi_dsi_stm_plat_data.base = dsi->base;
->   	dw_mipi_dsi_stm_plat_data.priv_data = dsi;
->   
-> @@ -423,6 +414,9 @@ static int dw_mipi_dsi_stm_probe(struct platform_device *pdev)
->   		goto err_dsi_probe;
->   	}
->   
-> +	dsi->hw_version = dsi_read(dsi, DSI_VERSION) & VERSION;
-> +	clk_disable_unprepare(pclk);
-> +
->   	return 0;
->   
->   err_dsi_probe:
-> 
+
+Reviewed-by: Rob Herring <robh@kernel.org>
 _______________________________________________
 Linux-stm32 mailing list
 Linux-stm32@st-md-mailman.stormreply.com
