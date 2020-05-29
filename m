@@ -2,38 +2,88 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id 3538B1E7F2B
-	for <lists+linux-stm32@lfdr.de>; Fri, 29 May 2020 15:48:57 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 726B71E8267
+	for <lists+linux-stm32@lfdr.de>; Fri, 29 May 2020 17:46:14 +0200 (CEST)
 Received: from ip-172-31-3-76.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id D0A06C36B22;
-	Fri, 29 May 2020 13:48:56 +0000 (UTC)
-Received: from jabberwock.ucw.cz (jabberwock.ucw.cz [46.255.230.98])
- (using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id B10CCC36B22;
+	Fri, 29 May 2020 15:46:13 +0000 (UTC)
+Received: from mx07-00178001.pphosted.com (mx08-00178001.pphosted.com
+ [91.207.212.93])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 7A99BC36B0D
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id D9921C36B0D
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Fri, 29 May 2020 13:26:15 +0000 (UTC)
-Received: by jabberwock.ucw.cz (Postfix, from userid 1017)
- id 904CF1C0389; Fri, 29 May 2020 15:26:14 +0200 (CEST)
-Date: Fri, 29 May 2020 15:26:04 +0200
-From: Pavel Machek <pavel@ucw.cz>
-To: William Breathitt Gray <vilhelm.gray@gmail.com>
-Message-ID: <20200529132604.GB1339@bug>
-References: <cover.1589654470.git.vilhelm.gray@gmail.com>
- <db0a9206d31c82f8381316ef5ff9872bfb53665b.1589654470.git.vilhelm.gray@gmail.com>
+ Fri, 29 May 2020 15:46:11 +0000 (UTC)
+Received: from pps.filterd (m0046661.ppops.net [127.0.0.1])
+ by mx07-00178001.pphosted.com (8.16.0.42/8.16.0.42) with SMTP id
+ 04TFbsGw004565; Fri, 29 May 2020 17:45:49 +0200
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=st.com;
+ h=from : to : cc : subject
+ : date : message-id : references : in-reply-to : content-type : content-id
+ : content-transfer-encoding : mime-version; s=STMicroelectronics;
+ bh=MUqHOgczk7YoJhh076iqGU09+X0d5LSpCvIgcaIw6hU=;
+ b=q0oGSqWCvjiL3B4zk68Matq7A+gu2efgaP+G8uXEWnPc9o93OqEZ1vtb4usPssjrtLVn
+ 3meynMM4VDckBEJXGrXxCWOlCCKGk5K1EZVzmfTIx6kHKYlqVkJe73c3V50QYhqWquCE
+ rutWC0WF5G+S/sDfzfx7nedXU0esELuaNrx5OigSCARnKYp1uhBUh2v/dCQVHaeY0e/F
+ bwLlh6ThmCAdDee8QwGDK7BrpFTZV2a6MUMukwAJSChKy0RfewWwop5Cklp4Jam8y8YA
+ psmO5/z8OTrHe6lPz4UFItkpbhQC0zvpagrl6lH8jYu2gtaF3dCsvNgSm+TN/JfVuwwu bg== 
+Received: from beta.dmz-eu.st.com (beta.dmz-eu.st.com [164.129.1.35])
+ by mx07-00178001.pphosted.com with ESMTP id 316tqhhpwj-1
+ (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
+ Fri, 29 May 2020 17:45:48 +0200
+Received: from euls16034.sgp.st.com (euls16034.sgp.st.com [10.75.44.20])
+ by beta.dmz-eu.st.com (STMicroelectronics) with ESMTP id 48A0E100034;
+ Fri, 29 May 2020 17:45:45 +0200 (CEST)
+Received: from Webmail-eu.st.com (sfhdag3node2.st.com [10.75.127.8])
+ by euls16034.sgp.st.com (STMicroelectronics) with ESMTP id DFC542B1893;
+ Fri, 29 May 2020 17:45:44 +0200 (CEST)
+Received: from SFHDAG6NODE3.st.com (10.75.127.18) by SFHDAG3NODE2.st.com
+ (10.75.127.8) with Microsoft SMTP Server (TLS) id 15.0.1347.2; Fri, 29 May
+ 2020 17:45:44 +0200
+Received: from SFHDAG6NODE3.st.com ([fe80::d04:5337:ab17:b6f6]) by
+ SFHDAG6NODE3.st.com ([fe80::d04:5337:ab17:b6f6%20]) with mapi id
+ 15.00.1473.003; Fri, 29 May 2020 17:45:44 +0200
+From: Philippe CORNU <philippe.cornu@st.com>
+To: Adrian Ratiu <adrian.ratiu@collabora.com>,
+ "linux-arm-kernel@lists.infradead.org"
+ <linux-arm-kernel@lists.infradead.org>, "devicetree@vger.kernel.org"
+ <devicetree@vger.kernel.org>, "linux-rockchip@lists.infradead.org"
+ <linux-rockchip@lists.infradead.org>, Laurent Pinchart
+ <Laurent.pinchart@ideasonboard.com>
+Thread-Topic: [Linux-stm32] [PATCH v8 08/10] drm: stm: dw-mipi-dsi: let the
+ bridge handle the HW version check
+Thread-Index: AQHWNdA2P+mlUH/UMUatFbM8/3eWsg==
+Date: Fri, 29 May 2020 15:45:44 +0000
+Message-ID: <4acc09e8-0610-01f6-b18d-3ffc390c45a3@st.com>
+References: <20200427081952.3536741-1-adrian.ratiu@collabora.com>
+ <20200427081952.3536741-9-adrian.ratiu@collabora.com>
+In-Reply-To: <20200427081952.3536741-9-adrian.ratiu@collabora.com>
+Accept-Language: fr-FR, en-US
+Content-Language: en-US
+X-MS-Has-Attach: 
+X-MS-TNEF-Correlator: 
+user-agent: Mozilla/5.0 (X11; Linux x86_64; rv:68.0) Gecko/20100101
+ Thunderbird/68.4.1
+x-ms-exchange-messagesentrepresentingtype: 1
+x-ms-exchange-transport-fromentityheader: Hosted
+x-originating-ip: [10.75.127.47]
+Content-ID: <EB516333C6BA834A9DE9BB87A8FFBD44@st.com>
 MIME-Version: 1.0
-Content-Disposition: inline
-In-Reply-To: <db0a9206d31c82f8381316ef5ff9872bfb53665b.1589654470.git.vilhelm.gray@gmail.com>
-User-Agent: Mutt/1.5.23 (2014-03-12)
-X-Mailman-Approved-At: Fri, 29 May 2020 13:48:56 +0000
-Cc: kamel.bouhara@bootlin.com, gwendal@chromium.org, david@lechnology.com,
- linux-iio@vger.kernel.org, patrick.havelange@essensium.com,
- alexandre.belloni@bootlin.com, linux-kernel@vger.kernel.org,
- linux-arm-kernel@lists.infradead.org, mcoquelin.stm32@gmail.com,
- fabrice.gasnier@st.com, syednwaris@gmail.com,
- linux-stm32@st-md-mailman.stormreply.com, jic23@kernel.org
-Subject: Re: [Linux-stm32] [PATCH v2 4/4] docs: counter: Document character
-	device interface
+X-Proofpoint-Virus-Version: vendor=fsecure engine=2.50.10434:6.0.216, 18.0.687
+ definitions=2020-05-29_08:2020-05-28,
+ 2020-05-29 signatures=0
+Cc: Jernej Skrabec <jernej.skrabec@siol.net>, Heiko Stuebner <heiko@sntech.de>,
+ Adrian Pop <pop.adrian61@gmail.com>, Jonas Karlman <jonas@kwiboo.se>,
+ "linux-kernel@vger.kernel.org" <linux-kernel@vger.kernel.org>,
+ "dri-devel@lists.freedesktop.org" <dri-devel@lists.freedesktop.org>,
+ Yannick FERTRE <yannick.fertre@st.com>, Andrzej Hajda <a.hajda@samsung.com>,
+ "linux-imx@nxp.com" <linux-imx@nxp.com>,
+ "kernel@collabora.com" <kernel@collabora.com>,
+ "linux-stm32@st-md-mailman.stormreply.com"
+ <linux-stm32@st-md-mailman.stormreply.com>,
+ Arnaud Ferraris <arnaud.ferraris@collabora.com>
+Subject: Re: [Linux-stm32] [PATCH v8 08/10] drm: stm: dw-mipi-dsi: let the
+ bridge handle the HW version check
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -50,75 +100,81 @@ Content-Transfer-Encoding: 7bit
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
-On Sat 2020-05-16 15:20:02, William Breathitt Gray wrote:
-> This patch adds high-level documentation about the Counter subsystem
-> character device interface.
+Hi Adrian,
+and thank you very much for the patchset.
+Thank you also for having tested it on STM32F769 and STM32MP1.
+Sorry for the late response, Yannick and I will review it as soon as 
+possible and we will keep you posted.
+Note: Do not hesitate to put us in copy for the next version 
+(philippe.cornu@st.com, yannick.fertre@st.com)
+Regards,
+Philippe :-)
+
+
+On 4/27/20 10:19 AM, Adrian Ratiu wrote:
+> The stm mipi-dsi platform driver added a version test in
+> commit fa6251a747b7 ("drm/stm: dsi: check hardware version")
+> so that HW revisions other than v1.3x get rejected. The rockchip
+> driver had no such check and just assumed register layouts are
+> v1.3x compatible.
 > 
-> Signed-off-by: William Breathitt Gray <vilhelm.gray@gmail.com>
+> Having such tests was a good idea because only v130/v131 layouts
+> were supported at the time, however since adding multiple layout
+> support in the bridge, the version is automatically checked for
+> all drivers, compatible layouts get picked and unsupported HW is
+> automatically rejected by the bridge, so there's no use keeping
+> the test in the stm driver.
+> 
+> The main reason prompting this change is that the stm driver
+> test immediately disabled the peripheral clock after reading
+> the version, making the bridge read version 0x0 immediately
+> after in its own probe(), so we move the clock disabling after
+> the bridge does the version test.
+> 
+> Tested on STM32F769 and STM32MP1.
+> 
+> Cc: linux-stm32@st-md-mailman.stormreply.com
+> Reported-by: Adrian Pop <pop.adrian61@gmail.com>
+> Tested-by: Adrian Pop <pop.adrian61@gmail.com>
+> Tested-by: Arnaud Ferraris <arnaud.ferraris@collabora.com>
+> Signed-off-by: Adrian Ratiu <adrian.ratiu@collabora.com>
 > ---
->  Documentation/driver-api/generic-counter.rst | 112 +++++++++++++------
->  1 file changed, 76 insertions(+), 36 deletions(-)
+> New in v6.
+> ---
+>   drivers/gpu/drm/stm/dw_mipi_dsi-stm.c | 12 +++---------
+>   1 file changed, 3 insertions(+), 9 deletions(-)
 > 
-> diff --git a/Documentation/driver-api/generic-counter.rst b/Documentation/driver-api/generic-counter.rst
-> index 8f85c30dea0b..58045b33b576 100644
-> --- a/Documentation/driver-api/generic-counter.rst
-> +++ b/Documentation/driver-api/generic-counter.rst
-
+> diff --git a/drivers/gpu/drm/stm/dw_mipi_dsi-stm.c b/drivers/gpu/drm/stm/dw_mipi_dsi-stm.c
+> index 2e1f2664495d0..7218e405d7e2b 100644
+> --- a/drivers/gpu/drm/stm/dw_mipi_dsi-stm.c
+> +++ b/drivers/gpu/drm/stm/dw_mipi_dsi-stm.c
+> @@ -402,15 +402,6 @@ static int dw_mipi_dsi_stm_probe(struct platform_device *pdev)
+>   		goto err_dsi_probe;
+>   	}
+>   
+> -	dsi->hw_version = dsi_read(dsi, DSI_VERSION) & VERSION;
+> -	clk_disable_unprepare(pclk);
+> -
+> -	if (dsi->hw_version != HWVER_130 && dsi->hw_version != HWVER_131) {
+> -		ret = -ENODEV;
+> -		DRM_ERROR("bad dsi hardware version\n");
+> -		goto err_dsi_probe;
+> -	}
+> -
+>   	dw_mipi_dsi_stm_plat_data.base = dsi->base;
+>   	dw_mipi_dsi_stm_plat_data.priv_data = dsi;
+>   
+> @@ -423,6 +414,9 @@ static int dw_mipi_dsi_stm_probe(struct platform_device *pdev)
+>   		goto err_dsi_probe;
+>   	}
+>   
+> +	dsi->hw_version = dsi_read(dsi, DSI_VERSION) & VERSION;
+> +	clk_disable_unprepare(pclk);
 > +
-> +Counter chrdev
-> +--------------
-> +Translates counter data to the standard Counter character device; data
-> +is transferred via standard character device read/write calls.
-> +
-> +Sysfs Interface
-> +===============
-> +
-> +Several sysfs attributes are generated by the Generic Counter interface,
-> +and reside under the `/sys/bus/counter/devices/counterX` directory,
-> +where `X` is to the respective counter device id. Please see
-> +Documentation/ABI/testing/sysfs-bus-counter for detailed information on
-> +each Generic Counter interface sysfs attribute.
-> +
-> +Through these sysfs attributes, programs and scripts may interact with
-> +the Generic Counter paradigm Counts, Signals, and Synapses of respective
-> +counter devices.
-> +
-> +Counter Character Device
-> +========================
-> +
-> +Counter character device nodes are created under the `/dev` directory as
-> +`counterX`, where `X` is the respective counter device id. Defines for
-> +the standard Counter data types are exposed via the userspace
-> +`include/uapi/linux/counter-types.h` file.
-> +
-> +The first 196095 bytes of the character device serve as a control
-> +selection area where control exposure of desired Counter components and
-> +extensions may be selected. Each byte serves as a boolean selection
-> +indicator for a respective Counter component or extension. The format of
-> +this area is as follows:
-> +
-> +* For each device extension, a byte is required.
-> +* For each Signal, a byte is reserved for the Signal component, and a
-> +  byte is reserved for each Signal extension.
-> +* For each Count, a byte is reserved for the Count component, a byte is
-> +  reserved for the count function, a byte is reserved for each Synapse
-> +  action, and byte is reserved for each Count extension.
-> +
-> +The selected Counter components and extensions may then be interfaced
-> +after the first 196095 bytes via standard character device read/write
-> +operations. The number of bytes available for each component or
-> +extension is dependent on their respective data type: u8 will have 1
-> +byte available, u64 will have 8 bytes available, strings will have 64
-> +bytes available, etc.
-
-This looks like very, very strange interface, and not described in detail
-required to understand it.
-
-Could you take a look at input subsystem, /dev/input/event0? Perhaps it is 
-directly usable, and if not something similar should probably be acceptable.
-
-Best regards,
-									Pavel
+>   	return 0;
+>   
+>   err_dsi_probe:
+> 
 _______________________________________________
 Linux-stm32 mailing list
 Linux-stm32@st-md-mailman.stormreply.com
