@@ -2,62 +2,69 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id 765891E8367
-	for <lists+linux-stm32@lfdr.de>; Fri, 29 May 2020 18:17:40 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 25D711E97D8
+	for <lists+linux-stm32@lfdr.de>; Sun, 31 May 2020 15:32:07 +0200 (CEST)
 Received: from ip-172-31-3-76.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 20070C36B22;
-	Fri, 29 May 2020 16:17:40 +0000 (UTC)
-Received: from mail-il1-f196.google.com (mail-il1-f196.google.com
- [209.85.166.196])
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id C5CC9C36B22;
+	Sun, 31 May 2020 13:32:06 +0000 (UTC)
+Received: from mail-qk1-f196.google.com (mail-qk1-f196.google.com
+ [209.85.222.196])
  (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id E328AC36B0D
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 3E192C36B0D
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Fri, 29 May 2020 16:17:37 +0000 (UTC)
-Received: by mail-il1-f196.google.com with SMTP id a14so3072717ilk.2
+ Sun, 31 May 2020 13:32:02 +0000 (UTC)
+Received: by mail-qk1-f196.google.com with SMTP id n141so6694444qke.2
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Fri, 29 May 2020 09:17:37 -0700 (PDT)
+ Sun, 31 May 2020 06:32:02 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20161025;
+ h=date:from:to:cc:subject:message-id:references:mime-version
+ :content-disposition:in-reply-to;
+ bh=7mjQPFZLDY3zOJxS6K+hwBYDZ7ogeoyTkdPn+NbadQA=;
+ b=OvQUeyLfMwrvAin4ZW+rJVAV3Brt0cXRGFYFkbwhjGFNAlulLUWx2u+XlDicCYbIIv
+ cngSvARYr/W1RWxz62Nu9/fYPz98+YYIE53Mv5wST7j3b2/BZ+Ck8mzn/gm3kX/kiIjA
+ fAg42ScpwGAu2VBrl+wgSz0uMRL2n4sMzy7Peq2EXcpiI5HB2Cz5TRdsCHZmpxEQrbaM
+ 2hffWRCVFTk9uMmbVPUtjrifiAiqSS0uiWVBuJWkpUpP2QcBBHBKVdp+9FZbIqMo9v8k
+ i1wOJg8tK0Q6N7B/MBkUAO30R4AE8SPalg+BkZoLrEosrQxINBJg49zXwiwBVsqLoOiF
+ QIaA==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=1e100.net; s=20161025;
  h=x-gm-message-state:date:from:to:cc:subject:message-id:references
  :mime-version:content-disposition:in-reply-to;
- bh=1WA+w4gWKVFAKdOjyjOP/tEtWPocATjUQITVK+3DOw8=;
- b=b5IwYAPCsfSP6+peB1cZgqhjPkV2c1wJv/2QmkWAZ2qb7i5PD/7AjFM80f6A8wu6LL
- /x9XSZydngMeEfjQfKLmh2Q8o86+p8KJLI36K3mLllrBxMPlWmhUjg3DERdlCndTtuoL
- Q9RQb6Lz93HMh4vRuqreihyQRlwc3lZU2ySW7rO5to0t5/BMH130GVOXdbgbjO3oQuSq
- 4W7iEJUBm8YW9npctu0vxdp/L38IWIYLeKRZR2sELVgFo7u8vMFMZQ2QJx62oQWg1TdB
- G/7Ogib5Do7K2IlVmhtYKWP/IK6QSR17T3BVCD7tS3SEglwPifm+h1qX/4OWfe1l6st5
- kuTw==
-X-Gm-Message-State: AOAM532mLtiuXc8stSx+BC+mc7jRV4UvVHjz8dGes5Py4dHIr33EKROg
- K1IhNjkdhR66PHvwo7R2qw==
-X-Google-Smtp-Source: ABdhPJzaiMsri3Ce6ct811n/Nx3VT+C3nOOEcWn2ikVVXzQHkkLZAWZnsnOcN0C90jGOSCtG3QTx+Q==
-X-Received: by 2002:a92:9142:: with SMTP id t63mr6838165ild.191.1590769056769; 
- Fri, 29 May 2020 09:17:36 -0700 (PDT)
-Received: from xps15 ([64.188.179.252])
- by smtp.gmail.com with ESMTPSA id j63sm1083926ilg.50.2020.05.29.09.17.33
+ bh=7mjQPFZLDY3zOJxS6K+hwBYDZ7ogeoyTkdPn+NbadQA=;
+ b=SvgInpBRU5lmvTreY+aHTv/nlLXkRheqR4u2bIfGs2Vn33UeGWymQB9PMC/IIuJZSh
+ /w7TzDOo4g+4SyPqogqqT9cJHnXJc9u/dXt2AaKEJyzC0Roc8WrU4GrThsPf+UvtOIth
+ 4ORQk+ofZlnU3TaZnQGJ9fbSCBf6T3ksBWBK9UJTmHN40azOVNqkIikqEDufsMbFQemd
+ FgDY8HnMkOP5HYtcznktvdDXy4DkJ0EUJ9edsrpN+pWBb+Fg11bBfr4F4ALbXN9SYQ9w
+ OGkRPmYx2I9yJ9KWgAzU/+EERT6dzvxkaOMSg/AJojqqcVrD+cgeosT/FNCauCto+2oz
+ bDfQ==
+X-Gm-Message-State: AOAM531qwiv74OjzWY9j9oW8C86H0vp9en/HDUuxIw2synMp5L74mE19
+ ilaUgADDeSa5LqJ5A/Gk2jY=
+X-Google-Smtp-Source: ABdhPJyLqWvBTi+Blweff9xoUoSmEYagIdQTmznRqhCCEj/Zz7hVlATzQXnLTG1Q06c2kaU18tdn4w==
+X-Received: by 2002:a05:620a:1f6:: with SMTP id
+ x22mr15510121qkn.199.1590931921668; 
+ Sun, 31 May 2020 06:32:01 -0700 (PDT)
+Received: from shinobu (072-189-064-225.res.spectrum.com. [72.189.64.225])
+ by smtp.gmail.com with ESMTPSA id q187sm11366164qka.34.2020.05.31.06.31.59
  (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Fri, 29 May 2020 09:17:35 -0700 (PDT)
-Received: (nullmailer pid 2494095 invoked by uid 1000);
- Fri, 29 May 2020 16:17:32 -0000
-Date: Fri, 29 May 2020 10:17:32 -0600
-From: Rob Herring <robh@kernel.org>
-To: dillon.minfei@gmail.com
-Message-ID: <20200529161732.GA2493963@bogus>
-References: <1590564453-24499-1-git-send-email-dillon.minfei@gmail.com>
- <1590564453-24499-5-git-send-email-dillon.minfei@gmail.com>
+ Sun, 31 May 2020 06:32:00 -0700 (PDT)
+Date: Sun, 31 May 2020 09:31:47 -0400
+From: William Breathitt Gray <vilhelm.gray@gmail.com>
+To: Pavel Machek <pavel@ucw.cz>
+Message-ID: <20200531133131.GA6725@shinobu>
+References: <cover.1589654470.git.vilhelm.gray@gmail.com>
+ <db0a9206d31c82f8381316ef5ff9872bfb53665b.1589654470.git.vilhelm.gray@gmail.com>
+ <20200529132604.GB1339@bug>
 MIME-Version: 1.0
-Content-Disposition: inline
-In-Reply-To: <1590564453-24499-5-git-send-email-dillon.minfei@gmail.com>
-Cc: dillonhua@gmail.com, airlied@linux.ie, linus.walleij@linaro.org,
- dri-devel@lists.freedesktop.org, thierry.reding@gmail.com, sam@ravnborg.org,
- linux-stm32@st-md-mailman.stormreply.com, linux-clk@vger.kernel.org,
- andy.shevchenko@gmail.com, p.zabel@pengutronix.de, mturquette@baylibre.com,
- devicetree@vger.kernel.org, robh+dt@kernel.org, daniel@ffwll.ch,
- linux-arm-kernel@lists.infradead.org, sboyd@kernel.org,
- linux-kernel@vger.kernel.org, linux-spi@vger.kernel.org, noralf@tronnes.org,
- broonie@kernel.org, mcoquelin.stm32@gmail.com
-Subject: Re: [Linux-stm32] [PATCH v6 4/9] dt-bindings: display: panel: Add
- ilitek ili9341 panel bindings
+In-Reply-To: <20200529132604.GB1339@bug>
+Cc: kamel.bouhara@bootlin.com, gwendal@chromium.org, david@lechnology.com,
+ linux-iio@vger.kernel.org, patrick.havelange@essensium.com,
+ alexandre.belloni@bootlin.com, linux-kernel@vger.kernel.org,
+ linux-arm-kernel@lists.infradead.org, mcoquelin.stm32@gmail.com,
+ fabrice.gasnier@st.com, syednwaris@gmail.com,
+ linux-stm32@st-md-mailman.stormreply.com, jic23@kernel.org
+Subject: Re: [Linux-stm32] [PATCH v2 4/4] docs: counter: Document character
+	device interface
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -69,25 +76,140 @@ List-Post: <mailto:linux-stm32@st-md-mailman.stormreply.com>
 List-Help: <mailto:linux-stm32-request@st-md-mailman.stormreply.com?subject=help>
 List-Subscribe: <https://st-md-mailman.stormreply.com/mailman/listinfo/linux-stm32>, 
  <mailto:linux-stm32-request@st-md-mailman.stormreply.com?subject=subscribe>
-Content-Type: text/plain; charset="us-ascii"
-Content-Transfer-Encoding: 7bit
+Content-Type: multipart/mixed; boundary="===============1103207287748211977=="
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
-On Wed, 27 May 2020 15:27:28 +0800, dillon.minfei@gmail.com wrote:
-> From: dillon min <dillon.minfei@gmail.com>
-> 
-> Add documentation for "ilitek,ili9341" panel.
-> 
-> Signed-off-by: dillon min <dillon.minfei@gmail.com>
-> ---
->  .../bindings/display/panel/ilitek,ili9341.yaml     | 69 ++++++++++++++++++++++
->  1 file changed, 69 insertions(+)
->  create mode 100644 Documentation/devicetree/bindings/display/panel/ilitek,ili9341.yaml
-> 
 
-Reviewed-by: Rob Herring <robh@kernel.org>
+--===============1103207287748211977==
+Content-Type: multipart/signed; micalg=pgp-sha512;
+	protocol="application/pgp-signature"; boundary="p4qYPpj5QlsIQJ0K"
+Content-Disposition: inline
+
+
+--p4qYPpj5QlsIQJ0K
+Content-Type: text/plain; charset=utf-8
+Content-Disposition: inline
+Content-Transfer-Encoding: quoted-printable
+
+On Fri, May 29, 2020 at 03:26:04PM +0200, Pavel Machek wrote:
+> On Sat 2020-05-16 15:20:02, William Breathitt Gray wrote:
+> > This patch adds high-level documentation about the Counter subsystem
+> > character device interface.
+> >=20
+> > Signed-off-by: William Breathitt Gray <vilhelm.gray@gmail.com>
+> > ---
+> >  Documentation/driver-api/generic-counter.rst | 112 +++++++++++++------
+> >  1 file changed, 76 insertions(+), 36 deletions(-)
+> >=20
+> > diff --git a/Documentation/driver-api/generic-counter.rst b/Documentati=
+on/driver-api/generic-counter.rst
+> > index 8f85c30dea0b..58045b33b576 100644
+> > --- a/Documentation/driver-api/generic-counter.rst
+> > +++ b/Documentation/driver-api/generic-counter.rst
+>=20
+> > +
+> > +Counter chrdev
+> > +--------------
+> > +Translates counter data to the standard Counter character device; data
+> > +is transferred via standard character device read/write calls.
+> > +
+> > +Sysfs Interface
+> > +=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D
+> > +
+> > +Several sysfs attributes are generated by the Generic Counter interfac=
+e,
+> > +and reside under the `/sys/bus/counter/devices/counterX` directory,
+> > +where `X` is to the respective counter device id. Please see
+> > +Documentation/ABI/testing/sysfs-bus-counter for detailed information on
+> > +each Generic Counter interface sysfs attribute.
+> > +
+> > +Through these sysfs attributes, programs and scripts may interact with
+> > +the Generic Counter paradigm Counts, Signals, and Synapses of respecti=
+ve
+> > +counter devices.
+> > +
+> > +Counter Character Device
+> > +=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=
+=3D
+> > +
+> > +Counter character device nodes are created under the `/dev` directory =
+as
+> > +`counterX`, where `X` is the respective counter device id. Defines for
+> > +the standard Counter data types are exposed via the userspace
+> > +`include/uapi/linux/counter-types.h` file.
+> > +
+> > +The first 196095 bytes of the character device serve as a control
+> > +selection area where control exposure of desired Counter components and
+> > +extensions may be selected. Each byte serves as a boolean selection
+> > +indicator for a respective Counter component or extension. The format =
+of
+> > +this area is as follows:
+> > +
+> > +* For each device extension, a byte is required.
+> > +* For each Signal, a byte is reserved for the Signal component, and a
+> > +  byte is reserved for each Signal extension.
+> > +* For each Count, a byte is reserved for the Count component, a byte is
+> > +  reserved for the count function, a byte is reserved for each Synapse
+> > +  action, and byte is reserved for each Count extension.
+> > +
+> > +The selected Counter components and extensions may then be interfaced
+> > +after the first 196095 bytes via standard character device read/write
+> > +operations. The number of bytes available for each component or
+> > +extension is dependent on their respective data type: u8 will have 1
+> > +byte available, u64 will have 8 bytes available, strings will have 64
+> > +bytes available, etc.
+>=20
+> This looks like very, very strange interface, and not described in detail
+> required to understand it.
+>=20
+> Could you take a look at input subsystem, /dev/input/event0? Perhaps it i=
+s=20
+> directly usable, and if not something similar should probably be acceptab=
+le.
+>=20
+> Best regards,
+> 									Pavel
+
+Yes, I don't think this is a good interface afterall. I'm implementing a
+different design for v3 that should be more intuitive. The input
+subsystem could be useful for streams of events such as timestamps, so
+I'll take a look at it as well in case something similar to it could be
+used.
+
+William Breathitt Gray
+
+--p4qYPpj5QlsIQJ0K
+Content-Type: application/pgp-signature; name="signature.asc"
+
+-----BEGIN PGP SIGNATURE-----
+
+iQIzBAABCgAdFiEEk5I4PDJ2w1cDf/bghvpINdm7VJIFAl7TscMACgkQhvpINdm7
+VJLU9hAAjZE3eFls1/dM0bpj9fivaZE+WCka2FakUqh0/3e48BVKe4lgLXBKxvBV
+EYJrNH9fastmhGjWwI2JU9nVaTMUMeDZMtQFX6WccLR6wbZbncR6eDv/N2sn0VNB
+jqQ+QdidLI+0tHJIVhQCzgEE0G6J6OMlUI1XkolNQVFKc2AWyxVFOKYcXWVlOaJF
+5RuNDd067JuwqUncPfnInAMsI/5310+8UTEDza3twfjg61EI5wzU/PB7CzeE5rpz
+uXex2BiRUcR/QQiNP1KjhrIyawQkBGhx4LKcqFGlx5QTwec/Jg7NmjyWEnSsboZg
+AnHu1w+b2UbsHhWWRSHDWB1m7qM+zKhDYTYVOr5d0u0qgvitqeOsOaux34/tNMTT
+cc4PTlf5zZFozDvTsilbLhNf5OhkIp5emAVCG5lXF4i0r7Q/jcRI0ScHZ3BSmL1p
+unxD66ZbwtxHej5HJWAdZ1VPGr0gjWL29q+cxK3B7RqOUgl5ZwYnKgUaqbJAOM6Q
+2K8z+BqLVH975M33jnPm0PSRyCxLfYPN+vKcEgw/ly3Z/3b3LYePtsuxc7bo8kVA
+7uNPKFaSp2VW1XCaAd0hqBx3/q/LZEQjaPGVFtWkrMpv/vnsJVWSPAoJO9+9T/zS
+HZ5TugHnAaPTVx7eo+0u7rzLOVv2wS5v0G0MU4KMwiN85Ws1Umo=
+=ca5o
+-----END PGP SIGNATURE-----
+
+--p4qYPpj5QlsIQJ0K--
+
+--===============1103207287748211977==
+Content-Type: text/plain; charset="us-ascii"
+MIME-Version: 1.0
+Content-Transfer-Encoding: 7bit
+Content-Disposition: inline
+
 _______________________________________________
 Linux-stm32 mailing list
 Linux-stm32@st-md-mailman.stormreply.com
 https://st-md-mailman.stormreply.com/mailman/listinfo/linux-stm32
+
+--===============1103207287748211977==--
