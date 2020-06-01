@@ -2,65 +2,65 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id E5C931EA8B9
-	for <lists+linux-stm32@lfdr.de>; Mon,  1 Jun 2020 19:56:04 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 0383F1EA8BA
+	for <lists+linux-stm32@lfdr.de>; Mon,  1 Jun 2020 19:56:05 +0200 (CEST)
 Received: from ip-172-31-3-76.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id A95DBC36B23;
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id B6E5AC36B26;
 	Mon,  1 Jun 2020 17:56:04 +0000 (UTC)
-Received: from mail-pg1-f193.google.com (mail-pg1-f193.google.com
- [209.85.215.193])
+Received: from mail-pj1-f65.google.com (mail-pj1-f65.google.com
+ [209.85.216.65])
  (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 9AA45C36B0D
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id B4658C36B0D
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Mon,  1 Jun 2020 17:56:01 +0000 (UTC)
-Received: by mail-pg1-f193.google.com with SMTP id j21so3840525pgb.7
+ Mon,  1 Jun 2020 17:56:02 +0000 (UTC)
+Received: by mail-pj1-f65.google.com with SMTP id ga6so153335pjb.1
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Mon, 01 Jun 2020 10:56:01 -0700 (PDT)
+ Mon, 01 Jun 2020 10:56:02 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linaro.org; s=google;
  h=from:to:cc:subject:date:message-id:in-reply-to:references
  :mime-version:content-transfer-encoding;
- bh=i5BZPTZAmXxklJpoMRb5vD0GYMFXpjrq4/dihvCieGA=;
- b=oGDezAuwIcD3h/JVFiFkScpwzDR7DBlQ3K82qjR89+nwgkSaq0E5YppwnXKytVSlas
- dl/hRrPjMDN0njFWBVSKAVG8aR6rmRXgaxqwVvmhmdk2DKf6XYFQIaf9Eavl3reRURgG
- 4VEQIvfKLORMIIs35V5Mm8PL7qzFCVvr+tQ1uxZG6vBedJTKCkDSH6rRJC6hMMaRqZEO
- Y1YAuNKI1gQ3YObz3ty3IXa5OyI1bnIprq3f84lh9LlQnL03m3dce8SwO14bW/NuHYM3
- 5FXETrADg+UOjJ5EoctZZ4Ix7VbLhchbCdEu3YuYtK8CejO9iOCwSu3PY5LVK5LaBEhj
- yPkA==
+ bh=ViPzLIdY6S5F9ukM8AO/hVR30UuoYhcnMI2Jw2fXDro=;
+ b=nvQCaQ6BDkTVt4N68rp3+7sk/OjINYsb1pnrOSFmRo/gwHwW1MLtNPDYyIYmMUN7va
+ pAGWbWmDdudAr+B1HdFaXSDQy9VeZAFeSH/E6a92sqnzHfG9lfLVzh8eNYil7KOpas5V
+ MsifJkeC4UtOyw3PTK8mW0nPUHppgrAmoEx+Irz0tFmiA4rqGRLq25pCeBMzo0dpob2+
+ lAQGp4nwcRTEAsxGWAJgDmyysDFPYpDEOwin8u5jplAGUwE8IctWxAvV8Tsa6MlJrBQS
+ 9QRaD9k42fv/ghRMP4rXysqNHgx+j0SuDNtEhzUPdJSE/gtORupjQvx/D7d6/k1FR8ZZ
+ 6Wrw==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=1e100.net; s=20161025;
  h=x-gm-message-state:from:to:cc:subject:date:message-id:in-reply-to
  :references:mime-version:content-transfer-encoding;
- bh=i5BZPTZAmXxklJpoMRb5vD0GYMFXpjrq4/dihvCieGA=;
- b=VgGFTZLcmRQ5A3LFi+jjACrEEiCRqyWZeh9/emR9Rjd9fAl2T+F8ZbjXtL/S93VhHA
- sUwEPH2x9w6NqNEW6QpBG9QxZNq6bXeb9mcqVTGVTreTn638iCh2lZ4CFrtxHeFUXxP8
- LGPDMBD+YVBJQtQRuddYZxD/e7ghqgXJ/X3LFNJ4W2ZCNWXdavyt/0g5juGeu5VxikAC
- OCx344laQJLjdcOwgXtThZBLM4za1YwfAOWNi0HqyfOqOSfEv/knymGIuSbCkck9F4Fd
- OZPEUnKOQSfhO3YSC60NHBYcprgMSxQJGVZV6W6XngztIFGlzAnAa+0AOeJ0CHkkvmhe
- vPPg==
-X-Gm-Message-State: AOAM531NB4eqR3KzszOP+KtStQJDZsZT/V/hZiS42H6sV45HjJy0Lot8
- +reQ4UmVzOrtMYe/3FPbtuc19w==
-X-Google-Smtp-Source: ABdhPJxrhPzy4O3NyPsLmeg5/fP9w0+e83//FkVHlGYJSYKm29+DOBd/ogwZCnOjBob1eTm4pfRdqw==
-X-Received: by 2002:a63:3c11:: with SMTP id j17mr20781628pga.70.1591034160056; 
- Mon, 01 Jun 2020 10:56:00 -0700 (PDT)
+ bh=ViPzLIdY6S5F9ukM8AO/hVR30UuoYhcnMI2Jw2fXDro=;
+ b=pAEwXvV8f2mo0zEIbDFGk/v/yRU2FlTlLg5mTRpedHg0WUCLwT/tr5kHCll8LifZkX
+ sGSkaWoJLS+S2Dzg8u7xUMtuyAS7DSHncw0ap5Veui17r5dC9KICjgtcXyLM6GqrsjCQ
+ r9boXpnVufuqSdEEJ/ybT6UJpoDBsyan6kSDH9X0Y73LMrAgmziD/pwaTege1zohhlud
+ mTpTzqNDKIfAevAgCDPJqRt+rL6pQX/ztH5NWZ/oljFVjpBRumYjIUfk2Ghu6/kPWYuZ
+ n6h5tioMAzs4Hb24T/QDnmgEh/E2boXuncguA8X/urokE/hpvCP7VzRdrrA1IiEbMioP
+ 0BPA==
+X-Gm-Message-State: AOAM530vMGiFTkl66/txP57yFRpmir/x+U7a+IHBU2WZMMF9GZPzozTZ
+ eyVf0xxXZQow89951kqpnHXMtA==
+X-Google-Smtp-Source: ABdhPJynMxDT0cCzVhHBOevuGK2TcnLJIdmLB+om4mji64XigRKmYH5t1RVhWndkJJsbNUj/fxZJrQ==
+X-Received: by 2002:a17:90b:705:: with SMTP id s5mr580608pjz.147.1591034161245; 
+ Mon, 01 Jun 2020 10:56:01 -0700 (PDT)
 Received: from xps15.cg.shawcable.net (S0106002369de4dac.cg.shawcable.net.
  [68.147.8.254])
- by smtp.gmail.com with ESMTPSA id p7sm64771pfq.184.2020.06.01.10.55.58
+ by smtp.gmail.com with ESMTPSA id p7sm64771pfq.184.2020.06.01.10.56.00
  (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Mon, 01 Jun 2020 10:55:59 -0700 (PDT)
+ Mon, 01 Jun 2020 10:56:00 -0700 (PDT)
 From: Mathieu Poirier <mathieu.poirier@linaro.org>
 To: bjorn.andersson@linaro.org, ohad@wizery.com, mcoquelin.stm32@gmail.com,
  alexandre.torgue@st.com
-Date: Mon,  1 Jun 2020 11:55:45 -0600
-Message-Id: <20200601175552.22286-5-mathieu.poirier@linaro.org>
+Date: Mon,  1 Jun 2020 11:55:46 -0600
+Message-Id: <20200601175552.22286-6-mathieu.poirier@linaro.org>
 X-Mailer: git-send-email 2.20.1
 In-Reply-To: <20200601175552.22286-1-mathieu.poirier@linaro.org>
 References: <20200601175552.22286-1-mathieu.poirier@linaro.org>
 MIME-Version: 1.0
 Cc: linux-remoteproc@vger.kernel.org, linux-kernel@vger.kernel.org,
  linux-stm32@st-md-mailman.stormreply.com, linux-arm-kernel@lists.infradead.org
-Subject: [Linux-stm32] [PATCH v4 04/11] remoteproc: stm32: Remove memory
-	translation from DT parsing
+Subject: [Linux-stm32] [PATCH v4 05/11] remoteproc: stm32: Parse syscon that
+	will manage M4 synchronisation
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -77,43 +77,64 @@ Content-Transfer-Encoding: 7bit
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
-Other than one has to be done after the other, there is no correlation
-between memory translation and DT parsing.  As such move function
-stm32_rproc_of_memory_translations() to stm32_rproc_probe() so that
-stm32_rproc_parse_dt() can be extended to look for attach bindings
-in a clean way.
+Get from the DT the syncon to probe the state of the remote processor
+and the location of the resource table.
+
+Mainly based on the work published by Arnaud Pouliquen [1].
+
+[1]. https://patchwork.kernel.org/project/linux-remoteproc/list/?series=239877
 
 Signed-off-by: Mathieu Poirier <mathieu.poirier@linaro.org>
 Reviewed-by: Loic Pallardy <loic.pallardy@st.com>
 Reviewed-by: Bjorn Andersson <bjorn.andersson@linaro.org>
 ---
- drivers/remoteproc/stm32_rproc.c | 6 +++++-
- 1 file changed, 5 insertions(+), 1 deletion(-)
+ drivers/remoteproc/stm32_rproc.c | 26 ++++++++++++++++++++++++++
+ 1 file changed, 26 insertions(+)
 
 diff --git a/drivers/remoteproc/stm32_rproc.c b/drivers/remoteproc/stm32_rproc.c
-index 1e512ddf2591..3e3b199a02c1 100644
+index 3e3b199a02c1..80fd8fd831da 100644
 --- a/drivers/remoteproc/stm32_rproc.c
 +++ b/drivers/remoteproc/stm32_rproc.c
-@@ -606,7 +606,7 @@ static int stm32_rproc_parse_dt(struct platform_device *pdev,
+@@ -70,6 +70,8 @@ struct stm32_rproc {
+ 	struct reset_control *rst;
+ 	struct stm32_syscon hold_boot;
+ 	struct stm32_syscon pdds;
++	struct stm32_syscon m4_state;
++	struct stm32_syscon rsctbl;
+ 	int wdg_irq;
+ 	u32 nb_rmems;
+ 	struct stm32_rproc_mem *rmems;
+@@ -606,6 +608,30 @@ static int stm32_rproc_parse_dt(struct platform_device *pdev,
  
  	*auto_boot = of_property_read_bool(np, "st,auto-boot");
  
--	return stm32_rproc_of_memory_translations(pdev, ddata);
-+	return 0;
++	/*
++	 * See if we can check the M4 status, i.e if it was started
++	 * from the boot loader or not.
++	 */
++	err = stm32_rproc_get_syscon(np, "st,syscfg-m4-state",
++				     &ddata->m4_state);
++	if (err) {
++		/* remember this */
++		ddata->m4_state.map = NULL;
++		/* no coprocessor state syscon (optional) */
++		dev_warn(dev, "m4 state not supported\n");
++
++		/* no need to go further */
++		return 0;
++	}
++
++	/* See if we can get the resource table */
++	err = stm32_rproc_get_syscon(np, "st,syscfg-rsc-tbl",
++				     &ddata->rsctbl);
++	if (err) {
++		/* no rsc table syscon (optional) */
++		dev_warn(dev, "rsc tbl syscon not supported\n");
++	}
++
+ 	return 0;
  }
  
- static int stm32_rproc_probe(struct platform_device *pdev)
-@@ -633,6 +633,10 @@ static int stm32_rproc_probe(struct platform_device *pdev)
- 	if (ret)
- 		goto free_rproc;
- 
-+	ret = stm32_rproc_of_memory_translations(pdev, ddata);
-+	if (ret)
-+		goto free_rproc;
-+
- 	rproc->has_iommu = false;
- 	ddata->workqueue = create_workqueue(dev_name(dev));
- 	if (!ddata->workqueue) {
 -- 
 2.20.1
 
