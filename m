@@ -2,68 +2,79 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id EF6BC1E9933
-	for <lists+linux-stm32@lfdr.de>; Sun, 31 May 2020 19:14:25 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id B3A971E9D9C
+	for <lists+linux-stm32@lfdr.de>; Mon,  1 Jun 2020 07:56:50 +0200 (CEST)
 Received: from ip-172-31-3-76.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id A6126C36B22;
-	Sun, 31 May 2020 17:14:25 +0000 (UTC)
-Received: from mail-qt1-f194.google.com (mail-qt1-f194.google.com
- [209.85.160.194])
- (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 67905C36B22;
+	Mon,  1 Jun 2020 05:56:50 +0000 (UTC)
+Received: from mx07-00178001.pphosted.com (mx08-00178001.pphosted.com
+ [91.207.212.93])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 813A9C36B0D
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 3C371C36B0D
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Sun, 31 May 2020 17:14:23 +0000 (UTC)
-Received: by mail-qt1-f194.google.com with SMTP id x29so5994269qtv.4
- for <linux-stm32@st-md-mailman.stormreply.com>;
- Sun, 31 May 2020 10:14:23 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20161025;
- h=date:from:to:cc:subject:message-id:references:mime-version
- :content-disposition:in-reply-to;
- bh=W9YeYm7+qwNuukA3pDM3CW8tbGlWmscS3K1roRx6pbI=;
- b=iUHsDEQvhBX0Me0H+4CxfQ4jBkPFyNUs33ZzzTByxrBU7MtCralM4uy9C3vpDURyR1
- zOzfmQpTA0E1Pz/SNGafACSKn5AOLSosBeLmF8JR8EwZT1hjDvp9yCBW6fgyErEChEBD
- GO5Co/WqOebMXxIWPkIWJRvIQAVTya1ynuaB7TXzp3HrFu1EDNvYgia9P8T53eU1qBR1
- +x1K0j6v5U1aQhnmXxGNKeyG5BAzVKY1qd5Gg8gk+81cuyFG6ccgZerlRK/QUs+Z2y9T
- WzwYgvNVo1T5E0V0makiXEQzqvZWHlZuC6Bq7JkmwDgcE0ioYmcIr+J+sf4XBvMocDfI
- m9eg==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20161025;
- h=x-gm-message-state:date:from:to:cc:subject:message-id:references
- :mime-version:content-disposition:in-reply-to;
- bh=W9YeYm7+qwNuukA3pDM3CW8tbGlWmscS3K1roRx6pbI=;
- b=X5sRI/h6rReaTH1FIQK+ncc/bcnLZPQFuims6ZTSBoUBMMolIo2CGgRoS0HdLJUKzx
- 6mJFdUqVyLiq5m9yTBSg+ZQXChYWJRnFccFy+PEX07BB7+6PQJIDmlmxtHL7kKIbJ4lk
- ilyRk+7qqb7RuHDcyMozti3qt7eMM22kPe9NYqWxQXc73nusb/3ML8kpS8HZmXmsg7h+
- 1l5f5Yd6pDLnCkGtdZPbppK0HGxsPpPDi+YAsYOigtN/xfDqKZq6fs7/ekaAhcR7kQky
- 7iqVhFZuo6M+H4g2udyqYDJbOGZrwFRa9b9uAZNksSOuq/gOjrEg+osVkLcaymBN2i+L
- VntA==
-X-Gm-Message-State: AOAM533YeX8CV6Dya4tUz/UenVZ4CphRqD4VALL6xISiCQ7u8gejbifm
- BC8AGPjpRIAuxRQN020H7x8=
-X-Google-Smtp-Source: ABdhPJzMHHJ5AL5aj6Axy9koQLZPTNb5yDhSpVvm24Lz8ySrSUlIVplbbv5DStjArEYpkCw0sy27EA==
-X-Received: by 2002:ac8:458d:: with SMTP id l13mr18184698qtn.279.1590945262004; 
- Sun, 31 May 2020 10:14:22 -0700 (PDT)
-Received: from shinobu (072-189-064-225.res.spectrum.com. [72.189.64.225])
- by smtp.gmail.com with ESMTPSA id m10sm6369658qtq.79.2020.05.31.10.14.20
- (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Sun, 31 May 2020 10:14:21 -0700 (PDT)
-Date: Sun, 31 May 2020 13:14:06 -0400
-From: William Breathitt Gray <vilhelm.gray@gmail.com>
-To: Jonathan Cameron <jic23@kernel.org>
-Message-ID: <20200531171351.GA10597@shinobu>
-References: <cover.1589654470.git.vilhelm.gray@gmail.com>
- <20200524172542.31ff6ac7@archlinux>
- <20200524175439.GA14300@shinobu>
- <20200531161813.658ffdfb@archlinux>
+ Mon,  1 Jun 2020 05:56:49 +0000 (UTC)
+Received: from pps.filterd (m0046661.ppops.net [127.0.0.1])
+ by mx07-00178001.pphosted.com (8.16.0.42/8.16.0.42) with SMTP id
+ 0515lTN1000727; Mon, 1 Jun 2020 07:56:40 +0200
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=st.com;
+ h=date : from : to : cc :
+ subject : message-id : references : mime-version : content-type :
+ in-reply-to; s=STMicroelectronics;
+ bh=jm4u4MsVV598+LB742qzZN+QkL1OoKxYIMw9eBswBXo=;
+ b=XQFqfptkVoAsWGN64ok/XB/t6VmuQpg9AsBWjOxwzPObPxHYGXjpYm7gYMDIwVE+GHPk
+ ZCsV3va/ZzOWG3gtgV+wkGR11XM4n+c4MRuX0OxH7Vs4EqmyCyhoG/MswcbmEV4EZBpJ
+ sh1Jk5qKu7SimGKJKugWU1v+j0TdS9JrPKYBUQrcA4RDGdh0V199eiVgvnzd3cMpf2Rb
+ 1vEfaQw9rJNZcwmTAmpPpsTQsGGMX8eXeCEbKnY5/cY+QHepaLn5Kd2N9vVwiYIRr6SF
+ K1oULjbDMd+rBxgn5QKJuaSWHqlyH5PnwreTDSRHkjvEGkAIy8tzRwqkMQyWAiKmSoMR xA== 
+Received: from beta.dmz-eu.st.com (beta.dmz-eu.st.com [164.129.1.35])
+ by mx07-00178001.pphosted.com with ESMTP id 31becfqhgf-1
+ (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
+ Mon, 01 Jun 2020 07:56:40 +0200
+Received: from euls16034.sgp.st.com (euls16034.sgp.st.com [10.75.44.20])
+ by beta.dmz-eu.st.com (STMicroelectronics) with ESMTP id 30CF310002A;
+ Mon,  1 Jun 2020 07:56:36 +0200 (CEST)
+Received: from Webmail-eu.st.com (sfhdag3node2.st.com [10.75.127.8])
+ by euls16034.sgp.st.com (STMicroelectronics) with ESMTP id 1A87E2074B0;
+ Mon,  1 Jun 2020 07:56:36 +0200 (CEST)
+Received: from gnbcxd0016.gnb.st.com (10.75.127.51) by SFHDAG3NODE2.st.com
+ (10.75.127.8) with Microsoft SMTP Server (TLS) id 15.0.1347.2; Mon, 1 Jun
+ 2020 07:56:35 +0200
+Date: Mon, 1 Jun 2020 07:56:34 +0200
+From: Alain Volmat <alain.volmat@st.com>
+To: Dinghao Liu <dinghao.liu@zju.edu.cn>
+Message-ID: <20200601055634.GB17269@gnbcxd0016.gnb.st.com>
+Mail-Followup-To: Dinghao Liu <dinghao.liu@zju.edu.cn>,
+ "kjlu@umn.edu" <kjlu@umn.edu>,
+ Pierre Yves MORDRET <pierre-yves.mordret@st.com>,
+ Maxime Coquelin <mcoquelin.stm32@gmail.com>,
+ Alexandre TORGUE <alexandre.torgue@st.com>,
+ "linux-i2c@vger.kernel.org" <linux-i2c@vger.kernel.org>,
+ "linux-stm32@st-md-mailman.stormreply.com"
+ <linux-stm32@st-md-mailman.stormreply.com>, 
+ "linux-arm-kernel@lists.infradead.org" <linux-arm-kernel@lists.infradead.org>, 
+ "linux-kernel@vger.kernel.org" <linux-kernel@vger.kernel.org>
+References: <20200527013853.30252-1-dinghao.liu@zju.edu.cn>
 MIME-Version: 1.0
-In-Reply-To: <20200531161813.658ffdfb@archlinux>
-Cc: kamel.bouhara@bootlin.com, gwendal@chromium.org, david@lechnology.com,
- linux-iio@vger.kernel.org, patrick.havelange@essensium.com,
- alexandre.belloni@bootlin.com, linux-kernel@vger.kernel.org,
- mcoquelin.stm32@gmail.com, fabrice.gasnier@st.com, syednwaris@gmail.com,
- linux-stm32@st-md-mailman.stormreply.com, linux-arm-kernel@lists.infradead.org
-Subject: Re: [Linux-stm32] [PATCH v2 0/4] Introduce the Counter character
-	device interface
+Content-Disposition: inline
+In-Reply-To: <20200527013853.30252-1-dinghao.liu@zju.edu.cn>
+X-Disclaimer: ce message est personnel / this message is private
+X-Originating-IP: [10.75.127.51]
+X-ClientProxiedBy: SFHDAG6NODE1.st.com (10.75.127.16) To SFHDAG3NODE2.st.com
+ (10.75.127.8)
+X-Proofpoint-Virus-Version: vendor=fsecure engine=2.50.10434:6.0.216, 18.0.687
+ definitions=2020-06-01_01:2020-05-28,
+ 2020-06-01 signatures=0
+Cc: "kjlu@umn.edu" <kjlu@umn.edu>,
+ "linux-kernel@vger.kernel.org" <linux-kernel@vger.kernel.org>,
+ Pierre Yves MORDRET <pierre-yves.mordret@st.com>,
+ "linux-i2c@vger.kernel.org" <linux-i2c@vger.kernel.org>,
+ Maxime Coquelin <mcoquelin.stm32@gmail.com>,
+ "linux-stm32@st-md-mailman.stormreply.com"
+ <linux-stm32@st-md-mailman.stormreply.com>,
+ "linux-arm-kernel@lists.infradead.org" <linux-arm-kernel@lists.infradead.org>
+Subject: Re: [Linux-stm32] [PATCH] [v2] i2c: stm32f7: Fix runtime PM
+	imbalance on error
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -75,328 +86,115 @@ List-Post: <mailto:linux-stm32@st-md-mailman.stormreply.com>
 List-Help: <mailto:linux-stm32-request@st-md-mailman.stormreply.com?subject=help>
 List-Subscribe: <https://st-md-mailman.stormreply.com/mailman/listinfo/linux-stm32>, 
  <mailto:linux-stm32-request@st-md-mailman.stormreply.com?subject=subscribe>
-Content-Type: multipart/mixed; boundary="===============3076555930179035565=="
+Content-Type: text/plain; charset="us-ascii"
+Content-Transfer-Encoding: 7bit
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
+Hi,
 
---===============3076555930179035565==
-Content-Type: multipart/signed; micalg=pgp-sha512;
-	protocol="application/pgp-signature"; boundary="Y7xTucakfITjPcLV"
-Content-Disposition: inline
+Reviewed-by: Alain Volmat <alain.volmat@st.com>
 
+Thanks,
+Alain
 
---Y7xTucakfITjPcLV
-Content-Type: text/plain; charset=utf-8
-Content-Disposition: inline
-Content-Transfer-Encoding: quoted-printable
-
-On Sun, May 31, 2020 at 04:18:13PM +0100, Jonathan Cameron wrote:
-> On Sun, 24 May 2020 13:54:39 -0400
-> William Breathitt Gray <vilhelm.gray@gmail.com> wrote:
-> > After giving this some more thought, I believe human-readable sysfs
-> > attributes are the way to go to support configuration of the character
-> > device. I am thinking of a system like this:
-> >=20
-> > * Users configure the counter character device via a sysfs attribute
-> >   such as /sys/bus/counter/devices/counterX/chrdev_format or similar.
-> >=20
-> > * Users may write to this sysfs attribute to select the components they
-> >   want to interface -- the layout can be determined as well from the
-> >   order. For example:
-> >=20
-> >   # echo "C0 C3 C2" > /sys/bus/counter/devices/counter0/chrdev_format
->=20
-> I guess that 'just' meets the sysfs requirement of one file =3D> one thin=
-g.
-
-We can massage this further to make it more apt, but the main idea here
-is that configuration should be separate from our data; and that
-configuration should be performed via sysfs.
-
-> >   This would select Counts 0, 3, and 2 (in that order) to be available
-> >   in the /dev/counter0 node as a contiguous memory region.
-> >=20
-> >   You can select extensions in a similar fashion:
-> >=20
-> >   # echo "C4E2 S1E0" > /sys/bus/counter/devices/counter0/chrdev_format
-> >=20
-> >   This would select extension 2 from Count 4, and extension 0 from
-> >   Signal 1.
->=20
-> I'm not totally clear why we'd want to have a chrdev access to extensions.
-> To be honest I'm not totally sure what an extension is today as it's been
-> a week ;)
-
-In the context of the Counter subsystem, an extension is data/control
-that is not one of the core components of the Counter paradigm (i.e. not
-a Counter, Signal, nor Synapse). Extensions essentially represent
-configuration options for the counter device and auxiliary
-functionality.
-
-The "Implementation" section of the Generic Counter documentation
-Documentation/driver-api/generic-counter.rst file gives some good
-examples of extensions, but I'll provide an example here for the sake of
-this new character device interface.
-
-Suppose we have a robot controlling a laser on a dual-axes positioning
-table. A counter device is used to track the position of the laser:
-Count 0 represents position on the X axis, while Count 1 represents
-position on the Y axis. Because this machine is moving across two axes
-at the same time, we want to grab both counts together via the
-character device subsystem (grabbing them separately via sysfs would be
-imprecise due to the inherent latency).
-
-The motors are physically able the robot out of the work area, which is
-not something we want to happen. A common setup in systems like this is
-to set soft boundaries on the counter device to represent the edge of
-the work area; when the boundary is passed, a flag is set high on the
-device to indicate the position is out-of-bounds.
-
-On the Counter subsystem side, this counter device would appear as
-having four sysfs attributes: count0/count, count0/boundary,
-count1/count, and count1/boundary. In terms of the character device
-interface, we could perform a setup like this:
-
-# echo "C0E0 C0 C1E1 C1" > counter0/chrdev_format
-
-Yielding the following /dev/counter0 memory layout:
-
-+------------+-----------------+------------+-------------------+
-| Byte 0     | Byte 1 - Byte 8 | Byte 9     | Byte 10 - Byte 17 |
-+------------+-----------------+------------+-------------------+
-| Boundary 0 | Count 0         | Boundary 1 | Count 1           |
-+------------+-----------------+------------+-------------------+
-
-Now a single read() operation can grab the counts together as well as
-their respective boundary flags to verify whether the current counts are
-valid. This is a scenario where using sysfs wouldn't be viable to use:
-we could check the count0/boundary sysfs attribute first, but by the
-time we read the count0/count sysfs attribute second, the robot has
-already moved to a new (possibly invalid) position.
-
-> Perhaps an example?  I see timestamp below.  What is that attached to?
-> If we gave multiple counters, do they each have a timestamp?
-
-Some counter devices feature "timestamp" functionality. I haven't yet
-implemented this in the Counter subsystem because it's new functionality
-and I want to keep this patchset limited to the existing Counter
-subsystem functionality support.
-
-However, to briefly go into the topic (we'll need to discuss this more
-in-depth before committing to a Counter subsystem design), some counter
-devices can keep track of historic counts based on various events; we
-call these "timestamps", although they may not necessary be tied to a
-wall-clock time.
-
-For example, quadrature encoders often have an "index" signal in
-addition to the quadrature A and B lines. This index signal may be used
-to home a positioning device, or perhaps to indicate that a full
-revolution -- or some other event -- has occurred. It's common for
-quadrature counter devices to provide a FIFO buffer that logs these
-"index" events by saving the current count when that respective index
-signal goes high. Thus we have a timestamp buffer.
-
-In the context of the Counter subsystem, I believe we will end up
-implementing these timestamps as Count extensions (or Device extensions
-if it's a single buffer for the entire device). I'm not sure yet what
-the sysfs attribute will display, but I'm guessing we'll have a
-respective /sys/bus/counter/devices/counterX/countX/timestamps sysfs
-attribute or similar.
-
-The character device implementation should be more straight forward I
-would imagine. Since it's a memory buffer, I think we can provide access
-to that buffer directly in the chrdev:
-
-# echo "C0E0 C1E1" > /sys/bus/counter/devices/counter0/chrdev_format
-
-Yielding the following /dev/counter0 memory layout for 32-byte
-timestamps:
-
-+---------------------+---------------------+
-| Byte 0 - Byte 31    | Byte 32 - Byte 63   |
-+---------------------+---------------------+
-| Timestamps Buffer 0 | Timestamps Buffer 1 |
-+---------------------+---------------------+
-
-> > * Users may read from this chrdev_format sysfs attribute in order to see
-> >   the currently configured format of the character device.
-> >=20
-> > * Users may perform read/write operations on the /dev/counterX node
-> >   directly; the layout of the data is what they user has configured via
-> >   the chrdev_format sysfs attribute. For example:
-> >=20
-> >   # echo "C0 C1 S0 S1" > /sys/bus/counter/devices/counter0/chrdev_format
-> >=20
-> >   Yields the following /dev/counter0 memory layout:
-> >=20
-> >   +-----------------+------------------+----------+----------+
-> >   | Byte 0 - Byte 7 | Byte 8 - Byte 15 | Byte 16  | Byte 17  |
-> >   +-----------------+------------------+----------+----------+
-> >   | Count 0         | Count 1          | Signal 0 | Signal 2 |
-> >   +-----------------+------------------+----------+----------+
-> >=20
-> > * Users may perform select/poll operations on the /dev/counterX node.
-> >   Users can be notified if data is available or events have occurred.
->=20
-> One thing to think about early if watermarks.  We bolted them on
-> late in IIO and maybe we could have done it better from the start.
-> I'd almost guarantee someone will want one fairly soon - particularly
-> as it's more than possible you'll have a counter device with a
-> hardware fifo.  I have some vague recollection that ti-ecap
-> stuff could be presented as a short fifo for starters.
->=20
-> >=20
-> > The benefit of this design is that the format is robust so users can
-> > choose the components they want to interface and in the layout they
-> > want. For example, if I am writing a userspace application to control a
-> > dual-axis positioning table, I can select the two counts I care about
-> > for the position axes. This allows me to read just those two values
-> > directly from /dev/counterX with a simple read() call, without having to
-> > fumble around seeking to an offset and parsing the layout.
->=20
-> I wonder if I'm over thinking things for counters, but you may run into
-> the complexity of different counters having different sampling frequencie=
-s.
-> Here you are suggesting a scheme that I think ends up closer to IIO than
-> input.   That makes this case a pain.   Input takes the view that it's
-> fine to have data coming in any order and frequency because every
-> record is self describing.  I'm not sure it matters here, but it is
-> a nice layer of flexibility, but you do loose the efficiency of
-> the description being external to the data flow.
-
-I think one of the downsides to using a single a single character device
-node to represent the entire counter device is that the frequency of two
-individual counts may differ from each other. For example, using the
-dual-axes positioning scenario from earlier, one axis might change more
-frequently than the other (e.g. a conveyor belt situation where X is
-always moving forward, while Y only changes when a part appears within
-the work area).
-
-In these cases, I think the Input subsystem approach might be better
-because the user can just wait for events at large and handle each event
-as it comes in, rather than try to coordinate between them all in a
-shared memory space. The shortcoming with this approach is that we lose
-the ability to grab Counts together at the same time, such as we require
-in the constantly moving robot example earlier.
-
-Perhaps what might work is to implement Counter events (perhaps even
-timestamps) using the Input subsystem, and leave the Counter character
-device interface to simple read/write operations. But we'll need to
-investigate this further because we lack a concept of "events" right now
-in the Counter subsystem.
-
-> > Similarly, support for future extensions is simple to implement. When
-> > timestamp support is implemented, users can just select the desired
-> > timestamp extension and read it directly from the /dev/counterX node;
-> > they should also be able to perform a select()/poll() call to be
-> > notified on new timestamps.
-> >=20
-> > So what do you think of this sort of design? I think there is a useful
-> > robustness to the simplicity of performing a single read/write call on
-> > /dev/counterX.
->=20
-> It seems like a reasonable solution to me.  The only blurry
-> boundary to my mind is what level of buffering is behind this.
-> The things you can do are open, non blocking read, blocking read and sele=
-ct.
->=20
-> If we have a counter that is sampled on demand, then=20
-> 1) Non blocking read - makes not sense, fair enough I guess, could make it
->    the same as a blocking read.
-> 2) Blocking read - reads from the sensor.
-> 3) Select, meaningless as all reads are done on demand - so I guess you
->    hardwire it to return immediately.
-> 4) open. Nothing special
->=20
-> If you have a counter that is self clocking then data gets pushed into so=
-me
-> software structure (probably kfifo)
-> 1) Blocking read, question of semantics to resolve
->    a) Return when 'some' data is available (like a socket)
->    b) Return when 'requested amount of data is available'?
-> 2) Non blocking read. Return whatever happens to be available.
-> 3) Select.  Semantics to be defined.
->    a) Some data?
->    b) Watermark based (default watermark is 0 so any data triggers it)
-> 4) Open.  Starts up sampling of configured set - (typically turns on the
->    device, enables interrupt output etc.)
->=20
-> So some corners to resolve but should all work.
-
-I'm not familiar with the "watermark" terminology. Would you be able to
-explain it bit more for me. Is this simply a flag that indicates if data
-has changed from the last time it was checked?
-
-> > > >    Moving this selection to a sysfs attribute and dedicating the
-> > > >    character device to just data transfer might be a better design.=
- If
-> > > >    such a design is chosen, should the selection attribute be
-> > > >    human-readable or binary? =20
-> > >=20
-> > > Sysfs basically requires things are more or less human readable.
-> > > So if you go that way I think it needs to be.
-> > >  =20
-> > > >=20
-> > > > 2. How much space should allotted for strings?
-> > > >=20
-> > > >    Each Counter component and extension has a respective size allot=
-ted
-> > > >    for its data (u8 data is allotted 1 byte, u64 data is allotted 8
-> > > >    bytes, etc.); I have arbitrarily chosen to allot 64 bytes for
-> > > >    strings. Is this an apt size, or should string data be allotted =
-more
-> > > >    or less space? =20
-> > >=20
-> > > I'd go with that being big enough, but try to keep the expose interfa=
-ce
-> > > such that the size can change it it needs to the in the future. =20
-> >=20
-> > Following along with the separation of control vs data as discussed
-> > above, we could support a more variable size by exposing it through a
-> > sysfs attribute (maybe a chrdev_string_size attribute or similar).
->=20
-> I'm unconvinced you'd ever want to return a string via the chardev.
-> People are using the chrdev to get efficiency. String based data flows
-> are rarely that!
-
-That's a good point. I don't think there is a situation right now where
-we need to deliver strings via the character device interface, so I
-think I'll remove that in v3.
-
-William Breathitt Gray
-
---Y7xTucakfITjPcLV
-Content-Type: application/pgp-signature; name="signature.asc"
-
------BEGIN PGP SIGNATURE-----
-
-iQIzBAABCgAdFiEEk5I4PDJ2w1cDf/bghvpINdm7VJIFAl7T5d4ACgkQhvpINdm7
-VJLNXw/8D+xSsA/U+W8RuQ5HFvOyF69YvH72Yd7xTmtnPNpzwEPZSrWueS39olTJ
-PBgU5sR+OAWLYuvOop0K1CWas+HMubgIgn12vfd3qUvXO9Ec8xBIemm/fdTnAZ6c
-ixHDsPxuRi6aFWmmBvYvUsQ3T0/hpyobcmBThUYlB0Y//6zd3uXblu542iqZibpQ
-C81kFcZ7oaX7j07HyeyuKMqxbJ+bXnWguF0OEIZTV7LnKCBTH/gD4z1RLt6glk1r
-1Wnocu8mLxe++kM0a3PGqCHluAwePD4bNPE1iU8QMjJF8Cn0Qkt7YqB71PPHdbD2
-QhNcyOEvsPeR7P5u9LdU73lqy40WTxdr/80oKPVBO7zLiDQJzqjeky6gnoc31vdR
-yJmO9ATWeNx5nbEPuZl87YxLMME1cnBV7OP5tBqbFQSCj6wBssJX9uiJPnw7tGbq
-SB0+HI/qOzlYdmye5KC3KpgXgP8hLb0unqj4kdxREROoKsy//T3VR9z/cI0hC6GY
-dFDHwsdfci0RgKu8KJYH5omnYNiWCNWr0Ty5xp8gnqmTNArJfpXwc2bq9Y7l6vTR
-q603Hp3RfliMG8l7OUYSYI2ODh+AHJXue9IZnhtqxAYXHP0dfjPKJZIPAWqliZz3
-WOMD28blIxaDkDQzYVXw2VZPYBjXfpCvbyIyCadLsHKpxSVKFEE=
-=UidO
------END PGP SIGNATURE-----
-
---Y7xTucakfITjPcLV--
-
---===============3076555930179035565==
-Content-Type: text/plain; charset="us-ascii"
-MIME-Version: 1.0
-Content-Transfer-Encoding: 7bit
-Content-Disposition: inline
-
+On Wed, May 27, 2020 at 01:38:53AM +0000, Dinghao Liu wrote:
+> pm_runtime_get_sync() increments the runtime PM usage counter even
+> the call returns an error code. Thus a pairing decrement is needed
+> on the error handling path to keep the counter balanced.
+> 
+> Signed-off-by: Dinghao Liu <dinghao.liu@zju.edu.cn>
+> ---
+> 
+> Changelog:
+> 
+> v2: - Use pm_runtime_put_noidle() instead of
+>       pm_runtime_put_autosuspend(). Fix 5 more
+>       similar cases within this dirver.
+> ---
+>  drivers/i2c/busses/i2c-stm32f7.c | 24 ++++++++++++++++++------
+>  1 file changed, 18 insertions(+), 6 deletions(-)
+> 
+> diff --git a/drivers/i2c/busses/i2c-stm32f7.c b/drivers/i2c/busses/i2c-stm32f7.c
+> index 330ffed011e0..822fd1f5b5ae 100644
+> --- a/drivers/i2c/busses/i2c-stm32f7.c
+> +++ b/drivers/i2c/busses/i2c-stm32f7.c
+> @@ -1620,8 +1620,10 @@ static int stm32f7_i2c_xfer(struct i2c_adapter *i2c_adap,
+>  	f7_msg->smbus = false;
+>  
+>  	ret = pm_runtime_get_sync(i2c_dev->dev);
+> -	if (ret < 0)
+> +	if (ret < 0) {
+> +		pm_runtime_put_noidle(i2c_dev->dev);
+>  		return ret;
+> +	}
+>  
+>  	ret = stm32f7_i2c_wait_free_bus(i2c_dev);
+>  	if (ret)
+> @@ -1666,8 +1668,10 @@ static int stm32f7_i2c_smbus_xfer(struct i2c_adapter *adapter, u16 addr,
+>  	f7_msg->smbus = true;
+>  
+>  	ret = pm_runtime_get_sync(dev);
+> -	if (ret < 0)
+> +	if (ret < 0) {
+> +		pm_runtime_put_noidle(dev);
+>  		return ret;
+> +	}
+>  
+>  	ret = stm32f7_i2c_wait_free_bus(i2c_dev);
+>  	if (ret)
+> @@ -1767,8 +1771,10 @@ static int stm32f7_i2c_reg_slave(struct i2c_client *slave)
+>  		return ret;
+>  
+>  	ret = pm_runtime_get_sync(dev);
+> -	if (ret < 0)
+> +	if (ret < 0) {
+> +		pm_runtime_put_noidle(dev);
+>  		return ret;
+> +	}
+>  
+>  	if (!stm32f7_i2c_is_slave_registered(i2c_dev))
+>  		stm32f7_i2c_enable_wakeup(i2c_dev, true);
+> @@ -1837,8 +1843,10 @@ static int stm32f7_i2c_unreg_slave(struct i2c_client *slave)
+>  	WARN_ON(!i2c_dev->slave[id]);
+>  
+>  	ret = pm_runtime_get_sync(i2c_dev->dev);
+> -	if (ret < 0)
+> +	if (ret < 0) {
+> +		pm_runtime_put_noidle(i2c_dev->dev);
+>  		return ret;
+> +	}
+>  
+>  	if (id == 0) {
+>  		mask = STM32F7_I2C_OAR1_OA1EN;
+> @@ -2182,8 +2190,10 @@ static int stm32f7_i2c_regs_backup(struct stm32f7_i2c_dev *i2c_dev)
+>  	struct stm32f7_i2c_regs *backup_regs = &i2c_dev->backup_regs;
+>  
+>  	ret = pm_runtime_get_sync(i2c_dev->dev);
+> -	if (ret < 0)
+> +	if (ret < 0) {
+> +		pm_runtime_put_noidle(i2c_dev->dev);
+>  		return ret;
+> +	}
+>  
+>  	backup_regs->cr1 = readl_relaxed(i2c_dev->base + STM32F7_I2C_CR1);
+>  	backup_regs->cr2 = readl_relaxed(i2c_dev->base + STM32F7_I2C_CR2);
+> @@ -2204,8 +2214,10 @@ static int stm32f7_i2c_regs_restore(struct stm32f7_i2c_dev *i2c_dev)
+>  	struct stm32f7_i2c_regs *backup_regs = &i2c_dev->backup_regs;
+>  
+>  	ret = pm_runtime_get_sync(i2c_dev->dev);
+> -	if (ret < 0)
+> +	if (ret < 0) {
+> +		pm_runtime_put_noidle(i2c_dev->dev);
+>  		return ret;
+> +	}
+>  
+>  	cr1 = readl_relaxed(i2c_dev->base + STM32F7_I2C_CR1);
+>  	if (cr1 & STM32F7_I2C_CR1_PE)
+> -- 
+> 2.17.1
+> 
 _______________________________________________
 Linux-stm32 mailing list
 Linux-stm32@st-md-mailman.stormreply.com
 https://st-md-mailman.stormreply.com/mailman/listinfo/linux-stm32
-
---===============3076555930179035565==--
