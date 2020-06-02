@@ -2,119 +2,91 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id F34981EB6C6
-	for <lists+linux-stm32@lfdr.de>; Tue,  2 Jun 2020 09:50:52 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id DF25A1EB6F5
+	for <lists+linux-stm32@lfdr.de>; Tue,  2 Jun 2020 10:05:39 +0200 (CEST)
 Received: from ip-172-31-3-76.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id A2ABBC36B22;
-	Tue,  2 Jun 2020 07:50:52 +0000 (UTC)
-Received: from mx0a-00128a01.pphosted.com (mx0a-00128a01.pphosted.com
- [148.163.135.77])
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 87D1DC36B22;
+	Tue,  2 Jun 2020 08:05:39 +0000 (UTC)
+Received: from EUR02-VE1-obe.outbound.protection.outlook.com
+ (mail-eopbgr20082.outbound.protection.outlook.com [40.107.2.82])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 115C2C36B0D
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id D5B55C36B0D
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Tue,  2 Jun 2020 07:50:50 +0000 (UTC)
-Received: from pps.filterd (m0167088.ppops.net [127.0.0.1])
- by mx0a-00128a01.pphosted.com (8.16.0.42/8.16.0.42) with SMTP id
- 0527nXOu010001; Tue, 2 Jun 2020 03:50:25 -0400
-Received: from nam12-mw2-obe.outbound.protection.outlook.com
- (mail-mw2nam12lp2042.outbound.protection.outlook.com [104.47.66.42])
- by mx0a-00128a01.pphosted.com with ESMTP id 31bhb69rkq-1
- (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
- Tue, 02 Jun 2020 03:50:25 -0400
+ Tue,  2 Jun 2020 08:05:34 +0000 (UTC)
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=SMjT39ZKX8AOvGmjBdmG1N83oKD+eJYSp1HziMe03TDppC6LhrUxpFExZ6h5qLZ0W1GCZc2B7Fbnpbm1mCFmhct/MwL19V4fkyn4MsJzcrWBd0j3EHiNz4Bb27nqmoStcI2GuCiuU48NjOZTQordQicQKIQYWW6yS1v6rCn9+ykduYpESeVavUKm2+MHZvSiwd5BkGwRVEhccH4AgKvN6ZcYSq/3RtPE9aCjhwj7othavtsoAdxvhq00rxtUP65drwGnZLRPehQXboHt+X/Mz84e4X9W6Nb2+DD1JAcJOXpqKjL2JHoSYyeTL3uwpd3SNoXQ6BE2ZlFvOc+M/RCgLA==
+ b=dYbai/yUeUn/GEqQdE8cON81b7wIYj24mx22By7HwOFLBfTZFXN8arkLhoda+Kdh43ajiQhrcOSgwFj/VIElVCWIVt/fnXiVMJ1gSOX1xk7MGyafxAHJUN93/X+R0lZ8IyOco2mZ5Y0uuoqf5zlSA8gu8p+SFZxe6R+PfQhbcQzMM6e+vkYWcNF7nI7Md/NjFvSQNc2XpK8jYrE7d6q7NikxiYOf2OoWDmVdq8O2rGHcnN9eghenjrQqWUPPf4En2KbMfSyRh9LNZ7c7+j1tysiyovjFPZZ2nP3JBiQy06y1+qU9+v095Ss/d/g19lcfJwAVQOZKyQtawL7oaOZzSA==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
  s=arcselector9901;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=VcwqP+OGTHkxrj/o3N2o9M+O5bMPkJD9aEvicfXjw3s=;
- b=GJ2Zn8trEqm3pyFYy7eztD5F2f1RS32fJAsd5Sv6RDaNAy8qxrn62POpluswBkuF+yefBxkSngvkfBHj0beRX0crT8r/2SmcPPj0GDGFJcoEaVkhHh0s0Oml+3vKrRSWnd4xPKo+ly8PAwCBtVGjDeSifNHxrkf/16tCd/IibWnNrxAAafU2VxgQEjzLJIjoM1bjJDgLTEizGN2KsIsW7EnK9lt5hhIbGLfwuiMmFQfVEKcirq7MmCdneopZgm6COMVBAiIiKleO5sd+n4QmKG6Rn/u65XXi5woKQcGmGliuNg8dOD3IZNjyBMm5DzDS83p3M0AuiXtkGbZvsYqraQ==
+ bh=EGdWGY8hbp3kUZDtaK88iH4v9LchZ39xWBKZYuuROxw=;
+ b=XiYR0+6UjQNBgwC2OrUuY7r/FDTTT3Xa5l6zGaLcr36O0RojnSJ/GuTySUVGH08LeqbNQJiFgIvtL9kD2k2emV9g/eloszkJJwBOogibOTxnRf0YrFXdNRtE6jmj1R/0X99QLZ2vqR3ZOwV+O/X8thMOEn85yMcQRq8lTxeN84iQttxxodYnU7MdKiIt1t2B7cdwiXE7ZGTjAuCvm8Ato9GkPfFMpVrfiVExH1d7PMIXKt0yIju+3MyuaUCVFFDpyFG+fH3xZQ/6mmTPWqws6toCq8rCzqdH7HVSUMxjlHcbWVosLsrAplJXQ9wsOI5aoyJN+Vqrq6KuP3Xt7OByNA==
 ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=analog.com; dmarc=pass action=none header.from=analog.com;
- dkim=pass header.d=analog.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=analog.onmicrosoft.com; s=selector2-analog-onmicrosoft-com;
+ smtp.mailfrom=nxp.com; dmarc=pass action=none header.from=nxp.com; dkim=pass
+ header.d=nxp.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=nxp.com; s=selector2; 
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=VcwqP+OGTHkxrj/o3N2o9M+O5bMPkJD9aEvicfXjw3s=;
- b=tOvBGNJWtq7JOhOMODgNBZpmukZt/mrdz3RUC8P/AIZrgfCWhHq5dX5UGMC4J9ZZDaso0vl3kCt5Yk/+lTG86SfZPXS5zFBgvNKBFc9BoEQLoAYNplrjPRw81oAAfOgmTUH1TUAhhP/vnABFeRdJepBlJtvjxdXhYMXvAgJMq8o=
-Received: from BYAPR03MB4407.namprd03.prod.outlook.com (2603:10b6:a03:c5::24)
- by BYAPR03MB3749.namprd03.prod.outlook.com (2603:10b6:a03:6b::27)
- with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.3045.21; Tue, 2 Jun
- 2020 07:50:23 +0000
-Received: from BYAPR03MB4407.namprd03.prod.outlook.com
- ([fe80::18cb:6059:b74f:73a0]) by BYAPR03MB4407.namprd03.prod.outlook.com
- ([fe80::18cb:6059:b74f:73a0%7]) with mapi id 15.20.3045.024; Tue, 2 Jun 2020
- 07:50:23 +0000
-From: "Ardelean, Alexandru" <alexandru.Ardelean@analog.com>
-To: "jic23@kernel.org" <jic23@kernel.org>
-Thread-Topic: [PATCH v2 3/3] iio: remove
- iio_triggered_buffer_postenable()/iio_triggered_buffer_predisable()
-Thread-Index: AQHWMosiebcsgWLmWUu0dbt01y27SqjCXn4AgAKhWwA=
-Date: Tue, 2 Jun 2020 07:50:23 +0000
-Message-ID: <a0253d719a4390f65668789e5fc182ec19355f17.camel@analog.com>
-References: <20200525113855.178821-1-alexandru.ardelean@analog.com>
- <20200525113855.178821-3-alexandru.ardelean@analog.com>
- <20200531164020.765822dc@archlinux>
-In-Reply-To: <20200531164020.765822dc@archlinux>
-Accept-Language: en-US
-Content-Language: en-US
-X-MS-Has-Attach: 
-X-MS-TNEF-Correlator: 
-authentication-results: kernel.org; dkim=none (message not signed)
- header.d=none;kernel.org; dmarc=none action=none header.from=analog.com;
-x-originating-ip: [188.27.130.247]
-x-ms-publictraffictype: Email
-x-ms-office365-filtering-ht: Tenant
-x-ms-office365-filtering-correlation-id: c79c2cc9-7d49-46ae-1966-08d806c99b42
-x-ms-traffictypediagnostic: BYAPR03MB3749:
-x-microsoft-antispam-prvs: <BYAPR03MB374961A58268B8BFA2C495A5F98B0@BYAPR03MB3749.namprd03.prod.outlook.com>
-x-ms-oob-tlc-oobclassifiers: OLM:10000;
-x-forefront-prvs: 0422860ED4
-x-ms-exchange-senderadcheck: 1
-x-microsoft-antispam: BCL:0;
-x-microsoft-antispam-message-info: Cgc+0JY56S7488bKQVJWpDSLtmiSnuJli2cenqnUiwOjcbiGC5cIT9HFNuhQmkxcIDl3OIDzY1ji7RFPnyRCW3WN+MaQ8XOEywP4sZLwyKM0ymjRGXJy4HS+HRwJGBPARwUB1e1mVYWV7SS7zSkNJkTTEVaWYzJJ1X5NGe8m/CsTFppjBUnagHwLy1Da9Q4u7t3MPDfgfCE6c1b7lDAjbmy7gTYQoxC2yQ28pQV349PRnmQBBtTekwpukCyVE0XfIzdjzXIIVlI0nEldnUgSOlLZ7WLYnzDRvkVxy6REwfVYn+0DArYqvl2xyb0erRjdY8w6HEa66bGkA+nCEcP4CA==
-x-forefront-antispam-report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
- IPV:NLI; SFV:NSPM; H:BYAPR03MB4407.namprd03.prod.outlook.com; PTR:; CAT:NONE;
- SFTY:;
- SFS:(396003)(136003)(366004)(376002)(39860400002)(346002)(6486002)(2616005)(2906002)(4326008)(8936002)(8676002)(6512007)(83380400001)(5660300002)(26005)(186003)(54906003)(478600001)(71200400001)(316002)(6916009)(86362001)(6506007)(66446008)(66476007)(7416002)(66946007)(66556008)(36756003)(64756008)(76116006)(91956017);
- DIR:OUT; SFP:1101; 
-x-ms-exchange-antispam-messagedata: oEW8YEntt5qLDIcJb79MlDCyXfmrUupeSiYE1vJT/MyC/qMXktbU6CpLYFcTXZ5A5YWjUH0BCDW6qkphOzLGazryKTRYEzUY8PcarhGO+nyB7lg5I2qV1WPnHNl081PS1ph3Sd5yyhE+EhVMgrmByBA1Eat8YLa6oVWOi2sZL8T6UVi9YO3XO4VfJFslKrqmUiFq25TDYOmbCh9u1VF+ZG/GZZSrtfb8fNgdDJeD9qKZPuu5XXacXAPWruA5wsQUM5C6GHanOg67IK96oNkCyHjoCa0DWOQ11Xn8rKP06TtYDcKG7N3DTuyF7+vMMFqNCENiTL1kdHs4QPeYyUev+xAagdkIBHNqz+mnQtS8I2INoXX0VULG0UUJo6BjmEiQohhDsmkuuTOt1VMND99UlejRZxJaA1XDBsIcMvdJkvYhnNUgNehg3Jpl4iJcJykvQsAoNyL/YT1LqtKc0ErlezkwHNcK/uO1ilhPTiogB3UnqWNzuZQwidZoD6+2NtWT
-x-ms-exchange-transport-forked: True
-Content-ID: <8AEA0E43D6FBD04BB3B4240009B8EA1D@namprd03.prod.outlook.com>
+ bh=EGdWGY8hbp3kUZDtaK88iH4v9LchZ39xWBKZYuuROxw=;
+ b=EA85gc910WUpGfyn0FbMuRYTSh72d71Iycc90TsTnuh3MEH5qt0e6F+BTFvwScINM9KBcqSi6eiiQezwCR09h/EwW4YgSLoQeMu+D5+zoyLunrLouSVt6GP1hvxPhscjFnzlSC2T2Tv8+iQPmJbIjvNc0cKNQ0E75xS/GN90p+w=
+Authentication-Results: davemloft.net; dkim=none (message not signed)
+ header.d=none;davemloft.net; dmarc=none action=none header.from=nxp.com;
+Received: from AM6PR0402MB3607.eurprd04.prod.outlook.com
+ (2603:10a6:209:12::18) by AM6PR0402MB3558.eurprd04.prod.outlook.com
+ (2603:10a6:209:7::31) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.3045.17; Tue, 2 Jun
+ 2020 08:05:33 +0000
+Received: from AM6PR0402MB3607.eurprd04.prod.outlook.com
+ ([fe80::35f8:f020:9b47:9aa1]) by AM6PR0402MB3607.eurprd04.prod.outlook.com
+ ([fe80::35f8:f020:9b47:9aa1%7]) with mapi id 15.20.3045.024; Tue, 2 Jun 2020
+ 08:05:33 +0000
+From: fugang.duan@nxp.com
+To: davem@davemloft.net, peppe.cavallaro@st.com, alexandre.torgue@st.com,
+ joabreu@synopsys.com
+Date: Tue,  2 Jun 2020 15:58:26 +0800
+Message-Id: <20200602075826.20673-1-fugang.duan@nxp.com>
+X-Mailer: git-send-email 2.17.1
+X-ClientProxiedBy: SG2PR02CA0044.apcprd02.prod.outlook.com
+ (2603:1096:3:18::32) To AM6PR0402MB3607.eurprd04.prod.outlook.com
+ (2603:10a6:209:12::18)
 MIME-Version: 1.0
-X-OriginatorOrg: analog.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: c79c2cc9-7d49-46ae-1966-08d806c99b42
-X-MS-Exchange-CrossTenant-originalarrivaltime: 02 Jun 2020 07:50:23.1541 (UTC)
-X-MS-Exchange-CrossTenant-fromentityheader: Hosted
-X-MS-Exchange-CrossTenant-id: eaa689b4-8f87-40e0-9c6f-7228de4d754a
-X-MS-Exchange-CrossTenant-mailboxtype: HOSTED
-X-MS-Exchange-CrossTenant-userprincipalname: zsdBnzoKdBbQEvbSd68j+6xk7T2E3bxZzNbn1096V+uoQuq7FtnNrpfccPnwPa88V3VnAOewS+AXPcpZEX6iYOPH/k21zBhDaRSxnQuoNHI=
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: BYAPR03MB3749
-X-Proofpoint-Virus-Version: vendor=fsecure engine=2.50.10434:6.0.216, 18.0.687
- definitions=2020-06-02_08:2020-06-01,
- 2020-06-02 signatures=0
-X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- mlxscore=0
- cotscore=-2147483648 adultscore=0 priorityscore=1501 phishscore=0
- lowpriorityscore=0 malwarescore=0 clxscore=1015 bulkscore=0
- mlxlogscore=999 spamscore=0 impostorscore=0 suspectscore=0 classifier=spam
- adjust=0 reason=mlx scancount=1 engine=8.12.0-2004280000
- definitions=main-2006020050
-Cc: "lars@metafoo.de" <lars@metafoo.de>,
- "s.hauer@pengutronix.de" <s.hauer@pengutronix.de>,
- "linux-iio@vger.kernel.org" <linux-iio@vger.kernel.org>,
- "linus.walleij@linaro.org" <linus.walleij@linaro.org>,
- "linux-kernel@vger.kernel.org" <linux-kernel@vger.kernel.org>,
- "songqiang1304521@gmail.com" <songqiang1304521@gmail.com>,
- "mcoquelin.stm32@gmail.com" <mcoquelin.stm32@gmail.com>,
- "lorenzo.bianconi83@gmail.com" <lorenzo.bianconi83@gmail.com>,
- "shawnguo@kernel.org" <shawnguo@kernel.org>,
- "linux-stm32@st-md-mailman.stormreply.com"
- <linux-stm32@st-md-mailman.stormreply.com>,
- "linux-arm-kernel@lists.infradead.org" <linux-arm-kernel@lists.infradead.org>
-Subject: Re: [Linux-stm32] [PATCH v2 3/3] iio: remove
- iio_triggered_buffer_postenable()/iio_triggered_buffer_predisable()
+X-MS-Exchange-MessageSentRepresentingType: 1
+Received: from b38611-OptiPlex-7040.ap.freescale.net (119.31.174.66) by
+ SG2PR02CA0044.apcprd02.prod.outlook.com (2603:1096:3:18::32) with Microsoft
+ SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.20.3021.27 via Frontend Transport; Tue, 2 Jun 2020 08:05:29 +0000
+X-Mailer: git-send-email 2.17.1
+X-Originating-IP: [119.31.174.66]
+X-MS-PublicTrafficType: Email
+X-MS-Office365-Filtering-HT: Tenant
+X-MS-Office365-Filtering-Correlation-Id: 6fa7ad21-5c07-4b05-46b2-08d806cbb919
+X-MS-TrafficTypeDiagnostic: AM6PR0402MB3558:
+X-MS-Exchange-Transport-Forked: True
+X-Microsoft-Antispam-PRVS: <AM6PR0402MB35584FB3BECB9A52708BC817FF8B0@AM6PR0402MB3558.eurprd04.prod.outlook.com>
+X-MS-Oob-TLC-OOBClassifiers: OLM:4502;
+X-Forefront-PRVS: 0422860ED4
+X-MS-Exchange-SenderADCheck: 1
+X-Microsoft-Antispam: BCL:0;
+X-Microsoft-Antispam-Message-Info: YOqMvloME4NjTgz6KptWJr0UelXeHE2nG246YBW54KuFF2w8NDasLcSXE378WJsIgzxtq8xaebd+wkTCc0gjYLjTmd8NIEn2yfFpWyiCBjdVrbR3j1vF/d63N19W2X7MRSCVdHCjOJE3vIW7NAJSuZYO/xcBWy/eK4vg9hoziOC50YlImypf8Q/n14tfy8UT1y78LUsAVWoNPIZgDJx6IdWUjuJnAfSv2TJM5GFW7I+TL9JyibU0Lwr9760mSYLc4DlW9X2qNEeH5GhfR2QL2M+rC4QwfrSc0/2BeObXcOiZiHM/9RH7pGS2AMHIOQ4q21dcJ7RdsZ1xBCHgntlrCCejD7KEjIguddyGJWIX6CDTGxjMYYk5Ypv4hiSiBWp9
+X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
+ IPV:NLI; SFV:NSPM; H:AM6PR0402MB3607.eurprd04.prod.outlook.com; PTR:; CAT:NONE;
+ SFTY:;
+ SFS:(4636009)(366004)(396003)(346002)(136003)(39860400002)(376002)(5660300002)(36756003)(8936002)(52116002)(1076003)(66556008)(6506007)(26005)(956004)(86362001)(186003)(2616005)(8676002)(66946007)(66476007)(16526019)(4326008)(2906002)(45080400002)(83380400001)(478600001)(9686003)(316002)(6486002)(6666004)(6512007)(142933001);
+ DIR:OUT; SFP:1101; 
+X-MS-Exchange-AntiSpam-MessageData: 3RD906f7IdWY1LhGniSdRwBBmEgxRbKFGBa7aB4xs/0wP9M04CVIDXTuPITzAXlwTn4OqQlEJI2cfOVYZkmpOsll7YIL8T04rcgixmeWEvXvJDtMoD+n2krgeHvjX6Jf4e2K7Htff8NjtErizMJOWHWLxUmBNgXcTcMIypebu1zekqTYId1G9zZ9YwS8YfCwYOeuexCFLgu1crpnCZkWLcCL7SbGPqkoUC7ee2kZBxRzX9lnyhmyNJTWRFhDoptDLmYx8mTx5KcK9Q/T/SGXSYbFro20qRjNMcdjacUd2nd/4uy7HaI4i2dZ9i4q/SF72olWWwHAh0hisu1X4gtQyt5zd50HY4KtHHw5RXv0eybYDsHVuxZ1sQHtV+NdG/oTmLKvlGHj9jGNOm8eiiR6A7Sk16i15VonvSnJ/0TaldETovIFcsWiX8dsLUTcO8PgwyFq5WskB55V46rumoXI1QQWBCJVzeiQv1l2d4eC0Is=
+X-OriginatorOrg: nxp.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: 6fa7ad21-5c07-4b05-46b2-08d806cbb919
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 02 Jun 2020 08:05:33.0621 (UTC)
+X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
+X-MS-Exchange-CrossTenant-Id: 686ea1d3-bc2b-4c6f-a92c-d99c5c301635
+X-MS-Exchange-CrossTenant-MailboxType: HOSTED
+X-MS-Exchange-CrossTenant-UserPrincipalName: W3078SaMnClInL7rKVYcUNoXaUSoDcwBtm5fE4cU9Ce+boSG7Rck0ED9eRmh2NMj3umDpvrRlFA1kyfHmCgW1w==
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: AM6PR0402MB3558
+Cc: fugang.duan@nxp.com, mcoquelin.stm32@gmail.com, netdev@vger.kernel.org,
+ p.zabel@pengutronix.de, kuba@kernel.org,
+ linux-stm32@st-md-mailman.stormreply.com
+Subject: [Linux-stm32] [PATCH net,
+	stable 1/1] net: ethernet: stmmac: free tx skb buffer in
+	stmmac_resume()
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -131,105 +103,107 @@ Content-Transfer-Encoding: 7bit
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
-On Sun, 2020-05-31 at 16:40 +0100, Jonathan Cameron wrote:
-> On Mon, 25 May 2020 14:38:55 +0300
-> Alexandru Ardelean <alexandru.ardelean@analog.com> wrote:
-> 
-> > From: Lars-Peter Clausen <lars@metafoo.de>
-> > 
-> > This patch should be squashed into the first one, as the first one is
-> > breaking the build (intentionally) to make the IIO core files easier to
-> > review.
-> > 
-> > Signed-off-by: Lars-Peter Clausen <lars@metafoo.de>
-> > Signed-off-by: Alexandru Ardelean <alexandru.ardelean@analog.com>
-> > ---
-> 
-> Friend poke.  Version log?
+From: Fugang Duan <fugang.duan@nxp.com>
 
-Version log is in the first patch.
-I was wondering if I omitted it.
-Seems, this time I didn't. But I admit, it probably would have been better
-here.
+When do suspend/resume test, there have WARN_ON() log dump from
+stmmac_xmit() funciton, the code logic:
+	entry = tx_q->cur_tx;
+	first_entry = entry;
+	WARN_ON(tx_q->tx_skbuff[first_entry]);
 
-> 
-> Other than the wistful comment below (which I'm not expecting you to
-> do anything about btw!) whole series looks good to me.
-> 
-> These are obviously no functional changes (I think) so it's only really
-> patch 2 that
-> could do with more eyes and acks.
-> 
-> Far as I can tell that case is fine as well because of the protections
-> on being in the right mode, but more eyes on that would be great.
-> 
-> So assuming that's fine, what commit message do you want me to use for
-> the fused single patch?
+In normal case, tx_q->tx_skbuff[txq->cur_tx] should be NULL because
+the skb should be processed and freed in stmmac_tx_clean().
 
-Commit message-wise: I think the message in the first commit would be
-mostly sufficient.
-No idea what other description would be needed.
+But stmmac_resume() reset queue parameters like below, skb buffers
+may not be freed.
+	tx_q->cur_tx = 0;
+	tx_q->dirty_tx = 0;
 
-So, maybe something like:
+So free tx skb buffer in stmmac_resume() to avoid warning and
+memory leak.
 
-----------------------------------------------------------------------
-All devices using a triggered buffer need to attach and detach the trigger
-to the device in order to properly work. Instead of doing this in each and
-every driver by hand move this into the core.
+log:
+[   46.139824] ------------[ cut here ]------------
+[   46.144453] WARNING: CPU: 0 PID: 0 at drivers/net/ethernet/stmicro/stmmac/stmmac_main.c:3235 stmmac_xmit+0x7a0/0x9d0
+[   46.154969] Modules linked in: crct10dif_ce vvcam(O) flexcan can_dev
+[   46.161328] CPU: 0 PID: 0 Comm: swapper/0 Tainted: G           O      5.4.24-2.1.0+g2ad925d15481 #1
+[   46.170369] Hardware name: NXP i.MX8MPlus EVK board (DT)
+[   46.175677] pstate: 80000005 (Nzcv daif -PAN -UAO)
+[   46.180465] pc : stmmac_xmit+0x7a0/0x9d0
+[   46.184387] lr : dev_hard_start_xmit+0x94/0x158
+[   46.188913] sp : ffff800010003cc0
+[   46.192224] x29: ffff800010003cc0 x28: ffff000177e2a100
+[   46.197533] x27: ffff000176ef0840 x26: ffff000176ef0090
+[   46.202842] x25: 0000000000000000 x24: 0000000000000000
+[   46.208151] x23: 0000000000000003 x22: ffff8000119ddd30
+[   46.213460] x21: ffff00017636f000 x20: ffff000176ef0cc0
+[   46.218769] x19: 0000000000000003 x18: 0000000000000000
+[   46.224078] x17: 0000000000000000 x16: 0000000000000000
+[   46.229386] x15: 0000000000000079 x14: 0000000000000000
+[   46.234695] x13: 0000000000000003 x12: 0000000000000003
+[   46.240003] x11: 0000000000000010 x10: 0000000000000010
+[   46.245312] x9 : ffff00017002b140 x8 : 0000000000000000
+[   46.250621] x7 : ffff00017636f000 x6 : 0000000000000010
+[   46.255930] x5 : 0000000000000001 x4 : ffff000176ef0000
+[   46.261238] x3 : 0000000000000003 x2 : 00000000ffffffff
+[   46.266547] x1 : ffff000177e2a000 x0 : 0000000000000000
+[   46.271856] Call trace:
+[   46.274302]  stmmac_xmit+0x7a0/0x9d0
+[   46.277874]  dev_hard_start_xmit+0x94/0x158
+[   46.282056]  sch_direct_xmit+0x11c/0x338
+[   46.285976]  __qdisc_run+0x118/0x5f0
+[   46.289549]  net_tx_action+0x110/0x198
+[   46.293297]  __do_softirq+0x120/0x23c
+[   46.296958]  irq_exit+0xb8/0xd8
+[   46.300098]  __handle_domain_irq+0x64/0xb8
+[   46.304191]  gic_handle_irq+0x5c/0x148
+[   46.307936]  el1_irq+0xb8/0x180
+[   46.311076]  cpuidle_enter_state+0x84/0x360
+[   46.315256]  cpuidle_enter+0x34/0x48
+[   46.318829]  call_cpuidle+0x18/0x38
+[   46.322314]  do_idle+0x1e0/0x280
+[   46.325539]  cpu_startup_entry+0x24/0x40
+[   46.329460]  rest_init+0xd4/0xe0
+[   46.332687]  arch_call_rest_init+0xc/0x14
+[   46.336695]  start_kernel+0x420/0x44c
+[   46.340353] ---[ end trace bc1ee695123cbacd ]---
 
-At this point in time, all drivers should have been resolved to
-attach/detach the poll-function in the same order.
+Signed-off-by: Fugang Duan <fugang.duan@nxp.com>
+---
+ drivers/net/ethernet/stmicro/stmmac/stmmac_main.c | 10 ++++++++++
+ 1 file changed, 10 insertions(+)
 
-This patch removes all explicit calls of iio_triggered_buffer_postenable()
-& iio_triggered_buffer_predisable() in all drivers, since the core handles
-now the pollfunc attach/detach.
+diff --git a/drivers/net/ethernet/stmicro/stmmac/stmmac_main.c b/drivers/net/ethernet/stmicro/stmmac/stmmac_main.c
+index 73677c3b33b6..3c0a2d8765f9 100644
+--- a/drivers/net/ethernet/stmicro/stmmac/stmmac_main.c
++++ b/drivers/net/ethernet/stmicro/stmmac/stmmac_main.c
+@@ -1548,6 +1548,15 @@ static void dma_free_tx_skbufs(struct stmmac_priv *priv, u32 queue)
+ 		stmmac_free_tx_buffer(priv, queue, i);
+ }
+ 
++static void stmmac_free_tx_skbufs(struct stmmac_priv *priv)
++{
++	u32 tx_queue_cnt = priv->plat->tx_queues_to_use;
++	u32 queue;
++
++	for (queue = 0; queue < tx_queue_cnt; queue++)
++		dma_free_tx_skbufs(priv, queue);
++}
++
+ /**
+  * free_dma_rx_desc_resources - free RX dma desc resources
+  * @priv: private structure
+@@ -5186,6 +5195,7 @@ int stmmac_resume(struct device *dev)
+ 
+ 	stmmac_reset_queues_param(priv);
+ 
++	stmmac_free_tx_skbufs(priv);
+ 	stmmac_clear_descriptors(priv);
+ 
+ 	stmmac_hw_setup(ndev, false);
+-- 
+2.17.1
 
-The more peculiar change is for the 'at91-sama5d2_adc' driver, since it's
-not obvious that removing the hooks doesn't break anything**
-----------------------------------------------------------------------
-
-** for the comment about 'at91-sama5d2_adc', we really do need to get some
-testing; otherwise this risks breaking it.
-
-
-> 
-> Thanks,
-> 
-> Jonathan
-> 
-> >  static const struct iio_trigger_ops atlas_interrupt_trigger_ops = {
-> > diff --git a/drivers/iio/dummy/iio_simple_dummy_buffer.c
-> > b/drivers/iio/dummy/iio_simple_dummy_buffer.c
-> > index 17606eca42b4..8e13c53d4360 100644
-> > --- a/drivers/iio/dummy/iio_simple_dummy_buffer.c
-> > +++ b/drivers/iio/dummy/iio_simple_dummy_buffer.c
-> > @@ -99,20 +99,6 @@ static irqreturn_t iio_simple_dummy_trigger_h(int
-> > irq, void *p)
-> >  }
-> >  
-> >  static const struct iio_buffer_setup_ops
-> > iio_simple_dummy_buffer_setup_ops = {
-> > -	/*
-> > -	 * iio_triggered_buffer_postenable:
-> > -	 * Generic function that simply attaches the pollfunc to the
-> > trigger.
-> > -	 * Replace this to mess with hardware state before we attach the
-> > -	 * trigger.
-> > -	 */
-> > -	.postenable = &iio_triggered_buffer_postenable,
-> > -	/*
-> > -	 * iio_triggered_buffer_predisable:
-> > -	 * Generic function that simple detaches the pollfunc from the
-> > trigger.
-> > -	 * Replace this to put hardware state back again after the trigger
-> > is
-> > -	 * detached but before userspace knows we have disabled the ring.
-> > -	 */
-> > -	.predisable = &iio_triggered_buffer_predisable,
-> >  };
-> >  
-> Hmm. Guess we should probably 'invent' a reason to illustrate the bufer
-> ops in the dummy example.  Anyone feeling creative?
 _______________________________________________
 Linux-stm32 mailing list
 Linux-stm32@st-md-mailman.stormreply.com
