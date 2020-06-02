@@ -2,55 +2,35 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id F08151EB7B3
-	for <lists+linux-stm32@lfdr.de>; Tue,  2 Jun 2020 10:54:49 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 249B01EB892
+	for <lists+linux-stm32@lfdr.de>; Tue,  2 Jun 2020 11:31:31 +0200 (CEST)
 Received: from ip-172-31-3-76.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 98ED6C36B22;
-	Tue,  2 Jun 2020 08:54:49 +0000 (UTC)
-Received: from huawei.com (lhrrgout.huawei.com [185.176.76.210])
- (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
- (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 0DF15C36B0D
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id C11F5C36B21;
+	Tue,  2 Jun 2020 09:31:30 +0000 (UTC)
+Received: from foss.arm.com (foss.arm.com [217.140.110.172])
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 65539C36B0B
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Tue,  2 Jun 2020 08:54:47 +0000 (UTC)
-Received: from lhreml710-chm.china.huawei.com (unknown [172.18.7.108])
- by Forcepoint Email with ESMTP id B113D257B5EFB95BE55A;
- Tue,  2 Jun 2020 09:54:46 +0100 (IST)
-Received: from localhost (10.47.95.180) by lhreml710-chm.china.huawei.com
- (10.201.108.61) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.1913.5; Tue, 2 Jun 2020
- 09:54:46 +0100
-Date: Tue, 2 Jun 2020 09:54:06 +0100
-From: Jonathan Cameron <Jonathan.Cameron@Huawei.com>
-To: "Ardelean, Alexandru" <alexandru.Ardelean@analog.com>
-Message-ID: <20200602095406.00005add@Huawei.com>
-In-Reply-To: <a0253d719a4390f65668789e5fc182ec19355f17.camel@analog.com>
-References: <20200525113855.178821-1-alexandru.ardelean@analog.com>
- <20200525113855.178821-3-alexandru.ardelean@analog.com>
- <20200531164020.765822dc@archlinux>
- <a0253d719a4390f65668789e5fc182ec19355f17.camel@analog.com>
-Organization: Huawei Technologies Research and Development (UK) Ltd.
-X-Mailer: Claws Mail 3.17.4 (GTK+ 2.24.32; i686-w64-mingw32)
+ Tue,  2 Jun 2020 09:31:29 +0000 (UTC)
+Received: from usa-sjc-imap-foss1.foss.arm.com (unknown [10.121.207.14])
+ by usa-sjc-mx-foss1.foss.arm.com (Postfix) with ESMTP id 45ACC55D;
+ Tue,  2 Jun 2020 02:31:28 -0700 (PDT)
+Received: from e113632-lin (e113632-lin.cambridge.arm.com [10.1.194.46])
+ by usa-sjc-imap-foss1.foss.arm.com (Postfix) with ESMTPSA id A47393F305;
+ Tue,  2 Jun 2020 02:31:26 -0700 (PDT)
+References: <20200527151613.16083-1-benjamin.gaignard@st.com>
+User-agent: mu4e 0.9.17; emacs 26.3
+From: Valentin Schneider <valentin.schneider@arm.com>
+To: Benjamin Gaignard <benjamin.gaignard@st.com>
+In-reply-to: <20200527151613.16083-1-benjamin.gaignard@st.com>
+Date: Tue, 02 Jun 2020 10:31:21 +0100
+Message-ID: <jhjpnahizkm.mognet@arm.com>
 MIME-Version: 1.0
-X-Originating-IP: [10.47.95.180]
-X-ClientProxiedBy: lhreml714-chm.china.huawei.com (10.201.108.65) To
- lhreml710-chm.china.huawei.com (10.201.108.61)
-X-CFilter-Loop: Reflected
-Cc: "lars@metafoo.de" <lars@metafoo.de>,
- "linux-iio@vger.kernel.org" <linux-iio@vger.kernel.org>,
- "s.hauer@pengutronix.de" <s.hauer@pengutronix.de>,
- "linux-kernel@vger.kernel.org" <linux-kernel@vger.kernel.org>,
- "songqiang1304521@gmail.com" <songqiang1304521@gmail.com>,
- "linux-stm32@st-md-mailman.stormreply.com"
- <linux-stm32@st-md-mailman.stormreply.com>,
- "linux-arm-kernel@lists.infradead.org" <linux-arm-kernel@lists.infradead.org>,
- "mcoquelin.stm32@gmail.com" <mcoquelin.stm32@gmail.com>,
- "lorenzo.bianconi83@gmail.com" <lorenzo.bianconi83@gmail.com>,
- "shawnguo@kernel.org" <shawnguo@kernel.org>,
- "linus.walleij@linaro.org" <linus.walleij@linaro.org>,
- "jic23@kernel.org" <jic23@kernel.org>
-Subject: Re: [Linux-stm32] [PATCH v2 3/3] iio: remove
- iio_triggered_buffer_postenable()/iio_triggered_buffer_predisable()
+Cc: vincent.guittot@linaro.org, rjw@rjwysocki.net, linux-kernel@vger.kernel.org,
+ mcoquelin.stm32@gmail.com, mchehab@kernel.org,
+ linux-stm32@st-md-mailman.stormreply.com, linux-arm-kernel@lists.infradead.org,
+ linux-media@vger.kernel.org
+Subject: Re: [Linux-stm32] [PATCH] media: stm32-dcmi: Set minimum cpufreq
+	requirement
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -67,122 +47,75 @@ Content-Transfer-Encoding: 7bit
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
-On Tue, 2 Jun 2020 07:50:23 +0000
-"Ardelean, Alexandru" <alexandru.Ardelean@analog.com> wrote:
 
-> On Sun, 2020-05-31 at 16:40 +0100, Jonathan Cameron wrote:
-> > On Mon, 25 May 2020 14:38:55 +0300
-> > Alexandru Ardelean <alexandru.ardelean@analog.com> wrote:
-> >   
-> > > From: Lars-Peter Clausen <lars@metafoo.de>
-> > > 
-> > > This patch should be squashed into the first one, as the first one is
-> > > breaking the build (intentionally) to make the IIO core files easier to
-> > > review.
-> > > 
-> > > Signed-off-by: Lars-Peter Clausen <lars@metafoo.de>
-> > > Signed-off-by: Alexandru Ardelean <alexandru.ardelean@analog.com>
-> > > ---  
-> > 
-> > Friend poke.  Version log?  
-> 
-> Version log is in the first patch.
-> I was wondering if I omitted it.
-> Seems, this time I didn't. But I admit, it probably would have been better
-> here.
-Ah fair enough.  That works fine if there is a cover letter but not
-so much just putting things in the first patch!
-> 
-> > 
-> > Other than the wistful comment below (which I'm not expecting you to
-> > do anything about btw!) whole series looks good to me.
-> > 
-> > These are obviously no functional changes (I think) so it's only really
-> > patch 2 that
-> > could do with more eyes and acks.
-> > 
-> > Far as I can tell that case is fine as well because of the protections
-> > on being in the right mode, but more eyes on that would be great.
-> > 
-> > So assuming that's fine, what commit message do you want me to use for
-> > the fused single patch?  
-> 
-> Commit message-wise: I think the message in the first commit would be
-> mostly sufficient.
-> No idea what other description would be needed.
-> 
-> So, maybe something like:
-> 
-> ----------------------------------------------------------------------
-> All devices using a triggered buffer need to attach and detach the trigger
-> to the device in order to properly work. Instead of doing this in each and
-> every driver by hand move this into the core.
-> 
-> At this point in time, all drivers should have been resolved to
-> attach/detach the poll-function in the same order.
-> 
-> This patch removes all explicit calls of iio_triggered_buffer_postenable()
-> & iio_triggered_buffer_predisable() in all drivers, since the core handles
-> now the pollfunc attach/detach.
-> 
-> The more peculiar change is for the 'at91-sama5d2_adc' driver, since it's
-> not obvious that removing the hooks doesn't break anything**
-> ----------------------------------------------------------------------
-> 
+Hi Benjamin,
 
-Looks good.
+On 27/05/20 16:16, Benjamin Gaignard wrote:
+> Before start streaming set cpufreq minimum frequency requirement.
+> The cpufreq governor will adapt the frequencies and we will have
+> no latency for handling interrupts.
+>
 
-> ** for the comment about 'at91-sama5d2_adc', we really do need to get some
-> testing; otherwise this risks breaking it.
+Few comments below from someone oblivious to your platform, they may not
+be all that relevant but I figured I'd pitch in anyway.
 
-Agreed.  
+> Signed-off-by: Benjamin Gaignard <benjamin.gaignard@st.com>
+> ---
+>  drivers/media/platform/stm32/stm32-dcmi.c | 29 ++++++++++++++++++++++++++++-
+>  1 file changed, 28 insertions(+), 1 deletion(-)
+>
+> diff --git a/drivers/media/platform/stm32/stm32-dcmi.c b/drivers/media/platform/stm32/stm32-dcmi.c
+> index b8931490b83b..97c342351569 100644
+> --- a/drivers/media/platform/stm32/stm32-dcmi.c
+> +++ b/drivers/media/platform/stm32/stm32-dcmi.c
+> @@ -13,6 +13,7 @@
+>
+>  #include <linux/clk.h>
+>  #include <linux/completion.h>
+> +#include <linux/cpufreq.h>
+>  #include <linux/delay.h>
+>  #include <linux/dmaengine.h>
+>  #include <linux/init.h>
+> @@ -99,6 +100,8 @@ enum state {
+>
+>  #define OVERRUN_ERROR_THRESHOLD	3
+>
+> +#define DCMI_MIN_FREQ	650000 /* in KHz */
+> +
 
-> 
-> 
-> > 
-> > Thanks,
-> > 
-> > Jonathan
-> >   
-> > >  static const struct iio_trigger_ops atlas_interrupt_trigger_ops = {
-> > > diff --git a/drivers/iio/dummy/iio_simple_dummy_buffer.c
-> > > b/drivers/iio/dummy/iio_simple_dummy_buffer.c
-> > > index 17606eca42b4..8e13c53d4360 100644
-> > > --- a/drivers/iio/dummy/iio_simple_dummy_buffer.c
-> > > +++ b/drivers/iio/dummy/iio_simple_dummy_buffer.c
-> > > @@ -99,20 +99,6 @@ static irqreturn_t iio_simple_dummy_trigger_h(int
-> > > irq, void *p)
-> > >  }
-> > >  
-> > >  static const struct iio_buffer_setup_ops
-> > > iio_simple_dummy_buffer_setup_ops = {
-> > > -	/*
-> > > -	 * iio_triggered_buffer_postenable:
-> > > -	 * Generic function that simply attaches the pollfunc to the
-> > > trigger.
-> > > -	 * Replace this to mess with hardware state before we attach the
-> > > -	 * trigger.
-> > > -	 */
-> > > -	.postenable = &iio_triggered_buffer_postenable,
-> > > -	/*
-> > > -	 * iio_triggered_buffer_predisable:
-> > > -	 * Generic function that simple detaches the pollfunc from the
-> > > trigger.
-> > > -	 * Replace this to put hardware state back again after the trigger
-> > > is
-> > > -	 * detached but before userspace knows we have disabled the ring.
-> > > -	 */
-> > > -	.predisable = &iio_triggered_buffer_predisable,
-> > >  };
-> > >    
-> > Hmm. Guess we should probably 'invent' a reason to illustrate the bufer
-> > ops in the dummy example.  Anyone feeling creative?  
-> _______________________________________________
-> linux-arm-kernel mailing list
-> linux-arm-kernel@lists.infradead.org
-> http://lists.infradead.org/mailman/listinfo/linux-arm-kernel
+This assumes the handling part is guaranteed to always run on the same CPU
+with the same performance profile (regardless of the platform). If that's
+not guaranteed, it feels like you'd want this to be configurable in some
+way.
 
+>  struct dcmi_graph_entity {
+>       struct v4l2_async_subdev asd;
+>
+[...]
+> @@ -2020,6 +2042,8 @@ static int dcmi_probe(struct platform_device *pdev)
+>               goto err_cleanup;
+>       }
+>
+> +	dcmi->policy = cpufreq_cpu_get(0);
+> +
 
+Ideally you'd want to fetch the policy of the CPU your IRQ (and handling
+thread) is affined to; The only compatible DTS I found describes a single
+A7, which is somewhat limited in the affinity area...
+
+>       dev_info(&pdev->dev, "Probe done\n");
+>
+>       platform_set_drvdata(pdev, dcmi);
+> @@ -2049,6 +2073,9 @@ static int dcmi_remove(struct platform_device *pdev)
+>
+>       pm_runtime_disable(&pdev->dev);
+>
+> +	if (dcmi->policy)
+> +		cpufreq_cpu_put(dcmi->policy);
+> +
+>       v4l2_async_notifier_unregister(&dcmi->notifier);
+>       v4l2_async_notifier_cleanup(&dcmi->notifier);
+>       media_entity_cleanup(&dcmi->vdev->entity);
 _______________________________________________
 Linux-stm32 mailing list
 Linux-stm32@st-md-mailman.stormreply.com
