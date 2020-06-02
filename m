@@ -2,41 +2,67 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id B3C771EBD25
-	for <lists+linux-stm32@lfdr.de>; Tue,  2 Jun 2020 15:35:41 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 9AF791EBEE6
+	for <lists+linux-stm32@lfdr.de>; Tue,  2 Jun 2020 17:18:17 +0200 (CEST)
 Received: from ip-172-31-3-76.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 58D83C36B21;
-	Tue,  2 Jun 2020 13:35:41 +0000 (UTC)
-Received: from foss.arm.com (foss.arm.com [217.140.110.172])
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 76818C36B0B
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 4CC88C36B21;
+	Tue,  2 Jun 2020 15:18:17 +0000 (UTC)
+Received: from vern.gendns.com (vern.gendns.com [98.142.107.122])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+ (No client certificate requested)
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 672EBC36B0B
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Tue,  2 Jun 2020 13:35:39 +0000 (UTC)
-Received: from usa-sjc-imap-foss1.foss.arm.com (unknown [10.121.207.14])
- by usa-sjc-mx-foss1.foss.arm.com (Postfix) with ESMTP id B5F721FB;
- Tue,  2 Jun 2020 06:35:38 -0700 (PDT)
-Received: from e113632-lin (e113632-lin.cambridge.arm.com [10.1.194.46])
- by usa-sjc-imap-foss1.foss.arm.com (Postfix) with ESMTPSA id 1EA783F305;
- Tue,  2 Jun 2020 06:35:37 -0700 (PDT)
-References: <20200527151613.16083-1-benjamin.gaignard@st.com>
- <jhjpnahizkm.mognet@arm.com> <f95ce45f-7a1c-0feb-afa8-203ddb500f2f@st.com>
-User-agent: mu4e 0.9.17; emacs 26.3
-From: Valentin Schneider <valentin.schneider@arm.com>
-To: Benjamin GAIGNARD <benjamin.gaignard@st.com>
-In-reply-to: <f95ce45f-7a1c-0feb-afa8-203ddb500f2f@st.com>
-Date: Tue, 02 Jun 2020 14:35:31 +0100
-Message-ID: <jhjo8q1io9o.mognet@arm.com>
+ Tue,  2 Jun 2020 15:18:15 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
+ d=lechnology.com; s=default; h=Content-Transfer-Encoding:Content-Type:
+ In-Reply-To:MIME-Version:Date:Message-ID:From:References:Cc:To:Subject:Sender
+ :Reply-To:Content-ID:Content-Description:Resent-Date:Resent-From:
+ Resent-Sender:Resent-To:Resent-Cc:Resent-Message-ID:List-Id:List-Help:
+ List-Unsubscribe:List-Subscribe:List-Post:List-Owner:List-Archive;
+ bh=fY5IJpcG4taKk/Z1c0/fQ/EvxTolmAQsbeDYBoiR5u0=; b=NtLZtOksQBZaiN/MHofooBohHZ
+ yLz+q25OmAY1J1RyUf0/feKCObejImLWtjna8ZQ0uxzyiM0BFAN0yDX/su6TOIdUcGIecBhnEROeu
+ rKnMT7PBoOjCgJ5vb0Q1/WYMJJsUi2fad3XkcM2aAX+rmw/oQuHeYgFayIW4DHtjZWCjL0C0JdloA
+ EJmFEPCJYbcI0E3MvqUidpxpBsP5vMLJIC0bAfadEuogsfdlzjtG4dLbE1H49nR1ApyieO4qyGQR9
+ awbtgQdycWeGLXshgfJT6uoHQIWbLdvRkNat/h/qg5GQs2Rac1w5nmqgjHRft6HUE3aaBO749uASj
+ s3W/P9fQ==;
+Received: from 108-198-5-147.lightspeed.okcbok.sbcglobal.net
+ ([108.198.5.147]:42134 helo=[192.168.0.134])
+ by vern.gendns.com with esmtpsa (TLS1.2) tls
+ TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256 (Exim 4.93)
+ (envelope-from <david@lechnology.com>)
+ id 1jg8g5-00049A-Lh; Tue, 02 Jun 2020 11:18:09 -0400
+To: William Breathitt Gray <vilhelm.gray@gmail.com>,
+ Jonathan Cameron <jic23@kernel.org>
+References: <cover.1589654470.git.vilhelm.gray@gmail.com>
+ <20200524172542.31ff6ac7@archlinux> <20200524175439.GA14300@shinobu>
+ <20200531161813.658ffdfb@archlinux> <20200531171351.GA10597@shinobu>
+From: David Lechner <david@lechnology.com>
+Message-ID: <ac473c9a-f9cd-21ae-8f8f-d5181df2c134@lechnology.com>
+Date: Tue, 2 Jun 2020 10:18:07 -0500
+User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:68.0) Gecko/20100101
+ Thunderbird/68.7.0
 MIME-Version: 1.0
-Cc: "vincent.guittot@linaro.org" <vincent.guittot@linaro.org>,
- "rjw@rjwysocki.net" <rjw@rjwysocki.net>,
- "linux-kernel@vger.kernel.org" <linux-kernel@vger.kernel.org>,
- "mcoquelin.stm32@gmail.com" <mcoquelin.stm32@gmail.com>,
- "mchehab@kernel.org" <mchehab@kernel.org>,
- "linux-stm32@st-md-mailman.stormreply.com"
- <linux-stm32@st-md-mailman.stormreply.com>,
- "linux-arm-kernel@lists.infradead.org" <linux-arm-kernel@lists.infradead.org>,
- "linux-media@vger.kernel.org" <linux-media@vger.kernel.org>
-Subject: Re: [Linux-stm32] [PATCH] media: stm32-dcmi: Set minimum cpufreq
-	requirement
+In-Reply-To: <20200531171351.GA10597@shinobu>
+Content-Language: en-US
+X-AntiAbuse: This header was added to track abuse,
+ please include it with any abuse report
+X-AntiAbuse: Primary Hostname - vern.gendns.com
+X-AntiAbuse: Original Domain - st-md-mailman.stormreply.com
+X-AntiAbuse: Originator/Caller UID/GID - [47 12] / [47 12]
+X-AntiAbuse: Sender Address Domain - lechnology.com
+X-Get-Message-Sender-Via: vern.gendns.com: authenticated_id:
+ davidmain+lechnology.com/only user confirmed/virtual account not confirmed
+X-Authenticated-Sender: vern.gendns.com: davidmain@lechnology.com
+X-Source: 
+X-Source-Args: 
+X-Source-Dir: 
+Cc: kamel.bouhara@bootlin.com, gwendal@chromium.org, linux-iio@vger.kernel.org,
+ patrick.havelange@essensium.com, alexandre.belloni@bootlin.com,
+ linux-kernel@vger.kernel.org, mcoquelin.stm32@gmail.com,
+ fabrice.gasnier@st.com, syednwaris@gmail.com,
+ linux-stm32@st-md-mailman.stormreply.com, linux-arm-kernel@lists.infradead.org
+Subject: Re: [Linux-stm32] [PATCH v2 0/4] Introduce the Counter character
+	device interface
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -48,95 +74,23 @@ List-Post: <mailto:linux-stm32@st-md-mailman.stormreply.com>
 List-Help: <mailto:linux-stm32-request@st-md-mailman.stormreply.com?subject=help>
 List-Subscribe: <https://st-md-mailman.stormreply.com/mailman/listinfo/linux-stm32>, 
  <mailto:linux-stm32-request@st-md-mailman.stormreply.com?subject=subscribe>
-Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
+Content-Type: text/plain; charset="us-ascii"; Format="flowed"
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
+On 5/31/20 12:14 PM, William Breathitt Gray wrote:
+> Yielding the following /dev/counter0 memory layout:
+> 
+> +------------+-----------------+------------+-------------------+
+> | Byte 0     | Byte 1 - Byte 8 | Byte 9     | Byte 10 - Byte 17 |
+> +------------+-----------------+------------+-------------------+
+> | Boundary 0 | Count 0         | Boundary 1 | Count 1           |
+> +------------+-----------------+------------+-------------------+
 
-On 02/06/20 12:37, Benjamin GAIGNARD wrote:
-> On 6/2/20 11:31 AM, Valentin Schneider wrote:
->>> @@ -99,6 +100,8 @@ enum state {
->>>
->>>   #define OVERRUN_ERROR_THRESHOLD	3
->>>
->>> +#define DCMI_MIN_FREQ	650000 /* in KHz */
->>> +
->> This assumes the handling part is guaranteed to always run on the same CPU
->> with the same performance profile (regardless of the platform). If that's
->> not guaranteed, it feels like you'd want this to be configurable in some
->> way.
-> Yes I could add a st,stm32-dcmi-min-frequency (in KHz) parameter the
-> device tree node.
->
-
-Something like that - I'm not sure how well this fits with the DT
-landscape, as you could argue it isn't really a description of the
-hardware, more of a description of the performance expectations of the
-software. I won't really argue here.
-
->>
->>>   struct dcmi_graph_entity {
->>>        struct v4l2_async_subdev asd;
->>>
->> [...]
->>> @@ -2020,6 +2042,8 @@ static int dcmi_probe(struct platform_device *pdev)
->>>                goto err_cleanup;
->>>        }
->>>
->>> +	dcmi->policy = cpufreq_cpu_get(0);
->>> +
->> Ideally you'd want to fetch the policy of the CPU your IRQ (and handling
->> thread) is affined to; The only compatible DTS I found describes a single
->> A7, which is somewhat limited in the affinity area...
-> If I move this code just before start streaming and use get_cpu(), would
-> it works ?
->
-
-AFAIA streaming_start() is not necessarily executing on the same CPU as the
-one that will handle the interrupt. I was thinking you could use the IRQ's
-effective affinity as a hint of which CPU(s) to boost, i.e. something like:
-
----
-    struct cpumask_var_t visited;
-    struct irq_data *d = irq_get_irq_data(irq);
-
-    err = alloc_cpumask_var(visited, GFP_KERNEL);
-    /* ... */
-    for_each_cpu(cpu, irq_data_get_effective_affinity_mask(d)) {
-            /* check if not already spanned */
-            if (cpumask_test_cpu(cpu, visited))
-                    continue;
-
-            policy = cpufreq_cpu_get(cpu);
-            cpumask_or(visited, visited, policy->cpus);
-            /* do the boost for that policy here */
-            /* ... */
-            cpufreq_cpu_put(policy);
-    }
----
-
-That of course falls apart when hotplug gets involved, and the effective
-affinity changes... There's irq_set_affinity_notifier() out there, but it
-seems it's only about the affinity, not the effective_affinity, I'm not
-sure how valid it would be to query the effective_affinity in that
-notifier.
-
-> Benjamin
->>
->>>        dev_info(&pdev->dev, "Probe done\n");
->>>
->>>        platform_set_drvdata(pdev, dcmi);
->>> @@ -2049,6 +2073,9 @@ static int dcmi_remove(struct platform_device *pdev)
->>>
->>>        pm_runtime_disable(&pdev->dev);
->>>
->>> +	if (dcmi->policy)
->>> +		cpufreq_cpu_put(dcmi->policy);
->>> +
->>>        v4l2_async_notifier_unregister(&dcmi->notifier);
->>>        v4l2_async_notifier_cleanup(&dcmi->notifier);
->>>        media_entity_cleanup(&dcmi->vdev->entity);
+A potential pitfall with this sort of packing is that some platforms
+do not support unaligned access, so data would have to be "unpacked"
+before it could be used.
 _______________________________________________
 Linux-stm32 mailing list
 Linux-stm32@st-md-mailman.stormreply.com
