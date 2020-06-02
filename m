@@ -2,81 +2,73 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id 9E8AA1EBA88
-	for <lists+linux-stm32@lfdr.de>; Tue,  2 Jun 2020 13:38:01 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 2C6CA1EBC2B
+	for <lists+linux-stm32@lfdr.de>; Tue,  2 Jun 2020 14:57:04 +0200 (CEST)
 Received: from ip-172-31-3-76.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 4FE48C36B21;
-	Tue,  2 Jun 2020 11:38:01 +0000 (UTC)
-Received: from mx07-00178001.pphosted.com (mx07-00178001.pphosted.com
- [62.209.51.94])
- (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id CE691C36B21;
+	Tue,  2 Jun 2020 12:57:03 +0000 (UTC)
+Received: from mail-ua1-f67.google.com (mail-ua1-f67.google.com
+ [209.85.222.67])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 7EA40C36B0B
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 7AF1BC36B0B
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Tue,  2 Jun 2020 11:37:58 +0000 (UTC)
-Received: from pps.filterd (m0046668.ppops.net [127.0.0.1])
- by mx07-00178001.pphosted.com (8.16.0.42/8.16.0.42) with SMTP id
- 052BW8ED005146; Tue, 2 Jun 2020 13:37:40 +0200
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=st.com;
- h=from : to : cc : subject
- : date : message-id : references : in-reply-to : content-type : content-id
- : content-transfer-encoding : mime-version; s=STMicroelectronics;
- bh=zCgvAD2DnYOr6cNN/ctfmZUAkv+2YxaNhKI0IMJVfkE=;
- b=v8kkOlsyPyNieJG4nr+2nQ1vF144Qa7s0rS59Pqqo2j3rSHaEJO45M0H4pEoMSq8B8CS
- 1oecrhJFDDONdjO01uKRH6A2z94ikNRrBlvVYoTJBDpZzMOCDE4oiyBWLOEzvg9s3fIl
- zcrAx+zuRUP6bsCtiu0MrjrrOmR07S5KrkFAdd5C7DL3ARzu/f+xavux99vZuwjyEVy5
- wrjvsdwrM13ZNFZDx1q2cYGQCqSJ0RiHUnHyQXAKNtovBht9ffBZQQaeRxMdBk4Mdssw
- G0hghBJU8K3yS0eSayQfL7CeeyWZPOHYoPFOXzvIlvWwJOit0N54YN6aXF6C0n7VIDdY XQ== 
-Received: from beta.dmz-eu.st.com (beta.dmz-eu.st.com [164.129.1.35])
- by mx07-00178001.pphosted.com with ESMTP id 31bcy0e6ph-1
- (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
- Tue, 02 Jun 2020 13:37:40 +0200
-Received: from euls16034.sgp.st.com (euls16034.sgp.st.com [10.75.44.20])
- by beta.dmz-eu.st.com (STMicroelectronics) with ESMTP id 141D110002A;
- Tue,  2 Jun 2020 13:37:39 +0200 (CEST)
-Received: from Webmail-eu.st.com (sfhdag3node1.st.com [10.75.127.7])
- by euls16034.sgp.st.com (STMicroelectronics) with ESMTP id D53C72B5C35;
- Tue,  2 Jun 2020 13:37:39 +0200 (CEST)
-Received: from SFHDAG3NODE3.st.com (10.75.127.9) by SFHDAG3NODE1.st.com
- (10.75.127.7) with Microsoft SMTP Server (TLS) id 15.0.1473.3; Tue, 2 Jun
- 2020 13:37:39 +0200
-Received: from SFHDAG3NODE3.st.com ([fe80::3507:b372:7648:476]) by
- SFHDAG3NODE3.st.com ([fe80::3507:b372:7648:476%20]) with mapi id
- 15.00.1347.000; Tue, 2 Jun 2020 13:37:39 +0200
-From: Benjamin GAIGNARD <benjamin.gaignard@st.com>
-To: Valentin Schneider <valentin.schneider@arm.com>
-Thread-Topic: [PATCH] media: stm32-dcmi: Set minimum cpufreq requirement
-Thread-Index: AQHWNDnEPjQ+BLRck0Okhc2Oie/dNajE9yuAgAAjSoA=
-Date: Tue, 2 Jun 2020 11:37:39 +0000
-Message-ID: <f95ce45f-7a1c-0feb-afa8-203ddb500f2f@st.com>
-References: <20200527151613.16083-1-benjamin.gaignard@st.com>
- <jhjpnahizkm.mognet@arm.com>
-In-Reply-To: <jhjpnahizkm.mognet@arm.com>
-Accept-Language: en-US
-Content-Language: en-US
-X-MS-Has-Attach: 
-X-MS-TNEF-Correlator: 
-user-agent: Mozilla/5.0 (X11; Linux x86_64; rv:68.0) Gecko/20100101
- Thunderbird/68.8.0
-x-ms-exchange-messagesentrepresentingtype: 1
-x-ms-exchange-transport-fromentityheader: Hosted
-x-originating-ip: [10.75.127.46]
-Content-ID: <783800331E8056488681241E76EAEE3C@st.com>
+ Tue,  2 Jun 2020 12:56:59 +0000 (UTC)
+Received: by mail-ua1-f67.google.com with SMTP id q15so1202635uaa.5
+ for <linux-stm32@st-md-mailman.stormreply.com>;
+ Tue, 02 Jun 2020 05:56:59 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20161025;
+ h=mime-version:references:in-reply-to:from:date:message-id:subject:to
+ :cc; bh=BpsIlBQ5nejFohRETbNb9q04gA6fq5BCcsSBn6KKApI=;
+ b=JetxGkcmZWwBcj73qk5GvrPQ52LZYWBhk1chHXBbYxrojwIOYCdLU6/e4biJGuow5b
+ tVoDhU2dirPxe0+SQa6spJ5Di7Jjk0/Bkgco+Tpe0Z3oAFDHwh0KzP7w92q5qj/3/x3Q
+ 9L8vVzBOe32M8mc6kbcNKPmzg0fzMn/paYJ/jnoHguC1SPWDNX9zXsXanb+WqbRV+249
+ QMj5r88MFMgwB/mim2CvQ6KmhxANKMbwldClAaVj/3SBwiVC5ZmtFzpv9tadk+xPBodH
+ xg5ImqIr4I7KAgHbdnae1fbbQpdjwEwen0yl9P7/GvxCOo+2LHlSYtreF+iVF4LI/u8f
+ 8AVg==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20161025;
+ h=x-gm-message-state:mime-version:references:in-reply-to:from:date
+ :message-id:subject:to:cc;
+ bh=BpsIlBQ5nejFohRETbNb9q04gA6fq5BCcsSBn6KKApI=;
+ b=pJ2oakP0f9R7smarAje6GIXftxrKMOVvAH7Mljy7VaFj+40ynVewsgORN+qLG5MBFy
+ +wblhQ43szBJRGJReJll1B+XtJv/GC3QpHMwNNfGGVcjmikAitunczc4vGrtfT13sLBW
+ WrdbI1kQ5D6dhZev9rRgf8dSG3fWZOekOLkIiTguc8lmOok3IRMj0VJP8qzEBRQuqgGF
+ qcNWtFLgwk0XV1/h2AM/cuj1vL/FxguOrYQREywz/S0rZWMjz8tNS6pCkCFt4cY1IFAD
+ xV2//oSawYm5OquqIXK/H6veKITePQT+RpIM/4vZzipUMdoYaqL/5h0KJigy6VQhwF0T
+ q5TQ==
+X-Gm-Message-State: AOAM533azCMxC/PbZvejXTAXl3dsOSUQa7F+oGQDIoNLNsk9zRAgGu0r
+ njlp5F3QRIrCuJdVTSadpfrp5BEHkBbXVEUIZJQ=
+X-Google-Smtp-Source: ABdhPJy94b4dAChxDuW4wDOKIg2tO2nMimj827DSzBUBaeBS4xq/NcIVF/RbxLJKqEmvBcwkcK/jKU0XrmmGsie+2ZA=
+X-Received: by 2002:a9f:22e1:: with SMTP id 88mr13225614uan.19.1591102618237; 
+ Tue, 02 Jun 2020 05:56:58 -0700 (PDT)
 MIME-Version: 1.0
-X-Proofpoint-Virus-Version: vendor=fsecure engine=2.50.10434:6.0.216, 18.0.687
- definitions=2020-06-02_13:2020-06-02,
- 2020-06-02 signatures=0
-Cc: "vincent.guittot@linaro.org" <vincent.guittot@linaro.org>,
- "rjw@rjwysocki.net" <rjw@rjwysocki.net>,
+References: <20200427081952.3536741-1-adrian.ratiu@collabora.com>
+ <20200427081952.3536741-9-adrian.ratiu@collabora.com>
+ <4acc09e8-0610-01f6-b18d-3ffc390c45a3@st.com>
+ <87blm387vt.fsf@iwork.i-did-not-set--mail-host-address--so-tickle-me>
+In-Reply-To: <87blm387vt.fsf@iwork.i-did-not-set--mail-host-address--so-tickle-me>
+From: Emil Velikov <emil.l.velikov@gmail.com>
+Date: Tue, 2 Jun 2020 13:53:40 +0100
+Message-ID: <CACvgo51QyzEa8LFpGq5zjYV-0TifQRtNh4WhMYy8jNtaswxd7Q@mail.gmail.com>
+To: Adrian Ratiu <adrian.ratiu@collabora.com>
+Cc: "devicetree@vger.kernel.org" <devicetree@vger.kernel.org>,
+ Jernej Skrabec <jernej.skrabec@siol.net>, Adrian Pop <pop.adrian61@gmail.com>,
+ Jonas Karlman <jonas@kwiboo.se>,
+ "dri-devel@lists.freedesktop.org" <dri-devel@lists.freedesktop.org>,
  "linux-kernel@vger.kernel.org" <linux-kernel@vger.kernel.org>,
- "mcoquelin.stm32@gmail.com" <mcoquelin.stm32@gmail.com>,
- "mchehab@kernel.org" <mchehab@kernel.org>,
+ Yannick FERTRE <yannick.fertre@st.com>,
+ "linux-rockchip@lists.infradead.org" <linux-rockchip@lists.infradead.org>,
+ Andrzej Hajda <a.hajda@samsung.com>,
+ Laurent Pinchart <Laurent.pinchart@ideasonboard.com>,
+ Arnaud Ferraris <arnaud.ferraris@collabora.com>,
+ "kernel@collabora.com" <kernel@collabora.com>,
  "linux-stm32@st-md-mailman.stormreply.com"
  <linux-stm32@st-md-mailman.stormreply.com>,
  "linux-arm-kernel@lists.infradead.org" <linux-arm-kernel@lists.infradead.org>,
- "linux-media@vger.kernel.org" <linux-media@vger.kernel.org>
-Subject: Re: [Linux-stm32] [PATCH] media: stm32-dcmi: Set minimum cpufreq
-	requirement
+ "linux-imx@nxp.com" <linux-imx@nxp.com>
+Subject: Re: [Linux-stm32] [PATCH v8 08/10] drm: stm: dw-mipi-dsi: let the
+ bridge handle the HW version check
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -93,81 +85,36 @@ Content-Transfer-Encoding: 7bit
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
+Hi Adrian,
 
+On Mon, 1 Jun 2020 at 10:14, Adrian Ratiu <adrian.ratiu@collabora.com> wrote:
+>
+> On Fri, 29 May 2020, Philippe CORNU <philippe.cornu@st.com> wrote:
+> > Hi Adrian, and thank you very much for the patchset.  Thank you
+> > also for having tested it on STM32F769 and STM32MP1.  Sorry for
+> > the late response, Yannick and I will review it as soon as
+> > possible and we will keep you posted.  Note: Do not hesitate to
+> > put us in copy for the next version  (philippe.cornu@st.com,
+> > yannick.fertre@st.com) Regards, Philippe :-)
+>
+> Hi Philippe,
+>
+> Thank you very much for your previous and future STM testing,
+> really appreciate it! I've CC'd Yannick until now but I'll also CC
+> you sure :)
+>
+> It's been over a month since I posted v8 and I was just gearing up
+> to address all feedback, rebase & retest to prepare v9 but I'll
+> wait a little longer, no problem, it's no rush.
+>
+Small idea, pardon for joining so late:
 
-On 6/2/20 11:31 AM, Valentin Schneider wrote:
-> Hi Benjamin,
->
-> On 27/05/20 16:16, Benjamin Gaignard wrote:
->> Before start streaming set cpufreq minimum frequency requirement.
->> The cpufreq governor will adapt the frequencies and we will have
->> no latency for handling interrupts.
->>
-> Few comments below from someone oblivious to your platform, they may not
-> be all that relevant but I figured I'd pitch in anyway.
->
->> Signed-off-by: Benjamin Gaignard <benjamin.gaignard@st.com>
->> ---
->>   drivers/media/platform/stm32/stm32-dcmi.c | 29 ++++++++++++++++++++++++++++-
->>   1 file changed, 28 insertions(+), 1 deletion(-)
->>
->> diff --git a/drivers/media/platform/stm32/stm32-dcmi.c b/drivers/media/platform/stm32/stm32-dcmi.c
->> index b8931490b83b..97c342351569 100644
->> --- a/drivers/media/platform/stm32/stm32-dcmi.c
->> +++ b/drivers/media/platform/stm32/stm32-dcmi.c
->> @@ -13,6 +13,7 @@
->>
->>   #include <linux/clk.h>
->>   #include <linux/completion.h>
->> +#include <linux/cpufreq.h>
->>   #include <linux/delay.h>
->>   #include <linux/dmaengine.h>
->>   #include <linux/init.h>
->> @@ -99,6 +100,8 @@ enum state {
->>
->>   #define OVERRUN_ERROR_THRESHOLD	3
->>
->> +#define DCMI_MIN_FREQ	650000 /* in KHz */
->> +
-> This assumes the handling part is guaranteed to always run on the same CPU
-> with the same performance profile (regardless of the platform). If that's
-> not guaranteed, it feels like you'd want this to be configurable in some
-> way.
-Yes I could add a st,stm32-dcmi-min-frequency (in KHz) parameter the 
-device tree node.
+Might be a good idea to add inline comment, why the clocks are disabled so late.
+Effectively a 2 line version of the commit summary.
 
->
->>   struct dcmi_graph_entity {
->>        struct v4l2_async_subdev asd;
->>
-> [...]
->> @@ -2020,6 +2042,8 @@ static int dcmi_probe(struct platform_device *pdev)
->>                goto err_cleanup;
->>        }
->>
->> +	dcmi->policy = cpufreq_cpu_get(0);
->> +
-> Ideally you'd want to fetch the policy of the CPU your IRQ (and handling
-> thread) is affined to; The only compatible DTS I found describes a single
-> A7, which is somewhat limited in the affinity area...
-If I move this code just before start streaming and use get_cpu(), would 
-it works ?
+Feel free to make that a separate/follow-up patch.
 
-Benjamin
->
->>        dev_info(&pdev->dev, "Probe done\n");
->>
->>        platform_set_drvdata(pdev, dcmi);
->> @@ -2049,6 +2073,9 @@ static int dcmi_remove(struct platform_device *pdev)
->>
->>        pm_runtime_disable(&pdev->dev);
->>
->> +	if (dcmi->policy)
->> +		cpufreq_cpu_put(dcmi->policy);
->> +
->>        v4l2_async_notifier_unregister(&dcmi->notifier);
->>        v4l2_async_notifier_cleanup(&dcmi->notifier);
->>        media_entity_cleanup(&dcmi->vdev->entity);
+-Emil
 _______________________________________________
 Linux-stm32 mailing list
 Linux-stm32@st-md-mailman.stormreply.com
