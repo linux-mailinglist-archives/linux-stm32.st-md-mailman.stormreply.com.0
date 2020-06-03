@@ -2,36 +2,65 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id 8E5BA1ECF37
-	for <lists+linux-stm32@lfdr.de>; Wed,  3 Jun 2020 14:02:12 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 1BAC41ECF7E
+	for <lists+linux-stm32@lfdr.de>; Wed,  3 Jun 2020 14:11:13 +0200 (CEST)
 Received: from ip-172-31-3-76.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id E627AC36B21;
-	Wed,  3 Jun 2020 12:02:11 +0000 (UTC)
-Received: from bhuna.collabora.co.uk (bhuna.collabora.co.uk [46.235.227.227])
- (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256
- bits)) (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id D9338C36B0B
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id AC21DC36B21;
+	Wed,  3 Jun 2020 12:11:11 +0000 (UTC)
+Received: from mail-lj1-f193.google.com (mail-lj1-f193.google.com
+ [209.85.208.193])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+ (No client certificate requested)
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id DFB23C36B0B
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Wed,  3 Jun 2020 12:02:09 +0000 (UTC)
-Received: from [127.0.0.1] (localhost [127.0.0.1])
- (Authenticated sender: aratiu) with ESMTPSA id A1BCB2A3958
-From: Adrian Ratiu <adrian.ratiu@collabora.com>
-To: Laurent Pinchart <laurent.pinchart@ideasonboard.com>
-In-Reply-To: <20200602235139.GS6547@pendragon.ideasonboard.com>
-References: <20200427081952.3536741-1-adrian.ratiu@collabora.com>
- <20200427081952.3536741-5-adrian.ratiu@collabora.com>
- <20200602235139.GS6547@pendragon.ideasonboard.com>
-Date: Wed, 03 Jun 2020 15:03:11 +0300
-Message-ID: <875zc88igw.fsf@collabora.com>
+ Wed,  3 Jun 2020 12:11:10 +0000 (UTC)
+Received: by mail-lj1-f193.google.com with SMTP id y11so758220ljm.9
+ for <linux-stm32@st-md-mailman.stormreply.com>;
+ Wed, 03 Jun 2020 05:11:10 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linaro.org; s=google;
+ h=mime-version:references:in-reply-to:from:date:message-id:subject:to
+ :cc; bh=YfIwoVqhINbM8JX02JQVBFl5UwDmm1K0R0OAHvfku4E=;
+ b=aWqv3ou5Qov3U3msHumGanAGhQDq5piVnxaH/XWJmipKJsOeWVNQIztptBeNCtMWG6
+ 99b3l7r9pG46qUjWpv+WoQs+yVkeYL+OHYfJzjhbwlgDHanfANKMk5J6k2xrDF0jApcs
+ ITr+QKkVRhH2NduIS0rGnMoa1juq/PSUMUe+/Vobm+ot+3yv1cd8yFBR8RpnGpZzbD/i
+ KGvscj/DzzzJcfsZ/B2RW2XxwxgRgDyru1kGkFLZGIOB4klILxvqMmjRjUexshZjeou7
+ IWTl2Oef6qF/8FD3/+nq6Ege6qhULB4qLz6/BgG3qQflgRe1nkZ+ZiOB0fEUutqZ2TNb
+ CrWQ==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20161025;
+ h=x-gm-message-state:mime-version:references:in-reply-to:from:date
+ :message-id:subject:to:cc;
+ bh=YfIwoVqhINbM8JX02JQVBFl5UwDmm1K0R0OAHvfku4E=;
+ b=beEr+uD0HKyp4zE9VETXnO9qdwRl5/BF7dxpoEqJa19n7s9nRpCoG5jn7G5YNbbx8L
+ UpALTy3Mm0DrtaDejRBMGGp4xxRL5v8lpAAcL63kZ7RMtwmYW4lFhIIjr2N/DDupcflb
+ rEuzSE8Bmmkv08nuUIvTKPlGJ91ErvriaE8au+2zJ8V8XyDyvlGjqQi3rko/VlVACqiz
+ Ycjy8j4XkGU847uaePOva9CKaHfKPGQVaO9fszW2d5jAzNKSshBZj4cpCuB9VNJzPMXN
+ ewOJjW28IbtUxCnRKVfM5G4lePcClH6Jk/TPrA1f2tNMvOWVBVsX/NnMlldd95IrgF4g
+ P/SQ==
+X-Gm-Message-State: AOAM533zz7O0sit9U/GkOuqYQA/d0N9MA0i26lo6UYbBCppZNMigYXyR
+ LhGmqNTumy16LL5iFHbSorHmzwrKANXKN00ZFvznuQ==
+X-Google-Smtp-Source: ABdhPJwGPqax4Ku+Y+HnI5jIvzA/eJkmp5Pc0XM9c3bmnH0a+2++YRcBgL324sT+NutIXiJsU51+xCLtJmEUSqS/sw4=
+X-Received: by 2002:a05:651c:112e:: with SMTP id
+ e14mr1798631ljo.338.1591186270117; 
+ Wed, 03 Jun 2020 05:11:10 -0700 (PDT)
 MIME-Version: 1.0
-Cc: devicetree@vger.kernel.org, Jernej Skrabec <jernej.skrabec@siol.net>,
- Heiko Stuebner <heiko@sntech.de>, Jonas Karlman <jonas@kwiboo.se>,
- linux-kernel@vger.kernel.org, dri-devel@lists.freedesktop.org,
- Andrzej Hajda <a.hajda@samsung.com>, linux-imx@nxp.com,
- linux-rockchip@lists.infradead.org, kernel@collabora.com,
- linux-stm32@st-md-mailman.stormreply.com, linux-arm-kernel@lists.infradead.org
-Subject: Re: [Linux-stm32] [PATCH v8 04/10] drm: bridge: dw_mipi_dsi: allow
- bridge daisy chaining
+References: <20200513145935.22493-1-benjamin.gaignard@st.com>
+ <20200513145935.22493-15-benjamin.gaignard@st.com>
+In-Reply-To: <20200513145935.22493-15-benjamin.gaignard@st.com>
+From: Linus Walleij <linus.walleij@linaro.org>
+Date: Wed, 3 Jun 2020 14:10:59 +0200
+Message-ID: <CACRpkdYu2As27M60ogUoLfX1z=XZSCSx5qTLwm5ADdf9Jy7HGQ@mail.gmail.com>
+To: Benjamin Gaignard <benjamin.gaignard@st.com>
+Cc: "open list:OPEN FIRMWARE AND FLATTENED DEVICE TREE BINDINGS"
+ <devicetree@vger.kernel.org>, Greg KH <gregkh@linuxfoundation.org>,
+ linux-usb <linux-usb@vger.kernel.org>,
+ "linux-kernel@vger.kernel.org" <linux-kernel@vger.kernel.org>,
+ "open list:GPIO SUBSYSTEM" <linux-gpio@vger.kernel.org>,
+ Rob Herring <robh+dt@kernel.org>, Maxime Coquelin <mcoquelin.stm32@gmail.com>,
+ linux-stm32@st-md-mailman.stormreply.com,
+ Linux ARM <linux-arm-kernel@lists.infradead.org>
+Subject: Re: [Linux-stm32] [PATCH 14/15] dt-bindings: pinctrl: stm32: Add
+	missing interrupts property
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -43,115 +72,22 @@ List-Post: <mailto:linux-stm32@st-md-mailman.stormreply.com>
 List-Help: <mailto:linux-stm32-request@st-md-mailman.stormreply.com?subject=help>
 List-Subscribe: <https://st-md-mailman.stormreply.com/mailman/listinfo/linux-stm32>, 
  <mailto:linux-stm32-request@st-md-mailman.stormreply.com?subject=subscribe>
+Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
-Content-Type: text/plain; charset="us-ascii"; Format="flowed"
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
-On Wed, 03 Jun 2020, Laurent Pinchart 
-<laurent.pinchart@ideasonboard.com> wrote:
-> Hi Adrian, 
+On Wed, May 13, 2020 at 5:00 PM Benjamin Gaignard
+<benjamin.gaignard@st.com> wrote:
 
-Hi Laurent,
-
-> 
-> Thank you for the patch. 
-> 
-> On Mon, Apr 27, 2020 at 11:19:46AM +0300, Adrian Ratiu wrote: 
->> Up until now the assumption was that the synopsis dsi bridge 
->> will directly connect to an encoder provided by the platform 
->> driver, but the current practice for drivers is to leave the 
->> encoder empty via the simple encoder API and add their logic to 
->> their own drm_bridge.   Thus we need an ablility to connect the 
->> DSI bridge to another bridge provided by the platform driver, 
->> so we extend the dw_mipi_dsi bind() API with a new "previous 
->> bridge" arg instead of just hardcoding NULL.   Cc: Laurent 
->> Pinchart <laurent.pinchart@ideasonboard.com> Signed-off-by: 
->> Adrian Ratiu <adrian.ratiu@collabora.com> --- New in v8.  --- 
->>  drivers/gpu/drm/bridge/synopsys/dw-mipi-dsi.c   | 6 ++++-- 
->>  drivers/gpu/drm/rockchip/dw-mipi-dsi-rockchip.c | 2 +- 
->>  include/drm/bridge/dw_mipi_dsi.h                | 5 ++++- 3 
->>  files changed, 9 insertions(+), 4 deletions(-) 
->>  diff --git a/drivers/gpu/drm/bridge/synopsys/dw-mipi-dsi.c 
->> b/drivers/gpu/drm/bridge/synopsys/dw-mipi-dsi.c index 
->> 16fd87055e7b7..140ff40fa1b62 100644 --- 
->> a/drivers/gpu/drm/bridge/synopsys/dw-mipi-dsi.c +++ 
->> b/drivers/gpu/drm/bridge/synopsys/dw-mipi-dsi.c @@ -1456,11 
->> +1456,13 @@ EXPORT_SYMBOL_GPL(dw_mipi_dsi_remove); 
->>  /* 
->>   * Bind/unbind API, used from platforms based on the component 
->>   framework.  */ 
->> -int dw_mipi_dsi_bind(struct dw_mipi_dsi *dsi, struct 
->> drm_encoder *encoder) +int dw_mipi_dsi_bind(struct dw_mipi_dsi 
->> *dsi, +		     struct drm_encoder *encoder, + 
->> struct drm_bridge *prev_bridge) 
->>  { int ret;  
->> -	ret = drm_bridge_attach(encoder, &dsi->bridge, NULL, 0); + 
->> ret = drm_bridge_attach(encoder, &dsi->bridge, prev_bridge, 0); 
-> 
-> Please note that chaining of bridges doesn't work well if 
-> multiple bridges in the chain try to create a connector. This is 
-> why a DRM_BRIDGE_ATTACH_NO_CONNECTOR flag has been added, with a 
-> helper to create a connector for a chain of bridges 
-> (drm_bridge_connector_init()).  This won't play well with the 
-> component framework. I would recommend using the 
-> of_drm_find_bridge() instead in the rockchip driver, and 
-> deprecating dw_mipi_dsi_bind(). 
+> Driver use interrupt-parent field so update the bindings to allow it.
 >
+> Signed-off-by: Benjamin Gaignard <benjamin.gaignard@st.com>
 
-Thank you for this insight, indeed the bridge dw_mipi_dsi_bind() 
-is clunky and we're making it even more so by possibly 
-re-inventing drm_bridge_connector_init() with it in a way which 
-can't work (well it does work but can lead to those nasty 
-multiple-encoder corner-cases you mention).
+Patch applied.
 
-I'll address this before posting v9, to try to move to 
-of_drm_find_bridge() and remove dw_mipi_dsi_bind().
-
->>  	if (ret) {
->>  		DRM_ERROR("Failed to initialize bridge with drm\n");
->>  		return ret;
->> diff --git a/drivers/gpu/drm/rockchip/dw-mipi-dsi-rockchip.c b/drivers/gpu/drm/rockchip/dw-mipi-dsi-rockchip.c
->> index 3feff0c45b3f7..83ef43be78135 100644
->> --- a/drivers/gpu/drm/rockchip/dw-mipi-dsi-rockchip.c
->> +++ b/drivers/gpu/drm/rockchip/dw-mipi-dsi-rockchip.c
->> @@ -929,7 +929,7 @@ static int dw_mipi_dsi_rockchip_bind(struct device *dev,
->>  		return ret;
->>  	}
->>  
->> -	ret = dw_mipi_dsi_bind(dsi->dmd, &dsi->encoder);
->> +	ret = dw_mipi_dsi_bind(dsi->dmd, &dsi->encoder, NULL);
->>  	if (ret) {
->>  		DRM_DEV_ERROR(dev, "Failed to bind: %d\n", ret);
->>  		return ret;
->> diff --git a/include/drm/bridge/dw_mipi_dsi.h b/include/drm/bridge/dw_mipi_dsi.h
->> index b0e390b3288e8..699b3531f5b36 100644
->> --- a/include/drm/bridge/dw_mipi_dsi.h
->> +++ b/include/drm/bridge/dw_mipi_dsi.h
->> @@ -14,6 +14,7 @@
->>  #include <drm/drm_modes.h>
->>  
->>  struct drm_display_mode;
->> +struct drm_bridge;
->>  struct drm_encoder;
->>  struct dw_mipi_dsi;
->>  struct mipi_dsi_device;
->> @@ -62,7 +63,9 @@ struct dw_mipi_dsi *dw_mipi_dsi_probe(struct platform_device *pdev,
->>  				      const struct dw_mipi_dsi_plat_data
->>  				      *plat_data);
->>  void dw_mipi_dsi_remove(struct dw_mipi_dsi *dsi);
->> -int dw_mipi_dsi_bind(struct dw_mipi_dsi *dsi, struct drm_encoder *encoder);
->> +int dw_mipi_dsi_bind(struct dw_mipi_dsi *dsi,
->> +		     struct drm_encoder *encoder,
->> +		     struct drm_bridge *prev_bridge);
->>  void dw_mipi_dsi_unbind(struct dw_mipi_dsi *dsi);
->>  void dw_mipi_dsi_set_slave(struct dw_mipi_dsi *dsi, struct dw_mipi_dsi *slave);
->>  
->
-> -- 
-> Regards,
->
-> Laurent Pinchart
+Yours,
+Linus Walleij
 _______________________________________________
 Linux-stm32 mailing list
 Linux-stm32@st-md-mailman.stormreply.com
