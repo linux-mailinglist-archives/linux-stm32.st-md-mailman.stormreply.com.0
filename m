@@ -2,46 +2,82 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id E986A1EC5E7
-	for <lists+linux-stm32@lfdr.de>; Wed,  3 Jun 2020 01:51:57 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id EE0201ECA9C
+	for <lists+linux-stm32@lfdr.de>; Wed,  3 Jun 2020 09:34:28 +0200 (CEST)
 Received: from ip-172-31-3-76.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 66C98C36B21;
-	Tue,  2 Jun 2020 23:51:57 +0000 (UTC)
-Received: from perceval.ideasonboard.com (perceval.ideasonboard.com
- [213.167.242.64])
- (using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 88173C36B21;
+	Wed,  3 Jun 2020 07:34:28 +0000 (UTC)
+Received: from mx07-00178001.pphosted.com (mx07-00178001.pphosted.com
+ [62.209.51.94])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 8C842C36B0B
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 04CC7C36B0B
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Tue,  2 Jun 2020 23:51:55 +0000 (UTC)
-Received: from pendragon.ideasonboard.com (81-175-216-236.bb.dnainternet.fi
- [81.175.216.236])
- by perceval.ideasonboard.com (Postfix) with ESMTPSA id 876A22B3;
- Wed,  3 Jun 2020 01:51:54 +0200 (CEST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=ideasonboard.com;
- s=mail; t=1591141914;
- bh=Fe8f3kgWX47nIzg78wyxjbab4WD6Saxj6pxZxkB/gRo=;
- h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
- b=JhhykH0rs1dR3LZsV2DsnKzuF2z9VlZj4+I2990IxcsJkczDcz7VYPYx26TRo4Hqs
- pJ3UkFFW7TOPtB1S1AxdP6uT0Jac6CbZ7Z6OJd89o8ZSdD7yQaDvoLg7Lp18AkwXkD
- rD2FG3r3HaSGN5hYDv+GDvzDB9etxpWO1icCqJDY=
-Date: Wed, 3 Jun 2020 02:51:39 +0300
-From: Laurent Pinchart <laurent.pinchart@ideasonboard.com>
-To: Adrian Ratiu <adrian.ratiu@collabora.com>
-Message-ID: <20200602235139.GS6547@pendragon.ideasonboard.com>
-References: <20200427081952.3536741-1-adrian.ratiu@collabora.com>
- <20200427081952.3536741-5-adrian.ratiu@collabora.com>
+ Wed,  3 Jun 2020 07:34:25 +0000 (UTC)
+Received: from pps.filterd (m0046037.ppops.net [127.0.0.1])
+ by mx07-00178001.pphosted.com (8.16.0.42/8.16.0.42) with SMTP id
+ 0537XPHE021565; Wed, 3 Jun 2020 09:34:14 +0200
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=st.com;
+ h=from : to : cc : subject
+ : date : message-id : references : in-reply-to : content-type : content-id
+ : content-transfer-encoding : mime-version; s=STMicroelectronics;
+ bh=dvyUJs8o6kUEeuCGb8i9PeF6Oa2j1pEYn0SCIXZTWRQ=;
+ b=c3dxij/t3E/97u08riL5vamIIH5ZfAApuIY6SKzQUuiL5Yzs2/g+/jkZZRDjLxfAfODO
+ ThrOKkihXG0D5qrstMz5PfwfMio7hQM8XRCw+cJhRfqaOrm3+9tTRgkPLQ3j4SKmp7tk
+ N8jKJMDPm0pReetQay9AHDKLlUXRf0+e121C704AMjB2kP7ffpPq0cbR4FWm28Bh6DQN
+ oIqI0RLJKfJ/rJyyrZztBNvJHy105vw8hGRmwGM/Gh8X6Zb/hHzhevcBnSQ/fpWRdfgN
+ OeHWp1dsqsZMuoQ7L7dlv9d7DgITusuxL4uEQhjL3D6jex4UG1I4gX3iiND7zv+mUAbl Mw== 
+Received: from beta.dmz-eu.st.com (beta.dmz-eu.st.com [164.129.1.35])
+ by mx07-00178001.pphosted.com with ESMTP id 31bd8w2vf7-1
+ (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
+ Wed, 03 Jun 2020 09:34:14 +0200
+Received: from euls16034.sgp.st.com (euls16034.sgp.st.com [10.75.44.20])
+ by beta.dmz-eu.st.com (STMicroelectronics) with ESMTP id BA70710002A;
+ Wed,  3 Jun 2020 09:34:13 +0200 (CEST)
+Received: from Webmail-eu.st.com (sfhdag5node3.st.com [10.75.127.15])
+ by euls16034.sgp.st.com (STMicroelectronics) with ESMTP id A03D82AE6B2;
+ Wed,  3 Jun 2020 09:34:13 +0200 (CEST)
+Received: from SFHDAG3NODE3.st.com (10.75.127.9) by SFHDAG5NODE3.st.com
+ (10.75.127.15) with Microsoft SMTP Server (TLS) id 15.0.1473.3; Wed, 3 Jun
+ 2020 09:34:12 +0200
+Received: from SFHDAG3NODE3.st.com ([fe80::3507:b372:7648:476]) by
+ SFHDAG3NODE3.st.com ([fe80::3507:b372:7648:476%20]) with mapi id
+ 15.00.1347.000; Wed, 3 Jun 2020 09:34:13 +0200
+From: Benjamin GAIGNARD <benjamin.gaignard@st.com>
+To: Valentin Schneider <valentin.schneider@arm.com>
+Thread-Topic: [PATCH] media: stm32-dcmi: Set minimum cpufreq requirement
+Thread-Index: AQHWNDnEPjQ+BLRck0Okhc2Oie/dNajE9yuAgAAjSoCAACDvgIABLWEA
+Date: Wed, 3 Jun 2020 07:34:13 +0000
+Message-ID: <1b0ace18-e7f8-0b75-f6fe-968a269626b0@st.com>
+References: <20200527151613.16083-1-benjamin.gaignard@st.com>
+ <jhjpnahizkm.mognet@arm.com> <f95ce45f-7a1c-0feb-afa8-203ddb500f2f@st.com>
+ <jhjo8q1io9o.mognet@arm.com>
+In-Reply-To: <jhjo8q1io9o.mognet@arm.com>
+Accept-Language: en-US
+Content-Language: en-US
+X-MS-Has-Attach: 
+X-MS-TNEF-Correlator: 
+user-agent: Mozilla/5.0 (X11; Linux x86_64; rv:68.0) Gecko/20100101
+ Thunderbird/68.8.0
+x-ms-exchange-messagesentrepresentingtype: 1
+x-ms-exchange-transport-fromentityheader: Hosted
+x-originating-ip: [10.75.127.48]
+Content-ID: <2D00D8D0FB5BE449A19E3E0E430841A6@st.com>
 MIME-Version: 1.0
-Content-Disposition: inline
-In-Reply-To: <20200427081952.3536741-5-adrian.ratiu@collabora.com>
-Cc: devicetree@vger.kernel.org, Jernej Skrabec <jernej.skrabec@siol.net>,
- Heiko Stuebner <heiko@sntech.de>, Jonas Karlman <jonas@kwiboo.se>,
- linux-kernel@vger.kernel.org, dri-devel@lists.freedesktop.org,
- Andrzej Hajda <a.hajda@samsung.com>, linux-imx@nxp.com,
- linux-rockchip@lists.infradead.org, kernel@collabora.com,
- linux-stm32@st-md-mailman.stormreply.com, linux-arm-kernel@lists.infradead.org
-Subject: Re: [Linux-stm32] [PATCH v8 04/10] drm: bridge: dw_mipi_dsi: allow
- bridge daisy chaining
+X-Proofpoint-Virus-Version: vendor=fsecure engine=2.50.10434:6.0.216, 18.0.687
+ definitions=2020-06-03_06:2020-06-02,
+ 2020-06-03 signatures=0
+Cc: "vincent.guittot@linaro.org" <vincent.guittot@linaro.org>,
+ "rjw@rjwysocki.net" <rjw@rjwysocki.net>,
+ "linux-kernel@vger.kernel.org" <linux-kernel@vger.kernel.org>,
+ "mcoquelin.stm32@gmail.com" <mcoquelin.stm32@gmail.com>,
+ "mchehab@kernel.org" <mchehab@kernel.org>,
+ "linux-stm32@st-md-mailman.stormreply.com"
+ <linux-stm32@st-md-mailman.stormreply.com>,
+ "linux-arm-kernel@lists.infradead.org" <linux-arm-kernel@lists.infradead.org>,
+ "linux-media@vger.kernel.org" <linux-media@vger.kernel.org>
+Subject: Re: [Linux-stm32] [PATCH] media: stm32-dcmi: Set minimum cpufreq
+	requirement
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -58,100 +94,92 @@ Content-Transfer-Encoding: 7bit
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
-Hi Adrian,
 
-Thank you for the patch.
 
-On Mon, Apr 27, 2020 at 11:19:46AM +0300, Adrian Ratiu wrote:
-> Up until now the assumption was that the synopsis dsi bridge will
-> directly connect to an encoder provided by the platform driver, but
-> the current practice for drivers is to leave the encoder empty via
-> the simple encoder API and add their logic to their own drm_bridge.
-> 
-> Thus we need an ablility to connect the DSI bridge to another bridge
-> provided by the platform driver, so we extend the dw_mipi_dsi bind()
-> API with a new "previous bridge" arg instead of just hardcoding NULL.
-> 
-> Cc: Laurent Pinchart <laurent.pinchart@ideasonboard.com>
-> Signed-off-by: Adrian Ratiu <adrian.ratiu@collabora.com>
+On 6/2/20 3:35 PM, Valentin Schneider wrote:
+> On 02/06/20 12:37, Benjamin GAIGNARD wrote:
+>> On 6/2/20 11:31 AM, Valentin Schneider wrote:
+>>>> @@ -99,6 +100,8 @@ enum state {
+>>>>
+>>>>    #define OVERRUN_ERROR_THRESHOLD	3
+>>>>
+>>>> +#define DCMI_MIN_FREQ	650000 /* in KHz */
+>>>> +
+>>> This assumes the handling part is guaranteed to always run on the same CPU
+>>> with the same performance profile (regardless of the platform). If that's
+>>> not guaranteed, it feels like you'd want this to be configurable in some
+>>> way.
+>> Yes I could add a st,stm32-dcmi-min-frequency (in KHz) parameter the
+>> device tree node.
+>>
+> Something like that - I'm not sure how well this fits with the DT
+> landscape, as you could argue it isn't really a description of the
+> hardware, more of a description of the performance expectations of the
+> software. I won't really argue here.
+>
+>>>>    struct dcmi_graph_entity {
+>>>>         struct v4l2_async_subdev asd;
+>>>>
+>>> [...]
+>>>> @@ -2020,6 +2042,8 @@ static int dcmi_probe(struct platform_device *pdev)
+>>>>                 goto err_cleanup;
+>>>>         }
+>>>>
+>>>> +	dcmi->policy = cpufreq_cpu_get(0);
+>>>> +
+>>> Ideally you'd want to fetch the policy of the CPU your IRQ (and handling
+>>> thread) is affined to; The only compatible DTS I found describes a single
+>>> A7, which is somewhat limited in the affinity area...
+>> If I move this code just before start streaming and use get_cpu(), would
+>> it works ?
+>>
+> AFAIA streaming_start() is not necessarily executing on the same CPU as the
+> one that will handle the interrupt. I was thinking you could use the IRQ's
+> effective affinity as a hint of which CPU(s) to boost, i.e. something like:
+>
 > ---
-> New in v8.
+>      struct cpumask_var_t visited;
+>      struct irq_data *d = irq_get_irq_data(irq);
+>
+>      err = alloc_cpumask_var(visited, GFP_KERNEL);
+>      /* ... */
+>      for_each_cpu(cpu, irq_data_get_effective_affinity_mask(d)) {
+>              /* check if not already spanned */
+>              if (cpumask_test_cpu(cpu, visited))
+>                      continue;
+>
+>              policy = cpufreq_cpu_get(cpu);
+>              cpumask_or(visited, visited, policy->cpus);
+>              /* do the boost for that policy here */
+>              /* ... */
+>              cpufreq_cpu_put(policy);
+>      }
 > ---
->  drivers/gpu/drm/bridge/synopsys/dw-mipi-dsi.c   | 6 ++++--
->  drivers/gpu/drm/rockchip/dw-mipi-dsi-rockchip.c | 2 +-
->  include/drm/bridge/dw_mipi_dsi.h                | 5 ++++-
->  3 files changed, 9 insertions(+), 4 deletions(-)
-> 
-> diff --git a/drivers/gpu/drm/bridge/synopsys/dw-mipi-dsi.c b/drivers/gpu/drm/bridge/synopsys/dw-mipi-dsi.c
-> index 16fd87055e7b7..140ff40fa1b62 100644
-> --- a/drivers/gpu/drm/bridge/synopsys/dw-mipi-dsi.c
-> +++ b/drivers/gpu/drm/bridge/synopsys/dw-mipi-dsi.c
-> @@ -1456,11 +1456,13 @@ EXPORT_SYMBOL_GPL(dw_mipi_dsi_remove);
->  /*
->   * Bind/unbind API, used from platforms based on the component framework.
->   */
-> -int dw_mipi_dsi_bind(struct dw_mipi_dsi *dsi, struct drm_encoder *encoder)
-> +int dw_mipi_dsi_bind(struct dw_mipi_dsi *dsi,
-> +		     struct drm_encoder *encoder,
-> +		     struct drm_bridge *prev_bridge)
->  {
->  	int ret;
->  
-> -	ret = drm_bridge_attach(encoder, &dsi->bridge, NULL, 0);
-> +	ret = drm_bridge_attach(encoder, &dsi->bridge, prev_bridge, 0);
+>
+> That of course falls apart when hotplug gets involved, and the effective
+> affinity changes... There's irq_set_affinity_notifier() out there, but it
+> seems it's only about the affinity, not the effective_affinity, I'm not
+> sure how valid it would be to query the effective_affinity in that
+> notifier.
+If I wait to be in the irq it will be too late so I think I will do a 
+loop over all possible CPUs
+before start the streaming to change the policies.
 
-Please note that chaining of bridges doesn't work well if multiple
-bridges in the chain try to create a connector. This is why a
-DRM_BRIDGE_ATTACH_NO_CONNECTOR flag has been added, with a helper to
-create a connector for a chain of bridges (drm_bridge_connector_init()).
-This won't play well with the component framework. I would recommend
-using the of_drm_find_bridge() instead in the rockchip driver, and
-deprecating dw_mipi_dsi_bind().
-
->  	if (ret) {
->  		DRM_ERROR("Failed to initialize bridge with drm\n");
->  		return ret;
-> diff --git a/drivers/gpu/drm/rockchip/dw-mipi-dsi-rockchip.c b/drivers/gpu/drm/rockchip/dw-mipi-dsi-rockchip.c
-> index 3feff0c45b3f7..83ef43be78135 100644
-> --- a/drivers/gpu/drm/rockchip/dw-mipi-dsi-rockchip.c
-> +++ b/drivers/gpu/drm/rockchip/dw-mipi-dsi-rockchip.c
-> @@ -929,7 +929,7 @@ static int dw_mipi_dsi_rockchip_bind(struct device *dev,
->  		return ret;
->  	}
->  
-> -	ret = dw_mipi_dsi_bind(dsi->dmd, &dsi->encoder);
-> +	ret = dw_mipi_dsi_bind(dsi->dmd, &dsi->encoder, NULL);
->  	if (ret) {
->  		DRM_DEV_ERROR(dev, "Failed to bind: %d\n", ret);
->  		return ret;
-> diff --git a/include/drm/bridge/dw_mipi_dsi.h b/include/drm/bridge/dw_mipi_dsi.h
-> index b0e390b3288e8..699b3531f5b36 100644
-> --- a/include/drm/bridge/dw_mipi_dsi.h
-> +++ b/include/drm/bridge/dw_mipi_dsi.h
-> @@ -14,6 +14,7 @@
->  #include <drm/drm_modes.h>
->  
->  struct drm_display_mode;
-> +struct drm_bridge;
->  struct drm_encoder;
->  struct dw_mipi_dsi;
->  struct mipi_dsi_device;
-> @@ -62,7 +63,9 @@ struct dw_mipi_dsi *dw_mipi_dsi_probe(struct platform_device *pdev,
->  				      const struct dw_mipi_dsi_plat_data
->  				      *plat_data);
->  void dw_mipi_dsi_remove(struct dw_mipi_dsi *dsi);
-> -int dw_mipi_dsi_bind(struct dw_mipi_dsi *dsi, struct drm_encoder *encoder);
-> +int dw_mipi_dsi_bind(struct dw_mipi_dsi *dsi,
-> +		     struct drm_encoder *encoder,
-> +		     struct drm_bridge *prev_bridge);
->  void dw_mipi_dsi_unbind(struct dw_mipi_dsi *dsi);
->  void dw_mipi_dsi_set_slave(struct dw_mipi_dsi *dsi, struct dw_mipi_dsi *slave);
->  
-
--- 
-Regards,
-
-Laurent Pinchart
+>
+>> Benjamin
+>>>>         dev_info(&pdev->dev, "Probe done\n");
+>>>>
+>>>>         platform_set_drvdata(pdev, dcmi);
+>>>> @@ -2049,6 +2073,9 @@ static int dcmi_remove(struct platform_device *pdev)
+>>>>
+>>>>         pm_runtime_disable(&pdev->dev);
+>>>>
+>>>> +	if (dcmi->policy)
+>>>> +		cpufreq_cpu_put(dcmi->policy);
+>>>> +
+>>>>         v4l2_async_notifier_unregister(&dcmi->notifier);
+>>>>         v4l2_async_notifier_cleanup(&dcmi->notifier);
+>>>>         media_entity_cleanup(&dcmi->vdev->entity);
 _______________________________________________
 Linux-stm32 mailing list
 Linux-stm32@st-md-mailman.stormreply.com
