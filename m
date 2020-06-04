@@ -2,64 +2,41 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id B89B91EE490
-	for <lists+linux-stm32@lfdr.de>; Thu,  4 Jun 2020 14:40:19 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 23A071EEDF8
+	for <lists+linux-stm32@lfdr.de>; Fri,  5 Jun 2020 00:52:41 +0200 (CEST)
 Received: from ip-172-31-3-76.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 883ECC36B28;
-	Thu,  4 Jun 2020 12:40:18 +0000 (UTC)
-Received: from mx07-00178001.pphosted.com (mx07-00178001.pphosted.com
- [62.209.51.94])
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id CB423C36B22;
+	Thu,  4 Jun 2020 22:52:40 +0000 (UTC)
+Received: from shards.monkeyblade.net (shards.monkeyblade.net [23.128.96.9])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 88BD4C36B0B
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 75751C36B0B
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Thu,  4 Jun 2020 12:40:17 +0000 (UTC)
-Received: from pps.filterd (m0046037.ppops.net [127.0.0.1])
- by mx07-00178001.pphosted.com (8.16.0.42/8.16.0.42) with SMTP id
- 054CXb8J021605; Thu, 4 Jun 2020 14:40:05 +0200
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=st.com;
- h=from : to : cc : subject
- : date : message-id : in-reply-to : references : mime-version :
- content-type; s=STMicroelectronics;
- bh=UV2eXHMfLb4/QtK9KJPbsnZv2k9uIAuEYmQYk8262qk=;
- b=j/aGK25ZLhCxZMusSYwd/PwB2dHq9EqbLcvIaWk6KvoOJB568z5maZpE2tHDe/LBIb2l
- si5s9zn357LQpgQS8NuaJl+p5oJ5X+GnUjzgCjYDKm7lgRby8CVvu/zvsWk9i2xHAuhQ
- rBvgf6XUx8JbgVrF9kcoewqjxCS4WLuiN8AlDPXTohujRP9dUu0rTt8XNga5IvLWFAWk
- 3siv7QGKehXs8KIdhD0Qq4NZU6NyMn99epEmSf4l+tu9Y0/bLPhaU5OamvW5rG4LFGdi
- JLy7qiTQWRDS2F/2ANn/Thu7xRznSV1e/Dw594f8j8XDcB+QBlj/miccACk+lAYRqNEF yg== 
-Received: from beta.dmz-eu.st.com (beta.dmz-eu.st.com [164.129.1.35])
- by mx07-00178001.pphosted.com with ESMTP id 31bd8wa7jp-1
- (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
- Thu, 04 Jun 2020 14:40:05 +0200
-Received: from euls16034.sgp.st.com (euls16034.sgp.st.com [10.75.44.20])
- by beta.dmz-eu.st.com (STMicroelectronics) with ESMTP id 7C832100038;
- Thu,  4 Jun 2020 14:40:04 +0200 (CEST)
-Received: from Webmail-eu.st.com (sfhdag3node3.st.com [10.75.127.9])
- by euls16034.sgp.st.com (STMicroelectronics) with ESMTP id 58C6C2BE257;
- Thu,  4 Jun 2020 14:40:04 +0200 (CEST)
-Received: from localhost (10.75.127.48) by SFHDAG3NODE3.st.com (10.75.127.9)
- with Microsoft SMTP Server (TLS) id 15.0.1347.2; Thu, 4 Jun 2020 14:39:38
- +0200
-From: Benjamin Gaignard <benjamin.gaignard@st.com>
-To: <hugues.fruchet@st.com>, <mchehab@kernel.org>, <mcoquelin.stm32@gmail.com>,
- <alexandre.torgue@st.com>
-Date: Thu, 4 Jun 2020 14:39:32 +0200
-Message-ID: <20200604123932.20512-4-benjamin.gaignard@st.com>
-X-Mailer: git-send-email 2.15.0
-In-Reply-To: <20200604123932.20512-1-benjamin.gaignard@st.com>
-References: <20200604123932.20512-1-benjamin.gaignard@st.com>
-MIME-Version: 1.0
-X-Originating-IP: [10.75.127.48]
-X-ClientProxiedBy: SFHDAG6NODE3.st.com (10.75.127.18) To SFHDAG3NODE3.st.com
- (10.75.127.9)
-X-Proofpoint-Virus-Version: vendor=fsecure engine=2.50.10434:6.0.216, 18.0.687
- definitions=2020-06-04_10:2020-06-02,
- 2020-06-04 signatures=0
-Cc: vincent.guittot@linaro.org, rjw@rjwysocki.net, linux-kernel@vger.kernel.org,
- linux-stm32@st-md-mailman.stormreply.com, valentin.schneider@arm.com,
- linux-arm-kernel@lists.infradead.org, linux-media@vger.kernel.org
-Subject: [Linux-stm32] [PATCH v3 3/3] ARM: dts: stm32: Set DCMI frequency
-	requirement for stm32mp15x
+ Thu,  4 Jun 2020 22:52:39 +0000 (UTC)
+Received: from localhost (unknown [IPv6:2601:601:9f00:477::3d5])
+ (using TLSv1 with cipher AES256-SHA (256/256 bits))
+ (Client did not present a certificate)
+ (Authenticated sender: davem-davemloft)
+ by shards.monkeyblade.net (Postfix) with ESMTPSA id CCED511F5F8D1;
+ Thu,  4 Jun 2020 15:52:36 -0700 (PDT)
+Date: Thu, 04 Jun 2020 15:52:35 -0700 (PDT)
+Message-Id: <20200604.155235.1008812507143457607.davem@davemloft.net>
+To: dan.carpenter@oracle.com
+From: David Miller <davem@davemloft.net>
+In-Reply-To: <20200603175025.GA19353@mwanda>
+References: <20200603175025.GA19353@mwanda>
+X-Mailer: Mew version 6.8 on Emacs 26.3
+Mime-Version: 1.0
+X-Greylist: Sender succeeded SMTP AUTH, not delayed by milter-greylist-4.5.12
+ (shards.monkeyblade.net [149.20.54.216]);
+ Thu, 04 Jun 2020 15:52:37 -0700 (PDT)
+Cc: fugang.duan@nxp.com, festevam@gmail.com, s.hauer@pengutronix.de,
+ kernel-janitors@vger.kernel.org, linux-stm32@st-md-mailman.stormreply.com,
+ joabreu@synopsys.com, linux-imx@nxp.com, mcoquelin.stm32@gmail.com,
+ kuba@kernel.org, peppe.cavallaro@st.com, netdev@vger.kernel.org,
+ shawnguo@kernel.org, kernel@pengutronix.de
+Subject: Re: [Linux-stm32] [PATCH net-next] net: ethernet: dwmac: Fix an
+ error code in imx_dwmac_probe()
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -76,29 +53,16 @@ Content-Transfer-Encoding: 7bit
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
-Make sure that CPUs will at least run at 650Mhz when streaming
-sensor frames.
+From: Dan Carpenter <dan.carpenter@oracle.com>
+Date: Wed, 3 Jun 2020 20:50:25 +0300
 
-Signed-off-by: Benjamin Gaignard <benjamin.gaignard@st.com>
----
- arch/arm/boot/dts/stm32mp151.dtsi | 1 +
- 1 file changed, 1 insertion(+)
+> The code is return PTR_ERR(NULL) which is zero or success.  We should
+> return -ENOMEM instead.
+> 
+> Fixes: 94abdad6974a5 ("net: ethernet: dwmac: add ethernet glue logic for NXP imx8 chip")
+> Signed-off-by: Dan Carpenter <dan.carpenter@oracle.com>
 
-diff --git a/arch/arm/boot/dts/stm32mp151.dtsi b/arch/arm/boot/dts/stm32mp151.dtsi
-index 3ea05ba48215..f6d7bf4f8231 100644
---- a/arch/arm/boot/dts/stm32mp151.dtsi
-+++ b/arch/arm/boot/dts/stm32mp151.dtsi
-@@ -1091,6 +1091,7 @@
- 			clock-names = "mclk";
- 			dmas = <&dmamux1 75 0x400 0x0d>;
- 			dma-names = "tx";
-+			st,stm32-dcmi-min-frequency = <650000>;
- 			status = "disabled";
- 		};
- 
--- 
-2.15.0
-
+Applied.
 _______________________________________________
 Linux-stm32 mailing list
 Linux-stm32@st-md-mailman.stormreply.com
