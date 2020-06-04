@@ -2,34 +2,33 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id 9328E1EDCB9
-	for <lists+linux-stm32@lfdr.de>; Thu,  4 Jun 2020 07:43:39 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 729661EE164
+	for <lists+linux-stm32@lfdr.de>; Thu,  4 Jun 2020 11:37:10 +0200 (CEST)
 Received: from ip-172-31-3-76.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 49BACC36B21;
-	Thu,  4 Jun 2020 05:43:39 +0000 (UTC)
-Received: from mout.web.de (mout.web.de [212.227.17.11])
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 0A9CFC36B22;
+	Thu,  4 Jun 2020 09:37:10 +0000 (UTC)
+Received: from mout.web.de (mout.web.de [217.72.192.78])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id E5B96C36B0B
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id D9C75C36B0B
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Thu,  4 Jun 2020 05:43:36 +0000 (UTC)
+ Thu,  4 Jun 2020 09:37:08 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=web.de;
- s=dbaedf251592; t=1591249403;
- bh=3MkFD5u516RHMXs9tkq7u9K3YawNQbXNaeFLtPqnKtQ=;
+ s=dbaedf251592; t=1591263415;
+ bh=LJN3Kf4vQsasf3c2M0JNJOkqWVCOQTQQEFF500nJIbM=;
  h=X-UI-Sender-Class:Subject:To:Cc:References:From:Date:In-Reply-To;
- b=I3ELH3x/3D6qSmpDrl6cD8y2KG2tp5tbMj+Qfv9YpzGMIIwVe972QmH57+VgAQkYh
- bSCsyUCtVOO20dU4qAnDsGWf8YOojtRy7uyVToqZY814GDfKw/j5Yupune1uBzydMm
- mKUa10L1rXvME15InwNqd8ht3s2Kue7pi/iIvULA=
+ b=q0b+yMclK9v1qNZ9aVOp1gbpfRs6a3LbUH/nffGnDaWZCXRFIzJYDOnfgseyZiixP
+ 35s3nqIetyAwQdqbrYBh3FJE5FQ8xtHPWjPseP7B9xZqlkN1jVDRL63znhCxGHOK5p
+ RX86hAw3Uzu6KFDPgMsg9ki6griWjxQRPteHCviM=
 X-UI-Sender-Class: c548c8c5-30a9-4db5-a2e7-cb6cb037b8f9
-Received: from [192.168.1.2] ([93.132.94.220]) by smtp.web.de (mrweb105
- [213.165.67.124]) with ESMTPSA (Nemesis) id 1Mhnw2-1j307X1kG0-00drys; Thu, 04
- Jun 2020 07:43:23 +0200
-To: Geert Uytterhoeven <geert@linux-m68k.org>,
- Navid Emamdoost <navid.emamdoost@gmail.com>, dmaengine@vger.kernel.org,
+Received: from [192.168.1.2] ([93.132.94.220]) by smtp.web.de (mrweb106
+ [213.165.67.124]) with ESMTPSA (Nemesis) id 1Mmymz-1jICyv3DZH-00jw0c; Thu, 04
+ Jun 2020 11:36:54 +0200
+To: Navid Emamdoost <navid.emamdoost@gmail.com>, dmaengine@vger.kernel.org,
  linux-arm-kernel@lists.infradead.org,
  linux-stm32@st-md-mailman.stormreply.com
 References: <873bfb31-52d8-7c9b-5480-4a94dc945307@web.de>
- <CAMuHMdU3wMT_pnh4NE9W9Su6qip_oObgd6OiRCwfuvouqjXKHA@mail.gmail.com>
+ <CAEkB2ET_gfNUAuoZHxiGWZX7d3CQaJYJJqS2Fspif5mFq4-xfA@mail.gmail.com>
 From: Markus Elfring <Markus.Elfring@web.de>
 Autocrypt: addr=Markus.Elfring@web.de; prefer-encrypt=mutual; keydata=
  mQINBFg2+xABEADBJW2hoUoFXVFWTeKbqqif8VjszdMkriilx90WB5c0ddWQX14h6w5bT/A8
@@ -74,44 +73,44 @@ Autocrypt: addr=Markus.Elfring@web.de; prefer-encrypt=mutual; keydata=
  Z/wsLiWTgKlih2QYULvW61XU+mWsK8+ZlYUrRMpkauN4CJ5yTpvp+Orcz5KixHQmc5tbkLWf
  x0n1QFc1xxJhbzN+r9djSGGN/5IBDfUqSANC8cWzHpWaHmSuU3JSAMB/N+yQjIad2ztTckZY
  pwT6oxng29LzZspTYUEzMz3wK2jQHw+U66qBFk8whA7B2uAU1QdGyPgahLYSOa4XAEGb6wbI FEE=
-Message-ID: <3eca8df2-22ae-06e0-5809-c11e459915d5@web.de>
-Date: Thu, 4 Jun 2020 07:43:14 +0200
+Message-ID: <f21a82e5-810e-b153-651a-9f347dfe0216@web.de>
+Date: Thu, 4 Jun 2020 11:36:52 +0200
 User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:68.0) Gecko/20100101
  Thunderbird/68.8.1
 MIME-Version: 1.0
-In-Reply-To: <CAMuHMdU3wMT_pnh4NE9W9Su6qip_oObgd6OiRCwfuvouqjXKHA@mail.gmail.com>
+In-Reply-To: <CAEkB2ET_gfNUAuoZHxiGWZX7d3CQaJYJJqS2Fspif5mFq4-xfA@mail.gmail.com>
 Content-Language: en-GB
-X-Provags-ID: V03:K1:KynnLDi6KBJoEMNje4oN1eTT3NNOBiFU90Q69446fFG5stNUo72
- FmPpM60Wdq/d742po5l185fsNTdEDnhKVsx7aalLxglMhzAV90r4HJIuNIXyDynopO8z3cO
- rSQX0gMpluWTpgfluIkxagVEvTHi5/jehR6PUJ27joHQ+P/nnEHIVLBgzdLIdNjGirWpTop
- L+EIi5rZtfUcE6YQgH6lA==
+X-Provags-ID: V03:K1:N3PPV2/zDO+XFyf+JdBnUlRlfc+sl+YC3VoGzVNwgF6oOISqYp0
+ N/B7w2TFwK+uJeBNhNE7BkKl12aa7AM1nyeCOtZLDtPyUIr8XNfQm/PTWxyJpeaFqR+So1W
+ Q0J4BAgPlSlhhfYcYbvSLbW8OPrPAsbEYbHtYAgNH75ry2HZYqAZlsfqhdTpfia9193H9V+
+ zo741yPmncRrz1pf838Gw==
 X-Spam-Flag: NO
-X-UI-Out-Filterresults: notjunk:1;V03:K0:qeH4pHbZvq8=:jmti1En2s8gckqqZeTZkwb
- S2shioru5R/hBxKDoGZEIcnMw/SwoBEyEPX059DjUeanDvCc7Fac9WiLMWPBD8AJQUSPGuKCk
- CDDxPa8qm2v90HBzoLF92WP64GNbts+YMlr8bjCcCdh695FEjG1lIiVC3sRvPiWn0+Du931ui
- Fc93bAeZ1RJKoEa+eXUzqCihuCA2Qz5ztiEE33lsfWcp7K+yQqeSxf7VlIlfOkLJTeRuzQwW8
- OStLEkZ9W5WOYscIZs8ETeG4nO9ydJWWU1btmxy4Ec7tZ4VPSAQMg2sFUET7c7ET0TgDZq7xf
- I0eZTkLk5qMx8LBtCHqZpK+1pTBEJQ/rqdhncwjgpdN95tCJMYGg+ShhPZbHtIe2V7c8Suka6
- Dm9jvBe8SPEhv3eI3JLAFf6jdnk5KcWsNzfPGqVKaar+/u9j1Y6JYyQ5bbJNxP6IcUpdWwnZ9
- cTG7tXpX4GjH5ZTGzHbLt4Qv7ZWRxT4y9OEeqiaDBXGLMMU+Q0JUxv+4WaVg1NDHX0zl3MTtn
- RLeV8vsBuIoaqOyowaC0eRaDtK87AbVtNxMl3JUZDzSVRB2CrK44HXXaufPqxYNmBspRqRRIH
- E9PzeatfbiLycom1n9IsyDLiTtDoIB5aX+OmRtwlCoN5HgfVKQL8qYDJ+fVcJI8kmaKRzI+Re
- Bx336G8dL+2iEjO7QoK5OtoEpmP9raxiivSBRUjTlDG7bfjs9G8QcMOWWApTMU8JoXtC2ItFi
- RcdPdFbO8Ire1AXb5qsh9qkouwcYqNv5s0Nz0B/71LCAsOP2vHlo9HYEtrwtNWNmvwhU1jNf8
- vm+Q/EEBUHuNZ8FIZhFM0+fyve7dLAoCyTyWvMgSd3C7LoeEsd28BlF+H+ubwTlzuQ7sv6x1D
- cFUF/gaF/PqL13J78WEXIu/OzIHvEhkXZqCT5gksVHT2c9d+qKgwXXwSt4NQMqj1rPavqqEMG
- yCHyi4RAyQ0ODjosyaRSavc60sRq95c5pmzfrEKKIP6pJ7uMFZsY7dolAPSF2b/M9K9zd2+I7
- UgzRX06sH1ZCiGQBTju0A4P04qVZjnnZyF1R9B/eE45meR+AgcQQb3c94sKFLloRj7MW+ac6Y
- /Q10piqqruZ/1Z7ae91DnKbn7gGsUnqQl+vC1yj2Gh1uvQFeNUXKA9zOYH3xPpA+8EHBi/c/8
- jinOPQC/S4lk4yUyY20RCgt3WNwTDlc+RAwzuBVvezI38NmgmZ1I+iE2zC0969K48rC+WTY04
- 0PvWapH4m8KRnD3AY
+X-UI-Out-Filterresults: notjunk:1;V03:K0:9z9yiXxRKJI=:I4PDmBw3lL71NuE6T+52vB
+ Iz9oaE11/xW0K9GQt7GJUPUVMLMFw3U+LiRYsXwCtPuONMFFyqRZVK+P6yhzQikx+oBlJRWwJ
+ H2TDZiERzlTMQAA+O86CVSpKQvxxDi9cJZ+hMmT0psW3SYX4ZCnQXS1lQP0jYFfq0cztOpF7G
+ 2d4sFWX9vOGMS0KrZHlPsHejrqNGS0icLC0T8ZC+eXEv3Ynro5RNduwgxQ+D7Iejebmm7OQ+2
+ f3ihgRQTiPOuFJEZ5AQfyc6VcO5dZsBs2ZgTNFpu37nlIxUluphnAmT2+sEO0me7PoVvzkTGj
+ +LRkaiK3ezT7643nOde+LhooQv/av9RdSw0s5ktCsB2/SXMMqyFGuZCMU6yg2tnoy/Uv8LqLu
+ 8Idmf73FJ/eDCDifWWA31hu+2/E8IqRnIplDfoRvmvlUDUVySIYhw9jKd8vQUW7FJMsVu6Xtw
+ 7Za3ONLGcWK0o5j0piIUuSi9q9mGVfXXnRuhJ4zLHhCJYxJweBEi4wmVbUbJqhiBWwCto5t/b
+ J61kG1gPgSGf/t66clKrv7E6UVjH6IftFr2BMQ1VGeauZemB/Jq9YxTZDrEGJjGF25g1ZElvQ
+ pTL4yxSnkFpBZoX+EugOUGsiERCGOvxOuUZgXKk7MpeyjPHqARoo5qSOFDTZ2WxIftMTSbsgr
+ RErZlQYEK3fcboVDm9SDxMtWqIKv1qBhpdbu99ChSIMK39/Ylb6++pqw3M7NvEpZToRBHWQiU
+ SQ0rKKi6ffFlPhSTWsE/WT0+awQ0ChDCEOsnOlWMUNmiuE581MIwUlhb1oWwdSgr1yUu5bU0b
+ Ub1yJVtL0rcTNzlmWvQbPiEjo7w+USU1jLzhykShUvWBX0YU6cqBW17GiFmLHZ1e+QL8+TxHM
+ sGHUgy2JNR6RUDQpZw4HyXkVf9SjYFS9vZpoAim5neE2jzUgM+l3VDmDMqJGuOu8wPHJVTtP5
+ F4AzsC1095kDq7Njhb9TO9g2v75mc4VM8XFLxedOI46ryJDujTtEHLrq81R/RSdo28baYafzn
+ Jik/EM3sjzoSD6kPpWdiLwOH3Cz6/Ax8wIsE+cXsfQDjustFC8lBc3v4J/0zCfqcLmxXXV99R
+ gi5yb1OR5vlXz79TZC/b60zV51OAytbgK0vhZIQfnyaHbGwp1cSLTzNmOpBH6PjobTycmmIC3
+ VueyrS6Ia3EQk4A46Tx/gwJM9os6+24HN7OYmwpu/a7fS0Yz/GHEF9L63iqXa3xPykw+pvjxG
+ yBahHtqgG/BbwTCE3
 Cc: Maxime Coquelin <mcoquelin.stm32@gmail.com>,
  kernel-janitors@vger.kernel.org, Kangjie Lu <kjlu@umn.edu>,
- linux-kernel@vger.kernel.org, Vinod Koul <vkoul@kernel.org>,
+ LKML <linux-kernel@vger.kernel.org>, Vinod Koul <vkoul@kernel.org>,
  Navid Emamdoost <emamd001@umn.edu>, Qiushi Wu <wu000273@umn.edu>,
  Stephen McCamant <smccaman@umn.edu>, Dan Williams <dan.j.williams@intel.com>
-Subject: Re: [Linux-stm32] dmaengine: stm32-mdma: call pm_runtime_put if
- pm_runtime_get_sync fails
+Subject: Re: [Linux-stm32] [PATCH] dmaengine: stm32-dmamux: Fix
+ pm_runtime_get_sync() failure cases
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -123,31 +122,28 @@ List-Post: <mailto:linux-stm32@st-md-mailman.stormreply.com>
 List-Help: <mailto:linux-stm32-request@st-md-mailman.stormreply.com?subject=help>
 List-Subscribe: <https://st-md-mailman.stormreply.com/mailman/listinfo/linux-stm32>, 
  <mailto:linux-stm32-request@st-md-mailman.stormreply.com?subject=subscribe>
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: base64
+Content-Type: text/plain; charset="us-ascii"
+Content-Transfer-Encoding: 7bit
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
-Pj4+IENhbGxpbmcgcG1fcnVudGltZV9nZXRfc3luYyBpbmNyZW1lbnRzIHRoZSBjb3VudGVyIGV2
-ZW4gaW4gY2FzZSBvZgo+Pj4gZmFpbHVyZSwgY2F1c2luZyBpbmNvcnJlY3QgcmVmIGNvdW50LiBD
-YWxsIHBtX3J1bnRpbWVfcHV0IGlmCj4+PiBwbV9ydW50aW1lX2dldF9zeW5jIGZhaWxzLgo+Pgo+
-PiBJcyBpdCBhcHByb3ByaWF0ZSB0byBjb3B5IGEgc2VudGVuY2UgZnJvbSB0aGUgY2hhbmdlIGRl
-c2NyaXB0aW9uCj4+IGludG8gdGhlIHBhdGNoIHN1YmplY3Q/Cj4+Cj4+IEhvdyBkbyB5b3UgdGhp
-bmsgYWJvdXQgYSB3b3JkaW5nIHZhcmlhbnQgbGlrZSB0aGUgZm9sbG93aW5nPwo+Pgo+PiAgICBU
-aGUgUE0gcnVudGltZSByZWZlcmVuY2UgY291bnRlciBpcyBnZW5lcmFsbHkgaW5jcmVtZW50ZWQg
-YnkgYSBjYWxsIG9mCj4+ICAgIHRoZSBmdW5jdGlvbiDigJxwbV9ydW50aW1lX2dldF9zeW5j4oCd
-Lgo+PiAgICBUaHVzIGNhbGwgdGhlIGZ1bmN0aW9uIOKAnHBtX3J1bnRpbWVfcHV04oCdIGFsc28g
-aW4gdHdvIGVycm9yIGNhc2VzCj4+ICAgIHRvIGtlZXAgdGhlIHJlZmVyZW5jZSBjb3VudGluZyBj
-b25zaXN0ZW50Lgo+Cj4gSU1ITyB0aGUgaW1wb3J0YW50IHBhcnQgaXMgImV2ZW4gaW4gY2FzZSBv
-ZiBmYWlsdXJlIiwgd2hpY2ggeW91IGRyb3BwZWQuCj4gTWlzc2luZyB0aGF0IHBvaW50IHdhcyB0
-aGUgcm9vdCBjYXVzZSBvZiB0aGUgaXNzdWUgYmVpbmcgZml4ZWQuCj4gSGVuY2UgSSBwcmVmZXIg
-dGhlIG9yaWdpbmFsIGRlc2NyaXB0aW9uLCBGV0lXLgoKV291bGQgeW91IGxpa2UgdG8gY29tbWVu
-dCBhbnkgbW9yZSBvZiB0aGUgcHJlc2VudGVkIHBhdGNoIHJldmlldyBjb25jZXJucz8KCkNhbiBp
-dCBtYWtlIHNlbnNlIHRvIGNvbWJpbmUgYW55IGFkanVzdG1lbnRzIGludG8gYSBzaW5nbGUgcGF0
-Y2gKYWNjb3JkaW5nIHRvIHRoZSBkaXNjdXNzZWQgc29mdHdhcmUgdHJhbnNmb3JtYXRpb24gcGF0
-dGVybj8KaHR0cHM6Ly9sb3JlLmtlcm5lbC5vcmcvcGF0Y2h3b3JrL3Byb2plY3QvbGttbC9saXN0
-Lz9zdWJtaXR0ZXI9MjY1NDQmc3RhdGU9KiZxPWVuZ2luZSUzQStzdG0zMiZhcmNoaXZlPWJvdGgK
-ClJlZ2FyZHMsCk1hcmt1cwpfX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19f
-X19fX19fXwpMaW51eC1zdG0zMiBtYWlsaW5nIGxpc3QKTGludXgtc3RtMzJAc3QtbWQtbWFpbG1h
-bi5zdG9ybXJlcGx5LmNvbQpodHRwczovL3N0LW1kLW1haWxtYW4uc3Rvcm1yZXBseS5jb20vbWFp
-bG1hbi9saXN0aW5mby9saW51eC1zdG0zMgo=
+> Please stop proposing rewording on my patches!
+
+I find it interesting that you got into the mood to choose
+another patch subject variant.
+https://lore.kernel.org/patchwork/patch/1252131/
+https://lore.kernel.org/dmaengine/20200603193648.19190-1-navid.emamdoost@gmail.com/
+
+
+> I will consider updating my patches only if a maintainer asks for it.
+
+Now I am curious if you would like take my patch review request into account
+to avoid a typo there.
+How will the quality evolve for such commit messages?
+
+Regards,
+Markus
+_______________________________________________
+Linux-stm32 mailing list
+Linux-stm32@st-md-mailman.stormreply.com
+https://st-md-mailman.stormreply.com/mailman/listinfo/linux-stm32
