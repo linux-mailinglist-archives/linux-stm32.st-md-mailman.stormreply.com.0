@@ -2,45 +2,45 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id 8D0251EF741
-	for <lists+linux-stm32@lfdr.de>; Fri,  5 Jun 2020 14:25:27 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id E8E581EF74B
+	for <lists+linux-stm32@lfdr.de>; Fri,  5 Jun 2020 14:25:48 +0200 (CEST)
 Received: from ip-172-31-3-76.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 3D5E1C36B22;
-	Fri,  5 Jun 2020 12:25:27 +0000 (UTC)
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id B26D5C36B22;
+	Fri,  5 Jun 2020 12:25:48 +0000 (UTC)
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
  (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 7708AC36B0B
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 1EEF2C36B0B
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Fri,  5 Jun 2020 12:25:25 +0000 (UTC)
+ Fri,  5 Jun 2020 12:25:47 +0000 (UTC)
 Received: from sasha-vm.mshome.net (c-73-47-72-35.hsd1.nh.comcast.net
  [73.47.72.35])
  (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by mail.kernel.org (Postfix) with ESMTPSA id 210A8207D5;
- Fri,  5 Jun 2020 12:25:23 +0000 (UTC)
+ by mail.kernel.org (Postfix) with ESMTPSA id F17072075B;
+ Fri,  5 Jun 2020 12:25:44 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
- s=default; t=1591359923;
- bh=jm6x0RRvrOOaubi6Ix7xcoeaXwJB5qwx91pe4/tNY94=;
+ s=default; t=1591359945;
+ bh=pLoF6CctGEQJ++vNC1sEPzcqQMNSpnwUdvyBSVNNa/A=;
  h=From:To:Cc:Subject:Date:In-Reply-To:References:From;
- b=1lkvJca1AnWOFu1AJROaGIlW0WmR4izYgJGm+6k+0RCTiiYAViJjPKVA102jEjFc/
- tKxIwMDdfFsRo/TML8t2EiDB6tRrlaVQmXZtv1ZmtihuwZTtx9KkxO3PBGp7dMfP6+
- ojBB61UUSFhmabKDQ4Zljy8IOhBt6fsoEPmL8VEU=
+ b=viD7xH2llsmyz3vCEfzjxxucc9KKYU3dixjNeBDFKWKNPbaCZYRUVCjb1SEES2SVJ
+ cqwKfi6ckI8BRSM7MOxUeDhHpic765XX4gfsxGddDrTx8sROe/102bWh5KakRbxCiw
+ fsFUwOEfgedxEPQI+hoSpNEgSAH8dPkV5z40zISY=
 From: Sasha Levin <sashal@kernel.org>
 To: linux-kernel@vger.kernel.org,
 	stable@vger.kernel.org
-Date: Fri,  5 Jun 2020 08:25:04 -0400
-Message-Id: <20200605122517.2882338-5-sashal@kernel.org>
+Date: Fri,  5 Jun 2020 08:25:30 -0400
+Message-Id: <20200605122540.2882539-4-sashal@kernel.org>
 X-Mailer: git-send-email 2.25.1
-In-Reply-To: <20200605122517.2882338-1-sashal@kernel.org>
-References: <20200605122517.2882338-1-sashal@kernel.org>
+In-Reply-To: <20200605122540.2882539-1-sashal@kernel.org>
+References: <20200605122540.2882539-1-sashal@kernel.org>
 MIME-Version: 1.0
 X-stable: review
 X-Patchwork-Hint: Ignore
 Cc: Sasha Levin <sashal@kernel.org>, Fugang Duan <fugang.duan@nxp.com>,
  netdev@vger.kernel.org, linux-stm32@st-md-mailman.stormreply.com,
  "David S . Miller" <davem@davemloft.net>, linux-arm-kernel@lists.infradead.org
-Subject: [Linux-stm32] [PATCH AUTOSEL 5.6 05/17] net: stmmac: enable
+Subject: [Linux-stm32] [PATCH AUTOSEL 5.4 04/14] net: stmmac: enable
 	timestamp snapshot for required PTP packets in dwmac v5.10a
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
@@ -90,7 +90,7 @@ PgotLS0KIGRyaXZlcnMvbmV0L2V0aGVybmV0L3N0bWljcm8vc3RtbWFjL3N0bW1hY19tYWluLmMg
 fCAzICsrLQogMSBmaWxlIGNoYW5nZWQsIDIgaW5zZXJ0aW9ucygrKSwgMSBkZWxldGlvbigtKQoK
 ZGlmZiAtLWdpdCBhL2RyaXZlcnMvbmV0L2V0aGVybmV0L3N0bWljcm8vc3RtbWFjL3N0bW1hY19t
 YWluLmMgYi9kcml2ZXJzL25ldC9ldGhlcm5ldC9zdG1pY3JvL3N0bW1hYy9zdG1tYWNfbWFpbi5j
-CmluZGV4IGQ1NjQ0NTkyOTBjZS4uYmNiMzkwMTJkMzRkIDEwMDY0NAotLS0gYS9kcml2ZXJzL25l
+CmluZGV4IDE2MjM1MTZlZmIxNy4uOTgyYmU3NWZkZTgzIDEwMDY0NAotLS0gYS9kcml2ZXJzL25l
 dC9ldGhlcm5ldC9zdG1pY3JvL3N0bW1hYy9zdG1tYWNfbWFpbi5jCisrKyBiL2RyaXZlcnMvbmV0
 L2V0aGVybmV0L3N0bWljcm8vc3RtbWFjL3N0bW1hY19tYWluLmMKQEAgLTYzMCw3ICs2MzAsOCBA
 QCBzdGF0aWMgaW50IHN0bW1hY19od3RzdGFtcF9zZXQoc3RydWN0IG5ldF9kZXZpY2UgKmRldiwg
