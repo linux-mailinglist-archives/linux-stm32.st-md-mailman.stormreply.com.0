@@ -2,35 +2,35 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id E58251F22C7
-	for <lists+linux-stm32@lfdr.de>; Tue,  9 Jun 2020 01:10:59 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id E94F41F22C8
+	for <lists+linux-stm32@lfdr.de>; Tue,  9 Jun 2020 01:11:01 +0200 (CEST)
 Received: from ip-172-31-3-76.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 2C3AEC36B23;
-	Mon,  8 Jun 2020 23:10:59 +0000 (UTC)
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id B5DF2C36B22;
+	Mon,  8 Jun 2020 23:11:01 +0000 (UTC)
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
  (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 1826AC36B0B
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 294E3C36B22
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Mon,  8 Jun 2020 23:10:58 +0000 (UTC)
+ Mon,  8 Jun 2020 23:10:59 +0000 (UTC)
 Received: from sasha-vm.mshome.net (c-73-47-72-35.hsd1.nh.comcast.net
  [73.47.72.35])
  (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by mail.kernel.org (Postfix) with ESMTPSA id E9D7C208C3;
- Mon,  8 Jun 2020 23:10:55 +0000 (UTC)
+ by mail.kernel.org (Postfix) with ESMTPSA id 2DC3020CC7;
+ Mon,  8 Jun 2020 23:10:57 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
- s=default; t=1591657856;
- bh=YnT7AuoKvhjR1CyujW91C6E7uatjm8YJ/uf+9+UXUxA=;
+ s=default; t=1591657858;
+ bh=ulf2SztqD35ITArIHACtWdmO6AcDVM1Uqldkqoc+rQg=;
  h=From:To:Cc:Subject:Date:In-Reply-To:References:From;
- b=mH1Sa5CY5ci70w889QBr061dnedKx02/ejvuX9rBzHRpCoQubRcW1wiJzrEwOrto+
- +71wC90R362hKxL++tjtDdwNz+WXH1lm2IwjzvGXrK7FhilAXyEU9O8gnlmvh9zfYf
- HQ3CeW+RUCjT2QdjVP8BUQBcvl/54FT149DUjmLE=
+ b=De+4KpYGNwnXl/FdJsiQZUsI4wC686zjANFRFDfRkOO1SkcbUGc2QBzqfVjmkeC6u
+ JEhRlqDuz2MWW1rWE3teUJrMNrByx38Cfncn5Sl9ux3kw6AEM6S18uR5P410LtuXfX
+ xNzZol4PgvAWHb9muN396RV9Bn40AFkm5wKtkC2Q=
 From: Sasha Levin <sashal@kernel.org>
 To: linux-kernel@vger.kernel.org,
 	stable@vger.kernel.org
-Date: Mon,  8 Jun 2020 19:05:13 -0400
-Message-Id: <20200608230607.3361041-220-sashal@kernel.org>
+Date: Mon,  8 Jun 2020 19:05:14 -0400
+Message-Id: <20200608230607.3361041-221-sashal@kernel.org>
 X-Mailer: git-send-email 2.25.1
 In-Reply-To: <20200608230607.3361041-1-sashal@kernel.org>
 References: <20200608230607.3361041-1-sashal@kernel.org>
@@ -40,8 +40,8 @@ X-Patchwork-Hint: Ignore
 Cc: Sasha Levin <sashal@kernel.org>, Herbert Xu <herbert@gondor.apana.org.au>,
  linux-crypto@vger.kernel.org, linux-stm32@st-md-mailman.stormreply.com,
  linux-arm-kernel@lists.infradead.org
-Subject: [Linux-stm32] [PATCH AUTOSEL 5.7 220/274] crypto: stm32/crc32 - fix
-	ext4 chksum BUG_ON()
+Subject: [Linux-stm32] [PATCH AUTOSEL 5.7 221/274] crypto: stm32/crc32 - fix
+	run-time self test issue.
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -60,10 +60,13 @@ Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
 From: Nicolas Toromanoff <nicolas.toromanoff@st.com>
 
-[ Upstream commit 49c2c082e00e0bc4f5cbb7c21c7f0f873b35ab09 ]
+[ Upstream commit a8cc3128bf2c01c4d448fe17149e87132113b445 ]
 
-Allow use of crc_update without prior call to crc_init.
-And change (and fix) driver to use CRC device even on unaligned buffers.
+Fix wrong crc32 initialisation value:
+"alg: shash: stm32_crc32 test failed (wrong result) on test vector 0,
+cfg="init+update+final aligned buffer"
+cra_name="crc32c" expects an init value of 0XFFFFFFFF,
+cra_name="crc32" expects an init value of 0.
 
 Fixes: b51dbe90912a ("crypto: stm32 - Support for STM32 CRC32 crypto module")
 
@@ -71,168 +74,43 @@ Signed-off-by: Nicolas Toromanoff <nicolas.toromanoff@st.com>
 Signed-off-by: Herbert Xu <herbert@gondor.apana.org.au>
 Signed-off-by: Sasha Levin <sashal@kernel.org>
 ---
- drivers/crypto/stm32/stm32-crc32.c | 98 +++++++++++++++---------------
- 1 file changed, 48 insertions(+), 50 deletions(-)
+ drivers/crypto/stm32/stm32-crc32.c | 6 +++---
+ 1 file changed, 3 insertions(+), 3 deletions(-)
 
 diff --git a/drivers/crypto/stm32/stm32-crc32.c b/drivers/crypto/stm32/stm32-crc32.c
-index 8e92e4ac79f1..c6156bf6c603 100644
+index c6156bf6c603..1c3e411b7acb 100644
 --- a/drivers/crypto/stm32/stm32-crc32.c
 +++ b/drivers/crypto/stm32/stm32-crc32.c
-@@ -28,8 +28,10 @@
+@@ -28,10 +28,10 @@
  
  /* Registers values */
  #define CRC_CR_RESET            BIT(0)
--#define CRC_CR_REVERSE          (BIT(7) | BIT(6) | BIT(5))
- #define CRC_INIT_DEFAULT        0xFFFFFFFF
-+#define CRC_CR_REV_IN_WORD      (BIT(6) | BIT(5))
-+#define CRC_CR_REV_IN_BYTE      BIT(5)
-+#define CRC_CR_REV_OUT          BIT(7)
+-#define CRC_INIT_DEFAULT        0xFFFFFFFF
+ #define CRC_CR_REV_IN_WORD      (BIT(6) | BIT(5))
+ #define CRC_CR_REV_IN_BYTE      BIT(5)
+ #define CRC_CR_REV_OUT          BIT(7)
++#define CRC32C_INIT_DEFAULT     0xFFFFFFFF
  
  #define CRC_AUTOSUSPEND_DELAY	50
  
-@@ -38,8 +40,6 @@ struct stm32_crc {
- 	struct device    *dev;
- 	void __iomem     *regs;
- 	struct clk       *clk;
--	u8               pending_data[sizeof(u32)];
--	size_t           nb_pending_bytes;
- };
- 
- struct stm32_crc_list {
-@@ -59,7 +59,6 @@ struct stm32_crc_ctx {
- 
- struct stm32_crc_desc_ctx {
- 	u32    partial; /* crc32c: partial in first 4 bytes of that struct */
--	struct stm32_crc *crc;
- };
- 
- static int stm32_crc32_cra_init(struct crypto_tfm *tfm)
-@@ -99,25 +98,22 @@ static int stm32_crc_init(struct shash_desc *desc)
- 	struct stm32_crc *crc;
- 
- 	spin_lock_bh(&crc_list.lock);
--	list_for_each_entry(crc, &crc_list.dev_list, list) {
--		ctx->crc = crc;
--		break;
--	}
-+	crc = list_first_entry(&crc_list.dev_list, struct stm32_crc, list);
- 	spin_unlock_bh(&crc_list.lock);
- 
--	pm_runtime_get_sync(ctx->crc->dev);
-+	pm_runtime_get_sync(crc->dev);
- 
- 	/* Reset, set key, poly and configure in bit reverse mode */
--	writel_relaxed(bitrev32(mctx->key), ctx->crc->regs + CRC_INIT);
--	writel_relaxed(bitrev32(mctx->poly), ctx->crc->regs + CRC_POL);
--	writel_relaxed(CRC_CR_RESET | CRC_CR_REVERSE, ctx->crc->regs + CRC_CR);
-+	writel_relaxed(bitrev32(mctx->key), crc->regs + CRC_INIT);
-+	writel_relaxed(bitrev32(mctx->poly), crc->regs + CRC_POL);
-+	writel_relaxed(CRC_CR_RESET | CRC_CR_REV_IN_WORD | CRC_CR_REV_OUT,
-+		       crc->regs + CRC_CR);
- 
- 	/* Store partial result */
--	ctx->partial = readl_relaxed(ctx->crc->regs + CRC_DR);
--	ctx->crc->nb_pending_bytes = 0;
-+	ctx->partial = readl_relaxed(crc->regs + CRC_DR);
- 
--	pm_runtime_mark_last_busy(ctx->crc->dev);
--	pm_runtime_put_autosuspend(ctx->crc->dev);
-+	pm_runtime_mark_last_busy(crc->dev);
-+	pm_runtime_put_autosuspend(crc->dev);
- 
- 	return 0;
- }
-@@ -126,31 +122,49 @@ static int stm32_crc_update(struct shash_desc *desc, const u8 *d8,
- 			    unsigned int length)
+@@ -65,7 +65,7 @@ static int stm32_crc32_cra_init(struct crypto_tfm *tfm)
  {
- 	struct stm32_crc_desc_ctx *ctx = shash_desc_ctx(desc);
--	struct stm32_crc *crc = ctx->crc;
--	u32 *d32;
--	unsigned int i;
-+	struct stm32_crc_ctx *mctx = crypto_shash_ctx(desc->tfm);
-+	struct stm32_crc *crc;
-+
-+	spin_lock_bh(&crc_list.lock);
-+	crc = list_first_entry(&crc_list.dev_list, struct stm32_crc, list);
-+	spin_unlock_bh(&crc_list.lock);
+ 	struct stm32_crc_ctx *mctx = crypto_tfm_ctx(tfm);
  
- 	pm_runtime_get_sync(crc->dev);
- 
--	if (unlikely(crc->nb_pending_bytes)) {
--		while (crc->nb_pending_bytes != sizeof(u32) && length) {
--			/* Fill in pending data */
--			crc->pending_data[crc->nb_pending_bytes++] = *(d8++);
-+	/*
-+	 * Restore previously calculated CRC for this context as init value
-+	 * Restore polynomial configuration
-+	 * Configure in register for word input data,
-+	 * Configure out register in reversed bit mode data.
-+	 */
-+	writel_relaxed(bitrev32(ctx->partial), crc->regs + CRC_INIT);
-+	writel_relaxed(bitrev32(mctx->poly), crc->regs + CRC_POL);
-+	writel_relaxed(CRC_CR_RESET | CRC_CR_REV_IN_WORD | CRC_CR_REV_OUT,
-+		       crc->regs + CRC_CR);
-+
-+	if (d8 != PTR_ALIGN(d8, sizeof(u32))) {
-+		/* Configure for byte data */
-+		writel_relaxed(CRC_CR_REV_IN_BYTE | CRC_CR_REV_OUT,
-+			       crc->regs + CRC_CR);
-+		while (d8 != PTR_ALIGN(d8, sizeof(u32)) && length) {
-+			writeb_relaxed(*d8++, crc->regs + CRC_DR);
- 			length--;
- 		}
--
--		if (crc->nb_pending_bytes == sizeof(u32)) {
--			/* Process completed pending data */
--			writel_relaxed(*(u32 *)crc->pending_data,
--				       crc->regs + CRC_DR);
--			crc->nb_pending_bytes = 0;
--		}
-+		/* Configure for word data */
-+		writel_relaxed(CRC_CR_REV_IN_WORD | CRC_CR_REV_OUT,
-+			       crc->regs + CRC_CR);
- 	}
- 
--	d32 = (u32 *)d8;
--	for (i = 0; i < length >> 2; i++)
--		/* Process 32 bits data */
--		writel_relaxed(*(d32++), crc->regs + CRC_DR);
-+	for (; length >= sizeof(u32); d8 += sizeof(u32), length -= sizeof(u32))
-+		writel_relaxed(*((u32 *)d8), crc->regs + CRC_DR);
-+
-+	if (length) {
-+		/* Configure for byte data */
-+		writel_relaxed(CRC_CR_REV_IN_BYTE | CRC_CR_REV_OUT,
-+			       crc->regs + CRC_CR);
-+		while (length--)
-+			writeb_relaxed(*d8++, crc->regs + CRC_DR);
-+	}
- 
- 	/* Store partial result */
- 	ctx->partial = readl_relaxed(crc->regs + CRC_DR);
-@@ -158,22 +172,6 @@ static int stm32_crc_update(struct shash_desc *desc, const u8 *d8,
- 	pm_runtime_mark_last_busy(crc->dev);
- 	pm_runtime_put_autosuspend(crc->dev);
- 
--	/* Check for pending data (non 32 bits) */
--	length &= 3;
--	if (likely(!length))
--		return 0;
--
--	if ((crc->nb_pending_bytes + length) >= sizeof(u32)) {
--		/* Shall not happen */
--		dev_err(crc->dev, "Pending data overflow\n");
--		return -EINVAL;
--	}
--
--	d8 = (const u8 *)d32;
--	for (i = 0; i < length; i++)
--		/* Store pending data */
--		crc->pending_data[crc->nb_pending_bytes++] = *(d8++);
--
+-	mctx->key = CRC_INIT_DEFAULT;
++	mctx->key = 0;
+ 	mctx->poly = CRC32_POLY_LE;
  	return 0;
  }
+@@ -74,7 +74,7 @@ static int stm32_crc32c_cra_init(struct crypto_tfm *tfm)
+ {
+ 	struct stm32_crc_ctx *mctx = crypto_tfm_ctx(tfm);
  
+-	mctx->key = CRC_INIT_DEFAULT;
++	mctx->key = CRC32C_INIT_DEFAULT;
+ 	mctx->poly = CRC32C_POLY_LE;
+ 	return 0;
+ }
 -- 
 2.25.1
 
