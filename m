@@ -2,46 +2,60 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id E50421F24A5
-	for <lists+linux-stm32@lfdr.de>; Tue,  9 Jun 2020 01:24:32 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id AEEA21F3A35
+	for <lists+linux-stm32@lfdr.de>; Tue,  9 Jun 2020 13:58:47 +0200 (CEST)
 Received: from ip-172-31-3-76.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id AC19AC36B26;
-	Mon,  8 Jun 2020 23:24:32 +0000 (UTC)
-Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
- (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 04552C36B21;
+	Tue,  9 Jun 2020 11:58:47 +0000 (UTC)
+Received: from mx07-00178001.pphosted.com (mx07-00178001.pphosted.com
+ [62.209.51.94])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id D3515C36B0B
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 979F3C36B0B
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Mon,  8 Jun 2020 23:24:29 +0000 (UTC)
-Received: from sasha-vm.mshome.net (c-73-47-72-35.hsd1.nh.comcast.net
- [73.47.72.35])
- (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
- (No client certificate requested)
- by mail.kernel.org (Postfix) with ESMTPSA id D05EC2087E;
- Mon,  8 Jun 2020 23:24:27 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
- s=default; t=1591658668;
- bh=JSyUSw4bTz9KQOzqWW/fuVJIcakQ6IBfFtwiMOHZIDU=;
- h=From:To:Cc:Subject:Date:In-Reply-To:References:From;
- b=MgF/oicMaWpL/CHCCLe7hn8asIQsu79aRP1QCNcn6t2vci7O5faJ16vtjHsygXFET
- jQghewutg6A4rs5K5YlsxoUuSaslia2LF8v3Dm6Zz8DELMKyvrlN8I12x+EqYV7jjw
- FaELqVdpA1Pmo3UpN3sp7j3UObqNnHY/lCmfiPc0=
-From: Sasha Levin <sashal@kernel.org>
-To: linux-kernel@vger.kernel.org,
-	stable@vger.kernel.org
-Date: Mon,  8 Jun 2020 19:22:15 -0400
-Message-Id: <20200608232238.3368589-83-sashal@kernel.org>
-X-Mailer: git-send-email 2.25.1
-In-Reply-To: <20200608232238.3368589-1-sashal@kernel.org>
-References: <20200608232238.3368589-1-sashal@kernel.org>
+ Tue,  9 Jun 2020 11:58:44 +0000 (UTC)
+Received: from pps.filterd (m0046668.ppops.net [127.0.0.1])
+ by mx07-00178001.pphosted.com (8.16.0.42/8.16.0.42) with SMTP id
+ 059Br24P027366; Tue, 9 Jun 2020 13:58:30 +0200
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=st.com;
+ h=from : to : cc : subject
+ : date : message-id : mime-version : content-type; s=STMicroelectronics;
+ bh=TPxI/Mv8K3tdZYuVgGADE6W34oFKrPAwwDxlJkbFzfc=;
+ b=Y1tuZNnu5a6efUw6/Dft/wGewHt4Irnk0K111FXosdcPTp6s4BWXKR6maDXsC4ObZ0+k
+ 9OJirEg3qlt8s4Yj9vhD8LDrsBqxfQuAwxDaPKJEaIVSsHYHeroAL8iY3sD8b8aRjoCY
+ 7N3MoxPXhggVy2Sg4y1ut5N4EgYiLaEGb/erz2FNP1QgOg5rFnMc4F0iWRxEHXsDfv+5
+ GaAIaoUtz0/4S93zDMwVnjvgcSiI9eaN7Z5PRAEdXKrVLEFghuq/HeQTCU+7j+vde4wJ
+ B6SxFP9nACJzuYpQhUoj+M6Y5mSnfVZ4qRWr27bg6yFkofV1L/uvkS+6jpFv4p43nzeE aw== 
+Received: from beta.dmz-eu.st.com (beta.dmz-eu.st.com [164.129.1.35])
+ by mx07-00178001.pphosted.com with ESMTP id 31h8ku8srs-1
+ (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
+ Tue, 09 Jun 2020 13:58:30 +0200
+Received: from euls16034.sgp.st.com (euls16034.sgp.st.com [10.75.44.20])
+ by beta.dmz-eu.st.com (STMicroelectronics) with ESMTP id B2A52100034;
+ Tue,  9 Jun 2020 13:58:28 +0200 (CEST)
+Received: from Webmail-eu.st.com (sfhdag3node3.st.com [10.75.127.9])
+ by euls16034.sgp.st.com (STMicroelectronics) with ESMTP id 8157E2ACA01;
+ Tue,  9 Jun 2020 13:58:28 +0200 (CEST)
+Received: from localhost (10.75.127.49) by SFHDAG3NODE3.st.com (10.75.127.9)
+ with Microsoft SMTP Server (TLS) id 15.0.1347.2; Tue, 9 Jun 2020 13:58:27
+ +0200
+From: Benjamin Gaignard <benjamin.gaignard@st.com>
+To: <hugues.fruchet@st.com>, <mchehab@kernel.org>, <mcoquelin.stm32@gmail.com>,
+ <alexandre.torgue@st.com>
+Date: Tue, 9 Jun 2020 13:58:22 +0200
+Message-ID: <20200609115825.10748-1-benjamin.gaignard@st.com>
+X-Mailer: git-send-email 2.15.0
 MIME-Version: 1.0
-X-stable: review
-X-Patchwork-Hint: Ignore
-Cc: Sasha Levin <sashal@kernel.org>, Herbert Xu <herbert@gondor.apana.org.au>,
- linux-crypto@vger.kernel.org, linux-stm32@st-md-mailman.stormreply.com,
- linux-arm-kernel@lists.infradead.org
-Subject: [Linux-stm32] [PATCH AUTOSEL 4.19 083/106] crypto: stm32/crc32 -
-	fix multi-instance
+X-Originating-IP: [10.75.127.49]
+X-ClientProxiedBy: SFHDAG3NODE2.st.com (10.75.127.8) To SFHDAG3NODE3.st.com
+ (10.75.127.9)
+X-Proofpoint-Virus-Version: vendor=fsecure engine=2.50.10434:6.0.216, 18.0.687
+ definitions=2020-06-09_03:2020-06-09,
+ 2020-06-09 signatures=0
+Cc: vincent.guittot@linaro.org, rjw@rjwysocki.net, linux-kernel@vger.kernel.org,
+ linux-stm32@st-md-mailman.stormreply.com, valentin.schneider@arm.com,
+ linux-arm-kernel@lists.infradead.org, linux-media@vger.kernel.org
+Subject: [Linux-stm32] [PATCH v5 0/3] DCMI set minimum cpufreq requirement
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -58,122 +72,37 @@ Content-Transfer-Encoding: 7bit
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
-From: Nicolas Toromanoff <nicolas.toromanoff@st.com>
+This series allow to STM32 camera interface (DCMI) to require a minimum
+frequency to the CPUs before start streaming frames from the sensor.
+The minimum frequency requirement is provided in the devide-tree node.
 
-[ Upstream commit 10b89c43a64eb0d236903b79a3bc9d8f6cbfd9c7 ]
+Setting a minimum frequency for the CPUs is needed to ensure a quick handling
+of the interrupts between two sensor frames and avoid dropping half of them.
 
-Ensure CRC algorithm is registered only once in crypto framework when
-there are several instances of CRC devices.
+version 5:
+- add a mutex to protect dcmi_irq_notifier_notify()
+- register notifier a probe time
 
-Update the CRC device list management to avoid that only the first CRC
-instance is used.
+version 4:
+- simplify irq affinity handling by using only dcmi_irq_notifier_notify() 
 
-Fixes: b51dbe90912a ("crypto: stm32 - Support for STM32 CRC32 crypto module")
+version 3:
+- add a cpumask field to track boosted CPUs
+- add irq_affinity_notify callback
+- protect cpumask field with a mutex 
 
-Signed-off-by: Nicolas Toromanoff <nicolas.toromanoff@st.com>
-Signed-off-by: Herbert Xu <herbert@gondor.apana.org.au>
-Signed-off-by: Sasha Levin <sashal@kernel.org>
----
- drivers/crypto/stm32/stm32_crc32.c | 48 ++++++++++++++++++++++--------
- 1 file changed, 36 insertions(+), 12 deletions(-)
+Benjamin Gaignard (3):
+  dt-bindings: media: stm32-dcmi: Add DCMI min frequency property
+  media: stm32-dcmi: Set minimum cpufreq requirement
+  ARM: dts: stm32: Set DCMI frequency requirement for stm32mp15x
 
-diff --git a/drivers/crypto/stm32/stm32_crc32.c b/drivers/crypto/stm32/stm32_crc32.c
-index c5ad83ad2f72..47d31335c2d4 100644
---- a/drivers/crypto/stm32/stm32_crc32.c
-+++ b/drivers/crypto/stm32/stm32_crc32.c
-@@ -93,16 +93,29 @@ static int stm32_crc_setkey(struct crypto_shash *tfm, const u8 *key,
- 	return 0;
- }
- 
--static int stm32_crc_init(struct shash_desc *desc)
-+static struct stm32_crc *stm32_crc_get_next_crc(void)
- {
--	struct stm32_crc_desc_ctx *ctx = shash_desc_ctx(desc);
--	struct stm32_crc_ctx *mctx = crypto_shash_ctx(desc->tfm);
- 	struct stm32_crc *crc;
- 
- 	spin_lock_bh(&crc_list.lock);
- 	crc = list_first_entry(&crc_list.dev_list, struct stm32_crc, list);
-+	if (crc)
-+		list_move_tail(&crc->list, &crc_list.dev_list);
- 	spin_unlock_bh(&crc_list.lock);
- 
-+	return crc;
-+}
-+
-+static int stm32_crc_init(struct shash_desc *desc)
-+{
-+	struct stm32_crc_desc_ctx *ctx = shash_desc_ctx(desc);
-+	struct stm32_crc_ctx *mctx = crypto_shash_ctx(desc->tfm);
-+	struct stm32_crc *crc;
-+
-+	crc = stm32_crc_get_next_crc();
-+	if (!crc)
-+		return -ENODEV;
-+
- 	pm_runtime_get_sync(crc->dev);
- 
- 	/* Reset, set key, poly and configure in bit reverse mode */
-@@ -127,9 +140,9 @@ static int stm32_crc_update(struct shash_desc *desc, const u8 *d8,
- 	struct stm32_crc_ctx *mctx = crypto_shash_ctx(desc->tfm);
- 	struct stm32_crc *crc;
- 
--	spin_lock_bh(&crc_list.lock);
--	crc = list_first_entry(&crc_list.dev_list, struct stm32_crc, list);
--	spin_unlock_bh(&crc_list.lock);
-+	crc = stm32_crc_get_next_crc();
-+	if (!crc)
-+		return -ENODEV;
- 
- 	pm_runtime_get_sync(crc->dev);
- 
-@@ -202,6 +215,8 @@ static int stm32_crc_digest(struct shash_desc *desc, const u8 *data,
- 	return stm32_crc_init(desc) ?: stm32_crc_finup(desc, data, length, out);
- }
- 
-+static unsigned int refcnt;
-+static DEFINE_MUTEX(refcnt_lock);
- static struct shash_alg algs[] = {
- 	/* CRC-32 */
- 	{
-@@ -294,12 +309,18 @@ static int stm32_crc_probe(struct platform_device *pdev)
- 	list_add(&crc->list, &crc_list.dev_list);
- 	spin_unlock(&crc_list.lock);
- 
--	ret = crypto_register_shashes(algs, ARRAY_SIZE(algs));
--	if (ret) {
--		dev_err(dev, "Failed to register\n");
--		clk_disable_unprepare(crc->clk);
--		return ret;
-+	mutex_lock(&refcnt_lock);
-+	if (!refcnt) {
-+		ret = crypto_register_shashes(algs, ARRAY_SIZE(algs));
-+		if (ret) {
-+			mutex_unlock(&refcnt_lock);
-+			dev_err(dev, "Failed to register\n");
-+			clk_disable_unprepare(crc->clk);
-+			return ret;
-+		}
- 	}
-+	refcnt++;
-+	mutex_unlock(&refcnt_lock);
- 
- 	dev_info(dev, "Initialized\n");
- 
-@@ -320,7 +341,10 @@ static int stm32_crc_remove(struct platform_device *pdev)
- 	list_del(&crc->list);
- 	spin_unlock(&crc_list.lock);
- 
--	crypto_unregister_shashes(algs, ARRAY_SIZE(algs));
-+	mutex_lock(&refcnt_lock);
-+	if (!--refcnt)
-+		crypto_unregister_shashes(algs, ARRAY_SIZE(algs));
-+	mutex_unlock(&refcnt_lock);
- 
- 	pm_runtime_disable(crc->dev);
- 	pm_runtime_put_noidle(crc->dev);
+ .../devicetree/bindings/media/st,stm32-dcmi.yaml   |   8 ++
+ arch/arm/boot/dts/stm32mp151.dtsi                  |   1 +
+ drivers/media/platform/stm32/stm32-dcmi.c          | 137 +++++++++++++++++++--
+ 3 files changed, 138 insertions(+), 8 deletions(-)
+
 -- 
-2.25.1
+2.15.0
 
 _______________________________________________
 Linux-stm32 mailing list
