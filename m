@@ -2,64 +2,39 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id 266DB1F3C55
-	for <lists+linux-stm32@lfdr.de>; Tue,  9 Jun 2020 15:27:07 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 40D981F3D94
+	for <lists+linux-stm32@lfdr.de>; Tue,  9 Jun 2020 16:07:35 +0200 (CEST)
 Received: from ip-172-31-3-76.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id B6D16C36B21;
-	Tue,  9 Jun 2020 13:27:06 +0000 (UTC)
-Received: from mail-pg1-f194.google.com (mail-pg1-f194.google.com
- [209.85.215.194])
- (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
- (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id D2BC3C36B21
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id E4C04C36B29;
+	Tue,  9 Jun 2020 14:07:34 +0000 (UTC)
+Received: from foss.arm.com (foss.arm.com [217.140.110.172])
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id B4E67C36B25
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Tue,  9 Jun 2020 13:27:03 +0000 (UTC)
-Received: by mail-pg1-f194.google.com with SMTP id e9so10285272pgo.9
- for <linux-stm32@st-md-mailman.stormreply.com>;
- Tue, 09 Jun 2020 06:27:03 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20161025;
- h=from:to:cc:subject:date:message-id:in-reply-to:references;
- bh=kSIhf0lGTJhWcv+DccCkvFsMqMLpno9qIeBkBoJLMSQ=;
- b=miEUbzjcd4ryUuKvQRtvf6dPM1igWZ99p8Q6FEwRjbx4OnKVBKqoYcgFbYQa5F0CiQ
- rad6clrM7rHVgJjWaSGo+06n0jk3qugJoFhZ4uC0qWxdyIT7OsuLI2/YDruuF8Z4O1tE
- 3XN5SBV4IyX/VaBuWAY0GE0AqxS6UYPKNE6P36cTd2+X9MqvjpDifrfLKMc7i/xQMqjI
- 0Jpz/z0K3veRZWdMO4osYMwcAjH9FlU16JqTA5cQjsc0gOOqUvfPxAU2tZRhWde0L8Zi
- TU7lbJxux9j2OvqpbG0zJUIieSCW7zCWuGtwSDwgsR2FLhku1pZlyh+CPVWh2iayMnyj
- JFHw==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20161025;
- h=x-gm-message-state:from:to:cc:subject:date:message-id:in-reply-to
- :references;
- bh=kSIhf0lGTJhWcv+DccCkvFsMqMLpno9qIeBkBoJLMSQ=;
- b=cfJQ2mh1MlSGahlqGD1ap/moFmva0UdZXaqM7VWZGMBs0BqkmAb4ze2iIdmrgLLQsu
- gjbLsjQtDXzATN5GPq++x2W3jcNegPhMm4gr1ZZQTIv6SnQdDgEluJOJz0IjSklx6ZQQ
- XQ0g45o/J4aCl/VZwFGK4SmdiIFL393HawgLJyz+AzUwnbeVEb5kJEXqo7iI1600nZcD
- /WPIFKiU8CeqdgY8sfmNsjPvxRkfj2EjheEapfiu/FEQ0H1fL88iN0CMeQFbEFhnJJR/
- f+ajZbfdHzrHQ1w387zorDboLlfK6Y0WZVVdPmelvmUP+0QuhgS5tdCdN7KJFg5T/p2C
- vUNQ==
-X-Gm-Message-State: AOAM530mVdrpXQkcggAd4y3jHDg2XHQ2SSykbQwErGyIXrCihaHivrKh
- g1mWiXdgrIGAu4J5a49SbPE=
-X-Google-Smtp-Source: ABdhPJygotx9ln59z0STkYKtMU1xO9pxH7iXYS1GxlB8u1JiD2/tkQhL5M40gjWnv1oxbN80JE9mRA==
-X-Received: by 2002:a63:a36e:: with SMTP id v46mr23872632pgn.378.1591709222448; 
- Tue, 09 Jun 2020 06:27:02 -0700 (PDT)
-Received: from fmin-OptiPlex-7060.nreal.work ([103.206.191.42])
- by smtp.gmail.com with ESMTPSA id b5sm2624348pjz.34.2020.06.09.06.26.59
- (version=TLS1_2 cipher=ECDHE-ECDSA-AES128-GCM-SHA256 bits=128/128);
- Tue, 09 Jun 2020 06:27:02 -0700 (PDT)
-From: dillon.minfei@gmail.com
-To: robh+dt@kernel.org, mcoquelin.stm32@gmail.com, alexandre.torgue@st.com,
- p.zabel@pengutronix.de, pierre-yves.mordret@st.com,
- philippe.schenker@toradex.com
-Date: Tue,  9 Jun 2020 21:26:43 +0800
-Message-Id: <1591709203-12106-5-git-send-email-dillon.minfei@gmail.com>
-X-Mailer: git-send-email 2.7.4
-In-Reply-To: <1591709203-12106-1-git-send-email-dillon.minfei@gmail.com>
-References: <1591709203-12106-1-git-send-email-dillon.minfei@gmail.com>
-Cc: devicetree@vger.kernel.org, linux-kernel@vger.kernel.org,
- linux-i2c@vger.kernel.org, dillon min <dillon.minfei@gmail.com>,
- linux-stm32@st-md-mailman.stormreply.com, linux-arm-kernel@lists.infradead.org
-Subject: [Linux-stm32] [PATCH v4 4/4] i2c: stm32f4: Fix stmpe811 get xyz
-	data timeout issue
+ Tue,  9 Jun 2020 14:07:32 +0000 (UTC)
+Received: from usa-sjc-imap-foss1.foss.arm.com (unknown [10.121.207.14])
+ by usa-sjc-mx-foss1.foss.arm.com (Postfix) with ESMTP id 8E6E31FB;
+ Tue,  9 Jun 2020 07:07:31 -0700 (PDT)
+Received: from [10.57.49.155] (unknown [10.57.49.155])
+ by usa-sjc-imap-foss1.foss.arm.com (Postfix) with ESMTPSA id 83BD23F66F;
+ Tue,  9 Jun 2020 07:07:28 -0700 (PDT)
+To: dillon.minfei@gmail.com, robh+dt@kernel.org, mcoquelin.stm32@gmail.com,
+ alexandre.torgue@st.com, linux@armlinux.org.uk,
+ kstewart@linuxfoundation.org, allison@lohutok.net, info@metux.net,
+ tglx@linutronix.de
+References: <1591605038-8682-1-git-send-email-dillon.minfei@gmail.com>
+ <1591605038-8682-3-git-send-email-dillon.minfei@gmail.com>
+From: Vladimir Murzin <vladimir.murzin@arm.com>
+Message-ID: <90df5646-e0c4-fcac-d934-4cc922230dd2@arm.com>
+Date: Tue, 9 Jun 2020 15:08:14 +0100
+User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:60.0) Gecko/20100101
+ Thunderbird/60.8.0
+MIME-Version: 1.0
+In-Reply-To: <1591605038-8682-3-git-send-email-dillon.minfei@gmail.com>
+Content-Language: en-US
+Cc: devicetree@vger.kernel.org, linux-stm32@st-md-mailman.stormreply.com,
+ linux-arm-kernel@lists.infradead.org, linux-kernel@vger.kernel.org
+Subject: Re: [Linux-stm32] [PATCH 2/2] arm-nommu: Add use_reserved_mem() to
+ check if device support reserved memory
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -71,86 +46,109 @@ List-Post: <mailto:linux-stm32@st-md-mailman.stormreply.com>
 List-Help: <mailto:linux-stm32-request@st-md-mailman.stormreply.com?subject=help>
 List-Subscribe: <https://st-md-mailman.stormreply.com/mailman/listinfo/linux-stm32>, 
  <mailto:linux-stm32-request@st-md-mailman.stormreply.com?subject=subscribe>
-MIME-Version: 1.0
 Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
-From: dillon min <dillon.minfei@gmail.com>
+On 6/8/20 9:30 AM, dillon.minfei@gmail.com wrote:
+> From: dillon min <dillon.minfei@gmail.com>
+> 
+> Currently, we use dma direct to request coherent memory for driver on armv7m
+> platform if 'cacheid' is zero, but dma_direct_can_mmap() is return false,
+> dma_direct_mmap() return -ENXIO for CONFIG_MMU undefined platform.
+> 
+> so we have to back to use 'arm_nommu_dma_ops', add use_reserved_mem() to check
+> if device support global or device corherent memory. if yes, then call
+> set_dma_ops()
+> 
+> Signed-off-by: dillon min <dillon.minfei@gmail.com>
+> ---
+>  arch/arm/mm/dma-mapping-nommu.c | 28 +++++++++++++++++++++++++++-
+>  1 file changed, 27 insertions(+), 1 deletion(-)
+> 
+> diff --git a/arch/arm/mm/dma-mapping-nommu.c b/arch/arm/mm/dma-mapping-nommu.c
+> index 287ef898a55e..e1c213fec152 100644
+> --- a/arch/arm/mm/dma-mapping-nommu.c
+> +++ b/arch/arm/mm/dma-mapping-nommu.c
+> @@ -14,6 +14,7 @@
+>  #include <asm/cacheflush.h>
+>  #include <asm/outercache.h>
+>  #include <asm/cp15.h>
+> +#include <linux/of.h>
+>  
+>  #include "dma.h"
+>  
+> @@ -188,6 +189,31 @@ const struct dma_map_ops arm_nommu_dma_ops = {
+>  };
+>  EXPORT_SYMBOL(arm_nommu_dma_ops);
+>  
+> +static bool use_reserved_mem(struct device *dev)
+> +{
+> +	struct device_node *np;
+> +
+> +	np = of_find_node_by_path("/reserved-memory/linux,dma");
+> +
+> +	if (np &&
+> +		of_device_is_compatible(np, "shared-dma-pool") &&
+> +		of_property_read_bool(np, "no-map") &&
+> +		of_property_read_bool(np, "linux,dma-default")) {
+> +		/* has global corherent mem support */
+> +		of_node_put(np);
+> +		return true;
+> +	}
+> +
+> +	np = of_parse_phandle(dev->of_node, "memory-region", 0);
+> +	if (np) {
+> +		/* has dev corherent mem support */
+> +		of_node_put(np);
+> +		return true;
+> +	}
+> +
+> +	return false;
+> +}
+> +
+>  void arch_setup_dma_ops(struct device *dev, u64 dma_base, u64 size,
+>  			const struct iommu_ops *iommu, bool coherent)
+>  {
+> @@ -206,6 +232,6 @@ void arch_setup_dma_ops(struct device *dev, u64 dma_base, u64 size,
+>  		dev->archdata.dma_coherent = (get_cr() & CR_M) ? coherent : true;
+>  	}
+>  
+> -	if (!dev->archdata.dma_coherent)
+> +	if (!dev->archdata.dma_coherent || use_reserved_mem(dev))
+>  		set_dma_ops(dev, &arm_nommu_dma_ops);
+>  }
+> 
 
-as stm32f429's internal flash is 2Mbytes and compiled kernel
-image bigger than 2Mbytes, so we have to load kernel image
-to sdram on stm32f429-disco board which has 8Mbytes sdram space.
+Sorry I have to NAK this hack :(
 
-based on above context, as you knows kernel running on external
-sdram is more slower than internal flash. besides, we need read 4
-bytes to get touch screen xyz(x, y, pressure) coordinate data in
-stmpe811 interrupt.
+Digging git history reveled 79964a1c2972 ("ARM: 8633/1: nommu: allow mmap when !CONFIG_MMU")
+which make me wonder if diff below does the trick for you
 
-so, in stm32f4_i2c_handle_rx_done, as i2c read slower than running
-in xip mode, have to adjust 'STOP/START bit set position' from last
-two bytes to last one bytes. else, will get i2c timeout in reading
-touch screen coordinate.
-
-to not take side effect, introduce IIC_LAST_BYTE_POS to support xip
-kernel or has mmu platform.
-
-Signed-off-by: dillon min <dillon.minfei@gmail.com>
----
-
-V4: indroduce 'IIC_LAST_BYTE_POS' to compatible with xipkernel boot
-
- drivers/i2c/busses/i2c-stm32f4.c | 12 +++++++++---
- 1 file changed, 9 insertions(+), 3 deletions(-)
-
-diff --git a/drivers/i2c/busses/i2c-stm32f4.c b/drivers/i2c/busses/i2c-stm32f4.c
-index d6a69dfcac3f..97cf42ae7fa0 100644
---- a/drivers/i2c/busses/i2c-stm32f4.c
-+++ b/drivers/i2c/busses/i2c-stm32f4.c
-@@ -93,6 +93,12 @@
- #define STM32F4_I2C_MAX_FREQ		46U
- #define HZ_TO_MHZ			1000000
+diff --git a/kernel/dma/direct.c b/kernel/dma/direct.c
+index 8f4bbda..8623b9e 100644
+--- a/kernel/dma/direct.c
++++ b/kernel/dma/direct.c
+@@ -456,14 +456,14 @@ int dma_direct_mmap(struct device *dev, struct vm_area_struct *vma,
+ #else /* CONFIG_MMU */
+ bool dma_direct_can_mmap(struct device *dev)
+ {
+-	return false;
++	return true;
+ }
  
-+#if !defined(CONFIG_MMU) && !defined(CONFIG_XIP_KERNEL)
-+#define IIC_LAST_BYTE_POS 1
-+#else
-+#define IIC_LAST_BYTE_POS 2
-+#endif
-+
- /**
-  * struct stm32f4_i2c_msg - client specific data
-  * @addr: 8-bit slave addr, including r/w bit
-@@ -439,7 +445,7 @@ static void stm32f4_i2c_handle_rx_done(struct stm32f4_i2c_dev *i2c_dev)
- 	int i;
- 
- 	switch (msg->count) {
--	case 2:
-+	case IIC_LAST_BYTE_POS:
- 		/*
- 		 * In order to correctly send the Stop or Repeated Start
- 		 * condition on the I2C bus, the STOP/START bit has to be set
-@@ -454,7 +460,7 @@ static void stm32f4_i2c_handle_rx_done(struct stm32f4_i2c_dev *i2c_dev)
- 		else
- 			stm32f4_i2c_set_bits(reg, STM32F4_I2C_CR1_START);
- 
--		for (i = 2; i > 0; i--)
-+		for (i = IIC_LAST_BYTE_POS; i > 0; i--)
- 			stm32f4_i2c_read_msg(i2c_dev);
- 
- 		reg = i2c_dev->base + STM32F4_I2C_CR2;
-@@ -463,7 +469,7 @@ static void stm32f4_i2c_handle_rx_done(struct stm32f4_i2c_dev *i2c_dev)
- 
- 		complete(&i2c_dev->complete);
- 		break;
--	case 3:
-+	case (IIC_LAST_BYTE_POS+1):
- 		/*
- 		 * In order to correctly generate the NACK pulse after the last
- 		 * received data byte, we have to enable NACK before reading N-2
--- 
-2.7.4
+ int dma_direct_mmap(struct device *dev, struct vm_area_struct *vma,
+ 		void *cpu_addr, dma_addr_t dma_addr, size_t size,
+ 		unsigned long attrs)
+ {
+-	return -ENXIO;
++	return vm_iomap_memory(vma, vma->vm_start, (vma->vm_end - vma->vm_start));;
+ }
+ #endif /* CONFIG_MMU */
 
+Cheers
+Vladimir
 _______________________________________________
 Linux-stm32 mailing list
 Linux-stm32@st-md-mailman.stormreply.com
