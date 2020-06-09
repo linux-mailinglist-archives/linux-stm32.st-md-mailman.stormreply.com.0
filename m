@@ -2,52 +2,53 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id 65B931F3FFC
-	for <lists+linux-stm32@lfdr.de>; Tue,  9 Jun 2020 17:58:45 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 6C8F11F4003
+	for <lists+linux-stm32@lfdr.de>; Tue,  9 Jun 2020 17:59:11 +0200 (CEST)
 Received: from ip-172-31-3-76.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 22572C36B23;
-	Tue,  9 Jun 2020 15:58:45 +0000 (UTC)
-Received: from mail-il1-f193.google.com (mail-il1-f193.google.com
- [209.85.166.193])
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 37211C36B23;
+	Tue,  9 Jun 2020 15:59:11 +0000 (UTC)
+Received: from mail-il1-f195.google.com (mail-il1-f195.google.com
+ [209.85.166.195])
  (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id DFBC2C36B0B
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id B0C07C36B0B
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Tue,  9 Jun 2020 15:58:42 +0000 (UTC)
-Received: by mail-il1-f193.google.com with SMTP id a13so20848361ilh.3
+ Tue,  9 Jun 2020 15:59:09 +0000 (UTC)
+Received: by mail-il1-f195.google.com with SMTP id e11so15689832ilr.4
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Tue, 09 Jun 2020 08:58:42 -0700 (PDT)
+ Tue, 09 Jun 2020 08:59:09 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20161025;
  h=mime-version:references:in-reply-to:from:date:message-id:subject:to
- :cc; bh=XTmR8DDTbpuRLrg4Dxe54sTFIEfxL4/fHVrG5Q0Qecc=;
- b=AB6ptOdnB5z9Lot4ciWyiYuE6HGmWmbIwdMI2v9p37RW9vIGnX/vnPMfTcceN8kysj
- UeJRlrLlFtiLLa7ZUCBXFTB2if6niO5aciWexn6lLt74ARj+tvU7J0a6CMOm0N9Old5M
- 0nNC/R75byfQkSBdHR0mO6oZN/MWIenirMnIZZZhA0Ku37cS/9VNeowWKVBSEFX/O7L1
- rUIuP1MX3QyEoJOP33FebN6F3wNj4C1hyz+NirfswshNJwyJG8B2m/ifCXWECX8DJl/1
- HOPF2UlCgfmOR8x4cXZOO6fbDlugUqovL3TaiN7r6LMrsSBhN4WbBcqbXTE3gf6CvMbn
- /WHw==
+ :cc; bh=y7SNiI5A6RVtZsHvA5zBiQnX39Ic6ndLkU+dDGZxkkE=;
+ b=BYvYUZgKPOiFqhDqHbdFaVtVeJjo2pF7jf1ADysyareZY2mE4JGcQkzWaTDD40WYr9
+ rFsr99M5cb58XA+NucQrVrbraWMQKkQOnByLp3ArV3tE+p6LIQpWDb5q8GXyVna1RXsH
+ 8XvEZItxotESA+kA9wSCI+i1eisarnUJ/tKVc/XVlldBXDeoMjuvSp6QoPHDktjB6I26
+ As3IEs6xOqwP4bavd8E4NI8w0pAsUTvIZ/oewpgNE0SkevnlK7NrW75K1gn1CSOrCmei
+ N4zXN0vWMHe5hLTpfmrSvAM3KYJjns0Vxnc4yE1ECaYPUXayuSn38H2DsKjFYrp4nkAD
+ Nm9Q==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=1e100.net; s=20161025;
  h=x-gm-message-state:mime-version:references:in-reply-to:from:date
  :message-id:subject:to:cc;
- bh=XTmR8DDTbpuRLrg4Dxe54sTFIEfxL4/fHVrG5Q0Qecc=;
- b=P3JWf7afX9uf9kkux5eMDaGP+jlJGMSFKFK6pw4JRrYAHavps+rkNR7PAeTg7fshoJ
- Z5aS9jqtWLybnVisE2XTfBDTJvdGos/Ns96Y7TPNwdY0aqj9mUulEY3gK5T1k0alaedx
- hwHm5QksupPjDAht/yP3wV53Dx7Bbk9wlk830GJIA3Wjnt/RwxK/hHy9ZzaIpNkKHXSc
- KtW65icLdjio0nWwwB8s0vUrEg9DIu+tk4R9rp4TBdJc9z5O5qX9BoIcFRL7vOi9lvo5
- EbAc8uVSY4EgPnpcHmKOcyulV9fB8ToHxgKjRIl5C2TshYf0HtxJg5D2vXI1cA5DW5oY
- wf7A==
-X-Gm-Message-State: AOAM5320jReNpDQWPZYiYH+XLE3dMzg9g+4QI4xx8fxw52vWdNTJ6/ve
- Q4dNFcurFa8P62q7LE3kK0X9ys39DccHwAamJ6E=
-X-Google-Smtp-Source: ABdhPJxux6g3vaB/cZUTBdsI/fsNLkF6h3A6gvPaXzdAi095druL3kMv7nH5YKpHBp3ajTNuv4JMpDOTRu2EDD2z9o8=
-X-Received: by 2002:a92:ad02:: with SMTP id w2mr18619302ilh.184.1591718321670; 
- Tue, 09 Jun 2020 08:58:41 -0700 (PDT)
+ bh=y7SNiI5A6RVtZsHvA5zBiQnX39Ic6ndLkU+dDGZxkkE=;
+ b=eqCIGnXGVw1KFa5qxHSoxt+C5xH5mJDHtGxVLwxJonZ2KNc7hw+Rd7dgRX7d3e0qxt
+ rSivXdSIrI5fu/kymzBSLeFavyc3zo0PBXvpMXp4cVdJZuMz5EVgn45tcqVJ2QaW+6Vb
+ IFNwH2epE6nAUQMJXv9cmZGNe97IPhaQKVNTeH71vJd86fQJgmcGI1bBrnbaYeD3ynDC
+ jZPWFgCIShrrVDnUErqXfRqBX7x7IVPH2gz81YzyiuRohYEMXBmrEOae9+EJi33f3KaC
+ FuFK92pUnlZuzgI7rL8hcfnzeDsiYhdAp3EQ7Srvq6lsc0UxhsV4/RXkTR4oJU+VIT/g
+ T/ug==
+X-Gm-Message-State: AOAM530bUK2JnGNr9bdn4F9XoPNVFmXXZs7UBekuqjdZOTehvDdJRGFF
+ 4/9L8aWKYMT2QQ3GGl94JXrtnbdUwftt0c+GGDY=
+X-Google-Smtp-Source: ABdhPJwrxzXrTqDvIYEv7sGYGoTfNgdI9+AwSKTngZ8wOe8qpPn+MALOTP1Ir5yJrOFe2XEpcp7yexnICas3NiVZxPk=
+X-Received: by 2002:a92:914a:: with SMTP id t71mr27627735ild.200.1591718348616; 
+ Tue, 09 Jun 2020 08:59:08 -0700 (PDT)
 MIME-Version: 1.0
 References: <1591605038-8682-1-git-send-email-dillon.minfei@gmail.com>
-In-Reply-To: <1591605038-8682-1-git-send-email-dillon.minfei@gmail.com>
+ <1591605038-8682-2-git-send-email-dillon.minfei@gmail.com>
+In-Reply-To: <1591605038-8682-2-git-send-email-dillon.minfei@gmail.com>
 From: dillon min <dillon.minfei@gmail.com>
-Date: Tue, 9 Jun 2020 23:58:05 +0800
-Message-ID: <CAL9mu0+hmyYGrTeHhvOhPHLm3nSWTt5waAr9e6Lzrdqxp5x5iQ@mail.gmail.com>
+Date: Tue, 9 Jun 2020 23:58:32 +0800
+Message-ID: <CAL9mu0KWq-ANkLBRv_49kGzWf_kDPjMvMeA7S4E6f5MpVtjKaw@mail.gmail.com>
 To: Rob Herring <robh+dt@kernel.org>,
  Maxime Coquelin <mcoquelin.stm32@gmail.com>, 
  Alexandre Torgue <alexandre.torgue@st.com>, linux@armlinux.org.uk, 
@@ -58,8 +59,8 @@ Cc: "open list:OPEN FIRMWARE AND FLATTENED DEVICE TREE BINDINGS"
  <devicetree@vger.kernel.org>, linux-stm32@st-md-mailman.stormreply.com,
  Linux ARM <linux-arm-kernel@lists.infradead.org>,
  Linux Kernel Mailing List <linux-kernel@vger.kernel.org>
-Subject: Re: [Linux-stm32] [PATCH 0/2] Use 'arm_nommu_dma_ops' to handle dma
- memroy if device offer consistent dma memory region
+Subject: Re: [Linux-stm32] [PATCH 1/2] ARM: dts: stm32: Setup 4M bytes
+	reserved memory for mmap
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -86,26 +87,41 @@ On Mon, Jun 8, 2020 at 4:30 PM <dillon.minfei@gmail.com> wrote:
 >
 > From: dillon min <dillon.minfei@gmail.com>
 >
-> when do mmap on /dev/fb0, we will get -6 error on cortex-m3/m4 or armv7m
-> platform without cache support, this is caused by following reason:
+> To mmap a framebuffer or v4l2 buffer from kernel to userspace on
+> no-mmu platform, we need rely on 'arm_nommu_dma_ops' from
+> arch/arm/mm/dma-mapping-nommu.c , so setup 4M bytes memory
+> reserved for this purpose.
 >
-> on armv7m platform, if no cache support, we will use dma direct mapping,
-> but, this is not support on !MMU hardware, just return '-ENXIO' error
->
-> so, add use_reserved_mem() for these armv7m hardware but no-cache support.
-> eg, stm32f429/stm32f469.
->
-> verified on stm32f469-disco board, mmap frambuffer to userspace.
->
-> dillon min (2):
->   ARM: dts: stm32: Setup 4M bytes reserved memory for mmap
->   arm-nommu: Add use_reserved_mem() to check if device support reserved
->     memory
->
+> Signed-off-by: dillon min <dillon.minfei@gmail.com>
+> ---
 >  arch/arm/boot/dts/stm32f469-disco.dts | 14 ++++++++++++++
->  arch/arm/mm/dma-mapping-nommu.c       | 28 +++++++++++++++++++++++++++-
->  2 files changed, 41 insertions(+), 1 deletion(-)
+>  1 file changed, 14 insertions(+)
 >
+> diff --git a/arch/arm/boot/dts/stm32f469-disco.dts b/arch/arm/boot/dts/stm32f469-disco.dts
+> index 9397db0c43de..082b24ee81f7 100644
+> --- a/arch/arm/boot/dts/stm32f469-disco.dts
+> +++ b/arch/arm/boot/dts/stm32f469-disco.dts
+> @@ -65,6 +65,20 @@
+>                 reg = <0x00000000 0x1000000>;
+>         };
+>
+> +       reserved-memory {
+> +               #address-cells = <1>;
+> +               #size-cells = <1>;
+> +               ranges;
+> +
+> +               linux,dma {
+> +                       compatible = "shared-dma-pool";
+> +                       size = <0x400000>;
+> +                       no-map;
+> +                       linux,dma-default;
+> +               };
+> +
+> +       };
+> +
+>         aliases {
+>                 serial0 = &usart3;
+>         };
 > --
 > 2.7.4
 >
