@@ -2,46 +2,33 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id D82F61F4096
-	for <lists+linux-stm32@lfdr.de>; Tue,  9 Jun 2020 18:25:11 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id F363C1F4099
+	for <lists+linux-stm32@lfdr.de>; Tue,  9 Jun 2020 18:25:39 +0200 (CEST)
 Received: from ip-172-31-3-76.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 985BEC36B23;
-	Tue,  9 Jun 2020 16:25:11 +0000 (UTC)
-Received: from foss.arm.com (foss.arm.com [217.140.110.172])
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 009C5C36B0B
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id B38D0C36B24;
+	Tue,  9 Jun 2020 16:25:39 +0000 (UTC)
+Received: from bhuna.collabora.co.uk (bhuna.collabora.co.uk [46.235.227.227])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256
+ bits)) (No client certificate requested)
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 1CAF5C36B0B
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Tue,  9 Jun 2020 16:25:10 +0000 (UTC)
-Received: from usa-sjc-imap-foss1.foss.arm.com (unknown [10.121.207.14])
- by usa-sjc-mx-foss1.foss.arm.com (Postfix) with ESMTP id 69E5F1FB;
- Tue,  9 Jun 2020 09:25:09 -0700 (PDT)
-Received: from [10.57.49.155] (unknown [10.57.49.155])
- by usa-sjc-imap-foss1.foss.arm.com (Postfix) with ESMTPSA id 1B0BA3F73D;
- Tue,  9 Jun 2020 09:25:05 -0700 (PDT)
-From: Vladimir Murzin <vladimir.murzin@arm.com>
-To: Christoph Hellwig <hch@lst.de>, dillon min <dillon.minfei@gmail.com>
-References: <1591605038-8682-1-git-send-email-dillon.minfei@gmail.com>
- <1591605038-8682-3-git-send-email-dillon.minfei@gmail.com>
- <90df5646-e0c4-fcac-d934-4cc922230dd2@arm.com>
- <CAL9mu0+__0Z3R3TcSrj9-kPxsyQHKS9WqK1u58P0dEZ+Jd-wbQ@mail.gmail.com>
- <20200609153646.GA17969@lst.de>
- <031034fb-b109-7410-3ff8-e78cd12a5552@arm.com>
-Message-ID: <b0c85637-4646-614b-d406-49aa72ce52e1@arm.com>
-Date: Tue, 9 Jun 2020 17:25:04 +0100
-User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:60.0) Gecko/20100101
- Thunderbird/60.8.0
+ Tue,  9 Jun 2020 16:25:38 +0000 (UTC)
+Received: from [127.0.0.1] (localhost [127.0.0.1])
+ (Authenticated sender: aratiu) with ESMTPSA id 41FC42A3BFB
+From: Adrian Ratiu <adrian.ratiu@collabora.com>
+To: linux-arm-kernel@lists.infradead.org, devicetree@vger.kernel.org,
+ linux-rockchip@lists.infradead.org,
+ Laurent Pinchart <Laurent.pinchart@ideasonboard.com>
+Date: Tue,  9 Jun 2020 19:26:49 +0300
+Message-Id: <20200609162700.953260-1-adrian.ratiu@collabora.com>
+X-Mailer: git-send-email 2.27.0
 MIME-Version: 1.0
-In-Reply-To: <031034fb-b109-7410-3ff8-e78cd12a5552@arm.com>
-Content-Language: en-US
-Cc: Kate Stewart <kstewart@linuxfoundation.org>,
- "open list:OPEN FIRMWARE AND FLATTENED DEVICE TREE BINDINGS"
- <devicetree@vger.kernel.org>, linux@armlinux.org.uk,
- Linux Kernel Mailing List <linux-kernel@vger.kernel.org>,
- Rob Herring <robh+dt@kernel.org>,
- Linux ARM <linux-arm-kernel@lists.infradead.org>,
- Maxime Coquelin <mcoquelin.stm32@gmail.com>, tglx@linutronix.de,
- info@metux.net, linux-stm32@st-md-mailman.stormreply.com, allison@lohutok.net
-Subject: Re: [Linux-stm32] [PATCH 2/2] arm-nommu: Add use_reserved_mem() to
- check if device support reserved memory
+Cc: Jernej Skrabec <jernej.skrabec@siol.net>, Heiko Stuebner <heiko@sntech.de>,
+ Jonas Karlman <jonas@kwiboo.se>, Yannick FERTRE <yannick.fertre@st.com>,
+ Andrzej Hajda <a.hajda@samsung.com>, linux-imx@nxp.com, kernel@collabora.com,
+ linux-stm32@st-md-mailman.stormreply.com
+Subject: [Linux-stm32] [PATCH v9 00/11] Genericize DW MIPI DSI bridge and
+	add i.MX 6 driver
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -58,74 +45,62 @@ Content-Transfer-Encoding: 7bit
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
-On 6/9/20 4:43 PM, Vladimir Murzin wrote:
-> On 6/9/20 4:36 PM, Christoph Hellwig wrote:
->> On Tue, Jun 09, 2020 at 11:22:24PM +0800, dillon min wrote:
->>> Hi Vladimir,
->>>
->>> Thanks for reviewing.
->>>
->>> Hi Christoph Hellwig,
->>>
->>> I just want to know if kernel dma mapping/direct is focused on
->>> platforms with MMU.
->>> leave arch code to handle dma coherent memory management themself for
->>> no-MMU platform.
->>
->> No, I'd really like to consolidate everything that isn't overly
->> arch specific eventually.
->>
->>>
->>> so, you just return error code in kernel/dma/mapping.c,direct.c
->>> without CONFIG_MMU defined ?
->>> which means dma-direct mapping doesn't support !CONFIG_MMU is not a
->>> bug, but design as it's.
->>> or, just return error code currently, will add dma direct mapping
->>> support for !CONFIG_MMU in the
->>> future?
->>>
->>> As Vladimir Murzin's suggestion has changes in kernel code, I need
->>> your input to get
->>> the design goal about dma-direct mapping, thanks.
->>
->> Can someone repost the whole patch?
->>
-> 
-> Happy to repost as separate patch once dillon confirms it actually works.
-> 
-> Meanwhile, I'm trying to understand at which point we lost this 
-> functionality for NOMMU... maybe it will become different patch :)
-> 
+Hello all,
 
-mmap operation for dma-noop (ancestor of dma-direct) was proposed
-in [1]. It was suggested to change dma_common_map() instead which
-was implemented in 
+v9 cleanly applies on top of latest next-20200609 tree.
 
-07c75d7a6b9e ("drivers: dma-mapping: allow dma_common_mmap() for NOMMU")
+v9 does not depend on other patches as the last binding doc has been merged.
 
-that removed CONFIG_MMU drom dma_common_mmap(). Later
+All feedback up to this point has been addressed. Specific details in
+individual patch changelogs.
 
-62fcee9a3bd7 ("dma-mapping: remove CONFIG_ARCH_NO_COHERENT_DMA_MMAP")
+The biggest changes are the deprecation of the Synopsys DW bridge bind()
+API in favor of of_drm_find_bridge() and .attach callbacks, the addition
+of a TODO entry which outlines future planned bridge driver refactorings
+and a reordering of some i.MX 6 patches to appease checkpatch.
 
-reintroduced CONFIG_MMU in dma_common_mmap().
+The idea behind the TODO is to get this regmap and i.MX 6 driver merged
+and then do the rest of refactorings in-tree because it's easier and the
+refactorings themselves are out-of-scope of this series which is adding
+i.MX 6 support and is quite big already, so please, if there are more
+refactoring ideas, let's add them to the TODO doc. :) I intend to tackle
+those after this series is merged to avoid two complex inter-dependent
+simultaneous series.
 
-Even though commit mentions ARM, I do not see how mmap would continue
-to work for NOMMU with dma-direct. ARM NOMMU needs it's own DMA operations
-only in cases where caches are implemented or active, in other cases it
-fully relies on dma-direct.
+As always more testing is welcome especially on Rockchip and STM SoCs.
 
-It looks to me that we either should provide NOMMU variant for mmap in
-dma/direct or (carefully) fix dma/mapping.
+Big thank you to everyone who has contributed to this up to now,
+Adrian
 
-Thoughts?
+Adrian Ratiu (11):
+  drm: bridge: dw_mipi_dsi: add initial regmap infrastructure
+  drm: bridge: dw_mipi_dsi: abstract register access using reg_fields
+  drm: bridge: dw_mipi_dsi: add dsi v1.01 support
+  drm: bridge: dw_mipi_dsi: remove bind/unbind API
+  dt-bindings: display: add i.MX6 MIPI DSI host controller doc
+  ARM: dts: imx6qdl: add missing mipi dsi properties
+  drm: imx: Add i.MX 6 MIPI DSI host platform driver
+  drm: stm: dw-mipi-dsi: let the bridge handle the HW version check
+  drm: bridge: dw-mipi-dsi: split low power cfg register into fields
+  drm: bridge: dw-mipi-dsi: fix bad register field offsets
+  Documentation: gpu: todo: Add dw-mipi-dsi consolidation plan
 
-[1] http://lists.infradead.org/pipermail/linux-arm-kernel/2017-January/480600.html
+ .../display/imx/fsl,mipi-dsi-imx6.yaml        | 112 +++
+ Documentation/gpu/todo.rst                    |  25 +
+ arch/arm/boot/dts/imx6qdl.dtsi                |   8 +
+ drivers/gpu/drm/bridge/synopsys/Kconfig       |   1 +
+ drivers/gpu/drm/bridge/synopsys/dw-mipi-dsi.c | 713 ++++++++++++------
+ drivers/gpu/drm/imx/Kconfig                   |   8 +
+ drivers/gpu/drm/imx/Makefile                  |   1 +
+ drivers/gpu/drm/imx/dw_mipi_dsi-imx6.c        | 399 ++++++++++
+ .../gpu/drm/rockchip/dw-mipi-dsi-rockchip.c   |   7 +-
+ drivers/gpu/drm/stm/dw_mipi_dsi-stm.c         |  16 +-
+ 10 files changed, 1059 insertions(+), 231 deletions(-)
+ create mode 100644 Documentation/devicetree/bindings/display/imx/fsl,mipi-dsi-imx6.yaml
+ create mode 100644 drivers/gpu/drm/imx/dw_mipi_dsi-imx6.c
 
-Vladimir
-
-> Cheers
-> Vladimir
-> 
+-- 
+2.27.0
 
 _______________________________________________
 Linux-stm32 mailing list
