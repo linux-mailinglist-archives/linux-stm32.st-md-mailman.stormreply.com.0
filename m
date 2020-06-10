@@ -2,50 +2,70 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id D94A31F4870
-	for <lists+linux-stm32@lfdr.de>; Tue,  9 Jun 2020 22:58:40 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id C0CA11F4B5E
+	for <lists+linux-stm32@lfdr.de>; Wed, 10 Jun 2020 04:24:51 +0200 (CEST)
 Received: from ip-172-31-3-76.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 378C0C36B22;
-	Tue,  9 Jun 2020 20:58:40 +0000 (UTC)
-Received: from vmicros1.altlinux.org (vmicros1.altlinux.org [194.107.17.57])
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 05637C36B0B
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 68323C36B22;
+	Wed, 10 Jun 2020 02:24:51 +0000 (UTC)
+Received: from mail-io1-f68.google.com (mail-io1-f68.google.com
+ [209.85.166.68])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+ (No client certificate requested)
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id AE268C36B0B
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Tue,  9 Jun 2020 20:58:37 +0000 (UTC)
-Received: from imap.altlinux.org (imap.altlinux.org [194.107.17.38])
- by vmicros1.altlinux.org (Postfix) with ESMTP id 67E6E72CCED;
- Tue,  9 Jun 2020 23:58:37 +0300 (MSK)
-Received: from altlinux.org (sole.flsd.net [185.75.180.6])
- by imap.altlinux.org (Postfix) with ESMTPSA id 3E0A24A4A16;
- Tue,  9 Jun 2020 23:58:37 +0300 (MSK)
-Date: Tue, 9 Jun 2020 23:58:37 +0300
-From: Vitaly Chikunov <vt@altlinux.org>
-To: Tianjia Zhang <tianjia.zhang@linux.alibaba.com>
-Message-ID: <20200609205837.osganry2tyzwvanz@altlinux.org>
-Mail-Followup-To: Tianjia Zhang <tianjia.zhang@linux.alibaba.com>,
- herbert@gondor.apana.org.au, davem@davemloft.net,
- dhowells@redhat.com, mcoquelin.stm32@gmail.com,
- alexandre.torgue@st.com, jmorris@namei.org, serge@hallyn.com,
- nramas@linux.microsoft.com, tusharsu@linux.microsoft.com,
- zohar@linux.ibm.com, gilad@benyossef.com, pvanleeuwen@rambus.com,
- linux-crypto@vger.kernel.org, linux-kernel@vger.kernel.org,
- keyrings@vger.kernel.org, linux-stm32@st-md-mailman.stormreply.com,
- linux-arm-kernel@lists.infradead.org,
- linux-security-module@vger.kernel.org, zhang.jia@linux.alibaba.com
-References: <20200609134855.21431-1-tianjia.zhang@linux.alibaba.com>
+ Wed, 10 Jun 2020 02:24:49 +0000 (UTC)
+Received: by mail-io1-f68.google.com with SMTP id c8so468584iob.6
+ for <linux-stm32@st-md-mailman.stormreply.com>;
+ Tue, 09 Jun 2020 19:24:49 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20161025;
+ h=mime-version:references:in-reply-to:from:date:message-id:subject:to
+ :cc; bh=WL9w6hwM5zwERLskxjbOw8ThwKl4nB9IVsOxgE1aSfw=;
+ b=b2Pg1DmQL9P+qQbJmBlRhO8NtpM4v3VMQ3hqoRVe0OUmgjuHXJJ+Rr5F39s5GpmdXk
+ +wjMGJrBl414GoAbQN8cMUvAROoa42COk6SQXHMt7bm95zIzlwAmmBM0p+oiPgdZLVuK
+ /hTQPh5DyFQpc1aeP0cmN2YWXrywKrrWLCVXJh8Vp8+3v5FbKoZzJB0T9f3Gx7ONVfxy
+ nU5kt9sin5zr/8zBfNCCHUJD3Oh2QS1+XXm6HTliGLMG5L1UHz34nH2/c3CuyT07mkd3
+ kSbk1lSZN++4YQN866MC4lXH53k8czjtdWiFvCzeA/XmsxY9xZk0T7sER6W+Hy6Z5itS
+ eEsA==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20161025;
+ h=x-gm-message-state:mime-version:references:in-reply-to:from:date
+ :message-id:subject:to:cc;
+ bh=WL9w6hwM5zwERLskxjbOw8ThwKl4nB9IVsOxgE1aSfw=;
+ b=hSmUXD9vCEWya7b0P7Lj0/fNSQpOkxoYHX16mszKTctEYZUeILAqy5X/GY2PZNh7qQ
+ Rl+CMYqoCXah3MsoxS0b5wGaXGExZa4AXCzXvWqYg5lvIAFTGiKUHdjARFsEoiUkG3n4
+ RmSK2gtt0xW8XiMWDDacs1W73K4b1Jf27lq3EPPvay13UFXVvIYSE8pskqEAL6uWU0te
+ njxWP5/hrimjXPxxEyVnZfmr8Um5WiE//ZjnclbBKyd9+aGoMAgMo5c7c7uRfTzlqNYt
+ v3tPa+AXy/3zy7ZfTgq9H4epTqq7gG7CL6oMZ1/7B+slbNhYcNHAj6NxGutCYZaQnoO2
+ T/jA==
+X-Gm-Message-State: AOAM530fWlCDTOVfPpqm0VsqsANy+z1T4yMJgqsLBO75cDB7/qjWgoae
+ lreDL9lOLk+PNw/j/71buqdQGe5E35NUmx2Vuh4=
+X-Google-Smtp-Source: ABdhPJzJL0VW4ZqrcmeuZtWCByNYhsDAOHjCX0d7VNmCxG+zN5Y4+GfRIxYqtLeW9H5uN1evIqiHkRYY0zBAWwV8mZQ=
+X-Received: by 2002:a05:6602:2431:: with SMTP id
+ g17mr1167430iob.3.1591755888469; 
+ Tue, 09 Jun 2020 19:24:48 -0700 (PDT)
 MIME-Version: 1.0
-Content-Disposition: inline
-In-Reply-To: <20200609134855.21431-1-tianjia.zhang@linux.alibaba.com>
-User-Agent: NeoMutt/20171215-106-ac61c7
-Cc: zhang.jia@linux.alibaba.com, gilad@benyossef.com, pvanleeuwen@rambus.com,
- linux-stm32@st-md-mailman.stormreply.com, jmorris@namei.org,
- zohar@linux.ibm.com, linux-kernel@vger.kernel.org, dhowells@redhat.com,
- nramas@linux.microsoft.com, linux-security-module@vger.kernel.org,
- keyrings@vger.kernel.org, linux-crypto@vger.kernel.org,
- mcoquelin.stm32@gmail.com, tusharsu@linux.microsoft.com, serge@hallyn.com,
- davem@davemloft.net, linux-arm-kernel@lists.infradead.org,
- herbert@gondor.apana.org.au
-Subject: Re: [Linux-stm32] [PATCH v3 0/8] crpyto: introduce OSCCA
- certificate and SM2 asymmetric algorithm
+References: <1591605038-8682-1-git-send-email-dillon.minfei@gmail.com>
+ <1591605038-8682-3-git-send-email-dillon.minfei@gmail.com>
+ <90df5646-e0c4-fcac-d934-4cc922230dd2@arm.com>
+ <CAL9mu0+__0Z3R3TcSrj9-kPxsyQHKS9WqK1u58P0dEZ+Jd-wbQ@mail.gmail.com>
+ <20200609153646.GA17969@lst.de> <031034fb-b109-7410-3ff8-e78cd12a5552@arm.com>
+ <b0c85637-4646-614b-d406-49aa72ce52e1@arm.com> <20200609173455.GA25467@lst.de>
+In-Reply-To: <20200609173455.GA25467@lst.de>
+From: dillon min <dillon.minfei@gmail.com>
+Date: Wed, 10 Jun 2020 10:24:10 +0800
+Message-ID: <CAL9mu0KejK9JRrJg5tFb5xKGjaEYr=XRpvGB2nuBfnhLeBMdng@mail.gmail.com>
+To: Christoph Hellwig <hch@lst.de>
+Cc: Kate Stewart <kstewart@linuxfoundation.org>,
+ "open list:OPEN FIRMWARE AND FLATTENED DEVICE TREE BINDINGS"
+ <devicetree@vger.kernel.org>, Vladimir Murzin <vladimir.murzin@arm.com>,
+ linux@armlinux.org.uk,
+ Linux Kernel Mailing List <linux-kernel@vger.kernel.org>,
+ Rob Herring <robh+dt@kernel.org>,
+ Linux ARM <linux-arm-kernel@lists.infradead.org>,
+ Maxime Coquelin <mcoquelin.stm32@gmail.com>, tglx@linutronix.de,
+ info@metux.net, linux-stm32@st-md-mailman.stormreply.com, allison@lohutok.net
+Subject: Re: [Linux-stm32] [PATCH 2/2] arm-nommu: Add use_reserved_mem() to
+ check if device support reserved memory
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -62,117 +82,34 @@ Content-Transfer-Encoding: 7bit
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
-Tianjia,
+Hi Vladimir,
 
-On Tue, Jun 09, 2020 at 09:48:47PM +0800, Tianjia Zhang wrote:
-> Hello all,
-> 
-> This new module implement the OSCCA certificate and SM2 public key
-> algorithm. It was published by State Encryption Management Bureau, China.
-> List of specifications for OSCCA certificate and SM2 elliptic curve
-> public key cryptography:
-> 
-> * GM/T 0003.1-2012
-> * GM/T 0003.2-2012
-> * GM/T 0003.3-2012
-> * GM/T 0003.4-2012
-> * GM/T 0003.5-2012
-> * GM/T 0015-2012
-> * GM/T 0009-2012 
-> 
-> IETF: https://tools.ietf.org/html/draft-shen-sm2-ecdsa-02
-> oscca: http://www.oscca.gov.cn/sca/xxgk/2010-12/17/content_1002386.shtml
-> scctc: http://www.gmbz.org.cn/main/bzlb.html
-> 
-> These patchs add the OID object identifier defined by OSCCA. The
-> x509 certificate supports sm2-with-sm3 type certificate parsing
-> and verification.
-> 
-> The sm2 algorithm is based on libgcrypt's mpi implementation, and has
-> made some additions to the kernel's original mpi library, and added the
-> implementation of ec to better support elliptic curve-like algorithms.
-> 
-> sm2 has good support in both openssl and gnupg projects, and sm3 and sm4
-> of the OSCCA algorithm family have also been implemented in the kernel.
-> 
-> Among them, sm3 and sm4 have been well implemented in the kernel.
-> This group of patches has newly introduced sm2. In order to implement
-> sm2 more perfectly, I expanded the mpi library and introduced the
-> ec implementation of the mpi library as the basic algorithm. Compared
-> to the kernel's crypto/ecc.c, the implementation of mpi/ec.c is more
-> complete and elegant, sm2 is implemented based on these algorithms.
+I tested your changes, it's working fine on stm32f429-disco(armv7m,
+without cache) board.
+you can submit a separate patch for dma-direct support on non-mmu
+platform, i will drop mine.
 
-Does it use constant-time algorithms?
+thanks.
 
-Thanks,
+best regards.
 
-> 
-> ---
-> v3 changes:
->   1. integrity asymmetric digsig support sm2-with-sm3 algorithm.
->   2. remove unused sm2_set_priv_key().
->   3. rebase on mainline.
-> 
-> v2 changes:
->   1. simplify the sm2 algorithm and only retain the verify function.
->   2. extract the sm2 certificate code into a separate file.
-> 
-> Tianjia Zhang (8):
->   crypto: sm3 - export crypto_sm3_final function
->   lib/mpi: Extend the MPI library
->   lib/mpi: Introduce ec implementation to MPI library
->   crypto: sm2 - introduce OSCCA SM2 asymmetric cipher algorithm
->   crypto: testmgr - support test with different ciphertext per
->     encryption
->   X.509: support OSCCA certificate parse
->   X.509: support OSCCA sm2-with-sm3 certificate verification
->   integrity: Asymmetric digsig supports SM2-with-SM3 algorithm
-> 
->  crypto/Kconfig                            |   17 +
->  crypto/Makefile                           |    8 +
->  crypto/asymmetric_keys/Makefile           |    1 +
->  crypto/asymmetric_keys/public_key.c       |    6 +
->  crypto/asymmetric_keys/public_key_sm2.c   |   59 +
->  crypto/asymmetric_keys/x509_cert_parser.c |   14 +-
->  crypto/asymmetric_keys/x509_public_key.c  |    2 +
->  crypto/sm2.c                              |  473 +++++++
->  crypto/sm2signature.asn1                  |    4 +
->  crypto/sm3_generic.c                      |    7 +-
->  crypto/testmgr.c                          |    7 +-
->  include/crypto/public_key.h               |   14 +
->  include/crypto/sm2.h                      |   25 +
->  include/crypto/sm3.h                      |    2 +
->  include/linux/mpi.h                       |  193 +++
->  include/linux/oid_registry.h              |    6 +
->  lib/mpi/Makefile                          |    6 +
->  lib/mpi/ec.c                              | 1538 +++++++++++++++++++++
->  lib/mpi/mpi-add.c                         |  207 +++
->  lib/mpi/mpi-bit.c                         |  251 ++++
->  lib/mpi/mpi-cmp.c                         |   46 +-
->  lib/mpi/mpi-div.c                         |  259 ++++
->  lib/mpi/mpi-internal.h                    |   53 +
->  lib/mpi/mpi-inv.c                         |  143 ++
->  lib/mpi/mpi-mod.c                         |  155 +++
->  lib/mpi/mpi-mul.c                         |  166 +++
->  lib/mpi/mpicoder.c                        |  336 +++++
->  lib/mpi/mpih-div.c                        |  294 ++++
->  lib/mpi/mpih-mul.c                        |   25 +
->  lib/mpi/mpiutil.c                         |  204 +++
->  security/integrity/digsig_asymmetric.c    |   14 +-
->  31 files changed, 4517 insertions(+), 18 deletions(-)
->  create mode 100644 crypto/asymmetric_keys/public_key_sm2.c
->  create mode 100644 crypto/sm2.c
->  create mode 100644 crypto/sm2signature.asn1
->  create mode 100644 include/crypto/sm2.h
->  create mode 100644 lib/mpi/ec.c
->  create mode 100644 lib/mpi/mpi-add.c
->  create mode 100644 lib/mpi/mpi-div.c
->  create mode 100644 lib/mpi/mpi-inv.c
->  create mode 100644 lib/mpi/mpi-mod.c
->  create mode 100644 lib/mpi/mpi-mul.c
-> 
-> -- 
-> 2.17.1
+Dillon,
+On Wed, Jun 10, 2020 at 1:34 AM Christoph Hellwig <hch@lst.de> wrote:
+>
+> On Tue, Jun 09, 2020 at 05:25:04PM +0100, Vladimir Murzin wrote:
+> > Even though commit mentions ARM, I do not see how mmap would continue
+> > to work for NOMMU with dma-direct. ARM NOMMU needs it's own DMA operations
+> > only in cases where caches are implemented or active, in other cases it
+> > fully relies on dma-direct.
+>
+> > It looks to me that we either should provide NOMMU variant for mmap in
+> > dma/direct or (carefully) fix dma/mapping.
+>
+> I think dma-direct is the right place, the common helpers in
+> dma/mapping.c are basically the red headed stepchilds for misc
+> IOMMU drivers not covered by dma-iommu only.
+
+Yes, thanks Christoph's input.
 _______________________________________________
 Linux-stm32 mailing list
 Linux-stm32@st-md-mailman.stormreply.com
