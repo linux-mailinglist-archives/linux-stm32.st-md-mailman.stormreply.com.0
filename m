@@ -2,61 +2,42 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id 2C9B21F6906
-	for <lists+linux-stm32@lfdr.de>; Thu, 11 Jun 2020 15:29:09 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 359671F6B56
+	for <lists+linux-stm32@lfdr.de>; Thu, 11 Jun 2020 17:45:53 +0200 (CEST)
 Received: from ip-172-31-3-76.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id C0FCFC36B21;
-	Thu, 11 Jun 2020 13:29:08 +0000 (UTC)
-Received: from mx07-00178001.pphosted.com (mx07-00178001.pphosted.com
- [62.209.51.94])
- (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
- (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 31963C36B0B
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id D97A7C36B21;
+	Thu, 11 Jun 2020 15:45:52 +0000 (UTC)
+Received: from foss.arm.com (foss.arm.com [217.140.110.172])
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id E0B65C36B0B
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Thu, 11 Jun 2020 13:29:05 +0000 (UTC)
-Received: from pps.filterd (m0046668.ppops.net [127.0.0.1])
- by mx07-00178001.pphosted.com (8.16.0.42/8.16.0.42) with SMTP id
- 05BDNNup014789; Thu, 11 Jun 2020 15:28:54 +0200
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=st.com;
- h=from : to : cc : subject
- : date : message-id : mime-version : content-type; s=STMicroelectronics;
- bh=XL9z7/V+U5HkKeCU7/wVDcDZ122tdikkkBnJhib8NcA=;
- b=KtRUV29zz7edVwBG9SxLneT9I1w3neuWasapJHAnklsh3/HW/669sT+tG7cANv17zqXB
- MH+C/GXnJM73SVT8kfe2PGBy5+kNmrvUQyxUXVYibmnhFS2zPcfj4po/VSfNHUvIWlLc
- O5F6JwUdpMo2UYvwt9hEId2B6mFPmwq70iMijmRwYcpRGqGKgOux6RJPdhR0X3BCH+wZ
- wn6ky1hEVNi8Ds2niTQyz9gBWxR4rNCLiyp8nFBSuMzypiDVS4KTo5m7XxHLpiGODWb3
- LLflgi5PkKAP0tECF+bitleKiWtj9dJiwcZJChTvhb43CW87rNTJFPQSdpo6kH+8WiiA Dg== 
-Received: from beta.dmz-eu.st.com (beta.dmz-eu.st.com [164.129.1.35])
- by mx07-00178001.pphosted.com with ESMTP id 31jppp0cf8-1
- (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
- Thu, 11 Jun 2020 15:28:54 +0200
-Received: from euls16034.sgp.st.com (euls16034.sgp.st.com [10.75.44.20])
- by beta.dmz-eu.st.com (STMicroelectronics) with ESMTP id 0100E10002A;
- Thu, 11 Jun 2020 15:28:53 +0200 (CEST)
-Received: from Webmail-eu.st.com (sfhdag6node1.st.com [10.75.127.16])
- by euls16034.sgp.st.com (STMicroelectronics) with ESMTP id E1F542A48CC;
- Thu, 11 Jun 2020 15:28:52 +0200 (CEST)
-Received: from localhost (10.75.127.50) by SFHDAG6NODE1.st.com (10.75.127.16)
- with Microsoft SMTP Server (TLS) id 15.0.1473.3;
- Thu, 11 Jun 2020 15:28:52 +0200
-From: Ludovic Barre <ludovic.barre@st.com>
-To: Ulf Hansson <ulf.hansson@linaro.org>, Rob Herring <robh+dt@kernel.org>
-Date: Thu, 11 Jun 2020 15:28:39 +0200
-Message-ID: <20200611132839.4515-1-ludovic.barre@st.com>
-X-Mailer: git-send-email 2.17.1
+ Thu, 11 Jun 2020 15:45:49 +0000 (UTC)
+Received: from usa-sjc-imap-foss1.foss.arm.com (unknown [10.121.207.14])
+ by usa-sjc-mx-foss1.foss.arm.com (Postfix) with ESMTP id 0B6E71F1;
+ Thu, 11 Jun 2020 08:45:49 -0700 (PDT)
+Received: from [10.57.43.165] (unknown [10.57.43.165])
+ by usa-sjc-imap-foss1.foss.arm.com (Postfix) with ESMTPSA id B299B3F6CF;
+ Thu, 11 Jun 2020 08:45:45 -0700 (PDT)
+To: Christoph Hellwig <hch@infradead.org>
+References: <1591605038-8682-1-git-send-email-dillon.minfei@gmail.com>
+ <1591605038-8682-3-git-send-email-dillon.minfei@gmail.com>
+ <90df5646-e0c4-fcac-d934-4cc922230dd2@arm.com>
+ <20200610072444.GA6293@infradead.org>
+ <9c3a7b4e-0190-e9bb-91fe-6d5692559888@arm.com>
+From: Vladimir Murzin <vladimir.murzin@arm.com>
+Message-ID: <27881ee0-dc40-e8c6-34f6-712f9acc3fbc@arm.com>
+Date: Thu, 11 Jun 2020 16:45:43 +0100
+User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:60.0) Gecko/20100101
+ Thunderbird/60.8.0
 MIME-Version: 1.0
-X-Originating-IP: [10.75.127.50]
-X-ClientProxiedBy: SFHDAG5NODE2.st.com (10.75.127.14) To SFHDAG6NODE1.st.com
- (10.75.127.16)
-X-Proofpoint-Virus-Version: vendor=fsecure engine=2.50.10434:6.0.216, 18.0.687
- definitions=2020-06-11_14:2020-06-11,
- 2020-06-11 signatures=0
-Cc: devicetree@vger.kernel.org, linux-mmc@vger.kernel.org,
- linux-kernel@vger.kernel.org, srinivas.kandagatla@linaro.org,
- Maxime Coquelin <mcoquelin.stm32@gmail.com>,
- linux-stm32@st-md-mailman.stormreply.com, linux-arm-kernel@lists.infradead.org
-Subject: [Linux-stm32] [PATCH] mmc: mmci: add sdio datactrl mask for sdmmc
-	revisions
+In-Reply-To: <9c3a7b4e-0190-e9bb-91fe-6d5692559888@arm.com>
+Content-Language: en-US
+Cc: kstewart@linuxfoundation.org, devicetree@vger.kernel.org,
+ dillon.minfei@gmail.com, linux-kernel@vger.kernel.org, linux@armlinux.org.uk,
+ robh+dt@kernel.org, allison@lohutok.net, mcoquelin.stm32@gmail.com,
+ tglx@linutronix.de, info@metux.net, linux-stm32@st-md-mailman.stormreply.com,
+ linux-arm-kernel@lists.infradead.org
+Subject: Re: [Linux-stm32] [PATCH 2/2] arm-nommu: Add use_reserved_mem() to
+ check if device support reserved memory
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -73,36 +54,113 @@ Content-Transfer-Encoding: 7bit
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
-This patch adds datactrl_mask_sdio for sdmmc revisions.
-sdmmc revisions used same bit of previous ST variant.
+On 6/10/20 9:19 AM, Vladimir Murzin wrote:
+> On 6/10/20 8:24 AM, Christoph Hellwig wrote:
+>> Ok, I finally found the original patch from Vladimir.  Comments below:
+>>
+>>> +++ b/kernel/dma/direct.c
+>>> @@ -456,14 +456,14 @@ int dma_direct_mmap(struct device *dev, struct vm_area_struct *vma,
+>>>  #else /* CONFIG_MMU */
+>>>  bool dma_direct_can_mmap(struct device *dev)
+>>>  {
+>>> -	return false;
+>>> +	return true;
+>>>  }
+>>>  
+>>>  int dma_direct_mmap(struct device *dev, struct vm_area_struct *vma,
+>>>  		void *cpu_addr, dma_addr_t dma_addr, size_t size,
+>>>  		unsigned long attrs)
+>>>  {
+>>> -	return -ENXIO;
+>>> +	return vm_iomap_memory(vma, vma->vm_start, (vma->vm_end - vma->vm_start));;
+>>
+>> I think we should try to reuse the mmu dma_direct_mmap implementation,
+>> which does about the same.  This version has been compile tested on
+>> arm-nommu only, let me know what you think: (btw, a nommu_defconfig of
+>> some kind for arm would be nice..)
+> 
+> Catch-all nommu_defconfig is not easy for ARM, AFAIK folk carry few hacks
+> for randconfig...
+> 
+> Meanwhile, known working NOMMU configs
+> 
+> $ git grep "# CONFIG_MMU is not set" arch/arm/configs/
+> arch/arm/configs/efm32_defconfig:# CONFIG_MMU is not set
+> arch/arm/configs/lpc18xx_defconfig:# CONFIG_MMU is not set
+> arch/arm/configs/mps2_defconfig:# CONFIG_MMU is not set
+> arch/arm/configs/stm32_defconfig:# CONFIG_MMU is not set
+> arch/arm/configs/vf610m4_defconfig:# CONFIG_MMU is not set
+> 
+>>
+>> diff --git a/kernel/dma/Kconfig b/kernel/dma/Kconfig
+>> index d006668c0027d2..e0dae570a51530 100644
+>> --- a/kernel/dma/Kconfig
+>> +++ b/kernel/dma/Kconfig
+>> @@ -71,6 +71,7 @@ config SWIOTLB
+>>  # in the pagetables
+>>  #
+>>  config DMA_NONCOHERENT_MMAP
+>> +	default y if !MMU
+>>  	bool
+> 
+> Nit: def_bool !MMU
+> 
+>>  
+>>  config DMA_REMAP
+>> diff --git a/kernel/dma/direct.c b/kernel/dma/direct.c
+>> index 0a4881e59aa7d6..9ec6a5c3fc578c 100644
+>> --- a/kernel/dma/direct.c
+>> +++ b/kernel/dma/direct.c
+>> @@ -459,7 +459,6 @@ int dma_direct_get_sgtable(struct device *dev, struct sg_table *sgt,
+>>  	return ret;
+>>  }
+>>  
+>> -#ifdef CONFIG_MMU
+>>  bool dma_direct_can_mmap(struct device *dev)
+>>  {
+>>  	return dev_is_dma_coherent(dev) ||
+>> @@ -485,19 +484,6 @@ int dma_direct_mmap(struct device *dev, struct vm_area_struct *vma,
+>>  	return remap_pfn_range(vma, vma->vm_start, pfn + vma->vm_pgoff,
+>>  			user_count << PAGE_SHIFT, vma->vm_page_prot);
+>>  }
+>> -#else /* CONFIG_MMU */
+>> -bool dma_direct_can_mmap(struct device *dev)
+>> -{
+>> -	return false;
+>> -}
+>> -
+>> -int dma_direct_mmap(struct device *dev, struct vm_area_struct *vma,
+>> -		void *cpu_addr, dma_addr_t dma_addr, size_t size,
+>> -		unsigned long attrs)
+>> -{
+>> -	return -ENXIO;
+>> -}
+>> -#endif /* CONFIG_MMU */
+>>  
+>>  int dma_direct_supported(struct device *dev, u64 mask)
+>>  {
+>>
+> 
+> LGTM. FWIW:
+> 
+> Reviewed-by: Vladimir Murzin <vladimir.murzin@arm.com>
+> 
+> 
 
-Signed-off-by: Ludovic Barre <ludovic.barre@st.com>
----
- drivers/mmc/host/mmci.c | 2 ++
- 1 file changed, 2 insertions(+)
+@dillon, can you give it a try?
 
-diff --git a/drivers/mmc/host/mmci.c b/drivers/mmc/host/mmci.c
-index a69d6a0c2e15..b5a41a7ce165 100644
---- a/drivers/mmc/host/mmci.c
-+++ b/drivers/mmc/host/mmci.c
-@@ -267,6 +267,7 @@ static struct variant_data variant_stm32_sdmmc = {
- 	.datalength_bits	= 25,
- 	.datactrl_blocksz	= 14,
- 	.datactrl_any_blocksz	= true,
-+	.datactrl_mask_sdio	= MCI_DPSM_ST_SDIOEN,
- 	.stm32_idmabsize_mask	= GENMASK(12, 5),
- 	.busy_timeout		= true,
- 	.busy_detect		= true,
-@@ -292,6 +293,7 @@ static struct variant_data variant_stm32_sdmmcv2 = {
- 	.datalength_bits	= 25,
- 	.datactrl_blocksz	= 14,
- 	.datactrl_any_blocksz	= true,
-+	.datactrl_mask_sdio	= MCI_DPSM_ST_SDIOEN,
- 	.stm32_idmabsize_mask	= GENMASK(16, 5),
- 	.dma_lli		= true,
- 	.busy_timeout		= true,
--- 
-2.17.1
+I think Christoph would appreciate your Tested-by and that might speed up
+getting fix mainline.
+
+
+Cheers
+Vladimir
+
+> _______________________________________________
+> linux-arm-kernel mailing list
+> linux-arm-kernel@lists.infradead.org
+> http://lists.infradead.org/mailman/listinfo/linux-arm-kernel
+> 
 
 _______________________________________________
 Linux-stm32 mailing list
