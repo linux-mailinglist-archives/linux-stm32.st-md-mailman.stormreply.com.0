@@ -2,69 +2,60 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id A95FF1F721E
-	for <lists+linux-stm32@lfdr.de>; Fri, 12 Jun 2020 04:15:49 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 61AF11F7AB1
+	for <lists+linux-stm32@lfdr.de>; Fri, 12 Jun 2020 17:23:38 +0200 (CEST)
 Received: from ip-172-31-3-76.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 4C645C36B21;
-	Fri, 12 Jun 2020 02:15:49 +0000 (UTC)
-Received: from mail-io1-f68.google.com (mail-io1-f68.google.com
- [209.85.166.68])
- (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 10D8BC36B21;
+	Fri, 12 Jun 2020 15:23:38 +0000 (UTC)
+Received: from mx07-00178001.pphosted.com (mx08-00178001.pphosted.com
+ [91.207.212.93])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id A238EC36B0B
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 5269DC36B0B
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Fri, 12 Jun 2020 02:15:46 +0000 (UTC)
-Received: by mail-io1-f68.google.com with SMTP id o5so8650392iow.8
- for <linux-stm32@st-md-mailman.stormreply.com>;
- Thu, 11 Jun 2020 19:15:46 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20161025;
- h=mime-version:references:in-reply-to:from:date:message-id:subject:to
- :cc; bh=NBuImNZJUOHAcMdNirnqNdfxcsQ2t26UAs7QUyiyLrA=;
- b=CSvZe25C2fwv4G8CtuJ5LGADD7XH1+hw3iXV3UPdybI2Wn5uesXsz6c2ZXa8XqBuNu
- 9MUqBYO00T1Dlka13KaqXswvqCfxqtdF14PATYtXoQkymTy4LobTZZujA+y65BQXu6Vt
- IyFvDgL+E97bi2woUM6AIIy6coqRYOvjJnLFKXvWNREnlN0DiowuGK87YtfmPgB5ibRK
- /thKJEo3PcrmOyiF6jn3hMYxeLEiAJLnNc2XKn5suQGDqeR7nKzoLqk3Xntbh3ERpFNN
- 7ytP9nTB8B4Q3ZYCpDFA8HEzYAmQ46D6slN1tB+7XqzPPcbzTFrGTDuamjgrj7UG8qCp
- WMrg==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20161025;
- h=x-gm-message-state:mime-version:references:in-reply-to:from:date
- :message-id:subject:to:cc;
- bh=NBuImNZJUOHAcMdNirnqNdfxcsQ2t26UAs7QUyiyLrA=;
- b=Q53H9cFCWsfdYxn4xTikytYaVPeAN7eCZV1fo0iBTpPvf2qsQQf3tze7mgJnnaHa+g
- z1WFw1HxYA0BuufS7mnqanpXYVup4zdwEh9SSvZV7yHugJG/i/wYbPLNprOs61vIBL5a
- kSxcc+gStDnCaLL286EzkTe+qqzLlov+TONU+D/iDlN5QEHwEXzPB6SEZd46CendSxRg
- cwivzdZ13tcEETYh/GrdXJL/QeNirwKK3dMgezXuza4sCc+up7lwBg/5I2gEG9i7EEcN
- +GoUUEtyG+oRUxzwOf8Zur3baAG56gSgLBwAtFiKgazflY392FN7y8/pIAtqA7rZxMwl
- bh3w==
-X-Gm-Message-State: AOAM5314GSDcpVmwtihmgs0+SGKU1BnH+8ZdTAK+k7LXDARsftOwBQAF
- nz2c3b/9W6vaZQNjwDT7vQudxarrmqE1qlk04qI=
-X-Google-Smtp-Source: ABdhPJxMBOHc52GKXGY4KZd1zNrgtQTD0ozbXNYiuxbWME1ZaP5hoURzRjxVunisuqPjhbSGemzXmgIgilN6zmmjmP0=
-X-Received: by 2002:a05:6602:2ac9:: with SMTP id
- m9mr11505755iov.68.1591928145464; 
- Thu, 11 Jun 2020 19:15:45 -0700 (PDT)
+ Fri, 12 Jun 2020 15:23:37 +0000 (UTC)
+Received: from pps.filterd (m0046660.ppops.net [127.0.0.1])
+ by mx07-00178001.pphosted.com (8.16.0.42/8.16.0.42) with SMTP id
+ 05CF1VeH016986; Fri, 12 Jun 2020 17:23:14 +0200
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=st.com;
+ h=from : to : cc : subject
+ : date : message-id : mime-version : content-type; s=STMicroelectronics;
+ bh=ZNCgFY29ushPSChdQisNmd/nPHJRu5GNLEvEuVDL5BM=;
+ b=V3oHbThVFkfRLV1aqUq4Dvf3ONhnmS7OuMBOhlANd777f+fD9tVVoIHaEwJ4vgFpvSZg
+ ny2jfjYOv8WKIkMSjIjFTk1FrvIB5BnbeNpKH6maohfuQ408ijgATIlmvcpp/WGF8ken
+ yhOmcT8+nBDSVFsBEFSOcrzGFWyKtA25YStyyT1nOgNdn/yyBXg0p/abfGQW5Mu3KYKX
+ nh9D9z8m9I6iztupBtDMJEcYx/OnMXF3EgJXK8zxXq0gOzsqig1v2pffJtgeN0ILZPS+
+ ieUcR3UoocZX38owaQxDBdc4zbuFRzQM5+meJgD+bGymcZCR8WxA2oGIDZ2Qx+LWV0Ay LQ== 
+Received: from beta.dmz-eu.st.com (beta.dmz-eu.st.com [164.129.1.35])
+ by mx07-00178001.pphosted.com with ESMTP id 31g097s1j5-1
+ (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
+ Fri, 12 Jun 2020 17:23:14 +0200
+Received: from euls16034.sgp.st.com (euls16034.sgp.st.com [10.75.44.20])
+ by beta.dmz-eu.st.com (STMicroelectronics) with ESMTP id AF14210002A;
+ Fri, 12 Jun 2020 17:23:12 +0200 (CEST)
+Received: from Webmail-eu.st.com (sfhdag6node2.st.com [10.75.127.17])
+ by euls16034.sgp.st.com (STMicroelectronics) with ESMTP id 960112B9918;
+ Fri, 12 Jun 2020 17:23:12 +0200 (CEST)
+Received: from localhost (10.75.127.50) by SFHDAG6NODE2.st.com (10.75.127.17)
+ with Microsoft SMTP Server (TLS) id 15.0.1347.2;
+ Fri, 12 Jun 2020 17:23:11 +0200
+From: Christophe Kerello <christophe.kerello@st.com>
+To: <miquel.raynal@bootlin.com>, <richard@nod.at>, <vigneshr@ti.com>,
+ <robh+dt@kernel.org>, <mark.rutland@arm.com>, <arnd@linaro.org>,
+ <alexandre.torgue@st.com>
+Date: Fri, 12 Jun 2020 17:22:36 +0200
+Message-ID: <1591975362-22009-1-git-send-email-christophe.kerello@st.com>
+X-Mailer: git-send-email 1.9.1
 MIME-Version: 1.0
-References: <1591605038-8682-1-git-send-email-dillon.minfei@gmail.com>
- <1591605038-8682-3-git-send-email-dillon.minfei@gmail.com>
- <90df5646-e0c4-fcac-d934-4cc922230dd2@arm.com>
- <20200610072444.GA6293@infradead.org>
- <9c3a7b4e-0190-e9bb-91fe-6d5692559888@arm.com>
- <27881ee0-dc40-e8c6-34f6-712f9acc3fbc@arm.com>
-In-Reply-To: <27881ee0-dc40-e8c6-34f6-712f9acc3fbc@arm.com>
-From: dillon min <dillon.minfei@gmail.com>
-Date: Fri, 12 Jun 2020 10:15:08 +0800
-Message-ID: <CAL9mu0+ZfW-DoO-DvhvGO-KeGMA+vuHga3FOxN_Ce7uStGPoqg@mail.gmail.com>
-To: Vladimir Murzin <vladimir.murzin@arm.com>
-Cc: Kate Stewart <kstewart@linuxfoundation.org>,
- "open list:OPEN FIRMWARE AND FLATTENED DEVICE TREE BINDINGS"
- <devicetree@vger.kernel.org>, linux@armlinux.org.uk,
- Linux Kernel Mailing List <linux-kernel@vger.kernel.org>,
- Christoph Hellwig <hch@infradead.org>, Rob Herring <robh+dt@kernel.org>,
- allison@lohutok.net, Maxime Coquelin <mcoquelin.stm32@gmail.com>,
- tglx@linutronix.de, info@metux.net, linux-stm32@st-md-mailman.stormreply.com,
- Linux ARM <linux-arm-kernel@lists.infradead.org>
-Subject: Re: [Linux-stm32] [PATCH 2/2] arm-nommu: Add use_reserved_mem() to
- check if device support reserved memory
+X-Originating-IP: [10.75.127.50]
+X-ClientProxiedBy: SFHDAG6NODE1.st.com (10.75.127.16) To SFHDAG6NODE2.st.com
+ (10.75.127.17)
+X-Proofpoint-Virus-Version: vendor=fsecure engine=2.50.10434:6.0.216, 18.0.687
+ definitions=2020-06-12_11:2020-06-12,
+ 2020-06-12 signatures=0
+Cc: marex@denx.de, devicetree@vger.kernel.org, linux-kernel@vger.kernel.org,
+ linux-mtd@lists.infradead.org, linux-stm32@st-md-mailman.stormreply.com
+Subject: [Linux-stm32] [PATCH v5 0/6] add STM32 FMC2 EBI controller driver
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -81,154 +72,68 @@ Content-Transfer-Encoding: 7bit
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
-On Thu, Jun 11, 2020 at 11:45 PM Vladimir Murzin
-<vladimir.murzin@arm.com> wrote:
->
-> On 6/10/20 9:19 AM, Vladimir Murzin wrote:
-> > On 6/10/20 8:24 AM, Christoph Hellwig wrote:
-> >> Ok, I finally found the original patch from Vladimir.  Comments below:
-> >>
-> >>> +++ b/kernel/dma/direct.c
-> >>> @@ -456,14 +456,14 @@ int dma_direct_mmap(struct device *dev, struct vm_area_struct *vma,
-> >>>  #else /* CONFIG_MMU */
-> >>>  bool dma_direct_can_mmap(struct device *dev)
-> >>>  {
-> >>> -   return false;
-> >>> +   return true;
-> >>>  }
-> >>>
-> >>>  int dma_direct_mmap(struct device *dev, struct vm_area_struct *vma,
-> >>>             void *cpu_addr, dma_addr_t dma_addr, size_t size,
-> >>>             unsigned long attrs)
-> >>>  {
-> >>> -   return -ENXIO;
-> >>> +   return vm_iomap_memory(vma, vma->vm_start, (vma->vm_end - vma->vm_start));;
-> >>
-> >> I think we should try to reuse the mmu dma_direct_mmap implementation,
-> >> which does about the same.  This version has been compile tested on
-> >> arm-nommu only, let me know what you think: (btw, a nommu_defconfig of
-> >> some kind for arm would be nice..)
-> >
-> > Catch-all nommu_defconfig is not easy for ARM, AFAIK folk carry few hacks
-> > for randconfig...
-> >
-> > Meanwhile, known working NOMMU configs
-> >
-> > $ git grep "# CONFIG_MMU is not set" arch/arm/configs/
-> > arch/arm/configs/efm32_defconfig:# CONFIG_MMU is not set
-> > arch/arm/configs/lpc18xx_defconfig:# CONFIG_MMU is not set
-> > arch/arm/configs/mps2_defconfig:# CONFIG_MMU is not set
-> > arch/arm/configs/stm32_defconfig:# CONFIG_MMU is not set
-> > arch/arm/configs/vf610m4_defconfig:# CONFIG_MMU is not set
-> >
-> >>
-> >> diff --git a/kernel/dma/Kconfig b/kernel/dma/Kconfig
-> >> index d006668c0027d2..e0dae570a51530 100644
-> >> --- a/kernel/dma/Kconfig
-> >> +++ b/kernel/dma/Kconfig
-> >> @@ -71,6 +71,7 @@ config SWIOTLB
-> >>  # in the pagetables
-> >>  #
-> >>  config DMA_NONCOHERENT_MMAP
-> >> +    default y if !MMU
-> >>      bool
-> >
-> > Nit: def_bool !MMU
-> >
-> >>
-> >>  config DMA_REMAP
-> >> diff --git a/kernel/dma/direct.c b/kernel/dma/direct.c
-> >> index 0a4881e59aa7d6..9ec6a5c3fc578c 100644
-> >> --- a/kernel/dma/direct.c
-> >> +++ b/kernel/dma/direct.c
-> >> @@ -459,7 +459,6 @@ int dma_direct_get_sgtable(struct device *dev, struct sg_table *sgt,
-> >>      return ret;
-> >>  }
-> >>
-> >> -#ifdef CONFIG_MMU
-> >>  bool dma_direct_can_mmap(struct device *dev)
-> >>  {
-> >>      return dev_is_dma_coherent(dev) ||
-> >> @@ -485,19 +484,6 @@ int dma_direct_mmap(struct device *dev, struct vm_area_struct *vma,
-> >>      return remap_pfn_range(vma, vma->vm_start, pfn + vma->vm_pgoff,
-> >>                      user_count << PAGE_SHIFT, vma->vm_page_prot);
-> >>  }
-> >> -#else /* CONFIG_MMU */
-> >> -bool dma_direct_can_mmap(struct device *dev)
-> >> -{
-> >> -    return false;
-> >> -}
-> >> -
-> >> -int dma_direct_mmap(struct device *dev, struct vm_area_struct *vma,
-> >> -            void *cpu_addr, dma_addr_t dma_addr, size_t size,
-> >> -            unsigned long attrs)
-> >> -{
-> >> -    return -ENXIO;
-> >> -}
-> >> -#endif /* CONFIG_MMU */
-> >>
-> >>  int dma_direct_supported(struct device *dev, u64 mask)
-> >>  {
-> >>
-> >
-> > LGTM. FWIW:
-> >
-> > Reviewed-by: Vladimir Murzin <vladimir.murzin@arm.com>
-> >
-> >
->
-> @dillon, can you give it a try?
->
-> I think Christoph would appreciate your Tested-by and that might speed up
-> getting fix mainline.
->
-sorry for the late response. Yes, it's working
+The FMC2 functional block makes the interface with: synchronous and
+asynchronous static devices (such as PSNOR, PSRAM or other memory-mapped
+peripherals) and NAND flash memories.
+Its main purposes are:
+  - to translate AXI transactions into the appropriate external device
+    protocol
+  - to meet the access time requirements of the external devices
+All external devices share the addresses, data and control signals with the
+controller. Each external device is accessed by means of a unique Chip
+Select. The FMC2 performs only one access at a time to an external device.
 
-Thanks Christoph
+Changes in v5:
+ - NAND:
+   - do not display errors if the driver is deferred.
+   - look at the parent compatible string to match what we expect.
+ - bindings:
+   - add Rob reviewed-by tag on patch 3.
+   - fix indent descriptions.
+   - add new NFC compatible string to handle reg number of entries. 
 
-index 8f4bbdaf965e..3e0ecf0b5fb3 100644
---- a/kernel/dma/direct.c
-+++ b/kernel/dma/direct.c
-@@ -427,7 +427,6 @@ int dma_direct_get_sgtable(struct device *dev,
-struct sg_table *sgt,
-        return ret;
- }
+Changes in v4:
+ - bindings:
+   - fix filename: st,stm32-fmc2-ebi.yaml
 
--#ifdef CONFIG_MMU
- bool dma_direct_can_mmap(struct device *dev)
- {
-        return dev_is_dma_coherent(dev) ||
-@@ -453,19 +452,6 @@ int dma_direct_mmap(struct device *dev, struct
-vm_area_struct *vma,
-        return remap_pfn_range(vma, vma->vm_start, pfn + vma->vm_pgoff,
-                        user_count << PAGE_SHIFT, vma->vm_page_prot);
- }
--#else /* CONFIG_MMU */
--bool dma_direct_can_mmap(struct device *dev)
--{
--       return false;
--}
--
--int dma_direct_mmap(struct device *dev, struct vm_area_struct *vma,
--               void *cpu_addr, dma_addr_t dma_addr, size_t size,
--               unsigned long attrs)
--{
--       return -ENXIO;
--}
--#endif /* CONFIG_MMU */
+Changes in v3:
+ - NAND:
+   - rename labels used on errors
+   - add in the commit log the reason to increase FMC2_TIMEOUT_MS (patch 3)
+   - add Miquel reviewed-by tag (patches 2/4/5/9)
+ - EBI:
+   - move in memory folder
+   - merge MFD and BUS drivers to avoid a MFD driver
+ - bindings:
+   - pattern name has been modified
+   - vendor properties have been modified
+     - s/_/-/
+     - add unit suffix (-ns) on timing properties
 
-Tested-by:  dillon min <dillon.minfei@gmail.com>
+Christophe Kerello (6):
+  mtd: rawnand: stm32_fmc2: do not display errors if the driver is
+    deferred
+  dt-bindings: mtd: update STM32 FMC2 NAND controller documentation
+  dt-bindings: memory-controller: add STM32 FMC2 EBI controller
+    documentation
+  memory: stm32-fmc2-ebi: add STM32 FMC2 EBI controller driver
+  mtd: rawnand: stm32_fmc2: use regmap APIs
+  mtd: rawnand: stm32_fmc2: get resources from parent node
 
->
-> Cheers
-> Vladimir
->
-> > _______________________________________________
-> > linux-arm-kernel mailing list
-> > linux-arm-kernel@lists.infradead.org
-> > http://lists.infradead.org/mailman/listinfo/linux-arm-kernel
-> >
->
+ .../memory-controllers/st,stm32-fmc2-ebi.yaml      |  252 ++++
+ .../bindings/mtd/st,stm32-fmc2-nand.yaml           |   83 +-
+ drivers/memory/Kconfig                             |   10 +
+ drivers/memory/Makefile                            |    1 +
+ drivers/memory/stm32-fmc2-ebi.c                    | 1206 ++++++++++++++++++++
+ drivers/mtd/nand/raw/Kconfig                       |    1 +
+ drivers/mtd/nand/raw/stm32_fmc2_nand.c             |  311 ++---
+ 7 files changed, 1688 insertions(+), 176 deletions(-)
+ create mode 100644 Documentation/devicetree/bindings/memory-controllers/st,stm32-fmc2-ebi.yaml
+ create mode 100644 drivers/memory/stm32-fmc2-ebi.c
+
+-- 
+1.9.1
+
 _______________________________________________
 Linux-stm32 mailing list
 Linux-stm32@st-md-mailman.stormreply.com
