@@ -2,64 +2,66 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id A625A1F7AC6
-	for <lists+linux-stm32@lfdr.de>; Fri, 12 Jun 2020 17:24:05 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 1552A1F7E4E
+	for <lists+linux-stm32@lfdr.de>; Fri, 12 Jun 2020 23:11:08 +0200 (CEST)
 Received: from ip-172-31-3-76.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 70914C36B23;
-	Fri, 12 Jun 2020 15:24:05 +0000 (UTC)
-Received: from mx07-00178001.pphosted.com (mx07-00178001.pphosted.com
- [62.209.51.94])
- (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id B2D3CC36B21;
+	Fri, 12 Jun 2020 21:11:07 +0000 (UTC)
+Received: from mail-io1-f66.google.com (mail-io1-f66.google.com
+ [209.85.166.66])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 81115C36B22
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 59C25C36B0B
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Fri, 12 Jun 2020 15:24:03 +0000 (UTC)
-Received: from pps.filterd (m0046668.ppops.net [127.0.0.1])
- by mx07-00178001.pphosted.com (8.16.0.42/8.16.0.42) with SMTP id
- 05CFNRn7024867; Fri, 12 Jun 2020 17:23:54 +0200
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=st.com;
- h=from : to : cc : subject
- : date : message-id : in-reply-to : references : mime-version :
- content-type; s=STMicroelectronics;
- bh=VKuXtI+oKwLUbGWw0bK1JRaRMG7c04L0ar85aWbitOc=;
- b=pA/C8AGDVHHDnA4+i9JL3tWOgrZ5QY/f970LS1wVSI24PDDWLLFvU5VKGwVi5wMY6zi+
- k9lvDwGzI0ZOcL+TpGQTzq5d541qs7NU7hkFDJc9QrHGbGivXGdQlVV61A/wg79ZyDmh
- ja632V8yyTY5ypRh0n9XBuvKNJ9+7tn/IJB1qSMRGrgnTdHnIMUAxlR/IfgDFI9854L7
- P3JnEoMo10HdbFZ8tICb2z+Ntum8mqesLj0aIH4xfMbQHxo4fEsWhmJZ6z9Wj7Q+i3qB
- 2IoWPwX1jQSmRXYpE1qDXFESUQ9OCad4ACXLsnR3PLq2vWliOKlapJeLm5+Q9sib02Js kw== 
-Received: from beta.dmz-eu.st.com (beta.dmz-eu.st.com [164.129.1.35])
- by mx07-00178001.pphosted.com with ESMTP id 31jppp6g3g-1
- (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
- Fri, 12 Jun 2020 17:23:54 +0200
-Received: from euls16034.sgp.st.com (euls16034.sgp.st.com [10.75.44.20])
- by beta.dmz-eu.st.com (STMicroelectronics) with ESMTP id 1605C10002A;
- Fri, 12 Jun 2020 17:23:54 +0200 (CEST)
-Received: from Webmail-eu.st.com (sfhdag6node2.st.com [10.75.127.17])
- by euls16034.sgp.st.com (STMicroelectronics) with ESMTP id 060BC2B9918;
- Fri, 12 Jun 2020 17:23:54 +0200 (CEST)
-Received: from localhost (10.75.127.48) by SFHDAG6NODE2.st.com (10.75.127.17)
- with Microsoft SMTP Server (TLS) id 15.0.1347.2;
- Fri, 12 Jun 2020 17:23:53 +0200
-From: Christophe Kerello <christophe.kerello@st.com>
-To: <miquel.raynal@bootlin.com>, <richard@nod.at>, <vigneshr@ti.com>,
- <robh+dt@kernel.org>, <mark.rutland@arm.com>, <arnd@linaro.org>,
- <alexandre.torgue@st.com>
-Date: Fri, 12 Jun 2020 17:22:42 +0200
-Message-ID: <1591975362-22009-7-git-send-email-christophe.kerello@st.com>
-X-Mailer: git-send-email 1.9.1
-In-Reply-To: <1591975362-22009-1-git-send-email-christophe.kerello@st.com>
-References: <1591975362-22009-1-git-send-email-christophe.kerello@st.com>
+ Fri, 12 Jun 2020 21:11:05 +0000 (UTC)
+Received: by mail-io1-f66.google.com with SMTP id y5so11687251iob.12
+ for <linux-stm32@st-md-mailman.stormreply.com>;
+ Fri, 12 Jun 2020 14:11:05 -0700 (PDT)
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20161025;
+ h=x-gm-message-state:date:from:to:cc:subject:message-id:references
+ :mime-version:content-disposition:in-reply-to;
+ bh=LdO+yABvrQyODTNWEnFCNLq5SRWaCDFSeyJReNxOrN4=;
+ b=rwrjpNPovrckMHx4SNTQF+XgEy5in2jbH47A34Ja55bwo+yA+KqKiOP73wDfhTTlj2
+ MhOEeQTUPjgw771R+iEJe4jQhH9USEH3jWcvY1yR7U+f4SYF6inLyVcXGhS0IRxav6tW
+ kAlfToB1iv4gbqnTuujhdqeQlQVzERW7KYo/MaQU1xR77fVDZG42ipJHerqwkOqoGaax
+ HALtyAYKkDihY9zC2hj01/CaA1JkzKaann0TrV7Ff6vrjUkEgrMmmqz0t+p5fvlu0/FK
+ nQXknRlpnsDHf1wan1hsnDc9DkpC3V9pVEtr6Uek3QOdlNsQSXCvgKsIf2trbegt+noZ
+ b9mg==
+X-Gm-Message-State: AOAM5309YNJWLUzoltx8FWR+Ohr1qk7EQHlRtPVVZ+DhBg1SPwMD1Jeo
+ pwiDqjD7atj5LacFt08XsQ==
+X-Google-Smtp-Source: ABdhPJyTLPwHiCPMWBDlg3TIAXPWsywr4DNWk8QAGkvpv7/LiQJCR/XEW/hsc3A/ByLjKLXUmh/i0w==
+X-Received: by 2002:a05:6638:406:: with SMTP id
+ q6mr10161463jap.125.1591996263990; 
+ Fri, 12 Jun 2020 14:11:03 -0700 (PDT)
+Received: from xps15 ([64.188.179.251])
+ by smtp.gmail.com with ESMTPSA id d66sm3628624iof.27.2020.06.12.14.11.01
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Fri, 12 Jun 2020 14:11:02 -0700 (PDT)
+Received: (nullmailer pid 3820221 invoked by uid 1000);
+ Fri, 12 Jun 2020 21:11:01 -0000
+Date: Fri, 12 Jun 2020 15:11:01 -0600
+From: Rob Herring <robh@kernel.org>
+To: Adrian Ratiu <adrian.ratiu@collabora.com>
+Message-ID: <20200612211101.GA3808755@bogus>
+References: <20200609174959.955926-1-adrian.ratiu@collabora.com>
+ <20200609174959.955926-6-adrian.ratiu@collabora.com>
 MIME-Version: 1.0
-X-Originating-IP: [10.75.127.48]
-X-ClientProxiedBy: SFHDAG6NODE3.st.com (10.75.127.18) To SFHDAG6NODE2.st.com
- (10.75.127.17)
-X-Proofpoint-Virus-Version: vendor=fsecure engine=2.50.10434:6.0.216, 18.0.687
- definitions=2020-06-12_11:2020-06-12,
- 2020-06-12 signatures=0
-Cc: marex@denx.de, devicetree@vger.kernel.org, linux-kernel@vger.kernel.org,
- linux-mtd@lists.infradead.org, linux-stm32@st-md-mailman.stormreply.com
-Subject: [Linux-stm32] [PATCH v5 6/6] mtd: rawnand: stm32_fmc2: get
-	resources from parent node
+Content-Disposition: inline
+In-Reply-To: <20200609174959.955926-6-adrian.ratiu@collabora.com>
+Cc: devicetree@vger.kernel.org, Jernej Skrabec <jernej.skrabec@siol.net>,
+ Sjoerd Simons <sjoerd.simons@collabora.com>, Heiko Stuebner <heiko@sntech.de>,
+ Adrian Pop <pop.adrian61@gmail.com>, Andrzej Hajda <a.hajda@samsung.com>,
+ Martyn Welch <martyn.welch@collabora.com>, Jonas Karlman <jonas@kwiboo.se>,
+ linux-kernel@vger.kernel.org, dri-devel@lists.freedesktop.org,
+ Yannick FERTRE <yannick.fertre@st.com>, linux-rockchip@lists.infradead.org,
+ Laurent Pinchart <Laurent.pinchart@ideasonboard.com>,
+ Arnaud Ferraris <arnaud.ferraris@collabora.com>,
+ Neil Armstrong <narmstrong@baylibre.com>, kernel@collabora.com,
+ Fabio Estevam <festevam@gmail.com>, linux-stm32@st-md-mailman.stormreply.com,
+ linux-arm-kernel@lists.infradead.org, linux-imx@nxp.com
+Subject: Re: [Linux-stm32] [PATCH v9 05/11] dt-bindings: display: add i.MX6
+ MIPI DSI host controller doc
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -76,188 +78,113 @@ Content-Transfer-Encoding: 7bit
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
-FMC2 EBI support has been added. Common resources (registers base
-address and clock) can now be shared between the 2 drivers using
-"st,stm32mp1-fmc2-nfc" compatible string. It means that the
-common resources should now be found in the parent device when EBI
-node is available.
+On Tue, Jun 09, 2020 at 08:49:53PM +0300, Adrian Ratiu wrote:
+> This provides an example DT binding for the MIPI DSI host controller
 
-Signed-off-by: Christophe Kerello <christophe.kerello@st.com>
----
-Changes in v5:
- - look at the parent compatible string to match what we expect.
+It's not an example. It defines the exact binding for this peripheral.
 
- drivers/mtd/nand/raw/Kconfig           |  3 +-
- drivers/mtd/nand/raw/stm32_fmc2_nand.c | 71 ++++++++++++++++++++++++----------
- 2 files changed, 51 insertions(+), 23 deletions(-)
+> present on the i.MX6 SoC based on Synopsis DesignWare v1.01 IP.
+> 
+> Cc: Rob Herring <robh@kernel.org>
+> Cc: Neil Armstrong <narmstrong@baylibre.com>
+> Cc: Fabio Estevam <festevam@gmail.com>
+> Cc: Laurent Pinchart <laurent.pinchart@ideasonboard.com>
+> Cc: devicetree@vger.kernel.org
+> Tested-by: Adrian Pop <pop.adrian61@gmail.com>
+> Tested-by: Arnaud Ferraris <arnaud.ferraris@collabora.com>
+> Signed-off-by: Sjoerd Simons <sjoerd.simons@collabora.com>
+> Signed-off-by: Martyn Welch <martyn.welch@collabora.com>
+> Signed-off-by: Adrian Ratiu <adrian.ratiu@collabora.com>
+> ---
+> Changes since v8:
+>   - Fixed small compatible string typo caught by checkpatch
+>   - Added custom select for 'fsl,imx6-mipi-dsi' (Rob)
+>   - Replaced additionalProperties -> unevaluatedProperties (Rob)
+>   - Dropped all nodes not adding any new constraints apart from
+>   the recently upstreamed snps,dw-mipi-dsi.yaml (Rob)
+> 
+> Changes since v7:
+>   - Clarified port@0,1 descriptions, marked them as required and
+>   added missing port@0 in example (Laurent)
+> 
+> Changes since v6:
+>   - Added ref to the newly created snps,dw-mipi-dsi.yaml (Laurent)
+>   - Moved *-cells properties outside patternProperties (Laurent)
+>   - Removed the panel port documentation (Laurent)
+>   - Wrapped lines at 80 chars, typo fixes, sort includes (Laurent)
+> 
+> Changes since v5:
+>   - Fixed missing reg warning (Fabio)
+>   - Updated dt-schema and fixed warnings (Rob)
+> 
+> Changes since v4:
+>   - Fixed yaml binding to pass `make dt_binding_check dtbs_check`
+>   and addressed received binding feedback (Rob)
+> 
+> Changes since v3:
+>   - Added commit message (Neil)
+>   - Converted to yaml format (Neil)
+>   - Minor dt node + driver fixes (Rob)
+>   - Added small panel example to the host controller binding
+> 
+> Changes since v2:
+>   - Fixed commit tags (Emil)
+> ---
+>  .../display/imx/fsl,mipi-dsi-imx6.yaml        | 112 ++++++++++++++++++
+>  1 file changed, 112 insertions(+)
+>  create mode 100644 Documentation/devicetree/bindings/display/imx/fsl,mipi-dsi-imx6.yaml
+> 
+> diff --git a/Documentation/devicetree/bindings/display/imx/fsl,mipi-dsi-imx6.yaml b/Documentation/devicetree/bindings/display/imx/fsl,mipi-dsi-imx6.yaml
+> new file mode 100644
+> index 0000000000000..86093729fd5f9
+> --- /dev/null
+> +++ b/Documentation/devicetree/bindings/display/imx/fsl,mipi-dsi-imx6.yaml
+> @@ -0,0 +1,112 @@
+> +# SPDX-License-Identifier: (GPL-2.0-only OR BSD-2-Clause)
+> +%YAML 1.2
+> +---
+> +$id: http://devicetree.org/schemas/display/imx/fsl,mipi-dsi-imx6.yaml#
+> +$schema: http://devicetree.org/meta-schemas/core.yaml#
+> +
+> +title: Freescale i.MX6 DW MIPI DSI Host Controller
+> +
+> +maintainers:
+> +  - Adrian Ratiu <adrian.ratiu@collabora.com>
+> +
+> +description: |
+> +  The i.MX6 DSI host controller is a Synopsys DesignWare MIPI DSI v1.01
+> +  IP block with a companion PHY IP.
+> +
+> +  These DT bindings follow the Synopsys DW MIPI DSI bindings defined in
+> +  Documentation/devicetree/bindings/display/bridge/dw_mipi_dsi.txt with
+> +  the following device-specific properties.
+> +
+> +allOf:
+> +  - $ref: ../bridge/snps,dw-mipi-dsi.yaml#
+> +
+> +# Need a custom select here or 'snps,dw-mipi-dsi' will match lots of nodes
+> +select:
+> +  properties:
+> +    compatible:
+> +      contains:
+> +        enum:
+> +          - fsl,imx6-mipi-dsi
+> +  required:
+> +    - compatible
+> +
+> +properties:
 
-diff --git a/drivers/mtd/nand/raw/Kconfig b/drivers/mtd/nand/raw/Kconfig
-index 0a03ebf..8dd0d7c 100644
---- a/drivers/mtd/nand/raw/Kconfig
-+++ b/drivers/mtd/nand/raw/Kconfig
-@@ -415,8 +415,7 @@ config MTD_NAND_TEGRA
- config MTD_NAND_STM32_FMC2
- 	tristate "Support for NAND controller on STM32MP SoCs"
- 	depends on MACH_STM32MP157 || COMPILE_TEST
--	select REGMAP
--	select REGMAP_MMIO
-+	select MFD_SYSCON
- 	help
- 	  Enables support for NAND Flash chips on SoCs containing the FMC2
- 	  NAND controller. This controller is found on STM32MP SoCs.
-diff --git a/drivers/mtd/nand/raw/stm32_fmc2_nand.c b/drivers/mtd/nand/raw/stm32_fmc2_nand.c
-index 6aa3695..396b325 100644
---- a/drivers/mtd/nand/raw/stm32_fmc2_nand.c
-+++ b/drivers/mtd/nand/raw/stm32_fmc2_nand.c
-@@ -11,8 +11,10 @@
- #include <linux/errno.h>
- #include <linux/interrupt.h>
- #include <linux/iopoll.h>
-+#include <linux/mfd/syscon.h>
- #include <linux/module.h>
- #include <linux/mtd/rawnand.h>
-+#include <linux/of_address.h>
- #include <linux/pinctrl/consumer.h>
- #include <linux/platform_device.h>
- #include <linux/regmap.h>
-@@ -204,16 +206,6 @@
- #define FMC2_BCHDSR4_EBP7		GENMASK(12, 0)
- #define FMC2_BCHDSR4_EBP8		GENMASK(28, 16)
- 
--/* Regmap registers configuration */
--#define FMC2_MAX_REGISTER		0x3fc
--
--static const struct regmap_config stm32_fmc2_regmap_cfg = {
--	.reg_bits = 32,
--	.val_bits = 32,
--	.reg_stride = sizeof(u32),
--	.max_register = FMC2_MAX_REGISTER,
--};
--
- enum stm32_fmc2_ecc {
- 	FMC2_ECC_HAM = 1,
- 	FMC2_ECC_BCH4 = 4,
-@@ -253,6 +245,7 @@ struct stm32_fmc2_nfc {
- 	struct nand_controller base;
- 	struct stm32_fmc2_nand nand;
- 	struct device *dev;
-+	struct device *cdev;
- 	struct regmap *regmap;
- 	void __iomem *data_base[FMC2_MAX_CE];
- 	void __iomem *cmd_base[FMC2_MAX_CE];
-@@ -1384,8 +1377,9 @@ static void stm32_fmc2_nfc_init(struct stm32_fmc2_nfc *nfc)
- 	pcr |= FIELD_PREP(FMC2_PCR_TAR, FMC2_PCR_TAR_DEFAULT);
- 
- 	/* Enable FMC2 controller */
--	regmap_update_bits(nfc->regmap, FMC2_BCR1,
--			   FMC2_BCR1_FMC2EN, FMC2_BCR1_FMC2EN);
-+	if (nfc->dev == nfc->cdev)
-+		regmap_update_bits(nfc->regmap, FMC2_BCR1,
-+				   FMC2_BCR1_FMC2EN, FMC2_BCR1_FMC2EN);
- 
- 	regmap_write(nfc->regmap, FMC2_PCR, pcr);
- 	regmap_write(nfc->regmap, FMC2_PMEM, FMC2_PMEM_DEFAULT);
-@@ -1815,6 +1809,33 @@ static int stm32_fmc2_nfc_parse_dt(struct stm32_fmc2_nfc *nfc)
- 	return ret;
- }
- 
-+static int stm32_fmc2_nfc_set_cdev(struct stm32_fmc2_nfc *nfc)
-+{
-+	struct device *dev = nfc->dev;
-+	bool ebi_found = false;
-+
-+	if (dev->parent && of_device_is_compatible(dev->parent->of_node,
-+						   "st,stm32mp1-fmc2-ebi"))
-+		ebi_found = true;
-+
-+	if (of_device_is_compatible(dev->of_node, "st,stm32mp1-fmc2-nfc")) {
-+		if (ebi_found) {
-+			nfc->cdev = dev->parent;
-+
-+			return 0;
-+		}
-+
-+		return -EINVAL;
-+	}
-+
-+	if (ebi_found)
-+		return -EINVAL;
-+
-+	nfc->cdev = dev;
-+
-+	return 0;
-+}
-+
- static int stm32_fmc2_nfc_probe(struct platform_device *pdev)
- {
- 	struct device *dev = &pdev->dev;
-@@ -1824,8 +1845,9 @@ static int stm32_fmc2_nfc_probe(struct platform_device *pdev)
- 	struct resource *res;
- 	struct mtd_info *mtd;
- 	struct nand_chip *chip;
--	void __iomem *mmio;
-+	struct resource cres;
- 	int chip_cs, mem_region, ret, irq;
-+	int start_region = 0;
- 
- 	nfc = devm_kzalloc(dev, sizeof(*nfc), GFP_KERNEL);
- 	if (!nfc)
-@@ -1835,22 +1857,28 @@ static int stm32_fmc2_nfc_probe(struct platform_device *pdev)
- 	nand_controller_init(&nfc->base);
- 	nfc->base.ops = &stm32_fmc2_nfc_controller_ops;
- 
-+	ret = stm32_fmc2_nfc_set_cdev(nfc);
-+	if (ret)
-+		return ret;
-+
- 	ret = stm32_fmc2_nfc_parse_dt(nfc);
- 	if (ret)
- 		return ret;
- 
--	res = platform_get_resource(pdev, IORESOURCE_MEM, 0);
--	mmio = devm_ioremap_resource(dev, res);
--	if (IS_ERR(mmio))
--		return PTR_ERR(mmio);
-+	ret = of_address_to_resource(nfc->cdev->of_node, 0, &cres);
-+	if (ret)
-+		return ret;
-+
-+	nfc->io_phys_addr = cres.start;
- 
--	nfc->regmap = devm_regmap_init_mmio(dev, mmio, &stm32_fmc2_regmap_cfg);
-+	nfc->regmap = device_node_to_regmap(nfc->cdev->of_node);
- 	if (IS_ERR(nfc->regmap))
- 		return PTR_ERR(nfc->regmap);
- 
--	nfc->io_phys_addr = res->start;
-+	if (nfc->dev == nfc->cdev)
-+		start_region = 1;
- 
--	for (chip_cs = 0, mem_region = 1; chip_cs < FMC2_MAX_CE;
-+	for (chip_cs = 0, mem_region = start_region; chip_cs < FMC2_MAX_CE;
- 	     chip_cs++, mem_region += 3) {
- 		if (!(nfc->cs_assigned & BIT(chip_cs)))
- 			continue;
-@@ -1888,7 +1916,7 @@ static int stm32_fmc2_nfc_probe(struct platform_device *pdev)
- 
- 	init_completion(&nfc->complete);
- 
--	nfc->clk = devm_clk_get(dev, NULL);
-+	nfc->clk = devm_clk_get(nfc->cdev, NULL);
- 	if (IS_ERR(nfc->clk))
- 		return PTR_ERR(nfc->clk);
- 
-@@ -2029,6 +2057,7 @@ static SIMPLE_DEV_PM_OPS(stm32_fmc2_nfc_pm_ops, stm32_fmc2_nfc_suspend,
- 
- static const struct of_device_id stm32_fmc2_nfc_match[] = {
- 	{.compatible = "st,stm32mp15-fmc2"},
-+	{.compatible = "st,stm32mp1-fmc2-nfc"},
- 	{}
- };
- MODULE_DEVICE_TABLE(of, stm32_fmc2_nfc_match);
--- 
-1.9.1
+> +  '#address-cells':
+> +    const: 1
+> +
+> +  '#size-cells':
+> +    const: 0
 
+These 2 are covered by dsi-controller.yaml, so you can drop them.
+
+Otherwise,
+
+Reviewed-by: Rob Herring <robh@kernel.org>
 _______________________________________________
 Linux-stm32 mailing list
 Linux-stm32@st-md-mailman.stormreply.com
