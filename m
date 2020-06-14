@@ -2,66 +2,62 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id 1552A1F7E4E
-	for <lists+linux-stm32@lfdr.de>; Fri, 12 Jun 2020 23:11:08 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 23B3B1F873B
+	for <lists+linux-stm32@lfdr.de>; Sun, 14 Jun 2020 08:19:13 +0200 (CEST)
 Received: from ip-172-31-3-76.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id B2D3CC36B21;
-	Fri, 12 Jun 2020 21:11:07 +0000 (UTC)
-Received: from mail-io1-f66.google.com (mail-io1-f66.google.com
- [209.85.166.66])
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 98318C36B0C;
+	Sun, 14 Jun 2020 06:19:12 +0000 (UTC)
+Received: from mail-il1-f196.google.com (mail-il1-f196.google.com
+ [209.85.166.196])
  (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 59C25C36B0B
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 66B05C36B0A
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Fri, 12 Jun 2020 21:11:05 +0000 (UTC)
-Received: by mail-io1-f66.google.com with SMTP id y5so11687251iob.12
+ Sun, 14 Jun 2020 06:19:08 +0000 (UTC)
+Received: by mail-il1-f196.google.com with SMTP id z2so12453137ilq.0
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Fri, 12 Jun 2020 14:11:05 -0700 (PDT)
+ Sat, 13 Jun 2020 23:19:08 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20161025;
+ h=from:to:cc:subject:date:message-id;
+ bh=9KK+F0d4mciiuo9VaW5QFXWP2Ch9Rbbv4U0+fODdYfw=;
+ b=HDUWrCkggu0J1UgH7dQO1nYEXZBkr5iknhM0hWr8Cxnps2IFyJvHAbm6BhL5HSHOiL
+ WX37C60DJVxnU40AE6VWz63fnS75SQgC69ZoK7b/4wqZFHl/156yjZLfXFBhaqHKs106
+ KoJLVkVbIXH+4J8MHF1Z175hMrrlHTeDtn62CqD6mnQ54WNqw5M/VJREluvKXfAxAfP/
+ 0U+8b0JwdnROS3sjXzFelRhMmBiRdzI5LyeP2gNsQCUhskCB/SuMwoUdzPb24surrQ99
+ 1kQ2hnm8DG3Wc39OJrUbpKTLvfNB5vzFrmr+MyV+IExRyF84+5aA59fAIPji1X7t4f2A
+ RAaQ==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=1e100.net; s=20161025;
- h=x-gm-message-state:date:from:to:cc:subject:message-id:references
- :mime-version:content-disposition:in-reply-to;
- bh=LdO+yABvrQyODTNWEnFCNLq5SRWaCDFSeyJReNxOrN4=;
- b=rwrjpNPovrckMHx4SNTQF+XgEy5in2jbH47A34Ja55bwo+yA+KqKiOP73wDfhTTlj2
- MhOEeQTUPjgw771R+iEJe4jQhH9USEH3jWcvY1yR7U+f4SYF6inLyVcXGhS0IRxav6tW
- kAlfToB1iv4gbqnTuujhdqeQlQVzERW7KYo/MaQU1xR77fVDZG42ipJHerqwkOqoGaax
- HALtyAYKkDihY9zC2hj01/CaA1JkzKaann0TrV7Ff6vrjUkEgrMmmqz0t+p5fvlu0/FK
- nQXknRlpnsDHf1wan1hsnDc9DkpC3V9pVEtr6Uek3QOdlNsQSXCvgKsIf2trbegt+noZ
- b9mg==
-X-Gm-Message-State: AOAM5309YNJWLUzoltx8FWR+Ohr1qk7EQHlRtPVVZ+DhBg1SPwMD1Jeo
- pwiDqjD7atj5LacFt08XsQ==
-X-Google-Smtp-Source: ABdhPJyTLPwHiCPMWBDlg3TIAXPWsywr4DNWk8QAGkvpv7/LiQJCR/XEW/hsc3A/ByLjKLXUmh/i0w==
-X-Received: by 2002:a05:6638:406:: with SMTP id
- q6mr10161463jap.125.1591996263990; 
- Fri, 12 Jun 2020 14:11:03 -0700 (PDT)
-Received: from xps15 ([64.188.179.251])
- by smtp.gmail.com with ESMTPSA id d66sm3628624iof.27.2020.06.12.14.11.01
+ h=x-gm-message-state:from:to:cc:subject:date:message-id;
+ bh=9KK+F0d4mciiuo9VaW5QFXWP2Ch9Rbbv4U0+fODdYfw=;
+ b=cGPgk5/7GOFBsH8pK4oElmuxz7QchdP1ZoymG7jiZAgWIn8oy/mYKvDbW6SHMFn4A2
+ TlmvJ02ofIheACEBzznbUwoJKhDTWpB7pBVAB9BCGkS1LfZur2hW2snwdlCz+cx4Mcq/
+ MlbMi1E+qCNBts9TjgTbSkcj007kb8kbBkZphrwdwlKFnHcIejyl3cAP2zOQzz89dmpN
+ 0JSuwfjc+tkRgWktTkNRrGYvi/MzkyVP916S+lWsV09qHjD5JAFdCPSzP208Prcy9J5E
+ hsoyLyPCiVRYoEKnZi3QSsdj48MYOIvBMHtD1zIDnZwSlGHm3XkVkEneMlfIRFqInwk2
+ fMEw==
+X-Gm-Message-State: AOAM533ljHdo2cNwmfXhwn+6ew9cUIv5C8mLSu4z8T0GLuNSkhng1Ke2
+ mpTRML424VsnvCFFNK36z8U=
+X-Google-Smtp-Source: ABdhPJx+RHJDlWRBydGsMDNESumPn7fohMgnWm/IsMUtg/EAwn/mNh1mHSYHhLadFHOzD269hdoBBw==
+X-Received: by 2002:a92:d1d0:: with SMTP id u16mr20748595ilg.7.1592115547052; 
+ Sat, 13 Jun 2020 23:19:07 -0700 (PDT)
+Received: from cs-u-kase.dtc.umn.edu (cs-u-kase.cs.umn.edu. [160.94.64.2])
+ by smtp.googlemail.com with ESMTPSA id c3sm5798908ilr.45.2020.06.13.23.19.06
  (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Fri, 12 Jun 2020 14:11:02 -0700 (PDT)
-Received: (nullmailer pid 3820221 invoked by uid 1000);
- Fri, 12 Jun 2020 21:11:01 -0000
-Date: Fri, 12 Jun 2020 15:11:01 -0600
-From: Rob Herring <robh@kernel.org>
-To: Adrian Ratiu <adrian.ratiu@collabora.com>
-Message-ID: <20200612211101.GA3808755@bogus>
-References: <20200609174959.955926-1-adrian.ratiu@collabora.com>
- <20200609174959.955926-6-adrian.ratiu@collabora.com>
-MIME-Version: 1.0
-Content-Disposition: inline
-In-Reply-To: <20200609174959.955926-6-adrian.ratiu@collabora.com>
-Cc: devicetree@vger.kernel.org, Jernej Skrabec <jernej.skrabec@siol.net>,
- Sjoerd Simons <sjoerd.simons@collabora.com>, Heiko Stuebner <heiko@sntech.de>,
- Adrian Pop <pop.adrian61@gmail.com>, Andrzej Hajda <a.hajda@samsung.com>,
- Martyn Welch <martyn.welch@collabora.com>, Jonas Karlman <jonas@kwiboo.se>,
- linux-kernel@vger.kernel.org, dri-devel@lists.freedesktop.org,
- Yannick FERTRE <yannick.fertre@st.com>, linux-rockchip@lists.infradead.org,
- Laurent Pinchart <Laurent.pinchart@ideasonboard.com>,
- Arnaud Ferraris <arnaud.ferraris@collabora.com>,
- Neil Armstrong <narmstrong@baylibre.com>, kernel@collabora.com,
- Fabio Estevam <festevam@gmail.com>, linux-stm32@st-md-mailman.stormreply.com,
- linux-arm-kernel@lists.infradead.org, linux-imx@nxp.com
-Subject: Re: [Linux-stm32] [PATCH v9 05/11] dt-bindings: display: add i.MX6
- MIPI DSI host controller doc
+ Sat, 13 Jun 2020 23:19:06 -0700 (PDT)
+From: Navid Emamdoost <navid.emamdoost@gmail.com>
+To: Dmitry Torokhov <dmitry.torokhov@gmail.com>,
+ Maxime Coquelin <mcoquelin.stm32@gmail.com>,
+ Alexandre Torgue <alexandre.torgue@st.com>,
+ Navid Emamdoost <navid.emamdoost@gmail.com>, linux-input@vger.kernel.org,
+ linux-stm32@st-md-mailman.stormreply.com,
+ linux-arm-kernel@lists.infradead.org, linux-kernel@vger.kernel.org
+Date: Sun, 14 Jun 2020 01:18:59 -0500
+Message-Id: <20200614061900.75253-1-navid.emamdoost@gmail.com>
+X-Mailer: git-send-email 2.17.1
+Cc: emamd001@umn.edu, kjlu@umn.edu, wu000273@umn.edu, smccaman@umn.edu
+Subject: [Linux-stm32] [PATCH] Input: stmfts: fix ref count leak in
+	stmfts_input_open
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -73,118 +69,52 @@ List-Post: <mailto:linux-stm32@st-md-mailman.stormreply.com>
 List-Help: <mailto:linux-stm32-request@st-md-mailman.stormreply.com?subject=help>
 List-Subscribe: <https://st-md-mailman.stormreply.com/mailman/listinfo/linux-stm32>, 
  <mailto:linux-stm32-request@st-md-mailman.stormreply.com?subject=subscribe>
+MIME-Version: 1.0
 Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
-On Tue, Jun 09, 2020 at 08:49:53PM +0300, Adrian Ratiu wrote:
-> This provides an example DT binding for the MIPI DSI host controller
+in stmfts_input_open, pm_runtime_get_sync is called which
+increments the counter even in case of failure, leading to incorrect
+ref count. In case of failure, decrement the ref count before returning.
 
-It's not an example. It defines the exact binding for this peripheral.
+Signed-off-by: Navid Emamdoost <navid.emamdoost@gmail.com>
+---
+ drivers/input/touchscreen/stmfts.c | 7 +++++--
+ 1 file changed, 5 insertions(+), 2 deletions(-)
 
-> present on the i.MX6 SoC based on Synopsis DesignWare v1.01 IP.
-> 
-> Cc: Rob Herring <robh@kernel.org>
-> Cc: Neil Armstrong <narmstrong@baylibre.com>
-> Cc: Fabio Estevam <festevam@gmail.com>
-> Cc: Laurent Pinchart <laurent.pinchart@ideasonboard.com>
-> Cc: devicetree@vger.kernel.org
-> Tested-by: Adrian Pop <pop.adrian61@gmail.com>
-> Tested-by: Arnaud Ferraris <arnaud.ferraris@collabora.com>
-> Signed-off-by: Sjoerd Simons <sjoerd.simons@collabora.com>
-> Signed-off-by: Martyn Welch <martyn.welch@collabora.com>
-> Signed-off-by: Adrian Ratiu <adrian.ratiu@collabora.com>
-> ---
-> Changes since v8:
->   - Fixed small compatible string typo caught by checkpatch
->   - Added custom select for 'fsl,imx6-mipi-dsi' (Rob)
->   - Replaced additionalProperties -> unevaluatedProperties (Rob)
->   - Dropped all nodes not adding any new constraints apart from
->   the recently upstreamed snps,dw-mipi-dsi.yaml (Rob)
-> 
-> Changes since v7:
->   - Clarified port@0,1 descriptions, marked them as required and
->   added missing port@0 in example (Laurent)
-> 
-> Changes since v6:
->   - Added ref to the newly created snps,dw-mipi-dsi.yaml (Laurent)
->   - Moved *-cells properties outside patternProperties (Laurent)
->   - Removed the panel port documentation (Laurent)
->   - Wrapped lines at 80 chars, typo fixes, sort includes (Laurent)
-> 
-> Changes since v5:
->   - Fixed missing reg warning (Fabio)
->   - Updated dt-schema and fixed warnings (Rob)
-> 
-> Changes since v4:
->   - Fixed yaml binding to pass `make dt_binding_check dtbs_check`
->   and addressed received binding feedback (Rob)
-> 
-> Changes since v3:
->   - Added commit message (Neil)
->   - Converted to yaml format (Neil)
->   - Minor dt node + driver fixes (Rob)
->   - Added small panel example to the host controller binding
-> 
-> Changes since v2:
->   - Fixed commit tags (Emil)
-> ---
->  .../display/imx/fsl,mipi-dsi-imx6.yaml        | 112 ++++++++++++++++++
->  1 file changed, 112 insertions(+)
->  create mode 100644 Documentation/devicetree/bindings/display/imx/fsl,mipi-dsi-imx6.yaml
-> 
-> diff --git a/Documentation/devicetree/bindings/display/imx/fsl,mipi-dsi-imx6.yaml b/Documentation/devicetree/bindings/display/imx/fsl,mipi-dsi-imx6.yaml
-> new file mode 100644
-> index 0000000000000..86093729fd5f9
-> --- /dev/null
-> +++ b/Documentation/devicetree/bindings/display/imx/fsl,mipi-dsi-imx6.yaml
-> @@ -0,0 +1,112 @@
-> +# SPDX-License-Identifier: (GPL-2.0-only OR BSD-2-Clause)
-> +%YAML 1.2
-> +---
-> +$id: http://devicetree.org/schemas/display/imx/fsl,mipi-dsi-imx6.yaml#
-> +$schema: http://devicetree.org/meta-schemas/core.yaml#
-> +
-> +title: Freescale i.MX6 DW MIPI DSI Host Controller
-> +
-> +maintainers:
-> +  - Adrian Ratiu <adrian.ratiu@collabora.com>
-> +
-> +description: |
-> +  The i.MX6 DSI host controller is a Synopsys DesignWare MIPI DSI v1.01
-> +  IP block with a companion PHY IP.
-> +
-> +  These DT bindings follow the Synopsys DW MIPI DSI bindings defined in
-> +  Documentation/devicetree/bindings/display/bridge/dw_mipi_dsi.txt with
-> +  the following device-specific properties.
-> +
-> +allOf:
-> +  - $ref: ../bridge/snps,dw-mipi-dsi.yaml#
-> +
-> +# Need a custom select here or 'snps,dw-mipi-dsi' will match lots of nodes
-> +select:
-> +  properties:
-> +    compatible:
-> +      contains:
-> +        enum:
-> +          - fsl,imx6-mipi-dsi
-> +  required:
-> +    - compatible
-> +
-> +properties:
+diff --git a/drivers/input/touchscreen/stmfts.c b/drivers/input/touchscreen/stmfts.c
+index b6f95f20f924..1ef282d7cc14 100644
+--- a/drivers/input/touchscreen/stmfts.c
++++ b/drivers/input/touchscreen/stmfts.c
+@@ -339,11 +339,11 @@ static int stmfts_input_open(struct input_dev *dev)
+ 
+ 	err = pm_runtime_get_sync(&sdata->client->dev);
+ 	if (err < 0)
+-		return err;
++		goto out;
+ 
+ 	err = i2c_smbus_write_byte(sdata->client, STMFTS_MS_MT_SENSE_ON);
+ 	if (err)
+-		return err;
++		goto out;
+ 
+ 	mutex_lock(&sdata->mutex);
+ 	sdata->running = true;
+@@ -367,6 +367,9 @@ static int stmfts_input_open(struct input_dev *dev)
+ 	}
+ 
+ 	return 0;
++out:
++	pm_runtime_put(&sdata->client->dev);
++	return err;
+ }
+ 
+ static void stmfts_input_close(struct input_dev *dev)
+-- 
+2.17.1
 
-> +  '#address-cells':
-> +    const: 1
-> +
-> +  '#size-cells':
-> +    const: 0
-
-These 2 are covered by dsi-controller.yaml, so you can drop them.
-
-Otherwise,
-
-Reviewed-by: Rob Herring <robh@kernel.org>
 _______________________________________________
 Linux-stm32 mailing list
 Linux-stm32@st-md-mailman.stormreply.com
