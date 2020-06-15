@@ -2,82 +2,71 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id 136591F8F47
-	for <lists+linux-stm32@lfdr.de>; Mon, 15 Jun 2020 09:18:41 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 52BC61F9232
+	for <lists+linux-stm32@lfdr.de>; Mon, 15 Jun 2020 10:50:34 +0200 (CEST)
 Received: from ip-172-31-3-76.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id B2E07C36B0D;
-	Mon, 15 Jun 2020 07:18:40 +0000 (UTC)
-Received: from mta-p5.oit.umn.edu (mta-p5.oit.umn.edu [134.84.196.205])
- (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 00B11C36B11;
+	Mon, 15 Jun 2020 08:50:33 +0000 (UTC)
+Received: from mx07-00178001.pphosted.com (mx08-00178001.pphosted.com
+ [91.207.212.93])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 878EDC36B0B
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id CA69AC36B0C
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Sun, 14 Jun 2020 02:37:08 +0000 (UTC)
-Received: from localhost (unknown [127.0.0.1])
- by mta-p5.oit.umn.edu (Postfix) with ESMTP id 49kzBW0WQdz9vZ24
- for <linux-stm32@st-md-mailman.stormreply.com>;
- Sun, 14 Jun 2020 02:37:07 +0000 (UTC)
-X-Virus-Scanned: amavisd-new at umn.edu
-Received: from mta-p5.oit.umn.edu ([127.0.0.1])
- by localhost (mta-p5.oit.umn.edu [127.0.0.1]) (amavisd-new, port 10024)
- with ESMTP id Dl9kR2fgiXsD
- for <linux-stm32@st-md-mailman.stormreply.com>;
- Sat, 13 Jun 2020 21:37:06 -0500 (CDT)
-Received: from mail-io1-f71.google.com (mail-io1-f71.google.com
- [209.85.166.71])
- (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
- (No client certificate requested)
- by mta-p5.oit.umn.edu (Postfix) with ESMTPS id 49kzBV5xswz9vZ28
- for <linux-stm32@st-md-mailman.stormreply.com>;
- Sat, 13 Jun 2020 21:37:06 -0500 (CDT)
-DMARC-Filter: OpenDMARC Filter v1.3.2 mta-p5.oit.umn.edu 49kzBV5xswz9vZ28
-DKIM-Filter: OpenDKIM Filter v2.11.0 mta-p5.oit.umn.edu 49kzBV5xswz9vZ28
-Received: by mail-io1-f71.google.com with SMTP id m11so8939285ioj.14
- for <linux-stm32@st-md-mailman.stormreply.com>;
- Sat, 13 Jun 2020 19:37:06 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=umn.edu; s=google;
- h=from:to:cc:subject:date:message-id;
- bh=RQEF7X2he2CIvCAF0xeze50vGbmiUj8obcSj3YpGnsc=;
- b=Hj+qKjLqwxKZdFHcqhGL4RCVKHV6fP3Oer7rzrgPPWYbv35lGkAst5QgPc8y3nLRCp
- vKVaxl7tk1u8PZMNFAetQYQ6NwzqplGIsXILrLiVUysqIKuvbFEb3y0fL7NeZDA6eBqI
- pO96/Au+eO/frA1E4LLC+lPvS8hR2UvICjeKU9R3le1ae4tglEaeUVDybiZKisk2cU69
- JZ8sbETmJsW/DFxNKzIkJXdJ9tsV1lNSfpS/+4EkCHBrpLSK44iXq7e4QFYuFza1Hz8M
- Zi+3fmlSvQPyovl/+DtnyRguBKLN0yPRjqYUnqP4JoEqzyj84WdoVHPHGf9oZzOLGrVX
- 3bdQ==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20161025;
- h=x-gm-message-state:from:to:cc:subject:date:message-id;
- bh=RQEF7X2he2CIvCAF0xeze50vGbmiUj8obcSj3YpGnsc=;
- b=EOtyScNnW7fuNrUNsgQNq4xS5pLi49otSTQhiqvuQ4wijZFElqtoaa5l+MY98qEQaP
- D0r5kbj9ecr+KbTtEpM3lU9kQ2F9PNO4uv7IyyJZx6QrNRWwqzKIIiGrlF/do8ONtTOT
- /OiiExX1BsY+oR4MsuJBjPO2osyyCoWza+Mso1QS8IMgCNMXRtYbAZuWAQ9HBJrpldba
- 6SiAtw9jIV0LxLkMo5kzK7bDOIqmjQ6cU4KWHWYDGQEDVF5iuZ3mBDBhHT0nXioRbA9H
- aRjb2P7cJg7sae8ZrBPTcIuF+tuqCbVkBR4BZhz4qC7zMZ5p62z6I6V7NDae0w6PwNLk
- RbPw==
-X-Gm-Message-State: AOAM532xSgPSJVxgEutbPKaatTu95jZKz6E5rwpX9ui8+XNA6aHMuWSX
- OrFGpzm/bsL8tlLVJs5VIqbfjTeYPKiRKkKeRZOah+FCPE3VKTAJDl0BV6oZe/IMfjGfh1Hv1fE
- W9da90N2i2bMfhTs2KHzq6SRlc8KUiVysqVi+TZ8tfcne
-X-Received: by 2002:a92:cf09:: with SMTP id c9mr19732360ilo.143.1592102226326; 
- Sat, 13 Jun 2020 19:37:06 -0700 (PDT)
-X-Google-Smtp-Source: ABdhPJxZ86ckYqx5vk+JKvHiE51xf49YXvXEFvQYRO/7UldKAKo+GnZzsRu2IiSnX8jxysU/4zFyPw==
-X-Received: by 2002:a92:cf09:: with SMTP id c9mr19732342ilo.143.1592102226008; 
- Sat, 13 Jun 2020 19:37:06 -0700 (PDT)
-Received: from qiushi.cs.umn.edu ([2607:ea00:101:3c74:4874:45:bcb4:df60])
- by smtp.gmail.com with ESMTPSA id 18sm5499967ion.17.2020.06.13.19.37.04
- (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Sat, 13 Jun 2020 19:37:05 -0700 (PDT)
-From: wu000273@umn.edu
-To: kjlu@umn.edu
-Date: Sat, 13 Jun 2020 21:36:59 -0500
-Message-Id: <20200614023659.25979-1-wu000273@umn.edu>
-X-Mailer: git-send-email 2.17.1
-X-Mailman-Approved-At: Mon, 15 Jun 2020 07:18:38 +0000
-Cc: wu000273@umn.edu, linux-media@vger.kernel.org, linux-kernel@vger.kernel.org,
- Hans Verkuil <hans.verkuil@cisco.com>,
- Maxime Coquelin <mcoquelin.stm32@gmail.com>,
- Mauro Carvalho Chehab <mchehab@kernel.org>,
- linux-stm32@st-md-mailman.stormreply.com, linux-arm-kernel@lists.infradead.org
-Subject: [Linux-stm32] [PATCH] media: stm32-dcmi: Fix a reference count leak
+ Mon, 15 Jun 2020 08:50:31 +0000 (UTC)
+Received: from pps.filterd (m0046661.ppops.net [127.0.0.1])
+ by mx07-00178001.pphosted.com (8.16.0.42/8.16.0.42) with SMTP id
+ 05F8lwYA021890; Mon, 15 Jun 2020 10:49:53 +0200
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=st.com;
+ h=subject : to : cc :
+ references : from : message-id : date : mime-version : in-reply-to :
+ content-type : content-transfer-encoding; s=STMicroelectronics;
+ bh=VJv/B5BqqCzIrb2NhvcIyxQJgblrWvMESlW9XtRoNEA=;
+ b=0kZKh1SbuXWQB7p9qxsFxBRqM5mfwfpwfQppSZHbAi7aGlAxJMn6HF+ePByVUQeWhP5n
+ KHEOUmeg4EKm8z+vwmjt3IOBgkxpIr2YfeCVj8ChuRaXXCTBuIspiTs1/dAn8wURSGv3
+ Y6blL4F1iGve6mV/JSA2Pyx58BOe+zFpXoYwH56D9UtIt/jTmZ8DZ9aR36vl+fmDipKB
+ R2v0LPU2N1A8tx4U+bnCxdr1YQs9SwTSs/TW9vbPuAGsUovU8eMdffUak45+mjdEPJwW
+ S7cPK9U9RSfiHWTSauFsD/Mg20ZYaYQu+bkEKaSI52QL+y3Vo08SpxeK1fP9HowPDr67 wQ== 
+Received: from beta.dmz-eu.st.com (beta.dmz-eu.st.com [164.129.1.35])
+ by mx07-00178001.pphosted.com with ESMTP id 31mnph0ecj-1
+ (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
+ Mon, 15 Jun 2020 10:49:53 +0200
+Received: from euls16034.sgp.st.com (euls16034.sgp.st.com [10.75.44.20])
+ by beta.dmz-eu.st.com (STMicroelectronics) with ESMTP id 76ACA10002A;
+ Mon, 15 Jun 2020 10:49:45 +0200 (CEST)
+Received: from Webmail-eu.st.com (sfhdag3node2.st.com [10.75.127.8])
+ by euls16034.sgp.st.com (STMicroelectronics) with ESMTP id 4485B2BE225;
+ Mon, 15 Jun 2020 10:49:45 +0200 (CEST)
+Received: from lmecxl0912.tpe.st.com (10.75.127.51) by SFHDAG3NODE2.st.com
+ (10.75.127.8) with Microsoft SMTP Server (TLS) id 15.0.1347.2; Mon, 15 Jun
+ 2020 10:49:44 +0200
+To: <dillon.minfei@gmail.com>, <robh+dt@kernel.org>, <p.zabel@pengutronix.de>, 
+ <mcoquelin.stm32@gmail.com>, <thierry.reding@gmail.com>,
+ <sam@ravnborg.org>, <airlied@linux.ie>, <daniel@ffwll.ch>,
+ <mturquette@baylibre.com>, <sboyd@kernel.org>,
+ <andy.shevchenko@gmail.com>, <noralf@tronnes.org>,
+ <linus.walleij@linaro.org>, <broonie@kernel.org>
+References: <1590564453-24499-1-git-send-email-dillon.minfei@gmail.com>
+From: Alexandre Torgue <alexandre.torgue@st.com>
+Message-ID: <bfb78ded-11bf-e9e3-4211-5fa86c6e0f0f@st.com>
+Date: Mon, 15 Jun 2020 10:49:43 +0200
+User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:68.0) Gecko/20100101
+ Thunderbird/68.8.0
+MIME-Version: 1.0
+In-Reply-To: <1590564453-24499-1-git-send-email-dillon.minfei@gmail.com>
+Content-Language: en-US
+X-Originating-IP: [10.75.127.51]
+X-ClientProxiedBy: SFHDAG4NODE3.st.com (10.75.127.12) To SFHDAG3NODE2.st.com
+ (10.75.127.8)
+X-Proofpoint-Virus-Version: vendor=fsecure engine=2.50.10434:6.0.216, 18.0.687
+ definitions=2020-06-15_01:2020-06-15,
+ 2020-06-15 signatures=0
+Cc: devicetree@vger.kernel.org, dillonhua@gmail.com, linux-clk@vger.kernel.org,
+ linux-kernel@vger.kernel.org, dri-devel@lists.freedesktop.org,
+ linux-spi@vger.kernel.org, linux-stm32@st-md-mailman.stormreply.com,
+ linux-arm-kernel@lists.infradead.org
+Subject: Re: [Linux-stm32] [PATCH v6 0/9] Enable ili9341 and l3gd20 on
+	stm32f429-disco
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -89,50 +78,52 @@ List-Post: <mailto:linux-stm32@st-md-mailman.stormreply.com>
 List-Help: <mailto:linux-stm32-request@st-md-mailman.stormreply.com?subject=help>
 List-Subscribe: <https://st-md-mailman.stormreply.com/mailman/listinfo/linux-stm32>, 
  <mailto:linux-stm32-request@st-md-mailman.stormreply.com?subject=subscribe>
-MIME-Version: 1.0
-Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
+Content-Type: text/plain; charset="us-ascii"; Format="flowed"
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
-From: Qiushi Wu <wu000273@umn.edu>
+Hi Dillon,
 
-Calling pm_runtime_get_sync increments the counter even in case of
-failure, causing incorrect ref count if pm_runtime_put is not
-called in error handling paths. Thus replace the jump target
-"err_release_buffers" by "err_pm_putw".
+On 5/27/20 9:27 AM, dillon.minfei@gmail.com wrote:
+> From: dillon min <dillon.minfei@gmail.com>
 
-Fixes: 152e0bf60219 ("media: stm32-dcmi: add power saving support")
-Signed-off-by: Qiushi Wu <wu000273@umn.edu>
----
- drivers/media/platform/stm32/stm32-dcmi.c | 4 +---
- 1 file changed, 1 insertion(+), 3 deletions(-)
+...
 
-diff --git a/drivers/media/platform/stm32/stm32-dcmi.c b/drivers/media/platform/stm32/stm32-dcmi.c
-index b8931490b83b..fd1c41cba52f 100644
---- a/drivers/media/platform/stm32/stm32-dcmi.c
-+++ b/drivers/media/platform/stm32/stm32-dcmi.c
-@@ -733,7 +733,7 @@ static int dcmi_start_streaming(struct vb2_queue *vq, unsigned int count)
- 	if (ret < 0) {
- 		dev_err(dcmi->dev, "%s: Failed to start streaming, cannot get sync (%d)\n",
- 			__func__, ret);
--		goto err_release_buffers;
-+		goto err_pm_put;
- 	}
- 
- 	ret = media_pipeline_start(&dcmi->vdev->entity, &dcmi->pipeline);
-@@ -837,8 +837,6 @@ static int dcmi_start_streaming(struct vb2_queue *vq, unsigned int count)
- 
- err_pm_put:
- 	pm_runtime_put(dcmi->dev);
--
--err_release_buffers:
- 	spin_lock_irq(&dcmi->irqlock);
- 	/*
- 	 * Return all buffers to vb2 in QUEUED state.
--- 
-2.17.1
+> dillon min (9):
+>    ARM: dts: stm32: Add dma config for spi5
+>    ARM: dts: stm32: Add pin map for ltdc & spi5 on stm32f429-disco board
+>    ARM: dts: stm32: enable ltdc binding with ili9341, gyro l3gd20 on
+>      stm32429-disco board
+>    dt-bindings: display: panel: Add ilitek ili9341 panel bindings
+>    clk: stm32: Fix stm32f429's ltdc driver hang in set clock rate
+>    clk: stm32: Fix ltdc's clock turn off by clk_disable_unused() after
+>      kernel     startup
+>    drm/panel: Add ilitek ili9341 panel driver
+>    spi: stm32: Add 'SPI_SIMPLEX_RX', 'SPI_3WIRE_RX' support for stm32f4
+>    spi: flags 'SPI_CONTROLLER_MUST_RX' and 'SPI_CONTROLLER_MUST_TX' can't
+>      be     coexit with 'SPI_3WIRE' mode
+> 
+>   .../bindings/display/panel/ilitek,ili9341.yaml     |   69 ++
+>   arch/arm/boot/dts/stm32f4-pinctrl.dtsi             |   67 +
+>   arch/arm/boot/dts/stm32f429-disco.dts              |   48 +
+>   arch/arm/boot/dts/stm32f429.dtsi                   |    3 +
+>   drivers/clk/clk-stm32f4.c                          |    7 +-
+>   drivers/gpu/drm/panel/Kconfig                      |   12 +
+>   drivers/gpu/drm/panel/Makefile                     |    1 +
+>   drivers/gpu/drm/panel/panel-ilitek-ili9341.c       | 1288 ++++++++++++++++++++
+>   drivers/spi/spi-stm32.c                            |   19 +-
+>   drivers/spi/spi.c                                  |    3 +-
+>   10 files changed, 1508 insertions(+), 9 deletions(-)
+>   create mode 100644 Documentation/devicetree/bindings/display/panel/ilitek,ili9341.yaml
+>   create mode 100644 drivers/gpu/drm/panel/panel-ilitek-ili9341.c
+> 
 
+DT patches (patch 1 to 3) applied on stm32-next. I assume that binding 
+one will go with drm/panel driver patch.
+
+Thanks
+Alex
 _______________________________________________
 Linux-stm32 mailing list
 Linux-stm32@st-md-mailman.stormreply.com
