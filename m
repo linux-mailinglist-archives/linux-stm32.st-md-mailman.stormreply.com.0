@@ -2,63 +2,66 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id 123D81F944D
-	for <lists+linux-stm32@lfdr.de>; Mon, 15 Jun 2020 12:07:30 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 8A57E1F9454
+	for <lists+linux-stm32@lfdr.de>; Mon, 15 Jun 2020 12:08:37 +0200 (CEST)
 Received: from ip-172-31-3-76.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id D2EB3C36B11;
-	Mon, 15 Jun 2020 10:07:29 +0000 (UTC)
-Received: from mail-il1-f195.google.com (mail-il1-f195.google.com
- [209.85.166.195])
- (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 4436EC36B11;
+	Mon, 15 Jun 2020 10:08:37 +0000 (UTC)
+Received: from mx07-00178001.pphosted.com (mx07-00178001.pphosted.com
+ [62.209.51.94])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 4B987C36B0C
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 49D74C36B0C
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Mon, 15 Jun 2020 10:07:27 +0000 (UTC)
-Received: by mail-il1-f195.google.com with SMTP id j19so10548770ilk.9
- for <linux-stm32@st-md-mailman.stormreply.com>;
- Mon, 15 Jun 2020 03:07:27 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20161025;
- h=mime-version:references:in-reply-to:from:date:message-id:subject:to
- :cc; bh=hg8K4xTSSuNaBtkl8lh9GNzZaKJC219hVqXlhKOASyc=;
- b=tgUlV/Hv+7gZqovKdUdduJ5DosmZ6W3ZgvLcam1sO+NfBlQkeL/R6Ll1hPEE2lvKe1
- Q9Q8r9+UwTYuIzIICqSKXIRi1m83v3jpiLa9EK6FSl2CzvfLDwdp/D/QlP1lrzqnUk5M
- K1M4ONzrcHZlTTZLMf4fM0XKl5fPHTxUOnuCB80lW/7POoQNRMcbiea5BnbvaGlGg+i9
- U9qeD0ozbnZcyiYa8rnMcJe6oNU0+1g0YzAWmgMjm3AQANEKH7o2We9t5YAKaSDrTMgT
- LKHBnER4Pqe4WQyyrf5LmbFUyrfoeNO6VQ422e0u9I6Uwl4PX1SjzVwCj0dIrZoL57q1
- ApHQ==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20161025;
- h=x-gm-message-state:mime-version:references:in-reply-to:from:date
- :message-id:subject:to:cc;
- bh=hg8K4xTSSuNaBtkl8lh9GNzZaKJC219hVqXlhKOASyc=;
- b=iM/j3eWfXw8AkO/wBpGgEJ03xHXr9aUiRRVH3bw32VyYuV/bso/aiEXSebAXsR7EnJ
- rc+u2TApRqIM/RhMwNekzxOw47G50XplnvH29TxcSw4IdKQIIofNjRurYys3SUif7PPD
- TFeEqprudNu3BXqQAHa8E+6R88zyMqCMWrh+t8W5EynRvVPXPQQqqq8MUKEmojHtwpKF
- PfG/CYXNZDmlNRvpois0pS5wrVPyY/VP3dBOKUc86TomyqojQRKlC7sOln0bp3/vEHQL
- hQNkcUBuZzkWGASmUsxVA2EPiRFm0I0rddLePeJHtr/jbiW85QackFRJgFlCVK+vrLJd
- bI7A==
-X-Gm-Message-State: AOAM532SbxcotbpOsq6ZGj9aAoSBp0nOdSWeora4mclkE66RemFvjDYZ
- ziwJP/WEVEarQzn90iUEI2guzCxqtftOqMgVBnc=
-X-Google-Smtp-Source: ABdhPJwTRoOir1kIpAowgJbUvDY6mcvoOvZBCRgHGJW796+SC2pR32+7lvI/4r+L3ywnisFym7QRUoEMdKMTueb6e/w=
-X-Received: by 2002:a92:b69b:: with SMTP id m27mr25709568ill.271.1592215646234; 
- Mon, 15 Jun 2020 03:07:26 -0700 (PDT)
+ Mon, 15 Jun 2020 10:08:35 +0000 (UTC)
+Received: from pps.filterd (m0046037.ppops.net [127.0.0.1])
+ by mx07-00178001.pphosted.com (8.16.0.42/8.16.0.42) with SMTP id
+ 05FA4rPe026164; Mon, 15 Jun 2020 12:08:23 +0200
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=st.com;
+ h=subject : to : cc :
+ references : from : message-id : date : mime-version : in-reply-to :
+ content-type : content-transfer-encoding; s=STMicroelectronics;
+ bh=P5EQA0kAJCU+qpoArB1dL5j+XIOcEoHAZRZPU8tJLpA=;
+ b=fblue4OGMu74YEGyWEtTI5zp+7RsKb6+m9fchxDjseMEs6haCHJHJ4eF+YwlTFuwgeoe
+ NYmfJwVtfycsBB94nHzPJN7DTodmVR8fp021QY+QQ1DK5mucaHtj6NCWpWIrWt6kyNnX
+ W2Y9tVrCFHHpIXWwS+iFeQ0bYGXeuZPqpTKy2krM+5obz/WBGHLUeMpBuocsIOaJ/5SB
+ i/xxNKCidvMeEBha5oAVPNBaEh7GSebmHMgC/ufCu1oSgJfaL8xVOwrhGmsI30F0vunH
+ DT64ZluIZg6NcrfH+fW0WaPjsR7iCSO3MJQp1QslgstKQgpUz/SQFHst+j40TPnhi8mt 7Q== 
+Received: from beta.dmz-eu.st.com (beta.dmz-eu.st.com [164.129.1.35])
+ by mx07-00178001.pphosted.com with ESMTP id 31mmjvs19m-1
+ (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
+ Mon, 15 Jun 2020 12:08:23 +0200
+Received: from euls16034.sgp.st.com (euls16034.sgp.st.com [10.75.44.20])
+ by beta.dmz-eu.st.com (STMicroelectronics) with ESMTP id EBF77100034;
+ Mon, 15 Jun 2020 12:08:22 +0200 (CEST)
+Received: from Webmail-eu.st.com (sfhdag3node2.st.com [10.75.127.8])
+ by euls16034.sgp.st.com (STMicroelectronics) with ESMTP id D99A72C38BB;
+ Mon, 15 Jun 2020 12:08:22 +0200 (CEST)
+Received: from lmecxl0912.tpe.st.com (10.75.127.51) by SFHDAG3NODE2.st.com
+ (10.75.127.8) with Microsoft SMTP Server (TLS) id 15.0.1347.2; Mon, 15 Jun
+ 2020 12:08:22 +0200
+To: Benjamin Gaignard <benjamin.gaignard@st.com>, <linus.walleij@linaro.org>, 
+ <robh+dt@kernel.org>, <mcoquelin.stm32@gmail.com>,
+ <gregkh@linuxfoundation.org>
+References: <20200513145935.22493-1-benjamin.gaignard@st.com>
+From: Alexandre Torgue <alexandre.torgue@st.com>
+Message-ID: <6b0e95ab-e240-c493-1bc1-276dd68933fe@st.com>
+Date: Mon, 15 Jun 2020 12:08:21 +0200
+User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:68.0) Gecko/20100101
+ Thunderbird/68.8.0
 MIME-Version: 1.0
-References: <1591709203-12106-1-git-send-email-dillon.minfei@gmail.com>
- <618d3fea-aa9f-dbf6-04a1-e9db621a6cd5@st.com>
-In-Reply-To: <618d3fea-aa9f-dbf6-04a1-e9db621a6cd5@st.com>
-From: dillon min <dillon.minfei@gmail.com>
-Date: Mon, 15 Jun 2020 18:06:50 +0800
-Message-ID: <CAL9mu0JsCOrnt=ROr-0_GByKeb6yeq5YwygzS+S9i=SMjgL6kQ@mail.gmail.com>
-To: Alexandre Torgue <alexandre.torgue@st.com>
-Cc: "open list:OPEN FIRMWARE AND FLATTENED DEVICE TREE BINDINGS"
- <devicetree@vger.kernel.org>, Maxime Coquelin <mcoquelin.stm32@gmail.com>,
- Linux Kernel Mailing List <linux-kernel@vger.kernel.org>,
- pierre-yves.mordret@st.com, Philippe Schenker <philippe.schenker@toradex.com>,
- Rob Herring <robh+dt@kernel.org>, linux-i2c@vger.kernel.org,
- p.zabel@pengutronix.de, linux-stm32@st-md-mailman.stormreply.com,
- Linux ARM <linux-arm-kernel@lists.infradead.org>
-Subject: Re: [Linux-stm32] [PATCH v4 0/4] Enable stmpe811 touch screen on
-	stm32f429-disco board
+In-Reply-To: <20200513145935.22493-1-benjamin.gaignard@st.com>
+Content-Language: en-US
+X-Originating-IP: [10.75.127.51]
+X-ClientProxiedBy: SFHDAG1NODE2.st.com (10.75.127.2) To SFHDAG3NODE2.st.com
+ (10.75.127.8)
+X-Proofpoint-Virus-Version: vendor=fsecure engine=2.50.10434:6.0.216, 18.0.687
+ definitions=2020-06-15_02:2020-06-15,
+ 2020-06-15 signatures=0
+Cc: devicetree@vger.kernel.org, linux-usb@vger.kernel.org,
+ linux-kernel@vger.kernel.org, linux-gpio@vger.kernel.org,
+ linux-stm32@st-md-mailman.stormreply.com, linux-arm-kernel@lists.infradead.org
+Subject: Re: [Linux-stm32] [PATCH 00/15] Fix STM32 DT issues on v5.7-rc4
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -70,58 +73,59 @@ List-Post: <mailto:linux-stm32@st-md-mailman.stormreply.com>
 List-Help: <mailto:linux-stm32-request@st-md-mailman.stormreply.com?subject=help>
 List-Subscribe: <https://st-md-mailman.stormreply.com/mailman/listinfo/linux-stm32>, 
  <mailto:linux-stm32-request@st-md-mailman.stormreply.com?subject=subscribe>
-Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
+Content-Type: text/plain; charset="us-ascii"; Format="flowed"
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
-On Mon, Jun 15, 2020 at 5:08 PM Alexandre Torgue
-<alexandre.torgue@st.com> wrote:
->
-> Hi Dillon
->
-> On 6/9/20 3:26 PM, dillon.minfei@gmail.com wrote:
-> > From: dillon min <dillon.minfei@gmail.com>
-> >
-> > This patchset is intend to enable stmpe811 touch screen on stm32f429-disco
-> > board with three dts and one i2c driver changes.
-> >
-> > has been validated by ts_print tool
-> >
-> > Changes log:
-> > V4: indroduce 'IIC_LAST_BYTE_POS' to compatible with xipkernel boot
-> >
-> > V3: just add change log in [PATCH V3 3/4] below ---
-> >
-> > V2: remove id, blocks, irq-trigger from stmpe811 dts
-> >
-> > V1:
-> > ARM: dts: stm32: add I2C3 support on STM32F429 SoC
-> > ARM: dts: stm32: Add pin map for I2C3 controller on stm32f4
-> > ARM: dts: stm32: enable stmpe811 on stm32429-disco board
-> > i2c: stm32f4: Fix stmpe811 get xyz data timeout issue
-> >
-> > dillon min (4):
-> >    ARM: dts: stm32: add I2C3 support on STM32F429 SoC
-> >    ARM: dts: stm32: Add pin map for I2C3 controller on stm32f4
-> >    ARM: dts: stm32: enable stmpe811 on stm32429-disco board
-> >    i2c: stm32f4: Fix stmpe811 get xyz data timeout issue
-> >
-> >   arch/arm/boot/dts/stm32f4-pinctrl.dtsi | 12 +++++++++
-> >   arch/arm/boot/dts/stm32f429-disco.dts  | 47 ++++++++++++++++++++++++++++++++++
-> >   arch/arm/boot/dts/stm32f429.dtsi       | 12 +++++++++
-> >   drivers/i2c/busses/i2c-stm32f4.c       | 12 ++++++---
-> >   4 files changed, 80 insertions(+), 3 deletions(-)
-> >
->
-> DT patches applied on stm32-next. I changed node ordering in patch 3.
-Okay, thanks.
+Hi Benjamin
 
-Regards,
-Dillon,
->
-> Thanks
-> Alex
+On 5/13/20 4:59 PM, Benjamin Gaignard wrote:
+> This series fixes issues hight lighted by dtbs_check on STM32 devicetrees.
+> The patches has been developped on top of v5.7-rc4 tag.
+> 
+> Benjamin Gaignard (15):
+>    ARM: dts: stm32: remove useless interrupt-names property on stm32f429
+>    ARM: dts: stm32: update pwm pinctrl node names for stm32f4
+>    ARM: dts: stm32: update led nodes names for stm32f249-disco
+>    ARM: dts: stm32: update led nodes names for stm32f469-disco
+>    ARM: dts: stm32: remove useless interrupt-names property on stm32f746
+>    ARM: dts: stm32: update led nodes names for stm32f429-eval
+>    ARM: dts: stm32: update led nodes names for stm32f769-disco
+>    ARM: dts: stm32: update led nodes names for stm32f746-eval
+>    ARM: dts: stm32: remove useless interrupt-names property on stm32f743
+>    ARM: dts: stm32: Update nodes names for stm32h743 pinctrl
+>    ARM: dts: stm32: Update nodes names for stm32mp15 pinctrl
+>    ARM: dts: stm32: Add missing #address and #size cells on spi node for
+>      stm32mp151
+>    ARM: dts: stm32: update led nodes names for stm32f746-eval
+>    dt-bindings: pinctrl: stm32: Add missing interrupts property
+>    dt-bindings: usb: dwc2: Fix issues for stm32mp15x SoC
+> 
+>   .../devicetree/bindings/pinctrl/st,stm32-pinctrl.yaml          |  3 +++
+>   Documentation/devicetree/bindings/usb/dwc2.yaml                |  6 ++++--
+>   arch/arm/boot/dts/stm32429i-eval.dts                           |  8 ++++----
+>   arch/arm/boot/dts/stm32746g-eval.dts                           |  8 ++++----
+>   arch/arm/boot/dts/stm32f4-pinctrl.dtsi                         |  4 ++--
+>   arch/arm/boot/dts/stm32f429-disco.dts                          |  4 ++--
+>   arch/arm/boot/dts/stm32f429.dtsi                               |  1 -
+>   arch/arm/boot/dts/stm32f469-disco.dts                          |  8 ++++----
+>   arch/arm/boot/dts/stm32f746.dtsi                               |  1 -
+>   arch/arm/boot/dts/stm32f769-disco.dts                          |  4 ++--
+>   arch/arm/boot/dts/stm32h743-pinctrl.dtsi                       | 10 +++++-----
+>   arch/arm/boot/dts/stm32h743.dtsi                               |  1 -
+>   arch/arm/boot/dts/stm32mp15-pinctrl.dtsi                       |  6 +++---
+>   arch/arm/boot/dts/stm32mp151.dtsi                              |  2 ++
+>   arch/arm/boot/dts/stm32mp15xx-dkx.dtsi                         |  2 +-
+>   15 files changed, 36 insertions(+), 32 deletions(-)
+> 
+
+Series applied on stm32-next. Note that changes in patch 11 were already 
+present thanks to another patch and patch 14 has already been taken by 
+Linus.
+
+Regards
+Alex
 _______________________________________________
 Linux-stm32 mailing list
 Linux-stm32@st-md-mailman.stormreply.com
