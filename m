@@ -2,67 +2,72 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id 63BC61F92CC
-	for <lists+linux-stm32@lfdr.de>; Mon, 15 Jun 2020 11:09:06 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id B0DB41F93CF
+	for <lists+linux-stm32@lfdr.de>; Mon, 15 Jun 2020 11:46:09 +0200 (CEST)
 Received: from ip-172-31-3-76.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 1497AC36B11;
-	Mon, 15 Jun 2020 09:09:06 +0000 (UTC)
-Received: from mx07-00178001.pphosted.com (mx08-00178001.pphosted.com
- [91.207.212.93])
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 71D57C36B11;
+	Mon, 15 Jun 2020 09:46:09 +0000 (UTC)
+Received: from mx07-00178001.pphosted.com (mx07-00178001.pphosted.com
+ [62.209.51.94])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id A460FC36B0C
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id BE3C7C36B0C
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Mon, 15 Jun 2020 09:09:03 +0000 (UTC)
-Received: from pps.filterd (m0046661.ppops.net [127.0.0.1])
+ Mon, 15 Jun 2020 09:46:07 +0000 (UTC)
+Received: from pps.filterd (m0046037.ppops.net [127.0.0.1])
  by mx07-00178001.pphosted.com (8.16.0.42/8.16.0.42) with SMTP id
- 05F93vZX011755; Mon, 15 Jun 2020 11:08:49 +0200
+ 05F9YmAg015035; Mon, 15 Jun 2020 11:45:38 +0200
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=st.com;
  h=subject : to : cc :
  references : from : message-id : date : mime-version : in-reply-to :
  content-type : content-transfer-encoding; s=STMicroelectronics;
- bh=6AGPKZTlObc1ZPKgs7FhyKVk6uWShOigJZrNQVvB/pQ=;
- b=PhelqSKTVsO9nZgxPwkhPrpVsE6gksTSuihQPK4G/z2nVgsBkuC4x58ewVjROKixHJ+C
- W/4HBioio2gBS1c8S4MtZnCBLt05dArjTqB4g2zoZNivZMxri3hLhpEzw6k7btE0Uvh1
- enZ56vrKTX5EdVl3HYI/E+Xvd+8rpBjQ/i58kX6S+UCHcMWZW1mzTeecE5Vx9ngJTgEu
- O129wBWbL0/d2uzLwXvkXi0gJsQau8l59g74IMwVilDzwSEr0LaCFjP1/eCN6V6nQSVp
- ZkHSj3MAZn1RPHvcwhIic8Oct4dc4F/l0aFb0Dg1Te+nU+DlOUXtDy3RaYoyxus2Obqz AQ== 
+ bh=HzRMy6iVCZcLIfFdNcJlFmRB2z9fKYZjPMelH03qdYY=;
+ b=nOlzI78SZ3BXZsTxqFqoExmXdRONkXi5UKuqpvBc92FLtDOUT9oj+HyLeFTjarNKmxwH
+ yO/6GjTPHN7RMfwgh0/kv5U1rUzXgEF2o3ZEJ68+kTo7R+HkRAqEGRAGvOT/p44c7azE
+ 8ZGDzljkTLZb8dokG1oa27eTNcQCzjEL9LCX9FjHPQMYBhPa0PdxQkYXyvYgzkUrVGI4
+ CXDJPCMmEMMQsah697bvJDTc1OsChq0OhJn4cAf/iMsje5syLv6nRGy8cd1SdFTBhA1Y
+ Vl6vgqwoLU1Aw8xGzNpiRgQn1uVKdFOCKIZIODsOkx94i2/l8/9eUFykiSzy6m3273J7 tw== 
 Received: from beta.dmz-eu.st.com (beta.dmz-eu.st.com [164.129.1.35])
- by mx07-00178001.pphosted.com with ESMTP id 31mnph0hu0-1
+ by mx07-00178001.pphosted.com with ESMTP id 31mmjvrwjd-1
  (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
- Mon, 15 Jun 2020 11:08:49 +0200
+ Mon, 15 Jun 2020 11:45:38 +0200
 Received: from euls16034.sgp.st.com (euls16034.sgp.st.com [10.75.44.20])
- by beta.dmz-eu.st.com (STMicroelectronics) with ESMTP id E3F4D100034;
- Mon, 15 Jun 2020 11:08:48 +0200 (CEST)
+ by beta.dmz-eu.st.com (STMicroelectronics) with ESMTP id 1B0C710002A;
+ Mon, 15 Jun 2020 11:45:38 +0200 (CEST)
 Received: from Webmail-eu.st.com (sfhdag3node2.st.com [10.75.127.8])
- by euls16034.sgp.st.com (STMicroelectronics) with ESMTP id D1F1A2BE22D;
- Mon, 15 Jun 2020 11:08:48 +0200 (CEST)
-Received: from lmecxl0912.tpe.st.com (10.75.127.50) by SFHDAG3NODE2.st.com
+ by euls16034.sgp.st.com (STMicroelectronics) with ESMTP id E456E2C298D;
+ Mon, 15 Jun 2020 11:45:37 +0200 (CEST)
+Received: from lmecxl0912.tpe.st.com (10.75.127.48) by SFHDAG3NODE2.st.com
  (10.75.127.8) with Microsoft SMTP Server (TLS) id 15.0.1347.2; Mon, 15 Jun
- 2020 11:08:48 +0200
-To: <dillon.minfei@gmail.com>, <robh+dt@kernel.org>,
- <mcoquelin.stm32@gmail.com>, <p.zabel@pengutronix.de>,
- <pierre-yves.mordret@st.com>, <philippe.schenker@toradex.com>
-References: <1591709203-12106-1-git-send-email-dillon.minfei@gmail.com>
+ 2020 11:45:36 +0200
+To: <dillon.minfei@gmail.com>, <robh+dt@kernel.org>, <p.zabel@pengutronix.de>, 
+ <mcoquelin.stm32@gmail.com>, <thierry.reding@gmail.com>,
+ <sam@ravnborg.org>, <airlied@linux.ie>, <daniel@ffwll.ch>,
+ <mturquette@baylibre.com>, <sboyd@kernel.org>,
+ <andy.shevchenko@gmail.com>, <noralf@tronnes.org>,
+ <linus.walleij@linaro.org>, <broonie@kernel.org>
+References: <1590564453-24499-1-git-send-email-dillon.minfei@gmail.com>
+ <1590564453-24499-3-git-send-email-dillon.minfei@gmail.com>
 From: Alexandre Torgue <alexandre.torgue@st.com>
-Message-ID: <618d3fea-aa9f-dbf6-04a1-e9db621a6cd5@st.com>
-Date: Mon, 15 Jun 2020 11:08:47 +0200
+Message-ID: <2273a168-7b14-9e28-5904-b9d2c2e2d9d3@st.com>
+Date: Mon, 15 Jun 2020 11:45:36 +0200
 User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:68.0) Gecko/20100101
  Thunderbird/68.8.0
 MIME-Version: 1.0
-In-Reply-To: <1591709203-12106-1-git-send-email-dillon.minfei@gmail.com>
+In-Reply-To: <1590564453-24499-3-git-send-email-dillon.minfei@gmail.com>
 Content-Language: en-US
-X-Originating-IP: [10.75.127.50]
+X-Originating-IP: [10.75.127.48]
 X-ClientProxiedBy: SFHDAG8NODE1.st.com (10.75.127.22) To SFHDAG3NODE2.st.com
  (10.75.127.8)
 X-Proofpoint-Virus-Version: vendor=fsecure engine=2.50.10434:6.0.216, 18.0.687
  definitions=2020-06-15_01:2020-06-15,
  2020-06-15 signatures=0
-Cc: linux-i2c@vger.kernel.org, devicetree@vger.kernel.org,
- linux-kernel@vger.kernel.org, linux-arm-kernel@lists.infradead.org,
- linux-stm32@st-md-mailman.stormreply.com
-Subject: Re: [Linux-stm32] [PATCH v4 0/4] Enable stmpe811 touch screen on
- stm32f429-disco board
+Cc: devicetree@vger.kernel.org, dillonhua@gmail.com, linux-clk@vger.kernel.org,
+ linux-kernel@vger.kernel.org, dri-devel@lists.freedesktop.org,
+ linux-spi@vger.kernel.org, linux-stm32@st-md-mailman.stormreply.com,
+ linux-arm-kernel@lists.infradead.org
+Subject: Re: [Linux-stm32] [PATCH v6 2/9] ARM: dts: stm32: Add pin map for
+ ltdc & spi5 on stm32f429-disco board
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -81,44 +86,104 @@ Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
 Hi Dillon
 
-On 6/9/20 3:26 PM, dillon.minfei@gmail.com wrote:
+On 5/27/20 9:27 AM, dillon.minfei@gmail.com wrote:
 > From: dillon min <dillon.minfei@gmail.com>
 > 
-> This patchset is intend to enable stmpe811 touch screen on stm32f429-disco
-> board with three dts and one i2c driver changes.
+> This patch adds the pin configuration for ltdc and spi5 controller
+> on stm32f429-disco board.
 > 
-> has been validated by ts_print tool
+> Signed-off-by: dillon min <dillon.minfei@gmail.com>
+> ---
+>   arch/arm/boot/dts/stm32f4-pinctrl.dtsi | 67 ++++++++++++++++++++++++++++++++++
+>   1 file changed, 67 insertions(+)
 > 
-> Changes log:
-> V4: indroduce 'IIC_LAST_BYTE_POS' to compatible with xipkernel boot
-> 
-> V3: just add change log in [PATCH V3 3/4] below ---
-> 
-> V2: remove id, blocks, irq-trigger from stmpe811 dts
-> 
-> V1:
-> ARM: dts: stm32: add I2C3 support on STM32F429 SoC
-> ARM: dts: stm32: Add pin map for I2C3 controller on stm32f4
-> ARM: dts: stm32: enable stmpe811 on stm32429-disco board
-> i2c: stm32f4: Fix stmpe811 get xyz data timeout issue
-> 
-> dillon min (4):
->    ARM: dts: stm32: add I2C3 support on STM32F429 SoC
->    ARM: dts: stm32: Add pin map for I2C3 controller on stm32f4
->    ARM: dts: stm32: enable stmpe811 on stm32429-disco board
->    i2c: stm32f4: Fix stmpe811 get xyz data timeout issue
-> 
->   arch/arm/boot/dts/stm32f4-pinctrl.dtsi | 12 +++++++++
->   arch/arm/boot/dts/stm32f429-disco.dts  | 47 ++++++++++++++++++++++++++++++++++
->   arch/arm/boot/dts/stm32f429.dtsi       | 12 +++++++++
->   drivers/i2c/busses/i2c-stm32f4.c       | 12 ++++++---
->   4 files changed, 80 insertions(+), 3 deletions(-)
-> 
+> diff --git a/arch/arm/boot/dts/stm32f4-pinctrl.dtsi b/arch/arm/boot/dts/stm32f4-pinctrl.dtsi
+> index 392fa143ce07..0eb107f968cd 100644
+> --- a/arch/arm/boot/dts/stm32f4-pinctrl.dtsi
+> +++ b/arch/arm/boot/dts/stm32f4-pinctrl.dtsi
+> @@ -316,6 +316,73 @@
+>   				};
+>   			};
+>   
+> +			ltdc_pins_f429_disco: ltdc-1 {
 
-DT patches applied on stm32-next. I changed node ordering in patch 3.
+Sorry I missed this issue during review. I changed ltdc_pins_f429_disco 
+by ltdc_pins_b when I applied your patch.
 
-Thanks
-Alex
+
+Regards
+alex
+
+> +				pins {
+> +					pinmux = <STM32_PINMUX('C', 6,  AF14)>,
+> +						/* LCD_HSYNC */
+> +						 <STM32_PINMUX('A', 4,  AF14)>,
+> +						 /* LCD_VSYNC */
+> +						 <STM32_PINMUX('G', 7,  AF14)>,
+> +						 /* LCD_CLK */
+> +						 <STM32_PINMUX('C', 10, AF14)>,
+> +						 /* LCD_R2 */
+> +						 <STM32_PINMUX('B', 0,  AF9)>,
+> +						 /* LCD_R3 */
+> +						 <STM32_PINMUX('A', 11, AF14)>,
+> +						 /* LCD_R4 */
+> +						 <STM32_PINMUX('A', 12, AF14)>,
+> +						 /* LCD_R5 */
+> +						 <STM32_PINMUX('B', 1,  AF9)>,
+> +						 /* LCD_R6*/
+> +						 <STM32_PINMUX('G', 6,  AF14)>,
+> +						 /* LCD_R7 */
+> +						 <STM32_PINMUX('A', 6,  AF14)>,
+> +						 /* LCD_G2 */
+> +						 <STM32_PINMUX('G', 10, AF9)>,
+> +						 /* LCD_G3 */
+> +						 <STM32_PINMUX('B', 10, AF14)>,
+> +						 /* LCD_G4 */
+> +						 <STM32_PINMUX('D', 6,  AF14)>,
+> +						 /* LCD_B2 */
+> +						 <STM32_PINMUX('G', 11, AF14)>,
+> +						 /* LCD_B3*/
+> +						 <STM32_PINMUX('B', 11, AF14)>,
+> +						 /* LCD_G5 */
+> +						 <STM32_PINMUX('C', 7,  AF14)>,
+> +						 /* LCD_G6 */
+> +						 <STM32_PINMUX('D', 3,  AF14)>,
+> +						 /* LCD_G7 */
+> +						 <STM32_PINMUX('G', 12, AF9)>,
+> +						 /* LCD_B4 */
+> +						 <STM32_PINMUX('A', 3,  AF14)>,
+> +						 /* LCD_B5 */
+> +						 <STM32_PINMUX('B', 8,  AF14)>,
+> +						 /* LCD_B6 */
+> +						 <STM32_PINMUX('B', 9,  AF14)>,
+> +						 /* LCD_B7 */
+> +						 <STM32_PINMUX('F', 10, AF14)>;
+> +						 /* LCD_DE */
+> +					slew-rate = <2>;
+> +				};
+> +			};
+> +
+> +			spi5_pins: spi5-0 {
+> +				pins1 {
+> +					pinmux = <STM32_PINMUX('F', 7, AF5)>,
+> +						/* SPI5_CLK */
+> +						 <STM32_PINMUX('F', 9, AF5)>;
+> +						/* SPI5_MOSI */
+> +					bias-disable;
+> +					drive-push-pull;
+> +					slew-rate = <0>;
+> +				};
+> +				pins2 {
+> +					pinmux = <STM32_PINMUX('F', 8, AF5)>;
+> +						/* SPI5_MISO */
+> +					bias-disable;
+> +				};
+> +			};
+> +
+>   			dcmi_pins: dcmi-0 {
+>   				pins {
+>   					pinmux = <STM32_PINMUX('A', 4, AF13)>, /* DCMI_HSYNC */
+> 
 _______________________________________________
 Linux-stm32 mailing list
 Linux-stm32@st-md-mailman.stormreply.com
