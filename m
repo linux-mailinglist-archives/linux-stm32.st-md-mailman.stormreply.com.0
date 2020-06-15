@@ -2,59 +2,62 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id 7304B1F9730
+	by mail.lfdr.de (Postfix) with ESMTPS id 727441F972F
 	for <lists+linux-stm32@lfdr.de>; Mon, 15 Jun 2020 14:54:25 +0200 (CEST)
 Received: from ip-172-31-3-76.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 20787C36B11;
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 334FCC36B23;
 	Mon, 15 Jun 2020 12:54:25 +0000 (UTC)
-Received: from mx07-00178001.pphosted.com (mx07-00178001.pphosted.com
- [62.209.51.94])
+Received: from mx07-00178001.pphosted.com (mx08-00178001.pphosted.com
+ [91.207.212.93])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id D7C46C36B0C
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id B54D5C36B0C
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Mon, 15 Jun 2020 12:54:22 +0000 (UTC)
-Received: from pps.filterd (m0046037.ppops.net [127.0.0.1])
+ Mon, 15 Jun 2020 12:54:23 +0000 (UTC)
+Received: from pps.filterd (m0046661.ppops.net [127.0.0.1])
  by mx07-00178001.pphosted.com (8.16.0.42/8.16.0.42) with SMTP id
- 05FCqnb7011050; Mon, 15 Jun 2020 14:54:22 +0200
+ 05FCpwXj001459; Mon, 15 Jun 2020 14:54:23 +0200
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=st.com;
  h=from : to : cc : subject
- : date : message-id : mime-version : content-type; s=STMicroelectronics;
- bh=kkty9Awoo0IVXf8uf5q3BXusDQstQvIXLN4JcfqXozQ=;
- b=aaQD18t4rb6P5c/PYFhR4q/GpllK+j9kYF9tPGd4latDf9n9WOTwJROgTVO37g+k95b7
- Oq7+yeiWcG239NEkE1UOsbfz1dqKG2E1enAMmX/6aAa7WnLP8T4TUucOkQWEabHirVC2
- 2WDy85YUzUJGQtoZKny0bnC3J9qJvMmeHkmmePIAv4HHspZn8xbIcCw/oryi8MqLE7dy
- sqwM6r3ELVIbGD3lD1cmixl35c7BDWJHl/WhDhOXU4W3AcDXbJ4ex7klr+ioSVrJvMIp
- BkMUJCzoEAgQPy/ciBqdkC8MRlvTGXsCuLrRbDnZbCPHvGml4ew3IKwW2Ft/P+5lGvuF fg== 
+ : date : message-id : in-reply-to : references : mime-version :
+ content-type; s=STMicroelectronics;
+ bh=9nx0276RoWcw268oLnuqmY9yxeCQ4dI487TvwB0ac0s=;
+ b=vedaUIffwULZMcZnGijPCCsdy9mrnEpkQAGVxilplUORvB570aTlNHZqYkCH9FcmjmxU
+ mhY7dBtvxXlvgz4/05dKBMT8BtwpRbJdY3t2FPgpwslRdOj1rLd1JMHjzB/Zq6ZQ/dbj
+ 4MBz6FPleiPgjUVJuQMVGm7jnX04VkUvdm1sWfO2QVNCSqWdPIKT3FAhFsSW8F5hwZYh
+ 1SHjvgK3Es2bUdtDxWXgQ2JS6MvXJK6dk1QCV21QVQhyInvNcDHWmPVTe0LgBHGC+fY+
+ 2IyHNp2t3WqwJ881Pvfdf5qoQ4dQJ+JwbCBKpW2MpzwMGh0I4BMP/SiSNmBG/TOEQI7l 9Q== 
 Received: from beta.dmz-eu.st.com (beta.dmz-eu.st.com [164.129.1.35])
- by mx07-00178001.pphosted.com with ESMTP id 31mmjvspcr-1
+ by mx07-00178001.pphosted.com with ESMTP id 31mnph1g9c-1
  (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
- Mon, 15 Jun 2020 14:54:21 +0200
+ Mon, 15 Jun 2020 14:54:22 +0200
 Received: from euls16034.sgp.st.com (euls16034.sgp.st.com [10.75.44.20])
- by beta.dmz-eu.st.com (STMicroelectronics) with ESMTP id 8BEC610002A;
- Mon, 15 Jun 2020 14:54:21 +0200 (CEST)
+ by beta.dmz-eu.st.com (STMicroelectronics) with ESMTP id 4F8AE10002A;
+ Mon, 15 Jun 2020 14:54:22 +0200 (CEST)
 Received: from Webmail-eu.st.com (sfhdag3node2.st.com [10.75.127.8])
- by euls16034.sgp.st.com (STMicroelectronics) with ESMTP id 8119F2B35E0;
- Mon, 15 Jun 2020 14:54:21 +0200 (CEST)
+ by euls16034.sgp.st.com (STMicroelectronics) with ESMTP id 44CD22B35E0;
+ Mon, 15 Jun 2020 14:54:22 +0200 (CEST)
 Received: from localhost (10.75.127.49) by SFHDAG3NODE2.st.com (10.75.127.8)
  with Microsoft SMTP Server (TLS) id 15.0.1347.2; Mon, 15 Jun 2020 14:54:21
  +0200
 From: Alexandre Torgue <alexandre.torgue@st.com>
 To: Linus Walleij <linus.walleij@linaro.org>
-Date: Mon, 15 Jun 2020 14:54:05 +0200
-Message-ID: <20200615125407.27632-1-alexandre.torgue@st.com>
+Date: Mon, 15 Jun 2020 14:54:06 +0200
+Message-ID: <20200615125407.27632-2-alexandre.torgue@st.com>
 X-Mailer: git-send-email 2.17.1
+In-Reply-To: <20200615125407.27632-1-alexandre.torgue@st.com>
+References: <20200615125407.27632-1-alexandre.torgue@st.com>
 MIME-Version: 1.0
 X-Originating-IP: [10.75.127.49]
-X-ClientProxiedBy: SFHDAG6NODE1.st.com (10.75.127.16) To SFHDAG3NODE2.st.com
+X-ClientProxiedBy: SFHDAG2NODE1.st.com (10.75.127.4) To SFHDAG3NODE2.st.com
  (10.75.127.8)
 X-Proofpoint-Virus-Version: vendor=fsecure engine=2.50.10434:6.0.216, 18.0.687
  definitions=2020-06-15_02:2020-06-15,
  2020-06-15 signatures=0
 Cc: linux-gpio@vger.kernel.org, linux-kernel@vger.kernel.org,
  linux-stm32@st-md-mailman.stormreply.com
-Subject: [Linux-stm32] [PATCH 0/2] pinctrl: stm32: add changes to better
-	manage
+Subject: [Linux-stm32] [PATCH 1/2] pinctrl: stm32: don't print an error on
+	probe deferral during clock get
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -71,23 +74,59 @@ Content-Transfer-Encoding: 7bit
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
-Hi,
+From: Etienne Carriere <etienne.carriere@st.com>
 
-Clocks and resets for GPIO banks could be defined but not yet ready when
-stm32 pinctrl is probed. This series adds changes to manage probe defer
-when a clock or a reset is not yet registered in the system.
+Change STM32 pinctrl driver to not print an error trace when probe is
+deferred due to clock resource. Probe defer issue (for clocks) could
+occur during bank registering when some banks have already been registered.
+In this case banks already registered should be released. To not waste time
+in this case, it is better to check first if all clocks are available
+before registering banks.
 
-regards
-alex
+Signed-off-by: Etienne Carriere <etienne.carriere@st.com>
+Signed-off-by: Alexandre Torgue <alexandre.torgue@st.com>
 
-Etienne Carriere (2):
-  pinctrl: stm32: don't print an error on probe deferral during clock
-    get
-  pinctrl: stm32: defer probe if reset resource is not yet ready
-
- drivers/pinctrl/stm32/pinctrl-stm32.c | 35 +++++++++++++++++++--------
- 1 file changed, 25 insertions(+), 10 deletions(-)
-
+diff --git a/drivers/pinctrl/stm32/pinctrl-stm32.c b/drivers/pinctrl/stm32/pinctrl-stm32.c
+index a657cd829ce6..c15460ef2307 100644
+--- a/drivers/pinctrl/stm32/pinctrl-stm32.c
++++ b/drivers/pinctrl/stm32/pinctrl-stm32.c
+@@ -1217,12 +1217,6 @@ static int stm32_gpiolib_register_bank(struct stm32_pinctrl *pctl,
+ 	if (IS_ERR(bank->base))
+ 		return PTR_ERR(bank->base);
+ 
+-	bank->clk = of_clk_get_by_name(np, NULL);
+-	if (IS_ERR(bank->clk)) {
+-		dev_err(dev, "failed to get clk (%ld)\n", PTR_ERR(bank->clk));
+-		return PTR_ERR(bank->clk);
+-	}
+-
+ 	err = clk_prepare(bank->clk);
+ 	if (err) {
+ 		dev_err(dev, "failed to prepare clk (%d)\n", err);
+@@ -1517,6 +1511,23 @@ int stm32_pctl_probe(struct platform_device *pdev)
+ 	if (!pctl->banks)
+ 		return -ENOMEM;
+ 
++	i = 0;
++	for_each_available_child_of_node(np, child) {
++		struct stm32_gpio_bank *bank = &pctl->banks[i];
++
++		if (of_property_read_bool(child, "gpio-controller")) {
++			bank->clk = of_clk_get_by_name(child, NULL);
++			if (IS_ERR(bank->clk)) {
++				if (PTR_ERR(bank->clk) != -EPROBE_DEFER)
++					dev_err(dev,
++						"failed to get clk (%ld)\n",
++						PTR_ERR(bank->clk));
++				return PTR_ERR(bank->clk);
++			}
++			i++;
++		}
++	}
++
+ 	for_each_available_child_of_node(np, child) {
+ 		if (of_property_read_bool(child, "gpio-controller")) {
+ 			ret = stm32_gpiolib_register_bank(pctl, child);
 -- 
 2.17.1
 
