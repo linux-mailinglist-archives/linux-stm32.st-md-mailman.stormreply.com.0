@@ -2,49 +2,60 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id 217331FAEE4
-	for <lists+linux-stm32@lfdr.de>; Tue, 16 Jun 2020 13:06:37 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 8A4171FAF2E
+	for <lists+linux-stm32@lfdr.de>; Tue, 16 Jun 2020 13:31:01 +0200 (CEST)
 Received: from ip-172-31-3-76.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 00D1AC36B11;
-	Tue, 16 Jun 2020 11:06:36 +0000 (UTC)
-Received: from mga11.intel.com (mga11.intel.com [192.55.52.93])
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 38AE3C36B11;
+	Tue, 16 Jun 2020 11:31:01 +0000 (UTC)
+Received: from mx07-00178001.pphosted.com (mx07-00178001.pphosted.com
+ [62.209.51.94])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 43361C36B0C
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 5EC54C36B0C
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Tue, 16 Jun 2020 10:56:19 +0000 (UTC)
-IronPort-SDR: uxU+RwwsWnVARJFtSYpjHLLmxHik1FWWMXTVH+17VnMTfMugQA/OsR/zWA9d8BtwVU7VlxNazg
- X6D1VmflCUdA==
-X-Amp-Result: SKIPPED(no attachment in message)
-X-Amp-File-Uploaded: False
-Received: from fmsmga001.fm.intel.com ([10.253.24.23])
- by fmsmga102.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 16 Jun 2020 03:56:17 -0700
-IronPort-SDR: iS5GbzbjKPiXqDKhZpPrConT0bcq2eWASHaqzKGx4fvllcs2ZidupIXhxZrWjdC+Jga7qklkly
- S/l/9R7DZuJw==
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="5.73,518,1583222400"; d="scan'208";a="382837797"
-Received: from kuha.fi.intel.com ([10.237.72.162])
- by fmsmga001.fm.intel.com with SMTP; 16 Jun 2020 03:56:12 -0700
-Received: by kuha.fi.intel.com (sSMTP sendmail emulation);
- Tue, 16 Jun 2020 13:56:12 +0300
-Date: Tue, 16 Jun 2020 13:56:12 +0300
-From: Heikki Krogerus <heikki.krogerus@linux.intel.com>
-To: Amelie Delaunay <amelie.delaunay@st.com>
-Message-ID: <20200616105612.GL3213128@kuha.fi.intel.com>
-References: <20200615161512.19150-1-amelie.delaunay@st.com>
- <20200615161512.19150-3-amelie.delaunay@st.com>
+ Tue, 16 Jun 2020 11:30:59 +0000 (UTC)
+Received: from pps.filterd (m0046668.ppops.net [127.0.0.1])
+ by mx07-00178001.pphosted.com (8.16.0.42/8.16.0.42) with SMTP id
+ 05GBO12D019879; Tue, 16 Jun 2020 13:30:47 +0200
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=st.com;
+ h=from : to : cc : subject
+ : date : message-id : mime-version : content-type; s=STMicroelectronics;
+ bh=Is1HFAKxrRK4M9wTQ7ky+YcCCVHYlPfvKWxElD41J9I=;
+ b=hdVbR5ll8P9IF/DCqIP9G5yC0gyORLZAtaFpHlEHLAYcrss21imUCGZ672jRtxl1+Lbv
+ RrlD5NcLkRJFxGMc+1djtYauSv8oaE7GPkkMiOG4ROcdaRWtG9gvv4B6/3B6/AKj6M+L
+ 8IMSsICY8SWe4DyVBdCJqEWXO4q0uM3T7+CMkHkpbqFNc44SOkWFYo4k2dbLjjm7GX15
+ VELNUaORbZjL19mUTbAuCVaKPreTimyaNv845pe8Y+WAOwWSkTQWzNYonkdx3ygbXpHF
+ 05zTm2Tq5WRs10obXx5TShs2TPOruCcqhInCUxeCXhLvjSzxxFc/1SAyLA3t2d2xMoqK qw== 
+Received: from beta.dmz-eu.st.com (beta.dmz-eu.st.com [164.129.1.35])
+ by mx07-00178001.pphosted.com with ESMTP id 31mm91q2v1-1
+ (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
+ Tue, 16 Jun 2020 13:30:47 +0200
+Received: from euls16034.sgp.st.com (euls16034.sgp.st.com [10.75.44.20])
+ by beta.dmz-eu.st.com (STMicroelectronics) with ESMTP id DB1EB10002A;
+ Tue, 16 Jun 2020 13:30:44 +0200 (CEST)
+Received: from Webmail-eu.st.com (sfhdag6node3.st.com [10.75.127.18])
+ by euls16034.sgp.st.com (STMicroelectronics) with ESMTP id CD57D2C0D26;
+ Tue, 16 Jun 2020 13:30:44 +0200 (CEST)
+Received: from localhost (10.75.127.44) by SFHDAG6NODE3.st.com (10.75.127.18)
+ with Microsoft SMTP Server (TLS) id 15.0.1473.3;
+ Tue, 16 Jun 2020 13:30:44 +0200
+From: <patrice.chotard@st.com>
+To: Mark Brown <broonie@kernel.org>, Alexandre Torgue <alexandre.torgue@st.com>
+Date: Tue, 16 Jun 2020 13:30:35 +0200
+Message-ID: <20200616113035.4514-1-patrice.chotard@st.com>
+X-Mailer: git-send-email 2.17.1
 MIME-Version: 1.0
-Content-Disposition: inline
-In-Reply-To: <20200615161512.19150-3-amelie.delaunay@st.com>
-X-Mailman-Approved-At: Tue, 16 Jun 2020 11:06:34 +0000
-Cc: devicetree@vger.kernel.org, Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
- linux-usb@vger.kernel.org, Russell King <linux@armlinux.org.uk>,
- linux-kernel@vger.kernel.org, Rob Herring <robh+dt@kernel.org>,
- Maxime Coquelin <mcoquelin.stm32@gmail.com>,
- Fabrice Gasnier <fabrice.gasnier@st.com>,
- linux-stm32@st-md-mailman.stormreply.com, linux-arm-kernel@lists.infradead.org
-Subject: Re: [Linux-stm32] [PATCH 2/6] usb: typec: add typec_find_pwr_opmode
+X-Originating-IP: [10.75.127.44]
+X-ClientProxiedBy: SFHDAG1NODE3.st.com (10.75.127.3) To SFHDAG6NODE3.st.com
+ (10.75.127.18)
+X-Proofpoint-Virus-Version: vendor=fsecure engine=2.50.10434:6.0.216, 18.0.687
+ definitions=2020-06-16_04:2020-06-16,
+ 2020-06-16 signatures=0
+Cc: linux-kernel@vger.kernel.org, mcoquelin.stm32@gmail.com,
+ linux-spi@vger.kernel.org, linux-stm32@st-md-mailman.stormreply.com,
+ linux-arm-kernel@lists.infradead.org
+Subject: [Linux-stm32] spi: stm32-qspi: Fix error path in case of
+	-EPROBE_DEFER
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -61,67 +72,123 @@ Content-Transfer-Encoding: 7bit
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
-On Mon, Jun 15, 2020 at 06:15:08PM +0200, Amelie Delaunay wrote:
-> This patch adds a function that converts power operation mode string into
-> power operation mode value.
-> 
-> It is useful to configure power operation mode through device tree
-> property, as power capabilities may be linked to hardware design.
-> 
-> Signed-off-by: Amelie Delaunay <amelie.delaunay@st.com>
+From: Patrice Chotard <patrice.chotard@st.com>
 
-Acked-by: Heikki Krogerus <heikki.krogerus@linux.intel.com>
+In case of -EPROBE_DEFER, stm32_qspi_release() was called
+in any case which unregistered driver from pm_runtime framework
+even if it has not been registered yet to it. This leads to:
 
-> ---
->  drivers/usb/typec/class.c | 15 +++++++++++++++
->  include/linux/usb/typec.h |  1 +
->  2 files changed, 16 insertions(+)
-> 
-> diff --git a/drivers/usb/typec/class.c b/drivers/usb/typec/class.c
-> index c9234748537a..59e1837ef85e 100644
-> --- a/drivers/usb/typec/class.c
-> +++ b/drivers/usb/typec/class.c
-> @@ -1448,6 +1448,21 @@ void typec_set_pwr_opmode(struct typec_port *port,
->  }
->  EXPORT_SYMBOL_GPL(typec_set_pwr_opmode);
->  
-> +/**
-> + * typec_find_pwr_opmode - Get the typec power operation mode capability
-> + * @name: power operation mode string
-> + *
-> + * This routine is used to find the typec_pwr_opmode by its string @name.
-> + *
-> + * Returns typec_pwr_opmode if success, otherwise negative error code.
-> + */
-> +int typec_find_pwr_opmode(const char *name)
-> +{
-> +	return match_string(typec_pwr_opmodes,
-> +			    ARRAY_SIZE(typec_pwr_opmodes), name);
-> +}
-> +EXPORT_SYMBOL_GPL(typec_find_pwr_opmode);
-> +
->  /**
->   * typec_find_orientation - Convert orientation string to enum typec_orientation
->   * @name: Orientation string
-> diff --git a/include/linux/usb/typec.h b/include/linux/usb/typec.h
-> index 5daa1c49761c..f7c63ee3d443 100644
-> --- a/include/linux/usb/typec.h
-> +++ b/include/linux/usb/typec.h
-> @@ -254,6 +254,7 @@ int typec_set_mode(struct typec_port *port, int mode);
->  
->  void *typec_get_drvdata(struct typec_port *port);
->  
-> +int typec_find_pwr_opmode(const char *name);
->  int typec_find_orientation(const char *name);
->  int typec_find_port_power_role(const char *name);
->  int typec_find_power_role(const char *name);
-> -- 
-> 2.17.1
+stm32-qspi 58003000.spi: can't setup spi0.0, status -13
+spi_master spi0: spi_device register error /soc/spi@58003000/mx66l51235l@0
+spi_master spi0: Failed to create SPI device for /soc/spi@58003000/mx66l51235l@0
+stm32-qspi 58003000.spi: can't setup spi0.1, status -13
+spi_master spi0: spi_device register error /soc/spi@58003000/mx66l51235l@1
+spi_master spi0: Failed to create SPI device for /soc/spi@58003000/mx66l51235l@1
 
-thanks,
+On v5.7 kernel,this issue was not "visible", qspi driver was probed
+successfully.
 
+Fixes: 9d282c17b023 ("spi: stm32-qspi: Add pm_runtime support")
+
+Signed-off-by: Patrice Chotard <patrice.chotard@st.com>
+---
+ drivers/spi/spi-stm32-qspi.c | 46 ++++++++++++++++++++----------------
+ 1 file changed, 26 insertions(+), 20 deletions(-)
+
+diff --git a/drivers/spi/spi-stm32-qspi.c b/drivers/spi/spi-stm32-qspi.c
+index 3c44bb2fd9b1..a900962b4336 100644
+--- a/drivers/spi/spi-stm32-qspi.c
++++ b/drivers/spi/spi-stm32-qspi.c
+@@ -553,20 +553,6 @@ static const struct spi_controller_mem_ops stm32_qspi_mem_ops = {
+ 	.exec_op = stm32_qspi_exec_op,
+ };
+ 
+-static void stm32_qspi_release(struct stm32_qspi *qspi)
+-{
+-	pm_runtime_get_sync(qspi->dev);
+-	/* disable qspi */
+-	writel_relaxed(0, qspi->io_base + QSPI_CR);
+-	stm32_qspi_dma_free(qspi);
+-	mutex_destroy(&qspi->lock);
+-	pm_runtime_put_noidle(qspi->dev);
+-	pm_runtime_disable(qspi->dev);
+-	pm_runtime_set_suspended(qspi->dev);
+-	pm_runtime_dont_use_autosuspend(qspi->dev);
+-	clk_disable_unprepare(qspi->clk);
+-}
+-
+ static int stm32_qspi_probe(struct platform_device *pdev)
+ {
+ 	struct device *dev = &pdev->dev;
+@@ -642,7 +628,7 @@ static int stm32_qspi_probe(struct platform_device *pdev)
+ 	if (IS_ERR(rstc)) {
+ 		ret = PTR_ERR(rstc);
+ 		if (ret == -EPROBE_DEFER)
+-			goto err_qspi_release;
++			goto err_clk_disable;
+ 	} else {
+ 		reset_control_assert(rstc);
+ 		udelay(2);
+@@ -653,7 +639,7 @@ static int stm32_qspi_probe(struct platform_device *pdev)
+ 	platform_set_drvdata(pdev, qspi);
+ 	ret = stm32_qspi_dma_setup(qspi);
+ 	if (ret)
+-		goto err_qspi_release;
++		goto err_dma_free;
+ 
+ 	mutex_init(&qspi->lock);
+ 
+@@ -673,15 +659,26 @@ static int stm32_qspi_probe(struct platform_device *pdev)
+ 
+ 	ret = devm_spi_register_master(dev, ctrl);
+ 	if (ret)
+-		goto err_qspi_release;
++		goto err_pm_runtime_free;
+ 
+ 	pm_runtime_mark_last_busy(dev);
+ 	pm_runtime_put_autosuspend(dev);
+ 
+ 	return 0;
+ 
+-err_qspi_release:
+-	stm32_qspi_release(qspi);
++err_pm_runtime_free:
++	pm_runtime_get_sync(qspi->dev);
++	/* disable qspi */
++	writel_relaxed(0, qspi->io_base + QSPI_CR);
++	mutex_destroy(&qspi->lock);
++	pm_runtime_put_noidle(qspi->dev);
++	pm_runtime_disable(qspi->dev);
++	pm_runtime_set_suspended(qspi->dev);
++	pm_runtime_dont_use_autosuspend(qspi->dev);
++err_dma_free:
++	stm32_qspi_dma_free(qspi);
++err_clk_disable:
++	clk_disable_unprepare(qspi->clk);
+ err_master_put:
+ 	spi_master_put(qspi->ctrl);
+ 
+@@ -692,7 +689,16 @@ static int stm32_qspi_remove(struct platform_device *pdev)
+ {
+ 	struct stm32_qspi *qspi = platform_get_drvdata(pdev);
+ 
+-	stm32_qspi_release(qspi);
++	pm_runtime_get_sync(qspi->dev);
++	/* disable qspi */
++	writel_relaxed(0, qspi->io_base + QSPI_CR);
++	stm32_qspi_dma_free(qspi);
++	mutex_destroy(&qspi->lock);
++	pm_runtime_put_noidle(qspi->dev);
++	pm_runtime_disable(qspi->dev);
++	pm_runtime_set_suspended(qspi->dev);
++	pm_runtime_dont_use_autosuspend(qspi->dev);
++	clk_disable_unprepare(qspi->clk);
+ 
+ 	return 0;
+ }
 -- 
-heikki
+2.17.1
+
 _______________________________________________
 Linux-stm32 mailing list
 Linux-stm32@st-md-mailman.stormreply.com
