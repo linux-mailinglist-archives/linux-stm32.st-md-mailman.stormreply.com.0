@@ -2,76 +2,76 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id 847FA1FBF26
-	for <lists+linux-stm32@lfdr.de>; Tue, 16 Jun 2020 21:43:35 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 8FD521FBF48
+	for <lists+linux-stm32@lfdr.de>; Tue, 16 Jun 2020 21:47:03 +0200 (CEST)
 Received: from ip-172-31-3-76.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 389EDC36B0D;
-	Tue, 16 Jun 2020 19:43:35 +0000 (UTC)
-Received: from us-smtp-delivery-1.mimecast.com (us-smtp-1.mimecast.com
- [205.139.110.61])
- (using TLSv1.2 with cipher ECDHE-RSA-AES256-SHA384 (256/256 bits))
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 5164DC36B0D;
+	Tue, 16 Jun 2020 19:47:03 +0000 (UTC)
+Received: from mail.zx2c4.com (mail.zx2c4.com [192.95.5.64])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 5FDDCC36B0B
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id ED815C36B0B
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Tue, 16 Jun 2020 19:43:34 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
- s=mimecast20190719; t=1592336613;
- h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
- to:to:cc:cc:mime-version:mime-version:content-type:content-type:
- content-transfer-encoding:content-transfer-encoding:
- in-reply-to:in-reply-to:references:references;
- bh=7Z6fHUpD/YKa1+K4csbSQ8hpcds1t8FVRWhxbaMjfP4=;
- b=XoScRIB/OUnlC6iHUifIbbqw0nMqyGT44ncKlwjVJ6EzmytEYHukuC+9GeA6NoD4Ia58ob
- zdgyRIA/jM0/wFteh1WPXwdM2my8JrDTe/bGsTs4vlNv/sl6PkBIRr4W0nOkg7Wx8FBO6/
- claoyJXO0QkMR++u/1025GkuGUGIKy8=
-Received: from mimecast-mx01.redhat.com (mimecast-mx01.redhat.com
- [209.132.183.4]) (Using TLS) by relay.mimecast.com with ESMTP id
- us-mta-144-TJgrp6WMNr--nG8NkXkVIQ-1; Tue, 16 Jun 2020 15:43:29 -0400
-X-MC-Unique: TJgrp6WMNr--nG8NkXkVIQ-1
-Received: from smtp.corp.redhat.com (int-mx06.intmail.prod.int.phx2.redhat.com
- [10.5.11.16])
- (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
- (No client certificate requested)
- by mimecast-mx01.redhat.com (Postfix) with ESMTPS id 0BAEEE91A;
- Tue, 16 Jun 2020 19:43:23 +0000 (UTC)
-Received: from llong.remote.csb (ovpn-114-156.rdu2.redhat.com [10.10.114.156])
- by smtp.corp.redhat.com (Postfix) with ESMTP id 72FAE5C1BD;
- Tue, 16 Jun 2020 19:43:17 +0000 (UTC)
-To: Joe Perches <joe@perches.com>, Andrew Morton <akpm@linux-foundation.org>, 
- David Howells <dhowells@redhat.com>,
- Jarkko Sakkinen <jarkko.sakkinen@linux.intel.com>,
- James Morris <jmorris@namei.org>, "Serge E. Hallyn" <serge@hallyn.com>,
- Linus Torvalds <torvalds@linux-foundation.org>,
- Matthew Wilcox <willy@infradead.org>, David Rientjes <rientjes@google.com>
+ Tue, 16 Jun 2020 19:47:01 +0000 (UTC)
+Received: by mail.zx2c4.com (ZX2C4 Mail Server) with ESMTP id ebce8352
+ for <linux-stm32@st-md-mailman.stormreply.com>;
+ Tue, 16 Jun 2020 19:29:00 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha1; c=relaxed; d=zx2c4.com; h=mime-version
+ :references:in-reply-to:from:date:message-id:subject:to:cc
+ :content-type; s=mail; bh=7vGnD2Fc5hFa6zE6l8I/6fYFWTE=; b=auHBa5
+ AEe5pm5r80dgWM49RbxNg2b1wePIyReSMQ0Rz/3L8Yx5mFtqdklxmmgnU69XYlJN
+ hUBaHFgVJALywQiz6/SIkttoZgX1tGyz+Zg+VQcgVldFachBs52tuPslyyMFQ0LX
+ thiKjEu3HP7G7pjaS6Q85sWuiJrjwSZZouMci0xDSFLn39VuLeRw1x/kWL7uYtnC
+ q9lJ9u4WEJkyqJPlHNMFgYZ8GQhbEM4aqhZNPWgxeSvHzabhX4d1A2W++bIgoNgb
+ 5POprpu6DVgEzddWZ80fiiLd2tnSpz4DTk3KcXvzj6IQwWQeVy1VhdN6Y6LpuXnz
+ 67qrTsLtz03/PXLw==
+Received: by mail.zx2c4.com (ZX2C4 Mail Server) with ESMTPSA id 8d3c4096
+ (TLSv1.3:TLS_AES_256_GCM_SHA384:256:NO)
+ for <linux-stm32@st-md-mailman.stormreply.com>;
+ Tue, 16 Jun 2020 19:28:59 +0000 (UTC)
+Received: by mail-io1-f46.google.com with SMTP id r77so23450022ior.3
+ for <linux-stm32@st-md-mailman.stormreply.com>;
+ Tue, 16 Jun 2020 12:46:59 -0700 (PDT)
+X-Gm-Message-State: AOAM530toOYeCMkTpdXjNxvGmnUPP7Sv6/nbyvIIdIrLMYMLm6WsHQJ/
+ l3NuCILre7WEAS2VfAL/SJAuxF67Fi5tejTztdU=
+X-Google-Smtp-Source: ABdhPJxC2pRunaModJX8LCWHauaz4Ko5hXWZ58PHme1+4UYNCmQGIC+iarFUNAqn+rNJyw3DywT6LsxlwSFMRJ3z3pU=
+X-Received: by 2002:a6b:6705:: with SMTP id b5mr4346341ioc.29.1592336817452;
+ Tue, 16 Jun 2020 12:46:57 -0700 (PDT)
+MIME-Version: 1.0
 References: <20200616015718.7812-1-longman@redhat.com>
  <fe3b9a437be4aeab3bac68f04193cb6daaa5bee4.camel@perches.com>
-From: Waiman Long <longman@redhat.com>
-Organization: Red Hat
-Message-ID: <5c70746c-ecfc-316f-f1ff-ab432cf9f32d@redhat.com>
-Date: Tue, 16 Jun 2020 15:43:16 -0400
-User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:68.0) Gecko/20100101
- Thunderbird/68.4.1
-MIME-Version: 1.0
 In-Reply-To: <fe3b9a437be4aeab3bac68f04193cb6daaa5bee4.camel@perches.com>
-Content-Language: en-US
-X-Scanned-By: MIMEDefang 2.79 on 10.5.11.16
-Cc: "Jason A . Donenfeld" <Jason@zx2c4.com>, Michal Hocko <mhocko@suse.com>,
- linux-btrfs@vger.kernel.org, linux-kernel@vger.kernel.org, linux-mm@kvack.org,
- linux-sctp@vger.kernel.org, target-devel@vger.kernel.org,
+From: "Jason A. Donenfeld" <Jason@zx2c4.com>
+Date: Tue, 16 Jun 2020 13:46:46 -0600
+X-Gmail-Original-Message-ID: <CAHmME9rCD1KJNguthAhZ+OAVZTpBwEvGRLRV0tvQjBaEYG1bHQ@mail.gmail.com>
+Message-ID: <CAHmME9rCD1KJNguthAhZ+OAVZTpBwEvGRLRV0tvQjBaEYG1bHQ@mail.gmail.com>
+To: Joe Perches <joe@perches.com>
+Cc: Michal Hocko <mhocko@suse.com>, linux-btrfs@vger.kernel.org,
+ Jarkko Sakkinen <jarkko.sakkinen@linux.intel.com>,
+ David Sterba <dsterba@suse.cz>, David Howells <dhowells@redhat.com>,
+ Linux-MM <linux-mm@kvack.org>, linux-sctp@vger.kernel.org,
+ keyrings@vger.kernel.org, kasan-dev@googlegroups.com,
  linux-stm32@st-md-mailman.stormreply.com, devel@driverdev.osuosl.org,
  linux-cifs@vger.kernel.org, linux-scsi@vger.kernel.org,
- kasan-dev@googlegroups.com, linux-wpan@vger.kernel.org,
- Dan Carpenter <dan.carpenter@oracle.com>, linux-pm@vger.kernel.org,
+ James Morris <jmorris@namei.org>, Matthew Wilcox <willy@infradead.org>,
+ linux-wpan@vger.kernel.org, David Rientjes <rientjes@google.com>,
+ Waiman Long <longman@redhat.com>, Dan Carpenter <dan.carpenter@oracle.com>,
+ "Serge E. Hallyn" <serge@hallyn.com>,
+ Steffen Klassert <steffen.klassert@secunet.com>, linux-pm@vger.kernel.org,
  ecryptfs@vger.kernel.org, linux-fscrypt@vger.kernel.org,
  linux-mediatek@lists.infradead.org, linux-amlogic@lists.infradead.org,
- virtualization@lists.linux-foundation.org, linux-nfs@vger.kernel.org,
- netdev@vger.kernel.org, linux-wireless@vger.kernel.org,
- David Sterba <dsterba@suse.cz>, linux-bluetooth@vger.kernel.org,
- linux-security-module@vger.kernel.org, keyrings@vger.kernel.org,
- tipc-discussion@lists.sourceforge.net, linux-crypto@vger.kernel.org,
- Johannes Weiner <hannes@cmpxchg.org>, linux-integrity@vger.kernel.org,
- linuxppc-dev@lists.ozlabs.org, wireguard@lists.zx2c4.com,
- linux-ppp@vger.kernel.org
+ virtualization@lists.linux-foundation.org, linux-integrity@vger.kernel.org,
+ linux-nfs@vger.kernel.org, Linus Torvalds <torvalds@linux-foundation.org>,
+ linux-wireless <linux-wireless@vger.kernel.org>,
+ LKML <linux-kernel@vger.kernel.org>, David Miller <davem@davemloft.net>,
+ linux-bluetooth@vger.kernel.org,
+ linux-security-module <linux-security-module@vger.kernel.org>,
+ target-devel@vger.kernel.org, tipc-discussion@lists.sourceforge.net,
+ Linux Crypto Mailing List <linux-crypto@vger.kernel.org>,
+ Johannes Weiner <hannes@cmpxchg.org>,
+ Andrew Morton <akpm@linux-foundation.org>, linuxppc-dev@lists.ozlabs.org,
+ Netdev <netdev@vger.kernel.org>,
+ WireGuard mailing list <wireguard@lists.zx2c4.com>, linux-ppp@vger.kernel.org
 Subject: Re: [Linux-stm32] [PATCH v4 0/3] mm,
 	treewide: Rename kzfree() to kfree_sensitive()
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
@@ -85,54 +85,35 @@ List-Post: <mailto:linux-stm32@st-md-mailman.stormreply.com>
 List-Help: <mailto:linux-stm32-request@st-md-mailman.stormreply.com?subject=help>
 List-Subscribe: <https://st-md-mailman.stormreply.com/mailman/listinfo/linux-stm32>, 
  <mailto:linux-stm32-request@st-md-mailman.stormreply.com?subject=subscribe>
+Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
-Content-Type: text/plain; charset="us-ascii"; Format="flowed"
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
-On 6/16/20 2:53 PM, Joe Perches wrote:
+On Tue, Jun 16, 2020 at 12:54 PM Joe Perches <joe@perches.com> wrote:
+>
 > On Mon, 2020-06-15 at 21:57 -0400, Waiman Long wrote:
->>   v4:
->>    - Break out the memzero_explicit() change as suggested by Dan Carpenter
->>      so that it can be backported to stable.
->>    - Drop the "crypto: Remove unnecessary memzero_explicit()" patch for
->>      now as there can be a bit more discussion on what is best. It will be
->>      introduced as a separate patch later on after this one is merged.
+> >  v4:
+> >   - Break out the memzero_explicit() change as suggested by Dan Carpenter
+> >     so that it can be backported to stable.
+> >   - Drop the "crypto: Remove unnecessary memzero_explicit()" patch for
+> >     now as there can be a bit more discussion on what is best. It will be
+> >     introduced as a separate patch later on after this one is merged.
+>
 > To this larger audience and last week without reply:
 > https://lore.kernel.org/lkml/573b3fbd5927c643920e1364230c296b23e7584d.camel@perches.com/
 >
 > Are there _any_ fastpath uses of kfree or vfree?
 
-I am not sure about that, but both of them can be slow.
-
-
->
-> Many patches have been posted recently to fix mispairings
-> of specific types of alloc and free functions.
->
-> To eliminate these mispairings at a runtime cost of four
-> comparisons, should the kfree/vfree/kvfree/kfree_const
-> functions be consolidated into a single kfree?
->
-> Something like the below:
->
->     void kfree(const void *addr)
->     {
->     	if (is_kernel_rodata((unsigned long)addr))
->     		return;
->
->     	if (is_vmalloc_addr(addr))
->     		_vfree(addr);
->     	else
->     		_kfree(addr);
->     }
->
-is_kernel_rodata() is inlined, but is_vmalloc_addr() isn't. So the 
-overhead can be a bit bigger.
-
-Cheers,
-Longman
-
+The networking stack has various places where there will be a quick
+kmalloc followed by a kfree for an incoming or outgoing packet. One
+place that comes to mind would be esp_alloc_tmp, which does a quick
+allocation of some temporary kmalloc memory, processes some packet
+things inside of that, and then frees it, sometimes in the same
+function, and sometimes later in an async callback. I don't know how
+"fastpath" you consider this, but usually packet processing is
+something people want to do with minimal overhead, considering how
+fast NICs are these days.
 _______________________________________________
 Linux-stm32 mailing list
 Linux-stm32@st-md-mailman.stormreply.com
