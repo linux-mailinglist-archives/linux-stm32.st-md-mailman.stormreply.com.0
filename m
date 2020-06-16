@@ -2,44 +2,49 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id 51DDE1FAC94
-	for <lists+linux-stm32@lfdr.de>; Tue, 16 Jun 2020 11:36:09 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 217331FAEE4
+	for <lists+linux-stm32@lfdr.de>; Tue, 16 Jun 2020 13:06:37 +0200 (CEST)
 Received: from ip-172-31-3-76.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 010E9C36B11;
-	Tue, 16 Jun 2020 09:36:09 +0000 (UTC)
-Received: from out30-44.freemail.mail.aliyun.com
- (out30-44.freemail.mail.aliyun.com [115.124.30.44])
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 00D1AC36B11;
+	Tue, 16 Jun 2020 11:06:36 +0000 (UTC)
+Received: from mga11.intel.com (mga11.intel.com [192.55.52.93])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id C0B5FC36B0C
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 43361C36B0C
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Tue, 16 Jun 2020 09:36:06 +0000 (UTC)
-X-Alimail-AntiSpam: AC=PASS; BC=-1|-1; BR=01201311R191e4; CH=green; DM=||false|;
- DS=||; FP=0|-1|-1|-1|0|-1|-1|-1; HT=e01e04407;
- MF=tianjia.zhang@linux.alibaba.com; NM=1; PH=DS; RN=19; SR=0;
- TI=SMTPD_---0U.m0p4p_1592300158; 
-Received: from 30.27.116.240(mailfrom:tianjia.zhang@linux.alibaba.com
- fp:SMTPD_---0U.m0p4p_1592300158) by smtp.aliyun-inc.com(127.0.0.1);
- Tue, 16 Jun 2020 17:35:59 +0800
-To: herbert@gondor.apana.org.au, davem@davemloft.net, dhowells@redhat.com,
- mcoquelin.stm32@gmail.com, alexandre.torgue@st.com, jmorris@namei.org,
- serge@hallyn.com, nramas@linux.microsoft.com, tusharsu@linux.microsoft.com,
- zohar@linux.ibm.com, gilad@benyossef.com, pvanleeuwen@rambus.com,
- linux-crypto@vger.kernel.org, linux-kernel@vger.kernel.org,
- keyrings@vger.kernel.org, linux-stm32@st-md-mailman.stormreply.com,
- linux-arm-kernel@lists.infradead.org, linux-security-module@vger.kernel.org,
- zhang.jia@linux.alibaba.com
-References: <20200609134855.21431-1-tianjia.zhang@linux.alibaba.com>
- <20200609205837.osganry2tyzwvanz@altlinux.org>
-From: Tianjia Zhang <tianjia.zhang@linux.alibaba.com>
-Message-ID: <254bf52e-eeb8-b615-be2a-d5cba976b63a@linux.alibaba.com>
-Date: Tue, 16 Jun 2020 17:35:58 +0800
-User-Agent: Mozilla/5.0 (Windows NT 6.1; WOW64; rv:68.0) Gecko/20100101
- Thunderbird/68.8.1
+ Tue, 16 Jun 2020 10:56:19 +0000 (UTC)
+IronPort-SDR: uxU+RwwsWnVARJFtSYpjHLLmxHik1FWWMXTVH+17VnMTfMugQA/OsR/zWA9d8BtwVU7VlxNazg
+ X6D1VmflCUdA==
+X-Amp-Result: SKIPPED(no attachment in message)
+X-Amp-File-Uploaded: False
+Received: from fmsmga001.fm.intel.com ([10.253.24.23])
+ by fmsmga102.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 16 Jun 2020 03:56:17 -0700
+IronPort-SDR: iS5GbzbjKPiXqDKhZpPrConT0bcq2eWASHaqzKGx4fvllcs2ZidupIXhxZrWjdC+Jga7qklkly
+ S/l/9R7DZuJw==
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="5.73,518,1583222400"; d="scan'208";a="382837797"
+Received: from kuha.fi.intel.com ([10.237.72.162])
+ by fmsmga001.fm.intel.com with SMTP; 16 Jun 2020 03:56:12 -0700
+Received: by kuha.fi.intel.com (sSMTP sendmail emulation);
+ Tue, 16 Jun 2020 13:56:12 +0300
+Date: Tue, 16 Jun 2020 13:56:12 +0300
+From: Heikki Krogerus <heikki.krogerus@linux.intel.com>
+To: Amelie Delaunay <amelie.delaunay@st.com>
+Message-ID: <20200616105612.GL3213128@kuha.fi.intel.com>
+References: <20200615161512.19150-1-amelie.delaunay@st.com>
+ <20200615161512.19150-3-amelie.delaunay@st.com>
 MIME-Version: 1.0
-In-Reply-To: <20200609205837.osganry2tyzwvanz@altlinux.org>
-Subject: Re: [Linux-stm32] [PATCH v3 0/8] crpyto: introduce OSCCA
- certificate and SM2 asymmetric algorithm
+Content-Disposition: inline
+In-Reply-To: <20200615161512.19150-3-amelie.delaunay@st.com>
+X-Mailman-Approved-At: Tue, 16 Jun 2020 11:06:34 +0000
+Cc: devicetree@vger.kernel.org, Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
+ linux-usb@vger.kernel.org, Russell King <linux@armlinux.org.uk>,
+ linux-kernel@vger.kernel.org, Rob Herring <robh+dt@kernel.org>,
+ Maxime Coquelin <mcoquelin.stm32@gmail.com>,
+ Fabrice Gasnier <fabrice.gasnier@st.com>,
+ linux-stm32@st-md-mailman.stormreply.com, linux-arm-kernel@lists.infradead.org
+Subject: Re: [Linux-stm32] [PATCH 2/6] usb: typec: add typec_find_pwr_opmode
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -51,67 +56,72 @@ List-Post: <mailto:linux-stm32@st-md-mailman.stormreply.com>
 List-Help: <mailto:linux-stm32-request@st-md-mailman.stormreply.com?subject=help>
 List-Subscribe: <https://st-md-mailman.stormreply.com/mailman/listinfo/linux-stm32>, 
  <mailto:linux-stm32-request@st-md-mailman.stormreply.com?subject=subscribe>
+Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
-Content-Type: text/plain; charset="us-ascii"; Format="flowed"
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
-
-
-On 2020/6/10 4:58, Vitaly Chikunov wrote:
-> Tianjia,
+On Mon, Jun 15, 2020 at 06:15:08PM +0200, Amelie Delaunay wrote:
+> This patch adds a function that converts power operation mode string into
+> power operation mode value.
 > 
-> On Tue, Jun 09, 2020 at 09:48:47PM +0800, Tianjia Zhang wrote:
->> Hello all,
->>
->> This new module implement the OSCCA certificate and SM2 public key
->> algorithm. It was published by State Encryption Management Bureau, China.
->> List of specifications for OSCCA certificate and SM2 elliptic curve
->> public key cryptography:
->>
->> * GM/T 0003.1-2012
->> * GM/T 0003.2-2012
->> * GM/T 0003.3-2012
->> * GM/T 0003.4-2012
->> * GM/T 0003.5-2012
->> * GM/T 0015-2012
->> * GM/T 0009-2012
->>
->> IETF: https://tools.ietf.org/html/draft-shen-sm2-ecdsa-02
->> oscca: http://www.oscca.gov.cn/sca/xxgk/2010-12/17/content_1002386.shtml
->> scctc: http://www.gmbz.org.cn/main/bzlb.html
->>
->> These patchs add the OID object identifier defined by OSCCA. The
->> x509 certificate supports sm2-with-sm3 type certificate parsing
->> and verification.
->>
->> The sm2 algorithm is based on libgcrypt's mpi implementation, and has
->> made some additions to the kernel's original mpi library, and added the
->> implementation of ec to better support elliptic curve-like algorithms.
->>
->> sm2 has good support in both openssl and gnupg projects, and sm3 and sm4
->> of the OSCCA algorithm family have also been implemented in the kernel.
->>
->> Among them, sm3 and sm4 have been well implemented in the kernel.
->> This group of patches has newly introduced sm2. In order to implement
->> sm2 more perfectly, I expanded the mpi library and introduced the
->> ec implementation of the mpi library as the basic algorithm. Compared
->> to the kernel's crypto/ecc.c, the implementation of mpi/ec.c is more
->> complete and elegant, sm2 is implemented based on these algorithms.
+> It is useful to configure power operation mode through device tree
+> property, as power capabilities may be linked to hardware design.
 > 
-> Does it use constant-time algorithms?
-> 
-> Thanks,
-> 
+> Signed-off-by: Amelie Delaunay <amelie.delaunay@st.com>
 
-Sorry for not responding in time.
-This algorithm is constant-time algorithms, and this logic is 
-implemented in ec_mul_point().
-Will you consider implementing ecrdsa based on the mpi ec algorithm in 
-the future?
+Acked-by: Heikki Krogerus <heikki.krogerus@linux.intel.com>
 
-Thanks and best,
-Tianjia
+> ---
+>  drivers/usb/typec/class.c | 15 +++++++++++++++
+>  include/linux/usb/typec.h |  1 +
+>  2 files changed, 16 insertions(+)
+> 
+> diff --git a/drivers/usb/typec/class.c b/drivers/usb/typec/class.c
+> index c9234748537a..59e1837ef85e 100644
+> --- a/drivers/usb/typec/class.c
+> +++ b/drivers/usb/typec/class.c
+> @@ -1448,6 +1448,21 @@ void typec_set_pwr_opmode(struct typec_port *port,
+>  }
+>  EXPORT_SYMBOL_GPL(typec_set_pwr_opmode);
+>  
+> +/**
+> + * typec_find_pwr_opmode - Get the typec power operation mode capability
+> + * @name: power operation mode string
+> + *
+> + * This routine is used to find the typec_pwr_opmode by its string @name.
+> + *
+> + * Returns typec_pwr_opmode if success, otherwise negative error code.
+> + */
+> +int typec_find_pwr_opmode(const char *name)
+> +{
+> +	return match_string(typec_pwr_opmodes,
+> +			    ARRAY_SIZE(typec_pwr_opmodes), name);
+> +}
+> +EXPORT_SYMBOL_GPL(typec_find_pwr_opmode);
+> +
+>  /**
+>   * typec_find_orientation - Convert orientation string to enum typec_orientation
+>   * @name: Orientation string
+> diff --git a/include/linux/usb/typec.h b/include/linux/usb/typec.h
+> index 5daa1c49761c..f7c63ee3d443 100644
+> --- a/include/linux/usb/typec.h
+> +++ b/include/linux/usb/typec.h
+> @@ -254,6 +254,7 @@ int typec_set_mode(struct typec_port *port, int mode);
+>  
+>  void *typec_get_drvdata(struct typec_port *port);
+>  
+> +int typec_find_pwr_opmode(const char *name);
+>  int typec_find_orientation(const char *name);
+>  int typec_find_port_power_role(const char *name);
+>  int typec_find_power_role(const char *name);
+> -- 
+> 2.17.1
+
+thanks,
+
+-- 
+heikki
 _______________________________________________
 Linux-stm32 mailing list
 Linux-stm32@st-md-mailman.stormreply.com
