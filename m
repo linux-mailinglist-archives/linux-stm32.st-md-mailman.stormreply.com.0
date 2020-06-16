@@ -2,86 +2,60 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id C8F161FB795
-	for <lists+linux-stm32@lfdr.de>; Tue, 16 Jun 2020 17:48:32 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 38FED1FB636
+	for <lists+linux-stm32@lfdr.de>; Tue, 16 Jun 2020 17:33:56 +0200 (CEST)
 Received: from ip-172-31-3-76.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 8CA5AC36B23;
-	Tue, 16 Jun 2020 15:48:32 +0000 (UTC)
-Received: from mx2.suse.de (mx2.suse.de [195.135.220.15])
- (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id DC7DDC36B11;
+	Tue, 16 Jun 2020 15:33:55 +0000 (UTC)
+Received: from mx07-00178001.pphosted.com (mx07-00178001.pphosted.com
+ [62.209.51.94])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id C2088C36B0C
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 963EDC36B0C
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Tue, 16 Jun 2020 14:48:17 +0000 (UTC)
-X-Virus-Scanned: by amavisd-new at test-mx.suse.de
-Received: from relay2.suse.de (unknown [195.135.220.254])
- by mx2.suse.de (Postfix) with ESMTP id 3F73AAAE8;
- Tue, 16 Jun 2020 14:48:18 +0000 (UTC)
-Received: by ds.suse.cz (Postfix, from userid 10065)
- id 50CC9DA7C3; Tue, 16 Jun 2020 16:48:04 +0200 (CEST)
-Date: Tue, 16 Jun 2020 16:48:04 +0200
-From: David Sterba <dsterba@suse.cz>
-To: Waiman Long <longman@redhat.com>
-Message-ID: <20200616144804.GD27795@twin.jikos.cz>
-Mail-Followup-To: dsterba@suse.cz, Waiman Long <longman@redhat.com>,
- Andrew Morton <akpm@linux-foundation.org>,
- David Howells <dhowells@redhat.com>,
- Jarkko Sakkinen <jarkko.sakkinen@linux.intel.com>,
- James Morris <jmorris@namei.org>,
- "Serge E. Hallyn" <serge@hallyn.com>,
- Linus Torvalds <torvalds@linux-foundation.org>,
- Joe Perches <joe@perches.com>, Matthew Wilcox <willy@infradead.org>,
- David Rientjes <rientjes@google.com>,
- Michal Hocko <mhocko@suse.com>,
- Johannes Weiner <hannes@cmpxchg.org>,
- Dan Carpenter <dan.carpenter@oracle.com>,
- "Jason A . Donenfeld" <Jason@zx2c4.com>, linux-mm@kvack.org,
- keyrings@vger.kernel.org, linux-kernel@vger.kernel.org,
- linux-crypto@vger.kernel.org, linux-pm@vger.kernel.org,
- linux-stm32@st-md-mailman.stormreply.com,
- linux-amlogic@lists.infradead.org,
- linux-mediatek@lists.infradead.org, linuxppc-dev@lists.ozlabs.org,
- virtualization@lists.linux-foundation.org, netdev@vger.kernel.org,
- linux-ppp@vger.kernel.org, wireguard@lists.zx2c4.com,
- linux-wireless@vger.kernel.org, devel@driverdev.osuosl.org,
- linux-scsi@vger.kernel.org, target-devel@vger.kernel.org,
- linux-btrfs@vger.kernel.org, linux-cifs@vger.kernel.org,
- linux-fscrypt@vger.kernel.org, ecryptfs@vger.kernel.org,
- kasan-dev@googlegroups.com, linux-bluetooth@vger.kernel.org,
- linux-wpan@vger.kernel.org, linux-sctp@vger.kernel.org,
- linux-nfs@vger.kernel.org, tipc-discussion@lists.sourceforge.net,
- linux-security-module@vger.kernel.org,
- linux-integrity@vger.kernel.org
-References: <20200616015718.7812-1-longman@redhat.com>
- <20200616015718.7812-4-longman@redhat.com>
+ Tue, 16 Jun 2020 15:33:54 +0000 (UTC)
+Received: from pps.filterd (m0046037.ppops.net [127.0.0.1])
+ by mx07-00178001.pphosted.com (8.16.0.42/8.16.0.42) with SMTP id
+ 05GFD1Et005397; Tue, 16 Jun 2020 17:33:41 +0200
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=st.com;
+ h=from : to : cc : subject
+ : date : message-id : mime-version : content-type; s=STMicroelectronics;
+ bh=ywECLfS8RJnUvCXHRDqenH4W2P5mGI7YRrQh1zdXSqs=;
+ b=SKbzkvZ8Sh8AH5bW88BqONOypCrZFZCdlCxIv5kAzNuKFlU+HOUcNMI/OqCgpZraSC6Y
+ 6/jibWFEnMfpx+LCOJD2IEtbKiNRFSDWq13MmFX0TdF1aPS/lPX2/gAzvc6JXjTXkYjF
+ cLbYGA/zbJI7uw3SrKaYGTMycWh9OObAYos44B+jqFs1RZW9pJJoqRPyrfV+M+5jGujZ
+ sxeKePJ8Mi/VK5O2MY+oHQ//6Ey9NhhBC2sKNYUQhQjJ0GdrAe78wvcYNUbVkIZyXbjm
+ Vg8fQbwcA/ypu5Hl9oW+qtwrMlOHRpcZZ+EyuA2kkFQJdJZwxXbH5sZBZTeG+RrryVo2 pw== 
+Received: from beta.dmz-eu.st.com (beta.dmz-eu.st.com [164.129.1.35])
+ by mx07-00178001.pphosted.com with ESMTP id 31mmjw05cy-1
+ (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
+ Tue, 16 Jun 2020 17:33:41 +0200
+Received: from euls16034.sgp.st.com (euls16034.sgp.st.com [10.75.44.20])
+ by beta.dmz-eu.st.com (STMicroelectronics) with ESMTP id 075B010002A;
+ Tue, 16 Jun 2020 17:33:41 +0200 (CEST)
+Received: from Webmail-eu.st.com (sfhdag6node3.st.com [10.75.127.18])
+ by euls16034.sgp.st.com (STMicroelectronics) with ESMTP id E90032C890A;
+ Tue, 16 Jun 2020 17:33:40 +0200 (CEST)
+Received: from localhost (10.75.127.49) by SFHDAG6NODE3.st.com (10.75.127.18)
+ with Microsoft SMTP Server (TLS) id 15.0.1473.3;
+ Tue, 16 Jun 2020 17:33:40 +0200
+From: Patrick Delaunay <patrick.delaunay@st.com>
+To: <linux-kernel@vger.kernel.org>
+Date: Tue, 16 Jun 2020 17:33:29 +0200
+Message-ID: <20200616153329.15148-1-patrick.delaunay@st.com>
+X-Mailer: git-send-email 2.17.1
 MIME-Version: 1.0
-Content-Disposition: inline
-In-Reply-To: <20200616015718.7812-4-longman@redhat.com>
-User-Agent: Mutt/1.5.23.1-rc1 (2014-03-12)
-X-Mailman-Approved-At: Tue, 16 Jun 2020 15:48:30 +0000
-Cc: "Jason A . Donenfeld" <Jason@zx2c4.com>, Michal Hocko <mhocko@suse.com>,
- linux-btrfs@vger.kernel.org, Jarkko Sakkinen <jarkko.sakkinen@linux.intel.com>,
- David Sterba <dsterba@suse.cz>, David Howells <dhowells@redhat.com>,
- linux-mm@kvack.org, linux-sctp@vger.kernel.org, keyrings@vger.kernel.org,
- kasan-dev@googlegroups.com, linux-stm32@st-md-mailman.stormreply.com,
- devel@driverdev.osuosl.org, linux-cifs@vger.kernel.org,
- linux-scsi@vger.kernel.org, James Morris <jmorris@namei.org>,
- Matthew Wilcox <willy@infradead.org>, linux-wpan@vger.kernel.org,
- David Rientjes <rientjes@google.com>, Dan Carpenter <dan.carpenter@oracle.com>,
- "Serge E. Hallyn" <serge@hallyn.com>, linux-pm@vger.kernel.org,
- ecryptfs@vger.kernel.org, linux-fscrypt@vger.kernel.org,
- linux-mediatek@lists.infradead.org, linux-amlogic@lists.infradead.org,
- virtualization@lists.linux-foundation.org, linux-integrity@vger.kernel.org,
- linux-nfs@vger.kernel.org, linuxppc-dev@lists.ozlabs.org,
- linux-wireless@vger.kernel.org, linux-kernel@vger.kernel.org,
- linux-bluetooth@vger.kernel.org, linux-security-module@vger.kernel.org,
- target-devel@vger.kernel.org, tipc-discussion@lists.sourceforge.net,
- linux-crypto@vger.kernel.org, Johannes Weiner <hannes@cmpxchg.org>,
- Joe Perches <joe@perches.com>, Andrew Morton <akpm@linux-foundation.org>,
- Linus Torvalds <torvalds@linux-foundation.org>, netdev@vger.kernel.org,
- wireguard@lists.zx2c4.com, linux-ppp@vger.kernel.org
-Subject: Re: [Linux-stm32] [PATCH v4 3/3] btrfs: Use kfree() in
- btrfs_ioctl_get_subvol_info()
+X-Originating-IP: [10.75.127.49]
+X-ClientProxiedBy: SFHDAG6NODE3.st.com (10.75.127.18) To SFHDAG6NODE3.st.com
+ (10.75.127.18)
+X-Proofpoint-Virus-Version: vendor=fsecure engine=2.50.10434:6.0.216, 18.0.687
+ definitions=2020-06-16_04:2020-06-16,
+ 2020-06-16 signatures=0
+Cc: devicetree@vger.kernel.org, Patrick Delaunay <patrick.delaunay@st.com>,
+ Rob Herring <robh+dt@kernel.org>, Maxime Coquelin <mcoquelin.stm32@gmail.com>,
+ linux-stm32@st-md-mailman.stormreply.com, linux-arm-kernel@lists.infradead.org
+Subject: [Linux-stm32] [PATCH] ARM: dts: stm32: cosmetic update in
+	stm32mp15-pinctrl.dtsi
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -93,41 +67,63 @@ List-Post: <mailto:linux-stm32@st-md-mailman.stormreply.com>
 List-Help: <mailto:linux-stm32-request@st-md-mailman.stormreply.com?subject=help>
 List-Subscribe: <https://st-md-mailman.stormreply.com/mailman/listinfo/linux-stm32>, 
  <mailto:linux-stm32-request@st-md-mailman.stormreply.com?subject=subscribe>
-Reply-To: dsterba@suse.cz
 Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
-On Mon, Jun 15, 2020 at 09:57:18PM -0400, Waiman Long wrote:
-> In btrfs_ioctl_get_subvol_info(), there is a classic case where kzalloc()
-> was incorrectly paired with kzfree(). According to David Sterba, there
-> isn't any sensitive information in the subvol_info that needs to be
-> cleared before freeing. So kfree_sensitive() isn't really needed,
-> use kfree() instead.
-> 
-> Reported-by: David Sterba <dsterba@suse.cz>
-> Signed-off-by: Waiman Long <longman@redhat.com>
-> ---
->  fs/btrfs/ioctl.c | 2 +-
->  1 file changed, 1 insertion(+), 1 deletion(-)
-> 
-> diff --git a/fs/btrfs/ioctl.c b/fs/btrfs/ioctl.c
-> index f1dd9e4271e9..e8f7c5f00894 100644
-> --- a/fs/btrfs/ioctl.c
-> +++ b/fs/btrfs/ioctl.c
-> @@ -2692,7 +2692,7 @@ static int btrfs_ioctl_get_subvol_info(struct file *file, void __user *argp)
->  	btrfs_put_root(root);
->  out_free:
->  	btrfs_free_path(path);
-> -	kfree_sensitive(subvol_info);
-> +	kfree(subvol_info);
+Use tabs where possible and remove multiple blanks lines.
 
-I would rather merge a patch doing to kzfree -> kfree instead of doing
-the middle step to switch it to kfree_sensitive. If it would help
-integration of your patchset I can push it to the next rc so there are
-no kzfree left in the btrfs code. Treewide change like that can take
-time so it would be one less problem to care about for you.
+Signed-off-by: Patrick Delaunay <patrick.delaunay@st.com>
+---
+
+ arch/arm/boot/dts/stm32mp15-pinctrl.dtsi | 9 ++++-----
+ 1 file changed, 4 insertions(+), 5 deletions(-)
+
+diff --git a/arch/arm/boot/dts/stm32mp15-pinctrl.dtsi b/arch/arm/boot/dts/stm32mp15-pinctrl.dtsi
+index 7eb858732d6d..7d351757f2f8 100644
+--- a/arch/arm/boot/dts/stm32mp15-pinctrl.dtsi
++++ b/arch/arm/boot/dts/stm32mp15-pinctrl.dtsi
+@@ -210,8 +210,8 @@
+ 				 <STM32_PINMUX('E', 2, ANALOG)>, /* ETH_RGMII_TXD3 */
+ 				 <STM32_PINMUX('B', 11, ANALOG)>, /* ETH_RGMII_TX_CTL */
+ 				 <STM32_PINMUX('C', 1, ANALOG)>, /* ETH_MDC */
+-			         <STM32_PINMUX('A', 2, ANALOG)>, /* ETH_MDIO */
+-			         <STM32_PINMUX('C', 4, ANALOG)>, /* ETH_RGMII_RXD0 */
++				 <STM32_PINMUX('A', 2, ANALOG)>, /* ETH_MDIO */
++				 <STM32_PINMUX('C', 4, ANALOG)>, /* ETH_RGMII_RXD0 */
+ 				 <STM32_PINMUX('C', 5, ANALOG)>, /* ETH_RGMII_RXD1 */
+ 				 <STM32_PINMUX('H', 6, ANALOG)>, /* ETH_RGMII_RXD2 */
+ 				 <STM32_PINMUX('H', 7, ANALOG)>, /* ETH_RGMII_RXD3 */
+@@ -453,7 +453,7 @@
+ 	i2c5_pins_b: i2c5-1 {
+ 		pins {
+ 			pinmux = <STM32_PINMUX('D', 0, AF4)>, /* I2C5_SCL */
+-			         <STM32_PINMUX('D', 1, AF4)>; /* I2C5_SDA */
++				 <STM32_PINMUX('D', 1, AF4)>; /* I2C5_SDA */
+ 			bias-disable;
+ 			drive-open-drain;
+ 			slew-rate = <0>;
+@@ -463,7 +463,7 @@
+ 	i2c5_sleep_pins_b: i2c5-sleep-1 {
+ 		pins {
+ 			pinmux = <STM32_PINMUX('D', 0, ANALOG)>, /* I2C5_SCL */
+-			         <STM32_PINMUX('D', 1, ANALOG)>; /* I2C5_SDA */
++				 <STM32_PINMUX('D', 1, ANALOG)>; /* I2C5_SDA */
+ 		};
+ 	};
+ 
+@@ -1072,7 +1072,6 @@
+ 		};
+ 	};
+ 
+-
+ 	sai2a_pins_b: sai2a-1 {
+ 		pins1 {
+ 			pinmux = <STM32_PINMUX('I', 6, AF10)>,	/* SAI2_SD_A */
+-- 
+2.17.1
+
 _______________________________________________
 Linux-stm32 mailing list
 Linux-stm32@st-md-mailman.stormreply.com
