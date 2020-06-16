@@ -2,83 +2,62 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id DD3441FB230
-	for <lists+linux-stm32@lfdr.de>; Tue, 16 Jun 2020 15:34:29 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 44AB71FB37B
+	for <lists+linux-stm32@lfdr.de>; Tue, 16 Jun 2020 16:07:41 +0200 (CEST)
 Received: from ip-172-31-3-76.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 9C81DC36B11;
-	Tue, 16 Jun 2020 13:34:29 +0000 (UTC)
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id E7A79C36B14;
+	Tue, 16 Jun 2020 14:07:40 +0000 (UTC)
 Received: from mx07-00178001.pphosted.com (mx07-00178001.pphosted.com
  [62.209.51.94])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id DCD39C36B0C
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 5EFCCC36B0C
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Tue, 16 Jun 2020 13:34:26 +0000 (UTC)
+ Tue, 16 Jun 2020 14:07:39 +0000 (UTC)
 Received: from pps.filterd (m0046037.ppops.net [127.0.0.1])
  by mx07-00178001.pphosted.com (8.16.0.42/8.16.0.42) with SMTP id
- 05GDSuXw015301; Tue, 16 Jun 2020 15:33:16 +0200
+ 05GE2wij002436; Tue, 16 Jun 2020 16:07:28 +0200
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=st.com;
  h=from : to : cc : subject
- : date : message-id : references : in-reply-to : content-type : content-id
- : content-transfer-encoding : mime-version; s=STMicroelectronics;
- bh=8Zqu22QzzYb9zFOTMzGzv0s5kLJ9DJfwjRSOOCg3wiU=;
- b=Z7Whu9W3CnukVE5BhvVBZNXcK9GFSDhAwpxS9uQ9p4/TF8njS7UNjXvjd1xgU2VoioeP
- 3mEqXyvsEmcNmmTgismCPjFb0j3LTytXUn14ub+vJAsVDsKx4dk6C2a9DWqmGeAvmLen
- EcHuxzmqybXM26XYmfaPQawFNIcxDR0jrZIeqqfzN3/pVw30RZXfPrts6le6XblcvFql
- mU2tpNe3/dgOMfeNBg3InjBdNfP/ozRcekII0sVmHoZnW3zXf8RtRyOQmP/Xytfp3ctF
- sZKGPW0ATAfhxaWrJ8lru0AagkKlNqpxBpLPDSdhXGrHJMXSF6Fzg5sK6SbfKKnvTcc8 JA== 
+ : date : message-id : mime-version : content-type; s=STMicroelectronics;
+ bh=5Hcd79p5ovxHgR2Kw+vJ8ycKacohfcjtHYW/V9jWRZU=;
+ b=LQlgpY2PuUrJPpqbJ2bkNsqYx7LRUbCXYxr526KmqbAo6u6b+8mQreEakCrDmEQeFoKE
+ Wl1DDz98V9dTNm7gWmOKwBQ0zn2aBcADVyfvinxmpVrL0xAQs4k2qxXsAu4/BzPMCzBt
+ bFw6sZUCUUMKM8hP+kPh+W6Ypm4pW7pfZScttWpox8UDOBFhfuj0n3rDtuARZXq8P2ic
+ C0UZgoIbFsLAriSPDz84DMrdg4BYhUrJbtAZC53k0M+AGiVOylMSaUoFI/sEE3sDHGcO
+ 0L236C5TIVaxyMNqBos64ddV5zOcAa8/Fe/TW81sHv54yNIYSaZAg9LB4O1UjBAGm41p rA== 
 Received: from beta.dmz-eu.st.com (beta.dmz-eu.st.com [164.129.1.35])
- by mx07-00178001.pphosted.com with ESMTP id 31mmjvyjx6-1
+ by mx07-00178001.pphosted.com with ESMTP id 31mmjvyrjv-1
  (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
- Tue, 16 Jun 2020 15:33:16 +0200
+ Tue, 16 Jun 2020 16:07:28 +0200
 Received: from euls16034.sgp.st.com (euls16034.sgp.st.com [10.75.44.20])
- by beta.dmz-eu.st.com (STMicroelectronics) with ESMTP id D432110002A;
- Tue, 16 Jun 2020 15:33:14 +0200 (CEST)
-Received: from Webmail-eu.st.com (sfhdag3node3.st.com [10.75.127.9])
- by euls16034.sgp.st.com (STMicroelectronics) with ESMTP id 8801F2B663A;
- Tue, 16 Jun 2020 15:33:14 +0200 (CEST)
-Received: from SFHDAG3NODE3.st.com (10.75.127.9) by SFHDAG3NODE3.st.com
- (10.75.127.9) with Microsoft SMTP Server (TLS) id 15.0.1347.2; Tue, 16 Jun
- 2020 15:33:14 +0200
-Received: from SFHDAG3NODE3.st.com ([fe80::3507:b372:7648:476]) by
- SFHDAG3NODE3.st.com ([fe80::3507:b372:7648:476%20]) with mapi id
- 15.00.1347.000; Tue, 16 Jun 2020 15:33:14 +0200
-From: Benjamin GAIGNARD <benjamin.gaignard@st.com>
-To: Lee Jones <lee.jones@linaro.org>
-Thread-Topic: [PATCH v3] dt-bindings: mfd: Convert stmfx bindings to
- json-schema
-Thread-Index: AQHV6An9BN3fbiJe+Uu+wK6+EyGnQqgtoL2AgHnzXwCAABZ/gIA0KSeA
-Date: Tue, 16 Jun 2020 13:33:14 +0000
-Message-ID: <f0e8c6fc-a5fc-b621-1c7e-251bafd2f46c@st.com>
-References: <20200220162246.8334-1-benjamin.gaignard@st.com>
- <20200226162125.GA13349@bogus> <70ee04c9-4f65-6909-32bc-a379c21a031e@st.com>
- <20200514090025.GE271301@dell>
-In-Reply-To: <20200514090025.GE271301@dell>
-Accept-Language: en-US
-Content-Language: en-US
-X-MS-Has-Attach: 
-X-MS-TNEF-Correlator: 
-user-agent: Mozilla/5.0 (X11; Linux x86_64; rv:68.0) Gecko/20100101
- Thunderbird/68.8.0
-x-ms-exchange-messagesentrepresentingtype: 1
-x-ms-exchange-transport-fromentityheader: Hosted
-x-originating-ip: [10.75.127.46]
-Content-ID: <CB381301BD63D446B3798EA4A53A2647@st.com>
+ by beta.dmz-eu.st.com (STMicroelectronics) with ESMTP id 5F8DD10002A;
+ Tue, 16 Jun 2020 16:07:27 +0200 (CEST)
+Received: from Webmail-eu.st.com (sfhdag3node2.st.com [10.75.127.8])
+ by euls16034.sgp.st.com (STMicroelectronics) with ESMTP id 48A582B56B6;
+ Tue, 16 Jun 2020 16:07:27 +0200 (CEST)
+Received: from localhost (10.75.127.47) by SFHDAG3NODE2.st.com (10.75.127.8)
+ with Microsoft SMTP Server (TLS) id 15.0.1347.2; Tue, 16 Jun 2020 16:07:26
+ +0200
+From: Amelie Delaunay <amelie.delaunay@st.com>
+To: Minas Harutyunyan <hminas@synopsys.com>, Felipe Balbi <balbi@kernel.org>, 
+ Greg Kroah-Hartman <gregkh@linuxfoundation.org>, Rob Herring
+ <robh+dt@kernel.org>, Maxime Coquelin <mcoquelin.stm32@gmail.com>,
+ Alexandre Torgue <alexandre.torgue@st.com>
+Date: Tue, 16 Jun 2020 16:07:14 +0200
+Message-ID: <20200616140717.28465-1-amelie.delaunay@st.com>
+X-Mailer: git-send-email 2.17.1
 MIME-Version: 1.0
+X-Originating-IP: [10.75.127.47]
+X-ClientProxiedBy: SFHDAG7NODE3.st.com (10.75.127.21) To SFHDAG3NODE2.st.com
+ (10.75.127.8)
 X-Proofpoint-Virus-Version: vendor=fsecure engine=2.50.10434:6.0.216, 18.0.687
  definitions=2020-06-16_04:2020-06-16,
  2020-06-16 signatures=0
-Cc: "mark.rutland@arm.co" <mark.rutland@arm.co>, Rob Herring <robh@kernel.org>,
- "devicetree@vger.kernel.org" <devicetree@vger.kernel.org>,
- "linus.walleij@linaro.org" <linus.walleij@linaro.org>,
- "linux-kernel@vger.kernel.org" <linux-kernel@vger.kernel.org>,
- "linux-gpio@vger.kernel.org" <linux-gpio@vger.kernel.org>,
- "robh+dt@kernel.org" <robh+dt@kernel.org>,
- "linux-stm32@st-md-mailman.stormreply.com"
- <linux-stm32@st-md-mailman.stormreply.com>,
- "linux-arm-kernel@lists.infradead.org" <linux-arm-kernel@lists.infradead.org>
-Subject: Re: [Linux-stm32] [PATCH v3] dt-bindings: mfd: Convert stmfx
- bindings to json-schema
+Cc: devicetree@vger.kernel.org, linux-usb@vger.kernel.org,
+ linux-kernel@vger.kernel.org, Fabrice Gasnier <fabrice.gasnier@st.com>,
+ linux-stm32@st-md-mailman.stormreply.com, linux-arm-kernel@lists.infradead.org
+Subject: [Linux-stm32] [PATCH 0/3] Add USB role switch support to DWC2
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -95,47 +74,42 @@ Content-Transfer-Encoding: 7bit
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
+When using usb-c connector (but it can also be the case with a micro-b
+connector), iddig, avalid, bvalid, vbusvalid input signals may not be
+connected to the DWC2 OTG controller.
+DWC2 OTG controller features an overriding control of the PHY voltage valid
+and ID input signals.
+So, missing signals can be forced using usb role from usb role switch and
+this override feature.
 
+This series adds support for usb role switch to dwc2, by using overriding
+control of the PHY voltage valid and ID input signals.
 
-On 5/14/20 11:00 AM, Lee Jones wrote:
-> On Thu, 14 May 2020, Benjamin GAIGNARD wrote:
->
->>
->> On 2/26/20 5:21 PM, Rob Herring wrote:
->>> On Thu, 20 Feb 2020 17:22:46 +0100, Benjamin Gaignard wrote:
->>>> Convert stmfx bindings to json-schema
->>>>
->>>> Signed-off-by: Benjamin Gaignard <benjamin.gaignard@st.com>
->>>> ---
->>>>    .../devicetree/bindings/mfd/st,stmfx.yaml          | 124 +++++++++++++++++++++
->>>>    Documentation/devicetree/bindings/mfd/stmfx.txt    |  28 -----
->>>>    .../devicetree/bindings/pinctrl/pinctrl-stmfx.txt  | 116 -------------------
->>>>    3 files changed, 124 insertions(+), 144 deletions(-)
->>>>    create mode 100644 Documentation/devicetree/bindings/mfd/st,stmfx.yaml
->>>>    delete mode 100644 Documentation/devicetree/bindings/mfd/stmfx.txt
->>>>    delete mode 100644 Documentation/devicetree/bindings/pinctrl/pinctrl-stmfx.txt
->>>>
->> Hi Lee, Rob,
->>
->> I haven't been able to found this patch in -next branches, can one of
->> you merge it ?
->>
->> Thanks,
->> Benjamin
->>> Reviewed-by: Rob Herring <robh@kernel.org>
-> Rob,
->
-> We should agree on a process going forward.  Do you take DT document
-> changes or should I?  Up until we moved to YAML formatting, I took
-> them but responsibly seems to have migrated over to you since then.
->
-> I don't mind either way.
-Hi,
+It has been tested on stm32mp157c-dk2 [1], which has a Type-C connector
+managed by a Type-C port controller, and connected to USB OTG controller.
 
-Any news on this yaml conversion ?
+[1] https://www.st.com/en/evaluation-tools/stm32mp157c-dk2.html
 
-Benjamin
->
+Amelie Delaunay (3):
+  usb: dwc2: override PHY input signals with usb role switch support
+  usb: dwc2: don't use ID/Vbus detection if usb-role-switch on STM32MP15
+    SoCs
+  ARM: dts: stm32: enable usb-role-switch on USB OTG on stm32mp15xx-dkx
+
+ arch/arm/boot/dts/stm32mp15xx-dkx.dtsi |   2 +-
+ drivers/usb/dwc2/Kconfig               |   1 +
+ drivers/usb/dwc2/Makefile              |   2 +-
+ drivers/usb/dwc2/core.h                |   8 ++
+ drivers/usb/dwc2/drd.c                 | 190 +++++++++++++++++++++++++
+ drivers/usb/dwc2/gadget.c              |   2 +-
+ drivers/usb/dwc2/params.c              |   4 +-
+ drivers/usb/dwc2/platform.c            |  13 ++
+ 8 files changed, 218 insertions(+), 4 deletions(-)
+ create mode 100644 drivers/usb/dwc2/drd.c
+
+-- 
+2.17.1
+
 _______________________________________________
 Linux-stm32 mailing list
 Linux-stm32@st-md-mailman.stormreply.com
