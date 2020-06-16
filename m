@@ -2,41 +2,53 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id 8A0B21FA6FA
-	for <lists+linux-stm32@lfdr.de>; Tue, 16 Jun 2020 05:30:43 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id CDBE21FA8E8
+	for <lists+linux-stm32@lfdr.de>; Tue, 16 Jun 2020 08:42:13 +0200 (CEST)
 Received: from ip-172-31-3-76.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 33AEFC36B11;
-	Tue, 16 Jun 2020 03:30:43 +0000 (UTC)
-Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
- (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 7C73DC36B11;
+	Tue, 16 Jun 2020 06:42:13 +0000 (UTC)
+Received: from mail-ej1-f65.google.com (mail-ej1-f65.google.com
+ [209.85.218.65])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id B8714C36B0C
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id C51F8C36B0C
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Tue, 16 Jun 2020 03:30:39 +0000 (UTC)
-Received: from sol.localdomain (c-107-3-166-239.hsd1.ca.comcast.net
- [107.3.166.239])
- (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
- (No client certificate requested)
- by mail.kernel.org (Postfix) with ESMTPSA id 9B3B8206D7;
- Tue, 16 Jun 2020 03:30:36 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
- s=default; t=1592278237;
- bh=cbCBV+GA89Kxk07F75+TVwUbSIVVlsmXitOPPgujt0g=;
- h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
- b=CI14aWxQPw24ENjaHXJfOipbxs59iBOy6w+TeEVniGvJYBqy6D1cwSzDbSE5kI4lU
- lIYg5jNgJLjG7j91Xm1X3e+BxtmR8FfP4CJnhYPkHwCMU6wjZ6YBjNC+nYJMCpp2N5
- Vlpy20o3OcJdDug0iUS5K1iWjVtuIX+008M01eB4=
-Date: Mon, 15 Jun 2020 20:30:35 -0700
-From: Eric Biggers <ebiggers@kernel.org>
+ Tue, 16 Jun 2020 06:42:11 +0000 (UTC)
+Received: by mail-ej1-f65.google.com with SMTP id l12so20209378ejn.10
+ for <linux-stm32@st-md-mailman.stormreply.com>;
+ Mon, 15 Jun 2020 23:42:11 -0700 (PDT)
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20161025;
+ h=x-gm-message-state:date:from:to:cc:subject:message-id:references
+ :mime-version:content-disposition:in-reply-to;
+ bh=8yT+7Ta/B3BUGUR35Fz/0p22bghMwTUAxgTnwepounI=;
+ b=TNRafmKRr+xwyjMo67wZ+Bh/SSdKcahu12jdO46mvIe3BExQyg7/VxKGZvndc0HAoG
+ qxonjrVlTgr9aZfxLGhWgOD149u2+9HWmEhqm807Bu7VyTBRUZRZ/Mn09IlPfIRLEvXm
+ aPOJ3l699E5VfI2qGdp5sr8xqLHiR+7OOoC4IQqsNC4hW2saPp4jJyWZJpqsQaPKk/Vn
+ dIv+br6SomG77pue7W21nQ9XqF5WpPxUIkHpBCPgOZWXHHGFKSw/BkwLuz4iHk76NHL6
+ QPtn+8O3BiWV3eW8QF1t+ygBkTcDu5ttdWLXyts7wR30+xaMuWRFAscAcZVYkJ1U2QyG
+ J6jA==
+X-Gm-Message-State: AOAM531hyzQZpuqOOtviTNIZk65FWtG/Ur3oMe368bkOX8jb2+FUx9BP
+ JNvIShgZkZXR0u+wEz5akjM=
+X-Google-Smtp-Source: ABdhPJwG7kr4DUIGgc4iCDEeodlEq5kx0AY8+Z/EURP92P+0Zf4E0UWpXqDGfffbUz9uBG+pBru51g==
+X-Received: by 2002:a17:906:ce2f:: with SMTP id
+ sd15mr1306745ejb.445.1592289731375; 
+ Mon, 15 Jun 2020 23:42:11 -0700 (PDT)
+Received: from localhost (ip-37-188-174-201.eurotel.cz. [37.188.174.201])
+ by smtp.gmail.com with ESMTPSA id j10sm9734428edf.97.2020.06.15.23.42.09
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Mon, 15 Jun 2020 23:42:10 -0700 (PDT)
+Date: Tue, 16 Jun 2020 08:42:08 +0200
+From: Michal Hocko <mhocko@kernel.org>
 To: Waiman Long <longman@redhat.com>
-Message-ID: <20200616033035.GB902@sol.localdomain>
+Message-ID: <20200616064208.GA9499@dhcp22.suse.cz>
 References: <20200616015718.7812-1-longman@redhat.com>
  <20200616015718.7812-2-longman@redhat.com>
 MIME-Version: 1.0
 Content-Disposition: inline
 In-Reply-To: <20200616015718.7812-2-longman@redhat.com>
-Cc: "Jason A . Donenfeld" <Jason@zx2c4.com>, Michal Hocko <mhocko@suse.com>,
- linux-btrfs@vger.kernel.org, Jarkko Sakkinen <jarkko.sakkinen@linux.intel.com>,
+Cc: "Jason A . Donenfeld" <Jason@zx2c4.com>, linux-btrfs@vger.kernel.org,
+ Jarkko Sakkinen <jarkko.sakkinen@linux.intel.com>,
  David Sterba <dsterba@suse.cz>, David Howells <dhowells@redhat.com>,
  linux-mm@kvack.org, linux-sctp@vger.kernel.org, keyrings@vger.kernel.org,
  kasan-dev@googlegroups.com, linux-stm32@st-md-mailman.stormreply.com,
@@ -48,15 +60,14 @@ Cc: "Jason A . Donenfeld" <Jason@zx2c4.com>, Michal Hocko <mhocko@suse.com>,
  ecryptfs@vger.kernel.org, linux-fscrypt@vger.kernel.org,
  linux-mediatek@lists.infradead.org, linux-amlogic@lists.infradead.org,
  virtualization@lists.linux-foundation.org, linux-integrity@vger.kernel.org,
- linux-nfs@vger.kernel.org, linuxppc-dev@lists.ozlabs.org,
+ linux-nfs@vger.kernel.org, Linus Torvalds <torvalds@linux-foundation.org>,
  linux-wireless@vger.kernel.org, linux-kernel@vger.kernel.org,
  stable@vger.kernel.org, linux-bluetooth@vger.kernel.org,
  linux-security-module@vger.kernel.org, target-devel@vger.kernel.org,
  tipc-discussion@lists.sourceforge.net, linux-crypto@vger.kernel.org,
  Johannes Weiner <hannes@cmpxchg.org>, Joe Perches <joe@perches.com>,
- Andrew Morton <akpm@linux-foundation.org>,
- Linus Torvalds <torvalds@linux-foundation.org>, netdev@vger.kernel.org,
- wireguard@lists.zx2c4.com, linux-ppp@vger.kernel.org
+ Andrew Morton <akpm@linux-foundation.org>, linuxppc-dev@lists.ozlabs.org,
+ netdev@vger.kernel.org, wireguard@lists.zx2c4.com, linux-ppp@vger.kernel.org
 Subject: Re: [Linux-stm32] [PATCH v4 1/3] mm/slab: Use memzero_explicit() in
 	kzfree()
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
@@ -75,7 +86,7 @@ Content-Transfer-Encoding: 7bit
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
-On Mon, Jun 15, 2020 at 09:57:16PM -0400, Waiman Long wrote:
+On Mon 15-06-20 21:57:16, Waiman Long wrote:
 > The kzfree() function is normally used to clear some sensitive
 > information, like encryption keys, in the buffer before freeing it back
 > to the pool. Memset() is currently used for the buffer clearing. However,
@@ -87,6 +98,12 @@ On Mon, Jun 15, 2020 at 09:57:16PM -0400, Waiman Long wrote:
 > Fixes: 3ef0e5ba4673 ("slab: introduce kzfree()")
 > Cc: stable@vger.kernel.org
 > Signed-off-by: Waiman Long <longman@redhat.com>
+
+Acked-by: Michal Hocko <mhocko@suse.com>
+
+Although I am not really sure this is a stable material. Is there any
+known instance where the memset was optimized out from kzfree?
+
 > ---
 >  mm/slab_common.c | 2 +-
 >  1 file changed, 1 insertion(+), 1 deletion(-)
@@ -104,19 +121,13 @@ On Mon, Jun 15, 2020 at 09:57:16PM -0400, Waiman Long wrote:
 >  	kfree(mem);
 >  }
 >  EXPORT_SYMBOL(kzfree);
+> -- 
+> 2.18.1
+> 
 
-This is a good change, but the commit message isn't really accurate.  AFAIK, no
-one has found any case where this memset() gets optimized out.  And even with
-LTO, it would be virtually impossible due to all the synchronization and global
-data structures that kfree() uses.  (Remember that this isn't the C standard
-function "free()", so the compiler can't assign it any special meaning.)
-Not to mention that LTO support isn't actually upstream yet.
-
-I still agree with the change, but it might be helpful if the commit message
-were honest that this is really a hardening measure and about properly conveying
-the intent.  As-is this sounds like a critical fix, which might confuse people.
-
-- Eric
+-- 
+Michal Hocko
+SUSE Labs
 _______________________________________________
 Linux-stm32 mailing list
 Linux-stm32@st-md-mailman.stormreply.com
