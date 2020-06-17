@@ -2,55 +2,44 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id 50D2A1FCC50
-	for <lists+linux-stm32@lfdr.de>; Wed, 17 Jun 2020 13:32:02 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 207001FCD3E
+	for <lists+linux-stm32@lfdr.de>; Wed, 17 Jun 2020 14:23:37 +0200 (CEST)
 Received: from ip-172-31-3-76.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 05704C36B0D;
-	Wed, 17 Jun 2020 11:32:02 +0000 (UTC)
-Received: from mail-ed1-f68.google.com (mail-ed1-f68.google.com
- [209.85.208.68])
- (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id BE097C36B0D;
+	Wed, 17 Jun 2020 12:23:36 +0000 (UTC)
+Received: from bombadil.infradead.org (bombadil.infradead.org
+ [198.137.202.133])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id D4BEBC36B0B
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 51EC5C36B0B
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Wed, 17 Jun 2020 11:32:00 +0000 (UTC)
-Received: by mail-ed1-f68.google.com with SMTP id g1so1650434edv.6
- for <linux-stm32@st-md-mailman.stormreply.com>;
- Wed, 17 Jun 2020 04:32:00 -0700 (PDT)
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20161025;
- h=x-gm-message-state:date:from:to:cc:subject:message-id:references
- :mime-version:content-disposition:in-reply-to;
- bh=FYdkGKfQbhF4PHnRrzgzko0Pu9PmmGSrtwLwQw3bXCE=;
- b=T6g/CX7W+eXe+BRcWuJ5xyVhGW2503osrL3cKcV6OwvrYm/9hGecwioyC+6DqBxTI1
- GI3r24MpPOf8dxaGrCpCdkjUcr75F/pyPxEyZUCaJbBaB1B81jr8ye2xiRwpwEfmKz/R
- s20pUHPC2URccpUTBgbiQWehgTG6uWVQ2v/XyX+DYvIPmMWoXFeDUAoj3wyZ80pg22fY
- PbpOpMB6D03FcwlVLSuwpdkgbO80PIvW7TRnNwSbi4FJ/i2WbD282lHu4i2/8zvuWxWD
- CF0FE6nsV2KZfRBAsHeD3SPnVGyKot3OeZGUJlZfnCIcfK06jzKo1iPCCL2iRZL5a5tC
- TYCA==
-X-Gm-Message-State: AOAM531SO6fBU8M/Lngm41LzDXUuycvcUAkz6PZAXKVuE9yteCn+vI4b
- 5fDnJqDSwUjhtg8z/fXkeHA=
-X-Google-Smtp-Source: ABdhPJzbijHiPBJ8QWNf9hQXsnh9CB5HA28VxqbN6FIY1pPr6HYmH8EGA0XHv2KQOLuy+zTeoR016w==
-X-Received: by 2002:a05:6402:3106:: with SMTP id
- dc6mr6587998edb.375.1592393520398; 
- Wed, 17 Jun 2020 04:32:00 -0700 (PDT)
-Received: from localhost (ip-37-188-158-19.eurotel.cz. [37.188.158.19])
- by smtp.gmail.com with ESMTPSA id y62sm12010608edy.61.2020.06.17.04.31.58
- (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Wed, 17 Jun 2020 04:31:59 -0700 (PDT)
-Date: Wed, 17 Jun 2020 13:31:57 +0200
-From: Michal Hocko <mhocko@kernel.org>
-To: Matthew Wilcox <willy@infradead.org>
-Message-ID: <20200617113157.GM9499@dhcp22.suse.cz>
+ Wed, 17 Jun 2020 12:23:35 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
+ d=infradead.org; s=bombadil.20170209; h=In-Reply-To:Content-Type:MIME-Version
+ :References:Message-ID:Subject:Cc:To:From:Date:Sender:Reply-To:
+ Content-Transfer-Encoding:Content-ID:Content-Description;
+ bh=kuxQjzZYMs0tFNd2RWRJXl84IRXkLYtgdsZsfAqzUYg=; b=IQBU2NQmYfbU9KEVYJFVsVFYt3
+ +7GWl3H6cqgUcZ3+um4sERSLuBbzrv7jNZkdM2ZwoSGps038Nt8YY6ApW7PCwZCMfBc10Gz0GDyzO
+ FLEfO9i0HAYVGksHFDKWFRCvjngG1ecDhElpGpw4HbCuIF3Vgh8+lquymjHTFre2rQkZtiIdou22y
+ K/Aznp4o73iZczN2ksz99zOnq95b5QaAhubthCZzggr2DMMUwYzN2WxAT6vZxmfMDafnFj+QcCY/1
+ +vXnWv1CMw2nHqOvDrXxSQKys1aoXcvwws0qgcZ/d+QvYDKvCoK1AjvkCvq5Nft1Yp25qyw3Vw/EI
+ 56Yd0PTA==;
+Received: from willy by bombadil.infradead.org with local (Exim 4.92.3 #3 (Red
+ Hat Linux)) id 1jlX69-0005Xm-3Z; Wed, 17 Jun 2020 12:23:21 +0000
+Date: Wed, 17 Jun 2020 05:23:21 -0700
+From: Matthew Wilcox <willy@infradead.org>
+To: Michal Hocko <mhocko@kernel.org>
+Message-ID: <20200617122321.GJ8681@bombadil.infradead.org>
 References: <20200616015718.7812-1-longman@redhat.com>
  <fe3b9a437be4aeab3bac68f04193cb6daaa5bee4.camel@perches.com>
  <20200616230130.GJ27795@twin.jikos.cz>
  <20200617003711.GD8681@bombadil.infradead.org>
  <20200617071212.GJ9499@dhcp22.suse.cz>
  <20200617110820.GG8681@bombadil.infradead.org>
+ <20200617113157.GM9499@dhcp22.suse.cz>
 MIME-Version: 1.0
 Content-Disposition: inline
-In-Reply-To: <20200617110820.GG8681@bombadil.infradead.org>
+In-Reply-To: <20200617113157.GM9499@dhcp22.suse.cz>
 Cc: "Jason A . Donenfeld" <Jason@zx2c4.com>, linux-btrfs@vger.kernel.org,
  Jarkko Sakkinen <jarkko.sakkinen@linux.intel.com>, dsterba@suse.cz,
  David Howells <dhowells@redhat.com>, linux-mm@kvack.org,
@@ -90,34 +79,20 @@ Content-Transfer-Encoding: 7bit
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
-On Wed 17-06-20 04:08:20, Matthew Wilcox wrote:
-> On Wed, Jun 17, 2020 at 09:12:12AM +0200, Michal Hocko wrote:
-> > On Tue 16-06-20 17:37:11, Matthew Wilcox wrote:
-> > > Not just performance critical, but correctness critical.  Since kvfree()
-> > > may allocate from the vmalloc allocator, I really think that kvfree()
-> > > should assert that it's !in_atomic().  Otherwise we can get into trouble
-> > > if we end up calling vfree() and have to take the mutex.
-> > 
-> > FWIW __vfree already checks for atomic context and put the work into a
-> > deferred context. So this should be safe. It should be used as a last
-> > resort, though.
+On Wed, Jun 17, 2020 at 01:31:57PM +0200, Michal Hocko wrote:
+> On Wed 17-06-20 04:08:20, Matthew Wilcox wrote:
+> > If you call vfree() under
+> > a spinlock, you're in trouble.  in_atomic() only knows if we hold a
+> > spinlock for CONFIG_PREEMPT, so it's not safe to check for in_atomic()
+> > in __vfree().  So we need the warning in order that preempt people can
+> > tell those without that there is a bug here.
 > 
-> Actually, it only checks for in_interrupt().
+> ... Unless I am missing something in_interrupt depends on preempt_count() as
+> well so neither of the two is reliable without PREEMPT_COUNT configured.
 
-You are right. I have misremembered. You have made me look (thanks) ...
-
-> If you call vfree() under
-> a spinlock, you're in trouble.  in_atomic() only knows if we hold a
-> spinlock for CONFIG_PREEMPT, so it's not safe to check for in_atomic()
-> in __vfree().  So we need the warning in order that preempt people can
-> tell those without that there is a bug here.
-
-... Unless I am missing something in_interrupt depends on preempt_count() as
-well so neither of the two is reliable without PREEMPT_COUNT configured.
-
--- 
-Michal Hocko
-SUSE Labs
+preempt_count() always tracks whether we're in interrupt context,
+regardless of CONFIG_PREEMPT.  The difference is that CONFIG_PREEMPT
+will track spinlock acquisitions as well.
 _______________________________________________
 Linux-stm32 mailing list
 Linux-stm32@st-md-mailman.stormreply.com
