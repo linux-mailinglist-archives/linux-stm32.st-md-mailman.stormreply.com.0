@@ -2,48 +2,45 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id E87581FDAD0
-	for <lists+linux-stm32@lfdr.de>; Thu, 18 Jun 2020 03:08:33 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 4EDBD1FDBA5
+	for <lists+linux-stm32@lfdr.de>; Thu, 18 Jun 2020 03:14:02 +0200 (CEST)
 Received: from ip-172-31-3-76.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 78ECCC36B0D;
-	Thu, 18 Jun 2020 01:08:33 +0000 (UTC)
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 064E7C36B0D;
+	Thu, 18 Jun 2020 01:14:02 +0000 (UTC)
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
  (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id B2CE1C36B0B
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 495E2C36B0B
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Thu, 18 Jun 2020 01:08:31 +0000 (UTC)
+ Thu, 18 Jun 2020 01:14:01 +0000 (UTC)
 Received: from sasha-vm.mshome.net (c-73-47-72-35.hsd1.nh.comcast.net
  [73.47.72.35])
  (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by mail.kernel.org (Postfix) with ESMTPSA id 239E321D6C;
- Thu, 18 Jun 2020 01:08:29 +0000 (UTC)
+ by mail.kernel.org (Postfix) with ESMTPSA id 223FD20EDD;
+ Thu, 18 Jun 2020 01:13:59 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
- s=default; t=1592442510;
- bh=inQ6fBwnGkvWMuEiTQOAKZvZoNCHTgESJuWH3PswLnw=;
+ s=default; t=1592442839;
+ bh=URc4789k/5yNLxNApylXOdyYnfGKoDQJ73exVVOeipg=;
  h=From:To:Cc:Subject:Date:In-Reply-To:References:From;
- b=zfrjFbVBXXqui+DQ5iCJJui2Ol2tPlzgau1de2gov4xympUJ8oxoJ/LmV0/hq2yRQ
- uXpqUgIMJ5xnulfx8TzSNY7vLjEJVmhyiLohuHSW7W4gzhK+v0vSRIF+P//VL0fJG/
- hHUCdHrMzLp8o3mLoAhDPGiUnczbYD7gy42X4MFY=
+ b=pSDQeYDYBFBCuBZ/cOGU4Smv8XdIxIgV2D7BYLdeNtoR2jivQLPE1TnCyTPUaYlen
+ BA8V4L0TQwsvK0MP4P6WXwCSMzoLElJk4+9TB49k7JO4eltVOVZnWo8nGOtekY8/G/
+ hpOSiuJTz7EI0MPi3BviGS0qGEyyinit78TToNck=
 From: Sasha Levin <sashal@kernel.org>
 To: linux-kernel@vger.kernel.org,
 	stable@vger.kernel.org
-Date: Wed, 17 Jun 2020 21:01:55 -0400
-Message-Id: <20200618010805.600873-18-sashal@kernel.org>
+Date: Wed, 17 Jun 2020 21:06:10 -0400
+Message-Id: <20200618010805.600873-273-sashal@kernel.org>
 X-Mailer: git-send-email 2.25.1
 In-Reply-To: <20200618010805.600873-1-sashal@kernel.org>
 References: <20200618010805.600873-1-sashal@kernel.org>
 MIME-Version: 1.0
 X-stable: review
 X-Patchwork-Hint: Ignore
-Cc: Marek Vasut <marex@denx.de>, Sasha Levin <sashal@kernel.org>,
- devicetree@vger.kernel.org, Patrick Delaunay <patrick.delaunay@st.com>,
- Maxime Coquelin <mcoquelin.stm32@gmail.com>,
- Manivannan Sadhasivam <manivannan.sadhasivam@linaro.org>,
+Cc: Sasha Levin <sashal@kernel.org>, Lee Jones <lee.jones@linaro.org>,
  linux-stm32@st-md-mailman.stormreply.com, linux-arm-kernel@lists.infradead.org
-Subject: [Linux-stm32] [PATCH AUTOSEL 5.7 018/388] ARM: dts: stm32: Add
-	missing ethernet PHY reset on AV96
+Subject: [Linux-stm32] [PATCH AUTOSEL 5.7 273/388] mfd: stmfx: Reset chip on
+	resume as supply was disabled
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -60,41 +57,40 @@ Content-Transfer-Encoding: 7bit
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
-From: Marek Vasut <marex@denx.de>
+From: Amelie Delaunay <amelie.delaunay@st.com>
 
-[ Upstream commit 010ca9fe500bfe365860b50220ff80541c18f0e1 ]
+[ Upstream commit e583649d87ec090444aa5347af0927cd6e8581ae ]
 
-Add PHY reset GPIO on AV96 ethernet PHY.
+STMFX supply is disabled during suspend. To avoid a too early access to
+the STMFX firmware on resume, reset the chip and wait for its firmware to
+be loaded.
 
-Reviewed-by: Manivannan Sadhasivam <manivannan.sadhasivam@linaro.org>
-Signed-off-by: Marek Vasut <marex@denx.de>
-Cc: Alexandre Torgue <alexandre.torgue@st.com>
-Cc: Manivannan Sadhasivam <manivannan.sadhasivam@linaro.org>
-Cc: Maxime Coquelin <mcoquelin.stm32@gmail.com>
-Cc: Patrice Chotard <patrice.chotard@st.com>
-Cc: Patrick Delaunay <patrick.delaunay@st.com>
-Cc: linux-stm32@st-md-mailman.stormreply.com
-To: linux-arm-kernel@lists.infradead.org
-Signed-off-by: Alexandre Torgue <alexandre.torgue@st.com>
+Fixes: 06252ade9156 ("mfd: Add ST Multi-Function eXpander (STMFX) core driver")
+Signed-off-by: Amelie Delaunay <amelie.delaunay@st.com>
+Signed-off-by: Lee Jones <lee.jones@linaro.org>
 Signed-off-by: Sasha Levin <sashal@kernel.org>
 ---
- arch/arm/boot/dts/stm32mp157a-avenger96.dts | 3 +++
- 1 file changed, 3 insertions(+)
+ drivers/mfd/stmfx.c | 7 +++++++
+ 1 file changed, 7 insertions(+)
 
-diff --git a/arch/arm/boot/dts/stm32mp157a-avenger96.dts b/arch/arm/boot/dts/stm32mp157a-avenger96.dts
-index 425175f7d83c..081037b510bc 100644
---- a/arch/arm/boot/dts/stm32mp157a-avenger96.dts
-+++ b/arch/arm/boot/dts/stm32mp157a-avenger96.dts
-@@ -92,6 +92,9 @@ mdio0 {
- 		#address-cells = <1>;
- 		#size-cells = <0>;
- 		compatible = "snps,dwmac-mdio";
-+		reset-gpios = <&gpioz 2 GPIO_ACTIVE_LOW>;
-+		reset-delay-us = <1000>;
+diff --git a/drivers/mfd/stmfx.c b/drivers/mfd/stmfx.c
+index 857991cb3cbb..fde6541e347c 100644
+--- a/drivers/mfd/stmfx.c
++++ b/drivers/mfd/stmfx.c
+@@ -501,6 +501,13 @@ static int stmfx_resume(struct device *dev)
+ 		}
+ 	}
+ 
++	/* Reset STMFX - supply has been stopped during suspend */
++	ret = stmfx_chip_reset(stmfx);
++	if (ret) {
++		dev_err(stmfx->dev, "Failed to reset chip: %d\n", ret);
++		return ret;
++	}
 +
- 		phy0: ethernet-phy@7 {
- 			reg = <7>;
- 		};
+ 	ret = regmap_raw_write(stmfx->map, STMFX_REG_SYS_CTRL,
+ 			       &stmfx->bkp_sysctrl, sizeof(stmfx->bkp_sysctrl));
+ 	if (ret)
 -- 
 2.25.1
 
