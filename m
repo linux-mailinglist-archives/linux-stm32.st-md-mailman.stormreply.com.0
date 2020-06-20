@@ -2,65 +2,58 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id D7DCA202609
-	for <lists+linux-stm32@lfdr.de>; Sat, 20 Jun 2020 20:51:06 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 74AEA20269D
+	for <lists+linux-stm32@lfdr.de>; Sat, 20 Jun 2020 23:06:58 +0200 (CEST)
 Received: from ip-172-31-3-76.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 7FCE0C36B0C;
-	Sat, 20 Jun 2020 18:51:06 +0000 (UTC)
-Received: from vern.gendns.com (vern.gendns.com [98.142.107.122])
- (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 11200C36B0C;
+	Sat, 20 Jun 2020 21:06:58 +0000 (UTC)
+Received: from mail-lj1-f196.google.com (mail-lj1-f196.google.com
+ [209.85.208.196])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id E2DCCC36B0A
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 91E82C36B0A
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Sat, 20 Jun 2020 18:51:04 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
- d=lechnology.com; s=default; h=Content-Transfer-Encoding:Content-Type:
- In-Reply-To:MIME-Version:Date:Message-ID:From:References:Cc:To:Subject:Sender
- :Reply-To:Content-ID:Content-Description:Resent-Date:Resent-From:
- Resent-Sender:Resent-To:Resent-Cc:Resent-Message-ID:List-Id:List-Help:
- List-Unsubscribe:List-Subscribe:List-Post:List-Owner:List-Archive;
- bh=7AxhbJwIMNaIwTRNcQ12Omehe8rlvXqphyVqkGht4CM=; b=E0rs6IUd9KrqG6rRqxg4EJFrwQ
- tXFRLg/PEtMOHOcgpxods6HB9KNRHQFvDFtDcxy81EMd/oYja/HwjEnivHs5ntdf0oPd0Vkz9Bulf
- f3bfR5Uh6v3v7cYZxuEsXi18AkMj3N5pe0Q+Ug5jQ8GtsOtwuOQdTHDFB1vyIDNEfzd8af2sKasrW
- MTXwxXquOewdCa5QJ15QbSWO2WcyomPaGzVhJ7VGMT2fQLo+BSxFfp8gLday5kwi5Z56u3xlitfAR
- doOHo86N+Ek5uQltonuGWgoA8VtZwhZ5tCxRai5o9vsXiY3EDuDYaXfEAzL98oVohyifRM7pJkgnt
- 0MHXpPqA==;
-Received: from 108-198-5-147.lightspeed.okcbok.sbcglobal.net
- ([108.198.5.147]:36530 helo=[192.168.0.134])
- by vern.gendns.com with esmtpsa (TLS1.2) tls
- TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256 (Exim 4.93)
- (envelope-from <david@lechnology.com>)
- id 1jmiZw-0001IT-SU; Sat, 20 Jun 2020 14:51:00 -0400
-To: William Breathitt Gray <vilhelm.gray@gmail.com>, jic23@kernel.org
-References: <cover.1592341702.git.vilhelm.gray@gmail.com>
- <afe40ef2e24ecaca44fc229f7983cf4cde3374a8.1592341702.git.vilhelm.gray@gmail.com>
-From: David Lechner <david@lechnology.com>
-Message-ID: <8fae0659-56df-c0b5-7c0d-220feefed2b4@lechnology.com>
-Date: Sat, 20 Jun 2020 13:50:59 -0500
-User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:68.0) Gecko/20100101
- Thunderbird/68.8.0
+ Sat, 20 Jun 2020 21:06:55 +0000 (UTC)
+Received: by mail-lj1-f196.google.com with SMTP id a9so15256571ljn.6
+ for <linux-stm32@st-md-mailman.stormreply.com>;
+ Sat, 20 Jun 2020 14:06:55 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linaro.org; s=google;
+ h=mime-version:references:in-reply-to:from:date:message-id:subject:to
+ :cc; bh=EVO4PW7RZ5BkQYoJgxP0Hx8bG7QWB5MT25IV3wH9AkM=;
+ b=Dp0qEIC3xllmaPI+qPS5JRYOt7p/apOAtBOyLTt1Eo2YxFQMjJ2jEQhVFIbnoEOSaj
+ NpB6w3MtDNzoDH0i4Lr++i8UwMgUoUFXwnZ2E59aKaaSP08WnuMNS9jC9RzRaVICDgzs
+ SD5kRCXwRnMxFkvqWluqoSxPHgFvSUTR8YLxsxV6WYAsUQXojk1Oeb3bTknFsNHxFuOy
+ QphZJF78NpRAJS8CIvakBPdC3TQSQlS3lbli4gopKVVfyN1jH0RjSlgBM9Mb2j1lrE+g
+ HhCvb+tP7tJpRFBLmyvSv7C76RsBv59CSQjTgluWOwInYb6vvUfG9hdzcYFenNZyN8Z1
+ tqIg==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20161025;
+ h=x-gm-message-state:mime-version:references:in-reply-to:from:date
+ :message-id:subject:to:cc;
+ bh=EVO4PW7RZ5BkQYoJgxP0Hx8bG7QWB5MT25IV3wH9AkM=;
+ b=cpSvdKqmiXyAox9CTynBtA1j94gI1gdQ3m6bah1U7oeZhlBZQFNKw5LwRRmxlULibG
+ 9oFJ73sjwCmPD7eVoSbVE+awHiK8zoL/Bp6Ov//dwSXBPoS6k+2Y932vUx8xNhVIbEvi
+ LjksXbLQXwM+G5P0BzMlsq3vLWumjsBY/KCRK9NdqboF9apmJmgtx7yYqUTjvhAe+Xjr
+ KzvtQEdTvCxUI/cAr7hwtrP6itCLO/zZmRR9hhUSggelxmJScCUDkZm2yiGp0H22JOyc
+ L+jfCOKiRwtRXOZnesOv0ZhjJhWekZkIHqwdazlTZR2Yb3l/JNqhKW194W7636Vplbf7
+ zsww==
+X-Gm-Message-State: AOAM531RpfFN/gW47jgWLgTUL8IXtpHN5qlBo2/lhSADQQrIT9cKx/4O
+ stC4bj/F5cqZDhs99NkQlouZcItD0F0CfjBbfUd6EQ==
+X-Google-Smtp-Source: ABdhPJwE4EHbLLjrPuV5spgZm/Iq14+xmGwaVeLjLtulYH7lt3F+0nrvpcg5T7zJTtXYbcSJEj3/EuUpVbHXVXBXMSo=
+X-Received: by 2002:a2e:350a:: with SMTP id z10mr4720370ljz.104.1592687214811; 
+ Sat, 20 Jun 2020 14:06:54 -0700 (PDT)
 MIME-Version: 1.0
-In-Reply-To: <afe40ef2e24ecaca44fc229f7983cf4cde3374a8.1592341702.git.vilhelm.gray@gmail.com>
-Content-Language: en-US
-X-AntiAbuse: This header was added to track abuse,
- please include it with any abuse report
-X-AntiAbuse: Primary Hostname - vern.gendns.com
-X-AntiAbuse: Original Domain - st-md-mailman.stormreply.com
-X-AntiAbuse: Originator/Caller UID/GID - [47 12] / [47 12]
-X-AntiAbuse: Sender Address Domain - lechnology.com
-X-Get-Message-Sender-Via: vern.gendns.com: authenticated_id:
- davidmain+lechnology.com/only user confirmed/virtual account not confirmed
-X-Authenticated-Sender: vern.gendns.com: davidmain@lechnology.com
-X-Source: 
-X-Source-Args: 
-X-Source-Dir: 
-Cc: kamel.bouhara@bootlin.com, gwendal@chromium.org, linux-iio@vger.kernel.org,
- patrick.havelange@essensium.com, alexandre.belloni@bootlin.com,
- linux-kernel@vger.kernel.org, mcoquelin.stm32@gmail.com,
- fabrice.gasnier@st.com, syednwaris@gmail.com,
- linux-stm32@st-md-mailman.stormreply.com, linux-arm-kernel@lists.infradead.org
-Subject: Re: [Linux-stm32] [PATCH v3 3/4] counter: Add character device
-	interface
+References: <20200615125407.27632-1-alexandre.torgue@st.com>
+In-Reply-To: <20200615125407.27632-1-alexandre.torgue@st.com>
+From: Linus Walleij <linus.walleij@linaro.org>
+Date: Sat, 20 Jun 2020 23:06:43 +0200
+Message-ID: <CACRpkda6STLBFPLE-YdFCqaqqrpUPkweh4qc_OYcdC03KZspPA@mail.gmail.com>
+To: Alexandre Torgue <alexandre.torgue@st.com>
+Cc: "open list:GPIO SUBSYSTEM" <linux-gpio@vger.kernel.org>,
+ "linux-kernel@vger.kernel.org" <linux-kernel@vger.kernel.org>,
+ linux-stm32@st-md-mailman.stormreply.com
+Subject: Re: [Linux-stm32] [PATCH 0/2] pinctrl: stm32: add changes to better
+	manage
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -72,132 +65,22 @@ List-Post: <mailto:linux-stm32@st-md-mailman.stormreply.com>
 List-Help: <mailto:linux-stm32-request@st-md-mailman.stormreply.com?subject=help>
 List-Subscribe: <https://st-md-mailman.stormreply.com/mailman/listinfo/linux-stm32>, 
  <mailto:linux-stm32-request@st-md-mailman.stormreply.com?subject=subscribe>
+Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
-Content-Type: text/plain; charset="us-ascii"; Format="flowed"
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
-On 6/16/20 8:40 PM, William Breathitt Gray wrote:
-> This patch introduces a character device interface for the Counter
-> subsystem. Device control is exposed through standard character device
-> read and write operations.
-> 
-> A /sys/bus/counter/devices/counterX/chrdev_format sysfs attribute is
-> introduced to expose the character device data format:
-> 
-> * Users may write to this sysfs attribute to select the components they
->    want to interface -- the layout can be determined as well from the
->    order. For example:
-> 
->    # echo "C0 C3 C2" > /sys/bus/counter/devices/counter0/chrdev_format
-> 
->    This would select Counts 0, 3, and 2 (in that order) to be available
->    in the /dev/counter0 node as a contiguous memory region.
-> 
->    You can select extensions in a similar fashion:
-> 
->    # echo "C4E2 S1E0" > /sys/bus/counter/devices/counter0/chrdev_format
-> 
->    This would select extension 2 from Count 4, and extension 0 from
->    Signal 1.
-> 
-> * Users may read from this chrdev_format sysfs attribute in order to see
->    the currently configured format of the character device.
-> 
-> * Users may perform read/write operations on the /dev/counterX node
->    directly; the layout of the data is what they user has configured via
->    the chrdev_format sysfs attribute. For example:
-> 
->    # echo "C0 C1 S0 S1" > /sys/bus/counter/devices/counter0/chrdev_format
-> 
->    Yields the following /dev/counter0 memory layout:
-> 
->    +-----------------+------------------+----------+----------+
->    | Byte 0 - Byte 7 | Byte 8 - Byte 15 | Byte 16  | Byte 17  |
->    +-----------------+------------------+----------+----------+
->    | Count 0         | Count 1          | Signal 0 | Signal 2 |
->    +-----------------+------------------+----------+----------+
-> 
->    The number of bytes allotted for each component or extension is
->    determined by its respective data type: u8 will have 1 byte allotted,
->    u64 will have 8 bytes allotted, etc.
-> 
+On Mon, Jun 15, 2020 at 2:54 PM Alexandre Torgue
+<alexandre.torgue@st.com> wrote:
 
-Instead of the proposed character device, I would really rather have one
-that gives past events instead of the current state.
+> Clocks and resets for GPIO banks could be defined but not yet ready when
+> stm32 pinctrl is probed. This series adds changes to manage probe defer
+> when a clock or a reset is not yet registered in the system.
 
-I have thought about some of the suggestions from previous version of
-this patch series and I'm starting to think something similar to the
-input and gpio subsystems would work fairly well.
+Patches applied.
 
-
-There would have to be a fixed size event data structure:
-
-struct counter_event {
-	/** Best approximation of when event occurred in nanoseconds. */
-	__u64 timestamp;
-	/**
-	 * Description of the synapse that triggered the event and the
-	 * signal/counter that the value represents.
-	 */
-	__u64 descriptor;
-	/** The signal/counter value recorded when the synapse fired. */
-	__u64 value;
-};
-
-The descriptor field would actually probably be a union of __u64 and a
-struct with its own fields to describe the synapse and signal or count.
-
-If a synapse involves more than one signal or count, then there would
-be multiple events with identical timestamps.
-
-Userspace programs should be able to enable only the events/synapses they
-are interested in and then the poll() the character device to wait for
-events in an efficient way instead of having to constantly read - which
-could still miss events.
-
----
-
-Real world use case - measuring the speed of a motor:
-
-At low speeds it is more accurate to measure the time difference between
-count events. In this case we would want events from two synapses. One
-triggered by the rising and falling edges of signal A and one triggered
-by the direction signal. The magnitude of the speed is calculated by
-taking the difference in timestamps between signal A events and the +/-
-sign is determined by the direction signal.
-
-At high speeds a different configuration is needed. Assuming the counter
-has a timer clock signal a synapse would be configured to fire every 10
-or 20 milliseconds. This would trigger an event that contains the count.
-The speed is calculated as the difference in counts divided by the fixed
-time interval.
-
-Some applications may need to do both and be able to change the
-configuration at runtime. It may start out in the low speed configuration,
-but as the speed increases, events triggered by the change in count will
-need to be disabled to prevent being overwhelmed with too many count
-events. But if the speed drops low again, the count events will need to
-be turned back on.
-
----
-
-Regarding the implementation, the character device can be backed by a
-kfifo. Interrupts from the counter hardware push events to the kfifo
-and reading from the character device drains the kfifo.
-
-drivers/gpio/gpiolib.c could be a good example to follow.
-
-If we only want to allow one consumer to open the chardev at a time,
-then enabling/disabling events via sysfs would probably be fine since
-we are already sort of doing that anyway to enable/disable counters.
-But if we need to allow multiple consumers per chardev that would each
-want different events, then configuring via ioctl would be required so
-that per-file descriptor configuration could be done (each call to open()
-would create a new kfifo and ioctl would configure what gets pushed to
-that kfifo).
-
-
+Yours,
+Linus Walleij
 _______________________________________________
 Linux-stm32 mailing list
 Linux-stm32@st-md-mailman.stormreply.com
