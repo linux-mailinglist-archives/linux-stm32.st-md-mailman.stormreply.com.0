@@ -2,62 +2,65 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id 2C8D2202564
-	for <lists+linux-stm32@lfdr.de>; Sat, 20 Jun 2020 18:40:42 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id D7DCA202609
+	for <lists+linux-stm32@lfdr.de>; Sat, 20 Jun 2020 20:51:06 +0200 (CEST)
 Received: from ip-172-31-3-76.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id C985DC36B0C;
-	Sat, 20 Jun 2020 16:40:41 +0000 (UTC)
-Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
- (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
- (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 16752C36B0A
- for <linux-stm32@st-md-mailman.stormreply.com>;
- Sat, 20 Jun 2020 16:40:40 +0000 (UTC)
-Received: from archlinux (cpc149474-cmbg20-2-0-cust94.5-4.cable.virginm.net
- [82.4.196.95])
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 7FCE0C36B0C;
+	Sat, 20 Jun 2020 18:51:06 +0000 (UTC)
+Received: from vern.gendns.com (vern.gendns.com [98.142.107.122])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by mail.kernel.org (Postfix) with ESMTPSA id 0FCBF208D5;
- Sat, 20 Jun 2020 16:40:36 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
- s=default; t=1592671239;
- bh=lfSzalvbtneZ8u/8cfqsrPZxTlT9H2bEBJMac45J2rA=;
- h=Date:From:To:Cc:Subject:In-Reply-To:References:From;
- b=pAqd9F3Tq6dKNOl+JLqJE94RTQ8RA+y2gHkD6XfvR23ET/VKwBv5V31BLXxbqORxC
- 3tEOumxZSSOl3VnVbkNYDhfJNyGl3GxvfxUZUC9fF9dwpynj8udwgyIUwhu5r5dG9y
- FhO9dXAkwG/O4ajHz9/8n5Ex3NYsdsO3I2KSd64c=
-Date: Sat, 20 Jun 2020 17:40:33 +0100
-From: Jonathan Cameron <jic23@kernel.org>
-To: "Ardelean, Alexandru" <alexandru.Ardelean@analog.com>
-Message-ID: <20200620174033.2ffec237@archlinux>
-In-Reply-To: <8ae96d9defc521ae3b8ac37ebfc9dd0f5b32cfb3.camel@analog.com>
-References: <20200525113855.178821-1-alexandru.ardelean@analog.com>
- <20200525113855.178821-3-alexandru.ardelean@analog.com>
- <20200531164020.765822dc@archlinux>
- <a0253d719a4390f65668789e5fc182ec19355f17.camel@analog.com>
- <20200602095406.00005add@Huawei.com>
- <37ef45f4-9330-86ea-77c1-3138bb88601b@microchip.com>
- <0eeae8e8c2c1a3f21e15c1931bacb197a8245104.camel@analog.com>
- <e17fc5b3-fc6b-5980-7294-6d0a151138da@microchip.com>
- <8ae96d9defc521ae3b8ac37ebfc9dd0f5b32cfb3.camel@analog.com>
-X-Mailer: Claws Mail 3.17.5 (GTK+ 2.24.32; x86_64-pc-linux-gnu)
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id E2DCCC36B0A
+ for <linux-stm32@st-md-mailman.stormreply.com>;
+ Sat, 20 Jun 2020 18:51:04 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
+ d=lechnology.com; s=default; h=Content-Transfer-Encoding:Content-Type:
+ In-Reply-To:MIME-Version:Date:Message-ID:From:References:Cc:To:Subject:Sender
+ :Reply-To:Content-ID:Content-Description:Resent-Date:Resent-From:
+ Resent-Sender:Resent-To:Resent-Cc:Resent-Message-ID:List-Id:List-Help:
+ List-Unsubscribe:List-Subscribe:List-Post:List-Owner:List-Archive;
+ bh=7AxhbJwIMNaIwTRNcQ12Omehe8rlvXqphyVqkGht4CM=; b=E0rs6IUd9KrqG6rRqxg4EJFrwQ
+ tXFRLg/PEtMOHOcgpxods6HB9KNRHQFvDFtDcxy81EMd/oYja/HwjEnivHs5ntdf0oPd0Vkz9Bulf
+ f3bfR5Uh6v3v7cYZxuEsXi18AkMj3N5pe0Q+Ug5jQ8GtsOtwuOQdTHDFB1vyIDNEfzd8af2sKasrW
+ MTXwxXquOewdCa5QJ15QbSWO2WcyomPaGzVhJ7VGMT2fQLo+BSxFfp8gLday5kwi5Z56u3xlitfAR
+ doOHo86N+Ek5uQltonuGWgoA8VtZwhZ5tCxRai5o9vsXiY3EDuDYaXfEAzL98oVohyifRM7pJkgnt
+ 0MHXpPqA==;
+Received: from 108-198-5-147.lightspeed.okcbok.sbcglobal.net
+ ([108.198.5.147]:36530 helo=[192.168.0.134])
+ by vern.gendns.com with esmtpsa (TLS1.2) tls
+ TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256 (Exim 4.93)
+ (envelope-from <david@lechnology.com>)
+ id 1jmiZw-0001IT-SU; Sat, 20 Jun 2020 14:51:00 -0400
+To: William Breathitt Gray <vilhelm.gray@gmail.com>, jic23@kernel.org
+References: <cover.1592341702.git.vilhelm.gray@gmail.com>
+ <afe40ef2e24ecaca44fc229f7983cf4cde3374a8.1592341702.git.vilhelm.gray@gmail.com>
+From: David Lechner <david@lechnology.com>
+Message-ID: <8fae0659-56df-c0b5-7c0d-220feefed2b4@lechnology.com>
+Date: Sat, 20 Jun 2020 13:50:59 -0500
+User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:68.0) Gecko/20100101
+ Thunderbird/68.8.0
 MIME-Version: 1.0
-Cc: "linus.walleij@linaro.org" <linus.walleij@linaro.org>,
- "lars@metafoo.de" <lars@metafoo.de>,
- "linux-iio@vger.kernel.org" <linux-iio@vger.kernel.org>,
- "s.hauer@pengutronix.de" <s.hauer@pengutronix.de>,
- "linux-kernel@vger.kernel.org" <linux-kernel@vger.kernel.org>,
- "songqiang1304521@gmail.com" <songqiang1304521@gmail.com>,
- "mcoquelin.stm32@gmail.com" <mcoquelin.stm32@gmail.com>,
- "Jonathan.Cameron@Huawei.com" <Jonathan.Cameron@Huawei.com>,
- "lorenzo.bianconi83@gmail.com" <lorenzo.bianconi83@gmail.com>,
- "Eugen.Hristev@microchip.com" <Eugen.Hristev@microchip.com>,
- "shawnguo@kernel.org" <shawnguo@kernel.org>,
- "linux-stm32@st-md-mailman.stormreply.com"
- <linux-stm32@st-md-mailman.stormreply.com>,
- "linux-arm-kernel@lists.infradead.org" <linux-arm-kernel@lists.infradead.org>
-Subject: Re: [Linux-stm32] [PATCH v2 3/3] iio: remove
- iio_triggered_buffer_postenable()/iio_triggered_buffer_predisable()
+In-Reply-To: <afe40ef2e24ecaca44fc229f7983cf4cde3374a8.1592341702.git.vilhelm.gray@gmail.com>
+Content-Language: en-US
+X-AntiAbuse: This header was added to track abuse,
+ please include it with any abuse report
+X-AntiAbuse: Primary Hostname - vern.gendns.com
+X-AntiAbuse: Original Domain - st-md-mailman.stormreply.com
+X-AntiAbuse: Originator/Caller UID/GID - [47 12] / [47 12]
+X-AntiAbuse: Sender Address Domain - lechnology.com
+X-Get-Message-Sender-Via: vern.gendns.com: authenticated_id:
+ davidmain+lechnology.com/only user confirmed/virtual account not confirmed
+X-Authenticated-Sender: vern.gendns.com: davidmain@lechnology.com
+X-Source: 
+X-Source-Args: 
+X-Source-Dir: 
+Cc: kamel.bouhara@bootlin.com, gwendal@chromium.org, linux-iio@vger.kernel.org,
+ patrick.havelange@essensium.com, alexandre.belloni@bootlin.com,
+ linux-kernel@vger.kernel.org, mcoquelin.stm32@gmail.com,
+ fabrice.gasnier@st.com, syednwaris@gmail.com,
+ linux-stm32@st-md-mailman.stormreply.com, linux-arm-kernel@lists.infradead.org
+Subject: Re: [Linux-stm32] [PATCH v3 3/4] counter: Add character device
+	interface
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -69,206 +72,131 @@ List-Post: <mailto:linux-stm32@st-md-mailman.stormreply.com>
 List-Help: <mailto:linux-stm32-request@st-md-mailman.stormreply.com?subject=help>
 List-Subscribe: <https://st-md-mailman.stormreply.com/mailman/listinfo/linux-stm32>, 
  <mailto:linux-stm32-request@st-md-mailman.stormreply.com?subject=subscribe>
-Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
+Content-Type: text/plain; charset="us-ascii"; Format="flowed"
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
-On Thu, 18 Jun 2020 13:37:16 +0000
-"Ardelean, Alexandru" <alexandru.Ardelean@analog.com> wrote:
-
-> On Thu, 2020-06-18 at 13:01 +0000, Eugen.Hristev@microchip.com wrote:
-> > On 17.06.2020 16:52, Ardelean, Alexandru wrote:  
-> > > On Wed, 2020-06-17 at 13:37 +0000, Eugen.Hristev@microchip.com wrote:  
-> > > > [External]
-> > > > 
-> > > > On 02.06.2020 11:54, Jonathan Cameron wrote:  
-> > > > > On Tue, 2 Jun 2020 07:50:23 +0000
-> > > > > "Ardelean, Alexandru" <alexandru.Ardelean@analog.com> wrote:
-> > > > >   
-> > > > > > On Sun, 2020-05-31 at 16:40 +0100, Jonathan Cameron wrote:  
-> > > > > > > On Mon, 25 May 2020 14:38:55 +0300
-> > > > > > > Alexandru Ardelean <alexandru.ardelean@analog.com> wrote:
-> > > > > > >   
-> > > > > > > > From: Lars-Peter Clausen <lars@metafoo.de>
-> > > > > > > > 
-> > > > > > > > This patch should be squashed into the first one, as the
-> > > > > > > > first one is
-> > > > > > > > breaking the build (intentionally) to make the IIO core files
-> > > > > > > > easier
-> > > > > > > > to
-> > > > > > > > review.
-> > > > > > > > 
-> > > > > > > > Signed-off-by: Lars-Peter Clausen <lars@metafoo.de>
-> > > > > > > > Signed-off-by: Alexandru Ardelean <  
-> > > > > > > > alexandru.ardelean@analog.com>  
-> > > > > > > > ---  
-> > > > > > > 
-> > > > > > > Friend poke.  Version log?  
-> > > > > > 
-> > > > > > Version log is in the first patch.
-> > > > > > I was wondering if I omitted it.
-> > > > > > Seems, this time I didn't. But I admit, it probably would have
-> > > > > > been better
-> > > > > > here.  
-> > > > > Ah fair enough.  That works fine if there is a cover letter but not
-> > > > > so much just putting things in the first patch!  
-> > > > > > > Other than the wistful comment below (which I'm not expecting
-> > > > > > > you to
-> > > > > > > do anything about btw!) whole series looks good to me.
-> > > > > > > 
-> > > > > > > These are obviously no functional changes (I think) so it's
-> > > > > > > only really
-> > > > > > > patch 2 that
-> > > > > > > could do with more eyes and acks.
-> > > > > > > 
-> > > > > > > Far as I can tell that case is fine as well because of the
-> > > > > > > protections
-> > > > > > > on being in the right mode, but more eyes on that would be
-> > > > > > > great.
-> > > > > > > 
-> > > > > > > So assuming that's fine, what commit message do you want me to
-> > > > > > > use for
-> > > > > > > the fused single patch?  
-> > > > > > 
-> > > > > > Commit message-wise: I think the message in the first commit
-> > > > > > would be
-> > > > > > mostly sufficient.
-> > > > > > No idea what other description would be needed.
-> > > > > > 
-> > > > > > So, maybe something like:
-> > > > > > 
-> > > > > > ---------------------------------------------------------------
-> > > > > > -------
-> > > > > > All devices using a triggered buffer need to attach and detach
-> > > > > > the trigger
-> > > > > > to the device in order to properly work. Instead of doing this in
-> > > > > > each and
-> > > > > > every driver by hand move this into the core.
-> > > > > > 
-> > > > > > At this point in time, all drivers should have been resolved to
-> > > > > > attach/detach the poll-function in the same order.
-> > > > > > 
-> > > > > > This patch removes all explicit calls of
-> > > > > > iio_triggered_buffer_postenable()
-> > > > > > & iio_triggered_buffer_predisable() in all drivers, since the
-> > > > > > core handles
-> > > > > > now the pollfunc attach/detach.
-> > > > > > 
-> > > > > > The more peculiar change is for the 'at91-sama5d2_adc' driver,
-> > > > > > since it's
-> > > > > > not obvious that removing the hooks doesn't break anything**
-> > > > > > ---------------------------------------------------------------
-> > > > > > -------
-> > > > > >   
-> > > > > 
-> > > > > Looks good.
-> > > > >   
-> > > > > > ** for the comment about 'at91-sama5d2_adc', we really do need to
-> > > > > > get some
-> > > > > > testing; otherwise this risks breaking it.  
-> > > > 
-> > > > Hi,
-> > > > 
-> > > > I can test it, do we have any patchwork so I can easily download the
-> > > > patches ?
-> > > > I have issues when applying them.  
-> > > 
-> > > Is this good?
-> > > 
-> > > https://urldefense.com/v3/__https://patchwork.kernel.org/patch/11568743/__;!!A3Ni8CS0y2Y!sOycjyvbMtVr_UDFBvb0vdcf9ONdhs0VBLhTcuYO4qnuZmazm5342mRE2T-119Sk7-d50A$ 
-> > > Series:
-> > > https://urldefense.com/v3/__https://patchwork.kernel.org/project/linux-iio/list/?series=293141__;!!A3Ni8CS0y2Y!sOycjyvbMtVr_UDFBvb0vdcf9ONdhs0VBLhTcuYO4qnuZmazm5342mRE2T-119TNWi1mbQ$ 
-> > > 
-> > > Many thanks
-> > > Alex  
-> > 
-> > On at91-sama5d2-adc driver, sama5d2-xplained board,
-> > Tested-by: Eugen Hristev <eugen.hristev@microchip.com>
-> > 
-> > I applied all three patches and tested together with the other patch on 
-> > sama5d2-adc driver.
-> > It looks to be working fine. If I discover something later, I will let 
-> > you know.
-> > Thanks  
+On 6/16/20 8:40 PM, William Breathitt Gray wrote:
+> This patch introduces a character device interface for the Counter
+> subsystem. Device control is exposed through standard character device
+> read and write operations.
 > 
-> Also thanks from my side for testing.
-
-Great.  Thanks for testing Eugen!
-
-Applied and flattened into a single patch as discussed previously
-using a slightly edited version of your cover letter to reflect
-that Eugen was able to test it.
-
-Applied to the togreg branch of iio.git and pushed out as testing for
-the autobuilders to play with it.  Was a bit of fuzz but I don't think
-anything significant.
-
-Thanks for all your hard work driving this one through!
-
-Jonathan
-
+> A /sys/bus/counter/devices/counterX/chrdev_format sysfs attribute is
+> introduced to expose the character device data format:
 > 
+> * Users may write to this sysfs attribute to select the components they
+>    want to interface -- the layout can be determined as well from the
+>    order. For example:
 > 
-> >   
-> > > > Thanks !
-> > > >   
-> > > > > Agreed.
-> > > > >   
-> > > > > > > Thanks,
-> > > > > > > 
-> > > > > > > Jonathan
-> > > > > > >   
-> > > > > > > >    static const struct iio_trigger_ops
-> > > > > > > > atlas_interrupt_trigger_ops = {
-> > > > > > > > diff --git a/drivers/iio/dummy/iio_simple_dummy_buffer.c
-> > > > > > > > b/drivers/iio/dummy/iio_simple_dummy_buffer.c
-> > > > > > > > index 17606eca42b4..8e13c53d4360 100644
-> > > > > > > > --- a/drivers/iio/dummy/iio_simple_dummy_buffer.c
-> > > > > > > > +++ b/drivers/iio/dummy/iio_simple_dummy_buffer.c
-> > > > > > > > @@ -99,20 +99,6 @@ static irqreturn_t
-> > > > > > > > iio_simple_dummy_trigger_h(int
-> > > > > > > > irq, void *p)
-> > > > > > > >    }
-> > > > > > > > 
-> > > > > > > >    static const struct iio_buffer_setup_ops
-> > > > > > > > iio_simple_dummy_buffer_setup_ops = {
-> > > > > > > > - /*
-> > > > > > > > -  * iio_triggered_buffer_postenable:
-> > > > > > > > -  * Generic function that simply attaches the pollfunc to
-> > > > > > > > the
-> > > > > > > > trigger.
-> > > > > > > > -  * Replace this to mess with hardware state before we
-> > > > > > > > attach the
-> > > > > > > > -  * trigger.
-> > > > > > > > -  */
-> > > > > > > > - .postenable = &iio_triggered_buffer_postenable,
-> > > > > > > > - /*
-> > > > > > > > -  * iio_triggered_buffer_predisable:
-> > > > > > > > -  * Generic function that simple detaches the pollfunc from
-> > > > > > > > the
-> > > > > > > > trigger.
-> > > > > > > > -  * Replace this to put hardware state back again after the
-> > > > > > > > trigger
-> > > > > > > > is
-> > > > > > > > -  * detached but before userspace knows we have disabled the
-> > > > > > > > ring.
-> > > > > > > > -  */
-> > > > > > > > - .predisable = &iio_triggered_buffer_predisable,
-> > > > > > > >    };
-> > > > > > > >   
-> > > > > > > Hmm. Guess we should probably 'invent' a reason to illustrate
-> > > > > > > the bufer
-> > > > > > > ops in the dummy example.  Anyone feeling creative?  
-> > > > > > _______________________________________________
-> > > > > > linux-arm-kernel mailing list
-> > > > > > linux-arm-kernel@lists.infradead.org
-> > > > > > https://urldefense.com/v3/__http://lists.infradead.org/mailman/listinfo/linux-arm-kernel__;!!A3Ni8CS0y2Y!ulH92S3o_JWLMQfg5VBrFknwc_-a0K5AHpJBrTEB-RtYEp7PnRJ9jA_EacOzFQmbNIKO-Q$  
-> > > _______________________________________________
-> > > linux-arm-kernel mailing list
-> > > linux-arm-kernel@lists.infradead.org
-> > > https://urldefense.com/v3/__http://lists.infradead.org/mailman/listinfo/linux-arm-kernel__;!!A3Ni8CS0y2Y!sOycjyvbMtVr_UDFBvb0vdcf9ONdhs0VBLhTcuYO4qnuZmazm5342mRE2T-119RWwM-1NA$ 
-> > >   
+>    # echo "C0 C3 C2" > /sys/bus/counter/devices/counter0/chrdev_format
+> 
+>    This would select Counts 0, 3, and 2 (in that order) to be available
+>    in the /dev/counter0 node as a contiguous memory region.
+> 
+>    You can select extensions in a similar fashion:
+> 
+>    # echo "C4E2 S1E0" > /sys/bus/counter/devices/counter0/chrdev_format
+> 
+>    This would select extension 2 from Count 4, and extension 0 from
+>    Signal 1.
+> 
+> * Users may read from this chrdev_format sysfs attribute in order to see
+>    the currently configured format of the character device.
+> 
+> * Users may perform read/write operations on the /dev/counterX node
+>    directly; the layout of the data is what they user has configured via
+>    the chrdev_format sysfs attribute. For example:
+> 
+>    # echo "C0 C1 S0 S1" > /sys/bus/counter/devices/counter0/chrdev_format
+> 
+>    Yields the following /dev/counter0 memory layout:
+> 
+>    +-----------------+------------------+----------+----------+
+>    | Byte 0 - Byte 7 | Byte 8 - Byte 15 | Byte 16  | Byte 17  |
+>    +-----------------+------------------+----------+----------+
+>    | Count 0         | Count 1          | Signal 0 | Signal 2 |
+>    +-----------------+------------------+----------+----------+
+> 
+>    The number of bytes allotted for each component or extension is
+>    determined by its respective data type: u8 will have 1 byte allotted,
+>    u64 will have 8 bytes allotted, etc.
+> 
+
+Instead of the proposed character device, I would really rather have one
+that gives past events instead of the current state.
+
+I have thought about some of the suggestions from previous version of
+this patch series and I'm starting to think something similar to the
+input and gpio subsystems would work fairly well.
+
+
+There would have to be a fixed size event data structure:
+
+struct counter_event {
+	/** Best approximation of when event occurred in nanoseconds. */
+	__u64 timestamp;
+	/**
+	 * Description of the synapse that triggered the event and the
+	 * signal/counter that the value represents.
+	 */
+	__u64 descriptor;
+	/** The signal/counter value recorded when the synapse fired. */
+	__u64 value;
+};
+
+The descriptor field would actually probably be a union of __u64 and a
+struct with its own fields to describe the synapse and signal or count.
+
+If a synapse involves more than one signal or count, then there would
+be multiple events with identical timestamps.
+
+Userspace programs should be able to enable only the events/synapses they
+are interested in and then the poll() the character device to wait for
+events in an efficient way instead of having to constantly read - which
+could still miss events.
+
+---
+
+Real world use case - measuring the speed of a motor:
+
+At low speeds it is more accurate to measure the time difference between
+count events. In this case we would want events from two synapses. One
+triggered by the rising and falling edges of signal A and one triggered
+by the direction signal. The magnitude of the speed is calculated by
+taking the difference in timestamps between signal A events and the +/-
+sign is determined by the direction signal.
+
+At high speeds a different configuration is needed. Assuming the counter
+has a timer clock signal a synapse would be configured to fire every 10
+or 20 milliseconds. This would trigger an event that contains the count.
+The speed is calculated as the difference in counts divided by the fixed
+time interval.
+
+Some applications may need to do both and be able to change the
+configuration at runtime. It may start out in the low speed configuration,
+but as the speed increases, events triggered by the change in count will
+need to be disabled to prevent being overwhelmed with too many count
+events. But if the speed drops low again, the count events will need to
+be turned back on.
+
+---
+
+Regarding the implementation, the character device can be backed by a
+kfifo. Interrupts from the counter hardware push events to the kfifo
+and reading from the character device drains the kfifo.
+
+drivers/gpio/gpiolib.c could be a good example to follow.
+
+If we only want to allow one consumer to open the chardev at a time,
+then enabling/disabling events via sysfs would probably be fine since
+we are already sort of doing that anyway to enable/disable counters.
+But if we need to allow multiple consumers per chardev that would each
+want different events, then configuring via ioctl would be required so
+that per-file descriptor configuration could be done (each call to open()
+would create a new kfifo and ioctl would configure what gets pushed to
+that kfifo).
+
 
 _______________________________________________
 Linux-stm32 mailing list
