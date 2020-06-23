@@ -2,38 +2,38 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id 07122205C57
-	for <lists+linux-stm32@lfdr.de>; Tue, 23 Jun 2020 22:01:27 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 26269205E45
+	for <lists+linux-stm32@lfdr.de>; Tue, 23 Jun 2020 22:21:40 +0200 (CEST)
 Received: from ip-172-31-3-76.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id A8A31C36B0C;
-	Tue, 23 Jun 2020 20:01:26 +0000 (UTC)
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id CC256C36B0C;
+	Tue, 23 Jun 2020 20:21:39 +0000 (UTC)
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
  (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 45BA8C36B0A
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 48432C36B0A
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Tue, 23 Jun 2020 20:01:25 +0000 (UTC)
+ Tue, 23 Jun 2020 20:21:35 +0000 (UTC)
 Received: from localhost (83-86-89-107.cable.dynamic.v4.ziggo.nl
  [83.86.89.107])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by mail.kernel.org (Postfix) with ESMTPSA id 45A1A206C3;
- Tue, 23 Jun 2020 20:01:23 +0000 (UTC)
+ by mail.kernel.org (Postfix) with ESMTPSA id 0AE19206C3;
+ Tue, 23 Jun 2020 20:21:33 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
- s=default; t=1592942483;
- bh=4E57143XZa7/6DgY2WIedkbwpyMH6w0CIGlhoqORTvg=;
+ s=default; t=1592943693;
+ bh=e9QVDNPPdIYXFB1XLyPVDsSsiNUzkq05fbA6OgRLMg8=;
  h=From:To:Cc:Subject:Date:In-Reply-To:References:From;
- b=W/m1xqzULL9TGiUlSv9+x/reby4FNIcrrv9WwRNtKCf8k6H8F8SFaf33Gt2N6XV67
- VfiHvgj7GeEJamMxl5xz3lHqmuyrfLRJZEcfcjPQcB5GkPm3Oc0IgZ+UKnxPMbyPFx
- MASrfQzdaCENf/BAus7GOuflqeLNJkLqJFP2XNTI=
+ b=ZRGgpb+bg44ZIr0h+WkQVvS9v5KsM34gFcY1GOTyiSlpypMYJXorIr/MQ3ZQDgSUg
+ L1+HrVotMR1+zzyr4B4rIC9F6TjpLTbrGz1TaEYz+FB6OrimFU+tGqj+tBbBtsm8kB
+ LaCI3DtUvRJMUk4653wcFCofYM7Qlqt93atCesCE=
 From: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
 To: linux-kernel@vger.kernel.org,
 	linux-arm-kernel@lists.infradead.org
-Date: Tue, 23 Jun 2020 21:50:14 +0200
-Message-Id: <20200623195408.416046837@linuxfoundation.org>
+Date: Tue, 23 Jun 2020 21:53:29 +0200
+Message-Id: <20200623195339.467115145@linuxfoundation.org>
 X-Mailer: git-send-email 2.27.0
-In-Reply-To: <20200623195407.572062007@linuxfoundation.org>
-References: <20200623195407.572062007@linuxfoundation.org>
+In-Reply-To: <20200623195338.770401005@linuxfoundation.org>
+References: <20200623195338.770401005@linuxfoundation.org>
 User-Agent: quilt/0.66
 MIME-Version: 1.0
 Cc: Marek Vasut <marex@denx.de>, Sasha Levin <sashal@kernel.org>,
@@ -42,7 +42,7 @@ Cc: Marek Vasut <marex@denx.de>, Sasha Levin <sashal@kernel.org>,
  Maxime Coquelin <mcoquelin.stm32@gmail.com>,
  Manivannan Sadhasivam <manivannan.sadhasivam@linaro.org>,
  linux-stm32@st-md-mailman.stormreply.com
-Subject: [Linux-stm32] [PATCH 5.7 017/477] ARM: dts: stm32: Add missing
+Subject: [Linux-stm32] [PATCH 5.4 014/314] ARM: dts: stm32: Add missing
 	ethernet PHY reset on AV96
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
@@ -82,10 +82,10 @@ Signed-off-by: Sasha Levin <sashal@kernel.org>
  1 file changed, 3 insertions(+)
 
 diff --git a/arch/arm/boot/dts/stm32mp157a-avenger96.dts b/arch/arm/boot/dts/stm32mp157a-avenger96.dts
-index 425175f7d83c3..081037b510bcb 100644
+index 2e4742c53d048..7b8c3f25861c9 100644
 --- a/arch/arm/boot/dts/stm32mp157a-avenger96.dts
 +++ b/arch/arm/boot/dts/stm32mp157a-avenger96.dts
-@@ -92,6 +92,9 @@
+@@ -91,6 +91,9 @@
  		#address-cells = <1>;
  		#size-cells = <0>;
  		compatible = "snps,dwmac-mdio";
