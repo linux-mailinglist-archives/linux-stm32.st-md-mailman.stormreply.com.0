@@ -2,48 +2,44 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id 26269205E45
-	for <lists+linux-stm32@lfdr.de>; Tue, 23 Jun 2020 22:21:40 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 437AD206DE8
+	for <lists+linux-stm32@lfdr.de>; Wed, 24 Jun 2020 09:39:39 +0200 (CEST)
 Received: from ip-172-31-3-76.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id CC256C36B0C;
-	Tue, 23 Jun 2020 20:21:39 +0000 (UTC)
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 04486C36B0C;
+	Wed, 24 Jun 2020 07:39:39 +0000 (UTC)
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
  (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 48432C36B0A
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 37AC3C36B0A
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Tue, 23 Jun 2020 20:21:35 +0000 (UTC)
-Received: from localhost (83-86-89-107.cable.dynamic.v4.ziggo.nl
- [83.86.89.107])
+ Wed, 24 Jun 2020 07:39:38 +0000 (UTC)
+Received: from localhost (unknown [171.61.66.58])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by mail.kernel.org (Postfix) with ESMTPSA id 0AE19206C3;
- Tue, 23 Jun 2020 20:21:33 +0000 (UTC)
+ by mail.kernel.org (Postfix) with ESMTPSA id D4A2B206E2;
+ Wed, 24 Jun 2020 07:39:35 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
- s=default; t=1592943693;
- bh=e9QVDNPPdIYXFB1XLyPVDsSsiNUzkq05fbA6OgRLMg8=;
- h=From:To:Cc:Subject:Date:In-Reply-To:References:From;
- b=ZRGgpb+bg44ZIr0h+WkQVvS9v5KsM34gFcY1GOTyiSlpypMYJXorIr/MQ3ZQDgSUg
- L1+HrVotMR1+zzyr4B4rIC9F6TjpLTbrGz1TaEYz+FB6OrimFU+tGqj+tBbBtsm8kB
- LaCI3DtUvRJMUk4653wcFCofYM7Qlqt93atCesCE=
-From: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
-To: linux-kernel@vger.kernel.org,
-	linux-arm-kernel@lists.infradead.org
-Date: Tue, 23 Jun 2020 21:53:29 +0200
-Message-Id: <20200623195339.467115145@linuxfoundation.org>
-X-Mailer: git-send-email 2.27.0
-In-Reply-To: <20200623195338.770401005@linuxfoundation.org>
-References: <20200623195338.770401005@linuxfoundation.org>
-User-Agent: quilt/0.66
+ s=default; t=1592984376;
+ bh=8jDjWnLW/FFZI3XS5aeybGak7b73D3MKBl8isxyOXsU=;
+ h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
+ b=VkKK6reH+MS6Axa7CgTPj8Y1fc71ufcxFrtM+XOSGNURxVsX4MN1HoqSkc84Z2jR2
+ P6SEz6rkALPwTsG5FzyUxErLRmAa3cyvV0Cb/Eww4Snvm+jPeXE56BzOvx0CUKflAF
+ CWkLutlXs90qbZO+W0S8RzD+VfuWNiODyiY7jMJw=
+Date: Wed, 24 Jun 2020 13:09:32 +0530
+From: Vinod Koul <vkoul@kernel.org>
+To: Navid Emamdoost <navid.emamdoost@gmail.com>
+Message-ID: <20200624073932.GO2324254@vkoul-mobl>
+References: <20200603183410.76764-1-navid.emamdoost@gmail.com>
 MIME-Version: 1.0
-Cc: Marek Vasut <marex@denx.de>, Sasha Levin <sashal@kernel.org>,
- Greg Kroah-Hartman <gregkh@linuxfoundation.org>, stable@vger.kernel.org,
- Patrick Delaunay <patrick.delaunay@st.com>,
- Maxime Coquelin <mcoquelin.stm32@gmail.com>,
- Manivannan Sadhasivam <manivannan.sadhasivam@linaro.org>,
- linux-stm32@st-md-mailman.stormreply.com
-Subject: [Linux-stm32] [PATCH 5.4 014/314] ARM: dts: stm32: Add missing
-	ethernet PHY reset on AV96
+Content-Disposition: inline
+In-Reply-To: <20200603183410.76764-1-navid.emamdoost@gmail.com>
+Cc: wu000273@umn.edu, kjlu@umn.edu, linux-kernel@vger.kernel.org,
+ emamd001@umn.edu, Maxime Coquelin <mcoquelin.stm32@gmail.com>,
+ smccaman@umn.edu, dmaengine@vger.kernel.org,
+ Dan Williams <dan.j.williams@intel.com>,
+ linux-stm32@st-md-mailman.stormreply.com, linux-arm-kernel@lists.infradead.org
+Subject: Re: [Linux-stm32] [PATCH] engine: stm32-dma: call pm_runtime_put if
+ pm_runtime_get_sync fails
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -60,46 +56,53 @@ Content-Transfer-Encoding: 7bit
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
-From: Marek Vasut <marex@denx.de>
+On 03-06-20, 13:34, Navid Emamdoost wrote:
+> Calling pm_runtime_get_sync increments the counter even in case of
+> failure, causing incorrect ref count. Call pm_runtime_put if
+> pm_runtime_get_sync fails.
 
-[ Upstream commit 010ca9fe500bfe365860b50220ff80541c18f0e1 ]
+pls fix subsystem name as dmaengine: ...
+> 
+> Signed-off-by: Navid Emamdoost <navid.emamdoost@gmail.com>
+> ---
+>  drivers/dma/stm32-dma.c | 8 ++++++--
+>  1 file changed, 6 insertions(+), 2 deletions(-)
+> 
+> diff --git a/drivers/dma/stm32-dma.c b/drivers/dma/stm32-dma.c
+> index 0ddbaa4b4f0b..0aab86bd97fe 100644
+> --- a/drivers/dma/stm32-dma.c
+> +++ b/drivers/dma/stm32-dma.c
+> @@ -1169,8 +1169,10 @@ static int stm32_dma_alloc_chan_resources(struct dma_chan *c)
+>  	chan->config_init = false;
+>  
+>  	ret = pm_runtime_get_sync(dmadev->ddev.dev);
+> -	if (ret < 0)
+> +	if (ret < 0) {
+> +		pm_runtime_put(dmadev->ddev.dev);
+>  		return ret;
+> +	}
+>  
+>  	ret = stm32_dma_disable_chan(chan);
+>  	if (ret < 0)
+> @@ -1439,8 +1441,10 @@ static int stm32_dma_suspend(struct device *dev)
+>  	int id, ret, scr;
+>  
+>  	ret = pm_runtime_get_sync(dev);
+> -	if (ret < 0)
+> +	if (ret < 0) {
+> +		pm_runtime_put_sync(dev);
 
-Add PHY reset GPIO on AV96 ethernet PHY.
+why put_sync()
+>  		return ret;
+> +	}
+>  
+>  	for (id = 0; id < STM32_DMA_MAX_CHANNELS; id++) {
+>  		scr = stm32_dma_read(dmadev, STM32_DMA_SCR(id));
+> -- 
+> 2.17.1
 
-Reviewed-by: Manivannan Sadhasivam <manivannan.sadhasivam@linaro.org>
-Signed-off-by: Marek Vasut <marex@denx.de>
-Cc: Alexandre Torgue <alexandre.torgue@st.com>
-Cc: Manivannan Sadhasivam <manivannan.sadhasivam@linaro.org>
-Cc: Maxime Coquelin <mcoquelin.stm32@gmail.com>
-Cc: Patrice Chotard <patrice.chotard@st.com>
-Cc: Patrick Delaunay <patrick.delaunay@st.com>
-Cc: linux-stm32@st-md-mailman.stormreply.com
-To: linux-arm-kernel@lists.infradead.org
-Signed-off-by: Alexandre Torgue <alexandre.torgue@st.com>
-Signed-off-by: Sasha Levin <sashal@kernel.org>
----
- arch/arm/boot/dts/stm32mp157a-avenger96.dts | 3 +++
- 1 file changed, 3 insertions(+)
-
-diff --git a/arch/arm/boot/dts/stm32mp157a-avenger96.dts b/arch/arm/boot/dts/stm32mp157a-avenger96.dts
-index 2e4742c53d048..7b8c3f25861c9 100644
---- a/arch/arm/boot/dts/stm32mp157a-avenger96.dts
-+++ b/arch/arm/boot/dts/stm32mp157a-avenger96.dts
-@@ -91,6 +91,9 @@
- 		#address-cells = <1>;
- 		#size-cells = <0>;
- 		compatible = "snps,dwmac-mdio";
-+		reset-gpios = <&gpioz 2 GPIO_ACTIVE_LOW>;
-+		reset-delay-us = <1000>;
-+
- 		phy0: ethernet-phy@7 {
- 			reg = <7>;
- 		};
 -- 
-2.25.1
-
-
-
+~Vinod
 _______________________________________________
 Linux-stm32 mailing list
 Linux-stm32@st-md-mailman.stormreply.com
