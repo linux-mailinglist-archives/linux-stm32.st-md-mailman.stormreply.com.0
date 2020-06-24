@@ -2,53 +2,54 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id E4D12206E2C
-	for <lists+linux-stm32@lfdr.de>; Wed, 24 Jun 2020 09:49:11 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 79CDF206E5F
+	for <lists+linux-stm32@lfdr.de>; Wed, 24 Jun 2020 09:57:05 +0200 (CEST)
 Received: from ip-172-31-3-76.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id A9188C36B0C;
-	Wed, 24 Jun 2020 07:49:11 +0000 (UTC)
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 2902FC36B0C;
+	Wed, 24 Jun 2020 07:57:05 +0000 (UTC)
 Received: from mail-io1-f65.google.com (mail-io1-f65.google.com
  [209.85.166.65])
  (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id B4B6BC36B0A
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 232A0C36B0A
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Wed, 24 Jun 2020 07:49:10 +0000 (UTC)
-Received: by mail-io1-f65.google.com with SMTP id k23so1098862iom.10
+ Wed, 24 Jun 2020 07:57:03 +0000 (UTC)
+Received: by mail-io1-f65.google.com with SMTP id h4so1141636ior.5
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Wed, 24 Jun 2020 00:49:10 -0700 (PDT)
+ Wed, 24 Jun 2020 00:57:03 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20161025;
  h=mime-version:references:in-reply-to:from:date:message-id:subject:to
- :cc; bh=IMLtUyyLaeGE1Rn+RkOTJ2DJsfDwk7l2d3YRRlgm31o=;
- b=GMOEE2Aka1QlX9FIQVJl66QctjiCb0XiJacypZj3tcoGy1G9k9XfYETKKmM1a/oj7o
- xdGpc2tIhuF+bDtUMn9f8Yw/dFmzQ/YFNp3xIurzF3JwwJ0qdhGdgf0H8hOW+DPyzg6K
- 7fRNcnLdA5L730dHt0w4xejiidfHS++GxJqx3O1eirdtCZMUXTslm8ddsiHsBiy9deA+
- 1gkReav+ZWgFcvQ1bgt3sWUxdR7vjndM71DYbx3YZ+QZj2SADIGwsRmegJNuOHhOsgCg
- aCGoSXZmXE8nsKCgozBPX9phPtcxkDDPjN1vkX+Xsg0uKkEtZfWCmoNv1oHhLayoZkOl
- VfUA==
+ :cc; bh=xwsl5Y0blEJP4hTqwqLpH/L66f7CdWeL56/kOIm2dJo=;
+ b=O6y+cPs/buepS39s0exMrI3koN/Sen7jwoqQPnmuMWk/wBsZ+cLRFVwOm3nxSCGGJP
+ M/fRROA3unTVnVtgq6bgytS8qJ1POHYJ3aWedi/q/8FNB9G/n3n3/oISsY2AJSPKlp+n
+ 3JDgvM7zQcVccKXGTCrNJ6h+nMPziCzKzm6K/AaLPjmyQf83MOgedijrw+o/nAim1wgy
+ rBTWrtxDQ9/lOuKGCMXSyHOmR6VhLTD20F8lp4fRyDaRMRbPQCFa0E44A/zXX5IpiJ0Y
+ xlf9nPT4CZgcC6UglwQ3mRBhdSdqM9pclA/K4UnJFFRQOX1W2cSNXuUw03d9zgwYjzYw
+ wVuw==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=1e100.net; s=20161025;
  h=x-gm-message-state:mime-version:references:in-reply-to:from:date
  :message-id:subject:to:cc;
- bh=IMLtUyyLaeGE1Rn+RkOTJ2DJsfDwk7l2d3YRRlgm31o=;
- b=Q3mBalhrajqgejNNYVHi7A4paHIOhmVw+AwYXlCySy/SrT6Z+KzVoQWtOME3wod97i
- TdnK+zLLrhGOrDIFddCWeY22Y58EyFTR8x17kVFdNUe9yvwKlTc3Z8Cy0Bn+Rt7funsp
- cwgS9CNt5naC28aYXvqsUdOCLmCnKuuiAMIftv/4dUXWAAGSl/1+M25lY7dDBPRxSCze
- C0oZzyNeQlUmycwpuFPH92QJSNRjp4rupTWR7lGUBz/XboDFXk/DmotXzvXmyi7xQB6y
- 5p6jwFVNislPaJjknVU2WDspCuY7V/TJn2UvssezF/iT9yWOZGhJwbjTxeGk/vdMZ1l+
- AGSA==
-X-Gm-Message-State: AOAM531u9y8M+IFdSK23Clvmrk4ysRDm7xbYZ4LeveAn6aVsE7Pk5yF/
- 6NdNfb1Ma3+78HpfXGpb4XsHuzoZx3A7xrtLmiY=
-X-Google-Smtp-Source: ABdhPJxbMiUffQwZWQ2UYDzKfRDx3+8H0TxEgs2Hi4DaFt/LCSVVqMasK98uer8zv/ZRuV7r2kzL7kWtnNEiZIzxaCs=
-X-Received: by 2002:a5e:8d15:: with SMTP id m21mr4447306ioj.60.1592984949433; 
- Wed, 24 Jun 2020 00:49:09 -0700 (PDT)
+ bh=xwsl5Y0blEJP4hTqwqLpH/L66f7CdWeL56/kOIm2dJo=;
+ b=NoU3AGncsuPG9VSTkR1K6nNcfu8Sy8i+d4Bl6rKQ1ljXvZRDOizDCdc+tf2R1TWoSo
+ 4zDxnd1THuu6eRaOLqO8DpSDfQ0U1Yo/d9BwAcBQI4akMlsYqfImhXkomOilN0Q/EIRo
+ 7nMXemsEvWvftDQdtSVT9yhhK7kW9U9pxP00kFluUgidGIseGRtR2HpU7IwCaDSry27e
+ COOKVPzKsgPZPADvGWqpT5U0GVdbCHaxdPX7nynfuUbL5HyLtYQB+Fvvv582i0sU5Vhw
+ N2FXkDK8zlDcbPRe92kevoL7XC2wI3o74RqSiaXALrzgpX4TIbQvzReCYzSTRa5wtfJ5
+ b0xg==
+X-Gm-Message-State: AOAM530Is98nreDOikHaJXmiDdZnlkNyoLZVG2f/vYoS5dlMmMj9j9WE
+ VKV4/4T5HKNB6cAMeOAZsLj+oZ0o6rIAsbEYqgQ=
+X-Google-Smtp-Source: ABdhPJyFJAP4+TaXCF2Tt+Wk3tGrJYPg7JNM1+dgJ26YdHRQBoShmqhUXw3+uFALNZOy1RB4yAS6Jsq3KbHg3t1PB14=
+X-Received: by 2002:a05:6602:2d95:: with SMTP id
+ k21mr30336056iow.59.1592985421897; 
+ Wed, 24 Jun 2020 00:57:01 -0700 (PDT)
 MIME-Version: 1.0
-References: <20200603183410.76764-1-navid.emamdoost@gmail.com>
- <20200624073932.GO2324254@vkoul-mobl>
-In-Reply-To: <20200624073932.GO2324254@vkoul-mobl>
+References: <20200603193648.19190-1-navid.emamdoost@gmail.com>
+ <20200624074015.GP2324254@vkoul-mobl>
+In-Reply-To: <20200624074015.GP2324254@vkoul-mobl>
 From: Navid Emamdoost <navid.emamdoost@gmail.com>
-Date: Wed, 24 Jun 2020 02:48:58 -0500
-Message-ID: <CAEkB2EQ6AquKCexaaauHcsQXP4Y5hsri5FqehKqiw7deex5kQw@mail.gmail.com>
+Date: Wed, 24 Jun 2020 02:56:51 -0500
+Message-ID: <CAEkB2ERfzxwkixX75CzCMeRRv51v-fM2zo2gpQrjtgaBZ_nNHQ@mail.gmail.com>
 To: Vinod Koul <vkoul@kernel.org>
 Cc: Qiushi Wu <wu000273@umn.edu>, Kangjie Lu <kjlu@umn.edu>,
  LKML <linux-kernel@vger.kernel.org>, Navid Emamdoost <emamd001@umn.edu>,
@@ -56,8 +57,8 @@ Cc: Qiushi Wu <wu000273@umn.edu>, Kangjie Lu <kjlu@umn.edu>,
  Stephen McCamant <smccaman@umn.edu>, dmaengine@vger.kernel.org,
  Dan Williams <dan.j.williams@intel.com>,
  linux-stm32@st-md-mailman.stormreply.com, linux-arm-kernel@lists.infradead.org
-Subject: Re: [Linux-stm32] [PATCH] engine: stm32-dma: call pm_runtime_put if
- pm_runtime_get_sync fails
+Subject: Re: [Linux-stm32] [PATCH] dmaengine: stm32-dmamux: fix
+	pm_runtime_get_sync fialure cases
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -74,55 +75,54 @@ Content-Transfer-Encoding: 7bit
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
-Hi,
-
-On Wed, Jun 24, 2020 at 2:39 AM Vinod Koul <vkoul@kernel.org> wrote:
+On Wed, Jun 24, 2020 at 2:40 AM Vinod Koul <vkoul@kernel.org> wrote:
 >
-> On 03-06-20, 13:34, Navid Emamdoost wrote:
+> On 03-06-20, 14:36, Navid Emamdoost wrote:
+>
+> s/fialure/failure
+>
 > > Calling pm_runtime_get_sync increments the counter even in case of
-> > failure, causing incorrect ref count. Call pm_runtime_put if
+> > failure, causing incorrect ref count. Call pm_runtime_put_sync if
 > > pm_runtime_get_sync fails.
->
-> pls fix subsystem name as dmaengine: ...
 > >
 > > Signed-off-by: Navid Emamdoost <navid.emamdoost@gmail.com>
 > > ---
-> >  drivers/dma/stm32-dma.c | 8 ++++++--
-> >  1 file changed, 6 insertions(+), 2 deletions(-)
+> >  drivers/dma/stm32-dmamux.c | 5 ++++-
+> >  1 file changed, 4 insertions(+), 1 deletion(-)
 > >
-> > diff --git a/drivers/dma/stm32-dma.c b/drivers/dma/stm32-dma.c
-> > index 0ddbaa4b4f0b..0aab86bd97fe 100644
-> > --- a/drivers/dma/stm32-dma.c
-> > +++ b/drivers/dma/stm32-dma.c
-> > @@ -1169,8 +1169,10 @@ static int stm32_dma_alloc_chan_resources(struct dma_chan *c)
-> >       chan->config_init = false;
-> >
-> >       ret = pm_runtime_get_sync(dmadev->ddev.dev);
-> > -     if (ret < 0)
-> > +     if (ret < 0) {
-> > +             pm_runtime_put(dmadev->ddev.dev);
-> >               return ret;
-> > +     }
-> >
-> >       ret = stm32_dma_disable_chan(chan);
-> >       if (ret < 0)
-> > @@ -1439,8 +1441,10 @@ static int stm32_dma_suspend(struct device *dev)
-> >       int id, ret, scr;
+> > diff --git a/drivers/dma/stm32-dmamux.c b/drivers/dma/stm32-dmamux.c
+> > index 12f7637e13a1..ab250d7eed29 100644
+> > --- a/drivers/dma/stm32-dmamux.c
+> > +++ b/drivers/dma/stm32-dmamux.c
+> > @@ -140,6 +140,7 @@ static void *stm32_dmamux_route_allocate(struct of_phandle_args *dma_spec,
+> >       ret = pm_runtime_get_sync(&pdev->dev);
+> >       if (ret < 0) {
+> >               spin_unlock_irqrestore(&dmamux->lock, flags);
+> > +             pm_runtime_put_sync(&pdev->dev);
+>
+> why put_sync()
+>
+> >               goto error;
+> >       }
+> >       spin_unlock_irqrestore(&dmamux->lock, flags);
+> > @@ -340,8 +341,10 @@ static int stm32_dmamux_suspend(struct device *dev)
+> >       int i, ret;
 > >
 > >       ret = pm_runtime_get_sync(dev);
 > > -     if (ret < 0)
 > > +     if (ret < 0) {
 > > +             pm_runtime_put_sync(dev);
 >
-> why put_sync()
+> here too
 
-My bad! I will fix it.
+Is put_noidle() better?
 
+>
 > >               return ret;
 > > +     }
 > >
-> >       for (id = 0; id < STM32_DMA_MAX_CHANNELS; id++) {
-> >               scr = stm32_dma_read(dmadev, STM32_DMA_SCR(id));
+> >       for (i = 0; i < stm32_dmamux->dma_requests; i++)
+> >               stm32_dmamux->ccr[i] = stm32_dmamux_read(stm32_dmamux->iomem,
 > > --
 > > 2.17.1
 >
