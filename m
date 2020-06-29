@@ -2,71 +2,125 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id E25C420CD55
-	for <lists+linux-stm32@lfdr.de>; Mon, 29 Jun 2020 10:34:02 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id CF20E20CD61
+	for <lists+linux-stm32@lfdr.de>; Mon, 29 Jun 2020 10:47:55 +0200 (CEST)
 Received: from ip-172-31-3-76.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id A1B57C36B0D;
-	Mon, 29 Jun 2020 08:34:02 +0000 (UTC)
-Received: from mail-wr1-f66.google.com (mail-wr1-f66.google.com
- [209.85.221.66])
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 860F8C36B0D;
+	Mon, 29 Jun 2020 08:47:55 +0000 (UTC)
+Received: from mail-wr1-f65.google.com (mail-wr1-f65.google.com
+ [209.85.221.65])
  (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 945C0C36B0B
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id B9FB5C36B0B
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Mon, 29 Jun 2020 08:34:01 +0000 (UTC)
-Received: by mail-wr1-f66.google.com with SMTP id h5so15611927wrc.7
+ Mon, 29 Jun 2020 08:47:54 +0000 (UTC)
+Received: by mail-wr1-f65.google.com with SMTP id q5so15660364wru.6
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Mon, 29 Jun 2020 01:34:01 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=ffwll.ch; s=google;
- h=date:from:to:cc:subject:message-id:mail-followup-to:references
- :mime-version:content-disposition:in-reply-to;
- bh=m1iLBqzd5JET/4+7q0bkqySBB/VEXvt/QPf9pQZxD4I=;
- b=ioALFefxtWjpUGVv9aHBdWR6XYQ5mUGOiLyBKcCwX93YpoWp3xtVYvb6n6RB2S8Ckz
- u3QFELzJpaqBiFOqrnUVJ2Wq7mtXuxbjmoKGKF4tV6Wn0jSwpXHOXITn+H14U5jKSdGf
- DiIL0Vq9MDiO8em2RGk+86Hl1UFagXnZvgL9c=
+ Mon, 29 Jun 2020 01:47:54 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=baylibre-com.20150623.gappssmtp.com; s=20150623;
+ h=subject:to:cc:references:from:autocrypt:organization:message-id
+ :date:user-agent:mime-version:in-reply-to:content-language
+ :content-transfer-encoding;
+ bh=EffOshP13YGIgJwXnCvVvNFs3Gt+n5ALuno/hX+Xibk=;
+ b=O6TA/khj2oAd50wICvTYvI8rNtrjotOqN8tzE3VwLns4q49M36UxPhle5ZI+whRmsb
+ e/KvJVk0YKIz25aWGKJu7NgL+4s+h4h7TGCeStNrjO9+ECce1sJWpllWWrtqDkYps6me
+ gNFHnP6kRuzn4vlzSPeA6N8Dcabbfrejo2pLlBKAy5Oy1Z9sgcofHZv60bXtC2d6j/4v
+ LNlkuaBR9uyBGK+z4xLYq8PItyU+TYf6QmlWFrD4Nmp1JCMJSFM0awNfgTE8kH4ufECr
+ or+PCddx/lCrdI+309TTG03QGtBbE1vB5OhgdfRES9E0qx2aez7HFRjgomo51QH5Mizs
+ GQsQ==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=1e100.net; s=20161025;
- h=x-gm-message-state:date:from:to:cc:subject:message-id
- :mail-followup-to:references:mime-version:content-disposition
- :in-reply-to;
- bh=m1iLBqzd5JET/4+7q0bkqySBB/VEXvt/QPf9pQZxD4I=;
- b=XmolXiXl6DpQU9nR1Pk3k2IMwT9wyjv3XVgEAPST83rrDBF7IDIK8wwH7jDgStaAjj
- +lEiIuEFRT+aaO/L0fcbC6oo5DDGcjjuudNL3NSdaHnY95QPlUm3yUAGM0WquLEXZAr/
- mbb/1z6nc1g/XkgtNfFoExW1eyvVh3UqdYN+9z6Bf66P8TxChJKNF87w5dVp6nCBalk6
- RMrtB/qHJZnbeRYmrxaMOQdDoO4MeQKVgc2rkhNGkfCh4cngOr2dwCCo5jAm9nC/yYYM
- mlwudkRpVLf3XycnVHYJJQzYajiK4qZoTXrQ2hA3MD5JiDB7ivgc33qlswklSFFfaAj4
- EC4Q==
-X-Gm-Message-State: AOAM5338rx8ODshx1NsoXVRtg7Q1llz5b9S4CDfk2zirl5iGDFhODE4t
- Y8TV8WiL0ZsaQIvJbLKqtHgwLw==
-X-Google-Smtp-Source: ABdhPJxoly9GEBebPkgfgZdpyDBicJrcaP5lLqpFp2lEkUI/aykgWwPjNusQB+uOOnfme7Z0sEXChg==
-X-Received: by 2002:adf:f5ce:: with SMTP id k14mr15246966wrp.234.1593419641020; 
- Mon, 29 Jun 2020 01:34:01 -0700 (PDT)
-Received: from phenom.ffwll.local ([2a02:168:57f4:0:efd0:b9e5:5ae6:c2fa])
- by smtp.gmail.com with ESMTPSA id y20sm4657035wmi.8.2020.06.29.01.33.59
- (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Mon, 29 Jun 2020 01:34:00 -0700 (PDT)
-Date: Mon, 29 Jun 2020 10:33:58 +0200
-From: Daniel Vetter <daniel@ffwll.ch>
-To: Antonio Borneo <antonio.borneo@st.com>
-Message-ID: <20200629083358.GK3278063@phenom.ffwll.local>
-Mail-Followup-To: Antonio Borneo <antonio.borneo@st.com>,
- Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
- Maxime Ripard <mripard@kernel.org>,
- Thomas Zimmermann <tzimmermann@suse.de>,
- David Airlie <airlied@linux.ie>, dri-devel@lists.freedesktop.org,
- linux-kernel@vger.kernel.org,
- linux-stm32@st-md-mailman.stormreply.com
-References: <20200626204252.44565-1-antonio.borneo@st.com>
+ h=x-gm-message-state:subject:to:cc:references:from:autocrypt
+ :organization:message-id:date:user-agent:mime-version:in-reply-to
+ :content-language:content-transfer-encoding;
+ bh=EffOshP13YGIgJwXnCvVvNFs3Gt+n5ALuno/hX+Xibk=;
+ b=HfCpa7RO4TtEl8qCxFAEACasvY/jdne2YQ0IyzBDq/Qzz6yUHXVYhA5kKoku5kmtYu
+ LeCUKNZt6o/I9zCOBmoOOEOYxXa5biLbGOXENDbrF19utSw86vY6MGHYaNo9XYWPXz8Q
+ IkLF1gpiVVU0aqn8K3e8lKn8u3ktAR+SWlUbdMvLCbH+b3VRONyTqhEceW+0/K5DjkHF
+ 0Z5Vxc3JT5t31CslaXFbGVz5Hd1O/xmfF4JHxv7Y9KCxXnD3iorOYi63la9vYbt9Umfd
+ ZKpBDQ6w5BSngsAaRLr3sub3yxb1sedIJwiEdZ8ePF2/otQdlstxs5YvXK5iVPt+FgNB
+ EN1A==
+X-Gm-Message-State: AOAM530nokK3JFWG6k5M9qzvSHYQhdVSl/6HRxNn6VPTN59gHF24yhy/
+ qfIWqF13SLhHXjCPbwptqD9wrRAqxig/QA==
+X-Google-Smtp-Source: ABdhPJyKCEz4lXI73wHLHAlG3HZk35S0elYYf8BSZHGCOmLggLDix7TloGxvh3UbU/inFApdle93DA==
+X-Received: by 2002:adf:e811:: with SMTP id o17mr17081860wrm.53.1593420473627; 
+ Mon, 29 Jun 2020 01:47:53 -0700 (PDT)
+Received: from ?IPv6:2a01:e35:2ec0:82b0:9902:c1f0:76c7:9dbc?
+ ([2a01:e35:2ec0:82b0:9902:c1f0:76c7:9dbc])
+ by smtp.gmail.com with ESMTPSA id s15sm8329418wmj.41.2020.06.29.01.47.51
+ (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+ Mon, 29 Jun 2020 01:47:52 -0700 (PDT)
+To: Adrian Ratiu <adrian.ratiu@collabora.com>,
+ linux-arm-kernel@lists.infradead.org, devicetree@vger.kernel.org,
+ linux-rockchip@lists.infradead.org,
+ Laurent Pinchart <Laurent.pinchart@ideasonboard.com>
+References: <20200609174959.955926-1-adrian.ratiu@collabora.com>
+From: Neil Armstrong <narmstrong@baylibre.com>
+Autocrypt: addr=narmstrong@baylibre.com; prefer-encrypt=mutual; keydata=
+ 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
+ BSwxi7g3Mu7u5kUByanqHyA=
+Organization: Baylibre
+Message-ID: <c6f10db1-7f56-a156-36a1-125e764c8c1a@baylibre.com>
+Date: Mon, 29 Jun 2020 10:47:51 +0200
+User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:68.0) Gecko/20100101
+ Thunderbird/68.8.0
 MIME-Version: 1.0
-Content-Disposition: inline
-In-Reply-To: <20200626204252.44565-1-antonio.borneo@st.com>
-X-Operating-System: Linux phenom 5.6.0-1-amd64 
-Cc: Thomas Zimmermann <tzimmermann@suse.de>, David Airlie <airlied@linux.ie>,
- Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
+In-Reply-To: <20200609174959.955926-1-adrian.ratiu@collabora.com>
+Content-Language: en-US
+Cc: Jernej Skrabec <jernej.skrabec@siol.net>, Jonas Karlman <jonas@kwiboo.se>,
  linux-kernel@vger.kernel.org, dri-devel@lists.freedesktop.org,
- Maxime Ripard <mripard@kernel.org>, Daniel Vetter <daniel@ffwll.ch>,
+ Yannick FERTRE <yannick.fertre@st.com>, Andrzej Hajda <a.hajda@samsung.com>,
+ linux-imx@nxp.com, kernel@collabora.com,
  linux-stm32@st-md-mailman.stormreply.com
-Subject: Re: [Linux-stm32] [PATCH] drm/connector: fix minor typos in comments
+Subject: Re: [Linux-stm32] [PATCH v9 00/11] Genericize DW MIPI DSI bridge
+ and add i.MX 6 driver
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -83,131 +137,78 @@ Content-Transfer-Encoding: 7bit
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
-On Fri, Jun 26, 2020 at 10:42:52PM +0200, Antonio Borneo wrote:
-> Some of these comments are part of the Linux GPU Driver Developer's
-> Guide.
-> Fix some minor typo in the comments and remove a repeated 'the'.
-> 
-> Signed-off-by: Antonio Borneo <antonio.borneo@st.com>
+Hi Adrian,
 
-Queued up for 5.9 in drm-misc-next, thanks for your patch.
--Daniel
-
-> ---
->  drivers/gpu/drm/drm_connector.c | 22 +++++++++++-----------
->  1 file changed, 11 insertions(+), 11 deletions(-)
+On 09/06/2020 19:49, Adrian Ratiu wrote:
+> [Re-submitting to cc dri-devel, sorry about the noise]
 > 
-> diff --git a/drivers/gpu/drm/drm_connector.c b/drivers/gpu/drm/drm_connector.c
-> index d877ddc6dc57..cb62fb8e594e 100644
-> --- a/drivers/gpu/drm/drm_connector.c
-> +++ b/drivers/gpu/drm/drm_connector.c
-> @@ -38,7 +38,7 @@
->   * DOC: overview
->   *
->   * In DRM connectors are the general abstraction for display sinks, and include
-> - * als fixed panels or anything else that can display pixels in some form. As
-> + * also fixed panels or anything else that can display pixels in some form. As
->   * opposed to all other KMS objects representing hardware (like CRTC, encoder or
->   * plane abstractions) connectors can be hotplugged and unplugged at runtime.
->   * Hence they are reference-counted using drm_connector_get() and
-> @@ -129,7 +129,7 @@ EXPORT_SYMBOL(drm_get_connector_type_name);
->  
->  /**
->   * drm_connector_get_cmdline_mode - reads the user's cmdline mode
-> - * @connector: connector to quwery
-> + * @connector: connector to query
->   *
->   * The kernel supports per-connector configuration of its consoles through
->   * use of the video= parameter. This function parses that option and
-> @@ -991,7 +991,7 @@ static const struct drm_prop_enum_list dp_colorspaces[] = {
->   * 	DP MST sinks), or high-res integrated panels (like dual-link DSI) which
->   * 	are not gen-locked. Note that for tiled panels which are genlocked, like
->   * 	dual-link LVDS or dual-link DSI, the driver should try to not expose the
-> - * 	tiling and virtualize both &drm_crtc and &drm_plane if needed. Drivers
-> + * 	tiling and virtualise both &drm_crtc and &drm_plane if needed. Drivers
->   * 	should update this value using drm_connector_set_tile_property().
->   * 	Userspace cannot change this property.
->   * link-status:
-> @@ -1131,7 +1131,7 @@ static const struct drm_prop_enum_list dp_colorspaces[] = {
->   *
->   *	It will even need to do colorspace conversion and get all layers
->   *	to one common colorspace for blending. It can use either GL, Media
-> - *	or display engine to get this done based on the capabilties of the
-> + *	or display engine to get this done based on the capabilities of the
->   *	associated hardware.
->   *
->   *	Driver expects metadata to be put in &struct hdr_output_metadata
-> @@ -1614,7 +1614,7 @@ EXPORT_SYMBOL(drm_mode_create_scaling_mode_property);
->   * variable refresh rate capability for a connector.
->   *
->   * Returns:
-> - * Zero on success, negative errono on failure.
-> + * Zero on success, negative errno on failure.
->   */
->  int drm_connector_attach_vrr_capable_property(
->  	struct drm_connector *connector)
-> @@ -1759,7 +1759,7 @@ EXPORT_SYMBOL(drm_mode_create_aspect_ratio_property);
->   * HDMI connectors.
->   *
->   * Returns:
-> - * Zero on success, negative errono on failure.
-> + * Zero on success, negative errno on failure.
->   */
->  int drm_mode_create_hdmi_colorspace_property(struct drm_connector *connector)
->  {
-> @@ -1788,7 +1788,7 @@ EXPORT_SYMBOL(drm_mode_create_hdmi_colorspace_property);
->   * DP connectors.
->   *
->   * Returns:
-> - * Zero on success, negative errono on failure.
-> + * Zero on success, negative errno on failure.
->   */
->  int drm_mode_create_dp_colorspace_property(struct drm_connector *connector)
->  {
-> @@ -1840,7 +1840,7 @@ EXPORT_SYMBOL(drm_mode_create_content_type_property);
->   * drm_mode_create_suggested_offset_properties - create suggests offset properties
->   * @dev: DRM device
->   *
-> - * Create the the suggested x/y offset property for connectors.
-> + * Create the suggested x/y offset property for connectors.
->   */
->  int drm_mode_create_suggested_offset_properties(struct drm_device *dev)
->  {
-> @@ -1963,7 +1963,7 @@ int drm_connector_update_edid_property(struct drm_connector *connector,
->  		size = EDID_LENGTH * (1 + edid->extensions);
->  
->  	/* Set the display info, using edid if available, otherwise
-> -	 * reseting the values to defaults. This duplicates the work
-> +	 * resetting the values to defaults. This duplicates the work
->  	 * done in drm_add_edid_modes, but that function is not
->  	 * consistently called before this one in all drivers and the
->  	 * computation is cheap enough that it seems better to
-> @@ -2076,7 +2076,7 @@ void drm_connector_set_vrr_capable_property(
->  EXPORT_SYMBOL(drm_connector_set_vrr_capable_property);
->  
->  /**
-> - * drm_connector_set_panel_orientation - sets the connecter's panel_orientation
-> + * drm_connector_set_panel_orientation - sets the connector's panel_orientation
->   * @connector: connector for which to set the panel-orientation property.
->   * @panel_orientation: drm_panel_orientation value to set
->   *
-> @@ -2131,7 +2131,7 @@ EXPORT_SYMBOL(drm_connector_set_panel_orientation);
->  
->  /**
->   * drm_connector_set_panel_orientation_with_quirk -
-> - *	set the connecter's panel_orientation after checking for quirks
-> + *	set the connector's panel_orientation after checking for quirks
->   * @connector: connector for which to init the panel-orientation property.
->   * @panel_orientation: drm_panel_orientation value to set
->   * @width: width in pixels of the panel, used for panel quirk detection
-> -- 
-> 2.27.0
+> Hello all,
+> 
+> v9 cleanly applies on top of latest next-20200609 tree.
+> 
+> v9 does not depend on other patches as the last binding doc has been merged.
+> 
+> All feedback up to this point has been addressed. Specific details in
+> individual patch changelogs.
+> 
+> The biggest changes are the deprecation of the Synopsys DW bridge bind()
+> API in favor of of_drm_find_bridge() and .attach callbacks, the addition
+> of a TODO entry which outlines future planned bridge driver refactorings
+> and a reordering of some i.MX 6 patches to appease checkpatch.
+> 
+> The idea behind the TODO is to get this regmap and i.MX 6 driver merged
+> and then do the rest of refactorings in-tree because it's easier and the
+> refactorings themselves are out-of-scope of this series which is adding
+> i.MX 6 support and is quite big already, so please, if there are more
+> refactoring ideas, let's add them to the TODO doc. :) I intend to tackle
+> those after this series is merged to avoid two complex inter-dependent
+> simultaneous series.
+
+This has been around here for a long time and you seem to have addressed all
+the reviews.
+
+> 
+> As always more testing is welcome especially on Rockchip and STM SoCs.
+
+It has been tested on STM, but I'd like a feedback on RK platform before applying
+the bridge parts.
+
+Can the imx & stm patches be applied separately ?
+
+Neil
+
+> 
+> Big thank you to everyone who has contributed to this up to now,
+> Adrian
+> 
+> Adrian Ratiu (11):
+>   drm: bridge: dw_mipi_dsi: add initial regmap infrastructure
+>   drm: bridge: dw_mipi_dsi: abstract register access using reg_fields
+>   drm: bridge: dw_mipi_dsi: add dsi v1.01 support
+>   drm: bridge: dw_mipi_dsi: remove bind/unbind API
+>   dt-bindings: display: add i.MX6 MIPI DSI host controller doc
+>   ARM: dts: imx6qdl: add missing mipi dsi properties
+>   drm: imx: Add i.MX 6 MIPI DSI host platform driver
+>   drm: stm: dw-mipi-dsi: let the bridge handle the HW version check
+>   drm: bridge: dw-mipi-dsi: split low power cfg register into fields
+>   drm: bridge: dw-mipi-dsi: fix bad register field offsets
+>   Documentation: gpu: todo: Add dw-mipi-dsi consolidation plan
+> 
+>  .../display/imx/fsl,mipi-dsi-imx6.yaml        | 112 +++
+>  Documentation/gpu/todo.rst                    |  25 +
+>  arch/arm/boot/dts/imx6qdl.dtsi                |   8 +
+>  drivers/gpu/drm/bridge/synopsys/Kconfig       |   1 +
+>  drivers/gpu/drm/bridge/synopsys/dw-mipi-dsi.c | 713 ++++++++++++------
+>  drivers/gpu/drm/imx/Kconfig                   |   8 +
+>  drivers/gpu/drm/imx/Makefile                  |   1 +
+>  drivers/gpu/drm/imx/dw_mipi_dsi-imx6.c        | 399 ++++++++++
+>  .../gpu/drm/rockchip/dw-mipi-dsi-rockchip.c   |   7 +-
+>  drivers/gpu/drm/stm/dw_mipi_dsi-stm.c         |  16 +-
+>  10 files changed, 1059 insertions(+), 231 deletions(-)
+>  create mode 100644 Documentation/devicetree/bindings/display/imx/fsl,mipi-dsi-imx6.yaml
+>  create mode 100644 drivers/gpu/drm/imx/dw_mipi_dsi-imx6.c
 > 
 
--- 
-Daniel Vetter
-Software Engineer, Intel Corporation
-http://blog.ffwll.ch
 _______________________________________________
 Linux-stm32 mailing list
 Linux-stm32@st-md-mailman.stormreply.com
