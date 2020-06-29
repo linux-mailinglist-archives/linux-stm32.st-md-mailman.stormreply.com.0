@@ -2,69 +2,87 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id 6EC4720C3B0
-	for <lists+linux-stm32@lfdr.de>; Sat, 27 Jun 2020 21:21:05 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id D34F220CD30
+	for <lists+linux-stm32@lfdr.de>; Mon, 29 Jun 2020 10:13:56 +0200 (CEST)
 Received: from ip-172-31-3-76.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 1E0D2C36B0D;
-	Sat, 27 Jun 2020 19:21:05 +0000 (UTC)
-Received: from vern.gendns.com (vern.gendns.com [98.142.107.122])
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 7E6E0C36B0D;
+	Mon, 29 Jun 2020 08:13:56 +0000 (UTC)
+Received: from mx07-00178001.pphosted.com (mx08-00178001.pphosted.com
+ [91.207.212.93])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 067F1C36B0B
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 8C256C36B0B
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Sat, 27 Jun 2020 19:21:02 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
- d=lechnology.com; s=default; h=Content-Transfer-Encoding:Content-Type:
- In-Reply-To:MIME-Version:Date:Message-ID:From:References:Cc:To:Subject:Sender
- :Reply-To:Content-ID:Content-Description:Resent-Date:Resent-From:
- Resent-Sender:Resent-To:Resent-Cc:Resent-Message-ID:List-Id:List-Help:
- List-Unsubscribe:List-Subscribe:List-Post:List-Owner:List-Archive;
- bh=oFxURIxj9myDfJcM8l9lS1bZv4B4c/d/WWg4QVvvxCg=; b=K5yW/T7aiN3k8SM7hUdIzsp2Ex
- vpB+NQsAapYuDACPwbG06es4XZ/yGb3quQ96XDPO+Z08ch2uFEaLN9DWfRDrXunOpHRs7lN18k7fp
- Xk7E4DJy+XK0GrlhioDBZno3Vvcw1gKP6poO5PEqDuu/0OCUGgtTRlUxCNEoahyfT2bTQjGUuB5aP
- Ov/uHspQt3ij42IEvPf8PeVCB6OIAqjEih+igZTiC2mjhTMs3cbrqeWPZnwAlhQp4Rrngah+huLiL
- kfGGjQ3mfM8t7XUfmq8d8Ps4ztnEQhZicAwply/QXg9VRPq5Eo878dYd125RGO+m6ANLCbDYt5CAZ
- Uunzhtsg==;
-Received: from 108-198-5-147.lightspeed.okcbok.sbcglobal.net
- ([108.198.5.147]:48498 helo=[192.168.0.134])
- by vern.gendns.com with esmtpsa (TLS1.2) tls
- TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256 (Exim 4.93)
- (envelope-from <david@lechnology.com>)
- id 1jpGNj-0005ES-0L; Sat, 27 Jun 2020 15:20:55 -0400
-To: William Breathitt Gray <vilhelm.gray@gmail.com>
-References: <cover.1592341702.git.vilhelm.gray@gmail.com>
- <afe40ef2e24ecaca44fc229f7983cf4cde3374a8.1592341702.git.vilhelm.gray@gmail.com>
- <8fae0659-56df-c0b5-7c0d-220feefed2b4@lechnology.com>
- <20200621195347.GA59797@shinobu>
- <47ad15e7-05ce-d463-b6af-406365b3c3b4@lechnology.com>
- <20200627181748.GA8254@shinobu>
-From: David Lechner <david@lechnology.com>
-Message-ID: <cc1c347a-3363-c563-de81-06dbb464a29d@lechnology.com>
-Date: Sat, 27 Jun 2020 14:20:52 -0500
-User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:68.0) Gecko/20100101
- Thunderbird/68.8.0
-MIME-Version: 1.0
-In-Reply-To: <20200627181748.GA8254@shinobu>
+ Mon, 29 Jun 2020 08:13:54 +0000 (UTC)
+Received: from pps.filterd (m0046661.ppops.net [127.0.0.1])
+ by mx07-00178001.pphosted.com (8.16.0.42/8.16.0.42) with SMTP id
+ 05T8ASlU008548; Mon, 29 Jun 2020 10:13:29 +0200
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=st.com;
+ h=from : to : cc : subject
+ : date : message-id : references : in-reply-to : content-type : content-id
+ : content-transfer-encoding : mime-version; s=STMicroelectronics;
+ bh=w3dIE67dE3KoXbBoLblS3zP9klm4N4Ihl8g7RfI8wH4=;
+ b=egF/bFkmDFi7YrM+IdLAZv0HQBZnKlfV+ZcniDcXQgm0yYyQudJlHBmPZOj+bvarfTpC
+ N2vq7bC3bsrcygWGevkP28ipsoYRjbYzU/ukbSDNeWdIFxPpQgFeUFfWo0HImZzP96r6
+ NO4om23b3JpL5HGFBOlb90MZs2YD59p8FBst0j1X10V6NFOGGR0HbkYH/PzXDIV5Vo4t
+ BYzVz379+39a+OCZmA/jRfUyFQTVEOgQVO3QZNFcCX5rJRG2Q5MX7P5q4wGRnjxbVd+B
+ OSS/qYn0R40K+763Eag4amcidi0CidlPYJjlQQnskRL6qCLn37ZAmuEGeJdhQSGA4O/t mQ== 
+Received: from beta.dmz-eu.st.com (beta.dmz-eu.st.com [164.129.1.35])
+ by mx07-00178001.pphosted.com with ESMTP id 31ww0ftpxb-1
+ (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
+ Mon, 29 Jun 2020 10:13:29 +0200
+Received: from euls16034.sgp.st.com (euls16034.sgp.st.com [10.75.44.20])
+ by beta.dmz-eu.st.com (STMicroelectronics) with ESMTP id 510A010002A;
+ Mon, 29 Jun 2020 10:13:28 +0200 (CEST)
+Received: from Webmail-eu.st.com (sfhdag5node1.st.com [10.75.127.13])
+ by euls16034.sgp.st.com (STMicroelectronics) with ESMTP id 136A82ADA04;
+ Mon, 29 Jun 2020 10:13:28 +0200 (CEST)
+Received: from SFHDAG3NODE1.st.com (10.75.127.7) by SFHDAG5NODE1.st.com
+ (10.75.127.13) with Microsoft SMTP Server (TLS) id 15.0.1473.3; Mon, 29 Jun
+ 2020 10:13:27 +0200
+Received: from SFHDAG3NODE1.st.com ([fe80::1166:1abb:aad4:5f86]) by
+ SFHDAG3NODE1.st.com ([fe80::1166:1abb:aad4:5f86%20]) with mapi id
+ 15.00.1473.003; Mon, 29 Jun 2020 10:13:27 +0200
+From: Erwan LE RAY <erwan.leray@st.com>
+To: Greg Kroah-Hartman <gregkh@linuxfoundation.org>, Rob Herring
+ <robh+dt@kernel.org>
+Thread-Topic: [PATCH 1/2] dt-bindings: serial: add generic DT binding for
+ announcing RTS/CTS lines
+Thread-Index: AQHWLqwdvriVa1dO+kuLItas4TvOb6jsnKeAgAK+zQA=
+Date: Mon, 29 Jun 2020 08:13:27 +0000
+Message-ID: <b282002b-bca6-96a0-98f8-b4dd5f813296@st.com>
+References: <20200520133932.30441-1-erwan.leray@st.com>
+ <20200520133932.30441-2-erwan.leray@st.com>
+ <20200627141801.GA1945477@kroah.com>
+In-Reply-To: <20200627141801.GA1945477@kroah.com>
+Accept-Language: en-US, fr-FR
 Content-Language: en-US
-X-AntiAbuse: This header was added to track abuse,
- please include it with any abuse report
-X-AntiAbuse: Primary Hostname - vern.gendns.com
-X-AntiAbuse: Original Domain - st-md-mailman.stormreply.com
-X-AntiAbuse: Originator/Caller UID/GID - [47 12] / [47 12]
-X-AntiAbuse: Sender Address Domain - lechnology.com
-X-Get-Message-Sender-Via: vern.gendns.com: authenticated_id:
- davidmain+lechnology.com/only user confirmed/virtual account not confirmed
-X-Authenticated-Sender: vern.gendns.com: davidmain@lechnology.com
-X-Source: 
-X-Source-Args: 
-X-Source-Dir: 
-Cc: kamel.bouhara@bootlin.com, gwendal@chromium.org, linux-iio@vger.kernel.org,
- patrick.havelange@essensium.com, alexandre.belloni@bootlin.com,
- linux-kernel@vger.kernel.org, linux-arm-kernel@lists.infradead.org,
- mcoquelin.stm32@gmail.com, fabrice.gasnier@st.com, syednwaris@gmail.com,
- linux-stm32@st-md-mailman.stormreply.com, jic23@kernel.org
-Subject: Re: [Linux-stm32] [PATCH v3 3/4] counter: Add character device
-	interface
+X-MS-Has-Attach: 
+X-MS-TNEF-Correlator: 
+user-agent: Mozilla/5.0 (X11; Linux x86_64; rv:68.0) Gecko/20100101
+ Thunderbird/68.8.0
+x-ms-exchange-messagesentrepresentingtype: 1
+x-ms-exchange-transport-fromentityheader: Hosted
+x-originating-ip: [10.75.127.46]
+Content-ID: <85399D0122B0FC468E36B331A46F0E31@st.com>
+MIME-Version: 1.0
+X-Proofpoint-Virus-Version: vendor=fsecure engine=2.50.10434:6.0.216, 18.0.687
+ definitions=2020-06-29_07:2020-06-26,
+ 2020-06-29 signatures=0
+Cc: Mark Rutland <mark.rutland@arm.com>,
+ Maxime Coquelin <mcoquelin.stm32@gmail.com>,
+ "linux-kernel@vger.kernel.org" <linux-kernel@vger.kernel.org>,
+ "dri-devel@lists.freedesktop.org" <dri-devel@lists.freedesktop.org>,
+ Sumit Semwal <sumit.semwal@linaro.org>,
+ "linaro-mm-sig@lists.linaro.org" <linaro-mm-sig@lists.linaro.org>,
+ "linux-serial@vger.kernel.org" <linux-serial@vger.kernel.org>,
+ Fabrice GASNIER <fabrice.gasnier@st.com>,
+ "linux-stm32@st-md-mailman.stormreply.com"
+ <linux-stm32@st-md-mailman.stormreply.com>,
+ "linux-arm-kernel@lists.infradead.org" <linux-arm-kernel@lists.infradead.org>,
+ "linux-media@vger.kernel.org" <linux-media@vger.kernel.org>
+Subject: Re: [Linux-stm32] [PATCH 1/2] dt-bindings: serial: add generic DT
+ binding for announcing RTS/CTS lines
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -76,95 +94,47 @@ List-Post: <mailto:linux-stm32@st-md-mailman.stormreply.com>
 List-Help: <mailto:linux-stm32-request@st-md-mailman.stormreply.com?subject=help>
 List-Subscribe: <https://st-md-mailman.stormreply.com/mailman/listinfo/linux-stm32>, 
  <mailto:linux-stm32-request@st-md-mailman.stormreply.com?subject=subscribe>
+Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
-Content-Type: text/plain; charset="us-ascii"; Format="flowed"
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
-On 6/27/20 1:17 PM, William Breathitt Gray wrote:
-> On Mon, Jun 22, 2020 at 09:08:48AM -0500, David Lechner wrote:
->> On 6/21/20 2:53 PM, William Breathitt Gray wrote:
->>> For example, in the dual-axes positioning table scenario, a user
->>> application would likely want to know the exact X and Y position at the
->>> time of a given event -- that means an event should provide two Count
->>> values (and possibly associated device flags) when it occurs. I'm not
->>> sure yet how the struct counter_event should be defined in order to
->>> support this; we will need to indicate the format of data as well as
->>> provide the data itself. Perhaps, we can handle this by providing an
->>> unique id field so that only a single datum (e.g. a single count value)
->>> is provided via the value field, but subsequent struct counter_event
->>> items share the same id so that the user knows that a particular datum
->>> is part of a larger group of data for a specific event.
+
+On 6/27/20 4:18 PM, Greg Kroah-Hartman wrote:
+> On Wed, May 20, 2020 at 03:39:31PM +0200, Erwan Le Ray wrote:
+>> Add support of generic DT binding for annoucing RTS/CTS lines. The initial
+>> binding 'st,hw-flow-control' is not needed anymore since generic binding
+>> is available, but is kept for backward compatibility.
 >>
->> The timestamp could act as the "id" to correlate multiple values of a
->> single event.
-> 
-> Okay, I see how that can work. So the /dev/counterX character nodes
-> would return a stream of data structures that look something like this:
-> 
-> struct counter_event {
-> 	/**
-> 	 * Best approximation of when event occurred in nanoseconds.
-> 	 * Same timestamp value indicates data is part of same event.
-> 	 */
-> 	struct timeval time;
-> 	/**
-> 	 * Type of event that triggered. This would correlate with the
-> 	 * IRQ set up for the device.
-> 	 */
-> 	__u16 type;
-> 	/**
-> 	 * Type of data represented by the value member. This enables
-> 	 * the user to extract the right datatype from the value field.
-> 	 */
-> 	__u16 code;
-> 	/** The value recorded when the event fired. */
-> 	__u64 value;
-> };
-> 
-> In fact, this data structure looks a lot like struct input_event; would
-> it make sense to use that for this? I suppose we can't because we need
-> to support 64-bit value for our use cases.
+>> Signed-off-by: Erwan Le Ray <erwan.leray@st.com>
+>>
+>> diff --git a/Documentation/devicetree/bindings/serial/st,stm32-uart.yaml b/Documentation/devicetree/bindings/serial/st,stm32-uart.yaml
+>> index 75b8521eb7cb..06d5f251ec88 100644
+>> --- a/Documentation/devicetree/bindings/serial/st,stm32-uart.yaml
+>> +++ b/Documentation/devicetree/bindings/serial/st,stm32-uart.yaml
+>> @@ -35,9 +35,11 @@ properties:
+>>       description: label associated with this uart
+>>   
+>>     st,hw-flow-ctrl:
+>> -    description: enable hardware flow control
+>> +    description: enable hardware flow control (deprecated)
+>>       $ref: /schemas/types.yaml#/definitions/flag
+>>   
+>> +  uart-has-rtscts: true
+>> +
+>>     dmas:
+>>       minItems: 1
+>>       maxItems: 2
+>> -- 
+>> 2.17.1
+>>
+> Did this get ignored by the DT maintainers?  :(
 
-Yes, since counter is its own subsystem, it makes sense to have its own
-data types.
+Hi Rob,
 
-> 
-> Userspace also requires a way to enable the events and configure them to
-> report the data it wants. So perhaps the following sysfs attributes
-> would accomplish such:
-> 
-> * /sys/bus/devices/counterX/eventY_enable:
->    Users can enable/disable event Y.
-> * /sys/bus/devices/counterX/eventY_config:
->    Data to get when event Y is triggered (e.g. Counts, extensions, etc.).
+Gentle reminder. Could you please provide your feedback on this patch ?
 
-This is one of the questions I had too that I don't have a good answer to.
-
-If we want to allow the use case of multiple "consumers" for a single
-chardev where each consumer wants different events (e.g program X opens
-/dev/counter0 and wants only events A and B while program Y opens the
-same /dev/counter0 and wants only events A and C) then it would make
-sense to use an ioctl for configuration of events so that each open
-file descriptor could be configured differently.
-
-But if we only want to allow one user of a counter, then configuring
-via sysfs as you have suggested is probably fine.
-
-I think I might make sense to us an ioctl in any case though if we are
-going to use the same code values to configure the event.
-
-> 
-> Here's another concern for latency-sensitive applications: should we
-> handle writing data to the devices? While we have real-life examples of
-> latency-sensitive read operations, I'm not sure if a user will ever need
-> to write to a counter device within some realtime critical deadline --
-> I think write operations are primarily done for the purpose of
-> configuring the device for operation rather than during it. So perhaps
-> we don't need to worry about this use case because users can write data
-> via the existing sysfs interface.
-
-Agreed.
+Best Regards, Erwan.
 _______________________________________________
 Linux-stm32 mailing list
 Linux-stm32@st-md-mailman.stormreply.com
