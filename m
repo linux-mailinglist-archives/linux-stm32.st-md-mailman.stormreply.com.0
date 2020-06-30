@@ -2,49 +2,69 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id 30E7820F7F3
-	for <lists+linux-stm32@lfdr.de>; Tue, 30 Jun 2020 17:11:33 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id CB18820F862
+	for <lists+linux-stm32@lfdr.de>; Tue, 30 Jun 2020 17:32:55 +0200 (CEST)
 Received: from ip-172-31-3-76.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id CCD73C36B11;
-	Tue, 30 Jun 2020 15:11:32 +0000 (UTC)
-Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
- (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 79BF1C36B11;
+	Tue, 30 Jun 2020 15:32:55 +0000 (UTC)
+Received: from mail-io1-f65.google.com (mail-io1-f65.google.com
+ [209.85.166.65])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 5277CC36B0C
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 27C3FC36B0C
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Tue, 30 Jun 2020 15:11:30 +0000 (UTC)
-Received: from localhost (p54b336a9.dip0.t-ipconnect.de [84.179.54.169])
- (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
- (No client certificate requested)
- by mail.kernel.org (Postfix) with ESMTPSA id 7CCD120720;
- Tue, 30 Jun 2020 15:11:28 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
- s=default; t=1593529889;
- bh=Kof5P3F4RhHddyde/k6hvfouOCHADx+GYO+1CoM3OgM=;
- h=Date:From:To:Subject:References:In-Reply-To:From;
- b=wDcjG9Ffp2rf2uyADpUEj8oIWGdNSEHcfaFoqa6A2PydIwLazG4iE4vp2Dr3rz9HY
- lgsmGFRLso5cO8GTM1JLw/m5tCTB4+9iKbbfhPX7paqvUJBYp1aDsmOYduexVJd4XX
- WfNUaav0IfqFf3DoRSzEp6acRgJBg1ZWoLp4Ahao=
-Date: Tue, 30 Jun 2020 17:11:15 +0200
-From: Wolfram Sang <wsa@kernel.org>
-To: Benjamin Tissoires <benjamin.tissoires@redhat.com>, robh+dt@kernel.org,
- mark.rutland@arm.com, pierre-yves.mordret@st.com,
- mcoquelin.stm32@gmail.com, alexandre.torgue@st.com,
- linux-i2c@vger.kernel.org, devicetree@vger.kernel.org,
- linux-stm32@st-md-mailman.stormreply.com,
- linux-arm-kernel@lists.infradead.org, linux-kernel@vger.kernel.org,
- fabrice.gasnier@st.com
-Message-ID: <20200630151115.GA1058@kunai>
-References: <1588657871-14747-1-git-send-email-alain.volmat@st.com>
- <1588657871-14747-5-git-send-email-alain.volmat@st.com>
- <20200523110140.GD3459@ninjato>
- <20200526103938.GC14423@gnbcxd0016.gnb.st.com>
- <20200630064050.GA996@ninjato>
- <20200630093135.GC5652@gnbcxd0016.gnb.st.com>
+ Tue, 30 Jun 2020 15:32:53 +0000 (UTC)
+Received: by mail-io1-f65.google.com with SMTP id o5so21394584iow.8
+ for <linux-stm32@st-md-mailman.stormreply.com>;
+ Tue, 30 Jun 2020 08:32:53 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20161025;
+ h=mime-version:references:in-reply-to:from:date:message-id:subject:to
+ :cc:content-transfer-encoding;
+ bh=fTZIk7o4I3v9sDO1ioQg65WFbAcbrwuzrZp6bqG2TZs=;
+ b=SLNEacNnXUaOSknJvbz9ftmBYbhGROQqfmRN2jCu+oUjMlkNVC7L0DnsVQmrHBlaRI
+ 5t9+YaZ3fxK4ku6fb+GPJKRfCG+Gps1qplj+0digh8uJn+GB+1JCG9Wzyl02o25PGelP
+ jjz8iA9Z0KkEkHWlrSiPsWZQGxioYTjb69FIRUrryO7BtD4wWSjN4SSDkRErIBuVuxNx
+ 0Er+SiLvwIuVSKl+6GUCUZEwRsO/ajwCcaiu8dXRPPfPul65ngxfwh8CITu5HLwJg6k5
+ BnZwSlDfE/HqcS6lphCwBhiU+2Md/l2E9L4RXlcd7S2l5erQM1rZl/g1zIVhMlCkQRPN
+ 8Fyw==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20161025;
+ h=x-gm-message-state:mime-version:references:in-reply-to:from:date
+ :message-id:subject:to:cc:content-transfer-encoding;
+ bh=fTZIk7o4I3v9sDO1ioQg65WFbAcbrwuzrZp6bqG2TZs=;
+ b=puzya3y+T8I7qMzkLHXVqLrFZJX2B+hqxH3M57CnynBS2aeBbY4GFw2cPaFvfFgdCV
+ HxUAqPrMdY4GggNFSf8iKj2BKaRge22JkFAQHap09+jzP5V+ydKUWeAV1Tz1p4OMpFAr
+ EytD9ojGQc+LsGM6WunItVZ3mQQad86Bkopu0oR6wylcsBCWJQ124ToyhlVMKVLo/1hK
+ 5X8Z9jG9TkxsIxGoPogpXrZLaVSmQBXSWecg8T5g2k5ThrQohV7IwLQbohLp0LwmzP3B
+ Gc1Bm9CG0yJaSWBkxX2N77IGmO9BYNiJIVY/2orP/Qedab7Qb2t9ZI9tTQjuSjj9U5EM
+ O1cg==
+X-Gm-Message-State: AOAM5321YOXYQQ4DByOgCrtzagmnMrLO6jMJsUI5p0ei3JDaMC+ZZ2nO
+ HHPqJFcK4lGN/bEAF21ximPiS0faYu/2LRLT0Xg=
+X-Google-Smtp-Source: ABdhPJwmeqxFiF/UYomtYzSa1zyensrGB2NlVyhR0lNiVAk/rpt8vIaIoeUrWdkkS5pkKyqbHpik7IWOHz0pvwB/6Z8=
+X-Received: by 2002:a02:6d27:: with SMTP id m39mr24703937jac.10.1593531171771; 
+ Tue, 30 Jun 2020 08:32:51 -0700 (PDT)
 MIME-Version: 1.0
-In-Reply-To: <20200630093135.GC5652@gnbcxd0016.gnb.st.com>
-Subject: Re: [Linux-stm32] [PATCH 4/4] i2c: stm32f7: Add SMBus-specific
-	protocols support
+References: <1590378348-8115-1-git-send-email-dillon.minfei@gmail.com>
+ <1590378348-8115-7-git-send-email-dillon.minfei@gmail.com>
+ <CAHp75VebSZa6mwAETnM0t42RQCp4iM6_SNjmy3TB48ixsGKV8g@mail.gmail.com>
+ <CAL9mu0+jmcivC6zAXxK0-oXy3n44pAU1QGD7BDq=CT2D7twROQ@mail.gmail.com>
+ <c085e8f5-f626-28a9-1d3f-a1c277ec5052@tronnes.org>
+In-Reply-To: <c085e8f5-f626-28a9-1d3f-a1c277ec5052@tronnes.org>
+From: dillon min <dillon.minfei@gmail.com>
+Date: Tue, 30 Jun 2020 23:32:15 +0800
+Message-ID: <CAL9mu0LPuqRn-tKWWzyUWnOE2h-w7F3-6HTYv15QcUYWBroXZw@mail.gmail.com>
+To: =?UTF-8?Q?Noralf_Tr=C3=B8nnes?= <noralf@tronnes.org>
+Cc: devicetree <devicetree@vger.kernel.org>,
+ Linus Walleij <linus.walleij@linaro.org>,
+ linux-clk <linux-clk@vger.kernel.org>,
+ Linux Kernel Mailing List <linux-kernel@vger.kernel.org>,
+ dri-devel <dri-devel@lists.freedesktop.org>,
+ linux-spi <linux-spi@vger.kernel.org>,
+ Andy Shevchenko <andy.shevchenko@gmail.com>, Mark Brown <broonie@kernel.org>,
+ Sam Ravnborg <sam@ravnborg.org>, linux-stm32@st-md-mailman.stormreply.com,
+ linux-arm Mailing List <linux-arm-kernel@lists.infradead.org>
+Subject: Re: [Linux-stm32] [PATCH v5 6/8] drm/panel: Add ilitek ili9341
+	panel driver
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -56,74 +76,43 @@ List-Post: <mailto:linux-stm32@st-md-mailman.stormreply.com>
 List-Help: <mailto:linux-stm32-request@st-md-mailman.stormreply.com?subject=help>
 List-Subscribe: <https://st-md-mailman.stormreply.com/mailman/listinfo/linux-stm32>, 
  <mailto:linux-stm32-request@st-md-mailman.stormreply.com?subject=subscribe>
-Content-Type: multipart/mixed; boundary="===============1509701919137238379=="
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: base64
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
-
---===============1509701919137238379==
-Content-Type: multipart/signed; micalg=pgp-sha512;
-	protocol="application/pgp-signature"; boundary="IS0zKkzwUGydFO0o"
-Content-Disposition: inline
-
-
---IS0zKkzwUGydFO0o
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-
-Hi Alain,
-
-> Ok, understood. Fine for me that way as well. I am just a little worrying that
-> the "host-notify" can now be present in both controller AND slave nodes
-> and might be a bit hard to understand. At the same time I don't have a better
-> proposal for naming the binding for the controller.
-
-It is a valid concern, maybe we could name the binding for the host
-"enable-host-notify"?
-
-> Please do not consider serie v2 I just posted few days ago and I will
-> post a serie v3 updating the binding information and using the host-notify
-> binding in the i2c-stm32f7 driver.
-
-I also have an idea for the SMBusAlert topic, hopefully I can come up
-with a summary later today.
-
-All the best,
-
-   Wolfram
-
-
---IS0zKkzwUGydFO0o
-Content-Type: application/pgp-signature; name="signature.asc"
-
------BEGIN PGP SIGNATURE-----
-
-iQIzBAABCgAdFiEEOZGx6rniZ1Gk92RdFA3kzBSgKbYFAl77Vg8ACgkQFA3kzBSg
-KbY4ww//em/vnMiq7NS89p7OgWcLT8uZEKJWygqaUmVWOpwz0HD1JlDWg1fgYnCQ
-cICy1tOydUEo+FXs/AZty5YQHRSghTEYrEA/SDdTfKDassc897O6K747UW9OYAYN
-94ls0vDGfyW9+MmyPhLLHbocYfHpyPusZyueZvqH5ou5+1RlmyPvXgg9/Hh+SCYR
-oY4JoZZ0u8k/WpZGhS4z4QQKXJ/h2220mEvLVxEwt/ZhQWXWGTHCc9T6yHmplXxR
-SQu64RVtAz/JZfOQcG6JiBsX+ZD707n78SClOSszcGrKMfFBGdXJa1giQcFI9wEQ
-ImA91dkgWhYWYaynOyn1wydKElDfHSIm4TSjDo5JtIGO5u/+CrnYzrSBsJ76lz3C
-VQ9XrgyN2On4t+hKEJ044QKPJcoGUBnIUx8ERU9JbEIXHgHBmXNs0Vvt6gH0cBBu
-hLMgnRWOUZdh382yowRY0cdq3gD4ePXiivAVLoDaQDDetk/eWX9GIZNPROU0rS6E
-/F7W8yI3hohLmvDqA8AnHvEQR3wnNmmXBCJLV/sK3Q5FI8OEFxETwsumAziY4nHW
-rujYZBZ7z+apz3Bxq08DUZxj9aIZ+o3SN39cW7j3pU4e47wnrpf4WRCAchwiVjvu
-EkaGFUnE/oAmfrP2FzisenLvLUvyZ477TWrDVytEHbBzgWnfEsI=
-=6INs
------END PGP SIGNATURE-----
-
---IS0zKkzwUGydFO0o--
-
---===============1509701919137238379==
-Content-Type: text/plain; charset="us-ascii"
-MIME-Version: 1.0
-Content-Transfer-Encoding: 7bit
-Content-Disposition: inline
-
-_______________________________________________
-Linux-stm32 mailing list
-Linux-stm32@st-md-mailman.stormreply.com
-https://st-md-mailman.stormreply.com/mailman/listinfo/linux-stm32
-
---===============1509701919137238379==--
+SGkgQW5keSwgTm9yYWxmLAoKZ2VudGxlIHBpbmcgZm9yIHRoaXMgcGF0Y2ggc2V0LApkbyB3ZSBo
+YXZlIGFueSBuZXcgc3RydWN0dXJlLCBvciBpZGVhIHRvIHN1cHBvcnQgYm90aCBkcGkgYW5kIGRi
+aQppbnRlcmZhY2UgYnkgb25lIGRybSBwYW5lbCBkcml2ZXI/CmZyb20gdGhpcyB0aHJlYWQKaHR0
+cHM6Ly9saXN0cy5mcmVlZGVza3RvcC5vcmcvYXJjaGl2ZXMvZHJpLWRldmVsLzIwMjAtTWF5LzI2
+NzAzMS5odG1sCiwgaXQncyBzZWVtcwpkaXNjdXNzaW5nIHdhcyBzdG9wcGVkIGF0IG1heSAyNS4K
+CmlmIHRoZXJlIGFyZSBhbnkgbmV3IGluZm9ybWF0aW9uIGFib3V0IHRoaXMgdG9waWMsIHBsZWFz
+ZSBmZWVsIGZyZWUgdG8KbGV0IG1lIGtub3cuIGhvcGUgaSBjYW4gbWFrZSBzb21lCnByb2dyZXNz
+IG9uIGl0LgoKdGhhbmtzLAoKRGlsbG9uLAoKYmVzdCByZWdhcmRzCgpPbiBUdWUsIE1heSAyNiwg
+MjAyMCBhdCA2OjM4IFBNIE5vcmFsZiBUcsO4bm5lcyA8bm9yYWxmQHRyb25uZXMub3JnPiB3cm90
+ZToKPgo+Cj4KPiBEZW4gMjYuMDUuMjAyMCAxMS4wOCwgc2tyZXYgZGlsbG9uIG1pbjoKPiA+IEhp
+IEFuZHksCj4gPgo+ID4gVGhhbmtzIGZvciBpbnB1dC4KPiA+Cj4gPiBPbiBUdWUsIE1heSAyNiwg
+MjAyMCBhdCAzOjQ2IFBNIEFuZHkgU2hldmNoZW5rbwo+ID4gPGFuZHkuc2hldmNoZW5rb0BnbWFp
+bC5jb20+IHdyb3RlOgo+ID4+Cj4gPj4gT24gTW9uLCBNYXkgMjUsIDIwMjAgYXQgNjo0NiBBTSA8
+ZGlsbG9uLm1pbmZlaUBnbWFpbC5jb20+IHdyb3RlOgo+ID4+Pgo+ID4+PiBGcm9tOiBkaWxsb24g
+bWluIDxkaWxsb24ubWluZmVpQGdtYWlsLmNvbT4KPiA+Pj4KPiA+Pj4gICAgIFRoaXMgZHJpdmVy
+IGNvbWJpbmUgdGlueS9pbGk5MzQxLmMgbWlwaV9kYmlfaW50ZXJmYWNlIGRyaXZlcgo+ID4+PiAg
+ICAgd2l0aCBtaXBpX2RwaV9pbnRlcmZhY2UgZHJpdmVyLCBjYW4gc3VwcG9ydCBpbGk5MzQxIHdp
+dGggc2VyaWFsCj4gPj4+ICAgICBtb2RlIG9yIHBhcmFsbGVsIHJnYiBpbnRlcmZhY2UgbW9kZSBi
+eSByZWdpc3RlciBjb25maWd1cmF0aW9uLgo+ID4+Cj4gPj4gTm9yYWxmIHRvbGQgb25jZSB0aGF0
+IHRoaXMgZHJpdmVyIHNob3VsZCBiZSB1bmlmaWVkIHdpdGggbWkwMjgzcXQuYy4KPiA+Pgo+ID4+
+IFNvLCB3aGF0IHNob3VsZCB3ZSBkbyBoZXJlPwo+ID4+Cj4gPj4gLS0KPiA+PiBXaXRoIEJlc3Qg
+UmVnYXJkcywKPiA+PiBBbmR5IFNoZXZjaGVua28KPiA+Cj4gPiBmcm9tIHNhbSdzIHN1Z2dlc3Rp
+b24sIHdlIGNhbid0IHNldHVwIHR3byBkcml2ZXJzIHRvIHN1cHBvcnQgb25lIHBhbmVsCj4gPiBp
+biB0aGUgdHJlZS4gc28sIGkgY29weSB0aGUgbWlwaSBkYmkgcGFydCBmcm9tIHRpbnkvaWxpOTM0
+MS5jLiB0byB0aGlzIGRyaXZlcgo+ID4gZnJvbSByZWdpc3RlciBzZXR0aW5ncyBhbmQgZHRzIGJp
+bmRpbmcgaXMga2VlcCB0aGUgc2FtZSB0byB0aW55L2lsaTkzNDEuYy4KPiA+Cj4gPiBzbywgaW4g
+bXkgb3BpbmlvbiBpZiB0aW55L2lsaTkzNDEuYyBpcyB1bmlmaWVkIHdpdGggbWkwMjgzcXQuYywg
+dGhpcwo+ID4gZHJpdmVyIHNob3VsZCBiZQo+ID4gdG9vLgo+ID4KPgo+IFRoZXJlJ3MgYSBkaXNj
+dXNzaW9uIGFib3V0IE1JUEkgREJJIHBhbmVscyBoZXJlOgo+Cj4gTUlQSSBEU0ksIERCSSwgYW5k
+IHRpbnlkcm0gZHJpdmVycwo+IGh0dHBzOi8vbGlzdHMuZnJlZWRlc2t0b3Aub3JnL2FyY2hpdmVz
+L2RyaS1kZXZlbC8yMDIwLU1heS8yNjcwMzEuaHRtbAo+Cj4gTm9yYWxmLgo+Cj4gPiB0aGFua3Mu
+Cj4gPgo+ID4gYmVzdCByZWdhcmRzLAo+ID4KPiA+IERpbGxvbiwKPiA+Cl9fX19fX19fX19fX19f
+X19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fCkxpbnV4LXN0bTMyIG1haWxpbmcgbGlz
+dApMaW51eC1zdG0zMkBzdC1tZC1tYWlsbWFuLnN0b3JtcmVwbHkuY29tCmh0dHBzOi8vc3QtbWQt
+bWFpbG1hbi5zdG9ybXJlcGx5LmNvbS9tYWlsbWFuL2xpc3RpbmZvL2xpbnV4LXN0bTMyCg==
