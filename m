@@ -2,61 +2,42 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id C96BD210E24
-	for <lists+linux-stm32@lfdr.de>; Wed,  1 Jul 2020 16:56:29 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id B7E4C210E8D
+	for <lists+linux-stm32@lfdr.de>; Wed,  1 Jul 2020 17:09:51 +0200 (CEST)
 Received: from ip-172-31-3-76.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 90D49C36B24;
-	Wed,  1 Jul 2020 14:56:29 +0000 (UTC)
-Received: from mx07-00178001.pphosted.com (mx07-00178001.pphosted.com
- [62.209.51.94])
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 703E8C36B24;
+	Wed,  1 Jul 2020 15:09:51 +0000 (UTC)
+Received: from asavdk3.altibox.net (asavdk3.altibox.net [109.247.116.14])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id B8600C36B22
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 5A899C36B22
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Wed,  1 Jul 2020 14:56:26 +0000 (UTC)
-Received: from pps.filterd (m0046668.ppops.net [127.0.0.1])
- by mx07-00178001.pphosted.com (8.16.0.42/8.16.0.42) with SMTP id
- 061EtrS5003069; Wed, 1 Jul 2020 16:56:11 +0200
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=st.com;
- h=from : to : cc : subject
- : date : message-id : mime-version : content-type; s=STMicroelectronics;
- bh=nGDxePmF8IHyOLxj56WyGmH8rDztYQ7/Xj77p7TVsIY=;
- b=wpXgP/rpD0IANM8/tkoEOdkQWEETKMnvIvHdvYz/RnTNlb/T9hYWhL/hRDfBxv8YFH/g
- q0pcI2muFSjnAz89Zjo6N3lL1hZpAkjfYj8kevyScHcluxdmTEDW05zjQciBmBcxr4wR
- O4MhmBrZZT46RR5YuFouOnSL2usw1wHaDvrHKzKHtWtkOLNclPEjCiZO3b0xVMwvG7Zy
- L3FNKVzXsCmTpk2tpDh1v5S4scfP48xfXDozmU7kqAisBH+mcX79tA68FBB7zVWlSsbe
- yW8HHdy0eoVr9uEBDqdcHSFtRvHlFo7D4HeEGKZyyNA9f2G3LKcv2C8iT4dUYhE7glVN cg== 
-Received: from beta.dmz-eu.st.com (beta.dmz-eu.st.com [164.129.1.35])
- by mx07-00178001.pphosted.com with ESMTP id 31wuk1jsy0-1
- (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
- Wed, 01 Jul 2020 16:56:11 +0200
-Received: from euls16034.sgp.st.com (euls16034.sgp.st.com [10.75.44.20])
- by beta.dmz-eu.st.com (STMicroelectronics) with ESMTP id 1F6E210002A;
- Wed,  1 Jul 2020 16:56:10 +0200 (CEST)
-Received: from Webmail-eu.st.com (sfhdag5node3.st.com [10.75.127.15])
- by euls16034.sgp.st.com (STMicroelectronics) with ESMTP id 0F0502BE22C;
- Wed,  1 Jul 2020 16:56:10 +0200 (CEST)
-Received: from localhost (10.75.127.44) by SFHDAG5NODE3.st.com (10.75.127.15)
- with Microsoft SMTP Server (TLS) id 15.0.1473.3;
- Wed, 1 Jul 2020 16:56:09 +0200
-From: Fabrice Gasnier <fabrice.gasnier@st.com>
-To: <jic23@kernel.org>, <rafael.j.wysocki@intel.com>
-Date: Wed, 1 Jul 2020 16:55:28 +0200
-Message-ID: <1593615328-5180-1-git-send-email-fabrice.gasnier@st.com>
-X-Mailer: git-send-email 2.7.4
+ Wed,  1 Jul 2020 15:09:49 +0000 (UTC)
+Received: from ravnborg.org (unknown [188.228.123.71])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+ (No client certificate requested)
+ by asavdk3.altibox.net (Postfix) with ESMTPS id 989F420025;
+ Wed,  1 Jul 2020 17:09:46 +0200 (CEST)
+Date: Wed, 1 Jul 2020 17:09:45 +0200
+From: Sam Ravnborg <sam@ravnborg.org>
+To: Yannick Fertre <yannick.fertre@st.com>
+Message-ID: <20200701150945.GA669248@ravnborg.org>
+References: <20200701145258.2782-1-yannick.fertre@st.com>
 MIME-Version: 1.0
-X-Originating-IP: [10.75.127.44]
-X-ClientProxiedBy: SFHDAG3NODE1.st.com (10.75.127.7) To SFHDAG5NODE3.st.com
- (10.75.127.15)
-X-Proofpoint-Virus-Version: vendor=fsecure engine=2.50.10434:6.0.235, 18.0.687
- definitions=2020-07-01_08:2020-07-01,
- 2020-07-01 signatures=0
-Cc: ulf.hansson@linaro.org, linux-iio@vger.kernel.org, rjw@rjwysocki.net,
- linux-kernel@vger.kernel.org, mcoquelin.stm32@gmail.com,
- fabrice.gasnier@st.com, linux-stm32@st-md-mailman.stormreply.com,
+Content-Disposition: inline
+In-Reply-To: <20200701145258.2782-1-yannick.fertre@st.com>
+X-CMAE-Score: 0
+X-CMAE-Analysis: v=2.3 cv=f+hm+t6M c=1 sm=1 tr=0
+ a=S6zTFyMACwkrwXSdXUNehg==:117 a=S6zTFyMACwkrwXSdXUNehg==:17
+ a=kj9zAlcOel0A:10 a=8b9GpE9nAAAA:8 a=e5mUnYsNAAAA:8
+ a=YTZQKkLrOCVqNVj5krQA:9 a=eq0Tk01GMUV6gyqT:21 a=rLxRNCjj-UiVEZYG:21
+ a=CjuIK1q_8ugA:10 a=T3LWEMljR5ZiDmsYVIUa:22 a=Vxmtnl_E_bksehYqCbjh:22
+Cc: David Airlie <airlied@linux.ie>, dri-devel@lists.freedesktop.org,
+ linux-kernel@vger.kernel.org, Maxime Coquelin <mcoquelin.stm32@gmail.com>,
+ Daniel Vetter <daniel@ffwll.ch>, linux-stm32@st-md-mailman.stormreply.com,
  linux-arm-kernel@lists.infradead.org
-Subject: [Linux-stm32] [RESEND PATCH v2] iio: adc: stm32-adc: fix runtime
-	autosuspend delay when slow polling
+Subject: Re: [Linux-stm32] [PATCH] drm/bridge/synopsys: dsi: allows LP
+ commands in video mode
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -73,71 +54,87 @@ Content-Transfer-Encoding: 7bit
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
-When the ADC is runtime suspended and starting a conversion, the stm32-adc
-driver calls pm_runtime_get_sync() that gets cascaded to the parent
-(e.g. runtime resume of stm32-adc-core driver). This also kicks the
-autosuspend delay (e.g. 2s) of the parent.
-Once the ADC is active, calling pm_runtime_get_sync() again (upon a new
-capture) won't kick the autosuspend delay for the parent (stm32-adc-core
-driver) as already active.
+Hi Yannick.
 
-Currently, this makes the stm32-adc-core driver go in suspend state
-every 2s when doing slow polling. As an example, doing a capture, e.g.
-cat in_voltageY_raw at a 0.2s rate, the auto suspend delay for the parent
-isn't refreshed. Once it expires, the parent immediately falls into
-runtime suspended state, in between two captures, as soon as the child
-driver falls into runtime suspend state:
-- e.g. after 2s, + child calls pm_runtime_put_autosuspend() + 100ms
-  autosuspend delay of the child.
-- stm32-adc-core switches off regulators, clocks and so on.
-- They get switched on back again 100ms later in this example (at 2.2s).
+On Wed, Jul 01, 2020 at 04:52:58PM +0200, Yannick Fertre wrote:
+> From: Antonio Borneo <antonio.borneo@st.com>
+> 
+> Current code only sends LP commands in command mode.
+> 
+> Allows sending LP commands also in video mode by setting the
+> proper flag in DSI_VID_MODE_CFG.
+> 
+> Signed-off-by: Antonio Borneo <antonio.borneo@st.com>
 
-So, use runtime_idle() callback in stm32-adc-core driver to call
-pm_runtime_mark_last_busy() for the parent driver (stm32-adc-core),
-to avoid this.
+> Change-Id: Ib78fa37bcc7559ce63017acd6ee0bbf00c61a397
+Change-Id is not used in kernel patches to my best knowledge.
 
-Fixes: 9bdbb1139ca1 ("iio: adc: stm32-adc: add power management support")
+> Reviewed-on: https://gerrit.st.com/c/mpu/oe/st/linux-stm32/+/153242
+> Reviewed-by: CITOOLS <smet-aci-reviews@lists.codex.cro.st.com>
+> Reviewed-by: CIBUILD <smet-aci-builds@lists.codex.cro.st.com>
+Reviews by humans, not machines..
 
-Signed-off-by: Fabrice Gasnier <fabrice.gasnier@st.com>
----
-Changes in v2:
-- Use runtime_idle callback in stm32-adc-core driver, instead of refreshing
-  last_busy from the child (for the parent) at many place. Initial patch v1
-  looked like "somewhat adhoc solution" as commented by Jonathan.
----
- drivers/iio/adc/stm32-adc-core.c | 9 ++++++++-
- 1 file changed, 8 insertions(+), 1 deletion(-)
+> Reviewed-by: Yannick FERTRE <yannick.fertre@st.com>
+> Reviewed-by: Philippe CORNU <philippe.cornu@st.com>
+> Tested-by: Yannick FERTRE <yannick.fertre@st.com>
+> ---
+>  drivers/gpu/drm/bridge/synopsys/dw-mipi-dsi.c | 7 +++++++
+>  1 file changed, 7 insertions(+)
+> 
+> diff --git a/drivers/gpu/drm/bridge/synopsys/dw-mipi-dsi.c b/drivers/gpu/drm/bridge/synopsys/dw-mipi-dsi.c
+> index d580b2aa4ce9..0cd43e7a69bb 100644
+> --- a/drivers/gpu/drm/bridge/synopsys/dw-mipi-dsi.c
+> +++ b/drivers/gpu/drm/bridge/synopsys/dw-mipi-dsi.c
+> @@ -367,6 +367,13 @@ static void dw_mipi_message_config(struct dw_mipi_dsi *dsi,
+>  
+>  	dsi_write(dsi, DSI_LPCLK_CTRL, lpm ? 0 : PHY_TXREQUESTCLKHS);
+>  	dsi_write(dsi, DSI_CMD_MODE_CFG, val);
+> +
+> +	val = dsi_read(dsi, DSI_VID_MODE_CFG);
+> +	if (lpm)
+> +		val |= ENABLE_LOW_POWER_CMD;
+> +	else
+> +		val &= ~ENABLE_LOW_POWER_CMD;
+> +	dsi_write(dsi, DSI_VID_MODE_CFG, val);
+>  }
 
-diff --git a/drivers/iio/adc/stm32-adc-core.c b/drivers/iio/adc/stm32-adc-core.c
-index 0e2068e..3586369 100644
---- a/drivers/iio/adc/stm32-adc-core.c
-+++ b/drivers/iio/adc/stm32-adc-core.c
-@@ -794,6 +794,13 @@ static int stm32_adc_core_runtime_resume(struct device *dev)
- {
- 	return stm32_adc_core_hw_start(dev);
- }
-+
-+static int stm32_adc_core_runtime_idle(struct device *dev)
-+{
-+	pm_runtime_mark_last_busy(dev);
-+
-+	return 0;
-+}
- #endif
- 
- static const struct dev_pm_ops stm32_adc_core_pm_ops = {
-@@ -801,7 +808,7 @@ static const struct dev_pm_ops stm32_adc_core_pm_ops = {
- 				pm_runtime_force_resume)
- 	SET_RUNTIME_PM_OPS(stm32_adc_core_runtime_suspend,
- 			   stm32_adc_core_runtime_resume,
--			   NULL)
-+			   stm32_adc_core_runtime_idle)
- };
- 
- static const struct stm32_adc_priv_cfg stm32f4_adc_priv_cfg = {
--- 
-2.7.4
+We have following code:
 
+static void dw_mipi_dsi_set_mode(struct dw_mipi_dsi *dsi,
+                                 unsigned long mode_flags)
+{
+        dsi_write(dsi, DSI_PWR_UP, RESET);
+
+        if (mode_flags & MIPI_DSI_MODE_VIDEO) {
+                dsi_write(dsi, DSI_MODE_CFG, ENABLE_VIDEO_MODE);
+                dw_mipi_dsi_video_mode_config(dsi);
+                dsi_write(dsi, DSI_LPCLK_CTRL, PHY_TXREQUESTCLKHS);
+        } else {
+                dsi_write(dsi, DSI_MODE_CFG, ENABLE_CMD_MODE);
+        }
+
+        dsi_write(dsi, DSI_PWR_UP, POWERUP);
+}
+
+Here DSI_MODE_CFG is used to set vidoe mode or not.
+
+But the code snip above checks DSI_VID_MODE_CFG.
+It looks inconsistent.
+
+I do not know the HW - and just stumbled over this.
+
+	Sam
+
+
+>  
+>  static int dw_mipi_dsi_gen_pkt_hdr_write(struct dw_mipi_dsi *dsi, u32 hdr_val)
+> -- 
+> 2.17.1
+> 
+> _______________________________________________
+> dri-devel mailing list
+> dri-devel@lists.freedesktop.org
+> https://lists.freedesktop.org/mailman/listinfo/dri-devel
 _______________________________________________
 Linux-stm32 mailing list
 Linux-stm32@st-md-mailman.stormreply.com
