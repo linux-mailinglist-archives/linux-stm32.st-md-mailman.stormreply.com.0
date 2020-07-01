@@ -2,126 +2,73 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id 99AED210557
-	for <lists+linux-stm32@lfdr.de>; Wed,  1 Jul 2020 09:50:14 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id B1FA72107EA
+	for <lists+linux-stm32@lfdr.de>; Wed,  1 Jul 2020 11:21:51 +0200 (CEST)
 Received: from ip-172-31-3-76.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 5B11DC36B24;
-	Wed,  1 Jul 2020 07:50:14 +0000 (UTC)
-Received: from mail-wr1-f65.google.com (mail-wr1-f65.google.com
- [209.85.221.65])
- (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 39CB5C36B24;
+	Wed,  1 Jul 2020 09:21:51 +0000 (UTC)
+Received: from mx07-00178001.pphosted.com (mx08-00178001.pphosted.com
+ [91.207.212.93])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 39700C36B22
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 8E106C36B22
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Wed,  1 Jul 2020 07:50:13 +0000 (UTC)
-Received: by mail-wr1-f65.google.com with SMTP id z2so499100wrp.2
- for <linux-stm32@st-md-mailman.stormreply.com>;
- Wed, 01 Jul 2020 00:50:13 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=baylibre-com.20150623.gappssmtp.com; s=20150623;
- h=subject:to:cc:references:from:autocrypt:organization:message-id
- :date:user-agent:mime-version:in-reply-to:content-language
- :content-transfer-encoding;
- bh=CfSOQZOCfz6gCDKuvjXMYCRd33V6cPuHHjdlMHJzj+c=;
- b=0c3mwbvC7eS2Qd1C0f0hkO1J/zDAPYcItwKSER2fVqfmEBSOi/QCL4hXL218NwIOa0
- /xCVpDbGda0G91xQV3cc+72ICti6QGQFXCGct6Ch/se2RIrK5mb8I49uwjHlQWwMcmUe
- nicdftao1p/hAZSnrw1V3jCH4QbVl9UKWKri401C0vYbviLlnE6OhXIyFDjVUABEgngn
- /Ta7z7nKahBWSXi69V9y/a/znJGhfkH9G58wjdbipTOd06rPAsLzNVkxAJ50dVrgMisv
- rf9cc2PDE1Ck9XlOn3or2I0oK9ntT0purAYA802FqXgxrWqI7hWVb9uq4SjFJ0HADb+1
- Enhw==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20161025;
- h=x-gm-message-state:subject:to:cc:references:from:autocrypt
- :organization:message-id:date:user-agent:mime-version:in-reply-to
- :content-language:content-transfer-encoding;
- bh=CfSOQZOCfz6gCDKuvjXMYCRd33V6cPuHHjdlMHJzj+c=;
- b=s6c559LTFW2g+03T6HsPuVBWMKEY8eLVofcPYfuIzPZAh5aN/DeJWsqV10d4YZn3QH
- 6Tpwf8UN3iUc35KLJR04at9ABfYA4UB7GDC3w+bU3fRGNg5/XdrM6G5HjLsMzp7kVh1s
- AssVw6l/5tC41vFd522pNilSC0GpwzQr7/X6hyB9CzUu1UWztSW7zQt67vkHeEAaN29o
- cBOX5O5A1k44GQ0Xlke/I3HAZn1/X/5GOh13tDYEbUfFAYiOo4bADBoj2KEiLFNZJh3g
- VdJNBtqJM8xone6S4EhgA2fJc9NeWHx/hs4ch43vJdd6AnFIPnpxqS09H+cHU0SIlSXw
- SRrg==
-X-Gm-Message-State: AOAM533HMipTfVUs75/6gEItNiaaioXzjeBzO9HRqj3ZbFHOldZOlTlB
- HSQ1Yf+ZQDDuOy30jR9PqbxhmEieFwIZAA==
-X-Google-Smtp-Source: ABdhPJyMbmvKuw2o6HP/fWAktFqGbLrrlmhfr878Yf0WF93YKUoJ+Kr1riIShO8o8AHIempV+slXXA==
-X-Received: by 2002:adf:b312:: with SMTP id j18mr23975841wrd.195.1593589812089; 
- Wed, 01 Jul 2020 00:50:12 -0700 (PDT)
-Received: from ?IPv6:2a01:e35:2ec0:82b0:7023:727a:c688:cf9b?
- ([2a01:e35:2ec0:82b0:7023:727a:c688:cf9b])
- by smtp.gmail.com with ESMTPSA id r3sm7018280wrg.70.2020.07.01.00.50.10
- (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Wed, 01 Jul 2020 00:50:11 -0700 (PDT)
-To: linux-rockchip@lists.infradead.org, Heiko Stuebner <heiko@sntech.de>
-References: <20200609174959.955926-1-adrian.ratiu@collabora.com>
- <c6f10db1-7f56-a156-36a1-125e764c8c1a@baylibre.com>
- <87lfk3kaj4.fsf@iwork.i-did-not-set--mail-host-address--so-tickle-me>
-From: Neil Armstrong <narmstrong@baylibre.com>
-Autocrypt: addr=narmstrong@baylibre.com; prefer-encrypt=mutual; keydata=
- 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
- BSwxi7g3Mu7u5kUByanqHyA=
-Organization: Baylibre
-Message-ID: <268c1219-87cb-e611-ea13-e55e0feacea0@baylibre.com>
-Date: Wed, 1 Jul 2020 09:50:09 +0200
-User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:68.0) Gecko/20100101
- Thunderbird/68.8.0
+ Wed,  1 Jul 2020 09:21:50 +0000 (UTC)
+Received: from pps.filterd (m0046660.ppops.net [127.0.0.1])
+ by mx07-00178001.pphosted.com (8.16.0.42/8.16.0.42) with SMTP id
+ 0619BDjP023035; Wed, 1 Jul 2020 11:21:42 +0200
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=st.com;
+ h=date : from : to : cc :
+ subject : message-id : references : mime-version : content-type :
+ in-reply-to; s=STMicroelectronics;
+ bh=+Zy5DDQ6neW7WZl6/peSwMUygFppp3WoiU0yXaaJpbA=;
+ b=GCEP0SIzeIG1mHgGTwtgiKR9RWx7wQzNjnzmWb9N7YEIbzIw5Q7FVwQtUJndnvYtKKsK
+ 7bHgKXs4nmIGb/wsxvpjrxDHyW7jfiK7aQXgd6NJif9U9Pm1J3TiT5Y5BrGjUSdpIwNx
+ 2tXk6yWHBJIrZZUkwc1vvXfC6YCosXncgjSgNSIV4hvog4nJo1htXMemdd9cXuSReFgs
+ 0Vlyubs6+BsZSmdSKtTlW6W5bCmhcYNCRegO25bu8YOVels9Tv3OnL7WRPeeBBfpZsmz
+ tBvr6HsCrloHEM4kKC/dckQwWQGEub+6lHq21+BsrzSjU7L2ttKq7zALpXg8pdL44Qvi 8A== 
+Received: from beta.dmz-eu.st.com (beta.dmz-eu.st.com [164.129.1.35])
+ by mx07-00178001.pphosted.com with ESMTP id 31wu89s8fg-1
+ (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
+ Wed, 01 Jul 2020 11:21:42 +0200
+Received: from euls16034.sgp.st.com (euls16034.sgp.st.com [10.75.44.20])
+ by beta.dmz-eu.st.com (STMicroelectronics) with ESMTP id 7396410002A;
+ Wed,  1 Jul 2020 11:21:40 +0200 (CEST)
+Received: from Webmail-eu.st.com (sfhdag3node2.st.com [10.75.127.8])
+ by euls16034.sgp.st.com (STMicroelectronics) with ESMTP id 39AFD2AA395;
+ Wed,  1 Jul 2020 11:21:40 +0200 (CEST)
+Received: from gnbcxd0016.gnb.st.com (10.75.127.47) by SFHDAG3NODE2.st.com
+ (10.75.127.8) with Microsoft SMTP Server (TLS) id 15.0.1347.2; Wed, 1 Jul
+ 2020 11:21:39 +0200
+Date: Wed, 1 Jul 2020 11:21:38 +0200
+From: Alain Volmat <alain.volmat@st.com>
+To: Wolfram Sang <wsa@kernel.org>
+Message-ID: <20200701092138.GB3457@gnbcxd0016.gnb.st.com>
+Mail-Followup-To: Wolfram Sang <wsa@kernel.org>, robh+dt@kernel.org,
+ mark.rutland@arm.com, pierre-yves.mordret@st.com,
+ mcoquelin.stm32@gmail.com, alexandre.torgue@st.com,
+ linux-i2c@vger.kernel.org, devicetree@vger.kernel.org,
+ linux-stm32@st-md-mailman.stormreply.com,
+ linux-arm-kernel@lists.infradead.org, linux-kernel@vger.kernel.org,
+ fabrice.gasnier@st.com
+References: <1593070769-9106-1-git-send-email-alain.volmat@st.com>
+ <20200630160500.GA2394@kunai>
 MIME-Version: 1.0
-In-Reply-To: <87lfk3kaj4.fsf@iwork.i-did-not-set--mail-host-address--so-tickle-me>
-Content-Language: en-US
-Cc: devicetree@vger.kernel.org, Jernej Skrabec <jernej.skrabec@siol.net>,
- Jonas Karlman <jonas@kwiboo.se>, dri-devel@lists.freedesktop.org,
- linux-kernel@vger.kernel.org, Yannick FERTRE <yannick.fertre@st.com>,
- Andrzej Hajda <a.hajda@samsung.com>,
- Laurent Pinchart <Laurent.pinchart@ideasonboard.com>, kernel@collabora.com,
- linux-stm32@st-md-mailman.stormreply.com, linux-arm-kernel@lists.infradead.org,
- linux-imx@nxp.com
-Subject: Re: [Linux-stm32] [PATCH v9 00/11] Genericize DW MIPI DSI bridge
- and add i.MX 6 driver
+Content-Disposition: inline
+In-Reply-To: <20200630160500.GA2394@kunai>
+X-Disclaimer: ce message est personnel / this message is private
+X-Originating-IP: [10.75.127.47]
+X-ClientProxiedBy: SFHDAG1NODE3.st.com (10.75.127.3) To SFHDAG3NODE2.st.com
+ (10.75.127.8)
+X-Proofpoint-Virus-Version: vendor=fsecure engine=2.50.10434:6.0.235, 18.0.687
+ definitions=2020-07-01_04:2020-07-01,
+ 2020-07-01 signatures=0
+Cc: mark.rutland@arm.com, devicetree@vger.kernel.org,
+ linux-kernel@vger.kernel.org, pierre-yves.mordret@st.com, robh+dt@kernel.org,
+ linux-i2c@vger.kernel.org, mcoquelin.stm32@gmail.com, fabrice.gasnier@st.com,
+ linux-stm32@st-md-mailman.stormreply.com, linux-arm-kernel@lists.infradead.org
+Subject: Re: [Linux-stm32] [PATCH v2 0/4] stm32-f7: Addition of SMBus Alert
+ / Host-notify features
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -133,81 +80,26 @@ List-Post: <mailto:linux-stm32@st-md-mailman.stormreply.com>
 List-Help: <mailto:linux-stm32-request@st-md-mailman.stormreply.com?subject=help>
 List-Subscribe: <https://st-md-mailman.stormreply.com/mailman/listinfo/linux-stm32>, 
  <mailto:linux-stm32-request@st-md-mailman.stormreply.com?subject=subscribe>
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: base64
+Content-Type: text/plain; charset="us-ascii"
+Content-Transfer-Encoding: 7bit
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
-SGkgSGVpa28sDQoNCkRvIHlvdSB0aGluayBzb21lb25lIGNhbiBoYXZlIGEgdHJ5IG9mIHRoaXMg
-cGF0Y2hzZXQgb24gYSBSSyBTb0MgPw0KDQpUaGFua3MsDQpOZWlsDQoNCk9uIDAxLzA3LzIwMjAg
-MDg6MzUsIEFkcmlhbiBSYXRpdSB3cm90ZToNCj4gSGkgTmVpbCwNCj4gDQo+IE9uIE1vbiwgMjkg
-SnVuIDIwMjAsIE5laWwgQXJtc3Ryb25nIDxuYXJtc3Ryb25nQGJheWxpYnJlLmNvbT4gd3JvdGU6
-DQo+PiBIaSBBZHJpYW4sDQo+PiBPbiAwOS8wNi8yMDIwIDE5OjQ5LCBBZHJpYW4gUmF0aXUgd3Jv
-dGU6DQo+Pj4gW1JlLXN1Ym1pdHRpbmcgdG8gY2MgZHJpLWRldmVsLCBzb3JyeSBhYm91dCB0aGUg
-bm9pc2VdwqAgSGVsbG8gYWxsLMKgIHY5IGNsZWFubHkgYXBwbGllcyBvbiB0b3Agb2YgbGF0ZXN0
-IG5leHQtMjAyMDA2MDkgdHJlZS4gdjkgZG9lcyBub3QgZGVwZW5kIG9uIG90aGVyIHBhdGNoZXMg
-YXMgdGhlIGxhc3QgYmluZGluZyBkb2MgaGFzIGJlZW4gbWVyZ2VkLsKgwqAgQWxsIGZlZWRiYWNr
-IHVwIHRvIHRoaXMgcG9pbnQgaGFzIGJlZW4gYWRkcmVzc2VkLiBTcGVjaWZpYyBkZXRhaWxzIGlu
-IGluZGl2aWR1YWwgcGF0Y2ggY2hhbmdlbG9ncy4gVGhlIGJpZ2dlc3QgY2hhbmdlcyBhcmUgdGhl
-IGRlcHJlY2F0aW9uIG9mIHRoZSBTeW5vcHN5cyBEVyBicmlkZ2UgYmluZCgpIEFQSSBpbiBmYXZv
-ciBvZiBvZl9kcm1fZmluZF9icmlkZ2UoKSBhbmQgLmF0dGFjaCBjYWxsYmFja3MsIHRoZSBhZGRp
-dGlvbiBvZiBhIFRPRE8gZW50cnkgd2hpY2ggb3V0bGluZXMgZnV0dXJlIHBsYW5uZWQgYnJpZGdl
-IGRyaXZlciByZWZhY3RvcmluZ3MgYW5kIGEgcmVvcmRlcmluZyBvZiBzb21lIGkuTVggNiBwYXRj
-aGVzIHRvIGFwcGVhc2UgY2hlY2twYXRjaC7CoMKgIFRoZSBpZGVhIGJlaGluZCB0aGUgVE9ETyBp
-cyB0byBnZXQgdGhpcyByZWdtYXAgYW5kIGkuTVggNiBkcml2ZXIgbWVyZ2VkIGFuZCB0aGVuIGRv
-IHRoZSByZXN0IG9mIHJlZmFjdG9yaW5ncyBpbi10cmVlIGJlY2F1c2UgaXQncyBlYXNpZXIgYW5k
-IHRoZSByZWZhY3RvcmluZ3MgdGhlbXNlbHZlcyBhcmUgb3V0LW9mLXNjb3BlIG9mIHRoaXMgc2Vy
-aWVzIHdoaWNoIGlzIGFkZGluZyBpLk1YIDYgc3VwcG9ydCBhbmQgaXMgcXVpdGUgYmlnIGFscmVh
-ZHksIHNvIHBsZWFzZSwgaWYgdGhlcmUgYXJlIG1vcmUgcmVmYWN0b3JpbmcgaWRlYXMsIGxldCdz
-IGFkZCB0aGVtIHRvIHRoZSBUT0RPIGRvYy4gOikgSSBpbnRlbmQgdG8gdGFja2xlIHRob3NlIGFm
-dGVyIHRoaXMgc2VyaWVzIGlzIG1lcmdlZCB0bw0KPj4+IGF2b2lkIHR3byBjb21wbGV4IGludGVy
-LWRlcGVuZGVudCBzaW11bHRhbmVvdXMgc2VyaWVzLiANCj4+DQo+PiBUaGlzIGhhcyBiZWVuIGFy
-b3VuZCBoZXJlIGZvciBhIGxvbmcgdGltZSBhbmQgeW91IHNlZW0gdG8gaGF2ZSBhZGRyZXNzZWQg
-YWxsIHRoZSByZXZpZXdzLg0KPj4+IMKgQXMgYWx3YXlzIG1vcmUgdGVzdGluZyBpcyB3ZWxjb21l
-IGVzcGVjaWFsbHkgb24gUm9ja2NoaXAgYW5kIFNUTSBTb0NzLiANCj4+DQo+PiBJdCBoYXMgYmVl
-biB0ZXN0ZWQgb24gU1RNLCBidXQgSSdkIGxpa2UgYSBmZWVkYmFjayBvbiBSSyBwbGF0Zm9ybSBi
-ZWZvcmUgYXBwbHlpbmcgdGhlIGJyaWRnZSBwYXJ0cy4NCj4+IENhbiB0aGUgaW14ICYgc3RtIHBh
-dGNoZXMgYmUgYXBwbGllZCBzZXBhcmF0ZWx5ID8NCj4gDQo+IFllcyB0aGUgSU1YIGFuZCBTVE0g
-cGF0Y2hlcyBjYW4gYmUgYXBwbGllZCBzZXBhcmF0ZWx5LCB0aGV5IGp1c3QgYm90aCBkZXBlbmQg
-b24gdGhlIGNvbW1vbiByZWdtYXAgcGF0Y2hlcy4NCj4gDQo+IFRoZSBiaW5kaW5nIEFQSSByZW1v
-dmFsIGNoYW5nZSB3aGljaCBkaXJlY3RseSB0b3VjaGVzIFJLIGNhbiBhbHNvIGJlIGFwcGxpZWQg
-c2VwYXJhdGVseSwgYnV0IHVuZm9ydHVuYXRlbHkgSSBkbyBub3QgaGF2ZSBhY2Nlc3MgdG8gYSBS
-SyBib2FyZCB3aXRoIGEgRFNJIGRpc3BsYXkgdG8gdGVzdCBpdCAob3IgdGhlIGJyaWRnZSByZWdt
-YXAgbG9naWMgb24gUksgYnR3Li4uKSwgSSBqdXN0ICJleWUtYmFsbGVkIiB0aGUgUksgY29kZSBi
-YXNlZCBvbiB0aGUgcHVibGljIGRvY3MgYW5kIGl0IExHVE0uDQo+IA0KPj4gTmVpbA0KPj4NCj4+
-Pg0KPj4+IEJpZyB0aGFuayB5b3UgdG8gZXZlcnlvbmUgd2hvIGhhcyBjb250cmlidXRlZCB0byB0
-aGlzIHVwIHRvIG5vdywNCj4+PiBBZHJpYW4NCj4+Pg0KPj4+IEFkcmlhbiBSYXRpdSAoMTEpOg0K
-Pj4+IMKgIGRybTogYnJpZGdlOiBkd19taXBpX2RzaTogYWRkIGluaXRpYWwgcmVnbWFwIGluZnJh
-c3RydWN0dXJlDQo+Pj4gwqAgZHJtOiBicmlkZ2U6IGR3X21pcGlfZHNpOiBhYnN0cmFjdCByZWdp
-c3RlciBhY2Nlc3MgdXNpbmcgcmVnX2ZpZWxkcw0KPj4+IMKgIGRybTogYnJpZGdlOiBkd19taXBp
-X2RzaTogYWRkIGRzaSB2MS4wMSBzdXBwb3J0DQo+Pj4gwqAgZHJtOiBicmlkZ2U6IGR3X21pcGlf
-ZHNpOiByZW1vdmUgYmluZC91bmJpbmQgQVBJDQo+Pj4gwqAgZHQtYmluZGluZ3M6IGRpc3BsYXk6
-IGFkZCBpLk1YNiBNSVBJIERTSSBob3N0IGNvbnRyb2xsZXIgZG9jDQo+Pj4gwqAgQVJNOiBkdHM6
-IGlteDZxZGw6IGFkZCBtaXNzaW5nIG1pcGkgZHNpIHByb3BlcnRpZXMNCj4+PiDCoCBkcm06IGlt
-eDogQWRkIGkuTVggNiBNSVBJIERTSSBob3N0IHBsYXRmb3JtIGRyaXZlcg0KPj4+IMKgIGRybTog
-c3RtOiBkdy1taXBpLWRzaTogbGV0IHRoZSBicmlkZ2UgaGFuZGxlIHRoZSBIVyB2ZXJzaW9uIGNo
-ZWNrDQo+Pj4gwqAgZHJtOiBicmlkZ2U6IGR3LW1pcGktZHNpOiBzcGxpdCBsb3cgcG93ZXIgY2Zn
-IHJlZ2lzdGVyIGludG8gZmllbGRzDQo+Pj4gwqAgZHJtOiBicmlkZ2U6IGR3LW1pcGktZHNpOiBm
-aXggYmFkIHJlZ2lzdGVyIGZpZWxkIG9mZnNldHMNCj4+PiDCoCBEb2N1bWVudGF0aW9uOiBncHU6
-IHRvZG86IEFkZCBkdy1taXBpLWRzaSBjb25zb2xpZGF0aW9uIHBsYW4NCj4+Pg0KPj4+IMKgLi4u
-L2Rpc3BsYXkvaW14L2ZzbCxtaXBpLWRzaS1pbXg2LnlhbWzCoMKgwqDCoMKgwqDCoCB8IDExMiAr
-KysNCj4+PiDCoERvY3VtZW50YXRpb24vZ3B1L3RvZG8ucnN0wqDCoMKgwqDCoMKgwqDCoMKgwqDC
-oMKgwqDCoMKgwqDCoMKgwqAgfMKgIDI1ICsNCj4+PiDCoGFyY2gvYXJtL2Jvb3QvZHRzL2lteDZx
-ZGwuZHRzacKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoCB8wqDCoCA4ICsNCj4+PiDCoGRy
-aXZlcnMvZ3B1L2RybS9icmlkZ2Uvc3lub3BzeXMvS2NvbmZpZ8KgwqDCoMKgwqDCoCB8wqDCoCAx
-ICsNCj4+PiDCoGRyaXZlcnMvZ3B1L2RybS9icmlkZ2Uvc3lub3BzeXMvZHctbWlwaS1kc2kuYyB8
-IDcxMyArKysrKysrKysrKystLS0tLS0NCj4+PiDCoGRyaXZlcnMvZ3B1L2RybS9pbXgvS2NvbmZp
-Z8KgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoCB8wqDCoCA4ICsNCj4+PiDCoGRy
-aXZlcnMvZ3B1L2RybS9pbXgvTWFrZWZpbGXCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDC
-oMKgIHzCoMKgIDEgKw0KPj4+IMKgZHJpdmVycy9ncHUvZHJtL2lteC9kd19taXBpX2RzaS1pbXg2
-LmPCoMKgwqDCoMKgwqDCoCB8IDM5OSArKysrKysrKysrDQo+Pj4gwqAuLi4vZ3B1L2RybS9yb2Nr
-Y2hpcC9kdy1taXBpLWRzaS1yb2NrY2hpcC5jwqDCoCB8wqDCoCA3ICstDQo+Pj4gwqBkcml2ZXJz
-L2dwdS9kcm0vc3RtL2R3X21pcGlfZHNpLXN0bS5jwqDCoMKgwqDCoMKgwqDCoCB8wqAgMTYgKy0N
-Cj4+PiDCoDEwIGZpbGVzIGNoYW5nZWQsIDEwNTkgaW5zZXJ0aW9ucygrKSwgMjMxIGRlbGV0aW9u
-cygtKQ0KPj4+IMKgY3JlYXRlIG1vZGUgMTAwNjQ0IERvY3VtZW50YXRpb24vZGV2aWNldHJlZS9i
-aW5kaW5ncy9kaXNwbGF5L2lteC9mc2wsbWlwaS1kc2ktaW14Ni55YW1sDQo+Pj4gwqBjcmVhdGUg
-bW9kZSAxMDA2NDQgZHJpdmVycy9ncHUvZHJtL2lteC9kd19taXBpX2RzaS1pbXg2LmMNCj4+Pg0K
-DQpfX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fXwpMaW51eC1z
-dG0zMiBtYWlsaW5nIGxpc3QKTGludXgtc3RtMzJAc3QtbWQtbWFpbG1hbi5zdG9ybXJlcGx5LmNv
-bQpodHRwczovL3N0LW1kLW1haWxtYW4uc3Rvcm1yZXBseS5jb20vbWFpbG1hbi9saXN0aW5mby9s
-aW51eC1zdG0zMgo=
+On Tue, Jun 30, 2020 at 06:05:00PM +0200, Wolfram Sang wrote:
+> On Thu, Jun 25, 2020 at 09:39:25AM +0200, Alain Volmat wrote:
+> > This serie adds SMBus Alert and SMBus Host-Notify features for the i2c-stm32f7.
+> 
+> If it is not too much work for you, I think it makes sense to split the
+> series into two, i.e. HostNotify and SMBusAlert parts.
+> 
+
+I've just prepared the 1st new serie with only the HostNotify bits in it.
+(basically, the core part, the dt-bindings with the enable-host-notify, and
+the usage within i2c-stm32f7).
+You mentioned in the other thread that you still have some more review comment
+I believe. Is that right ? If that is so, I'll wait for those comment and
+then push that new serie for review.
+_______________________________________________
+Linux-stm32 mailing list
+Linux-stm32@st-md-mailman.stormreply.com
+https://st-md-mailman.stormreply.com/mailman/listinfo/linux-stm32
