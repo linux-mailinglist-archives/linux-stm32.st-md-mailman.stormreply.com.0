@@ -2,64 +2,36 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id CFB7D2113BD
-	for <lists+linux-stm32@lfdr.de>; Wed,  1 Jul 2020 21:43:01 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 1305A21146F
+	for <lists+linux-stm32@lfdr.de>; Wed,  1 Jul 2020 22:30:58 +0200 (CEST)
 Received: from ip-172-31-3-76.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 9B42FC36B24;
-	Wed,  1 Jul 2020 19:43:01 +0000 (UTC)
-Received: from mx07-00178001.pphosted.com (mx08-00178001.pphosted.com
- [91.207.212.93])
- (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
- (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id C9A2DC36B22
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id B3BFFC36B24;
+	Wed,  1 Jul 2020 20:30:57 +0000 (UTC)
+Received: from bhuna.collabora.co.uk (bhuna.collabora.co.uk [46.235.227.227])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256
+ bits)) (No client certificate requested)
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 38A71C36B22
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Wed,  1 Jul 2020 19:42:59 +0000 (UTC)
-Received: from pps.filterd (m0046661.ppops.net [127.0.0.1])
- by mx07-00178001.pphosted.com (8.16.0.42/8.16.0.42) with SMTP id
- 061JWpd4019840; Wed, 1 Jul 2020 21:42:51 +0200
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=st.com;
- h=from : to : subject :
- date : message-id : mime-version : content-type; s=STMicroelectronics;
- bh=ONV0ecabbBlO6gJXNs/226URnc+ag+nvRZNReE3Ogcc=;
- b=LcA1o1uNTuYK6AJNKeorEZsug4z7ozOzOJHA6qEJWx9MHkmjLA73AETFI809FiJWOKaq
- nQMp2DoWo1Fl6I6MOZbC8fsH/tujwh5izRC0jjvZOGiP999k9e1t3b/djK4JogqJu1JY
- 7qKAg1YVYeW9hFq4JXWSrP0Dsok4HenjvIZ6ozKV2dwMFltwkss7V6A734yJlQI0dNNG
- cs6WOGQcM3xGTIhxAkYiQZJ3IZiKfgW1FREU4OxDVxVjLoTt2yFQxWKrSgQnc/facPFf
- jpn88IUb39gPHfFposVNCzF6aE63QSHkzXFcOYbPT6Hj/z76DEWmAhTkiGcZzc8eUiMP pg== 
-Received: from beta.dmz-eu.st.com (beta.dmz-eu.st.com [164.129.1.35])
- by mx07-00178001.pphosted.com with ESMTP id 31ww0gbym1-1
- (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
- Wed, 01 Jul 2020 21:42:51 +0200
-Received: from euls16034.sgp.st.com (euls16034.sgp.st.com [10.75.44.20])
- by beta.dmz-eu.st.com (STMicroelectronics) with ESMTP id 83B3D100034;
- Wed,  1 Jul 2020 21:42:50 +0200 (CEST)
-Received: from Webmail-eu.st.com (sfhdag6node1.st.com [10.75.127.16])
- by euls16034.sgp.st.com (STMicroelectronics) with ESMTP id 765252BF9A6;
- Wed,  1 Jul 2020 21:42:50 +0200 (CEST)
-Received: from localhost (10.75.127.50) by SFHDAG6NODE1.st.com (10.75.127.16)
- with Microsoft SMTP Server (TLS) id 15.0.1473.3;
- Wed, 1 Jul 2020 21:42:49 +0200
-From: Yannick Fertre <yannick.fertre@st.com>
-To: Yannick Fertre <yannick.fertre@st.com>, Philippe Cornu
- <philippe.cornu@st.com>, Benjamin Gaignard <benjamin.gaignard@st.com>,
- David Airlie <airlied@linux.ie>, Daniel Vetter <daniel@ffwll.ch>,
- Maxime Coquelin <mcoquelin.stm32@gmail.com>,
- Alexandre Torgue <alexandre.torgue@st.com>,
- <dri-devel@lists.freedesktop.org>,
- <linux-stm32@st-md-mailman.stormreply.com>,
- <linux-arm-kernel@lists.infradead.org>, <linux-kernel@vger.kernel.org>
-Date: Wed, 1 Jul 2020 21:42:48 +0200
-Message-ID: <20200701194248.20368-1-yannick.fertre@st.com>
-X-Mailer: git-send-email 2.17.1
+ Wed,  1 Jul 2020 20:30:56 +0000 (UTC)
+Received: from [127.0.0.1] (localhost [127.0.0.1])
+ (Authenticated sender: aratiu) with ESMTPSA id DEA832A5718
+From: Adrian Ratiu <adrian.ratiu@collabora.com>
+To: Heiko =?utf-8?Q?St=C3=BCbner?= <heiko@sntech.de>
+In-Reply-To: <6400388.H4HLtoO0Qf@diego>
+References: <20200609174959.955926-1-adrian.ratiu@collabora.com>
+ <6400388.H4HLtoO0Qf@diego>
+Date: Wed, 01 Jul 2020 23:32:18 +0300
+Message-ID: <87imf7j7sd.fsf@collabora.com>
 MIME-Version: 1.0
-X-Originating-IP: [10.75.127.50]
-X-ClientProxiedBy: SFHDAG2NODE3.st.com (10.75.127.6) To SFHDAG6NODE1.st.com
- (10.75.127.16)
-X-Proofpoint-Virus-Version: vendor=fsecure engine=2.50.10434:6.0.235, 18.0.687
- definitions=2020-07-01_10:2020-07-01,
- 2020-07-01 signatures=0
-Subject: [Linux-stm32] [PATCH] drm/bridge/synopsys: dsi: allow LP commands
-	in video mode
+Cc: devicetree@vger.kernel.org, Jernej Skrabec <jernej.skrabec@siol.net>,
+ Andrzej Hajda <a.hajda@samsung.com>, Jonas Karlman <jonas@kwiboo.se>,
+ linux-kernel@vger.kernel.org, dri-devel@lists.freedesktop.org,
+ Yannick FERTRE <yannick.fertre@st.com>, linux-rockchip@lists.infradead.org,
+ Laurent Pinchart <Laurent.pinchart@ideasonboard.com>, kernel@collabora.com,
+ linux-stm32@st-md-mailman.stormreply.com, linux-arm-kernel@lists.infradead.org,
+ linux-imx@nxp.com
+Subject: Re: [Linux-stm32] [PATCH v9 00/11] Genericize DW MIPI DSI bridge
+ and add i.MX 6 driver
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -71,45 +43,41 @@ List-Post: <mailto:linux-stm32@st-md-mailman.stormreply.com>
 List-Help: <mailto:linux-stm32-request@st-md-mailman.stormreply.com?subject=help>
 List-Subscribe: <https://st-md-mailman.stormreply.com/mailman/listinfo/linux-stm32>, 
  <mailto:linux-stm32-request@st-md-mailman.stormreply.com?subject=subscribe>
-Content-Type: text/plain; charset="us-ascii"
-Content-Transfer-Encoding: 7bit
+Content-Transfer-Encoding: base64
+Content-Type: text/plain; charset="utf-8"; Format="flowed"
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
-From: Antonio Borneo <antonio.borneo@st.com>
-
-Current code only sends LP commands in command mode.
-
-Allows sending LP commands also in video mode by setting the
-proper flag in DSI_VID_MODE_CFG.
-
-Signed-off-by: Antonio Borneo <antonio.borneo@st.com>
----
- drivers/gpu/drm/bridge/synopsys/dw-mipi-dsi.c | 7 +++++++
- 1 file changed, 7 insertions(+)
-
-diff --git a/drivers/gpu/drm/bridge/synopsys/dw-mipi-dsi.c b/drivers/gpu/drm/bridge/synopsys/dw-mipi-dsi.c
-index d580b2aa4ce9..0cd43e7a69bb 100644
---- a/drivers/gpu/drm/bridge/synopsys/dw-mipi-dsi.c
-+++ b/drivers/gpu/drm/bridge/synopsys/dw-mipi-dsi.c
-@@ -367,6 +367,13 @@ static void dw_mipi_message_config(struct dw_mipi_dsi *dsi,
- 
- 	dsi_write(dsi, DSI_LPCLK_CTRL, lpm ? 0 : PHY_TXREQUESTCLKHS);
- 	dsi_write(dsi, DSI_CMD_MODE_CFG, val);
-+
-+	val = dsi_read(dsi, DSI_VID_MODE_CFG);
-+	if (lpm)
-+		val |= ENABLE_LOW_POWER_CMD;
-+	else
-+		val &= ~ENABLE_LOW_POWER_CMD;
-+	dsi_write(dsi, DSI_VID_MODE_CFG, val);
- }
- 
- static int dw_mipi_dsi_gen_pkt_hdr_write(struct dw_mipi_dsi *dsi, u32 hdr_val)
--- 
-2.17.1
-
-_______________________________________________
-Linux-stm32 mailing list
-Linux-stm32@st-md-mailman.stormreply.com
-https://st-md-mailman.stormreply.com/mailman/listinfo/linux-stm32
+SGkgSGVpa28sCgpPbiBXZWQsIDAxIEp1bCAyMDIwLCBIZWlrbyBTdMO8Ym5lciA8aGVpa29Ac250
+ZWNoLmRlPiB3cm90ZToKPiBIaSBBZHJpYW4sIAo+IAo+IEFtIERpZW5zdGFnLCA5LiBKdW5pIDIw
+MjAsIDE5OjQ5OjQ4IENFU1Qgc2NocmllYiBBZHJpYW4gUmF0aXU6IAo+PiBbUmUtc3VibWl0dGlu
+ZyB0byBjYyBkcmktZGV2ZWwsIHNvcnJ5IGFib3V0IHRoZSBub2lzZV0gIEhlbGxvIAo+PiBhbGws
+ICB2OSBjbGVhbmx5IGFwcGxpZXMgb24gdG9wIG9mIGxhdGVzdCBuZXh0LTIwMjAwNjA5IHRyZWUu
+IAo+IAo+IGF0IGxlYXN0IGl0IGRvZXNuJ3QgYXBwbHkgb24gdG9wIG9mIGN1cnJlbnQgZHJtLW1p
+c2MtbmV4dCBmb3IgbWUgCj4gd2hpY2ggSSByZWFsbHkgZG9uJ3QgdW5kZXJzdGFuZC4gCj4gCj4g
+TGlrZSBwYXRjaCAyLzExIGRvZXMgCj4gCj4gQEAgLTMxLDYgKzMxLDcgQEAgCj4gICNpbmNsdWRl
+IDxkcm0vZHJtX3Byb2JlX2hlbHBlci5oPiAKPiAuIAo+ICAjZGVmaW5lIEhXVkVSXzEzMTwtLS0t
+PjwtLS0tLS0+PC0tLS0tLT4weDMxMzMzMTAwPC0tLS0+LyogSVAgCj4gIHZlcnNpb24gMS4zMSAq
+LyAKPiArI2RlZmluZSBIV1ZFUl8xMzA8LS0tLT48LS0tLS0tPjwtLS0tLS0+MHgzMTMzMzAwMDwt
+LS0tPi8qIElQIAo+IHZlcnNpb24gMS4zMCAqLyAuIAo+ICAjZGVmaW5lIERTSV9WRVJTSU9OPC0t
+PjwtLS0tLS0+PC0tLS0tLT4weDAwICNkZWZpbmUgCj4gIFZFUlNJT048LS0tLS0tPjwtLS0tLS0+
+PC0tLS0tLT48LS0tLS0tPkdFTk1BU0soMzEsIDgpIAo+IAo+IHdoZXJlIHRoZSBmaWxlIGN1cnJl
+bnRseSBsb29rcyBsaWtlIAo+IAo+ICNpbmNsdWRlIDxkcm0vZHJtX2F0b21pY19oZWxwZXIuaD4g
+I2luY2x1ZGUgPGRybS9kcm1fYnJpZGdlLmg+IAo+ICNpbmNsdWRlIDxkcm0vZHJtX2NydGMuaD4g
+I2luY2x1ZGUgPGRybS9kcm1fbWlwaV9kc2kuaD4gI2luY2x1ZGUgCj4gPGRybS9kcm1fbW9kZXMu
+aD4gI2luY2x1ZGUgPGRybS9kcm1fb2YuaD4gI2luY2x1ZGUgCj4gPGRybS9kcm1fcHJpbnQuaD4g
+Cj4gCj4gI2RlZmluZSBIV1ZFUl8xMzEJCQkweDMxMzMzMTAwCS8qIElQIAo+IHZlcnNpb24gMS4z
+MSAqLyAKPiAKPiAjZGVmaW5lIERTSV9WRVJTSU9OCQkJMHgwMCAjZGVmaW5lIFZFUlNJT04gCj4g
+R0VOTUFTSygzMSwgOCkgCj4gIAo+IGV2ZW4gaW4gTGludXgtbmV4dCAKPiAgCj4gU28gSSBndWVz
+cyBpZGVhbGx5IHJlYmFzZSBvbiB0b3Agb2YgZHJtLW1pc2MtbmV4dAoKSSB3aWxsIHNlbmQgYSBy
+ZWJhc2Ugb24gdG9wIG9mIGRybS1taXNjLW5leHQgc29vbiAod2l0aCB0aGUgbGFzdCAKRFRTIG5p
+dHBpY2sgZml4ZWQgYW5kIHRoZSBsYXRlc3QgYWNrcyBhbmQgcmV2aWV3ZWQtYnkgdGFncyBhZGRl
+ZCkuCgpJbiB0aGUgbWVhbnRpbWUgSSBhbHNvIGZvdW5kIHNvbWVvbmUgd2l0aGluIENvbGxhYm9y
+YSB3aG8gaGFzIGEgUksgCndpdGggYSBEU0kgcGFuZWwgYW5kIGZvdW5kIGEgYnVnIChsaWtlbHkg
+Y2xvY2sgaXMgbm90IGVuYWJsZWQgCmVhcmx5IGVub3VnaCB0byBhY2Nlc3MgdGhlIGNmZyByZWdp
+c3RlcnMgdG8gZ2V0IHRoZSB2ZXJzaW9uIGZvciAKcmVnbWFwKS4KCkknbSBzdXBlciBoYXBweSB0
+aGlzIGlzIGdldHRpbmcgdGVzdGVkIG9uIFJLLCB0aGFuayB5b3UhCgo+Cj4KPiBUaGFua3MKPiBI
+ZWlrbwpfX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fXwpMaW51
+eC1zdG0zMiBtYWlsaW5nIGxpc3QKTGludXgtc3RtMzJAc3QtbWQtbWFpbG1hbi5zdG9ybXJlcGx5
+LmNvbQpodHRwczovL3N0LW1kLW1haWxtYW4uc3Rvcm1yZXBseS5jb20vbWFpbG1hbi9saXN0aW5m
+by9saW51eC1zdG0zMgo=
