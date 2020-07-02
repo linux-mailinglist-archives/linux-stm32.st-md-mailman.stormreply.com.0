@@ -2,57 +2,74 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id D9C12212196
-	for <lists+linux-stm32@lfdr.de>; Thu,  2 Jul 2020 12:53:27 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 983B021221F
+	for <lists+linux-stm32@lfdr.de>; Thu,  2 Jul 2020 13:23:26 +0200 (CEST)
 Received: from ip-172-31-3-76.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 84779C36B26;
-	Thu,  2 Jul 2020 10:53:27 +0000 (UTC)
-Received: from mail-out.m-online.net (mail-out.m-online.net [212.18.0.10])
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 50A26C36B26;
+	Thu,  2 Jul 2020 11:23:26 +0000 (UTC)
+Received: from mx07-00178001.pphosted.com (mx07-00178001.pphosted.com
+ [62.209.51.94])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id A4C4EC36B24
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 2239CC36B24
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Thu,  2 Jul 2020 10:53:25 +0000 (UTC)
-Received: from frontend01.mail.m-online.net (unknown [192.168.8.182])
- by mail-out.m-online.net (Postfix) with ESMTP id 49yFLr39hkz1rVw0;
- Thu,  2 Jul 2020 12:53:24 +0200 (CEST)
-Received: from localhost (dynscan1.mnet-online.de [192.168.6.70])
- by mail.m-online.net (Postfix) with ESMTP id 49yFLr2C48z1qw71;
- Thu,  2 Jul 2020 12:53:24 +0200 (CEST)
-X-Virus-Scanned: amavisd-new at mnet-online.de
-Received: from mail.mnet-online.de ([192.168.8.182])
- by localhost (dynscan1.mail.m-online.net [192.168.6.70]) (amavisd-new,
- port 10024)
- with ESMTP id XE8f4teyIOH6; Thu,  2 Jul 2020 12:53:22 +0200 (CEST)
-X-Auth-Info: BxUsMb4hTCTIOASkHZPedF6xg2xeCtGU7rA2aRGZqFc=
-Received: from [IPv6:::1] (unknown [195.140.253.167])
- (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
- (No client certificate requested)
- by mail.mnet-online.de (Postfix) with ESMTPSA;
- Thu,  2 Jul 2020 12:53:22 +0200 (CEST)
-To: Philippe CORNU <philippe.cornu@st.com>,
- Yannick FERTRE <yannick.fertre@st.com>,
- "dri-devel@lists.freedesktop.org" <dri-devel@lists.freedesktop.org>
-References: <20200229221649.90813-1-marex@denx.de>
- <a30ad5a774004221903292871797607a@SFHDAG6NODE1.st.com>
- <64ea7f77-0a0b-ae3a-2911-5fdc8633255e@denx.de>
- <68f47008-f0ed-384c-7e21-f29b444da3ee@st.com>
- <3121f339-c513-f75d-569e-81c5c0f3cd1a@st.com>
-From: Marek Vasut <marex@denx.de>
-Message-ID: <a35217e6-21ce-6d36-c1bb-9e057ae35be1@denx.de>
-Date: Thu, 2 Jul 2020 12:53:22 +0200
-User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:68.0) Gecko/20100101
- Thunderbird/68.9.0
+ Thu,  2 Jul 2020 11:23:24 +0000 (UTC)
+Received: from pps.filterd (m0046668.ppops.net [127.0.0.1])
+ by mx07-00178001.pphosted.com (8.16.0.42/8.16.0.42) with SMTP id
+ 062BG4IJ003106; Thu, 2 Jul 2020 13:23:15 +0200
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=st.com;
+ h=date : from : to : cc :
+ subject : message-id : references : mime-version : content-type :
+ in-reply-to; s=STMicroelectronics;
+ bh=5WRolsP7RiTQVKYQWxXnd4r13bZrvjWmpEgS8eL44Vo=;
+ b=tK4jwZSoCzqQvFoTTJc/3BLffPTvaB6X2vqCxqU71etrfo3J3A2ZSnsgdX+Fi8F15yzP
+ 7x8RQDer+5OQrNS30yHcOjEEuqExVvYsoDcdYjuk0iS4gFDomdakmL/bT8eokV95ze2f
+ NW8tMbSonOUUqCG6ybcXoRCgaJO1NdtcUhjY+2WrHG1l0mrhqRf8onRqTLzXNo+8ICwJ
+ THtV4lEfmN0Tujg28nNYIkoJgS9FfBcZqYP0BVQMjM0epfycULeqRIAGiAsq4YgUY/Ti
+ srMoj3Bn92Wt04cY1yBX2370pLrB8GxsjGjJOrhxNj6wVl14hF5pA5Bl9VCYrVeDmrQg dg== 
+Received: from beta.dmz-eu.st.com (beta.dmz-eu.st.com [164.129.1.35])
+ by mx07-00178001.pphosted.com with ESMTP id 31wuk1qqj0-1
+ (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
+ Thu, 02 Jul 2020 13:23:15 +0200
+Received: from euls16034.sgp.st.com (euls16034.sgp.st.com [10.75.44.20])
+ by beta.dmz-eu.st.com (STMicroelectronics) with ESMTP id D295C10002A;
+ Thu,  2 Jul 2020 13:23:14 +0200 (CEST)
+Received: from Webmail-eu.st.com (sfhdag3node2.st.com [10.75.127.8])
+ by euls16034.sgp.st.com (STMicroelectronics) with ESMTP id B88812AFEEF;
+ Thu,  2 Jul 2020 13:23:14 +0200 (CEST)
+Received: from gnbcxd0016.gnb.st.com (10.75.127.47) by SFHDAG3NODE2.st.com
+ (10.75.127.8) with Microsoft SMTP Server (TLS) id 15.0.1347.2; Thu, 2 Jul
+ 2020 13:23:13 +0200
+Date: Thu, 2 Jul 2020 13:23:13 +0200
+From: Alain Volmat <alain.volmat@st.com>
+To: Wolfram Sang <wsa@kernel.org>
+Message-ID: <20200702112313.GE6855@gnbcxd0016.gnb.st.com>
+Mail-Followup-To: Wolfram Sang <wsa@kernel.org>, robh+dt@kernel.org,
+ mark.rutland@arm.com, pierre-yves.mordret@st.com,
+ mcoquelin.stm32@gmail.com, alexandre.torgue@st.com,
+ linux-i2c@vger.kernel.org, devicetree@vger.kernel.org,
+ linux-stm32@st-md-mailman.stormreply.com,
+ linux-arm-kernel@lists.infradead.org, linux-kernel@vger.kernel.org,
+ fabrice.gasnier@st.com
+References: <1593070769-9106-1-git-send-email-alain.volmat@st.com>
+ <1593070769-9106-2-git-send-email-alain.volmat@st.com>
+ <20200701104946.GH2261@ninjato>
 MIME-Version: 1.0
-In-Reply-To: <3121f339-c513-f75d-569e-81c5c0f3cd1a@st.com>
-Content-Language: en-US
-Cc: Benjamin Gaignard <benjamin.gaignard@linaro.org>,
- Maxime Coquelin <mcoquelin.stm32@gmail.com>,
- Vincent ABRIOU <vincent.abriou@st.com>,
- "linux-stm32@st-md-mailman.stormreply.com"
- <linux-stm32@st-md-mailman.stormreply.com>,
- "linux-arm-kernel@lists.infradead.org" <linux-arm-kernel@lists.infradead.org>
-Subject: Re: [Linux-stm32] [PATCH] drm/stm: repair runtime power management
+Content-Disposition: inline
+In-Reply-To: <20200701104946.GH2261@ninjato>
+X-Disclaimer: ce message est personnel / this message is private
+X-Originating-IP: [10.75.127.47]
+X-ClientProxiedBy: SFHDAG6NODE2.st.com (10.75.127.17) To SFHDAG3NODE2.st.com
+ (10.75.127.8)
+X-Proofpoint-Virus-Version: vendor=fsecure engine=2.50.10434:6.0.235, 18.0.687
+ definitions=2020-07-02_05:2020-07-02,
+ 2020-07-02 signatures=0
+Cc: mark.rutland@arm.com, devicetree@vger.kernel.org,
+ linux-kernel@vger.kernel.org, pierre-yves.mordret@st.com, robh+dt@kernel.org,
+ linux-i2c@vger.kernel.org, mcoquelin.stm32@gmail.com, fabrice.gasnier@st.com,
+ linux-stm32@st-md-mailman.stormreply.com, linux-arm-kernel@lists.infradead.org
+Subject: Re: [Linux-stm32] [PATCH v2 1/4] i2c: smbus: add core function
+ handling SMBus host-notify
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -69,52 +86,93 @@ Content-Transfer-Encoding: 7bit
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
-On 7/2/20 12:07 PM, Philippe CORNU wrote:
+Hi Wolfram,
 
-Hi,
-
-[...]
-
->>>> Thank for your patch. Pm_runtime_put_sync is also done into function ltdc_crtc_mode_fixup.
->>>> To avoid several call of Pm_runtime_put_sync, it could be better to check pm_runtime activity:
->>>>
->>>> +	int ret;
->>>>    
->>>>    	DRM_DEBUG_DRIVER("\n");
->>>>    
->>>> +	if (!pm_runtime_active(ddev->dev)) {
->>>> +		ret = pm_runtime_get_sync(ddev->dev);
->>>> +		if (ret) {
->>>> +			DRM_ERROR("Failed to enable crtc, cannot get sync\n");
->>>> +			return;
->>>> +		}
->>>> +	}
->>>> +
->>>
->>> Where should this go ? And wouldn't that only hide nastier PM imbalance
->>> issues ?
->> Hi Marek,
->> I tested the patch &  it generate an error when I try wake up / sleep
->> the board STM32MP1 DK2 with weston application.
->> It need an additional patch
->> drm-stm-ltdc-remove-call-of-pm-runtime-functions.
->>
->> Thanks for the patch.
->>
->> Tested-by: Yannick Fertre <yannick.fertre@st.com>
->>
+> Okay, now I got it to work, I also noted a few more issues.
 > 
-> Hi Marek,
-> before merging the 2 patches, I would like to be sure that Yannick's 
-> patch does not "break" your use case (Qt I think)?
-> May I ask you please to give it a try?
-> Note: If you think there is no need to do extra checks, simply tell me 
-> of course
-It's fine, thanks !
+> First, I'd suggest s/i2c_smbus_host_notify/i2c_slave_host_notify/g for
+> all occurences in this patch. This makes a stronger distinction between
+> the generic HostNotify support and the slave specific one.
 
--- 
-Best regards,
-Marek Vasut
+Ok with that.
+
+> Also, I wonder if this shouldn't go to i2c-smbus.c instead but I haven't
+> checked if we end up in dependency hell then. Second best thought: at
+> least move to i2c-core-slave.c, then we could save the #ifdeffery in the
+> c-file?
+
+I have actually difficulties to understand clearly what should go within
+i2c-smbus.c vs i2c-core-smbus or i2c-core-slave. My feeling is that
+i2c-core-slave is more about the registering of a slave rather than one usage
+of the slave mechanism. Hence I am not sure those functions/cb belong there.
+But at the same time, I don't know about i2c-smbus vs i2c-core-smbus. I putted
+it within i2c-core-smbus considering that the creation of the alert device
+is also done there.
+
+....
+
+> > +{
+> > +	struct i2c_smbus_host_notify_status *status = client->dev.platform_data;
+> > +	int ret;
+> > +
+> > +	switch (event) {
+> > +	case I2C_SLAVE_WRITE_REQUESTED:
+> > +		status->notify_start = true;
+> > +		break;
+> > +	case I2C_SLAVE_WRITE_RECEIVED:
+> > +		/* We only retrieve the first byte received (addr)
+> > +		 * since there is currently no support to retrieve the data
+> > +		 * parameter from the client.
+> > +		 */
+> > +		if (!status->notify_start)
+> > +			break;
+> > +		status->addr = *val;
+> > +		status->notify_start = false;
+> 
+> So, we are safe if the message is too short. Otherwise, we capture the
+> first byte (== address) only, right. Further bytes until STOP are
+> discarded. So, we don't check if the message is too long and contains
+> more than the status word. Maybe we should add that?
+
+Yes I modified that.
+
+> > +		break;
+> > +	case I2C_SLAVE_STOP:
+> > +		/* In case of incomplete write, don't handle host-notify */
+> > +		if (status->notify_start) {
+> > +			status->notify_start = false;
+> > +			break;
+> > +		}
+> > +
+> > +		ret = i2c_handle_smbus_host_notify(client->adapter,
+> > +						   status->addr);
+> > +		if (ret < 0)
+> > +			return ret;
+> > +		break;
+> > +	default:
+> 
+> The missing cases are mandatory. From my testunit driver:
+> 
+>         case I2C_SLAVE_READ_REQUESTED:
+>         case I2C_SLAVE_READ_PROCESSED:
+>                 *val = 0xff;
+>                 break;
+
+Ok, done as well.
+
+> > --- a/include/linux/i2c-smbus.h
+> > +++ b/include/linux/i2c-smbus.h
+> > @@ -38,6 +38,8 @@ static inline int of_i2c_setup_smbus_alert(struct i2c_adapter *adap)
+> >  	return 0;
+> >  }
+> >  #endif
+> > +struct i2c_client *i2c_new_smbus_host_notify_device(struct i2c_adapter *adapter);
+> > +void i2c_free_smbus_host_notify_device(struct i2c_client *client);
+> 
+> Those need to be guarded with I2C_SLAVE as well. And an #else branch
+> with empty/successful placeholders.
+
+Ok understood.
 _______________________________________________
 Linux-stm32 mailing list
 Linux-stm32@st-md-mailman.stormreply.com
