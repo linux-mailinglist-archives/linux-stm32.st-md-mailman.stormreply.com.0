@@ -2,58 +2,59 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id E5D632168EE
+	by mail.lfdr.de (Postfix) with ESMTPS id E80072168EF
 	for <lists+linux-stm32@lfdr.de>; Tue,  7 Jul 2020 11:23:49 +0200 (CEST)
 Received: from ip-172-31-3-76.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 7AF77C36B2A
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 86F27C36B2D
 	for <lists+linux-stm32@lfdr.de>; Tue,  7 Jul 2020 09:23:49 +0000 (UTC)
-Received: from mail-ed1-f66.google.com (mail-ed1-f66.google.com
- [209.85.208.66])
+Received: from mail-ed1-f67.google.com (mail-ed1-f67.google.com
+ [209.85.208.67])
  (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 9A64DC36B27
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id B73FAC36B27
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Mon,  6 Jul 2020 17:34:49 +0000 (UTC)
-Received: by mail-ed1-f66.google.com with SMTP id e22so35764991edq.8
+ Mon,  6 Jul 2020 17:35:03 +0000 (UTC)
+Received: by mail-ed1-f67.google.com with SMTP id g20so35603045edm.4
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Mon, 06 Jul 2020 10:34:49 -0700 (PDT)
+ Mon, 06 Jul 2020 10:35:03 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20161025;
- h=from:to:cc:subject:date:message-id:mime-version
- :content-transfer-encoding;
- bh=w85FGsskHQRhzaiqM+JZGmGetxz+LIcW62VKFwk5McU=;
- b=pH/LmHobS7hL/45j4qh+7Ykh+Zu0U6JG9fJZS2yOgKqC/MQrhvGuu8eTvQtpWZwQ74
- V2F89+TQxbNl7Ntu1Waax7R91qdBV8TMDFAFirvHDr5ar7Wf6T4rl3E+Yrf8tB6RrUBX
- Bb3Vsxe020UJrNbHRtPU3qn2KsLs5xH7iqO9kpMwrRkbE+JaeUcCUxiKKAYETPHSPuhB
- MjMf1oKcetZziqnxUoAfSoKA3sobZyBCjyR/hPLpDbiCRnDqZB/Q7DcrUDRijEY0U3Vb
- TROt6KiPq+aUcGZ5NPoW5oxlQr+J4HSirNsTbTMF9D8mF6siiunj+iUhHBT0mA6GfFj8
- 2K5A==
+ h=from:to:cc:subject:date:message-id:in-reply-to:references
+ :mime-version:content-transfer-encoding;
+ bh=OL4BIoHfo4ESD2HkTeJ2OTpKVO9hzHwpMJmzstmiNVg=;
+ b=pzNFeVTSQqmQBRBaCx9hwMgTaGftD6bb3g3apo+av6qMPYCMRghznZWG8/gqBb/MLP
+ E7DNIVUH162bhujtG8TKhNRNmdSA3Frpxr5dubN8p7nqaF62jC3CI+iNQnKN6q7K5DzI
+ g92n5Yq8m+WiV8oHcTyUDa/y9sjuvkjj4X4NV/wLLLbsMCEZGgSOR9mRZG1t67n4MSlS
+ CSd7wZ5RnGK5DJ3EFzAsSwCHYCiXqIiQKzuFjuAZw0NIlfQsoruj6RQCfk92zOWkD/xn
+ IWi+Z+iHWomW8Eop9QoV0vyuQZ61W2eSKuTd/wpUbOtERjXZ2830bf0GBCjRdinSRqt8
+ 4LYg==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=1e100.net; s=20161025;
- h=x-gm-message-state:from:to:cc:subject:date:message-id:mime-version
- :content-transfer-encoding;
- bh=w85FGsskHQRhzaiqM+JZGmGetxz+LIcW62VKFwk5McU=;
- b=Y3CLcDpE7HWQAIcQQWFodhS5HD4je5WmuEOgdQnqomov3epOBHwQ1qYqhwver125lb
- DgFjDzAwbpHFdU5/sCkSzYOqpQjdX3BAF7ramLR9E4U6pvHEbgTnEYmDy/7qmztvCni9
- 1zS4I5yXnZDrbLdQT5B60nZA3WwAN5TDxfIrrCROW+eT86Rhj2YedidgUgcmwYLh3tp8
- wLQVutp+XXvCsXkZIw/E+sDnElJdOOyH5rIMHb7gIHm0AxTjoN0gMTzCkz4/K/qdOouE
- yOUWU/KNrX+LfaZSKGHqgo6cLPfhyDc1t/jRB0XC247PZ2Un2Ul8clxiazk0JrQExtkG
- eGag==
-X-Gm-Message-State: AOAM531B4FvybbYR0Ke8xza5+GgiZYpa/vQsXrzEl6erLgCmOec98GJb
- LBrXkw17AVy/p3HjCtx19tU=
-X-Google-Smtp-Source: ABdhPJy4/3XaG+1BN5v1+8nPRey1HgvdRd9Wo2LQRqUjb7BHCQ7PfBhwKRWXTWZs9CaMbHYPc6lqjg==
-X-Received: by 2002:a05:6402:21c2:: with SMTP id
- bi2mr56590150edb.296.1594056889023; 
- Mon, 06 Jul 2020 10:34:49 -0700 (PDT)
+ h=x-gm-message-state:from:to:cc:subject:date:message-id:in-reply-to
+ :references:mime-version:content-transfer-encoding;
+ bh=OL4BIoHfo4ESD2HkTeJ2OTpKVO9hzHwpMJmzstmiNVg=;
+ b=cM63FiZ/yX518qikb6yVM0YM1ndrbRA/6Z7xF5QSCWv3HrsmoLIzwLJH4Ep6Sh2UbJ
+ soVs6MCBDFSpWVjUK3Eqm8GXPP46xiVHldRo/VpJ6NUCqQlpAXIG39QAqhthzpjZIoas
+ CRZ8P1znaG1gGnWZQJZX7NCp5e5PkCs5SkhAYzISjZZnvrQh+l+/bvkUy+Q7fDJnyxNT
+ 9m3vNurZZP/pHvVcGiI/e9Ok5g2yMdIRz9b3DEV8xnqpGQ+C7A4hHXmHGst5e7illyRq
+ TdyNWDsqtxEKAKXd6rzL4cFjV0mymmHigdPmBY8nk+O3XDX+qhSBolnFpQrYQMy8BnZq
+ RtBQ==
+X-Gm-Message-State: AOAM533SqeZPK6AQasH0HMuOIFVhASLE06wz4ivjeBmdOxbrb3UyIk1h
+ 6FOErJ692Avn3eGmf/RvoRg=
+X-Google-Smtp-Source: ABdhPJwFsnEgy2TMnmCzBwlfhsHoeEroFsIMnCsgdDoNwl7SSxE4VISYVrxGPV72yRwsV0ZI9SZg4A==
+X-Received: by 2002:a50:d7c1:: with SMTP id m1mr58043823edj.217.1594056903415; 
+ Mon, 06 Jul 2020 10:35:03 -0700 (PDT)
 Received: from localhost.localdomain (asp78.neoplus.adsl.tpnet.pl.
  [83.26.227.78])
- by smtp.gmail.com with ESMTPSA id y22sm16556258ejj.67.2020.07.06.10.34.46
+ by smtp.gmail.com with ESMTPSA id y22sm16556258ejj.67.2020.07.06.10.35.01
  (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Mon, 06 Jul 2020 10:34:48 -0700 (PDT)
+ Mon, 06 Jul 2020 10:35:02 -0700 (PDT)
 From: Marcin Sloniewski <marcin.sloniewski@gmail.com>
 To: linux-arm-kernel@lists.infradead.org
-Date: Mon,  6 Jul 2020 19:33:47 +0200
-Message-Id: <20200706173353.20525-1-marcin.sloniewski@gmail.com>
+Date: Mon,  6 Jul 2020 19:33:48 +0200
+Message-Id: <20200706173353.20525-2-marcin.sloniewski@gmail.com>
 X-Mailer: git-send-email 2.26.2
+In-Reply-To: <20200706173353.20525-1-marcin.sloniewski@gmail.com>
+References: <20200706173353.20525-1-marcin.sloniewski@gmail.com>
 MIME-Version: 1.0
 X-Mailman-Approved-At: Tue, 07 Jul 2020 09:23:47 +0000
 Cc: devicetree@vger.kernel.org, Stephan Gerhold <stephan@gerhold.net>,
@@ -65,8 +66,8 @@ Cc: devicetree@vger.kernel.org, Stephan Gerhold <stephan@gerhold.net>,
  Rob Herring <robh+dt@kernel.org>, Mark Brown <broonie@kernel.org>,
  Maxime Coquelin <mcoquelin.stm32@gmail.com>, allen <allen.chen@ite.com.tw>,
  Sam Ravnborg <sam@ravnborg.org>, linux-stm32@st-md-mailman.stormreply.com
-Subject: [Linux-stm32] [PATCH 1/3] dt-bindings: vendor-prefixes: add Seeed
-	Studio
+Subject: [Linux-stm32] [PATCH 2/3] dt-bindings: arm: stm32: document Odyssey
+	compatible
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -83,27 +84,26 @@ Content-Transfer-Encoding: 7bit
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
-Add the "seeed" vendor prefix for Seeed Technology Co., Ltd
-Website: https://www.seeedstudio.com/
+Document device tree bindings of Seeed SoM and carrier board.
 
 Signed-off-by: Marcin Sloniewski <marcin.sloniewski@gmail.com>
 ---
- Documentation/devicetree/bindings/vendor-prefixes.yaml | 2 ++
+ Documentation/devicetree/bindings/arm/stm32/stm32.yaml | 2 ++
  1 file changed, 2 insertions(+)
 
-diff --git a/Documentation/devicetree/bindings/vendor-prefixes.yaml b/Documentation/devicetree/bindings/vendor-prefixes.yaml
-index 9aeab66be85f..7dd03b3e9d3c 100644
---- a/Documentation/devicetree/bindings/vendor-prefixes.yaml
-+++ b/Documentation/devicetree/bindings/vendor-prefixes.yaml
-@@ -902,6 +902,8 @@ patternProperties:
-     description: Schindler
-   "^seagate,.*":
-     description: Seagate Technology PLC
-+  "^seeed,.*":
-+    description: Seeed Technology Co., Ltd
-   "^seirobotics,.*":
-     description: Shenzhen SEI Robotics Co., Ltd
-   "^semtech,.*":
+diff --git a/Documentation/devicetree/bindings/arm/stm32/stm32.yaml b/Documentation/devicetree/bindings/arm/stm32/stm32.yaml
+index 790e6dd48e34..22b9aaa75eee 100644
+--- a/Documentation/devicetree/bindings/arm/stm32/stm32.yaml
++++ b/Documentation/devicetree/bindings/arm/stm32/stm32.yaml
+@@ -39,6 +39,8 @@ properties:
+           - enum:
+               - arrow,stm32mp157a-avenger96 # Avenger96
+               - lxa,stm32mp157c-mc1
++              - seeed,stm32mp157c-odyssey
++              - seeed,stm32mp157c-odyssey-som
+               - shiratech,stm32mp157a-iot-box # IoT Box
+               - shiratech,stm32mp157a-stinger96 # Stinger96
+               - st,stm32mp157c-ed1
 -- 
 2.26.2
 
