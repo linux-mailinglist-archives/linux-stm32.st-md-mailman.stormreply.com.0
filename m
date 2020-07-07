@@ -2,65 +2,66 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id 01E89217A78
+	by mail.lfdr.de (Postfix) with ESMTPS id 0A67C217A79
 	for <lists+linux-stm32@lfdr.de>; Tue,  7 Jul 2020 23:31:29 +0200 (CEST)
 Received: from ip-172-31-3-76.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id C17C1C36B2A;
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id CC45EC36B2D;
 	Tue,  7 Jul 2020 21:31:28 +0000 (UTC)
-Received: from mail-pf1-f195.google.com (mail-pf1-f195.google.com
- [209.85.210.195])
+Received: from mail-pj1-f65.google.com (mail-pj1-f65.google.com
+ [209.85.216.65])
  (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id C80E8C36B31
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id DB1F0C36B2D
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Tue,  7 Jul 2020 21:31:25 +0000 (UTC)
-Received: by mail-pf1-f195.google.com with SMTP id z3so9690828pfn.12
+ Tue,  7 Jul 2020 21:31:26 +0000 (UTC)
+Received: by mail-pj1-f65.google.com with SMTP id b92so228770pjc.4
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Tue, 07 Jul 2020 14:31:25 -0700 (PDT)
+ Tue, 07 Jul 2020 14:31:26 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linaro.org; s=google;
  h=from:to:cc:subject:date:message-id:in-reply-to:references
  :mime-version:content-transfer-encoding;
- bh=FfAaJp6b5HalmkhHN7cSjDzeHULwHynUsuI0BeNMqXI=;
- b=W7JNiFoJyW2TF5WpFjA0OtJAoBXDVTHORHDXhNJSr98obNYv7gMVpE5+Xp+PGW3xTP
- tYxHfU+c9G0QCi8Y9jufWdWXM1iooCKMX0NKSQFwIA1pZKIoOSPnOR4b4tKkdrgCMZXc
- zHyxK0ahj1BrGCKT7OY4G9gDaruMZbNoasT6EFhJKUi2/MUkRg3ZJzpEMbuP9xGgMoNn
- XoyJyovBrcG0BY0JDtLb1xj19CNwM3Zy9Pkz3sCekQ4TzEFCZjLKLhHsa2E39RJfhDpy
- JLmKa91jDaerOoNXuzIGniXMvSnvtkN2nCpD5KLmc5S6V99G4S2d/y/tUZiG6S87bz81
- djzA==
+ bh=3MkMxDqQZF9df+GyPlu1Irl7dXZajvYnpAazQKi4w4c=;
+ b=WTt3hIc6Py2kVbwkTQ4rCdEyC2oJTZ+O4xsQJ75S+N9iURw1LDQFuEUPdzKRA9ZpJk
+ c7bC3KG/MgkJQKlhK4jyzBUzBOw3QMj1qUa7oBQ3XEaMdrgUd33K/yWA3e2Gs+jTM8/k
+ KpLJC8D4Dkf2a/36QwFqGYoRVbtwc1/0VKy6G2XbqejOnDFgRDY/P0NnFmPvXB4qaZRl
+ 5iEUgwpAczAjS2EKzdMrkV3+R7ycAdqv2tbGdczrtwt1IHPWNnGPabgo8Q7J4EICWUPC
+ SI4YiPGo/E1tK562de9FkJpD3ERHiyZh0gQVGCD9r/sc+pOYYpVX87Fp5MdTasHZiecd
+ 2d7Q==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=1e100.net; s=20161025;
  h=x-gm-message-state:from:to:cc:subject:date:message-id:in-reply-to
  :references:mime-version:content-transfer-encoding;
- bh=FfAaJp6b5HalmkhHN7cSjDzeHULwHynUsuI0BeNMqXI=;
- b=kWnewr6CjeO/YIyHegm8I1NRILGid1jT38QW0KGjZHWVO4ovsGHzVaW3K6XFar4Ua4
- rADTOqQOMjD03vtWLdpq27gvLLb+80uxHlXP35btNVhy6+47V5axvAZeggYd5+ba70jM
- 53GzRZNaUbgQFKXhgKuYSd4yI+5Mo3HAeKBidZhlrSoevY5XQfnn/Rn0cfIKrgpSS03m
- lrUbjJjw/pGZJexiYJaCLPXCnO7dSs080P7uvbJNoSSvF07j8fAle5cHfpDzutShzzeK
- yUSE1LEhAuIhr9Q/QrItehL55UiWYqkYMUZrefbAvHN7t98xzm/FjztzLuew0eS8u44L
- 3vCQ==
-X-Gm-Message-State: AOAM531Y1vYyJYPYpkjy+sdJ12BO1NCZMiVroJxj389smhexSfzXLat6
- OlLnjupedoDzwPq7tlylZUqn7w==
-X-Google-Smtp-Source: ABdhPJzOb/JNsarcAf0GT3Q/J+fPJoVGP0wz87PXsnc3tu0ypOGcHBInuCtvZIn2ccSOQGJ7Yk7MaQ==
-X-Received: by 2002:aa7:9422:: with SMTP id y2mr34496972pfo.211.1594157484318; 
- Tue, 07 Jul 2020 14:31:24 -0700 (PDT)
+ bh=3MkMxDqQZF9df+GyPlu1Irl7dXZajvYnpAazQKi4w4c=;
+ b=n9yFti4TJ8E/s/da6uhndch9o33F7YgpBRDAh7bkte6mz8geIKAA7z90Bj2p33HT02
+ sjbQA6s5G685exwZdsQfg1qxjCDPt4yDDTMi4XJ+NcP9BjEadFhQZgnUyRII4xAM2ijd
+ B4yYPiAAoSBxwll5KPfCsyg0SrZ0GdgfsHdUeBPTsdwdn5oKAswZp6xSNbTAmUHEU+v8
+ Iw8/ewzlTGtkgd0bE1qgO3778x6J4Ig+u5Kf0dLQBi0FN39YiW9TTQ52C/HpR+twOfdK
+ p/mHmBydT3lG6eSCayLa1m5+JN62MN3kMH2p6VdJv8R8oGc+/k1ZZoJ9DwujKTJZsMuD
+ zv/w==
+X-Gm-Message-State: AOAM530h/fz58E4ZdlpoBoKUw3hhfGPDnL+WTGTAKQ5Is+/wGt02FfeI
+ weoi+0kriiuLSUPFNGig3HX3QA==
+X-Google-Smtp-Source: ABdhPJwziK8hMsl5BvCHueS39dMBhLvae+e2m7D3oHV135yRIArFjYjcAOsDvYhZGCgLyQ+Ga+EYtA==
+X-Received: by 2002:a17:902:9a43:: with SMTP id
+ x3mr47666841plv.108.1594157485429; 
+ Tue, 07 Jul 2020 14:31:25 -0700 (PDT)
 Received: from xps15.cg.shawcable.net (S0106002369de4dac.cg.shawcable.net.
  [68.147.8.254])
- by smtp.gmail.com with ESMTPSA id o128sm23560832pfg.127.2020.07.07.14.31.23
+ by smtp.gmail.com with ESMTPSA id o128sm23560832pfg.127.2020.07.07.14.31.24
  (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Tue, 07 Jul 2020 14:31:23 -0700 (PDT)
+ Tue, 07 Jul 2020 14:31:25 -0700 (PDT)
 From: Mathieu Poirier <mathieu.poirier@linaro.org>
 To: ohad@wizery.com, bjorn.andersson@linaro.org, loic.pallardy@st.com,
  arnaud.pouliquen@st.com, mcoquelin.stm32@gmail.com, alexandre.torgue@st.com
-Date: Tue,  7 Jul 2020 15:31:09 -0600
-Message-Id: <20200707213112.928383-9-mathieu.poirier@linaro.org>
+Date: Tue,  7 Jul 2020 15:31:10 -0600
+Message-Id: <20200707213112.928383-10-mathieu.poirier@linaro.org>
 X-Mailer: git-send-email 2.25.1
 In-Reply-To: <20200707213112.928383-1-mathieu.poirier@linaro.org>
 References: <20200707213112.928383-1-mathieu.poirier@linaro.org>
 MIME-Version: 1.0
 Cc: linux-remoteproc@vger.kernel.org, linux-kernel@vger.kernel.org,
  linux-stm32@st-md-mailman.stormreply.com
-Subject: [Linux-stm32] [PATCH v5 08/11] remoteproc: stm32: Split function
-	stm32_rproc_parse_fw()
+Subject: [Linux-stm32] [PATCH v5 09/11] remoteproc: stm32: Properly handle
+	the resource table when attaching
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -77,10 +78,8 @@ Content-Transfer-Encoding: 7bit
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
-Split function stm32_rproc_parse_fw() in two parts, the first one
-to parse the memory regions and the second one to load the
-resource table.  That way parsing of the memory regions can be
-re-used when attaching to the remote processor.
+Properly set the remote processor's resource table based on where it was
+loaded by the external entity when attaching to a remote processor.
 
 Mainly based on the work published by Arnaud Pouliquen [1].
 
@@ -88,71 +87,116 @@ Mainly based on the work published by Arnaud Pouliquen [1].
 
 Signed-off-by: Mathieu Poirier <mathieu.poirier@linaro.org>
 ---
- drivers/remoteproc/stm32_rproc.c | 23 ++++++++++++++++++++---
- 1 file changed, 20 insertions(+), 3 deletions(-)
+ drivers/remoteproc/stm32_rproc.c | 75 ++++++++++++++++++++++++++++++++
+ 1 file changed, 75 insertions(+)
 
 diff --git a/drivers/remoteproc/stm32_rproc.c b/drivers/remoteproc/stm32_rproc.c
-index cbeb5ceb15c5..9ab58fae252f 100644
+index 9ab58fae252f..882229f3b1c9 100644
 --- a/drivers/remoteproc/stm32_rproc.c
 +++ b/drivers/remoteproc/stm32_rproc.c
-@@ -213,7 +213,7 @@ static int stm32_rproc_elf_load_rsc_table(struct rproc *rproc,
- 	return 0;
+@@ -39,6 +39,8 @@
+ #define STM32_MBX_VQ1_ID	1
+ #define STM32_MBX_SHUTDOWN	"shutdown"
+ 
++#define RSC_TBL_SIZE		1024
++
+ #define M4_STATE_OFF		0
+ #define M4_STATE_INI		1
+ #define M4_STATE_CRUN		2
+@@ -86,6 +88,7 @@ struct stm32_rproc {
+ 	struct stm32_mbox mb[MBOX_NB_MBX];
+ 	struct workqueue_struct *workqueue;
+ 	bool secured_soc;
++	void __iomem *rsc_va;
+ };
+ 
+ static int stm32_rproc_pa_to_da(struct rproc *rproc, phys_addr_t pa, u64 *da)
+@@ -669,6 +672,74 @@ static int stm32_rproc_get_m4_status(struct stm32_rproc *ddata,
+ 	return regmap_read(ddata->m4_state.map, ddata->m4_state.reg, state);
  }
  
--static int stm32_rproc_parse_fw(struct rproc *rproc, const struct firmware *fw)
-+static int stm32_rproc_parse_memory_regions(struct rproc *rproc)
- {
- 	struct device *dev = rproc->dev.parent;
- 	struct device_node *np = dev->of_node;
-@@ -266,6 +266,16 @@ static int stm32_rproc_parse_fw(struct rproc *rproc, const struct firmware *fw)
- 		index++;
- 	}
- 
-+	return 0;
-+}
-+
-+static int stm32_rproc_parse_fw(struct rproc *rproc, const struct firmware *fw)
++static int stm32_rproc_da_to_pa(struct platform_device *pdev,
++				struct stm32_rproc *ddata,
++				u64 da, phys_addr_t *pa)
 +{
-+	int ret = stm32_rproc_parse_memory_regions(rproc);
++	struct device *dev = &pdev->dev;
++	struct stm32_rproc_mem *p_mem;
++	unsigned int i;
 +
-+	if (ret)
-+		return ret;
++	for (i = 0; i < ddata->nb_rmems; i++) {
++		p_mem = &ddata->rmems[i];
 +
- 	return stm32_rproc_elf_load_rsc_table(rproc, fw);
- }
- 
-@@ -693,15 +703,20 @@ static int stm32_rproc_probe(struct platform_device *pdev)
- 	if (ret)
- 		goto free_rproc;
- 
--	if (state == M4_STATE_CRUN)
-+	if (state == M4_STATE_CRUN) {
- 		rproc->state = RPROC_DETACHED;
- 
-+		ret = stm32_rproc_parse_memory_regions(rproc);
-+		if (ret)
-+			goto free_resources;
++		if (da < p_mem->dev_addr ||
++		    da >= p_mem->dev_addr + p_mem->size)
++			continue;
++
++		*pa = da - p_mem->dev_addr + p_mem->bus_addr;
++		dev_dbg(dev, "da %llx to pa %#x\n", da, *pa);
++
++		return 0;
 +	}
 +
- 	rproc->has_iommu = false;
- 	ddata->workqueue = create_workqueue(dev_name(dev));
- 	if (!ddata->workqueue) {
- 		dev_err(dev, "cannot create workqueue\n");
- 		ret = -ENOMEM;
--		goto free_rproc;
-+		goto free_resources;
++	dev_err(dev, "can't translate da %llx\n", da);
++
++	return -EINVAL;
++}
++
++static int stm32_rproc_get_loaded_rsc_table(struct platform_device *pdev,
++					    struct rproc *rproc,
++					    struct stm32_rproc *ddata)
++{
++	struct device *dev = &pdev->dev;
++	phys_addr_t rsc_pa;
++	u32 rsc_da;
++	int err;
++
++	err = regmap_read(ddata->rsctbl.map, ddata->rsctbl.reg, &rsc_da);
++	if (err) {
++		dev_err(dev, "failed to read rsc tbl addr\n");
++		return err;
++	}
++
++	if (!rsc_da)
++		/* no rsc table */
++		return 0;
++
++	err = stm32_rproc_da_to_pa(pdev, ddata, rsc_da, &rsc_pa);
++	if (err)
++		return err;
++
++	ddata->rsc_va = devm_ioremap_wc(dev, rsc_pa, RSC_TBL_SIZE);
++	if (IS_ERR_OR_NULL(ddata->rsc_va)) {
++		dev_err(dev, "Unable to map memory region: %pa+%zx\n",
++			&rsc_pa, RSC_TBL_SIZE);
++		ddata->rsc_va = NULL;
++		return -ENOMEM;
++	}
++
++	/*
++	 * The resource table is already loaded in device memory, no need
++	 * to work with a cached table.
++	 */
++	rproc->cached_table = NULL;
++	/* Assuming the resource table fits in 1kB is fair */
++	rproc->table_sz = RSC_TBL_SIZE;
++	rproc->table_ptr = (struct resource_table *)ddata->rsc_va;
++
++	return 0;
++}
+ 
+ static int stm32_rproc_probe(struct platform_device *pdev)
+ {
+@@ -709,6 +780,10 @@ static int stm32_rproc_probe(struct platform_device *pdev)
+ 		ret = stm32_rproc_parse_memory_regions(rproc);
+ 		if (ret)
+ 			goto free_resources;
++
++		ret = stm32_rproc_get_loaded_rsc_table(pdev, rproc, ddata);
++		if (ret)
++			goto free_resources;
  	}
  
- 	platform_set_drvdata(pdev, rproc);
-@@ -720,6 +735,8 @@ static int stm32_rproc_probe(struct platform_device *pdev)
- 	stm32_rproc_free_mbox(rproc);
- free_wkq:
- 	destroy_workqueue(ddata->workqueue);
-+free_resources:
-+	rproc_resource_cleanup(rproc);
- free_rproc:
- 	if (device_may_wakeup(dev)) {
- 		dev_pm_clear_wake_irq(dev);
+ 	rproc->has_iommu = false;
 -- 
 2.25.1
 
