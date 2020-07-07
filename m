@@ -2,66 +2,65 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id 187B1217A68
-	for <lists+linux-stm32@lfdr.de>; Tue,  7 Jul 2020 23:31:19 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 87FE4217A6A
+	for <lists+linux-stm32@lfdr.de>; Tue,  7 Jul 2020 23:31:20 +0200 (CEST)
 Received: from ip-172-31-3-76.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id AF2EEC36B2E;
-	Tue,  7 Jul 2020 21:31:18 +0000 (UTC)
-Received: from mail-pl1-f195.google.com (mail-pl1-f195.google.com
- [209.85.214.195])
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 4AD62C36B31;
+	Tue,  7 Jul 2020 21:31:20 +0000 (UTC)
+Received: from mail-pf1-f195.google.com (mail-pf1-f195.google.com
+ [209.85.210.195])
  (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 4C397C36B27
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 7DF3AC36B27
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Tue,  7 Jul 2020 21:31:17 +0000 (UTC)
-Received: by mail-pl1-f195.google.com with SMTP id 72so6692456ple.0
+ Tue,  7 Jul 2020 21:31:18 +0000 (UTC)
+Received: by mail-pf1-f195.google.com with SMTP id 1so1281150pfn.9
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Tue, 07 Jul 2020 14:31:17 -0700 (PDT)
+ Tue, 07 Jul 2020 14:31:18 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linaro.org; s=google;
  h=from:to:cc:subject:date:message-id:in-reply-to:references
  :mime-version:content-transfer-encoding;
- bh=j/h+lVOr/RBj1CX1aOHHsCmrTQA/AlJdomb+YOh2q4g=;
- b=tcnXdAvzX03mqCigv8Jy421RijVdkg0ecDvQfyDHz2jEEBlnhbfGivOaU/+2s0Pgmn
- 3tsdKfEC8PhWGEvoDo/I6w9YedSWGtghsgyLEVpOKCtaBncu3pYmX1Z5yYuxYCYNOtSL
- uQEGUnCE3qyhanG0SciQRhdQq+J8NodcGwvE9gKvYIkPy7sfRa7Mo1p+NV6V0WtJJN4F
- /Wq/2FO5r114g1JCNjdWfNjqp40FwSjTf1wX7uNznIqmQeEvtY1IxdeFAjJo7TBSI1Tn
- dIDBHMmf7HY3He0o/5ZMIImkvc/Hv5tJdOlpu8GoHrW0rg/ctMq11cGahf7RfgFLai3Q
- WKwg==
+ bh=UOLpDhUaI5YvggRlgo01SV+Tf6RdV3ahOTchedkHuLg=;
+ b=Y0V7o8t1H3YTMhZ4TUkXy4GVXShzOzSWSy21TEMMRnDoyvbmw6ulB1nneFGbHQhnWb
+ RPVS9cocqmq+TNSkG85TTyWEE2Jvhr0FOaNEuLMKvEBOgGqwAlIFCiRO7P5+6MoaL0uG
+ 8HCWa1qK/+LHGT/He2W6vUvyrI5u6qTLp9zkVr2okLWa6liHBbcNigt79AIfQuEjqrz9
+ f47iVafujZXEtxF8vZ/fxYccBGemuFiWA7z5Fz3BZrXY9fHSYHZMgl+R0P0dIibDlRjr
+ jlyASpnXRxua+C8hzcs+DmecRTXzjtjJ0Lv9LRe42PI1qGOJJmnGRl+snWS1dAD9h+Jj
+ Lf8Q==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=1e100.net; s=20161025;
  h=x-gm-message-state:from:to:cc:subject:date:message-id:in-reply-to
  :references:mime-version:content-transfer-encoding;
- bh=j/h+lVOr/RBj1CX1aOHHsCmrTQA/AlJdomb+YOh2q4g=;
- b=n1AkNP272Zxz/wKVug9RCfR9Dyf9ln3x1cIOxQQb1rqgCC8fLJCcHGnH28it7E+kLP
- lMPsrOo3X/8Nz1GEJO5zUlv/OpHBd+k9XawlRNDYVkWqp5GQEf+x/0zpVpRnstffburz
- tTMzl2mXXpWKdUlgax3Dj1YxNVJHedTkzRqwXhxSLxCEabe8iD6ufK1/tX/fLIvI+2zC
- 17/MbnhFuELjo/3V79UFQlJ0xu38oLfvUWr2ssDO0/wfRICHTULnV1f6NJuUb9thEE/v
- 84YwJcZd3kgvC0Qnj3Pguqxzhje2PD1HOyAgpOnJzfPcDToUeISdpMD1udJ0c23GETgQ
- WuYw==
-X-Gm-Message-State: AOAM5337sDtoBmF1iAuiwYYjOhoPsQT9SGdyX9eFR60AgC6AGNcr8T3z
- UG4ROz++zksByyLBZMsER3RWoFXCXC8=
-X-Google-Smtp-Source: ABdhPJzxps+cB0xsIwcYtX4mckhbPISXHLhDLBza/r3J8rLtrIUt/l/0xypzOFeCzqE7blRJ7NQWVw==
-X-Received: by 2002:a17:90a:6948:: with SMTP id
- j8mr5811255pjm.45.1594157475841; 
- Tue, 07 Jul 2020 14:31:15 -0700 (PDT)
+ bh=UOLpDhUaI5YvggRlgo01SV+Tf6RdV3ahOTchedkHuLg=;
+ b=bb2ao/8mn7KbawixOGhVAXDrilQUtXnZEKqMmUShVQjc7TKNl9IFUtvGbnKgXmMnGZ
+ PVJAidR7FwVS/EqRrZk+yN0SAWcIs7JgoHptr729PeY16m2/wEhQXso6hDPhe+g6Nwx1
+ 9NQKwWOwd9jXmweMp86BP0IzAyTbFe4FN2AO8qOD7AzbKuVeqer9/TI8diw27Iu/4Gfe
+ Jtc+3iGwc5oj+tN6NjbW9vtcQEJPcyoCNliBtg3L/280V6jDIsECFAp+Xoy9wA1b3k3w
+ BWOquf0w2OAco3i7LsSWNAWiWJeYqJcnmk8JhJXi48xkIX5s5knMO98yArf0UH+N9z5P
+ S36g==
+X-Gm-Message-State: AOAM533xVYMepGeAcipjtqsA4X1D8rdHtKTUHKdlliRX9AYdyJ4kffnO
+ 1KehER8X1+pn17YwQ9uQ1+oV2A==
+X-Google-Smtp-Source: ABdhPJw484OOouijNAC2XAXKCPThV6Q8AEvN1qz4ZshbZhJQxomJ//VywcwrkYKw9PtyBst7CC9J8g==
+X-Received: by 2002:aa7:9a92:: with SMTP id w18mr7887844pfi.233.1594157476994; 
+ Tue, 07 Jul 2020 14:31:16 -0700 (PDT)
 Received: from xps15.cg.shawcable.net (S0106002369de4dac.cg.shawcable.net.
  [68.147.8.254])
- by smtp.gmail.com with ESMTPSA id o128sm23560832pfg.127.2020.07.07.14.31.14
+ by smtp.gmail.com with ESMTPSA id o128sm23560832pfg.127.2020.07.07.14.31.15
  (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Tue, 07 Jul 2020 14:31:15 -0700 (PDT)
+ Tue, 07 Jul 2020 14:31:16 -0700 (PDT)
 From: Mathieu Poirier <mathieu.poirier@linaro.org>
 To: ohad@wizery.com, bjorn.andersson@linaro.org, loic.pallardy@st.com,
  arnaud.pouliquen@st.com, mcoquelin.stm32@gmail.com, alexandre.torgue@st.com
-Date: Tue,  7 Jul 2020 15:31:02 -0600
-Message-Id: <20200707213112.928383-2-mathieu.poirier@linaro.org>
+Date: Tue,  7 Jul 2020 15:31:03 -0600
+Message-Id: <20200707213112.928383-3-mathieu.poirier@linaro.org>
 X-Mailer: git-send-email 2.25.1
 In-Reply-To: <20200707213112.928383-1-mathieu.poirier@linaro.org>
 References: <20200707213112.928383-1-mathieu.poirier@linaro.org>
 MIME-Version: 1.0
 Cc: linux-remoteproc@vger.kernel.org, linux-kernel@vger.kernel.org,
  linux-stm32@st-md-mailman.stormreply.com
-Subject: [Linux-stm32] [PATCH v5 01/11] remoteproc: stm32: Decouple rproc
-	from memory translation
+Subject: [Linux-stm32] [PATCH v5 02/11] remoteproc: stm32: Request IRQ with
+	platform device
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -78,43 +77,40 @@ Content-Transfer-Encoding: 7bit
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
-Remove the remote processor from the process of parsing the memory
-ranges since there is no correlation between them.
+Request IRQ with platform device rather than remote proc in order to
+call stm32_rproc_parse_dt() before rproc_alloc().  That way we can
+know whether we need to synchronise with the MCU or not.
 
 Signed-off-by: Mathieu Poirier <mathieu.poirier@linaro.org>
 Reviewed-by: Loic Pallardy <loic.pallardy@st.com>
 Reviewed-by: Bjorn Andersson <bjorn.andersson@linaro.org>
 ---
- drivers/remoteproc/stm32_rproc.c | 8 ++++----
- 1 file changed, 4 insertions(+), 4 deletions(-)
+ drivers/remoteproc/stm32_rproc.c | 5 +++--
+ 1 file changed, 3 insertions(+), 2 deletions(-)
 
 diff --git a/drivers/remoteproc/stm32_rproc.c b/drivers/remoteproc/stm32_rproc.c
-index 062797a447c6..2973ba201c1d 100644
+index 2973ba201c1d..c00f60d42ab6 100644
 --- a/drivers/remoteproc/stm32_rproc.c
 +++ b/drivers/remoteproc/stm32_rproc.c
-@@ -128,10 +128,10 @@ static int stm32_rproc_mem_release(struct rproc *rproc,
- 	return 0;
- }
+@@ -262,7 +262,8 @@ static int stm32_rproc_parse_fw(struct rproc *rproc, const struct firmware *fw)
  
--static int stm32_rproc_of_memory_translations(struct rproc *rproc)
-+static int stm32_rproc_of_memory_translations(struct platform_device *pdev,
-+					      struct stm32_rproc *ddata)
+ static irqreturn_t stm32_rproc_wdg(int irq, void *data)
  {
--	struct device *parent, *dev = rproc->dev.parent;
--	struct stm32_rproc *ddata = rproc->priv;
-+	struct device *parent, *dev = &pdev->dev;
- 	struct device_node *np;
- 	struct stm32_rproc_mem *p_mems;
- 	struct stm32_rproc_mem_ranges *mem_range;
-@@ -607,7 +607,7 @@ static int stm32_rproc_parse_dt(struct platform_device *pdev)
+-	struct rproc *rproc = data;
++	struct platform_device *pdev = data;
++	struct rproc *rproc = platform_get_drvdata(pdev);
  
- 	rproc->auto_boot = of_property_read_bool(np, "st,auto-boot");
+ 	rproc_report_crash(rproc, RPROC_WATCHDOG);
  
--	return stm32_rproc_of_memory_translations(rproc);
-+	return stm32_rproc_of_memory_translations(pdev, ddata);
- }
+@@ -554,7 +555,7 @@ static int stm32_rproc_parse_dt(struct platform_device *pdev)
  
- static int stm32_rproc_probe(struct platform_device *pdev)
+ 	if (irq > 0) {
+ 		err = devm_request_irq(dev, irq, stm32_rproc_wdg, 0,
+-				       dev_name(dev), rproc);
++				       dev_name(dev), pdev);
+ 		if (err) {
+ 			dev_err(dev, "failed to request wdg irq\n");
+ 			return err;
 -- 
 2.25.1
 
