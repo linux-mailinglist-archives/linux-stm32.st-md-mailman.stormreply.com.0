@@ -2,73 +2,75 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id E20852168ED
-	for <lists+linux-stm32@lfdr.de>; Tue,  7 Jul 2020 11:23:49 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 2061B217372
+	for <lists+linux-stm32@lfdr.de>; Tue,  7 Jul 2020 18:14:07 +0200 (CEST)
 Received: from ip-172-31-3-76.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 9876EC36B30
-	for <lists+linux-stm32@lfdr.de>; Tue,  7 Jul 2020 09:23:49 +0000 (UTC)
-Received: from mail-ed1-f68.google.com (mail-ed1-f68.google.com
- [209.85.208.68])
- (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id CBF77C36B2A;
+	Tue,  7 Jul 2020 16:14:06 +0000 (UTC)
+Received: from mx07-00178001.pphosted.com (mx08-00178001.pphosted.com
+ [91.207.212.93])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 0B7A3C36B27
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 3E470C36B27
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Mon,  6 Jul 2020 17:35:14 +0000 (UTC)
-Received: by mail-ed1-f68.google.com with SMTP id dg28so35796787edb.3
- for <linux-stm32@st-md-mailman.stormreply.com>;
- Mon, 06 Jul 2020 10:35:14 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20161025;
- h=from:to:cc:subject:date:message-id:in-reply-to:references
- :mime-version:content-transfer-encoding;
- bh=75wBNRUQlyoyn+et0eU0+R20gtwFMvzcUg5dnes97w8=;
- b=b436+BJjPpxWmCR8JXphYQVDLtrpH8n41zszz/SyLjkWSy0lZCIGS2YJc+8CNWW4Q2
- Qwr99M/RF0GfjtwcaLZldiUHN2lFjUqhVn2H5ppKh5hF+Zk72xP96+PLQ7FM/7UX2A+p
- cSA9XSS48BTrfKlMu40XPdCdGziaCOZpO5H1c53s3ueOqjw57GuAETPy76JCaI1+LNJM
- FuNEETAKgbwQzwjX1V1IBk9W3l3O7kK+C13srzPkjhOZBlR+QQTyzNWnmO/h048B5hph
- aQmUjDoJJuIuWJk7ayhHpcoQ1OO9docbI/J/7n7DAyXt11fS3B3rnouME728fYHHma5X
- WJWA==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20161025;
- h=x-gm-message-state:from:to:cc:subject:date:message-id:in-reply-to
- :references:mime-version:content-transfer-encoding;
- bh=75wBNRUQlyoyn+et0eU0+R20gtwFMvzcUg5dnes97w8=;
- b=G2kZm9sHc4z+CNQrFzEaSZaB8B2SV4+0l62GOiA/10H/Gz6Eun9SOqtUdSf8wOf4D7
- VbSHJ141TSemX6UqNZw2xfiW2ARROnIDMbztuKsSqGaWidFhCiJkuv/eaiLynB+cfeGQ
- +5I68d3w3XhokbFlKdZV26OPM+aE+GgB1/nAC03X5Ik+qKIg2LHHgLhHZPTNf1Cn1xIf
- 65xUG2opy2ikBq8I4fGquWX+njpvmywEaSN3k9ok6ip5thBP0j4q0deWsOyZfkDRMd1N
- KfOe3EDnOMA4+9NLyM+As4e5PN3mhqudR2ncAcwI/YOY6h9fBolz3G5VgPWegpuk0IfN
- 6tAw==
-X-Gm-Message-State: AOAM531AjZANirIyqp+yqE2QuJ2hNz91mcDLxQ45/QT3WwSR2fkIOh62
- 3ZJ5r47u9y099Ca6y3w2gCQ=
-X-Google-Smtp-Source: ABdhPJyCJFXO9xaxw9ncO2GC3OnA558JL1s7k3OB93Cat1pRLBrxdBl1vyOpd+PK56vlbOT2CRnFsA==
-X-Received: by 2002:a05:6402:176e:: with SMTP id
- da14mr41940858edb.262.1594056913572; 
- Mon, 06 Jul 2020 10:35:13 -0700 (PDT)
-Received: from localhost.localdomain (asp78.neoplus.adsl.tpnet.pl.
- [83.26.227.78])
- by smtp.gmail.com with ESMTPSA id y22sm16556258ejj.67.2020.07.06.10.35.11
- (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Mon, 06 Jul 2020 10:35:13 -0700 (PDT)
-From: Marcin Sloniewski <marcin.sloniewski@gmail.com>
-To: linux-arm-kernel@lists.infradead.org
-Date: Mon,  6 Jul 2020 19:33:49 +0200
-Message-Id: <20200706173353.20525-3-marcin.sloniewski@gmail.com>
-X-Mailer: git-send-email 2.26.2
-In-Reply-To: <20200706173353.20525-1-marcin.sloniewski@gmail.com>
-References: <20200706173353.20525-1-marcin.sloniewski@gmail.com>
+ Tue,  7 Jul 2020 16:14:05 +0000 (UTC)
+Received: from pps.filterd (m0046661.ppops.net [127.0.0.1])
+ by mx07-00178001.pphosted.com (8.16.0.42/8.16.0.42) with SMTP id
+ 067G9tuq013325; Tue, 7 Jul 2020 18:13:50 +0200
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=st.com;
+ h=subject : to : cc :
+ references : from : message-id : date : mime-version : in-reply-to :
+ content-type : content-transfer-encoding; s=STMicroelectronics;
+ bh=3Afx2BNI/P16pD98uz+SOHXGDbHLupUEHpZV47RnCLo=;
+ b=m0RDiPDM/I0GpRhFENOsWoTXnVZkezWbT606WIGk0x7Xb+EFofzEb2CVNsxRsVQZPOmn
+ pcxx2qga7NiCGHC2R7cjLdTLilLXsTAxkGAeqbjIOV4wSdoORuPzla/Cbt4O2ZGes8eV
+ ++U+L1KwWGpudPuBgiNvBURVoiDpQZyPRrU0k1bx0emIqFTMywBaz0N3e/zKpoXeDAM0
+ QLgh7n0FPxYt82pPLNWStz4xt+Zbk61ujtXaRes35hbq8IIs99aDgzCFtaFSQRunSefk
+ pwxFxO4hjamTB1qTT7O31I8DsvylAHIsJnakrhk8lyTyttvKgXU/cUu8Op4Rrf/C5Kau Rw== 
+Received: from beta.dmz-eu.st.com (beta.dmz-eu.st.com [164.129.1.35])
+ by mx07-00178001.pphosted.com with ESMTP id 322gnfhyr1-1
+ (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
+ Tue, 07 Jul 2020 18:13:50 +0200
+Received: from euls16034.sgp.st.com (euls16034.sgp.st.com [10.75.44.20])
+ by beta.dmz-eu.st.com (STMicroelectronics) with ESMTP id DA37E10002A;
+ Tue,  7 Jul 2020 18:13:48 +0200 (CEST)
+Received: from Webmail-eu.st.com (sfhdag3node2.st.com [10.75.127.8])
+ by euls16034.sgp.st.com (STMicroelectronics) with ESMTP id C8ABB2C5AAF;
+ Tue,  7 Jul 2020 18:13:48 +0200 (CEST)
+Received: from lmecxl0995.lme.st.com (10.75.127.48) by SFHDAG3NODE2.st.com
+ (10.75.127.8) with Microsoft SMTP Server (TLS) id 15.0.1347.2; Tue, 7 Jul
+ 2020 18:13:48 +0200
+To: Martin Blumenstingl <martin.blumenstingl@googlemail.com>
+References: <20200616140717.28465-2-amelie.delaunay@st.com>
+ <20200704174219.612060-1-martin.blumenstingl@googlemail.com>
+From: Amelie DELAUNAY <amelie.delaunay@st.com>
+Message-ID: <05a81997-5ddb-ea81-7a89-8078b8a2b610@st.com>
+Date: Tue, 7 Jul 2020 18:13:47 +0200
+User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:68.0) Gecko/20100101
+ Thunderbird/68.8.0
 MIME-Version: 1.0
-X-Mailman-Approved-At: Tue, 07 Jul 2020 09:23:47 +0000
-Cc: devicetree@vger.kernel.org, Stephan Gerhold <stephan@gerhold.net>,
- Manivannan Sadhasivam <mani@kernel.org>,
- Heiko Stuebner <heiko.stuebner@theobroma-systems.com>,
- Linus Walleij <linus.walleij@linaro.org>, linux-kernel@vger.kernel.org,
- Lubomir Rintel <lkundrak@v3.sk>,
- Marcin Sloniewski <marcin.sloniewski@gmail.com>,
- Rob Herring <robh+dt@kernel.org>, Mark Brown <broonie@kernel.org>,
- Maxime Coquelin <mcoquelin.stm32@gmail.com>, allen <allen.chen@ite.com.tw>,
- Sam Ravnborg <sam@ravnborg.org>, linux-stm32@st-md-mailman.stormreply.com
-Subject: [Linux-stm32] [PATCH 3/3] ARM: dts: stm32: add initial support for
-	stm32mp157-odyssey board
+In-Reply-To: <20200704174219.612060-1-martin.blumenstingl@googlemail.com>
+Content-Language: en-US
+X-Originating-IP: [10.75.127.48]
+X-ClientProxiedBy: SFHDAG6NODE3.st.com (10.75.127.18) To SFHDAG3NODE2.st.com
+ (10.75.127.8)
+X-Proofpoint-Virus-Version: vendor=fsecure engine=2.50.10434:6.0.235, 18.0.687
+ definitions=2020-07-07_08:2020-07-07,
+ 2020-07-07 signatures=0
+Cc: "balbi@kernel.org" <balbi@kernel.org>,
+ "devicetree@vger.kernel.org" <devicetree@vger.kernel.org>,
+ "gregkh@linuxfoundation.org" <gregkh@linuxfoundation.org>,
+ "linux-usb@vger.kernel.org" <linux-usb@vger.kernel.org>,
+ "linux-kernel@vger.kernel.org" <linux-kernel@vger.kernel.org>,
+ "robh+dt@kernel.org" <robh+dt@kernel.org>,
+ "mcoquelin.stm32@gmail.com" <mcoquelin.stm32@gmail.com>,
+ "hminas@synopsys.com" <hminas@synopsys.com>,
+ Fabrice GASNIER <fabrice.gasnier@st.com>,
+ "linux-stm32@st-md-mailman.stormreply.com"
+ <linux-stm32@st-md-mailman.stormreply.com>,
+ "linux-arm-kernel@lists.infradead.org" <linux-arm-kernel@lists.infradead.org>
+Subject: Re: [Linux-stm32] [PATCH 1/3] usb: dwc2: override PHY input signals
+ with usb role switch support
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -80,391 +82,107 @@ List-Post: <mailto:linux-stm32@st-md-mailman.stormreply.com>
 List-Help: <mailto:linux-stm32-request@st-md-mailman.stormreply.com?subject=help>
 List-Subscribe: <https://st-md-mailman.stormreply.com/mailman/listinfo/linux-stm32>, 
  <mailto:linux-stm32-request@st-md-mailman.stormreply.com?subject=subscribe>
-Content-Type: text/plain; charset="us-ascii"
-Content-Transfer-Encoding: 7bit
+Content-Transfer-Encoding: base64
+Content-Type: text/plain; charset="utf-8"; Format="flowed"
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
-Add support for Seeed Studio's stm32mp157c odyssey board.
-Board consists of SoM with stm32mp157c with 4GB eMMC and 512 MB DDR3 RAM
-and carrier board with USB and ETH interfaces, SD card connector,
-wifi and BT chip AP6236.
-
-In this patch only basic kernel boot is supported and interfacing
-SD card and on-board eMMC.
-
-Signed-off-by: Marcin Sloniewski <marcin.sloniewski@gmail.com>
----
- .../arm/boot/dts/stm32mp157c-odyssey-som.dtsi | 276 ++++++++++++++++++
- arch/arm/boot/dts/stm32mp157c-odyssey.dts     |  72 +++++
- 2 files changed, 348 insertions(+)
- create mode 100644 arch/arm/boot/dts/stm32mp157c-odyssey-som.dtsi
- create mode 100644 arch/arm/boot/dts/stm32mp157c-odyssey.dts
-
-diff --git a/arch/arm/boot/dts/stm32mp157c-odyssey-som.dtsi b/arch/arm/boot/dts/stm32mp157c-odyssey-som.dtsi
-new file mode 100644
-index 000000000000..620ff9e7f370
---- /dev/null
-+++ b/arch/arm/boot/dts/stm32mp157c-odyssey-som.dtsi
-@@ -0,0 +1,276 @@
-+// SPDX-License-Identifier: (GPL-2.0+ OR BSD-3-Clause)
-+/*
-+ * Copyright (C) 2020 Marcin Sloniewski <marcin.sloniewski@gmail.com>.
-+ */
-+
-+/dts-v1/;
-+
-+#include "stm32mp157.dtsi"
-+#include "stm32mp15xc.dtsi"
-+#include "stm32mp15-pinctrl.dtsi"
-+#include "stm32mp15xxac-pinctrl.dtsi"
-+#include <dt-bindings/gpio/gpio.h>
-+#include <dt-bindings/mfd/st,stpmic1.h>
-+
-+/ {
-+	model = "Seeed Studio Odyssey-STM32MP157C SOM";
-+	compatible = "seeed,stm32mp157c-odyssey-som", "st,stm32mp157";
-+
-+	memory@c0000000 {
-+		reg = <0xc0000000 0x20000000>;
-+	};
-+
-+	reserved-memory {
-+		#address-cells = <1>;
-+		#size-cells = <1>;
-+		ranges;
-+
-+		mcuram2: mcuram2@10000000 {
-+			compatible = "shared-dma-pool";
-+			reg = <0x10000000 0x40000>;
-+			no-map;
-+		};
-+
-+		vdev0vring0: vdev0vring0@10040000 {
-+			compatible = "shared-dma-pool";
-+			reg = <0x10040000 0x1000>;
-+			no-map;
-+		};
-+
-+		vdev0vring1: vdev0vring1@10041000 {
-+			compatible = "shared-dma-pool";
-+			reg = <0x10041000 0x1000>;
-+			no-map;
-+		};
-+
-+		vdev0buffer: vdev0buffer@10042000 {
-+			compatible = "shared-dma-pool";
-+			reg = <0x10042000 0x4000>;
-+			no-map;
-+		};
-+
-+		mcuram: mcuram@30000000 {
-+			compatible = "shared-dma-pool";
-+			reg = <0x30000000 0x40000>;
-+			no-map;
-+		};
-+
-+		retram: retram@38000000 {
-+			compatible = "shared-dma-pool";
-+			reg = <0x38000000 0x10000>;
-+			no-map;
-+		};
-+
-+		gpu_reserved: gpu@d4000000 {
-+			reg = <0xd4000000 0x4000000>;
-+			no-map;
-+		};
-+	};
-+
-+	led {
-+		compatible = "gpio-leds";
-+		blue {
-+			label = "heartbeat";
-+			gpios = <&gpiog 3 GPIO_ACTIVE_HIGH>;
-+			linux,default-trigger = "heartbeat";
-+			default-state = "off";
-+		};
-+	};
-+};
-+
-+&gpu {
-+	contiguous-area = <&gpu_reserved>;
-+	status = "okay";
-+};
-+
-+&i2c2 {
-+	pinctrl-names = "default";
-+	pinctrl-0 = <&i2c2_pins_a>;
-+	i2c-scl-rising-time-ns = <185>;
-+	i2c-scl-falling-time-ns = <20>;
-+	status = "okay";
-+	/* spare dmas for other usage */
-+	/delete-property/dmas;
-+	/delete-property/dma-names;
-+
-+	pmic: stpmic@33 {
-+		compatible = "st,stpmic1";
-+		reg = <0x33>;
-+		interrupts-extended = <&gpioa 0 IRQ_TYPE_EDGE_FALLING>;
-+		interrupt-controller;
-+		#interrupt-cells = <2>;
-+		status = "okay";
-+
-+		regulators {
-+			compatible = "st,stpmic1-regulators";
-+			ldo1-supply = <&v3v3>;
-+			ldo3-supply = <&vdd_ddr>;
-+			ldo6-supply = <&v3v3>;
-+			pwr_sw1-supply = <&bst_out>;
-+			pwr_sw2-supply = <&bst_out>;
-+
-+			vddcore: buck1 {
-+				regulator-name = "vddcore";
-+				regulator-min-microvolt = <800000>;
-+				regulator-max-microvolt = <1350000>;
-+				regulator-always-on;
-+				regulator-initial-mode = <0>;
-+				regulator-over-current-protection;
-+			};
-+
-+			vdd_ddr: buck2 {
-+				regulator-name = "vdd_ddr";
-+				regulator-min-microvolt = <1350000>;
-+				regulator-max-microvolt = <1350000>;
-+				regulator-always-on;
-+				regulator-initial-mode = <0>;
-+				regulator-over-current-protection;
-+			};
-+
-+			vdd: buck3 {
-+				regulator-name = "vdd";
-+				regulator-min-microvolt = <3300000>;
-+				regulator-max-microvolt = <3300000>;
-+				regulator-always-on;
-+				st,mask-reset;
-+				regulator-initial-mode = <0>;
-+				regulator-over-current-protection;
-+			};
-+
-+			v3v3: buck4 {
-+				regulator-name = "v3v3";
-+				regulator-min-microvolt = <3300000>;
-+				regulator-max-microvolt = <3300000>;
-+				regulator-always-on;
-+				regulator-over-current-protection;
-+				regulator-initial-mode = <0>;
-+			};
-+
-+			v1v8_audio: ldo1 {
-+				regulator-name = "v1v8_audio";
-+				regulator-min-microvolt = <1800000>;
-+				regulator-max-microvolt = <1800000>;
-+				regulator-always-on;
-+				interrupts = <IT_CURLIM_LDO1 0>;
-+			};
-+
-+			v3v3_hdmi: ldo2 {
-+				regulator-name = "v3v3_hdmi";
-+				regulator-min-microvolt = <3300000>;
-+				regulator-max-microvolt = <3300000>;
-+				regulator-always-on;
-+				interrupts = <IT_CURLIM_LDO2 0>;
-+			};
-+
-+			vtt_ddr: ldo3 {
-+				regulator-name = "vtt_ddr";
-+				regulator-min-microvolt = <500000>;
-+				regulator-max-microvolt = <750000>;
-+				regulator-always-on;
-+				regulator-over-current-protection;
-+			};
-+
-+			vdd_usb: ldo4 {
-+				regulator-name = "vdd_usb";
-+				regulator-min-microvolt = <3300000>;
-+				regulator-max-microvolt = <3300000>;
-+				interrupts = <IT_CURLIM_LDO4 0>;
-+			};
-+
-+			vdda: ldo5 {
-+				regulator-name = "vdda";
-+				regulator-min-microvolt = <2900000>;
-+				regulator-max-microvolt = <2900000>;
-+				interrupts = <IT_CURLIM_LDO5 0>;
-+				regulator-boot-on;
-+			};
-+
-+			v1v2_hdmi: ldo6 {
-+				regulator-name = "v1v2_hdmi";
-+				regulator-min-microvolt = <1200000>;
-+				regulator-max-microvolt = <1200000>;
-+				regulator-always-on;
-+				interrupts = <IT_CURLIM_LDO6 0>;
-+			};
-+
-+			vref_ddr: vref_ddr {
-+				regulator-name = "vref_ddr";
-+				regulator-always-on;
-+				regulator-over-current-protection;
-+			};
-+
-+			 bst_out: boost {
-+				regulator-name = "bst_out";
-+				interrupts = <IT_OCP_BOOST 0>;
-+			 };
-+
-+			vbus_otg: pwr_sw1 {
-+				regulator-name = "vbus_otg";
-+				interrupts = <IT_OCP_OTG 0>;
-+			 };
-+
-+			 vbus_sw: pwr_sw2 {
-+				regulator-name = "vbus_sw";
-+				interrupts = <IT_OCP_SWOUT 0>;
-+				regulator-active-discharge;
-+			 };
-+		};
-+
-+		onkey {
-+			compatible = "st,stpmic1-onkey";
-+			interrupts = <IT_PONKEY_F 0>, <IT_PONKEY_R 0>;
-+			interrupt-names = "onkey-falling", "onkey-rising";
-+			power-off-time-sec = <10>;
-+			status = "okay";
-+		};
-+
-+		watchdog {
-+			compatible = "st,stpmic1-wdt";
-+			status = "disabled";
-+		};
-+	};
-+};
-+
-+&ipcc {
-+	status = "okay";
-+};
-+
-+&iwdg2 {
-+	timeout-sec = <32>;
-+	status = "okay";
-+};
-+
-+&m4_rproc {
-+	memory-region = <&retram>, <&mcuram>, <&mcuram2>, <&vdev0vring0>,
-+			<&vdev0vring1>, <&vdev0buffer>;
-+	mboxes = <&ipcc 0>, <&ipcc 1>, <&ipcc 2>;
-+	mbox-names = "vq0", "vq1", "shutdown";
-+	interrupt-parent = <&exti>;
-+	interrupts = <68 1>;
-+	status = "okay";
-+};
-+
-+&rng1 {
-+	status = "okay";
-+};
-+
-+&rtc {
-+	status = "okay";
-+};
-+
-+&sdmmc2 {
-+	pinctrl-names = "default", "opendrain", "sleep";
-+	pinctrl-0 = <&sdmmc2_b4_pins_a &sdmmc2_d47_pins_a>;
-+	pinctrl-1 = <&sdmmc2_b4_od_pins_a &sdmmc2_d47_pins_a>;
-+	pinctrl-2 = <&sdmmc2_b4_sleep_pins_a &sdmmc2_d47_sleep_pins_a>;
-+	non-removable;
-+	no-sd;
-+	no-sdio;
-+	st,neg-edge;
-+	bus-width = <4>;
-+	vmmc-supply = <&v3v3>;
-+	vqmmc-supply = <&v3v3>;
-+	mmc-ddr-3_3v;
-+	status = "okay";
-+};
-+
-diff --git a/arch/arm/boot/dts/stm32mp157c-odyssey.dts b/arch/arm/boot/dts/stm32mp157c-odyssey.dts
-new file mode 100644
-index 000000000000..6c1b091af14f
---- /dev/null
-+++ b/arch/arm/boot/dts/stm32mp157c-odyssey.dts
-@@ -0,0 +1,72 @@
-+// SPDX-License-Identifier: (GPL-2.0+ OR BSD-3-Clause)
-+/*
-+ * Copyright (C) 2020 Marcin Sloniewski <marcin.sloniewski@gmail.com>.
-+ */
-+
-+/dts-v1/;
-+
-+#include "stm32mp157c-odyssey-som.dtsi"
-+
-+/ {
-+	model = "Seeed Studio Odyssey-STM32MP157C Board";
-+	compatible = "seeed,stm32mp157c-odyssey", "st,stm32mp157";
-+
-+	aliases {
-+		ethernet0 = &ethernet0;
-+		serial0 = &uart4;
-+	};
-+
-+	chosen {
-+		stdout-path = "serial0:115200n8";
-+	};
-+};
-+
-+&ethernet0 {
-+	status = "okay";
-+	pinctrl-0 = <&ethernet0_rgmii_pins_a>;
-+	pinctrl-1 = <&ethernet0_rgmii_pins_sleep_a>;
-+	pinctrl-names = "default", "sleep";
-+	phy-mode = "rgmii-id";
-+	max-speed = <1000>;
-+	phy-handle = <&phy0>;
-+
-+	mdio0 {
-+		#address-cells = <1>;
-+		#size-cells = <0>;
-+		compatible = "snps,dwmac-mdio";
-+		phy0: ethernet-phy@0 {
-+			reg = <0>;
-+		};
-+	};
-+};
-+
-+&i2c1 {
-+	pinctrl-names = "default", "sleep";
-+	pinctrl-0 = <&i2c1_pins_a>;
-+	pinctrl-1 = <&i2c1_pins_sleep_a>;
-+	i2c-scl-rising-time-ns = <100>;
-+	i2c-scl-falling-time-ns = <7>;
-+	status = "okay";
-+	/delete-property/dmas;
-+	/delete-property/dma-names;
-+};
-+
-+&sdmmc1 {
-+	pinctrl-names = "default", "opendrain", "sleep";
-+	pinctrl-0 = <&sdmmc1_b4_pins_a>;
-+	pinctrl-1 = <&sdmmc1_b4_od_pins_a>;
-+	pinctrl-2 = <&sdmmc1_b4_sleep_pins_a>;
-+	cd-gpios = <&gpiob 7 (GPIO_ACTIVE_LOW | GPIO_PULL_UP)>;
-+	disable-wp;
-+	st,neg-edge;
-+	bus-width = <4>;
-+	vmmc-supply = <&v3v3>;
-+	status = "okay";
-+};
-+
-+&uart4 {
-+	pinctrl-names = "default";
-+	pinctrl-0 = <&uart4_pins_a>;
-+	status = "okay";
-+};
-+
--- 
-2.26.2
-
-_______________________________________________
-Linux-stm32 mailing list
-Linux-stm32@st-md-mailman.stormreply.com
-https://st-md-mailman.stormreply.com/mailman/listinfo/linux-stm32
+SGkgTWFydGluLAoKT24gNy80LzIwIDc6NDIgUE0sIE1hcnRpbiBCbHVtZW5zdGluZ2wgd3JvdGU6
+Cj4gSGVsbG8gQW1lbGllLAo+IAo+IHRoYW5rIHlvdSBmb3IgdGhpcyBwYXRjaCAtIEkgYW0gaG9w
+aW5nIHRoYXQgaXQgd2lsbCBoZWxwIHVzIG9uIEFtbG9naWMKPiBNZXNvbjgsIE1lc29uOGIsIE1l
+c29uOG0yIGFuZCBHWEJCIFNvQ3MgYXMgd2VsbC4KPiBPbiB0aGVzZSBTb0NzIHRoZSBJRCBkZXRl
+Y3Rpb24gaXMgcGVyZm9ybWVkIGJ5IHRoZSBQSFkgSVAgYW5kIG5lZWRzIHRvCj4gYmUgcG9sbGVk
+Lgo+IEkgdGhpbmsgdXNiX3JvbGVfc3dpdGNoIGlzIHRoZSBwZXJmZWN0IGZyYW1ld29yayBmb3Ig
+dGhpcyBvbiBkd2MyIHNpZGUuCj4gRm9yIHRoZSBQSFkgZHJpdmVyIEknbSBnb2luZyB0byBpbXBs
+ZW1lbnQgdGhlIGNhYmxlIHN0YXRlIHVzaW5nIHRoZQo+IGV4dGNvbiBmcmFtZXdvcmsgYW5kIHRo
+ZW4gaGF2aW5nIGEgbmV3IHVzYi1jb25uLWV4dGNvbiBkcml2ZXIuIFRoaXMgaXMKPiBqdXN0IHRv
+IGdpdmUgeW91IGFuIG92ZXJ2aWV3IHdoeSBJJ20gaW50ZXJlc3RlZCBpbiB0aGlzLgo+IAoKSSdt
+IHdvbmRlcmluZywgd2h5IHVzZSBleHRjb24gZnJhbWV3b3JrIGFuZCBub3QgdGhlIHVzYiByb2xl
+IHN3aXRjaCBBUEkgCj8gVGhpcyBwYXRjaCBvbiBkd2MyIGlzIHRlc3RlZCBvbiBTVE0zMk1QMTU3
+Qy1ESzIgYm9hcmQgd2l0aCBTVFVTQjE2MHggClR5cGUtQyBjb250cm9sbGVyIGRyaXZlciByZWNl
+bnRseSBwdXNoZWQgd2l0aCB1c2Igcm9sZSBzd2l0Y2guIFlvdSBjYW4gCmhhdmUgYSBsb29rIGhl
+cmUgaHR0cHM6Ly9sb3JlLmtlcm5lbC5vcmcvcGF0Y2h3b3JrL3BhdGNoLzEyNTYyMzgvLgoKPiBb
+Li4uXQo+PiArc3RhdGljIGludCBkd2MyX2RyZF9yb2xlX3N3X3NldChzdHJ1Y3QgdXNiX3JvbGVf
+c3dpdGNoICpzdywgZW51bSB1c2Jfcm9sZSByb2xlKQo+PiArewo+PiArwqDCoMKgwqAgc3RydWN0
+IGR3YzJfaHNvdGcgKmhzb3RnID0gdXNiX3JvbGVfc3dpdGNoX2dldF9kcnZkYXRhKHN3KTsKPj4g
+K8KgwqDCoMKgIHVuc2lnbmVkIGxvbmcgZmxhZ3M7Cj4+ICsKPj4gK8KgwqDCoMKgIC8qIFNraXAg
+c2Vzc2lvbiBub3QgaW4gbGluZSB3aXRoIGRyX21vZGUgKi8KPj4gK8KgwqDCoMKgIGlmICgocm9s
+ZSA9PSBVU0JfUk9MRV9ERVZJQ0UgJiYgaHNvdGctPmRyX21vZGUgPT0gVVNCX0RSX01PREVfSE9T
+VCkgfHwKPj4gK8KgwqDCoMKgwqDCoMKgwqAgKHJvbGUgPT0gVVNCX1JPTEVfSE9TVCAmJiBoc290
+Zy0+ZHJfbW9kZSA9PSBVU0JfRFJfTU9ERV9QRVJJUEhFUkFMKSkKPj4gK8KgwqDCoMKgwqDCoMKg
+wqDCoMKgwqDCoCByZXR1cm4gLUVJTlZBTDsKPj4gKwo+PiArwqDCoMKgwqAgLyogU2tpcCBzZXNz
+aW9uIGlmIGNvcmUgaXMgaW4gdGVzdCBtb2RlICovCj4+ICvCoMKgwqDCoCBpZiAocm9sZSA9PSBV
+U0JfUk9MRV9OT05FICYmIGhzb3RnLT50ZXN0X21vZGUpIHsKPj4gK8KgwqDCoMKgwqDCoMKgwqDC
+oMKgwqDCoCBkZXZfZGJnKGhzb3RnLT5kZXYsICJDb3JlIGlzIGluIHRlc3QgbW9kZVxuIik7Cj4+
+ICvCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqAgcmV0dXJuIC1FQlVTWTsKPj4gK8KgwqDCoMKgIH0K
+Pj4gKwo+PiArwqDCoMKgwqAgc3Bpbl9sb2NrX2lycXNhdmUoJmhzb3RnLT5sb2NrLCBmbGFncyk7
+Cj4gZHVlIHRvIHRoaXMgc3Bpbl9sb2NrX2lycXNhdmUoKSAuLi4KPiAKPj4gK8KgwqDCoMKgIGlm
+IChyb2xlID09IFVTQl9ST0xFX0hPU1QpIHsKPj4gK8KgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoCBp
+ZiAoZHdjMl9vdnJfYXZhbGlkKGhzb3RnLCB0cnVlKSkKPj4gK8KgwqDCoMKgwqDCoMKgwqDCoMKg
+wqDCoMKgwqDCoMKgwqDCoMKgwqAgZ290byB1bmxvY2s7Cj4+ICsKPj4gK8KgwqDCoMKgwqDCoMKg
+wqDCoMKgwqDCoCBpZiAoaHNvdGctPmRyX21vZGUgPT0gVVNCX0RSX01PREVfT1RHKQo+PiArwqDC
+oMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoCAvKgo+PiArwqDCoMKgwqDCoMKg
+wqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgICogVGhpcyB3aWxsIHJhaXNlIGEgQ29ubmVj
+dG9yIElEIFN0YXR1cyBDaGFuZ2UKPj4gK8KgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKg
+wqDCoMKgwqDCoCAqIEludGVycnVwdCAtIGNvbm5JRCBBCj4+ICvCoMKgwqDCoMKgwqDCoMKgwqDC
+oMKgwqDCoMKgwqDCoMKgwqDCoMKgwqAgKi8KPj4gK8KgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKg
+wqDCoMKgwqDCoMKgwqAgZHdjMl9mb3JjZV9tb2RlKGhzb3RnLCB0cnVlKTsKPiAuLi4gd2UgY2Fu
+bm90IHNsZWVwIGluIGhlcmUuIHRoZSBjYWxsIGZsb3cgaXM6Cj4gZHdjMl9kcmRfcm9sZV9zd19z
+ZXQKPiAgwqAgc3Bpbl9sb2NrX2lycXNhdmUKPiAgwqAgZHdjMl9mb3JjZV9tb2RlCj4gIMKgwqDC
+oCBkd2MyX3dhaXRfZm9yX21vZGUKPiAgwqDCoMKgwqDCoCB1c2xlZXBfcmFuZ2UKPiAKCkluIGZh
+Y3QsIHdpdGggdGhlIGF2YWxpZCBvciBidmFsaWQgb3ZlcnJpZGluZyArIHRoZSBkZWJvdW5jZSBm
+aWx0ZXIgCmJ5cGFzcywgR0lOVFNUU19DVVJNT0QgaXMgYWxyZWFkeSBpbiB0aGUgZXhwZWN0ZWQg
+bW9kZSwgc28gdGhhdCB3ZSBleGl0IAp0aGUgbG9vcCBkaXJlY3RseSwgd2l0aG91dCBydW5uaW5n
+IGludG8gdXNsZWVwX3JhbmdlLgoKPj4gK8KgwqDCoMKgIH0gZWxzZSBpZiAocm9sZSA9PSBVU0Jf
+Uk9MRV9ERVZJQ0UpIHsKPj4gK8KgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoCBpZiAoZHdjMl9vdnJf
+YnZhbGlkKGhzb3RnLCB0cnVlKSkKPj4gK8KgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKg
+wqDCoMKgwqAgZ290byB1bmxvY2s7Cj4+ICsKPj4gK8KgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoCBp
+ZiAoaHNvdGctPmRyX21vZGUgPT0gVVNCX0RSX01PREVfT1RHKQo+PiArwqDCoMKgwqDCoMKgwqDC
+oMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoCAvKgo+PiArwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKg
+wqDCoMKgwqDCoMKgwqDCoMKgICogVGhpcyB3aWxsIHJhaXNlIGEgQ29ubmVjdG9yIElEIFN0YXR1
+cyBDaGFuZ2UKPj4gK8KgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoCAq
+IEludGVycnVwdCAtIGNvbm5JRCBCCj4+ICvCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDC
+oMKgwqDCoMKgwqAgKi8KPj4gK8KgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKg
+wqAgZHdjMl9mb3JjZV9tb2RlKGhzb3RnLCBmYWxzZSk7Cj4gKHNhbWUgc2xlZXBpbmcgaXNzdWUg
+aGVyZSkKPiAKPiBbLi4uXQo+ICtpbnQgZHdjMl9kcmRfaW5pdChzdHJ1Y3QgZHdjMl9oc290ZyAq
+aHNvdGcpCj4gK3sKPiArwqDCoMKgwqDCoMKgIHN0cnVjdCB1c2Jfcm9sZV9zd2l0Y2hfZGVzYyBy
+b2xlX3N3X2Rlc2MgPSB7MH07Cj4gK8KgwqDCoMKgwqDCoCBzdHJ1Y3QgdXNiX3JvbGVfc3dpdGNo
+ICpyb2xlX3N3Owo+ICvCoMKgwqDCoMKgwqAgaW50IHJldDsKPiArCj4gK8KgwqDCoMKgwqDCoCBp
+ZiAoIWRldmljZV9wcm9wZXJ0eV9yZWFkX2Jvb2woaHNvdGctPmRldiwgInVzYi1yb2xlLXN3aXRj
+aCIpKQo+ICvCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgIHJldHVybiAwOwo+IHNob3VsZCB3
+ZSBhbHNvIHJldHVybiBlYXJseSBoZXJlIGlmIGRyX21vZGUgIT0gIm90ZyI/Cj4gCgpObywgYmVj
+YXVzZSB3aGVuIFZCVVMgaXMgbm90IGNvbm5lY3RlZCB0byB0aGUgY29udHJvbGxlciwgeW91IGFs
+c28gbmVlZCAKdG8gZ2V0IHRoZSB1c2Jfcm9sZV9ub25lIGZyb20gdGhlIHVzYi1yb2xlLXN3aXRj
+aCB0byBjYXRjaCB0aGUgCnVuYXR0YWNoZWQgc3RhdGUgKGFsc28gaW4gUGVyaXBoZXJhbCBvciBI
+b3N0IG9ubHkgbW9kZSkuCgo+IFsuLi5dCj4gQEAgLTUzMiw2ICs1MzQsMTMgQEAgc3RhdGljIGlu
+dCBkd2MyX2RyaXZlcl9wcm9iZShzdHJ1Y3QgcGxhdGZvcm1fZGV2aWNlIAo+ICpkZXYpCj4gIMKg
+wqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgIGR3YzJfd3JpdGVsKGhzb3RnLCBnZ3Bpbywg
+R0dQSU8pOwo+ICDCoMKgwqDCoMKgwqDCoMKgIH0KPiAKPiArwqDCoMKgwqDCoMKgIHJldHZhbCA9
+IGR3YzJfZHJkX2luaXQoaHNvdGcpOwo+ICvCoMKgwqDCoMKgwqAgaWYgKHJldHZhbCkgewo+ICvC
+oMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgIGlmIChyZXR2YWwgIT0gLUVQUk9CRV9ERUZFUikK
+PiArwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqAgZGV2X2Vyciho
+c290Zy0+ZGV2LCAiZmFpbGVkIHRvIGluaXRpYWxpemUgCj4gZHVhbC1yb2xlXG4iKTsKPiArwqDC
+oMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoCBnb3RvIGVycm9yX2luaXQ7Cj4gK8KgwqDCoMKgwqDC
+oCB9Cj4gKwo+ICDCoMKgwqDCoMKgwqDCoMKgIGlmIChoc290Zy0+ZHJfbW9kZSAhPSBVU0JfRFJf
+TU9ERV9IT1NUKSB7Cj4gIMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgIHJldHZhbCA9
+IGR3YzJfZ2FkZ2V0X2luaXQoaHNvdGcpOwo+ICDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKg
+wqDCoCBpZiAocmV0dmFsKQo+IEkgdGhpbmsgZHdjMl9kcml2ZXJfcHJvYmUoKSBuZWVkcyBhIG5l
+dyBsYWJlbCAoZm9yIGV4YW1wbGUgbmFtZWQKPiBlcnJvcl9kcmQpIHdoaWNoIHRoZW4gY2FsbHMg
+ZHdjMl9kcmRfZXhpdC4gU2VlIFswXSB3aGljaCBJIGhhdmUKPiBzdWJtaXR0ZWQgYXMgYSBwYXRj
+aCBmb3IgTGludXggNS44LCBzbyBpdCdzIG5vdCBpbiB1c2ItbmV4dCB5ZXQuCj4gCgpJIGFncmVl
+LgoKPiBBbHNvIGluIGdlbmVyYWwgSSB0aGluayB5b3UgbmVlZCB0byBzdWJtaXQgYSBkdC1iaW5k
+aW5ncyBwYXRjaCB0aGF0Cj4gZG9jdW1lbnRzIHRoZSB1c2Itcm9sZS1zd2l0Y2ggcHJvcGVydHku
+IFBlcnNvbmFsbHkgSSB3b3VsZCB1c2UKPiBEb2N1bWVudGF0aW9uL2RldmljZXRyZWUvYmluZGlu
+Z3MvdXNiL3JlbmVzYXMsdXNiMy1wZXJpLnlhbWwgYXMKPiByZWZlcmVuY2UgZm9yIHRoYXQuCj4g
+CgpTdXJlLiBXaWxsIGJlIGRvbmUgaW4gVjIgd2l0aCBuZXcgbGFiZWwgZm9yIGRyZF9leGl0IGlu
+IHByb2JlIGZhaWx1cmUgCnBhdGguIEknbGwgcmViYXNlIG15IHBhdGNoIG9uIHlvdXJzIHRvIGF2
+b2lkIGNvbmZsaWN0cy4KCj4gQ2FuIHlvdSBwbGVhc2Uga2VlcCBtZSBDYydlZCBvbiBhIHYyIGJl
+Y2F1c2UgSSdtIG5vdCBzdWJzY3JpYmVkIHRvIHRoZQo+IGxpbnV4LXVzYiBtYWlsaW5nIGxpc3Q/
+CgpPSy4gVGhhbmtzIGZvciB5b3VyIHJldmlldyBhbmQgZnV0dXJlIHRlc3RzIQpSZWdhcmRzLApB
+bWVsaWUKCj4gSSBhbSBnb2luZyB0byB0ZXN0IHRoaXMgb24gQW1sb2dpYyBTb0NzIC0gb25jZSBJ
+IG1hZGUgImV2ZXJ5dGhpbmcgZWxzZSIKPiB3b3JrIEkgY2FuIGdpdmUgbXkgVGVzdGVkLWJ5IGFz
+IHdlbGwuCj4gCj4gCj4gVGhhbmsgeW91IQo+IE1hcnRpbgo+IAo+IAo+IFswXSBodHRwczovL3Bh
+dGNod29yay5rZXJuZWwub3JnL3BhdGNoLzExNjQyOTU3LwpfX19fX19fX19fX19fX19fX19fX19f
+X19fX19fX19fX19fX19fX19fX19fX19fXwpMaW51eC1zdG0zMiBtYWlsaW5nIGxpc3QKTGludXgt
+c3RtMzJAc3QtbWQtbWFpbG1hbi5zdG9ybXJlcGx5LmNvbQpodHRwczovL3N0LW1kLW1haWxtYW4u
+c3Rvcm1yZXBseS5jb20vbWFpbG1hbi9saXN0aW5mby9saW51eC1zdG0zMgo=
