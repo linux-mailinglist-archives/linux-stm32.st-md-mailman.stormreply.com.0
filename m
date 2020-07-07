@@ -2,75 +2,42 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id 2061B217372
-	for <lists+linux-stm32@lfdr.de>; Tue,  7 Jul 2020 18:14:07 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 512512175CA
+	for <lists+linux-stm32@lfdr.de>; Tue,  7 Jul 2020 20:03:38 +0200 (CEST)
 Received: from ip-172-31-3-76.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id CBF77C36B2A;
-	Tue,  7 Jul 2020 16:14:06 +0000 (UTC)
-Received: from mx07-00178001.pphosted.com (mx08-00178001.pphosted.com
- [91.207.212.93])
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 1494FC36B2A;
+	Tue,  7 Jul 2020 18:03:38 +0000 (UTC)
+Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
+ (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
+ (No client certificate requested)
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 64EBDC36B27
+ for <linux-stm32@st-md-mailman.stormreply.com>;
+ Tue,  7 Jul 2020 18:03:33 +0000 (UTC)
+Received: from embeddedor (unknown [200.39.26.250])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 3E470C36B27
- for <linux-stm32@st-md-mailman.stormreply.com>;
- Tue,  7 Jul 2020 16:14:05 +0000 (UTC)
-Received: from pps.filterd (m0046661.ppops.net [127.0.0.1])
- by mx07-00178001.pphosted.com (8.16.0.42/8.16.0.42) with SMTP id
- 067G9tuq013325; Tue, 7 Jul 2020 18:13:50 +0200
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=st.com;
- h=subject : to : cc :
- references : from : message-id : date : mime-version : in-reply-to :
- content-type : content-transfer-encoding; s=STMicroelectronics;
- bh=3Afx2BNI/P16pD98uz+SOHXGDbHLupUEHpZV47RnCLo=;
- b=m0RDiPDM/I0GpRhFENOsWoTXnVZkezWbT606WIGk0x7Xb+EFofzEb2CVNsxRsVQZPOmn
- pcxx2qga7NiCGHC2R7cjLdTLilLXsTAxkGAeqbjIOV4wSdoORuPzla/Cbt4O2ZGes8eV
- ++U+L1KwWGpudPuBgiNvBURVoiDpQZyPRrU0k1bx0emIqFTMywBaz0N3e/zKpoXeDAM0
- QLgh7n0FPxYt82pPLNWStz4xt+Zbk61ujtXaRes35hbq8IIs99aDgzCFtaFSQRunSefk
- pwxFxO4hjamTB1qTT7O31I8DsvylAHIsJnakrhk8lyTyttvKgXU/cUu8Op4Rrf/C5Kau Rw== 
-Received: from beta.dmz-eu.st.com (beta.dmz-eu.st.com [164.129.1.35])
- by mx07-00178001.pphosted.com with ESMTP id 322gnfhyr1-1
- (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
- Tue, 07 Jul 2020 18:13:50 +0200
-Received: from euls16034.sgp.st.com (euls16034.sgp.st.com [10.75.44.20])
- by beta.dmz-eu.st.com (STMicroelectronics) with ESMTP id DA37E10002A;
- Tue,  7 Jul 2020 18:13:48 +0200 (CEST)
-Received: from Webmail-eu.st.com (sfhdag3node2.st.com [10.75.127.8])
- by euls16034.sgp.st.com (STMicroelectronics) with ESMTP id C8ABB2C5AAF;
- Tue,  7 Jul 2020 18:13:48 +0200 (CEST)
-Received: from lmecxl0995.lme.st.com (10.75.127.48) by SFHDAG3NODE2.st.com
- (10.75.127.8) with Microsoft SMTP Server (TLS) id 15.0.1347.2; Tue, 7 Jul
- 2020 18:13:48 +0200
-To: Martin Blumenstingl <martin.blumenstingl@googlemail.com>
-References: <20200616140717.28465-2-amelie.delaunay@st.com>
- <20200704174219.612060-1-martin.blumenstingl@googlemail.com>
-From: Amelie DELAUNAY <amelie.delaunay@st.com>
-Message-ID: <05a81997-5ddb-ea81-7a89-8078b8a2b610@st.com>
-Date: Tue, 7 Jul 2020 18:13:47 +0200
-User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:68.0) Gecko/20100101
- Thunderbird/68.8.0
+ by mail.kernel.org (Postfix) with ESMTPSA id E1698206E2;
+ Tue,  7 Jul 2020 18:03:29 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
+ s=default; t=1594145012;
+ bh=QIXsynOoPRtkR6A31QQF8nnFyGDnLMUTmVQQWqVo09o=;
+ h=Date:From:To:Cc:Subject:From;
+ b=yr9bQOIa8ChNIieQmwigilgAjFX3jQqewAUJgBrw+/527rs494MJR3i+l9Z+1xW/Y
+ EeDZrF9FYcurBKcdTJZHYHMsnQ9n1bdkBQ5zFGaIA6zV0PQvTVxAr36YJSLxT+o87p
+ rydJ5z9INA6f6AoQui0OUNJANTgFNCdvalfIlV4M=
+Date: Tue, 7 Jul 2020 13:08:57 -0500
+From: "Gustavo A. R. Silva" <gustavoars@kernel.org>
+To: Dmitry Torokhov <dmitry.torokhov@gmail.com>,
+ Maxime Coquelin <mcoquelin.stm32@gmail.com>,
+ Alexandre Torgue <alexandre.torgue@st.com>
+Message-ID: <20200707180857.GA30600@embeddedor>
 MIME-Version: 1.0
-In-Reply-To: <20200704174219.612060-1-martin.blumenstingl@googlemail.com>
-Content-Language: en-US
-X-Originating-IP: [10.75.127.48]
-X-ClientProxiedBy: SFHDAG6NODE3.st.com (10.75.127.18) To SFHDAG3NODE2.st.com
- (10.75.127.8)
-X-Proofpoint-Virus-Version: vendor=fsecure engine=2.50.10434:6.0.235, 18.0.687
- definitions=2020-07-07_08:2020-07-07,
- 2020-07-07 signatures=0
-Cc: "balbi@kernel.org" <balbi@kernel.org>,
- "devicetree@vger.kernel.org" <devicetree@vger.kernel.org>,
- "gregkh@linuxfoundation.org" <gregkh@linuxfoundation.org>,
- "linux-usb@vger.kernel.org" <linux-usb@vger.kernel.org>,
- "linux-kernel@vger.kernel.org" <linux-kernel@vger.kernel.org>,
- "robh+dt@kernel.org" <robh+dt@kernel.org>,
- "mcoquelin.stm32@gmail.com" <mcoquelin.stm32@gmail.com>,
- "hminas@synopsys.com" <hminas@synopsys.com>,
- Fabrice GASNIER <fabrice.gasnier@st.com>,
- "linux-stm32@st-md-mailman.stormreply.com"
- <linux-stm32@st-md-mailman.stormreply.com>,
- "linux-arm-kernel@lists.infradead.org" <linux-arm-kernel@lists.infradead.org>
-Subject: Re: [Linux-stm32] [PATCH 1/3] usb: dwc2: override PHY input signals
- with usb role switch support
+Content-Disposition: inline
+User-Agent: Mutt/1.9.4 (2018-02-28)
+Cc: "Gustavo A. R. Silva" <gustavoars@kernel.org>,
+ linux-stm32@st-md-mailman.stormreply.com, linux-kernel@vger.kernel.org,
+ linux-arm-kernel@lists.infradead.org, linux-input@vger.kernel.org
+Subject: [Linux-stm32] [PATCH][next] Input: Use fallthrough pseudo-keyword
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -82,107 +49,691 @@ List-Post: <mailto:linux-stm32@st-md-mailman.stormreply.com>
 List-Help: <mailto:linux-stm32-request@st-md-mailman.stormreply.com?subject=help>
 List-Subscribe: <https://st-md-mailman.stormreply.com/mailman/listinfo/linux-stm32>, 
  <mailto:linux-stm32-request@st-md-mailman.stormreply.com?subject=subscribe>
-Content-Transfer-Encoding: base64
-Content-Type: text/plain; charset="utf-8"; Format="flowed"
+Content-Type: text/plain; charset="us-ascii"
+Content-Transfer-Encoding: 7bit
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
-SGkgTWFydGluLAoKT24gNy80LzIwIDc6NDIgUE0sIE1hcnRpbiBCbHVtZW5zdGluZ2wgd3JvdGU6
-Cj4gSGVsbG8gQW1lbGllLAo+IAo+IHRoYW5rIHlvdSBmb3IgdGhpcyBwYXRjaCAtIEkgYW0gaG9w
-aW5nIHRoYXQgaXQgd2lsbCBoZWxwIHVzIG9uIEFtbG9naWMKPiBNZXNvbjgsIE1lc29uOGIsIE1l
-c29uOG0yIGFuZCBHWEJCIFNvQ3MgYXMgd2VsbC4KPiBPbiB0aGVzZSBTb0NzIHRoZSBJRCBkZXRl
-Y3Rpb24gaXMgcGVyZm9ybWVkIGJ5IHRoZSBQSFkgSVAgYW5kIG5lZWRzIHRvCj4gYmUgcG9sbGVk
-Lgo+IEkgdGhpbmsgdXNiX3JvbGVfc3dpdGNoIGlzIHRoZSBwZXJmZWN0IGZyYW1ld29yayBmb3Ig
-dGhpcyBvbiBkd2MyIHNpZGUuCj4gRm9yIHRoZSBQSFkgZHJpdmVyIEknbSBnb2luZyB0byBpbXBs
-ZW1lbnQgdGhlIGNhYmxlIHN0YXRlIHVzaW5nIHRoZQo+IGV4dGNvbiBmcmFtZXdvcmsgYW5kIHRo
-ZW4gaGF2aW5nIGEgbmV3IHVzYi1jb25uLWV4dGNvbiBkcml2ZXIuIFRoaXMgaXMKPiBqdXN0IHRv
-IGdpdmUgeW91IGFuIG92ZXJ2aWV3IHdoeSBJJ20gaW50ZXJlc3RlZCBpbiB0aGlzLgo+IAoKSSdt
-IHdvbmRlcmluZywgd2h5IHVzZSBleHRjb24gZnJhbWV3b3JrIGFuZCBub3QgdGhlIHVzYiByb2xl
-IHN3aXRjaCBBUEkgCj8gVGhpcyBwYXRjaCBvbiBkd2MyIGlzIHRlc3RlZCBvbiBTVE0zMk1QMTU3
-Qy1ESzIgYm9hcmQgd2l0aCBTVFVTQjE2MHggClR5cGUtQyBjb250cm9sbGVyIGRyaXZlciByZWNl
-bnRseSBwdXNoZWQgd2l0aCB1c2Igcm9sZSBzd2l0Y2guIFlvdSBjYW4gCmhhdmUgYSBsb29rIGhl
-cmUgaHR0cHM6Ly9sb3JlLmtlcm5lbC5vcmcvcGF0Y2h3b3JrL3BhdGNoLzEyNTYyMzgvLgoKPiBb
-Li4uXQo+PiArc3RhdGljIGludCBkd2MyX2RyZF9yb2xlX3N3X3NldChzdHJ1Y3QgdXNiX3JvbGVf
-c3dpdGNoICpzdywgZW51bSB1c2Jfcm9sZSByb2xlKQo+PiArewo+PiArwqDCoMKgwqAgc3RydWN0
-IGR3YzJfaHNvdGcgKmhzb3RnID0gdXNiX3JvbGVfc3dpdGNoX2dldF9kcnZkYXRhKHN3KTsKPj4g
-K8KgwqDCoMKgIHVuc2lnbmVkIGxvbmcgZmxhZ3M7Cj4+ICsKPj4gK8KgwqDCoMKgIC8qIFNraXAg
-c2Vzc2lvbiBub3QgaW4gbGluZSB3aXRoIGRyX21vZGUgKi8KPj4gK8KgwqDCoMKgIGlmICgocm9s
-ZSA9PSBVU0JfUk9MRV9ERVZJQ0UgJiYgaHNvdGctPmRyX21vZGUgPT0gVVNCX0RSX01PREVfSE9T
-VCkgfHwKPj4gK8KgwqDCoMKgwqDCoMKgwqAgKHJvbGUgPT0gVVNCX1JPTEVfSE9TVCAmJiBoc290
-Zy0+ZHJfbW9kZSA9PSBVU0JfRFJfTU9ERV9QRVJJUEhFUkFMKSkKPj4gK8KgwqDCoMKgwqDCoMKg
-wqDCoMKgwqDCoCByZXR1cm4gLUVJTlZBTDsKPj4gKwo+PiArwqDCoMKgwqAgLyogU2tpcCBzZXNz
-aW9uIGlmIGNvcmUgaXMgaW4gdGVzdCBtb2RlICovCj4+ICvCoMKgwqDCoCBpZiAocm9sZSA9PSBV
-U0JfUk9MRV9OT05FICYmIGhzb3RnLT50ZXN0X21vZGUpIHsKPj4gK8KgwqDCoMKgwqDCoMKgwqDC
-oMKgwqDCoCBkZXZfZGJnKGhzb3RnLT5kZXYsICJDb3JlIGlzIGluIHRlc3QgbW9kZVxuIik7Cj4+
-ICvCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqAgcmV0dXJuIC1FQlVTWTsKPj4gK8KgwqDCoMKgIH0K
-Pj4gKwo+PiArwqDCoMKgwqAgc3Bpbl9sb2NrX2lycXNhdmUoJmhzb3RnLT5sb2NrLCBmbGFncyk7
-Cj4gZHVlIHRvIHRoaXMgc3Bpbl9sb2NrX2lycXNhdmUoKSAuLi4KPiAKPj4gK8KgwqDCoMKgIGlm
-IChyb2xlID09IFVTQl9ST0xFX0hPU1QpIHsKPj4gK8KgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoCBp
-ZiAoZHdjMl9vdnJfYXZhbGlkKGhzb3RnLCB0cnVlKSkKPj4gK8KgwqDCoMKgwqDCoMKgwqDCoMKg
-wqDCoMKgwqDCoMKgwqDCoMKgwqAgZ290byB1bmxvY2s7Cj4+ICsKPj4gK8KgwqDCoMKgwqDCoMKg
-wqDCoMKgwqDCoCBpZiAoaHNvdGctPmRyX21vZGUgPT0gVVNCX0RSX01PREVfT1RHKQo+PiArwqDC
-oMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoCAvKgo+PiArwqDCoMKgwqDCoMKg
-wqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgICogVGhpcyB3aWxsIHJhaXNlIGEgQ29ubmVj
-dG9yIElEIFN0YXR1cyBDaGFuZ2UKPj4gK8KgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKg
-wqDCoMKgwqDCoCAqIEludGVycnVwdCAtIGNvbm5JRCBBCj4+ICvCoMKgwqDCoMKgwqDCoMKgwqDC
-oMKgwqDCoMKgwqDCoMKgwqDCoMKgwqAgKi8KPj4gK8KgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKg
-wqDCoMKgwqDCoMKgwqAgZHdjMl9mb3JjZV9tb2RlKGhzb3RnLCB0cnVlKTsKPiAuLi4gd2UgY2Fu
-bm90IHNsZWVwIGluIGhlcmUuIHRoZSBjYWxsIGZsb3cgaXM6Cj4gZHdjMl9kcmRfcm9sZV9zd19z
-ZXQKPiAgwqAgc3Bpbl9sb2NrX2lycXNhdmUKPiAgwqAgZHdjMl9mb3JjZV9tb2RlCj4gIMKgwqDC
-oCBkd2MyX3dhaXRfZm9yX21vZGUKPiAgwqDCoMKgwqDCoCB1c2xlZXBfcmFuZ2UKPiAKCkluIGZh
-Y3QsIHdpdGggdGhlIGF2YWxpZCBvciBidmFsaWQgb3ZlcnJpZGluZyArIHRoZSBkZWJvdW5jZSBm
-aWx0ZXIgCmJ5cGFzcywgR0lOVFNUU19DVVJNT0QgaXMgYWxyZWFkeSBpbiB0aGUgZXhwZWN0ZWQg
-bW9kZSwgc28gdGhhdCB3ZSBleGl0IAp0aGUgbG9vcCBkaXJlY3RseSwgd2l0aG91dCBydW5uaW5n
-IGludG8gdXNsZWVwX3JhbmdlLgoKPj4gK8KgwqDCoMKgIH0gZWxzZSBpZiAocm9sZSA9PSBVU0Jf
-Uk9MRV9ERVZJQ0UpIHsKPj4gK8KgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoCBpZiAoZHdjMl9vdnJf
-YnZhbGlkKGhzb3RnLCB0cnVlKSkKPj4gK8KgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKg
-wqDCoMKgwqAgZ290byB1bmxvY2s7Cj4+ICsKPj4gK8KgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoCBp
-ZiAoaHNvdGctPmRyX21vZGUgPT0gVVNCX0RSX01PREVfT1RHKQo+PiArwqDCoMKgwqDCoMKgwqDC
-oMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoCAvKgo+PiArwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKg
-wqDCoMKgwqDCoMKgwqDCoMKgICogVGhpcyB3aWxsIHJhaXNlIGEgQ29ubmVjdG9yIElEIFN0YXR1
-cyBDaGFuZ2UKPj4gK8KgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoCAq
-IEludGVycnVwdCAtIGNvbm5JRCBCCj4+ICvCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDC
-oMKgwqDCoMKgwqAgKi8KPj4gK8KgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKg
-wqAgZHdjMl9mb3JjZV9tb2RlKGhzb3RnLCBmYWxzZSk7Cj4gKHNhbWUgc2xlZXBpbmcgaXNzdWUg
-aGVyZSkKPiAKPiBbLi4uXQo+ICtpbnQgZHdjMl9kcmRfaW5pdChzdHJ1Y3QgZHdjMl9oc290ZyAq
-aHNvdGcpCj4gK3sKPiArwqDCoMKgwqDCoMKgIHN0cnVjdCB1c2Jfcm9sZV9zd2l0Y2hfZGVzYyBy
-b2xlX3N3X2Rlc2MgPSB7MH07Cj4gK8KgwqDCoMKgwqDCoCBzdHJ1Y3QgdXNiX3JvbGVfc3dpdGNo
-ICpyb2xlX3N3Owo+ICvCoMKgwqDCoMKgwqAgaW50IHJldDsKPiArCj4gK8KgwqDCoMKgwqDCoCBp
-ZiAoIWRldmljZV9wcm9wZXJ0eV9yZWFkX2Jvb2woaHNvdGctPmRldiwgInVzYi1yb2xlLXN3aXRj
-aCIpKQo+ICvCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgIHJldHVybiAwOwo+IHNob3VsZCB3
-ZSBhbHNvIHJldHVybiBlYXJseSBoZXJlIGlmIGRyX21vZGUgIT0gIm90ZyI/Cj4gCgpObywgYmVj
-YXVzZSB3aGVuIFZCVVMgaXMgbm90IGNvbm5lY3RlZCB0byB0aGUgY29udHJvbGxlciwgeW91IGFs
-c28gbmVlZCAKdG8gZ2V0IHRoZSB1c2Jfcm9sZV9ub25lIGZyb20gdGhlIHVzYi1yb2xlLXN3aXRj
-aCB0byBjYXRjaCB0aGUgCnVuYXR0YWNoZWQgc3RhdGUgKGFsc28gaW4gUGVyaXBoZXJhbCBvciBI
-b3N0IG9ubHkgbW9kZSkuCgo+IFsuLi5dCj4gQEAgLTUzMiw2ICs1MzQsMTMgQEAgc3RhdGljIGlu
-dCBkd2MyX2RyaXZlcl9wcm9iZShzdHJ1Y3QgcGxhdGZvcm1fZGV2aWNlIAo+ICpkZXYpCj4gIMKg
-wqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgIGR3YzJfd3JpdGVsKGhzb3RnLCBnZ3Bpbywg
-R0dQSU8pOwo+ICDCoMKgwqDCoMKgwqDCoMKgIH0KPiAKPiArwqDCoMKgwqDCoMKgIHJldHZhbCA9
-IGR3YzJfZHJkX2luaXQoaHNvdGcpOwo+ICvCoMKgwqDCoMKgwqAgaWYgKHJldHZhbCkgewo+ICvC
-oMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgIGlmIChyZXR2YWwgIT0gLUVQUk9CRV9ERUZFUikK
-PiArwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqAgZGV2X2Vyciho
-c290Zy0+ZGV2LCAiZmFpbGVkIHRvIGluaXRpYWxpemUgCj4gZHVhbC1yb2xlXG4iKTsKPiArwqDC
-oMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoCBnb3RvIGVycm9yX2luaXQ7Cj4gK8KgwqDCoMKgwqDC
-oCB9Cj4gKwo+ICDCoMKgwqDCoMKgwqDCoMKgIGlmIChoc290Zy0+ZHJfbW9kZSAhPSBVU0JfRFJf
-TU9ERV9IT1NUKSB7Cj4gIMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgIHJldHZhbCA9
-IGR3YzJfZ2FkZ2V0X2luaXQoaHNvdGcpOwo+ICDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKg
-wqDCoCBpZiAocmV0dmFsKQo+IEkgdGhpbmsgZHdjMl9kcml2ZXJfcHJvYmUoKSBuZWVkcyBhIG5l
-dyBsYWJlbCAoZm9yIGV4YW1wbGUgbmFtZWQKPiBlcnJvcl9kcmQpIHdoaWNoIHRoZW4gY2FsbHMg
-ZHdjMl9kcmRfZXhpdC4gU2VlIFswXSB3aGljaCBJIGhhdmUKPiBzdWJtaXR0ZWQgYXMgYSBwYXRj
-aCBmb3IgTGludXggNS44LCBzbyBpdCdzIG5vdCBpbiB1c2ItbmV4dCB5ZXQuCj4gCgpJIGFncmVl
-LgoKPiBBbHNvIGluIGdlbmVyYWwgSSB0aGluayB5b3UgbmVlZCB0byBzdWJtaXQgYSBkdC1iaW5k
-aW5ncyBwYXRjaCB0aGF0Cj4gZG9jdW1lbnRzIHRoZSB1c2Itcm9sZS1zd2l0Y2ggcHJvcGVydHku
-IFBlcnNvbmFsbHkgSSB3b3VsZCB1c2UKPiBEb2N1bWVudGF0aW9uL2RldmljZXRyZWUvYmluZGlu
-Z3MvdXNiL3JlbmVzYXMsdXNiMy1wZXJpLnlhbWwgYXMKPiByZWZlcmVuY2UgZm9yIHRoYXQuCj4g
-CgpTdXJlLiBXaWxsIGJlIGRvbmUgaW4gVjIgd2l0aCBuZXcgbGFiZWwgZm9yIGRyZF9leGl0IGlu
-IHByb2JlIGZhaWx1cmUgCnBhdGguIEknbGwgcmViYXNlIG15IHBhdGNoIG9uIHlvdXJzIHRvIGF2
-b2lkIGNvbmZsaWN0cy4KCj4gQ2FuIHlvdSBwbGVhc2Uga2VlcCBtZSBDYydlZCBvbiBhIHYyIGJl
-Y2F1c2UgSSdtIG5vdCBzdWJzY3JpYmVkIHRvIHRoZQo+IGxpbnV4LXVzYiBtYWlsaW5nIGxpc3Q/
-CgpPSy4gVGhhbmtzIGZvciB5b3VyIHJldmlldyBhbmQgZnV0dXJlIHRlc3RzIQpSZWdhcmRzLApB
-bWVsaWUKCj4gSSBhbSBnb2luZyB0byB0ZXN0IHRoaXMgb24gQW1sb2dpYyBTb0NzIC0gb25jZSBJ
-IG1hZGUgImV2ZXJ5dGhpbmcgZWxzZSIKPiB3b3JrIEkgY2FuIGdpdmUgbXkgVGVzdGVkLWJ5IGFz
-IHdlbGwuCj4gCj4gCj4gVGhhbmsgeW91IQo+IE1hcnRpbgo+IAo+IAo+IFswXSBodHRwczovL3Bh
-dGNod29yay5rZXJuZWwub3JnL3BhdGNoLzExNjQyOTU3LwpfX19fX19fX19fX19fX19fX19fX19f
-X19fX19fX19fX19fX19fX19fX19fX19fXwpMaW51eC1zdG0zMiBtYWlsaW5nIGxpc3QKTGludXgt
-c3RtMzJAc3QtbWQtbWFpbG1hbi5zdG9ybXJlcGx5LmNvbQpodHRwczovL3N0LW1kLW1haWxtYW4u
-c3Rvcm1yZXBseS5jb20vbWFpbG1hbi9saXN0aW5mby9saW51eC1zdG0zMgo=
+Replace the existing /* fall through */ comments and its variants with
+the new pseudo-keyword macro fallthrough[1]. Also, remove unnecessary
+fall-through markings when it is the case.
+
+[1] https://www.kernel.org/doc/html/latest/process/deprecated.html?highlight=fallthrough#implicit-switch-case-fall-through
+
+Signed-off-by: Gustavo A. R. Silva <gustavoars@kernel.org>
+---
+ drivers/input/joystick/db9.c             | 10 +++++-----
+ drivers/input/joystick/gamecon.c         | 10 ++++++----
+ drivers/input/joystick/sidewinder.c      | 15 ++++++++++-----
+ drivers/input/joystick/spaceball.c       |  8 ++++----
+ drivers/input/keyboard/adp5589-keys.c    |  2 +-
+ drivers/input/keyboard/atkbd.c           |  2 +-
+ drivers/input/keyboard/gpio_keys.c       |  1 -
+ drivers/input/misc/iqs269a.c             | 21 +++++++--------------
+ drivers/input/misc/pwm-vibra.c           |  2 +-
+ drivers/input/misc/xen-kbdfront.c        |  4 ++--
+ drivers/input/mouse/appletouch.c         |  2 +-
+ drivers/input/mouse/cyapa_gen3.c         |  4 ++--
+ drivers/input/mouse/cyapa_gen5.c         |  2 +-
+ drivers/input/mouse/cyapa_gen6.c         |  2 +-
+ drivers/input/mouse/elantech.c           |  6 ++----
+ drivers/input/mouse/hgpk.c               |  4 ++--
+ drivers/input/mouse/navpoint.c           |  2 +-
+ drivers/input/mouse/sentelic.c           |  2 +-
+ drivers/input/mouse/sermouse.c           |  4 ++--
+ drivers/input/serio/i8042.c              |  2 +-
+ drivers/input/serio/libps2.c             |  2 +-
+ drivers/input/sparse-keymap.c            |  2 +-
+ drivers/input/tablet/gtco.c              |  6 +++---
+ drivers/input/tablet/pegasus_notetaker.c |  2 +-
+ drivers/input/touchscreen/edt-ft5x06.c   |  3 +--
+ drivers/input/touchscreen/elants_i2c.c   |  2 +-
+ drivers/input/touchscreen/elo.c          |  2 +-
+ drivers/input/touchscreen/iqs5xx.c       |  2 +-
+ drivers/input/touchscreen/max11801_ts.c  |  1 -
+ drivers/input/touchscreen/stmfts.c       |  2 +-
+ 30 files changed, 62 insertions(+), 67 deletions(-)
+
+diff --git a/drivers/input/joystick/db9.c b/drivers/input/joystick/db9.c
+index a7bc576eb342..434d265fa2e8 100644
+--- a/drivers/input/joystick/db9.c
++++ b/drivers/input/joystick/db9.c
+@@ -247,7 +247,7 @@ static unsigned char db9_saturn_read_packet(struct parport *port, unsigned char
+ 			db9_saturn_write_sub(port, type, 3, powered, 0);
+ 			return data[0] = 0xe3;
+ 		}
+-		/* fall through */
++		fallthrough;
+ 	default:
+ 		return data[0];
+ 	}
+@@ -267,14 +267,14 @@ static int db9_saturn_report(unsigned char id, unsigned char data[60], struct in
+ 		switch (data[j]) {
+ 		case 0x16: /* multi controller (analog 4 axis) */
+ 			input_report_abs(dev, db9_abs[5], data[j + 6]);
+-			/* fall through */
++			fallthrough;
+ 		case 0x15: /* mission stick (analog 3 axis) */
+ 			input_report_abs(dev, db9_abs[3], data[j + 4]);
+ 			input_report_abs(dev, db9_abs[4], data[j + 5]);
+-			/* fall through */
++			fallthrough;
+ 		case 0x13: /* racing controller (analog 1 axis) */
+ 			input_report_abs(dev, db9_abs[2], data[j + 3]);
+-			/* fall through */
++			fallthrough;
+ 		case 0x34: /* saturn keyboard (udlr ZXC ASD QE Esc) */
+ 		case 0x02: /* digital pad (digital 2 axis + buttons) */
+ 			input_report_abs(dev, db9_abs[0], !(data[j + 1] & 128) - !(data[j + 1] & 64));
+@@ -368,7 +368,7 @@ static void db9_timer(struct timer_list *t)
+ 			input_report_abs(dev2, ABS_X, (data & DB9_RIGHT ? 0 : 1) - (data & DB9_LEFT ? 0 : 1));
+ 			input_report_abs(dev2, ABS_Y, (data & DB9_DOWN  ? 0 : 1) - (data & DB9_UP   ? 0 : 1));
+ 			input_report_key(dev2, BTN_TRIGGER, ~data & DB9_FIRE1);
+-			/* fall through */
++			fallthrough;
+ 
+ 		case DB9_MULTI_0802:
+ 
+diff --git a/drivers/input/joystick/gamecon.c b/drivers/input/joystick/gamecon.c
+index e0a362be5812..88df68cc4ac6 100644
+--- a/drivers/input/joystick/gamecon.c
++++ b/drivers/input/joystick/gamecon.c
+@@ -485,7 +485,7 @@ static void gc_multi_process_packet(struct gc *gc)
+ 		switch (pad->type) {
+ 		case GC_MULTI2:
+ 			input_report_key(dev, BTN_THUMB, s & data[5]);
+-			/* fall through */
++			fallthrough;
+ 
+ 		case GC_MULTI:
+ 			input_report_abs(dev, ABS_X,
+@@ -638,7 +638,7 @@ static void gc_psx_report_one(struct gc_pad *pad, unsigned char psx_type,
+ 
+ 		input_report_key(dev, BTN_THUMBL, ~data[0] & 0x04);
+ 		input_report_key(dev, BTN_THUMBR, ~data[0] & 0x02);
+-		/* fall through */
++		fallthrough;
+ 
+ 	case GC_PSX_NEGCON:
+ 	case GC_PSX_ANALOG:
+@@ -872,7 +872,8 @@ static int gc_setup_pad(struct gc *gc, int idx, int pad_type)
+ 	case GC_SNES:
+ 		for (i = 4; i < 8; i++)
+ 			input_set_capability(input_dev, EV_KEY, gc_snes_btn[i]);
+-		/* fall through */
++		fallthrough;
++
+ 	case GC_NES:
+ 		for (i = 0; i < 4; i++)
+ 			input_set_capability(input_dev, EV_KEY, gc_snes_btn[i]);
+@@ -880,7 +881,8 @@ static int gc_setup_pad(struct gc *gc, int idx, int pad_type)
+ 
+ 	case GC_MULTI2:
+ 		input_set_capability(input_dev, EV_KEY, BTN_THUMB);
+-		/* fall through */
++		fallthrough;
++
+ 	case GC_MULTI:
+ 		input_set_capability(input_dev, EV_KEY, BTN_TRIGGER);
+ 		/* fall through */
+diff --git a/drivers/input/joystick/sidewinder.c b/drivers/input/joystick/sidewinder.c
+index 1777e68c9f02..fac91ea14f17 100644
+--- a/drivers/input/joystick/sidewinder.c
++++ b/drivers/input/joystick/sidewinder.c
+@@ -656,16 +656,19 @@ static int sw_connect(struct gameport *gameport, struct gameport_driver *drv)
+ 
+ 			switch (i * m) {
+ 				case 60:
+-					sw->number++;			/* fall through */
++					sw->number++;
++					fallthrough;
+ 				case 45:				/* Ambiguous packet length */
+ 					if (j <= 40) {			/* ID length less or eq 40 -> FSP */
+ 				case 43:
+ 						sw->type = SW_ID_FSP;
+ 						break;
+ 					}
+-					sw->number++;			/* fall through */
++					sw->number++;
++					fallthrough;
+ 				case 30:
+-					sw->number++;			/* fall through */
++					sw->number++;
++					fallthrough;
+ 				case 15:
+ 					sw->type = SW_ID_GP;
+ 					break;
+@@ -681,9 +684,11 @@ static int sw_connect(struct gameport *gameport, struct gameport_driver *drv)
+ 						sw->type = SW_ID_PP;
+ 					break;
+ 				case 66:
+-					sw->bits = 3;			/* fall through */
++					sw->bits = 3;
++					fallthrough;
+ 				case 198:
+-					sw->length = 22;		/* fall through */
++					sw->length = 22;
++					fallthrough;
+ 				case 64:
+ 					sw->type = SW_ID_3DP;
+ 					if (j == 160)
+diff --git a/drivers/input/joystick/spaceball.c b/drivers/input/joystick/spaceball.c
+index cf7cbcd0c29d..429411c6c0a8 100644
+--- a/drivers/input/joystick/spaceball.c
++++ b/drivers/input/joystick/spaceball.c
+@@ -146,7 +146,7 @@ static irqreturn_t spaceball_interrupt(struct serio *serio,
+ 				break;
+ 			}
+ 			spaceball->escape = 0;
+-			/* fall through */
++			fallthrough;
+ 		case 'M':
+ 		case 'Q':
+ 		case 'S':
+@@ -154,7 +154,7 @@ static irqreturn_t spaceball_interrupt(struct serio *serio,
+ 				spaceball->escape = 0;
+ 				data &= 0x1f;
+ 			}
+-			/* fall through */
++			fallthrough;
+ 		default:
+ 			if (spaceball->escape)
+ 				spaceball->escape = 0;
+@@ -220,13 +220,13 @@ static int spaceball_connect(struct serio *serio, struct serio_driver *drv)
+ 			input_dev->keybit[BIT_WORD(BTN_A)] |= BIT_MASK(BTN_A) |
+ 				BIT_MASK(BTN_B) | BIT_MASK(BTN_C) |
+ 				BIT_MASK(BTN_MODE);
+-			/* fall through */
++			fallthrough;
+ 		default:
+ 			input_dev->keybit[BIT_WORD(BTN_0)] |= BIT_MASK(BTN_2) |
+ 				BIT_MASK(BTN_3) | BIT_MASK(BTN_4) |
+ 				BIT_MASK(BTN_5) | BIT_MASK(BTN_6) |
+ 				BIT_MASK(BTN_7) | BIT_MASK(BTN_8);
+-			/* fall through */
++			fallthrough;
+ 		case SPACEBALL_3003C:
+ 			input_dev->keybit[BIT_WORD(BTN_0)] |= BIT_MASK(BTN_1) |
+ 				BIT_MASK(BTN_8);
+diff --git a/drivers/input/keyboard/adp5589-keys.c b/drivers/input/keyboard/adp5589-keys.c
+index e7d58e7f0257..eb0e9cd66bcb 100644
+--- a/drivers/input/keyboard/adp5589-keys.c
++++ b/drivers/input/keyboard/adp5589-keys.c
+@@ -1016,7 +1016,7 @@ static int adp5589_probe(struct i2c_client *client,
+ 	switch (id->driver_data) {
+ 	case ADP5585_02:
+ 		kpad->support_row5 = true;
+-		/* fall through */
++		fallthrough;
+ 	case ADP5585_01:
+ 		kpad->is_adp5585 = true;
+ 		kpad->var = &const_adp5585;
+diff --git a/drivers/input/keyboard/atkbd.c b/drivers/input/keyboard/atkbd.c
+index 6ec28265771d..edc613efc158 100644
+--- a/drivers/input/keyboard/atkbd.c
++++ b/drivers/input/keyboard/atkbd.c
+@@ -1241,7 +1241,7 @@ static int atkbd_connect(struct serio *serio, struct serio_driver *drv)
+ 
+ 	case SERIO_8042_XL:
+ 		atkbd->translated = true;
+-		/* Fall through */
++		fallthrough;
+ 
+ 	case SERIO_8042:
+ 		if (serio->write)
+diff --git a/drivers/input/keyboard/gpio_keys.c b/drivers/input/keyboard/gpio_keys.c
+index 53c9ff338dea..f2d4e4daa818 100644
+--- a/drivers/input/keyboard/gpio_keys.c
++++ b/drivers/input/keyboard/gpio_keys.c
+@@ -574,7 +574,6 @@ static int gpio_keys_setup_key(struct platform_device *pdev,
+ 				IRQ_TYPE_EDGE_RISING : IRQ_TYPE_EDGE_FALLING;
+ 			break;
+ 		case EV_ACT_ANY:
+-			/* fall through */
+ 		default:
+ 			/*
+ 			 * For other cases, we are OK letting suspend/resume
+diff --git a/drivers/input/misc/iqs269a.c b/drivers/input/misc/iqs269a.c
+index 6699eb160a0f..a348247d3d38 100644
+--- a/drivers/input/misc/iqs269a.c
++++ b/drivers/input/misc/iqs269a.c
+@@ -575,8 +575,7 @@ static int iqs269_parse_chan(struct iqs269_private *iqs269,
+ 
+ 		case IQS269_LOCAL_CAP_SIZE_GLOBAL_0pF5:
+ 			engine_a |= IQS269_CHx_ENG_A_LOCAL_CAP_SIZE;
+-
+-			/* fall through */
++			fallthrough;
+ 
+ 		case IQS269_LOCAL_CAP_SIZE_GLOBAL_ONLY:
+ 			engine_b |= IQS269_CHx_ENG_B_LOCAL_CAP_ENABLE;
+@@ -731,14 +730,12 @@ static int iqs269_parse_chan(struct iqs269_private *iqs269,
+ 				iqs269->switches[i].code = val;
+ 				iqs269->switches[i].enabled = true;
+ 			}
+-
+-			/* fall through */
++			fallthrough;
+ 
+ 		case IQS269_CHx_HALL_INACTIVE:
+ 			if (iqs269->hall_enable)
+ 				break;
+-
+-			/* fall through */
++			fallthrough;
+ 
+ 		default:
+ 			iqs269->keycode[i * IQS269_NUM_CH + reg] = val;
+@@ -1143,14 +1140,12 @@ static int iqs269_input_init(struct iqs269_private *iqs269)
+ 							    sw_code,
+ 							    state & BIT(j));
+ 				}
+-
+-				/* fall through */
++				fallthrough;
+ 
+ 			case IQS269_CHx_HALL_INACTIVE:
+ 				if (iqs269->hall_enable)
+ 					continue;
+-
+-				/* fall through */
++				fallthrough;
+ 
+ 			default:
+ 				if (keycode != KEY_RESERVED)
+@@ -1273,14 +1268,12 @@ static int iqs269_report(struct iqs269_private *iqs269)
+ 					input_report_switch(iqs269->keypad,
+ 							    sw_code,
+ 							    state & BIT(j));
+-
+-				/* fall through */
++				fallthrough;
+ 
+ 			case IQS269_CHx_HALL_INACTIVE:
+ 				if (iqs269->hall_enable)
+ 					continue;
+-
+-				/* fall through */
++				fallthrough;
+ 
+ 			default:
+ 				input_report_key(iqs269->keypad, keycode,
+diff --git a/drivers/input/misc/pwm-vibra.c b/drivers/input/misc/pwm-vibra.c
+index 8ceaf7db2882..81e777a04b88 100644
+--- a/drivers/input/misc/pwm-vibra.c
++++ b/drivers/input/misc/pwm-vibra.c
+@@ -190,7 +190,7 @@ static int pwm_vibrator_probe(struct platform_device *pdev)
+ 
+ 	default:
+ 		dev_err(&pdev->dev, "Failed to request direction pwm: %d", err);
+-		/* Fall through */
++		fallthrough;
+ 
+ 	case -EPROBE_DEFER:
+ 		return err;
+diff --git a/drivers/input/misc/xen-kbdfront.c b/drivers/input/misc/xen-kbdfront.c
+index a1bba722b234..4ff5cd2a6d8d 100644
+--- a/drivers/input/misc/xen-kbdfront.c
++++ b/drivers/input/misc/xen-kbdfront.c
+@@ -124,7 +124,7 @@ static void xenkbd_handle_mt_event(struct xenkbd_info *info,
+ 	switch (mtouch->event_type) {
+ 	case XENKBD_MT_EV_DOWN:
+ 		input_mt_report_slot_state(info->mtouch, MT_TOOL_FINGER, true);
+-		/* fall through */
++		fallthrough;
+ 
+ 	case XENKBD_MT_EV_MOTION:
+ 		input_report_abs(info->mtouch, ABS_MT_POSITION_X,
+@@ -524,7 +524,7 @@ static void xenkbd_backend_changed(struct xenbus_device *dev,
+ 	case XenbusStateClosed:
+ 		if (dev->state == XenbusStateClosed)
+ 			break;
+-		/* fall through - Missed the backend's CLOSING state */
++		fallthrough;	/* Missed the backend's CLOSING state */
+ 	case XenbusStateClosing:
+ 		xenbus_frontend_closed(dev);
+ 		break;
+diff --git a/drivers/input/mouse/appletouch.c b/drivers/input/mouse/appletouch.c
+index 3f06e8a495d8..bfa26651c0be 100644
+--- a/drivers/input/mouse/appletouch.c
++++ b/drivers/input/mouse/appletouch.c
+@@ -458,7 +458,7 @@ static int atp_status_check(struct urb *urb)
+ 				dev->info->datalen, dev->urb->actual_length);
+ 			dev->overflow_warned = true;
+ 		}
+-		/* fall through */
++		fallthrough;
+ 	case -ECONNRESET:
+ 	case -ENOENT:
+ 	case -ESHUTDOWN:
+diff --git a/drivers/input/mouse/cyapa_gen3.c b/drivers/input/mouse/cyapa_gen3.c
+index 00e395dfc3d5..a0361f9325f8 100644
+--- a/drivers/input/mouse/cyapa_gen3.c
++++ b/drivers/input/mouse/cyapa_gen3.c
+@@ -1067,7 +1067,7 @@ static int cyapa_gen3_do_operational_check(struct cyapa *cyapa)
+ 			return error;
+ 		}
+ 
+-	/* Fall through */
++		fallthrough;
+ 	case CYAPA_STATE_BL_IDLE:
+ 		/* Try to get firmware version in bootloader mode. */
+ 		cyapa_gen3_bl_query_data(cyapa);
+@@ -1078,7 +1078,7 @@ static int cyapa_gen3_do_operational_check(struct cyapa *cyapa)
+ 			return error;
+ 		}
+ 
+-	/* Fall through */
++		fallthrough;
+ 	case CYAPA_STATE_OP:
+ 		/*
+ 		 * Reading query data before going back to the full mode
+diff --git a/drivers/input/mouse/cyapa_gen5.c b/drivers/input/mouse/cyapa_gen5.c
+index 7f012bfa2658..bb3a63d1268d 100644
+--- a/drivers/input/mouse/cyapa_gen5.c
++++ b/drivers/input/mouse/cyapa_gen5.c
+@@ -2554,7 +2554,7 @@ static int cyapa_gen5_do_operational_check(struct cyapa *cyapa)
+ 		}
+ 
+ 		cyapa->state = CYAPA_STATE_GEN5_APP;
+-		/* fall through */
++		fallthrough;
+ 
+ 	case CYAPA_STATE_GEN5_APP:
+ 		/*
+diff --git a/drivers/input/mouse/cyapa_gen6.c b/drivers/input/mouse/cyapa_gen6.c
+index c1b524ab4623..7eba66fbef58 100644
+--- a/drivers/input/mouse/cyapa_gen6.c
++++ b/drivers/input/mouse/cyapa_gen6.c
+@@ -680,7 +680,7 @@ static int cyapa_gen6_operational_check(struct cyapa *cyapa)
+ 		}
+ 
+ 		cyapa->state = CYAPA_STATE_GEN6_APP;
+-		/* fall through */
++		fallthrough;
+ 
+ 	case CYAPA_STATE_GEN6_APP:
+ 		/*
+diff --git a/drivers/input/mouse/elantech.c b/drivers/input/mouse/elantech.c
+index 2d8434b7b623..e359e7059e10 100644
+--- a/drivers/input/mouse/elantech.c
++++ b/drivers/input/mouse/elantech.c
+@@ -383,7 +383,7 @@ static void elantech_report_absolute_v2(struct psmouse *psmouse)
+ 		 */
+ 		if (packet[3] & 0x80)
+ 			fingers = 4;
+-		/* fall through */
++		fallthrough;
+ 	case 1:
+ 		/*
+ 		 * byte 1:  .   .   .   .  x11 x10 x9  x8
+@@ -1146,7 +1146,7 @@ static int elantech_set_input_params(struct psmouse *psmouse)
+ 	case 2:
+ 		__set_bit(BTN_TOOL_QUADTAP, dev->keybit);
+ 		__set_bit(INPUT_PROP_SEMI_MT, dev->propbit);
+-		/* fall through */
++		fallthrough;
+ 	case 3:
+ 		if (info->hw_version == 3)
+ 			elantech_set_buttonpad_prop(psmouse);
+@@ -1877,12 +1877,10 @@ static bool elantech_use_host_notify(struct psmouse *psmouse,
+ 		/* expected case */
+ 		break;
+ 	case ETP_BUS_SMB_ALERT_ONLY:
+-		/* fall-through  */
+ 	case ETP_BUS_PS2_SMB_ALERT:
+ 		psmouse_dbg(psmouse, "Ignoring SMBus provider through alert protocol.\n");
+ 		break;
+ 	case ETP_BUS_SMB_HST_NTFY_ONLY:
+-		/* fall-through  */
+ 	case ETP_BUS_PS2_SMB_HST_NTFY:
+ 		return true;
+ 	default:
+diff --git a/drivers/input/mouse/hgpk.c b/drivers/input/mouse/hgpk.c
+index 72a083f3fc4a..4dc441309aac 100644
+--- a/drivers/input/mouse/hgpk.c
++++ b/drivers/input/mouse/hgpk.c
+@@ -238,7 +238,7 @@ static void hgpk_spewing_hack(struct psmouse *psmouse,
+ 		/* we're not spewing, but this packet might be the start */
+ 		priv->spew_flag = MAYBE_SPEWING;
+ 
+-		/* fall-through */
++		fallthrough;
+ 
+ 	case MAYBE_SPEWING:
+ 		priv->spew_count++;
+@@ -249,7 +249,7 @@ static void hgpk_spewing_hack(struct psmouse *psmouse,
+ 		/* excessive spew detected, request recalibration */
+ 		priv->spew_flag = SPEW_DETECTED;
+ 
+-		/* fall-through */
++		fallthrough;
+ 
+ 	case SPEW_DETECTED:
+ 		/* only recalibrate when the overall delta to the cursor
+diff --git a/drivers/input/mouse/navpoint.c b/drivers/input/mouse/navpoint.c
+index 0b75248c8380..c112980c2341 100644
+--- a/drivers/input/mouse/navpoint.c
++++ b/drivers/input/mouse/navpoint.c
+@@ -105,7 +105,7 @@ static void navpoint_packet(struct navpoint *navpoint)
+ 	case 0x19:	/* Module 0, Hello packet */
+ 		if ((navpoint->data[1] & 0xf0) == 0x10)
+ 			break;
+-		/* FALLTHROUGH */
++		fallthrough;
+ 	default:
+ 		dev_warn(navpoint->dev,
+ 			 "spurious packet: data=0x%02x,0x%02x,...\n",
+diff --git a/drivers/input/mouse/sentelic.c b/drivers/input/mouse/sentelic.c
+index e99d9bf1a267..9f7ecc72093a 100644
+--- a/drivers/input/mouse/sentelic.c
++++ b/drivers/input/mouse/sentelic.c
+@@ -794,7 +794,7 @@ static psmouse_ret_t fsp_process_byte(struct psmouse *psmouse)
+ 		/* on-pad click, filter it if necessary */
+ 		if ((ad->flags & FSPDRV_FLAG_EN_OPC) != FSPDRV_FLAG_EN_OPC)
+ 			packet[0] &= ~FSP_PB0_LBTN;
+-		/* fall through */
++		fallthrough;
+ 
+ 	case FSP_PKT_TYPE_NORMAL:
+ 		/* normal packet */
+diff --git a/drivers/input/mouse/sermouse.c b/drivers/input/mouse/sermouse.c
+index ea9242d53899..caa79c177c55 100644
+--- a/drivers/input/mouse/sermouse.c
++++ b/drivers/input/mouse/sermouse.c
+@@ -128,7 +128,7 @@ static void sermouse_process_ms(struct sermouse *sermouse, signed char data)
+ 
+ 				case SERIO_MS:
+ 					sermouse->type = SERIO_MP;
+-					/* fall through */
++					fallthrough;
+ 
+ 				case SERIO_MP:
+ 					if ((data >> 2) & 3) break;	/* M++ Wireless Extension packet. */
+@@ -139,7 +139,7 @@ static void sermouse_process_ms(struct sermouse *sermouse, signed char data)
+ 				case SERIO_MZP:
+ 				case SERIO_MZPP:
+ 					input_report_key(dev, BTN_SIDE,   (data >> 5) & 1);
+-					/* fall through */
++					fallthrough;
+ 
+ 				case SERIO_MZ:
+ 					input_report_key(dev, BTN_MIDDLE, (data >> 4) & 1);
+diff --git a/drivers/input/serio/i8042.c b/drivers/input/serio/i8042.c
+index 0dddf273afd9..d3eda48032e3 100644
+--- a/drivers/input/serio/i8042.c
++++ b/drivers/input/serio/i8042.c
+@@ -562,7 +562,7 @@ static irqreturn_t i8042_interrupt(int irq, void *dev_id)
+ 						str = last_str;
+ 						break;
+ 					}
+-					/* fall through - report timeout */
++					fallthrough;	/* report timeout */
+ 				case 0xfc:
+ 				case 0xfd:
+ 				case 0xfe: dfl = SERIO_TIMEOUT; data = 0xfe; break;
+diff --git a/drivers/input/serio/libps2.c b/drivers/input/serio/libps2.c
+index a8c94a940a79..8a16e41f7b7f 100644
+--- a/drivers/input/serio/libps2.c
++++ b/drivers/input/serio/libps2.c
+@@ -418,7 +418,7 @@ bool ps2_handle_ack(struct ps2dev *ps2dev, u8 data)
+ 			ps2dev->nak = 0;
+ 			break;
+ 		}
+-		/* Fall through */
++		fallthrough;
+ 	default:
+ 		/*
+ 		 * Do not signal errors if we get unexpected reply while
+diff --git a/drivers/input/sparse-keymap.c b/drivers/input/sparse-keymap.c
+index 530fd15eaeca..25bf8be6e711 100644
+--- a/drivers/input/sparse-keymap.c
++++ b/drivers/input/sparse-keymap.c
+@@ -247,7 +247,7 @@ void sparse_keymap_report_entry(struct input_dev *dev, const struct key_entry *k
+ 
+ 	case KE_SW:
+ 		value = ke->sw.value;
+-		/* fall through */
++		fallthrough;
+ 
+ 	case KE_VSW:
+ 		input_report_switch(dev, ke->sw.code, value);
+diff --git a/drivers/input/tablet/gtco.c b/drivers/input/tablet/gtco.c
+index 96d65575f75a..44bb1f69b4b2 100644
+--- a/drivers/input/tablet/gtco.c
++++ b/drivers/input/tablet/gtco.c
+@@ -676,8 +676,8 @@ static void gtco_urb_callback(struct urb *urbinfo)
+ 
+ 			/* Mask out the Y tilt value used for pressure */
+ 			device->buffer[7] = (u8)((device->buffer[7]) & 0x7F);
++			fallthrough;
+ 
+-			/* Fall thru */
+ 		case 4:
+ 			/* Tilt */
+ 			input_report_abs(inputdev, ABS_TILT_X,
+@@ -685,8 +685,8 @@ static void gtco_urb_callback(struct urb *urbinfo)
+ 
+ 			input_report_abs(inputdev, ABS_TILT_Y,
+ 					 sign_extend32(device->buffer[7], 6));
++			fallthrough;
+ 
+-			/* Fall thru */
+ 		case 2:
+ 		case 3:
+ 			/* Convert buttons, only 5 bits possible */
+@@ -695,8 +695,8 @@ static void gtco_urb_callback(struct urb *urbinfo)
+ 			/* We don't apply any meaning to the bitmask,
+ 			   just report */
+ 			input_event(inputdev, EV_MSC, MSC_SERIAL, val);
++			fallthrough;
+ 
+-			/*  Fall thru */
+ 		case 1:
+ 			/* All reports have X and Y coords in the same place */
+ 			val = get_unaligned_le16(&device->buffer[1]);
+diff --git a/drivers/input/tablet/pegasus_notetaker.c b/drivers/input/tablet/pegasus_notetaker.c
+index 38f087404f7a..749edbdb7ffa 100644
+--- a/drivers/input/tablet/pegasus_notetaker.c
++++ b/drivers/input/tablet/pegasus_notetaker.c
+@@ -146,7 +146,7 @@ static void pegasus_parse_packet(struct pegasus *pegasus)
+ 	/* xy data */
+ 	case BATTERY_LOW:
+ 		dev_warn_once(&dev->dev, "Pen battery low\n");
+-		/* fall through */
++		fallthrough;
+ 
+ 	case BATTERY_NO_REPORT:
+ 	case BATTERY_GOOD:
+diff --git a/drivers/input/touchscreen/edt-ft5x06.c b/drivers/input/touchscreen/edt-ft5x06.c
+index 3a4f18d3450d..6ff81d48da86 100644
+--- a/drivers/input/touchscreen/edt-ft5x06.c
++++ b/drivers/input/touchscreen/edt-ft5x06.c
+@@ -288,7 +288,7 @@ static int edt_ft5x06_register_write(struct edt_ft5x06_ts_data *tsdata,
+ 		wrbuf[3] = wrbuf[0] ^ wrbuf[1] ^ wrbuf[2];
+ 		return edt_ft5x06_ts_readwrite(tsdata->client, 4,
+ 					wrbuf, 0, NULL);
+-	/* fallthrough */
++
+ 	case EDT_M09:
+ 	case EDT_M12:
+ 	case EV_FT:
+@@ -330,7 +330,6 @@ static int edt_ft5x06_register_read(struct edt_ft5x06_ts_data *tsdata,
+ 		}
+ 		break;
+ 
+-	/* fallthrough */
+ 	case EDT_M09:
+ 	case EDT_M12:
+ 	case EV_FT:
+diff --git a/drivers/input/touchscreen/elants_i2c.c b/drivers/input/touchscreen/elants_i2c.c
+index 233cb1085bbd..a765aa876a8e 100644
+--- a/drivers/input/touchscreen/elants_i2c.c
++++ b/drivers/input/touchscreen/elants_i2c.c
+@@ -955,7 +955,7 @@ static irqreturn_t elants_i2c_irq(int irq, void *_dev)
+ 			break;
+ 
+ 		ts->state = ELAN_STATE_NORMAL;
+-		/* fall through */
++		fallthrough;
+ 
+ 	case ELAN_STATE_NORMAL:
+ 
+diff --git a/drivers/input/touchscreen/elo.c b/drivers/input/touchscreen/elo.c
+index d6772a2c2d09..e0bacd34866a 100644
+--- a/drivers/input/touchscreen/elo.c
++++ b/drivers/input/touchscreen/elo.c
+@@ -348,7 +348,7 @@ static int elo_connect(struct serio *serio, struct serio_driver *drv)
+ 
+ 	case 1: /* 6-byte protocol */
+ 		input_set_abs_params(input_dev, ABS_PRESSURE, 0, 15, 0, 0);
+-		/* fall through */
++		fallthrough;
+ 
+ 	case 2: /* 4-byte protocol */
+ 		input_set_abs_params(input_dev, ABS_X, 96, 4000, 0, 0);
+diff --git a/drivers/input/touchscreen/iqs5xx.c b/drivers/input/touchscreen/iqs5xx.c
+index 5875bb1099a8..3162b68f7374 100644
+--- a/drivers/input/touchscreen/iqs5xx.c
++++ b/drivers/input/touchscreen/iqs5xx.c
+@@ -289,7 +289,7 @@ static int iqs5xx_bl_cmd(struct i2c_client *client, u8 bl_cmd, u16 bl_addr)
+ 		break;
+ 	case IQS5XX_BL_CMD_EXEC:
+ 		usleep_range(10000, 10100);
+-		/* fall through */
++		fallthrough;
+ 	default:
+ 		return 0;
+ 	}
+diff --git a/drivers/input/touchscreen/max11801_ts.c b/drivers/input/touchscreen/max11801_ts.c
+index 1af08d3dfaf7..f15713aaebc2 100644
+--- a/drivers/input/touchscreen/max11801_ts.c
++++ b/drivers/input/touchscreen/max11801_ts.c
+@@ -130,7 +130,6 @@ static irqreturn_t max11801_ts_interrupt(int irq, void *dev_id)
+ 
+ 		switch (buf[1] & EVENT_TAG_MASK) {
+ 		case EVENT_INIT:
+-			/* fall through */
+ 		case EVENT_MIDDLE:
+ 			input_report_abs(data->input_dev, ABS_X, x);
+ 			input_report_abs(data->input_dev, ABS_Y, y);
+diff --git a/drivers/input/touchscreen/stmfts.c b/drivers/input/touchscreen/stmfts.c
+index b54cc64e4ea6..df946869d4cd 100644
+--- a/drivers/input/touchscreen/stmfts.c
++++ b/drivers/input/touchscreen/stmfts.c
+@@ -255,7 +255,7 @@ static void stmfts_parse_events(struct stmfts_data *sdata)
+ 		case STMFTS_EV_SLEEP_OUT_CONTROLLER_READY:
+ 		case STMFTS_EV_STATUS:
+ 			complete(&sdata->cmd_done);
+-			/* fall through */
++			fallthrough;
+ 
+ 		case STMFTS_EV_NO_EVENT:
+ 		case STMFTS_EV_DEBUG:
+-- 
+2.27.0
+
+_______________________________________________
+Linux-stm32 mailing list
+Linux-stm32@st-md-mailman.stormreply.com
+https://st-md-mailman.stormreply.com/mailman/listinfo/linux-stm32
