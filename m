@@ -2,77 +2,83 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id 199C7219180
-	for <lists+linux-stm32@lfdr.de>; Wed,  8 Jul 2020 22:29:58 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 21595219A48
+	for <lists+linux-stm32@lfdr.de>; Thu,  9 Jul 2020 09:56:39 +0200 (CEST)
 Received: from ip-172-31-3-76.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id B6E8CC36B2B;
-	Wed,  8 Jul 2020 20:29:57 +0000 (UTC)
-Received: from mail-wm1-f66.google.com (mail-wm1-f66.google.com
- [209.85.128.66])
- (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id D406CC36B2B;
+	Thu,  9 Jul 2020 07:56:38 +0000 (UTC)
+Received: from mx07-00178001.pphosted.com (mx08-00178001.pphosted.com
+ [91.207.212.93])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 15480C36B29
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 2871FC36B29
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Wed,  8 Jul 2020 20:29:56 +0000 (UTC)
-Received: by mail-wm1-f66.google.com with SMTP id 17so4514953wmo.1
- for <linux-stm32@st-md-mailman.stormreply.com>;
- Wed, 08 Jul 2020 13:29:56 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=baylibre-com.20150623.gappssmtp.com; s=20150623;
- h=subject:to:references:cc:from:message-id:date:user-agent
- :mime-version:in-reply-to:content-transfer-encoding;
- bh=bFFXDls7rxsx9mgSBw8JFPExDFAh6mKZQvI3ucZYObE=;
- b=wpfoermkPGCvl5J0FARD4TAPvPDa0E06xA2E/KrD+6Af8bzVfKPCX1hwAt3Ijg1QtG
- m6e5Fh7TC4Jyt2n9TGauN/6FlN7id1IGrFEc8b5kev2FHX4RIv38+BIwAgrBPkYYdgNp
- fJUJNBkhJjwjs4L2HVhZKOEUh/0nPVlGiqAHiBtX+5ZdaqUX5APEIULFmC+DVBHiI7JS
- JZ8VuOcUCRwM73o86DD3sdpVZSwA5S82BUZ0U7HvtiGrlrJT7XUd8qeyr9OD48On5cXS
- 1kHusgkWLGlynCr9RhAz56gySshhESQno05VFQuCq6wRY1jOH1U2QwLD4Mhn1dI0wPYF
- I1dg==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20161025;
- h=x-gm-message-state:subject:to:references:cc:from:message-id:date
- :user-agent:mime-version:in-reply-to:content-transfer-encoding;
- bh=bFFXDls7rxsx9mgSBw8JFPExDFAh6mKZQvI3ucZYObE=;
- b=K2NxFobGI59jdMu7tzfjCGX1yyJpJePzi33ninT+Io76HN/+E4MolNiT8Gb4hIUG77
- +RIEiz1BJYNVZwqF4ElYRmdziVkJ8j4ixNBFaLZ/RMTggKBABS8wktke0yY3EjPs5xLy
- /v2FbucRNAOlwtVmqE34cVUVR6QGFf5/JvercaQuck2h2YN138yc7Dp/qH0/2b6sLVuG
- qpn61wioPGkA+DpboDrzomjEw1xKC9KweWNhzmFJq2/ld2bThmT5AVblNIBkuq1iBx8n
- kKAeVdSe43J+m2Dgz4MHjHDnrIT7ucDI/EgjiTGxKCbs+XnQ69l18p576zN8xNmanKPW
- ts0A==
-X-Gm-Message-State: AOAM532t6zL992tCB40nAw2opybN//wZ94TTklRT7V+BkEWeCykNbxbY
- zWQXtBTZjO8iPH8D6mCRA+DAsg==
-X-Google-Smtp-Source: ABdhPJxp55oJfL2bLdrtFg2XOfpW5Q8FVMooovyIuRE2OclHpUNlgYZtsX9jgeq+AZzO33ruBdoDZg==
-X-Received: by 2002:a1c:98c1:: with SMTP id a184mr9559308wme.116.1594240195367; 
- Wed, 08 Jul 2020 13:29:55 -0700 (PDT)
-Received: from Armstrongs-MacBook-Pro.local
- ([2a01:e35:2ec0:82b0:847:4f0c:a891:12f5])
- by smtp.gmail.com with ESMTPSA id m10sm1753945wru.4.2020.07.08.13.29.53
- (version=TLS1_2 cipher=ECDHE-ECDSA-AES128-GCM-SHA256 bits=128/128);
- Wed, 08 Jul 2020 13:29:54 -0700 (PDT)
-To: Angelo Ribeiro <Angelo.Ribeiro@synopsys.com>,
- Yannick FERTRE <yannick.fertre@st.com>,
- Philippe CORNU <philippe.cornu@st.com>,
- Benjamin GAIGNARD <benjamin.gaignard@st.com>,
+ Thu,  9 Jul 2020 07:56:37 +0000 (UTC)
+Received: from pps.filterd (m0046660.ppops.net [127.0.0.1])
+ by mx07-00178001.pphosted.com (8.16.0.42/8.16.0.42) with SMTP id
+ 0697mOa6011824; Thu, 9 Jul 2020 09:56:14 +0200
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=st.com;
+ h=from : to : cc : subject
+ : date : message-id : references : in-reply-to : content-type : content-id
+ : content-transfer-encoding : mime-version; s=STMicroelectronics;
+ bh=PjimJKcwCGdTe67CN4aV9vRO3WO9hHLqREjVFyCK/DM=;
+ b=oznUVSq5i3TEu5NSPUpfxlYxeM3m+tx2em+QoRcP296wfE5tgsPOMmO8KEh1f3hXZsh8
+ DzgEKerKGYmgHR9yKHNZ8VaPWB5MkmiMsjFhUHzIfxlKG7s/6XsiMtp2fnbRcFadaO1U
+ zaIXtMp0S83ZeroEicdiO9TITyZqk9R/Qe7uaOTRWpH4RB05RwgOTPZKQWqbjJ2vbD6h
+ z3e9wkMkEttXeAxxS77EraZYnLSOJzXA5vhrtPsKdYzWcadSRi8GtF0KEU9ooYVm7wDW
+ VGyRw5eD26N+PzeQZtMyBEzKxIqe8Jvgf9MvZhDGQpw1sMR34sL/tZ/Odjy38cYFybl/ Mw== 
+Received: from beta.dmz-eu.st.com (beta.dmz-eu.st.com [164.129.1.35])
+ by mx07-00178001.pphosted.com with ESMTP id 325k4036gm-1
+ (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
+ Thu, 09 Jul 2020 09:56:14 +0200
+Received: from euls16034.sgp.st.com (euls16034.sgp.st.com [10.75.44.20])
+ by beta.dmz-eu.st.com (STMicroelectronics) with ESMTP id C416710002A;
+ Thu,  9 Jul 2020 09:56:11 +0200 (CEST)
+Received: from Webmail-eu.st.com (sfhdag3node3.st.com [10.75.127.9])
+ by euls16034.sgp.st.com (STMicroelectronics) with ESMTP id A42402A5335;
+ Thu,  9 Jul 2020 09:56:11 +0200 (CEST)
+Received: from SFHDAG6NODE3.st.com (10.75.127.18) by SFHDAG3NODE3.st.com
+ (10.75.127.9) with Microsoft SMTP Server (TLS) id 15.0.1347.2; Thu, 9 Jul
+ 2020 09:56:11 +0200
+Received: from SFHDAG6NODE3.st.com ([fe80::d04:5337:ab17:b6f6]) by
+ SFHDAG6NODE3.st.com ([fe80::d04:5337:ab17:b6f6%20]) with mapi id
+ 15.00.1473.003; Thu, 9 Jul 2020 09:56:10 +0200
+From: Philippe CORNU <philippe.cornu@st.com>
+To: Angelo Ribeiro <Angelo.Ribeiro@synopsys.com>, Yannick FERTRE
+ <yannick.fertre@st.com>, Benjamin GAIGNARD <benjamin.gaignard@st.com>,
  "airlied@linux.ie" <airlied@linux.ie>, "daniel@ffwll.ch" <daniel@ffwll.ch>,
- "mcoquelin.stm32@gmail.com" <mcoquelin.stm32@gmail.com>,
- Alexandre TORGUE <alexandre.torgue@st.com>,
- "dri-devel@lists.freedesktop.org" <dri-devel@lists.freedesktop.org>,
+ "mcoquelin.stm32@gmail.com" <mcoquelin.stm32@gmail.com>, Alexandre TORGUE
+ <alexandre.torgue@st.com>, "dri-devel@lists.freedesktop.org"
+ <dri-devel@lists.freedesktop.org>,
  "linux-stm32@st-md-mailman.stormreply.com"
  <linux-stm32@st-md-mailman.stormreply.com>,
  "linux-arm-kernel@lists.infradead.org"
- <linux-arm-kernel@lists.infradead.org>,
- "linux-kernel@vger.kernel.org" <linux-kernel@vger.kernel.org>,
- "pop.adrian61@gmail.com" <pop.adrian61@gmail.com>
+ <linux-arm-kernel@lists.infradead.org>, "linux-kernel@vger.kernel.org"
+ <linux-kernel@vger.kernel.org>, "pop.adrian61@gmail.com"
+ <pop.adrian61@gmail.com>
+Thread-Topic: [PATCH v2] drm/bridge: dw-mipi-dsi.c: Add VPG runtime config
+ through debugfs
+Thread-Index: AQHWDBotInPkNFsaBECN9f5nx+r1ZajoYdsAgBYY4fCAANhUAA==
+Date: Thu, 9 Jul 2020 07:56:10 +0000
+Message-ID: <8b34476f-61b6-0d28-cf0c-1d6a08df71c8@st.com>
 References: <a809feb7d7153a92e323416f744f1565e995da01.1586180592.git.angelo.ribeiro@synopsys.com>
  <d46d3aaf-d3cd-e5e1-81b9-c019537bd09a@st.com>
  <CH2PR12MB37823C45C7CC1A142ACC4BBECB670@CH2PR12MB3782.namprd12.prod.outlook.com>
-From: Neil Armstrong <narmstrong@baylibre.com>
-Message-ID: <efdcfed7-dda1-786b-8e59-cf314eb9f995@baylibre.com>
-Date: Wed, 8 Jul 2020 22:29:54 +0200
-User-Agent: Mozilla/5.0 (Macintosh; Intel Mac OS X 10.13; rv:45.0)
- Gecko/20100101 Thunderbird/45.8.0
-MIME-Version: 1.0
 In-Reply-To: <CH2PR12MB37823C45C7CC1A142ACC4BBECB670@CH2PR12MB3782.namprd12.prod.outlook.com>
+Accept-Language: fr-FR, en-US
+Content-Language: en-US
+X-MS-Has-Attach: 
+X-MS-TNEF-Correlator: 
+user-agent: Mozilla/5.0 (X11; Linux x86_64; rv:68.0) Gecko/20100101
+ Thunderbird/68.10.0
+x-ms-exchange-messagesentrepresentingtype: 1
+x-ms-exchange-transport-fromentityheader: Hosted
+x-originating-ip: [10.75.127.47]
+Content-ID: <36C08152BFA52E42B8BA706BC095EAEC@st.com>
+MIME-Version: 1.0
+X-Proofpoint-Virus-Version: vendor=fsecure engine=2.50.10434:6.0.235, 18.0.687
+ definitions=2020-07-09_04:2020-07-08,
+ 2020-07-09 signatures=0
 Cc: Jose Abreu <Jose.Abreu@synopsys.com>,
  Gustavo Pimentel <Gustavo.Pimentel@synopsys.com>,
  Joao Pinto <Joao.Pinto@synopsys.com>
@@ -89,43 +95,29 @@ List-Post: <mailto:linux-stm32@st-md-mailman.stormreply.com>
 List-Help: <mailto:linux-stm32-request@st-md-mailman.stormreply.com?subject=help>
 List-Subscribe: <https://st-md-mailman.stormreply.com/mailman/listinfo/linux-stm32>, 
  <mailto:linux-stm32-request@st-md-mailman.stormreply.com?subject=subscribe>
-Content-Type: text/plain; charset="windows-1252"
-Content-Transfer-Encoding: quoted-printable
+Content-Type: text/plain; charset="us-ascii"
+Content-Transfer-Encoding: 7bit
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
-Hi,
 
-Le 08/07/2020 =E0 19:08, Angelo Ribeiro a =E9crit :
+On 7/8/20 7:08 PM, Angelo Ribeiro wrote:
 > Hi,
-> =
-
-> Is this patch good to go? =
-
+> 
+> Is this patch good to go?
 > @daniel@ffwll.ch, @Philippe CORNU
-> =
-
-> Was already tested by @Yannick FERTRE =
-
+> 
+> Was already tested by @Yannick FERTRE
 > and @Adrian Pop
 > on https://lkml.org/lkml/2020/4/6/691 .
-
-It would be great to have a review or an ack before applying.
-
-Neil
-
-> =
-
+> 
 > Thanks,
 > Angelo
-> =
-
-> From: Yannick =
-
+> 
+> From: Yannick
 > FERTRE <yannick.fertre@st.com>
 > Date: Wed, Jun 24, 2020 at 16:35:04
-> =
-
+> 
 >> Hello Angelo,
 >> thanks for the patch.
 >> Tested-by: Yannick Fertre <yannick.fertre@st.com>
@@ -143,8 +135,8 @@ Neil
 >>> Also, enables the usage of the VPG BER pattern.
 >>>
 >>> Changes in v2:
->>>    - Added VID_MODE_VPG_MODE
->>>    - Solved incompatible return type on __get and __set
+>>>     - Added VID_MODE_VPG_MODE
+>>>     - Solved incompatible return type on __get and __set
 >>>
 >>> Reported-by: kbuild test robot <lkp@intel.com>
 >>> Reported-by: Adrian Pop <pop.adrian61@gmail.com>
@@ -153,29 +145,25 @@ Neil
 >>> Cc: Jose Abreu <jose.abreu@synopsys.com>
 >>> Signed-off-by: Angelo Ribeiro <angelo.ribeiro@synopsys.com>
 >>> ---
->>>   drivers/gpu/drm/bridge/synopsys/dw-mipi-dsi.c | 98 ++++++++++++++++++=
-++++++---
->>>   1 file changed, 90 insertions(+), 8 deletions(-)
+>>>    drivers/gpu/drm/bridge/synopsys/dw-mipi-dsi.c | 98 ++++++++++++++++++++++++---
+>>>    1 file changed, 90 insertions(+), 8 deletions(-)
 >>>
->>> diff --git a/drivers/gpu/drm/bridge/synopsys/dw-mipi-dsi.c b/drivers/gp=
-u/drm/bridge/synopsys/dw-mipi-dsi.c
+>>> diff --git a/drivers/gpu/drm/bridge/synopsys/dw-mipi-dsi.c b/drivers/gpu/drm/bridge/synopsys/dw-mipi-dsi.c
 >>> index b18351b..9de3645 100644
 >>> --- a/drivers/gpu/drm/bridge/synopsys/dw-mipi-dsi.c
 >>> +++ b/drivers/gpu/drm/bridge/synopsys/dw-mipi-dsi.c
 >>> @@ -91,6 +91,7 @@
->>>   #define VID_MODE_TYPE_BURST			0x2
->>>   #define VID_MODE_TYPE_MASK			0x3
->>>   #define VID_MODE_VPG_ENABLE		BIT(16)
+>>>    #define VID_MODE_TYPE_BURST			0x2
+>>>    #define VID_MODE_TYPE_MASK			0x3
+>>>    #define VID_MODE_VPG_ENABLE		BIT(16)
 >>> +#define VID_MODE_VPG_MODE		BIT(20)
->>>   #define VID_MODE_VPG_HORIZONTAL		BIT(24)
->>>   =
-
->>>   #define DSI_VID_PKT_SIZE		0x3c
+>>>    #define VID_MODE_VPG_HORIZONTAL		BIT(24)
+>>>    
+>>>    #define DSI_VID_PKT_SIZE		0x3c
 >>> @@ -221,6 +222,21 @@
->>>   #define PHY_STATUS_TIMEOUT_US		10000
->>>   #define CMD_PKT_STATUS_TIMEOUT_US	20000
->>>   =
-
+>>>    #define PHY_STATUS_TIMEOUT_US		10000
+>>>    #define CMD_PKT_STATUS_TIMEOUT_US	20000
+>>>    
 >>> +#ifdef CONFIG_DEBUG_FS
 >>> +#define VPG_DEFS(name, dsi) \
 >>> +	((void __force *)&((*dsi).vpg_defs.name))
@@ -191,14 +179,13 @@ u/drm/bridge/synopsys/dw-mipi-dsi.c
 >>> +};
 >>> +#endif /* CONFIG_DEBUG_FS */
 >>> +
->>>   struct dw_mipi_dsi {
->>>   	struct drm_bridge bridge;
->>>   	struct mipi_dsi_host dsi_host;
+>>>    struct dw_mipi_dsi {
+>>>    	struct drm_bridge bridge;
+>>>    	struct mipi_dsi_host dsi_host;
 >>> @@ -238,9 +254,12 @@ struct dw_mipi_dsi {
->>>   =
-
->>>   #ifdef CONFIG_DEBUG_FS
->>>   	struct dentry *debugfs;
+>>>    
+>>>    #ifdef CONFIG_DEBUG_FS
+>>>    	struct dentry *debugfs;
 >>> -
 >>> -	bool vpg;
 >>> -	bool vpg_horizontal;
@@ -208,53 +195,46 @@ u/drm/bridge/synopsys/dw-mipi-dsi.c
 >>> +		bool vpg_horizontal;
 >>> +		bool vpg_ber_pattern;
 >>> +	} vpg_defs;
->>>   #endif /* CONFIG_DEBUG_FS */
->>>   =
-
->>>   	struct dw_mipi_dsi *master; /* dual-dsi master ptr */
->>> @@ -530,9 +549,11 @@ static void dw_mipi_dsi_video_mode_config(struct d=
-w_mipi_dsi *dsi)
->>>   		val |=3D VID_MODE_TYPE_NON_BURST_SYNC_EVENTS;
->>>   =
-
->>>   #ifdef CONFIG_DEBUG_FS
+>>>    #endif /* CONFIG_DEBUG_FS */
+>>>    
+>>>    	struct dw_mipi_dsi *master; /* dual-dsi master ptr */
+>>> @@ -530,9 +549,11 @@ static void dw_mipi_dsi_video_mode_config(struct dw_mipi_dsi *dsi)
+>>>    		val |= VID_MODE_TYPE_NON_BURST_SYNC_EVENTS;
+>>>    
+>>>    #ifdef CONFIG_DEBUG_FS
 >>> -	if (dsi->vpg) {
 >>> +	if (dsi->vpg_defs.vpg) {
->>>   		val |=3D VID_MODE_VPG_ENABLE;
->>> -		val |=3D dsi->vpg_horizontal ? VID_MODE_VPG_HORIZONTAL : 0;
->>> +		val |=3D dsi->vpg_defs.vpg_horizontal ?
+>>>    		val |= VID_MODE_VPG_ENABLE;
+>>> -		val |= dsi->vpg_horizontal ? VID_MODE_VPG_HORIZONTAL : 0;
+>>> +		val |= dsi->vpg_defs.vpg_horizontal ?
 >>> +		       VID_MODE_VPG_HORIZONTAL : 0;
->>> +		val |=3D dsi->vpg_defs.vpg_ber_pattern ? VID_MODE_VPG_MODE : 0;
->>>   	}
->>>   #endif /* CONFIG_DEBUG_FS */
->>>   =
-
->>> @@ -961,6 +982,68 @@ static const struct drm_bridge_funcs dw_mipi_dsi_b=
-ridge_funcs =3D {
->>>   =
-
->>>   #ifdef CONFIG_DEBUG_FS
->>>   =
-
+>>> +		val |= dsi->vpg_defs.vpg_ber_pattern ? VID_MODE_VPG_MODE : 0;
+>>>    	}
+>>>    #endif /* CONFIG_DEBUG_FS */
+>>>    
+>>> @@ -961,6 +982,68 @@ static const struct drm_bridge_funcs dw_mipi_dsi_bridge_funcs = {
+>>>    
+>>>    #ifdef CONFIG_DEBUG_FS
+>>>    
 >>> +int dw_mipi_dsi_debugfs_write(void *data, u64 val)
 >>> +{
->>> +	struct debugfs_entries *vpg =3D data;
+>>> +	struct debugfs_entries *vpg = data;
 >>> +	struct dw_mipi_dsi *dsi;
 >>> +	u32 mode_cfg;
 >>> +
 >>> +	if (!vpg)
 >>> +		return -ENODEV;
 >>> +
->>> +	dsi =3D vpg->dsi;
+>>> +	dsi = vpg->dsi;
 >>> +
->>> +	*vpg->reg =3D (bool)val;
+>>> +	*vpg->reg = (bool)val;
 >>> +
->>> +	mode_cfg =3D dsi_read(dsi, DSI_VID_MODE_CFG);
+>>> +	mode_cfg = dsi_read(dsi, DSI_VID_MODE_CFG);
 >>> +
 >>> +	if (*vpg->reg)
->>> +		mode_cfg |=3D vpg->mask;
+>>> +		mode_cfg |= vpg->mask;
 >>> +	else
->>> +		mode_cfg &=3D ~vpg->mask;
+>>> +		mode_cfg &= ~vpg->mask;
 >>> +
 >>> +	dsi_write(dsi, DSI_VID_MODE_CFG, mode_cfg);
 >>> +
@@ -263,12 +243,12 @@ ridge_funcs =3D {
 >>> +
 >>> +int dw_mipi_dsi_debugfs_show(void *data, u64 *val)
 >>> +{
->>> +	struct debugfs_entries *vpg =3D data;
+>>> +	struct debugfs_entries *vpg = data;
 >>> +
 >>> +	if (!vpg)
 >>> +		return -ENODEV;
 >>> +
->>> +	*val =3D *vpg->reg;
+>>> +	*val = *vpg->reg;
 >>> +
 >>> +	return 0;
 >>> +}
@@ -278,70 +258,68 @@ ridge_funcs =3D {
 >>> +
 >>> +static void debugfs_create_files(void *data)
 >>> +{
->>> +	struct dw_mipi_dsi *dsi =3D data;
->>> +	struct debugfs_entries debugfs[] =3D {
+>>> +	struct dw_mipi_dsi *dsi = data;
+>>> +	struct debugfs_entries debugfs[] = {
 >>> +		REGISTER(vpg, VID_MODE_VPG_ENABLE, dsi),
 >>> +		REGISTER(vpg_horizontal, VID_MODE_VPG_HORIZONTAL, dsi),
 >>> +		REGISTER(vpg_ber_pattern, VID_MODE_VPG_MODE, dsi),
 >>> +	};
 >>> +	int i;
 >>> +
->>> +	dsi->debugfs_vpg =3D kmalloc(sizeof(debugfs), GFP_KERNEL);
+>>> +	dsi->debugfs_vpg = kmalloc(sizeof(debugfs), GFP_KERNEL);
 >>> +	if (!dsi->debugfs_vpg)
 >>> +		return;
 >>> +
 >>> +	memcpy(dsi->debugfs_vpg, debugfs, sizeof(debugfs));
 >>> +
->>> +	for (i =3D 0; i < ARRAY_SIZE(debugfs); i++)
+>>> +	for (i = 0; i < ARRAY_SIZE(debugfs); i++)
 >>> +		debugfs_create_file(dsi->debugfs_vpg[i].name, 0644,
 >>> +				    dsi->debugfs, &dsi->debugfs_vpg[i],
 >>> +				    &fops_x32);
 >>> +}
 >>> +
->>>   static void dw_mipi_dsi_debugfs_init(struct dw_mipi_dsi *dsi)
->>>   {
->>>   	dsi->debugfs =3D debugfs_create_dir(dev_name(dsi->dev), NULL);
->>> @@ -969,14 +1052,13 @@ static void dw_mipi_dsi_debugfs_init(struct dw_m=
-ipi_dsi *dsi)
->>>   		return;
->>>   	}
->>>   =
-
+>>>    static void dw_mipi_dsi_debugfs_init(struct dw_mipi_dsi *dsi)
+>>>    {
+>>>    	dsi->debugfs = debugfs_create_dir(dev_name(dsi->dev), NULL);
+>>> @@ -969,14 +1052,13 @@ static void dw_mipi_dsi_debugfs_init(struct dw_mipi_dsi *dsi)
+>>>    		return;
+>>>    	}
+>>>    
 >>> -	debugfs_create_bool("vpg", 0660, dsi->debugfs, &dsi->vpg);
 >>> -	debugfs_create_bool("vpg_horizontal", 0660, dsi->debugfs,
 >>> -			    &dsi->vpg_horizontal);
 >>> +	debugfs_create_files(dsi);
->>>   }
->>>   =
 
->>>   static void dw_mipi_dsi_debugfs_remove(struct dw_mipi_dsi *dsi)
->>>   {
->>>   	debugfs_remove_recursive(dsi->debugfs);
+Hi Angelo,
+And thank you for your patch.
+Could you please explain why you have "so many lines" for adding the ber 
+pattern, instead of these 4 lines :
+
++#define VID_MODE_VPG_MODE		BIT(20)
++bool vpg_ber_pattern;
++val |= dsi->vpg_ber_pattern ? VID_MODE_VPG_MODE : 0;
++debugfs_create_bool("vpg_ber_pattern", 0660, dsi->debugfs, 
+&dsi->vpg_ber_pattern);
+
+Many thanks
+Philippe :-)
+
+>>>    }
+>>>    
+>>>    static void dw_mipi_dsi_debugfs_remove(struct dw_mipi_dsi *dsi)
+>>>    {
+>>>    	debugfs_remove_recursive(dsi->debugfs);
 >>> +	kfree(dsi->debugfs_vpg);
->>>   }
->>>   =
-
->>>   #else
+>>>    }
+>>>    
+>>>    #else
 >>>
 >> _______________________________________________
 >> dri-devel mailing list
 >> dri-devel@lists.freedesktop.org
->> https://urldefense.com/v3/__https://lists.freedesktop.org/mailman/listin=
-fo/dri-devel__;!!A4F2R9G_pg!PaD758-TpCHJcJG4biB5oM3WJXd1mTbLitD8K1qzSVQ4Z06=
-nc__06MR_sz-ITMIl$ =
-
-> =
-
-> =
-
-> =
-
-> _______________________________________________
-> linux-arm-kernel mailing list
-> linux-arm-kernel@lists.infradead.org
-> http://lists.infradead.org/mailman/listinfo/linux-arm-kernel
-> =
-
+>> https://urldefense.com/v3/__https://lists.freedesktop.org/mailman/listinfo/dri-devel__;!!A4F2R9G_pg!PaD758-TpCHJcJG4biB5oM3WJXd1mTbLitD8K1qzSVQ4Z06nc__06MR_sz-ITMIl$
+> 
+> 
 _______________________________________________
 Linux-stm32 mailing list
 Linux-stm32@st-md-mailman.stormreply.com
