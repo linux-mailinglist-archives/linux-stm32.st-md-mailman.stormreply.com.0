@@ -2,58 +2,83 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id 304C621A91C
-	for <lists+linux-stm32@lfdr.de>; Thu,  9 Jul 2020 22:37:23 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id E1C5321B03E
+	for <lists+linux-stm32@lfdr.de>; Fri, 10 Jul 2020 09:33:55 +0200 (CEST)
 Received: from ip-172-31-3-76.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id CDD39C36B2B;
-	Thu,  9 Jul 2020 20:37:22 +0000 (UTC)
-Received: from mail-io1-f66.google.com (mail-io1-f66.google.com
- [209.85.166.66])
- (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 915D9C36B2A;
+	Fri, 10 Jul 2020 07:33:55 +0000 (UTC)
+Received: from mx07-00178001.pphosted.com (mx08-00178001.pphosted.com
+ [91.207.212.93])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 15C64C36B29
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id E14C7C36B0C
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Thu,  9 Jul 2020 20:37:21 +0000 (UTC)
-Received: by mail-io1-f66.google.com with SMTP id a12so3716757ion.13
- for <linux-stm32@st-md-mailman.stormreply.com>;
- Thu, 09 Jul 2020 13:37:20 -0700 (PDT)
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20161025;
- h=x-gm-message-state:date:from:to:cc:subject:message-id:references
- :mime-version:content-disposition:in-reply-to;
- bh=zYVtac9Zi8Ea45Dv/JsLDGweT3Jj92BXMb3jivMTATc=;
- b=Q0qWRoWC8ZIxPdL+MRX0elAjZJ5FWlrQuzHSLSqm3niRTP6iElDamOujCJ7DhG1yKm
- aJvQnUw4ta65bZaZ/KC9suliHTnWewkB3iS5ovSsGyxhnrKaEezmClWYQE6r5KZ/1M4P
- AFIKC6W1rLoch0z9Gu0P8j1cvN/tGoWZTcHCnuUaDvVnwro6DT9nHUv6b8FI3Oet/qhf
- HwrFNsNg3MuREEqMWBBscps85bidR+KkmY4jXUYgxViTMez2JmO8a5kPCUBlMRGjJCE9
- fJBTdG+3SVGBlN7Z6aZrhbnnVpp+rqFH93D5VPfzB7aU/wWV0sLz+dFvtwfmSLB4Mcd0
- LdWg==
-X-Gm-Message-State: AOAM5325iUC7VLdwqNlRkz1tIaDBk7i1Zc+I/xpNgoOUcEXRSwk7ZrTS
- XsG/UhyMPS551Rof0WmPfQ==
-X-Google-Smtp-Source: ABdhPJzQBLgQu0/F5feMhyP/ZARue5TvyvtGE6/nGRA3cx1winlPMxKdNtL0DNf3bejnqdNjMXZpcg==
-X-Received: by 2002:a05:6638:e93:: with SMTP id
- p19mr56572629jas.67.1594327039832; 
- Thu, 09 Jul 2020 13:37:19 -0700 (PDT)
-Received: from xps15 ([64.188.179.254])
- by smtp.gmail.com with ESMTPSA id i188sm2677380ioa.33.2020.07.09.13.37.18
- (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Thu, 09 Jul 2020 13:37:19 -0700 (PDT)
-Received: (nullmailer pid 846237 invoked by uid 1000);
- Thu, 09 Jul 2020 20:37:18 -0000
-Date: Thu, 9 Jul 2020 14:37:18 -0600
-From: Rob Herring <robh@kernel.org>
-To: Benjamin Gaignard <benjamin.gaignard@st.com>
-Message-ID: <20200709203718.GA837160@bogus>
+ Fri, 10 Jul 2020 07:33:52 +0000 (UTC)
+Received: from pps.filterd (m0046660.ppops.net [127.0.0.1])
+ by mx07-00178001.pphosted.com (8.16.0.42/8.16.0.42) with SMTP id
+ 06A7UbKC028830; Fri, 10 Jul 2020 09:33:41 +0200
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=st.com;
+ h=from : to : cc : subject
+ : date : message-id : references : in-reply-to : content-type : content-id
+ : content-transfer-encoding : mime-version; s=STMicroelectronics;
+ bh=nYpYw1UIr0i69d2MbqdY53TAeYo3yA3M+T5eY/nD4Vw=;
+ b=TQoNd8RKNS3gU5A/56y5luF7iQO+5LKmIvGPhsfcmZHyaogi4vxrruupgAyZxN+3RE9P
+ pJ8SeQhOUMbJ9TsIPjRPcfhpIroG+DBL+oZO9Egb2+ehzM8L3VmYRWPiLUEEB5QMzBQU
+ 0z34U+Yy9ByiGS9wnZe+CumGHUaVPiqTg0Iyz+YAcaLjNwwpB7tXbpd+yYGBXcub7fJG
+ ODXeVWtjFjxyiPCQyzJlYv7W+5EgDWBi0qZWLP4FI7SIqeJjlQuW30jm9vzYCVokLFLi
+ sZJSpWra/Z8j9au2LaYcFu90wZfwyLTQIJqgdajpfb168DIwr4JjPbAAsFeavdr3U/oU 7A== 
+Received: from beta.dmz-eu.st.com (beta.dmz-eu.st.com [164.129.1.35])
+ by mx07-00178001.pphosted.com with ESMTP id 325k409kh2-1
+ (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
+ Fri, 10 Jul 2020 09:33:41 +0200
+Received: from euls16034.sgp.st.com (euls16034.sgp.st.com [10.75.44.20])
+ by beta.dmz-eu.st.com (STMicroelectronics) with ESMTP id 43017100038;
+ Fri, 10 Jul 2020 09:33:41 +0200 (CEST)
+Received: from Webmail-eu.st.com (sfhdag5node2.st.com [10.75.127.14])
+ by euls16034.sgp.st.com (STMicroelectronics) with ESMTP id 2B6422A5AFE;
+ Fri, 10 Jul 2020 09:33:41 +0200 (CEST)
+Received: from SFHDAG3NODE3.st.com (10.75.127.9) by SFHDAG5NODE2.st.com
+ (10.75.127.14) with Microsoft SMTP Server (TLS) id 15.0.1473.3; Fri, 10 Jul
+ 2020 09:33:40 +0200
+Received: from SFHDAG3NODE3.st.com ([fe80::3507:b372:7648:476]) by
+ SFHDAG3NODE3.st.com ([fe80::3507:b372:7648:476%20]) with mapi id
+ 15.00.1347.000; Fri, 10 Jul 2020 09:33:40 +0200
+From: Benjamin GAIGNARD <benjamin.gaignard@st.com>
+To: Rob Herring <robh@kernel.org>
+Thread-Topic: [PATCH v7 1/3] dt-bindings: media: stm32-dcmi: Add DCMI min
+ frequency property
+Thread-Index: AQHWT6e/b2wyFUUnLkaf//MXpHPgJqj/oKMAgAC3YwA=
+Date: Fri, 10 Jul 2020 07:33:40 +0000
+Message-ID: <20e4907a-f218-3e43-1111-7d4b9ee6d945@st.com>
 References: <20200701130129.30961-1-benjamin.gaignard@st.com>
  <20200701130129.30961-2-benjamin.gaignard@st.com>
+ <20200709203718.GA837160@bogus>
+In-Reply-To: <20200709203718.GA837160@bogus>
+Accept-Language: en-US
+Content-Language: en-US
+X-MS-Has-Attach: 
+X-MS-TNEF-Correlator: 
+user-agent: Mozilla/5.0 (X11; Linux x86_64; rv:68.0) Gecko/20100101
+ Thunderbird/68.10.0
+x-ms-exchange-messagesentrepresentingtype: 1
+x-ms-exchange-transport-fromentityheader: Hosted
+x-originating-ip: [10.75.127.47]
+Content-ID: <92383D3D1055FD4C836FEA238A220FF5@st.com>
 MIME-Version: 1.0
-Content-Disposition: inline
-In-Reply-To: <20200701130129.30961-2-benjamin.gaignard@st.com>
-Cc: devicetree@vger.kernel.org, vincent.guittot@linaro.org, rjw@rjwysocki.net,
- linux-kernel@vger.kernel.org, valentin.schneider@arm.com,
- mcoquelin.stm32@gmail.com, mchehab@kernel.org,
- linux-stm32@st-md-mailman.stormreply.com, linux-arm-kernel@lists.infradead.org,
- linux-media@vger.kernel.org
+X-Proofpoint-Virus-Version: vendor=fsecure engine=2.50.10434:6.0.235, 18.0.687
+ definitions=2020-07-10_02:2020-07-10,
+ 2020-07-10 signatures=0
+Cc: "devicetree@vger.kernel.org" <devicetree@vger.kernel.org>,
+ "vincent.guittot@linaro.org" <vincent.guittot@linaro.org>,
+ "rjw@rjwysocki.net" <rjw@rjwysocki.net>,
+ "linux-kernel@vger.kernel.org" <linux-kernel@vger.kernel.org>,
+ "valentin.schneider@arm.com" <valentin.schneider@arm.com>,
+ "mcoquelin.stm32@gmail.com" <mcoquelin.stm32@gmail.com>,
+ "mchehab@kernel.org" <mchehab@kernel.org>,
+ "linux-stm32@st-md-mailman.stormreply.com"
+ <linux-stm32@st-md-mailman.stormreply.com>,
+ "linux-arm-kernel@lists.infradead.org" <linux-arm-kernel@lists.infradead.org>,
+ "linux-media@vger.kernel.org" <linux-media@vger.kernel.org>
 Subject: Re: [Linux-stm32] [PATCH v7 1/3] dt-bindings: media: stm32-dcmi:
  Add DCMI min frequency property
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
@@ -72,35 +97,48 @@ Content-Transfer-Encoding: 7bit
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
-On Wed, Jul 01, 2020 at 03:01:27PM +0200, Benjamin Gaignard wrote:
-> Document st,stm32-dcmi-min-frequency property which is used to
-> request CPUs minimum frequency when streaming frames.
-> 
-> Signed-off-by: Benjamin Gaignard <benjamin.gaignard@st.com>
-> ---
->  Documentation/devicetree/bindings/media/st,stm32-dcmi.yaml | 8 ++++++++
->  1 file changed, 8 insertions(+)
-> 
-> diff --git a/Documentation/devicetree/bindings/media/st,stm32-dcmi.yaml b/Documentation/devicetree/bindings/media/st,stm32-dcmi.yaml
-> index 3fe778cb5cc3..05ca85a2411a 100644
-> --- a/Documentation/devicetree/bindings/media/st,stm32-dcmi.yaml
-> +++ b/Documentation/devicetree/bindings/media/st,stm32-dcmi.yaml
-> @@ -44,6 +44,13 @@ properties:
->        bindings defined in
->        Documentation/devicetree/bindings/media/video-interfaces.txt.
->  
-> +  st,stm32-dcmi-min-frequency:
-> +    description: DCMI minimum CPUs frequency requirement (in KHz).
-> +    allOf:
-> +      - $ref: /schemas/types.yaml#/definitions/uint32
-> +      - minimum: 0
-> +      - default: 0
 
-I think this is questionable to be in DT and if it is, it's something 
-that's hardly specific to ST or this block. IIRC, we already have a way 
-to specify minimum OPPs.
 
-Rob
+On 7/9/20 10:37 PM, Rob Herring wrote:
+> On Wed, Jul 01, 2020 at 03:01:27PM +0200, Benjamin Gaignard wrote:
+>> Document st,stm32-dcmi-min-frequency property which is used to
+>> request CPUs minimum frequency when streaming frames.
+>>
+>> Signed-off-by: Benjamin Gaignard <benjamin.gaignard@st.com>
+>> ---
+>>   Documentation/devicetree/bindings/media/st,stm32-dcmi.yaml | 8 ++++++++
+>>   1 file changed, 8 insertions(+)
+>>
+>> diff --git a/Documentation/devicetree/bindings/media/st,stm32-dcmi.yaml b/Documentation/devicetree/bindings/media/st,stm32-dcmi.yaml
+>> index 3fe778cb5cc3..05ca85a2411a 100644
+>> --- a/Documentation/devicetree/bindings/media/st,stm32-dcmi.yaml
+>> +++ b/Documentation/devicetree/bindings/media/st,stm32-dcmi.yaml
+>> @@ -44,6 +44,13 @@ properties:
+>>         bindings defined in
+>>         Documentation/devicetree/bindings/media/video-interfaces.txt.
+>>   
+>> +  st,stm32-dcmi-min-frequency:
+>> +    description: DCMI minimum CPUs frequency requirement (in KHz).
+>> +    allOf:
+>> +      - $ref: /schemas/types.yaml#/definitions/uint32
+>> +      - minimum: 0
+>> +      - default: 0
+> I think this is questionable to be in DT and if it is, it's something
+> that's hardly specific to ST or this block. IIRC, we already have a way
+> to specify minimum OPPs.
+This binding is only needed on some STM32 SoC when DVFS is activated
+with low frequency setting in opp. The value also depends of the targeted
+video format and framerate.
+
+It is not an opp because it doesn't define a voltage-current-frequency 
+combination
+but only set a minimum target for the CPUs frequency to guaranty a good 
+reaction
+time when handling IRQs for the sensor.
+
+Benjamin
+>
+> Rob
 _______________________________________________
 Linux-stm32 mailing list
 Linux-stm32@st-md-mailman.stormreply.com
