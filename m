@@ -2,58 +2,61 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id 567F521DE2C
-	for <lists+linux-stm32@lfdr.de>; Mon, 13 Jul 2020 19:05:49 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 46B7221E5AF
+	for <lists+linux-stm32@lfdr.de>; Tue, 14 Jul 2020 04:30:55 +0200 (CEST)
 Received: from ip-172-31-3-76.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 1ADA2C36B29;
-	Mon, 13 Jul 2020 17:05:49 +0000 (UTC)
-Received: from mail-io1-f65.google.com (mail-io1-f65.google.com
- [209.85.166.65])
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id D3EB3C36B29;
+	Tue, 14 Jul 2020 02:30:54 +0000 (UTC)
+Received: from mail-il1-f193.google.com (mail-il1-f193.google.com
+ [209.85.166.193])
  (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 4CE69C36B0C
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id E1C98C36B0C
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Mon, 13 Jul 2020 17:05:46 +0000 (UTC)
-Received: by mail-io1-f65.google.com with SMTP id i4so14234993iov.11
+ Tue, 14 Jul 2020 02:30:53 +0000 (UTC)
+Received: by mail-il1-f193.google.com with SMTP id p15so5375833ilh.13
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Mon, 13 Jul 2020 10:05:45 -0700 (PDT)
+ Mon, 13 Jul 2020 19:30:53 -0700 (PDT)
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=1e100.net; s=20161025;
  h=x-gm-message-state:date:from:to:cc:subject:message-id:references
  :mime-version:content-disposition:in-reply-to;
- bh=4jl0UjbzV2OAP2EmSX4iuTz5iJINBRO38hYrgQ/UX/A=;
- b=Fp5+hKY5JGmm3ZdIvu+oy6lo8okugQmPBfOqfC4PWNLn8oP8g/gnrVvLst31dG5bMv
- GLJqEoggTn/gjvkmfGtz7pikK/PzAUUOx+VbSsNsdOJ/d8dON4M/Ss0sPFPA2mpCoUyX
- 53XE9iElHMEHbNp6aoYw/Nkuy+bSoS4CAAjJPK+lhUYK6s7kDz9lT9q4HzR8VAvF+cDQ
- wy0GMe/309uEnHPdH3tlFM0Vm/OpvzXZ/sBP3+01iom3v5MgfYFjOEiZ8ZrOPNt7skVT
- nDYGJ1cvrtmVgnNNKbOoSSz5Sg45+UtYVG8gSyTzoMtO3RD1/jjswxSujkxcEqAJKWfg
- /1Rg==
-X-Gm-Message-State: AOAM531jx9JK462CJe+3sqdL4YAeD70vIqXVZ2p1xaMA3oEluMAibaxE
- 3PXcn5YXfVLQdoq0Sek1dQ==
-X-Google-Smtp-Source: ABdhPJxDEcwhz0IyGNmYp/NGGAlbzEHgUbeYWUqbdxP7AUUJu+FPa/ebrtJU6dD/xdg72XlVTipxwQ==
-X-Received: by 2002:a6b:1496:: with SMTP id 144mr758347iou.6.1594659944828;
- Mon, 13 Jul 2020 10:05:44 -0700 (PDT)
+ bh=PIQmxPiwEmBfrqbUBFZETE9PAgGB7RmQQ0RmEk0XV2o=;
+ b=ZJQPnvqDdZ/4Ox55PJNZPjuRYGaXXz9s5lLsPS+rM+6KFlPZymlisfor9ZzspNMv/d
+ bPky4fID00G8SAkWwWqfAJhNvZ7rhL5emlxAdlzjZdKmxSjqbCBFA4Axu+ClAZvkikdw
+ OX5lf915ZVQGy2jdq44mx+kM1wFlARs+/RJOaBO5Tq0KApkLsn1/PSxWf3LueDsdZ7Be
+ MXZ9AhVpCZhidOpEMg4LdW46YNlTwsXPq4dNj7AEunCCuHYgVIjDAs2TTA6/WBJ4Nvog
+ wVywiRElzD0Me3HLrNeVfpSy5lfxJMH3LLFF7iiNLMalfovAZwlsEywWobGf8j3utWwp
+ yEUQ==
+X-Gm-Message-State: AOAM533AP1L7cXnR93h/Ft2jw4e6mQ984y0Z4UmsoI3k0qf+5yd1i/pv
+ WjB7l2+glj6f5S0ioyb0Sg==
+X-Google-Smtp-Source: ABdhPJxXsnuwtyRrz+snuTSfJAc/5Y1nlNxsR/FuJxzhcyWKWH7prPgt9D2+OmHoYyG5esy2UjixSg==
+X-Received: by 2002:a05:6e02:f85:: with SMTP id
+ v5mr2688806ilo.31.1594693851894; 
+ Mon, 13 Jul 2020 19:30:51 -0700 (PDT)
 Received: from xps15 ([64.188.179.252])
- by smtp.gmail.com with ESMTPSA id b6sm493310iow.35.2020.07.13.10.05.43
+ by smtp.gmail.com with ESMTPSA id b2sm9386188ilf.0.2020.07.13.19.30.49
  (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Mon, 13 Jul 2020 10:05:44 -0700 (PDT)
-Received: (nullmailer pid 390110 invoked by uid 1000);
- Mon, 13 Jul 2020 17:05:42 -0000
-Date: Mon, 13 Jul 2020 11:05:42 -0600
+ Mon, 13 Jul 2020 19:30:51 -0700 (PDT)
+Received: (nullmailer pid 1161968 invoked by uid 1000);
+ Tue, 14 Jul 2020 02:30:48 -0000
+Date: Mon, 13 Jul 2020 20:30:48 -0600
 From: Rob Herring <robh@kernel.org>
-To: Benjamin Gaignard <benjamin.gaignard@st.com>
-Message-ID: <20200713170542.GA384390@bogus>
-References: <20200701132523.32533-1-benjamin.gaignard@st.com>
- <20200701132523.32533-4-benjamin.gaignard@st.com>
+To: Wolfram Sang <wsa@kernel.org>
+Message-ID: <20200714023048.GA1151665@bogus>
+References: <1593070769-9106-1-git-send-email-alain.volmat@st.com>
+ <1593070769-9106-4-git-send-email-alain.volmat@st.com>
+ <20200630194107.GA999@ninjato>
 MIME-Version: 1.0
 Content-Disposition: inline
-In-Reply-To: <20200701132523.32533-4-benjamin.gaignard@st.com>
-Cc: devicetree@vger.kernel.org, gregkh@linuxfoundation.org,
- linus.walleij@linaro.org, linux-kernel@vger.kernel.org, tomase@xilinx.com,
- mcoquelin.stm32@gmail.com, stefano.stabellini@xilinx.com,
+In-Reply-To: <20200630194107.GA999@ninjato>
+Cc: mark.rutland@arm.com, devicetree@vger.kernel.org,
+ linux-kernel@vger.kernel.org, pierre-yves.mordret@st.com,
+ Alain Volmat <alain.volmat@st.com>, linux-i2c@vger.kernel.org,
+ mcoquelin.stm32@gmail.com, fabrice.gasnier@st.com,
  linux-stm32@st-md-mailman.stormreply.com, linux-arm-kernel@lists.infradead.org
-Subject: Re: [Linux-stm32] [PATCH v4 3/5] dt-bindings: bus: Add STM32 ETZPC
- firewall controller
+Subject: Re: [Linux-stm32] [PATCH v2 3/4] dt-bindings: i2c-stm32: add SMBus
+	Alert bindings
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -70,77 +73,35 @@ Content-Transfer-Encoding: 7bit
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
-On Wed, Jul 01, 2020 at 03:25:21PM +0200, Benjamin Gaignard wrote:
-> Document STM32 ETZPC firewall controller bindings
+On Tue, Jun 30, 2020 at 09:41:07PM +0200, Wolfram Sang wrote:
+> On Thu, Jun 25, 2020 at 09:39:28AM +0200, Alain Volmat wrote:
+> > Add a new binding of the i2c-stm32f7 driver to enable the handling
+> > of the SMBUS-Alert.
+> > 
+> > The I2C/SMBUS framework already provides a mechanism to enable SMBus-Alert
+> > by naming an IRQ line "smbus_alert". However, on stm32, the SMBus-Alert is
+> > part of the i2c IRQ. Using the smbus_alert naming here would lead to having
+> > 2 handlers (the handler of the driver and the smbus_alert handler
+> > from I2C/SMBUS framework) on the unique i2c IRQ of the stm32. Meaning that
+> > the smbus_alert handler would get called for all IRQ generated by the stm32
+> > I2C controller.
+> > 
+> > For that reason, the smbus_alert IRQ naming cannot be used and a dedicated
+> > binding is introduced.
 > 
-> Signed-off-by: Benjamin Gaignard <benjamin.gaignard@st.com>
-> ---
->  .../bindings/bus/stm32/st,stm32-etzpc.yaml         | 46 ++++++++++++++++++++++
->  1 file changed, 46 insertions(+)
->  create mode 100644 Documentation/devicetree/bindings/bus/stm32/st,stm32-etzpc.yaml
+> What if we update the core to not register another irq handler if the
+> "smbus_alert" and main irq are the same?
 > 
-> diff --git a/Documentation/devicetree/bindings/bus/stm32/st,stm32-etzpc.yaml b/Documentation/devicetree/bindings/bus/stm32/st,stm32-etzpc.yaml
-> new file mode 100644
-> index 000000000000..d92865fda40c
-> --- /dev/null
-> +++ b/Documentation/devicetree/bindings/bus/stm32/st,stm32-etzpc.yaml
-> @@ -0,0 +1,46 @@
-> +# SPDX-License-Identifier: (GPL-2.0 OR BSD-2-Clause)
-> +%YAML 1.2
-> +---
-> +$id: http://devicetree.org/schemas/bus/stm32/st,stm32-etzpc.yaml#
-> +$schema: http://devicetree.org/meta-schemas/core.yaml#
-> +
-> +title: STM32 Extended TrustZone Protection controller
-> +
-> +maintainers:
-> +  - Benjamin Gaignard <benjamin.gaignard@st.com>
-> +
-> +description: STMicroelectronics's STM32 firewall bus controller implementation
-> +
-> +allOf:
-> +  - $ref: "firewall-provider.yaml#"
-> +  - $ref: /schemas/simple-bus.yaml#
+> I think it could work. However, while trying to make a proof-of-concept,
+> I found that irq descriptions in the generic i2c binding document are
+> probably mixed up. And before fixing that, I'd like to get HostNotify
+> done first.
 
-Your bus has controls/setup, it's not a simple-bus.
+Why does this even need to be in DT? Can't the driver just register that 
+it supports SMBus alert or have some call to the core signaling an SMBus 
+alert? 
 
-Do you expect an old kernel or one with support for "st,stm32-etzpc-bus" 
-disabled to work? How's it going to know if certain nodes can't be 
-accessed without that support? 
-
-> +
-> +properties:
-> +  compatible:
-> +    contains:
-> +      enum:
-> +        - st,stm32-etzpc-bus
-> +
-> +  reg:
-> +   maxItems: 1
-> +
-> +  '#firewall-cells':
-> +    const: 2
-> +
-> +required:
-> +  - compatible
-> +  - reg
-> +  - '#firewall-cells'
-> +
-> +examples:
-> +  - |
-> +    soc@5c007000 {
-> +      compatible = "st,stm32-etzpc-bus", "simple-bus";
-> +      reg = <0x5c007000 0x400>;
-> +      #firewall-cells = <2>;
-> +      #address-cells = <1>;
-> +      #size-cells = <1>;
-> +      ranges;
-> +    };
-> +
-> +...
-> -- 
-> 2.15.0
-> 
+Rob
 _______________________________________________
 Linux-stm32 mailing list
 Linux-stm32@st-md-mailman.stormreply.com
