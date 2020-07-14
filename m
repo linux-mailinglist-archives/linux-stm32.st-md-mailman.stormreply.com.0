@@ -2,61 +2,63 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id 62DCF21E663
-	for <lists+linux-stm32@lfdr.de>; Tue, 14 Jul 2020 05:37:49 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id CAE3A21FE04
+	for <lists+linux-stm32@lfdr.de>; Tue, 14 Jul 2020 22:04:52 +0200 (CEST)
 Received: from ip-172-31-3-76.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id F33B7C36B29;
-	Tue, 14 Jul 2020 03:37:48 +0000 (UTC)
-Received: from mail-il1-f196.google.com (mail-il1-f196.google.com
- [209.85.166.196])
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id AD2BAC36B29;
+	Tue, 14 Jul 2020 20:04:51 +0000 (UTC)
+Received: from mail-pf1-f195.google.com (mail-pf1-f195.google.com
+ [209.85.210.195])
  (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 36412C36B0C
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 989EAC36B0C
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Tue, 14 Jul 2020 03:37:43 +0000 (UTC)
-Received: by mail-il1-f196.google.com with SMTP id r12so13096113ilh.4
+ Tue, 14 Jul 2020 20:04:49 +0000 (UTC)
+Received: by mail-pf1-f195.google.com with SMTP id z3so8023369pfn.12
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Mon, 13 Jul 2020 20:37:43 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20161025;
- h=mime-version:references:in-reply-to:from:date:message-id:subject:to
- :cc:content-transfer-encoding;
- bh=x5kA50WCYmAo+Q8432Sy1VWAEloJEHU1E0inGU7UJt4=;
- b=NFadGpuFjJ3tv7FOJrDxOb09SxgAqSP6xTut0HFSaivRjSIvWM4zedl+yOsvzbHyGp
- GZ6V8je0HHQQ/gAH4Ajffl0VN8ZchHbXb8mj+jkCQvVV9ymE5qlRxXvdFzVA6CJu1qCL
- 3Q2HvrpVvjDeviw41DVzRWAyMqRI+/Hu33o7yypqALpNrQz3i2GSaO0Vju0oGbucTSDm
- C4YO1Sb2E1/qkZ+MoLUFnSRdc6Tg8n3SbvkV+yKtNIixJvvtJc2yPGP2P30xWvBB/dKc
- 0hxWjARpQYsrxL8c6dYfo7Wea3UrF6zqRUhXAbflAcf+HaGEGFC0VdFpPZnVv09CEtP7
- 7BZA==
+ Tue, 14 Jul 2020 13:04:48 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linaro.org; s=google;
+ h=from:to:cc:subject:date:message-id:mime-version
+ :content-transfer-encoding;
+ bh=LjzGXptWS/l0yG6s3mnPFGJ9K+cv+bp4hvQ+18wjBOc=;
+ b=pSWmdrIlDHbS9EiuzX5lEL+nl6cwEFKhWNqXr24ppucg3KUIEItrCqgIaY2CfWl5Sb
+ VXCPBw9smvPY9q5wN2FjPisBSw/oMoLzsdE3mUlNlMnIJrtSGiPWAQ8qFoBUwS9hLECt
+ stXm8A+QYTxXLKJ8xPOpARtEIRygLfZrzqSUk32OQC9+EnRMfrGDd9O+8uiHIgkWAqI9
+ fRKIwqRUabJDEGXhMj+fBvuMe26diJ7knaDmPQsIdNAvmJGr5ipTt5Iv1KtzvJgdD5hP
+ GdlvcmzYywX8JcOuLydc3CI+W3lrUd4maNGsBsu8XCh0mOoBftWAZHXFJQEo1B9BYKwS
+ dykA==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=1e100.net; s=20161025;
- h=x-gm-message-state:mime-version:references:in-reply-to:from:date
- :message-id:subject:to:cc:content-transfer-encoding;
- bh=x5kA50WCYmAo+Q8432Sy1VWAEloJEHU1E0inGU7UJt4=;
- b=Wl/EBaRyjikX8CjgYKb/9JheXFtOvAi9fhEpOghAoFNwfZ4HQHiFupvqFsmhzPw96o
- su9Q8cselORs7/JxxXFUNI299v3BAu7WTF1/a49EiU1koHmJ0cLnfZysJiLCUIpTua9R
- 0+Fy6R+EfLOs9Y3h9qCk0PCS05nCSfO5DveLJhIsKeMnh5F27RoOldFP35tn0UHyaqjV
- iErwrbEkHcq3pc0Ira71HkEnhmlkk39b+ZveQkrWtRaRly8Vo+lj1OnQeHOm/dRdTbEZ
- IrD90USl+k0P3TogHfctimycJmcvUt9nkhirpQuO3EccjXQAnzK5EmiW3+Nx1w6o8ud7
- UMhw==
-X-Gm-Message-State: AOAM530VsnCWGYuur9u4IFrL5vY/YnGgkxij9i1vzKgKf4QR0yprMpLU
- IbzPxsn7eMXCo2u8QzPumYm/vrTQYNxV52H2xAQ=
-X-Google-Smtp-Source: ABdhPJwt2i4uMXnI/aDf/IMCkp+fkfiR8T1ZV0Xq5jPXfVkLqk1/z6xJceU91wFxGtS0OwHxE8OGOEvpPZuhVEc/yDo=
-X-Received: by 2002:a92:d6d2:: with SMTP id z18mr2855668ilp.272.1594697862742; 
- Mon, 13 Jul 2020 20:37:42 -0700 (PDT)
+ h=x-gm-message-state:from:to:cc:subject:date:message-id:mime-version
+ :content-transfer-encoding;
+ bh=LjzGXptWS/l0yG6s3mnPFGJ9K+cv+bp4hvQ+18wjBOc=;
+ b=Uj8xdspqpfikKsh2Fb8R1yyFqtjp2p0h7Jj+5AI4RSJ5v1J1cCQPjWZDyPOVa9KLKY
+ dQ1fZmWR/Sy4pN5NANBwobWEEouRnrSr/uM2JN1Qox+ZCl7v+hYw+gPM1bdaQVYZpEwy
+ F/AihFX3xUm+rFKVzP9+mL1S0ASUyfB8I8oKE2z0qcxQs34UUlXC/0de6X41nbLQ9Ea/
+ Eiq94B1T+CHoj+IEga2GJGNqdseGJCsTmsR1fsf3tlq5M2gw63esOsjpwePafBpVgYRx
+ xPfhCu3D0cpvg+0t4Ob/U53+zcy2qmslBxkSBj5+utUT94dl3EZxiiy6d7T3VdoYgG5w
+ wvIg==
+X-Gm-Message-State: AOAM530T0rInXiPdVBqRoaPm6KV9zb8qglOKjO7o+SgqWmlkl5An0XMD
+ Cgrx5M5bOZxknecUAfbaPGdHJQ==
+X-Google-Smtp-Source: ABdhPJzCWJ6LvA6aca6tiDqN7zYn4kfS9K/PQYq6jFFANS1a+sv1tJBiB1G33DS7mXamhMqGfm7uDQ==
+X-Received: by 2002:a63:2146:: with SMTP id s6mr4602907pgm.411.1594757087541; 
+ Tue, 14 Jul 2020 13:04:47 -0700 (PDT)
+Received: from xps15.cg.shawcable.net (S0106002369de4dac.cg.shawcable.net.
+ [68.147.8.254])
+ by smtp.gmail.com with ESMTPSA id t13sm3262959pjs.17.2020.07.14.13.04.46
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Tue, 14 Jul 2020 13:04:46 -0700 (PDT)
+From: Mathieu Poirier <mathieu.poirier@linaro.org>
+To: ohad@wizery.com, bjorn.andersson@linaro.org, loic.pallardy@st.com,
+ arnaud.pouliquen@st.com, mcoquelin.stm32@gmail.com, alexandre.torgue@st.com
+Date: Tue, 14 Jul 2020 14:04:34 -0600
+Message-Id: <20200714200445.1427257-1-mathieu.poirier@linaro.org>
+X-Mailer: git-send-email 2.25.1
 MIME-Version: 1.0
-References: <20200702172714.158786-1-pop.adrian61@gmail.com>
- <20200702172714.158786-2-pop.adrian61@gmail.com>
-In-Reply-To: <20200702172714.158786-2-pop.adrian61@gmail.com>
-From: Hua Dillon <dillonhua@gmail.com>
-Date: Tue, 14 Jul 2020 11:37:30 +0800
-Message-ID: <CAPTRvHm0gX=myLBeztq-7q8hMGZ+a0pH_ZB8hH+RZtSSsqVGDw@mail.gmail.com>
-To: Adrian Pop <pop.adrian61@gmail.com>
-Cc: devicetree@vger.kernel.org, linux-kernel@vger.kernel.org,
- Rob Herring <robh+dt@kernel.org>, Maxime Coquelin <mcoquelin.stm32@gmail.com>,
- Lee Jones <lee.jones@linaro.org>, linux-stm32@st-md-mailman.stormreply.com,
- linux-arm-kernel@lists.infradead.org
-Subject: Re: [Linux-stm32] [PATCH v2 2/2] ARM: dts: stm32: Enable MIPI DSI
-	display support.
+Cc: linux-remoteproc@vger.kernel.org, linux-kernel@vger.kernel.org,
+ linux-stm32@st-md-mailman.stormreply.com
+Subject: [Linux-stm32] [PATCH v6 00/11] remoteproc: stm32: Add support for
+	attaching to M4
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -68,93 +70,49 @@ List-Post: <mailto:linux-stm32@st-md-mailman.stormreply.com>
 List-Help: <mailto:linux-stm32-request@st-md-mailman.stormreply.com?subject=help>
 List-Subscribe: <https://st-md-mailman.stormreply.com/mailman/listinfo/linux-stm32>, 
  <mailto:linux-stm32-request@st-md-mailman.stormreply.com?subject=subscribe>
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: base64
+Content-Type: text/plain; charset="us-ascii"
+Content-Transfer-Encoding: 7bit
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
-SGksIEFkcmlhbiwKCkp1c3Qgb25lIHN1Z2dlc3Rpb24gZm9yIHlvdS4KCkFkcmlhbiBQb3AgPHBv
-cC5hZHJpYW42MUBnbWFpbC5jb20+IOS6jjIwMjDlubQ35pyIM+aXpeWRqOS6lCDkuIrljYgxOjMw
-5YaZ6YGT77yaCj4KPiBTVE0zMmY3NjktZGlzY28gZmVhdHVyZXMgYSA0IiBNSVBJIERTSSBkaXNw
-bGF5OiBhZGQgc3VwcG9ydCBmb3IgaXQuCj4gT24gQ29ydGV4LU03IERNQSBjYW4ndCB1c2UgY2Fj
-aGVkIG1lbW9yeS4gRm9yIHRoaXMgcmVhc29uIEkgdXNlIGEgZGVkaWNhdGVkCj4gbWVtb3J5IHBv
-b2wgZm9yIERNQSB3aXRoIG5vLWNhY2hlIGF0dHJpYnV0ZSB3aGljaCBpcyBsb2NhdGVkIGF0IHRo
-ZSBlbmQgb2YKPiAgUkFNLgo+Cj4gU2lnbmVkLW9mZi1ieTogQWRyaWFuIFBvcCA8cG9wLmFkcmlh
-bjYxQGdtYWlsLmNvbT4KPiAtLS0KPiAgYXJjaC9hcm0vYm9vdC9kdHMvc3RtMzJmNzQ2LmR0c2kg
-ICAgICB8IDM0ICsrKysrKysrKysrKysrKysrKysKPiAgYXJjaC9hcm0vYm9vdC9kdHMvc3RtMzJm
-NzY5LWRpc2NvLmR0cyB8IDQ5ICsrKysrKysrKysrKysrKysrKysrKysrKysrKwo+ICAyIGZpbGVz
-IGNoYW5nZWQsIDgzIGluc2VydGlvbnMoKykKPgo+IGRpZmYgLS1naXQgYS9hcmNoL2FybS9ib290
-L2R0cy9zdG0zMmY3NDYuZHRzaSBiL2FyY2gvYXJtL2Jvb3QvZHRzL3N0bTMyZjc0Ni5kdHNpCj4g
-aW5kZXggOTNjMDYzNzk2NzgwLi41NzdhODEyY2EwMWMgMTAwNjQ0Cj4gLS0tIGEvYXJjaC9hcm0v
-Ym9vdC9kdHMvc3RtMzJmNzQ2LmR0c2kKPiArKysgYi9hcmNoL2FybS9ib290L2R0cy9zdG0zMmY3
-NDYuZHRzaQo+IEBAIC00OCw2ICs0OCwxOSBAQCAvIHsKPiAgICAgICAgICNhZGRyZXNzLWNlbGxz
-ID0gPDE+Owo+ICAgICAgICAgI3NpemUtY2VsbHMgPSA8MT47Cj4KPiArICAgICAgIHJlc2VydmVk
-LW1lbW9yeSB7Cj4gKyAgICAgICAgICAgICAgICNhZGRyZXNzLWNlbGxzID0gPDE+Owo+ICsgICAg
-ICAgICAgICAgICAjc2l6ZS1jZWxscyA9IDwxPjsKPiArICAgICAgICAgICAgICAgcmFuZ2VzOwo+
-ICsKPiArICAgICAgICAgICAgICAgbGludXgsZG1hIHsKPiArICAgICAgICAgICAgICAgICAgICAg
-ICBjb21wYXRpYmxlID0gInNoYXJlZC1kbWEtcG9vbCI7Cj4gKyAgICAgICAgICAgICAgICAgICAg
-ICAgbGludXgsZG1hLWRlZmF1bHQ7Cj4gKyAgICAgICAgICAgICAgICAgICAgICAgbm8tbWFwOwo+
-ICsgICAgICAgICAgICAgICAgICAgICAgIHJlZyA9IDwweGMwZjAwMDAwIDB4MTAwMDAwPjsKPiAr
-ICAgICAgICAgICAgICAgfTsKPiArICAgICAgIH07Cj4gKwpDaHJpc3RvcGggSGVsbHdpZyB3YXMg
-c3VibWl0IGEgcGF0Y2ggZm9yICFDT05GSUdfTU1VIHBsYXRmb3JtcyB0byBzdXBwb3J0IG1tYXAu
-CnRoZSBwYXRjaCBpcyA6IDFmYmY1N2QwNTMwMiBkbWEtZGlyZWN0OiByZS1lbmFibGUgbW1hcCBm
-b3IgIUNPTkZJR19NTVUKaSB0aG91Z2h0IHRoZXJlIGlzIG5vIG5lZWQgdG8gY3JlYXRlIGEgcmVz
-ZXJ2ZWQtbWVtb3J5IGZvciBpdC4KCj4gICAgICAgICBjbG9ja3Mgewo+ICAgICAgICAgICAgICAg
-ICBjbGtfaHNlOiBjbGstaHNlIHsKPiAgICAgICAgICAgICAgICAgICAgICAgICAjY2xvY2stY2Vs
-bHMgPSA8MD47Cj4gQEAgLTc1LDYgKzg4LDI3IEBAIGNsa19pMnNfY2tpbjogY2xrLWkycy1ja2lu
-IHsKPiAgICAgICAgIH07Cj4KPiAgICAgICAgIHNvYyB7Cj4gKyAgICAgICAgICAgICAgIGx0ZGM6
-IGRpc3BsYXktY29udHJvbGxlckA0MDAxNjgwMCB7Cj4gKyAgICAgICAgICAgICAgICAgICAgICAg
-Y29tcGF0aWJsZSA9ICJzdCxzdG0zMi1sdGRjIjsKPiArICAgICAgICAgICAgICAgICAgICAgICBy
-ZWcgPSA8MHg0MDAxNjgwMCAweDIwMD47Cj4gKyAgICAgICAgICAgICAgICAgICAgICAgaW50ZXJy
-dXB0cyA9IDw4OD4sIDw4OT47Cj4gKyAgICAgICAgICAgICAgICAgICAgICAgcmVzZXRzID0gPCZy
-Y2MgU1RNMzJGN19BUEIyX1JFU0VUKExUREMpPjsKPiArICAgICAgICAgICAgICAgICAgICAgICBj
-bG9ja3MgPSA8JnJjYyAxIENMS19MQ0Q+Owo+ICsgICAgICAgICAgICAgICAgICAgICAgIGNsb2Nr
-LW5hbWVzID0gImxjZCI7Cj4gKyAgICAgICAgICAgICAgICAgICAgICAgc3RhdHVzID0gImRpc2Fi
-bGVkIjsKPiArICAgICAgICAgICAgICAgfTsKPiArCj4gKyAgICAgICAgICAgICAgIGRzaTogZHNp
-QDQwMDE2YzAwIHsKPiArICAgICAgICAgICAgICAgICAgICAgICBjb21wYXRpYmxlID0gInN0LHN0
-bTMyLWRzaSI7Cj4gKyAgICAgICAgICAgICAgICAgICAgICAgcmVnID0gPDB4NDAwMTZjMDAgMHg4
-MDA+Owo+ICsgICAgICAgICAgICAgICAgICAgICAgIGludGVycnVwdHMgPSA8OTg+Owo+ICsgICAg
-ICAgICAgICAgICAgICAgICAgIGNsb2NrcyA9IDwmcmNjIDEgQ0xLX0Y3NjlfRFNJPiwgPCZjbGtf
-aHNlPjsKPiArICAgICAgICAgICAgICAgICAgICAgICBjbG9jay1uYW1lcyA9ICJwY2xrIiwgInJl
-ZiI7Cj4gKyAgICAgICAgICAgICAgICAgICAgICAgcmVzZXRzID0gPCZyY2MgU1RNMzJGN19BUEIy
-X1JFU0VUKERTSSk+Owo+ICsgICAgICAgICAgICAgICAgICAgICAgIHJlc2V0LW5hbWVzID0gImFw
-YiI7Cj4gKyAgICAgICAgICAgICAgICAgICAgICAgc3RhdHVzID0gImRpc2FibGVkIjsKPiArICAg
-ICAgICAgICAgICAgfTsKPiArCj4gICAgICAgICAgICAgICAgIHRpbWVyMjogdGltZXJANDAwMDAw
-MDAgewo+ICAgICAgICAgICAgICAgICAgICAgICAgIGNvbXBhdGlibGUgPSAic3Qsc3RtMzItdGlt
-ZXIiOwo+ICAgICAgICAgICAgICAgICAgICAgICAgIHJlZyA9IDwweDQwMDAwMDAwIDB4NDAwPjsK
-PiBkaWZmIC0tZ2l0IGEvYXJjaC9hcm0vYm9vdC9kdHMvc3RtMzJmNzY5LWRpc2NvLmR0cyBiL2Fy
-Y2gvYXJtL2Jvb3QvZHRzL3N0bTMyZjc2OS1kaXNjby5kdHMKPiBpbmRleCAxNjI2ZTAwYmIyY2Iu
-LmE5ZTgxYjQ5ODA5YyAxMDA2NDQKPiAtLS0gYS9hcmNoL2FybS9ib290L2R0cy9zdG0zMmY3Njkt
-ZGlzY28uZHRzCj4gKysrIGIvYXJjaC9hcm0vYm9vdC9kdHMvc3RtMzJmNzY5LWRpc2NvLmR0cwo+
-IEBAIC0xNTMsMyArMTUzLDUyIEBAICZ1c2JvdGdfaHMgewo+ICAgICAgICAgcGluY3RybC1uYW1l
-cyA9ICJkZWZhdWx0IjsKPiAgICAgICAgIHN0YXR1cyA9ICJva2F5IjsKPiAgfTsKPiArCj4gKyZk
-c2kgewo+ICsgICAgICAgI2FkZHJlc3MtY2VsbHMgPSA8MT47Cj4gKyAgICAgICAjc2l6ZS1jZWxs
-cyA9IDwwPjsKPiArICAgICAgIHN0YXR1cyA9ICJva2F5IjsKPiArCj4gKyAgICAgICBwb3J0cyB7
-Cj4gKyAgICAgICAgICAgICAgICNhZGRyZXNzLWNlbGxzID0gPDE+Owo+ICsgICAgICAgICAgICAg
-ICAjc2l6ZS1jZWxscyA9IDwwPjsKPiArCj4gKyAgICAgICAgICAgICAgIHBvcnRAMCB7Cj4gKyAg
-ICAgICAgICAgICAgICAgICAgICAgcmVnID0gPDA+Owo+ICsgICAgICAgICAgICAgICAgICAgICAg
-IGRzaV9pbjogZW5kcG9pbnQgewo+ICsgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgcmVt
-b3RlLWVuZHBvaW50ID0gPCZsdGRjX291dF9kc2k+Owo+ICsgICAgICAgICAgICAgICAgICAgICAg
-IH07Cj4gKyAgICAgICAgICAgICAgIH07Cj4gKwo+ICsgICAgICAgICAgICAgICBwb3J0QDEgewo+
-ICsgICAgICAgICAgICAgICAgICAgICAgIHJlZyA9IDwxPjsKPiArICAgICAgICAgICAgICAgICAg
-ICAgICBkc2lfb3V0OiBlbmRwb2ludCB7Cj4gKyAgICAgICAgICAgICAgICAgICAgICAgICAgICAg
-ICByZW1vdGUtZW5kcG9pbnQgPSA8JmRzaV9pbl9wYW5lbD47Cj4gKyAgICAgICAgICAgICAgICAg
-ICAgICAgfTsKPiArICAgICAgICAgICAgICAgfTsKPiArCj4gKyAgICAgICB9Owo+ICsKPiArICAg
-ICAgIHBhbmVsOiBwYW5lbCB7Cj4gKyAgICAgICAgICAgICAgIGNvbXBhdGlibGUgPSAib3Jpc2V0
-ZWNoLG90bTgwMDlhIjsKPiArICAgICAgICAgICAgICAgcmVnID0gPDA+Owo+ICsgICAgICAgICAg
-ICAgICByZXNldC1ncGlvcyA9IDwmZ3Bpb2ogMTUgR1BJT19BQ1RJVkVfTE9XPjsKPiArICAgICAg
-ICAgICAgICAgc3RhdHVzID0gIm9rYXkiOwo+ICsKPiArICAgICAgICAgICAgICAgcG9ydCB7Cj4g
-KyAgICAgICAgICAgICAgICAgICAgICAgZHNpX2luX3BhbmVsOiBlbmRwb2ludCB7Cj4gKyAgICAg
-ICAgICAgICAgICAgICAgICAgICAgICAgICByZW1vdGUtZW5kcG9pbnQgPSA8JmRzaV9vdXQ+Owo+
-ICsgICAgICAgICAgICAgICAgICAgICAgIH07Cj4gKyAgICAgICAgICAgICAgIH07Cj4gKyAgICAg
-ICB9Owo+ICt9Owo+ICsKPiArJmx0ZGMgewo+ICsgICAgICAgc3RhdHVzID0gIm9rYXkiOwo+ICsK
-PiArICAgICAgIHBvcnQgewo+ICsgICAgICAgICAgICAgICBsdGRjX291dF9kc2k6IGVuZHBvaW50
-IHsKPiArICAgICAgICAgICAgICAgICAgICAgICByZW1vdGUtZW5kcG9pbnQgPSA8JmRzaV9pbj47
-Cj4gKyAgICAgICAgICAgICAgIH07Cj4gKyAgICAgICB9Owo+ICt9Owo+IC0tCj4gMi4yNy4wCj4K
-Pgo+IF9fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fCj4gbGlu
-dXgtYXJtLWtlcm5lbCBtYWlsaW5nIGxpc3QKPiBsaW51eC1hcm0ta2VybmVsQGxpc3RzLmluZnJh
-ZGVhZC5vcmcKPiBodHRwOi8vbGlzdHMuaW5mcmFkZWFkLm9yZy9tYWlsbWFuL2xpc3RpbmZvL2xp
-bnV4LWFybS1rZXJuZWwKX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19f
-X19fX18KTGludXgtc3RtMzIgbWFpbGluZyBsaXN0CkxpbnV4LXN0bTMyQHN0LW1kLW1haWxtYW4u
-c3Rvcm1yZXBseS5jb20KaHR0cHM6Ly9zdC1tZC1tYWlsbWFuLnN0b3JtcmVwbHkuY29tL21haWxt
-YW4vbGlzdGluZm8vbGludXgtc3RtMzIK
+This set applies on top of [1] and refactors the STM32 platform code in
+order to attach to the M4 remote processor when it has been started by the
+boot loader.
+
+New to V6:
+1) Removed extra newline in patch 06. 
+2) Re-worked title and changelog of patch 08 to better reflect
+   what is done by the patch.
+
+Tested on ST's mp157c development board.
+
+Thanks,
+Mathieu
+
+[1].https://patchwork.kernel.org/project/linux-remoteproc/list/?series=318275 
+
+Mathieu Poirier (11):
+  remoteproc: stm32: Decouple rproc from memory translation
+  remoteproc: stm32: Request IRQ with platform device
+  remoteproc: stm32: Decouple rproc from DT parsing
+  remoteproc: stm32: Remove memory translation from DT parsing
+  remoteproc: stm32: Parse syscon that will manage M4 synchronisation
+  remoteproc: stm32: Properly set co-processor state when attaching
+  remoteproc: Make function rproc_resource_cleanup() public
+  remoteproc: stm32: Parse memory regions when attaching to M4
+  remoteproc: stm32: Properly handle the resource table when attaching
+  remoteproc: stm32: Introduce new attach() operation
+  remoteproc: stm32: Update M4 state in stm32_rproc_stop()
+
+ drivers/remoteproc/remoteproc_core.c |   3 +-
+ drivers/remoteproc/stm32_rproc.c     | 214 ++++++++++++++++++++++++---
+ include/linux/remoteproc.h           |   1 +
+ 3 files changed, 198 insertions(+), 20 deletions(-)
+
+-- 
+2.25.1
+
+_______________________________________________
+Linux-stm32 mailing list
+Linux-stm32@st-md-mailman.stormreply.com
+https://st-md-mailman.stormreply.com/mailman/listinfo/linux-stm32
