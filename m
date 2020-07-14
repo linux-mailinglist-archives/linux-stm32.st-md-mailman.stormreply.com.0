@@ -2,66 +2,65 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id 9022821FE0A
-	for <lists+linux-stm32@lfdr.de>; Tue, 14 Jul 2020 22:04:59 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 946B421FE0B
+	for <lists+linux-stm32@lfdr.de>; Tue, 14 Jul 2020 22:05:00 +0200 (CEST)
 Received: from ip-172-31-3-76.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 4FEBFC36B2A;
-	Tue, 14 Jul 2020 20:04:59 +0000 (UTC)
-Received: from mail-pj1-f68.google.com (mail-pj1-f68.google.com
- [209.85.216.68])
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 5F28FC36B2D;
+	Tue, 14 Jul 2020 20:05:00 +0000 (UTC)
+Received: from mail-pf1-f195.google.com (mail-pf1-f195.google.com
+ [209.85.210.195])
  (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 372CBC36B27
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 5CA25C36B0C
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Tue, 14 Jul 2020 20:04:57 +0000 (UTC)
-Received: by mail-pj1-f68.google.com with SMTP id t15so2036816pjq.5
+ Tue, 14 Jul 2020 20:04:58 +0000 (UTC)
+Received: by mail-pf1-f195.google.com with SMTP id u5so8044692pfn.7
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Tue, 14 Jul 2020 13:04:57 -0700 (PDT)
+ Tue, 14 Jul 2020 13:04:58 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linaro.org; s=google;
  h=from:to:cc:subject:date:message-id:in-reply-to:references
  :mime-version:content-transfer-encoding;
- bh=HLlEel+6hkVFpJmPTSkYr9jJlciZ5vVR474YE3QPGUI=;
- b=J2al1fLyl+C52Ke+qEdt6M1Bbv8a6SBTdeYTQm9PdUTrHxKH6TblbNw6+xcL60+qML
- s+Fb1GjCAinYeKKMfupdyIwYHbuyHiGV5GdjwaP+4+S8bH2iOup0ev6zNRJ7kXXC8GQr
- CEqSJcWz6HnEQTD+JyK5kkRBduxnQNSJceHNgHd68kvx3+5Oy3X+V55jizyeh41D0QoA
- BOJlQhmfTS33b+QUEPNT51HsgqLNhSW9g6GvoefqOlDps8iEqy+iJk8UX5G7D3FEG3dr
- 1U9PYiv7Yn+uT21VI9qlA/P3cLI4bqu2uWLSMzN0pPNas0Grw5Bt/bZtohj0kwknnKvh
- nM8g==
+ bh=h12JhHvSO+bmX99ezv3yaLnOJmMzfHeXrbHb3WDJUWc=;
+ b=DJ7V8b5i+/Tv/OOoy+U5IAmyq8Y7huOUnzJqHDrYYbiKMKAAdMqDBxq0BIKBWDW2Ut
+ rc+fvzDHyx0CTs1SJFC0C/9zNCrGBmp4Ltz/UhnHeINA6Hsug9v4/z5m91Dk5aOAnVhr
+ l2JpMzWwsYGEavJG8gJ1+J4Qts/LLzVsTF3MFAeJay7oWq+meeeFI19vytEZBzyMatPK
+ aKg/aSWDL5iYuvddNeZ1uTbfQ/lcwpt0pX3hPWWCeily6FupPwcdrPjgNKBuLU5OjqwV
+ cWF598r+6Fq8oZMwAnONKN6gvQy3lIAN1k1R+P8Oydladzp4Q5Ftmp/hVxiL6h+eYaYi
+ /7yA==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=1e100.net; s=20161025;
  h=x-gm-message-state:from:to:cc:subject:date:message-id:in-reply-to
  :references:mime-version:content-transfer-encoding;
- bh=HLlEel+6hkVFpJmPTSkYr9jJlciZ5vVR474YE3QPGUI=;
- b=bSnlVYZK8WNO5yUxZhki5JnqxYC6VD56CYejt4zz83wAiO3M4UsxFXyficDvU0Z68l
- VF8ALfnciF9mv3E5To5HY00VbUAIShofLVrA/vaeV0GZv7G+VbgwUCUXbHDuoOU3uoN8
- A0xImkhxWASgmqIJbJXI1UN3Qf3e8o5sbZ7TStNQGo4BY5sWcx0VnaDMbBR2XNPGnqMu
- 4C9+spXhrIy++outLMHXNKZCrHVGo465IuVEg4LDo0NqyoDJ3GpTpHfBVCXbivLxtylm
- nDYClI1Jk7lqdulG8u+kdDSDVmb3XwZjxI9uJ+v8YTn22u5iGiHgHRakxfhCPT7xJp2J
- qicg==
-X-Gm-Message-State: AOAM5314JEG9CMCEdNctHEID0KVvYhEcN0LC+ck7hbvTW4sZOH9vuGQ3
- L1nq9BEsJdLqEQcoNlDC10VGPg==
-X-Google-Smtp-Source: ABdhPJxYNLWJRYA87GVE2PmZT3pjEv+4tXiNcgg7HfZU4zaIdo175xOC9JQGh0zDYmdfjP1o83nP3w==
-X-Received: by 2002:a17:90a:43c3:: with SMTP id
- r61mr6805055pjg.216.1594757095648; 
- Tue, 14 Jul 2020 13:04:55 -0700 (PDT)
+ bh=h12JhHvSO+bmX99ezv3yaLnOJmMzfHeXrbHb3WDJUWc=;
+ b=tS8imcIlXB/6NL1wb+8c4UHWHzpGGYUPVDZ7vkE6Tb/Dh3E0tJn6e+BpfeOBkWdg8K
+ nCNBalYAnqqKsWb1wHB9lW/MDrrLlsK38O02j//0BUuKOyIVHgSMLR+pL/tvWQ+SN+Ik
+ cxBraeqGYG2KcL2pFILX+eBX5/jUSLrTWnjhF+r03SU2pAwpwxylI98hW+qeiGs1+bTD
+ b79Dm1b+3N1Y4sLgzNdAATzW6WqY8PRwkE3kdKZQ4IhDrVtZ/L27m7AUe8H7kL5SqZbA
+ ZJXQtzKL+kySq1o7XRCiESzL3S+Y4oRoVBI0Xiv2wH5VPYYZHFRRZAuo447W5YTXuCX3
+ Mtgw==
+X-Gm-Message-State: AOAM533qfMjJjrcCXzpRdF/HXWCeWJHp8iHhwKcIVAlKIZrzgIiBNm6O
+ TT9SP0jE05PfTgFc5SP27gwuRA==
+X-Google-Smtp-Source: ABdhPJwLad282+1fQ4jA+c/yfEwsyyWdoEjqDQEBZ4Id0zFDntAlCtYcwIWvGi8A9COTD1KdXLIiYQ==
+X-Received: by 2002:a65:6106:: with SMTP id z6mr4816217pgu.310.1594757096888; 
+ Tue, 14 Jul 2020 13:04:56 -0700 (PDT)
 Received: from xps15.cg.shawcable.net (S0106002369de4dac.cg.shawcable.net.
  [68.147.8.254])
- by smtp.gmail.com with ESMTPSA id t13sm3262959pjs.17.2020.07.14.13.04.54
+ by smtp.gmail.com with ESMTPSA id t13sm3262959pjs.17.2020.07.14.13.04.55
  (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Tue, 14 Jul 2020 13:04:55 -0700 (PDT)
+ Tue, 14 Jul 2020 13:04:56 -0700 (PDT)
 From: Mathieu Poirier <mathieu.poirier@linaro.org>
 To: ohad@wizery.com, bjorn.andersson@linaro.org, loic.pallardy@st.com,
  arnaud.pouliquen@st.com, mcoquelin.stm32@gmail.com, alexandre.torgue@st.com
-Date: Tue, 14 Jul 2020 14:04:40 -0600
-Message-Id: <20200714200445.1427257-7-mathieu.poirier@linaro.org>
+Date: Tue, 14 Jul 2020 14:04:41 -0600
+Message-Id: <20200714200445.1427257-8-mathieu.poirier@linaro.org>
 X-Mailer: git-send-email 2.25.1
 In-Reply-To: <20200714200445.1427257-1-mathieu.poirier@linaro.org>
 References: <20200714200445.1427257-1-mathieu.poirier@linaro.org>
 MIME-Version: 1.0
 Cc: linux-remoteproc@vger.kernel.org, linux-kernel@vger.kernel.org,
  linux-stm32@st-md-mailman.stormreply.com
-Subject: [Linux-stm32] [PATCH v6 06/11] remoteproc: stm32: Properly set
-	co-processor state when attaching
+Subject: [Linux-stm32] [PATCH v6 07/11] remoteproc: Make function
+	rproc_resource_cleanup() public
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -78,82 +77,49 @@ Content-Transfer-Encoding: 7bit
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
-Introduce the required mechanic to set the state of the M4 in order
-to properly deal with scenarios where the co-processor has been
-started by another entity.
-
-Mainly based on the work published by Arnaud Pouliquen [1].
-
-[1]. https://patchwork.kernel.org/project/linux-remoteproc/list/?series=239877
+Make function rproc_resource_cleanup() public so that it can be
+used by platform drivers when allocating resources to be used by
+a detached remote processor.
 
 Signed-off-by: Mathieu Poirier <mathieu.poirier@linaro.org>
-Reviewed-by: Bjorn Andersson <bjorn.andersson@linaro.org>
 ---
- drivers/remoteproc/stm32_rproc.c | 31 +++++++++++++++++++++++++++++++
- 1 file changed, 31 insertions(+)
+ drivers/remoteproc/remoteproc_core.c | 3 ++-
+ include/linux/remoteproc.h           | 1 +
+ 2 files changed, 3 insertions(+), 1 deletion(-)
 
-diff --git a/drivers/remoteproc/stm32_rproc.c b/drivers/remoteproc/stm32_rproc.c
-index 961a53f67ec5..f393f2503106 100644
---- a/drivers/remoteproc/stm32_rproc.c
-+++ b/drivers/remoteproc/stm32_rproc.c
-@@ -39,6 +39,13 @@
- #define STM32_MBX_VQ1_ID	1
- #define STM32_MBX_SHUTDOWN	"shutdown"
- 
-+#define M4_STATE_OFF		0
-+#define M4_STATE_INI		1
-+#define M4_STATE_CRUN		2
-+#define M4_STATE_CSTOP		3
-+#define M4_STATE_STANDBY	4
-+#define M4_STATE_CRASH		5
-+
- struct stm32_syscon {
- 	struct regmap *map;
- 	u32 reg;
-@@ -636,12 +643,29 @@ static int stm32_rproc_parse_dt(struct platform_device *pdev,
- 	return 0;
- }
- 
-+static int stm32_rproc_get_m4_status(struct stm32_rproc *ddata,
-+				     unsigned int *state)
-+{
-+	/* See stm32_rproc_parse_dt() */
-+	if (!ddata->m4_state.map) {
-+		/*
-+		 * We couldn't get the coprocessor's state, assume
-+		 * it is not running.
-+		 */
-+		state = M4_STATE_OFF;
-+		return 0;
-+	}
-+
-+	return regmap_read(ddata->m4_state.map, ddata->m4_state.reg, state);
-+}
-+
- static int stm32_rproc_probe(struct platform_device *pdev)
+diff --git a/drivers/remoteproc/remoteproc_core.c b/drivers/remoteproc/remoteproc_core.c
+index 099c76ab198f..6e0f985e9c9a 100644
+--- a/drivers/remoteproc/remoteproc_core.c
++++ b/drivers/remoteproc/remoteproc_core.c
+@@ -1271,7 +1271,7 @@ static void rproc_coredump_cleanup(struct rproc *rproc)
+  * This function will free all resources acquired for @rproc, and it
+  * is called whenever @rproc either shuts down or fails to boot.
+  */
+-static void rproc_resource_cleanup(struct rproc *rproc)
++void rproc_resource_cleanup(struct rproc *rproc)
  {
- 	struct device *dev = &pdev->dev;
- 	struct stm32_rproc *ddata;
- 	struct device_node *np = dev->of_node;
- 	struct rproc *rproc;
-+	unsigned int state;
- 	int ret;
+ 	struct rproc_mem_entry *entry, *tmp;
+ 	struct rproc_debug_trace *trace, *ttmp;
+@@ -1315,6 +1315,7 @@ static void rproc_resource_cleanup(struct rproc *rproc)
  
- 	ret = dma_coerce_mask_and_coherent(dev, DMA_BIT_MASK(32));
-@@ -664,6 +688,13 @@ static int stm32_rproc_probe(struct platform_device *pdev)
- 	if (ret)
- 		goto free_rproc;
+ 	rproc_coredump_cleanup(rproc);
+ }
++EXPORT_SYMBOL(rproc_resource_cleanup);
  
-+	ret = stm32_rproc_get_m4_status(ddata, &state);
-+	if (ret)
-+		goto free_rproc;
-+
-+	if (state == M4_STATE_CRUN)
-+		rproc->state = RPROC_DETACHED;
-+
- 	rproc->has_iommu = false;
- 	ddata->workqueue = create_workqueue(dev_name(dev));
- 	if (!ddata->workqueue) {
+ static int rproc_start(struct rproc *rproc, const struct firmware *fw)
+ {
+diff --git a/include/linux/remoteproc.h b/include/linux/remoteproc.h
+index cf5e31556780..7c0567029f7c 100644
+--- a/include/linux/remoteproc.h
++++ b/include/linux/remoteproc.h
+@@ -610,6 +610,7 @@ void rproc_put(struct rproc *rproc);
+ int rproc_add(struct rproc *rproc);
+ int rproc_del(struct rproc *rproc);
+ void rproc_free(struct rproc *rproc);
++void rproc_resource_cleanup(struct rproc *rproc);
+ 
+ struct rproc *devm_rproc_alloc(struct device *dev, const char *name,
+ 			       const struct rproc_ops *ops,
 -- 
 2.25.1
 
