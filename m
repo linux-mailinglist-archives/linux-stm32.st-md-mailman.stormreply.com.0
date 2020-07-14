@@ -2,55 +2,59 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id 5D69321E5ED
-	for <lists+linux-stm32@lfdr.de>; Tue, 14 Jul 2020 04:49:17 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 62DCF21E663
+	for <lists+linux-stm32@lfdr.de>; Tue, 14 Jul 2020 05:37:49 +0200 (CEST)
 Received: from ip-172-31-3-76.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 10F36C36B29;
-	Tue, 14 Jul 2020 02:49:17 +0000 (UTC)
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id F33B7C36B29;
+	Tue, 14 Jul 2020 03:37:48 +0000 (UTC)
 Received: from mail-il1-f196.google.com (mail-il1-f196.google.com
  [209.85.166.196])
  (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 3B7DBC36B0C
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 36412C36B0C
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Tue, 14 Jul 2020 02:49:15 +0000 (UTC)
-Received: by mail-il1-f196.google.com with SMTP id o3so12998662ilo.12
+ Tue, 14 Jul 2020 03:37:43 +0000 (UTC)
+Received: by mail-il1-f196.google.com with SMTP id r12so13096113ilh.4
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Mon, 13 Jul 2020 19:49:15 -0700 (PDT)
+ Mon, 13 Jul 2020 20:37:43 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20161025;
+ h=mime-version:references:in-reply-to:from:date:message-id:subject:to
+ :cc:content-transfer-encoding;
+ bh=x5kA50WCYmAo+Q8432Sy1VWAEloJEHU1E0inGU7UJt4=;
+ b=NFadGpuFjJ3tv7FOJrDxOb09SxgAqSP6xTut0HFSaivRjSIvWM4zedl+yOsvzbHyGp
+ GZ6V8je0HHQQ/gAH4Ajffl0VN8ZchHbXb8mj+jkCQvVV9ymE5qlRxXvdFzVA6CJu1qCL
+ 3Q2HvrpVvjDeviw41DVzRWAyMqRI+/Hu33o7yypqALpNrQz3i2GSaO0Vju0oGbucTSDm
+ C4YO1Sb2E1/qkZ+MoLUFnSRdc6Tg8n3SbvkV+yKtNIixJvvtJc2yPGP2P30xWvBB/dKc
+ 0hxWjARpQYsrxL8c6dYfo7Wea3UrF6zqRUhXAbflAcf+HaGEGFC0VdFpPZnVv09CEtP7
+ 7BZA==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=1e100.net; s=20161025;
- h=x-gm-message-state:date:from:to:cc:subject:message-id:references
- :mime-version:content-disposition:in-reply-to;
- bh=DdQRU+re2daApc1buZh/NOScJMoADL35yGQLsQdXB0M=;
- b=WYWmEOvPVEs/+jUgDkbFN2voiDOffT+s1Da0xJXG6NDdI8SGnBs5CNhBSddeLqKMrL
- 8p/te+WZK2yINVF1BgBEVvH0ldECM/mJDTjMEtbWxOq78vzuz6jQYoWISXbU5RjvA+lJ
- U+Erz2cvANlhGBmntul1YTtpnjUa3tPTfvRChuRNYK/tg7mbziAft+gCEAWU0tNaci6W
- hztyOC+oAHzi7ptfebDe5A/PBNMvPXlccHePk3saWa29yzCH84mtzntXY5BSnmMl6AEo
- KLGlXytiF0PkxEYg0rWEsq5V4Q+xj2E4/FDQuelkE9HlHfO72cdxH9Pwy7yqAfYPyfuB
- WxhA==
-X-Gm-Message-State: AOAM532ntqQQ7/1USA9q4oqR3Y9ZmT3K0sKgdTyTfa42VphdfPSzj0l7
- bzO9t0XKylLmraPW8mvqiw==
-X-Google-Smtp-Source: ABdhPJz9igZQqkIyHCZ5N1hs9WTl0MnTGAZmaW5l4R56IePZCqGF6EM/cUpsjUEx18PhvChQvcjoqA==
-X-Received: by 2002:a92:c00d:: with SMTP id q13mr2499962ild.222.1594694954000; 
- Mon, 13 Jul 2020 19:49:14 -0700 (PDT)
-Received: from xps15 ([64.188.179.252])
- by smtp.gmail.com with ESMTPSA id f18sm8489104ion.47.2020.07.13.19.49.12
- (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Mon, 13 Jul 2020 19:49:13 -0700 (PDT)
-Received: (nullmailer pid 1187292 invoked by uid 1000);
- Tue, 14 Jul 2020 02:49:12 -0000
-Date: Mon, 13 Jul 2020 20:49:12 -0600
-From: Rob Herring <robh@kernel.org>
-To: Adrian Pop <pop.adrian61@gmail.com>
-Message-ID: <20200714024912.GA1184333@bogus>
+ h=x-gm-message-state:mime-version:references:in-reply-to:from:date
+ :message-id:subject:to:cc:content-transfer-encoding;
+ bh=x5kA50WCYmAo+Q8432Sy1VWAEloJEHU1E0inGU7UJt4=;
+ b=Wl/EBaRyjikX8CjgYKb/9JheXFtOvAi9fhEpOghAoFNwfZ4HQHiFupvqFsmhzPw96o
+ su9Q8cselORs7/JxxXFUNI299v3BAu7WTF1/a49EiU1koHmJ0cLnfZysJiLCUIpTua9R
+ 0+Fy6R+EfLOs9Y3h9qCk0PCS05nCSfO5DveLJhIsKeMnh5F27RoOldFP35tn0UHyaqjV
+ iErwrbEkHcq3pc0Ira71HkEnhmlkk39b+ZveQkrWtRaRly8Vo+lj1OnQeHOm/dRdTbEZ
+ IrD90USl+k0P3TogHfctimycJmcvUt9nkhirpQuO3EccjXQAnzK5EmiW3+Nx1w6o8ud7
+ UMhw==
+X-Gm-Message-State: AOAM530VsnCWGYuur9u4IFrL5vY/YnGgkxij9i1vzKgKf4QR0yprMpLU
+ IbzPxsn7eMXCo2u8QzPumYm/vrTQYNxV52H2xAQ=
+X-Google-Smtp-Source: ABdhPJwt2i4uMXnI/aDf/IMCkp+fkfiR8T1ZV0Xq5jPXfVkLqk1/z6xJceU91wFxGtS0OwHxE8OGOEvpPZuhVEc/yDo=
+X-Received: by 2002:a92:d6d2:: with SMTP id z18mr2855668ilp.272.1594697862742; 
+ Mon, 13 Jul 2020 20:37:42 -0700 (PDT)
+MIME-Version: 1.0
 References: <20200702172714.158786-1-pop.adrian61@gmail.com>
  <20200702172714.158786-2-pop.adrian61@gmail.com>
-MIME-Version: 1.0
-Content-Disposition: inline
 In-Reply-To: <20200702172714.158786-2-pop.adrian61@gmail.com>
+From: Hua Dillon <dillonhua@gmail.com>
+Date: Tue, 14 Jul 2020 11:37:30 +0800
+Message-ID: <CAPTRvHm0gX=myLBeztq-7q8hMGZ+a0pH_ZB8hH+RZtSSsqVGDw@mail.gmail.com>
+To: Adrian Pop <pop.adrian61@gmail.com>
 Cc: devicetree@vger.kernel.org, linux-kernel@vger.kernel.org,
- Maxime Coquelin <mcoquelin.stm32@gmail.com>, Lee Jones <lee.jones@linaro.org>,
- linux-stm32@st-md-mailman.stormreply.com, linux-arm-kernel@lists.infradead.org
+ Rob Herring <robh+dt@kernel.org>, Maxime Coquelin <mcoquelin.stm32@gmail.com>,
+ Lee Jones <lee.jones@linaro.org>, linux-stm32@st-md-mailman.stormreply.com,
+ linux-arm-kernel@lists.infradead.org
 Subject: Re: [Linux-stm32] [PATCH v2 2/2] ARM: dts: stm32: Enable MIPI DSI
 	display support.
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
@@ -64,142 +68,93 @@ List-Post: <mailto:linux-stm32@st-md-mailman.stormreply.com>
 List-Help: <mailto:linux-stm32-request@st-md-mailman.stormreply.com?subject=help>
 List-Subscribe: <https://st-md-mailman.stormreply.com/mailman/listinfo/linux-stm32>, 
  <mailto:linux-stm32-request@st-md-mailman.stormreply.com?subject=subscribe>
-Content-Type: text/plain; charset="us-ascii"
-Content-Transfer-Encoding: 7bit
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: base64
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
-On Thu, Jul 02, 2020 at 08:27:14PM +0300, Adrian Pop wrote:
-> STM32f769-disco features a 4" MIPI DSI display: add support for it.
-> On Cortex-M7 DMA can't use cached memory. For this reason I use a dedicated
-> memory pool for DMA with no-cache attribute which is located at the end of
->  RAM.
-> 
-> Signed-off-by: Adrian Pop <pop.adrian61@gmail.com>
-> ---
->  arch/arm/boot/dts/stm32f746.dtsi      | 34 +++++++++++++++++++
->  arch/arm/boot/dts/stm32f769-disco.dts | 49 +++++++++++++++++++++++++++
->  2 files changed, 83 insertions(+)
-> 
-> diff --git a/arch/arm/boot/dts/stm32f746.dtsi b/arch/arm/boot/dts/stm32f746.dtsi
-> index 93c063796780..577a812ca01c 100644
-> --- a/arch/arm/boot/dts/stm32f746.dtsi
-> +++ b/arch/arm/boot/dts/stm32f746.dtsi
-> @@ -48,6 +48,19 @@ / {
->  	#address-cells = <1>;
->  	#size-cells = <1>;
->  
-> +	reserved-memory {
-> +		#address-cells = <1>;
-> +		#size-cells = <1>;
-> +		ranges;
-> +
-> +		linux,dma {
-
-Build your DT with W=1. This will have a warning.
-
-> +			compatible = "shared-dma-pool";
-> +			linux,dma-default;
-> +			no-map;
-> +			reg = <0xc0f00000 0x100000>;
-> +		};
-> +	};
-> +
->  	clocks {
->  		clk_hse: clk-hse {
->  			#clock-cells = <0>;
-> @@ -75,6 +88,27 @@ clk_i2s_ckin: clk-i2s-ckin {
->  	};
->  
->  	soc {
-> +		ltdc: display-controller@40016800 {
-> +			compatible = "st,stm32-ltdc";
-> +			reg = <0x40016800 0x200>;
-> +			interrupts = <88>, <89>;
-> +			resets = <&rcc STM32F7_APB2_RESET(LTDC)>;
-> +			clocks = <&rcc 1 CLK_LCD>;
-> +			clock-names = "lcd";
-> +			status = "disabled";
-> +		};
-> +
-> +		dsi: dsi@40016c00 {
-> +			compatible = "st,stm32-dsi";
-> +			reg = <0x40016c00 0x800>;
-> +			interrupts = <98>;
-> +			clocks = <&rcc 1 CLK_F769_DSI>, <&clk_hse>;
-> +			clock-names = "pclk", "ref";
-> +			resets = <&rcc STM32F7_APB2_RESET(DSI)>;
-> +			reset-names = "apb";
-> +			status = "disabled";
-> +		};
-> +
->  		timer2: timer@40000000 {
->  			compatible = "st,stm32-timer";
->  			reg = <0x40000000 0x400>;
-> diff --git a/arch/arm/boot/dts/stm32f769-disco.dts b/arch/arm/boot/dts/stm32f769-disco.dts
-> index 1626e00bb2cb..a9e81b49809c 100644
-> --- a/arch/arm/boot/dts/stm32f769-disco.dts
-> +++ b/arch/arm/boot/dts/stm32f769-disco.dts
-> @@ -153,3 +153,52 @@ &usbotg_hs {
->  	pinctrl-names = "default";
->  	status = "okay";
->  };
-> +
-> +&dsi {
-> +	#address-cells = <1>;
-> +	#size-cells = <0>;
-> +	status = "okay";
-> +
-> +	ports {
-> +		#address-cells = <1>;
-> +		#size-cells = <0>;
-> +
-> +		port@0 {
-> +			reg = <0>;
-> +			dsi_in: endpoint {
-> +				remote-endpoint = <&ltdc_out_dsi>;
-> +			};
-> +		};
-> +
-> +		port@1 {
-> +			reg = <1>;
-> +			dsi_out: endpoint {
-> +				remote-endpoint = <&dsi_in_panel>;
-> +			};
-> +		};
-> +
-> +	};
-> +
-> +	panel: panel {
-> +		compatible = "orisetech,otm8009a";
-> +		reg = <0>;
-> +		reset-gpios = <&gpioj 15 GPIO_ACTIVE_LOW>;
-> +		status = "okay";
-
-Don't need status. Enabled is the default.
-
-> +
-> +		port {
-> +			dsi_in_panel: endpoint {
-> +				remote-endpoint = <&dsi_out>;
-> +			};
-> +		};
-> +	};
-> +};
-> +
-> +&ltdc {
-> +	status = "okay";
-> +
-> +	port {
-> +		ltdc_out_dsi: endpoint {
-> +			remote-endpoint = <&dsi_in>;
-> +		};
-> +	};
-> +};
-> -- 
-> 2.27.0
-> 
-_______________________________________________
-Linux-stm32 mailing list
-Linux-stm32@st-md-mailman.stormreply.com
-https://st-md-mailman.stormreply.com/mailman/listinfo/linux-stm32
+SGksIEFkcmlhbiwKCkp1c3Qgb25lIHN1Z2dlc3Rpb24gZm9yIHlvdS4KCkFkcmlhbiBQb3AgPHBv
+cC5hZHJpYW42MUBnbWFpbC5jb20+IOS6jjIwMjDlubQ35pyIM+aXpeWRqOS6lCDkuIrljYgxOjMw
+5YaZ6YGT77yaCj4KPiBTVE0zMmY3NjktZGlzY28gZmVhdHVyZXMgYSA0IiBNSVBJIERTSSBkaXNw
+bGF5OiBhZGQgc3VwcG9ydCBmb3IgaXQuCj4gT24gQ29ydGV4LU03IERNQSBjYW4ndCB1c2UgY2Fj
+aGVkIG1lbW9yeS4gRm9yIHRoaXMgcmVhc29uIEkgdXNlIGEgZGVkaWNhdGVkCj4gbWVtb3J5IHBv
+b2wgZm9yIERNQSB3aXRoIG5vLWNhY2hlIGF0dHJpYnV0ZSB3aGljaCBpcyBsb2NhdGVkIGF0IHRo
+ZSBlbmQgb2YKPiAgUkFNLgo+Cj4gU2lnbmVkLW9mZi1ieTogQWRyaWFuIFBvcCA8cG9wLmFkcmlh
+bjYxQGdtYWlsLmNvbT4KPiAtLS0KPiAgYXJjaC9hcm0vYm9vdC9kdHMvc3RtMzJmNzQ2LmR0c2kg
+ICAgICB8IDM0ICsrKysrKysrKysrKysrKysrKysKPiAgYXJjaC9hcm0vYm9vdC9kdHMvc3RtMzJm
+NzY5LWRpc2NvLmR0cyB8IDQ5ICsrKysrKysrKysrKysrKysrKysrKysrKysrKwo+ICAyIGZpbGVz
+IGNoYW5nZWQsIDgzIGluc2VydGlvbnMoKykKPgo+IGRpZmYgLS1naXQgYS9hcmNoL2FybS9ib290
+L2R0cy9zdG0zMmY3NDYuZHRzaSBiL2FyY2gvYXJtL2Jvb3QvZHRzL3N0bTMyZjc0Ni5kdHNpCj4g
+aW5kZXggOTNjMDYzNzk2NzgwLi41NzdhODEyY2EwMWMgMTAwNjQ0Cj4gLS0tIGEvYXJjaC9hcm0v
+Ym9vdC9kdHMvc3RtMzJmNzQ2LmR0c2kKPiArKysgYi9hcmNoL2FybS9ib290L2R0cy9zdG0zMmY3
+NDYuZHRzaQo+IEBAIC00OCw2ICs0OCwxOSBAQCAvIHsKPiAgICAgICAgICNhZGRyZXNzLWNlbGxz
+ID0gPDE+Owo+ICAgICAgICAgI3NpemUtY2VsbHMgPSA8MT47Cj4KPiArICAgICAgIHJlc2VydmVk
+LW1lbW9yeSB7Cj4gKyAgICAgICAgICAgICAgICNhZGRyZXNzLWNlbGxzID0gPDE+Owo+ICsgICAg
+ICAgICAgICAgICAjc2l6ZS1jZWxscyA9IDwxPjsKPiArICAgICAgICAgICAgICAgcmFuZ2VzOwo+
+ICsKPiArICAgICAgICAgICAgICAgbGludXgsZG1hIHsKPiArICAgICAgICAgICAgICAgICAgICAg
+ICBjb21wYXRpYmxlID0gInNoYXJlZC1kbWEtcG9vbCI7Cj4gKyAgICAgICAgICAgICAgICAgICAg
+ICAgbGludXgsZG1hLWRlZmF1bHQ7Cj4gKyAgICAgICAgICAgICAgICAgICAgICAgbm8tbWFwOwo+
+ICsgICAgICAgICAgICAgICAgICAgICAgIHJlZyA9IDwweGMwZjAwMDAwIDB4MTAwMDAwPjsKPiAr
+ICAgICAgICAgICAgICAgfTsKPiArICAgICAgIH07Cj4gKwpDaHJpc3RvcGggSGVsbHdpZyB3YXMg
+c3VibWl0IGEgcGF0Y2ggZm9yICFDT05GSUdfTU1VIHBsYXRmb3JtcyB0byBzdXBwb3J0IG1tYXAu
+CnRoZSBwYXRjaCBpcyA6IDFmYmY1N2QwNTMwMiBkbWEtZGlyZWN0OiByZS1lbmFibGUgbW1hcCBm
+b3IgIUNPTkZJR19NTVUKaSB0aG91Z2h0IHRoZXJlIGlzIG5vIG5lZWQgdG8gY3JlYXRlIGEgcmVz
+ZXJ2ZWQtbWVtb3J5IGZvciBpdC4KCj4gICAgICAgICBjbG9ja3Mgewo+ICAgICAgICAgICAgICAg
+ICBjbGtfaHNlOiBjbGstaHNlIHsKPiAgICAgICAgICAgICAgICAgICAgICAgICAjY2xvY2stY2Vs
+bHMgPSA8MD47Cj4gQEAgLTc1LDYgKzg4LDI3IEBAIGNsa19pMnNfY2tpbjogY2xrLWkycy1ja2lu
+IHsKPiAgICAgICAgIH07Cj4KPiAgICAgICAgIHNvYyB7Cj4gKyAgICAgICAgICAgICAgIGx0ZGM6
+IGRpc3BsYXktY29udHJvbGxlckA0MDAxNjgwMCB7Cj4gKyAgICAgICAgICAgICAgICAgICAgICAg
+Y29tcGF0aWJsZSA9ICJzdCxzdG0zMi1sdGRjIjsKPiArICAgICAgICAgICAgICAgICAgICAgICBy
+ZWcgPSA8MHg0MDAxNjgwMCAweDIwMD47Cj4gKyAgICAgICAgICAgICAgICAgICAgICAgaW50ZXJy
+dXB0cyA9IDw4OD4sIDw4OT47Cj4gKyAgICAgICAgICAgICAgICAgICAgICAgcmVzZXRzID0gPCZy
+Y2MgU1RNMzJGN19BUEIyX1JFU0VUKExUREMpPjsKPiArICAgICAgICAgICAgICAgICAgICAgICBj
+bG9ja3MgPSA8JnJjYyAxIENMS19MQ0Q+Owo+ICsgICAgICAgICAgICAgICAgICAgICAgIGNsb2Nr
+LW5hbWVzID0gImxjZCI7Cj4gKyAgICAgICAgICAgICAgICAgICAgICAgc3RhdHVzID0gImRpc2Fi
+bGVkIjsKPiArICAgICAgICAgICAgICAgfTsKPiArCj4gKyAgICAgICAgICAgICAgIGRzaTogZHNp
+QDQwMDE2YzAwIHsKPiArICAgICAgICAgICAgICAgICAgICAgICBjb21wYXRpYmxlID0gInN0LHN0
+bTMyLWRzaSI7Cj4gKyAgICAgICAgICAgICAgICAgICAgICAgcmVnID0gPDB4NDAwMTZjMDAgMHg4
+MDA+Owo+ICsgICAgICAgICAgICAgICAgICAgICAgIGludGVycnVwdHMgPSA8OTg+Owo+ICsgICAg
+ICAgICAgICAgICAgICAgICAgIGNsb2NrcyA9IDwmcmNjIDEgQ0xLX0Y3NjlfRFNJPiwgPCZjbGtf
+aHNlPjsKPiArICAgICAgICAgICAgICAgICAgICAgICBjbG9jay1uYW1lcyA9ICJwY2xrIiwgInJl
+ZiI7Cj4gKyAgICAgICAgICAgICAgICAgICAgICAgcmVzZXRzID0gPCZyY2MgU1RNMzJGN19BUEIy
+X1JFU0VUKERTSSk+Owo+ICsgICAgICAgICAgICAgICAgICAgICAgIHJlc2V0LW5hbWVzID0gImFw
+YiI7Cj4gKyAgICAgICAgICAgICAgICAgICAgICAgc3RhdHVzID0gImRpc2FibGVkIjsKPiArICAg
+ICAgICAgICAgICAgfTsKPiArCj4gICAgICAgICAgICAgICAgIHRpbWVyMjogdGltZXJANDAwMDAw
+MDAgewo+ICAgICAgICAgICAgICAgICAgICAgICAgIGNvbXBhdGlibGUgPSAic3Qsc3RtMzItdGlt
+ZXIiOwo+ICAgICAgICAgICAgICAgICAgICAgICAgIHJlZyA9IDwweDQwMDAwMDAwIDB4NDAwPjsK
+PiBkaWZmIC0tZ2l0IGEvYXJjaC9hcm0vYm9vdC9kdHMvc3RtMzJmNzY5LWRpc2NvLmR0cyBiL2Fy
+Y2gvYXJtL2Jvb3QvZHRzL3N0bTMyZjc2OS1kaXNjby5kdHMKPiBpbmRleCAxNjI2ZTAwYmIyY2Iu
+LmE5ZTgxYjQ5ODA5YyAxMDA2NDQKPiAtLS0gYS9hcmNoL2FybS9ib290L2R0cy9zdG0zMmY3Njkt
+ZGlzY28uZHRzCj4gKysrIGIvYXJjaC9hcm0vYm9vdC9kdHMvc3RtMzJmNzY5LWRpc2NvLmR0cwo+
+IEBAIC0xNTMsMyArMTUzLDUyIEBAICZ1c2JvdGdfaHMgewo+ICAgICAgICAgcGluY3RybC1uYW1l
+cyA9ICJkZWZhdWx0IjsKPiAgICAgICAgIHN0YXR1cyA9ICJva2F5IjsKPiAgfTsKPiArCj4gKyZk
+c2kgewo+ICsgICAgICAgI2FkZHJlc3MtY2VsbHMgPSA8MT47Cj4gKyAgICAgICAjc2l6ZS1jZWxs
+cyA9IDwwPjsKPiArICAgICAgIHN0YXR1cyA9ICJva2F5IjsKPiArCj4gKyAgICAgICBwb3J0cyB7
+Cj4gKyAgICAgICAgICAgICAgICNhZGRyZXNzLWNlbGxzID0gPDE+Owo+ICsgICAgICAgICAgICAg
+ICAjc2l6ZS1jZWxscyA9IDwwPjsKPiArCj4gKyAgICAgICAgICAgICAgIHBvcnRAMCB7Cj4gKyAg
+ICAgICAgICAgICAgICAgICAgICAgcmVnID0gPDA+Owo+ICsgICAgICAgICAgICAgICAgICAgICAg
+IGRzaV9pbjogZW5kcG9pbnQgewo+ICsgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgcmVt
+b3RlLWVuZHBvaW50ID0gPCZsdGRjX291dF9kc2k+Owo+ICsgICAgICAgICAgICAgICAgICAgICAg
+IH07Cj4gKyAgICAgICAgICAgICAgIH07Cj4gKwo+ICsgICAgICAgICAgICAgICBwb3J0QDEgewo+
+ICsgICAgICAgICAgICAgICAgICAgICAgIHJlZyA9IDwxPjsKPiArICAgICAgICAgICAgICAgICAg
+ICAgICBkc2lfb3V0OiBlbmRwb2ludCB7Cj4gKyAgICAgICAgICAgICAgICAgICAgICAgICAgICAg
+ICByZW1vdGUtZW5kcG9pbnQgPSA8JmRzaV9pbl9wYW5lbD47Cj4gKyAgICAgICAgICAgICAgICAg
+ICAgICAgfTsKPiArICAgICAgICAgICAgICAgfTsKPiArCj4gKyAgICAgICB9Owo+ICsKPiArICAg
+ICAgIHBhbmVsOiBwYW5lbCB7Cj4gKyAgICAgICAgICAgICAgIGNvbXBhdGlibGUgPSAib3Jpc2V0
+ZWNoLG90bTgwMDlhIjsKPiArICAgICAgICAgICAgICAgcmVnID0gPDA+Owo+ICsgICAgICAgICAg
+ICAgICByZXNldC1ncGlvcyA9IDwmZ3Bpb2ogMTUgR1BJT19BQ1RJVkVfTE9XPjsKPiArICAgICAg
+ICAgICAgICAgc3RhdHVzID0gIm9rYXkiOwo+ICsKPiArICAgICAgICAgICAgICAgcG9ydCB7Cj4g
+KyAgICAgICAgICAgICAgICAgICAgICAgZHNpX2luX3BhbmVsOiBlbmRwb2ludCB7Cj4gKyAgICAg
+ICAgICAgICAgICAgICAgICAgICAgICAgICByZW1vdGUtZW5kcG9pbnQgPSA8JmRzaV9vdXQ+Owo+
+ICsgICAgICAgICAgICAgICAgICAgICAgIH07Cj4gKyAgICAgICAgICAgICAgIH07Cj4gKyAgICAg
+ICB9Owo+ICt9Owo+ICsKPiArJmx0ZGMgewo+ICsgICAgICAgc3RhdHVzID0gIm9rYXkiOwo+ICsK
+PiArICAgICAgIHBvcnQgewo+ICsgICAgICAgICAgICAgICBsdGRjX291dF9kc2k6IGVuZHBvaW50
+IHsKPiArICAgICAgICAgICAgICAgICAgICAgICByZW1vdGUtZW5kcG9pbnQgPSA8JmRzaV9pbj47
+Cj4gKyAgICAgICAgICAgICAgIH07Cj4gKyAgICAgICB9Owo+ICt9Owo+IC0tCj4gMi4yNy4wCj4K
+Pgo+IF9fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fCj4gbGlu
+dXgtYXJtLWtlcm5lbCBtYWlsaW5nIGxpc3QKPiBsaW51eC1hcm0ta2VybmVsQGxpc3RzLmluZnJh
+ZGVhZC5vcmcKPiBodHRwOi8vbGlzdHMuaW5mcmFkZWFkLm9yZy9tYWlsbWFuL2xpc3RpbmZvL2xp
+bnV4LWFybS1rZXJuZWwKX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19f
+X19fX18KTGludXgtc3RtMzIgbWFpbGluZyBsaXN0CkxpbnV4LXN0bTMyQHN0LW1kLW1haWxtYW4u
+c3Rvcm1yZXBseS5jb20KaHR0cHM6Ly9zdC1tZC1tYWlsbWFuLnN0b3JtcmVwbHkuY29tL21haWxt
+YW4vbGlzdGluZm8vbGludXgtc3RtMzIK
