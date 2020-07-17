@@ -2,69 +2,50 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id 92990223FE6
-	for <lists+linux-stm32@lfdr.de>; Fri, 17 Jul 2020 17:48:56 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 3A5E722448A
+	for <lists+linux-stm32@lfdr.de>; Fri, 17 Jul 2020 21:48:39 +0200 (CEST)
 Received: from ip-172-31-3-76.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 28F56C36B29;
-	Fri, 17 Jul 2020 15:48:56 +0000 (UTC)
-Received: from mail-lj1-f194.google.com (mail-lj1-f194.google.com
- [209.85.208.194])
- (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id D0BC0C36B29;
+	Fri, 17 Jul 2020 19:48:38 +0000 (UTC)
+Received: from perceval.ideasonboard.com (perceval.ideasonboard.com
+ [213.167.242.64])
+ (using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 3FA75C36B0C
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 5E625C36B0C
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Fri, 17 Jul 2020 15:48:54 +0000 (UTC)
-Received: by mail-lj1-f194.google.com with SMTP id e4so13236418ljn.4
- for <linux-stm32@st-md-mailman.stormreply.com>;
- Fri, 17 Jul 2020 08:48:54 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20161025;
- h=mime-version:references:in-reply-to:from:date:message-id:subject:to
- :cc; bh=h11XOtehZDloRQK9LLWJgIGaRhspppMNqDAzBiX5ad0=;
- b=Vl3NEvpnwvvHcMUF3NitR+46Z8sGTxKpnmW2tSGbSZI5WEMW3t/cfVkfrQKwFVLfmn
- qeYWAms1UJZ0u2rgIpGXKPqzQRww21hWUFCIGkYU5iU2aI2DNB/ORCPOtTw84QooEoxU
- RYowe2rX5Fdj+dRoNdNiG6L6UUa+Alrbcl8abG9racjlDwSa72vWTml3oZe1LVxEno23
- 8HqvAdO0M0ijRxSL52knF8JcEemEUtGDRuqD43LXb5rbnu/qG8BBreBmnwIir7x5vGFu
- M9aVkD5RibFZ132rkt+/LOK5QNQiB843eekX8O2TxJo2RHEHnZOn30hEob39Xp0gVhf+
- 8DpA==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20161025;
- h=x-gm-message-state:mime-version:references:in-reply-to:from:date
- :message-id:subject:to:cc;
- bh=h11XOtehZDloRQK9LLWJgIGaRhspppMNqDAzBiX5ad0=;
- b=rhUUNXu48GsplBTfPl/1LQesl9yyawBV8Q/lCCwxNet6RDsZFG92T4YU3uaZNb+AhZ
- WGVcqR1FM/pVyhM7rFOsC/m5nFt/YlYg/obhzYJ4McawSFJ+aOr6l+ZWn8qT1QIuDX7I
- rimdHH4FFBaiLOREDonLlxEuQT2uclhuoSKqjzuCz/wQ4HM7+G7A+V2jPr1ZkhzBTedb
- mqzrqf3f4/bRmYpND8+g6h0iMdTG88h1serIvStt1oHUuFu7f2MsMR+Nlt593VV05ZnN
- etJveb5vFITpPFdy4j8xWyNSaY8EJtFeevXeHNWiqSHIx7fvgcNFDpWItxFhY1rE6DuZ
- 9+2w==
-X-Gm-Message-State: AOAM532/r1uVBTGKI2+vahEVHA+u68xaW+JX8+EXmGxh0x3ZY+Vlx9kz
- YhHlNT+/iovKYsroYb3NZRssdKtxcrObkENoVk4=
-X-Google-Smtp-Source: ABdhPJwIzsbxel7UyqOZp+lBviG9zAjrG/Jz3iqThbVW0psJDeH5ulOp2LIDuUFpVJDNfOVaozw3oLVmHULgDPnkduQ=
-X-Received: by 2002:a2e:a375:: with SMTP id i21mr4928341ljn.403.1595000933299; 
- Fri, 17 Jul 2020 08:48:53 -0700 (PDT)
-MIME-Version: 1.0
+ Fri, 17 Jul 2020 19:48:36 +0000 (UTC)
+Received: from pendragon.ideasonboard.com (81-175-216-236.bb.dnainternet.fi
+ [81.175.216.236])
+ by perceval.ideasonboard.com (Postfix) with ESMTPSA id 4E4B771D;
+ Fri, 17 Jul 2020 21:48:35 +0200 (CEST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=ideasonboard.com;
+ s=mail; t=1595015315;
+ bh=+ZDcfgB40euOdUkx9sbeWzWbty8BE6vcFQWFuSI2xOQ=;
+ h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
+ b=pDWY/odmElL1NbeUVG47LkPjhHqFPwzkThvuST3KVLyTe6l+a3hwzaAi5dR+ocYdm
+ QAw23aYNh+ew1PIL7KQtw4KG8rE0PgqtUpN/3Y0PW8QeevWJhHMKOTjfmO9KS27HUN
+ 59hhN8R+miCrCOHZiQPZUFFk2WbR4FNzX58iCE18=
+Date: Fri, 17 Jul 2020 22:48:27 +0300
+From: Laurent Pinchart <laurent.pinchart@ideasonboard.com>
+To: Jacopo Mondi <jacopo+renesas@jmondi.org>
+Message-ID: <20200717194827.GG5961@pendragon.ideasonboard.com>
 References: <20200717132859.237120-1-jacopo+renesas@jmondi.org>
  <20200717132859.237120-6-jacopo+renesas@jmondi.org>
+MIME-Version: 1.0
+Content-Disposition: inline
 In-Reply-To: <20200717132859.237120-6-jacopo+renesas@jmondi.org>
-From: Fabio Estevam <festevam@gmail.com>
-Date: Fri, 17 Jul 2020 12:48:42 -0300
-Message-ID: <CAOMZO5Ap2_3hECqB5K3tbD-0URq0hJrMoNDwq6WmUMVojahfJg@mail.gmail.com>
-To: Jacopo Mondi <jacopo+renesas@jmondi.org>
 Cc: Nishanth Menon <nm@ti.com>, Tony Lindgren <tony@atomide.com>,
  Bjorn Andersson <bjorn.andersson@linaro.org>,
- Laurent Pinchart <laurent.pinchart@ideasonboard.com>,
- "moderated list:ARM/STM32 ARCHITECTURE"
- <linux-stm32@st-md-mailman.stormreply.com>,
- Linux-Renesas <linux-renesas-soc@vger.kernel.org>,
+ Fabio Estevam <festevam@gmail.com>, "moderated list:ARM/STM32 ARCHITECTURE"
+ <linux-stm32@st-md-mailman.stormreply.com>, Tero Kristo <t-kristo@ti.com>,
  Chen-Yu Tsai <wens@csie.org>, Andy Gross <agross@kernel.org>,
- NXP Linux Team <linux-imx@nxp.com>, Steve Longerbeam <slongerbeam@gmail.com>,
- linux-media <linux-media@vger.kernel.org>,
- "open list:OPEN FIRMWARE AND FLATTENED DEVICE TREE BINDINGS"
- <devicetree@vger.kernel.org>, Sascha Hauer <s.hauer@pengutronix.de>,
- Maxime Ripard <mripard@kernel.org>, Rob Herring <robh+dt@kernel.org>,
- =?UTF-8?Q?Beno=C3=AEt_Cousson?= <bcousson@baylibre.com>,
+ NXP Linux Team <linux-imx@nxp.com>, slongerbeam@gmail.com,
+ linux-media@vger.kernel.org, devicetree@vger.kernel.org,
+ Sascha Hauer <s.hauer@pengutronix.de>, Maxime Ripard <mripard@kernel.org>,
+ robh+dt@kernel.org, =?utf-8?Q?Beno=C3=AEt?= Cousson <bcousson@baylibre.com>,
  linux-omap@vger.kernel.org, Maxime Coquelin <mcoquelin.stm32@gmail.com>,
- Tero Kristo <t-kristo@ti.com>, Pengutronix Kernel Team <kernel@pengutronix.de>,
+ linux-renesas-soc@vger.kernel.org,
+ Pengutronix Kernel Team <kernel@pengutronix.de>,
  Shawn Guo <shawnguo@kernel.org>
 Subject: Re: [Linux-stm32] [PATCH 05/13] dt-bindings: media: ov5640: Make
 	bus-type mandatory
@@ -86,8 +67,44 @@ Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
 Hi Jacopo,
 
-On Fri, Jul 17, 2020 at 10:25 AM Jacopo Mondi <jacopo+renesas@jmondi.org> wrote:
+Thank you for the patch.
 
+On Fri, Jul 17, 2020 at 03:28:51PM +0200, Jacopo Mondi wrote:
+> The ov5640 driver supports both a parallel data interface and a
+> CSI-2 serial data interface.
+> 
+> Depending on which interface is in use, the required endpoint
+> properties are different. In order to be able to validate if a
+> device node is compliant with the dt-schema bindings, start by
+> making the bus-type a mandatory property, and add it to all the
+> existing users of ov5640 in mainline DTS.
+> 
+> On top of this, endpoint properties validation will be implemented,
+> conditionally to the reported bus type.
+> 
+> Signed-off-by: Jacopo Mondi <jacopo+renesas@jmondi.org>
+
+Rob may request this to be split in two, one patch for the binding, one
+part for the DT sources. I think it's fine to have a temporary
+validation breakage between the two patches, but if you want to avoid
+that, it would also be possible to first add the property to the text
+bindings, update the DT sources, and then convert to YAML. Up to you.
+
+> ---
+>  Documentation/devicetree/bindings/media/i2c/ov5640.yaml    | 6 ++++++
+>  arch/arm/boot/dts/dra72-evm-common.dtsi                    | 1 +
+>  arch/arm/boot/dts/dra76-evm.dts                            | 1 +
+>  arch/arm/boot/dts/imx6-logicpd-baseboard.dtsi              | 1 +
+>  arch/arm/boot/dts/imx6qdl-icore.dtsi                       | 1 +
+>  arch/arm/boot/dts/imx6qdl-sabrelite.dtsi                   | 1 +
+>  arch/arm/boot/dts/imx6qdl-sabresd.dtsi                     | 1 +
+>  arch/arm/boot/dts/stm32mp157c-ev1.dts                      | 1 +
+>  arch/arm64/boot/dts/allwinner/sun50i-a64-amarula-relic.dts | 1 +
+>  arch/arm64/boot/dts/allwinner/sun50i-a64-pinetab.dts       | 1 +
+>  arch/arm64/boot/dts/qcom/apq8016-sbc.dtsi                  | 1 +
+>  arch/arm64/boot/dts/ti/k3-am654-base-board.dts             | 1 +
+>  12 files changed, 17 insertions(+)
+> 
 > diff --git a/Documentation/devicetree/bindings/media/i2c/ov5640.yaml b/Documentation/devicetree/bindings/media/i2c/ov5640.yaml
 > index 503f8b78615c..16e6c2dc629a 100644
 > --- a/Documentation/devicetree/bindings/media/i2c/ov5640.yaml
@@ -95,16 +112,206 @@ On Fri, Jul 17, 2020 at 10:25 AM Jacopo Mondi <jacopo+renesas@jmondi.org> wrote:
 > @@ -73,6 +73,9 @@ properties:
 >            remote-endpoint:
 >              description: A phandle to the bus receiver's endpoint node.
->
+> 
 > +          bus-type:
+
+You may want to add a comment referring to video-interfaces.txt. We
+should really have a header file defining macros for the different bus
+types. I wonder how that would work with YAML schemas though.
+
 > +            enum: [4, 5]
+> +
+>            clock-lanes:
+>              const: 0
+> 
+> @@ -109,6 +112,7 @@ properties:
+> 
+>          required:
+>            - remote-endpoint
+> +          - bus-type
+> 
+>      additionalProperties: false
+> 
 
-Can we have an explanation for what the values 4 and 5 mean in the yaml doc?
+allOf:
+  - if:
+      properties:
+        bus-type:
+          const: 4
+      then:
+        ...
+  - if:
+      properties:
+        bus-type:
+          const: 5
+      then:
+        ...
 
-Looking at the series I see that 4 means MIPI-CSI2 and 5 means
-parallel interface, but this is not too obvious (at least for me).
+It's really time to convert video-interfaces.txt... As that's a big
+task, how about doing so piece by piece, moving the bus-type rules
+first, and leaving the ports and endpoints (and other pieces) for later
+? I think nobody wants to touch video-interfaces.txt because it's lots
+of work, starting with a smaller piece may help setting the train in
+motion.
 
-Or maybe we could use a string definition instead of hard coding 4 and 5?
+I'm also fine doing this on top of this series, yak shaving is not
+required.
+
+Reviewed-by: Laurent Pinchart <laurent.pinchart@ideasonboard.com>
+
+> @@ -146,6 +150,7 @@ examples:
+>              port {
+>                  ov5640_to_mipi_csi2: endpoint {
+>                      remote-endpoint = <&mipi_csi2_from_ov5640>;
+> +                    bus-type = <4>;
+>                      clock-lanes = <0>;
+>                      data-lanes = <1 2>;
+>                  };
+> @@ -172,6 +177,7 @@ examples:
+>              port {
+>                  ov5640_to_parallel: endpoint {
+>                      remote-endpoint = <&parallel_from_ov5640>;
+> +                    bus-type = <5>;
+>                      bus-width = <10>;
+>                  };
+>              };
+> diff --git a/arch/arm/boot/dts/dra72-evm-common.dtsi b/arch/arm/boot/dts/dra72-evm-common.dtsi
+> index c84b63bf0fc8..aba7eb55525d 100644
+> --- a/arch/arm/boot/dts/dra72-evm-common.dtsi
+> +++ b/arch/arm/boot/dts/dra72-evm-common.dtsi
+> @@ -287,6 +287,7 @@ ov5640@3c {
+>  		port {
+>  			csi2_cam0: endpoint {
+>  				remote-endpoint = <&csi2_phy0>;
+> +				bus-type = <4>;
+>  				clock-lanes = <0>;
+>  				data-lanes = <1 2>;
+>  			};
+> diff --git a/arch/arm/boot/dts/dra76-evm.dts b/arch/arm/boot/dts/dra76-evm.dts
+> index 820a0ece20d4..ddf16e65ec7f 100644
+> --- a/arch/arm/boot/dts/dra76-evm.dts
+> +++ b/arch/arm/boot/dts/dra76-evm.dts
+> @@ -420,6 +420,7 @@ ov5640@3c {
+>  		port {
+>  			csi2_cam0: endpoint {
+>  				remote-endpoint = <&csi2_phy0>;
+> +				bus-type = <4>;
+>  				clock-lanes = <0>;
+>  				data-lanes = <1 2>;
+>  			};
+> diff --git a/arch/arm/boot/dts/imx6-logicpd-baseboard.dtsi b/arch/arm/boot/dts/imx6-logicpd-baseboard.dtsi
+> index 9e027b9a5f91..dd5765778e87 100644
+> --- a/arch/arm/boot/dts/imx6-logicpd-baseboard.dtsi
+> +++ b/arch/arm/boot/dts/imx6-logicpd-baseboard.dtsi
+> @@ -274,6 +274,7 @@ ov5640: camera@10 {
+>  		port {
+>  			ov5640_to_mipi_csi2: endpoint {
+>  				remote-endpoint = <&mipi_csi2_in>;
+> +				bus-type = <4>;
+>  				clock-lanes = <0>;
+>  				data-lanes = <1 2>;
+>  			};
+> diff --git a/arch/arm/boot/dts/imx6qdl-icore.dtsi b/arch/arm/boot/dts/imx6qdl-icore.dtsi
+> index 756f3a9f1b4f..2b1f275b8cc4 100644
+> --- a/arch/arm/boot/dts/imx6qdl-icore.dtsi
+> +++ b/arch/arm/boot/dts/imx6qdl-icore.dtsi
+> @@ -213,6 +213,7 @@ ov5640: camera@3c {
+>  		port {
+>  			ov5640_to_mipi_csi2: endpoint {
+>  				remote-endpoint = <&mipi_csi2_in>;
+> +				bus-type = <4>;
+>  				clock-lanes = <0>;
+>  				data-lanes = <1 2>;
+>  			};
+> diff --git a/arch/arm/boot/dts/imx6qdl-sabrelite.dtsi b/arch/arm/boot/dts/imx6qdl-sabrelite.dtsi
+> index 8468216dae9b..5752abb48e68 100644
+> --- a/arch/arm/boot/dts/imx6qdl-sabrelite.dtsi
+> +++ b/arch/arm/boot/dts/imx6qdl-sabrelite.dtsi
+> @@ -382,6 +382,7 @@ ov5640: camera@40 {
+>  		port {
+>  			ov5640_to_mipi_csi2: endpoint {
+>  				remote-endpoint = <&mipi_csi2_in>;
+> +				bus-type = <4>;
+>  				clock-lanes = <0>;
+>  				data-lanes = <1 2>;
+>  			};
+> diff --git a/arch/arm/boot/dts/imx6qdl-sabresd.dtsi b/arch/arm/boot/dts/imx6qdl-sabresd.dtsi
+> index 28b35ccb3757..990f4cc345da 100644
+> --- a/arch/arm/boot/dts/imx6qdl-sabresd.dtsi
+> +++ b/arch/arm/boot/dts/imx6qdl-sabresd.dtsi
+> @@ -313,6 +313,7 @@ rev B board is VGEN5 */
+>  		port {
+>  			ov5640_to_mipi_csi2: endpoint {
+>  				remote-endpoint = <&mipi_csi2_in>;
+> +				bus-type = <4>;
+>  				clock-lanes = <0>;
+>  				data-lanes = <1 2>;
+>  			};
+> diff --git a/arch/arm/boot/dts/stm32mp157c-ev1.dts b/arch/arm/boot/dts/stm32mp157c-ev1.dts
+> index b19056557ef0..613ede73b65b 100644
+> --- a/arch/arm/boot/dts/stm32mp157c-ev1.dts
+> +++ b/arch/arm/boot/dts/stm32mp157c-ev1.dts
+> @@ -190,6 +190,7 @@ ov5640: camera@3c {
+>  		port {
+>  			ov5640_0: endpoint {
+>  				remote-endpoint = <&dcmi_0>;
+> +				bus-type = <5>;
+>  				bus-width = <8>;
+>  				data-shift = <2>; /* lines 9:2 are used */
+>  				hsync-active = <0>;
+> diff --git a/arch/arm64/boot/dts/allwinner/sun50i-a64-amarula-relic.dts b/arch/arm64/boot/dts/allwinner/sun50i-a64-amarula-relic.dts
+> index c7bd73f35ed8..6ef528bb5564 100644
+> --- a/arch/arm64/boot/dts/allwinner/sun50i-a64-amarula-relic.dts
+> +++ b/arch/arm64/boot/dts/allwinner/sun50i-a64-amarula-relic.dts
+> @@ -46,6 +46,7 @@ ov5640: camera@3c {
+>  			port {
+>  				ov5640_ep: endpoint {
+>  					remote-endpoint = <&csi_ep>;
+> +					bus-type = <5>;
+>  					bus-width = <8>;
+>  					hsync-active = <1>; /* Active high */
+>  					vsync-active = <0>; /* Active low */
+> diff --git a/arch/arm64/boot/dts/allwinner/sun50i-a64-pinetab.dts b/arch/arm64/boot/dts/allwinner/sun50i-a64-pinetab.dts
+> index dc4ab6b434f9..8ebd6547786e 100644
+> --- a/arch/arm64/boot/dts/allwinner/sun50i-a64-pinetab.dts
+> +++ b/arch/arm64/boot/dts/allwinner/sun50i-a64-pinetab.dts
+> @@ -61,6 +61,7 @@ ov5640: camera@3c {
+>  			port {
+>  				ov5640_ep: endpoint {
+>  					remote-endpoint = <&csi_ep>;
+> +					bus-type = <5>;
+>  					bus-width = <8>;
+>  					hsync-active = <1>; /* Active high */
+>  					vsync-active = <0>; /* Active low */
+> diff --git a/arch/arm64/boot/dts/qcom/apq8016-sbc.dtsi b/arch/arm64/boot/dts/qcom/apq8016-sbc.dtsi
+> index fe6613676e45..5c79ad5e7b5d 100644
+> --- a/arch/arm64/boot/dts/qcom/apq8016-sbc.dtsi
+> +++ b/arch/arm64/boot/dts/qcom/apq8016-sbc.dtsi
+> @@ -627,6 +627,7 @@ camera_rear@3b {
+> 
+>  		port {
+>  			ov5640_ep: endpoint {
+> +				bus-type = <4>;
+>  				clock-lanes = <0>;
+>  				data-lanes = <1 2>;
+>  				remote-endpoint = <&csiphy0_ep>;
+> diff --git a/arch/arm64/boot/dts/ti/k3-am654-base-board.dts b/arch/arm64/boot/dts/ti/k3-am654-base-board.dts
+> index 2f3d3316a1cf..33f4eceffbe5 100644
+> --- a/arch/arm64/boot/dts/ti/k3-am654-base-board.dts
+> +++ b/arch/arm64/boot/dts/ti/k3-am654-base-board.dts
+> @@ -254,6 +254,7 @@ ov5640@3c {
+>  		port {
+>  			csi2_cam0: endpoint {
+>  				remote-endpoint = <&csi2_phy0>;
+> +				bus-type = <4>;
+>  				clock-lanes = <0>;
+>  				data-lanes = <1 2>;
+>  			};
+
+-- 
+Regards,
+
+Laurent Pinchart
 _______________________________________________
 Linux-stm32 mailing list
 Linux-stm32@st-md-mailman.stormreply.com
