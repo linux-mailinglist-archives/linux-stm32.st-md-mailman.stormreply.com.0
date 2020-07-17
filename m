@@ -2,53 +2,45 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id 1FD2B224556
-	for <lists+linux-stm32@lfdr.de>; Fri, 17 Jul 2020 22:48:43 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id A283F224576
+	for <lists+linux-stm32@lfdr.de>; Fri, 17 Jul 2020 22:57:32 +0200 (CEST)
 Received: from ip-172-31-3-76.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id C2D84C36B29;
-	Fri, 17 Jul 2020 20:48:42 +0000 (UTC)
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 5E93EC36B29;
+	Fri, 17 Jul 2020 20:57:32 +0000 (UTC)
 Received: from perceval.ideasonboard.com (perceval.ideasonboard.com
  [213.167.242.64])
  (using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 45CDAC36B0C
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 4FE89C36B0C
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Fri, 17 Jul 2020 20:48:39 +0000 (UTC)
+ Fri, 17 Jul 2020 20:57:30 +0000 (UTC)
 Received: from pendragon.ideasonboard.com (81-175-216-236.bb.dnainternet.fi
  [81.175.216.236])
- by perceval.ideasonboard.com (Postfix) with ESMTPSA id CE21371D;
- Fri, 17 Jul 2020 22:48:37 +0200 (CEST)
+ by perceval.ideasonboard.com (Postfix) with ESMTPSA id 4E96471D;
+ Fri, 17 Jul 2020 22:57:30 +0200 (CEST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=ideasonboard.com;
- s=mail; t=1595018918;
- bh=XYHG8/2rl6p2XqnEsWEfoxx9RfN0fqz7yBhyxsmUQwg=;
+ s=mail; t=1595019450;
+ bh=KrWW9UrE75AYkx5HCf9FQsCDNTM8G46KJkgzYPObyTU=;
  h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
- b=rGwYawElmR3YEQwm/N4Pfa9x5b9wkPNQvkInL7r8g6E+ROHcMuARJFRgyPJ22BLLU
- uZG6e/yInEmdTtd00cHew6ALJsXywvknnru5QOQxs9wcKZMMELuxY2kFn8zcKMcHeR
- i2YcNhCZnXYMWBu9QljkTvJRjoHhl/cg+NOu0ATs=
-Date: Fri, 17 Jul 2020 23:48:29 +0300
+ b=KJFvMgCt3Pm8Yy2Pp2XLvmXwG+sjH8HnsG4U9jL7FSdeFf2hYv5iDmypEAFZIjjtg
+ BhSbOhdfO2vM3+RjZs1gII40I5AuY2dZmkiK1l63rohy3P9Qyl/RRvU/9qUNkHOnkq
+ xfOH3OSNqNsPlm28zcE29tu5W2uu5GdSP+VcRfp4=
+Date: Fri, 17 Jul 2020 23:57:22 +0300
 From: Laurent Pinchart <laurent.pinchart@ideasonboard.com>
 To: Jacopo Mondi <jacopo+renesas@jmondi.org>
-Message-ID: <20200717204829.GI5961@pendragon.ideasonboard.com>
+Message-ID: <20200717205722.GJ5961@pendragon.ideasonboard.com>
 References: <20200717132859.237120-1-jacopo+renesas@jmondi.org>
- <20200717132859.237120-8-jacopo+renesas@jmondi.org>
+ <20200717132859.237120-9-jacopo+renesas@jmondi.org>
 MIME-Version: 1.0
 Content-Disposition: inline
-In-Reply-To: <20200717132859.237120-8-jacopo+renesas@jmondi.org>
-Cc: Nishanth Menon <nm@ti.com>, Tony Lindgren <tony@atomide.com>,
- Bjorn Andersson <bjorn.andersson@linaro.org>,
- Fabio Estevam <festevam@gmail.com>, "moderated list:ARM/STM32 ARCHITECTURE"
- <linux-stm32@st-md-mailman.stormreply.com>, Tero Kristo <t-kristo@ti.com>,
- Chen-Yu Tsai <wens@csie.org>, Andy Gross <agross@kernel.org>,
- NXP Linux Team <linux-imx@nxp.com>, slongerbeam@gmail.com,
- linux-media@vger.kernel.org, devicetree@vger.kernel.org,
- Sascha Hauer <s.hauer@pengutronix.de>, Maxime Ripard <mripard@kernel.org>,
- robh+dt@kernel.org, =?utf-8?Q?Beno=C3=AEt?= Cousson <bcousson@baylibre.com>,
- linux-omap@vger.kernel.org, Maxime Coquelin <mcoquelin.stm32@gmail.com>,
- linux-renesas-soc@vger.kernel.org,
- Pengutronix Kernel Team <kernel@pengutronix.de>,
- Shawn Guo <shawnguo@kernel.org>
-Subject: Re: [Linux-stm32] [PATCH 07/13] dt-bindings: media: ov5640: Remove
-	clock-lanes
+In-Reply-To: <20200717132859.237120-9-jacopo+renesas@jmondi.org>
+Cc: devicetree@vger.kernel.org, linux-renesas-soc@vger.kernel.org,
+ robh+dt@kernel.org, Sakari Ailus <sakari.ailus@iki.fi>,
+ Maxime Coquelin <mcoquelin.stm32@gmail.com>, slongerbeam@gmail.com,
+ "moderated list:ARM/STM32 ARCHITECTURE"
+ <linux-stm32@st-md-mailman.stormreply.com>, linux-media@vger.kernel.org
+Subject: Re: [Linux-stm32] [PATCH 08/13] dt-bindings: media: ov5640: Remove
+	data-shift
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -67,168 +59,81 @@ Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
 Hi Jacopo,
 
+(CC'ing Sakari)
+
 Thank you for the patch.
 
-On Fri, Jul 17, 2020 at 03:28:53PM +0200, Jacopo Mondi wrote:
-> The ov5640 does not support routing the clock signal to a different
-> lane, and the property has value fixed to 0.
+On Fri, Jul 17, 2020 at 03:28:54PM +0200, Jacopo Mondi wrote:
+> The value of the data-shift property solely depend on the selected
+> bus width and it's not freely configurable.
 > 
-> Remove the property from the bindings and update its users
-> accordingly.
-> 
+> Remove it from the bindings document and update its users accordingly.
+
+Hmmmm that's an interesting one. Sakari, what do you think ?
+
 > Signed-off-by: Jacopo Mondi <jacopo+renesas@jmondi.org>
-
-When we'll convert video-interface.txt to YAML, let's state clearly that
-properties should not be specified when the hardware is configurable.
-
-Reviewed-by: Laurent Pinchart <laurent.pinchart@ideasonboard.com>
-
 > ---
->  Documentation/devicetree/bindings/media/i2c/ov5640.yaml | 6 ------
->  arch/arm/boot/dts/dra72-evm-common.dtsi                 | 1 -
->  arch/arm/boot/dts/dra76-evm.dts                         | 1 -
->  arch/arm/boot/dts/imx6-logicpd-baseboard.dtsi           | 1 -
->  arch/arm/boot/dts/imx6qdl-icore.dtsi                    | 1 -
->  arch/arm/boot/dts/imx6qdl-sabrelite.dtsi                | 1 -
->  arch/arm/boot/dts/imx6qdl-sabresd.dtsi                  | 1 -
->  arch/arm64/boot/dts/qcom/apq8016-sbc.dtsi               | 1 -
->  arch/arm64/boot/dts/ti/k3-am654-base-board.dts          | 1 -
->  9 files changed, 14 deletions(-)
+>  Documentation/devicetree/bindings/media/i2c/ov5640.yaml | 9 ---------
+>  arch/arm/boot/dts/stm32mp157c-ev1.dts                   | 1 -
+>  2 files changed, 10 deletions(-)
 > 
 > diff --git a/Documentation/devicetree/bindings/media/i2c/ov5640.yaml b/Documentation/devicetree/bindings/media/i2c/ov5640.yaml
-> index 8fd54575a1db..5e1662e848bd 100644
+> index 5e1662e848bd..ab700a1830aa 100644
 > --- a/Documentation/devicetree/bindings/media/i2c/ov5640.yaml
 > +++ b/Documentation/devicetree/bindings/media/i2c/ov5640.yaml
-> @@ -76,9 +76,6 @@ properties:
->            bus-type:
->              enum: [4, 5]
+> @@ -92,12 +92,6 @@ properties:
+>                parallel bus.
+>              enum: [8, 10]
 > 
-> -          clock-lanes:
-> -            const: 0
+> -          data-shift:
+> -            description: |
+> -              Shall be set to <2> for 8 bits parallel bus (lines 9:2 are used) or
+> -              <0> for 10 bits parallel bus.
+> -            enum: [0, 2]
+
+Should you document in the description of bus-width that data-shift is
+implied ?
+
 > -
->            data-lanes:
->              description: |
->                Should be set to <1> or <1 2> (one or two CSI-2 lanes supported).
-> @@ -125,7 +122,6 @@ properties:
->                  required:
->                    - remote-endpoint
->                    - bus-type
-> -                  - clock-lanes
->                    - data-lanes
+>            hsync-active:
+>              enum: [0, 1]
 > 
->            - if:
-> @@ -134,7 +130,6 @@ properties:
->                    const: 5
+> @@ -115,7 +109,6 @@ properties:
 >              then:
->                properties:
-> -                clock-lanes: false
->                  data-lanes: false
->                required:
+>                  properties:
+>                    bus-width: false
+> -                  data-shift: false
+>                    hsync-active: false
+>                    vsync-active: false
+>                    pclk-sample: false
+> @@ -135,7 +128,6 @@ properties:
 >                  - remote-endpoint
-> @@ -182,7 +177,6 @@ examples:
->                  ov5640_to_mipi_csi2: endpoint {
->                      remote-endpoint = <&mipi_csi2_from_ov5640>;
->                      bus-type = <4>;
-> -                    clock-lanes = <0>;
->                      data-lanes = <1 2>;
->                  };
->              };
-> diff --git a/arch/arm/boot/dts/dra72-evm-common.dtsi b/arch/arm/boot/dts/dra72-evm-common.dtsi
-> index aba7eb55525d..b5b31dc927d4 100644
-> --- a/arch/arm/boot/dts/dra72-evm-common.dtsi
-> +++ b/arch/arm/boot/dts/dra72-evm-common.dtsi
-> @@ -288,7 +288,6 @@ port {
->  			csi2_cam0: endpoint {
->  				remote-endpoint = <&csi2_phy0>;
->  				bus-type = <4>;
-> -				clock-lanes = <0>;
->  				data-lanes = <1 2>;
->  			};
->  		};
-> diff --git a/arch/arm/boot/dts/dra76-evm.dts b/arch/arm/boot/dts/dra76-evm.dts
-> index ddf16e65ec7f..6fcb96abc41d 100644
-> --- a/arch/arm/boot/dts/dra76-evm.dts
-> +++ b/arch/arm/boot/dts/dra76-evm.dts
-> @@ -421,7 +421,6 @@ port {
->  			csi2_cam0: endpoint {
->  				remote-endpoint = <&csi2_phy0>;
->  				bus-type = <4>;
-> -				clock-lanes = <0>;
->  				data-lanes = <1 2>;
->  			};
->  		};
-> diff --git a/arch/arm/boot/dts/imx6-logicpd-baseboard.dtsi b/arch/arm/boot/dts/imx6-logicpd-baseboard.dtsi
-> index dd5765778e87..a12d80a2403e 100644
-> --- a/arch/arm/boot/dts/imx6-logicpd-baseboard.dtsi
-> +++ b/arch/arm/boot/dts/imx6-logicpd-baseboard.dtsi
-> @@ -275,7 +275,6 @@ port {
->  			ov5640_to_mipi_csi2: endpoint {
->  				remote-endpoint = <&mipi_csi2_in>;
->  				bus-type = <4>;
-> -				clock-lanes = <0>;
->  				data-lanes = <1 2>;
->  			};
->  		};
-> diff --git a/arch/arm/boot/dts/imx6qdl-icore.dtsi b/arch/arm/boot/dts/imx6qdl-icore.dtsi
-> index 2b1f275b8cc4..05bd332f527b 100644
-> --- a/arch/arm/boot/dts/imx6qdl-icore.dtsi
-> +++ b/arch/arm/boot/dts/imx6qdl-icore.dtsi
-> @@ -214,7 +214,6 @@ port {
->  			ov5640_to_mipi_csi2: endpoint {
->  				remote-endpoint = <&mipi_csi2_in>;
->  				bus-type = <4>;
-> -				clock-lanes = <0>;
->  				data-lanes = <1 2>;
->  			};
->  		};
-> diff --git a/arch/arm/boot/dts/imx6qdl-sabrelite.dtsi b/arch/arm/boot/dts/imx6qdl-sabrelite.dtsi
-> index 5752abb48e68..5eb7fbf33069 100644
-> --- a/arch/arm/boot/dts/imx6qdl-sabrelite.dtsi
-> +++ b/arch/arm/boot/dts/imx6qdl-sabrelite.dtsi
-> @@ -383,7 +383,6 @@ port {
->  			ov5640_to_mipi_csi2: endpoint {
->  				remote-endpoint = <&mipi_csi2_in>;
->  				bus-type = <4>;
-> -				clock-lanes = <0>;
->  				data-lanes = <1 2>;
->  			};
->  		};
-> diff --git a/arch/arm/boot/dts/imx6qdl-sabresd.dtsi b/arch/arm/boot/dts/imx6qdl-sabresd.dtsi
-> index 990f4cc345da..02f78b46a8fd 100644
-> --- a/arch/arm/boot/dts/imx6qdl-sabresd.dtsi
-> +++ b/arch/arm/boot/dts/imx6qdl-sabresd.dtsi
-> @@ -314,7 +314,6 @@ port {
->  			ov5640_to_mipi_csi2: endpoint {
->  				remote-endpoint = <&mipi_csi2_in>;
->  				bus-type = <4>;
-> -				clock-lanes = <0>;
->  				data-lanes = <1 2>;
->  			};
->  		};
-> diff --git a/arch/arm64/boot/dts/qcom/apq8016-sbc.dtsi b/arch/arm64/boot/dts/qcom/apq8016-sbc.dtsi
-> index 5c79ad5e7b5d..8c24fd468a22 100644
-> --- a/arch/arm64/boot/dts/qcom/apq8016-sbc.dtsi
-> +++ b/arch/arm64/boot/dts/qcom/apq8016-sbc.dtsi
-> @@ -628,7 +628,6 @@ camera_rear@3b {
->  		port {
->  			ov5640_ep: endpoint {
->  				bus-type = <4>;
-> -				clock-lanes = <0>;
->  				data-lanes = <1 2>;
->  				remote-endpoint = <&csiphy0_ep>;
->  			};
-> diff --git a/arch/arm64/boot/dts/ti/k3-am654-base-board.dts b/arch/arm64/boot/dts/ti/k3-am654-base-board.dts
-> index 33f4eceffbe5..dd6a636ba3af 100644
-> --- a/arch/arm64/boot/dts/ti/k3-am654-base-board.dts
-> +++ b/arch/arm64/boot/dts/ti/k3-am654-base-board.dts
-> @@ -255,7 +255,6 @@ port {
->  			csi2_cam0: endpoint {
->  				remote-endpoint = <&csi2_phy0>;
->  				bus-type = <4>;
-> -				clock-lanes = <0>;
->  				data-lanes = <1 2>;
->  			};
->  		};
+>                  - bus-type
+>                  - bus-width
+> -                - data-shift
+>                  - hsync-active
+>                  - vsync-active
+>                  - pclk-sample
+> @@ -204,7 +196,6 @@ examples:
+>                      remote-endpoint = <&parallel_from_ov5640>;
+>                      bus-type = <5>;
+>                      bus-width = <10>;
+> -                    data-shift = <0>;
+>                      hsync-active = <1>;
+>                      vsync-active = <1>;
+>                      pclk-sample = <1>;
+> diff --git a/arch/arm/boot/dts/stm32mp157c-ev1.dts b/arch/arm/boot/dts/stm32mp157c-ev1.dts
+> index 613ede73b65b..96f96202ca63 100644
+> --- a/arch/arm/boot/dts/stm32mp157c-ev1.dts
+> +++ b/arch/arm/boot/dts/stm32mp157c-ev1.dts
+> @@ -192,7 +192,6 @@ ov5640_0: endpoint {
+>  				remote-endpoint = <&dcmi_0>;
+>  				bus-type = <5>;
+>  				bus-width = <8>;
+> -				data-shift = <2>; /* lines 9:2 are used */
+>  				hsync-active = <0>;
+>  				vsync-active = <0>;
+>  				pclk-sample = <1>;
 
 -- 
 Regards,
