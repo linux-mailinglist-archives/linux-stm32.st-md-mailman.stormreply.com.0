@@ -2,39 +2,39 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id 088EE225A3D
+	by mail.lfdr.de (Postfix) with ESMTPS id 13630225A3E
 	for <lists+linux-stm32@lfdr.de>; Mon, 20 Jul 2020 10:40:55 +0200 (CEST)
 Received: from ip-172-31-3-76.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id B600EC36B33;
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id C382FC36B37;
 	Mon, 20 Jul 2020 08:40:54 +0000 (UTC)
-Received: from relay5-d.mail.gandi.net (relay5-d.mail.gandi.net
- [217.70.183.197])
+Received: from smtp.al2klimov.de (smtp.al2klimov.de [78.46.175.9])
  (using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 3BF1AC36B0C
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 01D24C36B27
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Fri, 17 Jul 2020 13:25:56 +0000 (UTC)
-X-Originating-IP: 93.34.118.233
-Received: from uno.lan (93-34-118-233.ip49.fastwebnet.it [93.34.118.233])
- (Authenticated sender: jacopo@jmondi.org)
- by relay5-d.mail.gandi.net (Postfix) with ESMTPSA id 51DC01C0012;
- Fri, 17 Jul 2020 13:25:54 +0000 (UTC)
-From: Jacopo Mondi <jacopo+renesas@jmondi.org>
-To: robh+dt@kernel.org,
-	devicetree@vger.kernel.org
-Date: Fri, 17 Jul 2020 15:28:54 +0200
-Message-Id: <20200717132859.237120-9-jacopo+renesas@jmondi.org>
-X-Mailer: git-send-email 2.27.0
-In-Reply-To: <20200717132859.237120-1-jacopo+renesas@jmondi.org>
-References: <20200717132859.237120-1-jacopo+renesas@jmondi.org>
+ Sun, 19 Jul 2020 09:49:57 +0000 (UTC)
+Received: from authenticated-user (PRIMARY_HOSTNAME [PUBLIC_IP])
+ by smtp.al2klimov.de (Postfix) with ESMTPA id A182EBC07E;
+ Sun, 19 Jul 2020 09:49:54 +0000 (UTC)
+From: "Alexander A. Klimov" <grandmaster@al2klimov.de>
+To: linux@armlinux.org.uk, mcoquelin.stm32@gmail.com, alexandre.torgue@st.com,
+ herbert@gondor.apana.org.au, davem@davemloft.net,
+ linux-arm-kernel@lists.infradead.org,
+ linux-stm32@st-md-mailman.stormreply.com, linux-kernel@vger.kernel.org,
+ linux-crypto@vger.kernel.org
+Date: Sun, 19 Jul 2020 11:49:48 +0200
+Message-Id: <20200719094948.57487-1-grandmaster@al2klimov.de>
 MIME-Version: 1.0
+X-Spamd-Bar: ++++++
+X-Spam-Level: ******
+Authentication-Results: smtp.al2klimov.de;
+ auth=pass smtp.auth=aklimov@al2klimov.de
+ smtp.mailfrom=grandmaster@al2klimov.de
+X-Spam: Yes
 X-Mailman-Approved-At: Mon, 20 Jul 2020 08:40:53 +0000
-Cc: linux-renesas-soc@vger.kernel.org, Jacopo Mondi <jacopo+renesas@jmondi.org>,
- laurent.pinchart@ideasonboard.com, Maxime Coquelin <mcoquelin.stm32@gmail.com>,
- slongerbeam@gmail.com, "moderated list:ARM/STM32 ARCHITECTURE"
- <linux-stm32@st-md-mailman.stormreply.com>, linux-media@vger.kernel.org
-Subject: [Linux-stm32] [PATCH 08/13] dt-bindings: media: ov5640: Remove
-	data-shift
+Cc: "Alexander A. Klimov" <grandmaster@al2klimov.de>
+Subject: [Linux-stm32] [PATCH for v5.9] ARM: STM32: Replace HTTP links with
+	HTTPS ones
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -51,71 +51,91 @@ Content-Transfer-Encoding: 7bit
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
-The value of the data-shift property solely depend on the selected
-bus width and it's not freely configurable.
+Rationale:
+Reduces attack surface on kernel devs opening the links for MITM
+as HTTPS traffic is much harder to manipulate.
 
-Remove it from the bindings document and update its users accordingly.
+Deterministic algorithm:
+For each file:
+  If not .svg:
+    For each line:
+      If doesn't contain `\bxmlns\b`:
+        For each link, `\bhttp://[^# \t\r\n]*(?:\w|/)`:
+	  If neither `\bgnu\.org/license`, nor `\bmozilla\.org/MPL\b`:
+            If both the HTTP and HTTPS versions
+            return 200 OK and serve the same content:
+              Replace HTTP with HTTPS.
 
-Signed-off-by: Jacopo Mondi <jacopo+renesas@jmondi.org>
+Signed-off-by: Alexander A. Klimov <grandmaster@al2klimov.de>
 ---
- Documentation/devicetree/bindings/media/i2c/ov5640.yaml | 9 ---------
- arch/arm/boot/dts/stm32mp157c-ev1.dts                   | 1 -
- 2 files changed, 10 deletions(-)
+ Continuing my work started at 93431e0607e5.
+ See also: git log --oneline '--author=Alexander A. Klimov <grandmaster@al2klimov.de>' v5.7..master
+ (Actually letting a shell for loop submit all this stuff for me.)
 
-diff --git a/Documentation/devicetree/bindings/media/i2c/ov5640.yaml b/Documentation/devicetree/bindings/media/i2c/ov5640.yaml
-index 5e1662e848bd..ab700a1830aa 100644
---- a/Documentation/devicetree/bindings/media/i2c/ov5640.yaml
-+++ b/Documentation/devicetree/bindings/media/i2c/ov5640.yaml
-@@ -92,12 +92,6 @@ properties:
-               parallel bus.
-             enum: [8, 10]
+ If there are any URLs to be removed completely
+ or at least not (just) HTTPSified:
+ Just clearly say so and I'll *undo my change*.
+ See also: https://lkml.org/lkml/2020/6/27/64
 
--          data-shift:
--            description: |
--              Shall be set to <2> for 8 bits parallel bus (lines 9:2 are used) or
--              <0> for 10 bits parallel bus.
--            enum: [0, 2]
--
-           hsync-active:
-             enum: [0, 1]
+ If there are any valid, but yet not changed URLs:
+ See: https://lkml.org/lkml/2020/6/26/837
 
-@@ -115,7 +109,6 @@ properties:
-             then:
-                 properties:
-                   bus-width: false
--                  data-shift: false
-                   hsync-active: false
-                   vsync-active: false
-                   pclk-sample: false
-@@ -135,7 +128,6 @@ properties:
-                 - remote-endpoint
-                 - bus-type
-                 - bus-width
--                - data-shift
-                 - hsync-active
-                 - vsync-active
-                 - pclk-sample
-@@ -204,7 +196,6 @@ examples:
-                     remote-endpoint = <&parallel_from_ov5640>;
-                     bus-type = <5>;
-                     bus-width = <10>;
--                    data-shift = <0>;
-                     hsync-active = <1>;
-                     vsync-active = <1>;
-                     pclk-sample = <1>;
-diff --git a/arch/arm/boot/dts/stm32mp157c-ev1.dts b/arch/arm/boot/dts/stm32mp157c-ev1.dts
-index 613ede73b65b..96f96202ca63 100644
---- a/arch/arm/boot/dts/stm32mp157c-ev1.dts
-+++ b/arch/arm/boot/dts/stm32mp157c-ev1.dts
-@@ -192,7 +192,6 @@ ov5640_0: endpoint {
- 				remote-endpoint = <&dcmi_0>;
- 				bus-type = <5>;
- 				bus-width = <8>;
--				data-shift = <2>; /* lines 9:2 are used */
- 				hsync-active = <0>;
- 				vsync-active = <0>;
- 				pclk-sample = <1>;
---
+ If you apply the patch, please let me know.
+
+ Sorry again to all maintainers who complained about subject lines.
+ Now I realized that you want an actually perfect prefixes,
+ not just subsystem ones.
+ I tried my best...
+ And yes, *I could* (at least half-)automate it.
+ Impossible is nothing! :)
+
+
+ arch/arm/mach-stm32/Makefile.boot | 2 +-
+ crypto/testmgr.h                  | 6 +++---
+ 2 files changed, 4 insertions(+), 4 deletions(-)
+
+diff --git a/arch/arm/mach-stm32/Makefile.boot b/arch/arm/mach-stm32/Makefile.boot
+index cec195d4fcba..5dde7328a7a9 100644
+--- a/arch/arm/mach-stm32/Makefile.boot
++++ b/arch/arm/mach-stm32/Makefile.boot
+@@ -1,4 +1,4 @@
+ # SPDX-License-Identifier: GPL-2.0-only
+ # Empty file waiting for deletion once Makefile.boot isn't needed any more.
+ # Patch waits for application at
+-# http://www.arm.linux.org.uk/developer/patches/viewpatch.php?id=7889/1 .
++# https://www.arm.linux.org.uk/developer/patches/viewpatch.php?id=7889/1 .
+diff --git a/crypto/testmgr.h b/crypto/testmgr.h
+index d29983908c38..cdcf0d2fe40d 100644
+--- a/crypto/testmgr.h
++++ b/crypto/testmgr.h
+@@ -16231,7 +16231,7 @@ static const struct cipher_testvec aes_lrw_tv_template[] = {
+ 			  "\xe9\x5d\x48\x92\x54\x63\x4e\xb8",
+ 		.len	= 48,
+ 	}, {
+-/* http://www.mail-archive.com/stds-p1619@listserv.ieee.org/msg00173.html */
++/* https://www.mail-archive.com/stds-p1619@listserv.ieee.org/msg00173.html */
+ 		.key    = "\xf8\xd4\x76\xff\xd6\x46\xee\x6c"
+ 			  "\x23\x84\xcb\x1c\x77\xd6\x19\x5d"
+ 			  "\xfe\xf1\xa9\xf3\x7b\xbc\x8d\x21"
+@@ -21096,7 +21096,7 @@ static const struct aead_testvec aegis128_tv_template[] = {
+ 
+ /*
+  * All key wrapping test vectors taken from
+- * http://csrc.nist.gov/groups/STM/cavp/documents/mac/kwtestvectors.zip
++ * https://csrc.nist.gov/groups/STM/cavp/documents/mac/kwtestvectors.zip
+  *
+  * Note: as documented in keywrap.c, the ivout for encryption is the first
+  * semiblock of the ciphertext from the test vector. For decryption, iv is
+@@ -22825,7 +22825,7 @@ static const struct cipher_testvec xeta_tv_template[] = {
+  * FCrypt test vectors
+  */
+ static const struct cipher_testvec fcrypt_pcbc_tv_template[] = {
+-	{ /* http://www.openafs.org/pipermail/openafs-devel/2000-December/005320.html */
++	{ /* https://www.openafs.org/pipermail/openafs-devel/2000-December/005320.html */
+ 		.key	= "\x00\x00\x00\x00\x00\x00\x00\x00",
+ 		.klen	= 8,
+ 		.iv	= "\x00\x00\x00\x00\x00\x00\x00\x00",
+-- 
 2.27.0
 
 _______________________________________________
