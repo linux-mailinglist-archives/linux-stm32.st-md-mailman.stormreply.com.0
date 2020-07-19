@@ -2,63 +2,73 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id 02583225257
-	for <lists+linux-stm32@lfdr.de>; Sun, 19 Jul 2020 16:54:39 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 9FC7B2253D3
+	for <lists+linux-stm32@lfdr.de>; Sun, 19 Jul 2020 21:56:41 +0200 (CEST)
 Received: from ip-172-31-3-76.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id A1E9EC36B2A;
-	Sun, 19 Jul 2020 14:54:38 +0000 (UTC)
-Received: from mail-ej1-f68.google.com (mail-ej1-f68.google.com
- [209.85.218.68])
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 7CF52C36B2A;
+	Sun, 19 Jul 2020 19:56:40 +0000 (UTC)
+Received: from mail-ej1-f66.google.com (mail-ej1-f66.google.com
+ [209.85.218.66])
  (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 8FCBDC36B27
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 030A9C36B27
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Sun, 19 Jul 2020 14:54:36 +0000 (UTC)
-Received: by mail-ej1-f68.google.com with SMTP id f12so15541929eja.9
+ Sun, 19 Jul 2020 19:56:38 +0000 (UTC)
+Received: by mail-ej1-f66.google.com with SMTP id f12so15964099eja.9
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Sun, 19 Jul 2020 07:54:36 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20161025;
+ Sun, 19 Jul 2020 12:56:38 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=googlemail.com; s=20161025;
  h=mime-version:references:in-reply-to:from:date:message-id:subject:to
- :cc:content-transfer-encoding;
- bh=Nb0uS5rUYs5OsHb3nh5ZsQe3d7o5Fw3Gzq8fN1p4Aco=;
- b=ujU5sENc6qebHlyLdVTM2PAwq/9RI+ubx7ONdHFsZ7mxZ11cWsfoovqqTHZlgmgfHE
- 58v3KM5E+e7LY1wGF+O5WuCyWjCYcJKwiMqxYyIRTTNvbzQa42xT0Vs7IZOQc45D4gPV
- JOw0lZEuOcMVBO0rf1j8VF9Y+u7mBjx3ouEbqnrH+h0aX9vJlvs1KXnuYZ731UIRYmuz
- bkPVutZeD7pUfsaQoEz0b2n+xw9GNSmbd/4wotK1Tb/YKNGeeFHZ6jVHa4CkvoRi+1P9
- Vo/QPUbcihDKwDkBBa3jfqwjNa422MaA8I/4w/OEAEbMqpcqXs5L5c7QvOHMazF+oqUQ
- Axfg==
+ :cc; bh=UkvPwVZQWgoIN1YiUvn+3mkMTZrdb6lXgiYZt8Sccuk=;
+ b=o/oSAcfUJWlBQjWyMztERWI8MDMmAtF1ufgmyl9EibnFkKRCLjLJ0YWUBr+t4lHrje
+ 3JuoxxSFyL8YQwtaRqSzR52OTcsv1DL09gIMcvt76YwFYmsjadCx7fUt6e3wvZhgA5Pj
+ U2Q2AiwA8slQl0845vGlS/sZ6jaSWXyeqldkFj9kCN25aLH8J/zdE4AdTbhr1BqodAc3
+ G5elYV5C5Vd1DFpHJwV5cUNIHYSBBZGiHC/9pzfpZNLGA7uYFv5o+drLvubkOnI3opdk
+ 9p9fK9Uf1sqv0qVc7GeDJEsVt1j9LUYa2Vt82kCV2/nWYP9WZz2CmoSq9e8xDw05RDT7
+ Ogig==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=1e100.net; s=20161025;
  h=x-gm-message-state:mime-version:references:in-reply-to:from:date
- :message-id:subject:to:cc:content-transfer-encoding;
- bh=Nb0uS5rUYs5OsHb3nh5ZsQe3d7o5Fw3Gzq8fN1p4Aco=;
- b=Dx2zg5LIVfMxokVC+OkvbQVZ5kBWnYC47QtZaf0K3g0WXpsUgRBVztpfNENEbzbkh1
- fVWQ60MIplFmcM+ClkfkIDy1aRyPBIuJ4nNVQBV6KtwJhjRnYqUE2Og3OunS82LxYNNy
- e2K8/nChwdIN8tncAe3AugkohqasUJb+K6cMMFbNrZYzXe5Ga4VSVjszFkfAvjmMc3iN
- vaXsLA6PzQ0iL/hKOFN7Nawufx/JQxrPzNE3zSN12EqDrist8a4muYyTttCZ9pBqgJRs
- ZQePqLFsM9JZ1U4JN5qKFtCZpTHkvLIrDKj2ubQFjTIN78gTVNX8g8awn4S3q2F3Cdrb
- NrWQ==
-X-Gm-Message-State: AOAM5332nzhO1zhski4HEvNlwwAXT75B7rZ63LErd4IzvQdlwgcHaw+j
- OgrH42UqEYmdIzEOOr+LfWkrdoEQSQIn3g6mTFw=
-X-Google-Smtp-Source: ABdhPJwSKh/D3JDEsipnRi/eUQPch8BaQPbsfKw4isZg9Xd0Pr3vjFv8SBhrZYXcqL2rDUQXhOy5SkQ5c0SQCtcZ5DM=
-X-Received: by 2002:a17:906:1356:: with SMTP id
- x22mr17534230ejb.429.1595170475998; 
- Sun, 19 Jul 2020 07:54:35 -0700 (PDT)
+ :message-id:subject:to:cc;
+ bh=UkvPwVZQWgoIN1YiUvn+3mkMTZrdb6lXgiYZt8Sccuk=;
+ b=UT5P4oigxbnQobGUoZjDEu8NDg5LGS1FNt5kbifY5hgI2XCswWOi968QVQ7y8UmVbe
+ uIAeM0mJx5GTju5BkIgBzelICQ4aAIAGgINF0AV5PXcq5X2MvwqoHXoFb6e7pUqpE7gg
+ Pz5Twi21k/F3Ptt+FGX+A2Jjd5nAN0R/6CNSbBABFI51Vux2FHq52axKJCqRha1sqBKf
+ JhgxzqI63EYyzlmELf05rzdyrN519xMZzP7s7wzoXja8SITMWWweXI6uoIqoYcwxi3Qf
+ gn5ygSrkZo46gI6WO23jSwa8/K8yet3pTar9FoD8S9ZE0hGz8cdcnsnG3UhAHTBSSl4M
+ ai2Q==
+X-Gm-Message-State: AOAM531mD60nQfF+ICeQ+dO6j0P3dNLL0aJ80CQ4VQMoID3kSFBtfeCa
+ 3GqBqpPhsob/7Ih1ZHv81hNXS9uN3mdLjkJaWbs=
+X-Google-Smtp-Source: ABdhPJyGNKE6IUTHOPmFmEyDoa7JuyZ+ziIL1QORMAJVC3zY1tBNeKPzbnMPk4bE3NtaqwOlMnSddTSskQ4hGBVYfpc=
+X-Received: by 2002:a17:906:dbe5:: with SMTP id
+ yd5mr18079240ejb.328.1595188598479; 
+ Sun, 19 Jul 2020 12:56:38 -0700 (PDT)
 MIME-Version: 1.0
-References: <20200702172714.158786-1-pop.adrian61@gmail.com>
- <20200702172714.158786-2-pop.adrian61@gmail.com>
- <CAPTRvHm0gX=myLBeztq-7q8hMGZ+a0pH_ZB8hH+RZtSSsqVGDw@mail.gmail.com>
-In-Reply-To: <CAPTRvHm0gX=myLBeztq-7q8hMGZ+a0pH_ZB8hH+RZtSSsqVGDw@mail.gmail.com>
-From: Adrian Pop <pop.adrian61@gmail.com>
-Date: Sun, 19 Jul 2020 17:56:47 +0300
-Message-ID: <CAP-HsdSshbE-fJrT631oXk375mhJwEbBLCujdAnk=Sw-936wTA@mail.gmail.com>
-To: Hua Dillon <dillonhua@gmail.com>
-Cc: devicetree@vger.kernel.org, linux-kernel@vger.kernel.org,
- Rob Herring <robh+dt@kernel.org>, Maxime Coquelin <mcoquelin.stm32@gmail.com>,
- Lee Jones <lee.jones@linaro.org>, linux-stm32@st-md-mailman.stormreply.com,
- linux-arm-kernel@lists.infradead.org
-Subject: Re: [Linux-stm32] [PATCH v2 2/2] ARM: dts: stm32: Enable MIPI DSI
-	display support.
+References: <20200616140717.28465-2-amelie.delaunay@st.com>
+ <20200704174219.612060-1-martin.blumenstingl@googlemail.com>
+ <05a81997-5ddb-ea81-7a89-8078b8a2b610@st.com>
+ <CAFBinCCVYJ=DuKbqhJJ8463Gs+GW0bgxyXSFiLXhUfvWV6AR0Q@mail.gmail.com>
+ <ee4ee889-835e-2244-504c-2b1b605d78aa@st.com>
+In-Reply-To: <ee4ee889-835e-2244-504c-2b1b605d78aa@st.com>
+From: Martin Blumenstingl <martin.blumenstingl@googlemail.com>
+Date: Sun, 19 Jul 2020 21:56:27 +0200
+Message-ID: <CAFBinCDUxvovAyDywz3xVcu_1v4nai+ebR2D38U2B8oBGss=yg@mail.gmail.com>
+To: Amelie DELAUNAY <amelie.delaunay@st.com>
+Cc: "balbi@kernel.org" <balbi@kernel.org>,
+ "devicetree@vger.kernel.org" <devicetree@vger.kernel.org>,
+ "gregkh@linuxfoundation.org" <gregkh@linuxfoundation.org>,
+ "linux-usb@vger.kernel.org" <linux-usb@vger.kernel.org>,
+ "linux-kernel@vger.kernel.org" <linux-kernel@vger.kernel.org>,
+ "robh+dt@kernel.org" <robh+dt@kernel.org>,
+ "mcoquelin.stm32@gmail.com" <mcoquelin.stm32@gmail.com>,
+ "hminas@synopsys.com" <hminas@synopsys.com>,
+ Fabrice GASNIER <fabrice.gasnier@st.com>,
+ "linux-stm32@st-md-mailman.stormreply.com"
+ <linux-stm32@st-md-mailman.stormreply.com>,
+ "linux-arm-kernel@lists.infradead.org" <linux-arm-kernel@lists.infradead.org>
+Subject: Re: [Linux-stm32] [PATCH 1/3] usb: dwc2: override PHY input signals
+ with usb role switch support
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -70,108 +80,79 @@ List-Post: <mailto:linux-stm32@st-md-mailman.stormreply.com>
 List-Help: <mailto:linux-stm32-request@st-md-mailman.stormreply.com?subject=help>
 List-Subscribe: <https://st-md-mailman.stormreply.com/mailman/listinfo/linux-stm32>, 
  <mailto:linux-stm32-request@st-md-mailman.stormreply.com?subject=subscribe>
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: base64
+Content-Type: text/plain; charset="us-ascii"
+Content-Transfer-Encoding: 7bit
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
-SGVsbG8gSHVhLAoKVGhhbmsgeW91IGZvciB5b3VyIHJldmlldywKCk9uIFR1ZSwgSnVsIDE0LCAy
-MDIwIGF0IDY6MzcgQU0gSHVhIERpbGxvbiA8ZGlsbG9uaHVhQGdtYWlsLmNvbT4gd3JvdGU6Cj4K
-PiBIaSwgQWRyaWFuLAo+Cj4gSnVzdCBvbmUgc3VnZ2VzdGlvbiBmb3IgeW91Lgo+Cj4gQWRyaWFu
-IFBvcCA8cG9wLmFkcmlhbjYxQGdtYWlsLmNvbT4g5LqOMjAyMOW5tDfmnIgz5pel5ZGo5LqUIOS4
-iuWNiDE6MzDlhpnpgZPvvJoKPiA+Cj4gPiBTVE0zMmY3NjktZGlzY28gZmVhdHVyZXMgYSA0IiBN
-SVBJIERTSSBkaXNwbGF5OiBhZGQgc3VwcG9ydCBmb3IgaXQuCj4gPiBPbiBDb3J0ZXgtTTcgRE1B
-IGNhbid0IHVzZSBjYWNoZWQgbWVtb3J5LiBGb3IgdGhpcyByZWFzb24gSSB1c2UgYSBkZWRpY2F0
-ZWQKPiA+IG1lbW9yeSBwb29sIGZvciBETUEgd2l0aCBuby1jYWNoZSBhdHRyaWJ1dGUgd2hpY2gg
-aXMgbG9jYXRlZCBhdCB0aGUgZW5kIG9mCj4gPiAgUkFNLgo+ID4KPiA+IFNpZ25lZC1vZmYtYnk6
-IEFkcmlhbiBQb3AgPHBvcC5hZHJpYW42MUBnbWFpbC5jb20+Cj4gPiAtLS0KPiA+ICBhcmNoL2Fy
-bS9ib290L2R0cy9zdG0zMmY3NDYuZHRzaSAgICAgIHwgMzQgKysrKysrKysrKysrKysrKysrKwo+
-ID4gIGFyY2gvYXJtL2Jvb3QvZHRzL3N0bTMyZjc2OS1kaXNjby5kdHMgfCA0OSArKysrKysrKysr
-KysrKysrKysrKysrKysrKysKPiA+ICAyIGZpbGVzIGNoYW5nZWQsIDgzIGluc2VydGlvbnMoKykK
-PiA+Cj4gPiBkaWZmIC0tZ2l0IGEvYXJjaC9hcm0vYm9vdC9kdHMvc3RtMzJmNzQ2LmR0c2kgYi9h
-cmNoL2FybS9ib290L2R0cy9zdG0zMmY3NDYuZHRzaQo+ID4gaW5kZXggOTNjMDYzNzk2NzgwLi41
-NzdhODEyY2EwMWMgMTAwNjQ0Cj4gPiAtLS0gYS9hcmNoL2FybS9ib290L2R0cy9zdG0zMmY3NDYu
-ZHRzaQo+ID4gKysrIGIvYXJjaC9hcm0vYm9vdC9kdHMvc3RtMzJmNzQ2LmR0c2kKPiA+IEBAIC00
-OCw2ICs0OCwxOSBAQCAvIHsKPiA+ICAgICAgICAgI2FkZHJlc3MtY2VsbHMgPSA8MT47Cj4gPiAg
-ICAgICAgICNzaXplLWNlbGxzID0gPDE+Owo+ID4KPiA+ICsgICAgICAgcmVzZXJ2ZWQtbWVtb3J5
-IHsKPiA+ICsgICAgICAgICAgICAgICAjYWRkcmVzcy1jZWxscyA9IDwxPjsKPiA+ICsgICAgICAg
-ICAgICAgICAjc2l6ZS1jZWxscyA9IDwxPjsKPiA+ICsgICAgICAgICAgICAgICByYW5nZXM7Cj4g
-PiArCj4gPiArICAgICAgICAgICAgICAgbGludXgsZG1hIHsKPiA+ICsgICAgICAgICAgICAgICAg
-ICAgICAgIGNvbXBhdGlibGUgPSAic2hhcmVkLWRtYS1wb29sIjsKPiA+ICsgICAgICAgICAgICAg
-ICAgICAgICAgIGxpbnV4LGRtYS1kZWZhdWx0Owo+ID4gKyAgICAgICAgICAgICAgICAgICAgICAg
-bm8tbWFwOwo+ID4gKyAgICAgICAgICAgICAgICAgICAgICAgcmVnID0gPDB4YzBmMDAwMDAgMHgx
-MDAwMDA+Owo+ID4gKyAgICAgICAgICAgICAgIH07Cj4gPiArICAgICAgIH07Cj4gPiArCj4gQ2hy
-aXN0b3BoIEhlbGx3aWcgd2FzIHN1Ym1pdCBhIHBhdGNoIGZvciAhQ09ORklHX01NVSBwbGF0Zm9y
-bXMgdG8gc3VwcG9ydCBtbWFwLgo+IHRoZSBwYXRjaCBpcyA6IDFmYmY1N2QwNTMwMiBkbWEtZGly
-ZWN0OiByZS1lbmFibGUgbW1hcCBmb3IgIUNPTkZJR19NTVUKPiBpIHRob3VnaHQgdGhlcmUgaXMg
-bm8gbmVlZCB0byBjcmVhdGUgYSByZXNlcnZlZC1tZW1vcnkgZm9yIGl0LgoKSnVzdCB0cmllZCB3
-aXRoIGhpcyBwYXRjaCwgaWYgSSBkb24ndCBoYXZlIHRoZSByZXNlcnZlZC1tZW1vcnksIEkgZ2V0
-OgoKW2RybV0gSW5pdGlhbGl6ZWQgc3RtIDEuMC4wIDIwMTcwMzMwIGZvciA0MDAxNjgwMC5kaXNw
-bGF5LWNvbnRyb2xsZXIgb24gbWlub3IgMAotLS0tLS0tLS0tLS1bIGN1dCBoZXJlIF0tLS0tLS0t
-LS0tLS0KV0FSTklORzogQ1BVOiAwIFBJRDogNSBhdCBhcmNoL2FybS9tbS9kbWEtbWFwcGluZy1u
-b21tdS5jOjUwIDB4YzAwMGI4ZTkKQ1BVOiAwIFBJRDogNSBDb21tOiBrd29ya2VyLzA6MCBOb3Qg
-dGFpbnRlZCA1LjguMC1yYzEtbmV4dC0yMDIwMDYxNiAjNApIYXJkd2FyZSBuYW1lOiBTVE0zMiAo
-RGV2aWNlIFRyZWUgU3VwcG9ydCkKV29ya3F1ZXVlOiBldmVudHMgMHhjMDE1MGZjMQoKVGhpcyBp
-cyB0aGUgcmVhc29uIEkgYWRkZWQgdGhlIHJlc2VydmVkIG1lbW9yeSBpbiB0aGUgZmlyc3QgcGxh
-Y2UuCgo+Cj4gPiAgICAgICAgIGNsb2NrcyB7Cj4gPiAgICAgICAgICAgICAgICAgY2xrX2hzZTog
-Y2xrLWhzZSB7Cj4gPiAgICAgICAgICAgICAgICAgICAgICAgICAjY2xvY2stY2VsbHMgPSA8MD47
-Cj4gPiBAQCAtNzUsNiArODgsMjcgQEAgY2xrX2kyc19ja2luOiBjbGstaTJzLWNraW4gewo+ID4g
-ICAgICAgICB9Owo+ID4KPiA+ICAgICAgICAgc29jIHsKPiA+ICsgICAgICAgICAgICAgICBsdGRj
-OiBkaXNwbGF5LWNvbnRyb2xsZXJANDAwMTY4MDAgewo+ID4gKyAgICAgICAgICAgICAgICAgICAg
-ICAgY29tcGF0aWJsZSA9ICJzdCxzdG0zMi1sdGRjIjsKPiA+ICsgICAgICAgICAgICAgICAgICAg
-ICAgIHJlZyA9IDwweDQwMDE2ODAwIDB4MjAwPjsKPiA+ICsgICAgICAgICAgICAgICAgICAgICAg
-IGludGVycnVwdHMgPSA8ODg+LCA8ODk+Owo+ID4gKyAgICAgICAgICAgICAgICAgICAgICAgcmVz
-ZXRzID0gPCZyY2MgU1RNMzJGN19BUEIyX1JFU0VUKExUREMpPjsKPiA+ICsgICAgICAgICAgICAg
-ICAgICAgICAgIGNsb2NrcyA9IDwmcmNjIDEgQ0xLX0xDRD47Cj4gPiArICAgICAgICAgICAgICAg
-ICAgICAgICBjbG9jay1uYW1lcyA9ICJsY2QiOwo+ID4gKyAgICAgICAgICAgICAgICAgICAgICAg
-c3RhdHVzID0gImRpc2FibGVkIjsKPiA+ICsgICAgICAgICAgICAgICB9Owo+ID4gKwo+ID4gKyAg
-ICAgICAgICAgICAgIGRzaTogZHNpQDQwMDE2YzAwIHsKPiA+ICsgICAgICAgICAgICAgICAgICAg
-ICAgIGNvbXBhdGlibGUgPSAic3Qsc3RtMzItZHNpIjsKPiA+ICsgICAgICAgICAgICAgICAgICAg
-ICAgIHJlZyA9IDwweDQwMDE2YzAwIDB4ODAwPjsKPiA+ICsgICAgICAgICAgICAgICAgICAgICAg
-IGludGVycnVwdHMgPSA8OTg+Owo+ID4gKyAgICAgICAgICAgICAgICAgICAgICAgY2xvY2tzID0g
-PCZyY2MgMSBDTEtfRjc2OV9EU0k+LCA8JmNsa19oc2U+Owo+ID4gKyAgICAgICAgICAgICAgICAg
-ICAgICAgY2xvY2stbmFtZXMgPSAicGNsayIsICJyZWYiOwo+ID4gKyAgICAgICAgICAgICAgICAg
-ICAgICAgcmVzZXRzID0gPCZyY2MgU1RNMzJGN19BUEIyX1JFU0VUKERTSSk+Owo+ID4gKyAgICAg
-ICAgICAgICAgICAgICAgICAgcmVzZXQtbmFtZXMgPSAiYXBiIjsKPiA+ICsgICAgICAgICAgICAg
-ICAgICAgICAgIHN0YXR1cyA9ICJkaXNhYmxlZCI7Cj4gPiArICAgICAgICAgICAgICAgfTsKPiA+
-ICsKPiA+ICAgICAgICAgICAgICAgICB0aW1lcjI6IHRpbWVyQDQwMDAwMDAwIHsKPiA+ICAgICAg
-ICAgICAgICAgICAgICAgICAgIGNvbXBhdGlibGUgPSAic3Qsc3RtMzItdGltZXIiOwo+ID4gICAg
-ICAgICAgICAgICAgICAgICAgICAgcmVnID0gPDB4NDAwMDAwMDAgMHg0MDA+Owo+ID4gZGlmZiAt
-LWdpdCBhL2FyY2gvYXJtL2Jvb3QvZHRzL3N0bTMyZjc2OS1kaXNjby5kdHMgYi9hcmNoL2FybS9i
-b290L2R0cy9zdG0zMmY3NjktZGlzY28uZHRzCj4gPiBpbmRleCAxNjI2ZTAwYmIyY2IuLmE5ZTgx
-YjQ5ODA5YyAxMDA2NDQKPiA+IC0tLSBhL2FyY2gvYXJtL2Jvb3QvZHRzL3N0bTMyZjc2OS1kaXNj
-by5kdHMKPiA+ICsrKyBiL2FyY2gvYXJtL2Jvb3QvZHRzL3N0bTMyZjc2OS1kaXNjby5kdHMKPiA+
-IEBAIC0xNTMsMyArMTUzLDUyIEBAICZ1c2JvdGdfaHMgewo+ID4gICAgICAgICBwaW5jdHJsLW5h
-bWVzID0gImRlZmF1bHQiOwo+ID4gICAgICAgICBzdGF0dXMgPSAib2theSI7Cj4gPiAgfTsKPiA+
-ICsKPiA+ICsmZHNpIHsKPiA+ICsgICAgICAgI2FkZHJlc3MtY2VsbHMgPSA8MT47Cj4gPiArICAg
-ICAgICNzaXplLWNlbGxzID0gPDA+Owo+ID4gKyAgICAgICBzdGF0dXMgPSAib2theSI7Cj4gPiAr
-Cj4gPiArICAgICAgIHBvcnRzIHsKPiA+ICsgICAgICAgICAgICAgICAjYWRkcmVzcy1jZWxscyA9
-IDwxPjsKPiA+ICsgICAgICAgICAgICAgICAjc2l6ZS1jZWxscyA9IDwwPjsKPiA+ICsKPiA+ICsg
-ICAgICAgICAgICAgICBwb3J0QDAgewo+ID4gKyAgICAgICAgICAgICAgICAgICAgICAgcmVnID0g
-PDA+Owo+ID4gKyAgICAgICAgICAgICAgICAgICAgICAgZHNpX2luOiBlbmRwb2ludCB7Cj4gPiAr
-ICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgIHJlbW90ZS1lbmRwb2ludCA9IDwmbHRkY19v
-dXRfZHNpPjsKPiA+ICsgICAgICAgICAgICAgICAgICAgICAgIH07Cj4gPiArICAgICAgICAgICAg
-ICAgfTsKPiA+ICsKPiA+ICsgICAgICAgICAgICAgICBwb3J0QDEgewo+ID4gKyAgICAgICAgICAg
-ICAgICAgICAgICAgcmVnID0gPDE+Owo+ID4gKyAgICAgICAgICAgICAgICAgICAgICAgZHNpX291
-dDogZW5kcG9pbnQgewo+ID4gKyAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICByZW1vdGUt
-ZW5kcG9pbnQgPSA8JmRzaV9pbl9wYW5lbD47Cj4gPiArICAgICAgICAgICAgICAgICAgICAgICB9
-Owo+ID4gKyAgICAgICAgICAgICAgIH07Cj4gPiArCj4gPiArICAgICAgIH07Cj4gPiArCj4gPiAr
-ICAgICAgIHBhbmVsOiBwYW5lbCB7Cj4gPiArICAgICAgICAgICAgICAgY29tcGF0aWJsZSA9ICJv
-cmlzZXRlY2gsb3RtODAwOWEiOwo+ID4gKyAgICAgICAgICAgICAgIHJlZyA9IDwwPjsKPiA+ICsg
-ICAgICAgICAgICAgICByZXNldC1ncGlvcyA9IDwmZ3Bpb2ogMTUgR1BJT19BQ1RJVkVfTE9XPjsK
-PiA+ICsgICAgICAgICAgICAgICBzdGF0dXMgPSAib2theSI7Cj4gPiArCj4gPiArICAgICAgICAg
-ICAgICAgcG9ydCB7Cj4gPiArICAgICAgICAgICAgICAgICAgICAgICBkc2lfaW5fcGFuZWw6IGVu
-ZHBvaW50IHsKPiA+ICsgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgcmVtb3RlLWVuZHBv
-aW50ID0gPCZkc2lfb3V0PjsKPiA+ICsgICAgICAgICAgICAgICAgICAgICAgIH07Cj4gPiArICAg
-ICAgICAgICAgICAgfTsKPiA+ICsgICAgICAgfTsKPiA+ICt9Owo+ID4gKwo+ID4gKyZsdGRjIHsK
-PiA+ICsgICAgICAgc3RhdHVzID0gIm9rYXkiOwo+ID4gKwo+ID4gKyAgICAgICBwb3J0IHsKPiA+
-ICsgICAgICAgICAgICAgICBsdGRjX291dF9kc2k6IGVuZHBvaW50IHsKPiA+ICsgICAgICAgICAg
-ICAgICAgICAgICAgIHJlbW90ZS1lbmRwb2ludCA9IDwmZHNpX2luPjsKPiA+ICsgICAgICAgICAg
-ICAgICB9Owo+ID4gKyAgICAgICB9Owo+ID4gK307Cj4gPiAtLQo+ID4gMi4yNy4wCj4gPgo+ID4K
-PiA+IF9fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fCj4gPiBs
-aW51eC1hcm0ta2VybmVsIG1haWxpbmcgbGlzdAo+ID4gbGludXgtYXJtLWtlcm5lbEBsaXN0cy5p
-bmZyYWRlYWQub3JnCj4gPiBodHRwOi8vbGlzdHMuaW5mcmFkZWFkLm9yZy9tYWlsbWFuL2xpc3Rp
-bmZvL2xpbnV4LWFybS1rZXJuZWwKClJlZ2FyZHMsCkFkcmlhbgpfX19fX19fX19fX19fX19fX19f
-X19fX19fX19fX19fX19fX19fX19fX19fX19fXwpMaW51eC1zdG0zMiBtYWlsaW5nIGxpc3QKTGlu
-dXgtc3RtMzJAc3QtbWQtbWFpbG1hbi5zdG9ybXJlcGx5LmNvbQpodHRwczovL3N0LW1kLW1haWxt
-YW4uc3Rvcm1yZXBseS5jb20vbWFpbG1hbi9saXN0aW5mby9saW51eC1zdG0zMgo=
+Hello Amelie,
+
+sorry for the late reply
+
+On Wed, Jul 8, 2020 at 6:00 PM Amelie DELAUNAY <amelie.delaunay@st.com> wrote:
+[...]
+> Could you please test with:
+>
+> static int dwc2_drd_role_sw_set(struct device *dev, enum usb_role role)
+> {
+>         struct dwc2_hsotg *hsotg = dev_get_drvdata(dev);
+>         unsigned long flags;
+>         int already = 0;
+>
+>         /* Skip session not in line with dr_mode */
+>         if ((role == USB_ROLE_DEVICE && hsotg->dr_mode == USB_DR_MODE_HOST) ||
+>             (role == USB_ROLE_HOST && hsotg->dr_mode == USB_DR_MODE_PERIPHERAL))
+>                 return -EINVAL;
+>
+>         /* Skip session if core is in test mode */
+>         if (role == USB_ROLE_NONE && hsotg->test_mode) {
+>                 dev_dbg(hsotg->dev, "Core is in test mode\n");
+>                 return -EBUSY;
+>         }
+>
+>         spin_lock_irqsave(&hsotg->lock, flags);
+>
+>         if (role == USB_ROLE_HOST) {
+>                 already = dwc2_ovr_avalid(hsotg, true);
+>         } else if (role == USB_ROLE_DEVICE) {
+>                 already = dwc2_ovr_bvalid(hsotg, true);
+>                 /* This clear DCTL.SFTDISCON bit */
+>                 dwc2_hsotg_core_connect(hsotg);
+>         } else {
+>                 if (dwc2_is_device_mode(hsotg)) {
+>                     if (!dwc2_ovr_bvalid(hsotg, false))
+>                         /* This set DCTL.SFTDISCON bit */
+>                         dwc2_hsotg_core_disconnect(hsotg);
+>                 } else {
+>                         dwc2_ovr_avalid(hsotg, false);
+>                 }
+>         }
+>
+>         spin_unlock_irqrestore(&hsotg->lock, flags);
+>
+>         if (!already &&
+>             role != USB_ROLE_NONE && hsotg->dr_mode == USB_DR_MODE_OTG)
+>                 /* This will raise a Connector ID Status Change Interrupt */
+>                 dwc2_force_mode(hsotg, role == USB_ROLE_HOST);
+>
+>         dev_dbg(hsotg->dev, "%s-session valid\n",
+>                 role == USB_ROLE_NONE ? "No" :
+>                 role == USB_ROLE_HOST ? "A" : "B");
+>
+>         return 0;
+> }
+>
+>
+> dwc2_force_mode is called outside the spin_lock_irqsave so the kernel
+> should not complain. I've tested on my setup and the behavior seems the
+> same.
+this one is looking good - the previous kernel warnings are now gone!
+thank you very much
+
+
+Best regards,
+Martin
+_______________________________________________
+Linux-stm32 mailing list
+Linux-stm32@st-md-mailman.stormreply.com
+https://st-md-mailman.stormreply.com/mailman/listinfo/linux-stm32
