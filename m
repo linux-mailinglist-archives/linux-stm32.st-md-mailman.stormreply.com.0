@@ -2,86 +2,69 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id 50470225BD5
-	for <lists+linux-stm32@lfdr.de>; Mon, 20 Jul 2020 11:38:42 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 873DF225EAD
+	for <lists+linux-stm32@lfdr.de>; Mon, 20 Jul 2020 14:38:06 +0200 (CEST)
 Received: from ip-172-31-3-76.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 0C6E6C36B2A;
-	Mon, 20 Jul 2020 09:38:42 +0000 (UTC)
-Received: from mx07-00178001.pphosted.com (mx08-00178001.pphosted.com
- [91.207.212.93])
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 44680C36B2A;
+	Mon, 20 Jul 2020 12:38:06 +0000 (UTC)
+Received: from aserp2120.oracle.com (aserp2120.oracle.com [141.146.126.78])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 1F23BC36B27
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 1AA7EC36B27
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Mon, 20 Jul 2020 09:38:41 +0000 (UTC)
-Received: from pps.filterd (m0046661.ppops.net [127.0.0.1])
- by mx07-00178001.pphosted.com (8.16.0.42/8.16.0.42) with SMTP id
- 06K9MgFI017123; Mon, 20 Jul 2020 11:38:31 +0200
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=st.com;
- h=from : to : cc : subject
- : date : message-id : references : in-reply-to : content-type : content-id
- : content-transfer-encoding : mime-version; s=STMicroelectronics;
- bh=lC/LymgalsLxxn7CqvsDbLQJCr894y+aoN1Rm4+7KFI=;
- b=B2lHbtZgdj+u9WxQ68HEI/gS7/Z6eRdJaSi0mfGaOMbatZ1z9rMWQWn4GzR0qeO50ycY
- TiUjpfpwqmTMnc9JOFHouSKPbThhLA50opdyH507nGH0RLC1FLJtACNSznORxknYSY2i
- fLj3ACREU2o1kKxTYNft5iLv0mGJEWWtKB2UO4wlTPvO6U3UE/RKWDQqWUMfnmXIhz5u
- 0npGd1vsXUjyFiWFfyWM8eEo5LhQuK7i7yoMEm4Z1WMenrye9nY1Mxxf4VrN82557cUs
- eEtCazhSqDwD3civFpNN0lVi49nZ28VbghP657uXePejNwTBJSsGrppIeJvCSbj5U40e eA== 
-Received: from beta.dmz-eu.st.com (beta.dmz-eu.st.com [164.129.1.35])
- by mx07-00178001.pphosted.com with ESMTP id 32bsagr125-1
- (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
- Mon, 20 Jul 2020 11:38:31 +0200
-Received: from euls16034.sgp.st.com (euls16034.sgp.st.com [10.75.44.20])
- by beta.dmz-eu.st.com (STMicroelectronics) with ESMTP id C6925100034;
- Mon, 20 Jul 2020 11:38:30 +0200 (CEST)
-Received: from Webmail-eu.st.com (sfhdag3node1.st.com [10.75.127.7])
- by euls16034.sgp.st.com (STMicroelectronics) with ESMTP id A7FE82B3E71;
- Mon, 20 Jul 2020 11:38:30 +0200 (CEST)
-Received: from SFHDAG3NODE3.st.com (10.75.127.9) by SFHDAG3NODE1.st.com
- (10.75.127.7) with Microsoft SMTP Server (TLS) id 15.0.1473.3; Mon, 20 Jul
- 2020 11:38:30 +0200
-Received: from SFHDAG3NODE3.st.com ([fe80::3507:b372:7648:476]) by
- SFHDAG3NODE3.st.com ([fe80::3507:b372:7648:476%20]) with mapi id
- 15.00.1347.000; Mon, 20 Jul 2020 11:38:30 +0200
-From: Benjamin GAIGNARD <benjamin.gaignard@st.com>
-To: Rob Herring <robh@kernel.org>
-Thread-Topic: [PATCH v7 1/3] dt-bindings: media: stm32-dcmi: Add DCMI min
- frequency property
-Thread-Index: AQHWT6e/b2wyFUUnLkaf//MXpHPgJqj/oKMAgAC3YwCAANDPAIAPCWCA
-Date: Mon, 20 Jul 2020 09:38:30 +0000
-Message-ID: <fee98476-c92c-579a-ac33-323a5f5feb76@st.com>
-References: <20200701130129.30961-1-benjamin.gaignard@st.com>
- <20200701130129.30961-2-benjamin.gaignard@st.com>
- <20200709203718.GA837160@bogus> <20e4907a-f218-3e43-1111-7d4b9ee6d945@st.com>
- <CAL_Jsq+VgXTJy1SQr6B63kLZ3wcRMe4YfYiRNCT6s=gUO_tmTw@mail.gmail.com>
-In-Reply-To: <CAL_Jsq+VgXTJy1SQr6B63kLZ3wcRMe4YfYiRNCT6s=gUO_tmTw@mail.gmail.com>
-Accept-Language: en-US
-Content-Language: en-US
-X-MS-Has-Attach: 
-X-MS-TNEF-Correlator: 
-user-agent: Mozilla/5.0 (X11; Linux x86_64; rv:68.0) Gecko/20100101
- Thunderbird/68.10.0
-x-ms-exchange-messagesentrepresentingtype: 1
-x-ms-exchange-transport-fromentityheader: Hosted
-x-originating-ip: [10.75.127.51]
-Content-ID: <E726284C4B29AA4DA03C09973C9F53CF@st.com>
+ Mon, 20 Jul 2020 12:38:03 +0000 (UTC)
+Received: from pps.filterd (aserp2120.oracle.com [127.0.0.1])
+ by aserp2120.oracle.com (8.16.0.42/8.16.0.42) with SMTP id 06KCXEwk165106;
+ Mon, 20 Jul 2020 12:37:55 GMT
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=oracle.com;
+ h=date : from : to : cc
+ : subject : message-id : mime-version : content-type; s=corp-2020-01-29;
+ bh=9kXHHwVK1pHrizFKFmjZl4Mw/esySJJ8iCZPdLwUu7c=;
+ b=yBgA/5fk6RZk+tqBOt8hPYKV24S42geytsRBQHYTTGz68n6CE5dtRL88nu2raS6tEbyG
+ GFb0RhlAWYY49VEi0U/tP1sjGxy8/VSpvx+mZ8Hah94zKxqwkF+NTigwZBkb2oqTy/LC
+ 6swqKfRwma34QE8mZtIpey5PILzb2cIoMWH3vfSpf7MBe9b5Vrmr5rkPv3CQ6yauDUIK
+ JjF+7PACggxRrEaKYh5BqRkiVOx+wUIPgZlv9BMwU3vFslUr/IKTvcz2UcQoxpLGD9io
+ V+c+lUNRZzxFy3UyieMibc2vr1zjkC+63EMm8AwJSIGG7bWcpuPP1TOd3s3p8QP5adrJ ow== 
+Received: from aserp3030.oracle.com (aserp3030.oracle.com [141.146.126.71])
+ by aserp2120.oracle.com with ESMTP id 32bs1m6n0g-1
+ (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=FAIL);
+ Mon, 20 Jul 2020 12:37:55 +0000
+Received: from pps.filterd (aserp3030.oracle.com [127.0.0.1])
+ by aserp3030.oracle.com (8.16.0.42/8.16.0.42) with SMTP id 06KCXuF6097037;
+ Mon, 20 Jul 2020 12:37:54 GMT
+Received: from userv0121.oracle.com (userv0121.oracle.com [156.151.31.72])
+ by aserp3030.oracle.com with ESMTP id 32d8kyr5ed-1
+ (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=OK);
+ Mon, 20 Jul 2020 12:37:54 +0000
+Received: from abhmp0018.oracle.com (abhmp0018.oracle.com [141.146.116.24])
+ by userv0121.oracle.com (8.14.4/8.13.8) with ESMTP id 06KCbq9w011850;
+ Mon, 20 Jul 2020 12:37:53 GMT
+Received: from mwanda (/41.57.98.10) by default (Oracle Beehive Gateway v4.0)
+ with ESMTP ; Mon, 20 Jul 2020 12:37:52 +0000
+Date: Mon, 20 Jul 2020 15:37:47 +0300
+From: <dan.carpenter@oracle.com>
+To: christophe.kerello@st.com
+Message-ID: <20200720123747.GA58697@mwanda>
 MIME-Version: 1.0
-X-Proofpoint-Virus-Version: vendor=fsecure engine=2.50.10434:6.0.235, 18.0.687
- definitions=2020-07-20_05:2020-07-17,
- 2020-07-20 signatures=0
-Cc: "devicetree@vger.kernel.org" <devicetree@vger.kernel.org>,
- "vincent.guittot@linaro.org" <vincent.guittot@linaro.org>,
- "rjw@rjwysocki.net" <rjw@rjwysocki.net>,
- "linux-kernel@vger.kernel.org" <linux-kernel@vger.kernel.org>,
- "valentin.schneider@arm.com" <valentin.schneider@arm.com>,
- "mcoquelin.stm32@gmail.com" <mcoquelin.stm32@gmail.com>,
- "mchehab@kernel.org" <mchehab@kernel.org>,
- "linux-stm32@st-md-mailman.stormreply.com"
- <linux-stm32@st-md-mailman.stormreply.com>,
- "linux-arm-kernel@lists.infradead.org" <linux-arm-kernel@lists.infradead.org>,
- "linux-media@vger.kernel.org" <linux-media@vger.kernel.org>
-Subject: Re: [Linux-stm32] [PATCH v7 1/3] dt-bindings: media: stm32-dcmi:
- Add DCMI min frequency property
+Content-Disposition: inline
+X-Proofpoint-Virus-Version: vendor=nai engine=6000 definitions=9687
+ signatures=668680
+X-Proofpoint-Spam-Details: rule=notspam policy=default score=0 spamscore=0
+ phishscore=0 mlxscore=0
+ malwarescore=0 mlxlogscore=999 bulkscore=0 adultscore=0 suspectscore=3
+ classifier=spam adjust=0 reason=mlx scancount=1 engine=8.12.0-2006250000
+ definitions=main-2007200086
+X-Proofpoint-Virus-Version: vendor=nai engine=6000 definitions=9687
+ signatures=668680
+X-Proofpoint-Spam-Details: rule=notspam policy=default score=0 suspectscore=3
+ bulkscore=0 adultscore=0
+ lowpriorityscore=0 mlxlogscore=999 malwarescore=0 clxscore=1011
+ spamscore=0 mlxscore=0 impostorscore=0 phishscore=0 priorityscore=1501
+ classifier=spam adjust=0 reason=mlx scancount=1 engine=8.12.0-2006250000
+ definitions=main-2007200086
+Cc: linux-mtd@lists.infradead.org, linux-stm32@st-md-mailman.stormreply.com
+Subject: [Linux-stm32] [bug report] mtd: rawnand: stm32_fmc2: add STM32 FMC2
+ NAND flash controller driver
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -98,66 +81,93 @@ Content-Transfer-Encoding: 7bit
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
+Hello Christophe Kerello,
 
+The patch 2cd457f328c1: "mtd: rawnand: stm32_fmc2: add STM32 FMC2
+NAND flash controller driver" from Dec 14, 2018, leads to the
+following static checker warning:
 
-On 7/10/20 10:01 PM, Rob Herring wrote:
-> On Fri, Jul 10, 2020 at 1:33 AM Benjamin GAIGNARD
-> <benjamin.gaignard@st.com> wrote:
->>
->>
->> On 7/9/20 10:37 PM, Rob Herring wrote:
->>> On Wed, Jul 01, 2020 at 03:01:27PM +0200, Benjamin Gaignard wrote:
->>>> Document st,stm32-dcmi-min-frequency property which is used to
->>>> request CPUs minimum frequency when streaming frames.
->>>>
->>>> Signed-off-by: Benjamin Gaignard <benjamin.gaignard@st.com>
->>>> ---
->>>>    Documentation/devicetree/bindings/media/st,stm32-dcmi.yaml | 8 ++++++++
->>>>    1 file changed, 8 insertions(+)
->>>>
->>>> diff --git a/Documentation/devicetree/bindings/media/st,stm32-dcmi.yaml b/Documentation/devicetree/bindings/media/st,stm32-dcmi.yaml
->>>> index 3fe778cb5cc3..05ca85a2411a 100644
->>>> --- a/Documentation/devicetree/bindings/media/st,stm32-dcmi.yaml
->>>> +++ b/Documentation/devicetree/bindings/media/st,stm32-dcmi.yaml
->>>> @@ -44,6 +44,13 @@ properties:
->>>>          bindings defined in
->>>>          Documentation/devicetree/bindings/media/video-interfaces.txt.
->>>>
->>>> +  st,stm32-dcmi-min-frequency:
->>>> +    description: DCMI minimum CPUs frequency requirement (in KHz).
->>>> +    allOf:
->>>> +      - $ref: /schemas/types.yaml#/definitions/uint32
->>>> +      - minimum: 0
->>>> +      - default: 0
->>> I think this is questionable to be in DT and if it is, it's something
->>> that's hardly specific to ST or this block. IIRC, we already have a way
->>> to specify minimum OPPs.
->> This binding is only needed on some STM32 SoC when DVFS is activated
->> with low frequency setting in opp. The value also depends of the targeted
->> video format and framerate.
-> As those 2 things are not in the DT, then neither should this value be.
->
->> It is not an opp because it doesn't define a voltage-current-frequency
->> combination
->> but only set a minimum target for the CPUs frequency to guaranty a good
->> reaction
->> time when handling IRQs for the sensor.
-> OPPs can be frequency only. This is pretty clearly defining the CPU
-> must Operate at a certain minimum Performance Point.
-Hi Rob,
+	drivers/mtd/nand/raw/stm32_fmc2_nand.c:350 stm32_fmc2_nfc_select_chip()
+	error: buffer overflow 'nfc->data_phys_addr' 2 <= 2
 
-My goal here wasn't to define an OPP for the CPU since it is the camera 
-interface node
-but to avoid let the CPU go to down.
-I haven't found how to use OPP bindings, can you provide me hints or 
-examples of how
-I should do it?
+drivers/mtd/nand/raw/stm32_fmc2_nand.c
+   334  static int stm32_fmc2_nfc_select_chip(struct nand_chip *chip, int chipnr)
+   335  {
+   336          struct stm32_fmc2_nfc *nfc = to_stm32_nfc(chip->controller);
+   337          struct stm32_fmc2_nand *nand = to_fmc2_nand(chip);
+   338          struct dma_slave_config dma_cfg;
+   339          int ret;
+   340  
+   341          if (nand->cs_used[chipnr] == nfc->cs_sel)
+   342                  return 0;
+   343  
+   344          nfc->cs_sel = nand->cs_used[chipnr];
+                ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
-Thanks,
-Benjamin
+   345          stm32_fmc2_nfc_setup(chip);
+   346          stm32_fmc2_nfc_timings_init(chip);
+   347  
+   348          if (nfc->dma_tx_ch && nfc->dma_rx_ch) {
+   349                  memset(&dma_cfg, 0, sizeof(dma_cfg));
+   350                  dma_cfg.src_addr = nfc->data_phys_addr[nfc->cs_sel];
 
->
-> Rob
+The ->data_phys_addr[] array has FMC2_MAX_CE elements.
+
+   351                  dma_cfg.dst_addr = nfc->data_phys_addr[nfc->cs_sel];
+   352                  dma_cfg.src_addr_width = DMA_SLAVE_BUSWIDTH_4_BYTES;
+   353                  dma_cfg.dst_addr_width = DMA_SLAVE_BUSWIDTH_4_BYTES;
+   354                  dma_cfg.src_maxburst = 32;
+   355                  dma_cfg.dst_maxburst = 32;
+   356  
+   357                  ret = dmaengine_slave_config(nfc->dma_tx_ch, &dma_cfg);
+
+[ snip ]
+
+  1741  static int stm32_fmc2_nfc_parse_child(struct stm32_fmc2_nfc *nfc,
+  1742                                        struct device_node *dn)
+  1743  {
+  1744          struct stm32_fmc2_nand *nand = &nfc->nand;
+  1745          u32 cs;
+  1746          int ret, i;
+  1747  
+  1748          if (!of_get_property(dn, "reg", &nand->ncs))
+  1749                  return -EINVAL;
+  1750  
+  1751          nand->ncs /= sizeof(u32);
+  1752          if (!nand->ncs) {
+  1753                  dev_err(nfc->dev, "invalid reg property size\n");
+  1754                  return -EINVAL;
+  1755          }
+  1756  
+  1757          for (i = 0; i < nand->ncs; i++) {
+  1758                  ret = of_property_read_u32_index(dn, "reg", i, &cs);
+  1759                  if (ret) {
+  1760                          dev_err(nfc->dev, "could not retrieve reg property: %d\n",
+  1761                                  ret);
+  1762                          return ret;
+  1763                  }
+  1764  
+  1765                  if (cs > FMC2_MAX_CE) {
+
+Which suggests that this should be >= FMC2_MAX_CE to prevent an off by
+one.
+
+  1766                          dev_err(nfc->dev, "invalid reg value: %d\n", cs);
+  1767                          return -EINVAL;
+  1768                  }
+  1769  
+  1770                  if (nfc->cs_assigned & BIT(cs)) {
+  1771                          dev_err(nfc->dev, "cs already assigned: %d\n", cs);
+  1772                          return -EINVAL;
+  1773                  }
+  1774  
+  1775                  nfc->cs_assigned |= BIT(cs);
+  1776                  nand->cs_used[i] = cs;
+                        ^^^^^^^^^^^^^^^^^^^^^
+  1777          }
+
+regards,
+dan carpenter
 _______________________________________________
 Linux-stm32 mailing list
 Linux-stm32@st-md-mailman.stormreply.com
