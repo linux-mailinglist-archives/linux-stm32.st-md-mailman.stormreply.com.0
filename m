@@ -2,70 +2,40 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id 523432284D7
-	for <lists+linux-stm32@lfdr.de>; Tue, 21 Jul 2020 18:07:09 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 85F8C2287C6
+	for <lists+linux-stm32@lfdr.de>; Tue, 21 Jul 2020 19:49:34 +0200 (CEST)
 Received: from ip-172-31-3-76.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 13B16C36B2A
-	for <lists+linux-stm32@lfdr.de>; Tue, 21 Jul 2020 16:07:09 +0000 (UTC)
-Received: from mx07-00178001.pphosted.com (mx07-00178001.pphosted.com
- [62.209.51.94])
- (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 42E73C36B2A;
+	Tue, 21 Jul 2020 17:49:34 +0000 (UTC)
+Received: from smtp.al2klimov.de (smtp.al2klimov.de [78.46.175.9])
+ (using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 2887BC36B27
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 032EAC36B27
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Tue, 21 Jul 2020 16:07:07 +0000 (UTC)
-Received: from pps.filterd (m0046037.ppops.net [127.0.0.1])
- by mx07-00178001.pphosted.com (8.16.0.42/8.16.0.42) with SMTP id
- 06LFunfx019756; Tue, 21 Jul 2020 18:06:46 +0200
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=st.com;
- h=subject : to : cc :
- references : from : message-id : date : mime-version : in-reply-to :
- content-type : content-transfer-encoding; s=STMicroelectronics;
- bh=BXaOcPDqW/lEJ2SMdEe6XB77peKXuCD5JOLqccvJfhk=;
- b=cXUwpn5Tdg/ZL9iVQfeUVZJqBEJACk7jylYUArMmcTJ3LLsr0/6rX2RKN9tbqU171848
- fVMbpWD5/bK0rIkdnQUYdzF6KyYJANIPTadFF+jAwYhEfYryP1AxtPlF15M37Hs8vhtM
- ltTPUtywVPEvNrzxnvzRo0+2axooBkc34NMsMHyblAt1G/ACB/gsLpNieTlVaMYHGOu4
- 3ULv5CrOnvN76ZHv3lbgSqSu9Linjm95sjJdskjsaYZAszlmplb2zQtNk2ZzG6HtOIBh
- SJYhSZwUDdk+1ghZ8Fsrf4+CppM+l84UdANNNmq2/E7pkuiaWhS3fbxaxnBAvAVo15Nm hw== 
-Received: from beta.dmz-eu.st.com (beta.dmz-eu.st.com [164.129.1.35])
- by mx07-00178001.pphosted.com with ESMTP id 32bs6uxrg6-1
- (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
- Tue, 21 Jul 2020 18:06:46 +0200
-Received: from euls16034.sgp.st.com (euls16034.sgp.st.com [10.75.44.20])
- by beta.dmz-eu.st.com (STMicroelectronics) with ESMTP id 61C96100034;
- Tue, 21 Jul 2020 18:06:45 +0200 (CEST)
-Received: from Webmail-eu.st.com (sfhdag3node2.st.com [10.75.127.8])
- by euls16034.sgp.st.com (STMicroelectronics) with ESMTP id 2FB872A96CD;
- Tue, 21 Jul 2020 18:06:45 +0200 (CEST)
-Received: from lmecxl0912.lme.st.com (10.75.127.48) by SFHDAG3NODE2.st.com
- (10.75.127.8) with Microsoft SMTP Server (TLS) id 15.0.1347.2; Tue, 21 Jul
- 2020 18:06:44 +0200
-To: Marcin Sloniewski <marcin.sloniewski@gmail.com>,
- <linux-arm-kernel@lists.infradead.org>
-References: <20200721152015.11608-1-marcin.sloniewski@gmail.com>
- <20200721152015.11608-3-marcin.sloniewski@gmail.com>
-From: Alexandre Torgue <alexandre.torgue@st.com>
-Message-ID: <c31e5687-780d-f930-1c13-45ffc3e7246a@st.com>
-Date: Tue, 21 Jul 2020 18:06:43 +0200
-User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:68.0) Gecko/20100101
- Thunderbird/68.10.0
+ Tue, 21 Jul 2020 17:49:31 +0000 (UTC)
+Received: from authenticated-user (PRIMARY_HOSTNAME [PUBLIC_IP])
+ by smtp.al2klimov.de (Postfix) with ESMTPA id 5EC01BC1AC;
+ Tue, 21 Jul 2020 17:49:28 +0000 (UTC)
+To: Alexandre Torgue <alexandre.torgue@st.com>, linux@armlinux.org.uk,
+ mcoquelin.stm32@gmail.com, herbert@gondor.apana.org.au, davem@davemloft.net,
+ linux-arm-kernel@lists.infradead.org,
+ linux-stm32@st-md-mailman.stormreply.com, linux-kernel@vger.kernel.org,
+ linux-crypto@vger.kernel.org
+References: <20200719094948.57487-1-grandmaster@al2klimov.de>
+ <43c11c7a-269e-cc41-6934-0d2e0dec3226@st.com>
+From: "Alexander A. Klimov" <grandmaster@al2klimov.de>
+Message-ID: <219075a0-d7cf-a699-21d7-fabc6f077f95@al2klimov.de>
+Date: Tue, 21 Jul 2020 19:49:27 +0200
 MIME-Version: 1.0
-In-Reply-To: <20200721152015.11608-3-marcin.sloniewski@gmail.com>
+In-Reply-To: <43c11c7a-269e-cc41-6934-0d2e0dec3226@st.com>
 Content-Language: en-US
-X-Originating-IP: [10.75.127.48]
-X-ClientProxiedBy: SFHDAG1NODE2.st.com (10.75.127.2) To SFHDAG3NODE2.st.com
- (10.75.127.8)
-X-Proofpoint-Virus-Version: vendor=fsecure engine=2.50.10434:6.0.235, 18.0.687
- definitions=2020-07-21_09:2020-07-21,
- 2020-07-21 signatures=0
-Cc: robh@kernel.org, stephan@gerhold.net, mani@kernel.org,
- heiko.stuebner@theobroma-systems.com, linus.walleij@linaro.org,
- linux-kernel@vger.kernel.org, lkundrak@v3.sk, devicetree@vger.kernel.org,
- robh+dt@kernel.org, broonie@kernel.org, mcoquelin.stm32@gmail.com,
- allen.chen@ite.com.tw, sam@ravnborg.org,
- linux-stm32@st-md-mailman.stormreply.com
-Subject: Re: [Linux-stm32] [PATCH v2 3/3] ARM: dts: stm32: add initial
- support for stm32mp157-odyssey board
+X-Spamd-Bar: +
+X-Spam-Level: *
+Authentication-Results: smtp.al2klimov.de;
+ auth=pass smtp.auth=aklimov@al2klimov.de
+ smtp.mailfrom=grandmaster@al2klimov.de
+Subject: Re: [Linux-stm32] [PATCH for v5.9] ARM: STM32: Replace HTTP links
+	with HTTPS ones
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -77,417 +47,111 @@ List-Post: <mailto:linux-stm32@st-md-mailman.stormreply.com>
 List-Help: <mailto:linux-stm32-request@st-md-mailman.stormreply.com?subject=help>
 List-Subscribe: <https://st-md-mailman.stormreply.com/mailman/listinfo/linux-stm32>, 
  <mailto:linux-stm32-request@st-md-mailman.stormreply.com?subject=subscribe>
-Content-Transfer-Encoding: 7bit
-Content-Type: text/plain; charset="us-ascii"; Format="flowed"
+Content-Transfer-Encoding: base64
+Content-Type: text/plain; charset="utf-8"; Format="flowed"
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
-Hi Marcin
-
-On 7/21/20 5:20 PM, Marcin Sloniewski wrote:
-> Add support for Seeed Studio's stm32mp157c odyssey board.
-> Board consists of SoM with stm32mp157c with 4GB eMMC and 512 MB DDR3 RAM
-> and carrier board with USB and ETH interfaces, SD card connector,
-> wifi and BT chip AP6236.
-> 
-> In this patch only basic kernel boot is supported and interfacing
-> SD card and on-board eMMC.
-> 
-> Signed-off-by: Marcin Sloniewski <marcin.sloniewski@gmail.com>
-> ---
-> 
-
-Build is failed on top if stm32-next due to ethernet / i2c1 pinctrl 
-sleep nodes.
-
-Can you fix please?
-
-> Changes in v2:
-> - add new odyssey dts to Makefile
-> 
->   arch/arm/boot/dts/Makefile                    |   3 +-
->   .../arm/boot/dts/stm32mp157c-odyssey-som.dtsi | 276 ++++++++++++++++++
->   arch/arm/boot/dts/stm32mp157c-odyssey.dts     |  72 +++++
->   3 files changed, 350 insertions(+), 1 deletion(-)
->   create mode 100644 arch/arm/boot/dts/stm32mp157c-odyssey-som.dtsi
->   create mode 100644 arch/arm/boot/dts/stm32mp157c-odyssey.dts
-> 
-> diff --git a/arch/arm/boot/dts/Makefile b/arch/arm/boot/dts/Makefile
-> index e6a1cac0bfc7..a3ea2301c82c 100644
-> --- a/arch/arm/boot/dts/Makefile
-> +++ b/arch/arm/boot/dts/Makefile
-> @@ -1047,7 +1047,8 @@ dtb-$(CONFIG_ARCH_STM32) += \
->   	stm32mp157c-dk2.dtb \
->   	stm32mp157c-ed1.dtb \
->   	stm32mp157c-ev1.dtb \
-> -	stm32mp157c-lxa-mc1.dtb
-> +	stm32mp157c-lxa-mc1.dtb \
-> +	stm32mp157c-odyssey.dtb
->   dtb-$(CONFIG_MACH_SUN4I) += \
->   	sun4i-a10-a1000.dtb \
->   	sun4i-a10-ba10-tvbox.dtb \
-> diff --git a/arch/arm/boot/dts/stm32mp157c-odyssey-som.dtsi b/arch/arm/boot/dts/stm32mp157c-odyssey-som.dtsi
-> new file mode 100644
-> index 000000000000..620ff9e7f370
-> --- /dev/null
-> +++ b/arch/arm/boot/dts/stm32mp157c-odyssey-som.dtsi
-> @@ -0,0 +1,276 @@
-> +// SPDX-License-Identifier: (GPL-2.0+ OR BSD-3-Clause)
-> +/*
-> + * Copyright (C) 2020 Marcin Sloniewski <marcin.sloniewski@gmail.com>.
-> + */
-> +
-> +/dts-v1/;
-> +
-> +#include "stm32mp157.dtsi"
-> +#include "stm32mp15xc.dtsi"
-> +#include "stm32mp15-pinctrl.dtsi"
-> +#include "stm32mp15xxac-pinctrl.dtsi"
-> +#include <dt-bindings/gpio/gpio.h>
-> +#include <dt-bindings/mfd/st,stpmic1.h>
-> +
-> +/ {
-> +	model = "Seeed Studio Odyssey-STM32MP157C SOM";
-> +	compatible = "seeed,stm32mp157c-odyssey-som", "st,stm32mp157";
-> +
-> +	memory@c0000000 {
-> +		reg = <0xc0000000 0x20000000>;
-> +	};
-> +
-> +	reserved-memory {
-> +		#address-cells = <1>;
-> +		#size-cells = <1>;
-> +		ranges;
-> +
-> +		mcuram2: mcuram2@10000000 {
-> +			compatible = "shared-dma-pool";
-> +			reg = <0x10000000 0x40000>;
-> +			no-map;
-> +		};
-> +
-> +		vdev0vring0: vdev0vring0@10040000 {
-> +			compatible = "shared-dma-pool";
-> +			reg = <0x10040000 0x1000>;
-> +			no-map;
-> +		};
-> +
-> +		vdev0vring1: vdev0vring1@10041000 {
-> +			compatible = "shared-dma-pool";
-> +			reg = <0x10041000 0x1000>;
-> +			no-map;
-> +		};
-> +
-> +		vdev0buffer: vdev0buffer@10042000 {
-> +			compatible = "shared-dma-pool";
-> +			reg = <0x10042000 0x4000>;
-> +			no-map;
-> +		};
-> +
-> +		mcuram: mcuram@30000000 {
-> +			compatible = "shared-dma-pool";
-> +			reg = <0x30000000 0x40000>;
-> +			no-map;
-> +		};
-> +
-> +		retram: retram@38000000 {
-> +			compatible = "shared-dma-pool";
-> +			reg = <0x38000000 0x10000>;
-> +			no-map;
-> +		};
-> +
-> +		gpu_reserved: gpu@d4000000 {
-> +			reg = <0xd4000000 0x4000000>;
-> +			no-map;
-> +		};
-> +	};
-> +
-> +	led {
-> +		compatible = "gpio-leds";
-> +		blue {
-> +			label = "heartbeat";
-> +			gpios = <&gpiog 3 GPIO_ACTIVE_HIGH>;
-> +			linux,default-trigger = "heartbeat";
-> +			default-state = "off";
-> +		};
-> +	};
-> +};
-> +
-> +&gpu {
-> +	contiguous-area = <&gpu_reserved>;
-> +	status = "okay";
-> +};
-> +
-> +&i2c2 {
-> +	pinctrl-names = "default";
-> +	pinctrl-0 = <&i2c2_pins_a>;
-> +	i2c-scl-rising-time-ns = <185>;
-> +	i2c-scl-falling-time-ns = <20>;
-> +	status = "okay";
-> +	/* spare dmas for other usage */
-> +	/delete-property/dmas;
-> +	/delete-property/dma-names;
-> +
-> +	pmic: stpmic@33 {
-> +		compatible = "st,stpmic1";
-> +		reg = <0x33>;
-> +		interrupts-extended = <&gpioa 0 IRQ_TYPE_EDGE_FALLING>;
-> +		interrupt-controller;
-> +		#interrupt-cells = <2>;
-> +		status = "okay";
-> +
-> +		regulators {
-> +			compatible = "st,stpmic1-regulators";
-> +			ldo1-supply = <&v3v3>;
-> +			ldo3-supply = <&vdd_ddr>;
-> +			ldo6-supply = <&v3v3>;
-> +			pwr_sw1-supply = <&bst_out>;
-> +			pwr_sw2-supply = <&bst_out>;
-> +
-> +			vddcore: buck1 {
-> +				regulator-name = "vddcore";
-> +				regulator-min-microvolt = <800000>;
-> +				regulator-max-microvolt = <1350000>;
-> +				regulator-always-on;
-> +				regulator-initial-mode = <0>;
-> +				regulator-over-current-protection;
-> +			};
-> +
-> +			vdd_ddr: buck2 {
-> +				regulator-name = "vdd_ddr";
-> +				regulator-min-microvolt = <1350000>;
-> +				regulator-max-microvolt = <1350000>;
-> +				regulator-always-on;
-> +				regulator-initial-mode = <0>;
-> +				regulator-over-current-protection;
-> +			};
-> +
-> +			vdd: buck3 {
-> +				regulator-name = "vdd";
-> +				regulator-min-microvolt = <3300000>;
-> +				regulator-max-microvolt = <3300000>;
-> +				regulator-always-on;
-> +				st,mask-reset;
-> +				regulator-initial-mode = <0>;
-> +				regulator-over-current-protection;
-> +			};
-> +
-> +			v3v3: buck4 {
-> +				regulator-name = "v3v3";
-> +				regulator-min-microvolt = <3300000>;
-> +				regulator-max-microvolt = <3300000>;
-> +				regulator-always-on;
-> +				regulator-over-current-protection;
-> +				regulator-initial-mode = <0>;
-> +			};
-> +
-> +			v1v8_audio: ldo1 {
-> +				regulator-name = "v1v8_audio";
-> +				regulator-min-microvolt = <1800000>;
-> +				regulator-max-microvolt = <1800000>;
-> +				regulator-always-on;
-> +				interrupts = <IT_CURLIM_LDO1 0>;
-> +			};
-> +
-> +			v3v3_hdmi: ldo2 {
-> +				regulator-name = "v3v3_hdmi";
-> +				regulator-min-microvolt = <3300000>;
-> +				regulator-max-microvolt = <3300000>;
-> +				regulator-always-on;
-> +				interrupts = <IT_CURLIM_LDO2 0>;
-> +			};
-> +
-> +			vtt_ddr: ldo3 {
-> +				regulator-name = "vtt_ddr";
-> +				regulator-min-microvolt = <500000>;
-> +				regulator-max-microvolt = <750000>;
-> +				regulator-always-on;
-> +				regulator-over-current-protection;
-> +			};
-> +
-> +			vdd_usb: ldo4 {
-> +				regulator-name = "vdd_usb";
-> +				regulator-min-microvolt = <3300000>;
-> +				regulator-max-microvolt = <3300000>;
-> +				interrupts = <IT_CURLIM_LDO4 0>;
-> +			};
-> +
-> +			vdda: ldo5 {
-> +				regulator-name = "vdda";
-> +				regulator-min-microvolt = <2900000>;
-> +				regulator-max-microvolt = <2900000>;
-> +				interrupts = <IT_CURLIM_LDO5 0>;
-> +				regulator-boot-on;
-> +			};
-> +
-> +			v1v2_hdmi: ldo6 {
-> +				regulator-name = "v1v2_hdmi";
-> +				regulator-min-microvolt = <1200000>;
-> +				regulator-max-microvolt = <1200000>;
-> +				regulator-always-on;
-> +				interrupts = <IT_CURLIM_LDO6 0>;
-> +			};
-> +
-> +			vref_ddr: vref_ddr {
-> +				regulator-name = "vref_ddr";
-> +				regulator-always-on;
-> +				regulator-over-current-protection;
-> +			};
-> +
-> +			 bst_out: boost {
-> +				regulator-name = "bst_out";
-> +				interrupts = <IT_OCP_BOOST 0>;
-> +			 };
-> +
-> +			vbus_otg: pwr_sw1 {
-> +				regulator-name = "vbus_otg";
-> +				interrupts = <IT_OCP_OTG 0>;
-> +			 };
-> +
-> +			 vbus_sw: pwr_sw2 {
-> +				regulator-name = "vbus_sw";
-> +				interrupts = <IT_OCP_SWOUT 0>;
-> +				regulator-active-discharge;
-> +			 };
-> +		};
-> +
-> +		onkey {
-> +			compatible = "st,stpmic1-onkey";
-> +			interrupts = <IT_PONKEY_F 0>, <IT_PONKEY_R 0>;
-> +			interrupt-names = "onkey-falling", "onkey-rising";
-> +			power-off-time-sec = <10>;
-> +			status = "okay";
-> +		};
-> +
-> +		watchdog {
-> +			compatible = "st,stpmic1-wdt";
-> +			status = "disabled";
-> +		};
-> +	};
-> +};
-> +
-> +&ipcc {
-> +	status = "okay";
-> +};
-> +
-> +&iwdg2 {
-> +	timeout-sec = <32>;
-> +	status = "okay";
-> +};
-> +
-> +&m4_rproc {
-> +	memory-region = <&retram>, <&mcuram>, <&mcuram2>, <&vdev0vring0>,
-> +			<&vdev0vring1>, <&vdev0buffer>;
-> +	mboxes = <&ipcc 0>, <&ipcc 1>, <&ipcc 2>;
-> +	mbox-names = "vq0", "vq1", "shutdown";
-> +	interrupt-parent = <&exti>;
-> +	interrupts = <68 1>;
-> +	status = "okay";
-> +};
-> +
-> +&rng1 {
-> +	status = "okay";
-> +};
-> +
-> +&rtc {
-> +	status = "okay";
-> +};
-> +
-> +&sdmmc2 {
-> +	pinctrl-names = "default", "opendrain", "sleep";
-> +	pinctrl-0 = <&sdmmc2_b4_pins_a &sdmmc2_d47_pins_a>;
-> +	pinctrl-1 = <&sdmmc2_b4_od_pins_a &sdmmc2_d47_pins_a>;
-> +	pinctrl-2 = <&sdmmc2_b4_sleep_pins_a &sdmmc2_d47_sleep_pins_a>;
-> +	non-removable;
-> +	no-sd;
-> +	no-sdio;
-> +	st,neg-edge;
-> +	bus-width = <4>;
-> +	vmmc-supply = <&v3v3>;
-> +	vqmmc-supply = <&v3v3>;
-> +	mmc-ddr-3_3v;
-> +	status = "okay";
-> +};
-> +
-> diff --git a/arch/arm/boot/dts/stm32mp157c-odyssey.dts b/arch/arm/boot/dts/stm32mp157c-odyssey.dts
-> new file mode 100644
-> index 000000000000..6c1b091af14f
-> --- /dev/null
-> +++ b/arch/arm/boot/dts/stm32mp157c-odyssey.dts
-> @@ -0,0 +1,72 @@
-> +// SPDX-License-Identifier: (GPL-2.0+ OR BSD-3-Clause)
-> +/*
-> + * Copyright (C) 2020 Marcin Sloniewski <marcin.sloniewski@gmail.com>.
-> + */
-> +
-> +/dts-v1/;
-> +
-> +#include "stm32mp157c-odyssey-som.dtsi"
-> +
-> +/ {
-> +	model = "Seeed Studio Odyssey-STM32MP157C Board";
-> +	compatible = "seeed,stm32mp157c-odyssey", "st,stm32mp157";
-> +
-> +	aliases {
-> +		ethernet0 = &ethernet0;
-> +		serial0 = &uart4;
-> +	};
-> +
-> +	chosen {
-> +		stdout-path = "serial0:115200n8";
-> +	};
-> +};
-> +
-> +&ethernet0 {
-> +	status = "okay";
-> +	pinctrl-0 = <&ethernet0_rgmii_pins_a>;
-> +	pinctrl-1 = <&ethernet0_rgmii_pins_sleep_a>;
-> +	pinctrl-names = "default", "sleep";
-> +	phy-mode = "rgmii-id";
-> +	max-speed = <1000>;
-> +	phy-handle = <&phy0>;
-> +
-> +	mdio0 {
-> +		#address-cells = <1>;
-> +		#size-cells = <0>;
-> +		compatible = "snps,dwmac-mdio";
-> +		phy0: ethernet-phy@0 {
-> +			reg = <0>;
-> +		};
-> +	};
-> +};
-> +
-> +&i2c1 {
-> +	pinctrl-names = "default", "sleep";
-> +	pinctrl-0 = <&i2c1_pins_a>;
-> +	pinctrl-1 = <&i2c1_pins_sleep_a>;
-> +	i2c-scl-rising-time-ns = <100>;
-> +	i2c-scl-falling-time-ns = <7>;
-> +	status = "okay";
-> +	/delete-property/dmas;
-> +	/delete-property/dma-names;
-> +};
-> +
-> +&sdmmc1 {
-> +	pinctrl-names = "default", "opendrain", "sleep";
-> +	pinctrl-0 = <&sdmmc1_b4_pins_a>;
-> +	pinctrl-1 = <&sdmmc1_b4_od_pins_a>;
-> +	pinctrl-2 = <&sdmmc1_b4_sleep_pins_a>;
-> +	cd-gpios = <&gpiob 7 (GPIO_ACTIVE_LOW | GPIO_PULL_UP)>;
-> +	disable-wp;
-> +	st,neg-edge;
-> +	bus-width = <4>;
-> +	vmmc-supply = <&v3v3>;
-> +	status = "okay";
-> +};
-> +
-> +&uart4 {
-> +	pinctrl-names = "default";
-> +	pinctrl-0 = <&uart4_pins_a>;
-> +	status = "okay";
-> +};
-> +
-> 
-_______________________________________________
-Linux-stm32 mailing list
-Linux-stm32@st-md-mailman.stormreply.com
-https://st-md-mailman.stormreply.com/mailman/listinfo/linux-stm32
+CgpBbSAyMS4wNy4yMCB1bSAxMDo0OSBzY2hyaWViIEFsZXhhbmRyZSBUb3JndWU6Cj4gSGkgQWxl
+eGFuZGVyCj4gCj4gT24gNy8xOS8yMCAxMTo0OSBBTSwgQWxleGFuZGVyIEEuIEtsaW1vdiB3cm90
+ZToKPj4gUmF0aW9uYWxlOgo+PiBSZWR1Y2VzIGF0dGFjayBzdXJmYWNlIG9uIGtlcm5lbCBkZXZz
+IG9wZW5pbmcgdGhlIGxpbmtzIGZvciBNSVRNCj4+IGFzIEhUVFBTIHRyYWZmaWMgaXMgbXVjaCBo
+YXJkZXIgdG8gbWFuaXB1bGF0ZS4KPj4KPj4gRGV0ZXJtaW5pc3RpYyBhbGdvcml0aG06Cj4+IEZv
+ciBlYWNoIGZpbGU6Cj4+IMKgwqAgSWYgbm90IC5zdmc6Cj4+IMKgwqDCoMKgIEZvciBlYWNoIGxp
+bmU6Cj4+IMKgwqDCoMKgwqDCoCBJZiBkb2Vzbid0IGNvbnRhaW4gYFxieG1sbnNcYmA6Cj4+IMKg
+wqDCoMKgwqDCoMKgwqAgRm9yIGVhY2ggbGluaywgYFxiaHR0cDovL1teIyBcdFxyXG5dKig/Olx3
+fC8pYDoKPj4gwqDCoMKgwqDCoCBJZiBuZWl0aGVyIGBcYmdudVwub3JnL2xpY2Vuc2VgLCBub3Ig
+YFxibW96aWxsYVwub3JnL01QTFxiYDoKPj4gwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgIElmIGJv
+dGggdGhlIEhUVFAgYW5kIEhUVFBTIHZlcnNpb25zCj4+IMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDC
+oCByZXR1cm4gMjAwIE9LIGFuZCBzZXJ2ZSB0aGUgc2FtZSBjb250ZW50Ogo+PiDCoMKgwqDCoMKg
+wqDCoMKgwqDCoMKgwqDCoMKgIFJlcGxhY2UgSFRUUCB3aXRoIEhUVFBTLgo+Pgo+PiBTaWduZWQt
+b2ZmLWJ5OiBBbGV4YW5kZXIgQS4gS2xpbW92IDxncmFuZG1hc3RlckBhbDJrbGltb3YuZGU+Cj4g
+Cj4gVGhpcyBwYXRjaCB0b3VjaCAyIGRpZmZlcmVudCBzdWJzeXN0ZW1zLiBDYW4geW91IHBsZWFz
+ZSBzcGxpdCBpdCA/CkkgY2FuLiBCdXQgZG9uJ3QgYWxsIGZpbGVzIGJlbG9uZyB0byB0aGUgc3Vi
+c3lzdGVtIHRoaXMgcGF0Y2ggaXMgZm9yPwoK4p6cICBsaW51eCBnaXQ6KGF1dG9nZW4vMTAyOSkg
+Z2l0IHNob3cgYXJjaC9hcm0vbWFjaC1zdG0zMi9NYWtlZmlsZS5ib290IAp8cGVybCBzY3JpcHRz
+L2dldF9tYWludGFpbmVyLnBsIC0tbm9naXR7LC1mYWxsYmFja30KUnVzc2VsbCBLaW5nIDxsaW51
+eEBhcm1saW51eC5vcmcudWs+IChvZGQgZml4ZXI6QVJNIFBPUlQpCk1heGltZSBDb3F1ZWxpbiA8
+bWNvcXVlbGluLnN0bTMyQGdtYWlsLmNvbT4gKG1haW50YWluZXI6QVJNL1NUTTMyIApBUkNISVRF
+Q1RVUkUpCkFsZXhhbmRyZSBUb3JndWUgPGFsZXhhbmRyZS50b3JndWVAc3QuY29tPiAobWFpbnRh
+aW5lcjpBUk0vU1RNMzIgCkFSQ0hJVEVDVFVSRSkKbGludXgtYXJtLWtlcm5lbEBsaXN0cy5pbmZy
+YWRlYWQub3JnIChtb2RlcmF0ZWQgbGlzdDpBUk0gU1VCLUFSQ0hJVEVDVFVSRVMpCmxpbnV4LXN0
+bTMyQHN0LW1kLW1haWxtYW4uc3Rvcm1yZXBseS5jb20gKG1vZGVyYXRlZCBsaXN0OkFSTS9TVE0z
+MiAKQVJDSElURUNUVVJFKQpsaW51eC1rZXJuZWxAdmdlci5rZXJuZWwub3JnIChvcGVuIGxpc3Qp
+CuKenCAgbGludXggZ2l0OihhdXRvZ2VuLzEwMjkpIGdpdCBzaG93IGNyeXB0by90ZXN0bWdyLmgg
+fHBlcmwgCnNjcmlwdHMvZ2V0X21haW50YWluZXIucGwgLS1ub2dpdHssLWZhbGxiYWNrfQpIZXJi
+ZXJ0IFh1IDxoZXJiZXJ0QGdvbmRvci5hcGFuYS5vcmcuYXU+IChtYWludGFpbmVyOkNSWVBUTyBB
+UEkpCiJEYXZpZCBTLiBNaWxsZXIiIDxkYXZlbUBkYXZlbWxvZnQubmV0PiAobWFpbnRhaW5lcjpD
+UllQVE8gQVBJKQpNYXhpbWUgQ29xdWVsaW4gPG1jb3F1ZWxpbi5zdG0zMkBnbWFpbC5jb20+ICht
+YWludGFpbmVyOkFSTS9TVE0zMiAKQVJDSElURUNUVVJFKQpBbGV4YW5kcmUgVG9yZ3VlIDxhbGV4
+YW5kcmUudG9yZ3VlQHN0LmNvbT4gKG1haW50YWluZXI6QVJNL1NUTTMyIApBUkNISVRFQ1RVUkUp
+CmxpbnV4LWNyeXB0b0B2Z2VyLmtlcm5lbC5vcmcgKG9wZW4gbGlzdDpDUllQVE8gQVBJKQpsaW51
+eC1zdG0zMkBzdC1tZC1tYWlsbWFuLnN0b3JtcmVwbHkuY29tIChtb2RlcmF0ZWQgbGlzdDpBUk0v
+U1RNMzIgCkFSQ0hJVEVDVFVSRSkKbGludXgtYXJtLWtlcm5lbEBsaXN0cy5pbmZyYWRlYWQub3Jn
+IChtb2RlcmF0ZWQgbGlzdDpBUk0vU1RNMzIgQVJDSElURUNUVVJFKQpsaW51eC1rZXJuZWxAdmdl
+ci5rZXJuZWwub3JnIChvcGVuIGxpc3QpCuKenCAgbGludXggZ2l0OihhdXRvZ2VuLzEwMjkpCgo+
+IAo+IFJlZ2FyZHMKPiBBbGV4Cj4gCj4gCj4+IC0tLQo+PiDCoCBDb250aW51aW5nIG15IHdvcmsg
+c3RhcnRlZCBhdCA5MzQzMWUwNjA3ZTUuCj4+IMKgIFNlZSBhbHNvOiBnaXQgbG9nIC0tb25lbGlu
+ZSAnLS1hdXRob3I9QWxleGFuZGVyIEEuIEtsaW1vdiAKPj4gPGdyYW5kbWFzdGVyQGFsMmtsaW1v
+di5kZT4nIHY1LjcuLm1hc3Rlcgo+PiDCoCAoQWN0dWFsbHkgbGV0dGluZyBhIHNoZWxsIGZvciBs
+b29wIHN1Ym1pdCBhbGwgdGhpcyBzdHVmZiBmb3IgbWUuKQo+Pgo+PiDCoCBJZiB0aGVyZSBhcmUg
+YW55IFVSTHMgdG8gYmUgcmVtb3ZlZCBjb21wbGV0ZWx5Cj4+IMKgIG9yIGF0IGxlYXN0IG5vdCAo
+anVzdCkgSFRUUFNpZmllZDoKPj4gwqAgSnVzdCBjbGVhcmx5IHNheSBzbyBhbmQgSSdsbCAqdW5k
+byBteSBjaGFuZ2UqLgo+PiDCoCBTZWUgYWxzbzogaHR0cHM6Ly9sa21sLm9yZy9sa21sLzIwMjAv
+Ni8yNy82NAo+Pgo+PiDCoCBJZiB0aGVyZSBhcmUgYW55IHZhbGlkLCBidXQgeWV0IG5vdCBjaGFu
+Z2VkIFVSTHM6Cj4+IMKgIFNlZTogaHR0cHM6Ly9sa21sLm9yZy9sa21sLzIwMjAvNi8yNi84MzcK
+Pj4KPj4gwqAgSWYgeW91IGFwcGx5IHRoZSBwYXRjaCwgcGxlYXNlIGxldCBtZSBrbm93Lgo+Pgo+
+PiDCoCBTb3JyeSBhZ2FpbiB0byBhbGwgbWFpbnRhaW5lcnMgd2hvIGNvbXBsYWluZWQgYWJvdXQg
+c3ViamVjdCBsaW5lcy4KPj4gwqAgTm93IEkgcmVhbGl6ZWQgdGhhdCB5b3Ugd2FudCBhbiBhY3R1
+YWxseSBwZXJmZWN0IHByZWZpeGVzLAo+PiDCoCBub3QganVzdCBzdWJzeXN0ZW0gb25lcy4KPj4g
+wqAgSSB0cmllZCBteSBiZXN0Li4uCj4+IMKgIEFuZCB5ZXMsICpJIGNvdWxkKiAoYXQgbGVhc3Qg
+aGFsZi0pYXV0b21hdGUgaXQuCj4+IMKgIEltcG9zc2libGUgaXMgbm90aGluZyEgOikKPj4KPj4K
+Pj4gwqAgYXJjaC9hcm0vbWFjaC1zdG0zMi9NYWtlZmlsZS5ib290IHwgMiArLQo+PiDCoCBjcnlw
+dG8vdGVzdG1nci5owqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoCB8IDYgKysrLS0t
+Cj4+IMKgIDIgZmlsZXMgY2hhbmdlZCwgNCBpbnNlcnRpb25zKCspLCA0IGRlbGV0aW9ucygtKQo+
+Pgo+PiBkaWZmIC0tZ2l0IGEvYXJjaC9hcm0vbWFjaC1zdG0zMi9NYWtlZmlsZS5ib290IAo+PiBi
+L2FyY2gvYXJtL21hY2gtc3RtMzIvTWFrZWZpbGUuYm9vdAo+PiBpbmRleCBjZWMxOTVkNGZjYmEu
+LjVkZGU3MzI4YTdhOSAxMDA2NDQKPj4gLS0tIGEvYXJjaC9hcm0vbWFjaC1zdG0zMi9NYWtlZmls
+ZS5ib290Cj4+ICsrKyBiL2FyY2gvYXJtL21hY2gtc3RtMzIvTWFrZWZpbGUuYm9vdAo+PiBAQCAt
+MSw0ICsxLDQgQEAKPj4gwqAgIyBTUERYLUxpY2Vuc2UtSWRlbnRpZmllcjogR1BMLTIuMC1vbmx5
+Cj4+IMKgICMgRW1wdHkgZmlsZSB3YWl0aW5nIGZvciBkZWxldGlvbiBvbmNlIE1ha2VmaWxlLmJv
+b3QgaXNuJ3QgbmVlZGVkIAo+PiBhbnkgbW9yZS4KPj4gwqAgIyBQYXRjaCB3YWl0cyBmb3IgYXBw
+bGljYXRpb24gYXQKPj4gLSMgCj4+IGh0dHA6Ly93d3cuYXJtLmxpbnV4Lm9yZy51ay9kZXZlbG9w
+ZXIvcGF0Y2hlcy92aWV3cGF0Y2gucGhwP2lkPTc4ODkvMSAuCj4+ICsjIAo+PiBodHRwczovL3d3
+dy5hcm0ubGludXgub3JnLnVrL2RldmVsb3Blci9wYXRjaGVzL3ZpZXdwYXRjaC5waHA/aWQ9Nzg4
+OS8xIC4KPj4gZGlmZiAtLWdpdCBhL2NyeXB0by90ZXN0bWdyLmggYi9jcnlwdG8vdGVzdG1nci5o
+Cj4+IGluZGV4IGQyOTk4MzkwOGMzOC4uY2RjZjBkMmZlNDBkIDEwMDY0NAo+PiAtLS0gYS9jcnlw
+dG8vdGVzdG1nci5oCj4+ICsrKyBiL2NyeXB0by90ZXN0bWdyLmgKPj4gQEAgLTE2MjMxLDcgKzE2
+MjMxLDcgQEAgc3RhdGljIGNvbnN0IHN0cnVjdCBjaXBoZXJfdGVzdHZlYyAKPj4gYWVzX2xyd190
+dl90ZW1wbGF0ZVtdID0gewo+PiDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqAgIlx4ZTlc
+eDVkXHg0OFx4OTJceDU0XHg2M1x4NGVceGI4IiwKPj4gwqDCoMKgwqDCoMKgwqDCoMKgIC5sZW7C
+oMKgwqAgPSA0OCwKPj4gwqDCoMKgwqDCoCB9LCB7Cj4+IC0vKiAKPj4gaHR0cDovL3d3dy5tYWls
+LWFyY2hpdmUuY29tL3N0ZHMtcDE2MTlAbGlzdHNlcnYuaWVlZS5vcmcvbXNnMDAxNzMuaHRtbCAq
+Lwo+PiArLyogCj4+IGh0dHBzOi8vd3d3Lm1haWwtYXJjaGl2ZS5jb20vc3Rkcy1wMTYxOUBsaXN0
+c2Vydi5pZWVlLm9yZy9tc2cwMDE3My5odG1sICovIAo+Pgo+PiDCoMKgwqDCoMKgwqDCoMKgwqAg
+LmtlecKgwqDCoCA9ICJceGY4XHhkNFx4NzZceGZmXHhkNlx4NDZceGVlXHg2YyIKPj4gwqDCoMKg
+wqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgICJceDIzXHg4NFx4Y2JceDFjXHg3N1x4ZDZceDE5XHg1
+ZCIKPj4gwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgICJceGZlXHhmMVx4YTlceGYzXHg3
+Ylx4YmNceDhkXHgyMSIKPj4gQEAgLTIxMDk2LDcgKzIxMDk2LDcgQEAgc3RhdGljIGNvbnN0IHN0
+cnVjdCBhZWFkX3Rlc3R2ZWMgCj4+IGFlZ2lzMTI4X3R2X3RlbXBsYXRlW10gPSB7Cj4+IMKgIC8q
+Cj4+IMKgwqAgKiBBbGwga2V5IHdyYXBwaW5nIHRlc3QgdmVjdG9ycyB0YWtlbiBmcm9tCj4+IC0g
+KiBodHRwOi8vY3NyYy5uaXN0Lmdvdi9ncm91cHMvU1RNL2NhdnAvZG9jdW1lbnRzL21hYy9rd3Rl
+c3R2ZWN0b3JzLnppcAo+PiArICogaHR0cHM6Ly9jc3JjLm5pc3QuZ292L2dyb3Vwcy9TVE0vY2F2
+cC9kb2N1bWVudHMvbWFjL2t3dGVzdHZlY3RvcnMuemlwCj4+IMKgwqAgKgo+PiDCoMKgICogTm90
+ZTogYXMgZG9jdW1lbnRlZCBpbiBrZXl3cmFwLmMsIHRoZSBpdm91dCBmb3IgZW5jcnlwdGlvbiBp
+cyB0aGUgCj4+IGZpcnN0Cj4+IMKgwqAgKiBzZW1pYmxvY2sgb2YgdGhlIGNpcGhlcnRleHQgZnJv
+bSB0aGUgdGVzdCB2ZWN0b3IuIEZvciBkZWNyeXB0aW9uLCAKPj4gaXYgaXMKPj4gQEAgLTIyODI1
+LDcgKzIyODI1LDcgQEAgc3RhdGljIGNvbnN0IHN0cnVjdCBjaXBoZXJfdGVzdHZlYyAKPj4geGV0
+YV90dl90ZW1wbGF0ZVtdID0gewo+PiDCoMKgICogRkNyeXB0IHRlc3QgdmVjdG9ycwo+PiDCoMKg
+ICovCj4+IMKgIHN0YXRpYyBjb25zdCBzdHJ1Y3QgY2lwaGVyX3Rlc3R2ZWMgZmNyeXB0X3BjYmNf
+dHZfdGVtcGxhdGVbXSA9IHsKPj4gLcKgwqDCoCB7IC8qIAo+PiBodHRwOi8vd3d3Lm9wZW5hZnMu
+b3JnL3BpcGVybWFpbC9vcGVuYWZzLWRldmVsLzIwMDAtRGVjZW1iZXIvMDA1MzIwLmh0bWwgCj4+
+ICovCj4+ICvCoMKgwqAgeyAvKiAKPj4gaHR0cHM6Ly93d3cub3BlbmFmcy5vcmcvcGlwZXJtYWls
+L29wZW5hZnMtZGV2ZWwvMjAwMC1EZWNlbWJlci8wMDUzMjAuaHRtbCAKPj4gKi8KPj4gwqDCoMKg
+wqDCoMKgwqDCoMKgIC5rZXnCoMKgwqAgPSAiXHgwMFx4MDBceDAwXHgwMFx4MDBceDAwXHgwMFx4
+MDAiLAo+PiDCoMKgwqDCoMKgwqDCoMKgwqAgLmtsZW7CoMKgwqAgPSA4LAo+PiDCoMKgwqDCoMKg
+wqDCoMKgwqAgLml2wqDCoMKgID0gIlx4MDBceDAwXHgwMFx4MDBceDAwXHgwMFx4MDBceDAwIiwK
+Pj4KX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX18KTGludXgt
+c3RtMzIgbWFpbGluZyBsaXN0CkxpbnV4LXN0bTMyQHN0LW1kLW1haWxtYW4uc3Rvcm1yZXBseS5j
+b20KaHR0cHM6Ly9zdC1tZC1tYWlsbWFuLnN0b3JtcmVwbHkuY29tL21haWxtYW4vbGlzdGluZm8v
+bGludXgtc3RtMzIK
