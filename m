@@ -2,45 +2,66 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id 051232278D0
-	for <lists+linux-stm32@lfdr.de>; Tue, 21 Jul 2020 08:22:27 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id AF4BE22795C
+	for <lists+linux-stm32@lfdr.de>; Tue, 21 Jul 2020 09:16:14 +0200 (CEST)
 Received: from ip-172-31-3-76.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id B992DC36B2A;
-	Tue, 21 Jul 2020 06:22:26 +0000 (UTC)
-Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
- (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
- (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 7C5A9C36B27
- for <linux-stm32@st-md-mailman.stormreply.com>;
- Tue, 21 Jul 2020 06:22:24 +0000 (UTC)
-Received: from localhost (p5486cdb1.dip0.t-ipconnect.de [84.134.205.177])
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 6F1ECC36B2A;
+	Tue, 21 Jul 2020 07:16:14 +0000 (UTC)
+Received: from mx07-00178001.pphosted.com (mx07-00178001.pphosted.com
+ [62.209.51.94])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by mail.kernel.org (Postfix) with ESMTPSA id 9CB0E20792;
- Tue, 21 Jul 2020 06:22:22 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
- s=default; t=1595312543;
- bh=47dJEVMdxrfXF2oYeyAzojzZPGNAbJ4RDRe72YadUlk=;
- h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
- b=aFO1sfzyiSsQ1aRHew1Fs3t3HI9JCj0gnJYlQfk/Wn+lFIwh2wcj9fdH+Uf4agaTQ
- oHaCrMb0N0PX0kMcmZoQu3HE3aEJxxd8pAinpjgDk+f0OYHP+pE+UPzSlTZQ+7FEWP
- CWY0zTjGWsjW1KPmZOKcxbu5Z+ZJNG/oCu+weqRQ=
-Date: Tue, 21 Jul 2020 08:22:17 +0200
-From: Wolfram Sang <wsa@kernel.org>
-To: Rob Herring <robh@kernel.org>
-Message-ID: <20200721062217.GA1044@kunai>
-References: <1593070769-9106-1-git-send-email-alain.volmat@st.com>
- <1593070769-9106-4-git-send-email-alain.volmat@st.com>
- <20200630194107.GA999@ninjato> <20200714023048.GA1151665@bogus>
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id BE4B1C36B27
+ for <linux-stm32@st-md-mailman.stormreply.com>;
+ Tue, 21 Jul 2020 07:16:13 +0000 (UTC)
+Received: from pps.filterd (m0046668.ppops.net [127.0.0.1])
+ by mx07-00178001.pphosted.com (8.16.0.42/8.16.0.42) with SMTP id
+ 06L77RKS010258; Tue, 21 Jul 2020 09:16:03 +0200
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=st.com;
+ h=subject : to : cc :
+ references : from : message-id : date : mime-version : in-reply-to :
+ content-type : content-transfer-encoding; s=STMicroelectronics;
+ bh=73dAVS9zUnqZ8WATP62hAGazNOj36cZliVUS8oX7h4U=;
+ b=zv/sNEUL05QFtuyXeubVy9UghJ47mfJ+LITSloTtydnx8AyIyOUG90UXZDK5nh6WlYj4
+ yCGAMF4CrYHmVG8tPA5lDMnXLLjhU3fouCZXgYuJBnUEDeiVPiylOXf7ncEAI5rhGhde
+ Ab6eUKuu8qTh9IC0Yvyq4MzBMrXZHHnjrMQDOcxXj5OTlwn7iN/kqXTObosvjFYfIUpn
+ 5w/82ZpxNwgbePUmSVpJt/pV5mXw8iLDVSDCnOhy6mnjC/tiu31tJxRmVXbHAYlH9Xq3
+ J/lvBl+eUZTeAdV05MAZZI0sYAnddRZp97gdGAXmXQoIwC/x6Ah3bySZUHqpH+dnXeZJ 4A== 
+Received: from beta.dmz-eu.st.com (beta.dmz-eu.st.com [164.129.1.35])
+ by mx07-00178001.pphosted.com with ESMTP id 32bsfpcana-1
+ (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
+ Tue, 21 Jul 2020 09:16:03 +0200
+Received: from euls16034.sgp.st.com (euls16034.sgp.st.com [10.75.44.20])
+ by beta.dmz-eu.st.com (STMicroelectronics) with ESMTP id EF3FB10002A;
+ Tue, 21 Jul 2020 09:16:02 +0200 (CEST)
+Received: from Webmail-eu.st.com (sfhdag3node2.st.com [10.75.127.8])
+ by euls16034.sgp.st.com (STMicroelectronics) with ESMTP id DF0CA220CCB;
+ Tue, 21 Jul 2020 09:16:02 +0200 (CEST)
+Received: from lmecxl0912.lme.st.com (10.75.127.45) by SFHDAG3NODE2.st.com
+ (10.75.127.8) with Microsoft SMTP Server (TLS) id 15.0.1347.2; Tue, 21 Jul
+ 2020 09:16:02 +0200
+To: Patrick Delaunay <patrick.delaunay@st.com>, <linux-kernel@vger.kernel.org>
+References: <20200616153329.15148-1-patrick.delaunay@st.com>
+From: Alexandre Torgue <alexandre.torgue@st.com>
+Message-ID: <b18bd7f8-f63c-13ad-6220-f7745600a7a6@st.com>
+Date: Tue, 21 Jul 2020 09:16:01 +0200
+User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:68.0) Gecko/20100101
+ Thunderbird/68.10.0
 MIME-Version: 1.0
-In-Reply-To: <20200714023048.GA1151665@bogus>
-Cc: mark.rutland@arm.com, devicetree@vger.kernel.org,
- linux-kernel@vger.kernel.org, pierre-yves.mordret@st.com,
- Alain Volmat <alain.volmat@st.com>, linux-i2c@vger.kernel.org,
- mcoquelin.stm32@gmail.com, fabrice.gasnier@st.com,
- linux-stm32@st-md-mailman.stormreply.com, linux-arm-kernel@lists.infradead.org
-Subject: Re: [Linux-stm32] [PATCH v2 3/4] dt-bindings: i2c-stm32: add SMBus
-	Alert bindings
+In-Reply-To: <20200616153329.15148-1-patrick.delaunay@st.com>
+Content-Language: en-US
+X-Originating-IP: [10.75.127.45]
+X-ClientProxiedBy: SFHDAG8NODE2.st.com (10.75.127.23) To SFHDAG3NODE2.st.com
+ (10.75.127.8)
+X-Proofpoint-Virus-Version: vendor=fsecure engine=2.50.10434:6.0.235, 18.0.687
+ definitions=2020-07-21_02:2020-07-21,
+ 2020-07-21 signatures=0
+Cc: devicetree@vger.kernel.org, Rob Herring <robh+dt@kernel.org>,
+ linux-arm-kernel@lists.infradead.org,
+ Maxime Coquelin <mcoquelin.stm32@gmail.com>,
+ linux-stm32@st-md-mailman.stormreply.com
+Subject: Re: [Linux-stm32] [PATCH] ARM: dts: stm32: cosmetic update in
+ stm32mp15-pinctrl.dtsi
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -52,97 +73,71 @@ List-Post: <mailto:linux-stm32@st-md-mailman.stormreply.com>
 List-Help: <mailto:linux-stm32-request@st-md-mailman.stormreply.com?subject=help>
 List-Subscribe: <https://st-md-mailman.stormreply.com/mailman/listinfo/linux-stm32>, 
  <mailto:linux-stm32-request@st-md-mailman.stormreply.com?subject=subscribe>
-Content-Type: multipart/mixed; boundary="===============8014256287817402924=="
+Content-Transfer-Encoding: 7bit
+Content-Type: text/plain; charset="us-ascii"; Format="flowed"
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
+Hi Patrick
 
---===============8014256287817402924==
-Content-Type: multipart/signed; micalg=pgp-sha512;
-	protocol="application/pgp-signature"; boundary="8t9RHnE3ZwKMSgU+"
-Content-Disposition: inline
+On 6/16/20 5:33 PM, Patrick Delaunay wrote:
+> Use tabs where possible and remove multiple blanks lines.
+> 
+> Signed-off-by: Patrick Delaunay <patrick.delaunay@st.com>
+> ---
+> 
+>   arch/arm/boot/dts/stm32mp15-pinctrl.dtsi | 9 ++++-----
+>   1 file changed, 4 insertions(+), 5 deletions(-)
+> 
 
+Applied on stm32-next.
 
---8t9RHnE3ZwKMSgU+
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-Content-Transfer-Encoding: quoted-printable
+Thanks.
+Alex
 
-Hi Rob,
-
-> > > The I2C/SMBUS framework already provides a mechanism to enable SMBus-=
-Alert
-> > > by naming an IRQ line "smbus_alert". However, on stm32, the SMBus-Ale=
-rt is
-> > > part of the i2c IRQ. Using the smbus_alert naming here would lead to =
-having
-> > > 2 handlers (the handler of the driver and the smbus_alert handler
-> > > from I2C/SMBUS framework) on the unique i2c IRQ of the stm32. Meaning=
- that
-> > > the smbus_alert handler would get called for all IRQ generated by the=
- stm32
-> > > I2C controller.
-> > >=20
-> > > For that reason, the smbus_alert IRQ naming cannot be used and a dedi=
-cated
-> > > binding is introduced.
-> >=20
-> > What if we update the core to not register another irq handler if the
-> > "smbus_alert" and main irq are the same?
-> >=20
-> > I think it could work. However, while trying to make a proof-of-concept,
-> > I found that irq descriptions in the generic i2c binding document are
-> > probably mixed up. And before fixing that, I'd like to get HostNotify
-> > done first.
->=20
-> Why does this even need to be in DT? Can't the driver just register that=
-=20
-> it supports SMBus alert or have some call to the core signaling an SMBus=
-=20
-> alert?=20
-
-If we emulate this SMBus behaviour with I2C, it means we apply
-additional restrictions. In this case, there is an address which can't
-be used anymore. Because there is another case of additional
-restrictions, I proposed the binding "smbus" which means this bus is not
-I2C but SMBus, so it is more restricted.
-
-Thanks,
-
-   Wolfram
-
-
---8t9RHnE3ZwKMSgU+
-Content-Type: application/pgp-signature; name="signature.asc"
-
------BEGIN PGP SIGNATURE-----
-
-iQIzBAABCgAdFiEEOZGx6rniZ1Gk92RdFA3kzBSgKbYFAl8WiZIACgkQFA3kzBSg
-Kbagiw/8CFregwnGWfzJ8CixS6lpRM7jx77tfodUx9ozPR0J2bZ0XG7itMnirLQO
-VIMV2kRUkbaIO3Gfwr0WTM2HvL3Ej5lIJttqPPcm4ZxvYvPhX6eZEe7fYquFnnje
-7/uxFH+GgXqjRfWLVtSG4uwFg7WV70UEQ52E8lORH/PJEdYya/7ICWebcdIfTWhQ
-W+XV4pN08sYkPBUo775Fan2JxruVmISkr/dNRZztLT4PMpczhUf+BQMdOIyrmPO7
-Ix/pPt2inVZfZHzYrM53SXzdOritt6OhYG0xHrdwtTgg4mL2b/Ov1qJCYKDlGGBY
-T00o2ynEp8/IqIXHZ2huw3zplAMvVpxgPFjesoE4tNUwlGjaaGuWECfoFGmdJNJ1
-p2xiXrKLl+6Vlwg+NoDuqZwyL7NY1pEweyCkHjcYs58XrFCoHPbfsvhHcERIgytY
-N4QRmRjTI0D+WtyrNcoBbphl/RtSLAn59lP7SwuiLb9fslTQ34srGDPJXfFBageK
-i1bPBMYMnN3fWD1I29OzDZjPQZPYPzH0qVDKFIj5DLtEx9lM6aUOzKm6EQgduoWn
-rQ+wJX+vml0lfIXZ6jjKBv+JwKg9cvloJlqSlVwVPBLscgn0ptmw6jUuofXtETAg
-cBuIRLHb+u+rorqO89KpaxDXuI/ZFP/zNxC6/4el9FLFawCJ3ZY=
-=ORZA
------END PGP SIGNATURE-----
-
---8t9RHnE3ZwKMSgU+--
-
---===============8014256287817402924==
-Content-Type: text/plain; charset="us-ascii"
-MIME-Version: 1.0
-Content-Transfer-Encoding: 7bit
-Content-Disposition: inline
-
+> diff --git a/arch/arm/boot/dts/stm32mp15-pinctrl.dtsi b/arch/arm/boot/dts/stm32mp15-pinctrl.dtsi
+> index 7eb858732d6d..7d351757f2f8 100644
+> --- a/arch/arm/boot/dts/stm32mp15-pinctrl.dtsi
+> +++ b/arch/arm/boot/dts/stm32mp15-pinctrl.dtsi
+> @@ -210,8 +210,8 @@
+>   				 <STM32_PINMUX('E', 2, ANALOG)>, /* ETH_RGMII_TXD3 */
+>   				 <STM32_PINMUX('B', 11, ANALOG)>, /* ETH_RGMII_TX_CTL */
+>   				 <STM32_PINMUX('C', 1, ANALOG)>, /* ETH_MDC */
+> -			         <STM32_PINMUX('A', 2, ANALOG)>, /* ETH_MDIO */
+> -			         <STM32_PINMUX('C', 4, ANALOG)>, /* ETH_RGMII_RXD0 */
+> +				 <STM32_PINMUX('A', 2, ANALOG)>, /* ETH_MDIO */
+> +				 <STM32_PINMUX('C', 4, ANALOG)>, /* ETH_RGMII_RXD0 */
+>   				 <STM32_PINMUX('C', 5, ANALOG)>, /* ETH_RGMII_RXD1 */
+>   				 <STM32_PINMUX('H', 6, ANALOG)>, /* ETH_RGMII_RXD2 */
+>   				 <STM32_PINMUX('H', 7, ANALOG)>, /* ETH_RGMII_RXD3 */
+> @@ -453,7 +453,7 @@
+>   	i2c5_pins_b: i2c5-1 {
+>   		pins {
+>   			pinmux = <STM32_PINMUX('D', 0, AF4)>, /* I2C5_SCL */
+> -			         <STM32_PINMUX('D', 1, AF4)>; /* I2C5_SDA */
+> +				 <STM32_PINMUX('D', 1, AF4)>; /* I2C5_SDA */
+>   			bias-disable;
+>   			drive-open-drain;
+>   			slew-rate = <0>;
+> @@ -463,7 +463,7 @@
+>   	i2c5_sleep_pins_b: i2c5-sleep-1 {
+>   		pins {
+>   			pinmux = <STM32_PINMUX('D', 0, ANALOG)>, /* I2C5_SCL */
+> -			         <STM32_PINMUX('D', 1, ANALOG)>; /* I2C5_SDA */
+> +				 <STM32_PINMUX('D', 1, ANALOG)>; /* I2C5_SDA */
+>   		};
+>   	};
+>   
+> @@ -1072,7 +1072,6 @@
+>   		};
+>   	};
+>   
+> -
+>   	sai2a_pins_b: sai2a-1 {
+>   		pins1 {
+>   			pinmux = <STM32_PINMUX('I', 6, AF10)>,	/* SAI2_SD_A */
+> 
 _______________________________________________
 Linux-stm32 mailing list
 Linux-stm32@st-md-mailman.stormreply.com
 https://st-md-mailman.stormreply.com/mailman/listinfo/linux-stm32
-
---===============8014256287817402924==--
