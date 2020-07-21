@@ -2,72 +2,59 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id 82A9A227BB0
-	for <lists+linux-stm32@lfdr.de>; Tue, 21 Jul 2020 11:26:54 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 1B797227C25
+	for <lists+linux-stm32@lfdr.de>; Tue, 21 Jul 2020 11:53:21 +0200 (CEST)
 Received: from ip-172-31-3-76.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 3D00EC36B2A
-	for <lists+linux-stm32@lfdr.de>; Tue, 21 Jul 2020 09:26:54 +0000 (UTC)
-Received: from mx07-00178001.pphosted.com (mx08-00178001.pphosted.com
- [91.207.212.93])
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id D2E8CC36B2A;
+	Tue, 21 Jul 2020 09:53:20 +0000 (UTC)
+Received: from mx07-00178001.pphosted.com (mx07-00178001.pphosted.com
+ [62.209.51.94])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id B1AC5C36B27
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 356D4C36B27
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Tue, 21 Jul 2020 09:26:52 +0000 (UTC)
-Received: from pps.filterd (m0046660.ppops.net [127.0.0.1])
+ Tue, 21 Jul 2020 09:53:19 +0000 (UTC)
+Received: from pps.filterd (m0046668.ppops.net [127.0.0.1])
  by mx07-00178001.pphosted.com (8.16.0.42/8.16.0.42) with SMTP id
- 06L9CEG6002901; Tue, 21 Jul 2020 11:26:28 +0200
+ 06L9hPV1013177; Tue, 21 Jul 2020 11:53:02 +0200
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=st.com;
- h=subject : to : cc :
- references : from : message-id : date : mime-version : in-reply-to :
- content-type : content-transfer-encoding; s=STMicroelectronics;
- bh=OV14C0Y2Erm6Xcl0qlPZn5PrJ9Zz3pkJLyGKIPrp1ME=;
- b=RuwQJ5VLINxzOtwl1mwiDuXHrnjRDULmwK7XQ+lMUhEYOhiKW4Aui9UNdvdWuegirH9I
- w1i8YBd+T8e2ra6AKt4douIqqERpKBCFYMfZseWmtzBSxAqrWj47CWDC2qrNo2p/KF7W
- h+HkN62IxXQdWBWgTvRrmJvKMEFJo+5Zqv433EnyStuEy3mkQOV0ZNerZ8WVrrDJTZJ8
- N/4QPyzdRDXhnnEXv0mBkUHmPxgMVtik/v0IEwTxBMXojp/j1VxRetKwLxiR5k8w6VPs
- h8qYV+dwqQjUUVYqo3a0L7mnNDSUFMs+pZKnnmUIPZFs/MqfxD5/wafsFhtBKkMjcA4J Mg== 
+ h=from : to : cc : subject
+ : date : message-id : mime-version : content-type; s=STMicroelectronics;
+ bh=icEBuIRIzSKP//8c/7EqBnZJg430yOMrOqQUZ4Zi+tI=;
+ b=R/6Pr5DCIJWS44LbTl2KDBXcuGjkaJYwVCI/3XQSnNQMlrU023HQblkPg7zl8LfZY6Vf
+ ioQwE/R8zrTIX+atGcNzWG6A0bZK2ZTJyLeEDcUpxSRgRhBmV3rDX2HpcnlUJh0r8PVk
+ ljTZmvWt8L5ON673WOYoUHEfrJW8kRakRvK8NyJFcAncDh1xZxJa2hOjy1Ses8QKo9R2
+ iF5c4BrbNGHhCHiOvbTAuOdbrIXB5QDFfK/VhHggit1X5ItZH5mLEZejDYb43sgjK69g
+ dczFV6zUGt+fDlO0ZTpNcsK2/UDJvn14j8dM+fD+BHTqxGkFd+sEOrLlBaJK2N/wHJpz TQ== 
 Received: from beta.dmz-eu.st.com (beta.dmz-eu.st.com [164.129.1.35])
- by mx07-00178001.pphosted.com with ESMTP id 32cux07u0b-1
+ by mx07-00178001.pphosted.com with ESMTP id 32bsfpd300-1
  (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
- Tue, 21 Jul 2020 11:26:27 +0200
+ Tue, 21 Jul 2020 11:53:02 +0200
 Received: from euls16034.sgp.st.com (euls16034.sgp.st.com [10.75.44.20])
- by beta.dmz-eu.st.com (STMicroelectronics) with ESMTP id 4B1A710002A;
- Tue, 21 Jul 2020 11:26:24 +0200 (CEST)
-Received: from Webmail-eu.st.com (sfhdag3node2.st.com [10.75.127.8])
- by euls16034.sgp.st.com (STMicroelectronics) with ESMTP id 1B7342A8DBF;
- Tue, 21 Jul 2020 11:26:24 +0200 (CEST)
-Received: from lmecxl0912.lme.st.com (10.75.127.44) by SFHDAG3NODE2.st.com
- (10.75.127.8) with Microsoft SMTP Server (TLS) id 15.0.1347.2; Tue, 21 Jul
- 2020 11:26:23 +0200
-To: Marcin Sloniewski <marcin.sloniewski@gmail.com>,
- <linux-arm-kernel@lists.infradead.org>
-References: <20200706173353.20525-1-marcin.sloniewski@gmail.com>
- <20200706173353.20525-3-marcin.sloniewski@gmail.com>
-From: Alexandre Torgue <alexandre.torgue@st.com>
-Message-ID: <832ce94d-0635-634f-7d56-aa21d53652ae@st.com>
-Date: Tue, 21 Jul 2020 11:26:22 +0200
-User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:68.0) Gecko/20100101
- Thunderbird/68.10.0
+ by beta.dmz-eu.st.com (STMicroelectronics) with ESMTP id C6BD710003A;
+ Tue, 21 Jul 2020 11:53:01 +0200 (CEST)
+Received: from Webmail-eu.st.com (sfhdag6node1.st.com [10.75.127.16])
+ by euls16034.sgp.st.com (STMicroelectronics) with ESMTP id AC1A12AD9F8;
+ Tue, 21 Jul 2020 11:53:01 +0200 (CEST)
+Received: from localhost (10.75.127.48) by SFHDAG6NODE1.st.com (10.75.127.16)
+ with Microsoft SMTP Server (TLS) id 15.0.1473.3;
+ Tue, 21 Jul 2020 11:53:01 +0200
+From: Christophe Kerello <christophe.kerello@st.com>
+To: <miquel.raynal@bootlin.com>, <richard@nod.at>, <vigneshr@ti.com>
+Date: Tue, 21 Jul 2020 11:52:07 +0200
+Message-ID: <1595325127-32693-1-git-send-email-christophe.kerello@st.com>
+X-Mailer: git-send-email 1.9.1
 MIME-Version: 1.0
-In-Reply-To: <20200706173353.20525-3-marcin.sloniewski@gmail.com>
-Content-Language: en-US
-X-Originating-IP: [10.75.127.44]
-X-ClientProxiedBy: SFHDAG7NODE1.st.com (10.75.127.19) To SFHDAG3NODE2.st.com
- (10.75.127.8)
+X-Originating-IP: [10.75.127.48]
+X-ClientProxiedBy: SFHDAG8NODE3.st.com (10.75.127.24) To SFHDAG6NODE1.st.com
+ (10.75.127.16)
 X-Proofpoint-Virus-Version: vendor=fsecure engine=2.50.10434:6.0.235, 18.0.687
  definitions=2020-07-21_02:2020-07-21,
  2020-07-21 signatures=0
-Cc: devicetree@vger.kernel.org, Stephan Gerhold <stephan@gerhold.net>,
- Manivannan Sadhasivam <mani@kernel.org>,
- Heiko Stuebner <heiko.stuebner@theobroma-systems.com>,
- Linus Walleij <linus.walleij@linaro.org>, linux-kernel@vger.kernel.org,
- Lubomir Rintel <lkundrak@v3.sk>, Rob Herring <robh+dt@kernel.org>,
- Mark Brown <broonie@kernel.org>, Maxime Coquelin <mcoquelin.stm32@gmail.com>,
- allen <allen.chen@ite.com.tw>, Sam Ravnborg <sam@ravnborg.org>,
- linux-stm32@st-md-mailman.stormreply.com
-Subject: Re: [Linux-stm32] [PATCH 3/3] ARM: dts: stm32: add initial support
- for stm32mp157-odyssey board
+Cc: linux-mtd@lists.infradead.org, linux-kernel@vger.kernel.org,
+ dan.carpenter@oracle.com, linux-stm32@st-md-mailman.stormreply.com
+Subject: [Linux-stm32] [PATCH] mtd: rawnand: stm32_fmc2: fix a buffer
+	overflow
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -79,399 +66,39 @@ List-Post: <mailto:linux-stm32@st-md-mailman.stormreply.com>
 List-Help: <mailto:linux-stm32-request@st-md-mailman.stormreply.com?subject=help>
 List-Subscribe: <https://st-md-mailman.stormreply.com/mailman/listinfo/linux-stm32>, 
  <mailto:linux-stm32-request@st-md-mailman.stormreply.com?subject=subscribe>
+Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
-Content-Type: text/plain; charset="us-ascii"; Format="flowed"
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
-Hi Marcin,
+This patch solves following static checker warning:
+drivers/mtd/nand/raw/stm32_fmc2_nand.c:350 stm32_fmc2_nfc_select_chip()
+error: buffer overflow 'nfc->data_phys_addr' 2 <= 2
 
-On 7/6/20 7:33 PM, Marcin Sloniewski wrote:
-> Add support for Seeed Studio's stm32mp157c odyssey board.
-> Board consists of SoM with stm32mp157c with 4GB eMMC and 512 MB DDR3 RAM
-> and carrier board with USB and ETH interfaces, SD card connector,
-> wifi and BT chip AP6236.
-> 
-> In this patch only basic kernel boot is supported and interfacing
-> SD card and on-board eMMC.
-> 
-> Signed-off-by: Marcin Sloniewski <marcin.sloniewski@gmail.com>
+The CS value can only be 0 or 1.
 
-Thanks for adding a new STM32MP157 board. Nothing to say about your DT 
-patchs except that Makefile update is missing.
+Signed-off-by: Christophe Kerello <christophe.kerello@st.com>
+Fixes: 2cd457f328c1 ("mtd: rawnand: stm32_fmc2: add STM32 FMC2 NAND flash controller driver")
+---
+ drivers/mtd/nand/raw/stm32_fmc2_nand.c | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
 
-regards
-Alex
+diff --git a/drivers/mtd/nand/raw/stm32_fmc2_nand.c b/drivers/mtd/nand/raw/stm32_fmc2_nand.c
+index a4140af..74fecde 100644
+--- a/drivers/mtd/nand/raw/stm32_fmc2_nand.c
++++ b/drivers/mtd/nand/raw/stm32_fmc2_nand.c
+@@ -1791,7 +1791,7 @@ static int stm32_fmc2_nfc_parse_child(struct stm32_fmc2_nfc *nfc,
+ 			return ret;
+ 		}
+ 
+-		if (cs > FMC2_MAX_CE) {
++		if (cs >= FMC2_MAX_CE) {
+ 			dev_err(nfc->dev, "invalid reg value: %d\n", cs);
+ 			return -EINVAL;
+ 		}
+-- 
+1.9.1
 
-
-> ---
->   .../arm/boot/dts/stm32mp157c-odyssey-som.dtsi | 276 ++++++++++++++++++
->   arch/arm/boot/dts/stm32mp157c-odyssey.dts     |  72 +++++
->   2 files changed, 348 insertions(+)
->   create mode 100644 arch/arm/boot/dts/stm32mp157c-odyssey-som.dtsi
->   create mode 100644 arch/arm/boot/dts/stm32mp157c-odyssey.dts
-> 
-> diff --git a/arch/arm/boot/dts/stm32mp157c-odyssey-som.dtsi b/arch/arm/boot/dts/stm32mp157c-odyssey-som.dtsi
-> new file mode 100644
-> index 000000000000..620ff9e7f370
-> --- /dev/null
-> +++ b/arch/arm/boot/dts/stm32mp157c-odyssey-som.dtsi
-> @@ -0,0 +1,276 @@
-> +// SPDX-License-Identifier: (GPL-2.0+ OR BSD-3-Clause)
-> +/*
-> + * Copyright (C) 2020 Marcin Sloniewski <marcin.sloniewski@gmail.com>.
-> + */
-> +
-> +/dts-v1/;
-> +
-> +#include "stm32mp157.dtsi"
-> +#include "stm32mp15xc.dtsi"
-> +#include "stm32mp15-pinctrl.dtsi"
-> +#include "stm32mp15xxac-pinctrl.dtsi"
-> +#include <dt-bindings/gpio/gpio.h>
-> +#include <dt-bindings/mfd/st,stpmic1.h>
-> +
-> +/ {
-> +	model = "Seeed Studio Odyssey-STM32MP157C SOM";
-> +	compatible = "seeed,stm32mp157c-odyssey-som", "st,stm32mp157";
-> +
-> +	memory@c0000000 {
-> +		reg = <0xc0000000 0x20000000>;
-> +	};
-> +
-> +	reserved-memory {
-> +		#address-cells = <1>;
-> +		#size-cells = <1>;
-> +		ranges;
-> +
-> +		mcuram2: mcuram2@10000000 {
-> +			compatible = "shared-dma-pool";
-> +			reg = <0x10000000 0x40000>;
-> +			no-map;
-> +		};
-> +
-> +		vdev0vring0: vdev0vring0@10040000 {
-> +			compatible = "shared-dma-pool";
-> +			reg = <0x10040000 0x1000>;
-> +			no-map;
-> +		};
-> +
-> +		vdev0vring1: vdev0vring1@10041000 {
-> +			compatible = "shared-dma-pool";
-> +			reg = <0x10041000 0x1000>;
-> +			no-map;
-> +		};
-> +
-> +		vdev0buffer: vdev0buffer@10042000 {
-> +			compatible = "shared-dma-pool";
-> +			reg = <0x10042000 0x4000>;
-> +			no-map;
-> +		};
-> +
-> +		mcuram: mcuram@30000000 {
-> +			compatible = "shared-dma-pool";
-> +			reg = <0x30000000 0x40000>;
-> +			no-map;
-> +		};
-> +
-> +		retram: retram@38000000 {
-> +			compatible = "shared-dma-pool";
-> +			reg = <0x38000000 0x10000>;
-> +			no-map;
-> +		};
-> +
-> +		gpu_reserved: gpu@d4000000 {
-> +			reg = <0xd4000000 0x4000000>;
-> +			no-map;
-> +		};
-> +	};
-> +
-> +	led {
-> +		compatible = "gpio-leds";
-> +		blue {
-> +			label = "heartbeat";
-> +			gpios = <&gpiog 3 GPIO_ACTIVE_HIGH>;
-> +			linux,default-trigger = "heartbeat";
-> +			default-state = "off";
-> +		};
-> +	};
-> +};
-> +
-> +&gpu {
-> +	contiguous-area = <&gpu_reserved>;
-> +	status = "okay";
-> +};
-> +
-> +&i2c2 {
-> +	pinctrl-names = "default";
-> +	pinctrl-0 = <&i2c2_pins_a>;
-> +	i2c-scl-rising-time-ns = <185>;
-> +	i2c-scl-falling-time-ns = <20>;
-> +	status = "okay";
-> +	/* spare dmas for other usage */
-> +	/delete-property/dmas;
-> +	/delete-property/dma-names;
-> +
-> +	pmic: stpmic@33 {
-> +		compatible = "st,stpmic1";
-> +		reg = <0x33>;
-> +		interrupts-extended = <&gpioa 0 IRQ_TYPE_EDGE_FALLING>;
-> +		interrupt-controller;
-> +		#interrupt-cells = <2>;
-> +		status = "okay";
-> +
-> +		regulators {
-> +			compatible = "st,stpmic1-regulators";
-> +			ldo1-supply = <&v3v3>;
-> +			ldo3-supply = <&vdd_ddr>;
-> +			ldo6-supply = <&v3v3>;
-> +			pwr_sw1-supply = <&bst_out>;
-> +			pwr_sw2-supply = <&bst_out>;
-> +
-> +			vddcore: buck1 {
-> +				regulator-name = "vddcore";
-> +				regulator-min-microvolt = <800000>;
-> +				regulator-max-microvolt = <1350000>;
-> +				regulator-always-on;
-> +				regulator-initial-mode = <0>;
-> +				regulator-over-current-protection;
-> +			};
-> +
-> +			vdd_ddr: buck2 {
-> +				regulator-name = "vdd_ddr";
-> +				regulator-min-microvolt = <1350000>;
-> +				regulator-max-microvolt = <1350000>;
-> +				regulator-always-on;
-> +				regulator-initial-mode = <0>;
-> +				regulator-over-current-protection;
-> +			};
-> +
-> +			vdd: buck3 {
-> +				regulator-name = "vdd";
-> +				regulator-min-microvolt = <3300000>;
-> +				regulator-max-microvolt = <3300000>;
-> +				regulator-always-on;
-> +				st,mask-reset;
-> +				regulator-initial-mode = <0>;
-> +				regulator-over-current-protection;
-> +			};
-> +
-> +			v3v3: buck4 {
-> +				regulator-name = "v3v3";
-> +				regulator-min-microvolt = <3300000>;
-> +				regulator-max-microvolt = <3300000>;
-> +				regulator-always-on;
-> +				regulator-over-current-protection;
-> +				regulator-initial-mode = <0>;
-> +			};
-> +
-> +			v1v8_audio: ldo1 {
-> +				regulator-name = "v1v8_audio";
-> +				regulator-min-microvolt = <1800000>;
-> +				regulator-max-microvolt = <1800000>;
-> +				regulator-always-on;
-> +				interrupts = <IT_CURLIM_LDO1 0>;
-> +			};
-> +
-> +			v3v3_hdmi: ldo2 {
-> +				regulator-name = "v3v3_hdmi";
-> +				regulator-min-microvolt = <3300000>;
-> +				regulator-max-microvolt = <3300000>;
-> +				regulator-always-on;
-> +				interrupts = <IT_CURLIM_LDO2 0>;
-> +			};
-> +
-> +			vtt_ddr: ldo3 {
-> +				regulator-name = "vtt_ddr";
-> +				regulator-min-microvolt = <500000>;
-> +				regulator-max-microvolt = <750000>;
-> +				regulator-always-on;
-> +				regulator-over-current-protection;
-> +			};
-> +
-> +			vdd_usb: ldo4 {
-> +				regulator-name = "vdd_usb";
-> +				regulator-min-microvolt = <3300000>;
-> +				regulator-max-microvolt = <3300000>;
-> +				interrupts = <IT_CURLIM_LDO4 0>;
-> +			};
-> +
-> +			vdda: ldo5 {
-> +				regulator-name = "vdda";
-> +				regulator-min-microvolt = <2900000>;
-> +				regulator-max-microvolt = <2900000>;
-> +				interrupts = <IT_CURLIM_LDO5 0>;
-> +				regulator-boot-on;
-> +			};
-> +
-> +			v1v2_hdmi: ldo6 {
-> +				regulator-name = "v1v2_hdmi";
-> +				regulator-min-microvolt = <1200000>;
-> +				regulator-max-microvolt = <1200000>;
-> +				regulator-always-on;
-> +				interrupts = <IT_CURLIM_LDO6 0>;
-> +			};
-> +
-> +			vref_ddr: vref_ddr {
-> +				regulator-name = "vref_ddr";
-> +				regulator-always-on;
-> +				regulator-over-current-protection;
-> +			};
-> +
-> +			 bst_out: boost {
-> +				regulator-name = "bst_out";
-> +				interrupts = <IT_OCP_BOOST 0>;
-> +			 };
-> +
-> +			vbus_otg: pwr_sw1 {
-> +				regulator-name = "vbus_otg";
-> +				interrupts = <IT_OCP_OTG 0>;
-> +			 };
-> +
-> +			 vbus_sw: pwr_sw2 {
-> +				regulator-name = "vbus_sw";
-> +				interrupts = <IT_OCP_SWOUT 0>;
-> +				regulator-active-discharge;
-> +			 };
-> +		};
-> +
-> +		onkey {
-> +			compatible = "st,stpmic1-onkey";
-> +			interrupts = <IT_PONKEY_F 0>, <IT_PONKEY_R 0>;
-> +			interrupt-names = "onkey-falling", "onkey-rising";
-> +			power-off-time-sec = <10>;
-> +			status = "okay";
-> +		};
-> +
-> +		watchdog {
-> +			compatible = "st,stpmic1-wdt";
-> +			status = "disabled";
-> +		};
-> +	};
-> +};
-> +
-> +&ipcc {
-> +	status = "okay";
-> +};
-> +
-> +&iwdg2 {
-> +	timeout-sec = <32>;
-> +	status = "okay";
-> +};
-> +
-> +&m4_rproc {
-> +	memory-region = <&retram>, <&mcuram>, <&mcuram2>, <&vdev0vring0>,
-> +			<&vdev0vring1>, <&vdev0buffer>;
-> +	mboxes = <&ipcc 0>, <&ipcc 1>, <&ipcc 2>;
-> +	mbox-names = "vq0", "vq1", "shutdown";
-> +	interrupt-parent = <&exti>;
-> +	interrupts = <68 1>;
-> +	status = "okay";
-> +};
-> +
-> +&rng1 {
-> +	status = "okay";
-> +};
-> +
-> +&rtc {
-> +	status = "okay";
-> +};
-> +
-> +&sdmmc2 {
-> +	pinctrl-names = "default", "opendrain", "sleep";
-> +	pinctrl-0 = <&sdmmc2_b4_pins_a &sdmmc2_d47_pins_a>;
-> +	pinctrl-1 = <&sdmmc2_b4_od_pins_a &sdmmc2_d47_pins_a>;
-> +	pinctrl-2 = <&sdmmc2_b4_sleep_pins_a &sdmmc2_d47_sleep_pins_a>;
-> +	non-removable;
-> +	no-sd;
-> +	no-sdio;
-> +	st,neg-edge;
-> +	bus-width = <4>;
-> +	vmmc-supply = <&v3v3>;
-> +	vqmmc-supply = <&v3v3>;
-> +	mmc-ddr-3_3v;
-> +	status = "okay";
-> +};
-> +
-> diff --git a/arch/arm/boot/dts/stm32mp157c-odyssey.dts b/arch/arm/boot/dts/stm32mp157c-odyssey.dts
-> new file mode 100644
-> index 000000000000..6c1b091af14f
-> --- /dev/null
-> +++ b/arch/arm/boot/dts/stm32mp157c-odyssey.dts
-> @@ -0,0 +1,72 @@
-> +// SPDX-License-Identifier: (GPL-2.0+ OR BSD-3-Clause)
-> +/*
-> + * Copyright (C) 2020 Marcin Sloniewski <marcin.sloniewski@gmail.com>.
-> + */
-> +
-> +/dts-v1/;
-> +
-> +#include "stm32mp157c-odyssey-som.dtsi"
-> +
-> +/ {
-> +	model = "Seeed Studio Odyssey-STM32MP157C Board";
-> +	compatible = "seeed,stm32mp157c-odyssey", "st,stm32mp157";
-> +
-> +	aliases {
-> +		ethernet0 = &ethernet0;
-> +		serial0 = &uart4;
-> +	};
-> +
-> +	chosen {
-> +		stdout-path = "serial0:115200n8";
-> +	};
-> +};
-> +
-> +&ethernet0 {
-> +	status = "okay";
-> +	pinctrl-0 = <&ethernet0_rgmii_pins_a>;
-> +	pinctrl-1 = <&ethernet0_rgmii_pins_sleep_a>;
-> +	pinctrl-names = "default", "sleep";
-> +	phy-mode = "rgmii-id";
-> +	max-speed = <1000>;
-> +	phy-handle = <&phy0>;
-> +
-> +	mdio0 {
-> +		#address-cells = <1>;
-> +		#size-cells = <0>;
-> +		compatible = "snps,dwmac-mdio";
-> +		phy0: ethernet-phy@0 {
-> +			reg = <0>;
-> +		};
-> +	};
-> +};
-> +
-> +&i2c1 {
-> +	pinctrl-names = "default", "sleep";
-> +	pinctrl-0 = <&i2c1_pins_a>;
-> +	pinctrl-1 = <&i2c1_pins_sleep_a>;
-> +	i2c-scl-rising-time-ns = <100>;
-> +	i2c-scl-falling-time-ns = <7>;
-> +	status = "okay";
-> +	/delete-property/dmas;
-> +	/delete-property/dma-names;
-> +};
-> +
-> +&sdmmc1 {
-> +	pinctrl-names = "default", "opendrain", "sleep";
-> +	pinctrl-0 = <&sdmmc1_b4_pins_a>;
-> +	pinctrl-1 = <&sdmmc1_b4_od_pins_a>;
-> +	pinctrl-2 = <&sdmmc1_b4_sleep_pins_a>;
-> +	cd-gpios = <&gpiob 7 (GPIO_ACTIVE_LOW | GPIO_PULL_UP)>;
-> +	disable-wp;
-> +	st,neg-edge;
-> +	bus-width = <4>;
-> +	vmmc-supply = <&v3v3>;
-> +	status = "okay";
-> +};
-> +
-> +&uart4 {
-> +	pinctrl-names = "default";
-> +	pinctrl-0 = <&uart4_pins_a>;
-> +	status = "okay";
-> +};
-> +
-> 
 _______________________________________________
 Linux-stm32 mailing list
 Linux-stm32@st-md-mailman.stormreply.com
