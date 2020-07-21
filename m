@@ -2,40 +2,69 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id 85F8C2287C6
-	for <lists+linux-stm32@lfdr.de>; Tue, 21 Jul 2020 19:49:34 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 2785922888D
+	for <lists+linux-stm32@lfdr.de>; Tue, 21 Jul 2020 20:53:41 +0200 (CEST)
 Received: from ip-172-31-3-76.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 42E73C36B2A;
-	Tue, 21 Jul 2020 17:49:34 +0000 (UTC)
-Received: from smtp.al2klimov.de (smtp.al2klimov.de [78.46.175.9])
- (using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id D2D14C36B2A
+	for <lists+linux-stm32@lfdr.de>; Tue, 21 Jul 2020 18:53:40 +0000 (UTC)
+Received: from mail-ej1-f66.google.com (mail-ej1-f66.google.com
+ [209.85.218.66])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 032EAC36B27
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 4D7E9C36B27
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Tue, 21 Jul 2020 17:49:31 +0000 (UTC)
-Received: from authenticated-user (PRIMARY_HOSTNAME [PUBLIC_IP])
- by smtp.al2klimov.de (Postfix) with ESMTPA id 5EC01BC1AC;
- Tue, 21 Jul 2020 17:49:28 +0000 (UTC)
-To: Alexandre Torgue <alexandre.torgue@st.com>, linux@armlinux.org.uk,
- mcoquelin.stm32@gmail.com, herbert@gondor.apana.org.au, davem@davemloft.net,
- linux-arm-kernel@lists.infradead.org,
- linux-stm32@st-md-mailman.stormreply.com, linux-kernel@vger.kernel.org,
- linux-crypto@vger.kernel.org
-References: <20200719094948.57487-1-grandmaster@al2klimov.de>
- <43c11c7a-269e-cc41-6934-0d2e0dec3226@st.com>
-From: "Alexander A. Klimov" <grandmaster@al2klimov.de>
-Message-ID: <219075a0-d7cf-a699-21d7-fabc6f077f95@al2klimov.de>
-Date: Tue, 21 Jul 2020 19:49:27 +0200
+ Tue, 21 Jul 2020 18:53:39 +0000 (UTC)
+Received: by mail-ej1-f66.google.com with SMTP id br7so22682993ejb.5
+ for <linux-stm32@st-md-mailman.stormreply.com>;
+ Tue, 21 Jul 2020 11:53:39 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20161025;
+ h=from:to:cc:subject:date:message-id:mime-version
+ :content-transfer-encoding;
+ bh=TnSVvBPLgxOr7Okxa4+yFdbMwIKkVndKbRuepRfY/Zs=;
+ b=eek7cfh8H0FIKKTKyBOBHTZXYqIWxEk2P6Dapr54GUi+cu4HMdvEVwngy6fLz1aDzg
+ U0nFCc4ud2FYMXTUQrRiT3tbHejhwGgihOl42ahAgrjrWuM+I6d+6HakuuuzNG5ftqYA
+ xuCEbud/W7cgGEpDBQ5xy/W+JlSt3RtlznZhLpdcwEYoAyVWbDcCOYYwBrNxKEgeoOMC
+ 6FDXsMt+noVatUZPGb7f1gVvQIHr5TUNngAYmHT2s7tnARRznT1CYQ4c0RqU9o93V5wz
+ 509Oa0X8gkl6SAoeDJ4Kup24jKoQqX8R2+/nUcXa20nn62TkcC4RLCZ7amX1hKN/LYhJ
+ nd8w==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20161025;
+ h=x-gm-message-state:from:to:cc:subject:date:message-id:mime-version
+ :content-transfer-encoding;
+ bh=TnSVvBPLgxOr7Okxa4+yFdbMwIKkVndKbRuepRfY/Zs=;
+ b=FtsYAdA6nVdNFEFi4Ow7hqCtZRzCFfASrZ3gkuNUL7PbV5bbgzXC+RyWaYQe7OaoWg
+ HDaj1EpBQljGi9ncaX915LP3tErOJG4GylTHPvx71tHC6NBeOi1ZKHI/ddSPepsExMJ6
+ 9ZjNcLWGmDfXjuQBj4B2+E+Unb9yt1rRKf7NRo86wOv6YqgJXZeX0pMnk3LL3723OsWg
+ qBpzZ4FbqMkbrnfgPtoRPnufFXbkCfSGvNPvijHFsjLmVuwyXkH/zrqx2d519qbTPRnn
+ 8YLxKg/+XAwpM6zNhSdEXMz5IeTnYZDSPEQAADlMQrd7lVhc7Tu1XJhdN73IwaUkCcOv
+ obEA==
+X-Gm-Message-State: AOAM5323gRr/PgNHARrlbevEdUcPjsg/H5BvMWB/ND9ZDDUJ1zXfpYDc
+ 7tmjgaeZ1FBBXMYWcM+BMlE=
+X-Google-Smtp-Source: ABdhPJziAjyw97m/l3cd7CXgr1VWPs/5ficOCx+UJ5aQJNaPKvKkhN4gy0cXRhfSU6uY54k9dE/I3Q==
+X-Received: by 2002:a17:906:7c8:: with SMTP id
+ m8mr26420200ejc.527.1595357618581; 
+ Tue, 21 Jul 2020 11:53:38 -0700 (PDT)
+Received: from blackhead.home ([2a01:112f:a1c:7900:7316:ce1e:7b0b:6bd7])
+ by smtp.gmail.com with ESMTPSA id f10sm17585506edr.69.2020.07.21.11.53.36
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Tue, 21 Jul 2020 11:53:38 -0700 (PDT)
+From: Marcin Sloniewski <marcin.sloniewski@gmail.com>
+To: linux-arm-kernel@lists.infradead.org
+Date: Tue, 21 Jul 2020 20:53:12 +0200
+Message-Id: <20200721185317.208722-1-marcin.sloniewski@gmail.com>
+X-Mailer: git-send-email 2.27.0
 MIME-Version: 1.0
-In-Reply-To: <43c11c7a-269e-cc41-6934-0d2e0dec3226@st.com>
-Content-Language: en-US
-X-Spamd-Bar: +
-X-Spam-Level: *
-Authentication-Results: smtp.al2klimov.de;
- auth=pass smtp.auth=aklimov@al2klimov.de
- smtp.mailfrom=grandmaster@al2klimov.de
-Subject: Re: [Linux-stm32] [PATCH for v5.9] ARM: STM32: Replace HTTP links
-	with HTTPS ones
+Cc: Rob Herring <robh@kernel.org>, Stephan Gerhold <stephan@gerhold.net>,
+ Manivannan Sadhasivam <mani@kernel.org>,
+ Heiko Stuebner <heiko.stuebner@theobroma-systems.com>,
+ Linus Walleij <linus.walleij@linaro.org>, linux-kernel@vger.kernel.org,
+ Lubomir Rintel <lkundrak@v3.sk>,
+ Marcin Sloniewski <marcin.sloniewski@gmail.com>,
+ Mark Brown <broonie@kernel.org>, allen <allen.chen@ite.com.tw>,
+ Sam Ravnborg <sam@ravnborg.org>, linux-stm32@st-md-mailman.stormreply.com,
+ devicetree@vger.kernel.org
+Subject: [Linux-stm32] [PATCH v3 1/3] dt-bindings: vendor-prefixes: add
+	Seeed Studio
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -47,111 +76,37 @@ List-Post: <mailto:linux-stm32@st-md-mailman.stormreply.com>
 List-Help: <mailto:linux-stm32-request@st-md-mailman.stormreply.com?subject=help>
 List-Subscribe: <https://st-md-mailman.stormreply.com/mailman/listinfo/linux-stm32>, 
  <mailto:linux-stm32-request@st-md-mailman.stormreply.com?subject=subscribe>
-Content-Transfer-Encoding: base64
-Content-Type: text/plain; charset="utf-8"; Format="flowed"
+Content-Type: text/plain; charset="us-ascii"
+Content-Transfer-Encoding: 7bit
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
-CgpBbSAyMS4wNy4yMCB1bSAxMDo0OSBzY2hyaWViIEFsZXhhbmRyZSBUb3JndWU6Cj4gSGkgQWxl
-eGFuZGVyCj4gCj4gT24gNy8xOS8yMCAxMTo0OSBBTSwgQWxleGFuZGVyIEEuIEtsaW1vdiB3cm90
-ZToKPj4gUmF0aW9uYWxlOgo+PiBSZWR1Y2VzIGF0dGFjayBzdXJmYWNlIG9uIGtlcm5lbCBkZXZz
-IG9wZW5pbmcgdGhlIGxpbmtzIGZvciBNSVRNCj4+IGFzIEhUVFBTIHRyYWZmaWMgaXMgbXVjaCBo
-YXJkZXIgdG8gbWFuaXB1bGF0ZS4KPj4KPj4gRGV0ZXJtaW5pc3RpYyBhbGdvcml0aG06Cj4+IEZv
-ciBlYWNoIGZpbGU6Cj4+IMKgwqAgSWYgbm90IC5zdmc6Cj4+IMKgwqDCoMKgIEZvciBlYWNoIGxp
-bmU6Cj4+IMKgwqDCoMKgwqDCoCBJZiBkb2Vzbid0IGNvbnRhaW4gYFxieG1sbnNcYmA6Cj4+IMKg
-wqDCoMKgwqDCoMKgwqAgRm9yIGVhY2ggbGluaywgYFxiaHR0cDovL1teIyBcdFxyXG5dKig/Olx3
-fC8pYDoKPj4gwqDCoMKgwqDCoCBJZiBuZWl0aGVyIGBcYmdudVwub3JnL2xpY2Vuc2VgLCBub3Ig
-YFxibW96aWxsYVwub3JnL01QTFxiYDoKPj4gwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgIElmIGJv
-dGggdGhlIEhUVFAgYW5kIEhUVFBTIHZlcnNpb25zCj4+IMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDC
-oCByZXR1cm4gMjAwIE9LIGFuZCBzZXJ2ZSB0aGUgc2FtZSBjb250ZW50Ogo+PiDCoMKgwqDCoMKg
-wqDCoMKgwqDCoMKgwqDCoMKgIFJlcGxhY2UgSFRUUCB3aXRoIEhUVFBTLgo+Pgo+PiBTaWduZWQt
-b2ZmLWJ5OiBBbGV4YW5kZXIgQS4gS2xpbW92IDxncmFuZG1hc3RlckBhbDJrbGltb3YuZGU+Cj4g
-Cj4gVGhpcyBwYXRjaCB0b3VjaCAyIGRpZmZlcmVudCBzdWJzeXN0ZW1zLiBDYW4geW91IHBsZWFz
-ZSBzcGxpdCBpdCA/CkkgY2FuLiBCdXQgZG9uJ3QgYWxsIGZpbGVzIGJlbG9uZyB0byB0aGUgc3Vi
-c3lzdGVtIHRoaXMgcGF0Y2ggaXMgZm9yPwoK4p6cICBsaW51eCBnaXQ6KGF1dG9nZW4vMTAyOSkg
-Z2l0IHNob3cgYXJjaC9hcm0vbWFjaC1zdG0zMi9NYWtlZmlsZS5ib290IAp8cGVybCBzY3JpcHRz
-L2dldF9tYWludGFpbmVyLnBsIC0tbm9naXR7LC1mYWxsYmFja30KUnVzc2VsbCBLaW5nIDxsaW51
-eEBhcm1saW51eC5vcmcudWs+IChvZGQgZml4ZXI6QVJNIFBPUlQpCk1heGltZSBDb3F1ZWxpbiA8
-bWNvcXVlbGluLnN0bTMyQGdtYWlsLmNvbT4gKG1haW50YWluZXI6QVJNL1NUTTMyIApBUkNISVRF
-Q1RVUkUpCkFsZXhhbmRyZSBUb3JndWUgPGFsZXhhbmRyZS50b3JndWVAc3QuY29tPiAobWFpbnRh
-aW5lcjpBUk0vU1RNMzIgCkFSQ0hJVEVDVFVSRSkKbGludXgtYXJtLWtlcm5lbEBsaXN0cy5pbmZy
-YWRlYWQub3JnIChtb2RlcmF0ZWQgbGlzdDpBUk0gU1VCLUFSQ0hJVEVDVFVSRVMpCmxpbnV4LXN0
-bTMyQHN0LW1kLW1haWxtYW4uc3Rvcm1yZXBseS5jb20gKG1vZGVyYXRlZCBsaXN0OkFSTS9TVE0z
-MiAKQVJDSElURUNUVVJFKQpsaW51eC1rZXJuZWxAdmdlci5rZXJuZWwub3JnIChvcGVuIGxpc3Qp
-CuKenCAgbGludXggZ2l0OihhdXRvZ2VuLzEwMjkpIGdpdCBzaG93IGNyeXB0by90ZXN0bWdyLmgg
-fHBlcmwgCnNjcmlwdHMvZ2V0X21haW50YWluZXIucGwgLS1ub2dpdHssLWZhbGxiYWNrfQpIZXJi
-ZXJ0IFh1IDxoZXJiZXJ0QGdvbmRvci5hcGFuYS5vcmcuYXU+IChtYWludGFpbmVyOkNSWVBUTyBB
-UEkpCiJEYXZpZCBTLiBNaWxsZXIiIDxkYXZlbUBkYXZlbWxvZnQubmV0PiAobWFpbnRhaW5lcjpD
-UllQVE8gQVBJKQpNYXhpbWUgQ29xdWVsaW4gPG1jb3F1ZWxpbi5zdG0zMkBnbWFpbC5jb20+ICht
-YWludGFpbmVyOkFSTS9TVE0zMiAKQVJDSElURUNUVVJFKQpBbGV4YW5kcmUgVG9yZ3VlIDxhbGV4
-YW5kcmUudG9yZ3VlQHN0LmNvbT4gKG1haW50YWluZXI6QVJNL1NUTTMyIApBUkNISVRFQ1RVUkUp
-CmxpbnV4LWNyeXB0b0B2Z2VyLmtlcm5lbC5vcmcgKG9wZW4gbGlzdDpDUllQVE8gQVBJKQpsaW51
-eC1zdG0zMkBzdC1tZC1tYWlsbWFuLnN0b3JtcmVwbHkuY29tIChtb2RlcmF0ZWQgbGlzdDpBUk0v
-U1RNMzIgCkFSQ0hJVEVDVFVSRSkKbGludXgtYXJtLWtlcm5lbEBsaXN0cy5pbmZyYWRlYWQub3Jn
-IChtb2RlcmF0ZWQgbGlzdDpBUk0vU1RNMzIgQVJDSElURUNUVVJFKQpsaW51eC1rZXJuZWxAdmdl
-ci5rZXJuZWwub3JnIChvcGVuIGxpc3QpCuKenCAgbGludXggZ2l0OihhdXRvZ2VuLzEwMjkpCgo+
-IAo+IFJlZ2FyZHMKPiBBbGV4Cj4gCj4gCj4+IC0tLQo+PiDCoCBDb250aW51aW5nIG15IHdvcmsg
-c3RhcnRlZCBhdCA5MzQzMWUwNjA3ZTUuCj4+IMKgIFNlZSBhbHNvOiBnaXQgbG9nIC0tb25lbGlu
-ZSAnLS1hdXRob3I9QWxleGFuZGVyIEEuIEtsaW1vdiAKPj4gPGdyYW5kbWFzdGVyQGFsMmtsaW1v
-di5kZT4nIHY1LjcuLm1hc3Rlcgo+PiDCoCAoQWN0dWFsbHkgbGV0dGluZyBhIHNoZWxsIGZvciBs
-b29wIHN1Ym1pdCBhbGwgdGhpcyBzdHVmZiBmb3IgbWUuKQo+Pgo+PiDCoCBJZiB0aGVyZSBhcmUg
-YW55IFVSTHMgdG8gYmUgcmVtb3ZlZCBjb21wbGV0ZWx5Cj4+IMKgIG9yIGF0IGxlYXN0IG5vdCAo
-anVzdCkgSFRUUFNpZmllZDoKPj4gwqAgSnVzdCBjbGVhcmx5IHNheSBzbyBhbmQgSSdsbCAqdW5k
-byBteSBjaGFuZ2UqLgo+PiDCoCBTZWUgYWxzbzogaHR0cHM6Ly9sa21sLm9yZy9sa21sLzIwMjAv
-Ni8yNy82NAo+Pgo+PiDCoCBJZiB0aGVyZSBhcmUgYW55IHZhbGlkLCBidXQgeWV0IG5vdCBjaGFu
-Z2VkIFVSTHM6Cj4+IMKgIFNlZTogaHR0cHM6Ly9sa21sLm9yZy9sa21sLzIwMjAvNi8yNi84MzcK
-Pj4KPj4gwqAgSWYgeW91IGFwcGx5IHRoZSBwYXRjaCwgcGxlYXNlIGxldCBtZSBrbm93Lgo+Pgo+
-PiDCoCBTb3JyeSBhZ2FpbiB0byBhbGwgbWFpbnRhaW5lcnMgd2hvIGNvbXBsYWluZWQgYWJvdXQg
-c3ViamVjdCBsaW5lcy4KPj4gwqAgTm93IEkgcmVhbGl6ZWQgdGhhdCB5b3Ugd2FudCBhbiBhY3R1
-YWxseSBwZXJmZWN0IHByZWZpeGVzLAo+PiDCoCBub3QganVzdCBzdWJzeXN0ZW0gb25lcy4KPj4g
-wqAgSSB0cmllZCBteSBiZXN0Li4uCj4+IMKgIEFuZCB5ZXMsICpJIGNvdWxkKiAoYXQgbGVhc3Qg
-aGFsZi0pYXV0b21hdGUgaXQuCj4+IMKgIEltcG9zc2libGUgaXMgbm90aGluZyEgOikKPj4KPj4K
-Pj4gwqAgYXJjaC9hcm0vbWFjaC1zdG0zMi9NYWtlZmlsZS5ib290IHwgMiArLQo+PiDCoCBjcnlw
-dG8vdGVzdG1nci5owqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoCB8IDYgKysrLS0t
-Cj4+IMKgIDIgZmlsZXMgY2hhbmdlZCwgNCBpbnNlcnRpb25zKCspLCA0IGRlbGV0aW9ucygtKQo+
-Pgo+PiBkaWZmIC0tZ2l0IGEvYXJjaC9hcm0vbWFjaC1zdG0zMi9NYWtlZmlsZS5ib290IAo+PiBi
-L2FyY2gvYXJtL21hY2gtc3RtMzIvTWFrZWZpbGUuYm9vdAo+PiBpbmRleCBjZWMxOTVkNGZjYmEu
-LjVkZGU3MzI4YTdhOSAxMDA2NDQKPj4gLS0tIGEvYXJjaC9hcm0vbWFjaC1zdG0zMi9NYWtlZmls
-ZS5ib290Cj4+ICsrKyBiL2FyY2gvYXJtL21hY2gtc3RtMzIvTWFrZWZpbGUuYm9vdAo+PiBAQCAt
-MSw0ICsxLDQgQEAKPj4gwqAgIyBTUERYLUxpY2Vuc2UtSWRlbnRpZmllcjogR1BMLTIuMC1vbmx5
-Cj4+IMKgICMgRW1wdHkgZmlsZSB3YWl0aW5nIGZvciBkZWxldGlvbiBvbmNlIE1ha2VmaWxlLmJv
-b3QgaXNuJ3QgbmVlZGVkIAo+PiBhbnkgbW9yZS4KPj4gwqAgIyBQYXRjaCB3YWl0cyBmb3IgYXBw
-bGljYXRpb24gYXQKPj4gLSMgCj4+IGh0dHA6Ly93d3cuYXJtLmxpbnV4Lm9yZy51ay9kZXZlbG9w
-ZXIvcGF0Y2hlcy92aWV3cGF0Y2gucGhwP2lkPTc4ODkvMSAuCj4+ICsjIAo+PiBodHRwczovL3d3
-dy5hcm0ubGludXgub3JnLnVrL2RldmVsb3Blci9wYXRjaGVzL3ZpZXdwYXRjaC5waHA/aWQ9Nzg4
-OS8xIC4KPj4gZGlmZiAtLWdpdCBhL2NyeXB0by90ZXN0bWdyLmggYi9jcnlwdG8vdGVzdG1nci5o
-Cj4+IGluZGV4IGQyOTk4MzkwOGMzOC4uY2RjZjBkMmZlNDBkIDEwMDY0NAo+PiAtLS0gYS9jcnlw
-dG8vdGVzdG1nci5oCj4+ICsrKyBiL2NyeXB0by90ZXN0bWdyLmgKPj4gQEAgLTE2MjMxLDcgKzE2
-MjMxLDcgQEAgc3RhdGljIGNvbnN0IHN0cnVjdCBjaXBoZXJfdGVzdHZlYyAKPj4gYWVzX2xyd190
-dl90ZW1wbGF0ZVtdID0gewo+PiDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqAgIlx4ZTlc
-eDVkXHg0OFx4OTJceDU0XHg2M1x4NGVceGI4IiwKPj4gwqDCoMKgwqDCoMKgwqDCoMKgIC5sZW7C
-oMKgwqAgPSA0OCwKPj4gwqDCoMKgwqDCoCB9LCB7Cj4+IC0vKiAKPj4gaHR0cDovL3d3dy5tYWls
-LWFyY2hpdmUuY29tL3N0ZHMtcDE2MTlAbGlzdHNlcnYuaWVlZS5vcmcvbXNnMDAxNzMuaHRtbCAq
-Lwo+PiArLyogCj4+IGh0dHBzOi8vd3d3Lm1haWwtYXJjaGl2ZS5jb20vc3Rkcy1wMTYxOUBsaXN0
-c2Vydi5pZWVlLm9yZy9tc2cwMDE3My5odG1sICovIAo+Pgo+PiDCoMKgwqDCoMKgwqDCoMKgwqAg
-LmtlecKgwqDCoCA9ICJceGY4XHhkNFx4NzZceGZmXHhkNlx4NDZceGVlXHg2YyIKPj4gwqDCoMKg
-wqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgICJceDIzXHg4NFx4Y2JceDFjXHg3N1x4ZDZceDE5XHg1
-ZCIKPj4gwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgICJceGZlXHhmMVx4YTlceGYzXHg3
-Ylx4YmNceDhkXHgyMSIKPj4gQEAgLTIxMDk2LDcgKzIxMDk2LDcgQEAgc3RhdGljIGNvbnN0IHN0
-cnVjdCBhZWFkX3Rlc3R2ZWMgCj4+IGFlZ2lzMTI4X3R2X3RlbXBsYXRlW10gPSB7Cj4+IMKgIC8q
-Cj4+IMKgwqAgKiBBbGwga2V5IHdyYXBwaW5nIHRlc3QgdmVjdG9ycyB0YWtlbiBmcm9tCj4+IC0g
-KiBodHRwOi8vY3NyYy5uaXN0Lmdvdi9ncm91cHMvU1RNL2NhdnAvZG9jdW1lbnRzL21hYy9rd3Rl
-c3R2ZWN0b3JzLnppcAo+PiArICogaHR0cHM6Ly9jc3JjLm5pc3QuZ292L2dyb3Vwcy9TVE0vY2F2
-cC9kb2N1bWVudHMvbWFjL2t3dGVzdHZlY3RvcnMuemlwCj4+IMKgwqAgKgo+PiDCoMKgICogTm90
-ZTogYXMgZG9jdW1lbnRlZCBpbiBrZXl3cmFwLmMsIHRoZSBpdm91dCBmb3IgZW5jcnlwdGlvbiBp
-cyB0aGUgCj4+IGZpcnN0Cj4+IMKgwqAgKiBzZW1pYmxvY2sgb2YgdGhlIGNpcGhlcnRleHQgZnJv
-bSB0aGUgdGVzdCB2ZWN0b3IuIEZvciBkZWNyeXB0aW9uLCAKPj4gaXYgaXMKPj4gQEAgLTIyODI1
-LDcgKzIyODI1LDcgQEAgc3RhdGljIGNvbnN0IHN0cnVjdCBjaXBoZXJfdGVzdHZlYyAKPj4geGV0
-YV90dl90ZW1wbGF0ZVtdID0gewo+PiDCoMKgICogRkNyeXB0IHRlc3QgdmVjdG9ycwo+PiDCoMKg
-ICovCj4+IMKgIHN0YXRpYyBjb25zdCBzdHJ1Y3QgY2lwaGVyX3Rlc3R2ZWMgZmNyeXB0X3BjYmNf
-dHZfdGVtcGxhdGVbXSA9IHsKPj4gLcKgwqDCoCB7IC8qIAo+PiBodHRwOi8vd3d3Lm9wZW5hZnMu
-b3JnL3BpcGVybWFpbC9vcGVuYWZzLWRldmVsLzIwMDAtRGVjZW1iZXIvMDA1MzIwLmh0bWwgCj4+
-ICovCj4+ICvCoMKgwqAgeyAvKiAKPj4gaHR0cHM6Ly93d3cub3BlbmFmcy5vcmcvcGlwZXJtYWls
-L29wZW5hZnMtZGV2ZWwvMjAwMC1EZWNlbWJlci8wMDUzMjAuaHRtbCAKPj4gKi8KPj4gwqDCoMKg
-wqDCoMKgwqDCoMKgIC5rZXnCoMKgwqAgPSAiXHgwMFx4MDBceDAwXHgwMFx4MDBceDAwXHgwMFx4
-MDAiLAo+PiDCoMKgwqDCoMKgwqDCoMKgwqAgLmtsZW7CoMKgwqAgPSA4LAo+PiDCoMKgwqDCoMKg
-wqDCoMKgwqAgLml2wqDCoMKgID0gIlx4MDBceDAwXHgwMFx4MDBceDAwXHgwMFx4MDBceDAwIiwK
-Pj4KX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX18KTGludXgt
-c3RtMzIgbWFpbGluZyBsaXN0CkxpbnV4LXN0bTMyQHN0LW1kLW1haWxtYW4uc3Rvcm1yZXBseS5j
-b20KaHR0cHM6Ly9zdC1tZC1tYWlsbWFuLnN0b3JtcmVwbHkuY29tL21haWxtYW4vbGlzdGluZm8v
-bGludXgtc3RtMzIK
+Add the "seeed" vendor prefix for Seeed Technology Co., Ltd
+Website: https://www.seeedstudio.com/
+
+Signed-off-by: Marcin Sloniewski <marcin.sloniewski@gmail.com>
+Acked-by: Rob Herring <robh@kernel.org>
+---
+ Documentation/devicetree/bindings/vendor-prefixes.yaml | 2 ++
+ 1 file changed, 2 insertions(+)
+
+diff --git a/Documentation/devicetree/bindings/vendor-prefixes.yaml b/Documentation/devicetree/bindings/vendor-prefixes.yaml
+index 9aeab66be85f..7dd03b3e9d3c 100644
+--- a/Documentation/devicetree/bindings/vendor-prefixes.yaml
++++ b/Documentation/devicetree/bindings/vendor-prefixes.yaml
+@@ -902,6 +902,8 @@ patternProperties:
+     description: Schindler
+   "^seagate,.*":
+     description: Seagate Technology PLC
++  "^seeed,.*":
++    description: Seeed Technology Co., Ltd
+   "^seirobotics,.*":
+     description: Shenzhen SEI Robotics Co., Ltd
+   "^semtech,.*":
+-- 
+2.27.0
+
+_______________________________________________
+Linux-stm32 mailing list
+Linux-stm32@st-md-mailman.stormreply.com
+https://st-md-mailman.stormreply.com/mailman/listinfo/linux-stm32
