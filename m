@@ -2,65 +2,65 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id 02B1C22B605
-	for <lists+linux-stm32@lfdr.de>; Thu, 23 Jul 2020 20:47:25 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 4E87422B6D4
+	for <lists+linux-stm32@lfdr.de>; Thu, 23 Jul 2020 21:37:57 +0200 (CEST)
 Received: from ip-172-31-3-76.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id BB065C36B27;
-	Thu, 23 Jul 2020 18:47:24 +0000 (UTC)
-Received: from mail-io1-f67.google.com (mail-io1-f67.google.com
- [209.85.166.67])
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id EFC2DC36B27
+	for <lists+linux-stm32@lfdr.de>; Thu, 23 Jul 2020 19:37:56 +0000 (UTC)
+Received: from mail-ed1-f65.google.com (mail-ed1-f65.google.com
+ [209.85.208.65])
  (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id D6F3DC36B0C
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 0ED42C36B0C
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Thu, 23 Jul 2020 18:47:22 +0000 (UTC)
-Received: by mail-io1-f67.google.com with SMTP id s189so91724iod.2
+ Thu, 23 Jul 2020 19:37:56 +0000 (UTC)
+Received: by mail-ed1-f65.google.com with SMTP id d18so5364569edv.6
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Thu, 23 Jul 2020 11:47:22 -0700 (PDT)
+ Thu, 23 Jul 2020 12:37:55 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20161025;
- h=mime-version:references:in-reply-to:from:date:message-id:subject:to
- :cc; bh=i26RyORzgcGhTDDr0Yskb0jorGpqOlxgU0nNXEtj6pQ=;
- b=qgVLpYxk5vJuma06OtQAPe9aQ9tEQZtCqrhWUEGb2poYmc917waO4ve8gZ+2gsK4w5
- OEQW7m0eoqCi7WbqBLoyw7d6ZUXXNb/FTTVudun4oFPSDbzrAb8S7yD/p9zjZ/0wLSu4
- HRFetF83/4iGRJFq9rakRw586ArBkMEzXf49fu4OHnPuHb3fvM/DSkikO/dms+AJVT2J
- 43l2owtl2CHo+4Zz2D4ZHoJIq+K71+Tgfstfq9A1Q8cF7lSUuvLhxUfIdBQGEe4vA9K3
- D46P6x2Cl/7ktiNeUDqvl5oer7Zv4ZNc4S7NxAnx5ljOtWTQPrlZn459/qyKuN2zjGTU
- kf1g==
+ h=from:to:cc:subject:date:message-id:mime-version
+ :content-transfer-encoding;
+ bh=TnSVvBPLgxOr7Okxa4+yFdbMwIKkVndKbRuepRfY/Zs=;
+ b=cGHFjlpd9fFxJoTHprdv6bxx7jEzuQfyVGo7hhnORgret3eeD02uMscYszAG1w+6oD
+ Ye4gl7/956XvDvUdQHQhlCmY3XjGmUiRo1Gn+ayf/bRyLqZ26rfRyGWcMureVHazph74
+ 1hKIha1snTai6b2WGSUYSqA01CJixfgnygSjXypsUce32AOcM7JhNtZR+Wrb0SjPNTDR
+ VLsAE66PhLX4T0+tW14BKHJO3kNEgd/A2gN8xhp9Ga0sx7T1xmgPnjnTaZcE9/L+hmNW
+ VgS+4THVcnnlqzq7HEJNm0nmFrwlNpD0kqO4/eH20DLJoiL9byGCin/ww9eGxjbDrfxl
+ f6sw==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=1e100.net; s=20161025;
- h=x-gm-message-state:mime-version:references:in-reply-to:from:date
- :message-id:subject:to:cc;
- bh=i26RyORzgcGhTDDr0Yskb0jorGpqOlxgU0nNXEtj6pQ=;
- b=T0sEYq4aWBumOUrIs9ki+5MwjwUWkklqIYTAeTn/KYWBAOxOS/K+sbI0LoLhTgMUS5
- jOi/lEhQ4CuCSSKIcAvRPh942ZqPGTHSk9fzn3/Jhu22zE35DFHl9W3yqNP/f+aqxpV/
- PvLH5lSXT1J+bgIMVilNuZkRzQ21wZfWn96DDqZdtGALRXdXjM9ZhmovL7LR0UT7nJgT
- WH9gDq8pKe6fKLx9koCb4edhj6vOQNZeyIlkDf3ovSGFt7n91Cpk92MUFYj1cggOKSkv
- Xtr4rDUcGH5ZmtrrA/QXkxFpOO+Y+v8LEv5cE8vcalLY7VvnlwLiJoUOKLIoS2yxYAIx
- xlOw==
-X-Gm-Message-State: AOAM530btN8wjM+xO/qO6p7yIwtaJb9ocbJJRBko6hnupxC4H2CVPsEJ
- x9K7OxrMDRziiQOZ2RUzB5Qjs9/AV09+DORxnVs=
-X-Google-Smtp-Source: ABdhPJxduA29adOXUyM6/Q9lweE3woxGK3YJquEBfY6GPmJuab33msEmJGBpk0vqAyyH/COvSSFEgGJDUfldHaJP0sA=
-X-Received: by 2002:a5d:9c0e:: with SMTP id 14mr6370304ioe.109.1595530041579; 
- Thu, 23 Jul 2020 11:47:21 -0700 (PDT)
+ h=x-gm-message-state:from:to:cc:subject:date:message-id:mime-version
+ :content-transfer-encoding;
+ bh=TnSVvBPLgxOr7Okxa4+yFdbMwIKkVndKbRuepRfY/Zs=;
+ b=pdoTs5GpHpbO4accf/9fh1cxS3LKOqoOK1iJPpJ5wNaQRllVPv7XdotqndghgOu3Re
+ kdzWvX2aA80kvif5YvFqiAq7Gs6nhJ5+bjAksNY+l7qz/6RFsH016klzq7gmsHsoxAr2
+ YhpllIZktQG6GL1o28N9G53LhDIN3YUo51HbdTjZP0zjlDj1VqlmYdsEWt9pWX4bjV8z
+ /0qvlLgYDPhGlMa5AMj1s2rHdutnNj8wpJdPDhfs1yQ4PnL4f8e8+rFHTbgi6xBdkMfR
+ p0GZJcBesmhXjgsChpeshngtRq0cEd3oGayLUSKCk7whKLVZprLt7izr/FAYvDfoBKag
+ lp6A==
+X-Gm-Message-State: AOAM531JDQ/HWtWy2mv6s3/m1f0QE9rq+CJ1N+wTgsmrAyv4TAGFgP5a
+ pnVoBNxHyGUr/BBcvIF37AU=
+X-Google-Smtp-Source: ABdhPJz0Q1XaTDnhZogjytSe3cUi83UxpYnapEIh7JfyZjShqQ3Or7lVzyvtbZvsrUp+F6uOqIrJ5A==
+X-Received: by 2002:aa7:da0c:: with SMTP id r12mr3743912eds.109.1595533075477; 
+ Thu, 23 Jul 2020 12:37:55 -0700 (PDT)
+Received: from blackhead.home ([2a01:112f:a1c:7900:7316:ce1e:7b0b:6bd7])
+ by smtp.gmail.com with ESMTPSA id o20sm2655719ejr.64.2020.07.23.12.37.50
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Thu, 23 Jul 2020 12:37:54 -0700 (PDT)
+From: Marcin Sloniewski <marcin.sloniewski@gmail.com>
+To: linux-arm-kernel@lists.infradead.org
+Date: Thu, 23 Jul 2020 21:37:35 +0200
+Message-Id: <20200723193737.190291-1-marcin.sloniewski@gmail.com>
+X-Mailer: git-send-email 2.27.0
 MIME-Version: 1.0
-References: <20200721185317.208722-1-marcin.sloniewski@gmail.com>
- <20200721185317.208722-3-marcin.sloniewski@gmail.com>
- <73077407-e008-1ae2-266d-1045a73620ba@st.com>
-In-Reply-To: <73077407-e008-1ae2-266d-1045a73620ba@st.com>
-From: =?UTF-8?Q?Marcin_S=C5=82oniewski?= <marcin.sloniewski@gmail.com>
-Date: Thu, 23 Jul 2020 20:47:09 +0200
-Message-ID: <CALa5TyyMxzhwkt_S=xYfYk1MRe2C8DL5Eoeiax0bdxdNm42Hfw@mail.gmail.com>
-To: Christophe Kerello <christophe.kerello@st.com>
-Cc: Rob Herring <robh@kernel.org>, Stephan Gerhold <stephan@gerhold.net>,
- Manivannan Sadhasivam <mani@kernel.org>,
- Heiko Stuebner <heiko.stuebner@theobroma-systems.com>,
- Linus Walleij <linus.walleij@linaro.org>, linux-kernel@vger.kernel.org,
- Lubomir Rintel <lkundrak@v3.sk>, devicetree@vger.kernel.org,
- Mark Brown <broonie@kernel.org>, allen <allen.chen@ite.com.tw>,
- Sam Ravnborg <sam@ravnborg.org>, linux-stm32@st-md-mailman.stormreply.com,
- linux-arm-kernel@lists.infradead.org
-Subject: Re: [Linux-stm32] [PATCH v3 3/3] ARM: dts: stm32: add initial
- support for stm32mp157-odyssey board
+Cc: robh@kernel.org, stephan@gerhold.net, mani@kernel.org,
+ heiko.stuebner@theobroma-systems.com, linus.walleij@linaro.org,
+ linux-kernel@vger.kernel.org, lkundrak@v3.sk, marcin.sloniewski@gmail.com,
+ robh+dt@kernel.org, broonie@kernel.org, mcoquelin.stm32@gmail.com,
+ allen.chen@ite.com.tw, sam@ravnborg.org,
+ linux-stm32@st-md-mailman.stormreply.com, devicetree@vger.kernel.org
+Subject: [Linux-stm32] [PATCH v4 1/3] dt-bindings: vendor-prefixes: add
+	Seeed Studio
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -77,33 +77,31 @@ Content-Transfer-Encoding: 7bit
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
-Hi Christophe,
+Add the "seeed" vendor prefix for Seeed Technology Co., Ltd
+Website: https://www.seeedstudio.com/
 
-> > +     pinctrl-names = "default", "opendrain", "sleep";
-> > +     pinctrl-0 = <&sdmmc2_b4_pins_a &sdmmc2_d47_pins_a>;
-> > +     pinctrl-1 = <&sdmmc2_b4_od_pins_a &sdmmc2_d47_pins_a>;
-> > +     pinctrl-2 = <&sdmmc2_b4_sleep_pins_a &sdmmc2_d47_sleep_pins_a>;
-> > +     non-removable;
-> > +     no-sd;
-> > +     no-sdio;
-> > +     st,neg-edge;
-> > +     bus-width = <4>;
-> > +     vmmc-supply = <&v3v3>;
-> > +     vqmmc-supply = <&v3v3>;
-> > +     mmc-ddr-3_3v;
-> > +     status = "okay";
-> > +};
->
-> Based on the pins muxed, 8 data lines are configured, but the bus width
-> is set to 4. What is the reason of not setting this property to 8?
+Signed-off-by: Marcin Sloniewski <marcin.sloniewski@gmail.com>
+Acked-by: Rob Herring <robh@kernel.org>
+---
+ Documentation/devicetree/bindings/vendor-prefixes.yaml | 2 ++
+ 1 file changed, 2 insertions(+)
 
-Yes, it was workaround, because sdmmc2 interface was working only
-with width set to 4. It turned out there was one wrong pin used in
-sdmmc2_d47_pins_a.
-It will be fixed in v4.
+diff --git a/Documentation/devicetree/bindings/vendor-prefixes.yaml b/Documentation/devicetree/bindings/vendor-prefixes.yaml
+index 9aeab66be85f..7dd03b3e9d3c 100644
+--- a/Documentation/devicetree/bindings/vendor-prefixes.yaml
++++ b/Documentation/devicetree/bindings/vendor-prefixes.yaml
+@@ -902,6 +902,8 @@ patternProperties:
+     description: Schindler
+   "^seagate,.*":
+     description: Seagate Technology PLC
++  "^seeed,.*":
++    description: Seeed Technology Co., Ltd
+   "^seirobotics,.*":
+     description: Shenzhen SEI Robotics Co., Ltd
+   "^semtech,.*":
+-- 
+2.27.0
 
-Regards,
-Marcin Sloniewski
 _______________________________________________
 Linux-stm32 mailing list
 Linux-stm32@st-md-mailman.stormreply.com
