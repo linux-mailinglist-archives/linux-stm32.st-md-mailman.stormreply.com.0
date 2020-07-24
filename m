@@ -2,48 +2,64 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id 4BE9622C304
-	for <lists+linux-stm32@lfdr.de>; Fri, 24 Jul 2020 12:23:12 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id E770122C392
+	for <lists+linux-stm32@lfdr.de>; Fri, 24 Jul 2020 12:47:36 +0200 (CEST)
 Received: from ip-172-31-3-76.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 14761C36B27;
-	Fri, 24 Jul 2020 10:23:12 +0000 (UTC)
-Received: from mail-out.m-online.net (mail-out.m-online.net [212.18.0.10])
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id A9A52C36B2C;
+	Fri, 24 Jul 2020 10:47:36 +0000 (UTC)
+Received: from mx07-00178001.pphosted.com (mx08-00178001.pphosted.com
+ [91.207.212.93])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id BC0B7C36B0C
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 371A0C36B0C
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Fri, 24 Jul 2020 10:23:11 +0000 (UTC)
-Received: from frontend01.mail.m-online.net (unknown [192.168.8.182])
- by mail-out.m-online.net (Postfix) with ESMTP id 4BCldp2xxvz1rwZq;
- Fri, 24 Jul 2020 12:23:10 +0200 (CEST)
-Received: from localhost (dynscan1.mnet-online.de [192.168.6.70])
- by mail.m-online.net (Postfix) with ESMTP id 4BCldp2DNBz1qw6S;
- Fri, 24 Jul 2020 12:23:10 +0200 (CEST)
-X-Virus-Scanned: amavisd-new at mnet-online.de
-Received: from mail.mnet-online.de ([192.168.8.182])
- by localhost (dynscan1.mail.m-online.net [192.168.6.70]) (amavisd-new,
- port 10024)
- with ESMTP id YLcn1SCyokQ4; Fri, 24 Jul 2020 12:23:07 +0200 (CEST)
-X-Auth-Info: ozhOlVJRAM7lNYjiCQOeXncB3mNtHI6o28V+Io1Z6z8=
-Received: from desktop.lan (ip-86-49-101-166.net.upcbroadband.cz
- [86.49.101.166])
- (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
- (No client certificate requested)
- by mail.mnet-online.de (Postfix) with ESMTPSA;
- Fri, 24 Jul 2020 12:23:07 +0200 (CEST)
-From: Marek Vasut <marex@denx.de>
-To: linux-arm-kernel@lists.infradead.org
-Date: Fri, 24 Jul 2020 12:22:50 +0200
-Message-Id: <20200724102250.146817-2-marex@denx.de>
-X-Mailer: git-send-email 2.27.0
-In-Reply-To: <20200724102250.146817-1-marex@denx.de>
-References: <20200724102250.146817-1-marex@denx.de>
+ Fri, 24 Jul 2020 10:47:34 +0000 (UTC)
+Received: from pps.filterd (m0046661.ppops.net [127.0.0.1])
+ by mx07-00178001.pphosted.com (8.16.0.42/8.16.0.42) with SMTP id
+ 06OAlMvI002109; Fri, 24 Jul 2020 12:47:22 +0200
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=st.com;
+ h=from : to : cc : subject
+ : date : message-id : mime-version : content-type; s=STMicroelectronics;
+ bh=p9Yq1UIRht3FJka2ELyJEv6RiWxJVu9Woas+GfUzZYs=;
+ b=OQbP1dk93DzXNT/7wCmzF4vPEJwt7sR+MAHn+bESQdNI2ojpzn2zEhkvtPBPWgaCHwed
+ d0QhSs65RSL9mOMm6Qyi4626fe6x+XiMctd+HjY+kTBW3yhNuox0SQ9pyXko6DWAT61+
+ z/L1G8+yyYdRczj7EX86o4ZJLhnGMw/R5ES4nsiAXHFyUQf3RctMMUqMuxchtC2HzwaG
+ fqznXhV+aX/ewh7cfCuK6DwFIgN3s6/KKm5NDB09bQQ7tV2o+qHBTXGP0xdcj4bHg+0a
+ 39w7WFXNTjE/i5UUaQxAGR8qoT9Fm0O4B3tBbtVUVVUL9qFTuoH1pPCkoWW7aKMQDGev Xw== 
+Received: from beta.dmz-eu.st.com (beta.dmz-eu.st.com [164.129.1.35])
+ by mx07-00178001.pphosted.com with ESMTP id 32bsahfwxp-1
+ (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
+ Fri, 24 Jul 2020 12:47:22 +0200
+Received: from euls16034.sgp.st.com (euls16034.sgp.st.com [10.75.44.20])
+ by beta.dmz-eu.st.com (STMicroelectronics) with ESMTP id 0421310002A;
+ Fri, 24 Jul 2020 12:47:17 +0200 (CEST)
+Received: from Webmail-eu.st.com (sfhdag3node2.st.com [10.75.127.8])
+ by euls16034.sgp.st.com (STMicroelectronics) with ESMTP id E2E292A4D71;
+ Fri, 24 Jul 2020 12:47:16 +0200 (CEST)
+Received: from localhost (10.75.127.47) by SFHDAG3NODE2.st.com (10.75.127.8)
+ with Microsoft SMTP Server (TLS) id 15.0.1347.2; Fri, 24 Jul 2020 12:47:16
+ +0200
+From: Amelie Delaunay <amelie.delaunay@st.com>
+To: Minas Harutyunyan <hminas@synopsys.com>, Felipe Balbi <balbi@kernel.org>, 
+ Greg Kroah-Hartman <gregkh@linuxfoundation.org>, Rob Herring
+ <robh+dt@kernel.org>, Maxime Coquelin <mcoquelin.stm32@gmail.com>,
+ Alexandre Torgue <alexandre.torgue@st.com>
+Date: Fri, 24 Jul 2020 12:47:08 +0200
+Message-ID: <20200724104711.5474-1-amelie.delaunay@st.com>
+X-Mailer: git-send-email 2.17.1
 MIME-Version: 1.0
-Cc: Marek Vasut <marex@denx.de>, Patrick Delaunay <patrick.delaunay@st.com>,
- Maxime Coquelin <mcoquelin.stm32@gmail.com>,
- linux-stm32@st-md-mailman.stormreply.com
-Subject: [Linux-stm32] [PATCH 2/2] ARM: dts: stm32: Add DHSOM based DRC02
-	board
+X-Originating-IP: [10.75.127.47]
+X-ClientProxiedBy: SFHDAG6NODE2.st.com (10.75.127.17) To SFHDAG3NODE2.st.com
+ (10.75.127.8)
+X-Proofpoint-Virus-Version: vendor=fsecure engine=2.50.10434:6.0.235, 18.0.687
+ definitions=2020-07-24_03:2020-07-24,
+ 2020-07-24 signatures=0
+Cc: devicetree@vger.kernel.org,
+ Martin Blumenstingl <martin.blumenstingl@googlemail.com>,
+ linux-usb@vger.kernel.org, linux-kernel@vger.kernel.org,
+ Fabrice Gasnier <fabrice.gasnier@st.com>,
+ linux-stm32@st-md-mailman.stormreply.com, linux-arm-kernel@lists.infradead.org
+Subject: [Linux-stm32] [PATCH v3 0/3] Add USB role switch support to DWC2
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -60,257 +76,50 @@ Content-Transfer-Encoding: 7bit
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
-Add DT for DH DRC02 unit, which is a universal controller device.
-The system has two ethernet ports, two CANs, RS485 and RS232, USB,
-capacitive buttons and an OLED display.
+When using usb-c connector (but it can also be the case with a micro-b
+connector), iddig, avalid, bvalid, vbusvalid input signals may not be
+connected to the DWC2 OTG controller.
+DWC2 OTG controller features an overriding control of the PHY voltage valid
+and ID input signals.
+So, missing signals can be forced using usb role from usb role switch and
+this override feature.
 
-Signed-off-by: Marek Vasut <marex@denx.de>
-Cc: Alexandre Torgue <alexandre.torgue@st.com>
-Cc: Maxime Coquelin <mcoquelin.stm32@gmail.com>
-Cc: Patrice Chotard <patrice.chotard@st.com>
-Cc: Patrick Delaunay <patrick.delaunay@st.com>
-Cc: linux-stm32@st-md-mailman.stormreply.com
-To: linux-arm-kernel@lists.infradead.org
+This series adds support for usb role switch to dwc2, by using overriding
+control of the PHY voltage valid and ID input signals.
+
+It has been tested on stm32mp157c-dk2 [1], which has a Type-C connector
+managed by a Type-C port controller, and connected to USB OTG controller.
+
+[1] https://www.st.com/en/evaluation-tools/stm32mp157c-dk2.html
+
+Amelie Delaunay (3):
+  usb: dwc2: override PHY input signals with usb role switch support
+  dt-bindings: usb: dwc2: add optional usb-role-switch property
+  usb: dwc2: don't use ID/Vbus detection if usb-role-switch on STM32MP15
+    SoCs
 ---
- arch/arm/boot/dts/Makefile                    |   1 +
- arch/arm/boot/dts/stm32mp153c-dhcom-drc02.dts |  35 ++++
- arch/arm/boot/dts/stm32mp157c-dhcom-pdk2.dts  |   2 +-
- .../arm/boot/dts/stm32mp15xx-dhcom-drc02.dtsi | 157 ++++++++++++++++++
- 4 files changed, 194 insertions(+), 1 deletion(-)
- create mode 100644 arch/arm/boot/dts/stm32mp153c-dhcom-drc02.dts
- create mode 100644 arch/arm/boot/dts/stm32mp15xx-dhcom-drc02.dtsi
+Changes in v3:
+- Fix build issue reported by kernel test robot in drd.c
+Changes in v2:
+- Previous DT patch already in stm32-next branch so removed from v2 patchset
+  "ARM: dts: stm32: enable usb-role-switch on USB OTG on stm32mp15xx-dkx"
+- DWC2 DT bindings update added
+- Build issue reported by kernel test robot fixed
+- Martin's comments taken into account
+---
+ .../devicetree/bindings/usb/dwc2.yaml         |   4 +
+ drivers/usb/dwc2/Kconfig                      |   1 +
+ drivers/usb/dwc2/Makefile                     |   2 +-
+ drivers/usb/dwc2/core.h                       |   9 +
+ drivers/usb/dwc2/drd.c                        | 181 ++++++++++++++++++
+ drivers/usb/dwc2/gadget.c                     |   2 +-
+ drivers/usb/dwc2/params.c                     |   4 +-
+ drivers/usb/dwc2/platform.c                   |  15 ++
+ 8 files changed, 215 insertions(+), 3 deletions(-)
+ create mode 100644 drivers/usb/dwc2/drd.c
 
-diff --git a/arch/arm/boot/dts/Makefile b/arch/arm/boot/dts/Makefile
-index e71ff271fa63..2b19246f6f06 100644
---- a/arch/arm/boot/dts/Makefile
-+++ b/arch/arm/boot/dts/Makefile
-@@ -1047,6 +1047,7 @@ dtb-$(CONFIG_ARCH_STM32) += \
- 	stm32746g-eval.dtb \
- 	stm32h743i-eval.dtb \
- 	stm32h743i-disco.dtb \
-+	stm32mp153c-dhcom-drc02.dtb \
- 	stm32mp157a-avenger96.dtb \
- 	stm32mp157a-dhcor-avenger96.dtb \
- 	stm32mp157a-dk1.dtb \
-diff --git a/arch/arm/boot/dts/stm32mp153c-dhcom-drc02.dts b/arch/arm/boot/dts/stm32mp153c-dhcom-drc02.dts
-new file mode 100644
-index 000000000000..7dd99ad5ad9a
---- /dev/null
-+++ b/arch/arm/boot/dts/stm32mp153c-dhcom-drc02.dts
-@@ -0,0 +1,35 @@
-+// SPDX-License-Identifier: GPL-2.0+ OR BSD-3-Clause
-+/*
-+ * Copyright (C) 2020 Marek Vasut <marex@denx.de>
-+ *
-+ * DHCOM STM32MP1 variant:
-+ * DHCM-STM32MP153C-C065-R102-F0819-SPI-E2-CAN2-RTC-I-01D2
-+ * DHCOM PCB number: 587-200 or newer
-+ * DRC02 PCB number: 568-100 or newer
-+ */
-+/dts-v1/;
-+
-+#include "stm32mp153.dtsi"
-+#include "stm32mp15xc.dtsi"
-+#include "stm32mp15xx-dhcom-som.dtsi"
-+#include "stm32mp15xx-dhcom-drc02.dtsi"
-+
-+/ {
-+	model = "DH Electronics STM32MP153C DHCOM DRC02";
-+	compatible = "dh,stm32mp153c-dhcom-drc02", "dh,stm32mp153c-dhcom-som",
-+		     "st,stm32mp153";
-+};
-+
-+&m_can1 {
-+	pinctrl-names = "default", "sleep";
-+	pinctrl-0 = <&m_can1_pins_a>;
-+	pinctrl-1 = <&m_can1_sleep_pins_a>;
-+	status = "okay";
-+};
-+
-+&m_can2 {
-+	pinctrl-names = "default", "sleep";
-+	pinctrl-0 = <&m_can2_pins_a>;
-+	pinctrl-1 = <&m_can2_sleep_pins_a>;
-+	status = "okay";
-+};
-diff --git a/arch/arm/boot/dts/stm32mp157c-dhcom-pdk2.dts b/arch/arm/boot/dts/stm32mp157c-dhcom-pdk2.dts
-index 197aa98d49e2..9f7349eddd57 100644
---- a/arch/arm/boot/dts/stm32mp157c-dhcom-pdk2.dts
-+++ b/arch/arm/boot/dts/stm32mp157c-dhcom-pdk2.dts
-@@ -4,7 +4,7 @@
-  *
-  * DHCOM STM32MP1 variant:
-  * DHCM-STM32MP157C-C065-R102-F0819-SPI-E2-CAN2-SDR104-RTC-WBT-T-DSI-I-01D2
-- * DHCOR PCB number: 587-200 or newer
-+ * DHCOM PCB number: 587-200 or newer
-  * PDK2 PCB number: 516-400 or newer
-  */
- /dts-v1/;
-diff --git a/arch/arm/boot/dts/stm32mp15xx-dhcom-drc02.dtsi b/arch/arm/boot/dts/stm32mp15xx-dhcom-drc02.dtsi
-new file mode 100644
-index 000000000000..dd85f3c6118a
---- /dev/null
-+++ b/arch/arm/boot/dts/stm32mp15xx-dhcom-drc02.dtsi
-@@ -0,0 +1,157 @@
-+// SPDX-License-Identifier: GPL-2.0+ OR BSD-3-Clause
-+/*
-+ * Copyright (C) 2020 Marek Vasut <marex@denx.de>
-+ */
-+
-+#include <dt-bindings/input/input.h>
-+#include <dt-bindings/pwm/pwm.h>
-+
-+/ {
-+	aliases {
-+		serial0 = &uart4;
-+		serial1 = &usart3;
-+		serial2 = &uart8;
-+	};
-+
-+	chosen {
-+		stdout-path = "serial0:115200n8";
-+	};
-+};
-+
-+&adc {
-+	status = "disabled";
-+};
-+
-+&dac {
-+	status = "disabled";
-+};
-+
-+&gpiob {
-+	/*
-+	 * NOTE: On DRC02, the RS485_RX_En is controlled by a separate
-+	 * GPIO line, however the STM32 UART driver assumes RX happens
-+	 * during TX anyway and that it only controls drive enable DE
-+	 * line. Hence, the RX is always enabled here.
-+	 */
-+	usb-hub {
-+		gpio-hog;
-+		gpios = <8 GPIO_ACTIVE_HIGH>;
-+		output-high;
-+		line-name = "rs485-rx-en";
-+	};
-+};
-+
-+&gpiod {
-+	gpio-line-names = "", "", "", "",
-+			  "", "", "", "",
-+			  "", "", "", "Out1",
-+			  "Out2", "", "", "";
-+};
-+
-+&gpioi {
-+	gpio-line-names = "In1", "", "", "",
-+			  "", "", "", "",
-+			  "In2", "", "", "",
-+			  "", "", "", "";
-+
-+	/*
-+	 * NOTE: The USB Hub on the DRC02 needs a reset signal to be
-+	 * pulled high in order to be detected by the USB Controller.
-+	 * This signal should be handled by USB power sequencing in
-+	 * order to reset the Hub when USB bus is powered down, but
-+	 * so far there is no such functionality.
-+	 */
-+	usb-hub {
-+		gpio-hog;
-+		gpios = <2 GPIO_ACTIVE_HIGH>;
-+		output-high;
-+		line-name = "usb-hub-reset";
-+	};
-+};
-+
-+&i2c2 {
-+	pinctrl-names = "default";
-+	pinctrl-0 = <&i2c2_pins_a>;
-+	i2c-scl-rising-time-ns = <185>;
-+	i2c-scl-falling-time-ns = <20>;
-+	status = "okay";
-+	/* spare dmas for other usage */
-+	/delete-property/dmas;
-+	/delete-property/dma-names;
-+	status = "okay";
-+
-+	eeprom@50 {
-+		compatible = "atmel,24c04";
-+		reg = <0x50>;
-+		pagesize = <16>;
-+	};
-+};
-+
-+&i2c5 {	/* TP7/TP8 */
-+	pinctrl-names = "default";
-+	pinctrl-0 = <&i2c5_pins_a>;
-+	i2c-scl-rising-time-ns = <185>;
-+	i2c-scl-falling-time-ns = <20>;
-+	status = "okay";
-+	/* spare dmas for other usage */
-+	/delete-property/dmas;
-+	/delete-property/dma-names;
-+};
-+
-+&sdmmc3 {
-+	/*
-+	 * On DRC02, the SoM does not have SDIO WiFi. The pins
-+	 * are used for on-board microSD slot instead.
-+	 */
-+	/delete-property/broken-cd;
-+	cd-gpios = <&gpioi 10 (GPIO_ACTIVE_LOW | GPIO_PULL_UP)>;
-+	disable-wp;
-+};
-+
-+&spi1 {
-+	pinctrl-names = "default";
-+	pinctrl-0 = <&spi1_pins_a>;
-+	cs-gpios = <&gpioz 3 0>;
-+	/* Use PIO for the display */
-+	/delete-property/dmas;
-+	/delete-property/dma-names;
-+	status = "disabled";	/* Enable once there is display driver */
-+	/*
-+	 * Note: PF3/GPIO_A , PD6/GPIO_B , PG0/GPIO_C , PC6/GPIO_E are
-+	 * also connected to the display board connector.
-+	 */
-+};
-+
-+&usart3 {
-+	pinctrl-names = "default";
-+	pinctrl-0 = <&usart3_pins_a>;
-+	status = "okay";
-+};
-+
-+/*
-+ * Note: PI3 is UART1_RTS and PI5 is UART1_CTS on DRC02 (uart4 of STM32MP1),
-+ *       however the STM32MP1 pinmux cannot map them to UART4 .
-+ */
-+
-+&uart8 {	/* RS485 */
-+	linux,rs485-enabled-at-boot-time;
-+	pinctrl-names = "default";
-+	pinctrl-0 = <&uart8_pins_a>;
-+	rts-gpios = <&gpioe 6 GPIO_ACTIVE_LOW>;
-+	status = "okay";
-+};
-+
-+&usbh_ehci {
-+	phys = <&usbphyc_port0>;
-+	status = "okay";
-+};
-+
-+&usbphyc {
-+	status = "okay";
-+};
-+
-+&usbphyc_port0 {
-+	phy-supply = <&vdd_usb>;
-+	vdda1v1-supply = <&reg11>;
-+	vdda1v8-supply = <&reg18>;
-+};
 -- 
-2.27.0
+2.17.1
 
 _______________________________________________
 Linux-stm32 mailing list
