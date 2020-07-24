@@ -2,48 +2,45 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id E03AA22C1F4
-	for <lists+linux-stm32@lfdr.de>; Fri, 24 Jul 2020 11:20:27 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id D254D22C2EB
+	for <lists+linux-stm32@lfdr.de>; Fri, 24 Jul 2020 12:16:22 +0200 (CEST)
 Received: from ip-172-31-3-76.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 98339C36B27;
-	Fri, 24 Jul 2020 09:20:27 +0000 (UTC)
-Received: from metis.ext.pengutronix.de (metis.ext.pengutronix.de
- [85.220.165.71])
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 92D96C36B27;
+	Fri, 24 Jul 2020 10:16:22 +0000 (UTC)
+Received: from mail-out.m-online.net (mail-out.m-online.net [212.18.0.9])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 15E00C36B0C
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 1D4BAC36B0C
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Fri, 24 Jul 2020 09:20:26 +0000 (UTC)
-Received: from gallifrey.ext.pengutronix.de
- ([2001:67c:670:201:5054:ff:fe8d:eefb] helo=[IPv6:::1])
- by metis.ext.pengutronix.de with esmtp (Exim 4.92)
- (envelope-from <a.fatoum@pengutronix.de>)
- id 1jytsP-00047h-Im; Fri, 24 Jul 2020 11:20:25 +0200
-To: Marcin Sloniewski <marcin.sloniewski@gmail.com>,
- linux-arm-kernel@lists.infradead.org
-References: <20200723193737.190291-1-marcin.sloniewski@gmail.com>
- <20200723193737.190291-2-marcin.sloniewski@gmail.com>
-From: Ahmad Fatoum <a.fatoum@pengutronix.de>
-Message-ID: <b1bfc804-5bb3-b703-684e-8d9bb2b44fad@pengutronix.de>
-Date: Fri, 24 Jul 2020 11:20:24 +0200
-User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:68.0) Gecko/20100101
- Thunderbird/68.9.0
+ Fri, 24 Jul 2020 10:16:22 +0000 (UTC)
+Received: from frontend01.mail.m-online.net (unknown [192.168.8.182])
+ by mail-out.m-online.net (Postfix) with ESMTP id 4BClTx42hvz1qs3T;
+ Fri, 24 Jul 2020 12:16:21 +0200 (CEST)
+Received: from localhost (dynscan1.mnet-online.de [192.168.6.70])
+ by mail.m-online.net (Postfix) with ESMTP id 4BClTx3PTfz1qw01;
+ Fri, 24 Jul 2020 12:16:21 +0200 (CEST)
+X-Virus-Scanned: amavisd-new at mnet-online.de
+Received: from mail.mnet-online.de ([192.168.8.182])
+ by localhost (dynscan1.mail.m-online.net [192.168.6.70]) (amavisd-new,
+ port 10024)
+ with ESMTP id XFkIlb7pE86Q; Fri, 24 Jul 2020 12:16:20 +0200 (CEST)
+X-Auth-Info: GkVq9lU8BdGv60u/2gSaL4yYwOoY8yR8QDRDsYFm50M=
+Received: from desktop.lan (ip-86-49-101-166.net.upcbroadband.cz
+ [86.49.101.166])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+ (No client certificate requested)
+ by mail.mnet-online.de (Postfix) with ESMTPSA;
+ Fri, 24 Jul 2020 12:16:20 +0200 (CEST)
+From: Marek Vasut <marex@denx.de>
+To: linux-arm-kernel@lists.infradead.org
+Date: Fri, 24 Jul 2020 12:16:10 +0200
+Message-Id: <20200724101610.146403-1-marex@denx.de>
+X-Mailer: git-send-email 2.27.0
 MIME-Version: 1.0
-In-Reply-To: <20200723193737.190291-2-marcin.sloniewski@gmail.com>
-Content-Language: en-US
-X-SA-Exim-Connect-IP: 2001:67c:670:201:5054:ff:fe8d:eefb
-X-SA-Exim-Mail-From: a.fatoum@pengutronix.de
-X-SA-Exim-Scanned: No (on metis.ext.pengutronix.de);
- SAEximRunCond expanded to false
-X-PTX-Original-Recipient: linux-stm32@st-md-mailman.stormreply.com
-Cc: robh@kernel.org, stephan@gerhold.net, mani@kernel.org,
- heiko.stuebner@theobroma-systems.com, linus.walleij@linaro.org,
- linux-kernel@vger.kernel.org, lkundrak@v3.sk, devicetree@vger.kernel.org,
- robh+dt@kernel.org, broonie@kernel.org, mcoquelin.stm32@gmail.com,
- allen.chen@ite.com.tw, sam@ravnborg.org,
+Cc: Marek Vasut <marex@denx.de>, Patrick Delaunay <patrick.delaunay@st.com>,
+ Maxime Coquelin <mcoquelin.stm32@gmail.com>,
  linux-stm32@st-md-mailman.stormreply.com
-Subject: Re: [Linux-stm32] [PATCH v4 2/3] dt-bindings: arm: stm32: document
- Odyssey compatible
+Subject: [Linux-stm32] [PATCH] ARM: dts: stm32: Fill GPIO line names on AV96
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -60,51 +57,68 @@ Content-Transfer-Encoding: 7bit
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
-Hi,
+Fill in the custom GPIO line names used by DH.
 
-On 7/23/20 9:37 PM, Marcin Sloniewski wrote:
-> Document device tree bindings of Seeed SoM and carrier board.
-> 
-> Signed-off-by: Marcin Sloniewski <marcin.sloniewski@gmail.com>
-> Acked-by: Rob Herring <robh@kernel.org>
-> ---
->  Documentation/devicetree/bindings/arm/stm32/stm32.yaml | 2 ++
->  1 file changed, 2 insertions(+)
-> 
-> diff --git a/Documentation/devicetree/bindings/arm/stm32/stm32.yaml b/Documentation/devicetree/bindings/arm/stm32/stm32.yaml
-> index 790e6dd48e34..22b9aaa75eee 100644
-> --- a/Documentation/devicetree/bindings/arm/stm32/stm32.yaml
-> +++ b/Documentation/devicetree/bindings/arm/stm32/stm32.yaml
-> @@ -39,6 +39,8 @@ properties:
->            - enum:
->                - arrow,stm32mp157a-avenger96 # Avenger96
->                - lxa,stm32mp157c-mc1
-> +              - seeed,stm32mp157c-odyssey
-> +              - seeed,stm32mp157c-odyssey-som
+Signed-off-by: Marek Vasut <marex@denx.de>
+Cc: Alexandre Torgue <alexandre.torgue@st.com>
+Cc: Maxime Coquelin <mcoquelin.stm32@gmail.com>
+Cc: Patrice Chotard <patrice.chotard@st.com>
+Cc: Patrick Delaunay <patrick.delaunay@st.com>
+Cc: linux-stm32@st-md-mailman.stormreply.com
+To: linux-arm-kernel@lists.infradead.org
+---
+ .../boot/dts/stm32mp15xx-dhcor-avenger96.dtsi | 35 +++++++++++++++++++
+ 1 file changed, 35 insertions(+)
 
-Did you run dtbs_check over it? I think this should fail.
-
-You want something like:
-
-# Odyssey SoM boards
-- items:
-  - enum:
-     - seeed,stm32mp157c-odyssey
-  - const: seeed,stm32mp157c-odyssey-som
-  - const: st,stm32mp157
-
-(Note 3 items vs 2 in yours)
-
->                - shiratech,stm32mp157a-iot-box # IoT Box
->                - shiratech,stm32mp157a-stinger96 # Stinger96
->                - st,stm32mp157c-ed1
-> 
-
+diff --git a/arch/arm/boot/dts/stm32mp15xx-dhcor-avenger96.dtsi b/arch/arm/boot/dts/stm32mp15xx-dhcor-avenger96.dtsi
+index 930202742a3f..e7643fbed69e 100644
+--- a/arch/arm/boot/dts/stm32mp15xx-dhcor-avenger96.dtsi
++++ b/arch/arm/boot/dts/stm32mp15xx-dhcor-avenger96.dtsi
+@@ -162,6 +162,41 @@ phy0: ethernet-phy@7 {
+ 	};
+ };
+ 
++&gpioa {
++	gpio-line-names = "", "", "", "",
++			  "", "", "", "",
++			  "", "", "", "DH-GPIO-K",
++			  "DH-GPIO-I", "", "DH-GPIO-A", "";
++};
++
++&gpiob {
++	gpio-line-names = "", "", "", "",
++			  "", "DH-GPIO-J", "", "",
++			  "", "", "", "DH-GPIO-B",
++			  "", "DH-GPIO-L", "", "";
++};
++
++&gpioc {
++	gpio-line-names = "", "", "", "DH-GPIO-C",
++			  "", "", "", "",
++			  "", "", "", "",
++			  "", "", "", "";
++};
++
++&gpiod {
++	gpio-line-names = "", "", "", "",
++			  "", "", "", "",
++			  "DH-GPIO-D", "", "", "",
++			  "", "", "DH-GPIO-E", "DH-GPIO-F";
++};
++
++&gpiof {
++	gpio-line-names = "", "", "", "",
++			  "", "", "", "",
++			  "", "", "", "",
++			  "DH-GPIO-G", "DH-GPIO-H", "", "";
++};
++
+ &i2c1 {	/* X6 I2C1 */
+ 	pinctrl-names = "default";
+ 	pinctrl-0 = <&i2c1_pins_b>;
 -- 
-Pengutronix e.K.                           |                             |
-Steuerwalder Str. 21                       | http://www.pengutronix.de/  |
-31137 Hildesheim, Germany                  | Phone: +49-5121-206917-0    |
-Amtsgericht Hildesheim, HRA 2686           | Fax:   +49-5121-206917-5555 |
+2.27.0
+
 _______________________________________________
 Linux-stm32 mailing list
 Linux-stm32@st-md-mailman.stormreply.com
