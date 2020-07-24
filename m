@@ -2,62 +2,61 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id 2BD1222C5A3
-	for <lists+linux-stm32@lfdr.de>; Fri, 24 Jul 2020 14:57:21 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id BC5FF22C6F5
+	for <lists+linux-stm32@lfdr.de>; Fri, 24 Jul 2020 15:46:06 +0200 (CEST)
 Received: from ip-172-31-3-76.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id DF64DC36B27;
-	Fri, 24 Jul 2020 12:57:20 +0000 (UTC)
-Received: from mx07-00178001.pphosted.com (mx07-00178001.pphosted.com
- [62.209.51.94])
- (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 6E796C36B27;
+	Fri, 24 Jul 2020 13:46:06 +0000 (UTC)
+Received: from mail-lj1-f194.google.com (mail-lj1-f194.google.com
+ [209.85.208.194])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 971D2C36B0C
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 2226AC36B0C
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Fri, 24 Jul 2020 12:57:18 +0000 (UTC)
-Received: from pps.filterd (m0046037.ppops.net [127.0.0.1])
- by mx07-00178001.pphosted.com (8.16.0.42/8.16.0.42) with SMTP id
- 06OCvBYg002758; Fri, 24 Jul 2020 14:57:11 +0200
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=st.com;
- h=subject : to : cc :
- references : from : message-id : date : mime-version : in-reply-to :
- content-type : content-transfer-encoding; s=STMicroelectronics;
- bh=u81ztgjIJJ329cqaZ/0ZrdkPGl4LegMpe1IdzmOvXJ8=;
- b=AK0WtPv0aSmrZ9MBGxNzHF7Vouss8MhB9iwPS2EbZp/ZWxx0Z5AeG1vCuTjYXi9eqHpB
- HppYnVIazp6gFPmxCbtf87cyY9NR19Wo4LEYIw1Xc8QhIzfBwJ9j9deogKKputQT1CfW
- ApwRla7mo4RyGooh1OWHuFmz5sFLR2SVuTBjzIlLZVm4LyuIPo+Rwxcy3VTkrpSMXRLW
- OE44Uq3UmboZg1nhWSTMYdyHFvf/k02HAcPWGQIb3vUxRG6JXZ9ukQPN0EEj/+4JRsyR
- BLfTFn9X91o+f0z7NaLPdbUK9zwbwYf5Pnf0zCio89ag2lKl5Zra0PxxBK7OxLxwkpXU nA== 
-Received: from beta.dmz-eu.st.com (beta.dmz-eu.st.com [164.129.1.35])
- by mx07-00178001.pphosted.com with ESMTP id 32bs6vg63r-1
- (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
- Fri, 24 Jul 2020 14:57:11 +0200
-Received: from euls16034.sgp.st.com (euls16034.sgp.st.com [10.75.44.20])
- by beta.dmz-eu.st.com (STMicroelectronics) with ESMTP id 33AEF100034;
- Fri, 24 Jul 2020 14:57:07 +0200 (CEST)
-Received: from Webmail-eu.st.com (sfhdag3node2.st.com [10.75.127.8])
- by euls16034.sgp.st.com (STMicroelectronics) with ESMTP id 1BF752A4D8E;
- Fri, 24 Jul 2020 14:57:07 +0200 (CEST)
-Received: from lmecxl0995.lme.st.com (10.75.127.47) by SFHDAG3NODE2.st.com
- (10.75.127.8) with Microsoft SMTP Server (TLS) id 15.0.1347.2; Fri, 24 Jul
- 2020 14:57:06 +0200
-To: Alexandre Torgue <alexandre.torgue@st.com>, Felipe Balbi
- <balbi@kernel.org>, Maxime Coquelin <mcoquelin.stm32@gmail.com>
+ Fri, 24 Jul 2020 13:46:05 +0000 (UTC)
+Received: by mail-lj1-f194.google.com with SMTP id q7so10052404ljm.1
+ for <linux-stm32@st-md-mailman.stormreply.com>;
+ Fri, 24 Jul 2020 06:46:05 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20161025;
+ h=sender:from:to:cc:subject:in-reply-to:references:date:message-id
+ :mime-version; bh=vu7AEch6tVK5sMQvHGR0dpGgNZ7jy5+kRB2EBTC0xyY=;
+ b=md52HGXBAlYTKVX/vc+E2YSVjr9cCh2sxaZhVBVMKsXRzJ4CSFyeQgo+AsUD4dBhbH
+ a+BJdAwGPp0mmtKuPJL/woOC7G3k+QGxLaapfHOUSN0vYTKjBXGf/ygoJDNZPNATlrL0
+ lNBgyM5+CJa8MnczwRhZChC9rFVwHfVd6CbkuRTgZgYh7KbAgWs/wIVNNOiIvRFqg4gz
+ xRvu7Hd09vR3832fkvN3VcVhqg2p/mq5PMfAt7NeAdPXmlGPQ/PKxc4K6BJY5ohcLDUt
+ Msp6JmptEwjxnEOlrjyoWSGU7e8dftJ575WnnlCkva/edVsbnfW6GLkF0WLowrlXU+NN
+ 5pJQ==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20161025;
+ h=x-gm-message-state:sender:from:to:cc:subject:in-reply-to:references
+ :date:message-id:mime-version;
+ bh=vu7AEch6tVK5sMQvHGR0dpGgNZ7jy5+kRB2EBTC0xyY=;
+ b=umB4A7rYomhrJQyQdbWGqTwE5N+Lgoah3k5EuA11vutbebAwjjcsWkcsYci048pjbQ
+ fZavJduyeWgYJnDghjSQ4TFRm7nOhjrTzTzTEMfcsCMV5G4JdYkcSj3g0Ov01ilmzR82
+ IeVnDNCrknCHPgza8svhJAqFj2pZFt3CCEugwvGoK+JRyetTuclFX1p8E+L1FNpNefUJ
+ +ls4PuYE199lDMjHM2kQ9s8+BV2BD/H0KNdIl/McP/J5rT5TqRXF/VZ5rbx462/sQKQw
+ NyYWP5rkRfqyL3Gn3eRq+hv3eNybPdmd3r4TzihpB1jLA/JK0Cv78XA/HzKdKlGzqmyA
+ vjhA==
+X-Gm-Message-State: AOAM5316N+TjjtFDvA9w+/lGLjH9w141XzWNesGAgcwdLXmECHPv6hRf
+ HJj8jKB2AFP6dMErCnWPcmI=
+X-Google-Smtp-Source: ABdhPJxRLBdkoLiQ3bIn3g2yWD91G8Xg1O///R4OxhiwVBRMiIkVf0EyOqY9YyLcvXE7EpEcZxM0Cw==
+X-Received: by 2002:a2e:9ac4:: with SMTP id p4mr4663110ljj.143.1595598363953; 
+ Fri, 24 Jul 2020 06:46:03 -0700 (PDT)
+Received: from saruman (91-155-214-58.elisa-laajakaista.fi. [91.155.214.58])
+ by smtp.gmail.com with ESMTPSA id i11sm289423lfl.31.2020.07.24.06.46.02
+ (version=TLS1_2 cipher=ECDHE-ECDSA-CHACHA20-POLY1305 bits=256/256);
+ Fri, 24 Jul 2020 06:46:03 -0700 (PDT)
+From: Felipe Balbi <balbi@kernel.org>
+To: Amelie DELAUNAY <amelie.delaunay@st.com>,
+ Alexandre Torgue <alexandre.torgue@st.com>,
+ Maxime Coquelin <mcoquelin.stm32@gmail.com>
+In-Reply-To: <97cd44c1-9e19-94bc-54f8-204d79b79975@st.com>
 References: <20200616140717.28465-1-amelie.delaunay@st.com>
  <d8069a78-2640-d112-a2fb-d86b99a8e44f@st.com>
-From: Amelie DELAUNAY <amelie.delaunay@st.com>
-Message-ID: <97cd44c1-9e19-94bc-54f8-204d79b79975@st.com>
-Date: Fri, 24 Jul 2020 14:57:05 +0200
-User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:68.0) Gecko/20100101
- Thunderbird/68.10.0
+ <97cd44c1-9e19-94bc-54f8-204d79b79975@st.com>
+Date: Fri, 24 Jul 2020 16:45:51 +0300
+Message-ID: <87blk5owkw.fsf@kernel.org>
 MIME-Version: 1.0
-In-Reply-To: <d8069a78-2640-d112-a2fb-d86b99a8e44f@st.com>
-Content-Language: en-US
-X-Originating-IP: [10.75.127.47]
-X-ClientProxiedBy: SFHDAG6NODE2.st.com (10.75.127.17) To SFHDAG3NODE2.st.com
- (10.75.127.8)
-X-Proofpoint-Virus-Version: vendor=fsecure engine=2.50.10434:6.0.235, 18.0.687
- definitions=2020-07-24_04:2020-07-24,
- 2020-07-24 signatures=0
 Cc: devicetree@vger.kernel.org, Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
  linux-usb@vger.kernel.org, linux-kernel@vger.kernel.org,
  Rob Herring <robh+dt@kernel.org>, Minas Harutyunyan <hminas@synopsys.com>,
@@ -75,49 +74,67 @@ List-Post: <mailto:linux-stm32@st-md-mailman.stormreply.com>
 List-Help: <mailto:linux-stm32-request@st-md-mailman.stormreply.com?subject=help>
 List-Subscribe: <https://st-md-mailman.stormreply.com/mailman/listinfo/linux-stm32>, 
  <mailto:linux-stm32-request@st-md-mailman.stormreply.com?subject=subscribe>
-Content-Transfer-Encoding: base64
-Content-Type: text/plain; charset="utf-8"; Format="flowed"
+Content-Type: multipart/mixed; boundary="===============4649005185292631993=="
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
-SGkgRmVsaXBlLAoKSSBzYXcgdGhhdCB5b3UgdG9vayBEVCBwYXRjaCAoQVJNOiBkdHM6IHN0bTMy
-OiBlbmFibGUgdXNiLXJvbGUtc3dpdGNoIG9uIApVU0IgT1RHIG9uIHN0bTMybXAxNXh4LWRreCkg
-aW4geW91ciBuZXh0IGJyYW5jaC4gQXMgaXQgd2FzIGFscmVhZHkgaW4KQWxleCcgc3RtMzItbmV4
-dCBicmFuY2gsIGEgcG90ZW50aWFsIG1lcmdlIGNvbmZsaWN0IGNvdWxkIG9jY3VycmVkLgoKUmVn
-YXJkcywKQW1lbGllCgpPbiA3LzIxLzIwIDEwOjU0IEFNLCBBbGV4YW5kcmUgVG9yZ3VlIHdyb3Rl
-Ogo+IEhpIEFtw6lsaWUKPiAKPiBPbiA2LzE2LzIwIDQ6MDcgUE0sIEFtZWxpZSBEZWxhdW5heSB3
-cm90ZToKPj4gV2hlbiB1c2luZyB1c2ItYyBjb25uZWN0b3IgKGJ1dCBpdCBjYW4gYWxzbyBiZSB0
-aGUgY2FzZSB3aXRoIGEgbWljcm8tYgo+PiBjb25uZWN0b3IpLCBpZGRpZywgYXZhbGlkLCBidmFs
-aWQsIHZidXN2YWxpZCBpbnB1dCBzaWduYWxzIG1heSBub3QgYmUKPj4gY29ubmVjdGVkIHRvIHRo
-ZSBEV0MyIE9URyBjb250cm9sbGVyLgo+PiBEV0MyIE9URyBjb250cm9sbGVyIGZlYXR1cmVzIGFu
-IG92ZXJyaWRpbmcgY29udHJvbCBvZiB0aGUgUEhZIHZvbHRhZ2UgCj4+IHZhbGlkCj4+IGFuZCBJ
-RCBpbnB1dCBzaWduYWxzLgo+PiBTbywgbWlzc2luZyBzaWduYWxzIGNhbiBiZSBmb3JjZWQgdXNp
-bmcgdXNiIHJvbGUgZnJvbSB1c2Igcm9sZSBzd2l0Y2ggYW5kCj4+IHRoaXMgb3ZlcnJpZGUgZmVh
-dHVyZS4KPj4KPj4gVGhpcyBzZXJpZXMgYWRkcyBzdXBwb3J0IGZvciB1c2Igcm9sZSBzd2l0Y2gg
-dG8gZHdjMiwgYnkgdXNpbmcgb3ZlcnJpZGluZwo+PiBjb250cm9sIG9mIHRoZSBQSFkgdm9sdGFn
-ZSB2YWxpZCBhbmQgSUQgaW5wdXQgc2lnbmFscy4KPj4KPj4gSXQgaGFzIGJlZW4gdGVzdGVkIG9u
-IHN0bTMybXAxNTdjLWRrMiBbMV0sIHdoaWNoIGhhcyBhIFR5cGUtQyBjb25uZWN0b3IKPj4gbWFu
-YWdlZCBieSBhIFR5cGUtQyBwb3J0IGNvbnRyb2xsZXIsIGFuZCBjb25uZWN0ZWQgdG8gVVNCIE9U
-RyBjb250cm9sbGVyLgo+Pgo+PiBbMV0gaHR0cHM6Ly93d3cuc3QuY29tL2VuL2V2YWx1YXRpb24t
-dG9vbHMvc3RtMzJtcDE1N2MtZGsyLmh0bWwKPj4KPj4gQW1lbGllIERlbGF1bmF5ICgzKToKPj4g
-wqDCoCB1c2I6IGR3YzI6IG92ZXJyaWRlIFBIWSBpbnB1dCBzaWduYWxzIHdpdGggdXNiIHJvbGUg
-c3dpdGNoIHN1cHBvcnQKPj4gwqDCoCB1c2I6IGR3YzI6IGRvbid0IHVzZSBJRC9WYnVzIGRldGVj
-dGlvbiBpZiB1c2Itcm9sZS1zd2l0Y2ggb24gU1RNMzJNUDE1Cj4+IMKgwqDCoMKgIFNvQ3MKPj4g
-wqDCoCBBUk06IGR0czogc3RtMzI6IGVuYWJsZSB1c2Itcm9sZS1zd2l0Y2ggb24gVVNCIE9URyBv
-biBzdG0zMm1wMTV4eC1ka3gKPj4KPj4gwqAgYXJjaC9hcm0vYm9vdC9kdHMvc3RtMzJtcDE1eHgt
-ZGt4LmR0c2kgfMKgwqAgMiArLQo+PiDCoCBkcml2ZXJzL3VzYi9kd2MyL0tjb25maWfCoMKgwqDC
-oMKgwqDCoMKgwqDCoMKgwqDCoMKgIHzCoMKgIDEgKwo+PiDCoCBkcml2ZXJzL3VzYi9kd2MyL01h
-a2VmaWxlwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqAgfMKgwqAgMiArLQo+PiDCoCBkcml2ZXJz
-L3VzYi9kd2MyL2NvcmUuaMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoCB8wqDCoCA4ICsr
-Cj4+IMKgIGRyaXZlcnMvdXNiL2R3YzIvZHJkLmPCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKg
-wqDCoCB8IDE5MCArKysrKysrKysrKysrKysrKysrKysrKysrCj4+IMKgIGRyaXZlcnMvdXNiL2R3
-YzIvZ2FkZ2V0LmPCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoCB8wqDCoCAyICstCj4+IMKgIGRy
-aXZlcnMvdXNiL2R3YzIvcGFyYW1zLmPCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoCB8wqDCoCA0
-ICstCj4+IMKgIGRyaXZlcnMvdXNiL2R3YzIvcGxhdGZvcm0uY8KgwqDCoMKgwqDCoMKgwqDCoMKg
-wqAgfMKgIDEzICsrCj4+IMKgIDggZmlsZXMgY2hhbmdlZCwgMjE4IGluc2VydGlvbnMoKyksIDQg
-ZGVsZXRpb25zKC0pCj4+IMKgIGNyZWF0ZSBtb2RlIDEwMDY0NCBkcml2ZXJzL3VzYi9kd2MyL2Ry
-ZC5jCj4+Cj4gCj4gRFQgcGF0Y2ggYXBwbGllZCBvbiBzdG0zMi1uZXh0Lgo+IAo+IFRoYW5rcwo+
-IEFsZXgKX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX18KTGlu
-dXgtc3RtMzIgbWFpbGluZyBsaXN0CkxpbnV4LXN0bTMyQHN0LW1kLW1haWxtYW4uc3Rvcm1yZXBs
-eS5jb20KaHR0cHM6Ly9zdC1tZC1tYWlsbWFuLnN0b3JtcmVwbHkuY29tL21haWxtYW4vbGlzdGlu
-Zm8vbGludXgtc3RtMzIK
+--===============4649005185292631993==
+Content-Type: multipart/signed; boundary="=-=-=";
+	micalg=pgp-sha256; protocol="application/pgp-signature"
+
+--=-=-=
+Content-Type: text/plain
+Content-Transfer-Encoding: quoted-printable
+
+
+(please, no top-posting ;-)
+
+Hi,
+
+Amelie DELAUNAY <amelie.delaunay@st.com> writes:
+
+> Hi Felipe,
+>
+> I saw that you took DT patch (ARM: dts: stm32: enable usb-role-switch on=
+=20
+> USB OTG on stm32mp15xx-dkx) in your next branch. As it was already in
+> Alex' stm32-next branch, a potential merge conflict could occurred.
+
+Thanks for letting me know, I have dropped it.
+
+=2D-=20
+balbi
+
+--=-=-=
+Content-Type: application/pgp-signature; name="signature.asc"
+
+-----BEGIN PGP SIGNATURE-----
+
+iQIzBAEBCAAdFiEElLzh7wn96CXwjh2IzL64meEamQYFAl8a5g8ACgkQzL64meEa
+mQa6GA//dv6un4DfWkydBfBMjWWl9DuRCyLB80t59IsGJejlkudKuN4qaqQSbEI2
+DVpyiZKw/1Nt8aTpQJTJgsgf69vIzkhsxvkQ8tIrYZlXWwUoB/HKClA9R1gGR8Rq
+oI50A35v0hRHTFoE3TlOXxC+NBeGkHw+O+yCEhOFbevHJ5N9JW6s+Vkaur11mgc8
+kYIW1WYPrQ2oTAPlEgdv5HRoA2UCZX/E9poNn83gWSe8r3FL55huLPEb3Caem01y
+8LKRFgDSbvoiVrVZM+bQ7JUlu0ORvwKlTak4q4InvqE9VqAsHBstN7iNvutYwtCM
+X1RPT8npXN+mR8U+r1QZOZ549YDuVe/ToTPBoz6IaAf7H4OH2ET00nfEcEbJGWxJ
+rap1HuJDfKFJb+4B9j5lkqoaTE25JyNqk1XY3UBKtnU4tfMeJVHw8GxJIdy3xiM/
+knkPyZEk3nCRbcEoUaVhFPCvKzGweMtaer/xIw6VEM25bPZzRa2+r+2kz9k8nYnO
+WfXC2r1IS2WXJC5arwG5dStHuhngmEPzYQdvV0SPCnhMHwJO9Z5rmD3F8fRNsZMS
+e1kTs9dcurhVJz/Gm0RS/66kIJJGQT1xxf8/Z/sjln8+ShrPe1HDJlhsn3MEqP2l
+BMh1Hh8L66Sl4tNmIB8NKl0Zryn3G/gIL8w+ExILXYzPMzhRYkk=
+=6nN4
+-----END PGP SIGNATURE-----
+--=-=-=--
+
+--===============4649005185292631993==
+Content-Type: text/plain; charset="us-ascii"
+MIME-Version: 1.0
+Content-Transfer-Encoding: 7bit
+Content-Disposition: inline
+
+_______________________________________________
+Linux-stm32 mailing list
+Linux-stm32@st-md-mailman.stormreply.com
+https://st-md-mailman.stormreply.com/mailman/listinfo/linux-stm32
+
+--===============4649005185292631993==--
