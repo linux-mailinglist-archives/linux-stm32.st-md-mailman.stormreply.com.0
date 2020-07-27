@@ -2,72 +2,91 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id CA93222E935
-	for <lists+linux-stm32@lfdr.de>; Mon, 27 Jul 2020 11:39:40 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 89B1F22EC1D
+	for <lists+linux-stm32@lfdr.de>; Mon, 27 Jul 2020 14:27:36 +0200 (CEST)
 Received: from ip-172-31-3-76.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 8C07DC36B27;
-	Mon, 27 Jul 2020 09:39:40 +0000 (UTC)
-Received: from mx07-00178001.pphosted.com (mx07-00178001.pphosted.com
- [62.209.51.94])
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 37657C36B2B;
+	Mon, 27 Jul 2020 12:27:36 +0000 (UTC)
+Received: from NAM11-DM6-obe.outbound.protection.outlook.com
+ (mail-dm6nam11on2060.outbound.protection.outlook.com [40.107.223.60])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id A95E4C36B0C
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id E3109C36B27
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Mon, 27 Jul 2020 09:39:37 +0000 (UTC)
-Received: from pps.filterd (m0046037.ppops.net [127.0.0.1])
- by mx07-00178001.pphosted.com (8.16.0.42/8.16.0.42) with SMTP id
- 06R9bZt4028611; Mon, 27 Jul 2020 11:39:25 +0200
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=st.com;
- h=subject : to : cc :
- references : from : message-id : date : mime-version : in-reply-to :
- content-type : content-transfer-encoding; s=STMicroelectronics;
- bh=KNpb5IhGAR9mrGu7U7F+4OMqL2SAQVWh1aDlJk1R/ks=;
- b=XCS39xlpu3dw83UhAQbLqmErci+xzOc3Jf2CMDSwhCvF0qDPr7yzkzoli7SWvLl6RkUL
- 6M3autdinKYz7fiizzoQnahnSz44iRuNojqosCxsEo00Q4p1Bj2pH3Mw4C0OsJps4WKH
- cRIvJlgSUJineksA1rYGiPhUeW8SXqhaD2morP0s6tIjhWD7qhInTADRk8W2W4Bc3d38
- QNWiOOP9RN/0KsBNIsU7Q/I97+XkNPYhQ2hLXL0E+ZlZag8d90DoWANZMhLv/pqXUyaP
- UeAahUJ7K3AnocJL6kQLGJOkibFmerv7huBMDLB7jbBas4sekBvppHvwklRZjmURsl0z GQ== 
-Received: from beta.dmz-eu.st.com (beta.dmz-eu.st.com [164.129.1.35])
- by mx07-00178001.pphosted.com with ESMTP id 32gagv0gbg-1
- (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
- Mon, 27 Jul 2020 11:39:25 +0200
-Received: from euls16034.sgp.st.com (euls16034.sgp.st.com [10.75.44.20])
- by beta.dmz-eu.st.com (STMicroelectronics) with ESMTP id ACEF110002A;
- Mon, 27 Jul 2020 11:39:24 +0200 (CEST)
-Received: from Webmail-eu.st.com (sfhdag3node2.st.com [10.75.127.8])
- by euls16034.sgp.st.com (STMicroelectronics) with ESMTP id 9A5E22AE6DA;
- Mon, 27 Jul 2020 11:39:24 +0200 (CEST)
-Received: from lmecxl0995.lme.st.com (10.75.127.50) by SFHDAG3NODE2.st.com
- (10.75.127.8) with Microsoft SMTP Server (TLS) id 15.0.1347.2; Mon, 27 Jul
- 2020 11:39:24 +0200
-To: Minas Harutyunyan <hminas@synopsys.com>, Felipe Balbi <balbi@kernel.org>, 
- Greg Kroah-Hartman <gregkh@linuxfoundation.org>, Rob Herring
- <robh+dt@kernel.org>, Maxime Coquelin <mcoquelin.stm32@gmail.com>,
- Alexandre TORGUE <alexandre.torgue@st.com>
-References: <20200724123748.25369-1-amelie.delaunay@st.com>
-From: Amelie DELAUNAY <amelie.delaunay@st.com>
-Message-ID: <8d59dcfa-dbb6-de26-9154-fc2bd349075f@st.com>
-Date: Mon, 27 Jul 2020 11:39:23 +0200
-User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:68.0) Gecko/20100101
- Thunderbird/68.10.0
+ Mon, 27 Jul 2020 11:06:00 +0000 (UTC)
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
+ b=I8pP8L3UEnGBccQIJruBnSxi4QojAjaLN7oOEqToFVmkX5n9otTyOcXYu6joYysr3aRiJVmfhRzBlgk3flzzmYix0To9LeuvMOHMuSC3Ps9/qListt/IteIgcbl4inHjvAU+DHSDg5edbd95L5rCY+gNu45rFgvwwpsCxPkBbkZq5SdkcecQCoTjGesXqTLz0EnHW4NvmOKLREa/34DcUY+moAWJhUfwF2yBZ1oBBAHEPbFguIBRnBEjvhqqx3YPxlgG20YVAD+J0T7DaDA4xxKwtq0witMygxbOjoIWWLb+Rout3oFdfd+o40cVNPwouhsTisHa0/cZcf+MGz1OuQ==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
+ s=arcselector9901;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=1A7sHR8uiWBtmOF1hdFHvxyW6wgy3YDB48gZ3sURZhs=;
+ b=aXgAWamQP7kR7ZTCEtxvoj5NOkrE9ao+EYnF9kX13zYaU935NEItj0JDKjMM2O62YVIl1EeCCVENvDkFEaS9gGXn3YzzbUdzAlp5nr6Ua9saC8XlLtGC23lxZHuNNf2WCOoZJzFYKKiDoIiECTgbo8xTRpCyn4TiMkfK1V+CUtGqkqJc3JQa5Bvf5T/Vu8fJB0DUIHPRBAW4v9wYj0WmNrvON8FPXLjD1n1OIvM7EMja8SoLywY4Rde1Ni5BHVsWZAaH30Fwmu0xBY5087Ww/i9qXrtsB5QitCqukfmae38ppjCgJ4xPvuPvbAvfM1RgXMb/mkWaDQqxH9dxe0/g1g==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=synaptics.com; dmarc=pass action=none
+ header.from=synaptics.com; dkim=pass header.d=synaptics.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=Synaptics.onmicrosoft.com; s=selector2-Synaptics-onmicrosoft-com;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=1A7sHR8uiWBtmOF1hdFHvxyW6wgy3YDB48gZ3sURZhs=;
+ b=C3bFz2EL+8OeugftTG01Ifd1eu/G7wWlbuyAzNNnMykeRE60xO07e+t2blU30nEdFgphHYCneQk1JYVDRfxhqwy2/8j512GE9uKZLzfTNOnOFt7go0QsMSO13oWMH8pBwvzyhvxL8HQUhiPAtQ7P8NWvUJ2lIUXPEw0dZDAHY2w=
+Authentication-Results: st.com; dkim=none (message not signed)
+ header.d=none;st.com; dmarc=none action=none header.from=synaptics.com;
+Received: from BYAPR03MB3573.namprd03.prod.outlook.com (2603:10b6:a02:ae::15)
+ by BYAPR03MB4198.namprd03.prod.outlook.com (2603:10b6:a03:7e::19)
+ with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.3216.21; Mon, 27 Jul
+ 2020 11:05:59 +0000
+Received: from BYAPR03MB3573.namprd03.prod.outlook.com
+ ([fe80::b5cc:ca6b:3c25:a99c]) by BYAPR03MB3573.namprd03.prod.outlook.com
+ ([fe80::b5cc:ca6b:3c25:a99c%4]) with mapi id 15.20.3216.033; Mon, 27 Jul 2020
+ 11:05:59 +0000
+Date: Mon, 27 Jul 2020 19:01:07 +0800
+From: Jisheng Zhang <Jisheng.Zhang@synaptics.com>
+To: Giuseppe Cavallaro <peppe.cavallaro@st.com>, Alexandre Torgue
+ <alexandre.torgue@st.com>, Jose Abreu <joabreu@synopsys.com>, "David S.
+ Miller" <davem@davemloft.net>, Jakub Kicinski <kuba@kernel.org>, Maxime
+ Coquelin <mcoquelin.stm32@gmail.com>, Russell King <linux@armlinux.org.uk>
+Message-ID: <20200727190045.36f247cc@xhacker.debian>
+X-Mailer: Claws Mail 3.17.5 (GTK+ 2.24.32; x86_64-pc-linux-gnu)
+X-ClientProxiedBy: TY2PR01CA0012.jpnprd01.prod.outlook.com
+ (2603:1096:404:a::24) To BYAPR03MB3573.namprd03.prod.outlook.com
+ (2603:10b6:a02:ae::15)
 MIME-Version: 1.0
-In-Reply-To: <20200724123748.25369-1-amelie.delaunay@st.com>
-Content-Language: en-US
-X-Originating-IP: [10.75.127.50]
-X-ClientProxiedBy: SFHDAG4NODE1.st.com (10.75.127.10) To SFHDAG3NODE2.st.com
- (10.75.127.8)
-X-Proofpoint-Virus-Version: vendor=fsecure engine=2.50.10434:6.0.235, 18.0.687
- definitions=2020-07-27_06:2020-07-27,
- 2020-07-27 signatures=0
-Cc: "devicetree@vger.kernel.org" <devicetree@vger.kernel.org>,
- Martin Blumenstingl <martin.blumenstingl@googlemail.com>,
- "linux-usb@vger.kernel.org" <linux-usb@vger.kernel.org>,
- "linux-kernel@vger.kernel.org" <linux-kernel@vger.kernel.org>,
- Fabrice GASNIER <fabrice.gasnier@st.com>,
- "linux-stm32@st-md-mailman.stormreply.com"
- <linux-stm32@st-md-mailman.stormreply.com>,
- "linux-arm-kernel@lists.infradead.org" <linux-arm-kernel@lists.infradead.org>
-Subject: Re: [Linux-stm32] [PATCH 0/4] Fix DWC2 USB role switch support
+X-MS-Exchange-MessageSentRepresentingType: 1
+Received: from xhacker.debian (124.74.246.114) by
+ TY2PR01CA0012.jpnprd01.prod.outlook.com (2603:1096:404:a::24) with Microsoft
+ SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.20.3216.23 via Frontend Transport; Mon, 27 Jul 2020 11:05:56 +0000
+X-Mailer: Claws Mail 3.17.5 (GTK+ 2.24.32; x86_64-pc-linux-gnu)
+X-Originating-IP: [124.74.246.114]
+X-MS-PublicTrafficType: Email
+X-MS-Office365-Filtering-Correlation-Id: cc3e2fe7-3a40-4d5f-3b01-08d8321d0ad3
+X-MS-TrafficTypeDiagnostic: BYAPR03MB4198:
+X-Microsoft-Antispam-PRVS: <BYAPR03MB4198BAA3936E6CDAE1A4D5B5ED720@BYAPR03MB4198.namprd03.prod.outlook.com>
+X-MS-Oob-TLC-OOBClassifiers: OLM:5516;
+X-MS-Exchange-SenderADCheck: 1
+X-Microsoft-Antispam: BCL:0;
+X-Microsoft-Antispam-Message-Info: jPwKJJfaQ3ukUOMqnMvpbZjLIjAkKjzqmpjfgtXyfbtia37ZUR4uDOjZL67A/h62EBk6Lrz7ys7Mw7w1gJ+7qUH3AsRrl/ovG88Mz/RrL8oLFXaivNcPkjq81HPo3mkPfS8UHZkicakaO6Xn6QI7fCIWj6ZGCWm+HVySXIuRyrggivOJLaMD6nb04TyNzFNJWX/ItWWffuKgdORi0t32GxCgQuh02ICDZnybFS2CsHKFLWdwWbTDrDIg/g5QNu0AVeZCDq4JUZ8nxaWNbxjE+QRn+6OI+IqPgSqwn7lvO9gsxu7TvTMz0WIxxuLQrR8J
+X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
+ IPV:NLI; SFV:NSPM; H:BYAPR03MB3573.namprd03.prod.outlook.com; PTR:; CAT:NONE;
+ SFTY:;
+ SFS:(39860400002)(366004)(346002)(376002)(396003)(136003)(66946007)(66476007)(66556008)(5660300002)(6506007)(55016002)(86362001)(52116002)(9686003)(4744005)(8676002)(478600001)(110136005)(7696005)(316002)(1076003)(4326008)(16526019)(8936002)(26005)(956004)(83380400001)(2906002)(6666004)(7416002)(186003);
+ DIR:OUT; SFP:1101; 
+X-MS-Exchange-AntiSpam-MessageData: aeQngkP+Aia67IILNklrGXdaycb/knf/efRBWVM97JkEcgy0QtN197Y6T92xzUmdbbfGExGzoA2mjQ8YiG3vkG4WFXNO7SA5lTPb8JuQUwUlHlVppnxIjkxbPR4zgZlzogQMLEM3q9xgkm4VsUhQ61LDoIeSsgLJfBk8jnJMB3ntHv6vLCsvXiVWWT3J9O53UvAoowawL33dE6fanSabtsVjm7IpxHlVj9GhNpDuvyn72+yH5WYV2g2oB0L0HpMMa683HXbMkiOLsvpm3M+ZOni6vUKDnYKOeJN+2WQwTFfsPtqJbG0rCazdBnzLVyyUeyJ7CqzbHHIgeq+QQamibZxUhbFeo94cV+f6imQwQkDpBri467yWDHSTV2aIN0c80dAOfWr+FRNmvU7zwFbvQG2QWDL9eibEIjZlBnlEWFlTqfU3vwGW/AGw7jtc1Qaflc95zWdjxjn37Lox/pkIzT1c3NOeYCPbjMBMqpH8CQQLybYFAIrKSqBztdtjE1zh
+X-OriginatorOrg: synaptics.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: cc3e2fe7-3a40-4d5f-3b01-08d8321d0ad3
+X-MS-Exchange-CrossTenant-AuthSource: BYAPR03MB3573.namprd03.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 27 Jul 2020 11:05:59.2849 (UTC)
+X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
+X-MS-Exchange-CrossTenant-Id: 335d1fbc-2124-4173-9863-17e7051a2a0e
+X-MS-Exchange-CrossTenant-MailboxType: HOSTED
+X-MS-Exchange-CrossTenant-UserPrincipalName: jRatiSHMnpA+xtcLLtUb1k/BKAz7JaIA9v02Cv9MVdHj6bi6JTqZZMWR9xBNA45dPTqmCRnFVNpZXf04Z81xwg==
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: BYAPR03MB4198
+X-Mailman-Approved-At: Mon, 27 Jul 2020 12:27:34 +0000
+Cc: netdev@vger.kernel.org, linux-stm32@st-md-mailman.stormreply.com,
+ linux-arm-kernel@lists.infradead.org, linux-kernel@vger.kernel.org
+Subject: [Linux-stm32] [PATCH 0/5] net: stmmac: improve WOL
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -79,30 +98,35 @@ List-Post: <mailto:linux-stm32@st-md-mailman.stormreply.com>
 List-Help: <mailto:linux-stm32-request@st-md-mailman.stormreply.com?subject=help>
 List-Subscribe: <https://st-md-mailman.stormreply.com/mailman/listinfo/linux-stm32>, 
  <mailto:linux-stm32-request@st-md-mailman.stormreply.com?subject=subscribe>
-Content-Transfer-Encoding: base64
-Content-Type: text/plain; charset="utf-8"; Format="flowed"
+Content-Type: text/plain; charset="us-ascii"
+Content-Transfer-Encoding: 7bit
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
-Ck9uIDcvMjQvMjAgMjozNyBQTSwgQW1lbGllIERFTEFVTkFZIHdyb3RlOgo+IFRoaXMgcGF0Y2hz
-ZXQgYWRkcyBtaXNzaW5nIGRvY3VtZW50YXRpb24gZm9yIHVzYi1yb2xlLXN3aXRjaCBzdXBwb3J0
-IGluIERXQzIKPiBiaW5kaW5ncy4gSXQgYWxzbyBmaXhlcyBidWlsZCBpc3N1ZSB3aGVuIGNvbmZp
-ZyBpcyBEV0MyX0hPU1Qgb25seSwKPiBzbGVlcGluZyB3aGlsZSBhdG9taWMgaXNzdWUgYW5kIG1p
-c3NpbmcgdXNiLXJvbGUtc3dpdGNoIHVucmVnaXN0cmF0aW9uIAo+IGluIHByb2JlCj4gZXJyb3Ig
-cGF0aC4KPiAKPiBBbWVsaWUgRGVsYXVuYXkgKDQpOgo+ICDCoCBkdC1iaW5kaW5nczogdXNiOiBk
-d2MyOiBhZGQgb3B0aW9uYWwgdXNiLXJvbGUtc3dpdGNoIHByb3BlcnR5Cj4gIMKgIHVzYjogZHdj
-MjogZml4IGJ1aWxkIGlzc3VlIHdoZW4gY29uZmlnIGlzIFVTQl9EV0MyX0hPU1Qgb25seQo+ICDC
-oCB1c2I6IGR3YzI6IGRyZDogZml4IHNsZWVwaW5nIHdoaWxlIHNwaW5sb2NrIGF0b21pYyBjb250
-ZXh0Cj4gIMKgIHVzYjogZHdjMjogZml4IGVycm9yIHBhdGggd2l0aCBtaXNzaW5nIGR3YzJfZHJk
-X2V4aXQKPiAKPiAgwqAuLi4vZGV2aWNldHJlZS9iaW5kaW5ncy91c2IvZHdjMi55YW1swqDCoMKg
-wqDCoMKgwqDCoCB8wqAgNCArKysKPiAgwqBkcml2ZXJzL3VzYi9kd2MyL2NvcmUuaMKgwqDCoMKg
-wqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgIHzCoCAxICsKPiAgwqBkcml2ZXJz
-L3VzYi9kd2MyL2RyZC5jwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKg
-wqDCoCB8IDMwICsrKysrKystLS0tLS0tLS0tLS0KPiAgwqBkcml2ZXJzL3VzYi9kd2MyL3BsYXRm
-b3JtLmPCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqAgfMKgIDIgKysKPiAgwqA0
-IGZpbGVzIGNoYW5nZWQsIDE3IGluc2VydGlvbnMoKyksIDIwIGRlbGV0aW9ucygtKQo+IAo+IC0t
-IAo+IDIuMTcuMQo+IAoKUGF0Y2hzZXQgZHJvcHBlZC4KClJlZ2FyZHMsCkFtZWxpZQpfX19fX19f
-X19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fXwpMaW51eC1zdG0zMiBtYWls
-aW5nIGxpc3QKTGludXgtc3RtMzJAc3QtbWQtbWFpbG1hbi5zdG9ybXJlcGx5LmNvbQpodHRwczov
-L3N0LW1kLW1haWxtYW4uc3Rvcm1yZXBseS5jb20vbWFpbG1hbi9saXN0aW5mby9saW51eC1zdG0z
-Mgo=
+Currently, stmmac driver relies on the HW PMT to support WOL. We want
+to support phy based WOL.
+
+patch1 is a small improvement to disable WAKE_MAGIC for PMT case if
+no pmt_magic_frame.
+patch2 and patch3 are two prepation patches.
+patch4 implement the phy based WOL
+patch5 tries to save a bit energy if WOL is enabled.
+
+Jisheng Zhang (5):
+  net: stmmac: Remove WAKE_MAGIC if HW shows no pmt_magic_frame
+  net: stmmac: Move device_can_wakeup() check earlier in set_wol
+  net: stmmac: only call pmt() during suspend/resume if HW enables PMT
+  net: stmmac: Support WOL with phy
+  net: stmmac: speed down the PHY, if WoL used, to save energy
+
+ .../ethernet/stmicro/stmmac/stmmac_ethtool.c  | 19 ++++++++++++++++---
+ .../net/ethernet/stmicro/stmmac/stmmac_main.c | 18 +++++++++++++++---
+ 2 files changed, 31 insertions(+), 6 deletions(-)
+
+-- 
+2.28.0.rc0
+
+_______________________________________________
+Linux-stm32 mailing list
+Linux-stm32@st-md-mailman.stormreply.com
+https://st-md-mailman.stormreply.com/mailman/listinfo/linux-stm32
