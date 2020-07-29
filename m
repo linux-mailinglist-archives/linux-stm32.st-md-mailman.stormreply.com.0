@@ -2,51 +2,52 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id F07192320DD
-	for <lists+linux-stm32@lfdr.de>; Wed, 29 Jul 2020 16:46:24 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 140F0232235
+	for <lists+linux-stm32@lfdr.de>; Wed, 29 Jul 2020 18:11:02 +0200 (CEST)
 Received: from ip-172-31-3-76.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id AC827C36B2A;
-	Wed, 29 Jul 2020 14:46:24 +0000 (UTC)
-Received: from perceval.ideasonboard.com (perceval.ideasonboard.com
- [213.167.242.64])
- (using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id C786BC36B29;
+	Wed, 29 Jul 2020 16:11:01 +0000 (UTC)
+Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
+ (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 8F0C2C36B27
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 2EC09C36B25
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Wed, 29 Jul 2020 14:46:22 +0000 (UTC)
-Received: from pendragon.ideasonboard.com (81-175-216-236.bb.dnainternet.fi
- [81.175.216.236])
- by perceval.ideasonboard.com (Postfix) with ESMTPSA id 2896631F;
- Wed, 29 Jul 2020 16:46:17 +0200 (CEST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=ideasonboard.com;
- s=mail; t=1596033977;
- bh=eiO2X0amTLH3veUB6bFyV3ChUyyc7KPIIH26S1LYdWI=;
- h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
- b=XLDHZiZpAYLjrOioTllfwg9H+HxgcsSeC0y9/Flpmt91FW8FDGOve/5k8xzMnKQc8
- n7O1E2z26ZYA/r8UwJfmZQYrmRBoXD1fI4+lLX+B9AyeVbopWRxQTAjR+ujSqALWHU
- Rl5I0eNfjVXKEm2ARgI2m63r3meERNiGc2Q0fuFU=
-Date: Wed, 29 Jul 2020 17:46:08 +0300
-From: Laurent Pinchart <laurent.pinchart@ideasonboard.com>
-To: Sakari Ailus <sakari.ailus@iki.fi>
-Message-ID: <20200729144608.GF6183@pendragon.ideasonboard.com>
-References: <20200717132859.237120-1-jacopo+renesas@jmondi.org>
- <20200717132859.237120-9-jacopo+renesas@jmondi.org>
- <20200717205722.GJ5961@pendragon.ideasonboard.com>
- <20200723222259.GB829@valkosipuli.retiisi.org.uk>
- <20200723231549.GE21353@pendragon.ideasonboard.com>
- <20200725211833.GE829@valkosipuli.retiisi.org.uk>
- <20200725213125.GE6253@pendragon.ideasonboard.com>
- <20200729142936.GF829@valkosipuli.retiisi.org.uk>
-MIME-Version: 1.0
-Content-Disposition: inline
-In-Reply-To: <20200729142936.GF829@valkosipuli.retiisi.org.uk>
-Cc: devicetree@vger.kernel.org, linux-renesas-soc@vger.kernel.org,
- robh+dt@kernel.org, Jacopo Mondi <jacopo+renesas@jmondi.org>,
- Maxime Coquelin <mcoquelin.stm32@gmail.com>, slongerbeam@gmail.com,
- "moderated list:ARM/STM32 ARCHITECTURE"
- <linux-stm32@st-md-mailman.stormreply.com>, linux-media@vger.kernel.org
-Subject: Re: [Linux-stm32] [PATCH 08/13] dt-bindings: media: ov5640: Remove
-	data-shift
+ Wed, 29 Jul 2020 16:10:58 +0000 (UTC)
+Received: from kozik-lap.mshome.net (unknown [194.230.155.213])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+ (No client certificate requested)
+ by mail.kernel.org (Postfix) with ESMTPSA id E333320809;
+ Wed, 29 Jul 2020 16:10:51 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
+ s=default; t=1596039057;
+ bh=MTQc91L8nEUije9/E2iQNE+itwpGFsm/mjfkGzLQAoo=;
+ h=From:To:Cc:Subject:Date:From;
+ b=uHe5x4NeAE581Czkj+sihuBZ4wP9Ln2MxRJVS1QC6lxC4MTCjrDb69eBA3pl3EUfh
+ pUQJk6PLPMEXUDdsa5jdFXIQ+2bagoNNjdqN8HCs0MAEsX5iwSJ/ppn6jNqg/lBcHC
+ 91iPYEecf0ePA52Nh5BisBkcgfnJ4VxMY4D0RjlE=
+From: Krzysztof Kozlowski <krzk@kernel.org>
+To: Russell King <linux@armlinux.org.uk>, Kukjin Kim <kgene@kernel.org>,
+ Krzysztof Kozlowski <krzk@kernel.org>,
+ Vincent Sanders <vince@simtec.co.uk>,
+ Simtec Linux Team <linux@simtec.co.uk>,
+ Kyungmin Park <kyungmin.park@samsung.com>,
+ Catalin Marinas <catalin.marinas@arm.com>, Will Deacon <will@kernel.org>,
+ Sylwester Nawrocki <s.nawrocki@samsung.com>,
+ Tomasz Figa <tomasz.figa@gmail.com>, Chanwoo Choi <cw00.choi@samsung.com>,
+ Michael Turquette <mturquette@baylibre.com>,
+ Stephen Boyd <sboyd@kernel.org>, Wim Van Sebroeck <wim@linux-watchdog.org>,
+ Guenter Roeck <linux@roeck-us.net>, Arnd Bergmann <arnd@arndb.de>,
+ Linus Walleij <linus.walleij@linaro.org>, linux-kernel@vger.kernel.org,
+ linux-arm-kernel@lists.infradead.org, linux-samsung-soc@vger.kernel.org,
+ linux-stm32@st-md-mailman.stormreply.com, patches@opensource.cirrus.com,
+ linux-clk@vger.kernel.org, linux-watchdog@vger.kernel.org
+Date: Wed, 29 Jul 2020 18:09:35 +0200
+Message-Id: <20200729160942.28867-1-krzk@kernel.org>
+X-Mailer: git-send-email 2.17.1
+Cc: Sylwester Nawrocki <snawrocki@kernel.org>, Lihua Yao <ylhuajnu@outlook.com>,
+ Cedric Roux <sed@free.fr>, Sergio Prado <sergio.prado@e-labworks.com>,
+ Marek Szyprowski <m.szyprowski@samsung.com>
+Subject: [Linux-stm32] [PATCH 0/7] ARM: samsung: Cleanup of various S3C bits
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -58,108 +59,99 @@ List-Post: <mailto:linux-stm32@st-md-mailman.stormreply.com>
 List-Help: <mailto:linux-stm32-request@st-md-mailman.stormreply.com?subject=help>
 List-Subscribe: <https://st-md-mailman.stormreply.com/mailman/listinfo/linux-stm32>, 
  <mailto:linux-stm32-request@st-md-mailman.stormreply.com?subject=subscribe>
+MIME-Version: 1.0
 Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
-Hi Sakari,
+Hi,
 
-On Wed, Jul 29, 2020 at 05:29:36PM +0300, Sakari Ailus wrote:
-> On Sun, Jul 26, 2020 at 12:31:25AM +0300, Laurent Pinchart wrote:
-> > On Sun, Jul 26, 2020 at 12:18:33AM +0300, Sakari Ailus wrote:
-> > > On Fri, Jul 24, 2020 at 02:15:49AM +0300, Laurent Pinchart wrote:
-> > > > On Fri, Jul 24, 2020 at 01:22:59AM +0300, Sakari Ailus wrote:
-> > > > > On Fri, Jul 17, 2020 at 11:57:22PM +0300, Laurent Pinchart wrote:
-> > > > > > Hi Jacopo,
-> > > > > > 
-> > > > > > (CC'ing Sakari)
-> > > > > > 
-> > > > > > Thank you for the patch.
-> > > > > > 
-> > > > > > On Fri, Jul 17, 2020 at 03:28:54PM +0200, Jacopo Mondi wrote:
-> > > > > > > The value of the data-shift property solely depend on the selected
-> > > > > > > bus width and it's not freely configurable.
-> > > > > > > 
-> > > > > > > Remove it from the bindings document and update its users accordingly.
-> > > > > > 
-> > > > > > Hmmmm that's an interesting one. Sakari, what do you think ?
-> > > > > > 
-> > > > > > > Signed-off-by: Jacopo Mondi <jacopo+renesas@jmondi.org>
-> > > > > > > ---
-> > > > > > >  Documentation/devicetree/bindings/media/i2c/ov5640.yaml | 9 ---------
-> > > > > > >  arch/arm/boot/dts/stm32mp157c-ev1.dts                   | 1 -
-> > > > > > >  2 files changed, 10 deletions(-)
-> > > > > > > 
-> > > > > > > diff --git a/Documentation/devicetree/bindings/media/i2c/ov5640.yaml b/Documentation/devicetree/bindings/media/i2c/ov5640.yaml
-> > > > > > > index 5e1662e848bd..ab700a1830aa 100644
-> > > > > > > --- a/Documentation/devicetree/bindings/media/i2c/ov5640.yaml
-> > > > > > > +++ b/Documentation/devicetree/bindings/media/i2c/ov5640.yaml
-> > > > > > > @@ -92,12 +92,6 @@ properties:
-> > > > > > >                parallel bus.
-> > > > > > >              enum: [8, 10]
-> > > > > > > 
-> > > > > > > -          data-shift:
-> > > > > > > -            description: |
-> > > > > > > -              Shall be set to <2> for 8 bits parallel bus (lines 9:2 are used) or
-> > > > > > > -              <0> for 10 bits parallel bus.
-> > > > > > > -            enum: [0, 2]
-> > > > > > 
-> > > > > > Should you document in the description of bus-width that data-shift is
-> > > > > > implied ?
-> > > > > 
-> > > > > The purpose of the datas-shift property is to convey how the parallel bus
-> > > > > lines are connected for a given bus width for devices where it is
-> > > > > configurable. As this device does not not support that, then indeed this
-> > > > > property is not relevant for the device IMO.
-> > > > 
-> > > > Could you elaborate on this ? I believe the case that Jacopo is
-> > > > describing connects D[9:2] from the sensor to D[7:0] of the receiver
-> > > > (Jacopo, could you confirm ?). Isn't that what data-shift is for ?
-> > > 
-> > > Yes, it is. But in this case what data-shift configures is not configurable
-> > > as such but defined by another configuration, making the data-shift
-> > > property redundant. We generally haven't documented redundant things in DT
-> > > bindings --- for instance data-lanes is documented in bindings only if it
-> > > is configurable.
-> > 
-> > Then I think we share the same understanding. I believe the
-> > documentation in video-interfaces.txt needs to be expanded, as it's
-> > quite terse and not very clear.
-> 
-> The DT spec states that:
-> 
-> 	A DTSpec-compliant devicetree describes device information in a
-> 	system that cannot necessarily be dynamically detected by a client
-> 	program. For example, the architecture of PCI enables a client to
-> 	probe and detect attached devices, and thus devicetree nodes
-> 	describing PCI devices might not be required. However, a device
-> 	node is required to describe a PCI host bridge device in the system
-> 	if it cannot be detected by probing.
-> 
-> I'd read that as there's no need to specify properties that do not provide
-> additional information to software.
+I tried to cleanup few warnings in S3C machine code which lead to
+finding some bigger issues.
 
-That's a bit of a stretch interpretation :-)
+Patches touch mostly the ARM Samsung machine code except patch #1 (clk)
+and #5 (watchdog).  They are independent from each other, except
+some conflicting lines.
 
-> As some properties are dependent on
-> others and and this depends on hardware features, I don't think we can in
-> general case take this account in generic binding documentation, but device
-> specific ones.
-> 
-> Of course we could add this to data-shift documentation, but then I wonder
-> how many other similar cases there are where in hardware the configuration
-> defined by one property determines the value of another?
+The last three patches would welcome some testing... as I did not
+perform such (lack of S3C hardware).
 
-I was mostly thinking about documenting *how* data-shift interacts with
-bus-width. I think that specifying the default data-shift value based on
-the bus-width value, for the case where data-shift is not specified,
-would also make sense.
+Best regards,
+Krzysztof
+
+
+Krzysztof Kozlowski (7):
+  clk: samsung: s3c64xx: Declare s3c64xx_clk_init() in shared header
+  ARM: s3c64xx: Include header to fix -Wmissing-prototypes
+  ARM: s3c: Remove plat-samsung/.../samsung-time.h
+  ARM: samsung: Fix language typo
+  ARM: samsung: Kill useless HAVE_S3C2410_WATCHDOG
+  ARM: s3c64xx: Switch to generic watchdog driver reset
+  ARM: s3c24xx: Fix missing system reset
+
+ MAINTAINERS                                   |  1 +
+ arch/arm/Kconfig                              |  3 +-
+ arch/arm/mach-exynos/Kconfig                  |  1 -
+ arch/arm/mach-s3c24xx/common.h                | 12 +++
+ arch/arm/mach-s3c24xx/mach-amlm5900.c         |  2 -
+ arch/arm/mach-s3c24xx/mach-anubis.c           |  1 -
+ arch/arm/mach-s3c24xx/mach-at2440evb.c        |  1 -
+ arch/arm/mach-s3c24xx/mach-bast.c             |  1 -
+ arch/arm/mach-s3c24xx/mach-gta02.c            |  1 -
+ arch/arm/mach-s3c24xx/mach-h1940.c            |  1 -
+ arch/arm/mach-s3c24xx/mach-jive.c             |  1 -
+ arch/arm/mach-s3c24xx/mach-mini2440.c         |  1 -
+ arch/arm/mach-s3c24xx/mach-n30.c              |  1 -
+ arch/arm/mach-s3c24xx/mach-nexcoder.c         |  1 -
+ arch/arm/mach-s3c24xx/mach-osiris.c           |  1 -
+ arch/arm/mach-s3c24xx/mach-otom.c             |  1 -
+ arch/arm/mach-s3c24xx/mach-qt2410.c           |  1 -
+ arch/arm/mach-s3c24xx/mach-rx1950.c           |  1 -
+ arch/arm/mach-s3c24xx/mach-rx3715.c           |  1 -
+ arch/arm/mach-s3c24xx/mach-smdk2410.c         |  1 -
+ arch/arm/mach-s3c24xx/mach-smdk2413.c         |  1 -
+ arch/arm/mach-s3c24xx/mach-smdk2416.c         |  1 -
+ arch/arm/mach-s3c24xx/mach-smdk2440.c         |  1 -
+ arch/arm/mach-s3c24xx/mach-smdk2443.c         |  1 -
+ arch/arm/mach-s3c24xx/mach-tct_hammer.c       |  1 -
+ arch/arm/mach-s3c24xx/mach-vr1000.c           |  1 -
+ arch/arm/mach-s3c24xx/mach-vstms.c            |  1 -
+ arch/arm/mach-s3c64xx/Kconfig                 |  5 +-
+ arch/arm/mach-s3c64xx/common.c                | 16 +---
+ arch/arm/mach-s3c64xx/common.h                | 17 +++-
+ arch/arm/mach-s3c64xx/mach-anw6410.c          |  2 -
+ arch/arm/mach-s3c64xx/mach-crag6410.c         |  2 -
+ arch/arm/mach-s3c64xx/mach-hmt.c              |  2 -
+ arch/arm/mach-s3c64xx/mach-mini6410.c         |  2 -
+ arch/arm/mach-s3c64xx/mach-ncp.c              |  2 -
+ arch/arm/mach-s3c64xx/mach-real6410.c         |  2 -
+ arch/arm/mach-s3c64xx/mach-s3c64xx-dt.c       | 17 ----
+ arch/arm/mach-s3c64xx/mach-smartq.c           |  1 -
+ arch/arm/mach-s3c64xx/mach-smartq5.c          |  2 -
+ arch/arm/mach-s3c64xx/mach-smartq7.c          |  2 -
+ arch/arm/mach-s3c64xx/mach-smdk6400.c         |  2 -
+ arch/arm/mach-s3c64xx/mach-smdk6410.c         |  2 -
+ arch/arm/mach-s3c64xx/setup-spi.c             |  1 +
+ arch/arm/mach-s3c64xx/watchdog-reset.h        | 16 ----
+ arch/arm/mach-s5pv210/Kconfig                 |  1 -
+ arch/arm/plat-samsung/Kconfig                 | 10 +-
+ arch/arm/plat-samsung/Makefile                |  1 -
+ .../plat-samsung/include/plat/samsung-time.h  | 26 ------
+ arch/arm/plat-samsung/watchdog-reset.c        | 93 -------------------
+ arch/arm64/Kconfig.platforms                  |  1 -
+ drivers/clk/samsung/clk-s3c64xx.c             |  1 +
+ drivers/watchdog/Kconfig                      |  8 --
+ include/linux/clk/samsung.h                   | 21 +++++
+ 53 files changed, 59 insertions(+), 237 deletions(-)
+ delete mode 100644 arch/arm/mach-s3c64xx/watchdog-reset.h
+ delete mode 100644 arch/arm/plat-samsung/include/plat/samsung-time.h
+ delete mode 100644 arch/arm/plat-samsung/watchdog-reset.c
+ create mode 100644 include/linux/clk/samsung.h
 
 -- 
-Regards,
+2.17.1
 
-Laurent Pinchart
 _______________________________________________
 Linux-stm32 mailing list
 Linux-stm32@st-md-mailman.stormreply.com
