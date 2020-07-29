@@ -2,65 +2,64 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id CDF27231254
-	for <lists+linux-stm32@lfdr.de>; Tue, 28 Jul 2020 21:18:38 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id C8A1B2316B1
+	for <lists+linux-stm32@lfdr.de>; Wed, 29 Jul 2020 02:20:15 +0200 (CEST)
 Received: from ip-172-31-3-76.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 7DC0DC36B27;
-	Tue, 28 Jul 2020 19:18:38 +0000 (UTC)
-Received: from mail-ed1-f67.google.com (mail-ed1-f67.google.com
- [209.85.208.67])
- (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 6A0EDC36B27;
+	Wed, 29 Jul 2020 00:20:15 +0000 (UTC)
+Received: from vern.gendns.com (vern.gendns.com [98.142.107.122])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id B85CEC36B0C
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 1EAB4C36B0C
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Tue, 28 Jul 2020 19:18:35 +0000 (UTC)
-Received: by mail-ed1-f67.google.com with SMTP id c2so9783240edx.8
- for <linux-stm32@st-md-mailman.stormreply.com>;
- Tue, 28 Jul 2020 12:18:35 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=googlemail.com; s=20161025;
- h=mime-version:references:in-reply-to:from:date:message-id:subject:to
- :cc; bh=oa15p4iXa6GJWXcRKbHat247Q7cvm1xa0u7tYmwOk/s=;
- b=blU+NE79hmQP+AWK2v6QHIjREnaP4/YLScYIEh3rWReHYQ1hpM4CB6natewhEcZJg3
- At/DtAoJ9fBGj4g3ZnXIMFH10prYf+AFTHKPO+8fGRN1w55P9BQqv5CG5MoRsyeuOUGy
- POKNlHiYWWDnRAmGiURfH6NrFotdNYkduTjxfX1eU8AGv+UrcTi8XLXCxBpX95UH/nrL
- VkdM0HjfPkXJVbmw5xo9QFfmCuDC7uGtgEvhLlgy6LaFCwHAms40eJR1/qxhoNZR63Us
- RkobSo+XmF/XkyPrpesTskiyKBR75/rYao7GhgZ+zXjoQJs1dT76PdO1tV+cozSe21+o
- 52EQ==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20161025;
- h=x-gm-message-state:mime-version:references:in-reply-to:from:date
- :message-id:subject:to:cc;
- bh=oa15p4iXa6GJWXcRKbHat247Q7cvm1xa0u7tYmwOk/s=;
- b=YlYL6hcas/XaVXaAdwOehlFyXwIVYYqJk/2awk2X5KvAv6p0TXvzza5NXO+pg0SsC4
- ebyx/cpVNhCJyYdag1e09aZtYujioLWNkMrag0/4mHN4qeW70Al9hWvu+1aJm7mEHl9S
- pZTwctzMnyW7zp1sdV+KTPzjXtUSGtpSG1pJ40U6lYbtVTHd+1jlddWXmeADg48JBPMc
- N+YA9MV6tdWoO6g3W9SDTBNG611x8lR11N5bq6nCWYxuQ5Fgnv+HVZHtgVsU0dnJ1MEk
- IX+Wcbup3I2NRVNMjPsKcLeVFRBDRYH8Pccl3YwVf6xtO82FJh/DdmjuIOGNcDu+ALks
- R7ow==
-X-Gm-Message-State: AOAM5310m4wxyPJumd9eCrzwBZAhmXqJBpcfnt6Cg58tn6vbc4DunfIU
- qP+TdUixF7rX669h5CEDup3AN+GTKuTvDntQsx8=
-X-Google-Smtp-Source: ABdhPJy5S7ubQoYm3tHb4jW0VlpjbyrDB7KIdVKen1wY3pcq2mMJd8xXnF7ClZtX7lLSpJPEPi2etzzsUrRn6G+1/8E=
-X-Received: by 2002:a05:6402:1d0a:: with SMTP id
- dg10mr26396667edb.110.1595963915038; 
- Tue, 28 Jul 2020 12:18:35 -0700 (PDT)
+ Wed, 29 Jul 2020 00:20:11 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
+ d=lechnology.com; s=default; h=Content-Transfer-Encoding:Content-Type:
+ In-Reply-To:MIME-Version:Date:Message-ID:From:References:Cc:To:Subject:Sender
+ :Reply-To:Content-ID:Content-Description:Resent-Date:Resent-From:
+ Resent-Sender:Resent-To:Resent-Cc:Resent-Message-ID:List-Id:List-Help:
+ List-Unsubscribe:List-Subscribe:List-Post:List-Owner:List-Archive;
+ bh=lGZzSi+swXyoU/xq8RPtcZDENd+lrNhrISQyVJ5Lq0U=; b=H8MVtmk/wbeIhPOvcXKWmWaVeM
+ wQxT4jPQR3Hl12ZKnr+DYnRpNJ6sJ0z1AmsrLPaxhZk/wvNegV2xfkeJSeCcMEmZ8uT/iM28zZT3u
+ Yb576+p1fxlRnQEm0pWNPTopVMULe12nKpHFJzxXLlaLhFQDAjUt9zuZraef4C9H665yEWvwgMsoa
+ cKznHz6Ni7Es61b9PEW9HD0Gbko4XdEGGmvNLjvWxmM3utQbEPGvmHohrgv1NeXy5UEA0ew1N+CYX
+ S7cutsTod0cIrVE7fVAmbGncLHtGxy56JcSsuG/p1UXxkv4wocxpUW8QKri0y/Lyn5Xg2U3QXR8bx
+ fLfE0apg==;
+Received: from [2600:1700:4830:165f::19e] (port=56576)
+ by vern.gendns.com with esmtpsa (TLS1.2) tls
+ TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256 (Exim 4.93)
+ (envelope-from <david@lechnology.com>)
+ id 1k0ZpG-0005DN-7q; Tue, 28 Jul 2020 20:20:07 -0400
+To: William Breathitt Gray <vilhelm.gray@gmail.com>, jic23@kernel.org
+References: <cover.1595358237.git.vilhelm.gray@gmail.com>
+ <08b3ac7349a59ba7fa5cd438bbe78360842ccd11.1595358237.git.vilhelm.gray@gmail.com>
+From: David Lechner <david@lechnology.com>
+Message-ID: <415ee9ad-255e-cee7-22a6-ffa977999691@lechnology.com>
+Date: Tue, 28 Jul 2020 19:20:03 -0500
+User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:68.0) Gecko/20100101
+ Thunderbird/68.10.0
 MIME-Version: 1.0
-References: <20200728074602.14218-1-amelie.delaunay@st.com>
- <20200728074602.14218-4-amelie.delaunay@st.com>
-In-Reply-To: <20200728074602.14218-4-amelie.delaunay@st.com>
-From: Martin Blumenstingl <martin.blumenstingl@googlemail.com>
-Date: Tue, 28 Jul 2020 21:18:24 +0200
-Message-ID: <CAFBinCDd_9HJA4TT2mS007xFyO4jovt+Xrpejppzzq2Ty-JDmg@mail.gmail.com>
-To: Amelie Delaunay <amelie.delaunay@st.com>
-Cc: Felipe Balbi <balbi@kernel.org>, devicetree@vger.kernel.org,
- Greg Kroah-Hartman <gregkh@linuxfoundation.org>, linux-usb@vger.kernel.org,
- linux-kernel@vger.kernel.org, Rob Herring <robh+dt@kernel.org>,
- Maxime Coquelin <mcoquelin.stm32@gmail.com>,
- Minas Harutyunyan <hminas@synopsys.com>,
- Fabrice Gasnier <fabrice.gasnier@st.com>,
+In-Reply-To: <08b3ac7349a59ba7fa5cd438bbe78360842ccd11.1595358237.git.vilhelm.gray@gmail.com>
+Content-Language: en-US
+X-AntiAbuse: This header was added to track abuse,
+ please include it with any abuse report
+X-AntiAbuse: Primary Hostname - vern.gendns.com
+X-AntiAbuse: Original Domain - st-md-mailman.stormreply.com
+X-AntiAbuse: Originator/Caller UID/GID - [47 12] / [47 12]
+X-AntiAbuse: Sender Address Domain - lechnology.com
+X-Get-Message-Sender-Via: vern.gendns.com: authenticated_id:
+ davidmain+lechnology.com/only user confirmed/virtual account not confirmed
+X-Authenticated-Sender: vern.gendns.com: davidmain@lechnology.com
+X-Source: 
+X-Source-Args: 
+X-Source-Dir: 
+Cc: kamel.bouhara@bootlin.com, gwendal@chromium.org, linux-iio@vger.kernel.org,
+ patrick.havelange@essensium.com, alexandre.belloni@bootlin.com,
+ linux-kernel@vger.kernel.org, mcoquelin.stm32@gmail.com,
+ fabrice.gasnier@st.com, syednwaris@gmail.com,
  linux-stm32@st-md-mailman.stormreply.com, linux-arm-kernel@lists.infradead.org
-Subject: Re: [Linux-stm32] [PATCH v5 3/3] usb: dwc2: don't use ID/Vbus
- detection if usb-role-switch on STM32MP15 SoCs
+Subject: Re: [Linux-stm32] [PATCH v4 3/5] counter: Add character device
+	interface
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -72,26 +71,273 @@ List-Post: <mailto:linux-stm32@st-md-mailman.stormreply.com>
 List-Help: <mailto:linux-stm32-request@st-md-mailman.stormreply.com?subject=help>
 List-Subscribe: <https://st-md-mailman.stormreply.com/mailman/listinfo/linux-stm32>, 
  <mailto:linux-stm32-request@st-md-mailman.stormreply.com?subject=subscribe>
-Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
+Content-Type: text/plain; charset="us-ascii"; Format="flowed"
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
-Hi Amelie,
+On 7/21/20 2:35 PM, William Breathitt Gray wrote:
+> This patch introduces a character device interface for the Counter
+> subsystem. Device data is exposed through standard character device read
+> operations. Device data is gathered when a Counter event is pushed by
+> the respective Counter device driver. Configuration is handled via ioctl
+> operations on the respective Counter character device node.
 
-On Tue, Jul 28, 2020 at 9:46 AM Amelie Delaunay <amelie.delaunay@st.com> wrote:
->
-> If usb-role-switch is present in the device tree, it means that ID and Vbus
-> signals are not connected to the OTG controller but to an external
-> component (GPIOs, Type-C controller). In this configuration, usb role
-> switch is used to force valid sessions on STM32MP15 SoCs.
->
-> Signed-off-by: Amelie Delaunay <amelie.delaunay@st.com>
-thank you for updating this patch - please add my:
-Acked-by: Martin Blumenstingl <martin.blumenstingl@googlemail.com>
+This sounds similar to triggers and buffers in the iio subsystem. And
+I can see how it might be useful in some cases. But I think it would not
+give the desired results when performance is important.
+
+Thinking through a few cases here...
+
+Suppose there was a new counter device that used the I2C bus. This would
+either have to be periodically polled for events or it might have a
+separate GPIO line to notify the MCU. In any case, with the proposed
+implementation, there would be a separate I2C transaction for each data
+point for that event. So none of the data for that event would actually
+be from the same point in time. And with I2C, this time difference could
+be significant.
+
+With the TI eQEP I have been working with, there are special latched
+registers for some events. To make use of these with events, we would have
+add extensions for each one we want to use (and expose it in sysfs). But
+really, the fact that we are using a latched register should be an
+implementation detail in the driver and not something userspace should have
+to know about.
+
+So, I'm wondering if it would make sense to keep things simpler and have
+events like the input subsystem where the event value is directly tied
+to the event. It would probably be rare for an event to have more than
+one or two values. And error events probably would not have a value at
+all.
+
+For example, with the TI eQEP, there is a unit timer time out event.
+This latches the position count, the timer count and the timer period.
+To translate this to an event data structure, the latched time would
+be the event timestamp and the position count would be the event value.
+The timer period should already be known since we would have configured
+the timer ourselves. There is also a count event that works similarly.
+In this case, the latched time would be the event timestamp and the
+latched timer period would be the event value. We would know the count
+already since we get an event for each count (and a separate direction
+change event if the direction changes).
 
 
-Martin
+> 
+> A high-level view of how a count value is passed down from a counter
+> driver is exemplified by the following:
+> 
+>                   ----------------------
+>                  / Counter device       \
+>                  +----------------------+
+>                  | Count register: 0x28 |
+>                  +----------------------+
+>                          |
+>                   -----------------
+>                  / raw count data /
+>                  -----------------
+>                          |
+>                          V
+>                  +----------------------------+
+>                  | Counter device driver      |----------+
+>                  +----------------------------+          |
+>                  | Processes data from device |   -------------------
+>                  |----------------------------|  / driver callbacks /
+>                  | Type: u64                  |  -------------------
+>                  | Value: 42                  |          |
+>                  +----------------------------+          |
+>                          |                               |
+>                   ----------                             |
+>                  / u64     /                             |
+>                  ----------                              |
+>                          |                               |
+>                          |                               V
+>                          |               +----------------------+
+>                          |               | Counter core         |
+>                          |               +----------------------+
+>                          |               | Routes device driver |
+>                          |               | callbacks to the     |
+>                          |               | userspace interfaces |
+>                          |               +----------------------+
+>                          |                       |
+>                          |                -------------------
+>                          |               / driver callbacks /
+>                          |               -------------------
+>                          |                       |
+>                  +-------+---------------+       |
+>                  |                       |       |
+>                  |               +-------|-------+
+>                  |               |       |
+>                  V               |       V
+>          +--------------------+  |  +---------------------+
+>          | Counter sysfs      |<-+->| Counter chrdev      |
+>          +--------------------+     +---------------------+
+>          | Translates to the  |     | Translates to the   |
+>          | standard Counter   |     | standard Counter    |
+>          | sysfs output       |     | character device    |
+>          |--------------------|     |---------------------+
+>          | Type: const char * |     | Type: u64           |
+>          | Value: "42"        |     | Value: 42           |
+>          +--------------------+     +---------------------+
+>                  |                               |
+>           ---------------                 -----------------------
+>          / const char * /                / struct counter_event /
+>          ---------------                 -----------------------
+>                  |                               |
+>                  |                               V
+>                  |                       +-----------+
+>                  |                       | read      |
+>                  |                       +-----------+
+>                  |                       \ Count: 42 /
+>                  |                        -----------
+>                  |
+>                  V
+>          +--------------------------------------------------+
+>          | `/sys/bus/counter/devices/counterX/countY/count` |
+>          +--------------------------------------------------+
+>          \ Count: "42"                                      /
+>           --------------------------------------------------
+> 
+> Counter character device nodes are created under the `/dev` directory as
+> `counterX`, where `X` is the respective counter device id. Defines for
+> the standard Counter data types are exposed via the userspace
+> `include/uapi/linux/counter.h` file.
+> 
+> Counter events
+> --------------
+> Counter device drivers can support Counter events by utilizing the
+> `counter_push_event` function:
+> 
+>      int counter_push_event(struct counter_device *const counter,
+>                             const u8 event);
+> 
+> The event id is specified by the `event` parameter. When this function
+> is called, the Counter data associated with the respective event is
+> gathered, and a `struct counter_event` is generated for each datum and
+> pushed to userspace.
+> 
+> Counter events can be configured by users to report various Counter
+> data of interest. This can be conceptualized as a list of Counter
+> component read calls to perform. For example:
+> 
+>      +------------------------+------------------------+
+>      | Event 0                | Event 1                |
+>      +------------------------+------------------------+
+>      | * Count 0              | * Signal 0             |
+>      | * Count 1              | * Signal 0 Extension 0 |
+>      | * Signal 3             | * Extension 4          |
+>      | * Count 4 Extension 2  |                        |
+>      | * Signal 5 Extension 0 |                        |
+>      +------------------------+------------------------+
+
+In the current implementation, I can't tell if the event number corresponds
+to the individual counter or some device-specific interrupt bits. In either
+case, it seems like it would be better to have a generic enum of possible
+counter events like overflow, underflow, direction change, etc.
+
+> 
+> When `counter_push_event(counter, 1)` is called for example, it will go
+> down the list for Event 1 and execute the read callbacks for Signal 0,
+> Signal 0 Extension 0, and Extension 4 -- the data returned for each is
+> pushed to a kfifo as a `struct counter_event`, which userspace can
+> retrieve via a standard read operation on the respective character
+> device node.
+> 
+> Userspace
+> ---------
+> Userspace applications can configure Counter events via ioctl operations
+> on the Counter character device node. There following ioctl codes are
+> supported and provided by the `linux/counter.h` userspace header file:
+> 
+> * COUNTER_CLEAR_WATCHES_IOCTL:
+>    Clear all Counter watches from all events
+> 
+> * COUNTER_SET_WATCH_IOCTL:
+>    Set a Counter watch on the specified event
+> 
+> To configure events to gather Counter data, users first populate a
+> `struct counter_watch` with the relevant event id and the information
+> for the desired Counter component from which to read, and then pass it
+> via the `COUNTER_SET_WATCH_IOCTL` ioctl command.
+> 
+> Userspace applications can then execute a `read` operation (optionally
+> calling `poll` first) on the Counter character device node to retrieve
+> `struct counter_event` elements with the desired data.
+> 
+> For example, the following userspace code opens `/dev/counter0`,
+> configures Event 0 to gather Count 0 and Count 1, and prints out the
+> data as it becomes available on the character device node:
+> 
+>      #include <fcntl.h>
+>      #include <linux/counter.h>
+>      #include <poll.h>
+>      #include <stdio.h>
+>      #include <sys/ioctl.h>
+>      #include <unistd.h>
+> 
+>      struct counter_watch watches[2] = {
+>              {
+>                      .event = 0,
+>                      .component.owner_type = COUNTER_OWNER_TYPE_COUNT,
+>                      .component.owner_id = 0,
+>                      .component.type = COUNTER_COMPONENT_TYPE_COUNT,
+>              },
+>              {
+>                      .event = 0,
+>                      .component.owner_type = COUNTER_OWNER_TYPE_COUNT,
+>                      .component.owner_id = 1,
+>                      .component.type = COUNTER_COMPONENT_TYPE_COUNT,
+>              },
+>      };
+> 
+>      int main(void)
+>      {
+>              struct pollfd pfd = { .events = POLLIN };
+>              struct counter_event event_data[2];
+> 
+>              pfd.fd = open("/dev/counter0", O_RDWR);
+> 
+>              ioctl(pfd.fd, COUNTER_SET_WATCH_IOCTL, watches);
+>              ioctl(pfd.fd, COUNTER_SET_WATCH_IOCTL, watches + 1);
+
+What enables events? If an event is enabled for each of these ioctls,
+then we have a race condition where events events from the first watch
+can start to be queued before the second watch is added. So we would
+have to flush the chardev first before polling, otherwise the assumption
+that event_data[0] is owner_id=0 and event_data[1] is owner_id=1 is
+not true.
+
+This is also racy if we want to clear watches and set up new watches
+at runtime. There would be a period of time where there were no watches
+and we could miss events.
+
+With my suggested changes of having fixed values per event and generic
+events, we could just have a single ioctl to enable and disable events.
+This would probably need to take an array of event descriptors as an
+argument where event descriptors contain the component type/id and the
+event to enable.
+
+> 
+>              for (;;) {
+>                      poll(&pfd, 1, -1);
+> 
+>                      read(pfd.fd, event_data, sizeof(event_data));
+> 
+>                      printf("Timestamp 0: %llu\nCount 0: %llu\n"
+>                             "Timestamp 1: %llu\nCount 1: %llu\n",
+>                             (unsigned long long)event_data[0].timestamp,
+>                             (unsigned long long)event_data[0].value_u64,
+>                             (unsigned long long)event_data[1].timestamp,
+>                             (unsigned long long)event_data[1].value_u64);
+>              }
+> 
+>              return 0;
+>      }
+> 
+> Cc: David Lechner <david@lechnology.com>
+> Cc: Gwendal Grignou <gwendal@chromium.org>
+> Signed-off-by: William Breathitt Gray <vilhelm.gray@gmail.com>
+> ---
+
 _______________________________________________
 Linux-stm32 mailing list
 Linux-stm32@st-md-mailman.stormreply.com
