@@ -2,78 +2,76 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id 5635923230B
-	for <lists+linux-stm32@lfdr.de>; Wed, 29 Jul 2020 19:02:50 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 8551A232504
+	for <lists+linux-stm32@lfdr.de>; Wed, 29 Jul 2020 21:02:47 +0200 (CEST)
 Received: from ip-172-31-3-76.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 113E8C36B29;
-	Wed, 29 Jul 2020 17:02:50 +0000 (UTC)
-Received: from mail-pg1-f196.google.com (mail-pg1-f196.google.com
- [209.85.215.196])
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 9AE13C36B29;
+	Wed, 29 Jul 2020 19:02:46 +0000 (UTC)
+Received: from mail-ej1-f65.google.com (mail-ej1-f65.google.com
+ [209.85.218.65])
  (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id C59C4C36B25
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 3960CC36B25
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Wed, 29 Jul 2020 17:02:48 +0000 (UTC)
-Received: by mail-pg1-f196.google.com with SMTP id e8so14550778pgc.5
+ Wed, 29 Jul 2020 19:02:44 +0000 (UTC)
+Received: by mail-ej1-f65.google.com with SMTP id g19so11641259ejc.9
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Wed, 29 Jul 2020 10:02:48 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20161025;
- h=sender:date:from:to:cc:subject:message-id:references:mime-version
- :content-disposition:in-reply-to:user-agent;
- bh=xtqCPAZNxab7obAfm7++LTbvH7dNhg0P0KIRGD5EzeI=;
- b=aGqeuLKOzgNcfhya9sQK3coK1kl3GVMYKFr3x1SV5UCfe2X0O1AdN+tnxf+TeFg/o3
- iqW3kB4RJ5diJhHYeBcfy8SjrXvEGi1ZaplHoEFYp3e3r5Tbmfm+9Wp+MRcYd5JaPnyG
- S6iTXsgMH4xENZcjLPRikafGXw3xj6uTtqHEB7nWQc4JO3xsfk50GlSJfM71Y2bIodVK
- MjwSwKmoMRWsfEJPkcbAowlXzD3dUPjL1oaIh1rHFPyznOsO+atvXcseaSs1CCEEoQA7
- JWz7H9S7Wxtmd0lsQyOtiFlcDogOd9rv2KeCd01vQIUoAisWh4NUcqrEIZ18jmTiBEO2
- r3bQ==
+ Wed, 29 Jul 2020 12:02:43 -0700 (PDT)
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=1e100.net; s=20161025;
- h=x-gm-message-state:sender:date:from:to:cc:subject:message-id
- :references:mime-version:content-disposition:in-reply-to:user-agent;
- bh=xtqCPAZNxab7obAfm7++LTbvH7dNhg0P0KIRGD5EzeI=;
- b=IelwIEBZbmDDhzxYu6329nip8H0e7Is3OewQE/F5yRwZyLu9OFgDHPbO3VW0NN7cR1
- IexpeBlocsFB3cSbuUdfXIhkajJPnIG6e+45xNkgpXzseVMTTomUDRixW7wFJjDH+ptL
- ubipQwpYCn2Ps4Bg3b65LytDSLlaF8OOkQl+5lzVuFuheSoihrzHqKKrAW4IxLksZ0Kh
- tWNCE/yqU/I4sEITFk3R8np7gaDG/35A+yuoQuXVgn7EsZA86XVq/SrMLHjQ4Kuo7F9w
- kwnAkzardcM62cpMWKjEr4Lz2vsah8D2rOwnt1cqQyeimBxFHGJaWhiVyeB84xWvWo5z
- /jtg==
-X-Gm-Message-State: AOAM531FzIfjd5E0wwHmkYJ/CNT9TW83h0EsyEla68paKau8TanFNcn2
- rbSR+x11CMzeyizAk7T1OwM=
-X-Google-Smtp-Source: ABdhPJzULaOVQ0tOHf7TxVqsmf9UR8ysNODjrXMfRJJtpEZ0uM9i9DYpEFzw/2aHDHyHlfcNVuYGig==
-X-Received: by 2002:a63:fc1f:: with SMTP id j31mr30573226pgi.104.1596042167176; 
- Wed, 29 Jul 2020 10:02:47 -0700 (PDT)
-Received: from localhost ([2600:1700:e321:62f0:329c:23ff:fee3:9d7c])
- by smtp.gmail.com with ESMTPSA id b128sm2876722pfg.114.2020.07.29.10.02.45
+ h=x-gm-message-state:date:from:to:cc:subject:message-id:references
+ :mime-version:content-disposition:content-transfer-encoding
+ :in-reply-to:user-agent;
+ bh=F6RvPQWo2rxOQUwgKhzdatI6SzUaFewn4ve7RS5gdpo=;
+ b=Km3rNirDci8ACWpblQOYFtlKGE61ojZuMIjTBhQ2RgXV+MJfkEARMX4cnbCgCof7z9
+ sIPMtfIKgwfK6V/e2ZgmA1rokArY5BtK+eyPWz4IGeyyqg7FXIbePdJBaWR/+AfTbGJC
+ vGRGkruWq7alMMTlhhcSDeLxILhLFAy8lcuYU7Rfye9u2596ZquxVHEFpBPeCdPtwomh
+ GmVXUhdvrLqdBPuhsGI4wDZLISKJOxvBQY0yXkgLWQDFbExlhYe1WprNVBs+RLZPEAJv
+ IJEODpT8VSFmivclqOlNQOj8cKs/tUkEDpPKLv5f+Ka+37NShT2QJQqZW3Pn5qJV+7Q6
+ YZRw==
+X-Gm-Message-State: AOAM530ELj5926pCJrhJB4cx1yVehBVZYexK5Fa+yhaNi4B45FAy7HAJ
+ +PwqIhIKWk2I5Pr4zkVTXac=
+X-Google-Smtp-Source: ABdhPJwrigyfWYWlC1oTscTi/S00vRyVwCtVK1J8TCQ1Ndue3IczGeg0UBI6RW2qdkMOGa4mUYUFCw==
+X-Received: by 2002:a17:907:42a0:: with SMTP id
+ ny24mr25051905ejb.328.1596049363432; 
+ Wed, 29 Jul 2020 12:02:43 -0700 (PDT)
+Received: from kozik-lap ([194.230.155.213])
+ by smtp.googlemail.com with ESMTPSA id i10sm2593802edx.42.2020.07.29.12.02.40
  (version=TLS1_2 cipher=ECDHE-ECDSA-CHACHA20-POLY1305 bits=256/256);
- Wed, 29 Jul 2020 10:02:46 -0700 (PDT)
-Date: Wed, 29 Jul 2020 10:02:45 -0700
-From: Guenter Roeck <linux@roeck-us.net>
-To: Krzysztof Kozlowski <krzk@kernel.org>
-Message-ID: <20200729170245.GA177035@roeck-us.net>
+ Wed, 29 Jul 2020 12:02:42 -0700 (PDT)
+Date: Wed, 29 Jul 2020 21:02:39 +0200
+From: Krzysztof Kozlowski <krzk@kernel.org>
+To: Tomasz Figa <tomasz.figa@gmail.com>
+Message-ID: <20200729190239.GA5723@kozik-lap>
 References: <20200729160942.28867-1-krzk@kernel.org>
- <20200729160942.28867-6-krzk@kernel.org>
+ <20200729160942.28867-4-krzk@kernel.org>
+ <CA+Ln22HWNSwVWARKL2NeUVx1y5yqHe0SGPZ1hcqBW88awySfPA@mail.gmail.com>
 MIME-Version: 1.0
 Content-Disposition: inline
-In-Reply-To: <20200729160942.28867-6-krzk@kernel.org>
+In-Reply-To: <CA+Ln22HWNSwVWARKL2NeUVx1y5yqHe0SGPZ1hcqBW88awySfPA@mail.gmail.com>
 User-Agent: Mutt/1.9.4 (2018-02-28)
 Cc: Catalin Marinas <catalin.marinas@arm.com>,
- Linus Walleij <linus.walleij@linaro.org>, Tomasz Figa <tomasz.figa@gmail.com>,
+ Linus Walleij <linus.walleij@linaro.org>,
  Sylwester Nawrocki <s.nawrocki@samsung.com>, Will Deacon <will@kernel.org>,
  linux-stm32@st-md-mailman.stormreply.com,
- Marek Szyprowski <m.szyprowski@samsung.com>, linux-samsung-soc@vger.kernel.org,
+ Marek Szyprowski <m.szyprowski@samsung.com>,
+ "moderated list:SAMSUNG SOC CLOCK DRIVERS" <linux-samsung-soc@vger.kernel.org>,
  Sylwester Nawrocki <snawrocki@kernel.org>, Cedric Roux <sed@free.fr>,
- Russell King <linux@armlinux.org.uk>, linux-clk@vger.kernel.org,
+ Russell King <linux@armlinux.org.uk>,
+ "open list:COMMON CLK FRAMEWORK" <linux-clk@vger.kernel.org>,
  Lihua Yao <ylhuajnu@outlook.com>, Chanwoo Choi <cw00.choi@samsung.com>,
  Kukjin Kim <kgene@kernel.org>, Michael Turquette <mturquette@baylibre.com>,
- Sergio Prado <sergio.prado@e-labworks.com>, linux-watchdog@vger.kernel.org,
- Arnd Bergmann <arnd@arndb.de>, Wim Van Sebroeck <wim@linux-watchdog.org>,
- Simtec Linux Team <linux@simtec.co.uk>, linux-arm-kernel@lists.infradead.org,
+ Guenter Roeck <linux@roeck-us.net>, Sergio Prado <sergio.prado@e-labworks.com>,
+ linux-watchdog@vger.kernel.org, Arnd Bergmann <arnd@arndb.de>,
+ Wim Van Sebroeck <wim@linux-watchdog.org>,
+ Simtec Linux Team <linux@simtec.co.uk>,
+ linux-arm-kernel <linux-arm-kernel@lists.infradead.org>,
  Stephen Boyd <sboyd@kernel.org>, patches@opensource.cirrus.com,
- Vincent Sanders <vince@simtec.co.uk>, linux-kernel@vger.kernel.org,
+ Vincent Sanders <vince@simtec.co.uk>,
+ linux-kernel <linux-kernel@vger.kernel.org>,
  Kyungmin Park <kyungmin.park@samsung.com>
-Subject: Re: [Linux-stm32] [PATCH 5/7] ARM: samsung: Kill useless
-	HAVE_S3C2410_WATCHDOG
+Subject: Re: [Linux-stm32] [PATCH 3/7] ARM: s3c: Remove
+	plat-samsung/.../samsung-time.h
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -85,136 +83,76 @@ List-Post: <mailto:linux-stm32@st-md-mailman.stormreply.com>
 List-Help: <mailto:linux-stm32-request@st-md-mailman.stormreply.com?subject=help>
 List-Subscribe: <https://st-md-mailman.stormreply.com/mailman/listinfo/linux-stm32>, 
  <mailto:linux-stm32-request@st-md-mailman.stormreply.com?subject=subscribe>
-Content-Type: text/plain; charset="us-ascii"
-Content-Transfer-Encoding: 7bit
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: base64
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
-On Wed, Jul 29, 2020 at 06:09:40PM +0200, Krzysztof Kozlowski wrote:
-> A separate Kconfig option HAVE_S3C2410_WATCHDOG for Samsung SoCs does
-> not have sense, because:
-> 1. All ARMv7 and ARMv8 Samsung SoCs have watchdog,
-> 2. All architecture Kconfigs were selecting it (if WATCHDOG framework is
->    chosen),
-> 3. HAVE_S3C2410_WATCHDOG is doing nothing except being a dependency of
->    actual Samsung SoC watchdog driver, which is enabled manually by
->    specific defconfigs.
-> 
-> HAVE_S3C2410_WATCHDOG can be safely removed.
-> 
-
-That is not really correct. HAVE_S3C2410_WATCHDOG is used to ensure
-that users can only enable S3C2410_WATCHDOG if the watchdog actually
-exists in a system. With this change, it can be enabled for all
-architectures and platforms.
-
-NACK.
-
-Guenter
-
-> Signed-off-by: Krzysztof Kozlowski <krzk@kernel.org>
-> ---
->  arch/arm/Kconfig              | 1 -
->  arch/arm/mach-exynos/Kconfig  | 1 -
->  arch/arm/mach-s3c64xx/Kconfig | 2 --
->  arch/arm/mach-s5pv210/Kconfig | 1 -
->  arch/arm64/Kconfig.platforms  | 1 -
->  drivers/watchdog/Kconfig      | 8 --------
->  6 files changed, 14 deletions(-)
-> 
-> diff --git a/arch/arm/Kconfig b/arch/arm/Kconfig
-> index 7564f293f107..fe95777af653 100644
-> --- a/arch/arm/Kconfig
-> +++ b/arch/arm/Kconfig
-> @@ -504,7 +504,6 @@ config ARCH_S3C24XX
->  	select GPIOLIB
->  	select GENERIC_IRQ_MULTI_HANDLER
->  	select HAVE_S3C2410_I2C if I2C
-> -	select HAVE_S3C2410_WATCHDOG if WATCHDOG
->  	select HAVE_S3C_RTC if RTC_CLASS
->  	select NEED_MACH_IO_H
->  	select SAMSUNG_ATAGS
-> diff --git a/arch/arm/mach-exynos/Kconfig b/arch/arm/mach-exynos/Kconfig
-> index f185cd3d4c62..d2d249706ebb 100644
-> --- a/arch/arm/mach-exynos/Kconfig
-> +++ b/arch/arm/mach-exynos/Kconfig
-> @@ -24,7 +24,6 @@ menuconfig ARCH_EXYNOS
->  	select HAVE_ARM_ARCH_TIMER if ARCH_EXYNOS5
->  	select HAVE_ARM_SCU if SMP
->  	select HAVE_S3C2410_I2C if I2C
-> -	select HAVE_S3C2410_WATCHDOG if WATCHDOG
->  	select HAVE_S3C_RTC if RTC_CLASS
->  	select PINCTRL
->  	select PINCTRL_EXYNOS
-> diff --git a/arch/arm/mach-s3c64xx/Kconfig b/arch/arm/mach-s3c64xx/Kconfig
-> index ac3e3563487f..e208c2b48853 100644
-> --- a/arch/arm/mach-s3c64xx/Kconfig
-> +++ b/arch/arm/mach-s3c64xx/Kconfig
-> @@ -13,7 +13,6 @@ menuconfig ARCH_S3C64XX
->  	select GPIO_SAMSUNG if ATAGS
->  	select GPIOLIB
->  	select HAVE_S3C2410_I2C if I2C
-> -	select HAVE_S3C2410_WATCHDOG if WATCHDOG
->  	select HAVE_TCM
->  	select PLAT_SAMSUNG
->  	select PM_GENERIC_DOMAINS if PM
-> @@ -165,7 +164,6 @@ config MACH_SMDK6410
->  	bool "SMDK6410"
->  	depends on ATAGS
->  	select CPU_S3C6410
-> -	select HAVE_S3C2410_WATCHDOG if WATCHDOG
->  	select S3C64XX_SETUP_FB_24BPP
->  	select S3C64XX_SETUP_I2C1
->  	select S3C64XX_SETUP_IDE
-> diff --git a/arch/arm/mach-s5pv210/Kconfig b/arch/arm/mach-s5pv210/Kconfig
-> index 03984a791879..b3db1191e437 100644
-> --- a/arch/arm/mach-s5pv210/Kconfig
-> +++ b/arch/arm/mach-s5pv210/Kconfig
-> @@ -14,7 +14,6 @@ config ARCH_S5PV210
->  	select COMMON_CLK_SAMSUNG
->  	select GPIOLIB
->  	select HAVE_S3C2410_I2C if I2C
-> -	select HAVE_S3C2410_WATCHDOG if WATCHDOG
->  	select HAVE_S3C_RTC if RTC_CLASS
->  	select PINCTRL
->  	select PINCTRL_EXYNOS
-> diff --git a/arch/arm64/Kconfig.platforms b/arch/arm64/Kconfig.platforms
-> index cd58f8495c45..d235b27cf372 100644
-> --- a/arch/arm64/Kconfig.platforms
-> +++ b/arch/arm64/Kconfig.platforms
-> @@ -80,7 +80,6 @@ config ARCH_EXYNOS
->  	select EXYNOS_CHIPID
->  	select EXYNOS_PM_DOMAINS if PM_GENERIC_DOMAINS
->  	select EXYNOS_PMU
-> -	select HAVE_S3C2410_WATCHDOG if WATCHDOG
->  	select HAVE_S3C_RTC if RTC_CLASS
->  	select PINCTRL
->  	select PINCTRL_EXYNOS
-> diff --git a/drivers/watchdog/Kconfig b/drivers/watchdog/Kconfig
-> index 4f4687c46d38..ae86ea135d2b 100644
-> --- a/drivers/watchdog/Kconfig
-> +++ b/drivers/watchdog/Kconfig
-> @@ -478,16 +478,8 @@ config IXP4XX_WATCHDOG
->  
->  	  Say N if you are unsure.
->  
-> -config HAVE_S3C2410_WATCHDOG
-> -	bool
-> -	help
-> -	  This will include watchdog timer support for Samsung SoCs. If
-> -	  you want to include watchdog support for any machine, kindly
-> -	  select this in the respective mach-XXXX/Kconfig file.
-> -
->  config S3C2410_WATCHDOG
->  	tristate "S3C2410 Watchdog"
-> -	depends on HAVE_S3C2410_WATCHDOG || COMPILE_TEST
->  	select WATCHDOG_CORE
->  	select MFD_SYSCON if ARCH_EXYNOS
->  	help
-> -- 
-> 2.17.1
-> 
-_______________________________________________
-Linux-stm32 mailing list
-Linux-stm32@st-md-mailman.stormreply.com
-https://st-md-mailman.stormreply.com/mailman/listinfo/linux-stm32
+T24gV2VkLCBKdWwgMjksIDIwMjAgYXQgMDc6NDk6MDJQTSArMDIwMCwgVG9tYXN6IEZpZ2Egd3Jv
+dGU6Cj4gMjAyMOW5tDfmnIgyOeaXpSjmsLQpIDE4OjExIEtyenlzenRvZiBLb3psb3dza2kgPGty
+emtAa2VybmVsLm9yZz46Cj4gPgo+ID4gUmVtb3ZlIHRoZSBhcmNoL2FybS9wbGF0LXNhbXN1bmcv
+aW5jbHVkZS9wbGF0L3NhbXN1bmctdGltZS5oIGhlYWRlciBhbmQKPiA+IG1vdmUgdGhlIGNvbnRl
+bnRzIHRvIGNvbW1vbi5oIGhlYWRlcnMgaW4gbWFjaC1zM2MyNHh4IGFuZCBtYWNoLXMzYzY0eHgu
+Cj4gPiBUaGUgZGVmaW5pdGlvbiBvZiBkZWNsYXJlZCBmdW5jdGlvbnMgaXMgYWxyZWFkeSBpbiBj
+b21tb24uYyBpbiBtYWNoCj4gPiBkaXJlY3Rvcmllcywgc28gaXQgaXMgbG9naWNhbGx5IHRvIHB1
+dCBkZWNsYXJhdGlvbiBuZXh0IHRvIHRoZW0uCj4gPgo+ID4gVGhpcyBpcyBhbHNvIG9uZSBzdGVw
+IGZ1cnRoZXIgdG93YXJkcyByZW1vdmFsIG9mIHBsYXQtc2Ftc3VuZyBkaXJlY3RvcnkKPiA+IGFu
+ZCBpdCBmaXhlcyBXPTEgYnVpbGQgd2FybmluZ3M6Cj4gPgo+ID4gICAgIGFyY2gvYXJtL21hY2gt
+czNjNjR4eC9jb21tb24uYzoxNzQ6MTM6IHdhcm5pbmc6Cj4gPiAgICAgICAgIG5vIHByZXZpb3Vz
+IHByb3RvdHlwZSBmb3IgJ3NhbXN1bmdfc2V0X3RpbWVyX3NvdXJjZScgWy1XbWlzc2luZy1wcm90
+b3R5cGVzXQo+ID4gICAgICAgMTc0IHwgdm9pZCBfX2luaXQgc2Ftc3VuZ19zZXRfdGltZXJfc291
+cmNlKHVuc2lnbmVkIGludCBldmVudCwgdW5zaWduZWQgaW50IHNvdXJjZSkKPiA+Cj4gPiAgICAg
+YXJjaC9hcm0vbWFjaC1zM2M2NHh4L2NvbW1vbi5jOjE4MDoxMzogd2FybmluZzoKPiA+ICAgICAg
+ICAgbm8gcHJldmlvdXMgcHJvdG90eXBlIGZvciAnc2Ftc3VuZ190aW1lcl9pbml0JyBbLVdtaXNz
+aW5nLXByb3RvdHlwZXNdCj4gPiAgICAgICAxODAgfCB2b2lkIF9faW5pdCBzYW1zdW5nX3RpbWVy
+X2luaXQodm9pZCkKPiA+Cj4gPiBTaWduZWQtb2ZmLWJ5OiBLcnp5c3p0b2YgS296bG93c2tpIDxr
+cnprQGtlcm5lbC5vcmc+Cj4gPiAtLS0KPiA+ICBhcmNoL2FybS9tYWNoLXMzYzI0eHgvY29tbW9u
+LmggICAgICAgICAgICAgICAgfCAxMiArKysrKysrKysKPiA+ICBhcmNoL2FybS9tYWNoLXMzYzI0
+eHgvbWFjaC1hbWxtNTkwMC5jICAgICAgICAgfCAgMiAtLQo+ID4gIGFyY2gvYXJtL21hY2gtczNj
+MjR4eC9tYWNoLWFudWJpcy5jICAgICAgICAgICB8ICAxIC0KPiA+ICBhcmNoL2FybS9tYWNoLXMz
+YzI0eHgvbWFjaC1hdDI0NDBldmIuYyAgICAgICAgfCAgMSAtCj4gPiAgYXJjaC9hcm0vbWFjaC1z
+M2MyNHh4L21hY2gtYmFzdC5jICAgICAgICAgICAgIHwgIDEgLQo+ID4gIGFyY2gvYXJtL21hY2gt
+czNjMjR4eC9tYWNoLWd0YTAyLmMgICAgICAgICAgICB8ICAxIC0KPiA+ICBhcmNoL2FybS9tYWNo
+LXMzYzI0eHgvbWFjaC1oMTk0MC5jICAgICAgICAgICAgfCAgMSAtCj4gPiAgYXJjaC9hcm0vbWFj
+aC1zM2MyNHh4L21hY2gtaml2ZS5jICAgICAgICAgICAgIHwgIDEgLQo+ID4gIGFyY2gvYXJtL21h
+Y2gtczNjMjR4eC9tYWNoLW1pbmkyNDQwLmMgICAgICAgICB8ICAxIC0KPiA+ICBhcmNoL2FybS9t
+YWNoLXMzYzI0eHgvbWFjaC1uMzAuYyAgICAgICAgICAgICAgfCAgMSAtCj4gPiAgYXJjaC9hcm0v
+bWFjaC1zM2MyNHh4L21hY2gtbmV4Y29kZXIuYyAgICAgICAgIHwgIDEgLQo+ID4gIGFyY2gvYXJt
+L21hY2gtczNjMjR4eC9tYWNoLW9zaXJpcy5jICAgICAgICAgICB8ICAxIC0KPiA+ICBhcmNoL2Fy
+bS9tYWNoLXMzYzI0eHgvbWFjaC1vdG9tLmMgICAgICAgICAgICAgfCAgMSAtCj4gPiAgYXJjaC9h
+cm0vbWFjaC1zM2MyNHh4L21hY2gtcXQyNDEwLmMgICAgICAgICAgIHwgIDEgLQo+ID4gIGFyY2gv
+YXJtL21hY2gtczNjMjR4eC9tYWNoLXJ4MTk1MC5jICAgICAgICAgICB8ICAxIC0KPiA+ICBhcmNo
+L2FybS9tYWNoLXMzYzI0eHgvbWFjaC1yeDM3MTUuYyAgICAgICAgICAgfCAgMSAtCj4gPiAgYXJj
+aC9hcm0vbWFjaC1zM2MyNHh4L21hY2gtc21kazI0MTAuYyAgICAgICAgIHwgIDEgLQo+ID4gIGFy
+Y2gvYXJtL21hY2gtczNjMjR4eC9tYWNoLXNtZGsyNDEzLmMgICAgICAgICB8ICAxIC0KPiA+ICBh
+cmNoL2FybS9tYWNoLXMzYzI0eHgvbWFjaC1zbWRrMjQxNi5jICAgICAgICAgfCAgMSAtCj4gPiAg
+YXJjaC9hcm0vbWFjaC1zM2MyNHh4L21hY2gtc21kazI0NDAuYyAgICAgICAgIHwgIDEgLQo+ID4g
+IGFyY2gvYXJtL21hY2gtczNjMjR4eC9tYWNoLXNtZGsyNDQzLmMgICAgICAgICB8ICAxIC0KPiA+
+ICBhcmNoL2FybS9tYWNoLXMzYzI0eHgvbWFjaC10Y3RfaGFtbWVyLmMgICAgICAgfCAgMSAtCj4g
+PiAgYXJjaC9hcm0vbWFjaC1zM2MyNHh4L21hY2gtdnIxMDAwLmMgICAgICAgICAgIHwgIDEgLQo+
+ID4gIGFyY2gvYXJtL21hY2gtczNjMjR4eC9tYWNoLXZzdG1zLmMgICAgICAgICAgICB8ICAxIC0K
+PiA+ICBhcmNoL2FybS9tYWNoLXMzYzY0eHgvY29tbW9uLmggICAgICAgICAgICAgICAgfCAxMyAr
+KysrKysrKysrCj4gPiAgYXJjaC9hcm0vbWFjaC1zM2M2NHh4L21hY2gtYW53NjQxMC5jICAgICAg
+ICAgIHwgIDEgLQo+ID4gIGFyY2gvYXJtL21hY2gtczNjNjR4eC9tYWNoLWNyYWc2NDEwLmMgICAg
+ICAgICB8ICAxIC0KPiA+ICBhcmNoL2FybS9tYWNoLXMzYzY0eHgvbWFjaC1obXQuYyAgICAgICAg
+ICAgICAgfCAgMSAtCj4gPiAgYXJjaC9hcm0vbWFjaC1zM2M2NHh4L21hY2gtbWluaTY0MTAuYyAg
+ICAgICAgIHwgIDEgLQo+ID4gIGFyY2gvYXJtL21hY2gtczNjNjR4eC9tYWNoLW5jcC5jICAgICAg
+ICAgICAgICB8ICAxIC0KPiA+ICBhcmNoL2FybS9tYWNoLXMzYzY0eHgvbWFjaC1yZWFsNjQxMC5j
+ICAgICAgICAgfCAgMSAtCj4gPiAgYXJjaC9hcm0vbWFjaC1zM2M2NHh4L21hY2gtc21hcnRxLmMg
+ICAgICAgICAgIHwgIDEgLQo+ID4gIGFyY2gvYXJtL21hY2gtczNjNjR4eC9tYWNoLXNtYXJ0cTUu
+YyAgICAgICAgICB8ICAxIC0KPiA+ICBhcmNoL2FybS9tYWNoLXMzYzY0eHgvbWFjaC1zbWFydHE3
+LmMgICAgICAgICAgfCAgMSAtCj4gPiAgYXJjaC9hcm0vbWFjaC1zM2M2NHh4L21hY2gtc21kazY0
+MDAuYyAgICAgICAgIHwgIDEgLQo+ID4gIGFyY2gvYXJtL21hY2gtczNjNjR4eC9tYWNoLXNtZGs2
+NDEwLmMgICAgICAgICB8ICAxIC0KPiA+ICAuLi4vcGxhdC1zYW1zdW5nL2luY2x1ZGUvcGxhdC9z
+YW1zdW5nLXRpbWUuaCAgfCAyNiAtLS0tLS0tLS0tLS0tLS0tLS0tCj4gPiAgMzcgZmlsZXMgY2hh
+bmdlZCwgMjUgaW5zZXJ0aW9ucygrKSwgNjEgZGVsZXRpb25zKC0pCj4gPiAgZGVsZXRlIG1vZGUg
+MTAwNjQ0IGFyY2gvYXJtL3BsYXQtc2Ftc3VuZy9pbmNsdWRlL3BsYXQvc2Ftc3VuZy10aW1lLmgK
+PiA+Cj4gCj4gRm9yIHRoZSBzM2M2NHh4IGJpdHM6Cj4gCj4gUmV2aWV3ZWQtYnk6IFRvbWFzeiBG
+aWdhIDx0b21hc3ouZmlnYUBnbWFpbC5jb20+Cj4gCj4gSSBzdXBwb3NlIHRoZSBuZXh0IHN0ZXAg
+d291bGQgYmUgcmVuYW1pbmcgdGhvc2UgZnVuY3Rpb25zIHRvIHMzYzI0eHhfKgo+IGFuZCBzM2M2
+NHh4XyogdG8gYXZvaWQgbmFtaW5nIGNvbGxpc2lvbnM/CgpUaGF0J3MgYSBnb29kIHBvaW50LiBJ
+IHdpbGwgc2VuZCBhIGZvbGxvdyB1cCBwYXRjaC4gVGhhbmtzIQoKQmVzdCByZWdhcmRzLApLcnp5
+c3p0b2YKCl9fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fCkxp
+bnV4LXN0bTMyIG1haWxpbmcgbGlzdApMaW51eC1zdG0zMkBzdC1tZC1tYWlsbWFuLnN0b3JtcmVw
+bHkuY29tCmh0dHBzOi8vc3QtbWQtbWFpbG1hbi5zdG9ybXJlcGx5LmNvbS9tYWlsbWFuL2xpc3Rp
+bmZvL2xpbnV4LXN0bTMyCg==
