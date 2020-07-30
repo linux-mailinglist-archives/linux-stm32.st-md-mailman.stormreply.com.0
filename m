@@ -2,52 +2,65 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id 4AA88233702
-	for <lists+linux-stm32@lfdr.de>; Thu, 30 Jul 2020 18:44:59 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id BFD29233B92
+	for <lists+linux-stm32@lfdr.de>; Fri, 31 Jul 2020 00:49:45 +0200 (CEST)
 Received: from ip-172-31-3-76.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 080B3C36B36;
-	Thu, 30 Jul 2020 16:44:59 +0000 (UTC)
-Received: from hillosipuli.retiisi.org.uk (retiisi.org.uk [95.216.213.190])
- (using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 72439C36B36;
+	Thu, 30 Jul 2020 22:49:45 +0000 (UTC)
+Received: from vern.gendns.com (vern.gendns.com [98.142.107.122])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 5766CC36B33
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 4F79DC36B33
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Thu, 30 Jul 2020 16:44:57 +0000 (UTC)
-Received: from valkosipuli.localdomain (valkosipuli.retiisi.org.uk
- [IPv6:2a01:4f9:c010:4572::80:2])
- (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
- key-exchange ECDHE (P-256) server-signature RSA-PSS (4096 bits) server-digest
- SHA256) (No client certificate requested)
- by hillosipuli.retiisi.org.uk (Postfix) with ESMTPS id 728A7634C89;
- Thu, 30 Jul 2020 19:43:59 +0300 (EEST)
-Received: from sailus by valkosipuli.localdomain with local (Exim 4.92)
- (envelope-from <sakari.ailus@retiisi.org.uk>)
- id 1k1Bex-0001W8-8X; Thu, 30 Jul 2020 19:43:59 +0300
-Date: Thu, 30 Jul 2020 19:43:59 +0300
-From: Sakari Ailus <sakari.ailus@iki.fi>
-To: Laurent Pinchart <laurent.pinchart@ideasonboard.com>
-Message-ID: <20200730164359.GB5201@valkosipuli.retiisi.org.uk>
-References: <20200717132859.237120-9-jacopo+renesas@jmondi.org>
- <20200717205722.GJ5961@pendragon.ideasonboard.com>
- <20200723222259.GB829@valkosipuli.retiisi.org.uk>
- <20200723231549.GE21353@pendragon.ideasonboard.com>
- <20200725211833.GE829@valkosipuli.retiisi.org.uk>
- <20200725213125.GE6253@pendragon.ideasonboard.com>
- <20200729142936.GF829@valkosipuli.retiisi.org.uk>
- <20200729144608.GF6183@pendragon.ideasonboard.com>
- <20200730162219.GA5201@valkosipuli.retiisi.org.uk>
- <20200730163211.GB6107@pendragon.ideasonboard.com>
+ Thu, 30 Jul 2020 22:49:43 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
+ d=lechnology.com; s=default; h=Content-Transfer-Encoding:Content-Type:
+ In-Reply-To:MIME-Version:Date:Message-ID:References:Cc:To:From:Subject:Sender
+ :Reply-To:Content-ID:Content-Description:Resent-Date:Resent-From:
+ Resent-Sender:Resent-To:Resent-Cc:Resent-Message-ID:List-Id:List-Help:
+ List-Unsubscribe:List-Subscribe:List-Post:List-Owner:List-Archive;
+ bh=zIBbAfaKyv0a8khPFENs9bkRVRW75g282kFb88ll0RE=; b=yMlsUfviYgQGqrsCcQwvQ+E9+4
+ n4HKPHVxV3jzQ0oWcZAvtI+PY5km7eQGTZuzRA+5HkyL3yRKEHfiB66jyo5qY/YRP4HQzz/bszsyx
+ Vts7C81XDbxzeLVlXwom6UzAcjLyuwI9G5Ea6LNcZflptu7rpAUOzeSl0Icuz7PcsMCBpDF+sKey6
+ Jr8XysA3pCKftO59vuP+H+1BDP4xx8gYeJDPC7/sJkSX2YPRW/S5umktLVAvBDGdw+QXbLUfWr0WX
+ MDFEQBcVcSTqMtPZ/ING/CB1LVxJPdlHg/SvDtc6eOCZ+yeL+Ghku7zua54tD4t+znNRxeX8OgtmW
+ 8b2McVaQ==;
+Received: from [2600:1700:4830:165f::19e] (port=45352)
+ by vern.gendns.com with esmtpsa (TLS1.2) tls
+ TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256 (Exim 4.93)
+ (envelope-from <david@lechnology.com>)
+ id 1k1HMq-0000Lv-I2; Thu, 30 Jul 2020 18:49:40 -0400
+From: David Lechner <david@lechnology.com>
+To: William Breathitt Gray <vilhelm.gray@gmail.com>, jic23@kernel.org
+References: <cover.1595358237.git.vilhelm.gray@gmail.com>
+ <08b3ac7349a59ba7fa5cd438bbe78360842ccd11.1595358237.git.vilhelm.gray@gmail.com>
+ <415ee9ad-255e-cee7-22a6-ffa977999691@lechnology.com>
+Message-ID: <a287770b-c263-f1db-bcc4-d901d3ff3c7c@lechnology.com>
+Date: Thu, 30 Jul 2020 17:49:37 -0500
+User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:68.0) Gecko/20100101
+ Thunderbird/68.10.0
 MIME-Version: 1.0
-Content-Disposition: inline
-In-Reply-To: <20200730163211.GB6107@pendragon.ideasonboard.com>
-User-Agent: Mutt/1.10.1 (2018-07-13)
-Cc: devicetree@vger.kernel.org, linux-renesas-soc@vger.kernel.org,
- robh+dt@kernel.org, Jacopo Mondi <jacopo+renesas@jmondi.org>,
- Maxime Coquelin <mcoquelin.stm32@gmail.com>, slongerbeam@gmail.com,
- "moderated list:ARM/STM32 ARCHITECTURE"
- <linux-stm32@st-md-mailman.stormreply.com>, linux-media@vger.kernel.org
-Subject: Re: [Linux-stm32] [PATCH 08/13] dt-bindings: media: ov5640: Remove
-	data-shift
+In-Reply-To: <415ee9ad-255e-cee7-22a6-ffa977999691@lechnology.com>
+Content-Language: en-US
+X-AntiAbuse: This header was added to track abuse,
+ please include it with any abuse report
+X-AntiAbuse: Primary Hostname - vern.gendns.com
+X-AntiAbuse: Original Domain - st-md-mailman.stormreply.com
+X-AntiAbuse: Originator/Caller UID/GID - [47 12] / [47 12]
+X-AntiAbuse: Sender Address Domain - lechnology.com
+X-Get-Message-Sender-Via: vern.gendns.com: authenticated_id:
+ davidmain+lechnology.com/only user confirmed/virtual account not confirmed
+X-Authenticated-Sender: vern.gendns.com: davidmain@lechnology.com
+X-Source: 
+X-Source-Args: 
+X-Source-Dir: 
+Cc: kamel.bouhara@bootlin.com, gwendal@chromium.org, linux-iio@vger.kernel.org,
+ patrick.havelange@essensium.com, alexandre.belloni@bootlin.com,
+ linux-kernel@vger.kernel.org, mcoquelin.stm32@gmail.com,
+ fabrice.gasnier@st.com, syednwaris@gmail.com,
+ linux-stm32@st-md-mailman.stormreply.com, linux-arm-kernel@lists.infradead.org
+Subject: Re: [Linux-stm32] [PATCH v4 3/5] counter: Add character device
+	interface
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -59,133 +72,44 @@ List-Post: <mailto:linux-stm32@st-md-mailman.stormreply.com>
 List-Help: <mailto:linux-stm32-request@st-md-mailman.stormreply.com?subject=help>
 List-Subscribe: <https://st-md-mailman.stormreply.com/mailman/listinfo/linux-stm32>, 
  <mailto:linux-stm32-request@st-md-mailman.stormreply.com?subject=subscribe>
-Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
+Content-Type: text/plain; charset="us-ascii"; Format="flowed"
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
-Hi Laurent,
-
-On Thu, Jul 30, 2020 at 07:32:11PM +0300, Laurent Pinchart wrote:
-> Hi Sakari,
+On 7/28/20 7:20 PM, David Lechner wrote:
+> On 7/21/20 2:35 PM, William Breathitt Gray wrote:
+>> This patch introduces a character device interface for the Counter
+>> subsystem. Device data is exposed through standard character device read
+>> operations. Device data is gathered when a Counter event is pushed by
+>> the respective Counter device driver. Configuration is handled via ioctl
+>> operations on the respective Counter character device node.
 > 
-> On Thu, Jul 30, 2020 at 07:22:19PM +0300, Sakari Ailus wrote:
-> > On Wed, Jul 29, 2020 at 05:46:08PM +0300, Laurent Pinchart wrote:
-> > > On Wed, Jul 29, 2020 at 05:29:36PM +0300, Sakari Ailus wrote:
-> > > > On Sun, Jul 26, 2020 at 12:31:25AM +0300, Laurent Pinchart wrote:
-> > > > > On Sun, Jul 26, 2020 at 12:18:33AM +0300, Sakari Ailus wrote:
-> > > > > > On Fri, Jul 24, 2020 at 02:15:49AM +0300, Laurent Pinchart wrote:
-> > > > > > > On Fri, Jul 24, 2020 at 01:22:59AM +0300, Sakari Ailus wrote:
-> > > > > > > > On Fri, Jul 17, 2020 at 11:57:22PM +0300, Laurent Pinchart wrote:
-> > > > > > > > > Hi Jacopo,
-> > > > > > > > > 
-> > > > > > > > > (CC'ing Sakari)
-> > > > > > > > > 
-> > > > > > > > > Thank you for the patch.
-> > > > > > > > > 
-> > > > > > > > > On Fri, Jul 17, 2020 at 03:28:54PM +0200, Jacopo Mondi wrote:
-> > > > > > > > > > The value of the data-shift property solely depend on the selected
-> > > > > > > > > > bus width and it's not freely configurable.
-> > > > > > > > > > 
-> > > > > > > > > > Remove it from the bindings document and update its users accordingly.
-> > > > > > > > > 
-> > > > > > > > > Hmmmm that's an interesting one. Sakari, what do you think ?
-> > > > > > > > > 
-> > > > > > > > > > Signed-off-by: Jacopo Mondi <jacopo+renesas@jmondi.org>
-> > > > > > > > > > ---
-> > > > > > > > > >  Documentation/devicetree/bindings/media/i2c/ov5640.yaml | 9 ---------
-> > > > > > > > > >  arch/arm/boot/dts/stm32mp157c-ev1.dts                   | 1 -
-> > > > > > > > > >  2 files changed, 10 deletions(-)
-> > > > > > > > > > 
-> > > > > > > > > > diff --git a/Documentation/devicetree/bindings/media/i2c/ov5640.yaml b/Documentation/devicetree/bindings/media/i2c/ov5640.yaml
-> > > > > > > > > > index 5e1662e848bd..ab700a1830aa 100644
-> > > > > > > > > > --- a/Documentation/devicetree/bindings/media/i2c/ov5640.yaml
-> > > > > > > > > > +++ b/Documentation/devicetree/bindings/media/i2c/ov5640.yaml
-> > > > > > > > > > @@ -92,12 +92,6 @@ properties:
-> > > > > > > > > >                parallel bus.
-> > > > > > > > > >              enum: [8, 10]
-> > > > > > > > > > 
-> > > > > > > > > > -          data-shift:
-> > > > > > > > > > -            description: |
-> > > > > > > > > > -              Shall be set to <2> for 8 bits parallel bus (lines 9:2 are used) or
-> > > > > > > > > > -              <0> for 10 bits parallel bus.
-> > > > > > > > > > -            enum: [0, 2]
-> > > > > > > > > 
-> > > > > > > > > Should you document in the description of bus-width that data-shift is
-> > > > > > > > > implied ?
-> > > > > > > > 
-> > > > > > > > The purpose of the datas-shift property is to convey how the parallel bus
-> > > > > > > > lines are connected for a given bus width for devices where it is
-> > > > > > > > configurable. As this device does not not support that, then indeed this
-> > > > > > > > property is not relevant for the device IMO.
-> > > > > > > 
-> > > > > > > Could you elaborate on this ? I believe the case that Jacopo is
-> > > > > > > describing connects D[9:2] from the sensor to D[7:0] of the receiver
-> > > > > > > (Jacopo, could you confirm ?). Isn't that what data-shift is for ?
-> > > > > > 
-> > > > > > Yes, it is. But in this case what data-shift configures is not configurable
-> > > > > > as such but defined by another configuration, making the data-shift
-> > > > > > property redundant. We generally haven't documented redundant things in DT
-> > > > > > bindings --- for instance data-lanes is documented in bindings only if it
-> > > > > > is configurable.
-> > > > > 
-> > > > > Then I think we share the same understanding. I believe the
-> > > > > documentation in video-interfaces.txt needs to be expanded, as it's
-> > > > > quite terse and not very clear.
-> > > > 
-> > > > The DT spec states that:
-> > > > 
-> > > > 	A DTSpec-compliant devicetree describes device information in a
-> > > > 	system that cannot necessarily be dynamically detected by a client
-> > > > 	program. For example, the architecture of PCI enables a client to
-> > > > 	probe and detect attached devices, and thus devicetree nodes
-> > > > 	describing PCI devices might not be required. However, a device
-> > > > 	node is required to describe a PCI host bridge device in the system
-> > > > 	if it cannot be detected by probing.
-> > > > 
-> > > > I'd read that as there's no need to specify properties that do not provide
-> > > > additional information to software.
-> > > 
-> > > That's a bit of a stretch interpretation :-)
-> > > 
-> > > > As some properties are dependent on
-> > > > others and and this depends on hardware features, I don't think we can in
-> > > > general case take this account in generic binding documentation, but device
-> > > > specific ones.
-> > > > 
-> > > > Of course we could add this to data-shift documentation, but then I wonder
-> > > > how many other similar cases there are where in hardware the configuration
-> > > > defined by one property determines the value of another?
-> > > 
-> > > I was mostly thinking about documenting *how* data-shift interacts with
-> > > bus-width. I think that specifying the default data-shift value based on
-> > > the bus-width value, for the case where data-shift is not specified,
-> > > would also make sense.
-> > 
-> > Do you mean in device binding documentation or in generic documentation?
-> > Device bindings should have this information, yes.
+> This sounds similar to triggers and buffers in the iio subsystem. And
+> I can see how it might be useful in some cases. But I think it would not
+> give the desired results when performance is important.
 > 
-> I mean in video-interfaces.txt (which should become
-> video-interfaces.yaml :-)) for the general rules, and in specific
-> bindings for any device-specific rule.
 
-Please send a patch. :-)
+By the way, I really appreciate the work you have done here. When reviewing
+code, it is easy to point out what is wrong or we don't like and to not
+mention all the parts that are good. And there is a lot of really good work
+here already.
 
-> 
-> We will likely need a runtime API too, it's entirely conceivable that a
-> 10-bit parallel sensor, which D[9:0] signals, could use either D[9:2] or
-> D[7:0] when configured to transmit 10-bit data. This isn't something
-> that can be encoded in DT. It's a separate topic though.
+I've been working on this all week to try out some of my suggestions and
+I'm not getting very far. This is a very difficult problem to solve!
 
-You can set defaults in the current API but those defaults are basically a
-C struct. I don't think we should be looking into making those defaults
-depend on property values, unless there's a clear reason to do so --- and
-in this case there isn't one.
+I just wanted to mention this since I responded to this patch series
+already but I am still learning and trying things. So I may have more/
+different feedback in the future and I may decide some of my suggestions
+are not so good. :-)
 
--- 
-Kind regards,
+And one more thing, there was a nice talk at the Embedded Linux
+Conference last month about lessons learned from designing a userspace
+API for the GPIO subsystem [1]. Unfortunately, there is no video yet,
+but the slides might have some helpful ideas about mistakes to avoid.
 
-Sakari Ailus
+[1]: https://elinux.org/ELC_2020_Presentations
+
 _______________________________________________
 Linux-stm32 mailing list
 Linux-stm32@st-md-mailman.stormreply.com
