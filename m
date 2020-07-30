@@ -2,65 +2,45 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id BFD29233B92
-	for <lists+linux-stm32@lfdr.de>; Fri, 31 Jul 2020 00:49:45 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id DE265233C20
+	for <lists+linux-stm32@lfdr.de>; Fri, 31 Jul 2020 01:28:08 +0200 (CEST)
 Received: from ip-172-31-3-76.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 72439C36B36;
-	Thu, 30 Jul 2020 22:49:45 +0000 (UTC)
-Received: from vern.gendns.com (vern.gendns.com [98.142.107.122])
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 9FBEFC36B36;
+	Thu, 30 Jul 2020 23:28:08 +0000 (UTC)
+Received: from mail-out.m-online.net (mail-out.m-online.net [212.18.0.9])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 4F79DC36B33
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id C4F1DC36B33
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Thu, 30 Jul 2020 22:49:43 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
- d=lechnology.com; s=default; h=Content-Transfer-Encoding:Content-Type:
- In-Reply-To:MIME-Version:Date:Message-ID:References:Cc:To:From:Subject:Sender
- :Reply-To:Content-ID:Content-Description:Resent-Date:Resent-From:
- Resent-Sender:Resent-To:Resent-Cc:Resent-Message-ID:List-Id:List-Help:
- List-Unsubscribe:List-Subscribe:List-Post:List-Owner:List-Archive;
- bh=zIBbAfaKyv0a8khPFENs9bkRVRW75g282kFb88ll0RE=; b=yMlsUfviYgQGqrsCcQwvQ+E9+4
- n4HKPHVxV3jzQ0oWcZAvtI+PY5km7eQGTZuzRA+5HkyL3yRKEHfiB66jyo5qY/YRP4HQzz/bszsyx
- Vts7C81XDbxzeLVlXwom6UzAcjLyuwI9G5Ea6LNcZflptu7rpAUOzeSl0Icuz7PcsMCBpDF+sKey6
- Jr8XysA3pCKftO59vuP+H+1BDP4xx8gYeJDPC7/sJkSX2YPRW/S5umktLVAvBDGdw+QXbLUfWr0WX
- MDFEQBcVcSTqMtPZ/ING/CB1LVxJPdlHg/SvDtc6eOCZ+yeL+Ghku7zua54tD4t+znNRxeX8OgtmW
- 8b2McVaQ==;
-Received: from [2600:1700:4830:165f::19e] (port=45352)
- by vern.gendns.com with esmtpsa (TLS1.2) tls
- TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256 (Exim 4.93)
- (envelope-from <david@lechnology.com>)
- id 1k1HMq-0000Lv-I2; Thu, 30 Jul 2020 18:49:40 -0400
-From: David Lechner <david@lechnology.com>
-To: William Breathitt Gray <vilhelm.gray@gmail.com>, jic23@kernel.org
-References: <cover.1595358237.git.vilhelm.gray@gmail.com>
- <08b3ac7349a59ba7fa5cd438bbe78360842ccd11.1595358237.git.vilhelm.gray@gmail.com>
- <415ee9ad-255e-cee7-22a6-ffa977999691@lechnology.com>
-Message-ID: <a287770b-c263-f1db-bcc4-d901d3ff3c7c@lechnology.com>
-Date: Thu, 30 Jul 2020 17:49:37 -0500
-User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:68.0) Gecko/20100101
- Thunderbird/68.10.0
+ Thu, 30 Jul 2020 23:28:06 +0000 (UTC)
+Received: from frontend01.mail.m-online.net (unknown [192.168.8.182])
+ by mail-out.m-online.net (Postfix) with ESMTP id 4BHmmj3pqHz1qs0B;
+ Fri, 31 Jul 2020 01:28:05 +0200 (CEST)
+Received: from localhost (dynscan1.mnet-online.de [192.168.6.70])
+ by mail.m-online.net (Postfix) with ESMTP id 4BHmmj3Clwz1qxns;
+ Fri, 31 Jul 2020 01:28:05 +0200 (CEST)
+X-Virus-Scanned: amavisd-new at mnet-online.de
+Received: from mail.mnet-online.de ([192.168.8.182])
+ by localhost (dynscan1.mail.m-online.net [192.168.6.70]) (amavisd-new,
+ port 10024)
+ with ESMTP id Tsg0GpgiHEqf; Fri, 31 Jul 2020 01:28:04 +0200 (CEST)
+X-Auth-Info: dy92pWtOfc5wtelr2J/soXZD0Ua1UgiXtdhaU4KOBI4=
+Received: from desktop.lan (ip-86-49-101-166.net.upcbroadband.cz
+ [86.49.101.166])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+ (No client certificate requested)
+ by mail.mnet-online.de (Postfix) with ESMTPSA;
+ Fri, 31 Jul 2020 01:28:04 +0200 (CEST)
+From: Marek Vasut <marex@denx.de>
+To: linux-arm-kernel@lists.infradead.org
+Date: Fri, 31 Jul 2020 01:27:57 +0200
+Message-Id: <20200730232757.80437-1-marex@denx.de>
+X-Mailer: git-send-email 2.27.0
 MIME-Version: 1.0
-In-Reply-To: <415ee9ad-255e-cee7-22a6-ffa977999691@lechnology.com>
-Content-Language: en-US
-X-AntiAbuse: This header was added to track abuse,
- please include it with any abuse report
-X-AntiAbuse: Primary Hostname - vern.gendns.com
-X-AntiAbuse: Original Domain - st-md-mailman.stormreply.com
-X-AntiAbuse: Originator/Caller UID/GID - [47 12] / [47 12]
-X-AntiAbuse: Sender Address Domain - lechnology.com
-X-Get-Message-Sender-Via: vern.gendns.com: authenticated_id:
- davidmain+lechnology.com/only user confirmed/virtual account not confirmed
-X-Authenticated-Sender: vern.gendns.com: davidmain@lechnology.com
-X-Source: 
-X-Source-Args: 
-X-Source-Dir: 
-Cc: kamel.bouhara@bootlin.com, gwendal@chromium.org, linux-iio@vger.kernel.org,
- patrick.havelange@essensium.com, alexandre.belloni@bootlin.com,
- linux-kernel@vger.kernel.org, mcoquelin.stm32@gmail.com,
- fabrice.gasnier@st.com, syednwaris@gmail.com,
- linux-stm32@st-md-mailman.stormreply.com, linux-arm-kernel@lists.infradead.org
-Subject: Re: [Linux-stm32] [PATCH v4 3/5] counter: Add character device
-	interface
+Cc: Marek Vasut <marex@denx.de>, Patrick Delaunay <patrick.delaunay@st.com>,
+ Maxime Coquelin <mcoquelin.stm32@gmail.com>,
+ linux-stm32@st-md-mailman.stormreply.com
+Subject: [Linux-stm32] [PATCH] ARM: dts: stm32: Fix sdmmc2 pins again
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -72,43 +52,48 @@ List-Post: <mailto:linux-stm32@st-md-mailman.stormreply.com>
 List-Help: <mailto:linux-stm32-request@st-md-mailman.stormreply.com?subject=help>
 List-Subscribe: <https://st-md-mailman.stormreply.com/mailman/listinfo/linux-stm32>, 
  <mailto:linux-stm32-request@st-md-mailman.stormreply.com?subject=subscribe>
+Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
-Content-Type: text/plain; charset="us-ascii"; Format="flowed"
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
-On 7/28/20 7:20 PM, David Lechner wrote:
-> On 7/21/20 2:35 PM, William Breathitt Gray wrote:
->> This patch introduces a character device interface for the Counter
->> subsystem. Device data is exposed through standard character device read
->> operations. Device data is gathered when a Counter event is pushed by
->> the respective Counter device driver. Configuration is handled via ioctl
->> operations on the respective Counter character device node.
-> 
-> This sounds similar to triggers and buffers in the iio subsystem. And
-> I can see how it might be useful in some cases. But I think it would not
-> give the desired results when performance is important.
-> 
+The AV96 uses sdmmc2_d47_pins_c and sdmmc2_d47_sleep_pins_c, which
+differ from sdmmc2_d47_pins_b and sdmmc2_d47_sleep_pins_b in one
+pin, SDMMC2_D5, which is PA15 in the former and PA9 in the later.
+The PA15 is correct on AV96, so fix this. This error is likely a
+result of rebasing across the stm32mp1 DT pinctrl rework.
 
-By the way, I really appreciate the work you have done here. When reviewing
-code, it is easy to point out what is wrong or we don't like and to not
-mention all the parts that are good. And there is a lot of really good work
-here already.
+Fixes: 611325f68102 ("ARM: dts: stm32: Add eMMC attached to SDMMC2 on AV96")
+Signed-off-by: Marek Vasut <marex@denx.de>
+Cc: Alexandre Torgue <alexandre.torgue@st.com>
+Cc: Maxime Coquelin <mcoquelin.stm32@gmail.com>
+Cc: Patrice Chotard <patrice.chotard@st.com>
+Cc: Patrick Delaunay <patrick.delaunay@st.com>
+Cc: linux-stm32@st-md-mailman.stormreply.com
+To: linux-arm-kernel@lists.infradead.org
+---
+ arch/arm/boot/dts/stm32mp15xx-dhcor-avenger96.dtsi | 6 +++---
+ 1 file changed, 3 insertions(+), 3 deletions(-)
 
-I've been working on this all week to try out some of my suggestions and
-I'm not getting very far. This is a very difficult problem to solve!
-
-I just wanted to mention this since I responded to this patch series
-already but I am still learning and trying things. So I may have more/
-different feedback in the future and I may decide some of my suggestions
-are not so good. :-)
-
-And one more thing, there was a nice talk at the Embedded Linux
-Conference last month about lessons learned from designing a userspace
-API for the GPIO subsystem [1]. Unfortunately, there is no video yet,
-but the slides might have some helpful ideas about mistakes to avoid.
-
-[1]: https://elinux.org/ELC_2020_Presentations
+diff --git a/arch/arm/boot/dts/stm32mp15xx-dhcor-avenger96.dtsi b/arch/arm/boot/dts/stm32mp15xx-dhcor-avenger96.dtsi
+index 930202742a3f..905cd7bb98cf 100644
+--- a/arch/arm/boot/dts/stm32mp15xx-dhcor-avenger96.dtsi
++++ b/arch/arm/boot/dts/stm32mp15xx-dhcor-avenger96.dtsi
+@@ -295,9 +295,9 @@ &sdmmc1 {
+ 
+ &sdmmc2 {
+ 	pinctrl-names = "default", "opendrain", "sleep";
+-	pinctrl-0 = <&sdmmc2_b4_pins_a &sdmmc2_d47_pins_b>;
+-	pinctrl-1 = <&sdmmc2_b4_od_pins_a &sdmmc2_d47_pins_b>;
+-	pinctrl-2 = <&sdmmc2_b4_sleep_pins_a &sdmmc2_d47_sleep_pins_b>;
++	pinctrl-0 = <&sdmmc2_b4_pins_a &sdmmc2_d47_pins_c>;
++	pinctrl-1 = <&sdmmc2_b4_od_pins_a &sdmmc2_d47_pins_c>;
++	pinctrl-2 = <&sdmmc2_b4_sleep_pins_a &sdmmc2_d47_sleep_pins_c>;
+ 	bus-width = <8>;
+ 	mmc-ddr-1_8v;
+ 	no-sd;
+-- 
+2.27.0
 
 _______________________________________________
 Linux-stm32 mailing list
