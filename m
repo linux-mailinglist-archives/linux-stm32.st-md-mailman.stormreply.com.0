@@ -2,78 +2,51 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id 74F1523311E
-	for <lists+linux-stm32@lfdr.de>; Thu, 30 Jul 2020 13:45:23 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 362872336A4
+	for <lists+linux-stm32@lfdr.de>; Thu, 30 Jul 2020 18:23:19 +0200 (CEST)
 Received: from ip-172-31-3-76.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 3297DC36B35;
-	Thu, 30 Jul 2020 11:45:23 +0000 (UTC)
-Received: from mail-ej1-f67.google.com (mail-ej1-f67.google.com
- [209.85.218.67])
- (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id E180BC36B35;
+	Thu, 30 Jul 2020 16:23:18 +0000 (UTC)
+Received: from hillosipuli.retiisi.org.uk (retiisi.org.uk [95.216.213.190])
+ (using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 9F96AC36B25
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 6BD57C36B25
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Thu, 30 Jul 2020 11:45:21 +0000 (UTC)
-Received: by mail-ej1-f67.google.com with SMTP id a21so27622727ejj.10
- for <linux-stm32@st-md-mailman.stormreply.com>;
- Thu, 30 Jul 2020 04:45:21 -0700 (PDT)
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20161025;
- h=x-gm-message-state:date:from:to:cc:subject:message-id:references
- :mime-version:content-disposition:content-transfer-encoding
- :in-reply-to:user-agent;
- bh=dmIx6K39AwVClBedb7QkpR0HhfnQSCjcLCYyud3CBv4=;
- b=Sx0QawpiUC+fEb68UURMXozn+rwMeGPBm+JX8U1H/J8CjCVuu+EirCBSFf1XEUbnDr
- ilN2PAXDIVwIVZHlchpAAAxLDS624oLqZQKHhUdZK4k4TfMM+5cDuC7EQa1NnYKH8FWg
- Ub15BcPK/Ty/ool1y19n248eCxfGxVoJGajO798JVI/IaADXkbgGzSfCf5+xG1UT8EvR
- z38UPHBDb+H3UtRIcyX0RrkMckuUKWwRjMVWOEDzMgqbuHJtRrTmLqy8kSuUq81QtX14
- /PBiuHmjiob5C+dGpWnSoJNohgXqNgKAbU8QT7QBx7XZvWbUlrlZuxruFrStVuIKZjFX
- XorA==
-X-Gm-Message-State: AOAM532HhKNNmWBD8SgZdUH+DiMLzRDvEunr3d/LifrADGphwpcrRYR1
- lKUxf/VWgyr1IuMMfI88n0s=
-X-Google-Smtp-Source: ABdhPJw5Nk510vllHk10fhn8xgW3ei+PX5ztO4fQj7uiS9l3iTHjtMnKWBz5JnnoLkSsrfF2wmI07w==
-X-Received: by 2002:a17:906:6dd1:: with SMTP id
- j17mr2282792ejt.272.1596109521064; 
- Thu, 30 Jul 2020 04:45:21 -0700 (PDT)
-Received: from kozik-lap ([194.230.155.213])
- by smtp.googlemail.com with ESMTPSA id e26sm3161870edq.23.2020.07.30.04.45.16
- (version=TLS1_2 cipher=ECDHE-ECDSA-CHACHA20-POLY1305 bits=256/256);
- Thu, 30 Jul 2020 04:45:19 -0700 (PDT)
-Date: Thu, 30 Jul 2020 13:45:15 +0200
-From: Krzysztof Kozlowski <krzk@kernel.org>
-To: Tomasz Figa <tomasz.figa@gmail.com>
-Message-ID: <20200730114515.GA20438@kozik-lap>
-References: <20200729160942.28867-1-krzk@kernel.org>
- <20200729160942.28867-7-krzk@kernel.org>
- <CA+Ln22F_PaEMNyEg4XSR0PXHTa+3dQyEvzgtnRNHMu61uZytQg@mail.gmail.com>
- <20200729191544.GB5822@kozik-lap>
- <CA+Ln22ED+-B96jf8p89sXpD2vmDLuteKXQiuKPy50vJ80MgSjA@mail.gmail.com>
+ Thu, 30 Jul 2020 16:23:17 +0000 (UTC)
+Received: from valkosipuli.localdomain (valkosipuli.retiisi.org.uk
+ [IPv6:2a01:4f9:c010:4572::80:2])
+ (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+ key-exchange ECDHE (P-256) server-signature RSA-PSS (4096 bits) server-digest
+ SHA256) (No client certificate requested)
+ by hillosipuli.retiisi.org.uk (Postfix) with ESMTPS id 94F0D634C87;
+ Thu, 30 Jul 2020 19:22:19 +0300 (EEST)
+Received: from sailus by valkosipuli.localdomain with local (Exim 4.92)
+ (envelope-from <sakari.ailus@retiisi.org.uk>)
+ id 1k1BJz-0001W0-FY; Thu, 30 Jul 2020 19:22:19 +0300
+Date: Thu, 30 Jul 2020 19:22:19 +0300
+From: Sakari Ailus <sakari.ailus@iki.fi>
+To: Laurent Pinchart <laurent.pinchart@ideasonboard.com>
+Message-ID: <20200730162219.GA5201@valkosipuli.retiisi.org.uk>
+References: <20200717132859.237120-1-jacopo+renesas@jmondi.org>
+ <20200717132859.237120-9-jacopo+renesas@jmondi.org>
+ <20200717205722.GJ5961@pendragon.ideasonboard.com>
+ <20200723222259.GB829@valkosipuli.retiisi.org.uk>
+ <20200723231549.GE21353@pendragon.ideasonboard.com>
+ <20200725211833.GE829@valkosipuli.retiisi.org.uk>
+ <20200725213125.GE6253@pendragon.ideasonboard.com>
+ <20200729142936.GF829@valkosipuli.retiisi.org.uk>
+ <20200729144608.GF6183@pendragon.ideasonboard.com>
 MIME-Version: 1.0
 Content-Disposition: inline
-In-Reply-To: <CA+Ln22ED+-B96jf8p89sXpD2vmDLuteKXQiuKPy50vJ80MgSjA@mail.gmail.com>
-User-Agent: Mutt/1.9.4 (2018-02-28)
-Cc: Catalin Marinas <catalin.marinas@arm.com>,
- Linus Walleij <linus.walleij@linaro.org>,
- Sylwester Nawrocki <s.nawrocki@samsung.com>, Will Deacon <will@kernel.org>,
- linux-stm32@st-md-mailman.stormreply.com,
- Marek Szyprowski <m.szyprowski@samsung.com>,
- "moderated list:SAMSUNG SOC CLOCK DRIVERS" <linux-samsung-soc@vger.kernel.org>,
- Sylwester Nawrocki <snawrocki@kernel.org>, Cedric Roux <sed@free.fr>,
- Russell King <linux@armlinux.org.uk>,
- "open list:COMMON CLK FRAMEWORK" <linux-clk@vger.kernel.org>,
- Lihua Yao <ylhuajnu@outlook.com>, Chanwoo Choi <cw00.choi@samsung.com>,
- Kukjin Kim <kgene@kernel.org>, Michael Turquette <mturquette@baylibre.com>,
- Guenter Roeck <linux@roeck-us.net>, Sergio Prado <sergio.prado@e-labworks.com>,
- linux-watchdog@vger.kernel.org, Arnd Bergmann <arnd@arndb.de>,
- Wim Van Sebroeck <wim@linux-watchdog.org>,
- Simtec Linux Team <linux@simtec.co.uk>,
- linux-arm-kernel <linux-arm-kernel@lists.infradead.org>,
- Stephen Boyd <sboyd@kernel.org>, patches@opensource.cirrus.com,
- Vincent Sanders <vince@simtec.co.uk>,
- linux-kernel <linux-kernel@vger.kernel.org>,
- Kyungmin Park <kyungmin.park@samsung.com>
-Subject: Re: [Linux-stm32] [PATCH 6/7] ARM: s3c64xx: Switch to generic
-	watchdog driver reset
+In-Reply-To: <20200729144608.GF6183@pendragon.ideasonboard.com>
+User-Agent: Mutt/1.10.1 (2018-07-13)
+Cc: devicetree@vger.kernel.org, linux-renesas-soc@vger.kernel.org,
+ robh+dt@kernel.org, Jacopo Mondi <jacopo+renesas@jmondi.org>,
+ Maxime Coquelin <mcoquelin.stm32@gmail.com>, slongerbeam@gmail.com,
+ "moderated list:ARM/STM32 ARCHITECTURE"
+ <linux-stm32@st-md-mailman.stormreply.com>, linux-media@vger.kernel.org
+Subject: Re: [Linux-stm32] [PATCH 08/13] dt-bindings: media: ov5640: Remove
+	data-shift
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -85,127 +58,115 @@ List-Post: <mailto:linux-stm32@st-md-mailman.stormreply.com>
 List-Help: <mailto:linux-stm32-request@st-md-mailman.stormreply.com?subject=help>
 List-Subscribe: <https://st-md-mailman.stormreply.com/mailman/listinfo/linux-stm32>, 
  <mailto:linux-stm32-request@st-md-mailman.stormreply.com?subject=subscribe>
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: base64
+Content-Type: text/plain; charset="us-ascii"
+Content-Transfer-Encoding: 7bit
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
-T24gVGh1LCBKdWwgMzAsIDIwMjAgYXQgMDE6MzQ6MzhQTSArMDIwMCwgVG9tYXN6IEZpZ2Egd3Jv
-dGU6Cj4gMjAyMOW5tDfmnIgyOeaXpSjmsLQpIDIxOjE1IEtyenlzenRvZiBLb3psb3dza2kgPGty
-emtAa2VybmVsLm9yZz46Cj4gPgo+ID4gT24gV2VkLCBKdWwgMjksIDIwMjAgYXQgMDc6MzM6MzNQ
-TSArMDIwMCwgVG9tYXN6IEZpZ2Egd3JvdGU6Cj4gPiA+IEhpIEtyenlzenRvZiwKPiA+ID4KPiA+
-ID4gMjAyMOW5tDfmnIgyOeaXpSjmsLQpIDE4OjExIEtyenlzenRvZiBLb3psb3dza2kgPGtyemtA
-a2VybmVsLm9yZz46Cj4gPiA+ID4KPiA+ID4gPiBTaW1pbGFybHkgdG8gY29tbWl0IGY2MzYxYzZi
-Mzg4MCAoIkFSTTogUzNDMjRYWDogcmVtb3ZlIHNlcGFyYXRlIHJlc3RhcnQKPiA+ID4gPiBjb2Rl
-IiksIHRoZSBwbGF0Zm9ybSB3YXRjaGRvZyByZXNldCBjb2RlIGNhbiBiZSByZW1vdmVkIGluIGZh
-dm9yIG9mCj4gPiA+ID4gYSBnZW5lcmljIHdhdGNoZG9nIGRyaXZlciB3aGljaCBhbHJlYWR5IGhh
-bmRsZXMgcmVzZXQuCj4gPiA+ID4KPiA+ID4gPiBUaGlzIGFsbG93cyByZW1vdmFsIG9mIGEgYnVu
-Y2ggb2YgbWFjaGluZSBjb2RlIGFuZCBmaXhlcyBhbHNvIFc9MQo+ID4gPiA+IGNvbXBpbGUgd2Fy
-bmluZ3M6Cj4gPiA+ID4KPiA+ID4gPiAgICAgYXJjaC9hcm0vcGxhdC1zYW1zdW5nL3dhdGNoZG9n
-LXJlc2V0LmM6Mjk6Njogd2FybmluZzogbm8gcHJldmlvdXMgcHJvdG90eXBlIGZvciAnc2Ftc3Vu
-Z193ZHRfcmVzZXQnIFstV21pc3NpbmctcHJvdG90eXBlc10KPiA+ID4gPiAgICAgICAgMjkgfCB2
-b2lkIHNhbXN1bmdfd2R0X3Jlc2V0KHZvaWQpCj4gPiA+ID4gICAgICAgICAgIHwgICAgICBefn5+
-fn5+fn5+fn5+fn5+fgo+ID4gPiA+ICAgICBhcmNoL2FybS9wbGF0LXNhbXN1bmcvd2F0Y2hkb2ct
-cmVzZXQuYzo2OToxMzogd2FybmluZzogbm8gcHJldmlvdXMgcHJvdG90eXBlIGZvciAnc2Ftc3Vu
-Z193ZHRfcmVzZXRfb2ZfaW5pdCcgWy1XbWlzc2luZy1wcm90b3R5cGVzXQo+ID4gPiA+ICAgICAg
-ICA2OSB8IHZvaWQgX19pbml0IHNhbXN1bmdfd2R0X3Jlc2V0X29mX2luaXQodm9pZCkKPiA+ID4g
-PiAgICAgICAgICAgfCAgICAgICAgICAgICBefn5+fn5+fn5+fn5+fn5+fn5+fn5+fn5+Cj4gPiA+
-ID4gICAgIGFyY2gvYXJtL3BsYXQtc2Ftc3VuZy93YXRjaGRvZy1yZXNldC5jOjg5OjEzOiB3YXJu
-aW5nOiBubyBwcmV2aW91cyBwcm90b3R5cGUgZm9yICdzYW1zdW5nX3dkdF9yZXNldF9pbml0JyBb
-LVdtaXNzaW5nLXByb3RvdHlwZXNdCj4gPiA+ID4gICAgICAgIDg5IHwgdm9pZCBfX2luaXQgc2Ft
-c3VuZ193ZHRfcmVzZXRfaW5pdCh2b2lkIF9faW9tZW0gKmJhc2UpCj4gPiA+ID4KPiA+ID4gPiBT
-aWduZWQtb2ZmLWJ5OiBLcnp5c3p0b2YgS296bG93c2tpIDxrcnprQGtlcm5lbC5vcmc+Cj4gPiA+
-ID4gLS0tCj4gPiA+ID4gIGFyY2gvYXJtL21hY2gtczNjNjR4eC9LY29uZmlnICAgICAgICAgICB8
-ICAzICstCj4gPiA+ID4gIGFyY2gvYXJtL21hY2gtczNjNjR4eC9jb21tb24uYyAgICAgICAgICB8
-IDE1ICstLS0KPiA+ID4gPiAgYXJjaC9hcm0vbWFjaC1zM2M2NHh4L2NvbW1vbi5oICAgICAgICAg
-IHwgIDIgLQo+ID4gPiA+ICBhcmNoL2FybS9tYWNoLXMzYzY0eHgvbWFjaC1hbnc2NDEwLmMgICAg
-fCAgMSAtCj4gPiA+ID4gIGFyY2gvYXJtL21hY2gtczNjNjR4eC9tYWNoLWNyYWc2NDEwLmMgICB8
-ICAxIC0KPiA+ID4gPiAgYXJjaC9hcm0vbWFjaC1zM2M2NHh4L21hY2gtaG10LmMgICAgICAgIHwg
-IDEgLQo+ID4gPiA+ICBhcmNoL2FybS9tYWNoLXMzYzY0eHgvbWFjaC1taW5pNjQxMC5jICAgfCAg
-MSAtCj4gPiA+ID4gIGFyY2gvYXJtL21hY2gtczNjNjR4eC9tYWNoLW5jcC5jICAgICAgICB8ICAx
-IC0KPiA+ID4gPiAgYXJjaC9hcm0vbWFjaC1zM2M2NHh4L21hY2gtcmVhbDY0MTAuYyAgIHwgIDEg
-LQo+ID4gPiA+ICBhcmNoL2FybS9tYWNoLXMzYzY0eHgvbWFjaC1zM2M2NHh4LWR0LmMgfCAxNyAt
-LS0tLQo+ID4gPiA+ICBhcmNoL2FybS9tYWNoLXMzYzY0eHgvbWFjaC1zbWFydHE1LmMgICAgfCAg
-MSAtCj4gPiA+ID4gIGFyY2gvYXJtL21hY2gtczNjNjR4eC9tYWNoLXNtYXJ0cTcuYyAgICB8ICAx
-IC0KPiA+ID4gPiAgYXJjaC9hcm0vbWFjaC1zM2M2NHh4L21hY2gtc21kazY0MDAuYyAgIHwgIDEg
-LQo+ID4gPiA+ICBhcmNoL2FybS9tYWNoLXMzYzY0eHgvbWFjaC1zbWRrNjQxMC5jICAgfCAgMSAt
-Cj4gPiA+ID4gIGFyY2gvYXJtL21hY2gtczNjNjR4eC93YXRjaGRvZy1yZXNldC5oICB8IDE2IC0t
-LS0tCj4gPiA+ID4gIGFyY2gvYXJtL3BsYXQtc2Ftc3VuZy9LY29uZmlnICAgICAgICAgICB8ICA2
-IC0tCj4gPiA+ID4gIGFyY2gvYXJtL3BsYXQtc2Ftc3VuZy9NYWtlZmlsZSAgICAgICAgICB8ICAx
-IC0KPiA+ID4gPiAgYXJjaC9hcm0vcGxhdC1zYW1zdW5nL3dhdGNoZG9nLXJlc2V0LmMgIHwgOTMg
-LS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLQo+ID4gPiA+ICAxOCBmaWxlcyBjaGFuZ2VkLCA1IGlu
-c2VydGlvbnMoKyksIDE1OCBkZWxldGlvbnMoLSkKPiA+ID4gPiAgZGVsZXRlIG1vZGUgMTAwNjQ0
-IGFyY2gvYXJtL21hY2gtczNjNjR4eC93YXRjaGRvZy1yZXNldC5oCj4gPiA+ID4gIGRlbGV0ZSBt
-b2RlIDEwMDY0NCBhcmNoL2FybS9wbGF0LXNhbXN1bmcvd2F0Y2hkb2ctcmVzZXQuYwo+ID4gPiA+
-Cj4gPiA+Cj4gPiA+IFRoYW5rcyBmb3IgdGhlIHBhdGNoISBQbGVhc2Ugc2VlIG15IGNvbW1lbnRz
-IGlubGluZS4KPiA+ID4KPiA+ID4gPiBkaWZmIC0tZ2l0IGEvYXJjaC9hcm0vbWFjaC1zM2M2NHh4
-L0tjb25maWcgYi9hcmNoL2FybS9tYWNoLXMzYzY0eHgvS2NvbmZpZwo+ID4gPiA+IGluZGV4IGUy
-MDhjMmI0ODg1My4uZjNmY2I1NzBlZGY1IDEwMDY0NAo+ID4gPiA+IC0tLSBhL2FyY2gvYXJtL21h
-Y2gtczNjNjR4eC9LY29uZmlnCj4gPiA+ID4gKysrIGIvYXJjaC9hcm0vbWFjaC1zM2M2NHh4L0tj
-b25maWcKPiA+ID4gPiBAQCAtMTgsOSArMTgsMTAgQEAgbWVudWNvbmZpZyBBUkNIX1MzQzY0WFgK
-PiA+ID4gPiAgICAgICAgIHNlbGVjdCBQTV9HRU5FUklDX0RPTUFJTlMgaWYgUE0KPiA+ID4gPiAg
-ICAgICAgIHNlbGVjdCBTM0NfREVWX05BTkQgaWYgQVRBR1MKPiA+ID4gPiAgICAgICAgIHNlbGVj
-dCBTM0NfR1BJT19UUkFDSyBpZiBBVEFHUwo+ID4gPiA+ICsgICAgICAgc2VsZWN0IFMzQzI0MTBf
-V0FUQ0hET0cKPiA+ID4gPiAgICAgICAgIHNlbGVjdCBTQU1TVU5HX0FUQUdTIGlmIEFUQUdTCj4g
-PiA+ID4gICAgICAgICBzZWxlY3QgU0FNU1VOR19XQUtFTUFTSyBpZiBQTQo+ID4gPiA+IC0gICAg
-ICAgc2VsZWN0IFNBTVNVTkdfV0RUX1JFU0VUCj4gPiA+ID4gKyAgICAgICBzZWxlY3QgV0FUQ0hE
-T0cKPiA+ID4gPiAgICAgICAgIGhlbHAKPiA+ID4gPiAgICAgICAgICAgU2Ftc3VuZyBTM0M2NFhY
-IHNlcmllcyBiYXNlZCBzeXN0ZW1zCj4gPiA+ID4KPiA+ID4gPiBkaWZmIC0tZ2l0IGEvYXJjaC9h
-cm0vbWFjaC1zM2M2NHh4L2NvbW1vbi5jIGIvYXJjaC9hcm0vbWFjaC1zM2M2NHh4L2NvbW1vbi5j
-Cj4gPiA+ID4gaW5kZXggYTY1NWJmMGM3ODAyLi40MmU5NmQxOTZmNjEgMTAwNjQ0Cj4gPiA+ID4g
-LS0tIGEvYXJjaC9hcm0vbWFjaC1zM2M2NHh4L2NvbW1vbi5jCj4gPiA+ID4gKysrIGIvYXJjaC9h
-cm0vbWFjaC1zM2M2NHh4L2NvbW1vbi5jCj4gPiA+ID4gQEAgLTUwLDcgKzUwLDYgQEAKPiA+ID4g
-Pgo+ID4gPiA+ICAjaW5jbHVkZSAiY29tbW9uLmgiCj4gPiA+ID4gICNpbmNsdWRlICJpcnEtdWFy
-dC5oIgo+ID4gPiA+IC0jaW5jbHVkZSAid2F0Y2hkb2ctcmVzZXQuaCIKPiA+ID4gPgo+ID4gPiA+
-ICAvKiBFeHRlcm5hbCBjbG9jayBmcmVxdWVuY3kgKi8KPiA+ID4gPiAgc3RhdGljIHVuc2lnbmVk
-IGxvbmcgeHRhbF9mIF9fcm9fYWZ0ZXJfaW5pdCA9IDEyMDAwMDAwOwo+ID4gPiA+IEBAIC0yMzIs
-MTAgKzIzMSwxMSBAQCB2b2lkIF9faW5pdCBzM2M2NHh4X2luaXRfaXJxKHUzMiB2aWMwX3ZhbGlk
-LCB1MzIgdmljMV92YWxpZCkKPiA+ID4gPiAgICAgICAgIC8qCj4gPiA+ID4gICAgICAgICAgKiBG
-SVhNRTogdGhlcmUgaXMgbm8gYmV0dGVyIHBsYWNlIHRvIHB1dCB0aGlzIGF0IHRoZSBtb21lbnQK
-PiA+ID4gPiAgICAgICAgICAqIChzM2M2NHh4X2Nsa19pbml0IG5lZWRzIGlvcmVtYXAgYW5kIG11
-c3QgaGFwcGVuIGJlZm9yZSBpbml0X3RpbWUKPiA+ID4gPiAtICAgICAgICAqIHNhbXN1bmdfd2R0
-X3Jlc2V0X2luaXQgbmVlZHMgY2xvY2tzKQo+ID4gPiA+ICsgICAgICAgICogc2Ftc3VuZ193ZHRf
-cmVzZXRfaW5pdCBuZWVkcyBjbG9ja3MpLiAgSG93ZXZlcgo+ID4gPiA+ICsgICAgICAgICogc2Ft
-c3VuZ193ZHRfcmVzZXRfaW5pdCgpIHdhcyByZW1vdmVkIGluIGZhdm9yIG9mIHdhdGNoZG9nIGRy
-aXZlcgo+ID4gPiA+ICsgICAgICAgICogc28gdGhpcyBzaG91bGQgYmUgcmV2aXNlZC4KPiA+ID4K
-PiA+ID4gVGhpcyBsZWF2ZXMgdGhlIGNvbW1lbnQgcmVmZXJyaW5nIHRvIGFuIGluZXhpc3RlbnQg
-ZnVuY3Rpb24uCj4gPgo+ID4gWWVzLCBJIGxlZnQgaXQgYXMgYSByZWZlcmVuY2UvcmVhc29uLiBB
-bHRob3VnaCBtaWdodCBiZSBxdWl0ZSBjb25mdXNpbmcKPiA+IG5vdy4uLgo+ID4KPiA+ID4KPiA+
-ID4gSSB3b25kZXIgaWYgdGhpcyBiZWluZyBoZXJlIGlzIGFjdHVhbGx5IGEgcHJvYmxlbSBhdCBh
-bGwuIEl0J3MgbGVnYWN5Cj4gPiA+IGNvZGUgYW5kIHByb2JhYmx5IHRoZXJlIGlzbid0IG11Y2gg
-dmFsdWUgaW4gcmVzaHVmZmxpbmcgaXQgZnVydGhlci4KPiA+ID4gUmF0aGVyIHRoYW4gdGhhdCwg
-d2Ugd291bGQgcHJvYmFibHkgd2FudCB0byBtYWtlIHN1cmUgdGhhdCBldmVyeXRoaW5nCj4gPiA+
-IG1pZ3JhdGVkIHRvIERUIGFuZCBqdXN0IGRyb3AgdGhlIGJvYXJkIGZpbGVzLgo+ID4KPiA+IE1h
-eWJlIGxldCdzIHJlbW92ZSB0aGUgRklYTUUgYW5kIGxlYXZlIHRoZSBjbG9jayBpbml0LiBTaW5j
-ZSBhbGwgdGhlc2UKPiA+IHRpbWVzIG5vIG9uZSBmaXhlZCB0aGUgRklYTUUsIHNvIG5vdyB3aXRo
-IGxpbWl0ZWQgaGFyZHdhcmUgYWNjZXNzIEkgZG8KPiA+IG5vdCBleHBlY3QgYW55IG1vdmVtZW50
-cyBoZXJlLgo+ID4KPiAKPiBJIHRoaW5rIHRoYXQgd291bGQgYmUgZmFpcmx5IHVuY29udHJvdmVy
-c2lhbCBhdCB0aGlzIHBvaW50Lgo+IAo+ID4gPgo+ID4gPiA+ICAgICAgICAgICovCj4gPiA+ID4g
-ICAgICAgICBzM2M2NHh4X2Nsa19pbml0KE5VTEwsIHh0YWxfZiwgeHVzYnh0aV9mLCBzb2NfaXNf
-czNjNjQwMCgpLCBTM0NfVkFfU1lTKTsKPiA+ID4gPiAtICAgICAgIHNhbXN1bmdfd2R0X3Jlc2V0
-X2luaXQoUzNDX1ZBX1dBVENIRE9HKTsKPiA+ID4gPgo+ID4gPiA+ICAgICAgICAgcHJpbnRrKEtF
-Uk5fREVCVUcgIiVzOiBpbml0aWFsaXNpbmcgaW50ZXJydXB0c1xuIiwgX19mdW5jX18pOwo+ID4g
-PiA+Cj4gPiA+ID4gQEAgLTQyOSwxMiArNDI5LDMgQEAgc3RhdGljIGludCBfX2luaXQgczNjNjR4
-eF9pbml0X2lycV9laW50KHZvaWQpCj4gPiA+ID4gICAgICAgICByZXR1cm4gMDsKPiA+ID4gPiAg
-fQo+ID4gPiA+ICBhcmNoX2luaXRjYWxsKHMzYzY0eHhfaW5pdF9pcnFfZWludCk7Cj4gPiA+ID4g
-LQo+ID4gPiA+IC12b2lkIHMzYzY0eHhfcmVzdGFydChlbnVtIHJlYm9vdF9tb2RlIG1vZGUsIGNv
-bnN0IGNoYXIgKmNtZCkKPiA+ID4gPiAtewo+ID4gPiA+IC0gICAgICAgaWYgKG1vZGUgIT0gUkVC
-T09UX1NPRlQpCj4gPiA+ID4gLSAgICAgICAgICAgICAgIHNhbXN1bmdfd2R0X3Jlc2V0KCk7Cj4g
-PiA+ID4gLQo+ID4gPiA+IC0gICAgICAgLyogaWYgYWxsIGVsc2UgZmFpbHMsIG9yIG1vZGUgd2Fz
-IGZvciBzb2Z0LCBqdW1wIHRvIDAgKi8KPiA+ID4gPiAtICAgICAgIHNvZnRfcmVzdGFydCgwKTsK
-PiA+ID4KPiA+ID4gRG9lcyB0aGlzIHJlbW92ZSB0aGUgc29mdCByZWJvb3QgY2FwYWJpbGl0eT8g
-SSdtIG5vdCBzdXJlIGhvdyBtdWNoIG9mCj4gPiA+IGEgcHJvYmxlbSB0aGF0IHdvdWxkIGJlLCB0
-aG91Z2guCj4gPgo+ID4gMS4gTm8gb25lIGNhcmVkIGFib3V0IGl0IGluIGY2MzYxYzZiMzg4MCA6
-KQo+IAo+IFRoYXQgd2FzIGEgZGlmZmVyZW50IFNvQyBmYW1pbHksIHRob3VnaC4KPiAKPiA+IDIu
-IEV4eW5vcyBkb2VzIG5vdCBoYXZlIGl0Cj4gPiAzLiBEb2VzIHNvZnRfcmVzdGFydCByZWFsbHkg
-d29yaz8gSXQgd291bGQgYmUgd29ydGggdG8ga2VlcCBpdCBpZiBtb3JlCj4gPiAgICBvciBsZXNz
-IGl0IHdhcyB3b3JraW5nLgo+IAo+IEFueXdheSwgSSBndWVzcyB0aGVyZSBpcyBubyB3YXkgdG8g
-a25vdyBvdGhlciB0aGFuIGp1c3QgcmVtb3ZpbmcgaXQuCj4gSXQgY2FuIGJlIGFsd2F5cyBicm91
-Z2h0IGJhY2sgaWYgaXQgdHVybnMgb3V0IHRoYXQgc29tZW9uZSBuZWVkcyBpdC4KPiBQbGVhc2Ug
-anVzdCBtZW50aW9uIHRoYXQgaW4gdGhlIGNvbW1pdCBtZXNzYWdlLgo+IAo+IFdpdGggdGhhdCBh
-ZGRyZXNzZWQ6Cj4gCj4gUmV2aWV3ZWQtYnk6IFRvbWFzeiBGaWdhIDx0b21hc3ouZmlnYUBnbWFp
-bC5jb20+CgpTdXJlLCBJJ2xsIGRvIGl0LiBUaGFua3MgZm9yIHJldmlldy4KCkJlc3QgcmVnYXJk
-cywKS3J6eXN6dG9mCl9fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19f
-X19fCkxpbnV4LXN0bTMyIG1haWxpbmcgbGlzdApMaW51eC1zdG0zMkBzdC1tZC1tYWlsbWFuLnN0
-b3JtcmVwbHkuY29tCmh0dHBzOi8vc3QtbWQtbWFpbG1hbi5zdG9ybXJlcGx5LmNvbS9tYWlsbWFu
-L2xpc3RpbmZvL2xpbnV4LXN0bTMyCg==
+Hi Laurent,
+
+On Wed, Jul 29, 2020 at 05:46:08PM +0300, Laurent Pinchart wrote:
+> Hi Sakari,
+> 
+> On Wed, Jul 29, 2020 at 05:29:36PM +0300, Sakari Ailus wrote:
+> > On Sun, Jul 26, 2020 at 12:31:25AM +0300, Laurent Pinchart wrote:
+> > > On Sun, Jul 26, 2020 at 12:18:33AM +0300, Sakari Ailus wrote:
+> > > > On Fri, Jul 24, 2020 at 02:15:49AM +0300, Laurent Pinchart wrote:
+> > > > > On Fri, Jul 24, 2020 at 01:22:59AM +0300, Sakari Ailus wrote:
+> > > > > > On Fri, Jul 17, 2020 at 11:57:22PM +0300, Laurent Pinchart wrote:
+> > > > > > > Hi Jacopo,
+> > > > > > > 
+> > > > > > > (CC'ing Sakari)
+> > > > > > > 
+> > > > > > > Thank you for the patch.
+> > > > > > > 
+> > > > > > > On Fri, Jul 17, 2020 at 03:28:54PM +0200, Jacopo Mondi wrote:
+> > > > > > > > The value of the data-shift property solely depend on the selected
+> > > > > > > > bus width and it's not freely configurable.
+> > > > > > > > 
+> > > > > > > > Remove it from the bindings document and update its users accordingly.
+> > > > > > > 
+> > > > > > > Hmmmm that's an interesting one. Sakari, what do you think ?
+> > > > > > > 
+> > > > > > > > Signed-off-by: Jacopo Mondi <jacopo+renesas@jmondi.org>
+> > > > > > > > ---
+> > > > > > > >  Documentation/devicetree/bindings/media/i2c/ov5640.yaml | 9 ---------
+> > > > > > > >  arch/arm/boot/dts/stm32mp157c-ev1.dts                   | 1 -
+> > > > > > > >  2 files changed, 10 deletions(-)
+> > > > > > > > 
+> > > > > > > > diff --git a/Documentation/devicetree/bindings/media/i2c/ov5640.yaml b/Documentation/devicetree/bindings/media/i2c/ov5640.yaml
+> > > > > > > > index 5e1662e848bd..ab700a1830aa 100644
+> > > > > > > > --- a/Documentation/devicetree/bindings/media/i2c/ov5640.yaml
+> > > > > > > > +++ b/Documentation/devicetree/bindings/media/i2c/ov5640.yaml
+> > > > > > > > @@ -92,12 +92,6 @@ properties:
+> > > > > > > >                parallel bus.
+> > > > > > > >              enum: [8, 10]
+> > > > > > > > 
+> > > > > > > > -          data-shift:
+> > > > > > > > -            description: |
+> > > > > > > > -              Shall be set to <2> for 8 bits parallel bus (lines 9:2 are used) or
+> > > > > > > > -              <0> for 10 bits parallel bus.
+> > > > > > > > -            enum: [0, 2]
+> > > > > > > 
+> > > > > > > Should you document in the description of bus-width that data-shift is
+> > > > > > > implied ?
+> > > > > > 
+> > > > > > The purpose of the datas-shift property is to convey how the parallel bus
+> > > > > > lines are connected for a given bus width for devices where it is
+> > > > > > configurable. As this device does not not support that, then indeed this
+> > > > > > property is not relevant for the device IMO.
+> > > > > 
+> > > > > Could you elaborate on this ? I believe the case that Jacopo is
+> > > > > describing connects D[9:2] from the sensor to D[7:0] of the receiver
+> > > > > (Jacopo, could you confirm ?). Isn't that what data-shift is for ?
+> > > > 
+> > > > Yes, it is. But in this case what data-shift configures is not configurable
+> > > > as such but defined by another configuration, making the data-shift
+> > > > property redundant. We generally haven't documented redundant things in DT
+> > > > bindings --- for instance data-lanes is documented in bindings only if it
+> > > > is configurable.
+> > > 
+> > > Then I think we share the same understanding. I believe the
+> > > documentation in video-interfaces.txt needs to be expanded, as it's
+> > > quite terse and not very clear.
+> > 
+> > The DT spec states that:
+> > 
+> > 	A DTSpec-compliant devicetree describes device information in a
+> > 	system that cannot necessarily be dynamically detected by a client
+> > 	program. For example, the architecture of PCI enables a client to
+> > 	probe and detect attached devices, and thus devicetree nodes
+> > 	describing PCI devices might not be required. However, a device
+> > 	node is required to describe a PCI host bridge device in the system
+> > 	if it cannot be detected by probing.
+> > 
+> > I'd read that as there's no need to specify properties that do not provide
+> > additional information to software.
+> 
+> That's a bit of a stretch interpretation :-)
+> 
+> > As some properties are dependent on
+> > others and and this depends on hardware features, I don't think we can in
+> > general case take this account in generic binding documentation, but device
+> > specific ones.
+> > 
+> > Of course we could add this to data-shift documentation, but then I wonder
+> > how many other similar cases there are where in hardware the configuration
+> > defined by one property determines the value of another?
+> 
+> I was mostly thinking about documenting *how* data-shift interacts with
+> bus-width. I think that specifying the default data-shift value based on
+> the bus-width value, for the case where data-shift is not specified,
+> would also make sense.
+
+Do you mean in device binding documentation or in generic documentation?
+Device bindings should have this information, yes.
+
+-- 
+Regards,
+
+Sakari Ailus
+_______________________________________________
+Linux-stm32 mailing list
+Linux-stm32@st-md-mailman.stormreply.com
+https://st-md-mailman.stormreply.com/mailman/listinfo/linux-stm32
