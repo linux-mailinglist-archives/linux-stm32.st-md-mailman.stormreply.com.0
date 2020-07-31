@@ -2,63 +2,66 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id CD179234567
-	for <lists+linux-stm32@lfdr.de>; Fri, 31 Jul 2020 14:11:20 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 009A62347C6
+	for <lists+linux-stm32@lfdr.de>; Fri, 31 Jul 2020 16:31:11 +0200 (CEST)
 Received: from ip-172-31-3-76.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 991CFC36B35;
-	Fri, 31 Jul 2020 12:11:20 +0000 (UTC)
-Received: from mx07-00178001.pphosted.com (mx08-00178001.pphosted.com
- [91.207.212.93])
- (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id A55CBC36B35
+	for <lists+linux-stm32@lfdr.de>; Fri, 31 Jul 2020 14:31:10 +0000 (UTC)
+Received: from mail-ej1-f67.google.com (mail-ej1-f67.google.com
+ [209.85.218.67])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 97520C36B32
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 76FEBC36B32
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Fri, 31 Jul 2020 12:11:15 +0000 (UTC)
-Received: from pps.filterd (m0046660.ppops.net [127.0.0.1])
- by mx07-00178001.pphosted.com (8.16.0.42/8.16.0.42) with SMTP id
- 06VC7bie011768; Fri, 31 Jul 2020 14:11:15 +0200
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=st.com;
- h=from : to : cc : subject
- : date : message-id : in-reply-to : references : mime-version :
- content-type; s=STMicroelectronics;
- bh=z/FPnRPNTGOl2B/1fOLQu51Ns64FIJlkJ28q5n8hoPw=;
- b=0TGt8XX/8AWTuQyZX0botExlIyNJJeu/ZfyEktWXM7yxXaYPjcL67Oyin2NnlGaAyC1P
- qjCnPf9s7BvL/CUD2c6Lq/xPQitvefx8YZ6Xp/H4jw+g4PdWSigP2KcYxLirYbzSdS1h
- ADR5wgswWCU32/wTmS5RHZ7n22PLxqvDHNozNVL0hDrPeQaUfToyDqgyxei+TBHJEBTu
- UWvehEb7LAEQ7/m2VOLoUUvvWlGnadpQN/oSIrVDzvFzikn6jN8JaZVyCVQZElBHAdXS
- DFuJUJB+rtZttGGRUTGOjzh5M3mGRuXwHwJi8a6KN4hv15hd3ZDDVbk4Q0A0o5Mb/qZw Jw== 
-Received: from beta.dmz-eu.st.com (beta.dmz-eu.st.com [164.129.1.35])
- by mx07-00178001.pphosted.com with ESMTP id 32g9v9xkvd-1
- (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
- Fri, 31 Jul 2020 14:11:15 +0200
-Received: from euls16034.sgp.st.com (euls16034.sgp.st.com [10.75.44.20])
- by beta.dmz-eu.st.com (STMicroelectronics) with ESMTP id 89DC810002A;
- Fri, 31 Jul 2020 14:11:14 +0200 (CEST)
-Received: from Webmail-eu.st.com (sfhdag3node1.st.com [10.75.127.7])
- by euls16034.sgp.st.com (STMicroelectronics) with ESMTP id 7F96D2AE6DD;
- Fri, 31 Jul 2020 14:11:14 +0200 (CEST)
-Received: from localhost (10.75.127.46) by SFHDAG3NODE1.st.com (10.75.127.7)
- with Microsoft SMTP Server (TLS) id 15.0.1473.3; Fri, 31 Jul 2020 14:11:13
- +0200
-From: Arnaud Pouliquen <arnaud.pouliquen@st.com>
-To: Bjorn Andersson <bjorn.andersson@linaro.org>, Ohad Ben-Cohen
- <ohad@wizery.com>, Mathieu Poirier <mathieu.poirier@linaro.org>
-Date: Fri, 31 Jul 2020 14:10:43 +0200
-Message-ID: <20200731121043.24199-14-arnaud.pouliquen@st.com>
-X-Mailer: git-send-email 2.17.1
-In-Reply-To: <20200731121043.24199-1-arnaud.pouliquen@st.com>
-References: <20200731121043.24199-1-arnaud.pouliquen@st.com>
+ Fri, 31 Jul 2020 14:31:08 +0000 (UTC)
+Received: by mail-ej1-f67.google.com with SMTP id c16so11244588ejx.12
+ for <linux-stm32@st-md-mailman.stormreply.com>;
+ Fri, 31 Jul 2020 07:31:08 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20161025;
+ h=from:to:cc:subject:date:message-id:mime-version
+ :content-transfer-encoding;
+ bh=TnSVvBPLgxOr7Okxa4+yFdbMwIKkVndKbRuepRfY/Zs=;
+ b=rooF5Y/LejVp6e+lkheBsBcOKwrWhHZzYXHf1m9XAOFNv87fHiPOh8t6nVxb4zVyuN
+ QDpyFEFyiTwlk8xKArO+TX4KUIY++pi8GQ2aMGQeJFu49tn7aim8G/kueOGS8tfEIrpQ
+ m8Eb/crBpL+aHjgty9b9jP36O8almuZhO0THmWfwhZOGRGmaQuoebyiVPkJPoZnWfb12
+ IcMNREwMZeqv+FGO3XG63F7LBQcdiGEnQayFjSUl4e7jJzqbqQliGxVniSm03H8C3sTg
+ +qszh99IXLCLTlEOsKO0vTmCHnKjuYFc0sYdgnG4a917/G1WL5EJUUsElxaTKZz5mVRc
+ 1i7g==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20161025;
+ h=x-gm-message-state:from:to:cc:subject:date:message-id:mime-version
+ :content-transfer-encoding;
+ bh=TnSVvBPLgxOr7Okxa4+yFdbMwIKkVndKbRuepRfY/Zs=;
+ b=gEedtwa1z3ut6orVtFCLOI6gQSvvGQT7k60ESMnEjLBkN1O/9oXXxfYEWUyLbGA3Kx
+ CsGunT27bNfFlfNEX7W36U45l7hpnmSWH88XeAsCXB79UKlblmVd4nfdeOc4HAWjUI06
+ zPvDtZRbkInz4E35qkCA1c+IlM1Z4EO5nulNy9BcqBAx6EZnl60NINbhyNE+z3Mi27ER
+ OnZbFMQSDWcDrviFDkI94wavtVNrdkAIW01Fzua/3QQjYIRqUHzoXdhup2B2EqbLQHJH
+ VPaTPppM59cCNwg6lfB8d25OX30IsaMAOes0C69Lvsah8IzK6gTBTZ+f1hLxKlwSyFM6
+ OyTw==
+X-Gm-Message-State: AOAM531qdEBb8T347MmBr4msELelNm1sykgd09iU7BUj1UBIXRrHPgAq
+ GwXAdcsNNZg70i8fem1l2Gc=
+X-Google-Smtp-Source: ABdhPJybf/XZgZB/Q/5YD/PtnotUkX1ldsL6Uu0I4qModtm+zX/Ggq7KmPlZXxlfNH2FA8a1tV0ngA==
+X-Received: by 2002:a17:906:269a:: with SMTP id
+ t26mr4331783ejc.286.1596205867955; 
+ Fri, 31 Jul 2020 07:31:07 -0700 (PDT)
+Received: from blackhead.home ([2a01:112f:a1c:7900:7316:ce1e:7b0b:6bd7])
+ by smtp.gmail.com with ESMTPSA id t19sm9749213edw.63.2020.07.31.07.31.05
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Fri, 31 Jul 2020 07:31:06 -0700 (PDT)
+From: Marcin Sloniewski <marcin.sloniewski@gmail.com>
+To: linux-arm-kernel@lists.infradead.org
+Date: Fri, 31 Jul 2020 16:30:51 +0200
+Message-Id: <20200731143053.44866-1-marcin.sloniewski@gmail.com>
+X-Mailer: git-send-email 2.27.0
 MIME-Version: 1.0
-X-Originating-IP: [10.75.127.46]
-X-ClientProxiedBy: SFHDAG1NODE3.st.com (10.75.127.3) To SFHDAG3NODE1.st.com
- (10.75.127.7)
-X-Proofpoint-Virus-Version: vendor=fsecure engine=2.50.10434:6.0.235, 18.0.687
- definitions=2020-07-31_04:2020-07-31,
- 2020-07-31 signatures=0
-Cc: linux-remoteproc@vger.kernel.org, linux-kernel@vger.kernel.org,
- linux-stm32@st-md-mailman.stormreply.com
-Subject: [Linux-stm32] [PATCH 13/13] rpmsg: ctrl: add support of the
-	endpoints release
+Cc: robh@kernel.org, stephan@gerhold.net, mani@kernel.org,
+ heiko.stuebner@theobroma-systems.com, linus.walleij@linaro.org,
+ linux-kernel@vger.kernel.org, lkundrak@v3.sk, marcin.sloniewski@gmail.com,
+ robh+dt@kernel.org, broonie@kernel.org, mcoquelin.stm32@gmail.com,
+ allen.chen@ite.com.tw, sam@ravnborg.org,
+ linux-stm32@st-md-mailman.stormreply.com, devicetree@vger.kernel.org
+Subject: [Linux-stm32] [PATCH v6 1/3] dt-bindings: vendor-prefixes: add
+	Seeed Studio
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -75,87 +78,30 @@ Content-Transfer-Encoding: 7bit
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
-Add the support of the release of an endpoint using the ioctl
-interface.
-The endpoint is identified using its name, its source address
-and is destination address.
-To support legacy a new ioctl ioctl is created instead of updating
-RPMSG_DESTROY_EPT_IOCTL.
+Add the "seeed" vendor prefix for Seeed Technology Co., Ltd
+Website: https://www.seeedstudio.com/
 
-Signed-off-by: Arnaud Pouliquen <arnaud.pouliquen@st.com>
+Signed-off-by: Marcin Sloniewski <marcin.sloniewski@gmail.com>
+Acked-by: Rob Herring <robh@kernel.org>
 ---
- drivers/rpmsg/rpmsg_ctrl.c | 35 ++++++++++++++++++++++++-----------
- include/uapi/linux/rpmsg.h |  1 +
- 2 files changed, 25 insertions(+), 11 deletions(-)
+ Documentation/devicetree/bindings/vendor-prefixes.yaml | 2 ++
+ 1 file changed, 2 insertions(+)
 
-diff --git a/drivers/rpmsg/rpmsg_ctrl.c b/drivers/rpmsg/rpmsg_ctrl.c
-index d2a6dbb8798f..d696247970c2 100644
---- a/drivers/rpmsg/rpmsg_ctrl.c
-+++ b/drivers/rpmsg/rpmsg_ctrl.c
-@@ -75,26 +75,39 @@ static long rpmsg_ctrl_dev_ioctl(struct file *fp, unsigned int cmd,
- 	struct rpmsg_channel_info chinfo;
- 	struct rpmsg_endpoint_info eptinfo;
- 	struct rpmsg_device *newch;
--
--	if (cmd != RPMSG_CREATE_EPT_IOCTL)
--		return -EINVAL;
-+	int ret;
- 
- 	if (copy_from_user(&eptinfo, argp, sizeof(eptinfo)))
- 		return -EFAULT;
- 
--	chinfo.driver_override = rpmsg_ctrl_get_drv_name(eptinfo.service);
--	if (!chinfo.driver_override)
--		return -ENODEV;
--
- 	memcpy(chinfo.name, eptinfo.name, RPMSG_NAME_SIZE);
- 	chinfo.name[RPMSG_NAME_SIZE - 1] = '\0';
- 	chinfo.src = eptinfo.src;
- 	chinfo.dst = eptinfo.dst;
- 
--	newch = rpmsg_create_channel(ctrldev->rpdev, &chinfo);
--	if (!newch) {
--		dev_err(&ctrldev->dev, "rpmsg_create_channel failed\n");
--		return -ENXIO;
-+	switch (cmd) {
-+	case RPMSG_CREATE_EPT_IOCTL:
-+		chinfo.driver_override =
-+				rpmsg_ctrl_get_drv_name(eptinfo.service);
-+		if (!chinfo.driver_override)
-+			return -ENODEV;
-+
-+		newch = rpmsg_create_channel(ctrldev->rpdev, &chinfo);
-+		if (!newch) {
-+			dev_err(&ctrldev->dev, "rpmsg_create_channel failed\n");
-+			return -ENXIO;
-+		}
-+		break;
-+	case RPMSG_RELEASE_EPT_IOCTL:
-+		ret = rpmsg_release_channel(ctrldev->rpdev, &chinfo);
-+		if (ret) {
-+			dev_err(&ctrldev->dev,
-+				"rpmsg_release_channel failed: %d\n", ret);
-+			return ret;
-+		}
-+		break;
-+	default:
-+		return -EINVAL;
- 	}
- 
- 	return 0;
-diff --git a/include/uapi/linux/rpmsg.h b/include/uapi/linux/rpmsg.h
-index 2ccc10ffacd4..74d821ee5f8c 100644
---- a/include/uapi/linux/rpmsg.h
-+++ b/include/uapi/linux/rpmsg.h
-@@ -39,5 +39,6 @@ struct rpmsg_endpoint_info {
- 
- #define RPMSG_CREATE_EPT_IOCTL	_IOW(0xb5, 0x1, struct rpmsg_endpoint_info)
- #define RPMSG_DESTROY_EPT_IOCTL	_IO(0xb5, 0x2)
-+#define RPMSG_RELEASE_EPT_IOCTL	_IOW(0xb5, 0x3, struct rpmsg_endpoint_info)
- 
- #endif
+diff --git a/Documentation/devicetree/bindings/vendor-prefixes.yaml b/Documentation/devicetree/bindings/vendor-prefixes.yaml
+index 9aeab66be85f..7dd03b3e9d3c 100644
+--- a/Documentation/devicetree/bindings/vendor-prefixes.yaml
++++ b/Documentation/devicetree/bindings/vendor-prefixes.yaml
+@@ -902,6 +902,8 @@ patternProperties:
+     description: Schindler
+   "^seagate,.*":
+     description: Seagate Technology PLC
++  "^seeed,.*":
++    description: Seeed Technology Co., Ltd
+   "^seirobotics,.*":
+     description: Shenzhen SEI Robotics Co., Ltd
+   "^semtech,.*":
 -- 
-2.17.1
+2.27.0
 
 _______________________________________________
 Linux-stm32 mailing list
