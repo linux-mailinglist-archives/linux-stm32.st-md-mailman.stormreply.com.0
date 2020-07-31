@@ -2,42 +2,60 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id 3F4C72340E9
-	for <lists+linux-stm32@lfdr.de>; Fri, 31 Jul 2020 10:13:07 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 9A7EC2344B5
+	for <lists+linux-stm32@lfdr.de>; Fri, 31 Jul 2020 13:47:44 +0200 (CEST)
 Received: from ip-172-31-3-76.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 0288CC36B35;
-	Fri, 31 Jul 2020 08:13:07 +0000 (UTC)
-Received: from relay8-d.mail.gandi.net (relay8-d.mail.gandi.net
- [217.70.183.201])
- (using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 42EB7C36B36;
+	Fri, 31 Jul 2020 11:47:44 +0000 (UTC)
+Received: from mx07-00178001.pphosted.com (mx08-00178001.pphosted.com
+ [91.207.212.93])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id DFE6CC36B32
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 23F1CC36B32
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Fri, 31 Jul 2020 08:13:04 +0000 (UTC)
-X-Originating-IP: 90.66.108.79
-Received: from localhost (lfbn-lyo-1-1932-79.w90-66.abo.wanadoo.fr
- [90.66.108.79]) (Authenticated sender: alexandre.belloni@bootlin.com)
- by relay8-d.mail.gandi.net (Postfix) with ESMTPSA id AC5E71BF206;
- Fri, 31 Jul 2020 08:13:02 +0000 (UTC)
-Date: Fri, 31 Jul 2020 10:13:02 +0200
-From: Alexandre Belloni <alexandre.belloni@bootlin.com>
-To: David Lechner <david@lechnology.com>
-Message-ID: <20200731081302.GB462779@piout.net>
-References: <cover.1595358237.git.vilhelm.gray@gmail.com>
- <08b3ac7349a59ba7fa5cd438bbe78360842ccd11.1595358237.git.vilhelm.gray@gmail.com>
- <415ee9ad-255e-cee7-22a6-ffa977999691@lechnology.com>
- <a287770b-c263-f1db-bcc4-d901d3ff3c7c@lechnology.com>
+ Fri, 31 Jul 2020 11:47:42 +0000 (UTC)
+Received: from pps.filterd (m0046661.ppops.net [127.0.0.1])
+ by mx07-00178001.pphosted.com (8.16.0.42/8.16.0.42) with SMTP id
+ 06VBaYq8031435; Fri, 31 Jul 2020 13:47:40 +0200
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=st.com;
+ h=from : to : cc : subject
+ : date : message-id : mime-version : content-type; s=STMicroelectronics;
+ bh=XwUX+1Y6zwoUw9ojrP+epdZ01TEQ51665ZcqVjIVZrc=;
+ b=ogyDXSxTFP1b3/TpTPcCGcLRYHp0qjgIOz1A7a/SC17vZnFt4Z2G8syXylcJHcxxRvFi
+ NYBpzI3rccMbIcg6fsSwCV4Ykh85EJGmXqpE5VqV0EWJKmfNvS1O5MMEb+0GOz+i0vuR
+ DK2Yxl3eGAkGpe0eL15Bfd9973+Isji7pH6XUzi2MqQtPG9CB8frDdwYZ2fBBh3Z6ccZ
+ 5TvG+ranqChxarlpZjLq5FKv08raB6+IS43x8Qpx0x7aXz5NqUfAZGgbb1b5CZSDBhhF
+ F1P1atq8zXuOXN1B4kTIf+pumUZj2pjrvN5l74ubiiA38udmhjxDNz/HjE+lCv8KdUFe 4Q== 
+Received: from beta.dmz-eu.st.com (beta.dmz-eu.st.com [164.129.1.35])
+ by mx07-00178001.pphosted.com with ESMTP id 32gbmgp665-1
+ (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
+ Fri, 31 Jul 2020 13:47:40 +0200
+Received: from euls16034.sgp.st.com (euls16034.sgp.st.com [10.75.44.20])
+ by beta.dmz-eu.st.com (STMicroelectronics) with ESMTP id 2AC9B10002A;
+ Fri, 31 Jul 2020 13:47:40 +0200 (CEST)
+Received: from Webmail-eu.st.com (sfhdag3node1.st.com [10.75.127.7])
+ by euls16034.sgp.st.com (STMicroelectronics) with ESMTP id 1AF47221061;
+ Fri, 31 Jul 2020 13:47:40 +0200 (CEST)
+Received: from localhost (10.75.127.46) by SFHDAG3NODE1.st.com (10.75.127.7)
+ with Microsoft SMTP Server (TLS) id 15.0.1473.3; Fri, 31 Jul 2020 13:47:39
+ +0200
+From: Arnaud Pouliquen <arnaud.pouliquen@st.com>
+To: Bjorn Andersson <bjorn.andersson@linaro.org>, Ohad Ben-Cohen
+ <ohad@wizery.com>, Mathieu Poirier <mathieu.poirier@linaro.org>
+Date: Fri, 31 Jul 2020 13:47:23 +0200
+Message-ID: <20200731114732.12815-1-arnaud.pouliquen@st.com>
+X-Mailer: git-send-email 2.17.1
 MIME-Version: 1.0
-Content-Disposition: inline
-In-Reply-To: <a287770b-c263-f1db-bcc4-d901d3ff3c7c@lechnology.com>
-Cc: kamel.bouhara@bootlin.com, gwendal@chromium.org, linux-iio@vger.kernel.org,
- patrick.havelange@essensium.com,
- William Breathitt Gray <vilhelm.gray@gmail.com>, linux-kernel@vger.kernel.org,
- linux-arm-kernel@lists.infradead.org, mcoquelin.stm32@gmail.com,
- fabrice.gasnier@st.com, syednwaris@gmail.com,
- linux-stm32@st-md-mailman.stormreply.com, jic23@kernel.org
-Subject: Re: [Linux-stm32] [PATCH v4 3/5] counter: Add character device
-	interface
+X-Originating-IP: [10.75.127.46]
+X-ClientProxiedBy: SFHDAG5NODE1.st.com (10.75.127.13) To SFHDAG3NODE1.st.com
+ (10.75.127.7)
+X-Proofpoint-Virus-Version: vendor=fsecure engine=2.50.10434:6.0.235, 18.0.687
+ definitions=2020-07-31_04:2020-07-31,
+ 2020-07-31 signatures=0
+Cc: linux-remoteproc@vger.kernel.org, linux-kernel@vger.kernel.org,
+ linux-stm32@st-md-mailman.stormreply.com
+Subject: [Linux-stm32] [PATCH 0/9] introduce name service announcement rpmsg
+	driver
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -54,23 +72,41 @@ Content-Transfer-Encoding: 7bit
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
-On 30/07/2020 17:49:37-0500, David Lechner wrote:
-> And one more thing, there was a nice talk at the Embedded Linux
-> Conference last month about lessons learned from designing a userspace
-> API for the GPIO subsystem [1]. Unfortunately, there is no video yet,
-> but the slides might have some helpful ideas about mistakes to avoid.
-> 
-> [1]: https://elinux.org/ELC_2020_Presentations
-> 
+The NS announcement is implemented by several backends, but could be
+considered as part the RPMsg protocol. 
+In this case it should be managed as a reserved rpmsg service and so
+implemented on top of the rpmsg protocol.
 
-The video is available on the original conference platform for one year
-after the event, then it will be made available on youtube.
+This series introduces the rpmsg_ns driver that handles the name service
+announcement. The virtio backend is updated in consequence to use this
+service.
 
+Applies cleanly on Bjorn rpmsg-next branch (ddd1930d6e3e)
+
+Arnaud Pouliquen (9):
+  rpmsg: virtio: rename rpmsg_create_channel
+  rpmsg: core: add channel creation internal API
+  rpmsg: virtio: add rpmsg channel device ops
+  rpmsg: define the name service announcement as reserved address
+  rpmsg: introduce reserved rpmsg driver for ns announcement
+  rpmsg: virtio: use rpmsg ns device for the ns announcement
+  rpmsg: ns: add name service announcement service
+  rpmsg: virtio: use rpmsg_ns driver to manage ns announcement
+  rpmsg: ns: name service announcement endianness
+
+ drivers/rpmsg/Kconfig            |   9 ++
+ drivers/rpmsg/Makefile           |   1 +
+ drivers/rpmsg/rpmsg_core.c       |  37 ++++++
+ drivers/rpmsg/rpmsg_internal.h   |  32 +++++
+ drivers/rpmsg/rpmsg_ns.c         | 175 +++++++++++++++++++++++++
+ drivers/rpmsg/virtio_rpmsg_bus.c | 213 +++++++++----------------------
+ include/linux/rpmsg.h            |   9 ++
+ 7 files changed, 325 insertions(+), 151 deletions(-)
+ create mode 100644 drivers/rpmsg/rpmsg_ns.c
 
 -- 
-Alexandre Belloni, Bootlin
-Embedded Linux and Kernel engineering
-https://bootlin.com
+2.17.1
+
 _______________________________________________
 Linux-stm32 mailing list
 Linux-stm32@st-md-mailman.stormreply.com
