@@ -2,56 +2,68 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id C590F235A2D
-	for <lists+linux-stm32@lfdr.de>; Sun,  2 Aug 2020 21:15:31 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 2F40F239C1F
+	for <lists+linux-stm32@lfdr.de>; Sun,  2 Aug 2020 23:11:49 +0200 (CEST)
 Received: from ip-172-31-3-76.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 73D6CC36B3A;
-	Sun,  2 Aug 2020 19:15:31 +0000 (UTC)
-Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
- (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 8BCC8C36B3A;
+	Sun,  2 Aug 2020 21:11:48 +0000 (UTC)
+Received: from mail-qt1-f196.google.com (mail-qt1-f196.google.com
+ [209.85.160.196])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id C4371C36B32
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 4DF28C36B32
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Sun,  2 Aug 2020 19:15:27 +0000 (UTC)
-Received: from localhost (router.4pisysteme.de [80.79.225.122])
- (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
- (No client certificate requested)
- by mail.kernel.org (Postfix) with ESMTPSA id A17FD206F6;
- Sun,  2 Aug 2020 19:15:25 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
- s=default; t=1596395726;
- bh=XV4TUblKrr0Hr8yACYDhNcq4dzFvBlBYUya/0bgDY3g=;
- h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
- b=hiGYbBCxgOHie81Y9BqP0nD+nhAU0gexTycJoQIOe9fBkQ9B1OeKPfyYIBZ6wIKZb
- wPH+gwvZXU6j5Ql7JtG0OgrjYqFMOJp+R1v6YaE2rvN+/KU9dqhjNNRG29naT+w0a3
- /7wWik4Y1pmXqbCACeHsgkCX58I8rnIePGo5dIdY=
-Date: Sun, 2 Aug 2020 21:15:23 +0200
-From: Wolfram Sang <wsa@kernel.org>
-To: "linux-i2c@vger.kernel.org" <linux-i2c@vger.kernel.org>,
- "linux-arm-kernel@lists.infradead.org" <linux-arm-kernel@lists.infradead.org>, 
- "linux-kernel@vger.kernel.org" <linux-kernel@vger.kernel.org>
-Message-ID: <20200802191523.GA13339@kunai>
-Mail-Followup-To: Wolfram Sang <wsa@kernel.org>,
- "linux-i2c@vger.kernel.org" <linux-i2c@vger.kernel.org>,
- "linux-arm-kernel@lists.infradead.org" <linux-arm-kernel@lists.infradead.org>, 
- "linux-kernel@vger.kernel.org" <linux-kernel@vger.kernel.org>,
- Pierre Yves MORDRET <pierre-yves.mordret@st.com>,
- Alexandre TORGUE <alexandre.torgue@st.com>,
- "linux-stm32@st-md-mailman.stormreply.com"
- <linux-stm32@st-md-mailman.stormreply.com>, 
- Fabrice GASNIER <fabrice.gasnier@st.com>
-References: <1593776168-17867-1-git-send-email-alain.volmat@st.com>
- <1593776168-17867-2-git-send-email-alain.volmat@st.com>
- <20200725202733.GA946@kunai>
- <20200728121050.GC8715@gnbcxd0016.gnb.st.com>
+ Sun,  2 Aug 2020 21:11:46 +0000 (UTC)
+Received: by mail-qt1-f196.google.com with SMTP id o22so26670755qtt.13
+ for <linux-stm32@st-md-mailman.stormreply.com>;
+ Sun, 02 Aug 2020 14:11:46 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20161025;
+ h=date:from:to:cc:subject:message-id:references:mime-version
+ :content-disposition:in-reply-to;
+ bh=Fb/5Z4B9XTfuOtDzpHUsVEiu68aR/8vaP+1Ul+5zysY=;
+ b=A/40hBU26L6V8L9Q9KC9iqoc+cuwy+OeTq6dxy+WtYDAgzmFhIOILnphkvgPpsmI15
+ CMOr74ofUFFqh2JwgrbhUe2SJlwBxN+il7sjtV9TOd2/0+agZ+DUK/vn4DOsVD15GVRF
+ 1U/WHc6SI9XHVvVZq/UTkf67ANDtINQvYqewjRmYdnx1vs9zugBK4LNQXyHI/ATiZZ3E
+ P1ghMB2RnKSu/fsYiPEj4/Bd9X/Iq/VMeERH2QzXxqpxzWudnafHWmMjV3+8raxQySBw
+ oiHfkKafR0RJJpZz5XKgqQ/SbwG17N+Q6irN+ohboHPFmy0dqrDPcH9GylHU37+F6++p
+ 0EiQ==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20161025;
+ h=x-gm-message-state:date:from:to:cc:subject:message-id:references
+ :mime-version:content-disposition:in-reply-to;
+ bh=Fb/5Z4B9XTfuOtDzpHUsVEiu68aR/8vaP+1Ul+5zysY=;
+ b=shG4cNXzmZPx+8Mqm8cyzyty7IpjAZawxo5Tkvv6o5QIhZ+FoiT9+DDmvQc2Rq70Hj
+ cPgSgWmW7FKeqgqA9AhhdMBBCs+VKK4VW5vL1OP8UTEeBud5oBpalZqad/naMr2Y3ZXt
+ a0+X9pTzOmnbYmMkg479156Rr92EfGdf7IFwPjykI8UzWxz9DF4xIE4DDlSIM6yrT+zE
+ xsq0uHuuSgLsfGOgzNRIz29+bRbojD1YNiIKXw97uNNU+L5crqkc4SYfnmonzD/6KBUl
+ bPlbymfG3lJyspP5cZ9XXoDzfb4Kwyx8LmnlYepiejXyOYfua8IOxCWKoo7pehLNr33m
+ 0/nA==
+X-Gm-Message-State: AOAM531oSK6PexcUQODEVUPNKHEpeOGBz9pf3E5te2fOrM5qzDlgfglM
+ kasTRqqHCKT3AfFUE+vEAXM=
+X-Google-Smtp-Source: ABdhPJxJoXweorg+JFUfS6GWb438JSRsl1RcLLbLR+eW5jhNlDZUf5HAuHFcCAZNWdq1qNGO/6FrqQ==
+X-Received: by 2002:ac8:24d:: with SMTP id o13mr13596339qtg.154.1596402705134; 
+ Sun, 02 Aug 2020 14:11:45 -0700 (PDT)
+Received: from shinobu (072-189-064-225.res.spectrum.com. [72.189.64.225])
+ by smtp.gmail.com with ESMTPSA id q68sm17443130qke.123.2020.08.02.14.11.43
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Sun, 02 Aug 2020 14:11:44 -0700 (PDT)
+Date: Sun, 2 Aug 2020 17:11:42 -0400
+From: William Breathitt Gray <vilhelm.gray@gmail.com>
+To: David Lechner <david@lechnology.com>
+Message-ID: <20200802211142.GB606173@shinobu>
+References: <cover.1595358237.git.vilhelm.gray@gmail.com>
+ <08b3ac7349a59ba7fa5cd438bbe78360842ccd11.1595358237.git.vilhelm.gray@gmail.com>
+ <415ee9ad-255e-cee7-22a6-ffa977999691@lechnology.com>
+ <a287770b-c263-f1db-bcc4-d901d3ff3c7c@lechnology.com>
 MIME-Version: 1.0
-In-Reply-To: <20200728121050.GC8715@gnbcxd0016.gnb.st.com>
-Cc: Fabrice GASNIER <fabrice.gasnier@st.com>,
- Pierre Yves MORDRET <pierre-yves.mordret@st.com>,
- "linux-stm32@st-md-mailman.stormreply.com"
- <linux-stm32@st-md-mailman.stormreply.com>
-Subject: Re: [Linux-stm32] [PATCH v2 1/2] i2c: smbus: add core function
- handling SMBus host-notify
+In-Reply-To: <a287770b-c263-f1db-bcc4-d901d3ff3c7c@lechnology.com>
+Cc: kamel.bouhara@bootlin.com, gwendal@chromium.org, linux-iio@vger.kernel.org,
+ patrick.havelange@essensium.com, alexandre.belloni@bootlin.com,
+ linux-kernel@vger.kernel.org, linux-arm-kernel@lists.infradead.org,
+ mcoquelin.stm32@gmail.com, fabrice.gasnier@st.com, syednwaris@gmail.com,
+ linux-stm32@st-md-mailman.stormreply.com, jic23@kernel.org
+Subject: Re: [Linux-stm32] [PATCH v4 3/5] counter: Add character device
+	interface
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -63,73 +75,99 @@ List-Post: <mailto:linux-stm32@st-md-mailman.stormreply.com>
 List-Help: <mailto:linux-stm32-request@st-md-mailman.stormreply.com?subject=help>
 List-Subscribe: <https://st-md-mailman.stormreply.com/mailman/listinfo/linux-stm32>, 
  <mailto:linux-stm32-request@st-md-mailman.stormreply.com?subject=subscribe>
-Content-Type: multipart/mixed; boundary="===============6174738609332488676=="
+Content-Type: multipart/mixed; boundary="===============5066391260852536226=="
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
 
---===============6174738609332488676==
+--===============5066391260852536226==
 Content-Type: multipart/signed; micalg=pgp-sha512;
-	protocol="application/pgp-signature"; boundary="Dxnq1zWXvFF0Q93v"
+	protocol="application/pgp-signature"; boundary="NDin8bjvE/0mNLFQ"
 Content-Disposition: inline
 
 
---Dxnq1zWXvFF0Q93v
-Content-Type: text/plain; charset=us-ascii
+--NDin8bjvE/0mNLFQ
+Content-Type: text/plain; charset=utf-8
 Content-Disposition: inline
 Content-Transfer-Encoding: quoted-printable
 
-> I've simplified the index handling as you suggested. The only impact is t=
-hat
-> finally we do not consider anymore the I2C_SLAVE_WRITE_REQUESTED event as=
- the
-> beginning of the transaction since we don't perform the "reset" of the
-> handling upon this event.
+On Thu, Jul 30, 2020 at 05:49:37PM -0500, David Lechner wrote:
+> On 7/28/20 7:20 PM, David Lechner wrote:
+> > On 7/21/20 2:35 PM, William Breathitt Gray wrote:
+> >> This patch introduces a character device interface for the Counter
+> >> subsystem. Device data is exposed through standard character device re=
+ad
+> >> operations. Device data is gathered when a Counter event is pushed by
+> >> the respective Counter device driver. Configuration is handled via ioc=
+tl
+> >> operations on the respective Counter character device node.
+> >=20
+> > This sounds similar to triggers and buffers in the iio subsystem. And
+> > I can see how it might be useful in some cases. But I think it would not
+> > give the desired results when performance is important.
+> >=20
+>=20
+> By the way, I really appreciate the work you have done here. When reviewi=
+ng
+> code, it is easy to point out what is wrong or we don't like and to not
+> mention all the parts that are good. And there is a lot of really good wo=
+rk
+> here already.
+>=20
+> I've been working on this all week to try out some of my suggestions and
+> I'm not getting very far. This is a very difficult problem to solve!
+>=20
+> I just wanted to mention this since I responded to this patch series
+> already but I am still learning and trying things. So I may have more/
+> different feedback in the future and I may decide some of my suggestions
+> are not so good. :-)
+>=20
+> And one more thing, there was a nice talk at the Embedded Linux
+> Conference last month about lessons learned from designing a userspace
+> API for the GPIO subsystem [1]. Unfortunately, there is no video yet,
+> but the slides might have some helpful ideas about mistakes to avoid.
+>=20
+> [1]: https://elinux.org/ELC_2020_Presentations
 
-One more comment on this one because I had to update the testunit, too.
-To be robust against multiple write messages in one transfer, we need to
-reset both, after STOP and when I2C_SLAVE_WRITE_REQUESTED. See here:
+Thanks! I appreciate the words of encouragement. :-)
 
- 96         case I2C_SLAVE_STOP:
- 97                 if (tu->reg_idx =3D=3D TU_NUM_REGS)
- 98                         queue_delayed_work(system_long_wq, &tu->worker,
- 99                                            msecs_to_jiffies(100 * tu->r=
-egs[TU_REG_DELAY]));
-100                 fallthrough;
-101=20
-102         case I2C_SLAVE_WRITE_REQUESTED:
-103                 tu->reg_idx =3D 0;
-104                 break;
+This is a big endeavor so I'm expecting a lot of mistakes and changes
+along the way. Since we're designing a new userspace interface as well,
+I want to make sure it's correct before we commit it, because when it's
+finally introduced we're basically stuck with it. So I'm happy when
+mistakes are found because it saves me from having to live with those
+later after the interface is live.
 
-As you see, I used 'fallthrough' to avoid code duplication and that only
-one reset part will be updated.
+I'll respond to your PATCH 3/5 review later this week or coming weekend
+when I get the chance.
 
-Dunno if you really need it, too, as I haven't seen your latest code yet.
+Thanks again,
 
+William Breathitt Gray
 
---Dxnq1zWXvFF0Q93v
+--NDin8bjvE/0mNLFQ
 Content-Type: application/pgp-signature; name="signature.asc"
 
 -----BEGIN PGP SIGNATURE-----
 
-iQIzBAABCgAdFiEEOZGx6rniZ1Gk92RdFA3kzBSgKbYFAl8nEMcACgkQFA3kzBSg
-KbZqlA//YcdWQrdMtZVkEa0j7XyFwCOfHaTqDGUYviawbW4c0CEa9xBj3EEr+xKa
-Loo+BQtokIFmEDGxJfCKbhkPRS16I5jf/FWSSRgmARA1FLVaD1PJE32XVr8UcDLv
-c/LH1xgRG0+xq1DbvCwIxoUiNRtTWuGfec3JiS6uotPdRfiJWbgw9IZJAZXfclm/
-h0I9rWzO5jl5UTLZwtcZyqmV0p/os3MvGvlq9wkmLDwlVpvUgltu7inBtKJyREKC
-w95OaduiRX0ogJftW7VnR+dTryUamMM2SrhMMGyC7fn+6spJrD8N/NCQfGmQFOxm
-CU8ZxKN/8OtRxlDu1RlMSDhmpHvBLxztWUD6Z1VNgoqoTLUIpuowl2TKPV3uGymh
-HgjBU8jUddL63dtSgXnxxoLoskut8BbmRLJukLSj2Vto5Qq9W8r6U5R1neMoFhi+
-R6RhaNWL+n4+eDSF8j46o2ClUTiW2EW9pe+0QrLYGjZPaHkzkDLhtv+pYyeuRnug
-fn6PB28S7CHekraTIpY2/7gOFS550TUEik3TPhF/dGvKrNA5tV9/tvIHRycckBiq
-vvrISspAP57Dpm6Sw2XLQyd/C/39LLwplnWruVmxfDL3gLynoOR54y5UCqftEz9Y
-zvoUfNjQa4m7EVPOiJBLe71dEakwA3ZvDGOnhzcPyWA4iPNsovY=
-=ABxQ
+iQIzBAABCgAdFiEEk5I4PDJ2w1cDf/bghvpINdm7VJIFAl8nLA0ACgkQhvpINdm7
+VJInMhAAqVGmbjhms6aBJfCZ+LH6WB9U1RvePeF1nw9cH70V1Wiw0/OLYGMYm1YX
+zuhQrO8cc20cSWVQgrdl2m6ykbhShMGK1BzJiMW+ehYVdUZWOygKrNJRxxzGyo2m
+DLHJox16JauHPhwZhxCx+ZDmzDbC0P99H16CsGYccxlFkbGb4MZgOtG1xtw/wM3h
+1ctob4WXoRdwZcHzFAsDZoLjrdkSPcArMDcLeNcThdcsex33WPT+Toexlo6ILnPi
+aWalbYwymW7jybV6OsN9T+ENN+6gIPGIHcJlLvL26slXgvrxfZXL4gHY0yOgsmew
+1b63J9MfIFNrZOYT4kXR1iMPCloeTqLzwbNuNI+rPjzIVLAiAEUp6WruCsEY37l0
++wcq+L38ZnC1fWqP3DdnsYhTFbU0cuqbDhQpyvLMCV0kRCKcd8ifoe4BcUdhcHRe
+edgLdRPmqu/rp9EpNPQ1UFWcmQ1brSXWH5J4nWlx1Ay31Fqu6lgJvGfIq/LphT5Q
+kJ+uPq4sUFnttPYwolNcnRHjXPTdn8/a4KdrNm7k1uGXek2NgQhy6gBkR68Ii4hX
+dpD/Os7d5WP3AZY7sVsIpJ2vDR37+s1s/MOWoFz5z9cLsItiErt9EgNclNagwXzS
+0KHohQrPWLr5MTPzG7ELJpfZVks8ej5AlY9TONpIcqahGvWuWMo=
+=g0cP
 -----END PGP SIGNATURE-----
 
---Dxnq1zWXvFF0Q93v--
+--NDin8bjvE/0mNLFQ--
 
---===============6174738609332488676==
+--===============5066391260852536226==
 Content-Type: text/plain; charset="us-ascii"
 MIME-Version: 1.0
 Content-Transfer-Encoding: 7bit
@@ -140,4 +178,4 @@ Linux-stm32 mailing list
 Linux-stm32@st-md-mailman.stormreply.com
 https://st-md-mailman.stormreply.com/mailman/listinfo/linux-stm32
 
---===============6174738609332488676==--
+--===============5066391260852536226==--
