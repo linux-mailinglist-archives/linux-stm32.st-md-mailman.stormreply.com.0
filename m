@@ -2,66 +2,53 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id 4006F23BBA1
-	for <lists+linux-stm32@lfdr.de>; Tue,  4 Aug 2020 16:04:40 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 79E4423BFBA
+	for <lists+linux-stm32@lfdr.de>; Tue,  4 Aug 2020 21:27:25 +0200 (CEST)
 Received: from ip-172-31-3-76.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 0977AC36B3A;
-	Tue,  4 Aug 2020 14:04:40 +0000 (UTC)
-Received: from mx07-00178001.pphosted.com (mx07-00178001.pphosted.com
- [185.132.182.106])
- (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 2E26BC36B3A;
+	Tue,  4 Aug 2020 19:27:25 +0000 (UTC)
+Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
+ (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id E546CC36B32
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id E45E4C36B32
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Tue,  4 Aug 2020 14:04:36 +0000 (UTC)
-Received: from pps.filterd (m0046037.ppops.net [127.0.0.1])
- by mx07-00178001.pphosted.com (8.16.0.42/8.16.0.42) with SMTP id
- 074E2eTv012615; Tue, 4 Aug 2020 16:04:32 +0200
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=st.com;
- h=subject : to : cc :
- references : from : message-id : date : mime-version : in-reply-to :
- content-type : content-transfer-encoding; s=STMicroelectronics;
- bh=LAG1/atoWlfWmJtGbllySuRLl1a6COVGHRrcpAnsvT4=;
- b=BL+ho6hQTKnVi4msGN1TyWPhmU0E8Hj9r5AGDUn2IOe5hA503883/UoUUorsbPZ4nhFn
- ubDAZjO88ZpbAm+LE70U0Tt+cpBZnwN6bPm8l7Ly52qQ+3XhREzZo5ggMa/ON0tG2pJQ
- whkK+nUSAFJGD1WL0RiZcgOMfP/qEjxiy1hkkAA1GtUE2nOwiqhW2ftBu6y5ORfy+o/R
- dfLYwysyN/pvERl3HHTlD4v4MjIpvClAl4SWn2m7EDG+Ibd4t+4Ms7bwIe5p6ERQH8dw
- 5o3BVFyX8GSPwtY/5ONatOo5nMkgEWz2Jq63AqCV9X+tWwQWueKyvmZMJkPb3OgWdnQv vg== 
-Received: from beta.dmz-eu.st.com (beta.dmz-eu.st.com [164.129.1.35])
- by mx07-00178001.pphosted.com with ESMTP id 32n6sb3dp9-1
- (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
- Tue, 04 Aug 2020 16:04:32 +0200
-Received: from euls16034.sgp.st.com (euls16034.sgp.st.com [10.75.44.20])
- by beta.dmz-eu.st.com (STMicroelectronics) with ESMTP id D0C7B10002A;
- Tue,  4 Aug 2020 16:04:29 +0200 (CEST)
-Received: from Webmail-eu.st.com (sfhdag5node2.st.com [10.75.127.14])
- by euls16034.sgp.st.com (STMicroelectronics) with ESMTP id C40952BC7A0;
- Tue,  4 Aug 2020 16:04:29 +0200 (CEST)
-Received: from lmecxl1060.lme.st.com (10.75.127.45) by SFHDAG5NODE2.st.com
- (10.75.127.14) with Microsoft SMTP Server (TLS) id 15.0.1473.3; Tue, 4 Aug
- 2020 16:04:28 +0200
-To: Alain Volmat <alain.volmat@st.com>, <wsa@kernel.org>
-References: <1596431876-24115-1-git-send-email-alain.volmat@st.com>
- <1596431876-24115-3-git-send-email-alain.volmat@st.com>
-From: Pierre Yves MORDRET <pierre-yves.mordret@st.com>
-Message-ID: <e27abfbc-6cb4-ab00-04ea-4147982c8393@st.com>
-Date: Tue, 4 Aug 2020 16:04:28 +0200
-User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:68.0) Gecko/20100101
- Thunderbird/68.10.0
-MIME-Version: 1.0
-In-Reply-To: <1596431876-24115-3-git-send-email-alain.volmat@st.com>
-Content-Language: en-US
-X-Originating-IP: [10.75.127.45]
-X-ClientProxiedBy: SFHDAG5NODE1.st.com (10.75.127.13) To SFHDAG5NODE2.st.com
- (10.75.127.14)
-X-Proofpoint-Virus-Version: vendor=fsecure engine=2.50.10434:6.0.235, 18.0.687
- definitions=2020-08-04_04:2020-08-03,
- 2020-08-04 signatures=0
-Cc: linux-kernel@vger.kernel.org, linux-i2c@vger.kernel.org,
- fabrice.gasnier@st.com, linux-stm32@st-md-mailman.stormreply.com,
- linux-arm-kernel@lists.infradead.org
-Subject: Re: [Linux-stm32] [PATCH v3 2/2] i2c: stm32f7: Add SMBus
- Host-Notify protocol support
+ Tue,  4 Aug 2020 19:27:22 +0000 (UTC)
+Received: from localhost.localdomain (unknown [194.230.155.117])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+ (No client certificate requested)
+ by mail.kernel.org (Postfix) with ESMTPSA id 45AA522B42;
+ Tue,  4 Aug 2020 19:27:16 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
+ s=default; t=1596569241;
+ bh=T7vK95m658FiqBZzoh7EYBskLGic2GgHyDK417xvIz8=;
+ h=From:To:Cc:Subject:Date:From;
+ b=Fk0ASglsqZU4iDkOd19jKtB/jO6vAgnJ1HNi0VGPnDRyiCwEMjKrbA8TnKNVlyF7H
+ EgpSvGJqOSnYE7jdajxr5glShUT7YSWFapyRBFQK03WfoVAO0EYNAKvlJxLfw+SLQ3
+ MsBwwqZNm/jlGjchCk1+wUHsY46lX8ggZsBMfk5Q=
+From: Krzysztof Kozlowski <krzk@kernel.org>
+To: Russell King <linux@armlinux.org.uk>, Kukjin Kim <kgene@kernel.org>,
+ Krzysztof Kozlowski <krzk@kernel.org>,
+ Simtec Linux Team <linux@simtec.co.uk>,
+ Maxime Coquelin <mcoquelin.stm32@gmail.com>,
+ Alexandre Torgue <alexandre.torgue@st.com>,
+ Kyungmin Park <kyungmin.park@samsung.com>,
+ Catalin Marinas <catalin.marinas@arm.com>, Will Deacon <will@kernel.org>,
+ Sylwester Nawrocki <s.nawrocki@samsung.com>,
+ Tomasz Figa <tomasz.figa@gmail.com>, Chanwoo Choi <cw00.choi@samsung.com>,
+ Michael Turquette <mturquette@baylibre.com>,
+ Stephen Boyd <sboyd@kernel.org>, Wim Van Sebroeck <wim@linux-watchdog.org>,
+ Guenter Roeck <linux@roeck-us.net>, Arnd Bergmann <arnd@arndb.de>,
+ linux-arm-kernel@lists.infradead.org, linux-samsung-soc@vger.kernel.org,
+ linux-stm32@st-md-mailman.stormreply.com, patches@opensource.cirrus.com,
+ linux-clk@vger.kernel.org, linux-watchdog@vger.kernel.org
+Date: Tue,  4 Aug 2020 21:26:41 +0200
+Message-Id: <20200804192654.12783-1-krzk@kernel.org>
+X-Mailer: git-send-email 2.17.1
+Cc: Sylwester Nawrocki <snawrocki@kernel.org>, Lihua Yao <ylhuajnu@outlook.com>,
+ Cedric Roux <sed@free.fr>, Sergio Prado <sergio.prado@e-labworks.com>,
+ Marek Szyprowski <m.szyprowski@samsung.com>
+Subject: [Linux-stm32] [PATCH v2 00/13] clk/watchdog/ARM: Cleanup of various
+	S3C bits
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -73,273 +60,122 @@ List-Post: <mailto:linux-stm32@st-md-mailman.stormreply.com>
 List-Help: <mailto:linux-stm32-request@st-md-mailman.stormreply.com?subject=help>
 List-Subscribe: <https://st-md-mailman.stormreply.com/mailman/listinfo/linux-stm32>, 
  <mailto:linux-stm32-request@st-md-mailman.stormreply.com?subject=subscribe>
+MIME-Version: 1.0
 Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
-Hi Alain
+Hi,
 
-Look good for me
+I tried to cleanup few warnings in S3C machine code which lead to
+finding some bigger issues.
 
-Reviewed-by: Pierre-Yves MORDRET <pierre-yves.mordret@st.com>
+The patchset touches clk and watchdog trees. I would appreciate acks so
+I can take everything through Samsung SoC tree. I have later a bigger
+set which would create conflicts with it [1].
 
-Best Regards
 
-On 8/3/20 7:17 AM, Alain Volmat wrote:
-> Rely on the core functions to implement the host-notify
-> protocol via the a I2C slave device.
-> 
-> Signed-off-by: Alain Volmat <alain.volmat@st.com>
-> ---
->  v3: identical to v2
->  v2: fix slot #0 usage condition within stm32f7_i2c_get_free_slave_id
-> 
->  drivers/i2c/busses/Kconfig       |   1 +
->  drivers/i2c/busses/i2c-stm32f7.c | 110 +++++++++++++++++++++++++++++++++------
->  2 files changed, 96 insertions(+), 15 deletions(-)
-> 
-> diff --git a/drivers/i2c/busses/Kconfig b/drivers/i2c/busses/Kconfig
-> index 735bf31a3fdf..ae8671727a4c 100644
-> --- a/drivers/i2c/busses/Kconfig
-> +++ b/drivers/i2c/busses/Kconfig
-> @@ -1036,6 +1036,7 @@ config I2C_STM32F7
->  	tristate "STMicroelectronics STM32F7 I2C support"
->  	depends on ARCH_STM32 || COMPILE_TEST
->  	select I2C_SLAVE
-> +	select I2C_SMBUS
->  	help
->  	  Enable this option to add support for STM32 I2C controller embedded
->  	  in STM32F7 SoCs.
-> diff --git a/drivers/i2c/busses/i2c-stm32f7.c b/drivers/i2c/busses/i2c-stm32f7.c
-> index bff3479fe122..223c238c3c09 100644
-> --- a/drivers/i2c/busses/i2c-stm32f7.c
-> +++ b/drivers/i2c/busses/i2c-stm32f7.c
-> @@ -18,6 +18,7 @@
->  #include <linux/delay.h>
->  #include <linux/err.h>
->  #include <linux/i2c.h>
-> +#include <linux/i2c-smbus.h>
->  #include <linux/interrupt.h>
->  #include <linux/io.h>
->  #include <linux/iopoll.h>
-> @@ -50,6 +51,7 @@
->  
->  /* STM32F7 I2C control 1 */
->  #define STM32F7_I2C_CR1_PECEN			BIT(23)
-> +#define STM32F7_I2C_CR1_SMBHEN			BIT(20)
->  #define STM32F7_I2C_CR1_WUPEN			BIT(18)
->  #define STM32F7_I2C_CR1_SBC			BIT(16)
->  #define STM32F7_I2C_CR1_RXDMAEN			BIT(15)
-> @@ -150,7 +152,7 @@
->  
->  #define STM32F7_I2C_MAX_LEN			0xff
->  #define STM32F7_I2C_DMA_LEN_MIN			0x16
-> -#define STM32F7_I2C_MAX_SLAVE			0x2
-> +#define STM32F7_I2C_MAX_SLAVE			0x3
->  
->  #define STM32F7_I2C_DNF_DEFAULT			0
->  #define STM32F7_I2C_DNF_MAX			16
-> @@ -301,6 +303,8 @@ struct stm32f7_i2c_msg {
->   * @fmp_creg: register address for clearing Fast Mode Plus bits
->   * @fmp_mask: mask for Fast Mode Plus bits in set register
->   * @wakeup_src: boolean to know if the device is a wakeup source
-> + * @smbus_mode: states that the controller is configured in SMBus mode
-> + * @host_notify_client: SMBus host-notify client
->   */
->  struct stm32f7_i2c_dev {
->  	struct i2c_adapter adap;
-> @@ -327,6 +331,8 @@ struct stm32f7_i2c_dev {
->  	u32 fmp_creg;
->  	u32 fmp_mask;
->  	bool wakeup_src;
-> +	bool smbus_mode;
-> +	struct i2c_client *host_notify_client;
->  };
->  
->  /*
-> @@ -1321,10 +1327,18 @@ static int stm32f7_i2c_get_free_slave_id(struct stm32f7_i2c_dev *i2c_dev,
->  	int i;
->  
->  	/*
-> -	 * slave[0] supports 7-bit and 10-bit slave address
-> -	 * slave[1] supports 7-bit slave address only
-> +	 * slave[0] support only SMBus Host address (0x8)
-> +	 * slave[1] supports 7-bit and 10-bit slave address
-> +	 * slave[2] supports 7-bit slave address only
->  	 */
-> -	for (i = STM32F7_I2C_MAX_SLAVE - 1; i >= 0; i--) {
-> +	if (i2c_dev->smbus_mode && (slave->addr == 0x08)) {
-> +		if (i2c_dev->slave[0])
-> +			goto fail;
-> +		*id = 0;
-> +		return 0;
-> +	}
-> +
-> +	for (i = STM32F7_I2C_MAX_SLAVE - 1; i > 0; i--) {
->  		if (i == 1 && (slave->flags & I2C_CLIENT_TEN))
->  			continue;
->  		if (!i2c_dev->slave[i]) {
-> @@ -1333,6 +1347,7 @@ static int stm32f7_i2c_get_free_slave_id(struct stm32f7_i2c_dev *i2c_dev,
->  		}
->  	}
->  
-> +fail:
->  	dev_err(dev, "Slave 0x%x could not be registered\n", slave->addr);
->  
->  	return -EINVAL;
-> @@ -1776,7 +1791,13 @@ static int stm32f7_i2c_reg_slave(struct i2c_client *slave)
->  	if (!stm32f7_i2c_is_slave_registered(i2c_dev))
->  		stm32f7_i2c_enable_wakeup(i2c_dev, true);
->  
-> -	if (id == 0) {
-> +	switch (id) {
-> +	case 0:
-> +		/* Slave SMBus Host */
-> +		i2c_dev->slave[id] = slave;
-> +		break;
-> +
-> +	case 1:
->  		/* Configure Own Address 1 */
->  		oar1 = readl_relaxed(i2c_dev->base + STM32F7_I2C_OAR1);
->  		oar1 &= ~STM32F7_I2C_OAR1_MASK;
-> @@ -1789,7 +1810,9 @@ static int stm32f7_i2c_reg_slave(struct i2c_client *slave)
->  		oar1 |= STM32F7_I2C_OAR1_OA1EN;
->  		i2c_dev->slave[id] = slave;
->  		writel_relaxed(oar1, i2c_dev->base + STM32F7_I2C_OAR1);
-> -	} else if (id == 1) {
-> +		break;
-> +
-> +	case 2:
->  		/* Configure Own Address 2 */
->  		oar2 = readl_relaxed(i2c_dev->base + STM32F7_I2C_OAR2);
->  		oar2 &= ~STM32F7_I2C_OAR2_MASK;
-> @@ -1802,7 +1825,10 @@ static int stm32f7_i2c_reg_slave(struct i2c_client *slave)
->  		oar2 |= STM32F7_I2C_OAR2_OA2EN;
->  		i2c_dev->slave[id] = slave;
->  		writel_relaxed(oar2, i2c_dev->base + STM32F7_I2C_OAR2);
-> -	} else {
-> +		break;
-> +
-> +	default:
-> +		dev_err(dev, "I2C slave id not supported\n");
->  		ret = -ENODEV;
->  		goto pm_free;
->  	}
-> @@ -1843,10 +1869,10 @@ static int stm32f7_i2c_unreg_slave(struct i2c_client *slave)
->  	if (ret < 0)
->  		return ret;
->  
-> -	if (id == 0) {
-> +	if (id == 1) {
->  		mask = STM32F7_I2C_OAR1_OA1EN;
->  		stm32f7_i2c_clr_bits(base + STM32F7_I2C_OAR1, mask);
-> -	} else {
-> +	} else if (id == 2) {
->  		mask = STM32F7_I2C_OAR2_OA2EN;
->  		stm32f7_i2c_clr_bits(base + STM32F7_I2C_OAR2, mask);
->  	}
-> @@ -1911,14 +1937,51 @@ static int stm32f7_i2c_setup_fm_plus_bits(struct platform_device *pdev,
->  					  &i2c_dev->fmp_mask);
->  }
->  
-> +static int stm32f7_i2c_enable_smbus_host(struct stm32f7_i2c_dev *i2c_dev)
-> +{
-> +	struct i2c_adapter *adap = &i2c_dev->adap;
-> +	void __iomem *base = i2c_dev->base;
-> +	struct i2c_client *client;
-> +
-> +	client = i2c_new_slave_host_notify_device(adap);
-> +	if (IS_ERR(client))
-> +		return PTR_ERR(client);
-> +
-> +	i2c_dev->host_notify_client = client;
-> +
-> +	/* Enable SMBus Host address */
-> +	stm32f7_i2c_set_bits(base + STM32F7_I2C_CR1, STM32F7_I2C_CR1_SMBHEN);
-> +
-> +	return 0;
-> +}
-> +
-> +static void stm32f7_i2c_disable_smbus_host(struct stm32f7_i2c_dev *i2c_dev)
-> +{
-> +	void __iomem *base = i2c_dev->base;
-> +
-> +	if (i2c_dev->host_notify_client) {
-> +		/* Disable SMBus Host address */
-> +		stm32f7_i2c_clr_bits(base + STM32F7_I2C_CR1,
-> +				     STM32F7_I2C_CR1_SMBHEN);
-> +		i2c_free_slave_host_notify_device(i2c_dev->host_notify_client);
-> +	}
-> +}
-> +
->  static u32 stm32f7_i2c_func(struct i2c_adapter *adap)
->  {
-> -	return I2C_FUNC_I2C | I2C_FUNC_10BIT_ADDR | I2C_FUNC_SLAVE |
-> -		I2C_FUNC_SMBUS_QUICK | I2C_FUNC_SMBUS_BYTE |
-> -		I2C_FUNC_SMBUS_BYTE_DATA | I2C_FUNC_SMBUS_WORD_DATA |
-> -		I2C_FUNC_SMBUS_BLOCK_DATA | I2C_FUNC_SMBUS_BLOCK_PROC_CALL |
-> -		I2C_FUNC_SMBUS_PROC_CALL | I2C_FUNC_SMBUS_PEC |
-> -		I2C_FUNC_SMBUS_I2C_BLOCK;
-> +	struct stm32f7_i2c_dev *i2c_dev = i2c_get_adapdata(adap);
-> +
-> +	u32 func = I2C_FUNC_I2C | I2C_FUNC_10BIT_ADDR | I2C_FUNC_SLAVE |
-> +		   I2C_FUNC_SMBUS_QUICK | I2C_FUNC_SMBUS_BYTE |
-> +		   I2C_FUNC_SMBUS_BYTE_DATA | I2C_FUNC_SMBUS_WORD_DATA |
-> +		   I2C_FUNC_SMBUS_BLOCK_DATA | I2C_FUNC_SMBUS_BLOCK_PROC_CALL |
-> +		   I2C_FUNC_SMBUS_PROC_CALL | I2C_FUNC_SMBUS_PEC |
-> +		   I2C_FUNC_SMBUS_I2C_BLOCK;
-> +
-> +	if (i2c_dev->smbus_mode)
-> +		func |= I2C_FUNC_SMBUS_HOST_NOTIFY;
-> +
-> +	return func;
->  }
->  
->  static const struct i2c_algorithm stm32f7_i2c_algo = {
-> @@ -2084,10 +2147,22 @@ static int stm32f7_i2c_probe(struct platform_device *pdev)
->  
->  	stm32f7_i2c_hw_config(i2c_dev);
->  
-> +	i2c_dev->smbus_mode = of_property_read_bool(pdev->dev.of_node, "smbus");
-> +
->  	ret = i2c_add_adapter(adap);
->  	if (ret)
->  		goto pm_disable;
->  
-> +	if (i2c_dev->smbus_mode) {
-> +		ret = stm32f7_i2c_enable_smbus_host(i2c_dev);
-> +		if (ret) {
-> +			dev_err(i2c_dev->dev,
-> +				"failed to enable SMBus Host-Notify protocol (%d)\n",
-> +				ret);
-> +			goto i2c_adapter_remove;
-> +		}
-> +	}
-> +
->  	dev_info(i2c_dev->dev, "STM32F7 I2C-%d bus adapter\n", adap->nr);
->  
->  	pm_runtime_mark_last_busy(i2c_dev->dev);
-> @@ -2095,6 +2170,9 @@ static int stm32f7_i2c_probe(struct platform_device *pdev)
->  
->  	return 0;
->  
-> +i2c_adapter_remove:
-> +	i2c_del_adapter(adap);
-> +
->  pm_disable:
->  	pm_runtime_put_noidle(i2c_dev->dev);
->  	pm_runtime_disable(i2c_dev->dev);
-> @@ -2126,6 +2204,8 @@ static int stm32f7_i2c_remove(struct platform_device *pdev)
->  {
->  	struct stm32f7_i2c_dev *i2c_dev = platform_get_drvdata(pdev);
->  
-> +	stm32f7_i2c_disable_smbus_host(i2c_dev);
-> +
->  	i2c_del_adapter(&i2c_dev->adap);
->  	pm_runtime_get_sync(i2c_dev->dev);
->  
-> 
+Changes since v1:
+1. Few new patches,
+2. Addressed review around clk and watchdog changes (see change logs in
+   individual patches).
+
+
+[1] v2 of Arnd's work for making S3C24xx multiplatform:
+https://github.com/krzk/linux/tree/for-next/s3c-multiplatform-cleanup-w1-warnings-v2
+
+Best regards,
+Krzysztof
+
+
+Krzysztof Kozlowski (13):
+  clk: samsung: s3c64xx: declare s3c64xx_clk_init() in shared header
+  clk: samsung: s3c24xx: declare s3c24xx_common_clk_init() in shared
+    header
+  ARM: s3c64xx: include header to fix -Wmissing-prototypes
+  ARM: s3c: remove plat-samsung/.../samsung-time.h
+  ARM: samsung: fix language typo
+  ARM: samsung: remove HAVE_S3C2410_WATCHDOG and use direct dependencies
+  ARM: s3c64xx: switch to generic watchdog driver reset
+  ARM: s3c24xx: fix missing system reset
+  ARM: s3c24xx: include common.h header in s3c2443.c
+  ARM: s3c24xx: sdhci: include plat/sdhci.h header
+  ARM: s3c24xx: ts: include platform data header
+  ARM: s3c24xx: ts: document function argument
+  ARM: s3c24xx: camif: include header with prototypes and unify
+    declaration
+
+ MAINTAINERS                                   |  1 +
+ arch/arm/Kconfig                              |  3 +-
+ arch/arm/mach-exynos/Kconfig                  |  1 -
+ arch/arm/mach-s3c24xx/common.c                |  1 +
+ arch/arm/mach-s3c24xx/common.h                | 25 +++--
+ arch/arm/mach-s3c24xx/mach-amlm5900.c         |  2 -
+ arch/arm/mach-s3c24xx/mach-anubis.c           |  1 -
+ arch/arm/mach-s3c24xx/mach-at2440evb.c        |  1 -
+ arch/arm/mach-s3c24xx/mach-bast.c             |  1 -
+ arch/arm/mach-s3c24xx/mach-gta02.c            |  1 -
+ arch/arm/mach-s3c24xx/mach-h1940.c            |  1 -
+ arch/arm/mach-s3c24xx/mach-jive.c             |  1 -
+ arch/arm/mach-s3c24xx/mach-mini2440.c         |  1 -
+ arch/arm/mach-s3c24xx/mach-n30.c              |  1 -
+ arch/arm/mach-s3c24xx/mach-nexcoder.c         |  1 -
+ arch/arm/mach-s3c24xx/mach-osiris.c           |  1 -
+ arch/arm/mach-s3c24xx/mach-otom.c             |  1 -
+ arch/arm/mach-s3c24xx/mach-qt2410.c           |  1 -
+ arch/arm/mach-s3c24xx/mach-rx1950.c           |  1 -
+ arch/arm/mach-s3c24xx/mach-rx3715.c           |  1 -
+ arch/arm/mach-s3c24xx/mach-smdk2410.c         |  1 -
+ arch/arm/mach-s3c24xx/mach-smdk2413.c         |  1 -
+ arch/arm/mach-s3c24xx/mach-smdk2416.c         |  1 -
+ arch/arm/mach-s3c24xx/mach-smdk2440.c         |  1 -
+ arch/arm/mach-s3c24xx/mach-smdk2443.c         |  1 -
+ arch/arm/mach-s3c24xx/mach-tct_hammer.c       |  1 -
+ arch/arm/mach-s3c24xx/mach-vr1000.c           |  1 -
+ arch/arm/mach-s3c24xx/mach-vstms.c            |  1 -
+ arch/arm/mach-s3c24xx/s3c2443.c               |  1 +
+ arch/arm/mach-s3c24xx/setup-camif.c           |  5 +-
+ arch/arm/mach-s3c24xx/setup-sdhci-gpio.c      |  1 +
+ arch/arm/mach-s3c24xx/setup-ts.c              |  3 +
+ arch/arm/mach-s3c64xx/Kconfig                 |  5 +-
+ arch/arm/mach-s3c64xx/common.c                | 17 +---
+ arch/arm/mach-s3c64xx/common.h                | 17 +++-
+ arch/arm/mach-s3c64xx/mach-anw6410.c          |  2 -
+ arch/arm/mach-s3c64xx/mach-crag6410.c         |  2 -
+ arch/arm/mach-s3c64xx/mach-hmt.c              |  2 -
+ arch/arm/mach-s3c64xx/mach-mini6410.c         |  2 -
+ arch/arm/mach-s3c64xx/mach-ncp.c              |  2 -
+ arch/arm/mach-s3c64xx/mach-real6410.c         |  2 -
+ arch/arm/mach-s3c64xx/mach-s3c64xx-dt.c       | 17 ----
+ arch/arm/mach-s3c64xx/mach-smartq.c           |  1 -
+ arch/arm/mach-s3c64xx/mach-smartq5.c          |  2 -
+ arch/arm/mach-s3c64xx/mach-smartq7.c          |  2 -
+ arch/arm/mach-s3c64xx/mach-smdk6400.c         |  2 -
+ arch/arm/mach-s3c64xx/mach-smdk6410.c         |  2 -
+ arch/arm/mach-s3c64xx/setup-spi.c             |  1 +
+ arch/arm/mach-s3c64xx/watchdog-reset.h        | 16 ----
+ arch/arm/mach-s5pv210/Kconfig                 |  1 -
+ arch/arm/plat-samsung/Kconfig                 | 10 +-
+ arch/arm/plat-samsung/Makefile                |  1 -
+ .../plat-samsung/include/plat/samsung-time.h  | 26 ------
+ arch/arm/plat-samsung/watchdog-reset.c        | 93 -------------------
+ arch/arm64/Kconfig.platforms                  |  1 -
+ drivers/clk/samsung/clk-s3c2410.c             |  1 +
+ drivers/clk/samsung/clk-s3c2412.c             |  1 +
+ drivers/clk/samsung/clk-s3c2443.c             |  1 +
+ drivers/clk/samsung/clk-s3c64xx.c             |  1 +
+ drivers/watchdog/Kconfig                      | 10 +-
+ include/linux/clk/samsung.h                   | 56 +++++++++++
+ 61 files changed, 105 insertions(+), 256 deletions(-)
+ delete mode 100644 arch/arm/mach-s3c64xx/watchdog-reset.h
+ delete mode 100644 arch/arm/plat-samsung/include/plat/samsung-time.h
+ delete mode 100644 arch/arm/plat-samsung/watchdog-reset.c
+ create mode 100644 include/linux/clk/samsung.h
+
+-- 
+2.17.1
+
 _______________________________________________
 Linux-stm32 mailing list
 Linux-stm32@st-md-mailman.stormreply.com
