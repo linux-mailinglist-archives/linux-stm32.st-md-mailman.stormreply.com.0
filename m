@@ -2,67 +2,66 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id ADE7623ADD9
-	for <lists+linux-stm32@lfdr.de>; Mon,  3 Aug 2020 22:00:59 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 1593723BB9E
+	for <lists+linux-stm32@lfdr.de>; Tue,  4 Aug 2020 16:04:09 +0200 (CEST)
 Received: from ip-172-31-3-76.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id C7B1CC36B3A;
-	Mon,  3 Aug 2020 20:00:57 +0000 (UTC)
-Received: from vern.gendns.com (vern.gendns.com [98.142.107.122])
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id AC406C36B3A;
+	Tue,  4 Aug 2020 14:04:08 +0000 (UTC)
+Received: from mx07-00178001.pphosted.com (mx07-00178001.pphosted.com
+ [185.132.182.106])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 2BB28C36B32
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 3E0AFC36B32
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Mon,  3 Aug 2020 20:00:56 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
- d=lechnology.com; s=default; h=Content-Transfer-Encoding:Content-Type:
- In-Reply-To:MIME-Version:Date:Message-ID:From:References:Cc:To:Subject:Sender
- :Reply-To:Content-ID:Content-Description:Resent-Date:Resent-From:
- Resent-Sender:Resent-To:Resent-Cc:Resent-Message-ID:List-Id:List-Help:
- List-Unsubscribe:List-Subscribe:List-Post:List-Owner:List-Archive;
- bh=UJzRmylWfjrnipPQYAhPIalbv2nKs4dkhNDQ4EPqfk8=; b=VIt3eudOyQGyXMxI2srAD0acVT
- nmex0VeQiBTzTbF/yLrQcFPWxmykkhOuoJcpQ8vsEvzWr6D86/s8QxweKjWzwo6XttlQy4aFn7PR7
- nEb5y0Si9iv8CNWwFw0NHARLykuAVnROy2oWHTByLnig6NFmPzNAORY8oWLKCuxALo4A6vzfp86r3
- qR/phht0nbWw4PqkcdEh6g6q7WQETNjhzTr3eSMfaw39FSuFlMRODZHCiw90Iu4jEbL8apMWCxTGm
- b0BqzwrHlkGJPFntwZdLTF5bDx7gWKVvwF3rWKe321EnWTGLheru0TTMcwlHz94MBOHxEME+GU4Eo
- tWSsQNPQ==;
-Received: from [2600:1700:4830:165f::19e] (port=34650)
- by vern.gendns.com with esmtpsa (TLS1.2) tls
- TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256 (Exim 4.93)
- (envelope-from <david@lechnology.com>)
- id 1k2gde-00018T-Nf; Mon, 03 Aug 2020 16:00:50 -0400
-To: William Breathitt Gray <vilhelm.gray@gmail.com>
-References: <cover.1595358237.git.vilhelm.gray@gmail.com>
- <e13d43849f68af8227c6aaa0ef672b459d47e9ab.1595358237.git.vilhelm.gray@gmail.com>
- <7209ac3d-d1ca-1b4c-b22c-8d98b13742e2@lechnology.com>
- <20200802210415.GA606173@shinobu>
-From: David Lechner <david@lechnology.com>
-Message-ID: <4061c9e4-775e-b7a6-14fa-446de4fae537@lechnology.com>
-Date: Mon, 3 Aug 2020 15:00:49 -0500
+ Tue,  4 Aug 2020 14:04:06 +0000 (UTC)
+Received: from pps.filterd (m0046037.ppops.net [127.0.0.1])
+ by mx07-00178001.pphosted.com (8.16.0.42/8.16.0.42) with SMTP id
+ 074E2fQ5012620; Tue, 4 Aug 2020 16:03:58 +0200
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=st.com;
+ h=subject : to : cc :
+ references : from : message-id : date : mime-version : in-reply-to :
+ content-type : content-transfer-encoding; s=STMicroelectronics;
+ bh=g1q2H5ysWZ/cXh6WfPm4E7PqZip4LMdzOc7r6xjdZSM=;
+ b=Qm5g9VHzkCDj/E2I+yHWyl7ZJHtljlBmJ+uwrcJ04ePIKtmyxRjcHCwPFfenGhsaNmzF
+ Pq4k4Skii6cXgwgJsdD+6dtFmBfLOvHjDF23zn+WzwWRTLqmkGtHNxsDkhEhs1tJuZJ5
+ WQPELmgy/oDgOpMo79wsuXLkMQxg1AKLCEaK0XnXzhDGrc/oTyirqF4eJkEBpMrFk2hA
+ +D+85nli4GJjqpyyug/w2LNPumQEP5BKwvytyK0aFfAbqx13E5MuOYG3vCQWGGanpGjX
+ mkHtIw8UlYkmbZ+B7H7skP6CldWT3+9M2GuVBGpdneph9KVnDEnQVzWxIplLm0tAudia wg== 
+Received: from beta.dmz-eu.st.com (beta.dmz-eu.st.com [164.129.1.35])
+ by mx07-00178001.pphosted.com with ESMTP id 32n6sb3dju-1
+ (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
+ Tue, 04 Aug 2020 16:03:58 +0200
+Received: from euls16034.sgp.st.com (euls16034.sgp.st.com [10.75.44.20])
+ by beta.dmz-eu.st.com (STMicroelectronics) with ESMTP id 54FBC100034;
+ Tue,  4 Aug 2020 16:03:56 +0200 (CEST)
+Received: from Webmail-eu.st.com (sfhdag5node2.st.com [10.75.127.14])
+ by euls16034.sgp.st.com (STMicroelectronics) with ESMTP id 1FA6F2BC7A0;
+ Tue,  4 Aug 2020 16:03:56 +0200 (CEST)
+Received: from lmecxl1060.lme.st.com (10.75.127.44) by SFHDAG5NODE2.st.com
+ (10.75.127.14) with Microsoft SMTP Server (TLS) id 15.0.1473.3; Tue, 4 Aug
+ 2020 16:03:55 +0200
+To: Alain Volmat <alain.volmat@st.com>, <wsa@kernel.org>
+References: <1596431876-24115-1-git-send-email-alain.volmat@st.com>
+ <1596431876-24115-2-git-send-email-alain.volmat@st.com>
+From: Pierre Yves MORDRET <pierre-yves.mordret@st.com>
+Message-ID: <46f8ab6e-e53d-dadc-1031-425757fb9a4f@st.com>
+Date: Tue, 4 Aug 2020 16:03:38 +0200
 User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:68.0) Gecko/20100101
  Thunderbird/68.10.0
 MIME-Version: 1.0
-In-Reply-To: <20200802210415.GA606173@shinobu>
+In-Reply-To: <1596431876-24115-2-git-send-email-alain.volmat@st.com>
 Content-Language: en-US
-X-AntiAbuse: This header was added to track abuse,
- please include it with any abuse report
-X-AntiAbuse: Primary Hostname - vern.gendns.com
-X-AntiAbuse: Original Domain - st-md-mailman.stormreply.com
-X-AntiAbuse: Originator/Caller UID/GID - [47 12] / [47 12]
-X-AntiAbuse: Sender Address Domain - lechnology.com
-X-Get-Message-Sender-Via: vern.gendns.com: authenticated_id:
- davidmain+lechnology.com/only user confirmed/virtual account not confirmed
-X-Authenticated-Sender: vern.gendns.com: davidmain@lechnology.com
-X-Source: 
-X-Source-Args: 
-X-Source-Dir: 
-Cc: kamel.bouhara@bootlin.com, gwendal@chromium.org, linux-iio@vger.kernel.org,
- patrick.havelange@essensium.com, alexandre.belloni@bootlin.com,
- linux-kernel@vger.kernel.org, David.Laight@ACULAB.COM,
- linux-arm-kernel@lists.infradead.org, mcoquelin.stm32@gmail.com,
- fabrice.gasnier@st.com, syednwaris@gmail.com,
- linux-stm32@st-md-mailman.stormreply.com, jic23@kernel.org
-Subject: Re: [Linux-stm32] [PATCH v4 1/5] counter: Internalize sysfs
-	interface code
+X-Originating-IP: [10.75.127.44]
+X-ClientProxiedBy: SFHDAG1NODE1.st.com (10.75.127.1) To SFHDAG5NODE2.st.com
+ (10.75.127.14)
+X-Proofpoint-Virus-Version: vendor=fsecure engine=2.50.10434:6.0.235, 18.0.687
+ definitions=2020-08-04_04:2020-08-03,
+ 2020-08-04 signatures=0
+Cc: linux-kernel@vger.kernel.org, linux-i2c@vger.kernel.org,
+ fabrice.gasnier@st.com, linux-stm32@st-md-mailman.stormreply.com,
+ linux-arm-kernel@lists.infradead.org
+Subject: Re: [Linux-stm32] [PATCH v3 1/2] i2c: smbus: add core function
+ handling SMBus host-notify
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -74,225 +73,187 @@ List-Post: <mailto:linux-stm32@st-md-mailman.stormreply.com>
 List-Help: <mailto:linux-stm32-request@st-md-mailman.stormreply.com?subject=help>
 List-Subscribe: <https://st-md-mailman.stormreply.com/mailman/listinfo/linux-stm32>, 
  <mailto:linux-stm32-request@st-md-mailman.stormreply.com?subject=subscribe>
+Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
-Content-Type: text/plain; charset="us-ascii"; Format="flowed"
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
-On 8/2/20 4:04 PM, William Breathitt Gray wrote:
-> On Tue, Jul 28, 2020 at 05:45:53PM -0500, David Lechner wrote:
->> On 7/21/20 2:35 PM, William Breathitt Gray wrote:
->>> This is a reimplementation of the Generic Counter driver interface.
+Hi Alain
 
-...
+Look good for me
 
->>> -F:	include/linux/counter_enum.h
->>> +F:	include/uapi/linux/counter.h
->>
->> Seems odd to be introducing a uapi header here since this patch doesn't
->> make any changes to userspace.
-> 
-> These defines are needed by userspace for the character device
-> interface, but I see your point that at this point in the patchset they
-> don't need to be exposed yet.
-> 
-> I could create temporary include/linux/counter_types.h to house these
-> defines, and then later move them to include/uapi/linux/counter.h in the
-> character device interface introduction patch. Do you think I should do
-> so?
+Reviewed-by: Pierre-Yves MORDRET <pierre-yves.mordret@st.com>
 
-Since this patch is independent of the chardev changes and probably ready
-to merge after one more round of review, I would say it probably makes
-sense to just leave them in counter.h for now and move them to uapi when
-the chardev interface is finalized. This way, we can just merge this patch
-as soon as it is ready.
+Best Regards
 
+On 8/3/20 7:17 AM, Alain Volmat wrote:
+> SMBus Host-Notify protocol, from the adapter point of view
+> consist of receiving a message from a client, including the
+> client address and some other data.
 > 
->>>    
->>>    CPMAC ETHERNET DRIVER
->>>    M:	Florian Fainelli <f.fainelli@gmail.com>
->>> diff --git a/drivers/counter/104-quad-8.c b/drivers/counter/104-quad-8.c
->>> index 78766b6ec271..0f20920073d6 100644
->>> --- a/drivers/counter/104-quad-8.c
->>> +++ b/drivers/counter/104-quad-8.c
->>> @@ -621,7 +621,7 @@ static const struct iio_chan_spec quad8_channels[] = {
->>>    };
->>>    
->>>    static int quad8_signal_read(struct counter_device *counter,
->>> -	struct counter_signal *signal, enum counter_signal_value *val)
->>> +			     struct counter_signal *signal, u8 *val)
->>
->> I'm not a fan of replacing enum types with u8 everywhere in this patch.
->> But if we have to for technical reasons (e.g. causes compiler error if
->> we don't) then it would be helpful to add comments giving the enum type
->> everywhere like this instance where u8 is actually an enum value.
->>
->> If we use u32 as the generic type for enums instead of u8, I think the
->> compiler will happlily let us use enum type and u32 interchangeably and
->> not complain.
+> It can be simply handled by creating a new slave device
+> and registering a callback performing the parsing of the
+> message received from the client.
 > 
-> I switched to fixed-width types after the suggestion by David Laight:
-> https://lkml.org/lkml/2020/5/3/159. I'll CC David Laight just in case he
-> wants to chime in again.
+> This commit introduces two new core functions
+>   * i2c_new_slave_host_notify_device
+>   * i2c_free_slave_host_notify_device
+> that take care of registration of the new slave device and
+> callback and will call i2c_handle_smbus_host_notify once a
+> Host-Notify event is received.
 > 
-> Enum types would be nice for making the valid values explicit, but there
-> is one benefit I have appreciated from the move to fixed-width types:
-> there has been a significant reduction of duplicate code; before, we had
-> a different read function for each different enum type, but now we use a
-> single function to handle them all.
-
-Yes, what I was trying to explain is that by using u32 instead of u8, I
-think we can actually do both.
-
-The function pointers in struct counter_device *counter would use u32 as a
-generic enum value in the declaration, but then the actual implementations
-could still use the proper enum type.
-
+> Signed-off-by: Alain Volmat <alain.volmat@st.com>
+> ---
+>  v3: move smbus host-notify slave code into i2c-smbus.c file
+>      rework slave callback index handling
+>      add sanity check in slave free function
+>  v2: identical to v1
+>  drivers/i2c/i2c-smbus.c   | 107 ++++++++++++++++++++++++++++++++++++++++++++++
+>  include/linux/i2c-smbus.h |  12 ++++++
+>  2 files changed, 119 insertions(+)
 > 
->>> +		device_del(&counter->dev);
->>> +		counter_sysfs_free(counter);
->>
->> Should sysfs be freed before deleting device? I think sysfs might be
->> using dev still.
+> diff --git a/drivers/i2c/i2c-smbus.c b/drivers/i2c/i2c-smbus.c
+> index dc0108287ccf..d3d06e3b4f3b 100644
+> --- a/drivers/i2c/i2c-smbus.c
+> +++ b/drivers/i2c/i2c-smbus.c
+> @@ -197,6 +197,113 @@ EXPORT_SYMBOL_GPL(i2c_handle_smbus_alert);
+>  
+>  module_i2c_driver(smbalert_driver);
+>  
+> +#if IS_ENABLED(CONFIG_I2C_SLAVE)
+> +#define SMBUS_HOST_NOTIFY_LEN	3
+> +struct i2c_slave_host_notify_status {
+> +	u8 index;
+> +	u8 addr;
+> +};
+> +
+> +static int i2c_slave_host_notify_cb(struct i2c_client *client,
+> +				    enum i2c_slave_event event, u8 *val)
+> +{
+> +	struct i2c_slave_host_notify_status *status = client->dev.platform_data;
+> +
+> +	switch (event) {
+> +	case I2C_SLAVE_WRITE_RECEIVED:
+> +		/* We only retrieve the first byte received (addr)
+> +		 * since there is currently no support to retrieve the data
+> +		 * parameter from the client.
+> +		 */
+> +		if (status->index == 0)
+> +			status->addr = *val;
+> +		if (status->index < U8_MAX)
+> +			status->index++;
+> +		break;
+> +	case I2C_SLAVE_STOP:
+> +		if (status->index == SMBUS_HOST_NOTIFY_LEN)
+> +			i2c_handle_smbus_host_notify(client->adapter,
+> +						     status->addr);
+> +		fallthrough;
+> +	case I2C_SLAVE_WRITE_REQUESTED:
+> +		status->index = 0;
+> +		break;
+> +	case I2C_SLAVE_READ_REQUESTED:
+> +	case I2C_SLAVE_READ_PROCESSED:
+> +		*val = 0xff;
+> +		break;
+> +	}
+> +
+> +	return 0;
+> +}
+> +
+> +/**
+> + * i2c_new_slave_host_notify_device - get a client for SMBus host-notify support
+> + * @adapter: the target adapter
+> + * Context: can sleep
+> + *
+> + * Setup handling of the SMBus host-notify protocol on a given I2C bus segment.
+> + *
+> + * Handling is done by creating a device and its callback and handling data
+> + * received via the SMBus host-notify address (0x8)
+> + *
+> + * This returns the client, which should be ultimately freed using
+> + * i2c_free_slave_host_notify_device(); or an ERRPTR to indicate an error.
+> + */
+> +struct i2c_client *i2c_new_slave_host_notify_device(struct i2c_adapter *adapter)
+> +{
+> +	struct i2c_board_info host_notify_board_info = {
+> +		I2C_BOARD_INFO("smbus_host_notify", 0x08),
+> +		.flags  = I2C_CLIENT_SLAVE,
+> +	};
+> +	struct i2c_slave_host_notify_status *status;
+> +	struct i2c_client *client;
+> +	int ret;
+> +
+> +	status = kzalloc(sizeof(struct i2c_slave_host_notify_status),
+> +			 GFP_KERNEL);
+> +	if (!status)
+> +		return ERR_PTR(-ENOMEM);
+> +
+> +	host_notify_board_info.platform_data = status;
+> +
+> +	client = i2c_new_client_device(adapter, &host_notify_board_info);
+> +	if (IS_ERR(client)) {
+> +		kfree(status);
+> +		return client;
+> +	}
+> +
+> +	ret = i2c_slave_register(client, i2c_slave_host_notify_cb);
+> +	if (ret) {
+> +		i2c_unregister_device(client);
+> +		kfree(status);
+> +		return ERR_PTR(ret);
+> +	}
+> +
+> +	return client;
+> +}
+> +EXPORT_SYMBOL_GPL(i2c_new_slave_host_notify_device);
+> +
+> +/**
+> + * i2c_free_slave_host_notify_device - free the client for SMBus host-notify
+> + * support
+> + * @client: the client to free
+> + * Context: can sleep
+> + *
+> + * Free the i2c_client allocated via i2c_new_slave_host_notify_device
+> + */
+> +void i2c_free_slave_host_notify_device(struct i2c_client *client)
+> +{
+> +	if (IS_ERR_OR_NULL(client))
+> +		return;
+> +
+> +	i2c_slave_unregister(client);
+> +	kfree(client->dev.platform_data);
+> +	i2c_unregister_device(client);
+> +}
+> +EXPORT_SYMBOL_GPL(i2c_free_slave_host_notify_device);
+> +#endif
+> +
+>  /*
+>   * SPD is not part of SMBus but we include it here for convenience as the
+>   * target systems are the same.
+> diff --git a/include/linux/i2c-smbus.h b/include/linux/i2c-smbus.h
+> index 1e4e0de4ef8b..1ef421818d3a 100644
+> --- a/include/linux/i2c-smbus.h
+> +++ b/include/linux/i2c-smbus.h
+> @@ -38,6 +38,18 @@ static inline int of_i2c_setup_smbus_alert(struct i2c_adapter *adap)
+>  	return 0;
+>  }
+>  #endif
+> +#if IS_ENABLED(CONFIG_I2C_SMBUS) && IS_ENABLED(CONFIG_I2C_SLAVE)
+> +struct i2c_client *i2c_new_slave_host_notify_device(struct i2c_adapter *adapter);
+> +void i2c_free_slave_host_notify_device(struct i2c_client *client);
+> +#else
+> +static inline struct i2c_client *i2c_new_slave_host_notify_device(struct i2c_adapter *adapter)
+> +{
+> +	return ERR_PTR(-ENOSYS);
+> +}
+> +static inline void i2c_free_slave_host_notify_device(struct i2c_client *client)
+> +{
+> +}
+> +#endif
+>  
+>  #if IS_ENABLED(CONFIG_I2C_SMBUS) && IS_ENABLED(CONFIG_DMI)
+>  void i2c_register_spd(struct i2c_adapter *adap);
 > 
-> I think it's the other way around isn't it? The Counter sysfs memory
-> should stay alive for the lifetime of the device. Once the device is
-> deleted, there's nothing left to access those struct attributes, so that
-> memory can now be freed. Correct me if my reasoning is wrong here.
-
-I think you are right. I was thinking that device_del() would free
-memory, but it doesn't. It also looks like other drivers call
-device_put() after this, so maybe needed here too?
-
->>> +static ssize_t counter_data_u8_show(struct device *dev,
->>> +				    struct device_attribute *attr, char *buf)
->>> +{
->>> +	const struct counter_attribute *const a = to_counter_attribute(attr);
->>> +	struct counter_device *const counter = dev_get_drvdata(dev);
->>> +	const struct counter_available *const avail = a->data.priv;
->>> +	int err;
->>> +	u8 data;
->>> +
->>> +	switch (a->type) {
->>
->> I don't understand the use of the word "owner" here. What is being "owned"?
->>
->> Perhaps "component" would be a better choice?
-> 
-> I wasn't too set on calling this "owner" either, but I'm not sure if
-> "component" would make sense either because I wouldn't label a device
-> attribute as belonging to any particular component (in fact it's quite
-> the opposite).
-> 
-> Perhaps the word "scope" would be better. What do you think? Or would
-> that be too vague as well.
-
-"scope" makes sense to me.
-
->>> -/**
->>> - * struct counter_signal_ext - Counter Signal extensions
->>> - * @name:	attribute name
->>> - * @read:	read callback for this attribute; may be NULL
->>> - * @write:	write callback for this attribute; may be NULL
->>> - * @priv:	data private to the driver
->>> - */
->>> -struct counter_signal_ext {
->>> +enum counter_data_type {
->>> +	COUNTER_DATA_TYPE_U8,
->>> +	COUNTER_DATA_TYPE_U64,
->>> +	COUNTER_DATA_TYPE_BOOL,
->>> +	COUNTER_DATA_TYPE_SIGNAL,
->>
->> Does this mean signal name?
-> 
-> This represents the signal values "high" or "low". With the introduction
-> of this patchset, these values are no longer strings internally so I
-> gave them their own data type here.
-
-Ah, OK. So maybe COUNTER_DATA_TYPE_SIGNAL_LEVEL would be a better name.
-
-> 
->>> +	COUNTER_DATA_TYPE_COUNT_FUNCTION,
->>> +	COUNTER_DATA_TYPE_SYNAPSE_ACTION,
->>> +	COUNTER_DATA_TYPE_ENUM,
->>
->> Why do some enums get their own type while others use a common
->> generic ENUM type?
-> 
-> COUNTER_DATA_TYPE_ENUM is intended for driver-specific Counter enums.
-> This allows driver authors to define their own Counter enums so that we
-> don't pollute the Generic Counter interface with enums that are unique
-> to individual drivers.
-> 
->>> +	COUNTER_DATA_TYPE_COUNT_DIRECTION,
->>> +	COUNTER_DATA_TYPE_COUNT_MODE,
->>
->> Would be nice to group all COUNTER_DATA_TYPE_COUNT_* together
-> 
-> I assume you're referring to COUNTER_DATA_TYPE_COUNT_FUNCTION being
-> separate from these two. That's because a "count function" is actually
-> part of the Generic Counter paradigm: it's the trigger operation for the
-> Synapse.
-> 
-> In retrospect, I should have named it "trigger operation" or something
-> similar when I developed the paradigm originally, but hindsight is
-> 20/20 (I'd probably rename "Synapse" to something else too if I could).
-> It's unfortunately too late to rename this because we've exposed it to
-> userspace already as a named sysfs attribute.
-> 
-> Perhaps I can rename this enum constant however to
-> COUNTER_DATA_TYPE_FUNCTION, or similar, to differentiate it from the
-> Count extensions.
-> 
-
-Yes, I think COUNTER_DATA_TYPE_FUNCTION would be sufficient and avoid
-confusion.
-
->>>    /**
->>>     * struct counter_device - Counter data structure
->>> - * @name:		name of the device as it appears in the datasheet
->>> + * @name:		name of the device
->>>     * @parent:		optional parent device providing the counters
->>> - * @device_state:	internal device state container
->>> - * @ops:		callbacks from driver
->>> + * @signal_read:	optional read callback for Signals. The read value of
->>> + *			the respective Signal should be passed back via the
->>> + *			value parameter.
->>> + * @count_read:		optional read callback for Counts. The read value of the
->>> + *			respective Count should be passed back via the value
->>> + *			parameter.
->>> + * @count_write:	optional write callback for Counts. The write value for
->>> + *			the respective Count is passed in via the value
->>> + *			parameter.
->>> + * @function_read:	optional read callback the Count function modes. The
->>> + *			read function mode of the respective Count should be
->>> + *			passed back via the function parameter.
->>> + * @function_write:	option write callback for Count function modes. The
->>> + *			function mode to write for the respective Count is
->>> + *			passed in via the function parameter.
->>> + * @action_read:	optional read callback the Synapse action modes. The
->>> + *			read action mode of the respective Synapse should be
->>> + *			passed back via the action parameter.
->>> + * @action_write:	option write callback for Synapse action modes. The
->>> + *			action mode to write for the respective Synapse is
->>> + *			passed in via the action parameter.
->>>     * @signals:		array of Signals
->>
->> Why not keep the ops struct?
-> 
-> Defining static ops structures in the drivers seemed to have no
-> advantage when those callbacks are always used via the counter_device
-> structure. I decided it'd be simpler to just set them directly in the
-> counter_device structure then.
-> 
-> I could reorganize them into an ops structure again if there's enough
-> interest.
-
-I've been working on really constrained systems lately where every byte
-counts, so this stuck out to me since there would be a copy of all
-functions for each counter instance. But probably not that big of a deal
-in the Linux kernel. :-)
-
 _______________________________________________
 Linux-stm32 mailing list
 Linux-stm32@st-md-mailman.stormreply.com
