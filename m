@@ -2,39 +2,39 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id 6EBA623CA9F
-	for <lists+linux-stm32@lfdr.de>; Wed,  5 Aug 2020 14:37:09 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 784EF23CAA0
+	for <lists+linux-stm32@lfdr.de>; Wed,  5 Aug 2020 14:37:11 +0200 (CEST)
 Received: from ip-172-31-3-76.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 3A862C36B3E;
-	Wed,  5 Aug 2020 12:37:09 +0000 (UTC)
-Received: from mail-out.m-online.net (mail-out.m-online.net [212.18.0.10])
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 44AE3C36B3A;
+	Wed,  5 Aug 2020 12:37:11 +0000 (UTC)
+Received: from mail-out.m-online.net (mail-out.m-online.net [212.18.0.9])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 5251FC36B0C
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 860B8C36B3C
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Wed,  5 Aug 2020 12:37:06 +0000 (UTC)
+ Wed,  5 Aug 2020 12:37:08 +0000 (UTC)
 Received: from frontend01.mail.m-online.net (unknown [192.168.8.182])
- by mail-out.m-online.net (Postfix) with ESMTP id 4BMB2n6mJtz1rvyG;
- Wed,  5 Aug 2020 14:37:05 +0200 (CEST)
+ by mail-out.m-online.net (Postfix) with ESMTP id 4BMB2r1YV8z1qs3Y;
+ Wed,  5 Aug 2020 14:37:08 +0200 (CEST)
 Received: from localhost (dynscan1.mnet-online.de [192.168.6.70])
- by mail.m-online.net (Postfix) with ESMTP id 4BMB2n6Pxtz1qyXM;
- Wed,  5 Aug 2020 14:37:05 +0200 (CEST)
+ by mail.m-online.net (Postfix) with ESMTP id 4BMB2r0Jq6z1qyXM;
+ Wed,  5 Aug 2020 14:37:08 +0200 (CEST)
 X-Virus-Scanned: amavisd-new at mnet-online.de
 Received: from mail.mnet-online.de ([192.168.8.182])
  by localhost (dynscan1.mail.m-online.net [192.168.6.70]) (amavisd-new,
  port 10024)
- with ESMTP id PEywUgRb2RgZ; Wed,  5 Aug 2020 14:37:04 +0200 (CEST)
-X-Auth-Info: OJntxYlNwzxpI0Tp7ga3RG7Me3noWldyzo2843GS62s=
+ with ESMTP id iSFfgRRS2JUX; Wed,  5 Aug 2020 14:37:06 +0200 (CEST)
+X-Auth-Info: 1khXd8U0WB6pNpyiXxLBZEmmfvtUoj82N6LEdv26uVU=
 Received: from desktop.lan (ip-86-49-101-166.net.upcbroadband.cz
  [86.49.101.166])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
  by mail.mnet-online.de (Postfix) with ESMTPSA;
- Wed,  5 Aug 2020 14:37:04 +0200 (CEST)
+ Wed,  5 Aug 2020 14:37:06 +0200 (CEST)
 From: Marek Vasut <marex@denx.de>
 To: linux-arm-kernel@lists.infradead.org
-Date: Wed,  5 Aug 2020 14:36:28 +0200
-Message-Id: <20200805123629.97146-2-marex@denx.de>
+Date: Wed,  5 Aug 2020 14:36:29 +0200
+Message-Id: <20200805123629.97146-3-marex@denx.de>
 X-Mailer: git-send-email 2.27.0
 In-Reply-To: <20200805123629.97146-1-marex@denx.de>
 References: <20200805123629.97146-1-marex@denx.de>
@@ -42,8 +42,8 @@ MIME-Version: 1.0
 Cc: Marek Vasut <marex@denx.de>, Patrick Delaunay <patrick.delaunay@st.com>,
  Maxime Coquelin <mcoquelin.stm32@gmail.com>,
  linux-stm32@st-md-mailman.stormreply.com
-Subject: [Linux-stm32] [PATCH 2/3] ARM: dts: stm32: Drop QSPI CS2 pinmux on
-	DHCOM
+Subject: [Linux-stm32] [PATCH 3/3] ARM: dts: stm32: Enable RTS/CTS for DH
+	PDK2 UART8
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -60,7 +60,7 @@ Content-Transfer-Encoding: 7bit
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
-The QSPI CS2 is not used on DHCOM, remove the pinmux settings.
+The DH PDK2 has RTS/CTS lines available on UART8, describe them in DT.
 
 Signed-off-by: Marek Vasut <marex@denx.de>
 Cc: Alexandre Torgue <alexandre.torgue@st.com>
@@ -70,24 +70,23 @@ Cc: Patrick Delaunay <patrick.delaunay@st.com>
 Cc: linux-stm32@st-md-mailman.stormreply.com
 To: linux-arm-kernel@lists.infradead.org
 ---
- arch/arm/boot/dts/stm32mp15xx-dhcom-som.dtsi | 4 ++--
- 1 file changed, 2 insertions(+), 2 deletions(-)
+ arch/arm/boot/dts/stm32mp15xx-dhcom-pdk2.dtsi | 3 ++-
+ 1 file changed, 2 insertions(+), 1 deletion(-)
 
-diff --git a/arch/arm/boot/dts/stm32mp15xx-dhcom-som.dtsi b/arch/arm/boot/dts/stm32mp15xx-dhcom-som.dtsi
-index ba905196fb54..ba600b0114cf 100644
---- a/arch/arm/boot/dts/stm32mp15xx-dhcom-som.dtsi
-+++ b/arch/arm/boot/dts/stm32mp15xx-dhcom-som.dtsi
-@@ -285,8 +285,8 @@ &pwr_regulators {
+diff --git a/arch/arm/boot/dts/stm32mp15xx-dhcom-pdk2.dtsi b/arch/arm/boot/dts/stm32mp15xx-dhcom-pdk2.dtsi
+index 7c4bd615b311..9bb660a7488f 100644
+--- a/arch/arm/boot/dts/stm32mp15xx-dhcom-pdk2.dtsi
++++ b/arch/arm/boot/dts/stm32mp15xx-dhcom-pdk2.dtsi
+@@ -304,7 +304,8 @@ &usart3 {
  
- &qspi {
- 	pinctrl-names = "default", "sleep";
--	pinctrl-0 = <&qspi_clk_pins_a &qspi_bk1_pins_a &qspi_bk2_pins_a>;
--	pinctrl-1 = <&qspi_clk_sleep_pins_a &qspi_bk1_sleep_pins_a &qspi_bk2_sleep_pins_a>;
-+	pinctrl-0 = <&qspi_clk_pins_a &qspi_bk1_pins_a>;
-+	pinctrl-1 = <&qspi_clk_sleep_pins_a &qspi_bk1_sleep_pins_a>;
- 	reg = <0x58003000 0x1000>, <0x70000000 0x4000000>;
- 	#address-cells = <1>;
- 	#size-cells = <0>;
+ &uart8 {
+ 	pinctrl-names = "default";
+-	pinctrl-0 = <&uart8_pins_a>;
++	pinctrl-0 = <&uart8_pins_a &uart8_rtscts_pins_a>;
++	uart-has-rtscts;
+ 	status = "okay";
+ };
+ 
 -- 
 2.27.0
 
