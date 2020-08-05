@@ -2,44 +2,46 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id 55F9123CA22
-	for <lists+linux-stm32@lfdr.de>; Wed,  5 Aug 2020 13:03:49 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id A002323CA9E
+	for <lists+linux-stm32@lfdr.de>; Wed,  5 Aug 2020 14:37:07 +0200 (CEST)
 Received: from ip-172-31-3-76.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 201B1C36B3C;
-	Wed,  5 Aug 2020 11:03:49 +0000 (UTC)
-Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
- (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
- (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 9F5ADC36B38
- for <linux-stm32@st-md-mailman.stormreply.com>;
- Wed,  5 Aug 2020 11:03:47 +0000 (UTC)
-Received: from localhost (fw-tnat.cambridge.arm.com [217.140.96.140])
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 2FFA7C36B3A;
+	Wed,  5 Aug 2020 12:37:07 +0000 (UTC)
+Received: from mail-out.m-online.net (mail-out.m-online.net [212.18.0.9])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by mail.kernel.org (Postfix) with ESMTPSA id BAA1622CF7;
- Wed,  5 Aug 2020 11:03:45 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
- s=default; t=1596625426;
- bh=EiATByOyKVVEDEiKPvEDXfJXjBlvSpmgzgFeI6rtaeE=;
- h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
- b=1U99Db/ClRkQ6KDU37nlwCde0OcY8IsBhaUDb/7P4LktqYY+Z0aXwlIHJjaLLEg0i
- HP6UmQ81xNImqJlw9hvBneS5eOrYgM8OpOB2BwT4o1Bk6ZArKj0cqnNrzzsAZPZsn9
- CMXDKJsrOkcPyiFsNo1isIOAWdLVMRyDgwbTlfLg=
-Date: Wed, 5 Aug 2020 12:03:23 +0100
-From: Mark Brown <broonie@kernel.org>
-To: Alain Volmat <alain.volmat@st.com>
-Message-ID: <20200805110323.GJ5556@sirena.org.uk>
-References: <1596610933-32599-1-git-send-email-alain.volmat@st.com>
- <1596610933-32599-17-git-send-email-alain.volmat@st.com>
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 867A0C36B0C
+ for <linux-stm32@st-md-mailman.stormreply.com>;
+ Wed,  5 Aug 2020 12:37:03 +0000 (UTC)
+Received: from frontend01.mail.m-online.net (unknown [192.168.8.182])
+ by mail-out.m-online.net (Postfix) with ESMTP id 4BMB2k2Vmcz1qs3Y;
+ Wed,  5 Aug 2020 14:37:02 +0200 (CEST)
+Received: from localhost (dynscan1.mnet-online.de [192.168.6.70])
+ by mail.m-online.net (Postfix) with ESMTP id 4BMB2k1qm1z1qyXM;
+ Wed,  5 Aug 2020 14:37:02 +0200 (CEST)
+X-Virus-Scanned: amavisd-new at mnet-online.de
+Received: from mail.mnet-online.de ([192.168.8.182])
+ by localhost (dynscan1.mail.m-online.net [192.168.6.70]) (amavisd-new,
+ port 10024)
+ with ESMTP id HU3nkdDYMSyu; Wed,  5 Aug 2020 14:37:01 +0200 (CEST)
+X-Auth-Info: 2wvS3XsNI23AO5MdfM4whE2rATMr25e1I2tIIelDPKw=
+Received: from desktop.lan (ip-86-49-101-166.net.upcbroadband.cz
+ [86.49.101.166])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+ (No client certificate requested)
+ by mail.mnet-online.de (Postfix) with ESMTPSA;
+ Wed,  5 Aug 2020 14:37:01 +0200 (CEST)
+From: Marek Vasut <marex@denx.de>
+To: linux-arm-kernel@lists.infradead.org
+Date: Wed,  5 Aug 2020 14:36:27 +0200
+Message-Id: <20200805123629.97146-1-marex@denx.de>
+X-Mailer: git-send-email 2.27.0
 MIME-Version: 1.0
-In-Reply-To: <1596610933-32599-17-git-send-email-alain.volmat@st.com>
-X-Cookie: Fast, cheap, good: pick two.
-User-Agent: Mutt/1.10.1 (2018-07-13)
-Cc: linux-kernel@vger.kernel.org, linux-spi@vger.kernel.org,
- mcoquelin.stm32@gmail.com, fabrice.gasnier@st.com,
- linux-stm32@st-md-mailman.stormreply.com, linux-arm-kernel@lists.infradead.org
-Subject: Re: [Linux-stm32] [PATCH 16/18] spi: stm32: always perform
- registers configuration prior to transfer
+Cc: Marek Vasut <marex@denx.de>, Patrick Delaunay <patrick.delaunay@st.com>,
+ Maxime Coquelin <mcoquelin.stm32@gmail.com>,
+ linux-stm32@st-md-mailman.stormreply.com
+Subject: [Linux-stm32] [PATCH 1/3] ARM: dts: stm32: Add STM32MP1 UART8
+	RTS/CTS pinmux
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -51,54 +53,47 @@ List-Post: <mailto:linux-stm32@st-md-mailman.stormreply.com>
 List-Help: <mailto:linux-stm32-request@st-md-mailman.stormreply.com?subject=help>
 List-Subscribe: <https://st-md-mailman.stormreply.com/mailman/listinfo/linux-stm32>, 
  <mailto:linux-stm32-request@st-md-mailman.stormreply.com?subject=subscribe>
-Content-Type: multipart/mixed; boundary="===============3968244449641138634=="
+Content-Type: text/plain; charset="us-ascii"
+Content-Transfer-Encoding: 7bit
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
+Add extra RTS/CTS line pinmux for STM32MP1 UART8.
 
---===============3968244449641138634==
-Content-Type: multipart/signed; micalg=pgp-sha512;
-	protocol="application/pgp-signature"; boundary="x+WOirvrtTKur1pg"
-Content-Disposition: inline
+Signed-off-by: Marek Vasut <marex@denx.de>
+Cc: Alexandre Torgue <alexandre.torgue@st.com>
+Cc: Maxime Coquelin <mcoquelin.stm32@gmail.com>
+Cc: Patrice Chotard <patrice.chotard@st.com>
+Cc: Patrick Delaunay <patrick.delaunay@st.com>
+Cc: linux-stm32@st-md-mailman.stormreply.com
+To: linux-arm-kernel@lists.infradead.org
+---
+ arch/arm/boot/dts/stm32mp15-pinctrl.dtsi | 8 ++++++++
+ 1 file changed, 8 insertions(+)
 
-
---x+WOirvrtTKur1pg
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-
-On Wed, Aug 05, 2020 at 09:02:11AM +0200, Alain Volmat wrote:
-> SPI registers content may have been lost upon suspend/resume sequence.
-> So, always compute and apply the necessary configuration in
-> stm32_spi_transfer_one_setup routine.
-
-This also.
-
---x+WOirvrtTKur1pg
-Content-Type: application/pgp-signature; name="signature.asc"
-
------BEGIN PGP SIGNATURE-----
-
-iQEzBAABCgAdFiEEreZoqmdXGLWf4p/qJNaLcl1Uh9AFAl8qkfoACgkQJNaLcl1U
-h9BirAf9F8v+4ZpcM5/rsegzbIEMnqmQNj2m1sFs+bLGVfyscsekXzaSTqzqJkC7
-nev7KJtz7moksvzFim3TlHdPOTGmX9YOGii/DSqoYftYYbqHLfZhYkEXE5xZQfkm
-NymiZpnrHMSWOUaV8EGcpL2971rJHz+7LoOwwiJAPLofZu6fJLHXDw7ZMCZ27RIk
-6GKEVtsn+Vhh0oh5RzSVeKwmEBtaj0Qng8SA0xRC2+1dGhmPFYAbznHVWrFyJYs1
-WtIKtCh/v8wZ732BrS4qiyd/l5UdyesjRBugNMwx7ZNlqLwYHiFQhh8VxX1ot+hI
-72nCUjTwhxvzVa40nFYNpPYf/9ZbAw==
-=1GlO
------END PGP SIGNATURE-----
-
---x+WOirvrtTKur1pg--
-
---===============3968244449641138634==
-Content-Type: text/plain; charset="us-ascii"
-MIME-Version: 1.0
-Content-Transfer-Encoding: 7bit
-Content-Disposition: inline
+diff --git a/arch/arm/boot/dts/stm32mp15-pinctrl.dtsi b/arch/arm/boot/dts/stm32mp15-pinctrl.dtsi
+index b5a66429670c..ba8f52ea7674 100644
+--- a/arch/arm/boot/dts/stm32mp15-pinctrl.dtsi
++++ b/arch/arm/boot/dts/stm32mp15-pinctrl.dtsi
+@@ -1700,6 +1700,14 @@ pins2 {
+ 		};
+ 	};
+ 
++	uart8_rtscts_pins_a: uart8rtscts-0 {
++		pins {
++			pinmux = <STM32_PINMUX('G', 7, AF8)>, /* UART8_RTS */
++				 <STM32_PINMUX('G', 10, AF8)>; /* UART8_CTS */
++			bias-disable;
++		};
++	};
++
+ 	spi4_pins_a: spi4-0 {
+ 		pins {
+ 			pinmux = <STM32_PINMUX('E', 12, AF5)>, /* SPI4_SCK */
+-- 
+2.27.0
 
 _______________________________________________
 Linux-stm32 mailing list
 Linux-stm32@st-md-mailman.stormreply.com
 https://st-md-mailman.stormreply.com/mailman/listinfo/linux-stm32
-
---===============3968244449641138634==--
