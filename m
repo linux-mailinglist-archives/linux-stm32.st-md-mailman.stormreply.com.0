@@ -2,55 +2,132 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id 6109423BFF4
-	for <lists+linux-stm32@lfdr.de>; Tue,  4 Aug 2020 21:28:42 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id D3B8E23C6A4
+	for <lists+linux-stm32@lfdr.de>; Wed,  5 Aug 2020 09:11:07 +0200 (CEST)
 Received: from ip-172-31-3-76.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 288C0C36B3A;
-	Tue,  4 Aug 2020 19:28:42 +0000 (UTC)
-Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 91BFBC36B3A;
+	Wed,  5 Aug 2020 07:11:07 +0000 (UTC)
+Received: from mailout2.samsung.com (mailout2.samsung.com [203.254.224.25])
  (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id B06EBC36B32
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 4B955C36B32
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Tue,  4 Aug 2020 19:28:39 +0000 (UTC)
-Received: from localhost.localdomain (unknown [194.230.155.117])
- (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
- (No client certificate requested)
- by mail.kernel.org (Postfix) with ESMTPSA id E42F822CA0;
- Tue,  4 Aug 2020 19:28:32 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
- s=default; t=1596569318;
- bh=nHtU3jC68K1szov6StQnB9nGWj8YGb5ZSEYff2gaNZg=;
- h=From:To:Cc:Subject:Date:In-Reply-To:References:From;
- b=x3CJiubP9wgIU42gAEtOSgXFF600wkRT/BddRn49+S/ZUrq7GkjK4innamltxZyDi
- NIxLMqMT7Wl/HZflJWFHTUWhx1bWWYIxiwvK/ZkN/CUzEcO0KUGkenjp+uA4QSU5i8
- Ghjn108+3bhzjIs8Hm3l4L9nKfLDG9phid8fml0A=
-From: Krzysztof Kozlowski <krzk@kernel.org>
-To: Russell King <linux@armlinux.org.uk>, Kukjin Kim <kgene@kernel.org>,
- Krzysztof Kozlowski <krzk@kernel.org>,
- Simtec Linux Team <linux@simtec.co.uk>,
- Maxime Coquelin <mcoquelin.stm32@gmail.com>,
- Alexandre Torgue <alexandre.torgue@st.com>,
- Kyungmin Park <kyungmin.park@samsung.com>,
+ Wed,  5 Aug 2020 01:11:06 +0000 (UTC)
+Received: from epcas1p1.samsung.com (unknown [182.195.41.45])
+ by mailout2.samsung.com (KnoxPortal) with ESMTP id
+ 20200805011102epoutp025aef451207e5f3f6449322907e92176d~oOgVsSG-a1419014190epoutp02x
+ for <linux-stm32@st-md-mailman.stormreply.com>;
+ Wed,  5 Aug 2020 01:11:02 +0000 (GMT)
+DKIM-Filter: OpenDKIM Filter v2.11.0 mailout2.samsung.com
+ 20200805011102epoutp025aef451207e5f3f6449322907e92176d~oOgVsSG-a1419014190epoutp02x
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=samsung.com;
+ s=mail20170921; t=1596589862;
+ bh=KbCNbDMefhUKUbaajNsecum/XHQG4c5fyXLbqxhiJ5o=;
+ h=Subject:To:Cc:From:Date:In-Reply-To:References:From;
+ b=PkyKC3jBH4e6rISn6xyBG+EC2Ct7cix9j6XueUCQhlqe7q1dRCPpnBvZh9P/kr2tU
+ Fw1Pkzoa6uDW8AZ3pm4+P9iKYZiIiPjOuNtGosB4yhrUvwkp3FTQTKR8EkrxNs/3ee
+ 0XSQ16sydzGRtMxD0ojlyGhTOI3JZHo0PdQuTKdg=
+Received: from epsnrtp1.localdomain (unknown [182.195.42.162]) by
+ epcas1p1.samsung.com (KnoxPortal) with ESMTP id
+ 20200805011101epcas1p134440b8ec7af625f204b01561337fc4f~oOgUDj0by1284812848epcas1p1h;
+ Wed,  5 Aug 2020 01:11:01 +0000 (GMT)
+Received: from epsmges1p5.samsung.com (unknown [182.195.40.153]) by
+ epsnrtp1.localdomain (Postfix) with ESMTP id 4BLtq64hQ8zMqYm6; Wed,  5 Aug
+ 2020 01:10:58 +0000 (GMT)
+Received: from epcas1p3.samsung.com ( [182.195.41.47]) by
+ epsmges1p5.samsung.com (Symantec Messaging Gateway) with SMTP id
+ 85.87.28578.2270A2F5; Wed,  5 Aug 2020 10:10:58 +0900 (KST)
+Received: from epsmtrp2.samsung.com (unknown [182.195.40.14]) by
+ epcas1p3.samsung.com (KnoxPortal) with ESMTPA id
+ 20200805011056epcas1p3bf9fd741d56d48ac5768a6a5e90da1ff~oOgQCGJYH0168901689epcas1p3T;
+ Wed,  5 Aug 2020 01:10:56 +0000 (GMT)
+Received: from epsmgms1p2.samsung.com (unknown [182.195.42.42]) by
+ epsmtrp2.samsung.com (KnoxPortal) with ESMTP id
+ 20200805011056epsmtrp20e45b5cbcf7fadd254d3f86828ae5cd7~oOgQA7Fg90232902329epsmtrp2R;
+ Wed,  5 Aug 2020 01:10:56 +0000 (GMT)
+X-AuditID: b6c32a39-8c9ff70000006fa2-5f-5f2a0722e5a7
+Received: from epsmtip2.samsung.com ( [182.195.34.31]) by
+ epsmgms1p2.samsung.com (Symantec Messaging Gateway) with SMTP id
+ 6B.A8.08303.0270A2F5; Wed,  5 Aug 2020 10:10:56 +0900 (KST)
+Received: from [10.113.221.102] (unknown [10.113.221.102]) by
+ epsmtip2.samsung.com (KnoxPortal) with ESMTPA id
+ 20200805011056epsmtip2170aeeb40ed95d556a30fc7c39949768~oOgPrgvw20930009300epsmtip2D;
+ Wed,  5 Aug 2020 01:10:56 +0000 (GMT)
+To: Krzysztof Kozlowski <krzk@kernel.org>, Russell King
+ <linux@armlinux.org.uk>, Kukjin Kim <kgene@kernel.org>, Simtec Linux Team
+ <linux@simtec.co.uk>, Maxime Coquelin <mcoquelin.stm32@gmail.com>, Alexandre
+ Torgue <alexandre.torgue@st.com>, Kyungmin Park <kyungmin.park@samsung.com>,
  Catalin Marinas <catalin.marinas@arm.com>, Will Deacon <will@kernel.org>,
- Sylwester Nawrocki <s.nawrocki@samsung.com>,
- Tomasz Figa <tomasz.figa@gmail.com>, Chanwoo Choi <cw00.choi@samsung.com>,
- Michael Turquette <mturquette@baylibre.com>,
+ Sylwester Nawrocki <s.nawrocki@samsung.com>, Tomasz Figa
+ <tomasz.figa@gmail.com>, Michael Turquette <mturquette@baylibre.com>,
  Stephen Boyd <sboyd@kernel.org>, Wim Van Sebroeck <wim@linux-watchdog.org>,
  Guenter Roeck <linux@roeck-us.net>, Arnd Bergmann <arnd@arndb.de>,
  linux-arm-kernel@lists.infradead.org, linux-samsung-soc@vger.kernel.org,
  linux-stm32@st-md-mailman.stormreply.com, patches@opensource.cirrus.com,
  linux-clk@vger.kernel.org, linux-watchdog@vger.kernel.org
-Date: Tue,  4 Aug 2020 21:26:54 +0200
-Message-Id: <20200804192654.12783-14-krzk@kernel.org>
-X-Mailer: git-send-email 2.17.1
-In-Reply-To: <20200804192654.12783-1-krzk@kernel.org>
+From: Chanwoo Choi <cw00.choi@samsung.com>
+Organization: Samsung Electronics
+Message-ID: <0fe2b0fc-6a41-3063-a407-5568e3bf28af@samsung.com>
+Date: Wed, 5 Aug 2020 10:22:56 +0900
+User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:59.0) Gecko/20100101
+ Thunderbird/59.0
+MIME-Version: 1.0
+In-Reply-To: <20200804192654.12783-2-krzk@kernel.org>
+Content-Language: en-US
+X-Brightmail-Tracker: H4sIAAAAAAAAA01Te0xTZxTP19sXRPRSFD+7ZcM7zUaVRynFDwTiAri7aCbZ2BYaZ+3gDgjQ
+ dr2UiCMDnPISRFgYUJ4KzgjIEBgTBjSCjjHADpGXEZG0bLwqKoM6EBilmvHf75zvd87v/M6X
+ w8V4tRw+N0IeQ6nksiiCbc1s7HB0cSI4Aqlr7T8EumHoBmgl5zcOmvsxA6As/QyGdLpaDuo9
+ M8tBdfpBFnqW8YiF8nVtDJQ+aGCh4Zo2DmrPbQXIcKmHgZYbk5jo+u1RDipZuc5CfX8EoPk5
+ LQt1zKaw0OrgDSYy5fQxUf3DQjZKmZjCUGXzS4DOPhQj/dQqhsYzCtmH3iCrS6oB2T/Yh5HL
+ SzmAnBs+xyHLu4cAmVUzzyKbNKMcsq4yjU1eq65mkfUVCWRe0Rog62cmMbLJlMghLzRUAlI3
+ m8skb7UJA3mSSO9wShZKqRwoeYgiNEIe5kMc+UTqJxV7uAqdhJ7oAOEgl0VTPoT/0UCnwxFR
+ 6+shHGJlUer1VKCMpgkXX2+VQh1DOYQr6BgfglKGRik9lc60LJpWy8OcQxTRXkJXVzfxOvFk
+ ZPhY8TJHmWF9qiA1D0sEJk46sOJC3B12jv/KSgfWXB5+E8DZtX6GJXgO4KO7f7MtwTyAf02c
+ YbwuGTOuMs2YhzcDmF+mspDmALx6P2e9L5drh38JjUMJ5vx2fIANCy4XAXOA4Z0AjhZOsszV
+ bFwAtZPDbDPehu+GAy/0wIxtcF/YlDm6gZn4Hpg5cg8z4x34Z7Cr8ewrji3sKjBsTGGFi2Hz
+ 2NoGxvCd8IGhlGHBb8NfjEWYWRjii1awQpvENk8HcX9Y852rxY0dnO5seLUMPpx/0sq24G/g
+ ta7bbEttKoAN2j9ZlgcR1F75nmHug+GO8KdmF0t6N2xaLgYW3a3wyUIGyyJlA1OTeRbKO7D/
+ 8eirJe6C5Slp7IuA0Gxyo9nkQLPJgeZ/sTLArAT2lJKODqNooVK8+bfrwMbpCDxvgjzjU+d2
+ wOCCdgC5GLHd5tn8u1KeTags7jSlUkhV6iiKbgfi9f1mY/wdIYr125PHSIViN5FIhNyFHmKh
+ kNhpM/7AQcrDw2QxVCRFKSnV6zoG14qfyMiUuAsFPS3vi2aOVQfvUfUuHYi1H8m8sLCQ77t6
+ /vefj+7ty1NP9d87NxEfEFQwfuWLsLGCt9wP9lBEYNXIZGzyiQ+Pv0g/aJd2NX5tOtjVKzn7
+ sBe+slgliTPdqgz2G+V1lIQcjyBUFaZdn/qeLJdUhGwJGnp52cV2YKb0vPrfx0bdhLi0K9da
+ 8qZg5U7GfUH24r6qr/gt72XtD4iyTdPHJRlNxjunTeIx/2NLddi+LaLy9unE6NyU5/Ofc1dO
+ 5DOHezW0W9DkD18nPN27LSl08YNTHhId7XeI2ef7kf0lfbf3fklrC98wEl5cdfHuWqS/NoFW
+ bz0ii9cG5HzrOFMW+LE/waTDZUIBpqJl/wHhKKhdwwQAAA==
+X-Brightmail-Tracker: H4sIAAAAAAAAA02SbUyTVxiGd95vmjS8FA1HcdHVD7QGpDrNwSG6r+QIf2RGZ9SAdbwDMlq6
+ VqYuMVbDgrAKGwmgbUUUQmZTmUCD0ihq2ZjOTei6tXWCTFqkDGplDYOJVC3NEv5dee77ep7z
+ 43CkxEgv5gpVhwSNSlEkZURUR7d0afIyVpabese/GrX67gE0W93DomCzHqAq7xiJenuvsOjX
+ k+MsavO6aDShf0SjM71dBKpw+Wjkaelikb3mBkC+C78QaKbjBIUu/zDAovrZyzRy/PwhCgVv
+ 0qh7vIxGYVcrhaaqHRRq7zcyqGx4lERm2wuASvs3Iu9omESP9UZmWyK21FsAdrocJJ55Xg1w
+ 0PMVixvvuQGuagnRuNMwwOI2czmDL1ksNG5vOo7rTC8Bbh/zk7hzSsfiSqsZ4N7xGgrf7pLv
+ kOwVpecJRYVfCJp1GQdEBYPnZli1XnTk7Kk6Ugem2AoQw0H+bTgYCFMVQMRJ+GsATjdcJKPB
+ Iljr+PE1c685HnZ3a6OdAIAnRmxEZB7PH4QB9/HIfAH/kIF9egcdcUn+LoAjntio0A5grd9L
+ RQKGl8Gbfg8T4Vj+LfjHtBdEWMxnwM7TA3NM8Svg6Qe/zT1iIb8bdjZ5iWgnDt4965vbE8Nv
+ hLbBl1T0WBJ8UR/tk3wC/NN3nojyUng1YCK/AfGGebphnmKYpxjmKQ2AMoNFglqrzFdq5er1
+ KuFwilah1Jao8lM+KVa2gbn/I5NdA9fNz1LsgOCAHUCOlC4QT4SSciXiPMXRLwVNca6mpEjQ
+ 2kEiR0kTxJOGCzkSPl9xSPhMENSC5v+U4GIW6wiTKXDq+8drTPvLnq1dX3cjxb3PH7t1PLzy
+ mLFnuzrN9HxTFnb2Fet3ZSsFxqXfZFdtcP5DJtlqsjr+Kxn6907fyuDkFvbb9K2lmz0L74/S
+ Es9FiTXO7W5ODDm3D3LkjpOr4qq3lQ3pLEMPD5SLvk4vra38q7L/WKBl7fmnzbM1G1ot1qs9
+ 9gRT3QfOn/as+8i3N/Pc7QbzsonUW13h2eTvCu9bs62N+JLbvzzZsWLn3yVL3ojLes+vm2n8
+ 3d9mG55+9+Ni7tPQ5xl6XZPCuXySyct8ZJTkpL1ZQOQclGcPc0np3idXgu83pmb66sVn8BP5
+ OyPX95se5A2Vj+UOZ6QlV0kpbYFCLiM1WsUrNx22L64DAAA=
+X-CMS-MailID: 20200805011056epcas1p3bf9fd741d56d48ac5768a6a5e90da1ff
+X-Msg-Generator: CA
+X-Sendblock-Type: SVC_REQ_APPROVE
+CMS-TYPE: 101P
+DLP-Filter: Pass
+X-CFilter-Loop: Reflected
+X-CMS-RootMailID: 20200804192731epcas1p2612b16d6fa53bb30fdd289bfd835f3d8
 References: <20200804192654.12783-1-krzk@kernel.org>
+ <CGME20200804192731epcas1p2612b16d6fa53bb30fdd289bfd835f3d8@epcas1p2.samsung.com>
+ <20200804192654.12783-2-krzk@kernel.org>
+X-Mailman-Approved-At: Wed, 05 Aug 2020 07:11:06 +0000
 Cc: Sylwester Nawrocki <snawrocki@kernel.org>, Lihua Yao <ylhuajnu@outlook.com>,
  Cedric Roux <sed@free.fr>, Sergio Prado <sergio.prado@e-labworks.com>,
  Marek Szyprowski <m.szyprowski@samsung.com>
-Subject: [Linux-stm32] [PATCH v2 13/13] ARM: s3c24xx: camif: include header
-	with prototypes and unify declaration
+Subject: Re: [Linux-stm32] [PATCH v2 01/13] clk: samsung: s3c64xx: declare
+ s3c64xx_clk_init() in shared header
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -62,63 +139,51 @@ List-Post: <mailto:linux-stm32@st-md-mailman.stormreply.com>
 List-Help: <mailto:linux-stm32-request@st-md-mailman.stormreply.com?subject=help>
 List-Subscribe: <https://st-md-mailman.stormreply.com/mailman/listinfo/linux-stm32>, 
  <mailto:linux-stm32-request@st-md-mailman.stormreply.com?subject=subscribe>
-MIME-Version: 1.0
 Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
-The s3c_camif_gpio_put() declaration in
-include/media/drv-intf/s3c_camif.h header was different than definition.
-Fixing this allows to include that header to also fix the W=1 compile
-warnings:
+Hi Krzysztof,
 
-    arch/arm/mach-s3c24xx/setup-camif.c:28:5: warning: no previous prototype for 's3c_camif_gpio_get' [-Wmissing-prototypes]
-       28 | int s3c_camif_gpio_get(void)
-    arch/arm/mach-s3c24xx/setup-camif.c:56:6: warning: no previous prototype for 's3c_camif_gpio_put' [-Wmissing-prototypes]
-       56 | void s3c_camif_gpio_put(void)
+On 8/5/20 4:26 AM, Krzysztof Kozlowski wrote:
+> The s3c64xx_clk_init() is defined and used by the clk-s3c64xx driver and
+> also used in the mach-s3c64xx machine code.  Move the declaration to a
+> header to fix W=1 build warning:
+> 
+>     drivers/clk/samsung/clk-s3c64xx.c:391:13: warning: no previous prototype for 's3c64xx_clk_init' [-Wmissing-prototypes]
+>       391 | void __init s3c64xx_clk_init(struct device_node *np, unsigned long xtal_f,
+> 
+> Signed-off-by: Krzysztof Kozlowski <krzk@kernel.org>
+> Reviewed-by: Tomasz Figa <tomasz.figa@gmail.com>
+> 
+> ---
+> 
+> Changes since v1:
+> 1. Drop __init from header (as suggested by Stephen),
+> 2. Add necessary header and forward declaration (as suggested by
+>    Stephen),
+> 3. Add review tag.
+> ---
+>  MAINTAINERS                       |  1 +
+>  arch/arm/mach-s3c64xx/common.c    |  1 +
+>  arch/arm/mach-s3c64xx/common.h    |  2 --
+>  drivers/clk/samsung/clk-s3c64xx.c |  1 +
+>  include/linux/clk/samsung.h       | 24 ++++++++++++++++++++++++
+>  5 files changed, 27 insertions(+), 2 deletions(-)
+>  create mode 100644 include/linux/clk/samsung.h
+> 
 
-Signed-off-by: Krzysztof Kozlowski <krzk@kernel.org>
+(snip)
 
----
+Looks good to me. Thanks.
 
-Changes since v1:
-1. New patch
----
- arch/arm/mach-s3c24xx/setup-camif.c | 5 ++++-
- 1 file changed, 4 insertions(+), 1 deletion(-)
+Acked-by: Chanwoo Choi <cw00.choi@samsung.com>
 
-diff --git a/arch/arm/mach-s3c24xx/setup-camif.c b/arch/arm/mach-s3c24xx/setup-camif.c
-index 2b262fae3f61..4046afaad645 100644
---- a/arch/arm/mach-s3c24xx/setup-camif.c
-+++ b/arch/arm/mach-s3c24xx/setup-camif.c
-@@ -7,6 +7,7 @@
- #include <linux/gpio.h>
- #include <plat/gpio-cfg.h>
- #include <mach/gpio-samsung.h>
-+#include <media/drv-intf/s3c_camif.h>
- 
- /* Number of camera port pins, without FIELD */
- #define S3C_CAMIF_NUM_GPIOS	13
-@@ -53,7 +54,7 @@ int s3c_camif_gpio_get(void)
- 	return 0;
- }
- 
--void s3c_camif_gpio_put(void)
-+int s3c_camif_gpio_put(void)
- {
- 	int i, gpio_start, gpio_reset;
- 
-@@ -64,4 +65,6 @@ void s3c_camif_gpio_put(void)
- 		if (gpio != gpio_reset)
- 			gpio_free(gpio);
- 	}
-+
-+	return 0;
- }
 -- 
-2.17.1
-
+Best Regards,
+Chanwoo Choi
+Samsung Electronics
 _______________________________________________
 Linux-stm32 mailing list
 Linux-stm32@st-md-mailman.stormreply.com
