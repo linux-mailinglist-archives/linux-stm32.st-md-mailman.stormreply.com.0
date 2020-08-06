@@ -2,48 +2,65 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id 784EF23CAA0
-	for <lists+linux-stm32@lfdr.de>; Wed,  5 Aug 2020 14:37:11 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 0390B23D7C1
+	for <lists+linux-stm32@lfdr.de>; Thu,  6 Aug 2020 09:53:51 +0200 (CEST)
 Received: from ip-172-31-3-76.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 44AE3C36B3A;
-	Wed,  5 Aug 2020 12:37:11 +0000 (UTC)
-Received: from mail-out.m-online.net (mail-out.m-online.net [212.18.0.9])
- (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id AD616C36B3A;
+	Thu,  6 Aug 2020 07:53:50 +0000 (UTC)
+Received: from mx3.securetransport.de (mx3.securetransport.de [116.203.31.6])
+ (using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 860B8C36B3C
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 87A55C36B0C
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Wed,  5 Aug 2020 12:37:08 +0000 (UTC)
-Received: from frontend01.mail.m-online.net (unknown [192.168.8.182])
- by mail-out.m-online.net (Postfix) with ESMTP id 4BMB2r1YV8z1qs3Y;
- Wed,  5 Aug 2020 14:37:08 +0200 (CEST)
-Received: from localhost (dynscan1.mnet-online.de [192.168.6.70])
- by mail.m-online.net (Postfix) with ESMTP id 4BMB2r0Jq6z1qyXM;
- Wed,  5 Aug 2020 14:37:08 +0200 (CEST)
-X-Virus-Scanned: amavisd-new at mnet-online.de
-Received: from mail.mnet-online.de ([192.168.8.182])
- by localhost (dynscan1.mail.m-online.net [192.168.6.70]) (amavisd-new,
- port 10024)
- with ESMTP id iSFfgRRS2JUX; Wed,  5 Aug 2020 14:37:06 +0200 (CEST)
-X-Auth-Info: 1khXd8U0WB6pNpyiXxLBZEmmfvtUoj82N6LEdv26uVU=
-Received: from desktop.lan (ip-86-49-101-166.net.upcbroadband.cz
- [86.49.101.166])
+ Thu,  6 Aug 2020 07:09:32 +0000 (UTC)
+Received: from mail.dh-electronics.com
+ (business-24-134-97-169.pool2.vodafone-ip.de [24.134.97.169])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by mail.mnet-online.de (Postfix) with ESMTPSA;
- Wed,  5 Aug 2020 14:37:06 +0200 (CEST)
-From: Marek Vasut <marex@denx.de>
-To: linux-arm-kernel@lists.infradead.org
-Date: Wed,  5 Aug 2020 14:36:29 +0200
-Message-Id: <20200805123629.97146-3-marex@denx.de>
-X-Mailer: git-send-email 2.27.0
-In-Reply-To: <20200805123629.97146-1-marex@denx.de>
-References: <20200805123629.97146-1-marex@denx.de>
+ by mx3.securetransport.de (Postfix) with ESMTPSA id 3A4B95DC06;
+ Thu,  6 Aug 2020 09:09:08 +0200 (CEST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=dh-electronics.com;
+ s=dhelectronicscom; t=1596697749;
+ bh=Wb6zcPhCGvlCHCruU+ccem0BSMeKDqUFoWpTPWDeI8A=;
+ h=From:To:CC:Subject:Date:References:In-Reply-To:From;
+ b=RW/BTaevRO/g4FFClR6bqLTECZh6hqpEW4mPowLSkrGZl0p62K5v9KV/SO/umBiJm
+ L7dq5cJupJFHD3k5OwRURYPPJjbI4WyufE0rgSLvX8pQLgWVTaA9NtRGwRUD/YIOPt
+ dbjFNysDj/z1Zhy9XMpNWbuDc/OCC/9TCUNnQ8ji6DbtZeY8TCMijLJcbJBytFo4Bp
+ y9E+yhh2ulL65CnKvg3VZGjhskaYYrBTojF7Ox9EO8vOCI/QYRVphGc/rKP6lr2Qzm
+ OuSWdJQo+pYM4GMM9ZMYRTst1XnxH7jFFqz4Lne5bD+rI7xJV949QR0Vn74sPsn3Ng
+ pXqzN2z1/qy6Q==
+Received: from DHPWEX01.DH-ELECTRONICS.ORG (2001:470:76a7:2::30) by
+ DHPWEX01.DH-ELECTRONICS.ORG (2001:470:76a7:2::30) with Microsoft SMTP Server
+ (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.595.3; 
+ Thu, 6 Aug 2020 09:09:02 +0200
+Received: from DHPWEX01.DH-ELECTRONICS.ORG ([fe80::6ced:fa7f:9a9c:e579]) by
+ DHPWEX01.DH-ELECTRONICS.ORG ([fe80::6ced:fa7f:9a9c:e579%6]) with mapi id
+ 15.02.0595.003; Thu, 6 Aug 2020 09:09:02 +0200
+X-secureTransport-forwarded: yes
+From: Christoph Niedermaier <cniedermaier@dh-electronics.com>
+Complaints-To: abuse@cubewerk.de
+To: Marek Vasut <marex@denx.de>, "linux-arm-kernel@lists.infradead.org"
+ <linux-arm-kernel@lists.infradead.org>
+Thread-Topic: [PATCH] ARM: dts: stm32: Fill GPIO line names on AV96
+Thread-Index: AQHWYaO6J/6XL1V4zEuDGmQGjfuCx6kpjSow
+Date: Thu, 6 Aug 2020 07:09:02 +0000
+Message-ID: <ca48284998c14faf8ed17e6fa0cfac42@dh-electronics.com>
+References: <20200724101610.146403-1-marex@denx.de>
+In-Reply-To: <20200724101610.146403-1-marex@denx.de>
+Accept-Language: de-DE, en-US
+Content-Language: de-DE
+X-MS-Has-Attach: 
+X-MS-TNEF-Correlator: 
+x-originating-ip: [10.64.3.50]
 MIME-Version: 1.0
-Cc: Marek Vasut <marex@denx.de>, Patrick Delaunay <patrick.delaunay@st.com>,
- Maxime Coquelin <mcoquelin.stm32@gmail.com>,
- linux-stm32@st-md-mailman.stormreply.com
-Subject: [Linux-stm32] [PATCH 3/3] ARM: dts: stm32: Enable RTS/CTS for DH
-	PDK2 UART8
+X-Mailman-Approved-At: Thu, 06 Aug 2020 07:53:48 +0000
+Cc: "linus.walleij@linaro.org" <linus.walleij@linaro.org>,
+ Patrick Delaunay <patrick.delaunay@st.com>, Maxime
+ Coquelin <mcoquelin.stm32@gmail.com>,
+ "linux-stm32@st-md-mailman.stormreply.com"
+ <linux-stm32@st-md-mailman.stormreply.com>
+Subject: Re: [Linux-stm32] [PATCH] ARM: dts: stm32: Fill GPIO line names on
+	AV96
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -60,36 +77,32 @@ Content-Transfer-Encoding: 7bit
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
-The DH PDK2 has RTS/CTS lines available on UART8, describe them in DT.
+From: Marek Vasut <marex@denx.de>
+Sent: Friday, July 24, 2020 12:16 PM
+> 
+> Fill in the custom GPIO line names used by DH.
+>
+[...]
+> +&gpioa {
+> +       gpio-line-names = "", "", "", "",
+> +                         "", "", "", "",
+> +                         "", "", "", "DH-GPIO-K",
+> +                         "DH-GPIO-I", "", "DH-GPIO-A", "";
+> +};
+> +
+[...]
 
-Signed-off-by: Marek Vasut <marex@denx.de>
-Cc: Alexandre Torgue <alexandre.torgue@st.com>
-Cc: Maxime Coquelin <mcoquelin.stm32@gmail.com>
-Cc: Patrice Chotard <patrice.chotard@st.com>
-Cc: Patrick Delaunay <patrick.delaunay@st.com>
-Cc: linux-stm32@st-md-mailman.stormreply.com
-To: linux-arm-kernel@lists.infradead.org
----
- arch/arm/boot/dts/stm32mp15xx-dhcom-pdk2.dtsi | 3 ++-
- 1 file changed, 2 insertions(+), 1 deletion(-)
+Hello Marek,
 
-diff --git a/arch/arm/boot/dts/stm32mp15xx-dhcom-pdk2.dtsi b/arch/arm/boot/dts/stm32mp15xx-dhcom-pdk2.dtsi
-index 7c4bd615b311..9bb660a7488f 100644
---- a/arch/arm/boot/dts/stm32mp15xx-dhcom-pdk2.dtsi
-+++ b/arch/arm/boot/dts/stm32mp15xx-dhcom-pdk2.dtsi
-@@ -304,7 +304,8 @@ &usart3 {
- 
- &uart8 {
- 	pinctrl-names = "default";
--	pinctrl-0 = <&uart8_pins_a>;
-+	pinctrl-0 = <&uart8_pins_a &uart8_rtscts_pins_a>;
-+	uart-has-rtscts;
- 	status = "okay";
- };
- 
--- 
-2.27.0
+We have been using the GPIO names at DH electronics for some time and also
+on other SOMs, but have not yet streamed them. We started with the naming
+only with a capital letter "A-W" since then without problems. To avoid a
+hard cut or patching for us and our customers it would be good if we could
+use the same naming in the mainline kernel as well. Marek, we would be
+happy if you would adopt our valued GPIO naming in your patch.
 
+Regards,
+Christoph
 _______________________________________________
 Linux-stm32 mailing list
 Linux-stm32@st-md-mailman.stormreply.com
