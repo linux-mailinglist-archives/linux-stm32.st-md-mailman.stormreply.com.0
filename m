@@ -2,51 +2,54 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id 7D5BE23EE10
+	by mail.lfdr.de (Postfix) with ESMTPS id 88D4323EE11
 	for <lists+linux-stm32@lfdr.de>; Fri,  7 Aug 2020 15:23:46 +0200 (CEST)
 Received: from ip-172-31-3-76.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 3C31AC3F930;
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 4ACFAC3F933;
 	Fri,  7 Aug 2020 13:23:46 +0000 (UTC)
 Received: from mx07-00178001.pphosted.com (mx07-00178001.pphosted.com
  [185.132.182.106])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 25CA0C36B38
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 9D65EC36B3D
  for <linux-stm32@st-md-mailman.stormreply.com>;
  Fri,  7 Aug 2020 13:23:42 +0000 (UTC)
-Received: from pps.filterd (m0046037.ppops.net [127.0.0.1])
+Received: from pps.filterd (m0046668.ppops.net [127.0.0.1])
  by mx07-00178001.pphosted.com (8.16.0.42/8.16.0.42) with SMTP id
- 077DMvQ9021119; Fri, 7 Aug 2020 15:23:30 +0200
+ 077DNYS6017470; Fri, 7 Aug 2020 15:23:34 +0200
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=st.com;
  h=from : to : cc : subject
- : date : message-id : mime-version : content-type; s=STMicroelectronics;
- bh=b6BXTsl2mjCqg+/gyeLA7aW/o4J+gxG3ahn6UuubIzY=;
- b=p3E5YYlzIOFmZmLNQMzd5Nj1xWH3haLk4gwkJJkYrMlxtr/AISWQfW/fslX4+Bfh4A0G
- ZlGX0YkizMgpPd8WiLxqTxceIdJJxObjlqEIRPvSW2tEDcYuyiqO9Omyvty/1GmTgd3I
- W59hdTeEPNXqBPuf8smgKXqLoQGgwzlYKQ8IaUgYYXsDYTyx4b5zWCjS3JfJ+XVOdJUX
- RZ78a4ljDql3uMwHOD/n8CyD0qnN6i8TV6KxCaHl7G4pIt5ZfOZiaW3rRikdfYdMH0mA
- lXuYO8Ld5PxueBosoOafYO2rwk+ek08657F0wf9+gncNN/BNTH7yE1uAEDhnmiI8I1KO SA== 
+ : date : message-id : in-reply-to : references : mime-version :
+ content-type; s=STMicroelectronics;
+ bh=NonnIc54xDpZGLpaLwm33yot64+Hhf3leoq0DVIpPl8=;
+ b=rbSx3MU2+i6dLMYuqT9jNwavR3Rpr0eq/DflWtvG/BokTfAp7fuVEOnPojzFzYuJkhQe
+ d3y3HWg/V2M5PFx0d+6tXG9G+ZqaU+yBKAfsNcKejUuOwloFqBOALHFwFxYw6m21pC7j
+ oHZ3yiqEHQs+G4u2Qf5PfZx441okcUc4XGV5fiWMTNmIR5htYUm5gNoADq+7iJVP3nH7
+ QJPh4cZBXairA8YnRpANz5LrZ0DO7QXZZkxC2SWTRukoIjncazQ8QZE6ICX3Mtk20xLE
+ w2zLcY18IPxnHc3MXEjPxskray1OofKdITWNiEf6qqiiLRPPuHleFF2nzuuw2oYt+LNa yQ== 
 Received: from beta.dmz-eu.st.com (beta.dmz-eu.st.com [164.129.1.35])
- by mx07-00178001.pphosted.com with ESMTP id 32n6sbhy7p-1
+ by mx07-00178001.pphosted.com with ESMTP id 32n6thsxsa-1
  (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
- Fri, 07 Aug 2020 15:23:30 +0200
+ Fri, 07 Aug 2020 15:23:34 +0200
 Received: from euls16034.sgp.st.com (euls16034.sgp.st.com [10.75.44.20])
- by beta.dmz-eu.st.com (STMicroelectronics) with ESMTP id A4EA210002A;
- Fri,  7 Aug 2020 15:23:29 +0200 (CEST)
+ by beta.dmz-eu.st.com (STMicroelectronics) with ESMTP id 14E18100034;
+ Fri,  7 Aug 2020 15:23:30 +0200 (CEST)
 Received: from Webmail-eu.st.com (sfhdag3node2.st.com [10.75.127.8])
- by euls16034.sgp.st.com (STMicroelectronics) with ESMTP id 967D92B8A02;
- Fri,  7 Aug 2020 15:23:29 +0200 (CEST)
-Received: from localhost (10.75.127.50) by SFHDAG3NODE2.st.com (10.75.127.8)
+ by euls16034.sgp.st.com (STMicroelectronics) with ESMTP id 06B7B2B8A02;
+ Fri,  7 Aug 2020 15:23:30 +0200 (CEST)
+Received: from localhost (10.75.127.49) by SFHDAG3NODE2.st.com (10.75.127.8)
  with Microsoft SMTP Server (TLS) id 15.0.1473.3; Fri, 7 Aug 2020 15:23:29
  +0200
 From: Alain Volmat <alain.volmat@st.com>
 To: <broonie@kernel.org>, <amelie.delaunay@st.com>
-Date: Fri, 7 Aug 2020 15:21:20 +0200
-Message-ID: <1596806485-3810-1-git-send-email-alain.volmat@st.com>
+Date: Fri, 7 Aug 2020 15:21:21 +0200
+Message-ID: <1596806485-3810-2-git-send-email-alain.volmat@st.com>
 X-Mailer: git-send-email 2.7.4
+In-Reply-To: <1596806485-3810-1-git-send-email-alain.volmat@st.com>
+References: <1596806485-3810-1-git-send-email-alain.volmat@st.com>
 MIME-Version: 1.0
-X-Originating-IP: [10.75.127.50]
-X-ClientProxiedBy: SFHDAG8NODE3.st.com (10.75.127.24) To SFHDAG3NODE2.st.com
+X-Originating-IP: [10.75.127.49]
+X-ClientProxiedBy: SFHDAG2NODE3.st.com (10.75.127.6) To SFHDAG3NODE2.st.com
  (10.75.127.8)
 X-Proofpoint-Virus-Version: vendor=fsecure engine=2.50.10434:6.0.235, 18.0.687
  definitions=2020-08-07_09:2020-08-06,
@@ -54,7 +57,8 @@ X-Proofpoint-Virus-Version: vendor=fsecure engine=2.50.10434:6.0.235, 18.0.687
 Cc: linux-kernel@vger.kernel.org, linux-spi@vger.kernel.org,
  alain.volmat@st.com, mcoquelin.stm32@gmail.com, fabrice.gasnier@st.com,
  linux-stm32@st-md-mailman.stormreply.com, linux-arm-kernel@lists.infradead.org
-Subject: [Linux-stm32] [PATCH 0/5] spi: stm32: various driver fixes
+Subject: [Linux-stm32] [PATCH 1/5] spi: stm32h7: fix race condition at end
+	of transfer
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -71,22 +75,39 @@ Content-Transfer-Encoding: 7bit
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
-This serie is a reduced version of the serie
-[spi: stm32: various driver enhancements] previously sent.
+From: Antonio Borneo <antonio.borneo@st.com>
 
-Alain Volmat (1):
-  spi: stm32: always perform registers configuration prior to transfer
+The caller of stm32_spi_transfer_one(), spi_transfer_one_message(),
+is waiting for us to call spi_finalize_current_transfer() and will
+eventually schedule a new transfer, if available.
+We should guarantee that the spi controller is really available
+before calling spi_finalize_current_transfer().
 
-Amelie Delaunay (3):
-  spi: stm32: fix fifo threshold level in case of short transfer
-  spi: stm32: fix stm32_spi_prepare_mbr in case of odd clk_rate
-  spi: stm32: fixes suspend/resume management
+Move the call to spi_finalize_current_transfer() _after_ the call
+to stm32_spi_disable().
 
-Antonio Borneo (1):
-  spi: stm32h7: fix race condition at end of transfer
+Signed-off-by: Antonio Borneo <antonio.borneo@st.com>
+Signed-off-by: Alain Volmat <alain.volmat@st.com>
+---
+ drivers/spi/spi-stm32.c | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
 
- drivers/spi/spi-stm32.c | 95 ++++++++++++++++++++++++++++++-------------------
- 1 file changed, 58 insertions(+), 37 deletions(-)
+diff --git a/drivers/spi/spi-stm32.c b/drivers/spi/spi-stm32.c
+index 4a21feae0103..814a3ec3b8ad 100644
+--- a/drivers/spi/spi-stm32.c
++++ b/drivers/spi/spi-stm32.c
+@@ -971,8 +971,8 @@ static irqreturn_t stm32h7_spi_irq_thread(int irq, void *dev_id)
+ 	spin_unlock_irqrestore(&spi->lock, flags);
+ 
+ 	if (end) {
+-		spi_finalize_current_transfer(master);
+ 		stm32h7_spi_disable(spi);
++		spi_finalize_current_transfer(master);
+ 	}
+ 
+ 	return IRQ_HANDLED;
+-- 
+2.7.4
 
 _______________________________________________
 Linux-stm32 mailing list
