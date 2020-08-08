@@ -2,47 +2,43 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id 09EA923F9A6
-	for <lists+linux-stm32@lfdr.de>; Sun,  9 Aug 2020 01:36:47 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 4147323F9B3
+	for <lists+linux-stm32@lfdr.de>; Sun,  9 Aug 2020 01:37:29 +0200 (CEST)
 Received: from ip-172-31-3-76.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id C6EC3C3FAD6;
-	Sat,  8 Aug 2020 23:36:46 +0000 (UTC)
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 0A3D9C3FAD6;
+	Sat,  8 Aug 2020 23:37:29 +0000 (UTC)
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
  (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 265A6C3FAD4
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 80D54C3FAD4
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Sat,  8 Aug 2020 23:36:45 +0000 (UTC)
+ Sat,  8 Aug 2020 23:37:27 +0000 (UTC)
 Received: from sasha-vm.mshome.net (c-73-47-72-35.hsd1.nh.comcast.net
  [73.47.72.35])
  (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by mail.kernel.org (Postfix) with ESMTPSA id C1995206C3;
- Sat,  8 Aug 2020 23:36:42 +0000 (UTC)
+ by mail.kernel.org (Postfix) with ESMTPSA id 5E49B2075D;
+ Sat,  8 Aug 2020 23:37:25 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
- s=default; t=1596929803;
- bh=iMAbjkb444Fs60V9JgSpamSFR5MPp1FyaSoD1MkeyFc=;
- h=From:To:Cc:Subject:Date:In-Reply-To:References:From;
- b=YbIoF6IoJOKUTaN8bV9Ycp/tofdKTp5Xz835SavrA6RjphauJYmG4TbkzFAMuHTCd
- bExa5wDItpzeOu4kzp7U8HMpuK8pi9IR6fndy4VpAM2JEOK2/4CzdAJBxO37bfP4XQ
- CiZoTrK4AayOCtzwrdD9yxgMwsSVC9mgHmYPgbRU=
+ s=default; t=1596929846;
+ bh=n5BejSjOLaNTzyZ8gbGcxvwo3oVY7+1z+ltbc4YdsIE=;
+ h=From:To:Cc:Subject:Date:From;
+ b=WotUL1i2ejVWD/YZk+P7yvZT/3r0jpOf0Cs3F3KYsgdSv6AnGc4b2DEYTg6ADSvXT
+ geHelzUydwp3LvikxNFZv66q7akoZRNHD+IYTcA0eN5q8K8nIdZU1yK9j1yiJIvOU4
+ ezZ3QzbDxcsJPDyEcqT8iOnL0GKZyKd8RIo5C7fU=
 From: Sasha Levin <sashal@kernel.org>
 To: linux-kernel@vger.kernel.org,
 	stable@vger.kernel.org
-Date: Sat,  8 Aug 2020 19:35:10 -0400
-Message-Id: <20200808233542.3617339-41-sashal@kernel.org>
+Date: Sat,  8 Aug 2020 19:36:27 -0400
+Message-Id: <20200808233724.3618168-1-sashal@kernel.org>
 X-Mailer: git-send-email 2.25.1
-In-Reply-To: <20200808233542.3617339-1-sashal@kernel.org>
-References: <20200808233542.3617339-1-sashal@kernel.org>
 MIME-Version: 1.0
 X-stable: review
 X-Patchwork-Hint: Ignore
 Cc: Sasha Levin <sashal@kernel.org>, devicetree@vger.kernel.org,
- Manivannan Sadhasivam <mani@kernel.org>,
- Patrick Delaunay <patrick.delaunay@st.com>,
  linux-stm32@st-md-mailman.stormreply.com, linux-arm-kernel@lists.infradead.org
-Subject: [Linux-stm32] [PATCH AUTOSEL 5.8 41/72] ARM: dts: stm32: Fix spi4
-	pins in stm32mp15-pinctrl
+Subject: [Linux-stm32] [PATCH AUTOSEL 5.7 01/58] ARM: dts: stm32: fix
+	uart7_pins_a comments in stm32mp15-pinctrl
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -59,67 +55,45 @@ Content-Transfer-Encoding: 7bit
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
-From: Patrick Delaunay <patrick.delaunay@st.com>
+From: Erwan Le Ray <erwan.leray@st.com>
 
-[ Upstream commit 4fe663890ac5b3b099f458b20cce13fe8efec12b ]
+[ Upstream commit 391e437eedc0dab0a9f2c26997e68e040ae04ea3 ]
 
-Move spi4_pins_a nodes from pinctrl_z to pinctrl as the associated pins
-are not in BANK Z.
+Fix uart7_pins_a comments to indicate UART7 pins instead of UART4 pins.
 
-Fixes: 498a7014989d ("ARM: dts: stm32: Add missing pinctrl entries for STM32MP15")
+Fixes: bf4b5f379fed ("ARM: dts: stm32: Add missing pinctrl definitions for STM32MP157")
 
-Signed-off-by: Patrick Delaunay <patrick.delaunay@st.com>
-Reviewed-by: Manivannan Sadhasivam <mani@kernel.org>
+Signed-off-by: Erwan Le Ray <erwan.leray@st.com>
 Signed-off-by: Alexandre Torgue <alexandre.torgue@st.com>
 Signed-off-by: Sasha Levin <sashal@kernel.org>
 ---
- arch/arm/boot/dts/stm32mp15-pinctrl.dtsi | 28 ++++++++++++------------
- 1 file changed, 14 insertions(+), 14 deletions(-)
+ arch/arm/boot/dts/stm32mp15-pinctrl.dtsi | 8 ++++----
+ 1 file changed, 4 insertions(+), 4 deletions(-)
 
 diff --git a/arch/arm/boot/dts/stm32mp15-pinctrl.dtsi b/arch/arm/boot/dts/stm32mp15-pinctrl.dtsi
-index 49132921feeb9..cc505458da2fd 100644
+index 73c07f0dfad27..4b67b682dd53f 100644
 --- a/arch/arm/boot/dts/stm32mp15-pinctrl.dtsi
 +++ b/arch/arm/boot/dts/stm32mp15-pinctrl.dtsi
-@@ -1654,6 +1654,20 @@ pins2 {
- 		};
- 	};
+@@ -1095,15 +1095,15 @@ pins2 {
  
-+	spi4_pins_a: spi4-0 {
-+		pins {
-+			pinmux = <STM32_PINMUX('E', 12, AF5)>, /* SPI4_SCK */
-+				 <STM32_PINMUX('E', 6, AF5)>;  /* SPI4_MOSI */
-+			bias-disable;
-+			drive-push-pull;
-+			slew-rate = <1>;
-+		};
-+		pins2 {
-+			pinmux = <STM32_PINMUX('E', 13, AF5)>; /* SPI4_MISO */
-+			bias-disable;
-+		};
-+	};
-+
- 	usart2_pins_a: usart2-0 {
+ 	uart7_pins_a: uart7-0 {
  		pins1 {
- 			pinmux = <STM32_PINMUX('F', 5, AF7)>, /* USART2_TX */
-@@ -1776,18 +1790,4 @@ pins2 {
+-			pinmux = <STM32_PINMUX('E', 8, AF7)>; /* UART4_TX */
++			pinmux = <STM32_PINMUX('E', 8, AF7)>; /* UART7_TX */
+ 			bias-disable;
+ 			drive-push-pull;
+ 			slew-rate = <0>;
+ 		};
+ 		pins2 {
+-			pinmux = <STM32_PINMUX('E', 7, AF7)>, /* UART4_RX */
+-				 <STM32_PINMUX('E', 10, AF7)>, /* UART4_CTS */
+-				 <STM32_PINMUX('E', 9, AF7)>; /* UART4_RTS */
++			pinmux = <STM32_PINMUX('E', 7, AF7)>, /* UART7_RX */
++				 <STM32_PINMUX('E', 10, AF7)>, /* UART7_CTS */
++				 <STM32_PINMUX('E', 9, AF7)>; /* UART7_RTS */
  			bias-disable;
  		};
  	};
--
--	spi4_pins_a: spi4-0 {
--		pins {
--			pinmux = <STM32_PINMUX('E', 12, AF5)>, /* SPI4_SCK */
--				 <STM32_PINMUX('E', 6, AF5)>;  /* SPI4_MOSI */
--			bias-disable;
--			drive-push-pull;
--			slew-rate = <1>;
--		};
--		pins2 {
--			pinmux = <STM32_PINMUX('E', 13, AF5)>; /* SPI4_MISO */
--			bias-disable;
--		};
--	};
- };
 -- 
 2.25.1
 
