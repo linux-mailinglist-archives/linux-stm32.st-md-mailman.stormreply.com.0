@@ -2,38 +2,38 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id 33F352469FC
-	for <lists+linux-stm32@lfdr.de>; Mon, 17 Aug 2020 17:28:47 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 8BDF2246B3C
+	for <lists+linux-stm32@lfdr.de>; Mon, 17 Aug 2020 17:51:13 +0200 (CEST)
 Received: from ip-172-31-3-76.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id DE337C32E8F;
-	Mon, 17 Aug 2020 15:28:46 +0000 (UTC)
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id D0575C32E8F;
+	Mon, 17 Aug 2020 15:51:12 +0000 (UTC)
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
  (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 0A568C36B26
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 61407C36B26
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Mon, 17 Aug 2020 15:28:42 +0000 (UTC)
+ Mon, 17 Aug 2020 15:51:09 +0000 (UTC)
 Received: from localhost (83-86-89-107.cable.dynamic.v4.ziggo.nl
  [83.86.89.107])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by mail.kernel.org (Postfix) with ESMTPSA id A2CAF233CF;
- Mon, 17 Aug 2020 15:28:40 +0000 (UTC)
+ by mail.kernel.org (Postfix) with ESMTPSA id D7400208B3;
+ Mon, 17 Aug 2020 15:51:07 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
- s=default; t=1597678121;
- bh=JrYOhwWwwmrReXwB+ZeyDYHuIP3lqKqROWwbKCFhgOs=;
+ s=default; t=1597679468;
+ bh=G1OvFEXrou1OJyh/zOo3R3BvFhcRVwtwoYVL1FhzfHs=;
  h=From:To:Cc:Subject:Date:In-Reply-To:References:From;
- b=G6G3hS/yzj9jpcf5dQnbsJCcgsOFcPTAKvn9t6vVbOxL9oY8AaZDL2FggLJ+23P40
- EmKaP7k/Y5gmHdGp8YTxNEC6vovO7qKwptBm4pE5YsLXUZq4egncZxsa3F0T+QPVF8
- Se4r3NFyr7Wgrqto3OlFxNT8e6kne4KoPcqjBeSs=
+ b=DnX9422z/TZdcNBww480J/8EQgWZ+feQJVs+RTiFrYaLToarJusoeLPH3BzNsFCeX
+ /ehlCdrXvxDBj8w7vQ6xT1xWcJVX32DOv8cJ6CpFHyGLM7cLL7h5foH/YbTz2h4pFp
+ 2+y+1EQoWHD5KTa+BwCwbI/yP85ZcTDUFEnL6M9k=
 From: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
 To: linux-kernel@vger.kernel.org,
 	dri-devel@lists.freedesktop.org
-Date: Mon, 17 Aug 2020 17:12:51 +0200
-Message-Id: <20200817143844.245721026@linuxfoundation.org>
+Date: Mon, 17 Aug 2020 17:14:02 +0200
+Message-Id: <20200817143828.935241948@linuxfoundation.org>
 X-Mailer: git-send-email 2.28.0
-In-Reply-To: <20200817143833.737102804@linuxfoundation.org>
-References: <20200817143833.737102804@linuxfoundation.org>
+In-Reply-To: <20200817143819.579311991@linuxfoundation.org>
+References: <20200817143819.579311991@linuxfoundation.org>
 User-Agent: quilt/0.66
 MIME-Version: 1.0
 Cc: Marek Vasut <marex@denx.de>, Sasha Levin <sashal@kernel.org>,
@@ -44,7 +44,7 @@ Cc: Marek Vasut <marex@denx.de>, Sasha Levin <sashal@kernel.org>,
  Benjamin Gaignard <benjamin.gaignard@st.com>,
  Vincent Abriou <vincent.abriou@st.com>,
  linux-stm32@st-md-mailman.stormreply.com, linux-arm-kernel@lists.infradead.org
-Subject: [Linux-stm32] [PATCH 5.8 218/464] drm/stm: repair runtime power
+Subject: [Linux-stm32] [PATCH 5.7 192/393] drm/stm: repair runtime power
 	management
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
@@ -89,9 +89,9 @@ MDIwMDIyOTIyMTY0OS45MDgxMy0xLW1hcmV4QGRlbnguZGUKU2lnbmVkLW9mZi1ieTogU2FzaGEg
 TGV2aW4gPHNhc2hhbEBrZXJuZWwub3JnPgotLS0KIGRyaXZlcnMvZ3B1L2RybS9zdG0vbHRkYy5j
 IHwgMyArKysKIDEgZmlsZSBjaGFuZ2VkLCAzIGluc2VydGlvbnMoKykKCmRpZmYgLS1naXQgYS9k
 cml2ZXJzL2dwdS9kcm0vc3RtL2x0ZGMuYyBiL2RyaXZlcnMvZ3B1L2RybS9zdG0vbHRkYy5jCmlu
-ZGV4IGY4OTQ5NjhkNmU0NTIuLjNmNTkwZDkxNmU5MTYgMTAwNjQ0Ci0tLSBhL2RyaXZlcnMvZ3B1
-L2RybS9zdG0vbHRkYy5jCisrKyBiL2RyaXZlcnMvZ3B1L2RybS9zdG0vbHRkYy5jCkBAIC00MjMs
-OSArNDIzLDEyIEBAIHN0YXRpYyB2b2lkIGx0ZGNfY3J0Y19hdG9taWNfZW5hYmxlKHN0cnVjdCBk
+ZGV4IGRmNTg1ZmU2NGY2MTQuLjYwZmZlNWJiYzEyOTQgMTAwNjQ0Ci0tLSBhL2RyaXZlcnMvZ3B1
+L2RybS9zdG0vbHRkYy5jCisrKyBiL2RyaXZlcnMvZ3B1L2RybS9zdG0vbHRkYy5jCkBAIC00MjUs
+OSArNDI1LDEyIEBAIHN0YXRpYyB2b2lkIGx0ZGNfY3J0Y19hdG9taWNfZW5hYmxlKHN0cnVjdCBk
 cm1fY3J0YyAqY3J0YywKIAkJCQkgICAgc3RydWN0IGRybV9jcnRjX3N0YXRlICpvbGRfc3RhdGUp
 CiB7CiAJc3RydWN0IGx0ZGNfZGV2aWNlICpsZGV2ID0gY3J0Y190b19sdGRjKGNydGMpOworCXN0
 cnVjdCBkcm1fZGV2aWNlICpkZGV2ID0gY3J0Yy0+ZGV2OwogCiAJRFJNX0RFQlVHX0RSSVZFUigi
