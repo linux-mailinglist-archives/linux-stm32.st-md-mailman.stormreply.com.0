@@ -2,50 +2,68 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id 12422246BF8
-	for <lists+linux-stm32@lfdr.de>; Mon, 17 Aug 2020 18:06:19 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id E8B40246D79
+	for <lists+linux-stm32@lfdr.de>; Mon, 17 Aug 2020 18:57:54 +0200 (CEST)
 Received: from ip-172-31-3-76.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id B138DC32E8F;
-	Mon, 17 Aug 2020 16:06:18 +0000 (UTC)
-Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
- (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 9D94BC32E8F;
+	Mon, 17 Aug 2020 16:57:54 +0000 (UTC)
+Received: from mail-ed1-f68.google.com (mail-ed1-f68.google.com
+ [209.85.208.68])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 91057C36B26
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 1E8F1C36B26
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Mon, 17 Aug 2020 16:06:17 +0000 (UTC)
-Received: from localhost (83-86-89-107.cable.dynamic.v4.ziggo.nl
- [83.86.89.107])
- (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
- (No client certificate requested)
- by mail.kernel.org (Postfix) with ESMTPSA id AAD9520729;
- Mon, 17 Aug 2020 16:06:15 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
- s=default; t=1597680376;
- bh=i8IA/7eMak21kEfbh371Ez3qa987IvxjDxAcvdOsJVc=;
- h=From:To:Cc:Subject:Date:In-Reply-To:References:From;
- b=gryMVdy4dWOB1MV19b0ijpmo3x5gFAwmcuB8isSqsvUSJ8WXzuoNcDp/4xzu306ue
- qbsZp8/Bkp98Zv9UxWP5/gzPgmKGitJotwdIfuovnBcMHQImq2e4HDx13TQHFvDNXE
- Kh6ZXK8Op/RGOIX2gNU3C4yHcLOhNSLT15Miw7f4=
-From: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
-To: linux-kernel@vger.kernel.org,
-	dri-devel@lists.freedesktop.org
-Date: Mon, 17 Aug 2020 17:15:33 +0200
-Message-Id: <20200817143802.365269820@linuxfoundation.org>
-X-Mailer: git-send-email 2.28.0
-In-Reply-To: <20200817143755.807583758@linuxfoundation.org>
-References: <20200817143755.807583758@linuxfoundation.org>
-User-Agent: quilt/0.66
+ Mon, 17 Aug 2020 16:57:52 +0000 (UTC)
+Received: by mail-ed1-f68.google.com with SMTP id df16so12845225edb.9
+ for <linux-stm32@st-md-mailman.stormreply.com>;
+ Mon, 17 Aug 2020 09:57:52 -0700 (PDT)
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20161025;
+ h=x-gm-message-state:date:from:to:cc:subject:message-id:references
+ :mime-version:content-disposition:in-reply-to:user-agent;
+ bh=3FrKyZ4bgiqRw6fMNXhefxjUO50+4ZZhHM2k568ceUE=;
+ b=d1J06FDoPZKNZeiyAb/XQgCJ9RZggnO3794vyxsL/Ct2MckuP+O22Jv5hgtMnvHSKk
+ 5cKnJcvcu6Ql5DKcUINjtj9RpoCDlIWs5BHt6pSEmjLQrabYb0b0aN/iLuLblsZ8j/zQ
+ MUnbv2FbBv8UWf9Q/jgvW/Xqp1eJjJ0v+aaUO19NYaIiyAgI6ablgU7Ceh27WQSTNdjA
+ K+Nw5nsUiuN+PLAjvVbVQcd1O3cL7tjTGOn0auGZFtMN2K0UvD7ESHRny7/nYpIrd+P/
+ kCvApA5CfHZfxXRyemUtpEtiDMiTtqK5ZpWtmuff64eFZec+tBVsPH5Kpzu66bVkLcy2
+ XkGg==
+X-Gm-Message-State: AOAM533yXCVVeQujB/gcBZrdU2ymWXIFQ+fwHP77EhwPzQWgYpghq3Xm
+ RuxYEtKDRPToxsc1Wp8Ehgs=
+X-Google-Smtp-Source: ABdhPJwXGUSxJY2KPJAkdjrQkP68EfvY0m+GPVkx6BxNteF9/a1Q2fay39xFJBTtva4bNXqbU3on7w==
+X-Received: by 2002:a50:ec95:: with SMTP id e21mr15439113edr.250.1597683472383; 
+ Mon, 17 Aug 2020 09:57:52 -0700 (PDT)
+Received: from kozik-lap ([194.230.155.216])
+ by smtp.googlemail.com with ESMTPSA id
+ lc10sm14820453ejb.22.2020.08.17.09.57.50
+ (version=TLS1_2 cipher=ECDHE-ECDSA-CHACHA20-POLY1305 bits=256/256);
+ Mon, 17 Aug 2020 09:57:51 -0700 (PDT)
+Date: Mon, 17 Aug 2020 18:57:48 +0200
+From: Krzysztof Kozlowski <krzk@kernel.org>
+To: Guenter Roeck <linux@roeck-us.net>, Tomasz Figa <tomasz.figa@gmail.com>
+Message-ID: <20200817165748.GA29664@kozik-lap>
+References: <20200804192654.12783-1-krzk@kernel.org>
+ <20200804192654.12783-7-krzk@kernel.org>
 MIME-Version: 1.0
-Cc: Marek Vasut <marex@denx.de>, Sasha Levin <sashal@kernel.org>,
- Maxime Coquelin <mcoquelin.stm32@gmail.com>,
- Greg Kroah-Hartman <gregkh@linuxfoundation.org>, stable@vger.kernel.org,
- =?UTF-8?q?Yannick=20Fertr=C3=A9?= <yannick.fertre@st.com>,
- Benjamin Gaignard <benjamin.gaignard@linaro.org>,
- Benjamin Gaignard <benjamin.gaignard@st.com>,
- Vincent Abriou <vincent.abriou@st.com>,
- linux-stm32@st-md-mailman.stormreply.com, linux-arm-kernel@lists.infradead.org
-Subject: [Linux-stm32] [PATCH 5.4 132/270] drm/stm: repair runtime power
-	management
+Content-Disposition: inline
+In-Reply-To: <20200804192654.12783-7-krzk@kernel.org>
+User-Agent: Mutt/1.9.4 (2018-02-28)
+Cc: Catalin Marinas <catalin.marinas@arm.com>,
+ Michael Turquette <mturquette@baylibre.com>,
+ Sylwester Nawrocki <s.nawrocki@samsung.com>, Will Deacon <will@kernel.org>,
+ linux-clk@vger.kernel.org, Marek Szyprowski <m.szyprowski@samsung.com>,
+ linux-samsung-soc@vger.kernel.org, Sylwester Nawrocki <snawrocki@kernel.org>,
+ Cedric Roux <sed@free.fr>, Russell King <linux@armlinux.org.uk>,
+ linux-stm32@st-md-mailman.stormreply.com, Lihua Yao <ylhuajnu@outlook.com>,
+ Chanwoo Choi <cw00.choi@samsung.com>, Kukjin Kim <kgene@kernel.org>,
+ Sergio Prado <sergio.prado@e-labworks.com>, Arnd Bergmann <arnd@arndb.de>,
+ Wim Van Sebroeck <wim@linux-watchdog.org>,
+ Simtec Linux Team <linux@simtec.co.uk>, linux-arm-kernel@lists.infradead.org,
+ linux-watchdog@vger.kernel.org, Stephen Boyd <sboyd@kernel.org>,
+ patches@opensource.cirrus.com, Kyungmin Park <kyungmin.park@samsung.com>,
+ Maxime Coquelin <mcoquelin.stm32@gmail.com>
+Subject: Re: [Linux-stm32] [PATCH v2 06/13] ARM: samsung: remove
+ HAVE_S3C2410_WATCHDOG and use direct dependencies
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -57,47 +75,142 @@ List-Post: <mailto:linux-stm32@st-md-mailman.stormreply.com>
 List-Help: <mailto:linux-stm32-request@st-md-mailman.stormreply.com?subject=help>
 List-Subscribe: <https://st-md-mailman.stormreply.com/mailman/listinfo/linux-stm32>, 
  <mailto:linux-stm32-request@st-md-mailman.stormreply.com?subject=subscribe>
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: base64
+Content-Type: text/plain; charset="us-ascii"
+Content-Transfer-Encoding: 7bit
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
-RnJvbTogTWFyZWsgVmFzdXQgPG1hcmV4QGRlbnguZGU+CgpbIFVwc3RyZWFtIGNvbW1pdCBlYmQy
-NjdiMmUzYzI1ZDVmOTNhMDg1MjhiNDdjMDM2NTY5ZWI4NzQ0IF0KCkFkZCBtaXNzaW5nIHBtX3J1
-bnRpbWVfZ2V0X3N5bmMoKSBpbnRvIGx0ZGNfY3J0Y19hdG9taWNfZW5hYmxlKCkgdG8KbWF0Y2gg
-cG1fcnVudGltZV9wdXRfc3luYygpIGluIGx0ZGNfY3J0Y19hdG9taWNfZGlzYWJsZSgpLCBvdGhl
-cndpc2UKdGhlIExUREMgbWlnaHQgc3VzcGVuZCB2aWEgcnVudGltZSBQTSwgZGlzYWJsZSBjbG9j
-aywgYW5kIHRoZW4gZmFpbAp0byByZXN1bWUgbGF0ZXIgb24uCgpUaGUgdGVzdCB3aGljaCB0cmln
-Z2VycyBpdCBpcyByb3VnaGx5IC0tIHJ1biBxdDUgYXBwbGljYXRpb24gd2hpY2gKdXNlcyBlZ2xm
-cyBwbGF0Zm9ybSBhbmQgZXRuYXZpdiwgc3RvcCB0aGUgYXBwbGljYXRpb24sIHNsZWVwIGZvciAx
-NQptaW51dGVzLCBydW4gdGhlIGFwcGxpY2F0aW9uIGFnYWluLiBUaGlzIGxlYWRzIHRvIGEgdGlt
-ZW91dCB3YWl0aW5nCmZvciB2c3luYywgYmVjYXVzZSB0aGUgTFREQyBoYXMgc3VzcGVuZGVkLCBi
-dXQgZGlkIG5vdCByZXN1bWUuCgpGaXhlczogMzVhYjZjZmJmMjExICgiZHJtL3N0bTogc3VwcG9y
-dCBydW50aW1lIHBvd2VyIG1hbmFnZW1lbnQiKQpTaWduZWQtb2ZmLWJ5OiBNYXJlayBWYXN1dCA8
-bWFyZXhAZGVueC5kZT4KQ2M6IFlhbm5pY2sgRmVydHLDqSA8eWFubmljay5mZXJ0cmVAc3QuY29t
-PgpDYzogUGhpbGlwcGUgQ29ybnUgPHBoaWxpcHBlLmNvcm51QHN0LmNvbT4KQ2M6IEJlbmphbWlu
-IEdhaWduYXJkIDxiZW5qYW1pbi5nYWlnbmFyZEBsaW5hcm8ub3JnPgpDYzogVmluY2VudCBBYnJp
-b3UgPHZpbmNlbnQuYWJyaW91QHN0LmNvbT4KQ2M6IE1heGltZSBDb3F1ZWxpbiA8bWNvcXVlbGlu
-LnN0bTMyQGdtYWlsLmNvbT4KQ2M6IEFsZXhhbmRyZSBUb3JndWUgPGFsZXhhbmRyZS50b3JndWVA
-c3QuY29tPgpUbzogZHJpLWRldmVsQGxpc3RzLmZyZWVkZXNrdG9wLm9yZwpDYzogbGludXgtc3Rt
-MzJAc3QtbWQtbWFpbG1hbi5zdG9ybXJlcGx5LmNvbQpDYzogbGludXgtYXJtLWtlcm5lbEBsaXN0
-cy5pbmZyYWRlYWQub3JnCkFja2VkLWJ5OiBQaGlsaXBwZSBDb3JudSA8cGhpbGlwcGUuY29ybnVA
-c3QuY29tPgpUZXN0ZWQtYnk6IFlhbm5pY2sgRmVydHJlIDx5YW5uaWNrLmZlcnRyZUBzdC5jb20+
-ClNpZ25lZC1vZmYtYnk6IEJlbmphbWluIEdhaWduYXJkIDxiZW5qYW1pbi5nYWlnbmFyZEBzdC5j
-b20+Ckxpbms6IGh0dHBzOi8vcGF0Y2h3b3JrLmZyZWVkZXNrdG9wLm9yZy9wYXRjaC9tc2dpZC8y
-MDIwMDIyOTIyMTY0OS45MDgxMy0xLW1hcmV4QGRlbnguZGUKU2lnbmVkLW9mZi1ieTogU2FzaGEg
-TGV2aW4gPHNhc2hhbEBrZXJuZWwub3JnPgotLS0KIGRyaXZlcnMvZ3B1L2RybS9zdG0vbHRkYy5j
-IHwgMyArKysKIDEgZmlsZSBjaGFuZ2VkLCAzIGluc2VydGlvbnMoKykKCmRpZmYgLS1naXQgYS9k
-cml2ZXJzL2dwdS9kcm0vc3RtL2x0ZGMuYyBiL2RyaXZlcnMvZ3B1L2RybS9zdG0vbHRkYy5jCmlu
-ZGV4IDNhYjRmYmY4ZWIwZDEuLjUxNTcxZjcyNDZhYmYgMTAwNjQ0Ci0tLSBhL2RyaXZlcnMvZ3B1
-L2RybS9zdG0vbHRkYy5jCisrKyBiL2RyaXZlcnMvZ3B1L2RybS9zdG0vbHRkYy5jCkBAIC00MjQs
-OSArNDI0LDEyIEBAIHN0YXRpYyB2b2lkIGx0ZGNfY3J0Y19hdG9taWNfZW5hYmxlKHN0cnVjdCBk
-cm1fY3J0YyAqY3J0YywKIAkJCQkgICAgc3RydWN0IGRybV9jcnRjX3N0YXRlICpvbGRfc3RhdGUp
-CiB7CiAJc3RydWN0IGx0ZGNfZGV2aWNlICpsZGV2ID0gY3J0Y190b19sdGRjKGNydGMpOworCXN0
-cnVjdCBkcm1fZGV2aWNlICpkZGV2ID0gY3J0Yy0+ZGV2OwogCiAJRFJNX0RFQlVHX0RSSVZFUigi
-XG4iKTsKIAorCXBtX3J1bnRpbWVfZ2V0X3N5bmMoZGRldi0+ZGV2KTsKKwogCS8qIFNldHMgdGhl
-IGJhY2tncm91bmQgY29sb3IgdmFsdWUgKi8KIAlyZWdfd3JpdGUobGRldi0+cmVncywgTFREQ19C
-Q0NSLCBCQ0NSX0JDQkxBQ0spOwogCi0tIAoyLjI1LjEKCgoKX19fX19fX19fX19fX19fX19fX19f
-X19fX19fX19fX19fX19fX19fX19fX19fX18KTGludXgtc3RtMzIgbWFpbGluZyBsaXN0CkxpbnV4
-LXN0bTMyQHN0LW1kLW1haWxtYW4uc3Rvcm1yZXBseS5jb20KaHR0cHM6Ly9zdC1tZC1tYWlsbWFu
-LnN0b3JtcmVwbHkuY29tL21haWxtYW4vbGlzdGluZm8vbGludXgtc3RtMzIK
+On Tue, Aug 04, 2020 at 09:26:47PM +0200, Krzysztof Kozlowski wrote:
+> A separate Kconfig option HAVE_S3C2410_WATCHDOG for Samsung SoCs is not
+> really needed and the s3c24xx watchdog driver can depend on Samsung ARM
+> architectures instead.
+> 
+> The "HAVE_xxx_WATCHDOG" pattern of dependency is not popular and Samsung
+> platforms are here exceptions.  All others just depend on
+> CONFIG_ARCH_xxx.
+> 
+> This makes the code slightly smaller without any change in
+> functionality.
+> 
+> Signed-off-by: Krzysztof Kozlowski <krzk@kernel.org>
+> 
+> ---
+> 
+> Changes since v1:
+> 1. Re-add the dependency on architectures to keep same functionality.
+
+Hi Guenter, Tomasz,
+
+Does such removal of HAVE_S3C2410_WATCHDOG makes sense for you?
+
+Best regards,
+Krzysztof
+
+
+> ---
+>  arch/arm/Kconfig              |  1 -
+>  arch/arm/mach-exynos/Kconfig  |  1 -
+>  arch/arm/mach-s3c64xx/Kconfig |  2 --
+>  arch/arm/mach-s5pv210/Kconfig |  1 -
+>  arch/arm64/Kconfig.platforms  |  1 -
+>  drivers/watchdog/Kconfig      | 10 ++--------
+>  6 files changed, 2 insertions(+), 14 deletions(-)
+> 
+> diff --git a/arch/arm/Kconfig b/arch/arm/Kconfig
+> index 7564f293f107..fe95777af653 100644
+> --- a/arch/arm/Kconfig
+> +++ b/arch/arm/Kconfig
+> @@ -504,7 +504,6 @@ config ARCH_S3C24XX
+>  	select GPIOLIB
+>  	select GENERIC_IRQ_MULTI_HANDLER
+>  	select HAVE_S3C2410_I2C if I2C
+> -	select HAVE_S3C2410_WATCHDOG if WATCHDOG
+>  	select HAVE_S3C_RTC if RTC_CLASS
+>  	select NEED_MACH_IO_H
+>  	select SAMSUNG_ATAGS
+> diff --git a/arch/arm/mach-exynos/Kconfig b/arch/arm/mach-exynos/Kconfig
+> index f185cd3d4c62..d2d249706ebb 100644
+> --- a/arch/arm/mach-exynos/Kconfig
+> +++ b/arch/arm/mach-exynos/Kconfig
+> @@ -24,7 +24,6 @@ menuconfig ARCH_EXYNOS
+>  	select HAVE_ARM_ARCH_TIMER if ARCH_EXYNOS5
+>  	select HAVE_ARM_SCU if SMP
+>  	select HAVE_S3C2410_I2C if I2C
+> -	select HAVE_S3C2410_WATCHDOG if WATCHDOG
+>  	select HAVE_S3C_RTC if RTC_CLASS
+>  	select PINCTRL
+>  	select PINCTRL_EXYNOS
+> diff --git a/arch/arm/mach-s3c64xx/Kconfig b/arch/arm/mach-s3c64xx/Kconfig
+> index ac3e3563487f..e208c2b48853 100644
+> --- a/arch/arm/mach-s3c64xx/Kconfig
+> +++ b/arch/arm/mach-s3c64xx/Kconfig
+> @@ -13,7 +13,6 @@ menuconfig ARCH_S3C64XX
+>  	select GPIO_SAMSUNG if ATAGS
+>  	select GPIOLIB
+>  	select HAVE_S3C2410_I2C if I2C
+> -	select HAVE_S3C2410_WATCHDOG if WATCHDOG
+>  	select HAVE_TCM
+>  	select PLAT_SAMSUNG
+>  	select PM_GENERIC_DOMAINS if PM
+> @@ -165,7 +164,6 @@ config MACH_SMDK6410
+>  	bool "SMDK6410"
+>  	depends on ATAGS
+>  	select CPU_S3C6410
+> -	select HAVE_S3C2410_WATCHDOG if WATCHDOG
+>  	select S3C64XX_SETUP_FB_24BPP
+>  	select S3C64XX_SETUP_I2C1
+>  	select S3C64XX_SETUP_IDE
+> diff --git a/arch/arm/mach-s5pv210/Kconfig b/arch/arm/mach-s5pv210/Kconfig
+> index 03984a791879..b3db1191e437 100644
+> --- a/arch/arm/mach-s5pv210/Kconfig
+> +++ b/arch/arm/mach-s5pv210/Kconfig
+> @@ -14,7 +14,6 @@ config ARCH_S5PV210
+>  	select COMMON_CLK_SAMSUNG
+>  	select GPIOLIB
+>  	select HAVE_S3C2410_I2C if I2C
+> -	select HAVE_S3C2410_WATCHDOG if WATCHDOG
+>  	select HAVE_S3C_RTC if RTC_CLASS
+>  	select PINCTRL
+>  	select PINCTRL_EXYNOS
+> diff --git a/arch/arm64/Kconfig.platforms b/arch/arm64/Kconfig.platforms
+> index cd58f8495c45..d235b27cf372 100644
+> --- a/arch/arm64/Kconfig.platforms
+> +++ b/arch/arm64/Kconfig.platforms
+> @@ -80,7 +80,6 @@ config ARCH_EXYNOS
+>  	select EXYNOS_CHIPID
+>  	select EXYNOS_PM_DOMAINS if PM_GENERIC_DOMAINS
+>  	select EXYNOS_PMU
+> -	select HAVE_S3C2410_WATCHDOG if WATCHDOG
+>  	select HAVE_S3C_RTC if RTC_CLASS
+>  	select PINCTRL
+>  	select PINCTRL_EXYNOS
+> diff --git a/drivers/watchdog/Kconfig b/drivers/watchdog/Kconfig
+> index 4f4687c46d38..297af1c40643 100644
+> --- a/drivers/watchdog/Kconfig
+> +++ b/drivers/watchdog/Kconfig
+> @@ -478,16 +478,10 @@ config IXP4XX_WATCHDOG
+>  
+>  	  Say N if you are unsure.
+>  
+> -config HAVE_S3C2410_WATCHDOG
+> -	bool
+> -	help
+> -	  This will include watchdog timer support for Samsung SoCs. If
+> -	  you want to include watchdog support for any machine, kindly
+> -	  select this in the respective mach-XXXX/Kconfig file.
+> -
+>  config S3C2410_WATCHDOG
+>  	tristate "S3C2410 Watchdog"
+> -	depends on HAVE_S3C2410_WATCHDOG || COMPILE_TEST
+> +	depends on ARCH_S3C24XX || ARCH_S3C64XX || ARCH_S5PV210 || ARCH_EXYNOS || \
+> +		   COMPILE_TEST
+>  	select WATCHDOG_CORE
+>  	select MFD_SYSCON if ARCH_EXYNOS
+>  	help
+> -- 
+> 2.17.1
+> 
+_______________________________________________
+Linux-stm32 mailing list
+Linux-stm32@st-md-mailman.stormreply.com
+https://st-md-mailman.stormreply.com/mailman/listinfo/linux-stm32
