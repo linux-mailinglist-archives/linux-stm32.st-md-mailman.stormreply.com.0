@@ -2,58 +2,42 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id 25469249833
-	for <lists+linux-stm32@lfdr.de>; Wed, 19 Aug 2020 10:24:22 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id E4FD9249D98
+	for <lists+linux-stm32@lfdr.de>; Wed, 19 Aug 2020 14:16:07 +0200 (CEST)
 Received: from ip-172-31-3-76.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id D4101C32E8F;
-	Wed, 19 Aug 2020 08:24:21 +0000 (UTC)
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 9CE9FC32E8F;
+	Wed, 19 Aug 2020 12:16:06 +0000 (UTC)
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
  (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 23EF8C36B26
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 47139C36B26
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Wed, 19 Aug 2020 08:24:17 +0000 (UTC)
-Received: from disco-boy.misterjones.org (disco-boy.misterjones.org
- [51.254.78.96])
+ Wed, 19 Aug 2020 12:16:02 +0000 (UTC)
+Received: from localhost (fw-tnat.cambridge.arm.com [217.140.96.140])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by mail.kernel.org (Postfix) with ESMTPSA id 7B9E020738;
- Wed, 19 Aug 2020 08:24:16 +0000 (UTC)
+ by mail.kernel.org (Postfix) with ESMTPSA id 095C220738;
+ Wed, 19 Aug 2020 12:16:00 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
- s=default; t=1597825456;
- bh=hqtEFkUN69QVjr3/Q+VSJ3eubz0fOJkAGxBLb/UISFs=;
- h=Date:From:To:Cc:Subject:In-Reply-To:References:From;
- b=v8Li5VZM6pbWFqrL4c4lY4Otq46S49G+uQHfS/VZIWFPjnQRvYPPqz9CuAYLCRkir
- voE/FVRQ633Wq0i/NiVbIrR2qBXsVm28tp2sj6N0eWgRSn3wY/YuadwyP7CbV/W2H1
- 5xthfxV4DNJ4b5z5lBPUldYLf7H1dpdn2USr0h64=
-Received: from disco-boy.misterjones.org ([51.254.78.96] helo=www.loen.fr)
- by disco-boy.misterjones.org with esmtpsa
- (TLS1.2:ECDHE_RSA_AES_128_GCM_SHA256:128) (Exim 4.92)
- (envelope-from <maz@kernel.org>)
- id 1k8JOJ-0048iI-13; Wed, 19 Aug 2020 09:24:15 +0100
-MIME-Version: 1.0
-Date: Wed, 19 Aug 2020 09:24:14 +0100
-From: Marc Zyngier <maz@kernel.org>
-To: qiuguorui1 <qiuguorui1@huawei.com>
-In-Reply-To: <20200819023931.28997-1-qiuguorui1@huawei.com>
-References: <20200819023931.28997-1-qiuguorui1@huawei.com>
-User-Agent: Roundcube Webmail/1.4.7
-Message-ID: <df090a1b5884cad8196067b975447cba@kernel.org>
-X-Sender: maz@kernel.org
-X-SA-Exim-Connect-IP: 51.254.78.96
-X-SA-Exim-Rcpt-To: qiuguorui1@huawei.com, tglx@linutronix.de,
- jason@lakedaemon.net, mcoquelin.stm32@gmail.com, alexandre.torgue@st.com,
- linux-kernel@vger.kernel.org, linux-stm32@st-md-mailman.stormreply.com,
- linux-arm-kernel@lists.infradead.org, zengweilin@huawei.com,
- chenjianguo3@huawei.com
-X-SA-Exim-Mail-From: maz@kernel.org
-X-SA-Exim-Scanned: No (on disco-boy.misterjones.org);
- SAEximRunCond expanded to false
-Cc: chenjianguo3@huawei.com, jason@lakedaemon.net, linux-kernel@vger.kernel.org,
- zengweilin@huawei.com, mcoquelin.stm32@gmail.com, tglx@linutronix.de,
+ s=default; t=1597839361;
+ bh=/MbaTQFZWMYuazygmw7csZlkRqCEGAQG/FDx2KXZmlo=;
+ h=Date:From:To:Cc:In-Reply-To:References:Subject:From;
+ b=oSMIeWMXMrvFp4voxI5iMdujeB+Lp+HlOztmKzG8LZawk9CdEMwsC/ITDxW+mXFOU
+ kgcTmuGa0aYqB4rCCXpff0OZMhuWxZa5k6jZPJ2q0PM3NbYn5yAIgVkUWs92YGkz8g
+ N3+j40AOGRzS2R4pR4ks6AdvUV8kBedw64d/kxZ0=
+Date: Wed, 19 Aug 2020 13:15:29 +0100
+From: Mark Brown <broonie@kernel.org>
+To: Krzysztof Kozlowski <krzk@kernel.org>, linux-kernel@vger.kernel.org
+In-Reply-To: <20200806182059.2431-1-krzk@kernel.org>
+References: <20200806181932.2253-1-krzk@kernel.org>
+ <20200806182059.2431-1-krzk@kernel.org>
+Message-Id: <159783932455.55025.7979458249415199743.b4-ty@kernel.org>
+Cc: linux-samsung-soc@vger.kernel.org, Arnd Bergmann <arnd@arndb.de>,
+ Russell King <linux@armlinux.org.uk>, Kukjin Kim <kgene@kernel.org>,
+ Maxime Coquelin <mcoquelin.stm32@gmail.com>,
  linux-stm32@st-md-mailman.stormreply.com, linux-arm-kernel@lists.infradead.org
-Subject: Re: [Linux-stm32] [PATCH] irqchip/stm32-exti: avoid interrupts
- losing due to clearing pending bit by mistake
+Subject: Re: [Linux-stm32] [PATCH v2 01/41] ARM: s3c: Remove unneeded
+	machine header includes
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -65,152 +49,51 @@ List-Post: <mailto:linux-stm32@st-md-mailman.stormreply.com>
 List-Help: <mailto:linux-stm32-request@st-md-mailman.stormreply.com?subject=help>
 List-Subscribe: <https://st-md-mailman.stormreply.com/mailman/listinfo/linux-stm32>, 
  <mailto:linux-stm32-request@st-md-mailman.stormreply.com?subject=subscribe>
+MIME-Version: 1.0
+Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
-Content-Type: text/plain; charset="us-ascii"; Format="flowed"
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
-On 2020-08-19 03:39, qiuguorui1 wrote:
-> In the previous code, when the eoi handle of the exti clears the 
-> pending
-> bit of the current interrupt, it will first read the values of fpr and
-> rpr, then logically OR the corresponding bit of the interrupt number,
-> and finally write back to fpr and rpr.
-> 
-> We found through experiments that if two exti interrupts,
-> we call them int1/int2, arrive almost at the same time. in our 
-> scenario,
-> the time difference is 30 microseconds, assuming int1 is triggered 
-> first.
-> 
-> there will be an extreme scenario: both int's pending bit are set to 1,
-> the irq handle of int1 is executed first, and eoi handle is then 
-> executed,
-> at this moment, all pending bits are cleared, but the int 2 has not
-> finally been reported to the cpu yet, which eventually lost int2.
-> 
-> According to stm32's TRM description about rpr and fpr: Writing a 1 to 
-> this
-> bit will trigger a rising edge event on event x, Writing 0 has no
-> effect.
-> 
-> Therefore, when clearing the pending bit, we only need to clear the
-> pending bit of the irq.
+On Thu, 6 Aug 2020 20:20:18 +0200, Krzysztof Kozlowski wrote:
+> Not all units use the contents of mach/hardware.h and
+> mach/dma.h.  Remove these includes when not needed.
 
-Interesting findings!
+Applied to
 
-> 
-> Signed-off-by: qiuguorui1 <qiuguorui1@huawei.com>
+   https://git.kernel.org/pub/scm/linux/kernel/git/broonie/sound.git for-next
 
-This definitely needs a Fixes: tag and a Cc: stable, as lost
-interrupts are not fun at all.
+Thanks!
 
-> ---
->  drivers/irqchip/irq-stm32-exti.c | 18 ++++++++++++------
->  1 file changed, 12 insertions(+), 6 deletions(-)
-> 
-> diff --git a/drivers/irqchip/irq-stm32-exti.c 
-> b/drivers/irqchip/irq-stm32-exti.c
-> index 03a36be757d8..ee4faf5c90b8 100644
-> --- a/drivers/irqchip/irq-stm32-exti.c
-> +++ b/drivers/irqchip/irq-stm32-exti.c
-> @@ -26,6 +26,11 @@
-> 
->  #define HWSPNLCK_TIMEOUT	1000 /* usec */
-> 
-> +enum reg_ops {
-> +	REG_WRITE_ONLY,
-> +	REG_READ_WRITE
-> +};
-> +
->  struct stm32_exti_bank {
->  	u32 imr_ofst;
->  	u32 emr_ofst;
-> @@ -416,13 +421,14 @@ static void stm32_irq_ack(struct irq_data *d)
->  	irq_gc_unlock(gc);
->  }
-> 
-> -static inline u32 stm32_exti_set_bit(struct irq_data *d, u32 reg)
-> +static inline u32 stm32_exti_set_bit(struct irq_data *d, u32 reg,
-> enum reg_ops op)
->  {
->  	struct stm32_exti_chip_data *chip_data = 
-> irq_data_get_irq_chip_data(d);
->  	void __iomem *base = chip_data->host_data->base;
-> -	u32 val;
-> +	u32 val = 0;
-> 
-> -	val = readl_relaxed(base + reg);
-> +	if (op == REG_READ_WRITE)
-> +		val = readl_relaxed(base + reg);
->  	val |= BIT(d->hwirq % IRQS_PER_BANK);
->  	writel_relaxed(val, base + reg);
-> 
-> @@ -449,9 +455,9 @@ static void stm32_exti_h_eoi(struct irq_data *d)
-> 
->  	raw_spin_lock(&chip_data->rlock);
-> 
-> -	stm32_exti_set_bit(d, stm32_bank->rpr_ofst);
-> +	stm32_exti_set_bit(d, stm32_bank->rpr_ofst, REG_WRITE_ONLY);
->  	if (stm32_bank->fpr_ofst != UNDEF_REG)
-> -		stm32_exti_set_bit(d, stm32_bank->fpr_ofst);
-> +		stm32_exti_set_bit(d, stm32_bank->fpr_ofst, REG_WRITE_ONLY);
-> 
->  	raw_spin_unlock(&chip_data->rlock);
-> 
-> @@ -478,7 +484,7 @@ static void stm32_exti_h_unmask(struct irq_data *d)
->  	const struct stm32_exti_bank *stm32_bank = chip_data->reg_bank;
-> 
->  	raw_spin_lock(&chip_data->rlock);
-> -	chip_data->mask_cache = stm32_exti_set_bit(d, stm32_bank->imr_ofst);
-> +	chip_data->mask_cache = stm32_exti_set_bit(d, stm32_bank->imr_ofst,
-> REG_READ_WRITE);
->  	raw_spin_unlock(&chip_data->rlock);
-> 
->  	if (d->parent_data->chip)
+[1/5] ASoC: samsung: h1940: turn into platform driver
+      commit: 2c5c4fdc710c5d3beff78ac5605c5732ebfa8ae5
+[2/5] ASoC: samsung: neo1973: turn into platform driver
+      commit: a65e8a320846b8c69f53a758dc3662e4b42e6a48
+[3/5] ASoC: samsung: rx1950: turn into platform driver
+      commit: a0f3315a2558e22e75873e1184d0c213c2f8315f
+[4/5] ASoC: samsung: s3c2412-i2s: avoid hardcoded S3C2410_PA_IIS
+      commit: 2f1525848844c996990aafd3104bddf0f0cb3a28
+[5/5] ARM: s3c24xx: move iis pinctrl config into boards
+      (no commit info)
 
-I think this could be made much simpler by simply providing
-an accessor that doesn't do a RMW. Something like this (untested):
+All being well this means that it will be integrated into the linux-next
+tree (usually sometime in the next 24 hours) and sent to Linus during
+the next merge window (or sooner if it is a bug fix), however if
+problems are discovered then the patch may be dropped or reverted.
 
-diff --git a/drivers/irqchip/irq-stm32-exti.c 
-b/drivers/irqchip/irq-stm32-exti.c
-index 03a36be757d8..e35c5561a10d 100644
---- a/drivers/irqchip/irq-stm32-exti.c
-+++ b/drivers/irqchip/irq-stm32-exti.c
-@@ -416,6 +416,14 @@ static void stm32_irq_ack(struct irq_data *d)
-  	irq_gc_unlock(gc);
-  }
+You may get further e-mails resulting from automated or manual testing
+and review of the tree, please engage with people reporting problems and
+send followup patches addressing any issues that are reported if needed.
 
-+static void stm32_exti_write_bit(struct irq_data *d, u32 reg)
-+{
-+	struct stm32_exti_chip_data *chip_data = 
-irq_data_get_irq_chip_data(d);
-+	void __iomem *base = chip_data->host_data->base;
-+
-+	writel_relaxed(BIT(d->hwirq % IRQS_PER_BANK), base + reg);
-+}
-+
-  static inline u32 stm32_exti_set_bit(struct irq_data *d, u32 reg)
-  {
-  	struct stm32_exti_chip_data *chip_data = 
-irq_data_get_irq_chip_data(d);
-@@ -449,9 +457,9 @@ static void stm32_exti_h_eoi(struct irq_data *d)
+If any updates are required or you are submitting further changes they
+should be sent as incremental updates against current git, existing
+patches will not be replaced.
 
-  	raw_spin_lock(&chip_data->rlock);
-
--	stm32_exti_set_bit(d, stm32_bank->rpr_ofst);
-+	stm32_exti_write_bit(d, stm32_bank->rpr_ofst);
-  	if (stm32_bank->fpr_ofst != UNDEF_REG)
--		stm32_exti_set_bit(d, stm32_bank->fpr_ofst);
-+		stm32_exti_write_bit(d, stm32_bank->fpr_ofst);
-
-  	raw_spin_unlock(&chip_data->rlock);
+Please add any relevant lists and maintainers to the CCs when replying
+to this mail.
 
 Thanks,
-
-         M.
--- 
-Jazz is not dead. It just smells funny...
+Mark
 _______________________________________________
 Linux-stm32 mailing list
 Linux-stm32@st-md-mailman.stormreply.com
