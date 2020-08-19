@@ -2,54 +2,54 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id 5ECA424A0A3
-	for <lists+linux-stm32@lfdr.de>; Wed, 19 Aug 2020 15:52:45 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id B225A24A0D4
+	for <lists+linux-stm32@lfdr.de>; Wed, 19 Aug 2020 15:58:12 +0200 (CEST)
 Received: from ip-172-31-3-76.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 17828C3FAD8;
-	Wed, 19 Aug 2020 13:52:45 +0000 (UTC)
-Received: from lb1-smtp-cloud9.xs4all.net (lb1-smtp-cloud9.xs4all.net
- [194.109.24.22])
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 75B05C3FAD8;
+	Wed, 19 Aug 2020 13:58:12 +0000 (UTC)
+Received: from lb3-smtp-cloud9.xs4all.net (lb3-smtp-cloud9.xs4all.net
+ [194.109.24.30])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id D478AC3FAD3
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id D9D0FC3FAD3
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Wed, 19 Aug 2020 13:52:43 +0000 (UTC)
+ Wed, 19 Aug 2020 13:58:10 +0000 (UTC)
 Received: from cust-b5b5937f ([IPv6:fc0c:c16d:66b8:757f:c639:739b:9d66:799d])
  by smtp-cloud9.xs4all.net with ESMTPA
- id 8OW8kd7KUuuXO8OWAkhNrT; Wed, 19 Aug 2020 15:52:42 +0200
+ id 8ObRkd9mWuuXO8ObSkhPNe; Wed, 19 Aug 2020 15:58:10 +0200
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=xs4all.nl; s=s1;
- t=1597845162; bh=S/1eF/z/kxWJPuHz7Azo9yGJbLE4i6USiGn52JbBhQ8=;
+ t=1597845490; bh=Uuz/6jIZhRnBQON+pYw05hF4KeeuyR1OEYEF2gwxc9w=;
  h=Subject:To:From:Message-ID:Date:MIME-Version:Content-Type:From:
  Subject;
- b=lq+oDqnDj1m1TL8ecDhwJeaerWudIm6F8zwo1pKBlTEmosCkfDI5sYqCplE6WAm9i
- Tke/22HaRqA1hgHUzBWB5mGzSJTo2mmGPiEMpYeH+aGaB2z0aSq0mX+AOaShuBspKh
- yLnXIB1gPDDmt4i41dKl7eAAmrZHbkr8mePksRBIlsqTPjGVmOiuzaRe42xme1+V9t
- HyhE1CAuBVXeSvQqWCxnjbXFEz6ENA93W+nDvGhmkxnRYENaggGfrbj8VVsgqLcdpw
- INR9w0CyMl9JSPbzPFA6wATkNwJyVKulJy2wv49QD0ub6dOscPhW7Qo07XHJNn5VI3
- jyGtlnyNtLDkw==
+ b=ccDKimB72qe9cU6OtkwG9nhN1BLfqjjUBfY8rsETMomk4Xo7eOmVP3P12K+wM49Hk
+ xcmvDkKvLfS/5dHBlRCCypY+N1PT/8oJir2VCovMndsavLn3kjvLqJ7Kx7vGuTsTYd
+ 2aWqd03W5gcf4wZrRdDO+VOOjYsFp+p9eaqbpG4oro8Yoj5gQsU6pDpm0HlIq0+Yr7
+ nVWOBcemGRsPQMvQ6drIWXLGfL2/XciM+7QfcxB72E007rXqpFnGxN439+QVJm778X
+ Y+Tu2tTezxdeboEI/uieNVMmC1WL9VGtovJtwr0oOYETlNE51fiVxeYrVMx7bp3OIz
+ Y4tw+v7nfL7dg==
 To: Alain Volmat <alain.volmat@st.com>, hugues.fruchet@st.com,
  mchehab@kernel.org
 References: <1595918278-9724-1-git-send-email-alain.volmat@st.com>
- <1595918278-9724-2-git-send-email-alain.volmat@st.com>
+ <1595918278-9724-3-git-send-email-alain.volmat@st.com>
 From: Hans Verkuil <hverkuil@xs4all.nl>
-Message-ID: <31ca9ccc-77d4-4368-1024-db70e8e1e7f2@xs4all.nl>
-Date: Wed, 19 Aug 2020 15:52:40 +0200
+Message-ID: <aa93abb9-964a-a9d8-770f-5673142d0d72@xs4all.nl>
+Date: Wed, 19 Aug 2020 15:58:09 +0200
 User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:68.0) Gecko/20100101
  Thunderbird/68.10.0
 MIME-Version: 1.0
-In-Reply-To: <1595918278-9724-2-git-send-email-alain.volmat@st.com>
+In-Reply-To: <1595918278-9724-3-git-send-email-alain.volmat@st.com>
 Content-Language: en-US
-X-CMAE-Envelope: MS4wfEsrBXZOL/+O/UJgbLIac3a9mevUaGD8wdOuFN+0W9g/XWTkEyKbA09IgeextnTDSnp15fC//++Z9wrKcIDY5fSQ+gOOF8Pe380Fj1W3gVkcaNF1ZFJ6
- kr58YhrhHMycmH5+PinH9L3rDjPjCksN2rLJY5pbl/IUTzpGFgx2oFwhuJabvvTtyN6ZM3i3ERlYx89csQMzigkKVe5t13ZJGdrvfyjZ1p+HV5gW15IrDtua
- rmTCKtx4tfT0zb3WPkRb90S5YiFHK+ClhvmtfUL7aTNrGcnb3cw81OtuWIAt5DCR3XxaHQgG7WStfA7s6kSRikj7CmkPbsEa9/EXQUjChIbD9L221uNbi/Hi
- +EW7MVGSQwDEKlIW7pY3f8lVCXF5NHBMrijN6x/NeWDBwjojAtHlDLZ6XyoCInE3tG0OWFBKtCBPgmnTPxdu/B/a5821t25ganGw0WbSoZoK8YDSXpF0kUQC
- W0SfMKZvKKfP6GFo+CsWnwDzC7HX1vzi8sbyv3BKCoq6bp39JRxa0kVkCTBWh6kBijxksGdi+aXaoh1HIu3Iq9ZKtLfz5gAZk3GOHigwtalS5WTaykJsjkKq
- 671eIh2b23FkIeAhWPc099igA6CxvhFYhyBD/iDrCYavbbCTUmmqMeHE7zqQ24S0s+4sChLJ0C3SnVaO9jz8oFw9
+X-CMAE-Envelope: MS4wfNKjxnVk0gRgu+dHVYskSGtcoIzBVImXGMRrMHCIOlPRrP8TwY2wj7R3lxN+EqyNoefJDNqC+Qme8Q13W9+dzxHkQCE3fuhcKJF88aQqRtE173Tc2GPJ
+ 90bfUxuThq2XAPbugKSous4RLWereIy6H6Ken8cn++TUEcoio9C97VoAIFCnWkbK1fieFE1O07abUk6ZO/ehqaT5kjeVtQ/bRwaLpJ4+eEVO1JRz7Njvy/tv
+ o8CxQBeUTTg+UuvQW+jELWvW2abjnDQfXsgr42aGaz5PFOHUVU5DHZ9DwmmXKCFRQUMD9tJr3fp+lhH/aNVXTAutTInKUIJ/pZuzMB9hbQX2zslmE9sDY3qM
+ UAbVrpcb3R83Qt8SZhFjZI+Kfg3W/zS4Su7TqbNvJEQKrqS5rNbde8qy0CeX+hFmNO/3rcuxKX6bqAvRg4643f90lulFVMoHlbT00dGnUbJ8q8Op4x1S7RDp
+ 330DfX4mKnpYqPXYY5BJI0tXby5VgdJofKg0zRHy7/Ot07/qBnYUnQVyOv9db/TencJVS/W5P9NG3RJrrxlhLKu47unDj+18LqzcVpyiH48xsMsTcJYBbIjd
+ /z7Y8gWezj5F21QHJbTzmoWU93MXOpdUH6poZrUINRpyKnXm4rUIqK9RRyzeveqAQ7lkIYme0d9ZpSbaKMJJ3PRY
 Cc: linux-kernel@vger.kernel.org, yannick.fertre@st.com, hans.verkuil@cisco.com,
  mcoquelin.stm32@gmail.com, linux-stm32@st-md-mailman.stormreply.com,
  linux-arm-kernel@lists.infradead.org, linux-media@vger.kernel.org
-Subject: Re: [Linux-stm32] [PATCH 1/2] media: stm32-dcmi: create video dev
- within notifier bound
+Subject: Re: [Linux-stm32] [PATCH 2/2] media: stm32-dcmi: fix probe error
+ path & module remove
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -67,87 +67,64 @@ Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
 On 28/07/2020 08:37, Alain Volmat wrote:
-> In case of an error during the initialization of the sensor,
-> the video device is still available since created at the
-> probe of the dcmi driver. Moreover the device wouldn't
-> be released even when removing the module since the release
-> is performed as part of the notifier unbind callback
-> (not called if no sensor is properly initialized).
-> 
-> This patch move the video device creation with the v4l2 notifier
-> bound handler in order to avoid having a video device created when
-> an error happen during the pipe (dcmi - sensor) initialization.
-> 
-> This also makes the video device creation symmetric with the
-> release which is already done within the notifier unbind handler.
-> 
-> Fixes: 37404f91ef8b ("[media] stm32-dcmi: STM32 DCMI camera interface driver")
-> Signed-off-by: Alain Volmat <alain.volmat@st.com>
-> ---
->  drivers/media/platform/stm32/stm32-dcmi.c | 23 ++++++++++++-----------
->  1 file changed, 12 insertions(+), 11 deletions(-)
-> 
-> diff --git a/drivers/media/platform/stm32/stm32-dcmi.c b/drivers/media/platform/stm32/stm32-dcmi.c
-> index b8931490b83b..5e60d4c6eeeb 100644
-> --- a/drivers/media/platform/stm32/stm32-dcmi.c
-> +++ b/drivers/media/platform/stm32/stm32-dcmi.c
-> @@ -1747,6 +1747,15 @@ static int dcmi_graph_notify_bound(struct v4l2_async_notifier *notifier,
->  
->  	dev_dbg(dcmi->dev, "Subdev \"%s\" bound\n", subdev->name);
->  
-> +	ret = video_register_device(dcmi->vdev, VFL_TYPE_VIDEO, -1);
-> +	if (ret) {
-> +		dev_err(dcmi->dev, "Failed to register video device\n");
-> +		return ret;
-> +	}
+> This commit add missing vb2_queue_release calls with the
+> probe error path and module remove.
 
-Why in the bound callback? The video device is typically created in the complete
-callback, since that's the point where everything is ready.
+No, vb2_queue_release() should not be called.
 
-You should not create a video device unless it is ready for use, and that's only
-valid at the end of the complete callback.
+See this series for more information:
+
+https://patchwork.linuxtv.org/project/linux-media/cover/20200713113048.1150542-1-hverkuil-cisco@xs4all.nl/
+
+I'm made a PR for that patch series, so hopefully it will be merged soon.
+
+From what I can tell you don't need this patch at all for this driver.
 
 Regards,
 
 	Hans
 
-> +
-> +	dev_dbg(dcmi->dev, "Device registered as %s\n",
-> +		video_device_node_name(dcmi->vdev));
-> +
->  	/*
->  	 * Link this sub-device to DCMI, it could be
->  	 * a parallel camera sensor or a bridge
-> @@ -1759,10 +1768,11 @@ static int dcmi_graph_notify_bound(struct v4l2_async_notifier *notifier,
->  				    &dcmi->vdev->entity, 0,
->  				    MEDIA_LNK_FL_IMMUTABLE |
->  				    MEDIA_LNK_FL_ENABLED);
-> -	if (ret)
-> +	if (ret) {
->  		dev_err(dcmi->dev, "Failed to create media pad link with subdev \"%s\"\n",
->  			subdev->name);
-> -	else
-> +		video_unregister_device(dcmi->vdev);
-> +	} else
->  		dev_dbg(dcmi->dev, "DCMI is now linked to \"%s\"\n",
->  			subdev->name);
+> Missing v4l2_async_notifier_unregister is also added within
+> the probe error path
+> 
+> Fixes: 37404f91ef8b ("[media] stm32-dcmi: STM32 DCMI camera interface driver")
+> Signed-off-by: Alain Volmat <alain.volmat@st.com>
+> ---
+>  drivers/media/platform/stm32/stm32-dcmi.c | 6 +++++-
+>  1 file changed, 5 insertions(+), 1 deletion(-)
+> 
+> diff --git a/drivers/media/platform/stm32/stm32-dcmi.c b/drivers/media/platform/stm32/stm32-dcmi.c
+> index 5e60d4c6eeeb..57830ee691be 100644
+> --- a/drivers/media/platform/stm32/stm32-dcmi.c
+> +++ b/drivers/media/platform/stm32/stm32-dcmi.c
+> @@ -2004,7 +2004,7 @@ static int dcmi_probe(struct platform_device *pdev)
 >  
-> @@ -1974,15 +1984,6 @@ static int dcmi_probe(struct platform_device *pdev)
->  	}
->  	dcmi->vdev->entity.flags |= MEDIA_ENT_FL_DEFAULT;
->  
-> -	ret = video_register_device(dcmi->vdev, VFL_TYPE_VIDEO, -1);
-> -	if (ret) {
-> -		dev_err(dcmi->dev, "Failed to register video device\n");
+>  	ret = dcmi_graph_init(dcmi);
+>  	if (ret < 0)
 > -		goto err_media_entity_cleanup;
-> -	}
-> -
-> -	dev_dbg(dcmi->dev, "Device registered as %s\n",
-> -		video_device_node_name(dcmi->vdev));
-> -
->  	/* Buffer queue */
->  	q->type = V4L2_BUF_TYPE_VIDEO_CAPTURE;
->  	q->io_modes = VB2_MMAP | VB2_READ | VB2_DMABUF;
+> +		goto err_vb2_queue_release;
+>  
+>  	/* Reset device */
+>  	ret = reset_control_assert(dcmi->rstc);
+> @@ -2030,7 +2030,10 @@ static int dcmi_probe(struct platform_device *pdev)
+>  	return 0;
+>  
+>  err_cleanup:
+> +	v4l2_async_notifier_unregister(&dcmi->notifier);
+>  	v4l2_async_notifier_cleanup(&dcmi->notifier);
+> +err_vb2_queue_release:
+> +	vb2_queue_release(q);
+>  err_media_entity_cleanup:
+>  	media_entity_cleanup(&dcmi->vdev->entity);
+>  err_device_release:
+> @@ -2052,6 +2055,7 @@ static int dcmi_remove(struct platform_device *pdev)
+>  
+>  	v4l2_async_notifier_unregister(&dcmi->notifier);
+>  	v4l2_async_notifier_cleanup(&dcmi->notifier);
+> +	vb2_queue_release(&dcmi->queue);
+>  	media_entity_cleanup(&dcmi->vdev->entity);
+>  	v4l2_device_unregister(&dcmi->v4l2_dev);
+>  	media_device_cleanup(&dcmi->mdev);
 > 
 
 _______________________________________________
