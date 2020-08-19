@@ -2,54 +2,72 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id B225A24A0D4
-	for <lists+linux-stm32@lfdr.de>; Wed, 19 Aug 2020 15:58:12 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 3347724A5BF
+	for <lists+linux-stm32@lfdr.de>; Wed, 19 Aug 2020 20:16:34 +0200 (CEST)
 Received: from ip-172-31-3-76.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 75B05C3FAD8;
-	Wed, 19 Aug 2020 13:58:12 +0000 (UTC)
-Received: from lb3-smtp-cloud9.xs4all.net (lb3-smtp-cloud9.xs4all.net
- [194.109.24.30])
- (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id A3830C3FAD8;
+	Wed, 19 Aug 2020 18:16:33 +0000 (UTC)
+Received: from mail-ej1-f66.google.com (mail-ej1-f66.google.com
+ [209.85.218.66])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id D9D0FC3FAD3
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 74423C3FAD3
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Wed, 19 Aug 2020 13:58:10 +0000 (UTC)
-Received: from cust-b5b5937f ([IPv6:fc0c:c16d:66b8:757f:c639:739b:9d66:799d])
- by smtp-cloud9.xs4all.net with ESMTPA
- id 8ObRkd9mWuuXO8ObSkhPNe; Wed, 19 Aug 2020 15:58:10 +0200
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=xs4all.nl; s=s1;
- t=1597845490; bh=Uuz/6jIZhRnBQON+pYw05hF4KeeuyR1OEYEF2gwxc9w=;
- h=Subject:To:From:Message-ID:Date:MIME-Version:Content-Type:From:
- Subject;
- b=ccDKimB72qe9cU6OtkwG9nhN1BLfqjjUBfY8rsETMomk4Xo7eOmVP3P12K+wM49Hk
- xcmvDkKvLfS/5dHBlRCCypY+N1PT/8oJir2VCovMndsavLn3kjvLqJ7Kx7vGuTsTYd
- 2aWqd03W5gcf4wZrRdDO+VOOjYsFp+p9eaqbpG4oro8Yoj5gQsU6pDpm0HlIq0+Yr7
- nVWOBcemGRsPQMvQ6drIWXLGfL2/XciM+7QfcxB72E007rXqpFnGxN439+QVJm778X
- Y+Tu2tTezxdeboEI/uieNVMmC1WL9VGtovJtwr0oOYETlNE51fiVxeYrVMx7bp3OIz
- Y4tw+v7nfL7dg==
-To: Alain Volmat <alain.volmat@st.com>, hugues.fruchet@st.com,
- mchehab@kernel.org
-References: <1595918278-9724-1-git-send-email-alain.volmat@st.com>
- <1595918278-9724-3-git-send-email-alain.volmat@st.com>
-From: Hans Verkuil <hverkuil@xs4all.nl>
-Message-ID: <aa93abb9-964a-a9d8-770f-5673142d0d72@xs4all.nl>
-Date: Wed, 19 Aug 2020 15:58:09 +0200
-User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:68.0) Gecko/20100101
- Thunderbird/68.10.0
+ Wed, 19 Aug 2020 18:16:27 +0000 (UTC)
+Received: by mail-ej1-f66.google.com with SMTP id g19so27383086ejc.9
+ for <linux-stm32@st-md-mailman.stormreply.com>;
+ Wed, 19 Aug 2020 11:16:27 -0700 (PDT)
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20161025;
+ h=x-gm-message-state:date:from:to:cc:subject:message-id:references
+ :mime-version:content-disposition:in-reply-to:user-agent;
+ bh=t3qsgE3nJwNaWUKRuhBUBlsZ1BJmez2mj7vmp2zbCgY=;
+ b=i1T3b6R7twZaGudK4km0lrIq6F7vrxp9KQAEopZs+46ASSWWsRqBpzz+6gQzZAhB4i
+ touQu3TnsYtt5OF2iNd2c0an4A+QZPJvXmdiopaqS5sLu7thQ8FkJg0u0idtIgQcV5Ln
+ 4YmYZDWjV03PJhkC50I0XJJVQmIt8z1hl2pAMTFQMAAZvOUAvh1x/ngoB/heF5bd4emq
+ qGGrCLYvCdbPL1iaCJVVE3yyEiMYTdCM4Gw1ANU1g7iXh5tywg0LmnqgxTQStDNcFm0d
+ KLJk9BTLJJM+e7DlMmF5Qbe5ppl5AFk2jq9UIl+csDXzPhLu0nHnQv4Xig4DtXOT3k+v
+ A3eg==
+X-Gm-Message-State: AOAM532ujh5OrT2ON05pQSDq6DwVvpi4XauI+cSULsXv0LSSy/j4cE8u
+ Db5Cj2AFjm5zqnKmMR6gpWQ=
+X-Google-Smtp-Source: ABdhPJzOcN1GZKTtRnWkWtwfjQiD9o87+S+tpPQkggCUttDLUkxuxmb4YmLExAOC3PinRJdWfsIbkw==
+X-Received: by 2002:a17:906:e17:: with SMTP id
+ l23mr25676842eji.13.1597860987481; 
+ Wed, 19 Aug 2020 11:16:27 -0700 (PDT)
+Received: from kozik-lap ([194.230.155.216])
+ by smtp.googlemail.com with ESMTPSA id
+ gh25sm18892391ejb.109.2020.08.19.11.16.25
+ (version=TLS1_2 cipher=ECDHE-ECDSA-CHACHA20-POLY1305 bits=256/256);
+ Wed, 19 Aug 2020 11:16:26 -0700 (PDT)
+Date: Wed, 19 Aug 2020 20:16:23 +0200
+From: Krzysztof Kozlowski <krzk@kernel.org>
+To: Russell King <linux@armlinux.org.uk>, Kukjin Kim <kgene@kernel.org>,
+ Simtec Linux Team <linux@simtec.co.uk>,
+ Maxime Coquelin <mcoquelin.stm32@gmail.com>,
+ Alexandre Torgue <alexandre.torgue@st.com>,
+ Kyungmin Park <kyungmin.park@samsung.com>,
+ Catalin Marinas <catalin.marinas@arm.com>, Will Deacon <will@kernel.org>,
+ Sylwester Nawrocki <s.nawrocki@samsung.com>,
+ Tomasz Figa <tomasz.figa@gmail.com>, Chanwoo Choi <cw00.choi@samsung.com>,
+ Michael Turquette <mturquette@baylibre.com>,
+ Stephen Boyd <sboyd@kernel.org>, Wim Van Sebroeck <wim@linux-watchdog.org>,
+ Guenter Roeck <linux@roeck-us.net>, Arnd Bergmann <arnd@arndb.de>,
+ linux-arm-kernel@lists.infradead.org, linux-samsung-soc@vger.kernel.org,
+ linux-stm32@st-md-mailman.stormreply.com,
+ patches@opensource.cirrus.com, linux-clk@vger.kernel.org,
+ linux-watchdog@vger.kernel.org
+Message-ID: <20200819181623.GA21298@kozik-lap>
+References: <20200804192654.12783-1-krzk@kernel.org>
+ <20200804192654.12783-7-krzk@kernel.org>
 MIME-Version: 1.0
-In-Reply-To: <1595918278-9724-3-git-send-email-alain.volmat@st.com>
-Content-Language: en-US
-X-CMAE-Envelope: MS4wfNKjxnVk0gRgu+dHVYskSGtcoIzBVImXGMRrMHCIOlPRrP8TwY2wj7R3lxN+EqyNoefJDNqC+Qme8Q13W9+dzxHkQCE3fuhcKJF88aQqRtE173Tc2GPJ
- 90bfUxuThq2XAPbugKSous4RLWereIy6H6Ken8cn++TUEcoio9C97VoAIFCnWkbK1fieFE1O07abUk6ZO/ehqaT5kjeVtQ/bRwaLpJ4+eEVO1JRz7Njvy/tv
- o8CxQBeUTTg+UuvQW+jELWvW2abjnDQfXsgr42aGaz5PFOHUVU5DHZ9DwmmXKCFRQUMD9tJr3fp+lhH/aNVXTAutTInKUIJ/pZuzMB9hbQX2zslmE9sDY3qM
- UAbVrpcb3R83Qt8SZhFjZI+Kfg3W/zS4Su7TqbNvJEQKrqS5rNbde8qy0CeX+hFmNO/3rcuxKX6bqAvRg4643f90lulFVMoHlbT00dGnUbJ8q8Op4x1S7RDp
- 330DfX4mKnpYqPXYY5BJI0tXby5VgdJofKg0zRHy7/Ot07/qBnYUnQVyOv9db/TencJVS/W5P9NG3RJrrxlhLKu47unDj+18LqzcVpyiH48xsMsTcJYBbIjd
- /z7Y8gWezj5F21QHJbTzmoWU93MXOpdUH6poZrUINRpyKnXm4rUIqK9RRyzeveqAQ7lkIYme0d9ZpSbaKMJJ3PRY
-Cc: linux-kernel@vger.kernel.org, yannick.fertre@st.com, hans.verkuil@cisco.com,
- mcoquelin.stm32@gmail.com, linux-stm32@st-md-mailman.stormreply.com,
- linux-arm-kernel@lists.infradead.org, linux-media@vger.kernel.org
-Subject: Re: [Linux-stm32] [PATCH 2/2] media: stm32-dcmi: fix probe error
- path & module remove
+Content-Disposition: inline
+In-Reply-To: <20200804192654.12783-7-krzk@kernel.org>
+User-Agent: Mutt/1.9.4 (2018-02-28)
+Cc: Sylwester Nawrocki <snawrocki@kernel.org>, Lihua Yao <ylhuajnu@outlook.com>,
+ Cedric Roux <sed@free.fr>, Sergio Prado <sergio.prado@e-labworks.com>,
+ Marek Szyprowski <m.szyprowski@samsung.com>
+Subject: Re: [Linux-stm32] [PATCH v2 06/13] ARM: samsung: remove
+ HAVE_S3C2410_WATCHDOG and use direct dependencies
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -66,66 +84,23 @@ Content-Transfer-Encoding: 7bit
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
-On 28/07/2020 08:37, Alain Volmat wrote:
-> This commit add missing vb2_queue_release calls with the
-> probe error path and module remove.
-
-No, vb2_queue_release() should not be called.
-
-See this series for more information:
-
-https://patchwork.linuxtv.org/project/linux-media/cover/20200713113048.1150542-1-hverkuil-cisco@xs4all.nl/
-
-I'm made a PR for that patch series, so hopefully it will be merged soon.
-
-From what I can tell you don't need this patch at all for this driver.
-
-Regards,
-
-	Hans
-
-> Missing v4l2_async_notifier_unregister is also added within
-> the probe error path
+On Tue, Aug 04, 2020 at 09:26:47PM +0200, Krzysztof Kozlowski wrote:
+> A separate Kconfig option HAVE_S3C2410_WATCHDOG for Samsung SoCs is not
+> really needed and the s3c24xx watchdog driver can depend on Samsung ARM
+> architectures instead.
 > 
-> Fixes: 37404f91ef8b ("[media] stm32-dcmi: STM32 DCMI camera interface driver")
-> Signed-off-by: Alain Volmat <alain.volmat@st.com>
-> ---
->  drivers/media/platform/stm32/stm32-dcmi.c | 6 +++++-
->  1 file changed, 5 insertions(+), 1 deletion(-)
+> The "HAVE_xxx_WATCHDOG" pattern of dependency is not popular and Samsung
+> platforms are here exceptions.  All others just depend on
+> CONFIG_ARCH_xxx.
 > 
-> diff --git a/drivers/media/platform/stm32/stm32-dcmi.c b/drivers/media/platform/stm32/stm32-dcmi.c
-> index 5e60d4c6eeeb..57830ee691be 100644
-> --- a/drivers/media/platform/stm32/stm32-dcmi.c
-> +++ b/drivers/media/platform/stm32/stm32-dcmi.c
-> @@ -2004,7 +2004,7 @@ static int dcmi_probe(struct platform_device *pdev)
->  
->  	ret = dcmi_graph_init(dcmi);
->  	if (ret < 0)
-> -		goto err_media_entity_cleanup;
-> +		goto err_vb2_queue_release;
->  
->  	/* Reset device */
->  	ret = reset_control_assert(dcmi->rstc);
-> @@ -2030,7 +2030,10 @@ static int dcmi_probe(struct platform_device *pdev)
->  	return 0;
->  
->  err_cleanup:
-> +	v4l2_async_notifier_unregister(&dcmi->notifier);
->  	v4l2_async_notifier_cleanup(&dcmi->notifier);
-> +err_vb2_queue_release:
-> +	vb2_queue_release(q);
->  err_media_entity_cleanup:
->  	media_entity_cleanup(&dcmi->vdev->entity);
->  err_device_release:
-> @@ -2052,6 +2055,7 @@ static int dcmi_remove(struct platform_device *pdev)
->  
->  	v4l2_async_notifier_unregister(&dcmi->notifier);
->  	v4l2_async_notifier_cleanup(&dcmi->notifier);
-> +	vb2_queue_release(&dcmi->queue);
->  	media_entity_cleanup(&dcmi->vdev->entity);
->  	v4l2_device_unregister(&dcmi->v4l2_dev);
->  	media_device_cleanup(&dcmi->mdev);
+> This makes the code slightly smaller without any change in
+> functionality.
 > 
+
+Applied.
+
+Best regards,
+Krzysztof
 
 _______________________________________________
 Linux-stm32 mailing list
