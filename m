@@ -2,70 +2,44 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id 5E9E524D04D
-	for <lists+linux-stm32@lfdr.de>; Fri, 21 Aug 2020 10:06:25 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 9916924DB78
+	for <lists+linux-stm32@lfdr.de>; Fri, 21 Aug 2020 18:40:51 +0200 (CEST)
 Received: from ip-172-31-3-76.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 28FA6C3FAD8;
-	Fri, 21 Aug 2020 08:06:25 +0000 (UTC)
-Received: from mx07-00178001.pphosted.com (mx08-00178001.pphosted.com
- [91.207.212.93])
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 3B31FC3FAD7;
+	Fri, 21 Aug 2020 16:40:51 +0000 (UTC)
+Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
+ (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
+ (No client certificate requested)
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id E625EC32E91
+ for <linux-stm32@st-md-mailman.stormreply.com>;
+ Fri, 21 Aug 2020 16:40:48 +0000 (UTC)
+Received: from localhost (fw-tnat.cambridge.arm.com [217.140.96.140])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 315A9C3FAD3
- for <linux-stm32@st-md-mailman.stormreply.com>;
- Fri, 21 Aug 2020 08:06:24 +0000 (UTC)
-Received: from pps.filterd (m0046661.ppops.net [127.0.0.1])
- by mx07-00178001.pphosted.com (8.16.0.42/8.16.0.42) with SMTP id
- 07L82JJr002831; Fri, 21 Aug 2020 10:06:18 +0200
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=st.com;
- h=subject : to : cc :
- references : from : message-id : date : mime-version : in-reply-to :
- content-type : content-transfer-encoding; s=STMicroelectronics;
- bh=th7iteinfJ5v35Fs8Ofjskmkk4fXfBSVgD7G2rq8Rbw=;
- b=vB2upX7yZQWJVaoHeJvA3i5JRJJufz9ih3al4Dd9JKa2GMqA5VyPqnnFOF/r/X/W+jq+
- /kmqWUqSs25OkbIl/0JXNogFpSWe0waYNiCVIFCWS/KSHWtBNlg9svjcCQYXXlJUo1eV
- fa/9BtjoTwvZVcAmNoSi8pbnGbmTxXOqGJDY69vN+jKP8y2jNagCcrMVtBwL8TC3vTP2
- ZJBly60IK16ZzesyuJ6jOLtTjEDi/qMUfgLxcSmeCPxoyKAMcUwMQkH4lS1JtLS2Auy4
- NF8DPTL+9fIINFL3zMJSQpZHdDe92fTw/Jr3lT0fm3maRnF4lyA9h3Lg/b//YdcdrAoc gA== 
-Received: from beta.dmz-eu.st.com (beta.dmz-eu.st.com [164.129.1.35])
- by mx07-00178001.pphosted.com with ESMTP id 330jg7nrvs-1
- (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
- Fri, 21 Aug 2020 10:06:18 +0200
-Received: from euls16034.sgp.st.com (euls16034.sgp.st.com [10.75.44.20])
- by beta.dmz-eu.st.com (STMicroelectronics) with ESMTP id 7D0F310002A;
- Fri, 21 Aug 2020 10:06:17 +0200 (CEST)
-Received: from Webmail-eu.st.com (sfhdag5node3.st.com [10.75.127.15])
- by euls16034.sgp.st.com (STMicroelectronics) with ESMTP id 6DBE721FE90;
- Fri, 21 Aug 2020 10:06:17 +0200 (CEST)
-Received: from [10.48.1.149] (10.75.127.45) by SFHDAG5NODE3.st.com
- (10.75.127.15) with Microsoft SMTP Server (TLS) id 15.0.1473.3; Fri, 21 Aug
- 2020 10:06:16 +0200
-To: Jisheng Zhang <Jisheng.Zhang@synaptics.com>, Liam Girdwood
- <lgirdwood@gmail.com>, Mark Brown <broonie@kernel.org>, Support Opensource
- <support.opensource@diasemi.com>, Andy Gross <agross@kernel.org>, Bjorn
- Andersson <bjorn.andersson@linaro.org>, Maxime Coquelin
- <mcoquelin.stm32@gmail.com>, Alexandre Torgue <alexandre.torgue@st.com>,
- Icenowy Zheng <icenowy@aosc.io>
+ by mail.kernel.org (Postfix) with ESMTPSA id 3BC872076E;
+ Fri, 21 Aug 2020 16:40:46 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
+ s=default; t=1598028046;
+ bh=EvjYX8VGFAkdYRMoROfW5zmgZVwotJ8Uvmvse9ytBIQ=;
+ h=Date:From:To:Cc:In-Reply-To:References:Subject:From;
+ b=CeUhHNdBc9hId5eHJUHIDLQrdIWsAKSe02c8cGLV+g1ypbuJjt0Y8Ef7aZ8jnEFtj
+ Wph7/zFTp9CimZU/MqWma8jD//zRYkCxXgVrZMvXTeOQO0Ks6Rukt6sAZ4EjO1RpFh
+ TrfJrle1LosE+gzUk+697ian3F4pCfZsxwZGbrQg=
+Date: Fri, 21 Aug 2020 17:40:13 +0100
+From: Mark Brown <broonie@kernel.org>
+To: Jisheng Zhang <Jisheng.Zhang@synaptics.com>,
+ Icenowy Zheng <icenowy@aosc.io>, Bjorn Andersson <bjorn.andersson@linaro.org>,
+ Liam Girdwood <lgirdwood@gmail.com>,
+ Maxime Coquelin <mcoquelin.stm32@gmail.com>, Andy Gross <agross@kernel.org>,
+ Support Opensource <support.opensource@diasemi.com>,
+ Alexandre Torgue <alexandre.torgue@st.com>
+In-Reply-To: <20200821111135.0b958d3a@xhacker.debian>
 References: <20200821111135.0b958d3a@xhacker.debian>
- <20200821111943.29b2b4ca@xhacker.debian>
-From: Fabrice Gasnier <fabrice.gasnier@st.com>
-Message-ID: <98a8224e-9797-cbd0-7a99-972f3c6db292@st.com>
-Date: Fri, 21 Aug 2020 10:06:15 +0200
-User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:68.0) Gecko/20100101
- Thunderbird/68.10.0
-MIME-Version: 1.0
-In-Reply-To: <20200821111943.29b2b4ca@xhacker.debian>
-Content-Language: en-US
-X-Originating-IP: [10.75.127.45]
-X-ClientProxiedBy: SFHDAG1NODE3.st.com (10.75.127.3) To SFHDAG5NODE3.st.com
- (10.75.127.15)
-X-Proofpoint-Virus-Version: vendor=fsecure engine=2.50.10434:6.0.235, 18.0.687
- definitions=2020-08-21_06:2020-08-19,
- 2020-08-21 signatures=0
+Message-Id: <159802800846.25815.3400807374016781922.b4-ty@kernel.org>
 Cc: linux-arm-msm@vger.kernel.org, linux-kernel@vger.kernel.org,
  linux-arm-kernel@lists.infradead.org, linux-stm32@st-md-mailman.stormreply.com
-Subject: Re: [Linux-stm32] [PATCH v2 14/15] regulator: stm32-booster: Fix
- W=1 build warning when CONFIG_OF=n
+Subject: Re: [Linux-stm32] [PATCH v2 00/15] regulator: Fix W=1 build warning
+	when CONFIG_OF=n
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -77,32 +51,94 @@ List-Post: <mailto:linux-stm32@st-md-mailman.stormreply.com>
 List-Help: <mailto:linux-stm32-request@st-md-mailman.stormreply.com?subject=help>
 List-Subscribe: <https://st-md-mailman.stormreply.com/mailman/listinfo/linux-stm32>, 
  <mailto:linux-stm32-request@st-md-mailman.stormreply.com?subject=subscribe>
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: base64
+MIME-Version: 1.0
+Content-Type: text/plain; charset="us-ascii"
+Content-Transfer-Encoding: 7bit
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
-T24gOC8yMS8yMCA1OjE5IEFNLCBKaXNoZW5nIFpoYW5nIHdyb3RlOgo+IEZpeCBiZWxvdyB3YXJu
-aW5nIHdoZW4gQ09ORklHX09GPW46Cj4gCj4gZHJpdmVycy9yZWd1bGF0b3Ivc3RtMzItYm9vc3Rl
-ci5jOjEwNDozNDogd2FybmluZzog4oCYc3RtMzJfYm9vc3Rlcl9vZl9tYXRjaOKAmSBkZWZpbmVk
-IGJ1dCBub3QgdXNlZCBbLVd1bnVzZWQtY29uc3QtdmFyaWFibGU9XQo+ICAgMTA0IHwgc3RhdGlj
-IGNvbnN0IHN0cnVjdCBvZl9kZXZpY2VfaWQgc3RtMzJfYm9vc3Rlcl9vZl9tYXRjaFtdID0gewo+
-ICAgICAgIHwgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgXn5+fn5+fn5+fn5+fn5+
-fn5+fn5+fgo+IAo+IFNpZ25lZC1vZmYtYnk6IEppc2hlbmcgWmhhbmcgPEppc2hlbmcuWmhhbmdA
-c3luYXB0aWNzLmNvbT4KCkhpIEppc2hlbmcsCgpBY2tlZC1ieTogRmFicmljZSBHYXNuaWVyIDxm
-YWJyaWNlLmdhc25pZXJAc3QuY29tPgoKVGhhbmtzIGZvciB0aGUgcGF0Y2gsCkZhYnJpY2UKPiAt
-LS0KPiAgZHJpdmVycy9yZWd1bGF0b3Ivc3RtMzItYm9vc3Rlci5jIHwgMiArLQo+ICAxIGZpbGUg
-Y2hhbmdlZCwgMSBpbnNlcnRpb24oKyksIDEgZGVsZXRpb24oLSkKPiAKPiBkaWZmIC0tZ2l0IGEv
-ZHJpdmVycy9yZWd1bGF0b3Ivc3RtMzItYm9vc3Rlci5jIGIvZHJpdmVycy9yZWd1bGF0b3Ivc3Rt
-MzItYm9vc3Rlci5jCj4gaW5kZXggMDNmMTYyZmZkMTQ0Li4zMTM2ZWE4YTM1ZDUgMTAwNjQ0Cj4g
-LS0tIGEvZHJpdmVycy9yZWd1bGF0b3Ivc3RtMzItYm9vc3Rlci5jCj4gKysrIGIvZHJpdmVycy9y
-ZWd1bGF0b3Ivc3RtMzItYm9vc3Rlci5jCj4gQEAgLTEwMSw3ICsxMDEsNyBAQCBzdGF0aWMgaW50
-IHN0bTMyX2Jvb3N0ZXJfcHJvYmUoc3RydWN0IHBsYXRmb3JtX2RldmljZSAqcGRldikKPiAgCXJl
-dHVybiAwOwo+ICB9Cj4gIAo+IC1zdGF0aWMgY29uc3Qgc3RydWN0IG9mX2RldmljZV9pZCBzdG0z
-Ml9ib29zdGVyX29mX21hdGNoW10gPSB7Cj4gK3N0YXRpYyBjb25zdCBzdHJ1Y3Qgb2ZfZGV2aWNl
-X2lkIF9fbWF5YmVfdW51c2VkIHN0bTMyX2Jvb3N0ZXJfb2ZfbWF0Y2hbXSA9IHsKPiAgCXsKPiAg
-CQkuY29tcGF0aWJsZSA9ICJzdCxzdG0zMmg3LWJvb3N0ZXIiLAo+ICAJCS5kYXRhID0gKHZvaWQg
-Kikmc3RtMzJoN19ib29zdGVyX2Rlc2MKPiAKX19fX19fX19fX19fX19fX19fX19fX19fX19fX19f
-X19fX19fX19fX19fX19fX18KTGludXgtc3RtMzIgbWFpbGluZyBsaXN0CkxpbnV4LXN0bTMyQHN0
-LW1kLW1haWxtYW4uc3Rvcm1yZXBseS5jb20KaHR0cHM6Ly9zdC1tZC1tYWlsbWFuLnN0b3JtcmVw
-bHkuY29tL21haWxtYW4vbGlzdGluZm8vbGludXgtc3RtMzIK
+On Fri, 21 Aug 2020 11:11:35 +0800, Jisheng Zhang wrote:
+> Fixing W=1 build warning when no support for device tree is there.
+> 
+> Since v1:
+>   - fix the warning with __maybe_unused instead of CONFIG_OF macro
+>   - add 3 more patches to fix the same issue
+> 
+> Jisheng Zhang (15):
+>   regulator: 88pg86x: Fix W=1 build warning when CONFIG_OF=n
+>   regulator: da9210: Fix W=1 build warning when CONFIG_OF=n
+>   regulator: fan53555: Fix W=1 build warning when CONFIG_OF=n
+>   regulator: fixed: Fix W=1 build warnings when CONFIG_OF=n
+>   regulator: ltc3589: Fix W=1 build warning when CONFIG_OF=n
+>   regulator: ltc3676: Fix W=1 build warning when CONFIG_OF=n
+>   regulator: max1586: Fix W=1 build warning when CONFIG_OF=n
+>   regulator: max77826: Fix W=1 build warning when CONFIG_OF=n
+>   regulator: pwm: Fix W=1 build warning when CONFIG_OF=n
+>   regulator: stm32-pwr: Fix W=1 build warning when CONFIG_OF=n
+>   regulator: stm32-vrefbuf: Fix W=1 build warning when CONFIG_OF=n
+>   regulator: sy8106a: Fix W=1 build warning when CONFIG_OF=n
+>   regulator: qcom-rpmh: Fix W=1 build warning when CONFIG_OF=n
+>   regulator: stm32-booster: Fix W=1 build warning when CONFIG_OF=n
+>   regulator: tps65023: Fix W=1 build warning when CONFIG_OF=n
+> 
+> [...]
+
+Applied to
+
+   https://git.kernel.org/pub/scm/linux/kernel/git/broonie/regulator.git for-next
+
+Thanks!
+
+[01/15] regulator: 88pg86x: Fix W=1 build warning when CONFIG_OF=n
+        commit: e11e068ccbdb038e21e24ad2ee0157c902e3c9fc
+[02/15] regulator: da9210: Fix W=1 build warning when CONFIG_OF=n
+        commit: 2d2a84ae30a3bda57a22b283c55be8e9e6fd158b
+[03/15] regulator: fan53555: Fix W=1 build warning when CONFIG_OF=n
+        commit: 5e97d7e809a1fd8a2401429df13e0410b77d2142
+[04/15] regulator: fixed: Fix W=1 build warnings when CONFIG_OF=n
+        commit: 0f037255008386f4ac15a201678e8e4565cd91a3
+[05/15] regulator: ltc3589: Fix W=1 build warning when CONFIG_OF=n
+        commit: 8ece31564f1964d52eb1180ee33314c63533947e
+[06/15] regulator: ltc3676: Fix W=1 build warning when CONFIG_OF=n
+        commit: 1d4c1e02b96ea579f68412980ee1fe5f2ce57d8c
+[07/15] regulator: max1586: Fix W=1 build warning when CONFIG_OF=n
+        commit: 44bc5d168dc209bddafb3269f72a74c3cbb0d820
+[08/15] regulator: max77826: Fix W=1 build warning when CONFIG_OF=n
+        commit: 7bf0a29c354fc1855dc478916211b5194bab4393
+[09/15] regulator: pwm: Fix W=1 build warning when CONFIG_OF=n
+        commit: dc8c5ea3574e08e3c7105bbba5af5bb9c055903b
+[10/15] regulator: stm32-pwr: Fix W=1 build warning when CONFIG_OF=n
+        commit: a94a11ce0d5235e53bb74d54bbd5399c23abfd87
+[11/15] regulator: stm32-vrefbuf: Fix W=1 build warning when CONFIG_OF=n
+        commit: d5579e7a2c6aa49a183440eb4e199f4a71543762
+[12/15] regulator: sy8106a: Fix W=1 build warning when CONFIG_OF=n
+        commit: bbe26107204eb64e7be1b3433e8b2252edc0b375
+[13/15] regulator: qcom-rpmh: Fix W=1 build warning when CONFIG_OF=n
+        commit: a2508eeb8dbdf621518f8c3538d3adcb6960619c
+[14/15] regulator: stm32-booster: Fix W=1 build warning when CONFIG_OF=n
+        commit: b461ac1cc6c0a0bc4a788d5d65cfd82e5f3bd856
+[15/15] regulator: tps65023: Fix W=1 build warning when CONFIG_OF=n
+        commit: 8536bf811dd7a25d90d9128f9db98b5ed8e5bd5c
+
+All being well this means that it will be integrated into the linux-next
+tree (usually sometime in the next 24 hours) and sent to Linus during
+the next merge window (or sooner if it is a bug fix), however if
+problems are discovered then the patch may be dropped or reverted.
+
+You may get further e-mails resulting from automated or manual testing
+and review of the tree, please engage with people reporting problems and
+send followup patches addressing any issues that are reported if needed.
+
+If any updates are required or you are submitting further changes they
+should be sent as incremental updates against current git, existing
+patches will not be replaced.
+
+Please add any relevant lists and maintainers to the CCs when replying
+to this mail.
+
+Thanks,
+Mark
+_______________________________________________
+Linux-stm32 mailing list
+Linux-stm32@st-md-mailman.stormreply.com
+https://st-md-mailman.stormreply.com/mailman/listinfo/linux-stm32
