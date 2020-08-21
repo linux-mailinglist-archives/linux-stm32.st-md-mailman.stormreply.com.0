@@ -2,65 +2,91 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id 01FB024C7C9
-	for <lists+linux-stm32@lfdr.de>; Fri, 21 Aug 2020 00:32:44 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id E84E924CB3F
+	for <lists+linux-stm32@lfdr.de>; Fri, 21 Aug 2020 05:21:25 +0200 (CEST)
 Received: from ip-172-31-3-76.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 9D897C32E8F;
-	Thu, 20 Aug 2020 22:32:43 +0000 (UTC)
-Received: from mail-pl1-f193.google.com (mail-pl1-f193.google.com
- [209.85.214.193])
- (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id B0278C32E8F;
+	Fri, 21 Aug 2020 03:21:25 +0000 (UTC)
+Received: from NAM11-DM6-obe.outbound.protection.outlook.com
+ (mail-dm6nam11on2076.outbound.protection.outlook.com [40.107.223.76])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 18B0AC36B26
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id C4E16C36B26
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Thu, 20 Aug 2020 22:32:40 +0000 (UTC)
-Received: by mail-pl1-f193.google.com with SMTP id f5so1686162plr.9
- for <linux-stm32@st-md-mailman.stormreply.com>;
- Thu, 20 Aug 2020 15:32:39 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linaro.org; s=google;
- h=date:from:to:cc:subject:message-id:references:mime-version
- :content-disposition:in-reply-to;
- bh=cqYejF0FPIa+d7AlSTm/Gc7YgLZloIvNKdqMBUt+AsY=;
- b=ZmSuTZ6KCJTKQKYPSjUEzF+uUSfIT436CakTl8Wsy2kuSFOCKhSZFNeBCpXzco52S5
- 4Hs2YyW722vCbqGe6gp2y9myXYF2tYNIalRG2jhoX2/cyZAGdMOrE1magYkANmez1tkB
- WJzvolLoKBbHKRRGw8UYPOxKughFUpBFbelIKntmosFIOYkKVD1X59zjvpxAew/7dkN+
- /76RUY4lJF2MnQ4++9d31b9hChdA83/hAYV41+1UwncGCXplygCGZgsFiMQC1+PVYi2m
- 6kluZlpaiDDUXJEeTXDU2yg5NXK2UUtGo0gmLTKDBKXQrrpwxO7E9qijtMURRvVMHul4
- JkQw==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20161025;
- h=x-gm-message-state:date:from:to:cc:subject:message-id:references
- :mime-version:content-disposition:in-reply-to;
- bh=cqYejF0FPIa+d7AlSTm/Gc7YgLZloIvNKdqMBUt+AsY=;
- b=aI2LMxoUEVStuuVPmW+XQHCNuO38X6GetJnEte7LnEx1yxlcllfy0X+R1s1L2TIdgV
- 3glz0NZtJwWccjSJT5OxnIzN/k3+WiesUhhhp8EYkccUqyhzQpKIlxDXsbYBi4V6O1cg
- fYTZ0l4SvuT2E9gpfsqHAt2AmGRmt9mng0BjambOTgM+jVDvY3KcQU2cRogchWt+GkpA
- t0ZMiiAcBRqBDKjjODBIQrlOCZTbTyeA5Vz7s6B2tWci5z2nRXk90c8lgK0/gbAV+tHe
- SiNSIfUcwxaEINfFeYO50YL8bR0ey/KlcbUWkYwfXvpjgakgTc7Gj+9zYtZjW8aSUPrK
- EKLQ==
-X-Gm-Message-State: AOAM533kt400Dzty5fwSwkb4Wpjib/EkCTYxo9NTPVpdo0k70hWKRJVC
- Yxm1RPihAWEBlYQtzyLDXzQCbw==
-X-Google-Smtp-Source: ABdhPJzIZKSmzqbOJ/OvBUM7dtVdBJmB4A1oPC9M9oRFcPdN/Poitr5UR9RtoyQf6dkCuvOxp8hm5g==
-X-Received: by 2002:a17:902:82c1:: with SMTP id
- u1mr451157plz.224.1597962758478; 
- Thu, 20 Aug 2020 15:32:38 -0700 (PDT)
-Received: from xps15 (S0106002369de4dac.cg.shawcable.net. [68.147.8.254])
- by smtp.gmail.com with ESMTPSA id h19sm11668pjv.41.2020.08.20.15.32.37
- (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Thu, 20 Aug 2020 15:32:38 -0700 (PDT)
-Date: Thu, 20 Aug 2020 16:32:36 -0600
-From: Mathieu Poirier <mathieu.poirier@linaro.org>
-To: Arnaud Pouliquen <arnaud.pouliquen@st.com>
-Message-ID: <20200820223236.GB3938186@xps15>
-References: <20200731114732.12815-1-arnaud.pouliquen@st.com>
+ Fri, 21 Aug 2020 03:21:24 +0000 (UTC)
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
+ b=g12RjynUQGtBLPtvLxofzMQ45pD/S6PalFFN1S+FWp4KYPBQnsGQizSdPlhzLmU8grbWU4Vkg35gLsktIt/yGmvW/aDpaEPGUQcyv/X1V/OeTKwJB8+gLgkn7h0S1CNJAFxnLzuMu9C9rA/nygB9/u3YPzY5dZ7sAqGkHvzv5Z8YeKHDcz/bcJMNcinxYxAxTXmQaLL+HrPKdm6O/XtSBdNIy/ziCe2Xq9B5iRvJRUyXfob4O+w9WgoxuhfHLXvmRh5zK15AC9nxL0A+4v/C9HKk5oiMjKxkag8r3VbQ89vH70MDKUYqldhch9tlNsIKUlFG1c9dnhzyvnQR6wEHRA==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
+ s=arcselector9901;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=ohvAV5OOiKl0ReUg5vjlQe6z3tHePAnxgumjPGXP+nA=;
+ b=Wy/zoEJ22so7Zmr0q1dnzJkUgqZKqfEdwxTAlWT8j/CakFvtvVGVZmi1G0goP7b3RRt84Ee5JyRUl4ZlkZlHkDqxvFO5X4ZYRvXlk7lkMOxKlOiR7RFXgOahPjMnp1tAlzbfGMlgcXYCOSFu3eWqhVc/u+1lo5bDLNTIYHf6f7y5jzuxo5U5e2wL5UMDhbEL7DtmgwLK9BTxdIv+taan1FATSilJd0pSXfz28Nt+1h/h6CZaM6tS6Yqsn40Ilr8sYwvlKBaVpIqX4+hW9sz/B/7HGD5vGYPrlCb0lmdwjGhHjKXjPQ+zaBLSYRlsX3b0Blu6g8H19GnpNi48WUUD1Q==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=synaptics.com; dmarc=pass action=none
+ header.from=synaptics.com; dkim=pass header.d=synaptics.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=Synaptics.onmicrosoft.com; s=selector2-Synaptics-onmicrosoft-com;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=ohvAV5OOiKl0ReUg5vjlQe6z3tHePAnxgumjPGXP+nA=;
+ b=HOgnok7cLW6PETClgThYGxtaZbX5u45wc85UYwGApklYDlg0c9uaBWDb26U/TFG9+/C/S2Mel7ID3U+lzAp+2N/zdT0syCpSt6ZMjX5D54Uxr8lyoStACUhf5OoVECHwfogSg+hEe16F2Bf7y0ngCcM9QRY/qA3t/1t5xPb/zNo=
+Authentication-Results: gmail.com; dkim=none (message not signed)
+ header.d=none;gmail.com; dmarc=none action=none header.from=synaptics.com;
+Received: from DM6PR03MB4555.namprd03.prod.outlook.com (2603:10b6:5:102::17)
+ by DM6PR03MB4617.namprd03.prod.outlook.com (2603:10b6:5:15e::10) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.3305.25; Fri, 21 Aug
+ 2020 03:21:22 +0000
+Received: from DM6PR03MB4555.namprd03.prod.outlook.com
+ ([fe80::e494:740f:155:4a38]) by DM6PR03MB4555.namprd03.prod.outlook.com
+ ([fe80::e494:740f:155:4a38%7]) with mapi id 15.20.3305.025; Fri, 21 Aug 2020
+ 03:21:22 +0000
+Date: Fri, 21 Aug 2020 11:11:35 +0800
+From: Jisheng Zhang <Jisheng.Zhang@synaptics.com>
+To: Liam Girdwood <lgirdwood@gmail.com>, Mark Brown <broonie@kernel.org>,
+ Support Opensource <support.opensource@diasemi.com>, Andy Gross
+ <agross@kernel.org>, Bjorn Andersson <bjorn.andersson@linaro.org>, Maxime
+ Coquelin <mcoquelin.stm32@gmail.com>, Alexandre Torgue
+ <alexandre.torgue@st.com>, Icenowy Zheng <icenowy@aosc.io>
+Message-ID: <20200821111135.0b958d3a@xhacker.debian>
+X-Mailer: Claws Mail 3.17.6 (GTK+ 2.24.32; x86_64-pc-linux-gnu)
+X-ClientProxiedBy: TY2PR06CA0043.apcprd06.prod.outlook.com
+ (2603:1096:404:2e::31) To DM6PR03MB4555.namprd03.prod.outlook.com
+ (2603:10b6:5:102::17)
 MIME-Version: 1.0
-Content-Disposition: inline
-In-Reply-To: <20200731114732.12815-1-arnaud.pouliquen@st.com>
-Cc: Ohad Ben-Cohen <ohad@wizery.com>, linux-stm32@st-md-mailman.stormreply.com,
- linux-remoteproc@vger.kernel.org, linux-kernel@vger.kernel.org,
- Bjorn Andersson <bjorn.andersson@linaro.org>
-Subject: Re: [Linux-stm32] [PATCH 0/9] introduce name service announcement
-	rpmsg driver
+X-MS-Exchange-MessageSentRepresentingType: 1
+Received: from 255.255.255.255 (255.255.255.255) by
+ TY2PR06CA0043.apcprd06.prod.outlook.com (2603:1096:404:2e::31) with Microsoft
+ SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.20.3305.24 via Frontend Transport; Fri, 21 Aug 2020 03:21:19 +0000
+X-Mailer: Claws Mail 3.17.6 (GTK+ 2.24.32; x86_64-pc-linux-gnu)
+X-Originating-IP: [124.74.246.114]
+X-MS-PublicTrafficType: Email
+X-MS-Office365-Filtering-Correlation-Id: 7e186b9c-fb7f-4160-b199-08d845814771
+X-MS-TrafficTypeDiagnostic: DM6PR03MB4617:
+X-Microsoft-Antispam-PRVS: <DM6PR03MB46171CFF3EC2D841D0E105AEED5B0@DM6PR03MB4617.namprd03.prod.outlook.com>
+X-MS-Oob-TLC-OOBClassifiers: OLM:117;
+X-MS-Exchange-SenderADCheck: 1
+X-Microsoft-Antispam: BCL:0;
+X-Microsoft-Antispam-Message-Info: jL+vUKPtu0WzZXLBfVAFwYrjyV/DbI2qwj0LlBpxljRqOyOb3+/nFj14hpvALux63uX3Min0h0lZg6aPsoUOVRfXdWJAvrVEm8cZLQoOQUXH6C7PnHbcc4guKehD0lDHML0EFnVT9NO6Jc9N+QzCWVGc4Nm+GFzWU1VyB4yjw1Sl3sZJ4u04UbmHTXk4cIt+vS+6ITSB8nNz0JP1W0CKyDwTuNW+6hUmkMQMz0PpNYE1pspvAo9T8eLxyfYibeUqhvvlv3sS/9vU2J7ESC+spCjftllf8O+dBeep7AB7towvFoTK9EcJW7/nnsp0b42sY5EPv1uB4dVzLT4+JRn+3juZtYZTniUiM7GupOwm2YcwUkPM0+5ByzhWjvz45mik
+X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
+ IPV:NLI; SFV:NSPM; H:DM6PR03MB4555.namprd03.prod.outlook.com; PTR:; CAT:NONE;
+ SFS:(136003)(396003)(376002)(366004)(39860400002)(346002)(66946007)(478600001)(8936002)(1076003)(7416002)(66556008)(6486002)(52116002)(110011004)(9686003)(4326008)(66476007)(8676002)(6666004)(5660300002)(86362001)(956004)(16576012)(186003)(316002)(26005)(110136005)(2906002)(83380400001);
+ DIR:OUT; SFP:1101; 
+X-MS-Exchange-AntiSpam-MessageData: AT2F9uteWrhkTMx+5TNZV+GMlHXjnsat8nVlCIgCDAzjGJ0UyXvo85jqwVCFs5tDMSrszb5RhPte7XaO7Cluos/VgqJzqel9UlEdnIbB+33Q5OKmxgQQUIXONZV70e4Z0rBF2Wow4FitccY02FA5CMM63/zU/d71mDgUfFi6FwP8juMReXyTSz2gZbYUxtwv+BVnrODdhS+u2PhZwhKnhkjzX135h0dCwnNdE9ZbsqE3UpLFHQ3vqCSBL0vj4HpEYgDt1prsJNAIyFjhfYduUk3s/fDwDSRLjlqgOgCyStJQdKWW5MOALI/9wsvMqwNF2XTFxsJdl3YQkNmkc5HoA2mNOmDbkdQzTOdVccr/o3rt4sw4umSK7pw9YCHT8RyqrchtlquV4nNoSlDShUNwlIDHwKaOwTn5Uj6lLcoL/jdoubo6iartV+jUE/RwPnYv1ymLxwebVucymvKDlNWO+4pCeuMI/0tnf6KOe4OLfQ7hoo3zUN9AyNEjehwdISiiU3IIycVLVLJi/BsCaf1C8nahkpHjmAzEeR8sxxiE/QFsMdLN7cF8LPg7cRT7umjaIy1W18eNJQDj2ERwp4aMMb9a+qutepjLzmiEDaWurlZyBQyGlZ1ljBEmXHOavoXu0gj1sGUGhlcL3GDewCxzrw==
+X-OriginatorOrg: synaptics.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: 7e186b9c-fb7f-4160-b199-08d845814771
+X-MS-Exchange-CrossTenant-AuthSource: DM6PR03MB4555.namprd03.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 21 Aug 2020 03:21:22.7394 (UTC)
+X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
+X-MS-Exchange-CrossTenant-Id: 335d1fbc-2124-4173-9863-17e7051a2a0e
+X-MS-Exchange-CrossTenant-MailboxType: HOSTED
+X-MS-Exchange-CrossTenant-UserPrincipalName: MbQ084ZDwM7t7LC2M+uCuMmaoiEz46r/AGB6Drh69r0Q6OJ6dJwb9kTX33etS6S7P9PSqAk0hbKLEM99kg0p6g==
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: DM6PR03MB4617
+Cc: linux-arm-msm@vger.kernel.org, linux-kernel@vger.kernel.org,
+ linux-arm-kernel@lists.infradead.org, linux-stm32@st-md-mailman.stormreply.com
+Subject: [Linux-stm32] [PATCH v2 00/15] regulator: Fix W=1 build warning
+	when CONFIG_OF=n
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -77,48 +103,49 @@ Content-Transfer-Encoding: 7bit
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
-On Fri, Jul 31, 2020 at 01:47:23PM +0200, Arnaud Pouliquen wrote:
-> The NS announcement is implemented by several backends, but could be
-> considered as part the RPMsg protocol. 
-> In this case it should be managed as a reserved rpmsg service and so
-> implemented on top of the rpmsg protocol.
-> 
-> This series introduces the rpmsg_ns driver that handles the name service
-> announcement. The virtio backend is updated in consequence to use this
-> service.
+Fixing W=1 build warning when no support for device tree is there.
 
-I have started to review this set, comments will be spread over a few days. 
+Since v1:
+  - fix the warning with __maybe_unused instead of CONFIG_OF macro
+  - add 3 more patches to fix the same issue
 
-Thanks,
-Mathieu
+Jisheng Zhang (15):
+  regulator: 88pg86x: Fix W=1 build warning when CONFIG_OF=n
+  regulator: da9210: Fix W=1 build warning when CONFIG_OF=n
+  regulator: fan53555: Fix W=1 build warning when CONFIG_OF=n
+  regulator: fixed: Fix W=1 build warnings when CONFIG_OF=n
+  regulator: ltc3589: Fix W=1 build warning when CONFIG_OF=n
+  regulator: ltc3676: Fix W=1 build warning when CONFIG_OF=n
+  regulator: max1586: Fix W=1 build warning when CONFIG_OF=n
+  regulator: max77826: Fix W=1 build warning when CONFIG_OF=n
+  regulator: pwm: Fix W=1 build warning when CONFIG_OF=n
+  regulator: stm32-pwr: Fix W=1 build warning when CONFIG_OF=n
+  regulator: stm32-vrefbuf: Fix W=1 build warning when CONFIG_OF=n
+  regulator: sy8106a: Fix W=1 build warning when CONFIG_OF=n
+  regulator: qcom-rpmh: Fix W=1 build warning when CONFIG_OF=n
+  regulator: stm32-booster: Fix W=1 build warning when CONFIG_OF=n
+  regulator: tps65023: Fix W=1 build warning when CONFIG_OF=n
 
-> 
-> Applies cleanly on Bjorn rpmsg-next branch (ddd1930d6e3e)
-> 
-> Arnaud Pouliquen (9):
->   rpmsg: virtio: rename rpmsg_create_channel
->   rpmsg: core: add channel creation internal API
->   rpmsg: virtio: add rpmsg channel device ops
->   rpmsg: define the name service announcement as reserved address
->   rpmsg: introduce reserved rpmsg driver for ns announcement
->   rpmsg: virtio: use rpmsg ns device for the ns announcement
->   rpmsg: ns: add name service announcement service
->   rpmsg: virtio: use rpmsg_ns driver to manage ns announcement
->   rpmsg: ns: name service announcement endianness
-> 
->  drivers/rpmsg/Kconfig            |   9 ++
->  drivers/rpmsg/Makefile           |   1 +
->  drivers/rpmsg/rpmsg_core.c       |  37 ++++++
->  drivers/rpmsg/rpmsg_internal.h   |  32 +++++
->  drivers/rpmsg/rpmsg_ns.c         | 175 +++++++++++++++++++++++++
->  drivers/rpmsg/virtio_rpmsg_bus.c | 213 +++++++++----------------------
->  include/linux/rpmsg.h            |   9 ++
->  7 files changed, 325 insertions(+), 151 deletions(-)
->  create mode 100644 drivers/rpmsg/rpmsg_ns.c
-> 
-> -- 
-> 2.17.1
-> 
+ drivers/regulator/88pg86x.c             |  2 +-
+ drivers/regulator/da9210-regulator.c    |  2 +-
+ drivers/regulator/fan53555.c            |  2 +-
+ drivers/regulator/fixed.c               | 16 ++++++++--------
+ drivers/regulator/ltc3589.c             |  2 +-
+ drivers/regulator/ltc3676.c             |  2 +-
+ drivers/regulator/max1586.c             |  2 +-
+ drivers/regulator/max77826-regulator.c  |  2 +-
+ drivers/regulator/pwm-regulator.c       |  2 +-
+ drivers/regulator/qcom-rpmh-regulator.c |  2 +-
+ drivers/regulator/stm32-booster.c       |  2 +-
+ drivers/regulator/stm32-pwr.c           |  2 +-
+ drivers/regulator/stm32-vrefbuf.c       |  2 +-
+ drivers/regulator/sy8106a-regulator.c   |  2 +-
+ drivers/regulator/tps65023-regulator.c  |  2 +-
+ 15 files changed, 22 insertions(+), 22 deletions(-)
+
+-- 
+2.28.0
+
 _______________________________________________
 Linux-stm32 mailing list
 Linux-stm32@st-md-mailman.stormreply.com
