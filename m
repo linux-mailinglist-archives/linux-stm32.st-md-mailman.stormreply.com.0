@@ -2,37 +2,46 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id 6EA5D24E9E2
-	for <lists+linux-stm32@lfdr.de>; Sat, 22 Aug 2020 22:57:45 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 5BB3424EA09
+	for <lists+linux-stm32@lfdr.de>; Sat, 22 Aug 2020 23:48:50 +0200 (CEST)
 Received: from ip-172-31-3-76.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 1881AC3FAD3;
-	Sat, 22 Aug 2020 20:57:45 +0000 (UTC)
-Received: from metis.ext.pengutronix.de (metis.ext.pengutronix.de
- [85.220.165.71])
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 112D1C3FAD3;
+	Sat, 22 Aug 2020 21:48:50 +0000 (UTC)
+Received: from mail-out.m-online.net (mail-out.m-online.net [212.18.0.10])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 58049C36B24
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 5B358C36B24
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Sat, 22 Aug 2020 20:57:42 +0000 (UTC)
-Received: from [2001:67c:670:201:5054:ff:fe8d:eefb] (helo=[IPv6:::1])
- by metis.ext.pengutronix.de with esmtp (Exim 4.92)
- (envelope-from <a.fatoum@pengutronix.de>)
- id 1k9aa5-0000DW-IU; Sat, 22 Aug 2020 22:57:41 +0200
-To: Marek Vasut <marex@denx.de>, linux-arm-kernel@lists.infradead.org
+ Sat, 22 Aug 2020 21:48:48 +0000 (UTC)
+Received: from frontend01.mail.m-online.net (unknown [192.168.8.182])
+ by mail-out.m-online.net (Postfix) with ESMTP id 4BYsTW47hBz1rrkY;
+ Sat, 22 Aug 2020 23:48:47 +0200 (CEST)
+Received: from localhost (dynscan1.mnet-online.de [192.168.6.70])
+ by mail.m-online.net (Postfix) with ESMTP id 4BYsTW3TK1z1qrgS;
+ Sat, 22 Aug 2020 23:48:47 +0200 (CEST)
+X-Virus-Scanned: amavisd-new at mnet-online.de
+Received: from mail.mnet-online.de ([192.168.8.182])
+ by localhost (dynscan1.mail.m-online.net [192.168.6.70]) (amavisd-new,
+ port 10024)
+ with ESMTP id wO_2EpsRM1XM; Sat, 22 Aug 2020 23:48:46 +0200 (CEST)
+X-Auth-Info: 2HAwfarpWWb4+XtCLHb/WkDo7R+7ttrTMHHTO6/mlmQ=
+Received: from [127.0.0.1] (p578adb1c.dip0.t-ipconnect.de [87.138.219.28])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+ (No client certificate requested)
+ by mail.mnet-online.de (Postfix) with ESMTPSA;
+ Sat, 22 Aug 2020 23:48:46 +0200 (CEST)
+To: Ahmad Fatoum <a.fatoum@pengutronix.de>,
+ linux-arm-kernel@lists.infradead.org
 References: <20200822203611.61997-1-marex@denx.de>
-From: Ahmad Fatoum <a.fatoum@pengutronix.de>
-Message-ID: <06ff393c-8594-f4c3-243b-9143f12e1723@pengutronix.de>
-Date: Sat, 22 Aug 2020 22:57:38 +0200
+ <06ff393c-8594-f4c3-243b-9143f12e1723@pengutronix.de>
+From: Marek Vasut <marex@denx.de>
+Message-ID: <40550ca2-de96-3a7b-22b4-9b878529143e@denx.de>
+Date: Sat, 22 Aug 2020 23:48:45 +0200
 User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:68.0) Gecko/20100101
- Thunderbird/68.9.0
+ Thunderbird/68.11.0
 MIME-Version: 1.0
-In-Reply-To: <20200822203611.61997-1-marex@denx.de>
+In-Reply-To: <06ff393c-8594-f4c3-243b-9143f12e1723@pengutronix.de>
 Content-Language: en-US
-X-SA-Exim-Connect-IP: 2001:67c:670:201:5054:ff:fe8d:eefb
-X-SA-Exim-Mail-From: a.fatoum@pengutronix.de
-X-SA-Exim-Scanned: No (on metis.ext.pengutronix.de);
- SAEximRunCond expanded to false
-X-PTX-Original-Recipient: linux-stm32@st-md-mailman.stormreply.com
 Cc: linux-stm32@st-md-mailman.stormreply.com,
  Maxime Coquelin <mcoquelin.stm32@gmail.com>,
  Patrick Delaunay <patrick.delaunay@st.com>,
@@ -55,84 +64,20 @@ Content-Transfer-Encoding: 7bit
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
+On 8/22/20 10:57 PM, Ahmad Fatoum wrote:
+> Hi,
+
 Hi,
 
-On 8/22/20 10:36 PM, Marek Vasut wrote:
-> Add another mux option for DCMI pins, this is used on AV96 board.
+> On 8/22/20 10:36 PM, Marek Vasut wrote:
+>> Add another mux option for DCMI pins, this is used on AV96 board.
+>>
+>> Upstream-Status: Work-in-progress
 > 
-> Upstream-Status: Work-in-progress
+> Is this a left-over? What is its meaning here?
 
-Is this a left-over? What is its meaning here?
-
-Cheers,
-
-> Signed-off-by: Marek Vasut <marex@denx.de>
-> Cc: Alexandre Torgue <alexandre.torgue@st.com>
-> Cc: Manivannan Sadhasivam <manivannan.sadhasivam@linaro.org>
-> Cc: Maxime Coquelin <mcoquelin.stm32@gmail.com>
-> Cc: Patrice Chotard <patrice.chotard@st.com>
-> Cc: Patrick Delaunay <patrick.delaunay@st.com>
-> Cc: linux-stm32@st-md-mailman.stormreply.com
-> To: linux-arm-kernel@lists.infradead.org
-> ---
->  arch/arm/boot/dts/stm32mp15-pinctrl.dtsi | 37 ++++++++++++++++++++++++
->  1 file changed, 37 insertions(+)
-> 
-> diff --git a/arch/arm/boot/dts/stm32mp15-pinctrl.dtsi b/arch/arm/boot/dts/stm32mp15-pinctrl.dtsi
-> index 1c4c3d32efae..d6847787c65a 100644
-> --- a/arch/arm/boot/dts/stm32mp15-pinctrl.dtsi
-> +++ b/arch/arm/boot/dts/stm32mp15-pinctrl.dtsi
-> @@ -118,6 +118,43 @@ pins {
->  		};
->  	};
->  
-> +	dcmi_pins_b: dcmi-1 {
-> +		pins {
-> +			pinmux = <STM32_PINMUX('A', 4,  AF13)>,/* DCMI_HSYNC */
-> +				 <STM32_PINMUX('B', 7,  AF13)>,/* DCMI_VSYNC */
-> +				 <STM32_PINMUX('A', 6,  AF13)>,/* DCMI_PIXCLK */
-> +				 <STM32_PINMUX('A', 9,  AF13)>,/* DCMI_D0 */
-> +				 <STM32_PINMUX('H', 10, AF13)>,/* DCMI_D1 */
-> +				 <STM32_PINMUX('E', 0, AF13)>,/* DCMI_D2 */
-> +				 <STM32_PINMUX('E', 1, AF13)>,/* DCMI_D3 */
-> +				 <STM32_PINMUX('H', 14, AF13)>,/* DCMI_D4 */
-> +				 <STM32_PINMUX('I', 4,  AF13)>,/* DCMI_D5 */
-> +				 <STM32_PINMUX('I', 6,  AF13)>,/* DCMI_D6 */
-> +				 <STM32_PINMUX('E', 6,  AF13)>,/* DCMI_D7 */
-> +				 <STM32_PINMUX('I', 1,  AF13)>,/* DCMI_D8 */
-> +				 <STM32_PINMUX('H', 7,  AF13)>;/* DCMI_D9 */
-> +			bias-pull-up;
-> +		};
-> +	};
-> +
-> +	dcmi_sleep_pins_b: dcmi-sleep-1 {
-> +		pins {
-> +			pinmux = <STM32_PINMUX('A', 4,  ANALOG)>,/* DCMI_HSYNC */
-> +				 <STM32_PINMUX('B', 7,  ANALOG)>,/* DCMI_VSYNC */
-> +				 <STM32_PINMUX('A', 6,  ANALOG)>,/* DCMI_PIXCLK */
-> +				 <STM32_PINMUX('A', 9,  ANALOG)>,/* DCMI_D0 */
-> +				 <STM32_PINMUX('H', 10, ANALOG)>,/* DCMI_D1 */
-> +				 <STM32_PINMUX('E', 0, ANALOG)>,/* DCMI_D2 */
-> +				 <STM32_PINMUX('E', 1, ANALOG)>,/* DCMI_D3 */
-> +				 <STM32_PINMUX('H', 14, ANALOG)>,/* DCMI_D4 */
-> +				 <STM32_PINMUX('I', 4,  ANALOG)>,/* DCMI_D5 */
-> +				 <STM32_PINMUX('I', 6,  ANALOG)>,/* DCMI_D6 */
-> +				 <STM32_PINMUX('E', 6,  ANALOG)>,/* DCMI_D7 */
-> +				 <STM32_PINMUX('I', 1,  ANALOG)>,/* DCMI_D8 */
-> +				 <STM32_PINMUX('H', 7,  ANALOG)>;/* DCMI_D9 */
-> +		};
-> +	};
-> +
->  	ethernet0_rgmii_pins_a: rgmii-0 {
->  		pins1 {
->  			pinmux = <STM32_PINMUX('G', 5, AF11)>, /* ETH_RGMII_CLK125 */
-> 
-
--- 
-Pengutronix e.K.                           |                             |
-Steuerwalder Str. 21                       | http://www.pengutronix.de/  |
-31137 Hildesheim, Germany                  | Phone: +49-5121-206917-0    |
-Amtsgericht Hildesheim, HRA 2686           | Fax:   +49-5121-206917-5555 |
+Yep, it's to track the patch status when backporting.
+Should be removed.
 _______________________________________________
 Linux-stm32 mailing list
 Linux-stm32@st-md-mailman.stormreply.com
