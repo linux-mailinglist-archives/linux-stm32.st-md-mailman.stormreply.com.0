@@ -2,45 +2,45 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id 95F23250310
-	for <lists+linux-stm32@lfdr.de>; Mon, 24 Aug 2020 18:39:00 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 29A5C25031A
+	for <lists+linux-stm32@lfdr.de>; Mon, 24 Aug 2020 18:39:26 +0200 (CEST)
 Received: from ip-172-31-3-76.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 5FC3FC3FAD9;
-	Mon, 24 Aug 2020 16:39:00 +0000 (UTC)
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id E7878C3FAD9;
+	Mon, 24 Aug 2020 16:39:25 +0000 (UTC)
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
  (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 57CB6C36B0B
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 809ACC36B0B
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Mon, 24 Aug 2020 16:38:59 +0000 (UTC)
+ Mon, 24 Aug 2020 16:39:23 +0000 (UTC)
 Received: from sasha-vm.mshome.net (c-73-47-72-35.hsd1.nh.comcast.net
  [73.47.72.35])
  (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by mail.kernel.org (Postfix) with ESMTPSA id 0781C22D71;
- Mon, 24 Aug 2020 16:38:56 +0000 (UTC)
+ by mail.kernel.org (Postfix) with ESMTPSA id 2EFD222BED;
+ Mon, 24 Aug 2020 16:39:21 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
- s=default; t=1598287138;
- bh=loNW8vulpaTwGdG8J1vyIIQEP2OudAGgSdq4gP20T0g=;
+ s=default; t=1598287162;
+ bh=w0y1C0oyg+LShJP6HIIzLK62tT/UFB/tHWbU7VLh+7s=;
  h=From:To:Cc:Subject:Date:In-Reply-To:References:From;
- b=f72e9gFrPJ6JaHk6hfLwWNxbcbihnOGR62RY5llLBlM5xzwjtnEHBUyPUct40wnMb
- SFTbyN9O9amCNBeWP7huiIsew0PMed2a7O3TEVjTwhqQw6iJ+nGtAD9A8wWGOfRSgW
- ai8rFyvKivDpj1MWzOT7c/IveMIpX/KhaIZaINVI=
+ b=UjI1RlISmMegfIYCZEH0k7K0FEE7YPxSryUtfxijDfFBuEl36VLTY32s0+aNJn/k/
+ 4lD75siUvug4k8CMqS75uIx9UwQQschgELsXXNGqBZ8IPB+I8e9Sb7X9RJtZnmO47J
+ lnat3/542XI9+PZLPz6CIvwdmbt/c2l921J7B08Q=
 From: Sasha Levin <sashal@kernel.org>
 To: linux-kernel@vger.kernel.org,
 	stable@vger.kernel.org
-Date: Mon, 24 Aug 2020 12:38:33 -0400
-Message-Id: <20200824163845.606933-9-sashal@kernel.org>
+Date: Mon, 24 Aug 2020 12:39:08 -0400
+Message-Id: <20200824163914.607152-5-sashal@kernel.org>
 X-Mailer: git-send-email 2.25.1
-In-Reply-To: <20200824163845.606933-1-sashal@kernel.org>
-References: <20200824163845.606933-1-sashal@kernel.org>
+In-Reply-To: <20200824163914.607152-1-sashal@kernel.org>
+References: <20200824163914.607152-1-sashal@kernel.org>
 MIME-Version: 1.0
 X-stable: review
 X-Patchwork-Hint: Ignore
 Cc: Sasha Levin <sashal@kernel.org>, linux-spi@vger.kernel.org,
  Alain Volmat <alain.volmat@st.com>, Mark Brown <broonie@kernel.org>,
  linux-stm32@st-md-mailman.stormreply.com, linux-arm-kernel@lists.infradead.org
-Subject: [Linux-stm32] [PATCH AUTOSEL 4.19 09/21] spi: stm32: fix
+Subject: [Linux-stm32] [PATCH AUTOSEL 4.14 05/11] spi: stm32: fix
 	stm32_spi_prepare_mbr in case of odd clk_rate
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
@@ -75,7 +75,7 @@ Signed-off-by: Sasha Levin <sashal@kernel.org>
  1 file changed, 2 insertions(+), 1 deletion(-)
 
 diff --git a/drivers/spi/spi-stm32.c b/drivers/spi/spi-stm32.c
-index ad1e55d3d5d59..391a20b3d2fda 100644
+index ba9743fa2326d..179749f354c33 100644
 --- a/drivers/spi/spi-stm32.c
 +++ b/drivers/spi/spi-stm32.c
 @@ -254,7 +254,8 @@ static int stm32_spi_prepare_mbr(struct stm32_spi *spi, u32 speed_hz)
