@@ -2,57 +2,61 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id 9781824FF6D
-	for <lists+linux-stm32@lfdr.de>; Mon, 24 Aug 2020 16:01:14 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 92A9124FF6E
+	for <lists+linux-stm32@lfdr.de>; Mon, 24 Aug 2020 16:01:15 +0200 (CEST)
 Received: from ip-172-31-3-76.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 4ADF1C3089E;
-	Mon, 24 Aug 2020 14:01:14 +0000 (UTC)
-Received: from mail-qt1-f193.google.com (mail-qt1-f193.google.com
- [209.85.160.193])
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 57BF8C3FADA;
+	Mon, 24 Aug 2020 14:01:15 +0000 (UTC)
+Received: from mail-qt1-f194.google.com (mail-qt1-f194.google.com
+ [209.85.160.194])
  (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id E618DC36B0B
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id AF53EC32EA6
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Mon, 24 Aug 2020 14:01:10 +0000 (UTC)
-Received: by mail-qt1-f193.google.com with SMTP id k18so6169458qtm.10
+ Mon, 24 Aug 2020 14:01:13 +0000 (UTC)
+Received: by mail-qt1-f194.google.com with SMTP id v91so807556qte.2
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Mon, 24 Aug 2020 07:01:10 -0700 (PDT)
+ Mon, 24 Aug 2020 07:01:13 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20161025;
- h=from:to:cc:subject:date:message-id;
- bh=XdATegxPLjRZ1S4FVShTFf9GHc/aayt9pgohmSeXGf4=;
- b=GhFho+Whb925lK0QvwZZEgD0KL8uGJe1twqMwtHZtWQaDfE8W0VNo+ipvLaU7nryjW
- UZM7kB4GEZQ2Bsq/EtYNhpYtIhVGwiwNnQLVpIBzsE0WUBn+1E+KwkeVGJhya/AtjDnp
- bHaEGkoLh5rJCO0r2U7UtOIELog4bKxkYvJWo8pBec2B50/3Gx2V/WIEYOljIhbcQwVu
- VRf/zGfsRgoC0v9MadZLvNdExBejZ6zT8a1JpJnl1an7fnEno2ftEMSWuUOSLe6ZHC0Y
- b8pjkNzxJZJIFWk2XtHzP9tDKe31O4MRj1RQyR3RPXDkn0Obd/psbCMq0TOz1NjCGk2H
- KLow==
+ h=from:to:cc:subject:date:message-id:in-reply-to:references;
+ bh=mi86+WphliiE46rge60tCAlVsMmu7FS4d8IzZESWhL8=;
+ b=kbEqpq12FNAu/2vT9L2fQEO7zBNYtapgY8AMifK5255p+PY9p/NZ4Pii14G9YIRR+0
+ TgeZM4zpB1iowxqFm3Kc7yOmgUL2ghyxSFB34by1kfH8/asHa8z6MDGe9BA3SLvZqrMY
+ CdpkPZZjwsCVjH1EblUnYRcPMrWQT8WpKFzsnVHR3xOXFYlXWqumKCd8n11MGWDHrP+G
+ ZPfrSyipYHuhNd7gP92m+Gn2D8HcMVwPlBeGRlnGGgAXrs75qNAi2LKx2TTIFlU+s0ko
+ XACx24Avzvxnc8pI1z0ujQBBQkYVPYF5RGG0yTn2jq03GYyI4kKVOp9JTCITPvaNYHDB
+ K44w==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=1e100.net; s=20161025;
- h=x-gm-message-state:from:to:cc:subject:date:message-id;
- bh=XdATegxPLjRZ1S4FVShTFf9GHc/aayt9pgohmSeXGf4=;
- b=lLjuue+MrBykNDqjxhVI0ts00MBhrY96morltX+O+/DFQMyqty3/rhiDVEgDjQi89E
- qRDLadcVOdZ0fvhFYs/pVqNbYRMUhBtXyZv1bIJ7Zdf/PrN3ftrco/+/NKrP0cDyTwqM
- uBCYn/A9PjCrJVk78IcY2Kocknma3cmqWded59UL2Bpsd7t1YwiNmI8208hz7dqnbXhP
- zDeuz5BHGln0CYJv/AvLKk1BDcHQ9iEXqVntAYWQkVCHY2IO7ZU3f8ZOAeXz4IgZAWP7
- lLt/GUKRRu8Uu8hFo+cqOWQQLHo+DsVXg+tZm3cmJC+ARPLqN9SRL7TeMkWe2sETWB47
- qTTw==
-X-Gm-Message-State: AOAM532fYnAARwT+jWMLkodINbW1dL9CBkm5unWkWsVXkg0RpH5UfFIr
- Q5kOEqKuFU7zFUGPmbfEjB0=
-X-Google-Smtp-Source: ABdhPJy3v6o9XZ+hI2AtpPbRiWrP20uHMzFlskDAgpOiz2CxRlsxZqrx8wKYr4u2FNcM2Pfv/5rkog==
-X-Received: by 2002:ac8:22e2:: with SMTP id g31mr4681700qta.214.1598277669675; 
- Mon, 24 Aug 2020 07:01:09 -0700 (PDT)
+ h=x-gm-message-state:from:to:cc:subject:date:message-id:in-reply-to
+ :references;
+ bh=mi86+WphliiE46rge60tCAlVsMmu7FS4d8IzZESWhL8=;
+ b=lM22n4iU8FJbX+vswD+cbaru/Svm6ZilZk7uCFhTUqOJRN/k7ITORh4/BlgF+yGvkV
+ 0suIasYNFweYDyR+xIcqSBP0jtO8h808SFlZToykalPVydj/j24hNnaKOkIV0V8opTPJ
+ 1ko05Biy8LCtx5JPT51JorfgGhGTAxDSB9oF9wWzauQfHAEjeevoVjjCVOQTZ0H4w3ug
+ T4geXu8iU/pieejsiMN4B081XXRs2quj7NRi7J5s4Eu0kYBqPPp1EkcVWS5HlmWOIYhx
+ z/NSjgB6Qr3HvhLI7tjBNJZo8kep+n5BwsOPpGqqwzraOkngMG5fU1kr9g9mYN0brEp9
+ 17pA==
+X-Gm-Message-State: AOAM530R/bMx3mvdWI5EIVDtDXssadKB/8W7YFL6t3FcpLlO0wDmlemu
+ CwaWBOa232lSt+lgfsMg4oI=
+X-Google-Smtp-Source: ABdhPJw+LruaJmmWJO+Mtw5M3vgeggarBNQ1YOjhxoESzHvNExHtKePDygkeiBdJjbAieDiAUxQ6XA==
+X-Received: by 2002:ac8:6c6:: with SMTP id j6mr5025543qth.129.1598277672543;
+ Mon, 24 Aug 2020 07:01:12 -0700 (PDT)
 Received: from localhost.localdomain ([177.194.72.74])
- by smtp.gmail.com with ESMTPSA id r20sm3244459qtc.87.2020.08.24.07.01.06
+ by smtp.gmail.com with ESMTPSA id r20sm3244459qtc.87.2020.08.24.07.01.09
  (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Mon, 24 Aug 2020 07:01:08 -0700 (PDT)
+ Mon, 24 Aug 2020 07:01:11 -0700 (PDT)
 From: Fabio Estevam <festevam@gmail.com>
 To: herbert@gondor.apana.org.au
-Date: Mon, 24 Aug 2020 10:58:39 -0300
-Message-Id: <20200824135840.3716-1-festevam@gmail.com>
+Date: Mon, 24 Aug 2020 10:58:40 -0300
+Message-Id: <20200824135840.3716-2-festevam@gmail.com>
 X-Mailer: git-send-email 2.17.1
+In-Reply-To: <20200824135840.3716-1-festevam@gmail.com>
+References: <20200824135840.3716-1-festevam@gmail.com>
 Cc: Fabio Estevam <festevam@gmail.com>, linux-crypto@vger.kernel.org,
  mcoquelin.stm32@gmail.com, linux-stm32@st-md-mailman.stormreply.com
-Subject: [Linux-stm32] [PATCH 1/2] crypto: stm32/crc32 - include <linux/io.h>
+Subject: [Linux-stm32] [PATCH 2/2] crypto: stm32/hash - include
+	<linux/dma-mapping.h>
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -72,30 +76,31 @@ Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
 Building ARM allmodconfig leads to the following warnings:
 
-drivers/crypto/stm32/stm32-crc32.c:128:2: error: implicit declaration of function 'writel_relaxed' [-Werror=implicit-function-declaration]
-drivers/crypto/stm32/stm32-crc32.c:134:17: error: implicit declaration of function 'readl_relaxed' [-Werror=implicit-function-declaration]
-drivers/crypto/stm32/stm32-crc32.c:176:4: error: implicit declaration of function 'writeb_relaxed' [-Werror=implicit-function-declaration]
+drivers/crypto/stm32/stm32-hash.c:492:18: error: implicit declaration of function 'dma_map_sg'; did you mean 'dma_cap_set'? [-Werror=implicit-function-declaration]
+drivers/crypto/stm32/stm32-hash.c:493:8: error: 'DMA_TO_DEVICE' undeclared (first use in this function); did you mean 'MT_DEVICE'?
+drivers/crypto/stm32/stm32-hash.c:501:3: error: implicit declaration of function 'dma_unmap_sg' [-Werror=implicit-function-declaration]
+drivers/crypto/stm32/stm32-hash.c:589:8: error: 'DMA_TO_DEVICE' undeclared (first use in this function); did you mean 'MT_DEVICE'?
 
-Include <linux/io.h> to fix such warnings.
+Include <linux/dma-mapping.h> to fix such warnings
 
 Reported-by: Olof's autobuilder <build@lixom.net>
 Signed-off-by: Fabio Estevam <festevam@gmail.com>
 ---
- drivers/crypto/stm32/stm32-crc32.c | 1 +
+ drivers/crypto/stm32/stm32-hash.c | 1 +
  1 file changed, 1 insertion(+)
 
-diff --git a/drivers/crypto/stm32/stm32-crc32.c b/drivers/crypto/stm32/stm32-crc32.c
-index 3ba41148c2a4..2994549beba3 100644
---- a/drivers/crypto/stm32/stm32-crc32.c
-+++ b/drivers/crypto/stm32/stm32-crc32.c
-@@ -7,6 +7,7 @@
- #include <linux/bitrev.h>
+diff --git a/drivers/crypto/stm32/stm32-hash.c b/drivers/crypto/stm32/stm32-hash.c
+index 03c5e6683805..092eaabda238 100644
+--- a/drivers/crypto/stm32/stm32-hash.c
++++ b/drivers/crypto/stm32/stm32-hash.c
+@@ -9,6 +9,7 @@
  #include <linux/clk.h>
- #include <linux/crc32poly.h>
-+#include <linux/io.h>
- #include <linux/module.h>
- #include <linux/mod_devicetable.h>
- #include <linux/platform_device.h>
+ #include <linux/crypto.h>
+ #include <linux/delay.h>
++#include <linux/dma-mapping.h>
+ #include <linux/dmaengine.h>
+ #include <linux/interrupt.h>
+ #include <linux/io.h>
 -- 
 2.17.1
 
