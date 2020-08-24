@@ -2,61 +2,44 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id 92A9124FF6E
-	for <lists+linux-stm32@lfdr.de>; Mon, 24 Aug 2020 16:01:15 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id F31DB2502A0
+	for <lists+linux-stm32@lfdr.de>; Mon, 24 Aug 2020 18:35:09 +0200 (CEST)
 Received: from ip-172-31-3-76.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 57BF8C3FADA;
-	Mon, 24 Aug 2020 14:01:15 +0000 (UTC)
-Received: from mail-qt1-f194.google.com (mail-qt1-f194.google.com
- [209.85.160.194])
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id B20A5C32EA7;
+	Mon, 24 Aug 2020 16:35:09 +0000 (UTC)
+Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
+ (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
+ (No client certificate requested)
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id C8A5AC36B0B
+ for <linux-stm32@st-md-mailman.stormreply.com>;
+ Mon, 24 Aug 2020 16:35:07 +0000 (UTC)
+Received: from sasha-vm.mshome.net (c-73-47-72-35.hsd1.nh.comcast.net
+ [73.47.72.35])
  (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id AF53EC32EA6
- for <linux-stm32@st-md-mailman.stormreply.com>;
- Mon, 24 Aug 2020 14:01:13 +0000 (UTC)
-Received: by mail-qt1-f194.google.com with SMTP id v91so807556qte.2
- for <linux-stm32@st-md-mailman.stormreply.com>;
- Mon, 24 Aug 2020 07:01:13 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20161025;
- h=from:to:cc:subject:date:message-id:in-reply-to:references;
- bh=mi86+WphliiE46rge60tCAlVsMmu7FS4d8IzZESWhL8=;
- b=kbEqpq12FNAu/2vT9L2fQEO7zBNYtapgY8AMifK5255p+PY9p/NZ4Pii14G9YIRR+0
- TgeZM4zpB1iowxqFm3Kc7yOmgUL2ghyxSFB34by1kfH8/asHa8z6MDGe9BA3SLvZqrMY
- CdpkPZZjwsCVjH1EblUnYRcPMrWQT8WpKFzsnVHR3xOXFYlXWqumKCd8n11MGWDHrP+G
- ZPfrSyipYHuhNd7gP92m+Gn2D8HcMVwPlBeGRlnGGgAXrs75qNAi2LKx2TTIFlU+s0ko
- XACx24Avzvxnc8pI1z0ujQBBQkYVPYF5RGG0yTn2jq03GYyI4kKVOp9JTCITPvaNYHDB
- K44w==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20161025;
- h=x-gm-message-state:from:to:cc:subject:date:message-id:in-reply-to
- :references;
- bh=mi86+WphliiE46rge60tCAlVsMmu7FS4d8IzZESWhL8=;
- b=lM22n4iU8FJbX+vswD+cbaru/Svm6ZilZk7uCFhTUqOJRN/k7ITORh4/BlgF+yGvkV
- 0suIasYNFweYDyR+xIcqSBP0jtO8h808SFlZToykalPVydj/j24hNnaKOkIV0V8opTPJ
- 1ko05Biy8LCtx5JPT51JorfgGhGTAxDSB9oF9wWzauQfHAEjeevoVjjCVOQTZ0H4w3ug
- T4geXu8iU/pieejsiMN4B081XXRs2quj7NRi7J5s4Eu0kYBqPPp1EkcVWS5HlmWOIYhx
- z/NSjgB6Qr3HvhLI7tjBNJZo8kep+n5BwsOPpGqqwzraOkngMG5fU1kr9g9mYN0brEp9
- 17pA==
-X-Gm-Message-State: AOAM530R/bMx3mvdWI5EIVDtDXssadKB/8W7YFL6t3FcpLlO0wDmlemu
- CwaWBOa232lSt+lgfsMg4oI=
-X-Google-Smtp-Source: ABdhPJw+LruaJmmWJO+Mtw5M3vgeggarBNQ1YOjhxoESzHvNExHtKePDygkeiBdJjbAieDiAUxQ6XA==
-X-Received: by 2002:ac8:6c6:: with SMTP id j6mr5025543qth.129.1598277672543;
- Mon, 24 Aug 2020 07:01:12 -0700 (PDT)
-Received: from localhost.localdomain ([177.194.72.74])
- by smtp.gmail.com with ESMTPSA id r20sm3244459qtc.87.2020.08.24.07.01.09
- (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Mon, 24 Aug 2020 07:01:11 -0700 (PDT)
-From: Fabio Estevam <festevam@gmail.com>
-To: herbert@gondor.apana.org.au
-Date: Mon, 24 Aug 2020 10:58:40 -0300
-Message-Id: <20200824135840.3716-2-festevam@gmail.com>
-X-Mailer: git-send-email 2.17.1
-In-Reply-To: <20200824135840.3716-1-festevam@gmail.com>
-References: <20200824135840.3716-1-festevam@gmail.com>
-Cc: Fabio Estevam <festevam@gmail.com>, linux-crypto@vger.kernel.org,
- mcoquelin.stm32@gmail.com, linux-stm32@st-md-mailman.stormreply.com
-Subject: [Linux-stm32] [PATCH 2/2] crypto: stm32/hash - include
-	<linux/dma-mapping.h>
+ by mail.kernel.org (Postfix) with ESMTPSA id 565F42067C;
+ Mon, 24 Aug 2020 16:35:05 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
+ s=default; t=1598286906;
+ bh=hw7FTUSXhDZbMZBtjwl2xsNh6Azl3v030xZeS/4xO5I=;
+ h=From:To:Cc:Subject:Date:From;
+ b=ukXoyUnBMMnRvB9lWekaJK+0fskIndrukJJPQMVstWYpGpnCe56y3BtBKQf5ihttg
+ EDDFUNfU5CAes5GJjZWZOYrmCbMa+XZS59ZO+bopq+pBy7E1pzHvtWeLrlJKXTtWCJ
+ pCDipM9TiXycMupO2qwoF1KWnkFnVz/ucHTRuKKE=
+From: Sasha Levin <sashal@kernel.org>
+To: linux-kernel@vger.kernel.org,
+	stable@vger.kernel.org
+Date: Mon, 24 Aug 2020 12:34:01 -0400
+Message-Id: <20200824163504.605538-1-sashal@kernel.org>
+X-Mailer: git-send-email 2.25.1
+MIME-Version: 1.0
+X-stable: review
+X-Patchwork-Hint: Ignore
+Cc: Sasha Levin <sashal@kernel.org>, Tobias Schramm <t.schramm@manjaro.org>,
+ linux-spi@vger.kernel.org, Mark Brown <broonie@kernel.org>,
+ linux-stm32@st-md-mailman.stormreply.com, linux-arm-kernel@lists.infradead.org
+Subject: [Linux-stm32] [PATCH AUTOSEL 5.8 01/63] spi: stm32: clear only
+	asserted irq flags on interrupt
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -68,41 +51,44 @@ List-Post: <mailto:linux-stm32@st-md-mailman.stormreply.com>
 List-Help: <mailto:linux-stm32-request@st-md-mailman.stormreply.com?subject=help>
 List-Subscribe: <https://st-md-mailman.stormreply.com/mailman/listinfo/linux-stm32>, 
  <mailto:linux-stm32-request@st-md-mailman.stormreply.com?subject=subscribe>
-MIME-Version: 1.0
 Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
-Building ARM allmodconfig leads to the following warnings:
+From: Tobias Schramm <t.schramm@manjaro.org>
 
-drivers/crypto/stm32/stm32-hash.c:492:18: error: implicit declaration of function 'dma_map_sg'; did you mean 'dma_cap_set'? [-Werror=implicit-function-declaration]
-drivers/crypto/stm32/stm32-hash.c:493:8: error: 'DMA_TO_DEVICE' undeclared (first use in this function); did you mean 'MT_DEVICE'?
-drivers/crypto/stm32/stm32-hash.c:501:3: error: implicit declaration of function 'dma_unmap_sg' [-Werror=implicit-function-declaration]
-drivers/crypto/stm32/stm32-hash.c:589:8: error: 'DMA_TO_DEVICE' undeclared (first use in this function); did you mean 'MT_DEVICE'?
+[ Upstream commit ae1ba50f1e706dfd7ce402ac52c1f1f10becad68 ]
 
-Include <linux/dma-mapping.h> to fix such warnings
+Previously the stm32h7 interrupt thread cleared all non-masked interrupts.
+If an interrupt was to occur during the handling of another interrupt its
+flag would be unset, resulting in a lost interrupt.
+This patches fixes the issue by clearing only the currently set interrupt
+flags.
 
-Reported-by: Olof's autobuilder <build@lixom.net>
-Signed-off-by: Fabio Estevam <festevam@gmail.com>
+Signed-off-by: Tobias Schramm <t.schramm@manjaro.org>
+Link: https://lore.kernel.org/r/20200804195136.1485392-1-t.schramm@manjaro.org
+Signed-off-by: Mark Brown <broonie@kernel.org>
+Signed-off-by: Sasha Levin <sashal@kernel.org>
 ---
- drivers/crypto/stm32/stm32-hash.c | 1 +
- 1 file changed, 1 insertion(+)
+ drivers/spi/spi-stm32.c | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
 
-diff --git a/drivers/crypto/stm32/stm32-hash.c b/drivers/crypto/stm32/stm32-hash.c
-index 03c5e6683805..092eaabda238 100644
---- a/drivers/crypto/stm32/stm32-hash.c
-+++ b/drivers/crypto/stm32/stm32-hash.c
-@@ -9,6 +9,7 @@
- #include <linux/clk.h>
- #include <linux/crypto.h>
- #include <linux/delay.h>
-+#include <linux/dma-mapping.h>
- #include <linux/dmaengine.h>
- #include <linux/interrupt.h>
- #include <linux/io.h>
+diff --git a/drivers/spi/spi-stm32.c b/drivers/spi/spi-stm32.c
+index 4c643dfc7fbbc..4a21feae0103d 100644
+--- a/drivers/spi/spi-stm32.c
++++ b/drivers/spi/spi-stm32.c
+@@ -966,7 +966,7 @@ static irqreturn_t stm32h7_spi_irq_thread(int irq, void *dev_id)
+ 		if (!spi->cur_usedma && (spi->rx_buf && (spi->rx_len > 0)))
+ 			stm32h7_spi_read_rxfifo(spi, false);
+ 
+-	writel_relaxed(mask, spi->base + STM32H7_SPI_IFCR);
++	writel_relaxed(sr & mask, spi->base + STM32H7_SPI_IFCR);
+ 
+ 	spin_unlock_irqrestore(&spi->lock, flags);
+ 
 -- 
-2.17.1
+2.25.1
 
 _______________________________________________
 Linux-stm32 mailing list
