@@ -2,29 +2,29 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id 1D10325322F
-	for <lists+linux-stm32@lfdr.de>; Wed, 26 Aug 2020 16:53:13 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 2C8E6253230
+	for <lists+linux-stm32@lfdr.de>; Wed, 26 Aug 2020 16:53:18 +0200 (CEST)
 Received: from ip-172-31-3-76.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id D8FB5C32E90;
-	Wed, 26 Aug 2020 14:53:12 +0000 (UTC)
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id E6939C32E90;
+	Wed, 26 Aug 2020 14:53:17 +0000 (UTC)
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
  (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 8D400C36B26
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 130DAC36B26
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Wed, 26 Aug 2020 14:53:10 +0000 (UTC)
+ Wed, 26 Aug 2020 14:53:16 +0000 (UTC)
 Received: from localhost.localdomain (unknown [194.230.155.216])
  (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by mail.kernel.org (Postfix) with ESMTPSA id 274E822B47;
- Wed, 26 Aug 2020 14:53:03 +0000 (UTC)
+ by mail.kernel.org (Postfix) with ESMTPSA id 86DCB2177B;
+ Wed, 26 Aug 2020 14:53:09 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
- s=default; t=1598453589;
- bh=T5xvC4E4MsMwGEUX1i7xJJFIfrS9fUuZLYOkjgS9wJs=;
+ s=default; t=1598453594;
+ bh=Qo3LbyvmpBGQKG4D/yZypYAesoTm5jVx4P7R/QfNlcY=;
  h=From:To:Subject:Date:In-Reply-To:References:From;
- b=TcqQ7VNMtsK+sKv7CWZAgceEyGN4b2Kv4KecHfDzf2y6sQudrL/XO+CMTh0E0YAHT
- nl4Y8124+m8Egy0EyY4N9B+q4hWpeo7q4e+KRsmcpuEW0ZA3wnnH+0gc4ebw5vvi+b
- kj8Mh0mQoca0QAp+eL6ifjaReTfgXrfyoF5MrhPE=
+ b=qMZgura2EYsW2bxG0xHLWT3v4KZYKNJn4qop8HRQH5iq+4faVf9nQrwTotbcbEPkY
+ MZsl9iKjz8CrXVxC2l/VPlpgA+2HXRrHV7Y8WdFm9cVVtqlF94M9CeMdr1QLXcUsso
+ byEgtFP2Z/C+qUUmdT2VClwjlQ5CO1F4n3kxGbIo=
 From: Krzysztof Kozlowski <krzk@kernel.org>
 To: Jonathan Cameron <jic23@kernel.org>, Hartmut Knaack <knaack.h@gmx.de>,
  Lars-Peter Clausen <lars@metafoo.de>,
@@ -46,12 +46,12 @@ To: Jonathan Cameron <jic23@kernel.org>, Hartmut Knaack <knaack.h@gmx.de>,
  linux-kernel@vger.kernel.org, linux-arm-kernel@lists.infradead.org,
  linux-samsung-soc@vger.kernel.org, linux-amlogic@lists.infradead.org,
  linux-stm32@st-md-mailman.stormreply.com
-Date: Wed, 26 Aug 2020 16:51:49 +0200
-Message-Id: <20200826145153.10444-12-krzk@kernel.org>
+Date: Wed, 26 Aug 2020 16:51:50 +0200
+Message-Id: <20200826145153.10444-13-krzk@kernel.org>
 X-Mailer: git-send-email 2.17.1
 In-Reply-To: <20200826145153.10444-1-krzk@kernel.org>
 References: <20200826145153.10444-1-krzk@kernel.org>
-Subject: [Linux-stm32] [PATCH 12/16] iio: dac: dpot-dac: Simplify with
+Subject: [Linux-stm32] [PATCH 13/16] iio: imu: inv_mpu6050: Simplify with
 	dev_err_probe()
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
@@ -75,38 +75,42 @@ dev_err_probe().  Less code and also it prints the error value.
 
 Signed-off-by: Krzysztof Kozlowski <krzk@kernel.org>
 ---
- drivers/iio/dac/dpot-dac.c | 16 ++++++----------
- 1 file changed, 6 insertions(+), 10 deletions(-)
+ drivers/iio/imu/inv_mpu6050/inv_mpu_core.c | 20 ++++++--------------
+ 1 file changed, 6 insertions(+), 14 deletions(-)
 
-diff --git a/drivers/iio/dac/dpot-dac.c b/drivers/iio/dac/dpot-dac.c
-index be61c3b01e8b..2258535b8a42 100644
---- a/drivers/iio/dac/dpot-dac.c
-+++ b/drivers/iio/dac/dpot-dac.c
-@@ -183,18 +183,14 @@ static int dpot_dac_probe(struct platform_device *pdev)
- 	indio_dev->num_channels = 1;
+diff --git a/drivers/iio/imu/inv_mpu6050/inv_mpu_core.c b/drivers/iio/imu/inv_mpu6050/inv_mpu_core.c
+index 3fee3947f772..18a1898e3e34 100644
+--- a/drivers/iio/imu/inv_mpu6050/inv_mpu_core.c
++++ b/drivers/iio/imu/inv_mpu6050/inv_mpu_core.c
+@@ -1475,22 +1475,14 @@ int inv_mpu_core_probe(struct regmap *regmap, int irq, const char *name,
+ 	}
  
- 	dac->vref = devm_regulator_get(dev, "vref");
--	if (IS_ERR(dac->vref)) {
--		if (PTR_ERR(dac->vref) != -EPROBE_DEFER)
--			dev_err(&pdev->dev, "failed to get vref regulator\n");
--		return PTR_ERR(dac->vref);
+ 	st->vdd_supply = devm_regulator_get(dev, "vdd");
+-	if (IS_ERR(st->vdd_supply)) {
+-		if (PTR_ERR(st->vdd_supply) != -EPROBE_DEFER)
+-			dev_err(dev, "Failed to get vdd regulator %d\n",
+-				(int)PTR_ERR(st->vdd_supply));
+-
+-		return PTR_ERR(st->vdd_supply);
 -	}
-+	if (IS_ERR(dac->vref))
-+		return dev_err_probe(&pdev->dev, PTR_ERR(dac->vref),
-+				     "failed to get vref regulator\n");
++	if (IS_ERR(st->vdd_supply))
++		return dev_err_probe(dev, PTR_ERR(st->vdd_supply),
++				     "Failed to get vdd regulator\n");
  
- 	dac->dpot = devm_iio_channel_get(dev, "dpot");
--	if (IS_ERR(dac->dpot)) {
--		if (PTR_ERR(dac->dpot) != -EPROBE_DEFER)
--			dev_err(dev, "failed to get dpot input channel\n");
--		return PTR_ERR(dac->dpot);
+ 	st->vddio_supply = devm_regulator_get(dev, "vddio");
+-	if (IS_ERR(st->vddio_supply)) {
+-		if (PTR_ERR(st->vddio_supply) != -EPROBE_DEFER)
+-			dev_err(dev, "Failed to get vddio regulator %d\n",
+-				(int)PTR_ERR(st->vddio_supply));
+-
+-		return PTR_ERR(st->vddio_supply);
 -	}
-+	if (IS_ERR(dac->dpot))
-+		return dev_err_probe(&pdev->dev, PTR_ERR(dac->dpot),
-+				     "failed to get dpot input channel\n");
++	if (IS_ERR(st->vddio_supply))
++		return dev_err_probe(dev, PTR_ERR(st->vddio_supply),
++				     "Failed to get vddio regulator\n");
  
- 	ret = iio_get_channel_type(dac->dpot, &type);
- 	if (ret < 0)
+ 	result = regulator_enable(st->vdd_supply);
+ 	if (result) {
 -- 
 2.17.1
 
