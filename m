@@ -2,29 +2,29 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id 3ADFE253217
-	for <lists+linux-stm32@lfdr.de>; Wed, 26 Aug 2020 16:52:28 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id C7F43253219
+	for <lists+linux-stm32@lfdr.de>; Wed, 26 Aug 2020 16:52:32 +0200 (CEST)
 Received: from ip-172-31-3-76.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id F3937C32E90;
-	Wed, 26 Aug 2020 14:52:27 +0000 (UTC)
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 90B22C32E90;
+	Wed, 26 Aug 2020 14:52:32 +0000 (UTC)
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
  (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 02FD8C36B26
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 8A366C36B26
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Wed, 26 Aug 2020 14:52:26 +0000 (UTC)
+ Wed, 26 Aug 2020 14:52:31 +0000 (UTC)
 Received: from localhost.localdomain (unknown [194.230.155.216])
  (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by mail.kernel.org (Postfix) with ESMTPSA id 90C152224D;
- Wed, 26 Aug 2020 14:52:19 +0000 (UTC)
+ by mail.kernel.org (Postfix) with ESMTPSA id 1ABD422B47;
+ Wed, 26 Aug 2020 14:52:24 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
- s=default; t=1598453544;
- bh=BjFbji4PFSaomI4/2UsbpzM496UR1gTI3GZp0d8DKV8=;
+ s=default; t=1598453550;
+ bh=mbBY3f6IkcYP5UmsdfBs0Q121Pfo6ZsXqMxj84C8/3I=;
  h=From:To:Subject:Date:In-Reply-To:References:From;
- b=NMEJK3RFge/3/cUnFjzfFf8aKnt72KOUHFY4NygxwM0h6c5Xzr+hqxGyVVkhidX5J
- GYrWHJDpZwj83LxeAOEEjz2k+aMkJGg3l9OfHstCnQIyrE4IFQHWw5080NSFjOnpWp
- Kr1niJu1vciNfw5xgBJBVvWdRANIBuZHBveEVIP0=
+ b=rB7PYhCcZUbVXTNWIxUq3/hcQjjDTXkjrfU3ygh4GZvyLFhEW1z8v4VlGLqOqeQ6u
+ 66XzLFpv+MgP3RqBh/tnxe6osJhbstejzE0wboV5gK1fGX9LzGAXwIFpjlciotio6E
+ xH+Yfg9ZhHN9H/nprX/O+zTjHcjpap6WjiYFSHvI=
 From: Krzysztof Kozlowski <krzk@kernel.org>
 To: Jonathan Cameron <jic23@kernel.org>, Hartmut Knaack <knaack.h@gmx.de>,
  Lars-Peter Clausen <lars@metafoo.de>,
@@ -46,12 +46,12 @@ To: Jonathan Cameron <jic23@kernel.org>, Hartmut Knaack <knaack.h@gmx.de>,
  linux-kernel@vger.kernel.org, linux-arm-kernel@lists.infradead.org,
  linux-samsung-soc@vger.kernel.org, linux-amlogic@lists.infradead.org,
  linux-stm32@st-md-mailman.stormreply.com
-Date: Wed, 26 Aug 2020 16:51:41 +0200
-Message-Id: <20200826145153.10444-4-krzk@kernel.org>
+Date: Wed, 26 Aug 2020 16:51:42 +0200
+Message-Id: <20200826145153.10444-5-krzk@kernel.org>
 X-Mailer: git-send-email 2.17.1
 In-Reply-To: <20200826145153.10444-1-krzk@kernel.org>
 References: <20200826145153.10444-1-krzk@kernel.org>
-Subject: [Linux-stm32] [PATCH 04/16] iio: adc: exynos_adc: Simplify with
+Subject: [Linux-stm32] [PATCH 05/16] iio: adc: ltc2497: Simplify with
 	dev_err_probe()
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
@@ -75,30 +75,30 @@ dev_err_probe().  Less code and also it prints the error value.
 
 Signed-off-by: Krzysztof Kozlowski <krzk@kernel.org>
 ---
- drivers/iio/adc/exynos_adc.c | 10 +++-------
+ drivers/iio/adc/ltc2497-core.c | 10 +++-------
  1 file changed, 3 insertions(+), 7 deletions(-)
 
-diff --git a/drivers/iio/adc/exynos_adc.c b/drivers/iio/adc/exynos_adc.c
-index 7d23b6c33284..20477b249f2a 100644
---- a/drivers/iio/adc/exynos_adc.c
-+++ b/drivers/iio/adc/exynos_adc.c
-@@ -844,13 +844,9 @@ static int exynos_adc_probe(struct platform_device *pdev)
- 	}
+diff --git a/drivers/iio/adc/ltc2497-core.c b/drivers/iio/adc/ltc2497-core.c
+index 9b8fd9c32364..2a485c8a1940 100644
+--- a/drivers/iio/adc/ltc2497-core.c
++++ b/drivers/iio/adc/ltc2497-core.c
+@@ -180,13 +180,9 @@ int ltc2497core_probe(struct device *dev, struct iio_dev *indio_dev)
+ 		return ret;
  
- 	info->vdd = devm_regulator_get(&pdev->dev, "vdd");
--	if (IS_ERR(info->vdd)) {
--		if (PTR_ERR(info->vdd) != -EPROBE_DEFER)
--			dev_err(&pdev->dev,
--				"failed getting regulator, err = %ld\n",
--				PTR_ERR(info->vdd));
--		return PTR_ERR(info->vdd);
+ 	ddata->ref = devm_regulator_get(dev, "vref");
+-	if (IS_ERR(ddata->ref)) {
+-		if (PTR_ERR(ddata->ref) != -EPROBE_DEFER)
+-			dev_err(dev, "Failed to get vref regulator: %pe\n",
+-				ddata->ref);
+-
+-		return PTR_ERR(ddata->ref);
 -	}
-+	if (IS_ERR(info->vdd))
-+		return dev_err_probe(&pdev->dev, PTR_ERR(info->vdd),
-+				     "failed getting regulator");
++	if (IS_ERR(ddata->ref))
++		return dev_err_probe(dev, PTR_ERR(ddata->ref),
++				     "Failed to get vref regulator\n");
  
- 	ret = regulator_enable(info->vdd);
- 	if (ret)
+ 	ret = regulator_enable(ddata->ref);
+ 	if (ret < 0) {
 -- 
 2.17.1
 
