@@ -2,66 +2,61 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id 9E4CD251D9D
-	for <lists+linux-stm32@lfdr.de>; Tue, 25 Aug 2020 18:54:40 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id B6CCD25277B
+	for <lists+linux-stm32@lfdr.de>; Wed, 26 Aug 2020 08:39:11 +0200 (CEST)
 Received: from ip-172-31-3-76.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 64378C3FADA;
-	Tue, 25 Aug 2020 16:54:40 +0000 (UTC)
-Received: from mail-pj1-f68.google.com (mail-pj1-f68.google.com
- [209.85.216.68])
- (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 6F169C32EA6;
+	Wed, 26 Aug 2020 06:39:11 +0000 (UTC)
+Received: from mx0a-00128a01.pphosted.com (mx0a-00128a01.pphosted.com
+ [148.163.135.77])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 13B57C3FAD8
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id ADFB6C36B26
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Tue, 25 Aug 2020 16:54:38 +0000 (UTC)
-Received: by mail-pj1-f68.google.com with SMTP id z18so1561685pjr.2
- for <linux-stm32@st-md-mailman.stormreply.com>;
- Tue, 25 Aug 2020 09:54:37 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linaro.org; s=google;
- h=date:from:to:cc:subject:message-id:references:mime-version
- :content-disposition:in-reply-to;
- bh=1uUGHRQN2BNT90A+zQOT/kUuzEqMrYwsSYbjLjzbfgs=;
- b=SOayGaYxKnzRE4LpSqIAhWOdUqc2TKiaqaFkCXPiGs+HLMze4aZKMD9Kzn2c9OgBJo
- By3/JxaT07ZKOfD+KcYX6FFl301+DXf3ok6B89wJy1SNz6g+vw2KUWPA9hR1472WAYBA
- sgW26Jeo8UmydFzR4GjIx3/I03KTE6iZxO1+G4NFQbitfhVIYbVOoBRCKDZsWocCbEGl
- cXHXtvjrP0HmcDX3hH6iI9az8f4M2pEVDBcFeK7p4NWbWJjcoLqgaq9aZLXjpGEuPenH
- O6AROmGrzkiFTs8hBBps85azTcyFqV1udyiDHgm3tlQDc5MvhArnotcu56NCJd0b9aXQ
- f+Ag==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20161025;
- h=x-gm-message-state:date:from:to:cc:subject:message-id:references
- :mime-version:content-disposition:in-reply-to;
- bh=1uUGHRQN2BNT90A+zQOT/kUuzEqMrYwsSYbjLjzbfgs=;
- b=Jzscve+d4uggxBLafdvjxjWHVB0Hl29E8vTSpSLKOhxbz8bs43Ma0ClP1PH5E6yYkL
- 5R4SEdAaIfhz/HM0p/U2CKohLlmVmyxapjNQzexEFUSw8cP5UCwaln9Ry69M9z4vYkzm
- qDEzX+zrlCo/MR1UEv92MnTrkcPhzykk2yNg58xBRw8IEm4SkDhW4dLmQg9zzfsaai6c
- MiNfu0roZNmKosCgeP52okkH+Z/9NHPzxm2NGloZ4LFkOsWKiHa1RR9HYBeLYQ8uvsoQ
- 1FZNmZjrKLImcD+TOh+M3/xP7EOZzeKAy187yaf9wtIdkmJ4+oKJknlnhwzl8lIyIULG
- FebQ==
-X-Gm-Message-State: AOAM5323BGUSo7j7xtWrdw3tjM5TyInnVs8NnA5sILOFpgrdiVcMm/cp
- CREWGLjadtuvMzjr8D0XhvHnOg==
-X-Google-Smtp-Source: ABdhPJwX5wyWCnBdCOij97TY1aGnnf5ZJp8ypLSb3YbOIlBgcEnJ6+2om5/j0FBw50E9YeihheQRdw==
-X-Received: by 2002:a17:90b:3113:: with SMTP id
- gc19mr2362339pjb.46.1598374476417; 
- Tue, 25 Aug 2020 09:54:36 -0700 (PDT)
-Received: from xps15 (S0106002369de4dac.cg.shawcable.net. [68.147.8.254])
- by smtp.gmail.com with ESMTPSA id z15sm13724198pgz.13.2020.08.25.09.54.35
- (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Tue, 25 Aug 2020 09:54:35 -0700 (PDT)
-Date: Tue, 25 Aug 2020 10:54:33 -0600
-From: Mathieu Poirier <mathieu.poirier@linaro.org>
-To: Arnaud Pouliquen <arnaud.pouliquen@st.com>
-Message-ID: <20200825165433.GA4141387@xps15>
-References: <20200731114732.12815-1-arnaud.pouliquen@st.com>
- <20200731114732.12815-9-arnaud.pouliquen@st.com>
+ Wed, 26 Aug 2020 06:39:08 +0000 (UTC)
+Received: from pps.filterd (m0167088.ppops.net [127.0.0.1])
+ by mx0a-00128a01.pphosted.com (8.16.0.42/8.16.0.42) with SMTP id
+ 07Q6UQDL027131; Wed, 26 Aug 2020 02:39:02 -0400
+Received: from nwd2mta3.analog.com ([137.71.173.56])
+ by mx0a-00128a01.pphosted.com with ESMTP id 332w764k56-1
+ (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
+ Wed, 26 Aug 2020 02:39:01 -0400
+Received: from SCSQMBX10.ad.analog.com (scsqmbx10.ad.analog.com [10.77.17.5])
+ by nwd2mta3.analog.com (8.14.7/8.14.7) with ESMTP id 07Q6d0qo014968
+ (version=TLSv1/SSLv3 cipher=ECDHE-RSA-AES128-GCM-SHA256 bits=128
+ verify=FAIL); Wed, 26 Aug 2020 02:39:00 -0400
+Received: from SCSQMBX11.ad.analog.com (10.77.17.10) by
+ SCSQMBX10.ad.analog.com (10.77.17.5) with Microsoft SMTP Server
+ (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
+ 15.1.1779.2; Tue, 25 Aug 2020 23:38:58 -0700
+Received: from zeus.spd.analog.com (10.66.68.11) by SCSQMBX11.ad.analog.com
+ (10.77.17.10) with Microsoft SMTP Server id 15.1.1779.2 via Frontend
+ Transport; Tue, 25 Aug 2020 23:38:58 -0700
+Received: from saturn.ad.analog.com ([10.48.65.100])
+ by zeus.spd.analog.com (8.15.1/8.15.1) with ESMTP id 07Q6cs7n018839;
+ Wed, 26 Aug 2020 02:38:55 -0400
+From: Alexandru Ardelean <alexandru.ardelean@analog.com>
+To: <linux-iio@vger.kernel.org>, <linux-stm32@st-md-mailman.stormreply.com>,
+ <linux-kernel@vger.kernel.org>, <linux-arm-kernel@lists.infradead.org>
+Date: Wed, 26 Aug 2020 09:38:50 +0300
+Message-ID: <20200826063850.47625-1-alexandru.ardelean@analog.com>
+X-Mailer: git-send-email 2.25.1
 MIME-Version: 1.0
-Content-Disposition: inline
-In-Reply-To: <20200731114732.12815-9-arnaud.pouliquen@st.com>
-Cc: Ohad Ben-Cohen <ohad@wizery.com>, linux-stm32@st-md-mailman.stormreply.com,
- linux-remoteproc@vger.kernel.org, linux-kernel@vger.kernel.org,
- Bjorn Andersson <bjorn.andersson@linaro.org>
-Subject: Re: [Linux-stm32] [PATCH 8/9] rpmsg: virtio: use rpmsg_ns driver to
- manage ns announcement
+X-ADIRoutedOnPrem: True
+X-Proofpoint-Virus-Version: vendor=fsecure engine=2.50.10434:6.0.235, 18.0.687
+ definitions=2020-08-26_03:2020-08-25,
+ 2020-08-26 signatures=0
+X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
+ suspectscore=0
+ mlxlogscore=506 spamscore=0 lowpriorityscore=0 phishscore=0 mlxscore=0
+ malwarescore=0 priorityscore=1501 bulkscore=0 clxscore=1011
+ impostorscore=0 adultscore=0 classifier=spam adjust=0 reason=mlx
+ scancount=1 engine=8.12.0-2006250000 definitions=main-2008260050
+Cc: Sergiu Cuciurean <sergiu.cuciurean@analog.com>,
+ Alexandru Ardelean <alexandru.ardelean@analog.com>, fabrice.gasnier@st.com,
+ jic23@kernel.org
+Subject: [Linux-stm32] [PATCH] iio: stm32-dac: Replace indio_dev->mlock with
+	own device lock
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -78,163 +73,78 @@ Content-Transfer-Encoding: 7bit
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
-Hi Arnaud,
+From: Sergiu Cuciurean <sergiu.cuciurean@analog.com>
 
-On Fri, Jul 31, 2020 at 01:47:31PM +0200, Arnaud Pouliquen wrote:
-> Use the new rpmsg_ns API to send the name service announcements if
-> the VIRTIO_RPMSG_F_NS is set, else just not implement the ops.
-> 
-> Signed-off-by: Arnaud Pouliquen <arnaud.pouliquen@st.com>
-> ---
->  drivers/rpmsg/virtio_rpmsg_bus.c | 94 +++++---------------------------
->  1 file changed, 13 insertions(+), 81 deletions(-)
-> 
-> diff --git a/drivers/rpmsg/virtio_rpmsg_bus.c b/drivers/rpmsg/virtio_rpmsg_bus.c
-> index f771fdae150e..3c771a6392be 100644
-> --- a/drivers/rpmsg/virtio_rpmsg_bus.c
-> +++ b/drivers/rpmsg/virtio_rpmsg_bus.c
-> @@ -91,35 +91,6 @@ struct rpmsg_hdr {
->  	u8 data[];
->  } __packed;
->  
-> -/**
-> - * struct rpmsg_ns_msg - dynamic name service announcement message
-> - * @name: name of remote service that is published
-> - * @addr: address of remote service that is published
-> - * @flags: indicates whether service is created or destroyed
-> - *
-> - * This message is sent across to publish a new service, or announce
-> - * about its removal. When we receive these messages, an appropriate
-> - * rpmsg channel (i.e device) is created/destroyed. In turn, the ->probe()
-> - * or ->remove() handler of the appropriate rpmsg driver will be invoked
-> - * (if/as-soon-as one is registered).
-> - */
-> -struct rpmsg_ns_msg {
-> -	char name[RPMSG_NAME_SIZE];
-> -	__virtio32 addr;
-> -	__virtio32 flags;
-> -} __packed;
-> -
-> -/**
-> - * enum rpmsg_ns_flags - dynamic name service announcement flags
-> - *
-> - * @RPMSG_NS_CREATE: a new remote service was just created
-> - * @RPMSG_NS_DESTROY: a known remote service was just destroyed
-> - */
-> -enum rpmsg_ns_flags {
-> -	RPMSG_NS_CREATE		= 0,
-> -	RPMSG_NS_DESTROY	= 1,
-> -};
-> -
->  /**
->   * @vrp: the remote processor this channel belongs to
->   */
-> @@ -324,60 +295,18 @@ static void virtio_rpmsg_destroy_ept(struct rpmsg_endpoint *ept)
->  	__rpmsg_destroy_ept(vch->vrp, ept);
->  }
->  
-> -static int virtio_rpmsg_announce_create(struct rpmsg_device *rpdev)
-> -{
-> -	struct virtio_rpmsg_channel *vch = to_virtio_rpmsg_channel(rpdev);
-> -	struct virtproc_info *vrp = vch->vrp;
-> -	struct device *dev = &rpdev->dev;
-> -	int err = 0;
-> -
-> -	/* need to tell remote processor's name service about this channel ? */
-> -	if (rpdev->announce && rpdev->ept &&
-> -	    virtio_has_feature(vrp->vdev, VIRTIO_RPMSG_F_NS)) {
-> -		struct rpmsg_ns_msg nsm;
-> -
-> -		strncpy(nsm.name, rpdev->id.name, RPMSG_NAME_SIZE);
-> -		nsm.addr = cpu_to_virtio32(vrp->vdev, rpdev->ept->addr);
-> -		nsm.flags = cpu_to_virtio32(vrp->vdev, RPMSG_NS_CREATE);
-> -
-> -		err = rpmsg_sendto(rpdev->ept, &nsm, sizeof(nsm), RPMSG_NS_ADDR);
-> -		if (err)
-> -			dev_err(dev, "failed to announce service %d\n", err);
-> -	}
-> -
-> -	return err;
-> -}
-> -
-> -static int virtio_rpmsg_announce_destroy(struct rpmsg_device *rpdev)
-> -{
-> -	struct virtio_rpmsg_channel *vch = to_virtio_rpmsg_channel(rpdev);
-> -	struct virtproc_info *vrp = vch->vrp;
-> -	struct device *dev = &rpdev->dev;
-> -	int err = 0;
-> -
-> -	/* tell remote processor's name service we're removing this channel */
-> -	if (rpdev->announce && rpdev->ept &&
-> -	    virtio_has_feature(vrp->vdev, VIRTIO_RPMSG_F_NS)) {
-> -		struct rpmsg_ns_msg nsm;
-> -
-> -		strncpy(nsm.name, rpdev->id.name, RPMSG_NAME_SIZE);
-> -		nsm.addr = cpu_to_virtio32(vrp->vdev, rpdev->ept->addr);
-> -		nsm.flags = cpu_to_virtio32(vrp->vdev, RPMSG_NS_DESTROY);
-> -
-> -		err = rpmsg_sendto(rpdev->ept, &nsm, sizeof(nsm), RPMSG_NS_ADDR);
-> -		if (err)
-> -			dev_err(dev, "failed to announce service %d\n", err);
-> -	}
-> -
-> -	return err;
-> -}
-> -
->  static const struct rpmsg_device_ops virtio_rpmsg_ops = {
->  	.create_channel = virtio_rpmsg_create_channel,
->  	.release_channel = virtio_rpmsg_release_channel,
->  	.create_ept = virtio_rpmsg_create_ept,
-> -	.announce_create = virtio_rpmsg_announce_create,
-> -	.announce_destroy = virtio_rpmsg_announce_destroy,
-> +};
-> +
-> +static const struct rpmsg_device_ops virtio_rpmsg_w_nsa_ops = {
-> +	.create_channel = virtio_rpmsg_create_channel,
-> +	.release_channel = virtio_rpmsg_release_channel,
-> +	.create_ept = virtio_rpmsg_create_ept,
-> +	.announce_create = rpmsg_ns_announce_create,
-> +	.announce_destroy = rpmsg_ns_announce_destroy,
->  };
->  
->  static void virtio_rpmsg_release_device(struct device *dev)
-> @@ -423,7 +352,10 @@ __rpmsg_create_channel(struct virtproc_info *vrp,
->  	rpdev = &vch->rpdev;
->  	rpdev->src = chinfo->src;
->  	rpdev->dst = chinfo->dst;
-> -	rpdev->ops = &virtio_rpmsg_ops;
-> +	if (virtio_has_feature(vrp->vdev, VIRTIO_RPMSG_F_NS))
-> +		rpdev->ops = &virtio_rpmsg_w_nsa_ops;
-> +	else
-> +		rpdev->ops = &virtio_rpmsg_ops;
+As part of the general cleanup of indio_dev->mlock, this change replaces
+it with a local lock on the device's state structure.
 
-Yesterday I struggled with this part and I still do this morning.  Function
-__rpmsg_create_channel() can only be called if VIRTIO_RPMSG_F_NS is set so there
-is no need to check it again.  I would also have expected this patch to be a
-simple replace of the .announce_create/destroy functions.  Adding an ops that
-doesn't have the .announce_create/destroy functions looks like a feature to me,
-and one that I don't quite get.
+The patch also does a minor whitespace change to align the 'lock' with the
+'common' field via tabs.
 
-Do you think you could expand on the motivation behind this patch?
+Signed-off-by: Sergiu Cuciurean <sergiu.cuciurean@analog.com>
+Signed-off-by: Alexandru Ardelean <alexandru.ardelean@analog.com>
+---
+ drivers/iio/dac/stm32-dac.c | 14 +++++++++-----
+ 1 file changed, 9 insertions(+), 5 deletions(-)
 
-Thanks,
-Mathieu 
+diff --git a/drivers/iio/dac/stm32-dac.c b/drivers/iio/dac/stm32-dac.c
+index 092c796fa3d9..fc636812c17e 100644
+--- a/drivers/iio/dac/stm32-dac.c
++++ b/drivers/iio/dac/stm32-dac.c
+@@ -26,9 +26,11 @@
+ /**
+  * struct stm32_dac - private data of DAC driver
+  * @common:		reference to DAC common data
++ * @lock:		lock to protect the data buffer during regmap ops
+  */
+ struct stm32_dac {
+-	struct stm32_dac_common *common;
++	struct stm32_dac_common	*common;
++	struct mutex		lock;
+ };
+ 
+ static int stm32_dac_is_enabled(struct iio_dev *indio_dev, int channel)
+@@ -58,10 +60,10 @@ static int stm32_dac_set_enable_state(struct iio_dev *indio_dev, int ch,
+ 	int ret;
+ 
+ 	/* already enabled / disabled ? */
+-	mutex_lock(&indio_dev->mlock);
++	mutex_lock(&dac->lock);
+ 	ret = stm32_dac_is_enabled(indio_dev, ch);
+ 	if (ret < 0 || enable == !!ret) {
+-		mutex_unlock(&indio_dev->mlock);
++		mutex_unlock(&dac->lock);
+ 		return ret < 0 ? ret : 0;
+ 	}
+ 
+@@ -69,13 +71,13 @@ static int stm32_dac_set_enable_state(struct iio_dev *indio_dev, int ch,
+ 		ret = pm_runtime_get_sync(dev);
+ 		if (ret < 0) {
+ 			pm_runtime_put_noidle(dev);
+-			mutex_unlock(&indio_dev->mlock);
++			mutex_unlock(&dac->lock);
+ 			return ret;
+ 		}
+ 	}
+ 
+ 	ret = regmap_update_bits(dac->common->regmap, STM32_DAC_CR, msk, en);
+-	mutex_unlock(&indio_dev->mlock);
++	mutex_unlock(&dac->lock);
+ 	if (ret < 0) {
+ 		dev_err(&indio_dev->dev, "%s failed\n", en ?
+ 			"Enable" : "Disable");
+@@ -327,6 +329,8 @@ static int stm32_dac_probe(struct platform_device *pdev)
+ 	indio_dev->info = &stm32_dac_iio_info;
+ 	indio_dev->modes = INDIO_DIRECT_MODE;
+ 
++	mutex_init(&dac->lock);
++
+ 	ret = stm32_dac_chan_of_init(indio_dev);
+ 	if (ret < 0)
+ 		return ret;
+-- 
+2.25.1
 
->  
->  	/*
->  	 * rpmsg server channels has predefined local address (for now),
-> @@ -933,7 +865,7 @@ static int rpmsg_probe(struct virtio_device *vdev)
->  
->  		/* Assign public information to the rpmsg_device */
->  		rpdev_ns = &vch->rpdev;
-> -		rpdev_ns->ops = &virtio_rpmsg_ops;
-> +		rpdev_ns->ops = &virtio_rpmsg_w_nsa_ops;
->  
->  		rpdev_ns->dev.parent = &vrp->vdev->dev;
->  		rpdev_ns->dev.release = virtio_rpmsg_release_device;
-> -- 
-> 2.17.1
-> 
 _______________________________________________
 Linux-stm32 mailing list
 Linux-stm32@st-md-mailman.stormreply.com
