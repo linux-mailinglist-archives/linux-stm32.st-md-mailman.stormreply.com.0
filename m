@@ -2,58 +2,71 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id 1D92025347E
-	for <lists+linux-stm32@lfdr.de>; Wed, 26 Aug 2020 18:14:16 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 491F825349F
+	for <lists+linux-stm32@lfdr.de>; Wed, 26 Aug 2020 18:17:25 +0200 (CEST)
 Received: from ip-172-31-3-76.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id CB761C32EA7;
-	Wed, 26 Aug 2020 16:14:15 +0000 (UTC)
-Received: from smtpout1.mo803.mail-out.ovh.net
- (smtpout1.mo803.mail-out.ovh.net [79.137.123.219])
- (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 0FDFCC32E90;
+	Wed, 26 Aug 2020 16:17:25 +0000 (UTC)
+Received: from mail-ed1-f66.google.com (mail-ed1-f66.google.com
+ [209.85.208.66])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id F1844C36B26
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 63E1DC36B26
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Wed, 26 Aug 2020 15:38:19 +0000 (UTC)
-Received: from pro2.mail.ovh.net (unknown [10.109.156.191])
- by mo803.mail-out.ovh.net (Postfix) with ESMTPS id 6EAE963F16E0;
- Wed, 26 Aug 2020 17:38:18 +0200 (CEST)
-Received: from localhost (34.103.240.152) by DAG2EX1.emp2.local (172.16.2.11)
- with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2044.4; Wed, 26 Aug
- 2020 17:38:17 +0200
-Date: Wed, 26 Aug 2020 17:34:34 +0200
-From: Tomasz Duszynski <tomasz.duszynski@octakon.com>
-To: Krzysztof Kozlowski <krzk@kernel.org>
-Message-ID: <20200826153434.GA7468@arch>
+ Wed, 26 Aug 2020 16:17:23 +0000 (UTC)
+Received: by mail-ed1-f66.google.com with SMTP id ba12so1150702edb.2
+ for <linux-stm32@st-md-mailman.stormreply.com>;
+ Wed, 26 Aug 2020 09:17:23 -0700 (PDT)
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20161025;
+ h=x-gm-message-state:date:from:to:subject:message-id:references
+ :mime-version:content-disposition:in-reply-to:user-agent;
+ bh=laWDGcI0X9wsLJOKujDeA1CnpKtg4JiaZl3VvU6mRis=;
+ b=otUvNEBPCxCsK99HjiEl/KHGmypl0mTbSiANuaQPkOu3R5tuukpjjHZeeIDJ1Utahm
+ 6rLcjVbTdNO0VRJTX07ejT5nSApYnxPW1J2AuuNj0j9Xn92Cw08jHepOHbVD4xJ7vI1D
+ mYLr8r9bnhR4rRyEJdxEt+LUr8X8SFiRdpnYPgiQW005eHBjeeLnir7XRa/KFFvm3tEN
+ 82+2XpnilV6h6CBQ2Dt9K3O35IPSzcP3BjBD5TS2NkjYiLTXhY33EHNJfU2/lolsCGGA
+ syjaYArTAJVyqC3lUwnpMHflwYf+KiR9KxNBeslcISOIKwxI/bUYXBoSwuvOt5H+rcPS
+ Ttbg==
+X-Gm-Message-State: AOAM532jGsLw73yXtjQ9Vg/B0haO4+rEaIfLEfE8bPhFszBLl25R0gKX
+ DeeX6UrM9tdV0djk9U5rvik=
+X-Google-Smtp-Source: ABdhPJwDaFNcHPrTYdLriZtJcxNZ110E7a9YGPHsFImoDK7pqL5BMNNSt1z6y1v86s6eweEOR3zqAQ==
+X-Received: by 2002:aa7:d70a:: with SMTP id t10mr12649505edq.161.1598458642874; 
+ Wed, 26 Aug 2020 09:17:22 -0700 (PDT)
+Received: from kozik-lap ([194.230.155.216])
+ by smtp.googlemail.com with ESMTPSA id p9sm2325797ejg.120.2020.08.26.09.17.21
+ (version=TLS1_2 cipher=ECDHE-ECDSA-CHACHA20-POLY1305 bits=256/256);
+ Wed, 26 Aug 2020 09:17:22 -0700 (PDT)
+Date: Wed, 26 Aug 2020 18:17:19 +0200
+From: Krzysztof Kozlowski <krzk@kernel.org>
+To: Jonathan Cameron <jic23@kernel.org>, Hartmut Knaack <knaack.h@gmx.de>,
+ Lars-Peter Clausen <lars@metafoo.de>,
+ Peter Meerwald-Stadler <pmeerw@pmeerw.net>,
+ Peter Rosin <peda@axentia.se>, Kukjin Kim <kgene@kernel.org>,
+ Michael Hennerich <Michael.Hennerich@analog.com>,
+ Kevin Hilman <khilman@baylibre.com>,
+ Neil Armstrong <narmstrong@baylibre.com>,
+ Jerome Brunet <jbrunet@baylibre.com>,
+ Martin Blumenstingl <martin.blumenstingl@googlemail.com>,
+ Marek Vasut <marek.vasut@gmail.com>,
+ Maxime Coquelin <mcoquelin.stm32@gmail.com>,
+ Alexandre Torgue <alexandre.torgue@st.com>,
+ Beniamin Bia <beniamin.bia@analog.com>,
+ Tomasz Duszynski <tomasz.duszynski@octakon.com>,
+ Linus Walleij <linus.walleij@linaro.org>,
+ Jonathan Bakker <xc-racer2@live.ca>,
+ Alexandru Ardelean <alexandru.ardelean@analog.com>,
+ linux-kernel@vger.kernel.org, linux-arm-kernel@lists.infradead.org,
+ linux-samsung-soc@vger.kernel.org, linux-amlogic@lists.infradead.org,
+ linux-stm32@st-md-mailman.stormreply.com
+Message-ID: <20200826161719.GB31748@kozik-lap>
 References: <20200826145153.10444-1-krzk@kernel.org>
- <20200826145153.10444-11-krzk@kernel.org>
+ <20200826145153.10444-8-krzk@kernel.org>
 MIME-Version: 1.0
 Content-Disposition: inline
-In-Reply-To: <20200826145153.10444-11-krzk@kernel.org>
-X-Originating-IP: [34.103.240.152]
-X-ClientProxiedBy: CAS2.emp2.local (172.16.1.2) To DAG2EX1.emp2.local
- (172.16.2.11)
-X-Ovh-Tracer-Id: 9361576253439499417
-X-VR-SPAMSTATE: OK
-X-VR-SPAMSCORE: -100
-X-VR-SPAMCAUSE: gggruggvucftvghtrhhoucdtuddrgeduiedruddvvddgledtucetufdoteggodetrfdotffvucfrrhhofhhilhgvmecuqfggjfdpvefjgfevmfevgfenuceurghilhhouhhtmecuhedttdenucesvcftvggtihhpihgvnhhtshculddquddttddmnecujfgurhepfffhvffukfhfgggtuggjihesthdtredttddtjeenucfhrhhomhepvfhomhgrshiiucffuhhsiiihnhhskhhiuceothhomhgrshiirdguuhhsiiihnhhskhhisehotghtrghkohhnrdgtohhmqeenucggtffrrghtthgvrhhnpedtheevtefhffduteejfedtkeeuheejgeejvdetfffgveekffefgeffueeghefgjeenucfkpheptddrtddrtddrtddpfeegrddutdefrddvgedtrdduhedvnecuvehluhhsthgvrhfuihiivgeptdenucfrrghrrghmpehmohguvgepshhmthhpqdhouhhtpdhhvghlohepphhrohdvrdhmrghilhdrohhvhhdrnhgvthdpihhnvghtpedtrddtrddtrddtpdhmrghilhhfrhhomhepthhomhgrshiirdguuhhsiiihnhhskhhisehotghtrghkohhnrdgtohhmpdhrtghpthhtoheplhhinhhugidqshhtmhefvdesshhtqdhmugdqmhgrihhlmhgrnhdrshhtohhrmhhrvghplhihrdgtohhm
-X-Mailman-Approved-At: Wed, 26 Aug 2020 16:14:12 +0000
-Cc: Peter Meerwald-Stadler <pmeerw@pmeerw.net>,
- Neil Armstrong <narmstrong@baylibre.com>, Jonathan Bakker <xc-racer2@live.ca>,
- Tomasz Duszynski <tomasz.duszynski@octakon.com>,
- linux-stm32@st-md-mailman.stormreply.com, Jerome Brunet <jbrunet@baylibre.com>,
- Lars-Peter Clausen <lars@metafoo.de>, Kevin Hilman <khilman@baylibre.com>,
- Marek Vasut <marek.vasut@gmail.com>, Kukjin Kim <kgene@kernel.org>,
- Alexandru Ardelean <alexandru.ardelean@analog.com>,
- Linus Walleij <linus.walleij@linaro.org>,
- Michael Hennerich <Michael.Hennerich@analog.com>,
- Martin Blumenstingl <martin.blumenstingl@googlemail.com>,
- linux-samsung-soc@vger.kernel.org, linux-amlogic@lists.infradead.org,
- linux-arm-kernel@lists.infradead.org, linux-kernel@vger.kernel.org,
- Beniamin Bia <beniamin.bia@analog.com>,
- Maxime Coquelin <mcoquelin.stm32@gmail.com>, Hartmut Knaack <knaack.h@gmx.de>,
- Peter Rosin <peda@axentia.se>, Jonathan Cameron <jic23@kernel.org>
-Subject: Re: [Linux-stm32] [PATCH 11/16] iio: chemical: scd30: Simplify with
+In-Reply-To: <20200826145153.10444-8-krzk@kernel.org>
+User-Agent: Mutt/1.9.4 (2018-02-28)
+Subject: Re: [Linux-stm32] [PATCH 08/16] iio: adc: stm32: Simplify with
 	dev_err_probe()
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
@@ -71,46 +84,23 @@ Content-Transfer-Encoding: 7bit
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
-On Wed, Aug 26, 2020 at 04:51:48PM +0200, Krzysztof Kozlowski wrote:
+On Wed, Aug 26, 2020 at 04:51:45PM +0200, Krzysztof Kozlowski wrote:
 > Common pattern of handling deferred probe can be simplified with
 > dev_err_probe().  Less code and also it prints the error value.
->
+> 
 > Signed-off-by: Krzysztof Kozlowski <krzk@kernel.org>
 > ---
->  drivers/iio/chemical/scd30_core.c | 10 +++-------
->  1 file changed, 3 insertions(+), 7 deletions(-)
->
-> diff --git a/drivers/iio/chemical/scd30_core.c b/drivers/iio/chemical/scd30_core.c
-> index eac76972f83e..92358797796d 100644
-> --- a/drivers/iio/chemical/scd30_core.c
-> +++ b/drivers/iio/chemical/scd30_core.c
-> @@ -705,13 +705,9 @@ int scd30_probe(struct device *dev, int irq, const char *name, void *priv,
->  	indio_dev->available_scan_masks = scd30_scan_masks;
->
->  	state->vdd = devm_regulator_get(dev, "vdd");
-> -	if (IS_ERR(state->vdd)) {
-> -		if (PTR_ERR(state->vdd) == -EPROBE_DEFER)
-> -			return -EPROBE_DEFER;
-> -
-> -		dev_err(dev, "failed to get regulator\n");
-> -		return PTR_ERR(state->vdd);
-> -	}
-> +	if (IS_ERR(state->vdd))
-> +		return dev_err_probe(dev, PTR_ERR(state->vdd),
-> +				     "failed to get regulator\n");
+>  drivers/iio/adc/stm32-adc-core.c  | 62 ++++++++++++-------------------
+>  drivers/iio/adc/stm32-adc.c       | 10 ++---
+>  drivers/iio/adc/stm32-dfsdm-adc.c | 10 ++---
+>  3 files changed, 30 insertions(+), 52 deletions(-)
 
-I'd say that removing like break would slightly improve readability.
-Besides, staying within 100 columns seems socially acceptable now.
-Otherwise,
+For this one I have a follow up - I found more of places for conversion.
+I will send v2 for this one only.
 
-Acked-by: Tomasz Duszynski <tomasz.duszynski@octakon.com>
+Best regards,
+Krzysztof
 
->
->  	ret = regulator_enable(state->vdd);
->  	if (ret)
-> --
-> 2.17.1
->
 _______________________________________________
 Linux-stm32 mailing list
 Linux-stm32@st-md-mailman.stormreply.com
