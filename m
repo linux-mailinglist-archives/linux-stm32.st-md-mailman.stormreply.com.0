@@ -2,71 +2,72 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id 301A7254F87
-	for <lists+linux-stm32@lfdr.de>; Thu, 27 Aug 2020 21:56:12 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 3C29B254F92
+	for <lists+linux-stm32@lfdr.de>; Thu, 27 Aug 2020 21:59:55 +0200 (CEST)
 Received: from ip-172-31-3-76.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id EC02EC32EA6;
-	Thu, 27 Aug 2020 19:56:11 +0000 (UTC)
-Received: from mail-pf1-f195.google.com (mail-pf1-f195.google.com
- [209.85.210.195])
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id EE05FC32EA6;
+	Thu, 27 Aug 2020 19:59:54 +0000 (UTC)
+Received: from mail-pj1-f68.google.com (mail-pj1-f68.google.com
+ [209.85.216.68])
  (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id D375BC36B26
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 1C142C36B26
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Thu, 27 Aug 2020 19:56:08 +0000 (UTC)
-Received: by mail-pf1-f195.google.com with SMTP id 17so4318725pfw.9
+ Thu, 27 Aug 2020 19:59:52 +0000 (UTC)
+Received: by mail-pj1-f68.google.com with SMTP id nv17so3201926pjb.3
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Thu, 27 Aug 2020 12:56:08 -0700 (PDT)
+ Thu, 27 Aug 2020 12:59:52 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20161025;
  h=mime-version:references:in-reply-to:from:date:message-id:subject:to
- :cc; bh=YLa56i743GyYyvzZsbp7wDSdWi+EGIOQBt69Q105LwQ=;
- b=SR0DcGiRNSloexRgT5hNz4a+LfcqsIQj20wgCxHugcf+XgWQvmGFw0bnb0I7KbH+/c
- ogmXVcx8dsIt5IUDS/nGPWPBDatpaPAfM4P20TV5kzuntmfkhHwjvY9r9zW/CV8eKDUc
- oyYKZqYPt8LQaH829LamjzKyYe8CKpA8OZQMHcTyINmYvBZQ4Df4AnE1g6asyOOpkfCD
- TLQ5THGMgBFl8C5iKS2IuJ5aKQKMbHXw2v1y9jSF9m0qwPaLjYSjfuAZwAOemI2Rj0bw
- NMvemTfF1vk0wlIrV2GWv254XcKVuSD1++6tqd8PyFVcEvx3nMHuigVsvGKhuYalkxEc
- wSqA==
+ :cc; bh=BtW/ozpx4qaFKtR4WdRiyJH+a5pa+/rdp0E0zYCBtiw=;
+ b=AjsVfQcbbs8m2CmFrHV0gwxOPDDFel6Dtuz0EVsMe9pOvePSe2KyCjg5R54J213aA0
+ dYs7dOdAsqUXhUKoWNElRVtmUGHCALn0WOiQUKE3W6V6pIo5TVmtY5wvgoJScOJBWpF2
+ ZwroeOfqHbSXgH9NOC4gFVc4jTWoND5bcI6V09T8yOcf2ohLyiHpQVEaPEZNqdAIqkPI
+ UeZlWWC0M/SJWy9F5wyNplXtqhJHSmtWHVsSFfV7wIy865aw2DytyMKKrm30aAaK0iG0
+ tmW4yhgyhYPR7janwCUFLJmWVHIfAqhea6q549D12zbhnsK/fJvsZeTjhzSky3l/gGR3
+ 9QZQ==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=1e100.net; s=20161025;
  h=x-gm-message-state:mime-version:references:in-reply-to:from:date
  :message-id:subject:to:cc;
- bh=YLa56i743GyYyvzZsbp7wDSdWi+EGIOQBt69Q105LwQ=;
- b=ZewW7qsCXlNTR8W3yc8TGx5PxfUYrykCnXkLeS4WetmZaODbh1Rm0GwBV3b4hszv1P
- pofljOZ7p4+eu35UiJSnLNYLTIlhgPfXMcWqOvjQ69rNjscaPg3B8+OPArMMxdGh9jzb
- vbzhVizzJLFl604Mz64flg3xp+KJt+N0AIBVbEXQYIdZNRAKVugTGqBbKSEUbZOweLDC
- WZtFZUzi/CPwYAyNmyZcJFgA+hv/CZsdNXrUj1HQen1b2nPtJ+e4IKLlp/nc530yZsYp
- X93obY7rGlKcRq2vMNsgF/xaXJm6xZpurluPOQdUtlklN45Xx5BmE4rjZq3AqGz2Q0mR
- iiOQ==
-X-Gm-Message-State: AOAM530HyMNk1n46H2T09eYcsWPbQ40exaFO9Us1trFVZlPtNfgC4ys2
- VwYhfT0lShAw3aq3VD92RQXWJUdqht4sNdA0mPU=
-X-Google-Smtp-Source: ABdhPJzz9OgKhOSf0QaPl+XE+7282MSmPn4HpuGGEVGW9DN6uF+vFghnleghHOCVxElQYmTrlTqoeuz0+DPlkRO0bPw=
-X-Received: by 2002:a63:ec18:: with SMTP id j24mr15250227pgh.74.1598558167388; 
- Thu, 27 Aug 2020 12:56:07 -0700 (PDT)
+ bh=BtW/ozpx4qaFKtR4WdRiyJH+a5pa+/rdp0E0zYCBtiw=;
+ b=h3mTuK455PN/Hxy6wQpDYUXMrAY5n7HIR7zuOowqzquTFNilvHejBy3WyDnC26P/2S
+ +AmPo3azjYkY0Zze8WaepGFaeK9U7CS0lfX9RP7DBZjnSJ8X2FPY3q4UaAPgtiGwcokX
+ HS9HyMxAeHX8MkGPdcMWitIBAamsg9hKbg2SSOuNzgdWP4Dys8yc3Ak9IlglMUz7JuQR
+ 7Ww/Ahuw9fd6V7a6xRfLXyIozTZoYH3/CC56/tVK0cf3rXiBhhCBaNVFYJKPLY45YLqB
+ gLpN7ahzgAPsNQLu+zO9ucomp7GYFZJ+2MbaCn+ah2moTowhffchiGsJmG075oT2bVdp
+ Jidg==
+X-Gm-Message-State: AOAM531lkgQpzHuF9j2132+2dt/1F0kJ/iUIYNKCXUVPTvArxZnVG8ZQ
+ lpsOoDKwmLCi2gYaY6DSek54tXfs29tg0tSl07g=
+X-Google-Smtp-Source: ABdhPJztdvx7l/Bma3wdHdw/Knt4y7nn4/yOSwjk8CneJT6blQkPrpb2KiIZIrG26U/H2iMIqzfbq2Fkdjt5j2df1p0=
+X-Received: by 2002:a17:90a:2c06:: with SMTP id
+ m6mr433859pjd.129.1598558390619; 
+ Thu, 27 Aug 2020 12:59:50 -0700 (PDT)
 MIME-Version: 1.0
 References: <20200827192642.1725-1-krzk@kernel.org>
- <20200827192642.1725-12-krzk@kernel.org>
-In-Reply-To: <20200827192642.1725-12-krzk@kernel.org>
+ <20200827192642.1725-13-krzk@kernel.org>
+In-Reply-To: <20200827192642.1725-13-krzk@kernel.org>
 From: Andy Shevchenko <andy.shevchenko@gmail.com>
-Date: Thu, 27 Aug 2020 22:55:51 +0300
-Message-ID: <CAHp75VezGhnwphb4JAkVeQtGQhDoH-AtkA2b-GvSwGFta6y+Jg@mail.gmail.com>
+Date: Thu, 27 Aug 2020 22:59:34 +0300
+Message-ID: <CAHp75VfByooMDK0bMGG-EiYg=x5NtYaweAyeJ3CXH38j_xPw9A@mail.gmail.com>
 To: Krzysztof Kozlowski <krzk@kernel.org>
-Cc: Peter Meerwald-Stadler <pmeerw@pmeerw.net>,
- Neil Armstrong <narmstrong@baylibre.com>,
- linux-iio <linux-iio@vger.kernel.org>,
- Linus Walleij <linus.walleij@linaro.org>,
- Tomasz Duszynski <tomasz.duszynski@octakon.com>,
- linux-stm32@st-md-mailman.stormreply.com, Jerome Brunet <jbrunet@baylibre.com>,
- Lars-Peter Clausen <lars@metafoo.de>, Kevin Hilman <khilman@baylibre.com>,
- Marek Vasut <marek.vasut@gmail.com>, Kukjin Kim <kgene@kernel.org>,
- Beniamin Bia <beniamin.bia@analog.com>,
+Cc: Linus Walleij <linus.walleij@linaro.org>,
+ Lars-Peter Clausen <lars@metafoo.de>,
+ Maxime Coquelin <mcoquelin.stm32@gmail.com>,
  Michael Hennerich <Michael.Hennerich@analog.com>,
+ Neil Armstrong <narmstrong@baylibre.com>,
  Martin Blumenstingl <martin.blumenstingl@googlemail.com>,
- linux-samsung-soc@vger.kernel.org, linux-amlogic@lists.infradead.org,
- linux-arm Mailing List <linux-arm-kernel@lists.infradead.org>,
+ Kevin Hilman <khilman@baylibre.com>,
+ Tomasz Duszynski <tomasz.duszynski@octakon.com>,
  Linux Kernel Mailing List <linux-kernel@vger.kernel.org>,
- Maxime Coquelin <mcoquelin.stm32@gmail.com>, Hartmut Knaack <knaack.h@gmx.de>,
- Peter Rosin <peda@axentia.se>, Jonathan Cameron <jic23@kernel.org>
-Subject: Re: [Linux-stm32] [PATCH v2 12/18] iio: dac: dpot-dac: Simplify
+ linux-iio <linux-iio@vger.kernel.org>,
+ linux-stm32@st-md-mailman.stormreply.com, Marek Vasut <marek.vasut@gmail.com>,
+ Kukjin Kim <kgene@kernel.org>,
+ linux-arm Mailing List <linux-arm-kernel@lists.infradead.org>,
+ Peter Meerwald-Stadler <pmeerw@pmeerw.net>, linux-amlogic@lists.infradead.org,
+ linux-samsung-soc@vger.kernel.org, Peter Rosin <peda@axentia.se>,
+ Jonathan Cameron <jic23@kernel.org>, Jerome Brunet <jbrunet@baylibre.com>
+Subject: Re: [Linux-stm32] [PATCH v2 13/18] iio: imu: inv_mpu6050: Simplify
 	with dev_err_probe()
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
@@ -93,38 +94,42 @@ Reviewed-by: Andy Shevchenko <andy.shevchenko@gmail.com>
 
 > Signed-off-by: Krzysztof Kozlowski <krzk@kernel.org>
 > ---
->  drivers/iio/dac/dpot-dac.c | 16 ++++++----------
->  1 file changed, 6 insertions(+), 10 deletions(-)
+>  drivers/iio/imu/inv_mpu6050/inv_mpu_core.c | 20 ++++++--------------
+>  1 file changed, 6 insertions(+), 14 deletions(-)
 >
-> diff --git a/drivers/iio/dac/dpot-dac.c b/drivers/iio/dac/dpot-dac.c
-> index be61c3b01e8b..2258535b8a42 100644
-> --- a/drivers/iio/dac/dpot-dac.c
-> +++ b/drivers/iio/dac/dpot-dac.c
-> @@ -183,18 +183,14 @@ static int dpot_dac_probe(struct platform_device *pdev)
->         indio_dev->num_channels = 1;
+> diff --git a/drivers/iio/imu/inv_mpu6050/inv_mpu_core.c b/drivers/iio/imu/inv_mpu6050/inv_mpu_core.c
+> index 3fee3947f772..18a1898e3e34 100644
+> --- a/drivers/iio/imu/inv_mpu6050/inv_mpu_core.c
+> +++ b/drivers/iio/imu/inv_mpu6050/inv_mpu_core.c
+> @@ -1475,22 +1475,14 @@ int inv_mpu_core_probe(struct regmap *regmap, int irq, const char *name,
+>         }
 >
->         dac->vref = devm_regulator_get(dev, "vref");
-> -       if (IS_ERR(dac->vref)) {
-> -               if (PTR_ERR(dac->vref) != -EPROBE_DEFER)
-> -                       dev_err(&pdev->dev, "failed to get vref regulator\n");
-> -               return PTR_ERR(dac->vref);
+>         st->vdd_supply = devm_regulator_get(dev, "vdd");
+> -       if (IS_ERR(st->vdd_supply)) {
+> -               if (PTR_ERR(st->vdd_supply) != -EPROBE_DEFER)
+> -                       dev_err(dev, "Failed to get vdd regulator %d\n",
+> -                               (int)PTR_ERR(st->vdd_supply));
+> -
+> -               return PTR_ERR(st->vdd_supply);
 > -       }
-> +       if (IS_ERR(dac->vref))
-> +               return dev_err_probe(&pdev->dev, PTR_ERR(dac->vref),
-> +                                    "failed to get vref regulator\n");
+> +       if (IS_ERR(st->vdd_supply))
+> +               return dev_err_probe(dev, PTR_ERR(st->vdd_supply),
+> +                                    "Failed to get vdd regulator\n");
 >
->         dac->dpot = devm_iio_channel_get(dev, "dpot");
-> -       if (IS_ERR(dac->dpot)) {
-> -               if (PTR_ERR(dac->dpot) != -EPROBE_DEFER)
-> -                       dev_err(dev, "failed to get dpot input channel\n");
-> -               return PTR_ERR(dac->dpot);
+>         st->vddio_supply = devm_regulator_get(dev, "vddio");
+> -       if (IS_ERR(st->vddio_supply)) {
+> -               if (PTR_ERR(st->vddio_supply) != -EPROBE_DEFER)
+> -                       dev_err(dev, "Failed to get vddio regulator %d\n",
+> -                               (int)PTR_ERR(st->vddio_supply));
+> -
+> -               return PTR_ERR(st->vddio_supply);
 > -       }
-> +       if (IS_ERR(dac->dpot))
-> +               return dev_err_probe(&pdev->dev, PTR_ERR(dac->dpot),
-> +                                    "failed to get dpot input channel\n");
+> +       if (IS_ERR(st->vddio_supply))
+> +               return dev_err_probe(dev, PTR_ERR(st->vddio_supply),
+> +                                    "Failed to get vddio regulator\n");
 >
->         ret = iio_get_channel_type(dac->dpot, &type);
->         if (ret < 0)
+>         result = regulator_enable(st->vdd_supply);
+>         if (result) {
 > --
 > 2.17.1
 >
