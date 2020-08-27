@@ -2,53 +2,54 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id B2716254F15
-	for <lists+linux-stm32@lfdr.de>; Thu, 27 Aug 2020 21:46:56 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 5CF18254F23
+	for <lists+linux-stm32@lfdr.de>; Thu, 27 Aug 2020 21:48:29 +0200 (CEST)
 Received: from ip-172-31-3-76.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 7B219C32EA6;
-	Thu, 27 Aug 2020 19:46:56 +0000 (UTC)
-Received: from mail-pj1-f68.google.com (mail-pj1-f68.google.com
- [209.85.216.68])
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 1FC1CC32EA6;
+	Thu, 27 Aug 2020 19:48:29 +0000 (UTC)
+Received: from mail-pg1-f193.google.com (mail-pg1-f193.google.com
+ [209.85.215.193])
  (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 6EE0CC36B26
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 75C09C36B26
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Thu, 27 Aug 2020 19:46:55 +0000 (UTC)
-Received: by mail-pj1-f68.google.com with SMTP id 2so3183280pjx.5
+ Thu, 27 Aug 2020 19:48:25 +0000 (UTC)
+Received: by mail-pg1-f193.google.com with SMTP id m34so4084380pgl.11
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Thu, 27 Aug 2020 12:46:55 -0700 (PDT)
+ Thu, 27 Aug 2020 12:48:25 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20161025;
  h=mime-version:references:in-reply-to:from:date:message-id:subject:to
- :cc; bh=rF/IVgk4h5+MJuABqXa02sDX7QSYWX1qauCg5n/+jTM=;
- b=TV1dA5Xov0ck9OozRII/ftao8/R/YHMTCO/1WHAIME1O4niFg+OgXtzAY2zjfXEpz3
- e0y6JKc4ubTRQp2/5w0foJUYIoIiuNW4CZ8lovjPOZqrdFroT5QwHYWrBp5yjg1/iO4K
- SVI5qRKlgZYwcEEDVM5YA0sI7csZKPJ2go+y1RjxW6Y47BgMpwAgSmA1F/niu3rX4LJI
- Luhg6tmGDAO8T0kxLUogjDa7/r9vrR6E9YDb+FNA7Bgv3VY5XQqe3DghJZnJPELSU4YQ
- Y2d132gTzXLclulfMER6/ZCCJ+q1KmVWZnuoZuPJmXNmjdAxfrHlY0Y88zQ4nI6ZZMT9
- 9/Rw==
+ :cc; bh=kacN1ThtNH5U40mcv/4k6dMARnX9bfV0PWOTTEKKot4=;
+ b=uCHxCyolCflVbO+WUbO5LZqzBxHhrvlh9Pfc4sUAey8ZLgzdCoqYIrLEdx8BpwQcBh
+ s2GFIussGGUrYPA0MF7HrS5LyrCzsMV7f3icVtHxQDnUdBsayujKjO4yklbNWparyLk6
+ 6s/hYZYO7z9qF50wRRq3vSxKkZRtHXpiiZPUoABcbB8tpDAXLFRK8W47KyZVcZSsbKFl
+ GcpeBcMwA/NHfGzT7yOp5nwKgLoqG3eJzac9x4Zrkxu9rtMnmOVUdbEfRzxdmbXvjGpK
+ VnntcUFcoKeILOSwGYEdjuUalT1APy+Ayiduu0gb6oeP6w5roa17Qj+Rtnan3NJD4kzq
+ Izgg==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=1e100.net; s=20161025;
  h=x-gm-message-state:mime-version:references:in-reply-to:from:date
  :message-id:subject:to:cc;
- bh=rF/IVgk4h5+MJuABqXa02sDX7QSYWX1qauCg5n/+jTM=;
- b=EjqegI0+A0WthzPU5+9CZ8pyjWKmU9SUNfGKMnvo5BiRiYYxbtSpH/74iHqlr0R/ED
- UA9YK9GjJHV4QdTfj1IhfiTjOlHdG/qGqmJEgyfxVAJtLWbi5xUJhWIT/GFpJPJf/GB0
- UNukmoQHw6T0fLUaqtOuF4Mw9w0MdY3GPAEsjIgXMND7MI3cJHTuFfPm/FZTaPwCJtvX
- pOR1D7SMq1FHyZu6w/yTQugE3V5mP1yXqyoefpn3lzGJpBfVMWrQzrpt69lYgehAuhW8
- G5OyxNNQIO2gtLBURszreX+mkQeE6Q45sykueGAS/Tfw2ke0V/SZDl49eCWZ4P75MjY9
- MMMg==
-X-Gm-Message-State: AOAM532Jot/Zk+890T5wMlNVQxxFMq+LytR4QgaMgSe1GBW0g7nh+Pka
- /QMWL7avELatINEroN8xt80db+6CzOYi38h/ea0=
-X-Google-Smtp-Source: ABdhPJz+mPBt1w0ZVF5ot5qjiuaeOhaA9v5A1SLVkElmmTlR8IGArmMT4pz9gEJ+J7LbWY73M9EE9DJ74oGTNNcog7A=
-X-Received: by 2002:a17:90b:509:: with SMTP id r9mr410422pjz.228.1598557614008; 
- Thu, 27 Aug 2020 12:46:54 -0700 (PDT)
+ bh=kacN1ThtNH5U40mcv/4k6dMARnX9bfV0PWOTTEKKot4=;
+ b=Dj7/do2T5SShWwAvoYoFKwH3pd5cpsZ8HJYb4oCY2amocxvKhxltFblWj+wuIifRzy
+ E/k7Y0gyx1rrZDYlqiQiICBdS8VRVVgSjkbt1so4tHyOypWLt4munviw53ob+5Tl3eqG
+ uDLaSeXc681wGDhbkgf3M40MfOGNigDzRLFaq7T+CVofRMiF/bkHeavzzhNWf1RSdzHb
+ KkErRMBn0fJH/bfe2UxMqqmAqSV96ldMmAeXeCFIrZsO7Y9M1pdlHNn0yOi1PIz1jmtk
+ 0HLZTGSuUweKrHGO73x1dAoWCORTXRe17ViyaAEpS3+J6pMCyH3h/PKRUNEWPT+tKYH7
+ +fdA==
+X-Gm-Message-State: AOAM532Bj0upEZtErjE/afiJR3pDP6cyMS27OzixkORRQgQ8Wt3MsugO
+ qhVGXinfR9MrE2UMLROyXot6So5FVRt1diW+uEM=
+X-Google-Smtp-Source: ABdhPJzMBvf3SlQ4MXHwemF7WLO50QwdlrwNqcBo2uex50d1LsuaXz279AsMkddgVB3byOEu0XId2Ie0ozFdCkvrviw=
+X-Received: by 2002:a17:902:407:: with SMTP id
+ 7mr17541240ple.167.1598557703780; 
+ Thu, 27 Aug 2020 12:48:23 -0700 (PDT)
 MIME-Version: 1.0
 References: <20200827192642.1725-1-krzk@kernel.org>
- <20200827192642.1725-4-krzk@kernel.org>
-In-Reply-To: <20200827192642.1725-4-krzk@kernel.org>
+ <20200827192642.1725-5-krzk@kernel.org>
+In-Reply-To: <20200827192642.1725-5-krzk@kernel.org>
 From: Andy Shevchenko <andy.shevchenko@gmail.com>
-Date: Thu, 27 Aug 2020 22:46:37 +0300
-Message-ID: <CAHp75VcKctq6pAw+D5fYMtASGP_NuYOf4GJ+8t=Otxf_RVjKyA@mail.gmail.com>
+Date: Thu, 27 Aug 2020 22:48:07 +0300
+Message-ID: <CAHp75VepFzdeN=jaXvmSmkQauDJfgSU5ut3hA6a+Cer_SC52Og@mail.gmail.com>
 To: Krzysztof Kozlowski <krzk@kernel.org>
 Cc: Peter Meerwald-Stadler <pmeerw@pmeerw.net>,
  Neil Armstrong <narmstrong@baylibre.com>,
@@ -66,8 +67,8 @@ Cc: Peter Meerwald-Stadler <pmeerw@pmeerw.net>,
  Linux Kernel Mailing List <linux-kernel@vger.kernel.org>,
  Maxime Coquelin <mcoquelin.stm32@gmail.com>, Hartmut Knaack <knaack.h@gmx.de>,
  Peter Rosin <peda@axentia.se>, Jonathan Cameron <jic23@kernel.org>
-Subject: Re: [Linux-stm32] [PATCH v2 04/18] iio: adc: exynos_adc: Simplify
-	with dev_err_probe()
+Subject: Re: [Linux-stm32] [PATCH v2 05/18] iio: adc: ltc2497: Simplify with
+	dev_err_probe()
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -98,29 +99,29 @@ Reviewed-by: Andy Shevchenko <andy.shevchenko@gmail.com>
 > Changes since v1:
 > 1. Wrap dev_err_probe() lines at 100 character
 > ---
->  drivers/iio/adc/exynos_adc.c | 9 ++-------
+>  drivers/iio/adc/ltc2497-core.c | 9 ++-------
 >  1 file changed, 2 insertions(+), 7 deletions(-)
 >
-> diff --git a/drivers/iio/adc/exynos_adc.c b/drivers/iio/adc/exynos_adc.c
-> index 7d23b6c33284..40585a96c848 100644
-> --- a/drivers/iio/adc/exynos_adc.c
-> +++ b/drivers/iio/adc/exynos_adc.c
-> @@ -844,13 +844,8 @@ static int exynos_adc_probe(struct platform_device *pdev)
->         }
+> diff --git a/drivers/iio/adc/ltc2497-core.c b/drivers/iio/adc/ltc2497-core.c
+> index 9b8fd9c32364..d337ed96bbb0 100644
+> --- a/drivers/iio/adc/ltc2497-core.c
+> +++ b/drivers/iio/adc/ltc2497-core.c
+> @@ -180,13 +180,8 @@ int ltc2497core_probe(struct device *dev, struct iio_dev *indio_dev)
+>                 return ret;
 >
->         info->vdd = devm_regulator_get(&pdev->dev, "vdd");
-> -       if (IS_ERR(info->vdd)) {
-> -               if (PTR_ERR(info->vdd) != -EPROBE_DEFER)
-> -                       dev_err(&pdev->dev,
-> -                               "failed getting regulator, err = %ld\n",
-> -                               PTR_ERR(info->vdd));
-> -               return PTR_ERR(info->vdd);
+>         ddata->ref = devm_regulator_get(dev, "vref");
+> -       if (IS_ERR(ddata->ref)) {
+> -               if (PTR_ERR(ddata->ref) != -EPROBE_DEFER)
+> -                       dev_err(dev, "Failed to get vref regulator: %pe\n",
+> -                               ddata->ref);
+> -
+> -               return PTR_ERR(ddata->ref);
 > -       }
-> +       if (IS_ERR(info->vdd))
-> +               return dev_err_probe(&pdev->dev, PTR_ERR(info->vdd), "failed getting regulator");
+> +       if (IS_ERR(ddata->ref))
+> +               return dev_err_probe(dev, PTR_ERR(ddata->ref), "Failed to get vref regulator\n");
 >
->         ret = regulator_enable(info->vdd);
->         if (ret)
+>         ret = regulator_enable(ddata->ref);
+>         if (ret < 0) {
 > --
 > 2.17.1
 >
