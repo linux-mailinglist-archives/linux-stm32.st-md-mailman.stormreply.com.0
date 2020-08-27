@@ -2,53 +2,53 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id 46531254F9A
-	for <lists+linux-stm32@lfdr.de>; Thu, 27 Aug 2020 22:00:24 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 5B979254FA0
+	for <lists+linux-stm32@lfdr.de>; Thu, 27 Aug 2020 22:01:00 +0200 (CEST)
 Received: from ip-172-31-3-76.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 0B4E6C32EA6;
-	Thu, 27 Aug 2020 20:00:24 +0000 (UTC)
-Received: from mail-pf1-f196.google.com (mail-pf1-f196.google.com
- [209.85.210.196])
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 1F3F6C32EA6;
+	Thu, 27 Aug 2020 20:01:00 +0000 (UTC)
+Received: from mail-pf1-f195.google.com (mail-pf1-f195.google.com
+ [209.85.210.195])
  (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 6C129C36B26
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id C785FC36B26
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Thu, 27 Aug 2020 20:00:22 +0000 (UTC)
-Received: by mail-pf1-f196.google.com with SMTP id g207so283560pfb.1
+ Thu, 27 Aug 2020 20:00:57 +0000 (UTC)
+Received: by mail-pf1-f195.google.com with SMTP id x143so4337813pfc.4
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Thu, 27 Aug 2020 13:00:22 -0700 (PDT)
+ Thu, 27 Aug 2020 13:00:57 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20161025;
  h=mime-version:references:in-reply-to:from:date:message-id:subject:to
- :cc; bh=J7FsTR8MREGabBVt8LZ1j+20Xw6tV3sc64t+TrTmz1s=;
- b=H9Avjr9TBzYfwPOkz9EdvQOD/Hp2R/foNgj3n1RhDeUBaZ+T5lK3N+jmOVnF21fOPt
- cveijGliKTaLjmDGdxLWA8yVPczBusBiXh8fEduLfVMgyZ0AxHteuhJDmjK+uvJjLgPq
- hM8m0PARzvkixd1ZpgNhwBjSF1Ql6JaTzlrCF6hmmq+YjKNxQIvus1kjO8clKsH8C/t2
- Nr82ezEM0MgwJqZL7nrR3nrQCfjaqM4GPuz/FwXoB+2fw+2pY2HJ58nma+QCs85J+WsJ
- mBjjdnKmcvQsh0zyRUoV3RFVkHHilb03CsDzzWN0tKOzpTSWidOkEcJRc4N+Npaqr7Eh
- iyLA==
+ :cc; bh=6PibWI1WPUcSBuRxCpQduFOuzkYtMaBM/7TN/dC+YiE=;
+ b=b7gOG6wgCzT8BP986bm1kkzzFNR5NMwx61bMRrJN7WECwQlCKbLJ0mj+ASuG3rLlY6
+ sqRQr5z+Q5tmBHLiaNmXtpOJF/m8HhJKOC0N3BnLyEbvLECd9gi43KZGF2mLOy/Fx4eF
+ agm1klSih22rh2dQo7IKSSeLNshpUwc1PCIvsvcCgIR4zda8EF+aBJ++duzL8wRoYBRC
+ lV+0tCCiFNxVlpGSz7CUbjh0RX+LcmJ5edho3Lr1QZwtUFcqdZGWYHGcG5ZsUTsQWcFN
+ mA0KZnlMJH3puC9gFYa7jPr92KVbp1OjVTWGkYZ+h+qUcWiPSjgBhwkVisWpkBweIh4Z
+ T5ww==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=1e100.net; s=20161025;
  h=x-gm-message-state:mime-version:references:in-reply-to:from:date
  :message-id:subject:to:cc;
- bh=J7FsTR8MREGabBVt8LZ1j+20Xw6tV3sc64t+TrTmz1s=;
- b=ITvt1LlaLOqGWDIAYPPAJPGwCJe6QTF4rdjpogMoS5zufUH6JX/D7Lhv3jlz7nrmPh
- EwDLktcrTbXMonXxVLwoaCDPBQI9R1PLSo4f+EDIsLDPYCohQ5WHUTJPuJDcaAiJZUhs
- TajJKtn2/xoGh83+cS7SybcErocDK4cOm+kh0CVMyLAVQ0hY+2UuLJxjkCuwYN8FeI9c
- 22Awlaeu14FY4VF3cMVLANkyAZTdjQ4sTRYTEyWiIO4NEhIgr3ddgSzjgwdOk5OeHo++
- ZyKwBnw5IOoSh/eUxLSx3aTO/Fmo/eNgjhYZqxNS4XXNe3wB2pTj4BSeo0IktybrUciZ
- QvDQ==
-X-Gm-Message-State: AOAM531zlkB4cMOlcM6lpiA+rCFkUe6lc1xeDvi1jZy+bXzgn9TB0/Mw
- D+jXaw6yKmh1TsN1phWdat8yc02ewJWe3raWdbQ=
-X-Google-Smtp-Source: ABdhPJzMVgucetaUrBARc94LCHK9ltEz39VRjcWxPvDTspL6QeAi4Dc29DqGVOxpjkKfh4YtQxfRbS/CdGszBd3FklY=
-X-Received: by 2002:a63:f24a:: with SMTP id d10mr15673608pgk.4.1598558421035; 
- Thu, 27 Aug 2020 13:00:21 -0700 (PDT)
+ bh=6PibWI1WPUcSBuRxCpQduFOuzkYtMaBM/7TN/dC+YiE=;
+ b=MsMrfzvIiDlk24OMpwNDy2pfAPgC8OlmbyzhIVtf/f15lCdsaLnogIfpo8XPKFo4aJ
+ XzkeK6nlL61M7p8320HDfm1X4m98rA8vymS5orm6m4ECn6zI8CMm5bEF3RXIK8DDeqKB
+ FY3asAv1uZ8nr7YPOyhVyhRjCXTYte/DUVHy0ZsfmZhZV+T129yGCVIcCuj0wAaJmsY1
+ GkRc2h+ZLfBE8LdE0CDKWoSP7V8d+tmK794DgJtXXLS+rbw7nOieBTCYlSnaLAqo5loo
+ eiDSKRVZxJrD499u/AfG09Pswek9txIH7URjQ7+0HdE+EvigTQ8Vvm+ywPU47UG3SwCY
+ jggw==
+X-Gm-Message-State: AOAM530oXJtN9DCl04O4kb+Ol+l4yErpH9BVBOxeLzhSg9AyNvv7su3c
+ 318cf3oprZi8lX73G9966A2mxOLqoWQH5JSCcOM=
+X-Google-Smtp-Source: ABdhPJyEG1MTF89o46Q1T9Rrytm05a/DG3yol0nSkedmBByh0DN6BD25pKcq0V/H+yCjPfC4PIEK9jFZo90rwd/rC5g=
+X-Received: by 2002:a62:9215:: with SMTP id o21mr6817717pfd.268.1598558456196; 
+ Thu, 27 Aug 2020 13:00:56 -0700 (PDT)
 MIME-Version: 1.0
 References: <20200827192642.1725-1-krzk@kernel.org>
- <20200827192642.1725-14-krzk@kernel.org>
-In-Reply-To: <20200827192642.1725-14-krzk@kernel.org>
+ <20200827192642.1725-15-krzk@kernel.org>
+In-Reply-To: <20200827192642.1725-15-krzk@kernel.org>
 From: Andy Shevchenko <andy.shevchenko@gmail.com>
-Date: Thu, 27 Aug 2020 23:00:05 +0300
-Message-ID: <CAHp75VdQYzuiXBXYBrwaLKzZDZWtyT1_kLAWVU0G7fXTi8fAGQ@mail.gmail.com>
+Date: Thu, 27 Aug 2020 23:00:39 +0300
+Message-ID: <CAHp75VeC248LYFUX2q-EU9c-d1pO2Fr0TCbS_U5+SaoQt3gn_A@mail.gmail.com>
 To: Krzysztof Kozlowski <krzk@kernel.org>
 Cc: Linus Walleij <linus.walleij@linaro.org>,
  Lars-Peter Clausen <lars@metafoo.de>,
@@ -66,7 +66,7 @@ Cc: Linus Walleij <linus.walleij@linaro.org>,
  Peter Meerwald-Stadler <pmeerw@pmeerw.net>, linux-amlogic@lists.infradead.org,
  linux-samsung-soc@vger.kernel.org, Peter Rosin <peda@axentia.se>,
  Jonathan Cameron <jic23@kernel.org>, Jerome Brunet <jbrunet@baylibre.com>
-Subject: Re: [Linux-stm32] [PATCH v2 14/18] iio: light: isl29018: Simplify
+Subject: Re: [Linux-stm32] [PATCH v2 15/18] iio: light: tsl2772: Simplify
 	with dev_err_probe()
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
@@ -84,7 +84,7 @@ Content-Transfer-Encoding: 7bit
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
-On Thu, Aug 27, 2020 at 10:28 PM Krzysztof Kozlowski <krzk@kernel.org> wrote:
+On Thu, Aug 27, 2020 at 10:29 PM Krzysztof Kozlowski <krzk@kernel.org> wrote:
 >
 > Common pattern of handling deferred probe can be simplified with
 > dev_err_probe().  Less code and also it prints the error value.
@@ -92,30 +92,36 @@ On Thu, Aug 27, 2020 at 10:28 PM Krzysztof Kozlowski <krzk@kernel.org> wrote:
 Reviewed-by: Andy Shevchenko <andy.shevchenko@gmail.com>
 
 > Signed-off-by: Krzysztof Kozlowski <krzk@kernel.org>
+>
 > ---
->  drivers/iio/light/isl29018.c | 9 +++------
->  1 file changed, 3 insertions(+), 6 deletions(-)
 >
-> diff --git a/drivers/iio/light/isl29018.c b/drivers/iio/light/isl29018.c
-> index ac8ad0f32689..2689867467a8 100644
-> --- a/drivers/iio/light/isl29018.c
-> +++ b/drivers/iio/light/isl29018.c
-> @@ -746,12 +746,9 @@ static int isl29018_probe(struct i2c_client *client,
->         chip->suspended = false;
+> Changes since v1:
+> 1. Wrap dev_err_probe() lines at 100 character
+> ---
+>  drivers/iio/light/tsl2772.c | 10 ++--------
+>  1 file changed, 2 insertions(+), 8 deletions(-)
 >
->         chip->vcc_reg = devm_regulator_get(&client->dev, "vcc");
-> -       if (IS_ERR(chip->vcc_reg)) {
-> -               err = PTR_ERR(chip->vcc_reg);
-> -               if (err != -EPROBE_DEFER)
-> -                       dev_err(&client->dev, "failed to get VCC regulator!\n");
-> -               return err;
+> diff --git a/drivers/iio/light/tsl2772.c b/drivers/iio/light/tsl2772.c
+> index 735399405417..d79205361dfa 100644
+> --- a/drivers/iio/light/tsl2772.c
+> +++ b/drivers/iio/light/tsl2772.c
+> @@ -1776,14 +1776,8 @@ static int tsl2772_probe(struct i2c_client *clientp,
+>         ret = devm_regulator_bulk_get(&clientp->dev,
+>                                       ARRAY_SIZE(chip->supplies),
+>                                       chip->supplies);
+> -       if (ret < 0) {
+> -               if (ret != -EPROBE_DEFER)
+> -                       dev_err(&clientp->dev,
+> -                               "Failed to get regulators: %d\n",
+> -                               ret);
+> -
+> -               return ret;
 > -       }
-> +       if (IS_ERR(chip->vcc_reg))
-> +               return dev_err_probe(&client->dev, PTR_ERR(chip->vcc_reg),
-> +                                    "failed to get VCC regulator!\n");
+> +       if (ret < 0)
+> +               return dev_err_probe(&clientp->dev, ret, "Failed to get regulators\n");
 >
->         err = regulator_enable(chip->vcc_reg);
->         if (err) {
+>         ret = regulator_bulk_enable(ARRAY_SIZE(chip->supplies), chip->supplies);
+>         if (ret < 0) {
 > --
 > 2.17.1
 >
