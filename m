@@ -2,54 +2,53 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id F2C74254F77
-	for <lists+linux-stm32@lfdr.de>; Thu, 27 Aug 2020 21:55:05 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 3C0DF254F7A
+	for <lists+linux-stm32@lfdr.de>; Thu, 27 Aug 2020 21:55:27 +0200 (CEST)
 Received: from ip-172-31-3-76.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id B3018C32EA6;
-	Thu, 27 Aug 2020 19:55:05 +0000 (UTC)
-Received: from mail-pj1-f67.google.com (mail-pj1-f67.google.com
- [209.85.216.67])
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 0547EC32EA6;
+	Thu, 27 Aug 2020 19:55:27 +0000 (UTC)
+Received: from mail-pf1-f195.google.com (mail-pf1-f195.google.com
+ [209.85.210.195])
  (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id C4C61C36B26
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 911DBC36B26
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Thu, 27 Aug 2020 19:55:02 +0000 (UTC)
-Received: by mail-pj1-f67.google.com with SMTP id n3so3095603pjq.1
+ Thu, 27 Aug 2020 19:55:24 +0000 (UTC)
+Received: by mail-pf1-f195.google.com with SMTP id u20so4338671pfn.0
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Thu, 27 Aug 2020 12:55:02 -0700 (PDT)
+ Thu, 27 Aug 2020 12:55:24 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20161025;
  h=mime-version:references:in-reply-to:from:date:message-id:subject:to
- :cc; bh=1iCBP+9jZBWChmw6UiUb37gEZ3nyFFfurQpHrGXgKOo=;
- b=fmDKpG7JsNZWYR4WnBcEBetb/oHsOCdtX523ndIe2IZMPYsIrBIKn1XtshfI4TqHwu
- D08AXB8uTUFH9zriG8lI0eNgDKRlaSQ9a+EWr/izTx93LB42f1p07HwFExW+QrUgdzyd
- ilaVRZ8+BDgLBgmCDQoEuZoEJTPlFaZWucf3rXVXkqEzzE9MpG9unIWKWpgco9V4FBG8
- CPvCh+d3lPSpQGZwMLm0Rg+2Ygk4XldfIOOPsXF+p9+3iCHmyKGE8aFMr8pYT4nRCAqb
- eEVyijsnhpi5gSlqNea/keX3CLEEgpzZulaCr/n7I8TIfrBd63KA70brURiKiTw0S43y
- LaEA==
+ :cc; bh=a447o0TIIe56Effe0RiDEzq1r8VXzso23Bql8Sh47SQ=;
+ b=iJNPerv+D6Wlv6jntU6RuRXEHqUp0FtUPafG+q6O82bxjmsX3wu7vAqvlxhZaghmSH
+ dUNPoFLCxeQT9RuzUpIQ2d+NiOiS0UACXwcF5I17AfP+xEbYRmaqzxZEDbKx4KekJt0/
+ o/zQVjSyDNFrTQRZRXUONJ8yRxCiBNZgwZTwnCzUgJdnJtYXkG/g70yPUVIjLa0w+/JA
+ Tx3TDT9Z0upM8vHEOacF2i6Ow8CajOZIWnlL8NU0rd+QN2ctK8aTkUHNxM4wv4oiSONl
+ 3nS6f94NDBc2sfh5IC73mwfWYinCyfMaWBDtva/HV69+ec5NQT+QJzccwa6HzQx67i4R
+ /f0w==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=1e100.net; s=20161025;
  h=x-gm-message-state:mime-version:references:in-reply-to:from:date
  :message-id:subject:to:cc;
- bh=1iCBP+9jZBWChmw6UiUb37gEZ3nyFFfurQpHrGXgKOo=;
- b=Xrvjc58FOdyJAb37GbG4QVgGcnig0sYZXXyjNt1uZ9uPDrTVDxRtaEky36Mf5jAuc9
- PFOxUSASZpce1ubSBKwBNm9zKmwYXNCWstKi+U3xZcWKKgtKfYiH7bztAzkPDcndoViQ
- RaupizaSn1mlqy1pTvls6jLFBC9sp+JmBqtwLO3tC3n1pnIkZBUTaCd4MBfF5skPF9Wl
- ArubWCutlgxj1YrM5nql1Ybz3BgTFnR7adpz6H4+MfUGl7Eeo1b5B9r9uso2ibYwTaSh
- FaPbnqgG9nwAmfUo/lPV8XABNXLQCrvaWxC5CQrvUET8QFdoI8vh36IRkoBi4/chuaPG
- iq1Q==
-X-Gm-Message-State: AOAM531ckeRsNzlaUzvr9fXSRr69RzTutMMsVFAntmRjFQiQF5odyrx/
- i2vNZR+dr8edFc3Cqd+j3PPThfwXCQaShhr5NIU=
-X-Google-Smtp-Source: ABdhPJy3db6CIQJ4K7OGhMgQan8eyYxEg/iBHcrwmiOZE1uEdOWivJYmfC67a+ptd7Jp7WYZumerqKG+TuNU5caIQKE=
-X-Received: by 2002:a17:90a:2c06:: with SMTP id
- m6mr418944pjd.129.1598558101205; 
- Thu, 27 Aug 2020 12:55:01 -0700 (PDT)
+ bh=a447o0TIIe56Effe0RiDEzq1r8VXzso23Bql8Sh47SQ=;
+ b=WVthRcfnn9oqakx22pKXnwbLIxMqyF+Pq79Yc4s43Av5DcVB6jY0Lu6Y511tZk3VUc
+ hZ874h/lSfWk1+iQ9ftlFUWoGTNY/3OBuoG8DyS7Vmi+d7NGvisTkwG6WEvCQP78EkJx
+ ywNiCZUHTZ6B6/+o+GcVwX03fgGeS+5+tIhH7UnUx0r+/byjNPEx2PKdOGtPoZdJSAMY
+ mWwS8rb4sJ4jsLQ5jnRDqrCsdprLCry2hWm5R7yGcXkK++mPshDapxcHGIgvN8/uswFG
+ KumxVDJeBPO8zKyBls5VBfRVKiqDiN2KIxGBSTXPcuW0zIAUOk/PYprACpB+wRSp7RlU
+ +w3w==
+X-Gm-Message-State: AOAM532Ck/kN90JDKIMZpGTnSus0TK5OCqMNXRgh/F+7Ul+3GDxif717
+ XTP3dwFwH6eHKdIF5LNcDkYMfT4W8Gu1yg25+Mg=
+X-Google-Smtp-Source: ABdhPJw67IkikO0xwQzWrqUZ4T363Hvhj2FtfLCQk/A2GvTmAUns7Z2+M8nm+bLCgXnjK3iq2pIei3aEvQrODJB24bM=
+X-Received: by 2002:a63:c543:: with SMTP id g3mr8405213pgd.203.1598558122833; 
+ Thu, 27 Aug 2020 12:55:22 -0700 (PDT)
 MIME-Version: 1.0
 References: <20200827192642.1725-1-krzk@kernel.org>
- <20200827192642.1725-9-krzk@kernel.org>
-In-Reply-To: <20200827192642.1725-9-krzk@kernel.org>
+ <20200827192642.1725-10-krzk@kernel.org>
+In-Reply-To: <20200827192642.1725-10-krzk@kernel.org>
 From: Andy Shevchenko <andy.shevchenko@gmail.com>
-Date: Thu, 27 Aug 2020 22:54:45 +0300
-Message-ID: <CAHp75VeH1dcn7TzdWf7N5kQ2EQeBXFyXRpRHBb4TyUrx+g4q8A@mail.gmail.com>
+Date: Thu, 27 Aug 2020 22:55:05 +0300
+Message-ID: <CAHp75VcNQzZCWMg-jyOYuVfcJ-C9+=3Z2hn1-7yQ6yXNfOz-yQ@mail.gmail.com>
 To: Krzysztof Kozlowski <krzk@kernel.org>
 Cc: Peter Meerwald-Stadler <pmeerw@pmeerw.net>,
  Neil Armstrong <narmstrong@baylibre.com>,
@@ -67,8 +66,8 @@ Cc: Peter Meerwald-Stadler <pmeerw@pmeerw.net>,
  Linux Kernel Mailing List <linux-kernel@vger.kernel.org>,
  Maxime Coquelin <mcoquelin.stm32@gmail.com>, Hartmut Knaack <knaack.h@gmx.de>,
  Peter Rosin <peda@axentia.se>, Jonathan Cameron <jic23@kernel.org>
-Subject: Re: [Linux-stm32] [PATCH v2 09/18] iio: afe: iio-rescale: Simplify
-	with dev_err_probe()
+Subject: Re: [Linux-stm32] [PATCH v2 10/18] iio: amplifiers: hmc425a:
+	Simplify with dev_err_probe()
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -99,27 +98,28 @@ Reviewed-by: Andy Shevchenko <andy.shevchenko@gmail.com>
 > Changes since v1:
 > 1. Wrap dev_err_probe() lines at 100 character
 > ---
->  drivers/iio/afe/iio-rescale.c | 7 ++-----
->  1 file changed, 2 insertions(+), 5 deletions(-)
+>  drivers/iio/amplifiers/hmc425a.c | 8 ++------
+>  1 file changed, 2 insertions(+), 6 deletions(-)
 >
-> diff --git a/drivers/iio/afe/iio-rescale.c b/drivers/iio/afe/iio-rescale.c
-> index 69c0f277ada0..8cd9645c50e8 100644
-> --- a/drivers/iio/afe/iio-rescale.c
-> +++ b/drivers/iio/afe/iio-rescale.c
-> @@ -276,11 +276,8 @@ static int rescale_probe(struct platform_device *pdev)
->         int ret;
+> diff --git a/drivers/iio/amplifiers/hmc425a.c b/drivers/iio/amplifiers/hmc425a.c
+> index 582708924e4f..bde11df4bb9e 100644
+> --- a/drivers/iio/amplifiers/hmc425a.c
+> +++ b/drivers/iio/amplifiers/hmc425a.c
+> @@ -201,12 +201,8 @@ static int hmc425a_probe(struct platform_device *pdev)
+>         st->gain = st->chip_info->default_gain;
 >
->         source = devm_iio_channel_get(dev, NULL);
-> -       if (IS_ERR(source)) {
-> -               if (PTR_ERR(source) != -EPROBE_DEFER)
-> -                       dev_err(dev, "failed to get source channel\n");
-> -               return PTR_ERR(source);
+>         st->gpios = devm_gpiod_get_array(&pdev->dev, "ctrl", GPIOD_OUT_LOW);
+> -       if (IS_ERR(st->gpios)) {
+> -               ret = PTR_ERR(st->gpios);
+> -               if (ret != -EPROBE_DEFER)
+> -                       dev_err(&pdev->dev, "failed to get gpios\n");
+> -               return ret;
 > -       }
-> +       if (IS_ERR(source))
-> +               return dev_err_probe(dev, PTR_ERR(source), "failed to get source channel\n");
+> +       if (IS_ERR(st->gpios))
+> +               return dev_err_probe(&pdev->dev, PTR_ERR(st->gpios), "failed to get gpios\n");
 >
->         sizeof_ext_info = iio_get_channel_ext_info_count(source);
->         if (sizeof_ext_info) {
+>         if (st->gpios->ndescs != st->chip_info->num_gpios) {
+>                 dev_err(&pdev->dev, "%d GPIOs needed to operate\n",
 > --
 > 2.17.1
 >
