@@ -2,29 +2,29 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id 16D9E254E80
-	for <lists+linux-stm32@lfdr.de>; Thu, 27 Aug 2020 21:29:26 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 52A2D254E81
+	for <lists+linux-stm32@lfdr.de>; Thu, 27 Aug 2020 21:29:36 +0200 (CEST)
 Received: from ip-172-31-3-76.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id CDE3AC32EA6;
-	Thu, 27 Aug 2020 19:29:25 +0000 (UTC)
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 19DA9C32EA6;
+	Thu, 27 Aug 2020 19:29:36 +0000 (UTC)
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
  (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id C6296C36B26
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 01780C36B26
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Thu, 27 Aug 2020 19:29:23 +0000 (UTC)
+ Thu, 27 Aug 2020 19:29:33 +0000 (UTC)
 Received: from localhost.localdomain (unknown [194.230.155.216])
  (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by mail.kernel.org (Postfix) with ESMTPSA id A112822BF3;
- Thu, 27 Aug 2020 19:29:16 +0000 (UTC)
+ by mail.kernel.org (Postfix) with ESMTPSA id E9D5122BEA;
+ Thu, 27 Aug 2020 19:29:22 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
- s=default; t=1598556562;
- bh=L3YrhCMnqGFLBGZtgx3mmLK0mDFYfcCW33WYEntFHMQ=;
+ s=default; t=1598556572;
+ bh=muQ+YCp+Vwe8eKdaduBpNI5ws078auP+0FO7/EUefYM=;
  h=From:To:Subject:Date:In-Reply-To:References:From;
- b=b18cj+z0Suxulc95uK9i05n32lcc+VIW61lcP5GTiE/XgzMhud+9qThtNtVcCD7QV
- iQmafXDgfBvEG+AwEg7tk5KVdZ4gRvlqXA3+WWVuHZFipsvsf5bdy0UJx4oEEdzDxn
- U63gRzoBajElqm7oqvtVNwH8rEe3uW/exDkLjxjg=
+ b=a+3rvvU1Eu9UZntSAuNuiPQ8m9m6YcjmxtK5A0z5CZy9WfsYSBgB35x0Z0GK65p8Z
+ vN3pos0/p5be4YAE5dhcmPgMKkzqJFbMoMXtZtGHJJd7EyZBxEcamfW6FOU8dyTr37
+ POs9e9xoOLlfXFjvkBaae6A50Uo9wI4lBFaj+D58=
 From: Krzysztof Kozlowski <krzk@kernel.org>
 To: Jonathan Cameron <jic23@kernel.org>, Hartmut Knaack <knaack.h@gmx.de>,
  Lars-Peter Clausen <lars@metafoo.de>,
@@ -45,12 +45,12 @@ To: Jonathan Cameron <jic23@kernel.org>, Hartmut Knaack <knaack.h@gmx.de>,
  linux-kernel@vger.kernel.org, linux-arm-kernel@lists.infradead.org,
  linux-samsung-soc@vger.kernel.org, linux-amlogic@lists.infradead.org,
  linux-stm32@st-md-mailman.stormreply.com
-Date: Thu, 27 Aug 2020 21:26:41 +0200
-Message-Id: <20200827192642.1725-17-krzk@kernel.org>
+Date: Thu, 27 Aug 2020 21:26:42 +0200
+Message-Id: <20200827192642.1725-18-krzk@kernel.org>
 X-Mailer: git-send-email 2.17.1
 In-Reply-To: <20200827192642.1725-1-krzk@kernel.org>
 References: <20200827192642.1725-1-krzk@kernel.org>
-Subject: [Linux-stm32] [PATCH v2 17/18] iio: magnetometer: mag3110: Simplify
+Subject: [Linux-stm32] [PATCH v2 18/18] iio: magnetometer: iio-mux: Simplify
 	with dev_err_probe()
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
@@ -74,42 +74,27 @@ dev_err_probe().  Less code and also it prints the error value.
 
 Signed-off-by: Krzysztof Kozlowski <krzk@kernel.org>
 ---
- drivers/iio/magnetometer/mag3110.c | 20 ++++++--------------
- 1 file changed, 6 insertions(+), 14 deletions(-)
+ drivers/iio/multiplexer/iio-mux.c | 7 ++-----
+ 1 file changed, 2 insertions(+), 5 deletions(-)
 
-diff --git a/drivers/iio/magnetometer/mag3110.c b/drivers/iio/magnetometer/mag3110.c
-index 4d305a21c379..838b13c8bb3d 100644
---- a/drivers/iio/magnetometer/mag3110.c
-+++ b/drivers/iio/magnetometer/mag3110.c
-@@ -476,22 +476,14 @@ static int mag3110_probe(struct i2c_client *client,
- 	data = iio_priv(indio_dev);
+diff --git a/drivers/iio/multiplexer/iio-mux.c b/drivers/iio/multiplexer/iio-mux.c
+index 6910218fdb00..d219d4a86657 100644
+--- a/drivers/iio/multiplexer/iio-mux.c
++++ b/drivers/iio/multiplexer/iio-mux.c
+@@ -354,11 +354,8 @@ static int mux_probe(struct platform_device *pdev)
+ 		return -ENODEV;
  
- 	data->vdd_reg = devm_regulator_get(&client->dev, "vdd");
--	if (IS_ERR(data->vdd_reg)) {
--		if (PTR_ERR(data->vdd_reg) == -EPROBE_DEFER)
--			return -EPROBE_DEFER;
--
--		dev_err(&client->dev, "failed to get VDD regulator!\n");
--		return PTR_ERR(data->vdd_reg);
+ 	parent = devm_iio_channel_get(dev, "parent");
+-	if (IS_ERR(parent)) {
+-		if (PTR_ERR(parent) != -EPROBE_DEFER)
+-			dev_err(dev, "failed to get parent channel\n");
+-		return PTR_ERR(parent);
 -	}
-+	if (IS_ERR(data->vdd_reg))
-+		return dev_err_probe(&client->dev, PTR_ERR(data->vdd_reg),
-+				     "failed to get VDD regulator!\n");
++	if (IS_ERR(parent))
++		return dev_err_probe(dev, PTR_ERR(parent), "failed to get parent channel\n");
  
- 	data->vddio_reg = devm_regulator_get(&client->dev, "vddio");
--	if (IS_ERR(data->vddio_reg)) {
--		if (PTR_ERR(data->vddio_reg) == -EPROBE_DEFER)
--			return -EPROBE_DEFER;
--
--		dev_err(&client->dev, "failed to get VDDIO regulator!\n");
--		return PTR_ERR(data->vddio_reg);
--	}
-+	if (IS_ERR(data->vddio_reg))
-+		return dev_err_probe(&client->dev, PTR_ERR(data->vddio_reg),
-+				     "failed to get VDDIO regulator!\n");
- 
- 	ret = regulator_enable(data->vdd_reg);
- 	if (ret) {
+ 	sizeof_ext_info = iio_get_channel_ext_info_count(parent);
+ 	if (sizeof_ext_info) {
 -- 
 2.17.1
 
