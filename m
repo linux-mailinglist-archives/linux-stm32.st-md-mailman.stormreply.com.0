@@ -2,65 +2,65 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id AEF76253EDA
-	for <lists+linux-stm32@lfdr.de>; Thu, 27 Aug 2020 09:21:33 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id ADC1B2540C4
+	for <lists+linux-stm32@lfdr.de>; Thu, 27 Aug 2020 10:27:31 +0200 (CEST)
 Received: from ip-172-31-3-76.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 6E2EFC3FAD9;
-	Thu, 27 Aug 2020 07:21:33 +0000 (UTC)
-Received: from mx07-00178001.pphosted.com (mx07-00178001.pphosted.com
- [185.132.182.106])
- (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 70507C32EA6;
+	Thu, 27 Aug 2020 08:27:31 +0000 (UTC)
+Received: from mail-pj1-f65.google.com (mail-pj1-f65.google.com
+ [209.85.216.65])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id AF789C32E90
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 7EA5BC36B26
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Thu, 27 Aug 2020 07:21:30 +0000 (UTC)
-Received: from pps.filterd (m0046668.ppops.net [127.0.0.1])
- by mx07-00178001.pphosted.com (8.16.0.42/8.16.0.42) with SMTP id
- 07R7Ho8j013608; Thu, 27 Aug 2020 09:21:23 +0200
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=st.com;
- h=from : to : cc : subject
- : date : message-id : in-reply-to : references : mime-version :
- content-type; s=STMicroelectronics;
- bh=9bTCitwnBAltRZQ7gOYLHIo8QHxlqk1VrxB1btIyl3k=;
- b=SZltyI84G5I3H89Zdo7KZ/TXsfPszKhCDxsNzPo5pVtE6yxVAOo1aNf45b7GHE6b/ZJQ
- 3ko/Hyx+2Ghn4Iv4Yx7006IPxHHOFxdCLpbJwcWe4MP/vJHmancbJGKftoMk3w4p8T2L
- nQXlH9ugTxMfZGyIR5T/nEfa9Ps9WvEJFt820mjWeqfSEbH+xsTceHiQCc3T+ngioGhp
- h8vfNSV0jymM/30WYOgci71fFvx7R7I+oFhhorZ+BNy8z9uo47nzyLygac9F/YqcdeW2
- TMBj1kp41XelvDEREmqZus7i5zJaVwmWxaG5iGuy1QceWn6ZFDlVQkQ8712+9aU8saf6 aw== 
-Received: from beta.dmz-eu.st.com (beta.dmz-eu.st.com [164.129.1.35])
- by mx07-00178001.pphosted.com with ESMTP id 333b2mvfv6-1
- (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
- Thu, 27 Aug 2020 09:21:23 +0200
-Received: from euls16034.sgp.st.com (euls16034.sgp.st.com [10.75.44.20])
- by beta.dmz-eu.st.com (STMicroelectronics) with ESMTP id 87C5610002A;
- Thu, 27 Aug 2020 09:21:21 +0200 (CEST)
-Received: from Webmail-eu.st.com (sfhdag3node1.st.com [10.75.127.7])
- by euls16034.sgp.st.com (STMicroelectronics) with ESMTP id 7A770212648;
- Thu, 27 Aug 2020 09:21:21 +0200 (CEST)
-Received: from localhost (10.75.127.45) by SFHDAG3NODE1.st.com (10.75.127.7)
- with Microsoft SMTP Server (TLS) id 15.0.1473.3; Thu, 27 Aug 2020 09:21:20
- +0200
-From: Arnaud Pouliquen <arnaud.pouliquen@st.com>
-To: Rob Herring <robh@kernel.org>, Alexandre Torgue <alexandre.torgue@st.com>
-Date: Thu, 27 Aug 2020 09:21:01 +0200
-Message-ID: <20200827072101.26588-4-arnaud.pouliquen@st.com>
-X-Mailer: git-send-email 2.17.1
-In-Reply-To: <20200827072101.26588-1-arnaud.pouliquen@st.com>
-References: <20200827072101.26588-1-arnaud.pouliquen@st.com>
+ Thu, 27 Aug 2020 08:27:30 +0000 (UTC)
+Received: by mail-pj1-f65.google.com with SMTP id q1so2226414pjd.1
+ for <linux-stm32@st-md-mailman.stormreply.com>;
+ Thu, 27 Aug 2020 01:27:30 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20161025;
+ h=mime-version:references:in-reply-to:from:date:message-id:subject:to
+ :cc; bh=HZu39BmrS22KD4B9ZU5A9XCIkFWAsFL80Y7SUDG2qtE=;
+ b=oqBSHp+HrXhPE9QUUx68UGa9/YcMBY4IZZmU8tQEHoL0eR6q+q9L3KJxyU+5smq+mh
+ Qpb47EuOJNxtnzUze/6j+DruJ9FAig6k1cmSSVZe4HSNqO71XXMp0HWKvL//Jn/SrsVg
+ XDbTdaVO9ZDB9BadUVb0EXv/8MSvaT+iNh4DUhmXqSPdRZA+FvIWaEBj0KvH7/jwmzlc
+ kbK+AW0LRTkel5HNUFj1MK2DXbFfjbShHU7ash7Sspa9HWszpy9Gmt3BpJ8DPsAlNMxF
+ /XJN/Pw5pnUN3rRoxjBCOhTrLosJSp8mDe6aGlHjEfTDwyJ7xlixtSkiGR3gw2hRCCMF
+ 7Bag==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20161025;
+ h=x-gm-message-state:mime-version:references:in-reply-to:from:date
+ :message-id:subject:to:cc;
+ bh=HZu39BmrS22KD4B9ZU5A9XCIkFWAsFL80Y7SUDG2qtE=;
+ b=Mv5qZ4qfOuHwG5KRt3h3NgJEnAr6dsCDJvAFv1c0BjwXulD+2W/mrGOSuZP951amEt
+ ilkhcyx7JOtYblzrmQIax+IbdmJfjabMxErApMNTth79CZo9G5VCaf7PfJpvyEmpFm/G
+ r/tZ08eEGxGGa29Omsn22XILtfyyFq1eoXz2fq53vVsOt0WUSGYEgI1CP1fKrZ/33Tyo
+ jALHhtrbvESZJX46XtXVlbb7gHRDa2rMRJ0Z6YK6E02L1kmceh0MHvCMP7mUuB4wYoTg
+ FYYTeEIxHp7cLMHFyzoR36Eanl+8h8At6kZGnuapnw8dQo3WN054MFcc5/QvNU05EtO9
+ wDnA==
+X-Gm-Message-State: AOAM530l01peIH875wEpjDhtcF2Pj4oyt/NVsPphtPggzEAbbjzyKYVH
+ UPs0zEEWSBWMO4nQRtCIDXx4042vM0sL36X5uIE=
+X-Google-Smtp-Source: ABdhPJy7FFxyHMt/VY+0213GOuICfPnBcgRzlKo9w1yk5kPoOdyCc69OPZ9PWgEDp1GqqASWBQKX2axNN3k90TDpCTE=
+X-Received: by 2002:a17:90a:2c06:: with SMTP id
+ m6mr9988021pjd.129.1598516848820; 
+ Thu, 27 Aug 2020 01:27:28 -0700 (PDT)
 MIME-Version: 1.0
-X-Originating-IP: [10.75.127.45]
-X-ClientProxiedBy: SFHDAG7NODE1.st.com (10.75.127.19) To SFHDAG3NODE1.st.com
- (10.75.127.7)
-X-Proofpoint-Virus-Version: vendor=fsecure engine=2.50.10434:6.0.235, 18.0.687
- definitions=2020-08-27_02:2020-08-27,
- 2020-08-27 signatures=0
-Cc: Ohad Ben-Cohen <ohad@wizery.com>, devicetree@vger.kernel.org,
- Mathieu Poirier <mathieu.poirier@linaro.org>, linux-remoteproc@vger.kernel.org,
- linux-kernel@vger.kernel.org, Fabien Dessenne <fabien.dessenne@st.com>,
- Bjorn Andersson <bjorn.andersson@linaro.org>,
- linux-stm32@st-md-mailman.stormreply.com, linux-arm-kernel@lists.infradead.org
-Subject: [Linux-stm32] [PATCH 3/3] ARM: dts: stm32: update stm32mp151 for
-	remote proc synchronisation support
+References: <20200826161818.20969-1-krzk@kernel.org>
+In-Reply-To: <20200826161818.20969-1-krzk@kernel.org>
+From: Andy Shevchenko <andy.shevchenko@gmail.com>
+Date: Thu, 27 Aug 2020 11:27:12 +0300
+Message-ID: <CAHp75Vf3s0+RrHnBoO4y4+t4Egth4uyYwtO5iPt9DbLJcunL6g@mail.gmail.com>
+To: Krzysztof Kozlowski <krzk@kernel.org>
+Cc: Etienne Carriere <etienne.carriere@st.com>,
+ Lars-Peter Clausen <lars@metafoo.de>, linux-iio <linux-iio@vger.kernel.org>,
+ Peter Meerwald-Stadler <pmeerw@pmeerw.net>,
+ Linux Kernel Mailing List <linux-kernel@vger.kernel.org>,
+ linux-arm Mailing List <linux-arm-kernel@lists.infradead.org>,
+ Maxime Coquelin <mcoquelin.stm32@gmail.com>, Hartmut Knaack <knaack.h@gmx.de>,
+ Alexandru Ardelean <alexandru.ardelean@analog.com>,
+ Fabrice Gasnier <fabrice.gasnier@st.com>,
+ linux-stm32@st-md-mailman.stormreply.com, Jonathan Cameron <jic23@kernel.org>
+Subject: Re: [Linux-stm32] [PATCH v2] iio: adc: stm32: Simplify with
+	dev_err_probe()
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -77,47 +77,52 @@ Content-Transfer-Encoding: 7bit
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
-Two backup registers are used to store the Cortex-M4 state and the resource
-table address.
-Declare the tamp node and add associated properties in m4_rproc node
-to allow Linux to attach to a firmware loaded by the first boot stages.
+On Wed, Aug 26, 2020 at 7:19 PM Krzysztof Kozlowski <krzk@kernel.org> wrote:
+>
+> Common pattern of handling deferred probe can be simplified with
+> dev_err_probe().  Less code and also it prints the error value.
 
-Associated driver implementation is available in commit 9276536f455b3
-("remoteproc: stm32: Parse syscon that will manage M4 synchronisation").
 
-Signed-off-by: Arnaud Pouliquen <arnaud.pouliquen@st.com>
----
- arch/arm/boot/dts/stm32mp151.dtsi | 7 +++++++
- 1 file changed, 7 insertions(+)
 
-diff --git a/arch/arm/boot/dts/stm32mp151.dtsi b/arch/arm/boot/dts/stm32mp151.dtsi
-index bfe29023fbd5..842ecffae73a 100644
---- a/arch/arm/boot/dts/stm32mp151.dtsi
-+++ b/arch/arm/boot/dts/stm32mp151.dtsi
-@@ -1541,6 +1541,11 @@
- 			status = "disabled";
- 		};
- 
-+		tamp: tamp@5c00a000 {
-+			compatible = "st,stm32-tamp", "syscon";
-+			reg = <0x5c00a000 0x400>;
-+		};
-+
- 		/*
- 		 * Break node order to solve dependency probe issue between
- 		 * pinctrl and exti.
-@@ -1717,6 +1722,8 @@
- 			st,syscfg-holdboot = <&rcc 0x10C 0x1>;
- 			st,syscfg-tz = <&rcc 0x000 0x1>;
- 			st,syscfg-pdds = <&pwr_mcu 0x0 0x1>;
-+			st,syscfg-rsc-tbl = <&tamp 0x144 0xFFFFFFFF>;
-+			st,syscfg-m4-state = <&tamp 0x148 0xFFFFFFFF>;
- 			status = "disabled";
- 		};
- 	};
+
+
+
+>         priv->aclk = devm_clk_get(&pdev->dev, "adc");
+>         if (IS_ERR(priv->aclk)) {
+>                 ret = PTR_ERR(priv->aclk);
+> -               if (ret != -ENOENT) {
+> -                       if (ret != -EPROBE_DEFER)
+> -                               dev_err(&pdev->dev, "Can't get 'adc' clock\n");
+> -                       return ret;
+> -               }
+> +               if (ret != -ENOENT)
+> +                       return dev_err_probe(&pdev->dev, ret, "Can't get 'adc' clock\n");
+> +
+>                 priv->aclk = NULL;
+>         }
+>
+>         priv->bclk = devm_clk_get(&pdev->dev, "bus");
+>         if (IS_ERR(priv->bclk)) {
+>                 ret = PTR_ERR(priv->bclk);
+> -               if (ret != -ENOENT) {
+> -                       if (ret != -EPROBE_DEFER)
+> -                               dev_err(&pdev->dev, "Can't get 'bus' clock\n");
+> -                       return ret;
+> -               }
+> +               if (ret != -ENOENT)
+> +                       return dev_err_probe(&pdev->dev, ret, "Can't get 'bus' clock\n");
+> +
+>                 priv->bclk = NULL;
+>         }
+
+Again, devm_clk_get_optional() and even, if it exists,
+devm_clk_bulk_get_optional().
+
+Please, revisit all patches on this topic.
+
 -- 
-2.17.1
-
+With Best Regards,
+Andy Shevchenko
 _______________________________________________
 Linux-stm32 mailing list
 Linux-stm32@st-md-mailman.stormreply.com
