@@ -2,63 +2,55 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id 2290A2542FD
-	for <lists+linux-stm32@lfdr.de>; Thu, 27 Aug 2020 12:00:51 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 0A814254442
+	for <lists+linux-stm32@lfdr.de>; Thu, 27 Aug 2020 13:26:10 +0200 (CEST)
 Received: from ip-172-31-3-76.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id C6AACC32EA6;
-	Thu, 27 Aug 2020 10:00:50 +0000 (UTC)
-Received: from mail-ot1-f67.google.com (mail-ot1-f67.google.com
- [209.85.210.67])
- (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id B6CC5C32EA6;
+	Thu, 27 Aug 2020 11:26:09 +0000 (UTC)
+Received: from huawei.com (lhrrgout.huawei.com [185.176.76.210])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 81833C36B26
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 73EDDC36B26
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Thu, 27 Aug 2020 10:00:49 +0000 (UTC)
-Received: by mail-ot1-f67.google.com with SMTP id r8so3920943ota.6
- for <linux-stm32@st-md-mailman.stormreply.com>;
- Thu, 27 Aug 2020 03:00:49 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20161025;
- h=mime-version:references:in-reply-to:from:date:message-id:subject:to
- :cc; bh=AAVaUW7VwZegQfkJwMOJ8uza77AqEjXeq+6lLbyPRPM=;
- b=IYEfpoxWOrgM4B+rtfvP9lwMfghFgE8vdnrARgx0tBgVT3lXSqsCFo9fAz+niPiyxo
- rdB2smv37lBdCuf0lCYAMeq992BABs8tJZNXHRI0O/FpJ24EtEBMiehnidWe9jVIUjfq
- CdZFvaZq5IcH3ls+zQIrJXH9K7T2mw+V/R8AcEUCcC3Obv0U1iMOapj1fPdBgDCiSIWW
- 7xcHnVejZBN/zu8v+QfvIUfVBvD6eyl2pTz0fi1+Zn8NmW2nmgQC8/MynnilIUHtF5fb
- mmF/v8b/Dv9DjWu2QbGe7U34Ka3wQM9NlktTZePIyXzeAX2E6B4jZs6b6/stfr9afTfP
- mFZQ==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20161025;
- h=x-gm-message-state:mime-version:references:in-reply-to:from:date
- :message-id:subject:to:cc;
- bh=AAVaUW7VwZegQfkJwMOJ8uza77AqEjXeq+6lLbyPRPM=;
- b=CFX8VXBHygxfVsiM5WY8HvPSOdKa+Ayy3KelEXaimJX0DA4RO44IgtDvIx8OfBYaH+
- OVr3XlPOXyYRkrCWigBeVLgvcCQUn2o9DDL0eEAfDCxqDn+s5DA6NC/0WtDqiRLDzRWH
- 9nFoLFTtvgZEUUslIZFkJ7mjT+gIzFJc1dQZx3jDqlfBRm76PVgm2kxtzDf4UnqNU9eM
- DB3X5yKr/QASnPHyRqkaEitRjDLjN4id/rvlX+kth+eU8kRZOg9sWNb47Y0Exdm5vIoK
- OpAzS0754mPZjXgayWAJZQFEpBAQehuXUVz9pNLy2AsOUkISkB+lrEupmaT+QkH3AGzM
- jaXQ==
-X-Gm-Message-State: AOAM533UVdlXNSpigkb5PIt+nyzfJuSN9+4ukrlHlRV5fPCxGg8e1hCM
- FKyWBmfNdWAUs7GeoLkpkEMywo1h633cNL+DnaM=
-X-Google-Smtp-Source: ABdhPJzisz0W2lNrmBlCnPW5yf/NHJi2xOH4+cZ5xxIWgb4iDZYft3NFtXLC2sZ9FFQKQuPthOEekZMRwP+l5XBWL5E=
-X-Received: by 2002:a9d:480d:: with SMTP id c13mr13251835otf.224.1598522447729; 
- Thu, 27 Aug 2020 03:00:47 -0700 (PDT)
+ Thu, 27 Aug 2020 11:26:08 +0000 (UTC)
+Received: from lhreml710-chm.china.huawei.com (unknown [172.18.7.106])
+ by Forcepoint Email with ESMTP id 386C1FEB9735C037E07C;
+ Thu, 27 Aug 2020 12:26:06 +0100 (IST)
+Received: from localhost (10.227.96.57) by lhreml710-chm.china.huawei.com
+ (10.201.108.61) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.1913.5; Thu, 27 Aug
+ 2020 12:26:05 +0100
+Date: Thu, 27 Aug 2020 12:26:05 +0100
+From: Jonathan Cameron <Jonathan.Cameron@huawei.com>
+To: Krzysztof Kozlowski <krzk@kernel.org>
+Message-ID: <20200827122605.0000770f@huawei.com>
+In-Reply-To: <20200826145153.10444-1-krzk@kernel.org>
+References: <20200826145153.10444-1-krzk@kernel.org>
+Organization: Huawei tech. R&D (UK)  Ltd.
+X-Mailer: Claws Mail 3.17.4 (GTK+ 2.24.32; i686-w64-mingw32)
 MIME-Version: 1.0
-References: <20200826063850.47625-1-alexandru.ardelean@analog.com>
- <20200826120042.200364-1-alexandru.ardelean@analog.com>
- <CA+U=DsrMDSTQKEc2_3+W8u4bLraAowVB3nB4huKY--v8gnds2Q@mail.gmail.com>
- <c3a9411e-186d-a3ac-5ad0-bd70ad78f147@st.com>
-In-Reply-To: <c3a9411e-186d-a3ac-5ad0-bd70ad78f147@st.com>
-From: Alexandru Ardelean <ardeleanalex@gmail.com>
-Date: Thu, 27 Aug 2020 13:00:36 +0300
-Message-ID: <CA+U=DspjGUhXCY7c8P6zOYZsx17ybcU4Kdr52yujmdYOaa1JSQ@mail.gmail.com>
-To: Fabrice Gasnier <fabrice.gasnier@st.com>
-Cc: linux-iio <linux-iio@vger.kernel.org>, LKML <linux-kernel@vger.kernel.org>,
- Sergiu Cuciurean <sergiu.cuciurean@analog.com>,
- linux-arm-kernel@lists.infradead.org,
- Alexandru Ardelean <alexandru.ardelean@analog.com>,
- linux-stm32@st-md-mailman.stormreply.com, Jonathan Cameron <jic23@kernel.org>
-Subject: Re: [Linux-stm32] [PATCH v2] iio: stm32-dac: Replace
- indio_dev->mlock with own device lock
+X-Originating-IP: [10.227.96.57]
+X-ClientProxiedBy: lhreml715-chm.china.huawei.com (10.201.108.66) To
+ lhreml710-chm.china.huawei.com (10.201.108.61)
+X-CFilter-Loop: Reflected
+Cc: Peter Meerwald-Stadler <pmeerw@pmeerw.net>,
+ Neil Armstrong <narmstrong@baylibre.com>, Jonathan Bakker <xc-racer2@live.ca>,
+ Tomasz Duszynski <tomasz.duszynski@octakon.com>,
+ linux-stm32@st-md-mailman.stormreply.com, Jerome Brunet <jbrunet@baylibre.com>,
+ Lars-Peter Clausen <lars@metafoo.de>, Kevin
+ Hilman <khilman@baylibre.com>, Marek Vasut <marek.vasut@gmail.com>,
+ Kukjin Kim <kgene@kernel.org>, Alexandru
+ Ardelean <alexandru.ardelean@analog.com>,
+ Linus Walleij <linus.walleij@linaro.org>,
+ Michael Hennerich <Michael.Hennerich@analog.com>,
+ Martin Blumenstingl <martin.blumenstingl@googlemail.com>,
+ linux-samsung-soc@vger.kernel.org, linux-amlogic@lists.infradead.org,
+ linux-arm-kernel@lists.infradead.org, linux-kernel@vger.kernel.org,
+ Beniamin Bia <beniamin.bia@analog.com>,
+ Maxime Coquelin <mcoquelin.stm32@gmail.com>, Hartmut Knaack <knaack.h@gmx.de>,
+ Peter Rosin <peda@axentia.se>, Jonathan Cameron <jic23@kernel.org>
+Subject: Re: [Linux-stm32] [PATCH 01/16] iio: accel: bma180: Simplify with
+	dev_err_probe()
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -75,63 +67,53 @@ Content-Transfer-Encoding: 7bit
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
-On Thu, Aug 27, 2020 at 12:03 PM Fabrice Gasnier <fabrice.gasnier@st.com> wrote:
->
-> On 8/27/20 10:55 AM, Alexandru Ardelean wrote:
-> > On Wed, Aug 26, 2020 at 3:03 PM Alexandru Ardelean
-> > <alexandru.ardelean@analog.com> wrote:
-> >> From: Sergiu Cuciurean <sergiu.cuciurean@analog.com>
-> >>
-> >> As part of the general cleanup of indio_dev->mlock, this change replaces
-> >> it with a local lock. The lock protects against potential races when
-> >> reading the CR reg and then updating, so that the state of pm_runtime
-> >> is consistent between the two operations.
-> >>
-> >> Signed-off-by: Sergiu Cuciurean <sergiu.cuciurean@analog.com>
-> >> Signed-off-by: Alexandru Ardelean <alexandru.ardelean@analog.com>
-> >> ---
-> > Forgot the changelog here.
-> > Apologies.
-> >
-> > Changelog v1 -> v2:
-> > * removed whitespace change for 'common' field
-> > * updated comment about the lock usage
->
-> Hi Alexandru,
->
-> Sorry if I missed it... is there an update on the comment :-) ?
+On Wed, 26 Aug 2020 16:51:38 +0200
+Krzysztof Kozlowski <krzk@kernel.org> wrote:
 
-For a moment there, I thought I didn't.
-GMail's threading is confusing.
+> Common pattern of handling deferred probe can be simplified with
+> dev_err_probe().  Less code and also it prints the error value.
+> 
+> Signed-off-by: Krzysztof Kozlowski <krzk@kernel.org>
 
-----------------------------------------------------------------------------
-As part of the general cleanup of indio_dev->mlock, this change replaces
-it with a local lock. The lock protects against potential races when
-reading the CR reg and then updating, so that the state of pm_runtime
-is consistent between the two operations.
-----------------------------------------------------------------------------
+Please make sure to send v2 to linux-iio@vger.kernel.org
 
->
-> Best Regards,
-> Fabrice
-> >
-> >>  drivers/iio/dac/stm32-dac.c | 12 ++++++++----
-> >>  1 file changed, 8 insertions(+), 4 deletions(-)
-> >>
-> >> diff --git a/drivers/iio/dac/stm32-dac.c b/drivers/iio/dac/stm32-dac.c
-> >> index 092c796fa3d9..7a8aed476850 100644
-> >> --- a/drivers/iio/dac/stm32-dac.c
-> >> +++ b/drivers/iio/dac/stm32-dac.c
-> >> @@ -26,9 +26,11 @@
-> >>  /**
-> >>   * struct stm32_dac - private data of DAC driver
-> >>   * @common:            reference to DAC common data
-> >> + * @lock:              lock to protect the data buffer during regmap ops
-> >>   */
-> >>  struct stm32_dac {
-> >>         struct stm32_dac_common *common;
-> >> +       struct mutex            lock;
-> >>  };
+> ---
+>  drivers/iio/accel/bma180.c | 20 ++++++++------------
+>  1 file changed, 8 insertions(+), 12 deletions(-)
+> 
+> diff --git a/drivers/iio/accel/bma180.c b/drivers/iio/accel/bma180.c
+> index 5b7a467c7b27..448faed001fd 100644
+> --- a/drivers/iio/accel/bma180.c
+> +++ b/drivers/iio/accel/bma180.c
+> @@ -1000,19 +1000,15 @@ static int bma180_probe(struct i2c_client *client,
+>  		return ret;
+>  
+>  	data->vdd_supply = devm_regulator_get(dev, "vdd");
+> -	if (IS_ERR(data->vdd_supply)) {
+> -		if (PTR_ERR(data->vdd_supply) != -EPROBE_DEFER)
+> -			dev_err(dev, "Failed to get vdd regulator %d\n",
+> -				(int)PTR_ERR(data->vdd_supply));
+> -		return PTR_ERR(data->vdd_supply);
+> -	}
+> +	if (IS_ERR(data->vdd_supply))
+> +		return dev_err_probe(dev, PTR_ERR(data->vdd_supply),
+> +				     "Failed to get vdd regulator\n");
+> +
+>  	data->vddio_supply = devm_regulator_get(dev, "vddio");
+> -	if (IS_ERR(data->vddio_supply)) {
+> -		if (PTR_ERR(data->vddio_supply) != -EPROBE_DEFER)
+> -			dev_err(dev, "Failed to get vddio regulator %d\n",
+> -				(int)PTR_ERR(data->vddio_supply));
+> -		return PTR_ERR(data->vddio_supply);
+> -	}
+> +	if (IS_ERR(data->vddio_supply))
+> +		return dev_err_probe(dev, PTR_ERR(data->vddio_supply),
+> +				     "Failed to get vddio regulator\n");
+> +
+>  	/* Typical voltage 2.4V these are min and max */
+>  	ret = regulator_set_voltage(data->vdd_supply, 1620000, 3600000);
+>  	if (ret)
+
 _______________________________________________
 Linux-stm32 mailing list
 Linux-stm32@st-md-mailman.stormreply.com
