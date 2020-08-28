@@ -2,52 +2,44 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id 80D62255AA0
-	for <lists+linux-stm32@lfdr.de>; Fri, 28 Aug 2020 14:52:44 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 42C7B255AF9
+	for <lists+linux-stm32@lfdr.de>; Fri, 28 Aug 2020 15:11:42 +0200 (CEST)
 Received: from ip-172-31-3-76.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 3FD97C32E90;
-	Fri, 28 Aug 2020 12:52:44 +0000 (UTC)
-Received: from mail-out.m-online.net (mail-out.m-online.net [212.18.0.10])
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 02B12C32E90
+	for <lists+linux-stm32@lfdr.de>; Fri, 28 Aug 2020 13:11:42 +0000 (UTC)
+Received: from metis.ext.pengutronix.de (metis.ext.pengutronix.de
+ [85.220.165.71])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 0D9A0C36B26
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 3F123C36B26
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Fri, 28 Aug 2020 12:52:42 +0000 (UTC)
-Received: from frontend01.mail.m-online.net (unknown [192.168.8.182])
- by mail-out.m-online.net (Postfix) with ESMTP id 4BdKJ94JgKz1rvyB;
- Fri, 28 Aug 2020 14:52:41 +0200 (CEST)
-Received: from localhost (dynscan1.mnet-online.de [192.168.6.70])
- by mail.m-online.net (Postfix) with ESMTP id 4BdKJ93T9Hz1qv2k;
- Fri, 28 Aug 2020 14:52:41 +0200 (CEST)
-X-Virus-Scanned: amavisd-new at mnet-online.de
-Received: from mail.mnet-online.de ([192.168.8.182])
- by localhost (dynscan1.mail.m-online.net [192.168.6.70]) (amavisd-new,
- port 10024)
- with ESMTP id gaODh6hqLO84; Fri, 28 Aug 2020 14:52:40 +0200 (CEST)
-X-Auth-Info: pjdaHZRsXGUZmUFJk5JZC2uGH+GsbeOmuxKiGMm5x2E=
-Received: from [IPv6:::1] (p578adb1c.dip0.t-ipconnect.de [87.138.219.28])
- (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
- (No client certificate requested)
- by mail.mnet-online.de (Postfix) with ESMTPSA;
- Fri, 28 Aug 2020 14:52:40 +0200 (CEST)
-To: Alexandre Torgue <alexandre.torgue@st.com>,
- linux-arm-kernel@lists.infradead.org
-References: <20200822203611.61997-1-marex@denx.de>
- <aaa9a92f-193c-9344-523b-fd5b7d7aaef2@st.com>
-From: Marek Vasut <marex@denx.de>
-Message-ID: <ab6d81d8-f276-ecd5-2f51-0bcecd47680f@denx.de>
-Date: Fri, 28 Aug 2020 14:52:39 +0200
-User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:68.0) Gecko/20100101
- Thunderbird/68.11.0
-MIME-Version: 1.0
-In-Reply-To: <aaa9a92f-193c-9344-523b-fd5b7d7aaef2@st.com>
-Content-Language: en-US
-Cc: Patrick Delaunay <patrick.delaunay@st.com>,
- linux-stm32@st-md-mailman.stormreply.com,
+ Fri, 28 Aug 2020 13:00:40 +0000 (UTC)
+Received: from dude02.hi.pengutronix.de ([2001:67c:670:100:1d::28])
+ by metis.ext.pengutronix.de with esmtps
+ (TLS1.3:ECDHE_RSA_AES_256_GCM_SHA384:256) (Exim 4.92)
+ (envelope-from <has@pengutronix.de>)
+ id 1kBdzh-0006LG-AF; Fri, 28 Aug 2020 15:00:37 +0200
+Received: from has by dude02.hi.pengutronix.de with local (Exim 4.92)
+ (envelope-from <has@pengutronix.de>)
+ id 1kBdzf-0005JG-Ou; Fri, 28 Aug 2020 15:00:36 +0200
+From: Holger Assmann <h.assmann@pengutronix.de>
+To: Rob Herring <robh+dt@kernel.org>,
  Maxime Coquelin <mcoquelin.stm32@gmail.com>,
- Manivannan Sadhasivam <manivannan.sadhasivam@linaro.org>
-Subject: Re: [Linux-stm32] [PATCH] ARM: dts: stm32: Add alternate pinmux for
-	DCMI pins
+ Alexandre Torgue <alexandre.torgue@st.com>
+Date: Fri, 28 Aug 2020 15:00:02 +0200
+Message-Id: <20200828130002.1701-1-h.assmann@pengutronix.de>
+X-Mailer: git-send-email 2.20.1
+MIME-Version: 1.0
+X-SA-Exim-Connect-IP: 2001:67c:670:100:1d::28
+X-SA-Exim-Mail-From: has@pengutronix.de
+X-SA-Exim-Scanned: No (on metis.ext.pengutronix.de);
+ SAEximRunCond expanded to false
+X-PTX-Original-Recipient: linux-stm32@st-md-mailman.stormreply.com
+X-Mailman-Approved-At: Fri, 28 Aug 2020 13:11:40 +0000
+Cc: devicetree@vger.kernel.org, linux-kernel@vger.kernel.org,
+ linux-stm32@st-md-mailman.stormreply.com, linux-arm-kernel@lists.infradead.org
+Subject: [Linux-stm32] [PATCH] ARM: dts: stm32: lxa-mc1: enable DDR50 mode
+	on eMMC
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -59,58 +51,39 @@ List-Post: <mailto:linux-stm32@st-md-mailman.stormreply.com>
 List-Help: <mailto:linux-stm32-request@st-md-mailman.stormreply.com?subject=help>
 List-Subscribe: <https://st-md-mailman.stormreply.com/mailman/listinfo/linux-stm32>, 
  <mailto:linux-stm32-request@st-md-mailman.stormreply.com?subject=subscribe>
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: base64
+Content-Type: text/plain; charset="us-ascii"
+Content-Transfer-Encoding: 7bit
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
-T24gOC8yOC8yMCAyOjQ3IFBNLCBBbGV4YW5kcmUgVG9yZ3VlIHdyb3RlOgo+IEhpIE1hcmVrCgpI
-aSwKClsuLi5dCgo+PiArwqDCoMKgwqDCoMKgwqAgcGlucyB7Cj4+ICvCoMKgwqDCoMKgwqDCoMKg
-wqDCoMKgIHBpbm11eCA9IDxTVE0zMl9QSU5NVVgoJ0EnLCA0LMKgIEFGMTMpPiwvKiBEQ01JX0hT
-WU5DICovCj4+ICvCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoCA8U1RNMzJfUElOTVVY
-KCdCJywgNyzCoCBBRjEzKT4sLyogRENNSV9WU1lOQyAqLwo+PiArwqDCoMKgwqDCoMKgwqDCoMKg
-wqDCoMKgwqDCoMKgwqAgPFNUTTMyX1BJTk1VWCgnQScsIDYswqAgQUYxMyk+LC8qIERDTUlfUElY
-Q0xLICovCj4+ICvCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoCA8U1RNMzJfUElOTVVY
-KCdBJywgOSzCoCBBRjEzKT4sLyogRENNSV9EMCAqLwo+PiArwqDCoMKgwqDCoMKgwqDCoMKgwqDC
-oMKgwqDCoMKgwqAgPFNUTTMyX1BJTk1VWCgnSCcsIDEwLCBBRjEzKT4sLyogRENNSV9EMSAqLwo+
-PiArwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqAgPFNUTTMyX1BJTk1VWCgnRScsIDAs
-IEFGMTMpPiwvKiBEQ01JX0QyICovCj4+ICvCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDC
-oCA8U1RNMzJfUElOTVVYKCdFJywgMSwgQUYxMyk+LC8qIERDTUlfRDMgKi8KPj4gK8KgwqDCoMKg
-wqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgIDxTVE0zMl9QSU5NVVgoJ0gnLCAxNCwgQUYxMyk+LC8q
-IERDTUlfRDQgKi8KPj4gK8KgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgIDxTVE0zMl9Q
-SU5NVVgoJ0knLCA0LMKgIEFGMTMpPiwvKiBEQ01JX0Q1ICovCj4+ICvCoMKgwqDCoMKgwqDCoMKg
-wqDCoMKgwqDCoMKgwqDCoCA8U1RNMzJfUElOTVVYKCdJJywgNizCoCBBRjEzKT4sLyogRENNSV9E
-NiAqLwo+PiArwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqAgPFNUTTMyX1BJTk1VWCgn
-RScsIDYswqAgQUYxMyk+LC8qIERDTUlfRDcgKi8KPj4gK8KgwqDCoMKgwqDCoMKgwqDCoMKgwqDC
-oMKgwqDCoMKgIDxTVE0zMl9QSU5NVVgoJ0knLCAxLMKgIEFGMTMpPiwvKiBEQ01JX0Q4ICovCj4+
-ICvCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoCA8U1RNMzJfUElOTVVYKCdIJywgNyzC
-oCBBRjEzKT47LyogRENNSV9EOSAqLwo+PiArwqDCoMKgwqDCoMKgwqDCoMKgwqDCoCBiaWFzLXB1
-bGwtdXA7Cj4+ICvCoMKgwqDCoMKgwqDCoCB9Owo+PiArwqDCoMKgIH07Cj4+ICsKPj4gK8KgwqDC
-oCBkY21pX3NsZWVwX3BpbnNfYjogZGNtaS1zbGVlcC0xIHsKPj4gK8KgwqDCoMKgwqDCoMKgIHBp
-bnMgewo+PiArwqDCoMKgwqDCoMKgwqDCoMKgwqDCoCBwaW5tdXggPSA8U1RNMzJfUElOTVVYKCdB
-JywgNCzCoCBBTkFMT0cpPiwvKiBEQ01JX0hTWU5DICovCj4+ICvCoMKgwqDCoMKgwqDCoMKgwqDC
-oMKgwqDCoMKgwqDCoCA8U1RNMzJfUElOTVVYKCdCJywgNyzCoCBBTkFMT0cpPiwvKiBEQ01JX1ZT
-WU5DICovCj4+ICvCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoCA8U1RNMzJfUElOTVVY
-KCdBJywgNizCoCBBTkFMT0cpPiwvKiBEQ01JX1BJWENMSyAqLwo+PiArwqDCoMKgwqDCoMKgwqDC
-oMKgwqDCoMKgwqDCoMKgwqAgPFNUTTMyX1BJTk1VWCgnQScsIDkswqAgQU5BTE9HKT4sLyogRENN
-SV9EMCAqLwo+PiArwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqAgPFNUTTMyX1BJTk1V
-WCgnSCcsIDEwLCBBTkFMT0cpPiwvKiBEQ01JX0QxICovCj4+ICvCoMKgwqDCoMKgwqDCoMKgwqDC
-oMKgwqDCoMKgwqDCoCA8U1RNMzJfUElOTVVYKCdFJywgMCwgQU5BTE9HKT4sLyogRENNSV9EMiAq
-Lwo+PiArwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqAgPFNUTTMyX1BJTk1VWCgnRScs
-IDEsIEFOQUxPRyk+LC8qIERDTUlfRDMgKi8KPj4gK8KgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKg
-wqDCoMKgIDxTVE0zMl9QSU5NVVgoJ0gnLCAxNCwgQU5BTE9HKT4sLyogRENNSV9ENCAqLwo+PiAr
-wqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqAgPFNUTTMyX1BJTk1VWCgnSScsIDQswqAg
-QU5BTE9HKT4sLyogRENNSV9ENSAqLwo+PiArwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKg
-wqAgPFNUTTMyX1BJTk1VWCgnSScsIDYswqAgQU5BTE9HKT4sLyogRENNSV9ENiAqLwo+PiArwqDC
-oMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqAgPFNUTTMyX1BJTk1VWCgnRScsIDYswqAgQU5B
-TE9HKT4sLyogRENNSV9ENyAqLwo+PiArwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqAg
-PFNUTTMyX1BJTk1VWCgnSScsIDEswqAgQU5BTE9HKT4sLyogRENNSV9EOCAqLwo+PiArwqDCoMKg
-wqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqAgPFNUTTMyX1BJTk1VWCgnSCcsIDcswqAgQU5BTE9H
-KT47LyogRENNSV9EOSAqLwo+PiArwqDCoMKgwqDCoMKgwqAgfTsKPj4gK8KgwqDCoCB9Owo+PiAr
-Cj4gCj4gRGVmaW5lZCBidXQgbm90IHVzZWQuIERvIHlvdSBoYXZlIGFub3RoZXIgcGF0Y2ggaW4g
-cGlwZSA/CgpZZWFoLCBmb3IgY2FtZXJhIG9uIHRoZSBBVjk2LCBidXQgdGhhdCBkZXBlbmRzIG9u
-IERDTUkgbWVkaWEgcGF0Y2hlcyB0bwpiZSB1c2FibGUuIFNhbWUgZm9yIHRoZSBSQ0MgcGF0Y2hl
-cy4KX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX18KTGludXgt
-c3RtMzIgbWFpbGluZyBsaXN0CkxpbnV4LXN0bTMyQHN0LW1kLW1haWxtYW4uc3Rvcm1yZXBseS5j
-b20KaHR0cHM6Ly9zdC1tZC1tYWlsbWFuLnN0b3JtcmVwbHkuY29tL21haWxtYW4vbGlzdGluZm8v
-bGludXgtc3RtMzIK
+From: Ahmad Fatoum <a.fatoum@pengutronix.de>
+
+The "eMMC high-speed DDR mode (3.3V I/O)" at 50MHz is supported on
+the eMMC-interface of the lxa-mc1. Set it in the device tree to
+benefit from the speed improvement.
+
+Signed-off-by: Ahmad Fatoum <a.fatoum@pengutronix.de>
+Signed-off-by: Holger Assmann <h.assmann@pengutronix.de>
+---
+ arch/arm/boot/dts/stm32mp157c-lxa-mc1.dts | 1 +
+ 1 file changed, 1 insertion(+)
+
+diff --git a/arch/arm/boot/dts/stm32mp157c-lxa-mc1.dts b/arch/arm/boot/dts/stm32mp157c-lxa-mc1.dts
+index b85025d00943..1e5333fd437f 100644
+--- a/arch/arm/boot/dts/stm32mp157c-lxa-mc1.dts
++++ b/arch/arm/boot/dts/stm32mp157c-lxa-mc1.dts
+@@ -212,6 +212,7 @@
+ 	pinctrl-1 = <&sdmmc2_b4_od_pins_a &sdmmc2_d47_pins_b>;
+ 	pinctrl-2 = <&sdmmc2_b4_sleep_pins_a &sdmmc2_d47_sleep_pins_b>;
+ 	bus-width = <8>;
++	mmc-ddr-3_3v;
+ 	no-1-8-v;
+ 	no-sd;
+ 	no-sdio;
+-- 
+2.20.1
+
+_______________________________________________
+Linux-stm32 mailing list
+Linux-stm32@st-md-mailman.stormreply.com
+https://st-md-mailman.stormreply.com/mailman/listinfo/linux-stm32
