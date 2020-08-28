@@ -2,65 +2,66 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id 000DB255717
-	for <lists+linux-stm32@lfdr.de>; Fri, 28 Aug 2020 11:05:58 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 6745025573E
+	for <lists+linux-stm32@lfdr.de>; Fri, 28 Aug 2020 11:13:12 +0200 (CEST)
 Received: from ip-172-31-3-76.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id ADA79C32E90;
-	Fri, 28 Aug 2020 09:05:58 +0000 (UTC)
-Received: from mx07-00178001.pphosted.com (mx07-00178001.pphosted.com
- [185.132.182.106])
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 2715CC32E90
+	for <lists+linux-stm32@lfdr.de>; Fri, 28 Aug 2020 09:13:12 +0000 (UTC)
+Received: from mx07-00178001.pphosted.com (mx08-00178001.pphosted.com
+ [91.207.212.93])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 0E1FFC36B26
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id D7423C36B26
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Fri, 28 Aug 2020 09:05:56 +0000 (UTC)
-Received: from pps.filterd (m0046668.ppops.net [127.0.0.1])
+ Fri, 28 Aug 2020 09:13:10 +0000 (UTC)
+Received: from pps.filterd (m0046661.ppops.net [127.0.0.1])
  by mx07-00178001.pphosted.com (8.16.0.42/8.16.0.42) with SMTP id
- 07S8wjha003718; Fri, 28 Aug 2020 11:05:53 +0200
+ 07S97JVx008936; Fri, 28 Aug 2020 11:13:01 +0200
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=st.com;
  h=subject : to : cc :
  references : from : message-id : date : mime-version : in-reply-to :
  content-type : content-transfer-encoding; s=STMicroelectronics;
- bh=yNK2t/oQXyLeTu8q4m3afgTJJwYt158PaYmdNCmbBoA=;
- b=PrUcWHd939t4kIDuotyALkKKER7xNJLsPuAwv63YEhdrxrQyEyqAd95fM6sj/s5Q9BZw
- lUbRIqc/BjVtzeU0oDjVTayCRzj6oMMySLCdGTBKZ1rMm8JO3qaA2q2963Fp0yaVUn3X
- jwn0aAeQwkIuV9EWxbSsWaOdGgp2wAoVrA+Us049J0boXMxqvOgZYS1SDucp4oBky8Gm
- 7t4lrYrJ+tN3ZXLd/rOZIgkCBjvjEUOBZtm7gbJPyrVWO+OzNGRa4XCG86Q3G/8MKAtk
- 2tj3lopvW8u02TxhInDSJXey4FRQpNMlptAvz+57/Rlpr/OKAohqkrEoC4TH+Kh0EGgp 7g== 
+ bh=iLG15dhrsfK3a5qnX3uOMQK8LyuA+bMvi9d+/C/JDPE=;
+ b=04QPLnNqYVtj07QzTGrKWKT46oXeoi1GxGgAMRs+pzFR/OgzajhbFu1C5Mr28e8FcDZ7
+ Jq0INYTTa+mrhZWbbN6VfrCE2euLb9duoP0rRHhgjz90wXaAoO6yre/QFXSABxaqgjHu
+ hSAaJZmOELgTx9mECjI/eTov+SUB3MYAHzZog2bGOS2NPkGLPzgawtpa0g19QWXATZUu
+ vkgecfJ+6Nu5jkeLgZrqQp8fPqSRljVq/YA5EruKXGOvZ6O3zkOlzIHG04CN6QvLIA8p
+ dhGsgVRwem1UDBKo3NNix1dSLdb0N1y0QM+jIwBgpOsiYrzBkqJ7OIAXbc86dqGlyC3V vQ== 
 Received: from beta.dmz-eu.st.com (beta.dmz-eu.st.com [164.129.1.35])
- by mx07-00178001.pphosted.com with ESMTP id 333b2n2nng-1
+ by mx07-00178001.pphosted.com with ESMTP id 332t8g5hhc-1
  (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
- Fri, 28 Aug 2020 11:05:53 +0200
+ Fri, 28 Aug 2020 11:13:01 +0200
 Received: from euls16034.sgp.st.com (euls16034.sgp.st.com [10.75.44.20])
- by beta.dmz-eu.st.com (STMicroelectronics) with ESMTP id 93A5510002A;
- Fri, 28 Aug 2020 11:05:52 +0200 (CEST)
+ by beta.dmz-eu.st.com (STMicroelectronics) with ESMTP id 8CEF4100038;
+ Fri, 28 Aug 2020 11:13:00 +0200 (CEST)
 Received: from Webmail-eu.st.com (sfhdag3node2.st.com [10.75.127.8])
- by euls16034.sgp.st.com (STMicroelectronics) with ESMTP id 87CB42A8AD1;
- Fri, 28 Aug 2020 11:05:52 +0200 (CEST)
-Received: from lmecxl0912.lme.st.com (10.75.127.44) by SFHDAG3NODE2.st.com
+ by euls16034.sgp.st.com (STMicroelectronics) with ESMTP id 785522A76E6;
+ Fri, 28 Aug 2020 11:13:00 +0200 (CEST)
+Received: from lmecxl0912.lme.st.com (10.75.127.46) by SFHDAG3NODE2.st.com
  (10.75.127.8) with Microsoft SMTP Server (TLS) id 15.0.1473.3; Fri, 28 Aug
- 2020 11:05:52 +0200
-To: Marek Vasut <marex@denx.de>, <linux-arm-kernel@lists.infradead.org>
-References: <20200803102254.104125-1-marex@denx.de>
+ 2020 11:12:59 +0200
+To: Holger Assmann <h.assmann@pengutronix.de>, Rob Herring
+ <robh+dt@kernel.org>, Maxime Coquelin <mcoquelin.stm32@gmail.com>, Ahmad
+ Fatoum <a.fatoum@pengutronix.de>
+References: <20200807150355.6116-1-h.assmann@pengutronix.de>
 From: Alexandre Torgue <alexandre.torgue@st.com>
-Message-ID: <cabed9bd-0460-dcb0-b479-05ebafdbba3d@st.com>
-Date: Fri, 28 Aug 2020 11:05:49 +0200
+Message-ID: <1a3291ca-daa4-32fc-d4da-15bb9faf73f9@st.com>
+Date: Fri, 28 Aug 2020 11:12:57 +0200
 User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:68.0) Gecko/20100101
  Thunderbird/68.10.0
 MIME-Version: 1.0
-In-Reply-To: <20200803102254.104125-1-marex@denx.de>
+In-Reply-To: <20200807150355.6116-1-h.assmann@pengutronix.de>
 Content-Language: en-US
-X-Originating-IP: [10.75.127.44]
-X-ClientProxiedBy: SFHDAG7NODE1.st.com (10.75.127.19) To SFHDAG3NODE2.st.com
+X-Originating-IP: [10.75.127.46]
+X-ClientProxiedBy: SFHDAG6NODE2.st.com (10.75.127.17) To SFHDAG3NODE2.st.com
  (10.75.127.8)
 X-Proofpoint-Virus-Version: vendor=fsecure engine=2.50.10434:6.0.235, 18.0.687
  definitions=2020-08-28_05:2020-08-28,
  2020-08-28 signatures=0
-Cc: Patrick Delaunay <patrick.delaunay@st.com>,
- Maxime Coquelin <mcoquelin.stm32@gmail.com>,
- linux-stm32@st-md-mailman.stormreply.com
-Subject: Re: [Linux-stm32] [PATCH] ARM: dts: stm32: Add USB OTG support to
-	DH PDK2
+Cc: devicetree@vger.kernel.org, linux-stm32@st-md-mailman.stormreply.com,
+ linux-arm-kernel@lists.infradead.org, linux-kernel@vger.kernel.org
+Subject: Re: [Linux-stm32] [PATCH] ARM: dts: stm32: lxa-mc1: Fix kernel
+ warning about PHY delays
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -77,42 +78,43 @@ Content-Type: text/plain; charset="us-ascii"; Format="flowed"
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
-Hi
+Hi Holger
 
-On 8/3/20 12:22 PM, Marek Vasut wrote:
-> The DH PDK2 board is capable of USB OTG on the X14 USB Mini-AB connector,
-> fill in the missing bits to make USB OTG possible instead of peripheral.
+On 8/7/20 5:03 PM, Holger Assmann wrote:
+> The KSZ9031 PHY skew timings for rxc/txc, originally set to achieve
+> the desired phase shift between clock- and data-signal, now trigger a
+> kernel warning when used in rgmii-id mode:
 > 
-> Signed-off-by: Marek Vasut <marex@denx.de>
-> Cc: Alexandre Torgue <alexandre.torgue@st.com>
-> Cc: Maxime Coquelin <mcoquelin.stm32@gmail.com>
-> Cc: Patrice Chotard <patrice.chotard@st.com>
-> Cc: Patrick Delaunay <patrick.delaunay@st.com>
-> Cc: linux-stm32@st-md-mailman.stormreply.com
-> To: linux-arm-kernel@lists.infradead.org
+>   *-skew-ps values should be used only with phy-mode = "rgmii"
+> 
+> This is because commit bcf3440c6dd7 ("net: phy: micrel: add phy-mode
+> support for the KSZ9031 PHY") now configures own timings when
+> phy-mode = "rgmii-id". Device trees wanting to set their own delays
+> should use phy-mode "rgmii" instead as the warning prescribes.
+> 
+> The "standard" timings now used with "rgmii-id" work fine on this
+> board, so drop the explicit timings in the device tree and thereby
+> silence the warning.
+> 
+> Fixes: 666b5ca85cd3 ("ARM: dts: stm32: add STM32MP1-based Linux Automation MC-1 board")
+> Signed-off-by: Holger Assmann <h.assmann@pengutronix.de>
 > ---
->   arch/arm/boot/dts/stm32mp15xx-dhcom-pdk2.dtsi | 7 +++++--
->   1 file changed, 5 insertions(+), 2 deletions(-)
+>   arch/arm/boot/dts/stm32mp157c-lxa-mc1.dts | 2 --
+>   1 file changed, 2 deletions(-)
 > 
-> diff --git a/arch/arm/boot/dts/stm32mp15xx-dhcom-pdk2.dtsi b/arch/arm/boot/dts/stm32mp15xx-dhcom-pdk2.dtsi
-> index ffaca507ead9..aaf8de51a080 100644
-> --- a/arch/arm/boot/dts/stm32mp15xx-dhcom-pdk2.dtsi
-> +++ b/arch/arm/boot/dts/stm32mp15xx-dhcom-pdk2.dtsi
-> @@ -304,9 +304,12 @@
->   };
->   
->   &usbotg_hs {
-> -	dr_mode = "peripheral";
-> -	phys = <&usbphyc_port1 0>;
-> +	dr_mode = "otg";
-> +	pinctrl-0 = <&usbotg_hs_pins_a>;
-> +	pinctrl-names = "default";
->   	phy-names = "usb2-phy";
-> +	phys = <&usbphyc_port1 0>;
-> +	vbus-supply = <&vbus_otg>;
->   	status = "okay";
->   };
->   
+> diff --git a/arch/arm/boot/dts/stm32mp157c-lxa-mc1.dts b/arch/arm/boot/dts/stm32mp157c-lxa-mc1.dts
+> index 5700e6b700d3..b85025d00943 100644
+> --- a/arch/arm/boot/dts/stm32mp157c-lxa-mc1.dts
+> +++ b/arch/arm/boot/dts/stm32mp157c-lxa-mc1.dts
+> @@ -121,8 +121,6 @@
+>   			reset-gpios = <&gpiog 0 GPIO_ACTIVE_LOW>; /* ETH_RST# */
+>   			interrupt-parent = <&gpioa>;
+>   			interrupts = <6 IRQ_TYPE_EDGE_FALLING>; /* ETH_MDINT# */
+> -			rxc-skew-ps = <1860>;
+> -			txc-skew-ps = <1860>;
+>   			reset-assert-us = <10000>;
+>   			reset-deassert-us = <300>;
+>   			micrel,force-master;
 > 
 
 Applied on stm32-next.
