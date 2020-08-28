@@ -2,66 +2,111 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id 127372557C6
-	for <lists+linux-stm32@lfdr.de>; Fri, 28 Aug 2020 11:37:11 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 5D8752557D4
+	for <lists+linux-stm32@lfdr.de>; Fri, 28 Aug 2020 11:39:17 +0200 (CEST)
 Received: from ip-172-31-3-76.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id C7CE2C32EA6;
-	Fri, 28 Aug 2020 09:37:10 +0000 (UTC)
-Received: from mx07-00178001.pphosted.com (mx07-00178001.pphosted.com
- [185.132.182.106])
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 19E8DC32EA6;
+	Fri, 28 Aug 2020 09:39:17 +0000 (UTC)
+Received: from EUR02-HE1-obe.outbound.protection.outlook.com
+ (mail-eopbgr10102.outbound.protection.outlook.com [40.107.1.102])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 42241C36B26
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id C5795C36B26
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Fri, 28 Aug 2020 09:37:09 +0000 (UTC)
-Received: from pps.filterd (m0046037.ppops.net [127.0.0.1])
- by mx07-00178001.pphosted.com (8.16.0.42/8.16.0.42) with SMTP id
- 07S9X3Rs030760; Fri, 28 Aug 2020 11:37:06 +0200
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=st.com;
- h=subject : to : cc :
- references : from : message-id : date : mime-version : in-reply-to :
- content-type : content-transfer-encoding; s=STMicroelectronics;
- bh=CEwyjUoBJb/uOVP6xsu3CmV/fPZok8fDBiNggg2riEA=;
- b=iy+DQztaJK0Uwtvt1+ZZKJ+Y8b7jZYoqjhUkMyTv5matVXM4w4nPPFSyMjqx42NyN3av
- teMXHR6iZ7csrzz91XZ3gqqrWKcSUiGcJq8wdLERgn7jfTXzqdlMt3K+ZZ/aA7toanpb
- zntwbJw09Tlr+lot+nFu7S7QrZAKK9xN2hn/Uw32EsCs5A7N+W+LPPPBZ/Y9sbXrH7TX
- SprZJ4rSf2WFkQNPmTSUwxcajljR/TmbM8rfHKXNHO+T76WgGA7+x4IGAH4hlKaMn0SQ
- tklOgA/JTM/jcJL6Y/zcEuafJu5tHvMV3yOBIwmsPfWuRN9GUUG77FaBf5RubeTGvn7I Ug== 
-Received: from beta.dmz-eu.st.com (beta.dmz-eu.st.com [164.129.1.35])
- by mx07-00178001.pphosted.com with ESMTP id 333b6xjtfb-1
- (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
- Fri, 28 Aug 2020 11:37:06 +0200
-Received: from euls16034.sgp.st.com (euls16034.sgp.st.com [10.75.44.20])
- by beta.dmz-eu.st.com (STMicroelectronics) with ESMTP id DD1D410002A;
- Fri, 28 Aug 2020 11:37:05 +0200 (CEST)
-Received: from Webmail-eu.st.com (sfhdag3node2.st.com [10.75.127.8])
- by euls16034.sgp.st.com (STMicroelectronics) with ESMTP id 5C414210F8C;
- Fri, 28 Aug 2020 11:37:05 +0200 (CEST)
-Received: from lmecxl0912.lme.st.com (10.75.127.47) by SFHDAG3NODE2.st.com
- (10.75.127.8) with Microsoft SMTP Server (TLS) id 15.0.1473.3; Fri, 28 Aug
- 2020 11:37:04 +0200
-To: Marek Vasut <marex@denx.de>, <linux-arm-kernel@lists.infradead.org>
-References: <20200805123629.97146-1-marex@denx.de>
- <20200805123629.97146-3-marex@denx.de>
-From: Alexandre Torgue <alexandre.torgue@st.com>
-Message-ID: <bcc4237b-e590-5c86-2ca8-c9716810f574@st.com>
-Date: Fri, 28 Aug 2020 11:37:02 +0200
-User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:68.0) Gecko/20100101
- Thunderbird/68.10.0
+ Fri, 28 Aug 2020 09:39:15 +0000 (UTC)
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
+ b=ckU0kA8bUDg25cavNqpstsPFCKvm938xSPUbaoq79ySV9C6Vh/sKOfe5MEmfUkFlgPdqPDn9YfgfbIM71CahF6Lur6rq6ldzxJ0LM+OTPWL6E1qHxYfDseaWGnxq2IBk8cqNPV11ajqF9HDTdIGIIsjMKuHFb4/2UDU3SCn/mrAAJcHRcQc0JMFurAtSbohF8FdxhdsSo8/5CK9DGSwSQgwZEGx5oob9BThLe6wIVQ4xpbD03PHxq3KpZWhQVMPuopAdPlnuGhS4M7woiUDky65RuCD81i9dAMMueyfEjsNUF5ygeLHJJPUDOCom/eKWJeXxiPUFr4KTAG7SMxqYmg==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
+ s=arcselector9901;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=EER4D2xVJD6DObDGorq4b4FhD/JtHZlKesJ19VEQNzQ=;
+ b=eEjWFiUiKADZIHXduQY6evxoK+Ty/JjZLn8hz0vvTk2k99uaTpncOleMiLAH6dg/woqyzHAypz5xO9a3MXhQGBUxgH2y+GzdnHqIiHMvzGWryuMzi8mQffmkUl9cJ613Vg2xY6FspFvgIrbnyQu22u5RoxhLDx6nYle6uCvluGRzcWj9n8i0PK51gIhAnQYuSPj5CTgWaoyVxzrBW3qu0AFIEL7IyPyQgynzmvte9ws8ABr+qz6ZrjV1W0chKCbagVyAx9T3Qmf0l809CiFwYIMkjBknJgGzhFus+KSmW5l3W3LUNs8l+eaFrHBJPapvNbFkj/dMasUefIIVoQnfOQ==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=axentia.se; dmarc=pass action=none header.from=axentia.se;
+ dkim=pass header.d=axentia.se; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=axentia.se;
+ s=selector2;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=EER4D2xVJD6DObDGorq4b4FhD/JtHZlKesJ19VEQNzQ=;
+ b=GBX+IFTzIi6hk9LR/Pas/SDdHImdNm95dpMf+fUtqQs6zPmt0O7XmpNTlPhuFDk0wAf0m9KkIk85A+Ww72xBf2CNhPOFRbLKn6nEw9HQVsqwChfhd63JerULlZ+Vt6PxmZfnFwvFyWEaHStzUzytk6vxp+3Y3xZ4SsX+H3+pb7U=
+Authentication-Results: st-md-mailman.stormreply.com; dkim=none (message not
+ signed) header.d=none;st-md-mailman.stormreply.com; dmarc=none action=none
+ header.from=axentia.se;
+Received: from DB8PR02MB5482.eurprd02.prod.outlook.com (2603:10a6:10:eb::29)
+ by DB8PR02MB5963.eurprd02.prod.outlook.com (2603:10a6:10:fa::20) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.3326.21; Fri, 28 Aug
+ 2020 09:39:12 +0000
+Received: from DB8PR02MB5482.eurprd02.prod.outlook.com
+ ([fe80::3890:7b1:97a6:1e47]) by DB8PR02MB5482.eurprd02.prod.outlook.com
+ ([fe80::3890:7b1:97a6:1e47%7]) with mapi id 15.20.3326.021; Fri, 28 Aug 2020
+ 09:39:12 +0000
+To: Krzysztof Kozlowski <krzk@kernel.org>
+References: <20200827192642.1725-1-krzk@kernel.org>
+ <20200827192642.1725-9-krzk@kernel.org>
+ <f4a5777e-fe85-9f3f-4818-f7539f223adc@axentia.se>
+ <20200828062443.GA17343@pi3>
+ <3a5cb59b-454e-2c3f-9f31-43147e843c66@axentia.se>
+ <CAJKOXPcqNE5U82UThzBTPCvucCf2LsCVSfAHE1vnecJGCKCaig@mail.gmail.com>
+From: Peter Rosin <peda@axentia.se>
+Organization: Axentia Technologies AB
+Message-ID: <b7a5a441-cda1-ad02-b723-255231f2bd94@axentia.se>
+Date: Fri, 28 Aug 2020 11:39:06 +0200
+User-Agent: Mozilla/5.0 (Windows NT 10.0; WOW64; rv:68.0) Gecko/20100101
+ Thunderbird/68.11.0
+In-Reply-To: <CAJKOXPcqNE5U82UThzBTPCvucCf2LsCVSfAHE1vnecJGCKCaig@mail.gmail.com>
+Content-Language: sv-SE
+X-ClientProxiedBy: HE1PR0402CA0001.eurprd04.prod.outlook.com
+ (2603:10a6:3:d0::11) To DB8PR02MB5482.eurprd02.prod.outlook.com
+ (2603:10a6:10:eb::29)
 MIME-Version: 1.0
-In-Reply-To: <20200805123629.97146-3-marex@denx.de>
-Content-Language: en-US
-X-Originating-IP: [10.75.127.47]
-X-ClientProxiedBy: SFHDAG3NODE1.st.com (10.75.127.7) To SFHDAG3NODE2.st.com
- (10.75.127.8)
-X-Proofpoint-Virus-Version: vendor=fsecure engine=2.50.10434:6.0.235, 18.0.687
- definitions=2020-08-28_05:2020-08-28,
- 2020-08-28 signatures=0
-Cc: Patrick Delaunay <patrick.delaunay@st.com>,
- Maxime Coquelin <mcoquelin.stm32@gmail.com>,
- linux-stm32@st-md-mailman.stormreply.com
-Subject: Re: [Linux-stm32] [PATCH 3/3] ARM: dts: stm32: Enable RTS/CTS for
-	DH PDK2 UART8
+X-MS-Exchange-MessageSentRepresentingType: 1
+Received: from [192.168.13.3] (85.226.217.78) by
+ HE1PR0402CA0001.eurprd04.prod.outlook.com (2603:10a6:3:d0::11) with Microsoft
+ SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.20.3326.19 via Frontend Transport; Fri, 28 Aug 2020 09:39:09 +0000
+X-Originating-IP: [85.226.217.78]
+X-MS-PublicTrafficType: Email
+X-MS-Office365-Filtering-Correlation-Id: 9ed3dfb1-6a22-4589-f0dc-08d84b363831
+X-MS-TrafficTypeDiagnostic: DB8PR02MB5963:
+X-Microsoft-Antispam-PRVS: <DB8PR02MB5963383356CD6038E2B0F274BC520@DB8PR02MB5963.eurprd02.prod.outlook.com>
+X-MS-Oob-TLC-OOBClassifiers: OLM:1148;
+X-MS-Exchange-SenderADCheck: 1
+X-Microsoft-Antispam: BCL:0;
+X-Microsoft-Antispam-Message-Info: XTd8DqynySNqAAJtw9purTjVqgkJCArFCtgGBUXJPWMk4oUMl22DbfgaMdz5y6tHRu+Z34Y9mg+lHQ+G3+AZJnB+RJxDMLH0QKV5c2Vy8zQpbi+ZIbd10rvAZoW11x7uYq7a9Wgu6iUVPQ16N6+K+XW8G7eedtSgJMpHFkH+h6Ms2Y8SnQ3vGtbsZOitZjWCf9yehqxtbj2fUHwLsWYXDdYLvS2WlmBrjGmiiQYx2AXhS9uIYlTiWE2uTq1hV/N1Y64sznyM3wNti/nkNfW6jjit2n05p/1zI6HGenOPH8UEtJ7bLkLPwLpYDn94/OdEjd/ptmMzQLHxnzKjb6qHhrv1DuaSHs7kURHPfcashNbGDVbI0petAlQePLhtyaGc
+X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
+ IPV:NLI; SFV:NSPM; H:DB8PR02MB5482.eurprd02.prod.outlook.com; PTR:; CAT:NONE;
+ SFS:(346002)(136003)(396003)(39830400003)(376002)(366004)(186003)(53546011)(26005)(86362001)(66946007)(36756003)(16526019)(36916002)(66476007)(52116002)(54906003)(8936002)(31686004)(6486002)(2906002)(7416002)(316002)(66556008)(83380400001)(5660300002)(8676002)(956004)(478600001)(31696002)(6666004)(2616005)(6916009)(16576012)(4326008)(43740500002);
+ DIR:OUT; SFP:1102; 
+X-MS-Exchange-AntiSpam-MessageData: fFuW0aTocJSI0TX8mop6Rz+LPrSFQwV5pft/ycIR+awA/qrXD84qSDfE1oMfWvKH9x8ittxiOCH3vH2+Jh1zJfq5WrhEmwPu7AyW/nYk5rfhmbbphRa1V7U6Zkh9M4RvkTiiDIP+oNc4M+10BVos9aTUOQc3AstG1iz3tpBpJn9isperibXmQXJzM1/6VggYiyiBeuUbAewQLC+/jsZC66lSgbYqSwdElVqXucMFW8oF/B3xpd3pjEsrxx5dspgjXEeFAgeHEjXcWm+4bv1f/bpYAMTLJGigDhbLpcSk6UoD8JhbMOBoHXBzyzSzYYKEL7MtbuFY2EENuKud7d4ewopZQ11+JKGUbLwfBKiPjvcMn5sGNtNI6oTxCWnQc5fppRuahJOSQiHE62TtcV3ak3q3NlBv66elMk5jEz6lz4zirGutOr2463VRIo1QqNiuF2zA6+AHEgnuiRHZOVc/C95eEiAlr9VC9B/q9V3fyCkpqUG2hna0kYPkC/1CKgM/ZP7nnCcRI3EDRP0KpvWGofPkZUHCQeM526d1pxl0Tg42jIWt2q8Vh535akpsAFnUgKyMruliC3k+cqRtP91TaR4a9ENrrL/ekxnloRlJGmzKXV2kOpF84YyE0zsoEBhzq8UQcmyBcBK+hnrJ0gOz3A==
+X-OriginatorOrg: axentia.se
+X-MS-Exchange-CrossTenant-Network-Message-Id: 9ed3dfb1-6a22-4589-f0dc-08d84b363831
+X-MS-Exchange-CrossTenant-AuthSource: DB8PR02MB5482.eurprd02.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 28 Aug 2020 09:39:11.9207 (UTC)
+X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
+X-MS-Exchange-CrossTenant-Id: 4ee68585-03e1-4785-942a-df9c1871a234
+X-MS-Exchange-CrossTenant-MailboxType: HOSTED
+X-MS-Exchange-CrossTenant-UserPrincipalName: BXh13lGNev0aiotYE+QTZLXyzYRvdCwLAtJqH/a/ess20cFCKz3nyHzYhEQXS3GM
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: DB8PR02MB5963
+Cc: Peter Meerwald-Stadler <pmeerw@pmeerw.net>,
+ Neil Armstrong <narmstrong@baylibre.com>, linux-iio@vger.kernel.org,
+ Linus Walleij <linus.walleij@linaro.org>,
+ Tomasz Duszynski <tomasz.duszynski@octakon.com>,
+ linux-stm32@st-md-mailman.stormreply.com, Jerome Brunet <jbrunet@baylibre.com>,
+ Lars-Peter Clausen <lars@metafoo.de>, Kevin Hilman <khilman@baylibre.com>,
+ Marek Vasut <marek.vasut@gmail.com>,
+ Andy Shevchenko <andy.shevchenko@gmail.com>, Kukjin Kim <kgene@kernel.org>,
+ Beniamin Bia <beniamin.bia@analog.com>,
+ Michael Hennerich <Michael.Hennerich@analog.com>,
+ Martin Blumenstingl <martin.blumenstingl@googlemail.com>,
+ "linux-samsung-soc@vger.kernel.org" <linux-samsung-soc@vger.kernel.org>,
+ linux-amlogic@lists.infradead.org, linux-arm-kernel@lists.infradead.org,
+ "linux-kernel@vger.kernel.org" <linux-kernel@vger.kernel.org>,
+ Maxime Coquelin <mcoquelin.stm32@gmail.com>, Hartmut Knaack <knaack.h@gmx.de>,
+ Jonathan Cameron <jic23@kernel.org>
+Subject: Re: [Linux-stm32] [PATCH v2 09/18] iio: afe: iio-rescale: Simplify
+ with dev_err_probe()
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -73,47 +118,89 @@ List-Post: <mailto:linux-stm32@st-md-mailman.stormreply.com>
 List-Help: <mailto:linux-stm32-request@st-md-mailman.stormreply.com?subject=help>
 List-Subscribe: <https://st-md-mailman.stormreply.com/mailman/listinfo/linux-stm32>, 
  <mailto:linux-stm32-request@st-md-mailman.stormreply.com?subject=subscribe>
+Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
-Content-Type: text/plain; charset="us-ascii"; Format="flowed"
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
-Hi Marek
 
-On 8/5/20 2:36 PM, Marek Vasut wrote:
-> The DH PDK2 has RTS/CTS lines available on UART8, describe them in DT.
-> 
-> Signed-off-by: Marek Vasut <marex@denx.de>
-> Cc: Alexandre Torgue <alexandre.torgue@st.com>
-> Cc: Maxime Coquelin <mcoquelin.stm32@gmail.com>
-> Cc: Patrice Chotard <patrice.chotard@st.com>
-> Cc: Patrick Delaunay <patrick.delaunay@st.com>
-> Cc: linux-stm32@st-md-mailman.stormreply.com
-> To: linux-arm-kernel@lists.infradead.org
-> ---
->   arch/arm/boot/dts/stm32mp15xx-dhcom-pdk2.dtsi | 3 ++-
->   1 file changed, 2 insertions(+), 1 deletion(-)
-> 
-> diff --git a/arch/arm/boot/dts/stm32mp15xx-dhcom-pdk2.dtsi b/arch/arm/boot/dts/stm32mp15xx-dhcom-pdk2.dtsi
-> index 7c4bd615b311..9bb660a7488f 100644
-> --- a/arch/arm/boot/dts/stm32mp15xx-dhcom-pdk2.dtsi
-> +++ b/arch/arm/boot/dts/stm32mp15xx-dhcom-pdk2.dtsi
-> @@ -304,7 +304,8 @@ &usart3 {
->   
->   &uart8 {
->   	pinctrl-names = "default";
-> -	pinctrl-0 = <&uart8_pins_a>;
-> +	pinctrl-0 = <&uart8_pins_a &uart8_rtscts_pins_a>;
-> +	uart-has-rtscts;
->   	status = "okay";
->   };
->   
-> 
 
-Series applied on stm32-next.
+On 2020-08-28 09:03, Krzysztof Kozlowski wrote:
+> On Fri, 28 Aug 2020 at 08:58, Peter Rosin <peda@axentia.se> wrote:
+>>>> I'm not a huge fan of adding *one* odd line breaking the 80 column
+>>>> recommendation to any file. I like to be able to fit multiple
+>>>> windows side by side in a meaningful way. Also, I don't like having
+>>>> a shitload of emptiness on my screen, which is what happens when some
+>>>> lines are longer and you want to see it all. I strongly believe that
+>>>> the 80 column rule/recommendation is still as valid as it ever was.
+>>>> It's just hard to read longish lines; there's a reason newspapers
+>>>> columns are quite narrow...
+>>>>
+>>>> Same comment for the envelope-detector (3/18).
+>>>>
+>>>> You will probably never look at these files again, but *I* might have
+>>>> to revisit them for one reason or another, and these long lines will
+>>>> annoy me when that happens.
+>>>
+>>> Initially I posted it with 80-characters wrap. Then I received a comment
+>>> - better to stick to the new 100, as checkpatch accepts it.
+>>>
+>>> Now you write, better to go back to 80.
+>>>
+>>> Maybe then someone else will write to me, better to go to 100.
+>>>
+>>> And another person will reply, no, coding style still mentions 80, so
+>>> keep it at 80.
+>>>
+>>> Sure guys, please first decide which one you prefer, then I will wrap it
+>>> accordingly. :)
+>>>
+>>> Otherwise I will just jump from one to another depending on one person's
+>>> personal preference.
+>>>
+>>> If there is no consensus among discussing people, I find this 100 line
+>>> more readable, already got review, checkpatch accepts it so if subsystem
+>>> maintainer likes it, I prefer to leave it like this.
+>>
+>> I'm not impressed by that argument. For the files I have mentioned, it
+>> does not matter very much to me if you and some random person think that
+>> 100 columns might *slightly* improve readability.
+>>
+>> Quoting coding-style
+>>
+>>   Statements longer than 80 columns should be broken into sensible chunks,
+>>   unless exceeding 80 columns significantly increases readability and does
+>>   not hide information.
+>>
+>> Notice that word? *significantly*
+> 
+> Notice also checkpatch change...
 
-Regards
-Alex
+How is that relevant? checkpatch has *never* had the final say and its
+heuristics can never be perfect. Meanwhile, coding style is talking about
+exactly the case under discussion, and agrees with me perfectly.
+
+> First of all, I don't have a preference over wrapping here. As I said,
+> I sent v1 with 80 and got a response to change it to 100. You want me
+> basically to bounce from A to B to A to B.
+> 
+>> Why do I even have to speak up about this? WTF?
+> 
+> Because we all share here our ideas...
+> 
+>> For the patches that touch files that I originally wrote [1], my
+>> preference should be clear by now.
+> 
+> I understood your preference. There is nothing unclear here. Other
+> person had different preference. I told you my arguments that it is
+> not reasonable to jump A->B->A->B just because each person has a
+> different view. At the end it's the subsystem maintainer's decision as
+> he wants to keep his subsystem clean.
+
+Yeah, I bet he is thrilled about it.
+
+Cheers,
+Peter
 _______________________________________________
 Linux-stm32 mailing list
 Linux-stm32@st-md-mailman.stormreply.com
