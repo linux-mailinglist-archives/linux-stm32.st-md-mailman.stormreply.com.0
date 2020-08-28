@@ -2,109 +2,132 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id 76A18255608
-	for <lists+linux-stm32@lfdr.de>; Fri, 28 Aug 2020 10:11:19 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id EE61E255609
+	for <lists+linux-stm32@lfdr.de>; Fri, 28 Aug 2020 10:11:20 +0200 (CEST)
 Received: from ip-172-31-3-76.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 35B6CC3FADC;
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id E4C12C3FADF;
 	Fri, 28 Aug 2020 08:11:19 +0000 (UTC)
-Received: from EUR04-VI1-obe.outbound.protection.outlook.com
- (mail-eopbgr80123.outbound.protection.outlook.com [40.107.8.123])
+Received: from mx0b-00328301.pphosted.com (mx0b-00328301.pphosted.com
+ [148.163.141.47])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id B282FC36B26
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id BB49BC36B26
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Thu, 27 Aug 2020 21:52:56 +0000 (UTC)
+ Fri, 28 Aug 2020 06:36:40 +0000 (UTC)
+Received: from pps.filterd (m0156136.ppops.net [127.0.0.1])
+ by mx0b-00328301.pphosted.com (8.16.0.43/8.16.0.43) with SMTP id
+ 07S6STNB000878; Thu, 27 Aug 2020 23:36:04 -0700
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=invensense.com;
+ h=from : to :
+ subject : date : message-id : references : in-reply-to : content-type :
+ content-transfer-encoding : mime-version; s=pfpt1;
+ bh=s3oNc/aroHRT0LGnJ6MatEAtknT0o3rAkQWAPHki2hM=;
+ b=ag/+CjI3qGXmaV3HPJkJSZ1MgRj3K6OLzEu0bnelboHntV7rhcnpMf5sQRA5gVSZxJHt
+ Xs3C0MF33IxQ76/ZxMB3XOd26t87Ct29gFOG/z4Da8JGMgVTg2qITwsuU+chThF43V/t
+ pr9YU5jQE2U3+hZw2YBXy6h/9yYEciPnF2X6seaEQ4iyYK/pKXChgq0s8D93SquLjYcX
+ rn+/McX7PUA+cHvxfwUfcFph7n+C4wJTxdZezQ9yTCNBZ5Bewbf6RNXbupdZJ18kmzkf
+ ARTtsgxaWcklDgEFOmODjd0YckVNbIYajXwuARwnTcnX+WQdb769SbAubnnflExxvqLK pw== 
+Received: from nam10-bn7-obe.outbound.protection.outlook.com
+ (mail-bn7nam10lp2108.outbound.protection.outlook.com [104.47.70.108])
+ by mx0b-00328301.pphosted.com with ESMTP id 33512u9c8w-1
+ (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
+ Thu, 27 Aug 2020 23:36:04 -0700
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=KQveaOybCAe3SFj52kw9B0GAZ+tJAmAOPnuO1BCJRfFCWjEYiJB9TIyWfcVwASrz/EsZRNvz4EGzqSfX8IDk5jKuSPvkf4UGTk+FUm5DsmKe+RPWQUmhBqf0aGyA+eqZWc/rJB80Jy9lXioitUhz4j1mPpyyqjs6lSOgu+bzAGkPhfGH4QBrpxXPlv4RBfYV51S6hZfpN+Vbbel0HP7HKu9uR3pNuPQE89aLoHNWDAsEujC1aC7Vm3Vp/4/XvTHywcbHwEe7RHyvdbH39POhd9hs8RUw4shBAvvv67zEYkZ4GpVthyScovHes3sc5u1/elZI8WyimtILaV3/Ee47lA==
+ b=jFQG+z3S0xOfyhe+7eMLPVKVu4M5rs4w6yzdvXImpp77Bdf4SwOg5BLBoMTLOSJwTTLAHzDy51G5O4B30Me8nmOIbqd7ClCMxldKWVWUx3CfNRstjwS4wdszrGYiabdPFsQm75xYRQP8uHIjw3bVxMPnTLsv2uEBAIWUXzxtSSwxPj25L1r4wQ89BAozvEEXe37qOABtDVir0J9mSOTSHZNtqa5tMhaB3P8HbDeS5xX1B+LMD3/u4NGK1E3/RwyKIMIV1PmDOHpDhue1Bz1pOjRJW/tbmCBczCmAcwsUwYH4tfqr7RmK1khdHExhctSna7sKcYNwLaMn8uDpBkYQzg==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
  s=arcselector9901;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=DfsLL6oheHoLMdXAsX/wDJUY2XmjCK4ogCvSShWIc5g=;
- b=Eeh4u9TnB1uwWhWCDP7T5h1tjr+wKE+9aiPUuMf7+gh858ZuGj5fJcG7tMjd3E/N6wGP1Nj4l0iAfjYGG8CX9qF+n3wP3fELNwo1q2IUpjLNOuEMVIzPYsbOD9mD5rapioa8mQJ/m7B60Ff2K4Ro8ZvX8yuKKy2G79wilm1EOVvWfTkBo4IXfbxAvyRsWC3o3CmCFhlS/eKEYTabLwQp5PDbR8zCO+wenwVtzj1kHIPu7IJwGDsWZXlNRxE+HcLfIL6ACNdO8mjfNGweTQW1RNmceVVBohZ5l1p0ZMi8K2SGm/oMPfB/+odd4EnlxpLv9iQjnnZiJSBLwkhWM+JReQ==
+ bh=s3oNc/aroHRT0LGnJ6MatEAtknT0o3rAkQWAPHki2hM=;
+ b=j0bAcb7akqGMd5WkMVKZwSzyIbYA6+Bnd3TEQlv0xn4TJc2CbB8ASeNdt7oxgfSJge6NVZjhcKIjmC0uzFa2ym+a/fpP5PawN/zlhXrSxpQRJqywNUvRELm3rl72jiAQYPopD+6k0jCZIZu8RsAIDNKWAViTmIwk6vwWKfT5InyABe/85PgziiAbsQ4IMpMawZbX2aol+DzJX57fRZt9O4iWtfFtQY2CBEZHwn1LDkosqhFE7QzF3jZ0CLH1goSSI4bUTJTrqlJX2pL+gjJCko/MWMNmPSamUTRD6ei3qfeiLPvwnY4QY2V554LPme9KyAP4TmkKoE59JAfhsfnHUg==
 ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=axentia.se; dmarc=pass action=none header.from=axentia.se;
- dkim=pass header.d=axentia.se; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=axentia.se;
- s=selector2;
+ smtp.mailfrom=invensense.com; dmarc=pass action=none
+ header.from=invensense.com; dkim=pass header.d=invensense.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=invensense.onmicrosoft.com; s=selector2-invensense-onmicrosoft-com;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=DfsLL6oheHoLMdXAsX/wDJUY2XmjCK4ogCvSShWIc5g=;
- b=PSfhP/nxpJPdDSlE8F8Mg7pPO2tsltCLp2npa2rNf2GPl8xFzEqodjXCQCv3LSBuo6eWtHLcerif1VCVAVfrJkmnbIlO+23UHin69+/FZehnGhjRZIPIkgm0bpTeL5qZcdW2PL2C46tTLfD7y63P2U8nQ7SKhUdXhyBQ+qrWNs0=
-Authentication-Results: st-md-mailman.stormreply.com; dkim=none (message not
- signed) header.d=none;st-md-mailman.stormreply.com; dmarc=none action=none
- header.from=axentia.se;
-Received: from DB8PR02MB5482.eurprd02.prod.outlook.com (2603:10a6:10:eb::29)
- by DB6PR02MB3176.eurprd02.prod.outlook.com (2603:10a6:6:1b::28) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.3305.26; Thu, 27 Aug
- 2020 21:52:54 +0000
-Received: from DB8PR02MB5482.eurprd02.prod.outlook.com
- ([fe80::3890:7b1:97a6:1e47]) by DB8PR02MB5482.eurprd02.prod.outlook.com
- ([fe80::3890:7b1:97a6:1e47%7]) with mapi id 15.20.3326.021; Thu, 27 Aug 2020
- 21:52:54 +0000
+ bh=s3oNc/aroHRT0LGnJ6MatEAtknT0o3rAkQWAPHki2hM=;
+ b=K0OybrXNcBWDbGUZCmA7ZEf9guopG6XijiJ5mRIPAAEMpXov9Bmj5xh+p9XsSUFlXqicoZrWR5S3Xj56EWHQ6TXmYDV0qZcUPoCaSU+3EpLIBi+2M93BbG6yzIcHG85eRxPiXkXwVKVMhIXdQkezBbDPaV7V3qH7U0V4QYSPi1k=
+Received: from MN2PR12MB4390.namprd12.prod.outlook.com (2603:10b6:208:26e::21)
+ by MN2PR12MB4205.namprd12.prod.outlook.com (2603:10b6:208:198::10)
+ with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.3305.24; Fri, 28 Aug
+ 2020 06:36:03 +0000
+Received: from MN2PR12MB4390.namprd12.prod.outlook.com
+ ([fe80::88ac:4a48:bb2a:51b7]) by MN2PR12MB4390.namprd12.prod.outlook.com
+ ([fe80::88ac:4a48:bb2a:51b7%9]) with mapi id 15.20.3326.021; Fri, 28 Aug 2020
+ 06:36:02 +0000
+From: Jean-Baptiste Maneyrol <JManeyrol@invensense.com>
 To: Krzysztof Kozlowski <krzk@kernel.org>, Jonathan Cameron
- <jic23@kernel.org>, Hartmut Knaack <knaack.h@gmx.de>,
- Lars-Peter Clausen <lars@metafoo.de>,
- Peter Meerwald-Stadler <pmeerw@pmeerw.net>, Kukjin Kim <kgene@kernel.org>,
- Michael Hennerich <Michael.Hennerich@analog.com>,
- Kevin Hilman <khilman@baylibre.com>, Neil Armstrong
- <narmstrong@baylibre.com>, Jerome Brunet <jbrunet@baylibre.com>,
- Martin Blumenstingl <martin.blumenstingl@googlemail.com>,
- Marek Vasut <marek.vasut@gmail.com>,
- Maxime Coquelin <mcoquelin.stm32@gmail.com>,
- Alexandre Torgue <alexandre.torgue@st.com>,
- Beniamin Bia <beniamin.bia@analog.com>,
- Tomasz Duszynski <tomasz.duszynski@octakon.com>,
- Linus Walleij <linus.walleij@linaro.org>,
- Andy Shevchenko <andy.shevchenko@gmail.com>, linux-iio@vger.kernel.org,
- linux-kernel@vger.kernel.org, linux-arm-kernel@lists.infradead.org,
- linux-samsung-soc@vger.kernel.org, linux-amlogic@lists.infradead.org,
- linux-stm32@st-md-mailman.stormreply.com
-References: <20200827192642.1725-1-krzk@kernel.org>
- <20200827192642.1725-18-krzk@kernel.org>
-From: Peter Rosin <peda@axentia.se>
-Organization: Axentia Technologies AB
-Message-ID: <325481bb-64b7-b063-f210-65d167888ca7@axentia.se>
-Date: Thu, 27 Aug 2020 23:52:48 +0200
-User-Agent: Mozilla/5.0 (Windows NT 10.0; WOW64; rv:68.0) Gecko/20100101
- Thunderbird/68.11.0
-In-Reply-To: <20200827192642.1725-18-krzk@kernel.org>
-Content-Language: sv-SE
-X-ClientProxiedBy: HE1P195CA0004.EURP195.PROD.OUTLOOK.COM (2603:10a6:3:fd::14)
- To DB8PR02MB5482.eurprd02.prod.outlook.com
- (2603:10a6:10:eb::29)
+ <jic23@kernel.org>, Hartmut Knaack <knaack.h@gmx.de>, Lars-Peter Clausen
+ <lars@metafoo.de>, Peter Meerwald-Stadler <pmeerw@pmeerw.net>, Peter Rosin
+ <peda@axentia.se>, Kukjin Kim <kgene@kernel.org>, Michael Hennerich
+ <Michael.Hennerich@analog.com>, Kevin Hilman <khilman@baylibre.com>, Neil
+ Armstrong <narmstrong@baylibre.com>, Jerome Brunet <jbrunet@baylibre.com>,
+ Martin Blumenstingl <martin.blumenstingl@googlemail.com>, Marek Vasut
+ <marek.vasut@gmail.com>, Maxime Coquelin <mcoquelin.stm32@gmail.com>,
+ Alexandre Torgue <alexandre.torgue@st.com>, Beniamin Bia
+ <beniamin.bia@analog.com>, Tomasz Duszynski <tomasz.duszynski@octakon.com>,
+ Linus Walleij <linus.walleij@linaro.org>, Andy Shevchenko
+ <andy.shevchenko@gmail.com>, "linux-iio@vger.kernel.org"
+ <linux-iio@vger.kernel.org>, "linux-kernel@vger.kernel.org"
+ <linux-kernel@vger.kernel.org>, "linux-arm-kernel@lists.infradead.org"
+ <linux-arm-kernel@lists.infradead.org>, "linux-samsung-soc@vger.kernel.org"
+ <linux-samsung-soc@vger.kernel.org>, "linux-amlogic@lists.infradead.org"
+ <linux-amlogic@lists.infradead.org>,
+ "linux-stm32@st-md-mailman.stormreply.com"
+ <linux-stm32@st-md-mailman.stormreply.com>
+Thread-Topic: [PATCH v2 13/18] iio: imu: inv_mpu6050: Simplify with
+ dev_err_probe()
+Thread-Index: AQHWfKhP9EoLl2DH4kG3ErVWqrVkfKlNELaV
+Date: Fri, 28 Aug 2020 06:36:02 +0000
+Message-ID: <MN2PR12MB439074B42FE1114B62189130C4520@MN2PR12MB4390.namprd12.prod.outlook.com>
+References: <20200827192642.1725-1-krzk@kernel.org>,
+ <20200827192642.1725-13-krzk@kernel.org>
+In-Reply-To: <20200827192642.1725-13-krzk@kernel.org>
+Accept-Language: en-US
+Content-Language: en-US
+X-MS-Has-Attach: 
+X-MS-TNEF-Correlator: 
+authentication-results: kernel.org; dkim=none (message not signed)
+ header.d=none;kernel.org; dmarc=none action=none header.from=invensense.com;
+x-originating-ip: [2a01:e0a:393:a700:8116:36f6:f0c8:916f]
+x-ms-publictraffictype: Email
+x-ms-office365-filtering-correlation-id: 2c529cfe-f087-4ab0-b116-08d84b1ca25a
+x-ms-traffictypediagnostic: MN2PR12MB4205:
+x-microsoft-antispam-prvs: <MN2PR12MB42054E7302A8B7C168CC4A0FC4520@MN2PR12MB4205.namprd12.prod.outlook.com>
+x-ms-oob-tlc-oobclassifiers: OLM:6108;
+x-ms-exchange-senderadcheck: 1
+x-microsoft-antispam: BCL:0;
+x-microsoft-antispam-message-info: JMeFDUcupaFrahFRQmZRXxmZyi0g4ecjwzKuWhGUa33/c1Vrst6MTaXM8czHRSn8f3CeODfjGJt0FdtykYgdKUnT/jumjrYrU1WAtmE4BTQkWDGS9OIecasUjU1SYJke1CrmrFKo8cn32x6ljtlECB6xZerZJKNYaQjmyxEyy4gTATSznvB9SHCJNhX8t4vjHsqJC3OG3iF66yNg/Sk8zxlUW555wVWax5bHkS0y6hTKKBz8crC1n10nOYTYXRCorckGTWb1x98HkwEQOxChhg8834YSmGWFp7aqqHHKTwTvBMcZYJkDCs+vRA7j/U/cdsnuKb+qxEF7/Pdxp8HCAHQfAFbNG3IhLZfc9ElC2X5FxW/bCDTGr4hmn6x59dB6
+x-forefront-antispam-report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
+ IPV:NLI; SFV:NSPM; H:MN2PR12MB4390.namprd12.prod.outlook.com; PTR:; CAT:NONE;
+ SFS:(346002)(376002)(39850400004)(366004)(136003)(396003)(7696005)(2906002)(33656002)(86362001)(71200400001)(52536014)(5660300002)(83380400001)(110136005)(7416002)(8936002)(64756008)(55016002)(9686003)(186003)(478600001)(8676002)(316002)(66446008)(76116006)(53546011)(66476007)(66556008)(66946007)(91956017)(6506007)(921003);
+ DIR:OUT; SFP:1101; 
+x-ms-exchange-antispam-messagedata: cCZkIEut8EQUM5+mzAVAIQObSeOPcb3mmweEqv5nymqe0UopRbW5x0g+HrSfM5L3SN9gZ+Nm1rqKKw/yRINRFbDpnDgBnoLJOj3dupI2kH1hMPwCv7pFlD5lyBQ0GcMAttfwWUX0gkeET6x0kz45ffGXBq7rWZDXPdTeSd5tezYcPKuVQ1UejqFCMjuAXrBvLJY0ZygbSyWnFtk1WeGiKVOkfKtmgKnthAOKUQXutltQsF2N3PC8izTHvhzj5j05bKZX4mlEAOtFPm10dtASjghqA8Z68LhE91moZBm9SKtPjwQIbDOUo/eP+U/gpfn61RMs6y44JVFuBWdpJkLqNQh8qlAbnw7qFzQBHzxqYIsS9K3tEDp0JzXa7pU5Vh89gRxDq3P4TZp+ji8Y79ZOLaUs32YkAWmCTqtghlE1YigoEdsbp8Zq9FdZ4s+QhrIuKgTyBkgVvNmnJtDCT1zf97+KPYPTOqakaaFOJqbeRQiPO/rgLbyu27ikjogpvtc2Mauiw5nT6dA41alM8PwjoVVKSHdzROCW6bkWqZI0IwI6sitTATkOu0pI+VJ2uhYbeGvzsg/RQzImacXCM5+iZC4i9W0pvFtDWvr1ybyKi7B3tsBs66lvozRa+7N+eK4gtOj/BCPYwA0PpOgYrpt8+osO6QCbVP/NJawcbcfkwA5Z6uUXxbdEyiGy9LzmeizX9YPgAabeJvP86sAMmN5/Tw==
+x-ms-exchange-transport-forked: True
 MIME-Version: 1.0
-X-MS-Exchange-MessageSentRepresentingType: 1
-Received: from [192.168.13.3] (85.226.217.78) by
- HE1P195CA0004.EURP195.PROD.OUTLOOK.COM (2603:10a6:3:fd::14) with Microsoft
- SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.20.3326.19 via Frontend Transport; Thu, 27 Aug 2020 21:52:51 +0000
-X-Originating-IP: [85.226.217.78]
-X-MS-PublicTrafficType: Email
-X-MS-Office365-Filtering-Correlation-Id: fb212ce4-0bee-44aa-b583-08d84ad38cfd
-X-MS-TrafficTypeDiagnostic: DB6PR02MB3176:
-X-Microsoft-Antispam-PRVS: <DB6PR02MB3176F05D83B87F5FF26795A6BC550@DB6PR02MB3176.eurprd02.prod.outlook.com>
-X-MS-Oob-TLC-OOBClassifiers: OLM:4941;
-X-MS-Exchange-SenderADCheck: 1
-X-Microsoft-Antispam: BCL:0;
-X-Microsoft-Antispam-Message-Info: 7Z33sRAWscyOK035iaeJVLTdnhzfui+/SL/dYZv+D5DJ8bxNsTb31/4fzrHpO7s9/veHFvKZPTnbUydU8LaoOZJWFu38YO2vfwz2/8ufHQE4SYQkkDYRt4JNpcSk0piCklIsO2KBW7GFMZRbuOeQPTdcCRJK2lsYRfNdAjTuYkeIMIpR+WoXHgZQZo/JxUy6wIn1S5mQKiX/vmUSFyS2hgb91RZzyeXuoTnvIbz82a5btN5qEXRu78hWDIA6Y4W2oZMCaTqmkJxseSAgydaLogj5ZL7sDSPeX7TG2bCYnpZHmRiZCIzMqOgkFosaLmhQTuZxCVJv/K4lbPOLKo9srU55sS3ePzo9QfsosrObQExpAK2zDIywFJATCogTN1I9tEvcW8cwLixCxhHFJyPrFA==
-X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
- IPV:NLI; SFV:NSPM; H:DB8PR02MB5482.eurprd02.prod.outlook.com; PTR:; CAT:NONE;
- SFS:(376002)(346002)(396003)(366004)(136003)(39840400004)(36756003)(16576012)(8676002)(316002)(53546011)(186003)(8936002)(36916002)(83380400001)(2906002)(52116002)(26005)(66946007)(6486002)(66556008)(110136005)(478600001)(66476007)(86362001)(2616005)(16526019)(6666004)(7416002)(31686004)(956004)(31696002)(5660300002)(921003)(43740500002);
- DIR:OUT; SFP:1102; 
-X-MS-Exchange-AntiSpam-MessageData: aBSuJ1Qg631JDAQY1otRa8HjN8rHjUEZweseGyn0E9YoyjyYpOukbSE77sVeIrkNeE5SWzQBHt2fpTRZZcx/EyfUqKmjbIn5D4MF/SKWq4VDT9PlHuHGts/t+MnIinyLByybW+5591ZUmfe9dt/inNeo2jnO9lDHESvq1IehnZE/Av7gXTioDmOxiRiux/ul8Q/saL9ih3IzxHOTkDCtOAAe3HJiJ1I5zlbV+uH4Jsjnpvc459eeZb7PpMwcxXvWb3mcYM+gYemcrxtjukBn+m38tPV7tMl0Gms6OxbjOiIDqlzAfeRqD3KrWXwIphcK3G+Hlm5dOQgQs6krdfcYJL07HijOn+tn9S7mr5zi8ilJDaalahI8GlM8BrsbGuz4iFMJg5JwtQ6oyyKl87kgzNyaLvYgtvisjAj2S/ygKd7pv/9h4NwYFSvEW6N166y62vwcpa1TSyXg7p1PiFTPAc8iZbRPPXw0koRh8Kw/n/H+qsTIOhMEIWwp0yEmiIQ6FLEYNHZFX3TexwcmWsMmDmqWXIZ2o+MZymLWFqPaUO+bnb/1c4zrUSwA9VlYjSUFioJVDNHAh/iuFRE7S4zZ1ZS1l20IM8EeeWhpCKYojwsY4gwBAYCGp9IreCr4n0oepRzBBF1krTQJis+yBR2EkA==
-X-OriginatorOrg: axentia.se
-X-MS-Exchange-CrossTenant-Network-Message-Id: fb212ce4-0bee-44aa-b583-08d84ad38cfd
-X-MS-Exchange-CrossTenant-AuthSource: DB8PR02MB5482.eurprd02.prod.outlook.com
+X-OriginatorOrg: invensense.com
 X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 27 Aug 2020 21:52:53.9925 (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: 4ee68585-03e1-4785-942a-df9c1871a234
-X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: Gp8pe3RxEyeZgAS7g3nmk73OTM7sKAfnY0UfGUdpnPD0Z5saWMFXnqGXSIN85j8i
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: DB6PR02MB3176
+X-MS-Exchange-CrossTenant-AuthSource: MN2PR12MB4390.namprd12.prod.outlook.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: 2c529cfe-f087-4ab0-b116-08d84b1ca25a
+X-MS-Exchange-CrossTenant-originalarrivaltime: 28 Aug 2020 06:36:02.4390 (UTC)
+X-MS-Exchange-CrossTenant-fromentityheader: Hosted
+X-MS-Exchange-CrossTenant-id: 462b3b3b-e42b-47ea-801a-f1581aac892d
+X-MS-Exchange-CrossTenant-mailboxtype: HOSTED
+X-MS-Exchange-CrossTenant-userprincipalname: hGmIj4EPrsJmTxyinPjmc6sYmo35TCcJ/ItiWZli9WxNiSmzr9gdnqUkhmLW20lGlWlSrcwU5o4+esuLKWPO9OzYfmGQ5KR68z+i94pgFb8=
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: MN2PR12MB4205
+X-Proofpoint-Virus-Version: vendor=fsecure engine=2.50.10434:6.0.235, 18.0.687
+ definitions=2020-08-28_03:2020-08-27,
+ 2020-08-28 signatures=0
+X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
+ lowpriorityscore=0
+ mlxlogscore=999 spamscore=0 priorityscore=1501 mlxscore=0 clxscore=1011
+ suspectscore=0 phishscore=0 impostorscore=0 malwarescore=0 bulkscore=0
+ adultscore=0 classifier=spam adjust=0 reason=mlx scancount=1
+ engine=8.12.0-2006250000 definitions=main-2008280050
 X-Mailman-Approved-At: Fri, 28 Aug 2020 08:11:17 +0000
-Subject: Re: [Linux-stm32] [PATCH v2 18/18] iio: magnetometer: iio-mux:
- Simplify with dev_err_probe()
+Subject: Re: [Linux-stm32] [PATCH v2 13/18] iio: imu: inv_mpu6050: Simplify
+ with dev_err_probe()
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -121,44 +144,67 @@ Content-Transfer-Encoding: 7bit
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
-Hi!
+Hello,
 
-Wrong subject. Made me overlook it on the first pass...
+thanks for the patch.
 
-On 2020-08-27 21:26, Krzysztof Kozlowski wrote:
-> Common pattern of handling deferred probe can be simplified with
-> dev_err_probe().  Less code and also it prints the error value.
-> 
-> Signed-off-by: Krzysztof Kozlowski <krzk@kernel.org>
-> ---
->  drivers/iio/multiplexer/iio-mux.c | 7 ++-----
->  1 file changed, 2 insertions(+), 5 deletions(-)
-> 
-> diff --git a/drivers/iio/multiplexer/iio-mux.c b/drivers/iio/multiplexer/iio-mux.c
-> index 6910218fdb00..d219d4a86657 100644
-> --- a/drivers/iio/multiplexer/iio-mux.c
-> +++ b/drivers/iio/multiplexer/iio-mux.c
-> @@ -354,11 +354,8 @@ static int mux_probe(struct platform_device *pdev)
->  		return -ENODEV;
->  
->  	parent = devm_iio_channel_get(dev, "parent");
-> -	if (IS_ERR(parent)) {
-> -		if (PTR_ERR(parent) != -EPROBE_DEFER)
-> -			dev_err(dev, "failed to get parent channel\n");
-> -		return PTR_ERR(parent);
-> -	}
-> +	if (IS_ERR(parent))
-> +		return dev_err_probe(dev, PTR_ERR(parent), "failed to get parent channel\n");
+Best regards,
+JB
 
-As per the comment for 9/18, I'm not a fan of the long line here...
+Reviewed-by: Jean-Baptiste Maneyrol <jmaneyrol@invensense.com>
 
-Cheers,
-Peter
+________________________________________
+From: linux-iio-owner@vger.kernel.org <linux-iio-owner@vger.kernel.org> on behalf of Krzysztof Kozlowski <krzk@kernel.org>
+Sent: Thursday, August 27, 2020 21:26
+To: Jonathan Cameron; Hartmut Knaack; Lars-Peter Clausen; Peter Meerwald-Stadler; Peter Rosin; Kukjin Kim; Krzysztof Kozlowski; Michael Hennerich; Kevin Hilman; Neil Armstrong; Jerome Brunet; Martin Blumenstingl; Marek Vasut; Maxime Coquelin; Alexandre Torgue; Beniamin Bia; Tomasz Duszynski; Linus Walleij; Andy Shevchenko; linux-iio@vger.kernel.org; linux-kernel@vger.kernel.org; linux-arm-kernel@lists.infradead.org; linux-samsung-soc@vger.kernel.org; linux-amlogic@lists.infradead.org; linux-stm32@st-md-mailman.stormreply.com
+Subject: [PATCH v2 13/18] iio: imu: inv_mpu6050: Simplify with dev_err_probe()
 
->  
->  	sizeof_ext_info = iio_get_channel_ext_info_count(parent);
->  	if (sizeof_ext_info) {
-> 
+ CAUTION: This email originated from outside of the organization. Please make sure the sender is who they say they are and do not click links or open attachments unless you recognize the sender and know the content is safe.
+
+Common pattern of handling deferred probe can be simplified with
+dev_err_probe().  Less code and also it prints the error value.
+
+Signed-off-by: Krzysztof Kozlowski <krzk@kernel.org>
+---
+ drivers/iio/imu/inv_mpu6050/inv_mpu_core.c | 20 ++++++--------------
+ 1 file changed, 6 insertions(+), 14 deletions(-)
+
+diff --git a/drivers/iio/imu/inv_mpu6050/inv_mpu_core.c b/drivers/iio/imu/inv_mpu6050/inv_mpu_core.c
+index 3fee3947f772..18a1898e3e34 100644
+--- a/drivers/iio/imu/inv_mpu6050/inv_mpu_core.c
++++ b/drivers/iio/imu/inv_mpu6050/inv_mpu_core.c
+@@ -1475,22 +1475,14 @@ int inv_mpu_core_probe(struct regmap *regmap, int irq, const char *name,
+        }
+
+        st->vdd_supply = devm_regulator_get(dev, "vdd");
+-       if (IS_ERR(st->vdd_supply)) {
+-               if (PTR_ERR(st->vdd_supply) != -EPROBE_DEFER)
+-                       dev_err(dev, "Failed to get vdd regulator %d\n",
+-                               (int)PTR_ERR(st->vdd_supply));
+-
+-               return PTR_ERR(st->vdd_supply);
+-       }
++       if (IS_ERR(st->vdd_supply))
++               return dev_err_probe(dev, PTR_ERR(st->vdd_supply),
++                                    "Failed to get vdd regulator\n");
+
+        st->vddio_supply = devm_regulator_get(dev, "vddio");
+-       if (IS_ERR(st->vddio_supply)) {
+-               if (PTR_ERR(st->vddio_supply) != -EPROBE_DEFER)
+-                       dev_err(dev, "Failed to get vddio regulator %d\n",
+-                               (int)PTR_ERR(st->vddio_supply));
+-
+-               return PTR_ERR(st->vddio_supply);
+-       }
++       if (IS_ERR(st->vddio_supply))
++               return dev_err_probe(dev, PTR_ERR(st->vddio_supply),
++                                    "Failed to get vddio regulator\n");
+
+        result = regulator_enable(st->vdd_supply);
+        if (result) {
+--
+2.17.1
+
 _______________________________________________
 Linux-stm32 mailing list
 Linux-stm32@st-md-mailman.stormreply.com
