@@ -2,54 +2,66 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id 76B6C255EE0
-	for <lists+linux-stm32@lfdr.de>; Fri, 28 Aug 2020 18:38:54 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id CB8CD256008
+	for <lists+linux-stm32@lfdr.de>; Fri, 28 Aug 2020 19:52:03 +0200 (CEST)
 Received: from ip-172-31-3-76.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 31F88C32E90;
-	Fri, 28 Aug 2020 16:38:54 +0000 (UTC)
-Received: from mail-out.m-online.net (mail-out.m-online.net [212.18.0.10])
- (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 53ECEC32EA6;
+	Fri, 28 Aug 2020 17:52:03 +0000 (UTC)
+Received: from smtprelay.hostedemail.com (smtprelay0082.hostedemail.com
+ [216.40.44.82])
+ (using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id D0BE6C36B26
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id DBE61C36B26
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Fri, 28 Aug 2020 16:38:52 +0000 (UTC)
-Received: from frontend01.mail.m-online.net (unknown [192.168.8.182])
- by mail-out.m-online.net (Postfix) with ESMTP id 4BdQK80Lzmz1tBxY;
- Fri, 28 Aug 2020 18:38:52 +0200 (CEST)
-Received: from localhost (dynscan1.mnet-online.de [192.168.6.70])
- by mail.m-online.net (Postfix) with ESMTP id 4BdQK76hbVz1qrFC;
- Fri, 28 Aug 2020 18:38:51 +0200 (CEST)
-X-Virus-Scanned: amavisd-new at mnet-online.de
-Received: from mail.mnet-online.de ([192.168.8.182])
- by localhost (dynscan1.mail.m-online.net [192.168.6.70]) (amavisd-new,
- port 10024)
- with ESMTP id sRo9Hbbpf58U; Fri, 28 Aug 2020 18:38:50 +0200 (CEST)
-X-Auth-Info: S/jB4D8ENMEpOWf39qV7ulJwTPdXYVw9B/HfPYxKW80=
-Received: from [IPv6:::1] (p578adb1c.dip0.t-ipconnect.de [87.138.219.28])
- (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
- (No client certificate requested)
- by mail.mnet-online.de (Postfix) with ESMTPSA;
- Fri, 28 Aug 2020 18:38:50 +0200 (CEST)
-To: Alexandre Torgue <alexandre.torgue@st.com>,
- linux-arm-kernel@lists.infradead.org
-References: <20200822203611.61997-1-marex@denx.de>
- <aaa9a92f-193c-9344-523b-fd5b7d7aaef2@st.com>
- <ab6d81d8-f276-ecd5-2f51-0bcecd47680f@denx.de>
- <d649ca40-4b07-20a2-49ee-00da585f32a8@st.com>
-From: Marek Vasut <marex@denx.de>
-Message-ID: <62edf905-4a1e-574b-3966-d9d1ee0bda5d@denx.de>
-Date: Fri, 28 Aug 2020 18:38:49 +0200
-User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:68.0) Gecko/20100101
- Thunderbird/68.11.0
+ Fri, 28 Aug 2020 17:52:01 +0000 (UTC)
+Received: from filter.hostedemail.com (clb03-v110.bra.tucows.net
+ [216.40.38.60])
+ by smtprelay01.hostedemail.com (Postfix) with ESMTP id 9C5C8100E7B4C;
+ Fri, 28 Aug 2020 17:52:00 +0000 (UTC)
+X-Session-Marker: 6A6F6540706572636865732E636F6D
+X-Spam-Summary: 2, 0, 0, , d41d8cd98f00b204, joe@perches.com, ,
+ RULES_HIT:41:355:379:599:973:988:989:1260:1277:1311:1313:1314:1345:1359:1437:1515:1516:1518:1534:1541:1593:1594:1711:1730:1747:1777:1792:2198:2199:2393:2559:2562:2828:2892:2911:3138:3139:3140:3141:3142:3353:3622:3865:3866:3867:3868:3871:3872:3873:3874:4321:4425:4560:5007:6742:6743:7903:10004:10400:10848:11232:11658:11914:12297:12663:12740:12760:12895:13069:13311:13357:13439:14096:14097:14659:14721:21067:21080:21324:21433:21451:21627:30012:30054:30070:30075:30091,
+ 0, RBL:none, CacheIP:none, Bayesian:0.5, 0.5, 0.5, Netcheck:none,
+ DomainCache:0, MSF:not bulk, SPF:, MSBL:0, DNSBL:none, Custom_rules:0:0:0,
+ LFtime:1, LUA_SUMMARY:none
+X-HE-Tag: edge90_0e065aa27077
+X-Filterd-Recvd-Size: 3579
+Received: from XPS-9350.home (unknown [47.151.133.149])
+ (Authenticated sender: joe@perches.com)
+ by omf05.hostedemail.com (Postfix) with ESMTPA;
+ Fri, 28 Aug 2020 17:51:56 +0000 (UTC)
+Message-ID: <d8dce79d93363e19ea132ba8237a607a1ff28f09.camel@perches.com>
+From: Joe Perches <joe@perches.com>
+To: Peter Rosin <peda@axentia.se>, Krzysztof Kozlowski <krzk@kernel.org>
+Date: Fri, 28 Aug 2020 10:51:55 -0700
+In-Reply-To: <b7a5a441-cda1-ad02-b723-255231f2bd94@axentia.se>
+References: <20200827192642.1725-1-krzk@kernel.org>
+ <20200827192642.1725-9-krzk@kernel.org>
+ <f4a5777e-fe85-9f3f-4818-f7539f223adc@axentia.se>
+ <20200828062443.GA17343@pi3>
+ <3a5cb59b-454e-2c3f-9f31-43147e843c66@axentia.se>
+ <CAJKOXPcqNE5U82UThzBTPCvucCf2LsCVSfAHE1vnecJGCKCaig@mail.gmail.com>
+ <b7a5a441-cda1-ad02-b723-255231f2bd94@axentia.se>
+User-Agent: Evolution 3.36.4-0ubuntu1 
 MIME-Version: 1.0
-In-Reply-To: <d649ca40-4b07-20a2-49ee-00da585f32a8@st.com>
-Content-Language: en-US
-Cc: Patrick Delaunay <patrick.delaunay@st.com>,
- linux-stm32@st-md-mailman.stormreply.com,
- Maxime Coquelin <mcoquelin.stm32@gmail.com>,
- Manivannan Sadhasivam <manivannan.sadhasivam@linaro.org>
-Subject: Re: [Linux-stm32] [PATCH] ARM: dts: stm32: Add alternate pinmux for
-	DCMI pins
+Cc: Peter Meerwald-Stadler <pmeerw@pmeerw.net>,
+ Neil Armstrong <narmstrong@baylibre.com>, linux-iio@vger.kernel.org,
+ Linus Walleij <linus.walleij@linaro.org>,
+ Tomasz Duszynski <tomasz.duszynski@octakon.com>,
+ linux-stm32@st-md-mailman.stormreply.com, Jerome Brunet <jbrunet@baylibre.com>,
+ Lars-Peter Clausen <lars@metafoo.de>, Kevin Hilman <khilman@baylibre.com>,
+ Marek Vasut <marek.vasut@gmail.com>,
+ Andy Shevchenko <andy.shevchenko@gmail.com>, Kukjin Kim <kgene@kernel.org>,
+ Beniamin Bia <beniamin.bia@analog.com>,
+ Michael Hennerich <Michael.Hennerich@analog.com>,
+ Martin Blumenstingl <martin.blumenstingl@googlemail.com>,
+ "linux-samsung-soc@vger.kernel.org" <linux-samsung-soc@vger.kernel.org>,
+ linux-amlogic@lists.infradead.org, linux-arm-kernel@lists.infradead.org,
+ "linux-kernel@vger.kernel.org" <linux-kernel@vger.kernel.org>,
+ Maxime Coquelin <mcoquelin.stm32@gmail.com>, Hartmut Knaack <knaack.h@gmx.de>,
+ Jonathan Cameron <jic23@kernel.org>
+Subject: Re: [Linux-stm32] [PATCH v2 09/18] iio: afe: iio-rescale: Simplify
+ with dev_err_probe()
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -61,63 +73,50 @@ List-Post: <mailto:linux-stm32@st-md-mailman.stormreply.com>
 List-Help: <mailto:linux-stm32-request@st-md-mailman.stormreply.com?subject=help>
 List-Subscribe: <https://st-md-mailman.stormreply.com/mailman/listinfo/linux-stm32>, 
  <mailto:linux-stm32-request@st-md-mailman.stormreply.com?subject=subscribe>
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: base64
+Content-Type: text/plain; charset="us-ascii"
+Content-Transfer-Encoding: 7bit
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
-T24gOC8yOC8yMCA1OjU2IFBNLCBBbGV4YW5kcmUgVG9yZ3VlIHdyb3RlOgo+IEhpLAoKSGksCgo+
-IE9uIDgvMjgvMjAgMjo1MiBQTSwgTWFyZWsgVmFzdXQgd3JvdGU6Cj4+IE9uIDgvMjgvMjAgMjo0
-NyBQTSwgQWxleGFuZHJlIFRvcmd1ZSB3cm90ZToKPj4+IEhpIE1hcmVrCj4+Cj4+IEhpLAo+Pgo+
-PiBbLi4uXQo+Pgo+Pj4+ICvCoMKgwqDCoMKgwqDCoCBwaW5zIHsKPj4+PiArwqDCoMKgwqDCoMKg
-wqDCoMKgwqDCoCBwaW5tdXggPSA8U1RNMzJfUElOTVVYKCdBJywgNCzCoCBBRjEzKT4sLyogRENN
-SV9IU1lOQyAqLwo+Pj4+ICvCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoCA8U1RNMzJf
-UElOTVVYKCdCJywgNyzCoCBBRjEzKT4sLyogRENNSV9WU1lOQyAqLwo+Pj4+ICvCoMKgwqDCoMKg
-wqDCoMKgwqDCoMKgwqDCoMKgwqDCoCA8U1RNMzJfUElOTVVYKCdBJywgNizCoCBBRjEzKT4sLyog
-RENNSV9QSVhDTEsgKi8KPj4+PiArwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqAgPFNU
-TTMyX1BJTk1VWCgnQScsIDkswqAgQUYxMyk+LC8qIERDTUlfRDAgKi8KPj4+PiArwqDCoMKgwqDC
-oMKgwqDCoMKgwqDCoMKgwqDCoMKgwqAgPFNUTTMyX1BJTk1VWCgnSCcsIDEwLCBBRjEzKT4sLyog
-RENNSV9EMSAqLwo+Pj4+ICvCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoCA8U1RNMzJf
-UElOTVVYKCdFJywgMCwgQUYxMyk+LC8qIERDTUlfRDIgKi8KPj4+PiArwqDCoMKgwqDCoMKgwqDC
-oMKgwqDCoMKgwqDCoMKgwqAgPFNUTTMyX1BJTk1VWCgnRScsIDEsIEFGMTMpPiwvKiBEQ01JX0Qz
-ICovCj4+Pj4gK8KgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgIDxTVE0zMl9QSU5NVVgo
-J0gnLCAxNCwgQUYxMyk+LC8qIERDTUlfRDQgKi8KPj4+PiArwqDCoMKgwqDCoMKgwqDCoMKgwqDC
-oMKgwqDCoMKgwqAgPFNUTTMyX1BJTk1VWCgnSScsIDQswqAgQUYxMyk+LC8qIERDTUlfRDUgKi8K
-Pj4+PiArwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqAgPFNUTTMyX1BJTk1VWCgnSScs
-IDYswqAgQUYxMyk+LC8qIERDTUlfRDYgKi8KPj4+PiArwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKg
-wqDCoMKgwqAgPFNUTTMyX1BJTk1VWCgnRScsIDYswqAgQUYxMyk+LC8qIERDTUlfRDcgKi8KPj4+
-PiArwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqAgPFNUTTMyX1BJTk1VWCgnSScsIDEs
-wqAgQUYxMyk+LC8qIERDTUlfRDggKi8KPj4+PiArwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDC
-oMKgwqAgPFNUTTMyX1BJTk1VWCgnSCcsIDcswqAgQUYxMyk+Oy8qIERDTUlfRDkgKi8KPj4+PiAr
-wqDCoMKgwqDCoMKgwqDCoMKgwqDCoCBiaWFzLXB1bGwtdXA7Cj4+Pj4gK8KgwqDCoMKgwqDCoMKg
-IH07Cj4+Pj4gK8KgwqDCoCB9Owo+Pj4+ICsKPj4+PiArwqDCoMKgIGRjbWlfc2xlZXBfcGluc19i
-OiBkY21pLXNsZWVwLTEgewo+Pj4+ICvCoMKgwqDCoMKgwqDCoCBwaW5zIHsKPj4+PiArwqDCoMKg
-wqDCoMKgwqDCoMKgwqDCoCBwaW5tdXggPSA8U1RNMzJfUElOTVVYKCdBJywgNCzCoCBBTkFMT0cp
-PiwvKiBEQ01JX0hTWU5DICovCj4+Pj4gK8KgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKg
-IDxTVE0zMl9QSU5NVVgoJ0InLCA3LMKgIEFOQUxPRyk+LC8qIERDTUlfVlNZTkMgKi8KPj4+PiAr
-wqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqAgPFNUTTMyX1BJTk1VWCgnQScsIDYswqAg
-QU5BTE9HKT4sLyogRENNSV9QSVhDTEsgKi8KPj4+PiArwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKg
-wqDCoMKgwqAgPFNUTTMyX1BJTk1VWCgnQScsIDkswqAgQU5BTE9HKT4sLyogRENNSV9EMCAqLwo+
-Pj4+ICvCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoCA8U1RNMzJfUElOTVVYKCdIJywg
-MTAsIEFOQUxPRyk+LC8qIERDTUlfRDEgKi8KPj4+PiArwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKg
-wqDCoMKgwqAgPFNUTTMyX1BJTk1VWCgnRScsIDAsIEFOQUxPRyk+LC8qIERDTUlfRDIgKi8KPj4+
-PiArwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqAgPFNUTTMyX1BJTk1VWCgnRScsIDEs
-IEFOQUxPRyk+LC8qIERDTUlfRDMgKi8KPj4+PiArwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDC
-oMKgwqAgPFNUTTMyX1BJTk1VWCgnSCcsIDE0LCBBTkFMT0cpPiwvKiBEQ01JX0Q0ICovCj4+Pj4g
-K8KgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgIDxTVE0zMl9QSU5NVVgoJ0knLCA0LMKg
-IEFOQUxPRyk+LC8qIERDTUlfRDUgKi8KPj4+PiArwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDC
-oMKgwqAgPFNUTTMyX1BJTk1VWCgnSScsIDYswqAgQU5BTE9HKT4sLyogRENNSV9ENiAqLwo+Pj4+
-ICvCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoCA8U1RNMzJfUElOTVVYKCdFJywgNizC
-oCBBTkFMT0cpPiwvKiBEQ01JX0Q3ICovCj4+Pj4gK8KgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKg
-wqDCoMKgIDxTVE0zMl9QSU5NVVgoJ0knLCAxLMKgIEFOQUxPRyk+LC8qIERDTUlfRDggKi8KPj4+
-PiArwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqAgPFNUTTMyX1BJTk1VWCgnSCcsIDcs
-wqAgQU5BTE9HKT47LyogRENNSV9EOSAqLwo+Pj4+ICvCoMKgwqDCoMKgwqDCoCB9Owo+Pj4+ICvC
-oMKgwqAgfTsKPj4+PiArCj4+Pgo+Pj4gRGVmaW5lZCBidXQgbm90IHVzZWQuIERvIHlvdSBoYXZl
-IGFub3RoZXIgcGF0Y2ggaW4gcGlwZSA/Cj4+Cj4+IFllYWgsIGZvciBjYW1lcmEgb24gdGhlIEFW
-OTYsIGJ1dCB0aGF0IGRlcGVuZHMgb24gRENNSSBtZWRpYSBwYXRjaGVzIHRvCj4+IGJlIHVzYWJs
-ZS4gU2FtZSBmb3IgdGhlIFJDQyBwYXRjaGVzLgo+IAo+IE9rIHNvIEkgcHJlZmVyIHRvIHdhaXQg
-Zm9yIG90aGVyIERDTUkgcGF0Y2hlcyBiZWZvcmUgbWVyZ2luZyB0aG9zZSBvbmVzLgoKRmluZSBi
-eSBtZS4KX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX18KTGlu
-dXgtc3RtMzIgbWFpbGluZyBsaXN0CkxpbnV4LXN0bTMyQHN0LW1kLW1haWxtYW4uc3Rvcm1yZXBs
-eS5jb20KaHR0cHM6Ly9zdC1tZC1tYWlsbWFuLnN0b3JtcmVwbHkuY29tL21haWxtYW4vbGlzdGlu
-Zm8vbGludXgtc3RtMzIK
+On Fri, 2020-08-28 at 11:39 +0200, Peter Rosin wrote:
+> On 2020-08-28 09:03, Krzysztof Kozlowski wrote:
+> > > > If there is no consensus among discussing people, I find this 100 line
+> > > > more readable, already got review, checkpatch accepts it so if subsystem
+> > > > maintainer likes it, I prefer to leave it like this.
+> > > 
+> > > I'm not impressed by that argument. For the files I have mentioned, it
+> > > does not matter very much to me if you and some random person think that
+> > > 100 columns might *slightly* improve readability.
+> > > 
+> > > Quoting coding-style
+> > > 
+> > >   Statements longer than 80 columns should be broken into sensible chunks,
+> > >   unless exceeding 80 columns significantly increases readability and does
+> > >   not hide information.
+> > > 
+> > > Notice that word? *significantly*
+> > 
+> > Notice also checkpatch change...
+> 
+> How is that relevant? checkpatch has *never* had the final say and its
+> heuristics can never be perfect. Meanwhile, coding style is talking about
+> exactly the case under discussion, and agrees with me perfectly.
+
+As the checkpatch maintainer, checkpatch is stupid.
+Using it as a primary argument should never be acceptable.
+
+But line lengths from 81 to 100 columns should be exceptions
+rather than
+standard use.
+
+Any named maintainer of actual code determines the style for
+that code.
+
+Style consistency and use of kernel standard mechanisms
+should be the primary goals here.
+
+
+_______________________________________________
+Linux-stm32 mailing list
+Linux-stm32@st-md-mailman.stormreply.com
+https://st-md-mailman.stormreply.com/mailman/listinfo/linux-stm32
