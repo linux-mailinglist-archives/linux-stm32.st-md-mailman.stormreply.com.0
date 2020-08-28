@@ -2,72 +2,69 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id A3BDE254FAC
-	for <lists+linux-stm32@lfdr.de>; Thu, 27 Aug 2020 22:02:28 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 6AA8D25547C
+	for <lists+linux-stm32@lfdr.de>; Fri, 28 Aug 2020 08:24:51 +0200 (CEST)
 Received: from ip-172-31-3-76.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 6B37CC32EA6;
-	Thu, 27 Aug 2020 20:02:28 +0000 (UTC)
-Received: from mail-pg1-f196.google.com (mail-pg1-f196.google.com
- [209.85.215.196])
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id B6A98C32EA6;
+	Fri, 28 Aug 2020 06:24:50 +0000 (UTC)
+Received: from mail-ed1-f66.google.com (mail-ed1-f66.google.com
+ [209.85.208.66])
  (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id ACC5BC36B26
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id B84BBC36B26
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Thu, 27 Aug 2020 20:02:26 +0000 (UTC)
-Received: by mail-pg1-f196.google.com with SMTP id 31so4111383pgy.13
+ Fri, 28 Aug 2020 06:24:47 +0000 (UTC)
+Received: by mail-ed1-f66.google.com with SMTP id ba12so150617edb.2
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Thu, 27 Aug 2020 13:02:26 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20161025;
- h=mime-version:references:in-reply-to:from:date:message-id:subject:to
- :cc; bh=jZGo/LXMWA743P+olH7TRkE+L3lrjbqKbRZ3LxAQjPo=;
- b=dTu6o2U3wIn+j1v+r3MXNSN35FUN+T2Ga+C6IEZhOqyDDBfBE3A597INaQykc/zK5N
- e29lSW8oIy3von1EDSHzrXAVeRMAvW1ed+lYOELqagYL5sR2inJeqwfBbqXV4FK6sCMk
- Hfm42l4h/LTOWilsOGK7JOMAPAdmKuTI7ri15EU81fGomSsgujOEykmO3j5u3b8d00JT
- y6G7L3ZjYiblAjxovxtPZnHCI16Md4+vLhzEs1tK7lNien1ry4pAHrXAiN3tLj6C5xlc
- yK8rJWblvVYrsonzu63yJ/EgonbAcYBoDqsF2KrONQ8csAQTA+38zWBBwcTvD1DPUifV
- GLSg==
+ Thu, 27 Aug 2020 23:24:47 -0700 (PDT)
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=1e100.net; s=20161025;
- h=x-gm-message-state:mime-version:references:in-reply-to:from:date
- :message-id:subject:to:cc;
- bh=jZGo/LXMWA743P+olH7TRkE+L3lrjbqKbRZ3LxAQjPo=;
- b=j6dsrf3FD8t20HQK9tpFPDA3joNZeIwydUluYxNkAkuBl/o1vLiYNX41C9yCcWTaTQ
- F9noIs9T4db4dBjJE1sPZs5fDZgVA7oWAo1uF/MnYcPBIXs3NBEFKChzqX8OpsMgb6Ji
- eG0No8P15Hqvu50920uJdY6Fns8P5QcJXqkHDGryHH1LSWizyYlyAedR3tDnuZiqG57z
- D+umF9OGYGMcXAH1xHMUQsYG994zntFcIBBawfRhMVw8BXBlYEYBP62A08dRwxnI0+VY
- E9WnHHuKEt7kL3RtLpFDbJZF2GSujkrthbztULHtVmLoDDHK2rs2u07E212npqIqMosg
- PgrA==
-X-Gm-Message-State: AOAM531QBdow0kMWyFNtCVF4pVUxWNP49VKCOCV/1JmY+oXFLd6+yDps
- wt3bVC8egWA2/dQZGnRkJD6FC688pvK0O0zvaLs=
-X-Google-Smtp-Source: ABdhPJyrJVOQaAjVOgzTH9Ia08ZxKIpsXNc3Mfx5rESAlYI8qMYgqJ1+s8Yh5E+7TlXUKU+iWqHjdU0n6g2EX6jm0oE=
-X-Received: by 2002:aa7:95b8:: with SMTP id a24mr17478277pfk.219.1598558545190; 
- Thu, 27 Aug 2020 13:02:25 -0700 (PDT)
-MIME-Version: 1.0
+ h=x-gm-message-state:date:from:to:cc:subject:message-id:references
+ :mime-version:content-disposition:in-reply-to;
+ bh=p5CxlDCkzVcslzoI2Y1jCiSF6kba4WwnH5Gi/cefvyw=;
+ b=ltaRykk9elWIox/68N3saDTqNVENZIEuBUxTJ9A8yRt9gtY4p+cdaKoO3q77DLk5f2
+ EjUdVp1UozcmsmfOKeIBglkAUoeg71yXi7isXwUEjKjb4e8t/F2pk0qAZLnX3m6PRNoi
+ WlAJPrbvmJNqhXxWxW7xrUpvhjLX8Ez0lQlbz1rnw3gwoZnq53EGQKx34dKef0j9qZHM
+ sN9Y6R+ycirz3G8NvFEsmf1UXXjD2GtiuQV6g2nCmGhxGdS6OMcJAndQ5DA2v0GQ4teB
+ urlFkFP7OK3fEoVWSEPsJGEkS456z8F1Ix6fq8MdmD/A2wqmc8abO1BaS9s316mtPD4o
+ Kc5A==
+X-Gm-Message-State: AOAM530NcfgsFvU8dpGWC8zqV9xPtMhMVUdXgC286x+x65Yd1ExjJ+Ap
+ KcOs0TAaURjWXzB37TBAGj0=
+X-Google-Smtp-Source: ABdhPJxeW0KD9hKV2DDa/EdMjU+5aNFXnsb+vG7w/NJJBOIDbbnxf68rltSFEJDK0Zq+nf99uGbtHw==
+X-Received: by 2002:a05:6402:2039:: with SMTP id
+ ay25mr310806edb.87.1598595886637; 
+ Thu, 27 Aug 2020 23:24:46 -0700 (PDT)
+Received: from pi3 ([194.230.155.216])
+ by smtp.googlemail.com with ESMTPSA id w20sm3809310ejc.77.2020.08.27.23.24.44
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Thu, 27 Aug 2020 23:24:46 -0700 (PDT)
+Date: Fri, 28 Aug 2020 08:24:43 +0200
+From: Krzysztof Kozlowski <krzk@kernel.org>
+To: Peter Rosin <peda@axentia.se>
+Message-ID: <20200828062443.GA17343@pi3>
 References: <20200827192642.1725-1-krzk@kernel.org>
- <20200827192642.1725-18-krzk@kernel.org>
-In-Reply-To: <20200827192642.1725-18-krzk@kernel.org>
-From: Andy Shevchenko <andy.shevchenko@gmail.com>
-Date: Thu, 27 Aug 2020 23:02:08 +0300
-Message-ID: <CAHp75Vc4R_PkVSYFGNr0UO5yJ+dLGhVV-G7vznGnNu_aCVoTVQ@mail.gmail.com>
-To: Krzysztof Kozlowski <krzk@kernel.org>
-Cc: Linus Walleij <linus.walleij@linaro.org>,
- Lars-Peter Clausen <lars@metafoo.de>,
- Maxime Coquelin <mcoquelin.stm32@gmail.com>,
- Michael Hennerich <Michael.Hennerich@analog.com>,
- Neil Armstrong <narmstrong@baylibre.com>,
- Martin Blumenstingl <martin.blumenstingl@googlemail.com>,
- Kevin Hilman <khilman@baylibre.com>,
+ <20200827192642.1725-9-krzk@kernel.org>
+ <f4a5777e-fe85-9f3f-4818-f7539f223adc@axentia.se>
+MIME-Version: 1.0
+Content-Disposition: inline
+In-Reply-To: <f4a5777e-fe85-9f3f-4818-f7539f223adc@axentia.se>
+Cc: Peter Meerwald-Stadler <pmeerw@pmeerw.net>,
+ Neil Armstrong <narmstrong@baylibre.com>, linux-iio@vger.kernel.org,
+ Linus Walleij <linus.walleij@linaro.org>,
  Tomasz Duszynski <tomasz.duszynski@octakon.com>,
- Linux Kernel Mailing List <linux-kernel@vger.kernel.org>,
- linux-iio <linux-iio@vger.kernel.org>,
- linux-stm32@st-md-mailman.stormreply.com, Marek Vasut <marek.vasut@gmail.com>,
- Kukjin Kim <kgene@kernel.org>,
- linux-arm Mailing List <linux-arm-kernel@lists.infradead.org>,
- Peter Meerwald-Stadler <pmeerw@pmeerw.net>, linux-amlogic@lists.infradead.org,
- linux-samsung-soc@vger.kernel.org, Peter Rosin <peda@axentia.se>,
- Jonathan Cameron <jic23@kernel.org>, Jerome Brunet <jbrunet@baylibre.com>
-Subject: Re: [Linux-stm32] [PATCH v2 18/18] iio: magnetometer: iio-mux:
-	Simplify with dev_err_probe()
+ linux-stm32@st-md-mailman.stormreply.com, Jerome Brunet <jbrunet@baylibre.com>,
+ Lars-Peter Clausen <lars@metafoo.de>, Kevin Hilman <khilman@baylibre.com>,
+ Marek Vasut <marek.vasut@gmail.com>,
+ Andy Shevchenko <andy.shevchenko@gmail.com>, Kukjin Kim <kgene@kernel.org>,
+ Beniamin Bia <beniamin.bia@analog.com>,
+ Michael Hennerich <Michael.Hennerich@analog.com>,
+ Martin Blumenstingl <martin.blumenstingl@googlemail.com>,
+ linux-samsung-soc@vger.kernel.org, linux-amlogic@lists.infradead.org,
+ linux-arm-kernel@lists.infradead.org, linux-kernel@vger.kernel.org,
+ Maxime Coquelin <mcoquelin.stm32@gmail.com>, Hartmut Knaack <knaack.h@gmx.de>,
+ Jonathan Cameron <jic23@kernel.org>
+Subject: Re: [Linux-stm32] [PATCH v2 09/18] iio: afe: iio-rescale: Simplify
+ with dev_err_probe()
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -84,44 +81,85 @@ Content-Transfer-Encoding: 7bit
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
-On Thu, Aug 27, 2020 at 10:29 PM Krzysztof Kozlowski <krzk@kernel.org> wrote:
->
-> Common pattern of handling deferred probe can be simplified with
-> dev_err_probe().  Less code and also it prints the error value.
+On Thu, Aug 27, 2020 at 11:46:40PM +0200, Peter Rosin wrote:
+> On 2020-08-27 21:26, Krzysztof Kozlowski wrote:
+> > Common pattern of handling deferred probe can be simplified with
+> > dev_err_probe().  Less code and also it prints the error value.
+> > 
+> > Signed-off-by: Krzysztof Kozlowski <krzk@kernel.org>
+> > 
+> > ---
+> > 
+> > Changes since v1:
+> > 1. Wrap dev_err_probe() lines at 100 character
+> > ---
+> >  drivers/iio/afe/iio-rescale.c | 7 ++-----
+> >  1 file changed, 2 insertions(+), 5 deletions(-)
+> > 
+> > diff --git a/drivers/iio/afe/iio-rescale.c b/drivers/iio/afe/iio-rescale.c
+> > index 69c0f277ada0..8cd9645c50e8 100644
+> > --- a/drivers/iio/afe/iio-rescale.c
+> > +++ b/drivers/iio/afe/iio-rescale.c
+> > @@ -276,11 +276,8 @@ static int rescale_probe(struct platform_device *pdev)
+> >  	int ret;
+> >  
+> >  	source = devm_iio_channel_get(dev, NULL);
+> > -	if (IS_ERR(source)) {
+> > -		if (PTR_ERR(source) != -EPROBE_DEFER)
+> > -			dev_err(dev, "failed to get source channel\n");
+> > -		return PTR_ERR(source);
+> > -	}
+> > +	if (IS_ERR(source))
+> > +		return dev_err_probe(dev, PTR_ERR(source), "failed to get source channel\n");
+> 
+> Hi!
+> 
+> Sorry to be a pain...but...
+> 
+> I'm not a huge fan of adding *one* odd line breaking the 80 column
+> recommendation to any file. I like to be able to fit multiple
+> windows side by side in a meaningful way. Also, I don't like having
+> a shitload of emptiness on my screen, which is what happens when some
+> lines are longer and you want to see it all. I strongly believe that
+> the 80 column rule/recommendation is still as valid as it ever was.
+> It's just hard to read longish lines; there's a reason newspapers
+> columns are quite narrow...
+> 
+> Same comment for the envelope-detector (3/18).
+> 
+> You will probably never look at these files again, but *I* might have
+> to revisit them for one reason or another, and these long lines will
+> annoy me when that happens.
 
-Reviewed-by: Andy Shevchenko <andy.shevchenko@gmail.com>
+Initially I posted it with 80-characters wrap. Then I received a comment
+- better to stick to the new 100, as checkpatch accepts it.
 
-> Signed-off-by: Krzysztof Kozlowski <krzk@kernel.org>
-> ---
->  drivers/iio/multiplexer/iio-mux.c | 7 ++-----
->  1 file changed, 2 insertions(+), 5 deletions(-)
->
-> diff --git a/drivers/iio/multiplexer/iio-mux.c b/drivers/iio/multiplexer/iio-mux.c
-> index 6910218fdb00..d219d4a86657 100644
-> --- a/drivers/iio/multiplexer/iio-mux.c
-> +++ b/drivers/iio/multiplexer/iio-mux.c
-> @@ -354,11 +354,8 @@ static int mux_probe(struct platform_device *pdev)
->                 return -ENODEV;
->
->         parent = devm_iio_channel_get(dev, "parent");
-> -       if (IS_ERR(parent)) {
-> -               if (PTR_ERR(parent) != -EPROBE_DEFER)
-> -                       dev_err(dev, "failed to get parent channel\n");
-> -               return PTR_ERR(parent);
-> -       }
-> +       if (IS_ERR(parent))
-> +               return dev_err_probe(dev, PTR_ERR(parent), "failed to get parent channel\n");
->
->         sizeof_ext_info = iio_get_channel_ext_info_count(parent);
->         if (sizeof_ext_info) {
-> --
-> 2.17.1
->
+Now you write, better to go back to 80.
+
+Maybe then someone else will write to me, better to go to 100.
+
+And another person will reply, no, coding style still mentions 80, so
+keep it at 80.
+
+Sure guys, please first decide which one you prefer, then I will wrap it
+accordingly. :)
+
+Otherwise I will just jump from one to another depending on one person's
+personal preference.
+
+If there is no consensus among discussing people, I find this 100 line
+more readable, already got review, checkpatch accepts it so if subsystem
+maintainer likes it, I prefer to leave it like this.
+
+> You did wrap the lines for dpot-dac (12/18) - which is excellent - but
+> that makes me curious as to what the difference is?
+
+Didn't fit into limit of 100.
+
+Best regards,
+Krzysztof
 
 
--- 
-With Best Regards,
-Andy Shevchenko
 _______________________________________________
 Linux-stm32 mailing list
 Linux-stm32@st-md-mailman.stormreply.com
