@@ -2,68 +2,67 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id 6AE13255862
-	for <lists+linux-stm32@lfdr.de>; Fri, 28 Aug 2020 12:10:17 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 7BABE255866
+	for <lists+linux-stm32@lfdr.de>; Fri, 28 Aug 2020 12:10:47 +0200 (CEST)
 Received: from ip-172-31-3-76.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 35280C32EA6;
-	Fri, 28 Aug 2020 10:10:17 +0000 (UTC)
-Received: from mail-wr1-f68.google.com (mail-wr1-f68.google.com
- [209.85.221.68])
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 44FAFC32EA6;
+	Fri, 28 Aug 2020 10:10:47 +0000 (UTC)
+Received: from mail-wm1-f68.google.com (mail-wm1-f68.google.com
+ [209.85.128.68])
  (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id AF0D8C36B26
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 06B61C36B26
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Fri, 28 Aug 2020 10:10:15 +0000 (UTC)
-Received: by mail-wr1-f68.google.com with SMTP id y3so764879wrl.4
+ Fri, 28 Aug 2020 10:10:45 +0000 (UTC)
+Received: by mail-wm1-f68.google.com with SMTP id u18so413134wmc.3
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Fri, 28 Aug 2020 03:10:15 -0700 (PDT)
+ Fri, 28 Aug 2020 03:10:45 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linaro.org; s=google;
  h=date:from:to:cc:subject:message-id:references:mime-version
  :content-disposition:content-transfer-encoding:in-reply-to;
- bh=bSq5SvyGuEAR7HTW9EkWirck6/mt4ja6XuqM9i2UtcE=;
- b=uUfsV9bX2g2WLFAJal0RrTio5GD0tveUiqEms18A2TFDdY2TayD39/bho6lbBwpEO9
- 7OhSIBrYLpMUP/NGPk9jIdS+L6KSJ+iO7HtzJ9m6eNnxrBLQEf//Rzlw5dwJKRBieFFY
- Ro8Niwh+WjPJdFnsWeMkvHdejo+IKspyDCvmNVSkXT93DDFOwncnTuHfl6F+JxvHBVhw
- Ky6wX3T9eIbgxGEdk/t1FPEWfknnZG20Tl/p4r2VeGauWC4IPUNHZDZZma8zwN2xpXLS
- ORhVOduYIDi4qSfzGTMLJw1f9KxEVYCds40B8cT6R+aIMu8jrMtkJp3BX1fz5LyGMUc/
- fiTA==
+ bh=4JMFr37STORIgQm4bGEPTAK7/SSI+Z3+hSKZb/jWMU8=;
+ b=E/6Z7lX1dsrGY7Qz9e8ERJFdEWAi6Gq+LQeGQ6iQSyk4/VPsQA5bwQc95uE2CYoGf1
+ 2Gdrh5HzLDnqKQJSGCpWN1EPyRBfF5SnUHF3ThWjBAt3AneY2bckqlYuemdLTl/4JFRN
+ Dvo+6qDabXIQF/REsdK6ydQ9T0ZhcZUe53vz/jmnbj5ij4+nNU09HsD9lrNPjw8garom
+ fAhtPMM6z8qTWZ8iXQ1WrlacR5jSIKFC9nXHkmoO3/pDyrtpmglCAkGHA7asTGIvZ4p9
+ qDEV6w00/ZPPS6yvvZ7QjqBcvK416IOiANM7xgZXferQQ5OJNlAlUxHseyoFyT6cyxnW
+ yBeQ==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=1e100.net; s=20161025;
  h=x-gm-message-state:date:from:to:cc:subject:message-id:references
  :mime-version:content-disposition:content-transfer-encoding
  :in-reply-to;
- bh=bSq5SvyGuEAR7HTW9EkWirck6/mt4ja6XuqM9i2UtcE=;
- b=o7EsBk1kI3k1gwhmA0nBa5X5Y2YpSDpJJEZv6qD1nDrkDqdphaKmMdIkhS0J2lGTOR
- 9yQuakGSKWK5RRkf6zEgu4CHrct0gMrxiGUE3e6wsRbaa2h9otBgN7K94w728B7ujo4B
- QYxadgkiprUd4+90y2b7uRNAEniYnCK0PHixkScP2ZuMER6ca03TCiS0kONQRNK1Ll9c
- qAd24K7IDy8fPxyvbg3H8cQE0bUGZYW5Up1Mxw6ycw700vkf1gWZgXxZG0KXbORHLUYn
- LA4fPGUDYo+Qj7psEJH1Pu+TMLKe0Lcz4aT231NFa76VgIcyA8d0/FRXBs5CzoWFoxft
- mf3w==
-X-Gm-Message-State: AOAM532ZuCEAQ2C3yNt7u9dpMYTWvqEEwlHcg2SozLRrsgy6hNDd0dZf
- WwiCjZiqJlOGUGwp6r57SzIC+g==
-X-Google-Smtp-Source: ABdhPJyHZPvqQFcx1P7uiUjZgyKst3EX44RhRKQqLGhsYGi70Dj6nTfb9BsJHrslejUACrbZt03uug==
-X-Received: by 2002:a05:6000:1082:: with SMTP id
- y2mr821224wrw.222.1598609415296; 
- Fri, 28 Aug 2020 03:10:15 -0700 (PDT)
+ bh=4JMFr37STORIgQm4bGEPTAK7/SSI+Z3+hSKZb/jWMU8=;
+ b=jxF4vWlZZQU23LlmBlMWxY8j9Hb7HxMEJigFnr0+TwMyt1GPOBb2DjJVAVJIIxaNYJ
+ AuiGIm4f3bUiMdqEvE9hLXNakKsfXi0em16vl8nCEbwHMsiYzXx0mEabFIUcdz0voEWJ
+ l2gqZJMIRBdob2PW2kThC+Gz+59NZepPnmocJGKmExBUOKyGOV+ZPfQWV/ERzosDrJRQ
+ 8wsv0pXc6OKhuWL8kh6i+3QsmWbr13AYiOP8cF/Ymrs7dPPoP6bQ6+Mo6NMZ4wIDzZKd
+ HoRf+7JpDv84RXkAbEgZAi3PivWfGA9DYHk3LDL1QJ7Oe/zz2nrhRt91UXdqmvDa83wL
+ DdLw==
+X-Gm-Message-State: AOAM530VDBzveTyqnnrmUChykXUx6rmrOLWSw7EHLt7WawHFcDWz3otX
+ 1QhTt8XYsvSJLHPUKuTLqfyVvA==
+X-Google-Smtp-Source: ABdhPJyd+zEtUn0Pjz24wfI5YhO/ufo1ZrWKml5JZ0SodFr9cwTiaHJAlEhrfM6A5OyXlNedrLY2Yw==
+X-Received: by 2002:a7b:c316:: with SMTP id k22mr898552wmj.150.1598609445574; 
+ Fri, 28 Aug 2020 03:10:45 -0700 (PDT)
 Received: from dell ([91.110.221.141])
- by smtp.gmail.com with ESMTPSA id i4sm1197625wrw.26.2020.08.28.03.10.14
+ by smtp.gmail.com with ESMTPSA id g18sm1243165wru.27.2020.08.28.03.10.41
  (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Fri, 28 Aug 2020 03:10:14 -0700 (PDT)
-Date: Fri, 28 Aug 2020 11:10:13 +0100
+ Fri, 28 Aug 2020 03:10:44 -0700 (PDT)
+Date: Fri, 28 Aug 2020 11:10:39 +0100
 From: Lee Jones <lee.jones@linaro.org>
 To: Krzysztof Kozlowski <krzk@kernel.org>
-Message-ID: <20200828101013.GI1826686@dell>
+Message-ID: <20200828101039.GJ1826686@dell>
 References: <20200826144935.10067-1-krzk@kernel.org>
- <20200826144935.10067-2-krzk@kernel.org>
+ <20200826144935.10067-3-krzk@kernel.org>
 MIME-Version: 1.0
 Content-Disposition: inline
-In-Reply-To: <20200826144935.10067-2-krzk@kernel.org>
+In-Reply-To: <20200826144935.10067-3-krzk@kernel.org>
 Cc: alsa-devel@alsa-project.org, Charles Keepax <ckeepax@opensource.cirrus.com>,
  patches@opensource.cirrus.com, linux-kernel@vger.kernel.org,
  Richard Fitzgerald <rf@opensource.cirrus.com>,
  Maxime Coquelin <mcoquelin.stm32@gmail.com>,
  linux-stm32@st-md-mailman.stormreply.com, linux-arm-kernel@lists.infradead.org
-Subject: Re: [Linux-stm32] [PATCH 2/3] mfd: stmfx: Simplify with
+Subject: Re: [Linux-stm32] [PATCH 3/3] mfd: wcd934x: Simplify with
 	dev_err_probe()
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
@@ -85,12 +84,12 @@ T24gV2VkLCAyNiBBdWcgMjAyMCwgS3J6eXN6dG9mIEtvemxvd3NraSB3cm90ZToKCj4gQ29tbW9u
 IHBhdHRlcm4gb2YgaGFuZGxpbmcgZGVmZXJyZWQgcHJvYmUgY2FuIGJlIHNpbXBsaWZpZWQgd2l0
 aAo+IGRldl9lcnJfcHJvYmUoKS4gIExlc3MgY29kZSBhbmQgYWxzbyBpdCBwcmludHMgdGhlIGVy
 cm9yIHZhbHVlLgo+IAo+IFNpZ25lZC1vZmYtYnk6IEtyenlzenRvZiBLb3psb3dza2kgPGtyemtA
-a2VybmVsLm9yZz4KPiAtLS0KPiAgZHJpdmVycy9tZmQvc3RtZnguYyB8IDggKysrLS0tLS0KPiAg
-MSBmaWxlIGNoYW5nZWQsIDMgaW5zZXJ0aW9ucygrKSwgNSBkZWxldGlvbnMoLSkKCkFwcGxpZWQs
-IHRoYW5rcy4KCi0tIApMZWUgSm9uZXMgW+adjueQvOaWr10KU2VuaW9yIFRlY2huaWNhbCBMZWFk
-IC0gRGV2ZWxvcGVyIFNlcnZpY2VzCkxpbmFyby5vcmcg4pSCIE9wZW4gc291cmNlIHNvZnR3YXJl
-IGZvciBBcm0gU29DcwpGb2xsb3cgTGluYXJvOiBGYWNlYm9vayB8IFR3aXR0ZXIgfCBCbG9nCl9f
-X19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fCkxpbnV4LXN0bTMy
-IG1haWxpbmcgbGlzdApMaW51eC1zdG0zMkBzdC1tZC1tYWlsbWFuLnN0b3JtcmVwbHkuY29tCmh0
-dHBzOi8vc3QtbWQtbWFpbG1hbi5zdG9ybXJlcGx5LmNvbS9tYWlsbWFuL2xpc3RpbmZvL2xpbnV4
-LXN0bTMyCg==
+a2VybmVsLm9yZz4KPiAtLS0KPiAgZHJpdmVycy9tZmQvd2NkOTM0eC5jIHwgOSArKystLS0tLS0K
+PiAgMSBmaWxlIGNoYW5nZWQsIDMgaW5zZXJ0aW9ucygrKSwgNiBkZWxldGlvbnMoLSkKCkFwcGxp
+ZWQsIHRoYW5rcy4KCi0tIApMZWUgSm9uZXMgW+adjueQvOaWr10KU2VuaW9yIFRlY2huaWNhbCBM
+ZWFkIC0gRGV2ZWxvcGVyIFNlcnZpY2VzCkxpbmFyby5vcmcg4pSCIE9wZW4gc291cmNlIHNvZnR3
+YXJlIGZvciBBcm0gU29DcwpGb2xsb3cgTGluYXJvOiBGYWNlYm9vayB8IFR3aXR0ZXIgfCBCbG9n
+Cl9fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fCkxpbnV4LXN0
+bTMyIG1haWxpbmcgbGlzdApMaW51eC1zdG0zMkBzdC1tZC1tYWlsbWFuLnN0b3JtcmVwbHkuY29t
+Cmh0dHBzOi8vc3QtbWQtbWFpbG1hbi5zdG9ybXJlcGx5LmNvbS9tYWlsbWFuL2xpc3RpbmZvL2xp
+bnV4LXN0bTMyCg==
