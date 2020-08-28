@@ -2,60 +2,46 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id 2364D2559EF
-	for <lists+linux-stm32@lfdr.de>; Fri, 28 Aug 2020 14:20:49 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 8F4B4255A04
+	for <lists+linux-stm32@lfdr.de>; Fri, 28 Aug 2020 14:26:52 +0200 (CEST)
 Received: from ip-172-31-3-76.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id D3185C32EA6;
-	Fri, 28 Aug 2020 12:20:48 +0000 (UTC)
-Received: from mx07-00178001.pphosted.com (mx07-00178001.pphosted.com
- [185.132.182.106])
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 49A62C32EA6;
+	Fri, 28 Aug 2020 12:26:52 +0000 (UTC)
+Received: from mail-out.m-online.net (mail-out.m-online.net [212.18.0.10])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 4AD6CC36B26
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 2C372C36B26
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Fri, 28 Aug 2020 12:20:45 +0000 (UTC)
-Received: from pps.filterd (m0046668.ppops.net [127.0.0.1])
- by mx07-00178001.pphosted.com (8.16.0.42/8.16.0.42) with SMTP id
- 07SCCxvJ010642; Fri, 28 Aug 2020 14:20:37 +0200
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=st.com;
- h=subject : to : cc :
- references : from : message-id : date : mime-version : in-reply-to :
- content-type : content-transfer-encoding; s=STMicroelectronics;
- bh=Lfiaw6P6oQf9zhoUw6Czw4kmw52zSHadGAoCkeE0MbQ=;
- b=q+PzxwyVeNlf53HH/hDEPp0Zq3pUgU7c9GwVCTdwhXBPm0LPeHMhe3W8GlrdD1o2q1aj
- F13ts2fTj4UlTRNjRSVGV7ljjE3HSMRAk6YWuOnlv5fwAyLM1aiQgcwUZSPajDsGtDaE
- DWbrzlhnXyfdCAC1ehoRa3TNr+JSBzgGUfKjGhBaTUm8ldF4373IYeaxLHPV7Gzw4i9e
- Dy3/fafjYt+8jmAHpwD/d/vpwpxqLsQcF6I9d7KmsBy9jj5PuYVx3A2PC69/kudJU4Ae
- NPCOGFlTKXAcB6PZ9DPQ6YwesbozygeGf8N/1WlyT74InvmOyRh4Ify1kfY3/KagfefO hA== 
-Received: from beta.dmz-eu.st.com (beta.dmz-eu.st.com [164.129.1.35])
- by mx07-00178001.pphosted.com with ESMTP id 333b2n3h09-1
- (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
- Fri, 28 Aug 2020 14:20:37 +0200
-Received: from euls16034.sgp.st.com (euls16034.sgp.st.com [10.75.44.20])
- by beta.dmz-eu.st.com (STMicroelectronics) with ESMTP id 8956510002A;
- Fri, 28 Aug 2020 14:20:37 +0200 (CEST)
-Received: from Webmail-eu.st.com (sfhdag3node2.st.com [10.75.127.8])
- by euls16034.sgp.st.com (STMicroelectronics) with ESMTP id 76CBF2BC7BF;
- Fri, 28 Aug 2020 14:20:37 +0200 (CEST)
-Received: from lmecxl0912.lme.st.com (10.75.127.45) by SFHDAG3NODE2.st.com
- (10.75.127.8) with Microsoft SMTP Server (TLS) id 15.0.1473.3; Fri, 28 Aug
- 2020 14:20:36 +0200
-To: Marek Vasut <marex@denx.de>, <linux-arm-kernel@lists.infradead.org>
+ Fri, 28 Aug 2020 12:26:51 +0000 (UTC)
+Received: from frontend01.mail.m-online.net (unknown [192.168.8.182])
+ by mail-out.m-online.net (Postfix) with ESMTP id 4BdJkL0vG0z1rtM5;
+ Fri, 28 Aug 2020 14:26:50 +0200 (CEST)
+Received: from localhost (dynscan1.mnet-online.de [192.168.6.70])
+ by mail.m-online.net (Postfix) with ESMTP id 4BdJkL0GPRz1qtwZ;
+ Fri, 28 Aug 2020 14:26:50 +0200 (CEST)
+X-Virus-Scanned: amavisd-new at mnet-online.de
+Received: from mail.mnet-online.de ([192.168.8.182])
+ by localhost (dynscan1.mail.m-online.net [192.168.6.70]) (amavisd-new,
+ port 10024)
+ with ESMTP id EGZ6vJqa79wT; Fri, 28 Aug 2020 14:26:48 +0200 (CEST)
+X-Auth-Info: ZL+BnuuAuuQhmnMUDp1AHQWEE9I2TZ4yQwGyqk+LQoU=
+Received: from [IPv6:::1] (p578adb1c.dip0.t-ipconnect.de [87.138.219.28])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+ (No client certificate requested)
+ by mail.mnet-online.de (Postfix) with ESMTPSA;
+ Fri, 28 Aug 2020 14:26:48 +0200 (CEST)
+To: Alexandre Torgue <alexandre.torgue@st.com>,
+ linux-arm-kernel@lists.infradead.org
 References: <20200822203255.61295-1-marex@denx.de>
-From: Alexandre Torgue <alexandre.torgue@st.com>
-Message-ID: <81c0b444-c790-3d53-c3f9-9b440ef51c58@st.com>
-Date: Fri, 28 Aug 2020 14:20:34 +0200
+ <81c0b444-c790-3d53-c3f9-9b440ef51c58@st.com>
+From: Marek Vasut <marex@denx.de>
+Message-ID: <879f2d29-e820-9dc5-f0f0-b927657eca95@denx.de>
+Date: Fri, 28 Aug 2020 14:26:48 +0200
 User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:68.0) Gecko/20100101
- Thunderbird/68.10.0
+ Thunderbird/68.11.0
 MIME-Version: 1.0
-In-Reply-To: <20200822203255.61295-1-marex@denx.de>
+In-Reply-To: <81c0b444-c790-3d53-c3f9-9b440ef51c58@st.com>
 Content-Language: en-US
-X-Originating-IP: [10.75.127.45]
-X-ClientProxiedBy: SFHDAG2NODE2.st.com (10.75.127.5) To SFHDAG3NODE2.st.com
- (10.75.127.8)
-X-Proofpoint-Virus-Version: vendor=fsecure engine=2.50.10434:6.0.235, 18.0.687
- definitions=2020-08-28_07:2020-08-28,
- 2020-08-28 signatures=0
 Cc: Patrick Delaunay <patrick.delaunay@st.com>,
  Maxime Coquelin <mcoquelin.stm32@gmail.com>,
  linux-stm32@st-md-mailman.stormreply.com
@@ -72,47 +58,35 @@ List-Post: <mailto:linux-stm32@st-md-mailman.stormreply.com>
 List-Help: <mailto:linux-stm32-request@st-md-mailman.stormreply.com?subject=help>
 List-Subscribe: <https://st-md-mailman.stormreply.com/mailman/listinfo/linux-stm32>, 
  <mailto:linux-stm32-request@st-md-mailman.stormreply.com?subject=subscribe>
+Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
-Content-Type: text/plain; charset="us-ascii"; Format="flowed"
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
-Hi Marek
+On 8/28/20 2:20 PM, Alexandre Torgue wrote:
+> Hi Marek
 
-On 8/22/20 10:32 PM, Marek Vasut wrote:
-> The display PWM channel is number 3 (PWM2 CH4), make it so.
+Hi,
+
+> On 8/22/20 10:32 PM, Marek Vasut wrote:
+>> The display PWM channel is number 3 (PWM2 CH4), make it so.
+>>
+>> Signed-off-by: Marek Vasut <marex@denx.de>
 > 
-> Signed-off-by: Marek Vasut <marex@denx.de>
+> No fixes tag ?
 
-No fixes tag ?
+It should be
+Fixes: 34e0c7847dcf ("ARM: dts: stm32: Add DH Electronics DHCOM STM32MP1
+SoM and PDK2 board")
 
-regards
-alex
+except backporting it across
+604536dc5837 ("ARM: dts: stm32: Split SoC-independent parts of DHCOM SOM
+and PDK2")
+would generate a conflict.
 
-> Cc: Alexandre Torgue <alexandre.torgue@st.com>
-> Cc: Maxime Coquelin <mcoquelin.stm32@gmail.com>
-> Cc: Patrice Chotard <patrice.chotard@st.com>
-> Cc: Patrick Delaunay <patrick.delaunay@st.com>
-> Cc: linux-stm32@st-md-mailman.stormreply.com
-> To: linux-arm-kernel@lists.infradead.org
-> ---
->   arch/arm/boot/dts/stm32mp15xx-dhcom-pdk2.dtsi | 2 +-
->   1 file changed, 1 insertion(+), 1 deletion(-)
-> 
-> diff --git a/arch/arm/boot/dts/stm32mp15xx-dhcom-pdk2.dtsi b/arch/arm/boot/dts/stm32mp15xx-dhcom-pdk2.dtsi
-> index 7c4bd615b311..075e2a95713f 100644
-> --- a/arch/arm/boot/dts/stm32mp15xx-dhcom-pdk2.dtsi
-> +++ b/arch/arm/boot/dts/stm32mp15xx-dhcom-pdk2.dtsi
-> @@ -26,7 +26,7 @@ clk_ext_audio_codec: clock-codec {
->   
->   	display_bl: display-bl {
->   		compatible = "pwm-backlight";
-> -		pwms = <&pwm2 0 500000 PWM_POLARITY_INVERTED>;
-> +		pwms = <&pwm2 3 500000 PWM_POLARITY_INVERTED>;
->   		brightness-levels = <0 16 22 30 40 55 75 102 138 188 255>;
->   		default-brightness-level = <8>;
->   		enable-gpios = <&gpioi 0 GPIO_ACTIVE_HIGH>;
-> 
+If you are fine with that Fixes above, then please add it.
+
+Thanks!
 _______________________________________________
 Linux-stm32 mailing list
 Linux-stm32@st-md-mailman.stormreply.com
