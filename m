@@ -2,70 +2,64 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id ED724255802
-	for <lists+linux-stm32@lfdr.de>; Fri, 28 Aug 2020 11:50:51 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 3884A255861
+	for <lists+linux-stm32@lfdr.de>; Fri, 28 Aug 2020 12:09:44 +0200 (CEST)
 Received: from ip-172-31-3-76.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id AB37EC32EA6;
-	Fri, 28 Aug 2020 09:50:51 +0000 (UTC)
-Received: from mx0b-001ae601.pphosted.com (mx0b-001ae601.pphosted.com
- [67.231.152.168])
- (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id EA50BC32EA6;
+	Fri, 28 Aug 2020 10:09:43 +0000 (UTC)
+Received: from mail-wm1-f68.google.com (mail-wm1-f68.google.com
+ [209.85.128.68])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 115A9C36B26
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 67B08C36B26
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Fri, 28 Aug 2020 09:44:23 +0000 (UTC)
-Received: from pps.filterd (m0077474.ppops.net [127.0.0.1])
- by mx0b-001ae601.pphosted.com (8.16.0.42/8.16.0.42) with SMTP id
- 07S9c5Qk008076; Fri, 28 Aug 2020 04:44:12 -0500
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=cirrus.com;
- h=date : from : to : cc
- : subject : message-id : references : mime-version : content-type :
- in-reply-to; s=PODMain02222019;
- bh=5I2uMXhLoA701I3inj6ToWiNdrxZKdiI/z4bLw39qiE=;
- b=NHj7gPHQ9gH0ND3W4ait84qKoxLWmVuSiIwvjUkLxdmfmqlW/nR54NwRIoN8LNs1guw0
- dHbF1BVn3xLlTszyMF3Dr5SfaAsbKarsX/sOWCuW4wGy9UBN4iq8cutP5M+L5fb1ajQs
- GhvDmomXFA1tDNpWV6KSFg3jCVJ9VACVAUH+cP8I3s5OUhuFz+B4BdosskGL5YciEY0j
- kt8JKcIUX46B8qqGLs4zV/70jKkFzui+5fVRXU61n1RD4CRg7zOzKoMG7B9JeWRISIwf
- 5DgPb6KJbszBP0/IiwUOq0ERNaxCfaRRwCnv7ZTXSOc6Ml4jA//Una3EVXws75iG4wq/ qg== 
-Authentication-Results: ppops.net;
- spf=fail smtp.mailfrom=ckeepax@opensource.cirrus.com
-Received: from ediex01.ad.cirrus.com ([87.246.76.36])
- by mx0b-001ae601.pphosted.com with ESMTP id 332yspgk7v-1
- (version=TLSv1.2 cipher=ECDHE-RSA-AES128-GCM-SHA256 bits=128 verify=NOT);
- Fri, 28 Aug 2020 04:44:12 -0500
-Received: from EDIEX01.ad.cirrus.com (198.61.84.80) by EDIEX01.ad.cirrus.com
- (198.61.84.80) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.1913.5; Fri, 28 Aug
- 2020 10:44:10 +0100
-Received: from ediswmail.ad.cirrus.com (198.61.86.93) by EDIEX01.ad.cirrus.com
- (198.61.84.80) with Microsoft SMTP Server id 15.1.1913.5 via Frontend
- Transport; Fri, 28 Aug 2020 10:44:10 +0100
-Received: from ediswmail.ad.cirrus.com (ediswmail.ad.cirrus.com [198.61.86.93])
- by ediswmail.ad.cirrus.com (Postfix) with ESMTP id 487CA2C3;
- Fri, 28 Aug 2020 09:44:10 +0000 (UTC)
-Date: Fri, 28 Aug 2020 09:44:10 +0000
-From: Charles Keepax <ckeepax@opensource.cirrus.com>
+ Fri, 28 Aug 2020 10:09:41 +0000 (UTC)
+Received: by mail-wm1-f68.google.com with SMTP id k20so381199wmi.5
+ for <linux-stm32@st-md-mailman.stormreply.com>;
+ Fri, 28 Aug 2020 03:09:41 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linaro.org; s=google;
+ h=date:from:to:cc:subject:message-id:references:mime-version
+ :content-disposition:content-transfer-encoding:in-reply-to;
+ bh=m1YLyJUJCn3oBul9/khpe2532Xp6POTXvt7taeRkGPU=;
+ b=YDvbZll7Ma7sTT+UPVORezULJlnx2tLfQ5IeE3Ehw57Kq2kkU/64SeqXuWw20swHB3
+ DRSP1n7jHPr8urmDdaKZSWN+tS6LcvCpPSGokVwqyHBZ5IvOprC+08jw+ruC99ayLMuG
+ 8atji1mzhlt/j6cS1lgrOfyGuwEcNpksJ0etGBqElxC6aXiAhR+hQzrS0PzcfF7Qd6Ux
+ oXeBNlOxbPHK4b0Zo0A84nlF+KGFkhzVo040o6iK1myBSFcKSWVru5dkp0z4tzSwLfK7
+ LP9lNSlKR5ZaMMfDdYgCsNu4oLwPZAVk2SssF2ZcRVPK5CD3bjwFQU1KXK3W6xzh8aEN
+ yqmQ==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20161025;
+ h=x-gm-message-state:date:from:to:cc:subject:message-id:references
+ :mime-version:content-disposition:content-transfer-encoding
+ :in-reply-to;
+ bh=m1YLyJUJCn3oBul9/khpe2532Xp6POTXvt7taeRkGPU=;
+ b=JrkwZD4Z+gEotn+3Oz2FMFrrxKZclatn5RQTIlWkA4MBZZuqB4vFq8FZ7rlkGJeauP
+ AY70ircXuLP9TI1IsRHjQO8FRjxrlLPlpdA4D21sj6zqW0ywB/LyYsn5gisR8+I0877b
+ QoVv6K5TqQtGvysQg3AzXaKV4kQlnsDf3bcKjt4xsR/pzHIsygDECerLWhFih/YIENmy
+ kxxm1gtba06PSsiQcSOgcSJIW0bAuSmazKhi4OGgbkB8t0EXzBQ1InNIvDNCS/fvUVm1
+ EVp0RQsLn4O2CsW4Qwkx3BAzIGetc+GM6rT8U13uKcCs9B6y0zaE3JGHBUyxccDjWYw2
+ +o7g==
+X-Gm-Message-State: AOAM531hJCep2N9f39JctqFv+F3U+5Heyw+TzSdz2vVoszdsVAMZfHpo
+ +rxWQC79SkeENXMJt83nnG9Z/Q==
+X-Google-Smtp-Source: ABdhPJxgckZPiiORSGh1t7YPnXLaoCx7sqGLxWs0rDpMahar5tKh4ddv01PRLYLdrPq+EKDyrsXwZg==
+X-Received: by 2002:a1c:541b:: with SMTP id i27mr837248wmb.179.1598609380973; 
+ Fri, 28 Aug 2020 03:09:40 -0700 (PDT)
+Received: from dell ([91.110.221.141])
+ by smtp.gmail.com with ESMTPSA id c206sm1419164wmf.47.2020.08.28.03.09.40
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Fri, 28 Aug 2020 03:09:40 -0700 (PDT)
+Date: Fri, 28 Aug 2020 11:09:38 +0100
+From: Lee Jones <lee.jones@linaro.org>
 To: Krzysztof Kozlowski <krzk@kernel.org>
-Message-ID: <20200828094410.GI10899@ediswmail.ad.cirrus.com>
+Message-ID: <20200828100938.GH1826686@dell>
 References: <20200826144935.10067-1-krzk@kernel.org>
 MIME-Version: 1.0
 Content-Disposition: inline
 In-Reply-To: <20200826144935.10067-1-krzk@kernel.org>
-User-Agent: Mutt/1.5.21 (2010-09-15)
-X-Proofpoint-SPF-Result: fail
-X-Proofpoint-SPF-Record: v=spf1 include:spf-001ae601.pphosted.com
- include:spf.protection.outlook.com
- ip4:5.172.152.52 -all
-X-Proofpoint-Spam-Details: rule=notspam policy=default score=0 suspectscore=0
- phishscore=0
- malwarescore=0 mlxlogscore=791 mlxscore=0 lowpriorityscore=0
- impostorscore=0 priorityscore=1501 bulkscore=0 clxscore=1011 spamscore=0
- adultscore=0 classifier=spam adjust=0 reason=mlx scancount=1
- engine=8.12.0-2006250000 definitions=main-2008280074
-X-Mailman-Approved-At: Fri, 28 Aug 2020 09:50:49 +0000
-Cc: alsa-devel@alsa-project.org, patches@opensource.cirrus.com,
- linux-kernel@vger.kernel.org, Richard Fitzgerald <rf@opensource.cirrus.com>,
- Maxime Coquelin <mcoquelin.stm32@gmail.com>, Lee Jones <lee.jones@linaro.org>,
+Cc: alsa-devel@alsa-project.org, Charles Keepax <ckeepax@opensource.cirrus.com>,
+ patches@opensource.cirrus.com, linux-kernel@vger.kernel.org,
+ Richard Fitzgerald <rf@opensource.cirrus.com>,
+ Maxime Coquelin <mcoquelin.stm32@gmail.com>,
  linux-stm32@st-md-mailman.stormreply.com, linux-arm-kernel@lists.infradead.org
 Subject: Re: [Linux-stm32] [PATCH 1/3] mfd: madera: Simplify with
 	dev_err_probe()
@@ -80,23 +74,21 @@ List-Post: <mailto:linux-stm32@st-md-mailman.stormreply.com>
 List-Help: <mailto:linux-stm32-request@st-md-mailman.stormreply.com?subject=help>
 List-Subscribe: <https://st-md-mailman.stormreply.com/mailman/listinfo/linux-stm32>, 
  <mailto:linux-stm32-request@st-md-mailman.stormreply.com?subject=subscribe>
-Content-Type: text/plain; charset="us-ascii"
-Content-Transfer-Encoding: 7bit
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: base64
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
-On Wed, Aug 26, 2020 at 04:49:33PM +0200, Krzysztof Kozlowski wrote:
-> Common pattern of handling deferred probe can be simplified with
-> dev_err_probe().  Less code and also it prints the error value.
-> 
-> Signed-off-by: Krzysztof Kozlowski <krzk@kernel.org>
-> ---
-
-Acked-by: Charles Keepax <ckeepax@opensource.cirrus.com>
-
-Thanks,
-Charles
-_______________________________________________
-Linux-stm32 mailing list
-Linux-stm32@st-md-mailman.stormreply.com
-https://st-md-mailman.stormreply.com/mailman/listinfo/linux-stm32
+T24gV2VkLCAyNiBBdWcgMjAyMCwgS3J6eXN6dG9mIEtvemxvd3NraSB3cm90ZToKCj4gQ29tbW9u
+IHBhdHRlcm4gb2YgaGFuZGxpbmcgZGVmZXJyZWQgcHJvYmUgY2FuIGJlIHNpbXBsaWZpZWQgd2l0
+aAo+IGRldl9lcnJfcHJvYmUoKS4gIExlc3MgY29kZSBhbmQgYWxzbyBpdCBwcmludHMgdGhlIGVy
+cm9yIHZhbHVlLgo+IAo+IFNpZ25lZC1vZmYtYnk6IEtyenlzenRvZiBLb3psb3dza2kgPGtyemtA
+a2VybmVsLm9yZz4KPiAtLS0KPiAgZHJpdmVycy9tZmQvbWFkZXJhLWNvcmUuYyB8IDExICsrKy0t
+LS0tLS0tCj4gIDEgZmlsZSBjaGFuZ2VkLCAzIGluc2VydGlvbnMoKyksIDggZGVsZXRpb25zKC0p
+CgpBcHBsaWVkLCB0aGFua3MuCgotLSAKTGVlIEpvbmVzIFvmnY7nkLzmlq9dClNlbmlvciBUZWNo
+bmljYWwgTGVhZCAtIERldmVsb3BlciBTZXJ2aWNlcwpMaW5hcm8ub3JnIOKUgiBPcGVuIHNvdXJj
+ZSBzb2Z0d2FyZSBmb3IgQXJtIFNvQ3MKRm9sbG93IExpbmFybzogRmFjZWJvb2sgfCBUd2l0dGVy
+IHwgQmxvZwpfX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fXwpM
+aW51eC1zdG0zMiBtYWlsaW5nIGxpc3QKTGludXgtc3RtMzJAc3QtbWQtbWFpbG1hbi5zdG9ybXJl
+cGx5LmNvbQpodHRwczovL3N0LW1kLW1haWxtYW4uc3Rvcm1yZXBseS5jb20vbWFpbG1hbi9saXN0
+aW5mby9saW51eC1zdG0zMgo=
