@@ -2,29 +2,29 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id D24E8256538
-	for <lists+linux-stm32@lfdr.de>; Sat, 29 Aug 2020 08:48:36 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 02069256539
+	for <lists+linux-stm32@lfdr.de>; Sat, 29 Aug 2020 08:48:43 +0200 (CEST)
 Received: from ip-172-31-3-76.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 9E3E1C32E90;
-	Sat, 29 Aug 2020 06:48:36 +0000 (UTC)
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id BE5F7C32E90;
+	Sat, 29 Aug 2020 06:48:42 +0000 (UTC)
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
  (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id AC4B0C32E8F
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 1F2AFC32E8F
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Sat, 29 Aug 2020 06:48:34 +0000 (UTC)
+ Sat, 29 Aug 2020 06:48:38 +0000 (UTC)
 Received: from localhost.localdomain (unknown [194.230.155.216])
  (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by mail.kernel.org (Postfix) with ESMTPSA id 635092137B;
- Sat, 29 Aug 2020 06:48:30 +0000 (UTC)
+ by mail.kernel.org (Postfix) with ESMTPSA id EC1602145D;
+ Sat, 29 Aug 2020 06:48:33 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
- s=default; t=1598683713;
- bh=q8HI6Zm7rrRPqVe1eb6PzsXiCtitXv9sgq9WQhNoADo=;
+ s=default; t=1598683717;
+ bh=f6+Tik++luo2PZ4Mb2eOWG5RToVxg+N7sCh7U3p3bZ8=;
  h=From:To:Cc:Subject:Date:In-Reply-To:References:From;
- b=FlJiwlmJ/eHlpJIJJ9BSxU4PqYPRgC3cKYkPTHh9d/+Dr0YvNtCy1juaWK4MMAtnF
- 8fUFw+f+34uf7wphW0zsJk1jSYOwaaSQOwQgqSCr4L4Pl6ZFxu2FZMmL/l/7mUB1fn
- 1gKGAHQhVbDCxwsjBFe2HDqSHZ8MAl+DJ1UJU2tc=
+ b=thEheuIYmGXal/L7ScJpySupzF+kcZenN/wAYN1aU8WkvzbtgSihXdvgL+rLOi1i1
+ UY59B5HgzprHiRaWT/pGM10SlFXQx8P6ay+BHX86+1rCtDJ/EML25//SBRyEpzjFMt
+ qJZqhXWIq6e0ppCE+CaKTEG+FYiz9Q8cNiJa1Xt0=
 From: Krzysztof Kozlowski <krzk@kernel.org>
 To: Jonathan Cameron <jic23@kernel.org>, Lars-Peter Clausen <lars@metafoo.de>,
  Peter Meerwald-Stadler <pmeerw@pmeerw.net>, Peter Rosin <peda@axentia.se>,
@@ -34,15 +34,15 @@ To: Jonathan Cameron <jic23@kernel.org>, Lars-Peter Clausen <lars@metafoo.de>,
  linux-kernel@vger.kernel.org, linux-arm-kernel@lists.infradead.org,
  linux-samsung-soc@vger.kernel.org, linux-amlogic@lists.infradead.org,
  linux-stm32@st-md-mailman.stormreply.com
-Date: Sat, 29 Aug 2020 08:47:17 +0200
-Message-Id: <20200829064726.26268-9-krzk@kernel.org>
+Date: Sat, 29 Aug 2020 08:47:18 +0200
+Message-Id: <20200829064726.26268-10-krzk@kernel.org>
 X-Mailer: git-send-email 2.17.1
 In-Reply-To: <20200829064726.26268-1-krzk@kernel.org>
 References: <20200829064726.26268-1-krzk@kernel.org>
 Cc: Andy Shevchenko <andy.shevchenko@gmail.com>,
  Krzysztof Kozlowski <krzk@kernel.org>
-Subject: [Linux-stm32] [PATCH v3 09/18] iio: afe: iio-rescale: Simplify with
-	dev_err_probe()
+Subject: [Linux-stm32] [PATCH v3 10/18] iio: amplifiers: hmc425a: Simplify
+	with dev_err_probe()
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -74,28 +74,29 @@ Changes since v2:
 Changes since v1:
 1. Wrap dev_err_probe() lines at 100 character
 ---
- drivers/iio/afe/iio-rescale.c | 8 +++-----
- 1 file changed, 3 insertions(+), 5 deletions(-)
+ drivers/iio/amplifiers/hmc425a.c | 9 +++------
+ 1 file changed, 3 insertions(+), 6 deletions(-)
 
-diff --git a/drivers/iio/afe/iio-rescale.c b/drivers/iio/afe/iio-rescale.c
-index 69c0f277ada0..e42ea2b1707d 100644
---- a/drivers/iio/afe/iio-rescale.c
-+++ b/drivers/iio/afe/iio-rescale.c
-@@ -276,11 +276,9 @@ static int rescale_probe(struct platform_device *pdev)
- 	int ret;
+diff --git a/drivers/iio/amplifiers/hmc425a.c b/drivers/iio/amplifiers/hmc425a.c
+index 582708924e4f..9efa692151f0 100644
+--- a/drivers/iio/amplifiers/hmc425a.c
++++ b/drivers/iio/amplifiers/hmc425a.c
+@@ -201,12 +201,9 @@ static int hmc425a_probe(struct platform_device *pdev)
+ 	st->gain = st->chip_info->default_gain;
  
- 	source = devm_iio_channel_get(dev, NULL);
--	if (IS_ERR(source)) {
--		if (PTR_ERR(source) != -EPROBE_DEFER)
--			dev_err(dev, "failed to get source channel\n");
--		return PTR_ERR(source);
+ 	st->gpios = devm_gpiod_get_array(&pdev->dev, "ctrl", GPIOD_OUT_LOW);
+-	if (IS_ERR(st->gpios)) {
+-		ret = PTR_ERR(st->gpios);
+-		if (ret != -EPROBE_DEFER)
+-			dev_err(&pdev->dev, "failed to get gpios\n");
+-		return ret;
 -	}
-+	if (IS_ERR(source))
-+		return dev_err_probe(dev, PTR_ERR(source),
-+				     "failed to get source channel\n");
++	if (IS_ERR(st->gpios))
++		return dev_err_probe(&pdev->dev, PTR_ERR(st->gpios),
++				     "failed to get gpios\n");
  
- 	sizeof_ext_info = iio_get_channel_ext_info_count(source);
- 	if (sizeof_ext_info) {
+ 	if (st->gpios->ndescs != st->chip_info->num_gpios) {
+ 		dev_err(&pdev->dev, "%d GPIOs needed to operate\n",
 -- 
 2.17.1
 
