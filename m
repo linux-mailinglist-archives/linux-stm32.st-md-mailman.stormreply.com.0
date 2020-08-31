@@ -2,48 +2,63 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id 739E6257F48
-	for <lists+linux-stm32@lfdr.de>; Mon, 31 Aug 2020 19:10:53 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id BF5312583AB
+	for <lists+linux-stm32@lfdr.de>; Mon, 31 Aug 2020 23:38:07 +0200 (CEST)
 Received: from ip-172-31-3-76.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 3DCD8C32EA4;
-	Mon, 31 Aug 2020 17:10:53 +0000 (UTC)
-Received: from mail-out.m-online.net (mail-out.m-online.net [212.18.0.10])
- (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id A6F59C32EA3;
+	Mon, 31 Aug 2020 21:38:06 +0000 (UTC)
+Received: from mail-pj1-f68.google.com (mail-pj1-f68.google.com
+ [209.85.216.68])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id CB670C36B0B
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id E4275C36B0B
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Mon, 31 Aug 2020 17:10:50 +0000 (UTC)
-Received: from frontend01.mail.m-online.net (unknown [192.168.8.182])
- by mail-out.m-online.net (Postfix) with ESMTP id 4BgGtf2qmcz1rypb;
- Mon, 31 Aug 2020 19:10:50 +0200 (CEST)
-Received: from localhost (dynscan1.mnet-online.de [192.168.6.70])
- by mail.m-online.net (Postfix) with ESMTP id 4BgGtf24qbz1qyXG;
- Mon, 31 Aug 2020 19:10:50 +0200 (CEST)
-X-Virus-Scanned: amavisd-new at mnet-online.de
-Received: from mail.mnet-online.de ([192.168.8.182])
- by localhost (dynscan1.mail.m-online.net [192.168.6.70]) (amavisd-new,
- port 10024)
- with ESMTP id y_WuuKnbA_w3; Mon, 31 Aug 2020 19:10:48 +0200 (CEST)
-X-Auth-Info: N5VmMcsO1sNzmZ2knTBd7OtIBn0GOGbLgeUexseSoqQ=
-Received: from desktop.lan (ip-86-49-101-166.net.upcbroadband.cz
- [86.49.101.166])
- (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
- (No client certificate requested)
- by mail.mnet-online.de (Postfix) with ESMTPSA;
- Mon, 31 Aug 2020 19:10:48 +0200 (CEST)
-From: Marek Vasut <marex@denx.de>
-To: linux-serial@vger.kernel.org
-Date: Mon, 31 Aug 2020 19:10:45 +0200
-Message-Id: <20200831171045.205691-1-marex@denx.de>
-X-Mailer: git-send-email 2.28.0
+ Mon, 31 Aug 2020 21:38:02 +0000 (UTC)
+Received: by mail-pj1-f68.google.com with SMTP id o16so608298pjr.2
+ for <linux-stm32@st-md-mailman.stormreply.com>;
+ Mon, 31 Aug 2020 14:38:02 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linaro.org; s=google;
+ h=from:to:cc:subject:date:message-id:mime-version
+ :content-transfer-encoding;
+ bh=hv3iIpISK+Eauvn2X+pBHs6mFWEi7dy0S6XImcuWXSA=;
+ b=OoSQtxW0+3StDvjlRlEx76r1riZgAyXM6VLcswEInCWblGV3xuGwJyaBg0whjjotcM
+ wbH5LSI2btvaYWjdAMl8iD8+jfMtNajn/k+jdCapSLxs2PUL9hFiwcbCyWlG2CEiNyuE
+ imvA+k5Cp1q54kbpN6IFAXldiwPGnNiDWDg19+L1/3R7QHHB5U7xuReYGKicSFPbD3vu
+ T10liVf2z2TtjFiLG9Ie/jgxDwgxN7vRdpL2r99IO5n4U0S6pPseE5xhSbb6AJU/JT3q
+ e47+qDo+iusgo3/v0drWT23NdWz5Cb7f8ftbffL7SD4KUSm1r5UVc66381v8afJ6BXnB
+ uPpg==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20161025;
+ h=x-gm-message-state:from:to:cc:subject:date:message-id:mime-version
+ :content-transfer-encoding;
+ bh=hv3iIpISK+Eauvn2X+pBHs6mFWEi7dy0S6XImcuWXSA=;
+ b=FIHI79Qz3TPJEGa5MmqRkixR2prsf46h4V+3OT7aan2332Auj3V+lJcHccGDtJbtio
+ 7v2xXGhW2/qo9iE10kENZ8ouQo59KETZphp/tBQ06C1Q+jPh65oG0iePp/TnK7UJH3AB
+ tTOhIG9UZZ6/O6FbKbyFCc3plnN1GSK79G42i6HhcRxCT5v4SxewBRyz/Qllk7YtkZiQ
+ qTQfdE+baPlLQf7gfPaVto901iPzebtsAp4KP3VpSHi/Xw+YIgZAQMyh2TuZo45fuHcs
+ kmKqlVjLAZX6BrUACLIfNPFy0wx93CDzsWnb/aClt52Hn2K6+j+MVXdRfRkXxE4JlYj4
+ g1bA==
+X-Gm-Message-State: AOAM530vkQ7AdD0MRQeAZFBBDmxfgNWSYxd8c7pBVDRnjb/UQF1y+JrT
+ KoMu50GaJ2HAYAU8iYe91Ao8qg==
+X-Google-Smtp-Source: ABdhPJwOasYqywsqH/gXmdcdXJCqpia6QSc5UMEsjUUKJTmBkUyNf87L6K0ndjbpJfKkGCtLXdwLyg==
+X-Received: by 2002:a17:90a:fe04:: with SMTP id
+ ck4mr1235872pjb.210.1598909880687; 
+ Mon, 31 Aug 2020 14:38:00 -0700 (PDT)
+Received: from xps15.cg.shawcable.net (S0106002369de4dac.cg.shawcable.net.
+ [68.147.8.254])
+ by smtp.gmail.com with ESMTPSA id m24sm8525514pgn.44.2020.08.31.14.37.59
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Mon, 31 Aug 2020 14:37:59 -0700 (PDT)
+From: Mathieu Poirier <mathieu.poirier@linaro.org>
+To: ohad@wizery.com, bjorn.andersson@linaro.org, mcoquelin.stm32@gmail.com,
+ alexandre.torgue@st.com
+Date: Mon, 31 Aug 2020 15:37:58 -0600
+Message-Id: <20200831213758.206690-1-mathieu.poirier@linaro.org>
+X-Mailer: git-send-email 2.25.1
 MIME-Version: 1.0
-Cc: Marek Vasut <marex@denx.de>, Manivannan Sadhasivam <mani@kernel.org>,
- Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
- Andy Shevchenko <andy.shevchenko@gmail.com>,
- Fabrice Gasnier <fabrice.gasnier@st.com>,
- linux-stm32@st-md-mailman.stormreply.com
-Subject: [Linux-stm32] [PATCH V3] serial: stm32: Add RS485 RTS GPIO control
-	again
+Cc: linux-remoteproc@vger.kernel.org, linux-stm32@st-md-mailman.stormreply.com,
+ linux-arm-kernel@lists.infradead.org, linux-kernel@vger.kernel.org
+Subject: [Linux-stm32] [PATCH] remoteproc: stm32: Fix pointer assignement
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -60,106 +75,30 @@ Content-Transfer-Encoding: 7bit
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
-While the STM32 does support RS485 drive-enable control within the
-UART IP itself, some systems have the drive-enable line connected
-to a pin which cannot be pinmuxed as RTS. Add support for toggling
-the RTS GPIO line using the modem control GPIOs to provide at least
-some sort of emulation.
+Fix the assignment of the @state pointer - it is obviously wrong.
 
-Fixes: 7df5081cbf5e ("serial: stm32: Add RS485 RTS GPIO control")
-Signed-off-by: Marek Vasut <marex@denx.de>
-Cc: Alexandre Torgue <alexandre.torgue@st.com>
-Cc: Andy Shevchenko <andy.shevchenko@gmail.com>
-Cc: Manivannan Sadhasivam <mani@kernel.org>
-Cc: Fabrice Gasnier <fabrice.gasnier@st.com>
-Cc: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
-Cc: linux-stm32@st-md-mailman.stormreply.com
+Fixes: 376ffdc04456 ("remoteproc: stm32: Properly set co-processor state when attaching")
+Reported-by: kernel test robot <lkp@intel.com>
+Signed-off-by: Mathieu Poirier <mathieu.poirier@linaro.org>
 ---
-V2: Use mctrl_gpio_set() instead of stm32_set_mctrl()
-V3: - Actually toggle the RTS line before and after TX
-    - Undo 7df5081cbf5e ("serial: stm32: Add RS485 RTS GPIO control")
-      which was previous version of this patch ; I messed up.
----
- drivers/tty/serial/stm32-usart.c | 33 ++++++++++++++++++++++++--------
- 1 file changed, 25 insertions(+), 8 deletions(-)
+ drivers/remoteproc/stm32_rproc.c | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
 
-diff --git a/drivers/tty/serial/stm32-usart.c b/drivers/tty/serial/stm32-usart.c
-index 143300a80090..23f7453441ae 100644
---- a/drivers/tty/serial/stm32-usart.c
-+++ b/drivers/tty/serial/stm32-usart.c
-@@ -129,13 +129,9 @@ static int stm32_config_rs485(struct uart_port *port,
- 		if (rs485conf->flags & SER_RS485_RTS_ON_SEND) {
- 			cr3 &= ~USART_CR3_DEP;
- 			rs485conf->flags &= ~SER_RS485_RTS_AFTER_SEND;
--			mctrl_gpio_set(stm32_port->gpios,
--					stm32_port->port.mctrl & ~TIOCM_RTS);
- 		} else {
- 			cr3 |= USART_CR3_DEP;
- 			rs485conf->flags |= SER_RS485_RTS_AFTER_SEND;
--			mctrl_gpio_set(stm32_port->gpios,
--					stm32_port->port.mctrl | TIOCM_RTS);
- 		}
+diff --git a/drivers/remoteproc/stm32_rproc.c b/drivers/remoteproc/stm32_rproc.c
+index f4da42fc0eeb..d2414cc1d90d 100644
+--- a/drivers/remoteproc/stm32_rproc.c
++++ b/drivers/remoteproc/stm32_rproc.c
+@@ -685,7 +685,7 @@ static int stm32_rproc_get_m4_status(struct stm32_rproc *ddata,
+ 		 * We couldn't get the coprocessor's state, assume
+ 		 * it is not running.
+ 		 */
+-		state = M4_STATE_OFF;
++		*state = M4_STATE_OFF;
+ 		return 0;
+ 	}
  
- 		writel_relaxed(cr3, port->membase + ofs->cr3);
-@@ -541,17 +537,42 @@ static void stm32_disable_ms(struct uart_port *port)
- /* Transmit stop */
- static void stm32_stop_tx(struct uart_port *port)
- {
-+	struct stm32_port *stm32_port = to_stm32_port(port);
-+	struct serial_rs485 *rs485conf = &port->rs485;
-+
- 	stm32_tx_interrupt_disable(port);
-+
-+	if (rs485conf->flags & SER_RS485_ENABLED) {
-+		if (rs485conf->flags & SER_RS485_RTS_ON_SEND) {
-+			mctrl_gpio_set(stm32_port->gpios,
-+					stm32_port->port.mctrl & ~TIOCM_RTS);
-+		} else {
-+			mctrl_gpio_set(stm32_port->gpios,
-+					stm32_port->port.mctrl | TIOCM_RTS);
-+		}
-+	}
- }
- 
- /* There are probably characters waiting to be transmitted. */
- static void stm32_start_tx(struct uart_port *port)
- {
-+	struct stm32_port *stm32_port = to_stm32_port(port);
-+	struct serial_rs485 *rs485conf = &port->rs485;
- 	struct circ_buf *xmit = &port->state->xmit;
- 
- 	if (uart_circ_empty(xmit))
- 		return;
- 
-+	if (rs485conf->flags & SER_RS485_ENABLED) {
-+		if (rs485conf->flags & SER_RS485_RTS_ON_SEND) {
-+			mctrl_gpio_set(stm32_port->gpios,
-+					stm32_port->port.mctrl | TIOCM_RTS);
-+		} else {
-+			mctrl_gpio_set(stm32_port->gpios,
-+					stm32_port->port.mctrl & ~TIOCM_RTS);
-+		}
-+	}
-+
- 	stm32_transmit_chars(port);
- }
- 
-@@ -851,13 +872,9 @@ static void stm32_set_termios(struct uart_port *port, struct ktermios *termios,
- 		if (rs485conf->flags & SER_RS485_RTS_ON_SEND) {
- 			cr3 &= ~USART_CR3_DEP;
- 			rs485conf->flags &= ~SER_RS485_RTS_AFTER_SEND;
--			mctrl_gpio_set(stm32_port->gpios,
--					stm32_port->port.mctrl & ~TIOCM_RTS);
- 		} else {
- 			cr3 |= USART_CR3_DEP;
- 			rs485conf->flags |= SER_RS485_RTS_AFTER_SEND;
--			mctrl_gpio_set(stm32_port->gpios,
--					stm32_port->port.mctrl | TIOCM_RTS);
- 		}
- 
- 	} else {
 -- 
-2.28.0
+2.25.1
 
 _______________________________________________
 Linux-stm32 mailing list
