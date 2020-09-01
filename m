@@ -2,29 +2,29 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id B92C9259392
-	for <lists+linux-stm32@lfdr.de>; Tue,  1 Sep 2020 17:27:45 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id C40DC259393
+	for <lists+linux-stm32@lfdr.de>; Tue,  1 Sep 2020 17:27:52 +0200 (CEST)
 Received: from ip-172-31-3-76.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 82D66C32EA4;
-	Tue,  1 Sep 2020 15:27:45 +0000 (UTC)
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 8E741C36B26;
+	Tue,  1 Sep 2020 15:27:52 +0000 (UTC)
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
  (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 50F06C36B0B
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 336C6C36B0B
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Tue,  1 Sep 2020 15:27:44 +0000 (UTC)
+ Tue,  1 Sep 2020 15:27:51 +0000 (UTC)
 Received: from kozik-lap.mshome.net (unknown [194.230.155.106])
  (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by mail.kernel.org (Postfix) with ESMTPSA id BB5A9207D3;
- Tue,  1 Sep 2020 15:27:35 +0000 (UTC)
+ by mail.kernel.org (Postfix) with ESMTPSA id 81CC82078B;
+ Tue,  1 Sep 2020 15:27:43 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
- s=default; t=1598974062;
- bh=jo5js8lscFdRLSI/iL/0MdnOq2JeNN+Y1xQFxh7q//s=;
+ s=default; t=1598974069;
+ bh=o8qlZ2EryFTu3cjlwAR8kRQlz7lJkpkfP6U3eaeoReE=;
  h=From:To:Cc:Subject:Date:In-Reply-To:References:From;
- b=g7ARaH/6gOwD0Qobni24k3l1FK1h9lohBOSSiMWp1zDmY29GS2uEBiXYEB8w/mMRy
- dWIESHQOUL9Sm/eKOoGkTa5jVu/U50ba2pw7lGsX32GR0ma0KXpP+2Yj3eJwSGKyCl
- 2Gir9We9wSMfaBjfLz7kXjkoSL+SRHr5UgQe8JiY=
+ b=LnBeGSSXnEMQ4CLcP1ia4NPBE1xz6UJfBgv5qLJlLwDIXOlWFOMKFvKfOYau0Wrp5
+ t+qX6bomEziRTl4D9pW4LjSoJtxAWrDw/V2kooxiPBLWtDGz3XwxN970p60F1uiDgH
+ YVip6d1dTCUU1c4xzjgbWDLgdUfBeinrVW2AUDGs=
 From: Krzysztof Kozlowski <krzk@kernel.org>
 To: Tudor Ambarus <tudor.ambarus@microchip.com>,
  Mark Brown <broonie@kernel.org>,
@@ -48,13 +48,13 @@ To: Tudor Ambarus <tudor.ambarus@microchip.com>,
  linux-arm-kernel@lists.infradead.org, linux-kernel@vger.kernel.org,
  linux-rpi-kernel@lists.infradead.org, linux-arm-msm@vger.kernel.org,
  linux-stm32@st-md-mailman.stormreply.com, linux-tegra@vger.kernel.org
-Date: Tue,  1 Sep 2020 17:27:05 +0200
-Message-Id: <20200901152713.18629-3-krzk@kernel.org>
+Date: Tue,  1 Sep 2020 17:27:06 +0200
+Message-Id: <20200901152713.18629-4-krzk@kernel.org>
 X-Mailer: git-send-email 2.17.1
 In-Reply-To: <20200901152713.18629-1-krzk@kernel.org>
 References: <20200901152713.18629-1-krzk@kernel.org>
 Cc: Krzysztof Kozlowski <krzk@kernel.org>
-Subject: [Linux-stm32] [PATCH 03/11] spi: atmel: Simplify with
+Subject: [Linux-stm32] [PATCH 04/11] spi: bcm2835: Simplify with
 	dev_err_probe()
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
@@ -78,23 +78,25 @@ dev_err_probe().  Less code and the error value gets printed.
 
 Signed-off-by: Krzysztof Kozlowski <krzk@kernel.org>
 ---
- drivers/spi/spi-atmel.c | 5 ++---
- 1 file changed, 2 insertions(+), 3 deletions(-)
+ drivers/spi/spi-bcm2835.c | 7 ++-----
+ 1 file changed, 2 insertions(+), 5 deletions(-)
 
-diff --git a/drivers/spi/spi-atmel.c b/drivers/spi/spi-atmel.c
-index 2cfe6253a784..7c68d5cdbdc6 100644
---- a/drivers/spi/spi-atmel.c
-+++ b/drivers/spi/spi-atmel.c
-@@ -513,9 +513,8 @@ static int atmel_spi_configure_dma(struct spi_master *master,
+diff --git a/drivers/spi/spi-bcm2835.c b/drivers/spi/spi-bcm2835.c
+index c45d76c848c8..5519f1eda238 100644
+--- a/drivers/spi/spi-bcm2835.c
++++ b/drivers/spi/spi-bcm2835.c
+@@ -1319,11 +1319,8 @@ static int bcm2835_spi_probe(struct platform_device *pdev)
  
- 	master->dma_tx = dma_request_chan(dev, "tx");
- 	if (IS_ERR(master->dma_tx)) {
--		err = PTR_ERR(master->dma_tx);
--		if (err != -EPROBE_DEFER)
--			dev_err(dev, "No TX DMA channel, DMA is disabled\n");
-+		err = dev_err_probe(dev, PTR_ERR(master->dma_tx),
-+				    "No TX DMA channel, DMA is disabled\n");
- 		goto error_clear;
+ 	bs->clk = devm_clk_get(&pdev->dev, NULL);
+ 	if (IS_ERR(bs->clk)) {
+-		err = PTR_ERR(bs->clk);
+-		if (err == -EPROBE_DEFER)
+-			dev_dbg(&pdev->dev, "could not get clk: %d\n", err);
+-		else
+-			dev_err(&pdev->dev, "could not get clk: %d\n", err);
++		err = dev_err_probe(&pdev->dev, PTR_ERR(bs->clk),
++				    "could not get clk\n");
+ 		goto out_controller_put;
  	}
  
 -- 
