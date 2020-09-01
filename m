@@ -2,29 +2,29 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id 2772E259399
-	for <lists+linux-stm32@lfdr.de>; Tue,  1 Sep 2020 17:28:11 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 38CE925939A
+	for <lists+linux-stm32@lfdr.de>; Tue,  1 Sep 2020 17:28:17 +0200 (CEST)
 Received: from ip-172-31-3-76.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id EAB0FC36B26;
-	Tue,  1 Sep 2020 15:28:10 +0000 (UTC)
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 044BEC36B26;
+	Tue,  1 Sep 2020 15:28:17 +0000 (UTC)
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
  (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id AEEE9C36B0B
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 75BB4C36B0B
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Tue,  1 Sep 2020 15:28:08 +0000 (UTC)
+ Tue,  1 Sep 2020 15:28:15 +0000 (UTC)
 Received: from kozik-lap.mshome.net (unknown [194.230.155.106])
  (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by mail.kernel.org (Postfix) with ESMTPSA id D92BD21548;
- Tue,  1 Sep 2020 15:27:58 +0000 (UTC)
+ by mail.kernel.org (Postfix) with ESMTPSA id F05A82078B;
+ Tue,  1 Sep 2020 15:28:07 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
- s=default; t=1598974087;
- bh=uyuKVf8uyPR9u2scaonksVNg5fPRWdlOMNM/ynHZBEs=;
+ s=default; t=1598974094;
+ bh=sDJbBtyuXPf8AdJ2TLEs7TvBFyJ4HZya4/KdpqfIghc=;
  h=From:To:Cc:Subject:Date:In-Reply-To:References:From;
- b=KloMfyfrljgAztJGg/yBc71QjVACSRqACydoic4P2ZfIayFSerWPG5xIr1nIyOlBi
- WR+c2wRDbfV1J/QPQyjAJ2b3JgWlC0csmySua9N2Ht7I233uPH6/bofFxEnClI1hUr
- iQ1EGVHXUaomWCizEU1DpvFdtIeMZi7i1cR7mv2w=
+ b=fAHrqrmSB4+wTOyV0CJPyMHjbIK7a2KePXXbjKYHvv5XgBqg//ACEhBjJ0ylaK0Ec
+ EeG4O3t/mJEqHW08oNKRn144pLZz9feRDorO86UEs6QnJLpiKzgmRuHvVeBjFlXpS2
+ hmvYeTll0PNzb0AVA0nqTfLeMEpOWb5YTF9WeGzQ=
 From: Krzysztof Kozlowski <krzk@kernel.org>
 To: Tudor Ambarus <tudor.ambarus@microchip.com>,
  Mark Brown <broonie@kernel.org>,
@@ -48,13 +48,13 @@ To: Tudor Ambarus <tudor.ambarus@microchip.com>,
  linux-arm-kernel@lists.infradead.org, linux-kernel@vger.kernel.org,
  linux-rpi-kernel@lists.infradead.org, linux-arm-msm@vger.kernel.org,
  linux-stm32@st-md-mailman.stormreply.com, linux-tegra@vger.kernel.org
-Date: Tue,  1 Sep 2020 17:27:08 +0200
-Message-Id: <20200901152713.18629-6-krzk@kernel.org>
+Date: Tue,  1 Sep 2020 17:27:09 +0200
+Message-Id: <20200901152713.18629-7-krzk@kernel.org>
 X-Mailer: git-send-email 2.17.1
 In-Reply-To: <20200901152713.18629-1-krzk@kernel.org>
 References: <20200901152713.18629-1-krzk@kernel.org>
 Cc: Krzysztof Kozlowski <krzk@kernel.org>
-Subject: [Linux-stm32] [PATCH 06/11] spi: spi-mux: Simplify with
+Subject: [Linux-stm32] [PATCH 07/11] spi: qcom-qspi: Simplify with
 	dev_err_probe()
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
@@ -78,25 +78,25 @@ dev_err_probe().  Less code and the error value gets printed.
 
 Signed-off-by: Krzysztof Kozlowski <krzk@kernel.org>
 ---
- drivers/spi/spi-mux.c | 5 ++---
+ drivers/spi/spi-qcom-qspi.c | 5 ++---
  1 file changed, 2 insertions(+), 3 deletions(-)
 
-diff --git a/drivers/spi/spi-mux.c b/drivers/spi/spi-mux.c
-index cc9ef371db14..37dfc6e82804 100644
---- a/drivers/spi/spi-mux.c
-+++ b/drivers/spi/spi-mux.c
-@@ -139,9 +139,8 @@ static int spi_mux_probe(struct spi_device *spi)
+diff --git a/drivers/spi/spi-qcom-qspi.c b/drivers/spi/spi-qcom-qspi.c
+index b8857a97f40a..f83755e292bb 100644
+--- a/drivers/spi/spi-qcom-qspi.c
++++ b/drivers/spi/spi-qcom-qspi.c
+@@ -495,9 +495,8 @@ static int qcom_qspi_probe(struct platform_device *pdev)
  
- 	priv->mux = devm_mux_control_get(&spi->dev, NULL);
- 	if (IS_ERR(priv->mux)) {
--		ret = PTR_ERR(priv->mux);
+ 	ctrl->icc_path_cpu_to_qspi = devm_of_icc_get(dev, "qspi-config");
+ 	if (IS_ERR(ctrl->icc_path_cpu_to_qspi)) {
+-		ret = PTR_ERR(ctrl->icc_path_cpu_to_qspi);
 -		if (ret != -EPROBE_DEFER)
--			dev_err(&spi->dev, "failed to get control-mux\n");
-+		ret = dev_err_probe(&spi->dev, PTR_ERR(priv->mux),
-+				    "failed to get control-mux\n");
- 		goto err_put_ctlr;
+-			dev_err(dev, "Failed to get cpu path: %d\n", ret);
++		ret = dev_err_probe(dev, PTR_ERR(ctrl->icc_path_cpu_to_qspi),
++				    "Failed to get cpu path\n");
+ 		goto exit_probe_master_put;
  	}
- 
+ 	/* Set BW vote for register access */
 -- 
 2.17.1
 
