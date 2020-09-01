@@ -2,29 +2,29 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id 84AD62593A2
-	for <lists+linux-stm32@lfdr.de>; Tue,  1 Sep 2020 17:28:40 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id B7FB82593A3
+	for <lists+linux-stm32@lfdr.de>; Tue,  1 Sep 2020 17:28:47 +0200 (CEST)
 Received: from ip-172-31-3-76.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 4F28AC36B26;
-	Tue,  1 Sep 2020 15:28:40 +0000 (UTC)
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 84276C36B26;
+	Tue,  1 Sep 2020 15:28:47 +0000 (UTC)
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
  (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id F2DB0C36B0B
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 82CCCC36B0B
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Tue,  1 Sep 2020 15:28:38 +0000 (UTC)
+ Tue,  1 Sep 2020 15:28:46 +0000 (UTC)
 Received: from kozik-lap.mshome.net (unknown [194.230.155.106])
  (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by mail.kernel.org (Postfix) with ESMTPSA id ABB7D214D8;
- Tue,  1 Sep 2020 15:28:28 +0000 (UTC)
+ by mail.kernel.org (Postfix) with ESMTPSA id 16CD620FC3;
+ Tue,  1 Sep 2020 15:28:37 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
- s=default; t=1598974117;
- bh=NaQTcz4Nx7tejgYOZkje1gbrDOO+iWUUqbxrXjzVwak=;
+ s=default; t=1598974125;
+ bh=/XJaGl06CsjTQv2yh1KyHC+7ktek0ZuAsx836iRegvw=;
  h=From:To:Cc:Subject:Date:In-Reply-To:References:From;
- b=ysl+WcfJY4JrmGMlfKduw86YoqyKEsHDVyFgGTtIScPzzBT8pfyFC3CEd0TkFQwCU
- SLGsGIXMQSRI4a7MxNOyzQRog+SMTTGwNq3wLLPq18fHesHTWrj0k5lKNQ4reIlUCZ
- cn1+8VuKHP+mw5xjf3WYuTg45e33rJenTaZhTKR8=
+ b=n2mdRPDrNq2pVxukr4c3iPl+YkyyHJaWmRW5Jvz8KNAR0gjpv3Svn6cs3odcRB3wg
+ aRgXXOz0vV5ybQhyPw+p1EPa2Mq2mUsHfU3DKmGbzsjwiSC4oNC4xZ4tUsD30dQyNo
+ IIgfBbfOVuEEqmw46QROFHdgplBU7IGDhhHrHy7I=
 From: Krzysztof Kozlowski <krzk@kernel.org>
 To: Tudor Ambarus <tudor.ambarus@microchip.com>,
  Mark Brown <broonie@kernel.org>,
@@ -48,13 +48,13 @@ To: Tudor Ambarus <tudor.ambarus@microchip.com>,
  linux-arm-kernel@lists.infradead.org, linux-kernel@vger.kernel.org,
  linux-rpi-kernel@lists.infradead.org, linux-arm-msm@vger.kernel.org,
  linux-stm32@st-md-mailman.stormreply.com, linux-tegra@vger.kernel.org
-Date: Tue,  1 Sep 2020 17:27:12 +0200
-Message-Id: <20200901152713.18629-10-krzk@kernel.org>
+Date: Tue,  1 Sep 2020 17:27:13 +0200
+Message-Id: <20200901152713.18629-11-krzk@kernel.org>
 X-Mailer: git-send-email 2.17.1
 In-Reply-To: <20200901152713.18629-1-krzk@kernel.org>
 References: <20200901152713.18629-1-krzk@kernel.org>
 Cc: Krzysztof Kozlowski <krzk@kernel.org>
-Subject: [Linux-stm32] [PATCH 10/11] spi: tegra114: Simplify with
+Subject: [Linux-stm32] [PATCH 11/11] spi: tegra20: Simplify with
 	dev_err_probe()
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
@@ -78,18 +78,15 @@ dev_err_probe().  Less code and the error value gets printed.
 
 Signed-off-by: Krzysztof Kozlowski <krzk@kernel.org>
 ---
- drivers/spi/spi-tegra114.c | 11 +++--------
- 1 file changed, 3 insertions(+), 8 deletions(-)
+ drivers/spi/spi-tegra20-slink.c | 10 +++-------
+ 1 file changed, 3 insertions(+), 7 deletions(-)
 
-diff --git a/drivers/spi/spi-tegra114.c b/drivers/spi/spi-tegra114.c
-index c2c58871a947..ca6886aaa519 100644
---- a/drivers/spi/spi-tegra114.c
-+++ b/drivers/spi/spi-tegra114.c
-@@ -664,16 +664,11 @@ static int tegra_spi_init_dma_param(struct tegra_spi_data *tspi,
- 	struct dma_chan *dma_chan;
- 	u32 *dma_buf;
- 	dma_addr_t dma_phys;
--	int ret;
+diff --git a/drivers/spi/spi-tegra20-slink.c b/drivers/spi/spi-tegra20-slink.c
+index a07b72e9c344..a0810765d4e5 100644
+--- a/drivers/spi/spi-tegra20-slink.c
++++ b/drivers/spi/spi-tegra20-slink.c
+@@ -600,13 +600,9 @@ static int tegra_slink_init_dma_param(struct tegra_slink_data *tspi,
+ 	struct dma_slave_config dma_sconfig;
  
  	dma_chan = dma_request_chan(tspi->dev, dma_to_memory ? "rx" : "tx");
 -	if (IS_ERR(dma_chan)) {
