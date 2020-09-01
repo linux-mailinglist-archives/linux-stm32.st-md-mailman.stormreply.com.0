@@ -2,70 +2,58 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id 70F3C2588EB
-	for <lists+linux-stm32@lfdr.de>; Tue,  1 Sep 2020 09:23:16 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id BE6B125938E
+	for <lists+linux-stm32@lfdr.de>; Tue,  1 Sep 2020 17:27:29 +0200 (CEST)
 Received: from ip-172-31-3-76.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 1762BC36B26;
-	Tue,  1 Sep 2020 07:23:16 +0000 (UTC)
-Received: from mx07-00178001.pphosted.com (mx08-00178001.pphosted.com
- [91.207.212.93])
- (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 6871BC36B26;
+	Tue,  1 Sep 2020 15:27:29 +0000 (UTC)
+Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
+ (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id BA49AC36B0B
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 1885EC36B0B
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Tue,  1 Sep 2020 07:23:13 +0000 (UTC)
-Received: from pps.filterd (m0046661.ppops.net [127.0.0.1])
- by mx07-00178001.pphosted.com (8.16.0.42/8.16.0.42) with SMTP id
- 0817M1M9027321; Tue, 1 Sep 2020 09:23:05 +0200
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=st.com;
- h=subject : to : cc :
- references : from : message-id : date : mime-version : in-reply-to :
- content-type : content-transfer-encoding; s=STMicroelectronics;
- bh=7hpAwwgoscZtiR1idbag9pcr+1nyLmBycUSgjh28YnQ=;
- b=uPbNtBqaVV+AczDQTChkUVgk+hTTxCLrEtjOBPLdzl2KCtZ0Ykn5ZVLVN4mgT/aGAvzy
- ZcVoBt8ZpOGtuU3iyKGfWzPt1R6Ypar8xzdSMHm10PTXYdnaw7OMde1g6DZhiU7JfuFw
- 0JHRcLIwvWMU2ChlP/mzc8BsnS5Kh1zgXN7unhDgIN+33S4OfQO9I60Tx2o/cWJp1VjA
- 8ts4IXl96QleSsTnCCaAbBjTxpzdRL3NcA9R7PHKZYNHDURo0tuLxQQyN5q0Q0tX/rt4
- LWnvmq+uYSU0eTGOYavA+SAIxJBD746H+kQX3CETWOvy/j17v+xXpvIJQRFihPuPncQe 8A== 
-Received: from beta.dmz-eu.st.com (beta.dmz-eu.st.com [164.129.1.35])
- by mx07-00178001.pphosted.com with ESMTP id 337dwh5r8g-1
- (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
- Tue, 01 Sep 2020 09:23:05 +0200
-Received: from euls16034.sgp.st.com (euls16034.sgp.st.com [10.75.44.20])
- by beta.dmz-eu.st.com (STMicroelectronics) with ESMTP id F2EE510002A;
- Tue,  1 Sep 2020 09:23:04 +0200 (CEST)
-Received: from Webmail-eu.st.com (sfhdag3node1.st.com [10.75.127.7])
- by euls16034.sgp.st.com (STMicroelectronics) with ESMTP id E20B421E67E;
- Tue,  1 Sep 2020 09:23:04 +0200 (CEST)
-Received: from lmecxl0889.tpe.st.com (10.75.127.44) by SFHDAG3NODE1.st.com
- (10.75.127.7) with Microsoft SMTP Server (TLS) id 15.0.1473.3; Tue, 1 Sep
- 2020 09:23:03 +0200
-To: Mathieu Poirier <mathieu.poirier@linaro.org>, "ohad@wizery.com"
- <ohad@wizery.com>,
- "bjorn.andersson@linaro.org" <bjorn.andersson@linaro.org>,
- "mcoquelin.stm32@gmail.com" <mcoquelin.stm32@gmail.com>, Alexandre TORGUE
- <alexandre.torgue@st.com>
-References: <20200831213758.206690-1-mathieu.poirier@linaro.org>
-From: Arnaud POULIQUEN <arnaud.pouliquen@st.com>
-Message-ID: <7d63d684-d675-3812-312f-d6b248e06700@st.com>
-Date: Tue, 1 Sep 2020 09:23:02 +0200
-User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:68.0) Gecko/20100101
- Thunderbird/68.10.0
-MIME-Version: 1.0
-In-Reply-To: <20200831213758.206690-1-mathieu.poirier@linaro.org>
-Content-Language: en-US
-X-Originating-IP: [10.75.127.44]
-X-ClientProxiedBy: SFHDAG7NODE1.st.com (10.75.127.19) To SFHDAG3NODE1.st.com
- (10.75.127.7)
-X-Proofpoint-Virus-Version: vendor=fsecure engine=2.50.10434:6.0.235, 18.0.687
- definitions=2020-09-01_04:2020-09-01,
- 2020-09-01 signatures=0
-Cc: "linux-remoteproc@vger.kernel.org" <linux-remoteproc@vger.kernel.org>,
- "linux-stm32@st-md-mailman.stormreply.com"
- <linux-stm32@st-md-mailman.stormreply.com>,
- "linux-arm-kernel@lists.infradead.org" <linux-arm-kernel@lists.infradead.org>,
- "linux-kernel@vger.kernel.org" <linux-kernel@vger.kernel.org>
-Subject: Re: [Linux-stm32] [PATCH] remoteproc: stm32: Fix pointer assignement
+ Tue,  1 Sep 2020 15:27:28 +0000 (UTC)
+Received: from kozik-lap.mshome.net (unknown [194.230.155.106])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+ (No client certificate requested)
+ by mail.kernel.org (Postfix) with ESMTPSA id A68082078B;
+ Tue,  1 Sep 2020 15:27:19 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
+ s=default; t=1598974046;
+ bh=c4WH/PmFagCnAWTlKVBg6RiP8BT5Mny0HhSQHue4V+4=;
+ h=From:To:Cc:Subject:Date:From;
+ b=dBf7pbKTxqSrRfmZPKIKVWm9Cz+lUwtaXkAMTDqXPBydndINMBfIDiJZ7C8ZULAZg
+ nSHIr9NGcPio9oQG/8r2FzIWU6WMPm25e9fgO7vD6sOYRx8Kh0D522XY9dPLfXKPeu
+ tIWTjHmR7GZfL6PmK36bMso5sJoq3DwbHWnAYCgQ=
+From: Krzysztof Kozlowski <krzk@kernel.org>
+To: Tudor Ambarus <tudor.ambarus@microchip.com>,
+ Mark Brown <broonie@kernel.org>,
+ Nicolas Ferre <nicolas.ferre@microchip.com>,
+ Alexandre Belloni <alexandre.belloni@bootlin.com>,
+ Ludovic Desroches <ludovic.desroches@microchip.com>,
+ Nicolas Saenz Julienne <nsaenzjulienne@suse.de>,
+ Florian Fainelli <f.fainelli@gmail.com>, Ray Jui <rjui@broadcom.com>,
+ Scott Branden <sbranden@broadcom.com>,
+ bcm-kernel-feedback-list@broadcom.com, Andy Gross <agross@kernel.org>,
+ Bjorn Andersson <bjorn.andersson@linaro.org>,
+ Orson Zhai <orsonzhai@gmail.com>, Baolin Wang <baolin.wang7@gmail.com>,
+ Chunyan Zhang <zhang.lyra@gmail.com>,
+ Maxime Coquelin <mcoquelin.stm32@gmail.com>,
+ Alexandre Torgue <alexandre.torgue@st.com>,
+ Masahisa Kojima <masahisa.kojima@linaro.org>,
+ Jassi Brar <jaswinder.singh@linaro.org>,
+ Laxman Dewangan <ldewangan@nvidia.com>,
+ Thierry Reding <thierry.reding@gmail.com>,
+ Jonathan Hunter <jonathanh@nvidia.com>, linux-spi@vger.kernel.org,
+ linux-arm-kernel@lists.infradead.org, linux-kernel@vger.kernel.org,
+ linux-rpi-kernel@lists.infradead.org, linux-arm-msm@vger.kernel.org,
+ linux-stm32@st-md-mailman.stormreply.com, linux-tegra@vger.kernel.org
+Date: Tue,  1 Sep 2020 17:27:03 +0200
+Message-Id: <20200901152713.18629-1-krzk@kernel.org>
+X-Mailer: git-send-email 2.17.1
+Cc: stable@vger.kernel.org, Krzysztof Kozlowski <krzk@kernel.org>
+Subject: [Linux-stm32] [PATCH 01/11] spi: sprd: Release DMA channel also on
+	probe deferral
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -77,42 +65,43 @@ List-Post: <mailto:linux-stm32@st-md-mailman.stormreply.com>
 List-Help: <mailto:linux-stm32-request@st-md-mailman.stormreply.com?subject=help>
 List-Subscribe: <https://st-md-mailman.stormreply.com/mailman/listinfo/linux-stm32>, 
  <mailto:linux-stm32-request@st-md-mailman.stormreply.com?subject=subscribe>
+MIME-Version: 1.0
 Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
-Hi Mathieu,
+If dma_request_chan() for TX channel fails with EPROBE_DEFER, the RX
+channel would not be released and on next re-probe it would be requested
+second time.
 
-On 8/31/20 11:37 PM, Mathieu Poirier wrote:
-> Fix the assignment of the @state pointer - it is obviously wrong.
-> 
-> Fixes: 376ffdc04456 ("remoteproc: stm32: Properly set co-processor state when attaching")
-> Reported-by: kernel test robot <lkp@intel.com>
-> Signed-off-by: Mathieu Poirier <mathieu.poirier@linaro.org>
+Fixes: 386119bc7be9 ("spi: sprd: spi: sprd: Add DMA mode support")
+Cc: <stable@vger.kernel.org>
+Signed-off-by: Krzysztof Kozlowski <krzk@kernel.org>
+---
+ drivers/spi/spi-sprd.c | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
 
-Acked-by: Arnaud Pouliquen <arnaud.pouliquen@st.com>
+diff --git a/drivers/spi/spi-sprd.c b/drivers/spi/spi-sprd.c
+index 6678f1cbc566..0443fec3a6ab 100644
+--- a/drivers/spi/spi-sprd.c
++++ b/drivers/spi/spi-sprd.c
+@@ -563,11 +563,11 @@ static int sprd_spi_dma_request(struct sprd_spi *ss)
+ 
+ 	ss->dma.dma_chan[SPRD_SPI_TX]  = dma_request_chan(ss->dev, "tx_chn");
+ 	if (IS_ERR_OR_NULL(ss->dma.dma_chan[SPRD_SPI_TX])) {
++		dma_release_channel(ss->dma.dma_chan[SPRD_SPI_RX]);
+ 		if (PTR_ERR(ss->dma.dma_chan[SPRD_SPI_TX]) == -EPROBE_DEFER)
+ 			return PTR_ERR(ss->dma.dma_chan[SPRD_SPI_TX]);
+ 
+ 		dev_err(ss->dev, "request TX DMA channel failed!\n");
+-		dma_release_channel(ss->dma.dma_chan[SPRD_SPI_RX]);
+ 		return PTR_ERR(ss->dma.dma_chan[SPRD_SPI_TX]);
+ 	}
+ 
+-- 
+2.17.1
 
-Thanks,
-Arnaud
-> ---
->  drivers/remoteproc/stm32_rproc.c | 2 +-
->  1 file changed, 1 insertion(+), 1 deletion(-)
-> 
-> diff --git a/drivers/remoteproc/stm32_rproc.c b/drivers/remoteproc/stm32_rproc.c
-> index f4da42fc0eeb..d2414cc1d90d 100644
-> --- a/drivers/remoteproc/stm32_rproc.c
-> +++ b/drivers/remoteproc/stm32_rproc.c
-> @@ -685,7 +685,7 @@ static int stm32_rproc_get_m4_status(struct stm32_rproc *ddata,
->  		 * We couldn't get the coprocessor's state, assume
->  		 * it is not running.
->  		 */
-> -		state = M4_STATE_OFF;
-> +		*state = M4_STATE_OFF;
->  		return 0;
->  	}
->  
-> 
 _______________________________________________
 Linux-stm32 mailing list
 Linux-stm32@st-md-mailman.stormreply.com
