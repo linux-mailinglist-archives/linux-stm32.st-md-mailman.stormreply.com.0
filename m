@@ -2,35 +2,59 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id 0455E25AE60
-	for <lists+linux-stm32@lfdr.de>; Wed,  2 Sep 2020 17:07:45 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 4B3D625AEC1
+	for <lists+linux-stm32@lfdr.de>; Wed,  2 Sep 2020 17:25:06 +0200 (CEST)
 Received: from ip-172-31-3-76.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id AFDABC36B26;
-	Wed,  2 Sep 2020 15:07:44 +0000 (UTC)
-Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
- (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
- (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id A926CC36B0B
- for <linux-stm32@st-md-mailman.stormreply.com>;
- Wed,  2 Sep 2020 15:07:42 +0000 (UTC)
-Received: from kozik-lap.mshome.net (unknown [194.230.155.106])
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id E58A2C36B26;
+	Wed,  2 Sep 2020 15:25:05 +0000 (UTC)
+Received: from mail-pf1-f193.google.com (mail-pf1-f193.google.com
+ [209.85.210.193])
  (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by mail.kernel.org (Postfix) with ESMTPSA id 168832145D;
- Wed,  2 Sep 2020 15:07:35 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
- s=default; t=1599059261;
- bh=T2xuNDe/mQvJNEoHtYHkEv7VKzb9pmqoEh8NDwVB0KA=;
- h=From:To:Cc:Subject:Date:In-Reply-To:References:From;
- b=Cy4I1bg6mFyZCwbFGVjTQLZBoAzSaYbEpWNkFwDU4ONqghQ/Hy87a/INzvBR8Dom9
- sQB2OJA+Ux8Fcqd3TY/kqt9KuqjIcKETNePqmwQScIGQSLbAVVO+30eM1QrdBSchjT
- dr66gUrD76qnWkcWACPmmwMsCGGEQxuWuzF7PXDU=
-From: Krzysztof Kozlowski <krzk@kernel.org>
-To: Nicolas Saenz Julienne <nsaenzjulienne@suse.de>,
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 06E28C36B0B
+ for <linux-stm32@st-md-mailman.stormreply.com>;
+ Wed,  2 Sep 2020 15:25:03 +0000 (UTC)
+Received: by mail-pf1-f193.google.com with SMTP id v196so2352494pfc.1
+ for <linux-stm32@st-md-mailman.stormreply.com>;
+ Wed, 02 Sep 2020 08:25:03 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20161025;
+ h=subject:to:references:from:message-id:date:user-agent:mime-version
+ :in-reply-to:content-language:content-transfer-encoding;
+ bh=9egEgwHbell+Vp+FzaRF5HQxPX8jduHhbTufKmGyrCM=;
+ b=mxVwxBdbeCaRpCy8dMALx19AWZCNbqDvFiqlOKHGsaWAFlLLVNCLuBJyoOt/Pq4a4B
+ kPrBcUCY1S3D1P1/0v9mtR63ullGPIoZ7ui2JsClIAmwOpZXebJuwzoKld7esZVgwIHd
+ Tz3vUTXvsoSQDGGXLj9VV1hm11tx7pCxRJn+c15Cm0gP4WaLBKJ7OjWyZPxejLY6ti2a
+ qFwsx6f1R2QO0s7IYqexyjIbbxhUjjEoY71vM8HcLVxAF8/hgfW4bOut19EgDQKd54zf
+ a/y++XOFDSFm037j4fqvFuNUP1yPvs7wPsuszb+JYI7vpqaxeTWrQSOMCxrM8eILYHno
+ SWfg==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20161025;
+ h=x-gm-message-state:subject:to:references:from:message-id:date
+ :user-agent:mime-version:in-reply-to:content-language
+ :content-transfer-encoding;
+ bh=9egEgwHbell+Vp+FzaRF5HQxPX8jduHhbTufKmGyrCM=;
+ b=hDehbQ6zhxOFhCQgYQcCCRGphQVndfeCiVQe+hjlwy/UHNTC1RS1ioesBKZbHIuOSI
+ SwkHLopRddOGj5MjBHldLcBMxLSxuAkReHPVjlgHEfof1QQKX+N83IJac//C7OwWYVnE
+ 4omFIxKheS+Y4AY+U7oqwj0iRj6v80SQdp2QedK1s7lzga581zUXnpc0hs8nild3cWH/
+ C+foGIbHmV2YynIhYA5TWeacHHNvGYdi1vkkiOg8CNgIXmUaTP5fghdl9ctSoxXh7nuL
+ D7KE354Z40ovU9MYWKZD5oKEkarlyjccj5n80oUDU3FhA8I4HPVBHigqH+qpVsQFmkl3
+ gfDQ==
+X-Gm-Message-State: AOAM532iSuMylfxGKQu8LW7bFR1t8J6xFwEV31BnFdBNoMSPaoHpgpNn
+ QskQK/AB4FJF+Fv2TW5a99tGK5Q0OuA=
+X-Google-Smtp-Source: ABdhPJwpzMqqhegc92irnbmZ7DqXPb2X+KXRPw2ICETQlHugEduxoNrNbfoVAN6znE19G8LcmHVMag==
+X-Received: by 2002:aa7:9427:: with SMTP id y7mr3705007pfo.12.1599060301995;
+ Wed, 02 Sep 2020 08:25:01 -0700 (PDT)
+Received: from [192.168.1.3] (ip68-111-84-250.oc.oc.cox.net. [68.111.84.250])
+ by smtp.gmail.com with ESMTPSA id
+ p68sm6147744pfb.40.2020.09.02.08.24.59
+ (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+ Wed, 02 Sep 2020 08:25:00 -0700 (PDT)
+To: Krzysztof Kozlowski <krzk@kernel.org>,
+ Nicolas Saenz Julienne <nsaenzjulienne@suse.de>,
  Florian Fainelli <f.fainelli@gmail.com>, Ray Jui <rjui@broadcom.com>,
  Scott Branden <sbranden@broadcom.com>,
- bcm-kernel-feedback-list@broadcom.com,
- Michal Simek <michal.simek@xilinx.com>, Sekhar Nori <nsekhar@ti.com>,
+ bcm-kernel-feedback-list@broadcom.com, Michal Simek
+ <michal.simek@xilinx.com>, Sekhar Nori <nsekhar@ti.com>,
  Bartosz Golaszewski <bgolaszewski@baylibre.com>,
  Oleksij Rempel <linux@rempel-privat.de>,
  Pengutronix Kernel Team <kernel@pengutronix.de>,
@@ -44,13 +68,17 @@ To: Nicolas Saenz Julienne <nsaenzjulienne@suse.de>,
  linux-rpi-kernel@lists.infradead.org, linux-arm-kernel@lists.infradead.org,
  linux-kernel@vger.kernel.org, linux-rockchip@lists.infradead.org,
  linux-stm32@st-md-mailman.stormreply.com
-Date: Wed,  2 Sep 2020 17:06:43 +0200
-Message-Id: <20200902150643.14839-9-krzk@kernel.org>
-X-Mailer: git-send-email 2.17.1
-In-Reply-To: <20200902150643.14839-1-krzk@kernel.org>
 References: <20200902150643.14839-1-krzk@kernel.org>
-Cc: Krzysztof Kozlowski <krzk@kernel.org>
-Subject: [Linux-stm32] [PATCH 9/9] i2c: mux: reg: Simplify with
+ <20200902150643.14839-3-krzk@kernel.org>
+From: Florian Fainelli <f.fainelli@gmail.com>
+Message-ID: <7867b520-950d-aa8e-a7a1-f3590abb98c6@gmail.com>
+Date: Wed, 2 Sep 2020 08:24:58 -0700
+User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:78.0) Gecko/20100101
+ Firefox/78.0 Thunderbird/78.1.1
+MIME-Version: 1.0
+In-Reply-To: <20200902150643.14839-3-krzk@kernel.org>
+Content-Language: en-US
+Subject: Re: [Linux-stm32] [PATCH 3/9] i2c: bcm2835: Simplify with
 	dev_err_probe()
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
@@ -63,44 +91,22 @@ List-Post: <mailto:linux-stm32@st-md-mailman.stormreply.com>
 List-Help: <mailto:linux-stm32-request@st-md-mailman.stormreply.com?subject=help>
 List-Subscribe: <https://st-md-mailman.stormreply.com/mailman/listinfo/linux-stm32>, 
  <mailto:linux-stm32-request@st-md-mailman.stormreply.com?subject=subscribe>
-MIME-Version: 1.0
-Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
+Content-Type: text/plain; charset="us-ascii"; Format="flowed"
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
-Common pattern of handling deferred probe can be simplified with
-dev_err_probe().  Less code and the error value gets printed.
 
-Signed-off-by: Krzysztof Kozlowski <krzk@kernel.org>
----
- drivers/i2c/muxes/i2c-mux-reg.c | 10 +++-------
- 1 file changed, 3 insertions(+), 7 deletions(-)
 
-diff --git a/drivers/i2c/muxes/i2c-mux-reg.c b/drivers/i2c/muxes/i2c-mux-reg.c
-index b59a62f8d7a6..0e0679f65cf7 100644
---- a/drivers/i2c/muxes/i2c-mux-reg.c
-+++ b/drivers/i2c/muxes/i2c-mux-reg.c
-@@ -171,13 +171,9 @@ static int i2c_mux_reg_probe(struct platform_device *pdev)
- 			sizeof(mux->data));
- 	} else {
- 		ret = i2c_mux_reg_probe_dt(mux, pdev);
--		if (ret == -EPROBE_DEFER)
--			return ret;
--
--		if (ret < 0) {
--			dev_err(&pdev->dev, "Error parsing device tree");
--			return ret;
--		}
-+		if (ret < 0)
-+			return dev_err_probe(&pdev->dev, ret,
-+					     "Error parsing device tree");
- 	}
- 
- 	parent = i2c_get_adapter(mux->data.parent);
+On 9/2/2020 8:06 AM, Krzysztof Kozlowski wrote:
+> Common pattern of handling deferred probe can be simplified with
+> dev_err_probe().  Less code and the error value gets printed.
+> 
+> Signed-off-by: Krzysztof Kozlowski <krzk@kernel.org>
+
+Acked-by: Florian Fainelli <f.fainelli@gmail.com>
 -- 
-2.17.1
-
+Florian
 _______________________________________________
 Linux-stm32 mailing list
 Linux-stm32@st-md-mailman.stormreply.com
