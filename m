@@ -2,29 +2,29 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id D5B2D25AE5F
-	for <lists+linux-stm32@lfdr.de>; Wed,  2 Sep 2020 17:07:38 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 0455E25AE60
+	for <lists+linux-stm32@lfdr.de>; Wed,  2 Sep 2020 17:07:45 +0200 (CEST)
 Received: from ip-172-31-3-76.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id A3B3DC36B26;
-	Wed,  2 Sep 2020 15:07:38 +0000 (UTC)
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id AFDABC36B26;
+	Wed,  2 Sep 2020 15:07:44 +0000 (UTC)
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
  (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id E9931C36B0B
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id A926CC36B0B
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Wed,  2 Sep 2020 15:07:36 +0000 (UTC)
+ Wed,  2 Sep 2020 15:07:42 +0000 (UTC)
 Received: from kozik-lap.mshome.net (unknown [194.230.155.106])
  (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by mail.kernel.org (Postfix) with ESMTPSA id 633F820C56;
- Wed,  2 Sep 2020 15:07:30 +0000 (UTC)
+ by mail.kernel.org (Postfix) with ESMTPSA id 168832145D;
+ Wed,  2 Sep 2020 15:07:35 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
- s=default; t=1599059255;
- bh=vbd2YXuxT3Yz0bN8TyD3EQNRyFzd8vDK7+rMFiJqG1Q=;
+ s=default; t=1599059261;
+ bh=T2xuNDe/mQvJNEoHtYHkEv7VKzb9pmqoEh8NDwVB0KA=;
  h=From:To:Cc:Subject:Date:In-Reply-To:References:From;
- b=hy3og9qqM244W8aAlhguKZcUJLSzQTrmUOeMNNERCciEGkkxdYFb839A0Amltm6Mj
- DToDym2tHVkCaux31y2sDdPOW/2c6RQWYH1y+jH302VejAxbuUtX8HxkUbknwIoRp0
- Dlmrfv7ILBMVC71RjA7CHlhkFzZbIyt3ffLBQc1I=
+ b=Cy4I1bg6mFyZCwbFGVjTQLZBoAzSaYbEpWNkFwDU4ONqghQ/Hy87a/INzvBR8Dom9
+ sQB2OJA+Ux8Fcqd3TY/kqt9KuqjIcKETNePqmwQScIGQSLbAVVO+30eM1QrdBSchjT
+ dr66gUrD76qnWkcWACPmmwMsCGGEQxuWuzF7PXDU=
 From: Krzysztof Kozlowski <krzk@kernel.org>
 To: Nicolas Saenz Julienne <nsaenzjulienne@suse.de>,
  Florian Fainelli <f.fainelli@gmail.com>, Ray Jui <rjui@broadcom.com>,
@@ -44,13 +44,13 @@ To: Nicolas Saenz Julienne <nsaenzjulienne@suse.de>,
  linux-rpi-kernel@lists.infradead.org, linux-arm-kernel@lists.infradead.org,
  linux-kernel@vger.kernel.org, linux-rockchip@lists.infradead.org,
  linux-stm32@st-md-mailman.stormreply.com
-Date: Wed,  2 Sep 2020 17:06:42 +0200
-Message-Id: <20200902150643.14839-8-krzk@kernel.org>
+Date: Wed,  2 Sep 2020 17:06:43 +0200
+Message-Id: <20200902150643.14839-9-krzk@kernel.org>
 X-Mailer: git-send-email 2.17.1
 In-Reply-To: <20200902150643.14839-1-krzk@kernel.org>
 References: <20200902150643.14839-1-krzk@kernel.org>
 Cc: Krzysztof Kozlowski <krzk@kernel.org>
-Subject: [Linux-stm32] [PATCH 8/9] i2c: mux: gpmux: Simplify with
+Subject: [Linux-stm32] [PATCH 9/9] i2c: mux: reg: Simplify with
 	dev_err_probe()
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
@@ -74,38 +74,30 @@ dev_err_probe().  Less code and the error value gets printed.
 
 Signed-off-by: Krzysztof Kozlowski <krzk@kernel.org>
 ---
- drivers/i2c/muxes/i2c-mux-gpmux.c | 16 ++++++----------
- 1 file changed, 6 insertions(+), 10 deletions(-)
+ drivers/i2c/muxes/i2c-mux-reg.c | 10 +++-------
+ 1 file changed, 3 insertions(+), 7 deletions(-)
 
-diff --git a/drivers/i2c/muxes/i2c-mux-gpmux.c b/drivers/i2c/muxes/i2c-mux-gpmux.c
-index f830535cff12..d3acd8d66c32 100644
---- a/drivers/i2c/muxes/i2c-mux-gpmux.c
-+++ b/drivers/i2c/muxes/i2c-mux-gpmux.c
-@@ -85,18 +85,14 @@ static int i2c_mux_probe(struct platform_device *pdev)
- 		return -ENOMEM;
+diff --git a/drivers/i2c/muxes/i2c-mux-reg.c b/drivers/i2c/muxes/i2c-mux-reg.c
+index b59a62f8d7a6..0e0679f65cf7 100644
+--- a/drivers/i2c/muxes/i2c-mux-reg.c
++++ b/drivers/i2c/muxes/i2c-mux-reg.c
+@@ -171,13 +171,9 @@ static int i2c_mux_reg_probe(struct platform_device *pdev)
+ 			sizeof(mux->data));
+ 	} else {
+ 		ret = i2c_mux_reg_probe_dt(mux, pdev);
+-		if (ret == -EPROBE_DEFER)
+-			return ret;
+-
+-		if (ret < 0) {
+-			dev_err(&pdev->dev, "Error parsing device tree");
+-			return ret;
+-		}
++		if (ret < 0)
++			return dev_err_probe(&pdev->dev, ret,
++					     "Error parsing device tree");
+ 	}
  
- 	mux->control = devm_mux_control_get(dev, NULL);
--	if (IS_ERR(mux->control)) {
--		if (PTR_ERR(mux->control) != -EPROBE_DEFER)
--			dev_err(dev, "failed to get control-mux\n");
--		return PTR_ERR(mux->control);
--	}
-+	if (IS_ERR(mux->control))
-+		return dev_err_probe(dev, PTR_ERR(mux->control),
-+				     "failed to get control-mux\n");
- 
- 	parent = mux_parent_adapter(dev);
--	if (IS_ERR(parent)) {
--		if (PTR_ERR(parent) != -EPROBE_DEFER)
--			dev_err(dev, "failed to get i2c-parent adapter\n");
--		return PTR_ERR(parent);
--	}
-+	if (IS_ERR(parent))
-+		return dev_err_probe(dev, PTR_ERR(parent),
-+				     "failed to get i2c-parent adapter\n");
- 
- 	children = of_get_child_count(np);
- 
+ 	parent = i2c_get_adapter(mux->data.parent);
 -- 
 2.17.1
 
