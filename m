@@ -2,29 +2,29 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id 693B925AE46
-	for <lists+linux-stm32@lfdr.de>; Wed,  2 Sep 2020 17:05:42 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 2ABC025AE47
+	for <lists+linux-stm32@lfdr.de>; Wed,  2 Sep 2020 17:05:46 +0200 (CEST)
 Received: from ip-172-31-3-76.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 794C0C36B26;
-	Wed,  2 Sep 2020 15:05:41 +0000 (UTC)
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id E7E6DC36B26;
+	Wed,  2 Sep 2020 15:05:45 +0000 (UTC)
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
  (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 3C02CC36B0B
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 99F6BC35E3C
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Wed,  2 Sep 2020 15:05:39 +0000 (UTC)
+ Wed,  2 Sep 2020 15:05:42 +0000 (UTC)
 Received: from kozik-lap.mshome.net (unknown [194.230.155.106])
  (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by mail.kernel.org (Postfix) with ESMTPSA id 7370B20773;
- Wed,  2 Sep 2020 15:05:34 +0000 (UTC)
+ by mail.kernel.org (Postfix) with ESMTPSA id 33E06208DB;
+ Wed,  2 Sep 2020 15:05:38 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
- s=default; t=1599059137;
- bh=9fjWbCmuALVUvcHuHMkm09b5211sjynNJ9Tq1XvySIY=;
- h=From:To:Cc:Subject:Date:From;
- b=LsixEc0u2r/bJq7yAVUUGvglnE3PaYEdtJmatcn3Azh1lSeG+yUXR3cFJdaqoeUlb
- o3vf/H1TyiQofCDsL5A9e9eY6nkyrb11Q0SqrM9eDjTfjqMJqIWHpF0ZLX45Z8J2Lo
- rQWDbT7cGc35c4SOHoXjclIo1T5sLGHzkKBG0niw=
+ s=default; t=1599059141;
+ bh=Kf4AGkwBeCGoHHALVeorzcgycX+eJy9K4IemTaY2rug=;
+ h=From:To:Cc:Subject:Date:In-Reply-To:References:From;
+ b=VSgk85zVnJwt/VLg6KrgcafVnr5qa9RP9MooVdCpAlnwQtnqKIbPFJrhmtrv38w4y
+ jXfAlVoqW4GNgLiLrc23muvJZTjKhoGoiR3RyIEUbnXfgbCEpTFdbU+BmwPVNcNLxr
+ EDn8X09KLElHzjuCD5vsFq83sVfcZ3idPyRGI1GU=
 From: Krzysztof Kozlowski <krzk@kernel.org>
 To: Corentin Labbe <clabbe.montjoie@gmail.com>,
  Herbert Xu <herbert@gondor.apana.org.au>,
@@ -37,11 +37,14 @@ To: Corentin Labbe <clabbe.montjoie@gmail.com>,
  Chen Zhou <chenzhou10@huawei.com>, linux-crypto@vger.kernel.org,
  linux-arm-kernel@lists.infradead.org, linux-kernel@vger.kernel.org,
  linux-stm32@st-md-mailman.stormreply.com
-Date: Wed,  2 Sep 2020 17:05:27 +0200
-Message-Id: <20200902150530.14640-1-krzk@kernel.org>
+Date: Wed,  2 Sep 2020 17:05:28 +0200
+Message-Id: <20200902150530.14640-2-krzk@kernel.org>
 X-Mailer: git-send-email 2.17.1
+In-Reply-To: <20200902150530.14640-1-krzk@kernel.org>
+References: <20200902150530.14640-1-krzk@kernel.org>
 Cc: Krzysztof Kozlowski <krzk@kernel.org>
-Subject: [Linux-stm32] [PATCH 1/4] crypto: caam - Fix kerneldoc
+Subject: [Linux-stm32] [PATCH 2/4] crypto: caam - Simplify with
+	dev_err_probe()
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -59,38 +62,28 @@ Content-Transfer-Encoding: 7bit
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
-Fix kerneldoc warnings:
-
-  drivers/crypto/caam/caamalg_qi2.c:73: warning: cannot understand function prototype: 'struct caam_ctx '
-  drivers/crypto/caam/caamalg_qi2.c:2962: warning: cannot understand function prototype: 'struct caam_hash_ctx '
+Common pattern of handling deferred probe can be simplified with
+dev_err_probe().  Less code and the error value gets printed.
 
 Signed-off-by: Krzysztof Kozlowski <krzk@kernel.org>
 ---
- drivers/crypto/caam/caamalg_qi2.c | 4 ++--
- 1 file changed, 2 insertions(+), 2 deletions(-)
+ drivers/crypto/caam/caamalg_qi2.c | 3 +--
+ 1 file changed, 1 insertion(+), 2 deletions(-)
 
 diff --git a/drivers/crypto/caam/caamalg_qi2.c b/drivers/crypto/caam/caamalg_qi2.c
-index 66ae1d581168..0441e4ff2df2 100644
+index 0441e4ff2df2..076c6b04bea9 100644
 --- a/drivers/crypto/caam/caamalg_qi2.c
 +++ b/drivers/crypto/caam/caamalg_qi2.c
-@@ -59,7 +59,7 @@ struct caam_skcipher_alg {
- };
+@@ -5115,8 +5115,7 @@ static int dpaa2_caam_probe(struct fsl_mc_device *dpseci_dev)
+ 	/* DPIO */
+ 	err = dpaa2_dpseci_dpio_setup(priv);
+ 	if (err) {
+-		if (err != -EPROBE_DEFER)
+-			dev_err(dev, "dpaa2_dpseci_dpio_setup() failed\n");
++		dev_err_probe(dev, err, "dpaa2_dpseci_dpio_setup() failed\n");
+ 		goto err_dpio_setup;
+ 	}
  
- /**
-- * caam_ctx - per-session context
-+ * struct caam_ctx - per-session context
-  * @flc: Flow Contexts array
-  * @key:  [authentication key], encryption key
-  * @flc_dma: I/O virtual addresses of the Flow Contexts
-@@ -2951,7 +2951,7 @@ enum hash_optype {
- };
- 
- /**
-- * caam_hash_ctx - ahash per-session context
-+ * struct caam_hash_ctx - ahash per-session context
-  * @flc: Flow Contexts array
-  * @key: authentication key
-  * @flc_dma: I/O virtual addresses of the Flow Contexts
 -- 
 2.17.1
 
