@@ -2,65 +2,63 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id 8D7CF25A566
-	for <lists+linux-stm32@lfdr.de>; Wed,  2 Sep 2020 08:12:39 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 8BCA925A72E
+	for <lists+linux-stm32@lfdr.de>; Wed,  2 Sep 2020 09:58:40 +0200 (CEST)
 Received: from ip-172-31-3-76.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 428C5C36B26;
-	Wed,  2 Sep 2020 06:12:39 +0000 (UTC)
-Received: from mail-ot1-f68.google.com (mail-ot1-f68.google.com
- [209.85.210.68])
- (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 68013C36B26;
+	Wed,  2 Sep 2020 07:58:38 +0000 (UTC)
+Received: from mx07-00178001.pphosted.com (mx07-00178001.pphosted.com
+ [185.132.182.106])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id CF268C36B0B
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 4AB2CC36B0B
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Wed,  2 Sep 2020 06:12:35 +0000 (UTC)
-Received: by mail-ot1-f68.google.com with SMTP id v16so3296011otp.10
- for <linux-stm32@st-md-mailman.stormreply.com>;
- Tue, 01 Sep 2020 23:12:35 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20161025;
- h=mime-version:references:in-reply-to:from:date:message-id:subject:to
- :cc; bh=OH2CSI+RMVDa+o7mr+bFOYCagAiIO2w5E9YocL797D8=;
- b=chrpRBMuxKqoCGIhmYCwEfg2NCy2inV1ZzirbSc8pizTHLUrWeVR5Ul5SCu5XfmgHD
- X7GAk2S8xdmSk/ZeSgsO/b6qrwe8gpvpAqJiSLGVchVURFi6CLumbhl5vXneamaCyHpR
- nlfQ/cwBd71ubhbKgTNhzaEHLiBBEfQDcsLVtFenLx47I5F4clelWrVBVRlAPYivDy/W
- WGbXn5baLInh+myzw6i46tquBTI7kSyLzpMzWrP5Zw6BIKos/d9O/MAEm8Pqbx9v/tRF
- fI8OtyuCro+247fWffA/3pTf0lfUdYCwESQouBSdR+5y7NVryn0G3I/+6+rb73XI1KYl
- 477w==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20161025;
- h=x-gm-message-state:mime-version:references:in-reply-to:from:date
- :message-id:subject:to:cc;
- bh=OH2CSI+RMVDa+o7mr+bFOYCagAiIO2w5E9YocL797D8=;
- b=PE+pJeDmhzyc7VM4qx7DMZTV+E8CW9oIg8K+4UVJX6PWukOepTIiNI5sNSmWMKw8Jh
- 5YpKZQfdDfeV5HaITfxgB/UNl+Y7eMZ/zHi1tPGEabFWbQujM1ij93p5+RNqjnkz1FGO
- OwVdV0UotrYd0+1rlxj3VfVw49HyLRL/3GPgjVQTaQ5JCTjiDnSEmhBVBiUsh2yRV0AC
- YyCha3nuZ3fDtwOTBTAdvYOiHHdHnJQ1+lIxnWXC/U9kfMrdFuONT93codWxVXCLAt4I
- Os9Bc182f9I5rNc7PF8zSsYVH3/jFxoq+C4vF6iprKtoA1/VVYfz7KDALbFjHecz9I1N
- OHSA==
-X-Gm-Message-State: AOAM533MN9O/h9JZWSKqbBlhz3dpFBxqcS+JoQhryra7RBkCLFRP4FzV
- VLg3rq/YOGPokoelgftIS8waI3ssn2vnJWPVaSo=
-X-Google-Smtp-Source: ABdhPJzW3oF7F8kpT7DmR6bM8ZmVyV0PcZtVvxF5E4tdp0v0Vc/JnExc6NBbLfqj0X7p09Ew41E6IFXpQVsUq+Az/RI=
-X-Received: by 2002:a9d:50a:: with SMTP id 10mr3897594otw.207.1599027153888;
- Tue, 01 Sep 2020 23:12:33 -0700 (PDT)
+ Wed,  2 Sep 2020 07:58:33 +0000 (UTC)
+Received: from pps.filterd (m0046037.ppops.net [127.0.0.1])
+ by mx07-00178001.pphosted.com (8.16.0.42/8.16.0.42) with SMTP id
+ 0827ldTA002930; Wed, 2 Sep 2020 09:57:17 +0200
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=st.com;
+ h=from : to : cc : subject
+ : date : message-id : mime-version : content-type; s=STMicroelectronics;
+ bh=zt14ziy4OTTPyQeA+zhrodnOKfhhzc5gP1zGODBiazA=;
+ b=uUUYzTOVb8DO2xvv/x53D7ok3TQpAJbCsuUq3N1NkRQZbf0mkq1s4pAWFj5LBhc6Jvme
+ SnHRBhvzcDdl+ls3TlbKaLa2WZh6FHNqK8oohJi2p/aQ+VEF7SElcfz4wM5/vS9b7mSu
+ RNHLP6q96wScOGAWHrGIX1pfFFOIaYQHuHc4TsgIMjvryM7UZJeZ9ZeZlHYyHtOnupgh
+ iYBtIBe6KzPi0cGaLSQWcrakSV1n95AduNjcduG2VZh1dlASGK7LV6fVHsApkcGlA/zv
+ 3lrog+CUB4UgKFzKkbyKmKTtn+oTJdLkYfQf+DPlMhT7Vuwa4yS5fKbiERQ3zxMgdJWI uw== 
+Received: from beta.dmz-eu.st.com (beta.dmz-eu.st.com [164.129.1.35])
+ by mx07-00178001.pphosted.com with ESMTP id 337csvv4t7-1
+ (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
+ Wed, 02 Sep 2020 09:57:17 +0200
+Received: from euls16034.sgp.st.com (euls16034.sgp.st.com [10.75.44.20])
+ by beta.dmz-eu.st.com (STMicroelectronics) with ESMTP id 2BA2F10002A;
+ Wed,  2 Sep 2020 09:57:15 +0200 (CEST)
+Received: from Webmail-eu.st.com (sfhdag3node2.st.com [10.75.127.8])
+ by euls16034.sgp.st.com (STMicroelectronics) with ESMTP id 080F5212FB9;
+ Wed,  2 Sep 2020 09:57:15 +0200 (CEST)
+Received: from localhost (10.75.127.46) by SFHDAG3NODE2.st.com (10.75.127.8)
+ with Microsoft SMTP Server (TLS) id 15.0.1473.3; Wed, 2 Sep 2020 09:57:14
+ +0200
+From: Amelie Delaunay <amelie.delaunay@st.com>
+To: Rob Herring <robh+dt@kernel.org>, Greg Kroah-Hartman
+ <gregkh@linuxfoundation.org>, Maxime Coquelin <mcoquelin.stm32@gmail.com>,
+ Alexandre Torgue <alexandre.torgue@st.com>, Russell King
+ <linux@armlinux.org.uk>, Heikki Krogerus <heikki.krogerus@linux.intel.com>
+Date: Wed, 2 Sep 2020 09:57:01 +0200
+Message-ID: <20200902075707.9052-1-amelie.delaunay@st.com>
+X-Mailer: git-send-email 2.17.1
 MIME-Version: 1.0
-References: <20200826063850.47625-1-alexandru.ardelean@analog.com>
- <20200826120042.200364-1-alexandru.ardelean@analog.com>
- <CA+U=DsrMDSTQKEc2_3+W8u4bLraAowVB3nB4huKY--v8gnds2Q@mail.gmail.com>
- <c3a9411e-186d-a3ac-5ad0-bd70ad78f147@st.com>
- <CA+U=DspjGUhXCY7c8P6zOYZsx17ybcU4Kdr52yujmdYOaa1JSQ@mail.gmail.com>
- <20200829164613.3be1b2b1@archlinux>
-In-Reply-To: <20200829164613.3be1b2b1@archlinux>
-From: Alexandru Ardelean <ardeleanalex@gmail.com>
-Date: Wed, 2 Sep 2020 09:12:22 +0300
-Message-ID: <CA+U=DsrMFasSO3ka-U_Dkn2BXF4qmfp4ejv=gjf4epo6WxFnUQ@mail.gmail.com>
-To: Jonathan Cameron <jic23@kernel.org>
-Cc: linux-iio <linux-iio@vger.kernel.org>, LKML <linux-kernel@vger.kernel.org>,
- Sergiu Cuciurean <sergiu.cuciurean@analog.com>,
- Alexandru Ardelean <alexandru.ardelean@analog.com>,
- Fabrice Gasnier <fabrice.gasnier@st.com>,
+X-Originating-IP: [10.75.127.46]
+X-ClientProxiedBy: SFHDAG1NODE1.st.com (10.75.127.1) To SFHDAG3NODE2.st.com
+ (10.75.127.8)
+X-Proofpoint-Virus-Version: vendor=fsecure engine=2.50.10434:6.0.235, 18.0.687
+ definitions=2020-09-02_03:2020-09-02,
+ 2020-09-02 signatures=0
+Cc: devicetree@vger.kernel.org, linux-usb@vger.kernel.org,
+ linux-kernel@vger.kernel.org, Fabrice Gasnier <fabrice.gasnier@st.com>,
  linux-stm32@st-md-mailman.stormreply.com, linux-arm-kernel@lists.infradead.org
-Subject: Re: [Linux-stm32] [PATCH v2] iio: stm32-dac: Replace
- indio_dev->mlock with own device lock
+Subject: [Linux-stm32] [RESEND PATCH v2 0/6] Add STUSB160x Type-C port
+	controller support
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -77,100 +75,49 @@ Content-Transfer-Encoding: 7bit
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
-On Sat, Aug 29, 2020 at 6:46 PM Jonathan Cameron <jic23@kernel.org> wrote:
->
-> On Thu, 27 Aug 2020 13:00:36 +0300
-> Alexandru Ardelean <ardeleanalex@gmail.com> wrote:
->
-> > On Thu, Aug 27, 2020 at 12:03 PM Fabrice Gasnier <fabrice.gasnier@st.com> wrote:
-> > >
-> > > On 8/27/20 10:55 AM, Alexandru Ardelean wrote:
-> > > > On Wed, Aug 26, 2020 at 3:03 PM Alexandru Ardelean
-> > > > <alexandru.ardelean@analog.com> wrote:
-> > > >> From: Sergiu Cuciurean <sergiu.cuciurean@analog.com>
-> > > >>
-> > > >> As part of the general cleanup of indio_dev->mlock, this change replaces
-> > > >> it with a local lock. The lock protects against potential races when
-> > > >> reading the CR reg and then updating, so that the state of pm_runtime
-> > > >> is consistent between the two operations.
-> > > >>
-> > > >> Signed-off-by: Sergiu Cuciurean <sergiu.cuciurean@analog.com>
-> > > >> Signed-off-by: Alexandru Ardelean <alexandru.ardelean@analog.com>
-> > > >> ---
-> > > > Forgot the changelog here.
-> > > > Apologies.
-> > > >
-> > > > Changelog v1 -> v2:
-> > > > * removed whitespace change for 'common' field
-> > > > * updated comment about the lock usage
-> > >
-> > > Hi Alexandru,
-> > >
-> > > Sorry if I missed it... is there an update on the comment :-) ?
-> >
-> > For a moment there, I thought I didn't.
-> > GMail's threading is confusing.
-> >
-> > ----------------------------------------------------------------------------
-> > As part of the general cleanup of indio_dev->mlock, this change replaces
-> > it with a local lock. The lock protects against potential races when
-> > reading the CR reg and then updating, so that the state of pm_runtime
-> > is consistent between the two operations.
-> > ----------------------------------------------------------------------------
-> I think this got confused...
->
-> see below.
->
->
-> >
-> > >
-> > > Best Regards,
-> > > Fabrice
-> > > >
-> > > >>  drivers/iio/dac/stm32-dac.c | 12 ++++++++----
-> > > >>  1 file changed, 8 insertions(+), 4 deletions(-)
-> > > >>
-> > > >> diff --git a/drivers/iio/dac/stm32-dac.c b/drivers/iio/dac/stm32-dac.c
-> > > >> index 092c796fa3d9..7a8aed476850 100644
-> > > >> --- a/drivers/iio/dac/stm32-dac.c
-> > > >> +++ b/drivers/iio/dac/stm32-dac.c
-> > > >> @@ -26,9 +26,11 @@
-> > > >>  /**
-> > > >>   * struct stm32_dac - private data of DAC driver
-> > > >>   * @common:            reference to DAC common data
-> > > >> + * @lock:              lock to protect the data buffer during regmap ops
+This series adds support for STMicroelectronics STUSB160x Type-C port
+controllers [1].
+STUSB160x driver requires to get power operation mode via device tree,
+that's why this series also adds the optional DT property power-opmode
+for usb-c-connector to select the power operation mode capability and
+a function to convert the power operation mode string into power
+operation mode value.
+This driver has been tested on stm32mp157c-dk2 [2], which has a Type-C
+connector managed by STUSB1600, and connected to USB OTG controller. 
 
-oh, silly me;
-it's about this comment;
-will re-spin
+[1] https://www.st.com/en/interfaces-and-transceivers/usb-type-c-and-power-delivery-controllers.html
+[2] https://www.st.com/en/evaluation-tools/stm32mp157c-dk2.html
 
->
-> The original comment was:
->
->
-> In this particular case I'm not sure that's what mlock was being used for.
-> I think it's about avoiding races around checking if powered down and
-> actually doing it.
->
-> And Fabrice's reply:
->
-> Hi Sergiu,
->
-> Indeed, purpose is to protect against a race here when reading CR, and
-> updating it via regmap (this also makes the subsequent pm_runtime calls
-> to be balanced based on this).
-> (Side note: there is no data buffer involved for the DAC.)
-> Could you please update the comment ?
->
-> Thanks,
-> Fabrice
->
-> > > >>   */
-> > > >>  struct stm32_dac {
-> > > >>         struct stm32_dac_common *common;
-> > > >> +       struct mutex            lock;
-> > > >>  };
->
+Amelie Delaunay (6):
+  dt-bindings: connector: add power-opmode optional property to
+    usb-connector
+  usb: typec: add typec_find_pwr_opmode
+  dt-bindings: usb: Add DT bindings for STUSB160x Type-C controller
+  usb: typec: add support for STUSB160x Type-C controller family
+  ARM: dts: stm32: add STUSB1600 Type-C using I2C4 on stm32mp15xx-dkx
+  ARM: multi_v7_defconfig: enable STUSB160X Type-C port controller
+    support
+---
+Changes in v2:
+- power-opmode DT property description updated.
+---
+ .../bindings/connector/usb-connector.yaml     |  20 +
+ .../devicetree/bindings/usb/st,stusb160x.yaml |  85 ++
+ arch/arm/boot/dts/stm32mp15-pinctrl.dtsi      |   7 +
+ arch/arm/boot/dts/stm32mp15xx-dkx.dtsi        |  38 +
+ arch/arm/configs/multi_v7_defconfig           |   2 +
+ drivers/usb/typec/Kconfig                     |  12 +
+ drivers/usb/typec/Makefile                    |   1 +
+ drivers/usb/typec/class.c                     |  15 +
+ drivers/usb/typec/stusb160x.c                 | 875 ++++++++++++++++++
+ include/linux/usb/typec.h                     |   1 +
+ 10 files changed, 1056 insertions(+)
+ create mode 100644 Documentation/devicetree/bindings/usb/st,stusb160x.yaml
+ create mode 100644 drivers/usb/typec/stusb160x.c
+
+-- 
+2.17.1
+
 _______________________________________________
 Linux-stm32 mailing list
 Linux-stm32@st-md-mailman.stormreply.com
