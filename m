@@ -2,70 +2,65 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id 3FBE125BAF7
+	by mail.lfdr.de (Postfix) with ESMTPS id 5BC2825BAF8
 	for <lists+linux-stm32@lfdr.de>; Thu,  3 Sep 2020 08:19:34 +0200 (CEST)
 Received: from ip-172-31-3-76.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id D1930C3FAE2;
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id EA546C424B0;
 	Thu,  3 Sep 2020 06:19:33 +0000 (UTC)
-Received: from mail29.static.mailgun.info (mail29.static.mailgun.info
- [104.130.122.29])
- (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from metis.ext.pengutronix.de (metis.ext.pengutronix.de
+ [85.220.165.71])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 21CC5C3FAD9
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id AD0C7C36B0B
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Thu,  3 Sep 2020 00:18:04 +0000 (UTC)
-DKIM-Signature: a=rsa-sha256; v=1; c=relaxed/relaxed; d=mg.codeaurora.org;
- q=dns/txt; 
- s=smtp; t=1599092287; h=Content-Transfer-Encoding: MIME-Version:
- References: In-Reply-To: Message-Id: Date: Subject: Cc: To: From:
- Sender; bh=9EpaubBxqFUSacMHuSIGmCuRKTELLz5Ei4tZOzpBcNk=;
- b=A6rcy2eTT53zOzqwL/qw4ExEdGIakHe9dY7oz2EJlZpG+h0TtUjxMbX/JCIDjtu3WLFkBEw7
- h7h8LJn+Wd9rebzHgjgP643MYeNu7pOfsDqdEcyz91iOvnb77dgLFALdHcgLMVP56X1IOUQ+
- v6o5T9udqQWEILpNiDAK9YptJRg=
-X-Mailgun-Sending-Ip: 104.130.122.29
-X-Mailgun-Sid: WyI1Njk0YyIsICJsaW51eC1zdG0zMkBzdC1tZC1tYWlsbWFuLnN0b3JtcmVwbHkuY29tIiwgImJlOWU0YSJd
-Received: from smtp.codeaurora.org
- (ec2-35-166-182-171.us-west-2.compute.amazonaws.com [35.166.182.171]) by
- smtp-out-n07.prod.us-east-1.postgun.com with SMTP id
- 5f503637380a624e4d2bc73f (version=TLS1.2,
- cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256); Thu, 03 Sep 2020 00:17:59
- GMT
-Received: by smtp.codeaurora.org (Postfix, from userid 1001)
- id 08AAFC43391; Thu,  3 Sep 2020 00:17:59 +0000 (UTC)
-X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
- aws-us-west-2-caf-mail-1.web.codeaurora.org
-X-Spam-Level: 
-X-Spam-Status: No, score=-1.0 required=2.0 tests=ALL_TRUSTED,SPF_NONE
- autolearn=unavailable autolearn_force=no version=3.4.0
-Received: from tingweiz-gv.qualcomm.com (unknown [180.166.53.21])
- (using TLSv1.2 with cipher ECDHE-RSA-AES128-SHA256 (128/128 bits))
- (No client certificate requested) (Authenticated sender: tingwei)
- by smtp.codeaurora.org (Postfix) with ESMTPSA id 9FF7FC4339C;
- Thu,  3 Sep 2020 00:17:55 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.3.2 smtp.codeaurora.org 9FF7FC4339C
-Authentication-Results: aws-us-west-2-caf-mail-1.web.codeaurora.org;
- dmarc=none (p=none dis=none) header.from=codeaurora.org
-Authentication-Results: aws-us-west-2-caf-mail-1.web.codeaurora.org;
- spf=none smtp.mailfrom=tingwei@codeaurora.org
-From: Tingwei Zhang <tingwei@codeaurora.org>
-To: Steven Rostedt <rostedt@goodmis.org>, Ingo Molnar <mingo@redhat.com>,
- Alexander Shishkin <alexander.shishkin@linux.intel.com>,
- Maxime Coquelin <mcoquelin.stm32@gmail.com>,
- Alexandre Torgue <alexandre.torgue@st.com>
-Date: Thu,  3 Sep 2020 08:17:06 +0800
-Message-Id: <20200903001706.28147-7-tingwei@codeaurora.org>
-X-Mailer: git-send-email 2.20.0
-In-Reply-To: <20200903001706.28147-1-tingwei@codeaurora.org>
-References: <20200903001706.28147-1-tingwei@codeaurora.org>
+ Thu,  3 Sep 2020 05:36:30 +0000 (UTC)
+Received: from pty.hi.pengutronix.de ([2001:67c:670:100:1d::c5])
+ by metis.ext.pengutronix.de with esmtps
+ (TLS1.2:ECDHE_RSA_AES_256_GCM_SHA384:256) (Exim 4.92)
+ (envelope-from <ore@pengutronix.de>)
+ id 1kDhur-0000zh-FE; Thu, 03 Sep 2020 07:36:09 +0200
+Received: from ore by pty.hi.pengutronix.de with local (Exim 4.89)
+ (envelope-from <ore@pengutronix.de>)
+ id 1kDhuo-0004TH-94; Thu, 03 Sep 2020 07:36:06 +0200
+Date: Thu, 3 Sep 2020 07:36:06 +0200
+From: Oleksij Rempel <o.rempel@pengutronix.de>
+To: Krzysztof Kozlowski <krzk@kernel.org>
+Message-ID: <20200903053606.pwcqxoepj3vmlt4r@pengutronix.de>
+References: <20200902150643.14839-1-krzk@kernel.org>
+ <20200902150643.14839-6-krzk@kernel.org>
 MIME-Version: 1.0
-X-Mailman-Approved-At: Thu, 03 Sep 2020 06:19:31 +0000
-Cc: tsoni@codeaurora.org, Sai Prakash Ranjan <saiprakash.ranjan@codeaurora.org>,
- Mathieu Poirier <mathieu.poirier@linaro.org>,
- Suzuki K Poulose <suzuki.poulose@arm.com>,
- Mao Jinlong <jinlmao@codeaurora.org>, linux-kernel@vger.kernel.org,
- linux-stm32@st-md-mailman.stormreply.com, linux-arm-kernel@lists.infradead.org
-Subject: [Linux-stm32] [PATCH v3 6/6] stm class: ftrace: use different
-	channel accroding to CPU
+Content-Disposition: inline
+In-Reply-To: <20200902150643.14839-6-krzk@kernel.org>
+X-Sent-From: Pengutronix Hildesheim
+X-URL: http://www.pengutronix.de/
+X-IRC: #ptxdist @freenode
+X-Accept-Language: de,en
+X-Accept-Content-Type: text/plain
+X-Uptime: 07:34:56 up 292 days, 20:53, 274 users,  load average: 0.00, 0.02,
+ 0.00
+User-Agent: NeoMutt/20170113 (1.7.2)
+X-SA-Exim-Connect-IP: 2001:67c:670:100:1d::c5
+X-SA-Exim-Mail-From: ore@pengutronix.de
+X-SA-Exim-Scanned: No (on metis.ext.pengutronix.de);
+ SAEximRunCond expanded to false
+X-PTX-Original-Recipient: linux-stm32@st-md-mailman.stormreply.com
+X-Mailman-Approved-At: Thu, 03 Sep 2020 06:19:30 +0000
+Cc: Heiko Stuebner <heiko@sntech.de>, Sekhar Nori <nsekhar@ti.com>,
+ Pierre-Yves MORDRET <pierre-yves.mordret@st.com>, linux-i2c@vger.kernel.org,
+ Fabio Estevam <festevam@gmail.com>, linux-stm32@st-md-mailman.stormreply.com,
+ Florian Fainelli <f.fainelli@gmail.com>, linux-rockchip@lists.infradead.org,
+ Michal Simek <michal.simek@xilinx.com>,
+ Bartosz Golaszewski <bgolaszewski@baylibre.com>,
+ bcm-kernel-feedback-list@broadcom.com, NXP Linux Team <linux-imx@nxp.com>,
+ Pengutronix Kernel Team <kernel@pengutronix.de>, Ray Jui <rjui@broadcom.com>,
+ Sascha Hauer <s.hauer@pengutronix.de>, linux-rpi-kernel@lists.infradead.org,
+ linux-arm-kernel@lists.infradead.org, Scott Branden <sbranden@broadcom.com>,
+ linux-kernel@vger.kernel.org, Oleksij Rempel <linux@rempel-privat.de>,
+ Wolfram Sang <wsa@kernel.org>, Maxime Coquelin <mcoquelin.stm32@gmail.com>,
+ Shawn Guo <shawnguo@kernel.org>, Peter Rosin <peda@axentia.se>,
+ Nicolas Saenz Julienne <nsaenzjulienne@suse.de>
+Subject: Re: [Linux-stm32] [PATCH 6/9] i2c: imx: Simplify with
+	dev_err_probe()
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -82,43 +77,52 @@ Content-Transfer-Encoding: 7bit
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
-To avoid mixup of packets from differnt ftrace packets simultaneously,
-use different channel for packets from different CPU.
+On Wed, Sep 02, 2020 at 05:06:40PM +0200, Krzysztof Kozlowski wrote:
+> Common pattern of handling deferred probe can be simplified with
+> dev_err_probe().  Less code and the error value gets printed.
+> 
+> Signed-off-by: Krzysztof Kozlowski <krzk@kernel.org>
 
-Signed-off-by: Tingwei Zhang <tingwei@codeaurora.org>
-Reviewed-by: Steven Rostedt (VMware) <rostedt@goodmis.org>
----
- drivers/hwtracing/stm/ftrace.c | 5 ++++-
- 1 file changed, 4 insertions(+), 1 deletion(-)
+Acked-by: Oleksij Rempel <o.rempel@pengutronix.de>
 
-diff --git a/drivers/hwtracing/stm/ftrace.c b/drivers/hwtracing/stm/ftrace.c
-index c694a6e692d1..ebf29489919c 100644
---- a/drivers/hwtracing/stm/ftrace.c
-+++ b/drivers/hwtracing/stm/ftrace.c
-@@ -37,8 +37,10 @@ static void notrace
- stm_ftrace_write(struct trace_export *export, const void *buf, unsigned int len)
- {
- 	struct stm_ftrace *stm = container_of(export, struct stm_ftrace, ftrace);
-+	/* This is called from trace system with preemption disabled */
-+	unsigned int cpu = smp_processor_id();
- 
--	stm_source_write(&stm->data, STM_FTRACE_CHAN, buf, len);
-+	stm_source_write(&stm->data, STM_FTRACE_CHAN + cpu, buf, len);
- }
- 
- static int stm_ftrace_link(struct stm_source_data *data)
-@@ -63,6 +65,7 @@ static int __init stm_ftrace_init(void)
- {
- 	int ret;
- 
-+	stm_ftrace.data.nr_chans = num_possible_cpus();
- 	ret = stm_source_register_device(NULL, &stm_ftrace.data);
- 	if (ret)
- 		pr_err("Failed to register stm_source - ftrace.\n");
+> ---
+>  drivers/i2c/busses/i2c-imx.c | 8 +++-----
+>  1 file changed, 3 insertions(+), 5 deletions(-)
+> 
+> diff --git a/drivers/i2c/busses/i2c-imx.c b/drivers/i2c/busses/i2c-imx.c
+> index 0ab5381aa012..63f4367c312b 100644
+> --- a/drivers/i2c/busses/i2c-imx.c
+> +++ b/drivers/i2c/busses/i2c-imx.c
+> @@ -1159,11 +1159,9 @@ static int i2c_imx_probe(struct platform_device *pdev)
+>  
+>  	/* Get I2C clock */
+>  	i2c_imx->clk = devm_clk_get(&pdev->dev, NULL);
+> -	if (IS_ERR(i2c_imx->clk)) {
+> -		if (PTR_ERR(i2c_imx->clk) != -EPROBE_DEFER)
+> -			dev_err(&pdev->dev, "can't get I2C clock\n");
+> -		return PTR_ERR(i2c_imx->clk);
+> -	}
+> +	if (IS_ERR(i2c_imx->clk))
+> +		return dev_err_probe(&pdev->dev, PTR_ERR(i2c_imx->clk),
+> +				     "can't get I2C clock\n");
+>  
+>  	ret = clk_prepare_enable(i2c_imx->clk);
+>  	if (ret) {
+> -- 
+> 2.17.1
+> 
+> 
+> _______________________________________________
+> linux-arm-kernel mailing list
+> linux-arm-kernel@lists.infradead.org
+> http://lists.infradead.org/mailman/listinfo/linux-arm-kernel
+> 
+
 -- 
-The Qualcomm Innovation Center, Inc. is a member of the Code Aurora Forum,
-a Linux Foundation Collaborative Project
-
+Pengutronix e.K.                           |                             |
+Steuerwalder Str. 21                       | http://www.pengutronix.de/  |
+31137 Hildesheim, Germany                  | Phone: +49-5121-206917-0    |
+Amtsgericht Hildesheim, HRA 2686           | Fax:   +49-5121-206917-5555 |
 _______________________________________________
 Linux-stm32 mailing list
 Linux-stm32@st-md-mailman.stormreply.com
