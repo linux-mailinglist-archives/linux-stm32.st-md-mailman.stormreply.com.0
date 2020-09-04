@@ -2,29 +2,29 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id 8CB4925DFFF
-	for <lists+linux-stm32@lfdr.de>; Fri,  4 Sep 2020 18:43:46 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id C9DA225E005
+	for <lists+linux-stm32@lfdr.de>; Fri,  4 Sep 2020 18:43:52 +0200 (CEST)
 Received: from ip-172-31-3-76.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 308E1C3FAD9;
-	Fri,  4 Sep 2020 16:43:46 +0000 (UTC)
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 8FBB5C3FAD9;
+	Fri,  4 Sep 2020 16:43:52 +0000 (UTC)
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
  (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 77A78C36B26
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 9213EC36B26
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Fri,  4 Sep 2020 16:43:44 +0000 (UTC)
+ Fri,  4 Sep 2020 16:43:49 +0000 (UTC)
 Received: from kozik-lap.mshome.net (unknown [194.230.155.106])
  (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by mail.kernel.org (Postfix) with ESMTPSA id 4D3362064E;
- Fri,  4 Sep 2020 16:43:38 +0000 (UTC)
+ by mail.kernel.org (Postfix) with ESMTPSA id 808062074D;
+ Fri,  4 Sep 2020 16:43:43 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
- s=default; t=1599237823;
- bh=nxciuoD47KxGkOpJC1/Yb+VqPBHDhps24SnDZPx4IXk=;
- h=From:To:Cc:Subject:Date:From;
- b=vV07QlSQWiamQPiw7TcgBV0AVn8g3VLYp4Y0YEpQajmWoDymFi6NXno5wrMIrWqbk
- IYPI85Ll5xGRHSi6KObRaeEGTM/DoL18I/V+Yzx29NgruQPi31ggY144MQCLaytdIg
- uZHZpn9PJ/8lwmzuvIfusuOcx36eP0X6eMPZ8fYk=
+ s=default; t=1599237828;
+ bh=M0F0NujsJbA6VRAoiFk6VohTncRpdlqvI+V+EXO6eTI=;
+ h=From:To:Cc:Subject:Date:In-Reply-To:References:From;
+ b=YNhuRd9bPGkZy4dXcqM4wKBiNUbzE9fZg+ZWuG0rftUJ+tr0tNSNpYkBZTA38LTUr
+ C2BCBXN88B/3wM5OaP8T8RT99NAHiaGDVfp8omRAWmcls7cWRlAVAhuHexZ1jV1ODZ
+ D3tvHvz+KgvITSlGuGrAtkaCNFw9z57g2bkJBSCk=
 From: Krzysztof Kozlowski <krzk@kernel.org>
 To: Ulf Hansson <ulf.hansson@linaro.org>, Arnd Bergmann <arnd@arndb.de>,
  Krzysztof Kozlowski <krzk@kernel.org>, linux-mmc@vger.kernel.org,
@@ -41,13 +41,14 @@ To: Ulf Hansson <ulf.hansson@linaro.org>, Arnd Bergmann <arnd@arndb.de>,
  linux-mediatek@lists.infradead.org, linux-omap@vger.kernel.org,
  linux-aspeed@lists.ozlabs.org, linux-tegra@vger.kernel.org,
  linux-arm-kernel@axis.com
-Date: Fri,  4 Sep 2020 18:43:14 +0200
-Message-Id: <20200904164315.24618-1-krzk@kernel.org>
+Date: Fri,  4 Sep 2020 18:43:15 +0200
+Message-Id: <20200904164315.24618-2-krzk@kernel.org>
 X-Mailer: git-send-email 2.17.1
-MIME-Version: 1.0
+In-Reply-To: <20200904164315.24618-1-krzk@kernel.org>
+References: <20200904164315.24618-1-krzk@kernel.org>
 Cc: =?UTF-8?q?Micha=C5=82=20Miros=C5=82aw?= <mirq-linux@rere.qmqm.pl>
-Subject: [Linux-stm32] [PATCH v2 1/2] mmc: host: Drop unneeded MMC
-	dependency in Kconfig
+Subject: [Linux-stm32] [PATCH v2 2/2] mmc: host: Enable compile testing of
+	multiple drivers
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -59,32 +60,208 @@ List-Post: <mailto:linux-stm32@st-md-mailman.stormreply.com>
 List-Help: <mailto:linux-stm32-request@st-md-mailman.stormreply.com?subject=help>
 List-Subscribe: <https://st-md-mailman.stormreply.com/mailman/listinfo/linux-stm32>, 
  <mailto:linux-stm32-request@st-md-mailman.stormreply.com?subject=subscribe>
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: base64
+MIME-Version: 1.0
+Content-Type: text/plain; charset="us-ascii"
+Content-Transfer-Encoding: 7bit
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
-QWxsIGVudHJpZXMgaW4gS2NvbmZpZyBhcmUgYWxyZWFkeSBwYXJ0IG9mICJpZiBNTUMiLCBzbyB0
-aGVyZSBpcyBubyBuZWVkCmZvciBhZGRpdGlvbmFsIGRlcGVuZGVuY3kgb24gTU1DLgoKU3VnZ2Vz
-dGVkLWJ5OiBNaWNoYcWCIE1pcm9zxYJhdyA8bWlycS1saW51eEByZXJlLnFtcW0ucGw+ClNpZ25l
-ZC1vZmYtYnk6IEtyenlzenRvZiBLb3psb3dza2kgPGtyemtAa2VybmVsLm9yZz4KCi0tLQoKQ2hh
-bmdlcyBzaW5jZSB2MToKMS4gTmV3IHBhdGNoCi0tLQogZHJpdmVycy9tbWMvaG9zdC9LY29uZmln
-IHwgNCArKy0tCiAxIGZpbGUgY2hhbmdlZCwgMiBpbnNlcnRpb25zKCspLCAyIGRlbGV0aW9ucygt
-KQoKZGlmZiAtLWdpdCBhL2RyaXZlcnMvbW1jL2hvc3QvS2NvbmZpZyBiL2RyaXZlcnMvbW1jL2hv
-c3QvS2NvbmZpZwppbmRleCBiOTVmNzlmNTMzOTUuLmVlYTAxZmRlMDU5MSAxMDA2NDQKLS0tIGEv
-ZHJpdmVycy9tbWMvaG9zdC9LY29uZmlnCisrKyBiL2RyaXZlcnMvbW1jL2hvc3QvS2NvbmZpZwpA
-QCAtNDIyLDcgKzQyMiw3IEBAIGNvbmZpZyBNTUNfU0RIQ0lfSVBST0MKIAogY29uZmlnIE1NQ19N
-RVNPTl9HWAogCXRyaXN0YXRlICJBbWxvZ2ljIFM5MDUvR1gqL0FYRyBTRC9NTUMgSG9zdCBDb250
-cm9sbGVyIHN1cHBvcnQiCi0JZGVwZW5kcyBvbiBBUkNIX01FU09OICYmIE1NQworCWRlcGVuZHMg
-b24gQVJDSF9NRVNPTgogCWhlbHAKIAkgIFRoaXMgc2VsZWN0cyBzdXBwb3J0IGZvciB0aGUgQW1s
-b2dpYyBTRC9NTUMgSG9zdCBDb250cm9sbGVyCiAJICBmb3VuZCBvbiB0aGUgUzkwNS9HWCovQVhH
-IGZhbWlseSBvZiBTb0NzLiAgVGhpcyBjb250cm9sbGVyIGlzCkBAIC00NTgsNyArNDU4LDcgQEAg
-Y29uZmlnIE1NQ19NRVNPTl9NWF9TRElPCiAKIGNvbmZpZyBNTUNfTU9YQVJUCiAJdHJpc3RhdGUg
-Ik1PWEFSVCBTRC9NTUMgSG9zdCBDb250cm9sbGVyIHN1cHBvcnQiCi0JZGVwZW5kcyBvbiBBUkNI
-X01PWEFSVCAmJiBNTUMKKwlkZXBlbmRzIG9uIEFSQ0hfTU9YQVJUCiAJaGVscAogCSAgVGhpcyBz
-ZWxlY3RzIHN1cHBvcnQgZm9yIHRoZSBNT1hBUlQgU0QvTU1DIEhvc3QgQ29udHJvbGxlci4KIAkg
-IE1PWEEgcHJvdmlkZXMgb25lIG11bHRpLWZ1bmN0aW9uYWwgY2FyZCByZWFkZXIgd2hpY2ggY2Fu
-Ci0tIAoyLjE3LjEKCl9fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19f
-X19fCkxpbnV4LXN0bTMyIG1haWxpbmcgbGlzdApMaW51eC1zdG0zMkBzdC1tZC1tYWlsbWFuLnN0
-b3JtcmVwbHkuY29tCmh0dHBzOi8vc3QtbWQtbWFpbG1hbi5zdG9ybXJlcGx5LmNvbS9tYWlsbWFu
-L2xpc3RpbmZvL2xpbnV4LXN0bTMyCg==
+Multiple MMC host controller driver can be compile tested as they do not
+depend on architecture specific headers.
+
+Signed-off-by: Krzysztof Kozlowski <krzk@kernel.org>
+
+---
+
+Changes since v1:
+1. Add COMMON_CLK dependency to MESON_GX to fix errors like:
+   ERROR: modpost: "devm_clk_register" [drivers/mmc/host/meson-gx-mmc.ko] undefined!
+---
+ drivers/mmc/host/Kconfig | 41 +++++++++++++++++++++-------------------
+ 1 file changed, 22 insertions(+), 19 deletions(-)
+
+diff --git a/drivers/mmc/host/Kconfig b/drivers/mmc/host/Kconfig
+index eea01fde0591..93db789cf8ec 100644
+--- a/drivers/mmc/host/Kconfig
++++ b/drivers/mmc/host/Kconfig
+@@ -178,7 +178,7 @@ config MMC_SDHCI_OF_AT91
+ config MMC_SDHCI_OF_ESDHC
+ 	tristate "SDHCI OF support for the Freescale eSDHC controller"
+ 	depends on MMC_SDHCI_PLTFM
+-	depends on PPC || ARCH_MXC || ARCH_LAYERSCAPE
++	depends on PPC || ARCH_MXC || ARCH_LAYERSCAPE || COMPILE_TEST
+ 	select MMC_SDHCI_IO_ACCESSORS
+ 	select FSL_GUTS
+ 	help
+@@ -216,7 +216,7 @@ config MMC_SDHCI_OF_DWCMSHC
+ config MMC_SDHCI_OF_SPARX5
+ 	tristate "SDHCI OF support for the MCHP Sparx5 SoC"
+ 	depends on MMC_SDHCI_PLTFM
+-	depends on ARCH_SPARX5
++	depends on ARCH_SPARX5 || COMPILE_TEST
+ 	help
+ 	  This selects the Secure Digital Host Controller Interface (SDHCI)
+ 	  found in the MCHP Sparx5 SoC.
+@@ -238,7 +238,7 @@ config MMC_SDHCI_CADENCE
+ 
+ config MMC_SDHCI_CNS3XXX
+ 	tristate "SDHCI support on the Cavium Networks CNS3xxx SoC"
+-	depends on ARCH_CNS3XXX
++	depends on ARCH_CNS3XXX || COMPILE_TEST
+ 	depends on MMC_SDHCI_PLTFM
+ 	help
+ 	  This selects the SDHCI support for CNS3xxx System-on-Chip devices.
+@@ -262,7 +262,7 @@ config MMC_SDHCI_ESDHC_MCF
+ 
+ config MMC_SDHCI_ESDHC_IMX
+ 	tristate "SDHCI support for the Freescale eSDHC/uSDHC i.MX controller"
+-	depends on ARCH_MXC
++	depends on ARCH_MXC || COMPILE_TEST
+ 	depends on MMC_SDHCI_PLTFM
+ 	select MMC_SDHCI_IO_ACCESSORS
+ 	select MMC_CQHCI
+@@ -276,7 +276,7 @@ config MMC_SDHCI_ESDHC_IMX
+ 
+ config MMC_SDHCI_DOVE
+ 	tristate "SDHCI support on Marvell's Dove SoC"
+-	depends on ARCH_DOVE || MACH_DOVE
++	depends on ARCH_DOVE || MACH_DOVE || COMPILE_TEST
+ 	depends on MMC_SDHCI_PLTFM
+ 	select MMC_SDHCI_IO_ACCESSORS
+ 	help
+@@ -289,7 +289,7 @@ config MMC_SDHCI_DOVE
+ 
+ config MMC_SDHCI_TEGRA
+ 	tristate "SDHCI platform support for the Tegra SD/MMC Controller"
+-	depends on ARCH_TEGRA
++	depends on ARCH_TEGRA || COMPILE_TEST
+ 	depends on MMC_SDHCI_PLTFM
+ 	select MMC_SDHCI_IO_ACCESSORS
+ 	select MMC_CQHCI
+@@ -301,7 +301,8 @@ config MMC_SDHCI_TEGRA
+ 
+ config MMC_SDHCI_S3C
+ 	tristate "SDHCI support on Samsung S3C SoC"
+-	depends on MMC_SDHCI && (PLAT_SAMSUNG || ARCH_S5PV210 || ARCH_EXYNOS)
++	depends on MMC_SDHCI
++	depends on PLAT_SAMSUNG || ARCH_S5PV210 || ARCH_EXYNOS || COMPILE_TEST
+ 	help
+ 	  This selects the Secure Digital Host Controller Interface (SDHCI)
+ 	  often referrered to as the HSMMC block in some of the Samsung S3C
+@@ -313,7 +314,7 @@ config MMC_SDHCI_S3C
+ 
+ config MMC_SDHCI_SIRF
+ 	tristate "SDHCI support on CSR SiRFprimaII and SiRFmarco SoCs"
+-	depends on ARCH_SIRF
++	depends on ARCH_SIRF || COMPILE_TEST
+ 	depends on MMC_SDHCI_PLTFM
+ 	select MMC_SDHCI_IO_ACCESSORS
+ 	help
+@@ -351,7 +352,8 @@ config MMC_SDHCI_PXAV2
+ 
+ config MMC_SDHCI_SPEAR
+ 	tristate "SDHCI support on ST SPEAr platform"
+-	depends on MMC_SDHCI && PLAT_SPEAR
++	depends on MMC_SDHCI
++	depends on PLAT_SPEAR || COMPILE_TEST
+ 	depends on OF
+ 	help
+ 	  This selects the Secure Digital Host Controller Interface (SDHCI)
+@@ -374,7 +376,7 @@ config MMC_SDHCI_S3C_DMA
+ 
+ config MMC_SDHCI_BCM_KONA
+ 	tristate "SDHCI support on Broadcom KONA platform"
+-	depends on ARCH_BCM_MOBILE
++	depends on ARCH_BCM_MOBILE || COMPILE_TEST
+ 	depends on MMC_SDHCI_PLTFM
+ 	help
+ 	  This selects the Broadcom Kona Secure Digital Host Controller
+@@ -422,7 +424,8 @@ config MMC_SDHCI_IPROC
+ 
+ config MMC_MESON_GX
+ 	tristate "Amlogic S905/GX*/AXG SD/MMC Host Controller support"
+-	depends on ARCH_MESON
++	depends on ARCH_MESON || COMPILE_TEST
++	depends on COMMON_CLK
+ 	help
+ 	  This selects support for the Amlogic SD/MMC Host Controller
+ 	  found on the S905/GX*/AXG family of SoCs.  This controller is
+@@ -458,7 +461,7 @@ config MMC_MESON_MX_SDIO
+ 
+ config MMC_MOXART
+ 	tristate "MOXART SD/MMC Host Controller support"
+-	depends on ARCH_MOXART
++	depends on ARCH_MOXART || COMPILE_TEST
+ 	help
+ 	  This selects support for the MOXART SD/MMC Host Controller.
+ 	  MOXA provides one multi-functional card reader which can
+@@ -467,7 +470,7 @@ config MMC_MOXART
+ 
+ config MMC_SDHCI_ST
+ 	tristate "SDHCI support on STMicroelectronics SoC"
+-	depends on ARCH_STI || FSP2
++	depends on ARCH_STI || FSP2 || COMPILE_TEST
+ 	depends on MMC_SDHCI_PLTFM
+ 	select MMC_SDHCI_IO_ACCESSORS
+ 	help
+@@ -587,7 +590,7 @@ config MMC_TIFM_SD
+ 
+ config MMC_MVSDIO
+ 	tristate "Marvell MMC/SD/SDIO host driver"
+-	depends on PLAT_ORION
++	depends on PLAT_ORION || (COMPILE_TEST && ARM)
+ 	depends on OF
+ 	help
+ 	  This selects the Marvell SDIO host driver.
+@@ -599,7 +602,7 @@ config MMC_MVSDIO
+ 
+ config MMC_DAVINCI
+ 	tristate "TI DAVINCI Multimedia Card Interface support"
+-	depends on ARCH_DAVINCI
++	depends on ARCH_DAVINCI || COMPILE_TEST
+ 	help
+ 	  This selects the TI DAVINCI Multimedia card Interface.
+ 	  If you have an DAVINCI board with a Multimedia Card slot,
+@@ -628,7 +631,7 @@ config MMC_SPI
+ 
+ config MMC_S3C
+ 	tristate "Samsung S3C SD/MMC Card Interface support"
+-	depends on ARCH_S3C24XX
++	depends on ARCH_S3C24XX || COMPILE_TEST
+ 	depends on S3C24XX_DMAC
+ 	help
+ 	  This selects a driver for the MCI interface found in
+@@ -681,7 +684,7 @@ config MMC_SDRICOH_CS
+ 
+ config MMC_SDHCI_SPRD
+ 	tristate "Spreadtrum SDIO host Controller"
+-	depends on ARCH_SPRD
++	depends on ARCH_SPRD || COMPILE_TEST
+ 	depends on MMC_SDHCI_PLTFM
+ 	select MMC_SDHCI_IO_ACCESSORS
+ 	select MMC_HSQ
+@@ -698,7 +701,7 @@ config MMC_TMIO_CORE
+ 
+ config MMC_TMIO
+ 	tristate "Toshiba Mobile IO Controller (TMIO) MMC/SD function support"
+-	depends on MFD_TMIO || MFD_ASIC3
++	depends on MFD_TMIO || MFD_ASIC3 || COMPILE_TEST
+ 	select MMC_TMIO_CORE
+ 	help
+ 	  This provides support for the SD/MMC cell found in TC6393XB,
+@@ -971,7 +974,7 @@ config MMC_REALTEK_USB
+ 
+ config MMC_SUNXI
+ 	tristate "Allwinner sunxi SD/MMC Host Controller support"
+-	depends on ARCH_SUNXI
++	depends on ARCH_SUNXI || COMPILE_TEST
+ 	help
+ 	  This selects support for the SD/MMC Host Controller on
+ 	  Allwinner sunxi SoCs.
+-- 
+2.17.1
+
+_______________________________________________
+Linux-stm32 mailing list
+Linux-stm32@st-md-mailman.stormreply.com
+https://st-md-mailman.stormreply.com/mailman/listinfo/linux-stm32
