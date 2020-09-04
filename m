@@ -2,62 +2,52 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id 5CE2C25D98E
-	for <lists+linux-stm32@lfdr.de>; Fri,  4 Sep 2020 15:23:17 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 8CB4925DFFF
+	for <lists+linux-stm32@lfdr.de>; Fri,  4 Sep 2020 18:43:46 +0200 (CEST)
 Received: from ip-172-31-3-76.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 1AAD2C3FADC;
-	Fri,  4 Sep 2020 13:23:17 +0000 (UTC)
-Received: from mx07-00178001.pphosted.com (mx07-00178001.pphosted.com
- [185.132.182.106])
- (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 308E1C3FAD9;
+	Fri,  4 Sep 2020 16:43:46 +0000 (UTC)
+Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
+ (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id CF743C3FAD9
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 77A78C36B26
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Fri,  4 Sep 2020 13:23:13 +0000 (UTC)
-Received: from pps.filterd (m0046037.ppops.net [127.0.0.1])
- by mx07-00178001.pphosted.com (8.16.0.42/8.16.0.42) with SMTP id
- 084DM2qK005938; Fri, 4 Sep 2020 15:23:04 +0200
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=st.com;
- h=from : to : cc : subject
- : date : message-id : in-reply-to : references : mime-version :
- content-type; s=STMicroelectronics;
- bh=9tDNNyjW1JFlsbbCLIY7DyEV8OK1r9OXdF3FnYfERXw=;
- b=Igs8SeG/ZKp3N0XD8OfxBgvi/CRjxUi0S9+7BaZJ9q139ip+kCpiFe6mmtCBU71yMNnc
- 4Z71DgRMm2U78YwyMo78Z4KWA6jt5CxjYxIGRsQ+kW9m5yaf7Sl1rTkJwCKPYIh/igvS
- U5TyC+njDLQHWmR28nlZ9XNq+t9q5Z5OB10PWGTV5ywvgm0H4Zci3iiovApvJWqUN5pI
- y+bDQc+Nz2GXdB6Ke+J2L4B9CFL6APrNREUMEWckiumicZ9V6SUqC1xfk15pm6DjtiTf
- yaDGGtDZmrtyP/g9qt/rYG6ub1C4qumM9c07c6Wq1dT6xGoXt2ik+C5hEbmpdJP6aKZ2 rw== 
-Received: from beta.dmz-eu.st.com (beta.dmz-eu.st.com [164.129.1.35])
- by mx07-00178001.pphosted.com with ESMTP id 337csw9xvg-1
- (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
- Fri, 04 Sep 2020 15:23:04 +0200
-Received: from euls16034.sgp.st.com (euls16034.sgp.st.com [10.75.44.20])
- by beta.dmz-eu.st.com (STMicroelectronics) with ESMTP id 4FA1B10002A;
- Fri,  4 Sep 2020 15:23:04 +0200 (CEST)
-Received: from Webmail-eu.st.com (sfhdag6node2.st.com [10.75.127.17])
- by euls16034.sgp.st.com (STMicroelectronics) with ESMTP id 447B82B0EBD;
- Fri,  4 Sep 2020 15:23:04 +0200 (CEST)
-Received: from localhost (10.75.127.49) by SFHDAG6NODE2.st.com (10.75.127.17)
- with Microsoft SMTP Server (TLS) id 15.0.1473.3;
- Fri, 4 Sep 2020 15:23:03 +0200
-From: Christophe Kerello <christophe.kerello@st.com>
-To: <robh+dt@kernel.org>, <alexandre.torgue@st.com>, <linux@armlinux.org.uk>
-Date: Fri, 4 Sep 2020 15:20:43 +0200
-Message-ID: <1599225643-5558-3-git-send-email-christophe.kerello@st.com>
-X-Mailer: git-send-email 1.9.1
-In-Reply-To: <1599225643-5558-1-git-send-email-christophe.kerello@st.com>
-References: <1599225643-5558-1-git-send-email-christophe.kerello@st.com>
+ Fri,  4 Sep 2020 16:43:44 +0000 (UTC)
+Received: from kozik-lap.mshome.net (unknown [194.230.155.106])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+ (No client certificate requested)
+ by mail.kernel.org (Postfix) with ESMTPSA id 4D3362064E;
+ Fri,  4 Sep 2020 16:43:38 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
+ s=default; t=1599237823;
+ bh=nxciuoD47KxGkOpJC1/Yb+VqPBHDhps24SnDZPx4IXk=;
+ h=From:To:Cc:Subject:Date:From;
+ b=vV07QlSQWiamQPiw7TcgBV0AVn8g3VLYp4Y0YEpQajmWoDymFi6NXno5wrMIrWqbk
+ IYPI85Ll5xGRHSi6KObRaeEGTM/DoL18I/V+Yzx29NgruQPi31ggY144MQCLaytdIg
+ uZHZpn9PJ/8lwmzuvIfusuOcx36eP0X6eMPZ8fYk=
+From: Krzysztof Kozlowski <krzk@kernel.org>
+To: Ulf Hansson <ulf.hansson@linaro.org>, Arnd Bergmann <arnd@arndb.de>,
+ Krzysztof Kozlowski <krzk@kernel.org>, linux-mmc@vger.kernel.org,
+ linux-kernel@vger.kernel.org,
+ Ludovic Desroches <ludovic.desroches@microchip.com>,
+ Nicolas Ferre <nicolas.ferre@microchip.com>,
+ Alexandre Belloni <alexandre.belloni@bootlin.com>,
+ Manuel Lauss <manuel.lauss@gmail.com>,
+ Kishon Vijay Abraham I <kishon@ti.com>,
+ Prabu Thangamuthu <prabu.t@synopsys.com>,
+ Manjunath M B <manjumb@synopsys.com>, linux-arm-kernel@lists.infradead.org,
+ linux-samsung-soc@vger.kernel.org, linux-amlogic@lists.infradead.org,
+ linux-arm-msm@vger.kernel.org, linux-stm32@st-md-mailman.stormreply.com,
+ linux-mediatek@lists.infradead.org, linux-omap@vger.kernel.org,
+ linux-aspeed@lists.ozlabs.org, linux-tegra@vger.kernel.org,
+ linux-arm-kernel@axis.com
+Date: Fri,  4 Sep 2020 18:43:14 +0200
+Message-Id: <20200904164315.24618-1-krzk@kernel.org>
+X-Mailer: git-send-email 2.17.1
 MIME-Version: 1.0
-X-Originating-IP: [10.75.127.49]
-X-ClientProxiedBy: SFHDAG2NODE1.st.com (10.75.127.4) To SFHDAG6NODE2.st.com
- (10.75.127.17)
-X-Proofpoint-Virus-Version: vendor=fsecure engine=2.50.10434:6.0.235, 18.0.687
- definitions=2020-09-04_07:2020-09-04,
- 2020-09-04 signatures=0
-Cc: devicetree@vger.kernel.org, linux-stm32@st-md-mailman.stormreply.com,
- linux-arm-kernel@lists.infradead.org, linux-kernel@vger.kernel.org
-Subject: [Linux-stm32] [PATCH 2/2] ARM: dts: stm32: add FMC2 EBI support for
-	stm32mp157c
+Cc: =?UTF-8?q?Micha=C5=82=20Miros=C5=82aw?= <mirq-linux@rere.qmqm.pl>
+Subject: [Linux-stm32] [PATCH v2 1/2] mmc: host: Drop unneeded MMC
+	dependency in Kconfig
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -69,108 +59,32 @@ List-Post: <mailto:linux-stm32@st-md-mailman.stormreply.com>
 List-Help: <mailto:linux-stm32-request@st-md-mailman.stormreply.com?subject=help>
 List-Subscribe: <https://st-md-mailman.stormreply.com/mailman/listinfo/linux-stm32>, 
  <mailto:linux-stm32-request@st-md-mailman.stormreply.com?subject=subscribe>
-Content-Type: text/plain; charset="us-ascii"
-Content-Transfer-Encoding: 7bit
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: base64
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
-This patch adds FMC2 External Bus Interface support on stm32mp157c.
-
-Signed-off-by: Christophe Kerello <christophe.kerello@st.com>
----
- arch/arm/boot/dts/stm32mp151.dtsi     | 43 +++++++++++++++++++++++------------
- arch/arm/boot/dts/stm32mp157c-ev1.dts | 16 +++++++------
- 2 files changed, 38 insertions(+), 21 deletions(-)
-
-diff --git a/arch/arm/boot/dts/stm32mp151.dtsi b/arch/arm/boot/dts/stm32mp151.dtsi
-index bfe2902..4fd7572 100644
---- a/arch/arm/boot/dts/stm32mp151.dtsi
-+++ b/arch/arm/boot/dts/stm32mp151.dtsi
-@@ -1302,23 +1302,38 @@
- 			dma-requests = <48>;
- 		};
- 
--		fmc: nand-controller@58002000 {
--			compatible = "st,stm32mp15-fmc2";
--			reg = <0x58002000 0x1000>,
--			      <0x80000000 0x1000>,
--			      <0x88010000 0x1000>,
--			      <0x88020000 0x1000>,
--			      <0x81000000 0x1000>,
--			      <0x89010000 0x1000>,
--			      <0x89020000 0x1000>;
--			interrupts = <GIC_SPI 48 IRQ_TYPE_LEVEL_HIGH>;
--			dmas = <&mdma1 20 0x10 0x12000a02 0x0 0x0>,
--			       <&mdma1 20 0x10 0x12000a08 0x0 0x0>,
--			       <&mdma1 21 0x10 0x12000a0a 0x0 0x0>;
--			dma-names = "tx", "rx", "ecc";
-+		fmc: memory-controller@58002000 {
-+			#address-cells = <2>;
-+			#size-cells = <1>;
-+			compatible = "st,stm32mp1-fmc2-ebi";
-+			reg = <0x58002000 0x1000>;
- 			clocks = <&rcc FMC_K>;
- 			resets = <&rcc FMC_R>;
- 			status = "disabled";
-+
-+			ranges = <0 0 0x60000000 0x04000000>, /* EBI CS 1 */
-+				 <1 0 0x64000000 0x04000000>, /* EBI CS 2 */
-+				 <2 0 0x68000000 0x04000000>, /* EBI CS 3 */
-+				 <3 0 0x6c000000 0x04000000>, /* EBI CS 4 */
-+				 <4 0 0x80000000 0x10000000>; /* NAND */
-+
-+			nand-controller@4,0 {
-+				#address-cells = <1>;
-+				#size-cells = <0>;
-+				compatible = "st,stm32mp1-fmc2-nfc";
-+				reg = <4 0x00000000 0x1000>,
-+				      <4 0x08010000 0x1000>,
-+				      <4 0x08020000 0x1000>,
-+				      <4 0x01000000 0x1000>,
-+				      <4 0x09010000 0x1000>,
-+				      <4 0x09020000 0x1000>;
-+				interrupts = <GIC_SPI 48 IRQ_TYPE_LEVEL_HIGH>;
-+				dmas = <&mdma1 20 0x2 0x12000a02 0x0 0x0>,
-+				       <&mdma1 20 0x2 0x12000a08 0x0 0x0>,
-+				       <&mdma1 21 0x2 0x12000a0a 0x0 0x0>;
-+				dma-names = "tx", "rx", "ecc";
-+				status = "disabled";
-+			};
- 		};
- 
- 		qspi: spi@58003000 {
-diff --git a/arch/arm/boot/dts/stm32mp157c-ev1.dts b/arch/arm/boot/dts/stm32mp157c-ev1.dts
-index 85628e1..a55e80c 100644
---- a/arch/arm/boot/dts/stm32mp157c-ev1.dts
-+++ b/arch/arm/boot/dts/stm32mp157c-ev1.dts
-@@ -158,14 +158,16 @@
- 	pinctrl-0 = <&fmc_pins_a>;
- 	pinctrl-1 = <&fmc_sleep_pins_a>;
- 	status = "okay";
--	#address-cells = <1>;
--	#size-cells = <0>;
- 
--	nand@0 {
--		reg = <0>;
--		nand-on-flash-bbt;
--		#address-cells = <1>;
--		#size-cells = <1>;
-+	nand-controller@4,0 {
-+		status = "okay";
-+
-+		nand@0 {
-+			reg = <0>;
-+			nand-on-flash-bbt;
-+			#address-cells = <1>;
-+			#size-cells = <1>;
-+		};
- 	};
- };
- 
--- 
-1.9.1
-
-_______________________________________________
-Linux-stm32 mailing list
-Linux-stm32@st-md-mailman.stormreply.com
-https://st-md-mailman.stormreply.com/mailman/listinfo/linux-stm32
+QWxsIGVudHJpZXMgaW4gS2NvbmZpZyBhcmUgYWxyZWFkeSBwYXJ0IG9mICJpZiBNTUMiLCBzbyB0
+aGVyZSBpcyBubyBuZWVkCmZvciBhZGRpdGlvbmFsIGRlcGVuZGVuY3kgb24gTU1DLgoKU3VnZ2Vz
+dGVkLWJ5OiBNaWNoYcWCIE1pcm9zxYJhdyA8bWlycS1saW51eEByZXJlLnFtcW0ucGw+ClNpZ25l
+ZC1vZmYtYnk6IEtyenlzenRvZiBLb3psb3dza2kgPGtyemtAa2VybmVsLm9yZz4KCi0tLQoKQ2hh
+bmdlcyBzaW5jZSB2MToKMS4gTmV3IHBhdGNoCi0tLQogZHJpdmVycy9tbWMvaG9zdC9LY29uZmln
+IHwgNCArKy0tCiAxIGZpbGUgY2hhbmdlZCwgMiBpbnNlcnRpb25zKCspLCAyIGRlbGV0aW9ucygt
+KQoKZGlmZiAtLWdpdCBhL2RyaXZlcnMvbW1jL2hvc3QvS2NvbmZpZyBiL2RyaXZlcnMvbW1jL2hv
+c3QvS2NvbmZpZwppbmRleCBiOTVmNzlmNTMzOTUuLmVlYTAxZmRlMDU5MSAxMDA2NDQKLS0tIGEv
+ZHJpdmVycy9tbWMvaG9zdC9LY29uZmlnCisrKyBiL2RyaXZlcnMvbW1jL2hvc3QvS2NvbmZpZwpA
+QCAtNDIyLDcgKzQyMiw3IEBAIGNvbmZpZyBNTUNfU0RIQ0lfSVBST0MKIAogY29uZmlnIE1NQ19N
+RVNPTl9HWAogCXRyaXN0YXRlICJBbWxvZ2ljIFM5MDUvR1gqL0FYRyBTRC9NTUMgSG9zdCBDb250
+cm9sbGVyIHN1cHBvcnQiCi0JZGVwZW5kcyBvbiBBUkNIX01FU09OICYmIE1NQworCWRlcGVuZHMg
+b24gQVJDSF9NRVNPTgogCWhlbHAKIAkgIFRoaXMgc2VsZWN0cyBzdXBwb3J0IGZvciB0aGUgQW1s
+b2dpYyBTRC9NTUMgSG9zdCBDb250cm9sbGVyCiAJICBmb3VuZCBvbiB0aGUgUzkwNS9HWCovQVhH
+IGZhbWlseSBvZiBTb0NzLiAgVGhpcyBjb250cm9sbGVyIGlzCkBAIC00NTgsNyArNDU4LDcgQEAg
+Y29uZmlnIE1NQ19NRVNPTl9NWF9TRElPCiAKIGNvbmZpZyBNTUNfTU9YQVJUCiAJdHJpc3RhdGUg
+Ik1PWEFSVCBTRC9NTUMgSG9zdCBDb250cm9sbGVyIHN1cHBvcnQiCi0JZGVwZW5kcyBvbiBBUkNI
+X01PWEFSVCAmJiBNTUMKKwlkZXBlbmRzIG9uIEFSQ0hfTU9YQVJUCiAJaGVscAogCSAgVGhpcyBz
+ZWxlY3RzIHN1cHBvcnQgZm9yIHRoZSBNT1hBUlQgU0QvTU1DIEhvc3QgQ29udHJvbGxlci4KIAkg
+IE1PWEEgcHJvdmlkZXMgb25lIG11bHRpLWZ1bmN0aW9uYWwgY2FyZCByZWFkZXIgd2hpY2ggY2Fu
+Ci0tIAoyLjE3LjEKCl9fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19f
+X19fCkxpbnV4LXN0bTMyIG1haWxpbmcgbGlzdApMaW51eC1zdG0zMkBzdC1tZC1tYWlsbWFuLnN0
+b3JtcmVwbHkuY29tCmh0dHBzOi8vc3QtbWQtbWFpbG1hbi5zdG9ybXJlcGx5LmNvbS9tYWlsbWFu
+L2xpc3RpbmZvL2xpbnV4LXN0bTMyCg==
