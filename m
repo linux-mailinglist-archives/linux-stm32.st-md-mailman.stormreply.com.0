@@ -2,53 +2,45 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id C9DA225E005
-	for <lists+linux-stm32@lfdr.de>; Fri,  4 Sep 2020 18:43:52 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 9632F25E8A0
+	for <lists+linux-stm32@lfdr.de>; Sat,  5 Sep 2020 17:19:42 +0200 (CEST)
 Received: from ip-172-31-3-76.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 8FBB5C3FAD9;
-	Fri,  4 Sep 2020 16:43:52 +0000 (UTC)
-Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
- (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 3137AC3FADB;
+	Sat,  5 Sep 2020 15:19:42 +0000 (UTC)
+Received: from mail-out.m-online.net (mail-out.m-online.net [212.18.0.10])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 9213EC36B26
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 49D40C3FAD9
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Fri,  4 Sep 2020 16:43:49 +0000 (UTC)
-Received: from kozik-lap.mshome.net (unknown [194.230.155.106])
- (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+ Sat,  5 Sep 2020 15:19:40 +0000 (UTC)
+Received: from frontend01.mail.m-online.net (unknown [192.168.8.182])
+ by mail-out.m-online.net (Postfix) with ESMTP id 4BkJB34Lzyz1rtyY;
+ Sat,  5 Sep 2020 17:19:39 +0200 (CEST)
+Received: from localhost (dynscan1.mnet-online.de [192.168.6.70])
+ by mail.m-online.net (Postfix) with ESMTP id 4BkJB33fg7z1qy6Y;
+ Sat,  5 Sep 2020 17:19:39 +0200 (CEST)
+X-Virus-Scanned: amavisd-new at mnet-online.de
+Received: from mail.mnet-online.de ([192.168.8.182])
+ by localhost (dynscan1.mail.m-online.net [192.168.6.70]) (amavisd-new,
+ port 10024)
+ with ESMTP id HKxPIvQkAkdx; Sat,  5 Sep 2020 17:19:38 +0200 (CEST)
+X-Auth-Info: 1P9+LL5s6mTX0SM2SwU4fZXO4EUujbYRKO3bgSiMtTc=
+Received: from desktop.lan (ip-86-49-101-166.net.upcbroadband.cz
+ [86.49.101.166])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by mail.kernel.org (Postfix) with ESMTPSA id 808062074D;
- Fri,  4 Sep 2020 16:43:43 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
- s=default; t=1599237828;
- bh=M0F0NujsJbA6VRAoiFk6VohTncRpdlqvI+V+EXO6eTI=;
- h=From:To:Cc:Subject:Date:In-Reply-To:References:From;
- b=YNhuRd9bPGkZy4dXcqM4wKBiNUbzE9fZg+ZWuG0rftUJ+tr0tNSNpYkBZTA38LTUr
- C2BCBXN88B/3wM5OaP8T8RT99NAHiaGDVfp8omRAWmcls7cWRlAVAhuHexZ1jV1ODZ
- D3tvHvz+KgvITSlGuGrAtkaCNFw9z57g2bkJBSCk=
-From: Krzysztof Kozlowski <krzk@kernel.org>
-To: Ulf Hansson <ulf.hansson@linaro.org>, Arnd Bergmann <arnd@arndb.de>,
- Krzysztof Kozlowski <krzk@kernel.org>, linux-mmc@vger.kernel.org,
- linux-kernel@vger.kernel.org,
- Ludovic Desroches <ludovic.desroches@microchip.com>,
- Nicolas Ferre <nicolas.ferre@microchip.com>,
- Alexandre Belloni <alexandre.belloni@bootlin.com>,
- Manuel Lauss <manuel.lauss@gmail.com>,
- Kishon Vijay Abraham I <kishon@ti.com>,
- Prabu Thangamuthu <prabu.t@synopsys.com>,
- Manjunath M B <manjumb@synopsys.com>, linux-arm-kernel@lists.infradead.org,
- linux-samsung-soc@vger.kernel.org, linux-amlogic@lists.infradead.org,
- linux-arm-msm@vger.kernel.org, linux-stm32@st-md-mailman.stormreply.com,
- linux-mediatek@lists.infradead.org, linux-omap@vger.kernel.org,
- linux-aspeed@lists.ozlabs.org, linux-tegra@vger.kernel.org,
- linux-arm-kernel@axis.com
-Date: Fri,  4 Sep 2020 18:43:15 +0200
-Message-Id: <20200904164315.24618-2-krzk@kernel.org>
-X-Mailer: git-send-email 2.17.1
-In-Reply-To: <20200904164315.24618-1-krzk@kernel.org>
-References: <20200904164315.24618-1-krzk@kernel.org>
-Cc: =?UTF-8?q?Micha=C5=82=20Miros=C5=82aw?= <mirq-linux@rere.qmqm.pl>
-Subject: [Linux-stm32] [PATCH v2 2/2] mmc: host: Enable compile testing of
-	multiple drivers
+ by mail.mnet-online.de (Postfix) with ESMTPSA;
+ Sat,  5 Sep 2020 17:19:38 +0200 (CEST)
+From: Marek Vasut <marex@denx.de>
+To: linux-spi@vger.kernel.org
+Date: Sat,  5 Sep 2020 17:19:13 +0200
+Message-Id: <20200905151913.117775-1-marex@denx.de>
+X-Mailer: git-send-email 2.28.0
+MIME-Version: 1.0
+Cc: Marek Vasut <marex@denx.de>, Antonio Borneo <borneo.antonio@gmail.com>,
+ Mark Brown <broonie@kernel.org>, linux-stm32@st-md-mailman.stormreply.com
+Subject: [Linux-stm32] [PATCH] spi: stm32: Rate-limit the 'Communication
+	suspended' message
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -60,206 +52,62 @@ List-Post: <mailto:linux-stm32@st-md-mailman.stormreply.com>
 List-Help: <mailto:linux-stm32-request@st-md-mailman.stormreply.com?subject=help>
 List-Subscribe: <https://st-md-mailman.stormreply.com/mailman/listinfo/linux-stm32>, 
  <mailto:linux-stm32-request@st-md-mailman.stormreply.com?subject=subscribe>
-MIME-Version: 1.0
 Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
-Multiple MMC host controller driver can be compile tested as they do not
-depend on architecture specific headers.
+The 'spi_stm32 44004000.spi: Communication suspended' message means that
+when using PIO, the kernel did not read the FIFO fast enough and so the
+SPI controller paused the transfer. Currently, this is printed on every
+single such event, so if the kernel is busy and the controller is pausing
+the transfers often, the kernel will be all the more busy scrolling this
+message into the log buffer every few milliseconds. That is not helpful.
 
-Signed-off-by: Krzysztof Kozlowski <krzk@kernel.org>
+Instead, rate-limit the message and print it every once in a while. It is
+not possible to use the default dev_warn_ratelimited(), because that is
+still too verbose, as it prints 10 lines (DEFAULT_RATELIMIT_BURST) every
+5 seconds (DEFAULT_RATELIMIT_INTERVAL). The policy here is to print 1 line
+every 50 seconds (DEFAULT_RATELIMIT_INTERVAL * 10), because 1 line is more
+than enough and the cycles saved on printing are better left to the CPU to
+handle the SPI. However, dev_warn_once() is also not useful, as the user
+should be aware that this condition is possibly recurring or ongoing. Thus
+the custom rate-limit policy.
 
+Finally, turn the message from dev_warn() to dev_dbg(), since the system
+does not suffer any sort of malfunction if this message appears, it is
+just slowing down. This further reduces the printing into the log buffer
+and frees the CPU to do useful work.
+
+Fixes: dcbe0d84dfa5 ("spi: add driver for STM32 SPI controller")
+Signed-off-by: Marek Vasut <marex@denx.de>
+Cc: Alexandre Torgue <alexandre.torgue@st.com>
+Cc: Amelie Delaunay <amelie.delaunay@st.com>
+Cc: Antonio Borneo <borneo.antonio@gmail.com>
+Cc: Mark Brown <broonie@kernel.org>
 ---
+ drivers/spi/spi-stm32.c | 6 +++++-
+ 1 file changed, 5 insertions(+), 1 deletion(-)
 
-Changes since v1:
-1. Add COMMON_CLK dependency to MESON_GX to fix errors like:
-   ERROR: modpost: "devm_clk_register" [drivers/mmc/host/meson-gx-mmc.ko] undefined!
----
- drivers/mmc/host/Kconfig | 41 +++++++++++++++++++++-------------------
- 1 file changed, 22 insertions(+), 19 deletions(-)
-
-diff --git a/drivers/mmc/host/Kconfig b/drivers/mmc/host/Kconfig
-index eea01fde0591..93db789cf8ec 100644
---- a/drivers/mmc/host/Kconfig
-+++ b/drivers/mmc/host/Kconfig
-@@ -178,7 +178,7 @@ config MMC_SDHCI_OF_AT91
- config MMC_SDHCI_OF_ESDHC
- 	tristate "SDHCI OF support for the Freescale eSDHC controller"
- 	depends on MMC_SDHCI_PLTFM
--	depends on PPC || ARCH_MXC || ARCH_LAYERSCAPE
-+	depends on PPC || ARCH_MXC || ARCH_LAYERSCAPE || COMPILE_TEST
- 	select MMC_SDHCI_IO_ACCESSORS
- 	select FSL_GUTS
- 	help
-@@ -216,7 +216,7 @@ config MMC_SDHCI_OF_DWCMSHC
- config MMC_SDHCI_OF_SPARX5
- 	tristate "SDHCI OF support for the MCHP Sparx5 SoC"
- 	depends on MMC_SDHCI_PLTFM
--	depends on ARCH_SPARX5
-+	depends on ARCH_SPARX5 || COMPILE_TEST
- 	help
- 	  This selects the Secure Digital Host Controller Interface (SDHCI)
- 	  found in the MCHP Sparx5 SoC.
-@@ -238,7 +238,7 @@ config MMC_SDHCI_CADENCE
+diff --git a/drivers/spi/spi-stm32.c b/drivers/spi/spi-stm32.c
+index d4b33b358a31..a00f6b51ccbf 100644
+--- a/drivers/spi/spi-stm32.c
++++ b/drivers/spi/spi-stm32.c
+@@ -936,7 +936,11 @@ static irqreturn_t stm32h7_spi_irq_thread(int irq, void *dev_id)
+ 	}
  
- config MMC_SDHCI_CNS3XXX
- 	tristate "SDHCI support on the Cavium Networks CNS3xxx SoC"
--	depends on ARCH_CNS3XXX
-+	depends on ARCH_CNS3XXX || COMPILE_TEST
- 	depends on MMC_SDHCI_PLTFM
- 	help
- 	  This selects the SDHCI support for CNS3xxx System-on-Chip devices.
-@@ -262,7 +262,7 @@ config MMC_SDHCI_ESDHC_MCF
- 
- config MMC_SDHCI_ESDHC_IMX
- 	tristate "SDHCI support for the Freescale eSDHC/uSDHC i.MX controller"
--	depends on ARCH_MXC
-+	depends on ARCH_MXC || COMPILE_TEST
- 	depends on MMC_SDHCI_PLTFM
- 	select MMC_SDHCI_IO_ACCESSORS
- 	select MMC_CQHCI
-@@ -276,7 +276,7 @@ config MMC_SDHCI_ESDHC_IMX
- 
- config MMC_SDHCI_DOVE
- 	tristate "SDHCI support on Marvell's Dove SoC"
--	depends on ARCH_DOVE || MACH_DOVE
-+	depends on ARCH_DOVE || MACH_DOVE || COMPILE_TEST
- 	depends on MMC_SDHCI_PLTFM
- 	select MMC_SDHCI_IO_ACCESSORS
- 	help
-@@ -289,7 +289,7 @@ config MMC_SDHCI_DOVE
- 
- config MMC_SDHCI_TEGRA
- 	tristate "SDHCI platform support for the Tegra SD/MMC Controller"
--	depends on ARCH_TEGRA
-+	depends on ARCH_TEGRA || COMPILE_TEST
- 	depends on MMC_SDHCI_PLTFM
- 	select MMC_SDHCI_IO_ACCESSORS
- 	select MMC_CQHCI
-@@ -301,7 +301,8 @@ config MMC_SDHCI_TEGRA
- 
- config MMC_SDHCI_S3C
- 	tristate "SDHCI support on Samsung S3C SoC"
--	depends on MMC_SDHCI && (PLAT_SAMSUNG || ARCH_S5PV210 || ARCH_EXYNOS)
-+	depends on MMC_SDHCI
-+	depends on PLAT_SAMSUNG || ARCH_S5PV210 || ARCH_EXYNOS || COMPILE_TEST
- 	help
- 	  This selects the Secure Digital Host Controller Interface (SDHCI)
- 	  often referrered to as the HSMMC block in some of the Samsung S3C
-@@ -313,7 +314,7 @@ config MMC_SDHCI_S3C
- 
- config MMC_SDHCI_SIRF
- 	tristate "SDHCI support on CSR SiRFprimaII and SiRFmarco SoCs"
--	depends on ARCH_SIRF
-+	depends on ARCH_SIRF || COMPILE_TEST
- 	depends on MMC_SDHCI_PLTFM
- 	select MMC_SDHCI_IO_ACCESSORS
- 	help
-@@ -351,7 +352,8 @@ config MMC_SDHCI_PXAV2
- 
- config MMC_SDHCI_SPEAR
- 	tristate "SDHCI support on ST SPEAr platform"
--	depends on MMC_SDHCI && PLAT_SPEAR
-+	depends on MMC_SDHCI
-+	depends on PLAT_SPEAR || COMPILE_TEST
- 	depends on OF
- 	help
- 	  This selects the Secure Digital Host Controller Interface (SDHCI)
-@@ -374,7 +376,7 @@ config MMC_SDHCI_S3C_DMA
- 
- config MMC_SDHCI_BCM_KONA
- 	tristate "SDHCI support on Broadcom KONA platform"
--	depends on ARCH_BCM_MOBILE
-+	depends on ARCH_BCM_MOBILE || COMPILE_TEST
- 	depends on MMC_SDHCI_PLTFM
- 	help
- 	  This selects the Broadcom Kona Secure Digital Host Controller
-@@ -422,7 +424,8 @@ config MMC_SDHCI_IPROC
- 
- config MMC_MESON_GX
- 	tristate "Amlogic S905/GX*/AXG SD/MMC Host Controller support"
--	depends on ARCH_MESON
-+	depends on ARCH_MESON || COMPILE_TEST
-+	depends on COMMON_CLK
- 	help
- 	  This selects support for the Amlogic SD/MMC Host Controller
- 	  found on the S905/GX*/AXG family of SoCs.  This controller is
-@@ -458,7 +461,7 @@ config MMC_MESON_MX_SDIO
- 
- config MMC_MOXART
- 	tristate "MOXART SD/MMC Host Controller support"
--	depends on ARCH_MOXART
-+	depends on ARCH_MOXART || COMPILE_TEST
- 	help
- 	  This selects support for the MOXART SD/MMC Host Controller.
- 	  MOXA provides one multi-functional card reader which can
-@@ -467,7 +470,7 @@ config MMC_MOXART
- 
- config MMC_SDHCI_ST
- 	tristate "SDHCI support on STMicroelectronics SoC"
--	depends on ARCH_STI || FSP2
-+	depends on ARCH_STI || FSP2 || COMPILE_TEST
- 	depends on MMC_SDHCI_PLTFM
- 	select MMC_SDHCI_IO_ACCESSORS
- 	help
-@@ -587,7 +590,7 @@ config MMC_TIFM_SD
- 
- config MMC_MVSDIO
- 	tristate "Marvell MMC/SD/SDIO host driver"
--	depends on PLAT_ORION
-+	depends on PLAT_ORION || (COMPILE_TEST && ARM)
- 	depends on OF
- 	help
- 	  This selects the Marvell SDIO host driver.
-@@ -599,7 +602,7 @@ config MMC_MVSDIO
- 
- config MMC_DAVINCI
- 	tristate "TI DAVINCI Multimedia Card Interface support"
--	depends on ARCH_DAVINCI
-+	depends on ARCH_DAVINCI || COMPILE_TEST
- 	help
- 	  This selects the TI DAVINCI Multimedia card Interface.
- 	  If you have an DAVINCI board with a Multimedia Card slot,
-@@ -628,7 +631,7 @@ config MMC_SPI
- 
- config MMC_S3C
- 	tristate "Samsung S3C SD/MMC Card Interface support"
--	depends on ARCH_S3C24XX
-+	depends on ARCH_S3C24XX || COMPILE_TEST
- 	depends on S3C24XX_DMAC
- 	help
- 	  This selects a driver for the MCI interface found in
-@@ -681,7 +684,7 @@ config MMC_SDRICOH_CS
- 
- config MMC_SDHCI_SPRD
- 	tristate "Spreadtrum SDIO host Controller"
--	depends on ARCH_SPRD
-+	depends on ARCH_SPRD || COMPILE_TEST
- 	depends on MMC_SDHCI_PLTFM
- 	select MMC_SDHCI_IO_ACCESSORS
- 	select MMC_HSQ
-@@ -698,7 +701,7 @@ config MMC_TMIO_CORE
- 
- config MMC_TMIO
- 	tristate "Toshiba Mobile IO Controller (TMIO) MMC/SD function support"
--	depends on MFD_TMIO || MFD_ASIC3
-+	depends on MFD_TMIO || MFD_ASIC3 || COMPILE_TEST
- 	select MMC_TMIO_CORE
- 	help
- 	  This provides support for the SD/MMC cell found in TC6393XB,
-@@ -971,7 +974,7 @@ config MMC_REALTEK_USB
- 
- config MMC_SUNXI
- 	tristate "Allwinner sunxi SD/MMC Host Controller support"
--	depends on ARCH_SUNXI
-+	depends on ARCH_SUNXI || COMPILE_TEST
- 	help
- 	  This selects support for the SD/MMC Host Controller on
- 	  Allwinner sunxi SoCs.
+ 	if (sr & STM32H7_SPI_SR_SUSP) {
+-		dev_warn(spi->dev, "Communication suspended\n");
++		static DEFINE_RATELIMIT_STATE(rs,
++					      DEFAULT_RATELIMIT_INTERVAL * 10,
++					      1);
++		if (__ratelimit(&rs))
++			dev_dbg_ratelimited(spi->dev, "Communication suspended\n");
+ 		if (!spi->cur_usedma && (spi->rx_buf && (spi->rx_len > 0)))
+ 			stm32h7_spi_read_rxfifo(spi, false);
+ 		/*
 -- 
-2.17.1
+2.28.0
 
 _______________________________________________
 Linux-stm32 mailing list
