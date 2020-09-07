@@ -2,55 +2,55 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id 2E18925F47B
-	for <lists+linux-stm32@lfdr.de>; Mon,  7 Sep 2020 10:02:35 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 9AA1B25F47D
+	for <lists+linux-stm32@lfdr.de>; Mon,  7 Sep 2020 10:02:48 +0200 (CEST)
 Received: from ip-172-31-3-76.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id E6E81C36B37;
-	Mon,  7 Sep 2020 08:02:34 +0000 (UTC)
-Received: from mail-wm1-f66.google.com (mail-wm1-f66.google.com
- [209.85.128.66])
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 0200DC36B37;
+	Mon,  7 Sep 2020 08:02:48 +0000 (UTC)
+Received: from mail-wm1-f65.google.com (mail-wm1-f65.google.com
+ [209.85.128.65])
  (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id CB225C36B35
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 39D05C36B35
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Mon,  7 Sep 2020 08:02:32 +0000 (UTC)
-Received: by mail-wm1-f66.google.com with SMTP id q9so13438304wmj.2
+ Mon,  7 Sep 2020 08:02:46 +0000 (UTC)
+Received: by mail-wm1-f65.google.com with SMTP id z9so13255858wmk.1
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Mon, 07 Sep 2020 01:02:32 -0700 (PDT)
+ Mon, 07 Sep 2020 01:02:46 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=baylibre-com.20150623.gappssmtp.com; s=20150623;
  h=subject:to:references:from:autocrypt:organization:message-id:date
  :user-agent:mime-version:in-reply-to:content-language
  :content-transfer-encoding;
- bh=k+3iNNz2e3VIUSi9ibKxGbdLF6tlcFaTW710S6m0llY=;
- b=qbK0Faqwnh+3VnUqgOulQ3FopzqfMJStave8qNsnmGcUju8EdeqYrEVrZOBeX5QbZC
- MWVSYrPhAAYThaQl9CHruIfVm3QSn9pyZj8hP21Yf3PhRAf0XpypRbz+zC9Hg9qc5+Qq
- nN+tc4tqpAiOoMJN4obq+QIo/SIXW+Qn/JWJCETrL8XdQ5++/7+qUWE3hDUhBVz9pKIs
- PODuduHz83o9lnSgpBMmHMwJtTotlM3lmkTwxOa3hzPRGfmz0+HB65g+PDBOIUk3/vXI
- f1ID3y8o+meBCEAFHWXY46tgz9iCNe8cHrSLKUH9iOa9AQmAiZeiLc5QJupyJdMuXHnQ
- pN/w==
+ bh=FOIGm+MeZY0iZ8ZG3rTpB5cPrFLcLRaJXQUNLhkaUH8=;
+ b=1slvBdVF6gktdLRkcVj06lZvoe6Qrqs3W66mp8erMOhDkKIW2iON4VPXYv+vn+wTtW
+ 9iuhcOGBdhYIBG39D6C2bgsiUHkc7D11VWGYSzYdKWTrOI59kEDFKYrcIFU1GKJuYx4M
+ 7cyeguz8SkW0dUfj3KldhTyby5nuL5x0Pod27dUm2pQcTg25yLS9g/Z9AcNAKoLbfqML
+ hk8bCjU/TMJUVhI9o9B0wqsxjqshbAZwWN/E/zvsy9PFURtbH9UU+kTi0a/6xjGYlO5w
+ pUAGZSDkk0jq5AL56cd+WtiVrbnzMKcioH0vaaJLwaE2uvyCwaEjRUBePfV11J45MmjE
+ VDPQ==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=1e100.net; s=20161025;
  h=x-gm-message-state:subject:to:references:from:autocrypt
  :organization:message-id:date:user-agent:mime-version:in-reply-to
  :content-language:content-transfer-encoding;
- bh=k+3iNNz2e3VIUSi9ibKxGbdLF6tlcFaTW710S6m0llY=;
- b=h9jYRSABlE96F+nKvOslrw8RA8WbQWp4Zw+PTI4WyRGmkcyCOeyqWujV7NjyV9QkF8
- DCAI4smGwCdLGQ2sfaW/U8s3owi3hCX2R7nnEfuwM0RYKbFzqpSBO64yWEIpMSZzeih3
- B7/mgIlN/2IMfA7UNciMDSLgqF9ULHfaXJaMze8Rx/kywqXmtH719819wxRnkPI+U65w
- 4CbSyY+XAiUn0h63hIgrEcRaO0uZe4TIcmrVRbsuZx/Ea5nnKsTJxb0fHAfg2YZ/mP1C
- U6CNempQABbuBMhhxV+PJCUu2pUJgnab2q9OYLw+JuEcmwsHbRMNK7wkhtbjr0mcRAxE
- Zvfw==
-X-Gm-Message-State: AOAM5310hcrmvfftWnjwT/KSTD01Kybvjb7+cCHFGk22swkfX5hQb4bo
- Jt9B28D6NL3Wf21EhTXM0qhDOA==
-X-Google-Smtp-Source: ABdhPJxuyg+sX2JhC+TERapyb7IL3F3vKLKONH3dc2Z3CFDaK0tcZiT+P0V12b1hK8PvP3FVac/gyA==
-X-Received: by 2002:a1c:9a48:: with SMTP id c69mr18783360wme.43.1599465751929; 
- Mon, 07 Sep 2020 01:02:31 -0700 (PDT)
+ bh=FOIGm+MeZY0iZ8ZG3rTpB5cPrFLcLRaJXQUNLhkaUH8=;
+ b=EWWUgeygu4rfqPPWrjL24HZhy08XZhXJkvl/12Yqz76FcsUIs8wGtMj3rqkwcFNF30
+ 8PgdahTBREsvwOaIYBf1vaDxKbvvLg6LykEi83LDWajyy8Symq4AzLbSyO4LRy3o86Qk
+ ItktccvGmLQAnk+8oBPq2jm1zhtbXiml9WfYu/8Qp7qyxIID9Bn2tX4aakSJgLAfoB6I
+ 6RGCu14hby2wJp72Oy8x5lIuQqHO1xdIYKrj2I1TzPN7Uon4fpDH0RqQp/NeaeU9ihtB
+ RdsSK0/UOAvSehLhfOaGS40FVTXVoJP0Pph0VUkJctDBH/vSlmQdanP45+KgupThXOj9
+ evvQ==
+X-Gm-Message-State: AOAM533etaAuh9zdtbsb7Ai7rMwayeOeqcQD+ZnJfYAlhgzcbxo5ftnZ
+ YZkTVvCMl9Evt7v0Vr8gj7sOLQ==
+X-Google-Smtp-Source: ABdhPJzA303LnVSpPs0rqqJVdZ6G5OpDglfAlF6qYYFUtQ+Oe38yabLNx+Gpkfq7wzvX9BSBqalEbA==
+X-Received: by 2002:a1c:b703:: with SMTP id h3mr19171992wmf.131.1599465765687; 
+ Mon, 07 Sep 2020 01:02:45 -0700 (PDT)
 Received: from ?IPv6:2a01:e35:2ec0:82b0:5405:9623:e2f1:b2ac?
  ([2a01:e35:2ec0:82b0:5405:9623:e2f1:b2ac])
- by smtp.gmail.com with ESMTPSA id h76sm27154621wme.10.2020.09.07.01.02.30
+ by smtp.gmail.com with ESMTPSA id b1sm27730168wru.54.2020.09.07.01.02.44
  (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Mon, 07 Sep 2020 01:02:31 -0700 (PDT)
+ Mon, 07 Sep 2020 01:02:45 -0700 (PDT)
 To: Yannick Fertre <yannick.fertre@st.com>,
  Philippe Cornu <philippe.cornu@st.com>,
  Benjamin Gaignard <benjamin.gaignard@st.com>, David Airlie
@@ -59,7 +59,7 @@ To: Yannick Fertre <yannick.fertre@st.com>,
  Alexandre Torgue <alexandre.torgue@st.com>, dri-devel@lists.freedesktop.org,
  linux-stm32@st-md-mailman.stormreply.com,
  linux-arm-kernel@lists.infradead.org, linux-kernel@vger.kernel.org
-References: <20200708140836.32418-1-yannick.fertre@st.com>
+References: <20200701143131.841-1-yannick.fertre@st.com>
 From: Neil Armstrong <narmstrong@baylibre.com>
 Autocrypt: addr=narmstrong@baylibre.com; prefer-encrypt=mutual; keydata=
  xsBNBE1ZBs8BCAD78xVLsXPwV/2qQx2FaO/7mhWL0Qodw8UcQJnkrWmgTFRobtTWxuRx8WWP
@@ -111,15 +111,15 @@ Autocrypt: addr=narmstrong@baylibre.com; prefer-encrypt=mutual; keydata=
  zR8QplXA5kogS4kLe/7/JmlDMO8Zgm9vKLHSUeesLOrjdZ59EcjldNNBszRZQgEhwaarfz46
  BSwxi7g3Mu7u5kUByanqHyA=
 Organization: Baylibre
-Message-ID: <00e65daf-d5c1-86da-f4ae-7b53fd484790@baylibre.com>
-Date: Mon, 7 Sep 2020 10:02:29 +0200
+Message-ID: <10134f03-3bb9-072b-a70f-edc972f7bf57@baylibre.com>
+Date: Mon, 7 Sep 2020 10:02:43 +0200
 User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:68.0) Gecko/20100101
  Thunderbird/68.10.0
 MIME-Version: 1.0
-In-Reply-To: <20200708140836.32418-1-yannick.fertre@st.com>
+In-Reply-To: <20200701143131.841-1-yannick.fertre@st.com>
 Content-Language: en-US
-Subject: Re: [Linux-stm32] [PATCH v2] drm/bridge/synopsys: dsi: allow LP
- commands in video mode
+Subject: Re: [Linux-stm32] [PATCH] drm/bridge/synopsys: dsi: allow sending
+ longer LP commands
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -136,46 +136,60 @@ Content-Transfer-Encoding: 7bit
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
-On 08/07/2020 16:08, Yannick Fertre wrote:
+On 01/07/2020 16:31, Yannick Fertre wrote:
 > From: Antonio Borneo <antonio.borneo@st.com>
 > 
-> Current code only sends LP commands in command mode.
+> Current code does not properly computes the max length of LP
+> commands that can be send during H or V sync, and rely on static
+> values.
+> Limiting the max LP length to 4 byte during the V-sync is overly
+> conservative.
 > 
-> Allows sending LP commands also in video mode by setting the
-> proper flag in DSI_VID_MODE_CFG.
+> Relax the limit and allows longer LP commands (16 bytes) to be
+> sent during V-sync.
 > 
 > Signed-off-by: Antonio Borneo <antonio.borneo@st.com>
 > ---
->  drivers/gpu/drm/bridge/synopsys/dw-mipi-dsi.c | 8 ++++++++
->  1 file changed, 8 insertions(+)
+>  drivers/gpu/drm/bridge/synopsys/dw-mipi-dsi.c | 17 +++++++++--------
+>  1 file changed, 9 insertions(+), 8 deletions(-)
 > 
 > diff --git a/drivers/gpu/drm/bridge/synopsys/dw-mipi-dsi.c b/drivers/gpu/drm/bridge/synopsys/dw-mipi-dsi.c
-> index 1a24ea648ef8..e9a0f42ff99f 100644
+> index d580b2aa4ce9..1a24ea648ef8 100644
 > --- a/drivers/gpu/drm/bridge/synopsys/dw-mipi-dsi.c
 > +++ b/drivers/gpu/drm/bridge/synopsys/dw-mipi-dsi.c
-> @@ -89,6 +89,7 @@
->  #define VID_MODE_TYPE_NON_BURST_SYNC_EVENTS	0x1
->  #define VID_MODE_TYPE_BURST			0x2
->  #define VID_MODE_TYPE_MASK			0x3
-> +#define ENABLE_LOW_POWER_CMD		BIT(15)
->  #define VID_MODE_VPG_ENABLE		BIT(16)
->  #define VID_MODE_VPG_HORIZONTAL		BIT(24)
+> @@ -360,6 +360,15 @@ static void dw_mipi_message_config(struct dw_mipi_dsi *dsi,
+>  	bool lpm = msg->flags & MIPI_DSI_MSG_USE_LPM;
+>  	u32 val = 0;
 >  
-> @@ -376,6 +377,13 @@ static void dw_mipi_message_config(struct dw_mipi_dsi *dsi,
->  
->  	dsi_write(dsi, DSI_LPCLK_CTRL, lpm ? 0 : PHY_TXREQUESTCLKHS);
->  	dsi_write(dsi, DSI_CMD_MODE_CFG, val);
+> +	/*
+> +	 * TODO dw drv improvements
+> +	 * largest packet sizes during hfp or during vsa/vpb/vfp
+> +	 * should be computed according to byte lane, lane number and only
+> +	 * if sending lp cmds in high speed is enable (PHY_TXREQUESTCLKHS)
+> +	 */
+> +	dsi_write(dsi, DSI_DPI_LP_CMD_TIM, OUTVACT_LPCMD_TIME(16)
+> +		  | INVACT_LPCMD_TIME(4));
 > +
-> +	val = dsi_read(dsi, DSI_VID_MODE_CFG);
-> +	if (lpm)
-> +		val |= ENABLE_LOW_POWER_CMD;
-> +	else
-> +		val &= ~ENABLE_LOW_POWER_CMD;
-> +	dsi_write(dsi, DSI_VID_MODE_CFG, val);
+>  	if (msg->flags & MIPI_DSI_MSG_REQ_ACK)
+>  		val |= ACK_RQST_EN;
+>  	if (lpm)
+> @@ -611,14 +620,6 @@ static void dw_mipi_dsi_dpi_config(struct dw_mipi_dsi *dsi,
+>  	dsi_write(dsi, DSI_DPI_VCID, DPI_VCID(dsi->channel));
+>  	dsi_write(dsi, DSI_DPI_COLOR_CODING, color);
+>  	dsi_write(dsi, DSI_DPI_CFG_POL, val);
+> -	/*
+> -	 * TODO dw drv improvements
+> -	 * largest packet sizes during hfp or during vsa/vpb/vfp
+> -	 * should be computed according to byte lane, lane number and only
+> -	 * if sending lp cmds in high speed is enable (PHY_TXREQUESTCLKHS)
+> -	 */
+> -	dsi_write(dsi, DSI_DPI_LP_CMD_TIM, OUTVACT_LPCMD_TIME(4)
+> -		  | INVACT_LPCMD_TIME(4));
 >  }
 >  
->  static int dw_mipi_dsi_gen_pkt_hdr_write(struct dw_mipi_dsi *dsi, u32 hdr_val)
+>  static void dw_mipi_dsi_packet_handler_config(struct dw_mipi_dsi *dsi)
 > 
+
 
 Tested on Amlogic AXG (v1.21a)
 
