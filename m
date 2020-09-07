@@ -2,64 +2,62 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id 1462825F47F
-	for <lists+linux-stm32@lfdr.de>; Mon,  7 Sep 2020 10:02:59 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 2032525F495
+	for <lists+linux-stm32@lfdr.de>; Mon,  7 Sep 2020 10:09:34 +0200 (CEST)
 Received: from ip-172-31-3-76.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id D30E5C36B37;
-	Mon,  7 Sep 2020 08:02:58 +0000 (UTC)
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id D2BEFC36B37;
+	Mon,  7 Sep 2020 08:09:33 +0000 (UTC)
 Received: from mail-wr1-f65.google.com (mail-wr1-f65.google.com
  [209.85.221.65])
  (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 91D2AC36B35
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 7A7B7C36B35
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Mon,  7 Sep 2020 08:02:56 +0000 (UTC)
-Received: by mail-wr1-f65.google.com with SMTP id t10so14787971wrv.1
+ Mon,  7 Sep 2020 08:09:32 +0000 (UTC)
+Received: by mail-wr1-f65.google.com with SMTP id m6so14800716wrn.0
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Mon, 07 Sep 2020 01:02:56 -0700 (PDT)
+ Mon, 07 Sep 2020 01:09:32 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=baylibre-com.20150623.gappssmtp.com; s=20150623;
- h=subject:to:references:from:autocrypt:organization:message-id:date
- :user-agent:mime-version:in-reply-to:content-language
+ h=subject:to:cc:references:from:autocrypt:organization:message-id
+ :date:user-agent:mime-version:in-reply-to:content-language
  :content-transfer-encoding;
- bh=4xVBpZJk3B3sGC8e0YUfLrzfC0ZzglusESsfU+wv+zg=;
- b=apdq98lIicFBwX8i1BVk3L0kQJOrIA3yJJMdHk5MyJyfS8p/38GFacYxfpvkeC19ZO
- /x0VFu02aRY06gdp41I2ytldmM7xGa3Q7/epi6LVywT77F3QuUjzO5U7znQXN/QeR3ZU
- soBdJCjDPhf57cySVVIsG1s/DU2h6kgnVKjJC1ljtygbx/G3T41nwC2a4AkeUYHsxlPL
- AFz8qLKJKb/N17AsDwLtgjKq7TobylD2thdDNgE91Qofg5Dx1YpjMtK+C4qGbUIaesTf
- +fsQmLJ9RkEJQvN2YfSq+v7ayhLdMBLjavRq/3doxjLlgwmISE+puig9J3ooXlaI90Ol
- uezQ==
+ bh=vISUpoBN1kH4usxTG/CMAMfOFxyeKd1cKFFqqtgy4bk=;
+ b=lJcGOUcOHcK+PvwscgOv8mOjWubWf7aPCn0R/nFJ3UdfU5otHdGYsr4fh96L2epaP3
+ oJPhmAqZEMpDEorQcMgSWWUEi3ep6NK8/u8nauxq/JJmkqB8fbMeVfyDajkzli8GnaXK
+ i2THOayjoaoeREPD7jK0JXwn4Td6qHMQKsxo4idqbZ2MRlFXdPZaGGWRFqWtj+zlg28o
+ O3FD5XFp7CG+X1vU39q6HOUgnnlRrauSJbc6/Edm+uDCPMTro6CqSKOGXpETqf8jmogH
+ yeQfQbHK30lPsShylfmL9Vj6BlVcLqT8NG4dl5Kxmc50pjZM3RgpO7eX3LvVgiVcCtD7
+ fQDw==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=1e100.net; s=20161025;
- h=x-gm-message-state:subject:to:references:from:autocrypt
+ h=x-gm-message-state:subject:to:cc:references:from:autocrypt
  :organization:message-id:date:user-agent:mime-version:in-reply-to
  :content-language:content-transfer-encoding;
- bh=4xVBpZJk3B3sGC8e0YUfLrzfC0ZzglusESsfU+wv+zg=;
- b=KoB6Mz1tzp3ihzQhhg11QHnofN8s5YxcDHinFDSOmMuYuILTi8dQQh7kHxgsM1CD3T
- xicgeQwgJN2sw26HmYZ17KFRWYr7xyt8Z+zuOzK+7lKKJ4pRDNc04JzWC/yYclvx1j20
- c9VG8CCAHUoYPet6E6CdzBNwE9XKPQbDjvlAMdNbh4G0wUxPpbhBY2KRuJU1kb3SS68a
- BVPrMq7zFnHYp7rcCqyZELEm8avksRg6Pa6RsnVpOdQRLW99mxc63TJ4OViIgcGlfTrD
- jftVSf1WUvxK5wxmKv76lOpgit9LZFZj7os4UagAjYzdN/w/dng6HDyKNuWk4layvAu8
- Bdvg==
-X-Gm-Message-State: AOAM532yO41ixSMk/vYy1bdppBcm1uN3MzxlsI9lzdXoyNijQ2LNu7oC
- AYZrGpHm+mgd1rPLrKfi67tN+w==
-X-Google-Smtp-Source: ABdhPJxabxT1HOw193C6STaGuGZMf6q8GGBaHNqfrdkIHW/CZODmRkpFcG2+cIE9nDcMI6D+7p6Cpw==
-X-Received: by 2002:adf:ec47:: with SMTP id w7mr1231197wrn.175.1599465776038; 
- Mon, 07 Sep 2020 01:02:56 -0700 (PDT)
+ bh=vISUpoBN1kH4usxTG/CMAMfOFxyeKd1cKFFqqtgy4bk=;
+ b=ozVfqEyOrgbpTBC+kOIfvx5jqzyTZS3ziccNixaXo5kLsTpuakqufBHvjFHwtn3VKh
+ +dVQDBvohHdOuAwPglC4K/W/3U0gE8eEP2U3TuoP5YZqDsEBK1sJ8xjSEn1AolkdL9pM
+ gezv0KX57DDx71i7WUcPcAHfxKk21pIM724sK4qAPwZnMDDpcmxGvCiTocWTEe6xYCxy
+ k50Y/eQoZchJri2b57rCA6sL3SIbLH3vfOMmjHsmdue5NWJoI3L9Xyk8bkPz8kgjtkc8
+ BY13PzgMroRiH0X9wBZu7zD95Oc7yBrxnh2yn4qQxrw6gtcb3x3HwBw/ctJyvZ+qBw3O
+ PWVg==
+X-Gm-Message-State: AOAM531e7tHzncjDI7czYiVlffaa7D21sNCqeHdzHBLEsReVqXCDNbU1
+ iM1YBi1eTlDokzEHO6nTT7SngA==
+X-Google-Smtp-Source: ABdhPJwFAZdjB34nPwosr9u5j8SAPdQKnOwIeeN9TWxKUejFCFHDRsCd0X6ECXt09AWpkZe/BUFPkw==
+X-Received: by 2002:adf:e6c2:: with SMTP id y2mr21872961wrm.117.1599466171895; 
+ Mon, 07 Sep 2020 01:09:31 -0700 (PDT)
 Received: from ?IPv6:2a01:e35:2ec0:82b0:5405:9623:e2f1:b2ac?
  ([2a01:e35:2ec0:82b0:5405:9623:e2f1:b2ac])
- by smtp.gmail.com with ESMTPSA id l9sm26112679wmh.1.2020.09.07.01.02.54
+ by smtp.gmail.com with ESMTPSA id i1sm31339865wrc.49.2020.09.07.01.09.30
  (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Mon, 07 Sep 2020 01:02:55 -0700 (PDT)
-To: Yannick Fertre <yannick.fertre@st.com>,
- Philippe Cornu <philippe.cornu@st.com>,
- Benjamin Gaignard <benjamin.gaignard@st.com>, David Airlie
- <airlied@linux.ie>, Daniel Vetter <daniel@ffwll.ch>,
- Maxime Coquelin <mcoquelin.stm32@gmail.com>,
- Alexandre Torgue <alexandre.torgue@st.com>, dri-devel@lists.freedesktop.org,
- linux-stm32@st-md-mailman.stormreply.com,
- linux-arm-kernel@lists.infradead.org, linux-kernel@vger.kernel.org
-References: <20200701194234.18123-1-yannick.fertre@st.com>
+ Mon, 07 Sep 2020 01:09:31 -0700 (PDT)
+To: Angelo Ribeiro <Angelo.Ribeiro@synopsys.com>, yannick.fertre@st.com,
+ philippe.cornu@st.com, benjamin.gaignard@st.com, airlied@linux.ie,
+ daniel@ffwll.ch, mcoquelin.stm32@gmail.com, alexandre.torgue@st.com,
+ dri-devel@lists.freedesktop.org, linux-stm32@st-md-mailman.stormreply.com,
+ linux-arm-kernel@lists.infradead.org, linux-kernel@vger.kernel.org,
+ pop.adrian61@gmail.com
+References: <a809feb7d7153a92e323416f744f1565e995da01.1586180592.git.angelo.ribeiro@synopsys.com>
 From: Neil Armstrong <narmstrong@baylibre.com>
 Autocrypt: addr=narmstrong@baylibre.com; prefer-encrypt=mutual; keydata=
  xsBNBE1ZBs8BCAD78xVLsXPwV/2qQx2FaO/7mhWL0Qodw8UcQJnkrWmgTFRobtTWxuRx8WWP
@@ -111,15 +109,18 @@ Autocrypt: addr=narmstrong@baylibre.com; prefer-encrypt=mutual; keydata=
  zR8QplXA5kogS4kLe/7/JmlDMO8Zgm9vKLHSUeesLOrjdZ59EcjldNNBszRZQgEhwaarfz46
  BSwxi7g3Mu7u5kUByanqHyA=
 Organization: Baylibre
-Message-ID: <0df90e8c-06d9-7574-d122-7676f33d49bf@baylibre.com>
-Date: Mon, 7 Sep 2020 10:02:54 +0200
+Message-ID: <5ecbb66f-1f65-d4c4-3593-49c537378efe@baylibre.com>
+Date: Mon, 7 Sep 2020 10:09:29 +0200
 User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:68.0) Gecko/20100101
  Thunderbird/68.10.0
 MIME-Version: 1.0
-In-Reply-To: <20200701194234.18123-1-yannick.fertre@st.com>
+In-Reply-To: <a809feb7d7153a92e323416f744f1565e995da01.1586180592.git.angelo.ribeiro@synopsys.com>
 Content-Language: en-US
-Subject: Re: [Linux-stm32] [PATCH] drm/bridge/synopsys: dsi: add support for
- non-continuous HS clock
+Cc: Jose Abreu <Jose.Abreu@synopsys.com>,
+ Gustavo Pimentel <Gustavo.Pimentel@synopsys.com>,
+ Joao Pinto <Joao.Pinto@synopsys.com>
+Subject: Re: [Linux-stm32] [PATCH v2] drm/bridge: dw-mipi-dsi.c: Add VPG
+ runtime config through debugfs
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -136,69 +137,188 @@ Content-Transfer-Encoding: 7bit
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
-On 01/07/2020 21:42, Yannick Fertre wrote:
-> From: Antonio Borneo <antonio.borneo@st.com>
+Hi,
+
+On 06/04/2020 15:49, Angelo Ribeiro wrote:
+> Add support for the video pattern generator (VPG) BER pattern mode and
+> configuration in runtime.
 > 
-> Current code enables the HS clock when video mode is started or to
-> send out a HS command, and disables the HS clock to send out a LP
-> command. This is not what DSI spec specify.
+> This enables using the debugfs interface to manipulate the VPG after
+> the pipeline is set.
+> Also, enables the usage of the VPG BER pattern.
 > 
-> Enable HS clock either in command and in video mode.
-> Set automatic HS clock management for panels and devices that
-> support non-continuous HS clock.
+> Changes in v2:
+>   - Added VID_MODE_VPG_MODE
+>   - Solved incompatible return type on __get and __set
 > 
-> Signed-off-by: Antonio Borneo <antonio.borneo@st.com>
+> Reported-by: kbuild test robot <lkp@intel.com>
+> Reported-by: Adrian Pop <pop.adrian61@gmail.com>
+> Cc: Gustavo Pimentel <gustavo.pimentel@synopsys.com>
+> Cc: Joao Pinto <jpinto@synopsys.com>
+> Cc: Jose Abreu <jose.abreu@synopsys.com>
+> Signed-off-by: Angelo Ribeiro <angelo.ribeiro@synopsys.com>
 > ---
->  drivers/gpu/drm/bridge/synopsys/dw-mipi-dsi.c | 9 +++++++--
->  1 file changed, 7 insertions(+), 2 deletions(-)
+>  drivers/gpu/drm/bridge/synopsys/dw-mipi-dsi.c | 98 ++++++++++++++++++++++++---
+>  1 file changed, 90 insertions(+), 8 deletions(-)
 > 
 > diff --git a/drivers/gpu/drm/bridge/synopsys/dw-mipi-dsi.c b/drivers/gpu/drm/bridge/synopsys/dw-mipi-dsi.c
-> index d580b2aa4ce9..979acaa90d00 100644
+> index b18351b..9de3645 100644
 > --- a/drivers/gpu/drm/bridge/synopsys/dw-mipi-dsi.c
 > +++ b/drivers/gpu/drm/bridge/synopsys/dw-mipi-dsi.c
-> @@ -365,7 +365,6 @@ static void dw_mipi_message_config(struct dw_mipi_dsi *dsi,
->  	if (lpm)
->  		val |= CMD_MODE_ALL_LP;
+> @@ -91,6 +91,7 @@
+>  #define VID_MODE_TYPE_BURST			0x2
+>  #define VID_MODE_TYPE_MASK			0x3
+>  #define VID_MODE_VPG_ENABLE		BIT(16)
+> +#define VID_MODE_VPG_MODE		BIT(20)
+>  #define VID_MODE_VPG_HORIZONTAL		BIT(24)
 >  
-> -	dsi_write(dsi, DSI_LPCLK_CTRL, lpm ? 0 : PHY_TXREQUESTCLKHS);
->  	dsi_write(dsi, DSI_CMD_MODE_CFG, val);
->  }
+>  #define DSI_VID_PKT_SIZE		0x3c
+> @@ -221,6 +222,21 @@
+>  #define PHY_STATUS_TIMEOUT_US		10000
+>  #define CMD_PKT_STATUS_TIMEOUT_US	20000
 >  
-> @@ -541,16 +540,22 @@ static void dw_mipi_dsi_video_mode_config(struct dw_mipi_dsi *dsi)
->  static void dw_mipi_dsi_set_mode(struct dw_mipi_dsi *dsi,
->  				 unsigned long mode_flags)
->  {
-> +	u32 val;
+> +#ifdef CONFIG_DEBUG_FS
+> +#define VPG_DEFS(name, dsi) \
+> +	((void __force *)&((*dsi).vpg_defs.name))
 > +
->  	dsi_write(dsi, DSI_PWR_UP, RESET);
+> +#define REGISTER(name, mask, dsi) \
+> +	{ #name, VPG_DEFS(name, dsi), mask, dsi }
+> +
+> +struct debugfs_entries {
+> +	const char				*name;
+> +	bool					*reg;
+> +	u32					mask;
+> +	struct dw_mipi_dsi			*dsi;
+> +};
+> +#endif /* CONFIG_DEBUG_FS */
+> +
+>  struct dw_mipi_dsi {
+>  	struct drm_bridge bridge;
+>  	struct mipi_dsi_host dsi_host;
+> @@ -238,9 +254,12 @@ struct dw_mipi_dsi {
 >  
->  	if (mode_flags & MIPI_DSI_MODE_VIDEO) {
->  		dsi_write(dsi, DSI_MODE_CFG, ENABLE_VIDEO_MODE);
->  		dw_mipi_dsi_video_mode_config(dsi);
-> -		dsi_write(dsi, DSI_LPCLK_CTRL, PHY_TXREQUESTCLKHS);
->  	} else {
->  		dsi_write(dsi, DSI_MODE_CFG, ENABLE_CMD_MODE);
+>  #ifdef CONFIG_DEBUG_FS
+>  	struct dentry *debugfs;
+> -
+> -	bool vpg;
+> -	bool vpg_horizontal;
+> +	struct debugfs_entries *debugfs_vpg;
+> +	struct {
+> +		bool vpg;
+> +		bool vpg_horizontal;
+> +		bool vpg_ber_pattern;
+> +	} vpg_defs;
+>  #endif /* CONFIG_DEBUG_FS */
+>  
+>  	struct dw_mipi_dsi *master; /* dual-dsi master ptr */
+> @@ -530,9 +549,11 @@ static void dw_mipi_dsi_video_mode_config(struct dw_mipi_dsi *dsi)
+>  		val |= VID_MODE_TYPE_NON_BURST_SYNC_EVENTS;
+>  
+>  #ifdef CONFIG_DEBUG_FS
+> -	if (dsi->vpg) {
+> +	if (dsi->vpg_defs.vpg) {
+>  		val |= VID_MODE_VPG_ENABLE;
+> -		val |= dsi->vpg_horizontal ? VID_MODE_VPG_HORIZONTAL : 0;
+> +		val |= dsi->vpg_defs.vpg_horizontal ?
+> +		       VID_MODE_VPG_HORIZONTAL : 0;
+> +		val |= dsi->vpg_defs.vpg_ber_pattern ? VID_MODE_VPG_MODE : 0;
+>  	}
+>  #endif /* CONFIG_DEBUG_FS */
+>  
+> @@ -961,6 +982,68 @@ static const struct drm_bridge_funcs dw_mipi_dsi_bridge_funcs = {
+>  
+>  #ifdef CONFIG_DEBUG_FS
+>  
+> +int dw_mipi_dsi_debugfs_write(void *data, u64 val)
+> +{
+> +	struct debugfs_entries *vpg = data;
+> +	struct dw_mipi_dsi *dsi;
+> +	u32 mode_cfg;
+> +
+> +	if (!vpg)
+> +		return -ENODEV;
+> +
+> +	dsi = vpg->dsi;
+> +
+> +	*vpg->reg = (bool)val;
+> +
+> +	mode_cfg = dsi_read(dsi, DSI_VID_MODE_CFG);
+> +
+> +	if (*vpg->reg)
+> +		mode_cfg |= vpg->mask;
+> +	else
+> +		mode_cfg &= ~vpg->mask;
+> +
+> +	dsi_write(dsi, DSI_VID_MODE_CFG, mode_cfg);
+> +
+> +	return 0;
+> +}
+> +
+> +int dw_mipi_dsi_debugfs_show(void *data, u64 *val)
+> +{
+> +	struct debugfs_entries *vpg = data;
+> +
+> +	if (!vpg)
+> +		return -ENODEV;
+> +
+> +	*val = *vpg->reg;
+> +
+> +	return 0;
+> +}
+> +
+> +DEFINE_DEBUGFS_ATTRIBUTE(fops_x32, dw_mipi_dsi_debugfs_show,
+> +			 dw_mipi_dsi_debugfs_write, "%llu\n");
+> +
+> +static void debugfs_create_files(void *data)
+> +{
+> +	struct dw_mipi_dsi *dsi = data;
+> +	struct debugfs_entries debugfs[] = {
+> +		REGISTER(vpg, VID_MODE_VPG_ENABLE, dsi),
+> +		REGISTER(vpg_horizontal, VID_MODE_VPG_HORIZONTAL, dsi),
+> +		REGISTER(vpg_ber_pattern, VID_MODE_VPG_MODE, dsi),
+> +	};
+> +	int i;
+> +
+> +	dsi->debugfs_vpg = kmalloc(sizeof(debugfs), GFP_KERNEL);
+> +	if (!dsi->debugfs_vpg)
+> +		return;
+> +
+> +	memcpy(dsi->debugfs_vpg, debugfs, sizeof(debugfs));
+> +
+> +	for (i = 0; i < ARRAY_SIZE(debugfs); i++)
+> +		debugfs_create_file(dsi->debugfs_vpg[i].name, 0644,
+> +				    dsi->debugfs, &dsi->debugfs_vpg[i],
+> +				    &fops_x32);
+> +}
+> +
+>  static void dw_mipi_dsi_debugfs_init(struct dw_mipi_dsi *dsi)
+>  {
+>  	dsi->debugfs = debugfs_create_dir(dev_name(dsi->dev), NULL);
+> @@ -969,14 +1052,13 @@ static void dw_mipi_dsi_debugfs_init(struct dw_mipi_dsi *dsi)
+>  		return;
 >  	}
 >  
-> +	val = PHY_TXREQUESTCLKHS;
-> +	if (dsi->mode_flags & MIPI_DSI_CLOCK_NON_CONTINUOUS)
-> +		val |= AUTO_CLKLANE_CTRL;
-> +	dsi_write(dsi, DSI_LPCLK_CTRL, val);
-> +
->  	dsi_write(dsi, DSI_PWR_UP, POWERUP);
+> -	debugfs_create_bool("vpg", 0660, dsi->debugfs, &dsi->vpg);
+> -	debugfs_create_bool("vpg_horizontal", 0660, dsi->debugfs,
+> -			    &dsi->vpg_horizontal);
+> +	debugfs_create_files(dsi);
 >  }
 >  
+>  static void dw_mipi_dsi_debugfs_remove(struct dw_mipi_dsi *dsi)
+>  {
+>  	debugfs_remove_recursive(dsi->debugfs);
+> +	kfree(dsi->debugfs_vpg);
+>  }
+>  
+>  #else
 > 
-
-Tested on Amlogic AXG (v1.21a)
 
 Acked-by: Neil Armstrong <narmstrong@baylibre.com>
 
 Applying to drm-misc-next
 
-Thanks !
+Thanks,
 Neil
-
 _______________________________________________
 Linux-stm32 mailing list
 Linux-stm32@st-md-mailman.stormreply.com
