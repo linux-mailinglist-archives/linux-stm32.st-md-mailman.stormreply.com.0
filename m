@@ -2,125 +2,74 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id 2032525F495
-	for <lists+linux-stm32@lfdr.de>; Mon,  7 Sep 2020 10:09:34 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id EF74525F746
+	for <lists+linux-stm32@lfdr.de>; Mon,  7 Sep 2020 12:08:01 +0200 (CEST)
 Received: from ip-172-31-3-76.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id D2BEFC36B37;
-	Mon,  7 Sep 2020 08:09:33 +0000 (UTC)
-Received: from mail-wr1-f65.google.com (mail-wr1-f65.google.com
- [209.85.221.65])
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 8C9DCC36B37;
+	Mon,  7 Sep 2020 10:08:01 +0000 (UTC)
+Received: from mail-ua1-f66.google.com (mail-ua1-f66.google.com
+ [209.85.222.66])
  (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 7A7B7C36B35
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 69B4DC36B35
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Mon,  7 Sep 2020 08:09:32 +0000 (UTC)
-Received: by mail-wr1-f65.google.com with SMTP id m6so14800716wrn.0
+ Mon,  7 Sep 2020 10:07:58 +0000 (UTC)
+Received: by mail-ua1-f66.google.com with SMTP id v5so3788769uau.10
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Mon, 07 Sep 2020 01:09:32 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=baylibre-com.20150623.gappssmtp.com; s=20150623;
- h=subject:to:cc:references:from:autocrypt:organization:message-id
- :date:user-agent:mime-version:in-reply-to:content-language
- :content-transfer-encoding;
- bh=vISUpoBN1kH4usxTG/CMAMfOFxyeKd1cKFFqqtgy4bk=;
- b=lJcGOUcOHcK+PvwscgOv8mOjWubWf7aPCn0R/nFJ3UdfU5otHdGYsr4fh96L2epaP3
- oJPhmAqZEMpDEorQcMgSWWUEi3ep6NK8/u8nauxq/JJmkqB8fbMeVfyDajkzli8GnaXK
- i2THOayjoaoeREPD7jK0JXwn4Td6qHMQKsxo4idqbZ2MRlFXdPZaGGWRFqWtj+zlg28o
- O3FD5XFp7CG+X1vU39q6HOUgnnlRrauSJbc6/Edm+uDCPMTro6CqSKOGXpETqf8jmogH
- yeQfQbHK30lPsShylfmL9Vj6BlVcLqT8NG4dl5Kxmc50pjZM3RgpO7eX3LvVgiVcCtD7
- fQDw==
+ Mon, 07 Sep 2020 03:07:58 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linaro.org; s=google;
+ h=mime-version:references:in-reply-to:from:date:message-id:subject:to
+ :cc:content-transfer-encoding;
+ bh=QuNLltsEiIW4LCbpFyTWl1p44IkTT3QJmbdClg97dn0=;
+ b=GdR9hDKN5L9o4E+D9klMf226TdSBiyQrmIJFqTy1wvu7JgUOP5hnq9D/dbGUt34nVN
+ XTE9ZkkMZYDWJkEj8/LXyenZz3T0Irx/WXSUQIYDB4F7XGGOjeU/eP0cHxgH70gtpxoS
+ 593wZnUVUiqgZqhmNZJBvdbDOEAjelVZNg7W3uJxmMeE2W2+4ryrLED4uLWr5d2on/1Y
+ V+k0+LPGbknr9eHhBtS9n9cOKc/o9fFLWU4T/+6C9EhAuV3OtNNgAG8pjet6UXydTeg8
+ /OlJ55P8StYowRupDWz7iqCrO55GZV8SHF0Qf78K+dPX1qyWPG1Pi5uUN5Re3N+8QgpF
+ Opsw==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=1e100.net; s=20161025;
- h=x-gm-message-state:subject:to:cc:references:from:autocrypt
- :organization:message-id:date:user-agent:mime-version:in-reply-to
- :content-language:content-transfer-encoding;
- bh=vISUpoBN1kH4usxTG/CMAMfOFxyeKd1cKFFqqtgy4bk=;
- b=ozVfqEyOrgbpTBC+kOIfvx5jqzyTZS3ziccNixaXo5kLsTpuakqufBHvjFHwtn3VKh
- +dVQDBvohHdOuAwPglC4K/W/3U0gE8eEP2U3TuoP5YZqDsEBK1sJ8xjSEn1AolkdL9pM
- gezv0KX57DDx71i7WUcPcAHfxKk21pIM724sK4qAPwZnMDDpcmxGvCiTocWTEe6xYCxy
- k50Y/eQoZchJri2b57rCA6sL3SIbLH3vfOMmjHsmdue5NWJoI3L9Xyk8bkPz8kgjtkc8
- BY13PzgMroRiH0X9wBZu7zD95Oc7yBrxnh2yn4qQxrw6gtcb3x3HwBw/ctJyvZ+qBw3O
- PWVg==
-X-Gm-Message-State: AOAM531e7tHzncjDI7czYiVlffaa7D21sNCqeHdzHBLEsReVqXCDNbU1
- iM1YBi1eTlDokzEHO6nTT7SngA==
-X-Google-Smtp-Source: ABdhPJwFAZdjB34nPwosr9u5j8SAPdQKnOwIeeN9TWxKUejFCFHDRsCd0X6ECXt09AWpkZe/BUFPkw==
-X-Received: by 2002:adf:e6c2:: with SMTP id y2mr21872961wrm.117.1599466171895; 
- Mon, 07 Sep 2020 01:09:31 -0700 (PDT)
-Received: from ?IPv6:2a01:e35:2ec0:82b0:5405:9623:e2f1:b2ac?
- ([2a01:e35:2ec0:82b0:5405:9623:e2f1:b2ac])
- by smtp.gmail.com with ESMTPSA id i1sm31339865wrc.49.2020.09.07.01.09.30
- (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Mon, 07 Sep 2020 01:09:31 -0700 (PDT)
-To: Angelo Ribeiro <Angelo.Ribeiro@synopsys.com>, yannick.fertre@st.com,
- philippe.cornu@st.com, benjamin.gaignard@st.com, airlied@linux.ie,
- daniel@ffwll.ch, mcoquelin.stm32@gmail.com, alexandre.torgue@st.com,
- dri-devel@lists.freedesktop.org, linux-stm32@st-md-mailman.stormreply.com,
- linux-arm-kernel@lists.infradead.org, linux-kernel@vger.kernel.org,
- pop.adrian61@gmail.com
-References: <a809feb7d7153a92e323416f744f1565e995da01.1586180592.git.angelo.ribeiro@synopsys.com>
-From: Neil Armstrong <narmstrong@baylibre.com>
-Autocrypt: addr=narmstrong@baylibre.com; prefer-encrypt=mutual; keydata=
- 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
- BSwxi7g3Mu7u5kUByanqHyA=
-Organization: Baylibre
-Message-ID: <5ecbb66f-1f65-d4c4-3593-49c537378efe@baylibre.com>
-Date: Mon, 7 Sep 2020 10:09:29 +0200
-User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:68.0) Gecko/20100101
- Thunderbird/68.10.0
+ h=x-gm-message-state:mime-version:references:in-reply-to:from:date
+ :message-id:subject:to:cc:content-transfer-encoding;
+ bh=QuNLltsEiIW4LCbpFyTWl1p44IkTT3QJmbdClg97dn0=;
+ b=PzvC53A1t990XL1/ze5Mz0XI4f1EPOOokmRimMX1rkyltMtXjGLNJziVfn31QtscVk
+ V2ZdN3aw+5t02xpFFzfHj6L6Bj++idL5hyWVO34O/TNTlTqvMpYlpamIwO3LgOVzHkJ8
+ Xr1dqMMaXlsQk9546uXAId7h0UBWAitMa3giZxf99e1VjrcJsV5HWkh4NmTaYE+Ru21W
+ l7ylHnmo23qPIruY0dEiZFX1Y7MmWfii/bDQpTGjL96fsJilPx/qBD687yxdvh/Lb9JT
+ /UhpGRRfxf+rH/eINzfzMa14/QihYMmnpddpOo1/7uZ3sSMNJM4/vzVR8IJL4g1EJUkK
+ 7+yg==
+X-Gm-Message-State: AOAM533viH39EUcqRh8SzOLUNZtjzA2scTeaZHXJrjbkb5mMKKynsVqY
+ ZVs9t1UDAIyXUrI7cXHEwJSUFfhzmRXg9S0nVqoyaw==
+X-Google-Smtp-Source: ABdhPJylvGTfdGwP02Q+D0hgvcDauwlOQni6HAn5s7aLot2eLwS2w0Wmn0FgXWKx98K2aaDsiVxs7F4QHZfQitRnsZs=
+X-Received: by 2002:ab0:130a:: with SMTP id g10mr1522518uae.100.1599473277782; 
+ Mon, 07 Sep 2020 03:07:57 -0700 (PDT)
 MIME-Version: 1.0
-In-Reply-To: <a809feb7d7153a92e323416f744f1565e995da01.1586180592.git.angelo.ribeiro@synopsys.com>
-Content-Language: en-US
-Cc: Jose Abreu <Jose.Abreu@synopsys.com>,
- Gustavo Pimentel <Gustavo.Pimentel@synopsys.com>,
- Joao Pinto <Joao.Pinto@synopsys.com>
-Subject: Re: [Linux-stm32] [PATCH v2] drm/bridge: dw-mipi-dsi.c: Add VPG
- runtime config through debugfs
+References: <20200904164315.24618-1-krzk@kernel.org>
+In-Reply-To: <20200904164315.24618-1-krzk@kernel.org>
+From: Ulf Hansson <ulf.hansson@linaro.org>
+Date: Mon, 7 Sep 2020 12:07:21 +0200
+Message-ID: <CAPDyKFrzDeNqvM4cc69iCdVW7QnF=O9C=v13+o5bGBSCSzZfWA@mail.gmail.com>
+To: Krzysztof Kozlowski <krzk@kernel.org>
+Cc: Alexandre Belloni <alexandre.belloni@bootlin.com>,
+ linux-samsung-soc <linux-samsung-soc@vger.kernel.org>,
+ linux-aspeed <linux-aspeed@lists.ozlabs.org>, Arnd Bergmann <arnd@arndb.de>,
+ linux-omap <linux-omap@vger.kernel.org>,
+ linux-arm-msm <linux-arm-msm@vger.kernel.org>,
+ =?UTF-8?B?TWljaGHFgiBNaXJvc8WCYXc=?= <mirq-linux@rere.qmqm.pl>,
+ "linux-mmc@vger.kernel.org" <linux-mmc@vger.kernel.org>,
+ Linux Kernel Mailing List <linux-kernel@vger.kernel.org>,
+ linux-arm-kernel@axis.com, Nicolas Ferre <nicolas.ferre@microchip.com>,
+ Manjunath M B <manjumb@synopsys.com>,
+ Ludovic Desroches <ludovic.desroches@microchip.com>,
+ "moderated list:ARM/Mediatek SoC support" <linux-mediatek@lists.infradead.org>,
+ Prabu Thangamuthu <prabu.t@synopsys.com>,
+ "open list:ARM/Amlogic Meson..." <linux-amlogic@lists.infradead.org>,
+ linux-tegra <linux-tegra@vger.kernel.org>,
+ Manuel Lauss <manuel.lauss@gmail.com>, Kishon Vijay Abraham I <kishon@ti.com>,
+ linux-stm32@st-md-mailman.stormreply.com,
+ Linux ARM <linux-arm-kernel@lists.infradead.org>
+Subject: Re: [Linux-stm32] [PATCH v2 1/2] mmc: host: Drop unneeded MMC
+	dependency in Kconfig
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -132,194 +81,37 @@ List-Post: <mailto:linux-stm32@st-md-mailman.stormreply.com>
 List-Help: <mailto:linux-stm32-request@st-md-mailman.stormreply.com?subject=help>
 List-Subscribe: <https://st-md-mailman.stormreply.com/mailman/listinfo/linux-stm32>, 
  <mailto:linux-stm32-request@st-md-mailman.stormreply.com?subject=subscribe>
-Content-Type: text/plain; charset="us-ascii"
-Content-Transfer-Encoding: 7bit
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: base64
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
-Hi,
-
-On 06/04/2020 15:49, Angelo Ribeiro wrote:
-> Add support for the video pattern generator (VPG) BER pattern mode and
-> configuration in runtime.
-> 
-> This enables using the debugfs interface to manipulate the VPG after
-> the pipeline is set.
-> Also, enables the usage of the VPG BER pattern.
-> 
-> Changes in v2:
->   - Added VID_MODE_VPG_MODE
->   - Solved incompatible return type on __get and __set
-> 
-> Reported-by: kbuild test robot <lkp@intel.com>
-> Reported-by: Adrian Pop <pop.adrian61@gmail.com>
-> Cc: Gustavo Pimentel <gustavo.pimentel@synopsys.com>
-> Cc: Joao Pinto <jpinto@synopsys.com>
-> Cc: Jose Abreu <jose.abreu@synopsys.com>
-> Signed-off-by: Angelo Ribeiro <angelo.ribeiro@synopsys.com>
-> ---
->  drivers/gpu/drm/bridge/synopsys/dw-mipi-dsi.c | 98 ++++++++++++++++++++++++---
->  1 file changed, 90 insertions(+), 8 deletions(-)
-> 
-> diff --git a/drivers/gpu/drm/bridge/synopsys/dw-mipi-dsi.c b/drivers/gpu/drm/bridge/synopsys/dw-mipi-dsi.c
-> index b18351b..9de3645 100644
-> --- a/drivers/gpu/drm/bridge/synopsys/dw-mipi-dsi.c
-> +++ b/drivers/gpu/drm/bridge/synopsys/dw-mipi-dsi.c
-> @@ -91,6 +91,7 @@
->  #define VID_MODE_TYPE_BURST			0x2
->  #define VID_MODE_TYPE_MASK			0x3
->  #define VID_MODE_VPG_ENABLE		BIT(16)
-> +#define VID_MODE_VPG_MODE		BIT(20)
->  #define VID_MODE_VPG_HORIZONTAL		BIT(24)
->  
->  #define DSI_VID_PKT_SIZE		0x3c
-> @@ -221,6 +222,21 @@
->  #define PHY_STATUS_TIMEOUT_US		10000
->  #define CMD_PKT_STATUS_TIMEOUT_US	20000
->  
-> +#ifdef CONFIG_DEBUG_FS
-> +#define VPG_DEFS(name, dsi) \
-> +	((void __force *)&((*dsi).vpg_defs.name))
-> +
-> +#define REGISTER(name, mask, dsi) \
-> +	{ #name, VPG_DEFS(name, dsi), mask, dsi }
-> +
-> +struct debugfs_entries {
-> +	const char				*name;
-> +	bool					*reg;
-> +	u32					mask;
-> +	struct dw_mipi_dsi			*dsi;
-> +};
-> +#endif /* CONFIG_DEBUG_FS */
-> +
->  struct dw_mipi_dsi {
->  	struct drm_bridge bridge;
->  	struct mipi_dsi_host dsi_host;
-> @@ -238,9 +254,12 @@ struct dw_mipi_dsi {
->  
->  #ifdef CONFIG_DEBUG_FS
->  	struct dentry *debugfs;
-> -
-> -	bool vpg;
-> -	bool vpg_horizontal;
-> +	struct debugfs_entries *debugfs_vpg;
-> +	struct {
-> +		bool vpg;
-> +		bool vpg_horizontal;
-> +		bool vpg_ber_pattern;
-> +	} vpg_defs;
->  #endif /* CONFIG_DEBUG_FS */
->  
->  	struct dw_mipi_dsi *master; /* dual-dsi master ptr */
-> @@ -530,9 +549,11 @@ static void dw_mipi_dsi_video_mode_config(struct dw_mipi_dsi *dsi)
->  		val |= VID_MODE_TYPE_NON_BURST_SYNC_EVENTS;
->  
->  #ifdef CONFIG_DEBUG_FS
-> -	if (dsi->vpg) {
-> +	if (dsi->vpg_defs.vpg) {
->  		val |= VID_MODE_VPG_ENABLE;
-> -		val |= dsi->vpg_horizontal ? VID_MODE_VPG_HORIZONTAL : 0;
-> +		val |= dsi->vpg_defs.vpg_horizontal ?
-> +		       VID_MODE_VPG_HORIZONTAL : 0;
-> +		val |= dsi->vpg_defs.vpg_ber_pattern ? VID_MODE_VPG_MODE : 0;
->  	}
->  #endif /* CONFIG_DEBUG_FS */
->  
-> @@ -961,6 +982,68 @@ static const struct drm_bridge_funcs dw_mipi_dsi_bridge_funcs = {
->  
->  #ifdef CONFIG_DEBUG_FS
->  
-> +int dw_mipi_dsi_debugfs_write(void *data, u64 val)
-> +{
-> +	struct debugfs_entries *vpg = data;
-> +	struct dw_mipi_dsi *dsi;
-> +	u32 mode_cfg;
-> +
-> +	if (!vpg)
-> +		return -ENODEV;
-> +
-> +	dsi = vpg->dsi;
-> +
-> +	*vpg->reg = (bool)val;
-> +
-> +	mode_cfg = dsi_read(dsi, DSI_VID_MODE_CFG);
-> +
-> +	if (*vpg->reg)
-> +		mode_cfg |= vpg->mask;
-> +	else
-> +		mode_cfg &= ~vpg->mask;
-> +
-> +	dsi_write(dsi, DSI_VID_MODE_CFG, mode_cfg);
-> +
-> +	return 0;
-> +}
-> +
-> +int dw_mipi_dsi_debugfs_show(void *data, u64 *val)
-> +{
-> +	struct debugfs_entries *vpg = data;
-> +
-> +	if (!vpg)
-> +		return -ENODEV;
-> +
-> +	*val = *vpg->reg;
-> +
-> +	return 0;
-> +}
-> +
-> +DEFINE_DEBUGFS_ATTRIBUTE(fops_x32, dw_mipi_dsi_debugfs_show,
-> +			 dw_mipi_dsi_debugfs_write, "%llu\n");
-> +
-> +static void debugfs_create_files(void *data)
-> +{
-> +	struct dw_mipi_dsi *dsi = data;
-> +	struct debugfs_entries debugfs[] = {
-> +		REGISTER(vpg, VID_MODE_VPG_ENABLE, dsi),
-> +		REGISTER(vpg_horizontal, VID_MODE_VPG_HORIZONTAL, dsi),
-> +		REGISTER(vpg_ber_pattern, VID_MODE_VPG_MODE, dsi),
-> +	};
-> +	int i;
-> +
-> +	dsi->debugfs_vpg = kmalloc(sizeof(debugfs), GFP_KERNEL);
-> +	if (!dsi->debugfs_vpg)
-> +		return;
-> +
-> +	memcpy(dsi->debugfs_vpg, debugfs, sizeof(debugfs));
-> +
-> +	for (i = 0; i < ARRAY_SIZE(debugfs); i++)
-> +		debugfs_create_file(dsi->debugfs_vpg[i].name, 0644,
-> +				    dsi->debugfs, &dsi->debugfs_vpg[i],
-> +				    &fops_x32);
-> +}
-> +
->  static void dw_mipi_dsi_debugfs_init(struct dw_mipi_dsi *dsi)
->  {
->  	dsi->debugfs = debugfs_create_dir(dev_name(dsi->dev), NULL);
-> @@ -969,14 +1052,13 @@ static void dw_mipi_dsi_debugfs_init(struct dw_mipi_dsi *dsi)
->  		return;
->  	}
->  
-> -	debugfs_create_bool("vpg", 0660, dsi->debugfs, &dsi->vpg);
-> -	debugfs_create_bool("vpg_horizontal", 0660, dsi->debugfs,
-> -			    &dsi->vpg_horizontal);
-> +	debugfs_create_files(dsi);
->  }
->  
->  static void dw_mipi_dsi_debugfs_remove(struct dw_mipi_dsi *dsi)
->  {
->  	debugfs_remove_recursive(dsi->debugfs);
-> +	kfree(dsi->debugfs_vpg);
->  }
->  
->  #else
-> 
-
-Acked-by: Neil Armstrong <narmstrong@baylibre.com>
-
-Applying to drm-misc-next
-
-Thanks,
-Neil
-_______________________________________________
-Linux-stm32 mailing list
-Linux-stm32@st-md-mailman.stormreply.com
-https://st-md-mailman.stormreply.com/mailman/listinfo/linux-stm32
+T24gRnJpLCA0IFNlcCAyMDIwIGF0IDE4OjQzLCBLcnp5c3p0b2YgS296bG93c2tpIDxrcnprQGtl
+cm5lbC5vcmc+IHdyb3RlOgo+Cj4gQWxsIGVudHJpZXMgaW4gS2NvbmZpZyBhcmUgYWxyZWFkeSBw
+YXJ0IG9mICJpZiBNTUMiLCBzbyB0aGVyZSBpcyBubyBuZWVkCj4gZm9yIGFkZGl0aW9uYWwgZGVw
+ZW5kZW5jeSBvbiBNTUMuCj4KPiBTdWdnZXN0ZWQtYnk6IE1pY2hhxYIgTWlyb3PFgmF3IDxtaXJx
+LWxpbnV4QHJlcmUucW1xbS5wbD4KPiBTaWduZWQtb2ZmLWJ5OiBLcnp5c3p0b2YgS296bG93c2tp
+IDxrcnprQGtlcm5lbC5vcmc+CgpBcHBsaWVkIGZvciBuZXh0LCB0aGFua3MhCgpLaW5kIHJlZ2Fy
+ZHMKVWZmZQoKCj4KPiAtLS0KPgo+IENoYW5nZXMgc2luY2UgdjE6Cj4gMS4gTmV3IHBhdGNoCj4g
+LS0tCj4gIGRyaXZlcnMvbW1jL2hvc3QvS2NvbmZpZyB8IDQgKystLQo+ICAxIGZpbGUgY2hhbmdl
+ZCwgMiBpbnNlcnRpb25zKCspLCAyIGRlbGV0aW9ucygtKQo+Cj4gZGlmZiAtLWdpdCBhL2RyaXZl
+cnMvbW1jL2hvc3QvS2NvbmZpZyBiL2RyaXZlcnMvbW1jL2hvc3QvS2NvbmZpZwo+IGluZGV4IGI5
+NWY3OWY1MzM5NS4uZWVhMDFmZGUwNTkxIDEwMDY0NAo+IC0tLSBhL2RyaXZlcnMvbW1jL2hvc3Qv
+S2NvbmZpZwo+ICsrKyBiL2RyaXZlcnMvbW1jL2hvc3QvS2NvbmZpZwo+IEBAIC00MjIsNyArNDIy
+LDcgQEAgY29uZmlnIE1NQ19TREhDSV9JUFJPQwo+Cj4gIGNvbmZpZyBNTUNfTUVTT05fR1gKPiAg
+ICAgICAgIHRyaXN0YXRlICJBbWxvZ2ljIFM5MDUvR1gqL0FYRyBTRC9NTUMgSG9zdCBDb250cm9s
+bGVyIHN1cHBvcnQiCj4gLSAgICAgICBkZXBlbmRzIG9uIEFSQ0hfTUVTT04gJiYgTU1DCj4gKyAg
+ICAgICBkZXBlbmRzIG9uIEFSQ0hfTUVTT04KPiAgICAgICAgIGhlbHAKPiAgICAgICAgICAgVGhp
+cyBzZWxlY3RzIHN1cHBvcnQgZm9yIHRoZSBBbWxvZ2ljIFNEL01NQyBIb3N0IENvbnRyb2xsZXIK
+PiAgICAgICAgICAgZm91bmQgb24gdGhlIFM5MDUvR1gqL0FYRyBmYW1pbHkgb2YgU29Dcy4gIFRo
+aXMgY29udHJvbGxlciBpcwo+IEBAIC00NTgsNyArNDU4LDcgQEAgY29uZmlnIE1NQ19NRVNPTl9N
+WF9TRElPCj4KPiAgY29uZmlnIE1NQ19NT1hBUlQKPiAgICAgICAgIHRyaXN0YXRlICJNT1hBUlQg
+U0QvTU1DIEhvc3QgQ29udHJvbGxlciBzdXBwb3J0Igo+IC0gICAgICAgZGVwZW5kcyBvbiBBUkNI
+X01PWEFSVCAmJiBNTUMKPiArICAgICAgIGRlcGVuZHMgb24gQVJDSF9NT1hBUlQKPiAgICAgICAg
+IGhlbHAKPiAgICAgICAgICAgVGhpcyBzZWxlY3RzIHN1cHBvcnQgZm9yIHRoZSBNT1hBUlQgU0Qv
+TU1DIEhvc3QgQ29udHJvbGxlci4KPiAgICAgICAgICAgTU9YQSBwcm92aWRlcyBvbmUgbXVsdGkt
+ZnVuY3Rpb25hbCBjYXJkIHJlYWRlciB3aGljaCBjYW4KPiAtLQo+IDIuMTcuMQo+Cl9fX19fX19f
+X19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fCkxpbnV4LXN0bTMyIG1haWxp
+bmcgbGlzdApMaW51eC1zdG0zMkBzdC1tZC1tYWlsbWFuLnN0b3JtcmVwbHkuY29tCmh0dHBzOi8v
+c3QtbWQtbWFpbG1hbi5zdG9ybXJlcGx5LmNvbS9tYWlsbWFuL2xpc3RpbmZvL2xpbnV4LXN0bTMy
+Cg==
