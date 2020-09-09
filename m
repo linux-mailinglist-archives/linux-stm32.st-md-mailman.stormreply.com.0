@@ -2,53 +2,69 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id 08E2A263D45
-	for <lists+linux-stm32@lfdr.de>; Thu, 10 Sep 2020 08:27:15 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id C947D263D70
+	for <lists+linux-stm32@lfdr.de>; Thu, 10 Sep 2020 08:31:11 +0200 (CEST)
 Received: from ip-172-31-3-76.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id C53D8C3FAFE;
-	Thu, 10 Sep 2020 06:27:14 +0000 (UTC)
-Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
- (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 1C74DC3FAE2;
+	Thu, 10 Sep 2020 06:31:11 +0000 (UTC)
+Received: from mail-wr1-f68.google.com (mail-wr1-f68.google.com
+ [209.85.221.68])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 50DD7C3FAE1
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 61980C36B33
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Thu, 10 Sep 2020 06:27:13 +0000 (UTC)
-Received: from localhost (p5486ceec.dip0.t-ipconnect.de [84.134.206.236])
- (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
- (No client certificate requested)
- by mail.kernel.org (Postfix) with ESMTPSA id 6EA4A207EA;
- Thu, 10 Sep 2020 06:27:11 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
- s=default; t=1599719232;
- bh=Gm5FP8nCLsvEkfvRpd3DNlXiO/khQnSfhfWHWBBmjY0=;
- h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
- b=etU4Y2hicXxYTNu/4kWYn9Al5j8eZkOpVlo2pD0o1ZsWbpO8yQItP3MmmeCtXmeSe
- fyvU9aDyHqv0zV0t5Qq9zQ5V1TzIGX8u0YUgsApk05uWFgTZuWfYcPmjEM53hyKvc7
- 5F65oqU/5kMGkwkHBLR+LePV9sqD9cHQMPpUiAVQ=
-Date: Thu, 10 Sep 2020 08:27:09 +0200
-From: Wolfram Sang <wsa@kernel.org>
-To: Krzysztof Kozlowski <krzk@kernel.org>
-Message-ID: <20200910062708.GG1031@ninjato>
-References: <20200902150643.14839-1-krzk@kernel.org>
- <20200902150643.14839-6-krzk@kernel.org>
+ Wed,  9 Sep 2020 16:35:26 +0000 (UTC)
+Received: by mail-wr1-f68.google.com with SMTP id c18so3654553wrm.9
+ for <linux-stm32@st-md-mailman.stormreply.com>;
+ Wed, 09 Sep 2020 09:35:26 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=netronome-com.20150623.gappssmtp.com; s=20150623;
+ h=date:from:to:cc:subject:message-id:references:mime-version
+ :content-disposition:in-reply-to:user-agent;
+ bh=jl9MdazYbMEWqQTTd81RjRbyt2goVkCILtjWlQep6lI=;
+ b=P1g4tv/aZx1p5lq5m7/VNtwAhX7o2KyOJ4wyvqVfJoA1wLHpYlQ5bvOVj8DlQI848i
+ S/D5SkfiM2CYKJhbYhVqm9CG9tLp7v/MbrQUU3MeL3w113tsnGy4nNKF+2Y0hOVSTTuL
+ AdYOqTAjSfbRdTsD/NzWtNhvtHTwP7awfaDcqWzRQ9tvrKEE4rMa8m4hcPcKpOGw6Crd
+ SngBf654kOWp0S6hGdxvU2EYDLElXMXBSKz6XLPMHzLTWVvcTxq8Lwv9h7HV0Oq70Zof
+ 47POt990a1Qq8PH/HRuKp5zICdfrvpA2cJyTqZk2UzFzgyS2f+mRvIsCyI2mfPgtJus9
+ 59xg==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20161025;
+ h=x-gm-message-state:date:from:to:cc:subject:message-id:references
+ :mime-version:content-disposition:in-reply-to:user-agent;
+ bh=jl9MdazYbMEWqQTTd81RjRbyt2goVkCILtjWlQep6lI=;
+ b=oDh9T8JygAPb0fxlvuPEp9mIIk/cmH6yr2Gif/9AtdzocoKVMEoLTE36/sIxbJcLTJ
+ zQYU5sJKsAiZbrXS8hbF+NPIczsNGBuwK8RUguP5QTNXwRFHpktaeC2jFOtjEXcNhvKa
+ 03oFgciQg8+807YHHENjcBQSSR/GuWSQbUfeKcb2hUpQsi9MbgCsrF5D3SiBjRwxP5yJ
+ 14XMye6li7Nf5E3C+8JjY4SWYrtrd/9kPSOXuGFycQ3daU1FoFQxIsCpRTkKF4iEjPEx
+ feErNb0i0A//A6CwGUD/8dZpDRDomnCkJjaeCzKjjPXhIEZk9ryz5/2SbvgDvugSh9uc
+ Z4QA==
+X-Gm-Message-State: AOAM532XRjAxI6FQx7KW7ozX0OeEWvefzwJowjfixHAgKswvXfsuH4jg
+ HQ6zm0xA85ft5pMQyCqEOgZBUA==
+X-Google-Smtp-Source: ABdhPJzAULheBBlNK80MB6HC04/qDw7O/ArPTdSVlw9oJqtOKg3QPeeAGr45u2Eqsc1lJL3Oz4pa7w==
+X-Received: by 2002:adf:c58c:: with SMTP id m12mr4673332wrg.88.1599669325941; 
+ Wed, 09 Sep 2020 09:35:25 -0700 (PDT)
+Received: from netronome.com ([2001:982:7ed1:403:9eeb:e8ff:fe0d:5b6a])
+ by smtp.gmail.com with ESMTPSA id l126sm4627871wmf.39.2020.09.09.09.35.24
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Wed, 09 Sep 2020 09:35:25 -0700 (PDT)
+Date: Wed, 9 Sep 2020 18:35:24 +0200
+From: Simon Horman <simon.horman@netronome.com>
+To: Wang Qing <wangqing@vivo.com>
+Message-ID: <20200909163523.GC28336@netronome.com>
+References: <1599653964-29741-1-git-send-email-wangqing@vivo.com>
 MIME-Version: 1.0
-In-Reply-To: <20200902150643.14839-6-krzk@kernel.org>
+Content-Disposition: inline
+In-Reply-To: <1599653964-29741-1-git-send-email-wangqing@vivo.com>
 User-Agent: Mutt/1.10.1 (2018-07-13)
-Cc: Heiko Stuebner <heiko@sntech.de>, Sekhar Nori <nsekhar@ti.com>,
- Pierre-Yves MORDRET <pierre-yves.mordret@st.com>, linux-i2c@vger.kernel.org,
- Fabio Estevam <festevam@gmail.com>, linux-stm32@st-md-mailman.stormreply.com,
- Florian Fainelli <f.fainelli@gmail.com>, linux-rockchip@lists.infradead.org,
- Michal Simek <michal.simek@xilinx.com>,
- Bartosz Golaszewski <bgolaszewski@baylibre.com>,
- bcm-kernel-feedback-list@broadcom.com, NXP Linux Team <linux-imx@nxp.com>,
- Pengutronix Kernel Team <kernel@pengutronix.de>, Ray Jui <rjui@broadcom.com>,
- Sascha Hauer <s.hauer@pengutronix.de>, linux-rpi-kernel@lists.infradead.org,
- linux-arm-kernel@lists.infradead.org, Scott Branden <sbranden@broadcom.com>,
- linux-kernel@vger.kernel.org, Oleksij Rempel <linux@rempel-privat.de>,
- Maxime Coquelin <mcoquelin.stm32@gmail.com>, Shawn Guo <shawnguo@kernel.org>,
- Peter Rosin <peda@axentia.se>, Nicolas Saenz Julienne <nsaenzjulienne@suse.de>
-Subject: Re: [Linux-stm32] [PATCH 6/9] i2c: imx: Simplify with
-	dev_err_probe()
+X-Mailman-Approved-At: Thu, 10 Sep 2020 06:31:10 +0000
+Cc: netdev@vger.kernel.org, linux-kernel@vger.kernel.org,
+ linux-stm32@st-md-mailman.stormreply.com, Jose Abreu <joabreu@synopsys.com>,
+ Maxime Coquelin <mcoquelin.stm32@gmail.com>, Jakub Kicinski <kuba@kernel.org>,
+ Giuseppe Cavallaro <peppe.cavallaro@st.com>,
+ "David S. Miller" <davem@davemloft.net>, linux-arm-kernel@lists.infradead.org
+Subject: Re: [Linux-stm32] [PATCH] drivers/net/ethernet: fix a typo for
+	stmmac_pltfr_suspend
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -60,65 +76,45 @@ List-Post: <mailto:linux-stm32@st-md-mailman.stormreply.com>
 List-Help: <mailto:linux-stm32-request@st-md-mailman.stormreply.com?subject=help>
 List-Subscribe: <https://st-md-mailman.stormreply.com/mailman/listinfo/linux-stm32>, 
  <mailto:linux-stm32-request@st-md-mailman.stormreply.com?subject=subscribe>
-Content-Type: multipart/mixed; boundary="===============8234833088371000017=="
+Content-Type: text/plain; charset="us-ascii"
+Content-Transfer-Encoding: 7bit
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
+Hi Wang,
 
---===============8234833088371000017==
-Content-Type: multipart/signed; micalg=pgp-sha512;
-	protocol="application/pgp-signature"; boundary="sLx0z+5FKKtIVDwd"
-Content-Disposition: inline
+On Wed, Sep 09, 2020 at 08:19:21PM +0800, Wang Qing wrote:
+> Change the comment typo: "direcly" -> "directly".
+> 
+> Signed-off-by: Wang Qing <wangqing@vivo.com>
+> ---
+>  drivers/net/ethernet/stmicro/stmmac/stmmac_platform.c | 2 +-
+>  1 file changed, 1 insertion(+), 1 deletion(-)
 
+git log  tells me that the correct prefix for this patch
+is probably "net: stmmac:"  rather than "drivers/net/ethernet:'
 
---sLx0z+5FKKtIVDwd
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-Content-Transfer-Encoding: quoted-printable
+Probably this patch is targeted at net-next and should include net-next
+in the subject like this: [PATCH net-next] ...
 
-On Wed, Sep 02, 2020 at 05:06:40PM +0200, Krzysztof Kozlowski wrote:
-> Common pattern of handling deferred probe can be simplified with
-> dev_err_probe().  Less code and the error value gets printed.
->=20
-> Signed-off-by: Krzysztof Kozlowski <krzk@kernel.org>
-
-Thanks, but this patch was a bit earlier:
-
-http://patchwork.ozlabs.org/project/linux-i2c/patch/1597203954-1803-1-git-s=
-end-email-Anson.Huang@nxp.com/
-
-
---sLx0z+5FKKtIVDwd
-Content-Type: application/pgp-signature; name="signature.asc"
-
------BEGIN PGP SIGNATURE-----
-
-iQIzBAABCgAdFiEEOZGx6rniZ1Gk92RdFA3kzBSgKbYFAl9ZxzwACgkQFA3kzBSg
-KbYCNhAAo2nfbP6Dmy9CcAEl/QKmFLjmjJKUIQb45IeuIZWlBMUc7gk6SBrqectE
-PTAyWBluLF8Pub2rqHtIuQZBEu19HG2reXcyNugVvoz64rUFksRUw0Ap3CJW3MBC
-81/i1SLsMp6gNhXUz7T+2JypfIu/XRYB5sMYVFCLFzstxepY15cQ6DwV37ARpJDp
-Z9n5uD9qNgcCmerP8TZC6HIwLSa4FDwJ1U2MYzWHp7IVIEA6OwshA/g7b28J/VBU
-egPLlaDRy9utqwMH1LqBJe9e8+yB52M/VI6ao4iA5qaMzdy9wROhiigkSJxRK/RS
-sx33t55k+3q9CfSiVhOuVepKetiNyTMEvXvOf8DvXqfPeUzIaZr0xKU3vnTa8kE8
-RDjC9mDy1aeH92gJxwhDPg90G9kaoz2G8unIynr5aS+5qGnPMQnK3nSn5IGVktD9
-aYtx0xQw1Io+BYoyE/W4gW6xOO4MROaqU354P1y+DodMVLrkfv8pluItqu9363cY
-NRkePoQnoWP2Ac2/cP7e7bY3P/ha7SNWMLS0FRpAitYAREilgiaABW2T+2v1WoNt
-6V6Oy97ceBSNxLuVTLEGWPqJasIk07gTR5SyB4i+doS+wDwfiHh1codmfOyErKz0
-00w5u9BN78VIAkriPGp/xz5a2rptVGvT0ovdvT6jsypdGplR1tM=
-=5W+d
------END PGP SIGNATURE-----
-
---sLx0z+5FKKtIVDwd--
-
---===============8234833088371000017==
-Content-Type: text/plain; charset="us-ascii"
-MIME-Version: 1.0
-Content-Transfer-Encoding: 7bit
-Content-Disposition: inline
-
+> 
+> diff --git a/drivers/net/ethernet/stmicro/stmmac/stmmac_platform.c b/drivers/net/ethernet/stmicro/stmmac/stmmac_platform.c
+> index f32317f..b666bb9
+> --- a/drivers/net/ethernet/stmicro/stmmac/stmmac_platform.c
+> +++ b/drivers/net/ethernet/stmicro/stmmac/stmmac_platform.c
+> @@ -711,7 +711,7 @@ EXPORT_SYMBOL_GPL(stmmac_pltfr_remove);
+>  /**
+>   * stmmac_pltfr_suspend
+>   * @dev: device pointer
+> - * Description: this function is invoked when suspend the driver and it direcly
+> + * Description: this function is invoked when suspend the driver and it directly
+>   * call the main suspend function and then, if required, on some platform, it
+>   * can call an exit helper.
+>   */
+> -- 
+> 2.7.4
+> 
 _______________________________________________
 Linux-stm32 mailing list
 Linux-stm32@st-md-mailman.stormreply.com
 https://st-md-mailman.stormreply.com/mailman/listinfo/linux-stm32
-
---===============8234833088371000017==--
