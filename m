@@ -2,62 +2,59 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id 4E8D72636F7
-	for <lists+linux-stm32@lfdr.de>; Wed,  9 Sep 2020 21:57:59 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 90FA0263738
+	for <lists+linux-stm32@lfdr.de>; Wed,  9 Sep 2020 22:19:34 +0200 (CEST)
 Received: from ip-172-31-3-76.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id D8F37C3FAE2;
-	Wed,  9 Sep 2020 19:57:58 +0000 (UTC)
-Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
- (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
- (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 62052C36B33
- for <linux-stm32@st-md-mailman.stormreply.com>;
- Wed,  9 Sep 2020 19:57:57 +0000 (UTC)
-Received: from mail-ej1-f50.google.com (mail-ej1-f50.google.com
- [209.85.218.50])
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 47B4FC3FAE2;
+	Wed,  9 Sep 2020 20:19:34 +0000 (UTC)
+Received: from mail-io1-f66.google.com (mail-io1-f66.google.com
+ [209.85.166.66])
  (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by mail.kernel.org (Postfix) with ESMTPSA id A83C421D93
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 33FD7C36B33
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Wed,  9 Sep 2020 19:57:55 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
- s=default; t=1599681475;
- bh=Fj/ZQbw6iThGFoHDEPgT4Mpjuadx6d6xm8WtTwb+cS8=;
- h=References:In-Reply-To:From:Date:Subject:To:Cc:From;
- b=gH+Ux2bfsGWe0ZZ8cr/KH4k1RUwrjBxh2rNdIt1VeCmIfHUDCq39wW48JqvtybXWy
- Rw8pmYp1O3RalPallGy/5d3wY6dSMu5Y/7qWiIPM+cwz8vmVcrJWXqbauDdjEuVqkS
- bjUUVwZCxI6cw+s+WEaEuQPutenO211vAHrqJv18=
-Received: by mail-ej1-f50.google.com with SMTP id lo4so5316530ejb.8
+ Wed,  9 Sep 2020 20:19:29 +0000 (UTC)
+Received: by mail-io1-f66.google.com with SMTP id d18so4577611iop.13
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Wed, 09 Sep 2020 12:57:55 -0700 (PDT)
-X-Gm-Message-State: AOAM531ZEKPU1R5WqTbRLWgiComEkq8s7CUt+/6Pj9ru4PomwNQJ7/Lq
- OXZ3Od8FAXzm3FitsXtKmhW2NabPRBFbuP7C0qs=
-X-Google-Smtp-Source: ABdhPJwTMqh5k7vWahnMEeb3gRi7HnzNHjrkeMUXR1813rl6InlKMxnwCaXk5Vx2ppJEqh/OTvng43DjT6sRq5dxx5s=
-X-Received: by 2002:a17:906:8401:: with SMTP id
- n1mr5150651ejx.215.1599681474195; 
- Wed, 09 Sep 2020 12:57:54 -0700 (PDT)
+ Wed, 09 Sep 2020 13:19:29 -0700 (PDT)
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20161025;
+ h=x-gm-message-state:date:from:to:cc:subject:message-id:references
+ :mime-version:content-disposition:in-reply-to;
+ bh=RSxhAGvdVfCVr2cHc0lTJnW3lYIHBFlEXCul1r62/7Y=;
+ b=WrYPj24KR/r/RH355ZU2biCT2q/PsnlIB6jFKOsdUlyp/zLyfsQtqUhled8pZ5kHmr
+ SWLOX8QEWIH2ZuNj3ZZGlETLtZ3fPOGgi2KNoG9QcUi7q4PZY1mlz783YaEherekE7lq
+ wGPPveqZPixGCFMAOb0mcf8lgOp692DfApK8su9QQmiOpwHKs1ILbVIE435ML4bZkMC3
+ +aGqyZdxnuk/tPkMO9oQ7mZU7VkhGcB9MQMEI6xdxWeMeoJdV7isz9jiTXRhebsdRMeF
+ sDamzetRxNqjmKUK0kcU97Vp26aRI3SNawqP+KKDLD7p4XmfYvZ0//5O3CFZw5AWQuQo
+ qraQ==
+X-Gm-Message-State: AOAM5314GauPiudidKVRb/y5S1TEk5yzGvk4yl0acwXfPkFSowWPN3G3
+ FPX4vASmIARJ7gmGGMEduQ==
+X-Google-Smtp-Source: ABdhPJwBKiVRr3c97gG/LCzkZs5UuOnxWgLTDtzzXrRD6aV8r7ZtsBq+rZPDQ3q6pulT0cX9C8fw0Q==
+X-Received: by 2002:a6b:9309:: with SMTP id v9mr5087885iod.15.1599682768674;
+ Wed, 09 Sep 2020 13:19:28 -0700 (PDT)
+Received: from xps15 ([64.188.179.251])
+ by smtp.gmail.com with ESMTPSA id u89sm2049917ili.63.2020.09.09.13.19.23
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Wed, 09 Sep 2020 13:19:27 -0700 (PDT)
+Received: (nullmailer pid 2974124 invoked by uid 1000);
+ Wed, 09 Sep 2020 20:19:20 -0000
+Date: Wed, 9 Sep 2020 14:19:20 -0600
+From: Rob Herring <robh@kernel.org>
+To: Arnaud Pouliquen <arnaud.pouliquen@st.com>
+Message-ID: <20200909201920.GA2973966@bogus>
+References: <20200827072101.26588-1-arnaud.pouliquen@st.com>
+ <20200827072101.26588-2-arnaud.pouliquen@st.com>
 MIME-Version: 1.0
-References: <20200829064726.26268-1-krzk@kernel.org>
- <20200829064726.26268-8-krzk@kernel.org>
- <20200909193600.41970d8c@archlinux>
-In-Reply-To: <20200909193600.41970d8c@archlinux>
-From: Krzysztof Kozlowski <krzk@kernel.org>
-Date: Wed, 9 Sep 2020 21:57:41 +0200
-X-Gmail-Original-Message-ID: <CAJKOXPeo8SXWaRmiFG6z+t9jcnaSMRpvRPm2X22Rf6rtEeKVew@mail.gmail.com>
-Message-ID: <CAJKOXPeo8SXWaRmiFG6z+t9jcnaSMRpvRPm2X22Rf6rtEeKVew@mail.gmail.com>
-To: Jonathan Cameron <jic23@kernel.org>
-Cc: Lars-Peter Clausen <lars@metafoo.de>,
- Peter Meerwald-Stadler <pmeerw@pmeerw.net>,
- Michael Hennerich <Michael.Hennerich@analog.com>, linux-iio@vger.kernel.org,
- "linux-kernel@vger.kernel.org" <linux-kernel@vger.kernel.org>,
- linux-stm32@st-md-mailman.stormreply.com, Marek Vasut <marek.vasut@gmail.com>,
- Andy Shevchenko <andy.shevchenko@gmail.com>,
- "linux-samsung-soc@vger.kernel.org" <linux-samsung-soc@vger.kernel.org>,
- Tomasz Duszynski <tomasz.duszynski@octakon.com>,
- linux-amlogic@lists.infradead.org, Peter Rosin <peda@axentia.se>,
- linux-arm-kernel@lists.infradead.org
-Subject: Re: [Linux-stm32] [PATCH v3 08/18] iio: adc: stm32: Simplify with
-	dev_err_probe()
+Content-Disposition: inline
+In-Reply-To: <20200827072101.26588-2-arnaud.pouliquen@st.com>
+Cc: Ohad Ben-Cohen <ohad@wizery.com>, devicetree@vger.kernel.org,
+ Mathieu Poirier <mathieu.poirier@linaro.org>, linux-remoteproc@vger.kernel.org,
+ linux-kernel@vger.kernel.org, Fabien Dessenne <fabien.dessenne@st.com>,
+ Bjorn Andersson <bjorn.andersson@linaro.org>,
+ linux-stm32@st-md-mailman.stormreply.com, linux-arm-kernel@lists.infradead.org
+Subject: Re: [Linux-stm32] [PATCH 1/3] dt-bindings: arm: stm32: Add
+ compatible for syscon tamp node
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -74,82 +71,20 @@ Content-Transfer-Encoding: 7bit
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
-On Wed, 9 Sep 2020 at 20:36, Jonathan Cameron <jic23@kernel.org> wrote:
->
-> On Sat, 29 Aug 2020 08:47:16 +0200
-> Krzysztof Kozlowski <krzk@kernel.org> wrote:
->
-> > Common pattern of handling deferred probe can be simplified with
-> > dev_err_probe().  Less code and also it prints the error value.
-> >
-> > Signed-off-by: Krzysztof Kozlowski <krzk@kernel.org>
-> > Reviewed-by: Andy Shevchenko <andy.shevchenko@gmail.com>
-> >
-> I don't have the thread to hand, but this tripped a warning next
-> and the patch was dropped as a result. See below.
+On Thu, 27 Aug 2020 09:20:59 +0200, Arnaud Pouliquen wrote:
+> Since commit ad440432d1f9 ("dt-bindings: mfd: Ensure 'syscon' has a
+> more specific compatible")
+> It is required to provide at least 2 compatibles string for syscon node.
+> This patch documents the new compatible for stm32 SoC to support
+> TAMP registers access.
+> 
+> Signed-off-by: Arnaud Pouliquen <arnaud.pouliquen@st.com>
+> ---
+>  Documentation/devicetree/bindings/arm/stm32/st,stm32-syscon.yaml | 1 +
+>  1 file changed, 1 insertion(+)
+> 
 
-Thanks for letting me know. If you mean the warning caused by:
-https://lore.kernel.org/lkml/20200909073716.GA560912@kroah.com/
-then the driver-core patch was dropped, not the iio one:
-https://lore.kernel.org/linux-next/20200909074130.GB561485@kroah.com/T/#t
-
-So we are good here :)
-
-Best regards,
-Krzysztof
-
-> Jonathan
-> > ---
-> >
-> > Changes since v2:
-> > 1. Wrap dev_err_probe() lines at 80 character
-> >
-> > Changes since v1:
-> > 1. Convert to devm_clk_get_optional
-> > 2. Update also stm32-dfsdm-core and stm32-dac-core.
-> > 3. Wrap around 100 characters (accepted by checkpatch).
-> > ---
-> >  drivers/iio/adc/stm32-adc-core.c   | 75 ++++++++++--------------------
-> >  drivers/iio/adc/stm32-adc.c        | 10 ++--
-> >  drivers/iio/adc/stm32-dfsdm-adc.c  | 10 ++--
-> >  drivers/iio/adc/stm32-dfsdm-core.c |  9 ++--
-> >  drivers/iio/dac/stm32-dac-core.c   |  5 +-
-> >  5 files changed, 35 insertions(+), 74 deletions(-)
-> >
-> > diff --git a/drivers/iio/adc/stm32-adc-core.c b/drivers/iio/adc/stm32-adc-core.c
-> > index 0e2068ec068b..3f27b4817a42 100644
-> > --- a/drivers/iio/adc/stm32-adc-core.c
-> > +++ b/drivers/iio/adc/stm32-adc-core.c
-> > @@ -582,11 +582,9 @@ static int stm32_adc_core_switches_probe(struct device *dev,
-> >       priv->syscfg = syscon_regmap_lookup_by_phandle(np, "st,syscfg");
-> >       if (IS_ERR(priv->syscfg)) {
-> >               ret = PTR_ERR(priv->syscfg);
-> > -             if (ret != -ENODEV) {
-> > -                     if (ret != -EPROBE_DEFER)
-> > -                             dev_err(dev, "Can't probe syscfg: %d\n", ret);
-> > -                     return ret;
-> > -             }
-> > +             if (ret != -ENODEV)
-> > +                     return dev_err_probe(dev, ret, "Can't probe syscfg\n");
-> > +
-> >               priv->syscfg = NULL;
-> >       }
-> >
-> > @@ -596,12 +594,9 @@ static int stm32_adc_core_switches_probe(struct device *dev,
-> >               priv->booster = devm_regulator_get_optional(dev, "booster");
-> >               if (IS_ERR(priv->booster)) {
-> >                       ret = PTR_ERR(priv->booster);
-> > -                     if (ret != -ENODEV) {
-> > -                             if (ret != -EPROBE_DEFER)
-> > -                                     dev_err(dev, "can't get booster %d\n",
-> > -                                             ret);
-> > -                             return ret;
-> > -                     }
-> > +                     if (ret != -ENODEV)
-> > +                             dev_err_probe(dev, ret, "can't get booster\n");
->
-> This tripped a warning and got the patch dropped because we no longer
-> return on error.
+Acked-by: Rob Herring <robh@kernel.org>
 _______________________________________________
 Linux-stm32 mailing list
 Linux-stm32@st-md-mailman.stormreply.com
