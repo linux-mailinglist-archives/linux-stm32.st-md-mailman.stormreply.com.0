@@ -2,64 +2,43 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id 421A4262255
-	for <lists+linux-stm32@lfdr.de>; Wed,  9 Sep 2020 00:03:16 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 50CCA262A8E
+	for <lists+linux-stm32@lfdr.de>; Wed,  9 Sep 2020 10:39:56 +0200 (CEST)
 Received: from ip-172-31-3-76.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id DE6D8C424B0;
-	Tue,  8 Sep 2020 22:03:15 +0000 (UTC)
-Received: from mail-io1-f68.google.com (mail-io1-f68.google.com
- [209.85.166.68])
- (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 0E693C424BA;
+	Wed,  9 Sep 2020 08:39:56 +0000 (UTC)
+Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
+ (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id DFD37C36B25
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id C37D4C424B7
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Tue,  8 Sep 2020 22:03:13 +0000 (UTC)
-Received: by mail-io1-f68.google.com with SMTP id g128so998015iof.11
- for <linux-stm32@st-md-mailman.stormreply.com>;
- Tue, 08 Sep 2020 15:03:13 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linaro.org; s=google;
- h=mime-version:references:in-reply-to:from:date:message-id:subject:to
- :cc; bh=3YZ4mxqC1B1fpYJx5/A80nChWYlGFJ6FMnFE/tdR77c=;
- b=dSN+wQH6pQkVUtD7IleigQD6Y7p2Fhm99vlc4vY1j6U9UwK43eU6AXO6yRzuqZoT/g
- vaZ7N90fmDWjY15Ny3ab0/npdgvPoy0rLOzIWYU5fsHnrN3OriMOzcmv+S1RRBZ8a0rm
- VPB50/hfexoe0aVE5AdiQLSFYPpmziMksMwmbG4Vjlfwij3FM+OBVPESGNYqdhg8U/o4
- YyEWX4XNpS2NkuNkbHvi+qj8/bwIddZOje929OnzBYtm9qhVYMWewJqKY/auw0tc2Qqj
- 7oBX1L1fiMR+srKpmzyssRcq/OY8ueKE3QCpDSJKvZClMspOZGRUa1ZTMNbBx2HParFE
- 6C9g==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20161025;
- h=x-gm-message-state:mime-version:references:in-reply-to:from:date
- :message-id:subject:to:cc;
- bh=3YZ4mxqC1B1fpYJx5/A80nChWYlGFJ6FMnFE/tdR77c=;
- b=VPFsZAnCGhKMBCl+UTABHkQm6GByC/flmn6S+EMy6hM82BY4F5iYkXVypfkEbJolAY
- ExNmVEFntGgYZBtZ6EbTLff7Ar5nxPj0Sh76rd0cE2U4vOZbSneAcLRgpqStHKNeLtm1
- q1GWbZiGPuhkMbnDr8UXsl3YrnG/eObqE8Ee6gsEfIfjX+T+Ci9o93vflMfVZT2t8U4u
- K417jri67OcYL4lSCmcjyb4ktN6rpc5uYGccZRm/XvHoLCB9+rjUQSqoAinC8XmkqOXM
- ucJFlzLdAkYCwmMsSoehjS/IlnQM+wTaDyXUgRiUw0TCYH8lJEUA+J7hPbF2jvmcK+y4
- gI7g==
-X-Gm-Message-State: AOAM530tgVAWPk6KefvKqrtmqDF1Xqw7USh02ZXHDmWbKe41hUtTSnHH
- RQIjhW5edyP3cOg7Dj7sM6JSeiGQVGxlVZnO8SdKJQ==
-X-Google-Smtp-Source: ABdhPJyjczNCUkEcHJt9laTZ7R4VlYbrUfQfx95d6122ZiMbs4a2V6lAbQHAPOl1mqF/sKwo1Pe/hTjS3xoE7baV+7k=
-X-Received: by 2002:a6b:4f13:: with SMTP id d19mr889359iob.90.1599602592468;
- Tue, 08 Sep 2020 15:03:12 -0700 (PDT)
+ Wed,  9 Sep 2020 08:39:54 +0000 (UTC)
+Received: from localhost (p54b33098.dip0.t-ipconnect.de [84.179.48.152])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+ (No client certificate requested)
+ by mail.kernel.org (Postfix) with ESMTPSA id 79E3B215A4;
+ Wed,  9 Sep 2020 08:39:52 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
+ s=default; t=1599640793;
+ bh=8XEwCJdH8trsu8T/gd+RIVCXaoeI6Ibj6+vvgipWRxQ=;
+ h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
+ b=woc2gl+8Zg8c/9HA+Wat8GGHtledWTXvxjTv7NNC9uAThk6RzMNPqN3xfKtFj9rGu
+ BBkFOqf5ZRa6AQxXLUODCMfsXH8k6nox45Fc4Vcgm4aMnXMeLP8t2XXKMvFBdv7J9t
+ JbVmPWWYEbIzvuy+b2hUicWkq0fqqgyPm+Kj57v8=
+Date: Wed, 9 Sep 2020 10:39:50 +0200
+From: Wolfram Sang <wsa@kernel.org>
+To: Alain Volmat <alain.volmat@st.com>
+Message-ID: <20200909083950.GF2272@ninjato>
+References: <1596431876-24115-1-git-send-email-alain.volmat@st.com>
+ <1596431876-24115-2-git-send-email-alain.volmat@st.com>
 MIME-Version: 1.0
-References: <20200825164907.3642-1-arnaud.pouliquen@st.com>
- <20200825164907.3642-6-arnaud.pouliquen@st.com>
- <20200903230009.GD333030@xps15>
- <9f62520b-63b2-b3e5-feff-58142e92de2a@st.com>
-In-Reply-To: <9f62520b-63b2-b3e5-feff-58142e92de2a@st.com>
-From: Mathieu Poirier <mathieu.poirier@linaro.org>
-Date: Tue, 8 Sep 2020 16:03:01 -0600
-Message-ID: <CANLsYkwVubYCM2fdvCc3tC6mu_26d7gBYQVC7uT7eoNocvro4w@mail.gmail.com>
-To: Arnaud POULIQUEN <arnaud.pouliquen@st.com>
-Cc: Ohad Ben-Cohen <ohad@wizery.com>,
- "linux-stm32@st-md-mailman.stormreply.com"
- <linux-stm32@st-md-mailman.stormreply.com>,
- "linux-remoteproc@vger.kernel.org" <linux-remoteproc@vger.kernel.org>,
- "linux-kernel@vger.kernel.org" <linux-kernel@vger.kernel.org>,
- Bjorn Andersson <bjorn.andersson@linaro.org>
-Subject: Re: [Linux-stm32] [PATCH v2 5/8] rpmsg: introduce reserved rpmsg
-	driver for ns announcement
+In-Reply-To: <1596431876-24115-2-git-send-email-alain.volmat@st.com>
+User-Agent: Mutt/1.10.1 (2018-07-13)
+Cc: linux-kernel@vger.kernel.org, pierre-yves.mordret@st.com,
+ linux-i2c@vger.kernel.org, fabrice.gasnier@st.com,
+ linux-stm32@st-md-mailman.stormreply.com, linux-arm-kernel@lists.infradead.org
+Subject: Re: [Linux-stm32] [PATCH v3 1/2] i2c: smbus: add core function
+ handling SMBus host-notify
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -71,328 +50,74 @@ List-Post: <mailto:linux-stm32@st-md-mailman.stormreply.com>
 List-Help: <mailto:linux-stm32-request@st-md-mailman.stormreply.com?subject=help>
 List-Subscribe: <https://st-md-mailman.stormreply.com/mailman/listinfo/linux-stm32>, 
  <mailto:linux-stm32-request@st-md-mailman.stormreply.com?subject=subscribe>
-Content-Type: text/plain; charset="us-ascii"
-Content-Transfer-Encoding: 7bit
+Content-Type: multipart/mixed; boundary="===============8404124262294781141=="
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
-On Fri, 4 Sep 2020 at 02:28, Arnaud POULIQUEN <arnaud.pouliquen@st.com> wrote:
->
-> Hi Mathieu,
->
-> On 9/4/20 1:00 AM, Mathieu Poirier wrote:
-> > On Tue, Aug 25, 2020 at 06:49:04PM +0200, Arnaud Pouliquen wrote:
-> >> The name service announcement should not be linked to the RPMsg virtio bus
-> >> but to the RPMsg protocol itself.
-> >>
-> >> This patch proposes to break the dependency with the RPmsg virtio bus by
-> >> the introduction of the reserved RPMsg name service driver which will be in
-> >> charge of managing the RPMsg name service announcement.
-> >>
-> >> This first patch only implements the probe and the RPMsg endpoint to
-> >> manage create and release channels remote requests.
-> >>
-> >> Signed-off-by: Arnaud Pouliquen <arnaud.pouliquen@st.com>
-> >> ---
-> >>  drivers/rpmsg/Kconfig          |   8 ++
-> >>  drivers/rpmsg/Makefile         |   1 +
-> >>  drivers/rpmsg/rpmsg_internal.h |  17 +++++
-> >>  drivers/rpmsg/rpmsg_ns.c       | 135 +++++++++++++++++++++++++++++++++
-> >>  4 files changed, 161 insertions(+)
-> >>  create mode 100644 drivers/rpmsg/rpmsg_ns.c
-> >>
-> >> diff --git a/drivers/rpmsg/Kconfig b/drivers/rpmsg/Kconfig
-> >> index f96716893c2a..c3fc75e6514b 100644
-> >> --- a/drivers/rpmsg/Kconfig
-> >> +++ b/drivers/rpmsg/Kconfig
-> >> @@ -15,6 +15,14 @@ config RPMSG_CHAR
-> >>        in /dev. They make it possible for user-space programs to send and
-> >>        receive rpmsg packets.
-> >>
-> >> +config RPMSG_NS
-> >> +    tristate "RPMSG name service announcement"
-> >> +    depends on RPMSG
-> >> +    help
-> >> +      Say Y here to enable the support of the name service announcement
-> >> +      channel that probes the associated RPMsg device on remote endpoint
-> >> +      service announcement.
-> >> +
-> >>  config RPMSG_MTK_SCP
-> >>      tristate "MediaTek SCP"
-> >>      depends on MTK_SCP
-> >> diff --git a/drivers/rpmsg/Makefile b/drivers/rpmsg/Makefile
-> >> index ffe932ef6050..8d452656f0ee 100644
-> >> --- a/drivers/rpmsg/Makefile
-> >> +++ b/drivers/rpmsg/Makefile
-> >> @@ -1,6 +1,7 @@
-> >>  # SPDX-License-Identifier: GPL-2.0
-> >>  obj-$(CONFIG_RPMSG)         += rpmsg_core.o
-> >>  obj-$(CONFIG_RPMSG_CHAR)    += rpmsg_char.o
-> >> +obj-$(CONFIG_RPMSG_NS)              += rpmsg_ns.o
-> >>  obj-$(CONFIG_RPMSG_MTK_SCP) += mtk_rpmsg.o
-> >>  qcom_glink-objs                     := qcom_glink_native.o qcom_glink_ssr.o
-> >>  obj-$(CONFIG_RPMSG_QCOM_GLINK) += qcom_glink.o
-> >> diff --git a/drivers/rpmsg/rpmsg_internal.h b/drivers/rpmsg/rpmsg_internal.h
-> >> index d5ab286d0e5e..641b48f6bf2a 100644
-> >> --- a/drivers/rpmsg/rpmsg_internal.h
-> >> +++ b/drivers/rpmsg/rpmsg_internal.h
-> >> @@ -102,4 +102,21 @@ static inline int rpmsg_chrdev_register_device(struct rpmsg_device *rpdev)
-> >>      return rpmsg_register_device(rpdev);
-> >>  }
-> >>
-> >> +/**
-> >> + * rpmsg_ns_register_device() - register name service device based on rpdev
-> >> + * @rpdev: prepared rpdev to be used for creating endpoints
-> >> + *
-> >> + * This function wraps rpmsg_register_device() preparing the rpdev for use as
-> >> + * basis for the rpmsg name service device.
-> >> + */
-> >> +static inline int rpmsg_ns_register_device(struct rpmsg_device *rpdev)
-> >> +{
-> >> +    strcpy(rpdev->id.name, "rpmsg_ns");
-> >> +    rpdev->driver_override = "rpmsg_ns";
-> >> +    rpdev->src = RPMSG_NS_ADDR;
-> >> +    rpdev->dst = RPMSG_NS_ADDR;
-> >> +
-> >> +    return rpmsg_register_device(rpdev);
-> >> +}
-> >> +
-> >>  #endif
-> >> diff --git a/drivers/rpmsg/rpmsg_ns.c b/drivers/rpmsg/rpmsg_ns.c
-> >> new file mode 100644
-> >> index 000000000000..3c929b6976a6
-> >> --- /dev/null
-> >> +++ b/drivers/rpmsg/rpmsg_ns.c
-> >> @@ -0,0 +1,135 @@
-> >> +// SPDX-License-Identifier: GPL-2.0
-> >> +/*
-> >> + * Copyright (C) STMicroelectronics 2020 - All Rights Reserved
-> >> + */
-> >> +#include <linux/device.h>
-> >> +#include <linux/kernel.h>
-> >> +#include <linux/module.h>
-> >> +#include <linux/slab.h>
-> >> +#include "rpmsg_internal.h"
-> >> +
-> >> +/**
-> >> + * enum rpmsg_ns_flags - dynamic name service announcement flags
-> >> + *
-> >> + * @RPMSG_NS_CREATE: a new remote service was just created
-> >> + * @RPMSG_NS_DESTROY: a known remote service was just destroyed
-> >> + */
-> >> +enum rpmsg_ns_flags {
-> >> +    RPMSG_NS_CREATE         = 0,
-> >> +    RPMSG_NS_DESTROY        = 1,
-> >> +};
-> >> +
-> >> +/**
-> >> + * struct rpmsg_ns_msg - dynamic name service announcement message
-> >> + * @name: name of remote service that is published
-> >> + * @addr: address of remote service that is published
-> >> + * @flags: indicates whether service is created or destroyed
-> >> + *
-> >> + * This message is sent across to publish a new service, or announce
-> >> + * about its removal. When we receive these messages, an appropriate
-> >> + * rpmsg channel (i.e device) is created/destroyed. In turn, the ->probe()
-> >> + * or ->remove() handler of the appropriate rpmsg driver will be invoked
-> >> + * (if/as-soon-as one is registered).
-> >> + */
-> >> +struct rpmsg_ns_msg {
-> >> +    char name[RPMSG_NAME_SIZE];
-> >> +    __le32 addr;
-> >> +    __le32 flags;
-> >
-> > This is about to get moved to a header file [1] so that the virtualisation people
-> > can use the same structures.  As such we can't just assume their type is __le32
-> > and we can't move them here either.  I suggest to move this to
-> > include/linux/rpmsg/virtio.h as Guennadi did.
-> >
-> > [1]. https://patchwork.kernel.org/patch/11749285/
->
-> The objective of this patch is to treat the ns annoucement as a service so it should not
-> depend on the virtio.
 
-I agree that name service announcement and virtio are disjoint and
-should remain as such.  That being said I would like to avoid the
-proliferation of "struct rpmsg_ns_msg" in the kernel.  I am convinced
-we can find a middle ground that can work for everyone.
+--===============8404124262294781141==
+Content-Type: multipart/signed; micalg=pgp-sha512;
+	protocol="application/pgp-signature"; boundary="27ZtN5FSuKKSZcBU"
+Content-Disposition: inline
 
-> From my POV we have to separate the header from the payload in term of endianness.
->
-> That make sense that the rpmsg_hdr is virtio struct dependent. But the rpmsg_ns_msg
-> describes the payload message. The payload message should be fixed by the service itself
-> and should not depend on the virualization.
-> Here i proposed to fix the payload in little endian for compatibility with the legacy.
-> But we also could decide to not fixe the endianess.
 
-I think the only way forward is to take the time to really understand
-how the rpmsg_ns_msg is used in [1].  I will do that tomorrow
-(Wednesday) or Thursday and I suggest you do the same at one point.
+--27ZtN5FSuKKSZcBU
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+Content-Transfer-Encoding: quoted-printable
 
->
-> >
-> >> +} __packed;
-> >> +
-> >> +/* Invoked when a name service announcement arrives */
-> >> +static int rpmsg_ns_cb(struct rpmsg_device *rpdev, void *data, int len,
-> >> +                   void *priv, u32 src)
-> >> +{
-> >> +    struct rpmsg_ns_msg *msg = data;
-> >> +    struct rpmsg_device *newch;
-> >> +    struct rpmsg_channel_info chinfo;
-> >> +    struct device *dev = &rpdev->dev;
-> >> +    unsigned int flags = le32_to_cpu(msg->flags);
-> >
-> > I've been staring at this for a long time and I suspect you did too.
-> >
-> > Can we assume that a name service is running on a virtio implementation?  It
-> > certainly has been the case so far, and doing so would make this patchset a lot
-> > more simple.  Otherwise we need to find a way to make this work without
-> > losing flexibility, which will make things more complex.
-> >
-> > What do you think?
->
-> I am not sure to understand your point...
-> I'm also intertesting in understanding more in details what do you have in mind in term of
-> "losing flexibility"?
->
+On Mon, Aug 03, 2020 at 07:17:55AM +0200, Alain Volmat wrote:
+> SMBus Host-Notify protocol, from the adapter point of view
+> consist of receiving a message from a client, including the
+> client address and some other data.
+>=20
+> It can be simply handled by creating a new slave device
+> and registering a callback performing the parsing of the
+> message received from the client.
+>=20
+> This commit introduces two new core functions
+>   * i2c_new_slave_host_notify_device
+>   * i2c_free_slave_host_notify_device
+> that take care of registration of the new slave device and
+> callback and will call i2c_handle_smbus_host_notify once a
+> Host-Notify event is received.
+>=20
+> Signed-off-by: Alain Volmat <alain.volmat@st.com>
 
-I was referring to the format of the rpmsg_ns_msg and the transport
-layer, i.e virtio, Glink or otherwise.
+Applied to for-next, thanks!
 
-> The purpose of this patchset is to generalize the ns announcement so that it does
-> not depend on the implementation. The goal is to avoid that implementations
-> rewrite the service.
->
-> The vhost patchset is an exemple which is also virtio based. But there are some other
-> implementations (exemples below).
->
-> Anyway I think the main question associated to this patchset is:
-> Is the ns annoucement is a RPMsg service or a virtio RPMsg service?
->
-> From my point of view it should be a RPMsg service, that is enbled or
-> not, depending on the backend implementation.
 
-I agree.
+--27ZtN5FSuKKSZcBU
+Content-Type: application/pgp-signature; name="signature.asc"
 
-As I said above I don't think we can move forward with this set and
-[1] until we understand how name space services are used in the vhost
-driver.  That will help us define the rpmsg_ns_msg structure and how
-to handle it in a generic way.  Otherwise I think the rest of this set
-works.
+-----BEGIN PGP SIGNATURE-----
 
-I will get back to you once I have gone through [1].
+iQIzBAABCgAdFiEEOZGx6rniZ1Gk92RdFA3kzBSgKbYFAl9YlNUACgkQFA3kzBSg
+KbargA/+Mx0jnagcE3Z5BZha8at8CzPwiC7r5rtL8V3E4h2lUgCjOzXnDoLgpWZu
+u6VY2U7RO1n86oOlzzT6yQ/SDT5LouaGfs5ytpMn20A8P5H0zORi5vHERmTHeJ/J
+JjLuhD+2UrnFAVGLhylRNl66/qSMyV22aSSKMWVDvBbj7X9bktLg70QhimmJWFf+
+YW9HY2N3eot8+KgqiB6asAACGdNbCUMy/gYWv5ZmvTE7f9fPUdxFVcxKr0Eueg8e
+a7o9tXRMf6Wpa/Vz4U/KXCX+Kqwz6cdWwWLqNWKkoFXR52AWML+hQ1eo4y3G7lJK
+JqQ+kR2FwaH3t0xuc4tjtAcI2sPWZEjcMFJ9Bvje3ms/NcX/KHtlzPlXO/OJcC6b
+omu0QLVcgeDmIVn3d9LM45nSkOqwt+ZQKYdu6ZzlR0l9DhVDVz2ma//4iZpQ3wBL
+5euK8TGjlA1I8KkKOEfvV9xoZrazaUj3EUf38ujAtV8RPkglluKxQIkpDitNSvAB
+SCD5UbcFYDtLLXNCGuxF6zAgc5OlIxDCxTDlyWt26WgSFY+DKUP+ZDfbdbyU2gol
+83CZMVihVcfsTFbDFSvznACXuQS1X8ziVZ/Pn3mfWCMBkmH3Aosca7T+iDXogV2l
+w7zQxNCJI9VY1913TCeHU4SHSJ/I8YFBYmKqlgLs6zxrsRI4UPg=
+=i7Ml
+-----END PGP SIGNATURE-----
 
-Thanks,
-Mathieu
+--27ZtN5FSuKKSZcBU--
 
->
-> 2 other ns annoucement service exemples:
-> - the mtk_rpmsg driver[1].
-> - In ST we have a PoC to extend the rpmsg over a physical serial link [2]. Notice that, with
->   this implementation we can have the LE-BE inter-communication use case.
->   For this PoC we also defined a common file that does not depend on the virtio[3], so
->   an alternative to what Guennadi did in include/linux/rpmsg/virtio.h.
->
-> [1]https://elixir.bootlin.com/linux/v5.9-rc3/source/drivers/rpmsg/mtk_rpmsg.c#L45
-> [2]https://github.com/arnopo/linux/blob/ELCE_demos/drivers/rpmsg/uart_rpmsg_bus.c
-> [3]https://github.com/arnopo/linux/blob/ELCE_demos/drivers/rpmsg/rpmsg_bus_common.c
->
-> Thanks,
-> Arnaud
->
-> >
-> >> +    int ret;
-> >> +
-> >> +#if defined(CONFIG_DYNAMIC_DEBUG)
-> >> +    dynamic_hex_dump("NS announcement: ", DUMP_PREFIX_NONE, 16, 1,
-> >> +                     data, len, true);
-> >> +#endif
-> >> +
-> >> +    if (len != sizeof(*msg)) {
-> >> +            dev_err(dev, "malformed ns msg (%d)\n", len);
-> >> +            return -EINVAL;
-> >> +    }
-> >> +
-> >> +    /* Don't trust the remote processor for null terminating the name */
-> >> +    msg->name[RPMSG_NAME_SIZE - 1] = '\0';
-> >> +
-> >> +    strncpy(chinfo.name, msg->name, sizeof(chinfo.name));
-> >> +    chinfo.src = RPMSG_ADDR_ANY;
-> >> +    chinfo.dst = le32_to_cpu(msg->addr);
-> >> +
-> >> +    dev_info(dev, "%sing channel %s addr 0x%x\n",
-> >> +             (flags & RPMSG_NS_DESTROY) ? "destroy" : "creat",
-> >> +             msg->name, chinfo.dst);
-> >> +
-> >> +    if (flags & RPMSG_NS_DESTROY) {
-> >> +            ret = rpmsg_release_channel(rpdev, &chinfo);
-> >> +            if (ret)
-> >> +                    dev_err(dev, "rpmsg_destroy_channel failed: %d\n", ret);
-> >> +    } else {
-> >> +            newch = rpmsg_create_channel(rpdev, &chinfo);
-> >> +            if (!newch)
-> >> +                    dev_err(dev, "rpmsg_create_channel failed\n");
-> >> +    }
-> >> +
-> >> +    return 0;
-> >> +}
-> >> +
-> >> +static int rpmsg_ns_probe(struct rpmsg_device *rpdev)
-> >> +{
-> >> +    struct rpmsg_channel_info ns_chinfo;
-> >> +    struct rpmsg_endpoint *ns_ept;
-> >> +
-> >> +    ns_chinfo.src = RPMSG_NS_ADDR;
-> >> +    ns_chinfo.dst = RPMSG_NS_ADDR;
-> >> +    strcpy(ns_chinfo.name, "name_service");
-> >> +
-> >> +    /*
-> >> +     * Create the NS announcement service endpoint associated to the RPMsg
-> >> +     * device. The endpoint will be automatically destroyed when the RPMsg
-> >> +     * device will be deleted.
-> >> +     */
-> >> +    ns_ept = rpmsg_create_ept(rpdev, rpmsg_ns_cb, NULL, ns_chinfo);
-> >> +    if (!ns_ept) {
-> >> +            dev_err(&rpdev->dev, "failed to create the ns ept\n");
-> >> +            return -ENOMEM;
-> >> +    }
-> >> +    rpdev->ept = ns_ept;
-> >> +
-> >> +    return 0;
-> >> +}
-> >> +
-> >> +static struct rpmsg_driver rpmsg_ns_driver = {
-> >> +    .drv.name = "rpmsg_ns",
-> >> +    .probe = rpmsg_ns_probe,
-> >> +};
-> >> +
-> >> +static int rpmsg_ns_init(void)
-> >> +{
-> >> +    int ret;
-> >> +
-> >> +    ret = register_rpmsg_driver(&rpmsg_ns_driver);
-> >> +    if (ret < 0)
-> >> +            pr_err("%s: Failed to register rpmsg driver\n", __func__);
-> >> +
-> >> +    return ret;
-> >> +}
-> >> +postcore_initcall(rpmsg_ns_init);
-> >> +
-> >> +static void rpmsg_ns_exit(void)
-> >> +{
-> >> +    unregister_rpmsg_driver(&rpmsg_ns_driver);
-> >> +}
-> >> +module_exit(rpmsg_ns_exit);
-> >> +
-> >> +MODULE_DESCRIPTION("Name service announcement rpmsg Driver");
-> >> +MODULE_AUTHOR("Arnaud Pouliquen <arnaud.pouliquen@st.com>");
-> >> +MODULE_ALIAS("rpmsg_ns");
-> >> +MODULE_LICENSE("GPL v2");
-> >> --
-> >> 2.17.1
-> >>
+--===============8404124262294781141==
+Content-Type: text/plain; charset="us-ascii"
+MIME-Version: 1.0
+Content-Transfer-Encoding: 7bit
+Content-Disposition: inline
+
 _______________________________________________
 Linux-stm32 mailing list
 Linux-stm32@st-md-mailman.stormreply.com
 https://st-md-mailman.stormreply.com/mailman/listinfo/linux-stm32
+
+--===============8404124262294781141==--
