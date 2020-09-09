@@ -2,43 +2,64 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id 73B64262A91
-	for <lists+linux-stm32@lfdr.de>; Wed,  9 Sep 2020 10:40:03 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id C42CA262BB1
+	for <lists+linux-stm32@lfdr.de>; Wed,  9 Sep 2020 11:22:53 +0200 (CEST)
 Received: from ip-172-31-3-76.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 38AC2C424BA;
-	Wed,  9 Sep 2020 08:40:03 +0000 (UTC)
-Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
- (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
- (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id D112FC424B7
- for <linux-stm32@st-md-mailman.stormreply.com>;
- Wed,  9 Sep 2020 08:40:00 +0000 (UTC)
-Received: from localhost (p54b33098.dip0.t-ipconnect.de [84.179.48.152])
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 810ADC424BA;
+	Wed,  9 Sep 2020 09:22:53 +0000 (UTC)
+Received: from mx07-00178001.pphosted.com (mx07-00178001.pphosted.com
+ [185.132.182.106])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by mail.kernel.org (Postfix) with ESMTPSA id B617B207DE;
- Wed,  9 Sep 2020 08:39:58 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
- s=default; t=1599640799;
- bh=BbnDVHB8A3xGCPsPhdOsOXW5HCi8ljWrh90xTXF0bG8=;
- h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
- b=Lm6hFqTbTg7XG5FwExZc+8SS+2F4VxeNefAxyj38zMMcDUrf16thfT2z5N1BoWUcZ
- NkmTTNhjIxYA7OvakAlhp4B6LXbI6kHDsx3b6qLyixiwgA8o7cPcB6eIFkEPz9UyzG
- c7UkZA46xf49/6S7o+uWOz/a3MnsN3ZKsqshDTxM=
-Date: Wed, 9 Sep 2020 10:39:56 +0200
-From: Wolfram Sang <wsa@kernel.org>
-To: Alain Volmat <alain.volmat@st.com>
-Message-ID: <20200909083956.GG2272@ninjato>
-References: <1596431876-24115-1-git-send-email-alain.volmat@st.com>
- <1596431876-24115-3-git-send-email-alain.volmat@st.com>
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id B5532C424B7
+ for <linux-stm32@st-md-mailman.stormreply.com>;
+ Wed,  9 Sep 2020 09:22:51 +0000 (UTC)
+Received: from pps.filterd (m0046668.ppops.net [127.0.0.1])
+ by mx07-00178001.pphosted.com (8.16.0.42/8.16.0.42) with SMTP id
+ 0899ClWB011931; Wed, 9 Sep 2020 11:22:40 +0200
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=st.com;
+ h=subject : to : cc :
+ references : from : message-id : date : mime-version : in-reply-to :
+ content-type : content-transfer-encoding; s=STMicroelectronics;
+ bh=V1r1AsvoqFnYpUi6U5FqhZPOSlPWGhlFRoqwysYBwuw=;
+ b=TaXjjqDVW2vaGF93Xptjv/lntL+nKiQR83szeP7C0jwwTGPQaxyhnY4pWW8TyPxwjXzO
+ 3R3hpEaed0gRqbajp21/a+BfICU+1AfE9+R0zC9+QIto/Bjr5BfkF03UzH3a4KNcMZIN
+ hhtQ3RT7Kx1PFy8sDQHHnEfdY88i4KQaRrswiAA1puDNG8mkKA3ubRw+Gn654I59NKbN
+ xsBeBl4hsDjhjKnDNcYHJQaOMYWwV+zualNub/OlJPcFOKBo+SwiIy5KvASLjVbsHVQA
+ m09nZ3ibjKdga/kmqKzNbj7TdR8ksozG7RVCiPYFSahVhiLtNqNasreHOtkp5NLCnDVp cw== 
+Received: from beta.dmz-eu.st.com (beta.dmz-eu.st.com [164.129.1.35])
+ by mx07-00178001.pphosted.com with ESMTP id 33c051c47a-1
+ (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
+ Wed, 09 Sep 2020 11:22:40 +0200
+Received: from euls16034.sgp.st.com (euls16034.sgp.st.com [10.75.44.20])
+ by beta.dmz-eu.st.com (STMicroelectronics) with ESMTP id E767C10002A;
+ Wed,  9 Sep 2020 11:22:39 +0200 (CEST)
+Received: from Webmail-eu.st.com (gpxdag5node5.st.com [10.75.127.78])
+ by euls16034.sgp.st.com (STMicroelectronics) with ESMTP id D697521F670;
+ Wed,  9 Sep 2020 11:22:39 +0200 (CEST)
+Received: from lmecxl1060.lme.st.com (10.75.127.49) by GPXDAG5NODE5.st.com
+ (10.75.127.78) with Microsoft SMTP Server (TLS) id 15.0.1473.3; Wed, 9 Sep
+ 2020 11:22:39 +0200
+To: Alain Volmat <alain.volmat@st.com>, <wsa@kernel.org>
+References: <1596432416-24636-1-git-send-email-alain.volmat@st.com>
+From: Pierre Yves MORDRET <pierre-yves.mordret@st.com>
+Message-ID: <c0a65e7a-2cc2-337e-6ee7-66e78475d0b4@st.com>
+Date: Wed, 9 Sep 2020 11:22:38 +0200
+User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:68.0) Gecko/20100101
+ Thunderbird/68.10.0
 MIME-Version: 1.0
-In-Reply-To: <1596431876-24115-3-git-send-email-alain.volmat@st.com>
-User-Agent: Mutt/1.10.1 (2018-07-13)
-Cc: linux-kernel@vger.kernel.org, pierre-yves.mordret@st.com,
- linux-i2c@vger.kernel.org, fabrice.gasnier@st.com,
- linux-stm32@st-md-mailman.stormreply.com, linux-arm-kernel@lists.infradead.org
-Subject: Re: [Linux-stm32] [PATCH v3 2/2] i2c: stm32f7: Add SMBus
- Host-Notify protocol support
+In-Reply-To: <1596432416-24636-1-git-send-email-alain.volmat@st.com>
+Content-Language: en-US
+X-Originating-IP: [10.75.127.49]
+X-ClientProxiedBy: SFHDAG6NODE1.st.com (10.75.127.16) To GPXDAG5NODE5.st.com
+ (10.75.127.78)
+X-Proofpoint-Virus-Version: vendor=fsecure engine=2.50.10434:6.0.235, 18.0.687
+ definitions=2020-09-09_03:2020-09-08,
+ 2020-09-09 signatures=0
+Cc: linux-kernel@vger.kernel.org, linux-i2c@vger.kernel.org,
+ fabrice.gasnier@st.com, linux-stm32@st-md-mailman.stormreply.com,
+ linux-arm-kernel@lists.infradead.org
+Subject: Re: [Linux-stm32] [PATCH] i2c: stm32f7: add SMBus-Alert support
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -50,62 +71,186 @@ List-Post: <mailto:linux-stm32@st-md-mailman.stormreply.com>
 List-Help: <mailto:linux-stm32-request@st-md-mailman.stormreply.com?subject=help>
 List-Subscribe: <https://st-md-mailman.stormreply.com/mailman/listinfo/linux-stm32>, 
  <mailto:linux-stm32-request@st-md-mailman.stormreply.com?subject=subscribe>
-Content-Type: multipart/mixed; boundary="===============0928602355481336586=="
+Content-Type: text/plain; charset="us-ascii"
+Content-Transfer-Encoding: 7bit
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
+Hi Alain
 
---===============0928602355481336586==
-Content-Type: multipart/signed; micalg=pgp-sha512;
-	protocol="application/pgp-signature"; boundary="2E/hm+v6kSLEYT3h"
-Content-Disposition: inline
+Sounds good
+
+Reviewed-by: Pierre-Yves MORDRET <pierre-yves.mordret@st.com>
+
+Best Regards
 
 
---2E/hm+v6kSLEYT3h
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-Content-Transfer-Encoding: quoted-printable
-
-On Mon, Aug 03, 2020 at 07:17:56AM +0200, Alain Volmat wrote:
-> Rely on the core functions to implement the host-notify
-> protocol via the a I2C slave device.
->=20
+On 8/3/20 7:26 AM, Alain Volmat wrote:
+> Add support for the SMBus-Alert protocol.
+> 
 > Signed-off-by: Alain Volmat <alain.volmat@st.com>
-
-Applied to for-next, thanks!
-
-
---2E/hm+v6kSLEYT3h
-Content-Type: application/pgp-signature; name="signature.asc"
-
------BEGIN PGP SIGNATURE-----
-
-iQIzBAABCgAdFiEEOZGx6rniZ1Gk92RdFA3kzBSgKbYFAl9YlNwACgkQFA3kzBSg
-KbYZxg/9H/2L3ghZ/LP17brMo/1wYK2lflEHShTBQHcbVNg82QaXJn8CVoh9lfwe
-npimgd5SZXQWD6gXfMbS+ddR2YkVw5VM4RG8w72Ga6fmY0xoqWlf5Ynew2opCRC/
-HaDTDuOKrSbMvTCTIm+9QnUyjBPNABXqteamcT9Tk4j7XfmBNt9f0e8o1kEvCxSg
-gsbYnXWDDe7XSj65uY0NLcYsmyuRWiP0yWZmKmecitPS1UITrrJ02XSZ1Wd0hDTM
-0ymGLf2UhNgLI0rc4odRb03aFzDxBt6NpgqfW7Y9jPXq3cA7IOc5Vh76aruJ+hnT
-gr+7bY1wDmbbp/uWN23z/XC+tPFEvO+DC9pecuBUEBKAsn43HxR4zRB3to1Sa392
-VpqBlT7gT0Mk7iYQvry8pqc5WO4eSzZNUUl+kNJE2FVjZj9Fvt9M4khglacz+sKi
-eCI+fmKlsY0IhUvaGksjztRES+aZXWSzfYfv+IvnQCDipUrua9r4cjKa8z2Q9Qzu
-WIEAarMjZoSAKNpyX7ObWTZ1pJCNFx5NBxrSMzJxrntzGqBK0MSUxRnEMRTBVeb3
-1M95a8yxD/qT7WC25jxRQZoEa/Jy8r5G5NKmB8wD5dWNANxzRpc2Y1/vpqJySp+R
-fcKixlnlm1Dwd+AfL+5WCkMz8ZZuZqhZuGv2+NH0VvHab+xhCVM=
-=uIIc
------END PGP SIGNATURE-----
-
---2E/hm+v6kSLEYT3h--
-
---===============0928602355481336586==
-Content-Type: text/plain; charset="us-ascii"
-MIME-Version: 1.0
-Content-Transfer-Encoding: 7bit
-Content-Disposition: inline
-
+> ---
+>  This patch has to be integrated on top of the patch
+>  'i2c: stm32f7: Add SMBus Host-Notify protocol support' since SMBus Alert is
+>  enabled by the DT binding 'smbus' introduced in that patch.
+> 
+>  drivers/i2c/busses/i2c-stm32f7.c | 71 ++++++++++++++++++++++++++++++++++++++++
+>  1 file changed, 71 insertions(+)
+> 
+> diff --git a/drivers/i2c/busses/i2c-stm32f7.c b/drivers/i2c/busses/i2c-stm32f7.c
+> index 223c238c3c09..fe7641da54ef 100644
+> --- a/drivers/i2c/busses/i2c-stm32f7.c
+> +++ b/drivers/i2c/busses/i2c-stm32f7.c
+> @@ -51,6 +51,7 @@
+>  
+>  /* STM32F7 I2C control 1 */
+>  #define STM32F7_I2C_CR1_PECEN			BIT(23)
+> +#define STM32F7_I2C_CR1_ALERTEN			BIT(22)
+>  #define STM32F7_I2C_CR1_SMBHEN			BIT(20)
+>  #define STM32F7_I2C_CR1_WUPEN			BIT(18)
+>  #define STM32F7_I2C_CR1_SBC			BIT(16)
+> @@ -123,6 +124,7 @@
+>  				(((n) & STM32F7_I2C_ISR_ADDCODE_MASK) >> 17)
+>  #define STM32F7_I2C_ISR_DIR			BIT(16)
+>  #define STM32F7_I2C_ISR_BUSY			BIT(15)
+> +#define STM32F7_I2C_ISR_ALERT			BIT(13)
+>  #define STM32F7_I2C_ISR_PECERR			BIT(11)
+>  #define STM32F7_I2C_ISR_ARLO			BIT(9)
+>  #define STM32F7_I2C_ISR_BERR			BIT(8)
+> @@ -136,6 +138,7 @@
+>  #define STM32F7_I2C_ISR_TXE			BIT(0)
+>  
+>  /* STM32F7 I2C Interrupt Clear */
+> +#define STM32F7_I2C_ICR_ALERTCF			BIT(13)
+>  #define STM32F7_I2C_ICR_PECCF			BIT(11)
+>  #define STM32F7_I2C_ICR_ARLOCF			BIT(9)
+>  #define STM32F7_I2C_ICR_BERRCF			BIT(8)
+> @@ -277,6 +280,17 @@ struct stm32f7_i2c_msg {
+>  };
+>  
+>  /**
+> + * struct stm32f7_i2c_alert - SMBus alert specific data
+> + * @setup: platform data for the smbus_alert i2c client
+> + * @ara: I2C slave device used to respond to the SMBus Alert with Alert
+> + * Response Address
+> + */
+> +struct stm32f7_i2c_alert {
+> +	struct i2c_smbus_alert_setup setup;
+> +	struct i2c_client *ara;
+> +};
+> +
+> +/**
+>   * struct stm32f7_i2c_dev - private data of the controller
+>   * @adap: I2C adapter for this controller
+>   * @dev: device for this controller
+> @@ -305,6 +319,7 @@ struct stm32f7_i2c_msg {
+>   * @wakeup_src: boolean to know if the device is a wakeup source
+>   * @smbus_mode: states that the controller is configured in SMBus mode
+>   * @host_notify_client: SMBus host-notify client
+> + * @alert: SMBus alert specific data
+>   */
+>  struct stm32f7_i2c_dev {
+>  	struct i2c_adapter adap;
+> @@ -333,6 +348,7 @@ struct stm32f7_i2c_dev {
+>  	bool wakeup_src;
+>  	bool smbus_mode;
+>  	struct i2c_client *host_notify_client;
+> +	struct stm32f7_i2c_alert *alert;
+>  };
+>  
+>  /*
+> @@ -1601,6 +1617,13 @@ static irqreturn_t stm32f7_i2c_isr_error(int irq, void *data)
+>  		f7_msg->result = -EINVAL;
+>  	}
+>  
+> +	if (status & STM32F7_I2C_ISR_ALERT) {
+> +		dev_dbg(dev, "<%s>: SMBus alert received\n", __func__);
+> +		writel_relaxed(STM32F7_I2C_ICR_ALERTCF, base + STM32F7_I2C_ICR);
+> +		i2c_handle_smbus_alert(i2c_dev->alert->ara);
+> +		return IRQ_HANDLED;
+> +	}
+> +
+>  	if (!i2c_dev->slave_running) {
+>  		u32 mask;
+>  		/* Disable interrupts */
+> @@ -1967,6 +1990,42 @@ static void stm32f7_i2c_disable_smbus_host(struct stm32f7_i2c_dev *i2c_dev)
+>  	}
+>  }
+>  
+> +static int stm32f7_i2c_enable_smbus_alert(struct stm32f7_i2c_dev *i2c_dev)
+> +{
+> +	struct stm32f7_i2c_alert *alert;
+> +	struct i2c_adapter *adap = &i2c_dev->adap;
+> +	struct device *dev = i2c_dev->dev;
+> +	void __iomem *base = i2c_dev->base;
+> +
+> +	alert = devm_kzalloc(dev, sizeof(*alert), GFP_KERNEL);
+> +	if (!alert)
+> +		return -ENOMEM;
+> +
+> +	alert->ara = i2c_new_smbus_alert_device(adap, &alert->setup);
+> +	if (IS_ERR(alert->ara))
+> +		return PTR_ERR(alert->ara);
+> +
+> +	i2c_dev->alert = alert;
+> +
+> +	/* Enable SMBus Alert */
+> +	stm32f7_i2c_set_bits(base + STM32F7_I2C_CR1, STM32F7_I2C_CR1_ALERTEN);
+> +
+> +	return 0;
+> +}
+> +
+> +static void stm32f7_i2c_disable_smbus_alert(struct stm32f7_i2c_dev *i2c_dev)
+> +{
+> +	struct stm32f7_i2c_alert *alert = i2c_dev->alert;
+> +	void __iomem *base = i2c_dev->base;
+> +
+> +	if (alert) {
+> +		/* Disable SMBus Alert */
+> +		stm32f7_i2c_clr_bits(base + STM32F7_I2C_CR1,
+> +				     STM32F7_I2C_CR1_ALERTEN);
+> +		i2c_unregister_device(alert->ara);
+> +	}
+> +}
+> +
+>  static u32 stm32f7_i2c_func(struct i2c_adapter *adap)
+>  {
+>  	struct stm32f7_i2c_dev *i2c_dev = i2c_get_adapdata(adap);
+> @@ -2161,6 +2220,14 @@ static int stm32f7_i2c_probe(struct platform_device *pdev)
+>  				ret);
+>  			goto i2c_adapter_remove;
+>  		}
+> +
+> +		ret = stm32f7_i2c_enable_smbus_alert(i2c_dev);
+> +		if (ret) {
+> +			dev_err(i2c_dev->dev,
+> +				"failed to enable SMBus alert protocol (%d)\n",
+> +				ret);
+> +			goto i2c_disable_smbus_host;
+> +		}
+>  	}
+>  
+>  	dev_info(i2c_dev->dev, "STM32F7 I2C-%d bus adapter\n", adap->nr);
+> @@ -2170,6 +2237,9 @@ static int stm32f7_i2c_probe(struct platform_device *pdev)
+>  
+>  	return 0;
+>  
+> +i2c_disable_smbus_host:
+> +	stm32f7_i2c_disable_smbus_host(i2c_dev);
+> +
+>  i2c_adapter_remove:
+>  	i2c_del_adapter(adap);
+>  
+> @@ -2204,6 +2274,7 @@ static int stm32f7_i2c_remove(struct platform_device *pdev)
+>  {
+>  	struct stm32f7_i2c_dev *i2c_dev = platform_get_drvdata(pdev);
+>  
+> +	stm32f7_i2c_disable_smbus_alert(i2c_dev);
+>  	stm32f7_i2c_disable_smbus_host(i2c_dev);
+>  
+>  	i2c_del_adapter(&i2c_dev->adap);
+> 
 _______________________________________________
 Linux-stm32 mailing list
 Linux-stm32@st-md-mailman.stormreply.com
 https://st-md-mailman.stormreply.com/mailman/listinfo/linux-stm32
-
---===============0928602355481336586==--
