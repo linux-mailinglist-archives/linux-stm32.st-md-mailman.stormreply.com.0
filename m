@@ -2,68 +2,73 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id 07CFA262BF7
-	for <lists+linux-stm32@lfdr.de>; Wed,  9 Sep 2020 11:35:36 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 2109F262C40
+	for <lists+linux-stm32@lfdr.de>; Wed,  9 Sep 2020 11:44:07 +0200 (CEST)
 Received: from ip-172-31-3-76.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id C0E8AC424BE;
-	Wed,  9 Sep 2020 09:35:35 +0000 (UTC)
-Received: from mx07-00178001.pphosted.com (mx07-00178001.pphosted.com
- [185.132.182.106])
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id D55F3C424BB;
+	Wed,  9 Sep 2020 09:44:06 +0000 (UTC)
+Received: from userp2130.oracle.com (userp2130.oracle.com [156.151.31.86])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id AC3ACC424B7
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id B2C6CC424B7
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Wed,  9 Sep 2020 09:35:33 +0000 (UTC)
-Received: from pps.filterd (m0046037.ppops.net [127.0.0.1])
- by mx07-00178001.pphosted.com (8.16.0.42/8.16.0.42) with SMTP id
- 0899WbNI011181; Wed, 9 Sep 2020 11:35:22 +0200
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=st.com;
- h=from : to : cc : subject
- : date : message-id : in-reply-to : references : mime-version :
- content-type; s=STMicroelectronics;
- bh=8Z39wgCMgSV09FjTrcLGWnULrXx4mkaAHwq5zt5eW6M=;
- b=gbeq6VPctr7PRcnvzs/xjGO9bZYbn/zlGkYwIRNkbjYBUVjcBjytvYI3OpXvZO0+Bye8
- REpm800IET4D4wrDNTipL3QQxKX1G6Ph8kbYruuRrqZ1XVbsNbEm64vU9Cx9nnwLybmb
- xEgRTQ/kN/nmeKaUlrQiw8lS4+hxWPzT4FFBxjWhESGfHG/jpsra/p7Tqfwx3q8y7+MP
- Ec/omYK+jm5X+eEM5VPsIhweMGrK2vLA+VibrGa57UnXF2bbs/CYqXBnH2Pb5v2BuYSt
- nVspCq5G3HFXMQcS46QGgGvV5F1Rm9UvfF76RXJ8sjk6ceCTfj09x61Yy6G5atOF3QhC TA== 
-Received: from beta.dmz-eu.st.com (beta.dmz-eu.st.com [164.129.1.35])
- by mx07-00178001.pphosted.com with ESMTP id 33c0euv55c-1
- (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
- Wed, 09 Sep 2020 11:35:22 +0200
-Received: from euls16034.sgp.st.com (euls16034.sgp.st.com [10.75.44.20])
- by beta.dmz-eu.st.com (STMicroelectronics) with ESMTP id E653A100034;
- Wed,  9 Sep 2020 11:35:21 +0200 (CEST)
-Received: from Webmail-eu.st.com (gpxdag3node5.st.com [10.75.127.72])
- by euls16034.sgp.st.com (STMicroelectronics) with ESMTP id D4CBD220AE9;
- Wed,  9 Sep 2020 11:35:21 +0200 (CEST)
-Received: from localhost (10.75.127.46) by GPXDAG3NODE5.st.com (10.75.127.72)
- with Microsoft SMTP Server (TLS) id 15.0.1473.3;
- Wed, 9 Sep 2020 11:35:21 +0200
-From: Amelie Delaunay <amelie.delaunay@st.com>
-To: Minas Harutyunyan <hminas@synopsys.com>, Felipe Balbi <balbi@kernel.org>, 
- Greg Kroah-Hartman <gregkh@linuxfoundation.org>, Rob Herring
- <robh+dt@kernel.org>, Maxime Coquelin <mcoquelin.stm32@gmail.com>,
- Alexandre Torgue <alexandre.torgue@st.com>
-Date: Wed, 9 Sep 2020 11:35:11 +0200
-Message-ID: <20200909093511.4728-4-amelie.delaunay@st.com>
-X-Mailer: git-send-email 2.17.1
-In-Reply-To: <20200909093511.4728-1-amelie.delaunay@st.com>
-References: <20200909093511.4728-1-amelie.delaunay@st.com>
+ Wed,  9 Sep 2020 09:44:04 +0000 (UTC)
+Received: from pps.filterd (userp2130.oracle.com [127.0.0.1])
+ by userp2130.oracle.com (8.16.0.42/8.16.0.42) with SMTP id 0899XZYE100632;
+ Wed, 9 Sep 2020 09:44:00 GMT
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=oracle.com;
+ h=date : from : to : cc
+ : subject : message-id : mime-version : content-type; s=corp-2020-01-29;
+ bh=4+A9QYHKTlm2FFL9KE51eg55g+ypDXFe4GvLy9eLIr0=;
+ b=PjbmMnZ5gaKkgGUAAOikBDTpPFiBKajuTiYzXg/eVA6z025l18T3irxc46HOJxTZx4lz
+ C0HrxE6Pu1PeIMcmrLRLtvEsrq4oxH8KXQkkDUw/tU/gxvIbMLaO7IdMW6dvaZCmjqcQ
+ iBil/UhrytrGzFR8W+pNDNM1kaZHV9hPhHgidbiv3Lglo6+m5w0N0B/WxObMq+a2ouEw
+ z8yhTKu0CMXEe8YqLBFm3GczghZhPX0CbkTKrm/7bg8QKgzF1WL5saOlMgLJzOmaDqSB
+ fxsLzMgyyx48SMIO4YBWYkJ5ovEjs42vxiuwLc9Nhzsy3d+NDxt71I94yccXMJ1lHDjF Zw== 
+Received: from aserp3020.oracle.com (aserp3020.oracle.com [141.146.126.70])
+ by userp2130.oracle.com with ESMTP id 33c23r0rdf-1
+ (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=FAIL);
+ Wed, 09 Sep 2020 09:44:00 +0000
+Received: from pps.filterd (aserp3020.oracle.com [127.0.0.1])
+ by aserp3020.oracle.com (8.16.0.42/8.16.0.42) with SMTP id 0899f3jp029792;
+ Wed, 9 Sep 2020 09:43:59 GMT
+Received: from aserv0122.oracle.com (aserv0122.oracle.com [141.146.126.236])
+ by aserp3020.oracle.com with ESMTP id 33cmk61918-1
+ (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=OK);
+ Wed, 09 Sep 2020 09:43:59 +0000
+Received: from abhmp0016.oracle.com (abhmp0016.oracle.com [141.146.116.22])
+ by aserv0122.oracle.com (8.14.4/8.14.4) with ESMTP id 0899huOq025554;
+ Wed, 9 Sep 2020 09:43:56 GMT
+Received: from mwanda (/41.57.98.10) by default (Oracle Beehive Gateway v4.0)
+ with ESMTP ; Wed, 09 Sep 2020 02:43:56 -0700
+Date: Wed, 9 Sep 2020 12:43:04 +0300
+From: Dan Carpenter <dan.carpenter@oracle.com>
+To: Mark Brown <broonie@kernel.org>, Amelie Delaunay <amelie.delaunay@st.com>
+Message-ID: <20200909094304.GA420136@mwanda>
 MIME-Version: 1.0
-X-Originating-IP: [10.75.127.46]
-X-ClientProxiedBy: SFHDAG6NODE2.st.com (10.75.127.17) To GPXDAG3NODE5.st.com
- (10.75.127.72)
-X-Proofpoint-Virus-Version: vendor=fsecure engine=2.50.10434:6.0.235, 18.0.687
- definitions=2020-09-09_03:2020-09-08,
- 2020-09-09 signatures=0
-Cc: devicetree@vger.kernel.org,
- Martin Blumenstingl <martin.blumenstingl@googlemail.com>,
- linux-usb@vger.kernel.org, linux-kernel@vger.kernel.org,
- Fabrice Gasnier <fabrice.gasnier@st.com>,
- linux-stm32@st-md-mailman.stormreply.com, linux-arm-kernel@lists.infradead.org
-Subject: [Linux-stm32] [PATCH v6 3/3] usb: dwc2: don't use ID/Vbus detection
-	if usb-role-switch on STM32MP15 SoCs
+Content-Disposition: inline
+X-Mailer: git-send-email haha only kidding
+X-Proofpoint-Virus-Version: vendor=nai engine=6000 definitions=9738
+ signatures=668679
+X-Proofpoint-Spam-Details: rule=notspam policy=default score=0 spamscore=0
+ malwarescore=0 phishscore=0
+ mlxlogscore=999 bulkscore=0 adultscore=0 mlxscore=0 suspectscore=0
+ classifier=spam adjust=0 reason=mlx scancount=1 engine=8.12.0-2006250000
+ definitions=main-2009090086
+X-Proofpoint-Virus-Version: vendor=nai engine=6000 definitions=9738
+ signatures=668679
+X-Proofpoint-Spam-Details: rule=notspam policy=default score=0 adultscore=0
+ priorityscore=1501
+ mlxlogscore=999 mlxscore=0 bulkscore=0 suspectscore=0 spamscore=0
+ malwarescore=0 phishscore=0 lowpriorityscore=0 clxscore=1011
+ impostorscore=0 classifier=spam adjust=0 reason=mlx scancount=1
+ engine=8.12.0-2006250000 definitions=main-2009090085
+Cc: kernel-janitors@vger.kernel.org, linux-spi@vger.kernel.org,
+ Alain Volmat <alain.volmat@st.com>,
+ Maxime Coquelin <mcoquelin.stm32@gmail.com>,
+ linux-stm32@st-md-mailman.stormreply.com
+Subject: [Linux-stm32] [PATCH] spi: stm32: fix pm_runtime_get_sync() error
+	checking
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -80,32 +85,30 @@ Content-Transfer-Encoding: 7bit
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
-If usb-role-switch is present in the device tree, it means that ID and Vbus
-signals are not connected to the OTG controller but to an external
-component (GPIOs, Type-C controller). In this configuration, usb role
-switch is used to force valid sessions on STM32MP15 SoCs.
+The pm_runtime_get_sync() can return either 0 or 1 on success but this
+code treats 1 as a failure.
 
-Acked-by: Martin Blumenstingl <martin.blumenstingl@googlemail.com>
-Signed-off-by: Amelie Delaunay <amelie.delaunay@st.com>
+Fixes: db96bf976a4f ("spi: stm32: fixes suspend/resume management")
+Signed-off-by: Dan Carpenter <dan.carpenter@oracle.com>
 ---
- drivers/usb/dwc2/params.c | 2 +-
+ drivers/spi/spi-stm32.c | 2 +-
  1 file changed, 1 insertion(+), 1 deletion(-)
 
-diff --git a/drivers/usb/dwc2/params.c b/drivers/usb/dwc2/params.c
-index a3611cdd1dea..50df72f32b4c 100644
---- a/drivers/usb/dwc2/params.c
-+++ b/drivers/usb/dwc2/params.c
-@@ -185,7 +185,7 @@ static void dwc2_set_stm32mp15_hsotg_params(struct dwc2_hsotg *hsotg)
- 	struct dwc2_core_params *p = &hsotg->params;
+diff --git a/drivers/spi/spi-stm32.c b/drivers/spi/spi-stm32.c
+index d4b33b358a31..19064df42d25 100644
+--- a/drivers/spi/spi-stm32.c
++++ b/drivers/spi/spi-stm32.c
+@@ -2060,7 +2060,7 @@ static int stm32_spi_resume(struct device *dev)
+ 	}
  
- 	p->otg_cap = DWC2_CAP_PARAM_NO_HNP_SRP_CAPABLE;
--	p->activate_stm_id_vb_detection = true;
-+	p->activate_stm_id_vb_detection = !device_property_read_bool(hsotg->dev, "usb-role-switch");
- 	p->host_rx_fifo_size = 440;
- 	p->host_nperio_tx_fifo_size = 256;
- 	p->host_perio_tx_fifo_size = 256;
+ 	ret = pm_runtime_get_sync(dev);
+-	if (ret) {
++	if (ret < 0) {
+ 		dev_err(dev, "Unable to power device:%d\n", ret);
+ 		return ret;
+ 	}
 -- 
-2.17.1
+2.28.0
 
 _______________________________________________
 Linux-stm32 mailing list
