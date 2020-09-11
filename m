@@ -2,54 +2,37 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id 7267C26584F
-	for <lists+linux-stm32@lfdr.de>; Fri, 11 Sep 2020 06:25:58 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 989EC265855
+	for <lists+linux-stm32@lfdr.de>; Fri, 11 Sep 2020 06:28:35 +0200 (CEST)
 Received: from ip-172-31-3-76.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id F1EC5C424B7;
-	Fri, 11 Sep 2020 04:25:57 +0000 (UTC)
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 337BFC424B9;
+	Fri, 11 Sep 2020 04:28:35 +0000 (UTC)
 Received: from fornost.hmeau.com (helcar.hmeau.com [216.24.177.18])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 74BB8C3FAE3
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id E8E67C424B7
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Fri, 11 Sep 2020 04:25:56 +0000 (UTC)
+ Fri, 11 Sep 2020 04:28:33 +0000 (UTC)
 Received: from gwarestrin.arnor.me.apana.org.au ([192.168.0.7])
  by fornost.hmeau.com with smtp (Exim 4.92 #5 (Debian))
- id 1kGac6-0006CE-L0; Fri, 11 Sep 2020 14:24:43 +1000
+ id 1kGafY-0006EF-TW; Fri, 11 Sep 2020 14:28:18 +1000
 Received: by gwarestrin.arnor.me.apana.org.au (sSMTP sendmail emulation);
- Fri, 11 Sep 2020 14:24:42 +1000
-Date: Fri, 11 Sep 2020 14:24:42 +1000
+ Fri, 11 Sep 2020 14:28:16 +1000
+Date: Fri, 11 Sep 2020 14:28:16 +1000
 From: Herbert Xu <herbert@gondor.apana.org.au>
-To: Tianjia Zhang <tianjia.zhang@linux.alibaba.com>
-Message-ID: <20200911042442.GA5420@gondor.apana.org.au>
-References: <20200903131242.128665-1-tianjia.zhang@linux.alibaba.com>
+To: Nicolas Toromanoff <nicolas.toromanoff@st.com>
+Message-ID: <20200911042816.GA5531@gondor.apana.org.au>
+References: <20200904112527.15677-1-nicolas.toromanoff@st.com>
 MIME-Version: 1.0
 Content-Disposition: inline
-In-Reply-To: <20200903131242.128665-1-tianjia.zhang@linux.alibaba.com>
+In-Reply-To: <20200904112527.15677-1-nicolas.toromanoff@st.com>
 User-Agent: Mutt/1.10.1 (2018-07-13)
-Cc: Stephan Mueller <smueller@chronox.de>,
- Brendan Higgins <brendanhiggins@google.com>,
- Jia Zhang <zhang.jia@linux.alibaba.com>, Mimi Zohar <zohar@linux.ibm.com>,
- Vitaly Chikunov <vt@altlinux.org>, keyrings@vger.kernel.org,
- linux-stm32@st-md-mailman.stormreply.com,
- Masahiro Yamada <masahiroy@kernel.org>, James Morris <jmorris@namei.org>,
- Lakshmi Ramasubramanian <nramas@linux.microsoft.com>,
- Marcelo Henrique Cerri <marcelo.cerri@canonical.com>,
- Waiman Long <longman@redhat.com>, "Serge E. Hallyn" <serge@hallyn.com>,
- "Steven Rostedt \(VMware\)" <rostedt@goodmis.org>,
- Gilad Ben-Yossef <gilad@benyossef.com>,
- Tushar Sugandhi <tusharsu@linux.microsoft.com>,
- linux-arm-kernel@lists.infradead.org, David Howells <dhowells@redhat.com>,
- Pascal van Leeuwen <pvanleeuwen@rambus.com>, linux-kernel@vger.kernel.org,
- Xufeng Zhang <yunbo.xufeng@linux.alibaba.com>,
- linux-security-module@vger.kernel.org, linux-crypto@vger.kernel.org,
- Maxime Coquelin <mcoquelin.stm32@gmail.com>,
- Johannes Weiner <hannes@cmpxchg.org>,
- Colin Ian King <colin.king@canonical.com>,
- Andrew Morton <akpm@linux-foundation.org>,
- "David S. Miller" <davem@davemloft.net>
-Subject: Re: [Linux-stm32] [PATCH v6 0/8] crpyto: introduce OSCCA
- certificate and SM2 asymmetric algorithm
+Cc: "David S . Miller" <davem@davemloft.net>, linux-kernel@vger.kernel.org,
+ linux-stm32@st-md-mailman.stormreply.com, linux-crypto@vger.kernel.org,
+ Maxime Coquelin <mcoquelin.stm32@gmail.com>, Ard Biesheuvel <ardb@kernel.org>,
+ linux-arm-kernel@lists.infradead.org
+Subject: Re: [Linux-stm32] [PATCH] crypto: stm32/crc32 - Avoid lock if
+ hardware is already used
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -66,15 +49,32 @@ Content-Transfer-Encoding: 7bit
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
-On Thu, Sep 03, 2020 at 09:12:34PM +0800, Tianjia Zhang wrote:
->
+On Fri, Sep 04, 2020 at 01:25:27PM +0200, Nicolas Toromanoff wrote:
+> If STM32 CRC device is already in use, calculate CRC by software.
+> 
+> This will release CPU constraint for a concurrent access to the
+> hardware, and avoid masking irqs during the whole block processing.
+> 
+> Fixes: 7795c0baf5ac ("crypto: stm32/crc32 - protect from concurrent accesses")
+> 
+> Signed-off-by: Nicolas Toromanoff <nicolas.toromanoff@st.com>
 > ---
-> v6 changes:
->   1. remove mpi_sub_ui function from mpi library.
->   2. rebase on mainline.
+>  drivers/crypto/stm32/Kconfig       |  2 ++
+>  drivers/crypto/stm32/stm32-crc32.c | 15 ++++++++++++---
+>  2 files changed, 14 insertions(+), 3 deletions(-)
+> 
+> diff --git a/drivers/crypto/stm32/Kconfig b/drivers/crypto/stm32/Kconfig
+> index 4ef3eb11361c..8d605b07571f 100644
+> --- a/drivers/crypto/stm32/Kconfig
+> +++ b/drivers/crypto/stm32/Kconfig
+> @@ -3,6 +3,8 @@ config CRYPTO_DEV_STM32_CRC
+>  	tristate "Support for STM32 crc accelerators"
+>  	depends on ARCH_STM32
+>  	select CRYPTO_HASH
+> +	select CRYPTO_CRC32
+> +	select CRYPTO_CRC32C
 
-This series is still missing acks for patches 6-8.  Without them
-it cannot proceed.
+Shouldn't this be "select CRC32"?
 
 Thanks,
 -- 
