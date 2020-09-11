@@ -2,65 +2,74 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id 90808265C5B
-	for <lists+linux-stm32@lfdr.de>; Fri, 11 Sep 2020 11:20:46 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id B95D926609E
+	for <lists+linux-stm32@lfdr.de>; Fri, 11 Sep 2020 15:50:18 +0200 (CEST)
 Received: from ip-172-31-3-76.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 50059C424B0;
-	Fri, 11 Sep 2020 09:20:46 +0000 (UTC)
-Received: from mx07-00178001.pphosted.com (mx07-00178001.pphosted.com
- [185.132.182.106])
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 62ABDC3FAE3;
+	Fri, 11 Sep 2020 13:50:18 +0000 (UTC)
+Received: from mx07-00178001.pphosted.com (mx08-00178001.pphosted.com
+ [91.207.212.93])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 8E2C3C3FAE3
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 69A2FC3FADF
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Fri, 11 Sep 2020 09:20:45 +0000 (UTC)
-Received: from pps.filterd (m0046037.ppops.net [127.0.0.1])
+ Fri, 11 Sep 2020 13:50:16 +0000 (UTC)
+Received: from pps.filterd (m0046661.ppops.net [127.0.0.1])
  by mx07-00178001.pphosted.com (8.16.0.42/8.16.0.42) with SMTP id
- 08B9GrU2022506; Fri, 11 Sep 2020 11:20:25 +0200
+ 08BDlfdN016391; Fri, 11 Sep 2020 15:50:04 +0200
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=st.com;
- h=from : to : cc : subject
- : date : message-id : in-reply-to : references : mime-version :
- content-type; s=STMicroelectronics;
- bh=LYXPKh4WPLNY6VFUgsCkq+PcsAJ4ZuAIQt/+qFDxEkQ=;
- b=ZiK1H7Chr3MBmG1DBjkRpC5aWpgoFhN3u5q/3rmJ3QbMvy8VrAbiwau58IPwA9xG9XmF
- Kl7rFDf3zMNg2drUo9geQIkfMCCLw/SAKoIXWFJvl/HCbOYZ7ZgK/C86pH/yF1UbUgId
- sA/jjOWxMSnJkbPPxRThDGdOCoSqko9KcxHrh8wsrhICi4ZdT/WV2B3T5kYyOnmrINDK
- 4JxQ6GEbf+VfDCy4G608vHUL8/TV03T0zunI4RhKgEcsRKtaLkOh5EO5KiMEMEbsRvDz
- w/W5LuKNzpOMVs0qStPJr1BKrC3Ubnt9a+OLD9Tk8GIFqmf9BSmf2Q8/3y+9yXRVCFmQ gQ== 
+ h=subject : to : cc :
+ references : from : message-id : date : mime-version : in-reply-to :
+ content-type : content-transfer-encoding; s=STMicroelectronics;
+ bh=LedGIkihyb95sarwl6GH6FHkhiz/ZEZc+nrtI6/KHRQ=;
+ b=DqTcfhEOyT+mjya84EPGVrM1imjDeblcaBYwSTzOxQYWNd7Sxj+G2zkIvTMr27NXSkLH
+ YwCMK1oAw8clCxnrvtktuamiNqy3/2L5FGqPVJAKmXMtlLIAZkgL7Xb9lwNXt/zlwjj+
+ g/tXBi70Q0H/h5xkp10E1dsHKe9RbmMr4/IdRhqw+t7MhfiT3cbMIjPqJ3ATFTEH45l8
+ 8U1HEraZ7IV/4NAm8H2Pph2HvEftW9I5xblkFqbHCkuDZMdoIXPZV1JeKWL11M0eHx5i
+ AKn8VypoIsE50fhMd/ZeHzv7iv0OpJ0zhr4c1hWKq8Rbjx414URLPZsvqup0j/irA8Lf zg== 
 Received: from beta.dmz-eu.st.com (beta.dmz-eu.st.com [164.129.1.35])
- by mx07-00178001.pphosted.com with ESMTP id 33c0ev88a8-1
+ by mx07-00178001.pphosted.com with ESMTP id 33c1jfhyq1-1
  (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
- Fri, 11 Sep 2020 11:20:25 +0200
+ Fri, 11 Sep 2020 15:50:04 +0200
 Received: from euls16034.sgp.st.com (euls16034.sgp.st.com [10.75.44.20])
- by beta.dmz-eu.st.com (STMicroelectronics) with ESMTP id 476FF10002A;
- Fri, 11 Sep 2020 11:20:25 +0200 (CEST)
-Received: from Webmail-eu.st.com (gpxdag6node5.st.com [10.75.127.81])
- by euls16034.sgp.st.com (STMicroelectronics) with ESMTP id 30F0021FEBE;
- Fri, 11 Sep 2020 11:20:25 +0200 (CEST)
-Received: from localhost (10.75.127.45) by GPXDAG6NODE5.st.com (10.75.127.81)
- with Microsoft SMTP Server (TLS) id 15.0.1473.3;
- Fri, 11 Sep 2020 11:20:24 +0200
-From: Olivier Moysan <olivier.moysan@st.com>
-To: <lgirdwood@gmail.com>, <broonie@kernel.org>, <perex@perex.cz>,
- <tiwai@suse.com>, <alexandre.torgue@st.com>, <robh@kernel.org>,
- <mark.rutland@arm.com>, <arnaud.pouliquen@st.com>
-Date: Fri, 11 Sep 2020 11:19:52 +0200
-Message-ID: <20200911091952.14696-3-olivier.moysan@st.com>
-X-Mailer: git-send-email 2.17.1
-In-Reply-To: <20200911091952.14696-1-olivier.moysan@st.com>
-References: <20200911091952.14696-1-olivier.moysan@st.com>
+ by beta.dmz-eu.st.com (STMicroelectronics) with ESMTP id AA153100038;
+ Fri, 11 Sep 2020 15:50:02 +0200 (CEST)
+Received: from Webmail-eu.st.com (gpxdag3node4.st.com [10.75.127.71])
+ by euls16034.sgp.st.com (STMicroelectronics) with ESMTP id 8D99F2AD9FD;
+ Fri, 11 Sep 2020 15:50:02 +0200 (CEST)
+Received: from lmecxl0889.tpe.st.com (10.75.127.44) by GPXDAG3NODE4.st.com
+ (10.75.127.71) with Microsoft SMTP Server (TLS) id 15.0.1473.3; Fri, 11 Sep
+ 2020 15:50:00 +0200
+To: Rob Herring <robh@kernel.org>
+References: <20200827072101.26588-1-arnaud.pouliquen@st.com>
+ <20200827072101.26588-3-arnaud.pouliquen@st.com>
+ <20200909202251.GA2975092@bogus>
+From: Arnaud POULIQUEN <arnaud.pouliquen@st.com>
+Message-ID: <c9d45617-6de9-7e49-0c82-151e67fff61d@st.com>
+Date: Fri, 11 Sep 2020 15:49:59 +0200
+User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:68.0) Gecko/20100101
+ Thunderbird/68.10.0
 MIME-Version: 1.0
-X-Originating-IP: [10.75.127.45]
-X-ClientProxiedBy: SFHDAG8NODE2.st.com (10.75.127.23) To GPXDAG6NODE5.st.com
- (10.75.127.81)
+In-Reply-To: <20200909202251.GA2975092@bogus>
+Content-Language: en-US
+X-Originating-IP: [10.75.127.44]
+X-ClientProxiedBy: SFHDAG4NODE2.st.com (10.75.127.11) To GPXDAG3NODE4.st.com
+ (10.75.127.71)
 X-Proofpoint-Virus-Version: vendor=fsecure engine=2.50.10434:6.0.235, 18.0.687
- definitions=2020-09-11_03:2020-09-10,
+ definitions=2020-09-11_05:2020-09-10,
  2020-09-11 signatures=0
-Cc: devicetree@vger.kernel.org, alsa-devel@alsa-project.org,
- linux-kernel@vger.kernel.org, linux-stm32@st-md-mailman.stormreply.com,
- linux-arm-kernel@lists.infradead.org
-Subject: [Linux-stm32] [PATCH 2/2] ASoC: stm32: i2s: add master clock
-	provider
+Cc: Ohad Ben-Cohen <ohad@wizery.com>,
+ "devicetree@vger.kernel.org" <devicetree@vger.kernel.org>,
+ Mathieu Poirier <mathieu.poirier@linaro.org>,
+ "linux-remoteproc@vger.kernel.org" <linux-remoteproc@vger.kernel.org>,
+ "linux-kernel@vger.kernel.org" <linux-kernel@vger.kernel.org>,
+ Fabien DESSENNE <fabien.dessenne@st.com>,
+ Bjorn Andersson <bjorn.andersson@linaro.org>,
+ "linux-stm32@st-md-mailman.stormreply.com"
+ <linux-stm32@st-md-mailman.stormreply.com>,
+ "linux-arm-kernel@lists.infradead.org" <linux-arm-kernel@lists.infradead.org>
+Subject: Re: [Linux-stm32] [PATCH 2/3] dt-bindings: remoteproc: stm32_rproc:
+ update for firmware synchronization
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -77,441 +86,79 @@ Content-Transfer-Encoding: 7bit
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
-Add master clock generation support in STM32 I2S driver.
-The master clock provided by I2S can be used to feed a codec.
+Hi Rob,
 
-Signed-off-by: Olivier Moysan <olivier.moysan@st.com>
----
- sound/soc/stm/stm32_i2s.c | 310 ++++++++++++++++++++++++++++++++------
- 1 file changed, 266 insertions(+), 44 deletions(-)
+On 9/9/20 10:22 PM, Rob Herring wrote:
+> On Thu, Aug 27, 2020 at 09:21:00AM +0200, Arnaud Pouliquen wrote:
+>> Add new properties description used to attach to a pre-loaded
+>> firmware according to the commit 9276536f455b3
+>> ("remoteproc: stm32: Parse syscon that will manage M4 synchronisation")
+>> which updates the driver part.
+>>
+>> Signed-off-by: Arnaud Pouliquen <arnaud.pouliquen@st.com>
+>> ---
+>>  .../bindings/remoteproc/st,stm32-rproc.yaml   | 19 +++++++++++++++++++
+>>  1 file changed, 19 insertions(+)
+>>
+>> diff --git a/Documentation/devicetree/bindings/remoteproc/st,stm32-rproc.yaml b/Documentation/devicetree/bindings/remoteproc/st,stm32-rproc.yaml
+>> index 4ffa25268fcc..e50957d86b1c 100644
+>> --- a/Documentation/devicetree/bindings/remoteproc/st,stm32-rproc.yaml
+>> +++ b/Documentation/devicetree/bindings/remoteproc/st,stm32-rproc.yaml
+>> @@ -96,6 +96,25 @@ properties:
+>>          3rd cell: register bitmask for the deep sleep bit
+>>      maxItems: 1
+>>  
+>> +  st,syscfg-m4-state:
+>> +    $ref: "/schemas/types.yaml#/definitions/phandle-array"
+>> +    description: |
+>> +      Reference to the tamp register which exposes the Cortex-M4 state.
+>> +        1st cell: phandle to syscon block
+>> +        2nd cell: register offset containing the Cortex-M4 state
+>> +        3rd cell: register bitmask for the Cortex-M4 state
+>> +    maxItems: 1
+>> +
+>> +  st,syscfg-rsc-tbl:
+>> +    $ref: "/schemas/types.yaml#/definitions/phandle-array"
+>> +    description: |
+>> +      Reference to the tamp register which references the Cortex-M4
+>> +      resource table address.
+>> +        1st cell: phandle to syscon block
+>> +        2nd cell: register offset containing the resource table address
+>> +        3rd cell: register bitmask for the resource table address
+>> +    maxItems: 1
+> 
+> Why can't these be implied? You can lookup the tamp syscon by 
+> compatible.
 
-diff --git a/sound/soc/stm/stm32_i2s.c b/sound/soc/stm/stm32_i2s.c
-index 7c4d63c33f15..7d1672cf78cc 100644
---- a/sound/soc/stm/stm32_i2s.c
-+++ b/sound/soc/stm/stm32_i2s.c
-@@ -8,6 +8,7 @@
- 
- #include <linux/bitfield.h>
- #include <linux/clk.h>
-+#include <linux/clk-provider.h>
- #include <linux/delay.h>
- #include <linux/module.h>
- #include <linux/of_irq.h>
-@@ -196,6 +197,9 @@ enum i2s_datlen {
- #define STM32_I2S_IS_MASTER(x)		((x)->ms_flg == I2S_MS_MASTER)
- #define STM32_I2S_IS_SLAVE(x)		((x)->ms_flg == I2S_MS_SLAVE)
- 
-+#define STM32_I2S_NAME_LEN		32
-+#define STM32_I2S_RATE_11K		11025
-+
- /**
-  * struct stm32_i2s_data - private data of I2S
-  * @regmap_conf: I2S register map configuration pointer
-@@ -206,6 +210,7 @@ enum i2s_datlen {
-  * @dma_data_rx: dma configuration data for tx channel
-  * @substream: PCM substream data pointer
-  * @i2sclk: kernel clock feeding the I2S clock generator
-+ * @i2smclk: master clock from I2S mclk provider
-  * @pclk: peripheral clock driving bus interface
-  * @x8kclk: I2S parent clock for sampling frequencies multiple of 8kHz
-  * @x11kclk: I2S parent clock for sampling frequencies multiple of 11kHz
-@@ -215,6 +220,9 @@ enum i2s_datlen {
-  * @irq_lock: prevent race condition with IRQ
-  * @mclk_rate: master clock frequency (Hz)
-  * @fmt: DAI protocol
-+ * @divider: prescaler division ratio
-+ * @div: prescaler div field
-+ * @odd: prescaler odd field
-  * @refcount: keep count of opened streams on I2S
-  * @ms_flg: master mode flag.
-  */
-@@ -227,6 +235,7 @@ struct stm32_i2s_data {
- 	struct snd_dmaengine_dai_dma_data dma_data_rx;
- 	struct snd_pcm_substream *substream;
- 	struct clk *i2sclk;
-+	struct clk *i2smclk;
- 	struct clk *pclk;
- 	struct clk *x8kclk;
- 	struct clk *x11kclk;
-@@ -236,10 +245,210 @@ struct stm32_i2s_data {
- 	spinlock_t irq_lock; /* used to prevent race condition with IRQ */
- 	unsigned int mclk_rate;
- 	unsigned int fmt;
-+	unsigned int divider;
-+	unsigned int div;
-+	bool odd;
- 	int refcount;
- 	int ms_flg;
- };
- 
-+struct stm32_i2smclk_data {
-+	struct clk_hw hw;
-+	unsigned long freq;
-+	struct stm32_i2s_data *i2s_data;
-+};
-+
-+#define to_mclk_data(_hw) container_of(_hw, struct stm32_i2smclk_data, hw)
-+
-+static int stm32_i2s_calc_clk_div(struct stm32_i2s_data *i2s,
-+				  unsigned long input_rate,
-+				  unsigned long output_rate)
-+{
-+	unsigned int ratio, div, divider = 1;
-+	bool odd;
-+
-+	ratio = DIV_ROUND_CLOSEST(input_rate, output_rate);
-+
-+	/* Check the parity of the divider */
-+	odd = ratio & 0x1;
-+
-+	/* Compute the div prescaler */
-+	div = ratio >> 1;
-+
-+	/* If div is 0 actual divider is 1 */
-+	if (div) {
-+		divider = ((2 * div) + odd);
-+		dev_dbg(&i2s->pdev->dev, "Divider: 2*%d(div)+%d(odd) = %d\n",
-+			div, odd, divider);
-+	}
-+
-+	/* Division by three is not allowed by I2S prescaler */
-+	if ((div == 1 && odd) || div > I2S_CGFR_I2SDIV_MAX) {
-+		dev_err(&i2s->pdev->dev, "Wrong divider setting\n");
-+		return -EINVAL;
-+	}
-+
-+	if (input_rate % divider)
-+		dev_dbg(&i2s->pdev->dev,
-+			"Rate not accurate. requested (%ld), actual (%ld)\n",
-+			output_rate, input_rate / divider);
-+
-+	i2s->div = div;
-+	i2s->odd = odd;
-+	i2s->divider = divider;
-+
-+	return 0;
-+}
-+
-+static int stm32_i2s_set_clk_div(struct stm32_i2s_data *i2s)
-+{
-+	u32 cgfr, cgfr_mask;
-+
-+	cgfr = I2S_CGFR_I2SDIV_SET(i2s->div) | (i2s->odd << I2S_CGFR_ODD_SHIFT);
-+	cgfr_mask = I2S_CGFR_I2SDIV_MASK | I2S_CGFR_ODD;
-+
-+	return regmap_update_bits(i2s->regmap, STM32_I2S_CGFR_REG,
-+				  cgfr_mask, cgfr);
-+}
-+
-+static int stm32_i2s_set_parent_clock(struct stm32_i2s_data *i2s,
-+				      unsigned int rate)
-+{
-+	struct platform_device *pdev = i2s->pdev;
-+	struct clk *parent_clk;
-+	int ret;
-+
-+	if (!(rate % STM32_I2S_RATE_11K))
-+		parent_clk = i2s->x11kclk;
-+	else
-+		parent_clk = i2s->x8kclk;
-+
-+	ret = clk_set_parent(i2s->i2sclk, parent_clk);
-+	if (ret)
-+		dev_err(&pdev->dev,
-+			"Error %d setting i2sclk parent clock\n", ret);
-+
-+	return ret;
-+}
-+
-+static long stm32_i2smclk_round_rate(struct clk_hw *hw, unsigned long rate,
-+				     unsigned long *prate)
-+{
-+	struct stm32_i2smclk_data *mclk = to_mclk_data(hw);
-+	struct stm32_i2s_data *i2s = mclk->i2s_data;
-+	int ret;
-+
-+	ret = stm32_i2s_calc_clk_div(i2s, *prate, rate);
-+	if (ret)
-+		return ret;
-+
-+	mclk->freq = *prate / i2s->divider;
-+
-+	return mclk->freq;
-+}
-+
-+static unsigned long stm32_i2smclk_recalc_rate(struct clk_hw *hw,
-+					       unsigned long parent_rate)
-+{
-+	struct stm32_i2smclk_data *mclk = to_mclk_data(hw);
-+
-+	return mclk->freq;
-+}
-+
-+static int stm32_i2smclk_set_rate(struct clk_hw *hw, unsigned long rate,
-+				  unsigned long parent_rate)
-+{
-+	struct stm32_i2smclk_data *mclk = to_mclk_data(hw);
-+	struct stm32_i2s_data *i2s = mclk->i2s_data;
-+	int ret;
-+
-+	ret = stm32_i2s_calc_clk_div(i2s, parent_rate, rate);
-+	if (ret)
-+		return ret;
-+
-+	ret = stm32_i2s_set_clk_div(i2s);
-+	if (ret)
-+		return ret;
-+
-+	mclk->freq = rate;
-+
-+	return 0;
-+}
-+
-+static int stm32_i2smclk_enable(struct clk_hw *hw)
-+{
-+	struct stm32_i2smclk_data *mclk = to_mclk_data(hw);
-+	struct stm32_i2s_data *i2s = mclk->i2s_data;
-+
-+	dev_dbg(&i2s->pdev->dev, "Enable master clock\n");
-+
-+	return regmap_update_bits(i2s->regmap, STM32_I2S_CGFR_REG,
-+				    I2S_CGFR_MCKOE, I2S_CGFR_MCKOE);
-+}
-+
-+static void stm32_i2smclk_disable(struct clk_hw *hw)
-+{
-+	struct stm32_i2smclk_data *mclk = to_mclk_data(hw);
-+	struct stm32_i2s_data *i2s = mclk->i2s_data;
-+
-+	dev_dbg(&i2s->pdev->dev, "Disable master clock\n");
-+
-+	regmap_update_bits(i2s->regmap, STM32_I2S_CGFR_REG, I2S_CGFR_MCKOE, 0);
-+}
-+
-+static const struct clk_ops mclk_ops = {
-+	.enable = stm32_i2smclk_enable,
-+	.disable = stm32_i2smclk_disable,
-+	.recalc_rate = stm32_i2smclk_recalc_rate,
-+	.round_rate = stm32_i2smclk_round_rate,
-+	.set_rate = stm32_i2smclk_set_rate,
-+};
-+
-+static int stm32_i2s_add_mclk_provider(struct stm32_i2s_data *i2s)
-+{
-+	struct clk_hw *hw;
-+	struct stm32_i2smclk_data *mclk;
-+	struct device *dev = &i2s->pdev->dev;
-+	const char *pname = __clk_get_name(i2s->i2sclk);
-+	char *mclk_name, *p, *s = (char *)pname;
-+	int ret, i = 0;
-+
-+	mclk = devm_kzalloc(dev, sizeof(*mclk), GFP_KERNEL);
-+	if (!mclk)
-+		return -ENOMEM;
-+
-+	mclk_name = devm_kcalloc(dev, sizeof(char),
-+				 STM32_I2S_NAME_LEN, GFP_KERNEL);
-+	if (!mclk_name)
-+		return -ENOMEM;
-+
-+	/*
-+	 * Forge mclk clock name from parent clock name and suffix.
-+	 * String after "_" char is stripped in parent name.
-+	 */
-+	p = mclk_name;
-+	while (*s && *s != '_' && (i < (STM32_I2S_NAME_LEN - 7))) {
-+		*p++ = *s++;
-+		i++;
-+	}
-+	strcat(p, "_mclk");
-+
-+	mclk->hw.init = CLK_HW_INIT(mclk_name, pname, &mclk_ops, 0);
-+	mclk->i2s_data = i2s;
-+	hw = &mclk->hw;
-+
-+	dev_dbg(dev, "Register master clock %s\n", mclk_name);
-+	ret = devm_clk_hw_register(&i2s->pdev->dev, hw);
-+	if (ret) {
-+		dev_err(dev, "mclk register fails with error %d\n", ret);
-+		return ret;
-+	}
-+	i2s->i2smclk = hw->clk;
-+
-+	/* register mclk provider */
-+	return devm_of_clk_add_hw_provider(dev, of_clk_hw_simple_get, hw);
-+}
-+
- static irqreturn_t stm32_i2s_isr(int irq, void *devid)
- {
- 	struct stm32_i2s_data *i2s = (struct stm32_i2s_data *)devid;
-@@ -405,18 +614,46 @@ static int stm32_i2s_set_sysclk(struct snd_soc_dai *cpu_dai,
- 				int clk_id, unsigned int freq, int dir)
- {
- 	struct stm32_i2s_data *i2s = snd_soc_dai_get_drvdata(cpu_dai);
-+	int ret = 0;
- 
--	dev_dbg(cpu_dai->dev, "I2S MCLK frequency is %uHz\n", freq);
-+	dev_dbg(cpu_dai->dev, "I2S MCLK frequency is %uHz. mode: %s, dir: %s\n",
-+		freq, STM32_I2S_IS_MASTER(i2s) ? "master" : "slave",
-+		dir ? "output" : "input");
- 
--	if ((dir == SND_SOC_CLOCK_OUT) && STM32_I2S_IS_MASTER(i2s)) {
--		i2s->mclk_rate = freq;
-+	/* MCLK generation is available only in master mode */
-+	if (dir == SND_SOC_CLOCK_OUT && STM32_I2S_IS_MASTER(i2s)) {
-+		if (!i2s->i2smclk) {
-+			dev_dbg(cpu_dai->dev, "No MCLK registered\n");
-+			return 0;
-+		}
- 
--		/* Enable master clock if master mode and mclk-fs are set */
--		return regmap_update_bits(i2s->regmap, STM32_I2S_CGFR_REG,
--					  I2S_CGFR_MCKOE, I2S_CGFR_MCKOE);
-+		/* Assume shutdown if requested frequency is 0Hz */
-+		if (!freq) {
-+			/* Release mclk rate only if rate was actually set */
-+			if (i2s->mclk_rate) {
-+				clk_rate_exclusive_put(i2s->i2smclk);
-+				i2s->mclk_rate = 0;
-+			}
-+			return regmap_update_bits(i2s->regmap,
-+						  STM32_I2S_CGFR_REG,
-+						  I2S_CGFR_MCKOE, 0);
-+		}
-+		/* If master clock is used, set parent clock now */
-+		ret = stm32_i2s_set_parent_clock(i2s, freq);
-+		if (ret)
-+			return ret;
-+		ret = clk_set_rate_exclusive(i2s->i2smclk, freq);
-+		if (ret) {
-+			dev_err(cpu_dai->dev, "Could not set mclk rate\n");
-+			return ret;
-+		}
-+		ret = regmap_update_bits(i2s->regmap, STM32_I2S_CGFR_REG,
-+					 I2S_CGFR_MCKOE, I2S_CGFR_MCKOE);
-+		if (!ret)
-+			i2s->mclk_rate = freq;
- 	}
- 
--	return 0;
-+	return ret;
- }
- 
- static int stm32_i2s_configure_clock(struct snd_soc_dai *cpu_dai,
-@@ -424,11 +661,10 @@ static int stm32_i2s_configure_clock(struct snd_soc_dai *cpu_dai,
- {
- 	struct stm32_i2s_data *i2s = snd_soc_dai_get_drvdata(cpu_dai);
- 	unsigned long i2s_clock_rate;
--	unsigned int tmp, div, real_div, nb_bits, frame_len;
-+	unsigned int nb_bits, frame_len;
- 	unsigned int rate = params_rate(params);
-+	u32 cgfr;
- 	int ret;
--	u32 cgfr, cgfr_mask;
--	bool odd;
- 
- 	if (!(rate % 11025))
- 		clk_set_parent(i2s->i2sclk, i2s->x11kclk);
-@@ -449,7 +685,10 @@ static int stm32_i2s_configure_clock(struct snd_soc_dai *cpu_dai,
- 	 *   dsp mode : div = i2s_clk / (nb_bits x ws)
- 	 */
- 	if (i2s->mclk_rate) {
--		tmp = DIV_ROUND_CLOSEST(i2s_clock_rate, i2s->mclk_rate);
-+		ret = stm32_i2s_calc_clk_div(i2s, i2s_clock_rate,
-+					     i2s->mclk_rate);
-+		if (ret)
-+			return ret;
- 	} else {
- 		frame_len = 32;
- 		if ((i2s->fmt & SND_SOC_DAIFMT_FORMAT_MASK) ==
-@@ -462,34 +701,13 @@ static int stm32_i2s_configure_clock(struct snd_soc_dai *cpu_dai,
- 			return ret;
- 
- 		nb_bits = frame_len * ((cgfr & I2S_CGFR_CHLEN) + 1);
--		tmp = DIV_ROUND_CLOSEST(i2s_clock_rate, (nb_bits * rate));
--	}
--
--	/* Check the parity of the divider */
--	odd = tmp & 0x1;
--
--	/* Compute the div prescaler */
--	div = tmp >> 1;
--
--	cgfr = I2S_CGFR_I2SDIV_SET(div) | (odd << I2S_CGFR_ODD_SHIFT);
--	cgfr_mask = I2S_CGFR_I2SDIV_MASK | I2S_CGFR_ODD;
--
--	real_div = ((2 * div) + odd);
--	dev_dbg(cpu_dai->dev, "I2S clk: %ld, SCLK: %d\n",
--		i2s_clock_rate, rate);
--	dev_dbg(cpu_dai->dev, "Divider: 2*%d(div)+%d(odd) = %d\n",
--		div, odd, real_div);
--
--	if (((div == 1) && odd) || (div > I2S_CGFR_I2SDIV_MAX)) {
--		dev_err(cpu_dai->dev, "Wrong divider setting\n");
--		return -EINVAL;
-+		ret = stm32_i2s_calc_clk_div(i2s, i2s_clock_rate,
-+					     (nb_bits * rate));
-+		if (ret)
-+			return ret;
- 	}
- 
--	if (!div && !odd)
--		dev_warn(cpu_dai->dev, "real divider forced to 1\n");
--
--	ret = regmap_update_bits(i2s->regmap, STM32_I2S_CGFR_REG,
--				 cgfr_mask, cgfr);
-+	ret = stm32_i2s_set_clk_div(i2s);
- 	if (ret < 0)
- 		return ret;
- 
-@@ -694,9 +912,6 @@ static void stm32_i2s_shutdown(struct snd_pcm_substream *substream,
- 	struct stm32_i2s_data *i2s = snd_soc_dai_get_drvdata(cpu_dai);
- 	unsigned long flags;
- 
--	regmap_update_bits(i2s->regmap, STM32_I2S_CGFR_REG,
--			   I2S_CGFR_MCKOE, (unsigned int)~I2S_CGFR_MCKOE);
--
- 	clk_disable_unprepare(i2s->i2sclk);
- 
- 	spin_lock_irqsave(&i2s->irq_lock, flags);
-@@ -861,6 +1076,13 @@ static int stm32_i2s_parse_dt(struct platform_device *pdev,
- 		return PTR_ERR(i2s->x11kclk);
- 	}
- 
-+	/* Register mclk provider if requested */
-+	if (of_find_property(np, "#clock-cells", NULL)) {
-+		ret = stm32_i2s_add_mclk_provider(i2s);
-+		if (ret < 0)
-+			return ret;
-+	}
-+
- 	/* Get irqs */
- 	irq = platform_get_irq(pdev, 0);
- 	if (irq < 0)
-@@ -906,16 +1128,16 @@ static int stm32_i2s_probe(struct platform_device *pdev)
- 	if (!i2s)
- 		return -ENOMEM;
- 
--	ret = stm32_i2s_parse_dt(pdev, i2s);
--	if (ret)
--		return ret;
--
- 	i2s->pdev = pdev;
- 	i2s->ms_flg = I2S_MS_NOT_SET;
- 	spin_lock_init(&i2s->lock_fd);
- 	spin_lock_init(&i2s->irq_lock);
- 	platform_set_drvdata(pdev, i2s);
- 
-+	ret = stm32_i2s_parse_dt(pdev, i2s);
-+	if (ret)
-+		return ret;
-+
- 	ret = stm32_i2s_dais_init(pdev, i2s);
- 	if (ret)
- 		return ret;
--- 
-2.17.1
+I just made a copy/past of the  "st,syscfg-pdds" syscon description available in the same file [1]
+  
+I can provide a shorter descriptions, something like this:
 
+   description: |
+     Reference to the tamp syscon register and bitmask which contains the Cortex-M4
+      resource table address.
+   maxItems: 1
+
+Would this meet your expectations? If yes, I will also add in next version an extra patch to fix [1]
+
+[1] https://elixir.bootlin.com/linux/v5.9-rc3/source/Documentation/devicetree/bindings/remoteproc/st,stm32-rproc.yaml#L90
+
+> 
+> Please add these to the example.
+
+I will extend the example with these properties
+
+Thanks,
+Arnaud
+
+> 
+>> +
+>>    st,auto-boot:
+>>      $ref: /schemas/types.yaml#/definitions/flag
+>>      description:
+>> -- 
+>> 2.17.1
+>>
 _______________________________________________
 Linux-stm32 mailing list
 Linux-stm32@st-md-mailman.stormreply.com
