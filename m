@@ -2,54 +2,46 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id B3C072678FA
-	for <lists+linux-stm32@lfdr.de>; Sat, 12 Sep 2020 10:50:18 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id B92FC267EFE
+	for <lists+linux-stm32@lfdr.de>; Sun, 13 Sep 2020 11:45:14 +0200 (CEST)
 Received: from ip-172-31-3-76.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id E8366C3FAFE;
-	Sat, 12 Sep 2020 08:50:17 +0000 (UTC)
-Received: from vmicros1.altlinux.org (vmicros1.altlinux.org [194.107.17.57])
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id BB242C3FAE2
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 6459BC3FADE;
+	Sun, 13 Sep 2020 09:45:14 +0000 (UTC)
+Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
+ (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
+ (No client certificate requested)
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 56AD6C3FAD5
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Sat, 12 Sep 2020 08:50:14 +0000 (UTC)
-Received: from imap.altlinux.org (imap.altlinux.org [194.107.17.38])
- by vmicros1.altlinux.org (Postfix) with ESMTP id 6D69372CA54;
- Sat, 12 Sep 2020 11:50:13 +0300 (MSK)
-Received: from altlinux.org (sole.flsd.net [185.75.180.6])
- by imap.altlinux.org (Postfix) with ESMTPSA id 2144F4A4A16;
- Sat, 12 Sep 2020 11:50:13 +0300 (MSK)
-Date: Sat, 12 Sep 2020 11:50:13 +0300
-From: Vitaly Chikunov <vt@altlinux.org>
-To: Tianjia Zhang <tianjia.zhang@linux.alibaba.com>
-Message-ID: <20200912085013.ugm2azs5xr7iirda@altlinux.org>
-References: <20200903131242.128665-1-tianjia.zhang@linux.alibaba.com>
- <20200903131242.128665-7-tianjia.zhang@linux.alibaba.com>
+ Sun, 13 Sep 2020 09:45:12 +0000 (UTC)
+Received: from archlinux (cpc149474-cmbg20-2-0-cust94.5-4.cable.virginm.net
+ [82.4.196.95])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+ (No client certificate requested)
+ by mail.kernel.org (Postfix) with ESMTPSA id 74CB920796;
+ Sun, 13 Sep 2020 09:45:08 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
+ s=default; t=1599990310;
+ bh=k+BofSh+QwxaRrl2wyYgP2XKH965o2mEBGH18y12SN0=;
+ h=Date:From:To:Cc:Subject:In-Reply-To:References:From;
+ b=R7Xyly+0py1yFDNy5z9Dh+KtcMDagJ/XnH2dOjPUi2EzQ0MB94hTe5lZUuD3ds1oI
+ 1YfSWb9X8ggHn4eTYxY8BH4KdcYnh1tDHeTk4575oCcSDtJkGbgmvaEZ2blBYqGQ+T
+ T9IYUxCO7TThqJrsPv46K0SvY81J31CwVPYOk62o=
+Date: Sun, 13 Sep 2020 10:45:05 +0100
+From: Jonathan Cameron <jic23@kernel.org>
+To: Krzysztof Kozlowski <krzk@kernel.org>
+Message-ID: <20200913104505.1e4b661c@archlinux>
+In-Reply-To: <1599727927-7776-1-git-send-email-krzk@kernel.org>
+References: <1599727927-7776-1-git-send-email-krzk@kernel.org>
+X-Mailer: Claws Mail 3.17.6 (GTK+ 2.24.32; x86_64-pc-linux-gnu)
 MIME-Version: 1.0
-Content-Disposition: inline
-In-Reply-To: <20200903131242.128665-7-tianjia.zhang@linux.alibaba.com>
-Cc: Stephan Mueller <smueller@chronox.de>,
- Brendan Higgins <brendanhiggins@google.com>,
- Jia Zhang <zhang.jia@linux.alibaba.com>, Mimi Zohar <zohar@linux.ibm.com>,
- David Howells <dhowells@redhat.com>, keyrings@vger.kernel.org,
- linux-stm32@st-md-mailman.stormreply.com,
- Herbert Xu <herbert@gondor.apana.org.au>,
- Masahiro Yamada <masahiroy@kernel.org>, James Morris <jmorris@namei.org>,
- Lakshmi Ramasubramanian <nramas@linux.microsoft.com>,
- Marcelo Henrique Cerri <marcelo.cerri@canonical.com>,
- Waiman Long <longman@redhat.com>, "Serge E. Hallyn" <serge@hallyn.com>,
- "Steven Rostedt \(VMware\)" <rostedt@goodmis.org>,
- Gilad Ben-Yossef <gilad@benyossef.com>,
- Tushar Sugandhi <tusharsu@linux.microsoft.com>,
- linux-arm-kernel@lists.infradead.org,
- Pascal van Leeuwen <pvanleeuwen@rambus.com>, linux-kernel@vger.kernel.org,
- Xufeng Zhang <yunbo.xufeng@linux.alibaba.com>,
- linux-security-module@vger.kernel.org, linux-crypto@vger.kernel.org,
- Maxime Coquelin <mcoquelin.stm32@gmail.com>,
- Johannes Weiner <hannes@cmpxchg.org>,
- Colin Ian King <colin.king@canonical.com>,
- Andrew Morton <akpm@linux-foundation.org>,
- "David S. Miller" <davem@davemloft.net>
-Subject: Re: [Linux-stm32] [PATCH v6 6/8] X.509: support OSCCA certificate
-	parse
+Cc: Stephen Rothwell <sfr@canb.auug.org.au>,
+ Lars-Peter Clausen <lars@metafoo.de>, linux-iio@vger.kernel.org,
+ Greg KH <greg@kroah.com>, Peter Meerwald-Stadler <pmeerw@pmeerw.net>,
+ linux-kernel@vger.kernel.org, Andy Shevchenko <andy.shevchenko@gmail.com>,
+ Maxime Coquelin <mcoquelin.stm32@gmail.com>, Hartmut Knaack <knaack.h@gmx.de>,
+ linux-stm32@st-md-mailman.stormreply.com, linux-arm-kernel@lists.infradead.org
+Subject: Re: [Linux-stm32] [PATCH] iio: adc: stm32: Fix missing return in
+ booster error path
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -66,95 +58,49 @@ Content-Transfer-Encoding: 7bit
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
-On Thu, Sep 03, 2020 at 09:12:40PM +0800, Tianjia Zhang wrote:
-> The digital certificate format based on SM2 crypto algorithm as
-> specified in GM/T 0015-2012. It was published by State Encryption
-> Management Bureau, China.
-> 
-> This patch adds the OID object identifier defined by OSCCA. The
-> x509 certificate supports sm2-with-sm3 type certificate parsing.
-> It uses the standard elliptic curve public key, and the sm2
-> algorithm signs the hash generated by sm3.
-> 
-> Signed-off-by: Tianjia Zhang <tianjia.zhang@linux.alibaba.com>
-> Tested-by: Xufeng Zhang <yunbo.xufeng@linux.alibaba.com>
-> ---
->  crypto/asymmetric_keys/x509_cert_parser.c | 14 +++++++++++++-
->  include/linux/oid_registry.h              |  6 ++++++
->  2 files changed, 19 insertions(+), 1 deletion(-)
-> 
-> diff --git a/crypto/asymmetric_keys/x509_cert_parser.c b/crypto/asymmetric_keys/x509_cert_parser.c
-> index 26ec20ef4899..6a8aee22bfd4 100644
-> --- a/crypto/asymmetric_keys/x509_cert_parser.c
-> +++ b/crypto/asymmetric_keys/x509_cert_parser.c
-> @@ -234,6 +234,10 @@ int x509_note_pkey_algo(void *context, size_t hdrlen,
->  	case OID_gost2012Signature512:
->  		ctx->cert->sig->hash_algo = "streebog512";
->  		goto ecrdsa;
-> +
-> +	case OID_sm2_with_sm3:
-> +		ctx->cert->sig->hash_algo = "sm3";
-> +		goto sm2;
->  	}
->  
->  rsa_pkcs1:
-> @@ -246,6 +250,11 @@ int x509_note_pkey_algo(void *context, size_t hdrlen,
->  	ctx->cert->sig->encoding = "raw";
->  	ctx->algo_oid = ctx->last_oid;
->  	return 0;
-> +sm2:
-> +	ctx->cert->sig->pkey_algo = "sm2";
-> +	ctx->cert->sig->encoding = "raw";
-> +	ctx->algo_oid = ctx->last_oid;
-> +	return 0;
->  }
->  
->  /*
-> @@ -266,7 +275,8 @@ int x509_note_signature(void *context, size_t hdrlen,
->  	}
->  
->  	if (strcmp(ctx->cert->sig->pkey_algo, "rsa") == 0 ||
-> -	    strcmp(ctx->cert->sig->pkey_algo, "ecrdsa") == 0) {
-> +	    strcmp(ctx->cert->sig->pkey_algo, "ecrdsa") == 0 ||
-> +	    strcmp(ctx->cert->sig->pkey_algo, "sm2") == 0) {
->  		/* Discard the BIT STRING metadata */
->  		if (vlen < 1 || *(const u8 *)value != 0)
->  			return -EBADMSG;
-> @@ -456,6 +466,8 @@ int x509_extract_key_data(void *context, size_t hdrlen,
->  	else if (ctx->last_oid == OID_gost2012PKey256 ||
->  		 ctx->last_oid == OID_gost2012PKey512)
->  		ctx->cert->pub->pkey_algo = "ecrdsa";
-> +	else if (ctx->last_oid == OID_id_ecPublicKey)
-> +		ctx->cert->pub->pkey_algo = "sm2";
->  	else
->  		return -ENOPKG;
->  
-> diff --git a/include/linux/oid_registry.h b/include/linux/oid_registry.h
-> index 657d6bf2c064..48fe3133ff39 100644
-> --- a/include/linux/oid_registry.h
-> +++ b/include/linux/oid_registry.h
-> @@ -107,6 +107,12 @@ enum OID {
->  	OID_gostTC26Sign512B,		/* 1.2.643.7.1.2.1.2.2 */
->  	OID_gostTC26Sign512C,		/* 1.2.643.7.1.2.1.2.3 */
->  
-> +	/* OSCCA */
-> +	OID_sm2,			/* 1.2.156.10197.1.301 */
-> +	OID_sm3,			/* 1.2.156.10197.1.401 */
-> +	OID_sm2_with_sm3,		/* 1.2.156.10197.1.501 */
-> +	OID_sm3WithRSAEncryption,	/* 1.2.156.10197.1.504 */
+On Thu, 10 Sep 2020 10:52:07 +0200
+Krzysztof Kozlowski <krzk@kernel.org> wrote:
 
-OID_sm3WithRSAEncryption identifier is unused and this mode looks not
-implemented. But, this is probably ok for possible future extension.
-
-Reviewed-by: Vitaly Chikunov <vt@altlinux.org>
+> Conversion of error paths to dev_err_probe() dropped one return
+> statement.  The driver will continue to probe if getting booster
+> regulator fails.
+> 
+> Reported-by: Stephen Rothwell <sfr@canb.auug.org.au>
+> Fixes: ce30eeb613cb ("iio: adc: stm32: Simplify with dev_err_probe()")
+> Signed-off-by: Krzysztof Kozlowski <krzk@kernel.org>
+Applied to the togreg branch of iio.git and pushed out as testing for
+the autobuilders to poke at it.
 
 Thanks,
 
+Jonathan
 
-> +
->  	OID__NR
->  };
+> 
+> ---
+> 
+> Commit sha from linux-next.
+
+This is applying to an (in theory) non rebasing tree, so hopefully
+that will remain stable!
+
+> ---
+>  drivers/iio/adc/stm32-adc-core.c | 2 +-
+>  1 file changed, 1 insertion(+), 1 deletion(-)
+> 
+> diff --git a/drivers/iio/adc/stm32-adc-core.c b/drivers/iio/adc/stm32-adc-core.c
+> index 3f27b4817a42..6a0338d33bd8 100644
+> --- a/drivers/iio/adc/stm32-adc-core.c
+> +++ b/drivers/iio/adc/stm32-adc-core.c
+> @@ -595,7 +595,7 @@ static int stm32_adc_core_switches_probe(struct device *dev,
+>  		if (IS_ERR(priv->booster)) {
+>  			ret = PTR_ERR(priv->booster);
+>  			if (ret != -ENODEV)
+> -				dev_err_probe(dev, ret, "can't get booster\n");
+> +				return dev_err_probe(dev, ret, "can't get booster\n");
 >  
+>  			priv->booster = NULL;
+>  		}
+
 _______________________________________________
 Linux-stm32 mailing list
 Linux-stm32@st-md-mailman.stormreply.com
