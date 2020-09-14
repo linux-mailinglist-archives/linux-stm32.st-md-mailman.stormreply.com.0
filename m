@@ -2,54 +2,71 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id E9A63269B0D
-	for <lists+linux-stm32@lfdr.de>; Tue, 15 Sep 2020 03:27:10 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 2DE6726A0DA
+	for <lists+linux-stm32@lfdr.de>; Tue, 15 Sep 2020 10:29:03 +0200 (CEST)
 Received: from ip-172-31-3-76.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id B1B4CC3FADF;
-	Tue, 15 Sep 2020 01:27:10 +0000 (UTC)
-Received: from mga11.intel.com (mga11.intel.com [192.55.52.93])
- (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 1E876C3FADF;
+	Tue, 15 Sep 2020 08:29:02 +0000 (UTC)
+Received: from mail29.static.mailgun.info (mail29.static.mailgun.info
+ [104.130.122.29])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id ACE19C3FAD6
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id B0FE8C32EB6
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Tue, 15 Sep 2020 01:27:08 +0000 (UTC)
-IronPort-SDR: ARW9jhgzWTLfwWMKSfWr3kr2w5rmNu9EXPGKe/DJ75XGT2/2XGpmGOwWF6NuxOVxMShKMfk1C5
- lOK1NyFj+wIQ==
-X-IronPort-AV: E=McAfee;i="6000,8403,9744"; a="156615196"
-X-IronPort-AV: E=Sophos;i="5.76,427,1592895600"; d="scan'208";a="156615196"
-X-Amp-Result: SKIPPED(no attachment in message)
-X-Amp-File-Uploaded: False
-Received: from orsmga007.jf.intel.com ([10.7.209.58])
- by fmsmga102.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 14 Sep 2020 18:27:08 -0700
-IronPort-SDR: mgTiuD7rLquZK9zscK1x9pv/hAiqpxiU7iRi+Dcy947P90tPzilD9OA2hAhho+a98+jDdbSviH
- u54BFJxB1sJQ==
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="5.76,427,1592895600"; d="scan'208";a="345632645"
-Received: from glass.png.intel.com ([172.30.181.92])
- by orsmga007.jf.intel.com with ESMTP; 14 Sep 2020 18:27:03 -0700
-From: Wong Vee Khee <vee.khee.wong@intel.com>
-To: Giuseppe Cavallaro <peppe.cavallaro@st.com>,
- Alexandre Torgue <alexandre.torgue@st.com>,
- Jose Abreu <joabreu@synopsys.com>,
- "David S . Miller" <davem@davemloft.net>,
+ Mon, 14 Sep 2020 23:27:56 +0000 (UTC)
+DKIM-Signature: a=rsa-sha256; v=1; c=relaxed/relaxed; d=mg.codeaurora.org;
+ q=dns/txt; 
+ s=smtp; t=1600126080; h=In-Reply-To: Content-Type: MIME-Version:
+ References: Message-ID: Subject: Cc: To: From: Date: Sender;
+ bh=JcwD/uxtsoKa4SSZpuOrTon7fbX8C8oGUwA3IhAUSfg=;
+ b=JP7pYdE/SD3DbdEOo82z+DSr5oY6YH/UhfZG9cNcOdlXatO05Ecg3PbjClZFFFIifFOoS5Tq
+ 2CG7/ntSCo+lZP6JQkE9R5ORp5U/5VVwEnoZpkO4Krt0vLWybik0Irj+ICMXG/+7TQw8WqRF
+ nYCazqMdiwMS5cZ5XEe4ZjVEhc8=
+X-Mailgun-Sending-Ip: 104.130.122.29
+X-Mailgun-Sid: WyI1Njk0YyIsICJsaW51eC1zdG0zMkBzdC1tZC1tYWlsbWFuLnN0b3JtcmVwbHkuY29tIiwgImJlOWU0YSJd
+Received: from smtp.codeaurora.org
+ (ec2-35-166-182-171.us-west-2.compute.amazonaws.com [35.166.182.171]) by
+ smtp-out-n06.prod.us-west-2.postgun.com with SMTP id
+ 5f5ffc69be06707b34f24044 (version=TLS1.2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256); Mon, 14 Sep 2020 23:27:37
+ GMT
+Received: by smtp.codeaurora.org (Postfix, from userid 1001)
+ id 269EAC43391; Mon, 14 Sep 2020 23:27:37 +0000 (UTC)
+X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
+ aws-us-west-2-caf-mail-1.web.codeaurora.org
+X-Spam-Level: 
+X-Spam-Status: No, score=-2.9 required=2.0 tests=ALL_TRUSTED, BAYES_00,
+ SPF_FAIL autolearn=no autolearn_force=no version=3.4.0
+Received: from codeaurora.org (unknown [180.166.53.21])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+ (No client certificate requested) (Authenticated sender: tingwei)
+ by smtp.codeaurora.org (Postfix) with ESMTPSA id 688E7C433CA;
+ Mon, 14 Sep 2020 23:27:33 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.3.2 smtp.codeaurora.org 688E7C433CA
+Authentication-Results: aws-us-west-2-caf-mail-1.web.codeaurora.org;
+ dmarc=none (p=none dis=none) header.from=codeaurora.org
+Authentication-Results: aws-us-west-2-caf-mail-1.web.codeaurora.org;
+ spf=fail smtp.mailfrom=tingweiz@codeaurora.org
+Date: Tue, 15 Sep 2020 07:27:29 +0800
+From: Tingwei Zhang <tingweiz@codeaurora.org>
+To: Tingwei Zhang <tingwei@codeaurora.org>
+Message-ID: <20200914232729.GB20431@codeaurora.org>
+References: <20200903001706.28147-1-tingwei@codeaurora.org>
+MIME-Version: 1.0
+Content-Disposition: inline
+In-Reply-To: <20200903001706.28147-1-tingwei@codeaurora.org>
+User-Agent: Mutt/1.5.24 (2015-08-30)
+X-Mailman-Approved-At: Tue, 15 Sep 2020 08:29:00 +0000
+Cc: tsoni@codeaurora.org, Sai Prakash Ranjan <saiprakash.ranjan@codeaurora.org>,
+ Mathieu Poirier <mathieu.poirier@linaro.org>,
+ Suzuki K Poulose <suzuki.poulose@arm.com>,
+ Alexander Shishkin <alexander.shishkin@linux.intel.com>,
+ Mao Jinlong <jinlmao@codeaurora.org>, linux-kernel@vger.kernel.org,
+ Steven Rostedt <rostedt@goodmis.org>, Ingo Molnar <mingo@redhat.com>,
  Maxime Coquelin <mcoquelin.stm32@gmail.com>,
- Jakub Kicinski <kuba@kernel.org>
-Date: Tue, 15 Sep 2020 09:28:40 +0800
-Message-Id: <20200915012840.31841-4-vee.khee.wong@intel.com>
-X-Mailer: git-send-email 2.17.0
-In-Reply-To: <20200915012840.31841-1-vee.khee.wong@intel.com>
-References: <20200915012840.31841-1-vee.khee.wong@intel.com>
-Cc: Joao Pinto <Joao.Pinto@synopsys.com>,
- Voon Wei Feng <weifeng.voon@intel.com>, Arnd Bergmann <arnd@arndb.de>,
- Wong Vee Khee <vee.khee.wong@intel.com>, netdev@vger.kernel.org,
- Rusell King <linux@armlinux.org.uk>, linux-kernel@vger.kernel.org,
- Seow Chen Yong <chen.yong.seow@intel.com>,
- Vijaya Balan Sadhishkhanna <sadhishkhanna.vijaya.balan@intel.com>,
- Ong Boon Leong <boon.leong.ong@intel.com>,
  linux-stm32@st-md-mailman.stormreply.com, linux-arm-kernel@lists.infradead.org
-Subject: [Linux-stm32] [PATCH net-next 3/3] net: stmmac: use
-	netif_tx_start|stop_all_queues() function
+Subject: Re: [Linux-stm32] [PATCH v3 0/6] tracing: export event trace and
+	trace_marker
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -61,104 +78,55 @@ List-Post: <mailto:linux-stm32@st-md-mailman.stormreply.com>
 List-Help: <mailto:linux-stm32-request@st-md-mailman.stormreply.com?subject=help>
 List-Subscribe: <https://st-md-mailman.stormreply.com/mailman/listinfo/linux-stm32>, 
  <mailto:linux-stm32-request@st-md-mailman.stormreply.com?subject=subscribe>
-MIME-Version: 1.0
 Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
-From: Ong Boon Leong <boon.leong.ong@intel.com>
+Hi Alexander, Maxime, Aleandre,
 
-The current implementation of stmmac_stop_all_queues() and
-stmmac_start_all_queues() will not work correctly when the value of
-tx_queues_to_use is changed through ethtool -L DEVNAME rx N tx M command.
+May I know your comments for this patch set?
 
-Also, netif_tx_start|stop_all_queues() are only needed in driver open()
-and close() only.
+Thanks,
+Tingwei
 
-Fixes: c22a3f48 net: stmmac: adding multiple napi mechanism
-
-Signed-off-by: Ong Boon Leong <boon.leong.ong@intel.com>
-Signed-off-by: Voon Weifeng <weifeng.voon@intel.com>
----
- .../net/ethernet/stmicro/stmmac/stmmac_main.c | 33 +------------------
- 1 file changed, 1 insertion(+), 32 deletions(-)
-
-diff --git a/drivers/net/ethernet/stmicro/stmmac/stmmac_main.c b/drivers/net/ethernet/stmicro/stmmac/stmmac_main.c
-index fea3b77892ab..90c1c37b64e0 100644
---- a/drivers/net/ethernet/stmicro/stmmac/stmmac_main.c
-+++ b/drivers/net/ethernet/stmicro/stmmac/stmmac_main.c
-@@ -176,32 +176,6 @@ static void stmmac_enable_all_queues(struct stmmac_priv *priv)
- 	}
- }
- 
--/**
-- * stmmac_stop_all_queues - Stop all queues
-- * @priv: driver private structure
-- */
--static void stmmac_stop_all_queues(struct stmmac_priv *priv)
--{
--	u32 tx_queues_cnt = priv->plat->tx_queues_to_use;
--	u32 queue;
--
--	for (queue = 0; queue < tx_queues_cnt; queue++)
--		netif_tx_stop_queue(netdev_get_tx_queue(priv->dev, queue));
--}
--
--/**
-- * stmmac_start_all_queues - Start all queues
-- * @priv: driver private structure
-- */
--static void stmmac_start_all_queues(struct stmmac_priv *priv)
--{
--	u32 tx_queues_cnt = priv->plat->tx_queues_to_use;
--	u32 queue;
--
--	for (queue = 0; queue < tx_queues_cnt; queue++)
--		netif_tx_start_queue(netdev_get_tx_queue(priv->dev, queue));
--}
--
- static void stmmac_service_event_schedule(struct stmmac_priv *priv)
- {
- 	if (!test_bit(STMMAC_DOWN, &priv->state) &&
-@@ -2865,7 +2839,7 @@ static int stmmac_open(struct net_device *dev)
- 	}
- 
- 	stmmac_enable_all_queues(priv);
--	stmmac_start_all_queues(priv);
-+	netif_tx_start_all_queues(priv->dev);
- 
- 	return 0;
- 
-@@ -2908,8 +2882,6 @@ static int stmmac_release(struct net_device *dev)
- 	phylink_stop(priv->phylink);
- 	phylink_disconnect_phy(priv->phylink);
- 
--	stmmac_stop_all_queues(priv);
--
- 	stmmac_disable_all_queues(priv);
- 
- 	for (chan = 0; chan < priv->plat->tx_queues_to_use; chan++)
-@@ -5117,7 +5089,6 @@ int stmmac_suspend(struct device *dev)
- 	mutex_lock(&priv->lock);
- 
- 	netif_device_detach(ndev);
--	stmmac_stop_all_queues(priv);
- 
- 	stmmac_disable_all_queues(priv);
- 
-@@ -5244,8 +5215,6 @@ int stmmac_resume(struct device *dev)
- 
- 	stmmac_enable_all_queues(priv);
- 
--	stmmac_start_all_queues(priv);
--
- 	mutex_unlock(&priv->lock);
- 
- 	if (!device_may_wakeup(priv->device) || !priv->plat->pmt) {
--- 
-2.17.0
-
+On Thu, Sep 03, 2020 at 08:17:00AM +0800, Tingwei Zhang wrote:
+> Ftrace has ability to export trace packets to other destination.
+> Currently, only function trace can be exported. This series extends the
+> support to event trace and trace_maker. STM is one possible destination to
+> export ftrace. Use separate channel for each CPU to avoid mixing up
+> packets
+> from different CPUs together.
+> 
+> Change from v2:
+> Change flag definition to BIT(). (Steven)
+> Add comment in stm_ftrace_write() to clarify it's safe to use 
+> smp_processor_id() here since preempt is disabled. (Steven) 
+> 
+> Change from v1:
+> All changes are suggested by Steven Rostedt.
+> User separate flag to control function trace, event trace and trace mark.
+> Allocate channels according to num_possible_cpu() dynamically.
+> Move ftrace_exports routines up so all ftrace can use them.
+> 
+> Tingwei Zhang (6):
+>   stm class: ftrace: change dependency to TRACING
+>   tracing: add flag to control different traces
+>   tracing: add trace_export support for event trace
+>   tracing: add trace_export support for trace_marker
+>   stm class: ftrace: enable supported trace export flag
+>   stm class: ftrace: use different channel accroding to CPU
+> 
+>  drivers/hwtracing/stm/Kconfig  |   2 +-
+>  drivers/hwtracing/stm/ftrace.c |   7 +-
+>  include/linux/trace.h          |   7 +
+>  kernel/trace/trace.c           | 270 ++++++++++++++++++---------------
+>  4 files changed, 159 insertions(+), 127 deletions(-)
+> 
+> -- 
+> The Qualcomm Innovation Center, Inc. is a member of the Code Aurora Forum,
+> a Linux Foundation Collaborative Project
+> 
 _______________________________________________
 Linux-stm32 mailing list
 Linux-stm32@st-md-mailman.stormreply.com
