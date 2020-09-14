@@ -2,54 +2,39 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id C1607268C0D
-	for <lists+linux-stm32@lfdr.de>; Mon, 14 Sep 2020 15:18:45 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 15622268E5A
+	for <lists+linux-stm32@lfdr.de>; Mon, 14 Sep 2020 16:52:02 +0200 (CEST)
 Received: from ip-172-31-3-76.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 74108C3FAD6;
-	Mon, 14 Sep 2020 13:18:45 +0000 (UTC)
-Received: from mx2.securetransport.de (mx2.securetransport.de [188.68.39.254])
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id
- 7EDD5C3FAD5 for <linux-stm32@st-md-mailman.stormreply.com>;
- Mon, 14 Sep 2020 10:33:42 +0000 (UTC)
-Received: from mail.dh-electronics.com
- (business-24-134-97-169.pool2.vodafone-ip.de [24.134.97.169])
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id AD857C3FAD6;
+	Mon, 14 Sep 2020 14:52:01 +0000 (UTC)
+Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
+ (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
+ (No client certificate requested)
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id B6222C32EB6
+ for <linux-stm32@st-md-mailman.stormreply.com>;
+ Mon, 14 Sep 2020 14:51:59 +0000 (UTC)
+Received: from localhost (fw-tnat.cambridge.arm.com [217.140.96.140])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by mx2.securetransport.de (Postfix) with ESMTPSA id 4025B5E879;
- Mon, 14 Sep 2020 12:33:17 +0200 (CEST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=dh-electronics.com;
- s=dhelectronicscom; t=1600079597;
- bh=QqiALWQWqzk3v5Egngf7/oNah0zdhttVToTd3Q1YPvQ=;
- h=From:To:CC:Subject:Date:In-Reply-To:References:From;
- b=tkjqpb1o8Of4A2fKxnLJoTJGfj3Sgr2FaVttqYfn6gwrqcAPlozgl5MpScJ/8J7vb
- +F7vh1Z/4Il6S6ICqH668xixkwxizgft4T0+gSpEITbuEROGQiU/OVmSrGh4CX1Msm
- 9Twyh5t3llDHa3qPPhy+Doy49mMQ+1TU82yDjNz+uFmAzB/ZUPXs2zaaLjUYn0kIID
- BLbQDu3+iXvqwd+7hBQINr5Agq35uSPcJWt1VqkeB0r66OMlUsDVUomW1UhmeXDU4u
- 7usFuA7bMc7yy7Imb/9Ne2T4JGI69wb1suEW9Un+ec3f5fbFkiwzDElqHKVJclP0R0
- O3NI5qCowHLqA==
-Received: from DHPWEX01.DH-ELECTRONICS.ORG (2001:470:76a7:2::30) by
- DHPWEX01.DH-ELECTRONICS.ORG (2001:470:76a7:2::30) with Microsoft SMTP Server
- (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.659.4; 
- Mon, 14 Sep 2020 12:33:10 +0200
-Received: from deb10-lzenz.dh-electronics.org (10.64.6.180) by
- DHPWEX01.DH-ELECTRONICS.ORG (10.64.2.30) with Microsoft SMTP Server
- (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.659.4
- via Frontend Transport; Mon, 14 Sep 2020 12:33:10 +0200
-From: Ludwig Zenz <lzenz@dh-electronics.com>
-To: <alain.volmat@st.com>
-Date: Mon, 14 Sep 2020 12:33:00 +0200
-Message-ID: <20200914103300.5832-1-lzenz@dh-electronics.com>
-X-Mailer: git-send-email 2.20.1
-In-Reply-To: <1597043558-29668-3-git-send-email-alain.volmat@st.com>
-References: <1597043558-29668-3-git-send-email-alain.volmat@st.com>
-MIME-Version: 1.0
-X-klartext: yes
-X-Mailman-Approved-At: Mon, 14 Sep 2020 13:18:43 +0000
-Cc: marex@denx.de, linux-kernel@vger.kernel.org, linux-spi@vger.kernel.org,
- broonie@kernel.org, mcoquelin.stm32@gmail.com, fabrice.gasnier@st.com,
- linux-stm32@st-md-mailman.stormreply.com, linux-arm-kernel@lists.infradead.org
-Subject: [Linux-stm32] [PATCH v2 2/5] spi: stm32: fix fifo threshold level
-	in case of short transfer
+ by mail.kernel.org (Postfix) with ESMTPSA id 3BAD520715;
+ Mon, 14 Sep 2020 14:51:57 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
+ s=default; t=1600095117;
+ bh=a1JalLnTBAaxUOfrKmYR9snF+OmsXWm89BgkakJgbtY=;
+ h=Date:From:To:Cc:In-Reply-To:References:Subject:From;
+ b=nHlZxjObjD7RILUNaeRVhzLzrOscBBQnb049NK7Yru+8eWh4YiKW/a3s0V8AA7qRi
+ XjU463tCuCy+ATejyKUCV06FhpHxkXJ3afF+6hxo7gX5hYF/UtAwqno023/mh4W98f
+ ZSsq9Le8WOkOHrA9gNfVNN7x7BiOihLCGyBRgOhQ=
+Date: Mon, 14 Sep 2020 15:51:09 +0100
+From: Mark Brown <broonie@kernel.org>
+To: perex@perex.cz, alexandre.torgue@st.com, arnaud.pouliquen@st.com,
+ lgirdwood@gmail.com, Olivier Moysan <olivier.moysan@st.com>, tiwai@suse.com
+In-Reply-To: <20200911081507.7276-1-olivier.moysan@st.com>
+References: <20200911081507.7276-1-olivier.moysan@st.com>
+Message-Id: <160009506912.439.13820832041582523614.b4-ty@kernel.org>
+Cc: alsa-devel@alsa-project.org, linux-kernel@vger.kernel.org,
+ linux-arm-kernel@lists.infradead.org, linux-stm32@st-md-mailman.stormreply.com
+Subject: Re: [Linux-stm32] [PATCH] ASoC: stm32: sai: add pm_runtime support
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -61,21 +46,50 @@ List-Post: <mailto:linux-stm32@st-md-mailman.stormreply.com>
 List-Help: <mailto:linux-stm32-request@st-md-mailman.stormreply.com?subject=help>
 List-Subscribe: <https://st-md-mailman.stormreply.com/mailman/listinfo/linux-stm32>, 
  <mailto:linux-stm32-request@st-md-mailman.stormreply.com?subject=subscribe>
+MIME-Version: 1.0
 Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
-> When transfer is shorter than half of the fifo, set the data packet size
-> up to transfer size instead of up to half of the fifo.
-> Check also that threshold is set at least to 1 data frame.
+On Fri, 11 Sep 2020 10:15:07 +0200, Olivier Moysan wrote:
+> Enable support of pm_runtime on STM32 SAI driver to allow
+> SAI power state monitoring.
+> pm_runtime_put_autosuspend() is called from ASoC framework
+> on pcm device close.
+> The pmdown_time delay is available in runtime context, and may be set
+> in SAI driver to take into account shutdown delay on playback.
+> However, this shutdown delay is already handled in the DAPMs
+> of the audio codec linked to SAI CPU DAI.
+> So, the choice is made, not to support this delay on CPU DAI side.
 
-Through a git-bisect we have identified this patch as problematic. We have an application that uses a SPI protocol with telegrams of length 2 to 16 bytes. Due to this patch we have errors in the data transfer of the MOSI direction. We use SPI in PIO mode.
+Applied to
 
-Please explain what this patch should improve or what exactly is changed in the behaviour.
+   https://git.kernel.org/pub/scm/linux/kernel/git/broonie/sound.git for-next
 
-best regards,
-Ludwig Zenz
+Thanks!
+
+[1/1] ASoC: stm32: sai: add pm_runtime support
+      commit: 4e723e7565c4031568fb9db18253cfbf6442831d
+
+All being well this means that it will be integrated into the linux-next
+tree (usually sometime in the next 24 hours) and sent to Linus during
+the next merge window (or sooner if it is a bug fix), however if
+problems are discovered then the patch may be dropped or reverted.
+
+You may get further e-mails resulting from automated or manual testing
+and review of the tree, please engage with people reporting problems and
+send followup patches addressing any issues that are reported if needed.
+
+If any updates are required or you are submitting further changes they
+should be sent as incremental updates against current git, existing
+patches will not be replaced.
+
+Please add any relevant lists and maintainers to the CCs when replying
+to this mail.
+
+Thanks,
+Mark
 _______________________________________________
 Linux-stm32 mailing list
 Linux-stm32@st-md-mailman.stormreply.com
