@@ -2,59 +2,60 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id 696FA268571
-	for <lists+linux-stm32@lfdr.de>; Mon, 14 Sep 2020 09:04:51 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id EAB6426896A
+	for <lists+linux-stm32@lfdr.de>; Mon, 14 Sep 2020 12:41:14 +0200 (CEST)
 Received: from ip-172-31-3-76.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 11FDBC3FAE1;
-	Mon, 14 Sep 2020 07:04:51 +0000 (UTC)
-Received: from out30-57.freemail.mail.aliyun.com
- (out30-57.freemail.mail.aliyun.com [115.124.30.57])
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 9AA36C424B0;
+	Mon, 14 Sep 2020 10:41:14 +0000 (UTC)
+Received: from mx07-00178001.pphosted.com (mx07-00178001.pphosted.com
+ [185.132.182.106])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 06DA3C3FAD5
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 52C4CC3FAD5
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Mon, 14 Sep 2020 07:04:47 +0000 (UTC)
-X-Alimail-AntiSpam: AC=PASS; BC=-1|-1; BR=01201311R391e4; CH=green; DM=||false|;
- DS=||; FP=0|-1|-1|-1|0|-1|-1|-1; HT=e01e04423;
- MF=tianjia.zhang@linux.alibaba.com; NM=1; PH=DS; RN=30; SR=0;
- TI=SMTPD_---0U8qdePo_1600067075; 
-Received: from B-455UMD6M-2027.local(mailfrom:tianjia.zhang@linux.alibaba.com
- fp:SMTPD_---0U8qdePo_1600067075) by smtp.aliyun-inc.com(127.0.0.1);
- Mon, 14 Sep 2020 15:04:37 +0800
-To: Herbert Xu <herbert@gondor.apana.org.au>
-References: <20200903131242.128665-1-tianjia.zhang@linux.alibaba.com>
- <20200911042442.GA5420@gondor.apana.org.au>
-From: Tianjia Zhang <tianjia.zhang@linux.alibaba.com>
-Message-ID: <be5f7e28-5645-3923-ceb5-d840e41ad2ed@linux.alibaba.com>
-Date: Mon, 14 Sep 2020 15:04:35 +0800
-User-Agent: Mozilla/5.0 (Macintosh; Intel Mac OS X 10.15; rv:78.0)
- Gecko/20100101 Thunderbird/78.2.2
+ Mon, 14 Sep 2020 10:41:11 +0000 (UTC)
+Received: from pps.filterd (m0046668.ppops.net [127.0.0.1])
+ by mx07-00178001.pphosted.com (8.16.0.42/8.16.0.42) with SMTP id
+ 08EAbPc3022532; Mon, 14 Sep 2020 12:40:56 +0200
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=st.com;
+ h=from : to : cc : subject
+ : date : message-id : mime-version : content-type; s=STMicroelectronics;
+ bh=RNnrii00xxDfy5WSC9QOrCt+UuQkxyoFKEqKcUhEXMo=;
+ b=r7kBF8twwK8B4KodrM+9KMrXviMEyE9WvUl1bXEuXdMBe0Raslk5oZf7Swm0BNWm/xIN
+ okknJS6Fm7BUfTSnCKo81w/DxB0F1E1Z6n+7yBGKRODuS8l7Fk47oYRN+OIQ58BDurtJ
+ 97wc6iMQ3kW3klJl+fjaa3TGZcMmzd8PZXUBAvgU6Fi5WFisqUCvWBpc6ht2NHbK6u9X
+ 05b/dB0KKDJbIlLgLSm2EfsPozpI7sAt5jpURWFpPIMY/fI7F2OERx67bFRQF/eKk9Eh
+ z5Is652Ud1cs8LaJEa3frs5aRqexI8sazuLckE3Zlfzc44K7NFwF4bcin6EeE1Os70iL 1A== 
+Received: from beta.dmz-eu.st.com (beta.dmz-eu.st.com [164.129.1.35])
+ by mx07-00178001.pphosted.com with ESMTP id 33gkt09ppe-1
+ (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
+ Mon, 14 Sep 2020 12:40:56 +0200
+Received: from euls16034.sgp.st.com (euls16034.sgp.st.com [10.75.44.20])
+ by beta.dmz-eu.st.com (STMicroelectronics) with ESMTP id A925B10002A;
+ Mon, 14 Sep 2020 12:40:54 +0200 (CEST)
+Received: from Webmail-eu.st.com (sfhdag3node2.st.com [10.75.127.8])
+ by euls16034.sgp.st.com (STMicroelectronics) with ESMTP id 928E82ADA02;
+ Mon, 14 Sep 2020 12:40:54 +0200 (CEST)
+Received: from localhost (10.75.127.46) by SFHDAG3NODE2.st.com (10.75.127.8)
+ with Microsoft SMTP Server (TLS) id 15.0.1473.3; Mon, 14 Sep 2020 12:40:54
+ +0200
+From: Alain Volmat <alain.volmat@st.com>
+To: <wsa@kernel.org>, <pierre-yves.mordret@st.com>
+Date: Mon, 14 Sep 2020 12:40:32 +0200
+Message-ID: <1600080034-2050-1-git-send-email-alain.volmat@st.com>
+X-Mailer: git-send-email 2.7.4
 MIME-Version: 1.0
-In-Reply-To: <20200911042442.GA5420@gondor.apana.org.au>
-Content-Language: en-US
-Cc: Stephan Mueller <smueller@chronox.de>,
- Brendan Higgins <brendanhiggins@google.com>,
- Jia Zhang <zhang.jia@linux.alibaba.com>, Mimi Zohar <zohar@linux.ibm.com>,
- Vitaly Chikunov <vt@altlinux.org>, keyrings@vger.kernel.org,
- linux-stm32@st-md-mailman.stormreply.com,
- Masahiro Yamada <masahiroy@kernel.org>, James Morris <jmorris@namei.org>,
- Lakshmi Ramasubramanian <nramas@linux.microsoft.com>,
- Marcelo Henrique Cerri <marcelo.cerri@canonical.com>,
- Waiman Long <longman@redhat.com>, "Serge E. Hallyn" <serge@hallyn.com>,
- "Steven Rostedt \(VMware\)" <rostedt@goodmis.org>,
- Gilad Ben-Yossef <gilad@benyossef.com>,
- Tushar Sugandhi <tusharsu@linux.microsoft.com>,
- linux-arm-kernel@lists.infradead.org, David Howells <dhowells@redhat.com>,
- Pascal van Leeuwen <pvanleeuwen@rambus.com>, linux-kernel@vger.kernel.org,
- Xufeng Zhang <yunbo.xufeng@linux.alibaba.com>,
- linux-security-module@vger.kernel.org, linux-crypto@vger.kernel.org,
- Maxime Coquelin <mcoquelin.stm32@gmail.com>,
- Johannes Weiner <hannes@cmpxchg.org>,
- Colin Ian King <colin.king@canonical.com>,
- Andrew Morton <akpm@linux-foundation.org>,
- "David S. Miller" <davem@davemloft.net>
-Subject: Re: [Linux-stm32] [PATCH v6 0/8] crpyto: introduce OSCCA
- certificate and SM2 asymmetric algorithm
+X-Originating-IP: [10.75.127.46]
+X-ClientProxiedBy: SFHDAG6NODE2.st.com (10.75.127.17) To SFHDAG3NODE2.st.com
+ (10.75.127.8)
+X-Proofpoint-Virus-Version: vendor=fsecure engine=2.50.10434:6.0.235, 18.0.687
+ definitions=2020-09-14_02:2020-09-10,
+ 2020-09-14 signatures=0
+Cc: linux-kernel@vger.kernel.org, krzk@kernel.org, alain.volmat@st.com,
+ linux-i2c@vger.kernel.org, fabrice.gasnier@st.com,
+ linux-stm32@st-md-mailman.stormreply.com, linux-arm-kernel@lists.infradead.org
+Subject: [Linux-stm32] [PATCH 0/2] Avoid meaningless DMA error print & use
+	dev_err_probe
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -66,22 +67,39 @@ List-Post: <mailto:linux-stm32@st-md-mailman.stormreply.com>
 List-Help: <mailto:linux-stm32-request@st-md-mailman.stormreply.com?subject=help>
 List-Subscribe: <https://st-md-mailman.stormreply.com/mailman/listinfo/linux-stm32>, 
  <mailto:linux-stm32-request@st-md-mailman.stormreply.com?subject=subscribe>
-Content-Transfer-Encoding: base64
-Content-Type: text/plain; charset="utf-8"; Format="flowed"
+Content-Type: text/plain; charset="us-ascii"
+Content-Transfer-Encoding: 7bit
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
-SGnvvIwKCk9uIDkvMTEvMjAgMTI6MjQgUE0sIEhlcmJlcnQgWHUgd3JvdGU6Cj4gT24gVGh1LCBT
-ZXAgMDMsIDIwMjAgYXQgMDk6MTI6MzRQTSArMDgwMCwgVGlhbmppYSBaaGFuZyB3cm90ZToKPj4K
-Pj4gLS0tCj4+IHY2IGNoYW5nZXM6Cj4+ICAgIDEuIHJlbW92ZSBtcGlfc3ViX3VpIGZ1bmN0aW9u
-IGZyb20gbXBpIGxpYnJhcnkuCj4+ICAgIDIuIHJlYmFzZSBvbiBtYWlubGluZS4KPiAKPiBUaGlz
-IHNlcmllcyBpcyBzdGlsbCBtaXNzaW5nIGFja3MgZm9yIHBhdGNoZXMgNi04LiAgV2l0aG91dCB0
-aGVtCj4gaXQgY2Fubm90IHByb2NlZWQuCj4gCj4gVGhhbmtzLAo+IAoKVGhpcyBzZXJpZXMgaGFz
-IHNvbWUgcmV2aWV3IHN1Z2dlc3Rpb25zIGZvciBwYXRjaGVzIDYtOCwgYnV0IHRoZSAKbWFpbnRh
-aW5lciBvZiBhc3ltbWV0cmljIGtleXMgRGF2aWQgSG93ZWxscyA8ZGhvd2VsbHNAcmVkaGF0LmNv
-bT4sIEkgCmNhbuKAmXQgZ2V0IGluIHRvdWNoLiBUaGUgZW1haWwgaGFzIGJlZW4gc2VudCBzdWNj
-ZXNzZnVsbHkuIENhbiB5b3UgaGVscCAKcGluZyBoaW0gPwoKVGhhbmtzIGFuZCBiZXN0LApUaWFu
-amlhCl9fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fCkxpbnV4
-LXN0bTMyIG1haWxpbmcgbGlzdApMaW51eC1zdG0zMkBzdC1tZC1tYWlsbWFuLnN0b3JtcmVwbHku
-Y29tCmh0dHBzOi8vc3QtbWQtbWFpbG1hbi5zdG9ybXJlcGx5LmNvbS9tYWlsbWFuL2xpc3RpbmZv
-L2xpbnV4LXN0bTMyCg==
+This serie replaces the patch from Holger Assmann [i2c: stm32: remove
+unnecessary DMA kernel error log] (1) and the first version of [i2c: stm32:
+do not display error when DMA is not requested] from myself (2).
+
+A first patch is fixing useless error print when not being able to get
+DMA channel (DMA is only optional) and also avoid printing twice an error
+when a real DMA error is happening.
+
+On top of that, dev_err_probe from Krzysztof has been rebased.
+
+[1] https://marc.info/?l=linux-i2c&m=159741480608578&w=2
+[2] https://marc.info/?l=linux-i2c&m=159973040314193&w=2
+
+Alain Volmat (1):
+  i2c: stm32: fix error message on upon dma_request_chan & defer
+    handling
+
+Krzysztof Kozlowski (1):
+  i2c: stm32: Simplify with dev_err_probe()
+
+ drivers/i2c/busses/i2c-stm32.c   | 12 ++++++------
+ drivers/i2c/busses/i2c-stm32f4.c |  6 ++----
+ drivers/i2c/busses/i2c-stm32f7.c | 27 +++++++++++----------------
+ 3 files changed, 19 insertions(+), 26 deletions(-)
+
+-- 
+2.7.4
+_______________________________________________
+Linux-stm32 mailing list
+Linux-stm32@st-md-mailman.stormreply.com
+https://st-md-mailman.stormreply.com/mailman/listinfo/linux-stm32
