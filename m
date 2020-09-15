@@ -2,71 +2,60 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id 2DE6726A0DA
-	for <lists+linux-stm32@lfdr.de>; Tue, 15 Sep 2020 10:29:03 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 74B9E26A1BF
+	for <lists+linux-stm32@lfdr.de>; Tue, 15 Sep 2020 11:11:47 +0200 (CEST)
 Received: from ip-172-31-3-76.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 1E876C3FADF;
-	Tue, 15 Sep 2020 08:29:02 +0000 (UTC)
-Received: from mail29.static.mailgun.info (mail29.static.mailgun.info
- [104.130.122.29])
- (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 31FA4C3FADF;
+	Tue, 15 Sep 2020 09:11:47 +0000 (UTC)
+Received: from mx07-00178001.pphosted.com (mx08-00178001.pphosted.com
+ [91.207.212.93])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id B0FE8C32EB6
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 8EC1FC3FAD6
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Mon, 14 Sep 2020 23:27:56 +0000 (UTC)
-DKIM-Signature: a=rsa-sha256; v=1; c=relaxed/relaxed; d=mg.codeaurora.org;
- q=dns/txt; 
- s=smtp; t=1600126080; h=In-Reply-To: Content-Type: MIME-Version:
- References: Message-ID: Subject: Cc: To: From: Date: Sender;
- bh=JcwD/uxtsoKa4SSZpuOrTon7fbX8C8oGUwA3IhAUSfg=;
- b=JP7pYdE/SD3DbdEOo82z+DSr5oY6YH/UhfZG9cNcOdlXatO05Ecg3PbjClZFFFIifFOoS5Tq
- 2CG7/ntSCo+lZP6JQkE9R5ORp5U/5VVwEnoZpkO4Krt0vLWybik0Irj+ICMXG/+7TQw8WqRF
- nYCazqMdiwMS5cZ5XEe4ZjVEhc8=
-X-Mailgun-Sending-Ip: 104.130.122.29
-X-Mailgun-Sid: WyI1Njk0YyIsICJsaW51eC1zdG0zMkBzdC1tZC1tYWlsbWFuLnN0b3JtcmVwbHkuY29tIiwgImJlOWU0YSJd
-Received: from smtp.codeaurora.org
- (ec2-35-166-182-171.us-west-2.compute.amazonaws.com [35.166.182.171]) by
- smtp-out-n06.prod.us-west-2.postgun.com with SMTP id
- 5f5ffc69be06707b34f24044 (version=TLS1.2,
- cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256); Mon, 14 Sep 2020 23:27:37
- GMT
-Received: by smtp.codeaurora.org (Postfix, from userid 1001)
- id 269EAC43391; Mon, 14 Sep 2020 23:27:37 +0000 (UTC)
-X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
- aws-us-west-2-caf-mail-1.web.codeaurora.org
-X-Spam-Level: 
-X-Spam-Status: No, score=-2.9 required=2.0 tests=ALL_TRUSTED, BAYES_00,
- SPF_FAIL autolearn=no autolearn_force=no version=3.4.0
-Received: from codeaurora.org (unknown [180.166.53.21])
- (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
- (No client certificate requested) (Authenticated sender: tingwei)
- by smtp.codeaurora.org (Postfix) with ESMTPSA id 688E7C433CA;
- Mon, 14 Sep 2020 23:27:33 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.3.2 smtp.codeaurora.org 688E7C433CA
-Authentication-Results: aws-us-west-2-caf-mail-1.web.codeaurora.org;
- dmarc=none (p=none dis=none) header.from=codeaurora.org
-Authentication-Results: aws-us-west-2-caf-mail-1.web.codeaurora.org;
- spf=fail smtp.mailfrom=tingweiz@codeaurora.org
-Date: Tue, 15 Sep 2020 07:27:29 +0800
-From: Tingwei Zhang <tingweiz@codeaurora.org>
-To: Tingwei Zhang <tingwei@codeaurora.org>
-Message-ID: <20200914232729.GB20431@codeaurora.org>
-References: <20200903001706.28147-1-tingwei@codeaurora.org>
+ Tue, 15 Sep 2020 09:11:44 +0000 (UTC)
+Received: from pps.filterd (m0046661.ppops.net [127.0.0.1])
+ by mx07-00178001.pphosted.com (8.16.0.42/8.16.0.42) with SMTP id
+ 08F98H9f022258; Tue, 15 Sep 2020 11:11:32 +0200
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=st.com;
+ h=from : to : cc : subject
+ : date : message-id : mime-version : content-type; s=STMicroelectronics;
+ bh=a2n/VyvPL5cAo3F9MDe6vyiMgotrwIrVTK+SWyJLDSw=;
+ b=KVJs7BeeDzxet4I8mZSqnmowPgBQk6tXj46ILQIpe4DZ8lC++wmMx/jOK3mbJLA6z5oq
+ Hjzg7j/vJfJBm1PRQiaeVC2xvom049KRmzsHzHqqqCT9U50qfMlrM7nmB76i4wlZUSxm
+ wQPzCjp9tir9Bjj8115ZYgPqasuUiVhq7Om5OyJTF5MM4sFuH3qukIVfJ5enkQrbXv3F
+ zCiGbYWMsoV5BKQyRS/jS9pS6eqFco/h/g8D6BSVM297Ei2Ij/hWG0QXI/mYFc0BDBAQ
+ Fvwr0PgCPdXs2gsCUNHXCie/5/S81VkYiYjR7onHGquXbAEnWaSQCdzSCxrfmIIFocJu vw== 
+Received: from beta.dmz-eu.st.com (beta.dmz-eu.st.com [164.129.1.35])
+ by mx07-00178001.pphosted.com with ESMTP id 33gn7gxnpv-1
+ (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
+ Tue, 15 Sep 2020 11:11:32 +0200
+Received: from euls16034.sgp.st.com (euls16034.sgp.st.com [10.75.44.20])
+ by beta.dmz-eu.st.com (STMicroelectronics) with ESMTP id CEEEB10002A;
+ Tue, 15 Sep 2020 11:11:31 +0200 (CEST)
+Received: from Webmail-eu.st.com (sfhdag3node2.st.com [10.75.127.8])
+ by euls16034.sgp.st.com (STMicroelectronics) with ESMTP id 3FA592A447E;
+ Tue, 15 Sep 2020 11:11:31 +0200 (CEST)
+Received: from localhost (10.75.127.49) by SFHDAG3NODE2.st.com (10.75.127.8)
+ with Microsoft SMTP Server (TLS) id 15.0.1473.3; Tue, 15 Sep 2020 11:11:30
+ +0200
+From: Alain Volmat <alain.volmat@st.com>
+To: <wsa@kernel.org>, <pierre-yves.mordret@st.com>
+Date: Tue, 15 Sep 2020 11:11:30 +0200
+Message-ID: <1600161090-9899-1-git-send-email-alain.volmat@st.com>
+X-Mailer: git-send-email 2.7.4
 MIME-Version: 1.0
-Content-Disposition: inline
-In-Reply-To: <20200903001706.28147-1-tingwei@codeaurora.org>
-User-Agent: Mutt/1.5.24 (2015-08-30)
-X-Mailman-Approved-At: Tue, 15 Sep 2020 08:29:00 +0000
-Cc: tsoni@codeaurora.org, Sai Prakash Ranjan <saiprakash.ranjan@codeaurora.org>,
- Mathieu Poirier <mathieu.poirier@linaro.org>,
- Suzuki K Poulose <suzuki.poulose@arm.com>,
- Alexander Shishkin <alexander.shishkin@linux.intel.com>,
- Mao Jinlong <jinlmao@codeaurora.org>, linux-kernel@vger.kernel.org,
- Steven Rostedt <rostedt@goodmis.org>, Ingo Molnar <mingo@redhat.com>,
- Maxime Coquelin <mcoquelin.stm32@gmail.com>,
+X-Originating-IP: [10.75.127.49]
+X-ClientProxiedBy: SFHDAG4NODE3.st.com (10.75.127.12) To SFHDAG3NODE2.st.com
+ (10.75.127.8)
+X-Proofpoint-Virus-Version: vendor=fsecure engine=2.50.10434:6.0.235, 18.0.687
+ definitions=2020-09-15_05:2020-09-15,
+ 2020-09-15 signatures=0
+Cc: linux-kernel@vger.kernel.org, alain.volmat@st.com,
+ linux-i2c@vger.kernel.org, fabrice.gasnier@st.com,
  linux-stm32@st-md-mailman.stormreply.com, linux-arm-kernel@lists.infradead.org
-Subject: Re: [Linux-stm32] [PATCH v3 0/6] tracing: export event trace and
-	trace_marker
+Subject: [Linux-stm32] [PATCH 1/2] i2c: stm32: fix slot id after
+	introduction of host-notify support
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -83,50 +72,32 @@ Content-Transfer-Encoding: 7bit
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
-Hi Alexander, Maxime, Aleandre,
+Commit 68302245720a ("i2c: stm32f7: Add SMBus Host-Notify protocol support")
+added a new slot specific for handling host-notify however failed
+to update the previous slot ID leading to having the 7bit address
+only slot with the wrong number.
 
-May I know your comments for this patch set?
+Signed-off-by: Alain Volmat <alain.volmat@st.com>
+---
+ drivers/i2c/busses/i2c-stm32f7.c | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
 
-Thanks,
-Tingwei
+diff --git a/drivers/i2c/busses/i2c-stm32f7.c b/drivers/i2c/busses/i2c-stm32f7.c
+index b401940c5580..0880f6a4cd44 100644
+--- a/drivers/i2c/busses/i2c-stm32f7.c
++++ b/drivers/i2c/busses/i2c-stm32f7.c
+@@ -1355,7 +1355,7 @@ static int stm32f7_i2c_get_free_slave_id(struct stm32f7_i2c_dev *i2c_dev,
+ 	}
+ 
+ 	for (i = STM32F7_I2C_MAX_SLAVE - 1; i > 0; i--) {
+-		if (i == 1 && (slave->flags & I2C_CLIENT_TEN))
++		if (i == 2 && (slave->flags & I2C_CLIENT_TEN))
+ 			continue;
+ 		if (!i2c_dev->slave[i]) {
+ 			*id = i;
+-- 
+2.7.4
 
-On Thu, Sep 03, 2020 at 08:17:00AM +0800, Tingwei Zhang wrote:
-> Ftrace has ability to export trace packets to other destination.
-> Currently, only function trace can be exported. This series extends the
-> support to event trace and trace_maker. STM is one possible destination to
-> export ftrace. Use separate channel for each CPU to avoid mixing up
-> packets
-> from different CPUs together.
-> 
-> Change from v2:
-> Change flag definition to BIT(). (Steven)
-> Add comment in stm_ftrace_write() to clarify it's safe to use 
-> smp_processor_id() here since preempt is disabled. (Steven) 
-> 
-> Change from v1:
-> All changes are suggested by Steven Rostedt.
-> User separate flag to control function trace, event trace and trace mark.
-> Allocate channels according to num_possible_cpu() dynamically.
-> Move ftrace_exports routines up so all ftrace can use them.
-> 
-> Tingwei Zhang (6):
->   stm class: ftrace: change dependency to TRACING
->   tracing: add flag to control different traces
->   tracing: add trace_export support for event trace
->   tracing: add trace_export support for trace_marker
->   stm class: ftrace: enable supported trace export flag
->   stm class: ftrace: use different channel accroding to CPU
-> 
->  drivers/hwtracing/stm/Kconfig  |   2 +-
->  drivers/hwtracing/stm/ftrace.c |   7 +-
->  include/linux/trace.h          |   7 +
->  kernel/trace/trace.c           | 270 ++++++++++++++++++---------------
->  4 files changed, 159 insertions(+), 127 deletions(-)
-> 
-> -- 
-> The Qualcomm Innovation Center, Inc. is a member of the Code Aurora Forum,
-> a Linux Foundation Collaborative Project
-> 
 _______________________________________________
 Linux-stm32 mailing list
 Linux-stm32@st-md-mailman.stormreply.com
