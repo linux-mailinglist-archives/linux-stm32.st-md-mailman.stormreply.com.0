@@ -2,60 +2,129 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id 7ABEA26A1C1
-	for <lists+linux-stm32@lfdr.de>; Tue, 15 Sep 2020 11:11:51 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id A0CAA26A5DB
+	for <lists+linux-stm32@lfdr.de>; Tue, 15 Sep 2020 15:05:26 +0200 (CEST)
 Received: from ip-172-31-3-76.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 4342FC3FADF;
-	Tue, 15 Sep 2020 09:11:51 +0000 (UTC)
-Received: from mx07-00178001.pphosted.com (mx08-00178001.pphosted.com
- [91.207.212.93])
- (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 4ECFFC3FADF;
+	Tue, 15 Sep 2020 13:05:26 +0000 (UTC)
+Received: from mail-wr1-f65.google.com (mail-wr1-f65.google.com
+ [209.85.221.65])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id B7CF0C3FADE
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 518D7C3FAD6
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Tue, 15 Sep 2020 09:11:49 +0000 (UTC)
-Received: from pps.filterd (m0046660.ppops.net [127.0.0.1])
- by mx07-00178001.pphosted.com (8.16.0.42/8.16.0.42) with SMTP id
- 08F98V8l023596; Tue, 15 Sep 2020 11:11:42 +0200
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=st.com;
- h=from : to : cc : subject
- : date : message-id : mime-version : content-type; s=STMicroelectronics;
- bh=g4kST7SsfaViCNlFfZ08siUj72Yl/Jmwp5npYZfdOOc=;
- b=KscuE9KcDMkqxGs6xutCqIVOYdI42kni92TwIIURoiWVp5BKT7Q0q2QmcRk9JZb7qbwn
- 0IYMs22AIsmRaCNw3Mwu4BuT871ZxF4CL+jXkNZXGnBINA1RuWaCrSElBb/dB10nv7VA
- ID/xEOw0osqoKk07lDbLlGGJjj/Ppt8IPnUgIqFyV3H4A86OUsUrvbweCU1lZX6QnykZ
- 2HRKyzGFxj8I9ZlN6hqncw6aywc2EtirGMDB1TN95gtAQ/i/ePxjfUub+wdXL65V086I
- rHOct/T3DB8SFFjwXnqZiGFOxFgk0P/doRRsTTtgDKZCrrKgPfsduWKNVNn6CJSfldcq oA== 
-Received: from beta.dmz-eu.st.com (beta.dmz-eu.st.com [164.129.1.35])
- by mx07-00178001.pphosted.com with ESMTP id 33gkf9f1rt-1
- (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
- Tue, 15 Sep 2020 11:11:42 +0200
-Received: from euls16034.sgp.st.com (euls16034.sgp.st.com [10.75.44.20])
- by beta.dmz-eu.st.com (STMicroelectronics) with ESMTP id 3127910002A;
- Tue, 15 Sep 2020 11:11:42 +0200 (CEST)
-Received: from Webmail-eu.st.com (sfhdag3node2.st.com [10.75.127.8])
- by euls16034.sgp.st.com (STMicroelectronics) with ESMTP id 1D1732A4483;
- Tue, 15 Sep 2020 11:11:42 +0200 (CEST)
-Received: from localhost (10.75.127.50) by SFHDAG3NODE2.st.com (10.75.127.8)
- with Microsoft SMTP Server (TLS) id 15.0.1473.3; Tue, 15 Sep 2020 11:11:41
- +0200
-From: Alain Volmat <alain.volmat@st.com>
-To: <wsa@kernel.org>, <pierre-yves.mordret@st.com>
-Date: Tue, 15 Sep 2020 11:11:41 +0200
-Message-ID: <1600161101-9941-1-git-send-email-alain.volmat@st.com>
-X-Mailer: git-send-email 2.7.4
+ Tue, 15 Sep 2020 13:05:23 +0000 (UTC)
+Received: by mail-wr1-f65.google.com with SMTP id z1so3254652wrt.3
+ for <linux-stm32@st-md-mailman.stormreply.com>;
+ Tue, 15 Sep 2020 06:05:23 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=baylibre-com.20150623.gappssmtp.com; s=20150623;
+ h=subject:from:to:cc:references:autocrypt:organization:message-id
+ :date:user-agent:mime-version:in-reply-to:content-language
+ :content-transfer-encoding;
+ bh=PAedulOaLRGPWn1Q+RwcE7+ai8g8vapA/ETRTpmrMvA=;
+ b=jOnakUbco4IRYyGk5bE3DYRjRvtFKeNnrPpQlHZm9vkVgtANfs6YSsuPafs8f8yxnW
+ TWYg4nID670IQYnA5nwTvH7W0QZZ353jkg24qQafVf3HdVdCgyhH58O9dSy2aAQgV8gw
+ u4iYPd9gY3vcqOQ6VESqLe0nk6F97Ds8SFPUaX7cJjku0BmYGfGOcvXIH8zy8qId7ucX
+ FZc5KZsLCRSJpLbgr5zJ3eu1nL5/6amzUR5Rq7wOIwsRfFDZfPLBixmXDUjL0i0/RAGe
+ Fd8pcxLFNcc+VQI8/h7VMZhbLSyz6qpY3hKNY27gBxmJExoDlmjUHWHijCduCInM1V8/
+ j4Wg==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20161025;
+ h=x-gm-message-state:subject:from:to:cc:references:autocrypt
+ :organization:message-id:date:user-agent:mime-version:in-reply-to
+ :content-language:content-transfer-encoding;
+ bh=PAedulOaLRGPWn1Q+RwcE7+ai8g8vapA/ETRTpmrMvA=;
+ b=KGqOszNcjL+Mha9ATf7mY5kYFNWzuQpKRupUdX6U8EoYd5iiDtu/zrBR9HQOJ72q5L
+ K9aHhcYyVa5KF3C1Uwgackj1z91gw1czGHStGF9vLl0qbtUgMjktTtFfc30azBqNcauW
+ ke6uLbOZC5dNCWzQFhWYRZOCBTvfkmk53K+GGRJSxT7nVYvpcsFA9kImLb0YHdfvjaKw
+ 6GgO4DSJtHczdZKrITqygwnoWvJS1N+61+k1qt/kXAa2nUSQDxzN5JJFUhet2Ju+rX9F
+ Q6ccfg1rp6IpZ5jyVnLbPa7LUNYGROJb5j9Qik/98pfWnz3n8gABfAgrtotQpJKqR5KF
+ vZ3A==
+X-Gm-Message-State: AOAM533h1KEiT2dEPHto8truf37vzOoISJpziIofuuPjkwpGaPN5KjQt
+ fcZmo3lmNehZ/lQGmsvFwMb71ps9M70bILPR
+X-Google-Smtp-Source: ABdhPJwSgGK8pvg6vZvi16/WZcjKVDit+Y5y4mAJO1zJtZiSdJ8WtZvErg/IdDO4zNNq3uaZq7Y/zw==
+X-Received: by 2002:a5d:4842:: with SMTP id n2mr21740506wrs.260.1600175122708; 
+ Tue, 15 Sep 2020 06:05:22 -0700 (PDT)
+Received: from [192.168.1.23] (home.beaume.starnux.net. [82.236.8.43])
+ by smtp.gmail.com with ESMTPSA id v9sm26339953wru.37.2020.09.15.06.05.20
+ (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+ Tue, 15 Sep 2020 06:05:21 -0700 (PDT)
+From: Neil Armstrong <narmstrong@baylibre.com>
+To: Ezequiel Garcia <ezequiel@collabora.com>,
+ Adrian Ratiu <adrian.ratiu@collabora.com>,
+ linux-arm-kernel@lists.infradead.org, devicetree@vger.kernel.org,
+ linux-rockchip@lists.infradead.org,
+ Laurent Pinchart <Laurent.pinchart@ideasonboard.com>
+References: <20200609174959.955926-1-adrian.ratiu@collabora.com>
+ <c6f10db1-7f56-a156-36a1-125e764c8c1a@baylibre.com>
+ <87lfk3kaj4.fsf@iwork.i-did-not-set--mail-host-address--so-tickle-me>
+ <b318069fe873e456f18d07d11f5d165667c9b04a.camel@collabora.com>
+ <e0d0efec-09e0-6bf8-bab7-44accd14fa52@baylibre.com>
+Autocrypt: addr=narmstrong@baylibre.com; prefer-encrypt=mutual; keydata=
+ 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
+ BSwxi7g3Mu7u5kUByanqHyA=
+Organization: Baylibre
+Message-ID: <e841d90b-0f1d-d5d9-9f67-f90d64c4fbc7@baylibre.com>
+Date: Tue, 15 Sep 2020 15:05:20 +0200
+User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:68.0) Gecko/20100101
+ Thunderbird/68.10.0
 MIME-Version: 1.0
-X-Originating-IP: [10.75.127.50]
-X-ClientProxiedBy: SFHDAG5NODE2.st.com (10.75.127.14) To SFHDAG3NODE2.st.com
- (10.75.127.8)
-X-Proofpoint-Virus-Version: vendor=fsecure engine=2.50.10434:6.0.235, 18.0.687
- definitions=2020-09-15_05:2020-09-15,
- 2020-09-15 signatures=0
-Cc: linux-kernel@vger.kernel.org, alain.volmat@st.com,
- linux-i2c@vger.kernel.org, fabrice.gasnier@st.com,
- linux-stm32@st-md-mailman.stormreply.com, linux-arm-kernel@lists.infradead.org
-Subject: [Linux-stm32] [PATCH 2/2] i2c: stm32: name slave slot to ease
-	maintenance
+In-Reply-To: <e0d0efec-09e0-6bf8-bab7-44accd14fa52@baylibre.com>
+Content-Language: en-US
+Cc: Jernej Skrabec <jernej.skrabec@siol.net>, Jonas Karlman <jonas@kwiboo.se>,
+ linux-kernel@vger.kernel.org, dri-devel@lists.freedesktop.org,
+ Yannick FERTRE <yannick.fertre@st.com>, Andrzej Hajda <a.hajda@samsung.com>,
+ linux-imx@nxp.com, kernel@collabora.com,
+ linux-stm32@st-md-mailman.stormreply.com
+Subject: Re: [Linux-stm32] [PATCH v9 00/11] Genericize DW MIPI DSI bridge
+ and add i.MX 6 driver
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -72,61 +141,87 @@ Content-Transfer-Encoding: 7bit
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
-Name slave slots in order to ease code maintenance.
+Hi Adrian,
 
-Signed-off-by: Alain Volmat <alain.volmat@st.com>
----
- drivers/i2c/busses/i2c-stm32f7.c | 22 ++++++++++++++--------
- 1 file changed, 14 insertions(+), 8 deletions(-)
+Gentle ping.
 
-diff --git a/drivers/i2c/busses/i2c-stm32f7.c b/drivers/i2c/busses/i2c-stm32f7.c
-index 0880f6a4cd44..a7432ec7d992 100644
---- a/drivers/i2c/busses/i2c-stm32f7.c
-+++ b/drivers/i2c/busses/i2c-stm32f7.c
-@@ -155,7 +155,12 @@
- 
- #define STM32F7_I2C_MAX_LEN			0xff
- #define STM32F7_I2C_DMA_LEN_MIN			0x16
--#define STM32F7_I2C_MAX_SLAVE			0x3
-+enum {
-+	STM32F7_SLAVE_HOSTNOTIFY,
-+	STM32F7_SLAVE_7_10_BITS_ADDR,
-+	STM32F7_SLAVE_7_BITS_ADDR,
-+	STM32F7_I2C_MAX_SLAVE
-+};
- 
- #define STM32F7_I2C_DNF_DEFAULT			0
- #define STM32F7_I2C_DNF_MAX			16
-@@ -1343,19 +1348,20 @@ static int stm32f7_i2c_get_free_slave_id(struct stm32f7_i2c_dev *i2c_dev,
- 	int i;
- 
- 	/*
--	 * slave[0] support only SMBus Host address (0x8)
--	 * slave[1] supports 7-bit and 10-bit slave address
--	 * slave[2] supports 7-bit slave address only
-+	 * slave[STM32F7_SLAVE_HOSTNOTIFY] support only SMBus Host address (0x8)
-+	 * slave[STM32F7_SLAVE_7_10_BITS_ADDR] supports 7-bit and 10-bit slave address
-+	 * slave[STM32F7_SLAVE_7_BITS_ADDR] supports 7-bit slave address only
- 	 */
- 	if (i2c_dev->smbus_mode && (slave->addr == 0x08)) {
--		if (i2c_dev->slave[0])
-+		if (i2c_dev->slave[STM32F7_SLAVE_HOSTNOTIFY])
- 			goto fail;
--		*id = 0;
-+		*id = STM32F7_SLAVE_HOSTNOTIFY;
- 		return 0;
- 	}
- 
--	for (i = STM32F7_I2C_MAX_SLAVE - 1; i > 0; i--) {
--		if (i == 2 && (slave->flags & I2C_CLIENT_TEN))
-+	for (i = STM32F7_I2C_MAX_SLAVE - 1; i > STM32F7_SLAVE_HOSTNOTIFY; i--) {
-+		if ((i == STM32F7_SLAVE_7_BITS_ADDR) &&
-+		    (slave->flags & I2C_CLIENT_TEN))
- 			continue;
- 		if (!i2c_dev->slave[i]) {
- 			*id = i;
--- 
-2.7.4
+can you rebase on drm-misc-next so I can apply the IMX and STM patches ?
+
+On 24/08/2020 11:47, Neil Armstrong wrote:
+> Hi,
+> 
+> 
+> On 15/08/2020 15:05, Ezequiel Garcia wrote:
+>> Hi Neil,
+>>
+>> On Wed, 2020-07-01 at 09:35 +0300, Adrian Ratiu wrote:
+>>> Hi Neil,
+>>>
+>>> On Mon, 29 Jun 2020, Neil Armstrong <narmstrong@baylibre.com> 
+>>> wrote:
+>>>> Hi Adrian, 
+>>>>
+>>>> On 09/06/2020 19:49, Adrian Ratiu wrote: 
+> [...]
+>>>
+>>
+>> It's been a month so I think it's a good idea to go forward
+>> applying IMX and STM patches (probably with the usual
+>> rebase dance).
+>>
+>> As for Rockchip...
+>>
+>>> The binding API removal change which directly touches RK can also 
+>>> be applied separately, but unfortunately I do not have access to a 
+>>> RK board with a DSI display to test it (or the bridge regmap logic 
+>>> on RK btw...), I just "eye-balled" the RK code based on the public 
+>>> docs and it LGTM.
+>>>
+>>
+>> ... I'll be getting some DSI hardware to help with the pending
+>> Rockchip issues, so we can tackle Rockchip as well. I'm quite sure
+>> we'll loop Heiko as well if needed :-)
+> 
+> Sure, Adrian, can you rebase on drm-misc-next so I can apply the IMX and STM patches ?
+> 
+>>
+>> Cheers,
+>> Ezequiel
+>>
+>>>> Neil
+>>>>
+>>>>> Big thank you to everyone who has contributed to this up to now,
+>>>>> Adrian
+>>>>>
+>>>>> Adrian Ratiu (11):
+>>>>>   drm: bridge: dw_mipi_dsi: add initial regmap infrastructure
+>>>>>   drm: bridge: dw_mipi_dsi: abstract register access using reg_fields
+>>>>>   drm: bridge: dw_mipi_dsi: add dsi v1.01 support
+>>>>>   drm: bridge: dw_mipi_dsi: remove bind/unbind API
+>>>>>   dt-bindings: display: add i.MX6 MIPI DSI host controller doc
+>>>>>   ARM: dts: imx6qdl: add missing mipi dsi properties
+>>>>>   drm: imx: Add i.MX 6 MIPI DSI host platform driver
+>>>>>   drm: stm: dw-mipi-dsi: let the bridge handle the HW version check
+>>>>>   drm: bridge: dw-mipi-dsi: split low power cfg register into fields
+>>>>>   drm: bridge: dw-mipi-dsi: fix bad register field offsets
+>>>>>   Documentation: gpu: todo: Add dw-mipi-dsi consolidation plan
+>>>>>
+>>>>>  .../display/imx/fsl,mipi-dsi-imx6.yaml        | 112 +++
+>>>>>  Documentation/gpu/todo.rst                    |  25 +
+>>>>>  arch/arm/boot/dts/imx6qdl.dtsi                |   8 +
+>>>>>  drivers/gpu/drm/bridge/synopsys/Kconfig       |   1 +
+>>>>>  drivers/gpu/drm/bridge/synopsys/dw-mipi-dsi.c | 713 ++++++++++++------
+>>>>>  drivers/gpu/drm/imx/Kconfig                   |   8 +
+>>>>>  drivers/gpu/drm/imx/Makefile                  |   1 +
+>>>>>  drivers/gpu/drm/imx/dw_mipi_dsi-imx6.c        | 399 ++++++++++
+>>>>>  .../gpu/drm/rockchip/dw-mipi-dsi-rockchip.c   |   7 +-
+>>>>>  drivers/gpu/drm/stm/dw_mipi_dsi-stm.c         |  16 +-
+>>>>>  10 files changed, 1059 insertions(+), 231 deletions(-)
+>>>>>  create mode 100644 Documentation/devicetree/bindings/display/imx/fsl,mipi-dsi-imx6.yaml
+>>>>>  create mode 100644 drivers/gpu/drm/imx/dw_mipi_dsi-imx6.c
+>>>>>
+>>
+> 
 
 _______________________________________________
 Linux-stm32 mailing list
