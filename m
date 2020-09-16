@@ -2,85 +2,62 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id 34CE226B656
-	for <lists+linux-stm32@lfdr.de>; Wed, 16 Sep 2020 02:03:09 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id AC0E026BD3B
+	for <lists+linux-stm32@lfdr.de>; Wed, 16 Sep 2020 08:34:12 +0200 (CEST)
 Received: from ip-172-31-3-76.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id F13EDC3FADF;
-	Wed, 16 Sep 2020 00:03:08 +0000 (UTC)
-Received: from mail-pl1-f193.google.com (mail-pl1-f193.google.com
- [209.85.214.193])
- (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 5BCDCC3FADF;
+	Wed, 16 Sep 2020 06:34:12 +0000 (UTC)
+Received: from mx07-00178001.pphosted.com (mx07-00178001.pphosted.com
+ [185.132.182.106])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id BE04DC3FAD6
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 816AFC3FAD6
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Wed, 16 Sep 2020 00:03:06 +0000 (UTC)
-Received: by mail-pl1-f193.google.com with SMTP id bg9so2193098plb.2
- for <linux-stm32@st-md-mailman.stormreply.com>;
- Tue, 15 Sep 2020 17:03:06 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20161025;
- h=subject:to:cc:references:from:message-id:date:user-agent
- :mime-version:in-reply-to:content-language:content-transfer-encoding;
- bh=/9YC3jzxgXrgHNvLV2DgKLu9vRPOEeUndPKkcJPjDSI=;
- b=jf9mDfg00fVj/EphFCM3fHgNMnH5rlkZ88FTfEbdsiXbD3jHObKr2feFEkpxgSqHgM
- w8xtcPHIrz5QxSdbj68FYVkzfR6KXWRiXFiu3RqGA4lkgv8z+iENnMEf5h2UPCdcbY41
- de6Urh5A4PvZ9ztobefpx8bA0PsGBQ4Yl+JMjPiJblHEEsBSq2CLiRzEURv0W5jXdMes
- gDmvm5JB+JRMI1bFPWDQ7Q9TdJ9U7fF2WPm6Z3rCPM+IaPBFqxWMjgBUnkWLclRI8z7O
- Kx40EhJyj6I7q9wINksgDQIIuUz8aXeiSY9riKg+FKD+c1Ul1Cl/u7lwNYnG0uJamBoy
- xagw==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20161025;
- h=x-gm-message-state:subject:to:cc:references:from:message-id:date
- :user-agent:mime-version:in-reply-to:content-language
- :content-transfer-encoding;
- bh=/9YC3jzxgXrgHNvLV2DgKLu9vRPOEeUndPKkcJPjDSI=;
- b=elJK+rSBH8kUuf3TAkRyjLmRlpROnk11WskeFG4dbXNJkYMbiBnmIY0d4vx9aIQ5LR
- GogOo8J0usvY6Tcmiz2fOr75o1b5SZclhgCoB3nuVs/xQUuk0iUS2s/FdiZSll+3hmBq
- qVq8TwAZQnx0XC5YBeh6fOO3YRV/bycE58Gw9F+NJu0XCGZexPRTTUlE7TtBVhU6QSpa
- iH4qObTqv8eqh4xobcSh2SJdt6fPouH9e341JJ0OloBU5B5gy+ONVrfGLveks64u/Icq
- TqX5i7iW2ZHfzREHh3Y/EULIHPazlm2VQQilpx9mBT403EXLBGoIhtqNWp2hO9JctCzn
- 8lPw==
-X-Gm-Message-State: AOAM5323e6zry6Xwg6LxGmVDSwKvzfjNFJBhlLtTr6cmDWvL0jufhiEO
- KCxSTw1BW5NvXSBuVk5ouYw=
-X-Google-Smtp-Source: ABdhPJwXZLREEPePNQ09vlrQA/w6bnVK1+xr2DoofOoKKiFD/yJFWzHp7fSEVmNoHeMMrfNyXMrCgw==
-X-Received: by 2002:a17:90a:db0f:: with SMTP id
- g15mr1569754pjv.145.1600214584632; 
- Tue, 15 Sep 2020 17:03:04 -0700 (PDT)
-Received: from [10.230.28.120] ([192.19.223.252])
- by smtp.gmail.com with ESMTPSA id o17sm12100848pgb.46.2020.09.15.17.02.56
- (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Tue, 15 Sep 2020 17:03:03 -0700 (PDT)
-To: "Wong, Vee Khee" <vee.khee.wong@intel.com>,
- David Miller <davem@davemloft.net>
-References: <20200915012840.31841-1-vee.khee.wong@intel.com>
- <20200915.154302.373083705277550666.davem@davemloft.net>
- <b945fcc5-e287-73e2-8e37-bd78559944ab@gmail.com>
- <BYAPR11MB287046044CA144193135B0E7AB200@BYAPR11MB2870.namprd11.prod.outlook.com>
-From: Florian Fainelli <f.fainelli@gmail.com>
-Message-ID: <16a0dc9e-4e08-6d71-6be4-13c2fc8c53dd@gmail.com>
-Date: Tue, 15 Sep 2020 17:02:54 -0700
-User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:78.0) Gecko/20100101
- Firefox/78.0 Thunderbird/78.2.2
+ Wed, 16 Sep 2020 06:34:07 +0000 (UTC)
+Received: from pps.filterd (m0046037.ppops.net [127.0.0.1])
+ by mx07-00178001.pphosted.com (8.16.0.42/8.16.0.42) with SMTP id
+ 08G6RUsd004867; Wed, 16 Sep 2020 08:33:49 +0200
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=st.com;
+ h=from : to : cc : subject
+ : date : message-id : mime-version : content-type; s=STMicroelectronics;
+ bh=HxkrC3S6cMK+LXNjlN3kJlmPK+4qpTmLNr0JbnzCSBU=;
+ b=bg7mu+oo8kgfBOeXm2rqvGuQ4DVXDiaLLt9lWTjhaFsSHY/XH2niyRQXUh049LMQgDwv
+ VukskLSsMq5a6u2Kv5w3CYl5LzRqTkH96kICTMbtJMpySW9ckjTvYiUV+YahxHJW1WxX
+ WzjqlZ6GRctgXWJSLHM8u1GmoYvlBdaUFq1jVXyaxMhYuedNjwHIVJS3gjfPNQa7dEdU
+ VfnSxmQsGVAfM1i9BYvMvtxjcsnS9pPwJ97ObdumL6a7qi8hCQoew3bfUvrhJl4HlLXG
+ InuKtOxDpctniXu2xz2ASw4mNoNZUdIdZSzP509rqm/D8B3vHw/L4tT0Lt1i4dXeb6VK QA== 
+Received: from beta.dmz-eu.st.com (beta.dmz-eu.st.com [164.129.1.35])
+ by mx07-00178001.pphosted.com with ESMTP id 33k6919s4u-1
+ (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
+ Wed, 16 Sep 2020 08:33:49 +0200
+Received: from euls16034.sgp.st.com (euls16034.sgp.st.com [10.75.44.20])
+ by beta.dmz-eu.st.com (STMicroelectronics) with ESMTP id 01A68100034;
+ Wed, 16 Sep 2020 08:33:48 +0200 (CEST)
+Received: from Webmail-eu.st.com (sfhdag6node1.st.com [10.75.127.16])
+ by euls16034.sgp.st.com (STMicroelectronics) with ESMTP id AAF8120759A;
+ Wed, 16 Sep 2020 08:33:48 +0200 (CEST)
+Received: from localhost (10.75.127.44) by SFHDAG6NODE1.st.com (10.75.127.16)
+ with Microsoft SMTP Server (TLS) id 15.0.1473.3;
+ Wed, 16 Sep 2020 08:33:47 +0200
+From: Nicolas Toromanoff <nicolas.toromanoff@st.com>
+To: Herbert Xu <herbert@gondor.apana.org.au>, "David S . Miller"
+ <davem@davemloft.net>, Maxime Coquelin <mcoquelin.stm32@gmail.com>,
+ Alexandre Torgue <alexandre.torgue@st.com>
+Date: Wed, 16 Sep 2020 08:33:44 +0200
+Message-ID: <20200916063344.15054-1-nicolas.toromanoff@st.com>
+X-Mailer: git-send-email 2.17.1
 MIME-Version: 1.0
-In-Reply-To: <BYAPR11MB287046044CA144193135B0E7AB200@BYAPR11MB2870.namprd11.prod.outlook.com>
-Content-Language: en-US
-Cc: "Voon, Weifeng" <weifeng.voon@intel.com>,
- "Joao.Pinto@synopsys.com" <Joao.Pinto@synopsys.com>,
- "arnd@arndb.de" <arnd@arndb.de>,
- "netdev@vger.kernel.org" <netdev@vger.kernel.org>,
- "linux@armlinux.org.uk" <linux@armlinux.org.uk>,
- "linux-kernel@vger.kernel.org" <linux-kernel@vger.kernel.org>, "Seow,
- Chen Yong" <chen.yong.seow@intel.com>,
- "joabreu@synopsys.com" <joabreu@synopsys.com>, "Vijaya Balan,
- Sadhishkhanna" <sadhishkhanna.vijaya.balan@intel.com>,
- "mcoquelin.stm32@gmail.com" <mcoquelin.stm32@gmail.com>,
- "kuba@kernel.org" <kuba@kernel.org>, "Ong,
- Boon Leong" <boon.leong.ong@intel.com>,
- "peppe.cavallaro@st.com" <peppe.cavallaro@st.com>,
- "linux-stm32@st-md-mailman.stormreply.com"
- <linux-stm32@st-md-mailman.stormreply.com>,
- "linux-arm-kernel@lists.infradead.org" <linux-arm-kernel@lists.infradead.org>
-Subject: Re: [Linux-stm32] [PATCH net-next 0/3] net: stmmac: Add ethtool
- support for get|set channels
+X-Originating-IP: [10.75.127.44]
+X-ClientProxiedBy: SFHDAG7NODE3.st.com (10.75.127.21) To SFHDAG6NODE1.st.com
+ (10.75.127.16)
+X-Proofpoint-Virus-Version: vendor=fsecure engine=2.50.10434:6.0.235, 18.0.687
+ definitions=2020-09-16_02:2020-09-15,
+ 2020-09-16 signatures=0
+Cc: linux-kernel@vger.kernel.org, Ard Biesheuvel <ardb@kernel.org>,
+ linux-crypto@vger.kernel.org, linux-stm32@st-md-mailman.stormreply.com,
+ linux-arm-kernel@lists.infradead.org
+Subject: [Linux-stm32] [PATCH v2] crypto: stm32/crc32 - Avoid lock if
+	hardware is already used
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -92,28 +69,89 @@ List-Post: <mailto:linux-stm32@st-md-mailman.stormreply.com>
 List-Help: <mailto:linux-stm32-request@st-md-mailman.stormreply.com?subject=help>
 List-Subscribe: <https://st-md-mailman.stormreply.com/mailman/listinfo/linux-stm32>, 
  <mailto:linux-stm32-request@st-md-mailman.stormreply.com?subject=subscribe>
+Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
-Content-Type: text/plain; charset="us-ascii"; Format="flowed"
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
+If STM32 CRC device is already in use, calculate CRC by software.
 
+This will release CPU constraint for a concurrent access to the
+hardware, and avoid masking irqs during the whole block processing.
 
-On 9/15/2020 4:59 PM, Wong, Vee Khee wrote:
-> My bad...
-> 
-> Hi David Miller,
+Fixes: 7795c0baf5ac ("crypto: stm32/crc32 - protect from concurrent accesses")
 
-(please don't top post)
+Signed-off-by: Nicolas Toromanoff <nicolas.toromanoff@st.com>
+---
+v2: select CRC32 and not (CRYPTO_CRC32 and CRYPTO_CRC32C) in Kconfig
+---
+ drivers/crypto/stm32/Kconfig       |  1 +
+ drivers/crypto/stm32/stm32-crc32.c | 15 ++++++++++++---
+ 2 files changed, 13 insertions(+), 3 deletions(-)
 
-> 
-> Can you help with the commit message fix or do you want to to send a new patch with the fix since the patches are applied on net-next?
-
-It has already been applied, so this is too late, just telling you so 
-you can avoid it next time. And it should be part of David's CI while 
-applying patching, too.
+diff --git a/drivers/crypto/stm32/Kconfig b/drivers/crypto/stm32/Kconfig
+index 4ef3eb11361c..4a4c3284ae1f 100644
+--- a/drivers/crypto/stm32/Kconfig
++++ b/drivers/crypto/stm32/Kconfig
+@@ -3,6 +3,7 @@ config CRYPTO_DEV_STM32_CRC
+ 	tristate "Support for STM32 crc accelerators"
+ 	depends on ARCH_STM32
+ 	select CRYPTO_HASH
++	select CRC32
+ 	help
+ 	  This enables support for the CRC32 hw accelerator which can be found
+ 	  on STMicroelectronics STM32 SOC.
+diff --git a/drivers/crypto/stm32/stm32-crc32.c b/drivers/crypto/stm32/stm32-crc32.c
+index 783a64f3f635..75867c0b0017 100644
+--- a/drivers/crypto/stm32/stm32-crc32.c
++++ b/drivers/crypto/stm32/stm32-crc32.c
+@@ -6,6 +6,7 @@
+ 
+ #include <linux/bitrev.h>
+ #include <linux/clk.h>
++#include <linux/crc32.h>
+ #include <linux/crc32poly.h>
+ #include <linux/io.h>
+ #include <linux/kernel.h>
+@@ -149,7 +150,6 @@ static int burst_update(struct shash_desc *desc, const u8 *d8,
+ 	struct stm32_crc_desc_ctx *ctx = shash_desc_ctx(desc);
+ 	struct stm32_crc_ctx *mctx = crypto_shash_ctx(desc->tfm);
+ 	struct stm32_crc *crc;
+-	unsigned long flags;
+ 
+ 	crc = stm32_crc_get_next_crc();
+ 	if (!crc)
+@@ -157,7 +157,15 @@ static int burst_update(struct shash_desc *desc, const u8 *d8,
+ 
+ 	pm_runtime_get_sync(crc->dev);
+ 
+-	spin_lock_irqsave(&crc->lock, flags);
++	if (!spin_trylock(&crc->lock)) {
++		/* Hardware is busy, calculate crc32 by software */
++		if (mctx->poly == CRC32_POLY_LE)
++			ctx->partial = crc32_le(ctx->partial, d8, length);
++		else
++			ctx->partial = __crc32c_le(ctx->partial, d8, length);
++
++		goto pm_out;
++	}
+ 
+ 	/*
+ 	 * Restore previously calculated CRC for this context as init value
+@@ -197,8 +205,9 @@ static int burst_update(struct shash_desc *desc, const u8 *d8,
+ 	/* Store partial result */
+ 	ctx->partial = readl_relaxed(crc->regs + CRC_DR);
+ 
+-	spin_unlock_irqrestore(&crc->lock, flags);
++	spin_unlock(&crc->lock);
+ 
++pm_out:
+ 	pm_runtime_mark_last_busy(crc->dev);
+ 	pm_runtime_put_autosuspend(crc->dev);
+ 
 -- 
-Florian
+2.18.1
+
 _______________________________________________
 Linux-stm32 mailing list
 Linux-stm32@st-md-mailman.stormreply.com
