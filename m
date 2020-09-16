@@ -2,51 +2,85 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id EC56F26BE42
-	for <lists+linux-stm32@lfdr.de>; Wed, 16 Sep 2020 09:38:40 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 7F03526BEB3
+	for <lists+linux-stm32@lfdr.de>; Wed, 16 Sep 2020 10:01:47 +0200 (CEST)
 Received: from ip-172-31-3-76.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id A1B83C3FADE;
-	Wed, 16 Sep 2020 07:38:40 +0000 (UTC)
-Received: from mga03.intel.com (mga03.intel.com [134.134.136.65])
- (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 49755C3FADF;
+	Wed, 16 Sep 2020 08:01:47 +0000 (UTC)
+Received: from mail-pg1-f195.google.com (mail-pg1-f195.google.com
+ [209.85.215.195])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id A1C75C3FAD5
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 1942BC3FAD6
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Wed, 16 Sep 2020 07:38:36 +0000 (UTC)
-IronPort-SDR: 6E9BwllWtK7FrikFJ1OajD6pZ/JVxTBK3NhrP8BnlvxlZRIL+y9KQ7lhTJaviUjkeUj7zhifcV
- wMkFNsJjucwg==
-X-IronPort-AV: E=McAfee;i="6000,8403,9745"; a="159469933"
-X-IronPort-AV: E=Sophos;i="5.76,432,1592895600"; d="scan'208";a="159469933"
-X-Amp-Result: SKIPPED(no attachment in message)
-X-Amp-File-Uploaded: False
-Received: from orsmga003.jf.intel.com ([10.7.209.27])
- by orsmga103.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 16 Sep 2020 00:38:34 -0700
-IronPort-SDR: sBLZ0kZia7WSDi303h9IxHf1flKKuLD21QnAjL2/EerHDasVk7r6sMFVB+QytzlxGCFfFMBqOP
- XaiKmQUl+1lg==
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="5.76,432,1592895600"; d="scan'208";a="302471420"
-Received: from glass.png.intel.com ([172.30.181.92])
- by orsmga003.jf.intel.com with ESMTP; 16 Sep 2020 00:38:30 -0700
-From: Wong Vee Khee <vee.khee.wong@intel.com>
-To: Giuseppe Cavallaro <peppe.cavallaro@st.com>,
- Alexandre Torgue <alexandre.torgue@st.com>,
- Jose Abreu <joabreu@synopsys.com>,
- "David S . Miller" <davem@davemloft.net>, Jakub Kicinski <kuba@kernel.org>,
+ Wed, 16 Sep 2020 08:01:46 +0000 (UTC)
+Received: by mail-pg1-f195.google.com with SMTP id k14so3433911pgi.9
+ for <linux-stm32@st-md-mailman.stormreply.com>;
+ Wed, 16 Sep 2020 01:01:46 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=benyossef-com.20150623.gappssmtp.com; s=20150623;
+ h=mime-version:references:in-reply-to:from:date:message-id:subject:to
+ :cc:content-transfer-encoding;
+ bh=Jzms5XAy0HxBD6ul+TJwAtKpEdXIIQEvIQXmembsOLs=;
+ b=QC/a9gxIFQcQOJO+uA+vjVshZqDN8e+LFRdyf/aIAVoxC6nt6GyZMHOWcZvoME0w87
+ aSe0E7xu0+ZGXIE7WrAXn//6ydaMyNBCBc+QjStY7SIQBm1YCSo7xYtzW0RFzRgNXf1f
+ 1yLhZ0g0VuKfw3IfLpoz0voPYrp9ZPxHjaAovtMHgeQVMKX9bVGNvpS/rRgm/9pv0ToS
+ 0V6gf+vOX7w9japVUv1/b/bs6Ze4C4xX7YFaUhdfalPVuIoiVi88/RAMDRrSVn4FyHSJ
+ rwDYrlp4PuzT/W5NxJEjng8q7U6zQwC8KQFZCIj1QyHKdfzL3/798HNVYEbVM8c7I2Wc
+ ZG3g==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20161025;
+ h=x-gm-message-state:mime-version:references:in-reply-to:from:date
+ :message-id:subject:to:cc:content-transfer-encoding;
+ bh=Jzms5XAy0HxBD6ul+TJwAtKpEdXIIQEvIQXmembsOLs=;
+ b=uha5oQGIRlkOIXljdQStFcdEzNmp7AOe1HELGXD62h/gmrQu7CiGARI2i5R9TfqniV
+ hKfDLK1BQPjC8jRIdJM+rE2UN290ry/W5nSCX9CW5b2Ow6Q4qsgTCuW4+nQZGHfvbE1v
+ 3d56FObu5DVtcI8Mw2mLb1aXELfuGx0D08wwz0TpPpflfH8Ozqr1iHt0px4ujt3cY8vE
+ +gWS+qL5vaLO1obfPY3LI/f+xg9XtK6BBiduu0Slha4ehyUzrc7khIAqFA0dq6xVzWXn
+ XEF4Qo7HXxcUV/mmc3hAK/sT/u/fskDIvWcgCV1YfwBQ7UebaGUJ+WxuChZh4Q3gRfd/
+ fBAA==
+X-Gm-Message-State: AOAM5304WJr8lLV7V+u9dqZG0VsDE3WIBKEkhj/nRJFHrJAbaPbSIfYt
+ OFJzHXLxFvUkFB1fQ+tkSJ1eYDasYNfgalNeUzw7SA==
+X-Google-Smtp-Source: ABdhPJwN2QFGXNPzAZFIilK1Py2rGwqQ0bbheksG8Mxx6NCNiQuM7ZG8NklYYP87LUBNlsvMF6HpPVEL1Zj6OHCa7iw=
+X-Received: by 2002:aa7:941a:0:b029:142:2501:35d1 with SMTP id
+ x26-20020aa7941a0000b0290142250135d1mr5277487pfo.49.1600243304416; Wed, 16
+ Sep 2020 01:01:44 -0700 (PDT)
+MIME-Version: 1.0
+References: <20200903131242.128665-1-tianjia.zhang@linux.alibaba.com>
+ <20200903131242.128665-8-tianjia.zhang@linux.alibaba.com>
+ <CAOtvUMfT5zgv=e9nCgz8-1r7LuYSRZ8Zdx2xc0JwckUJZufcvg@mail.gmail.com>
+ <6f251e1e-42a0-7e6c-e0cd-51fba3150d17@linux.alibaba.com>
+In-Reply-To: <6f251e1e-42a0-7e6c-e0cd-51fba3150d17@linux.alibaba.com>
+From: Gilad Ben-Yossef <gilad@benyossef.com>
+Date: Wed, 16 Sep 2020 11:01:34 +0300
+Message-ID: <CAOtvUMdxeYxztajMG=XDzV-G8cB2GLaVnNBSAxLkwuZwqPxr2A@mail.gmail.com>
+To: Tianjia Zhang <tianjia.zhang@linux.alibaba.com>
+Cc: Stephan Mueller <smueller@chronox.de>,
+ Brendan Higgins <brendanhiggins@google.com>,
+ Jia Zhang <zhang.jia@linux.alibaba.com>, Mimi Zohar <zohar@linux.ibm.com>,
+ Vitaly Chikunov <vt@altlinux.org>, keyrings@vger.kernel.org,
+ linux-stm32@st-md-mailman.stormreply.com,
+ Herbert Xu <herbert@gondor.apana.org.au>,
+ Masahiro Yamada <masahiroy@kernel.org>, James Morris <jmorris@namei.org>,
+ Lakshmi Ramasubramanian <nramas@linux.microsoft.com>,
+ Marcelo Henrique Cerri <marcelo.cerri@canonical.com>,
+ Waiman Long <longman@redhat.com>, "Serge E. Hallyn" <serge@hallyn.com>,
+ "Steven Rostedt \(VMware\)" <rostedt@goodmis.org>,
+ Tushar Sugandhi <tusharsu@linux.microsoft.com>,
+ Linux ARM <linux-arm-kernel@lists.infradead.org>,
+ David Howells <dhowells@redhat.com>,
+ Pascal van Leeuwen <pvanleeuwen@rambus.com>,
+ Linux kernel mailing list <linux-kernel@vger.kernel.org>,
+ Xufeng Zhang <yunbo.xufeng@linux.alibaba.com>,
+ linux-security-module@vger.kernel.org,
+ Linux Crypto Mailing List <linux-crypto@vger.kernel.org>,
  Maxime Coquelin <mcoquelin.stm32@gmail.com>,
- Russell King <linux@armlinux.org.uk>
-Date: Wed, 16 Sep 2020 15:40:20 +0800
-Message-Id: <20200916074020.25491-1-vee.khee.wong@intel.com>
-X-Mailer: git-send-email 2.17.0
-Cc: Voon Wei Feng <weifeng.voon@intel.com>,
- Wong Vee Khee <vee.khee.wong@intel.com>, netdev@vger.kernel.org,
- linux-kernel@vger.kernel.org, Seow Chen Yong <chen.yong.seow@intel.com>,
- Vijaya Balan Sadhishkhanna <sadhishkhanna.vijaya.balan@intel.com>,
- Song Yoong Siang <yoong.siang.song@intel.com>,
- Ong Boon Leong <boon.leong.ong@intel.com>,
- linux-stm32@st-md-mailman.stormreply.com, linux-arm-kernel@lists.infradead.org
-Subject: [Linux-stm32] [PATCH net-next] net: stmmac: Add support to Ethtool
-	get/set ring parameters
+ Johannes Weiner <hannes@cmpxchg.org>,
+ Colin Ian King <colin.king@canonical.com>,
+ Andrew Morton <akpm@linux-foundation.org>,
+ "David S. Miller" <davem@davemloft.net>
+Subject: Re: [Linux-stm32] [PATCH v6 7/8] X.509: support OSCCA sm2-with-sm3
+	certificate verification
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -58,637 +92,127 @@ List-Post: <mailto:linux-stm32@st-md-mailman.stormreply.com>
 List-Help: <mailto:linux-stm32-request@st-md-mailman.stormreply.com?subject=help>
 List-Subscribe: <https://st-md-mailman.stormreply.com/mailman/listinfo/linux-stm32>, 
  <mailto:linux-stm32-request@st-md-mailman.stormreply.com?subject=subscribe>
-MIME-Version: 1.0
-Content-Type: text/plain; charset="us-ascii"
-Content-Transfer-Encoding: 7bit
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: base64
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
-From: "Song, Yoong Siang" <yoong.siang.song@intel.com>
-
-This patch add support to --show-ring & --set-ring Ethtool functions:
-- Adding min, max, power of two check to new ring parameter's value.
-- Bring down the network interface before changing the value of ring
-  parameters.
-- Bring up the network interface after changing the value of ring
-  parameters.
-
-Signed-off-by: Song, Yoong Siang <yoong.siang.song@intel.com>
-Signed-off-by: Voon Weifeng <weifeng.voon@intel.com>
-Signed-off-by: Ong Boon Leong <boon.leong.ong@intel.com>
----
- .../net/ethernet/stmicro/stmmac/chain_mode.c  |   7 +-
- drivers/net/ethernet/stmicro/stmmac/common.h  |  13 +-
- .../net/ethernet/stmicro/stmmac/ring_mode.c   |   2 +-
- drivers/net/ethernet/stmicro/stmmac/stmmac.h  |   3 +
- .../ethernet/stmicro/stmmac/stmmac_ethtool.c  |  29 ++++
- .../net/ethernet/stmicro/stmmac/stmmac_main.c | 135 +++++++++++-------
- .../stmicro/stmmac/stmmac_selftests.c         |   2 +-
- 7 files changed, 132 insertions(+), 59 deletions(-)
-
-diff --git a/drivers/net/ethernet/stmicro/stmmac/chain_mode.c b/drivers/net/ethernet/stmicro/stmmac/chain_mode.c
-index 52971f5293aa..d2cdc02d9f94 100644
---- a/drivers/net/ethernet/stmicro/stmmac/chain_mode.c
-+++ b/drivers/net/ethernet/stmicro/stmmac/chain_mode.c
-@@ -46,7 +46,7 @@ static int jumbo_frm(void *p, struct sk_buff *skb, int csum)
- 
- 	while (len != 0) {
- 		tx_q->tx_skbuff[entry] = NULL;
--		entry = STMMAC_GET_ENTRY(entry, DMA_TX_SIZE);
-+		entry = STMMAC_GET_ENTRY(entry, priv->dma_tx_size);
- 		desc = tx_q->dma_tx + entry;
- 
- 		if (len > bmax) {
-@@ -137,7 +137,7 @@ static void refill_desc3(void *priv_ptr, struct dma_desc *p)
- 		 */
- 		p->des3 = cpu_to_le32((unsigned int)(rx_q->dma_rx_phy +
- 				      (((rx_q->dirty_rx) + 1) %
--				       DMA_RX_SIZE) *
-+				       priv->dma_rx_size) *
- 				      sizeof(struct dma_desc)));
- }
- 
-@@ -154,7 +154,8 @@ static void clean_desc3(void *priv_ptr, struct dma_desc *p)
- 		 * to keep explicit chaining in the descriptor.
- 		 */
- 		p->des3 = cpu_to_le32((unsigned int)((tx_q->dma_tx_phy +
--				      ((tx_q->dirty_tx + 1) % DMA_TX_SIZE))
-+				      ((tx_q->dirty_tx + 1) %
-+				       priv->dma_tx_size))
- 				      * sizeof(struct dma_desc)));
- }
- 
-diff --git a/drivers/net/ethernet/stmicro/stmmac/common.h b/drivers/net/ethernet/stmicro/stmmac/common.h
-index acc5e3fc1c2f..cafa8e3c3573 100644
---- a/drivers/net/ethernet/stmicro/stmmac/common.h
-+++ b/drivers/net/ethernet/stmicro/stmmac/common.h
-@@ -42,9 +42,16 @@
- 
- #define STMMAC_CHAN0	0	/* Always supported and default for all chips */
- 
--/* These need to be power of two, and >= 4 */
--#define DMA_TX_SIZE 512
--#define DMA_RX_SIZE 512
-+/* TX and RX Descriptor Length, these need to be power of two.
-+ * TX descriptor length less than 64 may cause transmit queue timed out error.
-+ * RX descriptor length less than 64 may cause inconsistent Rx chain error.
-+ */
-+#define DMA_MIN_TX_SIZE		64
-+#define DMA_MAX_TX_SIZE		1024
-+#define DMA_DEFAULT_TX_SIZE	512
-+#define DMA_MIN_RX_SIZE		64
-+#define DMA_MAX_RX_SIZE		1024
-+#define DMA_DEFAULT_RX_SIZE	512
- #define STMMAC_GET_ENTRY(x, size)	((x + 1) & (size - 1))
- 
- #undef FRAME_FILTER_DEBUG
-diff --git a/drivers/net/ethernet/stmicro/stmmac/ring_mode.c b/drivers/net/ethernet/stmicro/stmmac/ring_mode.c
-index 14bd5e7b9875..8ad900949dc8 100644
---- a/drivers/net/ethernet/stmicro/stmmac/ring_mode.c
-+++ b/drivers/net/ethernet/stmicro/stmmac/ring_mode.c
-@@ -51,7 +51,7 @@ static int jumbo_frm(void *p, struct sk_buff *skb, int csum)
- 		stmmac_prepare_tx_desc(priv, desc, 1, bmax, csum,
- 				STMMAC_RING_MODE, 0, false, skb->len);
- 		tx_q->tx_skbuff[entry] = NULL;
--		entry = STMMAC_GET_ENTRY(entry, DMA_TX_SIZE);
-+		entry = STMMAC_GET_ENTRY(entry, priv->dma_tx_size);
- 
- 		if (priv->extend_desc)
- 			desc = (struct dma_desc *)(tx_q->dma_etx + entry);
-diff --git a/drivers/net/ethernet/stmicro/stmmac/stmmac.h b/drivers/net/ethernet/stmicro/stmmac/stmmac.h
-index 509ce067538e..014a816c9d0b 100644
---- a/drivers/net/ethernet/stmicro/stmmac/stmmac.h
-+++ b/drivers/net/ethernet/stmicro/stmmac/stmmac.h
-@@ -171,9 +171,11 @@ struct stmmac_priv {
- 
- 	/* RX Queue */
- 	struct stmmac_rx_queue rx_queue[MTL_MAX_RX_QUEUES];
-+	unsigned int dma_rx_size;
- 
- 	/* TX Queue */
- 	struct stmmac_tx_queue tx_queue[MTL_MAX_TX_QUEUES];
-+	unsigned int dma_tx_size;
- 
- 	/* Generic channel for NAPI */
- 	struct stmmac_channel channel[STMMAC_CH_MAX];
-@@ -265,6 +267,7 @@ int stmmac_dvr_probe(struct device *device,
- void stmmac_disable_eee_mode(struct stmmac_priv *priv);
- bool stmmac_eee_init(struct stmmac_priv *priv);
- int stmmac_reinit_queues(struct net_device *dev, u32 rx_cnt, u32 tx_cnt);
-+int stmmac_reinit_ringparam(struct net_device *dev, u32 rx_size, u32 tx_size);
- 
- #if IS_ENABLED(CONFIG_STMMAC_SELFTESTS)
- void stmmac_selftest_run(struct net_device *dev,
-diff --git a/drivers/net/ethernet/stmicro/stmmac/stmmac_ethtool.c b/drivers/net/ethernet/stmicro/stmmac/stmmac_ethtool.c
-index db681287c273..5cfc942dbabf 100644
---- a/drivers/net/ethernet/stmicro/stmmac/stmmac_ethtool.c
-+++ b/drivers/net/ethernet/stmicro/stmmac/stmmac_ethtool.c
-@@ -440,6 +440,33 @@ static int stmmac_nway_reset(struct net_device *dev)
- 	return phylink_ethtool_nway_reset(priv->phylink);
- }
- 
-+static void stmmac_get_ringparam(struct net_device *netdev,
-+				 struct ethtool_ringparam *ring)
-+{
-+	struct stmmac_priv *priv = netdev_priv(netdev);
-+
-+	ring->rx_max_pending = DMA_MAX_RX_SIZE;
-+	ring->tx_max_pending = DMA_MAX_TX_SIZE;
-+	ring->rx_pending = priv->dma_rx_size;
-+	ring->tx_pending = priv->dma_tx_size;
-+}
-+
-+static int stmmac_set_ringparam(struct net_device *netdev,
-+				struct ethtool_ringparam *ring)
-+{
-+	if (ring->rx_mini_pending || ring->rx_jumbo_pending ||
-+	    ring->rx_pending < DMA_MIN_RX_SIZE ||
-+	    ring->rx_pending > DMA_MAX_RX_SIZE ||
-+	    !is_power_of_2(ring->rx_pending) ||
-+	    ring->tx_pending < DMA_MIN_TX_SIZE ||
-+	    ring->tx_pending > DMA_MAX_TX_SIZE ||
-+	    !is_power_of_2(ring->tx_pending))
-+		return -EINVAL;
-+
-+	return stmmac_reinit_ringparam(netdev, ring->rx_pending,
-+				       ring->tx_pending);
-+}
-+
- static void
- stmmac_get_pauseparam(struct net_device *netdev,
- 		      struct ethtool_pauseparam *pause)
-@@ -947,6 +974,8 @@ static const struct ethtool_ops stmmac_ethtool_ops = {
- 	.get_regs_len = stmmac_ethtool_get_regs_len,
- 	.get_link = ethtool_op_get_link,
- 	.nway_reset = stmmac_nway_reset,
-+	.get_ringparam = stmmac_get_ringparam,
-+	.set_ringparam = stmmac_set_ringparam,
- 	.get_pauseparam = stmmac_get_pauseparam,
- 	.set_pauseparam = stmmac_set_pauseparam,
- 	.self_test = stmmac_selftest_run,
-diff --git a/drivers/net/ethernet/stmicro/stmmac/stmmac_main.c b/drivers/net/ethernet/stmicro/stmmac/stmmac_main.c
-index e2c579cf3b15..df2c74bbfcff 100644
---- a/drivers/net/ethernet/stmicro/stmmac/stmmac_main.c
-+++ b/drivers/net/ethernet/stmicro/stmmac/stmmac_main.c
-@@ -63,8 +63,8 @@ static int phyaddr = -1;
- module_param(phyaddr, int, 0444);
- MODULE_PARM_DESC(phyaddr, "Physical device address");
- 
--#define STMMAC_TX_THRESH	(DMA_TX_SIZE / 4)
--#define STMMAC_RX_THRESH	(DMA_RX_SIZE / 4)
-+#define STMMAC_TX_THRESH(x)	((x)->dma_tx_size / 4)
-+#define STMMAC_RX_THRESH(x)	((x)->dma_rx_size / 4)
- 
- static int flow_ctrl = FLOW_AUTO;
- module_param(flow_ctrl, int, 0644);
-@@ -271,7 +271,7 @@ static inline u32 stmmac_tx_avail(struct stmmac_priv *priv, u32 queue)
- 	if (tx_q->dirty_tx > tx_q->cur_tx)
- 		avail = tx_q->dirty_tx - tx_q->cur_tx - 1;
- 	else
--		avail = DMA_TX_SIZE - tx_q->cur_tx + tx_q->dirty_tx - 1;
-+		avail = priv->dma_tx_size - tx_q->cur_tx + tx_q->dirty_tx - 1;
- 
- 	return avail;
- }
-@@ -289,7 +289,7 @@ static inline u32 stmmac_rx_dirty(struct stmmac_priv *priv, u32 queue)
- 	if (rx_q->dirty_rx <= rx_q->cur_rx)
- 		dirty = rx_q->cur_rx - rx_q->dirty_rx;
- 	else
--		dirty = DMA_RX_SIZE - rx_q->dirty_rx + rx_q->cur_rx;
-+		dirty = priv->dma_rx_size - rx_q->dirty_rx + rx_q->cur_rx;
- 
- 	return dirty;
- }
-@@ -1120,7 +1120,7 @@ static void stmmac_display_rx_rings(struct stmmac_priv *priv)
- 			head_rx = (void *)rx_q->dma_rx;
- 
- 		/* Display RX ring */
--		stmmac_display_ring(priv, head_rx, DMA_RX_SIZE, true);
-+		stmmac_display_ring(priv, head_rx, priv->dma_rx_size, true);
- 	}
- }
- 
-@@ -1143,7 +1143,7 @@ static void stmmac_display_tx_rings(struct stmmac_priv *priv)
- 		else
- 			head_tx = (void *)tx_q->dma_tx;
- 
--		stmmac_display_ring(priv, head_tx, DMA_TX_SIZE, false);
-+		stmmac_display_ring(priv, head_tx, priv->dma_tx_size, false);
- 	}
- }
- 
-@@ -1187,16 +1187,16 @@ static void stmmac_clear_rx_descriptors(struct stmmac_priv *priv, u32 queue)
- 	int i;
- 
- 	/* Clear the RX descriptors */
--	for (i = 0; i < DMA_RX_SIZE; i++)
-+	for (i = 0; i < priv->dma_rx_size; i++)
- 		if (priv->extend_desc)
- 			stmmac_init_rx_desc(priv, &rx_q->dma_erx[i].basic,
- 					priv->use_riwt, priv->mode,
--					(i == DMA_RX_SIZE - 1),
-+					(i == priv->dma_rx_size - 1),
- 					priv->dma_buf_sz);
- 		else
- 			stmmac_init_rx_desc(priv, &rx_q->dma_rx[i],
- 					priv->use_riwt, priv->mode,
--					(i == DMA_RX_SIZE - 1),
-+					(i == priv->dma_rx_size - 1),
- 					priv->dma_buf_sz);
- }
- 
-@@ -1213,8 +1213,8 @@ static void stmmac_clear_tx_descriptors(struct stmmac_priv *priv, u32 queue)
- 	int i;
- 
- 	/* Clear the TX descriptors */
--	for (i = 0; i < DMA_TX_SIZE; i++) {
--		int last = (i == (DMA_TX_SIZE - 1));
-+	for (i = 0; i < priv->dma_tx_size; i++) {
-+		int last = (i == (priv->dma_tx_size - 1));
- 		struct dma_desc *p;
- 
- 		if (priv->extend_desc)
-@@ -1368,7 +1368,7 @@ static int init_dma_rx_desc_rings(struct net_device *dev, gfp_t flags)
- 
- 		stmmac_clear_rx_descriptors(priv, queue);
- 
--		for (i = 0; i < DMA_RX_SIZE; i++) {
-+		for (i = 0; i < priv->dma_rx_size; i++) {
- 			struct dma_desc *p;
- 
- 			if (priv->extend_desc)
-@@ -1383,16 +1383,18 @@ static int init_dma_rx_desc_rings(struct net_device *dev, gfp_t flags)
- 		}
- 
- 		rx_q->cur_rx = 0;
--		rx_q->dirty_rx = (unsigned int)(i - DMA_RX_SIZE);
-+		rx_q->dirty_rx = (unsigned int)(i - priv->dma_rx_size);
- 
- 		/* Setup the chained descriptor addresses */
- 		if (priv->mode == STMMAC_CHAIN_MODE) {
- 			if (priv->extend_desc)
- 				stmmac_mode_init(priv, rx_q->dma_erx,
--						rx_q->dma_rx_phy, DMA_RX_SIZE, 1);
-+						 rx_q->dma_rx_phy,
-+						 priv->dma_rx_size, 1);
- 			else
- 				stmmac_mode_init(priv, rx_q->dma_rx,
--						rx_q->dma_rx_phy, DMA_RX_SIZE, 0);
-+						 rx_q->dma_rx_phy,
-+						 priv->dma_rx_size, 0);
- 		}
- 	}
- 
-@@ -1406,7 +1408,7 @@ static int init_dma_rx_desc_rings(struct net_device *dev, gfp_t flags)
- 		if (queue == 0)
- 			break;
- 
--		i = DMA_RX_SIZE;
-+		i = priv->dma_rx_size;
- 		queue--;
- 	}
- 
-@@ -1438,13 +1440,15 @@ static int init_dma_tx_desc_rings(struct net_device *dev)
- 		if (priv->mode == STMMAC_CHAIN_MODE) {
- 			if (priv->extend_desc)
- 				stmmac_mode_init(priv, tx_q->dma_etx,
--						tx_q->dma_tx_phy, DMA_TX_SIZE, 1);
-+						 tx_q->dma_tx_phy,
-+						 priv->dma_tx_size, 1);
- 			else if (!(tx_q->tbs & STMMAC_TBS_AVAIL))
- 				stmmac_mode_init(priv, tx_q->dma_tx,
--						tx_q->dma_tx_phy, DMA_TX_SIZE, 0);
-+						 tx_q->dma_tx_phy,
-+						 priv->dma_tx_size, 0);
- 		}
- 
--		for (i = 0; i < DMA_TX_SIZE; i++) {
-+		for (i = 0; i < priv->dma_tx_size; i++) {
- 			struct dma_desc *p;
- 			if (priv->extend_desc)
- 				p = &((tx_q->dma_etx + i)->basic);
-@@ -1508,7 +1512,7 @@ static void dma_free_rx_skbufs(struct stmmac_priv *priv, u32 queue)
- {
- 	int i;
- 
--	for (i = 0; i < DMA_RX_SIZE; i++)
-+	for (i = 0; i < priv->dma_rx_size; i++)
- 		stmmac_free_rx_buffer(priv, queue, i);
- }
- 
-@@ -1521,7 +1525,7 @@ static void dma_free_tx_skbufs(struct stmmac_priv *priv, u32 queue)
- {
- 	int i;
- 
--	for (i = 0; i < DMA_TX_SIZE; i++)
-+	for (i = 0; i < priv->dma_tx_size; i++)
- 		stmmac_free_tx_buffer(priv, queue, i);
- }
- 
-@@ -1543,11 +1547,11 @@ static void free_dma_rx_desc_resources(struct stmmac_priv *priv)
- 
- 		/* Free DMA regions of consistent memory previously allocated */
- 		if (!priv->extend_desc)
--			dma_free_coherent(priv->device,
--					  DMA_RX_SIZE * sizeof(struct dma_desc),
-+			dma_free_coherent(priv->device, priv->dma_rx_size *
-+					  sizeof(struct dma_desc),
- 					  rx_q->dma_rx, rx_q->dma_rx_phy);
- 		else
--			dma_free_coherent(priv->device, DMA_RX_SIZE *
-+			dma_free_coherent(priv->device, priv->dma_rx_size *
- 					  sizeof(struct dma_extended_desc),
- 					  rx_q->dma_erx, rx_q->dma_rx_phy);
- 
-@@ -1586,7 +1590,7 @@ static void free_dma_tx_desc_resources(struct stmmac_priv *priv)
- 			addr = tx_q->dma_tx;
- 		}
- 
--		size *= DMA_TX_SIZE;
-+		size *= priv->dma_tx_size;
- 
- 		dma_free_coherent(priv->device, size, addr, tx_q->dma_tx_phy);
- 
-@@ -1619,7 +1623,7 @@ static int alloc_dma_rx_desc_resources(struct stmmac_priv *priv)
- 		rx_q->priv_data = priv;
- 
- 		pp_params.flags = PP_FLAG_DMA_MAP;
--		pp_params.pool_size = DMA_RX_SIZE;
-+		pp_params.pool_size = priv->dma_rx_size;
- 		num_pages = DIV_ROUND_UP(priv->dma_buf_sz, PAGE_SIZE);
- 		pp_params.order = ilog2(num_pages);
- 		pp_params.nid = dev_to_node(priv->device);
-@@ -1633,14 +1637,16 @@ static int alloc_dma_rx_desc_resources(struct stmmac_priv *priv)
- 			goto err_dma;
- 		}
- 
--		rx_q->buf_pool = kcalloc(DMA_RX_SIZE, sizeof(*rx_q->buf_pool),
-+		rx_q->buf_pool = kcalloc(priv->dma_rx_size,
-+					 sizeof(*rx_q->buf_pool),
- 					 GFP_KERNEL);
- 		if (!rx_q->buf_pool)
- 			goto err_dma;
- 
- 		if (priv->extend_desc) {
- 			rx_q->dma_erx = dma_alloc_coherent(priv->device,
--							   DMA_RX_SIZE * sizeof(struct dma_extended_desc),
-+							   priv->dma_rx_size *
-+							   sizeof(struct dma_extended_desc),
- 							   &rx_q->dma_rx_phy,
- 							   GFP_KERNEL);
- 			if (!rx_q->dma_erx)
-@@ -1648,7 +1654,8 @@ static int alloc_dma_rx_desc_resources(struct stmmac_priv *priv)
- 
- 		} else {
- 			rx_q->dma_rx = dma_alloc_coherent(priv->device,
--							  DMA_RX_SIZE * sizeof(struct dma_desc),
-+							  priv->dma_rx_size *
-+							  sizeof(struct dma_desc),
- 							  &rx_q->dma_rx_phy,
- 							  GFP_KERNEL);
- 			if (!rx_q->dma_rx)
-@@ -1687,13 +1694,13 @@ static int alloc_dma_tx_desc_resources(struct stmmac_priv *priv)
- 		tx_q->queue_index = queue;
- 		tx_q->priv_data = priv;
- 
--		tx_q->tx_skbuff_dma = kcalloc(DMA_TX_SIZE,
-+		tx_q->tx_skbuff_dma = kcalloc(priv->dma_tx_size,
- 					      sizeof(*tx_q->tx_skbuff_dma),
- 					      GFP_KERNEL);
- 		if (!tx_q->tx_skbuff_dma)
- 			goto err_dma;
- 
--		tx_q->tx_skbuff = kcalloc(DMA_TX_SIZE,
-+		tx_q->tx_skbuff = kcalloc(priv->dma_tx_size,
- 					  sizeof(struct sk_buff *),
- 					  GFP_KERNEL);
- 		if (!tx_q->tx_skbuff)
-@@ -1706,7 +1713,7 @@ static int alloc_dma_tx_desc_resources(struct stmmac_priv *priv)
- 		else
- 			size = sizeof(struct dma_desc);
- 
--		size *= DMA_TX_SIZE;
-+		size *= priv->dma_tx_size;
- 
- 		addr = dma_alloc_coherent(priv->device, size,
- 					  &tx_q->dma_tx_phy, GFP_KERNEL);
-@@ -2016,7 +2023,7 @@ static int stmmac_tx_clean(struct stmmac_priv *priv, int budget, u32 queue)
- 
- 		stmmac_release_tx_desc(priv, p, priv->mode);
- 
--		entry = STMMAC_GET_ENTRY(entry, DMA_TX_SIZE);
-+		entry = STMMAC_GET_ENTRY(entry, priv->dma_tx_size);
- 	}
- 	tx_q->dirty_tx = entry;
- 
-@@ -2025,7 +2032,7 @@ static int stmmac_tx_clean(struct stmmac_priv *priv, int budget, u32 queue)
- 
- 	if (unlikely(netif_tx_queue_stopped(netdev_get_tx_queue(priv->dev,
- 								queue))) &&
--	    stmmac_tx_avail(priv, queue) > STMMAC_TX_THRESH) {
-+	    stmmac_tx_avail(priv, queue) > STMMAC_TX_THRESH(priv)) {
- 
- 		netif_dbg(priv, tx_done, priv->dev,
- 			  "%s: restart transmit\n", __func__);
-@@ -2298,7 +2305,8 @@ static int stmmac_init_dma_engine(struct stmmac_priv *priv)
- 				    rx_q->dma_rx_phy, chan);
- 
- 		rx_q->rx_tail_addr = rx_q->dma_rx_phy +
--			    (DMA_RX_SIZE * sizeof(struct dma_desc));
-+				     (priv->dma_rx_size *
-+				      sizeof(struct dma_desc));
- 		stmmac_set_rx_tail_ptr(priv, priv->ioaddr,
- 				       rx_q->rx_tail_addr, chan);
- 	}
-@@ -2382,12 +2390,12 @@ static void stmmac_set_rings_length(struct stmmac_priv *priv)
- 	/* set TX ring length */
- 	for (chan = 0; chan < tx_channels_count; chan++)
- 		stmmac_set_tx_ring_len(priv, priv->ioaddr,
--				(DMA_TX_SIZE - 1), chan);
-+				       (priv->dma_tx_size - 1), chan);
- 
- 	/* set RX ring length */
- 	for (chan = 0; chan < rx_channels_count; chan++)
- 		stmmac_set_rx_ring_len(priv, priv->ioaddr,
--				(DMA_RX_SIZE - 1), chan);
-+				       (priv->dma_rx_size - 1), chan);
- }
- 
- /**
-@@ -2767,6 +2775,11 @@ static int stmmac_open(struct net_device *dev)
- 
- 	priv->rx_copybreak = STMMAC_RX_COPYBREAK;
- 
-+	if (!priv->dma_tx_size)
-+		priv->dma_tx_size = DMA_DEFAULT_TX_SIZE;
-+	if (!priv->dma_rx_size)
-+		priv->dma_rx_size = DMA_DEFAULT_RX_SIZE;
-+
- 	/* Earlier check for TBS */
- 	for (chan = 0; chan < priv->plat->tx_queues_to_use; chan++) {
- 		struct stmmac_tx_queue *tx_q = &priv->tx_queue[chan];
-@@ -2936,7 +2949,7 @@ static bool stmmac_vlan_insert(struct stmmac_priv *priv, struct sk_buff *skb,
- 		return false;
- 
- 	stmmac_set_tx_owner(priv, p);
--	tx_q->cur_tx = STMMAC_GET_ENTRY(tx_q->cur_tx, DMA_TX_SIZE);
-+	tx_q->cur_tx = STMMAC_GET_ENTRY(tx_q->cur_tx, priv->dma_tx_size);
- 	return true;
- }
- 
-@@ -2964,7 +2977,8 @@ static void stmmac_tso_allocator(struct stmmac_priv *priv, dma_addr_t des,
- 	while (tmp_len > 0) {
- 		dma_addr_t curr_addr;
- 
--		tx_q->cur_tx = STMMAC_GET_ENTRY(tx_q->cur_tx, DMA_TX_SIZE);
-+		tx_q->cur_tx = STMMAC_GET_ENTRY(tx_q->cur_tx,
-+						priv->dma_tx_size);
- 		WARN_ON(tx_q->tx_skbuff[tx_q->cur_tx]);
- 
- 		if (tx_q->tbs & STMMAC_TBS_AVAIL)
-@@ -3071,7 +3085,8 @@ static netdev_tx_t stmmac_tso_xmit(struct sk_buff *skb, struct net_device *dev)
- 
- 		stmmac_set_mss(priv, mss_desc, mss);
- 		tx_q->mss = mss;
--		tx_q->cur_tx = STMMAC_GET_ENTRY(tx_q->cur_tx, DMA_TX_SIZE);
-+		tx_q->cur_tx = STMMAC_GET_ENTRY(tx_q->cur_tx,
-+						priv->dma_tx_size);
- 		WARN_ON(tx_q->tx_skbuff[tx_q->cur_tx]);
- 	}
- 
-@@ -3178,7 +3193,7 @@ static netdev_tx_t stmmac_tso_xmit(struct sk_buff *skb, struct net_device *dev)
- 	 * ndo_start_xmit will fill this descriptor the next time it's
- 	 * called and stmmac_tx_clean may clean up to this descriptor.
- 	 */
--	tx_q->cur_tx = STMMAC_GET_ENTRY(tx_q->cur_tx, DMA_TX_SIZE);
-+	tx_q->cur_tx = STMMAC_GET_ENTRY(tx_q->cur_tx, priv->dma_tx_size);
- 
- 	if (unlikely(stmmac_tx_avail(priv, queue) <= (MAX_SKB_FRAGS + 1))) {
- 		netif_dbg(priv, hw, priv->dev, "%s: stop transmitted packets\n",
-@@ -3341,7 +3356,7 @@ static netdev_tx_t stmmac_xmit(struct sk_buff *skb, struct net_device *dev)
- 		int len = skb_frag_size(frag);
- 		bool last_segment = (i == (nfrags - 1));
- 
--		entry = STMMAC_GET_ENTRY(entry, DMA_TX_SIZE);
-+		entry = STMMAC_GET_ENTRY(entry, priv->dma_tx_size);
- 		WARN_ON(tx_q->tx_skbuff[entry]);
- 
- 		if (likely(priv->extend_desc))
-@@ -3409,7 +3424,7 @@ static netdev_tx_t stmmac_xmit(struct sk_buff *skb, struct net_device *dev)
- 	 * ndo_start_xmit will fill this descriptor the next time it's
- 	 * called and stmmac_tx_clean may clean up to this descriptor.
- 	 */
--	entry = STMMAC_GET_ENTRY(entry, DMA_TX_SIZE);
-+	entry = STMMAC_GET_ENTRY(entry, priv->dma_tx_size);
- 	tx_q->cur_tx = entry;
- 
- 	if (netif_msg_pktdata(priv)) {
-@@ -3594,7 +3609,7 @@ static inline void stmmac_rx_refill(struct stmmac_priv *priv, u32 queue)
- 		dma_wmb();
- 		stmmac_set_rx_owner(priv, p, use_rx_wd);
- 
--		entry = STMMAC_GET_ENTRY(entry, DMA_RX_SIZE);
-+		entry = STMMAC_GET_ENTRY(entry, priv->dma_rx_size);
- 	}
- 	rx_q->dirty_rx = entry;
- 	rx_q->rx_tail_addr = rx_q->dma_rx_phy +
-@@ -3677,7 +3692,7 @@ static int stmmac_rx(struct stmmac_priv *priv, int limit, u32 queue)
- 		else
- 			rx_head = (void *)rx_q->dma_rx;
- 
--		stmmac_display_ring(priv, rx_head, DMA_RX_SIZE, true);
-+		stmmac_display_ring(priv, rx_head, priv->dma_rx_size, true);
- 	}
- 	while (count < limit) {
- 		unsigned int buf1_len = 0, buf2_len = 0;
-@@ -3719,7 +3734,8 @@ static int stmmac_rx(struct stmmac_priv *priv, int limit, u32 queue)
- 		if (unlikely(status & dma_own))
- 			break;
- 
--		rx_q->cur_rx = STMMAC_GET_ENTRY(rx_q->cur_rx, DMA_RX_SIZE);
-+		rx_q->cur_rx = STMMAC_GET_ENTRY(rx_q->cur_rx,
-+						priv->dma_rx_size);
- 		next_entry = rx_q->cur_rx;
- 
- 		if (priv->extend_desc)
-@@ -3894,7 +3910,7 @@ static int stmmac_napi_poll_tx(struct napi_struct *napi, int budget)
- 
- 	priv->xstats.napi_poll++;
- 
--	work_done = stmmac_tx_clean(priv, DMA_TX_SIZE, chan);
-+	work_done = stmmac_tx_clean(priv, priv->dma_tx_size, chan);
- 	work_done = min(work_done, budget);
- 
- 	if (work_done < budget && napi_complete_done(napi, work_done)) {
-@@ -4287,11 +4303,11 @@ static int stmmac_rings_status_show(struct seq_file *seq, void *v)
- 		if (priv->extend_desc) {
- 			seq_printf(seq, "Extended descriptor ring:\n");
- 			sysfs_display_ring((void *)rx_q->dma_erx,
--					   DMA_RX_SIZE, 1, seq);
-+					   priv->dma_rx_size, 1, seq);
- 		} else {
- 			seq_printf(seq, "Descriptor ring:\n");
- 			sysfs_display_ring((void *)rx_q->dma_rx,
--					   DMA_RX_SIZE, 0, seq);
-+					   priv->dma_rx_size, 0, seq);
- 		}
- 	}
- 
-@@ -4303,11 +4319,11 @@ static int stmmac_rings_status_show(struct seq_file *seq, void *v)
- 		if (priv->extend_desc) {
- 			seq_printf(seq, "Extended descriptor ring:\n");
- 			sysfs_display_ring((void *)tx_q->dma_etx,
--					   DMA_TX_SIZE, 1, seq);
-+					   priv->dma_tx_size, 1, seq);
- 		} else if (!(tx_q->tbs & STMMAC_TBS_AVAIL)) {
- 			seq_printf(seq, "Descriptor ring:\n");
- 			sysfs_display_ring((void *)tx_q->dma_tx,
--					   DMA_TX_SIZE, 0, seq);
-+					   priv->dma_tx_size, 0, seq);
- 		}
- 	}
- 
-@@ -4778,6 +4794,23 @@ int stmmac_reinit_queues(struct net_device *dev, u32 rx_cnt, u32 tx_cnt)
- 	return ret;
- }
- 
-+int stmmac_reinit_ringparam(struct net_device *dev, u32 rx_size, u32 tx_size)
-+{
-+	struct stmmac_priv *priv = netdev_priv(dev);
-+	int ret = 0;
-+
-+	if (netif_running(dev))
-+		stmmac_release(dev);
-+
-+	priv->dma_rx_size = rx_size;
-+	priv->dma_tx_size = tx_size;
-+
-+	if (netif_running(dev))
-+		ret = stmmac_open(dev);
-+
-+	return ret;
-+}
-+
- /**
-  * stmmac_dvr_probe
-  * @device: device pointer
-diff --git a/drivers/net/ethernet/stmicro/stmmac/stmmac_selftests.c b/drivers/net/ethernet/stmicro/stmmac/stmmac_selftests.c
-index bf195adee393..0462dcc93e53 100644
---- a/drivers/net/ethernet/stmicro/stmmac/stmmac_selftests.c
-+++ b/drivers/net/ethernet/stmicro/stmmac/stmmac_selftests.c
-@@ -796,7 +796,7 @@ static int stmmac_test_flowctrl(struct stmmac_priv *priv)
- 		u32 tail;
- 
- 		tail = priv->rx_queue[i].dma_rx_phy +
--			(DMA_RX_SIZE * sizeof(struct dma_desc));
-+			(priv->dma_rx_size * sizeof(struct dma_desc));
- 
- 		stmmac_set_rx_tail_ptr(priv, priv->ioaddr, tail, i);
- 		stmmac_start_rx(priv, priv->ioaddr, i);
--- 
-2.17.0
-
-_______________________________________________
-Linux-stm32 mailing list
-Linux-stm32@st-md-mailman.stormreply.com
-https://st-md-mailman.stormreply.com/mailman/listinfo/linux-stm32
+T24gTW9uLCBTZXAgMTQsIDIwMjAgYXQgOTozNCBBTSBUaWFuamlhIFpoYW5nCjx0aWFuamlhLnpo
+YW5nQGxpbnV4LmFsaWJhYmEuY29tPiB3cm90ZToKPgo+IEhpIEdpbGFkLAo+Cj4gT24gOS8xMy8y
+MCAzOjEyIFBNLCBHaWxhZCBCZW4tWW9zc2VmIHdyb3RlOgo+ID4gSGksCj4gPgo+ID4KPiA+IE9u
+IFRodSwgU2VwIDMsIDIwMjAgYXQgNDoxMyBQTSBUaWFuamlhIFpoYW5nCj4gPiA8dGlhbmppYS56
+aGFuZ0BsaW51eC5hbGliYWJhLmNvbT4gd3JvdGU6Cj4gPj4KPiA+PiBUaGUgZGlnaXRhbCBjZXJ0
+aWZpY2F0ZSBmb3JtYXQgYmFzZWQgb24gU00yIGNyeXB0byBhbGdvcml0aG0gYXMKPiA+PiBzcGVj
+aWZpZWQgaW4gR00vVCAwMDE1LTIwMTIuIEl0IHdhcyBwdWJsaXNoZWQgYnkgU3RhdGUgRW5jcnlw
+dGlvbgo+ID4+IE1hbmFnZW1lbnQgQnVyZWF1LCBDaGluYS4KPiA+Pgo+ID4+IFRoZSBtZXRob2Qg
+b2YgZ2VuZXJhdGluZyBPdGhlciBVc2VyIEluZm9ybWF0aW9uIGlzIGRlZmluZWQgYXMKPiA+PiBa
+QT1IMjU2KEVOVExBIHx8IElEQSB8fCBhIHx8IGIgfHwgeEcgfHwgeUcgfHwgeEEgfHwgeUEpLCBp
+dCBhbHNvCj4gPj4gc3BlY2lmaWVkIGluIGh0dHBzOi8vdG9vbHMuaWV0Zi5vcmcvaHRtbC9kcmFm
+dC1zaGVuLXNtMi1lY2RzYS0wMi4KPiA+Pgo+ID4+IFRoZSB4NTA5IGNlcnRpZmljYXRlIHN1cHBv
+cnRzIHNtMi13aXRoLXNtMyB0eXBlIGNlcnRpZmljYXRlCj4gPj4gdmVyaWZpY2F0aW9uLiAgQmVj
+YXVzZSBjZXJ0aWZpY2F0ZSB2ZXJpZmljYXRpb24gcmVxdWlyZXMgWkEKPiA+PiBpbiBhZGRpdGlv
+biB0byB0YnMgZGF0YSwgWkEgYWxzbyBkZXBlbmRzIG9uIGVsbGlwdGljIGN1cnZlCj4gPj4gcGFy
+YW1ldGVycyBhbmQgcHVibGljIGtleSBkYXRhLCBzbyB5b3UgbmVlZCB0byBhY2Nlc3MgdGJzIGlu
+IHNpZwo+ID4+IGFuZCBjYWxjdWxhdGUgWkEuIEZpbmFsbHkgY2FsY3VsYXRlIHRoZSBkaWdlc3Qg
+b2YgdGhlCj4gPj4gc2lnbmF0dXJlIGFuZCBjb21wbGV0ZSB0aGUgdmVyaWZpY2F0aW9uIHdvcmsu
+IFRoZSBjYWxjdWxhdGlvbgo+ID4+IHByb2Nlc3Mgb2YgWkEgaXMgZGVjbGFyZWQgaW4gc3BlY2lm
+aWNhdGlvbnMgR00vVCAwMDA5LTIwMTIKPiA+PiBhbmQgR00vVCAwMDAzLjItMjAxMi4KPiA+Pgo+
+ID4+IFNpZ25lZC1vZmYtYnk6IFRpYW5qaWEgWmhhbmcgPHRpYW5qaWEuemhhbmdAbGludXguYWxp
+YmFiYS5jb20+Cj4gPj4gVGVzdGVkLWJ5OiBYdWZlbmcgWmhhbmcgPHl1bmJvLnh1ZmVuZ0BsaW51
+eC5hbGliYWJhLmNvbT4KPiA+PiAtLS0KPiA+PiAgIGNyeXB0by9hc3ltbWV0cmljX2tleXMvTWFr
+ZWZpbGUgICAgICAgICAgfCAgMSArCj4gPj4gICBjcnlwdG8vYXN5bW1ldHJpY19rZXlzL3B1Ymxp
+Y19rZXkuYyAgICAgIHwgIDYgKysrCj4gPj4gICBjcnlwdG8vYXN5bW1ldHJpY19rZXlzL3B1Ymxp
+Y19rZXlfc20yLmMgIHwgNjEgKysrKysrKysrKysrKysrKysrKysrKysrCj4gPj4gICBjcnlwdG8v
+YXN5bW1ldHJpY19rZXlzL3g1MDlfcHVibGljX2tleS5jIHwgIDMgKysKPiA+PiAgIGluY2x1ZGUv
+Y3J5cHRvL3B1YmxpY19rZXkuaCAgICAgICAgICAgICAgfCAxNSArKysrKysKPiA+PiAgIDUgZmls
+ZXMgY2hhbmdlZCwgODYgaW5zZXJ0aW9ucygrKQo+ID4+ICAgY3JlYXRlIG1vZGUgMTAwNjQ0IGNy
+eXB0by9hc3ltbWV0cmljX2tleXMvcHVibGljX2tleV9zbTIuYwo+ID4+Cj4gPj4gZGlmZiAtLWdp
+dCBhL2NyeXB0by9hc3ltbWV0cmljX2tleXMvTWFrZWZpbGUgYi9jcnlwdG8vYXN5bW1ldHJpY19r
+ZXlzL01ha2VmaWxlCj4gPj4gaW5kZXggMjhiOTFhZGJhMmFlLi4xYTk5ZWE1YWNiNmIgMTAwNjQ0
+Cj4gPj4gLS0tIGEvY3J5cHRvL2FzeW1tZXRyaWNfa2V5cy9NYWtlZmlsZQo+ID4+ICsrKyBiL2Ny
+eXB0by9hc3ltbWV0cmljX2tleXMvTWFrZWZpbGUKPiA+PiBAQCAtMTEsNiArMTEsNyBAQCBhc3lt
+bWV0cmljX2tleXMteSA6PSBcCj4gPj4gICAgICAgICAgc2lnbmF0dXJlLm8KPiA+Pgo+ID4+ICAg
+b2JqLSQoQ09ORklHX0FTWU1NRVRSSUNfUFVCTElDX0tFWV9TVUJUWVBFKSArPSBwdWJsaWNfa2V5
+Lm8KPiA+PiArb2JqLSQoQ09ORklHX0FTWU1NRVRSSUNfUFVCTElDX0tFWV9TVUJUWVBFKSArPSBw
+dWJsaWNfa2V5X3NtMi5vCj4gPj4gICBvYmotJChDT05GSUdfQVNZTU1FVFJJQ19UUE1fS0VZX1NV
+QlRZUEUpICs9IGFzeW1fdHBtLm8KPiA+Pgo+ID4+ICAgIwo+ID4+IGRpZmYgLS1naXQgYS9jcnlw
+dG8vYXN5bW1ldHJpY19rZXlzL3B1YmxpY19rZXkuYyBiL2NyeXB0by9hc3ltbWV0cmljX2tleXMv
+cHVibGljX2tleS5jCj4gPj4gaW5kZXggZDg0MTBmZmQ3ZjEyLi4xZDA0OTIwOThiYmQgMTAwNjQ0
+Cj4gPj4gLS0tIGEvY3J5cHRvL2FzeW1tZXRyaWNfa2V5cy9wdWJsaWNfa2V5LmMKPiA+PiArKysg
+Yi9jcnlwdG8vYXN5bW1ldHJpY19rZXlzL3B1YmxpY19rZXkuYwo+ID4+IEBAIC0yOTksNiArMjk5
+LDEyIEBAIGludCBwdWJsaWNfa2V5X3ZlcmlmeV9zaWduYXR1cmUoY29uc3Qgc3RydWN0IHB1Ymxp
+Y19rZXkgKnBrZXksCj4gPj4gICAgICAgICAgaWYgKHJldCkKPiA+PiAgICAgICAgICAgICAgICAg
+IGdvdG8gZXJyb3JfZnJlZV9rZXk7Cj4gPj4KPiA+PiArICAgICAgIGlmIChzdHJjbXAoc2lnLT5w
+a2V5X2FsZ28sICJzbTIiKSA9PSAwICYmIHNpZy0+ZGF0YV9zaXplKSB7Cj4gPj4gKyAgICAgICAg
+ICAgICAgIHJldCA9IGNlcnRfc2lnX2RpZ2VzdF91cGRhdGUoc2lnLCB0Zm0pOwo+ID4+ICsgICAg
+ICAgICAgICAgICBpZiAocmV0KQo+ID4+ICsgICAgICAgICAgICAgICAgICAgICAgIGdvdG8gZXJy
+b3JfZnJlZV9rZXk7Cj4gPj4gKyAgICAgICB9Cj4gPj4gKwo+ID4+ICAgICAgICAgIHNnX2luaXRf
+dGFibGUoc3JjX3NnLCAyKTsKPiA+PiAgICAgICAgICBzZ19zZXRfYnVmKCZzcmNfc2dbMF0sIHNp
+Zy0+cywgc2lnLT5zX3NpemUpOwo+ID4+ICAgICAgICAgIHNnX3NldF9idWYoJnNyY19zZ1sxXSwg
+c2lnLT5kaWdlc3QsIHNpZy0+ZGlnZXN0X3NpemUpOwo+ID4+IGRpZmYgLS1naXQgYS9jcnlwdG8v
+YXN5bW1ldHJpY19rZXlzL3B1YmxpY19rZXlfc20yLmMgYi9jcnlwdG8vYXN5bW1ldHJpY19rZXlz
+L3B1YmxpY19rZXlfc20yLmMKPiA+PiBuZXcgZmlsZSBtb2RlIDEwMDY0NAo+ID4+IGluZGV4IDAw
+MDAwMDAwMDAwMC4uNzMyNWNmMjFkYmI0Cj4gPj4gLS0tIC9kZXYvbnVsbAo+ID4+ICsrKyBiL2Ny
+eXB0by9hc3ltbWV0cmljX2tleXMvcHVibGljX2tleV9zbTIuYwo+ID4+IEBAIC0wLDAgKzEsNjEg
+QEAKPiA+PiArLyogU1BEWC1MaWNlbnNlLUlkZW50aWZpZXI6IEdQTC0yLjAtb3ItbGF0ZXIgKi8K
+PiA+PiArLyoKPiA+PiArICogYXN5bW1ldHJpYyBwdWJsaWMta2V5IGFsZ29yaXRobSBmb3IgU00y
+LXdpdGgtU00zIGNlcnRpZmljYXRlCj4gPj4gKyAqIGFzIHNwZWNpZmllZCBieSBPU0NDQSBHTS9U
+IDAwMDMuMS0yMDEyIC0tIDAwMDMuNS0yMDEyIFNNMiBhbmQKPiA+PiArICogZGVzY3JpYmVkIGF0
+IGh0dHBzOi8vdG9vbHMuaWV0Zi5vcmcvaHRtbC9kcmFmdC1zaGVuLXNtMi1lY2RzYS0wMgo+ID4+
+ICsgKgo+ID4+ICsgKiBDb3B5cmlnaHQgKGMpIDIwMjAsIEFsaWJhYmEgR3JvdXAuCj4gPj4gKyAq
+IEF1dGhvcnM6IFRpYW5qaWEgWmhhbmcgPHRpYW5qaWEuemhhbmdAbGludXguYWxpYmFiYS5jb20+
+Cj4gPj4gKyAqLwo+ID4+ICsKPiA+PiArI2luY2x1ZGUgPGNyeXB0by9zbTNfYmFzZS5oPgo+ID4+
+ICsjaW5jbHVkZSA8Y3J5cHRvL3NtMi5oPgo+ID4+ICsjaW5jbHVkZSA8Y3J5cHRvL3B1YmxpY19r
+ZXkuaD4KPiA+PiArCj4gPj4gKyNpZiBJU19SRUFDSEFCTEUoQ09ORklHX0NSWVBUT19TTTIpCj4g
+Pj4gKwo+ID4+ICtpbnQgY2VydF9zaWdfZGlnZXN0X3VwZGF0ZShjb25zdCBzdHJ1Y3QgcHVibGlj
+X2tleV9zaWduYXR1cmUgKnNpZywKPiA+PiArICAgICAgICAgICAgICAgICAgICAgICAgICAgICAg
+IHN0cnVjdCBjcnlwdG9fYWtjaXBoZXIgKnRmbV9wa2V5KQo+ID4+ICt7Cj4gPj4gKyAgICAgICBz
+dHJ1Y3QgY3J5cHRvX3NoYXNoICp0Zm07Cj4gPj4gKyAgICAgICBzdHJ1Y3Qgc2hhc2hfZGVzYyAq
+ZGVzYzsKPiA+PiArICAgICAgIHNpemVfdCBkZXNjX3NpemU7Cj4gPj4gKyAgICAgICB1bnNpZ25l
+ZCBjaGFyIGRnc3RbU00zX0RJR0VTVF9TSVpFXTsKPiA+PiArICAgICAgIGludCByZXQ7Cj4gPj4g
+Kwo+ID4+ICsgICAgICAgQlVHX09OKCFzaWctPmRhdGEpOwo+ID4+ICsKPiA+PiArICAgICAgIHJl
+dCA9IHNtMl9jb21wdXRlX3pfZGlnZXN0KHRmbV9wa2V5LCBTTTJfREVGQVVMVF9VU0VSSUQsCj4g
+Pj4gKyAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgIFNNMl9ERUZBVUxUX1VT
+RVJJRF9MRU4sIGRnc3QpOwo+ID4+ICsgICAgICAgaWYgKHJldCkKPiA+PiArICAgICAgICAgICAg
+ICAgcmV0dXJuIHJldDsKPiA+PiArCj4gPj4gKyAgICAgICB0Zm0gPSBjcnlwdG9fYWxsb2Nfc2hh
+c2goc2lnLT5oYXNoX2FsZ28sIDAsIDApOwo+ID4+ICsgICAgICAgaWYgKElTX0VSUih0Zm0pKQo+
+ID4+ICsgICAgICAgICAgICAgICByZXR1cm4gUFRSX0VSUih0Zm0pOwo+ID4+ICsKPiA+PiArICAg
+ICAgIGRlc2Nfc2l6ZSA9IGNyeXB0b19zaGFzaF9kZXNjc2l6ZSh0Zm0pICsgc2l6ZW9mKCpkZXNj
+KTsKPiA+PiArICAgICAgIGRlc2MgPSBremFsbG9jKGRlc2Nfc2l6ZSwgR0ZQX0tFUk5FTCk7Cj4g
+Pj4gKyAgICAgICBpZiAoIWRlc2MpCj4gPj4gKyAgICAgICAgICAgICAgIGdvdG8gZXJyb3JfZnJl
+ZV90Zm07Cj4gPj4gKwo+ID4+ICsgICAgICAgZGVzYy0+dGZtID0gdGZtOwo+ID4+ICsKPiA+PiAr
+ICAgICAgIHJldCA9IGNyeXB0b19zaGFzaF9pbml0KGRlc2MpOwo+ID4+ICsgICAgICAgaWYgKHJl
+dCA8IDApCj4gPj4gKyAgICAgICAgICAgICAgIGdvdG8gZXJyb3JfZnJlZV9kZXNjOwo+ID4+ICsK
+PiA+PiArICAgICAgIHJldCA9IGNyeXB0b19zaGFzaF91cGRhdGUoZGVzYywgZGdzdCwgU00zX0RJ
+R0VTVF9TSVpFKTsKPiA+PiArICAgICAgIGlmIChyZXQgPCAwKQo+ID4+ICsgICAgICAgICAgICAg
+ICBnb3RvIGVycm9yX2ZyZWVfZGVzYzsKPiA+PiArCj4gPj4gKyAgICAgICByZXQgPSBjcnlwdG9f
+c2hhc2hfZmludXAoZGVzYywgc2lnLT5kYXRhLCBzaWctPmRhdGFfc2l6ZSwgc2lnLT5kaWdlc3Qp
+Owo+ID4KPiA+IEl0IGxvb2tzIGxpa2UgeW91IGFyZSBkb2luZyBhIHNlcGFyYXRlIGluaXQsIHVw
+ZGF0ZSwgZmludXAgZXZlcnkgdGltZQo+ID4gLSBJIHdvdWxkIGNvbnNpZGVyIHVzaW5nIGNyeXB0
+b19zaGFzaF9kaWdlc3QoKSBpbiBvbmUgZ28uCj4gPgo+ID4gSW4gZmFjdCwgY29uc2lkZXJpbmcg
+dGhlIGZhY3QgdGhhdCB5b3UgYXJlIGFsbG9jYXRpbmcgYSB0Zm0ganVzdCBmb3IKPiA+IHRoaXMg
+dXNlIGFuZCB0aGVuIHJlbGVhc2luZyBpdCwgSSB3b3VsZCBjb25zaWRlciBzd2l0Y2hpbmcgdG8K
+PiA+IGNyeXB0b19zaGFzaF90Zm1fZGlnZXN0KCkgYW5kIGRyb3BwaW5nIHRoZSBremFsbG9jIGFs
+bCB0b2dldGhlci4KPiA+Cj4gPiBUaGlzIHNob3VsZCBzaW1wbGlmeSB0aGUgY29kZSBhIGJpdC4K
+PiA+Cj4gPiBPdGhlciB0aGFuIHRoYXQgSSBkb24ndCBoYXZlIGFueXRoaW5nIHNtYXJ0IHRvIHNh
+eSA6LSkKPiA+Cj4gPiBHaWxhZAo+ID4KPgo+IFRoZSBoYXNoIGNhbGN1bGF0aW9uIGhlcmUgaW5j
+bHVkZXMgdHdvIHBhcnRzIG9mIGRhdGEsICdkZ3N0JyBhbmQKPiAnc2lnLT5kYXRhJy4gVGhlIGxh
+c3QgY2FsbCBpcyAnZmludXAoKScgbm90ICdmaW5hbCgpJy4gSSB1bmRlcnN0YW5kIHRoYXQKPiBp
+dCBzaG91bGQgbm90IGJlIHBvc3NpYmxlIHRvIHVzZSAnY3J5cHRvX3NoYXNoX3RmbV9kaWdlc3Qo
+KScgVGhpcyBraW5kCj4gb2YgZnVuY3Rpb24gaXMgc2ltcGxpZmllZC4KPgo+IElmIGEgbmV3IHNj
+b3BlIGlzIGFkZGVkLCB0aGUgYXNzaWdubWVudCBvZiBkZXNjIGNhbiBiZSBvcHRpbWl6ZWQsIGFz
+Cj4gZm9sbG93czoKPiBgYGAKPiBkbyB7Cj4gICAgICBTSEFTSF9ERVNDX09OX1NUQUNLKGRlc2Ms
+IHRmbSk7Cj4gICAgICBkZXNjLT50Zm0gPSB0Zm07Cj4KPiAgICAgIC8qIC4uLiAqLwo+IH0gd2hp
+bGUgKDApOwo+IGBgYAo+IEhvd2V2ZXIsIHRoZSBrZXJuZWwgY29kZSBtYXkgbm90IGFjY2VwdCB0
+aGlzIHN0eWxlLiBXaGF0IGlzIHlvdXIgb3Bpbmlvbj8KCk5vLCB5b3UgYXJlIHJpZ2h0LiBJJ3Zl
+IGluZGVlZCBtaXNzZWQgdGhhdCBpdCdzIGEgZmludXAoKSBhbmQgbm90IGEKZmluYWwoKS4gSWYg
+dGhlIHNpemUgb2YgZGF0YSB3YXMgYmlnIGVub3VnaCBpdCBtaWdodCBoYXZlIGJlZW4gd29ydGgK
+Z29pbmcgdG8gdGhlIGFzeW5jLiBoYXNoIGludGVyZmFjZSBhbmQgY3JlYXRpbmcgYSBzY2F0dGVy
+IGxpc3QgZm9yCnRoaXMgYnV0IEkgc3VzcGVjdCBpdCBpcyBub3QganVzdGlmaWVkIHdpdGggdGhl
+IGRhdGEgc2l6ZXMgd2UgYXJlCmRlYWxpbmcgd2l0aCB0aGVyZS4KClNvOgoKUmV2aWV3ZWQtYnk6
+IEdpbGFkIEJlbi1Zb3NzZWYgPGdpbGFkQGJlbnlvc3NlZi5jb20+CgpUaGFua3MsCkdpbGFkCgot
+LSAKR2lsYWQgQmVuLVlvc3NlZgpDaGllZiBDb2ZmZWUgRHJpbmtlcgoKdmFsdWVzIG9mIM6yIHdp
+bGwgZ2l2ZSByaXNlIHRvIGRvbSEKX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19f
+X19fX19fX19fX18KTGludXgtc3RtMzIgbWFpbGluZyBsaXN0CkxpbnV4LXN0bTMyQHN0LW1kLW1h
+aWxtYW4uc3Rvcm1yZXBseS5jb20KaHR0cHM6Ly9zdC1tZC1tYWlsbWFuLnN0b3JtcmVwbHkuY29t
+L21haWxtYW4vbGlzdGluZm8vbGludXgtc3RtMzIK
