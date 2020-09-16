@@ -2,67 +2,71 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id B0C3626C06A
-	for <lists+linux-stm32@lfdr.de>; Wed, 16 Sep 2020 11:24:11 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 0838626C0A6
+	for <lists+linux-stm32@lfdr.de>; Wed, 16 Sep 2020 11:33:15 +0200 (CEST)
 Received: from ip-172-31-3-76.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id EF107C3FADF;
-	Wed, 16 Sep 2020 09:24:10 +0000 (UTC)
-Received: from mx0a-00128a01.pphosted.com (mx0a-00128a01.pphosted.com
- [148.163.135.77])
- (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id B0603C3FADE;
+	Wed, 16 Sep 2020 09:33:14 +0000 (UTC)
+Received: from mail-wm1-f68.google.com (mail-wm1-f68.google.com
+ [209.85.128.68])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id D5B8CC3FAD6
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 5913AC3FAD5
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Wed, 16 Sep 2020 09:24:07 +0000 (UTC)
-Received: from pps.filterd (m0167089.ppops.net [127.0.0.1])
- by mx0a-00128a01.pphosted.com (8.16.0.42/8.16.0.42) with SMTP id
- 08G97XOM027922; Wed, 16 Sep 2020 05:23:59 -0400
-Received: from nwd2mta4.analog.com ([137.71.173.58])
- by mx0a-00128a01.pphosted.com with ESMTP id 33k5q51vsh-1
- (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
- Wed, 16 Sep 2020 05:23:59 -0400
-Received: from ASHBMBX8.ad.analog.com (ashbmbx8.ad.analog.com [10.64.17.5])
- by nwd2mta4.analog.com (8.14.7/8.14.7) with ESMTP id 08G9NvSn049529
- (version=TLSv1/SSLv3 cipher=ECDHE-RSA-AES128-GCM-SHA256 bits=128 verify=FAIL); 
- Wed, 16 Sep 2020 05:23:57 -0400
-Received: from ASHBCASHYB5.ad.analog.com (10.64.17.133) by
- ASHBMBX8.ad.analog.com (10.64.17.5) with Microsoft SMTP Server
- (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
- 15.1.1779.2; Wed, 16 Sep 2020 05:24:05 -0400
-Received: from ASHBMBX8.ad.analog.com (10.64.17.5) by
- ASHBCASHYB5.ad.analog.com (10.64.17.133) with Microsoft SMTP Server
- (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
- 15.1.1779.2; Wed, 16 Sep 2020 05:24:05 -0400
-Received: from zeus.spd.analog.com (10.66.68.11) by ASHBMBX8.ad.analog.com
- (10.64.17.5) with Microsoft SMTP Server id 15.1.1779.2 via Frontend
- Transport; Wed, 16 Sep 2020 05:24:05 -0400
-Received: from localhost.localdomain ([10.48.65.12])
- by zeus.spd.analog.com (8.15.1/8.15.1) with ESMTP id 08G9NnPn021992;
- Wed, 16 Sep 2020 05:23:50 -0400
-From: Alexandru Ardelean <alexandru.ardelean@analog.com>
-To: <linux-iio@vger.kernel.org>, <linux-stm32@st-md-mailman.stormreply.com>,
- <linux-arm-kernel@lists.infradead.org>, <linux-kernel@vger.kernel.org>
-Date: Wed, 16 Sep 2020 12:23:49 +0300
-Message-ID: <20200916092349.75647-1-alexandru.ardelean@analog.com>
-X-Mailer: git-send-email 2.17.1
-In-Reply-To: <20200826063850.47625-1-alexandru.ardelean@analog.com>
-References: <20200826063850.47625-1-alexandru.ardelean@analog.com>
+ Wed, 16 Sep 2020 09:33:13 +0000 (UTC)
+Received: by mail-wm1-f68.google.com with SMTP id k18so2226324wmj.5
+ for <linux-stm32@st-md-mailman.stormreply.com>;
+ Wed, 16 Sep 2020 02:33:13 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20161025;
+ h=date:from:to:cc:subject:message-id:references:mime-version
+ :content-disposition:in-reply-to;
+ bh=YjecuPhauQHL4j4Z2a9keky4ajO3faW/VO0iw9ZMsyw=;
+ b=A+yh78E6fm9DBZfbdqzQH+qzcsEGu6J4+jBTWy2YENyyyt2Zbq0S/OFMY+YMWluCW8
+ z8t3xi+iP90JmyDxktlPvCO+1T3U3hFBPr8qrN+yRgMmJ0GM2L7qRI0Eo3AOZ7RMkQPe
+ LWE3uzHR7S4jsQzPTnyioG1nqAXIH9Jsv1zZo5fzHTOi1paYswkOFIvKmndmutMHCR0b
+ y7j++ofj0gze7dcveAmPNZVSNVJ8f7dc9HkoqOY5StLB4q0UsS53QODCjO0b8LP6kuiJ
+ 8vHisP+2YnnZzbQCZ5tRX2F0md65KbL3npfLcO72aSz6q9hmrXsAZ2AjIqklFE2qGRqP
+ eeXA==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20161025;
+ h=x-gm-message-state:date:from:to:cc:subject:message-id:references
+ :mime-version:content-disposition:in-reply-to;
+ bh=YjecuPhauQHL4j4Z2a9keky4ajO3faW/VO0iw9ZMsyw=;
+ b=smNgQCDQ8DYhohyUJttYxyxxyx5r97EqvEsSXOOwNP0s4UwUEei6y9YZkI4aLOw9Us
+ C+gZD4uNVLwdR9XMboWn5c5KUohZ1MNDkl4Rr9vRfT1TheQjJ4lJGIC7WCRwChc9KT1K
+ C+mSSuwAYNUyfljeKVKgKkrbLZMoqF7bylD9HDZ0z3ifpefwkxGKpntkrywViPEmnAt+
+ fzhdVKpKm8cUDWsJteFo6JAYgzHuflCnDmkJBO+MkUcoSqq0tuAZ36QJ/BEy5TgrLnjs
+ FysjlxX0w5p0K7w0Ops+9TcoI9w7kVOs8etGPqx0KC5nJDX4VC+uGVqY27C8sYvm9OZj
+ CWPg==
+X-Gm-Message-State: AOAM532i+Il0mmL/vya88PApi+YvUb74RCeQJilsrM9FEMDhQoSNzSTh
+ y0LElGotcIaX+d7iCKCFys4=
+X-Google-Smtp-Source: ABdhPJxBZS9ztI4xvrbGTpOSw6c/HLSysA8VOVuU/1daXUC/dE1jO2LoC/ZzlHwtXxsbSfmuJA8jmA==
+X-Received: by 2002:a05:600c:2047:: with SMTP id
+ p7mr4017341wmg.168.1600248792836; 
+ Wed, 16 Sep 2020 02:33:12 -0700 (PDT)
+Received: from Red ([2a01:cb1d:3d5:a100:264b:feff:fe03:2806])
+ by smtp.googlemail.com with ESMTPSA id u8sm4171183wmj.45.2020.09.16.02.33.10
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Wed, 16 Sep 2020 02:33:11 -0700 (PDT)
+Date: Wed, 16 Sep 2020 11:33:09 +0200
+From: Corentin Labbe <clabbe.montjoie@gmail.com>
+To: Krzysztof Kozlowski <krzk@kernel.org>
+Message-ID: <20200916093309.GA11483@Red>
+References: <20200910192919.12503-1-krzk@kernel.org>
+ <20200910192919.12503-4-krzk@kernel.org>
 MIME-Version: 1.0
-X-ADIRoutedOnPrem: True
-X-Proofpoint-Virus-Version: vendor=fsecure engine=2.50.10434:6.0.235, 18.0.687
- definitions=2020-09-16_02:2020-09-15,
- 2020-09-16 signatures=0
-X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- adultscore=0 clxscore=1011
- impostorscore=0 mlxscore=0 malwarescore=0 phishscore=0 mlxlogscore=545
- lowpriorityscore=0 suspectscore=0 priorityscore=1501 bulkscore=0
- spamscore=0 classifier=spam adjust=0 reason=mlx scancount=1
- engine=8.12.0-2006250000 definitions=main-2009160068
-Cc: Sergiu Cuciurean <sergiu.cuciurean@analog.com>, mcoquelin.stm32@gmail.com,
- Alexandru Ardelean <alexandru.ardelean@analog.com>, fabrice.gasnier@st.com,
- jic23@kernel.org
-Subject: [Linux-stm32] [PATCH v2] iio: stm32-dac: Replace indio_dev->mlock
-	with own device lock
+Content-Disposition: inline
+In-Reply-To: <20200910192919.12503-4-krzk@kernel.org>
+Cc: Aymen Sghaier <aymen.sghaier@nxp.com>,
+ Herbert Xu <herbert@gondor.apana.org.au>,
+ Horia =?utf-8?Q?Geant=C4=83?= <horia.geanta@nxp.com>,
+ Iuliana Prodan <iuliana.prodan@nxp.com>, linux-kernel@vger.kernel.org,
+ Maxime Ripard <mripard@kernel.org>, linux-stm32@st-md-mailman.stormreply.com,
+ Chen-Yu Tsai <wens@csie.org>, linux-crypto@vger.kernel.org,
+ Maxime Coquelin <mcoquelin.stm32@gmail.com>,
+ "David S. Miller" <davem@davemloft.net>, linux-arm-kernel@lists.infradead.org
+Subject: Re: [Linux-stm32] [PATCH v2 4/4] crypto: allwinner/sun8i - Simplify
+ with dev_err_probe()
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -79,80 +83,71 @@ Content-Transfer-Encoding: 7bit
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
-From: Sergiu Cuciurean <sergiu.cuciurean@analog.com>
+On Thu, Sep 10, 2020 at 09:29:19PM +0200, Krzysztof Kozlowski wrote:
+> Common pattern of handling deferred probe can be simplified with
+> dev_err_probe().  Less code and the error value gets printed.
+> 
+> Signed-off-by: Krzysztof Kozlowski <krzk@kernel.org>
+> 
+> ---
+> 
+> Changes since v1:
+> 1. None
+> ---
+>  drivers/crypto/allwinner/sun8i-ce/sun8i-ce-core.c | 9 +++------
+>  drivers/crypto/allwinner/sun8i-ss/sun8i-ss-core.c | 9 +++------
+>  2 files changed, 6 insertions(+), 12 deletions(-)
+> 
+> diff --git a/drivers/crypto/allwinner/sun8i-ce/sun8i-ce-core.c b/drivers/crypto/allwinner/sun8i-ce/sun8i-ce-core.c
+> index 138759dc8190..e3c62051c595 100644
+> --- a/drivers/crypto/allwinner/sun8i-ce/sun8i-ce-core.c
+> +++ b/drivers/crypto/allwinner/sun8i-ce/sun8i-ce-core.c
+> @@ -573,12 +573,9 @@ static int sun8i_ce_probe(struct platform_device *pdev)
+>  		return irq;
+>  
+>  	ce->reset = devm_reset_control_get(&pdev->dev, NULL);
+> -	if (IS_ERR(ce->reset)) {
+> -		if (PTR_ERR(ce->reset) == -EPROBE_DEFER)
+> -			return PTR_ERR(ce->reset);
+> -		dev_err(&pdev->dev, "No reset control found\n");
+> -		return PTR_ERR(ce->reset);
+> -	}
+> +	if (IS_ERR(ce->reset))
+> +		return dev_err_probe(&pdev->dev, PTR_ERR(ce->reset),
+> +				     "No reset control found\n");
+>  
+>  	mutex_init(&ce->mlock);
+>  
+> diff --git a/drivers/crypto/allwinner/sun8i-ss/sun8i-ss-core.c b/drivers/crypto/allwinner/sun8i-ss/sun8i-ss-core.c
+> index 9a23515783a6..576df8c8df51 100644
+> --- a/drivers/crypto/allwinner/sun8i-ss/sun8i-ss-core.c
+> +++ b/drivers/crypto/allwinner/sun8i-ss/sun8i-ss-core.c
+> @@ -545,12 +545,9 @@ static int sun8i_ss_probe(struct platform_device *pdev)
+>  		return irq;
+>  
+>  	ss->reset = devm_reset_control_get(&pdev->dev, NULL);
+> -	if (IS_ERR(ss->reset)) {
+> -		if (PTR_ERR(ss->reset) == -EPROBE_DEFER)
+> -			return PTR_ERR(ss->reset);
+> -		dev_err(&pdev->dev, "No reset control found\n");
+> -		return PTR_ERR(ss->reset);
+> -	}
+> +	if (IS_ERR(ss->reset))
+> +		return dev_err_probe(&pdev->dev, PTR_ERR(ss->reset),
+> +				     "No reset control found\n");
+>  
+>  	mutex_init(&ss->mlock);
+>  
+> -- 
+> 2.17.1
+> 
 
-As part of the general cleanup of indio_dev->mlock, this change replaces
-it with a local lock. The lock protects against potential races when
-reading the CR reg and then updating, so that the state of pm_runtime
-is consistent between the two operations.
+Hello
 
-This is part of a bigger cleanup.
-Link: https://lore.kernel.org/linux-iio/CA+U=Dsoo6YABe5ODLp+eFNPGFDjk5ZeQEceGkqjxXcVEhLWubw@mail.gmail.com/
+Acked-by: Corentin Labbe <clabbe.montjoie@gmail.com>
+Tested-by: Corentin Labbe <clabbe.montjoie@gmail.com>
 
-Signed-off-by: Sergiu Cuciurean <sergiu.cuciurean@analog.com>
-Signed-off-by: Alexandru Ardelean <alexandru.ardelean@analog.com>
----
- drivers/iio/dac/stm32-dac.c | 13 +++++++++----
- 1 file changed, 9 insertions(+), 4 deletions(-)
-
-diff --git a/drivers/iio/dac/stm32-dac.c b/drivers/iio/dac/stm32-dac.c
-index 092c796fa3d9..12dec68c16f7 100644
---- a/drivers/iio/dac/stm32-dac.c
-+++ b/drivers/iio/dac/stm32-dac.c
-@@ -26,9 +26,12 @@
- /**
-  * struct stm32_dac - private data of DAC driver
-  * @common:		reference to DAC common data
-+ * @lock:		lock to protect against potential races when reading
-+ *			and update CR, to keep it in sync with pm_runtime
-  */
- struct stm32_dac {
- 	struct stm32_dac_common *common;
-+	struct mutex		lock;
- };
- 
- static int stm32_dac_is_enabled(struct iio_dev *indio_dev, int channel)
-@@ -58,10 +61,10 @@ static int stm32_dac_set_enable_state(struct iio_dev *indio_dev, int ch,
- 	int ret;
- 
- 	/* already enabled / disabled ? */
--	mutex_lock(&indio_dev->mlock);
-+	mutex_lock(&dac->lock);
- 	ret = stm32_dac_is_enabled(indio_dev, ch);
- 	if (ret < 0 || enable == !!ret) {
--		mutex_unlock(&indio_dev->mlock);
-+		mutex_unlock(&dac->lock);
- 		return ret < 0 ? ret : 0;
- 	}
- 
-@@ -69,13 +72,13 @@ static int stm32_dac_set_enable_state(struct iio_dev *indio_dev, int ch,
- 		ret = pm_runtime_get_sync(dev);
- 		if (ret < 0) {
- 			pm_runtime_put_noidle(dev);
--			mutex_unlock(&indio_dev->mlock);
-+			mutex_unlock(&dac->lock);
- 			return ret;
- 		}
- 	}
- 
- 	ret = regmap_update_bits(dac->common->regmap, STM32_DAC_CR, msk, en);
--	mutex_unlock(&indio_dev->mlock);
-+	mutex_unlock(&dac->lock);
- 	if (ret < 0) {
- 		dev_err(&indio_dev->dev, "%s failed\n", en ?
- 			"Enable" : "Disable");
-@@ -327,6 +330,8 @@ static int stm32_dac_probe(struct platform_device *pdev)
- 	indio_dev->info = &stm32_dac_iio_info;
- 	indio_dev->modes = INDIO_DIRECT_MODE;
- 
-+	mutex_init(&dac->lock);
-+
- 	ret = stm32_dac_chan_of_init(indio_dev);
- 	if (ret < 0)
- 		return ret;
--- 
-2.17.1
-
+Thanks
 _______________________________________________
 Linux-stm32 mailing list
 Linux-stm32@st-md-mailman.stormreply.com
