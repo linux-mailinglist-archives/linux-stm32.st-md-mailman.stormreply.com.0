@@ -2,43 +2,40 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id AA0FA26E66C
-	for <lists+linux-stm32@lfdr.de>; Thu, 17 Sep 2020 22:13:43 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 18FAE26F59A
+	for <lists+linux-stm32@lfdr.de>; Fri, 18 Sep 2020 08:00:35 +0200 (CEST)
 Received: from ip-172-31-3-76.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 73F68C32EA9;
-	Thu, 17 Sep 2020 20:13:43 +0000 (UTC)
-Received: from perceval.ideasonboard.com (perceval.ideasonboard.com
- [213.167.242.64])
- (using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id C7D44C32EA3;
+	Fri, 18 Sep 2020 06:00:34 +0000 (UTC)
+Received: from crapouillou.net (crapouillou.net [89.234.176.41])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 90638C36B0B
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id DE2A4C36B0B
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Thu, 17 Sep 2020 20:13:41 +0000 (UTC)
-Received: from pendragon.ideasonboard.com (62-78-145-57.bb.dnainternet.fi
- [62.78.145.57])
- by perceval.ideasonboard.com (Postfix) with ESMTPSA id E541EFED;
- Thu, 17 Sep 2020 22:13:40 +0200 (CEST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=ideasonboard.com;
- s=mail; t=1600373621;
- bh=Lgq9PKRDYhVRmNU7RasyOZL9cSKALVzKVkOgyrxq3OM=;
- h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
- b=ghKM0GYxCHRhO2OzSWfqAhvO7iCRt7cu1MM1uolJIk+nsQMPRL7i+oqzAG17EDXFX
- hXLgKqL8giZLAXpZS4JYEwCm7oygNVuf1gJW1iEqCumOXugar6+RcBIw2vSYE1k5Ma
- eNzDgBcqBKHUcXSs2SWfCLHPqVWYAO4XJE6hsiWs=
-Date: Thu, 17 Sep 2020 23:13:11 +0300
-From: Laurent Pinchart <laurent.pinchart@ideasonboard.com>
+ Thu, 17 Sep 2020 19:04:02 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=crapouillou.net;
+ s=mail; t=1600369440; h=from:from:sender:reply-to:subject:subject:date:date:
+ message-id:message-id:to:to:cc:cc:mime-version:mime-version:
+ content-type:content-type:
+ content-transfer-encoding:content-transfer-encoding:
+ in-reply-to:in-reply-to:references:references;
+ bh=L3OBK4G1Rvv8T0Xnqj3/8Lbig0kqsWBBjd0US1g/rPo=;
+ b=dyOMV3sQSIuXwuaky8QYur2ywbBqBFDkh4I8lC8CviZwJ4xXUpL4z0HKUxmZFgT1wCRV+i
+ lmglasQwXio0xAlmn9AwPeNsR0gejQ1N0ipvwaxZk7O7qZVgtm6UVhMbStHccEmV266mP4
+ NNt/TuV+D6L8z9EtegHwMbZvBfl1a4o=
+Date: Thu, 17 Sep 2020 21:03:36 +0200
+From: Paul Cercueil <paul@crapouillou.net>
 To: Krzysztof Kozlowski <krzk@kernel.org>
-Message-ID: <20200917201311.GH3969@pendragon.ideasonboard.com>
+Message-Id: <0YGTGQ.TCQDDTXFCWNX2@crapouillou.net>
+In-Reply-To: <20200917165301.23100-10-krzk@kernel.org>
 References: <20200917165301.23100-1-krzk@kernel.org>
- <20200917165301.23100-3-krzk@kernel.org>
+ <20200917165301.23100-10-krzk@kernel.org>
 MIME-Version: 1.0
-Content-Disposition: inline
-In-Reply-To: <20200917165301.23100-3-krzk@kernel.org>
+X-Mailman-Approved-At: Fri, 18 Sep 2020 06:00:33 +0000
 Cc: Geert Uytterhoeven <geert+renesas@glider.be>,
  Matti Vaittinen <matti.vaittinen@fi.rohmeurope.com>,
  Linus Walleij <linus.walleij@linaro.org>, alsa-devel@alsa-project.org,
  Stefan Agner <stefan@agner.ch>, Bjorn Andersson <bjorn.andersson@linaro.org>,
- Paul Cercueil <paul@crapouillou.net>,
  Masahiro Yamada <yamada.masahiro@socionext.com>,
  Chris Brandt <chris.brandt@renesas.com>,
  Srinivas Kandagatla <srinivas.kandagatla@linaro.org>,
@@ -65,7 +62,7 @@ Cc: Geert Uytterhoeven <geert+renesas@glider.be>,
  Sricharan R <sricharan@codeaurora.org>,
  Mauro Carvalho Chehab <mchehab@kernel.org>,
  Hoan Tran <hoan@os.amperecomputing.com>, linux-arm-kernel@lists.infradead.org,
- Niklas =?utf-8?Q?S=C3=B6derlund?= <niklas.soderlund+renesas@ragnatech.se>,
+ Niklas =?iso-8859-1?q?S=F6derlund?= <niklas.soderlund+renesas@ragnatech.se>,
  Scott Branden <sbranden@broadcom.com>, linux-unisoc@lists.infradead.org,
  - <patches@opensource.cirrus.com>,
  Chris Packham <chris.packham@alliedtelesis.co.nz>,
@@ -77,8 +74,8 @@ Cc: Geert Uytterhoeven <geert+renesas@glider.be>,
  Palmer Dabbelt <palmer@dabbelt.com>, Mark Brown <broonie@kernel.org>,
  Pengutronix Kernel Team <kernel@pengutronix.de>, linux-media@vger.kernel.org,
  Shawn Guo <shawnguo@kernel.org>,
- Andreas =?utf-8?Q?F=C3=A4rber?= <afaerber@suse.de>
-Subject: Re: [Linux-stm32] [PATCH v2 02/13] dt-bindings: gpio: include
+ Andreas =?iso-8859-1?q?F=E4rber?= <afaerber@suse.de>
+Subject: Re: [Linux-stm32] [PATCH v2 09/13] dt-bindings: pinctrl: include
  common schema in GPIO controllers
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
@@ -91,246 +88,329 @@ List-Post: <mailto:linux-stm32@st-md-mailman.stormreply.com>
 List-Help: <mailto:linux-stm32-request@st-md-mailman.stormreply.com?subject=help>
 List-Subscribe: <https://st-md-mailman.stormreply.com/mailman/listinfo/linux-stm32>, 
  <mailto:linux-stm32-request@st-md-mailman.stormreply.com?subject=subscribe>
-Content-Type: text/plain; charset="us-ascii"
-Content-Transfer-Encoding: 7bit
+Content-Transfer-Encoding: quoted-printable
+Content-Type: text/plain; charset="iso-8859-1"; Format="flowed"
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
-Hi Krzysztof,
+Hi,
 
-Thank you for the patch.
 
-On Thu, Sep 17, 2020 at 06:52:50PM +0200, Krzysztof Kozlowski wrote:
-> Include the common GPIO schema in GPIO controllers to be sure all common
+Le jeu. 17 sept. 2020 =E0 18:52, Krzysztof Kozlowski <krzk@kernel.org> a =
+
+=E9crit :
+> Include the common GPIO schema in GPIO controllers to be sure all =
+
+> common
 > properties are properly validated.
-
-Same comment as for patch 09/13, shouldn't we delete redundant
-properties from all these schemas ?
+> =
 
 > Signed-off-by: Krzysztof Kozlowski <krzk@kernel.org>
-> 
+
+Acked-by: Paul Cercueil <paul@crapouillou.net>
+
+Cheers,
+-Paul
+
+> =
+
 > ---
-> 
+> =
+
 > Changes since v1:
-> 1. Fix gpio-mxs.yaml
-> 2. Add snps,dw-apb-gpio.yaml
+> 1. New patch
 > ---
->  .../devicetree/bindings/gpio/brcm,xgs-iproc-gpio.yaml         | 3 +++
->  Documentation/devicetree/bindings/gpio/fsl-imx-gpio.yaml      | 3 +++
->  Documentation/devicetree/bindings/gpio/gpio-mxs.yaml          | 4 ++++
->  Documentation/devicetree/bindings/gpio/gpio-pca9570.yaml      | 3 +++
->  Documentation/devicetree/bindings/gpio/gpio-rda.yaml          | 3 +++
->  Documentation/devicetree/bindings/gpio/gpio-vf610.yaml        | 3 +++
->  Documentation/devicetree/bindings/gpio/mrvl-gpio.yaml         | 1 +
->  Documentation/devicetree/bindings/gpio/qcom,wcd934x-gpio.yaml | 3 +++
->  Documentation/devicetree/bindings/gpio/renesas,em-gio.yaml    | 3 +++
->  Documentation/devicetree/bindings/gpio/renesas,rcar-gpio.yaml | 3 +++
->  Documentation/devicetree/bindings/gpio/sifive,gpio.yaml       | 3 +++
->  Documentation/devicetree/bindings/gpio/snps,dw-apb-gpio.yaml  | 3 +++
->  .../devicetree/bindings/gpio/socionext,uniphier-gpio.yaml     | 3 +++
->  .../devicetree/bindings/gpio/xylon,logicvc-gpio.yaml          | 3 +++
->  14 files changed, 41 insertions(+)
-> 
-> diff --git a/Documentation/devicetree/bindings/gpio/brcm,xgs-iproc-gpio.yaml b/Documentation/devicetree/bindings/gpio/brcm,xgs-iproc-gpio.yaml
-> index c213cb9ddb9f..1ac69b9c03f9 100644
-> --- a/Documentation/devicetree/bindings/gpio/brcm,xgs-iproc-gpio.yaml
-> +++ b/Documentation/devicetree/bindings/gpio/brcm,xgs-iproc-gpio.yaml
-> @@ -13,6 +13,9 @@ description: |
->    This controller is the Chip Common A GPIO present on a number of Broadcom
->    switch ASICs with integrated SoCs.
->  
+>  .../devicetree/bindings/pinctrl/actions,s500-pinctrl.yaml      | 3 =
+
+> +++
+>  .../bindings/pinctrl/allwinner,sun4i-a10-pinctrl.yaml          | 1 +
+>  .../devicetree/bindings/pinctrl/cirrus,lochnagar.yaml          | 3 =
+
+> +++
+>  Documentation/devicetree/bindings/pinctrl/ingenic,pinctrl.yaml | 3 =
+
+> +++
+>  .../devicetree/bindings/pinctrl/mediatek,mt6779-pinctrl.yaml   | 3 =
+
+> +++
+>  Documentation/devicetree/bindings/pinctrl/pinctrl-mt8192.yaml  | 3 =
+
+> +++
+>  .../devicetree/bindings/pinctrl/qcom,ipq6018-pinctrl.yaml      | 3 =
+
+> +++
+>  .../devicetree/bindings/pinctrl/qcom,msm8226-pinctrl.yaml      | 3 =
+
+> +++
+>  .../devicetree/bindings/pinctrl/qcom,sm8250-pinctrl.yaml       | 3 =
+
+> +++
+>  .../devicetree/bindings/pinctrl/renesas,rza2-pinctrl.yaml      | 3 =
+
+> +++
+>  .../devicetree/bindings/pinctrl/st,stm32-pinctrl.yaml          | 3 =
+
+> +++
+>  11 files changed, 31 insertions(+)
+> =
+
+> diff --git =
+
+> a/Documentation/devicetree/bindings/pinctrl/actions,s500-pinctrl.yaml =
+
+> b/Documentation/devicetree/bindings/pinctrl/actions,s500-pinctrl.yaml
+> index 33391d30c00c..51bfc214bba6 100644
+> --- =
+
+> a/Documentation/devicetree/bindings/pinctrl/actions,s500-pinctrl.yaml
+> +++ =
+
+> b/Documentation/devicetree/bindings/pinctrl/actions,s500-pinctrl.yaml
+> @@ -15,6 +15,9 @@ description: |
+>    GPIO function selection & GPIO attributes configuration. Please =
+
+> refer to
+>    pinctrl-bindings.txt in this directory for common binding part and =
+
+> usage.
+> =
+
 > +allOf:
-> +  - $ref: gpio-common.yaml#
+> +  - $ref: /schemas/gpio/gpio-common.yaml#
 > +
 >  properties:
 >    compatible:
->      const: brcm,iproc-gpio-cca
-> diff --git a/Documentation/devicetree/bindings/gpio/fsl-imx-gpio.yaml b/Documentation/devicetree/bindings/gpio/fsl-imx-gpio.yaml
-> index de0b9b5f6a70..737756e081fb 100644
-> --- a/Documentation/devicetree/bindings/gpio/fsl-imx-gpio.yaml
-> +++ b/Documentation/devicetree/bindings/gpio/fsl-imx-gpio.yaml
-> @@ -9,6 +9,9 @@ title: Freescale i.MX/MXC GPIO controller
->  maintainers:
->    - Anson Huang <Anson.Huang@nxp.com>
->  
+>      const: actions,s500-pinctrl
+> diff --git =
+
+> a/Documentation/devicetree/bindings/pinctrl/allwinner,sun4i-a10-pinctrl.y=
+aml =
+
+> b/Documentation/devicetree/bindings/pinctrl/allwinner,sun4i-a10-pinctrl.y=
+aml
+> index 7556be6e2754..55662f8d1f94 100644
+> --- =
+
+> a/Documentation/devicetree/bindings/pinctrl/allwinner,sun4i-a10-pinctrl.y=
+aml
+> +++ =
+
+> b/Documentation/devicetree/bindings/pinctrl/allwinner,sun4i-a10-pinctrl.y=
+aml
+> @@ -143,6 +143,7 @@ allOf:
+>    # boards are defining it at the moment so it would generate a lot =
+
+> of
+>    # warnings.
+> =
+
+> +  - $ref: /schemas/gpio/gpio-common.yaml#
+>    - if:
+>        properties:
+>          compatible:
+> diff --git =
+
+> a/Documentation/devicetree/bindings/pinctrl/cirrus,lochnagar.yaml =
+
+> b/Documentation/devicetree/bindings/pinctrl/cirrus,lochnagar.yaml
+> index 420d74856032..ed478b0ed4cc 100644
+> --- a/Documentation/devicetree/bindings/pinctrl/cirrus,lochnagar.yaml
+> +++ b/Documentation/devicetree/bindings/pinctrl/cirrus,lochnagar.yaml
+> @@ -31,6 +31,9 @@ description: |
+>    This binding must be part of the Lochnagar MFD binding:
+>      [4] ../mfd/cirrus,lochnagar.yaml
+> =
+
 > +allOf:
-> +  - $ref: gpio-common.yaml#
+> +  - $ref: /schemas/gpio/gpio-common.yaml#
 > +
 >  properties:
 >    compatible:
->      oneOf:
-> diff --git a/Documentation/devicetree/bindings/gpio/gpio-mxs.yaml b/Documentation/devicetree/bindings/gpio/gpio-mxs.yaml
-> index dfa1133f8c5e..bd0c4f329625 100644
-> --- a/Documentation/devicetree/bindings/gpio/gpio-mxs.yaml
-> +++ b/Documentation/devicetree/bindings/gpio/gpio-mxs.yaml
-> @@ -34,6 +34,10 @@ properties:
+>      enum:
+> diff --git =
+
+> a/Documentation/devicetree/bindings/pinctrl/ingenic,pinctrl.yaml =
+
+> b/Documentation/devicetree/bindings/pinctrl/ingenic,pinctrl.yaml
+> index 44c04d11ae4c..ffa64832b4f9 100644
+> --- a/Documentation/devicetree/bindings/pinctrl/ingenic,pinctrl.yaml
+> +++ b/Documentation/devicetree/bindings/pinctrl/ingenic,pinctrl.yaml
+> @@ -59,6 +59,9 @@ properties:
 >  patternProperties:
->    "gpio@[0-9]+$":
+>    "^gpio@[0-9]$":
 >      type: object
-> +
 > +    allOf:
-> +      - $ref: gpio-common.yaml#
+> +      - $ref: /schemas/gpio/gpio-common.yaml#
 > +
 >      properties:
 >        compatible:
 >          enum:
-> diff --git a/Documentation/devicetree/bindings/gpio/gpio-pca9570.yaml b/Documentation/devicetree/bindings/gpio/gpio-pca9570.yaml
-> index 338c5312a106..69b12041c893 100644
-> --- a/Documentation/devicetree/bindings/gpio/gpio-pca9570.yaml
-> +++ b/Documentation/devicetree/bindings/gpio/gpio-pca9570.yaml
-> @@ -9,6 +9,9 @@ title: PCA9570 I2C GPO expander
->  maintainers:
->    - Sungbo Eo <mans0n@gorani.run>
->  
+> diff --git =
+
+> a/Documentation/devicetree/bindings/pinctrl/mediatek,mt6779-pinctrl.yaml =
+
+> b/Documentation/devicetree/bindings/pinctrl/mediatek,mt6779-pinctrl.yaml
+> index 152c151c27ad..7d0a4cb96f39 100644
+> --- =
+
+> a/Documentation/devicetree/bindings/pinctrl/mediatek,mt6779-pinctrl.yaml
+> +++ =
+
+> b/Documentation/devicetree/bindings/pinctrl/mediatek,mt6779-pinctrl.yaml
+> @@ -14,6 +14,9 @@ description: |+
+>    required property:
+>    - compatible: "syscon"
+> =
+
 > +allOf:
-> +  - $ref: gpio-common.yaml#
+> +  - $ref: /schemas/gpio/gpio-common.yaml#
 > +
 >  properties:
 >    compatible:
->      enum:
-> diff --git a/Documentation/devicetree/bindings/gpio/gpio-rda.yaml b/Documentation/devicetree/bindings/gpio/gpio-rda.yaml
-> index 6ece555f074f..d70c99f463c2 100644
-> --- a/Documentation/devicetree/bindings/gpio/gpio-rda.yaml
-> +++ b/Documentation/devicetree/bindings/gpio/gpio-rda.yaml
-> @@ -9,6 +9,9 @@ title: RDA Micro GPIO controller
->  maintainers:
->    - Manivannan Sadhasivam <manivannan.sadhasivam@linaro.org>
->  
+>      const: mediatek,mt6779-pinctrl
+> diff --git =
+
+> a/Documentation/devicetree/bindings/pinctrl/pinctrl-mt8192.yaml =
+
+> b/Documentation/devicetree/bindings/pinctrl/pinctrl-mt8192.yaml
+> index 5556def6b99b..bc8bc0ac1926 100644
+> --- a/Documentation/devicetree/bindings/pinctrl/pinctrl-mt8192.yaml
+> +++ b/Documentation/devicetree/bindings/pinctrl/pinctrl-mt8192.yaml
+> @@ -12,6 +12,9 @@ maintainers:
+>  description: |
+>    The Mediatek's Pin controller is used to control SoC pins.
+> =
+
 > +allOf:
-> +  - $ref: gpio-common.yaml#
+> +  - $ref: /schemas/gpio/gpio-common.yaml#
 > +
 >  properties:
 >    compatible:
->      const: rda,8810pl-gpio
-> diff --git a/Documentation/devicetree/bindings/gpio/gpio-vf610.yaml b/Documentation/devicetree/bindings/gpio/gpio-vf610.yaml
-> index 6ac5a78ad3da..82f3e4b407d1 100644
-> --- a/Documentation/devicetree/bindings/gpio/gpio-vf610.yaml
-> +++ b/Documentation/devicetree/bindings/gpio/gpio-vf610.yaml
-> @@ -17,6 +17,9 @@ description: |
->    Note: Each GPIO port should have an alias correctly numbered in "aliases"
->    node.
->  
-> +allOf:
-> +  - $ref: gpio-common.yaml#
-> +
->  properties:
->    compatible:
->      enum:
-> diff --git a/Documentation/devicetree/bindings/gpio/mrvl-gpio.yaml b/Documentation/devicetree/bindings/gpio/mrvl-gpio.yaml
-> index 4db3b8a3332c..e2b7d2d133a8 100644
-> --- a/Documentation/devicetree/bindings/gpio/mrvl-gpio.yaml
-> +++ b/Documentation/devicetree/bindings/gpio/mrvl-gpio.yaml
-> @@ -12,6 +12,7 @@ maintainers:
->    - Rob Herring <robh+dt@kernel.org>
->  
->  allOf:
-> +  - $ref: gpio-common.yaml#
->    - if:
->        properties:
->          compatible:
-> diff --git a/Documentation/devicetree/bindings/gpio/qcom,wcd934x-gpio.yaml b/Documentation/devicetree/bindings/gpio/qcom,wcd934x-gpio.yaml
-> index 32a566ec3558..2eee374e8396 100644
-> --- a/Documentation/devicetree/bindings/gpio/qcom,wcd934x-gpio.yaml
-> +++ b/Documentation/devicetree/bindings/gpio/qcom,wcd934x-gpio.yaml
+>      const: mediatek,mt8192-pinctrl
+> diff --git =
+
+> a/Documentation/devicetree/bindings/pinctrl/qcom,ipq6018-pinctrl.yaml =
+
+> b/Documentation/devicetree/bindings/pinctrl/qcom,ipq6018-pinctrl.yaml
+> index c64c93206817..22a6b80b4c0e 100644
+> --- =
+
+> a/Documentation/devicetree/bindings/pinctrl/qcom,ipq6018-pinctrl.yaml
+> +++ =
+
+> b/Documentation/devicetree/bindings/pinctrl/qcom,ipq6018-pinctrl.yaml
 > @@ -13,6 +13,9 @@ description: |
->    Qualcomm Technologies Inc WCD9340/WCD9341 Audio Codec has integrated
->    gpio controller to control 5 gpios on the chip.
->  
+>    This binding describes the Top Level Mode Multiplexer block found =
+
+> in the
+>    IPQ6018 platform.
+> =
+
 > +allOf:
-> +  - $ref: gpio-common.yaml#
+> +  - $ref: /schemas/gpio/gpio-common.yaml#
 > +
 >  properties:
 >    compatible:
->      enum:
-> diff --git a/Documentation/devicetree/bindings/gpio/renesas,em-gio.yaml b/Documentation/devicetree/bindings/gpio/renesas,em-gio.yaml
-> index 8bdef812c87c..845689807678 100644
-> --- a/Documentation/devicetree/bindings/gpio/renesas,em-gio.yaml
-> +++ b/Documentation/devicetree/bindings/gpio/renesas,em-gio.yaml
-> @@ -9,6 +9,9 @@ title: Renesas EMMA Mobile General Purpose I/O Interface
->  maintainers:
->    - Magnus Damm <magnus.damm@gmail.com>
->  
+>      const: qcom,ipq6018-pinctrl
+> diff --git =
+
+> a/Documentation/devicetree/bindings/pinctrl/qcom,msm8226-pinctrl.yaml =
+
+> b/Documentation/devicetree/bindings/pinctrl/qcom,msm8226-pinctrl.yaml
+> index 1f0f5757f9e1..9855d859fe61 100644
+> --- =
+
+> a/Documentation/devicetree/bindings/pinctrl/qcom,msm8226-pinctrl.yaml
+> +++ =
+
+> b/Documentation/devicetree/bindings/pinctrl/qcom,msm8226-pinctrl.yaml
+> @@ -13,6 +13,9 @@ description: |
+>    This binding describes the Top Level Mode Multiplexer block found =
+
+> in the
+>    MSM8226 platform.
+> =
+
 > +allOf:
-> +  - $ref: gpio-common.yaml#
+> +  - $ref: /schemas/gpio/gpio-common.yaml#
 > +
 >  properties:
 >    compatible:
->      const: renesas,em-gio
-> diff --git a/Documentation/devicetree/bindings/gpio/renesas,rcar-gpio.yaml b/Documentation/devicetree/bindings/gpio/renesas,rcar-gpio.yaml
-> index 5026662e4508..c116000d579f 100644
-> --- a/Documentation/devicetree/bindings/gpio/renesas,rcar-gpio.yaml
-> +++ b/Documentation/devicetree/bindings/gpio/renesas,rcar-gpio.yaml
-> @@ -9,6 +9,9 @@ title: Renesas R-Car General-Purpose Input/Output Ports (GPIO)
->  maintainers:
->    - Geert Uytterhoeven <geert+renesas@glider.be>
->  
+>      const: qcom,msm8226-pinctrl
+> diff --git =
+
+> a/Documentation/devicetree/bindings/pinctrl/qcom,sm8250-pinctrl.yaml =
+
+> b/Documentation/devicetree/bindings/pinctrl/qcom,sm8250-pinctrl.yaml
+> index 8508c57522fd..e5757b6ced40 100644
+> --- =
+
+> a/Documentation/devicetree/bindings/pinctrl/qcom,sm8250-pinctrl.yaml
+> +++ =
+
+> b/Documentation/devicetree/bindings/pinctrl/qcom,sm8250-pinctrl.yaml
+> @@ -13,6 +13,9 @@ description: |
+>    This binding describes the Top Level Mode Multiplexer block found =
+
+> in the
+>    SM8250 platform.
+> =
+
 > +allOf:
-> +  - $ref: gpio-common.yaml#
+> +  - $ref: /schemas/gpio/gpio-common.yaml#
 > +
 >  properties:
 >    compatible:
->      oneOf:
-> diff --git a/Documentation/devicetree/bindings/gpio/sifive,gpio.yaml b/Documentation/devicetree/bindings/gpio/sifive,gpio.yaml
-> index a0efd8dc2538..f2d93b40fc7e 100644
-> --- a/Documentation/devicetree/bindings/gpio/sifive,gpio.yaml
-> +++ b/Documentation/devicetree/bindings/gpio/sifive,gpio.yaml
+>      const: qcom,sm8250-pinctrl
+> diff --git =
+
+> a/Documentation/devicetree/bindings/pinctrl/renesas,rza2-pinctrl.yaml =
+
+> b/Documentation/devicetree/bindings/pinctrl/renesas,rza2-pinctrl.yaml
+> index b7911a994f3a..4d7bf4340262 100644
+> --- =
+
+> a/Documentation/devicetree/bindings/pinctrl/renesas,rza2-pinctrl.yaml
+> +++ =
+
+> b/Documentation/devicetree/bindings/pinctrl/renesas,rza2-pinctrl.yaml
 > @@ -10,6 +10,9 @@ maintainers:
->    - Yash Shah <yash.shah@sifive.com>
->    - Paul Walmsley <paul.walmsley@sifive.com>
->  
+>    - Chris Brandt <chris.brandt@renesas.com>
+>    - Geert Uytterhoeven <geert+renesas@glider.be>
+> =
+
 > +allOf:
-> +  - $ref: gpio-common.yaml#
+> +  - $ref: /schemas/gpio/gpio-common.yaml#
 > +
->  properties:
->    compatible:
->      items:
-> diff --git a/Documentation/devicetree/bindings/gpio/snps,dw-apb-gpio.yaml b/Documentation/devicetree/bindings/gpio/snps,dw-apb-gpio.yaml
-> index b391cc1b4590..459aafe5fd47 100644
-> --- a/Documentation/devicetree/bindings/gpio/snps,dw-apb-gpio.yaml
-> +++ b/Documentation/devicetree/bindings/gpio/snps,dw-apb-gpio.yaml
-> @@ -49,6 +49,9 @@ properties:
+>  description:
+>    The Renesas SoCs of the RZ/A2 series feature a combined Pin and =
+
+> GPIO
+>    controller.
+> diff --git =
+
+> a/Documentation/devicetree/bindings/pinctrl/st,stm32-pinctrl.yaml =
+
+> b/Documentation/devicetree/bindings/pinctrl/st,stm32-pinctrl.yaml
+> index 72877544ca78..28b861362ba0 100644
+> --- a/Documentation/devicetree/bindings/pinctrl/st,stm32-pinctrl.yaml
+> +++ b/Documentation/devicetree/bindings/pinctrl/st,stm32-pinctrl.yaml
+> @@ -56,6 +56,9 @@ properties:
 >  patternProperties:
->    "^gpio-(port|controller)@[0-9a-f]+$":
+>    '^gpio@[0-9a-f]*$':
 >      type: object
 > +    allOf:
-> +      - $ref: gpio-common.yaml#
+> +      - $ref: /schemas/gpio/gpio-common.yaml#
 > +
 >      properties:
->        compatible:
->          const: snps,dw-apb-gpio-port
-> diff --git a/Documentation/devicetree/bindings/gpio/socionext,uniphier-gpio.yaml b/Documentation/devicetree/bindings/gpio/socionext,uniphier-gpio.yaml
-> index c58ff9a94f45..94a911e9c313 100644
-> --- a/Documentation/devicetree/bindings/gpio/socionext,uniphier-gpio.yaml
-> +++ b/Documentation/devicetree/bindings/gpio/socionext,uniphier-gpio.yaml
-> @@ -9,6 +9,9 @@ title: UniPhier GPIO controller
->  maintainers:
->    - Masahiro Yamada <yamada.masahiro@socionext.com>
->  
-> +allOf:
-> +  - $ref: gpio-common.yaml#
-> +
->  properties:
->    $nodename:
->      pattern: "^gpio@[0-9a-f]+$"
-> diff --git a/Documentation/devicetree/bindings/gpio/xylon,logicvc-gpio.yaml b/Documentation/devicetree/bindings/gpio/xylon,logicvc-gpio.yaml
-> index a36aec27069c..0e4581241b3f 100644
-> --- a/Documentation/devicetree/bindings/gpio/xylon,logicvc-gpio.yaml
-> +++ b/Documentation/devicetree/bindings/gpio/xylon,logicvc-gpio.yaml
-> @@ -23,6 +23,9 @@ description: |
->    - EN_VEE (power control) mapped to index 7
->    - V_EN (power control) mapped to index 8
->  
-> +allOf:
-> +  - $ref: gpio-common.yaml#
-> +
->  properties:
->    $nodename:
->      pattern: "^gpio@[0-9a-f]+$"
+>        gpio-controller: true
+>        '#gpio-cells':
+> --
+> 2.17.1
+> =
 
--- 
-Regards,
 
-Laurent Pinchart
+
 _______________________________________________
 Linux-stm32 mailing list
 Linux-stm32@st-md-mailman.stormreply.com
