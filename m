@@ -2,42 +2,86 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id 3C0EE26D6FD
-	for <lists+linux-stm32@lfdr.de>; Thu, 17 Sep 2020 10:46:39 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id F04FC26E130
+	for <lists+linux-stm32@lfdr.de>; Thu, 17 Sep 2020 18:53:30 +0200 (CEST)
 Received: from ip-172-31-3-76.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id E386DC3FAFF;
-	Thu, 17 Sep 2020 08:46:38 +0000 (UTC)
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id A00E9C32EA3;
+	Thu, 17 Sep 2020 16:53:30 +0000 (UTC)
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
  (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 22616C3FAD6
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id D16E8C36B0B
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Thu, 17 Sep 2020 07:06:19 +0000 (UTC)
-Received: from localhost (unknown [193.47.165.251])
- (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+ Thu, 17 Sep 2020 16:53:27 +0000 (UTC)
+Received: from kozik-lap.mshome.net (unknown [194.230.155.191])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by mail.kernel.org (Postfix) with ESMTPSA id B6941206E6;
- Thu, 17 Sep 2020 07:06:17 +0000 (UTC)
-Date: Thu, 17 Sep 2020 10:06:14 +0300
-From: Leon Romanovsky <leonro@nvidia.com>
-To: Wong Vee Khee <vee.khee.wong@intel.com>
-Message-ID: <20200917070614.GP486552@unreal>
-References: <20200917050215.8725-1-vee.khee.wong@intel.com>
-MIME-Version: 1.0
-Content-Disposition: inline
-In-Reply-To: <20200917050215.8725-1-vee.khee.wong@intel.com>
-X-Mailman-Approved-At: Thu, 17 Sep 2020 08:46:36 +0000
-Cc: Voon Wei Feng <weifeng.voon@intel.com>, netdev@vger.kernel.org,
- Tan Tee Min <tee.min.tan@intel.com>, linux-kernel@vger.kernel.org,
+ by mail.kernel.org (Postfix) with ESMTPSA id 39C1520708;
+ Thu, 17 Sep 2020 16:53:12 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
+ s=default; t=1600361605;
+ bh=P6t4EObPuKTAtjmptm4+AFH+z1+4hhhtxhJjS4UyDF0=;
+ h=From:To:Cc:Subject:Date:From;
+ b=QWWMJnynLqLOQxMCeIhdb30C/fJHQKsRzanwLdTpwbhaMyXT+tXpbqbOYpkb+Ly2M
+ aBumK6+zCHsWhNp6ZfqN5QXKUzl+nO1TwJgKiLkTRKlRiFxwyqIPdifsq9tCyheivp
+ WIbwLhtE7vcm3MGDi0wpAwkD5yRasj8RADVLwNo8=
+From: Krzysztof Kozlowski <krzk@kernel.org>
+To: Linus Walleij <linus.walleij@linaro.org>,
+ Bartosz Golaszewski <bgolaszewski@baylibre.com>,
+ Rob Herring <robh+dt@kernel.org>, Ray Jui <rjui@broadcom.com>,
+ Scott Branden <sbranden@broadcom.com>,
+ bcm-kernel-feedback-list@broadcom.com, Shawn Guo <shawnguo@kernel.org>,
+ Sascha Hauer <s.hauer@pengutronix.de>,
+ Pengutronix Kernel Team <kernel@pengutronix.de>,
+ Fabio Estevam <festevam@gmail.com>, NXP Linux Team <linux-imx@nxp.com>,
+ Manivannan Sadhasivam <manivannan.sadhasivam@linaro.org>,
+ Andy Gross <agross@kernel.org>,
+ Bjorn Andersson <bjorn.andersson@linaro.org>,
+ Palmer Dabbelt <palmer@dabbelt.com>,
+ Paul Walmsley <paul.walmsley@sifive.com>,
+ Hoan Tran <hoan@os.amperecomputing.com>,
+ Serge Semin <fancer.lancer@gmail.com>,
+ Masahiro Yamada <yamada.masahiro@socionext.com>,
+ Jacopo Mondi <jacopo+renesas@jmondi.org>,
+ Kieran Bingham <kieran.bingham+renesas@ideasonboard.com>,
+ Laurent Pinchart <laurent.pinchart+renesas@ideasonboard.com>,
+ =?UTF-8?q?Niklas=20S=C3=B6derlund?= <niklas.soderlund+renesas@ragnatech.se>,
+ Mauro Carvalho Chehab <mchehab@kernel.org>,
+ Charles Keepax <ckeepax@opensource.cirrus.com>,
+ Richard Fitzgerald <rf@opensource.cirrus.com>,
+ Lee Jones <lee.jones@linaro.org>,
+ Maxime Coquelin <mcoquelin.stm32@gmail.com>,
+ Alexandre Torgue <alexandre.torgue@st.com>,
+ =?UTF-8?q?Andreas=20F=C3=A4rber?= <afaerber@suse.de>,
+ Maxime Ripard <mripard@kernel.org>, Chen-Yu Tsai <wens@csie.org>,
+ Matthias Brugger <matthias.bgg@gmail.com>,
+ Geert Uytterhoeven <geert+renesas@glider.be>,
+ Liam Girdwood <lgirdwood@gmail.com>, Mark Brown <broonie@kernel.org>,
+ Chris Packham <chris.packham@alliedtelesis.co.nz>,
+ Anson Huang <Anson.Huang@nxp.com>, Sungbo Eo <mans0n@gorani.run>,
+ Stefan Agner <stefan@agner.ch>,
+ Srinivas Kandagatla <srinivas.kandagatla@linaro.org>,
+ Magnus Damm <magnus.damm@gmail.com>, Yash Shah <yash.shah@sifive.com>,
+ Paul Kocialkowski <paul.kocialkowski@bootlin.com>,
+ - <patches@opensource.cirrus.com>,
+ Matti Vaittinen <matti.vaittinen@fi.rohmeurope.com>,
+ Amelie Delaunay <amelie.delaunay@st.com>,
+ Cristian Ciocaltea <cristian.ciocaltea@gmail.com>,
+ Paul Cercueil <paul@crapouillou.net>, Andy Teng <andy.teng@mediatek.com>,
+ Sean Wang <sean.wang@mediatek.com>, Sricharan R <sricharan@codeaurora.org>,
+ Chris Brandt <chris.brandt@renesas.com>, Jaroslav Kysela <perex@perex.cz>,
+ Takashi Iwai <tiwai@suse.com>, linux-gpio@vger.kernel.org,
+ devicetree@vger.kernel.org, linux-arm-kernel@lists.infradead.org,
+ linux-kernel@vger.kernel.org, linux-unisoc@lists.infradead.org,
+ linux-arm-msm@vger.kernel.org, linux-riscv@lists.infradead.org,
+ linux-media@vger.kernel.org, alsa-devel@alsa-project.org,
  linux-stm32@st-md-mailman.stormreply.com,
- Seow Chen Yong <chen.yong.seow@intel.com>, Jose Abreu <joabreu@synopsys.com>,
- Vijaya Balan Sadhishkhanna <sadhishkhanna.vijaya.balan@intel.com>,
- Maxime Coquelin <mcoquelin.stm32@gmail.com>, Jakub Kicinski <kuba@kernel.org>,
- Ong Boon Leong <boon.leong.ong@intel.com>,
- Giuseppe Cavallaro <peppe.cavallaro@st.com>,
- "David S . Miller" <davem@davemloft.net>, linux-arm-kernel@lists.infradead.org
-Subject: Re: [Linux-stm32] [PATCH net-next] net: stmmac: introduce
- rtnl_lock|unlock() on configuring real_num_rx|tx_queues
+ linux-mediatek@lists.infradead.org, linux-renesas-soc@vger.kernel.org
+Date: Thu, 17 Sep 2020 18:52:48 +0200
+Message-Id: <20200917165301.23100-1-krzk@kernel.org>
+X-Mailer: git-send-email 2.17.1
+Cc: Krzysztof Kozlowski <krzk@kernel.org>
+Subject: [Linux-stm32] [PATCH v2 00/13] gpio: add common dtschema
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -49,86 +93,91 @@ List-Post: <mailto:linux-stm32@st-md-mailman.stormreply.com>
 List-Help: <mailto:linux-stm32-request@st-md-mailman.stormreply.com?subject=help>
 List-Subscribe: <https://st-md-mailman.stormreply.com/mailman/listinfo/linux-stm32>, 
  <mailto:linux-stm32-request@st-md-mailman.stormreply.com?subject=subscribe>
+MIME-Version: 1.0
 Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
-On Thu, Sep 17, 2020 at 01:02:15PM +0800, Wong Vee Khee wrote:
-> From: "Tan, Tee Min" <tee.min.tan@intel.com>
->
-> For driver open(), rtnl_lock is acquired by network stack but not in the
-> resume(). Therefore, we introduce lock_acquired boolean to control when
-> to use rtnl_lock|unlock() within stmmac_hw_setup().
+Hi,
 
-Doesn't really make sense, if function needs to have lock acquired, the
-caller is supposed to take it and function should have proper lockdep
-annotation inside and not this conditional lock/unlock.
+Changes since v1
+================
+1. Use common schema in bindings outside of gpio/ (new patches).
+2. Minor fixes - see individual patches for changelogs.
 
-Thanks
 
->
-> Fixes: 686cff3d7022 ("net: stmmac: Fix incorrect location to set real_num_rx|tx_queues")
->
+Notes
+=====
+This is independent work of pca953x bindings:
+https://lore.kernel.org/lkml/20200916155715.21009-1-krzk@kernel.org/T/#u
 
-Extra line.
+The DTS patches can be also applied independently.
+The bindings patches depend on first one, adding common schema.
 
-> Signed-off-by: Tan, Tee Min <tee.min.tan@intel.com>
-> ---
->  drivers/net/ethernet/stmicro/stmmac/stmmac_main.c | 13 ++++++++++---
->  1 file changed, 10 insertions(+), 3 deletions(-)
->
-> diff --git a/drivers/net/ethernet/stmicro/stmmac/stmmac_main.c b/drivers/net/ethernet/stmicro/stmmac/stmmac_main.c
-> index df2c74bbfcff..22e6a3defa78 100644
-> --- a/drivers/net/ethernet/stmicro/stmmac/stmmac_main.c
-> +++ b/drivers/net/ethernet/stmicro/stmmac/stmmac_main.c
-> @@ -2607,7 +2607,8 @@ static void stmmac_safety_feat_configuration(struct stmmac_priv *priv)
->   *  0 on success and an appropriate (-)ve integer as defined in errno.h
->   *  file on failure.
->   */
-> -static int stmmac_hw_setup(struct net_device *dev, bool init_ptp)
-> +static int stmmac_hw_setup(struct net_device *dev, bool init_ptp,
-> +			   bool lock_acquired)
->  {
->  	struct stmmac_priv *priv = netdev_priv(dev);
->  	u32 rx_cnt = priv->plat->rx_queues_to_use;
-> @@ -2715,9 +2716,15 @@ static int stmmac_hw_setup(struct net_device *dev, bool init_ptp)
->  	}
->
->  	/* Configure real RX and TX queues */
-> +	if (!lock_acquired)
-> +		rtnl_lock();
-> +
->  	netif_set_real_num_rx_queues(dev, priv->plat->rx_queues_to_use);
->  	netif_set_real_num_tx_queues(dev, priv->plat->tx_queues_to_use);
->
-> +	if (!lock_acquired)
-> +		rtnl_unlock();
-> +
->  	/* Start the ball rolling... */
->  	stmmac_start_all_dma(priv);
->
-> @@ -2804,7 +2811,7 @@ static int stmmac_open(struct net_device *dev)
->  		goto init_error;
->  	}
->
-> -	ret = stmmac_hw_setup(dev, true);
-> +	ret = stmmac_hw_setup(dev, true, true);
->  	if (ret < 0) {
->  		netdev_err(priv->dev, "%s: Hw setup failed\n", __func__);
->  		goto init_error;
-> @@ -5238,7 +5245,7 @@ int stmmac_resume(struct device *dev)
->
->  	stmmac_clear_descriptors(priv);
->
-> -	stmmac_hw_setup(ndev, false);
-> +	stmmac_hw_setup(ndev, false, false);
->  	stmmac_init_coalesce(priv);
->  	stmmac_set_rx_mode(ndev);
->
-> --
-> 2.17.0
->
+Best regards,
+Krzysztof
+
+Krzysztof Kozlowski (13):
+  dt-bindings: gpio: add common schema for GPIO controllers
+  dt-bindings: gpio: include common schema in GPIO controllers
+  dt-bindings: gpio: pl061: add missing properties and include common
+    schema
+  dt-bindings: gpio: fsl-imx-gpio: add i.MX ARMv6 and ARMv7 compatibles
+  dt-bindings: gpio: fsl-imx-gpio: add gpio-line-names
+  dt-bindings: gpio: gpio-vf610: fix iMX 7ULP compatible matching
+  dt-bindings: media: include common schema in GPIO controllers
+  dt-bindings: mfd: include common schema in GPIO controllers
+  dt-bindings: pinctrl: include common schema in GPIO controllers
+  ASoC: dt-bindings: zl38060: include common schema in GPIO controllers
+  arm64: dts: imx8mq-librem5: correct GPIO hog property
+  arm64: dts: imx8mq-librem5: align GPIO hog names with dtschema
+  ARM: dts: imx: align GPIO hog names with dtschema
+
+ .../bindings/gpio/brcm,xgs-iproc-gpio.yaml    |   3 +
+ .../bindings/gpio/fsl-imx-gpio.yaml           |  17 ++-
+ .../devicetree/bindings/gpio/gpio-common.yaml | 125 ++++++++++++++++++
+ .../devicetree/bindings/gpio/gpio-mxs.yaml    |   4 +
+ .../bindings/gpio/gpio-pca9570.yaml           |   3 +
+ .../devicetree/bindings/gpio/gpio-rda.yaml    |   3 +
+ .../devicetree/bindings/gpio/gpio-vf610.yaml  |  11 +-
+ .../devicetree/bindings/gpio/mrvl-gpio.yaml   |   1 +
+ .../devicetree/bindings/gpio/pl061-gpio.yaml  |   6 +
+ .../bindings/gpio/qcom,wcd934x-gpio.yaml      |   3 +
+ .../bindings/gpio/renesas,em-gio.yaml         |   3 +
+ .../bindings/gpio/renesas,rcar-gpio.yaml      |   3 +
+ .../devicetree/bindings/gpio/sifive,gpio.yaml |   3 +
+ .../bindings/gpio/snps,dw-apb-gpio.yaml       |   3 +
+ .../gpio/socionext,uniphier-gpio.yaml         |   3 +
+ .../bindings/gpio/xylon,logicvc-gpio.yaml     |   3 +
+ .../bindings/media/i2c/maxim,max9286.yaml     |   3 +
+ .../bindings/mfd/cirrus,madera.yaml           |   1 +
+ .../devicetree/bindings/mfd/max77650.yaml     |   3 +
+ .../bindings/mfd/rohm,bd71828-pmic.yaml       |   3 +
+ .../devicetree/bindings/mfd/st,stmfx.yaml     |   2 +
+ .../devicetree/bindings/mfd/wlf,arizona.yaml  |   1 +
+ .../pinctrl/actions,s500-pinctrl.yaml         |   3 +
+ .../pinctrl/allwinner,sun4i-a10-pinctrl.yaml  |   1 +
+ .../bindings/pinctrl/cirrus,lochnagar.yaml    |   3 +
+ .../bindings/pinctrl/ingenic,pinctrl.yaml     |   3 +
+ .../pinctrl/mediatek,mt6779-pinctrl.yaml      |   3 +
+ .../bindings/pinctrl/pinctrl-mt8192.yaml      |   3 +
+ .../pinctrl/qcom,ipq6018-pinctrl.yaml         |   3 +
+ .../pinctrl/qcom,msm8226-pinctrl.yaml         |   3 +
+ .../bindings/pinctrl/qcom,sm8250-pinctrl.yaml |   3 +
+ .../pinctrl/renesas,rza2-pinctrl.yaml         |   3 +
+ .../bindings/pinctrl/st,stm32-pinctrl.yaml    |   3 +
+ .../devicetree/bindings/sound/zl38060.yaml    |   3 +
+ arch/arm/boot/dts/imx51-zii-rdu1.dts          |   2 +-
+ arch/arm/boot/dts/imx6qdl-zii-rdu2.dtsi       |   8 +-
+ arch/arm/boot/dts/imx6ul-ccimx6ulsbcpro.dts   |   2 +-
+ .../boot/dts/freescale/imx8mq-librem5.dtsi    |   4 +-
+ 38 files changed, 245 insertions(+), 12 deletions(-)
+ create mode 100644 Documentation/devicetree/bindings/gpio/gpio-common.yaml
+
+-- 
+2.17.1
+
 _______________________________________________
 Linux-stm32 mailing list
 Linux-stm32@st-md-mailman.stormreply.com
