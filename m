@@ -2,89 +2,85 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id 3812226E166
-	for <lists+linux-stm32@lfdr.de>; Thu, 17 Sep 2020 18:57:14 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 818A726E180
+	for <lists+linux-stm32@lfdr.de>; Thu, 17 Sep 2020 18:59:54 +0200 (CEST)
 Received: from ip-172-31-3-76.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id F220FC32EA9;
-	Thu, 17 Sep 2020 16:57:13 +0000 (UTC)
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 2E088C32EA9;
+	Thu, 17 Sep 2020 16:59:54 +0000 (UTC)
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
  (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 456C8C36B0B
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id E7E6AC36B0B
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Thu, 17 Sep 2020 16:57:11 +0000 (UTC)
-Received: from kozik-lap.mshome.net (unknown [194.230.155.191])
- (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+ Thu, 17 Sep 2020 16:59:52 +0000 (UTC)
+Received: from localhost (fw-tnat.cambridge.arm.com [217.140.96.140])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by mail.kernel.org (Postfix) with ESMTPSA id 1792E21D24;
- Thu, 17 Sep 2020 16:56:55 +0000 (UTC)
+ by mail.kernel.org (Postfix) with ESMTPSA id 045672064B;
+ Thu, 17 Sep 2020 16:59:51 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
- s=default; t=1600361829;
- bh=xuQmgvom3JUoAvAV6bjHRGM2H4w5dmPc0B4gmkTYQ6w=;
- h=From:To:Cc:Subject:Date:In-Reply-To:References:From;
- b=2nIdFuBmgTsOPstR3DJ+GBSMq0yPAAhpUFrSGg0/b5nEQXGzDWyo4URkovlz+zduY
- TiGAzEIOjw5bQjqHndSbUTi23mZ6M981+fWk5OusyN4pN88Q7mqlhPf5azB2u/j/H4
- 4bm/uys6PrWVv1lr1jiHQLAtdsXBSRv6ObSzXVeg=
-From: Krzysztof Kozlowski <krzk@kernel.org>
-To: Linus Walleij <linus.walleij@linaro.org>,
- Bartosz Golaszewski <bgolaszewski@baylibre.com>,
- Rob Herring <robh+dt@kernel.org>, Ray Jui <rjui@broadcom.com>,
- Scott Branden <sbranden@broadcom.com>,
- bcm-kernel-feedback-list@broadcom.com, Shawn Guo <shawnguo@kernel.org>,
- Sascha Hauer <s.hauer@pengutronix.de>,
- Pengutronix Kernel Team <kernel@pengutronix.de>,
- Fabio Estevam <festevam@gmail.com>, NXP Linux Team <linux-imx@nxp.com>,
- Manivannan Sadhasivam <manivannan.sadhasivam@linaro.org>,
- Andy Gross <agross@kernel.org>,
- Bjorn Andersson <bjorn.andersson@linaro.org>,
- Palmer Dabbelt <palmer@dabbelt.com>,
- Paul Walmsley <paul.walmsley@sifive.com>,
- Hoan Tran <hoan@os.amperecomputing.com>,
- Serge Semin <fancer.lancer@gmail.com>,
- Masahiro Yamada <yamada.masahiro@socionext.com>,
- Jacopo Mondi <jacopo+renesas@jmondi.org>,
- Kieran Bingham <kieran.bingham+renesas@ideasonboard.com>,
- Laurent Pinchart <laurent.pinchart+renesas@ideasonboard.com>,
- =?UTF-8?q?Niklas=20S=C3=B6derlund?= <niklas.soderlund+renesas@ragnatech.se>,
- Mauro Carvalho Chehab <mchehab@kernel.org>,
- Charles Keepax <ckeepax@opensource.cirrus.com>,
- Richard Fitzgerald <rf@opensource.cirrus.com>,
- Lee Jones <lee.jones@linaro.org>,
- Maxime Coquelin <mcoquelin.stm32@gmail.com>,
- Alexandre Torgue <alexandre.torgue@st.com>,
- =?UTF-8?q?Andreas=20F=C3=A4rber?= <afaerber@suse.de>,
- Maxime Ripard <mripard@kernel.org>, Chen-Yu Tsai <wens@csie.org>,
- Matthias Brugger <matthias.bgg@gmail.com>,
- Geert Uytterhoeven <geert+renesas@glider.be>,
- Liam Girdwood <lgirdwood@gmail.com>, Mark Brown <broonie@kernel.org>,
- Chris Packham <chris.packham@alliedtelesis.co.nz>,
- Anson Huang <Anson.Huang@nxp.com>, Sungbo Eo <mans0n@gorani.run>,
- Stefan Agner <stefan@agner.ch>,
- Srinivas Kandagatla <srinivas.kandagatla@linaro.org>,
- Magnus Damm <magnus.damm@gmail.com>, Yash Shah <yash.shah@sifive.com>,
- Paul Kocialkowski <paul.kocialkowski@bootlin.com>,
- - <patches@opensource.cirrus.com>,
- Matti Vaittinen <matti.vaittinen@fi.rohmeurope.com>,
- Amelie Delaunay <amelie.delaunay@st.com>,
- Cristian Ciocaltea <cristian.ciocaltea@gmail.com>,
- Paul Cercueil <paul@crapouillou.net>, Andy Teng <andy.teng@mediatek.com>,
- Sean Wang <sean.wang@mediatek.com>, Sricharan R <sricharan@codeaurora.org>,
- Chris Brandt <chris.brandt@renesas.com>, Jaroslav Kysela <perex@perex.cz>,
- Takashi Iwai <tiwai@suse.com>, linux-gpio@vger.kernel.org,
- devicetree@vger.kernel.org, linux-arm-kernel@lists.infradead.org,
- linux-kernel@vger.kernel.org, linux-unisoc@lists.infradead.org,
- linux-arm-msm@vger.kernel.org, linux-riscv@lists.infradead.org,
- linux-media@vger.kernel.org, alsa-devel@alsa-project.org,
- linux-stm32@st-md-mailman.stormreply.com,
- linux-mediatek@lists.infradead.org, linux-renesas-soc@vger.kernel.org
-Date: Thu, 17 Sep 2020 18:53:01 +0200
-Message-Id: <20200917165301.23100-14-krzk@kernel.org>
-X-Mailer: git-send-email 2.17.1
-In-Reply-To: <20200917165301.23100-1-krzk@kernel.org>
+ s=default; t=1600361991;
+ bh=GrVLcLTzWbHaOqc8yOe5ZOBLBJsBrKi9IQirWn1MN9c=;
+ h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
+ b=ZeOcTkKfqTfSKxXLPMixk2hmhneSDyakuPt4w8Nampx1mtSc0kRuAHpEFutfAxfY7
+ uIcrH0fSHivfjQgniTmymU64XQGk65j8QkFpmgsST5k8t5jZp0BXNXEQJ8EDfj7rEC
+ uvl3hrkXmj1YC296VtKaBpVAkLsbX1Fr+UuPWAV0=
+Date: Thu, 17 Sep 2020 17:59:01 +0100
+From: Mark Brown <broonie@kernel.org>
+To: Krzysztof Kozlowski <krzk@kernel.org>
+Message-ID: <20200917165901.GH4755@sirena.org.uk>
 References: <20200917165301.23100-1-krzk@kernel.org>
-Cc: Krzysztof Kozlowski <krzk@kernel.org>
-Subject: [Linux-stm32] [PATCH v2 13/13] ARM: dts: imx: align GPIO hog names
-	with dtschema
+ <20200917165301.23100-11-krzk@kernel.org>
+MIME-Version: 1.0
+In-Reply-To: <20200917165301.23100-11-krzk@kernel.org>
+X-Cookie: If you fail to plan, plan to fail.
+User-Agent: Mutt/1.10.1 (2018-07-13)
+Cc: Geert Uytterhoeven <geert+renesas@glider.be>,
+ Matti Vaittinen <matti.vaittinen@fi.rohmeurope.com>,
+ Linus Walleij <linus.walleij@linaro.org>, alsa-devel@alsa-project.org,
+ Stefan Agner <stefan@agner.ch>, Bjorn Andersson <bjorn.andersson@linaro.org>,
+ Paul Cercueil <paul@crapouillou.net>,
+ Masahiro Yamada <yamada.masahiro@socionext.com>,
+ Chris Brandt <chris.brandt@renesas.com>,
+ Srinivas Kandagatla <srinivas.kandagatla@linaro.org>,
+ Manivannan Sadhasivam <manivannan.sadhasivam@linaro.org>,
+ linux-riscv@lists.infradead.org, Fabio Estevam <festevam@gmail.com>,
+ linux-stm32@st-md-mailman.stormreply.com, linux-renesas-soc@vger.kernel.org,
+ Laurent Pinchart <laurent.pinchart+renesas@ideasonboard.com>,
+ Anson Huang <Anson.Huang@nxp.com>, Lee Jones <lee.jones@linaro.org>,
+ Takashi Iwai <tiwai@suse.com>, Magnus Damm <magnus.damm@gmail.com>,
+ Bartosz Golaszewski <bgolaszewski@baylibre.com>, Chen-Yu Tsai <wens@csie.org>,
+ Andy Gross <agross@kernel.org>, bcm-kernel-feedback-list@broadcom.com,
+ NXP Linux Team <linux-imx@nxp.com>, Andy Teng <andy.teng@mediatek.com>,
+ Jacopo Mondi <jacopo+renesas@jmondi.org>, Jaroslav Kysela <perex@perex.cz>,
+ Sungbo Eo <mans0n@gorani.run>, linux-arm-msm@vger.kernel.org,
+ devicetree@vger.kernel.org, Cristian Ciocaltea <cristian.ciocaltea@gmail.com>,
+ Charles Keepax <ckeepax@opensource.cirrus.com>,
+ Maxime Coquelin <mcoquelin.stm32@gmail.com>, Ray Jui <rjui@broadcom.com>,
+ Sascha Hauer <s.hauer@pengutronix.de>, Sean Wang <sean.wang@mediatek.com>,
+ Maxime Ripard <mripard@kernel.org>, linux-gpio@vger.kernel.org,
+ Richard Fitzgerald <rf@opensource.cirrus.com>,
+ Rob Herring <robh+dt@kernel.org>, linux-mediatek@lists.infradead.org,
+ Paul Walmsley <paul.walmsley@sifive.com>,
+ Matthias Brugger <matthias.bgg@gmail.com>,
+ Sricharan R <sricharan@codeaurora.org>,
+ Mauro Carvalho Chehab <mchehab@kernel.org>,
+ Hoan Tran <hoan@os.amperecomputing.com>, linux-arm-kernel@lists.infradead.org,
+ Niklas =?iso-8859-1?Q?S=F6derlund?= <niklas.soderlund+renesas@ragnatech.se>,
+ Scott Branden <sbranden@broadcom.com>, linux-unisoc@lists.infradead.org,
+ - <patches@opensource.cirrus.com>,
+ Chris Packham <chris.packham@alliedtelesis.co.nz>,
+ Liam Girdwood <lgirdwood@gmail.com>, Serge Semin <fancer.lancer@gmail.com>,
+ linux-kernel@vger.kernel.org,
+ Paul Kocialkowski <paul.kocialkowski@bootlin.com>,
+ Yash Shah <yash.shah@sifive.com>,
+ Kieran Bingham <kieran.bingham+renesas@ideasonboard.com>,
+ Palmer Dabbelt <palmer@dabbelt.com>,
+ Pengutronix Kernel Team <kernel@pengutronix.de>, linux-media@vger.kernel.org,
+ Shawn Guo <shawnguo@kernel.org>,
+ Andreas =?iso-8859-1?Q?F=E4rber?= <afaerber@suse.de>
+Subject: Re: [Linux-stm32] [PATCH v2 10/13] ASoC: dt-bindings: zl38060:
+ include common schema in GPIO controllers
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -96,89 +92,53 @@ List-Post: <mailto:linux-stm32@st-md-mailman.stormreply.com>
 List-Help: <mailto:linux-stm32-request@st-md-mailman.stormreply.com?subject=help>
 List-Subscribe: <https://st-md-mailman.stormreply.com/mailman/listinfo/linux-stm32>, 
  <mailto:linux-stm32-request@st-md-mailman.stormreply.com?subject=subscribe>
-MIME-Version: 1.0
-Content-Type: text/plain; charset="us-ascii"
-Content-Transfer-Encoding: 7bit
+Content-Type: multipart/mixed; boundary="===============2194381986526872617=="
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
-dtschema for GPIO controllers expects GPIO hogs to end with 'hog'
-suffix.
 
-Signed-off-by: Krzysztof Kozlowski <krzk@kernel.org>
----
- arch/arm/boot/dts/imx51-zii-rdu1.dts        | 2 +-
- arch/arm/boot/dts/imx6qdl-zii-rdu2.dtsi     | 8 ++++----
- arch/arm/boot/dts/imx6ul-ccimx6ulsbcpro.dts | 2 +-
- 3 files changed, 6 insertions(+), 6 deletions(-)
+--===============2194381986526872617==
+Content-Type: multipart/signed; micalg=pgp-sha512;
+	protocol="application/pgp-signature"; boundary="AqCDj3hiknadvR6t"
+Content-Disposition: inline
 
-diff --git a/arch/arm/boot/dts/imx51-zii-rdu1.dts b/arch/arm/boot/dts/imx51-zii-rdu1.dts
-index e559ab0c3645..ec8ca3ac2c1c 100644
---- a/arch/arm/boot/dts/imx51-zii-rdu1.dts
-+++ b/arch/arm/boot/dts/imx51-zii-rdu1.dts
-@@ -451,7 +451,7 @@
- 			  "", "", "", "",
- 			  "", "", "", "";
- 
--	unused-sd3-wp-gpio {
-+	unused-sd3-wp-hog {
- 		/*
- 		 * See pinctrl_esdhc1 below for more details on this
- 		 */
-diff --git a/arch/arm/boot/dts/imx6qdl-zii-rdu2.dtsi b/arch/arm/boot/dts/imx6qdl-zii-rdu2.dtsi
-index 66b15748e287..c0a76202e16b 100644
---- a/arch/arm/boot/dts/imx6qdl-zii-rdu2.dtsi
-+++ b/arch/arm/boot/dts/imx6qdl-zii-rdu2.dtsi
-@@ -330,28 +330,28 @@
- 	pinctrl-names = "default";
- 	pinctrl-0 = <&pinctrl_gpio3_hog>;
- 
--	usb-emulation {
-+	usb-emulation-hog {
- 		gpio-hog;
- 		gpios = <19 GPIO_ACTIVE_HIGH>;
- 		output-low;
- 		line-name = "usb-emulation";
- 	};
- 
--	usb-mode1 {
-+	usb-mode1-hog {
- 		gpio-hog;
- 		gpios = <20 GPIO_ACTIVE_HIGH>;
- 		output-high;
- 		line-name = "usb-mode1";
- 	};
- 
--	usb-pwr {
-+	usb-pwr-hog {
- 		gpio-hog;
- 		gpios = <22 GPIO_ACTIVE_LOW>;
- 		output-high;
- 		line-name = "usb-pwr-ctrl-en-n";
- 	};
- 
--	usb-mode2 {
-+	usb-mode2-hog {
- 		gpio-hog;
- 		gpios = <23 GPIO_ACTIVE_HIGH>;
- 		output-high;
-diff --git a/arch/arm/boot/dts/imx6ul-ccimx6ulsbcpro.dts b/arch/arm/boot/dts/imx6ul-ccimx6ulsbcpro.dts
-index a0bbec57ddc7..3ec042bfccba 100644
---- a/arch/arm/boot/dts/imx6ul-ccimx6ulsbcpro.dts
-+++ b/arch/arm/boot/dts/imx6ul-ccimx6ulsbcpro.dts
-@@ -110,7 +110,7 @@
- };
- 
- &gpio5 {
--	emmc-usd-mux {
-+	emmc-usd-mux-hog {
- 		gpio-hog;
- 		gpios = <1 GPIO_ACTIVE_LOW>;
- 		output-high;
--- 
-2.17.1
+
+--AqCDj3hiknadvR6t
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+
+On Thu, Sep 17, 2020 at 06:52:58PM +0200, Krzysztof Kozlowski wrote:
+> Include the common GPIO schema in GPIO controllers to be sure all common
+> properties are properly validated.
+
+Acked-by: Mark Brown <broonie@kernel.org>
+
+--AqCDj3hiknadvR6t
+Content-Type: application/pgp-signature; name="signature.asc"
+
+-----BEGIN PGP SIGNATURE-----
+
+iQEzBAABCgAdFiEEreZoqmdXGLWf4p/qJNaLcl1Uh9AFAl9jldQACgkQJNaLcl1U
+h9DvjAf/SUwcEnnEwBpfQ63szoqKB0GpzaO3m5BAaJb0bUIPA2VN3awzEjKnCovc
+fnUtwtxB7sjJgRZ5gqdC1FNzT56AaSO0d+KKyFzSO5scq0339MN8F5OrqPApPq6D
+5872VVvT+IHmDr9xk600vkkUzeHS7IWMLec5m5mgf64tw4D/63P/c+0XsEzFIm70
+wV059r8k53Bv6vk1vXKp1cRIcJwaHgej9et7G/ms3/8qDIvU7hMudfagtpokCskS
+AqN20HMVJ+ba+DZquq3w6ZRuE8ZhUhO6HDER8/irW05k7k2i6eowlzrx7W7mX5xL
+oo7u9xyoVEIXan4nPqjiWMHo+uy81g==
+=PMAQ
+-----END PGP SIGNATURE-----
+
+--AqCDj3hiknadvR6t--
+
+--===============2194381986526872617==
+Content-Type: text/plain; charset="us-ascii"
+MIME-Version: 1.0
+Content-Transfer-Encoding: 7bit
+Content-Disposition: inline
 
 _______________________________________________
 Linux-stm32 mailing list
 Linux-stm32@st-md-mailman.stormreply.com
 https://st-md-mailman.stormreply.com/mailman/listinfo/linux-stm32
+
+--===============2194381986526872617==--
