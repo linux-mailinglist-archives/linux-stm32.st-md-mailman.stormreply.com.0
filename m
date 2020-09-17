@@ -2,29 +2,29 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id 2C8CA26E15E
-	for <lists+linux-stm32@lfdr.de>; Thu, 17 Sep 2020 18:56:29 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 3D1F526E160
+	for <lists+linux-stm32@lfdr.de>; Thu, 17 Sep 2020 18:56:45 +0200 (CEST)
 Received: from ip-172-31-3-76.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id E950FC32EA9;
-	Thu, 17 Sep 2020 16:56:28 +0000 (UTC)
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 08AC1C32EA9;
+	Thu, 17 Sep 2020 16:56:45 +0000 (UTC)
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
  (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 6B997C36B0B
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 5ED68C36B0B
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Thu, 17 Sep 2020 16:56:28 +0000 (UTC)
+ Thu, 17 Sep 2020 16:56:43 +0000 (UTC)
 Received: from kozik-lap.mshome.net (unknown [194.230.155.191])
  (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by mail.kernel.org (Postfix) with ESMTPSA id C26952078D;
- Thu, 17 Sep 2020 16:56:13 +0000 (UTC)
+ by mail.kernel.org (Postfix) with ESMTPSA id 9D4092064B;
+ Thu, 17 Sep 2020 16:56:27 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
- s=default; t=1600361787;
- bh=BHBvTl9J5bVNGcjbgF1Wrd0LOUeqr0pjrgInbdXE4tc=;
+ s=default; t=1600361802;
+ bh=4dW5n48JqvNP10b6scxas3MFTEWsL4Xf/7dxjZPBmik=;
  h=From:To:Cc:Subject:Date:In-Reply-To:References:From;
- b=GRH/P+hmbkvZV1XUdX3hrXr/M7yIadjWJCzkILNlNjfuSFyrmNOxxyOBSVjiJTn4J
- gKvBNwbvbYzo0IGdWxTLE2oG9gmZ6oXMt70NrCbSqHARK+31sF7Rx0nhtl11Izm9do
- rhuxXTc0Y62DIAey7vczzig9Bz3xjl9vz5LWXWP8=
+ b=voWH5Mj8BlY0YQbektVPJVIihTg4JqOT0bdGzRFdwEuQJQYXAZe22zdzn6SIFqo+L
+ WYVQYHdMqQ9HBxLjIUTDxVs7XjFArq2WAuDZpxQHcbFzeZs98yKrot5dAlXsjPI6pH
+ sALQqtb7ax8x+xX+P3HSx9zP5MxhbwecFqbmuxQE=
 From: Krzysztof Kozlowski <krzk@kernel.org>
 To: Linus Walleij <linus.walleij@linaro.org>,
  Bartosz Golaszewski <bgolaszewski@baylibre.com>,
@@ -77,14 +77,14 @@ To: Linus Walleij <linus.walleij@linaro.org>,
  linux-media@vger.kernel.org, alsa-devel@alsa-project.org,
  linux-stm32@st-md-mailman.stormreply.com,
  linux-mediatek@lists.infradead.org, linux-renesas-soc@vger.kernel.org
-Date: Thu, 17 Sep 2020 18:52:58 +0200
-Message-Id: <20200917165301.23100-11-krzk@kernel.org>
+Date: Thu, 17 Sep 2020 18:52:59 +0200
+Message-Id: <20200917165301.23100-12-krzk@kernel.org>
 X-Mailer: git-send-email 2.17.1
 In-Reply-To: <20200917165301.23100-1-krzk@kernel.org>
 References: <20200917165301.23100-1-krzk@kernel.org>
 Cc: Krzysztof Kozlowski <krzk@kernel.org>
-Subject: [Linux-stm32] [PATCH v2 10/13] ASoC: dt-bindings: zl38060: include
-	common schema in GPIO controllers
+Subject: [Linux-stm32] [PATCH v2 11/13] arm64: dts: imx8mq-librem5: correct
+	GPIO hog property
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -102,33 +102,26 @@ Content-Transfer-Encoding: 7bit
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
-Include the common GPIO schema in GPIO controllers to be sure all common
-properties are properly validated.
+Correct the name of property for GPIO specifier in GPIO hog.
 
 Signed-off-by: Krzysztof Kozlowski <krzk@kernel.org>
-
 ---
+ arch/arm64/boot/dts/freescale/imx8mq-librem5.dtsi | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
 
-Changes since v1:
-1. New patch
----
- Documentation/devicetree/bindings/sound/zl38060.yaml | 3 +++
- 1 file changed, 3 insertions(+)
-
-diff --git a/Documentation/devicetree/bindings/sound/zl38060.yaml b/Documentation/devicetree/bindings/sound/zl38060.yaml
-index 338e2a13c775..0e3d8c854806 100644
---- a/Documentation/devicetree/bindings/sound/zl38060.yaml
-+++ b/Documentation/devicetree/bindings/sound/zl38060.yaml
-@@ -15,6 +15,9 @@ maintainers:
-   - Jaroslav Kysela <perex@perex.cz>
-   - Takashi Iwai <tiwai@suse.com>
+diff --git a/arch/arm64/boot/dts/freescale/imx8mq-librem5.dtsi b/arch/arm64/boot/dts/freescale/imx8mq-librem5.dtsi
+index 56295dd2fa8f..e4dedcb58f76 100644
+--- a/arch/arm64/boot/dts/freescale/imx8mq-librem5.dtsi
++++ b/arch/arm64/boot/dts/freescale/imx8mq-librem5.dtsi
+@@ -251,7 +251,7 @@
  
-+allOf:
-+  - $ref: /schemas/gpio/gpio-common.yaml#
-+
- properties:
-   compatible:
-     const: mscc,zl38060
+ 	pmic-5v {
+ 		gpio-hog;
+-		gpio = <&gpio1 1 GPIO_ACTIVE_HIGH>;
++		gpios = <&gpio1 1 GPIO_ACTIVE_HIGH>;
+ 		input;
+ 	};
+ };
 -- 
 2.17.1
 
