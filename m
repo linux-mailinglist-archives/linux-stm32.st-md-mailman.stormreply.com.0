@@ -2,29 +2,29 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id D57CF26E150
-	for <lists+linux-stm32@lfdr.de>; Thu, 17 Sep 2020 18:55:40 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id DF24326E153
+	for <lists+linux-stm32@lfdr.de>; Thu, 17 Sep 2020 18:55:48 +0200 (CEST)
 Received: from ip-172-31-3-76.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 999E0C32EA9;
-	Thu, 17 Sep 2020 16:55:33 +0000 (UTC)
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id A8E05C32EA9;
+	Thu, 17 Sep 2020 16:55:48 +0000 (UTC)
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
  (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 3947FC36B0B
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 240C3C36B0B
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Thu, 17 Sep 2020 16:55:31 +0000 (UTC)
+ Thu, 17 Sep 2020 16:55:46 +0000 (UTC)
 Received: from kozik-lap.mshome.net (unknown [194.230.155.191])
  (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by mail.kernel.org (Postfix) with ESMTPSA id 647A521D24;
- Thu, 17 Sep 2020 16:55:14 +0000 (UTC)
+ by mail.kernel.org (Postfix) with ESMTPSA id 58EBE2064B;
+ Thu, 17 Sep 2020 16:55:30 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
- s=default; t=1600361729;
- bh=pV5NUEmeW9mZ1TS+/Jc3oFxArHOIVWs9UQjncMMV5dA=;
+ s=default; t=1600361744;
+ bh=dFPbOAJ+oeV4JL1+FvEz/lM51pVEtTgDCeXjIbkcrXE=;
  h=From:To:Cc:Subject:Date:In-Reply-To:References:From;
- b=ZezngZwDO3KQgBWc5kH7o+363k3VkzXLGbSLbSc0tebpQso6t6pYwNkEyZCDiQPmV
- SDInDhjroyojBh7Mphf9Czz2rjH6R5ZkFLMbtuCEXnnrfdP8uQrsgKQcvItrVphoK1
- F0JF12gmB5ueiJxBeEsZOAKj0ouhtPyo/iU8CgBA=
+ b=Upx+hOpc9J/lcbE9OKI5mOafpckAkFpvyhiPVxHgkbSz/QxP6k6EPmqz7szVNd/39
+ 6eOasWlgoMnY4DHRsjiBftWmNe9v14c9O6l5BB0m6Ua3DO2E5DUk2JBB65TQTF4fN+
+ Sxhxa+BRxFcOEfuTjStNi0ooVufbYHRCNy1c+vnE=
 From: Krzysztof Kozlowski <krzk@kernel.org>
 To: Linus Walleij <linus.walleij@linaro.org>,
  Bartosz Golaszewski <bgolaszewski@baylibre.com>,
@@ -77,14 +77,14 @@ To: Linus Walleij <linus.walleij@linaro.org>,
  linux-media@vger.kernel.org, alsa-devel@alsa-project.org,
  linux-stm32@st-md-mailman.stormreply.com,
  linux-mediatek@lists.infradead.org, linux-renesas-soc@vger.kernel.org
-Date: Thu, 17 Sep 2020 18:52:54 +0200
-Message-Id: <20200917165301.23100-7-krzk@kernel.org>
+Date: Thu, 17 Sep 2020 18:52:55 +0200
+Message-Id: <20200917165301.23100-8-krzk@kernel.org>
 X-Mailer: git-send-email 2.17.1
 In-Reply-To: <20200917165301.23100-1-krzk@kernel.org>
 References: <20200917165301.23100-1-krzk@kernel.org>
 Cc: Krzysztof Kozlowski <krzk@kernel.org>
-Subject: [Linux-stm32] [PATCH v2 06/13] dt-bindings: gpio: gpio-vf610: fix
-	iMX 7ULP compatible matching
+Subject: [Linux-stm32] [PATCH v2 07/13] dt-bindings: media: include common
+	schema in GPIO controllers
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -102,14 +102,8 @@ Content-Transfer-Encoding: 7bit
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
-The i.MX 7ULP DTSes use two compatibles so update the binding to fix
-dtbs_check warnings like:
-
-  arch/arm/boot/dts/imx7ulp-com.dt.yaml: gpio@40ae0000:
-    compatible: ['fsl,imx7ulp-gpio', 'fsl,vf610-gpio'] is too long
-
-  arch/arm/boot/dts/imx7ulp-com.dt.yaml: gpio@40ae0000:
-    compatible: Additional items are not allowed ('fsl,vf610-gpio' was unexpected)
+Include the common GPIO schema in GPIO controllers to be sure all common
+properties are properly validated.
 
 Signed-off-by: Krzysztof Kozlowski <krzk@kernel.org>
 
@@ -118,28 +112,23 @@ Signed-off-by: Krzysztof Kozlowski <krzk@kernel.org>
 Changes since v1:
 1. New patch
 ---
- Documentation/devicetree/bindings/gpio/gpio-vf610.yaml | 8 +++++---
- 1 file changed, 5 insertions(+), 3 deletions(-)
+ Documentation/devicetree/bindings/media/i2c/maxim,max9286.yaml | 3 +++
+ 1 file changed, 3 insertions(+)
 
-diff --git a/Documentation/devicetree/bindings/gpio/gpio-vf610.yaml b/Documentation/devicetree/bindings/gpio/gpio-vf610.yaml
-index 82f3e4b407d1..7a5745255969 100644
---- a/Documentation/devicetree/bindings/gpio/gpio-vf610.yaml
-+++ b/Documentation/devicetree/bindings/gpio/gpio-vf610.yaml
-@@ -22,9 +22,11 @@ allOf:
+diff --git a/Documentation/devicetree/bindings/media/i2c/maxim,max9286.yaml b/Documentation/devicetree/bindings/media/i2c/maxim,max9286.yaml
+index 9ea827092fdd..3f72c37b99f7 100644
+--- a/Documentation/devicetree/bindings/media/i2c/maxim,max9286.yaml
++++ b/Documentation/devicetree/bindings/media/i2c/maxim,max9286.yaml
+@@ -24,6 +24,9 @@ description: |
+   serializer will output it on a local I2C bus. In the other direction all I2C
+   traffic received over GMSL by the MAX9286 is output on the local I2C bus.
  
++allOf:
++  - $ref: /schemas/gpio/gpio-common.yaml#
++
  properties:
-   compatible:
--    enum:
--      - fsl,vf610-gpio
--      - fsl,imx7ulp-gpio
-+    oneOf:
-+      - const: fsl,vf610-gpio
-+      - items:
-+          - const: fsl,imx7ulp-gpio
-+          - const: fsl,vf610-gpio
- 
-   reg:
-     description: The first reg tuple represents the PORT module, the second tuple
+   '#address-cells':
+     const: 1
 -- 
 2.17.1
 
