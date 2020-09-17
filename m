@@ -2,42 +2,50 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id B6CC926CEB5
-	for <lists+linux-stm32@lfdr.de>; Thu, 17 Sep 2020 00:25:55 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id E175A26D017
+	for <lists+linux-stm32@lfdr.de>; Thu, 17 Sep 2020 02:42:28 +0200 (CEST)
 Received: from ip-172-31-3-76.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 77367C3FAE1;
-	Wed, 16 Sep 2020 22:25:55 +0000 (UTC)
-Received: from shards.monkeyblade.net (shards.monkeyblade.net [23.128.96.9])
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id A20CDC3FAE1;
+	Thu, 17 Sep 2020 00:42:28 +0000 (UTC)
+Received: from mail-out.m-online.net (mail-out.m-online.net [212.18.0.9])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 99061C3FADE
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 21187C3FAD6
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Wed, 16 Sep 2020 22:25:54 +0000 (UTC)
-Received: from localhost (unknown [IPv6:2601:601:9f00:477::3d5])
- (using TLSv1 with cipher AES256-SHA (256/256 bits))
- (Client did not present a certificate)
- (Authenticated sender: davem-davemloft)
- by shards.monkeyblade.net (Postfix) with ESMTPSA id 25F8713624E0E;
- Wed, 16 Sep 2020 15:09:04 -0700 (PDT)
-Date: Wed, 16 Sep 2020 15:25:50 -0700 (PDT)
-Message-Id: <20200916.152550.1833517348137875378.davem@davemloft.net>
-To: vee.khee.wong@intel.com
-From: David Miller <davem@davemloft.net>
-In-Reply-To: <20200916074020.25491-1-vee.khee.wong@intel.com>
-References: <20200916074020.25491-1-vee.khee.wong@intel.com>
-X-Mailer: Mew version 6.8 on Emacs 27.1
-Mime-Version: 1.0
-X-Greylist: Sender succeeded SMTP AUTH, not delayed by milter-greylist-4.5.12
- (shards.monkeyblade.net [2620:137:e000::1:9]);
- Wed, 16 Sep 2020 15:09:04 -0700 (PDT)
-Cc: yoong.siang.song@intel.com, weifeng.voon@intel.com, netdev@vger.kernel.org,
- linux@armlinux.org.uk, linux-kernel@vger.kernel.org, chen.yong.seow@intel.com,
- joabreu@synopsys.com, sadhishkhanna.vijaya.balan@intel.com,
- mcoquelin.stm32@gmail.com, kuba@kernel.org, boon.leong.ong@intel.com,
- peppe.cavallaro@st.com, linux-stm32@st-md-mailman.stormreply.com,
+ Thu, 17 Sep 2020 00:42:27 +0000 (UTC)
+Received: from frontend01.mail.m-online.net (unknown [192.168.8.182])
+ by mail-out.m-online.net (Postfix) with ESMTP id 4BsJ8L2wkpz1qs3y;
+ Thu, 17 Sep 2020 02:42:26 +0200 (CEST)
+Received: from localhost (dynscan1.mnet-online.de [192.168.6.70])
+ by mail.m-online.net (Postfix) with ESMTP id 4BsJ8L2Cr4z1qwSv;
+ Thu, 17 Sep 2020 02:42:26 +0200 (CEST)
+X-Virus-Scanned: amavisd-new at mnet-online.de
+Received: from mail.mnet-online.de ([192.168.8.182])
+ by localhost (dynscan1.mail.m-online.net [192.168.6.70]) (amavisd-new,
+ port 10024)
+ with ESMTP id NQmF1rsY4I69; Thu, 17 Sep 2020 02:42:25 +0200 (CEST)
+X-Auth-Info: muj1+c2r6m5ddhcMn1RJPSglHjc6YEbR8kbBC7jWyDc=
+Received: from [IPv6:::1] (p578adb1c.dip0.t-ipconnect.de [87.138.219.28])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+ (No client certificate requested)
+ by mail.mnet-online.de (Postfix) with ESMTPSA;
+ Thu, 17 Sep 2020 02:42:25 +0200 (CEST)
+To: Alexandre Torgue <alexandre.torgue@st.com>
+References: <20200831170909.205536-1-marex@denx.de>
+From: Marek Vasut <marex@denx.de>
+Message-ID: <71f0c49c-d474-9daf-b8ba-e644500c2876@denx.de>
+Date: Thu, 17 Sep 2020 02:41:52 +0200
+User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:68.0) Gecko/20100101
+ Thunderbird/68.12.0
+MIME-Version: 1.0
+In-Reply-To: <20200831170909.205536-1-marex@denx.de>
+Content-Language: en-US
+Cc: Patrick Delaunay <patrick.delaunay@st.com>,
+ linux-stm32@st-md-mailman.stormreply.com,
+ Maxime Coquelin <mcoquelin.stm32@gmail.com>,
  linux-arm-kernel@lists.infradead.org
-Subject: Re: [Linux-stm32] [PATCH net-next] net: stmmac: Add support to
- Ethtool get/set ring parameters
+Subject: Re: [Linux-stm32] [PATCH] ARM: dts: stm32: Fix DH PDK2 display PWM
+	channel
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -54,38 +62,18 @@ Content-Transfer-Encoding: 7bit
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
-From: Wong Vee Khee <vee.khee.wong@intel.com>
-Date: Wed, 16 Sep 2020 15:40:20 +0800
+On 8/31/20 7:09 PM, Marek Vasut wrote:
+> The display PWM channel is number 3 (PWM2 CH4), make it so.
+> 
+> Fixes: 34e0c7847dcf ("ARM: dts: stm32: Add DH Electronics DHCOM STM32MP1 SoM and PDK2 board")
 
-> +int stmmac_reinit_ringparam(struct net_device *dev, u32 rx_size, u32 tx_size)
-> +{
-> +	struct stmmac_priv *priv = netdev_priv(dev);
-> +	int ret = 0;
-> +
-> +	if (netif_running(dev))
-> +		stmmac_release(dev);
- ...
-> +	if (netif_running(dev))
-> +		ret = stmmac_open(dev);
-> +
+This one seems to be missing from upstream.
 
-I've applied this patch but this approach is so fragile, but everyone
-does it initially because it is so easy.
-
-The problem here is that for so many reasons the stmmac_open() can
-fail, and instead of just the ringparam() operation failing, the
-interface becomes down and unusable.
-
-Can you please eventually implement this properly?  Allocate the new
-ring resources, and only commit the new configuration if it is
-guaranteed to succeed.  Otherwise, backout the ringparam change
-and keep the old configuration.
-
-This way the device stays up regardless of whether the resources
-(memory, DMA mappings, etc.) can be allocated fully.
-
-Right now, if you do a ringparam under hard memory pressure, this will
-take the inteface down as stmmac_open() fails.
+btw. is there any chance the stm32 linux upstreaming queue can be merged
+into linux-next automatically? It makes development much easier if one
+can rebase on next and see how the amount of patches in local tree is
+decreasing, and the patches get tested in next a bit more by various CI
+runners.
 _______________________________________________
 Linux-stm32 mailing list
 Linux-stm32@st-md-mailman.stormreply.com
