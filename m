@@ -2,86 +2,50 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id AFD8226FFA2
-	for <lists+linux-stm32@lfdr.de>; Fri, 18 Sep 2020 16:19:22 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 35FE126FFC4
+	for <lists+linux-stm32@lfdr.de>; Fri, 18 Sep 2020 16:26:49 +0200 (CEST)
 Received: from ip-172-31-3-76.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 6F283C32EB6;
-	Fri, 18 Sep 2020 14:19:22 +0000 (UTC)
-Received: from perceval.ideasonboard.com (perceval.ideasonboard.com
- [213.167.242.64])
- (using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id E8965C3FAD4;
+	Fri, 18 Sep 2020 14:26:48 +0000 (UTC)
+Received: from mga09.intel.com (mga09.intel.com [134.134.136.24])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 3FD16C36B0B
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id AF612C36B0B
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Fri, 18 Sep 2020 14:19:20 +0000 (UTC)
-Received: from pendragon.ideasonboard.com (62-78-145-57.bb.dnainternet.fi
- [62.78.145.57])
- by perceval.ideasonboard.com (Postfix) with ESMTPSA id 5EC382D7;
- Fri, 18 Sep 2020 16:19:18 +0200 (CEST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=ideasonboard.com;
- s=mail; t=1600438758;
- bh=fIZGQZZYM2FyHIfA+1pya2D9PN88lhv1BbBbmjKpOQY=;
- h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
- b=E/ZvmkqbpHcJAzSJWAcR9DD4mJds6aQ4ZFQLl81hgVUiAjz1lfibYnZHTp00xOuII
- mcjifMkOztY3aI9rZ53HCbQjoKLmJZelTc6VG1oDpdrdIMGDhNOqDxzZ/QnX7EXqLb
- tevVCNbQW2u28SmRYp6swCcNwEWZ9cVPc2mEccA8=
-Date: Fri, 18 Sep 2020 17:18:47 +0300
-From: Laurent Pinchart <laurent.pinchart@ideasonboard.com>
-To: Krzysztof Kozlowski <krzk@kernel.org>
-Message-ID: <20200918141847.GE28436@pendragon.ideasonboard.com>
-References: <20200917165301.23100-1-krzk@kernel.org>
- <20200917165301.23100-2-krzk@kernel.org>
- <20200917200936.GF3969@pendragon.ideasonboard.com>
- <CAJKOXPc=o0vtU0VKE5b5Ro3nF=ra-p7UnbFfjj_++onw8MeSKQ@mail.gmail.com>
+ Fri, 18 Sep 2020 14:26:47 +0000 (UTC)
+IronPort-SDR: 4m4sd6qEBFcfpwM2rJOM/BFqDKtuXIzyQum93bfhv3x3x2nb1LFnHekeCDLQOqQeH4fi570PyC
+ q88evDQviKiw==
+X-IronPort-AV: E=McAfee;i="6000,8403,9747"; a="160864842"
+X-IronPort-AV: E=Sophos;i="5.77,274,1596524400"; d="scan'208";a="160864842"
+X-Amp-Result: SKIPPED(no attachment in message)
+X-Amp-File-Uploaded: False
+Received: from fmsmga005.fm.intel.com ([10.253.24.32])
+ by orsmga102.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 18 Sep 2020 07:26:45 -0700
+IronPort-SDR: zShKMULoi/s7nQSYOLpqL1AeJf5DgQmiQwEm6cdJbcL75exOQh3mGdJtAHMAmSyCz5G1EQXOJl
+ 3iZCzmw+JVCQ==
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="5.77,274,1596524400"; d="scan'208";a="508894939"
+Received: from um.fi.intel.com (HELO um) ([10.237.72.57])
+ by fmsmga005.fm.intel.com with ESMTP; 18 Sep 2020 07:26:39 -0700
+From: Alexander Shishkin <alexander.shishkin@linux.intel.com>
+To: Tingwei Zhang <tingweiz@codeaurora.org>,
+ Tingwei Zhang <tingwei@codeaurora.org>
+In-Reply-To: <20200914232729.GB20431@codeaurora.org>
+References: <20200903001706.28147-1-tingwei@codeaurora.org>
+ <20200914232729.GB20431@codeaurora.org>
+Date: Fri, 18 Sep 2020 17:26:38 +0300
+Message-ID: <87wo0rw481.fsf@ashishki-desk.ger.corp.intel.com>
 MIME-Version: 1.0
-Content-Disposition: inline
-In-Reply-To: <CAJKOXPc=o0vtU0VKE5b5Ro3nF=ra-p7UnbFfjj_++onw8MeSKQ@mail.gmail.com>
-Cc: Geert Uytterhoeven <geert+renesas@glider.be>,
- Matti Vaittinen <matti.vaittinen@fi.rohmeurope.com>,
- Linus Walleij <linus.walleij@linaro.org>, alsa-devel@alsa-project.org,
- Stefan Agner <stefan@agner.ch>, Bjorn Andersson <bjorn.andersson@linaro.org>,
- Paul Cercueil <paul@crapouillou.net>,
- Masahiro Yamada <yamada.masahiro@socionext.com>,
- Chris Brandt <chris.brandt@renesas.com>,
- Srinivas Kandagatla <srinivas.kandagatla@linaro.org>,
- Manivannan Sadhasivam <manivannan.sadhasivam@linaro.org>,
- linux-riscv@lists.infradead.org, Fabio Estevam <festevam@gmail.com>,
- linux-stm32@st-md-mailman.stormreply.com, linux-renesas-soc@vger.kernel.org,
- Laurent Pinchart <laurent.pinchart+renesas@ideasonboard.com>,
- Anson Huang <Anson.Huang@nxp.com>, Lee Jones <lee.jones@linaro.org>,
- Takashi Iwai <tiwai@suse.com>, Magnus Damm <magnus.damm@gmail.com>,
- Bartosz Golaszewski <bgolaszewski@baylibre.com>, Chen-Yu Tsai <wens@csie.org>,
- Andy Gross <agross@kernel.org>, bcm-kernel-feedback-list@broadcom.com,
- NXP Linux Team <linux-imx@nxp.com>, Andy Teng <andy.teng@mediatek.com>,
- Jacopo Mondi <jacopo+renesas@jmondi.org>, Jaroslav Kysela <perex@perex.cz>,
- Sungbo Eo <mans0n@gorani.run>, linux-arm-msm@vger.kernel.org,
- devicetree@vger.kernel.org, Cristian Ciocaltea <cristian.ciocaltea@gmail.com>,
- Charles Keepax <ckeepax@opensource.cirrus.com>,
- Maxime Coquelin <mcoquelin.stm32@gmail.com>, Ray Jui <rjui@broadcom.com>,
- Sascha Hauer <s.hauer@pengutronix.de>, Sean Wang <sean.wang@mediatek.com>,
- Maxime Ripard <mripard@kernel.org>, linux-gpio@vger.kernel.org,
- Richard Fitzgerald <rf@opensource.cirrus.com>,
- Rob Herring <robh+dt@kernel.org>, linux-mediatek@lists.infradead.org,
- Paul Walmsley <paul.walmsley@sifive.com>,
- Matthias Brugger <matthias.bgg@gmail.com>,
- Sricharan R <sricharan@codeaurora.org>,
- Mauro Carvalho Chehab <mchehab@kernel.org>,
- Hoan Tran <hoan@os.amperecomputing.com>, linux-arm-kernel@lists.infradead.org,
- Niklas =?utf-8?Q?S=C3=B6derlund?= <niklas.soderlund+renesas@ragnatech.se>,
- Scott Branden <sbranden@broadcom.com>, linux-unisoc@lists.infradead.org,
- - <patches@opensource.cirrus.com>,
- Chris Packham <chris.packham@alliedtelesis.co.nz>,
- Liam Girdwood <lgirdwood@gmail.com>, Serge Semin <fancer.lancer@gmail.com>,
- "linux-kernel@vger.kernel.org" <linux-kernel@vger.kernel.org>,
- Paul Kocialkowski <paul.kocialkowski@bootlin.com>,
- Yash Shah <yash.shah@sifive.com>,
- Kieran Bingham <kieran.bingham+renesas@ideasonboard.com>,
- Palmer Dabbelt <palmer@dabbelt.com>, Mark Brown <broonie@kernel.org>,
- Pengutronix Kernel Team <kernel@pengutronix.de>, linux-media@vger.kernel.org,
- Shawn Guo <shawnguo@kernel.org>,
- Andreas =?utf-8?Q?F=C3=A4rber?= <afaerber@suse.de>
-Subject: Re: [Linux-stm32] [PATCH v2 01/13] dt-bindings: gpio: add common
- schema for GPIO controllers
+Cc: tsoni@codeaurora.org, Sai Prakash Ranjan <saiprakash.ranjan@codeaurora.org>,
+ Mathieu Poirier <mathieu.poirier@linaro.org>,
+ Suzuki K Poulose <suzuki.poulose@arm.com>, alexander.shishkin@linux.intel.com,
+ Mao Jinlong <jinlmao@codeaurora.org>, linux-kernel@vger.kernel.org,
+ Steven Rostedt <rostedt@goodmis.org>, Ingo Molnar <mingo@redhat.com>,
+ Maxime Coquelin <mcoquelin.stm32@gmail.com>,
+ linux-stm32@st-md-mailman.stormreply.com, linux-arm-kernel@lists.infradead.org
+Subject: Re: [Linux-stm32] [PATCH v3 0/6] tracing: export event trace and
+	trace_marker
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -98,47 +62,22 @@ Content-Transfer-Encoding: 7bit
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
-Hi Krzysztof,
+Tingwei Zhang <tingweiz@codeaurora.org> writes:
 
-On Fri, Sep 18, 2020 at 09:52:57AM +0200, Krzysztof Kozlowski wrote:
-> On Thu, 17 Sep 2020 at 22:10, Laurent Pinchart wrote:
-> > On Thu, Sep 17, 2020 at 06:52:49PM +0200, Krzysztof Kozlowski wrote:
-> > > Convert parts of gpio.txt bindings into common dtschema file for GPIO
-> > > controllers.
-> >
-> > How about deleting the part that has been converted from gpio.txt ?
-> 
-> I did not move everything from the gpio.txt and it is really nicely
-> explained there. I think to leave it as it works as a overview/guide
-> better than YAML.
+> Hi Alexander, Maxime, Aleandre,
+>
+> May I know your comments for this patch set?
 
-I'm just a bit worried that duplicating some of the information in two
-places will lead to them becoming out of sync, but maybe the risk isn't
-that high.
+Everything except the last patch is
 
-> > > The schema enforces proper naming of GPIO controller nodes and GPIO
-> > > hogs.
-> > >
-> > > The schema should be included by specific GPIO controllers bindings.
-> >
-> > Instead of including it manually, could we use a conditional select: to
-> > apply the schema automatically when a gpio-controller property is
-> > present ?
-> 
-> You mean the same way as generic schema for GPIO controllers work?
-> This could be done but the point is to enforce the GPIO controller
-> bindings in GPIO controllers, so also in cases when someone forgets to
-> add "gpio-controller" property. Although, if given GPIO controller
-> schema requires "gpio-controller" then indeed select would work...
+Reviewed-by: Alexander Shishkin <alexander.shishkin@linux.intel.com>
 
-You could just make gpio-controller mandatory in the schema, and get
-everything else automatically selected based on that, without needing a
-manual $ref.
+After that one is resolved either I can pick it up or Stephen. Either
+way is fine with me.
 
--- 
 Regards,
-
-Laurent Pinchart
+--
+Alex
 _______________________________________________
 Linux-stm32 mailing list
 Linux-stm32@st-md-mailman.stormreply.com
