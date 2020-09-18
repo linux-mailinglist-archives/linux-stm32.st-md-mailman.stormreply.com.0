@@ -2,50 +2,60 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id 4BB8C26FCD6
-	for <lists+linux-stm32@lfdr.de>; Fri, 18 Sep 2020 14:46:03 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 20E9626FE93
+	for <lists+linux-stm32@lfdr.de>; Fri, 18 Sep 2020 15:34:46 +0200 (CEST)
 Received: from ip-172-31-3-76.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 0D4BDC32EA9;
-	Fri, 18 Sep 2020 12:46:03 +0000 (UTC)
-Received: from mga18.intel.com (mga18.intel.com [134.134.136.126])
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id D04FEC32EB6;
+	Fri, 18 Sep 2020 13:34:45 +0000 (UTC)
+Received: from out30-132.freemail.mail.aliyun.com
+ (out30-132.freemail.mail.aliyun.com [115.124.30.132])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 98BBEC36B0B
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 16F59C36B0B
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Fri, 18 Sep 2020 12:45:59 +0000 (UTC)
-IronPort-SDR: ZD6sD4XZBRTpab8D1DdSCoRowp4j+4T/BYciPgCQpbFxoZWYMxgHsIr48X59t1Kd7coDUHw1vm
- ROFzoatBohFg==
-X-IronPort-AV: E=McAfee;i="6000,8403,9747"; a="147667013"
-X-IronPort-AV: E=Sophos;i="5.77,274,1596524400"; d="scan'208";a="147667013"
-X-Amp-Result: SKIPPED(no attachment in message)
-X-Amp-File-Uploaded: False
-Received: from fmsmga004.fm.intel.com ([10.253.24.48])
- by orsmga106.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 18 Sep 2020 05:45:57 -0700
-IronPort-SDR: g8txEcJO0ulTSqG4U6y6lFjZr6I732JoqmIF3ujvyzswstXN00cJme4NYMxtnUgUWBa5X9TZtz
- nX66g3jf6GSw==
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="5.77,274,1596524400"; d="scan'208";a="332595129"
-Received: from um.fi.intel.com (HELO um) ([10.237.72.57])
- by fmsmga004.fm.intel.com with ESMTP; 18 Sep 2020 05:45:53 -0700
-From: Alexander Shishkin <alexander.shishkin@linux.intel.com>
-To: Tingwei Zhang <tingwei@codeaurora.org>,
- Steven Rostedt <rostedt@goodmis.org>, Ingo Molnar <mingo@redhat.com>,
- Maxime Coquelin <mcoquelin.stm32@gmail.com>,
- Alexandre Torgue <alexandre.torgue@st.com>
-In-Reply-To: <20200903001706.28147-7-tingwei@codeaurora.org>
-References: <20200903001706.28147-1-tingwei@codeaurora.org>
- <20200903001706.28147-7-tingwei@codeaurora.org>
-Date: Fri, 18 Sep 2020 15:45:52 +0300
-Message-ID: <87zh5nw8vz.fsf@ashishki-desk.ger.corp.intel.com>
+ Fri, 18 Sep 2020 13:34:42 +0000 (UTC)
+X-Alimail-AntiSpam: AC=PASS; BC=-1|-1; BR=01201311R911e4; CH=green; DM=||false|;
+ DS=||; FP=0|-1|-1|-1|0|-1|-1|-1; HT=e01e01424;
+ MF=tianjia.zhang@linux.alibaba.com; NM=1; PH=DS; RN=30; SR=0;
+ TI=SMTPD_---0U9K7wHw_1600436072; 
+Received: from B-455UMD6M-2027.local(mailfrom:tianjia.zhang@linux.alibaba.com
+ fp:SMTPD_---0U9K7wHw_1600436072) by smtp.aliyun-inc.com(127.0.0.1);
+ Fri, 18 Sep 2020 21:34:34 +0800
+To: Herbert Xu <herbert@gondor.apana.org.au>
+References: <20200903131242.128665-1-tianjia.zhang@linux.alibaba.com>
+ <20200903131242.128665-6-tianjia.zhang@linux.alibaba.com>
+ <20200918064721.GA9520@gondor.apana.org.au>
+From: Tianjia Zhang <tianjia.zhang@linux.alibaba.com>
+Message-ID: <861bc3cc-2119-0325-33ea-828bd7e8544d@linux.alibaba.com>
+Date: Fri, 18 Sep 2020 21:34:32 +0800
+User-Agent: Mozilla/5.0 (Macintosh; Intel Mac OS X 10.15; rv:78.0)
+ Gecko/20100101 Thunderbird/78.2.2
 MIME-Version: 1.0
-Cc: tsoni@codeaurora.org, Sai Prakash Ranjan <saiprakash.ranjan@codeaurora.org>,
- Mathieu Poirier <mathieu.poirier@linaro.org>,
- Suzuki K Poulose <suzuki.poulose@arm.com>, alexander.shishkin@linux.intel.com,
- Mao Jinlong <jinlmao@codeaurora.org>, linux-kernel@vger.kernel.org,
- linux-stm32@st-md-mailman.stormreply.com, linux-arm-kernel@lists.infradead.org
-Subject: Re: [Linux-stm32] [PATCH v3 6/6] stm class: ftrace: use different
-	channel accroding to CPU
+In-Reply-To: <20200918064721.GA9520@gondor.apana.org.au>
+Content-Language: en-US
+Cc: Stephan Mueller <smueller@chronox.de>,
+ Brendan Higgins <brendanhiggins@google.com>,
+ Jia Zhang <zhang.jia@linux.alibaba.com>, Mimi Zohar <zohar@linux.ibm.com>,
+ Vitaly Chikunov <vt@altlinux.org>, keyrings@vger.kernel.org,
+ linux-stm32@st-md-mailman.stormreply.com,
+ Masahiro Yamada <masahiroy@kernel.org>, James Morris <jmorris@namei.org>,
+ Lakshmi Ramasubramanian <nramas@linux.microsoft.com>,
+ Marcelo Henrique Cerri <marcelo.cerri@canonical.com>,
+ Waiman Long <longman@redhat.com>, "Serge E. Hallyn" <serge@hallyn.com>,
+ "Steven Rostedt \(VMware\)" <rostedt@goodmis.org>,
+ Gilad Ben-Yossef <gilad@benyossef.com>,
+ Tushar Sugandhi <tusharsu@linux.microsoft.com>,
+ linux-arm-kernel@lists.infradead.org, David Howells <dhowells@redhat.com>,
+ Pascal van Leeuwen <pvanleeuwen@rambus.com>, linux-kernel@vger.kernel.org,
+ Xufeng Zhang <yunbo.xufeng@linux.alibaba.com>,
+ linux-security-module@vger.kernel.org, linux-crypto@vger.kernel.org,
+ Maxime Coquelin <mcoquelin.stm32@gmail.com>,
+ Johannes Weiner <hannes@cmpxchg.org>,
+ Colin Ian King <colin.king@canonical.com>,
+ Andrew Morton <akpm@linux-foundation.org>,
+ "David S. Miller" <davem@davemloft.net>
+Subject: Re: [Linux-stm32] [PATCH v6 5/8] crypto: testmgr - support test
+ with different ciphertext per encryption
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -57,34 +67,39 @@ List-Post: <mailto:linux-stm32@st-md-mailman.stormreply.com>
 List-Help: <mailto:linux-stm32-request@st-md-mailman.stormreply.com?subject=help>
 List-Subscribe: <https://st-md-mailman.stormreply.com/mailman/listinfo/linux-stm32>, 
  <mailto:linux-stm32-request@st-md-mailman.stormreply.com?subject=subscribe>
-Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
+Content-Type: text/plain; charset="us-ascii"; Format="flowed"
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
-Tingwei Zhang <tingwei@codeaurora.org> writes:
 
-> @@ -63,6 +65,7 @@ static int __init stm_ftrace_init(void)
->  {
->  	int ret;
->  
-> +	stm_ftrace.data.nr_chans = num_possible_cpus();
 
-Not a problem with this patch necesarily, but this made me realize that
-.nr_chans may be larger than:
+On 9/18/20 2:47 PM, Herbert Xu wrote:
+> On Thu, Sep 03, 2020 at 09:12:39PM +0800, Tianjia Zhang wrote:
+>> Some asymmetric algorithms will get different ciphertext after
+>> each encryption, such as SM2, and let testmgr support the testing
+>> of such algorithms.
+>>
+>> In struct akcipher_testvec, set c and c_size to be empty, skip
+>> the comparison of the ciphertext, and compare the decrypted
+>> plaintext with m to achieve the test purpose.
+>>
+>> Signed-off-by: Tianjia Zhang <tianjia.zhang@linux.alibaba.com>
+>> Tested-by: Xufeng Zhang <yunbo.xufeng@linux.alibaba.com>
+>> ---
+>>   crypto/testmgr.c | 7 ++++++-
+>>   1 file changed, 6 insertions(+), 1 deletion(-)
+> 
+> Is there supposed to be another patch that contains test vectors?
+> 
+> Thanks,
+> 
 
- (1) what the policy permits,
- (2) what the stm device can handle.
+Yes, I was negligent. It is necessary to provide a test vector and I 
+will support it as soon as possible.
 
-While (1) the user can fix in the policy, they won't be able to fix (2),
-in which case they won't be able to use stm_ftrace at all. I'm thinking
-if a link-time callback would be good enough.
-
-Another thing is that .nr_chans needs to be a power of 2 at the moment.
-
-Regards,
---
-Alex
+Thanks,
+Tianjia
 _______________________________________________
 Linux-stm32 mailing list
 Linux-stm32@st-md-mailman.stormreply.com
