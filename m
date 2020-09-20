@@ -2,24 +2,24 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id CB0882715AF
-	for <lists+linux-stm32@lfdr.de>; Sun, 20 Sep 2020 18:21:21 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id C26472715B1
+	for <lists+linux-stm32@lfdr.de>; Sun, 20 Sep 2020 18:21:25 +0200 (CEST)
 Received: from ip-172-31-3-76.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 67BADC424B3;
-	Sun, 20 Sep 2020 16:21:21 +0000 (UTC)
-Received: from out30-132.freemail.mail.aliyun.com
- (out30-132.freemail.mail.aliyun.com [115.124.30.132])
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 901CEC424B7;
+	Sun, 20 Sep 2020 16:21:25 +0000 (UTC)
+Received: from out30-45.freemail.mail.aliyun.com
+ (out30-45.freemail.mail.aliyun.com [115.124.30.45])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id A6065C3FADF
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 12338C3FAD5
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Sun, 20 Sep 2020 16:21:15 +0000 (UTC)
-X-Alimail-AntiSpam: AC=PASS; BC=-1|-1; BR=01201311R161e4; CH=green; DM=||false|;
- DS=||; FP=0|-1|-1|-1|0|-1|-1|-1; HT=e01e04400;
+ Sun, 20 Sep 2020 16:21:14 +0000 (UTC)
+X-Alimail-AntiSpam: AC=PASS; BC=-1|-1; BR=01201311R181e4; CH=green; DM=||false|;
+ DS=||; FP=0|-1|-1|-1|0|-1|-1|-1; HT=e01e04394;
  MF=tianjia.zhang@linux.alibaba.com; NM=1; PH=DS; RN=34; SR=0;
- TI=SMTPD_---0U9VT-2A_1600618865; 
+ TI=SMTPD_---0U9VX9H8_1600618865; 
 Received: from localhost(mailfrom:tianjia.zhang@linux.alibaba.com
- fp:SMTPD_---0U9VT-2A_1600618865) by smtp.aliyun-inc.com(127.0.0.1);
+ fp:SMTPD_---0U9VX9H8_1600618865) by smtp.aliyun-inc.com(127.0.0.1);
  Mon, 21 Sep 2020 00:21:05 +0800
 From: Tianjia Zhang <tianjia.zhang@linux.alibaba.com>
 To: Herbert Xu <herbert@gondor.apana.org.au>,
@@ -47,8 +47,8 @@ To: Herbert Xu <herbert@gondor.apana.org.au>,
  linux-security-module@vger.kernel.org,
  linux-stm32@st-md-mailman.stormreply.com,
  linux-arm-kernel@lists.infradead.org, linux-kernel@vger.kernel.org
-Date: Mon, 21 Sep 2020 00:20:55 +0800
-Message-Id: <20200920162103.83197-3-tianjia.zhang@linux.alibaba.com>
+Date: Mon, 21 Sep 2020 00:20:56 +0800
+Message-Id: <20200920162103.83197-4-tianjia.zhang@linux.alibaba.com>
 X-Mailer: git-send-email 2.19.1.3.ge56e4f7
 In-Reply-To: <20200920162103.83197-1-tianjia.zhang@linux.alibaba.com>
 References: <20200920162103.83197-1-tianjia.zhang@linux.alibaba.com>
@@ -56,7 +56,8 @@ MIME-Version: 1.0
 Cc: Xufeng Zhang <yunbo.xufeng@linux.alibaba.com>,
  Tianjia Zhang <tianjia.zhang@linux.alibaba.com>,
  Jia Zhang <zhang.jia@linux.alibaba.com>
-Subject: [Linux-stm32] [PATCH v7 02/10] lib/mpi: Extend the MPI library
+Subject: [Linux-stm32] [PATCH v7 03/10] lib/mpi: Introduce ec implementation
+	to MPI library
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -68,2365 +69,759 @@ List-Post: <mailto:linux-stm32@st-md-mailman.stormreply.com>
 List-Help: <mailto:linux-stm32-request@st-md-mailman.stormreply.com?subject=help>
 List-Subscribe: <https://st-md-mailman.stormreply.com/mailman/listinfo/linux-stm32>, 
  <mailto:linux-stm32-request@st-md-mailman.stormreply.com?subject=subscribe>
-Content-Type: text/plain; charset="us-ascii"
-Content-Transfer-Encoding: 7bit
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: base64
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
-Expand the mpi library based on libgcrypt, and the ECC algorithm of
-mpi based on libgcrypt requires these functions.
-Some other algorithms will be developed based on mpi ecc, such as SM2.
-
-Signed-off-by: Tianjia Zhang <tianjia.zhang@linux.alibaba.com>
-Tested-by: Xufeng Zhang <yunbo.xufeng@linux.alibaba.com>
----
- include/linux/mpi.h    |  87 +++++++++++
- lib/mpi/Makefile       |   5 +
- lib/mpi/mpi-add.c      | 155 +++++++++++++++++++
- lib/mpi/mpi-bit.c      | 251 ++++++++++++++++++++++++++++++
- lib/mpi/mpi-cmp.c      |  46 ++++--
- lib/mpi/mpi-div.c      | 238 +++++++++++++++++++++++++++++
- lib/mpi/mpi-internal.h |  53 +++++++
- lib/mpi/mpi-inv.c      | 143 ++++++++++++++++++
- lib/mpi/mpi-mod.c      | 155 +++++++++++++++++++
- lib/mpi/mpi-mul.c      |  94 ++++++++++++
- lib/mpi/mpicoder.c     | 336 +++++++++++++++++++++++++++++++++++++++++
- lib/mpi/mpih-div.c     | 294 ++++++++++++++++++++++++++++++++++++
- lib/mpi/mpih-mul.c     |  25 +++
- lib/mpi/mpiutil.c      | 204 +++++++++++++++++++++++++
- 14 files changed, 2076 insertions(+), 10 deletions(-)
- create mode 100644 lib/mpi/mpi-add.c
- create mode 100644 lib/mpi/mpi-div.c
- create mode 100644 lib/mpi/mpi-inv.c
- create mode 100644 lib/mpi/mpi-mod.c
- create mode 100644 lib/mpi/mpi-mul.c
-
-diff --git a/include/linux/mpi.h b/include/linux/mpi.h
-index 5d906dfbf3ed..3c9e41603cf6 100644
---- a/include/linux/mpi.h
-+++ b/include/linux/mpi.h
-@@ -40,21 +40,79 @@ struct gcry_mpi {
- typedef struct gcry_mpi *MPI;
- 
- #define mpi_get_nlimbs(a)     ((a)->nlimbs)
-+#define mpi_has_sign(a)       ((a)->sign)
- 
- /*-- mpiutil.c --*/
- MPI mpi_alloc(unsigned nlimbs);
-+void mpi_clear(MPI a);
- void mpi_free(MPI a);
- int mpi_resize(MPI a, unsigned nlimbs);
- 
-+static inline MPI mpi_new(unsigned int nbits)
-+{
-+	return mpi_alloc((nbits + BITS_PER_MPI_LIMB - 1) / BITS_PER_MPI_LIMB);
-+}
-+
-+MPI mpi_copy(MPI a);
-+MPI mpi_alloc_like(MPI a);
-+void mpi_snatch(MPI w, MPI u);
-+MPI mpi_set(MPI w, MPI u);
-+MPI mpi_set_ui(MPI w, unsigned long u);
-+MPI mpi_alloc_set_ui(unsigned long u);
-+void mpi_swap_cond(MPI a, MPI b, unsigned long swap);
-+
-+/* Constants used to return constant MPIs.  See mpi_init if you
-+ * want to add more constants.
-+ */
-+#define MPI_NUMBER_OF_CONSTANTS 6
-+enum gcry_mpi_constants {
-+	MPI_C_ZERO,
-+	MPI_C_ONE,
-+	MPI_C_TWO,
-+	MPI_C_THREE,
-+	MPI_C_FOUR,
-+	MPI_C_EIGHT
-+};
-+
-+MPI mpi_const(enum gcry_mpi_constants no);
-+
- /*-- mpicoder.c --*/
-+
-+/* Different formats of external big integer representation. */
-+enum gcry_mpi_format {
-+	GCRYMPI_FMT_NONE = 0,
-+	GCRYMPI_FMT_STD = 1,    /* Twos complement stored without length. */
-+	GCRYMPI_FMT_PGP = 2,    /* As used by OpenPGP (unsigned only). */
-+	GCRYMPI_FMT_SSH = 3,    /* As used by SSH (like STD but with length). */
-+	GCRYMPI_FMT_HEX = 4,    /* Hex format. */
-+	GCRYMPI_FMT_USG = 5,    /* Like STD but unsigned. */
-+	GCRYMPI_FMT_OPAQUE = 8  /* Opaque format (some functions only). */
-+};
-+
- MPI mpi_read_raw_data(const void *xbuffer, size_t nbytes);
- MPI mpi_read_from_buffer(const void *buffer, unsigned *ret_nread);
-+int mpi_fromstr(MPI val, const char *str);
-+MPI mpi_scanval(const char *string);
- MPI mpi_read_raw_from_sgl(struct scatterlist *sgl, unsigned int len);
- void *mpi_get_buffer(MPI a, unsigned *nbytes, int *sign);
- int mpi_read_buffer(MPI a, uint8_t *buf, unsigned buf_len, unsigned *nbytes,
- 		    int *sign);
- int mpi_write_to_sgl(MPI a, struct scatterlist *sg, unsigned nbytes,
- 		     int *sign);
-+int mpi_print(enum gcry_mpi_format format, unsigned char *buffer,
-+			size_t buflen, size_t *nwritten, MPI a);
-+
-+/*-- mpi-mod.c --*/
-+void mpi_mod(MPI rem, MPI dividend, MPI divisor);
-+
-+/* Context used with Barrett reduction.  */
-+struct barrett_ctx_s;
-+typedef struct barrett_ctx_s *mpi_barrett_t;
-+
-+mpi_barrett_t mpi_barrett_init(MPI m, int copy);
-+void mpi_barrett_free(mpi_barrett_t ctx);
-+void mpi_mod_barrett(MPI r, MPI x, mpi_barrett_t ctx);
-+void mpi_mul_barrett(MPI w, MPI u, MPI v, mpi_barrett_t ctx);
- 
- /*-- mpi-pow.c --*/
- int mpi_powm(MPI res, MPI base, MPI exp, MPI mod);
-@@ -62,6 +120,7 @@ int mpi_powm(MPI res, MPI base, MPI exp, MPI mod);
- /*-- mpi-cmp.c --*/
- int mpi_cmp_ui(MPI u, ulong v);
- int mpi_cmp(MPI u, MPI v);
-+int mpi_cmpabs(MPI u, MPI v);
- 
- /*-- mpi-sub-ui.c --*/
- int mpi_sub_ui(MPI w, MPI u, unsigned long vval);
-@@ -69,6 +128,34 @@ int mpi_sub_ui(MPI w, MPI u, unsigned long vval);
- /*-- mpi-bit.c --*/
- void mpi_normalize(MPI a);
- unsigned mpi_get_nbits(MPI a);
-+int mpi_test_bit(MPI a, unsigned int n);
-+void mpi_set_bit(MPI a, unsigned int n);
-+void mpi_set_highbit(MPI a, unsigned int n);
-+void mpi_clear_highbit(MPI a, unsigned int n);
-+void mpi_clear_bit(MPI a, unsigned int n);
-+void mpi_rshift_limbs(MPI a, unsigned int count);
-+void mpi_rshift(MPI x, MPI a, unsigned int n);
-+void mpi_lshift_limbs(MPI a, unsigned int count);
-+void mpi_lshift(MPI x, MPI a, unsigned int n);
-+
-+/*-- mpi-add.c --*/
-+void mpi_add_ui(MPI w, MPI u, unsigned long v);
-+void mpi_add(MPI w, MPI u, MPI v);
-+void mpi_sub(MPI w, MPI u, MPI v);
-+void mpi_addm(MPI w, MPI u, MPI v, MPI m);
-+void mpi_subm(MPI w, MPI u, MPI v, MPI m);
-+
-+/*-- mpi-mul.c --*/
-+void mpi_mul(MPI w, MPI u, MPI v);
-+void mpi_mulm(MPI w, MPI u, MPI v, MPI m);
-+
-+/*-- mpi-div.c --*/
-+void mpi_tdiv_r(MPI rem, MPI num, MPI den);
-+void mpi_fdiv_r(MPI rem, MPI dividend, MPI divisor);
-+void mpi_fdiv_q(MPI quot, MPI dividend, MPI divisor);
-+
-+/*-- mpi-inv.c --*/
-+int mpi_invm(MPI x, MPI a, MPI n);
- 
- /* inline functions */
- 
-diff --git a/lib/mpi/Makefile b/lib/mpi/Makefile
-index 43b8fce14079..477debd7ed50 100644
---- a/lib/mpi/Makefile
-+++ b/lib/mpi/Makefile
-@@ -14,9 +14,14 @@ mpi-y = \
- 	generic_mpih-sub1.o		\
- 	generic_mpih-add1.o		\
- 	mpicoder.o			\
-+	mpi-add.o			\
- 	mpi-bit.o			\
- 	mpi-cmp.o			\
- 	mpi-sub-ui.o			\
-+	mpi-div.o			\
-+	mpi-inv.o			\
-+	mpi-mod.o			\
-+	mpi-mul.o			\
- 	mpih-cmp.o			\
- 	mpih-div.o			\
- 	mpih-mul.o			\
-diff --git a/lib/mpi/mpi-add.c b/lib/mpi/mpi-add.c
-new file mode 100644
-index 000000000000..2cdae54c1bd0
---- /dev/null
-+++ b/lib/mpi/mpi-add.c
-@@ -0,0 +1,155 @@
-+/* mpi-add.c  -  MPI functions
-+ * Copyright (C) 1994, 1996, 1998, 2001, 2002,
-+ *               2003 Free Software Foundation, Inc.
-+ *
-+ * This file is part of Libgcrypt.
-+ *
-+ * Note: This code is heavily based on the GNU MP Library.
-+ *	 Actually it's the same code with only minor changes in the
-+ *	 way the data is stored; this is to support the abstraction
-+ *	 of an optional secure memory allocation which may be used
-+ *	 to avoid revealing of sensitive data due to paging etc.
-+ */
-+
-+#include "mpi-internal.h"
-+
-+/****************
-+ * Add the unsigned integer V to the mpi-integer U and store the
-+ * result in W. U and V may be the same.
-+ */
-+void mpi_add_ui(MPI w, MPI u, unsigned long v)
-+{
-+	mpi_ptr_t wp, up;
-+	mpi_size_t usize, wsize;
-+	int usign, wsign;
-+
-+	usize = u->nlimbs;
-+	usign = u->sign;
-+	wsign = 0;
-+
-+	/* If not space for W (and possible carry), increase space.  */
-+	wsize = usize + 1;
-+	if (w->alloced < wsize)
-+		mpi_resize(w, wsize);
-+
-+	/* These must be after realloc (U may be the same as W).  */
-+	up = u->d;
-+	wp = w->d;
-+
-+	if (!usize) {  /* simple */
-+		wp[0] = v;
-+		wsize = v ? 1:0;
-+	} else if (!usign) {  /* mpi is not negative */
-+		mpi_limb_t cy;
-+		cy = mpihelp_add_1(wp, up, usize, v);
-+		wp[usize] = cy;
-+		wsize = usize + cy;
-+	} else {
-+		/* The signs are different.  Need exact comparison to determine
-+		 * which operand to subtract from which.
-+		 */
-+		if (usize == 1 && up[0] < v) {
-+			wp[0] = v - up[0];
-+			wsize = 1;
-+		} else {
-+			mpihelp_sub_1(wp, up, usize, v);
-+			/* Size can decrease with at most one limb. */
-+			wsize = usize - (wp[usize-1] == 0);
-+			wsign = 1;
-+		}
-+	}
-+
-+	w->nlimbs = wsize;
-+	w->sign   = wsign;
-+}
-+
-+
-+void mpi_add(MPI w, MPI u, MPI v)
-+{
-+	mpi_ptr_t wp, up, vp;
-+	mpi_size_t usize, vsize, wsize;
-+	int usign, vsign, wsign;
-+
-+	if (u->nlimbs < v->nlimbs) { /* Swap U and V. */
-+		usize = v->nlimbs;
-+		usign = v->sign;
-+		vsize = u->nlimbs;
-+		vsign = u->sign;
-+		wsize = usize + 1;
-+		RESIZE_IF_NEEDED(w, wsize);
-+		/* These must be after realloc (u or v may be the same as w).  */
-+		up = v->d;
-+		vp = u->d;
-+	} else {
-+		usize = u->nlimbs;
-+		usign = u->sign;
-+		vsize = v->nlimbs;
-+		vsign = v->sign;
-+		wsize = usize + 1;
-+		RESIZE_IF_NEEDED(w, wsize);
-+		/* These must be after realloc (u or v may be the same as w).  */
-+		up = u->d;
-+		vp = v->d;
-+	}
-+	wp = w->d;
-+	wsign = 0;
-+
-+	if (!vsize) {  /* simple */
-+		MPN_COPY(wp, up, usize);
-+		wsize = usize;
-+		wsign = usign;
-+	} else if (usign != vsign) { /* different sign */
-+		/* This test is right since USIZE >= VSIZE */
-+		if (usize != vsize) {
-+			mpihelp_sub(wp, up, usize, vp, vsize);
-+			wsize = usize;
-+			MPN_NORMALIZE(wp, wsize);
-+			wsign = usign;
-+		} else if (mpihelp_cmp(up, vp, usize) < 0) {
-+			mpihelp_sub_n(wp, vp, up, usize);
-+			wsize = usize;
-+			MPN_NORMALIZE(wp, wsize);
-+			if (!usign)
-+				wsign = 1;
-+		} else {
-+			mpihelp_sub_n(wp, up, vp, usize);
-+			wsize = usize;
-+			MPN_NORMALIZE(wp, wsize);
-+			if (usign)
-+				wsign = 1;
-+		}
-+	} else { /* U and V have same sign. Add them. */
-+		mpi_limb_t cy = mpihelp_add(wp, up, usize, vp, vsize);
-+		wp[usize] = cy;
-+		wsize = usize + cy;
-+		if (usign)
-+			wsign = 1;
-+	}
-+
-+	w->nlimbs = wsize;
-+	w->sign = wsign;
-+}
-+EXPORT_SYMBOL_GPL(mpi_add);
-+
-+void mpi_sub(MPI w, MPI u, MPI v)
-+{
-+	MPI vv = mpi_copy(v);
-+	vv->sign = !vv->sign;
-+	mpi_add(w, u, vv);
-+	mpi_free(vv);
-+}
-+
-+
-+void mpi_addm(MPI w, MPI u, MPI v, MPI m)
-+{
-+	mpi_add(w, u, v);
-+	mpi_mod(w, w, m);
-+}
-+EXPORT_SYMBOL_GPL(mpi_addm);
-+
-+void mpi_subm(MPI w, MPI u, MPI v, MPI m)
-+{
-+	mpi_sub(w, u, v);
-+	mpi_mod(w, w, m);
-+}
-+EXPORT_SYMBOL_GPL(mpi_subm);
-diff --git a/lib/mpi/mpi-bit.c b/lib/mpi/mpi-bit.c
-index 503537e08436..a5119a2bcdd4 100644
---- a/lib/mpi/mpi-bit.c
-+++ b/lib/mpi/mpi-bit.c
-@@ -32,6 +32,7 @@ void mpi_normalize(MPI a)
- 	for (; a->nlimbs && !a->d[a->nlimbs - 1]; a->nlimbs--)
- 		;
- }
-+EXPORT_SYMBOL_GPL(mpi_normalize);
- 
- /****************
-  * Return the number of bits in A.
-@@ -54,3 +55,253 @@ unsigned mpi_get_nbits(MPI a)
- 	return n;
- }
- EXPORT_SYMBOL_GPL(mpi_get_nbits);
-+
-+/****************
-+ * Test whether bit N is set.
-+ */
-+int mpi_test_bit(MPI a, unsigned int n)
-+{
-+	unsigned int limbno, bitno;
-+	mpi_limb_t limb;
-+
-+	limbno = n / BITS_PER_MPI_LIMB;
-+	bitno  = n % BITS_PER_MPI_LIMB;
-+
-+	if (limbno >= a->nlimbs)
-+		return 0; /* too far left: this is a 0 */
-+	limb = a->d[limbno];
-+	return (limb & (A_LIMB_1 << bitno)) ? 1 : 0;
-+}
-+EXPORT_SYMBOL_GPL(mpi_test_bit);
-+
-+/****************
-+ * Set bit N of A.
-+ */
-+void mpi_set_bit(MPI a, unsigned int n)
-+{
-+	unsigned int i, limbno, bitno;
-+
-+	limbno = n / BITS_PER_MPI_LIMB;
-+	bitno  = n % BITS_PER_MPI_LIMB;
-+
-+	if (limbno >= a->nlimbs) {
-+		for (i = a->nlimbs; i < a->alloced; i++)
-+			a->d[i] = 0;
-+		mpi_resize(a, limbno+1);
-+		a->nlimbs = limbno+1;
-+	}
-+	a->d[limbno] |= (A_LIMB_1<<bitno);
-+}
-+
-+/****************
-+ * Set bit N of A. and clear all bits above
-+ */
-+void mpi_set_highbit(MPI a, unsigned int n)
-+{
-+	unsigned int i, limbno, bitno;
-+
-+	limbno = n / BITS_PER_MPI_LIMB;
-+	bitno  = n % BITS_PER_MPI_LIMB;
-+
-+	if (limbno >= a->nlimbs) {
-+		for (i = a->nlimbs; i < a->alloced; i++)
-+			a->d[i] = 0;
-+		mpi_resize(a, limbno+1);
-+		a->nlimbs = limbno+1;
-+	}
-+	a->d[limbno] |= (A_LIMB_1<<bitno);
-+	for (bitno++; bitno < BITS_PER_MPI_LIMB; bitno++)
-+		a->d[limbno] &= ~(A_LIMB_1 << bitno);
-+	a->nlimbs = limbno+1;
-+}
-+EXPORT_SYMBOL_GPL(mpi_set_highbit);
-+
-+/****************
-+ * clear bit N of A and all bits above
-+ */
-+void mpi_clear_highbit(MPI a, unsigned int n)
-+{
-+	unsigned int limbno, bitno;
-+
-+	limbno = n / BITS_PER_MPI_LIMB;
-+	bitno  = n % BITS_PER_MPI_LIMB;
-+
-+	if (limbno >= a->nlimbs)
-+		return; /* not allocated, therefore no need to clear bits :-) */
-+
-+	for ( ; bitno < BITS_PER_MPI_LIMB; bitno++)
-+		a->d[limbno] &= ~(A_LIMB_1 << bitno);
-+	a->nlimbs = limbno+1;
-+}
-+
-+/****************
-+ * Clear bit N of A.
-+ */
-+void mpi_clear_bit(MPI a, unsigned int n)
-+{
-+	unsigned int limbno, bitno;
-+
-+	limbno = n / BITS_PER_MPI_LIMB;
-+	bitno  = n % BITS_PER_MPI_LIMB;
-+
-+	if (limbno >= a->nlimbs)
-+		return; /* Don't need to clear this bit, it's far too left.  */
-+	a->d[limbno] &= ~(A_LIMB_1 << bitno);
-+}
-+EXPORT_SYMBOL_GPL(mpi_clear_bit);
-+
-+
-+/****************
-+ * Shift A by COUNT limbs to the right
-+ * This is used only within the MPI library
-+ */
-+void mpi_rshift_limbs(MPI a, unsigned int count)
-+{
-+	mpi_ptr_t ap = a->d;
-+	mpi_size_t n = a->nlimbs;
-+	unsigned int i;
-+
-+	if (count >= n) {
-+		a->nlimbs = 0;
-+		return;
-+	}
-+
-+	for (i = 0; i < n - count; i++)
-+		ap[i] = ap[i+count];
-+	ap[i] = 0;
-+	a->nlimbs -= count;
-+}
-+
-+/*
-+ * Shift A by N bits to the right.
-+ */
-+void mpi_rshift(MPI x, MPI a, unsigned int n)
-+{
-+	mpi_size_t xsize;
-+	unsigned int i;
-+	unsigned int nlimbs = (n/BITS_PER_MPI_LIMB);
-+	unsigned int nbits = (n%BITS_PER_MPI_LIMB);
-+
-+	if (x == a) {
-+		/* In-place operation.  */
-+		if (nlimbs >= x->nlimbs) {
-+			x->nlimbs = 0;
-+			return;
-+		}
-+
-+		if (nlimbs) {
-+			for (i = 0; i < x->nlimbs - nlimbs; i++)
-+				x->d[i] = x->d[i+nlimbs];
-+			x->d[i] = 0;
-+			x->nlimbs -= nlimbs;
-+		}
-+		if (x->nlimbs && nbits)
-+			mpihelp_rshift(x->d, x->d, x->nlimbs, nbits);
-+	} else if (nlimbs) {
-+		/* Copy and shift by more or equal bits than in a limb. */
-+		xsize = a->nlimbs;
-+		x->sign = a->sign;
-+		RESIZE_IF_NEEDED(x, xsize);
-+		x->nlimbs = xsize;
-+		for (i = 0; i < a->nlimbs; i++)
-+			x->d[i] = a->d[i];
-+		x->nlimbs = i;
-+
-+		if (nlimbs >= x->nlimbs) {
-+			x->nlimbs = 0;
-+			return;
-+		}
-+
-+		if (nlimbs) {
-+			for (i = 0; i < x->nlimbs - nlimbs; i++)
-+				x->d[i] = x->d[i+nlimbs];
-+			x->d[i] = 0;
-+			x->nlimbs -= nlimbs;
-+		}
-+
-+		if (x->nlimbs && nbits)
-+			mpihelp_rshift(x->d, x->d, x->nlimbs, nbits);
-+	} else {
-+		/* Copy and shift by less than bits in a limb.  */
-+		xsize = a->nlimbs;
-+		x->sign = a->sign;
-+		RESIZE_IF_NEEDED(x, xsize);
-+		x->nlimbs = xsize;
-+
-+		if (xsize) {
-+			if (nbits)
-+				mpihelp_rshift(x->d, a->d, x->nlimbs, nbits);
-+			else {
-+				/* The rshift helper function is not specified for
-+				 * NBITS==0, thus we do a plain copy here.
-+				 */
-+				for (i = 0; i < x->nlimbs; i++)
-+					x->d[i] = a->d[i];
-+			}
-+		}
-+	}
-+	MPN_NORMALIZE(x->d, x->nlimbs);
-+}
-+
-+/****************
-+ * Shift A by COUNT limbs to the left
-+ * This is used only within the MPI library
-+ */
-+void mpi_lshift_limbs(MPI a, unsigned int count)
-+{
-+	mpi_ptr_t ap;
-+	int n = a->nlimbs;
-+	int i;
-+
-+	if (!count || !n)
-+		return;
-+
-+	RESIZE_IF_NEEDED(a, n+count);
-+
-+	ap = a->d;
-+	for (i = n-1; i >= 0; i--)
-+		ap[i+count] = ap[i];
-+	for (i = 0; i < count; i++)
-+		ap[i] = 0;
-+	a->nlimbs += count;
-+}
-+
-+/*
-+ * Shift A by N bits to the left.
-+ */
-+void mpi_lshift(MPI x, MPI a, unsigned int n)
-+{
-+	unsigned int nlimbs = (n/BITS_PER_MPI_LIMB);
-+	unsigned int nbits = (n%BITS_PER_MPI_LIMB);
-+
-+	if (x == a && !n)
-+		return;  /* In-place shift with an amount of zero.  */
-+
-+	if (x != a) {
-+		/* Copy A to X.  */
-+		unsigned int alimbs = a->nlimbs;
-+		int asign = a->sign;
-+		mpi_ptr_t xp, ap;
-+
-+		RESIZE_IF_NEEDED(x, alimbs+nlimbs+1);
-+		xp = x->d;
-+		ap = a->d;
-+		MPN_COPY(xp, ap, alimbs);
-+		x->nlimbs = alimbs;
-+		x->flags = a->flags;
-+		x->sign = asign;
-+	}
-+
-+	if (nlimbs && !nbits) {
-+		/* Shift a full number of limbs.  */
-+		mpi_lshift_limbs(x, nlimbs);
-+	} else if (n) {
-+		/* We use a very dump approach: Shift left by the number of
-+		 * limbs plus one and than fix it up by an rshift.
-+		 */
-+		mpi_lshift_limbs(x, nlimbs+1);
-+		mpi_rshift(x, x, BITS_PER_MPI_LIMB - nbits);
-+	}
-+
-+	MPN_NORMALIZE(x->d, x->nlimbs);
-+}
-diff --git a/lib/mpi/mpi-cmp.c b/lib/mpi/mpi-cmp.c
-index d25e9e96c310..c4cfa3ff0581 100644
---- a/lib/mpi/mpi-cmp.c
-+++ b/lib/mpi/mpi-cmp.c
-@@ -41,28 +41,54 @@ int mpi_cmp_ui(MPI u, unsigned long v)
- }
- EXPORT_SYMBOL_GPL(mpi_cmp_ui);
- 
--int mpi_cmp(MPI u, MPI v)
-+static int do_mpi_cmp(MPI u, MPI v, int absmode)
- {
--	mpi_size_t usize, vsize;
-+	mpi_size_t usize;
-+	mpi_size_t vsize;
-+	int usign;
-+	int vsign;
- 	int cmp;
- 
- 	mpi_normalize(u);
- 	mpi_normalize(v);
-+
- 	usize = u->nlimbs;
- 	vsize = v->nlimbs;
--	if (!u->sign && v->sign)
-+	usign = absmode ? 0 : u->sign;
-+	vsign = absmode ? 0 : v->sign;
-+
-+	/* Compare sign bits.  */
-+
-+	if (!usign && vsign)
- 		return 1;
--	if (u->sign && !v->sign)
-+	if (usign && !vsign)
- 		return -1;
--	if (usize != vsize && !u->sign && !v->sign)
-+
-+	/* U and V are either both positive or both negative.  */
-+
-+	if (usize != vsize && !usign && !vsign)
- 		return usize - vsize;
--	if (usize != vsize && u->sign && v->sign)
--		return vsize - usize;
-+	if (usize != vsize && usign && vsign)
-+		return vsize + usize;
- 	if (!usize)
- 		return 0;
- 	cmp = mpihelp_cmp(u->d, v->d, usize);
--	if (u->sign)
--		return -cmp;
--	return cmp;
-+	if (!cmp)
-+		return 0;
-+	if ((cmp < 0?1:0) == (usign?1:0))
-+		return 1;
-+
-+	return -1;
-+}
-+
-+int mpi_cmp(MPI u, MPI v)
-+{
-+	return do_mpi_cmp(u, v, 0);
- }
- EXPORT_SYMBOL_GPL(mpi_cmp);
-+
-+int mpi_cmpabs(MPI u, MPI v)
-+{
-+	return do_mpi_cmp(u, v, 1);
-+}
-+EXPORT_SYMBOL_GPL(mpi_cmpabs);
-diff --git a/lib/mpi/mpi-div.c b/lib/mpi/mpi-div.c
-new file mode 100644
-index 000000000000..21332dab97d4
---- /dev/null
-+++ b/lib/mpi/mpi-div.c
-@@ -0,0 +1,238 @@
-+/* mpi-div.c  -  MPI functions
-+ * Copyright (C) 1994, 1996, 1998, 2001, 2002,
-+ *               2003 Free Software Foundation, Inc.
-+ *
-+ * This file is part of Libgcrypt.
-+ *
-+ * Note: This code is heavily based on the GNU MP Library.
-+ *	 Actually it's the same code with only minor changes in the
-+ *	 way the data is stored; this is to support the abstraction
-+ *	 of an optional secure memory allocation which may be used
-+ *	 to avoid revealing of sensitive data due to paging etc.
-+ */
-+
-+#include "mpi-internal.h"
-+#include "longlong.h"
-+
-+void mpi_tdiv_qr(MPI quot, MPI rem, MPI num, MPI den);
-+void mpi_fdiv_qr(MPI quot, MPI rem, MPI dividend, MPI divisor);
-+
-+void mpi_fdiv_r(MPI rem, MPI dividend, MPI divisor)
-+{
-+	int divisor_sign = divisor->sign;
-+	MPI temp_divisor = NULL;
-+
-+	/* We need the original value of the divisor after the remainder has been
-+	 * preliminary calculated.	We have to copy it to temporary space if it's
-+	 * the same variable as REM.
-+	 */
-+	if (rem == divisor) {
-+		temp_divisor = mpi_copy(divisor);
-+		divisor = temp_divisor;
-+	}
-+
-+	mpi_tdiv_r(rem, dividend, divisor);
-+
-+	if (((divisor_sign?1:0) ^ (dividend->sign?1:0)) && rem->nlimbs)
-+		mpi_add(rem, rem, divisor);
-+
-+	if (temp_divisor)
-+		mpi_free(temp_divisor);
-+}
-+
-+void mpi_fdiv_q(MPI quot, MPI dividend, MPI divisor)
-+{
-+	MPI tmp = mpi_alloc(mpi_get_nlimbs(quot));
-+	mpi_fdiv_qr(quot, tmp, dividend, divisor);
-+	mpi_free(tmp);
-+}
-+
-+void mpi_fdiv_qr(MPI quot, MPI rem, MPI dividend, MPI divisor)
-+{
-+	int divisor_sign = divisor->sign;
-+	MPI temp_divisor = NULL;
-+
-+	if (quot == divisor || rem == divisor) {
-+		temp_divisor = mpi_copy(divisor);
-+		divisor = temp_divisor;
-+	}
-+
-+	mpi_tdiv_qr(quot, rem, dividend, divisor);
-+
-+	if ((divisor_sign ^ dividend->sign) && rem->nlimbs) {
-+		mpi_sub_ui(quot, quot, 1);
-+		mpi_add(rem, rem, divisor);
-+	}
-+
-+	if (temp_divisor)
-+		mpi_free(temp_divisor);
-+}
-+
-+/* If den == quot, den needs temporary storage.
-+ * If den == rem, den needs temporary storage.
-+ * If num == quot, num needs temporary storage.
-+ * If den has temporary storage, it can be normalized while being copied,
-+ *   i.e no extra storage should be allocated.
-+ */
-+
-+void mpi_tdiv_r(MPI rem, MPI num, MPI den)
-+{
-+	mpi_tdiv_qr(NULL, rem, num, den);
-+}
-+
-+void mpi_tdiv_qr(MPI quot, MPI rem, MPI num, MPI den)
-+{
-+	mpi_ptr_t np, dp;
-+	mpi_ptr_t qp, rp;
-+	mpi_size_t nsize = num->nlimbs;
-+	mpi_size_t dsize = den->nlimbs;
-+	mpi_size_t qsize, rsize;
-+	mpi_size_t sign_remainder = num->sign;
-+	mpi_size_t sign_quotient = num->sign ^ den->sign;
-+	unsigned int normalization_steps;
-+	mpi_limb_t q_limb;
-+	mpi_ptr_t marker[5];
-+	unsigned int marker_nlimbs[5];
-+	int markidx = 0;
-+
-+	/* Ensure space is enough for quotient and remainder.
-+	 * We need space for an extra limb in the remainder, because it's
-+	 * up-shifted (normalized) below.
-+	 */
-+	rsize = nsize + 1;
-+	mpi_resize(rem, rsize);
-+
-+	qsize = rsize - dsize;	  /* qsize cannot be bigger than this.	*/
-+	if (qsize <= 0) {
-+		if (num != rem) {
-+			rem->nlimbs = num->nlimbs;
-+			rem->sign = num->sign;
-+			MPN_COPY(rem->d, num->d, nsize);
-+		}
-+		if (quot) {
-+			/* This needs to follow the assignment to rem, in case the
-+			 * numerator and quotient are the same.
-+			 */
-+			quot->nlimbs = 0;
-+			quot->sign = 0;
-+		}
-+		return;
-+	}
-+
-+	if (quot)
-+		mpi_resize(quot, qsize);
-+
-+	/* Read pointers here, when reallocation is finished.  */
-+	np = num->d;
-+	dp = den->d;
-+	rp = rem->d;
-+
-+	/* Optimize division by a single-limb divisor.  */
-+	if (dsize == 1) {
-+		mpi_limb_t rlimb;
-+		if (quot) {
-+			qp = quot->d;
-+			rlimb = mpihelp_divmod_1(qp, np, nsize, dp[0]);
-+			qsize -= qp[qsize - 1] == 0;
-+			quot->nlimbs = qsize;
-+			quot->sign = sign_quotient;
-+		} else
-+			rlimb = mpihelp_mod_1(np, nsize, dp[0]);
-+		rp[0] = rlimb;
-+		rsize = rlimb != 0?1:0;
-+		rem->nlimbs = rsize;
-+		rem->sign = sign_remainder;
-+		return;
-+	}
-+
-+
-+	if (quot) {
-+		qp = quot->d;
-+		/* Make sure QP and NP point to different objects.  Otherwise the
-+		 * numerator would be gradually overwritten by the quotient limbs.
-+		 */
-+		if (qp == np) { /* Copy NP object to temporary space.  */
-+			marker_nlimbs[markidx] = nsize;
-+			np = marker[markidx++] = mpi_alloc_limb_space(nsize);
-+			MPN_COPY(np, qp, nsize);
-+		}
-+	} else /* Put quotient at top of remainder. */
-+		qp = rp + dsize;
-+
-+	normalization_steps = count_leading_zeros(dp[dsize - 1]);
-+
-+	/* Normalize the denominator, i.e. make its most significant bit set by
-+	 * shifting it NORMALIZATION_STEPS bits to the left.  Also shift the
-+	 * numerator the same number of steps (to keep the quotient the same!).
-+	 */
-+	if (normalization_steps) {
-+		mpi_ptr_t tp;
-+		mpi_limb_t nlimb;
-+
-+		/* Shift up the denominator setting the most significant bit of
-+		 * the most significant word.  Use temporary storage not to clobber
-+		 * the original contents of the denominator.
-+		 */
-+		marker_nlimbs[markidx] = dsize;
-+		tp = marker[markidx++] = mpi_alloc_limb_space(dsize);
-+		mpihelp_lshift(tp, dp, dsize, normalization_steps);
-+		dp = tp;
-+
-+		/* Shift up the numerator, possibly introducing a new most
-+		 * significant word.  Move the shifted numerator in the remainder
-+		 * meanwhile.
-+		 */
-+		nlimb = mpihelp_lshift(rp, np, nsize, normalization_steps);
-+		if (nlimb) {
-+			rp[nsize] = nlimb;
-+			rsize = nsize + 1;
-+		} else
-+			rsize = nsize;
-+	} else {
-+		/* The denominator is already normalized, as required.	Copy it to
-+		 * temporary space if it overlaps with the quotient or remainder.
-+		 */
-+		if (dp == rp || (quot && (dp == qp))) {
-+			mpi_ptr_t tp;
-+
-+			marker_nlimbs[markidx] = dsize;
-+			tp = marker[markidx++] = mpi_alloc_limb_space(dsize);
-+			MPN_COPY(tp, dp, dsize);
-+			dp = tp;
-+		}
-+
-+		/* Move the numerator to the remainder.  */
-+		if (rp != np)
-+			MPN_COPY(rp, np, nsize);
-+
-+		rsize = nsize;
-+	}
-+
-+	q_limb = mpihelp_divrem(qp, 0, rp, rsize, dp, dsize);
-+
-+	if (quot) {
-+		qsize = rsize - dsize;
-+		if (q_limb) {
-+			qp[qsize] = q_limb;
-+			qsize += 1;
-+		}
-+
-+		quot->nlimbs = qsize;
-+		quot->sign = sign_quotient;
-+	}
-+
-+	rsize = dsize;
-+	MPN_NORMALIZE(rp, rsize);
-+
-+	if (normalization_steps && rsize) {
-+		mpihelp_rshift(rp, rp, rsize, normalization_steps);
-+		rsize -= rp[rsize - 1] == 0?1:0;
-+	}
-+
-+	rem->nlimbs = rsize;
-+	rem->sign	= sign_remainder;
-+	while (markidx) {
-+		markidx--;
-+		mpi_free_limb_space(marker[markidx]);
-+	}
-+}
-diff --git a/lib/mpi/mpi-internal.h b/lib/mpi/mpi-internal.h
-index 91df5f0b70f2..d29c4537c3a3 100644
---- a/lib/mpi/mpi-internal.h
-+++ b/lib/mpi/mpi-internal.h
-@@ -52,6 +52,12 @@
- typedef mpi_limb_t *mpi_ptr_t;	/* pointer to a limb */
- typedef int mpi_size_t;		/* (must be a signed type) */
- 
-+#define RESIZE_IF_NEEDED(a, b)			\
-+	do {					\
-+		if ((a)->alloced < (b))		\
-+			mpi_resize((a), (b));	\
-+	} while (0)
-+
- /* Copy N limbs from S to D.  */
- #define MPN_COPY(d, s, n) \
- 	do {					\
-@@ -60,6 +66,14 @@ typedef int mpi_size_t;		/* (must be a signed type) */
- 			(d)[_i] = (s)[_i];	\
- 	} while (0)
- 
-+#define MPN_COPY_INCR(d, s, n)		\
-+	do {					\
-+		mpi_size_t _i;			\
-+		for (_i = 0; _i < (n); _i++)	\
-+			(d)[_i] = (s)[_i];	\
-+	} while (0)
-+
-+
- #define MPN_COPY_DECR(d, s, n) \
- 	do {					\
- 		mpi_size_t _i;			\
-@@ -92,6 +106,38 @@ typedef int mpi_size_t;		/* (must be a signed type) */
- 			mul_n(prodp, up, vp, size, tspace);	\
- 	} while (0);
- 
-+/* Divide the two-limb number in (NH,,NL) by D, with DI being the largest
-+ * limb not larger than (2**(2*BITS_PER_MP_LIMB))/D - (2**BITS_PER_MP_LIMB).
-+ * If this would yield overflow, DI should be the largest possible number
-+ * (i.e., only ones).  For correct operation, the most significant bit of D
-+ * has to be set.  Put the quotient in Q and the remainder in R.
-+ */
-+#define UDIV_QRNND_PREINV(q, r, nh, nl, d, di)				\
-+	do {								\
-+		mpi_limb_t _ql;						\
-+		mpi_limb_t _q, _r;					\
-+		mpi_limb_t _xh, _xl;					\
-+		umul_ppmm(_q, _ql, (nh), (di));				\
-+		_q += (nh);	/* DI is 2**BITS_PER_MPI_LIMB too small */ \
-+		umul_ppmm(_xh, _xl, _q, (d));				\
-+		sub_ddmmss(_xh, _r, (nh), (nl), _xh, _xl);		\
-+		if (_xh) {						\
-+			sub_ddmmss(_xh, _r, _xh, _r, 0, (d));		\
-+			_q++;						\
-+			if (_xh) {					\
-+				sub_ddmmss(_xh, _r, _xh, _r, 0, (d));	\
-+				_q++;					\
-+			}						\
-+		}							\
-+		if (_r >= (d)) {					\
-+			_r -= (d);					\
-+			_q++;						\
-+		}							\
-+		(r) = _r;						\
-+		(q) = _q;						\
-+	} while (0)
-+
-+
- /*-- mpiutil.c --*/
- mpi_ptr_t mpi_alloc_limb_space(unsigned nlimbs);
- void mpi_free_limb_space(mpi_ptr_t a);
-@@ -135,6 +181,8 @@ int mpihelp_mul(mpi_ptr_t prodp, mpi_ptr_t up, mpi_size_t usize,
- void mpih_sqr_n_basecase(mpi_ptr_t prodp, mpi_ptr_t up, mpi_size_t size);
- void mpih_sqr_n(mpi_ptr_t prodp, mpi_ptr_t up, mpi_size_t size,
- 		mpi_ptr_t tspace);
-+void mpihelp_mul_n(mpi_ptr_t prodp,
-+		mpi_ptr_t up, mpi_ptr_t vp, mpi_size_t size);
- 
- int mpihelp_mul_karatsuba_case(mpi_ptr_t prodp,
- 			       mpi_ptr_t up, mpi_size_t usize,
-@@ -146,9 +194,14 @@ mpi_limb_t mpihelp_mul_1(mpi_ptr_t res_ptr, mpi_ptr_t s1_ptr,
- 			 mpi_size_t s1_size, mpi_limb_t s2_limb);
- 
- /*-- mpih-div.c --*/
-+mpi_limb_t mpihelp_mod_1(mpi_ptr_t dividend_ptr, mpi_size_t dividend_size,
-+			 mpi_limb_t divisor_limb);
- mpi_limb_t mpihelp_divrem(mpi_ptr_t qp, mpi_size_t qextra_limbs,
- 			  mpi_ptr_t np, mpi_size_t nsize,
- 			  mpi_ptr_t dp, mpi_size_t dsize);
-+mpi_limb_t mpihelp_divmod_1(mpi_ptr_t quot_ptr,
-+			    mpi_ptr_t dividend_ptr, mpi_size_t dividend_size,
-+			    mpi_limb_t divisor_limb);
- 
- /*-- generic_mpih-[lr]shift.c --*/
- mpi_limb_t mpihelp_lshift(mpi_ptr_t wp, mpi_ptr_t up, mpi_size_t usize,
-diff --git a/lib/mpi/mpi-inv.c b/lib/mpi/mpi-inv.c
-new file mode 100644
-index 000000000000..61e37d18f793
---- /dev/null
-+++ b/lib/mpi/mpi-inv.c
-@@ -0,0 +1,143 @@
-+/* mpi-inv.c  -  MPI functions
-+ *	Copyright (C) 1998, 2001, 2002, 2003 Free Software Foundation, Inc.
-+ *
-+ * This file is part of Libgcrypt.
-+ *
-+ * Libgcrypt is free software; you can redistribute it and/or modify
-+ * it under the terms of the GNU Lesser General Public License as
-+ * published by the Free Software Foundation; either version 2.1 of
-+ * the License, or (at your option) any later version.
-+ *
-+ * Libgcrypt is distributed in the hope that it will be useful,
-+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
-+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
-+ * GNU Lesser General Public License for more details.
-+ *
-+ * You should have received a copy of the GNU Lesser General Public
-+ * License along with this program; if not, see <http://www.gnu.org/licenses/>.
-+ */
-+
-+#include "mpi-internal.h"
-+
-+/****************
-+ * Calculate the multiplicative inverse X of A mod N
-+ * That is: Find the solution x for
-+ *		1 = (a*x) mod n
-+ */
-+int mpi_invm(MPI x, MPI a, MPI n)
-+{
-+	/* Extended Euclid's algorithm (See TAOCP Vol II, 4.5.2, Alg X)
-+	 * modified according to Michael Penk's solution for Exercise 35
-+	 * with further enhancement
-+	 */
-+	MPI u, v, u1, u2 = NULL, u3, v1, v2 = NULL, v3, t1, t2 = NULL, t3;
-+	unsigned int k;
-+	int sign;
-+	int odd;
-+
-+	if (!mpi_cmp_ui(a, 0))
-+		return 0; /* Inverse does not exists.  */
-+	if (!mpi_cmp_ui(n, 1))
-+		return 0; /* Inverse does not exists.  */
-+
-+	u = mpi_copy(a);
-+	v = mpi_copy(n);
-+
-+	for (k = 0; !mpi_test_bit(u, 0) && !mpi_test_bit(v, 0); k++) {
-+		mpi_rshift(u, u, 1);
-+		mpi_rshift(v, v, 1);
-+	}
-+	odd = mpi_test_bit(v, 0);
-+
-+	u1 = mpi_alloc_set_ui(1);
-+	if (!odd)
-+		u2 = mpi_alloc_set_ui(0);
-+	u3 = mpi_copy(u);
-+	v1 = mpi_copy(v);
-+	if (!odd) {
-+		v2 = mpi_alloc(mpi_get_nlimbs(u));
-+		mpi_sub(v2, u1, u); /* U is used as const 1 */
-+	}
-+	v3 = mpi_copy(v);
-+	if (mpi_test_bit(u, 0)) { /* u is odd */
-+		t1 = mpi_alloc_set_ui(0);
-+		if (!odd) {
-+			t2 = mpi_alloc_set_ui(1);
-+			t2->sign = 1;
-+		}
-+		t3 = mpi_copy(v);
-+		t3->sign = !t3->sign;
-+		goto Y4;
-+	} else {
-+		t1 = mpi_alloc_set_ui(1);
-+		if (!odd)
-+			t2 = mpi_alloc_set_ui(0);
-+		t3 = mpi_copy(u);
-+	}
-+
-+	do {
-+		do {
-+			if (!odd) {
-+				if (mpi_test_bit(t1, 0) || mpi_test_bit(t2, 0)) {
-+					/* one is odd */
-+					mpi_add(t1, t1, v);
-+					mpi_sub(t2, t2, u);
-+				}
-+				mpi_rshift(t1, t1, 1);
-+				mpi_rshift(t2, t2, 1);
-+				mpi_rshift(t3, t3, 1);
-+			} else {
-+				if (mpi_test_bit(t1, 0))
-+					mpi_add(t1, t1, v);
-+				mpi_rshift(t1, t1, 1);
-+				mpi_rshift(t3, t3, 1);
-+			}
-+Y4:
-+			;
-+		} while (!mpi_test_bit(t3, 0)); /* while t3 is even */
-+
-+		if (!t3->sign) {
-+			mpi_set(u1, t1);
-+			if (!odd)
-+				mpi_set(u2, t2);
-+			mpi_set(u3, t3);
-+		} else {
-+			mpi_sub(v1, v, t1);
-+			sign = u->sign; u->sign = !u->sign;
-+			if (!odd)
-+				mpi_sub(v2, u, t2);
-+			u->sign = sign;
-+			sign = t3->sign; t3->sign = !t3->sign;
-+			mpi_set(v3, t3);
-+			t3->sign = sign;
-+		}
-+		mpi_sub(t1, u1, v1);
-+		if (!odd)
-+			mpi_sub(t2, u2, v2);
-+		mpi_sub(t3, u3, v3);
-+		if (t1->sign) {
-+			mpi_add(t1, t1, v);
-+			if (!odd)
-+				mpi_sub(t2, t2, u);
-+		}
-+	} while (mpi_cmp_ui(t3, 0)); /* while t3 != 0 */
-+	/* mpi_lshift( u3, k ); */
-+	mpi_set(x, u1);
-+
-+	mpi_free(u1);
-+	mpi_free(v1);
-+	mpi_free(t1);
-+	if (!odd) {
-+		mpi_free(u2);
-+		mpi_free(v2);
-+		mpi_free(t2);
-+	}
-+	mpi_free(u3);
-+	mpi_free(v3);
-+	mpi_free(t3);
-+
-+	mpi_free(u);
-+	mpi_free(v);
-+	return 1;
-+}
-+EXPORT_SYMBOL_GPL(mpi_invm);
-diff --git a/lib/mpi/mpi-mod.c b/lib/mpi/mpi-mod.c
-new file mode 100644
-index 000000000000..47bc59edd4ff
---- /dev/null
-+++ b/lib/mpi/mpi-mod.c
-@@ -0,0 +1,155 @@
-+/* mpi-mod.c -  Modular reduction
-+ * Copyright (C) 1998, 1999, 2001, 2002, 2003,
-+ *               2007  Free Software Foundation, Inc.
-+ *
-+ * This file is part of Libgcrypt.
-+ */
-+
-+
-+#include "mpi-internal.h"
-+#include "longlong.h"
-+
-+/* Context used with Barrett reduction.  */
-+struct barrett_ctx_s {
-+	MPI m;   /* The modulus - may not be modified. */
-+	int m_copied;   /* If true, M needs to be released.  */
-+	int k;
-+	MPI y;
-+	MPI r1;  /* Helper MPI. */
-+	MPI r2;  /* Helper MPI. */
-+	MPI r3;  /* Helper MPI allocated on demand. */
-+};
-+
-+
-+
-+void mpi_mod(MPI rem, MPI dividend, MPI divisor)
-+{
-+	mpi_fdiv_r(rem, dividend, divisor);
-+}
-+
-+/* This function returns a new context for Barrett based operations on
-+ * the modulus M.  This context needs to be released using
-+ * _gcry_mpi_barrett_free.  If COPY is true M will be transferred to
-+ * the context and the user may change M.  If COPY is false, M may not
-+ * be changed until gcry_mpi_barrett_free has been called.
-+ */
-+mpi_barrett_t mpi_barrett_init(MPI m, int copy)
-+{
-+	mpi_barrett_t ctx;
-+	MPI tmp;
-+
-+	mpi_normalize(m);
-+	ctx = kcalloc(1, sizeof(*ctx), GFP_KERNEL);
-+
-+	if (copy) {
-+		ctx->m = mpi_copy(m);
-+		ctx->m_copied = 1;
-+	} else
-+		ctx->m = m;
-+
-+	ctx->k = mpi_get_nlimbs(m);
-+	tmp = mpi_alloc(ctx->k + 1);
-+
-+	/* Barrett precalculation: y = floor(b^(2k) / m). */
-+	mpi_set_ui(tmp, 1);
-+	mpi_lshift_limbs(tmp, 2 * ctx->k);
-+	mpi_fdiv_q(tmp, tmp, m);
-+
-+	ctx->y  = tmp;
-+	ctx->r1 = mpi_alloc(2 * ctx->k + 1);
-+	ctx->r2 = mpi_alloc(2 * ctx->k + 1);
-+
-+	return ctx;
-+}
-+
-+void mpi_barrett_free(mpi_barrett_t ctx)
-+{
-+	if (ctx) {
-+		mpi_free(ctx->y);
-+		mpi_free(ctx->r1);
-+		mpi_free(ctx->r2);
-+		if (ctx->r3)
-+			mpi_free(ctx->r3);
-+		if (ctx->m_copied)
-+			mpi_free(ctx->m);
-+		kfree(ctx);
-+	}
-+}
-+
-+
-+/* R = X mod M
-+ *
-+ * Using Barrett reduction.  Before using this function
-+ * _gcry_mpi_barrett_init must have been called to do the
-+ * precalculations.  CTX is the context created by this precalculation
-+ * and also conveys M.  If the Barret reduction could no be done a
-+ * straightforward reduction method is used.
-+ *
-+ * We assume that these conditions are met:
-+ * Input:  x =(x_2k-1 ...x_0)_b
-+ *     m =(m_k-1 ....m_0)_b	  with m_k-1 != 0
-+ * Output: r = x mod m
-+ */
-+void mpi_mod_barrett(MPI r, MPI x, mpi_barrett_t ctx)
-+{
-+	MPI m = ctx->m;
-+	int k = ctx->k;
-+	MPI y = ctx->y;
-+	MPI r1 = ctx->r1;
-+	MPI r2 = ctx->r2;
-+	int sign;
-+
-+	mpi_normalize(x);
-+	if (mpi_get_nlimbs(x) > 2*k) {
-+		mpi_mod(r, x, m);
-+		return;
-+	}
-+
-+	sign = x->sign;
-+	x->sign = 0;
-+
-+	/* 1. q1 = floor( x / b^k-1)
-+	 *    q2 = q1 * y
-+	 *    q3 = floor( q2 / b^k+1 )
-+	 * Actually, we don't need qx, we can work direct on r2
-+	 */
-+	mpi_set(r2, x);
-+	mpi_rshift_limbs(r2, k-1);
-+	mpi_mul(r2, r2, y);
-+	mpi_rshift_limbs(r2, k+1);
-+
-+	/* 2. r1 = x mod b^k+1
-+	 *	r2 = q3 * m mod b^k+1
-+	 *	r  = r1 - r2
-+	 * 3. if r < 0 then  r = r + b^k+1
-+	 */
-+	mpi_set(r1, x);
-+	if (r1->nlimbs > k+1) /* Quick modulo operation.  */
-+		r1->nlimbs = k+1;
-+	mpi_mul(r2, r2, m);
-+	if (r2->nlimbs > k+1) /* Quick modulo operation. */
-+		r2->nlimbs = k+1;
-+	mpi_sub(r, r1, r2);
-+
-+	if (mpi_has_sign(r)) {
-+		if (!ctx->r3) {
-+			ctx->r3 = mpi_alloc(k + 2);
-+			mpi_set_ui(ctx->r3, 1);
-+			mpi_lshift_limbs(ctx->r3, k + 1);
-+		}
-+		mpi_add(r, r, ctx->r3);
-+	}
-+
-+	/* 4. while r >= m do r = r - m */
-+	while (mpi_cmp(r, m) >= 0)
-+		mpi_sub(r, r, m);
-+
-+	x->sign = sign;
-+}
-+
-+
-+void mpi_mul_barrett(MPI w, MPI u, MPI v, mpi_barrett_t ctx)
-+{
-+	mpi_mul(w, u, v);
-+	mpi_mod_barrett(w, w, ctx);
-+}
-diff --git a/lib/mpi/mpi-mul.c b/lib/mpi/mpi-mul.c
-new file mode 100644
-index 000000000000..587e6335cc12
---- /dev/null
-+++ b/lib/mpi/mpi-mul.c
-@@ -0,0 +1,94 @@
-+/* mpi-mul.c  -  MPI functions
-+ * Copyright (C) 1994, 1996, 1998, 2001, 2002,
-+ *               2003 Free Software Foundation, Inc.
-+ *
-+ * This file is part of Libgcrypt.
-+ *
-+ * Note: This code is heavily based on the GNU MP Library.
-+ *	 Actually it's the same code with only minor changes in the
-+ *	 way the data is stored; this is to support the abstraction
-+ *	 of an optional secure memory allocation which may be used
-+ *	 to avoid revealing of sensitive data due to paging etc.
-+ */
-+
-+#include "mpi-internal.h"
-+
-+void mpi_mul(MPI w, MPI u, MPI v)
-+{
-+	mpi_size_t usize, vsize, wsize;
-+	mpi_ptr_t up, vp, wp;
-+	mpi_limb_t cy;
-+	int usign, vsign, sign_product;
-+	int assign_wp = 0;
-+	mpi_ptr_t tmp_limb = NULL;
-+	unsigned int tmp_limb_nlimbs = 0;
-+
-+	if (u->nlimbs < v->nlimbs) {
-+		/* Swap U and V. */
-+		usize = v->nlimbs;
-+		usign = v->sign;
-+		up    = v->d;
-+		vsize = u->nlimbs;
-+		vsign = u->sign;
-+		vp    = u->d;
-+	} else {
-+		usize = u->nlimbs;
-+		usign = u->sign;
-+		up    = u->d;
-+		vsize = v->nlimbs;
-+		vsign = v->sign;
-+		vp    = v->d;
-+	}
-+	sign_product = usign ^ vsign;
-+	wp = w->d;
-+
-+	/* Ensure W has space enough to store the result.  */
-+	wsize = usize + vsize;
-+	if (w->alloced < wsize) {
-+		if (wp == up || wp == vp) {
-+			wp = mpi_alloc_limb_space(wsize);
-+			assign_wp = 1;
-+		} else {
-+			mpi_resize(w, wsize);
-+			wp = w->d;
-+		}
-+	} else { /* Make U and V not overlap with W.	*/
-+		if (wp == up) {
-+			/* W and U are identical.  Allocate temporary space for U. */
-+			tmp_limb_nlimbs = usize;
-+			up = tmp_limb = mpi_alloc_limb_space(usize);
-+			/* Is V identical too?  Keep it identical with U.  */
-+			if (wp == vp)
-+				vp = up;
-+			/* Copy to the temporary space.  */
-+			MPN_COPY(up, wp, usize);
-+		} else if (wp == vp) {
-+			/* W and V are identical.  Allocate temporary space for V. */
-+			tmp_limb_nlimbs = vsize;
-+			vp = tmp_limb = mpi_alloc_limb_space(vsize);
-+			/* Copy to the temporary space.  */
-+			MPN_COPY(vp, wp, vsize);
-+		}
-+	}
-+
-+	if (!vsize)
-+		wsize = 0;
-+	else {
-+		mpihelp_mul(wp, up, usize, vp, vsize, &cy);
-+		wsize -= cy ? 0:1;
-+	}
-+
-+	if (assign_wp)
-+		mpi_assign_limb_space(w, wp, wsize);
-+	w->nlimbs = wsize;
-+	w->sign = sign_product;
-+	if (tmp_limb)
-+		mpi_free_limb_space(tmp_limb);
-+}
-+
-+void mpi_mulm(MPI w, MPI u, MPI v, MPI m)
-+{
-+	mpi_mul(w, u, v);
-+	mpi_tdiv_r(w, w, m);
-+}
-+EXPORT_SYMBOL_GPL(mpi_mulm);
-diff --git a/lib/mpi/mpicoder.c b/lib/mpi/mpicoder.c
-index eead4b339466..7ea225b2204f 100644
---- a/lib/mpi/mpicoder.c
-+++ b/lib/mpi/mpicoder.c
-@@ -25,6 +25,7 @@
- #include <linux/string.h>
- #include "mpi-internal.h"
- 
-+#define MAX_EXTERN_SCAN_BYTES (16*1024*1024)
- #define MAX_EXTERN_MPI_BITS 16384
- 
- /**
-@@ -109,6 +110,112 @@ MPI mpi_read_from_buffer(const void *xbuffer, unsigned *ret_nread)
- }
- EXPORT_SYMBOL_GPL(mpi_read_from_buffer);
- 
-+/****************
-+ * Fill the mpi VAL from the hex string in STR.
-+ */
-+int mpi_fromstr(MPI val, const char *str)
-+{
-+	int sign = 0;
-+	int prepend_zero = 0;
-+	int i, j, c, c1, c2;
-+	unsigned int nbits, nbytes, nlimbs;
-+	mpi_limb_t a;
-+
-+	if (*str == '-') {
-+		sign = 1;
-+		str++;
-+	}
-+
-+	/* Skip optional hex prefix.  */
-+	if (*str == '0' && str[1] == 'x')
-+		str += 2;
-+
-+	nbits = strlen(str);
-+	if (nbits > MAX_EXTERN_SCAN_BYTES) {
-+		mpi_clear(val);
-+		return -EINVAL;
-+	}
-+	nbits *= 4;
-+	if ((nbits % 8))
-+		prepend_zero = 1;
-+
-+	nbytes = (nbits+7) / 8;
-+	nlimbs = (nbytes+BYTES_PER_MPI_LIMB-1) / BYTES_PER_MPI_LIMB;
-+
-+	if (val->alloced < nlimbs)
-+		mpi_resize(val, nlimbs);
-+
-+	i = BYTES_PER_MPI_LIMB - (nbytes % BYTES_PER_MPI_LIMB);
-+	i %= BYTES_PER_MPI_LIMB;
-+	j = val->nlimbs = nlimbs;
-+	val->sign = sign;
-+	for (; j > 0; j--) {
-+		a = 0;
-+		for (; i < BYTES_PER_MPI_LIMB; i++) {
-+			if (prepend_zero) {
-+				c1 = '0';
-+				prepend_zero = 0;
-+			} else
-+				c1 = *str++;
-+
-+			if (!c1) {
-+				mpi_clear(val);
-+				return -EINVAL;
-+			}
-+			c2 = *str++;
-+			if (!c2) {
-+				mpi_clear(val);
-+				return -EINVAL;
-+			}
-+			if (c1 >= '0' && c1 <= '9')
-+				c = c1 - '0';
-+			else if (c1 >= 'a' && c1 <= 'f')
-+				c = c1 - 'a' + 10;
-+			else if (c1 >= 'A' && c1 <= 'F')
-+				c = c1 - 'A' + 10;
-+			else {
-+				mpi_clear(val);
-+				return -EINVAL;
-+			}
-+			c <<= 4;
-+			if (c2 >= '0' && c2 <= '9')
-+				c |= c2 - '0';
-+			else if (c2 >= 'a' && c2 <= 'f')
-+				c |= c2 - 'a' + 10;
-+			else if (c2 >= 'A' && c2 <= 'F')
-+				c |= c2 - 'A' + 10;
-+			else {
-+				mpi_clear(val);
-+				return -EINVAL;
-+			}
-+			a <<= 8;
-+			a |= c;
-+		}
-+		i = 0;
-+		val->d[j-1] = a;
-+	}
-+
-+	return 0;
-+}
-+EXPORT_SYMBOL_GPL(mpi_fromstr);
-+
-+MPI mpi_scanval(const char *string)
-+{
-+	MPI a;
-+
-+	a = mpi_alloc(0);
-+	if (!a)
-+		return NULL;
-+
-+	if (mpi_fromstr(a, string)) {
-+		mpi_free(a);
-+		return NULL;
-+	}
-+	mpi_normalize(a);
-+	return a;
-+}
-+EXPORT_SYMBOL_GPL(mpi_scanval);
-+
- static int count_lzeros(MPI a)
- {
- 	mpi_limb_t alimb;
-@@ -413,3 +520,232 @@ MPI mpi_read_raw_from_sgl(struct scatterlist *sgl, unsigned int nbytes)
- 	return val;
- }
- EXPORT_SYMBOL_GPL(mpi_read_raw_from_sgl);
-+
-+/* Perform a two's complement operation on buffer P of size N bytes.  */
-+static void twocompl(unsigned char *p, unsigned int n)
-+{
-+	int i;
-+
-+	for (i = n-1; i >= 0 && !p[i]; i--)
-+		;
-+	if (i >= 0) {
-+		if ((p[i] & 0x01))
-+			p[i] = (((p[i] ^ 0xfe) | 0x01) & 0xff);
-+		else if ((p[i] & 0x02))
-+			p[i] = (((p[i] ^ 0xfc) | 0x02) & 0xfe);
-+		else if ((p[i] & 0x04))
-+			p[i] = (((p[i] ^ 0xf8) | 0x04) & 0xfc);
-+		else if ((p[i] & 0x08))
-+			p[i] = (((p[i] ^ 0xf0) | 0x08) & 0xf8);
-+		else if ((p[i] & 0x10))
-+			p[i] = (((p[i] ^ 0xe0) | 0x10) & 0xf0);
-+		else if ((p[i] & 0x20))
-+			p[i] = (((p[i] ^ 0xc0) | 0x20) & 0xe0);
-+		else if ((p[i] & 0x40))
-+			p[i] = (((p[i] ^ 0x80) | 0x40) & 0xc0);
-+		else
-+			p[i] = 0x80;
-+
-+		for (i--; i >= 0; i--)
-+			p[i] ^= 0xff;
-+	}
-+}
-+
-+int mpi_print(enum gcry_mpi_format format, unsigned char *buffer,
-+			size_t buflen, size_t *nwritten, MPI a)
-+{
-+	unsigned int nbits = mpi_get_nbits(a);
-+	size_t len;
-+	size_t dummy_nwritten;
-+	int negative;
-+
-+	if (!nwritten)
-+		nwritten = &dummy_nwritten;
-+
-+	/* Libgcrypt does no always care to set clear the sign if the value
-+	 * is 0.  For printing this is a bit of a surprise, in particular
-+	 * because if some of the formats don't support negative numbers but
-+	 * should be able to print a zero.  Thus we need this extra test
-+	 * for a negative number.
-+	 */
-+	if (a->sign && mpi_cmp_ui(a, 0))
-+		negative = 1;
-+	else
-+		negative = 0;
-+
-+	len = buflen;
-+	*nwritten = 0;
-+	if (format == GCRYMPI_FMT_STD) {
-+		unsigned char *tmp;
-+		int extra = 0;
-+		unsigned int n;
-+
-+		tmp = mpi_get_buffer(a, &n, NULL);
-+		if (!tmp)
-+			return -EINVAL;
-+
-+		if (negative) {
-+			twocompl(tmp, n);
-+			if (!(*tmp & 0x80)) {
-+				/* Need to extend the sign.  */
-+				n++;
-+				extra = 2;
-+			}
-+		} else if (n && (*tmp & 0x80)) {
-+			/* Positive but the high bit of the returned buffer is set.
-+			 * Thus we need to print an extra leading 0x00 so that the
-+			 * output is interpreted as a positive number.
-+			 */
-+			n++;
-+			extra = 1;
-+		}
-+
-+		if (buffer && n > len) {
-+			/* The provided buffer is too short. */
-+			kfree(tmp);
-+			return -E2BIG;
-+		}
-+		if (buffer) {
-+			unsigned char *s = buffer;
-+
-+			if (extra == 1)
-+				*s++ = 0;
-+			else if (extra)
-+				*s++ = 0xff;
-+			memcpy(s, tmp, n-!!extra);
-+		}
-+		kfree(tmp);
-+		*nwritten = n;
-+		return 0;
-+	} else if (format == GCRYMPI_FMT_USG) {
-+		unsigned int n = (nbits + 7)/8;
-+
-+		/* Note:  We ignore the sign for this format.  */
-+		/* FIXME: for performance reasons we should put this into
-+		 * mpi_aprint because we can then use the buffer directly.
-+		 */
-+
-+		if (buffer && n > len)
-+			return -E2BIG;
-+		if (buffer) {
-+			unsigned char *tmp;
-+
-+			tmp = mpi_get_buffer(a, &n, NULL);
-+			if (!tmp)
-+				return -EINVAL;
-+			memcpy(buffer, tmp, n);
-+			kfree(tmp);
-+		}
-+		*nwritten = n;
-+		return 0;
-+	} else if (format == GCRYMPI_FMT_PGP) {
-+		unsigned int n = (nbits + 7)/8;
-+
-+		/* The PGP format can only handle unsigned integers.  */
-+		if (negative)
-+			return -EINVAL;
-+
-+		if (buffer && n+2 > len)
-+			return -E2BIG;
-+
-+		if (buffer) {
-+			unsigned char *tmp;
-+			unsigned char *s = buffer;
-+
-+			s[0] = nbits >> 8;
-+			s[1] = nbits;
-+
-+			tmp = mpi_get_buffer(a, &n, NULL);
-+			if (!tmp)
-+				return -EINVAL;
-+			memcpy(s+2, tmp, n);
-+			kfree(tmp);
-+		}
-+		*nwritten = n+2;
-+		return 0;
-+	} else if (format == GCRYMPI_FMT_SSH) {
-+		unsigned char *tmp;
-+		int extra = 0;
-+		unsigned int n;
-+
-+		tmp = mpi_get_buffer(a, &n, NULL);
-+		if (!tmp)
-+			return -EINVAL;
-+
-+		if (negative) {
-+			twocompl(tmp, n);
-+			if (!(*tmp & 0x80)) {
-+				/* Need to extend the sign.  */
-+				n++;
-+				extra = 2;
-+			}
-+		} else if (n && (*tmp & 0x80)) {
-+			n++;
-+			extra = 1;
-+		}
-+
-+		if (buffer && n+4 > len) {
-+			kfree(tmp);
-+			return -E2BIG;
-+		}
-+
-+		if (buffer) {
-+			unsigned char *s = buffer;
-+
-+			*s++ = n >> 24;
-+			*s++ = n >> 16;
-+			*s++ = n >> 8;
-+			*s++ = n;
-+			if (extra == 1)
-+				*s++ = 0;
-+			else if (extra)
-+				*s++ = 0xff;
-+			memcpy(s, tmp, n-!!extra);
-+		}
-+		kfree(tmp);
-+		*nwritten = 4+n;
-+		return 0;
-+	} else if (format == GCRYMPI_FMT_HEX) {
-+		unsigned char *tmp;
-+		int i;
-+		int extra = 0;
-+		unsigned int n = 0;
-+
-+		tmp = mpi_get_buffer(a, &n, NULL);
-+		if (!tmp)
-+			return -EINVAL;
-+		if (!n || (*tmp & 0x80))
-+			extra = 2;
-+
-+		if (buffer && 2*n + extra + negative + 1 > len) {
-+			kfree(tmp);
-+			return -E2BIG;
-+		}
-+		if (buffer) {
-+			unsigned char *s = buffer;
-+
-+			if (negative)
-+				*s++ = '-';
-+			if (extra) {
-+				*s++ = '0';
-+				*s++ = '0';
-+			}
-+
-+			for (i = 0; i < n; i++) {
-+				unsigned int c = tmp[i];
-+
-+				*s++ = (c >> 4) < 10 ? '0'+(c>>4) : 'A'+(c>>4)-10;
-+				c &= 15;
-+				*s++ = c < 10 ? '0'+c : 'A'+c-10;
-+			}
-+			*s++ = 0;
-+			*nwritten = s - buffer;
-+		} else {
-+			*nwritten = 2*n + extra + negative + 1;
-+		}
-+		kfree(tmp);
-+		return 0;
-+	} else
-+		return -EINVAL;
-+}
-+EXPORT_SYMBOL_GPL(mpi_print);
-diff --git a/lib/mpi/mpih-div.c b/lib/mpi/mpih-div.c
-index 913a519eb005..182a656a1ba0 100644
---- a/lib/mpi/mpih-div.c
-+++ b/lib/mpi/mpih-div.c
-@@ -24,6 +24,150 @@
- #define UDIV_TIME UMUL_TIME
- #endif
- 
-+
-+mpi_limb_t
-+mpihelp_mod_1(mpi_ptr_t dividend_ptr, mpi_size_t dividend_size,
-+			mpi_limb_t divisor_limb)
-+{
-+	mpi_size_t i;
-+	mpi_limb_t n1, n0, r;
-+	mpi_limb_t dummy;
-+
-+	/* Botch: Should this be handled at all?  Rely on callers?	*/
-+	if (!dividend_size)
-+		return 0;
-+
-+	/* If multiplication is much faster than division, and the
-+	 * dividend is large, pre-invert the divisor, and use
-+	 * only multiplications in the inner loop.
-+	 *
-+	 * This test should be read:
-+	 *	 Does it ever help to use udiv_qrnnd_preinv?
-+	 *	   && Does what we save compensate for the inversion overhead?
-+	 */
-+	if (UDIV_TIME > (2 * UMUL_TIME + 6)
-+			&& (UDIV_TIME - (2 * UMUL_TIME + 6)) * dividend_size > UDIV_TIME) {
-+		int normalization_steps;
-+
-+		normalization_steps = count_leading_zeros(divisor_limb);
-+		if (normalization_steps) {
-+			mpi_limb_t divisor_limb_inverted;
-+
-+			divisor_limb <<= normalization_steps;
-+
-+			/* Compute (2**2N - 2**N * DIVISOR_LIMB) / DIVISOR_LIMB.  The
-+			 * result is a (N+1)-bit approximation to 1/DIVISOR_LIMB, with the
-+			 * most significant bit (with weight 2**N) implicit.
-+			 *
-+			 * Special case for DIVISOR_LIMB == 100...000.
-+			 */
-+			if (!(divisor_limb << 1))
-+				divisor_limb_inverted = ~(mpi_limb_t)0;
-+			else
-+				udiv_qrnnd(divisor_limb_inverted, dummy,
-+						-divisor_limb, 0, divisor_limb);
-+
-+			n1 = dividend_ptr[dividend_size - 1];
-+			r = n1 >> (BITS_PER_MPI_LIMB - normalization_steps);
-+
-+			/* Possible optimization:
-+			 * if (r == 0
-+			 * && divisor_limb > ((n1 << normalization_steps)
-+			 *		       | (dividend_ptr[dividend_size - 2] >> ...)))
-+			 * ...one division less...
-+			 */
-+			for (i = dividend_size - 2; i >= 0; i--) {
-+				n0 = dividend_ptr[i];
-+				UDIV_QRNND_PREINV(dummy, r, r,
-+						((n1 << normalization_steps)
-+						 | (n0 >> (BITS_PER_MPI_LIMB - normalization_steps))),
-+						divisor_limb, divisor_limb_inverted);
-+				n1 = n0;
-+			}
-+			UDIV_QRNND_PREINV(dummy, r, r,
-+					n1 << normalization_steps,
-+					divisor_limb, divisor_limb_inverted);
-+			return r >> normalization_steps;
-+		} else {
-+			mpi_limb_t divisor_limb_inverted;
-+
-+			/* Compute (2**2N - 2**N * DIVISOR_LIMB) / DIVISOR_LIMB.  The
-+			 * result is a (N+1)-bit approximation to 1/DIVISOR_LIMB, with the
-+			 * most significant bit (with weight 2**N) implicit.
-+			 *
-+			 * Special case for DIVISOR_LIMB == 100...000.
-+			 */
-+			if (!(divisor_limb << 1))
-+				divisor_limb_inverted = ~(mpi_limb_t)0;
-+			else
-+				udiv_qrnnd(divisor_limb_inverted, dummy,
-+						-divisor_limb, 0, divisor_limb);
-+
-+			i = dividend_size - 1;
-+			r = dividend_ptr[i];
-+
-+			if (r >= divisor_limb)
-+				r = 0;
-+			else
-+				i--;
-+
-+			for ( ; i >= 0; i--) {
-+				n0 = dividend_ptr[i];
-+				UDIV_QRNND_PREINV(dummy, r, r,
-+						n0, divisor_limb, divisor_limb_inverted);
-+			}
-+			return r;
-+		}
-+	} else {
-+		if (UDIV_NEEDS_NORMALIZATION) {
-+			int normalization_steps;
-+
-+			normalization_steps = count_leading_zeros(divisor_limb);
-+			if (normalization_steps) {
-+				divisor_limb <<= normalization_steps;
-+
-+				n1 = dividend_ptr[dividend_size - 1];
-+				r = n1 >> (BITS_PER_MPI_LIMB - normalization_steps);
-+
-+				/* Possible optimization:
-+				 * if (r == 0
-+				 * && divisor_limb > ((n1 << normalization_steps)
-+				 *		   | (dividend_ptr[dividend_size - 2] >> ...)))
-+				 * ...one division less...
-+				 */
-+				for (i = dividend_size - 2; i >= 0; i--) {
-+					n0 = dividend_ptr[i];
-+					udiv_qrnnd(dummy, r, r,
-+						((n1 << normalization_steps)
-+						 | (n0 >> (BITS_PER_MPI_LIMB - normalization_steps))),
-+						divisor_limb);
-+					n1 = n0;
-+				}
-+				udiv_qrnnd(dummy, r, r,
-+						n1 << normalization_steps,
-+						divisor_limb);
-+				return r >> normalization_steps;
-+			}
-+		}
-+		/* No normalization needed, either because udiv_qrnnd doesn't require
-+		 * it, or because DIVISOR_LIMB is already normalized.
-+		 */
-+		i = dividend_size - 1;
-+		r = dividend_ptr[i];
-+
-+		if (r >= divisor_limb)
-+			r = 0;
-+		else
-+			i--;
-+
-+		for (; i >= 0; i--) {
-+			n0 = dividend_ptr[i];
-+			udiv_qrnnd(dummy, r, r, n0, divisor_limb);
-+		}
-+		return r;
-+	}
-+}
-+
- /* Divide num (NP/NSIZE) by den (DP/DSIZE) and write
-  * the NSIZE-DSIZE least significant quotient limbs at QP
-  * and the DSIZE long remainder at NP.	If QEXTRA_LIMBS is
-@@ -221,3 +365,153 @@ mpihelp_divrem(mpi_ptr_t qp, mpi_size_t qextra_limbs,
- 
- 	return most_significant_q_limb;
- }
-+
-+/****************
-+ * Divide (DIVIDEND_PTR,,DIVIDEND_SIZE) by DIVISOR_LIMB.
-+ * Write DIVIDEND_SIZE limbs of quotient at QUOT_PTR.
-+ * Return the single-limb remainder.
-+ * There are no constraints on the value of the divisor.
-+ *
-+ * QUOT_PTR and DIVIDEND_PTR might point to the same limb.
-+ */
-+
-+mpi_limb_t
-+mpihelp_divmod_1(mpi_ptr_t quot_ptr,
-+		mpi_ptr_t dividend_ptr, mpi_size_t dividend_size,
-+		mpi_limb_t divisor_limb)
-+{
-+	mpi_size_t i;
-+	mpi_limb_t n1, n0, r;
-+	mpi_limb_t dummy;
-+
-+	if (!dividend_size)
-+		return 0;
-+
-+	/* If multiplication is much faster than division, and the
-+	 * dividend is large, pre-invert the divisor, and use
-+	 * only multiplications in the inner loop.
-+	 *
-+	 * This test should be read:
-+	 * Does it ever help to use udiv_qrnnd_preinv?
-+	 * && Does what we save compensate for the inversion overhead?
-+	 */
-+	if (UDIV_TIME > (2 * UMUL_TIME + 6)
-+			&& (UDIV_TIME - (2 * UMUL_TIME + 6)) * dividend_size > UDIV_TIME) {
-+		int normalization_steps;
-+
-+		normalization_steps = count_leading_zeros(divisor_limb);
-+		if (normalization_steps) {
-+			mpi_limb_t divisor_limb_inverted;
-+
-+			divisor_limb <<= normalization_steps;
-+
-+			/* Compute (2**2N - 2**N * DIVISOR_LIMB) / DIVISOR_LIMB.  The
-+			 * result is a (N+1)-bit approximation to 1/DIVISOR_LIMB, with the
-+			 * most significant bit (with weight 2**N) implicit.
-+			 */
-+			/* Special case for DIVISOR_LIMB == 100...000.  */
-+			if (!(divisor_limb << 1))
-+				divisor_limb_inverted = ~(mpi_limb_t)0;
-+			else
-+				udiv_qrnnd(divisor_limb_inverted, dummy,
-+						-divisor_limb, 0, divisor_limb);
-+
-+			n1 = dividend_ptr[dividend_size - 1];
-+			r = n1 >> (BITS_PER_MPI_LIMB - normalization_steps);
-+
-+			/* Possible optimization:
-+			 * if (r == 0
-+			 * && divisor_limb > ((n1 << normalization_steps)
-+			 *		       | (dividend_ptr[dividend_size - 2] >> ...)))
-+			 * ...one division less...
-+			 */
-+			for (i = dividend_size - 2; i >= 0; i--) {
-+				n0 = dividend_ptr[i];
-+				UDIV_QRNND_PREINV(quot_ptr[i + 1], r, r,
-+						((n1 << normalization_steps)
-+						 | (n0 >> (BITS_PER_MPI_LIMB - normalization_steps))),
-+						divisor_limb, divisor_limb_inverted);
-+				n1 = n0;
-+			}
-+			UDIV_QRNND_PREINV(quot_ptr[0], r, r,
-+					n1 << normalization_steps,
-+					divisor_limb, divisor_limb_inverted);
-+			return r >> normalization_steps;
-+		} else {
-+			mpi_limb_t divisor_limb_inverted;
-+
-+			/* Compute (2**2N - 2**N * DIVISOR_LIMB) / DIVISOR_LIMB.  The
-+			 * result is a (N+1)-bit approximation to 1/DIVISOR_LIMB, with the
-+			 * most significant bit (with weight 2**N) implicit.
-+			 */
-+			/* Special case for DIVISOR_LIMB == 100...000.  */
-+			if (!(divisor_limb << 1))
-+				divisor_limb_inverted = ~(mpi_limb_t) 0;
-+			else
-+				udiv_qrnnd(divisor_limb_inverted, dummy,
-+						-divisor_limb, 0, divisor_limb);
-+
-+			i = dividend_size - 1;
-+			r = dividend_ptr[i];
-+
-+			if (r >= divisor_limb)
-+				r = 0;
-+			else
-+				quot_ptr[i--] = 0;
-+
-+			for ( ; i >= 0; i--) {
-+				n0 = dividend_ptr[i];
-+				UDIV_QRNND_PREINV(quot_ptr[i], r, r,
-+						n0, divisor_limb, divisor_limb_inverted);
-+			}
-+			return r;
-+		}
-+	} else {
-+		if (UDIV_NEEDS_NORMALIZATION) {
-+			int normalization_steps;
-+
-+			normalization_steps = count_leading_zeros(divisor_limb);
-+			if (normalization_steps) {
-+				divisor_limb <<= normalization_steps;
-+
-+				n1 = dividend_ptr[dividend_size - 1];
-+				r = n1 >> (BITS_PER_MPI_LIMB - normalization_steps);
-+
-+				/* Possible optimization:
-+				 * if (r == 0
-+				 * && divisor_limb > ((n1 << normalization_steps)
-+				 *		   | (dividend_ptr[dividend_size - 2] >> ...)))
-+				 * ...one division less...
-+				 */
-+				for (i = dividend_size - 2; i >= 0; i--) {
-+					n0 = dividend_ptr[i];
-+					udiv_qrnnd(quot_ptr[i + 1], r, r,
-+						((n1 << normalization_steps)
-+						 | (n0 >> (BITS_PER_MPI_LIMB - normalization_steps))),
-+						divisor_limb);
-+					n1 = n0;
-+				}
-+				udiv_qrnnd(quot_ptr[0], r, r,
-+						n1 << normalization_steps,
-+						divisor_limb);
-+				return r >> normalization_steps;
-+			}
-+		}
-+		/* No normalization needed, either because udiv_qrnnd doesn't require
-+		 * it, or because DIVISOR_LIMB is already normalized.
-+		 */
-+		i = dividend_size - 1;
-+		r = dividend_ptr[i];
-+
-+		if (r >= divisor_limb)
-+			r = 0;
-+		else
-+			quot_ptr[i--] = 0;
-+
-+		for (; i >= 0; i--) {
-+			n0 = dividend_ptr[i];
-+			udiv_qrnnd(quot_ptr[i], r, r, n0, divisor_limb);
-+		}
-+		return r;
-+	}
-+}
-diff --git a/lib/mpi/mpih-mul.c b/lib/mpi/mpih-mul.c
-index a93647564054..e5f1c84e3c48 100644
---- a/lib/mpi/mpih-mul.c
-+++ b/lib/mpi/mpih-mul.c
-@@ -317,6 +317,31 @@ mpih_sqr_n(mpi_ptr_t prodp, mpi_ptr_t up, mpi_size_t size, mpi_ptr_t tspace)
- 	}
- }
- 
-+
-+void mpihelp_mul_n(mpi_ptr_t prodp,
-+		mpi_ptr_t up, mpi_ptr_t vp, mpi_size_t size)
-+{
-+	if (up == vp) {
-+		if (size < KARATSUBA_THRESHOLD)
-+			mpih_sqr_n_basecase(prodp, up, size);
-+		else {
-+			mpi_ptr_t tspace;
-+			tspace = mpi_alloc_limb_space(2 * size);
-+			mpih_sqr_n(prodp, up, size, tspace);
-+			mpi_free_limb_space(tspace);
-+		}
-+	} else {
-+		if (size < KARATSUBA_THRESHOLD)
-+			mul_n_basecase(prodp, up, vp, size);
-+		else {
-+			mpi_ptr_t tspace;
-+			tspace = mpi_alloc_limb_space(2 * size);
-+			mul_n(prodp, up, vp, size, tspace);
-+			mpi_free_limb_space(tspace);
-+		}
-+	}
-+}
-+
- int
- mpihelp_mul_karatsuba_case(mpi_ptr_t prodp,
- 			   mpi_ptr_t up, mpi_size_t usize,
-diff --git a/lib/mpi/mpiutil.c b/lib/mpi/mpiutil.c
-index 4cd2b335cb7f..3c63710c20c6 100644
---- a/lib/mpi/mpiutil.c
-+++ b/lib/mpi/mpiutil.c
-@@ -20,6 +20,63 @@
- 
- #include "mpi-internal.h"
- 
-+/* Constants allocated right away at startup.  */
-+static MPI constants[MPI_NUMBER_OF_CONSTANTS];
-+
-+/* Initialize the MPI subsystem.  This is called early and allows to
-+ * do some initialization without taking care of threading issues.
-+ */
-+static int __init mpi_init(void)
-+{
-+	int idx;
-+	unsigned long value;
-+
-+	for (idx = 0; idx < MPI_NUMBER_OF_CONSTANTS; idx++) {
-+		switch (idx) {
-+		case MPI_C_ZERO:
-+			value = 0;
-+			break;
-+		case MPI_C_ONE:
-+			value = 1;
-+			break;
-+		case MPI_C_TWO:
-+			value = 2;
-+			break;
-+		case MPI_C_THREE:
-+			value = 3;
-+			break;
-+		case MPI_C_FOUR:
-+			value = 4;
-+			break;
-+		case MPI_C_EIGHT:
-+			value = 8;
-+			break;
-+		default:
-+			pr_err("MPI: invalid mpi_const selector %d\n", idx);
-+			return -EFAULT;
-+		}
-+		constants[idx] = mpi_alloc_set_ui(value);
-+		constants[idx]->flags = (16|32);
-+	}
-+
-+	return 0;
-+}
-+postcore_initcall(mpi_init);
-+
-+/* Return a constant MPI descripbed by NO which is one of the
-+ * MPI_C_xxx macros.  There is no need to copy this returned value; it
-+ * may be used directly.
-+ */
-+MPI mpi_const(enum gcry_mpi_constants no)
-+{
-+	if ((int)no < 0 || no > MPI_NUMBER_OF_CONSTANTS)
-+		pr_err("MPI: invalid mpi_const selector %d\n", no);
-+	if (!constants[no])
-+		pr_err("MPI: MPI subsystem not initialized\n");
-+	return constants[no];
-+}
-+EXPORT_SYMBOL_GPL(mpi_const);
-+
- /****************
-  * Note:  It was a bad idea to use the number of limbs to allocate
-  *	  because on a alpha the limbs are large but we normally need
-@@ -106,6 +163,15 @@ int mpi_resize(MPI a, unsigned nlimbs)
- 	return 0;
- }
- 
-+void mpi_clear(MPI a)
-+{
-+	if (!a)
-+		return;
-+	a->nlimbs = 0;
-+	a->flags = 0;
-+}
-+EXPORT_SYMBOL_GPL(mpi_clear);
-+
- void mpi_free(MPI a)
- {
- 	if (!a)
-@@ -122,5 +188,143 @@ void mpi_free(MPI a)
- }
- EXPORT_SYMBOL_GPL(mpi_free);
- 
-+/****************
-+ * Note: This copy function should not interpret the MPI
-+ *	 but copy it transparently.
-+ */
-+MPI mpi_copy(MPI a)
-+{
-+	int i;
-+	MPI b;
-+
-+	if (a) {
-+		b = mpi_alloc(a->nlimbs);
-+		b->nlimbs = a->nlimbs;
-+		b->sign = a->sign;
-+		b->flags = a->flags;
-+		b->flags &= ~(16|32); /* Reset the immutable and constant flags. */
-+		for (i = 0; i < b->nlimbs; i++)
-+			b->d[i] = a->d[i];
-+	} else
-+		b = NULL;
-+	return b;
-+}
-+
-+/****************
-+ * This function allocates an MPI which is optimized to hold
-+ * a value as large as the one given in the argument and allocates it
-+ * with the same flags as A.
-+ */
-+MPI mpi_alloc_like(MPI a)
-+{
-+	MPI b;
-+
-+	if (a) {
-+		b = mpi_alloc(a->nlimbs);
-+		b->nlimbs = 0;
-+		b->sign = 0;
-+		b->flags = a->flags;
-+	} else
-+		b = NULL;
-+
-+	return b;
-+}
-+
-+
-+/* Set U into W and release U.  If W is NULL only U will be released. */
-+void mpi_snatch(MPI w, MPI u)
-+{
-+	if (w) {
-+		mpi_assign_limb_space(w, u->d, u->alloced);
-+		w->nlimbs = u->nlimbs;
-+		w->sign   = u->sign;
-+		w->flags  = u->flags;
-+		u->alloced = 0;
-+		u->nlimbs = 0;
-+		u->d = NULL;
-+	}
-+	mpi_free(u);
-+}
-+
-+
-+MPI mpi_set(MPI w, MPI u)
-+{
-+	mpi_ptr_t wp, up;
-+	mpi_size_t usize = u->nlimbs;
-+	int usign = u->sign;
-+
-+	if (!w)
-+		w = mpi_alloc(mpi_get_nlimbs(u));
-+	RESIZE_IF_NEEDED(w, usize);
-+	wp = w->d;
-+	up = u->d;
-+	MPN_COPY(wp, up, usize);
-+	w->nlimbs = usize;
-+	w->flags = u->flags;
-+	w->flags &= ~(16|32); /* Reset the immutable and constant flags.  */
-+	w->sign = usign;
-+	return w;
-+}
-+EXPORT_SYMBOL_GPL(mpi_set);
-+
-+MPI mpi_set_ui(MPI w, unsigned long u)
-+{
-+	if (!w)
-+		w = mpi_alloc(1);
-+	/* FIXME: If U is 0 we have no need to resize and thus possible
-+	 * allocating the the limbs.
-+	 */
-+	RESIZE_IF_NEEDED(w, 1);
-+	w->d[0] = u;
-+	w->nlimbs = u ? 1 : 0;
-+	w->sign = 0;
-+	w->flags = 0;
-+	return w;
-+}
-+EXPORT_SYMBOL_GPL(mpi_set_ui);
-+
-+MPI mpi_alloc_set_ui(unsigned long u)
-+{
-+	MPI w = mpi_alloc(1);
-+	w->d[0] = u;
-+	w->nlimbs = u ? 1 : 0;
-+	w->sign = 0;
-+	return w;
-+}
-+
-+/****************
-+ * Swap the value of A and B, when SWAP is 1.
-+ * Leave the value when SWAP is 0.
-+ * This implementation should be constant-time regardless of SWAP.
-+ */
-+void mpi_swap_cond(MPI a, MPI b, unsigned long swap)
-+{
-+	mpi_size_t i;
-+	mpi_size_t nlimbs;
-+	mpi_limb_t mask = ((mpi_limb_t)0) - swap;
-+	mpi_limb_t x;
-+
-+	if (a->alloced > b->alloced)
-+		nlimbs = b->alloced;
-+	else
-+		nlimbs = a->alloced;
-+	if (a->nlimbs > nlimbs || b->nlimbs > nlimbs)
-+		return;
-+
-+	for (i = 0; i < nlimbs; i++) {
-+		x = mask & (a->d[i] ^ b->d[i]);
-+		a->d[i] = a->d[i] ^ x;
-+		b->d[i] = b->d[i] ^ x;
-+	}
-+
-+	x = mask & (a->nlimbs ^ b->nlimbs);
-+	a->nlimbs = a->nlimbs ^ x;
-+	b->nlimbs = b->nlimbs ^ x;
-+
-+	x = mask & (a->sign ^ b->sign);
-+	a->sign = a->sign ^ x;
-+	b->sign = b->sign ^ x;
-+}
-+
- MODULE_DESCRIPTION("Multiprecision maths library");
- MODULE_LICENSE("GPL");
--- 
-2.19.1.3.ge56e4f7
-
-_______________________________________________
-Linux-stm32 mailing list
-Linux-stm32@st-md-mailman.stormreply.com
-https://st-md-mailman.stormreply.com/mailman/listinfo/linux-stm32
+VGhlIGltcGxlbWVudGF0aW9uIG9mIEVDIGlzIGludHJvZHVjZWQgZnJvbSBsaWJnY3J5cHQgYXMg
+dGhlCmJhc2ljIGFsZ29yaXRobSBvZiBlbGxpcHRpYyBjdXJ2ZSwgd2hpY2ggY2FuIGJlIG1vcmUg
+cGVyZmVjdGx5CmludGVncmF0ZWQgd2l0aCBNUEkgaW1wbGVtZW50YXRpb24uClNvbWUgb3RoZXIg
+YWxnb3JpdGhtcyB3aWxsIGJlIGRldmVsb3BlZCBiYXNlZCBvbiBtcGkgZWNjLCBzdWNoIGFzIFNN
+Mi4KClNpZ25lZC1vZmYtYnk6IFRpYW5qaWEgWmhhbmcgPHRpYW5qaWEuemhhbmdAbGludXguYWxp
+YmFiYS5jb20+ClRlc3RlZC1ieTogWHVmZW5nIFpoYW5nIDx5dW5iby54dWZlbmdAbGludXguYWxp
+YmFiYS5jb20+Ci0tLQogaW5jbHVkZS9saW51eC9tcGkuaCB8ICAxMDUgKysrCiBsaWIvbXBpL01h
+a2VmaWxlICAgIHwgICAgMSArCiBsaWIvbXBpL2VjLmMgICAgICAgIHwgMTUwOSArKysrKysrKysr
+KysrKysrKysrKysrKysrKysrKysrKysrKysrKysrKysrCiAzIGZpbGVzIGNoYW5nZWQsIDE2MTUg
+aW5zZXJ0aW9ucygrKQogY3JlYXRlIG1vZGUgMTAwNjQ0IGxpYi9tcGkvZWMuYwoKZGlmZiAtLWdp
+dCBhL2luY2x1ZGUvbGludXgvbXBpLmggYi9pbmNsdWRlL2xpbnV4L21waS5oCmluZGV4IDNjOWU0
+MTYwM2NmNi4uM2U1MzU4ZjRkZTJmIDEwMDY0NAotLS0gYS9pbmNsdWRlL2xpbnV4L21waS5oCisr
+KyBiL2luY2x1ZGUvbGludXgvbXBpLmgKQEAgLTE1Nyw2ICsxNTcsMTExIEBAIHZvaWQgbXBpX2Zk
+aXZfcShNUEkgcXVvdCwgTVBJIGRpdmlkZW5kLCBNUEkgZGl2aXNvcik7CiAvKi0tIG1waS1pbnYu
+YyAtLSovCiBpbnQgbXBpX2ludm0oTVBJIHgsIE1QSSBhLCBNUEkgbik7CiAKKy8qLS0gZWMuYyAt
+LSovCisKKy8qIE9iamVjdCB0byByZXByZXNlbnQgYSBwb2ludCBpbiBwcm9qZWN0aXZlIGNvb3Jk
+aW5hdGVzICovCitzdHJ1Y3QgZ2NyeV9tcGlfcG9pbnQgeworCU1QSSB4OworCU1QSSB5OworCU1Q
+SSB6OworfTsKKwordHlwZWRlZiBzdHJ1Y3QgZ2NyeV9tcGlfcG9pbnQgKk1QSV9QT0lOVDsKKwor
+LyogTW9kZWxzIGRlc2NyaWJpbmcgYW4gZWxsaXB0aWMgY3VydmUgKi8KK2VudW0gZ2NyeV9tcGlf
+ZWNfbW9kZWxzIHsKKwkvKiBUaGUgU2hvcnQgV2VpZXJzdHJhc3MgZXF1YXRpb24gaXMKKwkgKiAg
+ICAgIHleMiA9IHheMyArIGF4ICsgYgorCSAqLworCU1QSV9FQ19XRUlFUlNUUkFTUyA9IDAsCisJ
+LyogVGhlIE1vbnRnb21lcnkgZXF1YXRpb24gaXMKKwkgKiAgICAgIGJ5XjIgPSB4XjMgKyBheF4y
+ICsgeAorCSAqLworCU1QSV9FQ19NT05UR09NRVJZLAorCS8qIFRoZSBUd2lzdGVkIEVkd2FyZHMg
+ZXF1YXRpb24gaXMKKwkgKiAgICAgIGF4XjIgKyB5XjIgPSAxICsgYnheMnleMgorCSAqIE5vdGUg
+dGhhdCB3ZSB1c2UgJ2InIGluc3RlYWQgb2YgdGhlIGNvbW1vbmx5IHVzZWQgJ2QnLgorCSAqLwor
+CU1QSV9FQ19FRFdBUkRTCit9OworCisvKiBEaWFsZWN0cyB1c2VkIHdpdGggZWxsaXB0aWMgY3Vy
+dmVzICovCitlbnVtIGVjY19kaWFsZWN0cyB7CisJRUNDX0RJQUxFQ1RfU1RBTkRBUkQgPSAwLAor
+CUVDQ19ESUFMRUNUX0VEMjU1MTksCisJRUNDX0RJQUxFQ1RfU0FGRUNVUlZFCit9OworCisvKiBU
+aGlzIGNvbnRleHQgaXMgdXNlZCB3aXRoIGFsbCBvdXIgRUMgZnVuY3Rpb25zLiAqLworc3RydWN0
+IG1waV9lY19jdHggeworCWVudW0gZ2NyeV9tcGlfZWNfbW9kZWxzIG1vZGVsOyAvKiBUaGUgbW9k
+ZWwgZGVzY3JpYmluZyB0aGlzIGN1cnZlLiAqLworCWVudW0gZWNjX2RpYWxlY3RzIGRpYWxlY3Q7
+ICAgICAvKiBUaGUgRUNDIGRpYWxlY3QgdXNlZCB3aXRoIHRoZSBjdXJ2ZS4gKi8KKwlpbnQgZmxh
+Z3M7ICAgICAgICAgICAgICAgICAgICAgLyogUHVibGljIGtleSBmbGFncyAobm90IGFsd2F5cyB1
+c2VkKS4gKi8KKwl1bnNpZ25lZCBpbnQgbmJpdHM7ICAgICAgICAgICAgLyogTnVtYmVyIG9mIGJp
+dHMuICAqLworCisJLyogRG9tYWluIHBhcmFtZXRlcnMuICBOb3RlIHRoYXQgdGhleSBtYXkgbm90
+IGFsbCBiZSBzZXQgYW5kIGlmIHNldAorCSAqIHRoZSBNUElzIG1heSBiZSBmbGFnZWQgYXMgY29u
+c3RhbnQuCisJICovCisJTVBJIHA7ICAgICAgICAgLyogUHJpbWUgc3BlY2lmeWluZyB0aGUgZmll
+bGQgR0YocCkuICAqLworCU1QSSBhOyAgICAgICAgIC8qIEZpcnN0IGNvZWZmaWNpZW50IG9mIHRo
+ZSBXZWllcnN0cmFzcyBlcXVhdGlvbi4gICovCisJTVBJIGI7ICAgICAgICAgLyogU2Vjb25kIGNv
+ZWZmaWNpZW50IG9mIHRoZSBXZWllcnN0cmFzcyBlcXVhdGlvbi4gICovCisJTVBJX1BPSU5UIEc7
+ICAgLyogQmFzZSBwb2ludCAoZ2VuZXJhdG9yKS4gICovCisJTVBJIG47ICAgICAgICAgLyogT3Jk
+ZXIgb2YgRy4gICovCisJdW5zaWduZWQgaW50IGg7ICAgICAgIC8qIENvZmFjdG9yLiAgKi8KKwor
+CS8qIFRoZSBhY3R1YWwga2V5LiAgTWF5IG5vdCBiZSBzZXQuICAqLworCU1QSV9QT0lOVCBROyAg
+IC8qIFB1YmxpYyBrZXkuICAgKi8KKwlNUEkgZDsgICAgICAgICAvKiBQcml2YXRlIGtleS4gICov
+CisKKwljb25zdCBjaGFyICpuYW1lOyAgICAgIC8qIE5hbWUgb2YgdGhlIGN1cnZlLiAgKi8KKwor
+CS8qIFRoaXMgc3RydWN0dXJlIGlzIHByaXZhdGUgdG8gbXBpL2VjLmMhICovCisJc3RydWN0IHsK
+KwkJc3RydWN0IHsKKwkJCXVuc2lnbmVkIGludCBhX2lzX3BtaW51czM6MTsKKwkJCXVuc2lnbmVk
+IGludCB0d29faW52X3A6MTsKKwkJfSB2YWxpZDsgLyogRmxhZ3MgdG8gaGVscCBzZXR0aW5nIHRo
+ZSBoZWxwZXIgdmFycyBiZWxvdy4gICovCisKKwkJaW50IGFfaXNfcG1pbnVzMzsgIC8qIFRydWUg
+aWYgQSA9IFAgLSAzLiAqLworCisJCU1QSSB0d29faW52X3A7CisKKwkJbXBpX2JhcnJldHRfdCBw
+X2JhcnJldHQ7CisKKwkJLyogU2NyYXRjaCB2YXJpYWJsZXMuICAqLworCQlNUEkgc2NyYXRjaFsx
+MV07CisKKwkJLyogSGVscGVyIGZvciBmYXN0IHJlZHVjdGlvbi4gICovCisJCS8qICAgaW50IG5p
+c3RfbmJpdHM7IC9cKiBJZiB0aGlzIGlzIGEgTklTVCBjdXJ2ZSwgdGhlICMgb2YgYml0cy4gKlwv
+ICovCisJCS8qICAgTVBJIHNbMTBdOyAqLworCQkvKiAgIE1QSSBjOyAqLworCX0gdDsKKworCS8q
+IEN1cnZlIHNwZWNpZmljIGNvbXB1dGF0aW9uIHJvdXRpbmVzIGZvciB0aGUgZmllbGQuICAqLwor
+CXZvaWQgKCphZGRtKShNUEkgdywgTVBJIHUsIE1QSSB2LCBzdHJ1Y3QgbXBpX2VjX2N0eCAqY3R4
+KTsKKwl2b2lkICgqc3VibSkoTVBJIHcsIE1QSSB1LCBNUEkgdiwgc3RydWN0IG1waV9lY19jdHgg
+KmVjKTsKKwl2b2lkICgqbXVsbSkoTVBJIHcsIE1QSSB1LCBNUEkgdiwgc3RydWN0IG1waV9lY19j
+dHggKmN0eCk7CisJdm9pZCAoKnBvdzIpKE1QSSB3LCBjb25zdCBNUEkgYiwgc3RydWN0IG1waV9l
+Y19jdHggKmN0eCk7CisJdm9pZCAoKm11bDIpKE1QSSB3LCBNUEkgdSwgc3RydWN0IG1waV9lY19j
+dHggKmN0eCk7Cit9OworCit2b2lkIG1waV9lY19pbml0KHN0cnVjdCBtcGlfZWNfY3R4ICpjdHgs
+IGVudW0gZ2NyeV9tcGlfZWNfbW9kZWxzIG1vZGVsLAorCQkJZW51bSBlY2NfZGlhbGVjdHMgZGlh
+bGVjdCwKKwkJCWludCBmbGFncywgTVBJIHAsIE1QSSBhLCBNUEkgYik7Cit2b2lkIG1waV9lY19k
+ZWluaXQoc3RydWN0IG1waV9lY19jdHggKmN0eCk7CitNUElfUE9JTlQgbXBpX3BvaW50X25ldyh1
+bnNpZ25lZCBpbnQgbmJpdHMpOwordm9pZCBtcGlfcG9pbnRfcmVsZWFzZShNUElfUE9JTlQgcCk7
+Cit2b2lkIG1waV9wb2ludF9pbml0KE1QSV9QT0lOVCBwKTsKK3ZvaWQgbXBpX3BvaW50X2ZyZWVf
+cGFydHMoTVBJX1BPSU5UIHApOworaW50IG1waV9lY19nZXRfYWZmaW5lKE1QSSB4LCBNUEkgeSwg
+TVBJX1BPSU5UIHBvaW50LCBzdHJ1Y3QgbXBpX2VjX2N0eCAqY3R4KTsKK3ZvaWQgbXBpX2VjX2Fk
+ZF9wb2ludHMoTVBJX1BPSU5UIHJlc3VsdCwKKwkJCU1QSV9QT0lOVCBwMSwgTVBJX1BPSU5UIHAy
+LAorCQkJc3RydWN0IG1waV9lY19jdHggKmN0eCk7Cit2b2lkIG1waV9lY19tdWxfcG9pbnQoTVBJ
+X1BPSU5UIHJlc3VsdCwKKwkJCU1QSSBzY2FsYXIsIE1QSV9QT0lOVCBwb2ludCwKKwkJCXN0cnVj
+dCBtcGlfZWNfY3R4ICpjdHgpOworaW50IG1waV9lY19jdXJ2ZV9wb2ludChNUElfUE9JTlQgcG9p
+bnQsIHN0cnVjdCBtcGlfZWNfY3R4ICpjdHgpOworCiAvKiBpbmxpbmUgZnVuY3Rpb25zICovCiAK
+IC8qKgpkaWZmIC0tZ2l0IGEvbGliL21waS9NYWtlZmlsZSBiL2xpYi9tcGkvTWFrZWZpbGUKaW5k
+ZXggNDc3ZGViZDdlZDUwLi42ZTZlZjlhMzRmZTEgMTAwNjQ0Ci0tLSBhL2xpYi9tcGkvTWFrZWZp
+bGUKKysrIGIvbGliL21waS9NYWtlZmlsZQpAQCAtMTMsNiArMTMsNyBAQCBtcGkteSA9IFwKIAln
+ZW5lcmljX21waWgtcnNoaWZ0Lm8JCVwKIAlnZW5lcmljX21waWgtc3ViMS5vCQlcCiAJZ2VuZXJp
+Y19tcGloLWFkZDEubwkJXAorCWVjLm8JCQkJXAogCW1waWNvZGVyLm8JCQlcCiAJbXBpLWFkZC5v
+CQkJXAogCW1waS1iaXQubwkJCVwKZGlmZiAtLWdpdCBhL2xpYi9tcGkvZWMuYyBiL2xpYi9tcGkv
+ZWMuYwpuZXcgZmlsZSBtb2RlIDEwMDY0NAppbmRleCAwMDAwMDAwMDAwMDAuLmMyMTQ3MDEyMmRm
+YwotLS0gL2Rldi9udWxsCisrKyBiL2xpYi9tcGkvZWMuYwpAQCAtMCwwICsxLDE1MDkgQEAKKy8q
+IGVjLmMgLSAgRWxsaXB0aWMgQ3VydmUgZnVuY3Rpb25zCisgKiBDb3B5cmlnaHQgKEMpIDIwMDcg
+RnJlZSBTb2Z0d2FyZSBGb3VuZGF0aW9uLCBJbmMuCisgKiBDb3B5cmlnaHQgKEMpIDIwMTMgZzEw
+IENvZGUgR21iSAorICoKKyAqIFRoaXMgZmlsZSBpcyBwYXJ0IG9mIExpYmdjcnlwdC4KKyAqCisg
+KiBMaWJnY3J5cHQgaXMgZnJlZSBzb2Z0d2FyZTsgeW91IGNhbiByZWRpc3RyaWJ1dGUgaXQgYW5k
+L29yIG1vZGlmeQorICogaXQgdW5kZXIgdGhlIHRlcm1zIG9mIHRoZSBHTlUgTGVzc2VyIEdlbmVy
+YWwgUHVibGljIExpY2Vuc2UgYXMKKyAqIHB1Ymxpc2hlZCBieSB0aGUgRnJlZSBTb2Z0d2FyZSBG
+b3VuZGF0aW9uOyBlaXRoZXIgdmVyc2lvbiAyLjEgb2YKKyAqIHRoZSBMaWNlbnNlLCBvciAoYXQg
+eW91ciBvcHRpb24pIGFueSBsYXRlciB2ZXJzaW9uLgorICoKKyAqIExpYmdjcnlwdCBpcyBkaXN0
+cmlidXRlZCBpbiB0aGUgaG9wZSB0aGF0IGl0IHdpbGwgYmUgdXNlZnVsLAorICogYnV0IFdJVEhP
+VVQgQU5ZIFdBUlJBTlRZOyB3aXRob3V0IGV2ZW4gdGhlIGltcGxpZWQgd2FycmFudHkgb2YKKyAq
+IE1FUkNIQU5UQUJJTElUWSBvciBGSVRORVNTIEZPUiBBIFBBUlRJQ1VMQVIgUFVSUE9TRS4gIFNl
+ZSB0aGUKKyAqIEdOVSBMZXNzZXIgR2VuZXJhbCBQdWJsaWMgTGljZW5zZSBmb3IgbW9yZSBkZXRh
+aWxzLgorICoKKyAqIFlvdSBzaG91bGQgaGF2ZSByZWNlaXZlZCBhIGNvcHkgb2YgdGhlIEdOVSBM
+ZXNzZXIgR2VuZXJhbCBQdWJsaWMKKyAqIExpY2Vuc2UgYWxvbmcgd2l0aCB0aGlzIHByb2dyYW07
+IGlmIG5vdCwgc2VlIDxodHRwOi8vd3d3LmdudS5vcmcvbGljZW5zZXMvPi4KKyAqLworCisjaW5j
+bHVkZSAibXBpLWludGVybmFsLmgiCisjaW5jbHVkZSAibG9uZ2xvbmcuaCIKKworI2RlZmluZSBw
+b2ludF9pbml0KGEpICBtcGlfcG9pbnRfaW5pdCgoYSkpCisjZGVmaW5lIHBvaW50X2ZyZWUoYSkg
+IG1waV9wb2ludF9mcmVlX3BhcnRzKChhKSkKKworI2RlZmluZSBsb2dfZXJyb3IoZm10LCAuLi4p
+IHByX2VycihmbXQsICMjX19WQV9BUkdTX18pCisjZGVmaW5lIGxvZ19mYXRhbChmbXQsIC4uLikg
+cHJfZXJyKGZtdCwgIyNfX1ZBX0FSR1NfXykKKworI2RlZmluZSBESU0odikgKHNpemVvZih2KS9z
+aXplb2YoKHYpWzBdKSkKKworCisvKiBDcmVhdGUgYSBuZXcgcG9pbnQgb3B0aW9uLiAgTkJJVFMg
+Z2l2ZXMgdGhlIHNpemUgaW4gYml0cyBvZiBvbmUKKyAqIGNvb3JkaW5hdGU7IGl0IGlzIG9ubHkg
+dXNlZCB0byBwcmUtYWxsb2NhdGUgc29tZSByZXNvdXJjZXMgYW5kCisgKiBtaWdodCBhbHNvIGJl
+IHBhc3NlZCBhcyAwIHRvIHVzZSBhIGRlZmF1bHQgdmFsdWUuCisgKi8KK01QSV9QT0lOVCBtcGlf
+cG9pbnRfbmV3KHVuc2lnbmVkIGludCBuYml0cykKK3sKKwlNUElfUE9JTlQgcDsKKworCSh2b2lk
+KW5iaXRzOyAgLyogQ3VycmVudGx5IG5vdCB1c2VkLiAgKi8KKworCXAgPSBrbWFsbG9jKHNpemVv
+ZigqcCksIEdGUF9LRVJORUwpOworCWlmIChwKQorCQltcGlfcG9pbnRfaW5pdChwKTsKKwlyZXR1
+cm4gcDsKK30KK0VYUE9SVF9TWU1CT0xfR1BMKG1waV9wb2ludF9uZXcpOworCisvKiBSZWxlYXNl
+IHRoZSBwb2ludCBvYmplY3QgUC4gIFAgbWF5IGJlIE5VTEwuICovCit2b2lkIG1waV9wb2ludF9y
+ZWxlYXNlKE1QSV9QT0lOVCBwKQoreworCWlmIChwKSB7CisJCW1waV9wb2ludF9mcmVlX3BhcnRz
+KHApOworCQlrZnJlZShwKTsKKwl9Cit9CitFWFBPUlRfU1lNQk9MX0dQTChtcGlfcG9pbnRfcmVs
+ZWFzZSk7CisKKy8qIEluaXRpYWxpemUgdGhlIGZpZWxkcyBvZiBhIHBvaW50IG9iamVjdC4gIGdj
+cnlfbXBpX3BvaW50X2ZyZWVfcGFydHMKKyAqIG1heSBiZSB1c2VkIHRvIHJlbGVhc2UgdGhlIGZp
+ZWxkcy4KKyAqLwordm9pZCBtcGlfcG9pbnRfaW5pdChNUElfUE9JTlQgcCkKK3sKKwlwLT54ID0g
+bXBpX25ldygwKTsKKwlwLT55ID0gbXBpX25ldygwKTsKKwlwLT56ID0gbXBpX25ldygwKTsKK30K
+K0VYUE9SVF9TWU1CT0xfR1BMKG1waV9wb2ludF9pbml0KTsKKworLyogUmVsZWFzZSB0aGUgcGFy
+dHMgb2YgYSBwb2ludCBvYmplY3QuICovCit2b2lkIG1waV9wb2ludF9mcmVlX3BhcnRzKE1QSV9Q
+T0lOVCBwKQoreworCW1waV9mcmVlKHAtPngpOyBwLT54ID0gTlVMTDsKKwltcGlfZnJlZShwLT55
+KTsgcC0+eSA9IE5VTEw7CisJbXBpX2ZyZWUocC0+eik7IHAtPnogPSBOVUxMOworfQorRVhQT1JU
+X1NZTUJPTF9HUEwobXBpX3BvaW50X2ZyZWVfcGFydHMpOworCisvKiBTZXQgdGhlIHZhbHVlIGZy
+b20gUyBpbnRvIEQuICAqLworc3RhdGljIHZvaWQgcG9pbnRfc2V0KE1QSV9QT0lOVCBkLCBNUElf
+UE9JTlQgcykKK3sKKwltcGlfc2V0KGQtPngsIHMtPngpOworCW1waV9zZXQoZC0+eSwgcy0+eSk7
+CisJbXBpX3NldChkLT56LCBzLT56KTsKK30KKworc3RhdGljIHZvaWQgcG9pbnRfcmVzaXplKE1Q
+SV9QT0lOVCBwLCBzdHJ1Y3QgbXBpX2VjX2N0eCAqY3R4KQoreworCXNpemVfdCBubGltYnMgPSBj
+dHgtPnAtPm5saW1iczsKKworCW1waV9yZXNpemUocC0+eCwgbmxpbWJzKTsKKwlwLT54LT5ubGlt
+YnMgPSBubGltYnM7CisJbXBpX3Jlc2l6ZShwLT56LCBubGltYnMpOworCXAtPnotPm5saW1icyA9
+IG5saW1iczsKKworCWlmIChjdHgtPm1vZGVsICE9IE1QSV9FQ19NT05UR09NRVJZKSB7CisJCW1w
+aV9yZXNpemUocC0+eSwgbmxpbWJzKTsKKwkJcC0+eS0+bmxpbWJzID0gbmxpbWJzOworCX0KK30K
+Kworc3RhdGljIHZvaWQgcG9pbnRfc3dhcF9jb25kKE1QSV9QT0lOVCBkLCBNUElfUE9JTlQgcywg
+dW5zaWduZWQgbG9uZyBzd2FwLAorCQlzdHJ1Y3QgbXBpX2VjX2N0eCAqY3R4KQoreworCW1waV9z
+d2FwX2NvbmQoZC0+eCwgcy0+eCwgc3dhcCk7CisJaWYgKGN0eC0+bW9kZWwgIT0gTVBJX0VDX01P
+TlRHT01FUlkpCisJCW1waV9zd2FwX2NvbmQoZC0+eSwgcy0+eSwgc3dhcCk7CisJbXBpX3N3YXBf
+Y29uZChkLT56LCBzLT56LCBzd2FwKTsKK30KKworCisvKiBXID0gVyBtb2QgUC4gICovCitzdGF0
+aWMgdm9pZCBlY19tb2QoTVBJIHcsIHN0cnVjdCBtcGlfZWNfY3R4ICplYykKK3sKKwlpZiAoZWMt
+PnQucF9iYXJyZXR0KQorCQltcGlfbW9kX2JhcnJldHQodywgdywgZWMtPnQucF9iYXJyZXR0KTsK
+KwllbHNlCisJCW1waV9tb2QodywgdywgZWMtPnApOworfQorCitzdGF0aWMgdm9pZCBlY19hZGRt
+KE1QSSB3LCBNUEkgdSwgTVBJIHYsIHN0cnVjdCBtcGlfZWNfY3R4ICpjdHgpCit7CisJbXBpX2Fk
+ZCh3LCB1LCB2KTsKKwllY19tb2QodywgY3R4KTsKK30KKworc3RhdGljIHZvaWQgZWNfc3VibShN
+UEkgdywgTVBJIHUsIE1QSSB2LCBzdHJ1Y3QgbXBpX2VjX2N0eCAqZWMpCit7CisJbXBpX3N1Yih3
+LCB1LCB2KTsKKwl3aGlsZSAody0+c2lnbikKKwkJbXBpX2FkZCh3LCB3LCBlYy0+cCk7CisJLypl
+Y19tb2QodywgZWMpOyovCit9CisKK3N0YXRpYyB2b2lkIGVjX211bG0oTVBJIHcsIE1QSSB1LCBN
+UEkgdiwgc3RydWN0IG1waV9lY19jdHggKmN0eCkKK3sKKwltcGlfbXVsKHcsIHUsIHYpOworCWVj
+X21vZCh3LCBjdHgpOworfQorCisvKiBXID0gMiAqIFUgbW9kIFAuICAqLworc3RhdGljIHZvaWQg
+ZWNfbXVsMihNUEkgdywgTVBJIHUsIHN0cnVjdCBtcGlfZWNfY3R4ICpjdHgpCit7CisJbXBpX2xz
+aGlmdCh3LCB1LCAxKTsKKwllY19tb2QodywgY3R4KTsKK30KKworc3RhdGljIHZvaWQgZWNfcG93
+bShNUEkgdywgY29uc3QgTVBJIGIsIGNvbnN0IE1QSSBlLAorCQlzdHJ1Y3QgbXBpX2VjX2N0eCAq
+Y3R4KQoreworCW1waV9wb3dtKHcsIGIsIGUsIGN0eC0+cCk7CisJLyogbXBpX2Ficyh3KTsgKi8K
+K30KKworLyogU2hvcnRjdXQgZm9yCisgKiBlY19wb3dtKEIsIEIsIG1waV9jb25zdChNUElfQ19U
+V08pLCBjdHgpOworICogZm9yIGVhc2llciBvcHRpbWl6YXRpb24uCisgKi8KK3N0YXRpYyB2b2lk
+IGVjX3BvdzIoTVBJIHcsIGNvbnN0IE1QSSBiLCBzdHJ1Y3QgbXBpX2VjX2N0eCAqY3R4KQorewor
+CS8qIFVzaW5nIG1waV9tdWwgaXMgc2xpZ2h0bHkgZmFzdGVyIChhdCBsZWFzdCBvbiBhbWQ2NCku
+ICAqLworCS8qIG1waV9wb3dtKHcsIGIsIG1waV9jb25zdChNUElfQ19UV08pLCBjdHgtPnApOyAq
+LworCWVjX211bG0odywgYiwgYiwgY3R4KTsKK30KKworLyogU2hvcnRjdXQgZm9yCisgKiBlY19w
+b3dtKEIsIEIsIG1waV9jb25zdChNUElfQ19USFJFRSksIGN0eCk7CisgKiBmb3IgZWFzaWVyIG9w
+dGltaXphdGlvbi4KKyAqLworc3RhdGljIHZvaWQgZWNfcG93MyhNUEkgdywgY29uc3QgTVBJIGIs
+IHN0cnVjdCBtcGlfZWNfY3R4ICpjdHgpCit7CisJbXBpX3Bvd20odywgYiwgbXBpX2NvbnN0KE1Q
+SV9DX1RIUkVFKSwgY3R4LT5wKTsKK30KKworc3RhdGljIHZvaWQgZWNfaW52bShNUEkgeCwgTVBJ
+IGEsIHN0cnVjdCBtcGlfZWNfY3R4ICpjdHgpCit7CisJaWYgKCFtcGlfaW52bSh4LCBhLCBjdHgt
+PnApKQorCQlsb2dfZXJyb3IoImVjX2ludm06IGludmVyc2UgZG9lcyBub3QgZXhpc3Q6XG4iKTsK
+K30KKworc3RhdGljIHZvaWQgbXBpaF9zZXRfY29uZChtcGlfcHRyX3Qgd3AsIG1waV9wdHJfdCB1
+cCwKKwkJbXBpX3NpemVfdCB1c2l6ZSwgdW5zaWduZWQgbG9uZyBzZXQpCit7CisJbXBpX3NpemVf
+dCBpOworCW1waV9saW1iX3QgbWFzayA9ICgobXBpX2xpbWJfdCkwKSAtIHNldDsKKwltcGlfbGlt
+Yl90IHg7CisKKwlmb3IgKGkgPSAwOyBpIDwgdXNpemU7IGkrKykgeworCQl4ID0gbWFzayAmICh3
+cFtpXSBeIHVwW2ldKTsKKwkJd3BbaV0gPSB3cFtpXSBeIHg7CisJfQorfQorCisvKiBSb3V0aW5l
+cyBmb3IgMl4yNTUgLSAxOS4gICovCisKKyNkZWZpbmUgTElNQl9TSVpFXzI1NTE5ICgoMjU2K0JJ
+VFNfUEVSX01QSV9MSU1CLTEpL0JJVFNfUEVSX01QSV9MSU1CKQorCitzdGF0aWMgdm9pZCBlY19h
+ZGRtXzI1NTE5KE1QSSB3LCBNUEkgdSwgTVBJIHYsIHN0cnVjdCBtcGlfZWNfY3R4ICpjdHgpCit7
+CisJbXBpX3B0cl90IHdwLCB1cCwgdnA7CisJbXBpX3NpemVfdCB3c2l6ZSA9IExJTUJfU0laRV8y
+NTUxOTsKKwltcGlfbGltYl90IG5bTElNQl9TSVpFXzI1NTE5XTsKKwltcGlfbGltYl90IGJvcnJv
+dzsKKworCWlmICh3LT5ubGltYnMgIT0gd3NpemUgfHwgdS0+bmxpbWJzICE9IHdzaXplIHx8IHYt
+Pm5saW1icyAhPSB3c2l6ZSkKKwkJbG9nX2J1ZygiYWRkbV8yNTUxOTogZGlmZmVyZW50IHNpemVz
+XG4iKTsKKworCW1lbXNldChuLCAwLCBzaXplb2YobikpOworCXVwID0gdS0+ZDsKKwl2cCA9IHYt
+PmQ7CisJd3AgPSB3LT5kOworCisJbXBpaGVscF9hZGRfbih3cCwgdXAsIHZwLCB3c2l6ZSk7CisJ
+Ym9ycm93ID0gbXBpaGVscF9zdWJfbih3cCwgd3AsIGN0eC0+cC0+ZCwgd3NpemUpOworCW1waWhf
+c2V0X2NvbmQobiwgY3R4LT5wLT5kLCB3c2l6ZSwgKGJvcnJvdyAhPSAwVUwpKTsKKwltcGloZWxw
+X2FkZF9uKHdwLCB3cCwgbiwgd3NpemUpOworCXdwW0xJTUJfU0laRV8yNTUxOS0xXSAmPSB+KCht
+cGlfbGltYl90KTEgPDwgKDI1NSAlIEJJVFNfUEVSX01QSV9MSU1CKSk7Cit9CisKK3N0YXRpYyB2
+b2lkIGVjX3N1Ym1fMjU1MTkoTVBJIHcsIE1QSSB1LCBNUEkgdiwgc3RydWN0IG1waV9lY19jdHgg
+KmN0eCkKK3sKKwltcGlfcHRyX3Qgd3AsIHVwLCB2cDsKKwltcGlfc2l6ZV90IHdzaXplID0gTElN
+Ql9TSVpFXzI1NTE5OworCW1waV9saW1iX3QgbltMSU1CX1NJWkVfMjU1MTldOworCW1waV9saW1i
+X3QgYm9ycm93OworCisJaWYgKHctPm5saW1icyAhPSB3c2l6ZSB8fCB1LT5ubGltYnMgIT0gd3Np
+emUgfHwgdi0+bmxpbWJzICE9IHdzaXplKQorCQlsb2dfYnVnKCJzdWJtXzI1NTE5OiBkaWZmZXJl
+bnQgc2l6ZXNcbiIpOworCisJbWVtc2V0KG4sIDAsIHNpemVvZihuKSk7CisJdXAgPSB1LT5kOwor
+CXZwID0gdi0+ZDsKKwl3cCA9IHctPmQ7CisKKwlib3Jyb3cgPSBtcGloZWxwX3N1Yl9uKHdwLCB1
+cCwgdnAsIHdzaXplKTsKKwltcGloX3NldF9jb25kKG4sIGN0eC0+cC0+ZCwgd3NpemUsIChib3Jy
+b3cgIT0gMFVMKSk7CisJbXBpaGVscF9hZGRfbih3cCwgd3AsIG4sIHdzaXplKTsKKwl3cFtMSU1C
+X1NJWkVfMjU1MTktMV0gJj0gfigobXBpX2xpbWJfdCkxIDw8ICgyNTUgJSBCSVRTX1BFUl9NUElf
+TElNQikpOworfQorCitzdGF0aWMgdm9pZCBlY19tdWxtXzI1NTE5KE1QSSB3LCBNUEkgdSwgTVBJ
+IHYsIHN0cnVjdCBtcGlfZWNfY3R4ICpjdHgpCit7CisJbXBpX3B0cl90IHdwLCB1cCwgdnA7CisJ
+bXBpX3NpemVfdCB3c2l6ZSA9IExJTUJfU0laRV8yNTUxOTsKKwltcGlfbGltYl90IG5bTElNQl9T
+SVpFXzI1NTE5KjJdOworCW1waV9saW1iX3QgbVtMSU1CX1NJWkVfMjU1MTkrMV07CisJbXBpX2xp
+bWJfdCBjeTsKKwlpbnQgbXNiOworCisJKHZvaWQpY3R4OworCWlmICh3LT5ubGltYnMgIT0gd3Np
+emUgfHwgdS0+bmxpbWJzICE9IHdzaXplIHx8IHYtPm5saW1icyAhPSB3c2l6ZSkKKwkJbG9nX2J1
+ZygibXVsbV8yNTUxOTogZGlmZmVyZW50IHNpemVzXG4iKTsKKworCXVwID0gdS0+ZDsKKwl2cCA9
+IHYtPmQ7CisJd3AgPSB3LT5kOworCisJbXBpaGVscF9tdWxfbihuLCB1cCwgdnAsIHdzaXplKTsK
+KwltZW1jcHkod3AsIG4sIHdzaXplICogQllURVNfUEVSX01QSV9MSU1CKTsKKwl3cFtMSU1CX1NJ
+WkVfMjU1MTktMV0gJj0gfigobXBpX2xpbWJfdCkxIDw8ICgyNTUgJSBCSVRTX1BFUl9NUElfTElN
+QikpOworCisJbWVtY3B5KG0sIG4rTElNQl9TSVpFXzI1NTE5LTEsICh3c2l6ZSsxKSAqIEJZVEVT
+X1BFUl9NUElfTElNQik7CisJbXBpaGVscF9yc2hpZnQobSwgbSwgTElNQl9TSVpFXzI1NTE5KzEs
+ICgyNTUgJSBCSVRTX1BFUl9NUElfTElNQikpOworCisJbWVtY3B5KG4sIG0sIHdzaXplICogQllU
+RVNfUEVSX01QSV9MSU1CKTsKKwljeSA9IG1waWhlbHBfbHNoaWZ0KG0sIG0sIExJTUJfU0laRV8y
+NTUxOSwgNCk7CisJbVtMSU1CX1NJWkVfMjU1MTldID0gY3k7CisJY3kgPSBtcGloZWxwX2FkZF9u
+KG0sIG0sIG4sIHdzaXplKTsKKwltW0xJTUJfU0laRV8yNTUxOV0gKz0gY3k7CisJY3kgPSBtcGlo
+ZWxwX2FkZF9uKG0sIG0sIG4sIHdzaXplKTsKKwltW0xJTUJfU0laRV8yNTUxOV0gKz0gY3k7CisJ
+Y3kgPSBtcGloZWxwX2FkZF9uKG0sIG0sIG4sIHdzaXplKTsKKwltW0xJTUJfU0laRV8yNTUxOV0g
+Kz0gY3k7CisKKwljeSA9IG1waWhlbHBfYWRkX24od3AsIHdwLCBtLCB3c2l6ZSk7CisJbVtMSU1C
+X1NJWkVfMjU1MTldICs9IGN5OworCisJbWVtc2V0KG0sIDAsIHdzaXplICogQllURVNfUEVSX01Q
+SV9MSU1CKTsKKwltc2IgPSAod3BbTElNQl9TSVpFXzI1NTE5LTFdID4+ICgyNTUgJSBCSVRTX1BF
+Ul9NUElfTElNQikpOworCW1bMF0gPSAobVtMSU1CX1NJWkVfMjU1MTldICogMiArIG1zYikgKiAx
+OTsKKwl3cFtMSU1CX1NJWkVfMjU1MTktMV0gJj0gfigobXBpX2xpbWJfdCkxIDw8ICgyNTUgJSBC
+SVRTX1BFUl9NUElfTElNQikpOworCW1waWhlbHBfYWRkX24od3AsIHdwLCBtLCB3c2l6ZSk7CisK
+KwltWzBdID0gMDsKKwljeSA9IG1waWhlbHBfc3ViX24od3AsIHdwLCBjdHgtPnAtPmQsIHdzaXpl
+KTsKKwltcGloX3NldF9jb25kKG0sIGN0eC0+cC0+ZCwgd3NpemUsIChjeSAhPSAwVUwpKTsKKwlt
+cGloZWxwX2FkZF9uKHdwLCB3cCwgbSwgd3NpemUpOworfQorCitzdGF0aWMgdm9pZCBlY19tdWwy
+XzI1NTE5KE1QSSB3LCBNUEkgdSwgc3RydWN0IG1waV9lY19jdHggKmN0eCkKK3sKKwllY19hZGRt
+XzI1NTE5KHcsIHUsIHUsIGN0eCk7Cit9CisKK3N0YXRpYyB2b2lkIGVjX3BvdzJfMjU1MTkoTVBJ
+IHcsIGNvbnN0IE1QSSBiLCBzdHJ1Y3QgbXBpX2VjX2N0eCAqY3R4KQoreworCWVjX211bG1fMjU1
+MTkodywgYiwgYiwgY3R4KTsKK30KKworLyogUm91dGluZXMgZm9yIDJeNDQ4IC0gMl4yMjQgLSAx
+LiAgKi8KKworI2RlZmluZSBMSU1CX1NJWkVfNDQ4ICgoNDQ4K0JJVFNfUEVSX01QSV9MSU1CLTEp
+L0JJVFNfUEVSX01QSV9MSU1CKQorI2RlZmluZSBMSU1CX1NJWkVfSEFMRl80NDggKChMSU1CX1NJ
+WkVfNDQ4KzEpLzIpCisKK3N0YXRpYyB2b2lkIGVjX2FkZG1fNDQ4KE1QSSB3LCBNUEkgdSwgTVBJ
+IHYsIHN0cnVjdCBtcGlfZWNfY3R4ICpjdHgpCit7CisJbXBpX3B0cl90IHdwLCB1cCwgdnA7CisJ
+bXBpX3NpemVfdCB3c2l6ZSA9IExJTUJfU0laRV80NDg7CisJbXBpX2xpbWJfdCBuW0xJTUJfU0la
+RV80NDhdOworCW1waV9saW1iX3QgY3k7CisKKwlpZiAody0+bmxpbWJzICE9IHdzaXplIHx8IHUt
+Pm5saW1icyAhPSB3c2l6ZSB8fCB2LT5ubGltYnMgIT0gd3NpemUpCisJCWxvZ19idWcoImFkZG1f
+NDQ4OiBkaWZmZXJlbnQgc2l6ZXNcbiIpOworCisJbWVtc2V0KG4sIDAsIHNpemVvZihuKSk7CisJ
+dXAgPSB1LT5kOworCXZwID0gdi0+ZDsKKwl3cCA9IHctPmQ7CisKKwljeSA9IG1waWhlbHBfYWRk
+X24od3AsIHVwLCB2cCwgd3NpemUpOworCW1waWhfc2V0X2NvbmQobiwgY3R4LT5wLT5kLCB3c2l6
+ZSwgKGN5ICE9IDBVTCkpOworCW1waWhlbHBfc3ViX24od3AsIHdwLCBuLCB3c2l6ZSk7Cit9CisK
+K3N0YXRpYyB2b2lkIGVjX3N1Ym1fNDQ4KE1QSSB3LCBNUEkgdSwgTVBJIHYsIHN0cnVjdCBtcGlf
+ZWNfY3R4ICpjdHgpCit7CisJbXBpX3B0cl90IHdwLCB1cCwgdnA7CisJbXBpX3NpemVfdCB3c2l6
+ZSA9IExJTUJfU0laRV80NDg7CisJbXBpX2xpbWJfdCBuW0xJTUJfU0laRV80NDhdOworCW1waV9s
+aW1iX3QgYm9ycm93OworCisJaWYgKHctPm5saW1icyAhPSB3c2l6ZSB8fCB1LT5ubGltYnMgIT0g
+d3NpemUgfHwgdi0+bmxpbWJzICE9IHdzaXplKQorCQlsb2dfYnVnKCJzdWJtXzQ0ODogZGlmZmVy
+ZW50IHNpemVzXG4iKTsKKworCW1lbXNldChuLCAwLCBzaXplb2YobikpOworCXVwID0gdS0+ZDsK
+Kwl2cCA9IHYtPmQ7CisJd3AgPSB3LT5kOworCisJYm9ycm93ID0gbXBpaGVscF9zdWJfbih3cCwg
+dXAsIHZwLCB3c2l6ZSk7CisJbXBpaF9zZXRfY29uZChuLCBjdHgtPnAtPmQsIHdzaXplLCAoYm9y
+cm93ICE9IDBVTCkpOworCW1waWhlbHBfYWRkX24od3AsIHdwLCBuLCB3c2l6ZSk7Cit9CisKK3N0
+YXRpYyB2b2lkIGVjX211bG1fNDQ4KE1QSSB3LCBNUEkgdSwgTVBJIHYsIHN0cnVjdCBtcGlfZWNf
+Y3R4ICpjdHgpCit7CisJbXBpX3B0cl90IHdwLCB1cCwgdnA7CisJbXBpX3NpemVfdCB3c2l6ZSA9
+IExJTUJfU0laRV80NDg7CisJbXBpX2xpbWJfdCBuW0xJTUJfU0laRV80NDgqMl07CisJbXBpX2xp
+bWJfdCBhMltMSU1CX1NJWkVfSEFMRl80NDhdOworCW1waV9saW1iX3QgYTNbTElNQl9TSVpFX0hB
+TEZfNDQ4XTsKKwltcGlfbGltYl90IGIwW0xJTUJfU0laRV9IQUxGXzQ0OF07CisJbXBpX2xpbWJf
+dCBiMVtMSU1CX1NJWkVfSEFMRl80NDhdOworCW1waV9saW1iX3QgY3k7CisJaW50IGk7CisjaWYg
+KExJTUJfU0laRV9IQUxGXzQ0OCA+IExJTUJfU0laRV80NDgvMikKKwltcGlfbGltYl90IGIxX3Jl
+c3QsIGEzX3Jlc3Q7CisjZW5kaWYKKworCWlmICh3LT5ubGltYnMgIT0gd3NpemUgfHwgdS0+bmxp
+bWJzICE9IHdzaXplIHx8IHYtPm5saW1icyAhPSB3c2l6ZSkKKwkJbG9nX2J1ZygibXVsbV80NDg6
+IGRpZmZlcmVudCBzaXplc1xuIik7CisKKwl1cCA9IHUtPmQ7CisJdnAgPSB2LT5kOworCXdwID0g
+dy0+ZDsKKworCW1waWhlbHBfbXVsX24obiwgdXAsIHZwLCB3c2l6ZSk7CisKKwlmb3IgKGkgPSAw
+OyBpIDwgKHdzaXplICsgMSkgLyAyOyBpKyspIHsKKwkJYjBbaV0gPSBuW2ldOworCQliMVtpXSA9
+IG5baSt3c2l6ZS8yXTsKKwkJYTJbaV0gPSBuW2krd3NpemVdOworCQlhM1tpXSA9IG5baSt3c2l6
+ZSt3c2l6ZS8yXTsKKwl9CisKKyNpZiAoTElNQl9TSVpFX0hBTEZfNDQ4ID4gTElNQl9TSVpFXzQ0
+OC8yKQorCWIwW0xJTUJfU0laRV9IQUxGXzQ0OC0xXSAmPSAoKG1waV9saW1iX3QpMVVMIDw8IDMy
+KS0xOworCWEyW0xJTUJfU0laRV9IQUxGXzQ0OC0xXSAmPSAoKG1waV9saW1iX3QpMVVMIDw8IDMy
+KS0xOworCisJYjFfcmVzdCA9IDA7CisJYTNfcmVzdCA9IDA7CisKKwlmb3IgKGkgPSAod3NpemUg
+KyAxKSAvIDIgLSAxOyBpID49IDA7IGktLSkgeworCQltcGlfbGltYl90IGIxdiwgYTN2OworCQli
+MXYgPSBiMVtpXTsKKwkJYTN2ID0gYTNbaV07CisJCWIxW2ldID0gKGIxX3Jlc3QgPDwgMzIpIHwg
+KGIxdiA+PiAzMik7CisJCWEzW2ldID0gKGEzX3Jlc3QgPDwgMzIpIHwgKGEzdiA+PiAzMik7CisJ
+CWIxX3Jlc3QgPSBiMXYgJiAoKChtcGlfbGltYl90KTFVTCA8PCAzMiktMSk7CisJCWEzX3Jlc3Qg
+PSBhM3YgJiAoKChtcGlfbGltYl90KTFVTCA8PCAzMiktMSk7CisJfQorI2VuZGlmCisKKwljeSA9
+IG1waWhlbHBfYWRkX24oYjAsIGIwLCBhMiwgTElNQl9TSVpFX0hBTEZfNDQ4KTsKKwljeSArPSBt
+cGloZWxwX2FkZF9uKGIwLCBiMCwgYTMsIExJTUJfU0laRV9IQUxGXzQ0OCk7CisJZm9yIChpID0g
+MDsgaSA8ICh3c2l6ZSArIDEpIC8gMjsgaSsrKQorCQl3cFtpXSA9IGIwW2ldOworI2lmIChMSU1C
+X1NJWkVfSEFMRl80NDggPiBMSU1CX1NJWkVfNDQ4LzIpCisJd3BbTElNQl9TSVpFX0hBTEZfNDQ4
+LTFdICY9ICgoKG1waV9saW1iX3QpMVVMIDw8IDMyKS0xKTsKKyNlbmRpZgorCisjaWYgKExJTUJf
+U0laRV9IQUxGXzQ0OCA+IExJTUJfU0laRV80NDgvMikKKwljeSA9IGIwW0xJTUJfU0laRV9IQUxG
+XzQ0OC0xXSA+PiAzMjsKKyNlbmRpZgorCisJY3kgPSBtcGloZWxwX2FkZF8xKGIxLCBiMSwgTElN
+Ql9TSVpFX0hBTEZfNDQ4LCBjeSk7CisJY3kgKz0gbXBpaGVscF9hZGRfbihiMSwgYjEsIGEyLCBM
+SU1CX1NJWkVfSEFMRl80NDgpOworCWN5ICs9IG1waWhlbHBfYWRkX24oYjEsIGIxLCBhMywgTElN
+Ql9TSVpFX0hBTEZfNDQ4KTsKKwljeSArPSBtcGloZWxwX2FkZF9uKGIxLCBiMSwgYTMsIExJTUJf
+U0laRV9IQUxGXzQ0OCk7CisjaWYgKExJTUJfU0laRV9IQUxGXzQ0OCA+IExJTUJfU0laRV80NDgv
+MikKKwliMV9yZXN0ID0gMDsKKwlmb3IgKGkgPSAod3NpemUgKyAxKSAvIDIgLSAxOyBpID49IDA7
+IGktLSkgeworCQltcGlfbGltYl90IGIxdiA9IGIxW2ldOworCQliMVtpXSA9IChiMV9yZXN0IDw8
+IDMyKSB8IChiMXYgPj4gMzIpOworCQliMV9yZXN0ID0gYjF2ICYgKCgobXBpX2xpbWJfdCkxVUwg
+PDwgMzIpLTEpOworCX0KKwl3cFtMSU1CX1NJWkVfSEFMRl80NDgtMV0gfD0gKGIxX3Jlc3QgPDwg
+MzIpOworI2VuZGlmCisJZm9yIChpID0gMDsgaSA8IHdzaXplIC8gMjsgaSsrKQorCQl3cFtpKyh3
+c2l6ZSArIDEpIC8gMl0gPSBiMVtpXTsKKworI2lmIChMSU1CX1NJWkVfSEFMRl80NDggPiBMSU1C
+X1NJWkVfNDQ4LzIpCisJY3kgPSBiMVtMSU1CX1NJWkVfSEFMRl80NDgtMV07CisjZW5kaWYKKwor
+CW1lbXNldChuLCAwLCB3c2l6ZSAqIEJZVEVTX1BFUl9NUElfTElNQik7CisKKyNpZiAoTElNQl9T
+SVpFX0hBTEZfNDQ4ID4gTElNQl9TSVpFXzQ0OC8yKQorCW5bTElNQl9TSVpFX0hBTEZfNDQ4LTFd
+ID0gY3kgPDwgMzI7CisjZWxzZQorCW5bTElNQl9TSVpFX0hBTEZfNDQ4XSA9IGN5OworI2VuZGlm
+CisJblswXSA9IGN5OworCW1waWhlbHBfYWRkX24od3AsIHdwLCBuLCB3c2l6ZSk7CisKKwltZW1z
+ZXQobiwgMCwgd3NpemUgKiBCWVRFU19QRVJfTVBJX0xJTUIpOworCWN5ID0gbXBpaGVscF9zdWJf
+bih3cCwgd3AsIGN0eC0+cC0+ZCwgd3NpemUpOworCW1waWhfc2V0X2NvbmQobiwgY3R4LT5wLT5k
+LCB3c2l6ZSwgKGN5ICE9IDBVTCkpOworCW1waWhlbHBfYWRkX24od3AsIHdwLCBuLCB3c2l6ZSk7
+Cit9CisKK3N0YXRpYyB2b2lkIGVjX211bDJfNDQ4KE1QSSB3LCBNUEkgdSwgc3RydWN0IG1waV9l
+Y19jdHggKmN0eCkKK3sKKwllY19hZGRtXzQ0OCh3LCB1LCB1LCBjdHgpOworfQorCitzdGF0aWMg
+dm9pZCBlY19wb3cyXzQ0OChNUEkgdywgY29uc3QgTVBJIGIsIHN0cnVjdCBtcGlfZWNfY3R4ICpj
+dHgpCit7CisJZWNfbXVsbV80NDgodywgYiwgYiwgY3R4KTsKK30KKworc3RydWN0IGZpZWxkX3Rh
+YmxlIHsKKwljb25zdCBjaGFyICpwOworCisJLyogY29tcHV0YXRpb24gcm91dGluZXMgZm9yIHRo
+ZSBmaWVsZC4gICovCisJdm9pZCAoKmFkZG0pKE1QSSB3LCBNUEkgdSwgTVBJIHYsIHN0cnVjdCBt
+cGlfZWNfY3R4ICpjdHgpOworCXZvaWQgKCpzdWJtKShNUEkgdywgTVBJIHUsIE1QSSB2LCBzdHJ1
+Y3QgbXBpX2VjX2N0eCAqY3R4KTsKKwl2b2lkICgqbXVsbSkoTVBJIHcsIE1QSSB1LCBNUEkgdiwg
+c3RydWN0IG1waV9lY19jdHggKmN0eCk7CisJdm9pZCAoKm11bDIpKE1QSSB3LCBNUEkgdSwgc3Ry
+dWN0IG1waV9lY19jdHggKmN0eCk7CisJdm9pZCAoKnBvdzIpKE1QSSB3LCBjb25zdCBNUEkgYiwg
+c3RydWN0IG1waV9lY19jdHggKmN0eCk7Cit9OworCitzdGF0aWMgY29uc3Qgc3RydWN0IGZpZWxk
+X3RhYmxlIGZpZWxkX3RhYmxlW10gPSB7CisJeworCQkiMHg3RkZGRkZGRkZGRkZGRkZGRkZGRkZG
+RkZGRkZGRkZGRkZGRkZGRkZGRkZGRkZGRkZGRkZGRkZGRkZGRkZGRkVEIiwKKwkJZWNfYWRkbV8y
+NTUxOSwKKwkJZWNfc3VibV8yNTUxOSwKKwkJZWNfbXVsbV8yNTUxOSwKKwkJZWNfbXVsMl8yNTUx
+OSwKKwkJZWNfcG93Ml8yNTUxOQorCX0sCisJeworCQkiMHhGRkZGRkZGRkZGRkZGRkZGRkZGRkZG
+RkZGRkZGRkZGRkZGRkZGRkZGRkZGRkZGRkZGRkZGRkZGRSIKKwkJIkZGRkZGRkZGRkZGRkZGRkZG
+RkZGRkZGRkZGRkZGRkZGRkZGRkZGRkZGRkZGRkZGRkZGRkZGRkZGIiwKKwkJZWNfYWRkbV80NDgs
+CisJCWVjX3N1Ym1fNDQ4LAorCQllY19tdWxtXzQ0OCwKKwkJZWNfbXVsMl80NDgsCisJCWVjX3Bv
+dzJfNDQ4CisJfSwKKwl7IE5VTEwsIE5VTEwsIE5VTEwsIE5VTEwsIE5VTEwsIE5VTEwgfSwKK307
+CisKKy8qIEZvcmNlIHJlY29tcHV0YXRpb24gb2YgYWxsIGhlbHBlciB2YXJpYWJsZXMuICAqLwor
+c3RhdGljIHZvaWQgbXBpX2VjX2dldF9yZXNldChzdHJ1Y3QgbXBpX2VjX2N0eCAqZWMpCit7CisJ
+ZWMtPnQudmFsaWQuYV9pc19wbWludXMzID0gMDsKKwllYy0+dC52YWxpZC50d29faW52X3AgPSAw
+OworfQorCisvKiBBY2Nlc3NvciBmb3IgaGVscGVyIHZhcmlhYmxlLiAgKi8KK3N0YXRpYyBpbnQg
+ZWNfZ2V0X2FfaXNfcG1pbnVzMyhzdHJ1Y3QgbXBpX2VjX2N0eCAqZWMpCit7CisJTVBJIHRtcDsK
+KworCWlmICghZWMtPnQudmFsaWQuYV9pc19wbWludXMzKSB7CisJCWVjLT50LnZhbGlkLmFfaXNf
+cG1pbnVzMyA9IDE7CisJCXRtcCA9IG1waV9hbGxvY19saWtlKGVjLT5wKTsKKwkJbXBpX3N1Yl91
+aSh0bXAsIGVjLT5wLCAzKTsKKwkJZWMtPnQuYV9pc19wbWludXMzID0gIW1waV9jbXAoZWMtPmEs
+IHRtcCk7CisJCW1waV9mcmVlKHRtcCk7CisJfQorCisJcmV0dXJuIGVjLT50LmFfaXNfcG1pbnVz
+MzsKK30KKworLyogQWNjZXNzb3IgZm9yIGhlbHBlciB2YXJpYWJsZS4gICovCitzdGF0aWMgTVBJ
+IGVjX2dldF90d29faW52X3Aoc3RydWN0IG1waV9lY19jdHggKmVjKQoreworCWlmICghZWMtPnQu
+dmFsaWQudHdvX2ludl9wKSB7CisJCWVjLT50LnZhbGlkLnR3b19pbnZfcCA9IDE7CisJCWlmICgh
+ZWMtPnQudHdvX2ludl9wKQorCQkJZWMtPnQudHdvX2ludl9wID0gbXBpX2FsbG9jKDApOworCQll
+Y19pbnZtKGVjLT50LnR3b19pbnZfcCwgbXBpX2NvbnN0KE1QSV9DX1RXTyksIGVjKTsKKwl9CisJ
+cmV0dXJuIGVjLT50LnR3b19pbnZfcDsKK30KKworc3RhdGljIGNvbnN0IGNoYXIgKmNvbnN0IGN1
+cnZlMjU1MTlfYmFkX3BvaW50c1tdID0geworCSIweDdmZmZmZmZmZmZmZmZmZmZmZmZmZmZmZmZm
+ZmZmZmZmZmZmZmZmZmZmZmZmZmZmZmZmZmZmZmZmZmZmZmZmZWQiLAorCSIweDAwMDAwMDAwMDAw
+MDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAiLAor
+CSIweDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAw
+MDAwMDAwMDAwMDEiLAorCSIweDAwYjg0OTVmMTYwNTYyODZmZGIxMzI5Y2ViOGQwOWRhNmFjNDlm
+ZjFmYWUzNTYxNmFlYjg0MTNiN2M3YWViZTAiLAorCSIweDU3MTE5ZmQwZGQ0ZTIyZDg4NjhlMWM1
+OGM0NWM0NDA0NWJlZjgzOWM1NWIxZDBiMTI0OGM1MGEzYmM5NTljNWYiLAorCSIweDdmZmZmZmZm
+ZmZmZmZmZmZmZmZmZmZmZmZmZmZmZmZmZmZmZmZmZmZmZmZmZmZmZmZmZmZmZmZmZmZmZmZmZWMi
+LAorCSIweDdmZmZmZmZmZmZmZmZmZmZmZmZmZmZmZmZmZmZmZmZmZmZmZmZmZmZmZmZmZmZmZmZm
+ZmZmZmZmZmZmZmZmZWUiLAorCU5VTEwKK307CisKK3N0YXRpYyBjb25zdCBjaGFyICpjb25zdCBj
+dXJ2ZTQ0OF9iYWRfcG9pbnRzW10gPSB7CisJIjB4ZmZmZmZmZmZmZmZmZmZmZmZmZmZmZmZmZmZm
+ZmZmZmZmZmZmZmZmZmZmZmZmZmZmZmZmZmZmZmUiCisJImZmZmZmZmZmZmZmZmZmZmZmZmZmZmZm
+ZmZmZmZmZmZmZmZmZmZmZmZmZmZmZmZmZmZmZmZmZmZmIiwKKwkiMHgwMDAwMDAwMDAwMDAwMDAw
+MDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMCIKKwkiMDAwMDAwMDAwMDAw
+MDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAiLAorCSIweDAwMDAw
+MDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwIgorCSIw
+MDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMSIs
+CisJIjB4ZmZmZmZmZmZmZmZmZmZmZmZmZmZmZmZmZmZmZmZmZmZmZmZmZmZmZmZmZmZmZmZmZmZm
+ZmZmZmUiCisJImZmZmZmZmZmZmZmZmZmZmZmZmZmZmZmZmZmZmZmZmZmZmZmZmZmZmZmZmZmZmZm
+ZmZmZmZmZmZlIiwKKwkiMHhmZmZmZmZmZmZmZmZmZmZmZmZmZmZmZmZmZmZmZmZmZmZmZmZmZmZm
+ZmZmZmZmZmZmZmZmZmZmZiIKKwkiMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAw
+MDAwMDAwMDAwMDAwMDAwMDAwMDAiLAorCU5VTEwKK307CisKK3N0YXRpYyBjb25zdCBjaGFyICpj
+b25zdCAqYmFkX3BvaW50c190YWJsZVtdID0geworCWN1cnZlMjU1MTlfYmFkX3BvaW50cywKKwlj
+dXJ2ZTQ0OF9iYWRfcG9pbnRzLAorfTsKKworc3RhdGljIHZvaWQgbXBpX2VjX2NvZWZmaWNpZW50
+X25vcm1hbGl6ZShNUEkgYSwgTVBJIHApCit7CisJaWYgKGEtPnNpZ24pIHsKKwkJbXBpX3Jlc2l6
+ZShhLCBwLT5ubGltYnMpOworCQltcGloZWxwX3N1Yl9uKGEtPmQsIHAtPmQsIGEtPmQsIHAtPm5s
+aW1icyk7CisJCWEtPm5saW1icyA9IHAtPm5saW1iczsKKwkJYS0+c2lnbiA9IDA7CisJfQorfQor
+CisvKiBUaGlzIGZ1bmN0aW9uIGluaXRpYWxpemVkIGEgY29udGV4dCBmb3IgZWxsaXB0aWMgY3Vy
+dmUgYmFzZWQgb24gdGhlCisgKiBmaWVsZCBHRihwKS4gIFAgaXMgdGhlIHByaW1lIHNwZWNpZnlp
+bmcgdGhpcyBmaWVsZCwgQSBpcyB0aGUgZmlyc3QKKyAqIGNvZWZmaWNpZW50LiAgQ1RYIGlzIGV4
+cGVjdGVkIHRvIGJlIHplcm9pemVkLgorICovCit2b2lkIG1waV9lY19pbml0KHN0cnVjdCBtcGlf
+ZWNfY3R4ICpjdHgsIGVudW0gZ2NyeV9tcGlfZWNfbW9kZWxzIG1vZGVsLAorCQkJZW51bSBlY2Nf
+ZGlhbGVjdHMgZGlhbGVjdCwKKwkJCWludCBmbGFncywgTVBJIHAsIE1QSSBhLCBNUEkgYikKK3sK
+KwlpbnQgaTsKKwlzdGF0aWMgaW50IHVzZV9iYXJyZXR0ID0gLTEgLyogVE9ETzogMSBvciAtMSAq
+LzsKKworCW1waV9lY19jb2VmZmljaWVudF9ub3JtYWxpemUoYSwgcCk7CisJbXBpX2VjX2NvZWZm
+aWNpZW50X25vcm1hbGl6ZShiLCBwKTsKKworCS8qIEZpeG1lOiBEbyB3ZSB3YW50IHRvIGNoZWNr
+IHNvbWUgY29uc3RyYWludHM/IGUuZy4gIGEgPCBwICAqLworCisJY3R4LT5tb2RlbCA9IG1vZGVs
+OworCWN0eC0+ZGlhbGVjdCA9IGRpYWxlY3Q7CisJY3R4LT5mbGFncyA9IGZsYWdzOworCWlmIChk
+aWFsZWN0ID09IEVDQ19ESUFMRUNUX0VEMjU1MTkpCisJCWN0eC0+bmJpdHMgPSAyNTY7CisJZWxz
+ZQorCQljdHgtPm5iaXRzID0gbXBpX2dldF9uYml0cyhwKTsKKwljdHgtPnAgPSBtcGlfY29weShw
+KTsKKwljdHgtPmEgPSBtcGlfY29weShhKTsKKwljdHgtPmIgPSBtcGlfY29weShiKTsKKworCWN0
+eC0+dC5wX2JhcnJldHQgPSB1c2VfYmFycmV0dCA+IDAgPyBtcGlfYmFycmV0dF9pbml0KGN0eC0+
+cCwgMCkgOiBOVUxMOworCisJbXBpX2VjX2dldF9yZXNldChjdHgpOworCisJaWYgKG1vZGVsID09
+IE1QSV9FQ19NT05UR09NRVJZKSB7CisJCWZvciAoaSA9IDA7IGkgPCBESU0oYmFkX3BvaW50c190
+YWJsZSk7IGkrKykgeworCQkJTVBJIHBfY2FuZGlkYXRlID0gbXBpX3NjYW52YWwoYmFkX3BvaW50
+c190YWJsZVtpXVswXSk7CisJCQlpbnQgbWF0Y2hfcCA9ICFtcGlfY21wKGN0eC0+cCwgcF9jYW5k
+aWRhdGUpOworCQkJaW50IGo7CisKKwkJCW1waV9mcmVlKHBfY2FuZGlkYXRlKTsKKwkJCWlmICgh
+bWF0Y2hfcCkKKwkJCQljb250aW51ZTsKKworCQkJZm9yIChqID0gMDsgaSA8IERJTShjdHgtPnQu
+c2NyYXRjaCkgJiYgYmFkX3BvaW50c190YWJsZVtpXVtqXTsgaisrKQorCQkJCWN0eC0+dC5zY3Jh
+dGNoW2pdID0gbXBpX3NjYW52YWwoYmFkX3BvaW50c190YWJsZVtpXVtqXSk7CisJCX0KKwl9IGVs
+c2UgeworCQkvKiBBbGxvY2F0ZSBzY3JhdGNoIHZhcmlhYmxlcy4gICovCisJCWZvciAoaSA9IDA7
+IGkgPCBESU0oY3R4LT50LnNjcmF0Y2gpOyBpKyspCisJCQljdHgtPnQuc2NyYXRjaFtpXSA9IG1w
+aV9hbGxvY19saWtlKGN0eC0+cCk7CisJfQorCisJY3R4LT5hZGRtID0gZWNfYWRkbTsKKwljdHgt
+PnN1Ym0gPSBlY19zdWJtOworCWN0eC0+bXVsbSA9IGVjX211bG07CisJY3R4LT5tdWwyID0gZWNf
+bXVsMjsKKwljdHgtPnBvdzIgPSBlY19wb3cyOworCisJZm9yIChpID0gMDsgZmllbGRfdGFibGVb
+aV0ucDsgaSsrKSB7CisJCU1QSSBmX3A7CisKKwkJZl9wID0gbXBpX3NjYW52YWwoZmllbGRfdGFi
+bGVbaV0ucCk7CisJCWlmICghZl9wKQorCQkJYnJlYWs7CisKKwkJaWYgKCFtcGlfY21wKHAsIGZf
+cCkpIHsKKwkJCWN0eC0+YWRkbSA9IGZpZWxkX3RhYmxlW2ldLmFkZG07CisJCQljdHgtPnN1Ym0g
+PSBmaWVsZF90YWJsZVtpXS5zdWJtOworCQkJY3R4LT5tdWxtID0gZmllbGRfdGFibGVbaV0ubXVs
+bTsKKwkJCWN0eC0+bXVsMiA9IGZpZWxkX3RhYmxlW2ldLm11bDI7CisJCQljdHgtPnBvdzIgPSBm
+aWVsZF90YWJsZVtpXS5wb3cyOworCQkJbXBpX2ZyZWUoZl9wKTsKKworCQkJbXBpX3Jlc2l6ZShj
+dHgtPmEsIGN0eC0+cC0+bmxpbWJzKTsKKwkJCWN0eC0+YS0+bmxpbWJzID0gY3R4LT5wLT5ubGlt
+YnM7CisKKwkJCW1waV9yZXNpemUoY3R4LT5iLCBjdHgtPnAtPm5saW1icyk7CisJCQljdHgtPmIt
+Pm5saW1icyA9IGN0eC0+cC0+bmxpbWJzOworCisJCQlmb3IgKGkgPSAwOyBpIDwgRElNKGN0eC0+
+dC5zY3JhdGNoKSAmJiBjdHgtPnQuc2NyYXRjaFtpXTsgaSsrKQorCQkJCWN0eC0+dC5zY3JhdGNo
+W2ldLT5ubGltYnMgPSBjdHgtPnAtPm5saW1iczsKKworCQkJYnJlYWs7CisJCX0KKworCQltcGlf
+ZnJlZShmX3ApOworCX0KK30KK0VYUE9SVF9TWU1CT0xfR1BMKG1waV9lY19pbml0KTsKKwordm9p
+ZCBtcGlfZWNfZGVpbml0KHN0cnVjdCBtcGlfZWNfY3R4ICpjdHgpCit7CisJaW50IGk7CisKKwlt
+cGlfYmFycmV0dF9mcmVlKGN0eC0+dC5wX2JhcnJldHQpOworCisJLyogRG9tYWluIHBhcmFtZXRl
+ci4gICovCisJbXBpX2ZyZWUoY3R4LT5wKTsKKwltcGlfZnJlZShjdHgtPmEpOworCW1waV9mcmVl
+KGN0eC0+Yik7CisJbXBpX3BvaW50X3JlbGVhc2UoY3R4LT5HKTsKKwltcGlfZnJlZShjdHgtPm4p
+OworCisJLyogVGhlIGtleS4gICovCisJbXBpX3BvaW50X3JlbGVhc2UoY3R4LT5RKTsKKwltcGlf
+ZnJlZShjdHgtPmQpOworCisJLyogUHJpdmF0ZSBkYXRhIG9mIGVjLmMuICAqLworCW1waV9mcmVl
+KGN0eC0+dC50d29faW52X3ApOworCisJZm9yIChpID0gMDsgaSA8IERJTShjdHgtPnQuc2NyYXRj
+aCk7IGkrKykKKwkJbXBpX2ZyZWUoY3R4LT50LnNjcmF0Y2hbaV0pOworfQorRVhQT1JUX1NZTUJP
+TF9HUEwobXBpX2VjX2RlaW5pdCk7CisKKy8qIENvbXB1dGUgdGhlIGFmZmluZSBjb29yZGluYXRl
+cyBmcm9tIHRoZSBwcm9qZWN0aXZlIGNvb3JkaW5hdGVzIGluCisgKiBQT0lOVC4gIFNldCB0aGVt
+IGludG8gWCBhbmQgWS4gIElmIG9uZSBjb29yZGluYXRlIGlzIG5vdCByZXF1aXJlZCwKKyAqIFgg
+b3IgWSBtYXkgYmUgcGFzc2VkIGFzIE5VTEwuICBDVFggaXMgdGhlIHVzdWFsIGNvbnRleHQuIFJl
+dHVybnM6IDAKKyAqIG9uIHN1Y2Nlc3Mgb3IgITAgaWYgUE9JTlQgaXMgYXQgaW5maW5pdHkuCisg
+Ki8KK2ludCBtcGlfZWNfZ2V0X2FmZmluZShNUEkgeCwgTVBJIHksIE1QSV9QT0lOVCBwb2ludCwg
+c3RydWN0IG1waV9lY19jdHggKmN0eCkKK3sKKwlpZiAoIW1waV9jbXBfdWkocG9pbnQtPnosIDAp
+KQorCQlyZXR1cm4gLTE7CisKKwlzd2l0Y2ggKGN0eC0+bW9kZWwpIHsKKwljYXNlIE1QSV9FQ19X
+RUlFUlNUUkFTUzogLyogVXNpbmcgSmFjb2JpYW4gY29vcmRpbmF0ZXMuICAqLworCQl7CisJCQlN
+UEkgejEsIHoyLCB6MzsKKworCQkJejEgPSBtcGlfbmV3KDApOworCQkJejIgPSBtcGlfbmV3KDAp
+OworCQkJZWNfaW52bSh6MSwgcG9pbnQtPnosIGN0eCk7ICAvKiB6MSA9IHpeKC0xKSBtb2QgcCAg
+Ki8KKwkJCWVjX211bG0oejIsIHoxLCB6MSwgY3R4KTsgICAgLyogejIgPSB6XigtMikgbW9kIHAg
+ICovCisKKwkJCWlmICh4KQorCQkJCWVjX211bG0oeCwgcG9pbnQtPngsIHoyLCBjdHgpOworCisJ
+CQlpZiAoeSkgeworCQkJCXozID0gbXBpX25ldygwKTsKKwkJCQllY19tdWxtKHozLCB6MiwgejEs
+IGN0eCk7ICAgICAgLyogejMgPSB6XigtMykgbW9kIHAgKi8KKwkJCQllY19tdWxtKHksIHBvaW50
+LT55LCB6MywgY3R4KTsKKwkJCQltcGlfZnJlZSh6Myk7CisJCQl9CisKKwkJCW1waV9mcmVlKHoy
+KTsKKwkJCW1waV9mcmVlKHoxKTsKKwkJfQorCQlyZXR1cm4gMDsKKworCWNhc2UgTVBJX0VDX01P
+TlRHT01FUlk6CisJCXsKKwkJCWlmICh4KQorCQkJCW1waV9zZXQoeCwgcG9pbnQtPngpOworCisJ
+CQlpZiAoeSkgeworCQkJCWxvZ19mYXRhbCgiJXM6IEdldHRpbmcgWS1jb29yZGluYXRlIG9uICVz
+IGlzIG5vdCBzdXBwb3J0ZWRcbiIsCisJCQkJCQkibXBpX2VjX2dldF9hZmZpbmUiLCAiTW9udGdv
+bWVyeSIpOworCQkJCXJldHVybiAtMTsKKwkJCX0KKwkJfQorCQlyZXR1cm4gMDsKKworCWNhc2Ug
+TVBJX0VDX0VEV0FSRFM6CisJCXsKKwkJCU1QSSB6OworCisJCQl6ID0gbXBpX25ldygwKTsKKwkJ
+CWVjX2ludm0oeiwgcG9pbnQtPnosIGN0eCk7CisKKwkJCW1waV9yZXNpemUoeiwgY3R4LT5wLT5u
+bGltYnMpOworCQkJei0+bmxpbWJzID0gY3R4LT5wLT5ubGltYnM7CisKKwkJCWlmICh4KSB7CisJ
+CQkJbXBpX3Jlc2l6ZSh4LCBjdHgtPnAtPm5saW1icyk7CisJCQkJeC0+bmxpbWJzID0gY3R4LT5w
+LT5ubGltYnM7CisJCQkJY3R4LT5tdWxtKHgsIHBvaW50LT54LCB6LCBjdHgpOworCQkJfQorCQkJ
+aWYgKHkpIHsKKwkJCQltcGlfcmVzaXplKHksIGN0eC0+cC0+bmxpbWJzKTsKKwkJCQl5LT5ubGlt
+YnMgPSBjdHgtPnAtPm5saW1iczsKKwkJCQljdHgtPm11bG0oeSwgcG9pbnQtPnksIHosIGN0eCk7
+CisJCQl9CisKKwkJCW1waV9mcmVlKHopOworCQl9CisJCXJldHVybiAwOworCisJZGVmYXVsdDoK
+KwkJcmV0dXJuIC0xOworCX0KK30KK0VYUE9SVF9TWU1CT0xfR1BMKG1waV9lY19nZXRfYWZmaW5l
+KTsKKworLyogIFJFU1VMVCA9IDIgKiBQT0lOVCAgKFdlaWVyc3RyYXNzIHZlcnNpb24pLiAqLwor
+c3RhdGljIHZvaWQgZHVwX3BvaW50X3dlaWVyc3RyYXNzKE1QSV9QT0lOVCByZXN1bHQsCisJCU1Q
+SV9QT0lOVCBwb2ludCwgc3RydWN0IG1waV9lY19jdHggKmN0eCkKK3sKKyNkZWZpbmUgeDMgKHJl
+c3VsdC0+eCkKKyNkZWZpbmUgeTMgKHJlc3VsdC0+eSkKKyNkZWZpbmUgejMgKHJlc3VsdC0+eikK
+KyNkZWZpbmUgdDEgKGN0eC0+dC5zY3JhdGNoWzBdKQorI2RlZmluZSB0MiAoY3R4LT50LnNjcmF0
+Y2hbMV0pCisjZGVmaW5lIHQzIChjdHgtPnQuc2NyYXRjaFsyXSkKKyNkZWZpbmUgbDEgKGN0eC0+
+dC5zY3JhdGNoWzNdKQorI2RlZmluZSBsMiAoY3R4LT50LnNjcmF0Y2hbNF0pCisjZGVmaW5lIGwz
+IChjdHgtPnQuc2NyYXRjaFs1XSkKKworCWlmICghbXBpX2NtcF91aShwb2ludC0+eSwgMCkgfHwg
+IW1waV9jbXBfdWkocG9pbnQtPnosIDApKSB7CisJCS8qIFBfeSA9PSAwIHx8IFBfeiA9PSAwID0+
+IFsxOjE6MF0gKi8KKwkJbXBpX3NldF91aSh4MywgMSk7CisJCW1waV9zZXRfdWkoeTMsIDEpOwor
+CQltcGlfc2V0X3VpKHozLCAwKTsKKwl9IGVsc2UgeworCQlpZiAoZWNfZ2V0X2FfaXNfcG1pbnVz
+MyhjdHgpKSB7CisJCQkvKiBVc2UgdGhlIGZhc3RlciBjYXNlLiAgKi8KKwkJCS8qIEwxID0gMyhY
+IC0gWl4yKShYICsgWl4yKSAqLworCQkJLyogICAgICAgICAgICAgICAgICAgICAgICAgIFQxOiB1
+c2VkIGZvciBaXjIuICovCisJCQkvKiAgICAgICAgICAgICAgICAgICAgICAgICAgVDI6IHVzZWQg
+Zm9yIHRoZSByaWdodCB0ZXJtLiAqLworCQkJZWNfcG93Mih0MSwgcG9pbnQtPnosIGN0eCk7CisJ
+CQllY19zdWJtKGwxLCBwb2ludC0+eCwgdDEsIGN0eCk7CisJCQllY19tdWxtKGwxLCBsMSwgbXBp
+X2NvbnN0KE1QSV9DX1RIUkVFKSwgY3R4KTsKKwkJCWVjX2FkZG0odDIsIHBvaW50LT54LCB0MSwg
+Y3R4KTsKKwkJCWVjX211bG0obDEsIGwxLCB0MiwgY3R4KTsKKwkJfSBlbHNlIHsKKwkJCS8qIFN0
+YW5kYXJkIGNhc2UuICovCisJCQkvKiBMMSA9IDNYXjIgKyBhWl40ICovCisJCQkvKiAgICAgICAg
+ICAgICAgICAgICAgICAgICAgVDE6IHVzZWQgZm9yIGFaXjQuICovCisJCQllY19wb3cyKGwxLCBw
+b2ludC0+eCwgY3R4KTsKKwkJCWVjX211bG0obDEsIGwxLCBtcGlfY29uc3QoTVBJX0NfVEhSRUUp
+LCBjdHgpOworCQkJZWNfcG93bSh0MSwgcG9pbnQtPnosIG1waV9jb25zdChNUElfQ19GT1VSKSwg
+Y3R4KTsKKwkJCWVjX211bG0odDEsIHQxLCBjdHgtPmEsIGN0eCk7CisJCQllY19hZGRtKGwxLCBs
+MSwgdDEsIGN0eCk7CisJCX0KKwkJLyogWjMgPSAyWVogKi8KKwkJZWNfbXVsbSh6MywgcG9pbnQt
+PnksIHBvaW50LT56LCBjdHgpOworCQllY19tdWwyKHozLCB6MywgY3R4KTsKKworCQkvKiBMMiA9
+IDRYWV4yICovCisJCS8qICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgVDI6IHVzZWQgZm9y
+IFkyOyByZXF1aXJlZCBsYXRlci4gKi8KKwkJZWNfcG93Mih0MiwgcG9pbnQtPnksIGN0eCk7CisJ
+CWVjX211bG0obDIsIHQyLCBwb2ludC0+eCwgY3R4KTsKKwkJZWNfbXVsbShsMiwgbDIsIG1waV9j
+b25zdChNUElfQ19GT1VSKSwgY3R4KTsKKworCQkvKiBYMyA9IEwxXjIgLSAyTDIgKi8KKwkJLyog
+ICAgICAgICAgICAgICAgICAgICAgICAgICAgICBUMTogdXNlZCBmb3IgTDJeMi4gKi8KKwkJZWNf
+cG93Mih4MywgbDEsIGN0eCk7CisJCWVjX211bDIodDEsIGwyLCBjdHgpOworCQllY19zdWJtKHgz
+LCB4MywgdDEsIGN0eCk7CisKKwkJLyogTDMgPSA4WV40ICovCisJCS8qICAgICAgICAgICAgICAg
+ICAgICAgICAgICAgICAgVDI6IHRha2VuIGZyb20gYWJvdmUuICovCisJCWVjX3BvdzIodDIsIHQy
+LCBjdHgpOworCQllY19tdWxtKGwzLCB0MiwgbXBpX2NvbnN0KE1QSV9DX0VJR0hUKSwgY3R4KTsK
+KworCQkvKiBZMyA9IEwxKEwyIC0gWDMpIC0gTDMgKi8KKwkJZWNfc3VibSh5MywgbDIsIHgzLCBj
+dHgpOworCQllY19tdWxtKHkzLCB5MywgbDEsIGN0eCk7CisJCWVjX3N1Ym0oeTMsIHkzLCBsMywg
+Y3R4KTsKKwl9CisKKyN1bmRlZiB4MworI3VuZGVmIHkzCisjdW5kZWYgejMKKyN1bmRlZiB0MQor
+I3VuZGVmIHQyCisjdW5kZWYgdDMKKyN1bmRlZiBsMQorI3VuZGVmIGwyCisjdW5kZWYgbDMKK30K
+KworLyogIFJFU1VMVCA9IDIgKiBQT0lOVCAgKE1vbnRnb21lcnkgdmVyc2lvbikuICovCitzdGF0
+aWMgdm9pZCBkdXBfcG9pbnRfbW9udGdvbWVyeShNUElfUE9JTlQgcmVzdWx0LAorCQkJCU1QSV9Q
+T0lOVCBwb2ludCwgc3RydWN0IG1waV9lY19jdHggKmN0eCkKK3sKKwkodm9pZClyZXN1bHQ7CisJ
+KHZvaWQpcG9pbnQ7CisJKHZvaWQpY3R4OworCWxvZ19mYXRhbCgiJXM6ICVzIG5vdCB5ZXQgc3Vw
+cG9ydGVkXG4iLAorCQkJIm1waV9lY19kdXBfcG9pbnQiLCAiTW9udGdvbWVyeSIpOworfQorCisv
+KiAgUkVTVUxUID0gMiAqIFBPSU5UICAoVHdpc3RlZCBFZHdhcmRzIHZlcnNpb24pLiAqLworc3Rh
+dGljIHZvaWQgZHVwX3BvaW50X2Vkd2FyZHMoTVBJX1BPSU5UIHJlc3VsdCwKKwkJTVBJX1BPSU5U
+IHBvaW50LCBzdHJ1Y3QgbXBpX2VjX2N0eCAqY3R4KQoreworI2RlZmluZSBYMSAocG9pbnQtPngp
+CisjZGVmaW5lIFkxIChwb2ludC0+eSkKKyNkZWZpbmUgWjEgKHBvaW50LT56KQorI2RlZmluZSBY
+MyAocmVzdWx0LT54KQorI2RlZmluZSBZMyAocmVzdWx0LT55KQorI2RlZmluZSBaMyAocmVzdWx0
+LT56KQorI2RlZmluZSBCIChjdHgtPnQuc2NyYXRjaFswXSkKKyNkZWZpbmUgQyAoY3R4LT50LnNj
+cmF0Y2hbMV0pCisjZGVmaW5lIEQgKGN0eC0+dC5zY3JhdGNoWzJdKQorI2RlZmluZSBFIChjdHgt
+PnQuc2NyYXRjaFszXSkKKyNkZWZpbmUgRiAoY3R4LT50LnNjcmF0Y2hbNF0pCisjZGVmaW5lIEgg
+KGN0eC0+dC5zY3JhdGNoWzVdKQorI2RlZmluZSBKIChjdHgtPnQuc2NyYXRjaFs2XSkKKworCS8q
+IENvbXB1dGU6IChYXzMgOiBZXzMgOiBaXzMpID0gMiggWF8xIDogWV8xIDogWl8xICkgKi8KKwor
+CS8qIEIgPSAoWF8xICsgWV8xKV4yICAqLworCWN0eC0+YWRkbShCLCBYMSwgWTEsIGN0eCk7CisJ
+Y3R4LT5wb3cyKEIsIEIsIGN0eCk7CisKKwkvKiBDID0gWF8xXjIgKi8KKwkvKiBEID0gWV8xXjIg
+Ki8KKwljdHgtPnBvdzIoQywgWDEsIGN0eCk7CisJY3R4LT5wb3cyKEQsIFkxLCBjdHgpOworCisJ
+LyogRSA9IGFDICovCisJaWYgKGN0eC0+ZGlhbGVjdCA9PSBFQ0NfRElBTEVDVF9FRDI1NTE5KQor
+CQljdHgtPnN1Ym0oRSwgY3R4LT5wLCBDLCBjdHgpOworCWVsc2UKKwkJY3R4LT5tdWxtKEUsIGN0
+eC0+YSwgQywgY3R4KTsKKworCS8qIEYgPSBFICsgRCAqLworCWN0eC0+YWRkbShGLCBFLCBELCBj
+dHgpOworCisJLyogSCA9IFpfMV4yICovCisJY3R4LT5wb3cyKEgsIFoxLCBjdHgpOworCisJLyog
+SiA9IEYgLSAySCAqLworCWN0eC0+bXVsMihKLCBILCBjdHgpOworCWN0eC0+c3VibShKLCBGLCBK
+LCBjdHgpOworCisJLyogWF8zID0gKEIgLSBDIC0gRCkgwrcgSiAqLworCWN0eC0+c3VibShYMywg
+QiwgQywgY3R4KTsKKwljdHgtPnN1Ym0oWDMsIFgzLCBELCBjdHgpOworCWN0eC0+bXVsbShYMywg
+WDMsIEosIGN0eCk7CisKKwkvKiBZXzMgPSBGIMK3IChFIC0gRCkgKi8KKwljdHgtPnN1Ym0oWTMs
+IEUsIEQsIGN0eCk7CisJY3R4LT5tdWxtKFkzLCBZMywgRiwgY3R4KTsKKworCS8qIFpfMyA9IEYg
+wrcgSiAqLworCWN0eC0+bXVsbShaMywgRiwgSiwgY3R4KTsKKworI3VuZGVmIFgxCisjdW5kZWYg
+WTEKKyN1bmRlZiBaMQorI3VuZGVmIFgzCisjdW5kZWYgWTMKKyN1bmRlZiBaMworI3VuZGVmIEIK
+KyN1bmRlZiBDCisjdW5kZWYgRAorI3VuZGVmIEUKKyN1bmRlZiBGCisjdW5kZWYgSAorI3VuZGVm
+IEoKK30KKworLyogIFJFU1VMVCA9IDIgKiBQT0lOVCAgKi8KK3N0YXRpYyB2b2lkCittcGlfZWNf
+ZHVwX3BvaW50KE1QSV9QT0lOVCByZXN1bHQsIE1QSV9QT0lOVCBwb2ludCwgc3RydWN0IG1waV9l
+Y19jdHggKmN0eCkKK3sKKwlzd2l0Y2ggKGN0eC0+bW9kZWwpIHsKKwljYXNlIE1QSV9FQ19XRUlF
+UlNUUkFTUzoKKwkJZHVwX3BvaW50X3dlaWVyc3RyYXNzKHJlc3VsdCwgcG9pbnQsIGN0eCk7CisJ
+CWJyZWFrOworCWNhc2UgTVBJX0VDX01PTlRHT01FUlk6CisJCWR1cF9wb2ludF9tb250Z29tZXJ5
+KHJlc3VsdCwgcG9pbnQsIGN0eCk7CisJCWJyZWFrOworCWNhc2UgTVBJX0VDX0VEV0FSRFM6CisJ
+CWR1cF9wb2ludF9lZHdhcmRzKHJlc3VsdCwgcG9pbnQsIGN0eCk7CisJCWJyZWFrOworCX0KK30K
+KworLyogUkVTVUxUID0gUDEgKyBQMiAgKFdlaWVyc3RyYXNzIHZlcnNpb24pLiovCitzdGF0aWMg
+dm9pZCBhZGRfcG9pbnRzX3dlaWVyc3RyYXNzKE1QSV9QT0lOVCByZXN1bHQsCisJCU1QSV9QT0lO
+VCBwMSwgTVBJX1BPSU5UIHAyLAorCQlzdHJ1Y3QgbXBpX2VjX2N0eCAqY3R4KQoreworI2RlZmlu
+ZSB4MSAocDEtPngpCisjZGVmaW5lIHkxIChwMS0+eSkKKyNkZWZpbmUgejEgKHAxLT56KQorI2Rl
+ZmluZSB4MiAocDItPngpCisjZGVmaW5lIHkyIChwMi0+eSkKKyNkZWZpbmUgejIgKHAyLT56KQor
+I2RlZmluZSB4MyAocmVzdWx0LT54KQorI2RlZmluZSB5MyAocmVzdWx0LT55KQorI2RlZmluZSB6
+MyAocmVzdWx0LT56KQorI2RlZmluZSBsMSAoY3R4LT50LnNjcmF0Y2hbMF0pCisjZGVmaW5lIGwy
+IChjdHgtPnQuc2NyYXRjaFsxXSkKKyNkZWZpbmUgbDMgKGN0eC0+dC5zY3JhdGNoWzJdKQorI2Rl
+ZmluZSBsNCAoY3R4LT50LnNjcmF0Y2hbM10pCisjZGVmaW5lIGw1IChjdHgtPnQuc2NyYXRjaFs0
+XSkKKyNkZWZpbmUgbDYgKGN0eC0+dC5zY3JhdGNoWzVdKQorI2RlZmluZSBsNyAoY3R4LT50LnNj
+cmF0Y2hbNl0pCisjZGVmaW5lIGw4IChjdHgtPnQuc2NyYXRjaFs3XSkKKyNkZWZpbmUgbDkgKGN0
+eC0+dC5zY3JhdGNoWzhdKQorI2RlZmluZSB0MSAoY3R4LT50LnNjcmF0Y2hbOV0pCisjZGVmaW5l
+IHQyIChjdHgtPnQuc2NyYXRjaFsxMF0pCisKKwlpZiAoKCFtcGlfY21wKHgxLCB4MikpICYmICgh
+bXBpX2NtcCh5MSwgeTIpKSAmJiAoIW1waV9jbXAoejEsIHoyKSkpIHsKKwkJLyogU2FtZSBwb2lu
+dDsgbmVlZCB0byBjYWxsIHRoZSBkdXBsaWNhdGUgZnVuY3Rpb24uICAqLworCQltcGlfZWNfZHVw
+X3BvaW50KHJlc3VsdCwgcDEsIGN0eCk7CisJfSBlbHNlIGlmICghbXBpX2NtcF91aSh6MSwgMCkp
+IHsKKwkJLyogUDEgaXMgYXQgaW5maW5pdHkuICAqLworCQltcGlfc2V0KHgzLCBwMi0+eCk7CisJ
+CW1waV9zZXQoeTMsIHAyLT55KTsKKwkJbXBpX3NldCh6MywgcDItPnopOworCX0gZWxzZSBpZiAo
+IW1waV9jbXBfdWkoejIsIDApKSB7CisJCS8qIFAyIGlzIGF0IGluZmluaXR5LiAgKi8KKwkJbXBp
+X3NldCh4MywgcDEtPngpOworCQltcGlfc2V0KHkzLCBwMS0+eSk7CisJCW1waV9zZXQoejMsIHAx
+LT56KTsKKwl9IGVsc2UgeworCQlpbnQgejFfaXNfb25lID0gIW1waV9jbXBfdWkoejEsIDEpOwor
+CQlpbnQgejJfaXNfb25lID0gIW1waV9jbXBfdWkoejIsIDEpOworCisJCS8qIGwxID0geDEgejJe
+MiAgKi8KKwkJLyogbDIgPSB4MiB6MV4yICAqLworCQlpZiAoejJfaXNfb25lKQorCQkJbXBpX3Nl
+dChsMSwgeDEpOworCQllbHNlIHsKKwkJCWVjX3BvdzIobDEsIHoyLCBjdHgpOworCQkJZWNfbXVs
+bShsMSwgbDEsIHgxLCBjdHgpOworCQl9CisJCWlmICh6MV9pc19vbmUpCisJCQltcGlfc2V0KGwy
+LCB4Mik7CisJCWVsc2UgeworCQkJZWNfcG93MihsMiwgejEsIGN0eCk7CisJCQllY19tdWxtKGwy
+LCBsMiwgeDIsIGN0eCk7CisJCX0KKwkJLyogbDMgPSBsMSAtIGwyICovCisJCWVjX3N1Ym0obDMs
+IGwxLCBsMiwgY3R4KTsKKwkJLyogbDQgPSB5MSB6Ml4zICAqLworCQllY19wb3dtKGw0LCB6Miwg
+bXBpX2NvbnN0KE1QSV9DX1RIUkVFKSwgY3R4KTsKKwkJZWNfbXVsbShsNCwgbDQsIHkxLCBjdHgp
+OworCQkvKiBsNSA9IHkyIHoxXjMgICovCisJCWVjX3Bvd20obDUsIHoxLCBtcGlfY29uc3QoTVBJ
+X0NfVEhSRUUpLCBjdHgpOworCQllY19tdWxtKGw1LCBsNSwgeTIsIGN0eCk7CisJCS8qIGw2ID0g
+bDQgLSBsNSAgKi8KKwkJZWNfc3VibShsNiwgbDQsIGw1LCBjdHgpOworCisJCWlmICghbXBpX2Nt
+cF91aShsMywgMCkpIHsKKwkJCWlmICghbXBpX2NtcF91aShsNiwgMCkpIHsKKwkJCQkvKiBQMSBh
+bmQgUDIgYXJlIHRoZSBzYW1lIC0gdXNlIGR1cGxpY2F0ZSBmdW5jdGlvbi4gKi8KKwkJCQltcGlf
+ZWNfZHVwX3BvaW50KHJlc3VsdCwgcDEsIGN0eCk7CisJCQl9IGVsc2UgeworCQkJCS8qIFAxIGlz
+IHRoZSBpbnZlcnNlIG9mIFAyLiAgKi8KKwkJCQltcGlfc2V0X3VpKHgzLCAxKTsKKwkJCQltcGlf
+c2V0X3VpKHkzLCAxKTsKKwkJCQltcGlfc2V0X3VpKHozLCAwKTsKKwkJCX0KKwkJfSBlbHNlIHsK
+KwkJCS8qIGw3ID0gbDEgKyBsMiAgKi8KKwkJCWVjX2FkZG0obDcsIGwxLCBsMiwgY3R4KTsKKwkJ
+CS8qIGw4ID0gbDQgKyBsNSAgKi8KKwkJCWVjX2FkZG0obDgsIGw0LCBsNSwgY3R4KTsKKwkJCS8q
+IHozID0gejEgejIgbDMgICovCisJCQllY19tdWxtKHozLCB6MSwgejIsIGN0eCk7CisJCQllY19t
+dWxtKHozLCB6MywgbDMsIGN0eCk7CisJCQkvKiB4MyA9IGw2XjIgLSBsNyBsM14yICAqLworCQkJ
+ZWNfcG93Mih0MSwgbDYsIGN0eCk7CisJCQllY19wb3cyKHQyLCBsMywgY3R4KTsKKwkJCWVjX211
+bG0odDIsIHQyLCBsNywgY3R4KTsKKwkJCWVjX3N1Ym0oeDMsIHQxLCB0MiwgY3R4KTsKKwkJCS8q
+IGw5ID0gbDcgbDNeMiAtIDIgeDMgICovCisJCQllY19tdWwyKHQxLCB4MywgY3R4KTsKKwkJCWVj
+X3N1Ym0obDksIHQyLCB0MSwgY3R4KTsKKwkJCS8qIHkzID0gKGw5IGw2IC0gbDggbDNeMykvMiAg
+Ki8KKwkJCWVjX211bG0obDksIGw5LCBsNiwgY3R4KTsKKwkJCWVjX3Bvd20odDEsIGwzLCBtcGlf
+Y29uc3QoTVBJX0NfVEhSRUUpLCBjdHgpOyAvKiBmaXhtZTogVXNlIHNhdmVkIHZhbHVlKi8KKwkJ
+CWVjX211bG0odDEsIHQxLCBsOCwgY3R4KTsKKwkJCWVjX3N1Ym0oeTMsIGw5LCB0MSwgY3R4KTsK
+KwkJCWVjX211bG0oeTMsIHkzLCBlY19nZXRfdHdvX2ludl9wKGN0eCksIGN0eCk7CisJCX0KKwl9
+CisKKyN1bmRlZiB4MQorI3VuZGVmIHkxCisjdW5kZWYgejEKKyN1bmRlZiB4MgorI3VuZGVmIHky
+CisjdW5kZWYgejIKKyN1bmRlZiB4MworI3VuZGVmIHkzCisjdW5kZWYgejMKKyN1bmRlZiBsMQor
+I3VuZGVmIGwyCisjdW5kZWYgbDMKKyN1bmRlZiBsNAorI3VuZGVmIGw1CisjdW5kZWYgbDYKKyN1
+bmRlZiBsNworI3VuZGVmIGw4CisjdW5kZWYgbDkKKyN1bmRlZiB0MQorI3VuZGVmIHQyCit9CisK
+Ky8qIFJFU1VMVCA9IFAxICsgUDIgIChNb250Z29tZXJ5IHZlcnNpb24pLiovCitzdGF0aWMgdm9p
+ZCBhZGRfcG9pbnRzX21vbnRnb21lcnkoTVBJX1BPSU5UIHJlc3VsdCwKKwkJTVBJX1BPSU5UIHAx
+LCBNUElfUE9JTlQgcDIsCisJCXN0cnVjdCBtcGlfZWNfY3R4ICpjdHgpCit7CisJKHZvaWQpcmVz
+dWx0OworCSh2b2lkKXAxOworCSh2b2lkKXAyOworCSh2b2lkKWN0eDsKKwlsb2dfZmF0YWwoIiVz
+OiAlcyBub3QgeWV0IHN1cHBvcnRlZFxuIiwKKwkJCSJtcGlfZWNfYWRkX3BvaW50cyIsICJNb250
+Z29tZXJ5Iik7Cit9CisKKy8qIFJFU1VMVCA9IFAxICsgUDIgIChUd2lzdGVkIEVkd2FyZHMgdmVy
+c2lvbikuKi8KK3N0YXRpYyB2b2lkIGFkZF9wb2ludHNfZWR3YXJkcyhNUElfUE9JTlQgcmVzdWx0
+LAorCQlNUElfUE9JTlQgcDEsIE1QSV9QT0lOVCBwMiwKKwkJc3RydWN0IG1waV9lY19jdHggKmN0
+eCkKK3sKKyNkZWZpbmUgWDEgKHAxLT54KQorI2RlZmluZSBZMSAocDEtPnkpCisjZGVmaW5lIFox
+IChwMS0+eikKKyNkZWZpbmUgWDIgKHAyLT54KQorI2RlZmluZSBZMiAocDItPnkpCisjZGVmaW5l
+IFoyIChwMi0+eikKKyNkZWZpbmUgWDMgKHJlc3VsdC0+eCkKKyNkZWZpbmUgWTMgKHJlc3VsdC0+
+eSkKKyNkZWZpbmUgWjMgKHJlc3VsdC0+eikKKyNkZWZpbmUgQSAoY3R4LT50LnNjcmF0Y2hbMF0p
+CisjZGVmaW5lIEIgKGN0eC0+dC5zY3JhdGNoWzFdKQorI2RlZmluZSBDIChjdHgtPnQuc2NyYXRj
+aFsyXSkKKyNkZWZpbmUgRCAoY3R4LT50LnNjcmF0Y2hbM10pCisjZGVmaW5lIEUgKGN0eC0+dC5z
+Y3JhdGNoWzRdKQorI2RlZmluZSBGIChjdHgtPnQuc2NyYXRjaFs1XSkKKyNkZWZpbmUgRyAoY3R4
+LT50LnNjcmF0Y2hbNl0pCisjZGVmaW5lIHRtcCAoY3R4LT50LnNjcmF0Y2hbN10pCisKKwlwb2lu
+dF9yZXNpemUocmVzdWx0LCBjdHgpOworCisJLyogQ29tcHV0ZTogKFhfMyA6IFlfMyA6IFpfMykg
+PSAoWF8xIDogWV8xIDogWl8xKSArIChYXzIgOiBZXzIgOiBaXzMpICovCisKKwkvKiBBID0gWjEg
+wrcgWjIgKi8KKwljdHgtPm11bG0oQSwgWjEsIFoyLCBjdHgpOworCisJLyogQiA9IEFeMiAqLwor
+CWN0eC0+cG93MihCLCBBLCBjdHgpOworCisJLyogQyA9IFgxIMK3IFgyICovCisJY3R4LT5tdWxt
+KEMsIFgxLCBYMiwgY3R4KTsKKworCS8qIEQgPSBZMSDCtyBZMiAqLworCWN0eC0+bXVsbShELCBZ
+MSwgWTIsIGN0eCk7CisKKwkvKiBFID0gZCDCtyBDIMK3IEQgKi8KKwljdHgtPm11bG0oRSwgY3R4
+LT5iLCBDLCBjdHgpOworCWN0eC0+bXVsbShFLCBFLCBELCBjdHgpOworCisJLyogRiA9IEIgLSBF
+ICovCisJY3R4LT5zdWJtKEYsIEIsIEUsIGN0eCk7CisKKwkvKiBHID0gQiArIEUgKi8KKwljdHgt
+PmFkZG0oRywgQiwgRSwgY3R4KTsKKworCS8qIFhfMyA9IEEgwrcgRiDCtyAoKFhfMSArIFlfMSkg
+wrcgKFhfMiArIFlfMikgLSBDIC0gRCkgKi8KKwljdHgtPmFkZG0odG1wLCBYMSwgWTEsIGN0eCk7
+CisJY3R4LT5hZGRtKFgzLCBYMiwgWTIsIGN0eCk7CisJY3R4LT5tdWxtKFgzLCBYMywgdG1wLCBj
+dHgpOworCWN0eC0+c3VibShYMywgWDMsIEMsIGN0eCk7CisJY3R4LT5zdWJtKFgzLCBYMywgRCwg
+Y3R4KTsKKwljdHgtPm11bG0oWDMsIFgzLCBGLCBjdHgpOworCWN0eC0+bXVsbShYMywgWDMsIEEs
+IGN0eCk7CisKKwkvKiBZXzMgPSBBIMK3IEcgwrcgKEQgLSBhQykgKi8KKwlpZiAoY3R4LT5kaWFs
+ZWN0ID09IEVDQ19ESUFMRUNUX0VEMjU1MTkpIHsKKwkJY3R4LT5hZGRtKFkzLCBELCBDLCBjdHgp
+OworCX0gZWxzZSB7CisJCWN0eC0+bXVsbShZMywgY3R4LT5hLCBDLCBjdHgpOworCQljdHgtPnN1
+Ym0oWTMsIEQsIFkzLCBjdHgpOworCX0KKwljdHgtPm11bG0oWTMsIFkzLCBHLCBjdHgpOworCWN0
+eC0+bXVsbShZMywgWTMsIEEsIGN0eCk7CisKKwkvKiBaXzMgPSBGIMK3IEcgKi8KKwljdHgtPm11
+bG0oWjMsIEYsIEcsIGN0eCk7CisKKworI3VuZGVmIFgxCisjdW5kZWYgWTEKKyN1bmRlZiBaMQor
+I3VuZGVmIFgyCisjdW5kZWYgWTIKKyN1bmRlZiBaMgorI3VuZGVmIFgzCisjdW5kZWYgWTMKKyN1
+bmRlZiBaMworI3VuZGVmIEEKKyN1bmRlZiBCCisjdW5kZWYgQworI3VuZGVmIEQKKyN1bmRlZiBF
+CisjdW5kZWYgRgorI3VuZGVmIEcKKyN1bmRlZiB0bXAKK30KKworLyogQ29tcHV0ZSBhIHN0ZXAg
+b2YgTW9udGdvbWVyeSBMYWRkZXIgKG9ubHkgdXNlIFggYW5kIFogaW4gdGhlIHBvaW50KS4KKyAq
+IElucHV0czogIFAxLCBQMiwgYW5kIHgtY29vcmRpbmF0ZSBvZiBESUYgPSBQMSAtIFAxLgorICog
+T3V0cHV0czogUFJEID0gMiAqIFAxIGFuZCAgU1VNID0gUDEgKyBQMi4KKyAqLworc3RhdGljIHZv
+aWQgbW9udGdvbWVyeV9sYWRkZXIoTVBJX1BPSU5UIHByZCwgTVBJX1BPSU5UIHN1bSwKKwkJTVBJ
+X1BPSU5UIHAxLCBNUElfUE9JTlQgcDIsIE1QSSBkaWZfeCwKKwkJc3RydWN0IG1waV9lY19jdHgg
+KmN0eCkKK3sKKwljdHgtPmFkZG0oc3VtLT54LCBwMi0+eCwgcDItPnosIGN0eCk7CisJY3R4LT5z
+dWJtKHAyLT56LCBwMi0+eCwgcDItPnosIGN0eCk7CisJY3R4LT5hZGRtKHByZC0+eCwgcDEtPngs
+IHAxLT56LCBjdHgpOworCWN0eC0+c3VibShwMS0+eiwgcDEtPngsIHAxLT56LCBjdHgpOworCWN0
+eC0+bXVsbShwMi0+eCwgcDEtPnosIHN1bS0+eCwgY3R4KTsKKwljdHgtPm11bG0ocDItPnosIHBy
+ZC0+eCwgcDItPnosIGN0eCk7CisJY3R4LT5wb3cyKHAxLT54LCBwcmQtPngsIGN0eCk7CisJY3R4
+LT5wb3cyKHAxLT56LCBwMS0+eiwgY3R4KTsKKwljdHgtPmFkZG0oc3VtLT54LCBwMi0+eCwgcDIt
+PnosIGN0eCk7CisJY3R4LT5zdWJtKHAyLT56LCBwMi0+eCwgcDItPnosIGN0eCk7CisJY3R4LT5t
+dWxtKHByZC0+eCwgcDEtPngsIHAxLT56LCBjdHgpOworCWN0eC0+c3VibShwMS0+eiwgcDEtPngs
+IHAxLT56LCBjdHgpOworCWN0eC0+cG93MihzdW0tPngsIHN1bS0+eCwgY3R4KTsKKwljdHgtPnBv
+dzIoc3VtLT56LCBwMi0+eiwgY3R4KTsKKwljdHgtPm11bG0ocHJkLT56LCBwMS0+eiwgY3R4LT5h
+LCBjdHgpOyAvKiBDVFgtPkE6IChhLTIpLzQgKi8KKwljdHgtPm11bG0oc3VtLT56LCBzdW0tPnos
+IGRpZl94LCBjdHgpOworCWN0eC0+YWRkbShwcmQtPnosIHAxLT54LCBwcmQtPnosIGN0eCk7CisJ
+Y3R4LT5tdWxtKHByZC0+eiwgcHJkLT56LCBwMS0+eiwgY3R4KTsKK30KKworLyogUkVTVUxUID0g
+UDEgKyBQMiAqLwordm9pZCBtcGlfZWNfYWRkX3BvaW50cyhNUElfUE9JTlQgcmVzdWx0LAorCQlN
+UElfUE9JTlQgcDEsIE1QSV9QT0lOVCBwMiwKKwkJc3RydWN0IG1waV9lY19jdHggKmN0eCkKK3sK
+Kwlzd2l0Y2ggKGN0eC0+bW9kZWwpIHsKKwljYXNlIE1QSV9FQ19XRUlFUlNUUkFTUzoKKwkJYWRk
+X3BvaW50c193ZWllcnN0cmFzcyhyZXN1bHQsIHAxLCBwMiwgY3R4KTsKKwkJYnJlYWs7CisJY2Fz
+ZSBNUElfRUNfTU9OVEdPTUVSWToKKwkJYWRkX3BvaW50c19tb250Z29tZXJ5KHJlc3VsdCwgcDEs
+IHAyLCBjdHgpOworCQlicmVhazsKKwljYXNlIE1QSV9FQ19FRFdBUkRTOgorCQlhZGRfcG9pbnRz
+X2Vkd2FyZHMocmVzdWx0LCBwMSwgcDIsIGN0eCk7CisJCWJyZWFrOworCX0KK30KK0VYUE9SVF9T
+WU1CT0xfR1BMKG1waV9lY19hZGRfcG9pbnRzKTsKKworLyogU2NhbGFyIHBvaW50IG11bHRpcGxp
+Y2F0aW9uIC0gdGhlIG1haW4gZnVuY3Rpb24gZm9yIEVDQy4gIElmIHRha2VzCisgKiBhbiBpbnRl
+Z2VyIFNDQUxBUiBhbmQgYSBQT0lOVCBhcyB3ZWxsIGFzIHRoZSB1c3VhbCBjb250ZXh0IENUWC4K
+KyAqIFJFU1VMVCB3aWxsIGJlIHNldCB0byB0aGUgcmVzdWx0aW5nIHBvaW50LgorICovCit2b2lk
+IG1waV9lY19tdWxfcG9pbnQoTVBJX1BPSU5UIHJlc3VsdCwKKwkJCU1QSSBzY2FsYXIsIE1QSV9Q
+T0lOVCBwb2ludCwKKwkJCXN0cnVjdCBtcGlfZWNfY3R4ICpjdHgpCit7CisJTVBJIHgxLCB5MSwg
+ejEsIGssIGgsIHl5OworCXVuc2lnbmVkIGludCBpLCBsb29wczsKKwlzdHJ1Y3QgZ2NyeV9tcGlf
+cG9pbnQgcDEsIHAyLCBwMWludjsKKworCWlmIChjdHgtPm1vZGVsID09IE1QSV9FQ19FRFdBUkRT
+KSB7CisJCS8qIFNpbXBsZSBsZWZ0IHRvIHJpZ2h0IGJpbmFyeSBtZXRob2QuICBBbGdvcml0aG0g
+My4yNyBmcm9tCisJCSAqIHthdXRob3I9e0hhbmtlcnNvbiwgRGFycmVsIGFuZCBNZW5lemVzLCBB
+bGZyZWQgSi4gYW5kIFZhbnN0b25lLCBTY290dH0sCisJCSAqICB0aXRsZSA9IHtHdWlkZSB0byBF
+bGxpcHRpYyBDdXJ2ZSBDcnlwdG9ncmFwaHl9LAorCQkgKiAgeWVhciA9IHsyMDAzfSwgaXNibiA9
+IHswMzg3OTUyNzNYfSwKKwkJICogIHVybCA9IHtodHRwOi8vd3d3LmNhY3IubWF0aC51d2F0ZXJs
+b28uY2EvZWNjL30sCisJCSAqICBwdWJsaXNoZXIgPSB7U3ByaW5nZXItVmVybGFnIE5ldyBZb3Jr
+LCBJbmMufX0KKwkJICovCisJCXVuc2lnbmVkIGludCBuYml0czsKKwkJaW50IGo7CisKKwkJaWYg
+KG1waV9jbXAoc2NhbGFyLCBjdHgtPnApID49IDApCisJCQluYml0cyA9IG1waV9nZXRfbmJpdHMo
+c2NhbGFyKTsKKwkJZWxzZQorCQkJbmJpdHMgPSBtcGlfZ2V0X25iaXRzKGN0eC0+cCk7CisKKwkJ
+bXBpX3NldF91aShyZXN1bHQtPngsIDApOworCQltcGlfc2V0X3VpKHJlc3VsdC0+eSwgMSk7CisJ
+CW1waV9zZXRfdWkocmVzdWx0LT56LCAxKTsKKwkJcG9pbnRfcmVzaXplKHBvaW50LCBjdHgpOwor
+CisJCXBvaW50X3Jlc2l6ZShyZXN1bHQsIGN0eCk7CisJCXBvaW50X3Jlc2l6ZShwb2ludCwgY3R4
+KTsKKworCQlmb3IgKGogPSBuYml0cy0xOyBqID49IDA7IGotLSkgeworCQkJbXBpX2VjX2R1cF9w
+b2ludChyZXN1bHQsIHJlc3VsdCwgY3R4KTsKKwkJCWlmIChtcGlfdGVzdF9iaXQoc2NhbGFyLCBq
+KSkKKwkJCQltcGlfZWNfYWRkX3BvaW50cyhyZXN1bHQsIHJlc3VsdCwgcG9pbnQsIGN0eCk7CisJ
+CX0KKwkJcmV0dXJuOworCX0gZWxzZSBpZiAoY3R4LT5tb2RlbCA9PSBNUElfRUNfTU9OVEdPTUVS
+WSkgeworCQl1bnNpZ25lZCBpbnQgbmJpdHM7CisJCWludCBqOworCQlzdHJ1Y3QgZ2NyeV9tcGlf
+cG9pbnQgcDFfLCBwMl87CisJCU1QSV9QT0lOVCBxMSwgcTIsIHByZCwgc3VtOworCQl1bnNpZ25l
+ZCBsb25nIHN3OworCQltcGlfc2l6ZV90IHJzaXplOworCQlpbnQgc2NhbGFyX2NvcGllZCA9IDA7
+CisKKwkJLyogQ29tcHV0ZSBzY2FsYXIgcG9pbnQgbXVsdGlwbGljYXRpb24gd2l0aCBNb250Z29t
+ZXJ5IExhZGRlci4KKwkJICogTm90ZSB0aGF0IHdlIGRvbid0IHVzZSBZLWNvb3JkaW5hdGUgaW4g
+dGhlIHBvaW50cyBhdCBhbGwuCisJCSAqIFJFU1VMVC0+WSB3aWxsIGJlIGZpbGxlZCBieSB6ZXJv
+LgorCQkgKi8KKworCQluYml0cyA9IG1waV9nZXRfbmJpdHMoc2NhbGFyKTsKKwkJcG9pbnRfaW5p
+dCgmcDEpOworCQlwb2ludF9pbml0KCZwMik7CisJCXBvaW50X2luaXQoJnAxXyk7CisJCXBvaW50
+X2luaXQoJnAyXyk7CisJCW1waV9zZXRfdWkocDEueCwgMSk7CisJCW1waV9mcmVlKHAyLngpOwor
+CQlwMi54ID0gbXBpX2NvcHkocG9pbnQtPngpOworCQltcGlfc2V0X3VpKHAyLnosIDEpOworCisJ
+CXBvaW50X3Jlc2l6ZSgmcDEsIGN0eCk7CisJCXBvaW50X3Jlc2l6ZSgmcDIsIGN0eCk7CisJCXBv
+aW50X3Jlc2l6ZSgmcDFfLCBjdHgpOworCQlwb2ludF9yZXNpemUoJnAyXywgY3R4KTsKKworCQlt
+cGlfcmVzaXplKHBvaW50LT54LCBjdHgtPnAtPm5saW1icyk7CisJCXBvaW50LT54LT5ubGltYnMg
+PSBjdHgtPnAtPm5saW1iczsKKworCQlxMSA9ICZwMTsKKwkJcTIgPSAmcDI7CisJCXByZCA9ICZw
+MV87CisJCXN1bSA9ICZwMl87CisKKwkJZm9yIChqID0gbmJpdHMtMTsgaiA+PSAwOyBqLS0pIHsK
+KwkJCU1QSV9QT0lOVCB0OworCisJCQlzdyA9IG1waV90ZXN0X2JpdChzY2FsYXIsIGopOworCQkJ
+cG9pbnRfc3dhcF9jb25kKHExLCBxMiwgc3csIGN0eCk7CisJCQltb250Z29tZXJ5X2xhZGRlcihw
+cmQsIHN1bSwgcTEsIHEyLCBwb2ludC0+eCwgY3R4KTsKKwkJCXBvaW50X3N3YXBfY29uZChwcmQs
+IHN1bSwgc3csIGN0eCk7CisJCQl0ID0gcTE7ICBxMSA9IHByZDsgIHByZCA9IHQ7CisJCQl0ID0g
+cTI7ICBxMiA9IHN1bTsgIHN1bSA9IHQ7CisJCX0KKworCQltcGlfY2xlYXIocmVzdWx0LT55KTsK
+KwkJc3cgPSAobmJpdHMgJiAxKTsKKwkJcG9pbnRfc3dhcF9jb25kKCZwMSwgJnAxXywgc3csIGN0
+eCk7CisKKwkJcnNpemUgPSBwMS56LT5ubGltYnM7CisJCU1QTl9OT1JNQUxJWkUocDEuei0+ZCwg
+cnNpemUpOworCQlpZiAocnNpemUgPT0gMCkgeworCQkJbXBpX3NldF91aShyZXN1bHQtPngsIDEp
+OworCQkJbXBpX3NldF91aShyZXN1bHQtPnosIDApOworCQl9IGVsc2UgeworCQkJejEgPSBtcGlf
+bmV3KDApOworCQkJZWNfaW52bSh6MSwgcDEueiwgY3R4KTsKKwkJCWVjX211bG0ocmVzdWx0LT54
+LCBwMS54LCB6MSwgY3R4KTsKKwkJCW1waV9zZXRfdWkocmVzdWx0LT56LCAxKTsKKwkJCW1waV9m
+cmVlKHoxKTsKKwkJfQorCisJCXBvaW50X2ZyZWUoJnAxKTsKKwkJcG9pbnRfZnJlZSgmcDIpOwor
+CQlwb2ludF9mcmVlKCZwMV8pOworCQlwb2ludF9mcmVlKCZwMl8pOworCQlpZiAoc2NhbGFyX2Nv
+cGllZCkKKwkJCW1waV9mcmVlKHNjYWxhcik7CisJCXJldHVybjsKKwl9CisKKwl4MSA9IG1waV9h
+bGxvY19saWtlKGN0eC0+cCk7CisJeTEgPSBtcGlfYWxsb2NfbGlrZShjdHgtPnApOworCWggID0g
+bXBpX2FsbG9jX2xpa2UoY3R4LT5wKTsKKwlrICA9IG1waV9jb3B5KHNjYWxhcik7CisJeXkgPSBt
+cGlfY29weShwb2ludC0+eSk7CisKKwlpZiAobXBpX2hhc19zaWduKGspKSB7CisJCWstPnNpZ24g
+PSAwOworCQllY19pbnZtKHl5LCB5eSwgY3R4KTsKKwl9CisKKwlpZiAoIW1waV9jbXBfdWkocG9p
+bnQtPnosIDEpKSB7CisJCW1waV9zZXQoeDEsIHBvaW50LT54KTsKKwkJbXBpX3NldCh5MSwgeXkp
+OworCX0gZWxzZSB7CisJCU1QSSB6MiwgejM7CisKKwkJejIgPSBtcGlfYWxsb2NfbGlrZShjdHgt
+PnApOworCQl6MyA9IG1waV9hbGxvY19saWtlKGN0eC0+cCk7CisJCWVjX211bG0oejIsIHBvaW50
+LT56LCBwb2ludC0+eiwgY3R4KTsKKwkJZWNfbXVsbSh6MywgcG9pbnQtPnosIHoyLCBjdHgpOwor
+CQllY19pbnZtKHoyLCB6MiwgY3R4KTsKKwkJZWNfbXVsbSh4MSwgcG9pbnQtPngsIHoyLCBjdHgp
+OworCQllY19pbnZtKHozLCB6MywgY3R4KTsKKwkJZWNfbXVsbSh5MSwgeXksIHozLCBjdHgpOwor
+CQltcGlfZnJlZSh6Mik7CisJCW1waV9mcmVlKHozKTsKKwl9CisJejEgPSBtcGlfY29weShtcGlf
+Y29uc3QoTVBJX0NfT05FKSk7CisKKwltcGlfbXVsKGgsIGssIG1waV9jb25zdChNUElfQ19USFJF
+RSkpOyAvKiBoID0gM2sgKi8KKwlsb29wcyA9IG1waV9nZXRfbmJpdHMoaCk7CisJaWYgKGxvb3Bz
+IDwgMikgeworCQkvKiBJZiBTQ0FMQVIgaXMgemVybywgdGhlIGFib3ZlIG1waV9tdWwgc2V0cyBI
+IHRvIHplcm8gYW5kIHRodXMKKwkJICogTE9PUHMgd2lsbCBiZSB6ZXJvLiAgVG8gYXZvaWQgYW4g
+dW5kZXJmbG93IG9mIEkgaW4gdGhlIG1haW4KKwkJICogbG9vcCB3ZSBzZXQgTE9PUCB0byAyIGFu
+ZCB0aGUgcmVzdWx0IHRvICgwLDAsMCkuCisJCSAqLworCQlsb29wcyA9IDI7CisJCW1waV9jbGVh
+cihyZXN1bHQtPngpOworCQltcGlfY2xlYXIocmVzdWx0LT55KTsKKwkJbXBpX2NsZWFyKHJlc3Vs
+dC0+eik7CisJfSBlbHNlIHsKKwkJbXBpX3NldChyZXN1bHQtPngsIHBvaW50LT54KTsKKwkJbXBp
+X3NldChyZXN1bHQtPnksIHl5KTsKKwkJbXBpX3NldChyZXN1bHQtPnosIHBvaW50LT56KTsKKwl9
+CisJbXBpX2ZyZWUoeXkpOyB5eSA9IE5VTEw7CisKKwlwMS54ID0geDE7IHgxID0gTlVMTDsKKwlw
+MS55ID0geTE7IHkxID0gTlVMTDsKKwlwMS56ID0gejE7IHoxID0gTlVMTDsKKwlwb2ludF9pbml0
+KCZwMik7CisJcG9pbnRfaW5pdCgmcDFpbnYpOworCisJLyogSW52ZXJ0IHBvaW50OiB5ID0gcCAt
+IHkgbW9kIHAgICovCisJcG9pbnRfc2V0KCZwMWludiwgJnAxKTsKKwllY19zdWJtKHAxaW52Lnks
+IGN0eC0+cCwgcDFpbnYueSwgY3R4KTsKKworCWZvciAoaSA9IGxvb3BzLTI7IGkgPiAwOyBpLS0p
+IHsKKwkJbXBpX2VjX2R1cF9wb2ludChyZXN1bHQsIHJlc3VsdCwgY3R4KTsKKwkJaWYgKG1waV90
+ZXN0X2JpdChoLCBpKSA9PSAxICYmIG1waV90ZXN0X2JpdChrLCBpKSA9PSAwKSB7CisJCQlwb2lu
+dF9zZXQoJnAyLCByZXN1bHQpOworCQkJbXBpX2VjX2FkZF9wb2ludHMocmVzdWx0LCAmcDIsICZw
+MSwgY3R4KTsKKwkJfQorCQlpZiAobXBpX3Rlc3RfYml0KGgsIGkpID09IDAgJiYgbXBpX3Rlc3Rf
+Yml0KGssIGkpID09IDEpIHsKKwkJCXBvaW50X3NldCgmcDIsIHJlc3VsdCk7CisJCQltcGlfZWNf
+YWRkX3BvaW50cyhyZXN1bHQsICZwMiwgJnAxaW52LCBjdHgpOworCQl9CisJfQorCisJcG9pbnRf
+ZnJlZSgmcDEpOworCXBvaW50X2ZyZWUoJnAyKTsKKwlwb2ludF9mcmVlKCZwMWludik7CisJbXBp
+X2ZyZWUoaCk7CisJbXBpX2ZyZWUoayk7Cit9CitFWFBPUlRfU1lNQk9MX0dQTChtcGlfZWNfbXVs
+X3BvaW50KTsKKworLyogUmV0dXJuIHRydWUgaWYgUE9JTlQgaXMgb24gdGhlIGN1cnZlIGRlc2Ny
+aWJlZCBieSBDVFguICAqLworaW50IG1waV9lY19jdXJ2ZV9wb2ludChNUElfUE9JTlQgcG9pbnQs
+IHN0cnVjdCBtcGlfZWNfY3R4ICpjdHgpCit7CisJaW50IHJlcyA9IDA7CisJTVBJIHgsIHksIHc7
+CisKKwl4ID0gbXBpX25ldygwKTsKKwl5ID0gbXBpX25ldygwKTsKKwl3ID0gbXBpX25ldygwKTsK
+KworCS8qIENoZWNrIHRoYXQgdGhlIHBvaW50IGlzIGluIHJhbmdlLiAgVGhpcyBuZWVkcyB0byBi
+ZSBkb25lIGhlcmUgYW5kCisJICogbm90IGFmdGVyIGNvbnZlcnNpb24gdG8gYWZmaW5lIGNvb3Jk
+aW5hdGVzLgorCSAqLworCWlmIChtcGlfY21wYWJzKHBvaW50LT54LCBjdHgtPnApID49IDApCisJ
+CWdvdG8gbGVhdmU7CisJaWYgKG1waV9jbXBhYnMocG9pbnQtPnksIGN0eC0+cCkgPj0gMCkKKwkJ
+Z290byBsZWF2ZTsKKwlpZiAobXBpX2NtcGFicyhwb2ludC0+eiwgY3R4LT5wKSA+PSAwKQorCQln
+b3RvIGxlYXZlOworCisJc3dpdGNoIChjdHgtPm1vZGVsKSB7CisJY2FzZSBNUElfRUNfV0VJRVJT
+VFJBU1M6CisJCXsKKwkJCU1QSSB4eHg7CisKKwkJCWlmIChtcGlfZWNfZ2V0X2FmZmluZSh4LCB5
+LCBwb2ludCwgY3R4KSkKKwkJCQlnb3RvIGxlYXZlOworCisJCQl4eHggPSBtcGlfbmV3KDApOwor
+CisJCQkvKiB5XjIgPT0geF4zICsgYcK3eCArIGIgKi8KKwkJCWVjX3BvdzIoeSwgeSwgY3R4KTsK
+KworCQkJZWNfcG93Myh4eHgsIHgsIGN0eCk7CisJCQllY19tdWxtKHcsIGN0eC0+YSwgeCwgY3R4
+KTsKKwkJCWVjX2FkZG0odywgdywgY3R4LT5iLCBjdHgpOworCQkJZWNfYWRkbSh3LCB3LCB4eHgs
+IGN0eCk7CisKKwkJCWlmICghbXBpX2NtcCh5LCB3KSkKKwkJCQlyZXMgPSAxOworCisJCQltcGlf
+ZnJlZSh4eHgpOworCQl9CisJCWJyZWFrOworCisJY2FzZSBNUElfRUNfTU9OVEdPTUVSWToKKwkJ
+eworI2RlZmluZSB4eCB5CisJCQkvKiBXaXRoIE1vbnRnb21lcnkgY3VydmUsIG9ubHkgWC1jb29y
+ZGluYXRlIGlzIHZhbGlkLiAqLworCQkJaWYgKG1waV9lY19nZXRfYWZmaW5lKHgsIE5VTEwsIHBv
+aW50LCBjdHgpKQorCQkJCWdvdG8gbGVhdmU7CisKKwkJCS8qIFRoZSBlcXVhdGlvbiBpczogYiAq
+IHleMiA9PSB4XjMgKyBhIMK3IHheMiArIHggKi8KKwkJCS8qIFdlIGNoZWNrIGlmIHJpZ2h0IGhh
+bmQgaXMgcXVhZHJhdGljIHJlc2lkdWUgb3Igbm90IGJ5CisJCQkgKiBFdWxlcidzIGNyaXRlcmlv
+bi4KKwkJCSAqLworCQkJLyogQ1RYLT5BIGhhcyAoYS0yKS80IGFuZCBDVFgtPkIgaGFzIGJeLTEg
+Ki8KKwkJCWVjX211bG0odywgY3R4LT5hLCBtcGlfY29uc3QoTVBJX0NfRk9VUiksIGN0eCk7CisJ
+CQllY19hZGRtKHcsIHcsIG1waV9jb25zdChNUElfQ19UV08pLCBjdHgpOworCQkJZWNfbXVsbSh3
+LCB3LCB4LCBjdHgpOworCQkJZWNfcG93Mih4eCwgeCwgY3R4KTsKKwkJCWVjX2FkZG0odywgdywg
+eHgsIGN0eCk7CisJCQllY19hZGRtKHcsIHcsIG1waV9jb25zdChNUElfQ19PTkUpLCBjdHgpOwor
+CQkJZWNfbXVsbSh3LCB3LCB4LCBjdHgpOworCQkJZWNfbXVsbSh3LCB3LCBjdHgtPmIsIGN0eCk7
+CisjdW5kZWYgeHgKKwkJCS8qIENvbXB1dGUgRXVsZXIncyBjcml0ZXJpb246IHdeKHAtMSkvMiAq
+LworI2RlZmluZSBwX21pbnVzMSB5CisJCQllY19zdWJtKHBfbWludXMxLCBjdHgtPnAsIG1waV9j
+b25zdChNUElfQ19PTkUpLCBjdHgpOworCQkJbXBpX3JzaGlmdChwX21pbnVzMSwgcF9taW51czEs
+IDEpOworCQkJZWNfcG93bSh3LCB3LCBwX21pbnVzMSwgY3R4KTsKKworCQkJcmVzID0gIW1waV9j
+bXBfdWkodywgMSk7CisjdW5kZWYgcF9taW51czEKKwkJfQorCQlicmVhazsKKworCWNhc2UgTVBJ
+X0VDX0VEV0FSRFM6CisJCXsKKwkJCWlmIChtcGlfZWNfZ2V0X2FmZmluZSh4LCB5LCBwb2ludCwg
+Y3R4KSkKKwkJCQlnb3RvIGxlYXZlOworCisJCQltcGlfcmVzaXplKHcsIGN0eC0+cC0+bmxpbWJz
+KTsKKwkJCXctPm5saW1icyA9IGN0eC0+cC0+bmxpbWJzOworCisJCQkvKiBhIMK3IHheMiArIHle
+MiAtIDEgLSBiIMK3IHheMiDCtyB5XjIgPT0gMCAqLworCQkJY3R4LT5wb3cyKHgsIHgsIGN0eCk7
+CisJCQljdHgtPnBvdzIoeSwgeSwgY3R4KTsKKwkJCWlmIChjdHgtPmRpYWxlY3QgPT0gRUNDX0RJ
+QUxFQ1RfRUQyNTUxOSkKKwkJCQljdHgtPnN1Ym0odywgY3R4LT5wLCB4LCBjdHgpOworCQkJZWxz
+ZQorCQkJCWN0eC0+bXVsbSh3LCBjdHgtPmEsIHgsIGN0eCk7CisJCQljdHgtPmFkZG0odywgdywg
+eSwgY3R4KTsKKwkJCWN0eC0+bXVsbSh4LCB4LCB5LCBjdHgpOworCQkJY3R4LT5tdWxtKHgsIHgs
+IGN0eC0+YiwgY3R4KTsKKwkJCWN0eC0+c3VibSh3LCB3LCB4LCBjdHgpOworCQkJaWYgKCFtcGlf
+Y21wX3VpKHcsIDEpKQorCQkJCXJlcyA9IDE7CisJCX0KKwkJYnJlYWs7CisJfQorCitsZWF2ZToK
+KwltcGlfZnJlZSh3KTsKKwltcGlfZnJlZSh4KTsKKwltcGlfZnJlZSh5KTsKKworCXJldHVybiBy
+ZXM7Cit9CitFWFBPUlRfU1lNQk9MX0dQTChtcGlfZWNfY3VydmVfcG9pbnQpOwotLSAKMi4xOS4x
+LjMuZ2U1NmU0ZjcKCl9fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19f
+X19fCkxpbnV4LXN0bTMyIG1haWxpbmcgbGlzdApMaW51eC1zdG0zMkBzdC1tZC1tYWlsbWFuLnN0
+b3JtcmVwbHkuY29tCmh0dHBzOi8vc3QtbWQtbWFpbG1hbi5zdG9ybXJlcGx5LmNvbS9tYWlsbWFu
+L2xpc3RpbmZvL2xpbnV4LXN0bTMyCg==
