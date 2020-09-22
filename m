@@ -2,64 +2,77 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id 197DF273C35
-	for <lists+linux-stm32@lfdr.de>; Tue, 22 Sep 2020 09:43:23 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 640AA274589
+	for <lists+linux-stm32@lfdr.de>; Tue, 22 Sep 2020 17:40:24 +0200 (CEST)
 Received: from ip-172-31-3-76.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id BC7BAC32EA8;
-	Tue, 22 Sep 2020 07:43:22 +0000 (UTC)
-Received: from mx07-00178001.pphosted.com (mx08-00178001.pphosted.com
- [91.207.212.93])
- (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 195D8C3FAD4;
+	Tue, 22 Sep 2020 15:40:24 +0000 (UTC)
+Received: from mail-il1-f194.google.com (mail-il1-f194.google.com
+ [209.85.166.194])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 694AEC36B37
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 2FDDBC35E2B
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Tue, 22 Sep 2020 07:43:20 +0000 (UTC)
-Received: from pps.filterd (m0046661.ppops.net [127.0.0.1])
- by mx07-00178001.pphosted.com (8.16.0.42/8.16.0.42) with SMTP id
- 08M7bgtp028642; Tue, 22 Sep 2020 09:43:07 +0200
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=st.com;
- h=from : to : subject :
- date : message-id : mime-version : content-type; s=STMicroelectronics;
- bh=xSlMzHlQugpdZFck23OK9HNUyveeCKKUCM08ZtAZ/yg=;
- b=ZKTgEE0cjt+sSG02tfaGuf9/2nnnnTMLamcxEQoElPfT7ZN+JlJppCupStPwYax3sU5i
- OAYA4Xe44rnhc7GI9dXiy6HwGSV715g6Xy71PawIFTN19NOudI/yCQ6ff3pOUdwxEyI+
- yCEbHdCo0+TaCWkcutdL9RZzrRh62OEi1FxClv8CPtsC7VIuVRs/8lgZP+Lg2u+y/NYv
- 74KhzmhI/h13fbbHmcfCuKgImzxlUbzsCwfLg9DuFpcDnm1LN/NJGhLmLOoqEYE+O4ji
- x7wVU0U7yftTQEOmvX8lUC9LhgwoZw0jBjNN1M6CMfJVbOOkXsycox//PeRCaLQ/WlV+ vg== 
-Received: from beta.dmz-eu.st.com (beta.dmz-eu.st.com [164.129.1.35])
- by mx07-00178001.pphosted.com with ESMTP id 33n8vepctk-1
- (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
- Tue, 22 Sep 2020 09:43:07 +0200
-Received: from euls16034.sgp.st.com (euls16034.sgp.st.com [10.75.44.20])
- by beta.dmz-eu.st.com (STMicroelectronics) with ESMTP id B6F85100039;
- Tue, 22 Sep 2020 09:43:05 +0200 (CEST)
-Received: from Webmail-eu.st.com (sfhdag6node1.st.com [10.75.127.16])
- by euls16034.sgp.st.com (STMicroelectronics) with ESMTP id 9AC7E212FAA;
- Tue, 22 Sep 2020 09:43:05 +0200 (CEST)
-Received: from localhost (10.75.127.47) by SFHDAG6NODE1.st.com (10.75.127.16)
- with Microsoft SMTP Server (TLS) id 15.0.1473.3;
- Tue, 22 Sep 2020 09:42:59 +0200
-From: Yannick Fertre <yannick.fertre@st.com>
-To: Yannick Fertre <yannick.fertre@st.com>, Philippe Cornu
- <philippe.cornu@st.com>, Antonio Borneo <antonio.borneo@st.com>, "Vincent
- Abriou" <vincent.abriou@st.com>, David Airlie <airlied@linux.ie>, "Daniel
- Vetter" <daniel@ffwll.ch>, Maxime Coquelin <mcoquelin.stm32@gmail.com>,
- Alexandre Torgue <alexandre.torgue@st.com>,
- <dri-devel@lists.freedesktop.org>,
- <linux-stm32@st-md-mailman.stormreply.com>,
- <linux-arm-kernel@lists.infradead.org>, <linux-kernel@vger.kernel.org>
-Date: Tue, 22 Sep 2020 09:42:53 +0200
-Message-ID: <20200922074253.28810-1-yannick.fertre@st.com>
-X-Mailer: git-send-email 2.17.1
+ Tue, 22 Sep 2020 15:40:21 +0000 (UTC)
+Received: by mail-il1-f194.google.com with SMTP id t18so17738616ilp.5
+ for <linux-stm32@st-md-mailman.stormreply.com>;
+ Tue, 22 Sep 2020 08:40:21 -0700 (PDT)
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20161025;
+ h=x-gm-message-state:date:from:to:cc:subject:message-id:references
+ :mime-version:content-disposition:in-reply-to;
+ bh=8GdJRN6siN1K/3VUt/RzQ7dwFh0PUHODAfHPAkJXVec=;
+ b=JJf+A9Fyjsgk+PoOLYgzWpWTUjXAdW5Aj2lN3qbGATFCCgTYzhkJgRGCfyF5g/HE6d
+ MB19FLnRi3sb8PqbiCdOrQaVfwc4O5hQrWI856M1CoFSh63h5TN+wd5FUJPCPPsuoXFi
+ WUt5h02oMSBQdRNGEivTCvopmH8AQ7+kPjEB5Jy6XdAuDO0l5GLauoSD37dqx4+lymwk
+ 3zNeis36jm732NgnaKXDibWul9NC6y6FW0ZlxAFwfGKfPzIKr7wIiB5jG8ap0axmknx3
+ YUGWaUjB+nHPtabk46JIiXzsnJXs++aWNPWk6TVII0mg8Q7wK5LAI55scKaadiBVxpvT
+ yQdg==
+X-Gm-Message-State: AOAM531QzpYJ5KT6ARZMh3J3bbXGgqS7jg14jz067SX/kajqRGINuw3T
+ DLA75/oQmNRA5ZqUitvwxw==
+X-Google-Smtp-Source: ABdhPJyREJxSIdBKii6r07HwAtgscFY+xZM0Hzr/ADdWxpwvmnoH8SQzW6oBqLEpp2gzISGF/n+Kjw==
+X-Received: by 2002:a92:b503:: with SMTP id f3mr4935318ile.23.1600789220548;
+ Tue, 22 Sep 2020 08:40:20 -0700 (PDT)
+Received: from xps15 ([64.188.179.253])
+ by smtp.gmail.com with ESMTPSA id e4sm7533543iom.14.2020.09.22.08.40.18
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Tue, 22 Sep 2020 08:40:19 -0700 (PDT)
+Received: (nullmailer pid 2730094 invoked by uid 1000);
+ Tue, 22 Sep 2020 15:40:18 -0000
+Date: Tue, 22 Sep 2020 09:40:18 -0600
+From: Rob Herring <robh@kernel.org>
+To: Krzysztof Kozlowski <krzk@kernel.org>
+Message-ID: <20200922154018.GA2657058@bogus>
+References: <20200917165301.23100-1-krzk@kernel.org>
+ <20200917165301.23100-2-krzk@kernel.org>
+ <CAL_JsqJCLgf6syqV=jNPHPyu02ygwWCDDV+U9VCm0qRpLkirSQ@mail.gmail.com>
+ <20200920193915.GA31074@kozik-lap>
 MIME-Version: 1.0
-X-Originating-IP: [10.75.127.47]
-X-ClientProxiedBy: SFHDAG4NODE2.st.com (10.75.127.11) To SFHDAG6NODE1.st.com
- (10.75.127.16)
-X-Proofpoint-Virus-Version: vendor=fsecure engine=2.50.10434:6.0.235, 18.0.687
- definitions=2020-09-22_06:2020-09-21,
- 2020-09-22 signatures=0
-Subject: [Linux-stm32] [PATCH v2] drm/panel: otm8009a: allow using
-	non-continuous dsi clock
+Content-Disposition: inline
+In-Reply-To: <20200920193915.GA31074@kozik-lap>
+Cc: Linux-ALSA <alsa-devel@alsa-project.org>,
+ Linus Walleij <linus.walleij@linaro.org>,
+ linux-riscv <linux-riscv@lists.infradead.org>,
+ Fabio Estevam <festevam@gmail.com>, "moderated list:ARM/STM32 ARCHITECTURE"
+ <linux-stm32@st-md-mailman.stormreply.com>,
+ Bartosz Golaszewski <bgolaszewski@baylibre.com>,
+ "maintainer:BROADCOM BCM7XXX ARM ARCHITECTURE"
+ <bcm-kernel-feedback-list@broadcom.com>, NXP Linux Team <linux-imx@nxp.com>,
+ linux-arm-msm <linux-arm-msm@vger.kernel.org>,
+ Linux Media Mailing List <linux-media@vger.kernel.org>,
+ devicetree@vger.kernel.org, Ray Jui <rjui@broadcom.com>,
+ Sascha Hauer <s.hauer@pengutronix.de>, linux-unisoc@lists.infradead.org,
+ "moderated list:ARM/Mediatek SoC support" <linux-mediatek@lists.infradead.org>,
+ linux-arm-kernel <linux-arm-kernel@lists.infradead.org>,
+ Scott Branden <sbranden@broadcom.com>,
+ "open list:GPIO SUBSYSTEM" <linux-gpio@vger.kernel.org>,
+ "linux-kernel@vger.kernel.org" <linux-kernel@vger.kernel.org>,
+ "open list:MEDIA DRIVERS FOR RENESAS - FCP"
+ <linux-renesas-soc@vger.kernel.org>,
+ Pengutronix Kernel Team <kernel@pengutronix.de>,
+ Shawn Guo <shawnguo@kernel.org>
+Subject: Re: [Linux-stm32] [PATCH v2 01/13] dt-bindings: gpio: add common
+ schema for GPIO controllers
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -76,38 +89,50 @@ Content-Transfer-Encoding: 7bit
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
-From: Antonio Borneo <antonio.borneo@st.com>
+On Sun, Sep 20, 2020 at 09:39:15PM +0200, Krzysztof Kozlowski wrote:
+> On Fri, Sep 18, 2020 at 08:30:02AM -0600, Rob Herring wrote:
+> > On Thu, Sep 17, 2020 at 10:53 AM Krzysztof Kozlowski <krzk@kernel.org> wrote:
+> > >
+> > > Convert parts of gpio.txt bindings into common dtschema file for GPIO
+> > > controllers.  The schema enforces proper naming of GPIO controller nodes
+> > > and GPIO hogs.
+> > 
+> > Did you not see my previous reply about a common schema? We already
+> > have a common GPIO and hog schema in dtschema. Please add to it
+> > whatever is missing.
+> 
+> Indeed, I'll enhance the dt-schema.
+> 
+> The trouble is that each in-kernel YAML file still has to mention
+> possible gpio-hogs nodes. Is the proper solution to put them in common
+> YAML inside kernel sources?
 
-The panel is able to work when dsi clock is non-continuous, thus
-the system power consumption can be reduced using such feature.
+Currently, the gpio.yaml schema is applied to all nodes. That has the 
+advantage that GPIO related properties are always checked whether we 
+have a device specific schema or not. It has the disadvantage that you 
+can't do some constraints like required properties or what's in child 
+nodes.
 
-Add MIPI_DSI_CLOCK_NON_CONTINUOUS to panel's mode_flags.
+We could (and probably should) change it to be referenced by specific 
+gpio controller schemas like we do for i2c, spi, etc. Then you can 
+define required properties there and do something like:
 
-Changes in v2:
-  - Added my signed-off
+"-hogs$":
+  type: object
+  $ref: gpio-hogs.yaml#
 
-Signed-off-by: Antonio Borneo <antonio.borneo@st.com>
-Signed-off-by: Yannick Fertre <yannick.fertre@st.com>
----
- drivers/gpu/drm/panel/panel-orisetech-otm8009a.c | 2 +-
- 1 file changed, 1 insertion(+), 1 deletion(-)
 
-diff --git a/drivers/gpu/drm/panel/panel-orisetech-otm8009a.c b/drivers/gpu/drm/panel/panel-orisetech-otm8009a.c
-index b6e377aa1131..6ac1accade80 100644
---- a/drivers/gpu/drm/panel/panel-orisetech-otm8009a.c
-+++ b/drivers/gpu/drm/panel/panel-orisetech-otm8009a.c
-@@ -452,7 +452,7 @@ static int otm8009a_probe(struct mipi_dsi_device *dsi)
- 	dsi->lanes = 2;
- 	dsi->format = MIPI_DSI_FMT_RGB888;
- 	dsi->mode_flags = MIPI_DSI_MODE_VIDEO | MIPI_DSI_MODE_VIDEO_BURST |
--			  MIPI_DSI_MODE_LPM;
-+			  MIPI_DSI_MODE_LPM | MIPI_DSI_CLOCK_NON_CONTINUOUS;
- 
- 	drm_panel_init(&ctx->panel, dev, &otm8009a_drm_funcs,
- 		       DRM_MODE_CONNECTOR_DSI);
--- 
-2.17.1
+> > My goal is all common schema end up in dtschema, but I haven't pushed
+> > folks to do that yet. Ones I've done are there though. One issue is
+> > what's in dtschema should be GPL/BSD and the existing text bindings
+> > are default GPL, so there's a relicensing exercise. In some cases, the
+> > schema is there but I haven't copied over the descriptions.
+> 
+> Right, I'll skip the descriptions when posting to dt-schema.
 
+I was hoping someone would add the descriptions. :)
+
+Rob
 _______________________________________________
 Linux-stm32 mailing list
 Linux-stm32@st-md-mailman.stormreply.com
