@@ -2,71 +2,69 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id A48D7275008
-	for <lists+linux-stm32@lfdr.de>; Wed, 23 Sep 2020 06:39:31 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 75092275255
+	for <lists+linux-stm32@lfdr.de>; Wed, 23 Sep 2020 09:36:56 +0200 (CEST)
 Received: from ip-172-31-3-76.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 4D6A1C3FAD5;
-	Wed, 23 Sep 2020 04:39:31 +0000 (UTC)
-Received: from m42-4.mailgun.net (m42-4.mailgun.net [69.72.42.4])
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 1FC0EC3FADE;
+	Wed, 23 Sep 2020 07:36:56 +0000 (UTC)
+Received: from mail-lj1-f194.google.com (mail-lj1-f194.google.com
+ [209.85.208.194])
  (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 9B12CC32EB1
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id B8525C32EA8
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Wed, 23 Sep 2020 04:39:25 +0000 (UTC)
-DKIM-Signature: a=rsa-sha256; v=1; c=relaxed/relaxed; d=mg.codeaurora.org;
- q=dns/txt; 
- s=smtp; t=1600835969; h=In-Reply-To: Content-Type: MIME-Version:
- References: Message-ID: Subject: Cc: To: From: Date: Sender;
- bh=62upVWs2yXzGE3gWPGzEaiN42HD4HHF9FHmkRd8LCPQ=;
- b=VtR3SctSRSL8CsWHp/3QglorohZzjD2xtZ+K/iwWOxUf51gLKAJp7SlU6UTCDl/aR1tjyCka
- 0nJaUyNJX2UfCUsZSyUNf+mbtgcYyd36PzB46pMAvgDQtH1ZLoAo60Da6l4dZ48An9yG9jRH
- nmRO8uSiB1VsWmHSQBhMxpmzbzk=
-X-Mailgun-Sending-Ip: 69.72.42.4
-X-Mailgun-Sid: WyI1Njk0YyIsICJsaW51eC1zdG0zMkBzdC1tZC1tYWlsbWFuLnN0b3JtcmVwbHkuY29tIiwgImJlOWU0YSJd
-Received: from smtp.codeaurora.org
- (ec2-35-166-182-171.us-west-2.compute.amazonaws.com [35.166.182.171]) by
- smtp-out-n05.prod.us-west-2.postgun.com with SMTP id
- 5f6ad177d8a57df5abdf7876 (version=TLS1.2,
- cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256); Wed, 23 Sep 2020 04:39:19
- GMT
-Received: by smtp.codeaurora.org (Postfix, from userid 1001)
- id 01C91C433FF; Wed, 23 Sep 2020 04:39:19 +0000 (UTC)
-X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
- aws-us-west-2-caf-mail-1.web.codeaurora.org
-X-Spam-Level: 
-X-Spam-Status: No, score=-2.9 required=2.0 tests=ALL_TRUSTED, BAYES_00,
- SPF_FAIL, 
- URIBL_BLOCKED autolearn=no autolearn_force=no version=3.4.0
-Received: from codeaurora.org (unknown [180.166.53.21])
- (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
- (No client certificate requested) (Authenticated sender: tingwei)
- by smtp.codeaurora.org (Postfix) with ESMTPSA id 64634C433CA;
- Wed, 23 Sep 2020 04:39:15 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.3.2 smtp.codeaurora.org 64634C433CA
-Authentication-Results: aws-us-west-2-caf-mail-1.web.codeaurora.org;
- dmarc=none (p=none dis=none) header.from=codeaurora.org
-Authentication-Results: aws-us-west-2-caf-mail-1.web.codeaurora.org;
- spf=fail smtp.mailfrom=tingweiz@codeaurora.org
-Date: Wed, 23 Sep 2020 12:39:07 +0800
-From: Tingwei Zhang <tingweiz@codeaurora.org>
-To: Alexander Shishkin <alexander.shishkin@linux.intel.com>
-Message-ID: <20200923043907.GA5146@codeaurora.org>
-References: <20200903001706.28147-1-tingwei@codeaurora.org>
- <20200903001706.28147-7-tingwei@codeaurora.org>
- <87zh5nw8vz.fsf@ashishki-desk.ger.corp.intel.com>
+ Tue, 22 Sep 2020 19:27:07 +0000 (UTC)
+Received: by mail-lj1-f194.google.com with SMTP id k25so15107235ljg.9
+ for <linux-stm32@st-md-mailman.stormreply.com>;
+ Tue, 22 Sep 2020 12:27:07 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20161025;
+ h=from:to:cc:subject:date:message-id:mime-version
+ :content-transfer-encoding;
+ bh=9cpt1dNCJgsbEN9MEo3XnIHRq7hWgh7WobDyOrCQzvU=;
+ b=l6g/u5iSTbtjMW/bXos5i0WqnL8nhP75EMh0pcnRL0UBt6+z8EX+9l54qOXuBWLpqe
+ DjFcpWZjC9hsG+pjhbdzjZ4hooccZEzgn9hey+kNwdjlhbycJxXzWSfr/hmviRi/vOPg
+ s5UWyZH1QATu8x2AZLPnXnaeB4BvZjvFT+6HWVTgtKLwEobQehUp0p31i7RI/LdBt3zB
+ mTxRD3WXVZc8lym+JJXWS78pOD/r/CblS+fzxq+tl2/QXuppW3g9NLUBcxK381CZkV/N
+ S7ZzHtpD1sVeo4u19IJnqI9uP/PVv6U/7VAsCKL9ZE0Bw6RqmwI4p6qOS31j7umJKrEF
+ mV9w==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20161025;
+ h=x-gm-message-state:from:to:cc:subject:date:message-id:mime-version
+ :content-transfer-encoding;
+ bh=9cpt1dNCJgsbEN9MEo3XnIHRq7hWgh7WobDyOrCQzvU=;
+ b=i992V//5JyxCaAKC5W4qWv82dYYNb4Q7805mCnTz0gvAe57owoDTsNaxsEXoNoQJxe
+ /hI34Cjn8uOy1wwsXTMp9goI9qVuZrLR80kaSXw2ns+ykn49ANO5OZ9+RGSDl2PFpmdh
+ CTsC9ceIb13yH3v+QfrEiosUTCK8Ye+RiMODrt2m7mHT0HbODES4hiF6Zc18WYrdWWKH
+ r/9ZTSqK1W8mqbQBmJaOJ3ASEKG91mJsEjJ0lamGc4olkp9KbC7ydC8FZFnc/63A9GJU
+ RKgKeAgCTpHXO7qfHfq+xx81trHcHa2XQyw86ilg2zfNSLITwaRNRBX+EYNqp0KSkXmY
+ sbcg==
+X-Gm-Message-State: AOAM532Ukr+jaiakfSqtiqZlY+R6FsmGoXb0uH0Y5CP9IpzyBRAzzwkr
+ QW7psTGADT0G2H4S9BVIYjI=
+X-Google-Smtp-Source: ABdhPJyAx7qCmFwloXWmCYvXS52s5OAJho5iDN1YztW7szjWbufuaIE/wh5LtJgNJ5Dg086XE0wm7A==
+X-Received: by 2002:a2e:95d3:: with SMTP id y19mr969054ljh.393.1600802826938; 
+ Tue, 22 Sep 2020 12:27:06 -0700 (PDT)
+Received: from localhost.localdomain (h-82-196-111-59.NA.cust.bahnhof.se.
+ [82.196.111.59])
+ by smtp.gmail.com with ESMTPSA id r132sm3770013lff.167.2020.09.22.12.27.05
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Tue, 22 Sep 2020 12:27:06 -0700 (PDT)
+From: Rikard Falkeborn <rikard.falkeborn@gmail.com>
+To: Lee Jones <lee.jones@linaro.org>
+Date: Tue, 22 Sep 2020 21:26:51 +0200
+Message-Id: <20200922192659.14535-1-rikard.falkeborn@gmail.com>
+X-Mailer: git-send-email 2.28.0
 MIME-Version: 1.0
-Content-Disposition: inline
-In-Reply-To: <87zh5nw8vz.fsf@ashishki-desk.ger.corp.intel.com>
-User-Agent: Mutt/1.5.24 (2015-08-30)
-Cc: tsoni@codeaurora.org, Sai Prakash Ranjan <saiprakash.ranjan@codeaurora.org>,
- Mathieu Poirier <mathieu.poirier@linaro.org>,
- Suzuki K Poulose <suzuki.poulose@arm.com>,
- Mao Jinlong <jinlmao@codeaurora.org>, linux-kernel@vger.kernel.org,
- Steven Rostedt <rostedt@goodmis.org>, Ingo Molnar <mingo@redhat.com>,
- Maxime Coquelin <mcoquelin.stm32@gmail.com>,
+X-Mailman-Approved-At: Wed, 23 Sep 2020 07:36:54 +0000
+Cc: Milo Kim <milo.kim@ti.com>,
+ Andy Shevchenko <andriy.shevchenko@linux.intel.com>,
+ support.opensource@diasemi.com, Tony Lindgren <tony@atomide.com>,
+ patches@opensource.cirrus.com, linux-kernel@vger.kernel.org,
+ Rikard Falkeborn <rikard.falkeborn@gmail.com>, Chen-Yu Tsai <wens@csie.org>,
+ Maxime Ripard <mripard@kernel.org>,
+ Maxime Coquelin <mcoquelin.stm32@gmail.com>, linux-omap@vger.kernel.org,
  linux-stm32@st-md-mailman.stormreply.com, linux-arm-kernel@lists.infradead.org
-Subject: Re: [Linux-stm32] [PATCH v3 6/6] stm class: ftrace: use different
- channel accroding to CPU
+Subject: [Linux-stm32] [PATCH 0/8] drivers/mfd: Constify static struct
+	resource
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -83,46 +81,67 @@ Content-Transfer-Encoding: 7bit
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
-On Fri, Sep 18, 2020 at 08:45:52PM +0800, Alexander Shishkin wrote:
-> Tingwei Zhang <tingwei@codeaurora.org> writes:
-> 
-> > @@ -63,6 +65,7 @@ static int __init stm_ftrace_init(void)
-> >  {
-> >  	int ret;
-> >  
-> > +	stm_ftrace.data.nr_chans = num_possible_cpus();
-> 
-> Not a problem with this patch necesarily, but this made me realize that
-> .nr_chans may be larger than:
-> 
->  (1) what the policy permits,
->  (2) what the stm device can handle.
-> 
-> While (1) the user can fix in the policy, they won't be able to fix (2),
-> in which case they won't be able to use stm_ftrace at all. I'm thinking
-> if a link-time callback would be good enough.
->
+Constify a number of static struct resource to allow the compiler to put
+them in read-only memory. Typically, the only usage of these is to assign
+their address to the resources field in the mfd_cell struct, which is a
+const pointer (a few drivers also read the value of the start field).
 
-Hi Alex,
+I went through the rest of the static instances of struct resource in
+drivers/mfd and all of them are either directly modified by the driver
+or has its address passed to mfd_add_devices() which takes a non-const
+pointer.
 
-I'm not sure if I understand this correct. If the nr_chans requested by
-stm_ftrace is larger than policy permits or stm device can handle,
-stm_assign_first_policy() returns with error so stm_source_link_add()
-will fail. User would notice that when link happens.  There's not much
-we can do if resource is not enough.
- 
-> Another thing is that .nr_chans needs to be a power of 2 at the moment.
-> 
-I'll change to below.
-stm_ftrace.data.nr_chans = roundup_pow_of_two(num_possible_cpus());
-> Regards,
-> --
-> Alex
-> 
-> _______________________________________________
-> linux-arm-kernel mailing list
-> linux-arm-kernel@lists.infradead.org
-> http://lists.infradead.org/mailman/listinfo/linux-arm-kernel
+The series is compile-tested only.
+
+I split this into patches per maintainer, I'll happily split it (or squash
+it) some other way if that's preferable.
+
+Rikard Falkeborn (8):
+  mfd: da: Constify static struct resource
+  mfd: intel: Constify static struct resource
+  mfd: Constify static struct resource in OMAP2+ drivers
+  mfd: wm: Constify static struct resource
+  mfd: lp8788: Constify static struct resource
+  mfd: stmpe: Constify static struct resource
+  mfd: sun4i-gpadc: Constify static struct resource
+  mfd: Constify static struct resource
+
+ drivers/mfd/88pm800.c                 |  2 +-
+ drivers/mfd/88pm860x-core.c           | 50 ++++++++++++------------
+ drivers/mfd/da9055-core.c             |  8 ++--
+ drivers/mfd/da9062-core.c             | 24 ++++++------
+ drivers/mfd/da9063-core.c             |  8 ++--
+ drivers/mfd/da9150-core.c             |  6 +--
+ drivers/mfd/hi655x-pmic.c             |  2 +-
+ drivers/mfd/intel_msic.c              | 18 ++++-----
+ drivers/mfd/intel_quark_i2c_gpio.c    |  4 +-
+ drivers/mfd/intel_soc_pmic_bxtwc.c    | 14 +++----
+ drivers/mfd/intel_soc_pmic_chtdc_ti.c | 10 ++---
+ drivers/mfd/intel_soc_pmic_chtwc.c    |  4 +-
+ drivers/mfd/intel_soc_pmic_crc.c      | 10 ++---
+ drivers/mfd/ioc3.c                    | 16 ++++----
+ drivers/mfd/lp8788.c                  |  4 +-
+ drivers/mfd/max8925-core.c            | 56 +++++++++++++--------------
+ drivers/mfd/rdc321x-southbridge.c     |  4 +-
+ drivers/mfd/retu-mfd.c                |  4 +-
+ drivers/mfd/rk808.c                   |  8 ++--
+ drivers/mfd/stmpe.c                   | 10 ++---
+ drivers/mfd/sun4i-gpadc.c             |  2 +-
+ drivers/mfd/tc3589x.c                 |  4 +-
+ drivers/mfd/tc6387xb.c                |  2 +-
+ drivers/mfd/tc6393xb.c                |  6 +--
+ drivers/mfd/tps65090.c                |  2 +-
+ drivers/mfd/tps65217.c                |  4 +-
+ drivers/mfd/tps6586x.c                |  2 +-
+ drivers/mfd/tps65910.c                |  2 +-
+ drivers/mfd/tps80031.c                |  2 +-
+ drivers/mfd/wm831x-core.c             | 52 ++++++++++++-------------
+ drivers/mfd/wm8994-core.c             |  4 +-
+ 31 files changed, 172 insertions(+), 172 deletions(-)
+
+-- 
+2.28.0
+
 _______________________________________________
 Linux-stm32 mailing list
 Linux-stm32@st-md-mailman.stormreply.com
