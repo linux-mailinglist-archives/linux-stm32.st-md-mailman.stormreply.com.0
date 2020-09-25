@@ -2,37 +2,56 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id 6AFC6278265
-	for <lists+linux-stm32@lfdr.de>; Fri, 25 Sep 2020 10:15:27 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 9ECDC278283
+	for <lists+linux-stm32@lfdr.de>; Fri, 25 Sep 2020 10:18:43 +0200 (CEST)
 Received: from ip-172-31-3-76.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 25284C3FAE1;
-	Fri, 25 Sep 2020 08:15:27 +0000 (UTC)
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 64A39C3FAFF;
+	Fri, 25 Sep 2020 08:18:43 +0000 (UTC)
 Received: from fornost.hmeau.com (helcar.hmeau.com [216.24.177.18])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 76125C32EA8
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 77CB0C3FADF
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Fri, 25 Sep 2020 08:15:25 +0000 (UTC)
+ Fri, 25 Sep 2020 08:18:40 +0000 (UTC)
 Received: from gwarestrin.arnor.me.apana.org.au ([192.168.0.7])
  by fornost.hmeau.com with smtp (Exim 4.92 #5 (Debian))
- id 1kLisp-0007C0-Ty; Fri, 25 Sep 2020 18:15:13 +1000
+ id 1kLivC-0007RD-Jf; Fri, 25 Sep 2020 18:17:39 +1000
 Received: by gwarestrin.arnor.me.apana.org.au (sSMTP sendmail emulation);
- Fri, 25 Sep 2020 18:15:11 +1000
-Date: Fri, 25 Sep 2020 18:15:11 +1000
+ Fri, 25 Sep 2020 18:17:38 +1000
+Date: Fri, 25 Sep 2020 18:17:38 +1000
 From: Herbert Xu <herbert@gondor.apana.org.au>
-To: Nicolas Toromanoff <nicolas.toromanoff@st.com>
-Message-ID: <20200925081511.GG6381@gondor.apana.org.au>
-References: <20200916063344.15054-1-nicolas.toromanoff@st.com>
+To: Tianjia Zhang <tianjia.zhang@linux.alibaba.com>
+Message-ID: <20200925081738.GU6381@gondor.apana.org.au>
+References: <20200920162103.83197-1-tianjia.zhang@linux.alibaba.com>
 MIME-Version: 1.0
 Content-Disposition: inline
-In-Reply-To: <20200916063344.15054-1-nicolas.toromanoff@st.com>
+In-Reply-To: <20200920162103.83197-1-tianjia.zhang@linux.alibaba.com>
 User-Agent: Mutt/1.10.1 (2018-07-13)
-Cc: "David S . Miller" <davem@davemloft.net>, linux-kernel@vger.kernel.org,
- linux-stm32@st-md-mailman.stormreply.com, linux-crypto@vger.kernel.org,
- Maxime Coquelin <mcoquelin.stm32@gmail.com>, Ard Biesheuvel <ardb@kernel.org>,
- linux-arm-kernel@lists.infradead.org
-Subject: Re: [Linux-stm32] [PATCH v2] crypto: stm32/crc32 - Avoid lock if
- hardware is already used
+Cc: Eric Biggers <ebiggers@google.com>, Stephan Mueller <smueller@chronox.de>,
+ Brendan Higgins <brendanhiggins@google.com>,
+ Jia Zhang <zhang.jia@linux.alibaba.com>,
+ Jarkko Sakkinen <jarkko.sakkinen@linux.intel.com>,
+ Vitaly Chikunov <vt@altlinux.org>, keyrings@vger.kernel.org,
+ linux-stm32@st-md-mailman.stormreply.com,
+ Masahiro Yamada <masahiroy@kernel.org>, James Morris <jmorris@namei.org>,
+ Lakshmi Ramasubramanian <nramas@linux.microsoft.com>,
+ Marcelo Henrique Cerri <marcelo.cerri@canonical.com>,
+ Waiman Long <longman@redhat.com>, "Serge E. Hallyn" <serge@hallyn.com>,
+ "Steven Rostedt \(VMware\)" <rostedt@goodmis.org>,
+ Gilad Ben-Yossef <gilad@benyossef.com>, Mimi Zohar <zohar@linux.ibm.com>,
+ Tushar Sugandhi <tusharsu@linux.microsoft.com>,
+ linux-integrity@vger.kernel.org, linux-arm-kernel@lists.infradead.org,
+ David Howells <dhowells@redhat.com>,
+ Pascal van Leeuwen <pvanleeuwen@rambus.com>, linux-kernel@vger.kernel.org,
+ Xufeng Zhang <yunbo.xufeng@linux.alibaba.com>,
+ linux-security-module@vger.kernel.org, linux-crypto@vger.kernel.org,
+ Maxime Coquelin <mcoquelin.stm32@gmail.com>,
+ Johannes Weiner <hannes@cmpxchg.org>,
+ Colin Ian King <colin.king@canonical.com>,
+ Andrew Morton <akpm@linux-foundation.org>,
+ "David S. Miller" <davem@davemloft.net>
+Subject: Re: [Linux-stm32] [PATCH v7 00/10] crpyto: introduce OSCCA
+ certificate and SM2 asymmetric algorithm
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -49,23 +68,130 @@ Content-Transfer-Encoding: 7bit
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
-On Wed, Sep 16, 2020 at 08:33:44AM +0200, Nicolas Toromanoff wrote:
-> If STM32 CRC device is already in use, calculate CRC by software.
+On Mon, Sep 21, 2020 at 12:20:53AM +0800, Tianjia Zhang wrote:
+> Hello all,
 > 
-> This will release CPU constraint for a concurrent access to the
-> hardware, and avoid masking irqs during the whole block processing.
+> This new module implement the OSCCA certificate and SM2 public key
+> algorithm. It was published by State Encryption Management Bureau, China.
+> List of specifications for OSCCA certificate and SM2 elliptic curve
+> public key cryptography:
 > 
-> Fixes: 7795c0baf5ac ("crypto: stm32/crc32 - protect from concurrent accesses")
+> * GM/T 0003.1-2012
+> * GM/T 0003.2-2012
+> * GM/T 0003.3-2012
+> * GM/T 0003.4-2012
+> * GM/T 0003.5-2012
+> * GM/T 0015-2012
+> * GM/T 0009-2012 
 > 
-> Signed-off-by: Nicolas Toromanoff <nicolas.toromanoff@st.com>
+> IETF: https://tools.ietf.org/html/draft-shen-sm2-ecdsa-02
+> oscca: http://www.oscca.gov.cn/sca/xxgk/2010-12/17/content_1002386.shtml
+> scctc: http://www.gmbz.org.cn/main/bzlb.html
+> 
+> These patchs add the OID object identifier defined by OSCCA. The
+> x509 certificate supports sm2-with-sm3 type certificate parsing
+> and verification.
+> 
+> The sm2 algorithm is based on libgcrypt's mpi implementation, and has
+> made some additions to the kernel's original mpi library, and added the
+> implementation of ec to better support elliptic curve-like algorithms.
+> 
+> sm2 has good support in both openssl and gnupg projects, and sm3 and sm4
+> of the OSCCA algorithm family have also been implemented in the kernel.
+> 
+> Among them, sm3 and sm4 have been well implemented in the kernel.
+> This group of patches has newly introduced sm2. In order to implement
+> sm2 more perfectly, I expanded the mpi library and introduced the
+> ec implementation of the mpi library as the basic algorithm. Compared
+> to the kernel's crypto/ecc.c, the implementation of mpi/ec.c is more
+> complete and elegant, sm2 is implemented based on these algorithms.
+> 
 > ---
-> v2: select CRC32 and not (CRYPTO_CRC32 and CRYPTO_CRC32C) in Kconfig
-> ---
->  drivers/crypto/stm32/Kconfig       |  1 +
->  drivers/crypto/stm32/stm32-crc32.c | 15 ++++++++++++---
->  2 files changed, 13 insertions(+), 3 deletions(-)
+> v7 changes:
+>   1. add sm2 test vectors to testmgr.
+>   2. fix potential memory leak in testmgr (PATCH 6/10).
+>   3. rebase on mainline.
+> 
+> v6 changes:
+>   1. remove mpi_sub_ui function from mpi library.
+>   2. rebase on mainline.
+> 
+> v5 changes:
+>   1. fix compilation failure when SM2 is configured as a module.
+>   2. simplify the mpi and ec code, remove unused functions reported by test robot.
+> 
+> v4 changes:
+>   1. Pass data directly when calculating sm2 certificate digest.
+>   2. rebase on mainline.
+> 
+> v3 changes:
+>   1. integrity asymmetric digsig support sm2-with-sm3 algorithm.
+>   2. remove unused sm2_set_priv_key().
+>   3. rebase on mainline.
+> 
+> v2 changes:
+>   1. simplify the sm2 algorithm and only retain the verify function.
+>   2. extract the sm2 certificate code into a separate file.
+> 
+> 
+> Tianjia Zhang (10):
+>   crypto: sm3 - export crypto_sm3_final function
+>   lib/mpi: Extend the MPI library
+>   lib/mpi: Introduce ec implementation to MPI library
+>   crypto: sm2 - introduce OSCCA SM2 asymmetric cipher algorithm
+>   crypto: testmgr - support test with different ciphertext per
+>     encryption
+>   crypto: testmgr - Fix potential memory leak in test_akcipher_one()
+>   crypto: sm2 - add SM2 test vectors to testmgr
+>   X.509: support OSCCA certificate parse
+>   X.509: support OSCCA SM2-with-SM3 certificate verification
+>   integrity: Asymmetric digsig supports SM2-with-SM3 algorithm
+> 
+>  crypto/Kconfig                            |   17 +
+>  crypto/Makefile                           |    8 +
+>  crypto/asymmetric_keys/Makefile           |    1 +
+>  crypto/asymmetric_keys/public_key.c       |    6 +
+>  crypto/asymmetric_keys/public_key_sm2.c   |   61 +
+>  crypto/asymmetric_keys/x509_cert_parser.c |   27 +-
+>  crypto/asymmetric_keys/x509_public_key.c  |    3 +
+>  crypto/sm2.c                              |  481 +++++++
+>  crypto/sm2signature.asn1                  |    4 +
+>  crypto/sm3_generic.c                      |    7 +-
+>  crypto/testmgr.c                          |   24 +-
+>  crypto/testmgr.h                          |   59 +
+>  include/crypto/public_key.h               |   15 +
+>  include/crypto/sm2.h                      |   25 +
+>  include/crypto/sm3.h                      |    2 +
+>  include/linux/mpi.h                       |  192 +++
+>  include/linux/oid_registry.h              |    6 +
+>  lib/mpi/Makefile                          |    6 +
+>  lib/mpi/ec.c                              | 1509 +++++++++++++++++++++
+>  lib/mpi/mpi-add.c                         |  155 +++
+>  lib/mpi/mpi-bit.c                         |  251 ++++
+>  lib/mpi/mpi-cmp.c                         |   46 +-
+>  lib/mpi/mpi-div.c                         |  238 ++++
+>  lib/mpi/mpi-internal.h                    |   53 +
+>  lib/mpi/mpi-inv.c                         |  143 ++
+>  lib/mpi/mpi-mod.c                         |  155 +++
+>  lib/mpi/mpi-mul.c                         |   94 ++
+>  lib/mpi/mpicoder.c                        |  336 +++++
+>  lib/mpi/mpih-div.c                        |  294 ++++
+>  lib/mpi/mpih-mul.c                        |   25 +
+>  lib/mpi/mpiutil.c                         |  204 +++
+>  security/integrity/digsig_asymmetric.c    |   14 +-
+>  32 files changed, 4435 insertions(+), 26 deletions(-)
+>  create mode 100644 crypto/asymmetric_keys/public_key_sm2.c
+>  create mode 100644 crypto/sm2.c
+>  create mode 100644 crypto/sm2signature.asn1
+>  create mode 100644 include/crypto/sm2.h
+>  create mode 100644 lib/mpi/ec.c
+>  create mode 100644 lib/mpi/mpi-add.c
+>  create mode 100644 lib/mpi/mpi-div.c
+>  create mode 100644 lib/mpi/mpi-inv.c
+>  create mode 100644 lib/mpi/mpi-mod.c
+>  create mode 100644 lib/mpi/mpi-mul.c
 
-Patch applied.  Thanks.
+All applied.  Thanks.
 -- 
 Email: Herbert Xu <herbert@gondor.apana.org.au>
 Home Page: http://gondor.apana.org.au/~herbert/
