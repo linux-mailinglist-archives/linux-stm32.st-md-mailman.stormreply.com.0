@@ -2,42 +2,69 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id C2AF2278B40
-	for <lists+linux-stm32@lfdr.de>; Fri, 25 Sep 2020 16:51:58 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 0090B278E4C
+	for <lists+linux-stm32@lfdr.de>; Fri, 25 Sep 2020 18:20:52 +0200 (CEST)
 Received: from ip-172-31-3-76.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 7C037C3FAFF;
-	Fri, 25 Sep 2020 14:51:58 +0000 (UTC)
-Received: from asavdk4.altibox.net (asavdk4.altibox.net [109.247.116.15])
- (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id B527DC3FAE1;
+	Fri, 25 Sep 2020 16:20:51 +0000 (UTC)
+Received: from mail-pg1-f194.google.com (mail-pg1-f194.google.com
+ [209.85.215.194])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 7C1D1C3FADF
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id E7B4BC32EA8
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Fri, 25 Sep 2020 14:51:53 +0000 (UTC)
-Received: from ravnborg.org (unknown [188.228.123.71])
- (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
- (No client certificate requested)
- by asavdk4.altibox.net (Postfix) with ESMTPS id 05264806AD;
- Fri, 25 Sep 2020 16:51:50 +0200 (CEST)
-Date: Fri, 25 Sep 2020 16:51:49 +0200
-From: Sam Ravnborg <sam@ravnborg.org>
-To: Yannick Fertre <yannick.fertre@st.com>
-Message-ID: <20200925145149.GB1929717@ravnborg.org>
-References: <20200925102233.18016-1-yannick.fertre@st.com>
+ Fri, 25 Sep 2020 16:20:48 +0000 (UTC)
+Received: by mail-pg1-f194.google.com with SMTP id t14so3004205pgl.10
+ for <linux-stm32@st-md-mailman.stormreply.com>;
+ Fri, 25 Sep 2020 09:20:48 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linaro.org; s=google;
+ h=date:from:to:cc:subject:message-id:references:mime-version
+ :content-disposition:in-reply-to:user-agent;
+ bh=mm59MF34JUHn/sNG+XsAVRaMRhXvrdKO3x6Jkh5KNIA=;
+ b=TN31U+/6fwbpL7vRkIEMAZpIiyeUg08+VGuPCowIt2N9N7PIQBHPotgYi3YdlESSQi
+ qKFjVJHiGKcmqUHBuGecJdTOzJsFzWRdMFQomp0Tn17AONyZTyHN2ttRdM+rm5AbbmS4
+ NV+FIEm20YWPFYf2mPBFLCTnN3/XYvBV65hJcMZdbBCinFtXbRUv471wAXcUqiQSJYgD
+ /JZJaGzLF/EkEPNP4BW03vVcuTC0ycTaK4QRBpXCfDoaK1b1gJNP7vf2l01qEwO+Tfmn
+ EImVwevBDWx29QdQkh+Mc72YdLaSbjPZ99P4ZWroepy0nQzQyoLaknkqleEmf3qNFd5k
+ 0S0w==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20161025;
+ h=x-gm-message-state:date:from:to:cc:subject:message-id:references
+ :mime-version:content-disposition:in-reply-to:user-agent;
+ bh=mm59MF34JUHn/sNG+XsAVRaMRhXvrdKO3x6Jkh5KNIA=;
+ b=LxIdhvJinFydd1xLFR6vzQyd6FkabkrrHczZX0Ttb2Mt7L2uz72R/jS1/Zqs0JjRjU
+ qgy7k7+Pqd7x7vfHI6Bl0VQ9dQrkUz8bkzxRQgluMb/H6dzPdLNrUh0a/mmBbDuCkZYC
+ BXQuUU9/GI5A8EGhzytTLzARUCsfnFGMPUf7QYu4L+bOGlDnEdk1FzzMU/U8HS2CQbyR
+ 3Xy4DHH3dGxUilN27BbPwmyjciv9gAqH13+GYz4dumL4xR81kxqiCvyU/lGNkclgj7zN
+ BAgl20vS8EKGkU/Ko8wd04IZpSqGLtB2GxcTrXqVcKmrwGaOL/7R0RbP8KcFWMjMtxjn
+ E6vw==
+X-Gm-Message-State: AOAM532lKkHJKYy6MjTw+WH3EYC0SKOZapXEcalaCq8QhjK65Q7GMcmY
+ mu15cfcffJiYD0cq2MPqGgpW
+X-Google-Smtp-Source: ABdhPJyoG/hQhlMEyUNWB3uBTgPZVsp0nko1WeZ01LzyYWkf415zmPMrp48gHZ+k8R5vamknCal3Nw==
+X-Received: by 2002:a62:1dc1:0:b029:13e:d13d:a051 with SMTP id
+ d184-20020a621dc10000b029013ed13da051mr38090pfd.23.1601050846581; 
+ Fri, 25 Sep 2020 09:20:46 -0700 (PDT)
+Received: from linux ([103.59.133.81])
+ by smtp.gmail.com with ESMTPSA id fw4sm2413372pjb.55.2020.09.25.09.20.44
+ (version=TLS1_2 cipher=ECDHE-ECDSA-CHACHA20-POLY1305 bits=256/256);
+ Fri, 25 Sep 2020 09:20:45 -0700 (PDT)
+Date: Fri, 25 Sep 2020 21:50:40 +0530
+From: Manivannan Sadhasivam <manivannan.sadhasivam@linaro.org>
+To: Marek Vasut <marex@denx.de>
+Message-ID: <20200925162040.GA4746@linux>
+References: <20200923232535.241437-1-marex@denx.de>
+ <0D1E174A-2217-4785-B4E5-79135AAF76F1@linaro.org>
+ <5d0c9b8f-8f6b-a4c7-dc80-638e23749310@denx.de>
+ <BD86CF01-741D-4ED6-9D08-B43049E9B816@linaro.org>
+ <b93bb099-644f-ec0f-50ca-0c537c769e51@denx.de>
 MIME-Version: 1.0
 Content-Disposition: inline
-In-Reply-To: <20200925102233.18016-1-yannick.fertre@st.com>
-X-CMAE-Score: 0
-X-CMAE-Analysis: v=2.3 cv=A5ZCwZeG c=1 sm=1 tr=0
- a=S6zTFyMACwkrwXSdXUNehg==:117 a=S6zTFyMACwkrwXSdXUNehg==:17
- a=kj9zAlcOel0A:10 a=8b9GpE9nAAAA:8 a=e5mUnYsNAAAA:8
- a=XBlgKtycwjOaN05_gGEA:9 a=CjuIK1q_8ugA:10 a=T3LWEMljR5ZiDmsYVIUa:22
- a=Vxmtnl_E_bksehYqCbjh:22
-Cc: Daniel Vetter <daniel@ffwll.ch>, dri-devel@lists.freedesktop.org,
- linux-kernel@vger.kernel.org, David Airlie <airlied@linux.ie>,
- Maxime Coquelin <mcoquelin.stm32@gmail.com>,
- Vincent Abriou <vincent.abriou@st.com>,
- linux-stm32@st-md-mailman.stormreply.com, linux-arm-kernel@lists.infradead.org
-Subject: Re: [Linux-stm32] [PATCH] drm/stm: dsi: Use dev_ based logging
+In-Reply-To: <b93bb099-644f-ec0f-50ca-0c537c769e51@denx.de>
+User-Agent: Mutt/1.9.4 (2018-02-28)
+Cc: linux-arm-kernel@lists.infradead.org,
+ linux-stm32@st-md-mailman.stormreply.com
+Subject: Re: [Linux-stm32] [PATCH] ARM: dts: stm32: Enable thermal sensor
+ support on stm32mp15xx-dhcor
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -54,281 +81,48 @@ Content-Transfer-Encoding: 7bit
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
-Hi Yannick.
-
-On Fri, Sep 25, 2020 at 12:22:33PM +0200, Yannick Fertre wrote:
-> Standardize on the dev_ based logging and drop the include of drm_print.h.
-The patchs filas to drop the include mentioned here.
-
-> Remove useless dsi_color_from_mipi function.
-IMO the dsi_color_from_mipi() was nice, and inlining the helper
-is no gain for readability.
-
-	Sam
-
+On Fri, Sep 25, 2020 at 01:12:12PM +0200, Marek Vasut wrote:
+> On 9/25/20 4:21 AM, Manivannan Sadhasivam wrote:
+> > 
+> > 
+> > On 24 September 2020 4:11:11 PM IST, Marek Vasut <marex@denx.de> wrote:
+> >> On 9/24/20 7:16 AM, Manivannan Sadhasivam wrote:
+> >>>
+> >>>
+> >>> On 24 September 2020 4:55:35 AM IST, Marek Vasut <marex@denx.de>
+> >> wrote:
+> >>>> Enable STM32 Digital Thermal Sensor driver for stm32mp15xx-dhcor
+> >> SoMs.
+> >>>>
+> >>>> Fixes: 94cafe1b6482 ("ARM: dts: stm32: Add Avenger96 devicetree
+> >> support
+> >>>> based on STM32MP157A")
+> >>>
+> >>> The change looks good but what does this patch fixes? 
+> >>
+> >> The missing temp sensor, which helps you detect overheat of the SoC.
+> >> That is esp. important on the 800 MHz AV96.
+> > 
+> > This doesn't quality as a "fix". Essentially you're just adding a missing feature and not fixing any issues. So please remove the fixes tag and resubmit. 
 > 
-> Signed-off-by: Yannick Fertre <yannick.fertre@st.com>
-> ---
->  drivers/gpu/drm/stm/dw_mipi_dsi-stm.c | 87 ++++++++++++++-------------
->  1 file changed, 45 insertions(+), 42 deletions(-)
-> 
-> diff --git a/drivers/gpu/drm/stm/dw_mipi_dsi-stm.c b/drivers/gpu/drm/stm/dw_mipi_dsi-stm.c
-> index 164f79ef6269..93fa8bfd3127 100644
-> --- a/drivers/gpu/drm/stm/dw_mipi_dsi-stm.c
-> +++ b/drivers/gpu/drm/stm/dw_mipi_dsi-stm.c
-> @@ -76,6 +76,7 @@ enum dsi_color {
->  
->  struct dw_mipi_dsi_stm {
->  	void __iomem *base;
-> +	struct device *dev;
->  	struct clk *pllref_clk;
->  	struct dw_mipi_dsi *dsi;
->  	u32 hw_version;
-> @@ -110,23 +111,6 @@ static inline void dsi_update_bits(struct dw_mipi_dsi_stm *dsi, u32 reg,
->  	dsi_write(dsi, reg, (dsi_read(dsi, reg) & ~mask) | val);
->  }
->  
-> -static enum dsi_color dsi_color_from_mipi(enum mipi_dsi_pixel_format fmt)
-> -{
-> -	switch (fmt) {
-> -	case MIPI_DSI_FMT_RGB888:
-> -		return DSI_RGB888;
-> -	case MIPI_DSI_FMT_RGB666:
-> -		return DSI_RGB666_CONF2;
-> -	case MIPI_DSI_FMT_RGB666_PACKED:
-> -		return DSI_RGB666_CONF1;
-> -	case MIPI_DSI_FMT_RGB565:
-> -		return DSI_RGB565_CONF1;
-> -	default:
-> -		DRM_DEBUG_DRIVER("MIPI color invalid, so we use rgb888\n");
-> -	}
-> -	return DSI_RGB888;
-> -}
-> -
->  static int dsi_pll_get_clkout_khz(int clkin_khz, int idf, int ndiv, int odf)
->  {
->  	int divisor = idf * odf;
-> @@ -205,14 +189,14 @@ static int dw_mipi_dsi_phy_init(void *priv_data)
->  	ret = readl_poll_timeout(dsi->base + DSI_WISR, val, val & WISR_RRS,
->  				 SLEEP_US, TIMEOUT_US);
->  	if (ret)
-> -		DRM_DEBUG_DRIVER("!TIMEOUT! waiting REGU, let's continue\n");
-> +		dev_dbg(dsi->dev, "!TIMEOUT! waiting REGU, let's continue\n");
->  
->  	/* Enable the DSI PLL & wait for its lock */
->  	dsi_set(dsi, DSI_WRPCR, WRPCR_PLLEN);
->  	ret = readl_poll_timeout(dsi->base + DSI_WISR, val, val & WISR_PLLLS,
->  				 SLEEP_US, TIMEOUT_US);
->  	if (ret)
-> -		DRM_DEBUG_DRIVER("!TIMEOUT! waiting PLL, let's continue\n");
-> +		dev_dbg(dsi->dev, "!TIMEOUT! waiting PLL, let's continue\n");
->  
->  	return 0;
->  }
-> @@ -221,7 +205,7 @@ static void dw_mipi_dsi_phy_power_on(void *priv_data)
->  {
->  	struct dw_mipi_dsi_stm *dsi = priv_data;
->  
-> -	DRM_DEBUG_DRIVER("\n");
-> +	dev_dbg(dsi->dev, "\n");
->  
->  	/* Enable the DSI wrapper */
->  	dsi_set(dsi, DSI_WCR, WCR_DSIEN);
-> @@ -231,7 +215,7 @@ static void dw_mipi_dsi_phy_power_off(void *priv_data)
->  {
->  	struct dw_mipi_dsi_stm *dsi = priv_data;
->  
-> -	DRM_DEBUG_DRIVER("\n");
-> +	dev_dbg(dsi->dev, "\n");
->  
->  	/* Disable the DSI wrapper */
->  	dsi_clear(dsi, DSI_WCR, WCR_DSIEN);
-> @@ -244,6 +228,7 @@ dw_mipi_dsi_get_lane_mbps(void *priv_data, const struct drm_display_mode *mode,
->  {
->  	struct dw_mipi_dsi_stm *dsi = priv_data;
->  	unsigned int idf, ndiv, odf, pll_in_khz, pll_out_khz;
-> +	enum mipi_dsi_pixel_format fmt;
->  	int ret, bpp;
->  	u32 val;
->  
-> @@ -267,11 +252,11 @@ dw_mipi_dsi_get_lane_mbps(void *priv_data, const struct drm_display_mode *mode,
->  
->  	if (pll_out_khz > dsi->lane_max_kbps) {
->  		pll_out_khz = dsi->lane_max_kbps;
-> -		DRM_WARN("Warning max phy mbps is used\n");
-> +		dev_warn(dsi->dev, "Warning max phy mbps is used\n");
->  	}
->  	if (pll_out_khz < dsi->lane_min_kbps) {
->  		pll_out_khz = dsi->lane_min_kbps;
-> -		DRM_WARN("Warning min phy mbps is used\n");
-> +		dev_warn(dsi->dev, "Warning min phy mbps is used\n");
->  	}
->  
->  	/* Compute best pll parameters */
-> @@ -281,7 +266,7 @@ dw_mipi_dsi_get_lane_mbps(void *priv_data, const struct drm_display_mode *mode,
->  	ret = dsi_pll_get_params(dsi, pll_in_khz, pll_out_khz,
->  				 &idf, &ndiv, &odf);
->  	if (ret)
-> -		DRM_WARN("Warning dsi_pll_get_params(): bad params\n");
-> +		dev_warn(dsi->dev, "Warning dsi_pll_get_params(): bad params\n");
->  
->  	/* Get the adjusted pll out value */
->  	pll_out_khz = dsi_pll_get_clkout_khz(pll_in_khz, idf, ndiv, odf);
-> @@ -297,14 +282,31 @@ dw_mipi_dsi_get_lane_mbps(void *priv_data, const struct drm_display_mode *mode,
->  	/* Select video mode by resetting DSIM bit */
->  	dsi_clear(dsi, DSI_WCFGR, WCFGR_DSIM);
->  
-> +	switch (format) {
-> +	case MIPI_DSI_FMT_RGB888:
-> +		fmt = DSI_RGB888;
-> +		break;
-> +	case MIPI_DSI_FMT_RGB666:
-> +		fmt = DSI_RGB666_CONF2;
-> +		break;
-> +	case MIPI_DSI_FMT_RGB666_PACKED:
-> +		fmt = DSI_RGB666_CONF1;
-> +		break;
-> +	case MIPI_DSI_FMT_RGB565:
-> +		fmt = DSI_RGB565_CONF1;
-> +		break;
-> +	default:
-> +		fmt = DSI_RGB888;
-> +		dev_err(dsi->dev, "MIPI color invalid, so we use rgb888\n");
-> +	}
-> +
->  	/* Select the color coding */
-> -	dsi_update_bits(dsi, DSI_WCFGR, WCFGR_COLMUX,
-> -			dsi_color_from_mipi(format) << 1);
-> +	dsi_update_bits(dsi, DSI_WCFGR, WCFGR_COLMUX, fmt << 1);
->  
->  	*lane_mbps = pll_out_khz / 1000;
->  
-> -	DRM_DEBUG_DRIVER("pll_in %ukHz pll_out %ukHz lane_mbps %uMHz\n",
-> -			 pll_in_khz, pll_out_khz, *lane_mbps);
-> +	dev_dbg(dsi->dev, "pll_in %ukHz pll_out %ukHz lane_mbps %uMHz\n", pll_in_khz, pll_out_khz,
-> +		*lane_mbps);
->  
->  	return 0;
->  }
-> @@ -352,11 +354,13 @@ static int dw_mipi_dsi_stm_probe(struct platform_device *pdev)
->  	if (!dsi)
->  		return -ENOMEM;
->  
-> +	dsi->dev = dev;
-> +
->  	res = platform_get_resource(pdev, IORESOURCE_MEM, 0);
->  	dsi->base = devm_ioremap_resource(dev, res);
->  	if (IS_ERR(dsi->base)) {
->  		ret = PTR_ERR(dsi->base);
-> -		DRM_ERROR("Unable to get dsi registers %d\n", ret);
-> +		dev_err(dev, "Unable to get dsi registers %d\n", ret);
->  		return ret;
->  	}
->  
-> @@ -364,13 +368,13 @@ static int dw_mipi_dsi_stm_probe(struct platform_device *pdev)
->  	if (IS_ERR(dsi->vdd_supply)) {
->  		ret = PTR_ERR(dsi->vdd_supply);
->  		if (ret != -EPROBE_DEFER)
-> -			DRM_ERROR("Failed to request regulator: %d\n", ret);
-> +			dev_err(dev, "Failed to request regulator: %d\n", ret);
->  		return ret;
->  	}
->  
->  	ret = regulator_enable(dsi->vdd_supply);
->  	if (ret) {
-> -		DRM_ERROR("Failed to enable regulator: %d\n", ret);
-> +		dev_err(dev, "Failed to enable regulator: %d\n", ret);
->  		return ret;
->  	}
->  
-> @@ -378,27 +382,26 @@ static int dw_mipi_dsi_stm_probe(struct platform_device *pdev)
->  	if (IS_ERR(dsi->pllref_clk)) {
->  		ret = PTR_ERR(dsi->pllref_clk);
->  		if (ret != -EPROBE_DEFER)
-> -			DRM_ERROR("Unable to get pll reference clock: %d\n",
-> -				  ret);
-> +			dev_err(dev, "Unable to get pll reference clock: %d\n", ret);
->  		goto err_clk_get;
->  	}
->  
->  	ret = clk_prepare_enable(dsi->pllref_clk);
->  	if (ret) {
-> -		DRM_ERROR("Failed to enable pllref_clk: %d\n", ret);
-> +		dev_err(dev, "Failed to enable pllref_clk: %d\n", ret);
->  		goto err_clk_get;
->  	}
->  
->  	pclk = devm_clk_get(dev, "pclk");
->  	if (IS_ERR(pclk)) {
->  		ret = PTR_ERR(pclk);
-> -		DRM_ERROR("Unable to get peripheral clock: %d\n", ret);
-> +		dev_err(dev, "Unable to get peripheral clock: %d\n", ret);
->  		goto err_dsi_probe;
->  	}
->  
->  	ret = clk_prepare_enable(pclk);
->  	if (ret) {
-> -		DRM_ERROR("%s: Failed to enable peripheral clk\n", __func__);
-> +		dev_err(dev, "%s: Failed to enable peripheral clk\n", __func__);
->  		goto err_dsi_probe;
->  	}
->  
-> @@ -407,7 +410,7 @@ static int dw_mipi_dsi_stm_probe(struct platform_device *pdev)
->  
->  	if (dsi->hw_version != HWVER_130 && dsi->hw_version != HWVER_131) {
->  		ret = -ENODEV;
-> -		DRM_ERROR("bad dsi hardware version\n");
-> +		dev_err(dev, "bad dsi hardware version\n");
->  		goto err_dsi_probe;
->  	}
->  
-> @@ -420,7 +423,7 @@ static int dw_mipi_dsi_stm_probe(struct platform_device *pdev)
->  	if (IS_ERR(dsi->dsi)) {
->  		ret = PTR_ERR(dsi->dsi);
->  		if (ret != -EPROBE_DEFER)
-> -			DRM_ERROR("Failed to initialize mipi dsi host: %d\n", ret);
-> +			dev_err(dev, "Failed to initialize mipi dsi host: %d\n", ret);
->  		goto err_dsi_probe;
->  	}
->  
-> @@ -449,7 +452,7 @@ static int __maybe_unused dw_mipi_dsi_stm_suspend(struct device *dev)
->  {
->  	struct dw_mipi_dsi_stm *dsi = dw_mipi_dsi_stm_plat_data.priv_data;
->  
-> -	DRM_DEBUG_DRIVER("\n");
-> +	dev_dbg(dsi->dev, "\n");
->  
->  	clk_disable_unprepare(dsi->pllref_clk);
->  	regulator_disable(dsi->vdd_supply);
-> @@ -462,18 +465,18 @@ static int __maybe_unused dw_mipi_dsi_stm_resume(struct device *dev)
->  	struct dw_mipi_dsi_stm *dsi = dw_mipi_dsi_stm_plat_data.priv_data;
->  	int ret;
->  
-> -	DRM_DEBUG_DRIVER("\n");
-> +	dev_dbg(dsi->dev, "\n");
->  
->  	ret = regulator_enable(dsi->vdd_supply);
->  	if (ret) {
-> -		DRM_ERROR("Failed to enable regulator: %d\n", ret);
-> +		dev_err(dev, "Failed to enable regulator: %d\n", ret);
->  		return ret;
->  	}
->  
->  	ret = clk_prepare_enable(dsi->pllref_clk);
->  	if (ret) {
->  		regulator_disable(dsi->vdd_supply);
-> -		DRM_ERROR("Failed to enable pllref_clk: %d\n", ret);
-> +		dev_err(dev, "Failed to enable pllref_clk: %d\n", ret);
->  		return ret;
->  	}
->  
-> -- 
-> 2.17.1
-> 
-> _______________________________________________
-> dri-devel mailing list
-> dri-devel@lists.freedesktop.org
-> https://lists.freedesktop.org/mailman/listinfo/dri-devel
+> I would argue that if the system overheats and crashes, we want to know
+> about that, possibly in advance so thermal throttling can be applied.
+> Currently this is not possible and I think that is a bug.
+
+No, this is not a _bug_. This is a missing feature that the current kernel
+doesn't support and you know about that! The fact that you can trigger a crash
+due to hw limitation doesn't qualify as a bug IMO. And you can do that by other
+means also (CPU throttling without CPUFreq support etc...)
+
+Anyway, I'll stop here and let Alex to make a call.
+
+Either case, feel free to add:
+
+Reviewed-by: Manivannan Sadhasivam <manivannan.sadhasivam@linaro.org>
+
+Thanks,
+Mani
+
 _______________________________________________
 Linux-stm32 mailing list
 Linux-stm32@st-md-mailman.stormreply.com
