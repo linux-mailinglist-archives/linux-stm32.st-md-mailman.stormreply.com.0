@@ -2,68 +2,63 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id 7B9DC2784F5
-	for <lists+linux-stm32@lfdr.de>; Fri, 25 Sep 2020 12:22:14 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id C3AFD2784FD
+	for <lists+linux-stm32@lfdr.de>; Fri, 25 Sep 2020 12:22:52 +0200 (CEST)
 Received: from ip-172-31-3-76.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 3AD75C3FAE1;
-	Fri, 25 Sep 2020 10:22:14 +0000 (UTC)
-Received: from mail-pf1-f194.google.com (mail-pf1-f194.google.com
- [209.85.210.194])
- (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 92CF2C3FAFF;
+	Fri, 25 Sep 2020 10:22:52 +0000 (UTC)
+Received: from mx07-00178001.pphosted.com (mx07-00178001.pphosted.com
+ [185.132.182.106])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 5049DC32EA8
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 90A16C3FADF
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Fri, 25 Sep 2020 10:22:12 +0000 (UTC)
-Received: by mail-pf1-f194.google.com with SMTP id f18so2718871pfa.10
- for <linux-stm32@st-md-mailman.stormreply.com>;
- Fri, 25 Sep 2020 03:22:12 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20161025;
- h=mime-version:references:in-reply-to:from:date:message-id:subject:to
- :cc; bh=2lbFg3EfTPubbbEXQCNv75JEtnNzJ5GMo5FQjXXg9gA=;
- b=LSfij8cmE3SRXNOnYNmnoAglcEmSbiz26Yt8p3PrMrnltuSQMEETYBvnz2dbFpghvt
- AqCs5GPJklKK/M1+st7P0ufNsiWQA0W1DLTTli3fHd8cF2PxThflC3I5x7fhxs53HZx/
- zeyiwKAPpDDrCdOshiLl7/CNwimYcxJCi/gf1AMqIQv4RMVsCGXyR1x8f0ko78aYEorx
- 5h+wz6H6JdDA/GL2/A2b9lrMahTR5nD2vice+RxkSR7vyveSymLn3YrkLHGHWaOygIwO
- 6GmXGHCJT7L6+ZLPyhfeOp1zsiogdSDdEvEPWbpRrgYX1BxJEG8RQqLhzl0SBbhWM1Kr
- P7EA==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20161025;
- h=x-gm-message-state:mime-version:references:in-reply-to:from:date
- :message-id:subject:to:cc;
- bh=2lbFg3EfTPubbbEXQCNv75JEtnNzJ5GMo5FQjXXg9gA=;
- b=b1EHIDTiwAL8EeLRrdjNAHrvk8o5tfBU92QnM2g29T3bAnqEwG1iU9p5bGPshAyOxX
- E6FjbG689l1EP8ggZck7o9imqzZFHD1a8Kp36VRrkp/damoJ+6Gzsz8T0/kfdkG1b8JI
- Lh9RmP9Gz032OdZLQ+wZwJXmEJ3nRAAYgN1npKjskGNMvtOb4UIhDPvacrEuIMcg6q70
- kEkaXpQHcZnqy8Dd0sEquBn3oq2UwhOPT5po7Jp3wsguKNcF+QDtm9LWNcnif48Gfcbj
- +gfK7LL5ESR06CKiNX1I7aVjY7q/JbRCarOMJTFvsYEOnkmUbhfpELZYCrpyJcRzbf4u
- dNqg==
-X-Gm-Message-State: AOAM530VK8JrEgVfO1cFQK/lUj7IFJqeoZdyVdSXP00A8J16wSiCIxQN
- qK4dYNuB5MddlMafaM58hKbbRCvrp+s7Zx0j7vo=
-X-Google-Smtp-Source: ABdhPJzYlM8hV0nt13kMb7p2rnKTLsPzywseTL+BVDG3rpzy9n7kySSls2sU3iDbAEm+9utxauJoCMzVwRpkG/6HZLg=
-X-Received: by 2002:aa7:9201:0:b029:13e:d13d:a10c with SMTP id
- 1-20020aa792010000b029013ed13da10cmr3305770pfo.40.1601029330528; Fri, 25 Sep
- 2020 03:22:10 -0700 (PDT)
+ Fri, 25 Sep 2020 10:22:50 +0000 (UTC)
+Received: from pps.filterd (m0046668.ppops.net [127.0.0.1])
+ by mx07-00178001.pphosted.com (8.16.0.42/8.16.0.42) with SMTP id
+ 08PACrUF021938; Fri, 25 Sep 2020 12:22:39 +0200
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=st.com;
+ h=from : to : subject :
+ date : message-id : mime-version : content-type; s=STMicroelectronics;
+ bh=eKfvECveCooM3eettEfGT1hacpm3WXy4NMPiGKVb5wE=;
+ b=rxqNRLX0fDDZxRbhKJOK/47Nw2RTrKDL9tvn7hJBMk5FwkmrEFbR92yFxUd/xi+lajjG
+ PM+h7Uw1SMcJrzghbvFPeyiDI0A2iTcyOPyagVhDooTxQtsis1VAdjUjsfP07PSenCNF
+ 35VM7ipNYahLo30qznhLxnU65WBDRTprM+/Sc28bTHsVBJhfzxxNY8rQHxZkFbekdrYk
+ kgEa2GpCPKtGGbX5be5AAf6w3C45LNe6fu2ZjcpTfkukcsGZOx0VKtRQEKrxjpcfUtgs
+ YOSNTWd+8HY6VzrGrxhr4GtEUfVBB5hR5QGVyTSAxyttPuKMnKuizd9G7bMPI+Kj0j1P qw== 
+Received: from beta.dmz-eu.st.com (beta.dmz-eu.st.com [164.129.1.35])
+ by mx07-00178001.pphosted.com with ESMTP id 33n7f09rvm-1
+ (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
+ Fri, 25 Sep 2020 12:22:39 +0200
+Received: from euls16034.sgp.st.com (euls16034.sgp.st.com [10.75.44.20])
+ by beta.dmz-eu.st.com (STMicroelectronics) with ESMTP id E384B10002A;
+ Fri, 25 Sep 2020 12:22:37 +0200 (CEST)
+Received: from Webmail-eu.st.com (sfhdag6node1.st.com [10.75.127.16])
+ by euls16034.sgp.st.com (STMicroelectronics) with ESMTP id BD5102A562E;
+ Fri, 25 Sep 2020 12:22:37 +0200 (CEST)
+Received: from localhost (10.75.127.51) by SFHDAG6NODE1.st.com (10.75.127.16)
+ with Microsoft SMTP Server (TLS) id 15.0.1473.3;
+ Fri, 25 Sep 2020 12:22:37 +0200
+From: Yannick Fertre <yannick.fertre@st.com>
+To: Yannick Fertre <yannick.fertre@st.com>, Philippe Cornu
+ <philippe.cornu@st.com>, Antonio Borneo <antonio.borneo@st.com>, "Vincent
+ Abriou" <vincent.abriou@st.com>, David Airlie <airlied@linux.ie>, "Daniel
+ Vetter" <daniel@ffwll.ch>, Maxime Coquelin <mcoquelin.stm32@gmail.com>,
+ Alexandre Torgue <alexandre.torgue@st.com>,
+ <dri-devel@lists.freedesktop.org>,
+ <linux-stm32@st-md-mailman.stormreply.com>,
+ <linux-arm-kernel@lists.infradead.org>, <linux-kernel@vger.kernel.org>
+Date: Fri, 25 Sep 2020 12:22:33 +0200
+Message-ID: <20200925102233.18016-1-yannick.fertre@st.com>
+X-Mailer: git-send-email 2.17.1
 MIME-Version: 1.0
-References: <20200925095406.27834-1-vee.khee.wong@intel.com>
-In-Reply-To: <20200925095406.27834-1-vee.khee.wong@intel.com>
-From: Andy Shevchenko <andy.shevchenko@gmail.com>
-Date: Fri, 25 Sep 2020 13:21:52 +0300
-Message-ID: <CAHp75VeMJXRhx2FrsRur4e9OLXodmXh5Krj_n6PosuJx6MD=Zg@mail.gmail.com>
-To: Wong Vee Khee <vee.khee.wong@intel.com>
-Cc: Mark Gross <mgross@linux.intel.com>, Voon Wei Feng <weifeng.voon@intel.com>,
- netdev <netdev@vger.kernel.org>,
- Linux Kernel Mailing List <linux-kernel@vger.kernel.org>,
- linux-stm32@st-md-mailman.stormreply.com,
- Seow Chen Yong <chen.yong.seow@intel.com>, Jose Abreu <joabreu@synopsys.com>,
- Vijaya Balan Sadhishkhanna <sadhishkhanna.vijaya.balan@intel.com>,
- Maxime Coquelin <mcoquelin.stm32@gmail.com>, Jakub Kicinski <kuba@kernel.org>,
- Ong Boon Leong <boon.leong.ong@intel.com>,
- Giuseppe Cavallaro <peppe.cavallaro@st.com>,
- Andy Shevchenko <andriy.shevchenko@linux.intel.com>,
- "David S . Miller" <davem@davemloft.net>,
- linux-arm Mailing List <linux-arm-kernel@lists.infradead.org>
-Subject: Re: [Linux-stm32] [PATCH net 1/1] net: stmmac: Fix clock handling
-	on remove path
+X-Originating-IP: [10.75.127.51]
+X-ClientProxiedBy: SFHDAG3NODE2.st.com (10.75.127.8) To SFHDAG6NODE1.st.com
+ (10.75.127.16)
+X-Proofpoint-Virus-Version: vendor=fsecure engine=2.50.10434:6.0.235, 18.0.687
+ definitions=2020-09-25_04:2020-09-24,
+ 2020-09-25 signatures=0
+Subject: [Linux-stm32] [PATCH] drm/stm: dsi: Use dev_ based logging
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -80,47 +75,267 @@ Content-Transfer-Encoding: 7bit
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
-On Fri, Sep 25, 2020 at 12:54 PM Wong Vee Khee <vee.khee.wong@intel.com> wrote:
->
-> While unloading the dwmac-intel driver, clk_disable_unprepare() is
-> being called twice in stmmac_dvr_remove() and
-> intel_eth_pci_remove(). This causes kernel panic on the second call.
->
-> Removing the second call of clk_disable_unprepare() in
-> intel_eth_pci_remove().
+Standardize on the dev_ based logging and drop the include of drm_print.h.
+Remove useless dsi_color_from_mipi function.
 
-Thanks! I'm not sure how I missed this...
+Signed-off-by: Yannick Fertre <yannick.fertre@st.com>
+---
+ drivers/gpu/drm/stm/dw_mipi_dsi-stm.c | 87 ++++++++++++++-------------
+ 1 file changed, 45 insertions(+), 42 deletions(-)
 
-Reviewed-by: Andy Shevchenko <andy.shevchenko@gmail.com>
-
-> Fixes: 09f012e64e4b ("stmmac: intel: Fix clock handling on error and remove paths")
-> Cc: Andy Shevchenko <andriy.shevchenko@linux.intel.com>
-> Reviewed-by: Voon Weifeng <weifeng.voon@intel.com>
-> Signed-off-by: Wong Vee Khee <vee.khee.wong@intel.com>
-> ---
->  drivers/net/ethernet/stmicro/stmmac/dwmac-intel.c | 1 -
->  1 file changed, 1 deletion(-)
->
-> diff --git a/drivers/net/ethernet/stmicro/stmmac/dwmac-intel.c b/drivers/net/ethernet/stmicro/stmmac/dwmac-intel.c
-> index 2ac9dfb3462c..9e6d60e75f85 100644
-> --- a/drivers/net/ethernet/stmicro/stmmac/dwmac-intel.c
-> +++ b/drivers/net/ethernet/stmicro/stmmac/dwmac-intel.c
-> @@ -653,7 +653,6 @@ static void intel_eth_pci_remove(struct pci_dev *pdev)
->
->         pci_free_irq_vectors(pdev);
->
-> -       clk_disable_unprepare(priv->plat->stmmac_clk);
->         clk_unregister_fixed_rate(priv->plat->stmmac_clk);
->
->         pcim_iounmap_regions(pdev, BIT(0));
-> --
-> 2.17.0
->
-
-
+diff --git a/drivers/gpu/drm/stm/dw_mipi_dsi-stm.c b/drivers/gpu/drm/stm/dw_mipi_dsi-stm.c
+index 164f79ef6269..93fa8bfd3127 100644
+--- a/drivers/gpu/drm/stm/dw_mipi_dsi-stm.c
++++ b/drivers/gpu/drm/stm/dw_mipi_dsi-stm.c
+@@ -76,6 +76,7 @@ enum dsi_color {
+ 
+ struct dw_mipi_dsi_stm {
+ 	void __iomem *base;
++	struct device *dev;
+ 	struct clk *pllref_clk;
+ 	struct dw_mipi_dsi *dsi;
+ 	u32 hw_version;
+@@ -110,23 +111,6 @@ static inline void dsi_update_bits(struct dw_mipi_dsi_stm *dsi, u32 reg,
+ 	dsi_write(dsi, reg, (dsi_read(dsi, reg) & ~mask) | val);
+ }
+ 
+-static enum dsi_color dsi_color_from_mipi(enum mipi_dsi_pixel_format fmt)
+-{
+-	switch (fmt) {
+-	case MIPI_DSI_FMT_RGB888:
+-		return DSI_RGB888;
+-	case MIPI_DSI_FMT_RGB666:
+-		return DSI_RGB666_CONF2;
+-	case MIPI_DSI_FMT_RGB666_PACKED:
+-		return DSI_RGB666_CONF1;
+-	case MIPI_DSI_FMT_RGB565:
+-		return DSI_RGB565_CONF1;
+-	default:
+-		DRM_DEBUG_DRIVER("MIPI color invalid, so we use rgb888\n");
+-	}
+-	return DSI_RGB888;
+-}
+-
+ static int dsi_pll_get_clkout_khz(int clkin_khz, int idf, int ndiv, int odf)
+ {
+ 	int divisor = idf * odf;
+@@ -205,14 +189,14 @@ static int dw_mipi_dsi_phy_init(void *priv_data)
+ 	ret = readl_poll_timeout(dsi->base + DSI_WISR, val, val & WISR_RRS,
+ 				 SLEEP_US, TIMEOUT_US);
+ 	if (ret)
+-		DRM_DEBUG_DRIVER("!TIMEOUT! waiting REGU, let's continue\n");
++		dev_dbg(dsi->dev, "!TIMEOUT! waiting REGU, let's continue\n");
+ 
+ 	/* Enable the DSI PLL & wait for its lock */
+ 	dsi_set(dsi, DSI_WRPCR, WRPCR_PLLEN);
+ 	ret = readl_poll_timeout(dsi->base + DSI_WISR, val, val & WISR_PLLLS,
+ 				 SLEEP_US, TIMEOUT_US);
+ 	if (ret)
+-		DRM_DEBUG_DRIVER("!TIMEOUT! waiting PLL, let's continue\n");
++		dev_dbg(dsi->dev, "!TIMEOUT! waiting PLL, let's continue\n");
+ 
+ 	return 0;
+ }
+@@ -221,7 +205,7 @@ static void dw_mipi_dsi_phy_power_on(void *priv_data)
+ {
+ 	struct dw_mipi_dsi_stm *dsi = priv_data;
+ 
+-	DRM_DEBUG_DRIVER("\n");
++	dev_dbg(dsi->dev, "\n");
+ 
+ 	/* Enable the DSI wrapper */
+ 	dsi_set(dsi, DSI_WCR, WCR_DSIEN);
+@@ -231,7 +215,7 @@ static void dw_mipi_dsi_phy_power_off(void *priv_data)
+ {
+ 	struct dw_mipi_dsi_stm *dsi = priv_data;
+ 
+-	DRM_DEBUG_DRIVER("\n");
++	dev_dbg(dsi->dev, "\n");
+ 
+ 	/* Disable the DSI wrapper */
+ 	dsi_clear(dsi, DSI_WCR, WCR_DSIEN);
+@@ -244,6 +228,7 @@ dw_mipi_dsi_get_lane_mbps(void *priv_data, const struct drm_display_mode *mode,
+ {
+ 	struct dw_mipi_dsi_stm *dsi = priv_data;
+ 	unsigned int idf, ndiv, odf, pll_in_khz, pll_out_khz;
++	enum mipi_dsi_pixel_format fmt;
+ 	int ret, bpp;
+ 	u32 val;
+ 
+@@ -267,11 +252,11 @@ dw_mipi_dsi_get_lane_mbps(void *priv_data, const struct drm_display_mode *mode,
+ 
+ 	if (pll_out_khz > dsi->lane_max_kbps) {
+ 		pll_out_khz = dsi->lane_max_kbps;
+-		DRM_WARN("Warning max phy mbps is used\n");
++		dev_warn(dsi->dev, "Warning max phy mbps is used\n");
+ 	}
+ 	if (pll_out_khz < dsi->lane_min_kbps) {
+ 		pll_out_khz = dsi->lane_min_kbps;
+-		DRM_WARN("Warning min phy mbps is used\n");
++		dev_warn(dsi->dev, "Warning min phy mbps is used\n");
+ 	}
+ 
+ 	/* Compute best pll parameters */
+@@ -281,7 +266,7 @@ dw_mipi_dsi_get_lane_mbps(void *priv_data, const struct drm_display_mode *mode,
+ 	ret = dsi_pll_get_params(dsi, pll_in_khz, pll_out_khz,
+ 				 &idf, &ndiv, &odf);
+ 	if (ret)
+-		DRM_WARN("Warning dsi_pll_get_params(): bad params\n");
++		dev_warn(dsi->dev, "Warning dsi_pll_get_params(): bad params\n");
+ 
+ 	/* Get the adjusted pll out value */
+ 	pll_out_khz = dsi_pll_get_clkout_khz(pll_in_khz, idf, ndiv, odf);
+@@ -297,14 +282,31 @@ dw_mipi_dsi_get_lane_mbps(void *priv_data, const struct drm_display_mode *mode,
+ 	/* Select video mode by resetting DSIM bit */
+ 	dsi_clear(dsi, DSI_WCFGR, WCFGR_DSIM);
+ 
++	switch (format) {
++	case MIPI_DSI_FMT_RGB888:
++		fmt = DSI_RGB888;
++		break;
++	case MIPI_DSI_FMT_RGB666:
++		fmt = DSI_RGB666_CONF2;
++		break;
++	case MIPI_DSI_FMT_RGB666_PACKED:
++		fmt = DSI_RGB666_CONF1;
++		break;
++	case MIPI_DSI_FMT_RGB565:
++		fmt = DSI_RGB565_CONF1;
++		break;
++	default:
++		fmt = DSI_RGB888;
++		dev_err(dsi->dev, "MIPI color invalid, so we use rgb888\n");
++	}
++
+ 	/* Select the color coding */
+-	dsi_update_bits(dsi, DSI_WCFGR, WCFGR_COLMUX,
+-			dsi_color_from_mipi(format) << 1);
++	dsi_update_bits(dsi, DSI_WCFGR, WCFGR_COLMUX, fmt << 1);
+ 
+ 	*lane_mbps = pll_out_khz / 1000;
+ 
+-	DRM_DEBUG_DRIVER("pll_in %ukHz pll_out %ukHz lane_mbps %uMHz\n",
+-			 pll_in_khz, pll_out_khz, *lane_mbps);
++	dev_dbg(dsi->dev, "pll_in %ukHz pll_out %ukHz lane_mbps %uMHz\n", pll_in_khz, pll_out_khz,
++		*lane_mbps);
+ 
+ 	return 0;
+ }
+@@ -352,11 +354,13 @@ static int dw_mipi_dsi_stm_probe(struct platform_device *pdev)
+ 	if (!dsi)
+ 		return -ENOMEM;
+ 
++	dsi->dev = dev;
++
+ 	res = platform_get_resource(pdev, IORESOURCE_MEM, 0);
+ 	dsi->base = devm_ioremap_resource(dev, res);
+ 	if (IS_ERR(dsi->base)) {
+ 		ret = PTR_ERR(dsi->base);
+-		DRM_ERROR("Unable to get dsi registers %d\n", ret);
++		dev_err(dev, "Unable to get dsi registers %d\n", ret);
+ 		return ret;
+ 	}
+ 
+@@ -364,13 +368,13 @@ static int dw_mipi_dsi_stm_probe(struct platform_device *pdev)
+ 	if (IS_ERR(dsi->vdd_supply)) {
+ 		ret = PTR_ERR(dsi->vdd_supply);
+ 		if (ret != -EPROBE_DEFER)
+-			DRM_ERROR("Failed to request regulator: %d\n", ret);
++			dev_err(dev, "Failed to request regulator: %d\n", ret);
+ 		return ret;
+ 	}
+ 
+ 	ret = regulator_enable(dsi->vdd_supply);
+ 	if (ret) {
+-		DRM_ERROR("Failed to enable regulator: %d\n", ret);
++		dev_err(dev, "Failed to enable regulator: %d\n", ret);
+ 		return ret;
+ 	}
+ 
+@@ -378,27 +382,26 @@ static int dw_mipi_dsi_stm_probe(struct platform_device *pdev)
+ 	if (IS_ERR(dsi->pllref_clk)) {
+ 		ret = PTR_ERR(dsi->pllref_clk);
+ 		if (ret != -EPROBE_DEFER)
+-			DRM_ERROR("Unable to get pll reference clock: %d\n",
+-				  ret);
++			dev_err(dev, "Unable to get pll reference clock: %d\n", ret);
+ 		goto err_clk_get;
+ 	}
+ 
+ 	ret = clk_prepare_enable(dsi->pllref_clk);
+ 	if (ret) {
+-		DRM_ERROR("Failed to enable pllref_clk: %d\n", ret);
++		dev_err(dev, "Failed to enable pllref_clk: %d\n", ret);
+ 		goto err_clk_get;
+ 	}
+ 
+ 	pclk = devm_clk_get(dev, "pclk");
+ 	if (IS_ERR(pclk)) {
+ 		ret = PTR_ERR(pclk);
+-		DRM_ERROR("Unable to get peripheral clock: %d\n", ret);
++		dev_err(dev, "Unable to get peripheral clock: %d\n", ret);
+ 		goto err_dsi_probe;
+ 	}
+ 
+ 	ret = clk_prepare_enable(pclk);
+ 	if (ret) {
+-		DRM_ERROR("%s: Failed to enable peripheral clk\n", __func__);
++		dev_err(dev, "%s: Failed to enable peripheral clk\n", __func__);
+ 		goto err_dsi_probe;
+ 	}
+ 
+@@ -407,7 +410,7 @@ static int dw_mipi_dsi_stm_probe(struct platform_device *pdev)
+ 
+ 	if (dsi->hw_version != HWVER_130 && dsi->hw_version != HWVER_131) {
+ 		ret = -ENODEV;
+-		DRM_ERROR("bad dsi hardware version\n");
++		dev_err(dev, "bad dsi hardware version\n");
+ 		goto err_dsi_probe;
+ 	}
+ 
+@@ -420,7 +423,7 @@ static int dw_mipi_dsi_stm_probe(struct platform_device *pdev)
+ 	if (IS_ERR(dsi->dsi)) {
+ 		ret = PTR_ERR(dsi->dsi);
+ 		if (ret != -EPROBE_DEFER)
+-			DRM_ERROR("Failed to initialize mipi dsi host: %d\n", ret);
++			dev_err(dev, "Failed to initialize mipi dsi host: %d\n", ret);
+ 		goto err_dsi_probe;
+ 	}
+ 
+@@ -449,7 +452,7 @@ static int __maybe_unused dw_mipi_dsi_stm_suspend(struct device *dev)
+ {
+ 	struct dw_mipi_dsi_stm *dsi = dw_mipi_dsi_stm_plat_data.priv_data;
+ 
+-	DRM_DEBUG_DRIVER("\n");
++	dev_dbg(dsi->dev, "\n");
+ 
+ 	clk_disable_unprepare(dsi->pllref_clk);
+ 	regulator_disable(dsi->vdd_supply);
+@@ -462,18 +465,18 @@ static int __maybe_unused dw_mipi_dsi_stm_resume(struct device *dev)
+ 	struct dw_mipi_dsi_stm *dsi = dw_mipi_dsi_stm_plat_data.priv_data;
+ 	int ret;
+ 
+-	DRM_DEBUG_DRIVER("\n");
++	dev_dbg(dsi->dev, "\n");
+ 
+ 	ret = regulator_enable(dsi->vdd_supply);
+ 	if (ret) {
+-		DRM_ERROR("Failed to enable regulator: %d\n", ret);
++		dev_err(dev, "Failed to enable regulator: %d\n", ret);
+ 		return ret;
+ 	}
+ 
+ 	ret = clk_prepare_enable(dsi->pllref_clk);
+ 	if (ret) {
+ 		regulator_disable(dsi->vdd_supply);
+-		DRM_ERROR("Failed to enable pllref_clk: %d\n", ret);
++		dev_err(dev, "Failed to enable pllref_clk: %d\n", ret);
+ 		return ret;
+ 	}
+ 
 -- 
-With Best Regards,
-Andy Shevchenko
+2.17.1
+
 _______________________________________________
 Linux-stm32 mailing list
 Linux-stm32@st-md-mailman.stormreply.com
