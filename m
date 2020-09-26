@@ -2,56 +2,67 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id E238827A3EE
-	for <lists+linux-stm32@lfdr.de>; Sun, 27 Sep 2020 22:08:33 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 7166E27A79D
+	for <lists+linux-stm32@lfdr.de>; Mon, 28 Sep 2020 08:36:15 +0200 (CEST)
 Received: from ip-172-31-3-76.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 45838C36B37;
-	Sun, 27 Sep 2020 20:08:33 +0000 (UTC)
-Received: from smtprelay.hostedemail.com (smtprelay0018.hostedemail.com
- [216.40.44.18])
- (using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 32605C3FAD7;
+	Mon, 28 Sep 2020 06:36:15 +0000 (UTC)
+Received: from m42-4.mailgun.net (m42-4.mailgun.net [69.72.42.4])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id C3B82C36B0A
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 6D93FC32EA8
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Sun, 27 Sep 2020 20:08:30 +0000 (UTC)
-Received: from filter.hostedemail.com (clb03-v110.bra.tucows.net
- [216.40.38.60])
- by smtprelay05.hostedemail.com (Postfix) with ESMTP id 7E77118017FB8;
- Sun, 27 Sep 2020 20:08:29 +0000 (UTC)
-X-Session-Marker: 6A6F6540706572636865732E636F6D
-X-Spam-Summary: 50, 0, 0, , d41d8cd98f00b204, joe@perches.com, ,
- RULES_HIT:41:355:379:599:967:973:988:989:1260:1263:1277:1311:1313:1314:1345:1359:1437:1515:1516:1518:1534:1538:1568:1593:1594:1711:1714:1730:1747:1777:1792:2393:2525:2560:2563:2682:2685:2693:2828:2859:2933:2937:2939:2942:2945:2947:2951:2954:3022:3138:3139:3140:3141:3142:3622:3865:3866:3867:3868:3872:3874:3934:3936:3938:3941:3944:3947:3950:3953:3956:3959:4321:4362:5007:6742:7903:9025:10004:10400:11232:11658:11914:12295:12297:12740:12760:12895:13019:13069:13311:13357:13439:14181:14659:14721:21063:21080:21451:21627:30034:30054:30091,
- 0, RBL:none, CacheIP:none, Bayesian:0.5, 0.5, 0.5, Netcheck:none,
- DomainCache:0, MSF:not bulk, SPF:, MSBL:0, DNSBL:none, Custom_rules:0:0:0,
- LFtime:1, LUA_SUMMARY:none
-X-HE-Tag: toy29_471566e2717b
-X-Filterd-Recvd-Size: 2021
-Received: from XPS-9350.home (unknown [47.151.133.149])
- (Authenticated sender: joe@perches.com)
- by omf19.hostedemail.com (Postfix) with ESMTPA;
- Sun, 27 Sep 2020 20:08:26 +0000 (UTC)
-Message-ID: <9f6ebf51253bf420c8f6f8974a82283ae3e9e446.camel@perches.com>
-From: Joe Perches <joe@perches.com>
-To: Julia Lawall <Julia.Lawall@inria.fr>, linux-iio@vger.kernel.org
-Date: Sun, 27 Sep 2020 13:08:25 -0700
-In-Reply-To: <1601233948-11629-1-git-send-email-Julia.Lawall@inria.fr>
-References: <1601233948-11629-1-git-send-email-Julia.Lawall@inria.fr>
-User-Agent: Evolution 3.36.4-0ubuntu1 
+ Sat, 26 Sep 2020 01:01:07 +0000 (UTC)
+DKIM-Signature: a=rsa-sha256; v=1; c=relaxed/relaxed; d=mg.codeaurora.org;
+ q=dns/txt; 
+ s=smtp; t=1601082069; h=Content-Transfer-Encoding: MIME-Version:
+ Message-Id: Date: Subject: Cc: To: From: Sender;
+ bh=inVwG+lgLK3y69RPi+2kZXAeaXX0aKhf2C3eywTtfvc=;
+ b=H8gOL2ulR0QiBMUF847Sy7tJNMX5Lf+eU1sSCNoJGGKg1wN8LMyQz0J++zxYIUiJLtK5kq78
+ PmsiT6di1UdhgfEAMy+4pXa3U/64SLGUWchCpzEOme/SN6Q4vNUikZ+FocfacIHtzb+5BK++
+ StZh8yvAf9njLQFTxdmhevmYmZE=
+X-Mailgun-Sending-Ip: 69.72.42.4
+X-Mailgun-Sid: WyI1Njk0YyIsICJsaW51eC1zdG0zMkBzdC1tZC1tYWlsbWFuLnN0b3JtcmVwbHkuY29tIiwgImJlOWU0YSJd
+Received: from smtp.codeaurora.org
+ (ec2-35-166-182-171.us-west-2.compute.amazonaws.com [35.166.182.171]) by
+ smtp-out-n05.prod.us-east-1.postgun.com with SMTP id
+ 5f6e92bfebb17452baed4d57 (version=TLS1.2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256); Sat, 26 Sep 2020 01:00:47
+ GMT
+Received: by smtp.codeaurora.org (Postfix, from userid 1001)
+ id AF01DC433A1; Sat, 26 Sep 2020 01:00:46 +0000 (UTC)
+X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
+ aws-us-west-2-caf-mail-1.web.codeaurora.org
+X-Spam-Level: 
+X-Spam-Status: No, score=-2.9 required=2.0 tests=ALL_TRUSTED, BAYES_00,
+ SPF_FAIL autolearn=no autolearn_force=no version=3.4.0
+Received: from tingweiz-gv.qualcomm.com (unknown [180.166.53.21])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES128-SHA256 (128/128 bits))
+ (No client certificate requested) (Authenticated sender: tingwei)
+ by smtp.codeaurora.org (Postfix) with ESMTPSA id 43463C433C8;
+ Sat, 26 Sep 2020 01:00:43 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.3.2 smtp.codeaurora.org 43463C433C8
+Authentication-Results: aws-us-west-2-caf-mail-1.web.codeaurora.org;
+ dmarc=none (p=none dis=none) header.from=codeaurora.org
+Authentication-Results: aws-us-west-2-caf-mail-1.web.codeaurora.org;
+ spf=fail smtp.mailfrom=tingwei@codeaurora.org
+From: Tingwei Zhang <tingwei@codeaurora.org>
+To: Steven Rostedt <rostedt@goodmis.org>, Ingo Molnar <mingo@redhat.com>,
+ Alexander Shishkin <alexander.shishkin@linux.intel.com>,
+ Maxime Coquelin <mcoquelin.stm32@gmail.com>,
+ Alexandre Torgue <alexandre.torgue@st.com>
+Date: Sat, 26 Sep 2020 08:59:59 +0800
+Message-Id: <20200926010005.14689-1-tingwei@codeaurora.org>
+X-Mailer: git-send-email 2.20.0
 MIME-Version: 1.0
-Cc: drbd-dev@lists.linbit.com,
- Valdis =?UTF-8?Q?Kl=C4=93tnieks?= <valdis.kletnieks@vt.edu>,
- David Lechner <david@lechnology.com>, Neil Armstrong <narmstrong@baylibre.com>,
- Martin Blumenstingl <martin.blumenstingl@googlemail.com>,
- kernel-janitors@vger.kernel.org, "Rafael J.
- Wysocki" <rafael@kernel.org>, linux-wireless@vger.kernel.org,
- linux-kernel@vger.kernel.org, linux-stm32@st-md-mailman.stormreply.com,
- linux-block@vger.kernel.org, linux-ide@vger.kernel.org,
- linux-crypto@vger.kernel.org, linux-amlogic@lists.infradead.org,
- Thomas Gleixner <tglx@linutronix.de>, linux-acpi@vger.kernel.org,
- openipmi-developer@lists.sourceforge.net, linux-clk@vger.kernel.org,
- linux-arm-kernel@lists.infradead.org, Jerome Brunet <jbrunet@baylibre.com>
-Subject: Re: [Linux-stm32] [PATCH 00/18] use semicolons rather than commas
- to separate statements
+X-Mailman-Approved-At: Mon, 28 Sep 2020 06:36:12 +0000
+Cc: tsoni@codeaurora.org, Sai Prakash Ranjan <saiprakash.ranjan@codeaurora.org>,
+ Mathieu Poirier <mathieu.poirier@linaro.org>,
+ Suzuki K Poulose <suzuki.poulose@arm.com>,
+ Mao Jinlong <jinlmao@codeaurora.org>, linux-kernel@vger.kernel.org,
+ linux-stm32@st-md-mailman.stormreply.com, linux-arm-kernel@lists.infradead.org
+Subject: [Linux-stm32] [PATCH v4 0/6] tracing: export event trace and
+	trace_marker
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -68,19 +79,43 @@ Content-Transfer-Encoding: 7bit
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
-On Sun, 2020-09-27 at 21:12 +0200, Julia Lawall wrote:
-> These patches replace commas by semicolons.  This was done using the
-> Coccinelle semantic patch (http://coccinelle.lip6.fr/) shown below.
-> 
-> This semantic patch ensures that commas inside for loop headers will not be
-> transformed.  It also doesn't touch macro definitions.
+Ftrace has ability to export trace packets to other destination.
+Currently, only function trace can be exported. This series extends the
+support to event trace and trace_maker. STM is one possible destination to
+export ftrace. Use separate channel for each CPU to avoid mixing up packets
+from different CPUs together.
 
-Thanks.
+Change from v3:
+Round up number of channels to power of 2. (Alex)
 
-All of these appear to be correct and without effect
-except for __LINE__ number changes where braces are added.
+Change from v2:
+Change flag definition to BIT(). (Steven)
+Add comment in stm_ftrace_write() to clarify it's safe to use 
+smp_processor_id() here since preempt is disabled. (Steven) 
 
+Change from v1:
+All changes are suggested by Steven Rostedt.
+User separate flag to control function trace, event trace and trace mark.
+Allocate channels according to num_possible_cpu() dynamically.
+Move ftrace_exports routines up so all ftrace can use them.
 
+Tingwei Zhang (6):
+  stm class: ftrace: change dependency to TRACING
+  tracing: add flag to control different traces
+  tracing: add trace_export support for event trace
+  tracing: add trace_export support for trace_marker
+  stm class: ftrace: enable supported trace export flag
+  stm class: ftrace: use different channel accroding to CPU
+
+ drivers/hwtracing/stm/Kconfig  |   2 +-
+ drivers/hwtracing/stm/ftrace.c |   7 +-
+ include/linux/trace.h          |   7 +
+ kernel/trace/trace.c           | 270 ++++++++++++++++++---------------
+ 4 files changed, 159 insertions(+), 127 deletions(-)
+
+-- 
+The Qualcomm Innovation Center, Inc. is a member of the Code Aurora Forum,
+a Linux Foundation Collaborative Project
 
 _______________________________________________
 Linux-stm32 mailing list
