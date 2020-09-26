@@ -2,42 +2,45 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id 6481727951A
-	for <lists+linux-stm32@lfdr.de>; Sat, 26 Sep 2020 01:49:37 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 56979279A54
+	for <lists+linux-stm32@lfdr.de>; Sat, 26 Sep 2020 17:17:48 +0200 (CEST)
 Received: from ip-172-31-3-76.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 2C9A7C3FAFF;
-	Fri, 25 Sep 2020 23:49:37 +0000 (UTC)
-Received: from shards.monkeyblade.net (shards.monkeyblade.net [23.128.96.9])
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id EF67EC3FADF;
+	Sat, 26 Sep 2020 15:17:47 +0000 (UTC)
+Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
+ (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
+ (No client certificate requested)
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 84566C32EB1
+ for <linux-stm32@st-md-mailman.stormreply.com>;
+ Sat, 26 Sep 2020 15:17:43 +0000 (UTC)
+Received: from archlinux (cpc149474-cmbg20-2-0-cust94.5-4.cable.virginm.net
+ [82.4.196.95])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 60F49C3FADF
- for <linux-stm32@st-md-mailman.stormreply.com>;
- Fri, 25 Sep 2020 23:49:35 +0000 (UTC)
-Received: from localhost (unknown [IPv6:2601:601:9f00:477::3d5])
- (using TLSv1 with cipher AES256-SHA (256/256 bits))
- (Client did not present a certificate)
- (Authenticated sender: davem-davemloft)
- by shards.monkeyblade.net (Postfix) with ESMTPSA id 2168213BA091A;
- Fri, 25 Sep 2020 16:32:46 -0700 (PDT)
-Date: Fri, 25 Sep 2020 16:49:32 -0700 (PDT)
-Message-Id: <20200925.164932.397279241814019073.davem@davemloft.net>
-To: vee.khee.wong@intel.com
-From: David Miller <davem@davemloft.net>
-In-Reply-To: <20200925095406.27834-1-vee.khee.wong@intel.com>
-References: <20200925095406.27834-1-vee.khee.wong@intel.com>
-X-Mailer: Mew version 6.8 on Emacs 27.1
-Mime-Version: 1.0
-X-Greylist: Sender succeeded SMTP AUTH, not delayed by milter-greylist-4.5.12
- (shards.monkeyblade.net [2620:137:e000::1:9]);
- Fri, 25 Sep 2020 16:32:46 -0700 (PDT)
-Cc: mgross@linux.intel.com, weifeng.voon@intel.com, netdev@vger.kernel.org,
- linux-kernel@vger.kernel.org, chen.yong.seow@intel.com, joabreu@synopsys.com,
- sadhishkhanna.vijaya.balan@intel.com, mcoquelin.stm32@gmail.com,
- kuba@kernel.org, boon.leong.ong@intel.com, peppe.cavallaro@st.com,
- andriy.shevchenko@linux.intel.com, linux-stm32@st-md-mailman.stormreply.com,
+ by mail.kernel.org (Postfix) with ESMTPSA id 6FCCA20BED;
+ Sat, 26 Sep 2020 15:17:40 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
+ s=default; t=1601133462;
+ bh=D4U25c4Vq+RI+pFAEaZB5jMZ72TqFjqgB+2lURo9ENI=;
+ h=Date:From:To:Cc:Subject:In-Reply-To:References:From;
+ b=h+W6BnHqqaNoA+fHIr4COoKmQyK1ytOEwSBBQ59l+aZSQs1vZQj5ZoyBj2UGvhLV3
+ waUw7yYToz20RmoMXtzILR5ovSwIl0Ba/Bp9HE/h90aYrNXRztB3WOsPBS0wSJf2Mx
+ +JLcRvIU5InDoa9bWLS4jsUpoTNKbc6UoOcnER3E=
+Date: Sat, 26 Sep 2020 16:17:32 +0100
+From: Jonathan Cameron <jic23@kernel.org>
+To: Fabrice Gasnier <fabrice.gasnier@st.com>
+Message-ID: <20200926161732.72af96e3@archlinux>
+In-Reply-To: <045e9e34-f1e0-087b-bc5b-44440db6be27@st.com>
+References: <1593615328-5180-1-git-send-email-fabrice.gasnier@st.com>
+ <045e9e34-f1e0-087b-bc5b-44440db6be27@st.com>
+X-Mailer: Claws Mail 3.17.6 (GTK+ 2.24.32; x86_64-pc-linux-gnu)
+MIME-Version: 1.0
+Cc: ulf.hansson@linaro.org, linux-iio@vger.kernel.org,
+ rafael.j.wysocki@intel.com, rjw@rjwysocki.net, linux-kernel@vger.kernel.org,
+ mcoquelin.stm32@gmail.com, linux-stm32@st-md-mailman.stormreply.com,
  linux-arm-kernel@lists.infradead.org
-Subject: Re: [Linux-stm32] [PATCH net 1/1] net: stmmac: Fix clock handling
-	on remove path
+Subject: Re: [Linux-stm32] [RESEND PATCH v2] iio: adc: stm32-adc: fix
+ runtime autosuspend delay when slow polling
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -54,22 +57,103 @@ Content-Transfer-Encoding: 7bit
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
-From: Wong Vee Khee <vee.khee.wong@intel.com>
-Date: Fri, 25 Sep 2020 17:54:06 +0800
+On Wed, 16 Sep 2020 12:28:00 +0200
+Fabrice Gasnier <fabrice.gasnier@st.com> wrote:
 
-> While unloading the dwmac-intel driver, clk_disable_unprepare() is
-> being called twice in stmmac_dvr_remove() and
-> intel_eth_pci_remove(). This causes kernel panic on the second call.
+> On 7/1/20 4:55 PM, Fabrice Gasnier wrote:
+> > When the ADC is runtime suspended and starting a conversion, the stm32-adc
+> > driver calls pm_runtime_get_sync() that gets cascaded to the parent
+> > (e.g. runtime resume of stm32-adc-core driver). This also kicks the
+> > autosuspend delay (e.g. 2s) of the parent.
+> > Once the ADC is active, calling pm_runtime_get_sync() again (upon a new
+> > capture) won't kick the autosuspend delay for the parent (stm32-adc-core
+> > driver) as already active.
+> > 
+> > Currently, this makes the stm32-adc-core driver go in suspend state
+> > every 2s when doing slow polling. As an example, doing a capture, e.g.
+> > cat in_voltageY_raw at a 0.2s rate, the auto suspend delay for the parent
+> > isn't refreshed. Once it expires, the parent immediately falls into
+> > runtime suspended state, in between two captures, as soon as the child
+> > driver falls into runtime suspend state:
+> > - e.g. after 2s, + child calls pm_runtime_put_autosuspend() + 100ms
+> >   autosuspend delay of the child.
+> > - stm32-adc-core switches off regulators, clocks and so on.
+> > - They get switched on back again 100ms later in this example (at 2.2s).
+> > 
+> > So, use runtime_idle() callback in stm32-adc-core driver to call
+> > pm_runtime_mark_last_busy() for the parent driver (stm32-adc-core),
+> > to avoid this.
+> > 
+> > Fixes: 9bdbb1139ca1 ("iio: adc: stm32-adc: add power management support")
+> > 
+> > Signed-off-by: Fabrice Gasnier <fabrice.gasnier@st.com>
+> > ---
+> > Changes in v2:
+> > - Use runtime_idle callback in stm32-adc-core driver, instead of refreshing
+> >   last_busy from the child (for the parent) at many place. Initial patch v1
+> >   looked like "somewhat adhoc solution" as commented by Jonathan.  
 > 
-> Removing the second call of clk_disable_unprepare() in
-> intel_eth_pci_remove().
+> Hi all,
 > 
-> Fixes: 09f012e64e4b ("stmmac: intel: Fix clock handling on error and remove paths")
-> Cc: Andy Shevchenko <andriy.shevchenko@linux.intel.com>
-> Reviewed-by: Voon Weifeng <weifeng.voon@intel.com>
-> Signed-off-by: Wong Vee Khee <vee.khee.wong@intel.com>
+> Gentle reminder for this patch. Earlier discussions on it were as per
+> [1] and [2].
+> 
+> Ideally, Jonathan was looking for an ack from Rafael on this patch.
+> This is a long pending issue. I'd like to progress on this.
+> 
+> [1] https://patchwork.kernel.org/patch/11349841/
+> [2] https://lkml.org/lkml/2020/6/11/279
 
-Applied, thanks.
+Fabrice, I think this one has sat waiting for inputs for
+too long. Hence I'm going to take a slight gamble that you are correct
+on doing the fix this way (I'm reasonably convinced)
+
+Applied to the fixes-togreg branch of iio.git.
+It won't go in for 5.9 now, so we have a bit of time for any last
+minute comments.
+
+Thanks,
+
+Jonathan
+
+> 
+> Please advise,
+> Thanks in advance,
+> Fabrice
+> 
+> > ---
+> >  drivers/iio/adc/stm32-adc-core.c | 9 ++++++++-
+> >  1 file changed, 8 insertions(+), 1 deletion(-)
+> > 
+> > diff --git a/drivers/iio/adc/stm32-adc-core.c b/drivers/iio/adc/stm32-adc-core.c
+> > index 0e2068e..3586369 100644
+> > --- a/drivers/iio/adc/stm32-adc-core.c
+> > +++ b/drivers/iio/adc/stm32-adc-core.c
+> > @@ -794,6 +794,13 @@ static int stm32_adc_core_runtime_resume(struct device *dev)
+> >  {
+> >  	return stm32_adc_core_hw_start(dev);
+> >  }
+> > +
+> > +static int stm32_adc_core_runtime_idle(struct device *dev)
+> > +{
+> > +	pm_runtime_mark_last_busy(dev);
+> > +
+> > +	return 0;
+> > +}
+> >  #endif
+> >  
+> >  static const struct dev_pm_ops stm32_adc_core_pm_ops = {
+> > @@ -801,7 +808,7 @@ static const struct dev_pm_ops stm32_adc_core_pm_ops = {
+> >  				pm_runtime_force_resume)
+> >  	SET_RUNTIME_PM_OPS(stm32_adc_core_runtime_suspend,
+> >  			   stm32_adc_core_runtime_resume,
+> > -			   NULL)
+> > +			   stm32_adc_core_runtime_idle)
+> >  };
+> >  
+> >  static const struct stm32_adc_priv_cfg stm32f4_adc_priv_cfg = {
+> >   
+
 _______________________________________________
 Linux-stm32 mailing list
 Linux-stm32@st-md-mailman.stormreply.com
