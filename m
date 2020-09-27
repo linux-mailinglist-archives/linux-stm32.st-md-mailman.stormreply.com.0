@@ -2,76 +2,41 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id C520627A232
-	for <lists+linux-stm32@lfdr.de>; Sun, 27 Sep 2020 20:01:41 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id E826D27A2EB
+	for <lists+linux-stm32@lfdr.de>; Sun, 27 Sep 2020 21:55:15 +0200 (CEST)
 Received: from ip-172-31-3-76.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 74A78C36B37;
-	Sun, 27 Sep 2020 18:01:41 +0000 (UTC)
-Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
- (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
- (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 342F9C36B0A
- for <linux-stm32@st-md-mailman.stormreply.com>;
- Sun, 27 Sep 2020 18:01:39 +0000 (UTC)
-Received: from localhost (router.4pisysteme.de [80.79.225.122])
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 75D65C36B37;
+	Sun, 27 Sep 2020 19:55:15 +0000 (UTC)
+Received: from mail3-relais-sop.national.inria.fr
+ (mail3-relais-sop.national.inria.fr [192.134.164.104])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by mail.kernel.org (Postfix) with ESMTPSA id 690C4239EE;
- Sun, 27 Sep 2020 18:01:37 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
- s=default; t=1601229698;
- bh=IxIVeKJYmD2WxR814QsH0EvlFMWfSB1OHN5F7yMa9aY=;
- h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
- b=FaNdOR7tXX/2emfjfzen11ZnesKWs6RmkzODxKu5B3rlPe6M1ofY7E95DBRFRUd3c
- wzzgtWZLRrCEgJuQUTOTsBLuf/kWEhQbkkxkd3QSIg4v/Kst7Xi2NhBIQUuSOVlfKM
- UMkHjgCrO/ohRqJt7wKP0i1f3zKdQSV/ZX1RzZvQ=
-Date: Sun, 27 Sep 2020 20:01:35 +0200
-From: Wolfram Sang <wsa@kernel.org>
-To: Krzysztof Kozlowski <krzk@kernel.org>
-Message-ID: <20200927180135.GA19475@kunai>
-Mail-Followup-To: Wolfram Sang <wsa@kernel.org>,
- Krzysztof Kozlowski <krzk@kernel.org>,
- Nicolas Saenz Julienne <nsaenzjulienne@suse.de>,
- Florian Fainelli <f.fainelli@gmail.com>,
- Ray Jui <rjui@broadcom.com>, Scott Branden <sbranden@broadcom.com>,
- bcm-kernel-feedback-list@broadcom.com,
- Michal Simek <michal.simek@xilinx.com>,
- Sekhar Nori <nsekhar@ti.com>,
- Bartosz Golaszewski <bgolaszewski@baylibre.com>,
- Oleksij Rempel <linux@rempel-privat.de>,
- Pengutronix Kernel Team <kernel@pengutronix.de>,
- Shawn Guo <shawnguo@kernel.org>,
- Sascha Hauer <s.hauer@pengutronix.de>,
- Fabio Estevam <festevam@gmail.com>,
- NXP Linux Team <linux-imx@nxp.com>,
- Heiko Stuebner <heiko@sntech.de>,
- Pierre-Yves MORDRET <pierre-yves.mordret@st.com>,
- Maxime Coquelin <mcoquelin.stm32@gmail.com>,
- Alexandre Torgue <alexandre.torgue@st.com>,
- Peter Rosin <peda@axentia.se>, linux-i2c@vger.kernel.org,
- linux-rpi-kernel@lists.infradead.org,
- linux-arm-kernel@lists.infradead.org, linux-kernel@vger.kernel.org,
- linux-rockchip@lists.infradead.org,
- linux-stm32@st-md-mailman.stormreply.com
-References: <20200902150643.14839-1-krzk@kernel.org>
- <20200902150643.14839-7-krzk@kernel.org>
-MIME-Version: 1.0
-In-Reply-To: <20200902150643.14839-7-krzk@kernel.org>
-Cc: Heiko Stuebner <heiko@sntech.de>, Sekhar Nori <nsekhar@ti.com>,
- Pierre-Yves MORDRET <pierre-yves.mordret@st.com>, linux-i2c@vger.kernel.org,
- Fabio Estevam <festevam@gmail.com>, linux-stm32@st-md-mailman.stormreply.com,
- Florian Fainelli <f.fainelli@gmail.com>, linux-rockchip@lists.infradead.org,
- Michal Simek <michal.simek@xilinx.com>,
- Bartosz Golaszewski <bgolaszewski@baylibre.com>,
- bcm-kernel-feedback-list@broadcom.com, NXP Linux Team <linux-imx@nxp.com>,
- Pengutronix Kernel Team <kernel@pengutronix.de>, Ray Jui <rjui@broadcom.com>,
- Sascha Hauer <s.hauer@pengutronix.de>, linux-rpi-kernel@lists.infradead.org,
- linux-arm-kernel@lists.infradead.org, Scott Branden <sbranden@broadcom.com>,
- linux-kernel@vger.kernel.org, Oleksij Rempel <linux@rempel-privat.de>,
- Maxime Coquelin <mcoquelin.stm32@gmail.com>, Shawn Guo <shawnguo@kernel.org>,
- Peter Rosin <peda@axentia.se>, Nicolas Saenz Julienne <nsaenzjulienne@suse.de>
-Subject: Re: [Linux-stm32] [PATCH 7/9] i2c: rk3x: Simplify with
-	dev_err_probe()
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 778AAC36B0A
+ for <linux-stm32@st-md-mailman.stormreply.com>;
+ Sun, 27 Sep 2020 19:55:12 +0000 (UTC)
+X-IronPort-AV: E=Sophos;i="5.77,311,1596492000"; d="scan'208";a="360169486"
+Received: from palace.rsr.lip6.fr (HELO palace.lip6.fr) ([132.227.105.202])
+ by mail3-relais-sop.national.inria.fr with ESMTP/TLS/AES256-SHA256;
+ 27 Sep 2020 21:55:11 +0200
+From: Julia Lawall <Julia.Lawall@inria.fr>
+To: linux-iio@vger.kernel.org
+Date: Sun, 27 Sep 2020 21:12:10 +0200
+Message-Id: <1601233948-11629-1-git-send-email-Julia.Lawall@inria.fr>
+X-Mailer: git-send-email 1.9.1
+Cc: drbd-dev@lists.linbit.com,
+ =?UTF-8?q?Valdis=20Kl=C4=93tnieks?= <valdis.kletnieks@vt.edu>,
+ David Lechner <david@lechnology.com>, Neil Armstrong <narmstrong@baylibre.com>,
+ Martin Blumenstingl <martin.blumenstingl@googlemail.com>,
+ linux-wireless@vger.kernel.org, "Rafael J. Wysocki" <rafael@kernel.org>,
+ kernel-janitors@vger.kernel.org, linux-kernel@vger.kernel.org,
+ linux-stm32@st-md-mailman.stormreply.com, linux-block@vger.kernel.org,
+ linux-ide@vger.kernel.org, linux-crypto@vger.kernel.org,
+ Joe Perches <joe@perches.com>, linux-amlogic@lists.infradead.org,
+ Thomas Gleixner <tglx@linutronix.de>, linux-acpi@vger.kernel.org,
+ openipmi-developer@lists.sourceforge.net, linux-clk@vger.kernel.org,
+ linux-arm-kernel@lists.infradead.org, Jerome Brunet <jbrunet@baylibre.com>
+Subject: [Linux-stm32] [PATCH 00/18] use semicolons rather than commas to
+	separate statements
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -83,62 +48,163 @@ List-Post: <mailto:linux-stm32@st-md-mailman.stormreply.com>
 List-Help: <mailto:linux-stm32-request@st-md-mailman.stormreply.com?subject=help>
 List-Subscribe: <https://st-md-mailman.stormreply.com/mailman/listinfo/linux-stm32>, 
  <mailto:linux-stm32-request@st-md-mailman.stormreply.com?subject=subscribe>
-Content-Type: multipart/mixed; boundary="===============2309393553628756250=="
+MIME-Version: 1.0
+Content-Type: text/plain; charset="us-ascii"
+Content-Transfer-Encoding: 7bit
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
+These patches replace commas by semicolons.  This was done using the
+Coccinelle semantic patch (http://coccinelle.lip6.fr/) shown below.
 
---===============2309393553628756250==
-Content-Type: multipart/signed; micalg=pgp-sha512;
-	protocol="application/pgp-signature"; boundary="9jxsPFA5p3P2qPhR"
-Content-Disposition: inline
+This semantic patch ensures that commas inside for loop headers will not be
+transformed.  It also doesn't touch macro definitions.
 
+Coccinelle ensures that braces are added as needed when a single-statement
+branch turns into a multi-statement one.
 
---9jxsPFA5p3P2qPhR
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-Content-Transfer-Encoding: quoted-printable
+This semantic patch has a few false positives, for variable delcarations
+such as:
 
-On Wed, Sep 02, 2020 at 05:06:41PM +0200, Krzysztof Kozlowski wrote:
-> Common pattern of handling deferred probe can be simplified with
-> dev_err_probe().  Less code and the error value gets printed.
->=20
-> Signed-off-by: Krzysztof Kozlowski <krzk@kernel.org>
+LIST_HEAD(x), *y;
 
-Applied to for-next, thanks!
+The semantic patch could be improved to avoid these, but for the moment
+they have been removed manually (2 occurrences).
 
+// <smpl>
+@initialize:ocaml@
+@@
 
---9jxsPFA5p3P2qPhR
-Content-Type: application/pgp-signature; name="signature.asc"
+let infunction p =
+  (* avoid macros *)
+  (List.hd p).current_element <> "something_else"
 
------BEGIN PGP SIGNATURE-----
+let combined p1 p2 =
+  (List.hd p1).line_end = (List.hd p2).line ||
+  (((List.hd p1).line_end < (List.hd p2).line) &&
+   ((List.hd p1).col < (List.hd p2).col))
 
-iQIzBAABCgAdFiEEOZGx6rniZ1Gk92RdFA3kzBSgKbYFAl9w03sACgkQFA3kzBSg
-KbZBpQ//da1xjT5NZ0JR2DTtqFdK+FsDuAnixq1XMIfQfk7Kt2bOC1PK9NSqjDPb
-TInsycWM2dKpYl1UptBYzlYchflgmox7nLNkkK9SEsnk8RE3THm3FzT32YkQH78M
-+3fnm+nDELWNIm+W15ISJY4lnqRZV8+8Pf6j6oJ9wGJtAIZ7ee9qDPuCQrCMAI0j
-xQvRN8+0OopUB8puW7pbthc+HgjigBSm0KIb3CQLMwhnhDRhYx5ah5XYmeFo3N8z
-8zaAm4ewrNuVfY59fUjBk9jv/tJwPYKk26hVNAa0tHooY16OFf0Ia3HXXqAq03fL
-c6mPsGtoYwnkKqNzV+1rpBncdpLRnlh0Fa/pljrZFwrvsOaU/NprJ8K7mrcYGanu
-4r/OldG1HGuxkLPdYQTd5VtDfD331uQHqXsvwzBu2mIGnZC/GNWBjj/jrkXyEO1a
-IM6CKwKRs+1KcCdZ+y04FA+bgs6T42a8B/JMXHH6sNi0TLigmTGgFTiqzXcyUgtF
-DUNpDuuENgCG72wIHxAhThw289KqXqzsLWpZMTbWmtbAxYWAUeitRRUdS0dKAIbO
-yqR9BhJWbGJFrzFv2yUwxtGOaz9n7/hRnmGn3hXv7BgFr7/H7z92WEW0bZEDC7QI
-hJ/GkaTK5wbEbGa3XdVwcRoG9/Z6gmwrTMl1IF9dbdslWN4puls=
-=3XWQ
------END PGP SIGNATURE-----
+@bad@
+statement S;
+declaration d;
+position p;
+@@
 
---9jxsPFA5p3P2qPhR--
+S@p
+d
 
---===============2309393553628756250==
-Content-Type: text/plain; charset="us-ascii"
-MIME-Version: 1.0
-Content-Transfer-Encoding: 7bit
-Content-Disposition: inline
+// special cases where newlines are needed (hope for no more than 5)
+@@
+expression e1,e2;
+statement S;
+position p != bad.p;
+position p1;
+position p2 :
+    script:ocaml(p1) { infunction p1 && combined p1 p2 };
+@@
 
+- e1@p1,@S@p e2@p2;
++ e1; e2;
+
+@@
+expression e1,e2;
+statement S;
+position p != bad.p;
+position p1;
+position p2 :
+    script:ocaml(p1) { infunction p1 && combined p1 p2 };
+@@
+
+- e1@p1,@S@p e2@p2;
++ e1; e2;
+
+@@
+expression e1,e2;
+statement S;
+position p != bad.p;
+position p1;
+position p2 :
+    script:ocaml(p1) { infunction p1 && combined p1 p2 };
+@@
+
+- e1@p1,@S@p e2@p2;
++ e1; e2;
+
+@@
+expression e1,e2;
+statement S;
+position p != bad.p;
+position p1;
+position p2 :
+    script:ocaml(p1) { infunction p1 && combined p1 p2 };
+@@
+
+- e1@p1,@S@p e2@p2;
++ e1; e2;
+
+@@
+expression e1,e2;
+statement S;
+position p != bad.p;
+position p1;
+position p2 :
+    script:ocaml(p1) { infunction p1 && combined p1 p2 };
+@@
+
+- e1@p1,@S@p e2@p2;
++ e1; e2;
+
+@r@
+expression e1,e2;
+statement S;
+position p != bad.p;
+@@
+
+e1 ,@S@p e2;
+
+@@
+expression e1,e2;
+position p1;
+position p2 :
+    script:ocaml(p1) { infunction p1 && not(combined p1 p2) };
+statement S;
+position r.p;
+@@
+
+e1@p1
+-,@S@p
++;
+e2@p2
+... when any
+// </smpl>
+
+---
+
+ drivers/acpi/processor_idle.c               |    4 +++-
+ drivers/ata/pata_icside.c                   |   21 +++++++++++++--------
+ drivers/base/regmap/regmap-debugfs.c        |    2 +-
+ drivers/bcma/driver_pci_host.c              |    4 ++--
+ drivers/block/drbd/drbd_receiver.c          |    6 ++++--
+ drivers/char/agp/amd-k7-agp.c               |    2 +-
+ drivers/char/agp/nvidia-agp.c               |    2 +-
+ drivers/char/agp/sworks-agp.c               |    2 +-
+ drivers/char/hw_random/iproc-rng200.c       |    8 ++++----
+ drivers/char/hw_random/mxc-rnga.c           |    6 +++---
+ drivers/char/hw_random/stm32-rng.c          |    8 ++++----
+ drivers/char/ipmi/bt-bmc.c                  |    6 +++---
+ drivers/clk/meson/meson-aoclk.c             |    2 +-
+ drivers/clk/mvebu/ap-cpu-clk.c              |    2 +-
+ drivers/clk/uniphier/clk-uniphier-cpugear.c |    2 +-
+ drivers/clk/uniphier/clk-uniphier-mux.c     |    2 +-
+ drivers/clocksource/mps2-timer.c            |    6 +++---
+ drivers/clocksource/timer-armada-370-xp.c   |    8 ++++----
+ drivers/counter/ti-eqep.c                   |    2 +-
+ drivers/crypto/amcc/crypto4xx_alg.c         |    2 +-
+ drivers/crypto/atmel-tdes.c                 |    2 +-
+ drivers/crypto/hifn_795x.c                  |    4 ++--
+ drivers/crypto/talitos.c                    |    8 ++++----
+ 23 files changed, 60 insertions(+), 51 deletions(-)
 _______________________________________________
 Linux-stm32 mailing list
 Linux-stm32@st-md-mailman.stormreply.com
 https://st-md-mailman.stormreply.com/mailman/listinfo/linux-stm32
-
---===============2309393553628756250==--
