@@ -2,45 +2,66 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id 56979279A54
-	for <lists+linux-stm32@lfdr.de>; Sat, 26 Sep 2020 17:17:48 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 403D9279D78
+	for <lists+linux-stm32@lfdr.de>; Sun, 27 Sep 2020 04:18:38 +0200 (CEST)
 Received: from ip-172-31-3-76.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id EF67EC3FADF;
-	Sat, 26 Sep 2020 15:17:47 +0000 (UTC)
-Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
- (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id E4A91C3FAD4;
+	Sun, 27 Sep 2020 02:18:37 +0000 (UTC)
+Received: from mail-qt1-f193.google.com (mail-qt1-f193.google.com
+ [209.85.160.193])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 84566C32EB1
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 47124C36B0A
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Sat, 26 Sep 2020 15:17:43 +0000 (UTC)
-Received: from archlinux (cpc149474-cmbg20-2-0-cust94.5-4.cable.virginm.net
- [82.4.196.95])
- (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
- (No client certificate requested)
- by mail.kernel.org (Postfix) with ESMTPSA id 6FCCA20BED;
- Sat, 26 Sep 2020 15:17:40 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
- s=default; t=1601133462;
- bh=D4U25c4Vq+RI+pFAEaZB5jMZ72TqFjqgB+2lURo9ENI=;
- h=Date:From:To:Cc:Subject:In-Reply-To:References:From;
- b=h+W6BnHqqaNoA+fHIr4COoKmQyK1ytOEwSBBQ59l+aZSQs1vZQj5ZoyBj2UGvhLV3
- waUw7yYToz20RmoMXtzILR5ovSwIl0Ba/Bp9HE/h90aYrNXRztB3WOsPBS0wSJf2Mx
- +JLcRvIU5InDoa9bWLS4jsUpoTNKbc6UoOcnER3E=
-Date: Sat, 26 Sep 2020 16:17:32 +0100
-From: Jonathan Cameron <jic23@kernel.org>
-To: Fabrice Gasnier <fabrice.gasnier@st.com>
-Message-ID: <20200926161732.72af96e3@archlinux>
-In-Reply-To: <045e9e34-f1e0-087b-bc5b-44440db6be27@st.com>
-References: <1593615328-5180-1-git-send-email-fabrice.gasnier@st.com>
- <045e9e34-f1e0-087b-bc5b-44440db6be27@st.com>
-X-Mailer: Claws Mail 3.17.6 (GTK+ 2.24.32; x86_64-pc-linux-gnu)
+ Sun, 27 Sep 2020 02:18:35 +0000 (UTC)
+Received: by mail-qt1-f193.google.com with SMTP id n10so5659290qtv.3
+ for <linux-stm32@st-md-mailman.stormreply.com>;
+ Sat, 26 Sep 2020 19:18:35 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20161025;
+ h=from:to:cc:subject:date:message-id:mime-version
+ :content-transfer-encoding;
+ bh=6jkl7vNPFtvBxlWV2KeH9eoUepDDSh+STAgXaBbRvsc=;
+ b=kX8VBgyQVBJW+7uBi2aRBS3aEzPAoFZpBGFGFpWSeXrp+AusoFRwU5DX2zuOPHojZi
+ rowZckruCbRU/azdpCOauPKrmWvlXpz+qExS50WmStvqBL1CdCDhRtOHDDkBgN1ZG8/u
+ ovkPDg6h9CwgnQqzBlFMCgC+v6Zwr0dUSseQmbDF4mg4si8/qjp/RtB6TPxoIXO64k9o
+ uLjety8SCuDFTrBYjrPGnqTtr5D4zhvX6ppNTRkaTDQOnfkss2k1ATbtRd0WyiiRYY1n
+ fbPM+kwKZDsWSjPnh1+ZPPbPsUec9HUZpOUXsNDs+/WDyHSOjHS47QFSIUUX5GkKdq+I
+ qurQ==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20161025;
+ h=x-gm-message-state:from:to:cc:subject:date:message-id:mime-version
+ :content-transfer-encoding;
+ bh=6jkl7vNPFtvBxlWV2KeH9eoUepDDSh+STAgXaBbRvsc=;
+ b=OnkzGMAydbYs9YfFKpRWAqPVejAuRrCX0UokBAnyd+0EAkkU4G0NbIZ/5G+bmnPIXt
+ En6HfF+NIZRX9FQd2eLqu5PvkOa9CvFaWr8SxMB6aI3KPeWxHgYt0yGM0uGO5Qs0NbJR
+ cnI3SDgwol2cfzF8Fz4SJ1SexzohyMtk/aZz4xh0Pw7uOvsNxNENEe+bGXm3xXZRe383
+ XphqvEZww5p0uEHtfrAnIYN8PIzYMMFPiiQYscHby1EmA/eg5pd1eza5eSZIuhQ+lxoY
+ iHRY8dD9VLkw/UZJN/nmv6qBINtLYGTfB7VuCD1ap9FtSq41ZYb3bWdgnnXkGqxOqVT0
+ 5OLw==
+X-Gm-Message-State: AOAM530ayWYVIkGw2HON/OvnoUh+piOCqjtC8OZYY46V7rMn5LtGYkQT
+ 74X1kdyqpLU8VCbbPqfJpj8=
+X-Google-Smtp-Source: ABdhPJyWclbfBUCxZ0CQqrbnS3dhIvPrkpJ60mUOMh+lAznAHlspDzeZBuTK0LZO2JlraUl4bfaCIw==
+X-Received: by 2002:aed:37a3:: with SMTP id j32mr7041381qtb.133.1601173113930; 
+ Sat, 26 Sep 2020 19:18:33 -0700 (PDT)
+Received: from localhost.localdomain (072-189-064-225.res.spectrum.com.
+ [72.189.64.225])
+ by smtp.gmail.com with ESMTPSA id f12sm5276906qti.70.2020.09.26.19.18.32
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Sat, 26 Sep 2020 19:18:33 -0700 (PDT)
+From: William Breathitt Gray <vilhelm.gray@gmail.com>
+To: jic23@kernel.org
+Date: Sat, 26 Sep 2020 22:18:13 -0400
+Message-Id: <cover.1601170670.git.vilhelm.gray@gmail.com>
+X-Mailer: git-send-email 2.28.0
 MIME-Version: 1.0
-Cc: ulf.hansson@linaro.org, linux-iio@vger.kernel.org,
- rafael.j.wysocki@intel.com, rjw@rjwysocki.net, linux-kernel@vger.kernel.org,
- mcoquelin.stm32@gmail.com, linux-stm32@st-md-mailman.stormreply.com,
- linux-arm-kernel@lists.infradead.org
-Subject: Re: [Linux-stm32] [RESEND PATCH v2] iio: adc: stm32-adc: fix
- runtime autosuspend delay when slow polling
+Cc: kamel.bouhara@bootlin.com, gwendal@chromium.org, david@lechnology.com,
+ linux-iio@vger.kernel.org, patrick.havelange@essensium.com,
+ alexandre.belloni@bootlin.com, linux-kernel@vger.kernel.org,
+ mcoquelin.stm32@gmail.com, William Breathitt Gray <vilhelm.gray@gmail.com>,
+ fabrice.gasnier@st.com, syednwaris@gmail.com,
+ linux-stm32@st-md-mailman.stormreply.com, linux-arm-kernel@lists.infradead.org
+Subject: [Linux-stm32] [PATCH v5 0/5] Introduce the Counter character device
+	interface
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -57,102 +78,221 @@ Content-Transfer-Encoding: 7bit
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
-On Wed, 16 Sep 2020 12:28:00 +0200
-Fabrice Gasnier <fabrice.gasnier@st.com> wrote:
+Changes in v5:
+ - Fixed typographical errors in documentation and comments
+ - Updated flow charts in documentation for clarity
+ - Moved uapi header to be part of the character device intro patch
+ - Fix git squash mistake in 104-quad-8.c; remove redundant changes
+ - Fix git merge mistake in 104-quad-8.c; fix locking race condition
+ - Minor code cleanup for clarity; adjust whitespace/flow
+ - Use put_device if device_add fails
+ - Document sysfs structures
+ - Rename "owner" symbols to "scope"; more apt name
+ - Use resource-managed devm_* allocation functions
+ - Rename *_free functions to *_remove; following common convention
+ - Rename COUNTER_DATA* to COUNTER_COMP*; more obvious meaning
+ - Rename various symbol and define names for clarity
+ - Bring back static ops function; more secure to have static const
+ - Rename counter_available union members to "enums" and "strs"
+ - Implement COUNTER_EVENT* constants; event types are now standard
+ - Implement atomic Counter watches swap; no more racy event config
 
-> On 7/1/20 4:55 PM, Fabrice Gasnier wrote:
-> > When the ADC is runtime suspended and starting a conversion, the stm32-adc
-> > driver calls pm_runtime_get_sync() that gets cascaded to the parent
-> > (e.g. runtime resume of stm32-adc-core driver). This also kicks the
-> > autosuspend delay (e.g. 2s) of the parent.
-> > Once the ADC is active, calling pm_runtime_get_sync() again (upon a new
-> > capture) won't kick the autosuspend delay for the parent (stm32-adc-core
-> > driver) as already active.
-> > 
-> > Currently, this makes the stm32-adc-core driver go in suspend state
-> > every 2s when doing slow polling. As an example, doing a capture, e.g.
-> > cat in_voltageY_raw at a 0.2s rate, the auto suspend delay for the parent
-> > isn't refreshed. Once it expires, the parent immediately falls into
-> > runtime suspended state, in between two captures, as soon as the child
-> > driver falls into runtime suspend state:
-> > - e.g. after 2s, + child calls pm_runtime_put_autosuspend() + 100ms
-> >   autosuspend delay of the child.
-> > - stm32-adc-core switches off regulators, clocks and so on.
-> > - They get switched on back again 100ms later in this example (at 2.2s).
-> > 
-> > So, use runtime_idle() callback in stm32-adc-core driver to call
-> > pm_runtime_mark_last_busy() for the parent driver (stm32-adc-core),
-> > to avoid this.
-> > 
-> > Fixes: 9bdbb1139ca1 ("iio: adc: stm32-adc: add power management support")
-> > 
-> > Signed-off-by: Fabrice Gasnier <fabrice.gasnier@st.com>
-> > ---
-> > Changes in v2:
-> > - Use runtime_idle callback in stm32-adc-core driver, instead of refreshing
-> >   last_busy from the child (for the parent) at many place. Initial patch v1
-> >   looked like "somewhat adhoc solution" as commented by Jonathan.  
-> 
-> Hi all,
-> 
-> Gentle reminder for this patch. Earlier discussions on it were as per
-> [1] and [2].
-> 
-> Ideally, Jonathan was looking for an ack from Rafael on this patch.
-> This is a long pending issue. I'd like to progress on this.
-> 
-> [1] https://patchwork.kernel.org/patch/11349841/
-> [2] https://lkml.org/lkml/2020/6/11/279
+Over the past couple years we have noticed some shortcomings with the
+Counter sysfs interface. Although useful in the majority of situations,
+there are certain use-cases where interacting through sysfs attributes
+can become cumbersome and inefficient. A desire to support more advanced
+functionality such as timestamps, multi-axes positioning tables, and
+other such latency-sensitive applications, has motivated a reevaluation
+of the Counter subsystem. I believe a character device interface will be
+helpful for this more niche area of counter device use.
 
-Fabrice, I think this one has sat waiting for inputs for
-too long. Hence I'm going to take a slight gamble that you are correct
-on doing the fix this way (I'm reasonably convinced)
+To quell any concerns from the offset: this patchset makes no changes to
+the existing Counter sysfs userspace interface -- existing userspace
+applications will continue to work with no modifications necessary. I
+request that driver maintainers please test their applications to verify
+that this is true, and report any discrepancies if they arise.
 
-Applied to the fixes-togreg branch of iio.git.
-It won't go in for 5.9 now, so we have a bit of time for any last
-minute comments.
+However, this patchset does contain a major reimplementation of the
+Counter subsystem core and driver API. A reimplementation was necessary
+in order to separate the sysfs code from the counter device drivers and
+internalize it as a dedicated component of the core Counter subsystem
+module. A minor benefit from all of this is that the sysfs interface is
+now ensured a certain amount of consistency because the translation is
+performed outside of individual counter device drivers.
 
-Thanks,
+Essentially, the reimplementation has enabled counter device drivers to
+pass and handle data as native C datatypes now rather than the sysfs
+strings from before.
 
-Jonathan
+A high-level view of how a count value is passed down from a counter
+driver is exemplified by the following. The driver callbacks are first
+registered to the Counter core component for use by the Counter
+userspace interface components:
 
-> 
-> Please advise,
-> Thanks in advance,
-> Fabrice
-> 
-> > ---
-> >  drivers/iio/adc/stm32-adc-core.c | 9 ++++++++-
-> >  1 file changed, 8 insertions(+), 1 deletion(-)
-> > 
-> > diff --git a/drivers/iio/adc/stm32-adc-core.c b/drivers/iio/adc/stm32-adc-core.c
-> > index 0e2068e..3586369 100644
-> > --- a/drivers/iio/adc/stm32-adc-core.c
-> > +++ b/drivers/iio/adc/stm32-adc-core.c
-> > @@ -794,6 +794,13 @@ static int stm32_adc_core_runtime_resume(struct device *dev)
-> >  {
-> >  	return stm32_adc_core_hw_start(dev);
-> >  }
-> > +
-> > +static int stm32_adc_core_runtime_idle(struct device *dev)
-> > +{
-> > +	pm_runtime_mark_last_busy(dev);
-> > +
-> > +	return 0;
-> > +}
-> >  #endif
-> >  
-> >  static const struct dev_pm_ops stm32_adc_core_pm_ops = {
-> > @@ -801,7 +808,7 @@ static const struct dev_pm_ops stm32_adc_core_pm_ops = {
-> >  				pm_runtime_force_resume)
-> >  	SET_RUNTIME_PM_OPS(stm32_adc_core_runtime_suspend,
-> >  			   stm32_adc_core_runtime_resume,
-> > -			   NULL)
-> > +			   stm32_adc_core_runtime_idle)
-> >  };
-> >  
-> >  static const struct stm32_adc_priv_cfg stm32f4_adc_priv_cfg = {
-> >   
+                        +----------------------------+
+	                | Counter device driver      |
+                        +----------------------------+
+                        | Processes data from device |
+                        +----------------------------+
+                                |
+                         -------------------
+                        / driver callbacks /
+                        -------------------
+                                |
+                                V
+                        +----------------------+
+                        | Counter core         |
+                        +----------------------+
+                        | Routes device driver |
+                        | callbacks to the     |
+                        | userspace interfaces |
+                        +----------------------+
+                                |
+                         -------------------
+                        / driver callbacks /
+                        -------------------
+                                |
+                +---------------+---------------+
+                |                               |
+                V                               V
+        +--------------------+          +---------------------+
+        | Counter sysfs      |          | Counter chrdev      |
+        +--------------------+          +---------------------+
+        | Translates to the  |          | Translates to the   |
+        | standard Counter   |          | standard Counter    |
+        | sysfs output       |          | character device    |
+        +--------------------+          +---------------------+
+
+Thereafter, data can be transferred directly between the Counter device
+driver and Counter userspace interface:
+
+                         ----------------------
+                        / Counter device       \
+                        +----------------------+
+                        | Count register: 0x28 |
+                        +----------------------+
+                                |
+                         -----------------
+                        / raw count data /
+                        -----------------
+                                |
+                                V
+                        +----------------------------+
+                        | Counter device driver      |
+                        +----------------------------+
+                        | Processes data from device |
+                        |----------------------------|
+                        | Type: u64                  |
+                        | Value: 42                  |
+                        +----------------------------+
+                                |
+                         ----------
+                        / u64     /
+                        ----------
+                                |
+                +---------------+---------------+
+                |                               |
+                V                               V
+        +--------------------+          +---------------------+
+        | Counter sysfs      |          | Counter chrdev      |
+        +--------------------+          +---------------------+
+        | Translates to the  |          | Translates to the   |
+        | standard Counter   |          | standard Counter    |
+        | sysfs output       |          | character device    |
+        |--------------------|          |---------------------|
+        | Type: const char * |          | Type: u64           |
+        | Value: "42"        |          | Value: 42           |
+        +--------------------+          +---------------------+
+                |                               |
+         ---------------                 -----------------------
+        / const char * /                / struct counter_event /
+        ---------------                 -----------------------
+                |                               |
+                |                               V
+                |                       +-----------+
+                |                       | read      |
+                |                       +-----------+
+                |                       \ Count: 42 /
+                |                        -----------
+                |
+                V
+        +--------------------------------------------------+
+        | `/sys/bus/counter/devices/counterX/countY/count` |
+        +--------------------------------------------------+
+        \ Count: "42"                                      /
+         --------------------------------------------------
+
+Counter device data is exposed through standard character device read
+operations. Device data is gathered when a Counter event is pushed by
+the respective Counter device driver. Configuration is handled via ioctl
+operations on the respective Counter character device node.
+
+The following are some questions I have about this patchset:
+
+1. Should standard Counter component data types be defined as u8 or u32?
+
+   Many standard Counter component types such COUNTER_COMP_SIGNAL_LEVEL
+   have standard values defined (e.g. COUNTER_SIGNAL_LEVEL_LOW and
+   COUNTER_SIGNAL_LEVEL_HIGH). These values are currently handled by the
+   Counter subsystem code as u8 data types.
+
+   If u32 is used for these values instead, C enum structures could be
+   used by driver authors to implicit cast these values via the driver
+   callback parameters; userspace would still use u32 with no issue.
+
+   In theory this can work because GCC will treat enums are having a
+   32-bit size; but I worry about the possibility of build targets that
+   have -fshort-enums enabled, resulting in enums having a size less
+   than 32 bits. Would this be a problem?
+
+2. Should I have reserved members in the userspace structures?
+
+   The structures in include/uapi/linux/counter.h are available to
+   userspace applications. Should I reserve space in these structures
+   for future additions and usage? Will endianess and packing be a
+   concern here?
+
+William Breathitt Gray (5):
+  counter: Internalize sysfs interface code
+  docs: counter: Update to reflect sysfs internalization
+  counter: Add character device interface
+  docs: counter: Document character device interface
+  counter: 104-quad-8: Add IRQ support for the ACCES 104-QUAD-8
+
+ Documentation/ABI/testing/sysfs-bus-counter   |   18 +
+ .../ABI/testing/sysfs-bus-counter-104-quad-8  |   32 +
+ Documentation/driver-api/generic-counter.rst  |  408 ++++-
+ .../userspace-api/ioctl/ioctl-number.rst      |    1 +
+ MAINTAINERS                                   |    2 +-
+ drivers/counter/104-quad-8.c                  |  775 +++++----
+ drivers/counter/Kconfig                       |    6 +-
+ drivers/counter/Makefile                      |    1 +
+ drivers/counter/counter-chrdev.c              |  451 +++++
+ drivers/counter/counter-chrdev.h              |   16 +
+ drivers/counter/counter-core.c                |  190 +++
+ drivers/counter/counter-sysfs.c               |  862 ++++++++++
+ drivers/counter/counter-sysfs.h               |   13 +
+ drivers/counter/counter.c                     | 1496 -----------------
+ drivers/counter/ftm-quaddec.c                 |   60 +-
+ drivers/counter/microchip-tcb-capture.c       |  100 +-
+ drivers/counter/stm32-lptimer-cnt.c           |  175 +-
+ drivers/counter/stm32-timer-cnt.c             |  145 +-
+ drivers/counter/ti-eqep.c                     |  226 +--
+ include/linux/counter.h                       |  618 +++----
+ include/linux/counter_enum.h                  |   45 -
+ include/uapi/linux/counter.h                  |   99 ++
+ 22 files changed, 3053 insertions(+), 2686 deletions(-)
+ create mode 100644 drivers/counter/counter-chrdev.c
+ create mode 100644 drivers/counter/counter-chrdev.h
+ create mode 100644 drivers/counter/counter-core.c
+ create mode 100644 drivers/counter/counter-sysfs.c
+ create mode 100644 drivers/counter/counter-sysfs.h
+ delete mode 100644 drivers/counter/counter.c
+ delete mode 100644 include/linux/counter_enum.h
+ create mode 100644 include/uapi/linux/counter.h
+
+-- 
+2.28.0
 
 _______________________________________________
 Linux-stm32 mailing list
