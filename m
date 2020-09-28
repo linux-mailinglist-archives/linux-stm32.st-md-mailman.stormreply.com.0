@@ -2,79 +2,64 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id 1D3EC27A8D6
-	for <lists+linux-stm32@lfdr.de>; Mon, 28 Sep 2020 09:39:29 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 5250127ACA7
+	for <lists+linux-stm32@lfdr.de>; Mon, 28 Sep 2020 13:23:51 +0200 (CEST)
 Received: from ip-172-31-3-76.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id D2A64C3FAD3;
-	Mon, 28 Sep 2020 07:39:28 +0000 (UTC)
-Received: from mx07-00178001.pphosted.com (mx08-00178001.pphosted.com
- [91.207.212.93])
- (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 0E705C36B37;
+	Mon, 28 Sep 2020 11:23:51 +0000 (UTC)
+Received: from mail-ua1-f68.google.com (mail-ua1-f68.google.com
+ [209.85.222.68])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 8FD79C36B24
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id C1177C36B0A
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Mon, 28 Sep 2020 07:39:26 +0000 (UTC)
-Received: from pps.filterd (m0046660.ppops.net [127.0.0.1])
- by mx07-00178001.pphosted.com (8.16.0.42/8.16.0.42) with SMTP id
- 08S7cBZF004230; Mon, 28 Sep 2020 09:39:16 +0200
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=st.com;
- h=from : to : cc : subject
- : date : message-id : references : in-reply-to : content-type : content-id
- : content-transfer-encoding : mime-version; s=STMicroelectronics;
- bh=34sIdKjyMsQnFFlJoFm3qbQPTe5zJNnWK5StqA0VHbI=;
- b=BRZroFtmHwzOEnz33de5QnoSDTqBZS+2VkGpBmBI3Yv1oQXXE9FXKdaHa6mK5yyH+w6G
- u6K+uLglm7npQj63o4J1IgIVUUssxcKJ/HxA3uSLxqVHPEafwFtk3ei73pOxJhc96bap
- 8U76ABbwI+5iVaEmBgQZ0M1VnNqpIMa78+o2zowJOIaNqOlEfwlpQkDiVoHS3UCXVY3f
- tTtcadnTqrPcrqr9REL3DXDynr8IiuJ3RkaywQ9CWhpOj+7Xxz5PECXKAn9D+ZDvcmx1
- ciVTM4PZ59iIZDySVn1u0OQWOM4UfMv0ucEbecQelXsXH9sZZ08pCAWbquj46+jsiIDf 9A== 
-Received: from beta.dmz-eu.st.com (beta.dmz-eu.st.com [164.129.1.35])
- by mx07-00178001.pphosted.com with ESMTP id 33sts7hg8a-1
- (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
- Mon, 28 Sep 2020 09:39:16 +0200
-Received: from euls16034.sgp.st.com (euls16034.sgp.st.com [10.75.44.20])
- by beta.dmz-eu.st.com (STMicroelectronics) with ESMTP id CEAE910002A;
- Mon, 28 Sep 2020 09:39:15 +0200 (CEST)
-Received: from Webmail-eu.st.com (sfhdag6node3.st.com [10.75.127.18])
- by euls16034.sgp.st.com (STMicroelectronics) with ESMTP id BBD6821E690;
- Mon, 28 Sep 2020 09:39:15 +0200 (CEST)
-Received: from SFHDAG6NODE1.st.com (10.75.127.16) by SFHDAG6NODE3.st.com
- (10.75.127.18) with Microsoft SMTP Server (TLS) id 15.0.1473.3; Mon, 28 Sep
- 2020 09:39:15 +0200
-Received: from SFHDAG6NODE1.st.com ([fe80::8d96:4406:44e3:eb27]) by
- SFHDAG6NODE1.st.com ([fe80::8d96:4406:44e3:eb27%20]) with mapi id
- 15.00.1473.003; Mon, 28 Sep 2020 09:39:15 +0200
-From: Yannick FERTRE <yannick.fertre@st.com>
-To: Sam Ravnborg <sam@ravnborg.org>
-Thread-Topic: [PATCH] drm/stm: dsi: Use dev_ based logging
-Thread-Index: AQHWkyXKfX9abUar20eb4rtFyqzMOal5TviAgAQ+I4A=
-Date: Mon, 28 Sep 2020 07:39:15 +0000
-Message-ID: <11a50429-b27d-af28-dd18-7afe997f28b0@st.com>
-References: <20200925102233.18016-1-yannick.fertre@st.com>
- <20200925145149.GB1929717@ravnborg.org>
-In-Reply-To: <20200925145149.GB1929717@ravnborg.org>
-Accept-Language: fr-FR, en-US
-Content-Language: en-US
-X-MS-Has-Attach: 
-X-MS-TNEF-Correlator: 
-user-agent: Mozilla/5.0 (X11; Linux x86_64; rv:68.0) Gecko/20100101
- Thunderbird/68.10.0
-x-ms-exchange-messagesentrepresentingtype: 1
-x-ms-exchange-transport-fromentityheader: Hosted
-x-originating-ip: [10.75.127.45]
-Content-ID: <AD863351E918284E9108EED83DF4829D@st.com>
+ Mon, 28 Sep 2020 11:23:48 +0000 (UTC)
+Received: by mail-ua1-f68.google.com with SMTP id o64so2058370uao.1
+ for <linux-stm32@st-md-mailman.stormreply.com>;
+ Mon, 28 Sep 2020 04:23:48 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linaro.org; s=google;
+ h=mime-version:references:in-reply-to:from:date:message-id:subject:to
+ :cc; bh=dPqyhHPvAKE8oFtG0HXSnceWMN8F9MOf0pO61krCb1Y=;
+ b=mFX2vgIw/ymy13Qjh/G7aVRGOACw1Fj/ADWUfGlozDS641eSx1hWEkFSVu1esESKHB
+ UgvUnxWEKkoyXHt2GQppOniC5F2M/aHpw+xrsCU17sCP31b/bVtTvUtUzBMuGtkJyCO4
+ 9ZwaDtusG19u99CaKHkXc2xtSJnn8TFODC2YHyQo3Z6gziYVZkXmQ4vBrgNUIxjbZI4+
+ t97q6KS543YUmghrGRJDlHkbJ4o8HddYlWvtYRck7UAj/HYKrCGi+iChzCywW1I8gS0w
+ T3Td0+hsZFLVw3kRqLj32n4oOnePgk7isZFeo5d404mzKKfz0KTHG0yUSnbck3JeA8cf
+ UNmw==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20161025;
+ h=x-gm-message-state:mime-version:references:in-reply-to:from:date
+ :message-id:subject:to:cc;
+ bh=dPqyhHPvAKE8oFtG0HXSnceWMN8F9MOf0pO61krCb1Y=;
+ b=uFvgUWLHmmwYScIcsI2ZWYHjqd0BON67wwR6kbeVUj1AMU/fsH5C54AMzk/I5ltpkY
+ udbW/eqgLoxvOG0g9Gfraap34JNdXCR/OvgUkBNLwc6Fkko7N8x/wXrj2L+GMSOTrD7i
+ DTklAYikdmwfYtiCmnS9DZWMhOhH3Aw0FynFixzHJ5ThyWxwOzdCZlcdeUpTdW2yb/hL
+ Ys/Gq/LOwvAOUW+I2UMeH0P/PReuMZ6oSEyLS6kKA0Q/RMFZFGsBbtSTytI9BqdZR3GG
+ 6A/0+Ocdfk3iFD7YmPGSDza/5cuLfamNdT3CPGFko+8UudZPAeSzBtWY31J7ynHHaUJN
+ KtKA==
+X-Gm-Message-State: AOAM5315Dp1w1xmklvMYSd6K2TS2lPznIKXOrmnYfqbbWbgxbrfKtNVB
+ 0MwGDD0oJGXuoiG7qN9My9KKyzLNxwVKbervlDd+yA==
+X-Google-Smtp-Source: ABdhPJwt5PJ9h/2t57J8+266psChAvJLx+l73d4OtTMrMI4/BajbmGg2qnHjsErwIH1mVybopUNZ9072O8Zy3kEiT7w=
+X-Received: by 2002:ab0:2904:: with SMTP id v4mr312369uap.15.1601292227436;
+ Mon, 28 Sep 2020 04:23:47 -0700 (PDT)
 MIME-Version: 1.0
-X-Proofpoint-Virus-Version: vendor=fsecure engine=2.50.10434:6.0.235, 18.0.687
- definitions=2020-09-28_07:2020-09-24,
- 2020-09-28 signatures=0
-Cc: Daniel Vetter <daniel@ffwll.ch>,
- "dri-devel@lists.freedesktop.org" <dri-devel@lists.freedesktop.org>,
- "linux-kernel@vger.kernel.org" <linux-kernel@vger.kernel.org>,
- David Airlie <airlied@linux.ie>, Maxime Coquelin <mcoquelin.stm32@gmail.com>,
- Vincent ABRIOU <vincent.abriou@st.com>,
- "linux-stm32@st-md-mailman.stormreply.com"
- <linux-stm32@st-md-mailman.stormreply.com>,
- "linux-arm-kernel@lists.infradead.org" <linux-arm-kernel@lists.infradead.org>
-Subject: Re: [Linux-stm32] [PATCH] drm/stm: dsi: Use dev_ based logging
+References: <1593615328-5180-1-git-send-email-fabrice.gasnier@st.com>
+ <045e9e34-f1e0-087b-bc5b-44440db6be27@st.com>
+ <20200926161732.72af96e3@archlinux>
+In-Reply-To: <20200926161732.72af96e3@archlinux>
+From: Ulf Hansson <ulf.hansson@linaro.org>
+Date: Mon, 28 Sep 2020 13:23:11 +0200
+Message-ID: <CAPDyKFp=KTf8=zGBSzPYqhjnZpY8xwvjCeM1e-WTKT1QLSxaDA@mail.gmail.com>
+To: Jonathan Cameron <jic23@kernel.org>,
+ Fabrice Gasnier <fabrice.gasnier@st.com>
+Cc: linux-iio@vger.kernel.org, "Rafael J. Wysocki" <rafael.j.wysocki@intel.com>,
+ "Rafael J. Wysocki" <rjw@rjwysocki.net>,
+ Linux Kernel Mailing List <linux-kernel@vger.kernel.org>,
+ Maxime Coquelin <mcoquelin.stm32@gmail.com>,
+ linux-stm32@st-md-mailman.stormreply.com,
+ Linux ARM <linux-arm-kernel@lists.infradead.org>
+Subject: Re: [Linux-stm32] [RESEND PATCH v2] iio: adc: stm32-adc: fix
+ runtime autosuspend delay when slow polling
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -91,289 +76,135 @@ Content-Transfer-Encoding: 7bit
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
+Jonathan, Fabrice,
 
+On Sat, 26 Sep 2020 at 17:17, Jonathan Cameron <jic23@kernel.org> wrote:
+>
+> On Wed, 16 Sep 2020 12:28:00 +0200
+> Fabrice Gasnier <fabrice.gasnier@st.com> wrote:
+>
+> > On 7/1/20 4:55 PM, Fabrice Gasnier wrote:
+> > > When the ADC is runtime suspended and starting a conversion, the stm32-adc
+> > > driver calls pm_runtime_get_sync() that gets cascaded to the parent
+> > > (e.g. runtime resume of stm32-adc-core driver). This also kicks the
+> > > autosuspend delay (e.g. 2s) of the parent.
+> > > Once the ADC is active, calling pm_runtime_get_sync() again (upon a new
+> > > capture) won't kick the autosuspend delay for the parent (stm32-adc-core
+> > > driver) as already active.
+> > >
+> > > Currently, this makes the stm32-adc-core driver go in suspend state
+> > > every 2s when doing slow polling. As an example, doing a capture, e.g.
+> > > cat in_voltageY_raw at a 0.2s rate, the auto suspend delay for the parent
+> > > isn't refreshed. Once it expires, the parent immediately falls into
+> > > runtime suspended state, in between two captures, as soon as the child
+> > > driver falls into runtime suspend state:
+> > > - e.g. after 2s, + child calls pm_runtime_put_autosuspend() + 100ms
+> > >   autosuspend delay of the child.
+> > > - stm32-adc-core switches off regulators, clocks and so on.
+> > > - They get switched on back again 100ms later in this example (at 2.2s).
+> > >
+> > > So, use runtime_idle() callback in stm32-adc-core driver to call
+> > > pm_runtime_mark_last_busy() for the parent driver (stm32-adc-core),
+> > > to avoid this.
+> > >
+> > > Fixes: 9bdbb1139ca1 ("iio: adc: stm32-adc: add power management support")
+> > >
+> > > Signed-off-by: Fabrice Gasnier <fabrice.gasnier@st.com>
+> > > ---
+> > > Changes in v2:
+> > > - Use runtime_idle callback in stm32-adc-core driver, instead of refreshing
+> > >   last_busy from the child (for the parent) at many place. Initial patch v1
+> > >   looked like "somewhat adhoc solution" as commented by Jonathan.
+> >
+> > Hi all,
+> >
+> > Gentle reminder for this patch. Earlier discussions on it were as per
+> > [1] and [2].
+> >
+> > Ideally, Jonathan was looking for an ack from Rafael on this patch.
+> > This is a long pending issue. I'd like to progress on this.
+> >
+> > [1] https://patchwork.kernel.org/patch/11349841/
+> > [2] https://lkml.org/lkml/2020/6/11/279
+>
+> Fabrice, I think this one has sat waiting for inputs for
+> too long. Hence I'm going to take a slight gamble that you are correct
+> on doing the fix this way (I'm reasonably convinced)
 
-On 9/25/20 4:51 PM, Sam Ravnborg wrote:
-> Hi Yannick.
-> 
-> On Fri, Sep 25, 2020 at 12:22:33PM +0200, Yannick Fertre wrote:
->> Standardize on the dev_ based logging and drop the include of drm_print.h.
-> The patchs filas to drop the include mentioned here.
-> 
->> Remove useless dsi_color_from_mipi function.
-> IMO the dsi_color_from_mipi() was nice, and inlining the helper
-> is no gain for readability.
-> 
-> 	Sam
-> 
-Hi,
-I will restore the dsi_color_from_mipi() fucntion & introduce a new 
-parameter (dev) which is necessary for call of dev_err.
-Yannick
+My apologies for the huge and unacceptable delay. I have re-started
+looking at this several times, but just never got the point of writing
+a proper reply. Let me do this now, better late than never I guess.
 
->>
->> Signed-off-by: Yannick Fertre <yannick.fertre@st.com>
->> ---
->>   drivers/gpu/drm/stm/dw_mipi_dsi-stm.c | 87 ++++++++++++++-------------
->>   1 file changed, 45 insertions(+), 42 deletions(-)
->>
->> diff --git a/drivers/gpu/drm/stm/dw_mipi_dsi-stm.c b/drivers/gpu/drm/stm/dw_mipi_dsi-stm.c
->> index 164f79ef6269..93fa8bfd3127 100644
->> --- a/drivers/gpu/drm/stm/dw_mipi_dsi-stm.c
->> +++ b/drivers/gpu/drm/stm/dw_mipi_dsi-stm.c
->> @@ -76,6 +76,7 @@ enum dsi_color {
->>   
->>   struct dw_mipi_dsi_stm {
->>   	void __iomem *base;
->> +	struct device *dev;
->>   	struct clk *pllref_clk;
->>   	struct dw_mipi_dsi *dsi;
->>   	u32 hw_version;
->> @@ -110,23 +111,6 @@ static inline void dsi_update_bits(struct dw_mipi_dsi_stm *dsi, u32 reg,
->>   	dsi_write(dsi, reg, (dsi_read(dsi, reg) & ~mask) | val);
->>   }
->>   
->> -static enum dsi_color dsi_color_from_mipi(enum mipi_dsi_pixel_format fmt)
->> -{
->> -	switch (fmt) {
->> -	case MIPI_DSI_FMT_RGB888:
->> -		return DSI_RGB888;
->> -	case MIPI_DSI_FMT_RGB666:
->> -		return DSI_RGB666_CONF2;
->> -	case MIPI_DSI_FMT_RGB666_PACKED:
->> -		return DSI_RGB666_CONF1;
->> -	case MIPI_DSI_FMT_RGB565:
->> -		return DSI_RGB565_CONF1;
->> -	default:
->> -		DRM_DEBUG_DRIVER("MIPI color invalid, so we use rgb888\n");
->> -	}
->> -	return DSI_RGB888;
->> -}
->> -
->>   static int dsi_pll_get_clkout_khz(int clkin_khz, int idf, int ndiv, int odf)
->>   {
->>   	int divisor = idf * odf;
->> @@ -205,14 +189,14 @@ static int dw_mipi_dsi_phy_init(void *priv_data)
->>   	ret = readl_poll_timeout(dsi->base + DSI_WISR, val, val & WISR_RRS,
->>   				 SLEEP_US, TIMEOUT_US);
->>   	if (ret)
->> -		DRM_DEBUG_DRIVER("!TIMEOUT! waiting REGU, let's continue\n");
->> +		dev_dbg(dsi->dev, "!TIMEOUT! waiting REGU, let's continue\n");
->>   
->>   	/* Enable the DSI PLL & wait for its lock */
->>   	dsi_set(dsi, DSI_WRPCR, WRPCR_PLLEN);
->>   	ret = readl_poll_timeout(dsi->base + DSI_WISR, val, val & WISR_PLLLS,
->>   				 SLEEP_US, TIMEOUT_US);
->>   	if (ret)
->> -		DRM_DEBUG_DRIVER("!TIMEOUT! waiting PLL, let's continue\n");
->> +		dev_dbg(dsi->dev, "!TIMEOUT! waiting PLL, let's continue\n");
->>   
->>   	return 0;
->>   }
->> @@ -221,7 +205,7 @@ static void dw_mipi_dsi_phy_power_on(void *priv_data)
->>   {
->>   	struct dw_mipi_dsi_stm *dsi = priv_data;
->>   
->> -	DRM_DEBUG_DRIVER("\n");
->> +	dev_dbg(dsi->dev, "\n");
->>   
->>   	/* Enable the DSI wrapper */
->>   	dsi_set(dsi, DSI_WCR, WCR_DSIEN);
->> @@ -231,7 +215,7 @@ static void dw_mipi_dsi_phy_power_off(void *priv_data)
->>   {
->>   	struct dw_mipi_dsi_stm *dsi = priv_data;
->>   
->> -	DRM_DEBUG_DRIVER("\n");
->> +	dev_dbg(dsi->dev, "\n");
->>   
->>   	/* Disable the DSI wrapper */
->>   	dsi_clear(dsi, DSI_WCR, WCR_DSIEN);
->> @@ -244,6 +228,7 @@ dw_mipi_dsi_get_lane_mbps(void *priv_data, const struct drm_display_mode *mode,
->>   {
->>   	struct dw_mipi_dsi_stm *dsi = priv_data;
->>   	unsigned int idf, ndiv, odf, pll_in_khz, pll_out_khz;
->> +	enum mipi_dsi_pixel_format fmt;
->>   	int ret, bpp;
->>   	u32 val;
->>   
->> @@ -267,11 +252,11 @@ dw_mipi_dsi_get_lane_mbps(void *priv_data, const struct drm_display_mode *mode,
->>   
->>   	if (pll_out_khz > dsi->lane_max_kbps) {
->>   		pll_out_khz = dsi->lane_max_kbps;
->> -		DRM_WARN("Warning max phy mbps is used\n");
->> +		dev_warn(dsi->dev, "Warning max phy mbps is used\n");
->>   	}
->>   	if (pll_out_khz < dsi->lane_min_kbps) {
->>   		pll_out_khz = dsi->lane_min_kbps;
->> -		DRM_WARN("Warning min phy mbps is used\n");
->> +		dev_warn(dsi->dev, "Warning min phy mbps is used\n");
->>   	}
->>   
->>   	/* Compute best pll parameters */
->> @@ -281,7 +266,7 @@ dw_mipi_dsi_get_lane_mbps(void *priv_data, const struct drm_display_mode *mode,
->>   	ret = dsi_pll_get_params(dsi, pll_in_khz, pll_out_khz,
->>   				 &idf, &ndiv, &odf);
->>   	if (ret)
->> -		DRM_WARN("Warning dsi_pll_get_params(): bad params\n");
->> +		dev_warn(dsi->dev, "Warning dsi_pll_get_params(): bad params\n");
->>   
->>   	/* Get the adjusted pll out value */
->>   	pll_out_khz = dsi_pll_get_clkout_khz(pll_in_khz, idf, ndiv, odf);
->> @@ -297,14 +282,31 @@ dw_mipi_dsi_get_lane_mbps(void *priv_data, const struct drm_display_mode *mode,
->>   	/* Select video mode by resetting DSIM bit */
->>   	dsi_clear(dsi, DSI_WCFGR, WCFGR_DSIM);
->>   
->> +	switch (format) {
->> +	case MIPI_DSI_FMT_RGB888:
->> +		fmt = DSI_RGB888;
->> +		break;
->> +	case MIPI_DSI_FMT_RGB666:
->> +		fmt = DSI_RGB666_CONF2;
->> +		break;
->> +	case MIPI_DSI_FMT_RGB666_PACKED:
->> +		fmt = DSI_RGB666_CONF1;
->> +		break;
->> +	case MIPI_DSI_FMT_RGB565:
->> +		fmt = DSI_RGB565_CONF1;
->> +		break;
->> +	default:
->> +		fmt = DSI_RGB888;
->> +		dev_err(dsi->dev, "MIPI color invalid, so we use rgb888\n");
->> +	}
->> +
->>   	/* Select the color coding */
->> -	dsi_update_bits(dsi, DSI_WCFGR, WCFGR_COLMUX,
->> -			dsi_color_from_mipi(format) << 1);
->> +	dsi_update_bits(dsi, DSI_WCFGR, WCFGR_COLMUX, fmt << 1);
->>   
->>   	*lane_mbps = pll_out_khz / 1000;
->>   
->> -	DRM_DEBUG_DRIVER("pll_in %ukHz pll_out %ukHz lane_mbps %uMHz\n",
->> -			 pll_in_khz, pll_out_khz, *lane_mbps);
->> +	dev_dbg(dsi->dev, "pll_in %ukHz pll_out %ukHz lane_mbps %uMHz\n", pll_in_khz, pll_out_khz,
->> +		*lane_mbps);
->>   
->>   	return 0;
->>   }
->> @@ -352,11 +354,13 @@ static int dw_mipi_dsi_stm_probe(struct platform_device *pdev)
->>   	if (!dsi)
->>   		return -ENOMEM;
->>   
->> +	dsi->dev = dev;
->> +
->>   	res = platform_get_resource(pdev, IORESOURCE_MEM, 0);
->>   	dsi->base = devm_ioremap_resource(dev, res);
->>   	if (IS_ERR(dsi->base)) {
->>   		ret = PTR_ERR(dsi->base);
->> -		DRM_ERROR("Unable to get dsi registers %d\n", ret);
->> +		dev_err(dev, "Unable to get dsi registers %d\n", ret);
->>   		return ret;
->>   	}
->>   
->> @@ -364,13 +368,13 @@ static int dw_mipi_dsi_stm_probe(struct platform_device *pdev)
->>   	if (IS_ERR(dsi->vdd_supply)) {
->>   		ret = PTR_ERR(dsi->vdd_supply);
->>   		if (ret != -EPROBE_DEFER)
->> -			DRM_ERROR("Failed to request regulator: %d\n", ret);
->> +			dev_err(dev, "Failed to request regulator: %d\n", ret);
->>   		return ret;
->>   	}
->>   
->>   	ret = regulator_enable(dsi->vdd_supply);
->>   	if (ret) {
->> -		DRM_ERROR("Failed to enable regulator: %d\n", ret);
->> +		dev_err(dev, "Failed to enable regulator: %d\n", ret);
->>   		return ret;
->>   	}
->>   
->> @@ -378,27 +382,26 @@ static int dw_mipi_dsi_stm_probe(struct platform_device *pdev)
->>   	if (IS_ERR(dsi->pllref_clk)) {
->>   		ret = PTR_ERR(dsi->pllref_clk);
->>   		if (ret != -EPROBE_DEFER)
->> -			DRM_ERROR("Unable to get pll reference clock: %d\n",
->> -				  ret);
->> +			dev_err(dev, "Unable to get pll reference clock: %d\n", ret);
->>   		goto err_clk_get;
->>   	}
->>   
->>   	ret = clk_prepare_enable(dsi->pllref_clk);
->>   	if (ret) {
->> -		DRM_ERROR("Failed to enable pllref_clk: %d\n", ret);
->> +		dev_err(dev, "Failed to enable pllref_clk: %d\n", ret);
->>   		goto err_clk_get;
->>   	}
->>   
->>   	pclk = devm_clk_get(dev, "pclk");
->>   	if (IS_ERR(pclk)) {
->>   		ret = PTR_ERR(pclk);
->> -		DRM_ERROR("Unable to get peripheral clock: %d\n", ret);
->> +		dev_err(dev, "Unable to get peripheral clock: %d\n", ret);
->>   		goto err_dsi_probe;
->>   	}
->>   
->>   	ret = clk_prepare_enable(pclk);
->>   	if (ret) {
->> -		DRM_ERROR("%s: Failed to enable peripheral clk\n", __func__);
->> +		dev_err(dev, "%s: Failed to enable peripheral clk\n", __func__);
->>   		goto err_dsi_probe;
->>   	}
->>   
->> @@ -407,7 +410,7 @@ static int dw_mipi_dsi_stm_probe(struct platform_device *pdev)
->>   
->>   	if (dsi->hw_version != HWVER_130 && dsi->hw_version != HWVER_131) {
->>   		ret = -ENODEV;
->> -		DRM_ERROR("bad dsi hardware version\n");
->> +		dev_err(dev, "bad dsi hardware version\n");
->>   		goto err_dsi_probe;
->>   	}
->>   
->> @@ -420,7 +423,7 @@ static int dw_mipi_dsi_stm_probe(struct platform_device *pdev)
->>   	if (IS_ERR(dsi->dsi)) {
->>   		ret = PTR_ERR(dsi->dsi);
->>   		if (ret != -EPROBE_DEFER)
->> -			DRM_ERROR("Failed to initialize mipi dsi host: %d\n", ret);
->> +			dev_err(dev, "Failed to initialize mipi dsi host: %d\n", ret);
->>   		goto err_dsi_probe;
->>   	}
->>   
->> @@ -449,7 +452,7 @@ static int __maybe_unused dw_mipi_dsi_stm_suspend(struct device *dev)
->>   {
->>   	struct dw_mipi_dsi_stm *dsi = dw_mipi_dsi_stm_plat_data.priv_data;
->>   
->> -	DRM_DEBUG_DRIVER("\n");
->> +	dev_dbg(dsi->dev, "\n");
->>   
->>   	clk_disable_unprepare(dsi->pllref_clk);
->>   	regulator_disable(dsi->vdd_supply);
->> @@ -462,18 +465,18 @@ static int __maybe_unused dw_mipi_dsi_stm_resume(struct device *dev)
->>   	struct dw_mipi_dsi_stm *dsi = dw_mipi_dsi_stm_plat_data.priv_data;
->>   	int ret;
->>   
->> -	DRM_DEBUG_DRIVER("\n");
->> +	dev_dbg(dsi->dev, "\n");
->>   
->>   	ret = regulator_enable(dsi->vdd_supply);
->>   	if (ret) {
->> -		DRM_ERROR("Failed to enable regulator: %d\n", ret);
->> +		dev_err(dev, "Failed to enable regulator: %d\n", ret);
->>   		return ret;
->>   	}
->>   
->>   	ret = clk_prepare_enable(dsi->pllref_clk);
->>   	if (ret) {
->>   		regulator_disable(dsi->vdd_supply);
->> -		DRM_ERROR("Failed to enable pllref_clk: %d\n", ret);
->> +		dev_err(dev, "Failed to enable pllref_clk: %d\n", ret);
->>   		return ret;
->>   	}
->>   
->> -- 
->> 2.17.1
->>
->> _______________________________________________
->> dri-devel mailing list
->> dri-devel@lists.freedesktop.org
->> https://lists.freedesktop.org/mailman/listinfo/dri-devel
+In general, I think this problem (nicely described by Fabrice), should
+be solved in the runtime PM core, without having to involve drivers
+for parents/childs. I have looked into that, but I don't have a patch
+to propose, at least not yet.
+
+FYI, I have also stumbled over the same problem, for a card controller
+(parent), serving both sd and memstick cards. For that case, we simply
+decided to skip using autosuspend for the child devices (represented
+by an sd host and a memstick host), not optimal, but there were other
+reasons why we decided for this approach as well.
+
+That said, I also think the solution proposed in $subject patch, which
+uses the ->runtime_idle() callback for the parent is perfectly fine,
+at least until we have figured out something that can replace it.
+
+>
+> Applied to the fixes-togreg branch of iio.git.
+> It won't go in for 5.9 now, so we have a bit of time for any last
+> minute comments.
+
+Feel free to add:
+
+Reviewed-by: Ulf Hansson <ulf.hansson@linaro.org>
+
+Kind regards
+Uffe
+
+>
+> Thanks,
+>
+> Jonathan
+>
+> >
+> > Please advise,
+> > Thanks in advance,
+> > Fabrice
+> >
+> > > ---
+> > >  drivers/iio/adc/stm32-adc-core.c | 9 ++++++++-
+> > >  1 file changed, 8 insertions(+), 1 deletion(-)
+> > >
+> > > diff --git a/drivers/iio/adc/stm32-adc-core.c b/drivers/iio/adc/stm32-adc-core.c
+> > > index 0e2068e..3586369 100644
+> > > --- a/drivers/iio/adc/stm32-adc-core.c
+> > > +++ b/drivers/iio/adc/stm32-adc-core.c
+> > > @@ -794,6 +794,13 @@ static int stm32_adc_core_runtime_resume(struct device *dev)
+> > >  {
+> > >     return stm32_adc_core_hw_start(dev);
+> > >  }
+> > > +
+> > > +static int stm32_adc_core_runtime_idle(struct device *dev)
+> > > +{
+> > > +   pm_runtime_mark_last_busy(dev);
+> > > +
+> > > +   return 0;
+> > > +}
+> > >  #endif
+> > >
+> > >  static const struct dev_pm_ops stm32_adc_core_pm_ops = {
+> > > @@ -801,7 +808,7 @@ static const struct dev_pm_ops stm32_adc_core_pm_ops = {
+> > >                             pm_runtime_force_resume)
+> > >     SET_RUNTIME_PM_OPS(stm32_adc_core_runtime_suspend,
+> > >                        stm32_adc_core_runtime_resume,
+> > > -                      NULL)
+> > > +                      stm32_adc_core_runtime_idle)
+> > >  };
+> > >
+> > >  static const struct stm32_adc_priv_cfg stm32f4_adc_priv_cfg = {
+> > >
+>
 _______________________________________________
 Linux-stm32 mailing list
 Linux-stm32@st-md-mailman.stormreply.com
