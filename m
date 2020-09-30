@@ -2,60 +2,64 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id 43E5A27F29A
-	for <lists+linux-stm32@lfdr.de>; Wed, 30 Sep 2020 21:33:48 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 543D827F94F
+	for <lists+linux-stm32@lfdr.de>; Thu,  1 Oct 2020 08:11:11 +0200 (CEST)
 Received: from ip-172-31-3-76.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id E0C0AC32EA3;
-	Wed, 30 Sep 2020 19:33:47 +0000 (UTC)
-Received: from smtprelay.hostedemail.com (smtprelay0204.hostedemail.com
- [216.40.44.204])
- (using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 016B5C3FAFF;
+	Thu,  1 Oct 2020 06:11:11 +0000 (UTC)
+Received: from mout.kundenserver.de (mout.kundenserver.de [212.227.17.10])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id EDB0DC36B0A
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 7AA47C36B0A
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Wed, 30 Sep 2020 19:33:46 +0000 (UTC)
-Received: from filter.hostedemail.com (clb03-v110.bra.tucows.net
- [216.40.38.60])
- by smtprelay04.hostedemail.com (Postfix) with ESMTP id 97B421801EC3E;
- Wed, 30 Sep 2020 19:33:45 +0000 (UTC)
-X-Session-Marker: 6A6F6540706572636865732E636F6D
-X-Spam-Summary: 2, 0, 0, , d41d8cd98f00b204, joe@perches.com, ,
- RULES_HIT:41:355:379:599:966:973:988:989:1260:1277:1311:1313:1314:1345:1359:1437:1515:1516:1518:1534:1540:1593:1594:1711:1730:1747:1777:1792:2196:2199:2393:2553:2559:2562:2828:3138:3139:3140:3141:3142:3352:3622:3865:3866:3867:3870:3872:3873:4321:4362:4384:4385:4395:4605:5007:6248:6742:6743:7903:10004:10400:10848:11232:11658:11914:12043:12266:12297:12438:12679:12740:12760:12895:13019:13069:13311:13357:13439:14659:14777:21080:21365:21433:21451:21627:30054:30070:30083:30090:30091,
- 0, RBL:none, CacheIP:none, Bayesian:0.5, 0.5, 0.5, Netcheck:none,
- DomainCache:0, MSF:not bulk, SPF:, MSBL:0, DNSBL:none, Custom_rules:0:0:0,
- LFtime:13, LUA_SUMMARY:none
-X-HE-Tag: bag86_060c7b527195
-X-Filterd-Recvd-Size: 2698
-Received: from XPS-9350.home (unknown [47.151.133.149])
- (Authenticated sender: joe@perches.com)
- by omf17.hostedemail.com (Postfix) with ESMTPA;
- Wed, 30 Sep 2020 19:33:41 +0000 (UTC)
-Message-ID: <db26d49401dc0bd6b9013a603a155f9827f404a4.camel@perches.com>
-From: Joe Perches <joe@perches.com>
-To: Mark Brown <broonie@kernel.org>
-Date: Wed, 30 Sep 2020 12:33:39 -0700
-In-Reply-To: <20200929113745.GB4799@sirena.org.uk>
-References: <1601233948-11629-1-git-send-email-Julia.Lawall@inria.fr>
- <160132172369.55460.9237357219623604216.b4-ty@kernel.org>
- <b1174f9be2ce65f6b5ebefcba0b48e792926abbc.camel@perches.com>
- <20200929113745.GB4799@sirena.org.uk>
-User-Agent: Evolution 3.36.4-0ubuntu1 
+ Wed, 30 Sep 2020 23:47:08 +0000 (UTC)
+Received: from methusalix.internal.home.lespocky.de ([92.117.51.117]) by
+ mrelayeu.kundenserver.de (mreue108 [212.227.15.183]) with ESMTPSA (Nemesis)
+ id 1MTiLj-1jyIQs3sRZ-00U2pM; Thu, 01 Oct 2020 01:47:04 +0200
+Received: from lemmy.internal.home.lespocky.de ([192.168.243.176]
+ helo=lemmy.home.lespocky.de)
+ by methusalix.internal.home.lespocky.de with esmtpsa (TLS1.3) tls
+ TLS_AES_256_GCM_SHA384 (Exim 4.94)
+ (envelope-from <alex@home.lespocky.de>)
+ id 1kNloJ-0007Ye-6b; Thu, 01 Oct 2020 01:47:00 +0200
+Received: (nullmailer pid 7671 invoked by uid 2001);
+ Wed, 30 Sep 2020 23:46:58 -0000
+From: Alexander Dahl <post@lespocky.de>
+To: linux-leds@vger.kernel.org, devicetree@vger.kernel.org,
+ linux-kernel@vger.kernel.org, linux-arm-kernel@lists.infradead.org,
+ linux-samsung-soc@vger.kernel.org, linux-omap@vger.kernel.org,
+ linux-stm32@st-md-mailman.stormreply.com, linux-amlogic@lists.infradead.org,
+ linux-mips@vger.kernel.org
+Date: Thu,  1 Oct 2020 01:46:30 +0200
+Message-Id: <20200930234637.7573-1-post@lespocky.de>
+X-Mailer: git-send-email 2.20.1
 MIME-Version: 1.0
-Cc: "Rafael J. Wysocki" <rafael@kernel.org>, linux-iio@vger.kernel.org,
- kernel-janitors@vger.kernel.org, linux-ide@vger.kernel.org,
- linux-clk@vger.kernel.org, drbd-dev@lists.linbit.com,
- Neil Armstrong <narmstrong@baylibre.com>,
- linux-stm32@st-md-mailman.stormreply.com, linux-acpi@vger.kernel.org,
- Jerome Brunet <jbrunet@baylibre.com>, David Lechner <david@lechnology.com>,
- Martin Blumenstingl <martin.blumenstingl@googlemail.com>,
- linux-block@vger.kernel.org, linux-amlogic@lists.infradead.org,
- Thomas Gleixner <tglx@linutronix.de>, linux-arm-kernel@lists.infradead.org,
- Valdis =?UTF-8?Q?Kl=C4=93tnieks?= <valdis.kletnieks@vt.edu>,
- linux-wireless@vger.kernel.org, linux-kernel@vger.kernel.org,
- Julia Lawall <Julia.Lawall@inria.fr>, linux-crypto@vger.kernel.org,
- openipmi-developer@lists.sourceforge.net
-Subject: Re: [Linux-stm32] [PATCH 00/18] use semicolons rather than commas
- to separate statements
+X-Scan-Signature: a725df07d7ef17d6c9c3b8b0b262d2c4
+X-Spam-Score: -2.8 (--)
+X-Provags-ID: V03:K1:1elWBi7e5x3yI9alpARH+EzCpdRWKPCu5CRyf0GlHEX72/7ReQG
+ uK+KfSK9bq2XSjeizOMOQ1aX81WAtDM6x33xXmSQR4PGyxTAFe+Gyet5tvr5SsoocF8fkI6
+ wSoVyqgv448pDp8oa8pMgpO1/2adBnPHdkc6W+5jqszUFcPSeKSiuI0MNhA2Cm5ImFDpZJd
+ CTEWaoq7Zs45webTwlzJg==
+X-Spam-Flag: NO
+X-UI-Out-Filterresults: notjunk:1;V03:K0:6alNuLrEGTM=:/JzZgqFL5jcymyQztVcQOq
+ FjxmZcvrBOVCPqcnXy+7LRNn5FCV5x5rFniePHKClSKDklFA4XytiJHTWPmRH9scMeoS+B/64
+ BlVgHSGulgI65FjtqdOjhileRqNHQIAzBZFbiqQpFNgq202+GikFCy/xaHpOVEh9vg1IajYCg
+ Lt2eTnDEB6DJGd0SFFM842tbVSWrI+WNSL360BFHDKFAPPPAVI9v3d8UpyaPR7KXcb1uVYWCt
+ Hau+i8KYufRR7C1yX5kkvYa5LTp0YaMb0Ve1AGNoUzRBQwJVhGlY4V3tEcZInhhVHbhgkuL6O
+ fOsv227odzxhpVjJUpU/bA4Km556V1smNzzjItRCNc5HuK1IRc2nqpm8rIQC5nekctRbVWoLV
+ 3PiWxpx65aIICaHcYPUejEw4aeNO8l2jyzzDzJYsyZ/YYWQ+WhfvfwS6y2CfQk6ZkhJX14JcV
+ /PU/XTVQaV931qWbzKdRfR/o4zTOlmBUq7NncVRTHyfAHo7CTLWk/W9RFVVl5jSMjvUgGtAt2
+ SRsXkr11xKUT3BEHgNRDwtgfcIzkT1/5lykDr7NRvqX6jQEG82cb2ItZrccHXrWAIUOs8wzHL
+ tBNrUqdkqhI4bqoGzIMThGTJB4Q119crVleU9q0AjRzrjwmc8sa6vWnjRXjl4SZLuMSXEaVb7
+ BjoIGbdsc8iPEdoPHiSb5o/b+FnAMlKVCgRiiu8Tgr6mU24AjEduYafCSw19DqMnNp6sVjeN1
+ QoSC10dCkrDX1VvK7iCze3yiqtIGW+Dyi+QDP7oAR3Dnnubg6HFlDL7Qjm4X5VOwlEL/W9uVb
+ srj/mjCZd9wH4qLjLDzrwxLf52R1XcL+nIJENySPlOGCa5beS/UYs1Xpa/UA7Hff+6YMO6W
+X-Mailman-Approved-At: Thu, 01 Oct 2020 06:11:08 +0000
+Cc: Alexander Dahl <ada@thorsis.com>, Peter Ujfalusi <peter.ujfalusi@ti.com>,
+ Rob Herring <robh+dt@kernel.org>, Dan Murphy <dmurphy@ti.com>,
+ Pavel Machek <pavel@ucw.cz>, Alexander Dahl <post@lespocky.de>,
+ Jacek Anaszewski <jacek.anaszewski@gmail.com>
+Subject: [Linux-stm32] [PATCH v6 0/7] leds: pwm: Make automatic labels work
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -67,38 +71,85 @@ List-Post: <mailto:linux-stm32@st-md-mailman.stormreply.com>
 List-Help: <mailto:linux-stm32-request@st-md-mailman.stormreply.com?subject=help>
 List-Subscribe: <https://st-md-mailman.stormreply.com/mailman/listinfo/linux-stm32>, 
  <mailto:linux-stm32-request@st-md-mailman.stormreply.com?subject=subscribe>
-Content-Type: text/plain; charset="us-ascii"
-Content-Transfer-Encoding: 7bit
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: base64
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
-On Tue, 2020-09-29 at 12:37 +0100, Mark Brown wrote:
-> On Mon, Sep 28, 2020 at 05:45:24PM -0700, Joe Perches wrote:
-> > On Mon, 2020-09-28 at 20:35 +0100, Mark Brown wrote:
-> > > [1/1] regmap: debugfs: use semicolons rather than commas to separate statements
-> > >       commit: 7f4a122d0b50b40c64d24a5cf7aafe26dd9487ee
-> > Rather than replying to the 0/n cover letter to a patch
-> > series, can you reply to each of the specific patches in
-> > the patch series you are applying?
-> > Otherwise, it's a bit difficult to figure out which patches
-> > you are applying.
-> 
-> Feel free to submit patches to b4.
-
-Have you tried the existing option to send
-thank you's on a specific ranges of patches?
-
-b4 ty
-~~~~~
-usage:
-  b4 ty [-h] [-g GITDIR] [-o OUTDIR] [-l] [-s SEND [SEND ...]] [-d DISCARD [DISCARD ...]] [-a] [-b BRANCH] [--since SINCE]
-
-[]
- -s SEND, --send SEND  Generate thankyous for specific entries from -l (e.g.: 1,3-5,7-; or "all")
-
-
-
-_______________________________________________
-Linux-stm32 mailing list
-Linux-stm32@st-md-mailman.stormreply.com
-https://st-md-mailman.stormreply.com/mailman/listinfo/linux-stm32
+SGVpIGhlaSwKCmZvciBsZWRzLWdwaW8geW91IGNhbiB1c2UgdGhlIHByb3BlcnRpZXMgJ2Z1bmN0
+aW9uJyBhbmQgJ2NvbG9yJyBpbiB0aGUKZGV2aWNldHJlZSBub2RlIGFuZCBvbWl0ICdsYWJlbCcs
+IHRoZSBsYWJlbCBpcyBjb25zdHJ1Y3RlZAphdXRvbWF0aWNhbGx5LiAgVGhpcyBpcyBhIGNvbW1v
+biBmZWF0dXJlIHN1cHBvc2VkIHRvIGJlIHdvcmtpbmcgZm9yIGFsbApMRUQgZHJpdmVycy4gIEhv
+d2V2ZXIgaXQgZGlkIG5vdCB5ZXQgd29yayBmb3IgdGhlICdsZWRzLXB3bScgZHJpdmVyLgoKVGhp
+cyBzZXJpZXMgcmVtb3ZlcyBwbGF0Zm9ybV9kYXRhIHN1cHBvcnQgZm9yIHRoZSBsZWRzLXB3bSBk
+cml2ZXIgYW5kCnRha2VzIHRoZSBvcHBvcnR1bml0eSB0byB1cGRhdGUgdGhlIGxlZHMtcHdtIGR0
+LWJpbmRpbmdzIGFjY29yZGluZ2x5LgoKQWZ0ZXIgbXlzZWxmIGJlaW5nIG9uZSB3ZWVrIG9uIHZh
+Y2F0aW9uIHBhdGNoIDIvMyB3YXMgYWxyZWFkeSBwaWNrZWQgYnkKUGF2ZWwgYW5kIEkgZ2F0aGVy
+ZWQgc29tZSBtb3JlIGZlZWRiYWNrIG9uIHRoZSByZW1haW5pbmcgaXNzdWVzLgoKdjYgd2FzIGNv
+bXBpbGUgdGVzdGVkIGFuZCBkdF9iaW5kaW5nc19jaGVjayBhbmQgZHRic19jaGVjayB3ZXJlIHJ1
+bi4KCk5vdGU6IEkgYWRkZWQgc29tZSBwYXRjaGVzIHRvIGZpeCBEVCBzY2hlbWEgd2FybmluZ3Ms
+IGJ1dCBJIGRpZCBub3QgcHV0CmV2ZXJ5IHJldmlld2VyL3N1cHBvcnRlci9tYWludGFpbmVyIHBy
+aW50ZWQgYnkgZ2V0X21haW50YWluZXJzIGluIENjIHRvCmtlZXAgdGhhdCBsaXN0IHJlYXNvbmFi
+bGUgc21hbGwuCgpTZXJpZXMgY2hhbmdlbG9nIGJlbG93IOKApgoKR3JlZXRzCkFsZXgKCnY2Ogot
+IHJlYmFzZWQgc2VyaWVzIG9uIHJlY2VudCBwYXZlbC9mb3ItbmV4dAotIGFkZGVkIFJldmlld2Vk
+LWJ5IGZyb20gTWFyZWsgdG8gcGF0Y2ggMQotIHBhdGNoIDIgZnJvbSB2NSB3YXMgcGlja2VkIGJ5
+IFBhdmVsIGFuZCBpcyBhbHJlYWR5IGluIGhpcyBmb3ItbmV4dAogIGJyYW5jaAotIHByZXZpb3Vz
+IHBhdGNoIDMvMyAobm93IDIvNykgd2FzIHJld29ya2VkIGJhc2VkIG9uIGZlZWRiYWNrIGJ5IFJv
+YgotIGFkZGVkIG1vcmUgZHQgcGF0Y2hlcyBmaXhpbmcgd2FybmluZ3MgYWZ0ZXIgYmluZGluZyBj
+b252ZXJzaW9uIHRvIHlhbWwKCnY1OgotIHJlcGxhY2VkIHBhdGNoIDEvMyBieSBhIG5ldyBwYXRj
+aCByZW1vdmluZyBwbGF0Zm9ybV9kYXRhIHN1cHBvcnQgZm9yCiAgdGhlIGxlZHMtcHdtIGRyaXZl
+cgotIGxpdHRsZSByZXdvcmRpbmcgb2YgY29tbWl0IG1lc3NhZ2UgaW4gcGF0Y2ggMi8zCi0gdXBk
+YXRlZCBwYXRjaCAzLzMgYmFzZWQgb24gZmVlZGJhY2sgYnkgUm9iIEhlcnJpbmcKLSBhZGRlZCBN
+YXJlayBCZWjDum4gdG8gQ2MsIGJlY2F1c2UgaGUgYWxzbyB3b3JrcyBvbiByZW1vdmluZwogIHBs
+YXRmb3JtX2RhdGEgc3VwcG9ydAotIHJlYmFzZWQgc2VyaWVzIG9uIHBhdmVsL2Zvci1uZXh0Cgp2
+NDoKLSBhZGRlZCBsZWQtY2xhc3MgcGF0Y2ggaGFuZGxpbmcgZndub2RlIHBhc3NpbmcgZGlmZmVy
+ZW50bHkgKHBhdGNoIDEvMykKLSBhZGFwdGVkIGxlZHMtcHdtIHBhdGNoIHRvIG5ldyBsZWQtY2xh
+c3MgKHBhdGNoIDIvMykKLSBjb250YWN0ZWQgb3JpZ2luYWwgYXV0aG9yIG9mIGxlZHMtcHdtIGR0
+IGJpbmRpbmcgb24gbGljZW5zZSBpc3N1ZQogIChwYXRjaCAzLzMpCgp2MzoKLSBzZXJpZXMgcmVi
+YXNlZCBvbiB2NS45LXJjNAotIGNoYW5nZWQgbGljZW5zZSBvZiAueWFtbCBmaWxlIHRvIHJlY29t
+bWVuZGVkIG9uZSAocGF0Y2ggMi8yKQotIGFkZGVkIEFja2VkLWJ5IHRvIGJvdGggcGF0Y2hlcwoK
+djI6Ci0gc2VyaWVzIHJlYmFzZWQgb24gdjUuOS1yYzMKLSBhZGRlZCB0aGUgZHQtYmluZGluZ3Mg
+dXBkYXRlIHBhdGNoICgyLzIpCgp2MToKLSBiYXNlZCBvbiB2NS45LXJjMgotIGJhY2twb3J0IG9u
+IHY1LjQuNTkgdGVzdGVkIGFuZCB3b3JraW5nCgpBbGV4YW5kZXIgRGFobCAoNyk6CiAgbGVkczog
+cHdtOiBSZW1vdmUgcGxhdGZvcm1fZGF0YSBzdXBwb3J0CiAgZHQtYmluZGluZ3M6IGxlZHM6IENv
+bnZlcnQgcHdtIHRvIHlhbWwKICBkdC1iaW5kaW5nczogbWZkOiBGaXggc2NoZW1hIHdhcm5pbmdz
+IGZvciBwd20tbGVkcwogIEFSTTogZHRzOiBhdDkxOiBzbWFydGtpejogUmVmZXJlbmNlIGxlZCBu
+b2RlIGRpcmVjdGx5CiAgQVJNOiBkdHM6IEZpeCBzY2hlbWEgd2FybmluZ3MgZm9yIHB3bS1sZWRz
+CiAgYXJtNjQ6IGR0czogbWVzb246IEZpeCBzY2hlbWEgd2FybmluZ3MgZm9yIHB3bS1sZWRzCiAg
+TUlQUzogRFRTOiBpbWc6IEZpeCBzY2hlbWEgd2FybmluZ3MgZm9yIHB3bS1sZWRzCgogLi4uL2Rl
+dmljZXRyZWUvYmluZGluZ3MvbGVkcy9sZWRzLXB3bS50eHQgICAgIHwgNTAgLS0tLS0tLS0tLS0t
+LQogLi4uL2RldmljZXRyZWUvYmluZGluZ3MvbGVkcy9sZWRzLXB3bS55YW1sICAgIHwgNzAgKysr
+KysrKysrKysrKysrKysrKwogLi4uL2RldmljZXRyZWUvYmluZGluZ3MvbWZkL2lxczYyeC55YW1s
+ICAgICAgIHwgIDUgKy0KIGFyY2gvYXJtL2Jvb3QvZHRzL2F0OTEta2l6Ym94LmR0cyAgICAgICAg
+ICAgICB8IDEwICstLQogYXJjaC9hcm0vYm9vdC9kdHMvYXQ5MS1raXpib3gyLWNvbW1vbi5kdHNp
+ICAgIHwgIDggKy0tCiBhcmNoL2FybS9ib290L2R0cy9hdDkxLWtpemJveDMtaHMuZHRzICAgICAg
+ICAgfCAxNiArKy0tLQogYXJjaC9hcm0vYm9vdC9kdHMvYXQ5MS1raXpib3gzX2NvbW1vbi5kdHNp
+ICAgIHwgMTAgKy0tCiBhcmNoL2FybS9ib290L2R0cy9hdDkxLWtpemJveG1pbmktY29tbW9uLmR0
+c2kgfCAgOCArLS0KIGFyY2gvYXJtL2Jvb3QvZHRzL2F0OTEtc21hcnRraXouZHRzICAgICAgICAg
+ICB8ICA2ICstCiBhcmNoL2FybS9ib290L2R0cy9hdDkxc2FtOW0xMGc0NWVrLmR0cyAgICAgICAg
+fCAxMCArLS0KIGFyY2gvYXJtL2Jvb3QvZHRzL2F0OTFzYW05cmxlay5kdHMgICAgICAgICAgICB8
+IDEwICstLQogLi4uL2Jvb3QvZHRzL2JlcmxpbjJjZC1nb29nbGUtY2hyb21lY2FzdC5kdHMgIHwg
+IDYgKy0KIGFyY2gvYXJtL2Jvb3QvZHRzL2V4eW5vczU0MjItb2Ryb2lkaGMxLmR0cyAgICB8ICA0
+ICstCiBhcmNoL2FybS9ib290L2R0cy9leHlub3M1NDIyLW9kcm9pZHh1NC5kdHMgICAgfCAgNCAr
+LQogLi4uL2Jvb3QvZHRzL2V4eW5vczU0eHgtb2Ryb2lkeHUtbGVkcy5kdHNpICAgIHwgMTEgKy0t
+CiBhcmNoL2FybS9ib290L2R0cy9pbXg1My1wcGQuZHRzICAgICAgICAgICAgICAgfCAxNSArKy0t
+CiBhcmNoL2FybS9ib290L2R0cy9pbXg2cWRsLWN1Ym94LWkuZHRzaSAgICAgICAgfCAgNCArLQog
+Li4uL2Jvb3QvZHRzL2lteDZzeC1zb2Z0aW5nLXZpbmluZy0yMDAwLmR0cyAgIHwgIDggKy0tCiBh
+cmNoL2FybS9ib290L2R0cy9vbWFwMy1iZWFnbGUteG0uZHRzICAgICAgICAgfCAxMCArLS0KIGFy
+Y2gvYXJtL2Jvb3QvZHRzL29tYXAzLW92ZXJvLWJhc2UuZHRzaSAgICAgICB8ICA0ICstCiBhcmNo
+L2FybS9ib290L2R0cy9vbWFwNC1rYzEuZHRzICAgICAgICAgICAgICAgfCAgNiArLQogYXJjaC9h
+cm0vYm9vdC9kdHMvb21hcDQtc2RwLmR0cyAgICAgICAgICAgICAgIHwgMjYgKysrLS0tLQogYXJj
+aC9hcm0vYm9vdC9kdHMvc3RtMzJtcDE1N2MtbHhhLW1jMS5kdHMgICAgIHwgMTIgKystLQogLi4u
+L2FtbG9naWMvbWVzb24tZ3hsLXM5MDV4LWtoYWRhcy12aW0uZHRzICAgIHwgIDQgKy0KIC4uLi9k
+dHMvYW1sb2dpYy9tZXNvbi1neG0ta2hhZGFzLXZpbTIuZHRzICAgICB8ICA0ICstCiAuLi4vYm9v
+dC9kdHMvYW1sb2dpYy9tZXNvbi1zbTEtc2VpNjEwLmR0cyAgICAgfCAgOCArLS0KIGFyY2gvbWlw
+cy9ib290L2R0cy9pbWcvcGlzdGFjaGlvX21hcmR1ay5kdHMgICB8ICA1ICstCiBkcml2ZXJzL2xl
+ZHMvbGVkcy1wd20uYyAgICAgICAgICAgICAgICAgICAgICAgfCAzMCArKy0tLS0tLQogMjggZmls
+ZXMgY2hhbmdlZCwgMTg0IGluc2VydGlvbnMoKyksIDE4MCBkZWxldGlvbnMoLSkKIGRlbGV0ZSBt
+b2RlIDEwMDY0NCBEb2N1bWVudGF0aW9uL2RldmljZXRyZWUvYmluZGluZ3MvbGVkcy9sZWRzLXB3
+bS50eHQKIGNyZWF0ZSBtb2RlIDEwMDY0NCBEb2N1bWVudGF0aW9uL2RldmljZXRyZWUvYmluZGlu
+Z3MvbGVkcy9sZWRzLXB3bS55YW1sCgoKYmFzZS1jb21taXQ6IDhmZDhmOTQyMzVjMmM5MjVkODBi
+MjMxNmUwYWIyYmRkMDBhZjliYWUKLS0gCjIuMjAuMQoKX19fX19fX19fX19fX19fX19fX19fX19f
+X19fX19fX19fX19fX19fX19fX19fX18KTGludXgtc3RtMzIgbWFpbGluZyBsaXN0CkxpbnV4LXN0
+bTMyQHN0LW1kLW1haWxtYW4uc3Rvcm1yZXBseS5jb20KaHR0cHM6Ly9zdC1tZC1tYWlsbWFuLnN0
+b3JtcmVwbHkuY29tL21haWxtYW4vbGlzdGluZm8vbGludXgtc3RtMzIK
