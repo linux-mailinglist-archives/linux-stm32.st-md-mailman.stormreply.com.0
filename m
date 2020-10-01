@@ -2,67 +2,57 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id 6FDE127F956
-	for <lists+linux-stm32@lfdr.de>; Thu,  1 Oct 2020 08:11:13 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id B06D927FE00
+	for <lists+linux-stm32@lfdr.de>; Thu,  1 Oct 2020 13:02:53 +0200 (CEST)
 Received: from ip-172-31-3-76.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 3B4F0C424C4;
-	Thu,  1 Oct 2020 06:11:13 +0000 (UTC)
-Received: from mout.kundenserver.de (mout.kundenserver.de [212.227.126.130])
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 6100DC3FAFF;
+	Thu,  1 Oct 2020 11:02:53 +0000 (UTC)
+Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
+ (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
+ (No client certificate requested)
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id C533FC32EA8
+ for <linux-stm32@st-md-mailman.stormreply.com>;
+ Thu,  1 Oct 2020 11:02:51 +0000 (UTC)
+Received: from localhost (fw-tnat.cambridge.arm.com [217.140.96.140])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 48D83C3FADF
- for <linux-stm32@st-md-mailman.stormreply.com>;
- Wed, 30 Sep 2020 23:47:59 +0000 (UTC)
-Received: from methusalix.internal.home.lespocky.de ([92.117.51.117]) by
- mrelayeu.kundenserver.de (mreue012 [212.227.15.167]) with ESMTPSA (Nemesis)
- id 1MgRYd-1ku3qH3u3T-00hvd8; Thu, 01 Oct 2020 01:47:55 +0200
-Received: from lemmy.internal.home.lespocky.de ([192.168.243.176]
- helo=lemmy.home.lespocky.de)
- by methusalix.internal.home.lespocky.de with esmtpsa (TLS1.3) tls
- TLS_AES_256_GCM_SHA384 (Exim 4.94)
- (envelope-from <alex@home.lespocky.de>)
- id 1kNlp9-0007aF-MT; Thu, 01 Oct 2020 01:47:52 +0200
-Received: (nullmailer pid 7817 invoked by uid 2001);
- Wed, 30 Sep 2020 23:47:51 -0000
-From: Alexander Dahl <post@lespocky.de>
-To: linux-leds@vger.kernel.org, devicetree@vger.kernel.org,
- linux-kernel@vger.kernel.org, linux-arm-kernel@lists.infradead.org,
- linux-samsung-soc@vger.kernel.org, linux-omap@vger.kernel.org,
- linux-stm32@st-md-mailman.stormreply.com, linux-amlogic@lists.infradead.org,
- linux-mips@vger.kernel.org
-Date: Thu,  1 Oct 2020 01:46:37 +0200
-Message-Id: <20200930234637.7573-8-post@lespocky.de>
-X-Mailer: git-send-email 2.20.1
-In-Reply-To: <20200930234637.7573-1-post@lespocky.de>
-References: <20200930234637.7573-1-post@lespocky.de>
+ by mail.kernel.org (Postfix) with ESMTPSA id D93AE20B1F;
+ Thu,  1 Oct 2020 11:02:49 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
+ s=default; t=1601550170;
+ bh=xYiMC3INrKF34oEyrsmUUrqjbwI/zSijaQlQHN9HorA=;
+ h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
+ b=KEei53PbBIIkdzQLDb/7K/52YSbflBQYn3bG/m713eKa8/9nV0fPPDI4yq6H+/fvV
+ xVqht4hR38nzz4Qgnh/AAp0mk+5WyFzIOOYfEFPMoUP75ral06RLc43LxHUnNG4hb1
+ tZZP4hijlYOR/icBsCoZV1jH7RB2VuKegMZKFfws=
+Date: Thu, 1 Oct 2020 12:01:50 +0100
+From: Mark Brown <broonie@kernel.org>
+To: Joe Perches <joe@perches.com>
+Message-ID: <20201001110150.GA6715@sirena.org.uk>
+References: <1601233948-11629-1-git-send-email-Julia.Lawall@inria.fr>
+ <160132172369.55460.9237357219623604216.b4-ty@kernel.org>
+ <b1174f9be2ce65f6b5ebefcba0b48e792926abbc.camel@perches.com>
+ <20200929113745.GB4799@sirena.org.uk>
+ <db26d49401dc0bd6b9013a603a155f9827f404a4.camel@perches.com>
 MIME-Version: 1.0
-X-Scan-Signature: 47063c0bd3b0440d119657da58bc7562
-X-Spam-Score: -2.9 (--)
-X-Provags-ID: V03:K1:0IUo1RRU7aAo8lMj4tzZs2tdPUuRWx/DVg9fWHk99XurY6GYSNC
- hi0k4Y+6Rvd2A96ObtnJkZ9b7FaJC8oTKeQjrqDQoiAJi59zcVISDFtcTQC5r9ppEjXMxT5
- 9JZqTtubXCNiBVhQw98FxKkqHLFjh1VvJjlQu5KTRSOTFE3yj4N8WYGh5qJoe9yvg0/N+ST
- 0mF0lowsi3Ph4kHDEtMIg==
-X-Spam-Flag: NO
-X-UI-Out-Filterresults: notjunk:1;V03:K0:hvz3tk245Nc=:g/QpxKPbn4M8s0R+crrBqj
- I2VmIhXT0H7hfD8iolSFiF5pfJk1jjHCbJDejpW5i0xcUHXHkdYYHUrgIB3eI9wb+b/7vg5os
- xvWLdtfnoYeBwjaw24UwhpEDoqWI2Stidl9ttPKsn2XyTzFoAqCWkXn5Y6yLtWSwu+YxKnbsR
- CE3a6lcZ5kEq+sR2ILpVKekK9s4DRQWL6sQANVGACBsgkAeObJ8FC97ZZHv0GcygW2c2nnc9U
- +wMVs+C/roYWYmcllk45fidSri4t03BmK+fmDA1k+/nuUMAlovJP7Pp9qwaMUIM34eh0pKIyP
- 8QtBnQEMIRFWTpM9uAsL1jj78mPi6XvnhhyBIzPXuFQhZ12cwrc40RWV6MklzwnCLIA7toh38
- Y+XvrZm1Em/xkAUE7duoH/OhVXEL3WAR2UlLSKZBNRPCzlypMfupOpqitnWzWQVbv4lvmaTAo
- Ds5kC4JTHvuLe3lg8LzBGi5GT0z3dfrfy55HpxqB1bKDuj/mg7YdbrWIJ9qVQJOvPOYah0voW
- 9r8BeiDejdWckpDWwy56KFtzd/mXRFJWOI4WbLeSvWoFrzg5ssp4AXIpYO6Y2rKaJ4vf+wP8J
- eZzHp7dKotPf2kJs60pqfdQ22V7kBtUSqO0ku+MOnATpx6GxR3nsRkWFjtpbzUUstBNc5bVFj
- AD2Y5Kp6KE5e31OJ7uFLHs0qwhSMD1rFunKe7UBse8Ja9COyvP63eXD3P1MiD60/LqogT8+MO
- IAY8Rc3GLJd2YsoER8rtHAf6PP10Xb+FQFK+2gu6aBl8oLVX+kwiKHyNukJ+MB5i0op1yAnlb
- fECpu3O/2vxpuM4an/qjA4csLsG9xhGj14Gdptg8z0hrmD7UhYQRJRhkzNpGlzDPsCCg0D3
-X-Mailman-Approved-At: Thu, 01 Oct 2020 06:11:08 +0000
-Cc: Alexander Dahl <ada@thorsis.com>, Peter Ujfalusi <peter.ujfalusi@ti.com>,
- Rob Herring <robh+dt@kernel.org>, Dan Murphy <dmurphy@ti.com>,
- Pavel Machek <pavel@ucw.cz>, Alexander Dahl <post@lespocky.de>,
- Jacek Anaszewski <jacek.anaszewski@gmail.com>
-Subject: [Linux-stm32] [PATCH v6 7/7] MIPS: DTS: img: Fix schema warnings
-	for pwm-leds
+In-Reply-To: <db26d49401dc0bd6b9013a603a155f9827f404a4.camel@perches.com>
+X-Cookie: Stay away from flying saucers today.
+User-Agent: Mutt/1.10.1 (2018-07-13)
+Cc: "Rafael J. Wysocki" <rafael@kernel.org>, linux-iio@vger.kernel.org,
+ kernel-janitors@vger.kernel.org, linux-ide@vger.kernel.org,
+ linux-clk@vger.kernel.org, drbd-dev@lists.linbit.com,
+ Neil Armstrong <narmstrong@baylibre.com>,
+ linux-stm32@st-md-mailman.stormreply.com, linux-acpi@vger.kernel.org,
+ Jerome Brunet <jbrunet@baylibre.com>, David Lechner <david@lechnology.com>,
+ Martin Blumenstingl <martin.blumenstingl@googlemail.com>,
+ linux-block@vger.kernel.org, linux-amlogic@lists.infradead.org,
+ Thomas Gleixner <tglx@linutronix.de>, linux-arm-kernel@lists.infradead.org,
+ Valdis =?utf-8?Q?Kl=C4=93tnieks?= <valdis.kletnieks@vt.edu>,
+ linux-wireless@vger.kernel.org, linux-kernel@vger.kernel.org,
+ Julia Lawall <Julia.Lawall@inria.fr>, linux-crypto@vger.kernel.org,
+ openipmi-developer@lists.sourceforge.net
+Subject: Re: [Linux-stm32] [PATCH 00/18] use semicolons rather than commas
+ to separate statements
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -74,45 +64,59 @@ List-Post: <mailto:linux-stm32@st-md-mailman.stormreply.com>
 List-Help: <mailto:linux-stm32-request@st-md-mailman.stormreply.com?subject=help>
 List-Subscribe: <https://st-md-mailman.stormreply.com/mailman/listinfo/linux-stm32>, 
  <mailto:linux-stm32-request@st-md-mailman.stormreply.com?subject=subscribe>
-Content-Type: text/plain; charset="us-ascii"
-Content-Transfer-Encoding: 7bit
+Content-Type: multipart/mixed; boundary="===============4702369943399350610=="
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
-The node names for devices using the pwm-leds driver follow a certain
-naming scheme (now).
 
-Signed-off-by: Alexander Dahl <post@lespocky.de>
----
+--===============4702369943399350610==
+Content-Type: multipart/signed; micalg=pgp-sha512;
+	protocol="application/pgp-signature"; boundary="CE+1k2dSO48ffgeK"
+Content-Disposition: inline
 
-Notes:
-    v6:
-      * added this patch to series
 
- arch/mips/boot/dts/img/pistachio_marduk.dts | 5 +++--
- 1 file changed, 3 insertions(+), 2 deletions(-)
+--CE+1k2dSO48ffgeK
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
 
-diff --git a/arch/mips/boot/dts/img/pistachio_marduk.dts b/arch/mips/boot/dts/img/pistachio_marduk.dts
-index bf69da96dc8b..a8708783f04b 100644
---- a/arch/mips/boot/dts/img/pistachio_marduk.dts
-+++ b/arch/mips/boot/dts/img/pistachio_marduk.dts
-@@ -46,9 +46,10 @@
- 		regulator-max-microvolt = <1800000>;
- 	};
- 
--	leds {
-+	led-controller {
- 		compatible = "pwm-leds";
--		heartbeat {
-+
-+		led-1 {
- 			label = "marduk:red:heartbeat";
- 			pwms = <&pwm 3 300000>;
- 			max-brightness = <255>;
--- 
-2.20.1
+On Wed, Sep 30, 2020 at 12:33:39PM -0700, Joe Perches wrote:
+> On Tue, 2020-09-29 at 12:37 +0100, Mark Brown wrote:
+
+> > Feel free to submit patches to b4.
+
+> Have you tried the existing option to send
+> thank you's on a specific ranges of patches?
+
+I am relying on b4 to identify which patches that I've downloaded are in
+the pushed branches.  Given that it explicitly lists the patches that
+are applied it appears to be doing an OK job here.
+
+--CE+1k2dSO48ffgeK
+Content-Type: application/pgp-signature; name="signature.asc"
+
+-----BEGIN PGP SIGNATURE-----
+
+iQEzBAABCgAdFiEEreZoqmdXGLWf4p/qJNaLcl1Uh9AFAl91tx4ACgkQJNaLcl1U
+h9D1IAf/a6Dh+mjW+LjpuCd+hkWCJa8iJTLmYSy9suf32mX9fM1T/gbOLQ1RJtu4
+ZQP0A5w52htIbRIWtYHrgtZQGXrq2SIm+peRmnKP0DXly+Fj0/G0zxg4lqxKzXtV
++XpQjLbvcjF6JIV1ok5ScRg5HH8bfLJQvbGBbpmL9pvI+WniF4smB5bQRwd3qWEf
+MrBNI79S+kr1Cvjxnya+/TP7O4TtOQzzpB695ejEGvqxlTJQM5GGaZTLNJlBivOz
+ygXvOFlrffOajvN1K7URe41xznaDG4+c8pfziFXllSoEGp3yzANBNTtCGEvny0SY
+Nx0W3O8/sebfFJPHQ89w2atWG/nVEQ==
+=onQ8
+-----END PGP SIGNATURE-----
+
+--CE+1k2dSO48ffgeK--
+
+--===============4702369943399350610==
+Content-Type: text/plain; charset="us-ascii"
+MIME-Version: 1.0
+Content-Transfer-Encoding: 7bit
+Content-Disposition: inline
 
 _______________________________________________
 Linux-stm32 mailing list
 Linux-stm32@st-md-mailman.stormreply.com
 https://st-md-mailman.stormreply.com/mailman/listinfo/linux-stm32
+
+--===============4702369943399350610==--
