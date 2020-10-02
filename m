@@ -2,63 +2,54 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id 5EBAC2810C3
-	for <lists+linux-stm32@lfdr.de>; Fri,  2 Oct 2020 12:53:09 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 2D87C281143
+	for <lists+linux-stm32@lfdr.de>; Fri,  2 Oct 2020 13:32:59 +0200 (CEST)
 Received: from ip-172-31-3-76.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id D103EC424B0;
-	Fri,  2 Oct 2020 10:53:08 +0000 (UTC)
-Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id E8E8BC424B1;
+	Fri,  2 Oct 2020 11:32:58 +0000 (UTC)
+Received: from mail.thorsis.com (mail.thorsis.com [92.198.35.195])
  (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 9FA95C3FAFF
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 17DCAC424AF
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Fri,  2 Oct 2020 10:53:07 +0000 (UTC)
-Received: from mail-ej1-f48.google.com (mail-ej1-f48.google.com
- [209.85.218.48])
- (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
- (No client certificate requested)
- by mail.kernel.org (Postfix) with ESMTPSA id EEC79208B6
+ Fri,  2 Oct 2020 09:27:45 +0000 (UTC)
+Received: from localhost (localhost [127.0.0.1])
+ by mail.thorsis.com (Postfix) with ESMTP id 6E2F13B69
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Fri,  2 Oct 2020 10:53:05 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
- s=default; t=1601635986;
- bh=WUSRRX+XBvVTYHzBDRPQz4PtaU7zhX11OBofs03lu7w=;
- h=References:In-Reply-To:From:Date:Subject:To:Cc:From;
- b=yvX1A3cLWsjS1cWSyIRSg+WJmwZtSfrDcvyV/NeaKNl7GPsIy0voCxFZ/rOk4Gpmn
- 2KaO/nUo6AwHYxAo8duM5tiz9TubUPDXXY5lD8rnJHuHCrD3KuX85XjN3soizDcz8B
- jOf84bE2XRGR0Trvh3UMgzg0dT6cjmceAFfHiP3o=
-Received: by mail-ej1-f48.google.com with SMTP id z23so1297175ejr.13
+ Fri,  2 Oct 2020 11:27:44 +0200 (CEST)
+X-Virus-Scanned: Debian amavisd-new at mail.thorsis.com
+Received: from mail.thorsis.com ([127.0.0.1])
+ by localhost (mail.thorsis.com [127.0.0.1]) (amavisd-new, port 10024)
+ with ESMTP id KBXQG14nQJlg
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Fri, 02 Oct 2020 03:53:05 -0700 (PDT)
-X-Gm-Message-State: AOAM533KQUnLuewuNuNtn7TwWG31kkdTiF4Rdi8rIYd8OgGkxMb6/FnB
- v8Aj9WsmjoRAmUSQSzEToz5X7PnuQN5b62fHpdc=
-X-Google-Smtp-Source: ABdhPJz2njtnLuaxs13sg4hhwWj46P8QK/G+8vH63FlRpE0n16xuRCvITpEi9m8uB+qnlenWJGhPhUHCNrXOYo6xhlo=
-X-Received: by 2002:a17:906:1984:: with SMTP id
- g4mr1573436ejd.119.1601635984516; 
- Fri, 02 Oct 2020 03:53:04 -0700 (PDT)
-MIME-Version: 1.0
+ Fri,  2 Oct 2020 11:27:44 +0200 (CEST)
+Received: by mail.thorsis.com (Postfix, from userid 109)
+ id 2911D4729; Fri,  2 Oct 2020 11:27:42 +0200 (CEST)
+X-Spam-Level: 
+X-Spam-Status: No, score=-1.9 required=5.0 tests=BAYES_00,NO_RECEIVED,
+ NO_RELAYS,URIBL_BLOCKED autolearn=unavailable autolearn_force=no
+ version=3.4.2
+From: Alexander Dahl <ada@thorsis.com>
+To: linux-leds@vger.kernel.org
+Date: Fri, 02 Oct 2020 11:27:32 +0200
+Message-ID: <4533120.poq1GmoeVQ@ada>
+In-Reply-To: <CAJKOXPfBKnESpRkSDZp5CB3T-t95DXg2dNKQnNNXv6Q_ywck2w@mail.gmail.com>
 References: <20200930234637.7573-1-post@lespocky.de>
- <20200930234637.7573-3-post@lespocky.de>
- <CAJKOXPe7Tg+5ESsdPGks_Aqj+zQH4-asC839FseWp0OCJbT4Mw@mail.gmail.com>
- <9895379.VNsV0mSTfq@ada>
-In-Reply-To: <9895379.VNsV0mSTfq@ada>
-From: Krzysztof Kozlowski <krzk@kernel.org>
-Date: Fri, 2 Oct 2020 12:52:52 +0200
-X-Gmail-Original-Message-ID: <CAJKOXPcTstvUuy-CnJbOGxiONLx2V2hfpnR0H4gS=4v+C1udtQ@mail.gmail.com>
-Message-ID: <CAJKOXPcTstvUuy-CnJbOGxiONLx2V2hfpnR0H4gS=4v+C1udtQ@mail.gmail.com>
-To: Alexander Dahl <ada@thorsis.com>
+ <20200930234637.7573-6-post@lespocky.de>
+ <CAJKOXPfBKnESpRkSDZp5CB3T-t95DXg2dNKQnNNXv6Q_ywck2w@mail.gmail.com>
+X-Mailman-Approved-At: Fri, 02 Oct 2020 11:32:57 +0000
 Cc: devicetree@vger.kernel.org,
  "linux-samsung-soc@vger.kernel.org" <linux-samsung-soc@vger.kernel.org>,
  "linux-kernel@vger.kernel.org" <linux-kernel@vger.kernel.org>,
- Rob Herring <robh+dt@kernel.org>, linux-mips@vger.kernel.org,
- Peter Ujfalusi <peter.ujfalusi@ti.com>,
- Jacek Anaszewski <jacek.anaszewski@gmail.com>,
- Alexander Dahl <post@lespocky.de>, linux-leds@vger.kernel.org,
+ Krzysztof Kozlowski <krzk@kernel.org>, linux-mips@vger.kernel.org,
+ Peter Ujfalusi <peter.ujfalusi@ti.com>, Rob Herring <robh+dt@kernel.org>,
+ Alexander Dahl <post@lespocky.de>, Dan Murphy <dmurphy@ti.com>,
  Pavel Machek <pavel@ucw.cz>, linux-amlogic@lists.infradead.org,
  linux-omap@vger.kernel.org, linux-stm32@st-md-mailman.stormreply.com,
- linux-arm-kernel@lists.infradead.org, Dan Murphy <dmurphy@ti.com>
-Subject: Re: [Linux-stm32] [PATCH v6 2/7] dt-bindings: leds: Convert pwm to
-	yaml
+ linux-arm-kernel@lists.infradead.org,
+ Jacek Anaszewski <jacek.anaszewski@gmail.com>
+Subject: Re: [Linux-stm32] [PATCH v6 5/7] ARM: dts: Fix schema warnings for
+	pwm-leds
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -70,50 +61,52 @@ List-Post: <mailto:linux-stm32@st-md-mailman.stormreply.com>
 List-Help: <mailto:linux-stm32-request@st-md-mailman.stormreply.com?subject=help>
 List-Subscribe: <https://st-md-mailman.stormreply.com/mailman/listinfo/linux-stm32>, 
  <mailto:linux-stm32-request@st-md-mailman.stormreply.com?subject=subscribe>
+MIME-Version: 1.0
 Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
-On Fri, 2 Oct 2020 at 12:46, Alexander Dahl <ada@thorsis.com> wrote:
->
-> Hei hei,
->
-> Am Freitag, 2. Oktober 2020, 11:31:09 CEST schrieb Krzysztof Kozlowski:
-> > On Thu, 1 Oct 2020 at 01:52, Alexander Dahl <post@lespocky.de> wrote:
-> > > The example was adapted in the following ways:
-> > >
-> > > - make use of the now supported 'function' and 'color' properties
-> > > - remove pwm nodes, those are documented elsewhere
-> > > - tweake node names to be matched by new dtschema rules
-> >
-> > tweak? or align?
->
-> Depends on if schema actually checks it (child nodes) or if it's just DT
-> policy (parent node).  I'll reword in v7.
->
-> > > License was discussed with the original author.
-> >
-> > Since you relicense their work, you need an ack or signed off from
-> > every author. You cannot just say "I discussed" and post it. That way
-> > I could pretend (lie) I talked to Linus and try to relicense Linux to
-> > BSD...
->
-> I know.  Peter promised to give his Ack publicly on the list back when I
-> worked on v2 or v3, so he is in Cc since then, but apparently he did not yet
-> post it. ;-)
->
-> > You need acks/SoB from Peter and Russel.
->
-> Well, I should add Russel in v7, too, then.
+Hello Krzysztof,
 
-Yes, please.
+Am Freitag, 2. Oktober 2020, 11:12:50 CEST schrieb Krzysztof Kozlowski:
+> On Thu, 1 Oct 2020 at 01:53, Alexander Dahl <post@lespocky.de> wrote:
+> > The node names for devices using the pwm-leds driver follow a certain
+> > naming scheme (now).
+> > 
+> > Signed-off-by: Alexander Dahl <post@lespocky.de>
+> > ---
+> > 
+> > Notes:
+> >     v6:
+> >       * added this patch to series
+> >  
+> >  arch/arm/boot/dts/at91-kizbox.dts             | 10 +++----
+> >  arch/arm/boot/dts/at91-kizbox2-common.dtsi    |  8 +++---
+> >  arch/arm/boot/dts/at91-kizbox3-hs.dts         | 16 ++++++------
+> >  arch/arm/boot/dts/at91-kizbox3_common.dtsi    | 10 +++----
+> >  arch/arm/boot/dts/at91-kizboxmini-common.dtsi |  8 +++---
+> >  arch/arm/boot/dts/at91sam9m10g45ek.dts        | 10 +++----
+> >  arch/arm/boot/dts/at91sam9rlek.dts            | 10 +++----
+> >  .../boot/dts/berlin2cd-google-chromecast.dts  |  6 ++---
+> >  arch/arm/boot/dts/exynos5422-odroidhc1.dts    |  4 +--
+> >  arch/arm/boot/dts/exynos5422-odroidxu4.dts    |  4 +--
+> 
+> Somehow you did not CC the maintainers... please use
+> scripts/get_maintainers.pl to obtain list of addresses.
 
-For the patch itself:
-Reviewed-by: Krzysztof Kozlowski <krzk@kernel.org>
+Well, that will be a huge list of Cc then.  What is the policy?  Everybody 
+gets the whole series or different list of receivers per patch?
 
-Best regards,
-Krzysztof
+> All these should be separate patches per sub-architecture.
+
+I already suspected that.  Will do in v7.
+
+Thanks for your feedback.
+Alex
+
+
+
 _______________________________________________
 Linux-stm32 mailing list
 Linux-stm32@st-md-mailman.stormreply.com
