@@ -2,47 +2,50 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id D769B281EDB
-	for <lists+linux-stm32@lfdr.de>; Sat,  3 Oct 2020 01:07:39 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id EA568281EDF
+	for <lists+linux-stm32@lfdr.de>; Sat,  3 Oct 2020 01:08:36 +0200 (CEST)
 Received: from ip-172-31-3-76.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 4AB99C424B7;
-	Fri,  2 Oct 2020 23:07:39 +0000 (UTC)
-Received: from mail-out.m-online.net (mail-out.m-online.net [212.18.0.10])
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id B59CBC424B7;
+	Fri,  2 Oct 2020 23:08:36 +0000 (UTC)
+Received: from mail-out.m-online.net (mail-out.m-online.net [212.18.0.9])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 0D8A3C424B2
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id E9252C424B2
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Fri,  2 Oct 2020 23:07:36 +0000 (UTC)
+ Fri,  2 Oct 2020 23:08:35 +0000 (UTC)
 Received: from frontend01.mail.m-online.net (unknown [192.168.8.182])
- by mail-out.m-online.net (Postfix) with ESMTP id 4C35HV4fgKz1rt44;
- Sat,  3 Oct 2020 01:07:34 +0200 (CEST)
+ by mail-out.m-online.net (Postfix) with ESMTP id 4C35Jd5L2Cz1qrMW;
+ Sat,  3 Oct 2020 01:08:33 +0200 (CEST)
 Received: from localhost (dynscan1.mnet-online.de [192.168.6.70])
- by mail.m-online.net (Postfix) with ESMTP id 4C35HV3C5Tz1qyY7;
- Sat,  3 Oct 2020 01:07:34 +0200 (CEST)
+ by mail.m-online.net (Postfix) with ESMTP id 4C35Jd3nZJz1qyY8;
+ Sat,  3 Oct 2020 01:08:33 +0200 (CEST)
 X-Virus-Scanned: amavisd-new at mnet-online.de
 Received: from mail.mnet-online.de ([192.168.8.182])
  by localhost (dynscan1.mail.m-online.net [192.168.6.70]) (amavisd-new,
  port 10024)
- with ESMTP id 8Ysr8-Ok4-Jd; Sat,  3 Oct 2020 01:07:32 +0200 (CEST)
-X-Auth-Info: bmpp4L+ElmOq85OAYsAbtkHi0zHNOEPX34AgZyUIu6A=
+ with ESMTP id xYdZJjPJxFdE; Sat,  3 Oct 2020 01:08:31 +0200 (CEST)
+X-Auth-Info: 3JrPO3hNpWD7WNOi91otY26T6ijb7VKN1TsODYrsQ4o=
 Received: from desktop.lan (ip-89-176-112-137.net.upcbroadband.cz
  [89.176.112.137])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
  by mail.mnet-online.de (Postfix) with ESMTPSA;
- Sat,  3 Oct 2020 01:07:32 +0200 (CEST)
+ Sat,  3 Oct 2020 01:08:31 +0200 (CEST)
 From: Marek Vasut <marex@denx.de>
 To: dri-devel@lists.freedesktop.org
-Date: Sat,  3 Oct 2020 01:07:26 +0200
-Message-Id: <20201002230726.242035-1-marex@denx.de>
+Date: Sat,  3 Oct 2020 01:08:23 +0200
+Message-Id: <20201002230823.242147-1-marex@denx.de>
 X-Mailer: git-send-email 2.28.0
 MIME-Version: 1.0
-Cc: Marek Vasut <marex@denx.de>, Vincent Abriou <vincent.abriou@st.com>,
- Yannick Fertre <yannick.fertre@st.com>,
- Maxime Coquelin <mcoquelin.stm32@gmail.com>, Sam Ravnborg <sam@ravnborg.org>,
- linux-stm32@st-md-mailman.stormreply.com, linux-arm-kernel@lists.infradead.org,
- Benjamin Gaignard <benjamin.gaignard@st.com>
-Subject: [Linux-stm32] [PATCH] drm/stm: Fix bus_flags handling
+Cc: Marek Vasut <marex@denx.de>, Benjamin Gaignard <benjamin.gaignard@st.com>,
+ Vincent Abriou <vincent.abriou@st.com>, Yannick Fertre <yannick.fertre@st.com>,
+ Andrzej Hajda <a.hajda@samsung.com>,
+ Laurent Pinchart <laurent.pinchart@ideasonboard.com>,
+ Maxime Coquelin <mcoquelin.stm32@gmail.com>,
+ Biju Das <biju.das.jz@bp.renesas.com>, Sam Ravnborg <sam@ravnborg.org>,
+ linux-stm32@st-md-mailman.stormreply.com, linux-arm-kernel@lists.infradead.org
+Subject: [Linux-stm32] [RFC][PATCH] drm/bridge: lvds-codec: Add support for
+	pixel data sampling edge select
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -59,24 +62,18 @@ Content-Transfer-Encoding: 7bit
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
-The drm_display_mode_to_videomode() does not populate DISPLAY_FLAGS_DE_LOW
-or DISPLAY_FLAGS_PIXDATA_NEGEDGE flags in struct videomode. Therefore, no
-matter what polarity the next bridge or display might require, these flags
-are never set, and thus the LTDC GCR_DEPOL and GCR_PCPOL bits are never set,
-and the LTDC behaves as if both DISPLAY_FLAGS_PIXDATA_POSEDGE and
-DISPLAY_FLAGS_DE_HIGH were always set.
+The OnSemi FIN3385 Parallel-to-LVDS encoder has a dedicated input line to
+select input pixel data sampling edge. Add DT property "pixelclk-active",
+same as the one used by display timings, and configure bus flags based on
+this DT property.
 
-The fix for this problem is taken almost verbatim from MXSFB driver. In
-case there is a bridge attached to the LTDC, the bridge might have extra
-polarity requirements, so extract bus_flags from the bridge and use them
-for LTDC configuration. Otherwise, extract bus_flags from the connector,
-which is the display.
-
-Fixes: b759012c5fa7 ("drm/stm: Add STM32 LTDC driver")
 Signed-off-by: Marek Vasut <marex@denx.de>
 Cc: Alexandre Torgue <alexandre.torgue@st.com>
+Cc: Andrzej Hajda <a.hajda@samsung.com>
 Cc: Antonio Borneo <antonio.borneo@st.com>
 Cc: Benjamin Gaignard <benjamin.gaignard@st.com>
+Cc: Biju Das <biju.das.jz@bp.renesas.com>
+Cc: Laurent Pinchart <laurent.pinchart@ideasonboard.com>
 Cc: Maxime Coquelin <mcoquelin.stm32@gmail.com>
 Cc: Philippe Cornu <philippe.cornu@st.com>
 Cc: Sam Ravnborg <sam@ravnborg.org>
@@ -86,84 +83,50 @@ Cc: linux-arm-kernel@lists.infradead.org
 Cc: linux-stm32@st-md-mailman.stormreply.com
 To: dri-devel@lists.freedesktop.org
 ---
- drivers/gpu/drm/stm/ltdc.c | 22 ++++++++++++++++++++--
- drivers/gpu/drm/stm/ltdc.h |  2 ++
- 2 files changed, 22 insertions(+), 2 deletions(-)
+ drivers/gpu/drm/bridge/lvds-codec.c | 9 +++++++++
+ 1 file changed, 9 insertions(+)
 
-diff --git a/drivers/gpu/drm/stm/ltdc.c b/drivers/gpu/drm/stm/ltdc.c
-index 07c73079293c..a282a1553497 100644
---- a/drivers/gpu/drm/stm/ltdc.c
-+++ b/drivers/gpu/drm/stm/ltdc.c
-@@ -546,11 +546,17 @@ static void ltdc_crtc_mode_set_nofb(struct drm_crtc *crtc)
- 	struct drm_device *ddev = crtc->dev;
- 	struct drm_display_mode *mode = &crtc->state->adjusted_mode;
- 	struct videomode vm;
-+	u32 bus_flags = 0;
- 	u32 hsync, vsync, accum_hbp, accum_vbp, accum_act_w, accum_act_h;
- 	u32 total_width, total_height;
- 	u32 val;
+diff --git a/drivers/gpu/drm/bridge/lvds-codec.c b/drivers/gpu/drm/bridge/lvds-codec.c
+index f52ccffc1bd1..bc941d4fb5b9 100644
+--- a/drivers/gpu/drm/bridge/lvds-codec.c
++++ b/drivers/gpu/drm/bridge/lvds-codec.c
+@@ -19,6 +19,7 @@ struct lvds_codec {
+ 	struct device *dev;
+ 	struct drm_bridge bridge;
+ 	struct drm_bridge *panel_bridge;
++	struct drm_bridge_timings timings;
+ 	struct regulator *vcc;
+ 	struct gpio_desc *powerdown_gpio;
+ 	u32 connector_type;
+@@ -80,6 +81,7 @@ static int lvds_codec_probe(struct platform_device *pdev)
+ 	struct device_node *panel_node;
+ 	struct drm_panel *panel;
+ 	struct lvds_codec *lvds_codec;
++	u32 val;
  	int ret;
  
-+	if (ldev->bridge)
-+		bus_flags = ldev->bridge->timings->input_bus_flags;
-+	else if (ldev->connector)
-+		bus_flags = ldev->connector->display_info.bus_flags;
+ 	lvds_codec = devm_kzalloc(dev, sizeof(*lvds_codec), GFP_KERNEL);
+@@ -124,6 +126,12 @@ static int lvds_codec_probe(struct platform_device *pdev)
+ 	if (IS_ERR(lvds_codec->panel_bridge))
+ 		return PTR_ERR(lvds_codec->panel_bridge);
+ 
++	if (!of_property_read_u32(dev->of_node, "pixelclk-active", &val)) {
++		lvds_codec->timings.input_bus_flags = val ?
++			DRM_BUS_FLAG_PIXDATA_SAMPLE_NEGEDGE :
++			DRM_BUS_FLAG_PIXDATA_SAMPLE_POSEDGE;
++	}
 +
- 	if (!pm_runtime_active(ddev->dev)) {
- 		ret = pm_runtime_get_sync(ddev->dev);
- 		if (ret) {
-@@ -586,10 +592,10 @@ static void ltdc_crtc_mode_set_nofb(struct drm_crtc *crtc)
- 	if (vm.flags & DISPLAY_FLAGS_VSYNC_HIGH)
- 		val |= GCR_VSPOL;
+ 	/*
+ 	 * The panel_bridge bridge is attached to the panel's of_node,
+ 	 * but we need a bridge attached to our of_node for our user
+@@ -131,6 +139,7 @@ static int lvds_codec_probe(struct platform_device *pdev)
+ 	 */
+ 	lvds_codec->bridge.of_node = dev->of_node;
+ 	lvds_codec->bridge.funcs = &funcs;
++	lvds_codec->bridge.timings = &lvds_codec->timings;
+ 	drm_bridge_add(&lvds_codec->bridge);
  
--	if (vm.flags & DISPLAY_FLAGS_DE_LOW)
-+	if (bus_flags & DRM_BUS_FLAG_DE_LOW)
- 		val |= GCR_DEPOL;
- 
--	if (vm.flags & DISPLAY_FLAGS_PIXDATA_NEGEDGE)
-+	if (bus_flags & DRM_BUS_FLAG_PIXDATA_DRIVE_NEGEDGE)
- 		val |= GCR_PCPOL;
- 
- 	reg_update_bits(ldev->regs, LTDC_GCR,
-@@ -1098,6 +1104,8 @@ static const struct drm_encoder_helper_funcs ltdc_encoder_helper_funcs = {
- 
- static int ltdc_encoder_init(struct drm_device *ddev, struct drm_bridge *bridge)
- {
-+	struct ltdc_device *ldev = ddev->dev_private;
-+	struct drm_connector_list_iter iter;
- 	struct drm_encoder *encoder;
- 	int ret;
- 
-@@ -1119,6 +1127,16 @@ static int ltdc_encoder_init(struct drm_device *ddev, struct drm_bridge *bridge)
- 		return -EINVAL;
- 	}
- 
-+	ldev->bridge = bridge;
-+
-+	/*
-+	 * Get hold of the connector. This is a bit of a hack, until the bridge
-+	 * API gives us bus flags and formats.
-+	 */
-+	drm_connector_list_iter_begin(ddev, &iter);
-+	ldev->connector = drm_connector_list_iter_next(&iter);
-+	drm_connector_list_iter_end(&iter);
-+
- 	DRM_DEBUG_DRIVER("Bridge encoder:%d created\n", encoder->base.id);
- 
- 	return 0;
-diff --git a/drivers/gpu/drm/stm/ltdc.h b/drivers/gpu/drm/stm/ltdc.h
-index f153b908c70e..d0d2c81de29a 100644
---- a/drivers/gpu/drm/stm/ltdc.h
-+++ b/drivers/gpu/drm/stm/ltdc.h
-@@ -38,6 +38,8 @@ struct ltdc_device {
- 	u32 irq_status;
- 	struct fps_info plane_fpsi[LTDC_MAX_LAYER];
- 	struct drm_atomic_state *suspend_state;
-+	struct drm_bridge *bridge;
-+	struct drm_connector *connector;
- };
- 
- int ltdc_load(struct drm_device *ddev);
+ 	platform_set_drvdata(pdev, lvds_codec);
 -- 
 2.28.0
 
