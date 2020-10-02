@@ -2,49 +2,50 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id E5A51281062
-	for <lists+linux-stm32@lfdr.de>; Fri,  2 Oct 2020 12:12:19 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 5EBAC2810C3
+	for <lists+linux-stm32@lfdr.de>; Fri,  2 Oct 2020 12:53:09 +0200 (CEST)
 Received: from ip-172-31-3-76.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 96D74C424B1;
-	Fri,  2 Oct 2020 10:12:19 +0000 (UTC)
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id D103EC424B0;
+	Fri,  2 Oct 2020 10:53:08 +0000 (UTC)
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
  (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 6AFDDC424AF
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 9FA95C3FAFF
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Fri,  2 Oct 2020 10:12:16 +0000 (UTC)
-Received: from mail-ed1-f50.google.com (mail-ed1-f50.google.com
- [209.85.208.50])
+ Fri,  2 Oct 2020 10:53:07 +0000 (UTC)
+Received: from mail-ej1-f48.google.com (mail-ej1-f48.google.com
+ [209.85.218.48])
  (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by mail.kernel.org (Postfix) with ESMTPSA id 3E0BC20708
+ by mail.kernel.org (Postfix) with ESMTPSA id EEC79208B6
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Fri,  2 Oct 2020 10:12:15 +0000 (UTC)
+ Fri,  2 Oct 2020 10:53:05 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
- s=default; t=1601633535;
- bh=YMb+SikBzA0kaz01qg1rFRGqMR34IEZDdELzQnvannc=;
+ s=default; t=1601635986;
+ bh=WUSRRX+XBvVTYHzBDRPQz4PtaU7zhX11OBofs03lu7w=;
  h=References:In-Reply-To:From:Date:Subject:To:Cc:From;
- b=m+QSecoZOGe8dvzGAzaVLu6djX6wvstSNjTufshrQ7pLbM+zd/i00BMIxk9HtkH36
- 4RGMtD5Y9P1GyZIBAMLBkI9wveIJaHkolhG9ddl4D8wp9XAcl991RL+EtWsjr+8KQt
- XTGHujSHsO4T0sIxR14eOk8W/1eFzzgroCv9ipS4=
-Received: by mail-ed1-f50.google.com with SMTP id l17so1066043edq.12
+ b=yvX1A3cLWsjS1cWSyIRSg+WJmwZtSfrDcvyV/NeaKNl7GPsIy0voCxFZ/rOk4Gpmn
+ 2KaO/nUo6AwHYxAo8duM5tiz9TubUPDXXY5lD8rnJHuHCrD3KuX85XjN3soizDcz8B
+ jOf84bE2XRGR0Trvh3UMgzg0dT6cjmceAFfHiP3o=
+Received: by mail-ej1-f48.google.com with SMTP id z23so1297175ejr.13
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Fri, 02 Oct 2020 03:12:15 -0700 (PDT)
-X-Gm-Message-State: AOAM530AJWg5fmWW5IRvaabczDgKP/K82fE21jgrjDnvuXaBZQWUDgVm
- 0Rw4/KhJZvFSptCarbzUoY/d5CXHdiMJDLaNVyk=
-X-Google-Smtp-Source: ABdhPJyIAzURzd3Z3ZQc9dk3WngtlZ5byJRK3kR//jIcYN1OLykt0UVP1CzVTSlm3oLD4xmvK0KWSQpcyp1ktS9V6aw=
-X-Received: by 2002:aa7:da16:: with SMTP id r22mr1552459eds.132.1601633533817; 
- Fri, 02 Oct 2020 03:12:13 -0700 (PDT)
+ Fri, 02 Oct 2020 03:53:05 -0700 (PDT)
+X-Gm-Message-State: AOAM533KQUnLuewuNuNtn7TwWG31kkdTiF4Rdi8rIYd8OgGkxMb6/FnB
+ v8Aj9WsmjoRAmUSQSzEToz5X7PnuQN5b62fHpdc=
+X-Google-Smtp-Source: ABdhPJz2njtnLuaxs13sg4hhwWj46P8QK/G+8vH63FlRpE0n16xuRCvITpEi9m8uB+qnlenWJGhPhUHCNrXOYo6xhlo=
+X-Received: by 2002:a17:906:1984:: with SMTP id
+ g4mr1573436ejd.119.1601635984516; 
+ Fri, 02 Oct 2020 03:53:04 -0700 (PDT)
 MIME-Version: 1.0
 References: <20200930234637.7573-1-post@lespocky.de>
- <20200930234637.7573-4-post@lespocky.de>
- <CAJKOXPewAhZU1Enz9HrdrG5RF==y6Mna=E_vfpD4u2747CVo8A@mail.gmail.com>
- <1708987.KbI9FDK2aH@ada>
-In-Reply-To: <1708987.KbI9FDK2aH@ada>
+ <20200930234637.7573-3-post@lespocky.de>
+ <CAJKOXPe7Tg+5ESsdPGks_Aqj+zQH4-asC839FseWp0OCJbT4Mw@mail.gmail.com>
+ <9895379.VNsV0mSTfq@ada>
+In-Reply-To: <9895379.VNsV0mSTfq@ada>
 From: Krzysztof Kozlowski <krzk@kernel.org>
-Date: Fri, 2 Oct 2020 12:12:01 +0200
-X-Gmail-Original-Message-ID: <CAJKOXPfK_fnyf0bJY_d_pKH0es3C9x07Fc425LPCr323qZkugw@mail.gmail.com>
-Message-ID: <CAJKOXPfK_fnyf0bJY_d_pKH0es3C9x07Fc425LPCr323qZkugw@mail.gmail.com>
+Date: Fri, 2 Oct 2020 12:52:52 +0200
+X-Gmail-Original-Message-ID: <CAJKOXPcTstvUuy-CnJbOGxiONLx2V2hfpnR0H4gS=4v+C1udtQ@mail.gmail.com>
+Message-ID: <CAJKOXPcTstvUuy-CnJbOGxiONLx2V2hfpnR0H4gS=4v+C1udtQ@mail.gmail.com>
 To: Alexander Dahl <ada@thorsis.com>
 Cc: devicetree@vger.kernel.org,
  "linux-samsung-soc@vger.kernel.org" <linux-samsung-soc@vger.kernel.org>,
@@ -56,8 +57,8 @@ Cc: devicetree@vger.kernel.org,
  Pavel Machek <pavel@ucw.cz>, linux-amlogic@lists.infradead.org,
  linux-omap@vger.kernel.org, linux-stm32@st-md-mailman.stormreply.com,
  linux-arm-kernel@lists.infradead.org, Dan Murphy <dmurphy@ti.com>
-Subject: Re: [Linux-stm32] [PATCH v6 3/7] dt-bindings: mfd: Fix schema
-	warnings for pwm-leds
+Subject: Re: [Linux-stm32] [PATCH v6 2/7] dt-bindings: leds: Convert pwm to
+	yaml
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -74,34 +75,42 @@ Content-Transfer-Encoding: 7bit
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
-On Fri, 2 Oct 2020 at 12:07, Alexander Dahl <ada@thorsis.com> wrote:
+On Fri, 2 Oct 2020 at 12:46, Alexander Dahl <ada@thorsis.com> wrote:
 >
-> Hello Krzysztof,
+> Hei hei,
 >
-> Am Freitag, 2. Oktober 2020, 11:21:10 CEST schrieb Krzysztof Kozlowski:
-> > On Thu, 1 Oct 2020 at 01:51, Alexander Dahl <post@lespocky.de> wrote:
-> > > The node names for devices using the pwm-leds driver follow a certain
-> > > naming scheme (now).
+> Am Freitag, 2. Oktober 2020, 11:31:09 CEST schrieb Krzysztof Kozlowski:
+> > On Thu, 1 Oct 2020 at 01:52, Alexander Dahl <post@lespocky.de> wrote:
+> > > The example was adapted in the following ways:
+> > >
+> > > - make use of the now supported 'function' and 'color' properties
+> > > - remove pwm nodes, those are documented elsewhere
+> > > - tweake node names to be matched by new dtschema rules
 > >
-> > What warning? Please post them here and in every DTS patch.
+> > tweak? or align?
 >
-> ack
+> Depends on if schema actually checks it (child nodes) or if it's just DT
+> policy (parent node).  I'll reword in v7.
 >
-> > Your schema does not enforce pwmleds node naming (the main node, not
-> > children), or at least I could not see it. You change multiple files
-> > in your patchset so are you sure that all these are justified by
-> > warnings pointed out by schema?
+> > > License was discussed with the original author.
+> >
+> > Since you relicense their work, you need an ack or signed off from
+> > every author. You cannot just say "I discussed" and post it. That way
+> > I could pretend (lie) I talked to Linus and try to relicense Linux to
+> > BSD...
 >
-> The rename was suggested by Rob [1], and I think you're right, those names are
-> not (yet) enforced by schema?  So at least the commit message is misleading
-> for now.  I'll have to see if I rather reword or update the schema again.
+> I know.  Peter promised to give his Ack publicly on the list back when I
+> worked on v2 or v3, so he is in Cc since then, but apparently he did not yet
+> post it. ;-)
+>
+> > You need acks/SoB from Peter and Russel.
+>
+> Well, I should add Russel in v7, too, then.
 
-If schema does not enforce it, then maybe just mention that you align
-the children names with schema and pwmleds node to device tree
-specification guidelines (node name should be generic, reflecting
-function of the device). However in such case changing only pwmleds
-node name in DTS (without changing children) would not be justified,
-IMHO.
+Yes, please.
+
+For the patch itself:
+Reviewed-by: Krzysztof Kozlowski <krzk@kernel.org>
 
 Best regards,
 Krzysztof
