@@ -2,64 +2,63 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id 6E687283CD2
-	for <lists+linux-stm32@lfdr.de>; Mon,  5 Oct 2020 18:53:13 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 891BD28410B
+	for <lists+linux-stm32@lfdr.de>; Mon,  5 Oct 2020 22:35:51 +0200 (CEST)
 Received: from ip-172-31-3-76.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 23416C32EA7;
-	Mon,  5 Oct 2020 16:53:13 +0000 (UTC)
-Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
- (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
- (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id EA846C32E90
- for <linux-stm32@st-md-mailman.stormreply.com>;
- Mon,  5 Oct 2020 16:53:11 +0000 (UTC)
-Received: from localhost (fw-tnat.cambridge.arm.com [217.140.96.140])
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 4D054C32EA7;
+	Mon,  5 Oct 2020 20:35:51 +0000 (UTC)
+Received: from mout.kundenserver.de (mout.kundenserver.de [212.227.17.24])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by mail.kernel.org (Postfix) with ESMTPSA id 7BDA1207BC;
- Mon,  5 Oct 2020 16:53:09 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
- s=default; t=1601916790;
- bh=p/E99tTjql4QstxaT4SSl5drfyNj4h+kQn/1L+FU6Hg=;
- h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
- b=gBC/IzIeywxmI9gsb/JTsx+zOOUJIooFw3wfYC06TBiHzICVtnlgNaAv/yO1EfA51
- zVseZLj5T0M70hmLa6qq17YAe111X+Q9rT1NlLPW8KVTi2SkXaQsGts5rIE+F43U3z
- nybuOkwnpLc2tf4yEu29xxvUOBIsDUDyDKfTSVTQ=
-Date: Mon, 5 Oct 2020 17:52:06 +0100
-From: Mark Brown <broonie@kernel.org>
-To: Joe Perches <joe@perches.com>
-Message-ID: <20201005165206.GA2440@sirena.org.uk>
-References: <160132172369.55460.9237357219623604216.b4-ty@kernel.org>
- <b1174f9be2ce65f6b5ebefcba0b48e792926abbc.camel@perches.com>
- <20200929113745.GB4799@sirena.org.uk>
- <db26d49401dc0bd6b9013a603a155f9827f404a4.camel@perches.com>
- <20201001110150.GA6715@sirena.org.uk>
- <f44d19ad596f261c0287c9ab18c45161003efb43.camel@perches.com>
- <20201003191501.o56tqq63d2buq5ox@chatter.i7.local>
- <alpine.DEB.2.22.394.2010032118420.2741@hadrien>
- <20201003193137.z2bpwzlz5a66kkex@chatter.i7.local>
- <9ab43333596f08abbbbbf1fa8cdf1ded4b65af2a.camel@perches.com>
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 9D546C32E90
+ for <linux-stm32@st-md-mailman.stormreply.com>;
+ Mon,  5 Oct 2020 20:35:48 +0000 (UTC)
+Received: from methusalix.internal.home.lespocky.de ([92.117.55.152]) by
+ mrelayeu.kundenserver.de (mreue109 [212.227.15.183]) with ESMTPSA (Nemesis)
+ id 1MuDPf-1kfhXm22Jx-00uZ5G; Mon, 05 Oct 2020 22:35:43 +0200
+Received: from lemmy.internal.home.lespocky.de ([192.168.243.176]
+ helo=lemmy.home.lespocky.de)
+ by methusalix.internal.home.lespocky.de with esmtpsa (TLS1.3) tls
+ TLS_AES_256_GCM_SHA384 (Exim 4.94)
+ (envelope-from <alex@home.lespocky.de>)
+ id 1kPXCp-0004VD-EM; Mon, 05 Oct 2020 22:35:39 +0200
+Received: (nullmailer pid 10292 invoked by uid 2001);
+ Mon, 05 Oct 2020 20:35:35 -0000
+From: Alexander Dahl <post@lespocky.de>
+To: Pavel Machek <pavel@ucw.cz>, Dan Murphy <dmurphy@ti.com>,
+ Rob Herring <robh+dt@kernel.org>
+Date: Mon,  5 Oct 2020 22:34:39 +0200
+Message-Id: <20201005203451.9985-1-post@lespocky.de>
+X-Mailer: git-send-email 2.20.1
 MIME-Version: 1.0
-In-Reply-To: <9ab43333596f08abbbbbf1fa8cdf1ded4b65af2a.camel@perches.com>
-X-Cookie: God is real, unless declared integer.
-User-Agent: Mutt/1.10.1 (2018-07-13)
-Cc: "Rafael J. Wysocki" <rafael@kernel.org>, linux-iio@vger.kernel.org,
- kernel-janitors@vger.kernel.org, linux-ide@vger.kernel.org,
- linux-clk@vger.kernel.org, drbd-dev@lists.linbit.com,
- Neil Armstrong <narmstrong@baylibre.com>,
- linux-stm32@st-md-mailman.stormreply.com, linux-acpi@vger.kernel.org,
- linux-arm-kernel@lists.infradead.org, Jerome Brunet <jbrunet@baylibre.com>,
- David Lechner <david@lechnology.com>,
- Martin Blumenstingl <martin.blumenstingl@googlemail.com>,
- linux-block@vger.kernel.org, linux-amlogic@lists.infradead.org,
- Thomas Gleixner <tglx@linutronix.de>,
- Konstantin Ryabitsev <konstantin@linuxfoundation.org>,
- Valdis =?utf-8?Q?Kl=C4=93tnieks?= <valdis.kletnieks@vt.edu>,
- linux-wireless@vger.kernel.org, linux-kernel@vger.kernel.org,
- Julia Lawall <julia.lawall@inria.fr>, linux-crypto@vger.kernel.org,
- openipmi-developer@lists.sourceforge.net, tools@linux.kernel.org
-Subject: Re: [Linux-stm32] [PATCH 00/18] use semicolons rather than commas
- to separate statements
+X-Scan-Signature: 6f2c0cc924172ae0d63df639c2daa6ee
+X-Spam-Score: -2.9 (--)
+X-Provags-ID: V03:K1:a5ux3XXYZajhGPOMpe5UlfXuFD6MtM8x1SXx7hRmMI2VaktPYLL
+ bpOXntySTtH+Ag/ngkdXTAXTFtj/AydJNiMmujznhs04XsefLrYEM0Hq7SgdjRpFEVvurTO
+ RXLWs0ib8iJCApjU+vdotQ1A9uLwBzN3w6Nihr9LfAKMMbsI/Nbh/+0ZDNESTfsCZ86T6zN
+ 0MMM0Xp2efP1KIMW3MpFw==
+X-Spam-Flag: NO
+X-UI-Out-Filterresults: notjunk:1;V03:K0:dDqMxTJ8D7M=:Rp8hRovn0iKwlz5TKLVy9k
+ M3Yp0ahNKEJLy8xKp5zLtOssELWI0wmPV885fphX9f6nfEML3n6VJAFLPUQ6sNRZclA0c27A+
+ JUMvVYROEX9PfxzJPaVyPsEhHvB8ysopfTvnOraak8dA2VPCkir5k71VLrcBtQJgBoxX4qqPp
+ AuMgnvObgC1JBKW3d5MGI0COmotuKFHemsXWM7NY2zMPeWamshVdh/+INSiDi/2ewhV0F8cFA
+ l2X8fhe05oCm5Wy4CFbZzxbwpdlDN/MhqIijKGMtWXjVbT1EQrYZ2Yybj90M78NTIVSswB31D
+ kKAndesjQPA7/NTGGaFiGw8t7FU7pkAtKk9KVyQ4A/N05YNE94nSYGnjb8JlWavTodSFTzCnk
+ mf3vTECMd1fLr0EGNZzTkQf4lQy+/8nbRGz7eZfJBHr2B35RlgFOxka1SrgCdr3btDdDu+VTe
+ k2wlB9yJCW9F6zCzF7/AEm8v+B3BVj7sGItnB6feEfVWt/iijbZO20nGmWrqM/Wk+Qz0NybwE
+ iELpxNkXnbSevyryNTMwYs319ut74MeinmJcCJhLYq9V5gJ/oYVw7dG8B52uJYuo8O/bWb3vT
+ zIfbvx5odI5FPswZeKOTCaJu0IbofcIzE+/sf0YOdcpRS+fmwHKfZNDmbRmUQTNuKHu7In/qX
+ 5JKpNBQa0h4ooda5cujKLG0AhJuLnpbpLkR/c4bGe4TcaxDinFTm9L/HtEZB8Igp9+RtCzw+p
+ U9pc5v8itsKIIyRgkKjOlXOtYe6Qa4Vn+7w93dmMchSYjqcNCFifqNjbXwBAmv1SW7g+N3Xkg
+ i6y8UcQOBkCFounHKzYL1eOBMEEqk0tq6WQ8FZ1G5SHv/z8OM4ZaQzPPwm9V1YnPqDKzOTj
+Cc: linux-arm-kernel@lists.infradead.org, devicetree@vger.kernel.org,
+ linux-samsung-soc@vger.kernel.org, Alexander Dahl <ada@thorsis.com>,
+ linux-kernel@vger.kernel.org, linux-mips@vger.kernel.org,
+ Alexander Dahl <post@lespocky.de>,
+ Jacek Anaszewski <jacek.anaszewski@gmail.com>,
+ linux-amlogic@lists.infradead.org, linux-omap@vger.kernel.org,
+ linux-stm32@st-md-mailman.stormreply.com, linux-leds@vger.kernel.org
+Subject: [Linux-stm32] [PATCH v7 00/12] leds: pwm: Make automatic labels work
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -71,84 +70,104 @@ List-Post: <mailto:linux-stm32@st-md-mailman.stormreply.com>
 List-Help: <mailto:linux-stm32-request@st-md-mailman.stormreply.com?subject=help>
 List-Subscribe: <https://st-md-mailman.stormreply.com/mailman/listinfo/linux-stm32>, 
  <mailto:linux-stm32-request@st-md-mailman.stormreply.com?subject=subscribe>
-Content-Type: multipart/mixed; boundary="===============2441999309734016978=="
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: base64
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
-
---===============2441999309734016978==
-Content-Type: multipart/signed; micalg=pgp-sha512;
-	protocol="application/pgp-signature"; boundary="sdtB3X0nJg68CQEu"
-Content-Disposition: inline
-
-
---sdtB3X0nJg68CQEu
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-Content-Transfer-Encoding: quoted-printable
-
-On Sat, Oct 03, 2020 at 12:43:13PM -0700, Joe Perches wrote:
-> On Sat, 2020-10-03 at 15:31 -0400, Konstantin Ryabitsev wrote:
-
-> > I'm worried that this can get unwieldy for series of 50 patches where 4=
-9=20
-> > got applied. Would the following be better:
-
-=2E..
-
-> > A subset of these patches was applied to
-> >=20
-> >   https://...
-> >=20
-> > Thanks!
-> >=20
-> > [5/18] regmap: debugfs:
-> >        commit:
-
-It's definitely an improvement but TBH I'm not sure how much it's going
-to help those struggling to parse the current messages.
-
-> > I think this is a better solution than potentially flooding everyone=20
-> > with 49 emails.
-
-I would tend to prefer cutting down on mail volume but I don't think
-there's any way to keep everyone happy with this stuff.
-
-> I think it would be better to reply individually as
-> the likelihood that the maintainer skips just a few
-> patches of a large series is relatively low.
-
-It's not at all unusual for driver updates to both add new DT bindings
-(either for entirely new drivers or new properties/compatibles for
-existing drivers) and also have DTS file updates using those bindings,
-these go via separate trees.
-
---sdtB3X0nJg68CQEu
-Content-Type: application/pgp-signature; name="signature.asc"
-
------BEGIN PGP SIGNATURE-----
-
-iQEzBAABCgAdFiEEreZoqmdXGLWf4p/qJNaLcl1Uh9AFAl97TzUACgkQJNaLcl1U
-h9DI9Qf/dhOghwYGEqexRQ644ACI4w9j7rH7Z4qsTYl+rdj06q5wrcOFnyypjB/j
-N/Qx3llsTbG0UagMLyGeuFi5bzhxALnrvmrbv8cBPI0/3jS2D7u22cD5m6toS+Tp
-f08tgo7VkjfkB3QCZn9A7XGAPq3bEvoaCvFalxqGt0FPUw5kVGrboVa1dgJCzRL/
-CtWXDQfG9vy5ZVs0cY+s+O9yvAbrZJyMPaKkeoa7dwnqzOQz1Ga4ADtUZsUWyieK
-wuCO/HNGdf77CmSbOuG6BMrWi5SGoEtRmVO+w5NmYO1yOfnooSih3uWDR4H01xVg
-3zFgbOHRZMIwAEzTfTqRA4vzPMXRQQ==
-=wwYC
------END PGP SIGNATURE-----
-
---sdtB3X0nJg68CQEu--
-
---===============2441999309734016978==
-Content-Type: text/plain; charset="us-ascii"
-MIME-Version: 1.0
-Content-Transfer-Encoding: 7bit
-Content-Disposition: inline
-
-_______________________________________________
-Linux-stm32 mailing list
-Linux-stm32@st-md-mailman.stormreply.com
-https://st-md-mailman.stormreply.com/mailman/listinfo/linux-stm32
-
---===============2441999309734016978==--
+SGVpIGhlaSwKCmZvciBsZWRzLWdwaW8geW91IGNhbiB1c2UgdGhlIHByb3BlcnRpZXMgJ2Z1bmN0
+aW9uJyBhbmQgJ2NvbG9yJyBpbiB0aGUKZGV2aWNldHJlZSBub2RlIGFuZCBvbWl0ICdsYWJlbCcs
+IHRoZSBsYWJlbCBpcyBjb25zdHJ1Y3RlZAphdXRvbWF0aWNhbGx5LiAgVGhpcyBpcyBhIGNvbW1v
+biBmZWF0dXJlIHN1cHBvc2VkIHRvIGJlIHdvcmtpbmcgZm9yIGFsbApMRUQgZHJpdmVycy4gIEhv
+d2V2ZXIgaXQgZGlkIG5vdCB3b3JrIHVudGlsIHJlY2VudGx5IGZvciB0aGUgJ2xlZHMtcHdtJwpk
+cml2ZXIuCgpUaGlzIHNlcmllcyByZW1vdmVzIHRoZSBubyBtb3JlIG5lZWRlZCBwbGF0Zm9ybV9k
+YXRhIHN1cHBvcnQgZnJvbSB0aGUKbGVkcy1wd20gZHJpdmVyLCB3aGljaCB3YXMgYSBwcmVjb25k
+aXRpb24gZm9yIHRoZSBhbHJlYWR5IGFwcGxpZWQgcGF0Y2gKYWN0dWFsbHkgbWFraW5nIGF1dG9t
+YXRpYyBuYW1pbmcgd29yay4KClRoZSBsZWRzLXB3bSBkdC1iaW5kaW5ncyBhcmUgY29udmVydGVk
+IGFuZCB1cGRhdGVkIHRvIHJlZmxlY3QgdGhlCnBvc3NpYmlsaXR5IHRvIHVzZSBsZWQgZnVuY3Rp
+b24gYW5kIGNvbG9yIGZvciBuYW1pbmcgbm93LgoKdjcgb2YgdGhpcyBzZXJpZXMgaXMgYmFzaWNh
+bGx5IGNvbGxlY3RpbmcgcmV2aWV3ZWQtYnkgdGFncywgc3BsaXQgb2xkCnBhdGNoIDUvNyBpbnRv
+IHBlciBhcm0gc3ViLWFyY2ggY2hhbmdlcyBmb3IgZWFzaWVyIG1haW50YWluZXIgcmV2aWV3LAph
+bmQgcmV3b3JkaW5nIGNvbW1pdCBtZXNzYWdlcy4gIFNlZSBlYWNoIHBhdGNoIGZvciBhIGRldGFp
+bGVkIGNoYW5nZWxvZy4KCkZvciB0aGUgYmluZGluZ3MgY29udmVyc2lvbiBpdCdzIG5vdyByZXF1
+aXJlZCB0byBleHBsaWNpdGx5IHNldCBhCmxpY2Vuc2UuICBQZXRlciwgUnVzc2VsLCBjb3VsZCB5
+b3UgcGxlYXNlIGFja25vd2xlZGdlIHRoYXQgcGF0Y2g/CgpTZXJpZXMgY2hhbmdlbG9nIGJlbG93
+IOKApgoKR3JlZXRzCkFsZXgKCnY3OgotIHJlYmFzZWQgc2VyaWVzIG9uIHJlY2VudCBwYXZlbC9m
+b3ItbmV4dAotIHNwbGl0IHVwIGFybSBkdHMgcGF0Y2ggYnkgYXJtIHN1YiBhcmNoIChzdWdnZXN0
+ZWQgYnkgS3J6eXN6dG9mIEtvemxvd3NraSkKLSBhZGRlZCBtdWx0aXBsZSBSZXZpZXdlZC1ieSB0
+YWdzCi0gc2xpZ2h0bHkgcmV3b3JkZWQgY29tbWl0IG1lc3NhZ2VzIChzdWdnZXN0ZWQgYnkgS3J6
+eXN6dG9mIEtvemxvd3NraSkKLSBhZGRlZCBhY3R1YWwgZHRic19jaGVjayB3YXJuaW5ncyB0byBj
+b21taXQgbWVzc2FnZXMKLSBhZGRlZCBSdXNzZWxsIEtpbmcgdG8gQ2MgZm9yIGJpbmRpbmcgY29u
+dmVyc2lvbiBwYXRjaCAoYmVjYXVzZSBsaWNlbnNlKQoKdjY6Ci0gcmViYXNlZCBzZXJpZXMgb24g
+cmVjZW50IHBhdmVsL2Zvci1uZXh0Ci0gYWRkZWQgUmV2aWV3ZWQtYnkgZnJvbSBNYXJlayB0byBw
+YXRjaCAxCi0gcGF0Y2ggMiBmcm9tIHY1IHdhcyBwaWNrZWQgYnkgUGF2ZWwgYW5kIGlzIGFscmVh
+ZHkgaW4gaGlzIGZvci1uZXh0CiAgYnJhbmNoCi0gcHJldmlvdXMgcGF0Y2ggMy8zIChub3cgMi83
+KSB3YXMgcmV3b3JrZWQgYmFzZWQgb24gZmVlZGJhY2sgYnkgUm9iCi0gYWRkZWQgbW9yZSBkdCBw
+YXRjaGVzIGZpeGluZyB3YXJuaW5ncyBhZnRlciBiaW5kaW5nIGNvbnZlcnNpb24gdG8geWFtbAoK
+djU6Ci0gcmVwbGFjZWQgcGF0Y2ggMS8zIGJ5IGEgbmV3IHBhdGNoIHJlbW92aW5nIHBsYXRmb3Jt
+X2RhdGEgc3VwcG9ydCBmb3IKICB0aGUgbGVkcy1wd20gZHJpdmVyCi0gbGl0dGxlIHJld29yZGlu
+ZyBvZiBjb21taXQgbWVzc2FnZSBpbiBwYXRjaCAyLzMKLSB1cGRhdGVkIHBhdGNoIDMvMyBiYXNl
+ZCBvbiBmZWVkYmFjayBieSBSb2IgSGVycmluZwotIGFkZGVkIE1hcmVrIEJlaMO6biB0byBDYywg
+YmVjYXVzZSBoZSBhbHNvIHdvcmtzIG9uIHJlbW92aW5nCiAgcGxhdGZvcm1fZGF0YSBzdXBwb3J0
+Ci0gcmViYXNlZCBzZXJpZXMgb24gcGF2ZWwvZm9yLW5leHQKCnY0OgotIGFkZGVkIGxlZC1jbGFz
+cyBwYXRjaCBoYW5kbGluZyBmd25vZGUgcGFzc2luZyBkaWZmZXJlbnRseSAocGF0Y2ggMS8zKQot
+IGFkYXB0ZWQgbGVkcy1wd20gcGF0Y2ggdG8gbmV3IGxlZC1jbGFzcyAocGF0Y2ggMi8zKQotIGNv
+bnRhY3RlZCBvcmlnaW5hbCBhdXRob3Igb2YgbGVkcy1wd20gZHQgYmluZGluZyBvbiBsaWNlbnNl
+IGlzc3VlCiAgKHBhdGNoIDMvMykKCnYzOgotIHNlcmllcyByZWJhc2VkIG9uIHY1LjktcmM0Ci0g
+Y2hhbmdlZCBsaWNlbnNlIG9mIC55YW1sIGZpbGUgdG8gcmVjb21tZW5kZWQgb25lIChwYXRjaCAy
+LzIpCi0gYWRkZWQgQWNrZWQtYnkgdG8gYm90aCBwYXRjaGVzCgp2MjoKLSBzZXJpZXMgcmViYXNl
+ZCBvbiB2NS45LXJjMwotIGFkZGVkIHRoZSBkdC1iaW5kaW5ncyB1cGRhdGUgcGF0Y2ggKDIvMikK
+CnYxOgotIGJhc2VkIG9uIHY1LjktcmMyCi0gYmFja3BvcnQgb24gdjUuNC41OSB0ZXN0ZWQgYW5k
+IHdvcmtpbmcKCkNjOiBsaW51eC1sZWRzQHZnZXIua2VybmVsLm9yZwpDYzogZGV2aWNldHJlZUB2
+Z2VyLmtlcm5lbC5vcmcKQ2M6IGxpbnV4LWtlcm5lbEB2Z2VyLmtlcm5lbC5vcmcKQ2M6IGxpbnV4
+LWFybS1rZXJuZWxAbGlzdHMuaW5mcmFkZWFkLm9yZwpDYzogbGludXgtc2Ftc3VuZy1zb2NAdmdl
+ci5rZXJuZWwub3JnCkNjOiBsaW51eC1vbWFwQHZnZXIua2VybmVsLm9yZwpDYzogbGludXgtc3Rt
+MzJAc3QtbWQtbWFpbG1hbi5zdG9ybXJlcGx5LmNvbQpDYzogbGludXgtYW1sb2dpY0BsaXN0cy5p
+bmZyYWRlYWQub3JnCkNjOiBsaW51eC1taXBzQHZnZXIua2VybmVsLm9yZwoKQWxleGFuZGVyIERh
+aGwgKDEyKToKICBsZWRzOiBwd206IFJlbW92ZSBwbGF0Zm9ybV9kYXRhIHN1cHBvcnQKICBkdC1i
+aW5kaW5nczogbGVkczogQ29udmVydCBwd20gdG8geWFtbAogIGR0LWJpbmRpbmdzOiBtZmQ6IEZp
+eCBzY2hlbWEgd2FybmluZ3MgZm9yIHB3bS1sZWRzCiAgQVJNOiBkdHM6IGF0OTE6IHNtYXJ0a2l6
+OiBSZWZlcmVuY2UgbGVkIG5vZGUgZGlyZWN0bHkKICBBUk06IGR0czogYXQ5MTogRml4IHNjaGVt
+YSB3YXJuaW5ncyBmb3IgcHdtLWxlZHMKICBBUk06IGR0czogYmVybGluOiBGaXggc2NoZW1hIHdh
+cm5pbmdzIGZvciBwd20tbGVkcwogIEFSTTogZHRzOiBleHlub3M6IEZpeCBzY2hlbWEgd2Fybmlu
+Z3MgZm9yIHB3bS1sZWRzCiAgQVJNOiBkdHM6IGlteDogRml4IHNjaGVtYSB3YXJuaW5ncyBmb3Ig
+cHdtLWxlZHMKICBBUk06IGR0czogb21hcDogRml4IHNjaGVtYSB3YXJuaW5ncyBmb3IgcHdtLWxl
+ZHMKICBBUk06IGR0czogc3RtMzI6IEZpeCBzY2hlbWEgd2FybmluZ3MgZm9yIHB3bS1sZWRzCiAg
+YXJtNjQ6IGR0czogbWVzb246IEZpeCBzY2hlbWEgd2FybmluZ3MgZm9yIHB3bS1sZWRzCiAgTUlQ
+UzogRFRTOiBpbWc6IEZpeCBzY2hlbWEgd2FybmluZ3MgZm9yIHB3bS1sZWRzCgogLi4uL2Rldmlj
+ZXRyZWUvYmluZGluZ3MvbGVkcy9sZWRzLXB3bS50eHQgICAgIHwgNTAgLS0tLS0tLS0tLS0tLQog
+Li4uL2RldmljZXRyZWUvYmluZGluZ3MvbGVkcy9sZWRzLXB3bS55YW1sICAgIHwgNzAgKysrKysr
+KysrKysrKysrKysrKwogLi4uL2RldmljZXRyZWUvYmluZGluZ3MvbWZkL2lxczYyeC55YW1sICAg
+ICAgIHwgIDUgKy0KIGFyY2gvYXJtL2Jvb3QvZHRzL2F0OTEta2l6Ym94LmR0cyAgICAgICAgICAg
+ICB8IDEwICstLQogYXJjaC9hcm0vYm9vdC9kdHMvYXQ5MS1raXpib3gyLWNvbW1vbi5kdHNpICAg
+IHwgIDggKy0tCiBhcmNoL2FybS9ib290L2R0cy9hdDkxLWtpemJveDMtaHMuZHRzICAgICAgICAg
+fCAxNiArKy0tLQogYXJjaC9hcm0vYm9vdC9kdHMvYXQ5MS1raXpib3gzX2NvbW1vbi5kdHNpICAg
+IHwgMTAgKy0tCiBhcmNoL2FybS9ib290L2R0cy9hdDkxLWtpemJveG1pbmktY29tbW9uLmR0c2kg
+fCAgOCArLS0KIGFyY2gvYXJtL2Jvb3QvZHRzL2F0OTEtc21hcnRraXouZHRzICAgICAgICAgICB8
+ICA2ICstCiBhcmNoL2FybS9ib290L2R0cy9hdDkxc2FtOW0xMGc0NWVrLmR0cyAgICAgICAgfCAx
+MCArLS0KIGFyY2gvYXJtL2Jvb3QvZHRzL2F0OTFzYW05cmxlay5kdHMgICAgICAgICAgICB8IDEw
+ICstLQogLi4uL2Jvb3QvZHRzL2JlcmxpbjJjZC1nb29nbGUtY2hyb21lY2FzdC5kdHMgIHwgIDYg
+Ky0KIGFyY2gvYXJtL2Jvb3QvZHRzL2V4eW5vczU0MjItb2Ryb2lkaGMxLmR0cyAgICB8ICA0ICst
+CiBhcmNoL2FybS9ib290L2R0cy9leHlub3M1NDIyLW9kcm9pZHh1NC5kdHMgICAgfCAgNCArLQog
+Li4uL2Jvb3QvZHRzL2V4eW5vczU0eHgtb2Ryb2lkeHUtbGVkcy5kdHNpICAgIHwgMTEgKy0tCiBh
+cmNoL2FybS9ib290L2R0cy9pbXg1My1wcGQuZHRzICAgICAgICAgICAgICAgfCAxNSArKy0tCiBh
+cmNoL2FybS9ib290L2R0cy9pbXg2cWRsLWN1Ym94LWkuZHRzaSAgICAgICAgfCAgNCArLQogLi4u
+L2Jvb3QvZHRzL2lteDZzeC1zb2Z0aW5nLXZpbmluZy0yMDAwLmR0cyAgIHwgIDggKy0tCiBhcmNo
+L2FybS9ib290L2R0cy9vbWFwMy1iZWFnbGUteG0uZHRzICAgICAgICAgfCAxMCArLS0KIGFyY2gv
+YXJtL2Jvb3QvZHRzL29tYXAzLW92ZXJvLWJhc2UuZHRzaSAgICAgICB8ICA0ICstCiBhcmNoL2Fy
+bS9ib290L2R0cy9vbWFwNC1rYzEuZHRzICAgICAgICAgICAgICAgfCAgNiArLQogYXJjaC9hcm0v
+Ym9vdC9kdHMvb21hcDQtc2RwLmR0cyAgICAgICAgICAgICAgIHwgMjYgKysrLS0tLQogYXJjaC9h
+cm0vYm9vdC9kdHMvc3RtMzJtcDE1N2MtbHhhLW1jMS5kdHMgICAgIHwgMTIgKystLQogLi4uL2Ft
+bG9naWMvbWVzb24tZ3hsLXM5MDV4LWtoYWRhcy12aW0uZHRzICAgIHwgIDQgKy0KIC4uLi9kdHMv
+YW1sb2dpYy9tZXNvbi1neG0ta2hhZGFzLXZpbTIuZHRzICAgICB8ICA0ICstCiAuLi4vYm9vdC9k
+dHMvYW1sb2dpYy9tZXNvbi1zbTEtc2VpNjEwLmR0cyAgICAgfCAgOCArLS0KIGFyY2gvbWlwcy9i
+b290L2R0cy9pbWcvcGlzdGFjaGlvX21hcmR1ay5kdHMgICB8ICA1ICstCiBkcml2ZXJzL2xlZHMv
+bGVkcy1wd20uYyAgICAgICAgICAgICAgICAgICAgICAgfCAzMCArKy0tLS0tLQogMjggZmlsZXMg
+Y2hhbmdlZCwgMTg0IGluc2VydGlvbnMoKyksIDE4MCBkZWxldGlvbnMoLSkKIGRlbGV0ZSBtb2Rl
+IDEwMDY0NCBEb2N1bWVudGF0aW9uL2RldmljZXRyZWUvYmluZGluZ3MvbGVkcy9sZWRzLXB3bS50
+eHQKIGNyZWF0ZSBtb2RlIDEwMDY0NCBEb2N1bWVudGF0aW9uL2RldmljZXRyZWUvYmluZGluZ3Mv
+bGVkcy9sZWRzLXB3bS55YW1sCgoKYmFzZS1jb21taXQ6IDRmNjllMTdjODdlOTBmOTUwOGY0OThm
+YTQ3NzFhOWI3N2RiMTE3NGIKLS0gCjIuMjAuMQoKX19fX19fX19fX19fX19fX19fX19fX19fX19f
+X19fX19fX19fX19fX19fX19fX18KTGludXgtc3RtMzIgbWFpbGluZyBsaXN0CkxpbnV4LXN0bTMy
+QHN0LW1kLW1haWxtYW4uc3Rvcm1yZXBseS5jb20KaHR0cHM6Ly9zdC1tZC1tYWlsbWFuLnN0b3Jt
+cmVwbHkuY29tL21haWxtYW4vbGlzdGluZm8vbGludXgtc3RtMzIK
