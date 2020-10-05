@@ -2,68 +2,67 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id 9608828410C
-	for <lists+linux-stm32@lfdr.de>; Mon,  5 Oct 2020 22:35:52 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 2D609284112
+	for <lists+linux-stm32@lfdr.de>; Mon,  5 Oct 2020 22:36:01 +0200 (CEST)
 Received: from ip-172-31-3-76.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 594DDC424B2;
-	Mon,  5 Oct 2020 20:35:52 +0000 (UTC)
-Received: from mout.kundenserver.de (mout.kundenserver.de [217.72.192.75])
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id EB1DDC424B7;
+	Mon,  5 Oct 2020 20:36:00 +0000 (UTC)
+Received: from mout.kundenserver.de (mout.kundenserver.de [212.227.126.131])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 752F9C32E90
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id E6DF0C424B7
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Mon,  5 Oct 2020 20:35:49 +0000 (UTC)
+ Mon,  5 Oct 2020 20:35:57 +0000 (UTC)
 Received: from methusalix.internal.home.lespocky.de ([92.117.55.152]) by
- mrelayeu.kundenserver.de (mreue106 [212.227.15.183]) with ESMTPSA (Nemesis)
- id 1N3sNa-1kYIcK2VtY-00zkKZ; Mon, 05 Oct 2020 22:35:44 +0200
+ mrelayeu.kundenserver.de (mreue011 [212.227.15.167]) with ESMTPSA (Nemesis)
+ id 1MJVY8-1k5oV82ZaK-00JqZm; Mon, 05 Oct 2020 22:35:46 +0200
 Received: from lemmy.internal.home.lespocky.de ([192.168.243.176]
  helo=lemmy.home.lespocky.de)
  by methusalix.internal.home.lespocky.de with esmtpsa (TLS1.3) tls
  TLS_AES_256_GCM_SHA384 (Exim 4.94)
  (envelope-from <alex@home.lespocky.de>)
- id 1kPXCu-0004VK-1I; Mon, 05 Oct 2020 22:35:41 +0200
-Received: (nullmailer pid 10319 invoked by uid 2001);
+ id 1kPXCw-0004VR-Ih; Mon, 05 Oct 2020 22:35:43 +0200
+Received: (nullmailer pid 10325 invoked by uid 2001);
  Mon, 05 Oct 2020 20:35:37 -0000
 From: Alexander Dahl <post@lespocky.de>
 To: Pavel Machek <pavel@ucw.cz>, Dan Murphy <dmurphy@ti.com>,
  Rob Herring <robh+dt@kernel.org>
-Date: Mon,  5 Oct 2020 22:34:41 +0200
-Message-Id: <20201005203451.9985-3-post@lespocky.de>
+Date: Mon,  5 Oct 2020 22:34:42 +0200
+Message-Id: <20201005203451.9985-4-post@lespocky.de>
 X-Mailer: git-send-email 2.20.1
 In-Reply-To: <20201005203451.9985-1-post@lespocky.de>
 References: <20201005203451.9985-1-post@lespocky.de>
 MIME-Version: 1.0
-X-Scan-Signature: 3918240c492f27c9e5cce722baaeb3bb
+X-Scan-Signature: 4b5898d038d1415590f3a2ccc7ce21d7
 X-Spam-Score: -2.9 (--)
-X-Provags-ID: V03:K1:uUbDr4x43FG38Zz0fjLwH2IQt4p0wE46E58Rl3s24Pb3SyqjwYB
- UDVp5EZgSrZjuqraSxM88IgkOS1Ry5WVuHbj5/fbgPc70b0+NSo5vbe1+8qFTb0MU/UsHHM
- CRcvI96gjEhTpEd2rde1sGu2rBB1opIhUL/Ck0pN+ddM/+BoRnCrX9Ns8suLjLgJjwugnIA
- SzkXJPUITAfqmhpktNYqA==
+X-Provags-ID: V03:K1:k0yiA9lyvy1/Zh9nh+0nofx8ISHoK3KZN7K2P4l768bFHrROa/O
+ pwi2OA9dDAAdh+gXmQmP0vr4EtnzAiNh8Yslnw1T1V0Vv6ZPhJK0C2tTp4DqxQtaG27Tk3c
+ +upi/Serv3087WaSsaFGKszSXwqNZvFniQ4W0uNIIk2AF92G48G515uvh/+htX+NW/+CPt4
+ qtZBZo5LXWC3MSeOPaJLw==
 X-Spam-Flag: NO
-X-UI-Out-Filterresults: notjunk:1;V03:K0:R4p8HGwMF6g=:OUKffrAsTKFVFJyvemQHaL
- MY1IiQrUSmx30hTmN/VkOpUMPlobmnENF0AyxdgXwByLywySaMxWR0Bjayn4ayndcTQoFmuQW
- TtERGNEwCal6h/1muEDy1e0HwbfqMvcW0iZ3yOVmCd2t1P+Ba2fGHZzxd54k1JwhklgNwF9Am
- 6nkxN396X1ThBM6RxJzBCB30wC5+3PA3L8HJJwNMuo6L+ue+dfw0Cc3XwYmecTXy3V+UFlA5h
- mmE92UQF+9DtphqVWgTI1T0RArhk+IWHS1PqACLCo2h8O4we+sx4HcxzTTKCCqhR0izDMcMB0
- TfE3aFyBYZgCWJv4DU1K8P7asS+FAlizD4Gmz77YyV7N5hzaLemrGywXkC4nfjwdzoHllqgR9
- vvim6YSTK3XHSC6e96YTKaCv/R+FqI2lPaetbKkyYxjNpamb6A0fBk/1V34PSx5VZ+9PXW6YI
- v7b52uH/7Lkl/5aSYxIOVvc75UA8DL9eV528QZe5XujM69a7L7XTO6ZYsWsGT1Fy5JpGXCbyu
- oaIIX9Wj2OFvxB9RFADoMkTsROiC8T1nP1vG329ll/PQx64E694Q9Srd/mmyyRgTusbMKQZg1
- KakbvTy9OF/ZaVPcYGYCnM2xU75rnzxP37nxWmOnGaQm8u9fkP49pijWZzuUeO9CNS/J+vDFG
- XpcvJt5Gma3/Di8ShKuE3pNfxwu9JsFkG4q6rNKx1S+T6KKBUUwXegowDABFbJRII3Sswlwqa
- 66wxOjqHpzgJHK6nXF2OOzPqNLNVWXv8YyN33OHwD0fEzsWUh/DohKbj/hU0O4EO6kADYSp4/
- 3/TDWkfWuxliYsbiIJGgG1llM5jbh0XtFecMU/mXjQteOIIjBqKD5QBeHyZk1MUc09NvkYB
+X-UI-Out-Filterresults: notjunk:1;V03:K0:pePHsAIg4/0=:6zFjBC1h9Q3yInlKRJzjXk
+ GRvZrKsohZbuA9PZAJudVE3v6m7OUshdmj9zF5H82bmBZ6rm1oqDBJPO1sPkw28NkEL7Et/OP
+ l9VImjVJlmYd2PN4bfc9xBqXJGMkW6FlGHBLUsIpVnOJBy8u2iC2s5uI+7Xqbp0zHXVBDWwE9
+ thoMmf+V5bDhbQGb8j3R6HeqZQaMsZAg6QQpTO+hJbg0gN2MCKrJAipp6eijGtF6dKk98Hv1G
+ GNqSYPtQsZlD5TD5Pk6IOHUrHVdyA8pT9BsKP9mZiXrMF6wgeplSktBEtRP7M2UA5NHN9KDSw
+ aEsjeb2R2KP6xmLezzBh0uTl3G8LhhXT0KLqH7w0YNHPA9rhhFH0MCOh8bh1W8dah9kuDUgI4
+ nR+ohcWZwuLboWOhglIY+5FT2iAyruZsyKP4PPNGkZm/lLAHqWAfb+ESTot3VxvyGeF7uK3zo
+ lzBVG6LXHL+aW7CTfP0vIWugjs1KNL69CXEiyUy+hgEOlodWTfH6ydFjmdmeYv6y0gvpYiSEZ
+ 7rSFQE/COJN9a0WKZWu+ROAlnp25ymEku+s9ngCETEe/rjHCYMeL2rDXrPdQ6mfAScdLnmTlL
+ XXxJ6j6SjIPbxPKIDfShc09LtV1+HbUZNX6+Kx9RxZgvi07hQZLPGL8n1mhWnQ0y8KKW52Rv/
+ 0B6D8lginTmCjvpHKXJbDPftBvI8BVDRe0ZD2IbC5Q3bMHtD3mNqTLQme3Bi3DZUZVvmgHegd
+ ykG/07og7yADofWR1hO1eu0TXw+Wgd37WDhn1fT6WhBQDqsnBys3bgH36T3OkCEYu77Ye8BZN
+ Skl5inys+DhbXebBsFzjz8XKe2/ilJeO/zANbw6fDkksuvrRHL5o0fP9kwPSQq2/4S5KnXr
 Cc: linux-arm-kernel@lists.infradead.org, devicetree@vger.kernel.org,
- linux-samsung-soc@vger.kernel.org, Rob Herring <robh@kernel.org>,
- Alexander Dahl <ada@thorsis.com>, linux-kernel@vger.kernel.org,
- Krzysztof Kozlowski <krzk@kernel.org>, linux-mips@vger.kernel.org,
- Peter Ujfalusi <peter.ujfalusi@ti.com>, Russell King <linux@armlinux.org.uk>,
+ linux-samsung-soc@vger.kernel.org, Alexander Dahl <ada@thorsis.com>,
+ linux-kernel@vger.kernel.org, linux-mips@vger.kernel.org,
  Alexander Dahl <post@lespocky.de>,
  Jacek Anaszewski <jacek.anaszewski@gmail.com>,
  linux-amlogic@lists.infradead.org, linux-omap@vger.kernel.org,
- linux-stm32@st-md-mailman.stormreply.com, linux-leds@vger.kernel.org
-Subject: [Linux-stm32] [PATCH v7 02/12] dt-bindings: leds: Convert pwm to
-	yaml
+ Lee Jones <lee.jones@linaro.org>, linux-stm32@st-md-mailman.stormreply.com,
+ linux-leds@vger.kernel.org, Jeff LaBundy <jeff@labundy.com>
+Subject: [Linux-stm32] [PATCH v7 03/12] dt-bindings: mfd: Fix schema
+	warnings for pwm-leds
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -75,105 +74,55 @@ List-Post: <mailto:linux-stm32@st-md-mailman.stormreply.com>
 List-Help: <mailto:linux-stm32-request@st-md-mailman.stormreply.com?subject=help>
 List-Subscribe: <https://st-md-mailman.stormreply.com/mailman/listinfo/linux-stm32>, 
  <mailto:linux-stm32-request@st-md-mailman.stormreply.com?subject=subscribe>
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: base64
+Content-Type: text/plain; charset="us-ascii"
+Content-Transfer-Encoding: 7bit
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
-VGhlIGV4YW1wbGUgd2FzIGFkYXB0ZWQgaW4gdGhlIGZvbGxvd2luZyB3YXlzOgoKLSBtYWtlIHVz
-ZSBvZiB0aGUgbm93IHN1cHBvcnRlZCAnZnVuY3Rpb24nIGFuZCAnY29sb3InIHByb3BlcnRpZXMK
-LSByZW1vdmUgcHdtIG5vZGVzLCB0aG9zZSBhcmUgZG9jdW1lbnRlZCBlbHNld2hlcmUKLSBhbGln
-biBub2RlIG5hbWVzIHRvIG5ldyBkdCBzY2hlbWEgcnVsZXMgYW5kIGR0IHJlY29tbWVuZGF0aW9u
-cwoKTGljZW5zZSB3YXMgbm90IGV4cGxpY2l0bHkgc2V0IGJlZm9yZS4gIFRoZSBsaWNlbnNlIHNl
-dCBub3cgaXMKcmVjb21tZW5kZWQgYnkgRFQgcHJvamVjdC4KClN1Z2dlc3RlZC1ieTogSmFjZWsg
-QW5hc3pld3NraSA8amFjZWsuYW5hc3pld3NraUBnbWFpbC5jb20+ClNpZ25lZC1vZmYtYnk6IEFs
-ZXhhbmRlciBEYWhsIDxwb3N0QGxlc3BvY2t5LmRlPgpSZXZpZXdlZC1ieTogS3J6eXN6dG9mIEtv
-emxvd3NraSA8a3J6a0BrZXJuZWwub3JnPgpSZXZpZXdlZC1ieTogUm9iIEhlcnJpbmcgPHJvYmhA
-a2VybmVsLm9yZz4KQ2M6IFBldGVyIFVqZmFsdXNpIDxwZXRlci51amZhbHVzaUB0aS5jb20+CkNj
-OiBSdXNzZWxsIEtpbmcgPGxpbnV4QGFybWxpbnV4Lm9yZy51az4KLS0tCgpOb3RlczoKICAgIE5P
-VEU6IER1ZSB0byBsaWNlbnNlIHNldC9jaGFuZ2UgdGhpcyBuZWVkcyBBY2tlZC1ieSBvciBTaWdu
-ZWQtb2ZmLWJ5IGZyb206CiAgICAgICogUGV0ZXIgVWpmYWx1c2kKICAgICAgKiBSdXNzZWxsIEtp
-bmcKICAgIAogICAgVGhhdCB3YXMgZGlzY3Vzc2VkIGFscmVhZHkgd2l0aCBQZXRlciAob3JpZ2lu
-YWwgYXV0aG9yKSwgc3RpbGwgd2FpdGluZwogICAgZm9yIEFja2VkLWJ5IHRob3VnaCDigKYKICAg
-IAogICAgQ2hhbmdlbG9nCiAgICAtLS0tLS0tLS0KICAgIHY2IC0+IHY3OgogICAgICAqIGFkZGVk
-IFJldmlld2VkLWJ5IChLcnp5c3p0b2YgS296bG93c2tpKQogICAgICAqIHJld29yZGVkIGNvbW1p
-dCBtZXNzYWdlIChzdWdnZXN0ZWQgYnkgS3J6eXN6dG9mKQogICAgICAqIGFkZGVkIFJldmlld2Vk
-LWJ5IChSb2IgSGVycmluZykKICAgIAogICAgdjUgLT4gdjY6CiAgICAgICogcmVtb3ZlZCBwd20g
-bm9kZXMgZnJvbSBleGFtcGxlIChSb2IpCiAgICAgICogcmVuYW1lZCBsZWQtY29udHJvbGxlciBu
-b2RlIGluIGV4YW1wbGUgKFJvYikKICAgIAogICAgdjQgLT4gdjU6CiAgICAgICogdXBkYXRlZCBi
-YXNlZCBvbiBmZWVkYmFjayBieSBSb2IgSGVycmluZwogICAgICAqIHJlbW92ZWQgQWNrZWQtYnkK
-ICAgIAogICAgdjMgLT4gdjQ6CiAgICAgICogYWRkZWQgQ2MgdG8gb3JpZ2luYWwgYXV0aG9yIG9m
-IHRoZSBiaW5kaW5nCiAgICAKICAgIHYyIC0+IHYzOgogICAgICAqIGNoYW5nZWQgbGljZW5zZSBp
-ZGVudGlmaWVyIHRvIHJlY29tbWVuZGVkIG9uZQogICAgICAqIGFkZGVkIEFja2VkLWJ5CiAgICAK
-ICAgIHYyOgogICAgICAqIGFkZGVkIHRoaXMgcGF0Y2ggdG8gc2VyaWVzIChTdWdnZXN0ZWQtYnk6
-IEphY2VrIEFuYXN6ZXdza2kpCgogLi4uL2RldmljZXRyZWUvYmluZGluZ3MvbGVkcy9sZWRzLXB3
-bS50eHQgICAgIHwgNTAgLS0tLS0tLS0tLS0tLQogLi4uL2RldmljZXRyZWUvYmluZGluZ3MvbGVk
-cy9sZWRzLXB3bS55YW1sICAgIHwgNzAgKysrKysrKysrKysrKysrKysrKwogMiBmaWxlcyBjaGFu
-Z2VkLCA3MCBpbnNlcnRpb25zKCspLCA1MCBkZWxldGlvbnMoLSkKIGRlbGV0ZSBtb2RlIDEwMDY0
-NCBEb2N1bWVudGF0aW9uL2RldmljZXRyZWUvYmluZGluZ3MvbGVkcy9sZWRzLXB3bS50eHQKIGNy
-ZWF0ZSBtb2RlIDEwMDY0NCBEb2N1bWVudGF0aW9uL2RldmljZXRyZWUvYmluZGluZ3MvbGVkcy9s
-ZWRzLXB3bS55YW1sCgpkaWZmIC0tZ2l0IGEvRG9jdW1lbnRhdGlvbi9kZXZpY2V0cmVlL2JpbmRp
-bmdzL2xlZHMvbGVkcy1wd20udHh0IGIvRG9jdW1lbnRhdGlvbi9kZXZpY2V0cmVlL2JpbmRpbmdz
-L2xlZHMvbGVkcy1wd20udHh0CmRlbGV0ZWQgZmlsZSBtb2RlIDEwMDY0NAppbmRleCA2YzY1ODNj
-MzVmMmYuLjAwMDAwMDAwMDAwMAotLS0gYS9Eb2N1bWVudGF0aW9uL2RldmljZXRyZWUvYmluZGlu
-Z3MvbGVkcy9sZWRzLXB3bS50eHQKKysrIC9kZXYvbnVsbApAQCAtMSw1MCArMCwwIEBACi1MRUQg
-Y29ubmVjdGVkIHRvIFBXTQotCi1SZXF1aXJlZCBwcm9wZXJ0aWVzOgotLSBjb21wYXRpYmxlIDog
-c2hvdWxkIGJlICJwd20tbGVkcyIuCi0KLUVhY2ggTEVEIGlzIHJlcHJlc2VudGVkIGFzIGEgc3Vi
-LW5vZGUgb2YgdGhlIHB3bS1sZWRzIGRldmljZS4gIEVhY2gKLW5vZGUncyBuYW1lIHJlcHJlc2Vu
-dHMgdGhlIG5hbWUgb2YgdGhlIGNvcnJlc3BvbmRpbmcgTEVELgotCi1MRUQgc3ViLW5vZGUgcHJv
-cGVydGllczoKLS0gcHdtcyA6IFBXTSBwcm9wZXJ0eSB0byBwb2ludCB0byB0aGUgUFdNIGRldmlj
-ZSAocGhhbmRsZSkvcG9ydCAoaWQpIGFuZCB0bwotICBzcGVjaWZ5IHRoZSBwZXJpb2QgdGltZSB0
-byBiZSB1c2VkOiA8JnBoYW5kbGUgaWQgcGVyaW9kX25zPjsKLS0gcHdtLW5hbWVzIDogKG9wdGlv
-bmFsKSBOYW1lIHRvIGJlIHVzZWQgYnkgdGhlIFBXTSBzdWJzeXN0ZW0gZm9yIHRoZSBQV00gZGV2
-aWNlCi0gIEZvciB0aGUgcHdtcyBhbmQgcHdtLW5hbWVzIHByb3BlcnR5IHBsZWFzZSByZWZlciB0
-bzoKLSAgRG9jdW1lbnRhdGlvbi9kZXZpY2V0cmVlL2JpbmRpbmdzL3B3bS9wd20udHh0Ci0tIG1h
-eC1icmlnaHRuZXNzIDogTWF4aW11bSBicmlnaHRuZXNzIHBvc3NpYmxlIGZvciB0aGUgTEVECi0t
-IGFjdGl2ZS1sb3cgOiAob3B0aW9uYWwpIEZvciBQV01zIHdoZXJlIHRoZSBMRUQgaXMgd2lyZWQg
-dG8gc3VwcGx5Ci0gIHJhdGhlciB0aGFuIGdyb3VuZC4KLS0gbGFiZWwgOiAgKG9wdGlvbmFsKQot
-ICBzZWUgRG9jdW1lbnRhdGlvbi9kZXZpY2V0cmVlL2JpbmRpbmdzL2xlZHMvY29tbW9uLnR4dAot
-LSBsaW51eCxkZWZhdWx0LXRyaWdnZXIgOiAgKG9wdGlvbmFsKQotICBzZWUgRG9jdW1lbnRhdGlv
-bi9kZXZpY2V0cmVlL2JpbmRpbmdzL2xlZHMvY29tbW9uLnR4dAotCi1FeGFtcGxlOgotCi10d2xf
-cHdtOiBwd20gewotCS8qIHByb3ZpZGVzIHR3byBQV01zIChpZCAwLCAxIGZvciBQV00xIGFuZCBQ
-V00yKSAqLwotCWNvbXBhdGlibGUgPSAidGksdHdsNjAzMC1wd20iOwotCSNwd20tY2VsbHMgPSA8
-Mj47Ci19OwotCi10d2xfcHdtbGVkOiBwd21sZWQgewotCS8qIHByb3ZpZGVzIG9uZSBQV00gKGlk
-IDAgZm9yIENoYXJpbmcgaW5kaWNhdG9yIExFRCkgKi8KLQljb21wYXRpYmxlID0gInRpLHR3bDYw
-MzAtcHdtbGVkIjsKLQkjcHdtLWNlbGxzID0gPDI+OwotfTsKLQotcHdtbGVkcyB7Ci0JY29tcGF0
-aWJsZSA9ICJwd20tbGVkcyI7Ci0Ja3BhZCB7Ci0JCWxhYmVsID0gIm9tYXA0OjprZXlwYWQiOwot
-CQlwd21zID0gPCZ0d2xfcHdtIDAgNzgxMjUwMD47Ci0JCW1heC1icmlnaHRuZXNzID0gPDEyNz47
-Ci0JfTsKLQotCWNoYXJnaW5nIHsKLQkJbGFiZWwgPSAib21hcDQ6Z3JlZW46Y2hyZyI7Ci0JCXB3
-bXMgPSA8JnR3bF9wd21sZWQgMCA3ODEyNTAwPjsKLQkJbWF4LWJyaWdodG5lc3MgPSA8MjU1PjsK
-LQl9OwotfTsKZGlmZiAtLWdpdCBhL0RvY3VtZW50YXRpb24vZGV2aWNldHJlZS9iaW5kaW5ncy9s
-ZWRzL2xlZHMtcHdtLnlhbWwgYi9Eb2N1bWVudGF0aW9uL2RldmljZXRyZWUvYmluZGluZ3MvbGVk
-cy9sZWRzLXB3bS55YW1sCm5ldyBmaWxlIG1vZGUgMTAwNjQ0CmluZGV4IDAwMDAwMDAwMDAwMC4u
-ZmU0ZDVmZDI1OTEzCi0tLSAvZGV2L251bGwKKysrIGIvRG9jdW1lbnRhdGlvbi9kZXZpY2V0cmVl
-L2JpbmRpbmdzL2xlZHMvbGVkcy1wd20ueWFtbApAQCAtMCwwICsxLDcwIEBACisjIFNQRFgtTGlj
-ZW5zZS1JZGVudGlmaWVyOiAoR1BMLTIuMC1vbmx5IE9SIEJTRC0yLUNsYXVzZSkKKyVZQU1MIDEu
-MgorLS0tCiskaWQ6IGh0dHA6Ly9kZXZpY2V0cmVlLm9yZy9zY2hlbWFzL2xlZHMvbGVkcy1wd20u
-eWFtbCMKKyRzY2hlbWE6IGh0dHA6Ly9kZXZpY2V0cmVlLm9yZy9tZXRhLXNjaGVtYXMvY29yZS55
-YW1sIworCit0aXRsZTogTEVEcyBjb25uZWN0ZWQgdG8gUFdNCisKK21haW50YWluZXJzOgorICAt
-IFBhdmVsIE1hY2hlayA8cGF2ZWxAdWN3LmN6PgorCitkZXNjcmlwdGlvbjoKKyAgRWFjaCBMRUQg
-aXMgcmVwcmVzZW50ZWQgYXMgYSBzdWItbm9kZSBvZiB0aGUgcHdtLWxlZHMgZGV2aWNlLiAgRWFj
-aAorICBub2RlJ3MgbmFtZSByZXByZXNlbnRzIHRoZSBuYW1lIG9mIHRoZSBjb3JyZXNwb25kaW5n
-IExFRC4KKworcHJvcGVydGllczoKKyAgY29tcGF0aWJsZToKKyAgICBjb25zdDogcHdtLWxlZHMK
-KworcGF0dGVyblByb3BlcnRpZXM6CisgICJebGVkKC1bMC05YS1mXSspPyQiOgorICAgIHR5cGU6
-IG9iamVjdAorCisgICAgJHJlZjogY29tbW9uLnlhbWwjCisKKyAgICBwcm9wZXJ0aWVzOgorICAg
-ICAgcHdtczoKKyAgICAgICAgbWF4SXRlbXM6IDEKKworICAgICAgcHdtLW5hbWVzOiB0cnVlCisK
-KyAgICAgIG1heC1icmlnaHRuZXNzOgorICAgICAgICBkZXNjcmlwdGlvbjoKKyAgICAgICAgICBN
-YXhpbXVtIGJyaWdodG5lc3MgcG9zc2libGUgZm9yIHRoZSBMRUQKKyAgICAgICAgJHJlZjogL3Nj
-aGVtYXMvdHlwZXMueWFtbCMvZGVmaW5pdGlvbnMvdWludDMyCisKKyAgICAgIGFjdGl2ZS1sb3c6
-CisgICAgICAgIGRlc2NyaXB0aW9uOgorICAgICAgICAgIEZvciBQV01zIHdoZXJlIHRoZSBMRUQg
-aXMgd2lyZWQgdG8gc3VwcGx5IHJhdGhlciB0aGFuIGdyb3VuZC4KKyAgICAgICAgdHlwZTogYm9v
-bGVhbgorCisgICAgcmVxdWlyZWQ6CisgICAgICAtIHB3bXMKKyAgICAgIC0gbWF4LWJyaWdodG5l
-c3MKKworYWRkaXRpb25hbFByb3BlcnRpZXM6IGZhbHNlCisKK2V4YW1wbGVzOgorICAtIHwKKwor
-ICAgICNpbmNsdWRlIDxkdC1iaW5kaW5ncy9sZWRzL2NvbW1vbi5oPgorCisgICAgbGVkLWNvbnRy
-b2xsZXIgeworICAgICAgICBjb21wYXRpYmxlID0gInB3bS1sZWRzIjsKKworICAgICAgICBsZWQt
-MSB7CisgICAgICAgICAgICBsYWJlbCA9ICJvbWFwNDo6a2V5cGFkIjsKKyAgICAgICAgICAgIHB3
-bXMgPSA8JnR3bF9wd20gMCA3ODEyNTAwPjsKKyAgICAgICAgICAgIG1heC1icmlnaHRuZXNzID0g
-PDEyNz47CisgICAgICAgIH07CisKKyAgICAgICAgbGVkLTIgeworICAgICAgICAgICAgY29sb3Ig
-PSA8TEVEX0NPTE9SX0lEX0dSRUVOPjsKKyAgICAgICAgICAgIGZ1bmN0aW9uID0gTEVEX0ZVTkNU
-SU9OX0NIQVJHSU5HOworICAgICAgICAgICAgcHdtcyA9IDwmdHdsX3B3bWxlZCAwIDc4MTI1MDA+
-OworICAgICAgICAgICAgbWF4LWJyaWdodG5lc3MgPSA8MjU1PjsKKyAgICAgICAgfTsKKyAgICB9
-OworCisuLi4KLS0gCjIuMjAuMQoKX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19f
-X19fX19fX19fX18KTGludXgtc3RtMzIgbWFpbGluZyBsaXN0CkxpbnV4LXN0bTMyQHN0LW1kLW1h
-aWxtYW4uc3Rvcm1yZXBseS5jb20KaHR0cHM6Ly9zdC1tZC1tYWlsbWFuLnN0b3JtcmVwbHkuY29t
-L21haWxtYW4vbGlzdGluZm8vbGludXgtc3RtMzIK
+The node names for devices using the pwm-leds driver follow a certain
+naming scheme (now).  Parent node name is not enforced, but recommended
+by DT project.
+
+  DTC     Documentation/devicetree/bindings/mfd/iqs62x.example.dt.yaml
+  CHECK   Documentation/devicetree/bindings/mfd/iqs62x.example.dt.yaml
+/home/alex/build/linux/Documentation/devicetree/bindings/mfd/iqs62x.example.dt.yaml: pwmleds: 'panel' does not match any of the regexes: '^led(-[0-9a-f]+)?$', 'pinctrl-[0-9]+'
+        From schema: /home/alex/src/linux/leds/Documentation/devicetree/bindings/leds/leds-pwm.yaml
+
+Signed-off-by: Alexander Dahl <post@lespocky.de>
+---
+
+Notes:
+    v6 -> v7:
+      * added warning message to commit message (Krzysztof Kozlowski)
+    
+    v6:
+      * added this patch to series
+
+ Documentation/devicetree/bindings/mfd/iqs62x.yaml | 5 +++--
+ 1 file changed, 3 insertions(+), 2 deletions(-)
+
+diff --git a/Documentation/devicetree/bindings/mfd/iqs62x.yaml b/Documentation/devicetree/bindings/mfd/iqs62x.yaml
+index 541b06d80e73..92dc48a8dfa7 100644
+--- a/Documentation/devicetree/bindings/mfd/iqs62x.yaml
++++ b/Documentation/devicetree/bindings/mfd/iqs62x.yaml
+@@ -90,10 +90,11 @@ examples:
+             };
+     };
+ 
+-    pwmleds {
++    led-controller {
+             compatible = "pwm-leds";
+ 
+-            panel {
++            led-1 {
++                    label = "panel";
+                     pwms = <&iqs620a_pwm 0 1000000>;
+                     max-brightness = <255>;
+             };
+-- 
+2.20.1
+
+_______________________________________________
+Linux-stm32 mailing list
+Linux-stm32@st-md-mailman.stormreply.com
+https://st-md-mailman.stormreply.com/mailman/listinfo/linux-stm32
