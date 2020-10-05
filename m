@@ -2,43 +2,66 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id A12F6283367
-	for <lists+linux-stm32@lfdr.de>; Mon,  5 Oct 2020 11:36:32 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 9596F28340B
+	for <lists+linux-stm32@lfdr.de>; Mon,  5 Oct 2020 12:37:09 +0200 (CEST)
 Received: from ip-172-31-3-76.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 2AF0BC32EA7;
-	Mon,  5 Oct 2020 09:36:32 +0000 (UTC)
-Received: from huawei.com (lhrrgout.huawei.com [185.176.76.210])
- (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 554F2C32EA7;
+	Mon,  5 Oct 2020 10:37:09 +0000 (UTC)
+Received: from mail-ej1-f68.google.com (mail-ej1-f68.google.com
+ [209.85.218.68])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 8E1DFC32EA5
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 8F7FAC32E90
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Mon,  5 Oct 2020 09:36:24 +0000 (UTC)
-Received: from lhreml710-chm.china.huawei.com (unknown [172.18.7.107])
- by Forcepoint Email with ESMTP id 094B3ABD20918B3B41D5;
- Mon,  5 Oct 2020 10:36:23 +0100 (IST)
-Received: from localhost (10.52.124.175) by lhreml710-chm.china.huawei.com
- (10.201.108.61) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.1913.5; Mon, 5 Oct 2020
- 10:36:21 +0100
-Date: Mon, 5 Oct 2020 10:34:36 +0100
-From: Jonathan Cameron <Jonathan.Cameron@Huawei.com>
+ Mon,  5 Oct 2020 10:37:06 +0000 (UTC)
+Received: by mail-ej1-f68.google.com with SMTP id a3so11149297ejy.11
+ for <linux-stm32@st-md-mailman.stormreply.com>;
+ Mon, 05 Oct 2020 03:37:06 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20161025;
+ h=date:from:to:cc:subject:message-id:references:mime-version
+ :content-disposition:in-reply-to:user-agent;
+ bh=EQcMf3aBHGTHbFtiLcGPyEnLeByAfRIiKvJYpM7dHjI=;
+ b=JMXtpOzBphG2KW05zXFj2vXclgc2K+H8JNLe4wZm7v+D9biCrsBBlunvumrZBdu1ay
+ dGsC3P+vCBgpuvq8Us5VYT17QD/j1PGdTs3yayROXo3Im6WBME+yzVPRs9dhmCnhv+Kp
+ deAaGEl4mX/k8HNSg+lcAp97KgIlUIgmSSwwdLTGDqN7XE8+lWKnDQvOaVfL9MZ14U+a
+ QRIvo/0Rw3hXEZYEYP0VkWPlkV5tVRSOzoq3CiZiRn3rvyx0WeBnBNIUIK3FrMGOYn9N
+ QIQdKyuVIgtZvtCvpApddnOAphNZZn8AUAHtmpPXbjSAxqojzQj+J6GDsnofUdkYSHTP
+ MAYQ==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20161025;
+ h=x-gm-message-state:date:from:to:cc:subject:message-id:references
+ :mime-version:content-disposition:in-reply-to:user-agent;
+ bh=EQcMf3aBHGTHbFtiLcGPyEnLeByAfRIiKvJYpM7dHjI=;
+ b=E6ZVa7wpsE3+h0Q9FjHlMyhoBjQnvWInOeojqe3DDG7vjBFCy6BhP3StzRu5EYUBrZ
+ /xBM9c4odS+wo1sPVw7577ur/tiENDPnwvE68CsnroLjeoUEk+z2FOYbAu1WIKgCbGcd
+ 0Fiagn2VOunvqWWYhXzJHINgfTFhwdqOyT8AYulFq4hW1B+iOD6CJLNITWp2AJgCRImc
+ 6x6apYaoA6F9iovW6kyQaSupARZqvV/qnwyl/0oOzNySpmbh5g2WMivGDVjIooD5rYfk
+ 6wgWVE8gllmp1sZachPpQHRWj+MTuQBh23+MQL9dHLF+nIszdGmO4OPvbJCdiK2giDz/
+ s5DA==
+X-Gm-Message-State: AOAM533IZ1JgSeVg7IYiceEyOXJwV378n1X6OHbP9Fp1ZGgdfjQ7LxNR
+ A/4dFpgbknYi9gHXAsfULpk=
+X-Google-Smtp-Source: ABdhPJyAUrA9v+oT7mNxthuQoeotTCXMOOGXsGx3LdAG3pM2W9hPKJEenugRGvwJUGZXAZHqegPZ7g==
+X-Received: by 2002:a17:906:6545:: with SMTP id
+ u5mr14725364ejn.346.1601894226145; 
+ Mon, 05 Oct 2020 03:37:06 -0700 (PDT)
+Received: from localhost ([217.111.27.204])
+ by smtp.gmail.com with ESMTPSA id yz15sm7567670ejb.9.2020.10.05.03.37.04
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Mon, 05 Oct 2020 03:37:04 -0700 (PDT)
+Date: Mon, 5 Oct 2020 12:37:03 +0200
+From: Thierry Reding <thierry.reding@gmail.com>
 To: Rob Herring <robh@kernel.org>
-Message-ID: <20201005093436.00004913@Huawei.com>
-In-Reply-To: <20201002234143.3570746-1-robh@kernel.org>
+Message-ID: <20201005103703.GN425362@ulmo>
 References: <20201002234143.3570746-1-robh@kernel.org>
-Organization: Huawei Technologies Research and Development (UK) Ltd.
-X-Mailer: Claws Mail 3.17.4 (GTK+ 2.24.32; i686-w64-mingw32)
 MIME-Version: 1.0
-X-Originating-IP: [10.52.124.175]
-X-ClientProxiedBy: lhreml730-chm.china.huawei.com (10.201.108.81) To
- lhreml710-chm.china.huawei.com (10.201.108.61)
-X-CFilter-Loop: Reflected
+In-Reply-To: <20201002234143.3570746-1-robh@kernel.org>
+User-Agent: Mutt/1.14.7 (2020-08-29)
 Cc: Ulf Hansson <ulf.hansson@linaro.org>, linux-iio@vger.kernel.org,
  linux-pci@vger.kernel.org, Linus Walleij <linus.walleij@linaro.org>,
  linux-remoteproc@vger.kernel.org, alsa-devel@alsa-project.org,
- dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org, Thierry
- Reding <thierry.reding@gmail.com>, Lee Jones <lee.jones@linaro.org>,
- linux-clk@vger.kernel.org, linux-leds@vger.kernel.org,
+ dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org,
+ Lee Jones <lee.jones@linaro.org>, linux-clk@vger.kernel.org,
+ linux-leds@vger.kernel.org,
  Laurent Pinchart <laurent.pinchart+renesas@ideasonboard.com>,
  Daniel Lezcano <daniel.lezcano@linaro.org>,
  linux-stm32@st-md-mailman.stormreply.com, linux-rockchip@lists.infradead.org,
@@ -52,11 +75,10 @@ Cc: Ulf Hansson <ulf.hansson@linaro.org>, linux-iio@vger.kernel.org,
  Stephen Boyd <sboyd@kernel.org>,
  Greg Kroah-Hartman <gregkh@linuxfoundation.org>, linux-usb@vger.kernel.org,
  linux-mmc@vger.kernel.org, Liam Girdwood <lgirdwood@gmail.com>,
- linux-spi@vger.kernel.org, Vinod
- Koul <vkoul@kernel.org>, netdev@vger.kernel.org,
- Baolin Wang <baolin.wang7@gmail.com>, Shawn Guo <shawnguo@kernel.org>,
- "David S.
- Miller" <davem@davemloft.net>, Jonathan Cameron <jic23@kernel.org>
+ linux-spi@vger.kernel.org, Vinod Koul <vkoul@kernel.org>,
+ netdev@vger.kernel.org, Baolin Wang <baolin.wang7@gmail.com>,
+ Shawn Guo <shawnguo@kernel.org>, "David S. Miller" <davem@davemloft.net>,
+ Jonathan Cameron <jic23@kernel.org>
 Subject: Re: [Linux-stm32] [PATCH] dt-bindings: Another round of adding
  missing 'additionalProperties'
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
@@ -70,110 +92,66 @@ List-Post: <mailto:linux-stm32@st-md-mailman.stormreply.com>
 List-Help: <mailto:linux-stm32-request@st-md-mailman.stormreply.com?subject=help>
 List-Subscribe: <https://st-md-mailman.stormreply.com/mailman/listinfo/linux-stm32>, 
  <mailto:linux-stm32-request@st-md-mailman.stormreply.com?subject=subscribe>
-Content-Type: text/plain; charset="us-ascii"
-Content-Transfer-Encoding: 7bit
+Content-Type: multipart/mixed; boundary="===============7307120665433269508=="
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
-On Fri, 2 Oct 2020 18:41:43 -0500
-Rob Herring <robh@kernel.org> wrote:
 
-> Another round of wack-a-mole. The json-schema default is additional
-> unknown properties are allowed, but for DT all properties should be
-> defined.
-> 
-> Cc: Thierry Reding <thierry.reding@gmail.com>
-> Cc: Linus Walleij <linus.walleij@linaro.org>
-> Cc: Stephen Boyd <sboyd@kernel.org>
-> Cc: Shawn Guo <shawnguo@kernel.org>
-> Cc: Bjorn Andersson <bjorn.andersson@linaro.org>
-> Cc: Baolin Wang <baolin.wang7@gmail.com>
-> Cc: Guenter Roeck <linux@roeck-us.net>
-> Cc: Jonathan Cameron <jic23@kernel.org>
-> Cc: Mauro Carvalho Chehab <mchehab@kernel.org>
-> Cc: Laurent Pinchart <laurent.pinchart+renesas@ideasonboard.com>
-> Cc: Lee Jones <lee.jones@linaro.org>
-> Cc: Ulf Hansson <ulf.hansson@linaro.org>
-> Cc: "David S. Miller" <davem@davemloft.net>
-> Cc: Bjorn Helgaas <bhelgaas@google.com>
-> Cc: Vinod Koul <vkoul@kernel.org>
-> Cc: Liam Girdwood <lgirdwood@gmail.com>
-> Cc: Mark Brown <broonie@kernel.org>
-> Cc: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
-> Cc: Daniel Lezcano <daniel.lezcano@linaro.org>
-> Cc: linux-clk@vger.kernel.org
-> Cc: dri-devel@lists.freedesktop.org
-> Cc: linux-spi@vger.kernel.org
-> Cc: linux-gpio@vger.kernel.org
-> Cc: linux-hwmon@vger.kernel.org
-> Cc: linux-iio@vger.kernel.org
-> Cc: openipmi-developer@lists.sourceforge.net
-> Cc: linux-leds@vger.kernel.org
-> Cc: linux-media@vger.kernel.org
-> Cc: linux-rockchip@lists.infradead.org
-> Cc: linux-stm32@st-md-mailman.stormreply.com
-> Cc: linux-mips@vger.kernel.org
-> Cc: linux-mmc@vger.kernel.org
-> Cc: netdev@vger.kernel.org
-> Cc: linux-pci@vger.kernel.org
-> Cc: linux-pm@vger.kernel.org
-> Cc: linux-remoteproc@vger.kernel.org
-> Cc: linux-serial@vger.kernel.org
-> Cc: alsa-devel@alsa-project.org
-> Cc: linux-usb@vger.kernel.org
-> Signed-off-by: Rob Herring <robh@kernel.org>
-> ---
-
-Hi Rob,
-
-Acked-by: Jonathan Cameron <Jonathan.Cameron@huawei.com> # for iio
+--===============7307120665433269508==
+Content-Type: multipart/signed; micalg=pgp-sha256;
+	protocol="application/pgp-signature"; boundary="CQDko/0aYvuiEzgn"
+Content-Disposition: inline
 
 
-However, one of these made me wonder if the binding was simply wrong...
-(definitely highlights why we should have additionalProperties: false
-where ever possible).
+--CQDko/0aYvuiEzgn
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
 
-...
+On Fri, Oct 02, 2020 at 06:41:43PM -0500, Rob Herring wrote:
+[...]
+>  .../arm/tegra/nvidia,tegra20-pmc.yaml         |  2 ++
+[...]
+>  .../bindings/sound/nvidia,tegra186-dspk.yaml  |  2 ++
+>  .../sound/nvidia,tegra210-admaif.yaml         |  2 ++
+>  .../bindings/sound/nvidia,tegra210-dmic.yaml  |  2 ++
+>  .../bindings/sound/nvidia,tegra210-i2s.yaml   |  2 ++
+[...]
+>  .../bindings/usb/nvidia,tegra-xudc.yaml       |  2 ++
+[...]
 
+Acked-by: Thierry Reding <treding@nvidia.com>
 
-> diff --git a/Documentation/devicetree/bindings/iio/imu/invensense,icm42600.yaml b/Documentation/devicetree/bindings/iio/imu/invensense,icm42600.yaml
-> index abd8d25e1136..4c1c083d0e92 100644
-> --- a/Documentation/devicetree/bindings/iio/imu/invensense,icm42600.yaml
-> +++ b/Documentation/devicetree/bindings/iio/imu/invensense,icm42600.yaml
-> @@ -47,11 +47,17 @@ properties:
->    vddio-supply:
->      description: Regulator that provides power to the bus
->  
-> +  spi-max-frequency: true
-> +  spi-cpha: true
-> +  spi-cpol: true
+--CQDko/0aYvuiEzgn
+Content-Type: application/pgp-signature; name="signature.asc"
 
-It isn't completely unheard of for a device to operate in multiple SPI modes, but
-it does seem to be fairly unusual.  I took a look at the datasheet and at least
-from the provided timing diagrams, these are both required in SPI mode.
+-----BEGIN PGP SIGNATURE-----
 
-http://invensense.tdk.com/wp-content/uploads/2020/09/DS-000292-ICM-42605-v1.5.pdf
+iQIzBAABCAAdFiEEiOrDCAFJzPfAjcif3SOs138+s6EFAl96908ACgkQ3SOs138+
+s6Hn/g/+OAyAW+yLaNZ0EuRduaLOLtd19HpvVqZdf68FWcAxWHANPdIKnVuc++CF
+2r+nHjgPy4zI3LGP1bGlgPufCdAapy2QTx9sGt/VeTEOuo9uTjb6J4Y7xXC11qQT
+pVI+v4ofSi48FN6vY6VWsotDscDJFLkJy/eZdb1RRuU44SG4dw04Z3fn1STm9wAN
+PS6hKtpUTbZYzgI0hngx2Ph30t7fyu18NIRPsKZ6/3WgR4HwD8cdpVi+06ThN3GQ
+s5CEQ/J7l9z1tfQhUypxLic1JV21su9fCERZQd96CKyIvcpJ5RByk7d7EnnZ4A53
+ZDRzwiymRP29X0IUzvEoHc7XvUP/mIZIkRNtTc3tLGZHZ34+Gc805Hcy5slbzhRz
+V+Gl3oXG56OhWLSbyNQXOOlbJJAmdFS1IDAoV752G6kq5fFZ397AW34DLF5YJX0k
+lYF3NWBTpuxxWCGuceKkACfscLE1dAifN2Rtgf9mbM1k2mIG7mVa6tdpxJ3sjf8Y
+1T0v3HYAwfOKTajaYUY4UYLMIJcZNjjJsw/olvcM6a9c8x/g79W3BgSjS6F/pEww
+DtuObW8366dl2WoqlYTJ9eWvKXSbCHRBhPpYLamHRBOBj7HKqGSHyyq0hEGPvd6X
+Hr+OJUghj7CHS+5vXEq5oNiT4bE6x9ytJdHNf5hIiRchRu6TeOQ=
+=hMJa
+-----END PGP SIGNATURE-----
 
-That doesn't make the binding wrong as such, but we could be tighter in checking this!
+--CQDko/0aYvuiEzgn--
 
-I'll add this to my list to take a closer look at sometime soonish.
-
-Thanks.
-
-Jonathan
-
-> +
->  required:
->    - compatible
->    - reg
->    - interrupts
->  
-> +additionalProperties: false
-> +
->  examples:
->    - |
+--===============7307120665433269508==
+Content-Type: text/plain; charset="us-ascii"
+MIME-Version: 1.0
+Content-Transfer-Encoding: 7bit
+Content-Disposition: inline
 
 _______________________________________________
 Linux-stm32 mailing list
 Linux-stm32@st-md-mailman.stormreply.com
 https://st-md-mailman.stormreply.com/mailman/listinfo/linux-stm32
+
+--===============7307120665433269508==--
