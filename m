@@ -2,62 +2,59 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id BFAF7285494
-	for <lists+linux-stm32@lfdr.de>; Wed,  7 Oct 2020 00:28:26 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 7A4A92858A2
+	for <lists+linux-stm32@lfdr.de>; Wed,  7 Oct 2020 08:26:05 +0200 (CEST)
 Received: from ip-172-31-3-76.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 89699C32EA5;
-	Tue,  6 Oct 2020 22:28:26 +0000 (UTC)
-Received: from mail-oi1-f195.google.com (mail-oi1-f195.google.com
- [209.85.167.195])
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 202DEC32EA6;
+	Wed,  7 Oct 2020 06:26:05 +0000 (UTC)
+Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
+ (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
+ (No client certificate requested)
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id D6B1AC36B37
+ for <linux-stm32@st-md-mailman.stormreply.com>;
+ Wed,  7 Oct 2020 06:26:02 +0000 (UTC)
+Received: from mail-ed1-f47.google.com (mail-ed1-f47.google.com
+ [209.85.208.47])
  (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id C1841C36B37
+ by mail.kernel.org (Postfix) with ESMTPSA id B003A21548
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Tue,  6 Oct 2020 22:28:24 +0000 (UTC)
-Received: by mail-oi1-f195.google.com with SMTP id m128so309966oig.7
+ Wed,  7 Oct 2020 06:26:00 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
+ s=default; t=1602051961;
+ bh=9J6pd4Urt8nLaYajtW0xX9CVZZNmrwIcH02wFm6GCzo=;
+ h=References:In-Reply-To:From:Date:Subject:To:Cc:From;
+ b=cjP10fipeHTdrU/XdlnBVJ7nEBd1DP/mHTZ4wefjHHoLp9lxNvYU9bP5xkqznMJxe
+ wdl3FjyjprNsFoIgfs4MvjUw8+2mX9yOGKdDx/q7PdKmPRqW4i18tmFXSJXv87xb/w
+ jYTrYjlyVbMDlYgJfvP/m4NxZ5TcwBYezWVwQrWs=
+Received: by mail-ed1-f47.google.com with SMTP id b12so905049edz.11
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Tue, 06 Oct 2020 15:28:24 -0700 (PDT)
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20161025;
- h=x-gm-message-state:date:from:to:cc:subject:message-id:references
- :mime-version:content-disposition:in-reply-to;
- bh=BK9fnoo1uA83BhzEQ3W88lbLalesaiwBhSmKSbszAEo=;
- b=PW4aQ0N3kgyS6CBX+Nad96HhThzcIMdTMr0VKN8o+HUgSatW+I3nSGPEkq6AZ9urPp
- 92FqoNH8RKTKoL/ENmiCN3Gw2AckNx2gVM5vxKwrbyaLnQr/nADjgawJ5W5tYjSNQWyJ
- McdMJZlMi8itaAuYaCQsilO7/kKaS2NRN3mIaTpv8i2+BBLThAOKcf4M9UBF9JDAWgmD
- FGkGW2FeD4SIcCG+kDfn/cgOk0ei1rgYWvbkA4YJ29xxWoQa/UcncJcRVd7dV+LL0eDl
- E15CjiR4bBWWez+sJL/WJQf9Hk9slA5U3XFD0ncIlpq/H/IiqdV9vClquESlAb5kQ0gE
- jkmw==
-X-Gm-Message-State: AOAM533AfumvwvIvJqOnkkdIB03Jfkmw7pqY60l4F4EDAdB16V6ssT/b
- dV2XM+kBZkuAVlQXV8YoCg==
-X-Google-Smtp-Source: ABdhPJxoVcEzp/l6VNBrV6AdkDsAonSUtV210T7j1H1LSoBOsP96XXbUFBTHpRVqHhawYzCR0qUyPA==
-X-Received: by 2002:aca:af07:: with SMTP id y7mr298067oie.176.1602023303569;
- Tue, 06 Oct 2020 15:28:23 -0700 (PDT)
-Received: from xps15 (24-155-109-49.dyn.grandenetworks.net. [24.155.109.49])
- by smtp.gmail.com with ESMTPSA id k51sm86028otc.46.2020.10.06.15.28.22
- (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Tue, 06 Oct 2020 15:28:22 -0700 (PDT)
-Received: (nullmailer pid 2970094 invoked by uid 1000);
- Tue, 06 Oct 2020 22:28:21 -0000
-Date: Tue, 6 Oct 2020 17:28:21 -0500
-From: Rob Herring <robh@kernel.org>
-To: Alexander Dahl <post@lespocky.de>
-Message-ID: <20201006222821.GA2970040@bogus>
-References: <20201005203451.9985-1-post@lespocky.de>
- <20201005203451.9985-4-post@lespocky.de>
+ Tue, 06 Oct 2020 23:26:00 -0700 (PDT)
+X-Gm-Message-State: AOAM531yk0IZgW2Z26vwvb9tQMM1NMr9FOcJ1X1dItQfG2Fz7waR0bsT
+ by4Cs3/hp3wu2W0lOc01DIN4eYCsxIhKAnhaPOc=
+X-Google-Smtp-Source: ABdhPJzlgSjYiE8Nro65NAUBEhu5or+8YJ/UtMdDrVp9y+cPmyFnaghXEP0Rg3rNv4h1igGfmvWPgDizOURlpLSk7PM=
+X-Received: by 2002:a50:a452:: with SMTP id v18mr1834674edb.143.1602051959063; 
+ Tue, 06 Oct 2020 23:25:59 -0700 (PDT)
 MIME-Version: 1.0
-Content-Disposition: inline
-In-Reply-To: <20201005203451.9985-4-post@lespocky.de>
+References: <20201005203451.9985-1-post@lespocky.de>
+ <20201005203451.9985-8-post@lespocky.de>
+In-Reply-To: <20201005203451.9985-8-post@lespocky.de>
+From: Krzysztof Kozlowski <krzk@kernel.org>
+Date: Wed, 7 Oct 2020 08:25:47 +0200
+X-Gmail-Original-Message-ID: <CAJKOXPcGXpbJDxLZ1ygi+4c==Lbxt_QA+HZ0Kn7Aq3jjh2YHDg@mail.gmail.com>
+Message-ID: <CAJKOXPcGXpbJDxLZ1ygi+4c==Lbxt_QA+HZ0Kn7Aq3jjh2YHDg@mail.gmail.com>
+To: Alexander Dahl <post@lespocky.de>
 Cc: linux-arm-kernel@lists.infradead.org, devicetree@vger.kernel.org,
- linux-omap@vger.kernel.org, Alexander Dahl <ada@thorsis.com>,
- linux-mips@vger.kernel.org, linux-kernel@vger.kernel.org,
- linux-samsung-soc@vger.kernel.org, Rob Herring <robh+dt@kernel.org>,
+ "linux-samsung-soc@vger.kernel.org" <linux-samsung-soc@vger.kernel.org>,
+ Kukjin Kim <kgene@kernel.org>, Alexander Dahl <ada@thorsis.com>,
+ "linux-kernel@vger.kernel.org" <linux-kernel@vger.kernel.org>,
+ linux-mips@vger.kernel.org, Rob Herring <robh+dt@kernel.org>,
  Dan Murphy <dmurphy@ti.com>, Pavel Machek <pavel@ucw.cz>,
- linux-amlogic@lists.infradead.org, Jeff LaBundy <jeff@labundy.com>,
- Lee Jones <lee.jones@linaro.org>, linux-stm32@st-md-mailman.stormreply.com,
- linux-leds@vger.kernel.org, Jacek Anaszewski <jacek.anaszewski@gmail.com>
-Subject: Re: [Linux-stm32] [PATCH v7 03/12] dt-bindings: mfd: Fix schema
- warnings for pwm-leds
+ linux-amlogic@lists.infradead.org, linux-omap@vger.kernel.org,
+ linux-stm32@st-md-mailman.stormreply.com, linux-leds@vger.kernel.org,
+ Jacek Anaszewski <jacek.anaszewski@gmail.com>
+Subject: Re: [Linux-stm32] [PATCH v7 07/12] ARM: dts: exynos: Fix schema
+	warnings for pwm-leds
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -74,31 +71,50 @@ Content-Transfer-Encoding: 7bit
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
-On Mon, 05 Oct 2020 22:34:42 +0200, Alexander Dahl wrote:
+On Mon, 5 Oct 2020 at 22:36, Alexander Dahl <post@lespocky.de> wrote:
+>
 > The node names for devices using the pwm-leds driver follow a certain
 > naming scheme (now).  Parent node name is not enforced, but recommended
 > by DT project.
-> 
->   DTC     Documentation/devicetree/bindings/mfd/iqs62x.example.dt.yaml
->   CHECK   Documentation/devicetree/bindings/mfd/iqs62x.example.dt.yaml
-> /home/alex/build/linux/Documentation/devicetree/bindings/mfd/iqs62x.example.dt.yaml: pwmleds: 'panel' does not match any of the regexes: '^led(-[0-9a-f]+)?$', 'pinctrl-[0-9]+'
+>
+>   DTC     arch/arm/boot/dts/exynos5410-odroidxu.dt.yaml
+>   CHECK   arch/arm/boot/dts/exynos5410-odroidxu.dt.yaml
+> /home/alex/build/linux/arch/arm/boot/dts/exynos5410-odroidxu.dt.yaml: pwmleds: 'blueled', 'greenled' do not match any of the regexes: '^led(-[0-9a-f]+)?$', 'pinctrl-[0-9]+'
 >         From schema: /home/alex/src/linux/leds/Documentation/devicetree/bindings/leds/leds-pwm.yaml
-> 
+>   DTC     arch/arm/boot/dts/exynos5422-odroidhc1.dt.yaml
+>   CHECK   arch/arm/boot/dts/exynos5422-odroidhc1.dt.yaml
+> /home/alex/build/linux/arch/arm/boot/dts/exynos5422-odroidhc1.dt.yaml: pwmleds: 'blueled' does not match any of the regexes: '^led(-[0-9a-f]+)?$', 'pinctrl-[0-9]+'
+>         From schema: /home/alex/src/linux/leds/Documentation/devicetree/bindings/leds/leds-pwm.yaml
+>   DTC     arch/arm/boot/dts/exynos5422-odroidxu3.dt.yaml
+>   CHECK   arch/arm/boot/dts/exynos5422-odroidxu3.dt.yaml
+> /home/alex/build/linux/arch/arm/boot/dts/exynos5422-odroidxu3.dt.yaml: pwmleds: 'blueled', 'greenled' do not match any of the regexes: '^led(-[0-9a-f]+)?$', 'pinctrl-[0-9]+'
+>         From schema: /home/alex/src/linux/leds/Documentation/devicetree/bindings/leds/leds-pwm.yaml
+>   DTC     arch/arm/boot/dts/exynos5422-odroidxu3-lite.dt.yaml
+>   CHECK   arch/arm/boot/dts/exynos5422-odroidxu3-lite.dt.yaml
+> /home/alex/build/linux/arch/arm/boot/dts/exynos5422-odroidxu3-lite.dt.yaml: pwmleds: 'blueled', 'greenled' do not match any of the regexes: '^led(-[0-9a-f]+)?$', 'pinctrl-[0-9]+'
+>         From schema: /home/alex/src/linux/leds/Documentation/devicetree/bindings/leds/leds-pwm.yaml
+>   DTC     arch/arm/boot/dts/exynos5422-odroidxu4.dt.yaml
+>   CHECK   arch/arm/boot/dts/exynos5422-odroidxu4.dt.yaml
+> /home/alex/build/linux/arch/arm/boot/dts/exynos5422-odroidxu4.dt.yaml: pwmleds: 'blueled' does not match any of the regexes: '^led(-[0-9a-f]+)?$', 'pinctrl-[0-9]+'
+>         From schema: /home/alex/src/linux/leds/Documentation/devicetree/bindings/leds/leds-pwm.yaml
+>
 > Signed-off-by: Alexander Dahl <post@lespocky.de>
 > ---
-> 
+>
 > Notes:
 >     v6 -> v7:
->       * added warning message to commit message (Krzysztof Kozlowski)
-> 
->     v6:
->       * added this patch to series
-> 
->  Documentation/devicetree/bindings/mfd/iqs62x.yaml | 5 +++--
->  1 file changed, 3 insertions(+), 2 deletions(-)
-> 
+>       * split up patch (one per sub arch)
+>       * added actual warnings to commit message
+>
+>  arch/arm/boot/dts/exynos5422-odroidhc1.dts      |  4 ++--
+>  arch/arm/boot/dts/exynos5422-odroidxu4.dts      |  4 ++--
+>  arch/arm/boot/dts/exynos54xx-odroidxu-leds.dtsi | 11 ++++++-----
+>  3 files changed, 10 insertions(+), 9 deletions(-)
 
-Acked-by: Rob Herring <robh@kernel.org>
+Looks OK but it is too late for this cycle. I'll pick it up after merge window.
+
+Best regards,
+Krzysztof
 _______________________________________________
 Linux-stm32 mailing list
 Linux-stm32@st-md-mailman.stormreply.com
