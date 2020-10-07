@@ -2,54 +2,57 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id AB8A628617F
-	for <lists+linux-stm32@lfdr.de>; Wed,  7 Oct 2020 16:46:40 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id AAD7128617C
+	for <lists+linux-stm32@lfdr.de>; Wed,  7 Oct 2020 16:46:32 +0200 (CEST)
 Received: from ip-172-31-3-76.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 78C57C32EA8;
-	Wed,  7 Oct 2020 14:46:40 +0000 (UTC)
-Received: from mx07-00178001.pphosted.com (mx08-00178001.pphosted.com
- [91.207.212.93])
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 6C671C32EA8;
+	Wed,  7 Oct 2020 14:46:32 +0000 (UTC)
+Received: from mx07-00178001.pphosted.com (mx07-00178001.pphosted.com
+ [185.132.182.106])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 39F70C32E8F
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 94D32C32E8F
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Wed,  7 Oct 2020 14:46:38 +0000 (UTC)
-Received: from pps.filterd (m0046661.ppops.net [127.0.0.1])
+ Wed,  7 Oct 2020 14:46:30 +0000 (UTC)
+Received: from pps.filterd (m0046037.ppops.net [127.0.0.1])
  by mx07-00178001.pphosted.com (8.16.0.42/8.16.0.42) with SMTP id
- 097EbrKx011378; Wed, 7 Oct 2020 16:46:17 +0200
+ 097EcLIO014811; Wed, 7 Oct 2020 16:46:18 +0200
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=st.com;
  h=from : to : cc : subject
- : date : message-id : mime-version : content-type; s=STMicroelectronics;
- bh=xtHuYU7RyxhKMSekYokUpepTS+x6mnkCtOrrV18E1w8=;
- b=uOg/tjZozo0U1j4keiC4UW2RGjGXVWiCK05mh5vIiNtXum/MQo5Gea407Be4xNRJ062T
- aPXlX5KtPXf3lZ03mFteiAxeN3ySlFR3ZnVzegk9EMbwlCs6T411NTjzjROE3ZSGlxaz
- PCUiAQELgZkDbqgdwb/866+GXVw3QMfAn2G2fjhYM1UvuhNEV5LOION0eENebf5e0C7N
- wsregzU+O7qWuDteZ/0MjJgxH5Mn9b18YQvuJtjPoBlsnPnVGxfqP/Aqg/GM9kpVPSdb
- GQHCp3itdxwGLxSD8TLTC0Acf8bbmGENxfKZNjCbiTxHlM9LU/2ZCyFRpo2CvLUux4Ur Ug== 
+ : date : message-id : in-reply-to : references : mime-version :
+ content-type; s=STMicroelectronics;
+ bh=0ww46gAvj+EiZ/AlkZkeMPgpi28kal1j8TD/B+QpY1A=;
+ b=ObW0blPyRYfZnm68cGkLQUU1eDndidNt6mLxMp3ysFbIDNx5PbLiGatti1xmqA3DNnG9
+ eQrEf5ONGVzlXUJGbjI8K8FmK3vGrkYjlf8bTijrBrcBMPUGIWQUqItu3vdYiztauDFn
+ Q1B0dR17rOZqfBtJOcwRb3cLEkOLnku8/aeg+q85ibK9WMTM+fLpLqnyyyQNe+/yPDUJ
+ aPAe+Rm4COq/vmMl5Wfpcw67TIZtdL7xufsKU0oHcDeE3FPv59VGVyBbtZFg0CxBowzN
+ nEDr3Jd0Z0iBjsU4L4wAv5cYXXX82ATA5sZ4NytAnVe8H/PFe08ahA7+QJdmvN11pGf5 Yg== 
 Received: from beta.dmz-eu.st.com (beta.dmz-eu.st.com [164.129.1.35])
- by mx07-00178001.pphosted.com with ESMTP id 3402tk5ewh-1
+ by mx07-00178001.pphosted.com with ESMTP id 3402tjw7pb-1
  (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
- Wed, 07 Oct 2020 16:46:17 +0200
+ Wed, 07 Oct 2020 16:46:18 +0200
 Received: from euls16034.sgp.st.com (euls16034.sgp.st.com [10.75.44.20])
- by beta.dmz-eu.st.com (STMicroelectronics) with ESMTP id 15ABB10002A;
- Wed,  7 Oct 2020 16:46:16 +0200 (CEST)
+ by beta.dmz-eu.st.com (STMicroelectronics) with ESMTP id A1CF6100034;
+ Wed,  7 Oct 2020 16:46:17 +0200 (CEST)
 Received: from Webmail-eu.st.com (sfhdag1node1.st.com [10.75.127.1])
- by euls16034.sgp.st.com (STMicroelectronics) with ESMTP id B55792B4D24;
- Wed,  7 Oct 2020 16:46:16 +0200 (CEST)
+ by euls16034.sgp.st.com (STMicroelectronics) with ESMTP id 9070F2B4D24;
+ Wed,  7 Oct 2020 16:46:17 +0200 (CEST)
 Received: from localhost (10.75.127.46) by SFHDAG1NODE1.st.com (10.75.127.1)
- with Microsoft SMTP Server (TLS) id 15.0.1473.3; Wed, 7 Oct 2020 16:46:16
+ with Microsoft SMTP Server (TLS) id 15.0.1473.3; Wed, 7 Oct 2020 16:46:17
  +0200
 From: Hugues Fruchet <hugues.fruchet@st.com>
 To: Lad Prabhakar <prabhakar.mahadev-lad.rj@bp.renesas.com>, Jacopo Mondi
  <jacopo@jmondi.org>, Steve Longerbeam <slongerbeam@gmail.com>, Sakari Ailus
  <sakari.ailus@linux.intel.com>, Hans Verkuil <hverkuil@xs4all.nl>, Mauro
  Carvalho Chehab <mchehab@kernel.org>
-Date: Wed, 7 Oct 2020 16:43:17 +0200
-Message-ID: <1602081798-17548-1-git-send-email-hugues.fruchet@st.com>
+Date: Wed, 7 Oct 2020 16:43:18 +0200
+Message-ID: <1602081798-17548-2-git-send-email-hugues.fruchet@st.com>
 X-Mailer: git-send-email 2.7.4
+In-Reply-To: <1602081798-17548-1-git-send-email-hugues.fruchet@st.com>
+References: <1602081798-17548-1-git-send-email-hugues.fruchet@st.com>
 MIME-Version: 1.0
 X-Originating-IP: [10.75.127.46]
-X-ClientProxiedBy: SFHDAG7NODE3.st.com (10.75.127.21) To SFHDAG1NODE1.st.com
+X-ClientProxiedBy: SFHDAG6NODE2.st.com (10.75.127.17) To SFHDAG1NODE1.st.com
  (10.75.127.1)
 X-Proofpoint-Virus-Version: vendor=fsecure engine=2.50.10434:6.0.235, 18.0.687
  definitions=2020-10-07_09:2020-10-06,
@@ -79,6 +82,7 @@ Fix ov5640_write_reg()return value unchecked at power off.
 Reformat code to keep register access below the register description.
 
 Signed-off-by: Hugues Fruchet <hugues.fruchet@st.com>
+Change-Id: I12db67c416c3d63eadee400a3c89aaf48c5b1469
 ---
  drivers/media/i2c/ov5640.c | 17 ++++++-----------
  1 file changed, 6 insertions(+), 11 deletions(-)
